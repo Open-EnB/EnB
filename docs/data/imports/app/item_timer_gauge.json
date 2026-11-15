@@ -1,0 +1,15 @@
+{
+ "ambiguous": [],
+ "copy": "reconstructed",
+ "description": "item_timer_gauge.cpp: ItemTimerGaugeClass, an item's 'ItemTime' timer model (client 0x691170-0x6914E8; __FILE__ 0xB907F0, FAIL_IF '!attach' / '!RObj' / '!TimerRObj' lines 63 / 67 / 71 in 0x691170)",
+ "expected": {},
+ "in_tree": [
+  "0x42F250",
+  "0x6912A0"
+ ],
+ "merged": [],
+ "name": "client/item_timer_gauge.cpp",
+ "shared": [
+  "0x42F250"
+ ]
+}

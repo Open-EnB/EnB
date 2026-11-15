@@ -255,6 +255,11 @@ bool MapPipClass::Unknown_693020()
 	return(ViewportGadget->PointerInside);
 }
 
+bool MapPipClass::Unknown_693040()
+{
+	return(Unknown40);
+}
+
 /*
 **	Reconstruction notes.
 **

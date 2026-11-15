@@ -73,7 +73,7 @@ class Unknown78A910AvatarClass : public CharacterViewAvatarClass	// NAME 1: neut
 {
 public:
 	void Unknown_78B570(bool b);						// 0x78B570  // NAME 1 [b]: neutral
-	void Unknown_78A200();								// 0x78A200 (0x638DA0: the ambient avatars restarted with 0x78B570(true))
+
 	Unknown78A910AvatarClass(int a, AvatarDescClass *desc, EnvironmentMapManagerClass *env_maps);	// 0x78A910 (0x642740: the NPC's +0x1C and description)  // NAME 1 [a]: neutral
 	void Unknown_78AD20(int anim, int min, int max, const char *model, const char *motion);	// 0x78AD20 (0x642740: an Action%02d, its roll range, ExtraAnim%02d and ExtraName%02d)  // NAME 1 [anim, min, max, model, motion]: as unknown_78a910.cpp's
 	void Unknown_78B010(const Matrix3D &tm); void Unknown_78B290(const Matrix3D &tm);	// 0x78B010 / 0x78B290 (0x642740: a Location%02d's OffsetBoneName / DestBoneName bone)  // NAME 1 [tm]: neutral
@@ -604,14 +604,14 @@ extern RandomClass Unknown_BDBB84; extern Random4Class Unknown_BDB1C0;	// NAME 1
 // The docking sounds by the starbase's column +0x18 (0xB8A8B0: 0x6415B0)
 static const char *Unknown_B8A8B0[10] = { "terren_space_ship_dock_1.wav", "jenquai_space_ship_dock_1.wav", "progen_space_ship_dock_1.wav", "terren_space_ship_dock_1.wav", "terren_space_ship_dock_1.wav", "terren_space_ship_dock_1.wav", "terren_space_ship_dock_1.wav", "terren_space_ship_dock_1.wav", "terren_space_ship_dock_1.wav", "terren_space_ship_dock_1.wav" };	// NAME 1: neutral (D10)
 static const char *Unknown_B8A8D8[10] = { "terren_space_ship_undock_1.wav", "jenquai_space_ship_undock_1.wav", "progen_space_ship_undock_1.wav", "terren_space_ship_undock_1.wav", "terren_space_ship_undock_1.wav", "terren_space_ship_undock_1.wav", "terren_space_ship_undock_1.wav", "terren_space_ship_undock_1.wav", "terren_space_ship_undock_1.wav", "terren_space_ship_undock_1.wav" };	// NAME 1: neutral (D10): the undocking sounds (0x638500)
-// What 0x634140 news for the starbase interface's +0xB8 (0x44 bytes, constructor 0x6B6050, table 0xAFE174): a full-screen
-// RectangleGadgetClass that keeps the view (0x6B6050-0x6B6170, not rebuilt: the client's object sits between viewbttn.cpp and wnd_file.cpp; the POC's poc_world2.cpp defines it; interim placement here, D137)
-class UIStarbaseGadget6B6050Class : public RectangleGadgetClass	// NAME 1: neutral (D10)
-{	public:
-	UIStarbaseGadget6B6050Class(int x, int y, int width, int height, SBaseViewClass *view);	// 0x6B6050 (0, 0, 640, 480, the view)  // NAME 1 [x, y, width, height, view]: what 0x634140 passes
-	virtual ~UIStarbaseGadget6B6050Class(); virtual GadgetClass *Unknown_1C(); virtual bool Unknown_2C(KernelEventClass *event, float x, float y, unsigned int mask); virtual bool Unknown_34(KernelEventClass *event, float x, float y, unsigned int mask);	// +0x00 0x6B60F0 (deleting 0x6B60C0), +0x1C 0x6B60A0 (itself), +0x2C 0x6B6110 (a mask bit of its own, no event), +0x34 0x6B6130 (bits 0x44 the base left: slot +0x2C, not handled)
-	SBaseViewClass *Unknown40;							// +0x40
-};
+// What 0x634140 news for the starbase interface's +0xB8: UIStarbaseGadget6B6050Class (0x44 bytes, constructor 0x6B6050,
+// table 0xAFE174), in its own file unknown_6b6050.cpp (the client's object sits between viewbttn.cpp and wnd_file.cpp)
+#include "unknown_6b6050.h"
+//
+//
+//
+//
+//
 #include "dynamic_window_class.h"
 #include "gd_dynamicwindow.h"
 #include "unknown_51c800.h"

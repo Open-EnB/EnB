@@ -388,7 +388,9 @@ public:
 	void Unknown_69D030(int index);	// 0x69D030: starbase interface index (0..3: +0x174 / +0x178 / +0x180 / +0x17C) made once and activated as Starbase; -1 none  // NAME 1 [index]: neutral
 	std::string Unknown_6A2120(int index);	// 0x6A2120: the name 0x69D030 hands the starbase interface (a tsd / bar model name, '3' or '2' added when that model exists)  // NAME 1 [index]: neutral
 	void Unknown_69ED80();	// 0x69ED80: the +0x6C camera moved from +0x84 towards +0xB4 (0x69C5E0 calls it when +0x1C4 is 0)
-	void Unknown_6A1180();	// 0x6A1180 (not rebuilt; 0x69C5E0 calls it before End_Render)
+	static unsigned Fast_Allocated_Size(class FastAllocatorGeneral *allocator);	// inlined in 0x6A1180 (frameint.cpp's 0x53F200)  // NAME 2: as FastAllocatorGeneral::Get_Fast_Allocated_Size
+	static unsigned Fast_Allocation_Count(class FastAllocatorGeneral *allocator);	// inlined in 0x6A1180 (frameint.cpp's 0x53F250)  // NAME 2: as FastAllocatorGeneral::Get_Fast_Allocation_Count
+	void Unknown_6A1180();	// 0x6A1180: the frame rate and the client's debug pages, its text rendered (0x69C5E0 calls it before End_Render)
 	void Unknown_6A1B80();	// 0x6A1B80: the GROUP_INVITE box's answer sent (0x69C8F0 calls it every frame; as ui_group.cpp's 0x597650)
 	void Unknown_6A1000(const char *name);	// 0x6A1000: the sound +0x1C0, looped  // NAME 1 [name]: what SoundLibraryClass::Play_2D_Sound gets
 	void Unknown_6A1130();	// 0x6A1130: the sound +0x1C0 stopped
@@ -469,7 +471,7 @@ public:
 	float Unknown1BC;	// +0x1BC: the +0x6C camera's pitch about x (0x69EF00: -0.25 .. 0.25)
 	RefCountPtr<AudibleSoundClass> Unknown1C0;	// +0x1C0: a 2-D sound (0x6A1000 plays it looped, 0x6A1130 stops it)
 	int Unknown1C4;	// +0x1C4 (0x69C5E0 counts it down)
-	int Unknown1C8;	// +0x1C8
+	float FrameRate;	// +0x1C8 (nine tenths the last, one tenth this frame's: 0x6A1180)  // NAME 2: 'Frame Rate = %4.0f' (as frameint.cpp's)
 	RefCountPtr<LightClass> RKey;	// +0x1CC a light (0x69B5E0; 0x6A0540 removes it)  // NAME 3: the lights loader's G_ASSERT '!RKey.Peek()' (0x6A0590)
 	RefCountPtr<LightClass> RCamera;	// +0x1D0 a light (0x69B5E0; 0x6A0540 removes it)  // NAME 3: the lights loader's G_ASSERT '!RCamera.Peek()' (0x6A0590)
 	Vector3 Unknown1D4;	// +0x1D4 (six zero dwords: as two Vector3s the constructor stores them before the +0x1F4 call, as the client)  // NAME 1 [Unknown1D4]: neutral; the type from the store order only

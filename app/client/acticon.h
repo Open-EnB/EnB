@@ -18,6 +18,7 @@
 #define ACTICON_H
 
 #include "unknown_671300.h"
+#include "unknown_685e80.h"
 #include "..\..\wwlib\ref_ptr.h"
 
 class ActIconClass : public Unknown_671300Class  // NAME 3: class-from-file (D24) for app\Client\acticon.cpp
@@ -34,25 +35,6 @@ public:
 	float Duration;										// +0x88 (the seconds to end_time)  // NAME 1: what Set_State stores
 	unsigned int EndTime;								// +0x8C (Set_State's sync time)  // NAME 1: what Set_State stores
 	float Flash;										// +0x90 (1 on a flash, down to 0 by the frame time)  // NAME 1: what slot +0xAC does with it
-};
-
-class INIClass;
-class TextureClass;
-
-/*
-**	An INI section's tooltip, user data and texture (table 0xAFC788, constructor 0x685E80, destructor 0x685F90,
-**	deleting 0x685F40); not rebuilt here (its object is elsewhere).
-*/
-class Unknown_685E80Class
-{
-public:
-	Unknown_685E80Class(int id, INIClass &ini, const char *section);	// 0x685E80  // NAME 1 [id, ini, section]: what 0x6766E0 passes
-	virtual ~Unknown_685E80Class();						// 0x685F90 (deleting 0x685F40)
-
-	char *ToolTip;										// +0x04 ('ToolTip', Get_Alloc_String)  // NAME 2: the INI entry
-	int UserData;										// +0x08 ('UserData')  // NAME 2: the INI entry
-	TextureClass *Texture;								// +0x0C ('Texture', the asset manager's)  // NAME 2: the INI entry
-	int Id;												// +0x10 (the constructor's first argument)  // NAME 1: 0x6766E0 passes the section's number
 };
 
 /*

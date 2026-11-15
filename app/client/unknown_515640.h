@@ -8,18 +8,9 @@
 #include "intrface.h"
 #include "vector2.h"
 #include "vector4.h"
+#include "unknown_686010.h"
 
-// What +0x84 points to (0x2C bytes, constructor 0x686010: two 0xF4-byte elements; destructor 0x686350), as far
-// as this file calls it
-class Unknown686010Class  // NAME 1: neutral (D10)
-{
-public:
-	Unknown686010Class(UIViewClass *view, const Vector4 &color, const Vector2 &pos, const Vector2 &size, int unknown, float unknown2);	// 0x686010  // NAME 1 [view, color, pos, size, unknown, unknown2]: what 0x515840 passes (the view, green 0 / 0.6 / 0 / 1, 0.96 / 0.1, 0.03 / 0.3, 1, 2.4)
-	~Unknown686010Class();																// 0x686350
-	void Unknown_6865E0(float value, int unknown);										// 0x6865E0: the level, 0..1  // NAME 1 [value, unknown]: what 0x515980 passes (the height's fraction, 0)
-
-	char Unknown00[0x2C];
-};
+// What +0x84 points to: Unknown686010Class (unknown_686010.h, 0x686010-0x68672F)
 
 // The interface (table 0xAED2B4; 0xAED2A8 at +0x04, 0xAED29C at +0x38): InterfaceClass with slots +0x58 /
 // +0x5C / +0x60 of its own. Nothing constructs it in client.exe (0x515640 has no caller and no reference).

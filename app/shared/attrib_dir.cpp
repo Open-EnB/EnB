@@ -372,10 +372,10 @@ AttribShadowClass AttribDir::Get_Shadow(const char *name)
 	return AttribShadowClass(Get_Info(name));
 }
 
-
-
-
-
+AttribIterator AttribDir::Get_Attributes()
+{
+	return AttribIterator(Attributes.begin(), Attributes.end());
+}
 
 
 
@@ -791,19 +791,19 @@ AttribModValueClass::AttribModValueClass(int type, float value, void *owner) : T
 {
 }
 
+AttribIterator::AttribIterator(AttribDir::AttributeMap::iterator cur, AttribDir::AttributeMap::iterator end) : Cur(cur), End(end)
+{
+}
 
+const char *AttribIterator::Get_Name()
+{
+	return (*Cur).first.c_str();
+}
 
-
-
-
-
-
-
-
-
-
-
-
+float AttribIterator::Get_Value()
+{
+	return (*Cur).second->Value;
+}
 
 
 
@@ -909,8 +909,6 @@ AttribModIterator AttribDir::Get_Mods(const char *name)
 
 
 
-
-
 AttribModIterator::AttribModIterator() : Iterator(0)
 {
 }
@@ -977,6 +975,8 @@ void AttribModIterator::Next()
 		Iterator->Next();
 	}
 }
+
+AttribInfoModIteratorClass::AttribInfoModIteratorClass(AttributeInfo *info) : Cur(info->Mods.begin()), End(info->Mods.end()), Info(info) {}
 
 void AttribInfoModIteratorClass::Lock_Next()
 {
@@ -1135,4 +1135,6 @@ bool Attrib_Mod_Type_From_String(const char *text, int *type)				// NAME 2: what
 **	member (the client passes this) and Find_Info keeps the key in a named local; the iterator lists'
 **	Pop erases end() - 1 (VC6's pop_back has no copy loop); Recalculate returns int.
 **	libs/sgistl's insert_unique_noresize needs the explicit specialization at the top (C2899).
+**	Uncalled out-of-line copies (defined here, the callers inline them): AttribDir::Get_Attributes 0x4D5BE0, the
+**	attribute walk AttribIterator 0x4D7750-0x4D77B0, AttribInfoModIteratorClass's constructor 0x4D7E20.
 */

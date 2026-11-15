@@ -1,0 +1,20 @@
+{
+ "ambiguous": [],
+ "copy": "reconstructed",
+ "description": "RObj2Texture (the client's profile string 'RObj2Texture::Render_TextureMap' 0xB72594 in 0x497700): client 0x4973E0-0x497F06 and Create_Projector_Render_Target 0x498120 (Renegade's pscene_projectors.cpp helper; proj_man.cpp's callers), vtable 0xAEA8A4; between ro_funcs.cpp's and segline_create.cpp's objects; made by starmap_data, ui_mfdm, unknown_58b680",
+ "expected": {},
+ "in_tree": [
+  "0x42F250",
+  "0x444160",
+  "0x4973E0",
+  "0x497630",
+  "0x4976B0",
+  "0x498120"
+ ],
+ "merged": [],
+ "name": "shared/robj2texture.cpp",
+ "shared": [
+  "0x42F250",
+  "0x444160"
+ ]
+}

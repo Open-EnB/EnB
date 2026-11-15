@@ -1,11 +1,11 @@
 #!/bin/sh
 # A headless builder through the Antigravity CLI (agy, the maintainer's Google subscription; D187):
 #   RUN_DIR=.work/run-<date>-agy sh tools/agy/launch.sh ID [MODEL] [TIMEOUT]
-#   e.g. RUN_DIR=.work/run-2026-11-03-agy sh tools/agy/launch.sh eam6 gemini-3.8-flash-high 55m
+#   e.g. RUN_DIR=.work/run-2026-11-03-agy sh tools/agy/launch.sh eam6 gemini-4-hydrogen-high 55m
 # The builder works in its own worktree .work/wt/<ID> (make it first: python tools/vc6/wt.py new ID).
 # Prompt = $RUN_DIR/brief-ID.md + $RUN_DIR/common.md. The stream goes to $RUN_DIR/ID.jsonl: its last line's
 # result.usage.total_tokens is the builder's cost (never the builder's own figure); start / exit in $RUN_DIR/ID.err.
-ID=$1; MODEL=${2:-gemini-3.8-flash-high}; TIMEOUT=${3:-55m}
+ID=$1; MODEL=${2:-gemini-4-hydrogen-high}; TIMEOUT=${3:-55m}
 R=$(cd "$(dirname "$0")/../.." && pwd)
 D=$R/${RUN_DIR:?set RUN_DIR to the run folder holding brief-ID.md and common.md}
 WT=$R/.work/wt/$ID

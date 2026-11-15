@@ -2,6 +2,12 @@
 #include "pkstarbasetow.h"
 #include <stdio.h>
 
+StarbaseRequestPacketClass::StarbaseRequestPacketClass(int player_id, unsigned char action, int starbase_id) :
+	PlayerID(player_id),
+	StarbaseID(starbase_id),
+	Action(action)
+{
+}
 
 StarbaseRequestPacketClass::StarbaseRequestPacketClass(RawPacketClass *raw)
 {

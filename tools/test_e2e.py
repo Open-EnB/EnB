@@ -140,6 +140,77 @@ class EventsTest(unittest.TestCase):
         self.assertEqual(e2e.find(lines, 'any', re.compile('^CRASH:')), 1)
         self.assertIsNone(e2e.find(lines, 'msg', pat))
 
+    def test_bounded_window_streaming_log_and_watches(self):
+        d = tempfile.mkdtemp()
+        a = os.path.join(d, 'antprox.out')
+        p = os.path.join(d, 'd3d8shot.log')
+        log = os.path.join(d, 'events.log')
+        t = [10.0]
+        ev = e2e.Events({'antprox': a, 'proxy': p}, clock=lambda: t[0], log=log, window=3)
+        try:
+            with open(p, 'w', encoding='utf-8') as f:
+                f.write('         1 tagged input read\n')
+            ev.poll()
+            self.assertTrue(e2e._has_tag_hook(ev))
+            w_crash = ev.watch('antprox', re.compile(r'^line 2$'), 0)
+            with open(a, 'w', encoding='utf-8') as f:
+                for i in range(6):
+                    f.write(f'line {i}\n')
+            t[0] = 12.5
+            ev.poll()
+            self.assertEqual(len(ev.lines), 3)
+            self.assertEqual(ev.total, 7)
+            self.assertEqual(ev.base, 4)
+            self.assertEqual([x[2] for x in ev.lines], ['line 3', 'line 4', 'line 5'])
+            self.assertTrue(e2e._has_tag_hook(ev))              # kept even after evicted from window
+            self.assertIsNotNone(w_crash.hit)                   # watch caught line 2 in the same burst
+            self.assertEqual(w_crash.hit[2], 'line 2')
+            with open(log, encoding='utf-8') as f:
+                logged = f.read().splitlines()                  # streamed before close()
+            self.assertEqual(len(logged), 7)
+            self.assertIn('tagged input read', logged[0])
+            self.assertIn('line 5', logged[-1])
+        finally:
+            ev.close()
+
+    def test_fold_repeated_asserts_across_timestamps_and_epochs(self):
+        d = tempfile.mkdtemp()
+        m = os.path.join(d, 'messages.log')
+        s = os.path.join(d, 'stubs.log')
+        log = os.path.join(d, 'events.log')
+        t = [0.0]
+        ev = e2e.Events({'msg': m, 'stubs': s}, clock=lambda: t[0], log=log, window=100)
+        try:
+            with open(m, 'w', encoding='utf-8') as f:
+                f.write('01:00:00.000001 ERROR G_ASSERT: ASSERTION FAILED: a  effect_description.cpp(266)\n')
+                f.write('01:00:00.000002 ERROR FAIL_IF: ERROR: b  effect_description.cpp(318)\n')
+                f.write('01:00:00.000003 ERROR G_ASSERT: ASSERTION FAILED: a  effect_description.cpp(266)\n')
+                f.write('01:00:00.000004 ERROR FAIL_IF: ERROR: b  effect_description.cpp(318)\n')
+                f.write('01:00:00.000005 INFO  Render: Frame Rate: 60\n')
+            t[0] = 1.0
+            ev.poll()
+            self.assertEqual(len(ev.lines), 3)
+            self.assertEqual(ev.last['msg'], 1.0)
+            with open(m, 'a', encoding='utf-8') as f:
+                f.write('01:00:01.000001 ERROR G_ASSERT: ASSERTION FAILED: a  effect_description.cpp(266)\n')
+            t[0] = 2.0
+            ev.poll()
+            self.assertEqual(len(ev.lines), 3)                  # repeat folded, not appended
+            self.assertEqual(ev.last['msg'], 2.0)               # wait-quiet still sees activity
+            ev.mark_epoch()                                     # new input step / expect-no allows next firing
+            with open(m, 'a', encoding='utf-8') as f:
+                f.write('01:00:02.000001 ERROR G_ASSERT: ASSERTION FAILED: a  effect_description.cpp(266)\n')
+            t[0] = 3.0
+            ev.poll()
+            self.assertEqual(len(ev.lines), 4)
+            ev.close()
+            with open(log, encoding='utf-8') as f:
+                text = f.read()
+            self.assertIn('[repeated 2x]', text)
+            self.assertIn('[repeated 1x]', text)
+        finally:
+            ev.close()
+
 
 class SummaryTest(unittest.TestCase):
     def test_gen_lines_in_order_once(self):

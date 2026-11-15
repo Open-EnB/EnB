@@ -1,0 +1,32 @@
+{
+ "ambiguous": [],
+ "copy": "reconstructed",
+ "description": "the drag tracker InputUnknownAE71D0Class (neutral, D10): client 0x42F360-0x42F87F between input.cpp's object (to 0x42F340) and winmsg.cpp's (0x42F880), vtable 0xAE71D0 (five empty virtuals 0x42F7E0-0x42F860); Handle_Event 0x42F3A0 inlines input.h's TrackMouseCounter assert (line 174); no caller in the client",
+ "expected": {},
+ "in_tree": [
+  "0x42F250",
+  "0x42F360",
+  "0x42F7E0",
+  "0x42F800",
+  "0x42F820",
+  "0x42F840",
+  "0x42F860"
+ ],
+ "merged": [],
+ "name": "input/unknown_42f360.cpp",
+ "shared": [
+  "0x42F250",
+  "0x42F7E0",
+  "0x42F800",
+  "0x42F820",
+  "0x42F840",
+  "0x42F860"
+ ],
+ "short_known": [
+  "0x42F7E0",
+  "0x42F800",
+  "0x42F820",
+  "0x42F840",
+  "0x42F860"
+ ]
+}

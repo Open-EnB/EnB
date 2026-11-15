@@ -10,8 +10,8 @@
 #include "..\..\wwlib\inisup.h"
 extern RandomClass Unknown_BDBB84;	// NAME 1 [Unknown_BDBB84]: neutral (D10), as avatar.cpp's
 unsigned int Unknown_Get_Ticks();	// 0x4A3B40, the aux-data clock (soundlib.cpp's)
-
-
+#include "..\..\wwlib\argv.h"
+#include <mmsystem.h>
 
 
 
@@ -631,11 +631,83 @@ void MusicManagerClass::Stop_Sector_Music()
 	}
 }
 
+// @0x43AE30
+// NOT EXACT: shape (explain.py: 17 calls here, 18 in the client, a merged or split tail; 718 bytes vs 687, 0.61; attempts.csv): the client keeps 0 in ebp and -1 in ebx from ArgvClass::Find on and shares the two silence tails
+void MusicManagerClass::Update(int type, int level, int race, int theme_race)
+{
+	if (SectorMusic != NULL) {
+		if (SectorMusic->Is_Playing() == true) {
+			return;
+		}
+		if (SectorMusic != NULL) {
+			SectorMusic->Stop(true);
+			SectorMusic->Release_Ref();
+			SectorMusic = NULL;
+		}
+	}
+	if (!IsLoaded) {
+		Load_INI(race);
+	}
+	Level = level;
+	Set_Music_Type(type);
+	ArgvClass argv;
+	if (argv.Find("-NOMUSIC") != NULL) {
+		return;
+	}
+	if (CurrentMusicType == MUSIC_THEME_NONE) {
+		return;
+	}
+	if (!Enabled) {
+		return;
+	}
+	if (Sector != -1) {
+		Queue_Sector_Themes();
+	}
+	if (SilenceEnd != 0) {
+		if (timeGetTime() > SilenceEnd) {
+			SilenceEnd = 0;
+		}
+		return;
+	}
+	switch (Lists[CurrentMusicType].Update(FadeIn[CurrentMusicType])) {
+		case 3:
+			if (SectorThemeSector != -1) {
+				if (!Queue_Sector_Theme(SectorThemeSector)) {
+					Queue_Themes(CurrentMusicType, theme_race);
+				}
+			} else {
+				Queue_Themes(CurrentMusicType, theme_race);
+			}
+			SilenceEnd = Unknown_BDBB84(SilenceMin, SilenceMax) + Unknown_Get_Ticks();
+			if (CurrentMusicType == MUSIC_THEME_STARGATE) {
+				Enabled = false;
+			}
+			break;
+		case 2:
+			SilenceEnd = Unknown_BDBB84(SilenceMin, SilenceMax) + Unknown_Get_Ticks();
+			if (CurrentMusicType == MUSIC_THEME_STARGATE) {
+				Enabled = false;
+			}
+			break;
+		case 1:
+			if (SectorThemeSector != -1) {
+				if (!Queue_Sector_Theme(SectorThemeSector)) {
+					Queue_Themes(CurrentMusicType, theme_race);
+				}
+			} else {
+				Queue_Themes(CurrentMusicType, theme_race);
+			}
+			break;
+	}
+}
+
 /*
 Reconstruction notes:
 musicmanager.cpp holds MusicManagerClass: the themes of music.ini by kind of music, a MusicListClass per kind and
 the kind playing now. The object is 0x439E40-0x43BFD0 (after musiclist.cpp's deque instances, before
-musictheme.cpp's 0x43C010). Not rebuilt yet: Update 0x43AE30. Load_INI 0x43A1F0 is NOT EXACT (inline budget:
+musictheme.cpp's 0x43C010). Update 0x43AE30 is NOT EXACT (shape: a merged tail, attempts.csv) and stands last in
+the file, after the functions it calls (Queue_Sector_Themes 0x43B7D0 is inline in the client's), so no __LINE__
+above it moves. Load_INI 0x43A1F0 is NOT EXACT (inline budget:
 the client keeps push_back's helpers out of line; one dead size() after the push_back gives 0.74, 2219 bytes, with
 size() out of line one call too early). Get_Current_Name 0x43B190 is a plain tail call of MusicListClass's 0x438800
 (no assert of its own: the musiclist.cpp lines 364 / 365 are 0x438800's). Stop_Sector_Music 0x43BBA0 has no caller:

@@ -44,6 +44,6 @@ void Unknown515640Class::Unknown_60()
 		float low = ((ClientClass *)Client)->Unknown10D4;
 		float high = ((ClientClass *)Client)->Unknown10D8;
 		float t = (avatar->Unknown_24().Z - low) / (high - low);
-		Unknown84->Unknown_6865E0(1.0f - t, 0);
+		Unknown84->Unknown_6865E0(1.0f - t, 0.0f);
 	}
 }

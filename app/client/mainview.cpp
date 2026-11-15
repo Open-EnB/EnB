@@ -2014,18 +2014,18 @@ void MainViewClass::Unknown_513CD0(int mode) { Unknown138->Set_Mode(mode); }
 int MainViewClass::Unknown_513D00() { return(Unknown138->Mode); }
 void MainViewClass::Unknown_513D20(float value) { Unknown138->Unknown_53E030(value); }
 
-float MainViewClass::Unknown_513D50() { return(Unknown138->Unknown_53E0B0()); }
-float MainViewClass::Unknown_513D70() { return(Unknown138->Get_Spacing()); }
+float MainViewClass::Unknown_513D50() { return(true ? Unknown138->Unknown_53E0B0() : 0.0f); }	// the float getters tail-jump (jmp) as the client only through a ternary; plain gives call / ret (workflow.md 3.9 ro_proxy.cpp)
+float MainViewClass::Unknown_513D70() { return(true ? Unknown138->Get_Spacing() : 0.0f); }
 void MainViewClass::Unknown_513D90(float arg) { Unknown138->Set_Spacing(arg); }
-float MainViewClass::Unknown_513DC0() { return(Unknown138->Get_Size()); }
+float MainViewClass::Unknown_513DC0() { return(true ? Unknown138->Get_Size() : 0.0f); }
 void MainViewClass::Unknown_513DE0(float arg) { Unknown138->Set_Size(arg); }
 void MainViewClass::Unknown_513E10(Vector3 &arg) { Unknown138->Get_Color(arg); }
 void MainViewClass::Unknown_513E40(const Vector3 &arg) { Unknown138->Set_Color(arg); }
-float MainViewClass::Unknown_513E70() { return(Unknown138->Get_Alpha()); }
+float MainViewClass::Unknown_513E70() { return(true ? Unknown138->Get_Alpha() : 0.0f); }
 void MainViewClass::Unknown_513E90(float arg) { Unknown138->Set_Alpha(arg); }
-float MainViewClass::Unknown_513EC0() { return(Unknown138->Get_Min_Dist()); }
+float MainViewClass::Unknown_513EC0() { return(true ? Unknown138->Get_Min_Dist() : 0.0f); }
 void MainViewClass::Unknown_513EE0(float arg) { Unknown138->Set_Min_Dist(arg); }
-float MainViewClass::Unknown_513F10() { return(Unknown138->Get_Max_Dist()); }
+float MainViewClass::Unknown_513F10() { return(true ? Unknown138->Get_Max_Dist() : 0.0f); }
 void MainViewClass::Unknown_513F30(float arg) { Unknown138->Set_Max_Dist(arg); }
 void MainViewClass::Unknown_513F60(FileClass *file, int indent) {}
 void MainViewClass::Unknown_513F80(int arg) {}

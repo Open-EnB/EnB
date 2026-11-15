@@ -11,7 +11,6 @@
 
 class TextureClass;
 class VertexMaterialClass;
-class INIClass;
 class Vector4;
 
 // One decal's material (0x44 bytes, constructor 0x619280, destructor 0x618C10, assignment 0x75DA20): the passes of
@@ -44,7 +43,5 @@ public:
 	Unknown619280Class Unknown30;						// +0x30 the base of an insignia's material (alpha, fogged, lit)
 	Unknown619280Class Unknown74;						// +0x74 an empty slot's material (opaque, no colour / depth write, untextured)
 };
-
-TextureClass *Unknown_82EF70(INIClass &ini, const char *section);	// 0x82EF70 (cdecl: 'File', 'TextureWrap')  // NAME 1 [all]: neutral
 
 #endif

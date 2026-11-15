@@ -1863,16 +1863,10 @@ static void Test_Chat(SClient *client)
 // synthetic packets: 200 and 216 build a question and hand it to SClient 0x74E580 (the current view's dialog, type
 // GUILD_RECRUIT_CONFIRM / GUILD_GM_RENAME_CONFIRM; +0x119C keeps the inviter, or "" for 216); 208 takes the message
 // type's text from guild_strings.cpp (0x83D900, written here for two types), substitutes $OtherName$ / $GuildName$
-// (symbol_substitution.cpp, rebuilt) and prints it (0x74DFF0, traced here), then plays the type's sound when it has
-// one (0x83D970).
-static std::string Guild_Text;
-void SClient::Unknown_74DFF0(int color, const char *text, int message_type, int arg)
-{
-	Trace("SClient::Unknown_74DFF0 0x%X '%s' %d %d", color, text, message_type, arg);
-	Guild_Text += text;
-	Guild_Text += "|";
-}
-const char *Unknown_83D900(int message_type) { return(message_type == 3 ? "$OtherName$ has joined $GuildName$." : "guild message"); }
+// (symbol_substitution.cpp, rebuilt) and prints it (SClient 0x74DFF0, rebuilt: with the chat panel's guild window
+// +0xE0 not set type 3 is dropped and type 4's lines go one by one to the chat, the stub 0x563760 traces them), then
+// plays the type's sound when it has one (0x83D970).
+const char *Unknown_83D900(int message_type) { return(message_type == 3 ? "$OtherName$ has joined $GuildName$." : "$OtherName$ left\n$GuildName$"); }
 static int Guild_Sound_Calls = 0;
 const char *Unknown_83D970(int message_type) { Guild_Sound_Calls++; return(message_type == 3 ? "guild_join" : 0); }
 static std::vector<unsigned char> Raw_Bytes(RawPacketClass *raw)
@@ -1917,15 +1911,19 @@ static void Test_Guild(SClient *client, FakeMainViewClass *main_view)
 
 	std::string other("Alex"), guild("Earthlings");
 	int types[2] = { 3, 4 };
+	int traced[2];
 	for (int t = 0; t < 2; t++) {
 		RawPacketClass *raw = new RawPacketClass(208, 4 + 4 + other.size() + guild.size());
 		raw->Add(&types[t], 4);
 		raw->Add(other);
 		raw->Add(guild);
 		Memory->Incoming.push_back(Raw_Bytes(raw));
+		int before = Lines;
 		client->Process_Packets();
+		traced[t] = Lines - before;
 	}
-	Check(Guild_Text == "Alex has joined Earthlings.|guild message|", "GUILD_MESSAGE_SECTOR 208: the type's text with OtherName and GuildName substituted, to 0x74DFF0");
+	// the trace above shows the two chat lines 'Alex left' and 'Earthlings' (the stub 0x563760, colour 8)
+	Check(traced[0] == 1 && traced[1] == 3, "GUILD_MESSAGE_SECTOR 208: no guild window: type 3 dropped, type 4's text substituted and split into two chat lines (0x74DFF0)");
 	Check(Guild_Sound_Calls == 3, "GUILD_MESSAGE_SECTOR 208: the sound asked for each type, played (asked again) for type 3 only");
 	Memory->Received = 0;
 }

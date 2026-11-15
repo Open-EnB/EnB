@@ -156,4 +156,11 @@ template<class C> C *Unknown_Find_Field(DeltaCompoundClass *root, const NameClas
 	return(t);
 }
 
+// A field under root that is set (+0x70), else NULL.
+template<class C> inline C *Unknown_Find_Set_Field(DeltaCompoundClass *root, const NameClass &name)	// NAME 1: neutral (D10)
+{
+	C *t = Unknown_Find_Field<C>(root, name);
+	return((t && t->Unknown70) ? t : NULL);
+}
+
 #endif //__AUXDATA_H

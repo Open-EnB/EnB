@@ -13,14 +13,12 @@ extern RandomClass Unknown_BDBB84;  // NAME 1 [Unknown_BDBB84]: neutral (D10): t
 #include "fontdatabase.h"	// FontStringFilesClass at 0xBE67BC: the constructor / destructor load and unload fc_line_display.ini
 extern FontStringFilesClass *Unknown_BE67BC;	// NAME 1 [Unknown_BE67BC]: neutral (D10); sclient.h declares it so
 #include "fontmanager.h"	// FontSys, the text objects
-
-
-
-
+#include "..\shared\auxdata\auxdata.h"	// Unknown_Find_Field: 0x5A8350's 'Missions' (its copy 0x5AA9D0 sits in this object)
+#include "aux_roots.h"				// DeltaPlayerClass, DeltaMissionClass, DeltaMissionStageClass (0x5A8350)
+#include "..\audio\soundlib.h"		// SoundLibraryClass::Play_2D_Sound (0x5A8350's mission sounds)
+#include "ui_missn.h"				// Unknown_Strip_Tags (0x5C69D0)
 
 #include "control_keys_manager.h"	// ControlKeysManager: slots +0x70 / +0x74 call Add_Keys 0x71A960 / Remove_Keys 0x71AB40
-
-
 
 
 
@@ -44,7 +42,9 @@ class LineDisplaySClientClass  // NAME 1: neutral (D10): sclient.cpp's class, as
 public:
 	char Unknown0000[0x127C];
 	LineDisplayUnknown127CClass *Unknown127C;				// +0x127C
-	char Unknown1280[0x1354 - 0x1280];
+	char Unknown1280[0x12C0 - 0x1280];
+	DeltaPlayerClass *AuxData;								// +0x12C0 (0x5A8350's FAIL_IF '!ad_player'; SClient's AuxData)
+	char Unknown12C4[0x1354 - 0x12C4];
 	int Unknown1354;										// +0x1354
 	int Unknown1358;										// +0x1358
 	int Unknown135C;										// +0x135C
@@ -643,6 +643,117 @@ void UILineDisplayClass::Skip()
 
 
 
+
+
+
+
+
+// auxdata.h's set-field find (a field that is set, else NULL; the client's test eax / cmp 1 pair): the layer leaves the find 0x5AA9D0 out of line as the client calls it
+
+
+// 0x5A8350: the mission messages (the stage, completed, expired and failed lines and their sounds); the client's Add_Line_3 / Add_Line_7 wrappers and the stage item in a local
+void UILineDisplayClass::Unknown_5A8350()
+{
+	LineDisplaySClientClass *sclient = Client->Unknown_18();
+	FAIL_IF(!sclient) return;
+
+	DeltaPlayerClass *ad_player = sclient->AuxData;
+	FAIL_IF(!ad_player) return;
+
+	NameClass name("Missions");
+	DeltaItemArrayClass<DeltaMissionClass> *missions = Unknown_Find_Set_Field<DeltaItemArrayClass<DeltaMissionClass> >((DeltaCompoundClass *)ad_player, name);
+	if (missions && missions->Unknown70 > 1) {
+		if (UnknownB8) {
+			for (int i = 0; i < 12; i++) {
+				DeltaMissionClass *delta_item = (DeltaMissionClass *)missions->Children[i];
+
+
+				FAIL_IF(!delta_item) continue;
+
+				const char *mission_name = delta_item->Name.Get();
+				if (mission_name && *mission_name) {
+					std::string text;
+					char buffer[32];
+					int stage = delta_item->Stage.Value;
+					int stage_idx = stage - 1;
+					const char *sound = 0;
+					if (delta_item->Stage.Unknown70 > 1) {
+						if (stage > 1) {
+							sprintf(buffer, "%d", stage_idx);
+							text = "Completed Stage ";
+							text += buffer;
+							text += " of ";
+							text += mission_name;
+							text += ".";
+							Unknown_Strip_Tags(text);
+							Add_Line_3(text.c_str(), 5000, "MessageLine");
+						} else {
+							sound = "Mission_New";
+							if (delta_item->HasGivenNewMissionMessage.Value) {
+								sound = "Mission_Updated";
+							}
+						}
+					}
+					if (delta_item->IsComplete.Unknown70 > 1 && delta_item->IsComplete.Value) {
+						text = mission_name;
+						text += " Completed!";
+						Add_Line_3(text.c_str(), 5000, "MessageLine");
+						if (!sound) {
+							sound = "Mission_Accomplished";
+						}
+					} else if (delta_item->IsExpired.Unknown70 > 1 && delta_item->IsExpired.Value) {
+						text = mission_name;
+						text += " Time Expired!"; text.size();	// (dead, D130: sends this append out of line, as the client's)
+						Add_Line_3(text.c_str(), 5000, "MessageLine");
+						if (!sound) {
+							sound = "Mission_Failed";
+						}
+					} else if (delta_item->IsFailed.Unknown70 > 1 && delta_item->IsFailed.Value) {
+						text = mission_name;
+						text += " Failed!"; text.size(); text.size();	// (dead, D130: the append's _Eos called, the assign's inlined, as the client's)
+						Add_Line_3(text.c_str(), 5000, "MessageLine");
+						if (!sound) {
+							sound = "Mission_Failed";
+						}
+					} else if (delta_item->Stage.Unknown70 > 1) {
+						if (delta_item->StageCount.Value) {
+							sprintf(buffer, "(%d/%d) ", stage, delta_item->StageCount.Value);
+						} else {
+							sprintf(buffer, "(%d) ", stage);
+						}
+						text = buffer;
+
+
+
+
+
+
+
+
+
+
+						G_ASSERT(stage_idx >= 0);
+						if (stage_idx >= 0) {
+							DeltaMissionStageClass *stage_item = (DeltaMissionStageClass *)delta_item->Stages.Children[stage_idx]; text += stage_item->Text.Get();
+						}
+						Unknown_Strip_Tags(text);
+						Add_Line_7(text.c_str(), 5000, "MessageLine");
+						if (!sound) {
+							sound = "Mission_Updated";
+						}
+					}
+					if (sound) {
+						SoundLibraryClass::Play_2D_Sound(sound, 2);
+					}
+				}
+			}
+		}
+		UnknownB8 = true;
+	}
+}
+
+
+
 EphemeralStruct *UILineDisplayClass::Find_Ephemeral(const char *type)
 {
 	std::hash_map<std::string, EphemeralStruct *>::const_iterator i = Ephemerals.find(std::string(type));
@@ -676,7 +787,12 @@ RefCountPtr<LineDisplayTextClass> UILineDisplayClass::Find_Text(const char *name
 **
 **	Slot +0x60 0x5A69B0 (shows the next line, asserts on lines 347 / 375), Format_Line 0x5A72B0 and Add_Line
 **	0x5A7690 (splits a text through the 0x4FA8F0 wrapper, '...' where it was split) follow slot +0x74.
-**	Not written yet (declared only): 0x5A8350, the mission messages (FAIL_IFs on lines 658 / 661 / 671 / 735).
+**	0x5A8350 (builder O6, 2026-11-14), the mission messages (FAIL_IFs on lines 658 / 661 / 671, G_ASSERT on 735), slot +0x60's
+**	first call: once UnknownB8 is set (the first pass only sets it), each changed mission of Player.Missions gives
+**	"Completed Stage N of <name>.", "<name> Completed!", " Time Expired!", " Failed!" or "(stage/count) <stage text>" and
+**	a sound (Mission_New / _Updated / _Accomplished / _Failed). Forms that mattered: the find through a set-field
+**	layer (out of line as 0x5AA9D0), the Add_Line_3 / _7 wrappers, the stage item in a named local (registers), three
+**	dead size() reads (D130) after the expired / failed appends; Unknown_Strip_Tags is ui_missn.cpp's 0x5C69D0.
 **
 **	Layout (the constructor's stores, in initialiser-list order before the vtables): +0x84 Current, +0x88
 **	and +0x98 two std::vector<LineDisplayLineStruct *>, +0xA8 -1, +0xAC false, +0xAD true, +0xB8 false

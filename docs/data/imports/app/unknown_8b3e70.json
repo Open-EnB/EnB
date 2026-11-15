@@ -1,0 +1,15 @@
+{
+ "ambiguous": [],
+ "copy": "reconstructed",
+ "description": "Unknown_8B3E70..Unknown_8B41C0 (client 0x8B3E70-0x8B42F0, between wlib's configfile.cpp and critsec.cpp; provisional name, D137): CRC-32 and CRC-64 lookup table builders and string/buffer updaters (all 5 claimed functions byte-exact)",
+ "expected": {},
+ "in_tree": [
+  "0x8B3E70",
+  "0x8B3F60",
+  "0x8B4020",
+  "0x8B40A0",
+  "0x8B41C0"
+ ],
+ "merged": [],
+ "name": "client/unknown_8b3e70.cpp"
+}

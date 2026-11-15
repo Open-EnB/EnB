@@ -240,8 +240,8 @@ void UIScanClass::Unknown_54()
 	Unknown5BE980Class::Unknown_54();
 }
 
-// The 'TSI08A' mesh, placed at the screen's lower right, as the display's model
-inline void UIScanClass::Create_Mesh()
+// @0x60DEA0 (out of line, no caller; inline in 0x60D8D0): the 'TSI08A' mesh, placed at the screen's lower right, as the display's model
+void UIScanClass::Create_Mesh()
 {
 
 
@@ -539,9 +539,9 @@ UIScanThreatClass::~UIScanThreatClass()
 #include "cfaction_database.h"
 #include <stdio.h>
 #include "co_player_relationship.h"
-template<class C> inline C *Unknown_Scan_Find_Field(char *const &root, const char *name) { NameClass n(name); DeltaCompoundClass *r = (DeltaCompoundClass *)root; C *t = Unknown_Find_Field<C>(r, n); if (t && t->Unknown70) return(t); return(NULL); } template<class C> inline C *Unknown_Scan_Find(char *const &root, const char *name) { return(Unknown_Scan_Find_Field<C>(root, name)); } template<class C> inline C *Unknown_Scan_Find_Field(DeltaCompoundClass *const &root, const char *name) { NameClass n(name); DeltaCompoundClass *r = root; C *t = Unknown_Find_Field<C>(r, n); if (t && t->Unknown70) return(t); return(NULL); } template<class C> inline C *Unknown_Scan_Find(DeltaCompoundClass *const &root, const char *name) { return(Unknown_Scan_Find_Field<C>(root, name)); } template<class C> inline C *Unknown_Scan_Changed_Field(DeltaCompoundClass *const &root, const char *name) { NameClass n(name); DeltaCompoundClass *r = root; C *t = Unknown_Find_Field<C>(r, n); if (t && t->Unknown70 > 1) return(t); return(NULL); } template<class C> inline C *Unknown_Scan_Changed(DeltaCompoundClass *const &root, const char *name) { return(Unknown_Scan_Changed_Field<C>(root, name)); }	// NAME 1: neutral (D10): two inline layers (ui_analyze.cpp's form) send the finds out of line as the client (0x60E6A0, the char * root: 0x610290 / 0x514BD0; 0x60F1A0: 0x610370); below, a field under root that is set (+0x70), else NULL; and one changed since (+0x70 above 1): ui_faction.cpp's
-template<class C> inline C *Unknown_Find_Set_Field(DeltaCompoundClass *root, const NameClass &name)	// NAME 1: neutral (D10)
-{ C *t = Unknown_Find_Field<C>(root, name); return((t && t->Unknown70) ? t : NULL); }
+template<class C> inline C *Unknown_Scan_Find_Field(char *const &root, const char *name) { NameClass n(name); DeltaCompoundClass *r = (DeltaCompoundClass *)root; C *t = Unknown_Find_Field<C>(r, n); if (t && t->Unknown70) return(t); return(NULL); } template<class C> inline C *Unknown_Scan_Find(char *const &root, const char *name) { return(Unknown_Scan_Find_Field<C>(root, name)); } template<class C> inline C *Unknown_Scan_Find_Field(DeltaCompoundClass *const &root, const char *name) { NameClass n(name); DeltaCompoundClass *r = root; C *t = Unknown_Find_Field<C>(r, n); if (t && t->Unknown70) return(t); return(NULL); } template<class C> inline C *Unknown_Scan_Find(DeltaCompoundClass *const &root, const char *name) { return(Unknown_Scan_Find_Field<C>(root, name)); } template<class C> inline C *Unknown_Scan_Changed_Field(DeltaCompoundClass *const &root, const char *name) { NameClass n(name); DeltaCompoundClass *r = root; C *t = Unknown_Find_Field<C>(r, n); if (t && t->Unknown70 > 1) return(t); return(NULL); } template<class C> inline C *Unknown_Scan_Changed(DeltaCompoundClass *const &root, const char *name) { return(Unknown_Scan_Changed_Field<C>(root, name)); }	// NAME 1: neutral (D10): two inline layers (ui_analyze.cpp's form) send the finds out of line as the client (0x60E6A0, the char * root: 0x610290 / 0x514BD0; 0x60F1A0: 0x610370); auxdata.h's Unknown_Find_Set_Field, and one changed since (+0x70 above 1): ui_faction.cpp's
+
+
 template<class C> inline C *Unknown_Find_Changed_Field(DeltaCompoundClass *root, const NameClass &name)	// NAME 1: neutral (D10)
 { C *t = Unknown_Find_Field<C>(root, name); return((t && t->Unknown70 > 1) ? t : NULL); }
 #include "..\..\ww3d2\assetmgr.h"
@@ -578,7 +578,7 @@ void UIScanClass::Unknown_60E6A0(ClientObjectClass *object)
 			UIMesh->Peek_Mesh_Object()->Add_Sub_Object_To_Bone(InterruptInfo->Unknown30.Peek(), "BONE_INTER");
 			InterruptInfo->Unknown_Clear();
 			InterruptInfo->Unknown2C = new Unknown59E2C0Class(InterruptInfo->Unknown30.Peek(), &Layer, this, object, -1);
-			Unknown_496730(InterruptInfo->Unknown30.Peek(), 8, 1);
+			InterruptInfo->Unknown_Set_Sort_Level(8);
 		}
 	}
 	if (InterruptInfo->Unknown30) {
@@ -640,11 +640,11 @@ void Unknown59E2C0Class::Unknown_60ECA0(DurationClass time)
 }
 #pragma auto_inline(on)
 
-
-
-
-
-
+// @0x60ECF0
+SClient *UIScanClass::Get_Space_Client()
+{
+	return(Client->As_Space_Client());
+}
 
 
 
@@ -725,8 +725,8 @@ void UIScanClass::Unknown_60EFE0(ClientObjectClass *object)
 	GutterColorStruct color = colors.Target;
 	ConFont->Set_Color(color.Color1);
 }
-// The cockpit's targeting, through the client
-inline TargetingClass *UIScanClass::Get_Targeting()
+#pragma auto_inline(on)
+TargetingClass *UIScanClass::Get_Targeting()	// @0x60F110 (out of line, no caller; inline in 0x60E300): the cockpit's targeting, through the client
 {
 
 
@@ -739,7 +739,7 @@ inline TargetingClass *UIScanClass::Get_Targeting()
 	FAIL_IF(!ts) return(NULL);
 	return(ts);
 }
-
+#pragma auto_inline(off)
 
 
 
@@ -997,47 +997,47 @@ void UIScanClass::Unknown_60F1A0(bool arg)
 
 
 
+#pragma auto_inline(on)
+// @0x60FBA0
+UIScanThreatClass::UIScanThreatClass(UIScanClass *owner) : Owner(owner), AbilityName(""), Unknown18(false), Unknown20(0), Unknown28(0), Unknown2C(NULL)
+{
+}
 
+// @0x60FD50
+void UIScanThreatClass::Unknown_Refresh()
+{
+	bool active = Owner->Is_Active();
+	if (active) {
+		Owner->Unknown_5C();
+	}
+	Unknown_60FEE0();
+	if (active) {
+		Owner->Unknown_58();
+	}
+}
 
+// @0x60FD90
+void UIScanThreatClass::Unknown_Update()
+{
+	Unknown2C->Unknown38 = (InterruptStateType)Unknown28;
+	if (Unknown2C) {
+		Unknown2C->Unknown_10();
+	}
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// @0x60FDC0
+void UIScanThreatClass::Unknown_Clear()
+{
+	if (Unknown2C) {
+		Unknown2C->Unknown_59E970();
+		delete Unknown2C;
+		Unknown2C = NULL;
+	}
+	Unknown28 = 0;
+	AbilityName = "";
+	Unknown18 = false;
+}
+#pragma auto_inline(off)
 
 
 
@@ -1064,6 +1064,12 @@ void UIScanThreatClass::Unknown_60FEE0()
 	}
 }
 #pragma auto_inline(on)
+
+// @0x610010
+void UIScanThreatClass::Unknown_Set_Sort_Level(int sort_level)
+{
+	Unknown_496730(Unknown30.Peek(), sort_level, 1);
+}
 
 /*
 **	Notes (WE9, 2026-11-07)

@@ -17,13 +17,13 @@
 #include "wwmath.h"
 #include "..\shared\g_assert.h"
 
-// co.cpp's render hook (vtable 0xB007A4): declared as far as this file calls it
-class UnknownB007A4Class : public RenderHookClass	// NAME 1: neutral (D10), named by its vtable: co.cpp's
-{
-public:
-	void Unknown_6BB8E0(const RefCountPtr<MaterialPassClass> &pass, bool flag);	// 0x6BB8E0 (the pass and its flag onto the hook's list)  // NAME 1 [pass, flag]: what Unknown_18 passes
-	void Unknown_6BBA20(const RefCountPtr<MaterialPassClass> &pass);			// 0x6BBA20 (the pass off it)  // NAME 1 [pass]: what Unknown_20 passes
-};
+#include "unknown_6bb7e0.h"	// co.cpp's render hook (vtable 0xB007A4: 0x6BB8E0, 0x6BBA20)
+
+
+
+
+
+
 
 
 

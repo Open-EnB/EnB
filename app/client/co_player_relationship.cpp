@@ -195,7 +195,7 @@ bool Unknown_70B790(SClient *client, ClientObjectClass *object, GutterColorSetSt
 
 
 // A field under root that is set (+0x70), else NULL: a wrapper over auxdata.h's lookup; the four dead size() reads spend the inline budget so rtti.h's cast stays out of line (0x598D80), as the client's (three are too few, six push the lookup out too)
-template<class C> inline C *Unknown_Find_Set_Field(DeltaCompoundClass *root, const NameClass &name)	// NAME 1: neutral (D10)
+template<class C> inline C *Unknown_Relationship_Find_Set_Field(DeltaCompoundClass *root, const NameClass &name)	// NAME 1: neutral (D10)
 {
 	root->Children.size(); root->Children.size(); root->Children.size(); root->Children.size(); C *t = Unknown_Find_Field<C>(root, name);
 	return((t && t->Unknown70) ? t : NULL);
@@ -205,7 +205,7 @@ bool Unknown_70BAC0(SClient *client, ClientObjectClass *object)	// NAME 1 [Unkno
 	if (object->Type == 1) {
 		DeltaCompoundClass *aux_data = client->AuxData;
 		FAIL_IF(!aux_data) return(false);
-		DeltaGroupInfoClass *group_data = (DeltaGroupInfoClass *)Unknown_Find_Set_Field<DeltaCompoundClass>(aux_data, "GroupInfo");
+		DeltaGroupInfoClass *group_data = (DeltaGroupInfoClass *)Unknown_Relationship_Find_Set_Field<DeltaCompoundClass>(aux_data, "GroupInfo");
 
 		FAIL_IF(!group_data) return(false);
 		int count = group_data->Members.Children.size();

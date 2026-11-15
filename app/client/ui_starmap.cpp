@@ -48,7 +48,7 @@ static const char *Unknown_B9F8B8[] = { "EXIT", "SECTOR_BTTN", "RESIZE_BTTN", "Q
 
 
 
-// MapPipClass as this file calls it: slot +0x04 takes a RefCountPtr, slots +0x1C-+0x24 a bool, and 0x693040 (map_pip.cpp's)
+// MapPipClass as this file calls it: slot +0x04 takes a RefCountPtr, slots +0x1C-+0x24 a bool
 class UIStarmapPipViewClass  // NAME 1: neutral (D10)
 {
 public:
@@ -62,7 +62,7 @@ public:
 	virtual void Unknown_1C(bool arg);					// +0x1C  // NAME 1 [arg]: neutral
 	virtual void Unknown_20(bool arg);					// +0x20  // NAME 1 [arg]: neutral
 	virtual void Unknown_24(bool arg);					// +0x24  // NAME 1 [arg]: neutral
-	bool Unknown_693040();								// 0x693040 (+0x40)
+	// (0x693040 is MapPipClass::Unknown_693040, map_pip.cpp's)
 };
 
 // galaxy_map_client.cpp's map (SClient +0x12A0), as far as this file reads it
@@ -590,7 +590,7 @@ void UIStarmapClass::Unknown_7C8C20(int mode)
 	}
 	HowToStarmap->Unknown_5C();
 	HowToGalaxyMap->Unknown_5C();
-	bool active = CurrentPip ? ((UIStarmapPipViewClass *)CurrentPip)->Unknown_693040() : false;
+	bool active = CurrentPip ? CurrentPip->Unknown_693040() : false;
 	if (active) {
 		Unknown_7C94C0(false);
 	}
@@ -621,7 +621,7 @@ bool UIStarmapClass::Unknown_7C8D90()
 // @0x7C8DB0
 StarmapPipClass *UIStarmapClass::Unknown_7C8DB0(bool on)
 {
-	if (on && (!Active || !((UIStarmapPipViewClass *)StarmapPip)->Unknown_693040())) {
+	if (on && (!Active || !StarmapPip->Unknown_693040())) {
 		return(NULL);
 	}
 	return(StarmapPip);
@@ -692,7 +692,7 @@ bool UIStarmapClass::Unknown_7C8E50(bool force)
 
 
 	FAIL_IF(!SectorFont) return(false);
-	if (((UIStarmapPipViewClass *)StarmapPip)->Unknown_693040()) {
+	if (StarmapPip->Unknown_693040()) {
 
 		FAIL_IF(!Client) return(false);
 		SClient *sclient = (SClient *)((ClientClass *)Client)->As_Space_Client();
@@ -740,7 +740,7 @@ bool UIStarmapClass::Unknown_7C8E50(bool force)
 // @0x7C91A0
 bool UIStarmapClass::Unknown_7C91A0()
 {
-	if (((UIStarmapPipViewClass *)StarmapPip)->Unknown_693040()) {
+	if (StarmapPip->Unknown_693040()) {
 		unsigned long id = 0;
 		NavigationListClass *path = StarmapPip->Unknown_7C0EE0();
 		if (path) {

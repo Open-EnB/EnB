@@ -6,21 +6,4 @@
 #include "stub_log.h"
 #include "..\app\client\aux_roots.h"
 
-bool String_To_Value(const char *text, WW3DLightAttenuationType *value)
-{
-	STUB_CALLED("String_To_Value(WW3DLightAttenuationType) (0x82F180)");
-	int v;
-	if (sscanf(text, "%d", &v) != 1) {
-		return false;
-	}
-	*value = (WW3DLightAttenuationType)v;
-	return true;
-}
-
-char *Value_To_String(char *buf, int size, WW3DLightAttenuationType value)
-{
-	STUB_CALLED("Value_To_String(WW3DLightAttenuationType) (0x82F1D0)");
-	_snprintf(buf, size, "%d", (int)value);
-	return buf;
-}
 

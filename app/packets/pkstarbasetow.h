@@ -33,7 +33,7 @@ public:
 
 	int PlayerID;	// +0x0C  // NAME 3: the client's Print text 'PlayerID='
 	int StarbaseID;	// +0x10  // NAME 3: the client's Print text 'StarbaseID='
-	bool Action;	// +0x14  // NAME 3: the client's Print text 'Action='
+	unsigned char Action;	// +0x14  // NAME 3: the client's Print text 'Action=' (callers pass 0..11)
 	char Unknown15[0x3];	// +0x15
 };
 

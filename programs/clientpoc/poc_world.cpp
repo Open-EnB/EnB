@@ -44,12 +44,7 @@ MainViewDazzleHandlerClass::~MainViewDazzleHandlerClass()
 {
 }
 
-// ---------------------------------------------------------------- cameraeffects.cpp (0x6E2BD0): the table, no effects
-CameraEffectsClass::CameraEffectsClass(MainViewClass *view, SClient *client)
-{
-	STUB_CALLED("POC CameraEffectsClass: no effects");
-	Client = client;
-}
+// cameraeffects.cpp's constructor 0x6E2BD0 and its SList slots are real app code since S1: its stand-in left here.
 
 // orbitalmanager.cpp (0x4F28A0-0x4F51C0) is real app code since WE4: its stand-in left here.
 
@@ -67,14 +62,7 @@ CameraEffectsClass::CameraEffectsClass(MainViewClass *view, SClient *client)
 #include "..\..\app\client\unknown_671300.h"
 // (the hulk and harvest windows, 0x5850E0, are rebuilt: app/client/ui_cpit_inv.cpp, O15)
 // (the cockpit's +0xE0, UIAvatarDialogClass 0x551FB0, is rebuilt: app/client/ui_avatar_dialog.cpp, O2)
-class UICpitGadget6B56AClass : public GadgetClass { public: UICpitGadget6B56AClass(int x, int y, int width, int height, UIViewClass *view); virtual bool Unknown_30(float x, float y); char Unknown30[0x49 - 0x30]; bool Unknown49; char Unknown4A[0x5C - 0x4A]; };
-UICpitGadget6B56AClass::UICpitGadget6B56AClass(int x, int y, int width, int height, UIViewClass *view) : GadgetClass(0xFF)
-{
-	STUB_CALLED("POC UICpitGadget6B56AClass: a gadget that takes nothing");
-	memset(Unknown30, 0, sizeof(Unknown30));
-	Unknown49 = false;
-	memset(Unknown4A, 0, sizeof(Unknown4A));
-}
+// (the cockpit's +0xAC, ViewButtonClass 0x6B56A0, is rebuilt: app/client/viewbttn.cpp, N1)
 
 // (ui_symbolchat.cpp's UISymbolChatClass, 0x64A480, is rebuilt: app/client/ui_symbolchat.cpp, O12)
 

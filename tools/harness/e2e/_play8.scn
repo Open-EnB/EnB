@@ -1,0 +1,31 @@
+name: a recorded session played to its end: /play 8 on the Broadcast channel (Zanor, 2026-10-21 11:16), two sector sessions, then the replay's own hand-off home
+# Recording 8 (session_2026-10-21_111654, Net-7, the capture's first avatar; 9 is the same capture's second):
+# 2 sector sessions, 1964 messages: 1 sector 1910 (503 messages over 99 s), then by the recording's own
+# SERVER_HANDOFF 2 sector 1070 (1461 over 244 s); its end antreplay answers with 'End of recording 8; back to
+# Jupiter.' and a SERVER_HANDOFF home, whose connection answers START_ACK. No /stop: the playback runs to its
+# completion (the user, 2026-11-14). About 380 s on retail and on ours (E2, 2026-11-15: both PASS, the packets
+# the same; ours hit the generated stand-in Unknown_496E90 until S3 wrote it in ro_funcs.cpp: gen 0 hit).
+timeout: 700
+messages: on
+include _login
+key 0x08
+expect-event proxy '^input: replayed key 0x8'
+alive 1
+text '/play 8'
+key 0x0D
+expect-event antprox 'command "/play 8"' within 10
+wait-event antprox 'sent SERVER_HANDOFF' within 20
+wait-event antprox 'Sector connection #[0-9]+: playback of 8, sector session 1 of 2' within 60
+move 640,600
+wait-event msg 'Render: Frame Rate' within 90
+shot play8_s1
+wait-event antprox 'Sector connection #[0-9]+: playback of 8, sector session 2 of 2' within 400
+move 640,600
+wait-event msg 'Render: Frame Rate' within 90
+shot play8_s2
+wait-event antprox 'Playback of 8: end of the recording; back to' within 400
+wait-event antprox 'sent SERVER_HANDOFF.*back to' within 10
+wait-event antprox 'Sector connection #[0-9]+: received START_ACK' within 120
+wait-quiet proxy 2 within 60
+alive 8
+shot play8_home

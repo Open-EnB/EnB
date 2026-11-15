@@ -52,4 +52,5 @@ public:
 	DeltaMissionClass *CurrentMissions[MISSIONS_PER_PAGE];			// +0xCC  // NAME 3: the G_ASSERT's (l.689)
 	ButtonGadgetClass *UnknownD8[MAX_GADGETS];				// +0xD8 (1..3: 'HIGHLIGHT%02d', gadgets 1..3; 4 (+0xE8): the forfeit button, 'FORFEIT')
 };
+void Unknown_Strip_Tags(std::string &text);				// 0x5C69D0 (ui_missn.cpp): the text without its <...> tags  // NAME 1: neutral (D10)
 #endif // UI_MISSN_H

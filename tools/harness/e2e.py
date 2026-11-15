@@ -287,45 +287,167 @@ def scenario_names():
 
 # ---------------------------------------------------------------- the event stream and the matcher
 
+_MSG_TS_RE = re.compile(r'^(?:\d\d:\d\d:\d\d\.\d+|\d+\.\d+)\s+')
+_ASSERT_RE = re.compile(r'^(?:ERROR\s+(?:\S*,)?)?(?:G_ASSERT|FAIL_IF):\s')
+_POLL_CHUNK = 1 << 20
+_ASSERT_CAP = 2000
+
+
+def _assert_key(src, text):
+    """For repeated G_ASSERT / FAIL_IF lines on msg, stubs or antprox (stderr tee), source + message without timestamp."""
+    if src not in ('msg', 'stubs', 'antprox'):
+        return None
+    body = _MSG_TS_RE.sub('', text, count=1) if src == 'msg' else text
+    return (src, body) if _ASSERT_RE.match(body) else None
+
+
+class _Watch:
+    """Active pattern watch registered on Events so long runs never drop an expected/forbidden match."""
+    def __init__(self, source, pattern, hit=None):
+        self.source = source
+        self.pattern = pattern
+        self.hit = hit
+
+
 class Events:
     """Lines of several growing files, in the order they were read, each (seconds since start, source, text)."""
-    def __init__(self, files, clock=time.time):
+    def __init__(self, files, clock=time.time, log=None, window=4096):
         self.files = dict(files)                # source -> path
         self.pos = {s: 0 for s in self.files}
         self.part = {s: '' for s in self.files}
-        self.lines = []
+        self.lines = []                         # bounded sliding window of the last `window` stored tuples
+        self.base = 0                           # global index of self.lines[0]
+        self.total = 0                          # total stored lines seen (base + len(self.lines))
+        self.window = window
         self.clock = clock
         self.t0 = clock()
         self.last = {}                          # source -> the time its newest line was read
+        self.tag_hook = False
+        self._log = open(log, 'w', encoding='utf-8', newline='\n') if log else None
+        self._log_dirty = False
+        self._asserts = {}                      # (src, body) -> repeat tracking
+        self._assert_epoch = 0
+        self._watches = []
+        self._listeners = []
+
+    def _write_log(self, t, src, text):
+        if self._log is not None:
+            self._log.write(f'{t:8.2f} {src:7s} {text}\n')
+            self._log_dirty = True
+
+    def _flush_log(self):
+        if self._log is not None and self._log_dirty:
+            self._log.flush()
+            self._log_dirty = False
+
+    def _flush_entry(self, src, entry):
+        if entry['repeats'] > 0:
+            self._write_log(entry['last_t'], src, f'[repeated {entry["repeats"]}x] {entry["sample"]}')
+            entry['repeats'] = 0
+
+    def _emit(self, now, src, text):
+        key = _assert_key(src, text)
+        if key is not None:
+            entry = self._asserts.get(key)
+            if entry is not None and entry['last_seq'] >= self._assert_epoch:
+                entry['repeats'] += 1
+                entry['total'] += 1
+                entry['last_t'] = now
+                entry['sample'] = text
+                return
+            if entry is not None:
+                self._flush_entry(src, entry)
+                entry['last_seq'] = self.total
+                entry['total'] += 1
+                entry['last_t'] = now
+                entry['sample'] = text
+            elif len(self._asserts) < _ASSERT_CAP:
+                self._asserts[key] = {'last_seq': self.total, 'repeats': 0, 'total': 1,
+                                      'last_t': now, 'sample': text}
+        item = (now, src, text)
+        self.lines.append(item)
+        self.total += 1
+        if self.window is not None and len(self.lines) > self.window:
+            drop = len(self.lines) - self.window
+            del self.lines[:drop]
+            self.base += drop
+        self._write_log(now, src, text)
+        if src == 'proxy' and 'tagged input read' in text:
+            self.tag_hook = True
+        for w in self._watches:
+            if w.hit is None and (w.source == 'any' or w.source == src) and w.pattern.search(text):
+                w.hit = item
+        for fn in self._listeners:
+            fn(now, src, text)
 
     def poll(self):
         for src, path in self.files.items():
             try:
                 with open(path, 'rb') as f:
                     f.seek(self.pos[src])
-                    data = f.read()
+                    while True:
+                        data = f.read(_POLL_CHUNK)
+                        if not data:
+                            break
+                        self.pos[src] += len(data)
+                        text = self.part[src] + data.decode('latin1')
+                        *done, self.part[src] = text.split('\n')
+                        now = self.clock() - self.t0
+                        for l in done:
+                            l = l.rstrip('\r')
+                            if src == 'proxy':      # d3d8shot.log: '%10lu ' (GetTickCount) before each line
+                                l = re.sub(r'^\s*\d+ ', '', l, count=1)
+                            self._emit(now, src, l)
+                        if done:
+                            self.last[src] = now
+                        if len(data) < _POLL_CHUNK:
+                            break
             except OSError:
                 continue
-            if not data:
-                continue
-            self.pos[src] += len(data)
-            text = self.part[src] + data.decode('latin1')
-            *done, self.part[src] = text.split('\n')
-            now = self.clock() - self.t0
-            for l in done:
-                l = l.rstrip('\r')
-                if src == 'proxy':              # d3d8shot.log: '%10lu ' (GetTickCount) before each line
-                    l = re.sub(r'^\s*\d+ ', '', l, count=1)
-                self.lines.append((now, src, l))
-            if done:
-                self.last[src] = now
-        return len(self.lines)
+        self._flush_log()
+        return self.total
 
     def now(self):
         return self.clock() - self.t0
 
     def add(self, src, text):           # tests, and the harness's own notes
-        self.lines.append((self.clock() - self.t0, src, text))
+        self._emit(self.clock() - self.t0, src, text)
+        self._flush_log()
+
+    def find(self, source, pattern, start=0):
+        rel = max(0, start - self.base)
+        i = find(self.lines, source, pattern, rel)
+        return self.lines[i] if i is not None else None
+
+    def watch(self, source, pattern, start=0):
+        w = _Watch(source, pattern, self.find(source, pattern, start))
+        self._watches.append(w)
+        return w
+
+    def unwatch(self, w):
+        if w in self._watches:
+            self._watches.remove(w)
+
+    def add_listener(self, fn):
+        self._listeners.append(fn)
+
+    def remove_listener(self, fn):
+        if fn in self._listeners:
+            self._listeners.remove(fn)
+
+    def mark_epoch(self):
+        self._assert_epoch = self.total
+
+    def flush_repeats(self):
+        for (src, _), entry in self._asserts.items():
+            self._flush_entry(src, entry)
+        self._flush_log()
+
+    def close(self):
+        self.flush_repeats()
+        if self._log is not None:
+            self._log.close()
+            self._log = None
 
 
 def find(lines, source, pattern, start=0):
@@ -363,8 +485,17 @@ class Session:
         self.cp = clientpoc
         self.args = args
         tag = scs[0]['name'] if len(scs) == 1 else 'session'
-        self.out = os.path.join(OUT, time.strftime('%H%M%S') + '-' + tag)
-        os.makedirs(self.out, exist_ok=True)
+        # Two runs started in the same second (another instance) must not share a folder: their antprox.out and
+        # e2e.log would be one file, and each run would wait on the other's lines.
+        base = os.path.join(OUT, time.strftime('%H%M%S') + '-' + tag)
+        self.out, n = base, 1
+        while True:
+            try:
+                os.makedirs(self.out)
+                break
+            except FileExistsError:
+                n += 1
+                self.out = f'{base}-{n}'
         self.elog = open(os.path.join(self.out, 'e2e.log'), 'w', encoding='utf-8', newline='\n')
         self.retail = bool(getattr(args, 'retail', False))
         self.inst = clientpoc.Inst(args.instance, None if self.retail else args.exe, self.retail)
@@ -383,7 +514,7 @@ class Session:
                   f'instance {self.inst.name}, out {self.out}')
         self.a, self.pid, _ = clientpoc.start_antprox(self.inst, self.out, env,
                                                       ['-ENABLE_MESSAGES'] if self.messages else [])
-        self.ev = Events(files)
+        self.ev = Events(files, log=os.path.join(self.out, 'events.log'))
         self.note(f'antprox pid {self.a.pid}, client pid {self.pid}' + (' (the retail client)' if self.retail else ''))
         if self.retail and self.pid:
             import threading
@@ -392,7 +523,7 @@ class Session:
         if self.messages and self.pid:
             self.listener = clientpoc.start_listener(self.pid, self.out, sum(sc['timeout'] for sc in scs) + 10)
         self.hwnd = None
-        self.mark = 0               # ev.lines index of the last input step
+        self.mark = 0               # ev.total index of the last input step
         self.mark_time = 0.0
         self.logged_in = False      # a scenario's includes ran in this session
         self.gen_before = []        # the generated stand-ins hit before the first scenario's own steps
@@ -427,196 +558,228 @@ class Session:
         fail, standing, standins = None, [], []
         posted = []                 # this scenario's input steps so far (click ... until ... redo K)
         reached_own = False
-        first = not self.logged_in
-        start_line = len(ev.lines)
-        own_from = start_line
-        t_start = ev.now()
-        deadline = time.time() + sc['timeout']
-        standing.append({'source': 'stubs', 'pattern': re.compile('^CRASH:'), 'line': '(always)', 'from': start_line})
-        note(f'scenario {sc["name"]}' + ('' if first else ' (own steps only: the session is in the world)'))
-        ev.add('e2e', f'scenario {sc["name"]}')
+        start_line = ev.total
+        own_from = 0
+        seen = {'stubs': [], 'human': 0, 'marker': False}
 
-        def tick():
-            ev.poll()
-            for s in standing:
-                i = find(ev.lines, s['source'], s['pattern'], s.get('from', 0))
-                if i is not None:
-                    return f'{s["line"]}: expect-no {s["source"]} {s["pattern"].pattern!r} matched: {ev.lines[i][2][:160]}'
-            if not self.alive():
-                self.dead = 'the client exited'
-                return self.dead
-            if time.time() > deadline:
-                return f'scenario timeout ({sc["timeout"]:.0f} s)'
-            if self.hwnd is None and self.pid:
-                self.hwnd = cp.find_window(self.pid, self.retail)      # retail: not its terms dialog
-                if self.hwnd:
-                    note(f'window 0x{self.hwnd:X}')
-            return None
+        def on_event(t, src, text):
+            if src == 'stubs':
+                if text.startswith('MARK '):
+                    seen['marker'] = True
+                if text.startswith(('STUB first call: ', 'CRASH:')):
+                    seen['stubs'].append(text)
+            elif src == 'proxy' and text.startswith('input: NOT REPLAYED'):
+                seen['human'] += 1
 
-        def wait_for(source, pattern, within, what):
-            end = time.time() + within
-            while True:
-                f = tick()
-                if f:
-                    return f, False
-                i = find(ev.lines, source, pattern, self.mark)
-                if i is not None:
-                    note(f'  matched at {ev.lines[i][0]:.1f} s: {ev.lines[i][2][:200]}')
-                    return None, True
-                if time.time() > end:
-                    return what, False
-                time.sleep(0.02)
+        ev.flush_repeats()
+        ev.mark_epoch()
+        ev.add_listener(on_event)
+        try:
+            first = not self.logged_in
+            t_start = ev.now()
+            deadline = time.time() + sc['timeout']
+            standing.append({'source': 'stubs', 'pattern': re.compile('^CRASH:'), 'line': '(always)',
+                             'watch': ev.watch('stubs', re.compile('^CRASH:'), start_line)})
+            note(f'scenario {sc["name"]}' + ('' if first else ' (own steps only: the session is in the world)'))
+            ev.add('e2e', f'scenario {sc["name"]}')
 
-        def post(op, st, tag=True):
-            ev.poll()
-            self.mark = len(ev.lines)
-            self.mark_time = ev.now()
-            if op == 'key':
-                cp.post_step(self.hwnd, 'key', str(st['vk']), tag=tag)
-            elif op == 'text':
-                cp.post_step(self.hwnd, 'text', st['text'], tag=tag)
-            else:
-                cp.post_step(self.hwnd, op, f'{st["x"]} {st["y"]}', tag=tag)
-
-        if not self.pid:
-            fail = self.dead = 'no client process under antprox'
-        steps = sc['steps'] if first else sc['steps'][sc['own']:]
-        own_at = sc['own'] if first else 0
-        for k, st in enumerate(steps):
-            if fail:
-                break
-            if k == own_at:
-                reached_own = True
+            def tick():
                 ev.poll()
-                if first and sc['own']:
-                    self.gen_before = gen_lines([t for _, s, t in ev.lines if s == 'stubs'])
-                    self.logged_in = True
-                    note(f'own steps start; {len(self.gen_before)} gen stand-ins hit so far')
-                # the stand-ins' first-call flags start over (the exe's Stub_Log_Mark, through the proxy)
-                if self.marker is not False and self.hwnd is not None:
-                    took = self._trigger('mark ' + sc['name'], 5)
-                    ev.poll()
-                    if self.marker is None:
-                        self.marker = took and find(ev.lines, 'stubs', re.compile(r'^MARK '), start_line) is not None
-                        if not self.marker:
-                            note('  no stand-in marker (an exe without Stub_Log_Mark, or a proxy without triggers): '
-                                 'later scenarios list only the stand-ins no earlier one hit')
-                own_from = len(ev.lines)
-            note(f'step {st["line"]}: {st["op"]} {_desc(st)}')
-            op = st['op']
-            if self.retail and st.get('source') == 'stubs' and op in ('wait-event', 'expect-event', 'expect-no', 'stand-in'):
-                note('  skipped: the retail client writes no stubs.log (a step of ours only)')
-                continue
-            if op in ('wait-event', 'expect-event'):
-                fail, _ = wait_for(st['source'], st['pattern'], st['within'],
-                                   f'{st["line"]}: {op} {st["source"]} {st["pattern"].pattern!r}: not seen within '
-                                   f'{st["within"]:.0f} s')
-            elif op == 'wait-quiet':
-                end = time.time() + st['within']
-                while True:
-                    fail = tick()
-                    if fail:
-                        break
-                    since = max(ev.last.get(st['source'], 0.0), self.mark_time)
-                    if ev.now() - since >= st['quiet']:
-                        note(f'  quiet at {ev.now():.1f} s (last {st["source"]} line at {ev.last.get(st["source"], 0.0):.1f} s)')
-                        break
-                    if time.time() > end:
-                        fail = f'{st["line"]}: wait-quiet {st["source"]} {st["quiet"]:g}: not quiet within {st["within"]:.0f} s'
-                        break
-                    time.sleep(0.02)
-            elif op == 'expect-no':
-                standing.append(dict(st, **{'from': self.mark}))
-            elif op == 'stand-in':
-                standins.append(dict(st, **{'from': self.mark}))
-            elif op in ACTIONS:
-                while self.hwnd is None and not fail:
-                    fail = tick()
-                    time.sleep(0.02)
-                if fail:
-                    break
-                end = time.time() + 15
-                while not _has_tag_hook(ev) and time.time() < end and not fail:
-                    fail = tick()
-                    time.sleep(0.02)
-                if fail:
-                    break
-                if not _has_tag_hook(ev):
-                    fail = ('no tagged virtual input (d3d8shot.log has no "tagged input read" line): rebuild the '
-                            'proxy, python tools/harness/run_reference.py build')
-                    break
-                if op != 'stray' and not st.get('until'):
-                    posted.append(st)
-                if op == 'stray':                         # a person's input, as the harness's self-test: untagged
-                    post('key' if st['what'] == 'key' else 'click', st, tag=False)
-                elif st.get('until'):
-                    u = st['until']
-                    post(op, st)
-                    first_mark, end, clicks = self.mark, time.time() + u['within'], 1
+                for s in standing:
+                    hit = s['watch'].hit
+                    if hit is not None:
+                        return f'{s["line"]}: expect-no {s["source"]} {s["pattern"].pattern!r} matched: {hit[2][:160]}'
+                if not self.alive():
+                    self.dead = 'the client exited'
+                    return self.dead
+                if time.time() > deadline:
+                    return f'scenario timeout ({sc["timeout"]:.0f} s)'
+                if self.hwnd is None and self.pid:
+                    self.hwnd = cp.find_window(self.pid, self.retail)      # retail: not its terms dialog
+                    if self.hwnd:
+                        note(f'window 0x{self.hwnd:X}')
+                return None
+
+            def wait_for(source, pattern, within, what, watch=None):
+                end = time.time() + within
+                w = watch or ev.watch(source, pattern, self.mark)
+                try:
                     while True:
-                        self.mark = first_mark
-                        f, ok = wait_for(u['source'], u['pattern'], u['every'], None)
-                        if ok or f:
-                            fail = f
+                        f = tick()
+                        if f:
+                            return f, False
+                        if w.hit is not None:
+                            note(f'  matched at {w.hit[0]:.1f} s: {w.hit[2][:200]}')
+                            return None, True
+                        if time.time() > end:
+                            return what, False
+                        time.sleep(0.02)
+                finally:
+                    if watch is None:
+                        ev.unwatch(w)
+
+            def post(op, st, tag=True):
+                ev.poll()
+                self.mark = ev.total
+                ev.mark_epoch()
+                self.mark_time = ev.now()
+                if op == 'key':
+                    cp.post_step(self.hwnd, 'key', str(st['vk']), tag=tag)
+                elif op == 'text':
+                    cp.post_step(self.hwnd, 'text', st['text'], tag=tag)
+                else:
+                    cp.post_step(self.hwnd, op, f'{st["x"]} {st["y"]}', tag=tag)
+
+            if not self.pid:
+                fail = self.dead = 'no client process under antprox'
+            steps = sc['steps'] if first else sc['steps'][sc['own']:]
+            own_at = sc['own'] if first else 0
+            for k, st in enumerate(steps):
+                if fail:
+                    break
+                if k == own_at:
+                    reached_own = True
+                    ev.poll()
+                    if first and sc['own']:
+                        self.gen_before = gen_lines(seen['stubs'])
+                        self.logged_in = True
+                        note(f'own steps start; {len(self.gen_before)} gen stand-ins hit so far')
+                    # the stand-ins' first-call flags start over (the exe's Stub_Log_Mark, through the proxy)
+                    if self.marker is not False and self.hwnd is not None:
+                        took = self._trigger('mark ' + sc['name'], 5)
+                        ev.poll()
+                        if self.marker is None:
+                            self.marker = took and seen['marker']
+                            if not self.marker:
+                                note('  no stand-in marker (an exe without Stub_Log_Mark, or a proxy without triggers): '
+                                     'later scenarios list only the stand-ins no earlier one hit')
+                    own_from = len(seen['stubs'])
+                note(f'step {st["line"]}: {st["op"]} {_desc(st)}')
+                op = st['op']
+                if self.retail and st.get('source') == 'stubs' and op in ('wait-event', 'expect-event', 'expect-no', 'stand-in'):
+                    note('  skipped: the retail client writes no stubs.log (a step of ours only)')
+                    continue
+                if op in ('wait-event', 'expect-event'):
+                    fail, _ = wait_for(st['source'], st['pattern'], st['within'],
+                                       f'{st["line"]}: {op} {st["source"]} {st["pattern"].pattern!r}: not seen within '
+                                       f'{st["within"]:.0f} s')
+                elif op == 'wait-quiet':
+                    end = time.time() + st['within']
+                    while True:
+                        fail = tick()
+                        if fail:
+                            break
+                        since = max(ev.last.get(st['source'], 0.0), self.mark_time)
+                        if ev.now() - since >= st['quiet']:
+                            note(f'  quiet at {ev.now():.1f} s (last {st["source"]} line at {ev.last.get(st["source"], 0.0):.1f} s)')
                             break
                         if time.time() > end:
-                            fail = (f'{st["line"]}: {op} until {u["source"]} {u["pattern"].pattern!r}: not seen within '
-                                    f'{u["within"]:.0f} s ({clicks} clicks)')
+                            fail = f'{st["line"]}: wait-quiet {st["source"]} {st["quiet"]:g}: not quiet within {st["within"]:.0f} s'
                             break
-                        for again in posted[len(posted) - u['redo']:] if u['redo'] else []:
-                            post(again['op'], again)
-                            time.sleep(0.2)
+                        time.sleep(0.02)
+                elif op == 'expect-no':
+                    ev.mark_epoch()
+                    standing.append(dict(st, watch=ev.watch(st['source'], st['pattern'], self.mark)))
+                elif op == 'stand-in':
+                    ev.mark_epoch()
+                    standins.append(dict(st, watch=ev.watch('stubs', st['pattern'], self.mark)))
+                elif op in ACTIONS:
+                    while self.hwnd is None and not fail:
+                        fail = tick()
+                        time.sleep(0.02)
+                    if fail:
+                        break
+                    end = time.time() + 15
+                    while not _has_tag_hook(ev) and time.time() < end and not fail:
+                        fail = tick()
+                        time.sleep(0.02)
+                    if fail:
+                        break
+                    if not _has_tag_hook(ev):
+                        fail = ('no tagged virtual input (d3d8shot.log has no "tagged input read" line): rebuild the '
+                                'proxy, python tools/harness/run_reference.py build')
+                        break
+                    if op != 'stray' and not st.get('until'):
+                        posted.append(st)
+                    if op == 'stray':                         # a person's input, as the harness's self-test: untagged
+                        post('key' if st['what'] == 'key' else 'click', st, tag=False)
+                    elif st.get('until'):
+                        u = st['until']
                         post(op, st)
-                        clicks += 1
-                    note(f'  {clicks} click(s)')
-                else:
-                    post(op, st)
-            elif op == 'alive':
-                end = time.time() + st['seconds']
-                while time.time() < end and not fail:
-                    fail = tick()
-                    time.sleep(0.05)
-            elif op == 'shot':
-                fail = tick()
-                if not fail:
-                    if self._trigger(st['shot'], 5):
-                        note(f'  shot {st["shot"]} taken')
+                        first_mark, end, clicks = self.mark, time.time() + u['within'], 1
+                        w_until = ev.watch(u['source'], u['pattern'], first_mark)
+                        try:
+                            while True:
+                                self.mark = first_mark
+                                f, ok = wait_for(u['source'], u['pattern'], u['every'], None, watch=w_until)
+                                if ok or f:
+                                    fail = f
+                                    break
+                                if time.time() > end:
+                                    fail = (f'{st["line"]}: {op} until {u["source"]} {u["pattern"].pattern!r}: not seen within '
+                                            f'{u["within"]:.0f} s ({clicks} clicks)')
+                                    break
+                                for again in posted[len(posted) - u['redo']:] if u['redo'] else []:
+                                    post(again['op'], again)
+                                    time.sleep(0.2)
+                                post(op, st)
+                                clicks += 1
+                            note(f'  {clicks} click(s)')
+                        finally:
+                            ev.unwatch(w_until)
                     else:
-                        note('  shot not taken in 5 s (a proxy without D3D8SHOT_TRIGGER? run_reference.py build)')
-        if not fail:
-            fail = tick()
-        if not fail:
+                        post(op, st)
+                elif op == 'alive':
+                    end = time.time() + st['seconds']
+                    while time.time() < end and not fail:
+                        fail = tick()
+                        time.sleep(0.05)
+                elif op == 'shot':
+                    fail = tick()
+                    if not fail:
+                        if self._trigger(st['shot'], 5):
+                            note(f'  shot {st["shot"]} taken')
+                        else:
+                            note('  shot not taken in 5 s (a proxy without D3D8SHOT_TRIGGER? run_reference.py build)')
+            if not fail:
+                fail = tick()
+            if not fail:
+                for s in standins:
+                    hit = s['watch'].hit
+                    if hit is not None:
+                        fail = f'{STANDIN_HIT} {s["line"]}: {hit[2][:120]}'
+                        break
+            ev.poll()
+            stub_text = seen['stubs']
+            gens = gen_lines(stub_text)
+            own_text = seen['stubs'][own_from:]
+            own = [g for g in gen_lines(own_text) if g not in self.gen_before]
+            poc_own = [t[len('STUB first call: POC '):][:80] for t in own_text
+                       if t.startswith('STUB first call: POC ') and 'watchdog' not in t]
+            crash = [t for t in stub_text if t.startswith('CRASH:')]
+            if crash:
+                self.dead = self.dead or 'CRASH'
+            res = {'name': sc['name'], 'passed': fail is None, 'failure': fail, 'expected_fail': sc['expected_fail'],
+                   'gen': gens, 'gen_own': own, 'poc_own': poc_own, 'human_dropped': seen['human'], 'crash': crash[:1],
+                   'out': self.out, 'seconds': round(ev.now() - t_start, 1),
+                   'login_failed': fail is not None and first and not reached_own}
+            if crash and self.inst.map and os.path.exists(self.inst.map):
+                import symbolize
+                syms = symbolize.load(self.inst.map)
+                a0 = re.findall(r'\b([0-9A-F]{8})\b', crash[0])
+                res['crash_at'] = [f'{int(x, 16):08X} {symbolize.name_of(syms, int(x, 16))}' for x in a0[1:2] + a0[3:7]
+                                   if 0x401000 <= int(x, 16) < 0x1000000]
+            note(f'result: {json.dumps(res)}')
+            with open(os.path.join(self.out, f'result-{sc["name"]}.json'), 'w', encoding='utf-8') as f:
+                json.dump(res, f, indent=1)
+            return res
+        finally:
+            for s in standing:
+                ev.unwatch(s['watch'])
             for s in standins:
-                i = find(ev.lines, 'stubs', s['pattern'], s['from'])
-                if i is not None:
-                    fail = f'{STANDIN_HIT} {s["line"]}: {ev.lines[i][2][:120]}'
-                    break
-        ev.poll()
-        mine = ev.lines[start_line:]
-        stub_text = [t for _, s, t in mine if s == 'stubs']
-        gens = gen_lines(stub_text)
-        own_text = [t for _, s, t in ev.lines[own_from:] if s == 'stubs']
-        own = [g for g in gen_lines(own_text) if g not in self.gen_before]
-        poc_own = [t[len('STUB first call: POC '):][:80] for t in own_text
-                   if t.startswith('STUB first call: POC ') and 'watchdog' not in t]
-        human = human_lines([t for _, s, t in mine if s == 'proxy'])
-        crash = [t for t in stub_text if t.startswith('CRASH:')]
-        if crash:
-            self.dead = self.dead or 'CRASH'
-        res = {'name': sc['name'], 'passed': fail is None, 'failure': fail, 'expected_fail': sc['expected_fail'],
-               'gen': gens, 'gen_own': own, 'poc_own': poc_own, 'human_dropped': len(human), 'crash': crash[:1],
-               'out': self.out, 'seconds': round(ev.now() - t_start, 1),
-               'login_failed': fail is not None and first and not reached_own}
-        if crash and self.inst.map and os.path.exists(self.inst.map):
-            import symbolize
-            syms = symbolize.load(self.inst.map)
-            a0 = re.findall(r'\b([0-9A-F]{8})\b', crash[0])
-            res['crash_at'] = [f'{int(x, 16):08X} {symbolize.name_of(syms, int(x, 16))}' for x in a0[1:2] + a0[3:7]
-                               if 0x401000 <= int(x, 16) < 0x1000000]
-        note(f'result: {json.dumps(res)}')
-        with open(os.path.join(self.out, f'result-{sc["name"]}.json'), 'w', encoding='utf-8') as f:
-            json.dump(res, f, indent=1)
-        return res
+                ev.unwatch(s['watch'])
+            ev.remove_listener(on_event)
+            ev.flush_repeats()
 
     def close(self):
         if self.pid:
@@ -627,9 +790,7 @@ class Session:
             os.remove(self.proxy)
         self.cp.stop_listener(self.listener, self.inst, self.out if self.messages else None)
         self.ev.poll()
-        with open(os.path.join(self.out, 'events.log'), 'w', encoding='utf-8', newline='\n') as f:
-            for t, s, text in self.ev.lines:
-                f.write(f'{t:8.2f} {s:7s} {text}\n')
+        self.ev.close()
         if os.path.exists(self.inst.log):
             shutil.copyfile(self.inst.log, os.path.join(self.out, 'stubs.log'))
         for name in sorted(os.listdir(self.out)):
@@ -700,7 +861,7 @@ def _desc(st):
 
 
 def _has_tag_hook(ev):
-    return any(s == 'proxy' and 'tagged input read' in t for _, s, t in ev.lines)
+    return ev.tag_hook or any(s == 'proxy' and 'tagged input read' in t for _, s, t in ev.lines)
 
 
 def _alive(pid):

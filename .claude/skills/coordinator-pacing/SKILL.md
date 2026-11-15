@@ -208,6 +208,9 @@ Landing and bring-over (the lander does the landing; these are what you see arou
   before the loss; not HEAD: after the rebase HEAD is the rebase record, which already recorded the loss, and a sweep
   watching it, like a plain sweep, picks a wrong value), then verify and commit the shards. Or land a
   pad-neutral branch first. Every later branch leaves the pad uncommitted and the landing retunes it.
+- **A link check refused for "D2022 cannot open ...stubs.rsp", "Failed to open ...sync.tar" or a burst of unresolved
+  symbols the branches do not touch is a VM sync flake:** the identical batch rerun once has passed each time. Tell the
+  lander to retry once before treating such a refusal as real.
 - **A verify that reports "0 client functions" is a tool failure, never a loss:** a bring-over that then reports
   thousands lost outright compared against an empty app. The cause was app's `cl` command line passing Windows'
   32767-character limit (664 sources); `tools/vc6/vc6.py` now uses a response file over 8000 characters.
@@ -338,9 +341,17 @@ Stop times, launchers and POC checks:
 Gemini 3.8 Flash (high) through the Antigravity CLI runs on the user's Google subscription, outside the Claude windows;
 `tools/agy/README.md` has the steps. `pacing.py` cannot see agy's quota (no CLI or API figure), so:
 
-- **Ask the user for the agy window's % used** at the start and once mid-run (agy's own display); calibrate with the
-  streams: about 1 % of the 5-hour window per 100k `result.usage.total_tokens` (2026-11-02); a Flash item costs 0.6-1.6M.
-  Plan the launches so the window is spent by its reset, the last ones ending before it.
+- **Read the agy window yourself**, never ask: `python .work/coord/agyquota.py sample` (agy `/usage`; the Gemini group's
+  5h and weekly buckets, shared by every Gemini model) at the start and every heartbeat. Calibrate with the streams:
+  about 1-1.2 % of the 5-hour window per 100k `result.usage.total_tokens`; one 5h window is about a third of the agy week.
+  **Gemini 4 Hydrogen (high)** (`gemini-4-hydrogen-high`, the user's model from 2026-11-14 on, replacing 3.8 Flash): an
+  item of three small new files or five files' untried functions costs 0.2-2.3M tokens and 20-50 minutes; four starting
+  at once took 14 points of the window in 11 minutes (start-up reads). Plan the launches so the window is spent by its
+  reset, the last ones ending before it or running into the next window.
+- **Detached launch** (the memory reaper kills `run_in_background` launchers): PowerShell `Start-Process` of Git Bash
+  `bash.exe -lc` with the whole command as one quoted argument (`'"cd /c/... && RUN_DIR=... sh tools/agy/launch.sh ID
+  MODEL 100m"'`): unquoted, the shell starts and does nothing. Read a finished builder's report with
+  `.work/coord/agy_report.py RUN_DIR ID`. A stream's final `status: ERROR` with a complete report is not a failure.
 - **A 429** (`RESOURCE_EXHAUSTED`, "Individual quota reached", with a reset time) in a stream stops agy launches until the
   reset. Quotas are per model: Flash only (Opus through agy ran out in one short item).
 - **Memory and VMs** count as for any builder (3-4 at a time on this host); each works in its own `wt.py` worktree.

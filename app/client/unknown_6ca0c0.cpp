@@ -44,16 +44,16 @@ static inline float Approach(float value, float target, float step)
 }
 
 // A random character for RANDLETTER: '0'-'9', 'A'-'Z', 'a'-... (rand() / 442 is 0..74; the gaps after '9' and 'Z' skipped).
-static inline char Random_Letter()
+char Random_Letter()	// NAME 2: random ASCII alphanumeric for FONT_EFFECT_RANDLETTER (0x6CA070)
 {
-	int r = rand() / 442;
-	int c = r + '0';
-	if (c >= ':' && c <= '@') {
-		c = r + 0x37;
-	} else if (c > 'Z' && c < 'a') {
-		c = r + 0x36;
+	int c = rand() / 442 + '0';
+	if (c > '9' && c < 'A') {
+		return c + 7;
 	}
-	return (char)c;
+	if (c > 'Z' && c < 'a') {
+		c += 6;
+	}
+	return c;
 }
 
 // The client writes the font's XSpacing (+0xD28) from MinSpacing (+0xD2C) directly; font32bit.h has both protected
@@ -659,6 +659,8 @@ void FontSys::Unknown_6D5B10(float &width, float &height)
 /*
 **	Reconstruction notes
 **
+**	0x6CA070 (56 bytes, Random_Letter, exact) sits right before 0x6CA0C0 in this object (inlined at its three
+**	RANDLETTER call sites in 0x6CA0C0, out-of-line copy with thunk 0x40F2D6).
 **	0x6CA0C0 (11,680 bytes) and 0x6D5B10 (0x80): FNT4 of the POC queue (.work/poc/ledger.md), builder TXT2, run 2026-11-02.
 **	Interim file (D137): the function before 0x6CA0C0 is fontdatabase.cpp's, the next one unknown_creator's; no known file
 **	fits. Both are FontSys members, as in the client (__thiscall over the style; PF, run 2026-11-02-night; 0x6D5B10

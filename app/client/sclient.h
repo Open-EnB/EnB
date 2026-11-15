@@ -419,6 +419,26 @@ public:
 	void Unknown_493D00(const Vector3 &dir);			// 0x493D00 (Update: minus the sun's direction)  // NAME 1 [dir]: what Update passes
 };
 
+#ifdef __CAMERAEFFECTS_MEMBERS	// cameraeffects.cpp only: the declarations other files see keep sclient.cpp's SEND_SYMBOL_PAD window (and 0x6A1180 / 0x5E9410) where they were (workflow.md 3.4); the same layout and table
+// what the main view's +0x48 points to (0x28 bytes, constructor 0x6E2BD0; slot +0x14 calls its +0x34): the camera
+// effects, an SList of them (its table 0xAFFDDC: SList's slots 0x6E4000-0x6E46C0, then +0x34; the implicit
+// destructor's deleting copy 0x6E2C10 calls SList's 0x6E2C40)
+class UnknownAFFE6CClass;
+class CameraEffectsClass : public SList<UnknownAFFE6CClass>	// NAME 3: class-from-file (D24) for cameraeffects.cpp (0x6E32E0's; the member's name CameraEffects)
+{
+public:
+	CameraEffectsClass(MainViewClass *view, SClient *client);	// 0x6E2BD0  // NAME 1 [view, client]: what the main view passes
+	virtual void Unknown_34();							// +0x34 0x6E2CC0 (the main view's slot +0x14): the ship's shake fields read, the effects run, the camera moved
+	void Unknown_6E32E0(int type, float amount, float time);	// 0x6E32E0 (the scripted movie's Shake_Camera passes 3)  // NAME 1 [type, amount, time]: what Shake_Camera passes
+
+	MainViewClass *View;								// +0x0C (the constructor's view; 0x6E2CC0 calls its +0x40 and +0x54)  // NAME 2: what it holds
+	SClient *Client;									// +0x10 (the constructor's client; 0x6E37F0 reads its ship's shield)  // NAME 2: what it holds
+	bool Unknown14;										// +0x14 (set when 0x6E2CC0 moved the camera: the next frame first resets the view's cameras)
+	bool Unknown15;										// +0x15 (the constructor sets it; the timed shake clears it)
+	Vector3 Unknown18;									// +0x18 (cameraeffects.cpp's effects add to it: 0x6E3710, 0x6E3B60)
+	bool Unknown24;										// +0x24 (the same set it when they add; the constructor 0x6E2BD0 clears it)
+};
+#else
 // what the main view's +0x48 points to (0x28 bytes, constructor 0x6E2BD0; slot +0x14 calls its +0x34)
 class CameraEffectsClass	// NAME 3: class-from-file (D24) for cameraeffects.cpp (0x6E32E0's; the member's name CameraEffects)
 {
@@ -439,6 +459,7 @@ public:
 	Vector3 Unknown18;									// +0x18 (cameraeffects.cpp's effects add to it: 0x6E3710, 0x6E3B60)
 	bool Unknown24;										// +0x24 (the same set it when they add; the constructor 0x6E2BD0 clears it)
 };
+#endif
 
 // what the main view's +0x1D4 points to (0x50C690 makes it with a layer of the base's +0x1C scene and +0x20 camera):
 // ui_buff.cpp's buff display (ui_buff.h; 0xEC bytes, constructor 0x5608D0)

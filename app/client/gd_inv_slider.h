@@ -5,6 +5,7 @@
 #define GD_INV_SLIDER_H
 
 #include "gd_slider.h"		// GadgetSlider
+#include "..\..\wwlib\ref_ptr.h"	// RefCountPtr (SlotData)
 
 class UIInvClass;			// ui_inv.h's inventory window
 class SlotDataClass;		// slot_data.h's
@@ -25,7 +26,7 @@ public:
 	bool Is_Attached() { return(SliderObject.Peek() != NULL); }	// (inline: the FAIL_IFs '!Is_Attached()')  // NAME 3: the FAIL_IFs'
 
 	UIInvClass *Inventory;								// +0x128 (FAIL_IF '!Inventory')  // NAME 3: the FAIL_IF's
-	SlotDataClass *SlotData;							// +0x12C (referenced: the inventory's +0x98; FAIL_IF '!SlotData')  // NAME 3: the FAIL_IF's
+	RefCountPtr<SlotDataClass> SlotData;				// +0x12C (the inventory's +0x98 through Create_Peek 0x66A530; FAIL_IF '!SlotData')  // NAME 3: the FAIL_IF's
 	int SlotsPerNotch;									// +0x130 (FAIL_IF 'SlotsPerNotch <= 0')  // NAME 3: the FAIL_IF's
 	int VisibleNotches;									// +0x134 (FAIL_IF 'VisibleNotches <= 0')  // NAME 3: the FAIL_IF's
 	int Count;											// +0x138 (the inventory's count last seen)  // NAME 2: what it holds

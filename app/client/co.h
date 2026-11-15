@@ -194,6 +194,7 @@ public:
 	RenderObjClass *Unknown_6F3BC0();					// 0x6F3BC0 (co.cpp; cpacket.cpp's DECAL 16 releases the model it returns)
 	bool Unknown_6F5DC0();								// 0x6F5DC0 (co.cpp; cpacket.cpp's SET_TARGET 25 tests it)
 	void Set_Decal_Name(std::string name) { DecalName = name; }	// 0x736140 (out of line in cpacket.cpp's object, after NAME_DECAL 178, its only caller)  // NAME 2: what it does
+	std::string Get_Decal_Name() { return(DecalName); }	// 0x5D1F60 (out of line in ui_pda_equip.cpp's object, after 0x5D1CA0, its only caller)  // NAME 2: Set_Decal_Name's pair
 	void Unknown_6FEF70(SubPartsPacket *packet);		// 0x6FEF70 (cpacket.cpp's SUBPARTS 180): the sub parts' legos on the +0xB4 object  // NAME 1 [packet]: the handler's packet
 	void Unknown_6F3810(RenderObjClass *model);			// 0x6F3810 the +0x158 models on the model's bones, then its sub-objects'  // NAME 2 [model]: what it is
 	float Unknown_6F3ED0();								// 0x6F3ED0 an angle from +0x98's slot +0x14, clamped to 36 degrees
@@ -246,6 +247,9 @@ public:
 	void Unknown_6FED30();								// 0x6FED30 the bounding sphere from the model
 	int Unknown_6FFFA0();								// 0x6FFFA0 (client.cpp's 0x7283B0 jumps to it)
 	bool Unknown_700670(Vector3 &color);				// 0x700670 (FAIL_IF '!aux_data' l.2519): the aux data's colour for the same guild as the player's ship or another  // NAME 2 [color]: what it receives
+	int Unknown_6F4550();								// 0x6F4550 returns 0 (unreferenced in the client)  // NAME 1: return type from xor eax, eax
+	int Unknown_6F4570();								// 0x6F4570 returns -1 (unreferenced in the client)  // NAME 1: return type from or eax, -1
+	int Unknown_700800();								// 0x700800 returns 0 (unreferenced in the client)  // NAME 1: return type from xor eax, eax
 	void Unknown_700820(const Vector3 &position);		// 0x700820  // NAME 1 [position]: a Vector3
 	bool Unknown_700860();								// 0x700860
 	void Unknown_6FC880();								// 0x6FC880 stops the two sounds, removes the effect, sets the model's state 2 for a type-1 object

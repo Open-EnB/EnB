@@ -1,0 +1,23 @@
+{
+ "ambiguous": [
+  "0x499720"
+ ],
+ "copy": "reconstructed",
+ "description": "0x499180-0x499739: provisional ray-triangle slope/intersection helpers (between accel and boolpars)",
+ "expected": {},
+ "in_tree": [
+  "0x42F250",
+  "0x447C40",
+  "0x4973B0",
+  "0x499180",
+  "0x499560",
+  "0x4995C0"
+ ],
+ "merged": [],
+ "name": "shared/unknown_499180.cpp",
+ "shared": [
+  "0x42F250",
+  "0x447C40",
+  "0x4973B0"
+ ]
+}

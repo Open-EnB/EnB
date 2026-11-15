@@ -160,7 +160,7 @@ void Unknown_676A00()
 **
 **	The action entries (acticon.h's ActionClass, table 0xAFBC48): constructor 0x6765D0 with the assert on line 15,
 **	so it sits above the button in the source; destructor 0x6766C0 (deleting 0x676690) over the class of
-**	0x685E80 / 0x685F90 (not rebuilt). 0x6766E0, SClient::Load_INIs' 'action.ini' reader, fills the VectorClass at
+**	0x685E80 / 0x685F90 (unknown_685e80.cpp). 0x6766E0, SClient::Load_INIs' 'action.ini' reader, fills the VectorClass at
 **	0xBE6000 (static initialiser 0x676510; its Resize inline, the entry's constructor inline): its loop is a
 **	top-tested 'while (true)' (a 'for (;;)', 'for (;; count++)' or goto form is rotated, 0.54); 0x676A00 deletes
 **	them (SClient::Unload_INIs).

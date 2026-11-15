@@ -20,19 +20,19 @@ class CameraManagerClass { public: static float Unknown_79B6B0(); };	// camera_m
 const char *Unknown_7BF4C0(ClientObjectClass *co);
 float Unknown_7BF630();
 
-// RObj2Texture (the client's profile name for 0x497700's Render_TextureMap; not rebuilt): renders an object into a texture
-class RObj2Texture
-{
-public:
-	RObj2Texture(const Vector2i &size, const Vector2 &a, const Vector2 &b);	// 0x4973E0  // NAME 2 [size]: 0x80 or 0x100
-	~RObj2Texture();														// 0x4976B0
-	TextureClass *Render_TextureMap(RenderObjClass *robj, const SphereClass &sphere);	// 0x497700
+#include "..\shared\robj2texture.h"
 
-	int Unknown00;				// +0x00
-	bool Unknown04;				// +0x04
-	int Unknown08;				// +0x08
-	char Unknown0C[0x2C - 0x0C];	// +0x0C
-};
+
+
+
+
+
+
+
+
+
+
+
 
 static Vector2i SmallTextureSize(0x80, 0x80);	// 0xBE8778  // NAME 2: what 0x7BEF50 uses it for
 static Vector2i LargeTextureSize(0x100, 0x100);	// 0xBE8780  // NAME 2: what 0x7BEF50 uses it for
@@ -275,10 +275,10 @@ void StarmapDataClass::Create_Mesh()
 	}
 	NavigationDataClass *nav = Get_Navigation_Data(Peek_Client_Object(), false);
 	const Vector2i &size = (nav && nav->Unknown14) ? LargeTextureSize : SmallTextureSize;
-	RObj2Texture r2t(size, Vector2(0, 0), Vector2(0, 0));
-	r2t.Unknown04 = true;
-	r2t.Unknown08 = 4;
-	Texture = Create_Peek(r2t.Render_TextureMap(robj, sphere));
+	RObj2Texture r2t(size, Vector2i(0, 0), Vector2i(0, 0));
+	r2t.Orthographic = true;
+	r2t.Format = WW3D_FORMAT_R5G6B5;
+	Texture = Create_Peek(r2t.Render_TextureMap(robj, &sphere));
 	Mesh = Create_Peek((DynamicMeshClass *)new StarmapMeshClass(Unknown_B9F38C, Unknown_B9F390));
 	Mesh->Disable_Sort();
 	Mesh->Set_Sort_Level(4);

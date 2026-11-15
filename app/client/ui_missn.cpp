@@ -180,7 +180,7 @@ void UIMissnClass::Unknown_54()
 
 // auxdata.h's find through a wrapper whose six dead size() reads (no code) spend the inline budget: 0x5C4C90 then calls the find out of line (0x5AA9D0), as the client does
 template<class C> inline C *Unknown_Find_Field_Outlined(DeltaCompoundClass *root, const NameClass &name) { root->Children.size(); root->Children.size(); root->Children.size(); root->Children.size(); root->Children.size(); root->Children.size(); return(Unknown_Find_Field<C>(root, name)); }	// NAME 1: neutral (D10)
-template<class C> inline C *Unknown_Find_Set_Field(DeltaCompoundClass *root, const NameClass &name) { C *t = Unknown_Find_Field<C>(root, name); return((t && t->Unknown70) ? t : NULL); }	// NAME 1: neutral (D10): as ui_faction.cpp's (a field that is set, else NULL)
+
 
 
 
@@ -388,7 +388,7 @@ void UIMissnClass::Unknown_5C5330(bool arg)
 
 
 
-static void Unknown_Strip_Tags(std::string &text);	// 0x5C69D0 (defined after 0x5C66D0): the text without its <...> tags  // NAME 1: neutral (D10)
+
 
 // 0x5C5500
 void UIMissnClass::Unknown_5C5500(unsigned int cur_mission_idx)
@@ -702,7 +702,7 @@ void UIMissnClass::Unknown_5C66D0()
 
 #pragma auto_inline(off)		// (0x5C5500 calls it out of line)
 // 0x5C69D0
-static void Unknown_Strip_Tags(std::string &text)
+void Unknown_Strip_Tags(std::string &text)
 {
 	int length = text.length();
 	char *buffer = new char[length + 1];

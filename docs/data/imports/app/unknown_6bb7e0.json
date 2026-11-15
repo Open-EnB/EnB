@@ -6,7 +6,11 @@
  "in_tree": [
   "0x42F250",
   "0x6BB7E0",
-  "0x6BB8B0"
+  "0x6BB8B0",
+  "0x6BB8E0",
+  "0x6BB9F0",
+  "0x6BBA20",
+  "0x6BBA90"
  ],
  "merged": [],
  "name": "client/unknown_6bb7e0.cpp",

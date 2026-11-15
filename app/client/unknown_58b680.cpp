@@ -19,16 +19,16 @@
 
 bool Unknown_495FD0(RenderObjClass *robj, TextureClass *tex, int index);	// 0x495FD0 (ro_funcs.cpp): the texture onto the model  // NAME 1 [all]: as ui_shipcust.cpp's
 
-// RObj2Texture (the client's profile name for 0x497700's Render_TextureMap; not rebuilt): renders an object into a
-// texture, as starmap_data.cpp's (here its second and third arguments are pushed as ints: 9, 9 and 0, 0)
-class RObj2Texture
-{
-public:
-	RObj2Texture(const Vector2i &size, const Vector2i &a, const Vector2i &b);	// 0x4973E0  // NAME 1 [size, a, b]: as starmap_data.cpp's
-	~RObj2Texture();														// 0x4976B0
-	TextureClass *Render_TextureMap(RenderObjClass *robj, int arg);	// 0x497700  // NAME 1 [arg]: neutral
-	char Unknown00[0x2C];									// (0x2C bytes, ui_mfdm.cpp's)
-};
+#include "..\shared\robj2texture.h"
+
+
+
+
+
+
+
+
+
 
 // 0x58B680
 UIMountHullClass::UIMountHullClass(SClient *client, const LayerClass &layer, RenderObjClass *model, int kind) :
@@ -131,7 +131,7 @@ void UIMountHullClass::Toggle()
 					ship->Unknown_6FCB20(false);
 				}
 				RObj2Texture r2t(Vector2i(0x100, 0x100), Vector2i(9, 9), Vector2i(0, 0));
-				TextureClass *texture = r2t.Render_TextureMap(robj, 0);
+				TextureClass *texture = r2t.Render_TextureMap(robj);
 				if (ship) {
 					ship->Unknown_6FCB20(!visible);
 				}

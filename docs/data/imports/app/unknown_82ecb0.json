@@ -1,0 +1,22 @@
+{
+ "ambiguous": [],
+ "copy": "reconstructed",
+ "description": "unknown_82ecb0.cpp (PROVISIONAL name, D137; 0x82ECB0-0x82F1F3, between udpconn.cpp and chartemplate.cpp): Matrix3D frame builder 0x82ECB0, empty stub 0x82EF50 (D99), INI texture loader 0x82EF70, INI recoloured texture loader 0x82F000, recursive screen-point picker 0x82F090, and WW3DLightAttenuationType converters 0x82F180 / 0x82F1D0; all exact",
+ "expected": {},
+ "in_tree": [
+  "0x42F250",
+  "0x447C40",
+  "0x82ECB0",
+  "0x82EF70",
+  "0x82F000",
+  "0x82F090",
+  "0x82F180",
+  "0x82F1D0"
+ ],
+ "merged": [],
+ "name": "client/unknown_82ecb0.cpp",
+ "shared": [
+  "0x42F250",
+  "0x447C40"
+ ]
+}

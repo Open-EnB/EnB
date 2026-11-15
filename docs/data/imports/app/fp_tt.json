@@ -16,7 +16,8 @@
  "name": "shared/fp_tt.cpp",
  "shared": [
   "0x42F250",
-  "0x447C40"
+  "0x447C40",
+  "0x4492D0"
  ],
  "short_known": [
   "0x449520"

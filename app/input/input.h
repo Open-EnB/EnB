@@ -161,4 +161,17 @@ void Unknown_42EDB0();									// 0x42EDB0: the mouse's frame update  // NAME 1 
 bool Unknown_42EE00(bool enable);						// 0x42EE00: key repeat on / off, counted  // NAME 1 [Unknown_42EE00, enable]: neutral (D10)
 bool Unknown_42EE90();									// 0x42EE90: the window has the focus  // NAME 1 [Unknown_42EE90]: neutral (D10)
 
+// TrackMouseCounter changed with its range check: the drag tracker's (unknown_42f360.cpp, 0x42F3A0); the
+// assert sits on the client's line 174 (D25)
+#include "..\shared\g_assert.h"
+
+inline void Unknown_Track_Mouse(int delta)	// NAME 1 [Unknown_Track_Mouse, delta]: neutral (D10)
+{
+	TrackMouseCounter += delta;
+
+
+
+	G_ASSERT((TrackMouseCounter >= 0) && (TrackMouseCounter <= 1));
+}
+
 #endif //__INPUT_H

@@ -66,7 +66,7 @@ public:
 // NAME 2: the inverse: a packed entry read into this one (0x489830), or a new entry from one (0x489480)
 	void						Unpack(char **buffer);
 	SplineEntryClass(char **buffer);
-
+	void						Print(FileClass *file, unsigned int depth);
 // NAME 2: after the assert 'name != NULL' and the file's header
 	char *					Name;					// +0x00
 	char *					Description;		// +0x04 (chunk 0x811's string)

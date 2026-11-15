@@ -2390,10 +2390,10 @@ check GUILD_RECRUIT_CONFIRM_SECTOR 200: the question to the current view's dialo
 msg 2 ? (216) size 26: cpacket.cpp's handler
 check 216: the rename question to the dialog, +0x119C = "": ok
 msg 3 GUILD_MESSAGE_SECTOR (208) size 26: cpacket.cpp's handler
-SClient::Unknown_74DFF0 0x8 'Alex has joined Earthlings.' 3 0
 msg 4 GUILD_MESSAGE_SECTOR (208) size 26: cpacket.cpp's handler
-SClient::Unknown_74DFF0 0x8 'guild message' 4 0
-check GUILD_MESSAGE_SECTOR 208: the type's text with OtherName and GuildName substituted, to 0x74DFF0: ok
+stub ChatPanelInterface::Unknown_563760 0x8 'Alex left'
+stub ChatPanelInterface::Unknown_563760 0x8 'Earthlings'
+check GUILD_MESSAGE_SECTOR 208: no guild window: type 3 dropped, type 4's text substituted and split into two chat lines (0x74DFF0): ok
 check GUILD_MESSAGE_SECTOR 208: the sound asked for each type, played (asked again) for type 3 only: ok
 == (4l) CLIENT_CHAT_LIST 164, CLIENT_CHAT_ERROR 166, GUILD_SIMPLE_SECTOR_CLIENT 204
 check CLIENT_CHAT_LIST 164 without a chat panel: nothing: ok

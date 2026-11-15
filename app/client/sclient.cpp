@@ -46,29 +46,29 @@ extern HWND Unknown_Main_Window;						// 0xBDAA7C (input.cpp's neighbourhood)  /
 // sets its +0x19A5, which queues sounds started during the load
 #include "WWAudio.h"
 #include "avatar.h"
-
-
-
-
-// The members' classes as far as the constructor and destructor build and free them
+#include "vertmaterial.h"
+// The members' classes as far as the constructor and destructor build and free them (decal.h's layouts)
 class Unknown619280Class		// NAME 1: neutral (D10): 0x44 bytes, constructor 0x619280 (before ui_ship_cust.cpp)
 {
 public:
 	Unknown619280Class();								// 0x619280
-	~Unknown619280Class();
+	// (its destructor 0x618C10 is the implicit one: Shutdown inlines it)
 
-	char Unknown00[0x44];
+	int Unknown00;										// +0x00 the pass count
+	RefCountPtr<TextureClass> Unknown04[4][2];			// +0x04 [pass][stage]
+	ShaderClass Unknown24[4];							// +0x24 [pass]
+	RefCountPtr<VertexMaterialClass> Unknown34[4];		// +0x34 [pass]
 };
 
 class SClientUnknown1334Class
 {
 public:
-	~SClientUnknown1334Class();							// 0x618A50
+	// (its destructor 0x618A50 is the implicit one: ~SClient calls it out of line, Shutdown inlines it)
 	void Load(const char *textures, const char *swatches, const char *secret_textures);	// 0x75BE00 (decal.cpp)  // NAME 2: what it does  // NAME 3 [textures, swatches, secret_textures]: the INI names
 
-	std::vector<int> Unknown00;							// +0x00
-	std::vector<int> Unknown10;							// +0x10
-	std::vector<int> Unknown20;							// +0x20
+	std::vector<RefCountPtr<TextureClass> > Unknown00;	// +0x00 (decal.h's TextureArray)
+	std::vector<RefCountPtr<TextureClass> > Unknown10;	// +0x10 (SecretTextureArray)
+	std::vector<Unknown619280Class> Unknown20;			// +0x20 (SwatchArray)
 	Unknown619280Class Unknown30;						// +0x30
 	Unknown619280Class Unknown74;						// +0x74
 };
@@ -96,9 +96,9 @@ public:
 class Unknown758F40Class		// NAME 1: neutral (D10): 0x0C bytes, destructor 0x758F40
 {
 public:
-	~Unknown758F40Class();								// 0x758F40
+	// (the destructor 0x758F40 is the implicit one: Shutdown inlines it, the vector's 0x755CE0 calls it)
 
-	char Unknown00[0x0C];
+	float BaseSize; RefCountPtr<TextureClass> Texture; bool Lighting;	// +0x00 / +0x04 / +0x08 (proj_decal_manager.h's)
 };
 
 class ProjDecalManagerClass
@@ -509,7 +509,7 @@ void SClient::Unload_INIs()
 	}
 }
 
-// NOT EXACT: shape (similarity 0.32): the talk tree's reset is 0x74C9D0 inlined (its null RefCountPtr argument, EH state 0); the client also inlines the +0x1334 / +0x1338 / +0x133C destructors (0x618A50's arrays, the vectors' loops) and the effect list's removal; two forms (attempts.py show 0x741BB0)
+// NOT EXACT: inline budget (similarity 0.73): +0x1334 / +0x1338 inlined as the client's (the decal views' real members), 0x7555B0 out of line; left: the client inlines the +0x133C asset's destructor in the vector loop where ours calls its scalar deleting destructor (budget: freed only by dropping two whole deletes), and register phase (eax / edx) in the view calls; 14 forms (attempts.py show 0x741BB0)
 // 0x741BB0
 void SClient::Shutdown()
 {
@@ -538,10 +538,10 @@ void SClient::Shutdown()
 	delete SectorSound;
 	SectorSound = NULL;
 
-	int id = (int)CameraManager->Module;
-	SignalMap &notifier = CameraModuleClass::Get_Signal_Map();
-	SClientCallbackClass callback(this, &SClient::Unknown_744E50);
-	notifier.disconnect((void *)id, callback);
+	CameraModuleClass::Get_Signal_Map().Remove((CameraModuleClass *)CameraManager->Module, this, &SClient::Unknown_744E50, CameraModuleSignal(false));
+
+
+
 	delete CameraManager;
 	CameraManager = NULL;
 
@@ -609,9 +609,9 @@ void SClient::Shutdown()
 	HashNodeClass<EffectObjectClass *> *node = EffectList.First_Valid();
 	while (node) {
 		HashNodeClass<EffectObjectClass *> *next = node->Next_Valid();
-		EffectObjectClass *effect = node->Get_Record();
 		EffectList.Remove(node);
-		Unknown_6E6A90(effect);
+		Unknown_6E6A90(node->Get_Record());
+
 		node = next;
 	}
 
@@ -1060,18 +1060,18 @@ void SClient::Unknown_743380(KernelEventClass *event)
 	}
 }
 #pragma auto_inline(on)
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x743440 (no caller in the client: dead code kept): Do_Frame's input block as a function; 0x7436A0's answer unused
+void SClient::Unknown_743440() {
+	if (LoadingView && LoadingView->Unknown68) return;
+	KernelEventClass event; Unknown_42EDB0();
+	if (Unknown1278) { int i = 0;
+		do { event = GadgetClass::Process_Input((GadgetListManagerClass *)Unknown1278);
+			if (!Unknown1270->Unknown_429A20(&event) && (!CurrentView || !CurrentView->Get_Unknown04()->Unknown_429A20(&event))) {
+				if (ScriptedMovieView) ScriptedMovieView->Unknown_802960(event); else Unknown_7436A0(event); }
+		} while ((Unknown_BE5F34 & 0x1100) && i++ < 20);
+	} else { if (Unknown_42EA80(&event)) Unknown_42E8A0(&event);
+		if (!Unknown1270->Unknown_429A20(&event) && (!CurrentView || !CurrentView->Get_Unknown04()->Unknown_429A20(&event))) {
+			if (ScriptedMovieView) ScriptedMovieView->Unknown_802960(event); else Unknown_7436A0(event); } } }
 
 #include "option.h"
 #include "..\packets\pkmove.h"
@@ -1151,11 +1151,11 @@ bool SClient::Unknown_7436A0(KernelEventClass event)
 				if (CurrentView && CurrentView == Unknown135C) break;
 				if (CameraMode == 0) {
 					Unknown28 = !Unknown28;
-					if (CameraMode == 0 && Unknown28) {
-						Unknown_74D990(0x17, "Camera set to 1st person mode with bridge.", 0);
-					} else {
-						Unknown_74D990(0x17, "Camera set to 1st person mode without bridge.", 0);
-					}
+					Unknown_74D990(0x17, (CameraMode == 0 && Unknown28) ? "Camera set to 1st person mode with bridge." : "Camera set to 1st person mode without bridge.", 0);
+
+
+
+
 					Unknown_744D80();
 					return(true);
 				}
@@ -2161,17 +2161,17 @@ void SClient::Unknown_745160()
 	cockpit->Unknown_584A60();
 }
 
-
-
-
-
-
-
-
-
-
-
-
+// 0x745080 (no caller in the client: dead code kept): settings.ini's 'Lights' 'GlobalZ' from SOptionsClass +0x1C, then
+// the main view's and +0x1358's interface objects (0x6B4900), saved
+void SClient::Unknown_745080()
+{
+	INIClass ini;
+	ini.Load("settings.ini");
+	ini.Put_Float("Lights", "GlobalZ", GlobalZ);
+	MainView->Unknown_6B4900(ini);
+	Unknown1358->Unknown_6B4900(ini);
+	ini.Save("settings.ini");
+}
 
 
 
@@ -4258,13 +4258,13 @@ void SClient::Unknown_74C370(RefCountClass *object)
 		object->Add_Ref();
 	}
 }
-// NOT EXACT: inline budget (explain.py: 11 calls, the client 7): ours inlines the hash table's resize 0x759660 into operator[] (and so std::__stl_next_prime), the client calls it and its bucket helper 0x756D10
+// Exact with two dead reads after operator[] (D130, not the client's): they take its nested budget, so resize 0x759660, the node allocator 0x759030 and the second bucket count go out of line as the client's
 #pragma auto_inline(off)	// 0x74C3B0 (out of line in 0x7511A0, as the client has it)
 void SClient::Unknown_74C3B0(int game_id, AvatarDescClass &desc)
 {
 	if (Unknown1394.find(game_id) != Unknown1394.end()) return;
 	CharacterViewAvatarClass *object = new CharacterViewAvatarClass(&desc, false, false, NULL);
-	Unknown1394[game_id] = object;
+	Unknown1394[game_id] = object; Unknown1394.size(); Unknown1394.size();	// (dead, D130)
 	if (AvatarID == (unsigned)game_id) Bridge->Set_Avatar(&object->Desc);
 }
 #pragma auto_inline(on)
@@ -4370,7 +4370,7 @@ struct TestEffectStruct	// NAME 2: testeffects.ini's record
 extern std::vector<TestEffectStruct> Unknown_BE7D80;	// 0xBE7D80: testeffects.ini's records (0x74CA90)  // NAME 1: neutral (D10)
 #include "..\shared\unknown_4a1590.h"
 
-// NOT EXACT: functional, from the disassembly (first round, SC1): the INI accessors, the volley defaults and the record copy
+// NOT EXACT: inline budget (B97, 0.47): the record goes in through insert(end(), 1, record), whose body the client inlines (push_back calls it out of line); the client still calls size() and assign out of line and inlines _Tidy
 // 0x74CA90 (Load_INIs: testeffects.ini): one record per section but [Defaults], each entry from the section or [Defaults];
 // a zero duration is the distance over effect.ini's AmmoSpeed of its EFFECT-<descid>\Weapon Usage section
 void Unknown_74CA90(const char *filename)
@@ -4469,7 +4469,7 @@ void Unknown_74CA90(const char *filename)
 		FAIL_IF(f_advance < 0.0f) f_advance = 0.0f;
 		record.Delay = (int)(f_advance * 1000.0f);
 		Bounded_Strcpy(record.Name, sizeof(record.Name), section->Section);
-		Unknown_BE7D80.push_back(record);
+		Unknown_BE7D80.insert(Unknown_BE7D80.end(), 1, record);
 	}
 }
 
@@ -4618,59 +4618,59 @@ void SClient::Unknown_74D990(int color, char *text, int a)
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x74DFF0 (cpacket.cpp: GUILD_MESSAGE 208): the text's lines to the chat (0x74D990), or, with the guild window
+// active, type 3's to the window's members (0x81C380) and type 2's to its list window (0x81C060 while that is
+// active, else 0x81C1F0); type 4 is dropped while the window is active, type 3 while it is not; a type of
+// 0xB03208's table asks for the members again ('/gc list all', 0x81BF40)
+static int Unknown_B03208[] = { 69, 72, 76, 97, 119, 120 };	// NAME 1: neutral (D10): the guild messages that change the member list
+static inline void Unknown_Clear_Lines(std::vector<std::string> &lines) { lines.clear(); }	// NAME 1 [Unknown_Clear_Lines, lines]: neutral (D10): the client's erase call sits one inline layer down
+void SClient::Unknown_74DFF0(int color, const char *text, int message_type, int arg)
+{
+	bool to_guild = false;
+	std::vector<std::string> lines;
+	Unknown_Clear_Lines(lines);
+	UIGuildClass *guild = NULL;
+	if (ChatPanel && (guild = ChatPanel->UnknownE0) != NULL && guild->Active) {
+		if (message_type == 3 || message_type == 2) to_guild = true;
+		if (message_type == 4) return;
+	} else if (message_type == 3) {
+		return;
+	}
+	char *copy = nstrdup(text);
+	char *line = copy;
+	while (line != NULL) {
+		char *end;
+		if (*line != '\0' && (end = strchr(line, '\n')) != NULL) {
+			*end = '\0';
+			if (to_guild) lines.push_back(line);
+			else Unknown_74D990(color, line, arg);
+			line = end + 1;
+		} else {
+			if (line != NULL && *line != '\0') {
+				if (to_guild) lines.push_back(line);
+				else Unknown_74D990(color, line, arg);
+			}
+			break;
+		}
+	}
+	delete [] copy;
+	if (to_guild) {
+		if (message_type == 3) {
+			guild->Unknown_81C380(lines);
+		} else if (message_type == 2) {
+			if (((InterfaceClass *)guild->Unknown0BC.Peek())->Active) guild->Unknown_81C060(lines);	// (ui_guild_list.h not included: it brings ui_chat_panel.h)
+			else guild->Unknown_81C1F0(lines);
+		}
+	} else if (ChatPanel) {
+		for (int *type = Unknown_B03208; type < Unknown_B03208 + sizeof(Unknown_B03208) / sizeof(Unknown_B03208[0]); type++) {
+			if (*type == message_type) {
+				UIGuildClass *panel = ChatPanel->UnknownE0;
+				if (panel && panel->Active && Unknown_728300()) panel->Unknown_81BF40();
+				break;
+			}
+		}
+	}
+}
 
 
 
@@ -5472,7 +5472,7 @@ void SClient::Unknown_7518A0()
 		}
 	}
 }
-
+#pragma auto_inline(off)	// the client calls 0x7555B0 from Shutdown
 // 0x7555B0 (Shutdown): deletes the roots 0x7518A0 made
 void SClient::Unknown_7555B0()
 {
@@ -5483,7 +5483,7 @@ void SClient::Unknown_7555B0()
 		PlayerVarAuxData[0] = NULL;
 	}
 }
-
+#pragma auto_inline(on)
 // the root to's state set from from's encoding (0x755600's two roots)
 template<class T> inline void Unknown_Copy_Root(T *to, T *from)	// NAME 1: neutral (D10)
 {
@@ -5743,18 +5743,18 @@ void SClient::Unknown_750F70(const char *name, int channel)
 
 #include "thread.h"
 #include "textureloader.h"
-extern int Unknown_BB9C40;		// NAME 1: neutral (D10): cleared while 0x744690 renders the first frames (Unknown1374)
-extern int Unknown_BBB5D0;		// NAME 1: neutral (D10): the same
-// NOT EXACT: functional (WE1): from the pseudocode, not aligned; the listener's camera turn written as Rotate_X / Rotate_Z
+#include "sortingrenderer.h"	// 0xBBB5D0: SortingRendererClass::_EnableTriangleDraw (0x983410 reads it)
+// 0xBB9C40: DX8Wrapper::_EnableTriangleDraw (DX8Wrapper::Draw 0x9252A0 reads it): both off while 0x744690 renders the first frames
+// NOT EXACT: order only (B97, 15 rows with registers masked): the client's copy of the camera's transform interleaves its loads and stores, ours copies row by row (as 0x7ECDC0's)
 // 0x744690: ClientTaskClass::Render's frame: the loading view's while loading, else the current view's, then the listener
 void SClient::Unknown_64()
 {
 	ThreadClass::Switch_Thread();
 	if (Task->Is_Focused() && LoadingView->Unknown68) {
-		if (ChatPanel) {
-			ChatPanel->Unknown_5685C0();
-			ChatPanel->Unknown_568690();
-		}
+		ChatPanelInterface *panel = ChatPanel.Peek();
+		if (panel) {
+			panel->Unknown_5685C0();
+			panel->Unknown_568690(); }
 		LoadingView->Unknown_0C(true);
 		if (MusicManager) {
 			MusicManager->Update(MusicManagerClass::MUSIC_THEME_WANDER, 0, 0, 8);
@@ -5774,37 +5774,37 @@ void SClient::Unknown_64()
 		return;
 	}
 	Mouse->Unknown_515440();
-	int saved_c40 = Unknown_BB9C40;
-	int saved_5d0 = Unknown_BBB5D0;
+	bool dx8_draw = DX8Wrapper::_Is_Triangle_Draw_Enabled();
+	bool sorting_draw = SortingRendererClass::_Is_Triangle_Draw_Enabled();
 	bool on = true;
 	if (Unknown1374) {
 		on = false;
 		WWAudioClass::Get_Instance()->m_Unknown19A5 = true;
-		Unknown_BB9C40 = 0;
-		Unknown_BBB5D0 = 0;
+		DX8Wrapper::_Enable_Triangle_Draw(false);
+		SortingRendererClass::_Enable_Triangle_Draw(false);
 	}
 	if (CurrentView) {
 		CurrentView->Unknown_0C(on);
 	}
 	if (Unknown1374) {
 		Unknown1374--;
-		Unknown_BB9C40 = saved_c40;
-		Unknown_BBB5D0 = saved_5d0;
+		DX8Wrapper::_Enable_Triangle_Draw(dx8_draw);
+		SortingRendererClass::_Enable_Triangle_Draw(sorting_draw);
 		TextureLoader::Flush_Pending_Load_Tasks();
 		if (Unknown1374 == 0 && WWAudioClass::Get_Instance()) {
 			WWAudioClass::Get_Instance()->Unknown_Resume_All();
 		}
 	}
-	RenderObjClass *camera = (RenderObjClass *)Unknown12B8;
+	RenderObjClass *camera;
+	if (CurrentView && CurrentView == Unknown135C) {
+		camera = (RenderObjClass *)Unknown12B8;
+		if (camera == NULL) camera = *(RenderObjClass **)((char *)Unknown135C + 0x6C);
+	} else {
+		camera = (RenderObjClass *)Unknown12B8;
+		if (camera == NULL) camera = (RenderObjClass *)MainView->Unknown_7C();
+	}
 	if (camera == NULL) {
-		if (CurrentView == NULL || CurrentView != Unknown135C) {
-			camera = (RenderObjClass *)MainView->Unknown_7C();
-		} else {
-			camera = *(RenderObjClass **)((char *)Unknown135C + 0x6C);
-		}
-		if (camera == NULL) {
-			return;
-		}
+		return;
 	}
 	Matrix3D tm = camera->Get_Transform();
 	if (camera->Class_ID() == RenderObjClass::CLASSID_CAMERA) {

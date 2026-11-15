@@ -1,7 +1,13 @@
 // Earth & Beyond client (reconstruction): app\packets\pkstarbase_avatar_change.cpp. Notes at the end of the file.
 #include "pkstarbase_avatar_change.h"
+#include "vector3.h"
 #include <stdio.h>
 
+
+Starbase_Avatar_ChangePacketClass::Starbase_Avatar_ChangePacketClass(int avatar_id, int room_type, float orient, Vector3 *position, int action_flag) :
+	AvatarID(avatar_id), RoomType(room_type), Orient(orient), Unknown18(position->X), Unknown1C(position->Y), Unknown20(position->Z), ActionFlag(action_flag)
+{
+}
 
 Starbase_Avatar_ChangePacketClass::Starbase_Avatar_ChangePacketClass(RawPacketClass *raw)
 {
@@ -140,4 +146,6 @@ int StarbaseAvatarRoomUpdatePacketClass::Print(char *buffer, int len)
 **	  pkemit.py): members from the raw message's Get / Build's Add (sizes) and Print (types,
 **	  names: 'Name=%d'), the constructors' stores in the initialiser list.
 **	* The file name is provisional (provisional, pk + its first named class's name).
+**	* 0x8A3600, the sending constructor, written 2026-11-14 (E1): /play 9's starbase crashed on its generated
+**	  stand-in (no vtable: ui_starbase.cpp 0x63E2B0 sent a packet with a garbage vptr).
 */

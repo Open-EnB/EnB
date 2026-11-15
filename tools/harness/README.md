@@ -551,7 +551,7 @@ rest printed `FAIL ... not run`, when a second crash is at the same place as an 
 code, instruction and first return addresses) or when two sessions in a row fail before the world. `--separate` gives every
 scenario its own client. Logs in `.work/e2e/HHMMSS-session/` (`HHMMSS-NAME` for a single scenario): `e2e.log`
 (each step, each match), `events.log` (every line of antprox.out, stubs.log, messages.log and d3d8shot.log with
-its time), `result-NAME.json`, `stubs.log`, `antprox.out`, `d3d8shot.log`, the shots.
+its time, written as lines arrive with repeated identical `G_ASSERT` / `FAIL_IF` lines folded to counts), `result-NAME.json`, `stubs.log`, `antprox.out`, `d3d8shot.log`, the shots.
 
 **Scenarios** are `tools/harness/e2e/NAME.scn`, in the order world_entry, starmap, options, pda_pages, cargo, chat,
 then the rest by name (2026-11-14: the chat panel's windows chat_windows, group_windows, help_windows, petition,
@@ -564,7 +564,17 @@ names the fault) and runs only when named (none today). The recorded session has
 Broadcast, the loading screen, the recording's starbase and sector 4505, `/stop`, the hand-off home) and
 play1_windows (inside sector 4505: the PDA's Skills and Faction tabs, missions, equipment, cargo and the item
 details of a right-click). Data windows belong inside a playback: the home sector has no skills, missions or
-items to show.
+items to show. The default set (and the per-landing smoke set) is these 25 scenarios. Four more, named-only
+(the `_` prefix: not in the default set), play a recording to its end, no `/stop` (2026-11-14): `_play8`
+(`/play 8`, two sector sessions, about 380 s), `_play9` (`/play 9`, three, about 340 s), `_play10` (`/play 10`,
+six, about 260 s) and `_play7` (`/play 7`, eight, about 6400 s: its session 5 alone is 5738 s; not run to its end
+yet: e2e.py keeps every event line in memory and the assert flood of that hour outgrew the host, its header has the
+numbers); each waits on every session's playback line, then antreplay's 'end of the recording; back to' and the
+home connection's START_ACK, and passes when the client is back in the home sector and alive. A session that
+starts docked logs no 'Render: Frame Rate' on either client: its entry waits on ui_starbase.cpp's 'Changing room
+from -1' instead (`_play7`). Run them by name, `e2e.py run _play8 _play9 _play10 [--retail --instance X]`, at a
+handoff and after landings in starbase or packet code. Two runs at once (retail and ours, other instances) may
+start in the same second: the second's folder is `HHMMSS-NAME-2`.
 
 **No timed waits where an event exists:** steps advance on events (the replay server's `VERSION_RESPONSE`,
 `GLOBAL_AVATAR_LIST`, `GLOBAL_TICKET_REQUEST`, `START_ACK`). Where the client logs nothing at "ready", two steps

@@ -17,12 +17,12 @@ public:
 };
 
 
-// NOT EXACT: functional from the pseudocode (D64)
+// NOT EXACT: register-only (the client loads the argument into ecx and the member back into eax, ours the reverse: 6 rows)
 // 0x669FB0
 Unknown669FB0Class::Unknown669FB0Class(UIInvClass *inventory, LayerClass *layer) :
 	GadgetSlider(false, layer),
 	Inventory(inventory),
-	SlotData(NULL),
+	SlotData(),
 	SlotsPerNotch(0),
 	VisibleNotches(0),
 	Count(0)
@@ -32,24 +32,24 @@ Unknown669FB0Class::Unknown669FB0Class(UIInvClass *inventory, LayerClass *layer)
 
 
 	FAIL_IF(!Inventory) return;
-	if (Inventory->SlotData) Inventory->SlotData->Add_Ref();
-	SlotData = Inventory->SlotData;
+	SlotData = Create_Peek(inventory->SlotData);
+
 	FAIL_IF(!SlotData) return;
-	SlotDataClass::Unknown_6A7AB0().connect(SlotData, this, &Unknown669FB0Class::Unknown_66A4E0);
+	SlotDataClass::Unknown_6A7AB0().connect(SlotData.Peek(), this, &Unknown669FB0Class::Unknown_66A4E0);
 }
 
-// NOT EXACT: functional from the pseudocode (D64)
-// 0x66A190
+
+// 0x66A190: SlotData's own destructor releases it (no explicit release)
 Unknown669FB0Class::~Unknown669FB0Class()
 {
 	if (SlotData) {
-		SlotDataClass::Unknown_6A7AB0().disconnect(SlotData, this, &Unknown669FB0Class::Unknown_66A4E0, SlotDataEventDataChange(0));
+		SlotDataClass::Unknown_6A7AB0().disconnect(SlotData.Peek(), this, &Unknown669FB0Class::Unknown_66A4E0, SlotDataEventDataChange(0));
 	}
 	Inventory = NULL;
-	if (SlotData) {
-		SlotData->Release_Ref();
-		SlotData = NULL;
-	}
+
+
+
+
 }
 
 
@@ -115,8 +115,8 @@ void Unknown669FB0Class::Unknown_66A3C0(bool force)
 	}
 }
 
-// NOT EXACT: functional from the pseudocode (D64)
-// 0x66A4E0
+
+// 0x66A4E0: the switch (sub eax, 2) and Get_Value (fld / fstp)
 void Unknown669FB0Class::Unknown_66A4E0(SlotDataEventDataChange *event, SlotDataClass *slot_data)
 {
 
@@ -125,8 +125,8 @@ void Unknown669FB0Class::Unknown_66A4E0(SlotDataEventDataChange *event, SlotData
 
 
 	FAIL_IF(!event) return;
-	if (event->Value == 2) {
-		Unknown_A4(Value, true);
+	switch (event->Value) {
+		case 2: Unknown_A4(Get_Value(), true); break;
 	}
 }
 
@@ -137,4 +137,8 @@ void Unknown669FB0Class::Unknown_66A4E0(SlotDataEventDataChange *event, SlotData
 **	127). The constructor takes the inventory's SlotData referenced (0x66A530 / 0x66A560 are that reference's
 **	helpers) and connects 0x66A4E0 to SlotDataClass's signal map (MemberCallback table 0xAFA3D8); the destructor
 **	disconnects it. 0x66A2B0 scrolls the inventory by the slider's rounded value (0x62E940).
+**
+**	Builder O6 (2026-11-14): SlotData is a RefCountPtr<SlotDataClass> (the constructor assigns Create_Peek's 0x66A530
+**	temporary: copy, old release, temporary release; the destructor's EH state 1 is the member, its inline
+**	destructor the release); 0x66A190 and 0x66A4E0 exact, the constructor register-only.
 */

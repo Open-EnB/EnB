@@ -742,43 +742,43 @@ bool CordMgr::Release(CordCon *con)
 	return true;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// @0x859D50
+CordDataSocketClass *CordMgr::Get_Data_Socket(int unknown)
+{
+	WWPROFILE("CordMgr::Get_Data_Socket");
+	int index = -1;
+	CordDataSocketClass *record = NULL;
+	for (int i = 0; i < DataSockets_.length(); i++) {
+		if (!DataSockets_.getPointer(&record, i)) {
+			record = NULL;
+		}
+		if (record->Unknown04 < MaxPerSocket_ && record->Unknown08 == unknown && record->Unknown0C) {
+			index = i;
+			break;
+		}
+	}
+	if (index == -1) {
+		CordDataSocketClass rec;
+		rec.Socket = new UDP;
+		do {
+			if (Unknown0C == 0) {
+				Unknown0C = rand() % 500 + 3000;
+			}
+			Unknown0C++;
+			if (Unknown0C == 3500) {
+				Unknown0C = 3000;
+			}
+		} while (rec.Socket->Bind((unsigned int)0, (unsigned short)Unknown0C) != 0);
+		Set_Buffers(rec.Socket);
+		rec.Unknown04 = 0;
+		rec.Unknown08 = unknown;
+		rec.Unknown0C = true;
+		DataSockets_.addTail(rec);
+		index = DataSockets_.length() - 1;
+		DataSockets_.getPointer(&record, index);
+	}
+	return record;
+}
 
 
 
@@ -1124,8 +1124,8 @@ bool CordMgr::Pump_Releases()
 	}
 	return true;
 }
-
-// 0x85A000: the client's side takes type 4 (from the server), the server's type 5.
+// NOT EXACT: the client's side takes type 4 (from the server), the server's type 5; register-only (from vs session in ebp, sim 0.61)
+// @0x85A000
 bool CordMgr::Process_CORD_Packet(unsigned char *data, int len, sockaddr_in *from, UDP *socket, int unknown,
 	char type)
 {

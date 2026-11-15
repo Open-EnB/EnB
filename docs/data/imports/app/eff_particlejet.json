@@ -1,0 +1,42 @@
+{
+ "ambiguous": [
+  "0x457CA0"
+ ],
+ "copy": "reconstructed",
+ "description": "RECONSTRUCTED from client.exe: eff_particlejet.obj 0x6ECC50-0x6ED6C0 (__FILE__ 0xB938D4, FAIL_IF lines 18-161; vtable 0xB00138; effect.ini's EffectClass 'ParticleJetEffect')",
+ "expected": {},
+ "in_tree": [
+  "0x42F250",
+  "0x447C40",
+  "0x457FA0",
+  "0x6E5420",
+  "0x6E5440",
+  "0x6E5460",
+  "0x6E54A0",
+  "0x6E5510",
+  "0x6ECC50",
+  "0x6ECEA0",
+  "0x6ECED0",
+  "0x6ECFF0",
+  "0x6ED130",
+  "0x6ED4F0",
+  "0x6ED650",
+  "0x6ED690"
+ ],
+ "merged": [],
+ "name": "client/eff_particlejet.cpp",
+ "shared": [
+  "0x42F250",
+  "0x447C40",
+  "0x457FA0",
+  "0x6E5420",
+  "0x6E5440",
+  "0x6E5460",
+  "0x6E54A0",
+  "0x6E5510"
+ ],
+ "short_known": [
+  "0x6E5420",
+  "0x6E5440"
+ ]
+}

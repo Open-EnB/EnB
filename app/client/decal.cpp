@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <math.h>
 #include "decal.h"
+#include "unknown_82ecb0.h"
 #include "..\shared\g_assert.h"
 #include "..\shared\message.h"
 #include "..\shared\enbassetmgr.h"
@@ -12,7 +13,6 @@
 #include "..\..\ww3d2\meshmdl.h"
 #include "..\..\ww3d2\texture.h"
 #include "..\..\ww3d2\vertmaterial.h"
-#define SECRET_DECALS 1000	// NAME 3: the FAIL_IF's 'i - SECRET_DECALS'
 // NOT EXACT: functional (D64), from the pseudocode
 // @0x75BE00
 void SClientUnknown1334Class::Load(const char *decal_texture_ini_filename, const char *decal_swatch_ini_filename, const char *secret_texture_ini_filename)
@@ -148,7 +148,7 @@ void SClientUnknown1334Class::Load(const char *decal_texture_ini_filename, const
 	}
 }
 
-
+#define SECRET_DECALS 1000	// NAME 3: the FAIL_IF's 'i - SECRET_DECALS'
 // The decal index's material, tinted (the tint's copy through VertexMaterialClass::Clone, as the client's slots show)
 // @0x75CB10
 void SClientUnknown1334Class::Unknown_75CB10(int i, const Vector4 &color, Unknown619280Class *mat_desc)
@@ -181,21 +181,20 @@ void SClientUnknown1334Class::Unknown_75CB10(int i, const Vector4 &color, Unknow
 	}
 }
 
-#pragma auto_inline(off)
-// @0x82EF70
-TextureClass *Unknown_82EF70(INIClass &ini, const char *section)
-{
-	char name[50];
-	ini.Get_String(section, "File", "default.tga", name, sizeof(name));
-	bool wrap = ini.Get_Bool(section, "TextureWrap", true);
-	TextureClass *texture = AssetManager->Get_Texture(name);
-	if (!wrap) {
-		texture->Set_U_Addr_Mode(TextureClass::TEXTURE_ADDRESS_CLAMP);
-		texture->Set_V_Addr_Mode(TextureClass::TEXTURE_ADDRESS_CLAMP);
-	}
-	return texture;
-}
-#pragma auto_inline(on)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /*
 **	Reconstruction notes (decal.cpp, 'e:\build\beta\G\app\Client\decal.cpp'): the decal library, the ship's insignias
@@ -210,9 +209,8 @@ TextureClass *Unknown_82EF70(INIClass &ini, const char *section)
 **	0x618C10) and shiputils' 0x80EAF0 inlines both (??_L / ??_M), and their out-of-line copies sit in the client's
 **	ui_ship_cust.cpp object (its window 0x619320-0x61E8xx: 0x61DF40 between its asserts' functions), which every
 **	caller's copy folds to. That file is not in the tree yet: ui_shipcust.cpp (which calls all four out of line,
-**	0x622180 / 0x622B90 / 0x6280E0) emits them for now (interim, D137). 0x82EF70 sits far after (near udpconn.cpp /
-**	chartemplate.cpp, another file's function in the client) and stays here for now (interim placement, D137); Load
-**	calls it out of line: auto_inline(off) keeps VC6 from inlining it here.
+**	0x622180 / 0x622B90 / 0x6280E0) emits them for now (interim, D137). 0x82EF70 (Unknown_82EF70) moved to
+**	app\client\unknown_82ecb0.cpp (D66).
 **
 **	Load: the parameters are the FAIL_IFs' names; clear() (the first one's erase out of line, 0x75D0B0, the other two's
 **	copy, 0x75DAE0 / 0x75DB50, as in the client) and push_back (its insert(end(), 1, x) out of line, 0x75D280 /
@@ -222,8 +220,8 @@ TextureClass *Unknown_82EF70(INIClass &ini, const char *section)
 **	body; the name is a guess among ref_ptr.h's two GET forms). Left (0.46): the client keeps &Unknown30 in a slot
 **	and has 8 more bytes of frame.
 **	0x619280: 0x8441B in each shader is ShaderClass's default. 0x618C10: the members' destructors. 0x618A50: the
-**	vectors' elements released. 0x82EF70: 'File' (default 'default.tga') through the asset manager, clamped unless
-**	'TextureWrap'. Load: an insignia's base is one pass, alpha blended and fogged, lit; an empty slot's draws nothing.
+**	vectors' elements released. Load: an insignia's base is one pass, alpha blended and fogged, lit; an empty slot's
+**	draws nothing.
 **
 **	0x75CB10: the client's FAIL_IF names (i, TextureArray, SwatchArray, SecretTextureArray, mat_desc); the base
 **	material first (the swatch, a negative index, after: 'jl'); the secret texture before the plain one; the tint

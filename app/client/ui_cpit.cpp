@@ -202,7 +202,7 @@ void Unknown_57D6C0(SClient *sclient, bool *lock_speed, bool *lock_orient)
 
 
 // gadget.cpp's and view.cpp's gadgets the set-up makes, as far as it makes them
-class UICpitGadget6B56AClass : public GadgetClass { public: UICpitGadget6B56AClass(int x, int y, int width, int height, UIViewClass *view); virtual bool Unknown_30(float x, float y); char Unknown30[0x49 - 0x30]; bool Unknown49; char Unknown4A[0x5C - 0x4A]; };	// 0x6B56A0 (0x5C bytes; +0xAC)  // NAME 1: neutral (D10); NAME 1 [x, y, width, height, view]: what the set-up passes (0, 0, 640, 480)
+#include "viewbttn.h"	// ViewButtonClass, 0x6B56A0: viewbttn.cpp's gadget (+0xAC)
 class CtrnGadgetClass : public GadgetClass { public: CtrnGadgetClass(int x, int y, int width, int height, LineDisplayClientClass *client); virtual bool Unknown_30(float x, float y); char Unknown30[0x50 - 0x30]; };	// 0x50A850 (0x50 bytes): ctrngadg.h's, as far as the set-up makes it (that header's gadget.h clashes with this file's GadgetClass)  // NAME 3: ctrngadg.h's (D24 class-from-file)
 
 RefCountPtr<RenderObjClass> Unknown_497300(RenderObjClass *robj);	// 0x497300 (cdecl, ro_funcs.cpp's neighbourhood)  // NAME 1 [robj]: neutral
@@ -288,7 +288,7 @@ void UICpitClass::Unknown_54()
 
 	G_ASSERT(View->As_Main_View());
 	Unknown154 = Unknown_BE67C4->Get_Style("SpeedDisplay", InterfaceMesh->Peek_Object());
-	Unknown0AC = new UICpitGadget6B56AClass(0, 0, 640, 480, View->As_Main_View());
+	Unknown0AC = new ViewButtonClass(0, 0, 640, 480, (MainViewClass *)View->As_Main_View());
 	Unknown64.Unknown_6870E0(Unknown0AC, 0x48, View, 1, 1);
 	Unknown0AC->Set_Last_Sort_Group(true);
 	Unknown0AC->Unknown_65FFA0(1000);
@@ -695,7 +695,7 @@ void UICpitClass::Unknown_74(ControlKeysManager *manager)
 
 
 
-template<class C> inline C *Unknown_Find_Set_Field(DeltaCompoundClass *root, const NameClass &name) { C *t = Unknown_Find_Field<C>(root, name); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10), as ui_scan.cpp's; 0x584000: its expansions call the find (0x5806E0, two) or the Cast (0x5821C0) out of line
+template<class C> inline C *Unknown_Cpit_Find_Set_Field(DeltaCompoundClass *root, const NameClass &name) { C *t = Unknown_Find_Field<C>(root, name); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10), ui_cpit.cpp's if/return form (auxdata.h's Unknown_Find_Set_Field uses ternary and drops 0x546710 here); 0x584000: its expansions call the find (0x5806E0, two) or the Cast (0x5821C0) out of line
 
 // 0x5806E0: the steering keys (the client's key ids 2 .. 21; 0x48, 0x4B .. 0x4E taken, others not)
 // NOT EXACT: inline budget (the client calls Unknown_Find_Field<float> out of line, 0x546710, in the expanded 0x584000; ours expands it and calls the Cast)
@@ -1425,7 +1425,7 @@ void UICpitClass::Unknown_5821C0(ClientObjectClass *avatar)
 	Vector3 velocity = avatar->Unknown_2C();
 	float speed = velocity.Length() * 1000.0f;
 	if (Vector3::Dot_Product(velocity, avatar->Unknown_28(true).Get_X_Vector()) < 0.0f) speed = -speed;
-	if (Unknown144 == 1 || Unknown144 == 3 || ((UICpitGadget6B56AClass *)Unknown0AC)->Unknown49) {
+	if (Unknown144 == 1 || Unknown144 == 3 || ((ViewButtonClass *)Unknown0AC)->Unknown49) {
 		Unknown16C->Set_Hidden(false);
 	} else {
 		Unknown16C->Set_Hidden(true);
@@ -1922,7 +1922,7 @@ bool UICpitClass::Unknown_584000(bool report)
 	if (!avatar) return(false);
 	if (!avatar->AuxData) return(false);
 	NameClass name("MaxSpeed");
-	DeltaTemplateClass<float> *t = Unknown_Find_Set_Field<DeltaTemplateClass<float> >((DeltaCompoundClass *)avatar->AuxData, name);
+	DeltaTemplateClass<float> *t = Unknown_Cpit_Find_Set_Field<DeltaTemplateClass<float> >((DeltaCompoundClass *)avatar->AuxData, name);
 	bool ok = (t && t->Value != 0.0f);
 	if (!ok) {
 		if (report) sclient->Unknown_74D990(17, "Engine unavailable. Please wait.", 0);
