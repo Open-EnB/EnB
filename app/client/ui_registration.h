@@ -82,6 +82,7 @@ public:
 	virtual ~RegistrationInterface();	// 0x5F0F10 (deleting 0x5F06C0)
 	virtual void Unknown_60();			// 0x5F1730
 	virtual bool Unknown_68(int key);	// 0x5F1A10
+	virtual void Unknown_5F00C0();	// 0x600000 (RegistrationCallbackClass's slot +0x04: the server's reply, by StatusIndex)
 	virtual void Unknown_5F00E0();	// 0x5FB950 (RegistrationCallbackClass's slot +0x08)
 	virtual void Unknown_5F0100();	// 0x5FB9F0 (RegistrationCallbackClass's slot +0x0C)
 

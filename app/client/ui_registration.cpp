@@ -3675,6 +3675,653 @@ request_failed:
 	}
 }
 
+static const char *ProductBeta = "EB-BETA";  // NAME 1 [ProductBeta]: client .data 0xB85EE4 (0x600000 compares the bundle ids with it)
+static const char *RegistrationGameId = "2184";  // NAME 1 [RegistrationGameId]: client .data 0xB85EF0 (0x600000: 0x7D7E10's third argument, atoi'd against the game features' ids)
+
+// NOT EXACT: shape (explain.py's first mismatch is a relocation, the string destructor's thunk; 3511 instructions against
+// 3085, frame 0x734 against 0xB34; similarity 0.15, D89): ours inlines 0x5F86F0 where the client calls it out of line
+// @0x600000
+void RegistrationInterface::Unknown_5F00C0()
+{
+	char buffer[1024];
+	int state;
+	Unknown390 = Unknown1AC->Unknown_7D1AC0();
+	if (Unknown390.Unknown10 == 99) {
+		if (Unknown390.Unknown10 != -1) {
+			_snprintf(buffer, 1024, "%s\n(%d)", RegistrationServerError, Unknown390.Unknown10);
+		} else {
+			_snprintf(buffer, 1024, "%s", RegistrationServerError);
+		}
+		UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, buffer, 0x140, 0, 0);
+		if ((UnknownD4 == 1 && Unknown11B) || (UnknownD4 == 0 && Unknown11D) || UnknownD4 == 0x17) {
+			Unknown_5F86F0();
+			return;
+		}
+		state = Unknown_5F8A90();
+		if (UnknownD8.size() != 0) {
+			UnknownD8.pop_back();
+		}
+		Unknown_5F3770(state);
+		return;
+	}
+	switch (StatusIndex) {
+		case 1:
+			if (Unknown390.Unknown10 == 0) {
+				Unknown3C4 = Unknown1AC->Unknown_7D21C0();
+				Unknown1D1 = true;
+				if (Unknown11B) {
+					Unknown_5F3770(0x14);
+					return;
+				}
+				StatusIndex = 2;
+				Unknown_5FAE90(this, NULL);
+				if (Unknown1AC->Unknown_7D7E10(Unknown1D8.c_str(), Unknown1E8.c_str(), RegistrationGameId, Unknown_BE8AD4)) {
+					return;
+				}
+				if (Unknown390.Unknown10 != -1) {
+					_snprintf(buffer, 1024, "%s\n(%d)", RegistrationServerError, Unknown390.Unknown10);
+				} else {
+					_snprintf(buffer, 1024, "%s", RegistrationServerError);
+				}
+				UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, buffer, 0x140, 0, 0);
+			} else {
+				Unknown1D1 = false;
+				UnknownBC->Get_Unknown198()->Unknown_784C90("REG20", false);
+				UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "Sorry, that Username/Password\ncombination is not valid.", 0x140, 0, 0);
+			}
+			if ((UnknownD4 == 1 && Unknown11B) || (UnknownD4 == 0 && Unknown11D) || UnknownD4 == 0x17) {
+				Unknown_5F86F0();
+				return;
+			}
+			state = Unknown_5F8A90();
+			if (UnknownD8.size() != 0) {
+				UnknownD8.pop_back();
+			}
+			Unknown_5F3770(state);
+			return;
+		case 2:
+			if (Unknown390.Unknown10 == 0) {
+				Unknown1CF = true;
+				Unknown1D5 = true;
+				Unknown1CB = false;
+				Unknown1CC = true;
+			}
+			StatusIndex = 4;
+			Unknown_5FAE90(this, NULL);
+			if (Unknown1AC->Unknown_7DA760(Unknown1D8.c_str(), Unknown1E8.c_str(), NULL, NULL, Unknown_BE8AD4)) {
+				return;
+			}
+			if (Unknown390.Unknown10 != -1) {
+				_snprintf(buffer, 1024, "%s\n(%d)", RegistrationServerError, Unknown390.Unknown10);
+			} else {
+				_snprintf(buffer, 1024, "%s", RegistrationServerError);
+			}
+			UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, buffer, 0x140, 0, 0);
+			if ((UnknownD4 == 1 && Unknown11B) || (UnknownD4 == 0 && Unknown11D) || UnknownD4 == 0x17) {
+				Unknown_5F86F0();
+				return;
+			}
+			state = Unknown_5F8A90();
+			if (UnknownD8.size() != 0) {
+				UnknownD8.pop_back();
+			}
+			Unknown_5F3770(state);
+			return;
+		case 3:
+			if (Unknown390.Unknown10 == 0) {
+				Unknown478 = Unknown1AC->Unknown_7D28B0();
+				Unknown478.UnknownA8 = "";
+				Unknown478.Unknown94.Unknown00 = 0;
+				Unknown478.UnknownEC = 0;
+				Unknown1D2 = true;
+			}
+			if (Unknown1CE) {
+				if (Unknown1CF) {
+					Unknown_5F3770(0x13);
+				} else {
+					Unknown_5F3770(Unknown3C4.Unknown80 == "US" ? 0xC : 0xD);
+				}
+			} else if (Unknown1CD && !Unknown11D && Unknown1CF) {
+				Unknown_5F3770(0x13);
+			} else {
+				Unknown_5F3770(0x11);
+			}
+			return;
+		case 4:
+			if (Unknown390.Unknown10 == 0) {
+				Unknown1D5 = false;
+				Unknown1CB = false;
+				Unknown1CC = false;
+				Unknown1CE = false;
+				Unknown1CD = false;
+				Unknown568 = Unknown1AC->Unknown_7D3CC0();
+				for (std::vector<RegistrationUnknown568Struct>::iterator info = Unknown568.begin(); info != Unknown568.end(); info++) {
+					if ((*info).Bundle.BundleId == ProductTrial && !Unknown11D && !Unknown1CE) {
+						Unknown1CD = true;
+					}
+					if ((*info).Bundle.BundleId == ProductEB) {
+						Unknown1CE = true;
+						Unknown1CD = false;
+						if ((*info).EntitlementStatus == 1) {
+							if ((*info).EntitlementStatusReason == 0x14 || (*info).EntitlementStatusReason == 1) {
+								StatusIndex = 0xF;
+								Unknown11E = true;
+								Unknown_5FAE90(this, NULL);
+								if (Unknown1AC->Unknown_7D8D60(Unknown1D8.c_str(), Unknown1E8.c_str(), ProductEB, Unknown_BE8AD4)) {
+									return;
+								}
+								if (Unknown390.Unknown10 != -1) {
+									_snprintf(buffer, 1024, "%s\n(%d)", RegistrationServerError, Unknown390.Unknown10);
+								} else {
+									_snprintf(buffer, 1024, "%s", RegistrationServerError);
+								}
+								UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, buffer, 0x140, 0, 0);
+								if ((UnknownD4 == 1 && Unknown11B) || (UnknownD4 == 0 && Unknown11D) || UnknownD4 == 0x17) {
+									Unknown_5F86F0();
+									return;
+								}
+								state = Unknown_5F8A90();
+								if (UnknownD8.size() != 0) {
+									UnknownD8.pop_back();
+								}
+								Unknown_5F3770(state);
+								return;
+							}
+							Unknown1CB = true;
+							break;
+						}
+						if ((*info).Bundle.BundleStatus != 0) {
+							Unknown1CB = false;
+							break;
+						}
+						for (std::vector<SubsGameFeatureStruct>::iterator feature = (*info).GameFeatures.begin(); feature != (*info).GameFeatures.end(); feature++) {
+							if ((*feature).GameFeatureId == atoi(RegistrationGameId)) {
+								Unknown1D5 = true;
+							}
+						}
+						for (std::vector<SubsCouponStruct>::iterator coupon = (*info).Coupons.begin(); coupon != (*info).Coupons.end(); coupon++) {
+							if ((*coupon).Status == 1) {
+								Unknown1CC = true;
+								break;
+							}
+						}
+					}
+					if ((*info).Bundle.BundleId == ProductBeta) {
+						Unknown1CA = true;
+					}
+				}
+				if (Unknown1CB) {
+					Unknown_5FB7A0(this, "Your account has been suspended.\nPlease call a Customer Service Representative at %s.", (const char *)UnknownA8);
+					if ((UnknownD4 == 1 && Unknown11B) || (UnknownD4 == 0 && Unknown11D) || UnknownD4 == 0x17) {
+						Unknown_5F86F0();
+						return;
+					}
+					state = Unknown_5F8A90();
+					if (UnknownD8.size() != 0) {
+						UnknownD8.pop_back();
+					}
+					Unknown_5F3770(state);
+					return;
+				}
+			}
+			StatusIndex = 3;
+			Unknown_5FAE90(this, NULL);
+			if (Unknown1AC->Unknown_7D5CE0(Unknown1D8.c_str(), Unknown1E8.c_str(), Unknown_BE8AD4)) {
+				return;
+			}
+			if (Unknown390.Unknown10 != -1) {
+				_snprintf(buffer, 1024, "%s\n(%d)", RegistrationServerError, Unknown390.Unknown10);
+			} else {
+				_snprintf(buffer, 1024, "%s", RegistrationServerError);
+			}
+			UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, buffer, 0x140, 0, 0);
+			if ((UnknownD4 == 1 && Unknown11B) || (UnknownD4 == 0 && Unknown11D) || UnknownD4 == 0x17) {
+				Unknown_5F86F0();
+				return;
+			}
+			state = Unknown_5F8A90();
+			if (UnknownD8.size() != 0) {
+				UnknownD8.pop_back();
+			}
+			Unknown_5F3770(state);
+			return;
+		case 5:
+			if (Unknown390.Unknown10 == 0) {
+				Unknown_5FA0B0();
+				if (Unknown598.size() == 0) {
+					if (!Unknown1CD) {
+						UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "The code you entered was not valid. Please try again.", 0x140, 0, 0);
+						if ((UnknownD4 == 1 && Unknown11B) || (UnknownD4 == 0 && Unknown11D) || UnknownD4 == 0x17) {
+							Unknown_5F86F0();
+							return;
+						}
+						state = Unknown_5F8A90();
+						if (UnknownD8.size() != 0) {
+							UnknownD8.pop_back();
+						}
+						Unknown_5F3770(state);
+						return;
+					}
+				} else if (!Unknown1CD) {
+					StatusIndex = 6;
+					Unknown_5FAE90(this, NULL);
+					if (Unknown1AC->Unknown_7DB850(Unknown1C8 ? NULL : Unknown1D8.c_str(), Unknown1C8 ? NULL : Unknown1E8.c_str(), Unknown3C4.Unknown80.c_str(), Unknown_BE8AD4)) {
+						return;
+					}
+					if (Unknown390.Unknown10 != -1) {
+						_snprintf(buffer, 1024, "%s\n(%d)", RegistrationServerError, Unknown390.Unknown10);
+					} else {
+						_snprintf(buffer, 1024, "%s", RegistrationServerError);
+					}
+					UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, buffer, 0x140, 0, 0);
+					if ((UnknownD4 == 1 && Unknown11B) || (UnknownD4 == 0 && Unknown11D) || UnknownD4 == 0x17) {
+						Unknown_5F86F0();
+						return;
+					}
+					state = Unknown_5F8A90();
+					if (UnknownD8.size() != 0) {
+						UnknownD8.pop_back();
+					}
+					Unknown_5F3770(state);
+					return;
+				}
+				if (Unknown1D1) {
+					Unknown_5F3770(0x12);
+					return;
+				}
+				if (Unknown_5FA900()) {
+					return;
+				}
+				if (Unknown390.Unknown10 != -1) {
+					_snprintf(buffer, 1024, "%s\n(%d)", RegistrationServerError, Unknown390.Unknown10);
+				} else {
+					_snprintf(buffer, 1024, "%s", RegistrationServerError);
+				}
+				UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, buffer, 0x140, 0, 0);
+			} else {
+				UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "The code you entered was not valid. Please try again.", 0x140, 0, 0);
+			}
+			if ((UnknownD4 == 1 && Unknown11B) || (UnknownD4 == 0 && Unknown11D) || UnknownD4 == 0x17) {
+				Unknown_5F86F0();
+				return;
+			}
+			Unknown_5F3770(Unknown_5F89F0());
+			return;
+		case 6:
+			if (Unknown390.Unknown10 == 0) {
+				Unknown5A8 = Unknown1AC->Unknown_7D4530();
+				if (!Unknown1CD) {
+					Unknown_5F3770(0xB);
+				} else if (!Unknown1D1) {
+					Unknown_5F3770(0xA);
+				} else {
+					Unknown_5F3770(Unknown3C4.Unknown80 == "US" ? 0xC : 0xD);
+				}
+				return;
+			}
+			UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "The code you entered was not valid. Please try again.", 0x140, 0, 0);
+			if ((UnknownD4 == 1 && Unknown11B) || (UnknownD4 == 0 && Unknown11D) || UnknownD4 == 0x17) {
+				Unknown_5F86F0();
+				return;
+			}
+			Unknown_5F3770(Unknown_5F89F0());
+			return;
+		case 7:
+			if (Unknown390.Unknown10 == 0) {
+				Unknown588 = Unknown1AC->Unknown_7D3570();
+				std::sort(Unknown588.begin(), Unknown588.end());
+				Unknown328 = Unknown588[0];
+				if (Unknown328.Unknown10 == ProductEB && (Unknown328.Unknown20 == 3 || Unknown328.Unknown20 == 4)) {
+					if (Unknown11E) {
+						Unknown11B = true;
+					}
+					if (Unknown1D1 || Unknown11B) {
+						Unknown_5F3770(0x12);
+						return;
+					}
+					if (Unknown_5FA900()) {
+						return;
+					}
+					if (Unknown390.Unknown10 != -1) {
+						_snprintf(buffer, 1024, "%s\n(%d)", RegistrationServerError, Unknown390.Unknown10);
+					} else {
+						_snprintf(buffer, 1024, "%s", RegistrationServerError);
+					}
+					UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, buffer, 0x140, 0, 0);
+				} else {
+					UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "The code you entered was not valid. Please try again.", 0x140, 0, 0);
+				}
+			} else {
+				UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "The code you entered was not valid. Please try again.", 0x140, 0, 0);
+			}
+			if ((UnknownD4 == 1 && Unknown11B) || (UnknownD4 == 0 && Unknown11D) || UnknownD4 == 0x17) {
+				Unknown_5F86F0();
+				return;
+			}
+			Unknown_5F3770(Unknown_5F89F0());
+			return;
+		case 8:
+			if (Unknown390.Unknown10 == 0) {
+				Unknown1D3 = true;
+				if (Unknown38C == 3) {
+					StatusIndex = 0xA;
+					Unknown_5FAE90(this, NULL);
+					if (Unknown1AC->Unknown_7D9790(Unknown1D8.c_str(), Unknown1E8.c_str(), Unknown270.Unknown00.c_str(), Unknown38C,
+						Unknown_5FB330(Unknown228).c_str(), Unknown328.Unknown00.c_str(), Unknown_5FB330(Unknown238).c_str(), true, Unknown_BE8AD4)) {
+						return;
+					}
+					if (Unknown390.Unknown10 != -1) {
+						_snprintf(buffer, 1024, "%s\n(%d)", RegistrationServerError, Unknown390.Unknown10);
+					} else {
+						_snprintf(buffer, 1024, "%s", RegistrationServerError);
+					}
+					UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, buffer, 0x140, 0, 0);
+					Unknown_5F3770(Unknown3C4.Unknown80 == "US" ? 0xC : 0xD);
+					return;
+				}
+				if (Unknown3C4.Unknown80.size() == 0) {
+					Unknown3C4.Unknown80 = Unknown478.Unknown64;
+				}
+				if (!Unknown1CD) {
+					StatusIndex = 9;
+					Unknown_5FAE90(this, NULL);
+					if (Unknown1AC->Unknown_7D6180(Unknown1D8.c_str(), Unknown1E8.c_str(), &Unknown478, false, Unknown_BE8AD4)) {
+						return;
+					}
+				} else {
+					Unknown1D4 = true;
+					StatusIndex = 0xA;
+					Unknown_5FAE90(this, NULL);
+					if (Unknown1AC->Unknown_7D9790(Unknown1D8.c_str(), Unknown1E8.c_str(), Unknown270.Unknown00.c_str(), Unknown38C,
+						Unknown_5FB330(Unknown228).c_str(), NULL, NULL, true, Unknown_BE8AD4)) {
+						return;
+					}
+				}
+				if (Unknown390.Unknown10 != -1) {
+					_snprintf(buffer, 1024, "%s\n(%d)", RegistrationServerError, Unknown390.Unknown10);
+				} else {
+					_snprintf(buffer, 1024, "%s", RegistrationServerError);
+				}
+				UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, buffer, 0x140, 0, 0);
+			} else if (Unknown390.Unknown10 == 0x65) {
+				Unknown1D3 = false;
+				RegistrationUnknown3C4Struct info = Unknown1AC->Unknown_7D21C0();
+				Unknown3C4.Unknown00[0] = info.Unknown00[0];
+				Unknown3C4.Unknown00[1] = info.Unknown00[1];
+				Unknown3C4.Unknown00[2] = info.Unknown00[2];
+				Unknown3C4.Unknown00[3] = info.Unknown00[3];
+				Unknown3C4.Unknown00[4] = info.Unknown00[4];
+				Unknown_5F3770(9);
+				return;
+			} else {
+				UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, Unknown390.Unknown14.c_str(), 0x140, 0, 0);
+			}
+			if ((UnknownD4 == 1 && Unknown11B) || (UnknownD4 == 0 && Unknown11D) || UnknownD4 == 0x17) {
+				Unknown_5F86F0();
+				return;
+			}
+			state = Unknown_5F8A90();
+			if (UnknownD8.size() != 0) {
+				UnknownD8.pop_back();
+			}
+			Unknown_5F3770(state);
+			return;
+		case 9:
+			switch (Unknown390.Unknown10) {
+				case 0:
+					if (Unknown1D5) {
+						Unknown_5F3770(0x13);
+						return;
+					}
+					Unknown1D4 = true;
+					StatusIndex = 0xA;
+					Unknown_5FAE90(this, NULL);
+					if (Unknown1AC->Unknown_7D9790(Unknown1D8.c_str(), Unknown1E8.c_str(), Unknown270.Unknown00.c_str(), Unknown38C,
+						Unknown_5FB330(Unknown228).c_str(), NULL, NULL, true, Unknown_BE8AD4)) {
+						return;
+					}
+					if (Unknown390.Unknown10 != -1) {
+						_snprintf(buffer, 1024, "%s\n(%d)", RegistrationServerError, Unknown390.Unknown10);
+					} else {
+						_snprintf(buffer, 1024, "%s", RegistrationServerError);
+					}
+					UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, buffer, 0x140, 0, 0);
+					break;
+				case 10:
+					Unknown1D4 = false;
+					UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "Billing Information was invalid.\nPlease check your information and try again.", 0x140, 0, 0);
+					break;
+				case 0x73:
+					Unknown1D4 = false;
+					UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "Credit Card number was invalid.\nPlease check the number and try again.", 0x140, 0, 0);
+					break;
+				case 0x133:
+					Unknown1D4 = false;
+					UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "Could not authorize Credit Card.\nPlease check the number or try another card.", 0x140, 0, 0);
+					break;
+				default:
+					Unknown1D4 = false;
+					UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, Unknown390.Unknown14.c_str(), 0x140, 0, 0);
+					break;
+			}
+			Unknown_5F3770(Unknown3C4.Unknown80 == "US" ? 0xC : 0xD);
+			return;
+		case 10:
+			switch (Unknown390.Unknown10) {
+				case 0:
+					Unknown1D5 = true;
+					Unknown_5F3770(0x13);
+					break;
+				case 0xCA:
+					Unknown1D5 = false;
+					UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "That Registration code is invalid.\nPlease double-check the code and try again.", 0x140, 0, 0);
+					Unknown_5F3770(0x11);
+					break;
+				case 0x135:
+					Unknown1D5 = false;
+					UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "That Registration code is already in use.\nPlease double-check the code and try again.", 0x140, 0, 0);
+					Unknown_5F3770(0x11);
+					break;
+				default:
+					Unknown1D5 = false;
+					UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, Unknown390.Unknown14.c_str(), 0x140, 0, 0);
+					if (Unknown11E) {
+						Unknown_5F3770(0xB);
+					} else {
+						Unknown_5F3770(0x11);
+					}
+					break;
+			}
+			return;
+		case 0xB:
+			switch (Unknown390.Unknown10) {
+				case 0:
+					Unknown1D5 = true;
+					Unknown_5F3770(0x13);
+					break;
+				case 0xCA:
+					Unknown1D5 = false;
+					UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "That GameTime code is invalid.\nPlease double-check the code and try again.", 0x140, 0, 0);
+					Unknown_5F3770(0x14);
+					break;
+				case 0x135:
+					Unknown1D5 = false;
+					UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "That GameTime code is already in use.\nPlease double-check the code and try again.", 0x140, 0, 0);
+					Unknown_5F3770(0x14);
+					break;
+				case 0x13E:
+					Unknown1D5 = false;
+					UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "A GameTime card can only be applied to a fully registered account. Please upgrade your demo account to the full version.", 0x140, 0, 0);
+					if ((UnknownD4 == 1 && Unknown11B) || (UnknownD4 == 0 && Unknown11D) || UnknownD4 == 0x17) {
+						Unknown_5F2990(false);
+						Unknown_5F2A80(false, NULL);
+						UnknownCA = true;
+						UnknownC7 = true;
+						UnknownBC->Get_Unknown198()->Unknown_784E00();
+						UnknownBC->Unknown_67A8D0(true);
+						UnknownC0->Go_Next_Step();
+						return;
+					}
+					Unknown_5F3770(Unknown_5F89F0());
+					break;
+				default:
+					Unknown1D5 = false;
+					UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, Unknown390.Unknown14.c_str(), 0x140, 0, 0);
+					Unknown_5F3770(0x14);
+					break;
+			}
+			return;
+		case 0xC:
+			if (Unknown390.Unknown10 == 0) {
+				Unknown_5F3770(5);
+				return;
+			}
+			UnknownBC->Get_Unknown198()->Unknown_784E00();
+			UnknownBC->Get_Unknown198()->Unknown_784C90("REG20", false);
+			UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "Sorry, that username/password combination is incorrect.\nPlease try again.", 0x140, 0, 0);
+			if ((UnknownD4 == 1 && Unknown11B) || (UnknownD4 == 0 && Unknown11D) || UnknownD4 == 0x17) {
+				Unknown_5F86F0();
+				return;
+			}
+			Unknown_5F3770(Unknown_5F89F0());
+			return;
+		case 0xD:
+			switch (Unknown390.Unknown10) {
+				case 0:
+					Unknown_5F3770(0x18);
+					Unknown119 = true;
+					UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "Your Member Names and Passwords have been sent. Earth & Beyond will now exit to allow you to check your E-Mail.", 0x140, 0, 0);
+					return;
+				case 0x6B:
+					UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "Sorry, you have tried too many times. Please try again later.", 0x140, 0, 0);
+					break;
+				case 0x6C:
+					UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "Sorry, no Member Names were found for the E-Mail address. Please double-check the E-Mail address you entered.", 0x140, 0, 0);
+					break;
+				default:
+					if (Unknown390.Unknown10 != -1) {
+						_snprintf(buffer, 1024, "%s\n(%d)", RegistrationServerError, Unknown390.Unknown10);
+					} else {
+						_snprintf(buffer, 1024, "%s", RegistrationServerError);
+					}
+					UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, buffer, 0x140, 0, 0);
+					break;
+			}
+			if ((UnknownD4 == 1 && Unknown11B) || (UnknownD4 == 0 && Unknown11D) || UnknownD4 == 0x17) {
+				Unknown_5F86F0();
+				return;
+			}
+			state = Unknown_5F8A90();
+			if (UnknownD8.size() != 0) {
+				UnknownD8.pop_back();
+			}
+			Unknown_5F3770(state);
+			return;
+		case 0xE:
+			switch (Unknown390.Unknown10) {
+				case 0:
+					Unknown_5F3770(0x18);
+					Unknown119 = true;
+					UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "Your Passwords have been sent.\nEarth & Beyond will now exit to allow you to check your E-Mail.", 0x140, 0, 0);
+					return;
+				case 0x67:
+					UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "Sorry, that Member Name was not found. Please double-check the Member Name you entered.", 0x140, 0, 0);
+					break;
+				case 0x6A:
+					UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "Sorry, you have tried too many times. Please try again later.", 0x140, 0, 0);
+					break;
+				case 0x6D:
+					if (Unknown390.Unknown10 != -1) {
+						_snprintf(buffer, 1024, "%s\n(%d)", RegistrationServerError, Unknown390.Unknown10);
+					} else {
+						_snprintf(buffer, 1024, "%s", RegistrationServerError);
+					}
+					UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, buffer, 0x140, 0, 0);
+					break;
+				default:
+					if (Unknown390.Unknown10 != -1) {
+						_snprintf(buffer, 1024, "%s\n(%d)", RegistrationServerError, Unknown390.Unknown10);
+					} else {
+						_snprintf(buffer, 1024, "%s", RegistrationServerError);
+					}
+					UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, buffer, 0x140, 0, 0);
+					break;
+			}
+			if ((UnknownD4 == 1 && Unknown11B) || (UnknownD4 == 0 && Unknown11D) || UnknownD4 == 0x17) {
+				Unknown_5F86F0();
+				return;
+			}
+			state = Unknown_5F8A90();
+			if (UnknownD8.size() != 0) {
+				UnknownD8.pop_back();
+			}
+			Unknown_5F3770(state);
+			return;
+		case 0xF:
+			if (Unknown390.Unknown10 == 0) {
+				Unknown_5FA0B0();
+				Unknown_5FAE90(this, NULL);
+				StatusIndex = 0x10;
+				if (Unknown1AC->Unknown_7DB850(Unknown1D8.c_str(), Unknown1E8.c_str(), Unknown3C4.Unknown80.c_str(), Unknown_BE8AD4)) {
+					return;
+				}
+				if (Unknown390.Unknown10 != -1) {
+					_snprintf(buffer, 1024, "%s\n(%d)", RegistrationServerError, Unknown390.Unknown10);
+				} else {
+					_snprintf(buffer, 1024, "%s", RegistrationServerError);
+				}
+				UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, buffer, 0x140, 0, 0);
+			} else {
+				UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "An Internal Error has occured. Please try again.", 0x140, 0, 0);
+			}
+			if ((UnknownD4 == 1 && Unknown11B) || (UnknownD4 == 0 && Unknown11D) || UnknownD4 == 0x17) {
+				Unknown_5F2990(false);
+				Unknown_5F2A80(false, NULL);
+				UnknownCA = true;
+				UnknownC7 = true;
+				UnknownBC->Get_Unknown198()->Unknown_784E00();
+				UnknownBC->Unknown_67A8D0(true);
+				UnknownC0->Go_Next_Step();
+				return;
+			}
+			state = 0;
+			if (UnknownD8.size() != 0) {
+				state = UnknownD8.back();
+			}
+			if (UnknownD8.size() != 0) {
+				UnknownD8.pop_back();
+			}
+			Unknown_5F3770(state);
+			return;
+		case 0x10:
+			if (Unknown390.Unknown10 == 0) {
+				Unknown5A8 = Unknown1AC->Unknown_7D4530();
+				Unknown_5F3770(0xB);
+				return;
+			}
+			UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "An Internal Error has occured. Please try again.", 0x140, 0, 0);
+			if ((UnknownD4 == 1 && Unknown11B) || (UnknownD4 == 0 && Unknown11D) || UnknownD4 == 0x17) {
+				Unknown_5F2990(false);
+				Unknown_5F2A80(false, NULL);
+				UnknownCA = true;
+				UnknownC7 = true;
+				UnknownBC->Get_Unknown198()->Unknown_784E00();
+				UnknownBC->Unknown_67A8D0(true);
+				UnknownC0->Go_Next_Step();
+				return;
+			}
+			state = 0;
+			if (UnknownD8.size() != 0) {
+				state = UnknownD8.back();
+			}
+			if (UnknownD8.size() != 0) {
+				UnknownD8.pop_back();
+			}
+			Unknown_5F3770(state);
+			return;
+	}
+}
+
 // @0x603820
 bool RegistrationInterface::Unknown_603820(const char *number)
 {
@@ -3826,4 +4473,16 @@ void RegistrationInterface::Unknown_603B20()
 **	- RegistrationButtonStruct +0x04 is the button's id, not its sub-object: in 0x5F2B20 the slot [esp + 0x5C] read after
 **	  'push ebx' is the id argument, and 0x5FBD30 compares the selected radio's +0x04 with the ids 1 / 2 / 5 / 8 / 9 /
 **	  0x12 / 0x18 and indexes +0x3C4's names with it (id - 0xD). 0x5F33E0 returns that id.
+**
+**	Builder O9, 2026-11-15:
+**	- 0x600000 (functional) is RegistrationInterface's override of RegistrationCallbackClass's slot +0x04 (table
+**	  0xAF6FF4; this at +0x84, ecx - 0x84 for the members): it reads the reply into +0x390 (0x7D1AC0), then error 99
+**	  shows the server box, else a switch on StatusIndex 1..0x10 (jump table 0x602AE4; case 0xE's errors through the
+**	  byte table 0x602B38). Each request's failure shows 0x5FB890's box inlined, then 0x5F86F0 (states 1 / 0 with
+**	  +0x11B / +0x11D, or 0x17) or the previous state (0x5F89F0 inlined, or called); cases 0xB / 0xF / 0x10 go to the
+**	  next login step with 0x5F2A80 (0, 0) instead. 0xB85EE4 'EB-BETA' and 0xB85EF0 '2184' (atoi'd against the
+**	  game features' ids, and 0x7D7E10's third argument) are defined above it, after the last assert of the file.
+**	- All 19 callers of 0x5F86F0 call it out of line; ours inlines it into 0x600000 (auto-inline). #pragma
+**	  auto_inline(off) around its definition (on the blank lines 1903 / 1921, no line moves) raised 0x600000's
+**	  similarity 0.15 -> 0.18 but lowered 0x5FBD30's 0.38 -> 0.35 and 0x5F1A10's 0.13 -> 0.11: not kept.
 */
