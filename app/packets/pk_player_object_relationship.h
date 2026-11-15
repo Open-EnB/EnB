@@ -118,11 +118,11 @@ public:
 	virtual int Print(char *buffer, int len);	// +0x10 0x875020
 	virtual int Get_Priority() { return(Priority); }	// +0x1C 0x874B50
 
-	void Add_Attacker(int id);	// 0x875060 (push_back)  // NAME 2: what it does
+	void Add_Attacker(unsigned long id);	// 0x875060 (push_back)  // NAME 2: what it does
 	AttackerUpdateIteratorClass *Get_Iterator();	// 0x875280 (new'd)  // NAME 2: what it returns
 
 	bool Attacking;	// +0x0C  // NAME 3: the client's Print text 'Attacking='
-	std::vector<int> Attackers;	// +0x10 (a count and the ids in the message: Print says '[data not displayed]')  // NAME 2: what it holds
+	std::vector<unsigned long> Attackers;	// +0x10 (a count and the ids in the message: Print says '[data not displayed]')  // NAME 2: what it holds
 	int Priority;	// +0x20 (not read from the message)  // NAME 2: Get_Priority returns it
 };
 

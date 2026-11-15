@@ -57,8 +57,8 @@ public:
 	SClient *Client;													// +0x20  // NAME 3: Get_Client()
 	DeltaCompoundClass *AuxData;									// +0x24  // NAME 3: Peek_Aux_Data()
 	char Unknown28[8];												// +0x28
-	std::vector<int> Unknown30;									// +0x30
-	std::vector<int> Unknown40;									// +0x40
+	std::vector<unsigned long> Unknown30;									// +0x30
+	std::vector<unsigned long> Unknown40;									// +0x40
 };
 
 #endif //__SLOT_DATA_H

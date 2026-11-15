@@ -82,7 +82,7 @@ void MovieTaskClass::Render()
 }
 
 // 0x76C2C0
-void MovieTaskClass::Add_Movie(const char *movie_name, int volume)
+void MovieTaskClass::Add_Movie(const char *movie_name, unsigned long volume)
 {
 	FAIL_IF(!movie_name) {
 		return;

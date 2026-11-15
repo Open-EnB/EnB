@@ -197,8 +197,8 @@ RawPacketClass *PlayerObjectIsAttackingUpdatePacket::Build()
 	raw->Add(&Attacking, sizeof(Attacking));
 	int count = Attackers.size();
 	raw->Add(count);
-	for (std::vector<int>::iterator it = Attackers.begin(); it != Attackers.end(); ++it) {
-		raw->Add(*it);
+	for (std::vector<unsigned long>::iterator it = Attackers.begin(); it != Attackers.end(); ++it) {
+		raw->Add((int &)*it);
 	}
 	return(raw);
 }
@@ -215,7 +215,7 @@ int PlayerObjectIsAttackingUpdatePacket::Print(char *buffer, int)
 	return(sprintf(buffer, "Attacker Updates. {Attacking=%s} [data not displayed]", attacking));
 }
 
-void PlayerObjectIsAttackingUpdatePacket::Add_Attacker(int id)
+void PlayerObjectIsAttackingUpdatePacket::Add_Attacker(unsigned long id)
 {
 	Attackers.push_back(id);
 }
@@ -244,7 +244,7 @@ void PlayerObjectIsAttackingUpdatePacket::Add_Attacker(int id)
 class AttackerUpdateVectorIteratorClass : public AttackerUpdateIteratorClass  // NAME 1: neutral (D10): what it does
 {
 public:
-	AttackerUpdateVectorIteratorClass(std::vector<int> &list) : Cur(list.begin()), End(list.end()) {}
+	AttackerUpdateVectorIteratorClass(std::vector<unsigned long> &list) : Cur(list.begin()), End(list.end()) {}
 	virtual bool Is_Done() { return(Cur == End); }	// 0x8752C0
 	virtual int Get()	// 0x8752F0
 	{
@@ -255,8 +255,8 @@ public:
 	}
 	virtual void Next() { Cur++; }	// 0x875330
 
-	std::vector<int>::iterator Cur;  // NAME 2: what it holds
-	std::vector<int>::iterator End;  // NAME 2: what it holds
+	std::vector<unsigned long>::iterator Cur;  // NAME 2: what it holds
+	std::vector<unsigned long>::iterator End;  // NAME 2: what it holds
 };
 
 AttackerUpdateIteratorClass *PlayerObjectIsAttackingUpdatePacket::Get_Iterator()
@@ -276,7 +276,7 @@ AttackerUpdateIteratorClass *PlayerObjectIsAttackingUpdatePacket::Get_Iterator()
 **	  Print's conversions are faction_and_reputation.cpp's (0x835890) and strconv_lib.cpp's (0x4A30A0),
 **	  both not rebuilt: stubs/app_stubs.cpp stands in for them and for RelationshipClass's constructor.
 **	* Opcode 139 (ATTACKER_UPDATES) written by hand (builder P3, 2026-10-26), 6 of 6 exact in
-**	  appfile.py match: a std::vector<int> of attacker ids, a count before them in the message; its
+**	  appfile.py match: a std::vector<unsigned long> of attacker ids (the client calls vector<unsigned long>'s helpers, 0x4A0850 / 0x4A0BD0 in selector.cpp's cluster), a count before them in the message; its
 **	  push_back helper 0x875060 is a member defined after Print. The raw constructor pushes a copy
 **	  of the id read (`int value = id;`: the client's frame has that slot).
 **	* Opcode 138 (Player_Object_Reaction_Update) and both packets' iterators written by hand (builder P6,
