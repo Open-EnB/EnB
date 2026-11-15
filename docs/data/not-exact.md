@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-864 entries in 288 files.
+866 entries in 289 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -746,6 +746,8 @@ edit the comments in the code, not this file.
 | `app/shared/expr/expr_math_int.cpp:93` | `ExprMathIntFactoryClass::Create_Unary` | marker | NOT EXACT: 0x4CC120 similarity 0.78: the client inlines more of the five groups' assignments (float's form, 0x4C8370, is exact) @0x4CC120 |
 | `app/shared/expr/expr_math_parser_impl.cpp:33` | `ExprMathParserImplClass::Add_Similar` | marker | NOT EXACT: the loop latch reloads it / &it->Ops in the other order (2 instructions swapped, same length) |
 | `app/shared/expr/expr_math_parser_impl.cpp:81` | `ExprMathParserImplClass::Parse_Level` | marker | NOT EXACT: the level > size guard keeps its own return NULL, and the token's destructor is inline / called on the other two exits |
+| `app/shared/fp_ita.cpp:117` | `FpItaClass::Unknown_04` | marker | NOT EXACT (0.93, attempts.py 0x448D00): order: the client multiplies inv * dir.X (the factor loaded first) and pushes edx after Inv_Sqrt 0x448D00 |
+| `app/shared/fp_ita.cpp:188` | `FpItaClass::Unknown_08` | mention | NOT EXACT (order: the first normalising multiply loads the factor first, inv * dir.X, and the push after Inv_Sqrt takes edx where ours takes ecx). |
 | `app/shared/fp_tt.cpp:41` | `FpTTClass::Unknown_04` | marker | NOT EXACT: 0.44, frame (sub esp 0x48 against 0x44): the client shares stack slots between the target delta, the climb vector and the new axes |
 | `app/shared/fp_tt.cpp:320` | `FpTTClass::Unknown_08` | marker | NOT EXACT: written from the client's code (the obstacle pass, then 0x449540's steer around or away from the nearest) |
 | `app/shared/fp_tt.cpp:529` | `FpTTClass::Unknown_0C` | mention | NOT EXACT. - 0x449CC0 (the out-of-line destructor of unknown_7cef30.h's RegistrationUnknown568Struct) and 0x44A980 (vector<SubsCouponStruct>::operator=) lie inside this object's span: COMDAT copies of a header this file reached (or the linker's identical-code folding); no source form here produces them yet. |

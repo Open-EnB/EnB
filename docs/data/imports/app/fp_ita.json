@@ -1,0 +1,26 @@
+{
+ "ambiguous": [],
+ "copy": "reconstructed",
+ "description": "fp_ita.cpp: FpItaClass, a turn-limited flight path keeping Y level (client 0x448C30-0x44934F; __FILE__ 0xB705B4, G_ASSERT 'y_axis.Z < 0.0001f' line 151 in 0x448D00, G_ASSERT '0' line 171 in 0x449330, table 0xAE78FC)",
+ "expected": {},
+ "in_tree": [
+  "0x42F250",
+  "0x447C40",
+  "0x448C30",
+  "0x448CB0",
+  "0x448CE0",
+  "0x4492D0",
+  "0x449300",
+  "0x449330"
+ ],
+ "merged": [],
+ "name": "shared/fp_ita.cpp",
+ "shared": [
+  "0x42F250",
+  "0x447C40",
+  "0x4492D0"
+ ],
+ "short_known": [
+  "0x448CE0"
+ ]
+}

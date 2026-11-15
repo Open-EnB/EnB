@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 218 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 34 |
-| 3 | by convention from a client-named file or sibling | 1928 |
+| 3 | by convention from a client-named file or sibling | 1930 |
 | 2 | describes what the code does | 4885 |
-| 1 | neutral placeholder | 24815 |
+| 1 | neutral placeholder | 24825 |
 
 ## For review (score 3 and below)
 
@@ -23166,6 +23166,16 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_48ECA0` | `app/shared/enbassetmgr.h:45` | untagged neutral name (D10) |
 | 1 | `std:` | `app/shared/event.cpp:87` | the iterators of the Send_Event calls in progress (0xBE5610), fixed up by Remove_Listener and ~Subject |
 | 1 | `Pop_Iterator` | `app/shared/event.cpp:196` | pops Send_Event's iterator; false once ~Subject cleared it (inlined into 0x4E8E40) |
+| 1 | `Unknown_BE350C` | `app/shared/fp_ita.cpp:7` | neutral (D10): SClient::Do_Frame's frame toggle (sclient.cpp) |
+| 1 | `Unknown_04` | `app/shared/fp_ita.cpp:119` | untagged neutral name (D10) |
+| 1 | `Unknown_0C` | `app/shared/fp_ita.cpp:167` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `app/shared/fp_ita.cpp:169` | untagged neutral name (D10) |
+| 1 | `max_turn` | `app/shared/fp_ita.h:23` | what it does with it |
+| 1 | `Unknown_04` | `app/shared/fp_ita.h:25` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `app/shared/fp_ita.h:26` | untagged neutral name (D10) |
+| 1 | `Unknown_0C` | `app/shared/fp_ita.h:27` | untagged neutral name (D10) |
+| 1 | `MaxTurnCos` | `app/shared/fp_ita.h:29` | the cosine of the angle the X axis turns by |
+| 1 | `MaxTurnSin` | `app/shared/fp_ita.h:30` | its sine |
 | 1 | `Unknown_BE350C` | `app/shared/fp_tt.cpp:10` | neutral (D10): SClient::Do_Frame's frame toggle (sclient.cpp) |
 | 1 | `Unknown28` | `app/shared/fp_tt.cpp:14` | untagged neutral name (D10) |
 | 1 | `Unknown2C` | `app/shared/fp_tt.cpp:15` | untagged neutral name (D10) |
@@ -31551,6 +31561,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `expr_math_tree.h` | `app/shared/expr/expr_math_tree.h:17` | header name assumed from the client's expr_math_tree.cpp |
 | 3 | `ExprMathTreeClass` | `app/shared/expr/expr_math_tree.h:26` | class-from-file (D24) |
 | 3 | `m_token` | `app/shared/expr/expr_math_tree.h:36` | m_ as the asserts' m_left / m_child |
+| 3 | `fp_ita.h` | `app/shared/fp_ita.h:15` | the header of fp_ita.cpp |
+| 3 | `FpItaClass` | `app/shared/fp_ita.h:20` | class-from-file (D24) for fp_ita.cpp |
 | 3 | `fp_tt.h` | `app/shared/fp_tt.h:16` | the header of fp_tt.cpp |
 | 3 | `FpTTClass` | `app/shared/fp_tt.h:36` | class-from-file (D24) for fp_tt.cpp |
 | 3 | `gclass.h` | `app/shared/gclass.h:21` | header name assumed from the client's gclass.cpp |
