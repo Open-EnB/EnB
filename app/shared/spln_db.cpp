@@ -92,8 +92,8 @@ bool SplineDatabaseClass::Load(const char *database_filename)
 	return true;
 }
 
-
 // NOT EXACT: shape (the filename copy and the save chunks: the client inlines Save_Chunks with Write_String and Save_Entry out of line)
+// @0x484D00
 bool SplineDatabaseClass::Save(const char *database_filename)
 {
 	if (!HasSplines) {
@@ -103,24 +103,24 @@ bool SplineDatabaseClass::Save(const char *database_filename)
 		if (database_filename == NULL) {
 			return false;
 		}
-		Copy_String(Filename, database_filename);
+		Filename = new char[strlen(database_filename) + 1];
+		strcpy(Filename, database_filename);
 	} else if (database_filename != NULL && stricmp(Filename, database_filename) != 0) {
 		delete [] Filename;
-		Copy_String(Filename, database_filename);
+		Filename = new char[strlen(database_filename) + 1];
+		strcpy(Filename, database_filename);
 	}
 	file_auto_ptr file(_TheFileFactory, Filename);
-	if (file->Open(FileClass::WRITE)) {
-		ChunkSaveClass csave(file);
-		if (Save_Chunks(csave)) {
-			file->Close();
-			return true;
-		}
+	if (!file->Open(FileClass::WRITE)) {
+		return false;
 	}
-	return false;
+	ChunkSaveClass csave(file);
+	if (!Save_Chunks(csave)) {
+		return false;
+	}
+	file->Close();
+	return true;
 }
-
-
-
 
 
 
@@ -1388,21 +1388,21 @@ void SplineDatabaseClass::Pack(int count, SplineEntryClass **EntryArray, char *b
 
 
 
-
 // NOT EXACT: shape (written from the pseudocode: the count loop and the merge path)
+// @0x486F60
 void SplineDatabaseClass::Unpack(char *buffer)
 {
 	unsigned short count = *(unsigned short *)buffer;
 	buffer += 2;
 	while (count--) {
 		unsigned int key = *(unsigned int *)buffer;
-		SplineEntryClass *entry = NULL;
+		buffer += 4;
 		if (key != 0) {
 			SplineEntryClass *existing = Find(key);
 			if (existing != NULL) {
 				existing->Unpack(&buffer);
 			} else {
-				entry = new SplineEntryClass(&buffer);
+				SplineEntryClass *entry = new SplineEntryClass(&buffer);
 				HashNodeClass<SplineEntryClass *> *node = new HashNodeClass<SplineEntryClass *>(entry, key);
 				Splines.Add(node);
 				if (node == NULL) {
@@ -1677,39 +1677,39 @@ bool SplineDatabaseClass::Reload(void)
 	return true;
 }
 
-
 // NOT EXACT: shape / inline budget (the client inlines Save_Entry here and calls Save_Curve)
+// @0x487B20
 bool SplineDatabaseClass::Save_Chunks(ChunkSaveClass &csave)
 {
 	if (!Save_Header(csave)) {
 		return false;
 	}
-	if (!csave.Begin_Chunk(0x808)) {
-		return false;
-	}
-	int count = KeyNames.Count() - 1;
-	if (csave.Write(&count, 4) < 4) {
-		return false;
-	}
-	for (unsigned int i = 1; i < (unsigned int)(count + 1); i++) {
-		if (!Write_String(csave, KeyNames[i])) {
-			return false;
+	if (csave.Begin_Chunk(0x808)) {
+		int count = KeyNames.Count() - 1;
+		if (csave.Write(&count, 4) >= 4) {
+			for (unsigned int i = 1; i < (unsigned int)(count + 1); i++) {
+				if (!Write_String(csave, KeyNames[i])) {
+					return false;
+				}
+			}
+			if (csave.End_Chunk()) {
+				for (HashNodeClass<SplineEntryClass *> *node = Splines.First_Valid(); node != NULL; node = node->Next_Valid()) {
+					SplineEntryClass *entry = node->Get();
+					if (entry == NULL || !Save_Entry(csave, entry)) {
+						return false;
+					}
+				}
+				return true;
+			}
 		}
 	}
-	if (!csave.End_Chunk()) {
-		return false;
-	}
-	for (HashNodeClass<SplineEntryClass *> *node = Splines.First_Valid(); node != NULL; node = node->Next_Valid()) {
-		SplineEntryClass *entry = node->Get();
-		if (entry == NULL) {
-			return false;
-		}
-		if (!Save_Entry(csave, entry)) {
-			return false;
-		}
-	}
-	return true;
+	return false;
 }
+
+
+
+
+
 
 bool SplineDatabaseClass::Save_Header(ChunkSaveClass &csave)
 {
@@ -3227,6 +3227,11 @@ void SplineEntryClass::Unpack(char **buffer)
 			break;
 	}
 	*buffer = (char *)p;
+}
+// @0x489BC0
+void SplineEntryClass::Print(FileClass *file, unsigned int depth)
+{
+	file->Printf_Indented(depth, "%s %s\n", Name, Description);
 }
 
 /*
