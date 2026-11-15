@@ -44,12 +44,7 @@ MainViewDazzleHandlerClass::~MainViewDazzleHandlerClass()
 {
 }
 
-// ---------------------------------------------------------------- cameraeffects.cpp (0x6E2BD0): the table, no effects
-CameraEffectsClass::CameraEffectsClass(MainViewClass *view, SClient *client)
-{
-	STUB_CALLED("POC CameraEffectsClass: no effects");
-	Client = client;
-}
+// cameraeffects.cpp's constructor 0x6E2BD0 and its SList slots are real app code since S1: its stand-in left here.
 
 // orbitalmanager.cpp (0x4F28A0-0x4F51C0) is real app code since WE4: its stand-in left here.
 
