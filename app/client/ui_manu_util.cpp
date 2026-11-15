@@ -31,7 +31,7 @@ UIManuUnknownC0Class::~UIManuUnknownC0Class()
 			GadgetClass::Destroy(Gadgets[i]);
 			Gadgets[i] = NULL;
 		}
-		REF_PTR_RELEASE(Unknown14[i]);
+		if (Unknown14[i] != NULL) { Unknown14[i]->Release_Ref(); Unknown14[i] = NULL; }
 	}
 }
 
@@ -196,4 +196,6 @@ void UIManuUnknownC0Class::Unknown_5B7880()
 **	UIManuUnknownC0Class's six functions 0x5B73C0-0x5B7880, then the header ids initialisers 0x5B79C0 / 0x5B7A40
 **	(the guarded std::ctype<unsigned short>::id one, 0xC416FC). mu01's object follows at 0x5B7AB0.
 **	The class itself was ui_manu.h's (MU1); it moved to ui_manu_util.h with this file.
+**	JD (2026-11-15): the destructor clears Unknown14[i] inside its NULL test (the client's je at +0x23 skips the
+**	store; REF_PTR_RELEASE stores unconditionally), on one line to keep the asserts' lines.
 */

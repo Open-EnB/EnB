@@ -109,13 +109,13 @@ UIAnalyzeClass::UIAnalyzeClass(SBaseViewClass *view, const LayerClass &layer) :
 
 
 
-// NOT EXACT: a relocation target (explain.py: identical once stack offsets, targets and relocations are masked; the unwind funclets look the same) (0x5437C0)
+
 // @0x5437C0
 UIAnalyzeClass::~UIAnalyzeClass()
 {
 	G_ASSERT(State == UI_CLOSED);
 	for (int i = 0; i < 3; i++) {
-		Unknown0FC[i] = NULL;
+		if (Unknown0FC[i]) Unknown0FC[i] = NULL;
 	}
 	Unknown0D4 = NULL;
 	Unknown0D8 = NULL;
@@ -768,3 +768,5 @@ void UIAnalyzeClass::Unknown_5461C0(int level, int a, int b, int c)
 // find but not its Cast: the inline budget of the whole file, not reproduced with only these functions (auto_inline(off)
 // around 0x545E40, an explicit instantiation, dead inline calls 1..6: no change; inline_depth(0) around it puts the
 // vector reads out of line too).
+// JD (2026-11-15): the destructor clears the three icon columns only when set (`if (Unknown0FC[i]) Unknown0FC[i] =
+// NULL;`: the client's je at +0x6B skips the store), the three strips unconditionally; 0x5437C0 exact.

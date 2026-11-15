@@ -6470,11 +6470,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Mono_Printf` | `app/client/meshsnd.cpp:17` | what it does |
 | 1 | `Unknown_7ED410` | `app/client/meshsnd.cpp:121` | untagged neutral name (D10) |
 | 1 | `Unknown_7ED630` | `app/client/meshsnd.cpp:158` | untagged neutral name (D10) |
-| 1 | `Unknown_7ED6C0` | `app/client/meshsnd.cpp:178` | untagged neutral name (D10) |
-| 1 | `Unknown_7EDA60` | `app/client/meshsnd.cpp:229` | untagged neutral name (D10) |
-| 1 | `Unknown_7EDAD0` | `app/client/meshsnd.cpp:235` | untagged neutral name (D10) |
-| 1 | `Unknown_7EDB60` | `app/client/meshsnd.cpp:245` | untagged neutral name (D10) |
-| 1 | `Unknown_7EDBE0` | `app/client/meshsnd.cpp:260` | untagged neutral name (D10) |
+| 1 | `Unknown_7ED6C0` | `app/client/meshsnd.cpp:177` | untagged neutral name (D10) |
+| 1 | `Unknown_7EDA60` | `app/client/meshsnd.cpp:235` | untagged neutral name (D10) |
+| 1 | `Unknown_7EDAD0` | `app/client/meshsnd.cpp:241` | untagged neutral name (D10) |
+| 1 | `Unknown_7EDB60` | `app/client/meshsnd.cpp:251` | untagged neutral name (D10) |
+| 1 | `Unknown_7EDBE0` | `app/client/meshsnd.cpp:266` | untagged neutral name (D10) |
 | 1 | `Get_Half_Size` | `app/client/mouse_targeting.h:32` | what it returns |
 | 1 | `Get_Self_Priority` | `app/client/mouse_targeting.h:33` | what it returns |
 | 1 | `Unknown_BE7C70` | `app/client/mousetbl.cpp:25` | neutral (D10) |
