@@ -5,8 +5,7 @@
   "0x46BE90",
   "0x474080",
   "0x5988A0",
-  "0x64EFC0",
-  "0x700E30"
+  "0x64EFC0"
  ],
  "copy": "reconstructed",
  "description": "CharacterViewAvatarClass (0x384 bytes, client 0x77B870-0x789D80, table 0xB044D0, __FILE__ 0xB9CE74 'e:\\\\build\\\\beta\\\\G\\\\app\\\\Client\\\\avatar.cpp', asserts lines 579-3920; run PR #146 AV): constructor 0x77B870, destructor 0x77C080, Unknown_77E3D0, Unknown_784A50, Unknown_784C90, Unknown_784E00, Unknown_786370, Unknown_7863E0, Unknown_1C4 functional for the POC login narrator (D64)",
@@ -215,6 +214,8 @@
   "0x789D40",
   "0x789D80",
   "0x789FE0",
+  "0x78A080",
+  "0x78A200",
   "0x78A3E0",
   "0x78A460",
   "0x78A4E0",
@@ -233,9 +234,7 @@
   "0x78A890",
   "0x78A8C0",
   "0x78A8F0",
-  "0x78A900",
-  "0x88B340",
-  "0x88B750"
+  "0x78A900"
  ],
  "merged": [],
  "name": "client/avatar.cpp",

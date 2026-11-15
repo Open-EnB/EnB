@@ -27,7 +27,7 @@
 #include "nlp.h"
 #include "env_map_manager.h"
 #include "..\packets\pkcolorization.h"
-
+#include "time_mgr.h"
 extern RandomClass Unknown_BDBB84;	// NAME 1 [Unknown_BDBB84]: neutral (D10), as eff_o.cpp's
 
 // 0xB9CD28: the default skeletons by gender (0x781D10, 0x7826A0)
@@ -1193,50 +1193,50 @@ void CharacterViewAvatarClass::Unknown_780790(int index, int metal)
 // 0x780810: two colorization regions from the description, shirt (primary, secondary) and pants (primary, secondary):
 // a half's metal and its colour, white when the metal is an environment map (>= 0); then shiputils.cpp's 0x80FCE0 on
 // the body and the head with the skin colour
-// NOT EXACT: functional for POC (D64), inline-budget (the client's vector insert and 0x780AC0 copies)
+// NOT EXACT: inline-budget (the client keeps vector::insert out of line and emits 0x780AC0 ColorizationHalfStruct::operator= out of line at Shirt, inline at Pants)
 void CharacterViewAvatarClass::Unknown_780810(EnvironmentMapManagerClass *env_maps)
 {
 	if (env_maps) {
 		std::vector<ColorizationRegionStruct> regions;
 		ColorizationRegionStruct region;
-		region.Unknown00.Unknown00 = Desc.Shirt_Primary_Metal;
-		region.Unknown00.Unknown04 = (Desc.Shirt_Primary_Metal < 0) ? Desc.Shirt_Primary_Color : Vector3(1.0f, 1.0f, 1.0f);
-		region.Unknown10.Unknown00 = Desc.Shirt_Secondary_Metal;
-		region.Unknown10.Unknown04 = (Desc.Shirt_Secondary_Metal < 0) ? Desc.Shirt_Secondary_Color : Vector3(1.0f, 1.0f, 1.0f);
-		regions.insert(regions.end(), 1, region);
-		region.Unknown00.Unknown00 = Desc.Pants_Primary_Metal;
-		region.Unknown00.Unknown04 = (Desc.Pants_Primary_Metal < 0) ? Desc.Pants_Primary_Color : Vector3(1.0f, 1.0f, 1.0f);
-		region.Unknown10.Unknown00 = Desc.Pants_Secondary_Metal;
-		region.Unknown10.Unknown04 = (Desc.Pants_Secondary_Metal < 0) ? Desc.Pants_Secondary_Color : Vector3(1.0f, 1.0f, 1.0f);
-		regions.insert(regions.end(), 1, region);
+		Vector3 primary_color;
+		ColorizationHalfStruct secondary;
+		int primary_metal = Desc.Shirt_Primary_Metal;
+		if (primary_metal >= 0) {
+			primary_color.Set(1.0f, 1.0f, 1.0f);
+		} else {
+			primary_color = Desc.Shirt_Primary_Color;
+		}
+		secondary.Unknown00 = Desc.Shirt_Secondary_Metal;
+		if (secondary.Unknown00 >= 0) {
+			secondary.Unknown04 = Vector3(1.0f, 1.0f, 1.0f);
+		} else {
+			secondary.Unknown04 = Desc.Shirt_Secondary_Color;
+		}
+		region.Unknown00.Unknown00 = primary_metal;
+		region.Unknown00.Unknown04 = primary_color;
+		region.Unknown10 = secondary;
+		regions.push_back(region);
+		primary_metal = Desc.Pants_Primary_Metal;
+		if (primary_metal >= 0) {
+			primary_color.Set(1.0f, 1.0f, 1.0f);
+		} else {
+			primary_color = Desc.Pants_Primary_Color;
+		}
+		secondary.Unknown00 = Desc.Pants_Secondary_Metal;
+		if (secondary.Unknown00 >= 0) {
+			secondary.Unknown04 = Vector3(1.0f, 1.0f, 1.0f);
+		} else {
+			secondary.Unknown04 = Desc.Pants_Secondary_Color;
+		}
+		region.Unknown00.Unknown00 = primary_metal;
+		region.Unknown00.Unknown04 = primary_color;
+		region.Unknown10 = secondary;
+		regions.push_back(region);
 		Unknown_80FCE0(BodyObj.Peek(), regions, env_maps, &Desc.Skin_Color);
 		Unknown_80FCE0(HeadObj.Peek(), regions, env_maps, &Desc.Skin_Color);
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -2377,7 +2377,7 @@ void CharacterViewAvatarClass::Unknown_783620(float time)
 
 
 // 0x783B50
-// NOT EXACT: functional for POC (D64), inline-budget (the NLP, blink and face callees not built; the movement's branches merged)
+// NOT EXACT: register-allocation / inline-budget (the client keeps accel in FPU ST(0) without spilling; also some NLP/blink/face callees not inlined)
 void CharacterViewAvatarClass::Unknown_1C4()
 {
 	if (Unknown204 == 0) {
@@ -2393,34 +2393,41 @@ void CharacterViewAvatarClass::Unknown_1C4()
 	}
 	Unknown_788900();
 	Unknown_7897D0();
-	float frame = (float)WW3D::Get_Frame_Time() * 0.001f;
-	float time = frame;
+	float time = (float)WW3D::Get_Frame_Time() * 0.001f;
+	bool clamped = false;
 	if (time > 0.25f) {
 		time = 0.25f;
+		clamped = true;
 	}
 	if (Unknown2F8 != 0 || Unknown308 != 0.0f) {
-		float accel = time * 30.0f;
+		static const float run_max = 25.0f;
+		static const float walk_max = 10.0f;
+		static const float turn_rate = 2.0f;
+		static const float pitch_rate = 1.0f;
+		static const float accel_rate = 30.0f;
+		float accel = accel_rate * time;
 		Unknown360.Set(0.0f, 0.0f, 0.0f);
 		if (Unknown308 > 0.0f && Unknown2F4) {
-			accel *= 2.5f;
+			accel = (run_max / walk_max) * accel;
 		}
-		float turn = 2.0f * time;
-		if (frame > 0.25f) {
+		float turn = turn_rate * time;
+		if (clamped) {
 			turn = 0.0f;
 		}
 		if (Unknown318.size() != 0 && Unknown20C != 2) {
 			turn *= 3.0f;
 		}
-		if (Unknown2FC < 0.25f) {
-			turn = Unknown2FC * 4.0f * turn;
+		if (Unknown2FC < 0.25) {
+			float scale = Unknown2FC * 4.0f;
+			turn *= scale;
 		}
 		if (Unknown2F8 & 4) {
 			Unknown330.Rotate_Z(turn);
 		} else if (Unknown2F8 & 8) {
 			Unknown330.Rotate_Z(-turn);
 		}
-		float pitch = Unknown300 * 1.0f * time;
-		if (frame > 0.25f) {
+		float pitch = pitch_rate * Unknown300 * time;
+		if (clamped) {
 			pitch = 0.0f;
 		}
 		int flags = Unknown2F8;
@@ -2437,57 +2444,64 @@ void CharacterViewAvatarClass::Unknown_1C4()
 			}
 			Unknown30C = pitch;
 		}
-		float yaw = Unknown304 * 2.0f * time;
+		float yaw = turn_rate * Unknown304 * time;
 		if (flags & 0x40) {
 			Unknown310 = Unknown310 - yaw;
 		} else if (flags & 0x80) {
 			Unknown310 = yaw + Unknown310;
 		}
-		bool move = true;
-		if (flags & 3) {
+		if (flags & 1) {
 			if (Unknown20C == 2 && Unknown210 == 0) {
 				Unknown20C = 0;
 				Unknown214 = true;
 				Unknown208 = 2;
 			}
-			if (Unknown20C != 1) {
-				move = false;
-			} else if (flags & 1) {
+			if (Unknown20C == 1) {
 				float speed = accel + Unknown308;
-				float top = Unknown2F4 ? 25.0f : 10.0f;
-				if (speed > top) {
-					speed = top;
+				if (Unknown2F4) {
+					if (run_max < speed) {
+						speed = run_max;
+					}
+				} else {
+					if (walk_max < speed) {
+						speed = walk_max;
+					}
+				}
+				Unknown308 = speed;
+				Unknown360 = (Unknown330.Get_X_Vector() * Unknown308) * time;
+				Unknown330.Adjust_Translation(Unknown360);
+			}
+		} else if (flags & 2) {
+			if (Unknown20C == 2 && Unknown210 == 0) {
+				Unknown20C = 0;
+				Unknown214 = true;
+				Unknown208 = 2;
+			}
+			if (Unknown20C == 1) {
+				float speed = Unknown308 - accel;
+				if (-walk_max > speed) {
+					speed = -walk_max;
+				}
+				Unknown308 = speed;
+				Unknown360 = (Unknown330.Get_X_Vector() * Unknown308) * time;
+				Unknown330.Adjust_Translation(Unknown360);
+			}
+		} else if (Unknown308 != 0.0f) {
+			if (Unknown308 > 0.0f) {
+				float speed = Unknown308 - accel;
+				if (0.0f > speed) {
+					speed = 0.0f;
 				}
 				Unknown308 = speed;
 			} else {
-				float speed = Unknown308 - accel;
-				if (speed < -10.0f) {
-					speed = -10.0f;
+				float speed = accel + Unknown308;
+				if (0.0f < speed) {
+					speed = 0.0f;
 				}
 				Unknown308 = speed;
 			}
-		} else if (Unknown308 == 0.0f) {
-			move = false;
-		} else if (Unknown308 > 0.0f) {
-			float speed = Unknown308 - accel;
-			if (speed < 0.0f) {
-				speed = 0.0f;
-			}
-			Unknown308 = speed;
-		} else if (Unknown308 < 0.0f) {
-			float speed = accel + Unknown308;
-			if (speed > 0.0f) {
-				speed = 0.0f;
-			}
-			Unknown308 = speed;
-		}
-		if (move) {
-			Unknown360.Y = Unknown330[1][0] * Unknown308 * time;
-			Unknown360.X = Unknown330[0][0] * Unknown308 * time;
-			Unknown360.Z = Unknown330[2][0] * Unknown308 * time;
-			Unknown330[0][3] = Unknown360.X + Unknown330[0][3];
-			Unknown330[1][3] = Unknown360.Y + Unknown330[1][3];
-			Unknown330[2][3] = Unknown360.Z + Unknown330[2][3];
+			Unknown360 = (Unknown330.Get_X_Vector() * Unknown308) * time;
+			Unknown330.Adjust_Translation(Unknown360);
 		}
 	}
 	if (!Unknown36C) {
@@ -2516,9 +2530,7 @@ void CharacterViewAvatarClass::Unknown_1C4()
 	if (Unknown2EC && (BodyObj == NULL || !BodyObj->Is_Hidden())) {
 		Unknown2F0 -= time;
 		if (Unknown2F0 < 0.0f) {
-			if (TutorialManagerClass::Instance) {
-				TutorialManagerClass::Instance->Start_Step(Unknown2EC);
-			}
+			TutorialManagerClass::Instance->Start_Step(Unknown2EC);
 			Unknown2F0 = 60.0f;
 		}
 	}
@@ -2550,7 +2562,15 @@ void CharacterViewAvatarClass::Unknown_1C4()
 			}
 		}
 	}
-	// The client then shows +0x2E4 (the mask) or the head by 0x8190D0's 0x819280: not built yet.
+	if (MaskObj != NULL) {
+		if (TimeMgrClass::Get_Instance()->Is_Unknown_819280()) {
+			MaskObj->Set_Hidden(0);
+			HeadObj->Set_Hidden(1);
+		} else {
+			MaskObj->Set_Hidden(1);
+			HeadObj->Set_Hidden(0);
+		}
+	}
 }
 
 // 0x784700
@@ -2664,26 +2684,6 @@ void CharacterViewAvatarClass::Unknown_784B80(char *data, int size, bool flag)
 		Unknown208 = 1;
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -3650,7 +3650,7 @@ void CharacterViewAvatarClass::Unknown_788EF0()
 // 0x788F90
 // the teleport effect 'av_tele0N' and its animation into +0x370 / +0x374, put in the body's scene on the avatar,
 // hidden until 0x7896B0 plays it; +0x37C the time it runs, +0x378 the time left at which 0x7897D0 shows / hides the body
-// NOT EXACT: functional for POC (D64), inline-budget (the client's +0x370 / +0x374 are RefCountPtrs)
+// NOT EXACT: inline-budget + Matrix3D copy scheduling (0x788FF3 / 0x789009 operator=(NULL) and case 4 RefCountPtr calls inlined here, out of line in client; [esi+0x338] vs [esi+0x330])
 void CharacterViewAvatarClass::Unknown_788F90(int mode)
 {
 	if (BodyObj == NULL || Unknown380 == mode) {
@@ -3703,15 +3703,13 @@ void CharacterViewAvatarClass::Unknown_788F90(int mode)
 			Unknown37C = 0.5f;
 			break;
 	}
-	if (Unknown370 == NULL) {	// POC guard: the client goes on without testing
-		return;
-	}
 	Unknown_496AE0(Unknown370.Peek(), true);
 	BodyObj->Peek_Scene()->Add_Render_Object(Unknown370.Peek());
 	if (!Unknown36C) {
 		Unknown370->Set_Transform(Get_Transform());
 	} else {
-		Matrix3D m = Unknown330;
+		Matrix3D m;
+		m = Unknown330;
 		Unknown370->Set_Transform(m);
 	}
 	Unknown370->Set_Hidden(1);
@@ -3734,6 +3732,8 @@ void CharacterViewAvatarClass::Unknown_7896B0(int a)
 		}
 	}
 	Unknown_788EF0();
+
+
 
 
 
@@ -3994,6 +3994,47 @@ void CharacterViewAvatarClass::Unknown_789FE0(const char *part)
 			}
 		}
 	}
+}
+
+// 0x78A080
+void CharacterViewAvatarClass::Unknown_78A080()
+{
+	if (Unknown318.size() != 0) {
+		Unknown_7885D0(true);
+		for (std::list<Matrix3D *>::iterator it = Unknown318.begin(); it != Unknown318.end(); ++it) {
+			Matrix3D *old_m = *it;
+			Matrix3D *m = new Matrix3D(*old_m);
+			Unknown324.push_back(m);
+		}
+		Unknown_7885D0(false);
+	}
+	if (Unknown20C != 2) {
+		Unknown208 = 0;
+		Unknown20C = 2;
+		Unknown214 = true;
+	}
+	Unknown2F8 &= 0xFFFC;
+}
+
+// 0x78A200
+void CharacterViewAvatarClass::Unknown_78A200()
+{
+	if (Unknown324.size() != 0) {
+		Unknown_7885D0(false);
+		for (std::list<Matrix3D *>::iterator it = Unknown324.begin(); it != Unknown324.end(); ++it) {
+			Matrix3D *old_m = *it;
+			Matrix3D *m = new Matrix3D(*old_m);
+			Unknown318.insert(Unknown318.end(), m);
+		}
+		Unknown_7885D0(true);
+	}
+	for (unsigned int i = 0; i < Unknown2A0.size(); i++) {
+		Unknown_AvatarQueueStruct *entry = Unknown2A0[i];
+		if (entry != NULL) {
+			delete entry;
+		}
+	}
+	Unknown2A0.clear();
 }
 
 // Layout (CS12, 2026-11-05): the functions stand in the client's address order, and blank lines put each assert and
