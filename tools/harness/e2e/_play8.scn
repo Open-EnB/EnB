@@ -4,7 +4,7 @@ name: a recorded session played to its end: /play 8 on the Broadcast channel (Za
 # SERVER_HANDOFF 2 sector 1070 (1461 over 244 s); its end antreplay answers with 'End of recording 8; back to
 # Jupiter.' and a SERVER_HANDOFF home, whose connection answers START_ACK. No /stop: the playback runs to its
 # completion (the user, 2026-11-14). About 380 s on retail and on ours (E2, 2026-11-15: both PASS, the packets
-# the same; ours hits the generated stand-in Unknown_496E90).
+# the same; ours hit the generated stand-in Unknown_496E90 until S3 wrote it in ro_funcs.cpp: gen 0 hit).
 timeout: 700
 messages: on
 include _login

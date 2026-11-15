@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 37 |
 | 3 | by convention from a client-named file or sibling | 1961 |
 | 2 | describes what the code does | 4957 |
-| 1 | neutral placeholder | 25093 |
+| 1 | neutral placeholder | 25095 |
 
 ## For review (score 3 and below)
 
@@ -24012,10 +24012,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_496AE0` | `app/shared/ro_funcs.cpp:327` | untagged neutral name (D10) |
 | 1 | `Unknown_496C00, robj, u, v, color` | `app/shared/ro_funcs.cpp:362` | neutral (D10) |
 | 1 | `Unknown_496C00` | `app/shared/ro_funcs.cpp:362` | untagged neutral name (D10) |
-| 1 | `Unknown_496DB0, robj` | `app/shared/ro_funcs.cpp:389` | neutral (D10) |
-| 1 | `Unknown_496DB0` | `app/shared/ro_funcs.cpp:389` | untagged neutral name (D10) |
-| 1 | `Unknown_497240, robj, on` | `app/shared/ro_funcs.cpp:400` | neutral (D10) |
-| 1 | `Unknown_497240` | `app/shared/ro_funcs.cpp:400` | untagged neutral name (D10) |
+| 1 | `Unknown_496DB0, robj` | `app/shared/ro_funcs.cpp:387` | neutral (D10) |
+| 1 | `Unknown_496DB0` | `app/shared/ro_funcs.cpp:387` | untagged neutral name (D10) |
+| 1 | `Unknown_496E90, sphere, robj` | `app/shared/ro_funcs.cpp:396` | neutral (D10) |
+| 1 | `Unknown_496E90` | `app/shared/ro_funcs.cpp:396` | untagged neutral name (D10) |
+| 1 | `Unknown_497240, robj, on` | `app/shared/ro_funcs.cpp:420` | neutral (D10) |
+| 1 | `Unknown_497240` | `app/shared/ro_funcs.cpp:420` | untagged neutral name (D10) |
 | 1 | `Unknown_480A40` | `app/shared/ro_proxy.cpp:19` | neutral |
 | 1 | `Unknown090` | `app/shared/ro_proxy.cpp:24` | untagged neutral name (D10) |
 | 1 | `Unknown0C1` | `app/shared/ro_proxy.cpp:27` | untagged neutral name (D10) |
