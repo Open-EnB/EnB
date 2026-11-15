@@ -648,8 +648,8 @@ void UILineDisplayClass::Skip()
 
 
 
-// ui_missn.cpp's set-field find (a field that is set, else NULL; the client's test eax / cmp 1 pair): the layer leaves the find 0x5AA9D0 out of line as the client calls it
-template<class C> inline C *Unknown_Find_Set_Field(DeltaCompoundClass *root, const NameClass &name) { C *t = Unknown_Find_Field<C>(root, name); return((t && t->Unknown70) ? t : NULL); }	// NAME 1: neutral (D10)
+// auxdata.h's set-field find (a field that is set, else NULL; the client's test eax / cmp 1 pair): the layer leaves the find 0x5AA9D0 out of line as the client calls it
+
 
 // 0x5A8350: the mission messages (the stage, completed, expired and failed lines and their sounds); the client's Add_Line_3 / Add_Line_7 wrappers and the stage item in a local
 void UILineDisplayClass::Unknown_5A8350()

@@ -695,7 +695,7 @@ void UICpitClass::Unknown_74(ControlKeysManager *manager)
 
 
 
-template<class C> inline C *Unknown_Find_Set_Field(DeltaCompoundClass *root, const NameClass &name) { C *t = Unknown_Find_Field<C>(root, name); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10), as ui_scan.cpp's; 0x584000: its expansions call the find (0x5806E0, two) or the Cast (0x5821C0) out of line
+template<class C> inline C *Unknown_Cpit_Find_Set_Field(DeltaCompoundClass *root, const NameClass &name) { C *t = Unknown_Find_Field<C>(root, name); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10), ui_cpit.cpp's if/return form (auxdata.h's Unknown_Find_Set_Field uses ternary and drops 0x546710 here); 0x584000: its expansions call the find (0x5806E0, two) or the Cast (0x5821C0) out of line
 
 // 0x5806E0: the steering keys (the client's key ids 2 .. 21; 0x48, 0x4B .. 0x4E taken, others not)
 // NOT EXACT: inline budget (the client calls Unknown_Find_Field<float> out of line, 0x546710, in the expanded 0x584000; ours expands it and calls the Cast)
@@ -1922,7 +1922,7 @@ bool UICpitClass::Unknown_584000(bool report)
 	if (!avatar) return(false);
 	if (!avatar->AuxData) return(false);
 	NameClass name("MaxSpeed");
-	DeltaTemplateClass<float> *t = Unknown_Find_Set_Field<DeltaTemplateClass<float> >((DeltaCompoundClass *)avatar->AuxData, name);
+	DeltaTemplateClass<float> *t = Unknown_Cpit_Find_Set_Field<DeltaTemplateClass<float> >((DeltaCompoundClass *)avatar->AuxData, name);
 	bool ok = (t && t->Value != 0.0f);
 	if (!ok) {
 		if (report) sclient->Unknown_74D990(17, "Engine unavailable. Please wait.", 0);

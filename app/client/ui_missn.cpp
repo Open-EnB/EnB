@@ -180,7 +180,7 @@ void UIMissnClass::Unknown_54()
 
 // auxdata.h's find through a wrapper whose six dead size() reads (no code) spend the inline budget: 0x5C4C90 then calls the find out of line (0x5AA9D0), as the client does
 template<class C> inline C *Unknown_Find_Field_Outlined(DeltaCompoundClass *root, const NameClass &name) { root->Children.size(); root->Children.size(); root->Children.size(); root->Children.size(); root->Children.size(); root->Children.size(); return(Unknown_Find_Field<C>(root, name)); }	// NAME 1: neutral (D10)
-template<class C> inline C *Unknown_Find_Set_Field(DeltaCompoundClass *root, const NameClass &name) { C *t = Unknown_Find_Field<C>(root, name); return((t && t->Unknown70) ? t : NULL); }	// NAME 1: neutral (D10): as ui_faction.cpp's (a field that is set, else NULL)
+
 
 
 
