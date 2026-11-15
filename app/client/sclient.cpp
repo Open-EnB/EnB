@@ -447,7 +447,7 @@ void SClient::Init()
 	Unknown129C->Unknown_54();
 	Unknown129C->Unknown_7C(MainView, 0);
 	{
-		RefCountPtr<UITalkTreeSpaceClass> talk(Unknown129C);
+		RefCountPtr<UITalkTreeClass> talk(Unknown129C);
 		if (talk.Peek() != Unknown1298.Peek()) {
 			Unknown1298 = talk;
 		}
@@ -5622,7 +5622,7 @@ bool SClient::Unknown_34(const char *text)
 		return(true);
 	}
 	if (stricmp(text, "/starbase reset") == 0 && CurrentView && CurrentView == Unknown135C) {
-		UIStarbaseClass *starbase = ((SBaseViewClass *)Unknown135C)->Get_Starbase().Peek();
+		UIStarbaseClass *starbase = (UIStarbaseClass *)((SBaseViewClass *)Unknown135C)->Get_Starbase().Peek();
 		starbase->Unknown_640150();
 		return(true);
 	}
@@ -5725,7 +5725,7 @@ void SClient::Unknown_750F70(const char *name, int channel)
 		Vector3 color = Unknown13CC.Unknown_765DF0(channel);
 		if (CurrentView && CurrentView == Unknown135C) {
 			if (Unknown135C) {
-				UIStarbaseClass *starbase = ((SBaseViewClass *)Unknown135C)->Get_Starbase().Peek();
+				UIStarbaseClass *starbase = (UIStarbaseClass *)((SBaseViewClass *)Unknown135C)->Get_Starbase().Peek();
 				if (starbase) {
 					starbase->Unknown_6425D0(sender.c_str(), color);
 				}

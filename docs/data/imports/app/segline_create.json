@@ -1,6 +1,5 @@
 {
  "ambiguous": [
-  "0x46BE90",
   "0x474080"
  ],
  "copy": "reconstructed",
@@ -18,7 +17,9 @@
   "0x498320",
   "0x498350",
   "0x4983A0",
-  "0x498B90"
+  "0x498B90",
+  "0x498BC0",
+  "0x498BF0"
  ],
  "merged": [],
  "name": "shared/segline_create.cpp",
@@ -28,12 +29,11 @@
   "0x46C620",
   "0x48F3A0",
   "0x490150",
-  "0x4902D0"
+  "0x4902D0",
+  "0x498BF0"
  ],
  "short_known": [
-  "0x46C620"
- ],
- "tiebreak": [
-  "0x498B90"
+  "0x46C620",
+  "0x498BF0"
  ]
 }

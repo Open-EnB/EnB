@@ -4643,7 +4643,7 @@ void UIStarbaseLightsClass::Unknown_58()
 	if (!Active) {
 		ChatPanelUIBase::Unknown_58();
 		UnknownE0 = 0;
-		Starbase = ((SBaseViewClass *)((LineDisplayClientClass *)Client)->As_Space_Client()->Unknown135C)->Get_Starbase().Peek();
+		Starbase = (UIStarbaseClass *)((SBaseViewClass *)((LineDisplayClientClass *)Client)->As_Space_Client()->Unknown135C)->Get_Starbase().Peek();
 		Starbase->Unknown_640D80(&UnknownE4, &UnknownE8, &UnknownEC);
 		Unknown_646A00();
 		Unknown_6474C0(0);

@@ -88,7 +88,7 @@ RefCountPtr<LegoClass> ClientLegoImplClass::Create(const LegoIdentifierClass &id
 {
 	FAIL_IF(asset_id < 0) return NULL;
 
-	RefCountPtr<ClientLegoImplClass> lego = Create_NEW(new ClientLegoImplClass(id, unknown));
+	RefCountPtr<LegoClass> lego = Create_NEW((LegoClass *)new ClientLegoImplClass(id, unknown));
 	FAIL_IF(!lego) {
 		return NULL;
 	}

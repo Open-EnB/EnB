@@ -1174,7 +1174,7 @@ void GalaxyMapRenderMeshClass::Get_Position(Vector3 &position)
 
 GalaxyMapRenderLineClass::GalaxyMapRenderLineClass()
 {
-	Line = Create_NEW((SegmentedLineClass *)new GalaxyMapLineRObjClass());
+	Line = Create_NEW(new GalaxyMapLineRObjClass());
 }
 
 GalaxyMapRenderSystemClass::GalaxyMapRenderSystemClass(const RefCountPtr<GalaxyMapSystemClass> &data) :
@@ -1691,7 +1691,7 @@ void GalaxyMapRenderGateClass::Unknown_7ACEF0(INIClass &ini)
 }
 
 
-RefCountPtr<SegmentedLineClass> &GalaxyMapRenderLineClass::Get_Line()
+RefCountPtr<GalaxyMapLineRObjClass> &GalaxyMapRenderLineClass::Get_Line()
 {
 	return(Line);
 }

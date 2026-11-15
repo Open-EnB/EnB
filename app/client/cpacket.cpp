@@ -2168,7 +2168,7 @@ bool TradePacketClass::Process_Packet(void *instance)
 	UIPTradeClass *trade = NULL;
 	if (sclient->Unknown_744B60() && sclient->Unknown135C) {
 		trade = ((SBaseViewClass *)sclient->Unknown135C)->PTrade.Peek();
-		starbase = ((SBaseViewClass *)sclient->Unknown135C)->Get_Starbase().Peek();
+		starbase = (UIStarbaseClass *)((SBaseViewClass *)sclient->Unknown135C)->Get_Starbase().Peek();
 	} else if (!sclient->Unknown_744B60() && sclient->MainView) {
 		trade = sclient->MainView->Unknown1E4;
 	}
@@ -2317,7 +2317,7 @@ bool StarbaseAvatarUpdatePacketClass::Process_Packet(void *instance)
 	WWPROFILE("StarbaseAvatarUpdatePacketClass::Process_Packet ()");
 	SClient *sclient = (SClient *)instance;
 	if (!sclient->Unknown135C) return(true);
-	UIStarbaseClass *starbase = ((SBaseViewClass *)sclient->Unknown135C)->Get_Starbase().Peek();
+	UIStarbaseClass *starbase = (UIStarbaseClass *)((SBaseViewClass *)sclient->Unknown135C)->Get_Starbase().Peek();
 	int room;
 	if (!starbase || (room = starbase->Room) != Room || !starbase->Active) return(true);
 	starbase->Unknown_63E5C0(AvatarID, Orient, &Vector3(Unknown14, Unknown18, Unknown1C), ActionFlag);
@@ -2333,7 +2333,7 @@ bool StarbaseAvatarRoomUpdatePacketClass::Process_Packet(void *instance)
 	WWPROFILE("StarbaseAvatarRoomUpdatePacketClass::Process_Packet ()");
 	SClient *sclient = (SClient *)instance;
 	if (!sclient->Unknown135C) return(true);
-	UIStarbaseClass *starbase = ((SBaseViewClass *)sclient->Unknown135C)->Get_Starbase().Peek();
+	UIStarbaseClass *starbase = (UIStarbaseClass *)((SBaseViewClass *)sclient->Unknown135C)->Get_Starbase().Peek();
 	if (!starbase || !starbase->Active) return(true);
 	starbase->Unknown_63CF30(AvatarID, NewRoom);
 	return(true);
@@ -3445,7 +3445,7 @@ bool RecustomizeAvatarUpdatePacketClass::Process_Packet(void *instance)
 {
 	SClient *sclient = (SClient *)instance;
 	FAIL_IF(!sclient) return(true);
-	UIStarbaseClass *starbase = ((SBaseViewClass *)sclient->Unknown135C)->Get_Starbase().Peek();
+	UIStarbaseClass *starbase = (UIStarbaseClass *)((SBaseViewClass *)sclient->Unknown135C)->Get_Starbase().Peek();
 	starbase->Unknown_6437A0(Unknown118, &Desc);
 	return(true);
 }

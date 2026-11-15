@@ -287,7 +287,7 @@ int SBaseViewClass::Unknown_0C(bool on)
 // the client reads these through inline functions: as plain member reads 0x69C8F0 loads them in another order
 inline unsigned Unknown_Avatar_ID(SClient *client) { return(((ClientClass *)((ClientClass *)client)->As_Space_Client())->AvatarID); }	// NAME 1: neutral (D10), as ui_cpit.cpp's
 inline int Unknown_1134(SClient *client) { return(client->Unknown1134); }	// NAME 1: neutral (D10)
-inline int Unknown_84(UIStarbaseClass *starbase) { return((int)starbase->InterfaceMesh); }	// NAME 1: neutral (D10)
+inline int Unknown_84(Unknown5BB320Class *starbase) { return((int)starbase->InterfaceMesh); }	// NAME 1: neutral (D10)
 
 // 0x69C8F0: the base's frame, then the talk interface's choice, the pending view change, the sounds, the trade
 // and the group window
@@ -1384,7 +1384,7 @@ void SBaseViewClass::Unknown_6A1130()
 inline unsigned SBaseViewClass::Fast_Allocated_Size(FastAllocatorGeneral *allocator) { int size=0; for (int i=0;i<FastAllocatorGeneral::MAX_ALLOC_SIZE/FastAllocatorGeneral::ALLOC_STEP;++i) { FastCriticalSectionClass::LockClass lock(allocator->CriticalSections[i]); size+=allocator->allocators[i].Get_Allocated_Size(); } return size; }
 inline unsigned SBaseViewClass::Fast_Allocation_Count(FastAllocatorGeneral *allocator) { int count=0; for (int i=0;i<FastAllocatorGeneral::MAX_ALLOC_SIZE/FastAllocatorGeneral::ALLOC_STEP;++i) { FastCriticalSectionClass::LockClass lock(allocator->CriticalSections[i]); count+=allocator->allocators[i].Get_Allocation_Count(); } return count; }
 
-
+// NOT EXACT: register-only (D89, explain.py): one sub's operands swapped since Starbase / +0x64 became RefCountPtr<Unknown5BB320Class> (D240 entry)
 // 0x6A1180: the frame rate kept; the client's debug pages (Unknown14EC 4: memory, as frameint.cpp's; 1: the frame
 // rate), its audio page, and its text rendered and reset (0x69C5E0 calls it before End_Render)
 void SBaseViewClass::Unknown_6A1180()

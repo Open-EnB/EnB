@@ -6,6 +6,8 @@
 
 #include "ui_petition_avatar_pip.h"
 
+class UIPetitionPlayerEntryClass;
+
 // The players window (0xC8 bytes, tables 0xAF5248 / 0xAF523C / 0xAF5230): the GM avatar's picture-in-picture and six
 // buttons (1 exit, 2 bad name, 3 chat harassment, 4 game harassment, 5 spam, 6 cheating); 2-6 open the players page
 // (ui_petition_player_entry.cpp, type 3-7) and keep it in Page until it closes. ui_petition.cpp's button 7 makes it.
@@ -24,7 +26,7 @@ public:
 	void Unknown_5D5F00(int key);						// 0x5D5F00 (buttons 2-6 on but key's; inlined into 0x5D5B70)  // NAME 1 [key]: Unknown_68's
 	void Unknown_5D5F40();								// 0x5D5F40 (buttons 2-6 on; inlined into 0x5D5A90)
 
-	RefCountPtr<ChatPanelUIBase> Page;					// +0xA8 (the page a button opened; released when its Closed is set)  // NAME 2: what it holds
+	RefCountPtr<UIPetitionPlayerEntryClass> Page;		// +0xA8 (the page a button opened; released when its Closed is set; its own instance: Create_Get 0x5D5F70 and the temporary's ~RefCountPtr 0x5D5FA0, not ChatPanelUIBase's 0x56CCE0)  // NAME 2: what it holds
 	GadgetClass *Buttons[7];							// +0xAC (by id; [0] unused)  // NAME 2: what they are
 };
 

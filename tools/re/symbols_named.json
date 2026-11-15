@@ -2791,5 +2791,17 @@
   "address": "0x740050",
   "symbol": "?Unknown_740050@@YAXPBD0IAAV?$vector@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@V?$allocator@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@@std@@@Z",
   "evidence": "sclient.obj's static split helper: its only callers are sclient.cpp's chat commands 0x749590 (0x7496B8) and 0x749ED0 (0x74A621), inside sclient's range; byte-identical to unknown_4fb810.cpp's String_Tokenize 0x4FBEC0, so objmatch left it ambiguous (SC, 2026-11-15)"
+ },
+ {
+  "address": "0x6F8CF0",
+  "symbol": "??1?$DeltaTemplateClass@UUnknownB00A00Type@@@@UAE@XZ",
+  "evidence": "called by the deleting destructor 0x700CB0, which the client's vtable 0xB00A00 holds at +0x04; the unwind funclets of DeltaLightClass::DeltaLightClass 0x6F9870 (whose vptr stores are 0xB00A00) and DeltaShipClass::~DeltaShipClass 0x6F8D30 jump to it (TY, run 2026-11-15)",
+  "replaces": "??1?$DeltaTemplateClass@UUnknownB016DCType@@@@UAE@XZ"
+ },
+ {
+  "address": "0x706AF0",
+  "symbol": "??1?$DeltaTemplateClass@UUnknownB016DCType@@@@UAE@XZ",
+  "evidence": "its one caller is the deleting destructor 0x706730, which the client's vtable 0xB016DC holds at +0x04 (TY, run 2026-11-15)",
+  "replaces": "??1?$DeltaTemplateClass@UUnknownB00A00Type@@@@UAE@XZ"
  }
 ]
