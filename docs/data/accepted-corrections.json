@@ -296,6 +296,14 @@
    "moved_to": null,
    "decision": "D246",
    "note": "N1 7436a72a (viewbttn.cpp, +51 pairs): the client's viewbttn.obj has no guarded std::ctype<unsigned short>::id initialiser (the original file never saw <string>); ours gets <string> through sclient.h/client.h, option.h and soundlib.h and its initialiser makes view.cpp's tail ambiguous. One regain round looked at: no fix without retyping shared headers. Coordinator's valve call, lost until regained."
+  },
+  {
+   "address": "0x6A1180",
+   "lib": "app",
+   "file": "sbaseview",
+   "moved_to": null,
+   "decision": "D246",
+   "note": "run 2026-11-15 (coordinator, D246 valve): SBaseViewClass 0x6A1180's exact pair is an order-only flip (two a() - b() print arguments, texture size and count, evaluated right-first against the client's left-first) that independent header changes toggle: lost in the batch S9B/LV2/ST/S9A and in DU (duration.h's user copy members, +13), which gain 103 pairs between them. One regain round tried (DU, 5 forms, attempts.csv). Lost until regained."
   }
  ]
 }
