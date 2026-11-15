@@ -8,9 +8,12 @@
  "in_tree": [
   "0x42F250",
   "0x546970",
+  "0x6E32E0",
   "0x6E3710",
   "0x6E37F0",
-  "0x6E3B60"
+  "0x6E3B60",
+  "0x6E3D30",
+  "0x6E3F00"
  ],
  "merged": [],
  "name": "client/cameraeffects.cpp",

@@ -242,23 +242,23 @@ ClientObjectClass::~ClientObjectClass()
 
 #include <list>
 #include "scene.h"
-// The render hook Set_Model 0x6F33F0 gives every model (vtable 0xB007A4, 0x10 bytes, over RenderHookClass's
-// 0xB007B4): a list of (material pass, flag) pairs its Pre_Render 0x6BB7E0 pushes around the model's render.
-// Its two render functions lie after debris.cpp (file unknown, not rebuilt); the constructor is inline here
-struct UnknownB007A4PassStruct	// NAME 1: neutral (D10)
-{
-	MaterialPassClass *Pass;	// +0x00 (0x6BB7E0 pushes it)  // NAME 2: what it holds
-	bool Unknown04;				// +0x04 (0x6BB7E0: an override flag 4 when set)
-};
-class UnknownB007A4Class : public RenderHookClass	// NAME 1: neutral (D10), named by its vtable
-{
-public:
-	virtual ~UnknownB007A4Class() {}										// 0x6F3770 (scalar deleting 0x6F3740)
-	virtual bool Pre_Render(RenderObjClass *robj, RenderInfoClass &rinfo);	// 0x6BB7E0
-	virtual void Post_Render(RenderObjClass *robj, RenderInfoClass &rinfo);	// 0x6BB8B0
+#include "unknown_6bb7e0.h"	// the render hook Set_Model 0x6F33F0 gives every model (vtable 0xB007A4; its constructor inline here)
 
-	std::list<UnknownB007A4PassStruct> Passes;	// +0x04  // NAME 2: what it holds
-};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // 0x6F33F0
 void ClientObjectClass::Unknown_6F33F0(RenderObjClass *model, int base_asset, float scale)

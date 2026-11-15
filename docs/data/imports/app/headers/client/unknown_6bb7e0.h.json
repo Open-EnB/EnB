@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "RECONSTRUCTED: co.cpp's render hook (vtable 0xB007A4) and its (material pass, flag) pair, shared by co.cpp, eff_pass.cpp and unknown_6bb7e0.cpp"
+}
