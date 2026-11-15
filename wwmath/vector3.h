@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Renegade(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -411,12 +411,12 @@ WWINLINE void Vector3::Normalize()
 
 WWINLINE Vector3 Normalize(const Vector3 & vec)
 {
-	float len2 = vec.Length2();
+	Vector3 result = vec; float len2 = vec.Length2();
 	if (len2 != 0.0f) {
 		float oolen = WWMath::Inv_Sqrt(len2);
-		return vec * oolen;
+		result.X = vec.X * oolen; result.Y = vec.Y * oolen; result.Z = vec.Z * oolen;
 	}
-	return vec;
+	return result;
 }
 
 /************************************************************************** 
@@ -924,3 +924,9 @@ WWINLINE unsigned long	Vector3::Convert_To_ARGB( void ) const
 
 #endif /* Vector3_H */
 
+// Earth & Beyond client (reconstruction): changes to Renegade's vector3.h (frozen 2026-11-07 from importer.py)
+// EnB: Normalize(const Vector3 &) (2026-11-15): copies vec into its result before the length test and writes the
+//       three scaled components into it (two lines merged so no line below moves) (EA: return vec * oolen; / return vec;). client.exe's evidence: every inlined
+//       site of it in CameraModule79C8E0Class::Unknown_08 0x79C970 (0x79CA1F, 0x79CD85, 0x79CE34) moves the source's
+//       components into the result's slots before the zero test and stores fld src; fmul st(1); fstp dst per component
+//       after Inv_Sqrt, with no temporary; EA's form compiles to a jump over a copy and a temporary (NF, 2026-11-15).
