@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 37 |
 | 3 | by convention from a client-named file or sibling | 1961 |
 | 2 | describes what the code does | 4951 |
-| 1 | neutral placeholder | 25057 |
+| 1 | neutral placeholder | 25059 |
 
 ## For review (score 3 and below)
 
@@ -6420,6 +6420,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_7BACD0` | `app/client/map_pip.cpp:237` | untagged neutral name (D10) |
 | 1 | `Unknown_7C3C60` | `app/client/map_pip.cpp:241` | untagged neutral name (D10) |
 | 1 | `Unknown_693020` | `app/client/map_pip.cpp:253` | untagged neutral name (D10) |
+| 1 | `Unknown_693040` | `app/client/map_pip.cpp:258` | untagged neutral name (D10) |
 | 1 | `client, arg` | `app/client/map_pip.h:47` | neutral |
 | 1 | `Unknown_04` | `app/client/map_pip.h:49` | untagged neutral name (D10) |
 | 1 | `Unknown_08` | `app/client/map_pip.h:50` | untagged neutral name (D10) |
@@ -6435,11 +6436,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `arg` | `app/client/map_pip.h:57` | neutral |
 | 1 | `Unknown_24` | `app/client/map_pip.h:57` | untagged neutral name (D10) |
 | 1 | `Unknown_693020` | `app/client/map_pip.h:59` | untagged neutral name (D10) |
-| 1 | `Client` | `app/client/map_pip.h:61` | neutral (D10): what it holds |
-| 1 | `Unknown40` | `app/client/map_pip.h:64` | untagged neutral name (D10) |
-| 1 | `Unknown44` | `app/client/map_pip.h:65` | untagged neutral name (D10) |
-| 1 | `Unknown48` | `app/client/map_pip.h:66` | untagged neutral name (D10) |
-| 1 | `Unknown4C` | `app/client/map_pip.h:67` | untagged neutral name (D10) |
+| 1 | `Unknown_693040` | `app/client/map_pip.h:60` | untagged neutral name (D10) |
+| 1 | `Client` | `app/client/map_pip.h:62` | neutral (D10): what it holds |
+| 1 | `Unknown40` | `app/client/map_pip.h:65` | untagged neutral name (D10) |
+| 1 | `Unknown44` | `app/client/map_pip.h:66` | untagged neutral name (D10) |
+| 1 | `Unknown48` | `app/client/map_pip.h:67` | untagged neutral name (D10) |
+| 1 | `Unknown4C` | `app/client/map_pip.h:68` | untagged neutral name (D10) |
 | 1 | `Unknown_Get_Ticks` | `app/client/mclient.cpp:23` | untagged neutral name (D10) |
 | 1 | `MovieClientCallbackClass` | `app/client/mclient.cpp:27` | after SClientMovieCallbackClass |
 | 1 | `Unknown_00` | `app/client/mclient.cpp:31` | untagged neutral name (D10) |
@@ -19171,7 +19173,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_20` | `app/client/ui_starmap.cpp:63` | untagged neutral name (D10) |
 | 1 | `arg` | `app/client/ui_starmap.cpp:64` | neutral |
 | 1 | `Unknown_24` | `app/client/ui_starmap.cpp:64` | untagged neutral name (D10) |
-| 1 | `Unknown_693040` | `app/client/ui_starmap.cpp:65` | untagged neutral name (D10) |
 | 1 | `UIStarmapGalaxyMapClass` | `app/client/ui_starmap.cpp:69` | neutral (D10) |
 | 1 | `Unknown00` | `app/client/ui_starmap.cpp:72` | untagged neutral name (D10) |
 | 1 | `Unknown7C` | `app/client/ui_starmap.cpp:73` | untagged neutral name (D10) |
@@ -19212,6 +19213,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_7C91A0` | `app/client/ui_starmap.cpp:443` | untagged neutral name (D10) |
 | 1 | `Unknown_7C1120` | `app/client/ui_starmap.cpp:477` | untagged neutral name (D10) |
 | 1 | `Unknown_53FCA0` | `app/client/ui_starmap.cpp:479` | untagged neutral name (D10) |
+| 1 | `Unknown_693040` | `app/client/ui_starmap.cpp:593` | untagged neutral name (D10) |
 | 1 | `Unknown_7C8D90` | `app/client/ui_starmap.cpp:616` | untagged neutral name (D10) |
 | 1 | `Unknown_693020` | `app/client/ui_starmap.cpp:618` | untagged neutral name (D10) |
 | 1 | `Unknown_7C8DB0` | `app/client/ui_starmap.cpp:622` | untagged neutral name (D10) |
@@ -30449,8 +30451,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `InfoCount` | `app/client/mainview.cpp:1782` | the G_ASSERT's |
 | 3 | `map_pip.h` | `app/client/map_pip.h:15` | header name assumed from the client's map_pip.cpp |
 | 3 | `MapPipClass` | `app/client/map_pip.h:44` | class-from-file (D24) for app\Client\map_pip.cpp |
-| 3 | `ViewportGadget` | `app/client/map_pip.h:62` | the FAIL_IF's |
-| 3 | `Interface` | `app/client/map_pip.h:63` | the FAIL_IF's |
+| 3 | `ViewportGadget` | `app/client/map_pip.h:63` | the FAIL_IF's |
+| 3 | `Interface` | `app/client/map_pip.h:64` | the FAIL_IF's |
 | 3 | `mouse_targeting.h` | `app/client/mouse_targeting.h:15` | header name assumed from the client's mouse_targeting.cpp |
 | 3 | `MeshSoundClass` | `app/client/mv3dview.h:30` | class-from-file (D24) for meshsnd.cpp |
 | 3 | `mesh` | `app/client/mv3dview.h:35` | the assert's |
