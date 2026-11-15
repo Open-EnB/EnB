@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-882 entries in 298 files.
+883 entries in 298 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -828,14 +828,14 @@ edit the comments in the code, not this file.
 | `app/shared/rs_track.cpp:34` | `RsTrackClass::RsTrackClass` | marker | NOT EXACT: shape (0.83): as 0x45FDA0 |
 | `app/shared/rs_track.cpp:507` | `RsTrackClass::Unknown_1C8` | marker | NOT EXACT: shape (0.75): the client saves edi after the early returns; the last call loads UnknownC4 into ecx |
 | `app/shared/split_string.cpp:28` | `SplitStringClass::Split` | marker | NOT EXACT: register and stack-slot allocation of in / out / skip (the client keeps skip in the cursor argument's slot); 2 forms |
-| `app/shared/spln_db.cpp:96` | `SplineDatabaseClass::Save` | marker | NOT EXACT: shape (the filename copy and the save chunks: the client inlines Save_Chunks with Write_String and Save_Entry out of line) |
+| `app/shared/spln_db.cpp:95` | `SplineDatabaseClass::Save` | marker | NOT EXACT: shape (the filename copy and the save chunks: the client inlines Save_Chunks with Write_String and Save_Entry out of line) @0x484D00 |
 | `app/shared/spln_db.cpp:487` | `SplineDatabaseClass::Get_Color_Curves` | marker | NOT EXACT: inline-budget (the client calls HashListClass::Find out of line for _G only) |
 | `app/shared/spln_db.cpp:710` | `SplineDatabaseClass::Create_Hermite` | marker | NOT EXACT: inline-budget (the client calls GenericNode's constructor out of line inside the new HashNodeClass, so the new keeps an EH state) |
 | `app/shared/spln_db.cpp:893` | `SplineDatabaseClass::Create_Blend` | marker | NOT EXACT: inline-budget (the client calls HashListClass::Find and Add(node) out of line) |
-| `app/shared/spln_db.cpp:1392` | `SplineDatabaseClass::Unpack` | marker | NOT EXACT: shape (written from the pseudocode: the count loop and the merge path) |
+| `app/shared/spln_db.cpp:1391` | `SplineDatabaseClass::Unpack` | marker | NOT EXACT: shape (written from the pseudocode: the count loop and the merge path) @0x486F60 |
 | `app/shared/spln_db.cpp:1520` | `SplineDatabaseClass::Create_Color` | marker | NOT EXACT: inline-budget (as Create_Hermite: GenericNode's constructor out of line in the client) |
 | `app/shared/spln_db.cpp:1539` | `SplineDatabaseClass::Resolve` | marker | NOT EXACT: inline-budget (HashListClass::Find out of line at some lookups) |
-| `app/shared/spln_db.cpp:1681` | `SplineDatabaseClass::Save_Chunks` | marker | NOT EXACT: shape / inline budget (the client inlines Save_Entry here and calls Save_Curve) |
+| `app/shared/spln_db.cpp:1680` | `SplineDatabaseClass::Save_Chunks` | marker | NOT EXACT: shape / inline budget (the client inlines Save_Entry here and calls Save_Curve) @0x487B20 |
 | `app/shared/spln_db.cpp:1732` | `SplineDatabaseClass::Save_Entry` | marker | NOT EXACT: shape / inline budget (the client inlines Save_Curve's switch) |
 | `app/shared/spln_db.cpp:1759` | `SplineDatabaseClass::Save_Curve` | marker | NOT EXACT: shape (the switch layout) |
 | `app/shared/spln_db.cpp:1807` | `SplineDatabaseClass::Save_Hermite` | marker | NOT EXACT: frame (0x18 in the client: the key and tangent locals share other slots) |
@@ -892,4 +892,5 @@ edit the comments in the code, not this file.
 | `app/wwudp/cordmgr.cpp:197` | `CordMgr::Pump_Connections` | marker | NOT EXACT: 0x858A60. SYN1 (0, protocol, session) while waiting for ACK1, SYN2 (2, protocol, session, ACK1's two words, 0x4000, the key's length, the encrypted key) while waiting for ACK2, each again a second after the last; a connection 60 s old becomes a CordCon without a socket (the caller finds it, closed) and leaves the list. |
 | `app/wwudp/cordmgr.cpp:252` | `CordMgr::Pump` | marker | NOT EXACT: 0x857F20 (frame 0x6E4 vs 0x6EC, registers: the client keeps this in ebp). Every data socket, then every listening one, until Read says nothing more (< 0); SYN1 / SYN2 only on a listening socket, the data only on a data socket. A datagram nobody takes is logged (line 592) and answered with a go-away (Send_Go_Away, inlined) unless it is an ACK1 / ACK2 or the ACK2 of a connection still in ... |
 | `app/wwudp/cordmgr.cpp:655` | `CordMgr::Process_Go_Away_Packet` | mention | NOT EXACT): 06, the address (4 bytes), the port (2), the type it answers, the session (2). Types 4 / 5: the connection on a socket bound to that port, to the sender's address and port, with that session, goes away. Types 0 / 2 (a refused handshake): every connecting record on such a socket to that address dates from 1970, so Pump_Connections gives up. |
+| `app/wwudp/cordmgr.cpp:1127` | `CordMgr::Pump_Releases` | marker | NOT EXACT: the client's side takes type 4 (from the server), the server's type 5; register-only (from vs session in ebp, sim 0.61) @0x85A000 |
 | `app/wwudp/cordmgr.cpp:1319` | `CordMgr::Process_ACK1_Packet` | marker | NOT EXACT: 0x85A430 (0.75, registers: the client reuses eax where ours takes ecx / edx). ACK1 (1, protocol, session, two words, the server's modulus and exponent, each a 4-byte length then big-endian bytes; each check its own return) for a connection in state 1: the session key in the low 64 bits of a random number below the modulus, encrypted with an RSAKeyClass of the two (Key_Exchange 0x829180'... |

@@ -8,10 +8,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | Score | Meaning | Names |
 |---|---|---|
 | 5 | the client names it | 222 |
-| 4 | EA source, or a structure-confirmed Net-7 / C# name | 34 |
+| 4 | EA source, or a structure-confirmed Net-7 / C# name | 37 |
 | 3 | by convention from a client-named file or sibling | 1961 |
-| 2 | describes what the code does | 4945 |
-| 1 | neutral placeholder | 25032 |
+| 2 | describes what the code does | 4950 |
+| 1 | neutral placeholder | 25043 |
 
 ## For review (score 3 and below)
 
@@ -21108,6 +21108,16 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_82F000` | `app/client/unknown_82ecb0.h:16` | untagged neutral name (D10) |
 | 1 | `all` | `app/client/unknown_82ecb0.h:17` | neutral (D10) |
 | 1 | `Unknown_82F090` | `app/client/unknown_82ecb0.h:17` | untagged neutral name (D10) |
+| 1 | `Unknown_8B3E70` | `app/client/unknown_8b3e70.cpp:14` | neutral placeholder (D10) |
+| 1 | `Unknown_8B3F60` | `app/client/unknown_8b3e70.cpp:43` | neutral placeholder (D10) |
+| 1 | `Unknown_8B4020` | `app/client/unknown_8b3e70.cpp:50` | neutral placeholder (D10) |
+| 1 | `Unknown_8B40A0` | `app/client/unknown_8b3e70.cpp:67` | neutral placeholder (D10) |
+| 1 | `Unknown_8B41C0` | `app/client/unknown_8b3e70.cpp:80` | neutral placeholder (D10) |
+| 1 | `Unknown_8B3E70` | `app/client/unknown_8b3e70.h:17` | neutral placeholder (D10) |
+| 1 | `Unknown_8B3F60` | `app/client/unknown_8b3e70.h:20` | neutral placeholder (D10) |
+| 1 | `Unknown_8B4020` | `app/client/unknown_8b3e70.h:23` | neutral placeholder (D10) |
+| 1 | `Unknown_8B40A0` | `app/client/unknown_8b3e70.h:26` | neutral placeholder (D10) |
+| 1 | `Unknown_8B41C0` | `app/client/unknown_8b3e70.h:29` | neutral placeholder (D10) |
 | 1 | `AuthLoginErrorStruct` | `app/client/unknown_authlogin.cpp:14` | what it holds |
 | 1 | `AuthLoginUnknownError` | `app/client/unknown_authlogin.cpp:20` | its text |
 | 1 | `Unknown` | `app/client/unknown_authlogin.cpp:20` | untagged neutral name (D10) |
@@ -23379,7 +23389,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_48CF90` | `app/shared/enbassetmgr.h:38` | untagged neutral name (D10) |
 | 1 | `Unknown_48ECA0, textures, count` | `app/shared/enbassetmgr.h:45` | neutral (D10) |
 | 1 | `Unknown_48ECA0` | `app/shared/enbassetmgr.h:45` | untagged neutral name (D10) |
-| 1 | `std:` | `app/shared/event.cpp:87` | the iterators of the Send_Event calls in progress (0xBE5610), fixed up by Remove_Listener and ~Subject |
+| 1 | `Unknown4E8700Class` | `app/shared/event.cpp:87` | neutral (D10), static ActiveIterators wrapper (0x4E86C0/0x4E8700) |
+| 1 | `ActiveIterators` | `app/shared/event.cpp:90` | the iterators of the Send_Event calls in progress (0xBE5610), fixed up by Remove_Listener and ~Subject |
 | 1 | `Pop_Iterator` | `app/shared/event.cpp:196` | pops Send_Event's iterator; false once ~Subject cleared it (inlined into 0x4E8E40) |
 | 1 | `Unknown_BE350C` | `app/shared/fp_ita.cpp:7` | neutral (D10): SClient::Do_Frame's frame toggle (sclient.cpp) |
 | 1 | `Unknown_04` | `app/shared/fp_ita.cpp:119` | untagged neutral name (D10) |
@@ -24773,7 +24784,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown0C` | `app/wwudp/cordmgr.h:45` | untagged neutral name (D10) |
 | 1 | `Unknown24` | `app/wwudp/cordmgr.h:74` | untagged neutral name (D10) |
 | 1 | `Unknown134` | `app/wwudp/cordmgr.h:79` | untagged neutral name (D10) |
-| 1 | `Release` | `app/wwudp/cordmgr.h:121` | after Pump_Releases |
+| 1 | `Release` | `app/wwudp/cordmgr.h:122` | after Pump_Releases |
 | 1 | `unknown_cordmsg.cpp` | `app/wwudp/unknown_cordmsg.cpp:12` | PROVISIONAL file name (no assert or __FILE__ names the object) |
 | 1 | `Unknown_BDADC8` | `programs/clientpoc/poc_data.cpp:17` | untagged neutral name (D10) |
 | 1 | `Unknown_BDBB84` | `programs/clientpoc/poc_data.cpp:18` | untagged neutral name (D10) |
@@ -27696,6 +27707,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `rslid` | `app/client/unknown_763e00.h:23` | the INI key it is read from |
 | 2 | `CheckBoxGadgetClass` | `app/client/unknown_7e7e00.h:23` | what it is, a check box ('if_check_on.tga' / 'if_check_off.tga'; D239 renamed it from UIManuCheckButtonClass) |
 | 2 | `Checked` | `app/client/unknown_7e7e00.h:33` | what 0x7E8030 sets |
+| 2 | `crc32_table` | `app/client/unknown_8b3e70.cpp:8` | CRC-32 table at 0xBF43E4 |
+| 2 | `crc32_made` | `app/client/unknown_8b3e70.cpp:9` | CRC-32 init flag at 0xBF47E4 |
+| 2 | `crc64_table` | `app/client/unknown_8b3e70.cpp:10` | CRC-64 table at 0xBF48B8 |
+| 2 | `crc64_made` | `app/client/unknown_8b3e70.cpp:11` | CRC-64 init flag at 0xBF50B8 |
+| 2 | `crc32_buf` | `app/client/unknown_8b3e70.cpp:31` | static helper for 0x8B3EC0 |
 | 2 | `Result` | `app/client/unknown_authlogin.h:27` | the assert's kr; tested >= 0 |
 | 2 | `IComponentFactoryClass` | `app/client/unknown_authlogin.h:38` | authFactory (the assert) |
 | 2 | `Set_Name` | `app/client/unknown_creator.h:35` | what it does |
@@ -29975,20 +29991,20 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `CordReleaseClass` | `app/wwudp/cordmgr.h:56` | describes what it holds (the +0x1C list, 8 bytes) |
 | 2 | `CordConnectingClass` | `app/wwudp/cordmgr.h:64` | describes what it is |
 | 2 | `Init` | `app/wwudp/cordmgr.h:93` | what it does |
-| 2 | `Connect` | `app/wwudp/cordmgr.h:107` | what it does |
-| 2 | `Send_Go_Away` | `app/wwudp/cordmgr.h:116` | what it sends |
-| 2 | `Process_Zero_Read` | `app/wwudp/cordmgr.h:119` | what it does |
-| 2 | `Pending_Messages` | `app/wwudp/cordmgr.h:123` | what it counts |
-| 2 | `Wait` | `app/wwudp/cordmgr.h:125` | what it does |
-| 2 | `Find_Connection` | `app/wwudp/cordmgr.h:128` | what it does |
-| 2 | `Listen` | `app/wwudp/cordmgr.h:131` | what it does |
-| 2 | `Unlisten` | `app/wwudp/cordmgr.h:132` | what it does |
-| 2 | `Set_Buffers` | `app/wwudp/cordmgr.h:135` | what it does |
-| 2 | `Cancel_Connect` | `app/wwudp/cordmgr.h:138` | what it does |
-| 2 | `Add_Connection` | `app/wwudp/cordmgr.h:143` | what it does |
-| 2 | `port3` | `app/wwudp/cordmgr.h:146` | the parameters (the name is the client's profile string) |
-| 2 | `Releases_` | `app/wwudp/cordmgr.h:153` | +0x1C connections to free (Release, Pump_Releases) |
-| 2 | `KeyPair` | `app/wwudp/cordmgr.h:160` | what it holds |
+| 2 | `Connect` | `app/wwudp/cordmgr.h:108` | what it does |
+| 2 | `Send_Go_Away` | `app/wwudp/cordmgr.h:117` | what it sends |
+| 2 | `Process_Zero_Read` | `app/wwudp/cordmgr.h:120` | what it does |
+| 2 | `Pending_Messages` | `app/wwudp/cordmgr.h:124` | what it counts |
+| 2 | `Wait` | `app/wwudp/cordmgr.h:126` | what it does |
+| 2 | `Find_Connection` | `app/wwudp/cordmgr.h:129` | what it does |
+| 2 | `Listen` | `app/wwudp/cordmgr.h:132` | what it does |
+| 2 | `Unlisten` | `app/wwudp/cordmgr.h:133` | what it does |
+| 2 | `Set_Buffers` | `app/wwudp/cordmgr.h:136` | what it does |
+| 2 | `Cancel_Connect` | `app/wwudp/cordmgr.h:139` | what it does |
+| 2 | `Add_Connection` | `app/wwudp/cordmgr.h:144` | what it does |
+| 2 | `port3` | `app/wwudp/cordmgr.h:147` | the parameters (the name is the client's profile string) |
+| 2 | `Releases_` | `app/wwudp/cordmgr.h:154` | +0x1C connections to free (Release, Pump_Releases) |
+| 2 | `KeyPair` | `app/wwudp/cordmgr.h:161` | what it holds |
 | 2 | `AckRound` | `app/wwudp/unknown_cordmsg.cpp:122` | 0xBB1DB4 |
 | 2 | `AckGrowth` | `app/wwudp/unknown_cordmsg.cpp:123` | 0xBF411C the window growth this round, all connections |
 | 2 | `RoundTripRound` | `app/wwudp/unknown_cordmsg.cpp:152` | 0xBB1DB8 |
