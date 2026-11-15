@@ -12,6 +12,7 @@
  "expected": {},
  "in_tree": [
   "0x42F250",
+  "0x42FCF0",
   "0x4A0B70",
   "0x7B7BA0",
   "0x7B7BF0",
@@ -44,10 +45,12 @@
  "name": "client/nav_list_builder.cpp",
  "shared": [
   "0x42F250",
+  "0x42FCF0",
   "0x4A0B70",
   "0x7B9280"
  ],
  "short_known": [
+  "0x42FCF0",
   "0x4A0B70",
   "0x7B7C60",
   "0x7B9280"

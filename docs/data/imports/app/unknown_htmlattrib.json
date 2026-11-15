@@ -4,6 +4,7 @@
  "description": "HtmlAttributeStackClass and Get_Mime_Type (client 0x7791F0-0x77B726, claims 0x7775D0-0x77B7D1: own code after htmlview.cpp's template copies 0x778590-0x779120, its static Wstring_Hash 0x77A710, then the wlib Dictionary / ArrayList<Wstring> copies 0x77A780-0x77B690); every function exact, with D175's decided losses 0x77AA10 / 0x77B030 / 0x77B690, HV1",
  "expected": {},
  "in_tree": [
+  "0x42E170",
   "0x7791F0",
   "0x779260",
   "0x779320",
@@ -33,5 +34,11 @@
   "0x77B690"
  ],
  "merged": [],
- "name": "client/html/unknown_htmlattrib.cpp"
+ "name": "client/html/unknown_htmlattrib.cpp",
+ "shared": [
+  "0x42E170"
+ ],
+ "short_known": [
+  "0x42E170"
+ ]
 }

@@ -8,6 +8,7 @@
  "expected": {},
  "in_tree": [
   "0x42F250",
+  "0x42FCF0",
   "0x430370",
   "0x447C40",
   "0x4481E0",
@@ -41,6 +42,7 @@
  "name": "client/cameraeffects.cpp",
  "shared": [
   "0x42F250",
+  "0x42FCF0",
   "0x430370",
   "0x447C40",
   "0x4481E0",
@@ -49,6 +51,7 @@
   "0x6E46A0"
  ],
  "short_known": [
+  "0x42FCF0",
   "0x6E46A0"
  ]
 }

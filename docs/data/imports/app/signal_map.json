@@ -14,6 +14,7 @@
  "description": "SignalMap (the client's profile strings 'SignalMap::connect' 0x4F9740, 'SignalMap::disconnect' 0x4F98D0, 'SignalMap::emit' 0x4F9AD0), client 0x4F9350-0x4F9BF0: constructor, destructor, connect, disconnect, emit; PROVISIONAL file name (D137: no __FILE__; before split_string.cpp)",
  "expected": {},
  "in_tree": [
+  "0x42E170",
   "0x444160",
   "0x4F83F0",
   "0x4F8AA0",
@@ -34,6 +35,7 @@
  "merged": [],
  "name": "client/signal_map.cpp",
  "shared": [
+  "0x42E170",
   "0x444160",
   "0x4F83F0",
   "0x4F8AA0",
@@ -44,6 +46,7 @@
   "0x4F9320"
  ],
  "short_known": [
+  "0x42E170",
   "0x4F8C40"
  ]
 }

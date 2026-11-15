@@ -11,6 +11,7 @@
  "expected": {},
  "in_tree": [
   "0x42F250",
+  "0x433CE0",
   "0x439E40",
   "0x43A010",
   "0x43A040",
@@ -28,6 +29,10 @@
  "merged": [],
  "name": "audio/musicmanager.cpp",
  "shared": [
-  "0x42F250"
+  "0x42F250",
+  "0x433CE0"
+ ],
+ "short_known": [
+  "0x433CE0"
  ]
 }

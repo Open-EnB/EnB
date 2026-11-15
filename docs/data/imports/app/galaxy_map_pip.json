@@ -9,6 +9,7 @@
  "expected": {},
  "in_tree": [
   "0x42F250",
+  "0x433CE0",
   "0x46BEC0",
   "0x47D3A0",
   "0x53F390",
@@ -36,10 +37,12 @@
  "name": "client/galaxy_map_pip.cpp",
  "shared": [
   "0x42F250",
+  "0x433CE0",
   "0x46BEC0",
   "0x47D3A0"
  ],
  "short_known": [
+  "0x433CE0",
   "0x53F4F0",
   "0x53F7E0",
   "0x53FE10"

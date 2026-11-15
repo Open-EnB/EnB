@@ -6,6 +6,7 @@
  "in_tree": [
   "0x42A970",
   "0x42AB30",
+  "0x431C80",
   "0x49D2D0",
   "0x49D310",
   "0x49D340",
@@ -36,6 +37,10 @@
  "name": "shared/damtype.cpp",
  "shared": [
   "0x42A970",
-  "0x42AB30"
+  "0x42AB30",
+  "0x431C80"
+ ],
+ "short_known": [
+  "0x431C80"
  ]
 }

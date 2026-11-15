@@ -5,6 +5,7 @@
  "expected": {},
  "in_tree": [
   "0x42F250",
+  "0x67F660",
   "0x6BD020",
   "0x6BD060",
   "0x6BD190",
@@ -27,6 +28,10 @@
  "merged": [],
  "name": "client/unknown_fontsound.cpp",
  "shared": [
-  "0x42F250"
+  "0x42F250",
+  "0x67F660"
+ ],
+ "short_known": [
+  "0x67F660"
  ]
 }

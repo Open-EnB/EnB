@@ -7,6 +7,7 @@
  "expected": {},
  "in_tree": [
   "0x42F250",
+  "0x42FCF0",
   "0x430370",
   "0x686740",
   "0x6867C0",
@@ -66,11 +67,13 @@
  "name": "client/intrlist.cpp",
  "shared": [
   "0x42F250",
+  "0x42FCF0",
   "0x430370",
   "0x687C50",
   "0x688340"
  ],
  "short_known": [
+  "0x42FCF0",
   "0x687C50",
   "0x688340"
  ]

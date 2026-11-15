@@ -5,6 +5,7 @@
  "expected": {},
  "in_tree": [
   "0x820B30",
+  "0x820C50",
   "0x820C70",
   "0x820CA0",
   "0x820CD0",
@@ -17,9 +18,11 @@
  "merged": [],
  "name": "common/unknown_listener.cpp",
  "shared": [
+  "0x820C50",
   "0x820C70"
  ],
  "short_known": [
+  "0x820C50",
   "0x820DC0"
  ]
 }

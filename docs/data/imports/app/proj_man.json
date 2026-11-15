@@ -4,12 +4,14 @@
  "description": "the projector / shadow manager, client 0x4916B0-0x494D80 (ShadowTexClass's uncalled copies first) (__FILE__ e:\\build\\beta\\G\\app\\shared\\proj_man.cpp, asserts on lines 138 315 322 323 331 332 340 341 349 350 358 367 563 592 654 676 703 782 783 805): Renegade's wwphys/pscene_projectors.cpp moved into ProjectorManagerClass, with the casters' base ProjectorCasterClass, its CasterTexProjectClass and the receivers' ProjectorReceiverClass (Apply_Projectors 0x492C70); Setup_Static_Directional_Shadow 0x493620 NOT EXACT",
  "expected": {},
  "in_tree": [
+  "0x42E170",
   "0x42F250",
   "0x444160",
   "0x45CC10",
   "0x45CC30",
   "0x45DDC0",
   "0x45E0D0",
+  "0x45E1B0",
   "0x491660",
   "0x491680",
   "0x4916B0",
@@ -89,12 +91,14 @@
  "merged": [],
  "name": "shared/proj_man.cpp",
  "shared": [
+  "0x42E170",
   "0x42F250",
   "0x444160",
   "0x45CC10",
   "0x45CC30",
   "0x45DDC0",
   "0x45E0D0",
+  "0x45E1B0",
   "0x491830",
   "0x491FE0",
   "0x492000",
@@ -111,6 +115,8 @@
   "0x494EC0"
  ],
  "short_known": [
+  "0x42E170",
+  "0x45E1B0",
   "0x491FE0",
   "0x492000",
   "0x494180",

@@ -11,6 +11,7 @@
   "0x8B8150",
   "0x8B81A0",
   "0x8B81D0",
+  "0x8B8200",
   "0x8B8220",
   "0x8B8270",
   "0x8B82E0",
@@ -44,5 +45,8 @@
   "0x8BA210"
  ],
  "merged": [],
- "name": "wtime.cpp"
+ "name": "wtime.cpp",
+ "short_known": [
+  "0x8B8200"
+ ]
 }

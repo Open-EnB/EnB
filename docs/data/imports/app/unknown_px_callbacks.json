@@ -4,6 +4,7 @@
  "description": "the object 0x451C00-0x452130 after px_callback_accurate.cpp (its guarded <string> static 0x451BD0; no __FILE__, neutral name D10): PxBoxCallback 0x451C30-0x452130",
  "expected": {},
  "in_tree": [
+  "0x44E150",
   "0x44E170",
   "0x451C30",
   "0x451D40",
@@ -21,10 +22,12 @@
  "merged": [],
  "name": "shared/unknown_px_callbacks.cpp",
  "shared": [
+  "0x44E150",
   "0x44E170",
   "0x452130"
  ],
  "short_known": [
+  "0x44E150",
   "0x452130"
  ]
 }
