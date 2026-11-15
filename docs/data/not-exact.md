@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-874 entries in 299 files.
+871 entries in 298 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -149,7 +149,7 @@ edit the comments in the code, not this file.
 | `app/client/fontdatabase.cpp:508` | `FontDatabaseClass::Unknown_6C1500` | marker | NOT EXACT: frame: the inlined Add_String's key and iterator temporaries sit in other stack slots (0.76) |
 | `app/client/fontdatabase.cpp:670` | `FontDatabaseClass::Parse_Directions` | marker | NOT EXACT: order-only: the client reads the first character into bl before the parts' constructor and saves ebp only around the loop (shrink-wrapped); ours in the prologue |
 | `app/client/fontdatabase.cpp:688` | `FontDatabaseClass::Split_Four` | marker | NOT EXACT: order-only: as Parse_Directions |
-| `app/client/fontdatabase.cpp:751` | `FontDatabaseClass::Remove_String` | marker | NOT EXACT: frame: the client keeps this in a stack slot (frame 0x1C, ours 0x18) around the inlined destructor |
+| `app/client/fontdatabase.cpp:751` | `FontDatabaseClass::Remove_String` | marker | NOT EXACT: inline-budget, one row: at the inlined erase's second _M_delete_node site the client calls the pair's ??_G(0) as at the first, ours inlines ~pair (push 1; call _Tidy); the deletion form is right (HT: dead reads after the erase collapse it) |
 | `app/client/fontdatabase.cpp:917` | `FontDatabaseClass::Set_Font` | marker | NOT EXACT: inline-budget: the client calls Get_Info(width, height) 0x6C2CB0 out of line, ours inlines it (the rest is the same) |
 | `app/client/fontdatabase.cpp:1146` | `FontStringFilesClass::Load` | marker | NOT EXACT: frame: 0x50 vs 0x40 (the stack slots), nothing else once they are masked (FN1: the found branch first); 199 = 199 instructions |
 | `app/client/fontdatabase.cpp:1275` | `FontInitStruct::Load_Font` | marker | NOT EXACT: register-only: the client zeroes scale / spacing / value98 from ebp (the loop counter's register), ours scale as an immediate and the rest from edi |
@@ -247,7 +247,6 @@ edit the comments in the code, not this file.
 | `app/client/item_timer_gauge.cpp:127` | `ItemTimerGaugeClass::Update` | mention | NOT EXACT: the client stores the three zeros as immediates and tests with test; ours keeps 0 in ebp (register class). - Update hides the model at 0, else turns the 'timer' bone by -2 pi * the time (minutes up to 60000 ms, hours above) through Control_Bone (an identity Matrix3D and Rotate_Z: the client's 'cos + 0', '0 - sin' terms) and colours TimerRObj through 0x496110 when the colour changes ((0,... |
 | `app/client/item_timer_gauge.cpp:132` | `ItemTimerGaugeClass::Update` | mention | NOT EXACT: the client stores the angle and reloads it before fcos, ours keeps it (fst). |
 | `app/client/line2d.cpp:15` | `Line2DClass::Set` | marker | NOT EXACT: 0.64, stack layout: the client spills end.Y, the width and the angle into dead parameter slots (frame 0x58, ours 0x60) and copies the translation with integer moves |
-| `app/client/linebox.cpp:66` | `LineBoxClass::~LineBoxClass` | marker | NOT EXACT: objdiff identical with relocations, stack offsets and targets masked (explain.py: identical); objmatch does not pair it (0.80), cause not found |
 | `app/client/linebox.cpp:83` | `LineBoxClass::Render` | marker | NOT EXACT: 0.93, scheduling: the client copies -extent.Z for the lower corners later, and loads NumLines before clearing the last loop's counter |
 | `app/client/local_interface_sort.cpp:56` | `InterfaceSortClass::InterfaceSortClass` | marker | NOT EXACT: inline-budget (0.48; the client's case 2 calls RefCountPtr's assignment out of line, 0x6B55D0, EH state 5) 0x6E0E80 |
 | `app/client/mainview.cpp:157` | `MainViewClass::MainViewClass` | marker | NOT EXACT: scheduling only (the array-ctor pushes, the 0.5 / 1.0 constants, one register); attempts.csv 0x50B360 |
@@ -265,7 +264,6 @@ edit the comments in the code, not this file.
 | `app/client/manufacturing_category_ui_util.cpp:162` | `Unknown_7EB4D0` | marker | NOT EXACT: shape (explain.py; an inline budget: the client expands std::string assign inline at case 153, ours at 160, as 0x7EA190) (0x7EB4D0) |
 | `app/client/mclient.cpp:133` | `MovieClientClass::Unknown_08` | marker | NOT EXACT: functional (M1): register allocation, the client keeps the next effect node in ebx where this keeps the flag constant 1 (two forms; attempts.py show 0x7EC7C0) 0x7EC7C0 |
 | `app/client/mclient.cpp:242` | `MovieClientClass::Render` | marker | NOT EXACT: functional (M1): register and stack allocation, the client holds this in esi and lays the matrix over the saved flags (two forms; attempts.py show 0x7ECDC0) 0x7ECDC0 |
-| `app/client/meshsnd.cpp:176` | `MeshSoundClass::Unknown_7ED6C0` | marker | NOT EXACT: functional (M1): appfile.py's diff shows no instruction apart, only the four float-literal rows (-1.0 / 0.0f); verify does not pair it (attempts.py show 0x7ED6C0) 0x7ED6C0 |
 | `app/client/mv3dsnd.cpp:142` | `Movie3DSoundClass::Movie3DSoundClass` | marker | NOT EXACT: functional (M1): inline budget (0.45 with the inline_depth(0) below, 0.30 without; attempts.py show 0x7EDCB0): the client calls GenericList's constructor, HashListClass::Find (0x7EEBD0), the node's constructor (0x7EED40) and Add(node) (0x7EEE00) out of line but expands Add(record, key) around the last two; inline_depth(0) gives Find, leaves Add(record, key) out of line too, and lays the... |
 | `app/client/mv3dsnd.cpp:210` | `Movie3DSoundClass::~Movie3DSoundClass` | marker | NOT EXACT: functional (M1): exception states, the client's inlined ~HashListClass sets none for the list's two nodes (base and member forms of the hash list give the same; attempts.py show 0x7EE340) 0x7EE340 |
 | `app/client/nav_list_builder.cpp:157` | `NavListBuilderClass::Unknown_7B7EF0` | marker | NOT EXACT: order only (the loop's exit reloads co_from before to; ours to first) @0x7B7EF0 |
@@ -358,7 +356,6 @@ edit the comments in the code, not this file.
 | `app/client/tooltip.cpp:93` | `UIViewUnknown30Class::Unknown_6AB5B0` | marker | NOT EXACT: register (0.80): the view's loads for the second 0x65F5F0 call and the sort object go to eax / ecx the other way round |
 | `app/client/tooltip.cpp:216` | `UIViewUnknown30Class::Unknown_6AB930` | marker | NOT EXACT: inline-budget (0.75): the client calls the DestroyGadgetEvent callback's constructor 0x6AC050 out of line for the disconnect (inlined here) and loads the gadget's name before the avatar id |
 | `app/client/tooltip.cpp:268` | `UIViewUnknown30Class::Unknown_6ABC10` | marker | NOT EXACT: shape (0.48): the client keeps the split loop whole (width from the stack, 'lines = MAX_LINES' on the latch); VC6 peels the first pass here |
-| `app/client/ui_analyze.cpp:112` | `UIAnalyzeClass::~UIAnalyzeClass` | marker | NOT EXACT: a relocation target (explain.py: identical once stack offsets, targets and relocations are masked; the unwind funclets look the same) (0x5437C0) @0x5437C0 |
 | `app/client/ui_analyze.cpp:126` | `UIAnalyzeClass::Unknown_54` | marker | NOT EXACT: register (after the button loop the client keeps the zero in ebp and the space client in ebx, ours the other way round, and loads the name table's pointer before the gadget pointer; 0-based loop, named key event, the icon loop 1-based, the buffer at the top: no) (0x5439F0) @0x5439F0 |
 | `app/client/ui_analyze.cpp:314` | `UIAnalyzeClass::Unknown_60` | marker | NOT EXACT: inline budget (the client calls the first 'Validity' find out of line, 0x5465C0, and the 'Validity' / 'Mode' Casts in the second and third, 0x5468D0 / 0x546920, but inlines the last find whole; its blocks also come in another order) (0x5443F0) @0x5443F0 |
 | `app/client/ui_analyze.cpp:488` | `UIAnalyzeClass::Unknown_544D80` | marker | NOT EXACT: inline budget (the client calls the 'NegotiatedCost' and 'CriticalSuccessProbability' finds out of line, Unknown_Find_Field 0x417D82 / 0x4138E0 thunks, and the 'SuccessProbability' Cast; ours inlines them) (0x544D80) @0x544D80 |
