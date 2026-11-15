@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-872 entries in 291 files.
+882 entries in 296 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -41,6 +41,8 @@ edit the comments in the code, not this file.
 | `app/client/bridge_int.cpp:310` | `BridgeInterface::Do_Frame` | marker | NOT EXACT: order (explain.py; the same length, 1866 bytes, 0.94): three operand-order pairs, the client loads the other factor first in Pre_Rotate_Z's sine / cosine products and in the last Rotate_Z's 0x53BD40 |
 | `app/client/bridge_int.cpp:476` | `BridgeInterface::Update_Avatar` | marker | NOT EXACT: shape (explain.py): the same instructions in another block order (the client puts the compare with Animation right after the left turn's assignment and the right turn's test after it, the frame code last) 0x53CB40 |
 | `app/client/bridge_int.cpp:534` | `BridgeInterface::Play_Animation` | marker | NOT EXACT: shape (explain.py): the same instructions in another block order (the client's numbered code follows 'get_hit' and runs into the call, 'use_controls' jumps back to it; the goto is the nearest form, not the client's) 0x53CD60 |
+| `app/client/camctl.cpp:12` | `CamCtlGadgetClass::CamCtlGadgetClass` | marker | NOT EXACT (0.36, attempts.py 0x65B930): the client stores each scaled value to a stack temporary and copies it at once, and keeps this in edi (ours esi) |
+| `app/client/camctl.cpp:96` | `CamCtlGadgetClass::Unknown_34` | mention | NOT EXACT: the constructor (order and register: the client fstp's each scaled value to a stack temporary and copies it at once; this in edi; the asserts, the base call and the zeroed members match). |
 | `app/client/camctrl_dock.cpp:122` | `CameraController06Class::Unknown_792750` | marker | NOT EXACT: stack slots and register choices differ (same length, 0x760 bytes); functional |
 | `app/client/camctrl_entersector.cpp:61` | `CameraController04Class::Unknown_793740` | marker | NOT EXACT: one operand order (offset.Z *= scale.Z: ours loads scale.Z first); functional |
 | `app/client/camctrl_land.cpp:112` | `CameraController05Class::Unknown_793CE0` | marker | NOT EXACT: written from the client's code and Ghidra's (0x830 bytes; the temporaries' order and slots differ), functional |
@@ -635,6 +637,8 @@ edit the comments in the code, not this file.
 | `app/client/unknown_586240.cpp:268` | `UISpaceLightsClass::Unknown_586F60` | marker | NOT EXACT: order (the address of Color[Current] after 1.0f - v in the client), D89; the pseudocode-faithful form 0x586F60 |
 | `app/client/unknown_586240.cpp:352` | `UISpaceLightsClass::Unknown_587310` | mention | NOT EXACT, an order-only residue: the address of Color[Current] is computed after 1.0f - v in the client) clamps with WWMath::Min / Max, y declared before x. |
 | `app/client/unknown_5dd960.cpp:14` | `Unknown5DD960Class::Unknown5DD960Class` | marker | NOT EXACT: functional (O28; similarity 0.87): only the loop's set-up order (the names' pointer loaded after, not before, the buttons' address); Buttons[3] at +0x18C indexed i - 1 and a loop from 0 tried @0x5DD960 |
+| `app/client/unknown_62a7c0.cpp:43` | `Unknown62A7C0Class::Unknown_62AA20` | marker | NOT EXACT (0.59, attempts.py 0x62AA20): the client holds the folded -0.29f in one float temporary (fld / fst) for the three offsets, ours stores it as immediates |
+| `app/client/unknown_62a7c0.cpp:91` | `Unknown62A7C0Class::Unknown_62ADE0` | mention | NOT EXACT: 0x62AA20 (0x62ADE0 inlined with 0.0f; the client keeps the folded -0.29f in one float temporary, ours stores immediates; tried a local offset, a float-returning helper: both exact elsewhere, no change here). |
 | `app/client/unknown_6ca0c0.cpp:94` | `FontSys::Unknown_6CA0C0` | marker | NOT EXACT: functional (D64), not yet worked toward the client's bytes |
 | `app/client/unknown_6cce60.cpp:36` | `FontSys::Unknown_6CCE60` | marker | NOT EXACT: functional (D64), not yet worked toward the client's bytes (0x6CCE60) |
 | `app/client/unknown_6cce60.cpp:183` | `FontSys::Unknown_6CD950` | marker | NOT EXACT: registers (D64; attempts.csv): the cases in the client's body order, the clamp in its shape; VC6 gives the clamped slot edi and index ebp, the client the reverse (0x6CD950) |
@@ -673,6 +677,9 @@ edit the comments in the code, not this file.
 | `app/client/unknown_phoneme.cpp:400` | `Unknown_791310Class::Unknown_791E50` | marker | NOT EXACT: functional for POC (D64), shape (the branch layout) |
 | `app/client/unknown_phoneme.cpp:427` | `Unknown_791310Class::Unknown_791F10` | marker | NOT EXACT: functional for POC (D64), shape (2 rows) |
 | `app/client/unknown_phoneme.cpp:445` | `Unknown_791310Class::Unknown_791F80` | marker | NOT EXACT: functional for POC (D64), shape (registers and the branch layout) |
+| `app/client/viewbttn.cpp:17` | `ViewButtonClass::ViewButtonClass` | marker | NOT EXACT: the client keeps an EH state around the new UnknownAFE0B8Class (a byte state store before Get_Bool, attempts.csv); ours has none |
+| `app/client/viewbttn.cpp:160` | `ViewButtonClass::Unknown_2C` | marker | NOT EXACT: register allocation only (explain.py; attempts.csv) |
+| `app/client/viewbttn.cpp:404` | `Unknown_6B5FD0` | marker | NOT EXACT: the client's EH frame around the new (attempts.csv); ours has none |
 | `app/common/dbgconn.cpp:111` | `TimedLogConnectionClass::TimedLogConnectionClass` | marker | NOT EXACT: the client inlines LogConnectionClass's constructor here and keeps it out of line (0x823F70, no caller); `inline` on it matches this one and loses that one. |
 | `app/common/dbgconn.cpp:154` | `RateConnectionClass::Send_Message` | marker | NOT EXACT: the client inlines ~ForwardingConnectionClass here (inline in its connect.h; ours is in connect.cpp, see the notes). |
 | `app/common/effect_description.cpp:257` | `Fill_Values` | marker | NOT EXACT: 0x8335D0 (0.57, inline budget: the client keeps ebx / edi for the loop and does not rotate it; Replace_Tag gives its out-of-line find and replace) Text with each value tag replaced by the next of values |
@@ -707,6 +714,7 @@ edit the comments in the code, not this file.
 | `app/dbgmgr/dbgmgr.cpp:159` | `Unknown_Debug_End_Step` | marker | NOT EXACT: shape, 0.56 (explain.py): register allocation and a dead store of end()._Last (see attempts.csv) |
 | `app/input/inpdsp.cpp:128` | `LoginUnknown0CClass::Unknown_429F60` | marker | NOT EXACT: register-only, 1 row: the client reloads rec->Next through prev (edi) in the search loop (attempts.csv) |
 | `app/input/inpdsp.cpp:226` | `Unknown_42A410` | mention | NOT EXACT (register-only, parked after three forms of the search loop). After 0x429F60: the event key 0x42A170 (a member defined after its users: /Ob2 inlines it everywhere and still emits it), the ini reader 0x42A1A0 and writer 0x42A410 (the key names themselves are the next file's, 0x42B610 / 0x42B7E0). The writer tests the flags through bool accessors on bit fields (the client's word load, shr ... |
+| `app/input/unknown_42f360.cpp:15` | `InputUnknownAE71D0Class::Handle_Event` | marker | NOT EXACT (0.49, attempts.py 0x42F3A0): ours keeps 0 in ebx (one more saved register), the client in edi |
 | `app/input/w32kbd.cpp:275` | `Win32KeyboardHandlerClass::Unknown_0C` | marker | NOT EXACT: register: the client keeps control in the second argument's slot and alt in ebp, ours the reverse (attempts.csv) |
 | `app/input/w32kbd.cpp:306` | `Win32KeyboardHandlerClass::Unknown_0C` | mention | NOT EXACT, register). 0x430D70 is KeyboardClass's destructor out of line (input.h). Not rebuilt: the part of the file before 0x430490, if it is this file's: the window-message handler list (0x42F860-0x430450, 0x42F940 adds, 0x42FAC0 removes, 0x42FBA0 dispatches; programs/clientpoc/poc_window.cpp has stand-ins) and input.h's drag tracker (0x42F360 / 0x42F3A0, the TrackMouseCounter asserts). The han... |
 | `app/input/w32mouse.cpp:285` | `Win32MouseHandlerClass::Update` | marker | NOT EXACT: register: x and the clamp flag in ecx / al in the client, eax / cl in ours (attempts.csv) |
@@ -810,6 +818,8 @@ edit the comments in the code, not this file.
 | `app/shared/px_process.cpp:89` | `PxProcessClass::Push` | marker | NOT EXACT: shape (the client's inlined insert knows _Last - _P is 0 (xor dl, dl) and computes max(size(), 1) with ja; ours reloads; attempts.py show 0x455D10) |
 | `app/shared/px_process.cpp:96` | `PxProcessClass::Pop` | marker | NOT EXACT: shape (register: the client keeps the old end in esi and copies through edx; attempts.py show 0x455F60) |
 | `app/shared/ro_funcs.cpp:279` | `Unknown_4967F0` | marker | NOT EXACT: shape |
+| `app/shared/robj2texture.cpp:54` | `RObj2Texture::Render_TextureMap` | marker | NOT EXACT (0.63, attempts.py 0x497700): frame 0xC4 vs the client's 0xA4; the client keeps a 0.0f in memory for the camera translation's X and Y adds, ours folds them |
+| `app/shared/robj2texture.cpp:203` | `Create_Projector_Render_Target` | mention | NOT EXACT: Render_TextureMap (the frame is 0x20 bytes larger than the client's; the camera transform's Adjust_Translation: the client adds a 0.0f kept in memory to the X and Y translation, VC6 folds ours). |
 | `app/shared/rs_list.cpp:256` | `RenderStateListClass::Unknown_45AB20` | marker | NOT EXACT: schedule (0.86): the client stores the float DURATION before the next push |
 | `app/shared/rs_list.cpp:293` | `RenderStateListClass::Unknown_45AD90` | marker | NOT EXACT: regs (0.67): the client keeps 0 in ebp from the start and one more local |
 | `app/shared/rs_list.cpp:555` | `RenderStateListClass::Unknown_45B550` | marker | NOT EXACT: switch (0.71): the client's SHADER jump table starts at 0 (case 0 on the default's code); ours subtracts 1 |
