@@ -748,7 +748,7 @@ FontStringStruct *FontDatabaseClass::Find_String(const char *name)
 }
 
 
-// NOT EXACT: frame: the client keeps this in a stack slot (frame 0x1C, ours 0x18) around the inlined destructor
+// NOT EXACT: inline-budget, one row: at the inlined erase's second _M_delete_node site the client calls the pair's ??_G(0) as at the first, ours inlines ~pair (push 1; call _Tidy); the deletion form is right (HT: dead reads after the erase collapse it)
 void FontDatabaseClass::Remove_String(const char *name)
 {
 	if (name != NULL) {
