@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-871 entries in 298 files.
+872 entries in 298 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -290,6 +290,7 @@ edit the comments in the code, not this file.
 | `app/client/sbaseview.cpp:1242` | `SBaseViewClass::Unknown_6A0590` | marker | NOT EXACT: frame (0.72): the frame slots (the matrix rows, the cross products' temporaries) and the rotation's row order (the client computes Z, Y, X) |
 | `app/client/sclient.cpp:406` | `SClient::Init` | marker | NOT EXACT: field offset (explain.py; 103 masked rows): the client keeps the options base (+0x1150) in a register from the Bridge_Mode branch and reads the camera mode through it, and its frame is 4 bytes larger; one form (attempts.py show 0x741180) 0x741180 |
 | `app/client/sclient.cpp:512` | `SClient::Shutdown` | marker | NOT EXACT: inline budget (similarity 0.73): +0x1334 / +0x1338 inlined as the client's (the decal views' real members), 0x7555B0 out of line; left: the client inlines the +0x133C asset's destructor in the vector loop where ours calls its scalar deleting destructor (budget: freed only by dropping two whole deletes), and register phase (eax / edx) in the view calls; 14 forms (attempts.py show 0x741BB... |
+| `app/client/sclient.cpp:730` | `SClient::Unknown_744D80` | marker | NOT EXACT: order (0.95): the client stores Unknown12B0 before Unknown12B4 and pushes the heading before taking the mode's address; 0x744D80 (out of line for 0x6B58A0, auto-inlined into 0x7436A0's camera keys; Init has the block written out) |
 | `app/client/sclient.cpp:741` | `SClient::Unknown_7429B0` | marker | NOT EXACT: register (explain.py register-only, 2 rows): the client loads the dialog's table into eax for the button > 1 call, ours into edx; the packet is a temporary (a named local cost 6 rows) 0x7429B0 (Do_Frame, after the lost-connection check: the reset-ship question; out of line as the client has it) |
 | `app/client/sclient.cpp:1000` | `SClient::Process_AI` | marker | NOT EXACT: shape, 10 masked rows (the effect loop: ours reads the record before the next-node test and loops with a jmp, the client tests the next node again; the dead First_Valid spends the inline budget so that the third list's Remove 0x7572E0 is called out of line, as the client's; 30 forms) 0x744260 (placed in the blank run after Do_Frame, before 0x744C10: no assert line moves; no asserts of i... |
 | `app/client/sclient.cpp:1079` | `SClient::Unknown_7436A0` | marker | NOT EXACT: inline budget (explain.py: 731 instructions, the client's about twice as many): the client inlines more of std::string's construction (the last three key names copied in place) and its five camera blocks (0x744D80's body); first round 0x7436A0 (Do_Frame: an event no dispatcher took; the module 'sclient' keys, registered on the first call) |
