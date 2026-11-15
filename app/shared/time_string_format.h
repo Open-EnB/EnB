@@ -22,6 +22,10 @@ private:
 	bool Add_Unit(const MillisecondsClass &portion, int count, const std::string &name, bool plural);  // NAME 2: what it does
 	std::string Unit_String(int count, const std::string &name, bool plural);  // NAME 2: what it does
 
+	// Format's state reset: an inline layer of its own (0x4FE890 stores Started as an immediate and calls
+	// all four unit conversions out of line only with it)
+	void Start(const MillisecondsClass &time) { Result = ""; RemainingTime = time; Started = false; }  // NAME 2: what it does
+
 	// one unit's part: its count, and the same span in milliseconds (the converting constructors
 	// 0x4FF940 .. 0x4FFA30 and Get 0x4FFA80 .. 0x4FFBD0 are called from Format: this layer's)
 	template<class UNIT> bool Add(const UNIT &unit, const std::string &name, bool plural)  // NAME 2: what it does

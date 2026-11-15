@@ -15,16 +15,14 @@ std::string Time_String(const MillisecondsClass &time, const MillisecondsClass &
 }
 
 // "1 day, 2 hours, 3 minutes, 4 seconds, 5ms": the units from the largest down
-// NOT EXACT: inline-budget: the Days conversion (0x4FF940) inlines here, the client calls all four out of line
+// NOT EXACT: order: the last Add_Unit's portion copy follows its inline Get here, the client stores the copy first and tests its registers
 // @0x4FE890
 std::string TimeStringFormatClass::Format(const MillisecondsClass &time)
 {
 	if (time < Minimum) {
 		return Format(Minimum);
 	}
-	Result = "";
-	RemainingTime = time;
-	Started = false;
+	Start(time);
 	if (Add(DaysClass(RemainingTime), " day", true)
 		&& Add(HoursClass(RemainingTime), " hour", true)
 		&& Add(MinutesClass(RemainingTime), " minute", true)
@@ -43,6 +41,8 @@ bool TimeStringFormatClass::Add_Unit(const MillisecondsClass &portion, int count
 		return true;
 	}
 	RemainingTime -= portion;
+
+
 
 
 
