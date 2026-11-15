@@ -10,8 +10,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 222 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 34 |
 | 3 | by convention from a client-named file or sibling | 1961 |
-| 2 | describes what the code does | 4943 |
-| 1 | neutral placeholder | 25029 |
+| 2 | describes what the code does | 4945 |
+| 1 | neutral placeholder | 25032 |
 
 ## For review (score 3 and below)
 
@@ -72,15 +72,13 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6766E0` | `app/client/acticon.cpp:119` | untagged neutral name (D10) |
 | 1 | `Unknown_676A00` | `app/client/acticon.cpp:143` | untagged neutral name (D10) |
 | 1 | `Unknown_671300Class` | `app/client/acticon.h:9` | untagged neutral name (D10) |
-| 1 | `robj, layer` | `app/client/acticon.h:26` | the base's; NAME 2 [bar]: ui_cpit.cpp's 'WARP_BAR' |
-| 1 | `Unknown_AC` | `app/client/acticon.h:28` | untagged neutral name (D10) |
-| 1 | `Duration` | `app/client/acticon.h:34` | what Set_State stores |
-| 1 | `EndTime` | `app/client/acticon.h:35` | what Set_State stores |
-| 1 | `Flash` | `app/client/acticon.h:36` | what slot +0xAC does with it |
-| 1 | `Unknown_685E80Class` | `app/client/acticon.h:46` | untagged neutral name (D10) |
-| 1 | `id, ini, section` | `app/client/acticon.h:49` | what 0x6766E0 passes |
-| 1 | `Id` | `app/client/acticon.h:55` | 0x6766E0 passes the section's number |
-| 1 | `id, ini, section` | `app/client/acticon.h:64` | the base's |
+| 1 | `robj, layer` | `app/client/acticon.h:27` | the base's; NAME 2 [bar]: ui_cpit.cpp's 'WARP_BAR' |
+| 1 | `Unknown_AC` | `app/client/acticon.h:29` | untagged neutral name (D10) |
+| 1 | `Duration` | `app/client/acticon.h:35` | what Set_State stores |
+| 1 | `EndTime` | `app/client/acticon.h:36` | what Set_State stores |
+| 1 | `Flash` | `app/client/acticon.h:37` | what slot +0xAC does with it |
+| 1 | `Unknown_685E80Class` | `app/client/acticon.h:43` | untagged neutral name (D10) |
+| 1 | `id, ini, section` | `app/client/acticon.h:46` | the base's |
 | 1 | `aux_roots.cpp` | `app/client/aux_roots.cpp:3` | provisional file name (the client's constructors are in co.cpp 0x6F6000-0x6FBEF0 and the Player object 0x751BE0) |
 | 1 | `UnknownGlobal` | `app/client/aux_roots.cpp:7` | untagged neutral name (D10) |
 | 1 | `UnknownRootClass` | `app/client/aux_roots.cpp:12` | untagged neutral name (D10) |
@@ -20285,6 +20283,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_67DA60` | `app/client/unknown_67d430.h:34` | untagged neutral name (D10) |
 | 1 | `Unknown_67DB40, type` | `app/client/unknown_67d430.h:35` | neutral (D10): the type's colour, -1 when its option is off |
 | 1 | `Unknown_67DB40` | `app/client/unknown_67d430.h:35` | untagged neutral name (D10) |
+| 1 | `Unknown_685E80Class` | `app/client/unknown_685e80.cpp:9` | untagged neutral name (D10) |
+| 1 | `unknown_685e80.h` | `app/client/unknown_685e80.h:5` | PROVISIONAL, the object's first address (no __FILE__ in it) |
+| 1 | `Unknown_685E80Class` | `app/client/unknown_685e80.h:13` | neutral (D10), the constructor's address |
+| 1 | `id, ini, section` | `app/client/unknown_685e80.h:16` | what 0x6766E0 passes |
+| 1 | `Id` | `app/client/unknown_685e80.h:25` | 0x6766E0 passes the section's number |
 | 1 | `Unknown686010Class` | `app/client/unknown_686010.cpp:9` | untagged neutral name (D10) |
 | 1 | `Unknown_6863E0` | `app/client/unknown_686010.cpp:17` | untagged neutral name (D10) |
 | 1 | `Unknown_6865E0` | `app/client/unknown_686010.cpp:18` | untagged neutral name (D10) |
@@ -25260,14 +25263,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `std:` | `app/audio/unknown_431e30.h:45` | what it holds |
 | 2 | `_Instance` | `app/audio/unknown_431e30.h:47` | what it holds |
 | 2 | `Actions` | `app/client/acticon.cpp:23` | what 0x6766E0 fills |
-| 2 | `Set_State` | `app/client/acticon.h:30` | what it does; NAME 1 [state, end_time]: what ui_cpit.cpp passes |
-| 2 | `Bar` | `app/client/acticon.h:32` | ui_cpit.cpp's 'WARP_BAR' |
-| 2 | `State` | `app/client/acticon.h:33` | what Set_State stores |
-| 2 | `ToolTip` | `app/client/acticon.h:52` | the INI entry |
-| 2 | `UserData` | `app/client/acticon.h:53` | the INI entry |
-| 2 | `Texture` | `app/client/acticon.h:54` | the INI entry |
-| 2 | `ActionClass` | `app/client/acticon.h:61` | action.ini's 'Action%04d' sections |
-| 2 | `Group` | `app/client/acticon.h:67` | the INI entry and the assert |
+| 2 | `Set_State` | `app/client/acticon.h:31` | what it does; NAME 1 [state, end_time]: what ui_cpit.cpp passes |
+| 2 | `Bar` | `app/client/acticon.h:33` | ui_cpit.cpp's 'WARP_BAR' |
+| 2 | `State` | `app/client/acticon.h:34` | what Set_State stores |
+| 2 | `ActionClass` | `app/client/acticon.h:43` | action.ini's 'Action%04d' sections |
+| 2 | `Group` | `app/client/acticon.h:49` | the INI entry and the assert |
 | 2 | `PlayerNLP` | `app/client/avatar.h:194` | PlayerNLP != 0 assert |
 | 2 | `HeadSource` | `app/client/avatar.h:237` | '!HeadSource \|\| !BodyObj' assert |
 | 2 | `HeadObj` | `app/client/avatar.h:239` | '!HeadObj' assert (0x786370 sets hidden) |
@@ -27665,6 +27665,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Count` | `app/client/unknown_67d430.h:39` | messages added |
 | 2 | `Entries` | `app/client/unknown_67d430.h:40` | the ring |
 | 2 | `Colors` | `app/client/unknown_67d430.h:41` | per type, what 0x67DB40 returns |
+| 2 | `Get_Texture` | `app/client/unknown_685e80.h:19` | WW3D's Get_ / Peek_ convention for what it does |
+| 2 | `Peek_Texture` | `app/client/unknown_685e80.h:20` | WW3D's Get_ / Peek_ convention for what it does |
+| 2 | `ToolTip` | `app/client/unknown_685e80.h:22` | the INI entry |
+| 2 | `UserData` | `app/client/unknown_685e80.h:23` | the INI entry |
+| 2 | `Texture` | `app/client/unknown_685e80.h:24` | the INI entry |
 | 2 | `Pass` | `app/client/unknown_6bb7e0.h:20` | what it holds |
 | 2 | `std:` | `app/client/unknown_6bb7e0.h:33` | what it holds |
 | 2 | `FontEffectStruct::EffectType` | `app/client/unknown_6ca0c0.h:7` | the client's ini words |
@@ -30001,7 +30006,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `SoundLibraryClass` | `app/audio/soundlib.h:71` | from the client's soundlib.cpp ('sound library' in the start-up messages) |
 | 3 | `StarbaseSoundClass` | `app/audio/starbasesound.h:16` | class-from-file (D24) for audio/starbasesound.cpp |
 | 3 | `acticon.h` | `app/client/acticon.h:17` | header name assumed from the client's acticon.cpp |
-| 3 | `ActIconClass` | `app/client/acticon.h:23` | class-from-file (D24) for app\Client\acticon.cpp |
+| 3 | `ActIconClass` | `app/client/acticon.h:24` | class-from-file (D24) for app\Client\acticon.cpp |
 | 3 | `DeltaElementsClass` | `app/client/aux_roots.h:357` | Net-7 AuxElements at the same place in the tree, its child count differs (Net-7 Construct 4 children != ours 5) |
 | 3 | `DeltaBuffsClass` | `app/client/aux_roots.h:397` | Net-7 AuxBuffs at the same place in the tree, its child count differs (Net-7 Construct 16 children != ours 15) |
 | 3 | `DeltaShipClass` | `app/client/aux_roots.h:468` | the client's root string "Ship", Westwood XxxClass (D24); structure = Net-7 AuxShipIndex / C# ShipObject (C# fields = ours (same names, same order); Net-7 Construct 58 children = ours) |

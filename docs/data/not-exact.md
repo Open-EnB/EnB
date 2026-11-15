@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-880 entries in 298 files.
+882 entries in 298 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -17,7 +17,9 @@ edit the comments in the code, not this file.
 | `app/audio/musicmanager.cpp:138` | `MusicManagerClass::Load_INI` | marker | NOT EXACT: inline budget (explain.py: 2287 bytes vs 2227, 0.61): the client calls push_back's _Ucopy / _Ufill / _Destroy (0x43BF20, 0x43BF60, 0x43BC60) and its last size() (0x43BC30) out of line, here they are inline; this and the section name swap edi / ebp |
 | `app/audio/musicmanager.cpp:269` | `MusicManagerClass::Queue_Themes` | marker | NOT EXACT: register allocation and inline budget (explain.py: 488 bytes vs 494, 0.46): the client keeps type in ebx and calls the vector's _Destroy 0x43BC60 after the first erase, here type is in ebp and both erases are inline |
 | `app/audio/musicmanager.cpp:348` | `MusicManagerClass::Queue_Sector_Themes` | marker | NOT EXACT: order-only (explain.py: same length, 0.84): the client stores Sector = -1 before it saves CurrentMusicType to the stack, here after |
-| `app/audio/musicmanager.cpp:638` | `EXACT` | mention | NOT EXACT (inline budget: |
+| `app/audio/musicmanager.cpp:635` | `MusicManagerClass::Update` | marker | NOT EXACT: shape (explain.py: 17 calls here, 18 in the client, a merged or split tail; 718 bytes vs 687, 0.61; attempts.csv): the client keeps 0 in ebp and -1 in ebx from ArgvClass::Find on and shares the two silence tails |
+| `app/audio/musicmanager.cpp:708` | `EXACT` | mention | NOT EXACT (shape: a merged tail, attempts.csv) and stands last in |
+| `app/audio/musicmanager.cpp:710` | `EXACT` | mention | NOT EXACT (inline budget: |
 | `app/audio/sectorsound.cpp:56` | `SectorSoundClass::Load_INI` | marker | NOT EXACT: stack slots only (explain.py: same length, 0.68): the client keeps ini at esp+0x18 and its copy of 'this' at esp+0x28, here 'this' is at esp+0x18 and ini at esp+0x1C |
 | `app/audio/soundlib.cpp:157` | `SoundDefClass::SoundDefClass` | marker | NOT EXACT: inline budget (explain.py: 66 calls vs 67), reserve inlines size() and calls _Destroy where the client calls size() and inlines _Destroy; one more string destructor called |
 | `app/audio/unknown_431e30.cpp:128` | `Unknown431E30Class::Update` | marker | NOT EXACT: inline budget (explain.py: 10 calls, the client 11; 421 bytes, 0.59): the client calls the end() iterator copy 0x432C00 out of line in the inlined Get_Sector_Music, here it is inline; dead reads inside Get_Sector_Music, a const_iterator and an inline wrapper changed nothing |
