@@ -1,6 +1,5 @@
 {
  "ambiguous": [
-  "0x76FE80",
   "0x778EB0"
  ],
  "copy": "reconstructed",
@@ -8,6 +7,7 @@
  "expected": {},
  "in_tree": [
   "0x42F250",
+  "0x76FEB0",
   "0x76FFD0",
   "0x7701D0",
   "0x7702A0",
@@ -34,6 +34,8 @@
   "0x778590",
   "0x7786D0",
   "0x7787C0",
+  "0x778810",
+  "0x778840",
   "0x778870",
   "0x778890",
   "0x778950",
@@ -43,6 +45,7 @@
  "name": "client/html/htmlview.cpp",
  "shared": [
   "0x42F250",
+  "0x76FEB0",
   "0x778870"
  ],
  "short_known": [

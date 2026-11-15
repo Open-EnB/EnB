@@ -1,6 +1,5 @@
 {
  "ambiguous": [
-  "0x46BE90",
   "0x483600"
  ],
  "copy": "reconstructed",
@@ -24,9 +23,12 @@
   "0x51A4F0",
   "0x51A650",
   "0x51A690",
+  "0x51A6C0",
   "0x51A6F0",
   "0x51A720",
-  "0x51A7F0"
+  "0x51A750",
+  "0x51A7F0",
+  "0x7BF7A0"
  ],
  "merged": [],
  "name": "client/dynamic_window_icon.cpp",
@@ -36,7 +38,9 @@
   "0x45CC30",
   "0x46BE90",
   "0x497330",
-  "0x51A4F0"
+  "0x51A4F0",
+  "0x51A6C0",
+  "0x7BF7A0"
  ],
  "short_known": [
   "0x519F20"

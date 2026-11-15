@@ -30,6 +30,7 @@
   "0x51E730",
   "0x51E7F0",
   "0x51E830",
+  "0x51E860",
   "0x51E890",
   "0x51E8E0",
   "0x51E900",
@@ -39,7 +40,8 @@
   "0x51E9E0",
   "0x51EA50",
   "0x51EA80",
-  "0x51EAB0"
+  "0x51EAB0",
+  "0x7BF7A0"
  ],
  "merged": [],
  "name": "client/dynamic_window_toggle.cpp",
@@ -55,7 +57,8 @@
   "0x51E8E0",
   "0x51E980",
   "0x51E9A0",
-  "0x51E9C0"
+  "0x51E9C0",
+  "0x7BF7A0"
  ],
  "short_known": [
   "0x51E7F0",
