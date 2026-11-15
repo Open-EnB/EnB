@@ -194,8 +194,8 @@ void PDAInterfaceClass::Unknown_60()
 		}
 	}
 }
-
 // the chat panel's window (0x694AA0) put away when a PDA window opens (inlined in each of 0x693E70's cases)
+static inline bool PDA_Window_Active(PDAInterfaceClass *pda, int index) { RefCountPtr<InterfaceClass> window = pda->Unknown_6956C0(index); if (window) { return(window->Is_Active()); } return(false); }	// 0x695C50's body inline (cases 7 / 9: the release inline on the found path, out of line on the other)  // NAME 1: neutral (D10)
 inline void PDA_Close_Chat_Window(ChatPanelInterface *chat)	// NAME 1: neutral (D10)
 {
 	if (chat->Unknown_694AA0()) {
@@ -205,7 +205,7 @@ inline void PDA_Close_Chat_Window(ChatPanelInterface *chat)	// NAME 1: neutral (
 	}
 }
 
-// 0x693E70 (NOT EXACT: shape (the chat window block, the sound tail and the cases' order: 0.17))
+// 0x693E70 (NOT EXACT: inline-budget (cases in the client's code order; the client inlines the 18 window releases of PDA_Close_Chat_Window, each in its own stack slots, ours calls them: 0.38))
 bool PDAInterfaceClass::Unknown_68(int key)
 {
 	if (!UnknownBC) {
@@ -232,73 +232,6 @@ bool PDAInterfaceClass::Unknown_68(int key)
 			goto play;
 		}
 		Unknown_695A00(2, true);
-		break;
-	case 3:
-	case 8:
-		if (!Unknown_695C50(0)) {
-			Unknown_695780(0);
-			PDA_Close_Chat_Window(chat);
-			sound = "SR_scifielectronic40.wav";
-			goto play;
-		}
-		Unknown_695A00(0, true);
-		Unknown_695A00(1, true);
-		Unknown_695A00(3, true);
-		break;
-	case 4:
-		if (chat) {
-			if (!chat->Unknown_694AA0()) {
-				chat->Unknown_565F30(1);
-			} else {
-				RefCountPtr<ChatPanelUIBase> window = chat->Unknown_694AA0();
-				window->Unknown_5C();
-				window->Closed = 1;
-			}
-		}
-		break;
-	case 6:
-		if (!Ping->Is_Active()) {
-			Ping->Unknown_58();
-		} else {
-			Ping->Unknown_5C();
-		}
-		break;
-	case 7:
-		{
-			RefCountPtr<InterfaceClass> window = Unknown_6956C0(1);
-			if (window && window->Is_Active()) {
-				window = NULL;
-				Unknown_695A00(0, true);
-				Unknown_695A00(1, true);
-				break;
-			}
-		}
-		if (!Unknown_695780(0)) {
-			Unknown_695780(1);
-		} else {
-			OpenedCargoInterface = Equipment;
-		}
-		PDA_Close_Chat_Window(chat);
-		break;
-	case 9:
-		if (!client->Unknown_744B60()) {
-			return(true);
-		}
-		{
-			RefCountPtr<InterfaceClass> window = Unknown_6956C0(3);
-			if (window && window->Is_Active()) {
-				window = NULL;
-				Unknown_695A00(0, true);
-				Unknown_695A00(3, true);
-				break;
-			}
-		}
-		if (!Unknown_695780(0)) {
-			Unknown_695780(3);
-		} else {
-			OpenedCargoInterface = Vault;
-		}
-		PDA_Close_Chat_Window(chat);
 		break;
 	case 10:
 		if (!Character->Is_Active()) {
@@ -345,6 +278,73 @@ bool PDAInterfaceClass::Unknown_68(int key)
 			Starmap->Unknown_7C8C20(1);
 		}
 		PDA_Close_Chat_Window(chat);
+		break;
+	case 7:
+		
+		
+			if (PDA_Window_Active(this, 1)) {
+				
+				Unknown_695A00(0, true);
+				Unknown_695A00(1, true);
+				break;
+			}
+		
+		if (!Unknown_695780(0)) {
+			Unknown_695780(1);
+		} else {
+			OpenedCargoInterface = Equipment;
+		}
+		PDA_Close_Chat_Window(chat);
+		break;
+	case 9:
+		if (!client->Unknown_744B60()) {
+			return(true);
+		}
+		
+		
+			if (PDA_Window_Active(this, 3)) {
+				
+				Unknown_695A00(0, true);
+				Unknown_695A00(3, true);
+				break;
+			}
+		
+		if (!Unknown_695780(0)) {
+			Unknown_695780(3);
+		} else {
+			OpenedCargoInterface = Vault;
+		}
+		PDA_Close_Chat_Window(chat);
+		break;
+	case 3:
+	case 8:
+		if (!Unknown_695C50(0)) {
+			Unknown_695780(0);
+			PDA_Close_Chat_Window(chat);
+			sound = "SR_scifielectronic40.wav";
+			goto play;
+		}
+		Unknown_695A00(0, true);
+		Unknown_695A00(1, true);
+		Unknown_695A00(3, true);
+		break;
+	case 4:
+		if (chat) {
+			if (chat->Unknown_694AA0()) {
+				RefCountPtr<ChatPanelUIBase> window = chat->Unknown_694AA0();
+				window->Unknown_5C();
+				window->Closed = 1;
+			} else {
+				chat->Unknown_565F30(1);
+			}
+		}
+		break;
+	case 6:
+		if (!Ping->Is_Active()) {
+			Ping->Unknown_58();
+		} else {
+			Ping->Unknown_5C();
+		}
 		break;
 	default:
 		return(false);
@@ -637,7 +637,7 @@ bool PDAInterfaceClass::Unknown_695A00(int index, bool arg)
 	return(true);
 }
 
-// 0x695C50
+#pragma auto_inline(off)	// 0x695C50 (0x693E70 and 0x695D70 call it out of line)
 bool PDAInterfaceClass::Unknown_695C50(int index)
 {
 	RefCountPtr<InterfaceClass> window = Unknown_6956C0(index);
@@ -646,7 +646,7 @@ bool PDAInterfaceClass::Unknown_695C50(int index)
 	}
 	return(false);
 }
-
+#pragma auto_inline(on)
 // 0x695CE0
 bool PDAInterfaceClass::Unknown_695CE0()
 {
