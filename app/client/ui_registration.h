@@ -66,7 +66,7 @@ struct RegistrationCardPrefixStruct  // NAME 1 [RegistrationCardPrefixStruct]: t
 struct RegistrationButtonStruct  // NAME 1 [RegistrationButtonStruct]: neutral (D10)
 {
 	ButtonGadgetClass *Gadget;	// +0x00
-	RenderObjClass *RObj;		// +0x04: the sub-object (released after the insert)  // NAME 1 [RObj]: what 0x5F2B20 stores
+	int Id;						// +0x04: the button's id (0x5F2B20 stores its first argument; 0x5FBD30 compares the selected radio's with the ids)  // NAME 1 [Id]: what 0x5F2B20 stores
 	const char *Name;			// +0x08: the sub-object's name  // NAME 1 [Name]: 0x5F2B20's
 	const char *Style;			// +0x0C: the font style dimmed with it (0x5F2990)  // NAME 1 [Style]: 0x6D25D0's argument
 	unsigned short Key;			// +0x10: its control key  // NAME 1 [Key]: 0x721E60's
@@ -176,7 +176,7 @@ public:
 	void Unknown_5F2F90(int id, const char *name, int a, int b);  // NAME 1 [id, name, a, b]: neutral
 	void Unknown_5F3110();
 	void Unknown_5F3250(int id);  // NAME 1 [id]: the button's
-	RenderObjClass *Unknown_5F33E0(unsigned short group);  // NAME 1 [group]: neutral
+	int Unknown_5F33E0(unsigned short group);  // NAME 1 [group]: neutral
 	void Unknown_5F3470(unsigned short group);  // NAME 1 [group]: neutral
 	void Unknown_5F3510(int id, bool on);  // NAME 1 [id, on]: neutral
 	void Unknown_5F3600();

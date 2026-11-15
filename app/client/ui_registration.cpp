@@ -894,7 +894,7 @@ void RegistrationInterface::Unknown_5F2B20(int id, const char *name, const char 
 	ButtonGadgetClass *gadget = new ButtonGadgetClass(robj, *Layer, 5, 3);
 	RegistrationButtonStruct button;
 	button.Gadget = gadget;
-	button.RObj = robj;
+	button.Id = id;
 	button.Name = name;
 	button.Style = style;
 	button.Key = key;
@@ -981,12 +981,12 @@ void RegistrationInterface::Unknown_5F3250(int id)
 }
 
 // @0x5F33E0
-RenderObjClass *RegistrationInterface::Unknown_5F33E0(unsigned short group)
+int RegistrationInterface::Unknown_5F33E0(unsigned short group)
 {
 	std::map<int, RegistrationButtonStruct>::iterator button = UnknownE8.begin();
 	while (button != UnknownE8.end()) {
 		if ((*button).second.Group == group && (*button).second.Selected) {
-			return((*button).second.RObj);
+			return((*button).second.Id);
 		}
 		button++;
 	}
@@ -2948,6 +2948,733 @@ void RegistrationInterface::Unknown_5F0100()
 	}
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// NOT EXACT: literal (explain.py's first mismatch, at case 3's text map lookups; functional, pseudocode-faithful, D89: the client calls
+// Unknown_5F86F0 out of line where ours inlines it, and its stack frame is 0x130 bytes smaller)
+// @0x5FBD30
+void RegistrationInterface::Unknown_5FBD30()
+{
+	char buffer[1024];
+	char message[1024];
+	char *password;
+	char *retype;
+	switch (UnknownD4) {
+		case 0x17:
+			Unknown_5F3770(0);
+			break;
+		case 0:
+		{
+			int selected = 0;
+			for (std::map<int, RegistrationButtonStruct>::iterator button = UnknownE8.begin(); button != UnknownE8.end(); button++) {
+				if ((*button).second.Group == 1 && (*button).second.Selected) {
+					selected = (*button).second.Id;
+					break;
+				}
+			}
+			Unknown268 = selected;
+			Unknown1D1 = false;
+			Unknown1CF = false;
+			Unknown1CD = false;
+			Unknown1CB = false;
+			Unknown1CC = false;
+			Unknown1CA = false;
+			Unknown1CE = false;
+			switch (Unknown268) {
+				case 1:
+					Unknown1C8 = false;
+					Unknown_5F3770(1);
+					break;
+				case 2:
+					Unknown1C8 = true;
+					Unknown_5F3770(2);
+					break;
+				case 5:
+					Unknown1C8 = true;
+					Unknown_5F3770(6);
+					break;
+			}
+			break;
+		}
+		case 6:
+		{
+			int selected = 0;
+			for (std::map<int, RegistrationButtonStruct>::iterator button = UnknownE8.begin(); button != UnknownE8.end(); button++) {
+				if ((*button).second.Group == 1 && (*button).second.Selected) {
+					selected = (*button).second.Id;
+					break;
+				}
+			}
+			Unknown26C = selected;
+			if (selected == 8) {
+				UnknownD8.push_back(UnknownD4);
+				Unknown_5F3770(7);
+			} else if (selected == 9) {
+				UnknownD8.push_back(UnknownD4);
+				Unknown_5F3770(8);
+			}
+			break;
+		}
+		case 7:
+		{
+			char *email = UnknownF8[0x13].Gadget->Get_Text();
+			Unknown258 = email;
+			delete email;
+			const char *address = Unknown258.c_str();
+			if (address != NULL && strlen(address) != 0 && strchr(address, '@') != NULL && strchr(address, '.') != NULL) {
+				StatusIndex = 0xD;
+				Unknown_5F8DB0(false);
+				Unknown_5F3770(0x16);
+				Unknown_5FAE90(this, "Requesting Member Names...");
+				Unknown_5FAE90(this, NULL);
+				if (Unknown1AC->Unknown_7D7480(Unknown258.c_str(), Unknown_BE8AD4)) {
+					return;
+				}
+				if (Unknown390.Unknown10 != -1) {
+					_snprintf(buffer, 1024, "%s\n(%d)", RegistrationServerError, Unknown390.Unknown10);
+				} else {
+					_snprintf(buffer, 1024, "%s", RegistrationServerError);
+				}
+				UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, buffer, 0x140, 0, 0);
+				if ((UnknownD4 == 1 && Unknown11B) || (UnknownD4 == 0 && Unknown11D) || UnknownD4 == 0x17) {
+					Unknown_5F86F0();
+				} else {
+					Unknown_5F3770(Unknown_5F89F0());
+				}
+				return;
+			}
+			UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "Please enter a valid E-Mail address.", 0x140, 0, 0);
+			break;
+		}
+		case 8:
+		{
+			char *username = UnknownF8[10].Gadget->Get_Text();
+			Unknown248 = username;
+			delete username;
+			Unknown248 = Unknown_5FB540(Unknown248);
+			if (Unknown248.size() < 4) {
+				Unknown_5FB7A0(this, "Please enter a valid Username.\nUsernames must be at least %d characters long.", 4);
+				return;
+			}
+			StatusIndex = 0xE;
+			Unknown_5F8DB0(false);
+			Unknown_5F3770(0x16);
+			Unknown_5FAE90(this, "Requesting Member Password...");
+			Unknown_5FAE90(this, NULL);
+			if (Unknown1AC->Unknown_7D6FE0(Unknown248.c_str(), Unknown_BE8AD4)) {
+				return;
+			}
+			if (Unknown390.Unknown10 != -1) {
+				_snprintf(buffer, 1024, "%s\n(%d)", RegistrationServerError, Unknown390.Unknown10);
+			} else {
+				_snprintf(buffer, 1024, "%s", RegistrationServerError);
+			}
+			UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, buffer, 0x140, 0, 0);
+			if ((UnknownD4 == 1 && Unknown11B) || (UnknownD4 == 0 && Unknown11D) || UnknownD4 == 0x17) {
+				Unknown_5F86F0();
+			} else {
+				Unknown_5F3770(Unknown_5F89F0());
+			}
+			break;
+		}
+		case 1:
+		{
+			char *username = UnknownF8[10].Gadget->Get_Text();
+			char *password = UnknownF8[0xB].Gadget->Get_Text();
+			Unknown1D8 = username;
+			Unknown1E8 = password;
+			delete username;
+			delete password;
+			Unknown1D8 = Unknown_5FB540(Unknown1D8);
+			if (Unknown1D8.size() < 4 || Unknown1E8.size() < 4) {
+				goto bad_login;
+			}
+			if (Unknown_5FB750(Unknown1E8.c_str())) {
+				Unknown11A = true;
+				UnknownBC->Get_Unknown34()->Unknown_588A70("YES_NO", 0, "EA.COM Accounts may no longer have commas within them.  If your password contains a comma, clicking 'Yes' will take you to the EA.COM Account page where you can change your password.  If you entered a comma by mistake, Clicking 'No' will let you reenter your password.\n\nDoes your password contain a comma?", 0x140, 0, 0);
+				return;
+			}
+			UnknownD8.push_back(UnknownD4);
+			Unknown1CF = false;
+			Unknown1CD = false;
+			Unknown1CB = false;
+			Unknown1D5 = false;
+			Unknown1CC = false;
+			StatusIndex = 1;
+			Unknown_5F8DB0(false);
+			Unknown_5F3770(0x16);
+			Unknown_5FAE90(this, "Validating login information...");
+			Unknown_5FAE90(this, NULL);
+			if (Unknown1AC->Unknown_7D47F0(Unknown1D8.c_str(), Unknown1E8.c_str(), NULL, Unknown_BE8AD4)) {
+				return;
+			}
+			if (Unknown390.Unknown10 != -1) {
+				_snprintf(buffer, 1024, "%s\n(%d)", RegistrationServerError, Unknown390.Unknown10);
+			} else {
+				_snprintf(buffer, 1024, "%s", RegistrationServerError);
+			}
+			UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, buffer, 0x140, 0, 0);
+			if ((UnknownD4 == 1 && Unknown11B) || (UnknownD4 == 0 && Unknown11D) || UnknownD4 == 0x17) {
+				Unknown_5F86F0();
+				return;
+			}
+			int state = Unknown_5F8A90();
+			if (UnknownD8.size() != 0) {
+				UnknownD8.pop_back();
+			}
+			Unknown_5F3770(state);
+			return;
+		}
+		case 3:
+		{
+			char *username = UnknownF8[10].Gadget->Get_Text();
+			char *password = UnknownF8[0xB].Gadget->Get_Text();
+			char *retype = UnknownF8[0xC].Gadget->Get_Text();
+			Unknown1D8 = username;
+			Unknown1E8 = password;
+			Unknown1F8 = retype;
+			delete username;
+			delete password;
+			delete retype;
+			Unknown1D8 = Unknown_5FB540(Unknown1D8);
+			if (Unknown1D8.size() < 4 || Unknown1E8.size() < 4) {
+				goto bad_login;
+			}
+			if (Unknown1E8 != Unknown1F8) {
+				Unknown_5FB7A0(this, "The Passwords you entered do not match.");
+				return;
+			}
+			UnknownD8.push_back(UnknownD4);
+			if (!Unknown1D0) {
+				goto next_page;
+			}
+			if (Unknown_5FA900()) {
+				return;
+			}
+			if (Unknown390.Unknown10 != -1) {
+				_snprintf(buffer, 1024, "%s\n(%d)", RegistrationServerError, Unknown390.Unknown10);
+			} else {
+				_snprintf(buffer, 1024, "%s", RegistrationServerError);
+			}
+			UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, buffer, 0x140, 0, 0);
+			if ((UnknownD4 == 1 && Unknown11B) || (UnknownD4 == 0 && Unknown11D) || UnknownD4 == 0x17) {
+				Unknown_5F86F0();
+				return;
+			}
+			int state = Unknown_5F8A90();
+			if (UnknownD8.size() != 0) {
+				UnknownD8.pop_back();
+			}
+			Unknown_5F3770(state);
+			return;
+		}
+		case 4:
+		{
+			char *username = UnknownF8[10].Gadget->Get_Text();
+			char *password = UnknownF8[0xB].Gadget->Get_Text();
+			Unknown1D8 = username;
+			Unknown208 = password;
+			delete username;
+			delete password;
+			Unknown1D8 = Unknown_5FB540(Unknown1D8);
+			if (Unknown1D8.size() < 4 || Unknown208.size() < 4) {
+				goto bad_login;
+			}
+			StatusIndex = 0xC;
+			if (Unknown1AC->Unknown_7D7920(Unknown1D8.c_str(), Unknown208.c_str(), Unknown_BE8AD4)) {
+				UnknownD8.push_back(UnknownD4);
+				Unknown_5F8DB0(false);
+				Unknown_5F3770(0x16);
+				Unknown_5FAE90(this, "Validating AOL Login Information...");
+				return;
+			}
+			if (Unknown390.Unknown10 != -1) {
+				_snprintf(buffer, 1024, "%s\n(%d)", RegistrationServerError, Unknown390.Unknown10);
+			} else {
+				_snprintf(buffer, 1024, "%s", RegistrationServerError);
+			}
+			UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, buffer, 0x140, 0, 0);
+			if ((UnknownD4 == 1 && Unknown11B) || (UnknownD4 == 0 && Unknown11D) || UnknownD4 == 0x17) {
+				Unknown_5F86F0();
+				return;
+			}
+			int state = Unknown_5F8A90();
+			if (UnknownD8.size() != 0) {
+				UnknownD8.pop_back();
+			}
+			Unknown_5F3770(state);
+			return;
+		}
+		case 5:
+			password = UnknownF8[0xB].Gadget->Get_Text();
+			retype = UnknownF8[0xC].Gadget->Get_Text();
+			Unknown1E8 = password;
+			Unknown1F8 = retype;
+			delete password;
+			delete retype;
+			if (Unknown1D8.size() > 3 && Unknown1E8.size() > 3) {
+				if (Unknown1E8 != Unknown1F8) {
+					Unknown_5FB7A0(this, "The Passwords you entered do not match.");
+					return;
+				}
+				Unknown1D1 = false;
+next_page:
+				Unknown_5F3770(10);
+				return;
+			}
+bad_login:
+			Unknown_5FB7A0(this, "Please enter a valid Username and Password.\nUsernames must be at least %d characters long.\nPasswords must be at least %d characters long.", 4, 4);
+			break;
+		case 2:
+		{
+			UnknownD8.push_back(UnknownD4);
+			for (std::map<int, RegistrationButtonStruct>::iterator button = UnknownE8.begin(); button != UnknownE8.end(); button++) {
+				if ((*button).second.Group == 1 && (*button).second.Selected) {
+					if ((*button).second.Id == 1) {
+						Unknown1C9 = true;
+						Unknown_5F3770(4);
+						return;
+					}
+					break;
+				}
+			}
+			Unknown1C9 = false;
+			Unknown_5F3770(3);
+			break;
+		}
+		case 9:
+		{
+			Unknown1C9 = false;
+			int selected = 0;
+			for (std::map<int, RegistrationButtonStruct>::iterator button = UnknownE8.begin(); button != UnknownE8.end(); button++) {
+				if ((*button).second.Group == 1 && (*button).second.Selected) {
+					selected = (*button).second.Id;
+					if (selected == 0x12) {
+						UnknownD8.push_back(UnknownD4);
+						Unknown_5F3770(3);
+						return;
+					}
+					break;
+				}
+			}
+			Unknown1D8 = Unknown3C4.Unknown00[selected - 0xD];
+			Unknown1D8 = Unknown_5FB540(Unknown1D8);
+			if (Unknown_5FA900()) {
+				return;
+			}
+			if (Unknown390.Unknown10 != -1) {
+				_snprintf(buffer, 1024, "%s\n(%d)", RegistrationServerError, Unknown390.Unknown10);
+			} else {
+				_snprintf(buffer, 1024, "%s", RegistrationServerError);
+			}
+			UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, buffer, 0x140, 0, 0);
+			if ((UnknownD4 == 1 && Unknown11B) || (UnknownD4 == 0 && Unknown11D) || UnknownD4 == 0x17) {
+				Unknown_5F86F0();
+				return;
+			}
+			int state = Unknown_5F8A90();
+			if (UnknownD8.size() != 0) {
+				UnknownD8.pop_back();
+			}
+			Unknown_5F3770(state);
+			break;
+		}
+		case 10:
+		{
+			char *email = UnknownF8[0x13].Gadget->Get_Text();
+			int month = Unknown108[0x14].Combo->Selected + 1;
+			UIComboBoxClass *combo = Unknown108[0x15].Combo;
+			int day = (unsigned)combo->Selected < combo->Items.size() ? atoi(combo->Items[combo->Selected].c_str()) : 0;
+			combo = Unknown108[0x16].Combo;
+			int year = (unsigned)combo->Selected < combo->Items.size() ? atoi(combo->Items[combo->Selected].c_str()) : 0;
+			int selected = 0;
+			for (std::map<int, RegistrationButtonStruct>::iterator button = UnknownE8.begin(); button != UnknownE8.end(); button++) {
+				if ((*button).second.Group == 1 && (*button).second.Selected) {
+					selected = (*button).second.Id;
+					break;
+				}
+			}
+			int this_year = Unknown124.tm_year;
+			bool flag = selected == 0x18;
+			std::string country(Unknown108[0x19].Combo->Get_Item_Text(Unknown108[0x19].Combo->Selected));
+			if (this_year - year == -1900 || !Unknown_5F8EA0(month, day, year)) {
+				UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "Please enter a valid birth date.", 0x140, 0, 0);
+			} else if (country.size() == 0) {
+				UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "Please select a country.", 0x140, 0, 0);
+			} else if (email == NULL || strlen(email) == 0 || strchr(email, '@') == NULL || strchr(email, '.') == NULL) {
+				UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "Please enter a valid E-Mail address.", 0x140, 0, 0);
+			} else {
+				Unknown3C4.Unknown7C = day;
+				Unknown3C4.Unknown7D = month;
+				Unknown3C4.Unknown7E = year;
+				Unknown3C4.Unknown80 = country.substr(0, 2);
+				Unknown3C4.Unknown5C = email;
+				Unknown3C4.Unknown58 = flag;
+				UnknownD8.push_back(UnknownD4);
+				if (!Unknown1D0) {
+					if (Unknown_603A60(month, day, year, 0x12)) {
+						Unknown_5F3770(0xF);
+					} else if (Unknown_603A60(month, day, year, 0xD)) {
+						Unknown_5F3770(0x10);
+					} else {
+						Unknown119 = true;
+						UnknownBC->Get_Unknown198()->Unknown_784E00();
+						if (!TutorialManagerClass::Instance->Is_Completed("REG18")) {
+							UnknownBC->Get_Unknown198()->Unknown_784C90("REG18", false);
+							TutorialManagerClass::Instance->Set_Completed("REG18");
+						}
+						UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "This registration is not intended for your age group.", 0x140, 0, 0);
+					}
+				} else if (!Unknown_5FA900()) {
+					if (Unknown390.Unknown10 != -1) {
+						_snprintf(buffer, 1024, "%s\n(%d)", RegistrationServerError, Unknown390.Unknown10);
+					} else {
+						_snprintf(buffer, 1024, "%s", RegistrationServerError);
+					}
+					UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, buffer, 0x140, 0, 0);
+					if ((UnknownD4 == 1 && Unknown11B) || (UnknownD4 == 0 && Unknown11D) || UnknownD4 == 0x17) {
+						Unknown_5F86F0();
+					} else {
+						int state = Unknown_5F8A90();
+						if (UnknownD8.size() != 0) {
+							UnknownD8.pop_back();
+						}
+						Unknown_5F3770(state);
+					}
+				}
+			}
+			delete email;
+			break;
+		}
+		case 0xF:
+		{
+			int selected = 0;
+			std::map<int, RegistrationButtonStruct>::iterator button;
+			for (button = UnknownE8.begin(); button != UnknownE8.end(); button++) {
+				if ((*button).second.Group == 1 && (*button).second.Selected) {
+					selected = (*button).second.Id;
+					break;
+				}
+			}
+			Unknown3C4.Unknown90 = selected == 1;
+			selected = 0;
+			for (button = UnknownE8.begin(); button != UnknownE8.end(); button++) {
+				if ((*button).second.Group == 2 && (*button).second.Selected) {
+					selected = (*button).second.Id;
+					break;
+				}
+			}
+			Unknown3C4.Unknown91 = selected == 3;
+			UnknownD8.push_back(UnknownD4);
+			Unknown_5F3770(0x11);
+			break;
+		}
+		case 0xC:
+		{
+			char *first_name = UnknownF8[0x1A].Gadget->Get_Text();
+			char *last_name = UnknownF8[0x1B].Gadget->Get_Text();
+			char *address = UnknownF8[0x1C].Gadget->Get_Text();
+			char *address2 = UnknownF8[0x1D].Gadget->Get_Text();
+			char *city = UnknownF8[0x1E].Gadget->Get_Text();
+			char *state = UnknownF8[0x1F].Gadget->Get_Text();
+			char *zip = UnknownF8[0x20].Gadget->Get_Text();
+			char *phone = UnknownF8[0x21].Gadget->Get_Text();
+			char *number = UnknownF8[0x23].Gadget->Get_Text();
+			int month = Unknown108[0x14].Combo->Selected + 1;
+			UIComboBoxClass *combo = Unknown108[0x16].Combo;
+			int year = (unsigned)combo->Selected < combo->Items.size() ? atoi(combo->Items[combo->Selected].c_str()) : 0;
+			std::string country(Unknown108[0x19].Combo->Get_Item_Text(Unknown108[0x19].Combo->Selected));
+			int type = Unknown5A8[Unknown108[0x22].Combo->Selected].Unknown00;
+			if (strlen(first_name) == 0) {
+				UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "Please enter a valid First Name.", 0x140, 0, 0);
+			} else if (strlen(last_name) == 0) {
+				UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "Please enter a valid Last Name.", 0x140, 0, 0);
+			} else if (strlen(address) == 0) {
+				UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "Please enter a valid Address.", 0x140, 0, 0);
+			} else if (strlen(city) == 0) {
+				UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "Please enter a valid City name.", 0x140, 0, 0);
+			} else if (strlen(state) == 0) {
+				UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "Please enter a valid State.", 0x140, 0, 0);
+			} else if (strlen(zip) < 3 && country.substr(0, 2) == "US") {
+				UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "Please enter a valid Zip Code.", 0x140, 0, 0);
+			} else if (strlen(phone) == 0) {
+				UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "Please enter a valid Phone Number.", 0x140, 0, 0);
+			} else if (!Unknown_603820(number)) {
+				UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "Please enter a valid Credit Card Number.", 0x140, 0, 0);
+			} else if (year < Unknown124.tm_year + 1900 || (month <= Unknown124.tm_mon && year == Unknown124.tm_year + 1900)) {
+				UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "Please enter a valid Expiry Date.", 0x140, 0, 0);
+			} else {
+				Unknown478.Unknown04 = first_name;
+				Unknown478.Unknown14 = last_name;
+				Unknown478.Unknown24 = address;
+				Unknown478.Unknown34 = address2;
+				Unknown478.Unknown44 = city;
+				Unknown478.Unknown54 = state;
+				Unknown478.Unknown74 = zip;
+				Unknown478.Unknown84 = phone;
+				Unknown478.UnknownA8 = number;
+				Unknown478.UnknownE8 = month;
+				Unknown478.UnknownEC = year;
+				Unknown478.Unknown64 = country.substr(0, 2);
+				Unknown478.Unknown94.Unknown00 = type;
+				UnknownD8.insert(UnknownD8.end(), 1, UnknownD4);
+				if (!Unknown1D0) {
+					Unknown_5F3770(0x12);
+				} else if (!Unknown_5FA900()) {
+					if (Unknown390.Unknown10 != -1) {
+						_snprintf(buffer, 1024, "%s\n(%d)", RegistrationServerError, Unknown390.Unknown10);
+					} else {
+						_snprintf(buffer, 1024, "%s", RegistrationServerError);
+					}
+					UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, buffer, 0x140, 0, 0);
+					if ((UnknownD4 == 1 && Unknown11B) || (UnknownD4 == 0 && Unknown11D) || UnknownD4 == 0x17) {
+						Unknown_5F86F0();
+					} else {
+						int state = Unknown_5F8A90();
+						if (UnknownD8.size() != 0) {
+							UnknownD8.pop_back();
+						}
+						Unknown_5F3770(state);
+					}
+				}
+			}
+			delete first_name;
+			delete last_name;
+			delete address;
+			delete address2;
+			delete city;
+			delete state;
+			delete zip;
+			delete phone;
+			delete number;
+			break;
+		}
+		case 0xD:
+		{
+			char *first_name = UnknownF8[0x1A].Gadget->Get_Text();
+			char *last_name = UnknownF8[0x1B].Gadget->Get_Text();
+			char *address = UnknownF8[0x1C].Gadget->Get_Text();
+			char *address2 = UnknownF8[0x1D].Gadget->Get_Text();
+			char *city = UnknownF8[0x1E].Gadget->Get_Text();
+			char *province = UnknownF8[0x1F].Gadget->Get_Text();
+			char *zip = UnknownF8[0x20].Gadget->Get_Text();
+			char *phone = UnknownF8[0x21].Gadget->Get_Text();
+			char *number = UnknownF8[0x23].Gadget->Get_Text();
+			char *issuer = UnknownF8[0x24].Gadget->Get_Text();
+			int start_month = 0;
+			int start_year = 0;
+			if (UnknownF8[0x25].Gadget->Get_Text() != "") {
+				start_month = atoi(UnknownF8[0x25].Gadget->Get_Text());
+			}
+			if (UnknownF8[0x26].Gadget->Get_Text() != "") {
+				start_year = atoi(UnknownF8[0x26].Gadget->Get_Text());
+			}
+			int month = Unknown108[0x14].Combo->Selected + 1;
+			UIComboBoxClass *combo = Unknown108[0x16].Combo;
+			int year = (unsigned)combo->Selected < combo->Items.size() ? atoi(combo->Items[combo->Selected].c_str()) : 0;
+			std::string country(Unknown108[0x19].Combo->Get_Item_Text(Unknown108[0x19].Combo->Selected));
+			int type = Unknown5A8[Unknown108[0x22].Combo->Selected].Unknown00;
+			if (strlen(first_name) == 0) {
+				UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "Please enter a valid First Name.", 0x140, 0, 0);
+			} else if (strlen(last_name) == 0) {
+				UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "Please enter a valid Last Name.", 0x140, 0, 0);
+			} else if (strlen(address) == 0) {
+				UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "Please enter a valid Address.", 0x140, 0, 0);
+			} else if (strlen(city) == 0) {
+				UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "Please enter a valid City name.", 0x140, 0, 0);
+			} else if (strlen(province) == 0) {
+				UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "Please enter a valid State or Province.", 0x140, 0, 0);
+			} else if (strlen(phone) == 0) {
+				UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "Please enter a valid Phone Number.", 0x140, 0, 0);
+			} else if (!Unknown_603820(number)) {
+				UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "Please enter a valid Credit Card Number.", 0x140, 0, 0);
+			} else if ((start_month < 1 || start_month > 12) && start_month != 0) {
+				UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "Please enter a valid Credit Card Start Month or do not enter anything at all if your credit card does not contain a start date.", 0x140, 0, 0);
+			} else if ((start_year > 2020 || start_year < 1900) && start_year != 0) {
+				UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "Please enter a valid Credit Card Start Year or do not enter anything at all if your credit card does not contain a start date.", 0x140, 0, 0);
+			} else if (year < Unknown124.tm_year + 1900 || (month <= Unknown124.tm_mon && year == Unknown124.tm_year + 1900)) {
+				UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "Please enter a valid Expiry Date.", 0x140, 0, 0);
+			} else {
+				Unknown478.Unknown04 = first_name;
+				Unknown478.Unknown14 = last_name;
+				Unknown478.Unknown24 = address;
+				Unknown478.Unknown34 = address2;
+				Unknown478.Unknown44 = city;
+				Unknown478.Unknown54 = province;
+				Unknown478.Unknown74 = zip;
+				Unknown478.Unknown84 = phone;
+				Unknown478.UnknownA8 = number;
+				Unknown478.UnknownE8 = month;
+				Unknown478.UnknownEC = year;
+				Unknown478.Unknown64 = country.substr(0, 2);
+				Unknown478.Unknown94.Unknown00 = type;
+				Unknown478.UnknownB8 = issuer;
+				Unknown478.UnknownC8 = UnknownF8[0x25].Gadget->Get_Text();
+				Unknown478.UnknownD8 = UnknownF8[0x26].Gadget->Get_Text();
+				Unknown_5F87D0();
+				if (!Unknown1D0) {
+					Unknown_5F3770(0x12);
+				} else if (!Unknown_5FA900()) {
+					Unknown_5FB890();
+					Unknown_5F8560();
+				}
+			}
+			delete first_name;
+			delete last_name;
+			delete address;
+			delete address2;
+			delete city;
+			delete province;
+			delete zip;
+			delete phone;
+			delete number;
+			delete issuer;
+			break;
+		}
+		case 0x11:
+		{
+			char *code = UnknownF8[0x2B].Gadget->Get_Text();
+			Unknown228 = code;
+			delete code;
+			if (Unknown228.size() != 0xE && Unknown228.size() != 0x13) {
+				UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "Please enter a valid Registration Code.", 0x140, 0, 0);
+				return;
+			}
+			if (!Unknown1D0) {
+				StatusIndex = 5;
+				if (Unknown3C4.Unknown80.empty()) {
+					Unknown3C4.Unknown80 = "US";
+				}
+				if (Unknown1AC->Unknown_7D92A0(Unknown_5FB330(Unknown228.c_str()).c_str(), Unknown3C4.Unknown80.c_str(), Unknown_BE8AD4)) {
+					Unknown_5F87D0();
+					Unknown_5FAFF0("Retrieving Pricing Options...");
+					return;
+				}
+				goto request_failed;
+			}
+			Unknown_5F87D0();
+			goto request;
+		}
+		case 0x14:
+		{
+			char *code = UnknownF8[0x2B].Gadget->Get_Text();
+			Unknown238 = code;
+			delete code;
+			if (Unknown238.size() != 0x13) {
+				UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "Please enter a valid GameTime Code.", 0x140, 0, 0);
+				return;
+			}
+			if (!Unknown1D0) {
+				StatusIndex = 7;
+				if (Unknown3C4.Unknown80.empty()) {
+					Unknown3C4.Unknown80 = "US";
+				}
+				if (Unknown1AC->Unknown_7D92A0(Unknown_5FB330(Unknown238.c_str()).c_str(), Unknown3C4.Unknown80.c_str(), Unknown_BE8AD4)) {
+					Unknown_5F87D0();
+					Unknown_5FAFF0("Validating GameTime Code...");
+					return;
+				}
+				goto request_failed;
+			}
+			Unknown_5F87D0();
+			if (Unknown1D1) {
+				Unknown_5F3770(0x12);
+				return;
+			}
+			goto request;
+		}
+		case 0x12:
+request:
+			if (Unknown_5FA900()) {
+				return;
+			}
+request_failed:
+			Unknown_5FB890();
+			Unknown_5F8560();
+			return;
+		case 0xB:
+		{
+			Unknown388 = Unknown108[0x2A].Combo->Selected;
+			Unknown38C = Unknown598[Unknown388];
+			switch (Unknown38C) {
+				case 2:
+					Unknown_5F87D0();
+					Unknown_5F3770(0xE);
+					break;
+				case 3:
+					Unknown270 = Unknown2CC;
+					Unknown_5F87D0();
+					Unknown_5F3770(0x14);
+					break;
+				case 5:
+					UnknownBC->Get_Unknown198()->Unknown_784E00();
+					if (!TutorialManagerClass::Instance->Is_Completed("REG19")) {
+						UnknownBC->Get_Unknown198()->Unknown_784C90("REG19", false);
+						TutorialManagerClass::Instance->Set_Completed("REG19");
+					}
+					_snprintf(message, 1024, "To use your checking account for\npayment please call %s\nand speak to a Customer Service Representative.", (const char *)UnknownA8);
+					UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, message, 0x140, 0, 0);
+					break;
+				default:
+					G_ASSERT(0);
+					break;
+			}
+			break;
+		}
+		case 0xE:
+			Unknown384 = Unknown108[0x29].Combo->Selected;
+			Unknown270 = Unknown578[Unknown384];
+			Unknown_5F87D0();
+			Unknown_603B20();
+			break;
+		case 0x10:
+		{
+			char *email = UnknownF8[0x13].Gadget->Get_Text();
+			if (!Unknown_5F8F60(email)) {
+				UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "Please enter a valid E-Mail address.", 0x140, 0, 0);
+				delete email;
+			} else {
+				Unknown3C4.Unknown6C = email;
+				Unknown_5F87D0();
+				if (Unknown38C == 3 || Unknown1CD) {
+					Unknown_5F3770(0x12);
+					delete email;
+				} else {
+					Unknown_603B20();
+					delete email;
+				}
+			}
+			break;
+		}
+		case 0x13:
+			Unknown_5F2990(false);
+			Unknown_5F2A80(false, NULL);
+			UnknownCA = true;
+			UnknownC7 = true;
+			UnknownBC->Get_Unknown198()->Unknown_784E00();
+			UnknownBC->Unknown_67A8D0(true);
+			break;
+	}
+}
+
 // @0x603820
 bool RegistrationInterface::Unknown_603820(const char *number)
 {
@@ -3086,7 +3813,17 @@ void RegistrationInterface::Unknown_603B20()
 **	- A map walk that inlines _Min is `it = begin(); while (it != end()) { ...; it++; }` (workflow.md 3.1): 0x5F2990, 0x5F2A80,
 **	  0x5F33E0, 0x5F3470, 0x5F86F0. A function with the `for` form keeps the call.
 **	- Slot 0x90 of the model in 0x5F1730 is Update_Sub_Object_Transforms, not Set_Animation (0x94, case 0x16 of 0x5F3770).
-**	- 0x5FBD30 (Next, 17 KB, FAIL_IF lines 2868 / 3637, callers 0x5F1A10 key 6) and 0x600000 (the reply handler, 14 KB) are
-**	  still not written. 0x600000's switch is on StatusIndex with one inlined error box per reply; the 0xF4-byte entries
-**	  (+0x568, destructor 0x449CC0, vectors of 0x30 and 0x4C bytes inside) come from 0x7D3CC0.
+**	- 0x600000 (the reply handler, 14 KB) is still not written. Its switch is on StatusIndex with one inlined error box
+**	  per reply; the 0xF4-byte entries (+0x568, destructor 0x449CC0, vectors of 0x30 and 0x4C bytes inside) come from 0x7D3CC0.
+**
+**	Builder O8, 2026-11-15:
+**	- 0x5FBD30 (Next, key 6 of 0x5F1A10; functional): a switch on the state, its cases in the client's order (the jump
+**	  table 0x5FF228: 0x17, 0, 6, 7, 8, 1, 3, 4, 5, 2, 9, 10, 0xF, 0xC, 0xD, 0x11, 0x14, 0x12, 0xB, 0xE, 0x10, 0x13); the
+**	  shared 'Username and Password' box and the step to state 10 sit in case 5 (0x5FCD54 / 0x5FCD62), the request tail
+**	  0x5FA900 / 0x5FB890 / 0x5F8560 in case 0x12. G_ASSERT(0) line 3637 is case 0xB's unknown payment type (0xE35);
+**	  FAIL_IF line 2868 is 0x5FB750 inlined into case 1. The forms read their fields as 0x5F3770 creates them; a failed
+**	  request shows 0x5FB890's box inlined, then 0x5F86F0 or the previous state (as 0x5F1A10's key 7).
+**	- RegistrationButtonStruct +0x04 is the button's id, not its sub-object: in 0x5F2B20 the slot [esp + 0x5C] read after
+**	  'push ebx' is the id argument, and 0x5FBD30 compares the selected radio's +0x04 with the ids 1 / 2 / 5 / 8 / 9 /
+**	  0x12 / 0x18 and indexes +0x3C4's names with it (id - 0xD). 0x5F33E0 returns that id.
 */
