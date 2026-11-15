@@ -31668,7 +31668,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `OldRoom` | `app/packets/pkstarbase_avatar_change.h:92` | the client's Print text 'OldRoom=' |
 | 3 | `PlayerID` | `app/packets/pkstarbasetow.h:34` | the client's Print text 'PlayerID=' |
 | 3 | `StarbaseID` | `app/packets/pkstarbasetow.h:35` | the client's Print text 'StarbaseID=' |
-| 3 | `Action` | `app/packets/pkstarbasetow.h:36` | the client's Print text 'Action=' |
+| 3 | `Action` | `app/packets/pkstarbasetow.h:36` | the client's Print text 'Action=' (callers pass 0..11) |
 | 3 | `StarbaseID` | `app/packets/pkstarbasetow.h:51` | the client's Print text 'StarbaseID=' |
 | 3 | `Action` | `app/packets/pkstarbasetow.h:52` | the client's Print text 'Action=' |
 | 3 | `ExitMode` | `app/packets/pkstarbasetow.h:53` | the client's Print text 'ExitMode=' |
