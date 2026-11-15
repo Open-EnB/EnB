@@ -84,14 +84,14 @@ void Listener::Remove_Subject(Subject *s)
 	Data->Subjects.remove(s);
 }
 
-static std::vector<std::list<Listener *>::iterator *> ActiveIterators;	// NAME 1: the iterators of the Send_Event calls in progress (0xBE5610), fixed up by Remove_Listener and ~Subject
-
-
-
-
-
-
-
+struct Unknown4E8700Class : public std::vector<std::list<Listener *>::iterator *> {	// NAME 1: neutral (D10), static ActiveIterators wrapper (0x4E86C0/0x4E8700)
+	Unknown4E8700Class(); ~Unknown4E8700Class();
+};
+static Unknown4E8700Class ActiveIterators;	// NAME 1: the iterators of the Send_Event calls in progress (0xBE5610), fixed up by Remove_Listener and ~Subject
+#pragma auto_inline(off)
+Unknown4E8700Class::~Unknown4E8700Class() {}
+Unknown4E8700Class::Unknown4E8700Class() {}
+#pragma auto_inline(on)
 
 
 
