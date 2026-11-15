@@ -187,8 +187,9 @@ static DWORD WINAPI Poc_Watchdog(void *)
 			}
 		}
 		ResumeThread(Poc_Main_Thread);
-		int seen = 0;
-		Stub_Log_First_Call(text, &seen);
+		// the same line as a first call, without one: Stub_Log_First_Call keeps the flag's address for Stub_Log_Mark,
+		// and a flag on this thread's stack is gone once the thread ends after 300 s (the next mark wrote into it)
+		Stub_Log_Line("STUB first call: %s", text);
 	}
 	return(0);
 }
