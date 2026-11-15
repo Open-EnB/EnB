@@ -3,6 +3,7 @@
   P-C1-1  object_order: the tied own functions of one object that share one set of candidates, as many as the
           candidates, all inside the object's range, take them in object order (not COMDATs; each must land
           between its nearest exact own functions in object order)
+          P-SC-1 (C24): an own function's candidates are cut to its object's range first
   P-C1-2  xcu_position: an object's `_$E` initialisers are the consecutive CRT table entries in its stretch, n-th
           to n-th; the `_$E` functions their bytes reach (call / push targets) follow
 
@@ -109,6 +110,21 @@ class ObjectOrder(unittest.TestCase):
     def test_own_calls_contradict(self):
         a, b = self.tie(2, 'Start', [0x600, 0x700]), self.tie(3, 'Start_Root', [0x600, 0x700])
         self.assertEqual(self.run_rule([a, b], [], obj_called={(id(self.obj), 'Start'): {0x700}}), [])
+
+    def test_copies_outside_the_range_are_cut(self):
+        # P-SC-1 (C24): sclient.obj's two string destructors, byte-identical to 18 other files' copies
+        hits = [0x200, 0x300, 0x600, 0x700, 0x980]
+        a, b = self.tie(2, 'Start', hits), self.tie(3, 'Start_Root', hits)
+        got = self.run_rule([b, a], [(1, 'Before', 0x500), (4, 'After', 0x800)])
+        self.assertEqual(sorted((x[0]['symbol'], ad) for x, ad in got), [('Start', 0x600), ('Start_Root', 0x700)])
+        saved = objmatch.USE_ORDER_IN_RANGE
+        self.addCleanup(setattr, objmatch, 'USE_ORDER_IN_RANGE', saved)
+        objmatch.USE_ORDER_IN_RANGE = False
+        self.assertEqual(self.run_rule([b, a], [(1, 'Before', 0x500), (4, 'After', 0x800)]), [])
+
+    def test_cut_comdats_stay_tied(self):
+        a, b = self.tie(5, 'Inl1', [0x200, 0x600, 0x700]), self.tie(6, 'Inl2', [0x200, 0x600, 0x700])
+        self.assertEqual(self.run_rule([a, b], [(1, 'Before', 0x500)]), [])
 
 
 class XcuPosition(unittest.TestCase):

@@ -1520,20 +1520,31 @@ def xcu_position(img, results, ranges, text, base, claimed, thunk):
     return out
 
 
+USE_ORDER_IN_RANGE = True
+
+
 def object_order(pending, done, survivors_of, ranges, claimed, obj_called, results):
     """D242 P-C1-1: [(pending item, address)] for ties inside one object. A group is the tied own functions (not
     COMDATs: D189(b)'s order test held for 349 of 353 own groups, 608 of 700 inline ones did not) of one object that
     share one set of surviving candidates, as many members as candidates, every candidate inside the object's range
     and held by no other symbol, and no tied function outside the group surviving at any of them. The members, in
     object order, take the candidates in address order, when each lands between its nearest exact own functions in
-    object order and the object's own exact calls to it (P-CGP-1) do not contradict it."""
+    object order and the object's own exact calls to it (P-CGP-1) do not contradict it. P-SC-1 (C24, 2026-11-15): an
+    own function's candidates are first cut to its object's range, unclaimed (USE_ORDER_IN_RANGE): copies in other
+    files' code neither enlarge the group's candidate set nor block it."""
     orders = _object_order(results)
     groups = collections.defaultdict(list)
     at = collections.defaultdict(set)
     for item in pending:
         if id(item[0]) in done:
             continue
-        surv = frozenset(survivors_of[id(item[0])])
+        surv = survivors_of[id(item[0])]
+        rng = ranges.get(id(item[1]))
+        if USE_ORDER_IN_RANGE and rng and item[1].own(item[2]):
+            # P-SC-1 (C24): an own function's candidates outside its object's range (other files' copies) never
+            # take part: two string statics' atexit destructors tied over 20 copies in the image
+            surv = [h for h in surv if rng[0] <= h <= rng[1] and not claimed[h]]
+        surv = frozenset(surv)
         for h in surv:
             at[h].add(id(item[0]))
         groups[(id(item[1]), surv)].append(item)
