@@ -10,7 +10,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 222 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 37 |
 | 3 | by convention from a client-named file or sibling | 1961 |
-| 2 | describes what the code does | 4950 |
+| 2 | describes what the code does | 4951 |
 | 1 | neutral placeholder | 25057 |
 
 ## For review (score 3 and below)
@@ -27697,6 +27697,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Texture` | `app/client/unknown_685e80.h:24` | the INI entry |
 | 2 | `Pass` | `app/client/unknown_6bb7e0.h:20` | what it holds |
 | 2 | `std:` | `app/client/unknown_6bb7e0.h:33` | what it holds |
+| 2 | `Random_Letter` | `app/client/unknown_6ca0c0.cpp:47` | random ASCII alphanumeric for FONT_EFFECT_RANDLETTER (0x6CA070) |
 | 2 | `FontEffectStruct::EffectType` | `app/client/unknown_6ca0c0.h:7` | the client's ini words |
 | 2 | `FontEffectStruct::Direction` | `app/client/unknown_6ca0c0.h:33` | the client's ini words |
 | 2 | `Class_ID` | `app/client/unknown_6e1ab0.h:32` | E&B's class id |
