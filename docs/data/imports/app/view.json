@@ -10,6 +10,7 @@
  "description": "ViewClass (view.cpp's __FILE__; client 0x6B4480-0x6B4AD0 and its SList<> instances): UIViewClass's base, the input dispatcher +0x04 and the interface objects' SList +0x08; the asserts on the client's lines 40 / 78 / 106 / 113 (LD4)",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x42F250",
   "0x42FCF0",
   "0x430370",
@@ -53,6 +54,7 @@
  "merged": [],
  "name": "client/view.cpp",
  "shared": [
+  "0x42B320",
   "0x42F250",
   "0x42FCF0",
   "0x430370",
@@ -71,6 +73,7 @@
   "0x6B5550"
  ],
  "short_known": [
+  "0x42B320",
   "0x42FCF0",
   "0x50B680",
   "0x50B6A0",

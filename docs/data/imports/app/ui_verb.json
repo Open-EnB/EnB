@@ -6,6 +6,7 @@
  "description": "UIVerbClass (D24 class-from-file), the verb window (0xE0 bytes; the client's __FILE__ 0xB8C43C, 'VerbMangerPtr' on line 107; client 0x6580B0-0x65A01A, the literals from 0xB8C42C, adjustor thunks 0x659FF0 / 0x65A000 / 0x65A010 close it; 0x658090 / 0x6580A0 before it are ui_vault.cpp's thunks) and its button class (VB2)",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x42F250",
   "0x457FA0",
   "0x45CC10",
@@ -97,6 +98,7 @@
  "merged": [],
  "name": "client/ui_verb.cpp",
  "shared": [
+  "0x42B320",
   "0x42F250",
   "0x457FA0",
   "0x45CC10",
@@ -162,6 +164,7 @@
   "0x65A010"
  ],
  "short_known": [
+  "0x42B320",
   "0x4A1930",
   "0x4A19A0",
   "0x4A19C0",

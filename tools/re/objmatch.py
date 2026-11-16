@@ -119,7 +119,10 @@ address the run knows independently of its bytes (D188): a slot of a vtable whos
 (symbols.json's vtables, or one D171 learned, `vtable`; one an exact function's vptr store gave,
 `vptr`), or the target of a call (REL32) in an exact function's relocations (`call`), or (D246 / C21)
 the target of a jmp in an unwind funclet of an exact function whose bytes match the object's funclet
-for the same unwind state (`funclet`). Its pattern
+for the same unwind state (`funclet`), or (D246 / CR3) the client's immediate of an absolute (DIR32)
+reference to the function in an exact function: pushed as an argument (an eh vector iterator's element
+ctor / dtor, an atexit destructor, an ostream manipulator), moved into a register or stored (`pushed`,
+USE_PUSHED_CALLS, pushed_targets; below call and funclet). Its pattern
 must fullmatch there, no relocation target may contradict it (D80's checks), the proofs must name one
 address, and no other symbol may hold it. Never by pattern alone. One exception (D193): COMDAT
 bodies with the same bytes and the same relocations (a linker-folded inline, such as RefCountPtr's
@@ -157,6 +160,10 @@ USE_FUNCLET_CALLS = True
 # calls to under the function's own symbol is its address (`funclet_tie`: its own round after every other
 # tie rule, before the short round; never widens an object's range)
 USE_FUNCLET_TIES = True
+# D246 / CR3 (run 2026-11-16): a short function whose address (or its thunk's) an exact function holds as an
+# absolute immediate (pushed as an argument, moved into a register, stored) is located by client.exe's bytes
+# like a call's target (short_known's `pushed` kind, below call and funclet; pushed_targets)
+USE_PUSHED_CALLS = True
 
 
 def generated(name):
@@ -668,8 +675,12 @@ def match_objects(img, paths, region=None, callers=False):
         if USE_FUNCLET_CALLS:
             for name, t in funclet_targets(img, obj, sec, s, length, addr, thunk):
                 funclet_called[name].add(t)      # D246 / C21: a matching unwind funclet's jump
+        if USE_PUSHED_CALLS:
+            for name, t, _ in pushed_targets(img, obj, sec, s, length, addr, text, start, thunk):
+                pushed_called[name].add(t)       # D246 / CR3: an absolute function reference's immediate
     called = collections.defaultdict(set)   # D188: {symbol: {addresses}} the exact functions call
     funclet_called = collections.defaultdict(set)   # D246 / C21: {symbol: {addresses}} their funclets jump to
+    pushed_called = collections.defaultdict(set)    # D246 / CR3: {symbol: {addresses}} they push / load / store
     vptrs = collections.defaultdict(set)    # D188: {vtable symbol: {addresses}} their vptr stores give
     obj_called = collections.defaultdict(set)   # P-CGP-1: {(object, symbol): {addresses}} its exact functions call
     for r, obj, sec, s, length in results:
@@ -764,7 +775,7 @@ def match_objects(img, paths, region=None, callers=False):
             if phase == 'short':
                 # D188: a short function at an address the run knows independently of its bytes
                 got = short_known(img, shorts, text, start, known, thunk, called, vptrs, claimed, folded_at,
-                                  funclet_called)
+                                  funclet_called, pushed_called)
                 for (r, obj, sec, s, length), a, kind in got:
                     if not obj.own(sec):
                         folded_at[a][body_sig(obj, sec, s, length)].add(r['symbol'])
@@ -978,7 +989,7 @@ def body_sig(obj, sec, s, length):
 
 
 def short_known(img, shorts, text, base, known, thunk, called, vptrs, claimed, folded_at=None,
-                funclet_called=None):
+                funclet_called=None, pushed_called=None):
     """D188: [(item, address, kind)] for the `short` functions at an address the run knows independently
     of their bytes: a call's target in an exact function (`call`), or a slot of a vtable whose address is
     known (`vptr` when an exact function's vptr store gave it, `vtable` otherwise: symbols.json, D171).
@@ -989,7 +1000,9 @@ def short_known(img, shorts, text, base, known, thunk, called, vptrs, claimed, f
     a COMDAT body with the same bytes and relocations, all are credited.
     D246 / C21: a rel32 jump from an unwind funclet of an exact function, where the funclet matches the
     object's funclet for the same unwind state (`funclet_called`, funclet_targets), is call evidence
-    (`funclet`)."""
+    (`funclet`).
+    D246 / CR3: a function's address held as an absolute immediate by an exact function (`pushed_called`,
+    pushed_targets) is evidence too (`pushed`, below call and funclet)."""
     folded_at = folded_at if folded_at is not None else {}
     objs = list({id(x[1]): x[1] for x in shorts}.values())
     slot_of = collections.defaultdict(lambda: collections.defaultdict(set))   # symbol -> address -> kinds
@@ -1024,6 +1037,9 @@ def short_known(img, shorts, text, base, known, thunk, called, vptrs, claimed, f
     for name, addrs in (funclet_called or {}).items():
         for a in addrs:
             slot_of[name][a].add('funclet')
+    for name, addrs in (pushed_called or {}).items():
+        for a in addrs:
+            slot_of[name][a].add('pushed')
     props = []
     for item in shorts:
         r, obj, sec, s, length = item
@@ -1049,7 +1065,7 @@ def short_known(img, shorts, text, base, known, thunk, called, vptrs, claimed, f
         survivors, _ = break_tie(obj, sec, s, length, text, base, [a], img, known)
         if survivors != [a]:
             continue
-        kind = 'call' if 'call' in kinds else 'funclet' if 'funclet' in kinds else             'vptr' if 'vptr' in kinds else 'vtable'
+        kind = 'call' if 'call' in kinds else 'funclet' if 'funclet' in kinds else             'pushed' if 'pushed' in kinds else 'vptr' if 'vptr' in kinds else 'vtable'
         props.append((item, a, kind))
     by_addr = collections.defaultdict(set)
     bodies = collections.defaultdict(set)       # D193: the COMDAT bodies proposed at each address
@@ -1259,6 +1275,45 @@ def funclet_targets(img, obj, sec, s, length, addr, thunk):
                 continue
             t = (cf + j + 4 + struct.unpack_from('<i', text, co + j)[0]) & 0xFFFFFFFF
             out.append((sym['name'], thunk.get(t, t)))
+    return out
+
+
+def pushed_form(body, k):
+    """D246 / CR3: the instruction form of an absolute (DIR32) field at offset k of a function's bytes:
+    `push` (68 imm32), `mov` (B8+r imm32: mov reg, offset f, then pushed or stored), `lea` (8D /r disp32),
+    `store` (C7 /0 ... imm32: mov [mem], offset f) or `other`."""
+    if k >= 1 and body[k - 1] == 0x68:
+        return 'push'
+    if k >= 1 and 0xB8 <= body[k - 1] <= 0xBF:
+        return 'mov'
+    if k >= 2 and body[k - 2] == 0x8D:
+        return 'lea'
+    if any(k >= j and body[k - j] == 0xC7 for j in (6, 7, 3, 4, 2)):
+        return 'store'
+    return 'other'
+
+
+def pushed_targets(img, obj, sec, s, length, addr, text, base, thunk):
+    """D246 / CR3: [(symbol, client address, form)] the absolute function references of an exact function
+    reach: each DIR32 relocation whose symbol is an external function (COFF type 0x20; not a vtable, not a
+    `_$E` name) pairs the object's symbol with the client's immediate at the same offset, incremental thunks
+    resolved, when that lies in client.exe's .text: a function pushed as an argument (an eh vector iterator's
+    element ctor / dtor, an atexit destructor, an ostream manipulator), loaded into a register or stored."""
+    tlo, thi, _ = img.section('.text')
+    info = obj.sections[sec]
+    body = obj.data[info['raw'] + s:info['raw'] + s + length]
+    o = addr - base
+    out = []
+    for k, n, typ, sym, addend in obj.reloc_targets(sec, s, length):
+        if typ != 0x06 or n != 4 or sym is None or sym['class'] != 2 or (sym['type'] >> 4) != 2 \
+                or generated(sym['name']) or sym['name'].startswith('??_7'):
+            continue
+        if not 0 <= o + k <= len(text) - 4:
+            continue
+        v = (struct.unpack_from('<I', text, o + k)[0] - struct.unpack('<I', addend)[0]) & 0xFFFFFFFF
+        v = thunk.get(v, v)
+        if tlo <= v < thi:
+            out.append((sym['name'], v, pushed_form(body, k)))
     return out
 
 

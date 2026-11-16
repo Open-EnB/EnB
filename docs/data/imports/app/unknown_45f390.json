@@ -4,6 +4,7 @@
  "description": "the 'sound' render state (rs.ini TYPE 'sound', vtable 0xAE821C, 0x3C bytes, derived from the message state), client 0x45F390-0x45FD27 between rs_robj.cpp and rs_track.cpp; no __FILE__ string: directory from its neighbours, name neutral (D10)",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x42F250",
   "0x458590",
   "0x4585F0",
@@ -36,6 +37,7 @@
  "merged": [],
  "name": "shared/unknown_45f390.cpp",
  "shared": [
+  "0x42B320",
   "0x42F250",
   "0x458590",
   "0x4585F0",
@@ -51,6 +53,7 @@
   "0x494CC0"
  ],
  "short_known": [
+  "0x42B320",
   "0x458590",
   "0x4585F0",
   "0x458610",

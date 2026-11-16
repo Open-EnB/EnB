@@ -9,6 +9,7 @@
  "description": "galaxy_map_robj.cpp (the client's __FILE__ 0xB9EB80), client 0x7B2B30-0x7B46EA: FAIL_IFs at lines 65, 256, 369, 370, 377; the system marker's constructor 0x7B2B30 follows galaxy_map_render.cpp's late templates; the object's <string> initialiser 0x7B4640, the tables' adjustor thunks 0x7B4670-0x7B46A0 and PermStringInit's initialiser 0x7B46B0 end it before gd_starmap.cpp 0x7B4700 (GM4)",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x42F250",
   "0x45CC10",
   "0x45CC30",
@@ -142,6 +143,7 @@
  "merged": [],
  "name": "client/galaxy_map_robj.cpp",
  "shared": [
+  "0x42B320",
   "0x42F250",
   "0x45CC10",
   "0x45CC30",
@@ -254,6 +256,7 @@
   "0x7B46A0"
  ],
  "short_known": [
+  "0x42B320",
   "0x45E1B0",
   "0x4627A0",
   "0x4628D0",

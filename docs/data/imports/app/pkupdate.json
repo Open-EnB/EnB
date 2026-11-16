@@ -6,6 +6,7 @@
  "description": "opcode 62 written by hand over FlagPacketClass (builder P3, 19 of 19 exact in appfile.py match; asserts on the client's lines 179-187 and 277-285); packet classes (opcode 64, 63) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build (its opcode from Get_Type where the client calls it), Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x42F250",
   "0x44C2B0",
   "0x52B210",
@@ -96,6 +97,7 @@
  "merged": [],
  "name": "packets/pkupdate.cpp",
  "shared": [
+  "0x42B320",
   "0x42F250",
   "0x44C2B0",
   "0x52B210",
@@ -127,6 +129,7 @@
   "0x8AE5A0"
  ],
  "short_known": [
+  "0x42B320",
   "0x52B2D0",
   "0x52B2F0",
   "0x52B310",

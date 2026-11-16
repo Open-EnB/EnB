@@ -7,6 +7,7 @@
  "description": "RECONSTRUCTED from client.exe: __FILE__ 'e:\\build\\beta\\G\\app\\Client\\ui_cpit_inv.cpp' (FAIL_IFs l.76/102), constructor 0x5850E0, tables 0xAF0E80/0xAF0E74/0xAF0E68; the cockpit's hulk and harvest windows (O15)",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x42F250",
   "0x45CC10",
   "0x4A1930",
@@ -46,6 +47,7 @@
  "merged": [],
  "name": "client/ui_cpit_inv.cpp",
  "shared": [
+  "0x42B320",
   "0x42F250",
   "0x45CC10",
   "0x4A1930",
@@ -73,6 +75,7 @@
   "0x585910"
  ],
  "short_known": [
+  "0x42B320",
   "0x4A1930",
   "0x4A19A0",
   "0x4A19C0",

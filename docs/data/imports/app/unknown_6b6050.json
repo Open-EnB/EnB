@@ -4,6 +4,7 @@
  "description": "UIStarbaseGadget6B6050Class, the starbase interface's full-screen RectangleGadgetClass (+0xB8, table 0xAFE174, 0x44 bytes), client 0x6B6050-0x6B619F: the constructor, slot +0x1C, the destructors, slots +0x2C / +0x34, <string>'s guarded static 0x6B6180. PROVISIONAL file (D137: no string; after viewbttn.cpp, before wnd_file.cpp); moved from ui_starbase.cpp's declaration and the POC's poc_world2.cpp",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x50A8C0",
   "0x50A8E0",
   "0x50A900",
@@ -31,6 +32,7 @@
  "merged": [],
  "name": "client/unknown_6b6050.cpp",
  "shared": [
+  "0x42B320",
   "0x50A8C0",
   "0x50A8E0",
   "0x50A900",
@@ -49,6 +51,7 @@
   "0x50AAC0"
  ],
  "short_known": [
+  "0x42B320",
   "0x50A8C0",
   "0x50A8E0",
   "0x50A900",

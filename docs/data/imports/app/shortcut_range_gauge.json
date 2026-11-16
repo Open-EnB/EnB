@@ -9,6 +9,7 @@
  "description": "RECONSTRUCTED from client.exe 0x6A3D60-0x6A4570: __FILE__ e:\\build\\beta\\G\\app\\Client\\shortcut_range_gauge.cpp (FAIL_IF l.48); the range gauge on a shortcut slot (the if_targ model, weapon_range_green_1.wav)",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x42F250",
   "0x6A3D60",
   "0x6A3F10",
@@ -18,6 +19,10 @@
  "merged": [],
  "name": "client/shortcut_range_gauge.cpp",
  "shared": [
+  "0x42B320",
   "0x42F250"
+ ],
+ "short_known": [
+  "0x42B320"
  ]
 }

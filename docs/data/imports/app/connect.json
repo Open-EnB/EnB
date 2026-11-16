@@ -6,6 +6,7 @@
  "description": "connect.cpp: the connection base (0x820F90, 0x820FE0), the factories 0x821000-0x821B40, the forwarding and peek wrappers 0x821BB0-0x822060, ConnectionManager 0x822070-0x822EA0 and its factory 0x822F10, the stream connection 0x823320-0x8238C0, the asserts on the client's lines (D25); Remove_Dead 0x822B50 NOT EXACT",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x433CE0",
   "0x726AF0",
   "0x726B10",
@@ -94,6 +95,7 @@
  "merged": [],
  "name": "common/connect.cpp",
  "shared": [
+  "0x42B320",
   "0x433CE0",
   "0x726AF0",
   "0x726B10",
@@ -109,6 +111,7 @@
   "0x823A10"
  ],
  "short_known": [
+  "0x42B320",
   "0x433CE0",
   "0x726AF0",
   "0x726B10",

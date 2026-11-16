@@ -4,6 +4,7 @@
  "description": "RECONSTRUCTED from client.exe 0x58B630-0x58BF8F: the hull mount points window UIMountHullClass over ui_mount.cpp's UIMountClass (Inventory.Hull, Model's 'vp_tl' / 'vp_br' / 'ship'; tables 0xAF1438 / 0xAF142C / 0xAF1420; a PermStringInitClass static opens the object, the guarded <string> id 0x58BF40 and the deleting-destructor thunks close it). Interim file name (D137): no string names it.",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x42F250",
   "0x45CC10",
   "0x4A1930",
@@ -46,6 +47,7 @@
  "merged": [],
  "name": "client/unknown_58b680.cpp",
  "shared": [
+  "0x42B320",
   "0x42F250",
   "0x45CC10",
   "0x4A1930",
@@ -76,6 +78,7 @@
   "0x58BF80"
  ],
  "short_known": [
+  "0x42B320",
   "0x4A1930",
   "0x4A19A0",
   "0x4A19C0",

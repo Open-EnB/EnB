@@ -4,6 +4,7 @@
  "description": "input.cpp, client 0x42E390-0x42EF60 and input.h's inlines to 0x42F340 (FAIL_IF 'KeyRepeatCount' line 298, D25; builder INP, run PR #140): start-up 0x42E4A0 NOT EXACT (the queue element's constructor inlined), the rest exact: 0x42E390, 0x42E3B0, 0x42E7B0, the queue 0x42E8A0 / 0x42EA80 / 0x42EEC0, 0x42EB80 (ToAscii), the mouse 0x42ECF0 / 0x42ED20 / 0x42ED80 / 0x42EDB0, key repeat 0x42EE00, 0x42EE90",
  "expected": {},
  "in_tree": [
+  "0x42E390",
   "0x42E3B0",
   "0x42E4A0",
   "0x42E7B0",
@@ -70,6 +71,7 @@
   "0x42F2C0"
  ],
  "short_known": [
+  "0x42E390",
   "0x42EF90",
   "0x42EFB0",
   "0x42EFD0",

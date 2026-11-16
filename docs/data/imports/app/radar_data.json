@@ -7,6 +7,7 @@
  "description": "RadarDataClass (the client's typeid name), the object's radar colours (the client's __FILE__ 0xB9F070, FAIL_IFs at lines 73-227; 0x7BB1D0-0x7BC02B) (RD1)",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x42F250",
   "0x51E220",
   "0x6101C0",
@@ -38,6 +39,7 @@
  "merged": [],
  "name": "client/radar_data.cpp",
  "shared": [
+  "0x42B320",
   "0x42F250",
   "0x51E220",
   "0x6101C0",
@@ -51,6 +53,7 @@
   "0x7BBE50"
  ],
  "short_known": [
+  "0x42B320",
   "0x6101C0",
   "0x79D130",
   "0x7BBD90",

@@ -4,6 +4,7 @@
  "description": "RECONSTRUCTED from client.exe 0x53D250-0x53E968 (debrsint.cpp's __FILE__ 0xB79068, G_ASSERT lines 198/223/246): DebrisInterfaceClass, the main view's +0x138 debris fields interface",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x42F250",
   "0x45CC10",
   "0x4A1930",
@@ -64,6 +65,7 @@
  "merged": [],
  "name": "client/debrsint.cpp",
  "shared": [
+  "0x42B320",
   "0x42F250",
   "0x45CC10",
   "0x4A1930",
@@ -86,6 +88,7 @@
   "0x53E960"
  ],
  "short_known": [
+  "0x42B320",
   "0x4A1930",
   "0x4A19A0",
   "0x4A19C0",

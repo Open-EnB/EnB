@@ -6,6 +6,7 @@
  "description": "the ship customisation, client 0x4F6210-0x4F6970 of the window 0x4F6160-0x4F9740 (D90 9b): the race / profession setters, the wire and key/value slots of the description, its parts and settings; exact; the KV templates and the rest of the window not yet",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x42F250",
   "0x4F61C0",
   "0x4F6210",
@@ -69,6 +70,7 @@
  "merged": [],
  "name": "shared/shipcust_desc.cpp",
  "shared": [
+  "0x42B320",
   "0x42F250",
   "0x4F6ED0",
   "0x4F6F80",
@@ -81,6 +83,7 @@
   "0x4F7780"
  ],
  "short_known": [
+  "0x42B320",
   "0x4F6510",
   "0x4F6730",
   "0x4F6ED0",

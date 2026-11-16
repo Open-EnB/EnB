@@ -4,6 +4,7 @@
  "description": "gd_uiback.cpp's __FILE__ 0xB8D734 (FAIL_IFs on lines 65, 198, 207): client 0x673EE0-0x674F80 between <string>'s initialisers 0x673EB0 and 0x674F60; RTTI MovableUIBackGadget, MovableUIBackGadgetMoved; BoundedUIBackGadget (D210); the thrust button 0x673EE0 by bounds and the .rdata prime block (notes in the file); 18 of 18 exact (GD1)",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x42F250",
   "0x45CC10",
   "0x45CC30",
@@ -67,6 +68,7 @@
  "merged": [],
  "name": "client/gd_uiback.cpp",
  "shared": [
+  "0x42B320",
   "0x42F250",
   "0x45CC10",
   "0x45CC30",
@@ -98,6 +100,7 @@
   "0x674640"
  ],
  "short_known": [
+  "0x42B320",
   "0x50A8E0",
   "0x50A900",
   "0x50A920",

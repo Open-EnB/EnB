@@ -7,6 +7,7 @@
  "description": "RECONSTRUCTED: the petition's players window (UIPetitionPlayerClass, 0x5D5740-0x5D6027): its tooltips' section 'UI_PETITION_PLAYER', model 'hsi04a', tables 0xAF5248 / 0xAF523C / 0xAF5230; no string names the file (NAME 1 by the tooltips' section and link order between ui_petition_entry.cpp and ui_petition_player_entry.cpp, provisional D137)",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x42F250",
   "0x45CC10",
   "0x4A1930",
@@ -48,6 +49,7 @@
  "merged": [],
  "name": "client/ui_petition_player.cpp",
  "shared": [
+  "0x42B320",
   "0x42F250",
   "0x45CC10",
   "0x4A1930",
@@ -72,6 +74,7 @@
   "0x5D6020"
  ],
  "short_known": [
+  "0x42B320",
   "0x4A1930",
   "0x4A19A0",
   "0x4A19C0",

@@ -4,6 +4,7 @@
  "description": "packet classes (opcode 30015, 30009, 30010) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the client's file (its asserts' __FILE__; renamed from pkunknown_* under D95(c))",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x42F250",
   "0x52B210",
   "0x52B240",
@@ -78,6 +79,7 @@
  "merged": [],
  "name": "packets/gameedit/pkgeobj.cpp",
  "shared": [
+  "0x42B320",
   "0x42F250",
   "0x52B210",
   "0x52B240",
@@ -94,6 +96,7 @@
   "0x8602A0"
  ],
  "short_known": [
+  "0x42B320",
   "0x52B2D0",
   "0x52B2F0",
   "0x52B310",

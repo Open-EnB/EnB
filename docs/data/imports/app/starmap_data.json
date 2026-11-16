@@ -10,6 +10,7 @@
  "description": "StarmapDataClass (the client's typeid name), the object's starmap icon and mesh (the client's __FILE__ 0xB9F3A4, asserts at lines 147-354; 0x7BE600-0x7BF810) (RD1)",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x42F250",
   "0x45CC10",
   "0x45CC30",
@@ -89,6 +90,7 @@
   "0x4632D0",
   "0x463340",
   "0x463370",
+  "0x468E70",
   "0x46BE90",
   "0x48FE60",
   "0x48FF40",
@@ -133,6 +135,7 @@
  "merged": [],
  "name": "client/starmap_data.cpp",
  "shared": [
+  "0x42B320",
   "0x42F250",
   "0x45CC10",
   "0x45CC30",
@@ -212,6 +215,7 @@
   "0x4632D0",
   "0x463340",
   "0x463370",
+  "0x468E70",
   "0x46BE90",
   "0x48FE60",
   "0x48FF40",
@@ -240,6 +244,7 @@
   "0x7BF810"
  ],
  "short_known": [
+  "0x42B320",
   "0x45E1B0",
   "0x4627A0",
   "0x4628D0",
@@ -301,6 +306,7 @@
   "0x463290",
   "0x4632B0",
   "0x4632D0",
+  "0x468E70",
   "0x67E910",
   "0x67E930",
   "0x67E950",

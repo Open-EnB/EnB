@@ -24,11 +24,16 @@
   "0x468120",
   "0x4688F0",
   "0x468BE0",
-  "0x468D50"
+  "0x468D50",
+  "0x468E70"
  ],
  "merged": [],
  "name": "shared/landdmap.cpp",
  "shared": [
-  "0x42F250"
+  "0x42F250",
+  "0x468E70"
+ ],
+ "short_known": [
+  "0x468E70"
  ]
 }

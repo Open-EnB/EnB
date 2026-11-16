@@ -4,6 +4,7 @@
  "description": "gd_uisld.cpp's __FILE__ 0xB8D78C (FAIL_IF '!retval' l.293, string 'SR_rollover14b.wav'): client 0x675370-0x675FEF, after unknown_675120.cpp's 0x675350 and up to <string>'s initialiser 0x675FD0; UISliderGadget (D24 class-from-file), table 0xAFBA80; 14 of 16 exact (0x6755E0, 0x675F00 order)",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x42F250",
   "0x497390",
   "0x4973B0",
@@ -47,6 +48,7 @@
  "merged": [],
  "name": "client/gd_uisld.cpp",
  "shared": [
+  "0x42B320",
   "0x42F250",
   "0x497390",
   "0x4973B0",
@@ -76,6 +78,7 @@
   "0x6754A0"
  ],
  "short_known": [
+  "0x42B320",
   "0x497390",
   "0x50A8E0",
   "0x50A900",

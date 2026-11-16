@@ -4,6 +4,7 @@
  "description": "RECONSTRUCTED from client.exe 0x5DD960-0x5DDCA0 (no __FILE__ of its own; PROVISIONAL name, D137): the face / target / orient buttons' display over Unknown5BE4F0Class, tables 0xAF5E60 / 0xAF5E54 / 0xAF5E48 / 0xAF5E34, button names 0xB84B94 ('face_button' .. 'orient_button'), 'Facing / Tracking / Orient not implemented.' (0xB84BD4-0xB84C10)",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x42F250",
   "0x45CC10",
   "0x4A1930",
@@ -40,6 +41,7 @@
  "merged": [],
  "name": "client/unknown_5dd960.cpp",
  "shared": [
+  "0x42B320",
   "0x42F250",
   "0x45CC10",
   "0x4A1930",
@@ -67,6 +69,7 @@
   "0x5DDC90"
  ],
  "short_known": [
+  "0x42B320",
   "0x4A1930",
   "0x4A19A0",
   "0x4A19C0",

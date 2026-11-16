@@ -6,6 +6,7 @@
  "in_tree": [
   "0x42A820",
   "0x42AB30",
+  "0x42B320",
   "0x4A30A0",
   "0x4A30F0",
   "0x4A3200",
@@ -34,6 +35,10 @@
  "name": "shared/unknown_strconv.cpp",
  "shared": [
   "0x42A820",
-  "0x42AB30"
+  "0x42AB30",
+  "0x42B320"
+ ],
+ "short_known": [
+  "0x42B320"
  ]
 }

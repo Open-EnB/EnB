@@ -6,6 +6,7 @@
  "description": "Unknown_675120Class and ButtonGadgetClass (unknown_675120.h), client 0x674F90-0x675370, PROVISIONAL file (D137: no string or assert; between gd_uiback.cpp and the class at 0x675370): the model gadgets out of the scene, over a model or a UIMeshClass sub-object; all exact (BTN)",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x42F250",
   "0x50A8E0",
   "0x50A900",
@@ -46,6 +47,7 @@
  "merged": [],
  "name": "client/unknown_675120.cpp",
  "shared": [
+  "0x42B320",
   "0x42F250",
   "0x50A8E0",
   "0x50A900",
@@ -72,6 +74,7 @@
   "0x58E5D0"
  ],
  "short_known": [
+  "0x42B320",
   "0x50A8E0",
   "0x50A900",
   "0x50A920",

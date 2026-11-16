@@ -4,6 +4,7 @@
  "description": "RECONSTRUCTED from client.exe 0x64F790-0x650508 (between ui_talkt_space.cpp and ui_trade.cpp's PermStringInitClass static 0x650510): the UI test window UITestClass (tables 0xAF8DF4 / 0xAF8DE8 / 0xAF8DDC), its 'UITEST' / 'fontcode.ini' / 'load%d' / 'mesh%d' strings; no __FILE__ or assert, file name provisional (NAME 1, D137)",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x42F250",
   "0x433CE0",
   "0x45CC10",
@@ -63,6 +64,7 @@
  "merged": [],
  "name": "client/ui_test.cpp",
  "shared": [
+  "0x42B320",
   "0x42F250",
   "0x433CE0",
   "0x45CC10",
@@ -99,6 +101,7 @@
   "0x650500"
  ],
  "short_known": [
+  "0x42B320",
   "0x433CE0",
   "0x4A1930",
   "0x4A19A0",

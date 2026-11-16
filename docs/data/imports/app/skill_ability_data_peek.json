@@ -4,6 +4,7 @@
  "description": "SkillAbilityDataPeekClass, a view of RPGInfo.SkillAbilities, skill_data_peek.cpp's twin (the client's __FILE__ 0xBA7990, asserts on lines 159-226; object from 0x8139A0, permstr.h's static, to <string>'s initialiser 0x814230) (SD1)",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x8139F0",
   "0x813A40",
   "0x813A60",
@@ -22,7 +23,11 @@
  ],
  "merged": [],
  "name": "client/skill_ability_data_peek.cpp",
+ "shared": [
+  "0x42B320"
+ ],
  "short_known": [
+  "0x42B320",
   "0x813A40"
  ]
 }

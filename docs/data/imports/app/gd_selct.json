@@ -6,6 +6,7 @@
  "description": "The client's own string 'e:\\build\\beta\\G\\app\\Client\\gd_selct.cpp' (G_ASSERT 'font' l.369 of 0x66D520); GD_SELECT_FONT; 0x66CC00-0x66D911, table 0xAFADD4",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x42F250",
   "0x50A8C0",
   "0x50A8E0",
@@ -34,6 +35,7 @@
  "merged": [],
  "name": "client/gd_selct.cpp",
  "shared": [
+  "0x42B320",
   "0x42F250",
   "0x50A8C0",
   "0x50A8E0",
@@ -55,6 +57,7 @@
   "0x65BBC0"
  ],
  "short_known": [
+  "0x42B320",
   "0x50A8C0",
   "0x50A8E0",
   "0x50A900",

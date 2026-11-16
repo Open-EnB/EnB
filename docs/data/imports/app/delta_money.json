@@ -6,6 +6,7 @@
  "description": "the money field's Read 0x4A7470 and Write 0x4A74F0 (DeltaTemplateClass<MoneyClass> specialisations), asserts on the client's lines 69 and 86 (D25)",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x4A3C50",
   "0x4A3C70",
   "0x4A3C90",
@@ -35,6 +36,7 @@
  "merged": [],
  "name": "shared/auxdata/delta_money.cpp",
  "shared": [
+  "0x42B320",
   "0x4A3C50",
   "0x4A3C70",
   "0x4A3C90",
@@ -44,6 +46,7 @@
   "0x4A7780"
  ],
  "short_known": [
+  "0x42B320",
   "0x4A3C50",
   "0x4A3C70",
   "0x4A3C90",

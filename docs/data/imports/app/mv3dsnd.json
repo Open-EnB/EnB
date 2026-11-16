@@ -7,6 +7,7 @@
  "description": "E&B's 3-D movie sounds (Movie3DSoundClass, 0x7EDCB0-0x7EEF50): G_ASSERT 'false' l.160 with __FILE__ e:\\build\\beta\\G\\app\\Client\\mv3dsnd.cpp; movie3d.ini SFX keys 'FPS', 'Name', 'Bone', 'Time%d', 'Duration%d', 'Anim'; List tables 0xB079F4 / 0xB079F8",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x42F250",
   "0x457FA0",
   "0x45CA00",
@@ -32,10 +33,14 @@
  "merged": [],
  "name": "client/mv3dsnd.cpp",
  "shared": [
+  "0x42B320",
   "0x42F250",
   "0x457FA0",
   "0x45CA00",
   "0x48A0E0",
   "0x71BCC0"
+ ],
+ "short_known": [
+  "0x42B320"
  ]
 }

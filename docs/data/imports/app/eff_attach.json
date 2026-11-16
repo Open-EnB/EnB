@@ -9,6 +9,7 @@
  "description": "RECONSTRUCTED from the client's __FILE__ e:\\build\\beta\\G\\app\\Client\\eff_attach.cpp (FAIL_IF '!robj' line 64, '!sub_obj' line 77): the object 0x6E4750-0x6E5030, AttachEffectClass (effect.ini's AttachEffect, table 0xAFFE88)",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x42F250",
   "0x457FA0",
   "0x474000",
@@ -30,6 +31,7 @@
  "merged": [],
  "name": "client/eff_attach.cpp",
  "shared": [
+  "0x42B320",
   "0x42F250",
   "0x457FA0",
   "0x474000",
@@ -41,6 +43,7 @@
   "0x6E4970"
  ],
  "short_known": [
+  "0x42B320",
   "0x6E4860",
   "0x6E4880"
  ]

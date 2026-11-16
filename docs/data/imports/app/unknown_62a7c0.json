@@ -4,6 +4,7 @@
  "description": "the shield gadget Unknown62A7C0Class (neutral, D10; interim file name, D137): client 0x62A7C0-0x62AF34 after ui_shipcust.cpp's object, table 0xAF7AD0 (one slot) and its literals 0xAF7AD4-0xAF7AE8; the sub-objects 'shield01'-'shield03' scrolled by UVControllerClass after the object's ShieldPercent; no caller in the client",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x42F250",
   "0x62A770",
   "0x62A7A0",
@@ -16,6 +17,10 @@
  "merged": [],
  "name": "client/unknown_62a7c0.cpp",
  "shared": [
+  "0x42B320",
   "0x42F250"
+ ],
+ "short_known": [
+  "0x42B320"
  ]
 }

@@ -4,6 +4,7 @@
  "description": "opcodes 30021 and 30022 (send-only), client 0x85DE30-0x85E610, the client's file (its asserts' __FILE__): written by hand (builder P5)",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x42F250",
   "0x52B210",
   "0x52B240",
@@ -35,6 +36,7 @@
  "merged": [],
  "name": "packets/gameedit/pkgeclon.cpp",
  "shared": [
+  "0x42B320",
   "0x42F250",
   "0x52B210",
   "0x52B240",
@@ -49,6 +51,7 @@
   "0x85DF90"
  ],
  "short_known": [
+  "0x42B320",
   "0x52B2D0",
   "0x52B2F0",
   "0x52B310",

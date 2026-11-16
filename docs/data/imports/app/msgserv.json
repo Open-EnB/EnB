@@ -6,6 +6,7 @@
  "description": "the message server task MsgServer 0x8B20D0-0x8B2379 (its __FILE__ e:\\build\\beta\\G\\app\\shared\\message\\msgserv.cpp, the assert 'Get_Internal_Server_Protocol() == NULL' at line 48, the profiler label 'MsgServer::Run'): all byte-exact",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x444160",
   "0x8B20D0",
   "0x8B2160",
@@ -20,10 +21,12 @@
  "merged": [],
  "name": "shared/message/msgserv.cpp",
  "shared": [
+  "0x42B320",
   "0x444160",
   "0x8B2160"
  ],
  "short_known": [
+  "0x42B320",
   "0x8B2160",
   "0x8B2280",
   "0x8B22A0"

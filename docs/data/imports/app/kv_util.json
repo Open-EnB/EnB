@@ -4,10 +4,17 @@
  "description": "RECONSTRUCTED from client.exe: __FILE__ 'e:\\build\\beta\\G\\app\\shared\\kv_util.cpp' (0xB73A9C), asserts at lines 21, 83-85, 96-98, 111, 206; the KV-triple reader 0x4BB3F0 and its section helper 0x4BB4C0 (byte-exact by appfile.py match); the writer 0x4BB0E0 not rebuilt yet",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x4BB3F0",
   "0x4BB4C0",
   "0x4BB870"
  ],
  "merged": [],
- "name": "shared/kv_util.cpp"
+ "name": "shared/kv_util.cpp",
+ "shared": [
+  "0x42B320"
+ ],
+ "short_known": [
+  "0x42B320"
+ ]
 }

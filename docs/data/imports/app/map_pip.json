@@ -8,6 +8,7 @@
  "description": "MapPipClass (D24 class-from-file), the map picture-in-picture views' base (the client's __FILE__ 0xB909E0; client 0x6927C0-0x693020) (MP1)",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x42F250",
   "0x6927C0",
   "0x6929D0",
@@ -28,9 +29,11 @@
  "merged": [],
  "name": "client/map_pip.cpp",
  "shared": [
+  "0x42B320",
   "0x42F250"
  ],
  "short_known": [
+  "0x42B320",
   "0x6929D0",
   "0x6929F0",
   "0x692A10",

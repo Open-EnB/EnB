@@ -4,6 +4,7 @@
  "description": "RadarSystemDataCacheClass (D24), one object's cached view for a radar pass (the client's __FILE__ 0xB9F32C, FAIL_IFs at lines 93-208; 0x7BDFC0-0x7BE590) (GR2)",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x42F250",
   "0x7BDFC0",
   "0x7BE080",
@@ -23,6 +24,10 @@
  "merged": [],
  "name": "client/radar_system_data_cache.cpp",
  "shared": [
+  "0x42B320",
   "0x42F250"
+ ],
+ "short_known": [
+  "0x42B320"
  ]
 }

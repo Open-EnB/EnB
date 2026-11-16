@@ -6,6 +6,7 @@
  "description": "DeltaInterpolatorClass (D24), client 0x4A6110-0x4A6913: ctor, Get_Change, Update, both Set, Set_Change, Unknown_3C; asserts on the client's lines 111-113 and 159 (D25); Unknown_00 0x4A6930 and its value object (vtable 0xAEAF08: Clone 0x4A6AF0, Get 0x4A6B30)",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x4484C0",
   "0x448580",
   "0x4485A0",
@@ -50,6 +51,7 @@
  "merged": [],
  "name": "shared/auxdata/delta_interpolator.cpp",
  "shared": [
+  "0x42B320",
   "0x4484C0",
   "0x448580",
   "0x4485A0",
@@ -81,6 +83,7 @@
   "0x4A6FB0"
  ],
  "short_known": [
+  "0x42B320",
   "0x448580",
   "0x4A3C50",
   "0x4A3C70",

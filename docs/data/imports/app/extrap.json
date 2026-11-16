@@ -6,6 +6,7 @@
  "description": "the state nodes, client 0x70F040-0x714810 (<string>'s guarded static last; postate.cpp follows at 0x714820): StateNode's slots 0x70F040-0x70F210 (lines 238, 246, D25), every node, blend and motion object of the window (NOT EXACT ones marked); the asserts on the client's lines 349-433, 757, 1198-1214, 1279-1416, 1432-1590, 1799",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x42F250",
   "0x44C2B0",
   "0x577940",
@@ -108,6 +109,7 @@
  "merged": [],
  "name": "client/extrap.cpp",
  "shared": [
+  "0x42B320",
   "0x42F250",
   "0x44C2B0",
   "0x577940",
@@ -126,6 +128,7 @@
   "0x7147D0"
  ],
  "short_known": [
+  "0x42B320",
   "0x70F300",
   "0x70F380",
   "0x70F610",

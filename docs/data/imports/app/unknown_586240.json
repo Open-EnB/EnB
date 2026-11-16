@@ -7,6 +7,7 @@
  "description": "RECONSTRUCTED from client.exe 0x586240-0x587530: the space lights panel UISpaceLightsClass (model 'light01a', 'fa_light01a.ini'; tables 0xAF1020 / 0xAF1014 / 0xAF1008; guarded <string> id 0x5874F0 and the deleting-destructor thunks close the object). Interim file name (D137): no string names it.",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x42F250",
   "0x45CC10",
   "0x4A1930",
@@ -51,6 +52,7 @@
  "merged": [],
  "name": "client/unknown_586240.cpp",
  "shared": [
+  "0x42B320",
   "0x42F250",
   "0x45CC10",
   "0x4A1930",
@@ -77,6 +79,7 @@
   "0x587530"
  ],
  "short_known": [
+  "0x42B320",
   "0x4A1930",
   "0x4A19A0",
   "0x4A19C0",

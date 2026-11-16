@@ -4,6 +4,7 @@
  "description": "ui_item_examination_property_router.cpp (the client's __FILE__ 0xB78AB0, lines 56 / 64): the object 0x537830-0x537ABF, the constructor, destructors, Clear, Route and the visitor slots, all exact (IE2)",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x42F250",
   "0x537830",
   "0x537880",
@@ -24,9 +25,11 @@
  "merged": [],
  "name": "client/ui_item_examination_property_router.cpp",
  "shared": [
+  "0x42B320",
   "0x42F250"
  ],
  "short_known": [
+  "0x42B320",
   "0x5378C0",
   "0x537960",
   "0x5379B0"

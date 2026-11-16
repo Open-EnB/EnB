@@ -7,6 +7,7 @@
  "description": "RECONSTRUCTED from client.exe 0x5D4150-0x5D46DF: the petition windows' base (ChatPanelUIBase) with the GM avatar's PIP; the client's asserts name the file (e:\\build\\beta\\G\\app\\Client\\ui_petition_avatar_pip.cpp, l.71 / l.82)",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x42F250",
   "0x45CC10",
   "0x4A1930",
@@ -46,6 +47,7 @@
  "merged": [],
  "name": "client/ui_petition_avatar_pip.cpp",
  "shared": [
+  "0x42B320",
   "0x42F250",
   "0x45CC10",
   "0x4A1930",
@@ -75,6 +77,7 @@
   "0x5D46D0"
  ],
  "short_known": [
+  "0x42B320",
   "0x4A1930",
   "0x4A19A0",
   "0x4A19C0",

@@ -6,6 +6,7 @@
  "description": "RECONSTRUCTED from client.exe: __FILE__ 'e:\\build\\beta\\G\\app\\Client\\ui_interrupt.cpp' (G_ASSERT l.125), constructor 0x59E2C0, table 0xAF235C; the scanner's interrupt progress display (O15)",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x42F250",
   "0x457FA0",
   "0x57DBC0",
@@ -24,6 +25,7 @@
  "merged": [],
  "name": "client/ui_interrupt.cpp",
  "shared": [
+  "0x42B320",
   "0x42F250",
   "0x457FA0",
   "0x57DBC0",
@@ -31,5 +33,8 @@
   "0x584E20",
   "0x584E50",
   "0x58C660"
+ ],
+ "short_known": [
+  "0x42B320"
  ]
 }

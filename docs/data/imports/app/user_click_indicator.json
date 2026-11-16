@@ -8,6 +8,7 @@
  "description": "RECONSTRUCTED from client.exe: UserClickIndicatorClass, the object 0x6B3A90-0x6B4470 (six functions, the client's __FILE__ e:\\build\\beta\\G\\app\\Client\\user_click_indicator.cpp and its FAIL_IF lines 64-193)",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x42F250",
   "0x6B3A90",
   "0x6B3C20",
@@ -19,6 +20,10 @@
  "merged": [],
  "name": "client/user_click_indicator.cpp",
  "shared": [
+  "0x42B320",
   "0x42F250"
+ ],
+ "short_known": [
+  "0x42B320"
  ]
 }

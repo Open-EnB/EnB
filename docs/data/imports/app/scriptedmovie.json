@@ -12,6 +12,7 @@
  "description": "ScriptedMovieViewClass (scriptedmovie.cpp's __FILE__; client 0x7FFEA0-0x80A730, 254 asserts): short members and script commands, the asserts on the client's lines 832 / 855 / 877 / 1178 (D25), UI1; the constructor 0x8000C0, the destructor 0x8008B0 and the rest not yet",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x42F250",
   "0x431C80",
   "0x48E910",
@@ -155,6 +156,7 @@
  "merged": [],
  "name": "client/scriptedmovie.cpp",
  "shared": [
+  "0x42B320",
   "0x42F250",
   "0x431C80",
   "0x48E910",
@@ -199,6 +201,7 @@
   "0x62A5D0"
  ],
  "short_known": [
+  "0x42B320",
   "0x431C80",
   "0x50B680",
   "0x50B6A0",

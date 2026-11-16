@@ -9,7 +9,9 @@
  "description": "ShipPipClass (D24 class-from-file), the ship picture-in-picture gadget (table 0xB07DF4, 37 slots, 0xF4 bytes), client 0x80B2E0-0x80E815 (__FILE__ 0xBA74A4; asserts on lines 132 / 253 / 267, D25); NOT EXACT (D64): 0x80C640, 0x80CA30, 0x80CE10, 0x80D5E0, 0x80E260, 0x80E530 (CRE1)",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x42F250",
+  "0x468E70",
   "0x50A8C0",
   "0x50A8E0",
   "0x50A900",
@@ -62,7 +64,9 @@
  "merged": [],
  "name": "client/ship_pip.cpp",
  "shared": [
+  "0x42B320",
   "0x42F250",
+  "0x468E70",
   "0x50A8C0",
   "0x50A8E0",
   "0x50A900",
@@ -86,6 +90,8 @@
   "0x5C4060"
  ],
  "short_known": [
+  "0x42B320",
+  "0x468E70",
   "0x50A8C0",
   "0x50A8E0",
   "0x50A900",

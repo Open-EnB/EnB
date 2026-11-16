@@ -10,6 +10,7 @@
  "description": "SkillDataClass (D24 class-from-file), a slot's data for a skill (the client's __FILE__ 0xB91300, asserts on lines 62-155; object 0x6A4580-0x6A52D8 from permstr.h's static to the adjustor thunk) (SD1)",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x42F250",
   "0x45CC10",
   "0x4A0B70",
@@ -34,6 +35,7 @@
  "merged": [],
  "name": "client/skill_data.cpp",
  "shared": [
+  "0x42B320",
   "0x42F250",
   "0x45CC10",
   "0x4A0B70",
@@ -45,6 +47,7 @@
   "0x6A52D0"
  ],
  "short_known": [
+  "0x42B320",
   "0x4A0B70",
   "0x6A46A0",
   "0x6A46C0",

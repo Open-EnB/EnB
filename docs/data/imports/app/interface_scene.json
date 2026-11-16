@@ -9,6 +9,7 @@
  "description": "InterfaceSceneClass (interface_scene.h), client 0x6DA4D0-0x6DADDF (__FILE__ 0xB928F4, FAIL_IF '!InsideRenderWithPIPScenes' on the client's line 147, D25): the views' 2-D scene over its static sort list, and the inline functions of interface_static_sort_list.h its constructor instantiates (IS)",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x42F250",
   "0x45CC10",
   "0x45CC30",
@@ -72,6 +73,7 @@
  "merged": [],
  "name": "client/interface_scene.cpp",
  "shared": [
+  "0x42B320",
   "0x42F250",
   "0x45CC10",
   "0x45CC30",
@@ -107,6 +109,7 @@
   "0x6DF880"
  ],
  "short_known": [
+  "0x42B320",
   "0x45E1B0",
   "0x495E10",
   "0x495E30",

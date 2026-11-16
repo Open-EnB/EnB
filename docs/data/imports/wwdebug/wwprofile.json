@@ -85,6 +85,7 @@
   "0x9EC860",
   "0x9EC8C0",
   "0x9ECB50",
+  "0x9ECDC0",
   "0x9ECDD0",
   "0x9ECE50",
   "0x9ED130"
@@ -93,6 +94,10 @@
  "name": "wwprofile.cpp",
  "shared": [
   "0x42F250",
-  "0x909500"
+  "0x909500",
+  "0x9ECDC0"
+ ],
+ "short_known": [
+  "0x9ECDC0"
  ]
 }

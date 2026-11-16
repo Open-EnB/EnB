@@ -6,6 +6,7 @@
  "description": "TargetingClass (name from the asserts' 'targeting', file name provisional: D137), TargetFindClass's selection through REQUEST_TARGET (client 0x7C6120-0x7C636F, bounded by <string>'s initialisers 0x7C60F0 / 0x7C6350) (TR1)",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x42F250",
   "0x52B210",
   "0x52B240",
@@ -30,6 +31,7 @@
  "merged": [],
  "name": "client/targeting.cpp",
  "shared": [
+  "0x42B320",
   "0x42F250",
   "0x52B210",
   "0x52B240",
@@ -43,6 +45,7 @@
   "0x7232B0"
  ],
  "short_known": [
+  "0x42B320",
   "0x52B2D0",
   "0x52B2F0",
   "0x52B310",

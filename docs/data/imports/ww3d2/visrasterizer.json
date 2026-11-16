@@ -14,6 +14,7 @@
  "headers_from": null,
  "in_tree": [
   "0x42F250",
+  "0x468E70",
   "0x7E6E40",
   "0x9636F0",
   "0x9637A0",
@@ -55,6 +56,7 @@
  "name": "visrasterizer.cpp",
  "shared": [
   "0x42F250",
+  "0x468E70",
   "0x7E6E40",
   "0x9636F0",
   "0x9637A0",
@@ -63,6 +65,7 @@
   "0x963AF0"
  ],
  "short_known": [
+  "0x468E70",
   "0x9942F0"
  ]
 }

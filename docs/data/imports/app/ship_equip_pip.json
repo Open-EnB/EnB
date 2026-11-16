@@ -5,6 +5,7 @@
  "expected": {},
  "in_tree": [
   "0x42F250",
+  "0x468E70",
   "0x514A80",
   "0x514AD0",
   "0x541DE0",
@@ -19,8 +20,12 @@
  "name": "client/ship_equip_pip.cpp",
  "shared": [
   "0x42F250",
+  "0x468E70",
   "0x514A80",
   "0x514AD0",
   "0x543550"
+ ],
+ "short_known": [
+  "0x468E70"
  ]
 }

@@ -7,6 +7,7 @@
  "description": "FontSys, the client's text object (vtable 0xAFECB4; __FILE__ 0xB92828, G_ASSERT 'SortLevel == SORT_LEVEL_NONE || ...' on the client's line 914, D25): constructors 0x6D47C0 / 0x6D4C70, Set_Container 0x6D5920, the bounding volumes 0x6D5B90 / 0x6D5C10, Render 0x6D8270, Set_Transform 0x6D87F0, Set_Position 0x6D88C0, the texture holder 0x6D8B90; NOT EXACT first forms for the POC (FS); file start interim (D137)",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x42F250",
   "0x431C80",
   "0x444160",
@@ -138,6 +139,7 @@
  "merged": [],
  "name": "client/fontsys.cpp",
  "shared": [
+  "0x42B320",
   "0x42F250",
   "0x431C80",
   "0x444160",
@@ -247,6 +249,7 @@
   "0x6D0F70"
  ],
  "short_known": [
+  "0x42B320",
   "0x431C80",
   "0x45E1B0",
   "0x4627A0",

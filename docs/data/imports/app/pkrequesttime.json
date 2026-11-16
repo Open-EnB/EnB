@@ -6,6 +6,7 @@
  "description": "opcodes 68 (REQUEST_TIME) and 52 (CLIENT_SET_TIME) written by hand (builder P4, 10 of 10 exact in appfile.py match), client 0x8AAD50-0x8AB27F; the file name provisional (NAME 1)",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x52B210",
   "0x52B240",
   "0x52B270",
@@ -36,6 +37,7 @@
  "merged": [],
  "name": "packets/pkrequesttime.cpp",
  "shared": [
+  "0x42B320",
   "0x52B210",
   "0x52B240",
   "0x52B270",
@@ -52,6 +54,7 @@
   "0x8AB040"
  ],
  "short_known": [
+  "0x42B320",
   "0x52B2D0",
   "0x52B2F0",
   "0x52B310",

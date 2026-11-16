@@ -12,6 +12,7 @@
  "description": "AvatarPipClass (D24 class-from-file), the avatar picture-in-picture (the client's __FILE__ 0xBA1278; client 0x7E31B0-0x7E49AF by its FAIL_IFs (lines 155-163, 208-221), cfaction_database.cpp after at 0x7E4AE0); NOT EXACT (D64): 0x7E3A20, 0x7E4520 (AP1)",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x42F250",
   "0x5149F0",
   "0x514A80",
@@ -31,6 +32,7 @@
  "merged": [],
  "name": "client/avatar_pip.cpp",
  "shared": [
+  "0x42B320",
   "0x42F250",
   "0x5149F0",
   "0x514A80",
@@ -39,5 +41,8 @@
   "0x53CF80",
   "0x543550",
   "0x5C4060"
+ ],
+ "short_known": [
+  "0x42B320"
  ]
 }

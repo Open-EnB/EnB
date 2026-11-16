@@ -7,6 +7,7 @@
  "description": "MouseTargetClass, the object under the mouse (the client's __FILE__ 0xB9EE10, FAIL_IF at line 66; 0x7B77C0-0x7B7B4F, ended by <string>'s initialiser 0x7B7B30) (GR2)",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x42F250",
   "0x497390",
   "0x4973B0",
@@ -17,11 +18,13 @@
  "merged": [],
  "name": "client/mouse_targeting.cpp",
  "shared": [
+  "0x42B320",
   "0x42F250",
   "0x497390",
   "0x4973B0"
  ],
  "short_known": [
+  "0x42B320",
   "0x497390"
  ]
 }

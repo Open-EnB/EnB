@@ -4,6 +4,7 @@
  "description": "opcode 16 (DECAL) written by hand (builder P4: Build, Get_Data_Size, Print exact, both constructors NOT EXACT); packet classes (opcode 178) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x52B210",
   "0x52B240",
   "0x52B270",
@@ -43,6 +44,7 @@
  "merged": [],
  "name": "packets/pknamedecal.cpp",
  "shared": [
+  "0x42B320",
   "0x52B210",
   "0x52B240",
   "0x52B270",
@@ -66,6 +68,7 @@
   "0x881250"
  ],
  "short_known": [
+  "0x42B320",
   "0x52B2D0",
   "0x52B2F0",
   "0x52B310",

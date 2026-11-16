@@ -7,6 +7,7 @@
  "description": "GadgetClass (gadget.h), client 0x65ECE0-0x6609A0 (__FILE__ 0xB8C9F4, asserts on the client's lines 151-1036, D25): the destructor, Destroy, the tooltips (tooltip.ini), the slots, the sort groups, the held gadgets, the flash's stop / clone / toggle; NOT EXACT: the constructor 0x65ED50 (order) (UI)",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x42F250",
   "0x50A8C0",
   "0x50A8E0",
@@ -65,6 +66,7 @@
  "merged": [],
  "name": "client/gadget.cpp",
  "shared": [
+  "0x42B320",
   "0x42F250",
   "0x50A8C0",
   "0x50A8E0",
@@ -86,6 +88,7 @@
   "0x65FF50"
  ],
  "short_known": [
+  "0x42B320",
   "0x50A8C0",
   "0x50A8E0",
   "0x50A900",

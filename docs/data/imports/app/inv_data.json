@@ -12,6 +12,7 @@
  "description": "RECONSTRUCTED: app\\client\\inv_data.cpp, an inventory's slot data (InvDataClass): the client's __FILE__ 'e:\\build\\beta\\G\\app\\Client\\inv_data.cpp' (0xB8FDC4), asserts l.97 / l.143 (0x6889F0) and l.343 (0x689100); object 0x688410-0x6894FF; ID1 2026-11-10",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x42F250",
   "0x45CC10",
   "0x4A0B70",
@@ -50,6 +51,7 @@
  "merged": [],
  "name": "client/inv_data.cpp",
  "shared": [
+  "0x42B320",
   "0x42F250",
   "0x45CC10",
   "0x4A0B70",
@@ -66,6 +68,7 @@
   "0x689A20"
  ],
  "short_known": [
+  "0x42B320",
   "0x4A0B70",
   "0x688660",
   "0x688680",

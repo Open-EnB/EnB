@@ -9,6 +9,7 @@
  "description": "RECONSTRUCTED from client.exe: the object 0x58BF90-0x58D010 (__FILE__ 'e:\\build\\beta\\G\\app\\Client\\ui_experience.cpp', asserts l.47-l.197); the experience bars of the PDA and the character info window",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x42F250",
   "0x457FA0",
   "0x50A8E0",
@@ -53,6 +54,7 @@
  "merged": [],
  "name": "client/ui_experience.cpp",
  "shared": [
+  "0x42B320",
   "0x42F250",
   "0x457FA0",
   "0x50A8E0",
@@ -83,6 +85,7 @@
   "0x58C660"
  ],
  "short_known": [
+  "0x42B320",
   "0x50A8E0",
   "0x50A900",
   "0x50A920",

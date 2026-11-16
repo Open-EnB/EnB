@@ -4,6 +4,7 @@
  "description": "RECONSTRUCTED from client.exe: __FILE__ e:\\build\\beta\\G\\app\\Client\\ui_treem.cpp (asserts on lines 83-493), the tables 0xAF9110 / 0xAF9104 / 0xAF90F8 and wwlib vector.h's instances; client 0x654860-0x656FF0",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x42F250",
   "0x45CC10",
   "0x4A1930",
@@ -80,6 +81,7 @@
  "merged": [],
  "name": "client/ui_treem.cpp",
  "shared": [
+  "0x42B320",
   "0x42F250",
   "0x45CC10",
   "0x4A1930",
@@ -103,6 +105,7 @@
   "0x656FE0"
  ],
  "short_known": [
+  "0x42B320",
   "0x4A1930",
   "0x4A19A0",
   "0x4A19C0",

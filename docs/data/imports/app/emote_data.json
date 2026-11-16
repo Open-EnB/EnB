@@ -6,8 +6,10 @@
  "description": "RECONSTRUCTED from client.exe: emote_data.obj 0x7E62F0-0x7E7E60 (__FILE__ 0xBA14AC, FAIL_IF lines 135/136, G_ASSERT lines 275/291; vtable 0xB075CC, typeid .PAVEmoteDataClass@@)",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x42F250",
   "0x447C40",
+  "0x468E70",
   "0x577940",
   "0x69F3B0",
   "0x79D130",
@@ -34,13 +36,17 @@
  "merged": [],
  "name": "client/emote_data.cpp",
  "shared": [
+  "0x42B320",
   "0x42F250",
   "0x447C40",
+  "0x468E70",
   "0x577940",
   "0x69F3B0",
   "0x79D130"
  ],
  "short_known": [
+  "0x42B320",
+  "0x468E70",
   "0x79D130",
   "0x7E76E0"
  ],

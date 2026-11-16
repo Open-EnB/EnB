@@ -6,6 +6,7 @@
  "description": "memconn.cpp, client 0x826480-0x827B10: the memory connection, the memory listener and the registry by port (0xBE9160), the asserts on the client's lines (D25)",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x726AF0",
   "0x726B10",
   "0x726B90",
@@ -49,6 +50,7 @@
  "merged": [],
  "name": "common/memconn.cpp",
  "shared": [
+  "0x42B320",
   "0x726AF0",
   "0x726B10",
   "0x726B90",
@@ -59,6 +61,7 @@
   "0x823550"
  ],
  "short_known": [
+  "0x42B320",
   "0x726AF0",
   "0x726B10",
   "0x726B90",

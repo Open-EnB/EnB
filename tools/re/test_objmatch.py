@@ -1,4 +1,5 @@
-"""objmatch.py's funclet evidence for short functions (D246 / C21) and for tied non-short bodies (D246 / C35;
+"""objmatch.py's funclet evidence for short functions (D246 / C21) and for tied non-short bodies (D246 / C35)
+and pushed-address evidence for short functions (D246 / CR3;
 python -m unittest tools/re/test_objmatch.py).
 
 The object is not tracked: build/app/obj/attrib_dir_collective.obj in the main tree (or OBJMATCH_OBJS), a
@@ -72,6 +73,34 @@ class FuncletTies(unittest.TestCase):
                     objmatch.USE_FUNCLET_TIES = True
                 self.assertEqual(res[sym]['status'], 'multiple')
 
+
+
+PUSHED = [
+    # object, symbol, client address: a short function an exact function of the object pushes (D246 / CR3)
+    ('rs_list.obj', '??0WeightInfoStruct@NamedPivotMapClass@@QAE@XZ', '0x45D820'),   # eh vector ctor iterator's arg
+    ('cordcon.obj', '?flush@@YAAAVostream@@AAV1@@Z', '0x850850'),                     # an ostream manipulator
+]
+
+
+class PushedEvidence(unittest.TestCase):
+    def test_pushed(self):
+        img = objmatch.ClientImage(objmatch.DEFAULT_CLIENT)
+        for name, sym, addr in PUSHED:
+            path = os.path.join(OBJS, name)
+            with self.subTest(sym=sym):
+                if not os.path.exists(path):
+                    self.skipTest(f'{path} missing')
+                res = {r['symbol']: r for r in objmatch.match_objects(img, [path], (0x401000, 0x8C1B50))}
+                self.assertEqual(res[sym]['status'], 'exact')
+                self.assertEqual(res[sym]['addresses'], [addr])
+                self.assertEqual(res[sym].get('short_known'), 'pushed')
+                # the rule's switch: without it the function stays short
+                objmatch.USE_PUSHED_CALLS = False
+                try:
+                    res = {r['symbol']: r for r in objmatch.match_objects(img, [path], (0x401000, 0x8C1B50))}
+                finally:
+                    objmatch.USE_PUSHED_CALLS = True
+                self.assertEqual(res[sym]['status'], 'short')
 
 if __name__ == '__main__':
     unittest.main()

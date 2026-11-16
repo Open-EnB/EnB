@@ -6,6 +6,7 @@
  "description": "RECONSTRUCTED from client.exe: the object 0x5DBF70-0x5DCCDF (no __FILE__ of its own; tooltips UI_POWER, file name NAME 1); the energy / shield / hull gauges of the cockpit, the group members and the MFD",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x42F250",
   "0x457FA0",
   "0x50A8E0",
@@ -47,6 +48,7 @@
  "merged": [],
  "name": "client/ui_power.cpp",
  "shared": [
+  "0x42B320",
   "0x42F250",
   "0x457FA0",
   "0x50A8E0",
@@ -77,6 +79,7 @@
   "0x58C660"
  ],
  "short_known": [
+  "0x42B320",
   "0x50A8E0",
   "0x50A900",
   "0x50A920",
