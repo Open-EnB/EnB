@@ -42,7 +42,7 @@ public:
 extern FontManagerClass *Unknown_BE67C4;				// NAME 1: neutral (D10)
 #include "..\shared\unknown_4a1590.h"
 #include "..\input\input.h"	// Unknown_42EB20 (0x42EB20)
-
+RefCountPtr<RenderObjClass> Unknown_497300(RenderObjClass *robj);	// 0x497300 (cdecl, ro_funcs.cpp's neighbourhood: a RefCountPtr over a peek, Add_Ref)  // NAME 1 [robj]: as ui_avatr.cpp's
 #include "control_key_list.h"	// ControlKeyListClass: InterfaceClass +0x4C (Add 0x721E60, Remove 0x721EF0), keyed by kernel.h's KernelEventClass
 
 
@@ -846,7 +846,7 @@ void UITalkTreeClass::Unknown_64E7A0()
 			break;
 		}
 		if (Buttons[lp]->Is_Unknown2C_02() && Is_Unknown2C_03(Buttons[lp])) {
-			bttn_obj = Create_Get(Buttons[lp]->Peek_Render_Obj());
+			bttn_obj = Unknown_497300(Buttons[lp]->Peek_Render_Obj());
 			active = lp - 1;
 			break;
 		}
