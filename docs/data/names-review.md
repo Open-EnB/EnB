@@ -65,12 +65,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_4A13A0` | `app/client/acticon.cpp:71` | untagged neutral name (D10) |
 | 1 | `Unknown_AC` | `app/client/acticon.cpp:79` | untagged neutral name (D10) |
 | 1 | `Unknown_66C220` | `app/client/acticon.cpp:84` | untagged neutral name (D10) |
-| 1 | `Unknown_66C260` | `app/client/acticon.cpp:91` | untagged neutral name (D10) |
-| 1 | `Unknown_A0` | `app/client/acticon.cpp:91` | untagged neutral name (D10) |
-| 1 | `Unknown_9C` | `app/client/acticon.cpp:91` | untagged neutral name (D10) |
-| 1 | `Unknown74` | `app/client/acticon.cpp:94` | untagged neutral name (D10) |
-| 1 | `Unknown_6766E0` | `app/client/acticon.cpp:119` | untagged neutral name (D10) |
-| 1 | `Unknown_676A00` | `app/client/acticon.cpp:143` | untagged neutral name (D10) |
+| 1 | `Unknown_66C260` | `app/client/acticon.cpp:92` | untagged neutral name (D10) |
+| 1 | `Unknown_A0` | `app/client/acticon.cpp:92` | untagged neutral name (D10) |
+| 1 | `Unknown_9C` | `app/client/acticon.cpp:94` | untagged neutral name (D10) |
+| 1 | `Unknown74` | `app/client/acticon.cpp:98` | untagged neutral name (D10) |
+| 1 | `Unknown_6766E0` | `app/client/acticon.cpp:123` | untagged neutral name (D10) |
+| 1 | `Unknown_676A00` | `app/client/acticon.cpp:147` | untagged neutral name (D10) |
 | 1 | `Unknown_671300Class` | `app/client/acticon.h:9` | untagged neutral name (D10) |
 | 1 | `robj, layer` | `app/client/acticon.h:27` | the base's; NAME 2 [bar]: ui_cpit.cpp's 'WARP_BAR' |
 | 1 | `Unknown_AC` | `app/client/acticon.h:29` | untagged neutral name (D10) |
@@ -2777,12 +2777,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6BB440` | `app/client/debrsint.cpp:188` | untagged neutral name (D10) |
 | 1 | `UnknownBC` | `app/client/debrsint.cpp:229` | untagged neutral name (D10) |
 | 1 | `Unknown_6BB470` | `app/client/debrsint.cpp:242` | untagged neutral name (D10) |
-| 1 | `Unknown_6C` | `app/client/debrsint.cpp:253` | untagged neutral name (D10) |
-| 1 | `Unknown_53E030` | `app/client/debrsint.cpp:287` | untagged neutral name (D10) |
-| 1 | `UnknownC8` | `app/client/debrsint.cpp:291` | untagged neutral name (D10) |
-| 1 | `Unknown_53E0B0` | `app/client/debrsint.cpp:300` | untagged neutral name (D10) |
-| 1 | `Unknown_53E470` | `app/client/debrsint.cpp:407` | untagged neutral name (D10) |
-| 1 | `Unknown_6BB640` | `app/client/debrsint.cpp:409` | untagged neutral name (D10) |
+| 1 | `Unknown_6C` | `app/client/debrsint.cpp:252` | untagged neutral name (D10) |
+| 1 | `Unknown_53E030` | `app/client/debrsint.cpp:288` | untagged neutral name (D10) |
+| 1 | `UnknownC8` | `app/client/debrsint.cpp:292` | untagged neutral name (D10) |
+| 1 | `Unknown_53E0B0` | `app/client/debrsint.cpp:301` | untagged neutral name (D10) |
+| 1 | `Unknown_53E470` | `app/client/debrsint.cpp:408` | untagged neutral name (D10) |
+| 1 | `Unknown_6BB640` | `app/client/debrsint.cpp:410` | untagged neutral name (D10) |
 | 1 | `view, scene, ini` | `app/client/debrsint.h:56` | what 0x50C690 passes |
 | 1 | `Unknown_58` | `app/client/debrsint.h:58` | untagged neutral name (D10) |
 | 1 | `Unknown_5C` | `app/client/debrsint.h:59` | untagged neutral name (D10) |
@@ -29841,10 +29841,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `unknown_474530.cpp` | `app/shared/unknown_474530.cpp:52` | a quad's four corners at a height into the sea's vertex list. A macro: Render 0x474B30 inlines all 36 Adds and |
 | 2 | `unknown_474530.cpp` | `app/shared/unknown_474530.cpp:318` | the .dcb's first word (0x4795D0, 0x479A50) |
 | 2 | `LandDecorationRecordStruct` | `app/shared/unknown_474530.cpp:321` | a decoration as the .dcb keeps it, 0x20 bytes (0x479A50): no height, the reader puts it on the ground |
-| 2 | `LandDecorationVertexStruct` | `app/shared/unknown_474530.cpp:484` | a decoration vertex, FVF 0x112 (0x47C6A0; the patch records' buffers, 0x47A2F0); plain floats: 0x47DE10 copies it as one block |
-| 2 | `Land_Find_Decoration_Mesh` | `app/shared/unknown_474530.cpp:538` | after what it does |
-| 2 | `std:` | `app/shared/unknown_474530.cpp:574` | after what it does |
-| 2 | `LandVertexStruct` | `app/shared/unknown_474530.cpp:852` | the patch vertex, FVF 0x202 (0x4746C0) |
+| 2 | `LandDecorationVertexStruct` | `app/shared/unknown_474530.cpp:481` | a decoration vertex, FVF 0x112 (0x47C6A0; the patch records' buffers, 0x47A2F0); plain floats: 0x47DE10 copies it as one block |
+| 2 | `Land_Find_Decoration_Mesh` | `app/shared/unknown_474530.cpp:535` | after what it does |
+| 2 | `std:` | `app/shared/unknown_474530.cpp:571` | after what it does |
+| 2 | `LandVertexStruct` | `app/shared/unknown_474530.cpp:849` | the patch vertex, FVF 0x202 (0x4746C0) |
 | 2 | `type, ini, name` | `app/shared/unknown_480b10.h:30` | what they are |
 | 2 | `Save` | `app/shared/unknown_480b10.h:33` | what it does |
 | 2 | `Update` | `app/shared/unknown_480b10.h:34` | what it does |

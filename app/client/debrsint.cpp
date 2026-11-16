@@ -248,7 +248,6 @@ bool DebrisInterfaceClass::Unknown_68(int key)
 	}
 	return(true);
 }
-// NOT EXACT: functional (D64), frame (0x10C vs 0x108: the colour's copy; the client passes the red through the FPU, the green and blue from two spills)
 // 0x53DDE0
 void DebrisInterfaceClass::Unknown_6C(INIClass &ini)
 {
@@ -259,10 +258,12 @@ void DebrisInterfaceClass::Unknown_6C(INIClass &ini)
 		ini.Put_Float(section, "Size", Fields[i]->Get_Size());
 		ini.Put_Float(section, "MinDist", Fields[i]->Get_Min_Dist());
 		ini.Put_Float(section, "MaxDist", Fields[i]->Get_Max_Dist());
-		Vector3 color = Fields[i]->Get_Color();
-		ini.Put_Float(section, "R", color.X);
-		ini.Put_Float(section, "G", color.Y);
-		ini.Put_Float(section, "B", color.Z);
+		float red = Fields[i]->Get_Color().X;
+		float green = Fields[i]->Get_Color().Y;
+		float blue = Fields[i]->Get_Color().Z;
+		ini.Put_Float(section, "R", red);
+		ini.Put_Float(section, "G", green);
+		ini.Put_Float(section, "B", blue);
 		ini.Put_Float(section, "A", Fields[i]->Get_Alpha());
 	}
 }
