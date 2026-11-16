@@ -54,17 +54,7 @@ public:
 	void Unknown_78B570(bool a);						// 0x78B570 (+0x3B8 = !a; the idle animation's model dropped; ui_starbase.cpp's 0x638DA0 / 0x63D2F0)  // NAME 1: neutral  // NAME 1 [a]: neutral
 	void Unknown_78B610();								// 0x78B610 (+0x3D4 cleared, +0x3D8 a roll between +0x3C4 and +0x3C8)  // NAME 1: neutral
 	void Unknown_78B660();								// 0x78B660 (the idle: after +0x3D8 seconds an animation or a walk)  // NAME 1: neutral
-	void Unknown_Inline_Release()						// (the destructor, 0x78B570 and 0x78B660 inline it: the destructor keeps std::copy out of line only with it)  // NAME 1: neutral (D10)
-	{
-		if (Unknown3DC) {
-			Unknown3DC->Set_Animation();
-			Unknown3DC->Remove();
-			Unknown3DC = NULL;
-		}
-		if (Unknown3E0) {
-			Unknown3E0 = NULL;
-		}
-	}
+	void Unknown_78BEA0();								// 0x78BEA0 (defined last: the destructor, 0x78B570 and 0x78B660 inline it; the destructor keeps std::copy out of line only with it)  // NAME 1: neutral (D10)
 	void Unknown_78B810();								// 0x78B810 (0x78B660, mode +0x3BA set)
 	void Unknown_78BA20();								// 0x78BA20 (0x78B660, else; 0x78B810 when the two lists differ in size)
 	void Unknown_78BB60();								// 0x78BB60 (0x78B660: an idle animation by a roll)
@@ -111,7 +101,7 @@ Unknown78A910AvatarClass::Unknown78A910AvatarClass(int a, AvatarDescClass *desc,
 // 0x78AA80
 Unknown78A910AvatarClass::~Unknown78A910AvatarClass()
 {
-	Unknown_Inline_Release();
+	Unknown_78BEA0();
 	Unknown388.clear();
 	Unknown3A8.clear();
 }
@@ -163,7 +153,7 @@ void Unknown78A910AvatarClass::Unknown_78B530(int a, int b, int c, int d)
 void Unknown78A910AvatarClass::Unknown_78B570(bool a)
 {
 	Unknown3B8 = !a;
-	Unknown_Inline_Release();
+	Unknown_78BEA0();
 }
 
 // 0x78B610
@@ -177,7 +167,7 @@ void Unknown78A910AvatarClass::Unknown_78B610()
 void Unknown78A910AvatarClass::Unknown_78B660()
 {
 	if (Unknown220 && !Unknown3B8) {
-		Unknown_Inline_Release();
+		Unknown_78BEA0();
 		Unknown3D4 += (float)WW3D::Get_Frame_Time() * 0.001f;
 		if (Unknown3D4 > Unknown3D8) {
 			int roll = Unknown_BDBB84(0, Unknown3CC + Unknown3D0);
@@ -290,6 +280,18 @@ void Unknown78A910AvatarClass::Unknown_78BB60()
 	}
 }
 
+void Unknown78A910AvatarClass::Unknown_78BEA0()
+{
+	if (Unknown3DC) {
+		Unknown3DC->Set_Animation();
+		Unknown3DC->Remove();
+		Unknown3DC = NULL;
+	}
+	if (Unknown3E0) {
+		Unknown3E0 = NULL;
+	}
+}
+
 /*
 **	Reconstruction notes (unknown_78a910.cpp)
 **
@@ -304,5 +306,5 @@ void Unknown78A910AvatarClass::Unknown_78BB60()
 **	  +0x3C4..+0x3D0 are four members, not an array. 0x78AD20 keeps its entry in a named local (+0x3C0 is
 **	  compared before the entry dies). The destructor keeps std::copy<Unknown78A910AnimStruct *> out of
 **	  line (0x78C4B0, operator= inlined in it) only when the release of +0x3DC / +0x3E0 is an inline helper
-**	  (Unknown_Inline_Release, also inlined by 0x78B570 and 0x78B660); written out, copy inlines.
+**	  (Unknown_78BEA0, also inlined by 0x78B570 and 0x78B660); written out, copy inlines.
 */

@@ -185,6 +185,7 @@ public:
 class RemoveEffectPacketClass : public PacketClass
 {
 public:
+	RemoveEffectPacketClass(int effect_id, int game_id);	// 0x885D30  // NAME 2: the stores (no caller left)
 	RemoveEffectPacketClass(RawPacketClass *raw);	// 0x885E30
 	virtual RawPacketClass *Build();	// +0x04 0x885EC0
 	virtual bool Process_Packet(void *client);	// +0x08 0x735D50 (cpacket.cpp)

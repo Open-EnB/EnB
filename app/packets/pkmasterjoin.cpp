@@ -33,7 +33,7 @@ int MasterJoinPacketClass::Get_Data_Size()
 
 int MasterJoinPacketClass::Print(char *buffer, int)
 {
-	return(sprintf(buffer, "%s", "Master Join"));
+	return(sprintf(buffer, "%s", "Master_Join"));
 }
 
 

@@ -27,6 +27,7 @@ public:
 	virtual bool Process_Packet(void *client);	// +0x08 0x738100 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C PKMODECHANGE_HDS
 	virtual int Print(char *buffer, int len);	// +0x10 0x89CD40
+	virtual int Get_Priority() { return(0x7F); }	// +0x1C 0x89CB40
 
 	int Unknown0C;	// +0x0C (4 bytes as they are)
 	int Mode;	// +0x10 (4 bytes as they are: an index into 0xBB56B0's names)  // NAME 3: the client's Print text 'Mode='

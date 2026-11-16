@@ -30,6 +30,7 @@ enum GuildPermissionEnum  // NAME 1: neutral placeholder (D10)
 class GuildSimpleSectorClientPacket : public PacketClass
 {
 public:
+	GuildSimpleSectorClientPacket(int type, const char *optional_param);	// 0x88BD40  // NAME 2: the stores (no caller left)
 	GuildSimpleSectorClientPacket(RawPacketClass *raw);	// 0x88BED0
 	virtual ~GuildSimpleSectorClientPacket();	// +0x00 0x88BEA0 / 0x88BF90
 	virtual RawPacketClass *Build();	// +0x04 0x88C000

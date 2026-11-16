@@ -22,6 +22,7 @@
 class Packet_0074Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x0074
 {
 public:
+	Packet_0074Class(int unknown0c, const char *unknown10, __int64 unknown58, int unknown60, int unknown64);	// 0x8667A0  // NAME 2: the stores (no caller left)
 	Packet_0074Class(RawPacketClass *raw);	// 0x866870
 	virtual RawPacketClass *Build();	// +0x04 0x866930
 	virtual bool Process_Packet(void *client);	// +0x08 0x868910 (clientstub.cpp l.245)

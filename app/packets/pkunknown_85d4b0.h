@@ -18,7 +18,7 @@
 #include "pk.h"
 
 // opcode 77 (0x004D, ?): vtable 0xB08DC8, constructor 0x85D570, 0x60 bytes
-class Packet_004DClass : public PacketClass  // NAME 1: neutral (D10): opcode 0x004D (Print 'Registration_Result')
+class Packet_004DClass : public PacketClass  // NAME 1: neutral (D10): opcode 0x004D (Print 'Registration Result')
 {
 public:
 	Packet_004DClass(int unknown0c, const char *unknown10, __int64 unknown58);	// 0x85D4B0

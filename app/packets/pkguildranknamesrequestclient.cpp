@@ -3,6 +3,12 @@
 #include <stdio.h>
 
 
+GuildSimpleSectorClientPacket::GuildSimpleSectorClientPacket(int type, const char *optional_param) :
+	Type(type),
+	OptionalParam(optional_param)
+{
+}
+
 GuildSimpleSectorClientPacket::GuildSimpleSectorClientPacket(RawPacketClass *raw)
 {
 	raw->Get(&Type, sizeof(Type));

@@ -1,7 +1,15 @@
 // Earth & Beyond client (reconstruction): app\packets\pkunknown_8667a0.cpp. Notes at the end of the file.
 #include "pkunknown_8667a0.h"
 #include <stdio.h>
+#include <string.h>
 
+
+Packet_0074Class::Packet_0074Class(int unknown0c, const char *unknown10, __int64 unknown58, int unknown60, int unknown64) :
+	Unknown0C(unknown0c), Unknown58(unknown58), Unknown60(unknown60), Unknown64(unknown64)
+{
+	strncpy(Unknown10, unknown10, sizeof(Unknown10) - 1);
+	Unknown10[sizeof(Unknown10) - 1] = 0;
+}
 
 Packet_0074Class::Packet_0074Class(RawPacketClass *raw)
 {
