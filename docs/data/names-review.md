@@ -15462,7 +15462,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `UnknownB8_0` | `app/client/ui_pda_cargo.cpp:290` | untagged neutral name (D10) |
 | 1 | `Unknown_Find_Field` | `app/client/ui_pda_cargo.cpp:301` | untagged neutral name (D10) |
 | 1 | `Unknown70` | `app/client/ui_pda_cargo.cpp:305` | untagged neutral name (D10) |
-| 1 | `Unknown_74D990` | `app/client/ui_pda_cargo.cpp:339` | untagged neutral name (D10) |
+| 1 | `Unknown_74D990` | `app/client/ui_pda_cargo.cpp:344` | untagged neutral name (D10) |
 | 1 | `ui_pda_cargo.h` | `app/client/ui_pda_cargo.h:4` | provisional header name for ui_pda_cargo.cpp |
 | 1 | `Unknown669FB0Class` | `app/client/ui_pda_cargo.h:15` | untagged neutral name (D10) |
 | 1 | `NUM_BUTTONS` | `app/client/ui_pda_cargo.h:24` | the set-up's loop over 0xB83820 (gadgets 13..17) |

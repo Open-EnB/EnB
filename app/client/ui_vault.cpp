@@ -251,7 +251,7 @@ bool UIVaultClass::Unknown_68(int key)
 	return(true);
 }
 
-// NOT EXACT: functional from the pseudocode (D64)
+// the client's format strings 'Inv_Sort%d_Name' / _primary / _secondary / _tertiary (0xB83A7C, 0xB83A64, 0xB83A48, 0xB83A30)
 // 0x657DA0
 void UIVaultClass::Unknown_657DA0(bool reverse)
 {
@@ -263,13 +263,13 @@ void UIVaultClass::Unknown_657DA0(bool reverse)
 			SortIndex = (SortIndex + 1) % 3;
 		}
 		char buffer[0x40];
-		_snprintf(buffer, sizeof(buffer), "Inv_Sort_%d_Name", SortIndex);
+		_snprintf(buffer, sizeof(buffer), "Inv_Sort%d_Name", SortIndex);
 		std::string sort_name = options->Get_String(buffer);
-		_snprintf(buffer, sizeof(buffer), "Inv_Sort_%d_primary", SortIndex);
+		_snprintf(buffer, sizeof(buffer), "Inv_Sort%d_primary", SortIndex);
 		int sort1 = options->Get_Int(buffer);
-		_snprintf(buffer, sizeof(buffer), "Inv_Sort_%d_secondary", SortIndex);
+		_snprintf(buffer, sizeof(buffer), "Inv_Sort%d_secondary", SortIndex);
 		int sort2 = options->Get_Int(buffer);
-		_snprintf(buffer, sizeof(buffer), "Inv_Sort_%d_tertiary", SortIndex);
+		_snprintf(buffer, sizeof(buffer), "Inv_Sort%d_tertiary", SortIndex);
 		int sort3 = options->Get_Int(buffer);
 		if (SortReverse) {
 			_snprintf(buffer, sizeof(buffer), "Reverse Sorting Vault by %s", sort_name.c_str());
@@ -277,7 +277,7 @@ void UIVaultClass::Unknown_657DA0(bool reverse)
 			_snprintf(buffer, sizeof(buffer), "Sorting Vault by %s", sort_name.c_str());
 		}
 		Client->As_Space_Client()->Unknown_74D990(0, buffer, 0);
-		((ClientClass *)Client)->Send_Packet(&InventorySortPacketClass(((ClientClass *)Client)->AvatarID, (InventoryEnum)3, sort1, sort2, sort3, SortReverse));
+		((ClientClass *)Client)->Send_Packet(&InventorySortPacketClass(((ClientClass *)Client)->Get_Avatar_ID(), (InventoryEnum)3, sort1, sort2, sort3, SortReverse));
 		if (reverse) {
 			BoolOptionStruct *option = options->Find_Bool("Inv_Sort_Vault_Reverse");
 			if (option) {

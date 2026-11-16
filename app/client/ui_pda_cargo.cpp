@@ -316,37 +316,43 @@ void UIPdaCargoClass::Unknown_5D0A50(bool all)
 	}
 }
 
-// NOT EXACT: functional from the pseudocode (D64)
+// the client's format strings 'Inv_Sort%d_Name' / _primary / _secondary / _tertiary (0xB83A7C, 0xB83A64, 0xB83A48, 0xB83A30)
 // 0x5D0D20
 void UIPdaCargoClass::Unknown_5D0D20(bool reverse)
 {
-	if (!OptionClass::Instance) return;
-	if (!reverse) {
-		SortIndex = (SortIndex + 1) % 3;
-	} else {
-		SortReverse = !SortReverse;
-	}
-	char buffer[0x40];
-	_snprintf(buffer, sizeof(buffer), "Inv_Sort_%d_Name", SortIndex);
-	std::string sort_name = OptionClass::Instance->Get_String(buffer);
-	_snprintf(buffer, sizeof(buffer), "Inv_Sort_%d_primary", SortIndex);
-	int sort1 = OptionClass::Instance->Get_Int(buffer);
-	_snprintf(buffer, sizeof(buffer), "Inv_Sort_%d_secondary", SortIndex);
-	int sort2 = OptionClass::Instance->Get_Int(buffer);
-	_snprintf(buffer, sizeof(buffer), "Inv_Sort_%d_tertiary", SortIndex);
-	int sort3 = OptionClass::Instance->Get_Int(buffer);
-	_snprintf(buffer, sizeof(buffer), SortReverse ? "Reverse Sorting Cargo by %s" : "Sorting Cargo by %s", sort_name.c_str());
-	Client->As_Space_Client()->Unknown_74D990(0, buffer, 0);
-	((ClientClass *)Client)->Send_Packet(&InventorySortPacketClass(((ClientClass *)Client)->AvatarID, (InventoryEnum)1, sort1, sort2, sort3, SortReverse));
-	if (!reverse) {
-		IntOptionStruct *option = OptionClass::Instance->Find_Int("Inv_Sort_Cargo");
-		if (option) {
-			option->Value = SortIndex;
+	OptionClass *options = OptionClass::Instance;
+	if (options) {
+		if (reverse) {
+			SortReverse = !SortReverse;
+		} else {
+			SortIndex = (SortIndex + 1) % 3;
 		}
-	} else {
-		BoolOptionStruct *option = OptionClass::Instance->Find_Bool("Inv_Sort_Cargo_Reverse");
-		if (option) {
-			option->Value = SortReverse;
+		char buffer[0x40];
+		_snprintf(buffer, sizeof(buffer), "Inv_Sort%d_Name", SortIndex);
+		std::string sort_name = options->Get_String(buffer);
+		_snprintf(buffer, sizeof(buffer), "Inv_Sort%d_primary", SortIndex);
+		int sort1 = options->Get_Int(buffer);
+		_snprintf(buffer, sizeof(buffer), "Inv_Sort%d_secondary", SortIndex);
+		int sort2 = options->Get_Int(buffer);
+		_snprintf(buffer, sizeof(buffer), "Inv_Sort%d_tertiary", SortIndex);
+		int sort3 = options->Get_Int(buffer);
+		if (SortReverse) {
+			_snprintf(buffer, sizeof(buffer), "Reverse Sorting Cargo by %s", sort_name.c_str());
+		} else {
+			_snprintf(buffer, sizeof(buffer), "Sorting Cargo by %s", sort_name.c_str());
+		}
+		Client->As_Space_Client()->Unknown_74D990(0, buffer, 0);
+		((ClientClass *)Client)->Send_Packet(&InventorySortPacketClass(((ClientClass *)Client)->Get_Avatar_ID(), (InventoryEnum)1, sort1, sort2, sort3, SortReverse));
+		if (reverse) {
+			BoolOptionStruct *option = options->Find_Bool("Inv_Sort_Cargo_Reverse");
+			if (option) {
+				option->Value = SortReverse;
+			}
+		} else {
+			IntOptionStruct *option = options->Find_Int("Inv_Sort_Cargo");
+			if (option) {
+				option->Value = SortIndex;
+			}
 		}
 	}
 }
@@ -354,7 +360,7 @@ void UIPdaCargoClass::Unknown_5D0D20(bool reverse)
 /*
 **	Reconstruction notes (PW1, 2026-11-09)
 **
-**	Every function here is functional from Ghidra's pseudocode (D64), none matched yet; the asserts' lines (118, 129,
+**	Every function here is functional from Ghidra's pseudocode (D64), none matched yet but 0x5D0D20 (BS3 2026-11-16: ui_vault.cpp 0x657DA0's form, the client's format strings); the asserts' lines (118, 129,
 **	167, 184, 185, 187) are not laid out. The constructor reads 'Inv_Sort_Cargo' through Get_Bool (0x414FB0, its result
 **	masked to a byte) though 0x5D0D20 keeps it as an index 0..2 and writes it back through Find_Int: the client's.
 **	The filter is the combo box's second constructor 0x5789E0 (ui_combobox.cpp, not rebuilt: the POC's stand-in) and
