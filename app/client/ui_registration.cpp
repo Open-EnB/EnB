@@ -3890,7 +3890,7 @@ void RegistrationInterface::Unknown_5F00C0()
 				Unknown_5FA0B0();
 				if (Unknown598.size() == 0) {
 					if (!Unknown1CD) {
-						UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "The code you entered was not valid. Please try again.", 0x140, 0, 0);
+						UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "The code you entered was not valid.  Please try again.", 0x140, 0, 0);
 						if ((UnknownD4 == 1 && Unknown11B) || (UnknownD4 == 0 && Unknown11D) || UnknownD4 == 0x17) {
 							Unknown_5F86F0();
 							return;
@@ -3939,7 +3939,7 @@ void RegistrationInterface::Unknown_5F00C0()
 				}
 				UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, buffer, 0x140, 0, 0);
 			} else {
-				UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "The code you entered was not valid. Please try again.", 0x140, 0, 0);
+				UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "The code you entered was not valid.  Please try again.", 0x140, 0, 0);
 			}
 			if ((UnknownD4 == 1 && Unknown11B) || (UnknownD4 == 0 && Unknown11D) || UnknownD4 == 0x17) {
 				Unknown_5F86F0();
@@ -3959,7 +3959,7 @@ void RegistrationInterface::Unknown_5F00C0()
 				}
 				return;
 			}
-			UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "The code you entered was not valid. Please try again.", 0x140, 0, 0);
+			UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "The code you entered was not valid.  Please try again.", 0x140, 0, 0);
 			if ((UnknownD4 == 1 && Unknown11B) || (UnknownD4 == 0 && Unknown11D) || UnknownD4 == 0x17) {
 				Unknown_5F86F0();
 				return;
@@ -3989,10 +3989,10 @@ void RegistrationInterface::Unknown_5F00C0()
 					}
 					UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, buffer, 0x140, 0, 0);
 				} else {
-					UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "The code you entered was not valid. Please try again.", 0x140, 0, 0);
+					UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "The code you entered was not valid.  Please try again.", 0x140, 0, 0);
 				}
 			} else {
-				UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "The code you entered was not valid. Please try again.", 0x140, 0, 0);
+				UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "The code you entered was not valid.  Please try again.", 0x140, 0, 0);
 			}
 			if ((UnknownD4 == 1 && Unknown11B) || (UnknownD4 == 0 && Unknown11D) || UnknownD4 == 0x17) {
 				Unknown_5F86F0();
@@ -4151,7 +4151,7 @@ void RegistrationInterface::Unknown_5F00C0()
 					break;
 				case 0x13E:
 					Unknown1D5 = false;
-					UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "A GameTime card can only be applied to a fully registered account. Please upgrade your demo account to the full version.", 0x140, 0, 0);
+					UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "A GameTime card can only be applied to a fully registered account.  Please upgrade your demo account to the full version.", 0x140, 0, 0);
 					if ((UnknownD4 == 1 && Unknown11B) || (UnknownD4 == 0 && Unknown11D) || UnknownD4 == 0x17) {
 						Unknown_5F2990(false);
 						Unknown_5F2A80(false, NULL);
@@ -4190,13 +4190,13 @@ void RegistrationInterface::Unknown_5F00C0()
 				case 0:
 					Unknown_5F3770(0x18);
 					Unknown119 = true;
-					UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "Your Member Names and Passwords have been sent. Earth & Beyond will now exit to allow you to check your E-Mail.", 0x140, 0, 0);
+					UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "Your Member Names and Passwords have been sent.  Earth & Beyond will now exit to allow you to check your E-Mail.", 0x140, 0, 0);
 					return;
 				case 0x6B:
-					UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "Sorry, you have tried too many times. Please try again later.", 0x140, 0, 0);
+					UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "Sorry, you have tried too many times.  Please try again later.", 0x140, 0, 0);
 					break;
 				case 0x6C:
-					UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "Sorry, no Member Names were found for the E-Mail address. Please double-check the E-Mail address you entered.", 0x140, 0, 0);
+					UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "Sorry, no Member Names were found for the E-Mail address.  Please double-check the E-Mail address you entered.", 0x140, 0, 0);
 					break;
 				default:
 					if (Unknown390.Unknown10 != -1) {
@@ -4225,10 +4225,10 @@ void RegistrationInterface::Unknown_5F00C0()
 					UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "Your Passwords have been sent.\nEarth & Beyond will now exit to allow you to check your E-Mail.", 0x140, 0, 0);
 					return;
 				case 0x67:
-					UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "Sorry, that Member Name was not found. Please double-check the Member Name you entered.", 0x140, 0, 0);
+					UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "Sorry, that Member Name was not found.  Please double-check the Member Name you entered.", 0x140, 0, 0);
 					break;
 				case 0x6A:
-					UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "Sorry, you have tried too many times. Please try again later.", 0x140, 0, 0);
+					UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "Sorry, you have tried too many times.  Please try again later.", 0x140, 0, 0);
 					break;
 				case 0x6D:
 					if (Unknown390.Unknown10 != -1) {
@@ -4272,7 +4272,7 @@ void RegistrationInterface::Unknown_5F00C0()
 				}
 				UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, buffer, 0x140, 0, 0);
 			} else {
-				UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "An Internal Error has occured. Please try again.", 0x140, 0, 0);
+				UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "An Internal Error has occured.  Please try again.", 0x140, 0, 0);
 			}
 			if ((UnknownD4 == 1 && Unknown11B) || (UnknownD4 == 0 && Unknown11D) || UnknownD4 == 0x17) {
 				Unknown_5F2990(false);
@@ -4299,7 +4299,7 @@ void RegistrationInterface::Unknown_5F00C0()
 				Unknown_5F3770(0xB);
 				return;
 			}
-			UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "An Internal Error has occured. Please try again.", 0x140, 0, 0);
+			UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "An Internal Error has occured.  Please try again.", 0x140, 0, 0);
 			if ((UnknownD4 == 1 && Unknown11B) || (UnknownD4 == 0 && Unknown11D) || UnknownD4 == 0x17) {
 				Unknown_5F2990(false);
 				Unknown_5F2A80(false, NULL);

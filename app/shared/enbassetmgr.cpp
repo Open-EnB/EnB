@@ -575,7 +575,7 @@ void Unknown_48E9D0(RenderObjClass *robj)
 		if (mesh->Get_Num_Polys() > 30) {
 			MeshModelClass *model = mesh->Peek_Model();
 			if (!model->Has_Cull_Tree() && !model->Get_Flag(MeshGeometryClass::SKIN)) {
-				WWPROFILE("Generate Culling Tree");
+				WWPROFILE("Generate_Culling_Tree");
 				mesh->Generate_Culling_Tree();
 			}
 		}
