@@ -11,6 +11,8 @@ unwind funclet of an exact function of the object jumps to under its symbol (`fu
 SHORT_ORDER (D246 / CR1): camera_manager.obj's short getters (`fld [ecx+x]; ret`, too short to search), each the only
 own function between two exact own functions in object order, take the one client function between those two
 addresses that has their bytes and length (`short_order`).
+GAP_ORDER (D246 / CR1): the same alignment when the gap also holds tied own functions: starbase_defs.obj's
+String_To_Value overloads (byte-identical copies, D166's tie) between their exact neighbours (`gap_order`).
 """
 import os
 import sys
@@ -232,12 +234,21 @@ SHORT_ORDER = [
     ('camera_manager.obj', '?Get_Heading@CameraManagerClass@@QAEMXZ', '0x79B390'),
     ('camera_manager.obj', '?Get_Distance@CameraManagerClass@@QAEMXZ', '0x79B3D0'),
 ]
+GAP_ORDER = [
+    ('starbase_defs.obj', '?String_To_Value@@YA_NPBDPAW4StarbaseFacilityEnum@@@Z', '0x84A750'),
+    ('starbase_defs.obj', '?String_To_Value@@YA_NPBDPAW4StarbaseArtEnum@@@Z', '0x84A930'),
+]
 APP_REGION = (0x401000, 0x8C1B50)
 
 
 class ShortOrder(unittest.TestCase):
     def test_cases(self):
         _check(self, SHORT_ORDER, 'USE_SHORT_ORDER', 'short_order', off_status='short')
+
+
+class GapOrder(unittest.TestCase):
+    def test_cases(self):
+        _check(self, GAP_ORDER, 'USE_GAP_ORDER', 'gap_order', APP_REGION)
 
 
 if __name__ == '__main__':

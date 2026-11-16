@@ -126,7 +126,8 @@ an address symbols.json names with another function (a self name) is dropped (fu
 
 Then one short-order round (D246 / CR1, USE_SHORT_ORDER; `short_order`): a gap between two consecutive exact own
 functions of one object in object order whose own functions are all `short` is aligned one to one with the client
-functions between the two addresses (verified starts, D27) when the counts agree, the gap's bytes are only those
+functions between the two addresses (verified starts, D27) when the counts agree (USE_GAP_ORDER: the gap may
+also hold tied `multiple` own functions, `gap_order`), the gap's bytes are only those
 functions and their padding, and each fullmatches its counterpart, unclaimed and not contradicted by D80; `exact`
 with `order` and `short_order` set. Object order is the proof (D242), the bytes confirm it (D188's never by pattern
 alone holds: the pattern decides nothing on its own).
@@ -231,6 +232,9 @@ USE_FUNCLET_PLACED = True
 # length as its counterpart and fullmatching it, unclaimed and uncontradicted, the k-th takes the k-th
 # (`short_order`, its own round before the D188 short round)
 USE_SHORT_ORDER = True
+# D246 (CR1): the same gap alignment when some of the gap's own functions are tied (`multiple`) rather than short
+# (`gap_order`); each must still fullmatch the client function at its position, with its length
+USE_GAP_ORDER = True
 
 
 def generated(name):
@@ -863,10 +867,16 @@ def match_objects(img, paths, region=None, callers=False):
                 # D246 / CR1: short own functions placed by object order
                 got = short_order(img, results, text, start, claimed, known)
                 for (r, obj, sec, s, length), a in got:
+                    if r['status'] == 'multiple':
+                        r['tiebreak'] = True
+                        r['gap_order'] = True
+                        r.pop('count', None), r.pop('identical', None)
+                        done.add(id(r))
+                    else:
+                        r['short_order'] = True
                     r['status'] = 'exact'
                     r['addresses'] = [f'0x{a:06X}']
                     r['order'] = True
-                    r['short_order'] = True
                     claimed[a].add(r['symbol'])
                     learn(r, obj, sec, s, length, a)
                 shorts = [x for x in shorts if x[0]['status'] == 'short']
@@ -2055,7 +2065,8 @@ def short_order(img, results, text, base, claimed, known):
         for i, j in zip(exact, exact[1:]):
             members = [it for _, _, it in order[i + 1:j]]
             p, q = order[i][1], order[j][1]
-            if not members or q <= p or any(it[0]['status'] != 'short' or it[4] <= 0 for it in members):
+            kinds = ('short', 'multiple') if USE_GAP_ORDER else ('short',)
+            if not members or q <= p or any(it[0]['status'] not in kinds or it[4] <= 0 for it in members):
                 continue
             cands = starts[bisect.bisect_right(starts, p):bisect.bisect_left(starts, q)]
             if len(cands) != len(members) or not _padding(text, base, p + order[i][2][4], cands[0]):
