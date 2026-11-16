@@ -1,13 +1,12 @@
 {
- "ambiguous": [
-  "0x42AAE0",
-  "0x4333D0",
-  "0x436730"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "px_box_list.cpp, client 0x44D740-0x44E020 (its __FILE__; FAIL_IFs lines 41-111): PxBoxList (vtable 0xAE7A4C) and PxOwnerList (vtable 0xAE7A5C, PxWrapper's callback box): constructors, destructors, On_Enter / On_Exit (sorted insert / erase)",
  "expected": {},
  "in_tree": [
+  "0x44D5F0",
+  "0x44D620",
+  "0x44D660",
   "0x44D740",
   "0x44D780",
   "0x44D7B0",

@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x474080"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "the specials panel (no __FILE__, name assumed from 'ITEM_EXAMINATION_SPECIALS', interim D137; client 0x537AD0 up to the title panel): the constructor 0x537AD0, destructor 0x537F00 (deleting 0x537ED0), Add_Special 0x5380B0, Rebuild 0x538150 and Clear 0x5382B0, exact, with their template copies (IE2)",
  "expected": {},
@@ -17,6 +15,7 @@
   "0x4407B0",
   "0x45CC10",
   "0x517030",
+  "0x5181A0",
   "0x5181D0",
   "0x51D730",
   "0x52BF00",
@@ -62,6 +61,7 @@
   "0x4407B0",
   "0x45CC10",
   "0x517030",
+  "0x5181A0",
   "0x5181D0",
   "0x51D730",
   "0x52BF00",

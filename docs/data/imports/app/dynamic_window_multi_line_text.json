@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x474480"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "DynamicWindowMultiLineTextClass (D24 class-from-file), a dynamic window's wrapped text (table 0xAED784, 0x84 bytes), client 0x51AFA0-0x51C650 (__FILE__ 0xB76C68, FAIL_IF 'font_name.empty()' on the client's line 30, D25); NOT EXACT (D64): the destructor 0x51B3A0, Set_Flags 0x51B7C0, Set_Alignment 0x51B820, Split_Lines 0x51BFB0 (DW1)",
  "expected": {},
@@ -23,6 +21,7 @@
   "0x517030",
   "0x5188E0",
   "0x5194F0",
+  "0x5195A0",
   "0x5195E0",
   "0x5199F0",
   "0x51AFA0",
@@ -86,8 +85,10 @@
   "0x517030",
   "0x5188E0",
   "0x5194F0",
+  "0x5195A0",
   "0x5195E0",
   "0x5199F0",
+  "0x51C600",
   "0x51C630",
   "0x51C690"
  ],

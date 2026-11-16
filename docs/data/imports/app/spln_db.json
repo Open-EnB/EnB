@@ -1,7 +1,6 @@
 {
  "ambiguous": [
-  "0x457CA0",
-  "0x45C0E0"
+  "0x457CA0"
  ],
  "copy": "reconstructed",
  "description": "the spline database, client 0x485000-0x48A000 (39 asserts), functional from VIDTEST's loader 0x41CB20/0x41F620-0x420100 (NOT EXACT, D42; M2.4)",
@@ -10,6 +9,7 @@
   "0x42F250",
   "0x457FA0",
   "0x45CA00",
+  "0x45CA30",
   "0x4627A0",
   "0x4845F0",
   "0x4847D0",
@@ -103,6 +103,7 @@
   "0x42F250",
   "0x457FA0",
   "0x45CA00",
+  "0x45CA30",
   "0x4627A0",
   "0x4847D0",
   "0x4893D0",

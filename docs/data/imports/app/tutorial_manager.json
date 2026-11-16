@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B250"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "TutorialStepStruct / TutorialManagerClass, client 0x6AC280-0x6AD7B0 with the table's and list's instances after it: the reports on the client's lines 94 / 114 / 190 / 382 / 402 (D25); NOT EXACT: the constructor 0x6AC600, the destructor 0x6ACD10, Start_Step 0x6ACF50, Read_Completed_File 0x6AD4B0, Reload 0x6AD7B0",
  "expected": {},
@@ -11,6 +9,7 @@
   "0x42A940",
   "0x42A970",
   "0x42AB30",
+  "0x42B250",
   "0x42B320",
   "0x42C4E0",
   "0x42CD30",
@@ -74,6 +73,7 @@
   "0x42A940",
   "0x42A970",
   "0x42AB30",
+  "0x42B250",
   "0x42B320",
   "0x42C4E0",
   "0x42CD30",

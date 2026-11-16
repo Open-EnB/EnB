@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B250"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "KVTripleClass / KVTripleListClass, client 0x4B84C0-0x4B9BB0 with the index's instances to 0x4BAEB0: asserts on the client's lines 34-164 (D25); NOT EXACT: the copy constructor 0x4B8A20, the prefix constructor 0x4B8DC0, the destructor 0x4B9180",
  "expected": {},
@@ -11,6 +9,7 @@
   "0x42A940",
   "0x42A970",
   "0x42AB30",
+  "0x42B250",
   "0x42B320",
   "0x42C4E0",
   "0x42CD30",
@@ -69,6 +68,7 @@
   "0x42A940",
   "0x42A970",
   "0x42AB30",
+  "0x42B250",
   "0x42B320",
   "0x42C4E0",
   "0x42CD30",
@@ -78,6 +78,8 @@
   "0x4334D0",
   "0x441480",
   "0x4B7DE0",
+  "0x4B7E00",
+  "0x4B7E30",
   "0x4B9D60",
   "0x4BA560"
  ],

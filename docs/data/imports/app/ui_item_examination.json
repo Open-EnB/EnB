@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x474080"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "ui_item_examination.cpp (the client's __FILE__ 0xB786DC; asserts lines 82 / 90 / 178): the window's constructor 0x531660, destructor 0x5321C0 and slots 0x532460-0x532610, with the static 0x531630, its Create_NEW copies 0x532930-0x532AB0 and the adjustor thunks 0x532B70 / 0x532B80 / 0x532B90 (IE2)",
  "expected": {},
@@ -30,6 +28,7 @@
   "0x515730",
   "0x515750",
   "0x517030",
+  "0x5181A0",
   "0x5181D0",
   "0x51A6C0",
   "0x531630",
@@ -90,6 +89,7 @@
   "0x515730",
   "0x515750",
   "0x517030",
+  "0x5181A0",
   "0x5181D0",
   "0x51A6C0",
   "0x532150",

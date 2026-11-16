@@ -1,9 +1,6 @@
 {
  "ambiguous": [
   "0x42AAE0",
-  "0x42AC90",
-  "0x42AFF0",
-  "0x42B250",
   "0x4333D0",
   "0x436420",
   "0x436730"
@@ -12,6 +9,7 @@
  "description": "RECONSTRUCTED: app\\client\\inv_data.cpp, an inventory's slot data (InvDataClass): the client's __FILE__ 'e:\\build\\beta\\G\\app\\Client\\inv_data.cpp' (0xB8FDC4), asserts l.97 / l.143 (0x6889F0) and l.343 (0x689100); object 0x688410-0x6894FF; ID1 2026-11-10",
  "expected": {},
  "in_tree": [
+  "0x42B250",
   "0x42B320",
   "0x42F250",
   "0x45CC10",
@@ -20,8 +18,11 @@
   "0x57DC20",
   "0x5C1BA0",
   "0x653E40",
+  "0x6541F0",
+  "0x654490",
   "0x6544C0",
   "0x654590",
+  "0x654790",
   "0x688410",
   "0x688660",
   "0x688680",
@@ -51,6 +52,7 @@
  "merged": [],
  "name": "client/inv_data.cpp",
  "shared": [
+  "0x42B250",
   "0x42B320",
   "0x42F250",
   "0x45CC10",
@@ -59,8 +61,11 @@
   "0x57DC20",
   "0x5C1BA0",
   "0x653E40",
+  "0x6541F0",
+  "0x654490",
   "0x6544C0",
   "0x654590",
+  "0x654790",
   "0x688660",
   "0x688680",
   "0x689270",

@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x436420"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "RECONSTRUCTED: ui_inv.cpp (the client's __FILE__ at 0xB803B0, asserts l.306-969): UIInvClass, the inventory windows' base over ui_slot_data.cpp's slot window, from the constructor 0x59F3D0 on (UI1)",
  "expected": {},
@@ -14,6 +12,7 @@
   "0x42CD30",
   "0x42F250",
   "0x45CC10",
+  "0x48F3E0",
   "0x4A1930",
   "0x4A19A0",
   "0x4A19C0",
@@ -94,6 +93,7 @@
   "0x42CD30",
   "0x42F250",
   "0x45CC10",
+  "0x48F3E0",
   "0x4A1930",
   "0x4A19A0",
   "0x4A19C0",

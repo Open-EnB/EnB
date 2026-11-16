@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x497300"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "RECONSTRUCTED from client.exe: the private channel's password window 'cht04' (UIRadioEntryClass over ChatPanelUIBase), object 0x5E6290-0x5E74FF; file named by its FAIL_IF's __FILE__ (e:\\build\\beta\\G\\app\\Client\\ui_radio_entry.cpp, line 301)",
  "expected": {},
@@ -35,6 +33,7 @@
   "0x515750",
   "0x51C630",
   "0x5411F0",
+  "0x546510",
   "0x5623B0",
   "0x5623D0",
   "0x5623F0",
@@ -88,9 +87,11 @@
   "0x515750",
   "0x51C630",
   "0x5411F0",
+  "0x546510",
   "0x5623B0",
   "0x5623D0",
   "0x5623F0",
+  "0x5E7480",
   "0x5E74E0",
   "0x5E74F0"
  ],

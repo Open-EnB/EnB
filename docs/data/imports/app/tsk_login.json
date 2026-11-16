@@ -1,7 +1,6 @@
 {
  "ambiguous": [
-  "0x42B2F0",
-  "0x455FB0"
+  "0x42B2F0"
  ],
  "copy": "reconstructed",
  "description": "the login task, client 0x767240-0x76BC40 (kernel-map.md 6, step 9), partly: the slots, helpers and two packets' handlers; the asserts on the client's lines 263-1405 (D25); NOT EXACT: Run, Go_Next_Step, Go_Back_Step (register-only), the global connection 0x7698E0 (shape)",
@@ -39,6 +38,7 @@
   "0x560160",
   "0x5601D0",
   "0x5AEF50",
+  "0x603BB0",
   "0x618500",
   "0x6191F0",
   "0x767240",
@@ -127,6 +127,7 @@
   "0x560160",
   "0x5601D0",
   "0x5AEF50",
+  "0x603BB0",
   "0x618500",
   "0x6191F0",
   "0x767560",

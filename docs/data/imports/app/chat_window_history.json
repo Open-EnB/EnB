@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x474480"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "the client's __FILE__ 0xB8DBA8, the object 0x6812A0-0x6831CF (CH1)",
  "expected": {},
@@ -21,6 +19,7 @@
   "0x45CC30",
   "0x45E1B0",
   "0x4FABB0",
+  "0x680C50",
   "0x680C90",
   "0x6812C0",
   "0x681570",
@@ -70,6 +69,7 @@
   "0x45CC30",
   "0x45E1B0",
   "0x4FABB0",
+  "0x680C50",
   "0x680C90"
  ],
  "short_known": [

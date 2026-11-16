@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x497350"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "RECONSTRUCTED from client.exe 0x6D9360-0x6DA4D0: gauge3d.cpp's __FILE__ 0xB928A4 (G_ASSERT(0) lines 169, 189), Gauge3DClass's vtables 0xAFEF20 / 0xAFEF08 / 0xAFEF04",
  "expected": {},
@@ -89,6 +87,7 @@
   "0x48FF40",
   "0x497330",
   "0x51A4F0",
+  "0x51A650",
   "0x67E880",
   "0x67E8A0",
   "0x67E8D0",
@@ -205,6 +204,7 @@
   "0x48FF40",
   "0x497330",
   "0x51A4F0",
+  "0x51A650",
   "0x67E880",
   "0x67E8A0",
   "0x67E8D0",

@@ -1,6 +1,5 @@
 {
  "ambiguous": [
-  "0x42AFF0",
   "0x42B2F0"
  ],
  "copy": "reconstructed",
@@ -8,13 +7,15 @@
  "expected": {},
  "in_tree": [
   "0x42B320",
+  "0x4A6040",
   "0x4B0680",
   "0x4B08D0"
  ],
  "merged": [],
  "name": "shared/auxdata/delta_visitor.cpp",
  "shared": [
-  "0x42B320"
+  "0x42B320",
+  "0x4A6040"
  ],
  "short_known": [
   "0x42B320"

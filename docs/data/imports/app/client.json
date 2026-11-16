@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x45C0E0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "ClientClass, client 0x726100-0x728450 with the hash lists' instances: the asserts on the client's lines 165-443 (D25); NOT EXACT: the constructor 0x726100, Find_Object 0x727070, Remove_Object 0x727600, the DEBUG packet senders 0x728010 / 0x728240, 0x7283B0",
  "expected": {},
@@ -17,6 +15,7 @@
   "0x447C40",
   "0x457FA0",
   "0x45CA00",
+  "0x45CA30",
   "0x48A0E0",
   "0x48A120",
   "0x528F20",
@@ -122,6 +121,7 @@
   "0x447C40",
   "0x457FA0",
   "0x45CA00",
+  "0x45CA30",
   "0x48A0E0",
   "0x48A120",
   "0x528F20",

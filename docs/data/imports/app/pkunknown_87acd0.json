@@ -1,8 +1,5 @@
 {
- "ambiguous": [
-  "0x455FB0",
-  "0x47D640"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "packet classes (opcode 170) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
  "expected": {},
@@ -24,6 +21,7 @@
   "0x433700",
   "0x433A10",
   "0x47D440",
+  "0x47D640",
   "0x47E480",
   "0x47E4D0",
   "0x47EB50",
@@ -38,6 +36,7 @@
   "0x52B330",
   "0x52B350",
   "0x5953D0",
+  "0x603BB0",
   "0x87ACD0",
   "0x87AE50",
   "0x87AE80",
@@ -101,6 +100,7 @@
   "0x433700",
   "0x433A10",
   "0x47D440",
+  "0x47D640",
   "0x47E480",
   "0x47E4D0",
   "0x47EB50",
@@ -115,6 +115,7 @@
   "0x52B330",
   "0x52B350",
   "0x5953D0",
+  "0x603BB0",
   "0x87C210"
  ],
  "short_known": [

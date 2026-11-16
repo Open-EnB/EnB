@@ -1,9 +1,6 @@
 {
  "ambiguous": [
-  "0x42AAE0",
-  "0x42AFF0",
-  "0x4333D0",
-  "0x436730"
+  "0x42AFF0"
  ],
  "copy": "reconstructed",
  "description": "PROVISIONAL file name (D10): the music types' names and the navigation list (NavigationListClass, vtable 0xB08C60; WARP 155's), client 0x8462A0-0x846A3F (builder P4, 15 of 15 exact in appfile.py match)",
@@ -11,7 +8,10 @@
  "in_tree": [
   "0x42B320",
   "0x4A0810",
+  "0x4A0850",
   "0x4A0B70",
+  "0x4A0B90",
+  "0x4A0BD0",
   "0x8462A0",
   "0x8462F0",
   "0x846330",
@@ -35,7 +35,10 @@
  "shared": [
   "0x42B320",
   "0x4A0810",
-  "0x4A0B70"
+  "0x4A0850",
+  "0x4A0B70",
+  "0x4A0B90",
+  "0x4A0BD0"
  ],
  "short_known": [
   "0x42B320",

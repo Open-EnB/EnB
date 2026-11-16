@@ -110,6 +110,10 @@ gets one pushed round (D246 / CR4, USE_PUSHED_TIES) the same way: the one surviv
 absolute references under the function's own symbol reach (pushed_targets: an atexit destructor, an eh vector
 iterator's element dtor, a qsort / bsearch compare function); `exact` with `tiebreak` and `pushed_tie` set,
 never widening an object's range (~RefCountPtr<RenderObjClass> 0x4740B0, IndexClass's search_compfunc 0x9CCC50).
+Last, an own-call round (D246 / CR4, USE_CALL_TIES): the one survivor the object's own exact functions' relocated
+calls under the function's own symbol reach (obj_called; D166 without its every-caller-is-ours test: it credits
+the address, not a placement); `exact` with `tiebreak` and `call_tie` set, never widening an object's range It runs
+after D166 has nothing more (run before it, it took D166's credits, which widen ranges, and cost range pairs).
 
 A searched match counts only at a function start (D189(2)): an address the client's thunk table or a
 call / jump reaches, or one right after padding (int3 / nop) or after the end of another function (a
@@ -173,6 +177,12 @@ USE_PUSHED_CALLS = True
 # function's own symbol reach (pushed_targets: one client address only) is its address (`pushed_tie`: its own
 # round after the funclet round, before the short round; never widens an object's range)
 USE_PUSHED_TIES = True
+# D246 / CR4: what the pushed round leaves, the object's own exact functions' relocated calls (REL32) under the
+# function's own symbol break the tie when they reach one survivor (`call_tie`: its own round once D166's caller
+# tie-break resolves nothing more; never widens an object's range). Unlike D166 the address may have callers in other objects too:
+# it credits the address (the copy the object's calls reach), not a placement. Only the object's own calls count:
+# another object's calls reach its own copy (emote_data / sclient's deque<int>::_Freefront 0x7E7CD0 / 0x756710)
+USE_CALL_TIES = True
 
 
 def generated(name):
@@ -705,8 +715,9 @@ def match_objects(img, paths, region=None, callers=False):
     # copies the linker may take from another object); then back to D80
     # D174 (P-TK2-1(b)): the caller tie-break's credits feed D80, the self name and the range like any
     # exact function, and what those credit may let the caller tie-break resolve more: repeat both
+    call_round, call_credited = False, True     # D246 / CR4: the own-call round, after D166 (below)
     while True:
-        phase = 'd80'
+        phase = 'calltie' if call_round else 'd80'
         changed = True
         while changed:
             changed = False
@@ -719,7 +730,7 @@ def match_objects(img, paths, region=None, callers=False):
                 for r, obj, sec, s, length in results:
                     # D246 / C35: a funclet tie fixes the symbol's address, not which object's copy the linker kept
                     if r['status'] == 'exact' and obj.own(sec) and not r.get('funclet_tie') \
-                            and not r.get('pushed_tie'):
+                            and not r.get('pushed_tie') and not r.get('call_tie'):
                         a = int(r['addresses'][0], 16)
                         lo, hi = ranges.get(id(obj), (a, a))
                         ranges[id(obj)] = (min(lo, a), max(hi, a))
@@ -735,7 +746,7 @@ def match_objects(img, paths, region=None, callers=False):
                     grown = False
                     for r, obj, sec, s, length in results:
                         if r['status'] == 'exact' and not obj.own(sec) and id(obj) in ranges and not r.get('funclet_tie') \
-                                and not r.get('pushed_tie'):
+                                and not r.get('pushed_tie') and not r.get('call_tie'):
                             a = int(r['addresses'][0], 16)
                             wlo, whi = wide[id(obj)]
                             if wlo <= a <= whi:
@@ -851,6 +862,12 @@ def match_objects(img, paths, region=None, callers=False):
                         reach = funclet_called.get(r['symbol'], ())
                         if len(reach) == 1 and next(iter(reach)) in survivors:
                             proposals.append((item, next(iter(reach))))
+                elif phase == 'calltie':
+                    # D246 / CR4: one survivor the object's own exact functions call under this symbol
+                    if obj.symbol_class(r['symbol']) == 2 and not generated(r['symbol']):
+                        reach = obj_called.get((id(obj), r['symbol']), ())
+                        if len(reach) == 1 and next(iter(reach)) in survivors:
+                            proposals.append((item, next(iter(reach))))
                 elif phase == 'pushed':
                     # D246 / CR4: one address exact functions' absolute references reach under this symbol
                     if obj.symbol_class(r['symbol']) == 2 and not generated(r['symbol']):
@@ -920,6 +937,8 @@ def match_objects(img, paths, region=None, callers=False):
                     r['funclet_tie'] = True
                 if phase == 'pushed':
                     r['pushed_tie'] = True
+                if phase == 'calltie':
+                    r['call_tie'] = True
                 r.pop('count'), r.pop('identical')
                 claimed[a].add(r['symbol'])
                 learn(r, obj, sec, s, length, a)
@@ -935,6 +954,8 @@ def match_objects(img, paths, region=None, callers=False):
                 phase, changed = ('pushed' if USE_PUSHED_TIES else 'short'), True
             elif phase == 'pushed':
                 phase, changed = 'short', True          # nor the pushed references (D246 / CR4): one short round
+            elif phase == 'calltie':
+                pass                                    # the own-call round credited nothing (D246 / CR4)
             elif phase == 'selfname':
                 phase, changed = 'range', True          # neither D80 nor the self name: one range round
             elif phase == 'range':
@@ -942,10 +963,17 @@ def match_objects(img, paths, region=None, callers=False):
             elif phase == 'init':
                 phase, changed = 'xcu', True            # nor the initialiser: the CRT table round (D242), the
                                                         # object-order round (D242), then one short round (D188)
-        if not callers:
-            break
-        credited = caller_tiebreak(img, results, pending, claimed, text, start, thunk, known)
+        # D246 / CR4: the own-call round runs only when D166 resolves nothing more (D166's credits widen ranges,
+        # an own-call credit never does: run first, it took D166's credits and cost range pairs), and again only
+        # after a round of it that credited
+        if call_round:
+            call_credited = phase != 'calltie'
+        credited = caller_tiebreak(img, results, pending, claimed, text, start, thunk, known) if callers else []
+        call_round = False
         if not credited:
+            if USE_CALL_TIES and call_credited:
+                call_round, call_credited = True, False
+                continue
             break
         for item in credited:
             r, obj, sec, s, length, hits = item

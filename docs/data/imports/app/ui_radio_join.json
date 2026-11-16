@@ -1,8 +1,5 @@
 {
- "ambiguous": [
-  "0x497300",
-  "0x4982F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "ui_radio_join.cpp, provisional name (NAME 1, D137; no asserts, after its title 'Join Private Channel'): the private channel's join window 'cht03' UIRadioJoinClass (0x5EAB40-0x5EB7BF, closed by its adjustor thunks 0x5EB7A0 / 0x5EB7B0; before ui_refinery.cpp), CH1 2026-11-09",
  "expected": {},
@@ -38,9 +35,11 @@
   "0x515750",
   "0x51C630",
   "0x5411F0",
+  "0x546510",
   "0x5623B0",
   "0x5623D0",
   "0x5623F0",
+  "0x5E7480",
   "0x5EAB40",
   "0x5EAB90",
   "0x5EABC0",
@@ -89,9 +88,11 @@
   "0x515750",
   "0x51C630",
   "0x5411F0",
+  "0x546510",
   "0x5623B0",
   "0x5623D0",
   "0x5623F0",
+  "0x5E7480",
   "0x5EB7A0",
   "0x5EB7B0"
  ],

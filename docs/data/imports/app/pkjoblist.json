@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x455FB0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "opcode 147 written by hand (builder P5, 8 of 8 exact); opcode 148 written by hand (builder P4, 6 of 6 exact); packet classes (opcode 149, 150) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
  "expected": {},
@@ -21,6 +19,7 @@
   "0x52B330",
   "0x52B350",
   "0x5953D0",
+  "0x603BB0",
   "0x895F00",
   "0x895F50",
   "0x895F80",
@@ -73,6 +72,7 @@
   "0x52B330",
   "0x52B350",
   "0x5953D0",
+  "0x603BB0",
   "0x896CF0",
   "0x896F40"
  ],

@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B250"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "RECONSTRUCTED from client.exe 0x431E30-0x433CE0: an unconstructed music player (ambient.ini's SOUND_<n> tracks, [Music-NNN] Sector -> DefaultMusic, '-NOMUSIC'); no __FILE__ in the object, class and file names provisional",
  "expected": {},
@@ -11,6 +9,7 @@
   "0x42A940",
   "0x42A970",
   "0x42AB30",
+  "0x42B250",
   "0x42B320",
   "0x42CAB0",
   "0x42CD30",
@@ -55,6 +54,7 @@
   "0x42A940",
   "0x42A970",
   "0x42AB30",
+  "0x42B250",
   "0x42B320",
   "0x42CAB0",
   "0x42CD30",

@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x474080"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "RECONSTRUCTED: ClientClass's item templates (client.h's Unknown831340Class: constructor 0x831340, destructor 0x8316D0, the icon texture 0x831840), their lookup 0x8318B0 and the Mount transform parser 0x831950, client 0x831340-0x831A6F after circbuff.cpp; functional from pseudocode (NOT EXACT, D64); no __FILE__ in the window: PROVISIONAL file name (D137)",
  "expected": {},
@@ -16,6 +14,7 @@
   "0x42CD30",
   "0x42D120",
   "0x42F250",
+  "0x528EF0",
   "0x528F20",
   "0x831340",
   "0x8316D0",
@@ -37,6 +36,7 @@
   "0x42CD30",
   "0x42D120",
   "0x42F250",
+  "0x528EF0",
   "0x528F20"
  ],
  "short_known": [

@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x47D640"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "the chat packets' object, 0x8785B0-0x87A910 (no assert: the file name provisional, NAME 1): opcodes 51 CLIENT_CHAT, 163 CLIENT_CHAT_REQUEST and 165 CLIENT_CHAT_EVENT written by hand (builder P3), 18 of 18 exact in appfile.py match",
  "expected": {},
@@ -20,6 +18,7 @@
   "0x432C30",
   "0x432D50",
   "0x433700",
+  "0x47D640",
   "0x47E480",
   "0x47E4D0",
   "0x47EB50",
@@ -93,6 +92,7 @@
   "0x432C30",
   "0x432D50",
   "0x433700",
+  "0x47D640",
   "0x47E480",
   "0x47E4D0",
   "0x47EB50",

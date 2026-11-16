@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B250"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "ComboFileFactoryClass, client 0x4E4D10-0x4E5A00 with the table's and list's instances after it: the asserts on the client's lines 29 / 30 / 85 / 101 (D25); NOT EXACT: the destructor 0x4E5230, Get_File 0x4E57A0",
  "expected": {},
@@ -11,6 +9,7 @@
   "0x42A940",
   "0x42A970",
   "0x42AB30",
+  "0x42B250",
   "0x42B320",
   "0x42C4E0",
   "0x42CD30",
@@ -73,6 +72,7 @@
   "0x42A940",
   "0x42A970",
   "0x42AB30",
+  "0x42B250",
   "0x42B320",
   "0x42C4E0",
   "0x42CD30",

@@ -1,12 +1,12 @@
 {
  "ambiguous": [
-  "0x42B250",
   "0x42B2F0"
  ],
  "copy": "reconstructed",
  "description": "GadgetListManagerClass and its iterator (gadget_list_manager.h), client 0x6611B0-0x661E80 (__FILE__ 0xB8CB7C, asserts on the client's lines 55-269, D25): the group lists, the hash_map by interface (100 buckets), the first / last sort groups, the gadgets under the pointer; all exact (UI)",
  "expected": {},
  "in_tree": [
+  "0x42B250",
   "0x42B320",
   "0x42E170",
   "0x58B450",
@@ -59,6 +59,7 @@
  "merged": [],
  "name": "client/gadget_list_manager.cpp",
  "shared": [
+  "0x42B250",
   "0x42B320",
   "0x42E170",
   "0x58B450",

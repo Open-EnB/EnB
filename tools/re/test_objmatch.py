@@ -1,5 +1,5 @@
 """objmatch.py's funclet evidence for short functions (D246 / C21) and for tied non-short bodies (D246 / C35)
-and pushed-address evidence for short functions (D246 / CR3) and for tied non-short bodies (D246 / CR4;
+and pushed-address evidence for short functions (D246 / CR3) and for tied non-short bodies, with the object's own calls' evidence (D246 / CR4;
 python -m unittest tools/re/test_objmatch.py).
 
 The object is not tracked: build/app/obj/attrib_dir_collective.obj in the main tree (or OBJMATCH_OBJS), a
@@ -128,6 +128,35 @@ class PushedTies(unittest.TestCase):
                     res = {r['symbol']: r for r in objmatch.match_objects(img, [path])}
                 finally:
                     objmatch.USE_PUSHED_TIES = True
+                self.assertEqual(res[sym]['status'], 'multiple')
+
+
+CALL_TIES = [
+    # object, symbol, client address: a tied body the object's own exact functions call at one address (D246 / CR4)
+    ('control_keys_manager.obj',
+     '?reserve@?$vector@PAU?$_Hashtable_node@U?$pair@$$CBIPAUControlKeyDefStruct@@@std@@@std@@V?$_Bucket_allocator@PAU?$_Hashtable_node@U?$pair@$$CBIPAUControlKeyDefStruct@@@std@@@std@@@2@@std@@QAEXI@Z',
+     '0x71F2A0'),   # vector<_Hashtable_node *>::reserve, called by the object's hashtable
+]
+
+
+class CallTies(unittest.TestCase):
+    def test_ties(self):
+        img = objmatch.ClientImage(objmatch.DEFAULT_CLIENT)
+        for name, sym, addr in CALL_TIES:
+            path = os.path.join(OBJS, name)
+            with self.subTest(sym=sym):
+                if not os.path.exists(path):
+                    self.skipTest(f'{path} missing')
+                res = {r['symbol']: r for r in objmatch.match_objects(img, [path])}
+                self.assertEqual(res[sym]['status'], 'exact')
+                self.assertEqual(res[sym]['addresses'], [addr])
+                self.assertTrue(res[sym].get('call_tie'))
+                # the rule's switch: without it the copies stay tied
+                objmatch.USE_CALL_TIES = False
+                try:
+                    res = {r['symbol']: r for r in objmatch.match_objects(img, [path])}
+                finally:
+                    objmatch.USE_CALL_TIES = True
                 self.assertEqual(res[sym]['status'], 'multiple')
 
 

@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x497300"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "RECONSTRUCTED: the group finder's list window (UIGroupFindClass, class-from-file D24; tooltips 'UI_GROUPFIND'), client 0x598DF0-0x59ACBF by its __FILE__ asserts (l.347-413) and its object's guard 0x59AC70",
  "expected": {},
@@ -32,6 +30,7 @@
   "0x515750",
   "0x51C630",
   "0x5411F0",
+  "0x546510",
   "0x5623B0",
   "0x5623D0",
   "0x5623F0",
@@ -100,6 +99,7 @@
   "0x515750",
   "0x51C630",
   "0x5411F0",
+  "0x546510",
   "0x5623B0",
   "0x5623D0",
   "0x5623F0",

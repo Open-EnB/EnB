@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B250"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "SoundDefClass / SoundLibraryClass, client 0x43D3E0-0x43FE30 with the bridge's slots and the table's instances to 0x441A50: the asserts on the client's lines 198 / 212 / 292 / 669 / 838 (D25); NOT EXACT: the ini constructor 0x43D3E0, Play_2D_Sound 0x43ED30, Play_Dialog 0x43F2D0, Load 0x43FE30",
  "expected": {},
@@ -11,6 +9,7 @@
   "0x42A940",
   "0x42A970",
   "0x42AB30",
+  "0x42B250",
   "0x42B320",
   "0x42C4E0",
   "0x42CAB0",
@@ -85,6 +84,7 @@
   "0x42A940",
   "0x42A970",
   "0x42AB30",
+  "0x42B250",
   "0x42B320",
   "0x42C4E0",
   "0x42CAB0",

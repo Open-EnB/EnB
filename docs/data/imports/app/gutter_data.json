@@ -2,8 +2,7 @@
  "ambiguous": [
   "0x42B2F0",
   "0x46BE90",
-  "0x474080",
-  "0x497300"
+  "0x474080"
  ],
  "copy": "reconstructed",
  "description": "GutterDataClass (the client's typeid name), the gutter icon and its two labels (the client's __FILE__ 0xB9EC38, FAIL_IFs from line 76; 0x7B4F30-0x7B6A00) (GR2)",
@@ -18,6 +17,8 @@
   "0x42F250",
   "0x447C40",
   "0x46BE90",
+  "0x497300",
+  "0x51C600",
   "0x51C630",
   "0x79D130",
   "0x7B4F30",
@@ -47,6 +48,8 @@
   "0x42F250",
   "0x447C40",
   "0x46BE90",
+  "0x497300",
+  "0x51C600",
   "0x51C630",
   "0x79D130"
  ],

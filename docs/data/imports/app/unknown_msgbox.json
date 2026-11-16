@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x497300"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "the views' message box (sclient.h's ViewUnknown34Class, 0x1F8 bytes, table 0xAF1180; UIViewClass's Init 0x65A820 makes it), client 0x587570-0x589D20: dialogbox.ini's Header%d / Option%d / Key%d boxes, the 'HTML' box's browser, the queue of boxes shown while one is up (std::deque instances 0x587930, 0x589970-0x589C60). File PROVISIONAL (D137: no string; after the gadget run, before ui_dynamicwindow.cpp); NOT EXACT (D64) where marked (MSG)",
  "expected": {},
@@ -32,6 +30,7 @@
   "0x515730",
   "0x515750",
   "0x51C630",
+  "0x546510",
   "0x587570",
   "0x5875C0",
   "0x587900",
@@ -89,6 +88,7 @@
   "0x515730",
   "0x515750",
   "0x51C630",
+  "0x546510",
   "0x589D10",
   "0x589D20"
  ],

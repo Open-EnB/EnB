@@ -1,7 +1,6 @@
 {
  "ambiguous": [
-  "0x474080",
-  "0x47D640"
+  "0x474080"
  ],
  "copy": "reconstructed",
  "description": "UILogClass, the log book window (no __FILE__; file name provisional, D137: the tooltip section 'UI_LOG'; client 0x5AAE40-0x5ACB7F, after ui_line_display.cpp's tables 0x5AAE30, before ui_login.cpp's constructor 0x5ACB80; its <string> initialiser 0x5ACB30 and the deleting destructor's adjustor entries 0x5ACB60 / 0x5ACB70 close the object; table 0xAF2A74; TM1)",
@@ -28,6 +27,7 @@
   "0x45CC10",
   "0x4740B0",
   "0x47D440",
+  "0x47D640",
   "0x47E480",
   "0x47E4D0",
   "0x4A1930",
@@ -91,6 +91,7 @@
   "0x45CC10",
   "0x4740B0",
   "0x47D440",
+  "0x47D640",
   "0x47E480",
   "0x47E4D0",
   "0x4A1930",

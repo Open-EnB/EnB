@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B250"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "fontdatabase.cpp, client 0x6BDA40-0x6C9E30 with the tables' instances: the asserts on the client's lines 881-1308 (D25); NOT EXACT: Reset 0x6BE0E0, Load_String 0x6C0430, 0x6C1500, Parse_Directions 0x6C2890, Split_Four 0x6C2A10, Remove_String 0x6C3030, Set_Font 0x6C38F0, Load_Font 0x6C5C60; declared only: FontStringFilesClass's destructor 0x6C4F50 and Load 0x6C52B0",
  "expected": {},
@@ -12,6 +10,7 @@
   "0x42A940",
   "0x42A970",
   "0x42AB30",
+  "0x42B250",
   "0x42B320",
   "0x42C4E0",
   "0x42CAB0",
@@ -175,6 +174,7 @@
   "0x42A940",
   "0x42A970",
   "0x42AB30",
+  "0x42B250",
   "0x42B320",
   "0x42C4E0",
   "0x42CAB0",
@@ -199,10 +199,14 @@
   "0x67F660",
   "0x6BF1B0",
   "0x6BF1D0",
+  "0x6C60E0",
+  "0x6C6B50",
   "0x6C75F0",
   "0x6C7980",
+  "0x6C7CE0",
   "0x6C7D10",
-  "0x6C7D60"
+  "0x6C7D60",
+  "0x6C8080"
  ],
  "short_known": [
   "0x42B320",

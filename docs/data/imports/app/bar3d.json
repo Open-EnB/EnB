@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x497350"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "RECONSTRUCTED from client.exe: bar3d.cpp's Bar3DClass (__FILE__ 0xB92054, operator='s assert on line 198), 0x6B7DE0-0x6B8F20",
  "expected": {},
@@ -89,6 +87,7 @@
   "0x48FF40",
   "0x497330",
   "0x51A4F0",
+  "0x51A650",
   "0x67E880",
   "0x67E8A0",
   "0x67E8D0",
@@ -204,6 +203,7 @@
   "0x48FF40",
   "0x497330",
   "0x51A4F0",
+  "0x51A650",
   "0x67E880",
   "0x67E8A0",
   "0x67E8D0",

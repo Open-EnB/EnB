@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x497300"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "RECONSTRUCTED: the slash commands window (0x57BAD0-0x57D540: vtables 0xAF0B9C / 0xAF0B90 / 0xAF0B84, model 'tsi29a', tooltips 'UI_COMMANDS', list 'slash_commands.ini'); provisional file name (NAME 1, D137) by object order between ui_combobox.cpp and ui_cpit.cpp",
  "expected": {},
@@ -40,6 +38,7 @@
   "0x515730",
   "0x515750",
   "0x51C630",
+  "0x546510",
   "0x553A80",
   "0x5623B0",
   "0x5623D0",
@@ -107,6 +106,7 @@
   "0x515730",
   "0x515750",
   "0x51C630",
+  "0x546510",
   "0x553A80",
   "0x5623B0",
   "0x5623D0",

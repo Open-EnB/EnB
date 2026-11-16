@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x497300"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "RECONSTRUCTED from client.exe 0x58EB50-0x58F08F (__FILE__ 0xB7F1F8 e:\\build\\beta\\G\\app\\Client\\ui_faction_panel.cpp; G_ASSERT 'WrapGroup' line 81): UIFactionPanelClass, the faction tab's description panel on Unknown5BB320Class (table 0xAF1988)",
  "expected": {},
@@ -11,6 +9,7 @@
   "0x42F250",
   "0x45CC10",
   "0x4740B0",
+  "0x497300",
   "0x4A1930",
   "0x4A19A0",
   "0x4A19C0",
@@ -47,6 +46,7 @@
   "0x42F250",
   "0x45CC10",
   "0x4740B0",
+  "0x497300",
   "0x4A1930",
   "0x4A19A0",
   "0x4A19C0",

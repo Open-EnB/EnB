@@ -1,8 +1,6 @@
 {
  "ambiguous": [
-  "0x474080",
-  "0x497300",
-  "0x4982F0"
+  "0x474080"
  ],
  "copy": "reconstructed",
  "description": "RECONSTRUCTED from client.exe: UISkillInfoClass, a skill's information window (ui_skill_info.cpp's __FILE__ 0xB8A3B8 and its FAIL_IF lines 81-243), object 0x62B930-0x62D19F",
@@ -13,6 +11,7 @@
   "0x45CC10",
   "0x46BE90",
   "0x4740B0",
+  "0x497300",
   "0x4A1930",
   "0x4A19A0",
   "0x4A19C0",
@@ -31,8 +30,10 @@
   "0x515730",
   "0x515750",
   "0x517030",
+  "0x51E950",
   "0x532150",
   "0x5411F0",
+  "0x56F040",
   "0x56F070",
   "0x62B930",
   "0x62BA20",
@@ -68,6 +69,7 @@
   "0x45CC10",
   "0x46BE90",
   "0x4740B0",
+  "0x497300",
   "0x4A1930",
   "0x4A19A0",
   "0x4A19C0",
@@ -86,8 +88,10 @@
   "0x515730",
   "0x515750",
   "0x517030",
+  "0x51E950",
   "0x532150",
   "0x5411F0",
+  "0x56F040",
   "0x56F070",
   "0x62BA20",
   "0x62CE80",

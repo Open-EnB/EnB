@@ -1,8 +1,7 @@
 {
  "ambiguous": [
   "0x474080",
-  "0x483600",
-  "0x497350"
+  "0x483600"
  ],
  "copy": "reconstructed",
  "description": "galaxy_map_robj.cpp (the client's __FILE__ 0xB9EB80), client 0x7B2B30-0x7B46EA: FAIL_IFs at lines 65, 256, 369, 370, 377; the system marker's constructor 0x7B2B30 follows galaxy_map_render.cpp's late templates; the object's <string> initialiser 0x7B4640, the tables' adjustor thunks 0x7B4670-0x7B46A0 and PermStringInit's initialiser 0x7B46B0 end it before gd_starmap.cpp 0x7B4700 (GM4)",
@@ -101,6 +100,7 @@
   "0x497330",
   "0x498BC0",
   "0x51A4F0",
+  "0x51A650",
   "0x51C630",
   "0x67E880",
   "0x67E8A0",
@@ -236,6 +236,7 @@
   "0x497330",
   "0x498BC0",
   "0x51A4F0",
+  "0x51A650",
   "0x51C630",
   "0x67E880",
   "0x67E8A0",

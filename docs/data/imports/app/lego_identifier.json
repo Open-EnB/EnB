@@ -1,8 +1,5 @@
 {
- "ambiguous": [
-  "0x455FB0",
-  "0x47D640"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "lego_identifier.cpp (the client's __FILE__): the lego types' lookups and LegoIdentifierClass (vtable 0xB08C5C, a bone path), client 0x8436D0-0x8451A0 but 0x844ED0 (builder P4: 10 of 17 exact, 8 NOT EXACT)",
  "expected": {},
@@ -24,12 +21,14 @@
   "0x433A10",
   "0x441480",
   "0x47D440",
+  "0x47D640",
   "0x47E480",
   "0x47E4D0",
   "0x4B5740",
   "0x4B5E40",
   "0x4B5E60",
   "0x4D22B0",
+  "0x4E4AA0",
   "0x73F950",
   "0x8436D0",
   "0x843810",
@@ -72,12 +71,14 @@
   "0x433A10",
   "0x441480",
   "0x47D440",
+  "0x47D640",
   "0x47E480",
   "0x47E4D0",
   "0x4B5740",
   "0x4B5E40",
   "0x4B5E60",
   "0x4D22B0",
+  "0x4E4AA0",
   "0x73F950"
  ],
  "short_known": [

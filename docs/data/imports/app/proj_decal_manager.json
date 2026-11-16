@@ -1,7 +1,6 @@
 {
  "ambiguous": [
-  "0x474080",
-  "0x474480"
+  "0x474080"
  ],
  "copy": "reconstructed",
  "description": "ProjDecalManagerClass (NAME 3 by convention from proj_decal_manager.cpp; 0x10 bytes: ProjectedDecalAssetTable vector of 0x0C-byte Unknown758F40Class), client 0x763050-0x763DFF (__FILE__ 0xB9B458, asserts on lines 41, 42, 54, 56): Load 0x763050 ('proj_dec.ini'), Unknown_7633E0 0x7633E0, Create_Get<MaterialPassClass> 0x763850 and std::vector/Construct helpers 0x763820..0x763DC0 all byte-exact",
@@ -10,9 +9,11 @@
   "0x42F250",
   "0x46BE90",
   "0x46BEC0",
+  "0x604ED0",
   "0x6ECBA0",
   "0x6ECBD0",
   "0x758F40",
+  "0x75CFA0",
   "0x763050",
   "0x7633E0",
   "0x763820",
@@ -29,9 +30,11 @@
   "0x42F250",
   "0x46BE90",
   "0x46BEC0",
+  "0x604ED0",
   "0x6ECBA0",
   "0x6ECBD0",
-  "0x758F40"
+  "0x758F40",
+  "0x75CFA0"
  ],
  "short_known": [
   "0x6ECBD0"

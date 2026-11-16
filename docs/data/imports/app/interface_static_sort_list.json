@@ -1,11 +1,10 @@
 {
- "ambiguous": [
-  "0x42B250"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "InterfaceStaticSortListClass, InterfaceRenderClass and PIPSceneStruct (interface_static_sort_list.h), client 0x6DB010-0x6DCE80 (__FILE__ 0xB929C8, asserts on the client's lines 206-807, D25): the interface scene's static sort list (one DefaultStaticSortListClass per interface, the render objects by interface, the picture-in-picture scenes); NOT EXACT (D64) where marked (SORT1, UI)",
  "expected": {},
  "in_tree": [
+  "0x42B250",
   "0x42B320",
   "0x42E170",
   "0x42F250",
@@ -89,6 +88,7 @@
  "merged": [],
  "name": "client/interface_static_sort_list.cpp",
  "shared": [
+  "0x42B250",
   "0x42B320",
   "0x42E170",
   "0x42F250",
@@ -103,6 +103,7 @@
   "0x6DADE0",
   "0x6DAEB0",
   "0x6DAF80",
+  "0x6DCE20",
   "0x6DCE80",
   "0x6DCED0",
   "0x6DCF10",
@@ -112,7 +113,13 @@
   "0x6DDC30",
   "0x6DDF40",
   "0x6DDF60",
+  "0x6DE400",
+  "0x6DE6D0",
+  "0x6DE9A0",
   "0x6DF130",
+  "0x6DF160",
+  "0x6DF190",
+  "0x6DF1C0",
   "0x6DF880"
  ],
  "short_known": [
