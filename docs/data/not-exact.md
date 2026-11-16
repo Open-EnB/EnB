@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-866 entries in 297 files.
+860 entries in 296 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -586,7 +586,7 @@ edit the comments in the code, not this file.
 | `app/client/ui_starbase.cpp:1740` | `UIStarbaseClass::Unknown_6390A0` | marker | NOT EXACT: 0x6390A0, functional (inline budget: the client destroys the two name strings through _Tidy(true) out of line, ours inlines it; O4) 0x6390A0 (0x638390's frame: the arrival walk to a 'Spawn%02d' bone, then the facility's or NPC's interface once the camera has arrived, the departure once the leaving animation ends) |
 | `app/client/ui_starbase.cpp:1872` | `UIStarbaseClass::Unknown_639630` | marker | NOT EXACT: 0x639630, functional (shape: the client inlines the table's begin() in the second loop, ours calls 0x643DF0; frame 0x28 against 0x38; O4) 0x639630 (0x638390's frame: the doors', exit's, terminals', NPCs' and avatars' gadgets lit and their tooltips and cursors while the own avatar stands within reach of them; all unlit while it cannot act) |
 | `app/client/ui_starbase.cpp:1999` | `UIStarbaseClass::Unknown_63A100` | marker | NOT EXACT: 0x63A100, functional (the busy flag in memory and the Q key in bl in the client, swapped here; branch order otherwise as the client's; SB1) 0x63A100 |
-| `app/client/ui_starbase.cpp:2284` | `UIStarbaseClass::Unknown_63AC60` | marker | NOT EXACT: 0x63AC60, functional (frame 0x28 / 0x2C; the client calls the own guild string's assign out of line and inlines the others'; O4) 0x63AC60 (0x638390's frame: the name tags shown or hidden, their guild texts and colours kept up to date) |
+| `app/client/ui_starbase.cpp:2284` | `UIStarbaseClass::Unknown_63AC60` | marker | NOT EXACT: 0x63AC60, functional (register: our zero register in ebx is set at the top, the client's inside the loop; ++it gives the client's frame 0x2C) 0x63AC60 (0x638390's frame: the name tags shown or hidden, their guild texts and colours kept up to date) |
 | `app/client/ui_starbase.cpp:2500` | `UIStarbaseClass::Unknown_63B630` | marker | NOT EXACT: 0x63B630, functional (register: the black market booth's RefCountPtr temporary's address taken in ecx after the model's load in the client, in edx before it here, as 0x638DA0; O4) 0x63B630 (0x638500's keys: 2 an NPC slot, 0x11 a terminal, 100 a symbol chat option; the camera turned to it) |
 | `app/client/ui_starbase.cpp:2760` | `UIStarbaseClass::Unknown_63CA50` | marker | NOT EXACT: 0x63CA50, functional (inline budget: the client calls the name string's assign out of line, ours inlines it; its client pointer in edi, the bool by a branch; O4) 0x63CA50 ('(%s) Adding avatar %s in room %d': a known avatar's entry made, its name tags and gadget, into +0xD4) |
 | `app/client/ui_starbase.cpp:2962` | `UIStarbaseClass::Unknown_63DFE0` | marker | NOT EXACT: 0x63DFE0, functional (frame: 0x50 against the client's 0x54, its three early-out blocks kept in place with their own epilogues where ours merges two at the end; O4) 0x63DFE0 (0x638390's frame: the symbol chat menu's chosen option for the avatar UnknownC0.C: 2 a chat to it, 3 a trade (ACTION 20), 4 ACTION 10) |
@@ -647,11 +647,6 @@ edit the comments in the code, not this file.
 | `app/client/unknown_personality.cpp:12` | `Unknown_78F700Class::~Unknown_78F700Class` | marker | NOT EXACT: functional for POC (D64), frame (the client's has an EH frame: a member or base with a destructor not known yet) |
 | `app/client/unknown_personality.cpp:77` | `Unknown_78F700Class::Load` | marker | NOT EXACT: functional for POC (D64), inline-budget (ours inlines 0x7901C0 differently) |
 | `app/client/unknown_personality.cpp:173` | `Unknown_790260Class::Unknown_790360` | marker | NOT EXACT: functional for POC (D64), field-offset (the client inlines the delete of a failed load: the destructor) |
-| `app/client/unknown_personality_manager.cpp:14` | `Unknown_790560Class::Unknown_790560Class` | marker | NOT EXACT: functional for POC (D64), shape (push_back's inlined insert, a merged or split tail) |
-| `app/client/unknown_personality_manager.cpp:49` | `Unknown_790560Class::Unknown_790960` | marker | NOT EXACT: functional for POC (D64), inline-budget (push_back's inlined insert) |
-| `app/client/unknown_personality_manager.cpp:87` | `Unknown_790560Class::Unknown_790D40` | marker | NOT EXACT: functional for POC (D64), shape (5 rows: the null test's return layout) |
-| `app/client/unknown_personality_manager.cpp:97` | `Unknown_790560Class::Unknown_790D90` | marker | NOT EXACT: functional for POC (D64), shape (5 rows: the null test's return layout) |
-| `app/client/unknown_personality_manager.cpp:116` | `Unknown_790560Class::Unknown_790E20` | marker | NOT EXACT: functional for POC (D64), shape (5 rows: the null test's return layout) |
 | `app/client/unknown_phoneme.cpp:66` | `Unknown_791310Class::Unknown_791310Class` | marker | NOT EXACT: functional for POC (D64), shape (the index loop) |
 | `app/client/unknown_phoneme.cpp:83` | `Unknown_791310Class::Unknown_791400` | marker | NOT EXACT: functional for POC (D64), literal (the shapes' initial stores in another order) |
 | `app/client/unknown_phoneme.cpp:185` | `Unknown_791310Class::Unknown_7917B0` | marker | NOT EXACT: functional for POC (D64), shape (the index entry's loads) |
@@ -731,7 +726,6 @@ edit the comments in the code, not this file.
 | `app/shared/boolpars.cpp:488` | `BoolParserClass::Parse_Params` | marker | NOT EXACT: shape, the loop's failure returns jump to the second 'return 0' tail in the client, the first in ours |
 | `app/shared/boolpars.cpp:655` | `BoolParserClass::Get_Callback` | mention | NOT EXACT: Parse 0x49A430 (inline budget) and Parse_Params 0x49AE30 (shape). |
 | `app/shared/chat_edit_stream.cpp:8` | `Unknown_ChatStreamClass::Unknown_ChatStreamClass` | marker | NOT EXACT: call form (the client calls 0x4C44A0 through its vtable slot, call [0xAEBAB8]; this compiles to a direct call) |
-| `app/shared/chat_filter.cpp:68` | `ChatWordFilterClass::Filter` | marker | NOT EXACT: frame (the client keeps one more dword local: a dead store of find's pos, the word iterator held twice; attempts.py show 0x4E1300) |
 | `app/shared/chat_filter.cpp:189` | `ChatTreeFilterClass::ChatTreeFilterClass` | marker | NOT EXACT: inline budget (the client inlines the first node whole and calls the second's _Tree constructor 0x4E2B20 and an insert 0x4E2D60 out of line; Root->Get_Child(' ', false, true) scores 0.85; attempts.py show 0x4E2040) |
 | `app/shared/chat_filter.cpp:272` | `ChatTreeFilterClass::Remove_Word` | marker | NOT EXACT: inline budget (the client calls map::find 0x4E2F90 out of line inside the inlined Find_Child, as Get_Child does; attempts.py show 0x4E2910) |
 | `app/shared/combo_ffactory.cpp:50` | `ComboFileFactoryClass::~ComboFileFactoryClass` | marker | NOT EXACT: shape (explain.py), the client calls the table's _M_delete_node 0x4E6D00 out of line in MixMap.clear() and keeps this in ebx; ours inlines it |
