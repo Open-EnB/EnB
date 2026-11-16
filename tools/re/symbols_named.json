@@ -2803,5 +2803,150 @@
   "symbol": "??1?$DeltaTemplateClass@UUnknownB016DCType@@@@UAE@XZ",
   "evidence": "its one caller is the deleting destructor 0x706730, which the client's vtable 0xB016DC holds at +0x04 (TY, run 2026-11-15)",
   "replaces": "??1?$DeltaTemplateClass@UUnknownB00A00Type@@@@UAE@XZ"
+ },
+ {
+  "address": "0x8D4D40",
+  "symbol": "?Chunk_ID@?$SimplePersistFactoryClass@VLinearCurve3DClass@@$0IABAA@@@@UBEKXZ",
+  "evidence": "slot 1 of the SimplePersistFactoryClass<LinearCurve3DClass> vtable, the slot right before its Load (0x8D5410, named by objmatch); the tree's objects name it Chunk_ID and a 6-byte `mov eax, id; ret` is its body (libraries.md 3 item 9, LIB 2026-11-15b)"
+ },
+ {
+  "address": "0x8D4D50",
+  "symbol": "?Chunk_ID@?$SimplePersistFactoryClass@VLinearCurve1DClass@@$0IAAAA@@@@UBEKXZ",
+  "evidence": "slot 1 of the SimplePersistFactoryClass<LinearCurve1DClass> vtable, the slot right before its Load (0x8D5500, named by objmatch); the tree's objects name it Chunk_ID and a 6-byte `mov eax, id; ret` is its body (libraries.md 3 item 9, LIB 2026-11-15b)"
+ },
+ {
+  "address": "0x8D5D30",
+  "symbol": "?Chunk_ID@?$SimplePersistFactoryClass@VCatmullRomSpline3DClass@@$0IABAC@@@@UBEKXZ",
+  "evidence": "slot 1 of the SimplePersistFactoryClass<CatmullRomSpline3DClass> vtable, the slot right before its Load (0x8D5D50, named by objmatch); the tree's objects name it Chunk_ID and a 6-byte `mov eax, id; ret` is its body (libraries.md 3 item 9, LIB 2026-11-15b)"
+ },
+ {
+  "address": "0x8D5D40",
+  "symbol": "?Chunk_ID@?$SimplePersistFactoryClass@VCatmullRomSpline1DClass@@$0IAAAC@@@@UBEKXZ",
+  "evidence": "slot 1 of the SimplePersistFactoryClass<CatmullRomSpline1DClass> vtable, the slot right before its Load (0x8D5E40, named by objmatch); the tree's objects name it Chunk_ID and a 6-byte `mov eax, id; ret` is its body (libraries.md 3 item 9, LIB 2026-11-15b)"
+ },
+ {
+  "address": "0x8D6C20",
+  "symbol": "?Chunk_ID@?$SimplePersistFactoryClass@VHermiteSpline3DClass@@$0IABAB@@@@UBEKXZ",
+  "evidence": "slot 1 of the SimplePersistFactoryClass<HermiteSpline3DClass> vtable, the slot right before its Load (0x8D6C40, named by objmatch); the tree's objects name it Chunk_ID and a 6-byte `mov eax, id; ret` is its body (libraries.md 3 item 9, LIB 2026-11-15b)"
+ },
+ {
+  "address": "0x8D6C30",
+  "symbol": "?Chunk_ID@?$SimplePersistFactoryClass@VHermiteSpline1DClass@@$0IAAAB@@@@UBEKXZ",
+  "evidence": "slot 1 of the SimplePersistFactoryClass<HermiteSpline1DClass> vtable, the slot right before its Load (0x8D6D30, named by objmatch); the tree's objects name it Chunk_ID and a 6-byte `mov eax, id; ret` is its body (libraries.md 3 item 9, LIB 2026-11-15b)"
+ },
+ {
+  "address": "0x8E0350",
+  "symbol": "?Chunk_ID@?$SimplePersistFactoryClass@VTCBSpline3DClass@@$0IABAE@@@@UBEKXZ",
+  "evidence": "slot 1 of the SimplePersistFactoryClass<TCBSpline3DClass> vtable, the slot right before its Load (0x8E0360, named by objmatch); the tree's objects name it Chunk_ID and a 6-byte `mov eax, id; ret` is its body (libraries.md 3 item 9, LIB 2026-11-15b)"
+ },
+ {
+  "address": "0x8E1340",
+  "symbol": "?Chunk_ID@?$SimplePersistFactoryClass@VCardinalSpline3DClass@@$0IABAD@@@@UBEKXZ",
+  "evidence": "slot 1 of the SimplePersistFactoryClass<CardinalSpline3DClass> vtable, the slot right before its Load (0x8E1360, named by objmatch); the tree's objects name it Chunk_ID and a 6-byte `mov eax, id; ret` is its body (libraries.md 3 item 9, LIB 2026-11-15b)"
+ },
+ {
+  "address": "0x8E1350",
+  "symbol": "?Chunk_ID@?$SimplePersistFactoryClass@VCardinalSpline1DClass@@$0IAAAD@@@@UBEKXZ",
+  "evidence": "slot 1 of the SimplePersistFactoryClass<CardinalSpline1DClass> vtable, the slot right before its Load (0x8E1470, named by objmatch); the tree's objects name it Chunk_ID and a 6-byte `mov eax, id; ret` is its body (libraries.md 3 item 9, LIB 2026-11-15b)"
+ },
+ {
+  "address": "0x9F9210",
+  "symbol": "?Chunk_ID@?$SimplePersistFactoryClass@VSound3DClass@@$0DAAAD@@@@UBEKXZ",
+  "evidence": "slot 1 of the SimplePersistFactoryClass<Sound3DClass> vtable, the slot right before its Load (0x9F9220, named by objmatch); the tree's objects name it Chunk_ID and a 6-byte `mov eax, id; ret` is its body (libraries.md 3 item 9, LIB 2026-11-15b)"
+ },
+ {
+  "address": "0x9FF670",
+  "symbol": "?Chunk_ID@?$SimplePersistFactoryClass@VAudibleSoundDefinitionClass@@$0DAAAA@@@@UBEKXZ",
+  "evidence": "slot 1 of the SimplePersistFactoryClass<AudibleSoundDefinitionClass> vtable, the slot right before its Load (0x9FF6F0, named by objmatch); the tree's objects name it Chunk_ID and a 6-byte `mov eax, id; ret` is its body (libraries.md 3 item 9, LIB 2026-11-15b)"
+ },
+ {
+  "address": "0x9FF680",
+  "symbol": "?Chunk_ID@?$SimplePersistFactoryClass@VAudibleSoundClass@@$0DAAAB@@@@UBEKXZ",
+  "evidence": "slot 1 of the SimplePersistFactoryClass<AudibleSoundClass> vtable, the slot right before its Load (0x9FF7C0, named by objmatch); the tree's objects name it Chunk_ID and a 6-byte `mov eax, id; ret` is its body (libraries.md 3 item 9, LIB 2026-11-15b)"
+ },
+ {
+  "address": "0x9FFFB0",
+  "symbol": "?Chunk_ID@?$SimplePersistFactoryClass@VSoundPseudo3DClass@@$0DAAAE@@@@UBEKXZ",
+  "evidence": "slot 1 of the SimplePersistFactoryClass<SoundPseudo3DClass> vtable, the slot right before its Load (0x9FFFC0, named by objmatch); the tree's objects name it Chunk_ID and a 6-byte `mov eax, id; ret` is its body (libraries.md 3 item 9, LIB 2026-11-15b)"
+ },
+ {
+  "address": "0x9142F0",
+  "symbol": "?Chunk_Type@ParticleEmitterLoaderClass@@UAEHXZ",
+  "evidence": "slot 0 of ParticleEmitterLoaderClass's vtable (PrototypeLoaderClass: Chunk_Type, Load_W3D), the slot right before ParticleEmitterLoaderClass::Load_W3D 0x917450 (named by objmatch); the tree's object names it (proto.h) (libraries.md 3 item 9, LIB 2026-11-15b)"
+ },
+ {
+  "address": "0x93E570",
+  "symbol": "?Chunk_Type@MeshLoaderClass@@UAEHXZ",
+  "evidence": "slot 0 of MeshLoaderClass's vtable (PrototypeLoaderClass: Chunk_Type, Load_W3D), the slot right before MeshLoaderClass::Load_W3D 0x93E690; body `xor eax, eax` = W3D_CHUNK_MESH (named by objmatch); the tree's object names it (proto.h) (libraries.md 3 item 9, LIB 2026-11-15b)"
+ },
+ {
+  "address": "0x93E5B0",
+  "symbol": "?Chunk_Type@HModelLoaderClass@@UAEHXZ",
+  "evidence": "slot 0 of HModelLoaderClass's vtable (PrototypeLoaderClass: Chunk_Type, Load_W3D), the slot right before HModelLoaderClass::Load_W3D 0x93E720 (named by objmatch); the tree's object names it (proto.h) (libraries.md 3 item 9, LIB 2026-11-15b)"
+ },
+ {
+  "address": "0x969F20",
+  "symbol": "?Chunk_Type@DazzleLoaderClass@@UAEHXZ",
+  "evidence": "slot 0 of DazzleLoaderClass's vtable (PrototypeLoaderClass: Chunk_Type, Load_W3D), the slot right before DazzleLoaderClass::Load_W3D 0x96EE60 (named by objmatch); the tree's object names it (proto.h) (libraries.md 3 item 9, LIB 2026-11-15b)"
+ },
+ {
+  "address": "0x98AC00",
+  "symbol": "?Chunk_Type@HLodLoaderClass@@UAEHXZ",
+  "evidence": "slot 0 of HLodLoaderClass's vtable (PrototypeLoaderClass: Chunk_Type, Load_W3D), the slot right before HLodLoaderClass::Load_W3D 0x98AC20 (named by objmatch); the tree's object names it (proto.h) (libraries.md 3 item 9, LIB 2026-11-15b)"
+ },
+ {
+  "address": "0x990220",
+  "symbol": "?Chunk_Type@CollectionLoaderClass@@UAEHXZ",
+  "evidence": "slot 0 of CollectionLoaderClass's vtable (PrototypeLoaderClass: Chunk_Type, Load_W3D), the slot right before CollectionLoaderClass::Load_W3D 0x991F50 (named by objmatch); the tree's object names it (proto.h) (libraries.md 3 item 9, LIB 2026-11-15b)"
+ },
+ {
+  "address": "0x99AAF0",
+  "symbol": "?Chunk_Type@BoxLoaderClass@@UAEHXZ",
+  "evidence": "slot 0 of BoxLoaderClass's vtable (PrototypeLoaderClass: Chunk_Type, Load_W3D), the slot right before BoxLoaderClass::Load_W3D 0x99A830 (named by objmatch); the tree's object names it (proto.h) (libraries.md 3 item 9, LIB 2026-11-15b)"
+ },
+ {
+  "address": "0x9A3520",
+  "symbol": "?Chunk_Type@AggregateLoaderClass@@UAEHXZ",
+  "evidence": "slot 0 of AggregateLoaderClass's vtable (PrototypeLoaderClass: Chunk_Type, Load_W3D), the slot right before AggregateLoaderClass::Load_W3D 0x9A4470 (named by objmatch); the tree's object names it (proto.h) (libraries.md 3 item 9, LIB 2026-11-15b)"
+ },
+ {
+  "address": "0x9A4970",
+  "symbol": "?Chunk_Type@DistLODLoaderClass@@UAEHXZ",
+  "evidence": "slot 0 of DistLODLoaderClass's vtable (PrototypeLoaderClass: Chunk_Type, Load_W3D), the slot right before DistLODLoaderClass::Load_W3D 0x9A4A80 (named by objmatch); the tree's object names it (proto.h) (libraries.md 3 item 9, LIB 2026-11-15b)"
+ },
+ {
+  "address": "0xA08C60",
+  "symbol": "?Chunk_Type@ShdMeshLoaderClass@@UAEHXZ",
+  "evidence": "slot 0 of ShdMeshLoaderClass's vtable (PrototypeLoaderClass: Chunk_Type, Load_W3D), the slot right before ShdMeshLoaderClass::Load_W3D 0xA08B70 (named by objmatch); the tree's object names it (proto.h) (libraries.md 3 item 9, LIB 2026-11-15b)"
+ },
+ {
+  "address": "0x96E770",
+  "symbol": "?Chunk_ID@DazzlePersistFactoryClass@@EBEKXZ",
+  "evidence": "slot between DazzlePersistFactoryClass::scalar deleting dtor 0x96E750 and ::Load 0x96E780 (PersistFactoryClass: dtor, Chunk_ID, Load, Save); the tree's object names it; body `mov eax, 0x10002` (libraries.md 3 item 9, LIB 2026-11-15b)"
+ },
+ {
+  "address": "0x9FF6D0",
+  "symbol": "?Get_Name@?$SimpleDefinitionFactoryClass@VAudibleSoundDefinitionClass@@$0FAAA@$1?AudibleSoundDefinitionClassName@@3PADA@@UBEPBDXZ",
+  "evidence": "slot 3 of the SimpleDefinitionFactoryClass<AudibleSoundDefinitionClass> vtable (dtor 0x9FF690, Create 0x9FF6B0 named by objmatch; DefinitionFactoryClass order Create, Get_Name, Get_Class_ID, Is_Displayed); the tree's object names it; body returns the string \"Sound\" (libraries.md 3 item 9, LIB 2026-11-15b)"
+ },
+ {
+  "address": "0xA078B0",
+  "symbol": "?Get_Name@?$SimpleDefinitionFactoryClass@VTwiddlerClass@@$0OAAA@$1?TwiddlerClassName@@3PADA@@UBEPBDXZ",
+  "evidence": "slot after Create 0xA07820 in the SimpleDefinitionFactoryClass<TwiddlerClass> vtable (dtor 0xA07720, Create named by objmatch); the tree's object names it; body returns the string \"Twiddler\" (libraries.md 3 item 9, LIB 2026-11-15b)"
+ },
+ {
+  "address": "0xA07700",
+  "symbol": "?Is_Displayed@?$SimpleDefinitionFactoryClass@VTwiddlerClass@@$0OAAA@$1?TwiddlerClassName@@3PADA@@UBE_NXZ",
+  "evidence": "last slot of the SimpleDefinitionFactoryClass<TwiddlerClass> vtable (Create, Get_Name 0xA078B0, Get_Class_ID 0xA078C0 = 0xE000, Is_Displayed); body `mov al, [ecx+0xC]`; the tree's object names it (libraries.md 3 item 9, LIB 2026-11-15b)"
+ },
+ {
+  "address": "0xA03940",
+  "symbol": "??_EFilteredSoundClass@@W7AEPAXI@Z",
+  "evidence": "slot 0 of FilteredSoundClass's PostLoadableClass-side vtable 0xB166A0: `sub ecx, 8; jmp` the vector deleting destructor 0xA03950; the tree's object has this adjustor symbol (libraries.md 3 item 9, LIB 2026-11-15b)"
+ },
+ {
+  "address": "0xA03830",
+  "symbol": "?Get_Factory@FilteredSoundClass@@UBEABVPersistFactoryClass@@XZ",
+  "evidence": "first slot of FilteredSoundClass's PersistClass vtable (PersistClass: Get_Factory, Save, Load; On_Post_Load precedes it); body `mov eax, 0xC405F0` returns the factory; the tree's object names it (libraries.md 3 item 9, LIB 2026-11-15b)"
  }
 ]
