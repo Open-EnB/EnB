@@ -648,12 +648,10 @@ mainview add 38962
 msg 236 ACTIVATE_RENDER_STATE (48) size 12: cpacket.cpp's handler
 msg 237 ACTIVATE_RENDER_STATE (48) size 12: cpacket.cpp's handler
 msg 238 OBJECT_EFFECT (9) size 19: cpacket.cpp's handler
-stub UnknownAF0DD0Class::Unknown_73FDB0 (0x73FDB0)
 stub UnknownB02C90Class::Unknown_725AD0
 mainview 7C
 mainview 64
 msg 239 OBJECT_EFFECT (9) size 19: cpacket.cpp's handler
-stub UnknownAF0DD0Class::Unknown_73FDB0 (0x73FDB0)
 stub UnknownB02C90Class::Unknown_725AD0
 mainview 7C
 mainview 64
@@ -1202,7 +1200,6 @@ asset manager +0x78 'planet_466' scale 0.1 hsv (0 0 0) -> model 141
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38970
 msg 500 OBJECT_EFFECT (9) size 19: cpacket.cpp's handler
-stub UnknownAF0DD0Class::Unknown_73FDB0 (0x73FDB0)
 stub UnknownB02C90Class::Unknown_725AD0
 mainview 7C
 mainview 64
@@ -1229,7 +1226,6 @@ asset manager Create_Render_Obj 'missing' -> model 144
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38969
 msg 514 OBJECT_EFFECT (9) size 19: cpacket.cpp's handler
-stub UnknownAF0DD0Class::Unknown_73FDB0 (0x73FDB0)
 stub UnknownB02C90Class::Unknown_725AD0
 mainview 7C
 mainview 64
@@ -1675,7 +1671,6 @@ asset manager +0x78 'eff_1160': not loaded
 asset manager Load_3D_Assets 'eff_1160.w3d'
 asset manager +0x78 'eff_1160' scale 1 hsv (60 0 0) -> model 1001
 model 1001 Set_Transform (0, 0, 0)
-stub UnknownAF0DD0Class::Unknown_73FDB0 (0x73FDB0)
 stub UnknownB02C90Class::Unknown_725AD0
 mainview 7C
 mainview 64
@@ -1683,8 +1678,6 @@ msg 763 OBJECT_TO_OBJECT_EFFECT (11) size 25: cpacket.cpp's handler
 asset manager +0x78 'eff_segline_1091': not loaded
 asset manager Load_3D_Assets 'eff_segline_1091.w3d'
 asset manager +0x78 'eff_segline_1091' scale 1 -> a segmented line
-stub UnknownAF0DD0Class::Unknown_73FDB0 (0x73FDB0)
-stub UnknownAF0DD0Class::Unknown_73FDB0 (0x73FDB0)
 stub UnknownB02C90Class::Unknown_725AD0
 mainview 7C
 mainview 64
@@ -1694,7 +1687,6 @@ asset manager +0x78 'eff_1075': not loaded
 asset manager Load_3D_Assets 'eff_1075.w3d'
 asset manager +0x78 'eff_1075' scale 1 hsv (0 0 0) -> model 1002
 model 1002 Set_Transform (0, 0, 0)
-stub UnknownAF0DD0Class::Unknown_73FDB0 (0x73FDB0)
 stub UnknownB02C90Class::Unknown_725AD0
 mainview 7C
 mainview 64
@@ -1703,7 +1695,6 @@ asset manager +0x78 'eff_1770': not loaded
 asset manager Load_3D_Assets 'eff_1770.w3d'
 asset manager +0x78 'eff_1770' scale 1 hsv (0 0 0) -> model 1003
 model 1003 Set_Transform (0, 0, 0)
-stub UnknownAF0DD0Class::Unknown_73FDB0 (0x73FDB0)
 stub UnknownB02C90Class::Unknown_725AD0
 mainview 7C
 mainview 64
@@ -1712,7 +1703,6 @@ asset manager +0x78 'eff_GE_EN_buff01': not loaded
 asset manager Load_3D_Assets 'eff_GE_EN_buff01.w3d'
 asset manager +0x78 'eff_GE_EN_buff01' scale 1 hsv (0 0 0) -> model 1004
 model 1004 Set_Transform (0, 0, 0)
-stub UnknownAF0DD0Class::Unknown_73FDB0 (0x73FDB0)
 stub UnknownB02C90Class::Unknown_725AD0
 mainview 7C
 mainview 64
@@ -1723,7 +1713,6 @@ asset manager +0x78 'eff_1870': not loaded
 asset manager Load_3D_Assets 'eff_1870.w3d'
 asset manager +0x78 'eff_1870' scale 1 hsv (0 0 0) -> model 1005
 model 1005 Set_Transform (0, 0, 0)
-stub UnknownAF0DD0Class::Unknown_73FDB0 (0x73FDB0)
 stub UnknownB02C90Class::Unknown_725AD0
 mainview 7C
 mainview 64
@@ -1762,7 +1751,6 @@ asset manager +0x78 'eff_wrp01': not loaded
 asset manager Load_3D_Assets 'eff_wrp01.w3d'
 asset manager +0x78 'eff_wrp01' scale 1 hsv (0 0 0) -> model 1006
 model 1006 Set_Transform (0, 0, 0)
-stub UnknownAF0DD0Class::Unknown_73FDB0 (0x73FDB0)
 stub UnknownB02C90Class::Unknown_725AD0
 mainview 7C
 mainview 64
