@@ -1,8 +1,7 @@
 {
  "ambiguous": [
   "0x42B2F0",
-  "0x474080",
-  "0x497300"
+  "0x474080"
  ],
  "copy": "reconstructed",
  "description": "TextEditorGadgetClass (D24 class-from-file; table 0xAFB3D4, 0xBC bytes), client 0x671790-0x673EB0 (__FILE__ 0xB8D6FC, FAIL_IF '!Slider' on line 361), after Unknown_671300Class 0x671300-0x671790 (D137: no <string> initialiser between 0x6712D0 and 0x673EB0, every gadget object has one) (TE1)",
@@ -89,7 +88,8 @@
   "0x673D80",
   "0x673DC0",
   "0x673E10",
-  "0x673E80"
+  "0x673E80",
+  "0x6DA8D0"
  ],
  "merged": [],
  "name": "client/gd_text_editor.cpp",
@@ -130,7 +130,8 @@
   "0x571BA0",
   "0x58E5B0",
   "0x58E5D0",
-  "0x5C40C0"
+  "0x5C40C0",
+  "0x6DA8D0"
  ],
  "short_known": [
   "0x42B320",

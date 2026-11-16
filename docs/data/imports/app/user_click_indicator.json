@@ -1,7 +1,6 @@
 {
  "ambiguous": [
-  "0x42B2F0",
-  "0x497300"
+  "0x42B2F0"
  ],
  "copy": "reconstructed",
  "description": "RECONSTRUCTED from client.exe: UserClickIndicatorClass, the object 0x6B3A90-0x6B4470 (six functions, the client's __FILE__ e:\\build\\beta\\G\\app\\Client\\user_click_indicator.cpp and its FAIL_IF lines 64-193)",
@@ -15,14 +14,16 @@
   "0x6B3D00",
   "0x6B3ED0",
   "0x6B3F50",
-  "0x6B4400"
+  "0x6B4400",
+  "0x6DA8D0"
  ],
  "merged": [],
  "name": "client/user_click_indicator.cpp",
  "shared": [
   "0x42B320",
   "0x42F250",
-  "0x5C40C0"
+  "0x5C40C0",
+  "0x6DA8D0"
  ],
  "short_known": [
   "0x42B320"

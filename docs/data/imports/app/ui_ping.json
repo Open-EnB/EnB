@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x474080"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "ui_ping.cpp (the client's __FILE__ 0xB84560; client 0x5D7630-0x5D8C3F by its asserts (lines 256-271), 'fc_ping.ini' and its table 0xAF5768, after ui_petition_stuck.cpp, before 0x5D8C40's object): the ping window's constructor, destructor, slots +0x54-+0x68 and its stats update 0x5D85B0 (PG1)",
  "expected": {},
@@ -9,6 +7,7 @@
   "0x42B320",
   "0x42F250",
   "0x45CC10",
+  "0x474080",
   "0x4740B0",
   "0x4A1930",
   "0x4A19A0",
@@ -53,6 +52,7 @@
   "0x42B320",
   "0x42F250",
   "0x45CC10",
+  "0x474080",
   "0x4740B0",
   "0x4A1930",
   "0x4A19A0",

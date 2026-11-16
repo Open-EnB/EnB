@@ -263,6 +263,13 @@ USE_EDGE_ORDER = True
 # D246 (CR6, CR1's EXTERN_CALLED in its cheap form): the relocated calls other libraries' exact functions make (the
 # previous verify's call map, docs/data/called.json, passed as match_objects' extern_called) join D188's `called`
 USE_EXTERN_CALLED = True
+# D246 (CR8): a COMDAT the other rules leave tied (`multiple`) whose one survivor lies in the contribution of an
+# object holding the symbol: the linker keeps the first holder's copy in that holder's code, so a copy lies between
+# the holder's first exact own function and the next object's first, within RANGE_GAP of the holder's last
+# (`contrib`; kv_list's std::_Distance 0x4B7E00, above its range, below kv_tripl's)
+USE_CONTRIB_TIES = True
+# ... and when several holders' contributions hold a copy, the first holder's in link order (the lowest range)
+USE_CONTRIB_FIRST = True
 
 
 def generated(name):
@@ -1137,6 +1144,17 @@ def match_objects(img, paths, region=None, callers=False, extern_called=None, ca
             r, obj, sec, s, length, hits = item
             done.add(id(r))
             learn(r, obj, sec, s, length, int(r['addresses'][0], 16))
+    if USE_CONTRIB_TIES:
+        for item, a in contribution_ties(results, pending, done, claimed, text, start, img, known):
+            r, obj, sec, s, length, hits = item
+            r['status'] = 'exact'
+            r['addresses'] = [f'0x{a:06X}']
+            r['tiebreak'] = True
+            r['contrib'] = True
+            r.pop('count', None), r.pop('identical', None)
+            claimed[a].add(r['symbol'])
+            learn(r, obj, sec, s, length, a)
+            done.add(id(r))
     if called_out is not None:
         called_out.update({k: set(v) for k, v in own_called.items()})
     for r, *_ in results:
@@ -1150,6 +1168,54 @@ def match_objects(img, paths, region=None, callers=False, extern_called=None, ca
         if r.get('short_known') and not obj.own(sec):
             r['shared'] = True      # D188: a short COMDAT credits the address, not a file placement
     return [x[0] for x in results]
+
+
+def contribution_ties(results, pending, done, claimed, text, base, img, known):
+    """D246 (CR8): [(pending item, address)] for tied COMDATs (`multiple`, not own code) whose survivors (break_tie)
+    include exactly one that lies in the contribution of an object holding the symbol: at or above that object's
+    first exact own function, below the next object's, at most RANGE_GAP above its last; the address claimed by no
+    other symbol and proposed by no other symbol. Ranges are the exact own functions' (no ties of the tie rounds
+    that fix a symbol's address but not the copy: funclet, pushed, unplaced call ties)."""
+    ranges = {}
+    for r, obj, sec, s, length in results:
+        if r['status'] == 'exact' and obj.own(sec) and not r.get('funclet_tie') and not r.get('pushed_tie')                 and not (r.get('call_tie') and not r.get('call_placed')):
+            a = int(r['addresses'][0], 16)
+            lo, hi = ranges.get(id(obj), (a, a))
+            ranges[id(obj)] = (min(lo, a), max(hi, a))
+    if not ranges:
+        return []
+    los = sorted((lo, key) for key, (lo, hi) in ranges.items())
+    keys = [lo for lo, _ in los]
+    holders = collections.defaultdict(set)
+    for r, obj, *_ in results:
+        holders[r['symbol']].add(id(obj))
+
+    def owner(h):
+        i = bisect.bisect_right(keys, h) - 1
+        if i < 0:
+            return None
+        key = los[i][1]
+        if i + 1 < len(los) and keys[i + 1] == keys[i]:
+            return None     # two objects start at one address: no single contribution
+        return key if h <= ranges[key][1] + RANGE_GAP else None
+
+    props = []
+    for item in pending:
+        r, obj, sec, s, length, hits = item
+        if id(r) in done or r['status'] != 'multiple' or obj.own(sec) or generated(r['symbol']):
+            continue
+        survivors = break_tie(obj, sec, s, length, text, base, hits, img, known)[0]
+        inside = [h for h in survivors if owner(h) in holders[r['symbol']] and not claimed[h] - {r['symbol']}]
+        if len(inside) > 1 and USE_CONTRIB_FIRST:
+            # several holders' contributions hold a copy: the linker keeps the first holder's in link order
+            first = min((ranges[k][0], k) for k in holders[r['symbol']] if k in ranges)[1]
+            inside = [h for h in inside if owner(h) == first]
+        if len(inside) == 1:
+            props.append((item, inside[0]))
+    by_addr = collections.defaultdict(set)
+    for (r, *_), a in props:
+        by_addr[a].add(r['symbol'])
+    return [(item, a) for item, a in props if len(by_addr[a]) == 1]
 
 
 def function_start(img, va):

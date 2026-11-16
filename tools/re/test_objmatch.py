@@ -16,6 +16,9 @@ String_To_Value overloads (byte-identical copies, D166's tie) between their exac
 EDGE_ORDER (D246 / CR6): an own function before an object's first exact own function in object order, tied with a
 byte-identical copy in another object's code, is the client function right below that exact one (`edge_order`):
 scriptedmovieline.obj's and ui_symbolchat.obj's constructors (copies at 0x56E170 / 0x69AC20).
+CONTRIB_TIES (D246 / CR8): a tied COMDAT whose one survivor lies in its holder's contribution (from its first exact own
+function to the next object's, at most RANGE_GAP past its last): px_process.obj's vector<PxProcessClass *> helpers
+right after its code, against byte-identical copies in other files' code (`contrib`).
 """
 import os
 import sys
@@ -253,6 +256,10 @@ EDGE_ORDER = [
     ('scriptedmovieline.obj', '??0ScriptedMovieLineClass@@QAE@XZ', '0x7FFC50'),
     ('ui_symbolchat.obj', '??0UISymbolChatOptionStruct@@QAE@XZ', '0x64A330'),
 ]
+CONTRIB_TIES = [
+    ('px_process.obj', '?_Ucopy@?$vector@PAVPxProcessClass@@V?$allocator@PAVPxProcessClass@@@std@@@std@@IAEPAPAVPxProcessClass@@PBQAV3@0PAPAV3@@Z', '0x456000'),
+    ('px_process.obj', '?_Construct@std@@YAXPAPAVPxProcessClass@@ABQAV2@@Z', '0x456080'),
+]
 APP_REGION = (0x401000, 0x8C1B50)
 
 
@@ -289,6 +296,12 @@ class XcuSubrun(unittest.TestCase):
             self.assertEqual(objmatch.xcu_subrun(self.RUN[1:], 4, fits), self.RUN[1:])
         finally:
             objmatch.USE_XCU_SUBRUN = True
+
+
+class ContribTies(unittest.TestCase):
+    def test_cases(self):
+        _check(self, CONTRIB_TIES, 'USE_CONTRIB_TIES', 'contrib', APP_REGION)
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -1,8 +1,6 @@
 {
  "ambiguous": [
-  "0x42B2F0",
-  "0x474080",
-  "0x64EFC0"
+  "0x42B2F0"
  ],
  "copy": "reconstructed",
  "description": "SBaseViewClass (sbaseview.cpp's __FILE__; client 0x69CDE0-0x6A2530): the short and middle-sized members 0x69D930-0x6A2480, the asserts on the client's lines 738 / 1667 (D25; 1261 / 1262 left for 0x6A0590), UI1; NOT EXACT 0x69F710; the large ones not yet",
@@ -24,6 +22,7 @@
   "0x4407B0",
   "0x445510",
   "0x447C40",
+  "0x474080",
   "0x4740B0",
   "0x48E910",
   "0x50B680",
@@ -64,6 +63,7 @@
   "0x5C4030",
   "0x5C4060",
   "0x5C4090",
+  "0x64EFC0",
   "0x65A710",
   "0x69AC20",
   "0x69AC50",
@@ -175,6 +175,7 @@
   "0x4407B0",
   "0x445510",
   "0x447C40",
+  "0x474080",
   "0x4740B0",
   "0x48E910",
   "0x50B680",
@@ -215,6 +216,7 @@
   "0x5C4030",
   "0x5C4060",
   "0x5C4090",
+  "0x64EFC0",
   "0x65A710",
   "0x69B050",
   "0x69F3B0",

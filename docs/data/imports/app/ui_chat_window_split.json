@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x474080"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "RECONSTRUCTED from client.exe (CW3, 2026-11-08): the split chat window UIChatWindowSplitClass, __FILE__ 0xB7D9B0 (G_ASSERT 'false' ll.88/97 in the destructor 0x572040), after ui_chat_window.cpp; constructor 0x571F00, destructor 0x572040, slots 0x572DE0/0x572E00, the resize handle's destructor 0x573430",
  "expected": {},
@@ -20,6 +18,7 @@
   "0x4407B0",
   "0x445510",
   "0x45CC10",
+  "0x474080",
   "0x4740B0",
   "0x4A1930",
   "0x4A19A0",
@@ -72,6 +71,7 @@
   "0x4407B0",
   "0x445510",
   "0x45CC10",
+  "0x474080",
   "0x4740B0",
   "0x4A1930",
   "0x4A19A0",

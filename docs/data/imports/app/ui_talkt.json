@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x474080"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "UITalkTreeClass (D24 class-from-file; table 0xAF8B4C, 0x180 bytes), client 0x64B6E0-0x64EF40 (__FILE__ 0xB8BC9C, asserts on lines 171-920; ends at the vector's destructor 0x64EF40 and its COMDATs before ui_talkt_space.cpp) (TK1)",
  "expected": {},
@@ -17,6 +15,7 @@
   "0x42D120",
   "0x42F250",
   "0x45CC10",
+  "0x474080",
   "0x4740B0",
   "0x4A1930",
   "0x4A19A0",
@@ -105,6 +104,7 @@
   "0x42D120",
   "0x42F250",
   "0x45CC10",
+  "0x474080",
   "0x4740B0",
   "0x4A1930",
   "0x4A19A0",
@@ -144,6 +144,7 @@
   "0x56F010",
   "0x64CC20",
   "0x64EF40",
+  "0x64EFC0",
   "0x64F270",
   "0x64F2F0",
   "0x64F300",

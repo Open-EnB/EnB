@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x474080"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "RECONSTRUCTED from client.exe 0x551FB0-0x553AEF: the avatar dialog over the cockpit (TLI01A; the incapacitance question), Unknown5BB320Class's pattern; the client's asserts name the file (e:\\build\\beta\\G\\app\\Client\\ui_avatar_dialog.cpp, l.85-371)",
  "expected": {},
@@ -39,6 +37,7 @@
   "0x515730",
   "0x515750",
   "0x51C630",
+  "0x53CF50",
   "0x53CF80",
   "0x5411F0",
   "0x543750",
@@ -99,6 +98,7 @@
   "0x515730",
   "0x515750",
   "0x51C630",
+  "0x53CF50",
   "0x53CF80",
   "0x5411F0",
   "0x543750",

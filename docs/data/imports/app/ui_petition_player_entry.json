@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x474080"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "the petition's page about other players (the client's asserts name e:\\build\\beta\\G\\app\\Client\\ui_petition_player_entry.cpp): UIPetitionPlayerEntryClass over UIPetitionEntryClass and its name box UIPetitionPlayerNameClass over ChatPanelUIBase, 0x5D6080-0x5D736F",
  "expected": {},
@@ -16,6 +14,7 @@
   "0x42D050",
   "0x42F250",
   "0x45CC10",
+  "0x474080",
   "0x4740B0",
   "0x4A1930",
   "0x4A19A0",
@@ -79,6 +78,7 @@
   "0x42D050",
   "0x42F250",
   "0x45CC10",
+  "0x474080",
   "0x4740B0",
   "0x4A1930",
   "0x4A19A0",

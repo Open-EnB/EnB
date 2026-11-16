@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x474080"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "ClassSelectInterface, the class select window (ui_class.cpp's __FILE__, 0x577DA0's asserts lines 969 and 973; client 0x5746C0-0x578200, item A574, run PR #147): constructor 0x574710, destructor 0x575220, virtuals Unknown_60 0x5754E0 and Unknown_68 0x575660, and helpers",
  "expected": {},
@@ -24,6 +22,7 @@
   "0x433700",
   "0x45CC10",
   "0x468E70",
+  "0x474080",
   "0x4740B0",
   "0x47D440",
   "0x47D640",
@@ -107,6 +106,7 @@
   "0x433700",
   "0x45CC10",
   "0x468E70",
+  "0x474080",
   "0x4740B0",
   "0x47D440",
   "0x47D640",

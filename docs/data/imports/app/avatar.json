@@ -1,8 +1,5 @@
 {
- "ambiguous": [
-  "0x474080",
-  "0x64EFC0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "CharacterViewAvatarClass (0x384 bytes, client 0x77B870-0x789D80, table 0xB044D0, __FILE__ 0xB9CE74 'e:\\\\build\\\\beta\\\\G\\\\app\\\\Client\\\\avatar.cpp', asserts lines 579-3920; run PR #146 AV): constructor 0x77B870, destructor 0x77C080, Unknown_77E3D0, Unknown_784A50, Unknown_784C90, Unknown_784E00, Unknown_786370, Unknown_7863E0, Unknown_1C4 functional for the POC login narrator (D64)",
  "expected": {},
@@ -86,6 +83,7 @@
   "0x463370",
   "0x468E70",
   "0x46BE90",
+  "0x474080",
   "0x4740B0",
   "0x47D010",
   "0x47D310",
@@ -100,6 +98,7 @@
   "0x62A0A0",
   "0x62A560",
   "0x62A5D0",
+  "0x64EFC0",
   "0x6A25E0",
   "0x77B760",
   "0x77B7D0",
@@ -339,6 +338,7 @@
   "0x463370",
   "0x468E70",
   "0x46BE90",
+  "0x474080",
   "0x4740B0",
   "0x47D010",
   "0x47D370",
@@ -351,6 +351,7 @@
   "0x62A0A0",
   "0x62A560",
   "0x62A5D0",
+  "0x64EFC0",
   "0x6A25E0",
   "0x77BFA0",
   "0x77BFE0",

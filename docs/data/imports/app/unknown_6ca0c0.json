@@ -1,7 +1,6 @@
 {
  "ambiguous": [
-  "0x42B2F0",
-  "0x474080"
+  "0x42B2F0"
  ],
  "copy": "reconstructed",
  "description": "FontSys's per-effect step 0x6CA0C0 (11,680 bytes, the EffectType switch PULSE ... STRETCH; only caller FontSys::Update_Text 0x6D64C0) and the text rectangle in screen units 0x6D5B10: free functions until fontmanager.h declares them; NOT EXACT (D64, functional for the POC); interim file (D137), between fontdatabase.cpp and unknown_creator's code (PROVISIONAL name, TXT2)",
@@ -10,6 +9,7 @@
   "0x42B320",
   "0x42F250",
   "0x431C80",
+  "0x474080",
   "0x4740B0",
   "0x48C500",
   "0x48E910",
@@ -23,6 +23,7 @@
   "0x42B320",
   "0x42F250",
   "0x431C80",
+  "0x474080",
   "0x4740B0",
   "0x48C500",
   "0x48E910",

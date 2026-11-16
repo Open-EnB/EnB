@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x497300"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "DynamicWindowGadgetClass (D24 class-from-file), a button gadget over a dynamic window's model (table 0xAF9FD4, 0x6C bytes), client 0x668860-0x668E1F (__FILE__ 0xB8CF58, FAIL_IF '!DynamicObject' on the client's line 61, D25): the constructors 0x668860 / 0x6689C0, the destructors, Set_Dynamic_Object 0x668BE0, the hit test 0x668C80; all exact (MSG2)",
  "expected": {},
@@ -28,6 +26,7 @@
   "0x51AD80",
   "0x51ADA0",
   "0x532B10",
+  "0x58B420",
   "0x58E5B0",
   "0x58E5D0",
   "0x668860",
@@ -64,6 +63,7 @@
   "0x51AD80",
   "0x51ADA0",
   "0x532B10",
+  "0x58B420",
   "0x58E5B0",
   "0x58E5D0",
   "0x668970"
