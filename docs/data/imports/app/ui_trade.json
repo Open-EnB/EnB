@@ -1,6 +1,5 @@
 {
  "ambiguous": [
-  "0x42A6C0",
   "0x42A900",
   "0x42AAE0",
   "0x42B250",
@@ -15,6 +14,7 @@
  "description": "RECONSTRUCTED: the trade window, the client's ui_trade.cpp (__FILE__ 'e:\\build\\beta\\G\\app\\Client\\ui_trade.cpp' at 0xB8BF74; FAIL_IFs l.674-917); the functions 0x651F60-0x6531F0 as far as rebuilt (TR1)",
  "expected": {},
  "in_tree": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",
@@ -97,6 +97,7 @@
  "merged": [],
  "name": "client/ui_trade.cpp",
  "shared": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",

@@ -1,13 +1,12 @@
 {
  "ambiguous": [
-  "0x42A6C0",
-  "0x46BE90",
   "0x474480"
  ],
  "copy": "reconstructed",
  "description": "the client's __FILE__ 0xB8DBA8, the object 0x6812A0-0x6831CF (CH1)",
  "expected": {},
  "in_tree": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",
@@ -21,6 +20,7 @@
   "0x45CC30",
   "0x45E1B0",
   "0x4FABB0",
+  "0x680C90",
   "0x6812C0",
   "0x681570",
   "0x6815A0",
@@ -54,6 +54,7 @@
  "merged": [],
  "name": "client/chat_window_history.cpp",
  "shared": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",
@@ -66,7 +67,8 @@
   "0x45CC10",
   "0x45CC30",
   "0x45E1B0",
-  "0x4FABB0"
+  "0x4FABB0",
+  "0x680C90"
  ],
  "short_known": [
   "0x45E1B0"

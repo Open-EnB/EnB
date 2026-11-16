@@ -1,7 +1,5 @@
 {
  "ambiguous": [
-  "0x42A6C0",
-  "0x46BE90",
   "0x474080",
   "0x4F5E90"
  ],
@@ -9,6 +7,7 @@
  "description": "The chat panel's reply list (0x56E170-0x56F417): UIChatReplyListClass, the symbol chat menu of 'fc_symbolchat.ini' (SYMBOL_CHAT_WINDOW / _SECTION / _OPTION, table 0xAF024C) with a row per name; no __FILE__, so the file name is provisional (NAME 1); bounded by ChatPanelUIBase 0x56E160 and ChatWindowInterface 0x56F420, the guarded ctype initialiser 0x56F3D0 ends it",
  "expected": {},
  "in_tree": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",
@@ -35,6 +34,7 @@
   "0x515710",
   "0x515730",
   "0x515750",
+  "0x51C630",
   "0x5411F0",
   "0x56E190",
   "0x56E2A0",
@@ -61,6 +61,7 @@
  "merged": [],
  "name": "client/unknown_56e170.cpp",
  "shared": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",
@@ -87,6 +88,7 @@
   "0x515710",
   "0x515730",
   "0x515750",
+  "0x51C630",
   "0x5411F0",
   "0x56F010",
   "0x56F070",

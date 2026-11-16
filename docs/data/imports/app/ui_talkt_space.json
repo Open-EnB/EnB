@@ -1,6 +1,5 @@
 {
  "ambiguous": [
-  "0x42A6C0",
   "0x46BE90",
   "0x474080"
  ],
@@ -8,6 +7,7 @@
  "description": "UITalkTreeSpaceClass (D24 class-from-file; table 0xAF8CA0, 0x184 bytes), client 0x64F310-0x64F6FB (__FILE__ 0xB8BDFC, FAIL_IF 'AvatarPIP' line 102; the object's <string> initialiser at 0x64F740, adjustor thunks 0x64F770 / 0x64F780) (TS1)",
  "expected": {},
  "in_tree": [
+  "0x42A6C0",
   "0x42F250",
   "0x45CC10",
   "0x4A1930",
@@ -42,6 +42,7 @@
  "merged": [],
  "name": "client/ui_talkt_space.cpp",
  "shared": [
+  "0x42A6C0",
   "0x42F250",
   "0x45CC10",
   "0x4A1930",

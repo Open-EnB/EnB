@@ -1,6 +1,5 @@
 {
  "ambiguous": [
-  "0x42A6C0",
   "0x42A890",
   "0x42A900",
   "0x42AC90",
@@ -14,6 +13,7 @@
  "description": "ClientObjectDataClass and the data binder's instances, client 0x79D0F0-0x7A4770 (the constructor's assert l.42, the FAIL_IF l.54; D25)",
  "expected": {},
  "in_tree": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",
@@ -104,6 +104,7 @@
  "merged": [],
  "name": "client/co_data.cpp",
  "shared": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",
@@ -140,7 +141,6 @@
   "0x7A0DB0"
  ],
  "tiebreak": [
-  "0x79DE00",
   "0x79F830",
   "0x79F980",
   "0x7A0020",
@@ -161,7 +161,6 @@
   "0x7A1890",
   "0x7A1A80",
   "0x7A1B50",
-  "0x7A1E10",
   "0x7A2BE0",
   "0x7A4550",
   "0x7A4590",

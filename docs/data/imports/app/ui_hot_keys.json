@@ -1,11 +1,10 @@
 {
- "ambiguous": [
-  "0x42A6C0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "RECONSTRUCTED from client.exe: __FILE__ 'e:\\build\\beta\\G\\app\\Client\\ui_hot_keys.cpp' (FAIL_IFs l.106/108/111), constructor 0x59C6F0, tables 0xAF20D0/0xAF20C4/0xAF20B8; the hot keys window (O15)",
  "expected": {},
  "in_tree": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",
@@ -51,6 +50,7 @@
  "merged": [],
  "name": "client/ui_hot_keys.cpp",
  "shared": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",

@@ -1,13 +1,12 @@
 {
  "ambiguous": [
-  "0x42A6C0",
-  "0x46BE90",
   "0x474080"
  ],
  "copy": "reconstructed",
  "description": "BuffGadgetClass (D24 class-from-file), ui_buff.cpp's buff gadget (table 0xAF9E70, 0xD8 bytes), with BuffInfoStruct / BuffElementStruct (the ship's BuffArray.N and its Elements.N, 0x30 bytes each), client 0x665150-0x666441 (__FILE__ 0xB8CEF0 'e:\\\\build\\\\beta\\\\G\\\\app\\\\Client\\\\gd_buffgadg.cpp', FAIL_IF line 94, G_ASSERTs 166 / 167 / 182, D25): BuffInfoStruct 0x665180-0x665A10, the constructor 0x665A40, the destructor 0x665D60, 0x666440, 0x666470, 0x6664E0, the tooltip text 0x666570; NOT EXACT (D64): 0x6656A0 (register), 0x665940 (inline-budget), 0x665F20 (frame), 0x6661F0 (register) (GADG)",
  "expected": {},
  "in_tree": [
+  "0x42A6C0",
   "0x42A710",
   "0x42A820",
   "0x42A940",
@@ -43,6 +42,7 @@
   "0x51AD60",
   "0x51AD80",
   "0x51ADA0",
+  "0x51C630",
   "0x5619D0",
   "0x561A60",
   "0x561BD0",
@@ -86,6 +86,7 @@
  "merged": [],
  "name": "client/gd_buffgadg.cpp",
  "shared": [
+  "0x42A6C0",
   "0x42A710",
   "0x42A820",
   "0x42A940",
@@ -121,6 +122,7 @@
   "0x51AD60",
   "0x51AD80",
   "0x51ADA0",
+  "0x51C630",
   "0x5619D0",
   "0x561A60",
   "0x561BD0",

@@ -1,12 +1,12 @@
 {
  "ambiguous": [
-  "0x42A6C0",
   "0x42B2F0"
  ],
  "copy": "reconstructed",
  "description": "the scripted movie task, client 0x76C670-0x76CFBA (kernel-map.md 6, step 7), with mclient.cpp's movie client and client_lego_impl.cpp's asset calls declared only; the asserts on the client's lines 61-374 (D25); NOT EXACT: Init (the client's loop isn't rotated)",
  "expected": {},
  "in_tree": [
+  "0x42A6C0",
   "0x42A970",
   "0x42AB30",
   "0x42F250",
@@ -31,6 +31,7 @@
  "merged": [],
  "name": "client/tasks/tsk_smovie.cpp",
  "shared": [
+  "0x42A6C0",
   "0x42A970",
   "0x42AB30",
   "0x42F250",

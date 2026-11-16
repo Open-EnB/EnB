@@ -1,12 +1,12 @@
 {
  "ambiguous": [
-  "0x42A6C0",
   "0x474080"
  ],
  "copy": "reconstructed",
  "description": "opcode 37 (ITEM_BASE), client 0x895300-0x895BD0, the client's file (its FAIL_IF '!Info' on line 42): written by hand (builder P5)",
  "expected": {},
  "in_tree": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",
@@ -37,6 +37,7 @@
  "merged": [],
  "name": "packets/pkitemba.cpp",
  "shared": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",

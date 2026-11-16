@@ -1,12 +1,12 @@
 {
  "ambiguous": [
-  "0x42A6C0",
   "0x42B250"
  ],
  "copy": "reconstructed",
  "description": "SoundDefClass / SoundLibraryClass, client 0x43D3E0-0x43FE30 with the bridge's slots and the table's instances to 0x441A50: the asserts on the client's lines 198 / 212 / 292 / 669 / 838 (D25); NOT EXACT: the ini constructor 0x43D3E0, Play_2D_Sound 0x43ED30, Play_Dialog 0x43F2D0, Load 0x43FE30",
  "expected": {},
  "in_tree": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",
@@ -79,6 +79,7 @@
  "merged": [],
  "name": "audio/soundlib.cpp",
  "shared": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",
@@ -102,9 +103,5 @@
   "0x43F9A0",
   "0x43FA80",
   "0x441250"
- ],
- "tiebreak": [
-  "0x440510",
-  "0x4418B0"
  ]
 }

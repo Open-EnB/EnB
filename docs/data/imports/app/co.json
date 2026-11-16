@@ -1,6 +1,5 @@
 {
  "ambiguous": [
-  "0x42A6C0",
   "0x42B2F0",
   "0x46BE90",
   "0x474080",
@@ -11,6 +10,7 @@
  "description": "co.cpp's ClientObjectClass members, client 0x6F2820-0x700A50 (its asserts' __FILE__ e:\\build\\beta\\G\\app\\Client\\co.cpp; G_ASSERT l.361, FAIL_IF l.2431-2590; D25): the model accessors, the type tests 0x6F5850-0x6F5E20, the size factors, the player aux-data accessors, eight of the vtable 0xB0070C's slots and the members they reach, the constructor 0x6F2820 and destructor 0x6F2FE0, Set_Model 0x6F33F0 (with the render hook of vtable 0xB007A4) and the model loader 0x6F5140 / 0x6F51D0 (cbasset.ini's BASE-n: NULL, RSLID, FILE / NAME, Width; the report l.935, FAIL_IF l.947)",
  "expected": {},
  "in_tree": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",
@@ -34,6 +34,7 @@
   "0x584FF0",
   "0x59C670",
   "0x628EC0",
+  "0x6BB9F0",
   "0x6F2820",
   "0x6F2C50",
   "0x6F2C70",
@@ -144,6 +145,7 @@
  "merged": [],
  "name": "client/co.cpp",
  "shared": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",
@@ -167,6 +169,7 @@
   "0x584FF0",
   "0x59C670",
   "0x628EC0",
+  "0x6BB9F0",
   "0x6F2C50",
   "0x6F2C70",
   "0x6F2C90",
@@ -186,6 +189,7 @@
   "0x6F36F0",
   "0x6FD290",
   "0x700AA0",
+  "0x700BC0",
   "0x700E60",
   "0x705760",
   "0x709E90"

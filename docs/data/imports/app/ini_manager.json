@@ -1,6 +1,5 @@
 {
  "ambiguous": [
-  "0x42A6C0",
   "0x42B250",
   "0x46BE90",
   "0x474480",
@@ -10,6 +9,7 @@
  "description": "INIManagerClass, client 0x4E9D40-0x4EC260 with definition_manager.h's and definition_auto_ptr.h's instances: the FAIL_IFs on lines 59 / 60 (D25); NOT EXACT: Get_INI 0x4E9E00, the destructors 0x4EA2B0 / 0x4EAFB0, Release 0x4EB1B0",
  "expected": {},
  "in_tree": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",
@@ -64,6 +64,7 @@
  "merged": [],
  "name": "shared/ini_manager.cpp",
  "shared": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",

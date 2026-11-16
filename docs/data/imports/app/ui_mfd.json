@@ -1,13 +1,10 @@
 {
- "ambiguous": [
-  "0x42A6C0",
-  "0x457CA0",
-  "0x57DC80"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "UIMFDClass (D24 class-from-file) and its two subclasses, client 0x5BB660-0x5BF4B0 (__FILE__ 0xB82160; the subclasses 0x5BE4F0-0x5BEE60 sit before COMDATs the asserted functions call) (MF1)",
  "expected": {},
  "in_tree": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",
@@ -37,6 +34,8 @@
   "0x57DBF0",
   "0x57DC20",
   "0x584E20",
+  "0x584E50",
+  "0x58C660",
   "0x5BB720",
   "0x5BBAD0",
   "0x5BBB00",
@@ -110,6 +109,7 @@
  "merged": [],
  "name": "client/ui_mfd.cpp",
  "shared": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",
@@ -139,6 +139,8 @@
   "0x57DBF0",
   "0x57DC20",
   "0x584E20",
+  "0x584E50",
+  "0x58C660",
   "0x5BBAD0",
   "0x5BBB00",
   "0x5BBB30",

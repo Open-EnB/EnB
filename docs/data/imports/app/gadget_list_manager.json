@@ -1,6 +1,5 @@
 {
  "ambiguous": [
-  "0x42A900",
   "0x42B250",
   "0x42B2F0"
  ],
@@ -9,6 +8,7 @@
  "expected": {},
  "in_tree": [
   "0x42E170",
+  "0x58B450",
   "0x58B4C0",
   "0x65FF50",
   "0x6611B0",
@@ -56,6 +56,7 @@
  "name": "client/gadget_list_manager.cpp",
  "shared": [
   "0x42E170",
+  "0x58B450",
   "0x58B4C0",
   "0x65FF50",
   "0x662820"

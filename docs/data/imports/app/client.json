@@ -1,12 +1,12 @@
 {
  "ambiguous": [
-  "0x42A6C0",
   "0x45C0E0"
  ],
  "copy": "reconstructed",
  "description": "ClientClass, client 0x726100-0x728450 with the hash lists' instances: the asserts on the client's lines 165-443 (D25); NOT EXACT: the constructor 0x726100, Find_Object 0x727070, Remove_Object 0x727600, the DEBUG packet senders 0x728010 / 0x728240, 0x7283B0",
  "expected": {},
  "in_tree": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",
@@ -109,6 +109,7 @@
  "merged": [],
  "name": "client/client.cpp",
  "shared": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",

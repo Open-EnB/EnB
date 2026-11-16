@@ -1,6 +1,5 @@
 {
  "ambiguous": [
-  "0x42A6C0",
   "0x455FB0",
   "0x47D640"
  ],
@@ -8,6 +7,7 @@
  "description": "lego_identifier.cpp (the client's __FILE__): the lego types' lookups and LegoIdentifierClass (vtable 0xB08C5C, a bone path), client 0x8436D0-0x8451A0 but 0x844ED0 (builder P4: 10 of 17 exact, 8 NOT EXACT)",
  "expected": {},
  "in_tree": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",
@@ -54,6 +54,7 @@
  "merged": [],
  "name": "common/lego_identifier.cpp",
  "shared": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",

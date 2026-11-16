@@ -1,6 +1,5 @@
 {
  "ambiguous": [
-  "0x42A6C0",
   "0x46BE90",
   "0x474080"
  ],
@@ -8,6 +7,7 @@
  "description": "the petition's page about other players (the client's asserts name e:\\build\\beta\\G\\app\\Client\\ui_petition_player_entry.cpp): UIPetitionPlayerEntryClass over UIPetitionEntryClass and its name box UIPetitionPlayerNameClass over ChatPanelUIBase, 0x5D6080-0x5D736F",
  "expected": {},
  "in_tree": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",
@@ -68,6 +68,7 @@
  "merged": [],
  "name": "client/ui_petition_player_entry.cpp",
  "shared": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",

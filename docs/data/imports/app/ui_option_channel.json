@@ -1,11 +1,10 @@
 {
- "ambiguous": [
-  "0x42A6C0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "app\\client\\ui_option_channel.cpp, provisional name (NAME 1, D137; no __FILE__): the options' channels page 'opt06a' (fa_opt06a.ini, tooltips UI_OPTION_CHANNEL), UIOptionChannelClass over ChatPanelUIBase, 0x5C8CC0-0x5C990F (its channel table's initialiser 0x5C8CC0 first)",
  "expected": {},
  "in_tree": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",
@@ -55,6 +54,7 @@
  "merged": [],
  "name": "client/ui_option_channel.cpp",
  "shared": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",

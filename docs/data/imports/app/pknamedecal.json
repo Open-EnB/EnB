@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42A900"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "opcode 16 (DECAL) written by hand (builder P4: Build, Get_Data_Size, Print exact, both constructors NOT EXACT); packet classes (opcode 178) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
  "expected": {},
@@ -15,6 +13,7 @@
   "0x52B330",
   "0x52B350",
   "0x5953D0",
+  "0x628A30",
   "0x62A520",
   "0x8805C0",
   "0x880720",
@@ -51,6 +50,7 @@
   "0x52B330",
   "0x52B350",
   "0x5953D0",
+  "0x628A30",
   "0x62A520",
   "0x880720",
   "0x880E70",

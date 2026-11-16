@@ -1,6 +1,5 @@
 {
  "ambiguous": [
-  "0x42A6C0",
   "0x444190",
   "0x4ACBB0"
  ],
@@ -8,6 +7,7 @@
  "description": "the galaxy select window of character creation (ui_shard.cpp's __FILE__ 0xB89390, the FAIL_IF 'ShardSelection < 0 || ...' line 707; client 0x615A50-0x617AF0; the character view's mode 5): its Accept names the avatar and sends the creation (LoginTaskClass slot +0x48); functional (NOT EXACT, D64) for the POC",
  "expected": {},
  "in_tree": [
+  "0x42A6C0",
   "0x42F250",
   "0x45CC10",
   "0x4A1930",
@@ -61,6 +61,7 @@
  "merged": [],
  "name": "client/ui_shard.cpp",
  "shared": [
+  "0x42A6C0",
   "0x42F250",
   "0x45CC10",
   "0x4A1930",

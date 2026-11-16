@@ -1,6 +1,5 @@
 {
  "ambiguous": [
-  "0x42A900",
   "0x42B2F0",
   "0x43CEA0",
   "0x43D2A0"
@@ -12,7 +11,8 @@
   "0x43C4A0",
   "0x43C560",
   "0x43C660",
-  "0x43CB70"
+  "0x43CB70",
+  "0x43CE40"
  ],
  "merged": [],
  "name": "audio/sectorsound.cpp"

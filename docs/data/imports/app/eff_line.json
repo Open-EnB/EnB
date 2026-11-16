@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x457CA0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "RECONSTRUCTED from client.exe: eff_line.obj 0x6E5040-0x6E6710 (__FILE__ 0xB92DDC, FAIL_IF lines 51-262; vtable 0xAFFF4C; effect.ini's EffectClass 'LineEffect')",
  "expected": {},
@@ -9,6 +7,7 @@
   "0x42F250",
   "0x447C40",
   "0x457FA0",
+  "0x584E50",
   "0x6E5040",
   "0x6E5420",
   "0x6E5440",
@@ -32,6 +31,7 @@
   "0x42F250",
   "0x447C40",
   "0x457FA0",
+  "0x584E50",
   "0x6E5420",
   "0x6E5440",
   "0x6E5460",

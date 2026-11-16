@@ -98,6 +98,15 @@ and not contradicted by the object's own exact calls (P-CGP-1); `exact` with `ti
 wwprofile.obj's Start_Profile 0x9EA930 / Start_Root_Profile 0x9EA9C0, Stop_Profile 0x9EAA50 / Stop_Root_Profile
 0x9EAAD0 were the first case.
 
+What every rule above leaves `multiple` gets one funclet round (D246 / C35, USE_FUNCLET_TIES) before the short
+round: the one survivor that a matching unwind funclet of an exact function (funclet_targets, the same evidence
+as the short `funclet` kind below) jumps or calls to under the function's own symbol; `exact` with `tiebreak`
+and `funclet_tie` set. It runs last so that no earlier credit is displaced (in the D80 rounds it moved sclient's
+~deque<int> 0x755A10 to emote_data's copy 0x7E6570), and its credits never widen an object's range (the funclet
+fixes the symbol's address, not which object's copy the linker kept: dynamic_window_class's
+~RefCountPtr<DynamicWindowElementClass> 0x517030 lies in dynamic_window_background's stretch). Mostly shared
+COMDAT destructors (~basic_string<char> 0x42A6C0, RefCountPtr / vector instances).
+
 A searched match counts only at a function start (D189(2)): an address the client's thunk table or a
 call / jump reaches, or one right after padding (int3 / nop) or after the end of another function (a
 `ret`, `ret n`, `jmp`, an indirect `jmp`, or a jump table's last entry), or a 16-byte aligned one (a
@@ -143,6 +152,11 @@ ANCHOR_HITS = True
 # D246 / C21 (TK, run 2026-11-15): a short function reached by a jmp from a matching unwind funclet of an
 # exact function is credited like a call's target (short_known's `funclet` kind)
 USE_FUNCLET_CALLS = True
+# D246 / C35 (FE, run 2026-11-15b): the same funclet evidence breaks a D166 tie of a non-short body: of a
+# `multiple` function's byte-identical copies, the one a matching unwind funclet of an exact function jumps or
+# calls to under the function's own symbol is its address (`funclet_tie`: its own round after every other
+# tie rule, before the short round; never widens an object's range)
+USE_FUNCLET_TIES = True
 
 
 def generated(name):
@@ -683,7 +697,8 @@ def match_objects(img, paths, region=None, callers=False):
             ranges = {}
             if phase in ('range', 'init', 'xcu', 'order'):
                 for r, obj, sec, s, length in results:
-                    if r['status'] == 'exact' and obj.own(sec):
+                    # D246 / C35: a funclet tie fixes the symbol's address, not which object's copy the linker kept
+                    if r['status'] == 'exact' and obj.own(sec) and not r.get('funclet_tie'):
                         a = int(r['addresses'][0], 16)
                         lo, hi = ranges.get(id(obj), (a, a))
                         ranges[id(obj)] = (min(lo, a), max(hi, a))
@@ -698,7 +713,7 @@ def match_objects(img, paths, region=None, callers=False):
                 while grown:    # chained: a COMDAT within RANGE_GAP of the widened range widens it too
                     grown = False
                     for r, obj, sec, s, length in results:
-                        if r['status'] == 'exact' and not obj.own(sec) and id(obj) in ranges:
+                        if r['status'] == 'exact' and not obj.own(sec) and id(obj) in ranges and not r.get('funclet_tie'):
                             a = int(r['addresses'][0], 16)
                             wlo, whi = wide[id(obj)]
                             if wlo <= a <= whi:
@@ -796,7 +811,8 @@ def match_objects(img, paths, region=None, callers=False):
                     claimed[a].add(r['symbol'])
                     learn(r, obj, sec, s, length, a)
                     done.add(id(r))
-                phase = 'd80' if got else 'short'
+                # D246 / C35: what every other tie rule left, by funclet evidence, before the short round
+                phase = 'd80' if got else 'funclet' if USE_FUNCLET_TIES else 'short'
                 changed = True
                 continue
             for item in pending:
@@ -807,6 +823,12 @@ def match_objects(img, paths, region=None, callers=False):
                 if phase == 'd80':
                     if len(survivors) == 1 and confirmed:
                         proposals.append((item, survivors[0]))
+                elif phase == 'funclet':
+                    # D246 / C35: one address a matching funclet reaches under this symbol, among the survivors
+                    if obj.symbol_class(r['symbol']) == 2 and not generated(r['symbol']):
+                        reach = funclet_called.get(r['symbol'], ())
+                        if len(reach) == 1 and next(iter(reach)) in survivors:
+                            proposals.append((item, next(iter(reach))))
                 elif phase == 'selfname':
                     own = [h for h in survivors if h in names.get(r['symbol'], ())]
                     if len(own) == 1:
@@ -866,6 +888,8 @@ def match_objects(img, paths, region=None, callers=False):
                     r['range'] = True
                 if phase == 'init':
                     r['initialiser'] = True
+                if phase == 'funclet':
+                    r['funclet_tie'] = True
                 r.pop('count'), r.pop('identical')
                 claimed[a].add(r['symbol'])
                 learn(r, obj, sec, s, length, a)
@@ -876,6 +900,8 @@ def match_objects(img, paths, region=None, callers=False):
                     phase, changed = 'selfname', True   # D80 is done: one self-name round
             elif changed:
                 phase = 'd80'                           # back to D80 after a round that credited
+            elif phase == 'funclet':
+                phase, changed = 'short', True          # nor the funclets (D246 / C35): one short round
             elif phase == 'selfname':
                 phase, changed = 'range', True          # neither D80 nor the self name: one range round
             elif phase == 'range':

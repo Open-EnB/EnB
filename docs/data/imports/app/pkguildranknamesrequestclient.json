@@ -1,12 +1,10 @@
 {
- "ambiguous": [
-  "0x42A6C0",
-  "0x42CA60"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "opcodes 197, 201, 210 and 211 written by hand (builder P4, 19 of 19 exact); packet classes (opcode 204, 205, 200, 208, 212, 216) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
  "expected": {},
  "in_tree": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",
@@ -33,6 +31,7 @@
   "0x5953D0",
   "0x81C040",
   "0x81D720",
+  "0x81DF90",
   "0x88BEA0",
   "0x88BED0",
   "0x88BF90",
@@ -108,6 +107,7 @@
  "merged": [],
  "name": "packets/pkguildranknamesrequestclient.cpp",
  "shared": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",
@@ -134,6 +134,7 @@
   "0x5953D0",
   "0x81C040",
   "0x81D720",
+  "0x81DF90",
   "0x88D6F0",
   "0x88E840"
  ],

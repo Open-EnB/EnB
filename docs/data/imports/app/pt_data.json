@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42A900"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "RECONSTRUCTED: the petition terminal's three lists (missions, news, people) read from pt_missions.ini / pt_news.ini / pt_people.ini; the client's __FILE__ and G_ASSERTs 'idx >= 0' (lines 86, 139, 197), 0x696320-0x6974F0",
  "expected": {},
@@ -15,7 +13,9 @@
   "0x696CD0",
   "0x697110",
   "0x6971B0",
+  "0x697220",
   "0x697260",
+  "0x697290",
   "0x6972D0",
   "0x697300",
   "0x697340",

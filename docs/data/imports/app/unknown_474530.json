@@ -1,6 +1,5 @@
 {
  "ambiguous": [
-  "0x42A6C0",
   "0x42A900",
   "0x42AFF0",
   "0x42B2F0",
@@ -15,6 +14,7 @@
  "description": "the terrain's third object, client 0x474530-0x47F520 (INTERIM file name, D137; split from land.cpp: Load_Assets calls LandPatchClass's constructor 0x474530 and Init 0x4746C0 out of line): LandPatchClass, Render and the decorations, partly NOT EXACT (marked)",
  "expected": {},
  "in_tree": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",
@@ -106,6 +106,7 @@
  "merged": [],
  "name": "shared/unknown_474530.cpp",
  "shared": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",

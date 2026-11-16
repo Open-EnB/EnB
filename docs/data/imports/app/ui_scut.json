@@ -1,11 +1,10 @@
 {
- "ambiguous": [
-  "0x42A6C0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "UIScutClass (ui_scut.cpp's __FILE__; client 0x610570-0x6134F1, claims #35 / #36): the interface, its two bars, their bank toggle (0x6125B0) and the ShortcutSlotStruct sort, the asserts on the client's lines (D25), SC2",
  "expected": {},
  "in_tree": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",
@@ -94,6 +93,7 @@
  "merged": [],
  "name": "client/ui_scut.cpp",
  "shared": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",

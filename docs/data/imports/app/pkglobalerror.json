@@ -1,11 +1,10 @@
 {
- "ambiguous": [
-  "0x42A6C0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "opcode 117's object, 0x864A10-0x864FF0 (no assert: the file name provisional, NAME 1): written by hand (builder P5)",
  "expected": {},
  "in_tree": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A970",
   "0x42AB30",
@@ -29,6 +28,7 @@
  "merged": [],
  "name": "packets/pkglobalerror.cpp",
  "shared": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A970",
   "0x42AB30",

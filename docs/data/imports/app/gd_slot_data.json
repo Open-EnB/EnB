@@ -1,12 +1,12 @@
 {
  "ambiguous": [
-  "0x42A6C0",
   "0x42B2F0"
  ],
  "copy": "reconstructed",
  "description": "SlotDataGadgetClass (D24 class-from-file; table 0xAFB0CC, 0x6C bytes) and Unknown_670E30Class (table 0xAFB1A4, 0x70 bytes), client 0x670650-0x671278 (__FILE__ 0xB8D684, asserts on lines 69-352; the object's <string> initialiser at 0x6712D0)  (GS1)",
  "expected": {},
  "in_tree": [
+  "0x42A6C0",
   "0x42F250",
   "0x50A8E0",
   "0x50A920",
@@ -58,6 +58,7 @@
  "merged": [],
  "name": "client/gd_slot_data.cpp",
  "shared": [
+  "0x42A6C0",
   "0x42F250",
   "0x50A8E0",
   "0x50A920",

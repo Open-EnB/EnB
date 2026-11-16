@@ -1,7 +1,5 @@
 {
  "ambiguous": [
-  "0x42A6C0",
-  "0x42A900",
   "0x42AAE0",
   "0x42AC90",
   "0x42B250",
@@ -12,6 +10,7 @@
  "description": "control_keys_manager.cpp, client 0x7197A0-0x720F80: the static empty string 0xBE7B80 and the definition accessors 0x71CC20-0x71CD20 (FAIL_IF lines 651-676, D25); the manager, its tables (_Instances, _KeyDefinitions on libs/sgistl, D87) and the ini loaders not yet",
  "expected": {},
  "in_tree": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",
@@ -99,10 +98,12 @@
   "0x71E950",
   "0x71EA20",
   "0x71EB40",
+  "0x71EB80",
   "0x71EBC0",
   "0x71EC90",
   "0x71ECD0",
   "0x71ED90",
+  "0x71EDC0",
   "0x71EE00",
   "0x71F030",
   "0x71F050",
@@ -150,6 +151,7 @@
  "merged": [],
  "name": "client/control_keys_manager.cpp",
  "shared": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",

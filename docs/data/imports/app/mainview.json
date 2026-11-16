@@ -1,12 +1,12 @@
 {
  "ambiguous": [
-  "0x42A6C0",
   "0x42B2F0"
  ],
  "copy": "reconstructed",
  "description": "the main view (MainViewClass, sclient.h; client 0x50B2C0-0x5146xx, 97 functions): so far the zone loader 0x5137F0 on the client's FAIL_IF lines 1974 / 1981 / 1983 (LD3)",
  "expected": {},
  "in_tree": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",
@@ -124,6 +124,7 @@
  "merged": [],
  "name": "client/mainview.cpp",
  "shared": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",

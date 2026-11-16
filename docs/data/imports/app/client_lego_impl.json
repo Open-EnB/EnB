@@ -1,6 +1,5 @@
 {
  "ambiguous": [
-  "0x42A6C0",
   "0x42AAE0",
   "0x42B250",
   "0x42B2F0",
@@ -10,6 +9,7 @@
  "description": "ClientLegoImplClass 0x729BF0-0x72DC10, the whole window written (builder H17; asserts on lines 69-809, D25) with the tables' instances; NOT EXACT: Find, Get_Lego_Transform, Add, Remove, Child_Moved, Attach and Detach (attempts.csv)",
  "expected": {},
  "in_tree": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",
@@ -28,6 +28,7 @@
   "0x45CC30",
   "0x45E1B0",
   "0x4B5740",
+  "0x700BC0",
   "0x729B00",
   "0x729BD0",
   "0x729BF0",
@@ -162,6 +163,7 @@
  "merged": [],
  "name": "client/client_lego_impl.cpp",
  "shared": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",
@@ -180,7 +182,9 @@
   "0x45CC30",
   "0x45E1B0",
   "0x4B5740",
+  "0x700BC0",
   "0x729BD0",
+  "0x72E200",
   "0x72F930",
   "0x730030",
   "0x730050"

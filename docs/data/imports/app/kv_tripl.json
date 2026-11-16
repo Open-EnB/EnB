@@ -1,12 +1,12 @@
 {
  "ambiguous": [
-  "0x42A6C0",
   "0x42B250"
  ],
  "copy": "reconstructed",
  "description": "KVTripleClass / KVTripleListClass, client 0x4B84C0-0x4B9BB0 with the index's instances to 0x4BAEB0: asserts on the client's lines 34-164 (D25); NOT EXACT: the copy constructor 0x4B8A20, the prefix constructor 0x4B8DC0, the destructor 0x4B9180",
  "expected": {},
  "in_tree": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",
@@ -63,6 +63,7 @@
  "merged": [],
  "name": "shared/kv_tripl.cpp",
  "shared": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",

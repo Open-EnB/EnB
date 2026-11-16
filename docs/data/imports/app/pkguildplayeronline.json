@@ -1,12 +1,10 @@
 {
- "ambiguous": [
-  "0x42A6C0",
-  "0x42CA60"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "guild opcodes 193-196, 198, 199, 202, 203, 206, 207, 209, 213-215, 217, 218 and 219 written by hand (builder P4, all exact but 219's two constructors), client 0x88EC70-0x894390; the file name provisional (NAME 1)",
  "expected": {},
  "in_tree": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",
@@ -28,6 +26,7 @@
   "0x52B350",
   "0x5953D0",
   "0x81D720",
+  "0x81DF90",
   "0x88E840",
   "0x88EC70",
   "0x88EDF0",
@@ -165,6 +164,7 @@
  "merged": [],
  "name": "packets/pkguildplayeronline.cpp",
  "shared": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",
@@ -186,6 +186,7 @@
   "0x52B350",
   "0x5953D0",
   "0x81D720",
+  "0x81DF90",
   "0x88E840",
   "0x88FAC0",
   "0x891F60",

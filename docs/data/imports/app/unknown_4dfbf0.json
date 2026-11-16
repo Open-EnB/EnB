@@ -1,11 +1,10 @@
 {
- "ambiguous": [
-  "0x42A6C0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "client 0x4DFBF0-0x4E06EF, the object after attrib_dir_collective.cpp's (ends with <string>'s guarded initialiser 0x4E06D0; vtables 0xAEC3D0-0xAEC410 between the two objects' __stl_prime_list copies 0xAEC348 / 0xAEC414): Link_Attribute (AttribDirCollective::Link's callee), the link mod AttribLinkModClass, the two-source mod and its sum; no string of its own, the file name provisional (D137); rebuilt by builder O13b (2026-11-13), every function exact",
  "expected": {},
  "in_tree": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",
@@ -40,6 +39,7 @@
  "merged": [],
  "name": "shared/unknown_4dfbf0.cpp",
  "shared": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",

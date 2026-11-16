@@ -1,12 +1,12 @@
 {
  "ambiguous": [
-  "0x42A6C0",
   "0x42B2F0"
  ],
  "copy": "reconstructed",
  "description": "opcode 11 (OBJECT_TO_OBJECT_EFFECT) written by hand over lego_identifier.cpp (builder P4, 8 of 8 exact in appfile.py match); opcode 9 written by hand over FlagPacketClass and PointEffect's value constructor (builder P3, 10 of 10 exact in appfile.py match); packet classes (opcode 10, 15) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
  "expected": {},
  "in_tree": [
+  "0x42A6C0",
   "0x42A970",
   "0x42AB30",
   "0x52B210",
@@ -84,6 +84,7 @@
  "merged": [],
  "name": "packets/pkpointeffect.cpp",
  "shared": [
+  "0x42A6C0",
   "0x42A970",
   "0x42AB30",
   "0x52B210",

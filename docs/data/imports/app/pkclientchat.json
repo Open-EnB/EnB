@@ -1,12 +1,12 @@
 {
  "ambiguous": [
-  "0x42A6C0",
   "0x47D640"
  ],
  "copy": "reconstructed",
  "description": "the chat packets' object, 0x8785B0-0x87A910 (no assert: the file name provisional, NAME 1): opcodes 51 CLIENT_CHAT, 163 CLIENT_CHAT_REQUEST and 165 CLIENT_CHAT_EVENT written by hand (builder P3), 18 of 18 exact in appfile.py match",
  "expected": {},
  "in_tree": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",
@@ -71,6 +71,7 @@
  "merged": [],
  "name": "packets/pkclientchat.cpp",
  "shared": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",

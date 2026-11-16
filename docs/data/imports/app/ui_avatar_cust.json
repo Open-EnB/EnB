@@ -1,6 +1,5 @@
 {
  "ambiguous": [
-  "0x42A6C0",
   "0x46BE90",
   "0x474080"
  ],
@@ -8,6 +7,7 @@
  "description": "StarbaseAvatarCreationInterface (the client's RTTI: its FlashingGadgetEvent callback's type name 0xB7AC88), the avatar customisation window (ui_avatar_cust.cpp's __FILE__, 0x551320's FAIL_IFs; client from 0x54B370 (after ui_attrb_skills.cpp) to ui_avatar_dialog.cpp 0x551FB0, claims #63, #87): so far 0x550670 (the mode and part buttons) and 0x550970, both exact, and the metal models' turn 0x550A10 (NOT EXACT, register; matrix3d.h's Rotate_Y copy 0x551270 exact with it) (TG4); 0x5513E0-0x551C80 after the FAIL_IFs, eight exact (TK6); the class declared only as far as they use it",
  "expected": {},
  "in_tree": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",
@@ -44,6 +44,7 @@
   "0x52B330",
   "0x52B350",
   "0x53BB50",
+  "0x53CF80",
   "0x543750",
   "0x543770",
   "0x5466A0",
@@ -105,6 +106,7 @@
  "merged": [],
  "name": "client/ui_avatar_cust.cpp",
  "shared": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",
@@ -141,6 +143,7 @@
   "0x52B330",
   "0x52B350",
   "0x53BB50",
+  "0x53CF80",
   "0x543750",
   "0x543770",
   "0x5466A0",

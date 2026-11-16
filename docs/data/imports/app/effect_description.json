@@ -1,6 +1,5 @@
 {
  "ambiguous": [
-  "0x42A6C0",
   "0x42AAE0",
   "0x42AFF0",
   "0x4333D0",
@@ -12,6 +11,7 @@
  "description": "RECONSTRUCTED: client 0x8320D0-0x834D30, EffectDescriptionClass (an effect's three texts and the values their '%value...%' tags show, as text and in messages) with its statics and string / sstream instances; the file name and the 9 assert lines are the client's (e:\\build\\beta\\G\\app\\common\\effect_description.cpp)",
  "expected": {},
  "in_tree": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",
@@ -139,6 +139,7 @@
  "merged": [],
  "name": "common/effect_description.cpp",
  "shared": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",

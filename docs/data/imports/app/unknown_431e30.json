@@ -1,12 +1,12 @@
 {
  "ambiguous": [
-  "0x42A6C0",
   "0x42B250"
  ],
  "copy": "reconstructed",
  "description": "RECONSTRUCTED from client.exe 0x431E30-0x433CE0: an unconstructed music player (ambient.ini's SOUND_<n> tracks, [Music-NNN] Sector -> DefaultMusic, '-NOMUSIC'); no __FILE__ in the object, class and file names provisional",
  "expected": {},
  "in_tree": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",
@@ -49,6 +49,7 @@
  "merged": [],
  "name": "audio/unknown_431e30.cpp",
  "shared": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",

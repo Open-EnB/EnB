@@ -1,12 +1,12 @@
 {
  "ambiguous": [
-  "0x42A6C0",
   "0x42B250"
  ],
  "copy": "reconstructed",
  "description": "AttribDir / AttributeInfo, client 0x4D42C0-0x4D8690 with the list, vector and table instances and the mod iterators: the asserts on the client's lines 200-1066 (D25); NOT EXACT: 0x4D4490, 0x4D4810, 0x4D4BD0, 0x4D5000, 0x4D55D0, 0x4D6620, 0x4D6820, 0x4D71D0, 0x4D8240, 0x4D8690",
  "expected": {},
  "in_tree": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",
@@ -149,6 +149,7 @@
  "merged": [],
  "name": "shared/attrib_dir.cpp",
  "shared": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",

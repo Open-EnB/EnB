@@ -1,6 +1,5 @@
 {
  "ambiguous": [
-  "0x42A6C0",
   "0x42B2F0",
   "0x46BE90",
   "0x474080",
@@ -12,6 +11,7 @@
  "description": "LoadingViewClass (loadingview.cpp's __FILE__; client 0x6912A0-0x6927C0): the constructor 0x691570 on the client's line 52, the destructor, Init 0x691770 and Shutdown 0x6917A0 (LD4); START 0x692330 and the loading screen 0x692420 (UI1); SERVER_HANDOFF 0x691830 not yet",
  "expected": {},
  "in_tree": [
+  "0x42A6C0",
   "0x42A820",
   "0x42F250",
   "0x50B680",
@@ -49,6 +49,7 @@
  "merged": [],
  "name": "client/loadingview.cpp",
  "shared": [
+  "0x42A6C0",
   "0x42A820",
   "0x42F250",
   "0x50B680",
@@ -69,6 +70,7 @@
   "0x514D70",
   "0x65A710",
   "0x691630",
+  "0x6926F0",
   "0x692720"
  ],
  "short_known": [

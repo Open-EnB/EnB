@@ -1,7 +1,5 @@
 {
  "ambiguous": [
-  "0x42A6C0",
-  "0x42A900",
   "0x42AAE0",
   "0x42AFF0",
   "0x4333D0",
@@ -11,10 +9,12 @@
  "description": "the client's file (FAIL_IFs on lines 159 and 251), 0x873AE0-0x8754A0: opcodes 137 RELATIONSHIP and 139 ATTACKER_UPDATES written by hand (builder P3), 11 of 11 exact in appfile.py match",
  "expected": {},
  "in_tree": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",
   "0x42AB30",
+  "0x4A0810",
   "0x4A0B70",
   "0x52B210",
   "0x52B240",
@@ -72,10 +72,12 @@
  "merged": [],
  "name": "packets/pk_player_object_relationship.cpp",
  "shared": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",
   "0x42AB30",
+  "0x4A0810",
   "0x4A0B70",
   "0x52B210",
   "0x52B240",

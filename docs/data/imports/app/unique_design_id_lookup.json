@@ -1,12 +1,12 @@
 {
  "ambiguous": [
-  "0x42A6C0",
   "0x42B250"
  ],
  "copy": "reconstructed",
  "description": "UniqueDesignIDLookupClass, client 0x4FFC70-0x500760 with the iostream, string and table instances to about 0x509C40 (VC6's <sstream>): the reports on the client's lines 32 / 35 / 73, the asserts on 46 / 101 (D25); NOT EXACT: Add_Identifier 0x500760",
  "expected": {},
  "in_tree": [
+  "0x42A6C0",
   "0x42A710",
   "0x42A820",
   "0x42A940",
@@ -164,6 +164,7 @@
  "merged": [],
  "name": "shared/unique_design_id_lookup.cpp",
  "shared": [
+  "0x42A6C0",
   "0x42A710",
   "0x42A820",
   "0x42A940",
@@ -236,9 +237,11 @@
   "0x502010",
   "0x502040",
   "0x5020B0",
+  "0x5020F0",
   "0x502140",
   "0x502180",
   "0x5021B0",
+  "0x502630",
   "0x502670",
   "0x5027D0",
   "0x502A90",

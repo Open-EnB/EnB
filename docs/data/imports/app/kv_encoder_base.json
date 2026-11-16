@@ -1,12 +1,12 @@
 {
  "ambiguous": [
-  "0x42A6C0",
   "0x42B2F0"
  ],
  "copy": "reconstructed",
  "description": "KVEncoderBaseClass, client 0x4B3850-0x4B4A0B: 13 functions, asserts on the client's lines 45-130 (D25); the constructor 0x4B3850 not exact (register allocation)",
  "expected": {},
  "in_tree": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",
@@ -74,6 +74,7 @@
  "merged": [],
  "name": "shared/kv_encoder_base.cpp",
  "shared": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",
@@ -94,6 +95,7 @@
   "0x4B0F80",
   "0x4B1110",
   "0x4B53D0",
+  "0x4B5470",
   "0x4B5560",
   "0x4B55F0",
   "0x4B5740",

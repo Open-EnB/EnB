@@ -1,7 +1,5 @@
 {
  "ambiguous": [
-  "0x42A6C0",
-  "0x46BE90",
   "0x474080",
   "0x47D640"
  ],
@@ -9,6 +7,7 @@
  "description": "UIItemExaminationOptionsClass (ui_item_examination_options.cpp's __FILE__, the row's FAIL_IFs lines 175 / 176 at 0x536450): the constructor 0x5352D0, destructor 0x5357E0 (deleting 0x5357B0), Add_Option 0x535970, Rebuild 0x535A10 and Clear 0x535BF0 exact, with Create_NEW 0x536610, std::_Sort_0 0x536B20, _Sort 0x537080, copy_backward 0x536ED0 and RefCountPtr<ClientItemPropertyOptionClass>'s copy 0x536EA0, assignment 0x536A80, destructor 0x5365E0; partial (IE1, run 2026-11-05-night)",
  "expected": {},
  "in_tree": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",
@@ -26,9 +25,11 @@
   "0x47E4D0",
   "0x47EB50",
   "0x47ED00",
+  "0x517030",
   "0x5181D0",
   "0x51D730",
   "0x51E220",
+  "0x51E860",
   "0x5352D0",
   "0x5357B0",
   "0x5357E0",
@@ -71,6 +72,7 @@
  "merged": [],
  "name": "client/ui_item_examination_options.cpp",
  "shared": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",
@@ -88,9 +90,12 @@
   "0x47E4D0",
   "0x47EB50",
   "0x47ED00",
+  "0x517030",
   "0x5181D0",
   "0x51D730",
   "0x51E220",
+  "0x51E860",
+  "0x5365E0",
   "0x536A10",
   "0x536AC0",
   "0x536AE0",
