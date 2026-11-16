@@ -1,7 +1,6 @@
 {
  "ambiguous": [
-  "0x42B2F0",
-  "0x46BE90"
+  "0x42B2F0"
  ],
  "copy": "reconstructed",
  "description": "GadgetClass (gadget.h), client 0x65ECE0-0x6609A0 (__FILE__ 0xB8C9F4, asserts on the client's lines 151-1036, D25): the destructor, Destroy, the tooltips (tooltip.ini), the slots, the sort groups, the held gadgets, the flash's stop / clone / toggle; NOT EXACT: the constructor 0x65ED50 (order) (UI)",
@@ -9,6 +8,7 @@
  "in_tree": [
   "0x42B320",
   "0x42F250",
+  "0x4740B0",
   "0x50A8C0",
   "0x50A8E0",
   "0x50A900",
@@ -68,6 +68,7 @@
  "shared": [
   "0x42B320",
   "0x42F250",
+  "0x4740B0",
   "0x50A8C0",
   "0x50A8E0",
   "0x50A900",

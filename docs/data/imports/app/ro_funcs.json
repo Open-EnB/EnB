@@ -1,6 +1,5 @@
 {
  "ambiguous": [
-  "0x46BE90",
   "0x474080"
  ],
  "copy": "reconstructed",
@@ -8,6 +7,7 @@
  "expected": {},
  "in_tree": [
   "0x42F250",
+  "0x4740B0",
   "0x495FD0",
   "0x4960C0",
   "0x496110",
@@ -32,6 +32,7 @@
  "name": "shared/ro_funcs.cpp",
  "shared": [
   "0x42F250",
+  "0x4740B0",
   "0x497330",
   "0x497390",
   "0x4973B0"

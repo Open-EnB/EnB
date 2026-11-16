@@ -105,7 +105,11 @@ and `funclet_tie` set. It runs last so that no earlier credit is displaced (in t
 ~deque<int> 0x755A10 to emote_data's copy 0x7E6570), and its credits never widen an object's range (the funclet
 fixes the symbol's address, not which object's copy the linker kept: dynamic_window_class's
 ~RefCountPtr<DynamicWindowElementClass> 0x517030 lies in dynamic_window_background's stretch). Mostly shared
-COMDAT destructors (~basic_string<char> 0x42A6C0, RefCountPtr / vector instances).
+COMDAT destructors (~basic_string<char> 0x42A6C0, RefCountPtr / vector instances). What the funclets leave
+gets one pushed round (D246 / CR4, USE_PUSHED_TIES) the same way: the one survivor that exact functions'
+absolute references under the function's own symbol reach (pushed_targets: an atexit destructor, an eh vector
+iterator's element dtor, a qsort / bsearch compare function); `exact` with `tiebreak` and `pushed_tie` set,
+never widening an object's range (~RefCountPtr<RenderObjClass> 0x4740B0, IndexClass's search_compfunc 0x9CCC50).
 
 A searched match counts only at a function start (D189(2)): an address the client's thunk table or a
 call / jump reaches, or one right after padding (int3 / nop) or after the end of another function (a
@@ -164,6 +168,11 @@ USE_FUNCLET_TIES = True
 # absolute immediate (pushed as an argument, moved into a register, stored) is located by client.exe's bytes
 # like a call's target (short_known's `pushed` kind, below call and funclet; pushed_targets)
 USE_PUSHED_CALLS = True
+# D246 / CR4 (run 2026-11-16): the same pushed evidence breaks a D166 tie of a non-short body, like the funclet
+# tie: of a `multiple` function's byte-identical copies, the one exact functions' absolute references under the
+# function's own symbol reach (pushed_targets: one client address only) is its address (`pushed_tie`: its own
+# round after the funclet round, before the short round; never widens an object's range)
+USE_PUSHED_TIES = True
 
 
 def generated(name):
@@ -709,7 +718,8 @@ def match_objects(img, paths, region=None, callers=False):
             if phase in ('range', 'init', 'xcu', 'order'):
                 for r, obj, sec, s, length in results:
                     # D246 / C35: a funclet tie fixes the symbol's address, not which object's copy the linker kept
-                    if r['status'] == 'exact' and obj.own(sec) and not r.get('funclet_tie'):
+                    if r['status'] == 'exact' and obj.own(sec) and not r.get('funclet_tie') \
+                            and not r.get('pushed_tie'):
                         a = int(r['addresses'][0], 16)
                         lo, hi = ranges.get(id(obj), (a, a))
                         ranges[id(obj)] = (min(lo, a), max(hi, a))
@@ -724,7 +734,8 @@ def match_objects(img, paths, region=None, callers=False):
                 while grown:    # chained: a COMDAT within RANGE_GAP of the widened range widens it too
                     grown = False
                     for r, obj, sec, s, length in results:
-                        if r['status'] == 'exact' and not obj.own(sec) and id(obj) in ranges and not r.get('funclet_tie'):
+                        if r['status'] == 'exact' and not obj.own(sec) and id(obj) in ranges and not r.get('funclet_tie') \
+                                and not r.get('pushed_tie'):
                             a = int(r['addresses'][0], 16)
                             wlo, whi = wide[id(obj)]
                             if wlo <= a <= whi:
@@ -823,7 +834,7 @@ def match_objects(img, paths, region=None, callers=False):
                     learn(r, obj, sec, s, length, a)
                     done.add(id(r))
                 # D246 / C35: what every other tie rule left, by funclet evidence, before the short round
-                phase = 'd80' if got else 'funclet' if USE_FUNCLET_TIES else 'short'
+                phase = 'd80' if got else 'funclet' if USE_FUNCLET_TIES else 'pushed' if USE_PUSHED_TIES else 'short'
                 changed = True
                 continue
             for item in pending:
@@ -838,6 +849,12 @@ def match_objects(img, paths, region=None, callers=False):
                     # D246 / C35: one address a matching funclet reaches under this symbol, among the survivors
                     if obj.symbol_class(r['symbol']) == 2 and not generated(r['symbol']):
                         reach = funclet_called.get(r['symbol'], ())
+                        if len(reach) == 1 and next(iter(reach)) in survivors:
+                            proposals.append((item, next(iter(reach))))
+                elif phase == 'pushed':
+                    # D246 / CR4: one address exact functions' absolute references reach under this symbol
+                    if obj.symbol_class(r['symbol']) == 2 and not generated(r['symbol']):
+                        reach = pushed_called.get(r['symbol'], ())
                         if len(reach) == 1 and next(iter(reach)) in survivors:
                             proposals.append((item, next(iter(reach))))
                 elif phase == 'selfname':
@@ -901,6 +918,8 @@ def match_objects(img, paths, region=None, callers=False):
                     r['initialiser'] = True
                 if phase == 'funclet':
                     r['funclet_tie'] = True
+                if phase == 'pushed':
+                    r['pushed_tie'] = True
                 r.pop('count'), r.pop('identical')
                 claimed[a].add(r['symbol'])
                 learn(r, obj, sec, s, length, a)
@@ -912,7 +931,10 @@ def match_objects(img, paths, region=None, callers=False):
             elif changed:
                 phase = 'd80'                           # back to D80 after a round that credited
             elif phase == 'funclet':
-                phase, changed = 'short', True          # nor the funclets (D246 / C35): one short round
+                # nor the funclets (D246 / C35): the pushed references (D246 / CR4), then one short round
+                phase, changed = ('pushed' if USE_PUSHED_TIES else 'short'), True
+            elif phase == 'pushed':
+                phase, changed = 'short', True          # nor the pushed references (D246 / CR4): one short round
             elif phase == 'selfname':
                 phase, changed = 'range', True          # neither D80 nor the self name: one range round
             elif phase == 'range':

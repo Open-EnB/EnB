@@ -1,5 +1,5 @@
 """objmatch.py's funclet evidence for short functions (D246 / C21) and for tied non-short bodies (D246 / C35)
-and pushed-address evidence for short functions (D246 / CR3;
+and pushed-address evidence for short functions (D246 / CR3) and for tied non-short bodies (D246 / CR4;
 python -m unittest tools/re/test_objmatch.py).
 
 The object is not tracked: build/app/obj/attrib_dir_collective.obj in the main tree (or OBJMATCH_OBJS), a
@@ -101,6 +101,35 @@ class PushedEvidence(unittest.TestCase):
                 finally:
                     objmatch.USE_PUSHED_CALLS = True
                 self.assertEqual(res[sym]['status'], 'short')
+
+PUSHED_TIES = [
+    # object, symbol, client address: a tied body that exact functions push at one address (D246 / CR4)
+    ('ambientsoundmanager.obj',
+     '??1?$vector@PAURandomSoundStruct@AmbientSoundManagerClass@@V?$allocator@PAURandomSoundStruct@AmbientSoundManagerClass@@@std@@@std@@QAE@XZ',
+     '0x4362E0'),   # an atexit destructor's argument
+]
+
+
+class PushedTies(unittest.TestCase):
+    def test_ties(self):
+        img = objmatch.ClientImage(objmatch.DEFAULT_CLIENT)
+        for name, sym, addr in PUSHED_TIES:
+            path = os.path.join(OBJS, name)
+            with self.subTest(sym=sym):
+                if not os.path.exists(path):
+                    self.skipTest(f'{path} missing')
+                res = {r['symbol']: r for r in objmatch.match_objects(img, [path])}
+                self.assertEqual(res[sym]['status'], 'exact')
+                self.assertEqual(res[sym]['addresses'], [addr])
+                self.assertTrue(res[sym].get('pushed_tie'))
+                # the rule's switch: without it the copies stay tied
+                objmatch.USE_PUSHED_TIES = False
+                try:
+                    res = {r['symbol']: r for r in objmatch.match_objects(img, [path])}
+                finally:
+                    objmatch.USE_PUSHED_TIES = True
+                self.assertEqual(res[sym]['status'], 'multiple')
+
 
 if __name__ == '__main__':
     unittest.main()

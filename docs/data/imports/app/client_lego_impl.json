@@ -2,8 +2,7 @@
  "ambiguous": [
   "0x42AAE0",
   "0x42B250",
-  "0x42B2F0",
-  "0x46BE90"
+  "0x42B2F0"
  ],
  "copy": "reconstructed",
  "description": "ClientLegoImplClass 0x729BF0-0x72DC10, the whole window written (builder H17; asserts on lines 69-809, D25) with the tables' instances; NOT EXACT: Find, Get_Lego_Transform, Add, Remove, Child_Moved, Attach and Detach (attempts.csv)",
@@ -29,6 +28,7 @@
   "0x45CC30",
   "0x45E1B0",
   "0x468E70",
+  "0x4740B0",
   "0x4B5740",
   "0x700BC0",
   "0x729B00",
@@ -185,6 +185,7 @@
   "0x45CC30",
   "0x45E1B0",
   "0x468E70",
+  "0x4740B0",
   "0x4B5740",
   "0x700BC0",
   "0x729BD0",

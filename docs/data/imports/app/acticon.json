@@ -1,12 +1,11 @@
 {
- "ambiguous": [
-  "0x46BE90"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "The client's own string 'e:\\build\\beta\\G\\app\\Client\\acticon.cpp' (G_ASSERT '(group >= 0) && (group < 256)' l.15 of 0x6765D0); the warp button 0x676000-0x67648B, table 0xAFBB58",
  "expected": {},
  "in_tree": [
   "0x42F250",
+  "0x4740B0",
   "0x50A8E0",
   "0x50A900",
   "0x50A920",
@@ -50,6 +49,7 @@
  "name": "client/acticon.cpp",
  "shared": [
   "0x42F250",
+  "0x4740B0",
   "0x50A8E0",
   "0x50A900",
   "0x50A920",

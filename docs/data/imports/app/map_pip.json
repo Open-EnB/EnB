@@ -1,7 +1,6 @@
 {
  "ambiguous": [
   "0x42B2F0",
-  "0x46BE90",
   "0x541A10"
  ],
  "copy": "reconstructed",
@@ -10,6 +9,7 @@
  "in_tree": [
   "0x42B320",
   "0x42F250",
+  "0x4740B0",
   "0x6927C0",
   "0x6929D0",
   "0x6929F0",
@@ -30,7 +30,8 @@
  "name": "client/map_pip.cpp",
  "shared": [
   "0x42B320",
-  "0x42F250"
+  "0x42F250",
+  "0x4740B0"
  ],
  "short_known": [
   "0x42B320",

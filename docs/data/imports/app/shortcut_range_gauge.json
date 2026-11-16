@@ -1,7 +1,6 @@
 {
  "ambiguous": [
   "0x42B2F0",
-  "0x46BE90",
   "0x474080",
   "0x64EFC0"
  ],
@@ -11,6 +10,7 @@
  "in_tree": [
   "0x42B320",
   "0x42F250",
+  "0x4740B0",
   "0x6A3D60",
   "0x6A3F10",
   "0x6A43D0",
@@ -20,7 +20,8 @@
  "name": "client/shortcut_range_gauge.cpp",
  "shared": [
   "0x42B320",
-  "0x42F250"
+  "0x42F250",
+  "0x4740B0"
  ],
  "short_known": [
   "0x42B320"
