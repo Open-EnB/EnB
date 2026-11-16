@@ -22,6 +22,7 @@
 class Packet_00B3Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x00B3
 {
 public:
+	Packet_00B3Class(const char *name);	// 0x867010  // NAME 2: the stores (no caller left)
 	Packet_00B3Class(RawPacketClass *raw);	// 0x867250
 	virtual ~Packet_00B3Class();	// +0x00 0x8671B0 / 0x8671E0
 	virtual RawPacketClass *Build();	// +0x04 0x8673C0

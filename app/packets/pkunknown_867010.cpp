@@ -6,6 +6,11 @@ Packet_00B3Class::~Packet_00B3Class()
 {
 }
 
+// @0x867010
+Packet_00B3Class::Packet_00B3Class(const char *name) : Name(name), Unknown1C(0)
+{
+}
+
 Packet_00B3Class::Packet_00B3Class(RawPacketClass *raw) : Unknown1C(0)
 {
 	char *string = raw->Get_String();
