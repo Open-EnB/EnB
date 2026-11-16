@@ -3078,5 +3078,21 @@
   "symbol": "?Get_Priority@Packet_004BClass@@UAEHXZ",
   "evidence": "Packet_004BClass's vtable 0xB0B314 slot +0x1C is the thunk 0x40B988 to it (returns 0x7F; pkmoderequest.h's override); PacketClass::Get_Priority is 0x52B2F0 (returns 0) (QE, 2026-11-16)",
   "replaces": "?Get_Priority@PacketClass@@UAEHXZ"
+ },
+ {
+  "address": "0x5989A0",
+  "symbol": "?Create_NEW@@YA?AV?$RefCountPtr@VUISymbolChatClass@@@@PAVUISymbolChatClass@@@Z",
+  "evidence": "UIGroupClass::Unknown_54 0x594040 (ui_group.cpp) calls it (0x59409C) on 'new UISymbolChatClass' (0x64A480's constructor result) and stores the result in SymbolChatUI; the body is Create_NEW's (the bytes of the named copies 0x4A46F0 and others) (F1, 2026-11-16)"
+ },
+ {
+  "address": "0x5314D0",
+  "symbol": "?Unknown_Find_Field@@YAPAVDeltaCompoundClass@@PAVDeltaCompoundClass@@ABVNameClass@@@Z",
+  "evidence": "ClientItemPropertySpecialLevelRequirementClass's 0x531080 calls it (0x5310F9) for its first lookup, Unknown_Find_Valid<DeltaCompoundClass> (the rpg aux data compound); auxdata.h's body (assert line 0x9B) with a type global 0xBE3A74 other than DeltaTemplateClass<int>'s 0xC416A8 (0x514B60) (F1, 2026-11-16)"
+ },
+ {
+  "address": "0xAFE0B8",
+  "symbol": "??_7UnknownAFE0B8Class@@6B@",
+  "evidence": "viewbttn.cpp's drag-pointer table: Unknown_6B5FD0 stores it (0x6B5FF6) into its 'new' object; slot +0x00 is the thunk to 0x6B5ED0 (UnknownAFE0B8Class::Unknown_00, exact in viewbttn), slot +0x04 the thunk 0x410D20 to 0x6B5FB0 (F1, 2026-11-16)",
+  "kind": "vtable"
  }
 ]

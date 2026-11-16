@@ -77,6 +77,12 @@ void Unknown62A7C0Class::Unknown_62ADE0(float percent)
 	}
 }
 
+// @0x62AFA0
+void Unknown62A7C0Class::Unknown_62AFA0(UVControllerClass *shield, float fill)
+{
+	shield->Unknown_4A13A0(Vector2(0.0f, -0.71f * fill - 0.29f));
+}
+
 /*
 ** Reconstruction notes
 ** - The object: 0x62A7C0-0x62AF34, after ui_shipcust.cpp's (to 0x62A760); its table 0xAF7AD0 has one slot (0x62AAE0) and
@@ -88,6 +94,9 @@ void Unknown62A7C0Class::Unknown_62ADE0(float percent)
 ** - The offset's form: -0.71f * (third * 3.0f) - 0.29f keeps the client's two multiplies (fmul 3.0, fmul -0.71);
 **   third * 3.0f * -0.71f (or 3.0 as a double) has VC6 fold the constants into one. 0x62ADE0 is defined last (the
 **   client's order); VC6 still inlines it into 0x62AA20 (with 0) and 0x62AAE0.
+** - 0x62AFA0 (after an int3 run, before the guarded initialiser 0x62AFF0; no caller or reference): one shield's V
+**   offset, -0.71 * fill - 0.29 with the file's literals 0xAF7ADC / 0xAF7AE0; 'ret 8' with ecx unused: a member
+**   that does not read this (interim placement in this file, D137).
 ** - NOT EXACT: 0x62AA20 (0x62ADE0 inlined with 0.0f; the client keeps the folded -0.29f in one float temporary, ours
 **   stores immediates; tried a local offset, a float-returning helper: both exact elsewhere, no change here).
 */

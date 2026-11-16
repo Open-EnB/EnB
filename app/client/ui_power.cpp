@@ -19,6 +19,7 @@ class UIPowerGaugeClass : public TrailGaugeGadgetClass	// NAME 1: neutral (D10)
 {
 public:
 	UIPowerGaugeClass(RenderObjClass *mesh, const char *format, const char *sound);	// 0x5DCB50 (inlined into 0x5DBFC0)  // NAME 1 [mesh, format, sound]: what 0x5DBFC0 passes
+	virtual ~UIPowerGaugeClass();						// +0x00 0x5DCBC0 (deleting 0x5DCB90)
 	virtual bool Set_Value(float value);				// +0xA4 0x5DCBE0 (the base's; 'TALK_%s_ENERGY_LOW_1.wav' when it drops under 2)  // NAME 1 [value]: the base's
 
 	const char *Sound;									// +0x88 ('PROPULSION', 'SHIELD')  // NAME 2: what the warning's name takes
@@ -175,6 +176,11 @@ void UIPowerClass::Unknown_5DCAE0()
 UIPowerGaugeClass::UIPowerGaugeClass(RenderObjClass *mesh, const char *format, const char *sound) :
 	TrailGaugeGadgetClass(mesh, format),
 	Sound(sound)
+{
+}
+
+// @0x5DCBC0
+UIPowerGaugeClass::~UIPowerGaugeClass()
 {
 }
 
