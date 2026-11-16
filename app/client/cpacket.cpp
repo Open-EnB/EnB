@@ -1065,7 +1065,7 @@ bool NameDecalPacketClass::Process_Packet(void *instance)
 		object->Set_Decal_Name(Name);
 		RenderObjClass *model = object->Unknown_6F3BC0();
 		if (model) {
-			Unknown_80FF20(model, Name, &RGB.X);
+			Unknown_80FF20(model, Name, &ColorRGB.X);
 			model->Release_Ref();
 		}
 	}

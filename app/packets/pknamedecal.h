@@ -62,7 +62,7 @@ public:
 
 	int GameID;	// +0x0C  // NAME 3: the client's Print text 'GameID='
 	char Name[32];	// +0x10  // NAME 3: the client's Print text 'Name='
-	Vector3 RGB;	// +0x30  // NAME 3: the client's Print text 'RGB='
+	Vector3 ColorRGB;	// +0x30  // NAME 2: the client's Print text 'RGB=' (RGB itself is windows.h's macro: udpreplay's one-TU build)
 	int Unknown3C;	// +0x3C
 };
 
