@@ -27,19 +27,8 @@
 
 struct TutorialLineStruct  // NAME 2: what it holds (one Speech%d / Text%d pair, 0xC bytes)
 {
-	TutorialLineStruct(const char *speech, const char *text, bool skip_blend)
-	{
-		Speech = nstrdup(speech);
-		Text = nstrdup(text);
-		SkipBlend = skip_blend;
-	}
-	~TutorialLineStruct()
-	{
-		delete [] Speech;
-		delete [] Text;
-		Speech = 0;
-		Text = 0;
-	}
+	TutorialLineStruct(const char *speech, const char *text, bool skip_blend);	// 0x6AC180
+	~TutorialLineStruct();															// 0x6AC1C0
 
 	char *Speech;																			// +0x00, Speech%d  // NAME 2: the ini key
 	char *Text;																				// +0x04, Text%d  // NAME 2: the ini key
@@ -48,10 +37,7 @@ struct TutorialLineStruct  // NAME 2: what it holds (one Speech%d / Text%d pair,
 
 struct TutorialStepStruct  // NAME 2: what it holds (one TUTORIAL-n section, 0x14 bytes)
 {
-	TutorialStepStruct(const char *name)
-	{
-		Name = nstrdup(name);
-	}
+	TutorialStepStruct(const char *name);											// 0x6AC200
 	~TutorialStepStruct();																// 0x6AC280
 
 	void Add_Line(const char *speech, const char *text, bool skip_blend);	// 0x6AC340 (no caller; inlined in the loaders)  // NAME 2: describes what it does
