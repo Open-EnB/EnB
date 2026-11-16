@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 225 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 37 |
-| 3 | by convention from a client-named file or sibling | 1961 |
-| 2 | describes what the code does | 4958 |
-| 1 | neutral placeholder | 25105 |
+| 3 | by convention from a client-named file or sibling | 1964 |
+| 2 | describes what the code does | 4976 |
+| 1 | neutral placeholder | 25111 |
 
 ## For review (score 3 and below)
 
@@ -20687,43 +20687,43 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_78B570` | `app/client/unknown_78a910.cpp:54` | neutral  // NAME 1 [a]: neutral |
 | 1 | `Unknown_78B610` | `app/client/unknown_78a910.cpp:55` | neutral |
 | 1 | `Unknown_78B660` | `app/client/unknown_78a910.cpp:56` | neutral |
-| 1 | `Unknown_Inline_Release` | `app/client/unknown_78a910.cpp:57` | neutral (D10) |
-| 1 | `Unknown3DC` | `app/client/unknown_78a910.cpp:59` | untagged neutral name (D10) |
-| 1 | `Unknown3E0` | `app/client/unknown_78a910.cpp:64` | untagged neutral name (D10) |
-| 1 | `Unknown_78B810` | `app/client/unknown_78a910.cpp:68` | untagged neutral name (D10) |
-| 1 | `Unknown_78BA20` | `app/client/unknown_78a910.cpp:69` | untagged neutral name (D10) |
-| 1 | `Unknown_78BB60` | `app/client/unknown_78a910.cpp:70` | untagged neutral name (D10) |
-| 1 | `Unknown384` | `app/client/unknown_78a910.cpp:72` | untagged neutral name (D10) |
-| 1 | `Unknown388` | `app/client/unknown_78a910.cpp:73` | untagged neutral name (D10) |
-| 1 | `std:` | `app/client/unknown_78a910.cpp:74` | neutral |
-| 1 | `Unknown398` | `app/client/unknown_78a910.cpp:74` | untagged neutral name (D10) |
-| 1 | `std:` | `app/client/unknown_78a910.cpp:75` | neutral |
-| 1 | `Unknown3A8` | `app/client/unknown_78a910.cpp:75` | untagged neutral name (D10) |
-| 1 | `Unknown3B8` | `app/client/unknown_78a910.cpp:76` | untagged neutral name (D10) |
-| 1 | `Unknown3B9` | `app/client/unknown_78a910.cpp:77` | untagged neutral name (D10) |
-| 1 | `Unknown3BA` | `app/client/unknown_78a910.cpp:78` | untagged neutral name (D10) |
-| 1 | `Unknown3BB` | `app/client/unknown_78a910.cpp:79` | untagged neutral name (D10) |
-| 1 | `Unknown3BC` | `app/client/unknown_78a910.cpp:80` | untagged neutral name (D10) |
-| 1 | `Unknown3C0` | `app/client/unknown_78a910.cpp:81` | untagged neutral name (D10) |
-| 1 | `Unknown3C4` | `app/client/unknown_78a910.cpp:82` | untagged neutral name (D10) |
-| 1 | `Unknown3C8` | `app/client/unknown_78a910.cpp:83` | untagged neutral name (D10) |
-| 1 | `Unknown3CC` | `app/client/unknown_78a910.cpp:84` | untagged neutral name (D10) |
-| 1 | `Unknown3D0` | `app/client/unknown_78a910.cpp:85` | untagged neutral name (D10) |
-| 1 | `Unknown3D4` | `app/client/unknown_78a910.cpp:86` | untagged neutral name (D10) |
-| 1 | `Unknown3D8` | `app/client/unknown_78a910.cpp:87` | untagged neutral name (D10) |
-| 1 | `Unknown204` | `app/client/unknown_78a910.cpp:122` | untagged neutral name (D10) |
-| 1 | `entry` | `app/client/unknown_78a910.cpp:133` | neutral |
-| 1 | `Unknown220` | `app/client/unknown_78a910.cpp:179` | untagged neutral name (D10) |
-| 1 | `Unknown_788730` | `app/client/unknown_78a910.cpp:214` | untagged neutral name (D10) |
-| 1 | `min` | `app/client/unknown_78a910.cpp:268` | neutral |
-| 1 | `max` | `app/client/unknown_78a910.cpp:269` | neutral |
-| 1 | `Unknown_7831C0` | `app/client/unknown_78a910.cpp:273` | untagged neutral name (D10) |
-| 1 | `Unknown0BC` | `app/client/unknown_78a910.cpp:280` | untagged neutral name (D10) |
-| 1 | `Unknown0C0` | `app/client/unknown_78a910.cpp:280` | untagged neutral name (D10) |
-| 1 | `Unknown_782CA0` | `app/client/unknown_78a910.cpp:282` | untagged neutral name (D10) |
-| 1 | `Unknown_782FF0` | `app/client/unknown_78a910.cpp:283` | untagged neutral name (D10) |
-| 1 | `Unknown_783470` | `app/client/unknown_78a910.cpp:284` | untagged neutral name (D10) |
-| 1 | `Unknown208` | `app/client/unknown_78a910.cpp:286` | untagged neutral name (D10) |
+| 1 | `Unknown_78BEA0` | `app/client/unknown_78a910.cpp:57` | neutral (D10) |
+| 1 | `Unknown_78B810` | `app/client/unknown_78a910.cpp:58` | untagged neutral name (D10) |
+| 1 | `Unknown_78BA20` | `app/client/unknown_78a910.cpp:59` | untagged neutral name (D10) |
+| 1 | `Unknown_78BB60` | `app/client/unknown_78a910.cpp:60` | untagged neutral name (D10) |
+| 1 | `Unknown384` | `app/client/unknown_78a910.cpp:62` | untagged neutral name (D10) |
+| 1 | `Unknown388` | `app/client/unknown_78a910.cpp:63` | untagged neutral name (D10) |
+| 1 | `std:` | `app/client/unknown_78a910.cpp:64` | neutral |
+| 1 | `Unknown398` | `app/client/unknown_78a910.cpp:64` | untagged neutral name (D10) |
+| 1 | `std:` | `app/client/unknown_78a910.cpp:65` | neutral |
+| 1 | `Unknown3A8` | `app/client/unknown_78a910.cpp:65` | untagged neutral name (D10) |
+| 1 | `Unknown3B8` | `app/client/unknown_78a910.cpp:66` | untagged neutral name (D10) |
+| 1 | `Unknown3B9` | `app/client/unknown_78a910.cpp:67` | untagged neutral name (D10) |
+| 1 | `Unknown3BA` | `app/client/unknown_78a910.cpp:68` | untagged neutral name (D10) |
+| 1 | `Unknown3BB` | `app/client/unknown_78a910.cpp:69` | untagged neutral name (D10) |
+| 1 | `Unknown3BC` | `app/client/unknown_78a910.cpp:70` | untagged neutral name (D10) |
+| 1 | `Unknown3C0` | `app/client/unknown_78a910.cpp:71` | untagged neutral name (D10) |
+| 1 | `Unknown3C4` | `app/client/unknown_78a910.cpp:72` | untagged neutral name (D10) |
+| 1 | `Unknown3C8` | `app/client/unknown_78a910.cpp:73` | untagged neutral name (D10) |
+| 1 | `Unknown3CC` | `app/client/unknown_78a910.cpp:74` | untagged neutral name (D10) |
+| 1 | `Unknown3D0` | `app/client/unknown_78a910.cpp:75` | untagged neutral name (D10) |
+| 1 | `Unknown3D4` | `app/client/unknown_78a910.cpp:76` | untagged neutral name (D10) |
+| 1 | `Unknown3D8` | `app/client/unknown_78a910.cpp:77` | untagged neutral name (D10) |
+| 1 | `Unknown3DC` | `app/client/unknown_78a910.cpp:78` | untagged neutral name (D10) |
+| 1 | `Unknown3E0` | `app/client/unknown_78a910.cpp:79` | untagged neutral name (D10) |
+| 1 | `Unknown204` | `app/client/unknown_78a910.cpp:112` | untagged neutral name (D10) |
+| 1 | `entry` | `app/client/unknown_78a910.cpp:123` | neutral |
+| 1 | `Unknown220` | `app/client/unknown_78a910.cpp:169` | untagged neutral name (D10) |
+| 1 | `Unknown_788730` | `app/client/unknown_78a910.cpp:204` | untagged neutral name (D10) |
+| 1 | `min` | `app/client/unknown_78a910.cpp:258` | neutral |
+| 1 | `max` | `app/client/unknown_78a910.cpp:259` | neutral |
+| 1 | `Unknown_7831C0` | `app/client/unknown_78a910.cpp:263` | untagged neutral name (D10) |
+| 1 | `Unknown0BC` | `app/client/unknown_78a910.cpp:270` | untagged neutral name (D10) |
+| 1 | `Unknown0C0` | `app/client/unknown_78a910.cpp:270` | untagged neutral name (D10) |
+| 1 | `Unknown_782CA0` | `app/client/unknown_78a910.cpp:272` | untagged neutral name (D10) |
+| 1 | `Unknown_782FF0` | `app/client/unknown_78a910.cpp:273` | untagged neutral name (D10) |
+| 1 | `Unknown_783470` | `app/client/unknown_78a910.cpp:274` | untagged neutral name (D10) |
+| 1 | `Unknown208` | `app/client/unknown_78a910.cpp:276` | untagged neutral name (D10) |
 | 1 | `Unknown0C` | `app/client/unknown_794510.cpp:10` | untagged neutral name (D10) |
 | 1 | `Unknown_04` | `app/client/unknown_794510.cpp:20` | untagged neutral name (D10) |
 | 1 | `Unknown_79BF40` | `app/client/unknown_794510.cpp:22` | untagged neutral name (D10) |
@@ -22327,16 +22327,19 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_14` | `app/packets/pkauxdata.cpp:11` | untagged neutral name (D10) |
 | 1 | `pkauxdata` | `app/packets/pkauxdata.h:16` | provisional, pk + its first named class's name |
 | 1 | `Unknown14` | `app/packets/pkcameracontrol.cpp:6` | untagged neutral name (D10) |
+| 1 | `Unknown_14` | `app/packets/pkcameracontrol.cpp:8` | untagged neutral name (D10) |
 | 1 | `pkcameracontrol` | `app/packets/pkcameracontrol.h:16` | provisional, pk + its first named class's name |
-| 1 | `Unknown14` | `app/packets/pkcameracontrol.h:30` | untagged neutral name (D10) |
-| 1 | `Unknown18` | `app/packets/pkchangebaseasset.cpp:11` | untagged neutral name (D10) |
+| 1 | `Unknown14` | `app/packets/pkcameracontrol.h:31` | untagged neutral name (D10) |
+| 1 | `Unknown24` | `app/packets/pkchangebaseasset.cpp:9` | untagged neutral name (D10) |
+| 1 | `Unknown_14` | `app/packets/pkchangebaseasset.cpp:9` | untagged neutral name (D10) |
 | 1 | `pkchangebaseasset` | `app/packets/pkchangebaseasset.h:16` | provisional, pk + its first named class's name |
-| 1 | `Unknown24` | `app/packets/pkchangebaseasset.h:30` | untagged neutral name (D10) |
-| 1 | `Unknown18` | `app/packets/pkchangebaseasset.h:35` | untagged neutral name (D10) |
+| 1 | `Unknown24` | `app/packets/pkchangebaseasset.h:32` | untagged neutral name (D10) |
 | 1 | `pkclickindicator` | `app/packets/pkclickindicator.h:16` | provisional, pk + its first named class's name |
-| 1 | `Unknown0D` | `app/packets/pkclickindicator.h:32` | untagged neutral name (D10) |
+| 1 | `Unknown0D` | `app/packets/pkclickindicator.h:33` | untagged neutral name (D10) |
+| 1 | `Unknown10` | `app/packets/pkclientavatar.cpp:8` | untagged neutral name (D10) |
+| 1 | `Unknown_14` | `app/packets/pkclientavatar.cpp:8` | untagged neutral name (D10) |
 | 1 | `pkclientavatar` | `app/packets/pkclientavatar.h:16` | provisional, pk + its first named class's name |
-| 1 | `Unknown10` | `app/packets/pkclientavatar.h:30` | untagged neutral name (D10) |
+| 1 | `Unknown10` | `app/packets/pkclientavatar.h:31` | untagged neutral name (D10) |
 | 1 | `Unknown0C` | `app/packets/pkclientchat.cpp:94` | untagged neutral name (D10) |
 | 1 | `Unknown10` | `app/packets/pkclientchat.cpp:95` | untagged neutral name (D10) |
 | 1 | `Unknown44` | `app/packets/pkclientchat.cpp:96` | untagged neutral name (D10) |
@@ -22391,14 +22394,19 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `pkconfirmedaction` | `app/packets/pkconfirmedaction.h:15` | provisional, pk + its classes' common name |
 | 1 | `ConfirmedActionEnum` | `app/packets/pkconfirmedaction.h:21` | neutral placeholder (D10) |
 | 1 | `CONFIRMED_ACTION_NONE` | `app/packets/pkconfirmedaction.h:23` | neutral placeholder (D10) |
+| 1 | `Unknown24` | `app/packets/pkcreate.cpp:9` | untagged neutral name (D10) |
+| 1 | `Unknown_14` | `app/packets/pkcreate.cpp:9` | untagged neutral name (D10) |
 | 1 | `pkcreate` | `app/packets/pkcreate.h:16` | provisional, pk + its first named class's name |
-| 1 | `Unknown24` | `app/packets/pkcreate.h:30` | untagged neutral name (D10) |
-| 1 | `Unknown17` | `app/packets/pkcreate.h:36` | untagged neutral name (D10) |
-| 1 | `Unknown18` | `app/packets/pkcreateattachment.cpp:10` | untagged neutral name (D10) |
+| 1 | `Unknown24` | `app/packets/pkcreate.h:32` | untagged neutral name (D10) |
+| 1 | `Unknown17` | `app/packets/pkcreate.h:38` | untagged neutral name (D10) |
+| 1 | `Unknown0C` | `app/packets/pkcreateattachment.cpp:8` | untagged neutral name (D10) |
+| 1 | `Unknown18` | `app/packets/pkcreateattachment.cpp:11` | untagged neutral name (D10) |
+| 1 | `Unknown1C` | `app/packets/pkcreateattachment.cpp:12` | untagged neutral name (D10) |
+| 1 | `Unknown_14` | `app/packets/pkcreateattachment.cpp:12` | untagged neutral name (D10) |
 | 1 | `pkcreateattachment` | `app/packets/pkcreateattachment.h:16` | provisional, pk + its first named class's name |
-| 1 | `Unknown1C` | `app/packets/pkcreateattachment.h:30` | untagged neutral name (D10) |
-| 1 | `Unknown0C` | `app/packets/pkcreateattachment.h:32` | untagged neutral name (D10) |
-| 1 | `Unknown18` | `app/packets/pkcreateattachment.h:35` | untagged neutral name (D10) |
+| 1 | `Unknown1C` | `app/packets/pkcreateattachment.h:31` | untagged neutral name (D10) |
+| 1 | `Unknown0C` | `app/packets/pkcreateattachment.h:33` | untagged neutral name (D10) |
+| 1 | `Unknown18` | `app/packets/pkcreateattachment.h:36` | untagged neutral name (D10) |
 | 1 | `Unknown2D4` | `app/packets/pkcreatecharacter.cpp:7` | untagged neutral name (D10) |
 | 1 | `Unknown2D8` | `app/packets/pkcreatecharacter.cpp:8` | untagged neutral name (D10) |
 | 1 | `Unknown2DC` | `app/packets/pkcreatecharacter.cpp:9` | untagged neutral name (D10) |
@@ -22569,22 +22577,22 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown24` | `app/packets/pkguildplayeronline.h:224` | untagged neutral name (D10) |
 | 1 | `Unknown68` | `app/packets/pkguildplayeronline.h:323` | untagged neutral name (D10) |
 | 1 | `Unknown6C` | `app/packets/pkguildplayeronline.h:324` | untagged neutral name (D10) |
-| 1 | `Unknown0C` | `app/packets/pkguildranknamesrequestclient.cpp:201` | untagged neutral name (D10) |
-| 1 | `Unknown10` | `app/packets/pkguildranknamesrequestclient.cpp:201` | untagged neutral name (D10) |
-| 1 | `Unknown14` | `app/packets/pkguildranknamesrequestclient.cpp:201` | untagged neutral name (D10) |
-| 1 | `Unknown18` | `app/packets/pkguildranknamesrequestclient.cpp:201` | untagged neutral name (D10) |
+| 1 | `Unknown0C` | `app/packets/pkguildranknamesrequestclient.cpp:207` | untagged neutral name (D10) |
+| 1 | `Unknown10` | `app/packets/pkguildranknamesrequestclient.cpp:207` | untagged neutral name (D10) |
+| 1 | `Unknown14` | `app/packets/pkguildranknamesrequestclient.cpp:207` | untagged neutral name (D10) |
+| 1 | `Unknown18` | `app/packets/pkguildranknamesrequestclient.cpp:207` | untagged neutral name (D10) |
 | 1 | `pkguildranknamesrequestclient` | `app/packets/pkguildranknamesrequestclient.h:16` | provisional, pk + its first named class's name |
 | 1 | `GuildPermissionEnum` | `app/packets/pkguildranknamesrequestclient.h:24` | neutral placeholder (D10) |
 | 1 | `GUILD_PERMISSION_NONE` | `app/packets/pkguildranknamesrequestclient.h:26` | neutral placeholder (D10) |
-| 1 | `type, player_id, optional_param` | `app/packets/pkguildranknamesrequestclient.h:48` | its fields |
-| 1 | `inviter_name, guild_name` | `app/packets/pkguildranknamesrequestclient.h:82` | its fields |
-| 1 | `message_type, other_name, guild_name` | `app/packets/pkguildranknamesrequestclient.h:114` | its fields |
-| 1 | `Unknown0C` | `app/packets/pkguildranknamesrequestclient.h:138` | untagged neutral name (D10) |
-| 1 | `Unknown10` | `app/packets/pkguildranknamesrequestclient.h:139` | untagged neutral name (D10) |
-| 1 | `Unknown14` | `app/packets/pkguildranknamesrequestclient.h:140` | untagged neutral name (D10) |
-| 1 | `Unknown18` | `app/packets/pkguildranknamesrequestclient.h:141` | untagged neutral name (D10) |
-| 1 | `ranks` | `app/packets/pkguildranknamesrequestclient.h:171` | its field |
-| 1 | `old_guild_name, new_guild_name` | `app/packets/pkguildranknamesrequestclient.h:187` | its fields |
+| 1 | `type, player_id, optional_param` | `app/packets/pkguildranknamesrequestclient.h:49` | its fields |
+| 1 | `inviter_name, guild_name` | `app/packets/pkguildranknamesrequestclient.h:83` | its fields |
+| 1 | `message_type, other_name, guild_name` | `app/packets/pkguildranknamesrequestclient.h:115` | its fields |
+| 1 | `Unknown0C` | `app/packets/pkguildranknamesrequestclient.h:139` | untagged neutral name (D10) |
+| 1 | `Unknown10` | `app/packets/pkguildranknamesrequestclient.h:140` | untagged neutral name (D10) |
+| 1 | `Unknown14` | `app/packets/pkguildranknamesrequestclient.h:141` | untagged neutral name (D10) |
+| 1 | `Unknown18` | `app/packets/pkguildranknamesrequestclient.h:142` | untagged neutral name (D10) |
+| 1 | `ranks` | `app/packets/pkguildranknamesrequestclient.h:172` | its field |
+| 1 | `old_guild_name, new_guild_name` | `app/packets/pkguildranknamesrequestclient.h:188` | its fields |
 | 1 | `pkhullupgrade` | `app/packets/pkhullupgrade.h:16` | provisional, pk + its first named class's name |
 | 1 | `Unknown0C` | `app/packets/pkincapacitancerequest.cpp:92` | untagged neutral name (D10) |
 | 1 | `Unknown128` | `app/packets/pkincapacitancerequest.cpp:94` | untagged neutral name (D10) |
@@ -22695,22 +22703,23 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `pkmissionforfeit` | `app/packets/pkmissionforfeit.h:16` | provisional, pk + its first named class's name |
 | 1 | `Unknown0C` | `app/packets/pkmodechange.cpp:8` | untagged neutral name (D10) |
 | 1 | `pkmodechange` | `app/packets/pkmodechange.h:15` | provisional, pk + its class's name |
-| 1 | `Unknown0C` | `app/packets/pkmodechange.h:31` | untagged neutral name (D10) |
+| 1 | `Unknown0C` | `app/packets/pkmodechange.h:32` | untagged neutral name (D10) |
 | 1 | `Unknown0C` | `app/packets/pkmoderequest.cpp:8` | untagged neutral name (D10) |
 | 1 | `pkmoderequest` | `app/packets/pkmoderequest.h:15` | provisional, pk + its Print text 'Mode Request' |
 | 1 | `Packet_004BClass` | `app/packets/pkmoderequest.h:21` | neutral (D10): opcode 0x004B |
-| 1 | `Unknown0C` | `app/packets/pkmoderequest.h:31` | untagged neutral name (D10) |
+| 1 | `Unknown0C` | `app/packets/pkmoderequest.h:32` | untagged neutral name (D10) |
 | 1 | `pkmove` | `app/packets/pkmove.h:15` | provisional, pk + its class's name |
-| 1 | `Unknown_14` | `app/packets/pknamedecal.cpp:9` | untagged neutral name (D10) |
-| 1 | `Unknown00` | `app/packets/pknamedecal.cpp:20` | untagged neutral name (D10) |
-| 1 | `Unknown04` | `app/packets/pknamedecal.cpp:21` | untagged neutral name (D10) |
-| 1 | `Unknown08` | `app/packets/pknamedecal.cpp:22` | untagged neutral name (D10) |
+| 1 | `Unknown_14` | `app/packets/pknamedecal.cpp:10` | untagged neutral name (D10) |
+| 1 | `Unknown00` | `app/packets/pknamedecal.cpp:21` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `app/packets/pknamedecal.cpp:22` | untagged neutral name (D10) |
+| 1 | `Unknown08` | `app/packets/pknamedecal.cpp:23` | untagged neutral name (D10) |
+| 1 | `Unknown3C` | `app/packets/pknamedecal.cpp:56` | untagged neutral name (D10) |
 | 1 | `pknamedecal` | `app/packets/pknamedecal.h:16` | provisional, pk + its first named class's name |
-| 1 | `DecalStruct` | `app/packets/pknamedecal.h:26` | neutral (D10), the packet's 'NumDecals' |
-| 1 | `Unknown00` | `app/packets/pknamedecal.h:28` | untagged neutral name (D10) |
-| 1 | `Unknown04` | `app/packets/pknamedecal.h:29` | untagged neutral name (D10) |
-| 1 | `Unknown08` | `app/packets/pknamedecal.h:30` | untagged neutral name (D10) |
-| 1 | `Unknown3C` | `app/packets/pknamedecal.h:59` | untagged neutral name (D10) |
+| 1 | `DecalStruct` | `app/packets/pknamedecal.h:27` | neutral (D10), the packet's 'NumDecals' |
+| 1 | `Unknown00` | `app/packets/pknamedecal.h:29` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `app/packets/pknamedecal.h:30` | untagged neutral name (D10) |
+| 1 | `Unknown08` | `app/packets/pknamedecal.h:31` | untagged neutral name (D10) |
+| 1 | `Unknown3C` | `app/packets/pknamedecal.h:61` | untagged neutral name (D10) |
 | 1 | `Unknown_14` | `app/packets/pknavdelete.cpp:14` | untagged neutral name (D10) |
 | 1 | `Unknown10` | `app/packets/pknavdelete.cpp:53` | untagged neutral name (D10) |
 | 1 | `pknavdelete` | `app/packets/pknavdelete.h:16` | provisional, pk + its first named class's name |
@@ -22746,10 +22755,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_14` | `app/packets/pkpointeffect.cpp:23` | untagged neutral name (D10) |
 | 1 | `Unknown34` | `app/packets/pkpointeffect.cpp:165` | untagged neutral name (D10) |
 | 1 | `Unknown36` | `app/packets/pkpointeffect.cpp:166` | untagged neutral name (D10) |
+| 1 | `Unknown10` | `app/packets/pkpointeffect.cpp:502` | untagged neutral name (D10) |
 | 1 | `pkpointeffect` | `app/packets/pkpointeffect.h:15` | provisional, pk + its first named class's name |
 | 1 | `Unknown34` | `app/packets/pkpointeffect.h:92` | untagged neutral name (D10) |
 | 1 | `Unknown36` | `app/packets/pkpointeffect.h:93` | untagged neutral name (D10) |
-| 1 | `Unknown10` | `app/packets/pkpointeffect.h:193` | untagged neutral name (D10) |
+| 1 | `Unknown10` | `app/packets/pkpointeffect.h:194` | untagged neutral name (D10) |
 | 1 | `Unknown1A0` | `app/packets/pkrecustomize.cpp:6` | untagged neutral name (D10) |
 | 1 | `Unknown_PacketDataClass` | `app/packets/pkrecustomize.cpp:8` | untagged neutral name (D10) |
 | 1 | `Unknown1A4` | `app/packets/pkrecustomize.cpp:11` | untagged neutral name (D10) |
@@ -22770,20 +22780,16 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown118` | `app/packets/pkrecustomize.h:89` | neutral (D10) |
 | 1 | `Unknown118` | `app/packets/pkrecustomize.h:105` | neutral (D10) |
 | 1 | `pkreferralpointsavailable` | `app/packets/pkreferralpointsavailable.h:16` | provisional, pk + its first named class's name |
+| 1 | `Unknown10` | `app/packets/pkremove.cpp:8` | untagged neutral name (D10) |
+| 1 | `Unknown_14` | `app/packets/pkremove.cpp:8` | untagged neutral name (D10) |
 | 1 | `pkremove` | `app/packets/pkremove.h:16` | provisional, pk + its first named class's name |
-| 1 | `Unknown10` | `app/packets/pkremove.h:30` | untagged neutral name (D10) |
+| 1 | `Unknown10` | `app/packets/pkremove.h:31` | untagged neutral name (D10) |
 | 1 | `Unknown10` | `app/packets/pkrequesttarget.cpp:62` | untagged neutral name (D10) |
 | 1 | `pkrequesttarget` | `app/packets/pkrequesttarget.h:16` | provisional, pk + its first named class's name |
 | 1 | `Unknown10` | `app/packets/pkrequesttarget.h:65` | untagged neutral name (D10) |
 | 1 | `Unknown_Get_Ticks` | `app/packets/pkrequesttime.cpp:15` | untagged neutral name (D10) |
 | 1 | `pkrequesttime` | `app/packets/pkrequesttime.h:15` | provisional, pk + its first class's name |
-| 1 | `Unknown14` | `app/packets/pkrequesttransformchange.cpp:10` | untagged neutral name (D10) |
-| 1 | `Unknown20` | `app/packets/pkrequesttransformchange.cpp:11` | untagged neutral name (D10) |
-| 1 | `Unknown30` | `app/packets/pkrequesttransformchange.cpp:12` | untagged neutral name (D10) |
 | 1 | `pkrequesttransformchange` | `app/packets/pkrequesttransformchange.h:16` | provisional, pk + its first named class's name |
-| 1 | `Unknown14` | `app/packets/pkrequesttransformchange.h:33` | untagged neutral name (D10) |
-| 1 | `Unknown20` | `app/packets/pkrequesttransformchange.h:34` | untagged neutral name (D10) |
-| 1 | `Unknown30` | `app/packets/pkrequesttransformchange.h:35` | untagged neutral name (D10) |
 | 1 | `Unknown_PacketDataClass` | `app/packets/pkserverhandoff.cpp:18` | untagged neutral name (D10) |
 | 1 | `Unknown18` | `app/packets/pkserverhandoff.cpp:45` | untagged neutral name (D10) |
 | 1 | `pkserverhandoff` | `app/packets/pkserverhandoff.h:15` | provisional, pk + its first named class's name |
@@ -22854,7 +22860,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Packet_1393Class` | `app/packets/pktask.h:195` | neutral (D10): opcode 0x1393 |
 | 1 | `pktilt` | `app/packets/pktilt.h:16` | provisional, pk + its first named class's name |
 | 1 | `pktrade` | `app/packets/pktrade.h:16` | provisional, pk + its first named class's name |
-| 1 | `Unknown11` | `app/packets/pktrade.h:35` | untagged neutral name (D10) |
+| 1 | `Unknown11` | `app/packets/pktrade.h:36` | untagged neutral name (D10) |
 | 1 | `Unknown_14` | `app/packets/pktriggeremote.cpp:51` | untagged neutral name (D10) |
 | 1 | `pktriggeremote` | `app/packets/pktriggeremote.h:15` | provisional, pk + its first class's name |
 | 1 | `pkturn` | `app/packets/pkturn.h:16` | provisional, pk + its first named class's name |
@@ -22875,7 +22881,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown58` | `app/packets/pkunknown_85d4b0.cpp:8` | untagged neutral name (D10) |
 | 1 | `Unknown10` | `app/packets/pkunknown_85d4b0.cpp:10` | untagged neutral name (D10) |
 | 1 | `pkunknown_85d4b0` | `app/packets/pkunknown_85d4b0.h:15` | provisional, neutral (D10): the object's first address |
-| 1 | `Packet_004DClass` | `app/packets/pkunknown_85d4b0.h:21` | neutral (D10): opcode 0x004D (Print 'Registration_Result') |
+| 1 | `Packet_004DClass` | `app/packets/pkunknown_85d4b0.h:21` | neutral (D10): opcode 0x004D (Print 'Registration Result') |
 | 1 | `Unknown0C` | `app/packets/pkunknown_85d4b0.h:31` | untagged neutral name (D10) |
 | 1 | `Unknown10` | `app/packets/pkunknown_85d4b0.h:32` | untagged neutral name (D10) |
 | 1 | `Unknown58` | `app/packets/pkunknown_85d4b0.h:33` | untagged neutral name (D10) |
@@ -22903,36 +22909,36 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Packet_00E7Class` | `app/packets/pkunknown_863720.h:43` | neutral (D10): opcode 0x00E7 (Print 'GlobalContainerResponse') |
 | 1 | `String` | `app/packets/pkunknown_863720.h:58` | neutral (D10) |
 | 1 | `Unknown0C` | `app/packets/pkunknown_865020.cpp:8` | untagged neutral name (D10) |
-| 1 | `Unknown10` | `app/packets/pkunknown_865020.cpp:9` | untagged neutral name (D10) |
-| 1 | `Unknown14` | `app/packets/pkunknown_865020.cpp:10` | untagged neutral name (D10) |
-| 1 | `Unknown18` | `app/packets/pkunknown_865020.cpp:11` | untagged neutral name (D10) |
-| 1 | `Unknown5C` | `app/packets/pkunknown_865020.cpp:12` | untagged neutral name (D10) |
-| 1 | `Unknown60` | `app/packets/pkunknown_865020.cpp:13` | untagged neutral name (D10) |
-| 1 | `Unknown64` | `app/packets/pkunknown_865020.cpp:14` | untagged neutral name (D10) |
+| 1 | `Unknown10` | `app/packets/pkunknown_865020.cpp:8` | untagged neutral name (D10) |
+| 1 | `Unknown14` | `app/packets/pkunknown_865020.cpp:8` | untagged neutral name (D10) |
+| 1 | `Unknown5C` | `app/packets/pkunknown_865020.cpp:8` | untagged neutral name (D10) |
+| 1 | `Unknown60` | `app/packets/pkunknown_865020.cpp:8` | untagged neutral name (D10) |
+| 1 | `Unknown64` | `app/packets/pkunknown_865020.cpp:8` | untagged neutral name (D10) |
+| 1 | `Unknown18` | `app/packets/pkunknown_865020.cpp:10` | untagged neutral name (D10) |
 | 1 | `pkunknown_865020` | `app/packets/pkunknown_865020.h:16` | provisional, neutral (D10): the object's first address |
 | 1 | `Packet_0073Class` | `app/packets/pkunknown_865020.h:22` | neutral (D10): opcode 0x0073 |
-| 1 | `Unknown0C` | `app/packets/pkunknown_865020.h:32` | untagged neutral name (D10) |
-| 1 | `Unknown10` | `app/packets/pkunknown_865020.h:33` | untagged neutral name (D10) |
-| 1 | `Unknown14` | `app/packets/pkunknown_865020.h:34` | untagged neutral name (D10) |
-| 1 | `Unknown18` | `app/packets/pkunknown_865020.h:35` | untagged neutral name (D10) |
-| 1 | `Unknown59` | `app/packets/pkunknown_865020.h:36` | untagged neutral name (D10) |
-| 1 | `Unknown5C` | `app/packets/pkunknown_865020.h:37` | untagged neutral name (D10) |
-| 1 | `Unknown60` | `app/packets/pkunknown_865020.h:38` | untagged neutral name (D10) |
-| 1 | `Unknown64` | `app/packets/pkunknown_865020.h:39` | untagged neutral name (D10) |
-| 1 | `Unknown66` | `app/packets/pkunknown_865020.h:40` | untagged neutral name (D10) |
+| 1 | `Unknown0C` | `app/packets/pkunknown_865020.h:33` | untagged neutral name (D10) |
+| 1 | `Unknown10` | `app/packets/pkunknown_865020.h:34` | untagged neutral name (D10) |
+| 1 | `Unknown14` | `app/packets/pkunknown_865020.h:35` | untagged neutral name (D10) |
+| 1 | `Unknown18` | `app/packets/pkunknown_865020.h:36` | untagged neutral name (D10) |
+| 1 | `Unknown59` | `app/packets/pkunknown_865020.h:37` | untagged neutral name (D10) |
+| 1 | `Unknown5C` | `app/packets/pkunknown_865020.h:38` | untagged neutral name (D10) |
+| 1 | `Unknown60` | `app/packets/pkunknown_865020.h:39` | untagged neutral name (D10) |
+| 1 | `Unknown64` | `app/packets/pkunknown_865020.h:40` | untagged neutral name (D10) |
+| 1 | `Unknown66` | `app/packets/pkunknown_865020.h:41` | untagged neutral name (D10) |
 | 1 | `Unknown0C` | `app/packets/pkunknown_8667a0.cpp:8` | untagged neutral name (D10) |
-| 1 | `Unknown10` | `app/packets/pkunknown_8667a0.cpp:9` | untagged neutral name (D10) |
-| 1 | `Unknown58` | `app/packets/pkunknown_8667a0.cpp:10` | untagged neutral name (D10) |
-| 1 | `Unknown60` | `app/packets/pkunknown_8667a0.cpp:11` | untagged neutral name (D10) |
-| 1 | `Unknown64` | `app/packets/pkunknown_8667a0.cpp:12` | untagged neutral name (D10) |
+| 1 | `Unknown58` | `app/packets/pkunknown_8667a0.cpp:8` | untagged neutral name (D10) |
+| 1 | `Unknown60` | `app/packets/pkunknown_8667a0.cpp:8` | untagged neutral name (D10) |
+| 1 | `Unknown64` | `app/packets/pkunknown_8667a0.cpp:8` | untagged neutral name (D10) |
+| 1 | `Unknown10` | `app/packets/pkunknown_8667a0.cpp:10` | untagged neutral name (D10) |
 | 1 | `pkunknown_8667a0` | `app/packets/pkunknown_8667a0.h:16` | provisional, neutral (D10): the object's first address |
 | 1 | `Packet_0074Class` | `app/packets/pkunknown_8667a0.h:22` | neutral (D10): opcode 0x0074 |
-| 1 | `Unknown0C` | `app/packets/pkunknown_8667a0.h:32` | untagged neutral name (D10) |
-| 1 | `Unknown10` | `app/packets/pkunknown_8667a0.h:33` | untagged neutral name (D10) |
-| 1 | `Unknown51` | `app/packets/pkunknown_8667a0.h:34` | untagged neutral name (D10) |
-| 1 | `Unknown58` | `app/packets/pkunknown_8667a0.h:35` | untagged neutral name (D10) |
-| 1 | `Unknown60` | `app/packets/pkunknown_8667a0.h:36` | untagged neutral name (D10) |
-| 1 | `Unknown64` | `app/packets/pkunknown_8667a0.h:37` | untagged neutral name (D10) |
+| 1 | `Unknown0C` | `app/packets/pkunknown_8667a0.h:33` | untagged neutral name (D10) |
+| 1 | `Unknown10` | `app/packets/pkunknown_8667a0.h:34` | untagged neutral name (D10) |
+| 1 | `Unknown51` | `app/packets/pkunknown_8667a0.h:35` | untagged neutral name (D10) |
+| 1 | `Unknown58` | `app/packets/pkunknown_8667a0.h:36` | untagged neutral name (D10) |
+| 1 | `Unknown60` | `app/packets/pkunknown_8667a0.h:37` | untagged neutral name (D10) |
+| 1 | `Unknown64` | `app/packets/pkunknown_8667a0.h:38` | untagged neutral name (D10) |
 | 1 | `Unknown1C` | `app/packets/pkunknown_866ac0.cpp:7` | untagged neutral name (D10) |
 | 1 | `pkunknown_866ac0` | `app/packets/pkunknown_866ac0.h:15` | provisional, neutral (D10): the object's first address |
 | 1 | `Packet_0077Class` | `app/packets/pkunknown_866ac0.h:22` | neutral (D10): opcode 0x0077 (Print: 'Global SetReferrer') |
@@ -28200,7 +28206,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Register` | `app/common/memconn.h:100` | what it does |
 | 2 | `Is_Listening` | `app/common/memconn.h:101` | what it does |
 | 2 | `Unregister` | `app/common/memconn.h:102` | what it does |
-| 2 | `Connect` | `app/common/memconn.h:103` | what it does |
+| 2 | `Unregister_All` | `app/common/memconn.h:103` | what it does |
+| 2 | `Connect` | `app/common/memconn.h:104` | what it does |
 | 2 | `Width` | `app/common/pal_mgr.cpp:11` | what it holds |
 | 2 | `Height` | `app/common/pal_mgr.cpp:12` | what it holds |
 | 2 | `Data` | `app/common/pal_mgr.cpp:13` | what it holds |
@@ -28449,7 +28456,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Get_Name` | `app/packets/pkauxdata.h:34` | what it returns (Print's '%s {') |
 | 2 | `Data` | `app/packets/pkauxdata.h:38` | what it holds |
 | 2 | `Channel` | `app/packets/pkauxdata.h:39` | Get_Channel returns it |
-| 2 | `Get_Type` | `app/packets/pkcameracontrol.h:31` | what it returns (the opcode Build sends), as MessageLinePacketClass's |
+| 2 | `CameraControlPacketClass` | `app/packets/pkcameracontrol.h:25` | the stores (no caller left) |
+| 2 | `Get_Type` | `app/packets/pkcameracontrol.h:32` | what it returns (the opcode Build sends), as MessageLinePacketClass's |
+| 2 | `ChangeBaseAssetPacketClass` | `app/packets/pkchangebaseasset.h:26` | the stores (no caller left) |
+| 2 | `ClickIndicatorPacketClass` | `app/packets/pkclickindicator.h:25` | the stores (no caller left) |
+| 2 | `ClientAvatarPacketClass` | `app/packets/pkclientavatar.h:25` | the stores (no caller left) |
 | 2 | `ChatTypeNames` | `app/packets/pkclientchat.cpp:6` | what it holds |
 | 2 | `ClientChatPacketClass` | `app/packets/pkclientchat.h:23` | Net-7's opcode name CLIENT_CHAT (the Net-7 opcode table; no structure check) |
 | 2 | `TargetSize` | `app/packets/pkclientchat.h:41` | Target's Size |
@@ -28458,6 +28469,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Channel` | `app/packets/pkcolorization.h:52` | Get_Channel returns it |
 | 2 | `ConfirmedActionOfferPacketClass` | `app/packets/pkconfirmedaction.h:27` | Net-7's opcode name CONFIRMED_ACTION_OFFER (the Net-7 opcode table; no structure check) |
 | 2 | `ConfirmedActionResponsePacketClass` | `app/packets/pkconfirmedaction.h:58` | Net-7's opcode name CONFIRMED_ACTION_RESPONSE (the Net-7 opcode table; no structure check) |
+| 2 | `CreatePacketClass` | `app/packets/pkcreate.h:26` | the stores (no caller left) |
+| 2 | `CreateAttachmentPacketClass` | `app/packets/pkcreateattachment.h:25` | the stores (no caller left) |
 | 2 | `pkcreatecharacter` | `app/packets/pkcreatecharacter.h:15` | provisional, pk + its class's Print text 'Create Character' |
 | 2 | `Desc` | `app/packets/pkcreatecharacter.h:40` | what it holds |
 | 2 | `Ship` | `app/packets/pkcreatecharacter.h:41` | what it holds |
@@ -28504,11 +28517,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Owned` | `app/packets/pkgroup.h:38` | what it means |
 | 2 | `Add` | `app/packets/pkguildplayeronline.h:237` | what it does (as GuildRankNamesSectorPacket's) |
 | 2 | `std:` | `app/packets/pkguildplayeronline.h:240` | as GuildRankNamesSectorPacket's |
-| 2 | `GuildRankNameStruct` | `app/packets/pkguildranknamesrequestclient.h:159` | what it holds (GuildRankNamesSector's entries) |
-| 2 | `Rank` | `app/packets/pkguildranknamesrequestclient.h:163` | what it holds |
-| 2 | `std:` | `app/packets/pkguildranknamesrequestclient.h:164` | what it holds |
-| 2 | `Add` | `app/packets/pkguildranknamesrequestclient.h:178` | what it does |
-| 2 | `std:` | `app/packets/pkguildranknamesrequestclient.h:180` | what it holds |
+| 2 | `GuildSimpleSectorClientPacket` | `app/packets/pkguildranknamesrequestclient.h:33` | the stores (no caller left) |
+| 2 | `GuildRankNameStruct` | `app/packets/pkguildranknamesrequestclient.h:160` | what it holds (GuildRankNamesSector's entries) |
+| 2 | `Rank` | `app/packets/pkguildranknamesrequestclient.h:164` | what it holds |
+| 2 | `std:` | `app/packets/pkguildranknamesrequestclient.h:165` | what it holds |
+| 2 | `Add` | `app/packets/pkguildranknamesrequestclient.h:179` | what it does |
+| 2 | `std:` | `app/packets/pkguildranknamesrequestclient.h:181` | what it holds |
 | 2 | `x872E30` | `app/packets/pkincapacitancerequest.cpp:119` | what it does |
 | 2 | `IncapacitanceRequestPacketClass` | `app/packets/pkincapacitancerequest.h:23` | Net-7's opcode name INCAPACITANCE_REQUEST (the Net-7 opcode table; no structure check) |
 | 2 | `Desc` | `app/packets/pkincapacitancerequest.h:78` | what it holds |
@@ -28569,7 +28583,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `ModeRequestNames` | `app/packets/pkmoderequest.cpp:5` | what it holds |
 | 2 | `MoveTypeNames` | `app/packets/pkmove.cpp:5` | what it holds |
 | 2 | `MovePacketClass` | `app/packets/pkmove.h:21` | Net-7's opcode name MOVE (the Net-7 opcode table; no structure check) |
-| 2 | `Channel` | `app/packets/pknamedecal.h:47` | Get_Channel returns it |
+| 2 | `Channel` | `app/packets/pknamedecal.h:48` | Get_Channel returns it |
+| 2 | `NameDecalPacketClass` | `app/packets/pknamedecal.h:55` | the stores (no caller left) |
+| 2 | `ColorRGB` | `app/packets/pknamedecal.h:65` | the client's Print text 'RGB=' (RGB itself is windows.h's macro: udpreplay's one-TU build) |
 | 2 | `Channel` | `app/packets/pknavdelete.h:38` | Get_Channel returns it |
 | 2 | `Add_Note` | `app/packets/pknotelist.h:44` | what it does |
 | 2 | `std:` | `app/packets/pknotelist.h:46` | what it holds |
@@ -28592,6 +28608,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Channel` | `app/packets/pkpointeffect.h:152` | Get_Channel returns it |
 | 2 | `SourceLego` | `app/packets/pkpointeffect.h:170` | what it holds |
 | 2 | `Channel` | `app/packets/pkpointeffect.h:181` | Get_Channel returns it |
+| 2 | `RemoveEffectPacketClass` | `app/packets/pkpointeffect.h:188` | the stores (no caller left) |
 | 2 | `RecustomizeShipStartPacketClass` | `app/packets/pkrecustomize.h:24` | Net-7's opcode name RECUSTOMIZE_SHIP_START (the Net-7 opcode table), the client's Print text 'Recustomize Ship Start' |
 | 2 | `Desc` | `app/packets/pkrecustomize.h:35` | what it holds |
 | 2 | `Cost` | `app/packets/pkrecustomize.h:36` | what it holds (its class's file) |
@@ -28603,20 +28620,24 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Desc` | `app/packets/pkrecustomize.h:88` | what it holds |
 | 2 | `RecustomizeAvatarUpdatePacketClass` | `app/packets/pkrecustomize.h:93` | Net-7's opcode name RECUSTOMIZE_AVATAR_UPDATE (the Net-7 opcode table), the client's Print text 'Recustomize Avatar Update' |
 | 2 | `Desc` | `app/packets/pkrecustomize.h:104` | what it holds |
+| 2 | `RemovePacketClass` | `app/packets/pkremove.h:25` | the stores (no caller left) |
 | 2 | `RequestTargetPacketClass` | `app/packets/pkrequesttarget.h:22` | Net-7's opcode name REQUEST_TARGET (the Net-7 opcode table; no structure check) |
 | 2 | `RequestTargetsTargetPacketClass` | `app/packets/pkrequesttarget.h:38` | Net-7's opcode name REQUEST_TARGETS_TARGET (the Net-7 opcode table; no structure check) |
 | 2 | `RequestTimePacketClass` | `app/packets/pkrequesttime.h:21` | Net-7's opcode name REQUEST_TIME (the Net-7 opcode table; no structure check) |
-| 2 | `RequestTransformChangePacketClass` | `app/packets/pkrequesttransformchange.h:22` | Net-7's opcode name REQUEST_TRANSFORM_CHANGE (the Net-7 opcode table; no structure check) |
+| 2 | `RequestTransformChangePacketClass` | `app/packets/pkrequesttransformchange.h:24` | Net-7's opcode name REQUEST_TRANSFORM_CHANGE (the Net-7 opcode table; no structure check) |
+| 2 | `RequestTransformChangePacketClass` | `app/packets/pkrequesttransformchange.h:27` | the stores (no caller left) |
 | 2 | `Ticket` | `app/packets/pkserverhandoff.h:35` | what it holds |
 | 2 | `Get_Type` | `app/packets/pkserverready.h:30` | what it returns (the opcode Build sends), as SuperLinePacketClass's |
 | 2 | `ServerRedirectPacketClass` | `app/packets/pkserverredirect.h:22` | Net-7's opcode name SERVER_REDIRECT (the Net-7 opcode table; the client's Print text 'Client_Redirect') |
 | 2 | `Sector_Type_Name` | `app/packets/pksetclienttype.h:20` | what it returns |
+| 2 | `SetBBoxPacketClass` | `app/packets/pksetzband.h:41` | the stores (no caller left) |
 | 2 | `SkillStringRqPacketClass` | `app/packets/pkskillstringrq.h:22` | Net-7's opcode name SKILL_STRING_RQ (the Net-7 opcode table; no structure check) |
 | 2 | `Length` | `app/packets/pksoundcommand.h:34` | what it holds |
 | 2 | `Block` | `app/packets/pkspline.h:35` | what it holds |
 | 2 | `Sector_Type_Name` | `app/packets/pkstarbasetow.h:21` | what it returns |
 | 2 | `StarbaseRequestPacketClass` | `app/packets/pkstarbasetow.h:24` | Net-7's opcode name STARBASE_REQUEST (the Net-7 opcode table; no structure check) |
-| 2 | `StartAckPacketClass` | `app/packets/pkstart.h:35` | Net-7's opcode name START_ACK (the Net-7 opcode table; no structure check) |
+| 2 | `StartPacketClass` | `app/packets/pkstart.h:25` | the stores (no caller left) |
+| 2 | `StartAckPacketClass` | `app/packets/pkstart.h:36` | Net-7's opcode name START_ACK (the Net-7 opcode table; no structure check) |
 | 2 | `TalkTreeResponseStruct` | `app/packets/pktalktreeaction.h:24` | Print's 'NumResponses' counts them |
 | 2 | `std:` | `app/packets/pktalktreeaction.h:29` | what it holds |
 | 2 | `Add_Response` | `app/packets/pktalktreeaction.h:45` | what it does |
@@ -28639,6 +28660,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `std:` | `app/packets/pktask.h:191` | what it holds |
 | 2 | `Get_Type` | `app/packets/pktask.h:204` | what it returns (the opcode Build sends), as MessageLinePacketClass's |
 | 2 | `TiltPacketClass` | `app/packets/pktilt.h:22` | Net-7's opcode name TILT (the Net-7 opcode table; no structure check) |
+| 2 | `TradePacketClass` | `app/packets/pktrade.h:25` | the stores (no caller left) |
 | 2 | `EmoteNames` | `app/packets/pktriggeremote.cpp:5` | what it holds |
 | 2 | `TriggerEmotePacketClass` | `app/packets/pktriggeremote.h:21` | Net-7's opcode name TRIGGER_EMOTE (the Net-7 opcode table; no structure check) |
 | 2 | `NotifyEmotePacketClass` | `app/packets/pktriggeremote.h:37` | Net-7's opcode name NOTIFY_EMOTE (the Net-7 opcode table; no structure check) |
@@ -28652,8 +28674,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Get_Type` | `app/packets/pkunknown_863720.h:53` | as Packet_138AClass's |
 | 2 | `Data` | `app/packets/pkunknown_863720.h:55` | what it holds |
 | 2 | `DataSize` | `app/packets/pkunknown_863720.h:56` | what it holds |
-| 2 | `Get_Type` | `app/packets/pkunknown_865020.h:30` | what it returns (the opcode Build sends), as MessageLinePacketClass's |
-| 2 | `Get_Type` | `app/packets/pkunknown_8667a0.h:30` | what it returns (the opcode Build sends), as MessageLinePacketClass's |
+| 2 | `Packet_0073Class` | `app/packets/pkunknown_865020.h:25` | the stores (no caller left) |
+| 2 | `Get_Type` | `app/packets/pkunknown_865020.h:31` | what it returns (the opcode Build sends), as MessageLinePacketClass's |
+| 2 | `Packet_0074Class` | `app/packets/pkunknown_8667a0.h:25` | the stores (no caller left) |
+| 2 | `Get_Type` | `app/packets/pkunknown_8667a0.h:31` | what it returns (the opcode Build sends), as MessageLinePacketClass's |
 | 2 | `std:` | `app/packets/pkunknown_866ac0.h:33` | the client's Print text 'ReferrerName=' |
 | 2 | `MoneyPacketDataClass` | `app/packets/pkunknown_873a00.h:23` | what it wraps |
 | 2 | `Money` | `app/packets/pkunknown_873a00.h:31` | what it points at |
@@ -31264,14 +31288,15 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `OptionalVar` | `app/packets/pkaction.h:53` | the client's Print text 'OptionalVar' |
 | 3 | `GameID` | `app/packets/pkauxdata.h:36` | the client's Print text 'GameID=' |
 | 3 | `Size` | `app/packets/pkauxdata.h:37` | the client's Print text 'Size=' |
-| 3 | `Message` | `app/packets/pkcameracontrol.h:33` | the client's Print text 'Message=' |
-| 3 | `GameID` | `app/packets/pkcameracontrol.h:34` | the client's Print text 'GameID=' |
-| 3 | `GameID` | `app/packets/pkchangebaseasset.h:32` | the client's Print text 'GameID=' |
-| 3 | `BaseAsset` | `app/packets/pkchangebaseasset.h:33` | the client's Print text 'BaseAsset=' |
-| 3 | `Scale` | `app/packets/pkchangebaseasset.h:34` | the client's Print text 'Scale=' |
-| 3 | `TurnOn` | `app/packets/pkclickindicator.h:31` | the client's Print text 'TurnOn=' |
-| 3 | `ObjID` | `app/packets/pkclickindicator.h:33` | the client's Print text 'ObjID=' |
-| 3 | `AvatarID` | `app/packets/pkclientavatar.h:32` | the client's Print text 'AvatarID=' |
+| 3 | `Message` | `app/packets/pkcameracontrol.h:34` | the client's Print text 'Message=' |
+| 3 | `GameID` | `app/packets/pkcameracontrol.h:35` | the client's Print text 'GameID=' |
+| 3 | `GameID` | `app/packets/pkchangebaseasset.h:34` | the client's Print text 'GameID=' |
+| 3 | `BaseAsset` | `app/packets/pkchangebaseasset.h:35` | the client's Print text 'BaseAsset=' |
+| 3 | `Scale` | `app/packets/pkchangebaseasset.h:36` | the client's Print text 'Scale=' |
+| 3 | `HSVShift` | `app/packets/pkchangebaseasset.h:37` | the client's Print text 'HSVShift=' |
+| 3 | `TurnOn` | `app/packets/pkclickindicator.h:32` | the client's Print text 'TurnOn=' |
+| 3 | `ObjID` | `app/packets/pkclickindicator.h:34` | the client's Print text 'ObjID=' |
+| 3 | `AvatarID` | `app/packets/pkclientavatar.h:33` | the client's Print text 'AvatarID=' |
 | 3 | `GameID` | `app/packets/pkclientchat.h:36` | the client's Print text 'GameID=' |
 | 3 | `String` | `app/packets/pkclientchat.h:37` | the client's Print text 'String=' |
 | 3 | `Size` | `app/packets/pkclientchat.h:38` | the client's Print text 'Size=' |
@@ -31289,13 +31314,13 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `AvatarID` | `app/packets/pkconfirmedaction.h:68` | the client's Print text 'AvatarID =' |
 | 3 | `ID` | `app/packets/pkconfirmedaction.h:69` | the client's Print text 'ID=' |
 | 3 | `Response` | `app/packets/pkconfirmedaction.h:70` | the client's Print text 'Response=' |
-| 3 | `GameID` | `app/packets/pkcreate.h:32` | the client's Print text 'GameID=' |
-| 3 | `Scale` | `app/packets/pkcreate.h:33` | the client's Print text 'Scale=' |
-| 3 | `BaseAsset` | `app/packets/pkcreate.h:34` | the client's Print text 'BaseAsset=' |
-| 3 | `Type` | `app/packets/pkcreate.h:35` | the client's Print text 'Type=' |
-| 3 | `HSV` | `app/packets/pkcreate.h:37` | the client's Print text 'HSV=' |
-| 3 | `Parent_ID` | `app/packets/pkcreateattachment.h:33` | the client's Print text 'Parent_ID=' |
-| 3 | `Child_ID` | `app/packets/pkcreateattachment.h:34` | the client's Print text 'Child_ID=' |
+| 3 | `GameID` | `app/packets/pkcreate.h:34` | the client's Print text 'GameID=' |
+| 3 | `Scale` | `app/packets/pkcreate.h:35` | the client's Print text 'Scale=' |
+| 3 | `BaseAsset` | `app/packets/pkcreate.h:36` | the client's Print text 'BaseAsset=' |
+| 3 | `Type` | `app/packets/pkcreate.h:37` | the client's Print text 'Type=' |
+| 3 | `HSV` | `app/packets/pkcreate.h:39` | the client's Print text 'HSV=' |
+| 3 | `Parent_ID` | `app/packets/pkcreateattachment.h:34` | the client's Print text 'Parent_ID=' |
+| 3 | `Child_ID` | `app/packets/pkcreateattachment.h:35` | the client's Print text 'Child_ID=' |
 | 3 | `CreateCharacterPacketClass` | `app/packets/pkcreatecharacter.h:23` | the client's Print text 'Create Character' (opcode 0x0048) |
 | 3 | `CTA_Request_PacketClass` | `app/packets/pkcta_request.h:21` | the client's Print text 'CTA_Request_Packet {' and the PacketClass convention |
 | 3 | `AvatarID` | `app/packets/pkcta_request.h:32` | the client's Print text 'AvatarID=' |
@@ -31434,29 +31459,29 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `PlayerID` | `app/packets/pkguildplayeronline.h:339` | the client's Print text 'PlayerID=' |
 | 3 | `NumCredits` | `app/packets/pkguildplayeronline.h:340` | the client's Print text 'NumCredits=' |
 | 3 | `std:` | `app/packets/pkguildplayeronline.h:341` | the client's Print text 'Description=' |
-| 3 | `Type` | `app/packets/pkguildranknamesrequestclient.h:40` | the client's Print text 'Type=' |
-| 3 | `std:` | `app/packets/pkguildranknamesrequestclient.h:41` | the client's Print text 'OptionalParam=' |
-| 3 | `GuildSimpleClientSectorPacketClass` | `app/packets/pkguildranknamesrequestclient.h:45` | the client's Print text 'GuildSimpleClientSectorPacket {' and the PacketClass convention |
-| 3 | `Type` | `app/packets/pkguildranknamesrequestclient.h:56` | the client's Print text 'Type=' |
-| 3 | `PlayerID` | `app/packets/pkguildranknamesrequestclient.h:57` | the client's Print text 'PlayerID=' |
-| 3 | `std:` | `app/packets/pkguildranknamesrequestclient.h:58` | the client's Print text 'OptionalParam=' |
-| 3 | `GuildLeaderAcceptClientPacketClass` | `app/packets/pkguildranknamesrequestclient.h:62` | the client's Print text 'GuildLeaderAcceptClient {' and the PacketClass convention |
-| 3 | `PlayerID` | `app/packets/pkguildranknamesrequestclient.h:73` | the client's Print text 'PlayerID=' |
-| 3 | `std:` | `app/packets/pkguildranknamesrequestclient.h:74` | the client's Print text 'GuildName=' |
-| 3 | `Accept` | `app/packets/pkguildranknamesrequestclient.h:75` | the client's Print text 'Accept=' |
-| 3 | `std:` | `app/packets/pkguildranknamesrequestclient.h:90` | the client's Print text 'InviterName=' |
-| 3 | `std:` | `app/packets/pkguildranknamesrequestclient.h:91` | the client's Print text 'GuildName=' |
-| 3 | `GuildRecruitAcceptClientPacketClass` | `app/packets/pkguildranknamesrequestclient.h:95` | the client's Print text 'GuildRecruitAcceptClient {' and the PacketClass convention |
-| 3 | `PlayerID` | `app/packets/pkguildranknamesrequestclient.h:106` | the client's Print text 'PlayerID=' |
-| 3 | `Accept` | `app/packets/pkguildranknamesrequestclient.h:107` | the client's Print text 'Accept=' |
-| 3 | `MessageType` | `app/packets/pkguildranknamesrequestclient.h:122` | the client's Print text 'MessageType=' |
-| 3 | `std:` | `app/packets/pkguildranknamesrequestclient.h:123` | the client's Print text 'OtherName=' |
-| 3 | `std:` | `app/packets/pkguildranknamesrequestclient.h:124` | the client's Print text 'GuildName=' |
-| 3 | `GuildRankNamesRequestClientPacketClass` | `app/packets/pkguildranknamesrequestclient.h:145` | the client's Print text 'GuildRankNamesRequestClient {' and the PacketClass convention |
-| 3 | `PlayerID` | `app/packets/pkguildranknamesrequestclient.h:155` | the client's Print text 'PlayerID=' |
-| 3 | `GuildRankNamesSectorPacket` | `app/packets/pkguildranknamesrequestclient.h:168` | the client's Print text 'GuildRankNamesSector {}' |
-| 3 | `std:` | `app/packets/pkguildranknamesrequestclient.h:195` | the client's Print text 'OldGuildName=' |
-| 3 | `std:` | `app/packets/pkguildranknamesrequestclient.h:196` | the client's Print text 'NewGuildName=' |
+| 3 | `Type` | `app/packets/pkguildranknamesrequestclient.h:41` | the client's Print text 'Type=' |
+| 3 | `std:` | `app/packets/pkguildranknamesrequestclient.h:42` | the client's Print text 'OptionalParam=' |
+| 3 | `GuildSimpleClientSectorPacketClass` | `app/packets/pkguildranknamesrequestclient.h:46` | the client's Print text 'GuildSimpleClientSectorPacket {' and the PacketClass convention |
+| 3 | `Type` | `app/packets/pkguildranknamesrequestclient.h:57` | the client's Print text 'Type=' |
+| 3 | `PlayerID` | `app/packets/pkguildranknamesrequestclient.h:58` | the client's Print text 'PlayerID=' |
+| 3 | `std:` | `app/packets/pkguildranknamesrequestclient.h:59` | the client's Print text 'OptionalParam=' |
+| 3 | `GuildLeaderAcceptClientPacketClass` | `app/packets/pkguildranknamesrequestclient.h:63` | the client's Print text 'GuildLeaderAcceptClient {' and the PacketClass convention |
+| 3 | `PlayerID` | `app/packets/pkguildranknamesrequestclient.h:74` | the client's Print text 'PlayerID=' |
+| 3 | `std:` | `app/packets/pkguildranknamesrequestclient.h:75` | the client's Print text 'GuildName=' |
+| 3 | `Accept` | `app/packets/pkguildranknamesrequestclient.h:76` | the client's Print text 'Accept=' |
+| 3 | `std:` | `app/packets/pkguildranknamesrequestclient.h:91` | the client's Print text 'InviterName=' |
+| 3 | `std:` | `app/packets/pkguildranknamesrequestclient.h:92` | the client's Print text 'GuildName=' |
+| 3 | `GuildRecruitAcceptClientPacketClass` | `app/packets/pkguildranknamesrequestclient.h:96` | the client's Print text 'GuildRecruitAcceptClient {' and the PacketClass convention |
+| 3 | `PlayerID` | `app/packets/pkguildranknamesrequestclient.h:107` | the client's Print text 'PlayerID=' |
+| 3 | `Accept` | `app/packets/pkguildranknamesrequestclient.h:108` | the client's Print text 'Accept=' |
+| 3 | `MessageType` | `app/packets/pkguildranknamesrequestclient.h:123` | the client's Print text 'MessageType=' |
+| 3 | `std:` | `app/packets/pkguildranknamesrequestclient.h:124` | the client's Print text 'OtherName=' |
+| 3 | `std:` | `app/packets/pkguildranknamesrequestclient.h:125` | the client's Print text 'GuildName=' |
+| 3 | `GuildRankNamesRequestClientPacketClass` | `app/packets/pkguildranknamesrequestclient.h:146` | the client's Print text 'GuildRankNamesRequestClient {' and the PacketClass convention |
+| 3 | `PlayerID` | `app/packets/pkguildranknamesrequestclient.h:156` | the client's Print text 'PlayerID=' |
+| 3 | `GuildRankNamesSectorPacket` | `app/packets/pkguildranknamesrequestclient.h:169` | the client's Print text 'GuildRankNamesSector {}' |
+| 3 | `std:` | `app/packets/pkguildranknamesrequestclient.h:196` | the client's Print text 'OldGuildName=' |
+| 3 | `std:` | `app/packets/pkguildranknamesrequestclient.h:197` | the client's Print text 'NewGuildName=' |
 | 3 | `ShipID` | `app/packets/pkhullupgrade.h:32` | the client's Print text 'ShipID=' |
 | 3 | `HullUpgradeLevel` | `app/packets/pkhullupgrade.h:33` | the client's Print text 'HullUpgradeLevel=' |
 | 3 | `GameID` | `app/packets/pkincapacitancerequest.h:33` | the client's Print text 'GameID=' |
@@ -31558,15 +31583,14 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `ID` | `app/packets/pkmissionforfeit.h:33` | the client's Print text 'ID=' |
 | 3 | `playerid` | `app/packets/pkmissionforfeit.h:47` | the client's Print text 'playerid=' |
 | 3 | `ID` | `app/packets/pkmissionforfeit.h:48` | the client's Print text 'ID=' |
-| 3 | `Mode` | `app/packets/pkmodechange.h:32` | the client's Print text 'Mode=' |
-| 3 | `Mode` | `app/packets/pkmoderequest.h:32` | the client's Print text 'Mode=' |
+| 3 | `Mode` | `app/packets/pkmodechange.h:33` | the client's Print text 'Mode=' |
+| 3 | `Mode` | `app/packets/pkmoderequest.h:33` | the client's Print text 'Mode=' |
 | 3 | `GameID` | `app/packets/pkmove.h:32` | the client's Print text 'GameID=' |
 | 3 | `MoveType` | `app/packets/pkmove.h:33` | the client's Print text 'MoveType=' |
-| 3 | `GameID` | `app/packets/pknamedecal.h:45` | the client's Print text 'GameID=' |
-| 3 | `std:` | `app/packets/pknamedecal.h:46` | the client's Print text 'NumDecals=' |
-| 3 | `GameID` | `app/packets/pknamedecal.h:61` | the client's Print text 'GameID=' |
-| 3 | `Name` | `app/packets/pknamedecal.h:62` | the client's Print text 'Name=' |
-| 3 | `RGB` | `app/packets/pknamedecal.h:63` | the client's Print text 'RGB=' |
+| 3 | `GameID` | `app/packets/pknamedecal.h:46` | the client's Print text 'GameID=' |
+| 3 | `std:` | `app/packets/pknamedecal.h:47` | the client's Print text 'NumDecals=' |
+| 3 | `GameID` | `app/packets/pknamedecal.h:63` | the client's Print text 'GameID=' |
+| 3 | `Name` | `app/packets/pknamedecal.h:64` | the client's Print text 'Name=' |
 | 3 | `GameID` | `app/packets/pknavdelete.h:33` | the client's Print text 'GameID=' |
 | 3 | `Signature` | `app/packets/pknavdelete.h:34` | the client's Print text 'Signature=' |
 | 3 | `PlayerHasVisited` | `app/packets/pknavdelete.h:35` | the client's Print text 'PlayerHasVisited=' |
@@ -31639,10 +31663,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `Scale` | `app/packets/pkpointeffect.h:178` | the client's Print text 'Scale=' |
 | 3 | `HSVShift` | `app/packets/pkpointeffect.h:179` | the client's Print text 'HSVShift=' |
 | 3 | `Speedup` | `app/packets/pkpointeffect.h:180` | the client's Print text 'Speedup=' |
-| 3 | `EffectID` | `app/packets/pkpointeffect.h:195` | the client's Print text 'EffectID=' |
+| 3 | `EffectID` | `app/packets/pkpointeffect.h:196` | the client's Print text 'EffectID=' |
 | 3 | `PointsTotal` | `app/packets/pkreferralpointsavailable.h:31` | the client's Print text 'PointsTotal=' |
 | 3 | `PointsSpent` | `app/packets/pkreferralpointsavailable.h:32` | the client's Print text 'PointsSpent=' |
-| 3 | `GameID` | `app/packets/pkremove.h:33` | the client's Print text 'GameID=' |
+| 3 | `GameID` | `app/packets/pkremove.h:34` | the client's Print text 'GameID=' |
 | 3 | `GameID` | `app/packets/pkrequesttarget.h:33` | the client's Print text 'GameID=' |
 | 3 | `TargetID` | `app/packets/pkrequesttarget.h:34` | the client's Print text 'TargetID=' |
 | 3 | `GameID` | `app/packets/pkrequesttarget.h:49` | the client's Print text 'GameID=' |
@@ -31654,8 +31678,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `ServerReceived` | `app/packets/pkrequesttime.h:49` | the client's Print text 'ServerReceived=' |
 | 3 | `ServerSent` | `app/packets/pkrequesttime.h:50` | the client's Print text 'ServerSent=' |
 | 3 | `ClientReceived` | `app/packets/pkrequesttime.h:51` | the client's Print text 'ClientReceived=' |
-| 3 | `PlayerID` | `app/packets/pkrequesttransformchange.h:31` | the client's Print text 'PlayerID=' |
-| 3 | `GameID` | `app/packets/pkrequesttransformchange.h:32` | the client's Print text 'GameID=' |
+| 3 | `PlayerID` | `app/packets/pkrequesttransformchange.h:34` | the client's Print text 'PlayerID=' |
+| 3 | `GameID` | `app/packets/pkrequesttransformchange.h:35` | the client's Print text 'GameID=' |
+| 3 | `Position` | `app/packets/pkrequesttransformchange.h:36` | the client's Print text 'Position=' |
+| 3 | `Orientation` | `app/packets/pkrequesttransformchange.h:37` | the client's Print text 'Orientation=' |
+| 3 | `Velocity` | `app/packets/pkrequesttransformchange.h:38` | the client's Print text 'Velocity=' |
 | 3 | `ServerHandoffPacketClass` | `app/packets/pkserverhandoff.h:23` | the client's Print text 'Server_Handoff' |
 | 3 | `std:` | `app/packets/pkserverhandoff.h:36` | the client's Print text 'Source Sector=' |
 | 3 | `std:` | `app/packets/pkserverhandoff.h:37` | the client's Print text 'Source System=' |
@@ -31684,10 +31711,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `IP` | `app/packets/pkserverready.h:33` | the client's Print text 'IP=' |
 | 3 | `Port` | `app/packets/pkserverready.h:34` | the client's Print text 'Port=' |
 | 3 | `Type` | `app/packets/pksetclienttype.h:33` | the client's Print text 'Type=' |
-| 3 | `Min` | `app/packets/pksetzband.h:32` | the client's Print text 'Min=' |
-| 3 | `Max` | `app/packets/pksetzband.h:33` | the client's Print text 'Max=' |
-| 3 | `XMin` | `app/packets/pksetzband.h:46` | the client's Print text 'XMin=' |
-| 3 | `XMax` | `app/packets/pksetzband.h:47` | the client's Print text 'XMax=' |
+| 3 | `Min` | `app/packets/pksetzband.h:33` | the client's Print text 'Min=' |
+| 3 | `Max` | `app/packets/pksetzband.h:34` | the client's Print text 'Max=' |
+| 3 | `XMin` | `app/packets/pksetzband.h:48` | the client's Print text 'XMin=' |
+| 3 | `XMax` | `app/packets/pksetzband.h:49` | the client's Print text 'XMax=' |
 | 3 | `SkillPacketClass` | `app/packets/pkskill.h:22` | the client's Print text 'Skill {' and the PacketClass convention |
 | 3 | `GameID` | `app/packets/pkskill.h:32` | the client's Print text 'GameID=' |
 | 3 | `Action` | `app/packets/pkskill.h:33` | the client's Print text 'Action=' |
@@ -31734,8 +31761,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `TowCost1` | `app/packets/pkstarbasetow.h:70` | the client's Print text 'TowCost1=' |
 | 3 | `TowCost2` | `app/packets/pkstarbasetow.h:71` | the client's Print text 'TowCost2=' |
 | 3 | `TowCost3` | `app/packets/pkstarbasetow.h:72` | the client's Print text 'TowCost3=' |
-| 3 | `PlayerID` | `app/packets/pkstart.h:31` | the client's Print text 'PlayerID=' |
-| 3 | `PlayerID` | `app/packets/pkstart.h:45` | the client's Print text 'PlayerID=' |
+| 3 | `PlayerID` | `app/packets/pkstart.h:32` | the client's Print text 'PlayerID=' |
+| 3 | `PlayerID` | `app/packets/pkstart.h:46` | the client's Print text 'PlayerID=' |
 | 3 | `TalkTreePacketClass` | `app/packets/pktalktreeaction.h:33` | the client's Print text 'TalkTreePacket' |
 | 3 | `std:` | `app/packets/pktalktreeaction.h:48` | the client's Print text 'NPCSay=' |
 | 3 | `std:` | `app/packets/pktalktreeaction.h:49` | the client's Print text 'NPCSoundFileName' |
@@ -31759,8 +31786,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `Status` | `app/packets/pktask.h:175` | the client's Print text 'Status=' |
 | 3 | `GameID` | `app/packets/pktilt.h:33` | the client's Print text 'GameID=' |
 | 3 | `Intensity` | `app/packets/pktilt.h:34` | the client's Print text 'Intensity=' |
-| 3 | `PartnerID` | `app/packets/pktrade.h:33` | the client's Print text 'PartnerID=' |
-| 3 | `Type` | `app/packets/pktrade.h:34` | the client's Print text 'Type=' |
+| 3 | `PartnerID` | `app/packets/pktrade.h:34` | the client's Print text 'PartnerID=' |
+| 3 | `Type` | `app/packets/pktrade.h:35` | the client's Print text 'Type=' |
 | 3 | `GameID` | `app/packets/pktriggeremote.h:32` | the client's Print text 'GameID=' |
 | 3 | `Emote` | `app/packets/pktriggeremote.h:33` | the client's Print text 'Emote=' |
 | 3 | `GameID` | `app/packets/pktriggeremote.h:48` | the client's Print text 'GameID=' |
