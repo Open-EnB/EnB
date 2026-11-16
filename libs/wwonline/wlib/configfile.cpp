@@ -145,7 +145,7 @@ bit8 ConfigFile::readFile(FILE *in)
 //
 bit8 ConfigFile::enumerate(int &index, int &offset, Wstring &key, Wstring &value, IN char *section) const
 {
-	int seclen = strlen(section);
+
   while(1)
   {
     Critsec_.lock();
@@ -163,8 +163,8 @@ bit8 ConfigFile::enumerate(int &index, int &offset, Wstring &key, Wstring &value
       continue;
 
     // Is this key part of our section?
-	const char *keystr = key.get() + strlen(key.get())-seclen-1;
-    if (strncmp(keystr,section,strlen(section))==0)
+
+    if (strncmp(key.get() + strlen(key.get())-strlen(section)-1,section,strlen(section))==0)
       break;
   }
   key.truncate('[');  // remove the section name
@@ -313,6 +313,9 @@ static char *Eat_Spaces(char *string)
 //       its trailing spaces and a trailing backslash joins the next line (strip it, fgets, Eat_Spaces, operator+=
 //       0x8B6640, truncate '\r' '\n' '#'); 0x8B2690 (no caller, between ~ConfigFile 0x8B24B0 and readFile) is lock
 //       0x8B4330, Dictionary::clear inlined, unlock 0x8B4350
+// EnB: ConfigFile::enumerate (line 146 at the freeze): E&B's enumerate 0x8B2EE0 has no seclen local: it takes
+//       strlen(section) again inside the strncmp call (pushed first, then section, then key.get() + strlen(key.get())
+//       - strlen(section) - 1); the two lines are kept blank
 // EnB: Line 285 at the freeze: MDC's later additions (setString, setInt, removeEntry, writeFile) are not in the
 //       client: its configfile object runs from the constructor 0x8B23C0 to getInt(char *, sint16 &) 0x8B3830, then the
 //       Dictionary templates
