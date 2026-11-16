@@ -114,6 +114,15 @@ Last, an own-call round (D246 / CR4, USE_CALL_TIES): the one survivor the object
 calls under the function's own symbol reach (obj_called; D166 without its every-caller-is-ours test: it credits
 the address, not a placement); `exact` with `tiebreak` and `call_tie` set, never widening an object's range It runs
 after D166 has nothing more (run before it, it took D166's credits, which widen ranges, and cost range pairs).
+The round's evidence reaches further (CR2, run 2026-11-16): (1) USE_FUNCLET_NOTEXACT: the funclets of a parent
+that is not exact count as well when client.exe's bytes locate its FuncInfo (the address symbols.json names
+with the parent's symbol from a proof other than an exact match, by its EH prologue's pushed stub; else the one
+client FuncInfo whose whole unwind map matches the object's), only its matching states; (2) USE_FUNCLET_FOLDED:
+several symbols proposed at one address, all COMDAT bodies with one body_sig, are a linker fold (D193 for
+non-short bodies: ~RefCountPtr<LegoClass> / <ClientLegoImplClass> 0x700BC0) and are all credited; (3)
+USE_FUNCLET_OWN: a symbol reached at several addresses (a template with several client copies) takes, in one
+object, the one address that object's own funclets reach; (4) USE_FUNCLET_NAMED: among several reaches, one at
+an address symbols.json names with another function (a self name) is dropped (funclet_reach).
 
 A searched match counts only at a function start (D189(2)): an address the client's thunk table or a
 call / jump reaches, or one right after padding (int3 / nop) or after the end of another function (a
@@ -183,6 +192,25 @@ USE_PUSHED_TIES = True
 # it credits the address (the copy the object's calls reach), not a placement. Only the object's own calls count:
 # another object's calls reach its own copy (emote_data / sclient's deque<int>::_Freefront 0x7E7CD0 / 0x756710)
 USE_CALL_TIES = True
+# CR2 (run 2026-11-16): a funclet's reach at an address symbols.json names with another function is not
+# evidence for the funclet's symbol (fontdatabase.obj's funclets reach ~StringClass at FontSoundStruct's
+# destructor 0x67F660: our member type, not the client's); among several reaches it is dropped and the
+# symbol's other reach decides (funclet_reach)
+USE_FUNCLET_NAMED = True
+# CR2: several symbols the funclet round proposes at one address, all COMDAT bodies with the same bytes and
+# relocations (D193's linker fold, for non-short bodies: ~RefCountPtr<LineDisplayTextClass> and
+# ~RefCountPtr<FontStyleClass> at 0x51C630), are all credited (funclet_folded)
+USE_FUNCLET_FOLDED = True
+# CR2: the funclets of a parent whose body is not exact count like an exact parent's (funclet_targets) when
+# client.exe's own bytes locate the parent's FuncInfo: the address symbols.json names with the parent's symbol
+# from a proof other than an exact match (its EH prologue `push -1; push offset stub`), or the one client
+# FuncInfo whose whole unwind map (state count, every state's funclet) matches the object's
+# (notexact_funclet_targets)
+USE_FUNCLET_NOTEXACT = True
+# CR2: a symbol the funclets reach at several client addresses (a template with several copies in client.exe:
+# ~RefCountPtr<InterfaceClass> at 0x541A10, 0x54B570, 0x56CE00, 0x643BA0) is, for one object, the one address
+# that object's own matching funclets reach (the funclet round only; like P-CGP-1's obj_called)
+USE_FUNCLET_OWN = True
 
 
 def generated(name):
@@ -694,17 +722,26 @@ def match_objects(img, paths, region=None, callers=False):
         if USE_FUNCLET_CALLS:
             for name, t in funclet_targets(img, obj, sec, s, length, addr, thunk):
                 funclet_called[name].add(t)      # D246 / C21: a matching unwind funclet's jump
+                obj_funclet[(id(obj), name)].add(t)  # CR2: the object's own funclets' reach
         if USE_PUSHED_CALLS:
             for name, t, _ in pushed_targets(img, obj, sec, s, length, addr, text, start, thunk):
                 pushed_called[name].add(t)       # D246 / CR3: an absolute function reference's immediate
     called = collections.defaultdict(set)   # D188: {symbol: {addresses}} the exact functions call
     funclet_called = collections.defaultdict(set)   # D246 / C21: {symbol: {addresses}} their funclets jump to
     pushed_called = collections.defaultdict(set)    # D246 / CR3: {symbol: {addresses}} they push / load / store
+    obj_funclet = collections.defaultdict(set)      # CR2: {(object, symbol): {addresses}} its own funclets jump to
     vptrs = collections.defaultdict(set)    # D188: {vtable symbol: {addresses}} their vptr stores give
     obj_called = collections.defaultdict(set)   # P-CGP-1: {(object, symbol): {addresses}} its exact functions call
     for r, obj, sec, s, length in results:
         if r['status'] == 'exact':
             learn(r, obj, sec, s, length, int(r['addresses'][0], 16))
+    if USE_FUNCLET_CALLS and USE_FUNCLET_NOTEXACT:
+        held = {a for a, v in claimed.items() if v}
+        for r, obj, sec, s, length in results:
+            if r['status'] in ('none', 'multiple'):
+                for name, t in notexact_funclet_targets(img, obj, sec, s, length, r['symbol'], thunk, held):
+                    funclet_called[name].add(t)     # CR2: a not-exact parent's matching funclets
+                    obj_funclet[(id(obj), name)].add(t)
     shorts = [x for x in results if x[0]['status'] == 'short' and x[4] > 0]
     folded_at = collections.defaultdict(lambda: collections.defaultdict(set))  # D193: {address: {COMDAT body: {symbols}}}
     # D88: when D80 resolves nothing more, the self name breaks a tie: the one survivor that
@@ -797,7 +834,7 @@ def match_objects(img, paths, region=None, callers=False):
             if phase == 'short':
                 # D188: a short function at an address the run knows independently of its bytes
                 got = short_known(img, shorts, text, start, known, thunk, called, vptrs, claimed, folded_at,
-                                  funclet_called, pushed_called)
+                                  funclet_reach(funclet_called), pushed_called)
                 for (r, obj, sec, s, length), a, kind in got:
                     if not obj.own(sec):
                         folded_at[a][body_sig(obj, sec, s, length)].add(r['symbol'])
@@ -859,7 +896,13 @@ def match_objects(img, paths, region=None, callers=False):
                 elif phase == 'funclet':
                     # D246 / C35: one address a matching funclet reaches under this symbol, among the survivors
                     if obj.symbol_class(r['symbol']) == 2 and not generated(r['symbol']):
-                        reach = funclet_called.get(r['symbol'], ())
+                        reach = funclet_reach(funclet_called).get(r['symbol'], ())
+                        if len(reach) != 1 and USE_FUNCLET_OWN:
+                            # CR2: a template with several client copies: the copy the object's own funclets reach
+                            # (only when the symbol's reach is not one address: the symbol's evidence comes first,
+                            # as in D254; trying the object's own first lost 12 ~RefCountPtr<SceneClass> 0x5C40C0)
+                            own = obj_funclet.get((id(obj), r['symbol']), set())
+                            reach = funclet_reach({r['symbol']: own}).get(r['symbol'], ())
                         if len(reach) == 1 and next(iter(reach)) in survivors:
                             proposals.append((item, next(iter(reach))))
                 elif phase == 'calltie':
@@ -920,9 +963,12 @@ def match_objects(img, paths, region=None, callers=False):
                         top = max(left.values())
                         if top > (True, False, 0) and sum(e == top for e in left.values()) == 1:
                             winner[a] = next(k for k, e in left.items() if e == top)
+            folds = funclet_folded(proposals, claimed) if phase == 'funclet' else {}
             for item, a in proposals:
                 r, obj, sec, s, length, hits = item
-                if len(by_addr[a]) > 1 and winner.get(a) != r['symbol'] or claimed[a] - {r['symbol']}:
+                if r['symbol'] in folds.get(a, ()):
+                    pass                                # CR2: a linker-folded COMDAT body, every symbol credited
+                elif len(by_addr[a]) > 1 and winner.get(a) != r['symbol'] or claimed[a] - {r['symbol']}:
                     continue
                 r['status'] = 'exact'
                 r['addresses'] = [f'0x{a:06X}']
@@ -1287,6 +1333,136 @@ def object_unwind(obj, sec, s, length):
             out.append((lab['value'], bounds[j] if j < len(bounds) else xinfo['size']))
         return k, xsec, out
     return None
+
+
+def funclet_folded(proposals, claimed):
+    """CR2: {address: {symbols}} of the funclet round's proposals that a linker fold explains (D193 for
+    non-short bodies): two or more symbols at one address, every proposal there a COMDAT (not the object's
+    own code) with one body_sig, and nothing else already exact there. USE_FUNCLET_FOLDED switches it."""
+    if not USE_FUNCLET_FOLDED:
+        return {}
+    at = collections.defaultdict(list)
+    for (r, obj, sec, s, length, hits), a in proposals:
+        at[a].append((r['symbol'], None if obj.own(sec) else body_sig(obj, sec, s, length)))
+    out = {}
+    for a, props in at.items():
+        syms = {x[0] for x in props}
+        sigs = {x[1] for x in props}
+        if len(syms) > 1 and len(sigs) == 1 and None not in sigs and not claimed[a] - syms:
+            out[a] = syms
+    return out
+
+
+_funcinfos = {}
+EH_PROLOGUE = re.compile(rb'\x6A\xFF\x68(....)\x64\xA1\x00\x00\x00\x00', re.S)
+
+
+def client_funcinfos(img):
+    """CR2: ({stub VA: [funclet VA by state]}, {state count: [stub VA]}) of client.exe's C++ EH FuncInfos."""
+    stubs = eh_stubs(img)                    # takes _call_lock itself (not reentrant)
+    with _call_lock:
+        if id(img) not in _funcinfos:
+            maps, by_n = {}, collections.defaultdict(list)
+            for stub, off in stubs.items():
+                nstate, pmap = struct.unpack_from('<iI', img.data, off + 4)
+                moff = img.offset(pmap)
+                if moff is None or not 0 < nstate < 0x1000 or moff + 8 * nstate > len(img.data):
+                    continue
+                maps[stub] = [struct.unpack_from('<I', img.data, moff + 8 * i + 4)[0] for i in range(nstate)]
+                by_n[nstate].append(stub)
+            _funcinfos[id(img)] = (maps, by_n)
+        return _funcinfos[id(img)]
+
+
+def _state_pattern(obj, xsec, st):
+    """(compiled pattern, length, fixed prefix) of an object funclet (start, end)."""
+    pat, _, flen = obj.pattern(xsec, st[0], st[1])
+    info = obj.sections[xsec]
+    first = min([va - st[0] for va, _, typ in info['relocs'] if st[0] <= va < st[1]] + [flen])
+    return re.compile(pat, re.S), flen, bytes(obj.data[info['raw'] + st[0]:info['raw'] + st[0] + first])
+
+
+def _state_match(sp, cf, text, base):
+    co = cf - base
+    rx, flen, prefix = sp
+    return 0 <= co and co + flen <= len(text) and text.startswith(prefix, co) and \
+        rx.fullmatch(text, co, co + flen) is not None
+
+
+def notexact_funclet_targets(img, obj, sec, s, length, symbol, thunk, held):
+    """CR2: [(symbol, client address)] the matching unwind funclets of a function that is not exact reach (the
+    same pairs as funclet_targets), its client FuncInfo located by client.exe's bytes alone: (1) the one address
+    symbols.json names with its symbol from a proof other than an exact match (self_names), whose EH prologue
+    (`push -1; push offset stub; mov eax, fs:[0]`) pushes the stub; else (2) the one client FuncInfo with the
+    object's state count whose every state's funclet matches the object's, its stub pushed by no function an
+    exact symbol (`held`: their addresses) starts within 0x10 bytes before. Only matching states count."""
+    ou = object_unwind(obj, sec, s, length)
+    if ou is None:
+        return []
+    k, xsec, states = ou
+    text, base = _whole_text(img)
+    maps, by_n = client_funcinfos(img)
+    stub = None
+    named = {thunk.get(a, a) for a in self_names().get(symbol, ())}
+    if len(named) == 1:
+        o = next(iter(named)) - base
+        m = EH_PROLOGUE.search(text, max(o, 0), max(o, 0) + 0x18) if 0 <= o < len(text) else None
+        if m:
+            v = struct.unpack_from('<I', text, m.start() + 3)[0]
+            stub = v if v in maps and len(maps[v]) == len(states) else None
+    sps = [None if st is None else _state_pattern(obj, xsec, st) for st in states]
+    if stub is None:
+        if all(st is None for st in states):
+            return []
+        good = [c for c in by_n.get(len(states), ())
+                if all(sp is None or _state_match(sp, maps[c][i], text, base) for i, sp in enumerate(sps))]
+        if len(good) != 1:
+            return []
+        stub = good[0]
+        push = text.find(b'\x68' + struct.pack('<I', stub))
+        if push < 0 or text.find(b'\x68' + struct.pack('<I', stub), push + 1) >= 0 or \
+                any(base + push - d in held for d in range(0x11)):
+            return []
+    out = []
+    for i, st in enumerate(states):
+        cf = maps[stub][i]
+        if st is None or not _state_match(sps[i], cf, text, base):
+            continue
+        co = cf - base
+        for j, n, typ, sym, add in obj.reloc_targets(xsec, st[0], st[1] - st[0]):
+            if typ != 0x14 or n != 4 or sym is None or sym['class'] != 2 or generated(sym['name']):
+                continue
+            t = (cf + j + 4 + struct.unpack_from('<i', text, co + j)[0]) & 0xFFFFFFFF
+            out.append((sym['name'], thunk.get(t, t)))
+    return out
+
+
+_funclet_owners = None
+
+
+def funclet_reach(funclet_called):
+    """CR2: funclet_called {symbol: {addresses}} without the addresses symbols.json names with another
+    function from a proof other than an exact match (self_names: a vtable slot, a string, a named row;
+    USE_FUNCLET_NAMED): a matching funclet's wildcarded target is the client's function,
+    whatever our object's symbol there is, so a reach the client names otherwise is our source's type,
+    not evidence that the symbol is there. Only to choose among several reaches: a single reach stays, since
+    a linker-folded COMDAT is named with one of its symbols only (aux_roots' ~DeltaTemplateClass copies at
+    InvSlotStruct's)."""
+    global _funclet_owners
+    if not USE_FUNCLET_NAMED:
+        return funclet_called
+    if _funclet_owners is None:
+        _funclet_owners = collections.defaultdict(set)
+        for k, v in self_names().items():
+            for a in v:
+                _funclet_owners[a].add(k[4:] if k.startswith(('??_E', '??_G')) else k)
+    owners = _funclet_owners
+    out = {}
+    for name, addrs in funclet_called.items():
+        n = name[4:] if name.startswith(('??_E', '??_G')) else name
+        keep = {a for a in addrs if not owners.get(a) or n in owners[a]} if len(addrs) > 1 else addrs
+        out[name] = keep or addrs
+    return out
 
 
 def funclet_targets(img, obj, sec, s, length, addr, thunk):

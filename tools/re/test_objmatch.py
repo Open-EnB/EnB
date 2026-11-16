@@ -1,4 +1,4 @@
-"""objmatch.py's funclet evidence for short functions (D246 / C21) and for tied non-short bodies (D246 / C35)
+"""objmatch.py's funclet evidence for short functions (D246 / C21), for tied non-short bodies (D246 / C35) and beyond (CR2)
 and pushed-address evidence for short functions (D246 / CR3) and for tied non-short bodies, with the object's own calls' evidence (D246 / CR4;
 python -m unittest tools/re/test_objmatch.py).
 
@@ -158,6 +158,50 @@ class CallTies(unittest.TestCase):
                 finally:
                     objmatch.USE_CALL_TIES = True
                 self.assertEqual(res[sym]['status'], 'multiple')
+# CR2 (run 2026-11-16): object list, symbol, client address, the result key it sets, the switch that gives it
+BEYOND = [
+    # two template destructors with one body, linker-folded at 0x700BC0: both credited by the funclet round
+    (['client_lego_impl.obj'], '??1?$RefCountPtr@VLegoClass@@@@QAE@XZ', '0x700BC0', 'funclet_tie',
+     'USE_FUNCLET_FOLDED'),
+    # a parent not exact: its FuncInfo located by its whole unwind map (or its named address)
+    (['lookup_table.obj'], '??1LookupTableClass@@UAE@XZ', '0x4EC6F0', 'short_known', 'USE_FUNCLET_NOTEXACT'),
+]
+
+
+class FuncletBeyond(unittest.TestCase):
+    def test_beyond(self):
+        img = objmatch.ClientImage(objmatch.DEFAULT_CLIENT)
+        for names, sym, addr, key, switch in BEYOND:
+            paths = [os.path.join(OBJS, n) for n in names]
+            with self.subTest(sym=sym):
+                if not all(os.path.exists(p) for p in paths):
+                    self.skipTest(f'{paths} missing')
+                res = {r['symbol']: r for r in objmatch.match_objects(img, paths)}
+                self.assertEqual(res[sym]['status'], 'exact')
+                self.assertEqual(res[sym]['addresses'], [addr])
+                self.assertTrue(res[sym].get(key))
+                setattr(objmatch, switch, False)
+                try:
+                    res = {r['symbol']: r for r in objmatch.match_objects(img, paths)}
+                finally:
+                    setattr(objmatch, switch, True)
+                # CR7: a later round (CR4's own-call tie) may still credit it, but not by this evidence
+                self.assertFalse(res[sym]['status'] == 'exact' and res[sym]['addresses'] == [addr]
+                                 and res[sym].get(key))
+
+
+class FuncletNamed(unittest.TestCase):
+    def test_reach(self):
+        # ~StringClass reached at 0x431C80 and at 0x67F660, which symbols.json names FontSoundStruct's destructor:
+        # the named one is dropped; a single reach stays (a linker fold is named with one of its symbols only)
+        sym = '??1StringClass@@QAE@XZ'
+        self.assertEqual(objmatch.funclet_reach({sym: {0x431C80, 0x67F660}}), {sym: {0x431C80}})
+        self.assertEqual(objmatch.funclet_reach({sym: {0x67F660}}), {sym: {0x67F660}})
+        objmatch.USE_FUNCLET_NAMED = False
+        try:
+            self.assertEqual(objmatch.funclet_reach({sym: {0x431C80, 0x67F660}}), {sym: {0x431C80, 0x67F660}})
+        finally:
+            objmatch.USE_FUNCLET_NAMED = True
 
 
 if __name__ == '__main__':
