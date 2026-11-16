@@ -7,11 +7,11 @@ are listed here until better evidence raises their tag. Regenerate with
 
 | Score | Meaning | Names |
 |---|---|---|
-| 5 | the client names it | 225 |
+| 5 | the client names it | 226 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 37 |
 | 3 | by convention from a client-named file or sibling | 1964 |
 | 2 | describes what the code does | 4976 |
-| 1 | neutral placeholder | 25111 |
+| 1 | neutral placeholder | 25109 |
 
 ## For review (score 3 and below)
 
@@ -87,7 +87,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `AuxRootsSymbolPadType` | `app/client/aux_roots.cpp:120` | a build aid (HX1) |
 | 1 | `aux_roots.h` | `app/client/aux_roots.h:8` | provisional file name (the client's code is in co.cpp and an unattributed object) |
 | 1 | `Unknown_Hex_String` | `app/client/aux_roots.h:44` | untagged neutral name (D10) |
-| 1 | `UnknownB00A00Type` | `app/client/aux_roots.h:61` | the value type of the leaf vtable 0xB00A00 (no name in the client, Net-7 or C#) |
 | 1 | `UnknownB011D4Enum` | `app/client/aux_roots.h:78` | the value type of the leaf vtable 0xB011D4 (no name in the client, Net-7 or C#) |
 | 1 | `UnknownB0122CEnum` | `app/client/aux_roots.h:84` | untagged neutral name (D10) |
 | 1 | `UnknownB0133CEnum` | `app/client/aux_roots.h:85` | untagged neutral name (D10) |
@@ -2045,7 +2044,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6FFC80` | `app/client/co.cpp:2357` | untagged neutral name (D10) |
 | 1 | `Unknown_6FF7A0` | `app/client/co.cpp:2363` | untagged neutral name (D10) |
 | 1 | `Unknown_700400` | `app/client/co.cpp:2370` | untagged neutral name (D10) |
-| 1 | `UnknownB00A00Type` | `app/client/co.cpp:2375` | untagged neutral name (D10) |
 | 1 | `Unknown_6FF330` | `app/client/co.cpp:2416` | untagged neutral name (D10) |
 | 1 | `Unknown_6FFE90` | `app/client/co.cpp:2428` | untagged neutral name (D10) |
 | 1 | `Unknown_6FFF00` | `app/client/co.cpp:2438` | untagged neutral name (D10) |
