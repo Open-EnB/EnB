@@ -667,7 +667,7 @@ void UIFriendsClass::Unknown_591C30()
 {
 	DeltaCompoundClass *aux = Client->As_Space_Client()->AuxData;
 	NameClass field("GroupInfo");
-	DeltaGroupInfoClass *group = (DeltaGroupInfoClass *)Unknown_Friends_Find<DeltaCompoundClass>(aux, field);
+	DeltaGroupInfoClass *group = Unknown_Friends_Find<DeltaGroupInfoClass>(aux, field);
 	if (group && group->Unknown70) {
 		for (int i = 0; i < 5; i++) {
 			DeltaGroupMemberClass *member = (DeltaGroupMemberClass *)group->Members.Children[i];

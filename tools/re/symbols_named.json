@@ -3115,5 +3115,36 @@
   "address": "0x43D3B0",
   "symbol": "??_GRawFileFactoryClass@@UAEPAXI@Z",
   "evidence": "soundlib.cpp's static at 0xBDAC60: its initialiser 0x43D320 calls 0x43D390 (stores the vtable 0xAE74DC, whose slots +4 / +8 are RawFileFactoryClass::Get_File 0x9D0780 / Return_File 0x9D07B0) and registers 0x43D350 -> 0x43D370 (stores FileFactoryClass's vtable 0xAE74CC) (AR run 2026-11-16, C6)"
+ },
+ {
+  "address": "0x519240",
+  "symbol": "?Child_Changed@DynamicWindowHorizontalClass@@UAEXAAVDynamicWindowElementClass@@@Z",
+  "evidence": "slot 0 of DynamicWindowHorizontalClass's DynamicWindowContainerClass vtable 0xAED480 (thunk 0x417440), between Set_Position 0x5191F0 and Remove_All_Children 0x5192E0; byte-identical to the vertical's 0x51F600, which the tie had given this name (NM, run 2026-11-16)"
+ },
+ {
+  "address": "0x51F600",
+  "symbol": "?Child_Changed@DynamicWindowVerticalClass@@UAEXAAVDynamicWindowElementClass@@@Z",
+  "evidence": "slot 0 of DynamicWindowVerticalClass's DynamicWindowContainerClass vtable 0xAEDB74 (thunk 0x4031DE), between Set_Position 0x51F5B0 and Remove_All_Children 0x51F6D0 (NM, run 2026-11-16)",
+  "replaces": "?Child_Changed@DynamicWindowHorizontalClass@@UAEXAAVDynamicWindowElementClass@@@Z"
+ },
+ {
+  "address": "0x5314D0",
+  "symbol": "?Unknown_Find_Field@@YAPAVDeltaRPGInfoClass@@PAVDeltaCompoundClass@@ABVNameClass@@@Z",
+  "evidence": "auxdata.h's find of a field tested against DeltaCompoundClass's type 0xBE3A74 (shared by its derived classes); its one caller, Is_Usable 0x531080 (0x5310F9), finds 'RPGInfo', a DeltaRPGInfoClass (aux_roots.h, Player.RPGInfo) (NM, run 2026-11-16)"
+ },
+ {
+  "address": "0x5927E0",
+  "symbol": "?Unknown_Find_Field@@YAPAVDeltaGroupInfoClass@@PAVDeltaCompoundClass@@ABVNameClass@@@Z",
+  "evidence": "auxdata.h's find of a field tested against 0xBE3A74; every caller (0x591C30, 0x592C50 in ui_friends.cpp, 0x596770, 0x597E40 in ui_group.cpp) finds 'GroupInfo' (0xB7F434), a DeltaGroupInfoClass (NM, run 2026-11-16)"
+ },
+ {
+  "address": "0x610370",
+  "symbol": "?Unknown_Find_Field@@YAPAVDeltaReputationClass@@PAVDeltaCompoundClass@@ABVNameClass@@@Z",
+  "evidence": "auxdata.h's find of a field tested against 0xBE3A74; its caller 0x60F1A0 (0x60F55B, 0x60F585) finds 'Reputation' (0xB7F178), a DeltaReputationClass (NM, run 2026-11-16)"
+ },
+ {
+  "address": "0x7E7AD0",
+  "symbol": "??1?$RefCountPtr@VSound3DClass@@@@QAE@XZ",
+  "evidence": "reached only by the unwind funclets 0xAD37A0 / 0xAD37E0 of emote_data.cpp's 0x7E63A0 / 0x7E6860, right after Create_Get<Sound3DClass> 0x7E7AA0: the RefCountPtr<Sound3DClass> it returns; byte-identical to ~RefCountPtr<AudibleSoundClass> 0x64EFC0 (NM, run 2026-11-16)"
  }
 ]
