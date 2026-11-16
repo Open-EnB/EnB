@@ -7,7 +7,8 @@
   "0x685E80",
   "0x685F40",
   "0x685F90",
-  "0x685FD0"
+  "0x685FD0",
+  "0x685FF0"
  ],
  "merged": [],
  "name": "client/unknown_685e80.cpp"

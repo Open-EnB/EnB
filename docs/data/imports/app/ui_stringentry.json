@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x474080"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "RECONSTRUCTED: UIPTradeCreditsClass, the text entry window 0x649890-0x64A32F (constructor 0x649890 'TRADE01A', table 0xAF88BC), file named from the tooltips' section 'UI_STRINGENTRY' (NAME 2, interim D137), TC1",
  "expected": {},
@@ -10,6 +8,7 @@
   "0x42B320",
   "0x42F250",
   "0x45CC10",
+  "0x474080",
   "0x4740B0",
   "0x4A1930",
   "0x4A19A0",
@@ -53,6 +52,7 @@
   "0x42B320",
   "0x42F250",
   "0x45CC10",
+  "0x474080",
   "0x4740B0",
   "0x4A1930",
   "0x4A19A0",
@@ -97,7 +97,6 @@
   "0x5411F0",
   "0x543750",
   "0x543770",
-  "0x64A220",
   "0x64A310",
   "0x64A320"
  ]

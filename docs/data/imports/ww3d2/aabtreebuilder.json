@@ -37,8 +37,5 @@
  "name": "aabtreebuilder.cpp",
  "shared": [
   "0x42F250"
- ],
- "short_known": [
-  "0x9B5B20"
  ]
 }

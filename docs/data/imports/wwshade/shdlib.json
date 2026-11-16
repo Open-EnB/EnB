@@ -7,11 +7,25 @@
  },
  "headers_from": null,
  "in_tree": [
-  "0x42F250"
+  "0x42F250",
+  "0xA07CE0",
+  "0xA07CF0",
+  "0xA07D00",
+  "0xA07D10",
+  "0xA07D20",
+  "0xA07D30"
  ],
  "merged": [],
  "name": "shdlib.cpp",
  "shared": [
   "0x42F250"
+ ],
+ "short_known": [
+  "0xA07CE0",
+  "0xA07CF0",
+  "0xA07D00",
+  "0xA07D10",
+  "0xA07D20",
+  "0xA07D30"
  ]
 }

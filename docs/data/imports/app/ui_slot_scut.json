@@ -1,13 +1,12 @@
 {
- "ambiguous": [
-  "0x42AFF0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "SlotDataShortcutInterface (the client's RTTI 0xB8A7C0), the shortcut gadgets of a slot interface (the client's __FILE__ 0xB8A74C, asserts l.61-306; client 0x630490-0x632DD0) (SL1)",
  "expected": {},
  "in_tree": [
   "0x42B320",
   "0x42F250",
+  "0x4A0C10",
   "0x51E220",
   "0x62FBA0",
   "0x630490",
@@ -53,6 +52,7 @@
  "shared": [
   "0x42B320",
   "0x42F250",
+  "0x4A0C10",
   "0x51E220",
   "0x62FBA0",
   "0x632740",

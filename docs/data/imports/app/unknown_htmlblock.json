@@ -34,8 +34,5 @@
  "name": "client/html/unknown_htmlblock.cpp",
  "shared": [
   "0x76FEB0"
- ],
- "tiebreak": [
-  "0x76FEE0"
  ]
 }

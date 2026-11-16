@@ -1,7 +1,6 @@
 {
  "ambiguous": [
-  "0x42B2F0",
-  "0x474080"
+  "0x42B2F0"
  ],
  "copy": "reconstructed",
  "description": "LoadingViewClass (loadingview.cpp's __FILE__; client 0x6912A0-0x6927C0): the constructor 0x691570 on the client's line 52, the destructor, Init 0x691770 and Shutdown 0x6917A0 (LD4); START 0x692330 and the loading screen 0x692420 (UI1); SERVER_HANDOFF 0x691830 not yet",
@@ -11,6 +10,7 @@
   "0x42A820",
   "0x42B320",
   "0x42F250",
+  "0x474080",
   "0x4740B0",
   "0x4F6160",
   "0x50B680",
@@ -54,6 +54,7 @@
   "0x42A820",
   "0x42B320",
   "0x42F250",
+  "0x474080",
   "0x4740B0",
   "0x4F6160",
   "0x50B680",

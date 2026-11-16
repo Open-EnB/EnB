@@ -2,9 +2,7 @@
  "ambiguous": [
   "0x42AFF0",
   "0x42B250",
-  "0x4333D0",
-  "0x436420",
-  "0x436730"
+  "0x436420"
  ],
  "copy": "reconstructed",
  "description": "px.cpp, client 0x44B760-0x44D740 (its __FILE__; FAIL_IFs lines 180-564): PxEnd, PxBox (vtable 0xAE7A3C) and PxList: Insert 0x44BFC0, Remove 0x44C2E0, Set_Corners 0x44C900 (NOT EXACT), the filter setters, Dump 0x44D210",
@@ -35,15 +33,16 @@
   "0x44C520",
   "0x44C690",
   "0x44D210",
-  "0x44D320"
+  "0x44D320",
+  "0x44D620",
+  "0x44D660"
  ],
  "merged": [],
  "name": "shared/px.cpp",
  "shared": [
   "0x444160",
-  "0x44C2B0"
- ],
- "short_known": [
-  "0x44B7B0"
+  "0x44C2B0",
+  "0x44D620",
+  "0x44D660"
  ]
 }

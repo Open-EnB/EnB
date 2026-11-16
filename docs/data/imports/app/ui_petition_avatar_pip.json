@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x474080"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "RECONSTRUCTED from client.exe 0x5D4150-0x5D46DF: the petition windows' base (ChatPanelUIBase) with the GM avatar's PIP; the client's asserts name the file (e:\\build\\beta\\G\\app\\Client\\ui_petition_avatar_pip.cpp, l.71 / l.82)",
  "expected": {},
@@ -9,6 +7,7 @@
   "0x42B320",
   "0x42F250",
   "0x45CC10",
+  "0x474080",
   "0x4740B0",
   "0x4A1930",
   "0x4A19A0",
@@ -51,6 +50,7 @@
   "0x42B320",
   "0x42F250",
   "0x45CC10",
+  "0x474080",
   "0x4740B0",
   "0x4A1930",
   "0x4A19A0",

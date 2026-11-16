@@ -1,10 +1,6 @@
 {
  "ambiguous": [
-  "0x42AAE0",
-  "0x42B2F0",
-  "0x4333D0",
-  "0x436420",
-  "0x436730"
+  "0x42B2F0"
  ],
  "copy": "reconstructed",
  "description": "SkillDataClass (D24 class-from-file), a slot's data for a skill (the client's __FILE__ 0xB91300, asserts on lines 62-155; object 0x6A4580-0x6A52D8 from permstr.h's static to the adjustor thunk) (SD1)",
@@ -13,7 +9,11 @@
   "0x42B320",
   "0x42F250",
   "0x45CC10",
+  "0x4A0850",
+  "0x4A0880",
   "0x4A0B70",
+  "0x4A0B90",
+  "0x4A0BD0",
   "0x57DBF0",
   "0x57DC20",
   "0x610290",
@@ -38,7 +38,11 @@
   "0x42B320",
   "0x42F250",
   "0x45CC10",
+  "0x4A0850",
+  "0x4A0880",
   "0x4A0B70",
+  "0x4A0B90",
+  "0x4A0BD0",
   "0x57DBF0",
   "0x57DC20",
   "0x610290",
@@ -51,7 +55,6 @@
   "0x4A0B70",
   "0x6A46A0",
   "0x6A46C0",
-  "0x6A4EE0",
   "0x6A52D0"
  ]
 }

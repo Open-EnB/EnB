@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x70ACA0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "RadarDataClass (the client's typeid name), the object's radar colours (the client's __FILE__ 0xB9F070, FAIL_IFs at lines 73-227; 0x7BB1D0-0x7BC02B) (RD1)",
  "expected": {},
@@ -11,6 +9,7 @@
   "0x51E220",
   "0x6101C0",
   "0x70AC60",
+  "0x70CAF0",
   "0x79D130",
   "0x7BB180",
   "0x7BB1B0",
@@ -44,6 +43,7 @@
   "0x51E220",
   "0x6101C0",
   "0x70AC60",
+  "0x70CAF0",
   "0x79D130",
   "0x7BBD90",
   "0x7BBDB0",

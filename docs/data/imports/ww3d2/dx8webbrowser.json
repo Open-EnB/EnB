@@ -34,8 +34,5 @@
  "name": "dx8webbrowser.cpp",
  "shared": [
   "0x42F250"
- ],
- "tiebreak": [
-  "0x920D30"
  ]
 }

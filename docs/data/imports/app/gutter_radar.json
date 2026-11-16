@@ -1,7 +1,6 @@
 {
  "ambiguous": [
-  "0x42B2F0",
-  "0x46BE90"
+  "0x42B2F0"
  ],
  "copy": "reconstructed",
  "description": "GutterRadarClass (D24 class-from-file), the gutter icons and the two reticles (the client's __FILE__ 0xB9EDD4, FAIL_IFs at lines 100-140; 0x7B6BD0-0x7B7790, ended by <string>'s guarded initialiser) (GR1)",
@@ -10,10 +9,12 @@
   "0x42B320",
   "0x42F250",
   "0x5149F0",
+  "0x5C40C0",
   "0x7B6BD0",
   "0x7B6D80",
   "0x7B6E40",
   "0x7B7040",
+  "0x7B71B0",
   "0x7B71D0"
  ],
  "merged": [],
@@ -21,7 +22,8 @@
  "shared": [
   "0x42B320",
   "0x42F250",
-  "0x5149F0"
+  "0x5149F0",
+  "0x5C40C0"
  ],
  "short_known": [
   "0x42B320"

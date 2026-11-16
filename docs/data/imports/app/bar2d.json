@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x497350"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "RECONSTRUCTED from client.exe: bar2d.cpp's Bar2DClass (__FILE__ 0xB91FFC, asserts on lines 188, 208, 345, 352), 0x6B6900-0x6B7DE0",
  "expected": {},
@@ -89,6 +87,7 @@
   "0x48FF40",
   "0x497330",
   "0x51A4F0",
+  "0x51A650",
   "0x577940",
   "0x67E880",
   "0x67E8A0",
@@ -206,6 +205,7 @@
   "0x48FF40",
   "0x497330",
   "0x51A4F0",
+  "0x51A650",
   "0x577940",
   "0x67E880",
   "0x67E8A0",
@@ -291,7 +291,6 @@
   "0x67E930",
   "0x67E950",
   "0x6B7480",
-  "0x6B7770",
   "0x6B7DC0",
   "0x6B7DD0"
  ]

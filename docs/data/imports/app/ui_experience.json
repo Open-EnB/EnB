@@ -1,8 +1,6 @@
 {
  "ambiguous": [
-  "0x42B2F0",
-  "0x474080",
-  "0x58CF60"
+  "0x42B2F0"
  ],
  "copy": "reconstructed",
  "description": "RECONSTRUCTED from client.exe: the object 0x58BF90-0x58D010 (__FILE__ 'e:\\build\\beta\\G\\app\\Client\\ui_experience.cpp', asserts l.47-l.197); the experience bars of the PDA and the character info window",
@@ -11,6 +9,7 @@
   "0x42B320",
   "0x42F250",
   "0x457FA0",
+  "0x474080",
   "0x4740B0",
   "0x50A8E0",
   "0x50A900",
@@ -49,7 +48,8 @@
   "0x58C6E0",
   "0x58C7B0",
   "0x58C8E0",
-  "0x58CA10"
+  "0x58CA10",
+  "0x58CF60"
  ],
  "merged": [],
  "name": "client/ui_experience.cpp",
@@ -57,6 +57,7 @@
   "0x42B320",
   "0x42F250",
   "0x457FA0",
+  "0x474080",
   "0x4740B0",
   "0x50A8E0",
   "0x50A900",

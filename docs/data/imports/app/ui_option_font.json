@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x474080"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "the options' fonts page (request 12; the client's asserts name e:\\build\\beta\\G\\app\\Client\\ui_option_font.cpp): OptionFontInterface (RTTI) over ChatPanelUIBase, 0x5CC350-0x5CE23F",
  "expected": {},
@@ -20,6 +18,7 @@
   "0x432B80",
   "0x433700",
   "0x45CC10",
+  "0x474080",
   "0x4740B0",
   "0x4A1930",
   "0x4A19A0",
@@ -74,6 +73,7 @@
   "0x432B80",
   "0x433700",
   "0x45CC10",
+  "0x474080",
   "0x4740B0",
   "0x4A1930",
   "0x4A19A0",
@@ -123,8 +123,6 @@
   "0x553A80",
   "0x5623B0",
   "0x5623D0",
-  "0x5CCFC0",
-  "0x5CD720",
   "0x5CE220",
   "0x5CE230"
  ]

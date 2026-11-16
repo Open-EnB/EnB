@@ -18,6 +18,7 @@
   "0xA17970",
   "0xA17990",
   "0xA17A20",
+  "0xA17AA0",
   "0xA17AB0",
   "0xA17AE0",
   "0xA17B00",
@@ -32,8 +33,5 @@
   "0xA17E00"
  ],
  "merged": [],
- "name": "subtitleparser.cpp",
- "short_known": [
-  "0xA17330"
- ]
+ "name": "subtitleparser.cpp"
 }

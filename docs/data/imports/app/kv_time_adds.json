@@ -32,14 +32,8 @@
   "0x4A8910",
   "0x4A8990"
  ],
- "shared_callers": [
-  "0x4A8910"
- ],
  "short_known": [
   "0x42B320",
   "0x4A8830"
- ],
- "tiebreak": [
-  "0x4A8910"
  ]
 }

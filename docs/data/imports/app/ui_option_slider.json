@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x474080"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "app\\client\\ui_option_slider.cpp, provisional name (NAME 1, D137 P-M1-2; no __FILE__): the options' slider pages 'opt04a' (fa_opt04a-graphics / -sound / -interface.ini, tooltips UI_OPTION_SLIDER), UIOptionSliderClass over ChatPanelUIBase, 0x5CEDD0-0x5CF95F",
  "expected": {},
@@ -9,6 +7,7 @@
   "0x42B320",
   "0x42F250",
   "0x45CC10",
+  "0x474080",
   "0x4740B0",
   "0x4A1930",
   "0x4A19A0",
@@ -53,6 +52,7 @@
   "0x42B320",
   "0x42F250",
   "0x45CC10",
+  "0x474080",
   "0x4740B0",
   "0x4A1930",
   "0x4A19A0",
@@ -100,7 +100,6 @@
   "0x5623B0",
   "0x5623D0",
   "0x5623F0",
-  "0x5CF2C0",
   "0x5CF940",
   "0x5CF950"
  ]

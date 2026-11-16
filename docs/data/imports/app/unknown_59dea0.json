@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x474080"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "the founders window Unknown59DEA0Class (neutral, D10; interim file name, D137): client 0x59DEA0-0x59E1CF and <string>'s initialiser 0x59E220, tables 0xAF2214 / 0xAF2208 / 0xAF21FC (a ChatPanelUIBase window, ui_option_quit.cpp's pattern), model 'founders00a' / 'fa_founders00a.ini', 'yes' sends '/founder enable'; no caller in the client",
  "expected": {},
@@ -9,6 +7,7 @@
   "0x42B320",
   "0x42F250",
   "0x45CC10",
+  "0x474080",
   "0x4740B0",
   "0x4A1930",
   "0x4A19A0",
@@ -44,6 +43,7 @@
   "0x42B320",
   "0x42F250",
   "0x45CC10",
+  "0x474080",
   "0x4740B0",
   "0x4A1930",
   "0x4A19A0",

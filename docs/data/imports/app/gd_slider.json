@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x474080"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "GadgetSlider (D24 class-from-file), the slider gadget (table 0xAFAF78, 42 slots, 0x128 bytes), client 0x66DFC0-0x66EBE4 (__FILE__ 0xB8D56C 'e:\\\\build\\\\beta\\\\G\\\\app\\\\Client\\\\gd_slider.cpp', asserts lines 149-180, D25): the constructor 0x66DFC0, destructor 0x66E1D0, Unknown_66E3A0, Unknown_66E460; NOT EXACT (D64): constructor 0x66DFC0 (order-only), 0x66E460 (relocation) (SLD)",
  "expected": {},
@@ -10,7 +8,9 @@
   "0x42B320",
   "0x42F250",
   "0x445510",
+  "0x474080",
   "0x4740B0",
+  "0x47D2E0",
   "0x50A8E0",
   "0x50A900",
   "0x50A920",
@@ -62,7 +62,9 @@
   "0x42B320",
   "0x42F250",
   "0x445510",
+  "0x474080",
   "0x4740B0",
+  "0x47D2E0",
   "0x50A8E0",
   "0x50A900",
   "0x50A920",

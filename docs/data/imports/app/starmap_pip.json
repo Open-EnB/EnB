@@ -1,7 +1,6 @@
 {
  "ambiguous": [
-  "0x42B2F0",
-  "0x46BE90"
+  "0x42B2F0"
  ],
  "copy": "reconstructed",
  "description": "RECONSTRUCTED: the PDA's star map PIP (StarmapPipClass over MapPipClass) and its labels; __FILE__ 0xB9F4D8, asserts 283-1157, constructor 0x7BF930, table 0xB06C8C",
@@ -24,6 +23,7 @@
   "0x4B5740",
   "0x51C600",
   "0x51C630",
+  "0x5C40C0",
   "0x7BF870",
   "0x7BF8A0",
   "0x7BF8D0",
@@ -55,6 +55,7 @@
   "0x7C1770",
   "0x7C1A90",
   "0x7C1B70",
+  "0x7C1C30",
   "0x7C1C50",
   "0x7C2280",
   "0x7C2340",
@@ -87,7 +88,8 @@
   "0x4740B0",
   "0x4B5740",
   "0x51C600",
-  "0x51C630"
+  "0x51C630",
+  "0x5C40C0"
  ],
  "short_known": [
   "0x42B320",

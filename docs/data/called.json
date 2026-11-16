@@ -123,9 +123,6 @@
 "??0LinearOffsetTextureMapperClass@@QAE@ABVVector2@@0_N0I@Z": [
 "0x9329F0"
 ],
-"??0MainViewDazzleHandlerClass@@QAE@PAVSClient@@@Z": [
-"0x75DD00"
-],
 "??0MaterialPassClass@@QAE@XZ": [
 "0x92E620"
 ],
@@ -389,9 +386,6 @@
 ],
 "??1Line3DClass@@UAE@XZ": [
 "0x943290"
-],
-"??1MainViewDazzleHandlerClass@@QAE@XZ": [
-"0x75DE70"
 ],
 "??1MultiFixedPoolDecalSystemClass@@UAE@XZ": [
 "0x9819C0"
@@ -1898,6 +1892,9 @@
 ],
 "?connect@TCPMgr@@QAEDKGPAK@Z": [
 "0x8BD680"
+],
+"?flush@ostream@@QAEAAV1@XZ": [
+"0xA40DD4"
 ],
 "?get@Wstring@@QBEDK@Z": [
 "0x8B7000"

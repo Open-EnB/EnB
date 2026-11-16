@@ -21,11 +21,5 @@
  "name": "client/starbase_lights.cpp",
  "shared": [
   "0x42F250"
- ],
- "short_known": [
-  "0x7644F0",
-  "0x764510",
-  "0x764530",
-  "0x764550"
  ]
 }

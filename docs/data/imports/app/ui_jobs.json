@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x474080"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "UIJobsClass, the job board window (ui_jobs.cpp's __FILE__; laid out from the constructor 0x5A1170 and destructor 0x5A1540, 0x1F8 bytes): the constructor, destructor (line 98), slots +0x54 / +0x58 / +0x5C / +0x60 / +0x68 / +0x7C, the row, sort, slider and description helpers 0x5A2730-0x5A3AF0 (FAIL_IFs lines 358 / 359 / 380), the job packets' handlers JOB_LIST 0x5A3BC0, JOB_DESCRIPTION 0x5A3F10, JOB_ACCEPT_REPLY 0x5A3FB0 (line 826), JOB_DELETE 0x5A4430 and the category's button 0x5A45A0 (line 921) (JB1); 0x5A3FB0 NOT EXACT (inline budget)",
  "expected": {},
@@ -18,6 +16,7 @@
   "0x42D120",
   "0x42F250",
   "0x45CC10",
+  "0x474080",
   "0x4740B0",
   "0x47CE60",
   "0x4A1930",
@@ -112,6 +111,7 @@
   "0x42D120",
   "0x42F250",
   "0x45CC10",
+  "0x474080",
   "0x4740B0",
   "0x47CE60",
   "0x4A1930",

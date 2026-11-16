@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x474080"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "AvatarSelectionInterface (the client's RTTI: its FlashingGadgetEvent callback's type name 0xB7C068), the character select window (ui_avsel.cpp's __FILE__ 0xB7BEA0, 15 asserts lines 769-1262; client from the constructor 0x55C650, after ui_avatr.cpp's 0x55C640; run PR #139, LG2): the constructor 0x55C650, the destructor 0x55CCC0, slots +0x60 0x55CEA0, +0x88 0x55EBD0, +0x8C 0x55ECB0, 0x55D9C0, 0x55E2E0, 0x55E8E0, 0x55ED20, 0x55EF90, 0x55F680, the callback 0x55F6D0, 0x55F760, 0x55FBB0, 0x55FDC0 and 0x55FE50 exact; 0x55E370 (inline accessors) exact; 0x55E070 NOT EXACT (register), 0x55F140 NOT EXACT (inline budget), slot +0x68 0x55D060 NOT EXACT (the implicit ShipCustDescClass operator= the client calls out of line inlines); the class in ui_avsel.h, the other types declared only as far as they use them",
  "expected": {},
@@ -11,6 +9,7 @@
   "0x42F250",
   "0x431C80",
   "0x45CC10",
+  "0x474080",
   "0x4740B0",
   "0x4A1930",
   "0x4A19A0",
@@ -74,6 +73,7 @@
   "0x42F250",
   "0x431C80",
   "0x45CC10",
+  "0x474080",
   "0x4740B0",
   "0x4A1930",
   "0x4A19A0",

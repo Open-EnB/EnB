@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42AFF0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "the client's file (FAIL_IFs on lines 159 and 251), 0x873AE0-0x8754A0: opcodes 137 RELATIONSHIP and 139 ATTACKER_UPDATES written by hand (builder P3), 11 of 11 exact in appfile.py match",
  "expected": {},
@@ -17,6 +15,7 @@
   "0x4A0B70",
   "0x4A0B90",
   "0x4A0BD0",
+  "0x4A0C10",
   "0x52B210",
   "0x52B240",
   "0x52B270",
@@ -85,6 +84,7 @@
   "0x4A0B70",
   "0x4A0B90",
   "0x4A0BD0",
+  "0x4A0C10",
   "0x52B210",
   "0x52B240",
   "0x52B270",
@@ -115,7 +115,6 @@
   "0x873BA0",
   "0x873BC0",
   "0x873C10",
-  "0x873DF0",
   "0x873EE0",
   "0x874AC0",
   "0x874B50",

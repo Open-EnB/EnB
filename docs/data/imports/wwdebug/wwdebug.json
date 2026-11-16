@@ -10,11 +10,18 @@
  "headers_from": null,
  "in_tree": [
   "0x9EE7A0",
+  "0x9EE7D0",
+  "0x9EE7E0",
   "0x9EE830",
   "0x9EE880",
   "0x9EE8D0",
-  "0x9EE920"
+  "0x9EE920",
+  "0x9EE940",
+  "0x9EE960"
  ],
  "merged": [],
- "name": "wwdebug.cpp"
+ "name": "wwdebug.cpp",
+ "short_known": [
+  "0x9EE7E0"
+ ]
 }

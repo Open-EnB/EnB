@@ -1,8 +1,6 @@
 {
  "ambiguous": [
-  "0x42B2F0",
-  "0x474080",
-  "0x630400"
+  "0x42B2F0"
  ],
  "copy": "reconstructed",
  "description": "InvRenderClass (D24 class-from-file), what draws an inventory item's slot (the client's __FILE__ 0xB90220, asserts on lines 119-1107; object from 0x68BF10); started: see its notes (IR1)",
@@ -25,9 +23,12 @@
   "0x46BE90",
   "0x4740B0",
   "0x474480",
+  "0x47D010",
+  "0x47D2E0",
   "0x4A7780",
   "0x4CBA10",
   "0x5328F0",
+  "0x630400",
   "0x68B410",
   "0x68B450",
   "0x68B470",
@@ -97,9 +98,12 @@
   "0x46BE90",
   "0x4740B0",
   "0x474480",
+  "0x47D010",
+  "0x47D2E0",
   "0x4A7780",
   "0x4CBA10",
   "0x5328F0",
+  "0x630400",
   "0x68B410",
   "0x68B450",
   "0x68B470",

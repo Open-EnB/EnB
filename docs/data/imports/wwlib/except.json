@@ -12,6 +12,7 @@
   "0x9CCC80",
   "0x9CCC90",
   "0x9CCCD0",
+  "0x9CCD10",
   "0x9CCD20",
   "0x9CCD50",
   "0x9CE430",
@@ -21,6 +22,10 @@
   "0x9CE750",
   "0x9CE830",
   "0x9CE910",
+  "0x9CEA10",
+  "0x9CEA20",
+  "0x9CEA30",
+  "0x9CEA40",
   "0x9CEA50",
   "0x9CEA80",
   "0x9CEAA0",
@@ -34,8 +39,5 @@
   "0x9CED50"
  ],
  "merged": [],
- "name": "Except.cpp",
- "short_known": [
-  "0x9CCC80"
- ]
+ "name": "Except.cpp"
 }

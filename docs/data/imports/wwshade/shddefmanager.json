@@ -12,6 +12,7 @@
   "0xA08CC0",
   "0xA08D00",
   "0xA08D10",
+  "0xA08D20",
   "0xA08D30",
   "0xA08D50",
   "0xA08D70",
@@ -23,9 +24,5 @@
  "name": "shddefmanager.cpp",
  "shared": [
   "0x42F250"
- ],
- "short_known": [
-  "0xA08D00",
-  "0xA08D10"
  ]
 }
