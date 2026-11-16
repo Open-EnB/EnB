@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42A900"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "ui_string_list.cpp: a scrolled list of strings over a mesh's 'DESC%02d' text styles, client 0x6483D0-0x649860 (its __FILE__ and G_ASSERTs 'string' l.59, 'line' l.199 / 219, 'item' l.205, 'iterator != Items.end()' l.242; tables 0xAF8770 / 0xAF8764 / 0xAF8758); the vector instances 0x6491F0-0x649800; no constructor call survives",
  "expected": {},
@@ -37,6 +35,8 @@
   "0x648E40",
   "0x649010",
   "0x649090",
+  "0x649170",
+  "0x6491B0",
   "0x6491F0",
   "0x649240",
   "0x649260",

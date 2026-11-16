@@ -739,7 +739,7 @@ void GalaxyMapRenderClass::Unknown_7A83D0(SphereClass &sphere, bool arg)
 			gate->To->Get_Position(b);
 			Vector3 d = a - b;
 			sphere.Center = d * 0.5f + b;
-			sphere.Radius = d.Length() * 0.5f;
+			sphere.Radius = (a - b).Length() * 0.5f;
 		} else {
 			RenderObjClass *robj = PickedGate->Unknown_7AE220()->Peek_RObj();
 
@@ -760,7 +760,7 @@ void GalaxyMapRenderClass::Unknown_7A83D0(SphereClass &sphere, bool arg)
 		sphere.Center = Point;
 		sphere.Radius = UnknownB8;
 	}
-	sphere.Radius = WWMath::Max(sphere.Radius, SystemZoomMinRadius);
+	sphere.Radius = (sphere.Radius < SystemZoomMinRadius) ? SystemZoomMinRadius : sphere.Radius;
 }
 
 
@@ -1174,7 +1174,7 @@ void GalaxyMapRenderMeshClass::Get_Position(Vector3 &position)
 
 GalaxyMapRenderLineClass::GalaxyMapRenderLineClass()
 {
-	Line = Create_NEW((SegmentedLineClass *)new GalaxyMapLineRObjClass());
+	Line = Create_NEW(new GalaxyMapLineRObjClass());
 }
 
 GalaxyMapRenderSystemClass::GalaxyMapRenderSystemClass(const RefCountPtr<GalaxyMapSystemClass> &data) :
@@ -1691,7 +1691,7 @@ void GalaxyMapRenderGateClass::Unknown_7ACEF0(INIClass &ini)
 }
 
 
-RefCountPtr<SegmentedLineClass> &GalaxyMapRenderLineClass::Get_Line()
+RefCountPtr<GalaxyMapLineRObjClass> &GalaxyMapRenderLineClass::Get_Line()
 {
 	return(Line);
 }
@@ -1737,26 +1737,26 @@ float GalaxyMapRenderGateClass::Unknown_7AD090(bool hide_inter, bool hide_intra,
 	return(angle);
 }
 
-// NOT EXACT: written from the client's code (see attempts.csv)
+
 float GalaxyMapRenderGateClass::Unknown_7AD5B0(const Vector3 &point)
 {
 	Vector3 a;
 	Vector3 b;
 	From->Get_Position(a);
 	To->Get_Position(b);
-	if (WWMath::Max(a.X, b.X) < point.X - Unknown_B9E93C) { return(-1.0f); }
-	if (WWMath::Min(a.X, b.X) > point.X + Unknown_B9E93C) { return(-1.0f); }
-	if (WWMath::Max(a.Y, b.Y) < point.Y - Unknown_B9E93C) { return(-1.0f); }
-	if (WWMath::Min(a.Y, b.Y) > point.Y + Unknown_B9E93C) { return(-1.0f); }
-	float dx = a.X - b.X;
-	float dy = a.Y - b.Y;
-	float len = sqrtf(dx * dx + dy * dy);
-	if (len >= WWMATH_EPSILON) {
-		return(fabs(((point.X - b.X) * dy - (point.Y - b.Y) * dx) / len));
+	if (point.X - Unknown_B9E93C > WWMath::Max(a.X, b.X)) { return(-1.0f); }
+	if (Unknown_B9E93C + point.X < WWMath::Min(a.X, b.X)) { return(-1.0f); }
+	if (point.Y - Unknown_B9E93C > WWMath::Max(a.Y, b.Y)) { return(-1.0f); }
+	if (Unknown_B9E93C + point.Y < WWMath::Min(a.Y, b.Y)) { return(-1.0f); }
+	Vector2 b2(b.X, b.Y);
+	Vector2 a2(a.X, a.Y);
+	Vector2 p(point.X, point.Y);
+	float dx = a2.X - b2.X; float dy = a2.Y - b2.Y;
+	float len = Vector2::Distance(a2, b2);
+	if (len < WWMATH_EPSILON) {
+		return((p - a2).Length());
 	}
-	dx = point.X - a.X;
-	dy = point.Y - a.Y;
-	return(sqrtf(dx * dx + dy * dy));
+	return(fabs(((p.X - b2.X) * dy - (p.Y - b2.Y) * dx) / len));
 }
 // NOT EXACT: written from the client's code (see attempts.csv)
 

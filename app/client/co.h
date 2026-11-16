@@ -81,11 +81,11 @@ public:
 // 0xB00768, its slots +0x04-+0x14 pure (_purecall), +0x18-+0x2C inline (0x6F2D40-0x6F2E10, emitted with
 // co.cpp's default state); ADVANCED_POSITIONAL_UPDATE 62 asks a state's type (+0x04), whether it holds
 // a second state (+0x2C), that state (+0x28), and replaces it (+0x24)
-class Unknown98Class							// NAME 1: neutral (D10)
+class PositionalStateClass							// NAME 5: emote_data.cpp's FAIL_IF text 0xBA1404 'PositionalStateClass::CLIENT_SIDE_PROCEDURAL'
 {
 public:
-	virtual ~Unknown98Class() {}				// 0x6F2FB0 (scalar deleting), 0x6F2F90
-	virtual int Unknown_04() = 0;				// +0x04 the state's type
+	virtual ~PositionalStateClass() {}				// 0x6F2FB0 (scalar deleting), 0x6F2F90
+	enum { CLIENT_SIDE_PROCEDURAL = 14 }; virtual int Get_Type() = 0;	// +0x04 the state's type; NAME 5 (Get_Type, CLIENT_SIDE_PROCEDURAL = 14, Unknown718D70Class's): the FAIL_IF text 0xBA1404 against the client's cmp eax, 0xE
 	virtual Matrix3D Unknown_08(int unknown) = 0;	// NAME 1 [unknown]: neutral
 	virtual Vector3 Unknown_0C(int unknown) = 0;	// NAME 1 [unknown]: neutral
 	virtual Vector3 Unknown_10(int unknown) = 0;	// +0x10 0x6F5050 passes the client's +0x10BC  // NAME 1 [unknown]: neutral
@@ -93,16 +93,16 @@ public:
 	virtual Vector3 Unknown_18(int unknown) { return(Vector3(0.0f, 0.0f, 0.0f)); }	// +0x18 0x6F2D40  // NAME 1 [unknown]: neutral
 	virtual Vector3 Unknown_1C(int unknown) { return(Unknown_0C(unknown)); }		// +0x1C 0x6F2D70  // NAME 1 [unknown]: neutral
 	virtual Matrix3D Unknown_20(int unknown) { return(Unknown_08(unknown)); }		// +0x20 0x6F2DA0  // NAME 1 [unknown]: neutral
-	virtual void Unknown_24(Unknown98Class *state) {}							// +0x24 0x6F2DD0  // NAME 1 [state]: neutral
-	virtual Unknown98Class *Unknown_28() { return(0); }						// +0x28 0x6F2DF0
+	virtual void Unknown_24(PositionalStateClass *state) {}							// +0x24 0x6F2DD0  // NAME 1 [state]: neutral
+	virtual PositionalStateClass *Unknown_28() { return(0); }						// +0x28 0x6F2DF0
 	virtual bool Unknown_2C() { return(false); }								// +0x2C 0x6F2E10
 };
 
 // The default state co.cpp's constructor news (4 bytes, vtable 0xB006B8): type 0, no motion
-class UnknownB006B8Class : public Unknown98Class	// NAME 1: neutral (D10), named by its vtable
+class UnknownB006B8Class : public PositionalStateClass	// NAME 1: neutral (D10), named by its vtable
 {
 public:
-	virtual int Unknown_04() { return(0); }										// +0x04 0x6F2E30
+	virtual int Get_Type() { return(0); }										// +0x04 0x6F2E30
 	virtual Matrix3D Unknown_08(int unknown) { return(Matrix3D(true)); }		// +0x08 0x6F2E50  // NAME 1 [unknown]: neutral
 	virtual Vector3 Unknown_0C(int unknown) { return(Vector3(0.0f, 0.0f, 0.0f)); }	// +0x0C 0x6F2EA0  // NAME 1 [unknown]: neutral
 	virtual Vector3 Unknown_10(int unknown) { return(Vector3(0.0f, 0.0f, 0.0f)); }	// +0x10 0x6F2ED0  // NAME 1 [unknown]: neutral
@@ -280,7 +280,7 @@ public:
 	unsigned GameID;									// +0x90  // NAME 3: Get_Game_ID's
 	char Type;											// +0x94 the constructor's second argument, CREATE's object type (the factory 0x6F6000 switches on it)  // NAME 2: what it holds
 	char Unknown95[0x98 - 0x95];						// +0x95
-	Unknown98Class *Unknown98;							// +0x98 (the constructor's new)
+	PositionalStateClass *PositionalState;							// +0x98 (the constructor's new)  // NAME 5: emote_data.cpp's FAIL_IF text 0xBA147C '!Peek_Client_Object()->PositionalState'
 	float Radius;										// +0x9C 1.0f (slot +0x34 0x6F3BA0 sets it from 0x6F39F0's radius; 0x6FED30's sphere radius without a model)  // NAME 2: what it holds
 	float RadiusAdjust;									// +0xA0 (0x6F39F0: cbasset.ini's RadiusAdjust)  // NAME 3: the INI key
 	float Scale;										// +0xA4 1.0f (co.cpp's FAIL_IF 'Scale <= 0.0f', l.331)

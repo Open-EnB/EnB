@@ -50,7 +50,7 @@ public:
 	bool Selectable;						// +0x10  // NAME 2: its 'Selectable'
 	int Max[NUM_CHAR_TEMPLATES];		// +0x14  // NAME 5: the assert 'max < 0'
 	std::string Trainers[NUM_CHAR_TEMPLATES];		// +0x38  // NAME 2: its section's 'Trainer'
-	std::vector<int> Ranges;			// +0xC8  // NAME 5: the assert 'idx >= Ranges.size()'
+	std::vector<unsigned long> Ranges;			// +0xC8  // NAME 5: the assert 'idx >= Ranges.size()'
 	std::vector<std::string> Descriptions;			// +0xD8  // NAME 2: its 'Desc_N'
 };
 

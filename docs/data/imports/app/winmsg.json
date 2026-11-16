@@ -11,6 +11,7 @@
   "0x42FBA0",
   "0x42FBF0",
   "0x42FC60",
+  "0x42FCF0",
   "0x42FD10",
   "0x42FE90",
   "0x42FED0",
@@ -27,10 +28,12 @@
  "merged": [],
  "name": "input/winmsg.cpp",
  "shared": [
+  "0x42FCF0",
   "0x430320",
   "0x430370"
  ],
  "short_known": [
+  "0x42FCF0",
   "0x430320"
  ]
 }

@@ -333,13 +333,13 @@ bool ConstantPositionalUpdatePacketClass::Process_Packet(void *instance)
 	SClient *sclient = (SClient *)instance;
 	ClientObjectClass *object = sclient->Find_Object(GameID);
 	if (object) {
-		if (!object->Unknown98) {
-			object->Unknown98 = new Unknown714B50Class(this);
-		} else if (object->Unknown98->Unknown_04() != 1) {
-			delete object->Unknown98;
-			object->Unknown98 = new Unknown714B50Class(this);
+		if (!object->PositionalState) {
+			object->PositionalState = new Unknown714B50Class(this);
+		} else if (object->PositionalState->Get_Type() != 1) {
+			delete object->PositionalState;
+			object->PositionalState = new Unknown714B50Class(this);
 		} else {
-			Unknown714B50Class *state = (Unknown714B50Class *)object->Unknown98;
+			Unknown714B50Class *state = (Unknown714B50Class *)object->PositionalState;
 			state->Unknown_714D50(this);
 		}
 		object->Unknown_3C();
@@ -369,8 +369,8 @@ bool ConstantPositionalUpdatePacketClass::Process_Packet(void *instance)
 
 
 
+static inline void Lag_Add(float &avg, int &count, int &window, float delta) { count++; avg = avg - avg / window + delta; }	// NAME 1: neutral (D10); the references keep VC6 from reusing +0x10CC's conversion and the count, as the client
 
-// NOT EXACT: shape (the Is_Valid chain is the client's now; left: the clock drift's divisor converted once and the count kept in ecx, where the client converts +0x10CC again and rereads +0x10D0; attempts.py show 0x733DC0)
 // 0x733DC0
 bool SimplePositionalUpdatePacketClass::Process_Packet(void *instance)
 {
@@ -378,29 +378,29 @@ bool SimplePositionalUpdatePacketClass::Process_Packet(void *instance)
 	SClient *sclient = (SClient *)instance;
 	FAIL_IF(!(Position.Is_Valid() && Orientation.Is_Valid() && Velocity.Is_Valid())) return(true);
 	TimeStamp = (DurationClass(TimeStamp) - sclient->Unknown10C0).Get();
-	float delta = (float)(int)(sclient->Unknown10BC - TimeStamp); sclient->Unknown10D0++;
-	sclient->Unknown10C8 = sclient->Unknown10C8 - sclient->Unknown10C8 / sclient->Unknown10CC + delta;
+	float delta = (float)(int)(sclient->Unknown10BC - TimeStamp);
+	Lag_Add(sclient->Unknown10C8, sclient->Unknown10D0, sclient->Unknown10CC, delta);
 	if (fabs(sclient->Unknown10C8 / sclient->Unknown10CC) > 50.0 && sclient->Unknown10D0 > 64) {
 		sclient->Unknown_728180();
 	}
 	ClientObjectClass *object = sclient->Find_Object(GameID);
 	if (object) {
-		if (!object->Unknown98) {
-			object->Unknown98 = new Unknown715AB0Class(this);
-		} else if (object->Unknown98->Unknown_04() != 3) {
-			delete object->Unknown98;
-			object->Unknown98 = new Unknown715AB0Class(this);
+		if (!object->PositionalState) {
+			object->PositionalState = new Unknown715AB0Class(this);
+		} else if (object->PositionalState->Get_Type() != 3) {
+			delete object->PositionalState;
+			object->PositionalState = new Unknown715AB0Class(this);
 		} else {
-			Unknown715AB0Class *state = (Unknown715AB0Class *)object->Unknown98;
+			Unknown715AB0Class *state = (Unknown715AB0Class *)object->PositionalState;
 			state->Unknown_715C20(this);
 		}
 	}
 	return(true);
 }
-// the lag average (+0x10C8 over +0x10CC): ADVANCED 62 recomputes it after the update, as the client does
-static inline float Unknown_Lag_Average(SClient *sclient) { return(sclient->Unknown10C8 / sclient->Unknown10CC); }	// NAME 1: neutral (D10)
 
-// NOT EXACT: shape (the lag average's divisor converted once, the state pointer not in ebp; the Is_Valid chain and size are the client's; attempts.py show 0x734130)
+
+
+// NOT EXACT: register (the clock drift is the client's through Lag_Add; left: the client loads object->Unknown98 into ebp before the three state calls (0x7343CA, 0x734458, 0x7344DB), ours into ecx; cast locals there change the Is_Valid chain's inline budget; attempts.py show 0x734130)
 // 0x734130
 bool AdvancedPositionalUpdatePacketClass::Process_Packet(void *instance)
 {
@@ -408,9 +408,9 @@ bool AdvancedPositionalUpdatePacketClass::Process_Packet(void *instance)
 	SClient *sclient = (SClient *)instance;
 	FAIL_IF(!(Position.Is_Valid() && Orientation.Is_Valid() && WWMath::Is_Valid_Float(CurrentSpeed) && ImpartedVelocity.Is_Valid())) return(true);
 	TimeStamp = (DurationClass(TimeStamp) - sclient->Unknown10C0).Get();
-	float delta = (float)(int)(sclient->Unknown10BC - TimeStamp); sclient->Unknown10D0++;
-	sclient->Unknown10C8 = sclient->Unknown10C8 - sclient->Unknown10C8 / sclient->Unknown10CC + delta;
-	if (fabs(Unknown_Lag_Average(sclient)) > 50.0 && sclient->Unknown10D0 > 64) {
+	float delta = (float)(int)(sclient->Unknown10BC - TimeStamp);
+	Lag_Add(sclient->Unknown10C8, sclient->Unknown10D0, sclient->Unknown10CC, delta);
+	if (fabs(sclient->Unknown10C8 / sclient->Unknown10CC) > 50.0 && sclient->Unknown10D0 > 64) {
 		sclient->Unknown_728180();
 	}
 	ClientObjectClass *object = sclient->Find_Object(GameID);
@@ -421,34 +421,34 @@ bool AdvancedPositionalUpdatePacketClass::Process_Packet(void *instance)
 				sclient->Send_Packet(&RequestTimePacketClass());
 				requests = 0;
 			}
-			if (object->Unknown98 && object->Unknown98->Unknown_04() == 4) {
-				((Unknown717010Class *)object->Unknown98)->Unknown_717290(this, sclient->Unknown10BC); return(true);
-			} else if (object->Unknown98 && object->Unknown98->Unknown_2C()) {
-				Unknown98Class *state = object->Unknown98->Unknown_28();
-				if (state && state->Unknown_04() == 4) {
+			if (object->PositionalState && object->PositionalState->Get_Type() == 4) {
+				((Unknown717010Class *)object->PositionalState)->Unknown_717290(this, sclient->Unknown10BC); return(true);
+			} else if (object->PositionalState && object->PositionalState->Unknown_2C()) {
+				PositionalStateClass *state = object->PositionalState->Unknown_28();
+				if (state && state->Get_Type() == 4) {
 					((Unknown717010Class *)state)->Unknown_717290(this, sclient->Unknown10BC); return(true);
 				} else {
 					delete state;
-					object->Unknown98->Unknown_24(new Unknown717010Class(sclient->Unknown10BC, this)); return(true);
+					object->PositionalState->Unknown_24(new Unknown717010Class(sclient->Unknown10BC, this)); return(true);
 				}
 			} else {
-				delete object->Unknown98;
-				object->Unknown98 = new Unknown717010Class(sclient->Unknown10BC, this); return(true);
+				delete object->PositionalState;
+				object->PositionalState = new Unknown717010Class(sclient->Unknown10BC, this); return(true);
 			}
 		} else {
-			if (object->Unknown98 && object->Unknown98->Unknown_04() == 8) {
-				((Unknown715EF0Class *)object->Unknown98)->Unknown_716140(sclient->Unknown10BC, this);
-			} else if (object->Unknown98 && object->Unknown98->Unknown_2C()) {
-				Unknown98Class *state = object->Unknown98->Unknown_28();
-				if (state && state->Unknown_04() == 8) {
+			if (object->PositionalState && object->PositionalState->Get_Type() == 8) {
+				((Unknown715EF0Class *)object->PositionalState)->Unknown_716140(sclient->Unknown10BC, this);
+			} else if (object->PositionalState && object->PositionalState->Unknown_2C()) {
+				PositionalStateClass *state = object->PositionalState->Unknown_28();
+				if (state && state->Get_Type() == 8) {
 					((Unknown715EF0Class *)state)->Unknown_716140(sclient->Unknown10BC, this);
 				} else {
 					delete state;
-					object->Unknown98->Unknown_24(new Unknown715EF0Class(sclient->Unknown10BC, this));
+					object->PositionalState->Unknown_24(new Unknown715EF0Class(sclient->Unknown10BC, this));
 				}
 			} else {
-				delete object->Unknown98;
-				object->Unknown98 = new Unknown715EF0Class(sclient->Unknown10BC, this);
+				delete object->PositionalState;
+				object->PositionalState = new Unknown715EF0Class(sclient->Unknown10BC, this);
 			}
 		}
 	}
@@ -463,13 +463,13 @@ bool PlanetPositionalUpdatePacketClass::Process_Packet(void *instance)
 	TimeStamp = (DurationClass((unsigned)TimeStamp) - sclient->Unknown10C0).Get();
 	ClientObjectClass *object = sclient->Find_Object(GameID);
 	if (object) {
-		if (!object->Unknown98) {
-			object->Unknown98 = new Unknown715CF0Class(this, sclient);
-		} else if (object->Unknown98->Unknown_04() != 5) {
-			delete object->Unknown98;
-			object->Unknown98 = new Unknown715CF0Class(this, sclient);
+		if (!object->PositionalState) {
+			object->PositionalState = new Unknown715CF0Class(this, sclient);
+		} else if (object->PositionalState->Get_Type() != 5) {
+			delete object->PositionalState;
+			object->PositionalState = new Unknown715CF0Class(this, sclient);
 		} else {
-			Unknown715CF0Class *state = (Unknown715CF0Class *)object->Unknown98;
+			Unknown715CF0Class *state = (Unknown715CF0Class *)object->PositionalState;
 			state->Unknown_715E60(this);
 		}
 	}
@@ -586,11 +586,11 @@ bool ComponentPositionalUpdatePacketClass::Process_Packet(void *instance)
 	if (!obj) return(true);
 	G_ASSERT(obj->Is_Component());
 	if (!obj->Is_Component()) return(true);
-	if (obj->Unknown98 && obj->Unknown98->Unknown_04() == 11) {
-		((Unknown717EF0Class *)obj->Unknown98)->Unknown_718080(this, sclient);
+	if (obj->PositionalState && obj->PositionalState->Get_Type() == 11) {
+		((Unknown717EF0Class *)obj->PositionalState)->Unknown_718080(this, sclient);
 	} else {
-		delete obj->Unknown98;
-		obj->Unknown98 = new Unknown717EF0Class(this, sclient);
+		delete obj->PositionalState;
+		obj->PositionalState = new Unknown717EF0Class(this, sclient);
 	}
 
 	return(true);
@@ -1153,34 +1153,34 @@ bool FormationPositionalUpdatePacketClass::Process_Packet(void *instance)
 				sclient->Send_Packet(&RequestTimePacketClass());
 				requests = 0;
 			}
-			if (object->Unknown98 && object->Unknown98->Unknown_04() == 4) {
-				((Unknown717010Class *)object->Unknown98)->Unknown_717400(this, sclient);
-			} else if (object->Unknown98 && object->Unknown98->Unknown_2C()) {
-				Unknown98Class *state = object->Unknown98->Unknown_28();
-				if (state && state->Unknown_04() == 4) {
+			if (object->PositionalState && object->PositionalState->Get_Type() == 4) {
+				((Unknown717010Class *)object->PositionalState)->Unknown_717400(this, sclient);
+			} else if (object->PositionalState && object->PositionalState->Unknown_2C()) {
+				PositionalStateClass *state = object->PositionalState->Unknown_28();
+				if (state && state->Get_Type() == 4) {
 					((Unknown717010Class *)state)->Unknown_717400(this, sclient);
 				} else {
 					delete state;
-					object->Unknown98->Unknown_24(new Unknown717010Class(sclient, this));
+					object->PositionalState->Unknown_24(new Unknown717010Class(sclient, this));
 				}
 			} else {
-				delete object->Unknown98;
-				object->Unknown98 = new Unknown717010Class(sclient, this);
+				delete object->PositionalState;
+				object->PositionalState = new Unknown717010Class(sclient, this);
 			} return(true);
 		} else {
-			if (object->Unknown98 && object->Unknown98->Unknown_04() == 8) {
-				((Unknown715EF0Class *)object->Unknown98)->Unknown_716220(sclient, this);
-			} else if (object->Unknown98 && object->Unknown98->Unknown_2C()) {
-				Unknown98Class *state = object->Unknown98->Unknown_28();
-				if (state && state->Unknown_04() == 8) {
+			if (object->PositionalState && object->PositionalState->Get_Type() == 8) {
+				((Unknown715EF0Class *)object->PositionalState)->Unknown_716220(sclient, this);
+			} else if (object->PositionalState && object->PositionalState->Unknown_2C()) {
+				PositionalStateClass *state = object->PositionalState->Unknown_28();
+				if (state && state->Get_Type() == 8) {
 					((Unknown715EF0Class *)state)->Unknown_716220(sclient, this);
 				} else {
 					delete state;
-					object->Unknown98->Unknown_24(new Unknown715EF0Class(sclient, this));
+					object->PositionalState->Unknown_24(new Unknown715EF0Class(sclient, this));
 				}
 			} else {
-				delete object->Unknown98;
-				object->Unknown98 = new Unknown715EF0Class(sclient, this);
+				delete object->PositionalState;
+				object->PositionalState = new Unknown715EF0Class(sclient, this);
 			}
 		}
 	}
@@ -2168,7 +2168,7 @@ bool TradePacketClass::Process_Packet(void *instance)
 	UIPTradeClass *trade = NULL;
 	if (sclient->Unknown_744B60() && sclient->Unknown135C) {
 		trade = ((SBaseViewClass *)sclient->Unknown135C)->PTrade.Peek();
-		starbase = ((SBaseViewClass *)sclient->Unknown135C)->Get_Starbase().Peek();
+		starbase = (UIStarbaseClass *)((SBaseViewClass *)sclient->Unknown135C)->Get_Starbase().Peek();
 	} else if (!sclient->Unknown_744B60() && sclient->MainView) {
 		trade = sclient->MainView->Unknown1E4;
 	}
@@ -2317,7 +2317,7 @@ bool StarbaseAvatarUpdatePacketClass::Process_Packet(void *instance)
 	WWPROFILE("StarbaseAvatarUpdatePacketClass::Process_Packet ()");
 	SClient *sclient = (SClient *)instance;
 	if (!sclient->Unknown135C) return(true);
-	UIStarbaseClass *starbase = ((SBaseViewClass *)sclient->Unknown135C)->Get_Starbase().Peek();
+	UIStarbaseClass *starbase = (UIStarbaseClass *)((SBaseViewClass *)sclient->Unknown135C)->Get_Starbase().Peek();
 	int room;
 	if (!starbase || (room = starbase->Room) != Room || !starbase->Active) return(true);
 	starbase->Unknown_63E5C0(AvatarID, Orient, &Vector3(Unknown14, Unknown18, Unknown1C), ActionFlag);
@@ -2333,7 +2333,7 @@ bool StarbaseAvatarRoomUpdatePacketClass::Process_Packet(void *instance)
 	WWPROFILE("StarbaseAvatarRoomUpdatePacketClass::Process_Packet ()");
 	SClient *sclient = (SClient *)instance;
 	if (!sclient->Unknown135C) return(true);
-	UIStarbaseClass *starbase = ((SBaseViewClass *)sclient->Unknown135C)->Get_Starbase().Peek();
+	UIStarbaseClass *starbase = (UIStarbaseClass *)((SBaseViewClass *)sclient->Unknown135C)->Get_Starbase().Peek();
 	if (!starbase || !starbase->Active) return(true);
 	starbase->Unknown_63CF30(AvatarID, NewRoom);
 	return(true);
@@ -3445,7 +3445,7 @@ bool RecustomizeAvatarUpdatePacketClass::Process_Packet(void *instance)
 {
 	SClient *sclient = (SClient *)instance;
 	FAIL_IF(!sclient) return(true);
-	UIStarbaseClass *starbase = ((SBaseViewClass *)sclient->Unknown135C)->Get_Starbase().Peek();
+	UIStarbaseClass *starbase = (UIStarbaseClass *)((SBaseViewClass *)sclient->Unknown135C)->Get_Starbase().Peek();
 	starbase->Unknown_6437A0(Unknown118, &Desc);
 	return(true);
 }

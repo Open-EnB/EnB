@@ -6,6 +6,7 @@
  "in_tree": [
   "0x49EF10",
   "0x49EFE0",
+  "0x49F170",
   "0x49F190",
   "0x49F1C0",
   "0x49F200",
@@ -19,6 +20,10 @@
  "merged": [],
  "name": "shared/referral.cpp",
  "shared": [
+  "0x49F170",
   "0x49F5D0"
+ ],
+ "short_known": [
+  "0x49F170"
  ]
 }

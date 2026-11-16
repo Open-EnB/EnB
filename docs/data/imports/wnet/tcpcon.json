@@ -10,6 +10,7 @@
  "in_tree": [
   "0x8B4450",
   "0x8BBA70",
+  "0x8BBC40",
   "0x8BBC60",
   "0x8BBC90",
   "0x8BBE40",
@@ -28,5 +29,11 @@
   "0x8BC980"
  ],
  "merged": [],
- "name": "tcpcon.cpp"
+ "name": "tcpcon.cpp",
+ "shared": [
+  "0x8BBC40"
+ ],
+ "short_known": [
+  "0x8BBC40"
+ ]
 }

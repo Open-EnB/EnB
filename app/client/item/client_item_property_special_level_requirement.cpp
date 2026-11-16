@@ -68,24 +68,24 @@ ClientItemPropertySpecialLevelRequirementClass::~ClientItemPropertySpecialLevelR
 {
 }
 
-// NOT EXACT: 0x530AA0 (frame: the same calls and strings in order, but the client's frame is 0x14 smaller and its temporaries sit in other slots; one vector per branch, each returned)
+// 0x530AA0: one buffer for both kinds; the total level returns from its block, the others' lines at function scope (the client's frame, 0x68: the two vectors in slots of their own)
 std::vector<ClientItemPropertySpecialLineStruct> ClientItemPropertySpecialLevelRequirementClass::Get_Lines()
 {
+	char buffer[32];
+
 	if (Kind == KIND_TOTAL) {
 		std::vector<ClientItemPropertySpecialLineStruct> lines;
 		lines.push_back(ClientItemPropertySpecialLineStruct("Requires level ", false));
-		char buffer[32];
-		lines.push_back(ClientItemPropertySpecialLineStruct(itoa(Level, buffer, 10), true));
-		return(lines);
-	} else {
-		std::vector<ClientItemPropertySpecialLineStruct> lines;
-		lines.push_back(ClientItemPropertySpecialLineStruct("Requires ", false));
-		lines.push_back(ClientItemPropertySpecialLineStruct(Kind_Name(Kind), true));
-		lines.push_back(ClientItemPropertySpecialLineStruct(" level ", false));
-		char buffer[32];
 		lines.push_back(ClientItemPropertySpecialLineStruct(itoa(Level, buffer, 10), true));
 		return(lines);
 	}
+
+	std::vector<ClientItemPropertySpecialLineStruct> lines;
+	lines.push_back(ClientItemPropertySpecialLineStruct("Requires ", false));
+	lines.push_back(ClientItemPropertySpecialLineStruct(Kind_Name(Kind), true));
+	lines.push_back(ClientItemPropertySpecialLineStruct(" level ", false));
+	lines.push_back(ClientItemPropertySpecialLineStruct(itoa(Level, buffer, 10), true));
+	return(lines);
 }
 
 // NOT EXACT: 0x531080 (inline-budget: the client calls UnknownRTTIClass<DeltaTemplateClass<int> >::Cast out of line, 0x531590, and compares Value < Level after reloading this; the rest, asserts and lines match)

@@ -355,6 +355,7 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
 | A loop bound compiled to a signed `jl` against an unsigned count | An `(int)` cast on the count | |
 | A `box.Extent` read the client does through one pointer (`add eax, 0xC`) | `const Vector3 &extent = robj->Get_Bounding_Box().Extent;` | eff_pass.cpp |
 | A callee returns int in eax but a caller reads `al` as bool, and declaration and definition will not link | C linkage (`extern "C"`) on both | distance_calc.h 0x831F90 |
+| A small value class (a few scalars, a `_Tidy(false)`-style call) is copied through bitwise inline code where the client's bytes show a user-written inline copy (constants as immediates, the call out of line) | Write the inline copy constructor + `operator=` the bytes show (the value-class copy). NOT for a class with a member that already has a user `operator=` (`Vector3`: the implicit copy is already a non-trivial inline call; avatar 0x780810 and radar_data 0x7BBC00 showed no change) | |
 | **frame** | | |
 | Each inlined copy has its own buffer slot | A function-scope buffer gives each inlined copy its own frame slot | 0x752E60 |
 | The frame size differs | The frame counts every local: a difference names a local too many or too few (a second RECT: +0x10; `char name[MAX_PATH + 1]`: +4) | 0x9182C0 |
@@ -369,6 +370,8 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
 | A 12-byte local holding a translation | `Matrix3D::Get_Translation(Vector3 *)`, the out-parameter overload | 0x479A50 |
 | One-byte temporaries where the client passes an empty tag type by reference | A fresh temporary per call | co_data |
 | A float member initialised before the next unwind state | It belongs to the inline member whose constructor initialises it, not to the caller's frame | ui_power.cpp |
+| The client's frame counts by-value `Matrix3D` / `Vector3` copies whose dead stores VC6 removed, and lacks the temporaries where the source used in-place operators | Sign: frame slots written by integer `mov`s from `[reg+N]` at 0x10 strides and read back with `fld` (the scanner `lv2_intcopy.py`): copy by value where the slots are, operate in place where the client has none; slot order follows operand order in a product; when the client keeps a vector's components on the x87 across a `Length` / `Length2`, look for a second copy of the same subtraction (a temporary or `Distance`) that VC6 merged with the named one | |
+| Frame class, code identical once masked; the client's frame differs by whole objects (temporaries or inlined locals that share, or do not share, slots with later locals) | Change the block shape, not the declaration order: a temporary -> a named local (its own slot); `if (!p) return;` -> `if (p) { ... }` (inlined locals share, later locals pack into dead argument slots); if-return with function-scope locals instead of if / else; an inline callee's `?:` -> if / return (its temporaries are reused by the caller). Does not fix chatgadg 0x65E250's buffer order | ui_option_font 0x5CC9D0, ui_attrb_skills 0x54A640, client_item_property_special_level_requirement 0x530AA0, fontdatabase 0x6C52B0 |
 | **constructors, destructors, vtables** | | |
 | A destructor that is a lone `jmp` to the base's, or one that stores the vtables first | The compiler-generated destructor stores no vtable; a user-declared `virtual ~X() {}` stores them first (and adds an EH state to its owner's destructor): declare one exactly where the client stores | 0x4AA210 |
 | Members stored before or after the vtable | An init list stores members before the vtable (in declaration order), body assignments after it; the base's vtable store comes first and is dropped | 0x4A8370 |
@@ -544,6 +547,7 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
   after the call site spends the budget); an SGI `const_iterator` conversion the client calls out of line needs an
   inline layer, a file-static helper holding the find and its test. Landing a member body can make a same-file
   caller inline it: re-check the callers after the landing.
+* **A store VC6 schedules after a later load / push** (sunk below the next call's argument setup) moves back with a file-static helper layer: try it before calling a residue order-only (ui_shipcust 0x624270).
 
 **Register-only, order-only** (two attempts, then the stop rule)
 
@@ -739,6 +743,7 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
 * **Twin loops and merged tails:** twin loops reuse one count variable, and a counter the client spills after the
   loop wants the count kept in a second variable; per-branch locals (own buffer each) stop cross-jumping; a separate
   `result < 0` per sort branch gives the merged tails.
+* **VC6's tail merge of identical switch-case suffixes** is done on the generated code: source-level rewrites (`operator[]`, split assignments, labels) do not stop it, and changing the order of stores inside a case can swap the frame slots of locals used elsewhere (0x463F00 Get_Downhill).
 
 **Frame and stack slots**
 
@@ -773,6 +778,7 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
   (2026-11-14, O26, unknown_480b10.cpp SplineLightClass):** when the client keeps the helper's out-of-line copy and the
   virtual that inlines it as two functions, expect the frame / slot class on both (explain.py), and judge each against
   its own bytes: the helper's slots do not carry over to the inlined copy.
+* **VC6 packs stack slots by liveness:** declaration order does not set slot order (a frame sum or slot swap is not fixed by reordering locals); the lever is the block shape (see the frame rows).
 
 **Constructors, destructors, vtables**
 
@@ -952,6 +958,7 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
 * **Float calls:** `atan(x)` compiles to `fld1; fpatan`, `atan2(x, 1.0)` loads a double; `Min(Max(x, 0), C)` reloads
   x; `fabs()` on a float kept as a double local gives `fst qword`; `(e + e) * 0.95f` gives `fadd st0,st0`; an inline
   accessor for a member next to a known constant (`Get_Avatar_ID()`) gives `push 0`.
+* **`Vector3`'s member `v.Normalize()`** recomputes `Length2` after the zero test (the tree's form is right); a client site that pushes the stored len2 and writes to a new temporary is the free `Normalize(const Vector3 &)`.
 
 **Reading the client**
 
@@ -1264,6 +1271,7 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
   timebuf[40]` while strftime is told 80; `DurationClass now((unsigned)client->Unknown10BC)` explains a
   register holding 0 (the high half) and an unused slot beside the low half; the tree's WW3DAssetManager is
   already 0x408C bytes.
+* **An inline member added on an existing header line** goes before the `// +0xNN` comment (after it, it is commented out and the compile shows no change).
 
 ### 3.4 Importer, verify and pairs
 
@@ -1391,6 +1399,7 @@ are in 3.0.
   need their client addresses named there before their callers match. A symbols_named.json
   rename alone can change pairs: rerun the verify before keeping such a gain. Check `lost outright` for short
   pairs before keeping a change. Example: an inline `Get_Desc` lost a folded RefCountPtr `Peek` / `operator->`.
+* **symbols_named.json and `--apply-named` traps (2026-11):** `symbols.py --apply-named` keeps names removed from symbols_named.json (restore docs/data/symbols.json and ghidra_symbols.py from HEAD and apply again). When `wt.py rebase` stops on docs/data/symbols.json, re-run `--apply-named` before continuing: taking either side drops one side's names and the recorded verify still looks clean. Renaming a class or virtual that symbols.json names loses its short / vtable-proved pairs: add `replaces` rows, and the mangled `PAV<name>@@` / `ABV<name>@@` forms need their own. A name for a symbol that two objects define takes away the other object's range credit when that object's copy sits elsewhere; a name for a function far from its object, or a COMDAT beside identical `$E` initialisers, can move range credits too: screen with `.work/FD/conflicts.py` and trust only the verify. Funclet evidence (0xAA8000-0xACD000) must use the whole .text (`objmatch._whole_text`): match_objects' text / start is the region slice for app files.
 * **symbols.json regeneration is not neutral:** objmatch reads docs/data/symbols.json (self names D88 / D213,
   known vtables, D115's initialiser targets) and symbols.py reads the existing file through objmatch, so a
   regeneration changes verdicts and depends on the file it replaces. With the run's own names, D80's `known`
@@ -1458,6 +1467,7 @@ are in 3.0.
 * **Keeping both pads still:** put members only one file needs behind a guard macro defined only by its users
   (money.h's pattern; a declaration added to delta_array.h reaches aux_roots and sclient: `#ifdef
   __DELTA_ARRAY_MEMBERS`), and keep a single caller's accessor file-local. A hash_map / list / vector member in a header sclient.cpp includes can leave no pad window at all (the signal classes' members sit behind `__SIGNAL_MEMBERS` for that). A stopped sendpad.py leaves its pool lease: release it.
+* **A verify can lose sbaseview 0x6A1180 to unrelated header changes** (an order-only print-argument pair; a D246 entry is open); `appfile.py match` scores 0x6A1180 / 0x69D030 'none' even at baseline: check build.py objects or the verify.
 
 ### 3.5 Build VMs and vc6.py
 
@@ -1700,6 +1710,9 @@ are in 3.0.
 * **client.map stack frames in a CRASH line are a raw stack scan, and some are stale:** confirm a call chain by
   disassembling OUR linked exe (pefile + capstone; `tools/re/client.py` refuses a non-retail exe). There is no
   tool for it in the tree yet (progress.md §4, Tools).
+* **explain.py, 2026-11 limits:** it stops at the auxdata.h `__FILE__` string relocation (D41) on co.cpp's finds (use objdiff row counts); its client window overruns a function whose next start is not verified, inflating the masked residue (cut it at the client's `ret`, `.work/nf/ex.py`); and it masks jump targets, so a branch that skips one store reads as "identical once masked" and can be misread as a relocation / slot class: run `.work/JD/rowdiff.py OBJ SYMBOL ADDR` (branches whose targets differ) or `.work/Q1-relcheck.py` first. A NULL test whose `je` jumps past the `= NULL` store is `if (p) { release; p = NULL; }`, not REF_PTR_RELEASE / `RefCountPtr = NULL` (both store unconditionally).
+* **`appfile.py match`, 2026-11:** it prints nothing / "0 of 0 markers" for files whose functions carry `// 0xADDR:` comments and no `// @0x` markers: run objdiff.py on `.work/<ID>/appfile/obj/<file>.obj`, or add the marker in a draft copy. In its exact list, dead `vector.size()` reads add template instances (_Ucopy, _Ufill, insert) as "exact": other objects' copies, not gains.
+* **names.py** reads `// NAME 1: neutral` after a `static std::string X(...)` declaration as naming `std:`: use `// NAME 1 [X]: ...`.
 
 ### 3.7 Harnesses, programs, unattended runs
 
@@ -2011,6 +2024,7 @@ Edit scripts:
   imported classes by their names (soundlib.cpp's `using AudibleSoundClass::m_Unknown7C`); renaming
   `m_UnknownXX` in app/ broke it (12 compile errors, soundlib's pairs lost). Check every renamed name against
   the libraries' headers, and run a full verify (D159).
+* **`wt.py bring-over` cherry-picks,** so `git merge-base --is-ancestor <builder commit>` stays false after a landing: compare the file's content instead. `commit_mine` edits names-review.md by row, so its "Score 5" totals line stays stale: restore the working copy after committing.
 
 ### 3.9 Library-specific
 
@@ -2144,6 +2158,7 @@ are alphabetical; add a note under its file's heading (merge with what is there)
   follows the inline budget (Orientation.W, Position.Z, Orientation.Z, ImpartedVelocity.Z in that order). A
   forward declaration on its own line shifted every later `__LINE__` (41 functions): use `class X *` inside
   the declaration. Calling SoundLibraryClass needs a clienttest stand-in (wwaudio's globals break the link).
+* **A field reread after a store that cannot alias it** (the client rereads it): the field's address is taken in the client; pass the fields by reference to an inline helper (0x733DC0).
 
 #### debrsint.cpp / frameint.cpp (the main view's windows)
 
@@ -2174,6 +2189,7 @@ are alphabetical; add a note under its file's heading (merge with what is there)
 
 * Rotations are `In_Place_Pre_Rotate_Z` (rows 0 and 1, +8 / +0x18; `Rotate_Z` leaves a field-offset residue);
   quaternion compares are quat.h's `Equal_Within_Epsilon`.
+* **`-a * K` folds into a load of -K:** write `(-1.0f * a) * K` to keep the `fchs` and a shared `fmul` (extrap.cpp).
 
 #### FontSys (font files)
 
@@ -2297,6 +2313,7 @@ are alphabetical; add a note under its file's heading (merge with what is there)
 * `insert_unique_noresize` compiles (sgistl_adapt.py), so `hash_map::insert` is usable; keep the existing
   explicit specialisations at the top of attrib_dir.cpp / ini_manager.cpp: removing them, or an explicit
   instantiation in their place, changes VC6's code for the table's other members (13 pairs).
+* **`_M_destroy_val` is the form for the hash_map's pair destruction:** stl_hashtable.h's `_M_destroy_val` fits 110 of the 114 client pair callers; a `push 1; call _Tidy` beside a `??_G(0)` site is an inlined `~pair` (inline budget), not the deletion form (FontDatabaseClass::Remove_String 0x6C3030).
 
 #### ship customisation (ui_ship_cust.cpp, ui_shipcust.cpp)
 

@@ -322,9 +322,9 @@ public:
 
 class StarbaseShipCustomizeInterface;	// ui_ship_cust.h: the starbase view's +0x1A0 (RECUSTOMIZE_SHIP_START 129: 0x61F250; the client's RTTI 0xB89BB0)
 class StarbaseAvatarCreationInterface;	// ui_avatar_cust.h: the starbase view's +0x19C (RECUSTOMIZE_AVATAR_START 131: 0x551C40; 0x69F8F0 case 14: 0x54B7B0, 0x3D0 bytes; the client's RTTI 0xB7AC88)
-class SBaseViewUnknown184Class : public InterfaceClass { public: SBaseViewUnknown184Class(UIViewClass *view, LayerClass *layer); char Unknown84[0xB08 - 0x84]; };	// NAME 1: neutral (D10): the starbase view's +0x184 (0x69F8F0 case 5: 0x5EB810, 0xB08 bytes; 'TSM03A')  // NAME 1 [view, layer]: what 0x69F8F0 passes
-class SBaseViewUnknown188Class : public InterfaceClass { public: SBaseViewUnknown188Class(UIViewClass *view, LayerClass *layer); char Unknown84[0x11C - 0x84]; };	// NAME 1: neutral (D10): the starbase view's +0x188 (0x69F8F0 case 6: 0x5435D0, 0x11C bytes; 'FA_TSM02A.INI')  // NAME 1 [view, layer]: what 0x69F8F0 passes
-class SBaseViewUnknown198Class : public InterfaceClass { public: SBaseViewUnknown198Class(SClient *client); char Unknown84[0xB8 - 0x84]; };	// NAME 1: neutral (D10): the starbase view's +0x198 (0x69F8F0 case 9: 0x65A020, 0xB8 bytes; 'JWEB00')  // NAME 1 [client]: what 0x69F8F0 passes
+class SBaseViewUnknown184Class : public Unknown5BB320Class { public: SBaseViewUnknown184Class(UIViewClass *view, LayerClass *layer); char Unknown[0xB08 - sizeof(Unknown5BB320Class)]; };	// NAME 1: neutral (D10): the starbase view's +0x184 (0x69F8F0 case 5: 0x5EB810, 0xB08 bytes; 'TSM03A')  // NAME 1 [view, layer]: what 0x69F8F0 passes
+class SBaseViewUnknown188Class : public Unknown5BB320Class { public: SBaseViewUnknown188Class(UIViewClass *view, LayerClass *layer); char Unknown[0x11C - sizeof(Unknown5BB320Class)]; };	// NAME 1: neutral (D10): the starbase view's +0x188 (0x69F8F0 case 6: 0x5435D0, 0x11C bytes; 'FA_TSM02A.INI')  // NAME 1 [view, layer]: what 0x69F8F0 passes
+class SBaseViewUnknown198Class : public Unknown5BB320Class { public: SBaseViewUnknown198Class(SClient *client); char Unknown[0xB8 - sizeof(Unknown5BB320Class)]; };	// NAME 1: neutral (D10): the starbase view's +0x198 (0x69F8F0 case 9: 0x65A020, 0xB8 bytes; 'JWEB00')  // NAME 1 [client]: what 0x69F8F0 passes
 class UIManuClass;	// ui_manu.h: the starbase view's +0x18C (0x69F8F0 case 7: 0x5AFA00)
 
 // ui_jobs.cpp's job board window UIJobsClass (the view's +0x194; 0x1F8 bytes): ui_jobs.h. The view below (SClient
@@ -397,7 +397,7 @@ public:
 	void Unknown_6A2480();	// 0x6A2480 (FAIL_IF 'Client == NULL', l.1667)
 	void Unknown_6A0FD0(LoungeNPCPacketClass *packet);	// 0x6A0FD0 (LOUNGE_NPC 82)  // NAME 1 [packet]: the handler's packet
 	RefCountPtr<UIJobsClass> Get_Jobs() { return(Jobs); }	// 0x73A300 (out of line after JOB_LIST 147, the first caller)  // NAME 2: what it returns
-	RefCountPtr<UIStarbaseClass> Get_Starbase() { return(Starbase); }	// 0x54EDA0 (out of line in another object)  // NAME 2: what it returns
+	RefCountPtr<Unknown5BB320Class> Get_Starbase() { return(Starbase); }	// 0x54EDA0 (out of line in another object)  // NAME 2: what it returns
 	bool Unknown_69CBE0();	// 0x69CBE0: the interface +0x64 active (false while +0x1B0 is set)
 	bool Unknown_69CC10();	// 0x69CC10: any of the interfaces +0x184..+0x1A0 active (not +0x190)
 	bool Unknown_69CCD0();	// 0x69CCD0: any of the view's interfaces +0x184..+0x1A4 active (+0x190: or its +0x160 set)
@@ -441,8 +441,8 @@ public:
 	int Unknown54;	// +0x54 (0x69F460's argument)
 	int Unknown58;	// +0x58
 	int Unknown5C;	// +0x5C
-	RefCountPtr<UIStarbaseClass> Starbase;	// +0x60 ui_starbase.cpp's interface  // NAME 2 [Starbase]: what it holds
-	RefCountPtr<InterfaceClass> Unknown64;	// +0x64 (0x69CDE0: its slot +0x7C with NULL, 0, then released)
+	RefCountPtr<Unknown5BB320Class> Starbase;	// +0x60 ui_starbase.cpp's interface (+0x64's ~RefCountPtr 0x6A2650, not +0x174's 0x6A2720)  // NAME 2 [Starbase]: what it holds
+	RefCountPtr<Unknown5BB320Class> Unknown64;	// +0x64 (0x69CDE0: its slot +0x7C with NULL, 0, then released; ~RefCountPtr 0x6A2650, as Starbase's)
 	ScriptedMovieViewerSettingsStruct *Unknown68;	// +0x68 (0x6A0540 removes its +0x00's render object; the destructor leaves it)
 	RefCountPtr<CameraClass> Unknown6C;	// +0x6C (+0x70's camera: 0x69C5E0)
 	RefCountPtr<Unknown761C80Class> Unknown70;	// +0x70 (ViewRObjs[1]'s scene; 0x6A20C0 / 0x6A2100: its fog)

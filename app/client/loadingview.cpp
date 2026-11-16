@@ -22,9 +22,9 @@ extern FontManagerClass *Unknown_BE67C4;	// NAME 1: neutral (D10)
 #include "..\..\wwlib\ini.h"
 #include "WWAudio.h"
 // the 0xFC-byte render object at +0x64: 0x691830 news a GalaxyMapLineRObjClass (constructor 0x7B3E30) into it
-class Unknown7B3E30Class : public GalaxyMapLineRObjClass
-{
-};
+// (sclient.h holds it as RefCountPtr<GalaxyMapLineRObjClass>: its instances are galaxy_map_render.cpp's Line's)
+
+
 
 
 
@@ -183,7 +183,7 @@ void LoadingViewClass::Unknown_691830(const std::string &source_sector, const st
 		Unknown_BE67C4->Get_Style("Loading_Text_map_load00", Unknown58.Peek())->Set_Sort_Level(1);
 
 		if (from != to && from != 0 && to != 0) {
-			Unknown64 = Create_NEW((Unknown7B3E30Class *)new GalaxyMapLineRObjClass);
+			Unknown64 = Create_NEW(new GalaxyMapLineRObjClass);
 			INIClass ini("galaxy_map_c.ini");
 			Unknown64->Unknown_7B3F00(ini, "SectorLoadLine", Vector3(1.0f, 0.0f, 0.0f), Unknown60, Unknown5C);
 			Unknown64->Add(Unknown1C);
@@ -277,7 +277,7 @@ int LoadingViewClass::Unknown_0C(bool on)
 **	second object and a Vector3, its class unknown).
 **	SERVER_HANDOFF's 0x691830 rebuilt exact (L1, 2026-11-14): +0x64 is a GalaxyMapLineRObjClass (0x691830 news
 **	one, constructor 0x7B3E30, and calls its 0x7B3F00 with galaxy_map_c.ini's 'SectorLoadLine'); the file's
-**	Unknown7B3E30Class derives from it, as sclient.h keeps the member's RefCountPtr<Unknown7B3E30Class> (its
+**	member is RefCountPtr<GalaxyMapLineRObjClass> in sclient.h, galaxy_map_render.cpp's Line's type (the
 **	instances 0x692680 Create_NEW, 0x6926B0 operator=(NULL) are this object's). Its first block is START's
 **	teardown through one inline layer (Release_Screen): the layer leaves the four RefCountPtr clears out of
 **	line, as the client calls them.

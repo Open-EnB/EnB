@@ -36,8 +36,8 @@ public:
 	InvDataPeekClass Peek;								// +0x30  // NAME 2: what it is
 	bool UnknownB4;										// +0xB4
 	std::list<int> Slots;								// +0xB8 (the slots with contents)  // NAME 2: what it holds
-	std::vector<int> CurrentIndexMap;					// +0xC4  // NAME 5: the client's assert
-	std::vector<int> PreviousIndexMap;					// +0xD4  // NAME 5: the client's assert
+	std::vector<unsigned long> CurrentIndexMap;					// +0xC4  // NAME 5: the client's assert
+	std::vector<unsigned long> PreviousIndexMap;					// +0xD4  // NAME 5: the client's assert
 };
 
 #endif

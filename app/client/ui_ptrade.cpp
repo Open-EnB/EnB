@@ -39,8 +39,8 @@ bool operator>(const MoneyClass &a, const MoneyClass &b);	// 0x4F0700  // NAME 1
 
 extern FontManagerClass *Unknown_BE67C4;			// NAME 1 [Unknown_BE67C4]: 0xBE67C4
 
-// What SClient 0x74C7B0 returns, as far as 0x5E3C90 reads it (the avatar's description at +0xF8, as ui_chat_panel.cpp's)
-class UIPTradeAvatarClass : public RefCountClass { public: char Unknown[0xF8 - sizeof(RefCountClass)]; AvatarDescClass Desc; };	// NAME 1: neutral (D10)
+#include "avatar.h"	// CharacterViewAvatarClass: what SClient 0x74C7B0 returns (its ~RefCountPtr 0x53CF80 is the unwind funclets' jmp; Desc at +0xF8)
+
 
 #include "avatar_pip.h"	// AvatarPipClass: PlayerPIP / OtherPIP (0x3C bytes; 0x7E31B0, 0x7E3410, 0x7E36B0, 0x7E3A20, 0x7E4350)
 
@@ -180,7 +180,7 @@ void UIPTradeClass::Unknown_58()
 		Unknown5BB320Class::Unknown_58();
 		Unknown_5E3340();
 		RefCountPtr<FontSys> font = Create_Peek(Unknown_BE67C4->Get_Style("PLAYER_NAME_TRADE00", InterfaceMesh->Peek_Object()));
-		int id = ((ClientClass *)Client)->AvatarID; RefCountPtr<UIPTradeAvatarClass> avatar = Create_NEW((UIPTradeAvatarClass *)sclient->Unknown_74C7B0(id));
+		int id = ((ClientClass *)Client)->AvatarID; RefCountPtr<CharacterViewAvatarClass> avatar = Create_NEW(sclient->Unknown_74C7B0(id));
 		if (avatar && font) {
 			std::string name;
 			avatar->Desc.Get_Full_Name(name);
@@ -488,7 +488,7 @@ void UIPTradeClass::Unknown_5E3C90()
 	const char *text = font->Unknown_6D87D0();
 	if (text && *text && *text != ' ') return;
 	SClient *sclient = Client->As_Space_Client();
-	int id = ((ClientClass *)Client)->Unknown1134; RefCountPtr<UIPTradeAvatarClass> avatar = Create_NEW((UIPTradeAvatarClass *)sclient->Unknown_74C7B0(id));
+	int id = ((ClientClass *)Client)->Unknown1134; RefCountPtr<CharacterViewAvatarClass> avatar = Create_NEW(sclient->Unknown_74C7B0(id));
 	if (!avatar) return;
 	std::string name;
 	avatar->Desc.Get_Full_Name(name);

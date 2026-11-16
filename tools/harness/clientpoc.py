@@ -140,7 +140,11 @@ EXE = os.path.join(RELEASE, 'client.exe')
 MAP = os.path.join(RELEASE, 'client.map')
 LOG = os.path.join(RELEASE, 'stubs.log')
 EXCEPT = os.path.join(RELEASE, '_except.txt')
-ANTPROX = r'C:\EnBDevelopment\AntaresProxy\src\Proxy\Antprox\bin\Release\net10.0\win-x64\publish\antprox.exe'
+# The frozen antprox 1.0.0 release (AntaresProxy 22ebc7a, tag v1.0.0; antreplay.exe beside it; SHA-256 in
+# AntaresProxy\releases\SHA256SUMS-1.0.0.txt). ANTPROX_EXE overrides it, e.g. with a dev publish
+# (...\src\Proxy\Antprox\bin\Release\net10.0\win-x64\publish\antprox.exe, which every dev publish overwrites).
+ANTPROX = os.environ.get('ANTPROX_EXE') or \
+    r'C:\EnBDevelopment\AntaresProxy\releases\antprox-1.0.0-win-x64\antprox.exe'
 ROOT = os.path.dirname(os.path.dirname(HERE))
 PROXY = os.path.join(ROOT, 'build', 'd3d8shot', 'd3d8.dll')
 SHOTS = os.path.join(ROOT, '.work', 'poc', 'shots')

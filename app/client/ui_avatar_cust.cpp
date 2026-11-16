@@ -880,7 +880,7 @@ void StarbaseAvatarCreationInterface::Unknown_54EC30()
 	SClient *client = Client->As_Space_Client();
 	client->Unknown_74C530(Client->AvatarID);
 	client->Unknown_74C3B0(Client->AvatarID, *Unknown0BC->Get_Desc());
-	UIStarbaseClass *starbase = ((SBaseViewClass *)client->Unknown135C)->Get_Starbase().Peek();
+	UIStarbaseClass *starbase = (UIStarbaseClass *)((SBaseViewClass *)client->Unknown135C)->Get_Starbase().Peek();
 	if (starbase) {
 		starbase->Unknown_6435E0();
 	}

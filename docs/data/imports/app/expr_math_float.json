@@ -2,8 +2,7 @@
  "ambiguous": [
   "0x42A6C0",
   "0x42B2F0",
-  "0x42CA60",
-  "0x4CB940"
+  "0x42CA60"
  ],
  "copy": "reconstructed",
  "description": "expr_math_float.cpp (the client's __FILE__; FAIL_IF line 25), client 0x4C7B70-0x4CBAEF: Expr_Math_Float, the float factory (vtable 0xAEBBE0) with ^ / % of its own, and expr_math_eval_impl.h / expr_math_builder.h instantiated for float (EX4)",
@@ -18,6 +17,7 @@
   "0x42D050",
   "0x42D120",
   "0x42DB80",
+  "0x42E170",
   "0x432D50",
   "0x433700",
   "0x45CC10",
@@ -111,6 +111,7 @@
   "0x4CB8B0",
   "0x4CB8E0",
   "0x4CB910",
+  "0x4CB940",
   "0x4CB970",
   "0x4CBA10",
   "0x4CBAC0",
@@ -128,6 +129,7 @@
   "0x42D050",
   "0x42D120",
   "0x42DB80",
+  "0x42E170",
   "0x432D50",
   "0x433700",
   "0x45CC10",
@@ -145,6 +147,7 @@
  ],
  "short_known": [
   "0x42D120",
+  "0x42E170",
   "0x4C8870",
   "0x4C95A0",
   "0x4C95C0",

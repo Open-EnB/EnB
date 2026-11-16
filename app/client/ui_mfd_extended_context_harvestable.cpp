@@ -237,7 +237,7 @@ bool UIMFDExtendedContextHarvestableClass::Has_Contents(unsigned int slot)
 	return(Peek.Get_Stack_Count(slot) > 0);
 }
 
-static inline void Unknown_Clear(std::vector<int> &v) { v.erase(v.begin(), v.end()); }	// NAME 1: neutral (D10): keeps std::copy out of line, as the client has it
+static inline void Unknown_Clear(std::vector<unsigned long> &v) { v.erase(v.begin(), v.end()); }	// NAME 1: neutral (D10): keeps std::copy out of line, as the client has it
 // 0x5C07E0
 void UIMFDExtendedContextHarvestableClass::Update_Index_Map()
 {
@@ -247,7 +247,7 @@ void UIMFDExtendedContextHarvestableClass::Update_Index_Map()
 	if (Slots.size() >= lines) {
 		std::copy(CurrentIndexMap.begin(), CurrentIndexMap.end(), Slots.begin());
 	} else {
-		std::vector<int>::iterator to = CurrentIndexMap.begin();
+		std::vector<unsigned long>::iterator to = CurrentIndexMap.begin();
 		int skip = (int)(lines - Slots.size()) / 2;
 		while (skip--) {
 			to++;

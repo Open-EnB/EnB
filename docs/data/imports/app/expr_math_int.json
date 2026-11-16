@@ -1,8 +1,7 @@
 {
  "ambiguous": [
   "0x42A6C0",
-  "0x42CA60",
-  "0x4CB940"
+  "0x42CA60"
  ],
  "copy": "reconstructed",
  "description": "expr_math_int.cpp (the client's __FILE__; FAIL_IF line 22), client 0x4CBAF0-0x4D022F: Expr_Math_Int, the int factory (vtable 0xAEBDE4) with % of its own, and expr_math_eval_impl.h / expr_math_builder.h instantiated for int (EX4)",
@@ -17,6 +16,7 @@
   "0x42D050",
   "0x42D120",
   "0x42DB80",
+  "0x42E170",
   "0x432D50",
   "0x433700",
   "0x45CC10",
@@ -143,7 +143,8 @@
   "0x4D0120",
   "0x4D0150",
   "0x4D0180",
-  "0x4D01A0"
+  "0x4D01A0",
+  "0x4D01D0"
  ],
  "merged": [],
  "name": "shared/expr/expr_math_int.cpp",
@@ -157,6 +158,7 @@
   "0x42D050",
   "0x42D120",
   "0x42DB80",
+  "0x42E170",
   "0x432D50",
   "0x433700",
   "0x45CC10",
@@ -174,6 +176,7 @@
  ],
  "short_known": [
   "0x42D120",
+  "0x42E170",
   "0x4CD890",
   "0x4CD8B0",
   "0x4CD910",

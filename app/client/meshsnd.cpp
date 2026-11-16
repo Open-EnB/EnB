@@ -173,29 +173,35 @@ void MeshSoundClass::Unknown_7ED630(bool release)
 	}
 }
 
-// NOT EXACT: functional (M1): appfile.py's diff shows no instruction apart, only the four float-literal rows (-1.0 / 0.0f); verify does not pair it (attempts.py show 0x7ED6C0)
-// 0x7ED6C0
+// 0x7ED6C0: a frame past EndFrame goes straight to the Playing test (the client's je at +0x68), hence the goto
 void MeshSoundClass::Unknown_7ED6C0(int frame, unsigned int ms)
 {
 	if (Sound != NULL) {
 		Mono_Printf(Mono, 45, 17, " %s:%s ", Name, BoneName ? BoneName : "nobone");
 		Sound->Is_Playing();
-		if (frame >= StartFrame && (frame <= EndFrame || EndFrame == -1.0)) {
-			if (!Playing) {
-				if (BoneIndex >= 0) {
-					Sound->Add_To_Scene(true);
-					Playing = true;
-				} else {
-					Sound->Play(true);
-					Playing = true;
+		if (frame >= StartFrame) {
+			if (frame <= EndFrame || EndFrame == -1.0) {
+				if (!Playing) {
+					if (BoneIndex >= 0) {
+						Sound->Add_To_Scene(true);
+						Playing = true;
+					} else {
+						Sound->Play(true);
+						Playing = true;
+					}
 				}
+			} else {
+				goto stop;
 			}
-		} else if (EndFrame != -1.0 && Playing) {
-			Sound->Stop(true);
-			if (Loop) {
-				Sound->Remove_From_Scene();
+		} else if (EndFrame != -1.0) {
+stop:
+			if (Playing) {
+				Sound->Stop(true);
+				if (Loop) {
+					Sound->Remove_From_Scene();
+				}
+				Playing = false;
 			}
-			Playing = false;
 		}
 		Mono_Printf(Mono, 45, 18, " %s(%d<%d<%d)", "off", StartFrame, frame, EndFrame);
 		if (BoneName != NULL) {

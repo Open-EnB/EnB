@@ -6,6 +6,7 @@
  "headers_from": null,
  "in_tree": [
   "0x42F250",
+  "0x431C80",
   "0x45CC10",
   "0x47F300",
   "0xA08F70",
@@ -36,6 +37,7 @@
  "name": "shd6bumpspec.cpp",
  "shared": [
   "0x42F250",
+  "0x431C80",
   "0x45CC10",
   "0x47F300",
   "0xA08F70",
@@ -47,6 +49,7 @@
   "0xA13610"
  ],
  "short_known": [
+  "0x431C80",
   "0xA08F70",
   "0xA12C60",
   "0xA13500",

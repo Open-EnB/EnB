@@ -12,6 +12,7 @@
   "0x4D07E0",
   "0x4D0920",
   "0x4D0950",
+  "0x4D0A20",
   "0x4D0A40",
   "0x4D0A70",
   "0x4D0A90"
@@ -20,9 +21,11 @@
  "name": "shared/expr/expr_math_parser_factory.cpp",
  "shared": [
   "0x432C30",
+  "0x4D0A20",
   "0x4D0A70"
  ],
  "short_known": [
+  "0x4D0A20",
   "0x4D0A70"
  ]
 }

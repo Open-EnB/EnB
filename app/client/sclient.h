@@ -170,7 +170,7 @@ public:
 	void Unknown_588870();								// 0x588870 (UIViewClass's +0x14 0x65B470: the HTML box's browser)
 	void Unknown_588A70(const char *type, bool follow_mouse, const char *text, int width, bool hide_on_key, bool flush);	// 0x588A70 (102 callers; GROUP 30, DIALOG 98: "GROUP_INVITE", "OK", "YES_NO", "OK_CANCEL", "server_message")  // NAME 1 [type, follow_mouse, text, width, hide_on_key, flush]: what the function does with them
 	bool Is_HTML() { return stricmp(Type, "HTML") == 0; }	// (LoginTaskClass::Run: inline, the client computes the name in eax)  // NAME 1: what it tests
-#ifdef __UI_TRADE_MEMBERS	// ui_trade.cpp only: a declaration sclient.cpp sees moves its pad window (0x74D990, workflow.md 3.4)
+#ifdef __UI_TRADE_MEMBERS	// ui_trade.cpp and unknown_msgbox.cpp only: a declaration sclient.cpp sees moves its pad window (0x74D990, workflow.md 3.4)
 	void Unknown_5896C0(const char *type);				// 0x5896C0 (ui_trade.cpp: the 'BUY_CONFIRMATION' box closed)  // NAME 1 [type]: 0x588A70's
 #endif
 	int Unknown_5890B0(const char *button);				// 0x5890B0 (SClient::Do_Frame passes NULL after 'Lost connection to server.'; tsk_login.h: the button pressed)  // NAME 2 [button]: tsk_login.h's
@@ -701,7 +701,7 @@ public:
 };
 
 // loadingview.cpp's view (constructor 0x691570, 0x6C bytes)
-class Unknown7B3E30Class;	// NAME 1: neutral (D10): the 0xFC-byte render object of the loading view's +0x64 (constructor 0x7B3E30; loadingview.cpp)
+class GalaxyMapLineRObjClass;	// the 0xFC-byte render object of the loading view's +0x64 (constructor 0x7B3E30; galaxy_map_robj.h)
 class LoadingViewClass : public Unknown65B810ViewClass	// NAME 3: class-from-file (D24) for loadingview.cpp
 {
 public:
@@ -720,7 +720,7 @@ public:
 	RefCountPtr<RenderObjClass> Unknown58;				// +0x58 (0x691830: the asset manager's 'map_load00'; START 0x692330 removes it and its fonts, FontManagerClass::Unknown_6D2310)
 	RefCountPtr<RenderObjClass> Unknown5C;				// +0x5C (0x691830: 'map_select')
 	RefCountPtr<RenderObjClass> Unknown60;				// +0x60 (0x691830: 'map_from')
-	RefCountPtr<Unknown7B3E30Class> Unknown64;			// +0x64 (0x691830 news it, 0xFC bytes; START removes it when set)
+	RefCountPtr<GalaxyMapLineRObjClass> Unknown64;		// +0x64 (0x691830 news it, 0xFC bytes; START removes it when set)
 	bool Unknown68;										// +0x68 ClientTaskClass::Render renders when it is set
 	bool Unknown69;										// +0x69
 };

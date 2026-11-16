@@ -62,15 +62,15 @@ LineBoxClass &LineBoxClass::operator=(const LineBoxClass &that)
 	return *this;
 }
 
+
 // @0x6E0100
-// NOT EXACT: objdiff identical with relocations, stack offsets and targets masked (explain.py: identical); objmatch does not pair it (0.80), cause not found
 LineBoxClass::~LineBoxClass()
 {
 	for (int i = 0; i < NumLines; i++) {
 		Lines[i]->Release_Ref();
 	}
 	delete [] Lines;
-	REF_PTR_RELEASE(Target);
+	if (Target != NULL) { Target->Release_Ref(); Target = NULL; }
 }
 
 // @0x6E0240
@@ -308,5 +308,6 @@ void LineBoxClass::Set_Box(Vector3 max, Vector3 min)
 **	box's own position and Extent; the edges' width is Width times the camera distance (at least 1).
 **	Class_ID (0x10007), On_Frame_Update and Get_Num_Lines are inline, emitted here; 0x6DFFA0 is the
 **	scalar deleting destructor, 0x6E0E60 / 0x6E0E70 the compiler's adjustor thunks for the second and
-**	third tables.
+**	third tables. The destructor clears Target inside its NULL test (the client's je at +0x83 skips the
+**	store), not with REF_PTR_RELEASE, whose store is unconditional.
 */

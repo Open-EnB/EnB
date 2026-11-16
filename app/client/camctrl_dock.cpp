@@ -109,9 +109,9 @@ void CameraController06Class::Unknown_0C()
 	FAIL_IF(!ship) {
 		return;
 	}
-	Unknown98Class *state = ship->Unknown98;
+	PositionalStateClass *state = ship->PositionalState;
 	if (state && state->Unknown_2C()) {
-		ship->Unknown98 = state->Unknown_28();
+		ship->PositionalState = state->Unknown_28();
 		delete state;
 	}
 	Clear_Flag(0);
@@ -272,7 +272,7 @@ void CameraController06Class::Unknown_792750()
 	Unknown0C->Unknown14 = true;
 	Unknown0C->Unknown18 = Client->AvatarID;
 	Unknown0C->Unknown_04();
-	ship->Unknown98 = new Unknown718160Class(start, end, speed, Client->Unknown10BC, ship->Unknown98);
+	ship->PositionalState = new Unknown718160Class(start, end, speed, Client->Unknown10BC, ship->PositionalState);
 }
 
 /*

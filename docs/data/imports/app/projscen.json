@@ -5,6 +5,7 @@
  "expected": {},
  "in_tree": [
   "0x42F250",
+  "0x433CE0",
   "0x45CC10",
   "0x45CC30",
   "0x491830",
@@ -59,6 +60,7 @@
  "name": "shared/projscen.cpp",
  "shared": [
   "0x42F250",
+  "0x433CE0",
   "0x45CC10",
   "0x45CC30",
   "0x491830",
@@ -87,6 +89,7 @@
   "0x495FB0"
  ],
  "short_known": [
+  "0x433CE0",
   "0x494E80",
   "0x494EA0",
   "0x494EC0",

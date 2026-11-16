@@ -108,7 +108,9 @@ Write_Marker without its 0x66 operand-size prefix, 0x9E4F11) is dropped before a
 A `short` function (fewer than MIN_FIXED fixed bytes: too little to search) is credited only at an
 address the run knows independently of its bytes (D188): a slot of a vtable whose address is known
 (symbols.json's vtables, or one D171 learned, `vtable`; one an exact function's vptr store gave,
-`vptr`), or the target of a call (REL32) in an exact function's relocations (`call`). Its pattern
+`vptr`), or the target of a call (REL32) in an exact function's relocations (`call`), or (D246 / C21)
+the target of a jmp in an unwind funclet of an exact function whose bytes match the object's funclet
+for the same unwind state (`funclet`). Its pattern
 must fullmatch there, no relocation target may contradict it (D80's checks), the proofs must name one
 address, and no other symbol may hold it. Never by pattern alone. One exception (D193): COMDAT
 bodies with the same bytes and the same relocations (a linker-folded inline, such as RefCountPtr's
@@ -138,6 +140,9 @@ MIN_FIXED = 12   # a pattern needs at least this many non-wildcard bytes to be s
 # D189(2): searched hits count only at a function start (function_start). The user accepted its four
 # corrections (0x9CEEF7, 0x9F367D, 0x924875, 0x8437A4: mid-function hits, 2026-11-03)
 ANCHOR_HITS = True
+# D246 / C21 (TK, run 2026-11-15): a short function reached by a jmp from a matching unwind funclet of an
+# exact function is credited like a call's target (short_known's `funclet` kind)
+USE_FUNCLET_CALLS = True
 
 
 def generated(name):
@@ -646,7 +651,11 @@ def match_objects(img, paths, region=None, callers=False):
             else:
                 continue
             known.setdefault(sym['name'], set()).add(thunk.get(v, v))
+        if USE_FUNCLET_CALLS:
+            for name, t in funclet_targets(img, obj, sec, s, length, addr, thunk):
+                funclet_called[name].add(t)      # D246 / C21: a matching unwind funclet's jump
     called = collections.defaultdict(set)   # D188: {symbol: {addresses}} the exact functions call
+    funclet_called = collections.defaultdict(set)   # D246 / C21: {symbol: {addresses}} their funclets jump to
     vptrs = collections.defaultdict(set)    # D188: {vtable symbol: {addresses}} their vptr stores give
     obj_called = collections.defaultdict(set)   # P-CGP-1: {(object, symbol): {addresses}} its exact functions call
     for r, obj, sec, s, length in results:
@@ -739,7 +748,8 @@ def match_objects(img, paths, region=None, callers=False):
             registered = initialiser_targets(results, pending, ranges, text, start, known, thunk) if phase == 'init' else {}
             if phase == 'short':
                 # D188: a short function at an address the run knows independently of its bytes
-                got = short_known(img, shorts, text, start, known, thunk, called, vptrs, claimed, folded_at)
+                got = short_known(img, shorts, text, start, known, thunk, called, vptrs, claimed, folded_at,
+                                  funclet_called)
                 for (r, obj, sec, s, length), a, kind in got:
                     if not obj.own(sec):
                         folded_at[a][body_sig(obj, sec, s, length)].add(r['symbol'])
@@ -941,7 +951,8 @@ def body_sig(obj, sec, s, length):
             tuple((k, n, typ, sym and sym['name'], bytes(add)) for k, n, typ, sym, add in obj.reloc_targets(sec, s, length)))
 
 
-def short_known(img, shorts, text, base, known, thunk, called, vptrs, claimed, folded_at=None):
+def short_known(img, shorts, text, base, known, thunk, called, vptrs, claimed, folded_at=None,
+                funclet_called=None):
     """D188: [(item, address, kind)] for the `short` functions at an address the run knows independently
     of their bytes: a call's target in an exact function (`call`), or a slot of a vtable whose address is
     known (`vptr` when an exact function's vptr store gave it, `vtable` otherwise: symbols.json, D171).
@@ -949,7 +960,10 @@ def short_known(img, shorts, text, base, known, thunk, called, vptrs, claimed, f
     neither another symbol already exact there nor another short function may take it.
     D193: except a linker-folded COMDAT: when every claimant of the address (this round's proposals and
     the symbols an earlier short round credited there, `folded_at` {address: {body_sig: {symbols}}}) is
-    a COMDAT body with the same bytes and relocations, all are credited."""
+    a COMDAT body with the same bytes and relocations, all are credited.
+    D246 / C21: a rel32 jump from an unwind funclet of an exact function, where the funclet matches the
+    object's funclet for the same unwind state (`funclet_called`, funclet_targets), is call evidence
+    (`funclet`)."""
     folded_at = folded_at if folded_at is not None else {}
     objs = list({id(x[1]): x[1] for x in shorts}.values())
     slot_of = collections.defaultdict(lambda: collections.defaultdict(set))   # symbol -> address -> kinds
@@ -981,6 +995,9 @@ def short_known(img, shorts, text, base, known, thunk, called, vptrs, claimed, f
     for name, addrs in called.items():
         for a in addrs:
             slot_of[name][a].add('call')
+    for name, addrs in (funclet_called or {}).items():
+        for a in addrs:
+            slot_of[name][a].add('funclet')
     props = []
     for item in shorts:
         r, obj, sec, s, length = item
@@ -1006,7 +1023,7 @@ def short_known(img, shorts, text, base, known, thunk, called, vptrs, claimed, f
         survivors, _ = break_tie(obj, sec, s, length, text, base, [a], img, known)
         if survivors != [a]:
             continue
-        kind = 'call' if 'call' in kinds else 'vptr' if 'vptr' in kinds else 'vtable'
+        kind = 'call' if 'call' in kinds else 'funclet' if 'funclet' in kinds else             'vptr' if 'vptr' in kinds else 'vtable'
         props.append((item, a, kind))
     by_addr = collections.defaultdict(set)
     bodies = collections.defaultdict(set)       # D193: the COMDAT bodies proposed at each address
@@ -1107,6 +1124,116 @@ def funclet_parents(img):
             out[f] = (min(nxt, f + FUNCLET_MAX), parents[f])
         _funclets[id(img)] = (sorted(out), out)
         return _funclets[id(img)]
+
+
+_eh_stubs = {}
+EH_MAGIC = 0x19930520
+
+
+def eh_stubs(img):
+    """{EH handler stub VA: file offset of its FuncInfo} of client.exe (`mov eax, offset FuncInfo; jmp`)."""
+    with _call_lock:
+        if id(img) not in _eh_stubs:
+            start, end, raw = img.section('.text')
+            body = img.data[raw:raw + (end - start)]
+            stubs = {}
+            for m in re.finditer(rb'\xB8(....)\xE9', body, re.S):
+                off = img.offset(struct.unpack_from('<I', body, m.start() + 1)[0])
+                if off is not None and off + 12 <= len(img.data) and \
+                        struct.unpack_from('<I', img.data, off)[0] == EH_MAGIC:
+                    stubs[start + m.start()] = off
+            _eh_stubs[id(img)] = (stubs, body, start)
+        return _eh_stubs[id(img)][0]
+
+
+def _whole_text(img):
+    """(.text bytes, its VA): the whole section, whatever region match_objects searches."""
+    eh_stubs(img)
+    return _eh_stubs[id(img)][1:]
+
+
+def object_unwind(obj, sec, s, length):
+    """(stub reference offset in the function, .text$x section, [(start, end) or None by state]) of an
+    object function with an EH frame (it references a `$L` label in .text$x whose code is the handler
+    stub `mov eax, offset FuncInfo; jmp ___CxxFrameHandler`), or None. The funclet of a state is its
+    unwind map action's label up to the next label of the section (FD, run 2026-11-15)."""
+    byidx = None
+    for k, n, typ, sym, add in obj.reloc_targets(sec, s, length):
+        if n != 4 or sym is None or sym['section'] <= 0 or not sym['name'].startswith('$L'):
+            continue
+        xsec = sym['section'] - 1
+        if obj.sections[xsec]['name'] != '.text$x':
+            continue
+        fi = [x for x in obj.reloc_targets(xsec, sym['value'], 10) if x[0] == 1]
+        if not fi or fi[0][3] is None or fi[0][3]['section'] <= 0:
+            continue
+        fsym = fi[0][3]
+        info = obj.sections[fsym['section'] - 1]
+        foff = fsym['value'] + struct.unpack('<I', fi[0][4])[0]
+        if foff + 12 > info['size']:
+            continue
+        magic, nstate = struct.unpack_from('<Ii', obj.data, info['raw'] + foff)
+        if magic != EH_MAGIC or not 0 < nstate < 0x1000:
+            continue
+        if byidx is None:
+            byidx = {x['index']: x for x in obj.symbols}
+        mapsym = next((byidx.get(si) for va, si, t in info['relocs'] if va == foff + 8), None)
+        if mapsym is None or mapsym['section'] <= 0:
+            continue
+        msec = obj.sections[mapsym['section'] - 1]
+        mbase = mapsym['value'] + struct.unpack_from('<I', obj.data, info['raw'] + foff + 8)[0]
+        relmap = {va: byidx.get(si) for va, si, t in msec['relocs']}
+        xinfo = obj.sections[xsec]
+        bounds = sorted({x['value'] for x in obj.symbols if x['section'] == xsec + 1} | {xinfo['size']})
+        out = []
+        for i in range(nstate):
+            lab = relmap.get(mbase + 8 * i + 4)
+            if lab is None or lab['section'] != xsec + 1:
+                out.append(None)
+                continue
+            j = bisect.bisect_right(bounds, lab['value'])
+            out.append((lab['value'], bounds[j] if j < len(bounds) else xinfo['size']))
+        return k, xsec, out
+    return None
+
+
+def funclet_targets(img, obj, sec, s, length, addr, thunk):
+    """D246 / C21: [(symbol, client address)] the unwind funclets of an exact function reach: for each
+    unwind state whose funclet in the object matches the client's funclet of the same state (the client
+    FuncInfo is the one its stub, at the object's stub reference, names), each rel32 call / jmp in it
+    pairs the object's target symbol with the client's target (incremental thunks resolved). The
+    funclets lie outside the app region (0xAA8000-0xACD000), so this reads the whole .text."""
+    ou = object_unwind(obj, sec, s, length)
+    if ou is None:
+        return []
+    text, base = _whole_text(img)
+    k, xsec, states = ou
+    o = addr - base + k
+    if not 0 <= o <= len(text) - 4:
+        return []
+    off = eh_stubs(img).get(struct.unpack_from('<I', text, o)[0])
+    if off is None:
+        return []
+    nstate, pmap = struct.unpack_from('<iI', img.data, off + 4)
+    moff = img.offset(pmap)
+    if moff is None or nstate != len(states) or moff + 8 * nstate > len(img.data):
+        return []
+    out = []
+    for i, st in enumerate(states):
+        cf = struct.unpack_from('<I', img.data, moff + 8 * i + 4)[0]
+        if st is None or not 0 <= cf - base < len(text):
+            continue
+        ls, le = st
+        pat, _, flen = obj.pattern(xsec, ls, le)
+        co = cf - base
+        if co + flen > len(text) or not re.fullmatch(pat, text[co:co + flen], re.S):
+            continue
+        for j, n, typ, sym, add in obj.reloc_targets(xsec, ls, le - ls):
+            if typ != 0x14 or n != 4 or sym is None or sym['class'] != 2 or generated(sym['name']):
+                continue
+            t = (cf + j + 4 + struct.unpack_from('<i', text, co + j)[0]) & 0xFFFFFFFF
+            out.append((sym['name'], thunk.get(t, t)))
+    return out
 
 
 def folded(items):
@@ -1520,20 +1647,31 @@ def xcu_position(img, results, ranges, text, base, claimed, thunk):
     return out
 
 
+USE_ORDER_IN_RANGE = True
+
+
 def object_order(pending, done, survivors_of, ranges, claimed, obj_called, results):
     """D242 P-C1-1: [(pending item, address)] for ties inside one object. A group is the tied own functions (not
     COMDATs: D189(b)'s order test held for 349 of 353 own groups, 608 of 700 inline ones did not) of one object that
     share one set of surviving candidates, as many members as candidates, every candidate inside the object's range
     and held by no other symbol, and no tied function outside the group surviving at any of them. The members, in
     object order, take the candidates in address order, when each lands between its nearest exact own functions in
-    object order and the object's own exact calls to it (P-CGP-1) do not contradict it."""
+    object order and the object's own exact calls to it (P-CGP-1) do not contradict it. P-SC-1 (C24, 2026-11-15): an
+    own function's candidates are first cut to its object's range, unclaimed (USE_ORDER_IN_RANGE): copies in other
+    files' code neither enlarge the group's candidate set nor block it."""
     orders = _object_order(results)
     groups = collections.defaultdict(list)
     at = collections.defaultdict(set)
     for item in pending:
         if id(item[0]) in done:
             continue
-        surv = frozenset(survivors_of[id(item[0])])
+        surv = survivors_of[id(item[0])]
+        rng = ranges.get(id(item[1]))
+        if USE_ORDER_IN_RANGE and rng and item[1].own(item[2]):
+            # P-SC-1 (C24): an own function's candidates outside its object's range (other files' copies) never
+            # take part: two string statics' atexit destructors tied over 20 copies in the image
+            surv = [h for h in surv if rng[0] <= h <= rng[1] and not claimed[h]]
+        surv = frozenset(surv)
         for h in surv:
             at[h].add(id(item[0]))
         groups[(id(item[1]), surv)].append(item)

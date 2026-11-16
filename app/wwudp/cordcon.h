@@ -426,7 +426,7 @@ public:
 	bool examinePacket(unsigned char *data, int datalen);								// 0x8514D0
 	bool buildHeader(unsigned char *out, int *len, unsigned short *counter);			// 0x8551F0
 	bool buildMsgHeader(unsigned char *out, int *len, int size, int channel, unsigned int seq,
-		unsigned char frag, char flags);												// 0x854FC0
+		int frag, int flags);												// 0x854FC0 (frag, flags: ints, pumpInternal 0x853A30 pushes FragIndex / Flags as dwords)
 
 	CordChannelClass *Get_Channel(int channel);	// NAME 2: grows Channels_ as the client does
 	// The messages the active channels hold (queued or awaiting an ack). 0x84FED0

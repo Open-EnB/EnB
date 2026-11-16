@@ -35,11 +35,11 @@ public:
 	virtual void Render();								// +0x3C 0x76C230
 	virtual bool Delete_On_Remove() { return true; }	// +0x44 0x76BFE0
 
-	void Add_Movie(const char *movie_name, int volume);	// 0x76C2C0 (the assert '!movie_name')  // NAME 2: what it does
+	void Add_Movie(const char *movie_name, unsigned long volume);	// 0x76C2C0 (the assert '!movie_name')  // NAME 2: what it does
 	void Handle_Input(KernelEventClass *event);			// 0x76C5A0 (inlined in Pre_Run)  // NAME 2: what it does
 
 	std::vector<std::string> Movies;					// +0x0C NAME 2: the Bink files, in order
-	std::vector<int> Volumes;							// +0x1C NAME 2: each movie's BinkSetVolume (WinMain: 0x8000)
+	std::vector<unsigned long> Volumes;							// +0x1C NAME 2: each movie's BinkSetVolume (WinMain: 0x8000)
 	unsigned int Index;									// +0x2C NAME 2: the movie playing
 	unsigned int Start_Time;							// +0x30 NAME 2: timeGetTime at its first frame
 	bool Starting;										// +0x34 NAME 2: set when a movie starts, cleared at its first Render

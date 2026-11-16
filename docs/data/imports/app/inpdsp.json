@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B340"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "inpdsp.cpp, client 0x429630-0x429F60 with the table's instances (builder H18; G_ASSERT lines 32, 50, 51, 71, 104, 120, D25): 10 of 11 exact (the key 0x42A170, the ini reader 0x42A1A0 and writer 0x42A410 too), the DisableExceptions registry read 0x429D00 among them (read only); 0x429F60 NOT EXACT (register-only)",
  "expected": {},
@@ -33,7 +31,8 @@
   "0x42B080",
   "0x42B250",
   "0x42B2C0",
-  "0x42B2F0"
+  "0x42B2F0",
+  "0x42B340"
  ],
  "merged": [],
  "name": "input/inpdsp.cpp",

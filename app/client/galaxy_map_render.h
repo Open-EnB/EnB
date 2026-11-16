@@ -282,8 +282,8 @@ public:
 	virtual void Release_Item() { Remove_From_Scene(); Line = NULL; }	// +0x08 0x7AA3C0
 	virtual RenderObjClass *Peek_RObj() { return(Line.Peek()); }	// +0x0C 0x7AA400
 
-	RefCountPtr<SegmentedLineClass> Line;					// +0x08  // NAME 3: the FAIL_IF's '!line'
-	RefCountPtr<SegmentedLineClass> &Get_Line();			// 0x7AD070 (out of line in the client)
+	RefCountPtr<GalaxyMapLineRObjClass> Line;				// +0x08  // NAME 3: the FAIL_IF's '!line'
+	RefCountPtr<GalaxyMapLineRObjClass> &Get_Line();			// 0x7AD070 (out of line in the client)
 };
 
 // A gate (table 0xB05974; 0x1C bytes)
@@ -371,6 +371,6 @@ public:
 **	Remove_From_Scene), 0xB0588C (mesh), 0xB058B8 (line), 0xB058E4 (system), 0xB05910 (sector),
 **	0xB05974 (gate). The item base's destructor 0x7A9CC0 stores only RefCountClass's table: implicit.
 **	GalaxyMapRObjClass / GalaxyMapLineRObjClass are galaxy_map_robj.h's (the line's include keeps the
-**	lines of the stand-ins it replaced); the line is held as RefCountPtr<SegmentedLineClass>
-**	(Create_NEW 0x692680 is shared with another object's RefCountPtr<SegmentedLineClass>).
+**	lines of the stand-ins it replaced); the line is held as RefCountPtr<GalaxyMapLineRObjClass>
+**	(Create_NEW 0x692680 and ~RefCountPtr 0x6926F0 are loadingview.cpp's +0x64 instance; segline_create.cpp's RefCountPtr<SegmentedLineClass> has its own, ~ 0x498BC0).
 */

@@ -627,7 +627,7 @@ int UIGuildClass::Unknown_81C930(std::string rank)
 	if (Unknown180.size() == 0) {
 		return(0);
 	}
-	std::string name = rank.substr(1, rank.find("\"", 1) - 1);
+	std::string name = rank.substr(1, rank.find_first_of("\"", 1) - 1);
 	for (int i = 0; i < (int)Unknown180.size(); i++) {
 		if (name == Unknown180[i].Name) {
 			return(Unknown180[i].Rank);
@@ -695,6 +695,18 @@ void UIGuildClass::Unknown_81D290(std::string line, std::string &name, std::stri
 		return;
 	}
 	location.assign(next, line.end());
+}
+
+// 0x81D500 (no caller): the guild list window's slot +0x5C while it is active in state 1 or 2, as slot +0x60's
+void UIGuildClass::Unknown_81D500()
+{
+	if (Client->As_Space_Client()->Unknown_728300() && Unknown0BC && Unknown0BC->Active) {
+		if (Unknown0BC->Unknown0A8 == 1) {
+			Unknown0BC->Unknown_5C();
+		} else if (Unknown0BC->Unknown0A8 == 2) {
+			Unknown0BC->Unknown_5C();
+		}
+	}
 }
 
 /*

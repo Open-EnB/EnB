@@ -132,13 +132,13 @@ void EmoteDataClass::Unknown_7E6860()
 	if (t <= 1.0f) {
 		Matrix3D tm = Unknown_7E70A0(t);
 		Matrix3D base(true);
-		FAIL_IF(!Peek_Client_Object()->Unknown98) return;
-		FAIL_IF(Peek_Client_Object()->Unknown98->Unknown_04() != 14) return;
+		FAIL_IF(!Peek_Client_Object()->PositionalState) return;
+		FAIL_IF(Peek_Client_Object()->PositionalState->Get_Type() != PositionalStateClass::CLIENT_SIDE_PROCEDURAL) return;
 
 
 
-		Unknown98Class *state = Peek_Client_Object()->Unknown98;
-		Unknown98Class *inner = state->Unknown_28();
+		PositionalStateClass *state = Peek_Client_Object()->PositionalState;
+		PositionalStateClass *inner = state->Unknown_28();
 		if (inner != 0) {
 			base = inner->Unknown_08(Get_Client()->Unknown10BC);
 		}
@@ -265,13 +265,13 @@ void EmoteDataClass::Unknown_7E7700()
 
 void EmoteDataClass::Unknown_7E7780()
 {
-	Unknown98Class *state = Peek_Client_Object()->Unknown98;
+	PositionalStateClass *state = Peek_Client_Object()->PositionalState;
 	Matrix3D tm(true);
 	if (state != 0) {
-		switch (state->Unknown_04()) {
+		switch (state->Get_Type()) {
 			case 12:
 			case 13:
-			case 14:
+			case PositionalStateClass::CLIENT_SIDE_PROCEDURAL:
 				G_ASSERT(0);
 				return;
 			case 0:
@@ -292,14 +292,14 @@ void EmoteDataClass::Unknown_7E7780()
 				return;
 		}
 	}
-	Peek_Client_Object()->Unknown98 = new Unknown718D70Class(Get_Client()->Unknown10BC, tm, state);
+	Peek_Client_Object()->PositionalState = new Unknown718D70Class(Get_Client()->Unknown10BC, tm, state);
 }
 
 void EmoteDataClass::Unknown_7E79D0()
 {
-	Unknown98Class *state = Peek_Client_Object()->Unknown98;
-	if (state != 0 && state->Unknown_04() == 14) {
-		Peek_Client_Object()->Unknown98 = Peek_Client_Object()->Unknown98->Unknown_28();
+	PositionalStateClass *state = Peek_Client_Object()->PositionalState;
+	if (state != 0 && state->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
+		Peek_Client_Object()->PositionalState = Peek_Client_Object()->PositionalState->Unknown_28();
 		delete state;
 	}
 }
@@ -332,8 +332,8 @@ bool EmoteDataClass::Unknown_7E7A70()
 **	constructor 0x7E7E00. 0x7E79D0 is inlined by the destructor, 0x7E6860, 0x7E7620 and 0x7E7700;
 **	0x7E7620 has no caller (0x7E6860 inlines it).
 **
-**	The asserts' text names what this file calls Unknown98, Unknown_04 and 14:
-**	'Peek_Client_Object()->PositionalState' and 'Peek_Client_Object()->PositionalState->Get_Type() !=
-**	PositionalStateClass::CLIENT_SIDE_PROCEDURAL' (co.h's Unknown98Class, postate.h's type 14,
-**	Unknown718D70Class); the text differs from the client's until co.h takes those names.
+**	The asserts' text names co.h's positional state: 'Peek_Client_Object()->PositionalState' and
+**	'Peek_Client_Object()->PositionalState->Get_Type() != PositionalStateClass::CLIENT_SIDE_PROCEDURAL'
+**	(PositionalStateClass, ClientObjectClass::PositionalState +0x98, the type slot +0x04 and type 14,
+**	postate.h's Unknown718D70Class; named there from these texts).
 */

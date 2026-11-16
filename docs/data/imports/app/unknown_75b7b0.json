@@ -5,6 +5,7 @@
  "expected": {},
  "in_tree": [
   "0x42F250",
+  "0x431C80",
   "0x447C40",
   "0x48C500",
   "0x48CA70",
@@ -15,9 +16,13 @@
  "name": "client/unknown_75b7b0.cpp",
  "shared": [
   "0x42F250",
+  "0x431C80",
   "0x447C40",
   "0x48C500",
   "0x48CA70",
   "0x510CC0"
+ ],
+ "short_known": [
+  "0x431C80"
  ]
 }

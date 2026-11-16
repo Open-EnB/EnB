@@ -49,7 +49,7 @@
     <text x="807.9" y="262" class="muted" font-size="11.5" text-anchor="middle">11-14</text>
     <text x="840.0" y="262" class="muted" font-size="11.5" text-anchor="middle">11-15</text>
     <line x1="166.2" x2="166.2" y1="52" y2="242" class="grid" stroke-dasharray="4 3"/><text x="162.2" y="64" class="muted" font-size="11" text-anchor="end">counting rule D80</text>
-    <polyline points="70.0,223.5 102.1,210.7 134.2,203.9 166.2,198.7 198.3,195.2 230.4,175.8 262.5,170.2 294.6,168.4 326.7,166.6 358.8,158.0 390.8,151.1 422.9,147.8 455.0,143.6 487.1,138.0 519.2,131.9 551.2,122.4 583.3,117.6 615.4,114.1 647.5,106.3 679.6,103.3 711.7,97.7 743.8,91.6 775.8,83.5 807.9,78.4 840.0,75.3" fill="none" class="l-written" stroke-width="2.5" stroke-linejoin="round"/>
+    <polyline points="70.0,223.5 102.1,210.7 134.2,203.9 166.2,198.7 198.3,195.2 230.4,175.8 262.5,170.2 294.6,168.4 326.7,166.6 358.8,158.0 390.8,151.1 422.9,147.8 455.0,143.6 487.1,138.0 519.2,131.9 551.2,122.4 583.3,117.6 615.4,114.1 647.5,106.3 679.6,103.3 711.7,97.7 743.8,91.6 775.8,83.5 807.9,78.4 840.0,74.0" fill="none" class="l-written" stroke-width="2.5" stroke-linejoin="round"/>
     <circle cx="70.0" cy="223.5" r="3.2" class="l-written" fill="none" stroke-width="2"><title>2026-10-22: 7.79%</title></circle>
     <circle cx="102.1" cy="210.7" r="3.2" class="l-written" fill="none" stroke-width="2"><title>2026-10-23: 13.20%</title></circle>
     <circle cx="134.2" cy="203.9" r="3.2" class="l-written" fill="none" stroke-width="2"><title>2026-10-24: 16.05%</title></circle>
@@ -74,8 +74,8 @@
     <circle cx="743.8" cy="91.6" r="3.2" class="l-written" fill="none" stroke-width="2"><title>2026-11-12: 63.33%</title></circle>
     <circle cx="775.8" cy="83.5" r="3.2" class="l-written" fill="none" stroke-width="2"><title>2026-11-13: 66.73%</title></circle>
     <circle cx="807.9" cy="78.4" r="3.2" class="l-written" fill="none" stroke-width="2"><title>2026-11-14: 68.90%</title></circle>
-    <circle cx="840.0" cy="75.3" r="3.2" class="l-written" fill="none" stroke-width="2"><title>2026-11-15: 70.18%</title></circle>
-    <polyline points="70.0,223.5 102.1,210.7 134.2,203.9 166.2,199.7 198.3,196.7 230.4,180.8 262.5,177.2 294.6,175.6 326.7,174.3 358.8,167.3 390.8,162.0 422.9,158.4 455.0,156.1 487.1,152.5 519.2,146.9 551.2,139.2 583.3,136.5 615.4,133.0 647.5,126.1 679.6,124.3 711.7,119.0 743.8,113.3 775.8,107.6 807.9,103.6 840.0,101.6" fill="none" class="l-exact" stroke-width="2.5" stroke-linejoin="round"/>
+    <circle cx="840.0" cy="74.0" r="3.2" class="l-written" fill="none" stroke-width="2"><title>2026-11-15: 70.72%</title></circle>
+    <polyline points="70.0,223.5 102.1,210.7 134.2,203.9 166.2,199.7 198.3,196.7 230.4,180.8 262.5,177.2 294.6,175.6 326.7,174.3 358.8,167.3 390.8,162.0 422.9,158.4 455.0,156.1 487.1,152.5 519.2,146.9 551.2,139.2 583.3,136.5 615.4,133.0 647.5,126.1 679.6,124.3 711.7,119.0 743.8,113.3 775.8,107.6 807.9,103.6 840.0,100.4" fill="none" class="l-exact" stroke-width="2.5" stroke-linejoin="round"/>
     <circle cx="70.0" cy="223.5" r="3.2" class="l-exact" fill="none" stroke-width="2"><title>2026-10-22: 7.79%</title></circle>
     <circle cx="102.1" cy="210.7" r="3.2" class="l-exact" fill="none" stroke-width="2"><title>2026-10-23: 13.20%</title></circle>
     <circle cx="134.2" cy="203.9" r="3.2" class="l-exact" fill="none" stroke-width="2"><title>2026-10-24: 16.05%</title></circle>
@@ -100,7 +100,7 @@
     <circle cx="743.8" cy="113.3" r="3.2" class="l-exact" fill="none" stroke-width="2"><title>2026-11-12: 54.18%</title></circle>
     <circle cx="775.8" cy="107.6" r="3.2" class="l-exact" fill="none" stroke-width="2"><title>2026-11-13: 56.57%</title></circle>
     <circle cx="807.9" cy="103.6" r="3.2" class="l-exact" fill="none" stroke-width="2"><title>2026-11-14: 58.28%</title></circle>
-    <circle cx="840.0" cy="101.6" r="3.2" class="l-exact" fill="none" stroke-width="2"><title>2026-11-15: 59.10%</title></circle>
+    <circle cx="840.0" cy="100.4" r="3.2" class="l-exact" fill="none" stroke-width="2"><title>2026-11-15: 59.60%</title></circle>
     <text x="28" y="286" class="muted" font-size="11">One point per day, from that day's last commit; the D80 rule change (2026-10-25) makes earlier days under-count.</text>
   </g>
 </svg>

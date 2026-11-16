@@ -14,7 +14,7 @@ public:
 	// the static formatters (0x4FF390 ..) store the three limits and zero RemainingTime; Started is
 	// left alone (set by Format)
 	TimeStringFormatClass(const MillisecondsClass &largest, const MillisecondsClass &smallest, const MillisecondsClass &minimum)
-		: Largest(largest), Smallest(smallest), Minimum(minimum), RemainingTime(0) {}
+		: Largest(largest), Smallest(smallest), Minimum(minimum) { RemainingTime = 0; }
 
 	std::string Format(const MillisecondsClass &time);  // NAME 2: what it does
 
@@ -22,11 +22,15 @@ private:
 	bool Add_Unit(const MillisecondsClass &portion, int count, const std::string &name, bool plural);  // NAME 2: what it does
 	std::string Unit_String(int count, const std::string &name, bool plural);  // NAME 2: what it does
 
+	// Format's state reset: an inline layer of its own (0x4FE890 stores Started as an immediate and calls
+	// all four unit conversions out of line only with it)
+	void Start(const MillisecondsClass &time) { Result = ""; RemainingTime = time; Started = false; }  // NAME 2: what it does
+
 	// one unit's part: its count, and the same span in milliseconds (the converting constructors
 	// 0x4FF940 .. 0x4FFA30 and Get 0x4FFA80 .. 0x4FFBD0 are called from Format: this layer's)
 	template<class UNIT> bool Add(const UNIT &unit, const std::string &name, bool plural)  // NAME 2: what it does
 	{
-		return Add_Unit(MillisecondsClass(unit), unit.Get(), name, plural);
+		MillisecondsClass portion(unit); return Add_Unit(portion, unit.Get(), name, plural);
 	}
 
 	MillisecondsClass Largest;			// +0x00 NAME 2: a unit this long or longer is left out (0: none)

@@ -5,6 +5,7 @@
  "expected": {},
  "in_tree": [
   "0x42F250",
+  "0x433CE0",
   "0x442AC0",
   "0x442FA0",
   "0x442FF0"
@@ -12,9 +13,11 @@
  "merged": [],
  "name": "display/display.cpp",
  "shared": [
-  "0x42F250"
+  "0x42F250",
+  "0x433CE0"
  ],
  "short_known": [
+  "0x433CE0",
   "0x442FF0"
  ]
 }

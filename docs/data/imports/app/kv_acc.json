@@ -8,6 +8,7 @@
  "in_tree": [
   "0x4A7F00",
   "0x4B0A90",
+  "0x4B0B00",
   "0x4B0B20",
   "0x4B0B50",
   "0x4B0B90",
@@ -36,6 +37,7 @@
  "name": "shared/kv_acc.cpp",
  "shared": [
   "0x4A7F00",
+  "0x4B0B00",
   "0x4B0B90",
   "0x4B0BB0",
   "0x4B11C0",
@@ -43,6 +45,7 @@
   "0x4B1640"
  ],
  "short_known": [
+  "0x4B0B00",
   "0x4B0B90",
   "0x4B0BB0",
   "0x4B11C0",

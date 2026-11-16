@@ -20,31 +20,7 @@
 #include "..\..\app\client\ui_dynamicwindow.h"
 #include "..\..\app\client\dynamic_window_class.h"
 #include "..\..\app\client\ui_starmap.h"
-#include "..\..\app\client\starmap_pip_support.h"
 #include "..\..\app\client\galaxy_map_pip.h"
 #include "..\..\ww3d2\ww3d.h"
-
-// ---------------------------------------------------------------- the star map PIP's lines (0x466920, starmap_pip_support.h): 0x10C bytes
-// MapPipClass's constructor makes two StarmapPipSupportClass (+0x48, +0x4C) over this base. The generated constructor left
-// Line3DClass unbuilt (no reference count: the first release freed both, and StarmapPipClass::Unknown_14's Set_Hidden
-// called through the freed object), so these three do what the client's 0x466920 / 0x466A80 / 0x466B20 do.
-Unknown_466920Class::Unknown_466920Class(const Vector3 &start, const Vector3 &end, float width, float r, float g, float b, float opacity) :
-	Line3DClass(start, end, width, r, g, b, opacity),
-	SortLevel(0)
-{
-	STUB_CALLED("POC Unknown_466920Class (0x466920): Line3DClass with a sort level");
-}
-RenderObjClass *Unknown_466920Class::Clone() const
-{
-	return(new Unknown_466920Class(*this));
-}
-void Unknown_466920Class::Render(RenderInfoClass &rinfo)
-{
-	if (WW3D::Is_Sorting_Enabled() && SortLevel) {
-		WW3D::Add_To_Static_Sort_List(this, SortLevel);
-		return;
-	}
-	Line3DClass::Render(rinfo);
-}
 
 // (inv_render.cpp's inventory data view, 0x689DA0 / 0x68A720, is rebuilt: inv_data_peek.cpp's InvDataPeekClass::Get_Price / Get_Ready_Time)

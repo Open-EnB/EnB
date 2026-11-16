@@ -179,7 +179,7 @@ void UIAttrbSkillsClass::Unknown_54()
 template<class C> inline C *Unknown_Find_Set_Field_Inner(DeltaCompoundClass * root, const char *name) { NameClass n(name); DeltaCompoundClass *r = root; C *t = Unknown_Find_Field<C>(r, n); return((t && t->Unknown70) ? t : NULL); } template<class C> inline C *Unknown_Find_Set_Field(DeltaCompoundClass * root, const char *name) { return(Unknown_Find_Set_Field_Inner<C>(root, name)); }	// NAME 1: neutral (D10)
 template<class C> inline C *Unknown_Find_Changed_Field_Inner(DeltaCompoundClass * root, const char *name) { NameClass n(name); DeltaCompoundClass *r = root; C *t = Unknown_Find_Field<C>(r, n); return((t && t->Unknown70 > 1) ? t : NULL); } template<class C> inline C *Unknown_Find_Changed_Field(DeltaCompoundClass * root, const char *name) { return(Unknown_Find_Changed_Field_Inner<C>(root, name)); }	// NAME 1: neutral (D10)
 // 0x54A640
-// NOT EXACT: frame (similarity 0.68: the client's frame is 0x54, one NameClass slot shared by the two finds and the font in arg's slot; this keeps two NameClass slots and the font apart, 0x8C; the code is the client's)
+// The text and the font in the found block (if (points) { ... }): the client's frame (0x54) shares one NameClass slot between the finds and puts the font in arg's slot
 void UIAttrbSkillsClass::Unknown_54A640(bool arg)
 {
 	DeltaCompoundClass *aux_data = (DeltaCompoundClass *)Client->As_Space_Client()->AuxData;
@@ -189,21 +189,21 @@ void UIAttrbSkillsClass::Unknown_54A640(bool arg)
 	} else {
 		points = Unknown_Find_Changed_Field<DeltaTemplateClass<int> >(aux_data, "RPGInfo.SkillPoints");
 	}
-	if (!points) return;
+	if (points) {
 
-	UnknownF4 = points->Value;
-	char text[32];
-	_snprintf(text, 32, "%d", UnknownF4);
-	RefCountPtr<FontSys> font = Create_Peek(Unknown_BE67C4->Get_Style("SKILL_VAL_ATT", InterfaceMesh.Peek()));
-	if (font) {
-		font->Change_Text(text, 0);
-	}
-	if (UnknownFC->Active && UnknownEC >= 0) {
-		Unknown_54B400();
-
-
+		UnknownF4 = points->Value;
+		char text[32];
+		_snprintf(text, 32, "%d", UnknownF4);
+		RefCountPtr<FontSys> font = Create_Peek(Unknown_BE67C4->Get_Style("SKILL_VAL_ATT", InterfaceMesh.Peek()));
+		if (font) {
+			font->Change_Text(text, 0);
+		}
+		if (UnknownFC->Active && UnknownEC >= 0) {
+			Unknown_54B400();
 
 
+
+		}
 	}
 }
 
