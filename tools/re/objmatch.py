@@ -211,6 +211,13 @@ USE_FUNCLET_NOTEXACT = True
 # ~RefCountPtr<InterfaceClass> at 0x541A10, 0x54B570, 0x56CE00, 0x643BA0) is, for one object, the one address
 # that object's own matching funclets reach (the funclet round only; like P-CGP-1's obj_called)
 USE_FUNCLET_OWN = True
+# CR5 (run 2026-11-16): a not-exact parent whose whole unwind map matches several client FuncInfos takes the one
+# client.exe's placement picks (notexact_funclet_targets): of the candidates pushed once and not by an exact
+# function, the one whose push site lies between the client addresses of the parent's exact neighbours in its
+# object (the own functions before and after it in object order, D242), else the one whose parent an exact
+# function of the same object calls under the parent's symbol (the call target within 0x10 bytes before the
+# push); several left, none is used
+USE_FUNCLET_PLACED = True
 
 
 def generated(name):
@@ -737,9 +744,17 @@ def match_objects(img, paths, region=None, callers=False):
             learn(r, obj, sec, s, length, int(r['addresses'][0], 16))
     if USE_FUNCLET_CALLS and USE_FUNCLET_NOTEXACT:
         held = {a for a, v in claimed.items() if v}
+        bounds = {}     # CR5: {id(r): (exact own neighbour before, after)} in object order (D242)
+        for order in _object_order(results).values():
+            for k, a, item in order:
+                if a is None:
+                    lo, hi = _neighbours(order, k)
+                    if lo is not None and hi is not None:
+                        bounds[id(item[0])] = (lo, hi)
         for r, obj, sec, s, length in results:
             if r['status'] in ('none', 'multiple'):
-                for name, t in notexact_funclet_targets(img, obj, sec, s, length, r['symbol'], thunk, held):
+                for name, t in notexact_funclet_targets(img, obj, sec, s, length, r['symbol'], thunk, held,
+                                                        bounds.get(id(r)), obj_called.get((id(obj), r['symbol']), ())):
                     funclet_called[name].add(t)     # CR2: a not-exact parent's matching funclets
                     obj_funclet[(id(obj), name)].add(t)
     shorts = [x for x in results if x[0]['status'] == 'short' and x[4] > 0]
@@ -1389,13 +1404,35 @@ def _state_match(sp, cf, text, base):
         rx.fullmatch(text, co, co + flen) is not None
 
 
-def notexact_funclet_targets(img, obj, sec, s, length, symbol, thunk, held):
+_eh_pushes = {}
+
+
+def eh_pushes(img):
+    """CR5: {EH handler stub VA: [VA of each `push offset stub`]} of client.exe."""
+    maps, _ = client_funcinfos(img)          # takes _call_lock itself (not reentrant)
+    text, base = _whole_text(img)
+    with _call_lock:
+        if id(img) not in _eh_pushes:
+            out = collections.defaultdict(list)
+            for m in re.finditer(rb'(?=\x68(....))', text, re.S):
+                v = struct.unpack_from('<I', text, m.start() + 1)[0]
+                if v in maps:
+                    out[v].append(base + m.start())
+            _eh_pushes[id(img)] = out
+        return _eh_pushes[id(img)]
+
+
+def notexact_funclet_targets(img, obj, sec, s, length, symbol, thunk, held, rng=None, calls=()):
     """CR2: [(symbol, client address)] the matching unwind funclets of a function that is not exact reach (the
     same pairs as funclet_targets), its client FuncInfo located by client.exe's bytes alone: (1) the one address
     symbols.json names with its symbol from a proof other than an exact match (self_names), whose EH prologue
     (`push -1; push offset stub; mov eax, fs:[0]`) pushes the stub; else (2) the one client FuncInfo with the
     object's state count whose every state's funclet matches the object's, its stub pushed by no function an
-    exact symbol (`held`: their addresses) starts within 0x10 bytes before. Only matching states count."""
+    exact symbol (`held`: their addresses) starts within 0x10 bytes before; (3, CR5, USE_FUNCLET_PLACED) of several
+    such FuncInfos, the one whose push site lies strictly between `rng` (lo, hi: the client addresses of the
+    exact own functions just before and after the parent in object order), else the one whose parent the
+    object's exact functions call under its symbol (`calls`: those call targets, one within 0x10 bytes before
+    the push). Only matching states count."""
     ou = object_unwind(obj, sec, s, length)
     if ou is None:
         return []
@@ -1416,6 +1453,14 @@ def notexact_funclet_targets(img, obj, sec, s, length, symbol, thunk, held):
             return []
         good = [c for c in by_n.get(len(states), ())
                 if all(sp is None or _state_match(sp, maps[c][i], text, base) for i, sp in enumerate(sps))]
+        if len(good) > 1 and USE_FUNCLET_PLACED:
+            pushes = eh_pushes(img)
+            free = [c for c in good if len(pushes.get(c, ())) == 1 and
+                    not any(pushes[c][0] - d in held for d in range(0x11))]
+            placed = [c for c in free if rng and rng[0] < pushes[c][0] < rng[1]]
+            if len(placed) != 1:
+                placed = [c for c in free if any(pushes[c][0] - d in calls for d in range(0x11))]
+            good = placed if len(placed) == 1 else good
         if len(good) != 1:
             return []
         stub = good[0]

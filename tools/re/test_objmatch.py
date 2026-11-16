@@ -165,6 +165,9 @@ BEYOND = [
      'USE_FUNCLET_FOLDED'),
     # a parent not exact: its FuncInfo located by its whole unwind map (or its named address)
     (['lookup_table.obj'], '??1LookupTableClass@@UAE@XZ', '0x4EC6F0', 'short_known', 'USE_FUNCLET_NOTEXACT'),
+    # CR5: a not-exact parent whose unwind map matches several client FuncInfos, the one placed between its exact
+    # neighbours in object order used
+    (['extrap.obj'], '??1Unknown710030Class@@UAE@XZ', '0x7109B0', 'short_known', 'USE_FUNCLET_PLACED'),
 ]
 
 
