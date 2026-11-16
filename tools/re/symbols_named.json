@@ -3094,5 +3094,26 @@
   "address": "0x653C00",
   "symbol": "??1?$RefCountPtr@VUIInvClass@@@@QAE@XZ",
   "evidence": "ui_trade's unwind funclets (parents 0x651390, 0x651510, 0x652EB0) reach it for the locals PDA->Unknown_695630 / 695680 return; its bytes are those of RefCountPtr<UIPdaCargoClass>'s destructor 0x6960D0, which pdaint's object places between Create_NEW<UIPdaCargoClass> 0x6960A0 and Create_NEW<UIVaultClass> 0x696110, so the trade window's T is another class with the same RefCountClass at +0x38: UIInvClass, whose Unknown_5A03B0 ui_trade calls through it (F1, 2026-11-16; provisional)"
+ },
+ {
+  "address": "0xAE74DC",
+  "symbol": "??_7RawFileFactoryClass@@6B@",
+  "evidence": "soundlib.cpp's static at 0xBDAC60: its initialiser 0x43D320 calls 0x43D390 (stores the vtable 0xAE74DC, whose slots +4 / +8 are RawFileFactoryClass::Get_File 0x9D0780 / Return_File 0x9D07B0) and registers 0x43D350 -> 0x43D370 (stores FileFactoryClass's vtable 0xAE74CC) (AR run 2026-11-16, C6)",
+  "kind": "vtable"
+ },
+ {
+  "address": "0x43D390",
+  "symbol": "??0RawFileFactoryClass@@QAE@XZ",
+  "evidence": "soundlib.cpp's static at 0xBDAC60: its initialiser 0x43D320 calls 0x43D390 (stores the vtable 0xAE74DC, whose slots +4 / +8 are RawFileFactoryClass::Get_File 0x9D0780 / Return_File 0x9D07B0) and registers 0x43D350 -> 0x43D370 (stores FileFactoryClass's vtable 0xAE74CC) (AR run 2026-11-16, C6)"
+ },
+ {
+  "address": "0x43D370",
+  "symbol": "??1RawFileFactoryClass@@UAE@XZ",
+  "evidence": "soundlib.cpp's static at 0xBDAC60: its initialiser 0x43D320 calls 0x43D390 (stores the vtable 0xAE74DC, whose slots +4 / +8 are RawFileFactoryClass::Get_File 0x9D0780 / Return_File 0x9D07B0) and registers 0x43D350 -> 0x43D370 (stores FileFactoryClass's vtable 0xAE74CC) (AR run 2026-11-16, C6)"
+ },
+ {
+  "address": "0x43D3B0",
+  "symbol": "??_GRawFileFactoryClass@@UAEPAXI@Z",
+  "evidence": "soundlib.cpp's static at 0xBDAC60: its initialiser 0x43D320 calls 0x43D390 (stores the vtable 0xAE74DC, whose slots +4 / +8 are RawFileFactoryClass::Get_File 0x9D0780 / Return_File 0x9D07B0) and registers 0x43D350 -> 0x43D370 (stores FileFactoryClass's vtable 0xAE74CC) (AR run 2026-11-16, C6)"
  }
 ]
