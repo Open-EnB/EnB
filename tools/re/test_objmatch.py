@@ -144,6 +144,10 @@ CALL_TIES = [
     ('control_keys_manager.obj',
      '?reserve@?$vector@PAU?$_Hashtable_node@U?$pair@$$CBIPAUControlKeyDefStruct@@@std@@@std@@V?$_Bucket_allocator@PAU?$_Hashtable_node@U?$pair@$$CBIPAUControlKeyDefStruct@@@std@@@std@@@2@@std@@QAEXI@Z',
      '0x71F2A0'),   # vector<_Hashtable_node *>::reserve, called by the object's hashtable
+    # CR5 / CR7: the funclet round's form, a tie the funclets leave (Create_NEW<CameraClass>, 112 copies)
+    ('avatar_pip.obj', '?Create_NEW@@YA?AV?$RefCountPtr@VCameraClass@@@@PAVCameraClass@@@Z', '0x5C4030'),
+    # CR1 / CR7: the one address every exact function's calls reach under the symbol
+    ('ui_attrb_skills.obj', '?Create_Get@@YA?AV?$RefCountPtr@VRenderObjClass@@@@PAVRenderObjClass@@@Z', '0x474080'),
 ]
 
 

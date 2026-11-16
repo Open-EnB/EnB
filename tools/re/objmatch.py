@@ -114,7 +114,12 @@ Last, an own-call round (D246 / CR4, USE_CALL_TIES): the one survivor the object
 calls under the function's own symbol reach (obj_called; D166 without its every-caller-is-ours test: it credits
 the address, not a placement); `exact` with `tiebreak` and `call_tie` set, never widening an object's range It runs
 after D166 has nothing more (run before it, it took D166's credits, which widen ranges, and cost range pairs).
-The round's evidence reaches further (CR2, run 2026-11-16): (1) USE_FUNCLET_NOTEXACT: the funclets of a parent
+When the object's own calls do not reach one survivor, the one address every exact function's calls reach under
+the symbol (D188's `called`, any object's, CR1's evidence) decides (CR7). The same own-call evidence also runs
+in the funclet round for a tie the funclets leave (CR5 / CR7): the one unclaimed survivor the object's own exact
+functions call; that credit places the object's copy (`call_tie` and `call_placed`) and counts for its range.
+(CR1's form, one last round after the loop feeding nothing, adds nothing over these two: measured, dropped.)
+The funclet round's evidence reaches further (CR2, run 2026-11-16): (1) USE_FUNCLET_NOTEXACT: the funclets of a parent
 that is not exact count as well when client.exe's bytes locate its FuncInfo (the address symbols.json names
 with the parent's symbol from a proof other than an exact match, by its EH prologue's pushed stub; else the one
 client FuncInfo whose whole unwind map matches the object's), only its matching states; (2) USE_FUNCLET_FOLDED:
@@ -210,6 +215,11 @@ USE_PUSHED_TIES = True
 # tie-break resolves nothing more; never widens an object's range). Unlike D166 the address may have callers in other objects too:
 # it credits the address (the copy the object's calls reach), not a placement. Only the object's own calls count:
 # another object's calls reach its own copy (emote_data / sclient's deque<int>::_Freefront 0x7E7CD0 / 0x756710)
+# The same switch, two more forms of the evidence (CR7, folding CR5's and CR1's variants): (1) in the funclet round,
+# a tie the funclets leave is the one unclaimed survivor the object's own exact functions call (CR5); such a credit
+# places the object's copy and counts for its range (`call_placed`); (2) in the own-call round, when the object's
+# own calls do not reach one survivor, the one address every exact function's calls reach under the symbol
+# (D188's `called`, CR1's evidence; other libraries' too with USE_EXTERN_CALLED)
 USE_CALL_TIES = True
 # CR2 (run 2026-11-16): a funclet's reach at an address symbols.json names with another function is not
 # evidence for the funclet's symbol (fontdatabase.obj's funclets reach ~StringClass at FontSoundStruct's
@@ -809,6 +819,7 @@ def match_objects(img, paths, region=None, callers=False, extern_called=None, ca
     # copies the linker may take from another object); then back to D80
     # D174 (P-TK2-1(b)): the caller tie-break's credits feed D80, the self name and the range like any
     # exact function, and what those credit may let the caller tie-break resolve more: repeat both
+    call_tied = set()   # CR5: id(r) of the funclet round's own-call credits
     call_round, call_credited = False, True     # D246 / CR4: the own-call round, after D166 (below)
     while True:
         phase = 'calltie' if call_round else 'd80'
@@ -824,7 +835,7 @@ def match_objects(img, paths, region=None, callers=False, extern_called=None, ca
                 for r, obj, sec, s, length in results:
                     # D246 / C35: a funclet tie fixes the symbol's address, not which object's copy the linker kept
                     if r['status'] == 'exact' and obj.own(sec) and not r.get('funclet_tie') \
-                            and not r.get('pushed_tie') and not r.get('call_tie'):
+                            and not r.get('pushed_tie') and not (r.get('call_tie') and not r.get('call_placed')):
                         a = int(r['addresses'][0], 16)
                         lo, hi = ranges.get(id(obj), (a, a))
                         ranges[id(obj)] = (min(lo, a), max(hi, a))
@@ -840,7 +851,7 @@ def match_objects(img, paths, region=None, callers=False, extern_called=None, ca
                     grown = False
                     for r, obj, sec, s, length in results:
                         if r['status'] == 'exact' and not obj.own(sec) and id(obj) in ranges and not r.get('funclet_tie') \
-                                and not r.get('pushed_tie') and not r.get('call_tie'):
+                                and not r.get('pushed_tie') and not (r.get('call_tie') and not r.get('call_placed')):
                             a = int(r['addresses'][0], 16)
                             wlo, whi = wide[id(obj)]
                             if wlo <= a <= whi:
@@ -991,10 +1002,23 @@ def match_objects(img, paths, region=None, callers=False, extern_called=None, ca
                             reach = funclet_reach({r['symbol']: own}).get(r['symbol'], ())
                         if len(reach) == 1 and next(iter(reach)) in survivors:
                             proposals.append((item, next(iter(reach))))
+                        elif USE_CALL_TIES:
+                            # CR5 / CR7: the one survivor the object's own exact functions call (~DynamicWindow-
+                            # HorizontalClass 0x5187B0, called by its scalar deleting destructor 0x518780)
+                            reach = obj_called.get((id(obj), r['symbol']), set())
+                            hit = [h for h in survivors if len(reach) == 1 and h in reach
+                                   and not claimed[h] - {r['symbol']}]
+                            if len(hit) == 1:
+                                proposals.append((item, hit[0]))
+                                call_tied.add(id(r))
                 elif phase == 'calltie':
                     # D246 / CR4: one survivor the object's own exact functions call under this symbol
                     if obj.symbol_class(r['symbol']) == 2 and not generated(r['symbol']):
                         reach = obj_called.get((id(obj), r['symbol']), ())
+                        if len(reach) != 1:
+                            # CR1 / CR7: else the one address every exact function's calls reach (Create_Peek
+                            # 0x55C490, RefCountPtr<RenderObjClass>::operator= 0x5988A0)
+                            reach = called.get(r['symbol'], ())
                         if len(reach) == 1 and next(iter(reach)) in survivors:
                             proposals.append((item, next(iter(reach))))
                 elif phase == 'pushed':
@@ -1065,7 +1089,9 @@ def match_objects(img, paths, region=None, callers=False, extern_called=None, ca
                     r['range'] = True
                 if phase == 'init':
                     r['initialiser'] = True
-                if phase == 'funclet':
+                if phase == 'funclet' and id(r) in call_tied:
+                    r['call_tie'] = r['call_placed'] = True     # CR5: the object's own call places its copy
+                elif phase == 'funclet':
                     r['funclet_tie'] = True
                 if phase == 'pushed':
                     r['pushed_tie'] = True
