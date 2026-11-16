@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 226 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
-| 3 | by convention from a client-named file or sibling | 1964 |
+| 3 | by convention from a client-named file or sibling | 1966 |
 | 2 | describes what the code does | 4982 |
-| 1 | neutral placeholder | 25128 |
+| 1 | neutral placeholder | 25134 |
 
 ## For review (score 3 and below)
 
@@ -3371,6 +3371,14 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_7E7A40` | `app/client/emote_data.h:38` | untagged neutral name (D10) |
 | 1 | `Unknown_7E7A70` | `app/client/emote_data.h:39` | untagged neutral name (D10) |
 | 1 | `Unknown40` | `app/client/emote_data.h:44` | untagged neutral name (D10) |
+| 1 | `_Points` | `app/client/enbdazzle.cpp:17` | neutral (D10) |
+| 1 | `DazzleOccluderStruct` | `app/client/enbdazzle.cpp:20` | neutral (D10): what 0x75DEE0 collects from the scene (8 bytes) |
+| 1 | `Obj` | `app/client/enbdazzle.cpp:22` | neutral |
+| 1 | `Dist2` | `app/client/enbdazzle.cpp:23` | neutral |
+| 1 | `Unknown_4F5090` | `app/client/enbdazzle.cpp:99` | untagged neutral name (D10) |
+| 1 | `Unknown_64` | `app/client/enbdazzle.cpp:116` | untagged neutral name (D10) |
+| 1 | `MainViewDazzleHandlerClass` | `app/client/enbdazzle.h:20` | neutral (D10) |
+| 1 | `client` | `app/client/enbdazzle.h:23` | what 0x50BA60 passes |
 | 1 | `obj, color` | `app/client/enbscene.cpp:16` | neutral (D10) |
 | 1 | `Unknown_75F750` | `app/client/enbscene.cpp:16` | untagged neutral name (D10) |
 | 1 | `UnknownA8` | `app/client/enbscene.cpp:31` | untagged neutral name (D10) |
@@ -6177,8 +6185,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `InterfaceSortScopeClass` | `app/client/local_interface_sort.h:48` | neutral (D10) |
 | 1 | `Unknown_C404F8` | `app/client/mainview.cpp:21` | neutral (D10): the client's 0xC404F8, 0x514480 copies 'Doppler_Enabled' to it (its home file is unknown) |
 | 1 | `Unknown_7C8DB0` | `app/client/mainview.cpp:24` | untagged neutral name (D10) |
-| 1 | `MainViewDazzleHandlerClass` | `app/client/mainview.cpp:32` | neutral (D10) |
-| 1 | `client` | `app/client/mainview.cpp:35` | what 0x50BA60 passes |
 | 1 | `MainViewOrbitalCallbackClass` | `app/client/mainview.cpp:48` | neutral (D10) |
 | 1 | `view` | `app/client/mainview.cpp:51` | neutral |
 | 1 | `Unknown_00` | `app/client/mainview.cpp:52` | untagged neutral name (D10) |
@@ -24901,23 +24907,23 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_42F940` | `programs/clientpoc/poc_window.cpp:79` | untagged neutral name (D10) |
 | 1 | `Unknown_42FAC0` | `programs/clientpoc/poc_window.cpp:80` | untagged neutral name (D10) |
 | 1 | `Unknown_42FBA0` | `programs/clientpoc/poc_window.cpp:81` | untagged neutral name (D10) |
-| 1 | `Unknown_6CE420` | `programs/clientpoc/poc_world.cpp:85` | untagged neutral name (D10) |
-| 1 | `Unknown_BA8C20` | `programs/clientpoc/poc_world.cpp:104` | untagged neutral name (D10) |
-| 1 | `Unknown_BA8C24` | `programs/clientpoc/poc_world.cpp:104` | untagged neutral name (D10) |
-| 1 | `Unknown_BA8C28` | `programs/clientpoc/poc_world.cpp:104` | untagged neutral name (D10) |
-| 1 | `Unknown_BA8C2C` | `programs/clientpoc/poc_world.cpp:104` | untagged neutral name (D10) |
-| 1 | `Unknown_BA8C30` | `programs/clientpoc/poc_world.cpp:105` | untagged neutral name (D10) |
-| 1 | `Unknown_BA8C34` | `programs/clientpoc/poc_world.cpp:105` | untagged neutral name (D10) |
-| 1 | `Unknown_BA8C38` | `programs/clientpoc/poc_world.cpp:105` | untagged neutral name (D10) |
-| 1 | `Unknown_BA8C3C` | `programs/clientpoc/poc_world.cpp:105` | untagged neutral name (D10) |
-| 1 | `Unknown_BA8C40` | `programs/clientpoc/poc_world.cpp:106` | untagged neutral name (D10) |
-| 1 | `Unknown_BA8C44` | `programs/clientpoc/poc_world.cpp:106` | untagged neutral name (D10) |
-| 1 | `Unknown_BA8C48` | `programs/clientpoc/poc_world.cpp:106` | untagged neutral name (D10) |
-| 1 | `Unknown_BA8C4C` | `programs/clientpoc/poc_world.cpp:106` | untagged neutral name (D10) |
-| 1 | `Unknown_BA8C50` | `programs/clientpoc/poc_world.cpp:107` | untagged neutral name (D10) |
-| 1 | `UnknownEventDispatcherClass` | `programs/clientpoc/poc_world.cpp:110` | untagged neutral name (D10) |
-| 1 | `Unknown_540A20` | `programs/clientpoc/poc_world.cpp:111` | untagged neutral name (D10) |
-| 1 | `Unknown_B70E40` | `programs/clientpoc/poc_world.cpp:124` | untagged neutral name (D10) |
+| 1 | `Unknown_6CE420` | `programs/clientpoc/poc_world.cpp:70` | untagged neutral name (D10) |
+| 1 | `Unknown_BA8C20` | `programs/clientpoc/poc_world.cpp:89` | untagged neutral name (D10) |
+| 1 | `Unknown_BA8C24` | `programs/clientpoc/poc_world.cpp:89` | untagged neutral name (D10) |
+| 1 | `Unknown_BA8C28` | `programs/clientpoc/poc_world.cpp:89` | untagged neutral name (D10) |
+| 1 | `Unknown_BA8C2C` | `programs/clientpoc/poc_world.cpp:89` | untagged neutral name (D10) |
+| 1 | `Unknown_BA8C30` | `programs/clientpoc/poc_world.cpp:90` | untagged neutral name (D10) |
+| 1 | `Unknown_BA8C34` | `programs/clientpoc/poc_world.cpp:90` | untagged neutral name (D10) |
+| 1 | `Unknown_BA8C38` | `programs/clientpoc/poc_world.cpp:90` | untagged neutral name (D10) |
+| 1 | `Unknown_BA8C3C` | `programs/clientpoc/poc_world.cpp:90` | untagged neutral name (D10) |
+| 1 | `Unknown_BA8C40` | `programs/clientpoc/poc_world.cpp:91` | untagged neutral name (D10) |
+| 1 | `Unknown_BA8C44` | `programs/clientpoc/poc_world.cpp:91` | untagged neutral name (D10) |
+| 1 | `Unknown_BA8C48` | `programs/clientpoc/poc_world.cpp:91` | untagged neutral name (D10) |
+| 1 | `Unknown_BA8C4C` | `programs/clientpoc/poc_world.cpp:91` | untagged neutral name (D10) |
+| 1 | `Unknown_BA8C50` | `programs/clientpoc/poc_world.cpp:92` | untagged neutral name (D10) |
+| 1 | `UnknownEventDispatcherClass` | `programs/clientpoc/poc_world.cpp:95` | untagged neutral name (D10) |
+| 1 | `Unknown_540A20` | `programs/clientpoc/poc_world.cpp:96` | untagged neutral name (D10) |
+| 1 | `Unknown_B70E40` | `programs/clientpoc/poc_world.cpp:109` | untagged neutral name (D10) |
 | 1 | `UnknownB02C90Class` | `programs/clientpoc/poc_world2.cpp:14` | untagged neutral name (D10) |
 | 1 | `Unknown04` | `programs/clientpoc/poc_world2.cpp:17` | untagged neutral name (D10) |
 | 1 | `Unknown_725AD0` | `programs/clientpoc/poc_world2.cpp:38` | untagged neutral name (D10) |
@@ -24927,7 +24933,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_73FDB0` | `programs/clientpoc/poc_world2.cpp:50` | untagged neutral name (D10) |
 | 1 | `Unknown_6F5090` | `programs/clientpoc/poc_world2.cpp:64` | untagged neutral name (D10) |
 | 1 | `Unknown8CClass` | `programs/clientpoc/poc_world2.cpp:82` | untagged neutral name (D10) |
-| 1 | `Unknown_04` | `programs/clientpoc/poc_world2.cpp:94` | untagged neutral name (D10) |
+| 1 | `Unknown_04` | `programs/clientpoc/poc_world2.cpp:100` | untagged neutral name (D10) |
 | 1 | `DeltaUnknownGlobal` | `stubs/app_stubs.cpp:46` | untagged neutral name (D10) |
 | 1 | `UnknownGlobal` | `stubs/app_stubs.cpp:47` | untagged neutral name (D10) |
 | 1 | `Unknown_BDB1C0` | `stubs/app_stubs.cpp:84` | untagged neutral name (D10) |
@@ -25788,6 +25794,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `StartTime` | `app/client/emote_data.h:42` | what it holds |
 | 2 | `Emote` | `app/client/emote_data.h:43` | what it holds |
 | 2 | `Sound` | `app/client/emote_data.h:45` | what it holds |
+| 2 | `Client` | `app/client/enbdazzle.h:25` | what it holds |
 | 2 | `std:` | `app/client/env_map_manager.h:35` | what it holds |
 | 2 | `Load` | `app/client/env_map_manager.h:43` | what it does |
 | 2 | `INI` | `app/client/env_map_manager.h:48` | what it is |
@@ -26477,7 +26484,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `SortList` | `app/client/local_interface_sort.h:42` | the asserts' '!SortList' |
 | 2 | `ui` | `app/client/local_interface_sort.h:51` | InterfaceSortClass's |
 | 2 | `ui` | `app/client/local_interface_sort.h:52` | InterfaceSortClass's |
-| 2 | `Client` | `app/client/mainview.cpp:36` | what it holds |
 | 2 | `View` | `app/client/mainview.cpp:54` | what it holds |
 | 2 | `Info` | `app/client/mainview.cpp:1781` | InfoCount's |
 | 2 | `iface, vp` | `app/client/map_pip.h:49` | the FAIL_IFs' iface_ptr is its Peek  // NAME 1 [arg]: neutral |
@@ -30335,6 +30341,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `MaxErrorDist` | `app/client/eff_seek.h:92` | the constructor's FAIL_IF 'MaxErrorDist < 0.0f' |
 | 3 | `WarpEffectClass` | `app/client/eff_warp.h:22` | effect.ini's EffectClass 'WarpEffect' (0xB92F5C), which the helper 0x6EAA40 makes |
 | 3 | `emote_data.h` | `app/client/emote_data.h:14` | header name assumed from the client's emote_data.cpp |
+| 3 | `_Instances` | `app/client/enbdazzle.cpp:18` | the FAIL_IF's |
+| 3 | `Compute_Dazzle_Visibility` | `app/client/enbdazzle.h:24` | the base's |
 | 3 | `env_map_manager.h` | `app/client/env_map_manager.h:15` | beside the client's env_map_manager.cpp |
 | 3 | `EnvironmentMapManagerClass` | `app/client/env_map_manager.h:39` | by convention (D24) from the client's env_map_manager.cpp |
 | 3 | `extrap.h` | `app/client/extrap.h:19` | header name assumed from the client's extrap.cpp |

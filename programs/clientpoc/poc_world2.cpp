@@ -82,6 +82,12 @@ void UnknownAF0DD0Class::Unknown_73FDB0(DataNode<UnknownAF0DD0Class *> *node, Cl
 Unknown8CClass::Unknown8CClass()
 {
 	STUB_CALLED("POC Unknown8CClass: the watchers' list");
+	static bool watchdog = false;	// the watchdog starts with the first client object (world entry; it started in enbdazzle.cpp's stand-in before QE)
+	if (!watchdog) {
+		watchdog = true;
+		void Poc_Start_Watchdog();
+		Poc_Start_Watchdog();
+	}
 	int *p = (int *)this;
 	p[1] = p[2] = p[3] = p[4] = p[5] = p[6] = 0;
 	p[6] = (int)(p + 1);

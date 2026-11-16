@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-856 entries in 296 files.
+857 entries in 297 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -130,6 +130,7 @@ edit the comments in the code, not this file.
 | `app/client/eff_seek.cpp:330` | `LinearRandomSeekEffectClass::Unknown_1C` | marker | NOT EXACT: order-only (the frame and the 96 instructions are the client's; the squared length adds z, x, y where Length2 adds z, y, x, and two rows' products load the matrix element first); attempts.py show 0x6F1AD0 0x6F1AD0 |
 | `app/client/emote_data.cpp:91` | `EmoteDataClass::Unknown_7E6860` | marker | NOT EXACT: control flow (the switch's default reaches the stop block placed after the compare in the client, before the active block in this build) |
 | `app/client/emote_data.cpp:156` | `EmoteDataClass::Unknown_7E70A0` | marker | NOT EXACT: frame (the client's frame has 4 more bytes of locals; the cases' x87 code follows from it) |
+| `app/client/enbdazzle.cpp:90` | `MainViewDazzleHandlerClass::Compute_Dazzle_Visibility` | marker | NOT EXACT: the shape and the slots match; the early return is not tail-merged in the client, std::sort's _Unguarded_insert is inlined there, register and schedule residues |
 | `app/client/enbscene.cpp:170` | `MainViewSceneClass::Apply_Projectors` | marker | NOT EXACT: field-offset (explain.py; 0.78): the client addresses the projector lists' heads from the manager (+0x60 / +0x64, +0x48 / +0x4C), ours from the list (add 0x5C, +4 / +8), and copies the camera's transform in another order |
 | `app/client/enbscene.cpp:201` | `MainViewSceneClass::Unknown_75FB00` | marker | NOT EXACT: field-offset (explain.py; 0.84): FP operand order only: the client evaluates the inlined Matrix3::Rotate_Vector rows (Compute_Point) and Matrix3D::Inverse_Transform_Vector in another order than the tree's wwmath forms |
 | `app/client/env_map_manager.cpp:50` | `EnvironmentMapManagerClass::Unknown_760770` | marker | NOT EXACT: relocation (explain.py: our DX8Wrapper::_Create_DX8_Texture takes MipCountType, the client's TextureClass::MipCountType), then frame layout (similarity 0.69, its calls one for one the client's): functional for POC (D64) 0x760770 |

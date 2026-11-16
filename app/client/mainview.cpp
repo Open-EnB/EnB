@@ -28,13 +28,13 @@ class UIStarmapClass { public: StarmapPipClass *Unknown_7C8DB0(bool on); };	// u
 
 
 
-// enbdazzle.cpp's visibility handler (0x75DD00, 8 bytes)
-class MainViewDazzleHandlerClass : public DazzleVisibilityClass	// NAME 1: neutral (D10)
-{
-public:
-	MainViewDazzleHandlerClass(SClient *client); ~MainViewDazzleHandlerClass();	// 0x75DD00 / 0x75DE70 (Shutdown 0x50C2F0)  // NAME 1 [client]: what 0x50BA60 passes
-	SClient *Client;								// +0x04  // NAME 2: what it holds
-};
+#include "enbdazzle.h"	// MainViewDazzleHandlerClass (0x75DD00, 8 bytes): the +0x128 visibility handler
+
+
+
+
+
+
 
 #include "ui_scan.h"
 #include "gutter_radar.h"	// the +0x84 object (0x7B6BD0)
