@@ -28,28 +28,28 @@
 void Message_Warn(const char *sender, const char *category, const char *file, int line,
 	const char *format, ...);	// NAME 5 [Message_Warn]: the client's WWPROFILE("Message_Warn") label (D198)
 
-// 0x8B3EC0 (WWOnline's library, not app\wwudp; here until that library is in the tree, so that
-// CordCon calls it as the client does instead of inlining it): CRC-32 with the reflected table of 0xEDB88320,
-// built on first use, no final inversion.
-unsigned int Cord_CRC(const unsigned char *data, int len, unsigned int crc)	// NAME 1: placeholder
-{
-	static unsigned int table[256];
-	static bool made = false;
-	if (!made) {
-		for (unsigned int i = 0; i < 256; i++) {
-			unsigned int c = i;
-			for (int k = 8; k != 0; k--) {
-				c = (c & 1) ? (c >> 1) ^ 0xEDB88320 : c >> 1;
-			}
-			table[i] = c;
-		}
-		made = true;
-	}
-	for (int i = 0; i < len; i++) {
-		crc = (crc >> 8) ^ table[(data[i] ^ crc) & 0xFF];
-	}
-	return crc;
-}
+// 0x8B3EC0 (Cord_CRC) moved to its client object app\client\unknown_8b3e70.cpp (D25: blank lines keep log lines).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // 0x856970: the members zeroed (+0x04 left to Init), then Init inlined.
 CordMgr::CordMgr() :
