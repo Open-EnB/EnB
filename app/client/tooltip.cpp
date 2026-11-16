@@ -212,8 +212,8 @@ void UIViewUnknown30Class::Unknown_6AB8F0(DestroyGadgetEvent *event, GadgetClass
 	}
 	Unknown_6AB930(NULL);
 }
-
-// NOT EXACT: inline-budget (0.75): the client calls the DestroyGadgetEvent callback's constructor 0x6AC050 out of line for the disconnect (inlined here) and loads the gadget's name before the avatar id
+static inline void Unknown_Remove_Callback(SignalMap &map, GadgetClass *gadget, UIViewUnknown30Class *view) { SignalBaseClass::MemberCallback<GadgetClass, UIViewUnknown30Class, void (UIViewUnknown30Class::*)(DestroyGadgetEvent *, GadgetClass *), DestroyGadgetEvent> callback(view, &UIViewUnknown30Class::Unknown_6AB8F0); map.Remove(gadget, callback); } static inline void Unknown_Remove_Destroy(GadgetClass *gadget, UIViewUnknown30Class *view) { Unknown_Remove_Callback(GadgetClass::Get_Signal_Map(), gadget, view); }	// NAME 1: neutral (D10); two inline layers and a named callback: the client calls the callback's constructor 0x6AC050 out of line and passes its address by lea
+// NOT EXACT: register allocation (the client loads the gadget's name before the avatar id for Packet_0068; the callback's constructor 0x6AC050 is out of line as the client's)
 
 void UIViewUnknown30Class::Unknown_6AB930(GadgetClass *gadget)
 {
@@ -227,7 +227,7 @@ void UIViewUnknown30Class::Unknown_6AB930(GadgetClass *gadget)
 			}
 		}
 		Unknown_6ABC10();
-		GadgetClass::Get_Signal_Map().Remove(CurGadget, this, &UIViewUnknown30Class::Unknown_6AB8F0, DestroyGadgetEvent());
+		Unknown_Remove_Destroy(CurGadget, this);
 	}
 	Unknown0D = false;
 	Unknown0E = false;
