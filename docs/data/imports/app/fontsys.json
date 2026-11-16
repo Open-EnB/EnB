@@ -134,7 +134,9 @@
   "0x6D89C0",
   "0x6D8A80",
   "0x6D8AB0",
-  "0x6D8B40"
+  "0x6D8B40",
+  "0x6D8B70",
+  "0x6D8B80"
  ],
  "merged": [],
  "name": "client/fontsys.cpp",

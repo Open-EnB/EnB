@@ -102,7 +102,9 @@
   "0x7BA3E0",
   "0x7BA480",
   "0x7BA7F0",
-  "0x7BA820"
+  "0x7BA820",
+  "0x7BA890",
+  "0x7BA8A0"
  ],
  "merged": [],
  "name": "client/nav_list_line_draw.cpp",

@@ -270,6 +270,9 @@ USE_EXTERN_CALLED = True
 USE_CONTRIB_TIES = True
 # ... and when several holders' contributions hold a copy, the first holder's in link order (the lowest range)
 USE_CONTRIB_FIRST = True
+# ... and the `short` COMDATs (too short to search) at the one verified start in the first holder's contribution
+# that holds their bytes and length, then padding, D80's break_tie not contradicting
+USE_CONTRIB_SHORTS = True
 
 
 def generated(name):
@@ -1212,6 +1215,30 @@ def contribution_ties(results, pending, done, claimed, text, base, img, known):
             inside = [h for h in inside if owner(h) == first]
         if len(inside) == 1:
             props.append((item, inside[0]))
+    if USE_CONTRIB_SHORTS:
+        # a short COMDAT (too short to search): the verified starts in its holders' contributions where its bytes
+        # fullmatch, as long as the client function there (then padding), confirmed by D80's break_tie
+        starts = _verified_starts(img)
+        for r, obj, sec, s, length in results:
+            if r['status'] != 'short' or length <= 0 or obj.own(sec) or generated(r['symbol'])                     or obj.symbol_class(r['symbol']) != 2:
+                continue
+            inside = []
+            held = [k for k in holders[r['symbol']] if k in ranges]
+            # only the first holder's contribution in link order: a lone copy in a later holder's code may be another
+            # function with its bytes (an own getter of the object), the first holder's copy not found
+            for k in [min((ranges[k][0], k) for k in held)[1]] if held else []:
+                lo = ranges[k][0]
+                i = bisect.bisect_right(keys, lo)
+                hi = min(ranges[k][1] + RANGE_GAP, keys[i] - 1 if i < len(keys) else ranges[k][1] + RANGE_GAP)
+                j = bisect.bisect_left(starts, lo)
+                while j < len(starts) and starts[j] <= hi:
+                    a = starts[j]
+                    e = starts[j + 1] if j + 1 < len(starts) else a + length
+                    if owner(a) == k and not claimed[a] - {r['symbol']} and                             _fullmatch_at(obj, sec, s, length, text, base, a) and _padding(text, base, a + length, e)                             and break_tie(obj, sec, s, length, text, base, [a], img, known)[0] == [a]:
+                        inside.append(a)
+                    j += 1
+            if len(inside) == 1:
+                props.append(((r, obj, sec, s, length, []), inside[0]))
     by_addr = collections.defaultdict(set)
     for (r, *_), a in props:
         by_addr[a].add(r['symbol'])

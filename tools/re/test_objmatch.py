@@ -19,6 +19,7 @@ scriptedmovieline.obj's and ui_symbolchat.obj's constructors (copies at 0x56E170
 CONTRIB_TIES (D246 / CR8): a tied COMDAT whose one survivor lies in its holder's contribution (from its first exact own
 function to the next object's, at most RANGE_GAP past its last): px_process.obj's vector<PxProcessClass *> helpers
 right after its code, against byte-identical copies in other files' code (`contrib`).
+Its short COMDATs (USE_CONTRIB_SHORTS): _Destroy 0x455FE0 there, at the first holder's verified start holding its bytes.
 """
 import os
 import sys
@@ -51,10 +52,12 @@ class FuncletEvidence(unittest.TestCase):
                 self.assertEqual(res[sym].get('short_known'), 'funclet')
                 # the rule's switch: without it the function stays short
                 objmatch.USE_FUNCLET_CALLS = False
+                objmatch.USE_CONTRIB_SHORTS = False     # CR8: its contribution places it too
                 try:
                     res = {r['symbol']: r for r in objmatch.match_objects(img, [path])}
                 finally:
                     objmatch.USE_FUNCLET_CALLS = True
+                    objmatch.USE_CONTRIB_SHORTS = True
                 self.assertEqual(res[sym]['status'], 'short')
 
 
@@ -107,10 +110,12 @@ class PushedEvidence(unittest.TestCase):
                 self.assertEqual(res[sym].get('short_known'), 'pushed')
                 # the rule's switch: without it the function stays short
                 objmatch.USE_PUSHED_CALLS = False
+                objmatch.USE_CONTRIB_SHORTS = False     # CR8: its contribution places it too
                 try:
                     res = {r['symbol']: r for r in objmatch.match_objects(img, [path], (0x401000, 0x8C1B50))}
                 finally:
                     objmatch.USE_PUSHED_CALLS = True
+                    objmatch.USE_CONTRIB_SHORTS = True
                 self.assertEqual(res[sym]['status'], 'short')
 
 PUSHED_TIES = [
@@ -260,6 +265,9 @@ CONTRIB_TIES = [
     ('px_process.obj', '?_Ucopy@?$vector@PAVPxProcessClass@@V?$allocator@PAVPxProcessClass@@@std@@@std@@IAEPAPAVPxProcessClass@@PBQAV3@0PAPAV3@@Z', '0x456000'),
     ('px_process.obj', '?_Construct@std@@YAXPAPAVPxProcessClass@@ABQAV2@@Z', '0x456080'),
 ]
+CONTRIB_SHORTS = [
+    ('px_process.obj', '?_Destroy@?$vector@PAVPxProcessClass@@V?$allocator@PAVPxProcessClass@@@std@@@std@@IAEXPAPAVPxProcessClass@@0@Z', '0x455FE0'),
+]
 APP_REGION = (0x401000, 0x8C1B50)
 
 
@@ -301,6 +309,11 @@ class XcuSubrun(unittest.TestCase):
 class ContribTies(unittest.TestCase):
     def test_cases(self):
         _check(self, CONTRIB_TIES, 'USE_CONTRIB_TIES', 'contrib', APP_REGION)
+
+
+class ContribShorts(unittest.TestCase):
+    def test_cases(self):
+        _check(self, CONTRIB_SHORTS, 'USE_CONTRIB_SHORTS', 'contrib', APP_REGION, off_status='short')
 
 
 if __name__ == '__main__':
