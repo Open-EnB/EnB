@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "packet classes (opcode 167) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
  "expected": {},
@@ -20,9 +18,11 @@
   "0x87A940",
   "0x87A9B0",
   "0x87A9E0",
+  "0x87AAC0",
   "0x87AB60",
+  "0x87AC30",
   "0x87AC70",
-  "0x88D500"
+  "0x87ACA0"
  ],
  "merged": [],
  "name": "packets/pkunknown_87a940.cpp",

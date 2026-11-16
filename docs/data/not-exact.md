@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-856 entries in 296 files.
+855 entries in 295 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -700,7 +700,6 @@ edit the comments in the code, not this file.
 | `app/input/winmsg.cpp:21` | `Unknown_42FAC0` | marker | NOT EXACT: shape: the client keeps Remove's HeadNode test after the search, ours drops it (attempts.csv) |
 | `app/input/winmsg.cpp:50` | `Unknown_42FBA0` | mention | NOT EXACT (shape), then wwlib's SList<T> instances 0x42FBF0-0x430340 and the node pool's Allocate_Object_Memory / Free_Object_Memory 0x430370 / 0x430450. Its statics are the list 0xBDAAD8 (vtable, head 0xBDAADC, tail 0xBDAAE0). The handlers are called with (message, wParam, lParam) through the two-argument type the callers declare. Forms that matched: 0x42F940 with the entry's constructor in the A... |
 | `app/packets/pkdamage.h:28` | `?` | mention | NOT EXACT) |
-| `app/packets/pkunknown_867010.cpp:6` | `Packet_00B3Class::Packet_00B3Class` | marker | NOT EXACT: the inline std::string assign's terminating store indexes [ebx + ecx], the client's [ecx + ebx] (otherwise the same bytes) |
 | `app/packets/pkupdate.h:51` | `?` | mention | NOT EXACT) |
 | `app/packets/pkupdate.h:113` | `?` | mention | NOT EXACT) |
 | `app/shared/accel.cpp:162` | `String_To_Value` | marker | NOT EXACT: the inlined Set keeps current and target on the FPU in the client (fld st(0), fst, fxch); see the notes |
