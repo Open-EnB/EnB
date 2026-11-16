@@ -286,11 +286,12 @@ float SteeringClass::Closing_Speed(const SteeringVehicleStruct &vehicle, const S
 	return Vector3::Dot_Product(dir, vehicle.Velocity) - Vector3::Dot_Product(dir, target.Velocity);
 }
 
-// NOT EXACT: field-offset (explain.py): the client keeps the avoidance result's Y on the FPU (X and Z in memory)
+// result default-constructed, then assigned (Vector3's user operator=): the client keeps the copy's Y on the FPU for Length2
 // 0x447180
 Vector3 SteeringClass::Follow(const SteeringVehicleStruct &vehicle, const SteeringTargetStruct &target, PxWrapper *proxim)
 {
-	Vector3 result = Avoid_Obstacles(vehicle, proxim);
+	Vector3 result;
+	result = Avoid_Obstacles(vehicle, proxim);
 	if (result.Length2() > 0.0001f) {
 		return result;
 	}
@@ -308,32 +309,36 @@ Vector3 SteeringClass::Follow(const SteeringVehicleStruct &vehicle, const Steeri
 	return result;
 }
 
-// NOT EXACT: field-offset (explain.py): as Follow, the avoidance result's Y on the FPU in the client
+// NOT EXACT: field-offset (explain.py): the inlined two-argument Seek's offset loads in another order (fsub +0x3C / +0x44; 23 rows); the avoidance part matches with Follow's form (result assigned, early returns)
 // 0x447480
 Vector3 SteeringClass::Seek(const SteeringVehicleStruct &vehicle, const Vector3 &target, PxWrapper *proxim)
 {
-	Vector3 result = Avoid_Obstacles(vehicle, proxim);
-	if (result.Length2() <= 0.0001f) {
-		result = Avoid_Collisions(vehicle, proxim);
-		if (result.Length2() <= 0.0001f) {
-			return Seek(vehicle, target);
-		}
+	Vector3 result;
+	result = Avoid_Obstacles(vehicle, proxim);
+	if (result.Length2() > 0.0001f) {
+		return result;
 	}
-	return result;
+	result = Avoid_Collisions(vehicle, proxim);
+	if (result.Length2() > 0.0001f) {
+		return result;
+	}
+	return Seek(vehicle, target);
 }
 
-// NOT EXACT: frame (explain.py): as Follow; frame 0x24 against 0x30
+// NOT EXACT: field-offset (explain.py): the inlined two-argument Evade (through Seek)'s offset loads in another order (fsub +0x3C / +0x44; 23 rows); the avoidance part matches with Follow's form (result assigned, early returns)
 // 0x447690
 Vector3 SteeringClass::Evade(const SteeringVehicleStruct &vehicle, const SteeringTargetStruct &target, PxWrapper *proxim)
 {
-	Vector3 result = Avoid_Obstacles(vehicle, proxim);
-	if (result.Length2() <= 0.0001f) {
-		result = Avoid_Collisions(vehicle, proxim);
-		if (result.Length2() <= 0.0001f) {
-			return Evade(vehicle, target, 500.0f);
-		}
+	Vector3 result;
+	result = Avoid_Obstacles(vehicle, proxim);
+	if (result.Length2() > 0.0001f) {
+		return result;
 	}
-	return result;
+	result = Avoid_Collisions(vehicle, proxim);
+	if (result.Length2() > 0.0001f) {
+		return result;
+	}
+	return Evade(vehicle, target, 500.0f);
 }
 
 // NOT EXACT: shape (explain.py): the client copies the result twice (a second local) and orders the length sums otherwise
