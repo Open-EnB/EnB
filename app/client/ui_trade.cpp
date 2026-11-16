@@ -270,7 +270,7 @@ void UITradeClass::Unknown_60()
 	Unknown_652FF0();
 	bool can_sell = false;
 	bool can_sell_stack = false;
-	RefCountPtr<UIPdaCargoClass> cargo = PDA->Unknown_695680();
+	RefCountPtr<UIInvClass> cargo = PDA->Unknown_695680();
 	if (cargo) {
 		if (cargo->UnknownB4 != Unknown140) {
 			Close_Box();
@@ -782,7 +782,7 @@ void UITradeClass::Unknown_652C60()
 {
 	Unknown174 = 4;
 	MoneyClass total;
-	RefCountPtr<UIPdaCargoClass> cargo = PDA->Unknown_695630();
+	RefCountPtr<UIInvClass> cargo = PDA->Unknown_695630();
 	if (cargo) {
 		int slot = cargo->UnknownB4;
 		InvDataPeekClass *peek = cargo->Unknown_59FE10()->Unknown_688830();
@@ -823,7 +823,7 @@ void UITradeClass::Unknown_652E70()
 bool UITradeClass::Unknown_652EB0()
 {
 	if (Unknown174 != 1) {
-		RefCountPtr<UIPdaCargoClass> cargo = PDA->Unknown_695630();
+		RefCountPtr<UIInvClass> cargo = PDA->Unknown_695630();
 		if (!cargo) return(false);
 		int slot = cargo->UnknownB4;
 		if (slot == -1) return(false);
@@ -855,12 +855,12 @@ void UITradeClass::Unknown_652FF0()
 				Unknown_5A02E0(true);
 				break;
 			case 2: {
-				RefCountPtr<UIPdaCargoClass> cargo = PDA->Unknown_695630();
+				RefCountPtr<UIInvClass> cargo = PDA->Unknown_695630();
 				if (cargo) cargo->Unknown_5A03B0(false);
 				break;
 			}
 			case 3: {
-				RefCountPtr<UIPdaCargoClass> cargo = PDA->Unknown_695630();
+				RefCountPtr<UIInvClass> cargo = PDA->Unknown_695630();
 				if (cargo) cargo->Unknown_5A03B0(true);
 				break;
 			}
@@ -879,7 +879,7 @@ void UITradeClass::Unknown_652FF0()
 void UITradeClass::Unknown_6531F0(bool arg)
 {
 	if (!Unknown_652EB0()) return;
-	RefCountPtr<UIPdaCargoClass> cargo = PDA->Unknown_695630();
+	RefCountPtr<UIInvClass> cargo = PDA->Unknown_695630();
 	if (cargo) {
 		int slot = cargo->UnknownB4;
 		InvDataPeekClass *peek = cargo->Unknown_59FE10()->Unknown_688830();

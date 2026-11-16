@@ -3085,14 +3085,14 @@
   "evidence": "UIGroupClass::Unknown_54 0x594040 (ui_group.cpp) calls it (0x59409C) on 'new UISymbolChatClass' (0x64A480's constructor result) and stores the result in SymbolChatUI; the body is Create_NEW's (the bytes of the named copies 0x4A46F0 and others) (F1, 2026-11-16)"
  },
  {
-  "address": "0x5314D0",
-  "symbol": "?Unknown_Find_Field@@YAPAVDeltaCompoundClass@@PAVDeltaCompoundClass@@ABVNameClass@@@Z",
-  "evidence": "ClientItemPropertySpecialLevelRequirementClass's 0x531080 calls it (0x5310F9) for its first lookup, Unknown_Find_Valid<DeltaCompoundClass> (the rpg aux data compound); auxdata.h's body (assert line 0x9B) with a type global 0xBE3A74 other than DeltaTemplateClass<int>'s 0xC416A8 (0x514B60) (F1, 2026-11-16)"
- },
- {
   "address": "0xAFE0B8",
   "symbol": "??_7UnknownAFE0B8Class@@6B@",
   "evidence": "viewbttn.cpp's drag-pointer table: Unknown_6B5FD0 stores it (0x6B5FF6) into its 'new' object; slot +0x00 is the thunk to 0x6B5ED0 (UnknownAFE0B8Class::Unknown_00, exact in viewbttn), slot +0x04 the thunk 0x410D20 to 0x6B5FB0 (F1, 2026-11-16)",
   "kind": "vtable"
+ },
+ {
+  "address": "0x653C00",
+  "symbol": "??1?$RefCountPtr@VUIInvClass@@@@QAE@XZ",
+  "evidence": "ui_trade's unwind funclets (parents 0x651390, 0x651510, 0x652EB0) reach it for the locals PDA->Unknown_695630 / 695680 return; its bytes are those of RefCountPtr<UIPdaCargoClass>'s destructor 0x6960D0, which pdaint's object places between Create_NEW<UIPdaCargoClass> 0x6960A0 and Create_NEW<UIVaultClass> 0x696110, so the trade window's T is another class with the same RefCountClass at +0x38: UIInvClass, whose Unknown_5A03B0 ui_trade calls through it (F1, 2026-11-16; provisional)"
  }
 ]
