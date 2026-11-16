@@ -1,6 +1,5 @@
 {
  "ambiguous": [
-  "0x42A6C0",
   "0x46BE90",
   "0x474080"
  ],
@@ -8,6 +7,7 @@
  "description": "RECONSTRUCTED from client.exe 0x656FF0-0x6580B0: __FILE__ e:\\build\\beta\\G\\app\\Client\\ui_vault.cpp (asserts l.115, 126, 176); the PDA's vault window (tables 0xAF92F0 / 0xAF92E4 / 0xAF92D8)",
  "expected": {},
  "in_tree": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",
@@ -36,6 +36,7 @@
   "0x52B270",
   "0x52B2A0",
   "0x52B2D0",
+  "0x52B2F0",
   "0x52B310",
   "0x52B330",
   "0x52B350",
@@ -52,6 +53,7 @@
   "0x6579F0",
   "0x657A30",
   "0x657A60",
+  "0x657DA0",
   "0x658060",
   "0x658090",
   "0x6580A0"
@@ -59,6 +61,7 @@
  "merged": [],
  "name": "client/ui_vault.cpp",
  "shared": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",
@@ -87,6 +90,7 @@
   "0x52B270",
   "0x52B2A0",
   "0x52B2D0",
+  "0x52B2F0",
   "0x52B310",
   "0x52B330",
   "0x52B350",
@@ -118,6 +122,7 @@
   "0x515730",
   "0x515750",
   "0x52B2D0",
+  "0x52B2F0",
   "0x52B310",
   "0x52B330",
   "0x549760",

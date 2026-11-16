@@ -1,11 +1,10 @@
 {
- "ambiguous": [
-  "0x42A6C0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "opcode 234 (GM Edit Player Inventory) written by hand (builder P4, 6 of 6 exact in appfile.py match), client 0x86F630-0x86FCD0; the file name provisional (NAME 1)",
  "expected": {},
  "in_tree": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",
@@ -23,6 +22,7 @@
   "0x52B270",
   "0x52B2A0",
   "0x52B2D0",
+  "0x52B2F0",
   "0x52B310",
   "0x52B330",
   "0x52B350",
@@ -39,6 +39,7 @@
  "merged": [],
  "name": "packets/pkgmeditplayerinventory.cpp",
  "shared": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",
@@ -56,6 +57,7 @@
   "0x52B270",
   "0x52B2A0",
   "0x52B2D0",
+  "0x52B2F0",
   "0x52B310",
   "0x52B330",
   "0x52B350",
@@ -65,6 +67,7 @@
   "0x42D120",
   "0x42E170",
   "0x52B2D0",
+  "0x52B2F0",
   "0x52B310",
   "0x52B330",
   "0x5953D0"

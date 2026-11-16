@@ -3,7 +3,6 @@
   "0x42B2F0",
   "0x439C40",
   "0x46BE90",
-  "0x474000",
   "0x474080",
   "0x474450",
   "0x474480",
@@ -99,7 +98,8 @@
   "0x7B98E0",
   "0x7B9C80",
   "0x7B9CB0",
-  "0x7B9CD0"
+  "0x7B9CD0",
+  "0x7BA2C0"
  ],
  "merged": [],
  "name": "client/nav_list_line_draw.cpp",

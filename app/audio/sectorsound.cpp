@@ -53,7 +53,7 @@ void SectorSoundClass::Update(int time, float elevation)
 }
 
 // @0x43C780
-// NOT EXACT: stack slots only (explain.py: same length, 0.68): the client keeps ini at esp+0x18 and its copy of 'this' at esp+0x28, here 'this' is at esp+0x18 and ini at esp+0x1C
+// NOT EXACT: register-only (explain.py, same length, 0.76): the frame is the client's since num_channels == 0 returns (D252); the client loads 'this' for Load_Section before the pushes and &ini into eax
 void SectorSoundClass::Load_INI()
 {
 	CurrentElevation = -1;
@@ -80,34 +80,34 @@ void SectorSoundClass::Load_INI()
 			num_channels++;
 		}
 	}
-	if (num_channels != 0) {
-		Initialize(num_channels);
-		int channel = 0;
-		for (section = section_list.First_Valid(); section != NULL; section = section->Next_Valid()) {
-			const char *section_name = section->Section;
-			float max_elevation = ini.Get_Float(section_name, "MaxElevation", -9999.999f);
-			if (max_elevation != -9999.999f) {
-				Load_Section(&ini, section_name, channel);
-				ElevationStruct elevation;
-				elevation.MaxElevation = max_elevation;
-				elevation.MinElevation = -9999.0f;
-				elevation.Channel = channel;
-				Elevations.push_back(elevation);
-				channel++;
-			}
-		}
-		for (unsigned index = 0; index < Elevations.size(); index++) {
-			float min_elevation = -9999.999f;
-			for (unsigned other = 0; other < Elevations.size(); other++) {
-				if (index != other && Elevations[other].MaxElevation < Elevations[index].MaxElevation && min_elevation < Elevations[other].MaxElevation) {
-					min_elevation = Elevations[other].MaxElevation;
-				}
-			}
-			Elevations[index].MinElevation = min_elevation;
+	if (num_channels == 0) {
+		return;
+	}
+	Initialize(num_channels);
+	int channel = 0;
+	for (section = section_list.First_Valid(); section != NULL; section = section->Next_Valid()) {
+		const char *section_name = section->Section;
+		float max_elevation = ini.Get_Float(section_name, "MaxElevation", -9999.999f);
+		if (max_elevation != -9999.999f) {
+			Load_Section(&ini, section_name, channel);
+			ElevationStruct elevation;
+			elevation.MaxElevation = max_elevation;
+			elevation.MinElevation = -9999.0f;
+			elevation.Channel = channel;
+			Elevations.push_back(elevation);
+			channel++;
 		}
 	}
+	for (unsigned index = 0; index < Elevations.size(); index++) {
+		float min_elevation = -9999.999f;
+		for (unsigned other = 0; other < Elevations.size(); other++) {
+			if (index != other && Elevations[other].MaxElevation < Elevations[index].MaxElevation && min_elevation < Elevations[other].MaxElevation) {
+				min_elevation = Elevations[other].MaxElevation;
+			}
+		}
+		Elevations[index].MinElevation = min_elevation;
+	}
 }
-
 
 
 

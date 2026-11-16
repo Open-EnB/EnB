@@ -22,6 +22,7 @@
 class StartPacketClass : public PacketClass
 {
 public:
+	StartPacketClass(int unknown, int player_id);	// 0x8A6610  // NAME 2: the stores (no caller left)
 	StartPacketClass(RawPacketClass *raw);	// 0x8A66A0
 	virtual RawPacketClass *Build();	// +0x04 0x8A6730
 	virtual bool Process_Packet(void *client);	// +0x08 0x733440 (cpacket.cpp, register-only residue)

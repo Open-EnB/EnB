@@ -1,10 +1,8 @@
 {
  "ambiguous": [
-  "0x42A6C0",
   "0x42B250",
   "0x42B2F0",
   "0x434070",
-  "0x46BE90",
   "0x474080",
   "0x474480"
  ],
@@ -12,6 +10,7 @@
  "description": "UILineDisplayClass, client 0x5A4B50-0x5A8C70 with the tables' instances to 0x5AAE30: the asserts on the client's lines 172-595 (D25); NOT EXACT: 0x5A4B50, the destructor 0x5A58A0, 0x5A69B0, 0x5A7A80, 0x5A7E80, Clear 0x5A8100, 0x5A8B60, 0x5A8C70; the mission messages 0x5A8350 declared only",
  "expected": {},
  "in_tree": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",
@@ -43,6 +42,7 @@
   "0x5156B0",
   "0x5156F0",
   "0x515750",
+  "0x51C630",
   "0x5A4B50",
   "0x5A5080",
   "0x5A52A0",
@@ -120,6 +120,7 @@
  "merged": [],
  "name": "client/ui_line_display.cpp",
  "shared": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",
@@ -151,6 +152,7 @@
   "0x5156B0",
   "0x5156F0",
   "0x515750",
+  "0x51C630",
   "0x5A93D0",
   "0x5AA9D0",
   "0x5AAE20",

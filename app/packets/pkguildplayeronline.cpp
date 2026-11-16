@@ -450,6 +450,12 @@ int GuildPermissionsPacketClass::Print(char *buffer, int len)
 	return(_snprintf(buffer, len, "GuildPermissionsPacket {PlayerID=%s}", Unknown_8B44E0(PlayerID, id)));
 }
 
+GuildRankNamesGuildPacketClass::GuildRankNamesGuildPacketClass(__int64 player_id, const std::vector<GuildRankNameStruct> &ranks) :
+	PlayerID(player_id),
+	Ranks(ranks)
+{
+}
+
 GuildRankNamesGuildPacketClass::GuildRankNamesGuildPacketClass(RawPacketClass *raw)
 {
 	raw->Get(PlayerID);

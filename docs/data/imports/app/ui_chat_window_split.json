@@ -1,6 +1,5 @@
 {
  "ambiguous": [
-  "0x42A6C0",
   "0x46BE90",
   "0x474080"
  ],
@@ -9,6 +8,7 @@
  "expected": {},
  "in_tree": [
   "0x42A100",
+  "0x42A6C0",
   "0x42A710",
   "0x42A820",
   "0x42A940",
@@ -57,6 +57,7 @@
  "name": "client/ui_chat_window_split.cpp",
  "shared": [
   "0x42A100",
+  "0x42A6C0",
   "0x42A710",
   "0x42A820",
   "0x42A940",

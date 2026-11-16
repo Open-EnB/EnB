@@ -730,7 +730,7 @@ void Unknown68DC20Class::Unknown_2C(bool force)
 		case -1:
 			break;
 		default:
-			G_ASSERT(false);
+			G_ASSERT(0);
 			break;
 	}
 	mode = 0;

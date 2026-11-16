@@ -22,7 +22,9 @@
 class Packet_00B3Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x00B3
 {
 public:
+	Packet_00B3Class(const char *name);	// 0x867010  // NAME 2: the stores (no caller left)
 	Packet_00B3Class(RawPacketClass *raw);	// 0x867250
+	virtual ~Packet_00B3Class();	// +0x00 0x8671B0 / 0x8671E0
 	virtual RawPacketClass *Build();	// +0x04 0x8673C0
 	virtual bool Process_Packet(void *client);	// +0x08 0x868BB0 (clientstub.cpp l.287)
 	virtual int Get_Data_Size();	// +0x0C 0x867490

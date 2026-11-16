@@ -2,8 +2,15 @@
 #include "pkunknown_867010.h"
 #include <stdio.h>
 
+Packet_00B3Class::~Packet_00B3Class()
+{
+}
 
-// NOT EXACT: the inline std::string assign's terminating store indexes [ebx + ecx], the client's [ecx + ebx] (otherwise the same bytes)
+// @0x867010
+Packet_00B3Class::Packet_00B3Class(const char *name) : Name(name), Unknown1C(0)
+{
+}
+
 Packet_00B3Class::Packet_00B3Class(RawPacketClass *raw) : Unknown1C(0)
 {
 	char *string = raw->Get_String();

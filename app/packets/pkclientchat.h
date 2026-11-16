@@ -53,8 +53,8 @@ public:
 	virtual bool Process_Packet(void *client);	// +0x08 0x868CA0 (clientstub.cpp l.302)
 	virtual int Get_Data_Size();	// +0x0C 0x878EE0
 	virtual int Print(char *buffer, int len);	// +0x10 0x878F30 (the class name: 'ClientChatRequestPacketClass')
-#ifdef __CHATGADG_MEMBERS	// chatgadg.cpp only: a declaration sclient.cpp sees moves its pad window (0x74D990, as sclient.h's __UI_TRADE_MEMBERS)
-	void Unknown_878D90(class Unknown_ChatStreamClass *stream);	// 0x878D90 (not rebuilt; chatgadg.cpp's 0x65CCD0 passes the avatar's chat stream: Unknown44 / Unknown48 from its bytes)  // NAME 1 [stream]: what 0x65CCD0 passes
+#ifdef __CHATGADG_MEMBERS	// chatgadg.cpp, sclient.cpp and pkclientchat.cpp only: a declaration sclient.cpp sees moves its pad window (0x74D990, as sclient.h's __UI_TRADE_MEMBERS)
+	void Unknown_878D90(class Unknown_ChatStreamClass *stream);	// 0x878D90 (chatgadg.cpp's 0x65CCD0 passes the avatar's chat stream: Unknown44 / Unknown48 from its bytes)  // NAME 1 [stream]: what 0x65CCD0 passes
 #endif
 
 	int Unknown0C;	// +0x0C
@@ -62,7 +62,7 @@ public:
 	std::string Unknown14;	// +0x14
 	std::string Unknown24;	// +0x24
 	std::string Unknown34;	// +0x34
-	char *Unknown44;	// +0x44 (new[] Unknown48 bytes when Unknown48 isn't 0; 0x878D90, not rebuilt, sets it from another object)
+	char *Unknown44;	// +0x44 (new[] Unknown48 bytes when Unknown48 isn't 0; 0x878D90 sets it from a chat stream's bytes, not owned)
 	int Unknown48;	// +0x48 (the bytes at Unknown44)
 	bool Unknown4C;	// +0x4C (Unknown44 is the packet's: the destructor deletes it)
 };
@@ -111,6 +111,9 @@ public:
 	std::string Unknown10;	// +0x10
 	std::vector<std::string> Unknown20;	// +0x20 (a 4-byte count, then the strings)
 	std::vector<std::string> Unknown30;	// +0x30 (a 4-byte count, then the strings)
+
+	void Add_Unknown20(const std::string &name);	// 0x879DE0 (push_back; no caller left in the client)  // NAME 1 [Add_Unknown20, name]: neutral (D10), as pkunknown_888b60's Add_Unknown18
+	void Add_Unknown30(const std::string &name);	// 0x87A000 (push_back; no caller left in the client)  // NAME 1 [Add_Unknown30, name]: neutral (D10)
 };
 
 // opcode 166 (0x00A6, CLIENT_CHAT_ERROR): vtable 0xB09ED0, constructor 0x87A560, 0x44 bytes

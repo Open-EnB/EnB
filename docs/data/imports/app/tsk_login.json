@@ -1,6 +1,5 @@
 {
  "ambiguous": [
-  "0x42A6C0",
   "0x42B2F0",
   "0x455FB0"
  ],
@@ -8,6 +7,7 @@
  "description": "the login task, client 0x767240-0x76BC40 (kernel-map.md 6, step 9), partly: the slots, helpers and two packets' handlers; the asserts on the client's lines 263-1405 (D25); NOT EXACT: Run, Go_Next_Step, Go_Back_Step (register-only), the global connection 0x7698E0 (shape)",
  "expected": {},
  "in_tree": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",
@@ -28,6 +28,7 @@
   "0x52B270",
   "0x52B2A0",
   "0x52B2D0",
+  "0x52B2F0",
   "0x52B310",
   "0x52B330",
   "0x52B350",
@@ -93,6 +94,7 @@
  "merged": [],
  "name": "client/tasks/tsk_login.cpp",
  "shared": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",
@@ -113,6 +115,7 @@
   "0x52B270",
   "0x52B2A0",
   "0x52B2D0",
+  "0x52B2F0",
   "0x52B310",
   "0x52B330",
   "0x52B350",
@@ -137,6 +140,7 @@
   "0x431C80",
   "0x433CE0",
   "0x52B2D0",
+  "0x52B2F0",
   "0x52B310",
   "0x52B330",
   "0x767560",

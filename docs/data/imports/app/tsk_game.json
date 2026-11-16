@@ -1,12 +1,12 @@
 {
  "ambiguous": [
-  "0x42A6C0",
   "0x42B2F0"
  ],
  "copy": "reconstructed",
  "description": "the game task, client 0x765F80-0x767230 (kernel-map.md 6, step 9): the asserts on the client's lines 58-389 (D25); NOT EXACT: Init (inline budget); the redirect packet's handler 0x766FC0 not rebuilt",
  "expected": {},
  "in_tree": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",
@@ -42,6 +42,7 @@
  "merged": [],
  "name": "client/tasks/tsk_game.cpp",
  "shared": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",

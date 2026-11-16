@@ -1863,7 +1863,7 @@ void UICpitClass::Unknown_583DA0(int arg)
 }
 
 // 0x583DC0: the player's damage texts onto the cockpit (CLIENT_DAMAGE 100), kept in Unknown158 until they finish
-// NOT EXACT: inline budget (the client calls the list's _Construct out of line, 0x584F90, and keeps emp in bl; ours expands it)
+// (the dead size() after the header's push_back spends its nested budget: the client calls the list's _Construct 0x584F90 out of line at both pushes)
 void UICpitClass::Unknown_583DC0(Unknown6D47C0Class *text, Unknown6D47C0Class *header, int inflicted, bool emp)
 {
 	if (text) {
@@ -1880,7 +1880,7 @@ void UICpitClass::Unknown_583DC0(Unknown6D47C0Class *text, Unknown6D47C0Class *h
 		} else {
 			InterfaceMesh->Peek_Object()->Add_Sub_Object_To_Bone((RenderObjClass *)header, "shield_bar0");
 		}
-		Unknown158.push_back(*(RenderObjClass **)&header);
+		Unknown158.push_back(*(RenderObjClass **)&header); Unknown158.size();
 		if (inflicted == 3) {
 			SoundManager->Unknown_75B0D0(Unknown_BE5BD0.c_str(), 1);
 		}

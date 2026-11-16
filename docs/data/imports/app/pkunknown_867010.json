@@ -1,11 +1,10 @@
 {
- "ambiguous": [
-  "0x42A6C0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "packet classes (opcode 179) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
  "expected": {},
  "in_tree": [
+  "0x42A6C0",
   "0x42A820",
   "0x42AB30",
   "0x52B210",
@@ -13,13 +12,17 @@
   "0x52B270",
   "0x52B2A0",
   "0x52B2D0",
+  "0x52B2F0",
   "0x52B310",
   "0x52B330",
   "0x52B350",
   "0x5953D0",
+  "0x867010",
   "0x867170",
   "0x867190",
   "0x8671B0",
+  "0x8671E0",
+  "0x867250",
   "0x8673C0",
   "0x867490",
   "0x8674B0",
@@ -28,6 +31,7 @@
  "merged": [],
  "name": "packets/pkunknown_867010.cpp",
  "shared": [
+  "0x42A6C0",
   "0x42A820",
   "0x42AB30",
   "0x52B210",
@@ -35,6 +39,7 @@
   "0x52B270",
   "0x52B2A0",
   "0x52B2D0",
+  "0x52B2F0",
   "0x52B310",
   "0x52B330",
   "0x52B350",
@@ -44,6 +49,7 @@
  ],
  "short_known": [
   "0x52B2D0",
+  "0x52B2F0",
   "0x52B310",
   "0x52B330",
   "0x5953D0",

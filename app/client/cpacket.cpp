@@ -218,7 +218,7 @@ bool CreatePacketClass::Process_Packet(void *instance)
 
 	RenderObjClass *robj;
 	if (Type != 8) {
-		robj = ClientObjectClass::Unknown_6F5140(BaseAsset, sclient, Scale, HSV);
+		robj = ClientObjectClass::Unknown_6F5140(BaseAsset, sclient, Scale, &HSV.X);
 	} else {
 		robj = new LightClass(LightClass::POINT);
 	}
@@ -1065,7 +1065,7 @@ bool NameDecalPacketClass::Process_Packet(void *instance)
 		object->Set_Decal_Name(Name);
 		RenderObjClass *model = object->Unknown_6F3BC0();
 		if (model) {
-			Unknown_80FF20(model, Name, RGB);
+			Unknown_80FF20(model, Name, &ColorRGB.X);
 			model->Release_Ref();
 		}
 	}
@@ -1246,7 +1246,7 @@ bool ChangeBaseAssetPacketClass::Process_Packet(void *instance)
 	SClient *sclient = (SClient *)instance;
 	ClientObjectClass *object = sclient->Find_Object(GameID);
 	if (object) {
-		RenderObjClass *robj = ClientObjectClass::Unknown_6F5140(BaseAsset, sclient, Scale, Unknown18);
+		RenderObjClass *robj = ClientObjectClass::Unknown_6F5140(BaseAsset, sclient, Scale, &HSVShift.X);
 		object->Unknown_6F33F0(robj, BaseAsset, Scale);
 		robj->Release_Ref();
 		if (object->Unknown_6F5A40() && sclient->Unknown_744B60()) {

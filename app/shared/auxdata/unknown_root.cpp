@@ -88,6 +88,10 @@ public:
 	virtual void Attach(PolicyStateClass *, int) {}					// 0x4A42D0
 };
 
+// The always-true condition, made through one inline layer: Unknown_48 calls PolicyConditionClass's
+// constructor 0x4A4520 out of line (the budget drops that deepest expansion), as the client does
+inline PolicyConditionClass *New_Always() { return new PolicyAlwaysClass; }  // NAME 2: describes what it does
+
 // vtable 0xAEACA8: a rule set with a condition of its own
 class PolicyConditionalSetClass : public PolicyRuleSetClass  // NAME 2: describes what it does
 {
@@ -102,9 +106,10 @@ public:
 class PolicyIncludeAllClass : public PolicyConditionalSetClass  // NAME 2: describes what it does
 {
 public:
-	PolicyIncludeAllClass() : PolicyConditionalSetClass(Create_NEW((PolicyConditionClass *)new PolicyAlwaysClass))
+	PolicyIncludeAllClass() : PolicyConditionalSetClass(Create_NEW(New_Always()))
 	{
-		Add_Rule(NameClass("*"), INCLUDE, -1);
+		NameClass name("*");
+		Add_Rule(name, INCLUDE, -1);
 	}
 };
 
@@ -161,6 +166,10 @@ void DeltaVisitorClass::Visit_Children(DeltaCompoundClass *delta)
 **	* DeltaVisitorClass::Visit_Children 0x4B0860 (another object, unattributed).
 **	The same object also has DeltaClass's inline virtuals 0x4A3C50-0x4A3CB0 and DeltaCompoundClass's
 **	vtable 0xAEABE4 and deleting destructor 0x4A3CD0 (emitted here first: compiler-generated).
+**	* UnknownSendRootClass::Unknown_48 0x4A40B0: the always-true condition comes through one inline
+**	  layer (New_Always), so its PolicyConditionClass constructor 0x4A4520 stays out of line as in the
+**	  client (and with it the class's deleting destructor 0x4A4540); the rule's name is a named local
+**	  (the client builds it before pushing Add_Rule's other arguments).
 **
 **	Not rebuilt:
 **	* (0x4A3990-0x4A3B10, the Matrix3D and __int64 conversions, are strconv_lib.cpp's, which

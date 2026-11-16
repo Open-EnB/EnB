@@ -24,8 +24,10 @@
   "0x7EEBA0",
   "0x7EEBD0",
   "0x7EEC20",
+  "0x7EED40",
   "0x7EED80",
-  "0x7EEDB0"
+  "0x7EEDB0",
+  "0x7EEE00"
  ],
  "merged": [],
  "name": "client/mv3dsnd.cpp",

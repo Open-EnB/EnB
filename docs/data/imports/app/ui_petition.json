@@ -1,8 +1,7 @@
 {
  "ambiguous": [
   "0x46BE90",
-  "0x474080",
-  "0x541A10"
+  "0x474080"
  ],
  "copy": "reconstructed",
  "description": "RECONSTRUCTED: the petition window (UIPetitionClass, 0x5D33B0-0x5D4147 with the colours' initialisers 0x5D3320-0x5D339E): its tooltips' section 'UI_PETITION', model 'hsi01a', tables 0xAF4E14 / 0xAF4E08 / 0xAF4DFC; no string names the file (NAME 1 by the tooltips' section and link order before ui_petition_avatar_pip.cpp, provisional D137)",
@@ -28,6 +27,7 @@
   "0x5623B0",
   "0x5623D0",
   "0x5623F0",
+  "0x56CCE0",
   "0x5D3320",
   "0x5D3350",
   "0x5D3380",
@@ -69,6 +69,7 @@
   "0x5623B0",
   "0x5623D0",
   "0x5623F0",
+  "0x56CCE0",
   "0x5D4130",
   "0x5D4140"
  ],

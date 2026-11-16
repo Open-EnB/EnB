@@ -100,6 +100,7 @@ public:
 	bool Register(unsigned short port, MemoryServerClass *server);	// 0x827700  // NAME 2: what it does
 	bool Is_Listening(unsigned short port);							// 0x8277C0  // NAME 2: what it does
 	bool Unregister(unsigned short port);							// 0x827840  // NAME 2: what it does
+	bool Unregister_All();											// 0x8279A0 (no caller left: Servers.clear())  // NAME 2: what it does
 	ConnectionClass *Connect(unsigned short port);					// 0x827A80  // NAME 2: what it does
 };
 

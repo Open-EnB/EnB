@@ -65,7 +65,7 @@ bool ChatWordFilterClass::Remove_Word(const std::string &word)
 }
 
 // 0x4E1300
-// NOT EXACT: frame (the client keeps one more dword local: a dead store of find's pos, the word iterator held twice; attempts.py show 0x4E1300)
+// each find starts at the last match (the client pushes pos as find's offset: the slot once read as a dead store)
 bool ChatWordFilterClass::Filter(const std::string &text, std::string &filtered)
 {
 	bool changed = false;
@@ -73,8 +73,8 @@ bool ChatWordFilterClass::Filter(const std::string &text, std::string &filtered)
 	Chat_Filter_Strip_Spaces(stripped);
 	Chat_Filter_To_Lower(stripped);
 	for (std::vector<std::string>::iterator word = Words.begin(); word != Words.end(); ++word) {
-		int pos;
-		while ((pos = stripped.find(*word)) != std::string::npos) {
+		int pos = 0;
+		while ((pos = stripped.find(*word, pos)) != std::string::npos) {
 			std::string::iterator first = stripped.begin() + pos;
 			std::string::iterator last = first + word->size();
 			std::generate(first, last, ChatFilterSymbolsClass());

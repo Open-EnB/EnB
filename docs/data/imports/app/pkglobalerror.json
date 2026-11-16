@@ -1,11 +1,10 @@
 {
- "ambiguous": [
-  "0x42A6C0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "opcode 117's object, 0x864A10-0x864FF0 (no assert: the file name provisional, NAME 1): written by hand (builder P5)",
  "expected": {},
  "in_tree": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A970",
   "0x42AB30",
@@ -14,13 +13,15 @@
   "0x52B270",
   "0x52B2A0",
   "0x52B2D0",
+  "0x52B2F0",
   "0x52B310",
   "0x52B330",
   "0x52B350",
   "0x5953D0",
-  "0x595410",
   "0x864A10",
+  "0x864C60",
   "0x864C90",
+  "0x864E40",
   "0x864EB0",
   "0x864FA0",
   "0x864FC0",
@@ -29,6 +30,7 @@
  "merged": [],
  "name": "packets/pkglobalerror.cpp",
  "shared": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A970",
   "0x42AB30",
@@ -37,6 +39,7 @@
   "0x52B270",
   "0x52B2A0",
   "0x52B2D0",
+  "0x52B2F0",
   "0x52B310",
   "0x52B330",
   "0x52B350",
@@ -44,6 +47,7 @@
  ],
  "short_known": [
   "0x52B2D0",
+  "0x52B2F0",
   "0x52B310",
   "0x52B330",
   "0x5953D0",

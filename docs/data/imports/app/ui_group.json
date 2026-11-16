@@ -1,6 +1,5 @@
 {
  "ambiguous": [
-  "0x42A6C0",
   "0x42B2F0",
   "0x46BE90",
   "0x474080",
@@ -10,6 +9,7 @@
  "description": "UIGroupClass (ui_group.cpp's __FILE__; client 0x593180-0x598A60, claims #27 / #28): the constructor 0x593BD0, destructor 0x593D70, slot +0x7C, the member lookups, the ClientGroupEvent emitters (line 1594), 0x597B00 / 0x597B70 / 0x597D10, the formation button state 0x5981B0-0x5982A0 and the control keys 0x5985A0 / 0x598720 on the client's lines (D25), UG1",
  "expected": {},
  "in_tree": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",
@@ -40,6 +40,7 @@
   "0x52B270",
   "0x52B2A0",
   "0x52B2D0",
+  "0x52B2F0",
   "0x52B310",
   "0x52B330",
   "0x52B350",
@@ -110,6 +111,7 @@
  "merged": [],
  "name": "client/ui_group.cpp",
  "shared": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",
@@ -140,6 +142,7 @@
   "0x52B270",
   "0x52B2A0",
   "0x52B2D0",
+  "0x52B2F0",
   "0x52B310",
   "0x52B330",
   "0x52B350",
@@ -169,6 +172,7 @@
   "0x5156F0",
   "0x515750",
   "0x52B2D0",
+  "0x52B2F0",
   "0x52B310",
   "0x52B330",
   "0x543750",

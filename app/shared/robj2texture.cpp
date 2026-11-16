@@ -51,7 +51,7 @@ RObj2Texture::~RObj2Texture()
 }
 
 // @0x497700
-// NOT EXACT (0.63, attempts.py 0x497700): frame 0xC4 vs the client's 0xA4; the client keeps a 0.0f in memory for the camera translation's X and Y adds, ours folds them
+// NOT EXACT (attempts.py 0x497700): order-only: the client's frame 0xA4 and instructions, its stack slots in another order (the blocks around the back-buffer copy and the lock loop give the size)
 TextureClass *RObj2Texture::Render_TextureMap(RenderObjClass *robj, const SphereClass *sphere)
 {
 	WWPROFILE("RObj2Texture::Render_TextureMap");
@@ -78,7 +78,7 @@ TextureClass *RObj2Texture::Render_TextureMap(RenderObjClass *robj, const Sphere
 	}
 
 	Matrix3D camera_tm(bsphere.Center);
-	camera_tm.Adjust_Translation(Vector3(0.0f, 0.0f, bsphere.Radius));
+	camera_tm.Translate_Z(bsphere.Radius);
 	Camera->Set_Transform(camera_tm);
 
 	Matrix3D light_tm = camera_tm;
@@ -103,9 +103,11 @@ TextureClass *RObj2Texture::Render_TextureMap(RenderObjClass *robj, const Sphere
 	const ViewportClass &vp = Camera->Get_Viewport();
 	WW3D::Normalize_Coordinates(width, height, fx, fy);
 	Vector2 vmin = vp.Min;
-	vmin.Scale(fx, fy);
 	Vector2 vmax = vp.Max;
-	vmax.Scale(fx, fy);
+	vmin.X *= fx;
+	vmax.X *= fx;
+	vmin.Y *= fy;
+	vmax.Y *= fy;
 	Camera->Set_Viewport(vmin, vmax);
 	WW3D::Begin_Render(true, true, Vector3(0, 0, 0));
 	WW3D::Render(scene, Camera, false, false, Vector3(0, 0, 0));
@@ -119,33 +121,38 @@ TextureClass *RObj2Texture::Render_TextureMap(RenderObjClass *robj, const Sphere
 	robj->Set_Hidden(hidden);
 
 	SurfaceClass *back = DX8Wrapper::_Get_DX8_Back_Buffer(0);
-	SurfaceClass::SurfaceDescription desc;
-	back->Get_Description(desc);
-	SurfaceClass *copy = new SurfaceClass(width, height, desc.Format);
-	RECT rect;
-	rect.left = 0;
-	rect.top = 0;
-	rect.right = width;
-	rect.bottom = height;
-	DX8Wrapper::_Copy_DX8_Rects(back->Peek_D3D_Surface(), &rect, 1, copy->Peek_D3D_Surface(), NULL);
+	SurfaceClass *copy;
+	{
+		SurfaceClass::SurfaceDescription desc;
+		back->Get_Description(desc);
+		copy = new SurfaceClass(width, height, desc.Format);
+		RECT rect;
+		rect.right = width;
+		rect.left = 0;
+		rect.top = 0;
+		rect.bottom = height;
+		DX8Wrapper::_Copy_DX8_Rects(back->Peek_D3D_Surface(), &rect, 1, copy->Peek_D3D_Surface(), NULL);
+	}
 
 	SurfaceClass *surface = new SurfaceClass(width, height, WW3D_FORMAT_A8R8G8B8);
 	surface->Copy(0, 0, 0, 0, width, height, copy);
-	int pitch;
-	unsigned char *bits = (unsigned char *)surface->Lock(&pitch);
-	for (int y = 0; y < height; y++) {
-		unsigned char *pixel = bits;
-		for (int x = 0; x < width; x++) {
-			if (pixel[0] == 0 && pixel[1] == 0 && pixel[2] == 0) {
-				pixel[3] = 0;
-			} else {
-				pixel[3] = 0xFF;
+	{
+		int pitch;
+		unsigned char *bits = (unsigned char *)surface->Lock(&pitch);
+		for (int y = 0; y < height; y++) {
+			unsigned char *pixel = bits;
+			for (int x = 0; x < width; x++) {
+				if (pixel[0] == 0 && pixel[1] == 0 && pixel[2] == 0) {
+					pixel[3] = 0;
+				} else {
+					pixel[3] = 0xFF;
+				}
+				pixel += 4;
 			}
-			pixel += 4;
+			bits += pitch;
 		}
-		bits += pitch;
+		surface->Unlock();
 	}
-	surface->Unlock();
 
 	TextureClass *texture = new TextureClass(surface);
 	REF_PTR_RELEASE(back);
@@ -200,6 +207,9 @@ TextureClass *Create_Projector_Render_Target(int width, int height)
 **   code: 0x497BB5 copies from the camera's own viewport).
 ** - Create_Projector_Render_Target (0x498120): Renegade's wwphys/pscene_projectors.cpp helper without its
 **   last-resort retry; proj_man.cpp's two callers (0x493620, 0x493D80).
-** - NOT EXACT: Render_TextureMap (the frame is 0x20 bytes larger than the client's; the camera transform's
-**   Adjust_Translation: the client adds a 0.0f kept in memory to the X and Y translation, VC6 folds ours).
+** - Render_TextureMap: the camera backs off along its own Z axis (Translate_Z: the client adds a 0.0f kept in memory
+**   to the X and Y translation, the identity's 0 * radius, and the radius itself to Z; light_tm's Translate_X / _Y
+**   are the same family), and the viewport is scaled member by member (the client's multiply order: Min.X, Max.X,
+**   Min.Y, Max.Y). NOT EXACT: order-only, its stack slots in another order (the frame size comes from the blocks
+**   around the back-buffer copy and the lock loop).
 */

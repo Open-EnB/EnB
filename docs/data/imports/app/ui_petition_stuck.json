@@ -1,11 +1,10 @@
 {
- "ambiguous": [
-  "0x42A6C0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "the petition's 'stuck' page (the client's asserts name e:\\build\\beta\\G\\app\\Client\\ui_petition_stuck.cpp): UIPetitionStuckClass over UIPetitionEntryClass, 0x5D7370-0x5D762F",
  "expected": {},
  "in_tree": [
+  "0x42A6C0",
   "0x42A820",
   "0x42F250",
   "0x45CC10",
@@ -36,6 +35,7 @@
  "merged": [],
  "name": "client/ui_petition_stuck.cpp",
  "shared": [
+  "0x42A6C0",
   "0x42A820",
   "0x42F250",
   "0x45CC10",

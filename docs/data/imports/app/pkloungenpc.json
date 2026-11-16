@@ -1,12 +1,12 @@
 {
  "ambiguous": [
-  "0x42A6C0",
   "0x42B2F0"
  ],
  "copy": "reconstructed",
  "description": "LOUNGE_NPC 82's object, 0x897800-0x89A710 (no assert: the file name provisional, NAME 1): written by hand (builder P6)",
  "expected": {},
  "in_tree": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",
@@ -21,6 +21,7 @@
   "0x52B270",
   "0x52B2A0",
   "0x52B2D0",
+  "0x52B2F0",
   "0x52B310",
   "0x52B330",
   "0x52B350",
@@ -68,6 +69,7 @@
  "merged": [],
  "name": "packets/pkloungenpc.cpp",
  "shared": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",
@@ -82,6 +84,7 @@
   "0x52B270",
   "0x52B2A0",
   "0x52B2D0",
+  "0x52B2F0",
   "0x52B310",
   "0x52B330",
   "0x52B350",
@@ -94,6 +97,7 @@
   "0x42D120",
   "0x42E170",
   "0x52B2D0",
+  "0x52B2F0",
   "0x52B310",
   "0x52B330",
   "0x5953D0",

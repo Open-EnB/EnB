@@ -1,6 +1,5 @@
 {
  "ambiguous": [
-  "0x42A6C0",
   "0x455FB0",
   "0x474080"
  ],
@@ -8,6 +7,7 @@
  "description": "StarbaseShipCustomizeInterface (the client's RTTI: its FlashingGadgetEvent callback's type name 0xB89BB0, among this file's 'buy_ship' strings), the starbase's ship customisation window (ui_ship_cust.cpp's __FILE__ 0xB896B8; its asserts at lines 712, 1108, 2017, 2020; client 0x6181B0-0x620CA0, before ui_shipcust.cpp): bases Unknown5BB320Class and ui_shipcust.h's Unknown620D20Class at +0xAC (ui_ship_cust.h); the constructor 0x6181B0, the destructor 0x6186A0, the getters, the model calls, 0x61AFC0, 0x61B760, 0x61D260, 0x61E730, 0x61EF60, 0x61F0E0, 0x61F180, 0x61F1D0, 0x61F690 exact; slot +0x54 0x618CA0, 0x61A4D0, 0x61B170, 0x61BD80, 0x61DF80, 0x61E8B0, 0x61E8E0, 0x61F250 NOT EXACT; the events slot +0x68 0x619470 not yet; decal.h's inlines 0x618A50 / 0x618C10 / 0x619280 / 0x61DF40 and the part's 0x6191F0 emitted here (the client's copies)",
  "expected": {},
  "in_tree": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",
@@ -41,6 +41,7 @@
   "0x52B270",
   "0x52B2A0",
   "0x52B2D0",
+  "0x52B2F0",
   "0x52B310",
   "0x52B330",
   "0x52B350",
@@ -130,6 +131,7 @@
  "merged": [],
  "name": "client/ui_ship_cust.cpp",
  "shared": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",
@@ -163,6 +165,7 @@
   "0x52B270",
   "0x52B2A0",
   "0x52B2D0",
+  "0x52B2F0",
   "0x52B310",
   "0x52B330",
   "0x52B350",
@@ -184,6 +187,7 @@
   "0x61DF40",
   "0x61F640",
   "0x61F720",
+  "0x61FAE0",
   "0x61FB90",
   "0x620B60",
   "0x620B80",
@@ -210,6 +214,7 @@
   "0x515730",
   "0x515750",
   "0x52B2D0",
+  "0x52B2F0",
   "0x52B310",
   "0x52B330",
   "0x5411F0",

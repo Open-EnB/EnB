@@ -24,6 +24,7 @@ class Packet_00A7Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x
 public:
 	Packet_00A7Class();	// 0x87A940
 	Packet_00A7Class(RawPacketClass *raw);	// 0x87A9E0
+	virtual ~Packet_00A7Class();	// +0x00 0x87AAC0
 	virtual RawPacketClass *Build();	// +0x04 0x87AB60
 	virtual bool Process_Packet(void *client);	// +0x08 0x868CD0 (clientstub.cpp l.305)
 	virtual int Get_Data_Size();	// +0x0C 0x87AC30

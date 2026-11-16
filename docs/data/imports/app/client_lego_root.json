@@ -1,14 +1,12 @@
 {
  "ambiguous": [
-  "0x42A6C0",
-  "0x42B2F0",
-  "0x46BE90",
-  "0x474000"
+  "0x42B2F0"
  ],
  "copy": "reconstructed",
  "description": "client_lego_root.cpp (the client's assert __FILE__, 'client_object.AuxData' line 39 in the constructor 0x732030): ClientLegoRootClass, the client object's lego root (0xB8 bytes, vtable 0xB030A0: ClientLegoImplClass's but for the destructor, +0x1C and +0x48), client 0x731FA0-0x7333B0 with the identifier vector's instances; it hangs the object's 'Legos' aux data attachments (0x732790 / 0x732880 through 0x7294D0 / 0x729770). co.h's UnknownB4Class stays co.cpp's view of it (0x731FA0 returns it, 0x732690 is its member here) (WE8)",
  "expected": {},
  "in_tree": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",
@@ -18,9 +16,11 @@
   "0x42F250",
   "0x45CC10",
   "0x700AA0",
+  "0x700BC0",
   "0x700E60",
   "0x705760",
   "0x729740",
+  "0x72E200",
   "0x731FA0",
   "0x732030",
   "0x7324C0",
@@ -40,6 +40,7 @@
  "merged": [],
  "name": "client/client_lego_root.cpp",
  "shared": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",
@@ -49,9 +50,11 @@
   "0x42F250",
   "0x45CC10",
   "0x700AA0",
+  "0x700BC0",
   "0x700E60",
   "0x705760",
-  "0x729740"
+  "0x729740",
+  "0x72E200"
  ],
  "short_known": [
   "0x42E170"

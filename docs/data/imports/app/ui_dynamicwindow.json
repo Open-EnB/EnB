@@ -1,13 +1,12 @@
 {
  "ambiguous": [
-  "0x42A6C0",
-  "0x46BE90",
   "0x474080"
  ],
  "copy": "reconstructed",
  "description": "RECONSTRUCTED from client.exe: ui_dynamicwindow.cpp's object 0x589D30-0x58B62F (__FILE__ 0xB7EF24, FAIL_IF lines 252-373; UIDynamicWindowClass, tables 0xAF12DC / D0 / C4 / AC, its gadget side 0xAF1380)",
  "expected": {},
  "in_tree": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",
@@ -31,6 +30,7 @@
   "0x515710",
   "0x515730",
   "0x515750",
+  "0x517030",
   "0x51D730",
   "0x532B10",
   "0x5411F0",
@@ -75,6 +75,7 @@
  "merged": [],
  "name": "client/ui_dynamicwindow.cpp",
  "shared": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",
@@ -98,11 +99,13 @@
   "0x515710",
   "0x515730",
   "0x515750",
+  "0x517030",
   "0x51D730",
   "0x532B10",
   "0x5411F0",
   "0x56F010",
   "0x58A030",
+  "0x58B450",
   "0x58B4C0",
   "0x58B600",
   "0x58B610",

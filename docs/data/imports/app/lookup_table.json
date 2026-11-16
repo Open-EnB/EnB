@@ -1,12 +1,12 @@
 {
  "ambiguous": [
-  "0x42A6C0",
   "0x42B250"
  ],
  "copy": "reconstructed",
  "description": "the lookup tables, client 0x4EC1F0-0x4F0080 with the instances: the asserts on the client's lines 38-433 (D25); NOT EXACT: the continuous table's Create 0x4ED660, the sampled table's constructor 0x4EDBE0",
  "expected": {},
  "in_tree": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",
@@ -94,6 +94,7 @@
  "merged": [],
  "name": "shared/lookup_table.cpp",
  "shared": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",

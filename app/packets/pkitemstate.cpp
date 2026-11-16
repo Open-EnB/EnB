@@ -2,6 +2,10 @@
 #include "pkitemstate.h"
 #include <stdio.h>
 
+ItemStatePacketClass::ItemStatePacketClass(int id, int inventory, int slot, int state, bool bool_val) :
+	ID(id), State(state), BoolVal(bool_val), Inventory(inventory), Slot(slot)
+{
+}
 
 ItemStatePacketClass::ItemStatePacketClass(RawPacketClass *raw)
 {

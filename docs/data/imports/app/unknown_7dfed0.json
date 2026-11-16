@@ -1,13 +1,12 @@
 {
  "ambiguous": [
-  "0x42A6C0",
-  "0x42B2F0",
-  "0x7C9E90"
+  "0x42B2F0"
  ],
  "copy": "reconstructed",
  "description": "the registration screen's XML reader Sub14CImplClass (MSXML DOMDocument through #import's smart pointers; vtable 0xAF70DC / 0xAF70C8 slots 0x7DFED0-0x7E1C80), no __FILE__ or assert. File PROVISIONAL (D137)",
  "expected": {},
  "in_tree": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",
@@ -17,6 +16,7 @@
   "0x42D050",
   "0x42D120",
   "0x47CE60",
+  "0x7C9E90",
   "0x7DFED0",
   "0x7E0000",
   "0x7E0030",
@@ -67,6 +67,7 @@
  "merged": [],
  "name": "client/unknown_7dfed0.cpp",
  "shared": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",
@@ -76,6 +77,7 @@
   "0x42D050",
   "0x42D120",
   "0x47CE60",
+  "0x7C9E90",
   "0x7E0000"
  ],
  "short_known": [

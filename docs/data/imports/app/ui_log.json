@@ -1,6 +1,5 @@
 {
  "ambiguous": [
-  "0x42A6C0",
   "0x46BE90",
   "0x474080",
   "0x47D640"
@@ -9,6 +8,7 @@
  "description": "UILogClass, the log book window (no __FILE__; file name provisional, D137: the tooltip section 'UI_LOG'; client 0x5AAE40-0x5ACB7F, after ui_line_display.cpp's tables 0x5AAE30, before ui_login.cpp's constructor 0x5ACB80; its <string> initialiser 0x5ACB30 and the deleting destructor's adjustor entries 0x5ACB60 / 0x5ACB70 close the object; table 0xAF2A74; TM1)",
  "expected": {},
  "in_tree": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",
@@ -69,6 +69,7 @@
  "merged": [],
  "name": "client/ui_log.cpp",
  "shared": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",

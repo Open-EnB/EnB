@@ -1,12 +1,12 @@
 {
  "ambiguous": [
-  "0x42A6C0",
   "0x42B2F0"
  ],
  "copy": "reconstructed",
  "description": "the avatar's description, client 0x4BEB50-0x4C05D0 of the window 0x4BEB50-0x4C45B0 (D90 9b): constructors, the wire and key/value slots, Clear; NOT EXACT: Read 0x4BF550 (inline budget), Clear 0x4C0310 (shape); the asserted loader 0x4C05D0 and the rest not yet",
  "expected": {},
  "in_tree": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",
@@ -86,6 +86,7 @@
  "merged": [],
  "name": "shared/avatar_desc.cpp",
  "shared": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",

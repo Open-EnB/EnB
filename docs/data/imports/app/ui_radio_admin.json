@@ -1,6 +1,5 @@
 {
  "ambiguous": [
-  "0x42A6C0",
   "0x444190",
   "0x46BE90",
   "0x497300"
@@ -9,6 +8,7 @@
  "description": "RECONSTRUCTED from client.exe: the private channel's admin window 'cht05' (UIRadioAdminClass over ChatPanelUIBase: the channel's members, requests 14/16/17/18/20/27), object 0x5E4160-0x5E628F; provisional file name (D137) after its tooltips' section 'UI_RADIO_ADMIN'",
  "expected": {},
  "in_tree": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",
@@ -43,6 +43,7 @@
   "0x515710",
   "0x515730",
   "0x515750",
+  "0x51C630",
   "0x5411F0",
   "0x5623B0",
   "0x5623D0",
@@ -75,6 +76,7 @@
  "merged": [],
  "name": "client/ui_radio_admin.cpp",
  "shared": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",
@@ -109,6 +111,7 @@
   "0x515710",
   "0x515730",
   "0x515750",
+  "0x51C630",
   "0x5411F0",
   "0x5623B0",
   "0x5623D0",

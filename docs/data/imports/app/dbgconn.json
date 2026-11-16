@@ -1,6 +1,5 @@
 {
  "ambiguous": [
-  "0x42A6C0",
   "0x42AAE0",
   "0x42B250",
   "0x42B2F0"
@@ -9,6 +8,7 @@
  "description": "PARTIAL: dbgconn.cpp's packet logs, rate and statistics wrappers, client 0x823F70-0x825300; the counters Record_Received 0x825390 / Record_Sent 0x8255B0 on an SGI hash_map (D87) with its instances to 0x826470",
  "expected": {},
  "in_tree": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",
@@ -62,6 +62,7 @@
  "merged": [],
  "name": "common/dbgconn.cpp",
  "shared": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",

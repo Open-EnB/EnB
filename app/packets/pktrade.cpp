@@ -3,6 +3,10 @@
 #include <stdio.h>
 
 
+TradePacketClass::TradePacketClass(bool type, int partner_id) : PartnerID(partner_id), Type(type)
+{
+}
+
 TradePacketClass::TradePacketClass(RawPacketClass *raw)
 {
 	raw->Get(&PartnerID, sizeof(PartnerID));

@@ -3,6 +3,10 @@
 #include <stdio.h>
 
 
+StartPacketClass::StartPacketClass(int, int player_id) : PlayerID(player_id)
+{
+}
+
 StartPacketClass::StartPacketClass(RawPacketClass *raw)
 {
 	raw->Get(&PlayerID, sizeof(PlayerID));

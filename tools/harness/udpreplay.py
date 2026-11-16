@@ -114,6 +114,9 @@ def build(out):
         # avatar_desc.cpp's typed adds (kv_encoder_base.h's, D104) are declared only under this macro, and
         # an earlier file of this one translation unit includes kv_encoder_base.h first
         f.write('#define UNKNOWN_PACKETDATA_BODIES\n')
+        # pkclientchat.cpp defines Unknown_878D90, declared only under this macro (pkclientchat.h), and an
+        # earlier file of this translation unit includes pkclientchat.h first
+        f.write('#define __CHATGADG_MEMBERS\n')
         # D176: CordCon's harness counters live in udpreplay's side table (cord_counters.h defines
         # CORD_HARNESS_COUNT, which cordcon.cpp leaves empty otherwise)
         f.write('#include "cord_counters.h"\n')

@@ -1,5 +1,7 @@
 // Earth & Beyond client (reconstruction): app\packets\pkclientchat.cpp. Notes at the end of the file.
+#define __CHATGADG_MEMBERS
 #include "pkclientchat.h"
+#include "..\shared\chat_edit_stream.h"
 #include <stdio.h>
 #include <string.h>
 
@@ -125,6 +127,12 @@ ClientChatRequestPacketClass::~ClientChatRequestPacketClass()
 		delete [] Unknown44;
 		Unknown44 = 0;
 	}
+}
+
+void ClientChatRequestPacketClass::Unknown_878D90(Unknown_ChatStreamClass *stream)
+{
+	Unknown48 = stream->Unknown_04();
+	Unknown44 = (char *)stream->Unknown04;
 }
 
 RawPacketClass *ClientChatRequestPacketClass::Build()
@@ -293,6 +301,16 @@ int ClientChatListPacketClass::Get_Data_Size()
 		size += RawPacketClass::Get_Size(*it);
 	}
 	return(size);
+}
+
+void ClientChatListPacketClass::Add_Unknown20(const std::string &name)
+{
+	Unknown20.push_back(name);
+}
+
+void ClientChatListPacketClass::Add_Unknown30(const std::string &name)
+{
+	Unknown30.push_back(name);
 }
 
 int ClientChatListPacketClass::Print(char *buffer, int len)

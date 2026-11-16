@@ -4,8 +4,8 @@ Functions named so far, by region and by the kind of evidence. "Exact" means pro
 
 | Region | Functions found | Named | Exact | vtable | strings | Named bytes (approx.) |
 |---|---|---|---|---|---|---|
-| app (E&B, 0x401000-0x8C1B50) | 18690 | 12972 | 12654 | 219 | 99 | 2066 KB |
-| libraries (0x8C1B50-end) | 7769 | 6615 | 6580 | 27 | 8 | 1300 KB |
+| app (E&B, 0x401000-0x8C1B50) | 18690 | 13206 | 12604 | 219 | 383 | 2088 KB |
+| libraries (0x8C1B50-end) | 7769 | 6644 | 6580 | 27 | 37 | 1300 KB |
 
 Functions first named through vtables in this run: 256.
 
@@ -15,4 +15,15 @@ Functions first named through vtables in this run: 256.
 | int3 fill (0xA420AC-0xAA1C00, 0xAE2830-0xAE68DD) | 0 | 399 KB |
 
 The /GX stub area holds 4416 frame-handler thunks; the function that installs each (`push offset thunk`, or `mov eax` before `__EH_prolog`) owns its frame: 4154 thunks of 4144 application functions, 262 of 211 library functions, 0 with no installer found. Neither the stubs nor the fill are functions to name; they are not in the table above (docs/library-matching.md §3.7).
+
+| Runtime libraries (open entries of 0x8E3600-0x909300 and 0xA17E50-0xA420AC) | Open entries | Explained by the .lib | Bytes | Explained bytes |
+|---|---|---|---|---|
+| COMSUPP | 11 | 6 | 1290 | 609 |
+| LIBCMT | 154 | 121 | 11724 | 5958 |
+| LIBCPMT | 166 | 152 | 27645 | 19160 |
+| d3dx8 | 45 | 41 | 6090 | 4593 |
+| none | 6 | 0 | 677 | 0 |
+| **all** | 382 | 320 | 47426 | 30320 |
+
+"Explained by the .lib": the entry is tiled end to end by functions of the library objects (d3dx8, libcpmt, libcmt, comsupp; tools/re/rttile.py, docs/data/rtlib-tiling.json). They are Microsoft code, not the tree's: unproven by name only because the pieces are short, repeated or not at a verified start (docs/library-matching.md §3.7).
 

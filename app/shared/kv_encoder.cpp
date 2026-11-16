@@ -20,14 +20,15 @@ inline const char *Type_Name(AccelClass *) { return "AccelClass"; }
 template<class T> class KVFrameAccessorClass : public KVAccessorClass<T>	// NAME 2: what it does
 {
 public:
-	KVFrameAccessorClass(T *other, T *current) :
-		Value0(Unknown_BE350C ? other : current),
-		Value1(Unknown_BE350C ? current : other)
+	KVFrameAccessorClass(T &other, T &current) :
+		Value0(Unknown_BE350C ? &other : &current),
+		Value1(Unknown_BE350C ? &current : &other)
 	{
 	}
+	KVFrameAccessorClass(T *value0, T *value1) : Value0(value0), Value1(value1) {}
 	virtual const T &Get() { return *(Unknown_BE350C ? Value1 : Value0); }
 	virtual void Set(const T &value) { *Value0 = *Value1 = value; }
-	virtual KVAccessorClass<T> *Clone() const { return new KVFrameAccessorClass<T>(*this); }
+	virtual KVAccessorClass<T> *Clone() const { return new KVFrameAccessorClass<T>(Value0, Value1); }
 
 	T *Value0;	// +0x04  // NAME 2: what it holds
 	T *Value1;	// +0x08  // NAME 2: what it holds
@@ -85,7 +86,7 @@ void KVFilterEncoderClass::Add_Vector3_Frame(int mask, const char *name, Vector3
 	bool odd;
 	Unknown_Test(mask, even, odd);
 	if (even || odd) {
-		List->Add(new KVPairTemplateClass<Vector3>(Make_Key(name), new KVFrameAccessorClass<Vector3>(&value[Unknown_BE350C ^ 1], &value[Unknown_BE350C]), even, odd));
+		List->Add(new KVPairTemplateClass<Vector3>(Make_Key(name), new KVFrameAccessorClass<Vector3>(value[Unknown_BE350C ^ 1], value[Unknown_BE350C]), even, odd));
 	}
 }
 
@@ -96,7 +97,7 @@ void KVFilterEncoderClass::Add_Matrix3D_Frame(int mask, const char *name, Matrix
 	bool odd;
 	Unknown_Test(mask, even, odd);
 	if (even || odd) {
-		List->Add(new KVPairTemplateClass<Matrix3D>(Make_Key(name), new KVFrameAccessorClass<Matrix3D>(&value[Unknown_BE350C ^ 1], &value[Unknown_BE350C]), even, odd));
+		List->Add(new KVPairTemplateClass<Matrix3D>(Make_Key(name), new KVFrameAccessorClass<Matrix3D>(value[Unknown_BE350C ^ 1], value[Unknown_BE350C]), even, odd));
 	}
 }
 
@@ -145,9 +146,9 @@ void KVEncoderClass::Add_Vector3_Elements_Frame(int mask, const char *name, Vect
 	Unknown_Test(mask, even, odd);
 	if (even || odd) {
 		Push_Prefix(name);
-		List->Add(new KVPairTemplateClass<float>(Make_Key("X"), new KVFrameAccessorClass<float>(&value[Unknown_BE350C ^ 1].X, &value[Unknown_BE350C].X), even, odd));
-		List->Add(new KVPairTemplateClass<float>(Make_Key("Y"), new KVFrameAccessorClass<float>(&value[Unknown_BE350C ^ 1].Y, &value[Unknown_BE350C].Y), even, odd));
-		List->Add(new KVPairTemplateClass<float>(Make_Key("Z"), new KVFrameAccessorClass<float>(&value[Unknown_BE350C ^ 1].Z, &value[Unknown_BE350C].Z), even, odd));
+		List->Add(new KVPairTemplateClass<float>(Make_Key("X"), new KVFrameAccessorClass<float>(value[Unknown_BE350C ^ 1].X, value[Unknown_BE350C].X), even, odd));
+		List->Add(new KVPairTemplateClass<float>(Make_Key("Y"), new KVFrameAccessorClass<float>(value[Unknown_BE350C ^ 1].Y, value[Unknown_BE350C].Y), even, odd));
+		List->Add(new KVPairTemplateClass<float>(Make_Key("Z"), new KVFrameAccessorClass<float>(value[Unknown_BE350C ^ 1].Z, value[Unknown_BE350C].Z), even, odd));
 		Pop_Prefix();
 	}
 }
@@ -163,7 +164,7 @@ void KVEncoderClass::Add_Matrix3D_Elements_Frame(int mask, const char *name, Mat
 		for (int column = 0; column < 4; column++) {
 			for (int row = 0; row < 3; row++) {
 				const char *key = Matrix_Keys[column * 3 + row];
-				List->Add(new KVPairTemplateClass<float>(Make_Key(key), new KVFrameAccessorClass<float>(&value[Unknown_BE350C ^ 1][row][column], &value[Unknown_BE350C][row][column]), even, odd));
+				List->Add(new KVPairTemplateClass<float>(Make_Key(key), new KVFrameAccessorClass<float>(value[Unknown_BE350C ^ 1][row][column], value[Unknown_BE350C][row][column]), even, odd));
 			}
 		}
 		Pop_Prefix();
@@ -249,4 +250,8 @@ void KVEncoderBaseClass::Add(int mask, const char *name, AccelClass *value)
 **	accessors this object instantiates follow them: 0x4B2420-0x4B3760. KVFilterEncoderClass's constructor, Add_Child, Add_Exclude
 **	and Clear_Excludes (0x4B5AD0-0x4B5D70) sit in the client after kv_encoder_base.cpp's templates and before a <string> initialiser
 **	0x4B5E80, with no static of their own: probably kv_encoder_base.cpp's object. Placed here with their class (interim, D137).
+**	KVFrameAccessorClass has two constructors (QC, 2026-11-16): the typed adds' takes the two values by reference and
+**	picks the order by the frame toggle (after the base's vtable store, as the client's callers do); Clone's 0x4B3030 /
+**	0x4B30C0 / 0x4B3100 take the two pointers as they are: the client copies them with no base vtable store and the
+**	vtable last, which a copy constructor (src may alias this) does not give.
 */

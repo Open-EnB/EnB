@@ -1,14 +1,13 @@
 {
  "ambiguous": [
-  "0x42A6C0",
   "0x46BE90",
-  "0x474080",
-  "0x541A10"
+  "0x474080"
  ],
  "copy": "reconstructed",
  "description": "the petition's entry window (the client's asserts name e:\\build\\beta\\G\\app\\Client\\ui_petition_entry.cpp): UIPetitionEntryClass over ChatPanelUIBase, the base of ui_petition_stuck.cpp and ui_petition_player_entry.cpp, 0x5D46E0-0x5D573F",
  "expected": {},
  "in_tree": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",
@@ -33,6 +32,7 @@
   "0x515750",
   "0x5623B0",
   "0x5623F0",
+  "0x5CC2C0",
   "0x5D46E0",
   "0x5D4750",
   "0x5D4770",
@@ -55,6 +55,7 @@
  "merged": [],
  "name": "client/ui_petition_entry.cpp",
  "shared": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",
@@ -79,6 +80,7 @@
   "0x515750",
   "0x5623B0",
   "0x5623F0",
+  "0x5CC2C0",
   "0x5D4750",
   "0x5D5720",
   "0x5D5730"

@@ -17,6 +17,7 @@
 #define PKSETZBAND_H
 
 #include "pk.h"
+#include "vector2.h"
 
 // opcode 42 (0x002A, SET_ZBAND): vtable 0xB0B9B8, constructor 0x8A42F0, 0x14 bytes
 class SetZBandPacketClass : public PacketClass
@@ -37,14 +38,15 @@ public:
 class SetBBoxPacketClass : public PacketClass
 {
 public:
+	SetBBoxPacketClass(const Vector2 &min, const Vector2 &max);	// 0x8A44C0  // NAME 2: the stores (no caller left)
 	SetBBoxPacketClass(RawPacketClass *raw);	// 0x8A4580
 	virtual RawPacketClass *Build();	// +0x04 0x8A4620
 	virtual bool Process_Packet(void *client);	// +0x08 0x737590 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x8A46F0
 	virtual int Print(char *buffer, int len);	// +0x10 0x8A4710
 
-	float XMin[2];	// +0x0C  // NAME 3: the client's Print text 'XMin='
-	float XMax[2];	// +0x14  // NAME 3: the client's Print text 'XMax='
+	Vector2 XMin;	// +0x0C  // NAME 3: the client's Print text 'XMin='
+	Vector2 XMax;	// +0x14  // NAME 3: the client's Print text 'XMax='
 };
 
 #endif

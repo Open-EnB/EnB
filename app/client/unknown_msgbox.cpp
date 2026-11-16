@@ -30,15 +30,6 @@
 
 void Unknown_497240(RenderObjClass *robj, bool on);	// 0x497240 (ro_funcs.cpp: MeshGeometryClass::ALLOW_NPATCHES on every mesh's model, through the sub-objects)  // NAME 1 [Unknown_497240, robj, on]: neutral (D10)
 
-// (inline: the destructor and 0x588A70 call the message's destructor 0x587570 and the deque's _Freefront 0x589B30 out of line)
-inline void ViewUnknown34Class::Flush_Queue()
-{
-	while (!Queue.empty()) {
-		delete Queue.front();
-		Queue.pop_front();
-	}
-}
-
 // 0x587570
 ViewUnknown34MessageStruct::~ViewUnknown34MessageStruct()
 {
@@ -398,6 +389,26 @@ void ViewUnknown34Class::Unknown_589140(const char *type, bool follow_mouse, con
 	Queue.push_back(message);
 }
 
+// 0x5893F0
+ViewUnknown34MessageStruct *ViewUnknown34Class::Unknown_5893F0()
+{
+	ViewUnknown34MessageStruct *message = NULL;
+	if (!Queue.empty()) {
+		message = Queue.front();
+		Queue.pop_front();
+	}
+	return message;
+}
+
+// 0x589530
+void ViewUnknown34Class::Flush_Queue()
+{
+	while (!Queue.empty()) {
+		delete Queue.front();
+		Queue.pop_front();
+	}
+}
+
 // 0x5896C0
 void ViewUnknown34Class::Unknown_5896C0(const char *type)
 {
@@ -435,4 +446,7 @@ const char *ViewUnknown34Class::Unknown_589740(INIClass &ini)
 **	0x588A70, the text 0x588DC0, the button 0x5890B0, the queue 0x589140, the close by type 0x5896C0 (ui_trade.cpp's callers), the font 0x589740; then the std::deque
 **	instances 0x589970-0x589C60, the RefCountPtr helper 0x589CA0 and the two adjustor thunks 0x589D10 / 0x589D20.
 **	No string names the file (the client's neighbours: the gadgets before, ui_dynamicwindow.cpp after).
+**	QC (2026-11-16): 0x5893F0 (the front, popped; no caller) and 0x589530, Flush_Queue itself, out of line and
+**	uncalled: defined here, after 0x589140, and still inlined (with ~message / _Freefront out of line) in the
+**	destructor and 0x588A70 (VC6 inlines a later-defined function of the same file).
 */

@@ -1,6 +1,5 @@
 {
  "ambiguous": [
-  "0x42A6C0",
   "0x46BE90",
   "0x474080"
  ],
@@ -8,6 +7,7 @@
  "description": "SlotDataRenderClass (D24 class-from-file), what draws a slot's item (the client's __FILE__ 0xB91684, asserts on lines 89-531; object 0x6A7B60-0x6A9B50 between <string>'s initialisers 0x6A7B20 / 0x6A9B30) (SR1)",
  "expected": {},
  "in_tree": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",
@@ -64,6 +64,7 @@
  "merged": [],
  "name": "client/slot_data_render.cpp",
  "shared": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",

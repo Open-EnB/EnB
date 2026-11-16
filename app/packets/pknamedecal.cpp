@@ -1,5 +1,6 @@
 // Earth & Beyond client (reconstruction): app\packets\pknamedecal.cpp. Notes at the end of the file.
 #include "pknamedecal.h"
+#include "..\shared\unknown_4a1590.h"
 #include <stdio.h>
 
 DecalPacketClass::DecalPacketClass(int game_id, const std::vector<DecalStruct> &decals) :
@@ -48,11 +49,18 @@ int DecalPacketClass::Print(char *buffer, int)
 	return(sprintf(buffer, "%s {GameID=%d NumDecals=%d}", "Decal", GameID, Decals.size()));
 }
 
+NameDecalPacketClass::NameDecalPacketClass(int game_id, const char *name, const Vector3 &rgb) :
+	GameID(game_id), ColorRGB(rgb)
+{
+	Bounded_Strcpy(Name, sizeof(Name), name);
+	Unknown3C = Unknown_14(GameID, -1);
+}
+
 NameDecalPacketClass::NameDecalPacketClass(RawPacketClass *raw)
 {
 	raw->Get(&GameID, sizeof(GameID));
 	raw->Get(Name, sizeof(Name));
-	raw->Get(RGB, sizeof(RGB));
+	raw->Get(&ColorRGB, sizeof(ColorRGB));
 }
 
 RawPacketClass *NameDecalPacketClass::Build()
@@ -60,18 +68,18 @@ RawPacketClass *NameDecalPacketClass::Build()
 	RawPacketClass *raw = new RawPacketClass(178, Get_Data_Size());
 	raw->Add(&GameID, sizeof(GameID));
 	raw->Add(Name, sizeof(Name));
-	raw->Add(RGB, sizeof(RGB));
+	raw->Add(&ColorRGB, sizeof(ColorRGB));
 	return(raw);
 }
 
 int NameDecalPacketClass::Get_Data_Size()
 {
-	return(sizeof(GameID) + sizeof(Name) + sizeof(RGB));
+	return(sizeof(GameID) + sizeof(Name) + sizeof(ColorRGB));
 }
 
 int NameDecalPacketClass::Print(char *buffer, int)
 {
-	return(sprintf(buffer, "%s {GameID=%d Name=%s RGB=%f %f %f}", "NameDecal", GameID, Name, RGB[0], RGB[1], RGB[2]));
+	return(sprintf(buffer, "%s {GameID=%d Name=%s RGB=%f %f %f}", "NameDecal", GameID, Name, ColorRGB[0], ColorRGB[1], ColorRGB[2]));
 }
 
 

@@ -55,6 +55,10 @@ GlobalErrorPacketClass::GlobalErrorPacketClass(RawPacketClass *raw)
 	delete [] string;
 }
 
+GlobalErrorPacketClass::~GlobalErrorPacketClass()
+{
+}
+
 RawPacketClass *GlobalErrorPacketClass::Build()
 {
 	RawPacketClass *raw = new RawPacketClass(117, Get_Data_Size());

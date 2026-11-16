@@ -174,6 +174,13 @@ int Packet_00AFClass::Print(char *buffer, int)
 	return(sprintf(buffer, "%s", "GroupServerResponsePacketClass"));
 }
 
+Packet_00B0Class::Packet_00B0Class(__int64 unknown10) :
+	Unknown10(unknown10),
+	Unknown38(true),
+	Unknown3C(0)
+{
+}
+
 Packet_00B0Class::Packet_00B0Class(RawPacketClass *raw) :
 	Unknown10(0),
 	Unknown38(true),
@@ -253,6 +260,11 @@ int Packet_00B1Class::Get_Data_Size()
 int Packet_00B1Class::Print(char *buffer, int)
 {
 	return(sprintf(buffer, "%s", "GroupServerUpdatePacketClass"));
+}
+
+void Packet_00B1Class::Set_Unknown18(const GroupServerEntryStruct &entry)
+{
+	Unknown18 = entry;
 }
 
 

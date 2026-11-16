@@ -1,11 +1,10 @@
 {
- "ambiguous": [
-  "0x42A6C0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "opcodes 190 (CONFIRMED_ACTION_OFFER), 191 and 192 (CONFIRMED_ACTION_RESPONSE) written by hand (builder P4, 13 of 13 exact; 8 of 8 exact in appfile.py match), client 0x8703C0-0x870E60; the file name provisional (NAME 1)",
  "expected": {},
  "in_tree": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",
@@ -16,6 +15,7 @@
   "0x52B270",
   "0x52B2A0",
   "0x52B2D0",
+  "0x52B2F0",
   "0x52B310",
   "0x52B330",
   "0x52B350",
@@ -46,6 +46,7 @@
  "merged": [],
  "name": "packets/pkconfirmedaction.cpp",
  "shared": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",
@@ -56,6 +57,7 @@
   "0x52B270",
   "0x52B2A0",
   "0x52B2D0",
+  "0x52B2F0",
   "0x52B310",
   "0x52B330",
   "0x52B350",
@@ -65,6 +67,7 @@
  ],
  "short_known": [
   "0x52B2D0",
+  "0x52B2F0",
   "0x52B310",
   "0x52B330",
   "0x5953D0",

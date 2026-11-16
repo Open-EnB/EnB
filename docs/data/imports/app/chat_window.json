@@ -1,12 +1,12 @@
 {
  "ambiguous": [
-  "0x42A6C0",
   "0x46BE90"
  ],
  "copy": "reconstructed",
  "description": "the client's __FILE__ 0xB8DAC8, the object 0x67DC80-0x68128F (CH1)",
  "expected": {},
  "in_tree": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",
@@ -153,6 +153,7 @@
  "merged": [],
  "name": "client/chat_window.cpp",
  "shared": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",
@@ -256,6 +257,7 @@
   "0x67F230",
   "0x67F490",
   "0x67F660",
+  "0x680C90",
   "0x680DD0",
   "0x6812A0",
   "0x6812B0"

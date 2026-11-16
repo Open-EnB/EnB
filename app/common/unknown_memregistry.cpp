@@ -1,5 +1,5 @@
 // Earth & Beyond client (reconstruction): the registry of memory listeners by port, client
-// 0x827560-0x828A00: Servers' initialiser 0x827560 (a file's first function), the four members
+// 0x827560-0x828A00: Servers' initialiser 0x827560 (a file's first function), the five members
 // 0x827700-0x827B10 and the std::map instances. PROVISIONAL file name (D10): it starts after
 // memconn.cpp's template instances and memconn.cpp calls it out of line, so it is another file;
 // no assert or string names it. Register and Connect test through Is_Listening (inlined).
@@ -26,6 +26,12 @@ bool MemoryConnectionFactoryClass::Is_Listening(unsigned short port)
 bool MemoryConnectionFactoryClass::Unregister(unsigned short port)
 {
 	Servers.erase(port);
+	return(true);
+}
+
+bool MemoryConnectionFactoryClass::Unregister_All()
+{
+	Servers.clear();
 	return(true);
 }
 

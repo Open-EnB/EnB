@@ -340,46 +340,43 @@ void LandClass::Load_Prototype_Names(std::vector<std::string> &names, INIClass &
 	}
 }
 
-// NOT EXACT: frame (identical once the stack offsets are masked: the client has the ini at esp+0x18 and the section
-// counter above it at esp+0x28, ours the counter at esp+0x18 and the ini above it. Load_Prototype_Names 0x478970,
-// which nothing calls in the client, is inlined here: that is the level that leaves the string's assign and the
-// names' insert out of line; attempts.csv 0x478B50)
+// 0x478B50: Load_Prototype_Names 0x478970, which nothing calls in the client, is inlined here (the level that
+// leaves the string's assign and the names' insert out of line); the two early returns give the client's frame
+// (the ini below the section counter, D252)
 void LandClass::Load_Decorations_Ini(std::vector<std::string> &names, std::vector<LandDecorationStruct> &decorations, const char *filename)
 {
 	INIClass ini;
 	char section[256];
 	ini.Load(filename);
-	if (ini.Is_Loaded()) {
-		Load_Prototype_Names(names, ini, "Prototypes");
-		unsigned int proto_count = names.size();
-		if (proto_count != 0) {
-			int n = 0;
-			sprintf(section, "DECO%d", n);
-			while (ini.Find_Section(section) != NULL) {
-				LandDecorationStruct decoration;
-				decoration.Proto = ini.Get_Int(section, "DecID", 0);
-				if ((unsigned int)decoration.Proto >= proto_count) {
-					decoration.Proto = 0;
+	if (!ini.Is_Loaded()) return;
+	Load_Prototype_Names(names, ini, "Prototypes");
+	unsigned int proto_count = names.size();
+	if (proto_count == 0) return;
+	int n = 0;
+	sprintf(section, "DECO%d", n);
+	while (ini.Find_Section(section) != NULL) {
+		LandDecorationStruct decoration;
+		decoration.Proto = ini.Get_Int(section, "DecID", 0);
+		if ((unsigned int)decoration.Proto >= proto_count) {
+			decoration.Proto = 0;
+		}
+		Matrix3D tm(true);
+		char buffer[256];
+		ini.Get_String(section, "M", "", buffer, sizeof(buffer));
+		char *token = strtok(buffer, ",");
+		for (int column = 0; column < 4; column++) {
+			for (int row = 0; row < 3; row++) {
+				if (token != NULL) {
+					tm[row][column] = (float)atof(token);
+					token = strtok(NULL, ",");
 				}
-				Matrix3D tm(true);
-				char buffer[256];
-				ini.Get_String(section, "M", "", buffer, sizeof(buffer));
-				char *token = strtok(buffer, ",");
-				for (int column = 0; column < 4; column++) {
-					for (int row = 0; row < 3; row++) {
-						if (token != NULL) {
-							tm[row][column] = (float)atof(token);
-							token = strtok(NULL, ",");
-						}
-					}
-				}
-				decoration.Transform = tm;
-				decoration.Scale = ini.Get_Float(section, "Scale", 1.0f);
-				decorations.push_back(decoration);
-				n++;
-				sprintf(section, "DECO%d", n);
 			}
 		}
+		decoration.Transform = tm;
+		decoration.Scale = ini.Get_Float(section, "Scale", 1.0f);
+		decorations.push_back(decoration);
+		n++;
+		sprintf(section, "DECO%d", n);
 	}
 }
 

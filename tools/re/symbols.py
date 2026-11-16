@@ -40,6 +40,7 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from clientimage import ClientImage  # noqa: E402
 from objmatch import CoffObject, demangle, match_objects  # noqa: E402
+import rttile  # noqa: E402
 from vtables import confident, find_in_client, vptr_stored, vtables_in  # noqa: E402
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -380,6 +381,18 @@ def write_coverage(img, starts, thunks, rows, path, vt_named):
               f'{owners["libraries"]} of {len(owner_funcs["libraries"])} library functions, {owners["none"]} with no '
               'installer found. Neither the stubs nor the fill are functions to name; they are not in the '
               'table above (docs/library-matching.md §3.7).', '']
+    rt = rttile.counts(os.path.join(os.path.dirname(path), 'data', rttile.NAME), set(named))
+    if rt is not None:
+        lines += ['| Runtime libraries (open entries of 0x8E3600-0x909300 and 0xA17E50-0xA420AC) | Open entries | '
+                  'Explained by the .lib | Bytes | Explained bytes |', '|---|---|---|---|---|']
+        for lib, (n, ex, nb, eb) in sorted(rt.items()):
+            lines.append(f'| {lib} | {n} | {ex} | {nb} | {eb} |')
+        tot = [sum(r[i] for r in rt.values()) for i in range(4)]
+        lines += [f'| **all** | {tot[0]} | {tot[1]} | {tot[2]} | {tot[3]} |', '',
+                  '"Explained by the .lib": the entry is tiled end to end by functions of the library objects '
+                  '(d3dx8, libcpmt, libcmt, comsupp; tools/re/rttile.py, docs/data/rtlib-tiling.json). They are '
+                  'Microsoft code, not the tree\'s: unproven by name only because the pieces are short, repeated '
+                  'or not at a verified start (docs/library-matching.md §3.7).', '']
     open(path, 'w', newline='\n', encoding='utf-8').write('\n'.join(lines) + '\n')
 
 

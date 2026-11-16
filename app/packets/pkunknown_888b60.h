@@ -100,6 +100,7 @@ public:
 class Packet_00B0Class : public Unknown_B0A794PacketClass  // NAME 1: neutral (D10): opcode 0x00B0 (its Print says 'GroupServerCreatePacketClass')
 {
 public:
+	Packet_00B0Class(__int64 unknown10);	// 0x889DA0
 	Packet_00B0Class(RawPacketClass *raw);	// 0x889F30
 	virtual RawPacketClass *Build();	// +0x04 0x88A2F0
 	virtual bool Process_Packet(void *client);	// +0x08 0x868EE0 (clientstub.cpp l.338)
@@ -126,6 +127,8 @@ public:
 	virtual bool Process_Packet(void *client);	// +0x08 0x868F10 (clientstub.cpp l.341)
 	virtual int Get_Data_Size();	// +0x0C 0x88AE50
 	virtual int Print(char *buffer, int len);	// +0x10 0x88AE70
+
+	void Set_Unknown18(const GroupServerEntryStruct &entry);	// 0x88AEA0 (no caller left in the client)  // NAME 1: neutral (D10)
 
 	__int64 Unknown10;	// +0x10 (network order)
 	GroupServerEntryStruct Unknown18;	// +0x18

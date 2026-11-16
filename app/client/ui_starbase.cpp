@@ -700,15 +700,15 @@ void UIStarbaseClass::Unknown_54()
 		unsigned int id = ((LineDisplayClientClass *)Client)->AvatarID;
 		UnknownC0.D->Avatar = Create_NEW((CharacterViewAvatarClass *)((LineDisplayClientClass *)Client)->As_Space_Client()->Unknown_74C7B0(id));
 		UnknownC0.D->NameTag->Change_Text(UnknownC0.D->Avatar->Desc.First_Name, 0);
-		UnknownC0.D->NameTag->Unknown494.Color.Set(0.33f, 0.33f, 0.99f);
-		UnknownC0.D->NameTag->Unknown4A4 = UnknownC0.D->NameTag->Unknown494;
+		UnknownC0.D->NameTag->Set_Color(Vector3(0.33f, 0.33f, 0.99f));
+		// (Set_Color: +0x494's colour, then +0x4A4 copied from it)
 		UnknownB0->Unknown_6A1880(UnknownC0.D->Unknown10, 3);
 		if (((ClientClass *)Client)->Unknown_728330()) {
 			((ClientClass *)Client)->Get_Avatar()->Unknown_6FFFF0(UnknownC0.D->Unknown24);
 			Vector3 color;
 			((ClientClass *)Client)->Get_Avatar()->Unknown_700670(color);
-			UnknownC0.D->Unknown10->Unknown494.Color = color;
-			UnknownC0.D->Unknown10->Unknown4A4 = UnknownC0.D->Unknown10->Unknown494;
+			UnknownC0.D->Unknown10->Set_Color(color);
+			// (Set_Color: +0x494's colour, then +0x4A4 copied from it)
 			UnknownC0.D->Unknown34 = ((ClientClass *)Client)->Get_Avatar()->Unknown_6FFF50();
 		} else {
 			UnknownC0.D->Unknown24 = "";
@@ -2281,7 +2281,7 @@ void UIStarbaseClass::Unknown_63A100()
 
 
 
-// NOT EXACT: 0x63AC60, functional (frame 0x28 / 0x2C; the client calls the own guild string's assign out of line and inlines the others'; O4)
+// NOT EXACT: 0x63AC60, functional (the name tag's two colours: the client's stores go through the tag with 0.66 / 0.33 in ecx, ours through &Color with immediates; Set_Color(Vector3) there gives the client's stores but moves this / the zero register; FontSys::Set_Color at the guild texts gives the client's zero register in the loop; ++it its frame 0x2C)
 // 0x63AC60 (0x638390's frame: the name tags shown or hidden, their guild texts and colours kept up to date)
 void UIStarbaseClass::Unknown_63AC60()
 {
@@ -2296,8 +2296,7 @@ void UIStarbaseClass::Unknown_63AC60()
 				((ClientClass *)Client)->Get_Avatar()->Unknown_6FFFF0(UnknownC0.D->Unknown24);
 				Vector3 color;
 				((ClientClass *)Client)->Get_Avatar()->Unknown_700670(color);
-				UnknownC0.D->Unknown10->Unknown494.Color = color;
-				UnknownC0.D->Unknown10->Unknown4A4 = UnknownC0.D->Unknown10->Unknown494;
+				UnknownC0.D->Unknown10->Set_Color(color);
 				UnknownC0.D->Unknown34 = ((ClientClass *)Client)->Get_Avatar()->Unknown_6FFF50();
 			} else {
 				UnknownC0.D->Unknown24 = "";
@@ -2311,13 +2310,14 @@ void UIStarbaseClass::Unknown_63AC60()
 			UnknownC0.D->Unknown10->Set_Hidden(true);
 		}
 	}
+
 	for (int i = 0; i < 14; i++) {
 		if (Unknown13C[i]) {
 			Unknown_63F490(Unknown13C[i]);
 		}
 	}
 	UIStarbaseUnknownD4TableClass::iterator it;
-	for (it = UnknownD4.begin(); it != UnknownD4.end(); it++) {
+	for (it = UnknownD4.begin(); it != UnknownD4.end(); ++it) {
 		UIStarbaseUnknownCCClass *savatar = it.Cur->Value;
 		FAIL_IF(!savatar) continue;
 		if (UnknownB0->Unknown_69CCD0()) {
@@ -2336,6 +2336,7 @@ void UIStarbaseClass::Unknown_63AC60()
 			}
 			savatar->NameTag->Unknown4A4 = savatar->NameTag->Unknown494;
 		}
+
 		ClientObjectClass *object = ((LineDisplayClientClass *)Client)->As_Space_Client()->Find_Object(savatar->Unknown00);
 		if (object && object->Unknown_6FFF50() != savatar->Unknown34) {
 			if (object->Unknown_6FFE90()) {
@@ -2347,8 +2348,7 @@ void UIStarbaseClass::Unknown_63AC60()
 					color.Set(0.33f, 0.33f, 0.99f);
 				}
 				object->Unknown_700670(color);
-				savatar->Unknown10->Unknown494.Color = color;
-				savatar->Unknown10->Unknown4A4 = savatar->Unknown10->Unknown494;
+				savatar->Unknown10->Set_Color(color);
 				savatar->Unknown34 = object->Unknown_6FFF50();
 			} else {
 				savatar->Unknown24 = "";
@@ -2778,8 +2778,8 @@ void UIStarbaseClass::Unknown_63CA50(int id, const Matrix3D &transform, int flag
 		object->Unknown_6FFFF0(savatar->Unknown24);
 		Vector3 color(0.33f, 0.33f, 0.99f);
 		object->Unknown_700670(color);
-		savatar->Unknown10->Unknown494.Color = color;
-		savatar->Unknown10->Unknown4A4 = savatar->Unknown10->Unknown494;
+		savatar->Unknown10->Set_Color(color);
+		// (Set_Color: +0x494's colour, then +0x4A4 copied from it)
 		savatar->Unknown34 = object->Unknown_6FFF50();
 	} else {
 		savatar->Unknown24 = "";

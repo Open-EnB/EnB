@@ -36,7 +36,7 @@ int Packet_004DClass::Get_Data_Size()
 
 int Packet_004DClass::Print(char *buffer, int)
 {
-	return(sprintf(buffer, "%s", "Registration_Result"));
+	return(sprintf(buffer, "%s", "Registration Result"));
 }
 
 

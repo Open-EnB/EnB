@@ -22,6 +22,7 @@
 class InitRenderStatePacketClass : public PacketClass
 {
 public:
+	InitRenderStatePacketClass(int game_id, int render_state_id, int link_id);	// 0x8A1950  // NAME 1 [game_id, render_state_id, link_id]: its fields
 	InitRenderStatePacketClass(RawPacketClass *raw);	// 0x8A1A60
 	virtual RawPacketClass *Build();	// +0x04 0x8A1B20
 	virtual bool Process_Packet(void *client);	// +0x08 0x737610 (cpacket.cpp)
@@ -39,6 +40,7 @@ public:
 class ActivateRenderStatePacketClass : public PacketClass
 {
 public:
+	ActivateRenderStatePacketClass(int game_id, int render_state_id);	// 0x8A1C60  // NAME 1 [game_id, render_state_id]: its fields
 	ActivateRenderStatePacketClass(RawPacketClass *raw);	// 0x8A1D70
 	virtual RawPacketClass *Build();	// +0x04 0x8A1E10
 	virtual bool Process_Packet(void *client);	// +0x08 0x7376F0 (cpacket.cpp)
@@ -55,6 +57,7 @@ public:
 class ActivateNextRenderStateOncePacketClass : public PacketClass
 {
 public:
+	ActivateNextRenderStateOncePacketClass(int game_id, int render_state_id);	// 0x8A1F40  // NAME 1 [game_id, render_state_id]: its fields
 	ActivateNextRenderStateOncePacketClass(RawPacketClass *raw);	// 0x8A2050
 	virtual RawPacketClass *Build();	// +0x04 0x8A20F0
 	virtual bool Process_Packet(void *client);	// +0x08 0x7377C0 (cpacket.cpp)
@@ -71,6 +74,7 @@ public:
 class DeactivateRenderStatePacketClass : public PacketClass
 {
 public:
+	DeactivateRenderStatePacketClass(int game_id, int render_state_id);	// 0x8A2220  // NAME 1 [game_id, render_state_id]: its fields
 	DeactivateRenderStatePacketClass(RawPacketClass *raw);	// 0x8A2330
 	virtual RawPacketClass *Build();	// +0x04 0x8A23D0
 	virtual bool Process_Packet(void *client);	// +0x08 0x737890 (cpacket.cpp)

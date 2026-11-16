@@ -1,12 +1,12 @@
 {
  "ambiguous": [
-  "0x42A6C0",
   "0x42B250"
  ],
  "copy": "reconstructed",
  "description": "BuffDefStruct / BuffDatabaseClass, client 0x676CD0-0x677660 with the table's instances to 0x678420: the reports on the client's lines 47 / 78 (D25); NOT EXACT: the destructor 0x677410",
  "expected": {},
  "in_tree": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",
@@ -42,6 +42,7 @@
  "merged": [],
  "name": "client/buff_database.cpp",
  "shared": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",
@@ -58,9 +59,5 @@
   "0x42E170",
   "0x431C80",
   "0x677640"
- ],
- "tiebreak": [
-  "0x677850",
-  "0x678420"
  ]
 }

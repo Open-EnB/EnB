@@ -263,6 +263,24 @@ Landing and bring-over (the lander does the landing; these are what you see arou
   discard them (`git checkout -- FILE`); the landing regenerates them.
 - **A check in a reused worktree name or a shared build dir can link another builder's objects** (a clienttest link failure and e2e crashes that the baseline did not show): use a fresh worktree name and a private lease, and compare against the baseline before calling a regression.
 - **A finished subagent (lander, checker) can keep re-sending its report:** stop it; the landing is intact.
+- **Tell a lander which refusals to retry:** "retry once" makes it re-run a real link refusal (a compile error in a
+  branch's file) as a flake, holding the lock for a verify that fails the same way. Name the flake signs (stubs.rsp,
+  sync.tar, unresolved symbols the branches do not touch) and say "any other refusal: skip that branch, go on". A
+  refused batch lands nothing: re-batch the branches the error does not name.
+- **Several branches whose committed records show the send pad lost** (each verified against an older head): one lander,
+  one at a time, each `wt.py rebase` first; often only the first needs the `sendpad.py --watch-from run/<date>` sweep,
+  and the later rebases show no pad warning once its pad landed.
+- **A worktree dirty only by line endings** (the Write tool's CRLF against `eol=lf`, an empty `git diff`) makes the
+  lander refuse at step 1: `git checkout --` those files in the worktree (the commit holds the content), relaunch.
+- **A safety-classifier outage** ("no verdict", transient) blocks every shell call for the coordinator and every builder
+  at once, and ten in a row end an agent's run without a report. Briefs say "hand back before 5 such failures". After
+  it: read `.work/log/land-<ID>.log` for a `landed:` line, `importer.py lock-status`, and `pool.py list` for
+  `importer-<pid>` leases whose pid is gone (`pool.py release --agent importer-<pid>`), commit or discard a builder's
+  verified but uncommitted edit by its pairs_cmp, then resume the cut-off builders by SendMessage.
+- **The importer lock, not usage or memory, sets the night's landing capacity:** a batch with a pad sweep holds it
+  25-40 minutes. Close the launch window when the queue of unlanded branches will fill the lock to the drain.
+- **Log the real clock:** take the time from `Get-Date` at each entry; times guessed between heartbeats drifted 25-35
+  minutes.
 - **Lander and builder subagents leave `tail -f LOG | grep` monitors and `until ...; do sleep; done` loops running
   after they finish,** which keeps a finished agent "waiting on its own background work" and re-notifying. Briefs say
   bounded waits and stop your loops; the coordinator kills leftovers by their log name.

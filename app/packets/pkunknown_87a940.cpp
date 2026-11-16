@@ -14,6 +14,10 @@ Packet_00A7Class::Packet_00A7Class(RawPacketClass *raw) : Unknown0C(0)
 	raw->Get(&Unknown20);
 }
 
+Packet_00A7Class::~Packet_00A7Class()
+{
+}
+
 RawPacketClass *Packet_00A7Class::Build()
 {
 	RawPacketClass *raw = new RawPacketClass(167, Get_Data_Size());
@@ -25,7 +29,10 @@ RawPacketClass *Packet_00A7Class::Build()
 
 int Packet_00A7Class::Get_Data_Size()
 {
-	return(sizeof(Unknown0C) + RawPacketClass::Get_Size(Unknown10) + RawPacketClass::Get_Size(Unknown20));
+	int size = sizeof(Unknown0C);
+	size += RawPacketClass::Get_Size(Unknown10);
+	size += RawPacketClass::Get_Size(Unknown20);
+	return(size);
 }
 
 int Packet_00A7Class::Print(char *buffer, int len)

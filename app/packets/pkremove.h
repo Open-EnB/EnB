@@ -22,6 +22,7 @@
 class RemovePacketClass : public PacketClass
 {
 public:
+	RemovePacketClass(int game_id, int channel);	// 0x8A1660  // NAME 2: the stores (no caller left)
 	RemovePacketClass(RawPacketClass *raw);	// 0x8A1780
 	virtual RawPacketClass *Build();	// +0x04 0x8A1810
 	virtual bool Process_Packet(void *client);	// +0x08 0x7362F0 (cpacket.cpp)

@@ -1,6 +1,5 @@
 {
  "ambiguous": [
-  "0x42A6C0",
   "0x42B2F0",
   "0x46BE90",
   "0x474080",
@@ -10,6 +9,7 @@
  "description": "SkillRenderClass (D24 class-from-file), what draws a skill's slot (the client's __FILE__ 0xB91528, asserts on lines 114-442; object 0x6A5EA0-0x6A7410 between <string>'s initialisers 0x6A5E00 and 0x6A73F0) (SK1)",
  "expected": {},
  "in_tree": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A970",
   "0x42AB30",
@@ -42,6 +42,7 @@
  "merged": [],
  "name": "client/skill_render.cpp",
  "shared": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A970",
   "0x42AB30",

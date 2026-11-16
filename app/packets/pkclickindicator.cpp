@@ -3,6 +3,10 @@
 #include <stdio.h>
 
 
+ClickIndicatorPacketClass::ClickIndicatorPacketClass(bool turn_on, int obj_id) : TurnOn(turn_on), ObjID(obj_id)
+{
+}
+
 ClickIndicatorPacketClass::ClickIndicatorPacketClass(RawPacketClass *raw)
 {
 	raw->Get(&TurnOn, sizeof(TurnOn));

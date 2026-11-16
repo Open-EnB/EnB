@@ -22,6 +22,7 @@
 class CreateAttachmentPacketClass : public PacketClass
 {
 public:
+	CreateAttachmentPacketClass(int unknown0c, int parent_id, int child_id, int unknown18);	// 0x876A20  // NAME 2: the stores (no caller left)
 	CreateAttachmentPacketClass(RawPacketClass *raw);	// 0x876B30
 	virtual RawPacketClass *Build();	// +0x04 0x876BD0
 	virtual bool Process_Packet(void *client);	// +0x08 0x733BB0 (cpacket.cpp)
@@ -29,7 +30,7 @@ public:
 	virtual int Print(char *buffer, int len);	// +0x10 0x876CC0
 	virtual int Get_Channel() { return(Unknown1C); }	// +0x18 0x876AC0
 
-	char Unknown0C[0x4];	// +0x0C
+	int Unknown0C;	// +0x0C (the sending constructor's first argument, Unknown1C's channel)
 	int Parent_ID;	// +0x10  // NAME 3: the client's Print text 'Parent_ID='
 	int Child_ID;	// +0x14  // NAME 3: the client's Print text 'Child_ID='
 	int Unknown18;	// +0x18

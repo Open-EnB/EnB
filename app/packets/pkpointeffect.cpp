@@ -497,6 +497,11 @@ int ObjectToObjectDurationLinkedEffectPacketClass::Print(char *buffer, int)
 		EffectID, TimeStamp, SourceGameID, TargetGameID, DurationLinkedEffectDescID, EffectDescID, OutsideTargetRadius, TargetOffset.X, TargetOffset.Y, TargetOffset.Z, Scale, HSVShift.X, HSVShift.Y, HSVShift.Z, Speedup));
 }
 
+RemoveEffectPacketClass::RemoveEffectPacketClass(int effect_id, int game_id) : EffectID(effect_id)
+{
+	Unknown10 = Unknown_14(game_id, -1);
+}
+
 RemoveEffectPacketClass::RemoveEffectPacketClass(RawPacketClass *raw)
 {
 	raw->Get(&EffectID, sizeof(EffectID));

@@ -22,6 +22,7 @@
 class ClientAvatarPacketClass : public PacketClass
 {
 public:
+	ClientAvatarPacketClass(int avatar_id);	// 0x877370  // NAME 2: the stores (no caller left)
 	ClientAvatarPacketClass(RawPacketClass *raw);	// 0x877470
 	virtual RawPacketClass *Build();	// +0x04 0x877500
 	virtual bool Process_Packet(void *client);	// +0x08 0x733590 (cpacket.cpp)

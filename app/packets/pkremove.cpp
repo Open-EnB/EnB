@@ -3,6 +3,11 @@
 #include <stdio.h>
 
 
+RemovePacketClass::RemovePacketClass(int game_id, int channel) : GameID(game_id)
+{
+	Unknown10 = Unknown_14(game_id, channel);
+}
+
 RemovePacketClass::RemovePacketClass(RawPacketClass *raw)
 {
 	raw->Get(&GameID, sizeof(GameID));

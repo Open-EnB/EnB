@@ -139,7 +139,7 @@
 
 
 
-// NOT EXACT: functional (M1): inline budget (0.45 with the inline_depth(0) below, 0.30 without; attempts.py show 0x7EDCB0): the client calls GenericList's constructor, HashListClass::Find (0x7EEBD0), the node's constructor (0x7EED40) and Add(node) (0x7EEE00) out of line but expands Add(record, key) around the last two; inline_depth(0) gives Find, leaves Add(record, key) out of line too, and lays the Name assert on the loop's path
+// NOT EXACT: functional (M1): inline budget (attempts.py show 0x7EDCB0): the client calls GenericList's constructor, HashListClass::Find (0x7EEBD0), the node's constructor (0x7EED40) and Add(node) (0x7EEE00) out of line and expands Add(record, key) around the last two; under the inline_depth(0) below Add(record, key) is written out by hand, so all four are calls as the client's, but Set_List_Created is a call too (the client sets the flag inline: 'or [node+0x18], 0x20')
 #pragma inline_depth(0)
 // 0x7EDCB0
 Movie3DSoundClass::Movie3DSoundClass(INIClass &ini, const char *section)
@@ -180,7 +180,7 @@ Movie3DSoundClass::Movie3DSoundClass(INIClass &ini, const char *section)
 			MeshSoundListClass *list;
 			if (node == NULL || (list = node->Get_Record()) == NULL) {
 				list = new MeshSoundListClass;
-				Add(list, id);
+				HashNodeClass<MeshSoundListClass *> *added = new HashNodeClass<MeshSoundListClass *>(list, id); Set_List_Created(added); Add(added);
 			}
 			char key[256];
 			sprintf(key, "Time%d", id);

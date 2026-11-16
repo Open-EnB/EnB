@@ -43,6 +43,7 @@ public:
 class StarbaseAvatarUpdatePacketClass : public PacketClass
 {
 public:
+	StarbaseAvatarUpdatePacketClass(int avatar_id, float orient, Vector3 *position, int action_flag, int room);	// 0x8A3950  // NAME 1 [avatar_id, orient, position, action_flag, room]: the fields'
 	StarbaseAvatarUpdatePacketClass(RawPacketClass *raw);	// 0x8A3A40
 	virtual RawPacketClass *Build();	// +0x04 0x8A3B30
 	virtual bool Process_Packet(void *client);	// +0x08 0x73A9F0 (cpacket.cpp, register-only residue)

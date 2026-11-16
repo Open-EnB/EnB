@@ -3,6 +3,11 @@
 #include <stdio.h>
 
 
+ClientAvatarPacketClass::ClientAvatarPacketClass(int avatar_id) : AvatarID(avatar_id)
+{
+	Unknown10 = Unknown_14(avatar_id, -1);
+}
+
 ClientAvatarPacketClass::ClientAvatarPacketClass(RawPacketClass *raw)
 {
 	raw->Get(&AvatarID, sizeof(AvatarID));

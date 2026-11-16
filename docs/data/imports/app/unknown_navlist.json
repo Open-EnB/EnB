@@ -1,6 +1,5 @@
 {
  "ambiguous": [
-  "0x42A900",
   "0x42AAE0",
   "0x42AFF0",
   "0x4333D0",
@@ -10,6 +9,7 @@
  "description": "PROVISIONAL file name (D10): the music types' names and the navigation list (NavigationListClass, vtable 0xB08C60; WARP 155's), client 0x8462A0-0x846A3F (builder P4, 15 of 15 exact in appfile.py match)",
  "expected": {},
  "in_tree": [
+  "0x4A0810",
   "0x4A0B70",
   "0x8462A0",
   "0x8462F0",
@@ -32,6 +32,7 @@
  "merged": [],
  "name": "common/unknown_navlist.cpp",
  "shared": [
+  "0x4A0810",
   "0x4A0B70"
  ],
  "short_known": [

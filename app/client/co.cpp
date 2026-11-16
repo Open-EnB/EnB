@@ -2372,8 +2372,8 @@ bool ClientObjectClass::Unknown_700400()
 	if (Unknown_Field_Changed((DeltaStringClass *)NULL, this, "GuildName")
 		|| Unknown_Field_Changed((DeltaTemplateClass<GuildRankType> *)NULL, this, "GuildRank")
 		|| Unknown_Field_Changed((DeltaStringClass *)NULL, this, "GuildRankName")
-		|| Unknown_Field_Changed((DeltaTemplateClass<UnknownB00A00Type> *)NULL, this, "SameGuildTagColor")
-		|| Unknown_Field_Changed((DeltaTemplateClass<UnknownB00A00Type> *)NULL, this, "OtherGuildTagColor")) return(true);
+		|| Unknown_Field_Changed((DeltaTemplateClass<InvSlotStruct> *)NULL, this, "SameGuildTagColor")
+		|| Unknown_Field_Changed((DeltaTemplateClass<InvSlotStruct> *)NULL, this, "OtherGuildTagColor")) return(true);
 	return(false);
 }
 

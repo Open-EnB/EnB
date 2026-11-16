@@ -1,6 +1,5 @@
 {
  "ambiguous": [
-  "0x42A6C0",
   "0x42B250",
   "0x4B7E00",
   "0x4B7E30"
@@ -9,6 +8,7 @@
  "description": "SymbolSubstitutionClass, client 0x4FCBD0-0x4FD7A0 with the string's and the table's instances to 0x4FE770: the report on the client's line 112 (D25); NOT EXACT: Substitute_Symbols 0x4FD3B0",
  "expected": {},
  "in_tree": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",
@@ -52,6 +52,7 @@
  "merged": [],
  "name": "shared/symbol_substitution.cpp",
  "shared": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",
@@ -69,6 +70,7 @@
   "0x4C39B0",
   "0x4E2C00",
   "0x4E2CC0",
+  "0x4FDB50",
   "0x4FDF20"
  ],
  "short_known": [

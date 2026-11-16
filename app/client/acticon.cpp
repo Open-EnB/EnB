@@ -75,7 +75,7 @@ void ActIconClass::Set_State(int state, unsigned int end_time)
 	}
 }
 
-// NOT EXACT (0.73, attempts.py 0x6762B0): the client keeps one 12-byte temporary for both colour slots (+0x9C / +0xA0) and the UV offsets (frame 0x10); ours gives slot +0x9C its own (frame 0x1C)
+// 0x6762B0: the two colour calls in if / else (one shared return temporary, the call merged), not a ?: (D252)
 void ActIconClass::Unknown_AC()
 {
 	float time = WW3D::Get_Frame_Time() * 0.001f;
@@ -88,7 +88,11 @@ void ActIconClass::Unknown_AC()
 		}
 		Flash = flash;
 		if (Flash == 0.0f) {
-			Unknown_66C260(Is_Enabled() ? Unknown_A0() : Unknown_9C());
+			if (Is_Enabled()) {
+				Unknown_66C260(Unknown_A0());
+			} else {
+				Unknown_66C260(Unknown_9C());
+			}
 		}
 	}
 	if (Unknown68 && Unknown74) {

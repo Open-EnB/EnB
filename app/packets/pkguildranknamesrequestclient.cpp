@@ -3,10 +3,20 @@
 #include <stdio.h>
 
 
+GuildSimpleSectorClientPacket::GuildSimpleSectorClientPacket(int type, const char *optional_param) :
+	Type(type),
+	OptionalParam(optional_param)
+{
+}
+
 GuildSimpleSectorClientPacket::GuildSimpleSectorClientPacket(RawPacketClass *raw)
 {
 	raw->Get(&Type, sizeof(Type));
 	raw->Get(&OptionalParam);
+}
+
+GuildSimpleSectorClientPacket::~GuildSimpleSectorClientPacket()
+{
 }
 
 RawPacketClass *GuildSimpleSectorClientPacket::Build()
@@ -96,10 +106,18 @@ int GuildLeaderAcceptClientPacketClass::Print(char *buffer, int len)
 	return(_snprintf(buffer, len, "GuildLeaderAcceptClient {PlayerID=%d GuildName=%s Accept=%s}", PlayerID, GuildName.c_str(), Accept ? "true" : "false"));
 }
 
+GuildRecruitConfirmSectorPacket::GuildRecruitConfirmSectorPacket(const char *inviter_name, const char *guild_name) : InviterName(inviter_name), GuildName(guild_name)
+{
+}
+
 GuildRecruitConfirmSectorPacket::GuildRecruitConfirmSectorPacket(RawPacketClass *raw)
 {
 	raw->Get(&InviterName);
 	raw->Get(&GuildName);
+}
+
+GuildRecruitConfirmSectorPacket::~GuildRecruitConfirmSectorPacket()
+{
 }
 
 RawPacketClass *GuildRecruitConfirmSectorPacket::Build()
@@ -152,11 +170,19 @@ int GuildRecruitAcceptClientPacketClass::Print(char *buffer, int len)
 	return(_snprintf(buffer, len, "GuildRecruitAcceptClient {PlayerID=%d Accept=%s}", PlayerID, Accept ? "true" : "false"));
 }
 
+GuildMessageSectorPacket::GuildMessageSectorPacket(int message_type, const char *other_name, const char *guild_name) : MessageType(message_type), OtherName(other_name), GuildName(guild_name)
+{
+}
+
 GuildMessageSectorPacket::GuildMessageSectorPacket(RawPacketClass *raw)
 {
 	raw->Get(&MessageType, sizeof(MessageType));
 	raw->Get(&OtherName);
 	raw->Get(&GuildName);
+}
+
+GuildMessageSectorPacket::~GuildMessageSectorPacket()
+{
 }
 
 RawPacketClass *GuildMessageSectorPacket::Build()
@@ -239,6 +265,10 @@ int GuildRankNamesRequestClientPacketClass::Print(char *buffer, int len)
 	return(_snprintf(buffer, len, "GuildRankNamesRequestClient {PlayerID=%d}", PlayerID));
 }
 
+GuildRankNamesSectorPacket::GuildRankNamesSectorPacket(const std::vector<GuildRankNameStruct> &ranks) : Ranks(ranks)
+{
+}
+
 GuildRankNamesSectorPacket::GuildRankNamesSectorPacket(RawPacketClass *raw)
 {
 	int count = 0;
@@ -286,10 +316,18 @@ void GuildRankNamesSectorPacket::Add(const std::string &name, int rank)
 	Ranks.push_back(entry);
 }
 
+GuildGMRenameConfirmSectorPacket::GuildGMRenameConfirmSectorPacket(const char *old_guild_name, const char *new_guild_name) : OldGuildName(old_guild_name), NewGuildName(new_guild_name)
+{
+}
+
 GuildGMRenameConfirmSectorPacket::GuildGMRenameConfirmSectorPacket(RawPacketClass *raw)
 {
 	raw->Get(&OldGuildName);
 	raw->Get(&NewGuildName);
+}
+
+GuildGMRenameConfirmSectorPacket::~GuildGMRenameConfirmSectorPacket()
+{
 }
 
 RawPacketClass *GuildGMRenameConfirmSectorPacket::Build()
@@ -320,4 +358,7 @@ int GuildGMRenameConfirmSectorPacket::Print(char *buffer, int len)
 **	  names: 'Name=%d'), the constructors' stores in the initialiser list.
 **	* The file name is provisional (provisional, pk + its first named class's name).
 **	* Not rebuilt yet: opcode 197, 201, 210, 211 (declared in pk_classes.h).
+**	* The constructors from fields (0x88C960, 0x88D0A0, 0x88DA60, 0x88E370) have no caller in the client.
+**	  The destructors 0x88BF90, 0x88CC40, 0x88D390, 0x88E650 are written out (empty): the implicit ones
+**	  compiled 6 bytes shorter than the client's.
 */

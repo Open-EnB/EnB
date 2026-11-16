@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x46BE90"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "app\\client\\ui_option_account.cpp, provisional name (NAME 1, D137; no __FILE__): the options' account page 'opt05a' (fa_opt05a.ini, tooltips UI_OPTION_ACCOUNT), UIOptionAccountClass over ChatPanelUIBase, 0x5C8870-0x5C8CBF",
  "expected": {},
@@ -24,6 +22,7 @@
   "0x515710",
   "0x515730",
   "0x515750",
+  "0x51C630",
   "0x5623B0",
   "0x5623D0",
   "0x5623F0",
@@ -60,6 +59,7 @@
   "0x515710",
   "0x515730",
   "0x515750",
+  "0x51C630",
   "0x5623B0",
   "0x5623D0",
   "0x5623F0",

@@ -1,11 +1,10 @@
 {
- "ambiguous": [
-  "0x42A6C0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "the chat filters, client 0x4E0840-0x4E42B0 (one object between <string>'s guarded ctype initialisers 0x4E0810 and 0x4E4290; vtables 0xAEC49C / 0xAEC4A8, the symbols '~@#$%^&*+='): no __FILE__ or RTTI, the file name provisional (D137) after chat_filter_util.cpp, which builds its word-list class; rebuilt from the client by builder O10 (2026-11-13)",
  "expected": {},
  "in_tree": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",
@@ -23,6 +22,7 @@
   "0x4E0CF0",
   "0x4E0EB0",
   "0x4E10B0",
+  "0x4E1300",
   "0x4E16E0",
   "0x4E17D0",
   "0x4E19A0",
@@ -61,6 +61,7 @@
   "0x4E3EE0",
   "0x4E3F10",
   "0x4E3F90",
+  "0x4E4140",
   "0x4E4190",
   "0x4E41E0",
   "0x4E4210",
@@ -69,6 +70,7 @@
  "merged": [],
  "name": "shared/chat_filter.cpp",
  "shared": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",

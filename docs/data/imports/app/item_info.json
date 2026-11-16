@@ -1,7 +1,5 @@
 {
  "ambiguous": [
-  "0x42A6C0",
-  "0x42A900",
   "0x42AAE0",
   "0x42AFF0",
   "0x4333D0"
@@ -10,6 +8,7 @@
  "description": "RECONSTRUCTED: client 0x83E7C0-0x842930, ItemBaseInfoClass (an item's typed fields and two effect descriptions) and _ItemField's type table 0xBF34E0; the file name and 29 assert lines are the client's (e:\\build\\beta\\G\\app\\Common\\item_info.cpp)",
  "expected": {},
  "in_tree": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",
@@ -29,6 +28,7 @@
   "0x4C39B0",
   "0x4DD6D0",
   "0x4E2C00",
+  "0x4E8070",
   "0x528320",
   "0x529250",
   "0x5293B0",
@@ -87,6 +87,7 @@
  "merged": [],
  "name": "common/item_info.cpp",
  "shared": [
+  "0x42A6C0",
   "0x42A820",
   "0x42A940",
   "0x42A970",
@@ -106,6 +107,7 @@
   "0x4C39B0",
   "0x4DD6D0",
   "0x4E2C00",
+  "0x4E8070",
   "0x528320",
   "0x529250",
   "0x5293B0",
