@@ -3066,5 +3066,17 @@
   "evidence": "UnknownB00A00Type renamed InvSlotStruct: the KVPair's Get_Type_Name 0x709C80 returns the string 'InvSlotStruct' (0xB94480) (SD, run 2026-11-15b)",
   "replaces": "??_7?$KVAccessorClass@UUnknownB00A00Type@@@@6B@",
   "kind": "vtable"
+ },
+ {
+  "address": "0x89CB40",
+  "symbol": "?Get_Priority@ModeChangePacketClass@@UAEHXZ",
+  "evidence": "ModeChangePacketClass's vtable 0xB0B2E4 slot +0x1C is the thunk 0x401AEB to it (returns 0x7F; pkmodechange.h's override, QD); PacketClass::Get_Priority is 0x52B2F0 (returns 0) (QE, 2026-11-16)",
+  "replaces": "?Get_Priority@PacketClass@@UAEHXZ"
+ },
+ {
+  "address": "0x89CE00",
+  "symbol": "?Get_Priority@Packet_004BClass@@UAEHXZ",
+  "evidence": "Packet_004BClass's vtable 0xB0B314 slot +0x1C is the thunk 0x40B988 to it (returns 0x7F; pkmoderequest.h's override); PacketClass::Get_Priority is 0x52B2F0 (returns 0) (QE, 2026-11-16)",
+  "replaces": "?Get_Priority@PacketClass@@UAEHXZ"
  }
 ]
