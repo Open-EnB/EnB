@@ -2316,6 +2316,15 @@ void MainViewClass::Unknown_514480()
 	Unknown_C404F8 = OptionClass::Instance->Get_Bool("Doppler_Enabled");
 }
 
+// 0x5146A0: reloads the Graphics_* options, marks both flags dirty and applies them
+void MainViewClass::Unknown_5146A0()
+{
+	Unknown_514480();
+	GraphicsChanged = true;
+	DefaultChanged = true;
+	Unknown_5146D0();
+}
+
 // 0x5146D0
 // 0x5146D0: with 'Graphics_Default' the client's own options and a gamma of 1.2, else the Graphics_* sliders (percent)
 // scaled to the budgets; each clamped, then WW3D's gamma and texture reduction when either changed

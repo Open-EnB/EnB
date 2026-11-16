@@ -645,7 +645,7 @@ public:
 	void Unknown_513FC0();								// 0x513FC0 (cpacket.cpp: SERVER_HANDOFF 58: the land out of the scene)
 	void Unknown_514010(int oldmode, int newmode);		// 0x514010 (SClient 0x745F30: the view mode before and after)  // NAME 3 [newmode]: its G_ASSERT's  // NAME 2 [oldmode]: newmode's counterpart
 	void Unknown_512B10(int x, int y, float *fx, float *fy);	// 0x512B10 (a screen point clamped to the device and divided by its size; inlined in 0x512BB0)  // NAME 1 [x, y, fx, fy]: neutral
-	void Unknown_514480();								// 0x514480 (the Graphics_* options into +0x50..+0x64, the flags +0x68 / +0x69; Doppler_Enabled)
+	void Unknown_514480(); void Unknown_5146A0();			// 0x514480 (the Graphics_* options into +0x50..+0x64, the flags +0x68 / +0x69; Doppler_Enabled); 0x5146A0 (calls 0x514480, sets flags, calls 0x5146D0)
 	void Unknown_5146D0();								// 0x5146D0 (Gamma and the budgets from the options or the defaults; WW3D::Set_Gamma, Set_Texture_Reduction)
 	int Unknown_514400();								// 0x514400 (the cockpit's +0xDC)
 	void Unknown_514450();								// 0x514450 (sets the land's +0x136)
