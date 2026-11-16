@@ -33,14 +33,14 @@ public:
 	void Unknown_5D0A20(bool on);						// 0x5D0A20 (0x695DC0: the base's +0xB8 bit 0)  // NAME 1 [on]: neutral
 	void Unknown_5D0A50(bool all);						// 0x5D0A50 (the 'Credits' text; all: whatever changed)  // NAME 1 [all]: as ui_attrb.cpp's 0x547C20
 	LineDisplayClientClass *Get_Client() { return(Client); }	// (inline: the FAIL_IF '!Get_Client()')  // NAME 3: the FAIL_IF's
-	void Unknown_5D0D20(bool reverse);					// 0x5D0D20 (the next sort, or the order reversed: 'Inv_Sort_%d_Name', the INVENTORY_SORT packet)  // NAME 2 [reverse]: what it toggles
+	void Unknown_5D0D20(bool reverse);					// 0x5D0D20 (the next sort, or the order reversed: 'Inv_Sort%d_Name', the INVENTORY_SORT packet)  // NAME 2 [reverse]: what it toggles
 
 	PDAInterfaceClass *PDA;								// +0xD0 (the constructor's)  // NAME 2: what it is
 	RefCountPtr<RenderObjClass> InterfaceMesh;			// +0xD4 ('TSI04A'; FAIL_IF '!InterfaceMesh')  // NAME 3: the FAIL_IF's
 	ButtonGadgetClass *Buttons5[NUM_BUTTONS];			// +0xD8 ('BUTTON01' vault, 'BUTTON02' equipment, 'BUTTON03' sort / reverse, 'EXIT')  // NAME 1: neutral (the base has Buttons)
 	RefCountPtr<UIComboBoxClass> Filter;				// +0xEC ('filter', 'Combo01'; the items 0xB83834)  // NAME 2: its sub-object's name
 	Unknown669FB0Class *Slider;							// +0xF0 (gadget 19)  // NAME 2: its type's file
-	int SortIndex;										// +0xF4 (0..2: 'Inv_Sort_%d_Name'; the option 'Inv_Sort_Cargo')  // NAME 2: what it holds
+	int SortIndex;										// +0xF4 (0..2: 'Inv_Sort%d_Name'; the option 'Inv_Sort_Cargo')  // NAME 2: what it holds
 	bool SortReverse;									// +0xF8 (the option 'Inv_Sort_Cargo_Reverse')  // NAME 2: the option's
 	std::string FilterName;								// +0xFC (the option 'Inv_Filter_Cargo')  // NAME 2: the option's
 };
