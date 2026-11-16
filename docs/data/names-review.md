@@ -10,7 +10,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 226 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1964 |
-| 2 | describes what the code does | 4981 |
+| 2 | describes what the code does | 4982 |
 | 1 | neutral placeholder | 25128 |
 
 ## For review (score 3 and below)
@@ -22957,10 +22957,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown1C` | `app/packets/pkunknown_866ac0.h:34` | neutral (D10) |
 | 1 | `Packet_0078Class` | `app/packets/pkunknown_866ac0.h:38` | neutral (D10): opcode 0x0078 |
 | 1 | `Unknown0E` | `app/packets/pkunknown_866ac0.h:48` | untagged neutral name (D10) |
-| 1 | `Unknown1C` | `app/packets/pkunknown_867010.cpp:9` | untagged neutral name (D10) |
+| 1 | `Unknown1C` | `app/packets/pkunknown_867010.cpp:10` | untagged neutral name (D10) |
 | 1 | `pkunknown_867010` | `app/packets/pkunknown_867010.h:16` | provisional, neutral (D10): the object's first address |
 | 1 | `Packet_00B3Class` | `app/packets/pkunknown_867010.h:22` | neutral (D10): opcode 0x00B3 |
-| 1 | `Unknown1C` | `app/packets/pkunknown_867010.h:35` | untagged neutral name (D10) |
+| 1 | `Unknown1C` | `app/packets/pkunknown_867010.h:36` | untagged neutral name (D10) |
 | 1 | `pkunknown_873a00` | `app/packets/pkunknown_873a00.h:15` | provisional, neutral (D10): the object's first address |
 | 1 | `Unknown_PacketDataClass` | `app/packets/pkunknown_873a00.h:23` | untagged neutral name (D10) |
 | 1 | `Unknown_14` | `app/packets/pkunknown_877640.cpp:8` | untagged neutral name (D10) |
@@ -28697,6 +28697,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Packet_0074Class` | `app/packets/pkunknown_8667a0.h:25` | the stores (no caller left) |
 | 2 | `Get_Type` | `app/packets/pkunknown_8667a0.h:31` | what it returns (the opcode Build sends), as MessageLinePacketClass's |
 | 2 | `std:` | `app/packets/pkunknown_866ac0.h:33` | the client's Print text 'ReferrerName=' |
+| 2 | `Packet_00B3Class` | `app/packets/pkunknown_867010.h:25` | the stores (no caller left) |
 | 2 | `MoneyPacketDataClass` | `app/packets/pkunknown_873a00.h:23` | what it wraps |
 | 2 | `Money` | `app/packets/pkunknown_873a00.h:31` | what it points at |
 | 2 | `Desc` | `app/packets/pkunknown_877640.h:34` | what it holds |
@@ -31826,7 +31827,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `GameID` | `app/packets/pkunknown_861760.h:32` | the client's Print text 'GameID=' |
 | 3 | `GameID` | `app/packets/pkunknown_861b30.h:31` | the client's Print text 'GameID=' |
 | 3 | `Result` | `app/packets/pkunknown_866ac0.h:47` | the client's Print text 'Result=' |
-| 3 | `std:` | `app/packets/pkunknown_867010.h:34` | the client's Print text 'Name=' |
+| 3 | `std:` | `app/packets/pkunknown_867010.h:35` | the client's Print text 'Name=' |
 | 3 | `GameID` | `app/packets/pkunknown_877640.h:33` | the client's Print text 'GameID=' |
 | 3 | `String` | `app/packets/pkunknown_877c80.h:33` | the client's Print text 'String=' |
 | 3 | `Size` | `app/packets/pkunknown_877c80.h:34` | the client's Print text 'Size=' |
