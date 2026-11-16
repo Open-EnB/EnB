@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-859 entries in 296 files.
+856 entries in 296 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -512,7 +512,6 @@ edit the comments in the code, not this file.
 | `app/client/ui_pda_cargo.cpp:112` | `UIPdaCargoClass::Unknown_54` | marker | NOT EXACT: functional from the pseudocode (D64) 0x5CFE40 |
 | `app/client/ui_pda_cargo.cpp:216` | `UIPdaCargoClass::Unknown_68` | marker | NOT EXACT: functional from the pseudocode (D64) 0x5D0620 |
 | `app/client/ui_pda_cargo.cpp:293` | `UIPdaCargoClass::Unknown_5D0A50` | marker | NOT EXACT: functional from the pseudocode (D64): ui_attrb.cpp's 0x547C20 for this window's 'Credits' 0x5D0A50 |
-| `app/client/ui_pda_cargo.cpp:319` | `UIPdaCargoClass::Unknown_5D0D20` | marker | NOT EXACT: functional from the pseudocode (D64) 0x5D0D20 |
 | `app/client/ui_pda_equip.cpp:159` | `UIPdaEquipClass::~UIPdaEquipClass` | marker | NOT EXACT: functional from the pseudocode (D64) @0x5D1A00 |
 | `app/client/ui_pda_equip.cpp:273` | `UIPdaEquipClass::Unknown_68` | marker | NOT EXACT: functional from the pseudocode (D64) @0x5D2180 |
 | `app/client/ui_pda_equip.cpp:294` | `UIPdaEquipClass::Unknown_B0` | marker | NOT EXACT: functional from the pseudocode (D64) @0x5D2210 |
@@ -616,7 +615,6 @@ edit the comments in the code, not this file.
 | `app/client/ui_vault.cpp:60` | `UIVaultClass::UIVaultClass` | marker | NOT EXACT: functional from the pseudocode (D64) 0x656FF0 |
 | `app/client/ui_vault.cpp:109` | `UIVaultClass::Unknown_54` | marker | NOT EXACT: functional from the pseudocode (D64) 0x657430 |
 | `app/client/ui_vault.cpp:214` | `UIVaultClass::Unknown_68` | marker | NOT EXACT: functional from the pseudocode (D64) 0x657AA0 |
-| `app/client/ui_vault.cpp:254` | `UIVaultClass::Unknown_657DA0` | marker | NOT EXACT: functional from the pseudocode (D64) 0x657DA0 |
 | `app/client/ui_verb.cpp:262` | `UIVerbClass::Unknown_88` | marker | NOT EXACT: inline budget (the first Clear_Buttons copy: the client calls size(), inlines erase); the second copy matches |
 | `app/client/unknown_586240.cpp:268` | `UISpaceLightsClass::Unknown_586F60` | marker | NOT EXACT: order (the address of Color[Current] after 1.0f - v in the client), D89; the pseudocode-faithful form 0x586F60 |
 | `app/client/unknown_586240.cpp:352` | `UISpaceLightsClass::Unknown_587310` | mention | NOT EXACT, an order-only residue: the address of Color[Current] is computed after 1.0f - v in the client) clamps with WWMath::Min / Max, y declared before x. |
@@ -837,12 +835,11 @@ edit the comments in the code, not this file.
 | `app/shared/unknown_445740.cpp:209` | `SteeringClass::Cohesion` | marker | NOT EXACT: register-only: the inlined Inverse_Transform_Vector's terms in another FPU order (fld st(1) / fld st(0)) 0x4469A0 |
 | `app/shared/unknown_445740.cpp:237` | `SteeringClass::Alignment` | marker | NOT EXACT: order-only (explain.py): the same 127 instructions in another order (the offset's length sums) 0x446CB0 |
 | `app/shared/unknown_445740.cpp:264` | `SteeringClass::Predict` | marker | NOT EXACT: shape (explain.py): the inlined Closing_Speed's Normalize multiplies in another FPU order 0x446E60 |
-| `app/shared/unknown_445740.cpp:289` | `SteeringClass::Follow` | marker | NOT EXACT: field-offset (explain.py): the client keeps the avoidance result's Y on the FPU (X and Z in memory) 0x447180 |
-| `app/shared/unknown_445740.cpp:311` | `SteeringClass::Seek` | marker | NOT EXACT: field-offset (explain.py): as Follow, the avoidance result's Y on the FPU in the client 0x447480 |
-| `app/shared/unknown_445740.cpp:325` | `SteeringClass::Evade` | marker | NOT EXACT: frame (explain.py): as Follow; frame 0x24 against 0x30 0x447690 |
-| `app/shared/unknown_445740.cpp:339` | `SteeringClass::Pursue` | marker | NOT EXACT: shape (explain.py): the client copies the result twice (a second local) and orders the length sums otherwise 0x4479F0 |
-| `app/shared/unknown_445740.cpp:348` | `SteeringClass::Arrive` | marker | NOT EXACT: shape (explain.py): as 0x4479F0 0x447B30 |
-| `app/shared/unknown_445740.cpp:382` | `SteeringTurnClass::Turn` | marker | NOT EXACT: shape (explain.py): the client copies the cosine into the angle's slot before comparing it with the limit (an inline helper's parameter?); one round tried 0x447E20 |
+| `app/shared/unknown_445740.cpp:312` | `SteeringClass::Seek` | marker | NOT EXACT: field-offset (explain.py): the inlined two-argument Seek's offset loads in another order (fsub +0x3C / +0x44; 23 rows); the avoidance part matches with Follow's form (result assigned, early returns) 0x447480 |
+| `app/shared/unknown_445740.cpp:328` | `SteeringClass::Evade` | marker | NOT EXACT: field-offset (explain.py): the inlined two-argument Evade (through Seek)'s offset loads in another order (fsub +0x3C / +0x44; 23 rows); the avoidance part matches with Follow's form (result assigned, early returns) 0x447690 |
+| `app/shared/unknown_445740.cpp:344` | `SteeringClass::Pursue` | marker | NOT EXACT: shape (explain.py): the client copies the result twice (a second local) and orders the length sums otherwise 0x4479F0 |
+| `app/shared/unknown_445740.cpp:353` | `SteeringClass::Arrive` | marker | NOT EXACT: shape (explain.py): as 0x4479F0 0x447B30 |
+| `app/shared/unknown_445740.cpp:387` | `SteeringTurnClass::Turn` | marker | NOT EXACT: shape (explain.py): the client copies the cosine into the angle's slot before comparing it with the limit (an inline helper's parameter?); one round tried 0x447E20 |
 | `app/shared/unknown_46c730.cpp:164` | `LandClass::Upload_Lightmap` | marker | NOT EXACT: shape (0x46D6B0: 64 masked rows, 29 with registers masked; the frame is the client's 0x20 once the four channels are separate pointers, the client's pointer-difference induction variables; the setup's load order and which difference stays in a register are left; attempts.csv) |
 | `app/shared/unknown_46c730.cpp:218` | `LandClass::Compute_Lighting` | marker | NOT EXACT: order-only (the shadowed vertex: the client loads +0x1F0's factor first; 64 rows masked; attempts.csv 0x46CAE0). The lit vertices: the sun's normal colour plus the sky's; the shadowed: the sky's; between the horizons a blend |
 | `app/shared/unknown_46c730.cpp:615` | `LandClass::Unknown_46F120` | marker | NOT EXACT: shape (frame 0x220 vs the client's 0x19C: the client recomputes y + 1 per x step and fetches all eight heights before the differences; LD7's form with the client's free Normalize at its nine normalises (NF), attempts.csv 0x46F120) |
