@@ -132,6 +132,17 @@ functions and their padding, and each fullmatches its counterpart, unclaimed and
 with `order` and `short_order` set. Object order is the proof (D242), the bytes confirm it (D188's never by pattern
 alone holds: the pattern decides nothing on its own).
 
+The same round aligns each object's edges (D246 / CR6, USE_EDGE_ORDER; `edge_order`): the own functions before the
+object's first exact own function in object order take, nearest first, the client functions right below it, and
+those after its last exact one the client functions right after it, each with only padding to its neighbour,
+fullmatching, unclaimed and not contradicted by D80; an address two symbols would take stays alone. P-C4-1: the
+object's range ends at its exact functions, so an edge function with a byte-identical copy at another object's edge
+stayed tied (ui_symbolchat's and sbaseview's option-struct constructors 0x64A330 / 0x69AC20).
+
+The call evidence of D188 may include other libraries' exact functions' calls
+(D246 / CR6, USE_EXTERN_CALLED; match_objects' extern_called): verify passes each library the call maps the
+previous verify wrote for the others (docs/data/called.json), so no second matching pass is needed.
+
 A searched match counts only at a function start (D189(2)): an address the client's thunk table or a
 call / jump reaches, or one right after padding (int3 / nop) or after the end of another function (a
 `ret`, `ret n`, `jmp`, an indirect `jmp`, or a jump table's last entry), or a 16-byte aligned one (a
@@ -235,6 +246,13 @@ USE_SHORT_ORDER = True
 # D246 (CR1): the same gap alignment when some of the gap's own functions are tied (`multiple`) rather than short
 # (`gap_order`); each must still fullmatch the client function at its position, with its length
 USE_GAP_ORDER = True
+# D246 (CR6): the same alignment at an object's two edges: the own functions before its first exact own function
+# (after its last) in object order take the client functions right below it (right after it), padding-only gaps
+# (`edge_order`); cross-object byte-identical copies (P-C4-1's range end)
+USE_EDGE_ORDER = True
+# D246 (CR6, CR1's EXTERN_CALLED in its cheap form): the relocated calls other libraries' exact functions make (the
+# previous verify's call map, docs/data/called.json, passed as match_objects' extern_called) join D188's `called`
+USE_EXTERN_CALLED = True
 
 
 def generated(name):
@@ -667,11 +685,13 @@ def run_self_names(img, objs, known, thunk):
     return {k: v for k, v in out.items() if len(v) == 1}
 
 
-def match_objects(img, paths, region=None, callers=False):
+def match_objects(img, paths, region=None, callers=False, extern_called=None, called_out=None):
     """region=(lo, hi): search only [lo, hi) of .text (E&B's app region for app files: a pattern
     that also occurs in the libraries is still exact there). callers=True: D166's caller tie-break
     (caller_tiebreak) for identical copies the other rules leave tied; such a result is 'exact'
-    with `caller_tiebreak` set."""
+    with `caller_tiebreak` set. extern_called ({symbol: addresses}, optional): calls other libraries' exact
+    functions make (USE_EXTERN_CALLED); called_out (a dict, optional) receives this run's own {symbol: {addresses}}
+    the exact functions call, the extern ones left out."""
     start, end, raw = img.section('.text')
     text = img.data[raw:raw + (end - start)]
     if region:
@@ -739,6 +759,7 @@ def match_objects(img, paths, region=None, callers=False):
             elif typ == 0x14:
                 v = addr + k + 4 + struct.unpack('<i', text[o + k:o + k + 4])[0]
                 called[sym['name']].add(thunk.get(v, v) & 0xFFFFFFFF)   # D188: a call's target
+                own_called[sym['name']].add(thunk.get(v, v) & 0xFFFFFFFF)
                 obj_called[(id(obj), sym['name'])].add(thunk.get(v, v) & 0xFFFFFFFF)   # P-CGP-1
             else:
                 continue
@@ -751,6 +772,10 @@ def match_objects(img, paths, region=None, callers=False):
             for name, t, _ in pushed_targets(img, obj, sec, s, length, addr, text, start, thunk):
                 pushed_called[name].add(t)       # D246 / CR3: an absolute function reference's immediate
     called = collections.defaultdict(set)   # D188: {symbol: {addresses}} the exact functions call
+    own_called = collections.defaultdict(set)   # the same, this run's own functions only (called_out)
+    if USE_EXTERN_CALLED and extern_called:
+        for k, v in extern_called.items():
+            called[k] |= set(v)
     funclet_called = collections.defaultdict(set)   # D246 / C21: {symbol: {addresses}} their funclets jump to
     pushed_called = collections.defaultdict(set)    # D246 / CR3: {symbol: {addresses}} they push / load / store
     obj_funclet = collections.defaultdict(set)      # CR2: {(object, symbol): {addresses}} its own funclets jump to
@@ -866,13 +891,22 @@ def match_objects(img, paths, region=None, callers=False):
             if phase == 'shortorder':
                 # D246 / CR1: short own functions placed by object order
                 got = short_order(img, results, text, start, claimed, known)
+                if USE_EDGE_ORDER:
+                    # D246 / CR6: the same alignment at each object's edges, after the gaps
+                    taken = {a for _, a in got}
+                    edge = [(it, a) for it, a in edge_order(img, results, text, start, claimed, known)
+                            if a not in taken]
+                    for it, _ in edge:
+                        it[0]['edge_order'] = True
+                    got = got + edge
                 for (r, obj, sec, s, length), a in got:
                     if r['status'] == 'multiple':
                         r['tiebreak'] = True
-                        r['gap_order'] = True
+                        if not r.get('edge_order'):
+                            r['gap_order'] = True
                         r.pop('count', None), r.pop('identical', None)
                         done.add(id(r))
-                    else:
+                    elif not r.get('edge_order'):
                         r['short_order'] = True
                     r['status'] = 'exact'
                     r['addresses'] = [f'0x{a:06X}']
@@ -1077,6 +1111,8 @@ def match_objects(img, paths, region=None, callers=False):
             r, obj, sec, s, length, hits = item
             done.add(id(r))
             learn(r, obj, sec, s, length, int(r['addresses'][0], 16))
+    if called_out is not None:
+        called_out.update({k: set(v) for k, v in own_called.items()})
     for r, *_ in results:
         r.pop('shared', None)
         if r['status'] != 'exact' or not r.get('shared_callers'):
@@ -2081,6 +2117,53 @@ def short_order(img, results, text, base, claimed, known):
             if ok:
                 out += list(zip(members, cands))
     return out
+
+
+def edge_order(img, results, text, base, claimed, known):
+    """D246 / CR6: [(item, address)] for own functions at an object's edges placed by object order. An object whose
+    exact own functions rise in object order: the own functions before its first exact one P, nearest first, take
+    the client's verified starts right below P one by one (each start's function, its own length, then only padding
+    up to the next one), and the own functions after its last exact one Q, nearest first, the starts right after
+    Q's end; each `short` or `multiple`, fullmatching there, unclaimed, with D80's checks leaving it. The first that
+    fails ends that edge. An address two symbols take (another object's edge or gap function with the same bytes)
+    is left alone. Not a test of other objects' ranges: one stray exact function makes a range span a quarter of
+    the app (unknown_7cef30's 0x60A3E0-0x7DC8F0 covers both constructors below). P-C4-1: an object's range ends at its exact
+    functions, so a byte-identical copy of an edge function in another object's code tied with it (sbaseview's and
+    ui_symbolchat's option-struct constructors 0x69AC20 / 0x64A330)."""
+    starts = _verified_starts(img)
+    orders = _object_order(results)
+
+    def ok_at(key, item, a, nxt):
+        r, obj, sec, s, length = item
+        return r['status'] in ('short', 'multiple') and length > 0 and not claimed[a] and             _fullmatch_at(obj, sec, s, length, text, base, a) and _padding(text, base, a + length, nxt) and             break_tie(obj, sec, s, length, text, base, [a], img, known)[0] == [a]
+
+    out = []
+    for key, order in orders.items():
+        exact = [i for i, (k, a, it) in enumerate(order) if a is not None]
+        if not exact or any(order[i][1] >= order[j][1] for i, j in zip(exact, exact[1:])):
+            continue
+        bound = order[exact[0]][1]
+        for j in range(exact[0] - 1, -1, -1):
+            k = bisect.bisect_left(starts, bound) - 1
+            if k < 0 or not ok_at(key, order[j][2], starts[k], bound):
+                break
+            out.append((order[j][2], starts[k]))
+            bound = starts[k]
+        end = order[exact[-1]][1] + order[exact[-1]][2][4]
+        for j in range(exact[-1] + 1, len(order)):
+            k = bisect.bisect_left(starts, end)
+            if k >= len(starts):
+                break
+            a = starts[k]
+            item = order[j][2]
+            if not _padding(text, base, end, a) or not ok_at(key, item, a, a + item[4]):
+                break
+            out.append((item, a))
+            end = a + item[4]
+    by_addr = collections.defaultdict(set)
+    for (r, *_), a in out:
+        by_addr[a].add(r['symbol'])
+    return [(it, a) for it, a in out if len(by_addr[a]) == 1]
 
 
 def object_order(pending, done, survivors_of, ranges, claimed, obj_called, results):

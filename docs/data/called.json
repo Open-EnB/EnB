@@ -1,0 +1,4420 @@
+{
+"app": {
+"??0AABTreeCullSystemClass@@QAE@XZ": [
+"0x8D9000"
+],
+"??0ArgvClass@@QAE@_N0@Z": [
+"0x9CF830"
+],
+"??0Bitmap2DObjClass@@QAE@PAVTextureClass@@MM_N111@Z": [
+"0x974CD0"
+],
+"??0Bitmap2DObjClass@@QAE@PBDMM_N11HH1@Z": [
+"0x974420"
+],
+"??0Buffer@@QAE@PAXJ@Z": [
+"0x9DCF40"
+],
+"??0CameraClass@@QAE@XZ": [
+"0x943B70"
+],
+"??0ChunkLoadClass@@QAE@PAVFileClass@@@Z": [
+"0x9D42B0"
+],
+"??0CompositeMatrixMapperClass@@QAE@PAVTextureMapperClass@@I@Z": [
+"0x9809E0"
+],
+"??0CompositeRenderObjClass@@QAE@ABV0@@Z": [
+"0x985EF0"
+],
+"??0CompositeRenderObjClass@@QAE@XZ": [
+"0x985DF0"
+],
+"??0ConvertClass@@QAE@ABVPaletteClass@@0ABVSurface@@@Z": [
+"0x9DD0F0"
+],
+"??0CritSec@@QAE@XZ": [
+"0x8B42F0"
+],
+"??0CullableClass@@QAE@XZ": [
+"0x8C8D70"
+],
+"??0Curve1DClass@@QAE@XZ": [
+"0x8D43B0"
+],
+"??0Curve3DClass@@QAE@XZ": [
+"0x8D3AD0"
+],
+"??0DSurface@@QAE@HH_NPAU_DDPIXELFORMAT@@@Z": [
+"0x9DF080"
+],
+"??0DX8IndexBufferClass@@QAE@GW4UsageType@0@@Z": [
+"0x9512C0"
+],
+"??0DX8VertexBufferClass@@QAE@IGW4UsageType@0@I@Z": [
+"0x94F330"
+],
+"??0DazzleLayerClass@@QAE@XZ": [
+"0x96EAA0"
+],
+"??0DefaultStaticSortListClass@@QAE@XZ": [
+"0x97CF10"
+],
+"??0DynamicIBAccessClass@@QAE@GG@Z": [
+"0x9515E0"
+],
+"??0DynamicMeshClass@@QAE@ABV0@@Z": [
+"0x976590"
+],
+"??0DynamicMeshClass@@QAE@HH@Z": [
+"0x976320"
+],
+"??0DynamicVBAccessClass@@QAE@IIG@Z": [
+"0x950710"
+],
+"??0Font3DInstanceClass@@QAE@PBD@Z": [
+"0x9829C0"
+],
+"??0GridCullSystemClass@@QAE@XZ": [
+"0x8D6FA0"
+],
+"??0HAnimComboClass@@QAE@XZ": [
+"0x931630"
+],
+"??0HAnimComboDataClass@@QAE@_N@Z": [
+"0x931350"
+],
+"??0HMorphAnimClass@@QAE@XZ": [
+"0x986F10"
+],
+"??0INIClass@@QAE@AAVFileClass@@@Z": [
+"0x9C7DA0"
+],
+"??0INIClass@@QAE@PBD@Z": [
+"0x9C7EB0"
+],
+"??0INIClass@@QAE@XZ": [
+"0x9C7C60"
+],
+"??0LayerClass@@QAE@ABV0@@Z": [
+"0x967930"
+],
+"??0LayerClass@@QAE@PAVSceneClass@@PAVCameraClass@@_N2ABVVector3@@@Z": [
+"0x9679F0"
+],
+"??0LayerClass@@QAE@XZ": [
+"0x967880"
+],
+"??0LightClass@@QAE@W4LightType@0@@Z": [
+"0x953600"
+],
+"??0LightEnvironmentClass@@QAE@XZ": [
+"0x9853B0"
+],
+"??0Line3DClass@@QAE@ABV0@@Z": [
+"0x943130"
+],
+"??0Line3DClass@@QAE@ABVVector3@@0MMMMM@Z": [
+"0x942ED0"
+],
+"??0LineGroupClass@@QAE@XZ": [
+"0x97B6D0"
+],
+"??0LinearOffsetTextureMapperClass@@QAE@ABVVector2@@0_N0I@Z": [
+"0x9329F0"
+],
+"??0MainViewDazzleHandlerClass@@QAE@PAVSClient@@@Z": [
+"0x75DD00"
+],
+"??0MaterialPassClass@@QAE@XZ": [
+"0x92E620"
+],
+"??0MixFileFactoryClass@@QAE@PBDPAVFileFactoryClass@@@Z": [
+"0x9D7A60"
+],
+"??0MultiFixedPoolDecalSystemClass@@QAE@KPBK@Z": [
+"0x981520"
+],
+"??0Null3DObjClass@@QAE@PBD@Z": [
+"0x941330"
+],
+"??0OBBoxCollisionTestClass@@QAE@ABV0@ABVMatrix3D@@@Z": [
+"0x92E2F0"
+],
+"??0OBBoxCollisionTestClass@@QAE@ABVOBBoxClass@@ABVVector3@@PAUCastResultStruct@@H@Z": [
+"0x92DF40"
+],
+"??0PointGroupClass@@QAE@XZ": [
+"0x9544C0"
+],
+"??0PrimitivePrototypeClass@@QAE@PAVRenderObjClass@@@Z": [
+"0x93E5D0"
+],
+"??0QMCSamplingClass@@QAE@IE@Z": [
+"0x9D3CF0"
+],
+"??0RC4Class@@QAE@XZ": [
+"0x9E0210"
+],
+"??0Random2Class@@QAE@I@Z": [
+"0x9D0080"
+],
+"??0Random3Class@@QAE@II@Z": [
+"0x9D0230"
+],
+"??0RandomClass@@QAE@I@Z": [
+"0x9CFFD0"
+],
+"??0RawFileClass@@QAE@XZ": [
+"0x683BE0"
+],
+"??0RegistryClass@@QAE@PBD_N@Z": [
+"0x9D1580"
+],
+"??0RelationshipClass@@QAE@XZ": [
+"0x848C80"
+],
+"??0Render2DClass@@QAE@PAVTextureClass@@@Z": [
+"0x96F7C0"
+],
+"??0Render2DTextClass@@QAE@PAVFont3DInstanceClass@@@Z": [
+"0x972FA0"
+],
+"??0RenderObjClass@@QAE@ABV0@@Z": [
+"0x941970"
+],
+"??0RenderObjClass@@QAE@XZ": [
+"0x941880"
+],
+"??0SBaseViewUnknown188Class@@QAE@PAVUIViewClass@@PAVLayerClass@@@Z": [
+"0x5435D0"
+],
+"??0SBaseViewUnknown198Class@@QAE@PAVSClient@@@Z": [
+"0x65A020"
+],
+"??0ScaleTextureMapperClass@@QAE@ABVVector2@@I@Z": [
+"0x932180"
+],
+"??0SecureRandomClass@@QAE@XZ": [
+"0x9E3570"
+],
+"??0SegmentedLineClass@@QAE@XZ": [
+"0x968BF0"
+],
+"??0SimpleFileFactoryClass@@QAE@XZ": [
+"0x9D07D0"
+],
+"??0SimpleSceneClass@@QAE@XZ": [
+"0x9659B0"
+],
+"??0SpecialRenderInfoClass@@QAE@AAVCameraClass@@H@Z": [
+"0x9310B0"
+],
+"??0SurfaceClass@@QAE@IIW4WW3DFormat@@@Z": [
+"0x94D590"
+],
+"??0SurfaceClass@@QAE@PBD@Z": [
+"0x94D610"
+],
+"??0TCPCon@@QAE@I@Z": [
+"0x8BBA70"
+],
+"??0TCPMgr@@QAE@XZ": [
+"0x8BCA50"
+],
+"??0Targa@@QAE@XZ": [
+"0x9D28E0"
+],
+"??0TexProjectClass@@QAE@XZ": [
+"0x93CEE0"
+],
+"??0TextureClass@@QAE@IIW4WW3DFormat@@W4MipCountType@@W4PoolType@TextureBaseClass@@_N@Z": [
+"0x94B240"
+],
+"??0TextureClass@@QAE@PBD0W4MipCountType@@W4WW3DFormat@@_N@Z": [
+"0x94B3D0"
+],
+"??0UDP@@QAE@XZ": [
+"0x8BF990"
+],
+"??0UIAvatarCustGadgetHolderStruct@@QAE@XZ": [
+"0x585920"
+],
+"??0UIAvatarCustUnknown368Class@@QAE@PAVRenderObjClass@@PBD11_N@Z": [
+"0x585B50"
+],
+"??0UIAvselEditClass@@QAE@PAVInterfaceClass@@HPBDPAVRenderObjClass@@HH@Z": [
+"0x6AA810"
+],
+"??0Unknown6D47C0Class@@QAE@PBDH0@Z": [
+"0x6D47C0"
+],
+"??0Unknown6EF4C0Class@@QAE@PAVSClient@@HHHHPAVUnknown6D47C0Class@@ABVVector2@@ABVVector3@@@Z": [
+"0x6EF4C0"
+],
+"??0Unknown8B5D90Class@@QAE@PBD@Z": [
+"0x8B5DB0"
+],
+"??0Unknown8B5D90Class@@QAE@XZ": [
+"0x8B5D90"
+],
+"??0Unknown8CClass@@QAE@XZ": [
+"0x73FA60"
+],
+"??0VertexMaterialClass@@QAE@ABV0@@Z": [
+"0x92E9B0"
+],
+"??0VertexMaterialClass@@QAE@XZ": [
+"0x92E8D0"
+],
+"??0WW3DAssetManager@@QAE@XZ": [
+"0x91C2C0"
+],
+"??0WWAudioClass@@QAE@_N@Z": [
+"0x9EE9B0"
+],
+"??0WWFontClass@@QAE@PBX_NHPAVConvertClass@@PAE@Z": [
+"0x9DB110"
+],
+"??0WriteLockClass@DynamicIBAccessClass@@QAE@PAV1@@Z": [
+"0x9516F0"
+],
+"??0WriteLockClass@DynamicVBAccessClass@@QAE@PAV1@@Z": [
+"0x950BB0"
+],
+"??0WriteLockClass@IndexBufferClass@@QAE@PAV1@@Z": [
+"0x951160"
+],
+"??0Wstring@@QAE@ABV0@@Z": [
+"0x8B5E30"
+],
+"??0Wstring@@QAE@PBD@Z": [
+"0x8B5DB0"
+],
+"??0Wstring@@QAE@XZ": [
+"0x8B5D90"
+],
+"??0Wtime@@QAE@AAV0@@Z": [
+"0x8B81A0"
+],
+"??0Wtime@@QAE@K@Z": [
+"0x8B81D0"
+],
+"??0Xtime@@QAE@ABV0@@Z": [
+"0x8BA420"
+],
+"??0Xtime@@QAE@J@Z": [
+"0x8BA450"
+],
+"??0Xtime@@QAE@XZ": [
+"0x8BA300"
+],
+"??0_Locinfo@std@@QAE@PBD@Z": [
+"0xA1B117"
+],
+"??0_Lockit@std@@QAE@XZ": [
+"0xA19CDC"
+],
+"??0exception@@QAE@ABQBD@Z": [
+"0xA28F2F"
+],
+"??0exception@@QAE@ABV0@@Z": [
+"0xA28F6C"
+],
+"??0file_auto_ptr@@QAE@PAVFileFactoryClass@@PBD@Z": [
+"0x9D0720"
+],
+"??1AABTreeCullSystemClass@@UAE@XZ": [
+"0x8D91B0"
+],
+"??1Buffer@@QAE@XZ": [
+"0x9DD090"
+],
+"??1CompositeRenderObjClass@@UAE@XZ": [
+"0x986050"
+],
+"??1ConvertClass@@QAE@XZ": [
+"0x9DD7E0"
+],
+"??1CritSec@@QAE@XZ": [
+"0x8B4310"
+],
+"??1CullableClass@@UAE@XZ": [
+"0x8C8DC0"
+],
+"??1Curve1DClass@@UAE@XZ": [
+"0x8D4510"
+],
+"??1Curve3DClass@@UAE@XZ": [
+"0x8D3C40"
+],
+"??1DazzleLayerClass@@QAE@XZ": [
+"0x96EAF0"
+],
+"??1DynamicIBAccessClass@@QAE@XZ": [
+"0x951620"
+],
+"??1DynamicMeshClass@@UAE@XZ": [
+"0x9767F0"
+],
+"??1DynamicVBAccessClass@@QAE@XZ": [
+"0x950750"
+],
+"??1GenericMultiListClass@@UAE@XZ": [
+"0x9D0FE0"
+],
+"??1GridCullSystemClass@@UAE@XZ": [
+"0x8D70A0"
+],
+"??1HAnimComboClass@@QAE@XZ": [
+"0x9317C0"
+],
+"??1HAnimComboDataClass@@QAE@XZ": [
+"0x931410"
+],
+"??1HTreeClass@@QAE@XZ": [
+"0x988C20"
+],
+"??1INIClass@@UAE@XZ": [
+"0x9C7FC0"
+],
+"??1LayerClass@@UAE@XZ": [
+"0x967A50"
+],
+"??1LightClass@@UAE@XZ": [
+"0x9539D0"
+],
+"??1LightEnvironmentClass@@QAE@XZ": [
+"0x9853E0"
+],
+"??1Line3DClass@@UAE@XZ": [
+"0x943290"
+],
+"??1MainViewDazzleHandlerClass@@QAE@XZ": [
+"0x75DE70"
+],
+"??1MultiFixedPoolDecalSystemClass@@UAE@XZ": [
+"0x9819C0"
+],
+"??1MultiListObjectClass@@UAE@XZ": [
+"0x9D0F50"
+],
+"??1NamedPivotMapClass@@UAE@XZ": [
+"0x931110"
+],
+"??1PrimitivePrototypeClass@@UAE@XZ": [
+"0x93E630"
+],
+"??1RegistryClass@@QAE@XZ": [
+"0x9D1680"
+],
+"??1SecureRandomClass@@QAE@XZ": [
+"0x9E3590"
+],
+"??1SegmentedLineClass@@UAE@XZ": [
+"0x968E10"
+],
+"??1SimpleSceneClass@@UAE@XZ": [
+"0x965BF0"
+],
+"??1SpecialRenderInfoClass@@QAE@XZ": [
+"0x931100"
+],
+"??1TCPMgr@@QAE@XZ": [
+"0x8BCA90"
+],
+"??1Targa@@QAE@XZ": [
+"0x9D2920"
+],
+"??1TexProjectClass@@UAE@XZ": [
+"0x93D060"
+],
+"??1UDP@@QAE@XZ": [
+"0x8BFA10"
+],
+"??1UIAvatarCustGadgetHolderStruct@@QAE@XZ": [
+"0x585950"
+],
+"??1UIAvatarCustUnknown368Class@@QAE@XZ": [
+"0x585BF0"
+],
+"??1Unknown8B5D90Class@@QAE@XZ": [
+"0x8B5EC0"
+],
+"??1WW3DAssetManager@@UAE@XZ": [
+"0x91C530"
+],
+"??1WriteLockClass@DynamicIBAccessClass@@QAE@XZ": [
+"0x951790"
+],
+"??1WriteLockClass@DynamicVBAccessClass@@QAE@XZ": [
+"0x950C70"
+],
+"??1WriteLockClass@IndexBufferClass@@QAE@XZ": [
+"0x9511D0"
+],
+"??1Wstring@@QAE@XZ": [
+"0x8B5EC0"
+],
+"??1Wtime@@QAE@XZ": [
+"0x8B8200"
+],
+"??1Xtime@@QAE@XZ": [
+"0x8BA4F0"
+],
+"??1_Locinfo@std@@QAE@XZ": [
+"0xA1B247"
+],
+"??1_Lockit@std@@QAE@XZ": [
+"0xA19D78"
+],
+"??1exception@@UAE@XZ": [
+"0xA28FD5"
+],
+"??1file_auto_ptr@@QAE@XZ": [
+"0x9D0770"
+],
+"??1ios_base@std@@UAE@XZ": [
+"0xA1A150"
+],
+"??4Line3DClass@@QAEAAV0@ABV0@@Z": [
+"0x9431E0"
+],
+"??4RC4Class@@QAEAAV0@ABV0@@Z": [
+"0x9E0250"
+],
+"??4RenderObjClass@@QAEAAV0@ABV0@@Z": [
+"0x941A60"
+],
+"??4VertexMaterialClass@@QAEAAV0@ABV0@@Z": [
+"0x92EB90"
+],
+"??4WeightInfoStruct@NamedPivotMapClass@@QAEAAU01@ABU01@@Z": [
+"0x9311C0"
+],
+"??4Wstring@@QAEAAV0@ABV0@@Z": [
+"0x8B61D0"
+],
+"??4Wtime@@QAEAAV0@K@Z": [
+"0x8BA250"
+],
+"??4Xtime@@QAEAAV0@ABV0@@Z": [
+"0x8BB720"
+],
+"??6ostream@@QAEAAV0@E@Z": [
+"0xA40B38"
+],
+"??6ostream@@QAEAAV0@H@Z": [
+"0xA40BD6"
+],
+"??6ostream@@QAEAAV0@J@Z": [
+"0xA41288"
+],
+"??6ostream@@QAEAAV0@PBD@Z": [
+"0xA40DAB"
+],
+"??8Wstring@@QBEDABV0@@Z": [
+"0x8B5F70"
+],
+"??8type_info@@QBEHABV0@@Z": [
+"0xA281AE"
+],
+"??HXtime@@QAE?AV0@AAV0@@Z": [
+"0x8BB6A0"
+],
+"??MXtime@@QBEDABV0@@Z": [
+"0x8BB3E0"
+],
+"??RRandom2Class@@QAEHHH@Z": [
+"0x9D0180"
+],
+"??RRandom2Class@@QAEHXZ": [
+"0x9D0130"
+],
+"??RRandom3Class@@QAEHXZ": [
+"0x9D0250"
+],
+"??RRandomClass@@QAEHHH@Z": [
+"0x9D0000"
+],
+"??RRandomClass@@QAEHXZ": [
+"0x9CFFE0"
+],
+"??YWstring@@QAEAAV0@ABV0@@Z": [
+"0x8B6750"
+],
+"??YWstring@@QAEAAV0@PBD@Z": [
+"0x8B6640"
+],
+"??ZXtime@@QAEAAV0@ABV0@@Z": [
+"0x8BB5A0"
+],
+"??_L@YGXPAXIHP6EX0@Z1@Z": [
+"0xA26658"
+],
+"??_M@YGXPAXIHP6EX0@Z@Z": [
+"0xA26564"
+],
+"?Add@RenderObjClass@@UAEXPAVSceneClass@@@Z": [
+"0x942140"
+],
+"?Add_Anim@HAnimManagerClass@@QAE_NPAVHAnimClass@@@Z": [
+"0x964C40"
+],
+"?Add_Light@LightEnvironmentClass@@QAEXABVLightClass@@@Z": [
+"0x985430"
+],
+"?Add_Object_Internal@AABTreeCullSystemClass@@IAEXPAVCullableClass@@H@Z": [
+"0x8D9360"
+],
+"?Add_Object_Internal@GridCullSystemClass@@IAEXPAVCullableClass@@@Z": [
+"0x8D8820"
+],
+"?Add_Point@SegmentedLineClass@@QAEXABVVector3@@@Z": [
+"0x969070"
+],
+"?Add_Prototype@WW3DAssetManager@@QAEXPAVPrototypeClass@@@Z": [
+"0x91ECA0"
+],
+"?Add_Quad@Render2DClass@@QAEXABVRectClass@@K@Z": [
+"0x9712E0"
+],
+"?Add_Render_Object@SceneClass@@UAEXPAVRenderObjClass@@@Z": [
+"0x965440"
+],
+"?Add_Render_Object@SimpleSceneClass@@UAEXPAVRenderObjClass@@@Z": [
+"0x965D80"
+],
+"?Add_Texture@MaterialInfoClass@@QAEHPAVTextureClass@@@Z": [
+"0x951D50"
+],
+"?Add_Thumbnail_Manager@ThumbnailManagerClass@@SAXPBD0@Z": [
+"0x91A990"
+],
+"?Add_To_List@DefaultStaticSortListClass@@UAEXPAVRenderObjClass@@I@Z": [
+"0x97D060"
+],
+"?Add_To_Static_Sort_List@WW3D@@SAXPAVRenderObjClass@@I@Z": [
+"0x919000"
+],
+"?Alloc@FastAllocatorGeneral@@QAEPAXI@Z": [
+"0x9DAE10"
+],
+"?Alter_Avatar_HTree@HTreeClass@@SAPAV1@PBV1@AAVVector3@@@Z": [
+"0x98A2D0"
+],
+"?Append_Anim_Combo_Data@HAnimComboClass@@QAEXPAVHAnimComboDataClass@@@Z": [
+"0x931D10"
+],
+"?Begin_Chunk@ChunkSaveClass@@QAE_NK@Z": [
+"0x9D3E40"
+],
+"?Begin_Render@WW3D@@SA?AW4WW3DErrorType@@_N0ABVVector3@@P6AXXZ@Z": [
+"0x917AC0"
+],
+"?Bind@UDP@@QAEJKG@Z": [
+"0x8BFB70"
+],
+"?Build_Active_Pivot_Map@HAnimComboDataClass@@QAEXXZ": [
+"0x9314F0"
+],
+"?Build_Definition@ParticleEmitterClass@@QBEPAVParticleEmitterDefClass@@XZ": [
+"0x97EDE0"
+],
+"?Build_Filename_List@MixFileFactoryClass@@QAE_NAAV?$DynamicVectorClass@VStringClass@@@@@Z": [
+"0x9D7E20"
+],
+"?Build_Matrix3D@@YA?AVMatrix3D@@ABVQuaternion@@@Z": [
+"0x8D2C10"
+],
+"?Build_Quaternion@@YA?AVQuaternion@@ABVMatrix3D@@@Z": [
+"0x8D2710"
+],
+"?CRC_String@@YAKPBDK@Z": [
+"0x9D4840"
+],
+"?Clear@INIClass@@QAE_NPBD0@Z": [
+"0x9C8020"
+],
+"?Clear@PredictiveLODOptimizerClass@@SAXXZ": [
+"0x96F060"
+],
+"?Clear@SurfaceClass@@QAEXXZ": [
+"0x94D800"
+],
+"?Clear_Accounting_Callback@UDP@@SAXXZ": [
+"0x8C0600"
+],
+"?Close_Chunk@ChunkLoadClass@@QAE_NXZ": [
+"0x9D4370"
+],
+"?Collide@CollisionMath@@SA_NABVAABoxClass@@ABVVector3@@ABVTriClass@@PAUCastResultStruct@@@Z": [
+"0x8C9BD0"
+],
+"?Collide@CollisionMath@@SA_NABVLineSegClass@@ABVAABoxClass@@PAUCastResultStruct@@@Z": [
+"0x8C9500"
+],
+"?Collide@CollisionMath@@SA_NABVLineSegClass@@ABVSphereClass@@PAUCastResultStruct@@@Z": [
+"0x8C9370"
+],
+"?Compute_Ortho_Projection@TexProjectClass@@QAE_NPAVRenderObjClass@@ABVVector3@@MM@Z": [
+"0x93DB90"
+],
+"?Compute_Texture@TexProjectClass@@QAE_NPAVRenderObjClass@@PAVSpecialRenderInfoClass@@@Z": [
+"0x93DF00"
+],
+"?Contains@GenericMultiListClass@@QAE_NPAVMultiListObjectClass@@@Z": [
+"0x9D0FF0"
+],
+"?ConvertBSTRToString@_com_util@@YGPADPAG@Z": [
+"0xA4095B"
+],
+"?ConvertStringToBSTR@_com_util@@YGPAGPBD@Z": [
+"0xA408E6"
+],
+"?Copy@HAnimComboDataClass@@QAEXPBV1@@Z": [
+"0x9313B0"
+],
+"?Copy@SurfaceClass@@QAEXIIIIIIPBV1@@Z": [
+"0x94DD30"
+],
+"?Cord_SHA@@YA_NPBXHPAI@Z": [
+"0x8B4A90"
+],
+"?CreateBrowser@DX8WebBrowser@@SAXPBD0HHHHHJPAUIDispatch@@0@Z": [
+"0x9205C0"
+],
+"?Create_3D_Sound@WWAudioClass@@QAEPAVSound3DClass@@PBDH@Z": [
+"0x9F0350"
+],
+"?Create_From_Definition@ParticleEmitterClass@@SAPAV1@ABVParticleEmitterDefClass@@@Z": [
+"0x97D910"
+],
+"?Create_New_Morph@HMorphAnimClass@@QAEHHQAPAVHAnimClass@@@Z": [
+"0x987B90"
+],
+"?Create_Render_Obj@WW3DAssetManager@@UAEPAVRenderObjClass@@PBD@Z": [
+"0x91D4B0"
+],
+"?Create_Render_Target@DX8Wrapper@@SAPAVTextureClass@@HHW4WW3DFormat@@@Z": [
+"0x926790"
+],
+"?Create_Sound_Effect@WWAudioClass@@QAEPAVAudibleSoundClass@@PBD@Z": [
+"0x9EFEC0"
+],
+"?Cur_Chunk_ID@ChunkLoadClass@@QAEKXZ": [
+"0x9D43C0"
+],
+"?Current_Override_Flags@RenderInfoClass@@QAEAAW4RINFO_OVERRIDE_FLAGS@1@XZ": [
+"0x9310A0"
+],
+"?Customized_Render@SimpleSceneClass@@MAEXAAVRenderInfoClass@@@Z": [
+"0x9661C0"
+],
+"?Delete_Point@SegmentedLineClass@@QAEXI@Z": [
+"0x9690E0"
+],
+"?DestroyBrowser@DX8WebBrowser@@SAXPBD@Z": [
+"0x920990"
+],
+"?Draw_Line_16@HtmlViewClass@@QAEXHHHHHHHHHH@Z": [
+"0x777EE0"
+],
+"?Draw_Line_32@HtmlViewClass@@QAEXHHHHHHHHHH@Z": [
+"0x7778E0"
+],
+"?Draw_Strip@DX8Wrapper@@SAXGGGG@Z": [
+"0x925480"
+],
+"?Draw_Text@Render2DTextClass@@QAEXPBDK@Z": [
+"0x9738E0"
+],
+"?Draw_Triangles@DX8Wrapper@@SAXGGGG@Z": [
+"0x925460"
+],
+"?Enable_Alpha@Render2DClass@@QAEX_N@Z": [
+"0x96FC90"
+],
+"?Enable_Attenuation@TexProjectClass@@QAEX_N@Z": [
+"0x93D230"
+],
+"?Enable_Depth_Gradient@TexProjectClass@@QAEX_N@Z": [
+"0x93D280"
+],
+"?Enable_Large_Texture_Extra_Reduction@WW3D@@SAX_N@Z": [
+"0x918DA0"
+],
+"?Enable_Sorting@WW3D@@SAX_N@Z": [
+"0x919050"
+],
+"?End_Chunk@ChunkSaveClass@@QAE_NXZ": [
+"0x9D3ED0"
+],
+"?End_Render@WW3D@@SA?AW4WW3DErrorType@@_N@Z": [
+"0x918120"
+],
+"?End_Vertex@DynamicMeshClass@@QAE_NXZ": [
+"0x976010"
+],
+"?Enter_Child@WWProfileIterator@@QAEXH@Z": [
+"0x9EBA00"
+],
+"?Entry_Count@INIClass@@QBEHPBD@Z": [
+"0x9C8F30"
+],
+"?Exception_Handler@@YAHHPAU_EXCEPTION_POINTERS@@@Z": [
+"0x9CE430"
+],
+"?Find_Again@ArgvClass@@QAEPBDPBD@Z": [
+"0x9CF860"
+],
+"?Find_Entry@INIClass@@QBEPAUINIEntry@@PBD0@Z": [
+"0x9C8FD0"
+],
+"?Find_Entry@INISection@@QBEPAUINIEntry@@PBD@Z": [
+"0x9CC0D0"
+],
+"?Find_POT@@YAHH@Z": [
+"0x8C8F30"
+],
+"?Find_Point_Closest_To@LineSegClass@@QBE?AVVector3@@ABV2@@Z": [
+"0x8DE5C0"
+],
+"?Find_Section@INIClass@@QBEPAUINISection@@PBD@Z": [
+"0x9C8DD0"
+],
+"?Find_Value@ArgvClass@@QAEPBDPBD@Z": [
+"0x9CFC90"
+],
+"?First@WWProfileIterator@@QAEXXZ": [
+"0x9EB9C0"
+],
+"?Flush_Cache@WWAudioClass@@QAEXXZ": [
+"0x9EF0B0"
+],
+"?Flush_DX8_Resource_Manager@DX8Wrapper@@SAXI@Z": [
+"0x926E40"
+],
+"?Flush_Playlist@WWAudioClass@@QAEXXZ": [
+"0x9F0B80"
+],
+"?Format@StringClass@@QAAHPBDZZ": [
+"0x9CF640"
+],
+"?Free@ArgvClass@@SAXXZ": [
+"0x9CFC40"
+],
+"?Free@FastAllocatorGeneral@@QAEXPAX@Z": [
+"0x9DAF60"
+],
+"?Free@MaterialInfoClass@@AAEXXZ": [
+"0x951E20"
+],
+"?Free_All_Anims@HAnimManagerClass@@QAEXXZ": [
+"0x964BE0"
+],
+"?Free_All_Trees@HTreeManagerClass@@QAEXXZ": [
+"0x964090"
+],
+"?Free_Completed_Sounds@WWAudioClass@@QAEXXZ": [
+"0x9F0C50"
+],
+"?Free_Morph@HMorphAnimClass@@QAEXXZ": [
+"0x987B80"
+],
+"?Free_String@StringClass@@AAEXXZ": [
+"0x9CF4B0"
+],
+"?Generate_Culling_Tree@MeshClass@@QAEXXZ": [
+"0x940D50"
+],
+"?GetDC@DSurface@@QAEPAUHDC__@@XZ": [
+"0x9DF3C0"
+],
+"?GetSec@Wtime@@QBEKXZ": [
+"0x8B9440"
+],
+"?GetUsec@Wtime@@QBEKXZ": [
+"0x8B9460"
+],
+"?Get_Alloc_String@INIClass@@QBEPADPBD00@Z": [
+"0x9CB1A0"
+],
+"?Get_Allocate_Count@WWMemoryLogClass@@SAHXZ": [
+"0x9EDF00"
+],
+"?Get_Allocator@FastAllocatorGeneral@@SAPAV1@XZ": [
+"0x9DAC10"
+],
+"?Get_Ambient@VertexMaterialClass@@QBEXPAVVector3@@@Z": [
+"0x92ED90"
+],
+"?Get_Bool@INIClass@@QBE_NPBD0_N@Z": [
+"0x9CB860"
+],
+"?Get_Bool@RegistryClass@@QAE_NPBD_N@Z": [
+"0x9D1730"
+],
+"?Get_Bounding_Box@MeshGeometryClass@@QAEXPAVAABoxClass@@@Z": [
+"0x92A840"
+],
+"?Get_Bounding_Sphere@MeshGeometryClass@@QAEXPAVSphereClass@@@Z": [
+"0x92A8E0"
+],
+"?Get_Clip_Planes@CameraClass@@QBEXAAM0@Z": [
+"0x945950"
+],
+"?Get_Color_Key_Frames@ParticleBufferClass@@QBEXAAU?$ParticlePropertyStruct@VVector3@@@@@Z": [
+"0x962AC0"
+],
+"?Get_Culling_System@CullableClass@@QBEPAVCullSystemClass@@XZ": [
+"0x8C8E60"
+],
+"?Get_DX8_Render_State_Value_Name@DX8Wrapper@@SAXAAVStringClass@@W4_D3DRENDERSTATETYPE@@I@Z": [
+"0x927BF0"
+],
+"?Get_Description@SurfaceClass@@QAEXAAUSurfaceDescription@1@@Z": [
+"0x94D720"
+],
+"?Get_Device_Resolution@WW3D@@SAXAAH00AA_N@Z": [
+"0x9178F0"
+],
+"?Get_Diffuse@VertexMaterialClass@@QBEXPAVVector3@@@Z": [
+"0x92EE20"
+],
+"?Get_Emissive@VertexMaterialClass@@QBEXPAVVector3@@@Z": [
+"0x92EF40"
+],
+"?Get_Entry@INIClass@@QBEPBDPBDH@Z": [
+"0x9C9140"
+],
+"?Get_First_Collected_Object_Internal@CullSystemClass@@IAEPAVCullableClass@@XZ": [
+"0x8C8EB0"
+],
+"?Get_Flag@TexProjectClass@@IBE_NK@Z": [
+"0x93D190"
+],
+"?Get_Float@INIClass@@QBEMPBD0M@Z": [
+"0x9CA770"
+],
+"?Get_Float@Random4Class@@QAEMXZ": [
+"0x9D0580"
+],
+"?Get_Frame@HAnimComboClass@@QAEMH@Z": [
+"0x931C30"
+],
+"?Get_Free_Count@WWMemoryLogClass@@SAHXZ": [
+"0x9EDF10"
+],
+"?Get_Horizontal_FOV@CameraClass@@QBEMXZ": [
+"0x945990"
+],
+"?Get_Int@INIClass@@QBEHPBD0H@Z": [
+"0x9CA1C0"
+],
+"?Get_Int@RegistryClass@@QAEHPBDH@Z": [
+"0x9D16A0"
+],
+"?Get_Inverse@Matrix3D@@QBEXAAV1@@Z": [
+"0x8C2BC0"
+],
+"?Get_Iterator@WWProfileManager@@SAPAVWWProfileIterator@@XZ": [
+"0x9EADC0"
+],
+"?Get_List_Index@INIClass@@QAEHPBD0HQAPAD@Z": [
+"0x9CB2E0"
+],
+"?Get_Model@MeshClass@@QAEPAVMeshModelClass@@XZ": [
+"0x93EDB0"
+],
+"?Get_Near_Clip_Bounding_Box@CameraClass@@QBEABVOBBoxClass@@XZ": [
+"0x944E70"
+],
+"?Get_Next_Collected_Object_Internal@CullSystemClass@@IAEPAVCullableClass@@PAV2@@Z": [
+"0x8C8EC0"
+],
+"?Get_Num_Points@SegmentedLineClass@@QAEHXZ": [
+"0x968FC0"
+],
+"?Get_Orthogonal_Inverse@Matrix3D@@QBEXAAV1@@Z": [
+"0x8C2BD0"
+],
+"?Get_Pixel@SurfaceClass@@QAEXAAVVector3@@HH@Z": [
+"0x94E490"
+],
+"?Get_Point@INIClass@@QBE?BV?$TPoint2D@M@@PBD0ABV2@@Z": [
+"0x9CBF60"
+],
+"?Get_Point@INIClass@@QBE?BV?$TPoint3D@H@@PBD0ABV2@@Z": [
+"0x9CBC00"
+],
+"?Get_Point@INIClass@@QBE?BV?$TPoint3D@M@@PBD0ABV2@@Z": [
+"0x9CBDE0"
+],
+"?Get_Polygon_Count@LineGroupClass@@QAEHXZ": [
+"0x97C1B0"
+],
+"?Get_Polygon_Count@PointGroupClass@@QAEHXZ": [
+"0x9548D0"
+],
+"?Get_Position@RenderObjClass@@QBE?AVVector3@@XZ": [
+"0x941E60"
+],
+"?Get_Preset@VertexMaterialClass@@SAPAV1@W4PresetType@1@@Z": [
+"0x930F60"
+],
+"?Get_Specular@VertexMaterialClass@@QBEXPAVVector3@@@Z": [
+"0x92EEB0"
+],
+"?Get_String@INIClass@@QBEABVStringClass@@AAV2@PBD11@Z": [
+"0x9CB020"
+],
+"?Get_String@INIClass@@QBEHPBD00PADH@Z": [
+"0x9CAEA0"
+],
+"?Get_String@RegistryClass@@QAEXPBDAAVStringClass@@0@Z": [
+"0x9D1900"
+],
+"?Get_String@StringClass@@AAEXH_N@Z": [
+"0x9CF040"
+],
+"?Get_Subdivision_Levels@SegmentedLineClass@@QAEIXZ": [
+"0x9691D0"
+],
+"?Get_Surface_Level@TextureClass@@QAEPAVSurfaceClass@@I@Z": [
+"0x94BB50"
+],
+"?Get_TextBlock@INIClass@@QBEHPBDPADH@Z": [
+"0x9C9EB0"
+],
+"?Get_Texture@MaterialInfoClass@@QAEPAVTextureClass@@H@Z": [
+"0x951E00"
+],
+"?Get_Texture@ParticleBufferClass@@QBEPAVTextureClass@@XZ": [
+"0x963600"
+],
+"?Get_Texture@SegmentedLineClass@@QAEPAVTextureClass@@XZ": [
+"0x969150"
+],
+"?Get_Texture_Tile_Factor@SegmentedLineClass@@QAEMXZ": [
+"0x9691F0"
+],
+"?Get_Time_Since_Reset@WWProfileManager@@SAMXZ": [
+"0x9EAD70"
+],
+"?Get_UV_Offset_Rate@SegmentedLineClass@@QAE?AVVector2@@XZ": [
+"0x969200"
+],
+"?Get_Valid_Texture_Format@@YA?AW4WW3DFormat@@W41@_N@Z": [
+"0x9689A0"
+],
+"?Get_Vertical_FOV@CameraClass@@QBEMXZ": [
+"0x945970"
+],
+"?Get_View_Matrix@CameraClass@@QAEABVMatrix3D@@XZ": [
+"0x945BF0"
+],
+"?Get_View_Plane@CameraClass@@QBEXAAVVector2@@0@Z": [
+"0x944860"
+],
+"?Get_X_Rotation@Matrix3D@@QBEMXZ": [
+"0x8C2690"
+],
+"?Get_Y_Rotation@Matrix3D@@QBEMXZ": [
+"0x8C26A0"
+],
+"?Get_Z_Rotation@Matrix3D@@QBEMXZ": [
+"0x8C26B0"
+],
+"?Guess_Sort_Level@ShaderClass@@QBEHXZ": [
+"0x93CE90"
+],
+"?Increment_Frame_Counter@WWProfileManager@@SAXXZ": [
+"0x9EABB0"
+],
+"?Init@ArgvClass@@SAHPAD0@Z": [
+"0x9CF9F0"
+],
+"?Init@BINKMovie@@SAXXZ": [
+"0xA16290"
+],
+"?Init@WW3D@@SA?AW4WW3DErrorType@@PAXPAD_N@Z": [
+"0x917660"
+],
+"?Init@WWMath@@SAXXZ": [
+"0x8C1F10"
+],
+"?Init@WWMemoryLogClass@@SAXXZ": [
+"0x9EDF20"
+],
+"?Init_Additive@TexProjectClass@@QAEXXZ": [
+"0x93D4D0"
+],
+"?Init_Multiplicative@TexProjectClass@@QAEXXZ": [
+"0x93D2E0"
+],
+"?Initialize@DX8WebBrowser@@SA_NPBD000@Z": [
+"0x920240"
+],
+"?Initialize@WWAudioClass@@QAEXPBD@Z": [
+"0x9F2740"
+],
+"?Insert_Morph_Key@HMorphAnimClass@@QAEXHKK@Z": [
+"0x988610"
+],
+"?Install_Dazzle_Visibility_Handler@DazzleRenderObjClass@@SAXPBVDazzleVisibilityClass@@@Z": [
+"0x96B9B0"
+],
+"?Internal_Add@GenericMultiListClass@@IAE_NPAVMultiListObjectClass@@_N@Z": [
+"0x9D1040"
+],
+"?Internal_Remove@GenericMultiListClass@@IAE_NPAVMultiListObjectClass@@@Z": [
+"0x9D13A0"
+],
+"?Internal_Remove_List_Head@GenericMultiListClass@@IAEPAVMultiListObjectClass@@XZ": [
+"0x9D1430"
+],
+"?Intersect_Screen_Point_RenderObject@IntersectionClass@@QAE_NMMABVLayerClass@@PAVRenderObjClass@@PAVIntersectionResultClass@@@Z": [
+"0x966500"
+],
+"?Intersect_Sub_Object@IntersectionClass@@QAEPAVRenderObjClass@@MMAAVLayerClass@@PAV2@PAVIntersectionResultClass@@@Z": [
+"0x9671B0"
+],
+"?Intersection_Test@CollisionMath@@SA_NABVAABoxClass@@ABVOBBoxClass@@@Z": [
+"0x8C5300"
+],
+"?Invalidate@DX8MeshRendererClass@@QAEXXZ": [
+"0x97B2D0"
+],
+"?Is_Browser_Open@DX8WebBrowser@@SA_NPBD@Z": [
+"0x920A80"
+],
+"?Is_Complete@BINKMovie@@SA_NXZ": [
+"0xA162D0"
+],
+"?Is_Done@WWProfileIterator@@QAE_NXZ": [
+"0x9EB9E0"
+],
+"?Is_Intensity_Zero@TexProjectClass@@QAE_NXZ": [
+"0x93D1E0"
+],
+"?Is_Loaded@INIClass@@QBE_NXZ": [
+"0x9C7B10"
+],
+"?Is_Missing_Texture@TextureBaseClass@@QAE_NXZ": [
+"0x94BAD0"
+],
+"?Is_Orthogonal@Matrix3D@@QBEHXZ": [
+"0x8C2FC0"
+],
+"?Is_Transparent_Column@SurfaceClass@@QAE_NI@Z": [
+"0x94E2A0"
+],
+"?Is_Windowed@WW3D@@SA_NXZ": [
+"0x917840"
+],
+"?Lerp@@YA?AVMatrix3D@@ABV1@0M@Z": [
+"0x8C33B0"
+],
+"?Load@INIClass@@QAEHPBD@Z": [
+"0x9C82E0"
+],
+"?Load@Targa@@QAEJPBDJ_N@Z": [
+"0x9D2EA0"
+],
+"?Load_File@ArgvClass@@SA_NPBD@Z": [
+"0x9CFB00"
+],
+"?Log_DX8_ErrorCode@@YAXI@Z": [
+"0x921140"
+],
+"?Look_At@Matrix3D@@QAEXABVVector3@@0M@Z": [
+"0x8C2780"
+],
+"?Make_Closest@Quaternion@@QAEAAV1@ABV1@@Z": [
+"0x8D1C90"
+],
+"?Make_Color_Array_Unique@MeshModelClass@@QAEXH@Z": [
+"0x959890"
+],
+"?Make_Geometry_Unique@MeshModelClass@@QAEXXZ": [
+"0x9596E0"
+],
+"?Make_Screen_Shot@WW3D@@SAXPBDMH@Z": [
+"0x9182C0"
+],
+"?Make_Unique@MeshClass@@QAEX_N@Z": [
+"0x940300"
+],
+"?Make_Unique@VertexMaterialClass@@QAEXXZ": [
+"0x92EB20"
+],
+"?Multiply@Matrix3@@SAXABVMatrix3D@@ABV1@PAV1@@Z": [
+"0x8C3CF0"
+],
+"?Multiply@Matrix3D@@SAXABV1@0PAV1@@Z": [
+"0x8C2CD0"
+],
+"?Multiply@Matrix4@@SAXABV1@ABVMatrix3D@@PAV1@@Z": [
+"0x8DECC0"
+],
+"?Navigate@DX8WebBrowser@@SAXPBD0@Z": [
+"0x920B90"
+],
+"?Next@WWProfileIterator@@QAEXXZ": [
+"0x9EB9D0"
+],
+"?Normalize_Weights@HAnimComboClass@@QAE_NXZ": [
+"0x931970"
+],
+"?Notify_Added@RenderObjClass@@UAEXPAVSceneClass@@@Z": [
+"0x942190"
+],
+"?Notify_Removed@RenderObjClass@@UAEXPAVSceneClass@@@Z": [
+"0x9421A0"
+],
+"?Obj_Look_At@Matrix3D@@QAEXABVVector3@@0M@Z": [
+"0x8C29B0"
+],
+"?On_Activate_App@WW3D@@SA?AW4WW3DErrorType@@XZ": [
+"0x918FA0"
+],
+"?On_Deactivate_App@WW3D@@SA?AW4WW3DErrorType@@XZ": [
+"0x918EC0"
+],
+"?On_Frame_Update@WWAudioClass@@QAEXI@Z": [
+"0x9F1150"
+],
+"?Open@RawFileClass@@UAEHPBDH@Z": [
+"0x6841A0"
+],
+"?Open@Targa@@QAEJPBDJ@Z": [
+"0x9D2980"
+],
+"?Open_Chunk@ChunkLoadClass@@QAE_NXZ": [
+"0x9D4310"
+],
+"?Optimize_LODs@PredictiveLODOptimizerClass@@SAXM@Z": [
+"0x96F180"
+],
+"?Override_Current_Static_Sort_Lists@WW3D@@SAXPAVStaticSortListClass@@@Z": [
+"0x919070"
+],
+"?Peek_2D_Sample@WWAudioClass@@QAEPAVAudibleSoundClass@@H@Z": [
+"0x9F49D0"
+],
+"?Peek_3D_Sample@WWAudioClass@@QAEPAVAudibleSoundClass@@H@Z": [
+"0x9F4A20"
+],
+"?Peek_Camera@LayerClass@@QBEPAVCameraClass@@XZ": [
+"0x967B50"
+],
+"?Peek_Material_Pass@TexProjectClass@@QAEPAVMaterialPassClass@@XZ": [
+"0x93D6C0"
+],
+"?Peek_Scene@LayerClass@@QBEPAVSceneClass@@XZ": [
+"0x967B00"
+],
+"?Play@BINKMovie@@SAXPBD0H@Z": [
+"0xA161B0"
+],
+"?Pop_Material_Pass@RenderInfoClass@@QAEXXZ": [
+"0x931010"
+],
+"?Pop_Override_Flags@RenderInfoClass@@QAEXXZ": [
+"0x931090"
+],
+"?Pre_Render_Update@LightEnvironmentClass@@QAEXABVMatrix3D@@@Z": [
+"0x985660"
+],
+"?Pre_Render_Update@TexProjectClass@@UAEXABVMatrix3D@@@Z": [
+"0x93E1E0"
+],
+"?Prepare_Key@RC4Class@@QAEXPBEH@Z": [
+"0x9E0290"
+],
+"?Prepend_Sub_Directory@SimpleFileFactoryClass@@QAEXPBD@Z": [
+"0x9D0900"
+],
+"?Printf@FileClass@@QAAHPADZZ": [
+"0x9D4610"
+],
+"?Printf@MonoClass@@QAAXPBDZZ": [
+"0x9DE850"
+],
+"?Printf_Indented@FileClass@@QAAHIPADZZ": [
+"0x9D4680"
+],
+"?Push_Material_Pass@RenderInfoClass@@QAEXPAVMaterialPassClass@@@Z": [
+"0x930FD0"
+],
+"?Push_Override_Flags@RenderInfoClass@@QAEXW4RINFO_OVERRIDE_FLAGS@1@@Z": [
+"0x931070"
+],
+"?Put_Bool@INIClass@@QAE_NPBD0_N@Z": [
+"0x9CB820"
+],
+"?Put_Float@INIClass@@QAE_NPBD0M@Z": [
+"0x9CA8F0"
+],
+"?Put_Int@INIClass@@QAE_NPBD0HH@Z": [
+"0x9CA150"
+],
+"?Put_Point@INIClass@@QAE_NPBD0ABV?$TPoint3D@M@@@Z": [
+"0x9CBD80"
+],
+"?Put_String@INIClass@@QAE_NPBD00@Z": [
+"0x9CAAF0"
+],
+"?RC4@RC4Class@@QAEXPAEH@Z": [
+"0x9E0420"
+],
+"?Random_Float@WWMath@@SAMXZ": [
+"0x8C1FC0"
+],
+"?Randval@SecureRandomClass@@QAEKXZ": [
+"0x9E3610"
+],
+"?Re_Orthogonalize@Matrix3D@@QAEXXZ": [
+"0x8C3180"
+],
+"?Read@ChunkLoadClass@@QAEKPAXK@Z": [
+"0x9D4540"
+],
+"?Read_PCX_File@@YAPAVSurface@@AAVFileClass@@PAVPaletteClass@@PAXJ@Z": [
+"0x9DE210"
+],
+"?Recolor_Texture@ENBAssetManager@@QAEPAVTextureClass@@PBDPAMW4MipCountType@@@Z": [
+"0x48B7B0"
+],
+"?Register_Application_Exception_Callback@@YAXP6AXXZ@Z": [
+"0x9CEA10"
+],
+"?Register_Thread_ID@@YAXKPAD_N@Z": [
+"0x9CE540"
+],
+"?Registry_Load_Render_Device@WW3D@@SA_NPBDPADHAAH2222@Z": [
+"0x917990"
+],
+"?ReleaseDC@DSurface@@QAEHPAUHDC__@@@Z": [
+"0x9DF430"
+],
+"?Release_Iterator@WWProfileManager@@SAXPAVWWProfileIterator@@@Z": [
+"0x9EADF0"
+],
+"?Release_Keys@HMorphAnimClass@@QAEXXZ": [
+"0x9886B0"
+],
+"?Release_Log@WWMemoryLogClass@@KAXXZ": [
+"0x9EDE10"
+],
+"?Release_Unused_Assets@WW3DAssetManager@@UAEXXZ": [
+"0x91D200"
+],
+"?Remove@RenderObjClass@@UAEXXZ": [
+"0x942160"
+],
+"?Remove_Anim_Combo_Data@HAnimComboClass@@QAEXPAVHAnimComboDataClass@@@Z": [
+"0x931D60"
+],
+"?Remove_Object_Internal@AABTreeCullSystemClass@@IAEXPAVCullableClass@@@Z": [
+"0x8D9430"
+],
+"?Remove_Object_Internal@GridCullSystemClass@@IAEXPAVCullableClass@@@Z": [
+"0x8D8950"
+],
+"?Remove_Prototype@WW3DAssetManager@@QAEXPBD@Z": [
+"0x91EDE0"
+],
+"?Remove_Render_Object@SimpleSceneClass@@UAEXPAVRenderObjClass@@@Z": [
+"0x965DC0"
+],
+"?Render@BINKMovie@@SAXXZ": [
+"0xA16280"
+],
+"?Render@DazzleLayerClass@@QAEXPAVCameraClass@@@Z": [
+"0x96EB60"
+],
+"?Render@DynamicMeshClass@@UAEXAAVRenderInfoClass@@@Z": [
+"0x975E30"
+],
+"?Render@Line3DClass@@UAEXAAVRenderInfoClass@@@Z": [
+"0x943320"
+],
+"?Render@PointGroupClass@@QAEXAAVRenderInfoClass@@ABVMatrix3D@@@Z": [
+"0x954960"
+],
+"?Render@Render2DClass@@QAEXXZ": [
+"0x9721E0"
+],
+"?Render@WW3D@@SA?AW4WW3DErrorType@@PAVSceneClass@@PAVCameraClass@@_N2ABVVector3@@@Z": [
+"0x917C80"
+],
+"?Replace_Texture@MeshClass@@QAEXPAVTextureClass@@0@Z": [
+"0x9402C0"
+],
+"?Replace_Texture@MeshModelClass@@QAEXPAVTextureClass@@0@Z": [
+"0x9587E0"
+],
+"?Request_Foreground_Loading@TextureLoader@@SAXPAVTextureBaseClass@@@Z": [
+"0x949550"
+],
+"?Reset@DynamicMeshModel@@QAEXXZ": [
+"0x975400"
+],
+"?Reset@HAnimComboClass@@QAEXXZ": [
+"0x9318E0"
+],
+"?Reset@LightEnvironmentClass@@QAEXABVVector3@@0@Z": [
+"0x9853F0"
+],
+"?Reset@Line3DClass@@QAEXABVVector3@@0@Z": [
+"0x943870"
+],
+"?Reset@WWProfileManager@@SAXXZ": [
+"0x9EAB50"
+],
+"?Reset_All_Texture_Mappers@@YAXPAVRenderObjClass@@_N@Z": [
+"0x939750"
+],
+"?Reset_Collection@CullSystemClass@@QAEXXZ": [
+"0x8C8F10"
+],
+"?Reset_Colors@ParticleBufferClass@@QAEXAAU?$ParticlePropertyStruct@VVector3@@@@@Z": [
+"0x95EF40"
+],
+"?Reset_Current_Static_Sort_Lists_To_Default@WW3D@@SAXXZ": [
+"0x919080"
+],
+"?Resize@DynamicMeshClass@@QAEXHH@Z": [
+"0x976760"
+],
+"?Resize@StringClass@@AAEXH@Z": [
+"0x9CF2D0"
+],
+"?Rotate_Vector@Matrix3D@@QBE?AVVector3@@ABV2@@Z": [
+"0x8C26C0"
+],
+"?Sample@QMCSamplingClass@@UAEXPAM@Z": [
+"0x9D3D40"
+],
+"?Save@INIClass@@QBEHPBD@Z": [
+"0x9C8BD0"
+],
+"?Save@Targa@@QAEJPBDJ_N@Z": [
+"0x9D2FF0"
+],
+"?Section_Count@INIClass@@QBEHXZ": [
+"0x9C8F20"
+],
+"?Seek@RawFileClass@@UAEHHH@Z": [
+"0x6846C0"
+],
+"?Set@LayerClass@@QAEXABV1@@Z": [
+"0x967B60"
+],
+"?Set@Matrix3D@@QAEXABVQuaternion@@ABVVector3@@@Z": [
+"0x8C2550"
+],
+"?SetImage@Targa@@QAEPADPAD@Z": [
+"0x9D3460"
+],
+"?SetInputBuffer@UDP@@QAEDK@Z": [
+"0x8C04C0"
+],
+"?SetOutputBuffer@UDP@@QAEDK@Z": [
+"0x8C0500"
+],
+"?SetSec@Wtime@@QAEXK@Z": [
+"0x8B9480"
+],
+"?SetUsec@Wtime@@QAEXK@Z": [
+"0x8B94A0"
+],
+"?Set_Accounting_Callback@UDP@@SAXP6AX_NHIG@Z@Z": [
+"0x8C05E0"
+],
+"?Set_Ambient@VertexMaterialClass@@QAEXABVVector3@@@Z": [
+"0x92EDC0"
+],
+"?Set_Ambient@VertexMaterialClass@@QAEXMMM@Z": [
+"0x92EDF0"
+],
+"?Set_Any_Render_Device@WW3D@@SA?AW4WW3DErrorType@@XZ": [
+"0x9177D0"
+],
+"?Set_Arrays@PointGroupClass@@QAEXPAV?$ShareBufferClass@VVector3@@@@PAV?$ShareBufferClass@VVector4@@@@PAV?$ShareBufferClass@I@@PAV?$ShareBufferClass@M@@PAV?$ShareBufferClass@E@@4HMMMM@Z": [
+"0x954600"
+],
+"?Set_Base_Velocity@ParticleEmitterClass@@QAEXABVVector3@@@Z": [
+"0x97E2B0"
+],
+"?Set_Bool@RegistryClass@@QAEXPBD_N@Z": [
+"0x9D17A0"
+],
+"?Set_Camera@LayerClass@@QAEXPAVCameraClass@@@Z": [
+"0x967B10"
+],
+"?Set_Clip_Planes@CameraClass@@QAEXMM@Z": [
+"0x945930"
+],
+"?Set_Color@SegmentedLineClass@@QAEXABVVector3@@@Z": [
+"0x969300"
+],
+"?Set_Coordinate_Range@Render2DClass@@QAEXABVRectClass@@@Z": [
+"0x96FD40"
+],
+"?Set_Cull_Box@CullableClass@@QAEXABVAABoxClass@@_N@Z": [
+"0x8C8DD0"
+],
+"?Set_Current_Dazzle_Layer@DazzleRenderObjClass@@SAXPAVDazzleLayerClass@@@Z": [
+"0x96BF80"
+],
+"?Set_Cursor@MonoClass@@QAEXHH@Z": [
+"0x9DE740"
+],
+"?Set_Dialog_Volume@WWAudioClass@@QAEXM@Z": [
+"0x9F2240"
+],
+"?Set_Diffuse@VertexMaterialClass@@QAEXABVVector3@@@Z": [
+"0x92EE50"
+],
+"?Set_Diffuse@VertexMaterialClass@@QAEXMMM@Z": [
+"0x92EE80"
+],
+"?Set_Emissive@VertexMaterialClass@@QAEXABVVector3@@@Z": [
+"0x92EF70"
+],
+"?Set_Emissive@VertexMaterialClass@@QAEXMMM@Z": [
+"0x92EFA0"
+],
+"?Set_Exit_On_Exception@@YAX_N@Z": [
+"0x9CEA30"
+],
+"?Set_Frame@HAnimComboClass@@QAEXHM@Z": [
+"0x931C10"
+],
+"?Set_Frame_Per_Second@GridTextureMapperClass@@QAEXM@Z": [
+"0x933820"
+],
+"?Set_Frame_Row_Column_Count_Log2@PointGroupClass@@QAEXE@Z": [
+"0x9548B0"
+],
+"?Set_Freeze_Random@SegmentedLineClass@@QAEXH@Z": [
+"0x969450"
+],
+"?Set_Gamma@WW3D@@SAXMMM_N@Z": [
+"0x919090"
+],
+"?Set_HAnim@HAnimComboDataClass@@QAEXPAVHAnimClass@@@Z": [
+"0x931490"
+],
+"?Set_Index_Buffer@DX8Wrapper@@SAXABVDynamicIBAccessClass@@G@Z": [
+"0x924FF0"
+],
+"?Set_Index_Buffer@DX8Wrapper@@SAXPBVIndexBufferClass@@G@Z": [
+"0x924EC0"
+],
+"?Set_Intensity@TexProjectClass@@QAEXM_N@Z": [
+"0x93D1B0"
+],
+"?Set_Line_Mode@LineGroupClass@@QAEXW4LineModeType@1@@Z": [
+"0x97BAD0"
+],
+"?Set_Material@MaterialPassClass@@QAEXPAVVertexMaterialClass@@@Z": [
+"0x92E860"
+],
+"?Set_Merge_Intersections@SegmentedLineClass@@QAEXH@Z": [
+"0x969420"
+],
+"?Set_MeshModel_Flag@@YAXPAVRenderObjClass@@HH@Z": [
+"0x940FE0"
+],
+"?Set_Mip_Mapping@TextureClass@@QAEXW4FilterType@1@@Z": [
+"0x94CA20"
+],
+"?Set_Music_Volume@WWAudioClass@@QAEXM@Z": [
+"0x9F2480"
+],
+"?Set_NPatches_Level@WW3D@@SAXI@Z": [
+"0x917600"
+],
+"?Set_Noise_Amplitude@SegmentedLineClass@@QAEXM@Z": [
+"0x969340"
+],
+"?Set_Opacity@SegmentedLineClass@@QAEXM@Z": [
+"0x969330"
+],
+"?Set_Opacity@VertexMaterialClass@@QAEXM@Z": [
+"0x92F010"
+],
+"?Set_Point_Location@SegmentedLineClass@@QAEXIABVVector3@@@Z": [
+"0x968FD0"
+],
+"?Set_Point_Mode@PointGroupClass@@QAEXW4PointModeEnum@1@@Z": [
+"0x9547D0"
+],
+"?Set_Points@SegmentedLineClass@@QAEXIPAVVector3@@@Z": [
+"0x968EF0"
+],
+"?Set_Position@RenderObjClass@@UAEXABVVector3@@@Z": [
+"0x941CF0"
+],
+"?Set_Render_Device@WW3D@@SA?AW4WW3DErrorType@@HHHHH_N@Z": [
+"0x9177E0"
+],
+"?Set_Render_Device@WW3D@@SA?AW4WW3DErrorType@@PBDHHHH_N@Z": [
+"0x917790"
+],
+"?Set_Render_Target@TexProjectClass@@QAEXPAVTextureClass@@PAVZTextureClass@@@Z": [
+"0x93E020"
+],
+"?Set_Scene@LayerClass@@QAEXPAVSceneClass@@@Z": [
+"0x967AC0"
+],
+"?Set_Shader@LineGroupClass@@QAEXABVShaderClass@@@Z": [
+"0x97BAB0"
+],
+"?Set_Shader@MaterialPassClass@@QAEXVShaderClass@@@Z": [
+"0x92E840"
+],
+"?Set_Shader@MeshMatDescClass@@QAEXHVShaderClass@@H@Z": [
+"0x946DF0"
+],
+"?Set_Shader@PointGroupClass@@QAEXVShaderClass@@@Z": [
+"0x954880"
+],
+"?Set_Shader@SegmentedLineClass@@QAEXVShaderClass@@@Z": [
+"0x969290"
+],
+"?Set_Shininess@VertexMaterialClass@@QAEXM@Z": [
+"0x92EFE0"
+],
+"?Set_Single_Material@MeshMatDescClass@@QAEXPAVVertexMaterialClass@@H@Z": [
+"0x946C80"
+],
+"?Set_Single_Shader@MeshMatDescClass@@QAEXVShaderClass@@H@Z": [
+"0x946D00"
+],
+"?Set_Single_Texture@MeshMatDescClass@@QAEXPAVTextureClass@@HH@Z": [
+"0x946CC0"
+],
+"?Set_Sound_Effects_Volume@WWAudioClass@@QAEXM@Z": [
+"0x9F23A0"
+],
+"?Set_Sound_Library@AnimatedSoundMgrClass@@SAXPAVSoundLibraryBridgeClass@@@Z": [
+"0x90A0A0"
+],
+"?Set_Specular@VertexMaterialClass@@QAEXABVVector3@@@Z": [
+"0x92EEE0"
+],
+"?Set_Specular@VertexMaterialClass@@QAEXMMM@Z": [
+"0x92EF10"
+],
+"?Set_Sub_Directory@SimpleFileFactoryClass@@QAEXPBD@Z": [
+"0x9D0890"
+],
+"?Set_Subdivision_Levels@SegmentedLineClass@@QAEXI@Z": [
+"0x969380"
+],
+"?Set_Text@UIAvselEditClass@@QAEXPBDH@Z": [
+"0x6AA570"
+],
+"?Set_Texture@DynamicMeshClass@@QAEHPAVTextureClass@@_NH@Z": [
+"0x976D40"
+],
+"?Set_Texture@LineGroupClass@@QAEXPAVTextureClass@@@Z": [
+"0x97BA60"
+],
+"?Set_Texture@MaterialPassClass@@QAEXPAVTextureClass@@H@Z": [
+"0x92E800"
+],
+"?Set_Texture@ParticleBufferClass@@QAEXPAVTextureClass@@@Z": [
+"0x963640"
+],
+"?Set_Texture@PointGroupClass@@QAEXPAVTextureClass@@@Z": [
+"0x954830"
+],
+"?Set_Texture@RingRenderObjClass@@QAEXPAVTextureClass@@@Z": [
+"0x911640"
+],
+"?Set_Texture@SegmentedLineClass@@QAEXPAVTextureClass@@@Z": [
+"0x969270"
+],
+"?Set_Texture@SphereRenderObjClass@@QAEXPAVTextureClass@@@Z": [
+"0x90C070"
+],
+"?Set_Texture@TexProjectClass@@QAEXPAVTextureClass@@@Z": [
+"0x93D670"
+],
+"?Set_Texture_Bitdepth@WW3D@@SAXH@Z": [
+"0x918FE0"
+],
+"?Set_Texture_Filter@WW3D@@SAXH@Z": [
+"0x917A90"
+],
+"?Set_Texture_Mapping_Mode@SegmentedLineClass@@QAEXW4TextureMapMode@SegLineRendererClass@@@Z": [
+"0x9693A0"
+],
+"?Set_Texture_Reduction@WW3D@@SAXH@Z": [
+"0x918CB0"
+],
+"?Set_Texture_Size@TexProjectClass@@QAEXH@Z": [
+"0x93D120"
+],
+"?Set_Texture_Tile_Factor@SegmentedLineClass@@QAEXM@Z": [
+"0x9693C0"
+],
+"?Set_Texture_Transform@MatrixMapperClass@@QAEXABVMatrix4@@M@Z": [
+"0x97F7A0"
+],
+"?Set_Transform@RenderObjClass@@UAEXABVMatrix3D@@@Z": [
+"0x941C20"
+],
+"?Set_UV_Offset_Rate@SegmentedLineClass@@QAEXABVVector2@@@Z": [
+"0x9693E0"
+],
+"?Set_Vertex_Buffer@DX8Wrapper@@SAXABVDynamicVBAccessClass@@@Z": [
+"0x924F60"
+],
+"?Set_Vertex_Buffer@DX8Wrapper@@SAXPBVVertexBufferClass@@I@Z": [
+"0x924E20"
+],
+"?Set_Vertex_Material@DynamicMeshClass@@QAEHPAVVertexMaterialClass@@_NH@Z": [
+"0x976A60"
+],
+"?Set_View_Plane@CameraClass@@QAEXABVVector2@@0@Z": [
+"0x944750"
+],
+"?Set_View_Plane@CameraClass@@QAEXMM@Z": [
+"0x9447A0"
+],
+"?Set_Width@SegmentedLineClass@@QAEXM@Z": [
+"0x9692C0"
+],
+"?Set_XSpacing@WWFontClass@@UAEHH@Z": [
+"0x9DB2F0"
+],
+"?Shutdown@BINKMovie@@SAXXZ": [
+"0xA162A0"
+],
+"?Shutdown@DX8WebBrowser@@SAXXZ": [
+"0x920510"
+],
+"?Shutdown@WW3D@@SA?AW4WW3DErrorType@@XZ": [
+"0x917730"
+],
+"?Shutdown@WWMath@@SAXXZ": [
+"0x8C1FB0"
+],
+"?Slerp@@YAXAAVQuaternion@@ABV1@1M@Z": [
+"0x8D23C0"
+],
+"?Start_Profile@WWProfileManager@@SAXPBD@Z": [
+"0x9EA930"
+],
+"?Stop@BINKMovie@@SAXXZ": [
+"0xA16220"
+],
+"?Stop_Profile@WWProfileManager@@SAXXZ": [
+"0x9EAA50"
+],
+"?Stop_Root_Profile@WWProfileManager@@SAXXZ": [
+"0x9EAAD0"
+],
+"?Sync@WW3D@@SAXI@Z": [
+"0x918200"
+],
+"?Targa_Error_Handler@@YAJJPBD@Z": [
+"0x9D39D0"
+],
+"?Temp_Disable_Audio@WWAudioClass@@QAEX_N@Z": [
+"0x9F4C50"
+],
+"?Text_Print@MonoClass@@QAEXPBDHHW4MonoAttribute@1@@Z": [
+"0x9DE9E0"
+],
+"?Transform@VectorProcessorClass@@SAXPAVVector3@@PBV2@ABVMatrix3D@@H@Z": [
+"0x8D3260"
+],
+"?Transform_Center_Extent_AABox@Matrix3D@@QBEXABVVector3@@0PAV2@1@Z": [
+"0x8C2F30"
+],
+"?Transform_To_View_Space@CameraClass@@QBEXAAVVector3@@ABV2@@Z": [
+"0x944D20"
+],
+"?Type_Name@@YAPBDVMoneyClass@@@Z": [
+"0x4F0AB0"
+],
+"?Uninitialised_Grow@StringClass@@AAEXH@Z": [
+"0x9CF3D0"
+],
+"?Unknown_497300@@YA?AV?$RefCountPtr@VRenderObjClass@@@@PAVRenderObjClass@@@Z": [
+"0x497300"
+],
+"?Unknown_540A20@@YAPAVUnknownEventDispatcherClass@@XZ": [
+"0x540A20"
+],
+"?Unknown_565F60@ChatPanelInterface@@QAEXH@Z": [
+"0x565F60"
+],
+"?Unknown_5859A0@UIAvatarCustGadgetHolderStruct@@QAEXXZ": [
+"0x5859A0"
+],
+"?Unknown_585C90@UIAvatarCustUnknown368Class@@QAEXXZ": [
+"0x585C90"
+],
+"?Unknown_585CC0@UIAvatarCustUnknown368Class@@QAEXXZ": [
+"0x585CC0"
+],
+"?Unknown_585CF0@UIAvatarCustUnknown368Class@@QAEXH@Z": [
+"0x585CF0"
+],
+"?Unknown_585D10@UIAvatarCustUnknown368Class@@QAEXXZ": [
+"0x585D10"
+],
+"?Unknown_695780@UIAnalyzePDAClass@@QAE_N_N@Z": [
+"0x695780"
+],
+"?Unknown_695A00@UIAnalyzePDAClass@@QAEXHH@Z": [
+"0x695A00"
+],
+"?Unknown_6AAD10@UIAvselEditClass@@QAEXXZ": [
+"0x6AAD10"
+],
+"?Unknown_6CE420@FontSys@@QAAXHPBDZZ": [
+"0x6CE420"
+],
+"?Unknown_6D8780@Unknown6D47C0Class@@QAEXMM@Z": [
+"0x6D8780"
+],
+"?Unknown_6E2A20@UIAvselEditUnknown4CClass@@QAEXABVVector4@@@Z": [
+"0x6E2A20"
+],
+"?Unknown_725A90@UnknownB02C90Class@@QAEHH@Z": [
+"0x725A90"
+],
+"?Unknown_725AD0@UnknownB02C90Class@@QAE?AVMatrix3D@@XZ": [
+"0x725AD0"
+],
+"?Unknown_73FDB0@UnknownAF0DD0Class@@QAEXPAV?$DataNode@PAVUnknownAF0DD0Class@@@@PAVClientObjectClass@@@Z": [
+"0x73FDB0"
+],
+"?Unknown_744240@SClient@@QAEXUKernelEventClass@@@Z": [
+"0x744240"
+],
+"?Unknown_744560@UIAnalyzeSClientClass@@QAEXH@Z": [
+"0x744560"
+],
+"?Unknown_80C180@UIAvatarCustPipClass@@QAEXXZ": [
+"0x80C180"
+],
+"?Unknown_846C90@@YA_NXZ": [
+"0x846C90"
+],
+"?Unknown_8B6FC0@Unknown8B5D90Class@@QBEPBDXZ": [
+"0x8B6FC0"
+],
+"?Unknown_8B7C60@Unknown8B5D90Class@@QAEHHPBDAAV1@@Z": [
+"0x8B7C60"
+],
+"?Unknown_Restore_Device@WW3D@@SA?AW4WW3DErrorType@@XZ": [
+"0x9179D0"
+],
+"?Unregister_Thread_ID@@YAXKPAD@Z": [
+"0x9CE670"
+],
+"?Update@BINKMovie@@SAXXZ": [
+"0xA16250"
+],
+"?Update@Wtime@@QAEXXZ": [
+"0x8B8220"
+],
+"?Update_Frustum@CameraClass@@IBEXXZ": [
+"0x944EB0"
+],
+"?Update_Pivot_Map@NamedPivotMapClass@@QAEXPBVHTreeClass@@@Z": [
+"0x931270"
+],
+"?Update_Sub_Object_Transforms@RenderObjClass@@UAEXXZ": [
+"0x942130"
+],
+"?Visibility_Check@SimpleSceneClass@@UAEXPAVCameraClass@@@Z": [
+"0x965F40"
+],
+"?WWDebug_Install_Message_Handler@@YAP6AXW4DebugType@@PBD@ZP6AX01@Z@Z": [
+"0x9EE7E0"
+],
+"?Wait@UDP@@QAEHJJAAUfd_set@@0@Z": [
+"0x8C0220"
+],
+"?Write@ChunkSaveClass@@QAEKPBXK@Z": [
+"0x9D4070"
+],
+"?Write@UDP@@QAEJPAEKKG@Z": [
+"0x8BFD50"
+],
+"?YFlip@Targa@@QAEXXZ": [
+"0x9D33D0"
+],
+"?_Getfacet@locale@std@@QBEPBVfacet@12@I_N@Z": [
+"0xA1A3E3"
+],
+"?_Init@ios_base@std@@IAEXXZ": [
+"0xA1A2E1"
+],
+"?_Init@locale@std@@CAPAV_Locimp@12@XZ": [
+"0xA1A57A"
+],
+"?_Iscloc@locale@std@@QBE_NXZ": [
+"0xA1A439"
+],
+"?_Xlen@std@@YAXXZ": [
+"0xA17E50"
+],
+"?_Xran@std@@YAXXZ": [
+"0xA1807C"
+],
+"?_com_issue_error@@YGXJ@Z": [
+"0xA401F0"
+],
+"?_com_issue_errorex@@YGXJPAUIUnknown@@ABU_GUID@@@Z": [
+"0xA401FE"
+],
+"?addListener@TCPMgr@@QAEDKGD@Z": [
+"0x8BCAE0"
+],
+"?addSeconds@Xtime@@QAEXJ@Z": [
+"0x8BA550"
+],
+"?cancelConnect@TCPMgr@@QAEDK@Z": [
+"0x8BD940"
+],
+"?clear@ios_base@std@@QAEXH_N@Z": [
+"0xA19D8D"
+],
+"?close@TCPCon@@QAEXD@Z": [
+"0x8BBE40"
+],
+"?connect@TCPMgr@@QAEDKGPAK@Z": [
+"0x8BD680"
+],
+"?get@Wstring@@QBEDK@Z": [
+"0x8B7000"
+],
+"?get@Wstring@@QBEPADXZ": [
+"0x8B6FC0"
+],
+"?getIncomingConnection@TCPMgr@@QAEDPAPAVTCPCon@@GJ@Z": [
+"0x8BD910"
+],
+"?getInt@ConfigFile@@QBEDPBDAAJ0@Z": [
+"0x8B35B0"
+],
+"?getMsec@Xtime@@QBEJXZ": [
+"0x8BA830"
+],
+"?getOutgoingConnection@TCPMgr@@QAEDPAPAVTCPCon@@KJ@Z": [
+"0x8BD8E0"
+],
+"?getRemoteAddr@TCPCon@@QAEDPAKPAG@Z": [
+"0x8BC710"
+],
+"?getString@ConfigFile@@QBEDPBDAAVWstring@@0@Z": [
+"0x8B3240"
+],
+"?getTime_t@Xtime@@QBEJXZ": [
+"0x8BA510"
+],
+"?getToken@Wstring@@QBEJHPADAAV1@@Z": [
+"0x8B7C60"
+],
+"?infoStream@MsgManager@@SAPAVostream@@XZ": [
+"0x8B5B90"
+],
+"?isConnected@TCPCon@@QAEDXZ": [
+"0x8BC8C0"
+],
+"?length@Wstring@@QBEKXZ": [
+"0x8B7040"
+],
+"?lock@CritSec@@QBEJXZ": [
+"0x8B4330"
+],
+"?name@type_info@@QBEPBDXZ": [
+"0xA2AB3B"
+],
+"?nstrdup@@YAPADPBD@Z": [
+"0x9D05B0"
+],
+"?peekRead@TCPCon@@QAEJPAPAE@Z": [
+"0x8BC600"
+],
+"?pumpReads@TCPCon@@QAEJXZ": [
+"0x8BC4F0"
+],
+"?pumpWriters@TCPMgr@@QAEXXZ": [
+"0x8BD1F0"
+],
+"?pumpWrites@TCPCon@@AAEJXZ": [
+"0x8BC040"
+],
+"?read@TCPCon@@QAEJPAEKJ@Z": [
+"0x8BC280"
+],
+"?remove@Wstring@@QAEDJJ@Z": [
+"0x8B6CC0"
+],
+"?replace@Wstring@@QAEDDD@Z": [
+"0x8B7520"
+],
+"?replace@Wstring@@QAEDPBD0@Z": [
+"0x8B7230"
+],
+"?set@Wstring@@QAEDKPBD@Z": [
+"0x8B7920"
+],
+"?set@Wstring@@QAEDPBD@Z": [
+"0x8B7570"
+],
+"?setBufferedWrites@TCPMgr@@QAEDPAVTCPCon@@D@Z": [
+"0x8BCEF0"
+],
+"?setDay@Xtime@@QAEXJ@Z": [
+"0x8BA850"
+],
+"?setMsec@Xtime@@QAEXJ@Z": [
+"0x8BA870"
+],
+"?strtok_r@@YAPADPADPBDPAPAD@Z": [
+"0x9DEBF0"
+],
+"?uncaught_exception@std@@YA_NXZ": [
+"0xA1C081"
+],
+"?unlock@CritSec@@QBEJXZ": [
+"0x8B4350"
+],
+"?unread@TCPCon@@QAEDPAEH@Z": [
+"0x8BC6A0"
+],
+"?update@Xtime@@QAEXXZ": [
+"0x8BA6F0"
+],
+"?write@TCPCon@@QAEJPBEKJ@Z": [
+"0x8BBF00"
+],
+"_CreateURLMoniker@12": [
+"0xA418D4"
+],
+"_D3DXAssembleShader@24": [
+"0x8E89DB"
+],
+"_D3DXCreateTexture@32": [
+"0x8E3FAA"
+],
+"_D3DXFilterTexture@16": [
+"0x8E4435"
+],
+"_RegisterBindStatusCallback@16": [
+"0xA418CE"
+],
+"_RevokeBindStatusCallback@8": [
+"0xA418DA"
+],
+"_WSACleanup@0": [
+"0x8C1B64"
+],
+"_WSAStartup@8": [
+"0x8C1B6A"
+],
+"_XMP_Add": [
+"0x9E0D50"
+],
+"_XMP_Compare": [
+"0x9E0D00"
+],
+"_XMP_Count_Bits": [
+"0x9E0C60"
+],
+"_XMP_Dec": [
+"0x9E08C0"
+],
+"_XMP_Encode": [
+"0x9E0770"
+],
+"_XMP_Exponent_Mod": [
+"0x9E2830"
+],
+"_XMP_Init": [
+"0x9E0C40"
+],
+"_XMP_Mod_Mult": [
+"0x9E23D0"
+],
+"_XMP_Mod_Mult_Clear": [
+"0x9E26E0"
+],
+"_XMP_Prepare_Modulus": [
+"0x9E21E0"
+],
+"_XMP_Sub": [
+"0x9E0E20"
+],
+"_XMP_Unsigned_Decode": [
+"0x9E0830"
+],
+"_XMP_Unsigned_Div": [
+"0x9E1640"
+],
+"__CIacos": [
+"0xA26B20"
+],
+"__CIasin": [
+"0xA2AA70"
+],
+"__CIfmod": [
+"0xA26E5A"
+],
+"__CIpow": [
+"0xA27C90"
+],
+"__CxxThrowException@8": [
+"0xA28FF8"
+],
+"__Getctype": [
+"0xA1BE79"
+],
+"__Stod": [
+"0xA1C084"
+],
+"__Stof": [
+"0xA1C0C0"
+],
+"__Stold": [
+"0xA1C0D5"
+],
+"__Tolower": [
+"0xA1BD12"
+],
+"__Toupper": [
+"0xA1BF21"
+],
+"__alldiv": [
+"0xA28360"
+],
+"__allmul": [
+"0xA28410"
+],
+"__allrem": [
+"0xA28E50"
+],
+"__allshl": [
+"0xA2B370"
+],
+"__atoi64": [
+"0xA2776D"
+],
+"__aullshr": [
+"0xA2B410"
+],
+"__beginthread": [
+"0xA26C2C"
+],
+"__chkstk": [
+"0xA27C60"
+],
+"__errno": [
+"0xA29324"
+],
+"__findclose": [
+"0xA28BE8"
+],
+"__findfirst": [
+"0xA28A53"
+],
+"__findnext": [
+"0xA28B20"
+],
+"__finite": [
+"0xA27603"
+],
+"__ftol": [
+"0xA264EC"
+],
+"__heapchk": [
+"0xA268F0"
+],
+"__i64toa": [
+"0xA2AC7C"
+],
+"__isnan": [
+"0xA27617"
+],
+"__makepath": [
+"0xA28C6C"
+],
+"__mkdir": [
+"0xA2B1D8"
+],
+"__snprintf": [
+"0xA26513"
+],
+"__splitpath": [
+"0xA28CFD"
+],
+"__strdup": [
+"0xA2BA1C"
+],
+"__stricmp": [
+"0xA2A9A0"
+],
+"__strlwr": [
+"0xA27F25"
+],
+"__strnicmp": [
+"0xA3EE70"
+],
+"__vsnprintf": [
+"0xA28477"
+],
+"_accept@12": [
+"0x8C1BC4"
+],
+"_asctime": [
+"0xA29555"
+],
+"_atexit": [
+"0xA25F00"
+],
+"_atof": [
+"0xA278F6"
+],
+"_atoi": [
+"0xA27762"
+],
+"_atol": [
+"0xA276D7"
+],
+"_ceil": [
+"0xA27827"
+],
+"_clock": [
+"0xA27EAD"
+],
+"_closesocket@4": [
+"0x8C1BAC"
+],
+"_ctime": [
+"0xA2A97C"
+],
+"_difftime": [
+"0xA2A47E"
+],
+"_exit": [
+"0xA26A03"
+],
+"_fclose": [
+"0xA2794D"
+],
+"_fflush": [
+"0xA2B204"
+],
+"_fgets": [
+"0xA2B3AB"
+],
+"_floor": [
+"0xA26D75"
+],
+"_fopen": [
+"0xA27B12"
+],
+"_fprintf": [
+"0xA284C7"
+],
+"_fread": [
+"0xA279CA"
+],
+"_free": [
+"0xA26F5C"
+],
+"_fseek": [
+"0xA2A8C3"
+],
+"_fwrite": [
+"0xA27B25"
+],
+"_gethostbyname@4": [
+"0x8C1B82"
+],
+"_gethostname@8": [
+"0x8C1B88"
+],
+"_getpeername@12": [
+"0x8C1BA6"
+],
+"_gmtime": [
+"0xA2A68F"
+],
+"_htonl@4": [
+"0x8C1B76"
+],
+"_htons@4": [
+"0x8C1B9A"
+],
+"_inet_addr@4": [
+"0x8C1B94"
+],
+"_inet_ntoa@4": [
+"0x8C1B70"
+],
+"_ioctlsocket@12": [
+"0x8C1B8E"
+],
+"_isalnum": [
+"0xA263A8"
+],
+"_isalpha": [
+"0xA26285"
+],
+"_isdigit": [
+"0xA26303"
+],
+"_isgraph": [
+"0xA26404"
+],
+"_ispunct": [
+"0xA26380"
+],
+"_isspace": [
+"0xA26358"
+],
+"_isupper": [
+"0xA262B3"
+],
+"_itoa": [
+"0xA2ABAE"
+],
+"_localeconv": [
+"0xA29032"
+],
+"_localtime": [
+"0xA29647"
+],
+"_malloc": [
+"0xA28218"
+],
+"_memchr": [
+"0xA28650"
+],
+"_memmove": [
+"0xA25F50"
+],
+"_mktime": [
+"0xA2A48F"
+],
+"_ntohl@4": [
+"0x8C1B7C"
+],
+"_ntohs@4": [
+"0x8C1BA0"
+],
+"_printf": [
+"0xA26BEB"
+],
+"_putchar": [
+"0xA2B3A0"
+],
+"_qsort": [
+"0xA29387"
+],
+"_rand": [
+"0xA28A31"
+],
+"_realloc": [
+"0xA286F5"
+],
+"_remove": [
+"0xA41DCE"
+],
+"_sprintf": [
+"0xA266DA"
+],
+"_sscanf": [
+"0xA28059"
+],
+"_stat": [
+"0xA2AEAD"
+],
+"_strchr": [
+"0xA26EA0"
+],
+"_strcoll": [
+"0xA297A7"
+],
+"_strcspn": [
+"0xA29040"
+],
+"_strdup": [
+"0xA2BA1C"
+],
+"_strftime": [
+"0xA29BCC"
+],
+"_stricmp": [
+"0xA2A9A0"
+],
+"_strlwr": [
+"0xA27F25"
+],
+"_strncat": [
+"0xA2A7A0"
+],
+"_strncmp": [
+"0xA26730"
+],
+"_strncpy": [
+"0xA26770"
+],
+"_strnicmp": [
+"0xA3EE70"
+],
+"_strstr": [
+"0xA26870"
+],
+"_strtok": [
+"0xA27187"
+],
+"_strtol": [
+"0xA2907E"
+],
+"_strtoul": [
+"0xA2929A"
+],
+"_strupr": [
+"0xA41C70"
+],
+"_time": [
+"0xA2808D"
+],
+"_tolower": [
+"0xA2704D"
+],
+"_toupper": [
+"0xA2850B"
+],
+"_vfprintf": [
+"0xA2ADBA"
+],
+"_vsprintf": [
+"0xA29336"
+],
+"_wcscoll": [
+"0xA297A7"
+],
+"_wcscpy": [
+"0xA2AD78"
+],
+"_wcslen": [
+"0xA2AD9D"
+]
+},
+"binkmovie": {
+"??0Render2DClass@@QAE@PAVTextureClass@@@Z": [
+"0x96F7C0"
+],
+"??0Render2DSentenceClass@@QAE@XZ": [
+"0x9A80D0"
+],
+"??0TextureClass@@QAE@IIW4WW3DFormat@@W4MipCountType@@W4PoolType@TextureBaseClass@@_N@Z": [
+"0x94B240"
+],
+"??1FileStraw@@UAE@XZ": [
+"0x9E5730"
+],
+"??1Render2DSentenceClass@@QAE@XZ": [
+"0x9A8210"
+],
+"??2@YAPAXI@Z": [
+"0x4E9CB0"
+],
+"??3@YAXPAX@Z": [
+"0x4E9D10"
+],
+"?Add_Quad@Render2DClass@@QAEXABVRectClass@@0K@Z": [
+"0x970F70"
+],
+"?Build_Sentence@Render2DSentenceClass@@QAEXPBG@Z": [
+"0x9A9690"
+],
+"?D3DFormat_To_WW3DFormat@@YA?AW4WW3DFormat@@W4_D3DFORMAT@@@Z": [
+"0x995980"
+],
+"?Draw_Sentence@Render2DSentenceClass@@QAEXK@Z": [
+"0x9A8E90"
+],
+"?Free_String@StringClass@@AAEXXZ": [
+"0x9CF4B0"
+],
+"?Get_Device_Resolution@WW3D@@SAXAAH00AA_N@Z": [
+"0x9178F0"
+],
+"?Get_String@StringClass@@AAEXH_N@Z": [
+"0x9CF040"
+],
+"?Get_Text_Extents@Render2DSentenceClass@@QAE?AVVector2@@PBG@Z": [
+"0x9A85D0"
+],
+"?Log_DX8_ErrorCode@@YAXI@Z": [
+"0x921140"
+],
+"?Read_Line@@YAHAAVStraw@@PAGHAA_N@Z": [
+"0x9E63A0"
+],
+"?Render@Render2DClass@@QAEXXZ": [
+"0x9721E0"
+],
+"?Render@Render2DSentenceClass@@QAEXXZ": [
+"0x9A84E0"
+],
+"?Set_Coordinate_Range@Render2DClass@@QAEXABVRectClass@@@Z": [
+"0x96FD40"
+],
+"?Set_Font@Render2DSentenceClass@@QAEXPAVFontCharsClass@@@Z": [
+"0x9A8310"
+],
+"?Set_Location@Render2DSentenceClass@@QAEXABVVector2@@@Z": [
+"0x9A8580"
+],
+"?Set_Texture@Render2DClass@@QAEXPAVTextureClass@@@Z": [
+"0x96FC00"
+],
+"?Uninitialised_Grow@StringClass@@AAEXH@Z": [
+"0x9CF3D0"
+],
+"?wcstrim@@YAPAGPAG@Z": [
+"0x9DB0A0"
+],
+"__ftol": [
+"0xA264EC"
+],
+"__splitpath": [
+"0xA28CFD"
+],
+"_atexit": [
+"0xA25F00"
+],
+"_mbstowcs": [
+"0xA2BD1F"
+],
+"_wcschr": [
+"0xA2BCF6"
+],
+"_wcscpy": [
+"0xA2AD78"
+],
+"_wcsicmp": [
+"0xA41DDF"
+],
+"_wcslen": [
+"0xA2AD9D"
+],
+"_wcsncpy": [
+"0xA2C08F"
+],
+"_wcsnicmp": [
+"0xA41EBE"
+],
+"_wcspbrk": [
+"0xA2BE7C"
+],
+"_wcstol": [
+"0xA2BEBA"
+],
+"_wcstoul": [
+"0xA2C078"
+]
+},
+"wlib": {
+"??0ostream@@QAE@PAVstreambuf@@@Z": [
+"0xA40EBD"
+],
+"??0streambuf@@IAE@XZ": [
+"0xA41332"
+],
+"??1streambuf@@UAE@XZ": [
+"0xA413F0"
+],
+"??2@YAPAXI@Z": [
+"0x4E9CB0"
+],
+"??3@YAXPAX@Z": [
+"0x4E9D10"
+],
+"??6ostream@@QAEAAV0@PBD@Z": [
+"0xA40DAB"
+],
+"?Unknown_8B44E0@@YAPAD_JPAD@Z": [
+"0x8B44E0"
+],
+"?setb@streambuf@@IAEXPAD0H@Z": [
+"0xA415A3"
+],
+"__ftime": [
+"0xA2B42F"
+],
+"_atexit": [
+"0xA25F00"
+],
+"_atoi": [
+"0xA27762"
+],
+"_atol": [
+"0xA276D7"
+],
+"_fgets": [
+"0xA2B3AB"
+],
+"_fprintf": [
+"0xA284C7"
+],
+"_isalpha": [
+"0xA26285"
+],
+"_isdigit": [
+"0xA26303"
+],
+"_isgraph": [
+"0xA26404"
+],
+"_isspace": [
+"0xA26358"
+],
+"_localtime": [
+"0xA29647"
+],
+"_memmove": [
+"0xA25F50"
+],
+"_mktime": [
+"0xA2A48F"
+],
+"_select@20": [
+"0x8C1BCA"
+],
+"_sprintf": [
+"0xA266DA"
+],
+"_strchr": [
+"0xA26EA0"
+],
+"_strncat": [
+"0xA2A7A0"
+],
+"_strncmp": [
+"0xA26730"
+],
+"_strncpy": [
+"0xA26770"
+],
+"_strstr": [
+"0xA26870"
+],
+"_tolower": [
+"0xA2704D"
+],
+"_toupper": [
+"0xA2850B"
+]
+},
+"wnet": {
+"??0CritSec@@QAE@XZ": [
+"0x8B42F0"
+],
+"??0Wtime@@QAE@XZ": [
+"0x8B8150"
+],
+"??1CritSec@@QAE@XZ": [
+"0x8B4310"
+],
+"??1Wtime@@QAE@XZ": [
+"0x8B8200"
+],
+"??2@YAPAXI@Z": [
+"0x4E9CB0"
+],
+"??3@YAXPAX@Z": [
+"0x4E9D10"
+],
+"??4Wtime@@QAEAAV0@ABV0@@Z": [
+"0x8BA160"
+],
+"??GWtime@@QAE?AV0@AAV0@@Z": [
+"0x8BA060"
+],
+"??YWtime@@QAEAAV0@ABV0@@Z": [
+"0x8B9F90"
+],
+"?Fail_If_Report@@YAXPBD0H@Z": [
+"0x4E9450"
+],
+"?GetSec@Wtime@@QBEKXZ": [
+"0x8B9440"
+],
+"?GetTimevalMT@Wtime@@QAEXAAUtimeval@@@Z": [
+"0x8B9570"
+],
+"?GetUsec@Wtime@@QBEKXZ": [
+"0x8B9460"
+],
+"?SetSec@Wtime@@QAEXK@Z": [
+"0x8B9480"
+],
+"?SetUsec@Wtime@@QAEXK@Z": [
+"0x8B94A0"
+],
+"?Update@Wtime@@QAEXXZ": [
+"0x8B8220"
+],
+"?lock@CritSec@@QBEJXZ": [
+"0x8B4330"
+],
+"?msleep@@YAXJ@Z": [
+"0x8B8270"
+],
+"?unlock@CritSec@@QBEJXZ": [
+"0x8B4350"
+],
+"_WSACleanup@0": [
+"0x8C1B64"
+],
+"_WSAGetLastError@0": [
+"0x8C1BE2"
+],
+"_WSAStartup@8": [
+"0x8C1B6A"
+],
+"___WSAFDIsSet@8": [
+"0x8C1BF4"
+],
+"__chkstk": [
+"0xA27C60"
+],
+"__errno": [
+"0xA29324"
+],
+"_atexit": [
+"0xA25F00"
+],
+"_bind@12": [
+"0x8C1BB8"
+],
+"_closesocket@4": [
+"0x8C1BAC"
+],
+"_fprintf": [
+"0xA284C7"
+],
+"_gethostbyname@4": [
+"0x8C1B82"
+],
+"_getpeername@12": [
+"0x8C1BA6"
+],
+"_getsockname@12": [
+"0x8C1BFA"
+],
+"_getsockopt@20": [
+"0x8C1C0C"
+],
+"_htonl@4": [
+"0x8C1B76"
+],
+"_htons@4": [
+"0x8C1B9A"
+],
+"_inet_addr@4": [
+"0x8C1B94"
+],
+"_ioctlsocket@12": [
+"0x8C1B8E"
+],
+"_isdigit": [
+"0xA26303"
+],
+"_listen@8": [
+"0x8C1BB2"
+],
+"_memmove": [
+"0xA25F50"
+],
+"_ntohl@4": [
+"0x8C1B7C"
+],
+"_ntohs@4": [
+"0x8C1BA0"
+],
+"_recv@16": [
+"0x8C1BD6"
+],
+"_recvfrom@24": [
+"0x8C1C06"
+],
+"_select@20": [
+"0x8C1BCA"
+],
+"_send@16": [
+"0x8C1BDC"
+],
+"_sendto@24": [
+"0x8C1C00"
+],
+"_setsockopt@20": [
+"0x8C1BE8"
+],
+"_shutdown@8": [
+"0x8C1BD0"
+],
+"_socket@12": [
+"0x8C1BBE"
+],
+"_time": [
+"0xA2808D"
+],
+"_vsprintf": [
+"0xA29336"
+]
+},
+"ww3d2": {
+"??0Buffer@@QAE@PAXJ@Z": [
+"0x9DCF40"
+],
+"??0ChunkLoadClass@@QAE@PAVFileClass@@@Z": [
+"0x9D42B0"
+],
+"??0CullableClass@@QAE@XZ": [
+"0x8C8D70"
+],
+"??0HashTableClass@@QAE@H@Z": [
+"0x9E53F0"
+],
+"??0INIClass@@QAE@AAVFileClass@@@Z": [
+"0x9C7DA0"
+],
+"??0INIClass@@QAE@XZ": [
+"0x9C7C60"
+],
+"??0Matrix3@@QAE@ABVMatrix3D@@@Z": [
+"0x8C3AA0"
+],
+"??0Matrix3@@QAE@ABVMatrix4@@@Z": [
+"0x8C3AE0"
+],
+"??0MixFileFactoryClass@@QAE@PBDPAVFileFactoryClass@@@Z": [
+"0x9D7A60"
+],
+"??0PersistFactoryClass@@QAE@XZ": [
+"0xA03C30"
+],
+"??0Random3Class@@QAE@II@Z": [
+"0x9D0230"
+],
+"??0Random4Class@@QAE@I@Z": [
+"0x9D03B0"
+],
+"??0RegistryClass@@QAE@PBD_N@Z": [
+"0x9D1580"
+],
+"??0SimpleFileFactoryClass@@QAE@XZ": [
+"0x9D07D0"
+],
+"??0Targa@@QAE@XZ": [
+"0x9D28E0"
+],
+"??0ThreadClass@@QAE@PBDP6AHHPAU_EXCEPTION_POINTERS@@@Z@Z": [
+"0x9DEC70"
+],
+"??0Vector3HollowSphereRandomizer@@QAE@M@Z": [
+"0xA15DD0"
+],
+"??0Vector3SolidBoxRandomizer@@QAE@ABVVector3@@@Z": [
+"0xA159D0"
+],
+"??0Vector3SolidCylinderRandomizer@@QAE@MM@Z": [
+"0xA15F90"
+],
+"??0Vector3SolidSphereRandomizer@@QAE@M@Z": [
+"0xA15BC0"
+],
+"??0file_auto_ptr@@QAE@PAVFileFactoryClass@@PBD@Z": [
+"0x9D0720"
+],
+"??1Buffer@@QAE@XZ": [
+"0x9DD090"
+],
+"??1CriticalSectionClass@@QAE@XZ": [
+"0x9CEF40"
+],
+"??1CullableClass@@UAE@XZ": [
+"0x8C8DC0"
+],
+"??1GenericMultiListClass@@UAE@XZ": [
+"0x9D0FE0"
+],
+"??1HashTableClass@@QAE@XZ": [
+"0x9E5430"
+],
+"??1INIClass@@UAE@XZ": [
+"0x9C7FC0"
+],
+"??1MixFileFactoryClass@@UAE@XZ": [
+"0x9D7D50"
+],
+"??1MultiListObjectClass@@UAE@XZ": [
+"0x9D0F50"
+],
+"??1PersistFactoryClass@@UAE@XZ": [
+"0xA03C80"
+],
+"??1RegistryClass@@QAE@XZ": [
+"0x9D1680"
+],
+"??1Straw@@UAE@XZ": [
+"0x9E5760"
+],
+"??1Targa@@QAE@XZ": [
+"0x9D2920"
+],
+"??1ThreadClass@@UAE@XZ": [
+"0x9DEDA0"
+],
+"??1file_auto_ptr@@QAE@XZ": [
+"0x9D0770"
+],
+"??2@YAPAXI@Z": [
+"0x4E9CB0"
+],
+"??3@YAXPAX@Z": [
+"0x4E9D10"
+],
+"??4Matrix3@@QAEAAV0@ABVMatrix3D@@@Z": [
+"0x8C3C70"
+],
+"??9@YAHABVMatrix4@@0@Z": [
+"0x8DEEC0"
+],
+"??RRandom3Class@@QAEHXZ": [
+"0x9D0250"
+],
+"??RRandom4Class@@QAEHXZ": [
+"0x9D0410"
+],
+"?Add@HashTableClass@@QAEXPAVHashableClass@@@Z": [
+"0x9E5470"
+],
+"?Begin_Chunk@ChunkSaveClass@@QAE_NK@Z": [
+"0x9D3E40"
+],
+"?Begin_Micro_Chunk@ChunkSaveClass@@QAE_NK@Z": [
+"0x9D3F80"
+],
+"?Build_Filename_List@MixFileFactoryClass@@QAE_NAAV?$DynamicVectorClass@VStringClass@@@@@Z": [
+"0x9D7E20"
+],
+"?Build_Matrix3D@@YA?AVMatrix3D@@ABVQuaternion@@@Z": [
+"0x8D2C10"
+],
+"?Build_Quaternion@@YA?AVQuaternion@@ABVMatrix3D@@@Z": [
+"0x8D2710"
+],
+"?CRC_Memory@@YAKPBEKK@Z": [
+"0x9E5320"
+],
+"?CRC_Stringi@@YAKPBDK@Z": [
+"0x9E53A0"
+],
+"?Cached_Slerp@@YA?AVQuaternion@@ABV1@0MPAUSlerpInfoStruct@@@Z": [
+"0x8D2580"
+],
+"?Clamp@VectorProcessorClass@@SAXPAVVector4@@PBV2@MMH@Z": [
+"0x8D36C0"
+],
+"?ClampMin@VectorProcessorClass@@SAXPAM0MH@Z": [
+"0x8D39B0"
+],
+"?Clear@VectorProcessorClass@@SAXPAVVector3@@H@Z": [
+"0x8D37C0"
+],
+"?Close_Chunk@ChunkLoadClass@@QAE_NXZ": [
+"0x9D4370"
+],
+"?Close_Micro_Chunk@ChunkLoadClass@@QAE_NXZ": [
+"0x9D4430"
+],
+"?Collide@CollisionMath@@SA_NABVAABoxClass@@ABVVector3@@0PAUCastResultStruct@@@Z": [
+"0x8E2B60"
+],
+"?Collide@CollisionMath@@SA_NABVAABoxClass@@ABVVector3@@ABVOBBoxClass@@1PAUCastResultStruct@@@Z": [
+"0x8C8B90"
+],
+"?Collide@CollisionMath@@SA_NABVAABoxClass@@ABVVector3@@ABVTriClass@@PAUCastResultStruct@@@Z": [
+"0x8C9BD0"
+],
+"?Collide@CollisionMath@@SA_NABVLineSegClass@@ABVAABoxClass@@PAUCastResultStruct@@@Z": [
+"0x8C9500"
+],
+"?Collide@CollisionMath@@SA_NABVLineSegClass@@ABVOBBoxClass@@PAUCastResultStruct@@@Z": [
+"0x8C9770"
+],
+"?Collide@CollisionMath@@SA_NABVLineSegClass@@ABVTriClass@@PAUCastResultStruct@@@Z": [
+"0x8C91E0"
+],
+"?Collide@CollisionMath@@SA_NABVOBBoxClass@@ABVVector3@@01PAUCastResultStruct@@@Z": [
+"0x8C8880"
+],
+"?Collide@CollisionMath@@SA_NABVOBBoxClass@@ABVVector3@@ABVAABoxClass@@1PAUCastResultStruct@@@Z": [
+"0x8C89B0"
+],
+"?Collide@CollisionMath@@SA_NABVOBBoxClass@@ABVVector3@@ABVTriClass@@1PAUCastResultStruct@@@Z": [
+"0x8CCBE0"
+],
+"?Contains@GenericMultiListClass@@QAE_NPAVMultiListObjectClass@@@Z": [
+"0x9D0FF0"
+],
+"?Contains_Point@TriClass@@QBE_NABVVector3@@@Z": [
+"0x8E1730"
+],
+"?ConvertStringToBSTR@_com_util@@YGPAGPBD@Z": [
+"0xA408E6"
+],
+"?Convert_From@WideStringClass@@QAE_NPBD@Z": [
+"0x9E5CD0"
+],
+"?Copy@VectorProcessorClass@@SAXPAVVector4@@ABVVector3@@PBMH@Z": [
+"0x8D3500"
+],
+"?Copy@VectorProcessorClass@@SAXPAVVector4@@PBV2@H@Z": [
+"0x8D3440"
+],
+"?Copy@VectorProcessorClass@@SAXPAVVector4@@PBVVector3@@MH@Z": [
+"0x8D34C0"
+],
+"?Copy@VectorProcessorClass@@SAXPAVVector4@@PBVVector3@@PBMH@Z": [
+"0x8D3470"
+],
+"?CopyIndexed@VectorProcessorClass@@SAXPAEPBEPBIH@Z": [
+"0x8D3650"
+],
+"?CopyIndexed@VectorProcessorClass@@SAXPAM0PBIH@Z": [
+"0x8D3690"
+],
+"?CopyIndexed@VectorProcessorClass@@SAXPAVVector3@@PBV2@PBIH@Z": [
+"0x8D35B0"
+],
+"?CopyIndexed@VectorProcessorClass@@SAXPAVVector4@@PBV2@PBIH@Z": [
+"0x8D3600"
+],
+"?Cur_Chunk_ID@ChunkLoadClass@@QAEKXZ": [
+"0x9D43C0"
+],
+"?Cur_Chunk_Length@ChunkLoadClass@@QAEKXZ": [
+"0x9D43D0"
+],
+"?Cur_Micro_Chunk_ID@ChunkLoadClass@@QAEKXZ": [
+"0x9D4480"
+],
+"?Cur_Micro_Chunk_Length@ChunkLoadClass@@QAEKXZ": [
+"0x9D4490"
+],
+"?DotProduct@VectorProcessorClass@@SAXPAMABVVector3@@PBV2@H@Z": [
+"0x8D3970"
+],
+"?End_Chunk@ChunkSaveClass@@QAE_NXZ": [
+"0x9D3ED0"
+],
+"?End_Micro_Chunk@ChunkSaveClass@@QAE_NXZ": [
+"0x9D4010"
+],
+"?Entry_Count@INIClass@@QBEHPBD@Z": [
+"0x9C8F30"
+],
+"?Execute@ThreadClass@@QAEXXZ": [
+"0x9DEF10"
+],
+"?Fast_Slerp@@YAXAAVQuaternion@@ABV1@1M@Z": [
+"0x8D2030"
+],
+"?Find@HashTableClass@@QAEPAVHashableClass@@PBD@Z": [
+"0x9E5520"
+],
+"?Find_Entry@INIClass@@QBEPAUINIEntry@@PBD0@Z": [
+"0x9C8FD0"
+],
+"?Find_Intersection@LineSegClass@@QBE_NABV1@PAVVector3@@PAM12@Z": [
+"0x8DE690"
+],
+"?Find_POT@@YAHH@Z": [
+"0x8C8F30"
+],
+"?Find_Section@INIClass@@QBEPAUINISection@@PBD@Z": [
+"0x9C8DD0"
+],
+"?First@HashTableIteratorClass@@QAEXXZ": [
+"0x9E5590"
+],
+"?Format@StringClass@@QAAHPBDZZ": [
+"0x9CF640"
+],
+"?Free_String@StringClass@@AAEXXZ": [
+"0x9CF4B0"
+],
+"?Free_String@WideStringClass@@AAEXXZ": [
+"0x9E5A10"
+],
+"?Get_Allocate_Count@WWMemoryLogClass@@SAHXZ": [
+"0x9EDF00"
+],
+"?Get_Bool@INIClass@@QBE_NPBD0_N@Z": [
+"0x9CB860"
+],
+"?Get_Entry@INIClass@@QBEPBDPBDH@Z": [
+"0x9C9140"
+],
+"?Get_File@SimpleFileFactoryClass@@UAEPAVFileClass@@PBD@Z": [
+"0x9D0C60"
+],
+"?Get_Float@INIClass@@QBEMPBD0M@Z": [
+"0x9CA770"
+],
+"?Get_Float@Random4Class@@QAEMXZ": [
+"0x9D0580"
+],
+"?Get_Free_Count@WWMemoryLogClass@@SAHXZ": [
+"0x9EDF10"
+],
+"?Get_Int@INIClass@@QBEHPBD0H@Z": [
+"0x9CA1C0"
+],
+"?Get_Int@RegistryClass@@QAEHPBDH@Z": [
+"0x9D16A0"
+],
+"?Get_Inverse@Matrix3D@@QBEXAAV1@@Z": [
+"0x8C2BC0"
+],
+"?Get_Orthogonal_Inverse@Matrix3D@@QBEXAAV1@@Z": [
+"0x8C2BD0"
+],
+"?Get_Point@INIClass@@QBE?BV?$TPoint3D@M@@PBD0ABV2@@Z": [
+"0x9CBDE0"
+],
+"?Get_String@INIClass@@QBEABVStringClass@@AAV2@PBD11@Z": [
+"0x9CB020"
+],
+"?Get_String@INIClass@@QBEHPBD00PADH@Z": [
+"0x9CAEA0"
+],
+"?Get_String@RegistryClass@@QAEPADPBDPADH0@Z": [
+"0x9D19C0"
+],
+"?Get_String@StringClass@@AAEXH_N@Z": [
+"0x9CF040"
+],
+"?Get_String@WideStringClass@@AAEXH_N@Z": [
+"0x9E5820"
+],
+"?Get_Vector@Vector3SolidBoxRandomizer@@UAEXAAVVector3@@@Z": [
+"0xA15AE0"
+],
+"?Greatest_Common_Divisor@@YAIII@Z": [
+"0x9E5DD0"
+],
+"?Init@FrustumClass@@QAEXABVMatrix3D@@ABVVector2@@1MM@Z": [
+"0x8DD7A0"
+],
+"?Internal_Add@GenericMultiListClass@@IAE_NPAVMultiListObjectClass@@_N@Z": [
+"0x9D1040",
+"0x9D1160"
+],
+"?Internal_Add_After@GenericMultiListClass@@IAE_NPAVMultiListObjectClass@@PBV2@_N@Z": [
+"0x9D1270"
+],
+"?Internal_Add_Tail@GenericMultiListClass@@IAE_NPAVMultiListObjectClass@@_N@Z": [
+"0x9D1160"
+],
+"?Internal_Remove@GenericMultiListClass@@IAE_NPAVMultiListObjectClass@@@Z": [
+"0x9D13A0"
+],
+"?Internal_Remove_List_Head@GenericMultiListClass@@IAEPAVMultiListObjectClass@@XZ": [
+"0x9D1430"
+],
+"?Intersection_Test@CollisionMath@@SA_NABVAABoxClass@@0@Z": [
+"0x8E22D0"
+],
+"?Intersection_Test@CollisionMath@@SA_NABVAABoxClass@@ABVOBBoxClass@@@Z": [
+"0x8C5300"
+],
+"?Intersection_Test@CollisionMath@@SA_NABVOBBoxClass@@0@Z": [
+"0x8C50D0"
+],
+"?Intersection_Test@CollisionMath@@SA_NABVOBBoxClass@@ABVAABoxClass@@@Z": [
+"0x8C51A0"
+],
+"?Intersection_Test@CollisionMath@@SA_NABVOBBoxClass@@ABVTriClass@@@Z": [
+"0x8D0740"
+],
+"?Load@INIClass@@QAEHAAVStraw@@@Z": [
+"0x9C8380"
+],
+"?Load@INIClass@@QAEHPBD@Z": [
+"0x9C82E0"
+],
+"?Load@Targa@@QAEJPBDJ_N@Z": [
+"0x9D2EA0"
+],
+"?Look_At@Matrix3D@@QAEXABVVector3@@0M@Z": [
+"0x8C2780"
+],
+"?MinMax@VectorProcessorClass@@SAXPAVVector3@@AAV2@1H@Z": [
+"0x8D3860"
+],
+"?MulAdd@VectorProcessorClass@@SAXPAMMMH@Z": [
+"0x8D3950"
+],
+"?Multiply@Matrix3@@SAXABVMatrix3D@@ABV1@PAV1@@Z": [
+"0x8C3CF0"
+],
+"?Multiply@Matrix3D@@SAXABV1@0PAV1@@Z": [
+"0x8C2CD0"
+],
+"?Multiply@Matrix4@@SAXABV1@0PAV1@@Z": [
+"0x8DE8F0"
+],
+"?Multiply@Matrix4@@SAXABV1@ABVMatrix3D@@PAV1@@Z": [
+"0x8DECC0"
+],
+"?Next@HashTableIteratorClass@@QAEXXZ": [
+"0x9E5600"
+],
+"?Normalize@VectorProcessorClass@@SAXPAVVector3@@H@Z": [
+"0x8D37F0"
+],
+"?Obj_Look_At@Matrix3D@@QAEXABVVector3@@0M@Z": [
+"0x8C29B0"
+],
+"?Open@Targa@@QAEJPBDJ@Z": [
+"0x9D2980"
+],
+"?Open_Chunk@ChunkLoadClass@@QAE_NXZ": [
+"0x9D4310"
+],
+"?Open_Micro_Chunk@ChunkLoadClass@@QAE_NXZ": [
+"0x9D4400"
+],
+"?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVAABoxClass@@ABVLineSegClass@@@Z": [
+"0x8E2450"
+],
+"?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVFrustumClass@@ABVAABoxClass@@@Z": [
+"0x8E2000"
+],
+"?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVFrustumClass@@ABVSphereClass@@@Z": [
+"0x8E1FB0"
+],
+"?Power@VectorProcessorClass@@SAXPAM0MH@Z": [
+"0x8D39F0"
+],
+"?Read@ChunkLoadClass@@QAEKPAXK@Z": [
+"0x9D4540"
+],
+"?Read_Line@TextFileClass@@QAE_NAAVStringClass@@@Z": [
+"0x9E5EB0"
+],
+"?Register_Pointer@SaveLoadSystemClass@@SAXPAX0@Z": [
+"0xA042F0"
+],
+"?Reset@HashTableClass@@QAEXXZ": [
+"0x9E5450"
+],
+"?Reset_Counters@WWMemoryLogClass@@SAXXZ": [
+"0x9EDEF0"
+],
+"?Resize@StringClass@@AAEXH@Z": [
+"0x9CF2D0"
+],
+"?Return_File@SimpleFileFactoryClass@@UAEXPAVFileClass@@@Z": [
+"0x9D0EC0"
+],
+"?Rotate_Vector@Matrix3D@@QBE?AVVector3@@ABV2@@Z": [
+"0x8C26C0"
+],
+"?SHD_Flush@@YAXXZ": [
+"0xA07D20"
+],
+"?SHD_Init@@YAXXZ": [
+"0xA07CE0"
+],
+"?SHD_Init_Shaders@@YAXXZ": [
+"0xA07D00"
+],
+"?SHD_Register_Loader@@YAXXZ": [
+"0xA07D30"
+],
+"?SHD_Shutdown@@YAXXZ": [
+"0xA07CF0"
+],
+"?SHD_Shutdown_Shaders@@YAXXZ": [
+"0xA07D10"
+],
+"?Section_Count@INIClass@@QBEHXZ": [
+"0x9C8F20"
+],
+"?Seek@ChunkLoadClass@@QAEKK@Z": [
+"0x9D44A0"
+],
+"?Set@LineSegClass@@QAEXABV1@ABVMatrix3D@@@Z": [
+"0x8DE2E0"
+],
+"?Set@Matrix3@@QAEXABVMatrix3D@@@Z": [
+"0x8C3B20"
+],
+"?Set@Matrix3D@@QAEXABVMatrix3@@ABVVector3@@@Z": [
+"0x8C2500"
+],
+"?SetPalette@Targa@@QAEPADPAD@Z": [
+"0x9D34B0"
+],
+"?Set_Cull_Box@CullableClass@@QAEXABVAABoxClass@@_N@Z": [
+"0x8C8DD0"
+],
+"?Set_Int@RegistryClass@@QAEXPBDH@Z": [
+"0x9D1700"
+],
+"?Set_Priority@ThreadClass@@QAEXH@Z": [
+"0x9DEF40"
+],
+"?Set_String@RegistryClass@@QAEXPBD0@Z": [
+"0x9D1A30"
+],
+"?Set_Sub_Directory@SimpleFileFactoryClass@@QAEXPBD@Z": [
+"0x9D0890"
+],
+"?Sleep_Ms@ThreadClass@@SAXI@Z": [
+"0x9DF020"
+],
+"?Slerp_Setup@@YAXABVQuaternion@@0PAUSlerpInfoStruct@@@Z": [
+"0x8D24E0"
+],
+"?Start_Profile@WWProfileManager@@SAXPBD@Z": [
+"0x9EA930"
+],
+"?Start_Root_Profile@WWProfileManager@@SAXPBD@Z": [
+"0x9EA9C0"
+],
+"?Stop@ThreadClass@@QAEXI@Z": [
+"0x9DEF60"
+],
+"?Stop_Profile@WWProfileManager@@SAXXZ": [
+"0x9EAA50"
+],
+"?Stop_Root_Profile@WWProfileManager@@SAXXZ": [
+"0x9EAAD0"
+],
+"?Switch_Thread@ThreadClass@@SAXXZ": [
+"0x9DF050"
+],
+"?Targa_Error_Handler@@YAJJPBD@Z": [
+"0x9D39D0"
+],
+"?Transform@VectorProcessorClass@@SAXPAVVector3@@PBV2@ABVMatrix3D@@H@Z": [
+"0x8D3260"
+],
+"?Transform@VectorProcessorClass@@SAXPAVVector4@@PBVVector3@@ABVMatrix4@@H@Z": [
+"0x8D3300"
+],
+"?Transform_Center_Extent_AABox@Matrix3D@@QBEXABVVector3@@0PAV2@1@Z": [
+"0x8C2F30"
+],
+"?Transform_Min_Max_AABox@Matrix3D@@QBEXABVVector3@@0PAV2@1@Z": [
+"0x8C2E80"
+],
+"?Uninitialised_Grow@StringClass@@AAEXH@Z": [
+"0x9CF3D0"
+],
+"?Write@ChunkSaveClass@@QAEKPBXK@Z": [
+"0x9D4070"
+],
+"?_Get_Current_Thread_ID@ThreadClass@@SAIXZ": [
+"0x9DF060"
+],
+"?_Xlen@std@@YAXXZ": [
+"0xA17E50"
+],
+"?_Xran@std@@YAXXZ": [
+"0xA1807C"
+],
+"?_com_issue_error@@YGXJ@Z": [
+"0xA401F0"
+],
+"?_com_issue_errorex@@YGXJPAUIUnknown@@ABU_GUID@@@Z": [
+"0xA401FE"
+],
+"?nstrdup@@YAPADPBD@Z": [
+"0x9D05B0"
+],
+"?strtrim@@YAPADPAD@Z": [
+"0x9DB030"
+],
+"_AVIFileCreateStreamA@12": [
+"0x9EE992"
+],
+"_AVIFileExit@0": [
+"0x9EE980"
+],
+"_AVIFileInit@0": [
+"0x9EE9A4"
+],
+"_AVIFileOpenA@16": [
+"0x9EE99E"
+],
+"_AVIFileRelease@4": [
+"0x9EE986"
+],
+"_AVIStreamRelease@4": [
+"0x9EE998"
+],
+"_AVIStreamSetFormat@16": [
+"0x9EE98C"
+],
+"_AVIStreamWrite@32": [
+"0x9EE9AA"
+],
+"_D3DXCreateTexture@32": [
+"0x8E3FAA"
+],
+"_D3DXCreateTextureFromFileExA@56": [
+"0x8E519B"
+],
+"_D3DXFilterTexture@16": [
+"0x8E4435"
+],
+"_D3DXGetErrorStringA@12": [
+"0x8E8AE7"
+],
+"_D3DXGetFVFVertexSize@4": [
+"0x8E8A3F"
+],
+"_D3DXLoadSurfaceFromSurface@32": [
+"0x8E41E3"
+],
+"_D3DXMatrixMultiply@12": [
+"0x8E5FFC"
+],
+"_D3DXMatrixTranspose@8": [
+"0x8E60DF"
+],
+"_D3DXVec3Transform@12": [
+"0x8E5971"
+],
+"__CIfmod": [
+"0xA26E5A"
+],
+"__CIpow": [
+"0xA27C90"
+],
+"__access": [
+"0xA2BA47"
+],
+"__chkstk": [
+"0xA27C60"
+],
+"__ftol": [
+"0xA264EC"
+],
+"__snprintf": [
+"0xA26513"
+],
+"__strdup": [
+"0xA2BA1C"
+],
+"__stricmp": [
+"0xA2A9A0"
+],
+"__strlwr": [
+"0xA27F25"
+],
+"_atexit": [
+"0xA25F00"
+],
+"_atoi": [
+"0xA27762"
+],
+"_ceil": [
+"0xA27827"
+],
+"_floor": [
+"0xA26D75"
+],
+"_free": [
+"0xA26F5C"
+],
+"_malloc": [
+"0xA28218"
+],
+"_memmove": [
+"0xA25F50"
+],
+"_rand": [
+"0xA28A31"
+],
+"_sprintf": [
+"0xA266DA"
+],
+"_sscanf": [
+"0xA28059"
+],
+"_strchr": [
+"0xA26EA0"
+],
+"_strdup": [
+"0xA2BA1C"
+],
+"_stricmp": [
+"0xA2A9A0"
+],
+"_strncpy": [
+"0xA26770"
+],
+"_strnicmp": [
+"0xA3EE70"
+],
+"_strrchr": [
+"0xA28450"
+],
+"_strstr": [
+"0xA26870"
+],
+"_strupr": [
+"0xA41C70"
+]
+},
+"wwaudio": {
+"??0AABTreeCullSystemClass@@QAE@XZ": [
+"0x8D9000"
+],
+"??0ArgvClass@@QAE@_N0@Z": [
+"0x9CF830"
+],
+"??0CriticalSectionClass@@QAE@XZ": [
+"0x9CEF10"
+],
+"??0CullableClass@@QAE@XZ": [
+"0x8C8D70"
+],
+"??0DefinitionFactoryClass@@QAE@XZ": [
+"0xA06000"
+],
+"??0GridCullSystemClass@@QAE@XZ": [
+"0x8D6FA0"
+],
+"??0INIClass@@QAE@XZ": [
+"0x9C7C60"
+],
+"??0LockClass@CriticalSectionClass@@QAE@AAV1@@Z": [
+"0x9CEFA0"
+],
+"??0PersistFactoryClass@@QAE@XZ": [
+"0xA03C30"
+],
+"??0RegistryClass@@QAE@PBD_N@Z": [
+"0x9D1580"
+],
+"??1AABTreeCullSystemClass@@UAE@XZ": [
+"0x8D91B0"
+],
+"??1CriticalSectionClass@@QAE@XZ": [
+"0x9CEF40"
+],
+"??1CullableClass@@UAE@XZ": [
+"0x8C8DC0"
+],
+"??1DefinitionFactoryClass@@UAE@XZ": [
+"0xA06050"
+],
+"??1GenericMultiListClass@@UAE@XZ": [
+"0x9D0FE0"
+],
+"??1GridCullSystemClass@@UAE@XZ": [
+"0x8D70A0"
+],
+"??1LockClass@CriticalSectionClass@@QAE@XZ": [
+"0x9CEFD0"
+],
+"??1MultiListObjectClass@@UAE@XZ": [
+"0x9D0F50"
+],
+"??1PersistFactoryClass@@UAE@XZ": [
+"0xA03C80"
+],
+"??1RegistryClass@@QAE@XZ": [
+"0x9D1680"
+],
+"??2@YAPAXI@Z": [
+"0x4E9CB0"
+],
+"??3@YAXPAX@Z": [
+"0x4E9D10"
+],
+"?Add_Object_Internal@AABTreeCullSystemClass@@IAEXPAVCullableClass@@H@Z": [
+"0x8D9360"
+],
+"?Add_Object_Internal@GridCullSystemClass@@IAEXPAVCullableClass@@@Z": [
+"0x8D8820"
+],
+"?Begin_Chunk@ChunkSaveClass@@QAE_NK@Z": [
+"0x9D3E40"
+],
+"?Begin_Micro_Chunk@ChunkSaveClass@@QAE_NK@Z": [
+"0x9D3F80"
+],
+"?CRC_Stringi@@YAKPBDK@Z": [
+"0x9E53A0"
+],
+"?Close_Chunk@ChunkLoadClass@@QAE_NXZ": [
+"0x9D4370"
+],
+"?Close_Micro_Chunk@ChunkLoadClass@@QAE_NXZ": [
+"0x9D4430"
+],
+"?Contains@GenericMultiListClass@@QAE_NPAVMultiListObjectClass@@@Z": [
+"0x9D0FF0"
+],
+"?Cur_Chunk_ID@ChunkLoadClass@@QAEKXZ": [
+"0x9D43C0"
+],
+"?Cur_Micro_Chunk_ID@ChunkLoadClass@@QAEKXZ": [
+"0x9D4480"
+],
+"?Cur_Micro_Chunk_Length@ChunkLoadClass@@QAEKXZ": [
+"0x9D4490"
+],
+"?End_Chunk@ChunkSaveClass@@QAE_NXZ": [
+"0x9D3ED0"
+],
+"?End_Micro_Chunk@ChunkSaveClass@@QAE_NXZ": [
+"0x9D4010"
+],
+"?Find_Again@ArgvClass@@QAEPBDPBD@Z": [
+"0x9CF860"
+],
+"?Find_Definition@DefinitionMgrClass@@SAPAVDefinitionClass@@K_N@Z": [
+"0xA04AA0"
+],
+"?Find_Persist_Factory@SaveLoadSystemClass@@SAPAVPersistFactoryClass@@K@Z": [
+"0xA041A0"
+],
+"?Find_Typed_Definition@DefinitionMgrClass@@SAPAVDefinitionClass@@PBDK_N@Z": [
+"0xA04C20"
+],
+"?Free_String@StringClass@@AAEXXZ": [
+"0x9CF4B0"
+],
+"?Get_First_Collected_Object_Internal@CullSystemClass@@IAEPAVCullableClass@@XZ": [
+"0x8C8EB0"
+],
+"?Get_Int@INIClass@@QBEHPBD0H@Z": [
+"0x9CA1C0"
+],
+"?Get_Int@RegistryClass@@QAEHPBDH@Z": [
+"0x9D16A0"
+],
+"?Get_Next_Collected_Object_Internal@CullSystemClass@@IAEPAVCullableClass@@PAV2@@Z": [
+"0x8C8EC0"
+],
+"?Get_Orthogonal_Inverse@Matrix3D@@QBEXAAV1@@Z": [
+"0x8C2BD0"
+],
+"?Get_String@RegistryClass@@QAEPADPBDPADH0@Z": [
+"0x9D19C0"
+],
+"?Get_String@StringClass@@AAEXH_N@Z": [
+"0x9CF040"
+],
+"?Internal_Add@GenericMultiListClass@@IAE_NPAVMultiListObjectClass@@_N@Z": [
+"0x9D1040"
+],
+"?Internal_Add_Tail@GenericMultiListClass@@IAE_NPAVMultiListObjectClass@@_N@Z": [
+"0x9D1160"
+],
+"?Internal_Remove@GenericMultiListClass@@IAE_NPAVMultiListObjectClass@@@Z": [
+"0x9D13A0"
+],
+"?Internal_Remove_List_Head@GenericMultiListClass@@IAEPAVMultiListObjectClass@@XZ": [
+"0x9D1430"
+],
+"?Load@DefinitionClass@@UAE_NAAVChunkLoadClass@@@Z": [
+"0xA060F0"
+],
+"?Load@INIClass@@QAEHPBD@Z": [
+"0x9C82E0"
+],
+"?Open_Chunk@ChunkLoadClass@@QAE_NXZ": [
+"0x9D4310"
+],
+"?Open_Micro_Chunk@ChunkLoadClass@@QAE_NXZ": [
+"0x9D4400"
+],
+"?Random_Float@WWMath@@SAMXZ": [
+"0x8C1FC0"
+],
+"?Re_Partition@AABTreeCullSystemClass@@QAEXXZ": [
+"0x8D9CB0"
+],
+"?Read@ChunkLoadClass@@QAEKPAXK@Z": [
+"0x9D4540"
+],
+"?Register_Pointer@SaveLoadSystemClass@@SAXPAX0@Z": [
+"0xA042F0"
+],
+"?Remove_Object_Internal@AABTreeCullSystemClass@@IAEXPAVCullableClass@@@Z": [
+"0x8D9430"
+],
+"?Remove_Object_Internal@GridCullSystemClass@@IAEXPAVCullableClass@@@Z": [
+"0x8D8950"
+],
+"?Request_Ref_Counted_Pointer_Remap@SaveLoadSystemClass@@SAXPAPAVRefCountClass@@@Z": [
+"0xA04320"
+],
+"?Reset@SysTimeClass@@QAEXXZ": [
+"0x9E7BF0"
+],
+"?Reset_Collection@CullSystemClass@@QAEXXZ": [
+"0x8C8F10"
+],
+"?Save@DefinitionClass@@UAE_NAAVChunkSaveClass@@@Z": [
+"0xA06060"
+],
+"?Set_Cull_Box@CullableClass@@QAEXABVAABoxClass@@_N@Z": [
+"0x8C8DD0"
+],
+"?Set_Int@RegistryClass@@QAEXPBDH@Z": [
+"0x9D1700"
+],
+"?Set_String@RegistryClass@@QAEXPBD0@Z": [
+"0x9D1A30"
+],
+"?Start_Profile@WWProfileManager@@SAXPBD@Z": [
+"0x9EA930"
+],
+"?Start_Root_Profile@WWProfileManager@@SAXPBD@Z": [
+"0x9EA9C0"
+],
+"?Stop_Profile@WWProfileManager@@SAXXZ": [
+"0x9EAA50"
+],
+"?Stop_Root_Profile@WWProfileManager@@SAXXZ": [
+"0x9EAAD0"
+],
+"?Switch_Thread@ThreadClass@@SAXXZ": [
+"0x9DF050"
+],
+"?Uninitialised_Grow@StringClass@@AAEXH@Z": [
+"0x9CF3D0"
+],
+"?Write@ChunkSaveClass@@QAEKPBXK@Z": [
+"0x9D4070"
+],
+"_MSS_auto_cleanup": [
+"0xA03A30"
+],
+"__beginthread": [
+"0xA26C2C"
+],
+"__chkstk": [
+"0xA27C60"
+],
+"__ftol": [
+"0xA264EC"
+],
+"__mbslen": [
+"0xA2BCAB"
+],
+"_atexit": [
+"0xA25F00"
+],
+"_free": [
+"0xA26F5C"
+],
+"_memmove": [
+"0xA25F50"
+],
+"_rand": [
+"0xA28A31"
+],
+"_strdup": [
+"0xA2BA1C"
+],
+"_strlwr": [
+"0xA27F25"
+],
+"_strrchr": [
+"0xA28450"
+],
+"_strstr": [
+"0xA26870"
+]
+},
+"wwdebug": {
+"??2@YAPAXI@Z": [
+"0x4E9CB0"
+],
+"??3@YAXPAX@Z": [
+"0x4E9D10"
+],
+"?Alloc@FastAllocatorGeneral@@QAEPAXI@Z": [
+"0x9DAE10"
+],
+"?Format@StringClass@@QAAHPBDZZ": [
+"0x9CF640"
+],
+"?Free@FastAllocatorGeneral@@QAEXPAX@Z": [
+"0x9DAF60"
+],
+"?Free_String@StringClass@@AAEXXZ": [
+"0x9CF4B0"
+],
+"?Get_Allocator@FastAllocatorGeneral@@SAPAV1@XZ": [
+"0x9DAC10"
+],
+"?Get_String@StringClass@@AAEXH_N@Z": [
+"0x9CF040"
+],
+"?Get_Total_Allocated_Size@FastAllocatorGeneral@@QAEIXZ": [
+"0x9DAD20"
+],
+"?Get_Total_Allocation_Count@FastAllocatorGeneral@@QAEIXZ": [
+"0x9DAD60"
+],
+"?Reset@SysTimeClass@@QAEXXZ": [
+"0x9E7BF0"
+],
+"?Resize@StringClass@@AAEXH@Z": [
+"0x9CF2D0"
+],
+"?Uninitialised_Grow@StringClass@@AAEXH@Z": [
+"0x9CF3D0"
+],
+"__chkstk": [
+"0xA27C60"
+],
+"_atexit": [
+"0xA25F00"
+],
+"_isdigit": [
+"0xA26303"
+],
+"_vsprintf": [
+"0xA29336"
+]
+},
+"wwlib": {
+"??2@YAPAXI@Z": [
+"0x4E9CB0"
+],
+"??3@YAXPAX@Z": [
+"0x4E9D10"
+],
+"_DirectDrawCreate@12": [
+"0xA41C34"
+],
+"__alldiv": [
+"0xA28360"
+],
+"__allmul": [
+"0xA28410"
+],
+"__alloca_probe": [
+"0xA27C60"
+],
+"__beginthread": [
+"0xA26C2C"
+],
+"__chkstk": [
+"0xA27C60"
+],
+"__errno": [
+"0xA29324"
+],
+"__ftol": [
+"0xA264EC"
+],
+"__snprintf": [
+"0xA26513"
+],
+"__splitpath": [
+"0xA28CFD"
+],
+"__stricmp": [
+"0xA2A9A0"
+],
+"__vsnprintf": [
+"0xA28477"
+],
+"__vsnwprintf": [
+"0xA2BC3C"
+],
+"_atexit": [
+"0xA25F00"
+],
+"_atoi": [
+"0xA27762"
+],
+"_bsearch": [
+"0xA2BBB0"
+],
+"_fclose": [
+"0xA2794D"
+],
+"_fgets": [
+"0xA2B3AB"
+],
+"_fopen": [
+"0xA27B12"
+],
+"_free": [
+"0xA26F5C"
+],
+"_getpid": [
+"0xA41DD9"
+],
+"_isdigit": [
+"0xA26303"
+],
+"_isgraph": [
+"0xA26404"
+],
+"_isspace": [
+"0xA26358"
+],
+"_isxdigit": [
+"0xA2632B"
+],
+"_malloc": [
+"0xA28218"
+],
+"_memmove": [
+"0xA25F50"
+],
+"_printf": [
+"0xA26BEB"
+],
+"_qsort": [
+"0xA29387"
+],
+"_rand": [
+"0xA28A31"
+],
+"_sprintf": [
+"0xA266DA"
+],
+"_sscanf": [
+"0xA28059"
+],
+"_strchr": [
+"0xA26EA0"
+],
+"_strcspn": [
+"0xA29040"
+],
+"_strdup": [
+"0xA2BA1C"
+],
+"_stricmp": [
+"0xA2A9A0"
+],
+"_strncmp": [
+"0xA26730"
+],
+"_strncpy": [
+"0xA26770"
+],
+"_strnicmp": [
+"0xA3EE70"
+],
+"_strrchr": [
+"0xA28450"
+],
+"_strspn": [
+"0xA2BA90"
+],
+"_strstr": [
+"0xA26870"
+],
+"_strtok": [
+"0xA27187"
+],
+"_time": [
+"0xA2808D"
+],
+"_tolower": [
+"0xA2704D"
+],
+"_toupper": [
+"0xA2850B"
+],
+"_vsprintf": [
+"0xA29336"
+],
+"_wcscpy": [
+"0xA2AD78"
+],
+"_wcslen": [
+"0xA2AD9D"
+]
+},
+"wwmath": {
+"??0ChunkLoadClass@@QAE@PAVFileClass@@@Z": [
+"0x9D42B0"
+],
+"??0PersistFactoryClass@@QAE@XZ": [
+"0xA03C30"
+],
+"??0Random3Class@@QAE@II@Z": [
+"0x9D0230"
+],
+"??1GenericMultiListClass@@UAE@XZ": [
+"0x9D0FE0"
+],
+"??1MultiListObjectClass@@UAE@XZ": [
+"0x9D0F50"
+],
+"??1PersistFactoryClass@@UAE@XZ": [
+"0xA03C80"
+],
+"??2@YAPAXI@Z": [
+"0x4E9CB0"
+],
+"??3@YAXPAX@Z": [
+"0x4E9D10"
+],
+"??RRandom3Class@@QAEHXZ": [
+"0x9D0250"
+],
+"?Begin_Chunk@ChunkSaveClass@@QAE_NK@Z": [
+"0x9D3E40"
+],
+"?Begin_Micro_Chunk@ChunkSaveClass@@QAE_NK@Z": [
+"0x9D3F80"
+],
+"?Close_Chunk@ChunkLoadClass@@QAE_NXZ": [
+"0x9D4370"
+],
+"?Close_Micro_Chunk@ChunkLoadClass@@QAE_NXZ": [
+"0x9D4430"
+],
+"?Cur_Chunk_ID@ChunkLoadClass@@QAEKXZ": [
+"0x9D43C0"
+],
+"?Cur_Micro_Chunk_ID@ChunkLoadClass@@QAEKXZ": [
+"0x9D4480"
+],
+"?End_Chunk@ChunkSaveClass@@QAE_NXZ": [
+"0x9D3ED0"
+],
+"?End_Micro_Chunk@ChunkSaveClass@@QAE_NXZ": [
+"0x9D4010"
+],
+"?Find_Persist_Factory@SaveLoadSystemClass@@SAPAVPersistFactoryClass@@K@Z": [
+"0xA041A0"
+],
+"?Free_String@StringClass@@AAEXXZ": [
+"0x9CF4B0"
+],
+"?Get_String@StringClass@@AAEXH_N@Z": [
+"0x9CF040"
+],
+"?Internal_Add@GenericMultiListClass@@IAE_NPAVMultiListObjectClass@@_N@Z": [
+"0x9D1040"
+],
+"?Internal_Remove@GenericMultiListClass@@IAE_NPAVMultiListObjectClass@@@Z": [
+"0x9D13A0"
+],
+"?Internal_Remove_List_Head@GenericMultiListClass@@IAEPAVMultiListObjectClass@@XZ": [
+"0x9D1430"
+],
+"?Open_Chunk@ChunkLoadClass@@QAE_NXZ": [
+"0x9D4310"
+],
+"?Open_Micro_Chunk@ChunkLoadClass@@QAE_NXZ": [
+"0x9D4400"
+],
+"?Read@ChunkLoadClass@@QAEKPAXK@Z": [
+"0x9D4540"
+],
+"?Register_Pointer@SaveLoadSystemClass@@SAXPAX0@Z": [
+"0xA042F0"
+],
+"?Start_Profile@WWProfileManager@@SAXPBD@Z": [
+"0x9EA930"
+],
+"?Stop_Profile@WWProfileManager@@SAXXZ": [
+"0x9EAA50"
+],
+"?Switch_Thread@ThreadClass@@SAXXZ": [
+"0x9DF050"
+],
+"?Uninitialised_Grow@StringClass@@AAEXH@Z": [
+"0x9CF3D0"
+],
+"?Write@ChunkSaveClass@@QAEKPBXK@Z": [
+"0x9D4070"
+],
+"__CIacos": [
+"0xA26B20"
+],
+"__CIasin": [
+"0xA2AA70"
+],
+"__CIpow": [
+"0xA27C90"
+],
+"__ftol": [
+"0xA264EC"
+],
+"_atexit": [
+"0xA25F00"
+],
+"_floor": [
+"0xA26D75"
+],
+"_memmove": [
+"0xA25F50"
+],
+"_rand": [
+"0xA28A31"
+],
+"_stricmp": [
+"0xA2A9A0"
+]
+},
+"wwsaveload": {
+"??0CriticalSectionClass@@QAE@XZ": [
+"0x9CEF10"
+],
+"??0LockClass@CriticalSectionClass@@QAE@AAV1@@Z": [
+"0x9CEFA0"
+],
+"??0RandomClass@@QAE@I@Z": [
+"0x9CFFD0"
+],
+"??1CriticalSectionClass@@QAE@XZ": [
+"0x9CEF40"
+],
+"??1LockClass@CriticalSectionClass@@QAE@XZ": [
+"0x9CEFD0"
+],
+"??2@YAPAXI@Z": [
+"0x4E9CB0"
+],
+"??3@YAXPAX@Z": [
+"0x4E9D10"
+],
+"??RRandomClass@@QAEHHH@Z": [
+"0x9D0000"
+],
+"?Begin_Chunk@ChunkSaveClass@@QAE_NK@Z": [
+"0x9D3E40"
+],
+"?Begin_Micro_Chunk@ChunkSaveClass@@QAE_NK@Z": [
+"0x9D3F80"
+],
+"?Close_Chunk@ChunkLoadClass@@QAE_NXZ": [
+"0x9D4370"
+],
+"?Close_Micro_Chunk@ChunkLoadClass@@QAE_NXZ": [
+"0x9D4430"
+],
+"?Cur_Chunk_ID@ChunkLoadClass@@QAEKXZ": [
+"0x9D43C0"
+],
+"?Cur_Micro_Chunk_ID@ChunkLoadClass@@QAEKXZ": [
+"0x9D4480"
+],
+"?Cur_Micro_Chunk_Length@ChunkLoadClass@@QAEKXZ": [
+"0x9D4490"
+],
+"?End_Chunk@ChunkSaveClass@@QAE_NXZ": [
+"0x9D3ED0"
+],
+"?End_Micro_Chunk@ChunkSaveClass@@QAE_NXZ": [
+"0x9D4010"
+],
+"?Free_String@StringClass@@AAEXXZ": [
+"0x9CF4B0"
+],
+"?Get_String@StringClass@@AAEXH_N@Z": [
+"0x9CF040"
+],
+"?Open_Chunk@ChunkLoadClass@@QAE_NXZ": [
+"0x9D4310"
+],
+"?Open_Micro_Chunk@ChunkLoadClass@@QAE_NXZ": [
+"0x9D4400"
+],
+"?Read@ChunkLoadClass@@QAEKPAXK@Z": [
+"0x9D4540"
+],
+"?Reset@SysTimeClass@@QAEXXZ": [
+"0x9E7BF0"
+],
+"?Switch_Thread@ThreadClass@@SAXXZ": [
+"0x9DF050"
+],
+"?Uninitialised_Grow@StringClass@@AAEXH@Z": [
+"0x9CF3D0"
+],
+"?Write@ChunkSaveClass@@QAEKPBXK@Z": [
+"0x9D4070"
+],
+"__strlwr": [
+"0xA27F25"
+],
+"_atexit": [
+"0xA25F00"
+],
+"_qsort": [
+"0xA29387"
+],
+"_stricmp": [
+"0xA2A9A0"
+]
+},
+"wwshade": {
+"??0DX8IndexBufferClass@@QAE@GW4UsageType@0@@Z": [
+"0x9512C0"
+],
+"??0DX8VertexBufferClass@@QAE@IGW4UsageType@0@I@Z": [
+"0x94F330"
+],
+"??0LightEnvironmentClass@@QAE@XZ": [
+"0x9853B0"
+],
+"??0MeshGeometryClass@@QAE@XZ": [
+"0x92A0A0"
+],
+"??0OBBoxCollisionTestClass@@QAE@ABV0@ABVMatrix3D@@@Z": [
+"0x92E2F0"
+],
+"??0PrimitivePrototypeClass@@QAE@PAVRenderObjClass@@@Z": [
+"0x93E5D0"
+],
+"??0RenderObjClass@@QAE@ABV0@@Z": [
+"0x941970"
+],
+"??0WriteLockClass@IndexBufferClass@@QAE@PAV1@@Z": [
+"0x951160"
+],
+"??0WriteLockClass@VertexBufferClass@@QAE@PAV1@@Z": [
+"0x94F030"
+],
+"??1GenericMultiListClass@@UAE@XZ": [
+"0x9D0FE0"
+],
+"??1LightEnvironmentClass@@QAE@XZ": [
+"0x9853E0"
+],
+"??1MeshGeometryClass@@UAE@XZ": [
+"0x92A410"
+],
+"??1MultiListObjectClass@@UAE@XZ": [
+"0x9D0F50"
+],
+"??1WriteLockClass@IndexBufferClass@@QAE@XZ": [
+"0x9511D0"
+],
+"??1WriteLockClass@VertexBufferClass@@QAE@XZ": [
+"0x94F090"
+],
+"??2@YAPAXI@Z": [
+"0x4E9CB0"
+],
+"??3@YAXPAX@Z": [
+"0x4E9D10"
+],
+"??4Matrix3@@QAEAAV0@ABVMatrix3D@@@Z": [
+"0x8C3C70"
+],
+"??4MeshGeometryClass@@QAEAAV0@ABV0@@Z": [
+"0x92A200"
+],
+"??_L@YGXPAXIHP6EX0@Z1@Z": [
+"0xA26658"
+],
+"??_M@YGXPAXIHP6EX0@Z@Z": [
+"0xA26564"
+],
+"?Add_Dependencies_To_List@RenderObjClass@@MAEXAAV?$DynamicVectorClass@VStringClass@@@@_N@Z": [
+"0x942840"
+],
+"?Apply_Default_State@DX8Wrapper@@SAXXZ": [
+"0x9270D0"
+],
+"?Apply_Render_State_Changes@DX8Wrapper@@SAXXZ": [
+"0x9254A0"
+],
+"?Begin_Chunk@ChunkSaveClass@@QAE_NK@Z": [
+"0x9D3E40"
+],
+"?Begin_Micro_Chunk@ChunkSaveClass@@QAE_NK@Z": [
+"0x9D3F80"
+],
+"?Cast_OBBox@MeshGeometryClass@@QAE_NAAVOBBoxCollisionTestClass@@@Z": [
+"0x92AE70"
+],
+"?Cast_Ray@MeshGeometryClass@@QAE_NAAVRayCollisionTestClass@@@Z": [
+"0x92AE10"
+],
+"?Cast_World_Space_AABox@MeshGeometryClass@@QAE_NAAVAABoxCollisionTestClass@@ABVMatrix3D@@@Z": [
+"0x92AED0"
+],
+"?Close_Chunk@ChunkLoadClass@@QAE_NXZ": [
+"0x9D4370"
+],
+"?Close_Micro_Chunk@ChunkLoadClass@@QAE_NXZ": [
+"0x9D4430"
+],
+"?Cur_Chunk_ID@ChunkLoadClass@@QAEKXZ": [
+"0x9D43C0"
+],
+"?Cur_Chunk_Length@ChunkLoadClass@@QAEKXZ": [
+"0x9D43D0"
+],
+"?Cur_Micro_Chunk_ID@ChunkLoadClass@@QAEKXZ": [
+"0x9D4480"
+],
+"?Cur_Micro_Chunk_Length@ChunkLoadClass@@QAEKXZ": [
+"0x9D4490"
+],
+"?Current_Override_Flags@RenderInfoClass@@QAEAAW4RINFO_OVERRIDE_FLAGS@1@XZ": [
+"0x9310A0"
+],
+"?Draw_Triangles@DX8Wrapper@@SAXGGGG@Z": [
+"0x925460"
+],
+"?End_Chunk@ChunkSaveClass@@QAE_NXZ": [
+"0x9D3ED0"
+],
+"?End_Micro_Chunk@ChunkSaveClass@@QAE_NXZ": [
+"0x9D4010"
+],
+"?Free_String@StringClass@@AAEXXZ": [
+"0x9CF4B0"
+],
+"?Get_Bounding_Box@MeshGeometryClass@@QAEXPAVAABoxClass@@@Z": [
+"0x92A840"
+],
+"?Get_Bounding_Sphere@MeshGeometryClass@@QAEXPAVSphereClass@@@Z": [
+"0x92A8E0"
+],
+"?Get_DX8_Render_State_Value_Name@DX8Wrapper@@SAXAAVStringClass@@W4_D3DRENDERSTATETYPE@@I@Z": [
+"0x927BF0"
+],
+"?Get_Num_Depth_Bits@@YAIW4WW3DZFormat@@@Z": [
+"0x968B20"
+],
+"?Get_Orthogonal_Inverse@Matrix3D@@QBEXAAV1@@Z": [
+"0x8C2BD0"
+],
+"?Get_String@StringClass@@AAEXH_N@Z": [
+"0x9CF040"
+],
+"?Get_Vertex_Normal_Array@MeshGeometryClass@@QAEPBVVector3@@XZ": [
+"0x92C680"
+],
+"?Get_View_Matrix@CameraClass@@QAEABVMatrix3D@@XZ": [
+"0x945BF0"
+],
+"?Internal_Add_Tail@GenericMultiListClass@@IAE_NPAVMultiListObjectClass@@_N@Z": [
+"0x9D1160"
+],
+"?Internal_Remove_List_Head@GenericMultiListClass@@IAEPAVMultiListObjectClass@@XZ": [
+"0x9D1430"
+],
+"?Intersect_OBBox@MeshGeometryClass@@QAE_NAAVOBBoxIntersectionTestClass@@@Z": [
+"0x92AEA0"
+],
+"?Invalidate_Cached_Render_States@DX8Wrapper@@SAXXZ": [
+"0x921C20"
+],
+"?Multiply@Matrix3@@SAXABVMatrix3D@@ABV1@PAV1@@Z": [
+"0x8C3CF0"
+],
+"?Multiply@Matrix4@@SAXABV1@0PAV1@@Z": [
+"0x8DE8F0"
+],
+"?Open_Chunk@ChunkLoadClass@@QAE_NXZ": [
+"0x9D4310"
+],
+"?Open_Micro_Chunk@ChunkLoadClass@@QAE_NXZ": [
+"0x9D4400"
+],
+"?Read@ChunkLoadClass@@QAEKPAXK@Z": [
+"0x9D4540"
+],
+"?Set@LineSegClass@@QAEXABV1@ABVMatrix3D@@@Z": [
+"0x8DE2E0"
+],
+"?Set_Index_Buffer@DX8Wrapper@@SAXPBVIndexBufferClass@@G@Z": [
+"0x924EC0"
+],
+"?Set_Light_Environment@DX8Wrapper@@SAXPAVLightEnvironmentClass@@_N@Z": [
+"0x926460"
+],
+"?Set_Vertex_Buffer@DX8Wrapper@@SAXPBVVertexBufferClass@@I@Z": [
+"0x924E20"
+],
+"?Start_Profile@WWProfileManager@@SAXPBD@Z": [
+"0x9EA930"
+],
+"?Stop_Profile@WWProfileManager@@SAXXZ": [
+"0x9EAA50"
+],
+"?Stop_Root_Profile@WWProfileManager@@SAXXZ": [
+"0x9EAAD0"
+],
+"?Transform_Center_Extent_AABox@Matrix3D@@QBEXABVVector3@@0PAV2@1@Z": [
+"0x8C2F30"
+],
+"?Uninitialised_Grow@StringClass@@AAEXH@Z": [
+"0x9CF3D0"
+],
+"?Update_Frustum@CameraClass@@IBEXXZ": [
+"0x944EB0"
+],
+"?Write@ChunkSaveClass@@QAEKPBXK@Z": [
+"0x9D4070"
+],
+"?get_vert_normals@MeshGeometryClass@@IAEPAVVector3@@XZ": [
+"0x92C670"
+],
+"_D3DXAssembleShader@24": [
+"0x8E89DB"
+],
+"_D3DXAssembleShaderFromFileA@20": [
+"0x8E8886"
+],
+"_D3DXCreateCubeTextureFromFileA@12": [
+"0x8E54DA"
+],
+"__snprintf": [
+"0xA26513"
+],
+"__splitpath": [
+"0xA28CFD"
+],
+"_atexit": [
+"0xA25F00"
+],
+"_stricmp": [
+"0xA2A9A0"
+]
+}
+}

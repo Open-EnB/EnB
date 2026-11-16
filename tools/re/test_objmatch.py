@@ -13,6 +13,9 @@ own function between two exact own functions in object order, take the one clien
 addresses that has their bytes and length (`short_order`).
 GAP_ORDER (D246 / CR1): the same alignment when the gap also holds tied own functions: starbase_defs.obj's
 String_To_Value overloads (byte-identical copies, D166's tie) between their exact neighbours (`gap_order`).
+EDGE_ORDER (D246 / CR6): an own function before an object's first exact own function in object order, tied with a
+byte-identical copy in another object's code, is the client function right below that exact one (`edge_order`):
+scriptedmovieline.obj's and ui_symbolchat.obj's constructors (copies at 0x56E170 / 0x69AC20).
 """
 import os
 import sys
@@ -210,7 +213,9 @@ class FuncletNamed(unittest.TestCase):
             self.assertEqual(objmatch.funclet_reach({sym: {0x431C80, 0x67F660}}), {sym: {0x431C80, 0x67F660}})
         finally:
             objmatch.USE_FUNCLET_NAMED = True
-def _check(test, cases, switch, flag, region=None, off_status='multiple'):
+
+
+def _check(test, cases, switch, flag, region=None, off_status='multiple', also_off=()):
     img = objmatch.ClientImage(objmatch.DEFAULT_CLIENT)
     for name, sym, addr in cases:
         path = os.path.join(OBJS, name)
@@ -222,11 +227,13 @@ def _check(test, cases, switch, flag, region=None, off_status='multiple'):
             test.assertEqual(res[sym]['addresses'], [addr])
             test.assertTrue(res[sym].get(flag))
             # the rule's switch: without it the function stays unresolved
-            setattr(objmatch, switch, False)
+            for sw in (switch,) + tuple(also_off):
+                setattr(objmatch, sw, False)
             try:
                 res = {r['symbol']: r for r in objmatch.match_objects(img, [path], region)}
             finally:
-                setattr(objmatch, switch, True)
+                for sw in (switch,) + tuple(also_off):
+                    setattr(objmatch, sw, True)
             test.assertEqual(res[sym]['status'], off_status)
 
 
@@ -238,6 +245,10 @@ GAP_ORDER = [
     ('starbase_defs.obj', '?String_To_Value@@YA_NPBDPAW4StarbaseFacilityEnum@@@Z', '0x84A750'),
     ('starbase_defs.obj', '?String_To_Value@@YA_NPBDPAW4StarbaseArtEnum@@@Z', '0x84A930'),
 ]
+EDGE_ORDER = [
+    ('scriptedmovieline.obj', '??0ScriptedMovieLineClass@@QAE@XZ', '0x7FFC50'),
+    ('ui_symbolchat.obj', '??0UISymbolChatOptionStruct@@QAE@XZ', '0x64A330'),
+]
 APP_REGION = (0x401000, 0x8C1B50)
 
 
@@ -248,7 +259,13 @@ class ShortOrder(unittest.TestCase):
 
 class GapOrder(unittest.TestCase):
     def test_cases(self):
-        _check(self, GAP_ORDER, 'USE_GAP_ORDER', 'gap_order', APP_REGION)
+        # with the gap round off, the edge round (USE_EDGE_ORDER) places them at the same addresses
+        _check(self, GAP_ORDER, 'USE_GAP_ORDER', 'gap_order', APP_REGION, also_off=('USE_EDGE_ORDER',))
+
+
+class EdgeOrder(unittest.TestCase):
+    def test_cases(self):
+        _check(self, EDGE_ORDER, 'USE_EDGE_ORDER', 'edge_order', APP_REGION)
 
 
 if __name__ == '__main__':
