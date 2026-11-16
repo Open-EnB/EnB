@@ -19037,7 +19037,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_728300` | `app/client/ui_starbase.cpp:2295` | untagged neutral name (D10) |
 | 1 | `Unknown440` | `app/client/ui_starbase.cpp:2324` | untagged neutral name (D10) |
 | 1 | `Unknown_641EB0` | `app/client/ui_starbase.cpp:2332` | untagged neutral name (D10) |
-| 1 | `Unknown_6FFE90` | `app/client/ui_starbase.cpp:2341` | untagged neutral name (D10) |
+| 1 | `Unknown_6FFE90` | `app/client/ui_starbase.cpp:2342` | untagged neutral name (D10) |
 | 1 | `Unknown_74D990` | `app/client/ui_starbase.cpp:2522` | untagged neutral name (D10) |
 | 1 | `Unknown_63DCD0` | `app/client/ui_starbase.cpp:2528` | untagged neutral name (D10) |
 | 1 | `Unknown_7885D0` | `app/client/ui_starbase.cpp:2717` | untagged neutral name (D10) |
