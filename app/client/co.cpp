@@ -2372,8 +2372,8 @@ bool ClientObjectClass::Unknown_700400()
 	if (Unknown_Field_Changed((DeltaStringClass *)NULL, this, "GuildName")
 		|| Unknown_Field_Changed((DeltaTemplateClass<GuildRankType> *)NULL, this, "GuildRank")
 		|| Unknown_Field_Changed((DeltaStringClass *)NULL, this, "GuildRankName")
-		|| Unknown_Field_Changed((DeltaTemplateClass<InvSlotStruct> *)NULL, this, "SameGuildTagColor")
-		|| Unknown_Field_Changed((DeltaTemplateClass<InvSlotStruct> *)NULL, this, "OtherGuildTagColor")) return(true);
+		|| Unknown_Field_Changed((DeltaTemplateClass<Vector3> *)NULL, this, "SameGuildTagColor")
+		|| Unknown_Field_Changed((DeltaTemplateClass<Vector3> *)NULL, this, "OtherGuildTagColor")) return(true);
 	return(false);
 }
 
@@ -2645,7 +2645,7 @@ void ClientObjectClass::Unknown_6FF7A0(std::string &text)
 		}
 	}
 }
-
+template class UnknownRTTIClass<DeltaStatsClass>;	// the CurrentStats find's Cast 0x7099F0: the client calls it out of line (0x6FC0F3 in 0x6FBEF0, whose copy here inlines it: parked, inline budget)
 /*
 **	Reconstruction notes (T11, 2026-10-27)
 **

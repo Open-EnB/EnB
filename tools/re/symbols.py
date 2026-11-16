@@ -204,7 +204,7 @@ def main(argv=None):
         # an exact function's vptr store places the table outright (D188's `vptr`); the slot alignment can
         # prefer another class's table with the same inherited slots (StarmapPipSupportClass's RefCountClass
         # table is 0xB06D60, where its exact constructor stores it, not 0xAE8754 with no slot of its own;
-        # DeltaTemplateClass<UnknownB00A00Type>'s is 0xB00A00, not 0xB016DC)
+        # DeltaTemplateClass<Vector3>'s is 0xB00A00, not 0xB016DC)
         st = stores.get(vt, set())
         if len(st) == 1:
             base = next(iter(st))

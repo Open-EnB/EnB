@@ -454,11 +454,11 @@ void UIPdaEquipClass::Unknown_5D2C50()
 	DeltaCompoundClass *aux = (DeltaCompoundClass *)ship->AuxData;
 	if (!aux) return;
 	NameClass mounts_name("Inventory.Mounts");
-	DeltaArrayClass<UnknownB016DCType> *mounts = Unknown_Find_Valid<DeltaArrayClass<UnknownB016DCType> >(aux, mounts_name);
+	DeltaArrayClass<InvSlotStruct> *mounts = Unknown_Find_Valid<DeltaArrayClass<InvSlotStruct> >(aux, mounts_name);
 	if (!mounts) return;
 	int count = mounts->Children.size();
 	for (int i = 0; i < count; i++) {
-		UnknownB016DCType &value = mounts->Get_Value(i);
+		InvSlotStruct &value = mounts->Get_Value(i);
 		UnknownMountSlotStruct *mount = new UnknownMountSlotStruct;
 		mount->Type = value.I00;
 		mount->Unknown04 = value.I08;

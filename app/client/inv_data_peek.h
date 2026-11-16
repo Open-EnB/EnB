@@ -57,10 +57,10 @@ public:
 	std::string Get_Builder_Name(int slot);								// 0x68A8C0  // NAME 2: the client's field name (0xB8FEB4)
 	InvDataPeekItemStruct *Get_Item(int slot, bool flag);			// 0x68AAA0 (the item template, 0x8318B0's)  // NAME 2: what it returns
 
-	UnknownB016DCType *Get_Mount(int slot);								// 0x68AB80  // NAME 2: the field Inventory.Mounts
-	int Get_Mount_I00(int slot);											// 0x68AC50  // NAME 1: neutral (D10), as UnknownB016DCType's member
-	int Get_Mount_I08(int slot);											// 0x68AD80  // NAME 1: neutral (D10), as UnknownB016DCType's member
-	int Get_Mount_I04(int slot);											// 0x68AE50  // NAME 1: neutral (D10), as UnknownB016DCType's member
+	InvSlotStruct *Get_Mount(int slot);								// 0x68AB80  // NAME 2: the field Inventory.Mounts
+	int Get_Mount_I00(int slot);											// 0x68AC50  // NAME 1: neutral (D10), as InvSlotStruct's member
+	int Get_Mount_I08(int slot);											// 0x68AD80  // NAME 1: neutral (D10), as InvSlotStruct's member
+	int Get_Mount_I04(int slot);											// 0x68AE50  // NAME 1: neutral (D10), as InvSlotStruct's member
 
 protected:
 	DeltaCompoundClass *Get_Slot(int slot);								// 0x68AF20  // NAME 2: describes what it does
@@ -217,7 +217,7 @@ public:	// ui_mfd_extended_context_harvestable.cpp reads Count
 	NameClass Name;										// +0x04 the list's name  // NAME 2: describes what it does
 	DeltaCompoundClass *List;							// +0x38 what Name finds under Attach's root  // NAME 2: describes what it does
 	bool HasMounts;										// +0x3C Attach looks up Inventory.Mounts  // NAME 2: describes what it does
-	DeltaArrayClass<UnknownB016DCType> *Mounts;	// +0x40 'Inventory.Mounts'  // NAME 2: the field's name
+	DeltaArrayClass<InvSlotStruct> *Mounts;	// +0x40 'Inventory.Mounts'  // NAME 2: the field's name
 	unsigned int Count;									// +0x44 List's children  // NAME 2: describes what it does
 	int Fields[14];										// +0x48 each field's position in a slot, -1 if it has none  // NAME 2: describes what it does
 	int Status;												// +0x80 2 after a failed read, else the field's Unknown70 < 2  // NAME 2: describes what it does
