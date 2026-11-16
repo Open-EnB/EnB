@@ -15,7 +15,8 @@
   "0x4B8360",
   "0x4B83A0",
   "0x4B83D0",
-  "0x4B8450"
+  "0x4B8450",
+  "0x4B8490"
  ],
  "merged": [],
  "name": "shared/kv_pair_string.cpp",

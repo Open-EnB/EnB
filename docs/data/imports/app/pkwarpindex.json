@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "opcode 155 (WARP) written by hand (builder P4, 6 of 6 exact in appfile.py match); packet classes (opcode 156) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
  "expected": {},
@@ -30,7 +28,8 @@
   "0x8B1EB0",
   "0x8B1F40",
   "0x8B2000",
-  "0x8B2020"
+  "0x8B2020",
+  "0x8B2050"
  ],
  "merged": [],
  "name": "packets/pkwarpindex.cpp",

@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "the DirLock packets (opcodes 223, 225, 224, 226) over their base (vtable 0xB0A290), client 0x8816D0-0x882680: written by hand (builder P), 25 functions exact in appfile.py match; the file name provisional (NAME 1)",
  "expected": {},
@@ -50,7 +48,8 @@
   "0x882510",
   "0x882550",
   "0x882630",
-  "0x882650"
+  "0x882650",
+  "0x882680"
  ],
  "merged": [],
  "name": "packets/pkdirlock.cpp",

@@ -272,5 +272,23 @@ class EdgeOrder(unittest.TestCase):
         _check(self, EDGE_ORDER, 'USE_EDGE_ORDER', 'edge_order', APP_REGION)
 
 
+class XcuSubrun(unittest.TestCase):
+    """C15: soundlib's first window holds sectorsound's guard initialiser 0x43D2F0 too (5 table entries, 4
+    initialisers); the one consecutive sub-run that fits is soundlib's. Synthetic fits: the guard entry fits no
+    soundlib initialiser."""
+    RUN = [0x43D2F0, 0x43D320, 0x43E780, 0x43E8B0, 0x441880]
+
+    def test_subrun(self):
+        fits = lambda sub: sub[0] != 0x43D2F0
+        self.assertEqual(objmatch.xcu_subrun(self.RUN, 4, fits), self.RUN[1:])
+        self.assertIsNone(objmatch.xcu_subrun(self.RUN, 4, lambda sub: True))     # two fit: none credited
+        self.assertIsNone(objmatch.xcu_subrun(self.RUN, 6, lambda sub: True))
+        objmatch.USE_XCU_SUBRUN = False
+        try:
+            self.assertIsNone(objmatch.xcu_subrun(self.RUN, 4, fits))
+            self.assertEqual(objmatch.xcu_subrun(self.RUN[1:], 4, fits), self.RUN[1:])
+        finally:
+            objmatch.USE_XCU_SUBRUN = True
+
 if __name__ == '__main__':
     unittest.main()

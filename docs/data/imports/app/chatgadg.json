@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "ChatGadg.cpp (__FILE__ 0xB8C8A8, asserts on the client's lines 310-784, D25), client 0x65BEA0-0x65ECCF: the chat panel's text entry ChatGadgetClass (constructor 0x65BFD0, table 0xAF99D8, 0x80 bytes): the keys 0x65CA10 / 0x65DE90, the send 0x65CCD0, quick messages 0x65E250 / 0x65E3E0 (chat.ini), positions 0x65E520 / 0x65E5E0, reply 0x65E840; NOT EXACT (D64): every function, functional from pseudocode (CE1)",
  "expected": {},
@@ -35,6 +33,8 @@
   "0x50AA80",
   "0x50AAA0",
   "0x50AAC0",
+  "0x65BE50",
+  "0x65BE80",
   "0x65BEA0",
   "0x65BF60",
   "0x65C920",
@@ -44,7 +44,8 @@
   "0x65E3E0",
   "0x65E520",
   "0x65E7C0",
-  "0x65EBF0"
+  "0x65EBF0",
+  "0x65EC80"
  ],
  "merged": [],
  "name": "client/chatgadg.cpp",

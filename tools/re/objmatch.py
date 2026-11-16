@@ -1966,6 +1966,7 @@ def xcu_previous(img):
 
 
 USE_XCU_POSITION = True     # D242 P-C1-2: the `_$E` initialisers credited by their CRT table position
+USE_XCU_SUBRUN = True       # C15 (2026-11-16): the unique consecutive sub-run fitting every initialiser
 XCU_TABLE = (0xB6C000, 0xB6D700)
 USE_OBJECT_ORDER = True     # D242 P-C1-1: an own-function tie inside one object assigned in object order
 
@@ -2017,6 +2018,17 @@ def _object_order(results):
     return out
 
 
+def xcu_subrun(run, n, fits):
+    """C15 (run 2026-11-16, amends P-C1-2): the n table entries an object's n initialisers take out of RUN (the
+    entries lying in their windows, address order): the one consecutive sub-run of length n that FITS (every
+    initialiser at its entry), None if none or more than one. An object's first window can also hold the previous
+    object's last initialiser (sectorsound's 0x43D2F0 in soundlib's window), so the whole run is not required to be
+    the object's. Without USE_XCU_SUBRUN only a run of exactly n entries is tried."""
+    subs = [run[i:i + n] for i in range(len(run) - n + 1)] if USE_XCU_SUBRUN else [run] if len(run) == n else []
+    subs = [x for x in subs if fits(x)]
+    return subs[0] if len(subs) == 1 else None
+
+
 def _neighbours(order, key):
     """(address of the nearest exact own function before KEY in object order, of the nearest after), None if none."""
     before = [a for k, a, _ in order if k < key and a is not None]
@@ -2031,7 +2043,8 @@ def xcu_position(img, results, ranges, text, base, claimed, thunk):
     nearest exact own functions in object order, clipped to the object's range +- RANGE_GAP and to the exact own
     functions of the other objects of the run; the table entries lying in the union of those windows must be
     consecutive in the table, as many as the initialisers, each the n-th initialiser's (inside its own window,
-    its pattern fullmatching there, no other symbol there; an initialiser already exact must sit at its entry).
+    its pattern fullmatching there, no other symbol there; an initialiser already exact must sit at its entry;
+    C15: the one such sub-run of the entries in the windows, `xcu_subrun`).
     Then the `_$E` functions they reference (the constructor wrapper they call, the atexit stub they push or jump
     to, transitively) are credited at the targets the initialisers' bytes give, where their patterns fullmatch.
     kind is 'table' or 'linked'. The names stay unused across objects: the position is the proof."""
@@ -2061,16 +2074,17 @@ def xcu_position(img, results, ranges, text, base, claimed, thunk):
             p, q = _neighbours(orders[key], (sec, s))
             wins.append((max(blo, p + 1 if p is not None else blo), min(bhi, q - 1 if q is not None else bhi)))
         run = sorted({t for t in table for w in wins if w[0] <= t <= w[1]})
-        if len(run) != len(inits) or any(index[b] != index[a] + 1 for a, b in zip(run, run[1:])):
-            continue
-        ok = True
-        for n, (w0, w1), a in zip(inits, wins, run):
-            r, _, sec, s, length = defs[n]
-            if not w0 <= a <= w1 or claimed[a] - {n} or (r['status'] == 'exact' and int(r['addresses'][0], 16) != a) \
-                    or r['status'] != 'exact' and not _fullmatch_at(obj, sec, s, length, text, base, a):
-                ok = False
-                break
-        if not ok:
+        def fits(sub):
+            if any(index[b] != index[a] + 1 for a, b in zip(sub, sub[1:])):
+                return False
+            for n, (w0, w1), a in zip(inits, wins, sub):
+                r, _, sec, s, length = defs[n]
+                if not w0 <= a <= w1 or claimed[a] - {n} or (r['status'] == 'exact' and int(r['addresses'][0], 16) != a) \
+                        or r['status'] != 'exact' and not _fullmatch_at(obj, sec, s, length, text, base, a):
+                    return False
+            return True
+        run = xcu_subrun(run, len(inits), fits)
+        if run is None:
             continue
         got = {n: a for n, a in zip(inits, run)}
         todo = list(got.items())
