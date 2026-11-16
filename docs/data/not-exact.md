@@ -49,7 +49,7 @@ edit the comments in the code, not this file.
 | `app/client/camctrl_land.cpp:112` | `CameraController05Class::Unknown_793CE0` | marker | NOT EXACT: written from the client's code and Ghidra's (0x830 bytes; the temporaries' order and slots differ), functional |
 | `app/client/camctrl_pland.cpp:115` | `CameraController07Class::Unknown_794A90` | marker | NOT EXACT: field-offset: a [reg + N] displacement differs; functional |
 | `app/client/camctrl_rescue.cpp:52` | `CameraController11Class::Unknown_795570` | marker | NOT EXACT: the offset's temporaries and slots differ (the expression right to left, as the client's); functional |
-| `app/client/camctrl_stargate.cpp:42` | `CameraController03Class::Unknown_08` | marker | NOT EXACT: stack slots and one copy of the distance differ; functional |
+| `app/client/camctrl_stargate.cpp:42` | `CameraController03Class::Unknown_08` | marker | NOT EXACT: register-only (explain.py: same length, 4 rows): the client loads Unknown13BC through eax and the avatar's vtable through edx, here edx / eax; Vector3::Distance (its temporaries) gives the client's two Vector3 slots, the inline (a - b).Length() swapped them |
 | `app/client/camctrl_stargate.cpp:103` | `CameraController03Class::Unknown_795C80` | marker | NOT EXACT: field-offset: a [reg + N] displacement differs; functional |
 | `app/client/camctrl_takeoff.cpp:119` | `CameraController09Class::Unknown_08` | marker | NOT EXACT: shape: the same callees, 16 calls in ours and 17 in the client; functional |
 | `app/client/camctrl_takeoff.cpp:210` | `CameraController09Class::Unknown_796920` | marker | NOT EXACT: field-offset: a [reg + N] displacement differs; functional |

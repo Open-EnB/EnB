@@ -39,7 +39,7 @@ void CameraController03Class::Unknown_04()
 }
 
 // @0x795A80
-// NOT EXACT: stack slots and one copy of the distance differ; functional
+// NOT EXACT: register-only (explain.py: same length, 4 rows): the client loads Unknown13BC through eax and the avatar's vtable through edx, here edx / eax; Vector3::Distance (its temporaries) gives the client's two Vector3 slots, the inline (a - b).Length() swapped them
 void CameraController03Class::Unknown_08(Vector3 *pos, Quaternion *rot, int *mode, int *target)
 {
 	float distance = CameraManagerClass::Unknown_79B6B0();
@@ -71,7 +71,7 @@ void CameraController03Class::Unknown_08(Vector3 *pos, Quaternion *rot, int *mod
 			bool close = false;
 			ClientObjectClass *gate = Client->Find_Object(Client->Unknown13BC);
 			if (gate && gate->Unknown_6F5B70()) {
-				float dist = (gate->Unknown_24() - Client->Get_Avatar()->Unknown_24()).Length();
+				float dist = Vector3::Distance(gate->Unknown_24(), Client->Get_Avatar()->Unknown_24());
 				if (dist < (gate->Unknown_30() + distance) * 0.5f) {
 					close = true;
 				}
