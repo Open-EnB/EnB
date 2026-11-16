@@ -2281,7 +2281,7 @@ void UIStarbaseClass::Unknown_63A100()
 
 
 
-// NOT EXACT: 0x63AC60, functional (frame 0x28 / 0x2C; the client calls the own guild string's assign out of line and inlines the others'; O4)
+// NOT EXACT: 0x63AC60, functional (register: our zero register in ebx is set at the top, the client's inside the loop; ++it gives the client's frame 0x2C)
 // 0x63AC60 (0x638390's frame: the name tags shown or hidden, their guild texts and colours kept up to date)
 void UIStarbaseClass::Unknown_63AC60()
 {
@@ -2317,7 +2317,7 @@ void UIStarbaseClass::Unknown_63AC60()
 		}
 	}
 	UIStarbaseUnknownD4TableClass::iterator it;
-	for (it = UnknownD4.begin(); it != UnknownD4.end(); it++) {
+	for (it = UnknownD4.begin(); it != UnknownD4.end(); ++it) {
 		UIStarbaseUnknownCCClass *savatar = it.Cur->Value;
 		FAIL_IF(!savatar) continue;
 		if (UnknownB0->Unknown_69CCD0()) {
