@@ -14,6 +14,12 @@
 void UnknownB02C90Class::BufferStruct::Insert(const ElementStruct &element, int index)
 {
 	STUB_CALLED("POC BufferStruct::Insert (0x725E70)");
+	static bool watchdog = false;	// the watchdog starts at world entry: first here since A1 made Unknown8CClass real (its stand-in held it after QE; enbdazzle.cpp's before)
+	if (!watchdog) {
+		watchdog = true;
+		void Poc_Start_Watchdog();
+		Poc_Start_Watchdog();
+	}
 	if (Count >= Unknown04) {
 		int size = Count * 2;
 		if (size < 10) {
@@ -46,82 +52,7 @@ void SClient::Unknown_744240(KernelEventClass event)
 {
 }
 
-// ---------------------------------------------------------------- 0x73FDB0: the watcher's list node moved onto the object's list (from the pseudocode)
-void UnknownAF0DD0Class::Unknown_73FDB0(DataNode<UnknownAF0DD0Class *> *node, ClientObjectClass *object)
-{
-	int *n = (int *)node;
-	if (n[3] != 0) {
-		if (n[1] != 0 && n[2] != 0) {
-			((int *)n[2])[1] = n[1];
-			((int *)n[1])[2] = n[2];
-			n[2] = 0;
-			n[1] = 0;
-		}
-		n[3] = 0;
-	}
-	if (object != NULL) {
-		n[3] = (int)this;
-		char *list = (char *)object->Unknown_6F5090();
-		if (n[1] != 0 && n[2] != 0) {
-			((int *)n[2])[1] = n[1];
-			((int *)n[1])[2] = n[2];
-			n[2] = 0;
-			n[1] = 0;
-		}
-		int first = *(int *)(list + 8);
-		n[2] = (int)(list + 4);
-		n[1] = first;
-		if (first != 0) {
-			((int *)first)[2] = (int)n;
-		}
-		*(int *)(list + 8) = (int)n;
-	}
-}
-
-// ---------------------------------------------------------------- 0x73FA60: the object's watcher list (a GenericList, 0x1C bytes): its two end nodes linked
-Unknown8CClass::Unknown8CClass()
-{
-	STUB_CALLED("POC Unknown8CClass: the watchers' list");
-	static bool watchdog = false;	// the watchdog starts with the first client object (world entry; it started in enbdazzle.cpp's stand-in before QE)
-	if (!watchdog) {
-		watchdog = true;
-		void Poc_Start_Watchdog();
-		Poc_Start_Watchdog();
-	}
-	int *p = (int *)this;
-	p[1] = p[2] = p[3] = p[4] = p[5] = p[6] = 0;
-	p[6] = (int)(p + 1);
-	p[2] = (int)(p + 4);
-}
-
-// 0x73FB20: the list's destructor tells each watcher still on it that the object goes (the watcher's slot +0x04 with its
-// node: UnknownObjectWatchClass's Unknown_Watch_0C, then its node off the list), then unlinks the node; without it the slot
-// data of an object deleted at a handoff kept the freed aux tree (CRASH in InvDataPeekClass::Get_Slot)
-class Poc8CWatcherClass { public: virtual ~Poc8CWatcherClass() {} virtual void Unknown_04(int node) = 0; };	// UnknownAF0DD0Class's first two slots
-Unknown8CClass::~Unknown8CClass()
-{
-	int *p = (int *)this;
-	int *node = (int *)p[2];
-	if (node != NULL && node[1] == 0) {
-		node = NULL;
-	}
-	while (node != NULL) {
-		int *next = (int *)node[1];
-		if (next != NULL && next[1] == 0) {
-			next = NULL;
-		}
-		if (node[3] != 0) {
-			((Poc8CWatcherClass *)node[3])->Unknown_04((int)node);
-		}
-		if (node[1] != 0 && node[2] != 0) {
-			((int *)node[2])[1] = node[1];
-			((int *)node[1])[2] = node[2];
-			node[2] = 0;
-			node[1] = 0;
-		}
-		node = next;
-	}
-}
+// Unknown8CClass (0x73FA60 / 0x73FB20) and UnknownAF0DD0Class::Unknown_73FDB0 (0x73FDB0) are real app code in app/client/unknown_73fa60.cpp.
 
 // ---------------------------------------------------------------- a watchdog (POC only): every 5 s the main thread's EIP and the code addresses on its stack, in the stub log
 #include <windows.h>
