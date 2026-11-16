@@ -208,6 +208,8 @@ unless `--lever` cites a new row of the table in §3.1.2.
   callee the client calls out of line at the top level means a missing source layer, not a budget form.
   Freed-budget trap: removing a spender or adding a layer pulls *later* code inline: judge the whole file.
   (Conflicting reports, unresolved: in some long functions the early sites lost inlining first.)
+  A dead `std::string::size()` spends nothing, a dead container `size()` (vector / list / map) does (2026-11-16,
+  IB2: inpkeys and the tooltip forms).
 * **Dead spenders (D130) and sweeps:** dead `size()` / `length()` / `c_str()` / accessor reads, `str == ""`, a
   dead find, an unused type test or a user `operator=` assignment spend budget without code. Per call or
   per callee size: conflicting reports, unresolved. D130: at most 6 per function, each marked not the
@@ -679,6 +681,15 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
   `Change_Text` calls in an if / else are not a ternary; a statement repeated at the end of both branches is
   tail-merged with its constant in a register. Ghidra shows cross-jumped calls as one call through a
   variable: write two calls.
+  `?:` over two by-value (struct-returning) calls is the same: the client has if / else, one call in each arm
+  (acticon 0x6762B0, 2026-11-16, BS1); a `?:` around a packet constructor's call argument loads before the push,
+  so write if / else with two calls (QD).
+* **A getter that is an earlier getter inlined plus a NULL test (2026-11-16, QA, personality_manager):** a
+  client getter that loads a member through another getter and tests the result for NULL is the earlier getter
+  inlined inside the new one, not a second member read; write the call, then the test.
+* **A sum of two calls plus a constant has one canonical VC6 order (2026-11-16, QB, packet sizes):** the
+  client's split form is separate statements, `size = f(); size += g(); size += 4;`; a one-expression sum gives
+  another order and registers.
 * **Loop forms VC6 rewrites:** `while` / `for(;;)` with the test at the top rotates and peels the first call
   (`strtok_r`); `do { tok = ...; } while (tok);` keeps one call site; an unrotated loop is `bool more` +
   `while (more)` + break, or `while` on the other condition plus if-break. A one-trip loop whose body has an
@@ -766,6 +777,22 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
   which 2 floats are used; extra bytes: a by-value getter's temporary (`Get_X_Vector()`). Too small by a
   matrix or vector: a named copy (`Matrix3D light_tm = camera`): temporaries share slots with named locals,
   named locals don't share with each other.
+* **A 0.0f kept in memory and added to a translation is `Translate_X` / `Translate_Y` / `Translate_Z` on an
+  identity (2026-11-16, FN, 0x497700):** `Adjust_Translation(Vector3(0, 0, r))` became `Translate_Z(r)` and the
+  frame matched; the Vector3 temporary form keeps the 0.0f as a stack slot.
+* **`Vector3 r; r = f();` against `Vector3 r = f();` (2026-11-16, BS3, 0x447180 SteeringClass::Follow):** the
+  assignment form leaves Y on the FPU stack (the copy back goes through `fld` / `fstp`), the initialised form
+  copies by integer moves; when the client keeps one component on the FPU, declare then assign.
+* **A frame "dead store" reloaded at a loop back-edge is a loop-carried argument (2026-11-16, BS2, 0x4E1300):**
+  a store the frame shows with no reader, reloaded into a pushed register where the loop jumps back, is the next
+  iteration's argument (a find offset carried across the loop), not a dead local: it is not a frame lever, keep
+  the carry.
+* **A 4-byte local below the larger object, early return (2026-11-16, BS1, e34c3e07d):** the sign is the client
+  keeping a 4-byte local (flag, int, pointer) at a lower address than the larger object while ours puts it above
+  (slot swap, code identical once masked); a function written as `if (x) { ... }` at its end flips it when the
+  client has an early return (`if (!x) return;`): 0x478B50, shared 0x47D670, 0x53DDE0 (three float locals). BS3
+  swept the app: it is narrow (strict sign on 10 functions, all with a high residue or at LIMIT; most slot swaps
+  are FPU operand order or register allocation), so try the early return once, not twice.
 * **Buffer and array sizes:** a Get_String size of 251 means `char[252]`; a 0x84-byte buffer with a pushed size
   of 0x80 is `char x[129]`; Ghidra's `char buffer[1028]` can be `char[1025]`; a key buffer's size moves slots
   (`char[15]` vs [16] swapped the INIClass and the buffer); Ghidra's `param_2` used as a float is a local packed
@@ -812,6 +839,10 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
   with a copy constructor: when the client's pointer sits elsewhere, nest the members into sub-structs.
   Contiguous float slots reaching a setter through fld / fstp are an aggregate (Vector4, not float[4]);
   integer `mov`s copying a float pair mean one Vector3 / Vector2 block.
+  Three or four dwords copied through an argument pointer, with the base vtable store kept, are a Vector3 /
+  Quaternion member of a packet or object (QD, 2026-11-16); a clone through the copy constructor keeps the base
+  vtable store, so bytes with the vtable store last mean a constructor taking plain values (QC, kv_encoder (T*,
+  T*) ctor).
 * **Declared or implicit destructor, more evidence:** a deleting-only destructor with no vptr store is
   implicit; `call dword ptr [vtable+slot]` right after the vptr store is an inlined helper's virtual call
   (written directly it is a direct `call`); an `atexit` stub that is just `ret` means the static's type has an
@@ -819,6 +850,9 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
   implicit destructor; an empty base destructor the client calls must be out of line; a packet class the
   client destroys out of line needs a declared `virtual ~X();` defined empty; unwind states tell a member's
   destructor from a cleanup method. A declared empty virtual destructor stores the vptr where an implicit one is a `jmp` to the base's (V1, 2026-11-14).
+  An explicit empty virtual destructor can be exact where the implicit one is 6 bytes shorter (guild packets 127
+  against 121 bytes, 2026-11-16, QA / QB): when the client's size is the larger, declare `virtual ~X() {}`
+  before judging the rest.
 * **EH states and callee visibility:** a `new` loses its EH state when the same-file ctor can't throw: define
   that ctor after its caller; a state store before an out-of-line call means the callee's body isn't visible
   in the client's TU (a full specialisation with out-of-line members, delta_money.h); a body the client
@@ -859,6 +893,10 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
   `_Xxx`).
 * **`explain.py` says relocation for a function whose `__FILE__` text sits in an aux header (auxdata.h):** the real
   class can be inline-budget; compare the call counts (23 against 26) before chasing names.
+  It also says relocation for a wrong literal (a format string, an assert text, a `__FILE__`): grep its rows for
+  "string differs" (not only `__FILE__`); about 6 of 45 such functions were real string differences (2026-11-16,
+  BS3, SD: `.work/BS3/strdiff.py`, `.work/SD/strscan.py`). Verify credits a function whose literal differs, so a
+  string fix shows 0 / 0 pairs: read the text, not the count.
 
 **Literal, floats**
 
@@ -1369,6 +1407,11 @@ are in 3.0.
   caller's pair loses it too (D66 (vii)); anything that rewrites a file's `in_tree` without verify can leave its
   `tiebreak` list stale. pairs_cmp's "with its caller" is approximate (it sees no call edges); its output is one
   labelled list per line (`gained tie-break` / `lost tie-break` follow `gained` / `lost`).
+* **A new crediting rule runs last and keeps its credits out of `ranges` (2026-11-16, FE, objmatch
+  USE_FUNCLET_TIES):** a rule placed inside the D80 rounds widened object ranges with linker-placed COMDATs and
+  silently cost neighbours' `$E` / order pairs (9 lost, sclient's ~deque<int> moved); as its own last round it
+  gained 423 at 74 addresses, 0 lost. A measure script pointed at a missing obj folder prints 0 / 0: check the
+  folder first.
 * **One tree file can be several client objects, and objmatch's own-range rule assumes one:** a file that spans
   objects (land.cpp: three) credits across the boundaries wrongly. Splitting it regained functions and moved the
   rest by D66 between the files (interim names, D137).
@@ -1587,6 +1630,18 @@ are in 3.0.
 * **appfile.py markers:** a marker on the blank line above an `extern` attaches to the extern, not to the function
   below; a function followed by the 32-byte `$E` initialiser takes a PREFIX (verify credits both); `attempts.py
   record --forms` takes a count.
+  `MARKER` sees only `// @0xADDR`: a `// 0xADDR` comment (272 of 406 app files) or a `// NOT EXACT` line with no
+  `@` is invisible, and `match` stays silent for a file without `// @0x` markers (BS3, SD, QA, 2026-11-16).
+  Markers are assigned by demangled name in object order, so overloads need a marker on every same-named
+  function (QC); a marker script must skip forward declarations (lines ending in `;`, QB). `match --pool` waits
+  silently with the pool full (QD).
+* **One compile tests N forms (2026-11-16, FN):** N renamed copies of a member function in one file, one per
+  form, compile once and objmatch each; ignore the `__LINE__` rows between them (a FAIL_IF / G_ASSERT line added
+  or removed shifts every later `__LINE__`: it cost FN 7 pairs before the fix).
+* **A callee with several or ambiguous client patterns is credited only through an exact caller (2026-11-16,
+  IB2):** appfile.py match calls it EXACT or NOT EXACT without saying so; the inline-budget list's 0x7099F0, the
+  musicmanager four and 0x56CC30 / 0x56CD50 stayed untried because their callers are parked. Look at the caller
+  before spending forms on such a callee.
 * **appfile.py includes:** `-I auto` is the default; an explicit `-I` list without `auto` sends no headers to
   the VM, so a VM holding an old copy fails with C1083: add `-I auto` to the list. A header's relative includes
   resolve from the including file. Where a client/ draft may sit (conflicting reports, unresolved): in
@@ -1892,6 +1947,10 @@ udpreplay:
   the client's classes (D176: `tests/udpreplay/cord_counters.h`, `CORD_HARNESS_COUNT`). udpreplay compiles its
   app files as one translation unit: a header's macro gate is defined at the top of app_sources.cpp (written
   by tools/harness/udpreplay.py).
+  The include guards are seen across files in that one TU: a file-local `#define` before an include
+  (pkclientchat.h's `__CHATGADG_MEMBERS`) must also go into the TU's preamble, or an earlier include hides the
+  declaration (2026-11-16, QB); and no app member may be named like a windows.h macro (`RGB`: `RGB(rgb)`
+  expanded, QD, renamed ColorRGB).
 
 The POC client (instances and your own build: builders.md §2 "POC instances"):
 
@@ -2057,6 +2116,11 @@ are alphabetical; add a note under its file's heading (merge with what is there)
   RawPacketClass just written with Add can't be read back by a raw constructor (its cursor is at the end):
   push it through `Memory->Incoming`. Renaming a packet class's member breaks other files that read it
   (extrap.cpp read pkupdate's Planet Unknown14). symbol_substitution.cpp's symbols are `$Name$`, not `%Name%`.
+* **Packet constructors, sending form (2026-11-16, QB / QD):** the position of the vtable store tells body from
+  init list (CreateAttachment is exact with every store in the body); members that are Vector3 / Vector2 /
+  Quaternion copy as one struct (the Print text names them); `?:` around a call argument is if / else. No member
+  named like a windows.h macro (NameDecal `RGB` -> `ColorRGB`: udpreplay builds the app as one TU). Explicit
+  empty virtual destructors: see §3.1.2, declared or implicit destructor.
 
 #### aux_roots.cpp (auxextract)
 
@@ -2068,6 +2132,8 @@ are alphabetical; add a note under its file's heading (merge with what is there)
   Set_Value_String 0x75A140 passes the value itself to sscanf (a client bug, keep it).
   `DeltaTemplateClass<int>` needs aux_roots.h for `Type_Name(int *)` (else C2665 in kv_pair.h). Its 8
   inline-budget pairs flip with any change to duration.h / delta_template.h (see there).
+* aux_roots.h's blank lines are `__LINE__` padding: put NAME comments on existing comment lines, never on a new
+  line (2026-11-16, SD, the InvSlotStruct rename across 19 `replaces` rows).
 
 #### avatar.cpp
 
