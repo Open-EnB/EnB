@@ -46,6 +46,8 @@ public:
 	GadgetClass *Unknown_661AA0(bool shown, bool flag);					// 0x661AA0 (FAIL_IF '!gadget': the first of +0x3C under the pointer)  // NAME 1 [shown, flag]: neutral
 	void Unknown_661B40(GadgetListType *list);							// 0x661B40 (a list into GroupLists, after the first)  // NAME 1 [list]: neutral
 	GadgetListType *Unknown_661BB0(GadgetClass *gadget, bool add);		// 0x661BB0 (FAIL_IF '!gadget', G_ASSERT 'add': the gadget's list)  // NAME 2 [gadget, add]: the asserts'
+	std::list<GadgetListType *>::iterator Unknown_661CE0();				// 0x661CE0 (GroupLists.begin())
+	std::list<GadgetListType *>::iterator Unknown_661D00();				// 0x661D00 (GroupLists.end())
 
 	std::list<GadgetListType *> GroupLists;								// +0x00 (G_ASSERT 'GroupLists.empty()')  // NAME 3: the assert's
 	std::hash_map<InterfaceClass *, GadgetListType> Unknown0C;				// +0x0C (by the gadgets' interface, +0x08; 100 buckets)
@@ -59,6 +61,7 @@ class GadgetListIteratorClass  // NAME 1: neutral (D10)
 {
 public:
 	GadgetListIteratorClass(GadgetListManagerClass *manager);			// 0x661D20 (FAIL_IF '!Manager')  // NAME 1 [manager]: the member's
+	GadgetListIteratorClass(const GadgetListIteratorClass &);			// 0x661D70 (copy ctor; or operator=, same 25B bytes, 0 callers)
 	~GadgetListIteratorClass() {}										// (empty: 0x661940 keeps an unwind state for it)
 	bool Unknown_661DA0(bool first);									// 0x661DA0 (to the next list with gadgets)  // NAME 1 [first]: neutral
 	GadgetListIteratorClass &operator ++();								// 0x661E10 (FAIL_IF '!Manager')

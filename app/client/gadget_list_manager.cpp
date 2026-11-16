@@ -192,17 +192,17 @@ GadgetListType *GadgetListManagerClass::Unknown_661BB0(GadgetClass *gadget, bool
 	return(list);
 }
 
+// 0x661CE0
+std::list<GadgetListType *>::iterator GadgetListManagerClass::Unknown_661CE0()
+{
+	return(GroupLists.begin());
+}
 
-
-
-
-
-
-
-
-
-
-
+// 0x661D00
+std::list<GadgetListType *>::iterator GadgetListManagerClass::Unknown_661D00()
+{
+	return(GroupLists.end());
+}
 
 
 
@@ -216,6 +216,14 @@ GadgetListIteratorClass::GadgetListIteratorClass(GadgetListManagerClass *manager
 {
 	FAIL_IF(!Manager) return;
 	Unknown_661DA0(true);
+}
+
+// 0x661D70
+GadgetListIteratorClass::GadgetListIteratorClass(const GadgetListIteratorClass &other) :	// NAME 1 [other]: neutral
+	Manager(other.Manager),
+	ListIt(other.ListIt),
+	GadgetIt(other.GadgetIt)
+{
 }
 
 bool GadgetListIteratorClass::Unknown_661DA0(bool first)
@@ -233,14 +241,6 @@ bool GadgetListIteratorClass::Unknown_661DA0(bool first)
 	}
 	return(false);
 }
-
-
-
-
-
-
-
-
 
 
 
