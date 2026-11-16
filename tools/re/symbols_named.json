@@ -2806,67 +2806,67 @@
  },
  {
   "address": "0x8D4D40",
-  "symbol": "?Chunk_ID@?$SimplePersistFactoryClass@VLinearCurve3DClass@@$0IABAA@@@@UBEKXZ",
+  "symbol": "?Chunk_ID@?$SimplePersistFactoryClass@VLinearCurve3DClass@@$0IABAA@@@UBEKXZ",
   "evidence": "slot 1 of the SimplePersistFactoryClass<LinearCurve3DClass> vtable, the slot right before its Load (0x8D5410, named by objmatch); the tree's objects name it Chunk_ID and a 6-byte `mov eax, id; ret` is its body (libraries.md 3 item 9, LIB 2026-11-15b)"
  },
  {
   "address": "0x8D4D50",
-  "symbol": "?Chunk_ID@?$SimplePersistFactoryClass@VLinearCurve1DClass@@$0IAAAA@@@@UBEKXZ",
+  "symbol": "?Chunk_ID@?$SimplePersistFactoryClass@VLinearCurve1DClass@@$0IAAAA@@@UBEKXZ",
   "evidence": "slot 1 of the SimplePersistFactoryClass<LinearCurve1DClass> vtable, the slot right before its Load (0x8D5500, named by objmatch); the tree's objects name it Chunk_ID and a 6-byte `mov eax, id; ret` is its body (libraries.md 3 item 9, LIB 2026-11-15b)"
  },
  {
   "address": "0x8D5D30",
-  "symbol": "?Chunk_ID@?$SimplePersistFactoryClass@VCatmullRomSpline3DClass@@$0IABAC@@@@UBEKXZ",
+  "symbol": "?Chunk_ID@?$SimplePersistFactoryClass@VCatmullRomSpline3DClass@@$0IABAC@@@UBEKXZ",
   "evidence": "slot 1 of the SimplePersistFactoryClass<CatmullRomSpline3DClass> vtable, the slot right before its Load (0x8D5D50, named by objmatch); the tree's objects name it Chunk_ID and a 6-byte `mov eax, id; ret` is its body (libraries.md 3 item 9, LIB 2026-11-15b)"
  },
  {
   "address": "0x8D5D40",
-  "symbol": "?Chunk_ID@?$SimplePersistFactoryClass@VCatmullRomSpline1DClass@@$0IAAAC@@@@UBEKXZ",
+  "symbol": "?Chunk_ID@?$SimplePersistFactoryClass@VCatmullRomSpline1DClass@@$0IAAAC@@@UBEKXZ",
   "evidence": "slot 1 of the SimplePersistFactoryClass<CatmullRomSpline1DClass> vtable, the slot right before its Load (0x8D5E40, named by objmatch); the tree's objects name it Chunk_ID and a 6-byte `mov eax, id; ret` is its body (libraries.md 3 item 9, LIB 2026-11-15b)"
  },
  {
   "address": "0x8D6C20",
-  "symbol": "?Chunk_ID@?$SimplePersistFactoryClass@VHermiteSpline3DClass@@$0IABAB@@@@UBEKXZ",
+  "symbol": "?Chunk_ID@?$SimplePersistFactoryClass@VHermiteSpline3DClass@@$0IABAB@@@UBEKXZ",
   "evidence": "slot 1 of the SimplePersistFactoryClass<HermiteSpline3DClass> vtable, the slot right before its Load (0x8D6C40, named by objmatch); the tree's objects name it Chunk_ID and a 6-byte `mov eax, id; ret` is its body (libraries.md 3 item 9, LIB 2026-11-15b)"
  },
  {
   "address": "0x8D6C30",
-  "symbol": "?Chunk_ID@?$SimplePersistFactoryClass@VHermiteSpline1DClass@@$0IAAAB@@@@UBEKXZ",
+  "symbol": "?Chunk_ID@?$SimplePersistFactoryClass@VHermiteSpline1DClass@@$0IAAAB@@@UBEKXZ",
   "evidence": "slot 1 of the SimplePersistFactoryClass<HermiteSpline1DClass> vtable, the slot right before its Load (0x8D6D30, named by objmatch); the tree's objects name it Chunk_ID and a 6-byte `mov eax, id; ret` is its body (libraries.md 3 item 9, LIB 2026-11-15b)"
  },
  {
   "address": "0x8E0350",
-  "symbol": "?Chunk_ID@?$SimplePersistFactoryClass@VTCBSpline3DClass@@$0IABAE@@@@UBEKXZ",
+  "symbol": "?Chunk_ID@?$SimplePersistFactoryClass@VTCBSpline3DClass@@$0IABAE@@@UBEKXZ",
   "evidence": "slot 1 of the SimplePersistFactoryClass<TCBSpline3DClass> vtable, the slot right before its Load (0x8E0360, named by objmatch); the tree's objects name it Chunk_ID and a 6-byte `mov eax, id; ret` is its body (libraries.md 3 item 9, LIB 2026-11-15b)"
  },
  {
   "address": "0x8E1340",
-  "symbol": "?Chunk_ID@?$SimplePersistFactoryClass@VCardinalSpline3DClass@@$0IABAD@@@@UBEKXZ",
+  "symbol": "?Chunk_ID@?$SimplePersistFactoryClass@VCardinalSpline3DClass@@$0IABAD@@@UBEKXZ",
   "evidence": "slot 1 of the SimplePersistFactoryClass<CardinalSpline3DClass> vtable, the slot right before its Load (0x8E1360, named by objmatch); the tree's objects name it Chunk_ID and a 6-byte `mov eax, id; ret` is its body (libraries.md 3 item 9, LIB 2026-11-15b)"
  },
  {
   "address": "0x8E1350",
-  "symbol": "?Chunk_ID@?$SimplePersistFactoryClass@VCardinalSpline1DClass@@$0IAAAD@@@@UBEKXZ",
+  "symbol": "?Chunk_ID@?$SimplePersistFactoryClass@VCardinalSpline1DClass@@$0IAAAD@@@UBEKXZ",
   "evidence": "slot 1 of the SimplePersistFactoryClass<CardinalSpline1DClass> vtable, the slot right before its Load (0x8E1470, named by objmatch); the tree's objects name it Chunk_ID and a 6-byte `mov eax, id; ret` is its body (libraries.md 3 item 9, LIB 2026-11-15b)"
  },
  {
   "address": "0x9F9210",
-  "symbol": "?Chunk_ID@?$SimplePersistFactoryClass@VSound3DClass@@$0DAAAD@@@@UBEKXZ",
+  "symbol": "?Chunk_ID@?$SimplePersistFactoryClass@VSound3DClass@@$0DAAAD@@@UBEKXZ",
   "evidence": "slot 1 of the SimplePersistFactoryClass<Sound3DClass> vtable, the slot right before its Load (0x9F9220, named by objmatch); the tree's objects name it Chunk_ID and a 6-byte `mov eax, id; ret` is its body (libraries.md 3 item 9, LIB 2026-11-15b)"
  },
  {
   "address": "0x9FF670",
-  "symbol": "?Chunk_ID@?$SimplePersistFactoryClass@VAudibleSoundDefinitionClass@@$0DAAAA@@@@UBEKXZ",
+  "symbol": "?Chunk_ID@?$SimplePersistFactoryClass@VAudibleSoundDefinitionClass@@$0DAAAA@@@UBEKXZ",
   "evidence": "slot 1 of the SimplePersistFactoryClass<AudibleSoundDefinitionClass> vtable, the slot right before its Load (0x9FF6F0, named by objmatch); the tree's objects name it Chunk_ID and a 6-byte `mov eax, id; ret` is its body (libraries.md 3 item 9, LIB 2026-11-15b)"
  },
  {
   "address": "0x9FF680",
-  "symbol": "?Chunk_ID@?$SimplePersistFactoryClass@VAudibleSoundClass@@$0DAAAB@@@@UBEKXZ",
+  "symbol": "?Chunk_ID@?$SimplePersistFactoryClass@VAudibleSoundClass@@$0DAAAB@@@UBEKXZ",
   "evidence": "slot 1 of the SimplePersistFactoryClass<AudibleSoundClass> vtable, the slot right before its Load (0x9FF7C0, named by objmatch); the tree's objects name it Chunk_ID and a 6-byte `mov eax, id; ret` is its body (libraries.md 3 item 9, LIB 2026-11-15b)"
  },
  {
   "address": "0x9FFFB0",
-  "symbol": "?Chunk_ID@?$SimplePersistFactoryClass@VSoundPseudo3DClass@@$0DAAAE@@@@UBEKXZ",
+  "symbol": "?Chunk_ID@?$SimplePersistFactoryClass@VSoundPseudo3DClass@@$0DAAAE@@@UBEKXZ",
   "evidence": "slot 1 of the SimplePersistFactoryClass<SoundPseudo3DClass> vtable, the slot right before its Load (0x9FFFC0, named by objmatch); the tree's objects name it Chunk_ID and a 6-byte `mov eax, id; ret` is its body (libraries.md 3 item 9, LIB 2026-11-15b)"
  },
  {
