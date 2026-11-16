@@ -43,6 +43,16 @@ The format (one step a line, '#' comments, shell-style quoting):
     stray click X,Y|gadget NAME / stray key VK   the same input UNtagged, as a person's would be (the tag's
                                   self-test: the proxy must drop it and log 'NOT REPLAYED')
     alive S                       S seconds pass with the client running and no expect-no line matched
+    walk-to X,Y [tol T] [within S]  a starbase: the avatar walks to X,Y (the room's floor plane, units of the
+                                  client's camera) in a closed loop on the camera the proxy reports each frame
+                                  (D3D8SHOT_CAMERA): turn towards the point (right button drag), hold the walk key,
+                                  correct on the way, stop within T (default 2); fails when the avatar does not
+                                  move for 2 s (a wall: give a waypoint) or after S (default 30 s)
+    face YAW [tol D] [within S]   turn until the camera looks along YAW degrees (default tolerance 2): what a
+                                  click on something in the room needs before it (the click is a screen point)
+    hold VK until SOURCE PATTERN [within S]   the key held down until the line is seen (walk on through a door
+                                  until the room changes)
+    pose                          the avatar's place and heading, written to e2e.log (for writing walk-to steps)
     shot NAME                     the client's own back buffer at the next Present (d3d8shot's D3D8SHOT_TRIGGER)
 SOURCE: antprox (antprox.out: antprox, the replay server and the client's stderr), stubs (stubs.log), msg
 (messages.log; needs --messages or a 'messages: on' header), proxy (d3d8shot.log without its tick column: the
@@ -73,6 +83,7 @@ export still runs; its later scenarios then list only what no earlier one hit ('
 """
 import argparse
 import json
+import math
 import os
 import re
 import shlex
@@ -92,6 +103,171 @@ LAST = []
 STANDIN_HIT = 'stand-in hit:'
 SOURCES = ('antprox', 'stubs', 'msg', 'proxy', 'files', 'any')
 ACTIONS = ('click', 'rclick', 'move', 'key', 'text', 'stray')
+WALK_KEY = 0x41         # 'A': the starbase's walk key (the user's recording of 2026-11-15)
+
+
+def _wrap(deg):
+    return (deg + 180.0) % 360.0 - 180.0
+
+
+class Pilot:
+    """The avatar's pose in a starbase from the proxy's camera file (d3d8shot.c D3D8SHOT_CAMERA: the frame's first
+    view matrix is the room's camera, which trails the avatar), and the closed loops that steer by it. Measured on
+    the retail client 2026-11-15, in the open hangar: the walk key 'A' and a held right button both walk about
+    26 units a second along the camera's heading (0.15 s to start, about 4.5 units of coast after); the right
+    button also steers, at a RATE set by the cursor's offset from where it went down (about 0.43 degrees a
+    second per pixel). Nothing turns the avatar in place (the arrow keys do nothing; 'Z' walks back), so the
+    loops steer while walking and watch the pose rather than count pixels or seconds."""
+    TRAIL = 6.4         # the camera's distance behind the avatar (two camera places at one avatar place)
+    RATE = 0.43         # degrees a second per pixel of drag offset
+    REACH = 560         # the largest offset used (pixels from the window's middle)
+    COAST = 4.5         # units the avatar still walks after the button or key is let go
+    CX, CY = 640, 512
+
+    def __init__(self, hwnd, camera, tick, note):
+        import ctypes
+        self.user32 = ctypes.windll.user32
+        self.hwnd, self.camera, self.tick, self.note = hwnd, camera, tick, note
+
+    def _post(self, msg, w, l):
+        self.user32.PostMessageW(self.hwnd, msg, w | (0x5043 << 16), l)
+
+    def _mouse(self, msg, w, x, y):
+        self._post(msg, w, (int(y) << 16) | (int(x) & 0xFFFF))
+
+    def pose(self, tries=50):
+        """{'x', 'y', 'z', 'yaw', 'pitch', 'frame'} of the avatar (x, y: the camera's place moved TRAIL along its
+        heading), or None when the proxy wrote no camera file."""
+        for _ in range(tries):
+            try:
+                with open(self.camera) as f:
+                    m = re.match(r'frame (\d+) view 0 of \d+:(.*)', f.readline())
+                v = [float(t) for t in m.group(2).split()]
+                if len(v) == 16:
+                    break
+            except (OSError, AttributeError, ValueError):
+                pass
+            time.sleep(0.02)
+        else:
+            return None
+        r = (v[0:3], v[4:7], v[8:11])
+        pos = [-(v[12] * r[i][0] + v[13] * r[i][1] + v[14] * r[i][2]) for i in range(3)]
+        look = (-v[2], -v[6], -v[10])
+        yaw = math.degrees(math.atan2(look[1], look[0]))
+        return {'frame': int(m.group(1)), 'yaw': yaw, 'pitch': math.degrees(math.asin(max(-1.0, min(1.0, look[2])))),
+                'x': pos[0] + self.TRAIL * math.cos(math.radians(yaw)),
+                'y': pos[1] + self.TRAIL * math.sin(math.radians(yaw)), 'z': pos[2]}
+
+    def say(self, p):
+        return f'{p["x"]:.1f},{p["y"]:.1f} yaw {p["yaw"]:.1f} pitch {p["pitch"]:.1f}'
+
+    def still(self, within=20.0):
+        """Waits until the camera has not moved for 0.6 s (a room's entry move is over: the client ignores the
+        turn drag during it); the pose, or None without a camera file."""
+        end = time.time() + within
+        last, since = None, time.time()
+        while True:
+            p = self.pose()
+            if p is None:
+                return None
+            if last is None or abs(p['x'] - last['x']) + abs(p['y'] - last['y']) + abs(_wrap(p['yaw'] - last['yaw'])) > 0.05:
+                last, since = p, time.time()
+            if time.time() - since > 0.6 or time.time() > end or self.tick():
+                return p
+            time.sleep(0.05)
+
+    def _rdown(self):
+        self._mouse(0x200, 0, self.CX, self.CY)
+        time.sleep(0.03)
+        self._mouse(0x204, 2, self.CX, self.CY)
+
+    def _steer(self, dx):
+        self._mouse(0x200, 2, self.CX + max(-self.REACH, min(self.REACH, dx)), self.CY)
+
+    def _rup(self):
+        self._mouse(0x200, 2, self.CX, self.CY)
+        time.sleep(0.03)
+        self._mouse(0x205, 0, self.CX, self.CY)
+
+    def face(self, yaw, tol=2.0, within=15.0):
+        """Turns to yaw in short right-button pulses at the full offset: each walks a little (the walk's first
+        0.15 s covers about half a unit) and turns a lot."""
+        end = time.time() + within
+        while True:
+            p = self.still(3.0)
+            if p is None:
+                return 'no camera file from the proxy (run_reference.py build)'
+            err = _wrap(yaw - p['yaw'])
+            if abs(err) < tol:
+                return None
+            fail = self.tick()
+            if not fail and time.time() > end:
+                fail = f'face {yaw:.1f}: at {self.say(p)} after {within:g} s'
+            if fail:
+                return fail
+            self._rdown()
+            self._steer(-math.copysign(self.REACH, err))        # a drag to the right turns the heading down
+            time.sleep(max(0.04, min(0.16, abs(err) / (self.RATE * self.REACH))))
+            self._rup()
+
+    def key(self, vk, down):
+        self._post(0x100 if down else 0x101, vk, 1 if down else 0xC0000001)
+
+    def walk_to(self, x, y, tol=2.0, within=30.0):
+        """Walks with the right button held, steering by the cursor's offset; lets go a coast's length before the
+        point and closes the rest in short pulses of the walk key."""
+        end = time.time() + within
+        holding, pulses = False, 0
+        moved_at, moved_from = time.time(), None
+        fail = None
+        self.still()
+        try:
+            while True:
+                p = self.pose()
+                if p is None:
+                    return 'no camera file from the proxy (run_reference.py build)'
+                d = math.hypot(x - p['x'], y - p['y'])
+                err = _wrap(math.degrees(math.atan2(y - p['y'], x - p['x'])) - p['yaw'])
+                if holding:
+                    if d < self.COAST or (abs(err) > 60 and d < 16):     # arriving, or the point is inside the turn
+                        self._rup()
+                        holding = False
+                        self.still(3.0)
+                        continue
+                    self._steer(-err * 8.0)
+                    if moved_from is None or math.hypot(p['x'] - moved_from[0], p['y'] - moved_from[1]) > 0.5:
+                        moved_at, moved_from = time.time(), (p['x'], p['y'])
+                    elif time.time() - moved_at > 2.0:
+                        fail = f'walk-to {x:g},{y:g}: not moving at {self.say(p)} (a wall? give a waypoint)'
+                    time.sleep(0.03)
+                elif d < tol:
+                    self.note(f'  at {self.say(p)}')
+                    return None
+                elif abs(err) > (8 if d > 6 else 20):
+                    fail = self.face(p['yaw'] + err, 4.0, max(1.0, end - time.time()))
+                elif d >= self.COAST + 2:
+                    self._rdown()
+                    holding = True
+                    moved_at, moved_from = time.time(), None
+                else:
+                    pulses += 1
+                    if pulses > 12:
+                        fail = f'walk-to {x:g},{y:g}: {d:.1f} away at {self.say(p)} after 12 pulses'
+                    else:
+                        t_end = time.time() + max(0.1, min(0.3, 0.1 + d / 40.0))
+                        while time.time() < t_end:
+                            self.key(WALK_KEY, True)
+                            time.sleep(0.03)
+                        self.key(WALK_KEY, False)
+                        self.still(3.0)
+                fail = fail or self.tick()
+                if not fail and time.time() > end:
+                    fail = f'walk-to {x:g},{y:g}: at {self.say(p)} after {within:g} s'
+                if fail:
+                    return fail
+        finally:
+            if holding:
+                self._rup()
 
 
 class ScenarioError(Exception):
@@ -248,6 +424,28 @@ def parse(text, name='?', gadgets=None, loader=None, _depth=0):
             if len(args) != 1:
                 raise ScenarioError(f'{where}: alive SECONDS')
             st['seconds'] = float(args[0])
+        elif op in ('walk-to', 'face'):
+            args, st['within'] = _within(args, 30.0 if op == 'walk-to' else 15.0, where)
+            st['tol'] = 2.0
+            if len(args) == 3 and args[1] == 'tol':
+                st['tol'], args = float(args[2]), args[:1]
+            try:
+                if len(args) != 1:
+                    raise ValueError
+                st['to'] = [float(v) for v in args[0].split(',')]
+                if len(st['to']) != (2 if op == 'walk-to' else 1):
+                    raise ValueError
+            except ValueError:
+                raise ScenarioError(f'{where}: walk-to X,Y [tol T] [within S] / face YAW [tol D] [within S]')
+        elif op == 'hold':
+            args, st['within'] = _within(args, 30.0, where)
+            if len(args) != 4 or args[1] != 'until':
+                raise ScenarioError(f'{where}: hold VK until SOURCE PATTERN [within S]')
+            st['vk'] = int(args[0], 0)
+            st['source'], st['pattern'] = _source(args[2]), _regex(args[3], where)
+        elif op == 'pose':
+            if args:
+                raise ScenarioError(f'{where}: pose takes nothing')
         elif op == 'shot':
             if len(args) != 1 or not re.fullmatch(r'[A-Za-z0-9_-]{1,40}', args[0]):
                 raise ScenarioError(f'{where}: shot NAME (letters, digits, - and _)')
@@ -279,8 +477,11 @@ def load(name, gadgets=None):
     return parse(file_loader(name), name, gadgets if gadgets is not None else load_gadgets(), file_loader)
 
 
-def scenario_names():
-    have = sorted(f[:-4] for f in os.listdir(SCN) if f.endswith('.scn') and not f.startswith('_'))
+def scenario_names(live=False):
+    """The default set: under /REPLAY every scenario but the station ones (sb_*: they need a live server); with
+    --live only those."""
+    have = sorted(f[:-4] for f in os.listdir(SCN) if f.endswith('.scn') and not f.startswith('_')
+                  and f.startswith('sb_') == bool(live))
     return ([n for n in ORDER if n in have] + [n for n in have if n not in ORDER and n not in LAST]
             + [n for n in LAST if n in have])
 
@@ -307,6 +508,38 @@ class _Watch:
         self.source = source
         self.pattern = pattern
         self.hit = hit
+
+
+_LIVE_OP = re.compile(r'(Sending \[0x([0-9a-fA-F]{4})\] via UDP|<SERVER TO CLIENT UDP> -+> ([0-9a-fA-F]{4}) )')
+_OPCODES = None
+
+
+def opcode_names():
+    """opcode -> name from docs/data/packet-factory.txt (Net-7's table; the proxy's own 0x2000+ / 0x3000+ are not
+    in it and stay numbers)."""
+    global _OPCODES
+    if _OPCODES is None:
+        _OPCODES = {}
+        try:
+            with open(os.path.join(ROOT, 'docs', 'data', 'packet-factory.txt'), encoding='utf-8') as f:
+                for line in f:
+                    m = re.match(r'\s*\d+ 0x([0-9A-F]{4})\s+(\w+)', line)
+                    if m:
+                        _OPCODES[int(m.group(1), 16)] = m.group(2)
+        except OSError:
+            pass
+    return _OPCODES
+
+
+def name_live(line):
+    """A live antprox (/OPCODES) logs opcodes as numbers: 'Sending [0x0055] via UDP' (the client's, passed on to the
+    server) and '<SERVER TO CLIENT UDP> ----> 0054 [003c]'. The line gets the replay server's words appended,
+    'received SELECT_TALK_TREE' / 'sent TALK_TREE', so one scenario step matches under /REPLAY and --live."""
+    m = _LIVE_OP.search(line)
+    if not m:
+        return line
+    op = int(m.group(2) or m.group(3), 16)
+    return f'{line.rstrip()} = {"received" if m.group(2) else "sent"} {opcode_names().get(op, "OP_%04X" % op)}'
 
 
 class Events:
@@ -397,6 +630,8 @@ class Events:
                             l = l.rstrip('\r')
                             if src == 'proxy':      # d3d8shot.log: '%10lu ' (GetTickCount) before each line
                                 l = re.sub(r'^\s*\d+ ', '', l, count=1)
+                            elif src == 'antprox':
+                                l = name_live(l)
                             self._emit(now, src, l)
                         if done:
                             self.last[src] = now
@@ -502,9 +737,13 @@ class Session:
         self.inst.prepare()
         env = dict(os.environ)
         env.update(ENB_POC_WINDOWED='1')
-        self.proxy = self.inst.use_proxy(env, self.out, input=True, tag=True)
+        # record: a person plays, so untagged input passes (the proxy logs it 'input: untagged ...')
+        self.record = bool(getattr(args, 'record', False))
+        self.proxy = self.inst.use_proxy(env, self.out, input=True, tag=not self.record)
         self.trigger = os.path.join(self.out, 'trigger.txt')
-        env.update(D3D8SHOT_TRIGGER=self.trigger, D3D8SHOT_MAX=str(20 * len(scs)))
+        self.camera = os.path.join(self.out, 'camera.txt')
+        env.update(D3D8SHOT_CAMERA=self.camera)
+        env.update(D3D8SHOT_TRIGGER=self.trigger, D3D8SHOT_MAX=str(3000 if self.record else 20 * len(scs)))
         self.messages = args.messages or any(sc['messages'] for sc in scs)
         files = {'antprox': os.path.join(self.out, 'antprox.out'), 'stubs': self.inst.log,
                  'proxy': os.path.join(self.out, 'd3d8shot.log')}
@@ -513,7 +752,8 @@ class Session:
         self.note(f'session of {len(scs)}: {", ".join(sc["name"] for sc in scs)}; exe {self.inst.src_exe}, '
                   f'instance {self.inst.name}, out {self.out}')
         self.a, self.pid, _ = clientpoc.start_antprox(self.inst, self.out, env,
-                                                      ['-ENABLE_MESSAGES'] if self.messages else [])
+                                                      ['-ENABLE_MESSAGES'] if self.messages else [],
+                                                      mode=live_mode(args))
         self.ev = Events(files, log=os.path.join(self.out, 'events.log'))
         self.note(f'antprox pid {self.a.pid}, client pid {self.pid}' + (' (the retail client)' if self.retail else ''))
         if self.retail and self.pid:
@@ -729,6 +969,35 @@ class Session:
                             ev.unwatch(w_until)
                     else:
                         post(op, st)
+                elif op in ('walk-to', 'face', 'hold', 'pose'):
+                    ev.poll()
+                    self.mark = ev.total
+                    ev.mark_epoch()
+                    pilot = Pilot(self.hwnd, self.camera, tick, note)
+                    if op != 'hold':
+                        pilot.still()
+                    if op == 'walk-to':
+                        fail = pilot.walk_to(st['to'][0], st['to'][1], st['tol'], st['within'])
+                    elif op == 'face':
+                        fail = pilot.face(st['to'][0], st['tol'], st['within'])
+                    elif op == 'pose':
+                        p = pilot.pose()
+                        note('  pose: ' + (pilot.say(p) if p else 'no camera file from the proxy'))
+                    else:
+                        w = ev.watch(st['source'], st['pattern'], self.mark)
+                        end = time.time() + st['within']
+                        try:
+                            while w.hit is None and not fail:
+                                pilot.key(st['vk'], True)
+                                time.sleep(0.03)
+                                fail = tick()
+                                if not fail and time.time() > end:
+                                    fail = (f'hold 0x{st["vk"]:X}: no {st["source"]} line {st["pattern"].pattern!r} '
+                                            f'in {st["within"]:g} s')
+                        finally:
+                            pilot.key(st['vk'], False)
+                            ev.unwatch(w)
+                    self.mark_time = ev.now()
                 elif op == 'alive':
                     end = time.time() + st['seconds']
                     while time.time() < end and not fail:
@@ -803,6 +1072,93 @@ class Session:
         self.elog.close()
 
 
+LIVE_ANTPROX = r'C:\EnBDevelopment\AntaresProxy\src\Proxy\Antprox\bin\Release\net10.0\win-x64\publish\antprox.exe'
+
+
+def live_mode(args):
+    """antprox's arguments for --live (a live server in place of /REPLAY), else None."""
+    if not getattr(args, 'live', None):
+        return None
+    return ['/SERVER:' + args.live, '/NET7BIN:' + args.net7bin, '/OPCODES']
+
+
+_REC_INPUT = re.compile(r'input: untagged (?:mouse 0x(20[147])|key 0x([0-9A-Fa-f]+))(?: at (-?\d+), (-?\d+))?')
+_REC_PACKET = re.compile(r'\b(received|sent) ([A-Z][A-Z0-9_]{3,})')
+_REC_NOISE = re.compile(r'KEEP_?ALIVE|TIME_REQUEST|CLIENT_SET_TIME|DEBUG|PING|STARBASE_AVATAR_CHANGE|OP_[23]')
+
+
+def record(args):
+    """A person plays one session (--live: against a live server). Every button-down and key-down the proxy logs
+    is a row; a button-down is followed by a back-buffer shot (shot_click_NNNN_*.png). The session is written as
+    recorded.txt: each input with the packets that followed it. The source for new scenarios and gadgets.txt."""
+    s = Session(args, [{'name': 'record', 'messages': True, 'timeout': 86400}])
+    print(f'e2e record: play in the client window; close the client (or Ctrl+C here) to end. Logs: {s.out}',
+          flush=True)
+    rows = []                                   # [time, input, {(direction, packet): count}, shot name, pose]
+    state = {'pose': None, 'pilot': None}
+    track = open(os.path.join(s.out, 'track.txt'), 'w', encoding='utf-8', newline='\n')
+
+    def where():
+        p = state['pose']
+        return f'at {p["x"]:.1f},{p["y"]:.1f} yaw {p["yaw"]:.0f}' if p else ''
+
+    def on_line(t, src, text):
+        m = _REC_INPUT.search(text) if src == 'proxy' else None
+        if m:
+            what = (f'key 0x{m.group(2)}' if m.group(2) else
+                    {'201': 'click', '204': 'rclick', '207': 'mclick'}[m.group(1)] + f' {m.group(3)},{m.group(4)}')
+            rows.append([t, what, {}, '', where()])
+            return
+        m = re.search(r'Changing room from (-?\d+) to (-?\d+)', text) if src == 'msg' else None
+        if m:
+            track.write(f'{t:8.2f} room {m.group(1)} -> {m.group(2)}\n')
+            rows.append([t, f'(room {m.group(1)}->{m.group(2)})', {}, '', where()])
+            return
+        m = _REC_PACKET.search(text) if src == 'antprox' else None
+        if m and not _REC_NOISE.search(m.group(2)):
+            if not rows:
+                rows.append([t, '(start)', {}, '', ''])
+            k = (m.group(1), m.group(2))
+            rows[-1][2][k] = rows[-1][2].get(k, 0) + 1
+    # the input line first: a poll reads the files in order, and a packet must not land on the row before the
+    # click that caused it
+    s.ev.files = dict(sorted(s.ev.files.items(), key=lambda kv: kv[0] != 'proxy'))
+    s.ev.add_listener(on_line)
+    shot = 0
+    try:
+        while s.alive() and s.a.poll() is None:
+            n = len(rows)
+            if state['pilot'] is None and s.pid and os.path.exists(s.camera):
+                hwnd = s.cp.find_window(s.pid, s.retail)
+                if hwnd:
+                    state['pilot'] = Pilot(hwnd, s.camera, lambda: None, s.note)
+            if state['pilot'] is not None:
+                p, last = state['pilot'].pose(tries=1), state['pose']
+                if p and (last is None or math.hypot(p['x'] - last['x'], p['y'] - last['y']) > 1.0
+                          or abs(_wrap(p['yaw'] - last['yaw'])) > 3.0):
+                    state['pose'] = p
+                    track.write(f'{s.ev.now():8.2f} {p["x"]:8.1f} {p["y"]:8.1f} yaw {p["yaw"]:7.1f} pitch {p["pitch"]:6.1f}\n')
+            s.ev.poll()
+            if len(rows) > n and rows[-1][1].split()[0] in ('click', 'rclick'):
+                shot += 1
+                rows[-1][3] = f'click_{shot:04d}'
+                s._trigger(rows[-1][3], 2)
+            time.sleep(0.05)
+    except KeyboardInterrupt:
+        pass
+    finally:
+        track.close()
+        s.close()
+    path = os.path.join(s.out, 'recorded.txt')
+    with open(path, 'w', encoding='utf-8', newline='\n') as f:
+        for t, what, packets, name, at in rows:
+            pk = ' '.join(('<' if d == 'sent' else '>') + n + (f'x{c}' if c > 1 else '')
+                          for (d, n), c in packets.items())
+            f.write(f'{t:8.2f} {what:18s} {name:11s} {at:28s} {pk}\n')
+    print(f'e2e record: {len(rows)} inputs, {shot} shots; {path}  (> the client sent, < the server sent)')
+    return 0
+
+
 def crash_place(res):
     """Where a scenario's CRASH: line says the client faulted: the exception code, the faulting instruction and the
     first four return addresses on the stack (not the data address, which moves from run to run), or None."""
@@ -857,6 +1213,10 @@ def _desc(st):
                 + (f' until {st["until"]["source"]} {st["until"]["pattern"].pattern!r}' if st.get('until') else ''))
     if st['op'] == 'wait-quiet':
         return f'{st["source"]} {st["quiet"]:g}'
+    if st['op'] in ('walk-to', 'face'):
+        return ','.join(f'{v:g}' for v in st['to']) + f' tol {st["tol"]:g}'
+    if st['op'] == 'hold':
+        return f'0x{st["vk"]:X} until {st["source"]} {st["pattern"].pattern!r}'
     return str(st.get('vk', st.get('text', st.get('seconds', st.get('shot', '')))))
 
 
@@ -962,7 +1322,7 @@ def default_exe():
 
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__.split('\n')[0])
-    ap.add_argument('command', choices=['run', 'list', 'check', 'compare'])
+    ap.add_argument('command', choices=['run', 'list', 'check', 'compare', 'record'])
     ap.add_argument('names', nargs='*')
     ap.add_argument('--instance', default='e2e', help='clientpoc.py instance name (default e2e)')
     ap.add_argument('--exe', help='the POC exe (default: this tree\'s build/programs/clientpoc/clientpoc.exe, '
@@ -971,13 +1331,30 @@ def main(argv=None):
     ap.add_argument('--keep', action='store_true', help='keep the instance (default: clientpoc.py clean it at the end)')
     ap.add_argument('--separate', action='store_true', help='a client of its own for every scenario (default: one session)')
     ap.add_argument('--retail', action='store_true', help='run a copy of the retail client (needs --instance; D190)')
+    ap.add_argument('--live', nargs='?', const='localhost', metavar='SERVER',
+                    help='a live server in place of antprox /REPLAY (default localhost: the local Net-7 server)')
+    ap.add_argument('--net7bin', default='C:\\EnBDevelopment\\Net7\\bin_local', help="--live: antprox's /NET7BIN")
     args = ap.parse_args(argv)
+    args.record = args.command == 'record'
+    if args.live:
+        # The frozen antprox 1.0.0 (D253) cannot reach a server on 127.0.0.1 (its UDP socket is not bound to
+        # loopback: AntaresProxy f50bf76 is the fix), so --live runs the dev publish unless ANTPROX_EXE names one.
+        os.environ.setdefault('ANTPROX_EXE', LIVE_ANTPROX)
+    if args.record:
+        if args.retail and args.instance == 'e2e':
+            print('e2e: --retail needs --instance NAME of its own')
+            return 2
+        if args.exe is None and not args.retail:
+            args.exe = default_exe()
+        os.makedirs(OUT, exist_ok=True)
+        sys.path.insert(0, HERE)
+        return record(args)
     if args.command == 'compare':
         if len(args.names) != 2:
             print('e2e: compare DIR_OURS DIR_RETAIL (two run folders under .work/e2e)')
             return 2
         return compare(args.names[0], args.names[1])
-    names = args.names or scenario_names()
+    names = args.names or scenario_names(args.live)
     try:
         gadgets = load_gadgets()
         scs = [load(n, gadgets) for n in names]

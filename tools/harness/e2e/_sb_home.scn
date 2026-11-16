@@ -1,0 +1,13 @@
+# Shared by the station scenarios (sb_*; e2e.py run --live): the live login, then from the hangar pad the server
+# picked (it varies) to the home spot of room 1, the main deck's junction at -48,5. Every sb_ scenario starts
+# there and walks back there. Waypoints from the user's recording of 2026-11-15 (.work/e2e/202650-record); each
+# room has its own coordinates. Not run on its own.
+include _login_live
+# room 0, the hangar: to the door at x 104
+walk-to 60,3
+walk-to 84,0
+face 0 tol 5
+hold 0x41 until msg 'Changing room from 0 to 1' within 15
+# room 1
+walk-to -80,12
+walk-to -48,5

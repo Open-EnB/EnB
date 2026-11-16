@@ -1,0 +1,20 @@
+# Shared by the station scenarios (sb_*): the login against a live server (e2e.py run --live: the local Net-7
+# server, account admin / admin), character select, the starbase the character is docked in. Not run on its own.
+# Events are the live antprox's lines, named by e2e.py (name_live): 'received NAME' the client's, 'sent NAME' the
+# server's.
+messages: on
+wait-event msg 'Server initialized & ready to go' within 60
+click 640,512 until antprox 'Global connection #1' every 0.5 within 120
+wait-quiet proxy 0.5 within 20
+click gadget login.username
+text admin
+click gadget login.password
+text admin
+click gadget login.ok
+wait-event antprox 'GLOBAL_AVATAR_LIST' within 30
+wait-quiet proxy 1.0 within 40
+click gadget select.slot0
+click gadget select.enter until antprox 'received LOGIN' redo 1 every 1 within 60
+wait-event antprox 'received START_ACK' within 120
+# the starbase loads its rooms and avatars (no log line for "drawn": its file opens end)
+wait-quiet proxy 1.5 within 60

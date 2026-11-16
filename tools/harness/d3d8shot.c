@@ -20,6 +20,10 @@
 **                   shot_<the file's first line>_NNNNN.bmp and the file deleted (tools/harness/e2e.py's 'shot' step:
 **                   a shot on an event, not at a frame number). A first line 'mark NAME' is a marker instead:
 **                   logged, and passed to the program's exported Stub_Log_Mark when it has one
+**   D3D8SHOT_CAMERA a file path: at every 2nd Present the frame's view matrices are written to it, one line each
+**                   ('frame N view K of M' and the 16 floats of the K-th SetTransform(D3DTS_VIEW) of the frame, the
+**                   first 4 distinct ones): where the program's camera is, for a harness that steers by it
+**                   (tools/harness/e2e.py's pose / walk steps). Written to <path>.tmp and renamed.
 **   D3D8SHOT_INPUT  1: the program's user32 imports (GetMessageA, PeekMessageA, GetCursorPos, GetKeyState, ...)
 **                   read the messages a harness posts: a virtual cursor and keyboard, the real ones never read
 **                   or moved. The same for the retail client and the project's own builds
@@ -286,10 +290,20 @@ static HRESULT STDMETHODCALLTYPE Hook_Create_IB(void *dev, UINT len, DWORD usage
 	return hr;
 }
 
+static char Camera[MAX_PATH];
+static char CameraTmp[MAX_PATH + 8];
+static float Views[4][16];
+static int ViewCount = 0, ViewSets = 0;
 static HRESULT STDMETHODCALLTYPE Hook_Set_Transform(void *dev, DWORD state, const float *m)
 {
 	int k = state == 256 ? 0 : state == 2 ? 1 : state == 3 ? 2 : -1;
 	if (k >= 0 && m) memcpy(Matrices[k], m, sizeof(Matrices[k]));
+	if (k == 1 && m && Camera[0]) {
+		int i;
+		ViewSets++;
+		for (i = 0; i < ViewCount; i++) if (!memcmp(Views[i], m, sizeof(Views[i]))) break;
+		if (i == ViewCount && ViewCount < 4) memcpy(Views[ViewCount++], m, sizeof(Views[0]));
+	}
 	return RealSetTransform(dev, state, m);
 }
 
@@ -765,6 +779,24 @@ static void Save_Back_Buffer(void *dev, int frame)
 static HRESULT STDMETHODCALLTYPE Hook_Present(void *dev, const RECT *src, const RECT *dst, HWND wnd, const void *dirty)
 {
 	Presented++;
+	if (Camera[0]) {
+		HOOK(dev, SLOT_SETTRANSFORM, RealSetTransform, SetTransformType, Hook_Set_Transform);
+		if ((Presented & 1) == 0 && ViewCount > 0) {
+			FILE *c = fopen(CameraTmp, "w");
+			if (c) {
+				int i, j;
+				for (i = 0; i < ViewCount; i++) {
+					fprintf(c, "frame %d view %d of %d:", Presented, i, ViewSets);
+					for (j = 0; j < 16; j++) fprintf(c, " %.5f", Views[i][j]);
+					fprintf(c, "\n");
+				}
+				fclose(c);
+				MoveFileExA(CameraTmp, Camera, MOVEFILE_REPLACE_EXISTING);
+			}
+		}
+		ViewCount = 0;
+		ViewSets = 0;
+	}
 	if (DumpFile && !Dumping(Presented + 1)) Close_Dump();
 	if (DumpCount > 0) Hook_Dump(dev);		/* again: the runtime rewrites slots of its vtable copy */
 	if (Wanted(Presented)) {
@@ -1047,6 +1079,8 @@ static void Init(void)
 		}
 	}
 	if (!GetEnvironmentVariableA("D3D8SHOT_TRIGGER", Trigger, sizeof(Trigger))) Trigger[0] = 0;
+	if (!GetEnvironmentVariableA("D3D8SHOT_CAMERA", Camera, sizeof(Camera))) Camera[0] = 0;
+	if (Camera[0]) { strcpy(CameraTmp, Camera); strcat(CameraTmp, ".tmp"); }
 	if (GetEnvironmentVariableA("D3D8SHOT_DUMP", frames, sizeof(frames))) {
 		for (p = strtok(frames, ","); p && DumpCount < 64; p = strtok(NULL, ",")) {
 			Dumps[DumpCount++] = atoi(p);

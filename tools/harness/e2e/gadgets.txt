@@ -76,3 +76,9 @@ petition.bug       706 340   # the same: 'I want to report a bug'
 petition.billing   706 379   # the same: 'I have a tech support, billing, or account question'
 browser.close      1162 255  # the pop-up browser (jweb01): its close box (e2e shot browser_credits)
 optctl.cancel      929 821   # Control Options (ui_option_control_keys, e2e shot option_control): 'Cancel'
+# the starbase (live server; the user's recording .work/e2e/202650-record and the sb_ scenarios' shots, 2026-11-15)
+talk.done          392 838   # the talk window's Done button (shot talk_second: Master Sevti's last page)
+talk.trade         505 838   # the talk window's Trade button, beside Done (a vendor's closing page)
+talk.close         1098 633  # the talk window's close box
+trade.close        1258 334  # the vendor list's close box (shot vendor_trade)
+trade.cargo_close  234 311   # the cargo window's close box beside it
