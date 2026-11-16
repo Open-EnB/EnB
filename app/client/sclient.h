@@ -184,7 +184,8 @@ public:
 	void Unknown_588DC0(const char *text, int width);	// 0x588DC0 (the text split into the header lines)  // NAME 1 [text, width]: 0x588A70's
 	void Unknown_589140(const char *type, bool follow_mouse, const char *text, int width, bool hide_on_key);	// 0x589140 (queued)  // NAME 1: 0x588A70's
 	const char *Unknown_589740(INIClass &ini);			// 0x589740 (the font: FontSize FONT_SMALL makes 16 lines of DIALOG_INFO_SMALL)  // NAME 1 [ini]: neutral
-	void Flush_Queue();									// (inline, unknown_msgbox.cpp)  // NAME 1 [Flush_Queue]: what it does
+	ViewUnknown34MessageStruct *Unknown_5893F0();		// 0x5893F0 (the queue's front, popped; NULL when empty; no caller in the client)
+	void Flush_Queue();									// 0x589530 (inlined in the destructor and 0x588A70)  // NAME 1 [Flush_Queue]: what it does
 
 	bool HasOptions;									// +0x84  // NAME 1: set when Option0 was found
 	bool FollowMouse;									// +0x85  // NAME 1: as the message's
