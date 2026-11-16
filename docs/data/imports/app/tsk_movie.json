@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "the movie task, client 0x76BF40-0x76C5D8 (kernel-map.md 6, step 7) over Renegade's BINKMovie (0xA161B0-0xA162D0, declared only; E&B's Play takes a volume); the assert on the client's line 87 (D25); exact",
  "expected": {},
@@ -32,7 +30,8 @@
   "0x76C2C0",
   "0x76C430",
   "0x76C4D0",
-  "0x76C5A0"
+  "0x76C5A0",
+  "0x76C5F0"
  ],
  "merged": [],
  "name": "client/tasks/tsk_movie.cpp",

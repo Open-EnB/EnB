@@ -1,6 +1,5 @@
 {
  "ambiguous": [
-  "0x42B2F0",
   "0x474080"
  ],
  "copy": "reconstructed",
@@ -25,7 +24,8 @@
   "0x7BC320",
   "0x7BC5C0",
   "0x7BC5E0",
-  "0x7BC6D0"
+  "0x7BC6D0",
+  "0x7BC6F0"
  ],
  "merged": [],
  "name": "client/radar_icon_data.cpp",

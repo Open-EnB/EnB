@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1966 |
 | 2 | describes what the code does | 4981 |
-| 1 | neutral placeholder | 25153 |
+| 1 | neutral placeholder | 25154 |
 
 ## For review (score 3 and below)
 
@@ -30,6 +30,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_442650` | `app/audio/soundlib.cpp:19` | 0x442650, surfacetypes.cpp's loader |
 | 1 | `Unknown_442870` | `app/audio/soundlib.cpp:20` | 0x442870, surfacetypes.cpp's release |
 | 1 | `Unknown_BDADC8` | `app/audio/soundlib.cpp:21` | 0xBDADC8, a global generator outside this file |
+| 1 | `_RawFileFactory` | `app/audio/soundlib.cpp:24` | neutral |
 | 1 | `m_Unknown7C` | `app/audio/soundlib.cpp:35` | untagged neutral name (D10) |
 | 1 | `m_Unknown80` | `app/audio/soundlib.cpp:36` | untagged neutral name (D10) |
 | 1 | `m_Unknown164` | `app/audio/soundlib.cpp:43` | untagged neutral name (D10) |

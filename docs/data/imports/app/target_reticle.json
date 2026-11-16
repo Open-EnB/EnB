@@ -1,6 +1,5 @@
 {
  "ambiguous": [
-  "0x42B2F0",
   "0x474080"
  ],
  "copy": "reconstructed",
@@ -17,11 +16,14 @@
   "0x51C600",
   "0x51C630",
   "0x5C40C0",
+  "0x7C50B0",
+  "0x7C50E0",
   "0x7C5100",
   "0x7C54E0",
   "0x7C5500",
   "0x7C55A0",
-  "0x7C6060"
+  "0x7C6060",
+  "0x7C60F0"
  ],
  "merged": [],
  "name": "client/target_reticle.cpp",

@@ -21,7 +21,6 @@
   "0x4B7DE0",
   "0x4B7E00",
   "0x4B7E30",
-  "0x4B8490",
   "0x4B84C0",
   "0x4B85F0",
   "0x4B8730",
@@ -58,7 +57,8 @@
   "0x4BAC70",
   "0x4BACA0",
   "0x4BACD0",
-  "0x4BAEB0"
+  "0x4BAEB0",
+  "0x4BB060"
  ],
  "merged": [],
  "name": "shared/kv_tripl.cpp",
