@@ -8,6 +8,9 @@ search) is reached only by a `jmp` in an unwind funclet of an exact function of 
 funclet in the object jumps to ??1AttribModClass, so short_known credits it with kind `funclet`.
 TIES: a destructor with byte-identical copies at many client addresses (D166's tie) is the copy a matching
 unwind funclet of an exact function of the object jumps to under its symbol (`funclet_tie`).
+SHORT_ORDER (D246 / CR1): camera_manager.obj's short getters (`fld [ecx+x]; ret`, too short to search), each the only
+own function between two exact own functions in object order, take the one client function between those two
+addresses that has their bytes and length (`short_order`).
 """
 import os
 import sys
@@ -205,6 +208,36 @@ class FuncletNamed(unittest.TestCase):
             self.assertEqual(objmatch.funclet_reach({sym: {0x431C80, 0x67F660}}), {sym: {0x431C80, 0x67F660}})
         finally:
             objmatch.USE_FUNCLET_NAMED = True
+def _check(test, cases, switch, flag, region=None, off_status='multiple'):
+    img = objmatch.ClientImage(objmatch.DEFAULT_CLIENT)
+    for name, sym, addr in cases:
+        path = os.path.join(OBJS, name)
+        with test.subTest(sym=sym):
+            if not os.path.exists(path):
+                test.skipTest(f'{path} missing')
+            res = {r['symbol']: r for r in objmatch.match_objects(img, [path], region)}
+            test.assertEqual(res[sym]['status'], 'exact')
+            test.assertEqual(res[sym]['addresses'], [addr])
+            test.assertTrue(res[sym].get(flag))
+            # the rule's switch: without it the function stays unresolved
+            setattr(objmatch, switch, False)
+            try:
+                res = {r['symbol']: r for r in objmatch.match_objects(img, [path], region)}
+            finally:
+                setattr(objmatch, switch, True)
+            test.assertEqual(res[sym]['status'], off_status)
+
+
+SHORT_ORDER = [
+    ('camera_manager.obj', '?Get_Heading@CameraManagerClass@@QAEMXZ', '0x79B390'),
+    ('camera_manager.obj', '?Get_Distance@CameraManagerClass@@QAEMXZ', '0x79B3D0'),
+]
+APP_REGION = (0x401000, 0x8C1B50)
+
+
+class ShortOrder(unittest.TestCase):
+    def test_cases(self):
+        _check(self, SHORT_ORDER, 'USE_SHORT_ORDER', 'short_order', off_status='short')
 
 
 if __name__ == '__main__':

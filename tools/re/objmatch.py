@@ -124,6 +124,13 @@ USE_FUNCLET_OWN: a symbol reached at several addresses (a template with several 
 object, the one address that object's own funclets reach; (4) USE_FUNCLET_NAMED: among several reaches, one at
 an address symbols.json names with another function (a self name) is dropped (funclet_reach).
 
+Then one short-order round (D246 / CR1, USE_SHORT_ORDER; `short_order`): a gap between two consecutive exact own
+functions of one object in object order whose own functions are all `short` is aligned one to one with the client
+functions between the two addresses (verified starts, D27) when the counts agree, the gap's bytes are only those
+functions and their padding, and each fullmatches its counterpart, unclaimed and not contradicted by D80; `exact`
+with `order` and `short_order` set. Object order is the proof (D242), the bytes confirm it (D188's never by pattern
+alone holds: the pattern decides nothing on its own).
+
 A searched match counts only at a function start (D189(2)): an address the client's thunk table or a
 call / jump reaches, or one right after padding (int3 / nop) or after the end of another function (a
 `ret`, `ret n`, `jmp`, an indirect `jmp`, or a jump table's last entry), or a 16-byte aligned one (a
@@ -218,6 +225,12 @@ USE_FUNCLET_OWN = True
 # function of the same object calls under the parent's symbol (the call target within 0x10 bytes before the
 # push); several left, none is used
 USE_FUNCLET_PLACED = True
+# D246 (CR1, run 2026-11-16): object order places short own functions (D242 / D251's evidence, not the pattern
+# alone): between two consecutive exact own functions of one object in object order, when every own function
+# between them is short and the client has exactly as many functions between the two addresses, each the same
+# length as its counterpart and fullmatching it, unclaimed and uncontradicted, the k-th takes the k-th
+# (`short_order`, its own round before the D188 short round)
+USE_SHORT_ORDER = True
 
 
 def generated(name):
@@ -846,6 +859,20 @@ def match_objects(img, paths, region=None, callers=False):
                         continue
                     ranges[key] = (nlo, nhi)
             registered = initialiser_targets(results, pending, ranges, text, start, known, thunk) if phase == 'init' else {}
+            if phase == 'shortorder':
+                # D246 / CR1: short own functions placed by object order
+                got = short_order(img, results, text, start, claimed, known)
+                for (r, obj, sec, s, length), a in got:
+                    r['status'] = 'exact'
+                    r['addresses'] = [f'0x{a:06X}']
+                    r['order'] = True
+                    r['short_order'] = True
+                    claimed[a].add(r['symbol'])
+                    learn(r, obj, sec, s, length, a)
+                shorts = [x for x in shorts if x[0]['status'] == 'short']
+                phase = 'd80' if got else 'short'
+                changed = True
+                continue
             if phase == 'short':
                 # D188: a short function at an address the run knows independently of its bytes
                 got = short_known(img, shorts, text, start, known, thunk, called, vptrs, claimed, folded_at,
@@ -897,7 +924,7 @@ def match_objects(img, paths, region=None, callers=False):
                     learn(r, obj, sec, s, length, a)
                     done.add(id(r))
                 # D246 / C35: what every other tie rule left, by funclet evidence, before the short round
-                phase = 'd80' if got else 'funclet' if USE_FUNCLET_TIES else 'pushed' if USE_PUSHED_TIES else 'short'
+                phase = 'd80' if got else 'funclet' if USE_FUNCLET_TIES else 'pushed' if USE_PUSHED_TIES else 'shortorder' if USE_SHORT_ORDER else 'short'
                 changed = True
                 continue
             for item in pending:
@@ -1012,9 +1039,9 @@ def match_objects(img, paths, region=None, callers=False):
                 phase = 'd80'                           # back to D80 after a round that credited
             elif phase == 'funclet':
                 # nor the funclets (D246 / C35): the pushed references (D246 / CR4), then one short round
-                phase, changed = ('pushed' if USE_PUSHED_TIES else 'short'), True
+                phase, changed = ('pushed' if USE_PUSHED_TIES else 'shortorder' if USE_SHORT_ORDER else 'short'), True
             elif phase == 'pushed':
-                phase, changed = 'short', True          # nor the pushed references (D246 / CR4): one short round
+                phase, changed = ('shortorder' if USE_SHORT_ORDER else 'short'), True   # nor the pushed references (D246 / CR4): short order (CR1), then one short round
             elif phase == 'calltie':
                 pass                                    # the own-call round credited nothing (D246 / CR4)
             elif phase == 'selfname':
@@ -2000,6 +2027,49 @@ def xcu_position(img, results, ranges, text, base, claimed, thunk):
 
 
 USE_ORDER_IN_RANGE = True
+
+
+_starts_cache = {}
+
+
+def _verified_starts(img):
+    if id(img) not in _starts_cache:
+        _starts_cache[id(img)] = img.function_starts()[0]
+    return _starts_cache[id(img)]
+
+
+def _padding(text, base, lo, hi):
+    return all(b in (0xCC, 0x90) for b in text[lo - base:hi - base])
+
+
+def short_order(img, results, text, base, claimed, known):
+    """D246 / CR1: [(item, address)] for short own functions placed by object order. For each pair of consecutive
+    exact own functions P, Q of one object in object order (P's address below Q's) whose own functions between them
+    are all `short`: the client's verified starts strictly between P and Q must be as many as those functions, P's
+    end, the gaps and the last one's end up to Q only padding, and each start must fullmatch its counterpart (the
+    k-th function in object order at the k-th address), unclaimed, with D80's checks leaving it."""
+    starts = _verified_starts(img)
+    out = []
+    for key, order in _object_order(results).items():
+        exact = [i for i, (k, a, it) in enumerate(order) if a is not None]
+        for i, j in zip(exact, exact[1:]):
+            members = [it for _, _, it in order[i + 1:j]]
+            p, q = order[i][1], order[j][1]
+            if not members or q <= p or any(it[0]['status'] != 'short' or it[4] <= 0 for it in members):
+                continue
+            cands = starts[bisect.bisect_right(starts, p):bisect.bisect_left(starts, q)]
+            if len(cands) != len(members) or not _padding(text, base, p + order[i][2][4], cands[0]):
+                continue
+            ok = True
+            for (r, obj, sec, s, length), a, e in zip(members, cands, cands[1:] + [q]):
+                if claimed[a] or not _fullmatch_at(obj, sec, s, length, text, base, a) or \
+                        not _padding(text, base, a + length, e) or \
+                        break_tie(obj, sec, s, length, text, base, [a], img, known)[0] != [a]:
+                    ok = False
+                    break
+            if ok:
+                out += list(zip(members, cands))
+    return out
 
 
 def object_order(pending, done, survivors_of, ranges, claimed, obj_called, results):
