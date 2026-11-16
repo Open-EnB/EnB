@@ -95,7 +95,8 @@
   "0x48AC50",
   "0x48ACC0",
   "0x48ACF0",
-  "0x48AD60"
+  "0x48AD60",
+  "0x73FCE0"
  ],
  "merged": [],
  "name": "shared/spln_db.cpp",
@@ -121,7 +122,8 @@
   "0x48A9E0",
   "0x48AB30",
   "0x48AC50",
-  "0x48ACC0"
+  "0x48ACC0",
+  "0x73FCE0"
  ],
  "short_known": [
   "0x4627A0",

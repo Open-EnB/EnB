@@ -72,7 +72,8 @@
   "0x4A2EF0",
   "0x4A2F70",
   "0x4A2FA0",
-  "0x4A2FD0"
+  "0x4A2FD0",
+  "0x73FCE0"
  ],
  "merged": [],
  "name": "shared/gclass.cpp",
@@ -96,7 +97,8 @@
   "0x4A1AB0",
   "0x4A1AD0",
   "0x4A1AF0",
-  "0x4A2680"
+  "0x4A2680",
+  "0x73FCE0"
  ],
  "short_known": [
   "0x42B320",
