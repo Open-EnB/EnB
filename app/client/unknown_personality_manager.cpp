@@ -11,21 +11,9 @@
 Unknown_790560Class *Unknown_BE856C;
 
 // 0x790560
-// NOT EXACT: functional for POC (D64), shape (push_back's inlined insert, a merged or split tail)
 Unknown_790560Class::Unknown_790560Class()
 {
-	for (int i = 0; ; i++) {
-		char name[256];
-		_snprintf(name, sizeof(name), "%sPersonality%02d.ini", "personalities\\", i);
-		INIClass ini(name);
-		if (!ini.Is_Loaded()) {
-			break;
-		}
-		Unknown_790260Class *personality = new Unknown_790260Class(name);
-		if (personality != NULL) {
-			Personalities.push_back(personality);
-		}
-	}
+	Unknown_790960();
 }
 
 // 0x790870
@@ -46,20 +34,18 @@ void Unknown_790940(Unknown_790560Class *manager)
 }
 
 // 0x790960
-// NOT EXACT: functional for POC (D64), inline-budget (push_back's inlined insert)
 void Unknown_790560Class::Unknown_790960()
 {
-	for (int i = 0; ; i++) {
+	int i = 0;
+	while (true) {
 		char name[256];
 		_snprintf(name, sizeof(name), "%sPersonality%02d.ini", "personalities\\", i);
 		INIClass ini(name);
 		if (!ini.Is_Loaded()) {
-			break;
+			return;
 		}
-		Unknown_790260Class *personality = new Unknown_790260Class(name);
-		if (personality != NULL) {
-			Personalities.push_back(personality);
-		}
+		Unknown_790EE0(name);
+		i++;
 	}
 }
 
@@ -84,23 +70,23 @@ Unknown_790260Class *Unknown_790560Class::Unknown_790D00(int index)
 }
 
 // 0x790D40
-// NOT EXACT: functional for POC (D64), shape (5 rows: the null test's return layout)
 Unknown_78F700Class *Unknown_790560Class::Unknown_790D40(int index)
 {
-	if (index < (int)Personalities.size() && index >= 0 && Personalities[index] != NULL) {
-		return(Personalities[index]->Unknown_790360());
+	Unknown_790260Class *personality = Unknown_790D00(index);
+	if (personality == NULL) {
+		return(NULL);
 	}
-	return(NULL);
+	return(personality->Unknown_790360());
 }
 
 // 0x790D90
-// NOT EXACT: functional for POC (D64), shape (5 rows: the null test's return layout)
 const char *Unknown_790560Class::Unknown_790D90(int index)
 {
-	if (index < (int)Personalities.size() && index >= 0 && Personalities[index] != NULL) {
-		return(Personalities[index]->Name);
+	Unknown_790260Class *personality = Unknown_790D00(index);
+	if (personality == NULL) {
+		return(NULL);
 	}
-	return(NULL);
+	return(personality->Name);
 }
 
 // 0x790DE0
@@ -113,13 +99,13 @@ Unknown_790260Class *Unknown_790560Class::Unknown_790DE0(int index)
 }
 
 // 0x790E20
-// NOT EXACT: functional for POC (D64), shape (5 rows: the null test's return layout)
 const char *Unknown_790560Class::Unknown_790E20(int index)
 {
-	if (index < (int)Personalities.size() && index >= 0 && Personalities[index] != NULL) {
-		return(Personalities[index]->Unknown140);
+	Unknown_790260Class *personality = Unknown_790D00(index);
+	if (personality == NULL) {
+		return(NULL);
 	}
-	return(NULL);
+	return(personality->Unknown140);
 }
 
 // 0x790E70

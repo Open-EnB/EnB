@@ -2,6 +2,10 @@
 #include "pkinitrenderstate.h"
 #include <stdio.h>
 
+InitRenderStatePacketClass::InitRenderStatePacketClass(int game_id, int render_state_id, int link_id) : GameID(game_id), RenderStateID(render_state_id), LinkID(link_id)
+{
+	Unknown18 = Unknown_14(game_id, -1);
+}
 
 InitRenderStatePacketClass::InitRenderStatePacketClass(RawPacketClass *raw)
 {
@@ -29,6 +33,11 @@ int InitRenderStatePacketClass::Print(char *buffer, int)
 	return(sprintf(buffer, "%s {GameID=%d RenderStateID=%u, LinkID=%u}", "Initialize_Render_State", GameID, RenderStateID, LinkID));
 }
 
+ActivateRenderStatePacketClass::ActivateRenderStatePacketClass(int game_id, int render_state_id) : GameID(game_id), RenderStateID(render_state_id)
+{
+	Unknown14 = Unknown_14(game_id, -1);
+}
+
 ActivateRenderStatePacketClass::ActivateRenderStatePacketClass(RawPacketClass *raw)
 {
 	raw->Get(&GameID, sizeof(GameID));
@@ -53,6 +62,11 @@ int ActivateRenderStatePacketClass::Print(char *buffer, int)
 	return(sprintf(buffer, "%s {GameID=%d RenderStateID=%u}", "Activate_Render_State", GameID, RenderStateID));
 }
 
+ActivateNextRenderStateOncePacketClass::ActivateNextRenderStateOncePacketClass(int game_id, int render_state_id) : GameID(game_id), RenderStateID(render_state_id)
+{
+	Unknown14 = Unknown_14(game_id, -1);
+}
+
 ActivateNextRenderStateOncePacketClass::ActivateNextRenderStateOncePacketClass(RawPacketClass *raw)
 {
 	raw->Get(&GameID, sizeof(GameID));
@@ -75,6 +89,11 @@ int ActivateNextRenderStateOncePacketClass::Get_Data_Size()
 int ActivateNextRenderStateOncePacketClass::Print(char *buffer, int)
 {
 	return(sprintf(buffer, "%s {GameID=%d RenderStateID=%u}", "Activate_Next_Render_State_Once", GameID, RenderStateID));
+}
+
+DeactivateRenderStatePacketClass::DeactivateRenderStatePacketClass(int game_id, int render_state_id) : GameID(game_id), RenderStateID(render_state_id)
+{
+	Unknown14 = Unknown_14(game_id, -1);
 }
 
 DeactivateRenderStatePacketClass::DeactivateRenderStatePacketClass(RawPacketClass *raw)

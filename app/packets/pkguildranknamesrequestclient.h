@@ -31,6 +31,7 @@ class GuildSimpleSectorClientPacket : public PacketClass
 {
 public:
 	GuildSimpleSectorClientPacket(RawPacketClass *raw);	// 0x88BED0
+	virtual ~GuildSimpleSectorClientPacket();	// +0x00 0x88BEA0 / 0x88BF90
 	virtual RawPacketClass *Build();	// +0x04 0x88C000
 	virtual bool Process_Packet(void *client);	// +0x08 0x73DD00 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x88C0D0
@@ -78,7 +79,9 @@ public:
 class GuildRecruitConfirmSectorPacket : public PacketClass
 {
 public:
+	GuildRecruitConfirmSectorPacket(const char *inviter_name, const char *guild_name);	// 0x88C960  // NAME 1 [inviter_name, guild_name]: its fields
 	GuildRecruitConfirmSectorPacket(RawPacketClass *raw);	// 0x88CB70
+	virtual ~GuildRecruitConfirmSectorPacket();	// +0x00 0x88CB40 / 0x88CC40
 	virtual RawPacketClass *Build();	// +0x04 0x88CCE0
 	virtual bool Process_Packet(void *client);	// +0x08 0x73E720 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x88CDB0
@@ -108,7 +111,9 @@ public:
 class GuildMessageSectorPacket : public PacketClass
 {
 public:
+	GuildMessageSectorPacket(int message_type, const char *other_name, const char *guild_name);	// 0x88D0A0  // NAME 1 [message_type, other_name, guild_name]: its fields
 	GuildMessageSectorPacket(RawPacketClass *raw);	// 0x88D2B0
+	virtual ~GuildMessageSectorPacket();	// +0x00 0x88D390
 	virtual RawPacketClass *Build();	// +0x04 0x88D430
 	virtual bool Process_Packet(void *client);	// +0x08 0x73E9E0 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x88D500
@@ -163,6 +168,7 @@ struct GuildRankNameStruct  // NAME 2: what it holds (GuildRankNamesSector's ent
 class GuildRankNamesSectorPacket : public PacketClass  // NAME 3: the client's Print text 'GuildRankNamesSector {}'
 {
 public:
+	GuildRankNamesSectorPacket(const std::vector<GuildRankNameStruct> &ranks);	// 0x88DA60  // NAME 1 [ranks]: its field
 	GuildRankNamesSectorPacket(RawPacketClass *raw);	// 0x88DE10
 	virtual RawPacketClass *Build();	// +0x04 0x88E080
 	virtual bool Process_Packet(void *client);	// +0x08 0x73EE20 (cpacket.cpp)
@@ -178,7 +184,9 @@ public:
 class GuildGMRenameConfirmSectorPacket : public PacketClass
 {
 public:
+	GuildGMRenameConfirmSectorPacket(const char *old_guild_name, const char *new_guild_name);	// 0x88E370  // NAME 1 [old_guild_name, new_guild_name]: its fields
 	GuildGMRenameConfirmSectorPacket(RawPacketClass *raw);	// 0x88E580
+	virtual ~GuildGMRenameConfirmSectorPacket();	// +0x00 0x88E550 / 0x88E650
 	virtual RawPacketClass *Build();	// +0x04 0x88E6F0
 	virtual bool Process_Packet(void *client);	// +0x08 0x73EEF0 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x88E7C0
