@@ -10,8 +10,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 226 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1966 |
-| 2 | describes what the code does | 4982 |
-| 1 | neutral placeholder | 25134 |
+| 2 | describes what the code does | 4981 |
+| 1 | neutral placeholder | 25142 |
 
 ## For review (score 3 and below)
 
@@ -4040,7 +4040,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_661AA0` | `app/client/gadget_list_manager.cpp:134` | untagged neutral name (D10) |
 | 1 | `Is_Unknown2C_02` | `app/client/gadget_list_manager.cpp:139` | untagged neutral name (D10) |
 | 1 | `Is_Unknown2C_04` | `app/client/gadget_list_manager.cpp:139` | untagged neutral name (D10) |
+| 1 | `Unknown_661CE0` | `app/client/gadget_list_manager.cpp:196` | untagged neutral name (D10) |
+| 1 | `Unknown_661D00` | `app/client/gadget_list_manager.cpp:202` | untagged neutral name (D10) |
 | 1 | `Unknown_661DA0` | `app/client/gadget_list_manager.cpp:218` | untagged neutral name (D10) |
+| 1 | `other` | `app/client/gadget_list_manager.cpp:222` | neutral |
 | 1 | `std:` | `app/client/gadget_list_manager.h:28` | neutral (D10) |
 | 1 | `iface` | `app/client/gadget_list_manager.h:42` | neutral |
 | 1 | `Unknown_661610` | `app/client/gadget_list_manager.h:42` | untagged neutral name (D10) |
@@ -4054,17 +4057,19 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `list` | `app/client/gadget_list_manager.h:47` | neutral |
 | 1 | `Unknown_661B40` | `app/client/gadget_list_manager.h:47` | untagged neutral name (D10) |
 | 1 | `Unknown_661BB0` | `app/client/gadget_list_manager.h:48` | untagged neutral name (D10) |
-| 1 | `Unknown0C` | `app/client/gadget_list_manager.h:51` | untagged neutral name (D10) |
-| 1 | `Unknown24` | `app/client/gadget_list_manager.h:52` | untagged neutral name (D10) |
-| 1 | `Unknown30` | `app/client/gadget_list_manager.h:53` | untagged neutral name (D10) |
-| 1 | `Unknown3C` | `app/client/gadget_list_manager.h:54` | untagged neutral name (D10) |
-| 1 | `GadgetListIteratorClass` | `app/client/gadget_list_manager.h:58` | neutral (D10) |
-| 1 | `manager` | `app/client/gadget_list_manager.h:61` | the member's |
-| 1 | `first` | `app/client/gadget_list_manager.h:63` | neutral |
-| 1 | `Unknown_661DA0` | `app/client/gadget_list_manager.h:63` | untagged neutral name (D10) |
-| 1 | `Get` | `app/client/gadget_list_manager.h:65` | neutral (D10) |
-| 1 | `std:` | `app/client/gadget_list_manager.h:68` | neutral (D10) |
-| 1 | `GadgetListType:` | `app/client/gadget_list_manager.h:69` | neutral (D10) |
+| 1 | `Unknown_661CE0` | `app/client/gadget_list_manager.h:49` | untagged neutral name (D10) |
+| 1 | `Unknown_661D00` | `app/client/gadget_list_manager.h:50` | untagged neutral name (D10) |
+| 1 | `Unknown0C` | `app/client/gadget_list_manager.h:53` | untagged neutral name (D10) |
+| 1 | `Unknown24` | `app/client/gadget_list_manager.h:54` | untagged neutral name (D10) |
+| 1 | `Unknown30` | `app/client/gadget_list_manager.h:55` | untagged neutral name (D10) |
+| 1 | `Unknown3C` | `app/client/gadget_list_manager.h:56` | untagged neutral name (D10) |
+| 1 | `GadgetListIteratorClass` | `app/client/gadget_list_manager.h:60` | neutral (D10) |
+| 1 | `manager` | `app/client/gadget_list_manager.h:63` | the member's |
+| 1 | `first` | `app/client/gadget_list_manager.h:66` | neutral |
+| 1 | `Unknown_661DA0` | `app/client/gadget_list_manager.h:66` | untagged neutral name (D10) |
+| 1 | `Get` | `app/client/gadget_list_manager.h:68` | neutral (D10) |
+| 1 | `std:` | `app/client/gadget_list_manager.h:71` | neutral (D10) |
+| 1 | `GadgetListType:` | `app/client/gadget_list_manager.h:72` | neutral (D10) |
 | 1 | `Unknown7C` | `app/client/galaxy_map_client.cpp:13` | untagged neutral name (D10) |
 | 1 | `Unknown80` | `app/client/galaxy_map_client.cpp:14` | untagged neutral name (D10) |
 | 1 | `Unknown_7A4C50` | `app/client/galaxy_map_client.cpp:83` | untagged neutral name (D10) |
@@ -6357,10 +6362,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_514400` | `app/client/mainview.cpp:2267` | untagged neutral name (D10) |
 | 1 | `UnknownDC` | `app/client/mainview.cpp:2269` | untagged neutral name (D10) |
 | 1 | `Unknown_514450` | `app/client/mainview.cpp:2277` | untagged neutral name (D10) |
-| 1 | `Unknown_18` | `app/client/mainview.cpp:2356` | untagged neutral name (D10) |
-| 1 | `Unknown_7BCA40` | `app/client/mainview.cpp:2358` | untagged neutral name (D10) |
-| 1 | `Unknown514CC0ViewClass` | `app/client/mainview.cpp:2362` | untagged neutral name (D10) |
-| 1 | `Unknown5B7AB0Class` | `app/client/mainview.cpp:2376` | untagged neutral name (D10) |
+| 1 | `Unknown_5146A0` | `app/client/mainview.cpp:2320` | untagged neutral name (D10) |
+| 1 | `Unknown_18` | `app/client/mainview.cpp:2365` | untagged neutral name (D10) |
+| 1 | `Unknown_7BCA40` | `app/client/mainview.cpp:2367` | untagged neutral name (D10) |
+| 1 | `Unknown514CC0ViewClass` | `app/client/mainview.cpp:2371` | untagged neutral name (D10) |
+| 1 | `Unknown5B7AB0Class` | `app/client/mainview.cpp:2385` | untagged neutral name (D10) |
 | 1 | `Unknown_7E9B20` | `app/client/manufacturing_category_ui_util.cpp:29` | untagged neutral name (D10) |
 | 1 | `Unknown_7E9CB0` | `app/client/manufacturing_category_ui_util.cpp:44` | untagged neutral name (D10) |
 | 1 | `Unknown_7EA190` | `app/client/manufacturing_category_ui_util.cpp:69` | untagged neutral name (D10) |
@@ -8201,6 +8207,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `x, y, fx, fy` | `app/client/sclient.h:647` | neutral |
 | 1 | `Unknown_512B10` | `app/client/sclient.h:647` | untagged neutral name (D10) |
 | 1 | `Unknown_514480` | `app/client/sclient.h:648` | untagged neutral name (D10) |
+| 1 | `Unknown_5146A0` | `app/client/sclient.h:648` | untagged neutral name (D10) |
 | 1 | `Unknown_5146D0` | `app/client/sclient.h:649` | untagged neutral name (D10) |
 | 1 | `Unknown_514400` | `app/client/sclient.h:650` | untagged neutral name (D10) |
 | 1 | `Unknown_514450` | `app/client/sclient.h:651` | untagged neutral name (D10) |
@@ -21141,15 +21148,17 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `all` | `app/client/unknown_82ecb0.h:18` | neutral (D10) |
 | 1 | `Unknown_82F090` | `app/client/unknown_82ecb0.h:18` | untagged neutral name (D10) |
 | 1 | `Unknown_8B3E70` | `app/client/unknown_8b3e70.cpp:14` | neutral placeholder (D10) |
-| 1 | `Unknown_8B3F60` | `app/client/unknown_8b3e70.cpp:43` | neutral placeholder (D10) |
-| 1 | `Unknown_8B4020` | `app/client/unknown_8b3e70.cpp:50` | neutral placeholder (D10) |
-| 1 | `Unknown_8B40A0` | `app/client/unknown_8b3e70.cpp:67` | neutral placeholder (D10) |
-| 1 | `Unknown_8B41C0` | `app/client/unknown_8b3e70.cpp:80` | neutral placeholder (D10) |
+| 1 | `Cord_CRC` | `app/client/unknown_8b3e70.cpp:31` | placeholder (as cordcon.h's) |
+| 1 | `Unknown_8B3F60` | `app/client/unknown_8b3e70.cpp:44` | neutral placeholder (D10) |
+| 1 | `Unknown_8B4020` | `app/client/unknown_8b3e70.cpp:51` | neutral placeholder (D10) |
+| 1 | `Unknown_8B40A0` | `app/client/unknown_8b3e70.cpp:68` | neutral placeholder (D10) |
+| 1 | `Unknown_8B41C0` | `app/client/unknown_8b3e70.cpp:81` | neutral placeholder (D10) |
 | 1 | `Unknown_8B3E70` | `app/client/unknown_8b3e70.h:17` | neutral placeholder (D10) |
-| 1 | `Unknown_8B3F60` | `app/client/unknown_8b3e70.h:20` | neutral placeholder (D10) |
-| 1 | `Unknown_8B4020` | `app/client/unknown_8b3e70.h:23` | neutral placeholder (D10) |
-| 1 | `Unknown_8B40A0` | `app/client/unknown_8b3e70.h:26` | neutral placeholder (D10) |
-| 1 | `Unknown_8B41C0` | `app/client/unknown_8b3e70.h:29` | neutral placeholder (D10) |
+| 1 | `Cord_CRC` | `app/client/unknown_8b3e70.h:20` | placeholder (as cordcon.h's) |
+| 1 | `Unknown_8B3F60` | `app/client/unknown_8b3e70.h:23` | neutral placeholder (D10) |
+| 1 | `Unknown_8B4020` | `app/client/unknown_8b3e70.h:26` | neutral placeholder (D10) |
+| 1 | `Unknown_8B40A0` | `app/client/unknown_8b3e70.h:29` | neutral placeholder (D10) |
+| 1 | `Unknown_8B41C0` | `app/client/unknown_8b3e70.h:32` | neutral placeholder (D10) |
 | 1 | `AuthLoginErrorStruct` | `app/client/unknown_authlogin.cpp:14` | what it holds |
 | 1 | `AuthLoginUnknownError` | `app/client/unknown_authlogin.cpp:20` | its text |
 | 1 | `Unknown` | `app/client/unknown_authlogin.cpp:20` | untagged neutral name (D10) |
@@ -24868,7 +24877,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown18` | `app/wwudp/cordcon.h:449` | untagged neutral name (D10) |
 | 1 | `Unknown1C` | `app/wwudp/cordcon.h:450` | untagged neutral name (D10) |
 | 1 | `Unknown98` | `app/wwudp/cordcon.h:471` | untagged neutral name (D10) |
-| 1 | `Cord_CRC` | `app/wwudp/cordmgr.cpp:34` | placeholder |
 | 1 | `Unknown0C` | `app/wwudp/cordmgr.cpp:58` | untagged neutral name (D10) |
 | 1 | `Unknown04` | `app/wwudp/cordmgr.cpp:105` | untagged neutral name (D10) |
 | 1 | `Unknown08` | `app/wwudp/cordmgr.cpp:105` | untagged neutral name (D10) |
@@ -27802,7 +27810,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `crc32_made` | `app/client/unknown_8b3e70.cpp:9` | CRC-32 init flag at 0xBF47E4 |
 | 2 | `crc64_table` | `app/client/unknown_8b3e70.cpp:10` | CRC-64 table at 0xBF48B8 |
 | 2 | `crc64_made` | `app/client/unknown_8b3e70.cpp:11` | CRC-64 init flag at 0xBF50B8 |
-| 2 | `crc32_buf` | `app/client/unknown_8b3e70.cpp:31` | static helper for 0x8B3EC0 |
 | 2 | `Result` | `app/client/unknown_authlogin.h:27` | the assert's kr; tested >= 0 |
 | 2 | `IComponentFactoryClass` | `app/client/unknown_authlogin.h:38` | authFactory (the assert) |
 | 2 | `Set_Name` | `app/client/unknown_creator.h:35` | what it does |
@@ -28323,10 +28330,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Encrypt` | `app/common/unknown_rsakey.h:32` | what it does |
 | 2 | `Decrypt` | `app/common/unknown_rsakey.h:35` | what it does |
 | 2 | `Load` | `app/common/unknown_rsakey.h:60` | what it does |
-| 2 | `Read_Number` | `app/common/unknown_rsakey.h:110` | what it does |
-| 2 | `Compute` | `app/common/unknown_rsakey.h:128` | what it does |
-| 2 | `Modulus` | `app/common/unknown_rsakey.h:146` | what it holds |
-| 2 | `Exponent` | `app/common/unknown_rsakey.h:147` | what it holds |
+| 2 | `Read_Number` | `app/common/unknown_rsakey.h:111` | what it does |
+| 2 | `Compute` | `app/common/unknown_rsakey.h:129` | what it does |
+| 2 | `Modulus` | `app/common/unknown_rsakey.h:147` | what it holds |
+| 2 | `Exponent` | `app/common/unknown_rsakey.h:148` | what it holds |
 | 2 | `WeaponType` | `app/common/weapontype.h:19` | the client's file name weapontype.cpp |
 | 2 | `End` | `app/dbgmgr/dbgmgr.cpp:19` | its use |
 | 2 | `DbgMgrMemoryLogClass` | `app/dbgmgr/dbgmgr.cpp:122` | access only |
@@ -30380,8 +30387,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `LastSortGroup` | `app/client/gadget.h:144` | the FAIL_IF's |
 | 3 | `gadget_list_manager.h` | `app/client/gadget_list_manager.h:18` | header name assumed from the client's gadget_list_manager.cpp |
 | 3 | `GadgetListManagerClass` | `app/client/gadget_list_manager.h:36` | class-from-file (D24) for app\client\gadget_list_manager.cpp |
-| 3 | `std:` | `app/client/gadget_list_manager.h:50` | the assert's |
-| 3 | `Manager` | `app/client/gadget_list_manager.h:67` | the FAIL_IFs' |
+| 3 | `std:` | `app/client/gadget_list_manager.h:52` | the assert's |
+| 3 | `Manager` | `app/client/gadget_list_manager.h:70` | the FAIL_IFs' |
 | 3 | `galaxy_map_client.h` | `app/client/galaxy_map_client.h:13` | header name assumed from the client's galaxy_map_client.cpp |
 | 3 | `GalaxyMapClientClass` | `app/client/galaxy_map_client.h:26` | class-from-file (D24) for app\client\galaxy_map_client.cpp |
 | 3 | `galaxy_map_focal_point.h` | `app/client/galaxy_map_focal_point.h:16` | header name assumed from the client's galaxy_map_focal_point.cpp |
