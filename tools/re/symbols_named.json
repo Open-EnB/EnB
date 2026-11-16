@@ -1143,7 +1143,7 @@
   "address": "0x706DF0",
   "symbol": "?Unknown_00@?$DeltaTemplateClass@UUnknownB016DCType@@@@UAEXPAVKVEncoderClass@@@Z",
   "evidence": "the client's vtable 0xB016DC holds it at +0x00 (0xB00A00's slot is 0x703D50): the UnknownB016DCType instance (K2 2026-11-08); DeltaChildVisitorClass renamed KVEncoderClass (D206)",
-  "replaces": "?Unknown_00@?$DeltaTemplateClass@UUnknownB00A00Type@@@@UAEXPAVDeltaChildVisitorClass@@@Z"
+  "replaces": "?Unknown_00@?$DeltaTemplateClass@UInvSlotStruct@@@@UAEXPAVDeltaChildVisitorClass@@@Z"
  },
  {
   "address": "0x757770",
@@ -1184,7 +1184,7 @@
  },
  {
   "address": "0x703F40",
-  "symbol": "?Write@?$DeltaTemplateClass@UUnknownB00A00Type@@@@UAE_NAAVLinearBufferClass@@@Z",
+  "symbol": "?Write@?$DeltaTemplateClass@UInvSlotStruct@@@@UAE_NAAVLinearBufferClass@@@Z",
   "evidence": "the client's vtable 0xB00A00 holds it at +0x30 (0xB016DC's slot is 0x706FF0); the two instances' bodies are identical (12-byte values), so objmatch's exact name went to the other instance (SY1's lead, K2 2026-11-08)",
   "replaces": "?Write@?$DeltaTemplateClass@UUnknownB016DCType@@@@UAE_NAAVLinearBufferClass@@@Z"
  },
@@ -1192,11 +1192,11 @@
   "address": "0x706FF0",
   "symbol": "?Write@?$DeltaTemplateClass@UUnknownB016DCType@@@@UAE_NAAVLinearBufferClass@@@Z",
   "evidence": "the client's vtable 0xB016DC holds it at +0x30 (0xB00A00's slot is 0x703F40); the two instances' bodies are identical (12-byte values), so objmatch's exact name went to the other instance (SY1's lead, K2 2026-11-08)",
-  "replaces": "?Write@?$DeltaTemplateClass@UUnknownB00A00Type@@@@UAE_NAAVLinearBufferClass@@@Z"
+  "replaces": "?Write@?$DeltaTemplateClass@UInvSlotStruct@@@@UAE_NAAVLinearBufferClass@@@Z"
  },
  {
   "address": "0x700CB0",
-  "symbol": "??_G?$DeltaTemplateClass@UUnknownB00A00Type@@@@UAEPAXI@Z",
+  "symbol": "??_G?$DeltaTemplateClass@UInvSlotStruct@@@@UAEPAXI@Z",
   "evidence": "the client's vtable 0xB00A00 holds it at +0x04 (0xB016DC's slot is 0x706730); the two instances' bodies are identical (12-byte values), so objmatch's exact name went to the other instance (SY1's lead, K2 2026-11-08)",
   "replaces": "??_G?$DeltaTemplateClass@UUnknownB016DCType@@@@UAEPAXI@Z"
  },
@@ -1204,7 +1204,7 @@
   "address": "0x706730",
   "symbol": "??_G?$DeltaTemplateClass@UUnknownB016DCType@@@@UAEPAXI@Z",
   "evidence": "the client's vtable 0xB016DC holds it at +0x04 (0xB00A00's slot is 0x700CB0); the two instances' bodies are identical (12-byte values), so objmatch's exact name went to the other instance (SY1's lead, K2 2026-11-08)",
-  "replaces": "??_G?$DeltaTemplateClass@UUnknownB00A00Type@@@@UAEPAXI@Z"
+  "replaces": "??_G?$DeltaTemplateClass@UInvSlotStruct@@@@UAEPAXI@Z"
  },
  {
   "address": "0x6F6000",
@@ -2794,7 +2794,7 @@
  },
  {
   "address": "0x6F8CF0",
-  "symbol": "??1?$DeltaTemplateClass@UUnknownB00A00Type@@@@UAE@XZ",
+  "symbol": "??1?$DeltaTemplateClass@UInvSlotStruct@@@@UAE@XZ",
   "evidence": "called by the deleting destructor 0x700CB0, which the client's vtable 0xB00A00 holds at +0x04; the unwind funclets of DeltaLightClass::DeltaLightClass 0x6F9870 (whose vptr stores are 0xB00A00) and DeltaShipClass::~DeltaShipClass 0x6F8D30 jump to it (TY, run 2026-11-15)",
   "replaces": "??1?$DeltaTemplateClass@UUnknownB016DCType@@@@UAE@XZ"
  },
@@ -2802,7 +2802,7 @@
   "address": "0x706AF0",
   "symbol": "??1?$DeltaTemplateClass@UUnknownB016DCType@@@@UAE@XZ",
   "evidence": "its one caller is the deleting destructor 0x706730, which the client's vtable 0xB016DC holds at +0x04 (TY, run 2026-11-15)",
-  "replaces": "??1?$DeltaTemplateClass@UUnknownB00A00Type@@@@UAE@XZ"
+  "replaces": "??1?$DeltaTemplateClass@UInvSlotStruct@@@@UAE@XZ"
  },
  {
   "address": "0x8D4D40",
@@ -2948,5 +2948,123 @@
   "address": "0xA03830",
   "symbol": "?Get_Factory@FilteredSoundClass@@UBEABVPersistFactoryClass@@XZ",
   "evidence": "first slot of FilteredSoundClass's PersistClass vtable (PersistClass: Get_Factory, Save, Load; On_Post_Load precedes it); body `mov eax, 0xC405F0` returns the factory; the tree's object names it (libraries.md 3 item 9, LIB 2026-11-15b)"
+ },
+ {
+  "address": "0x7080A0",
+  "symbol": "?Get@?$DeltaTemplateAccessorClass@UInvSlotStruct@@@@UAEABUInvSlotStruct@@XZ",
+  "evidence": "UnknownB00A00Type renamed InvSlotStruct: the KVPair's Get_Type_Name 0x709C80 returns the string 'InvSlotStruct' (0xB94480) (SD, run 2026-11-15b)",
+  "replaces": "?Get@?$DeltaTemplateAccessorClass@UUnknownB00A00Type@@@@UAEABUUnknownB00A00Type@@XZ"
+ },
+ {
+  "address": "0x7080C0",
+  "symbol": "?Set@?$DeltaTemplateAccessorClass@UInvSlotStruct@@@@UAEXABUInvSlotStruct@@@Z",
+  "evidence": "UnknownB00A00Type renamed InvSlotStruct: the KVPair's Get_Type_Name 0x709C80 returns the string 'InvSlotStruct' (0xB94480) (SD, run 2026-11-15b)",
+  "replaces": "?Set@?$DeltaTemplateAccessorClass@UUnknownB00A00Type@@@@UAEXABUUnknownB00A00Type@@@Z"
+ },
+ {
+  "address": "0x708140",
+  "symbol": "?Clone@?$DeltaTemplateAccessorClass@UInvSlotStruct@@@@UBEPAV?$KVAccessorClass@UInvSlotStruct@@@@XZ",
+  "evidence": "UnknownB00A00Type renamed InvSlotStruct: the KVPair's Get_Type_Name 0x709C80 returns the string 'InvSlotStruct' (0xB94480) (SD, run 2026-11-15b)",
+  "replaces": "?Clone@?$DeltaTemplateAccessorClass@UUnknownB00A00Type@@@@UBEPAV?$KVAccessorClass@UUnknownB00A00Type@@@@XZ"
+ },
+ {
+  "address": "0x709080",
+  "symbol": "??_G?$DeltaTemplateAccessorClass@UInvSlotStruct@@@@UAEPAXI@Z",
+  "evidence": "UnknownB00A00Type renamed InvSlotStruct: the KVPair's Get_Type_Name 0x709C80 returns the string 'InvSlotStruct' (0xB94480) (SD, run 2026-11-15b)",
+  "replaces": "??_G?$DeltaTemplateAccessorClass@UUnknownB00A00Type@@@@UAEPAXI@Z"
+ },
+ {
+  "address": "0x709630",
+  "symbol": "??1?$DeltaTemplateAccessorClass@UInvSlotStruct@@@@UAE@XZ",
+  "evidence": "UnknownB00A00Type renamed InvSlotStruct: the KVPair's Get_Type_Name 0x709C80 returns the string 'InvSlotStruct' (0xB94480) (SD, run 2026-11-15b)",
+  "replaces": "??1?$DeltaTemplateAccessorClass@UUnknownB00A00Type@@@@UAE@XZ"
+ },
+ {
+  "address": "0x709650",
+  "symbol": "??_G?$KVAccessorClass@UInvSlotStruct@@@@UAEPAXI@Z",
+  "evidence": "UnknownB00A00Type renamed InvSlotStruct: the KVPair's Get_Type_Name 0x709C80 returns the string 'InvSlotStruct' (0xB94480) (SD, run 2026-11-15b)",
+  "replaces": "??_G?$KVAccessorClass@UUnknownB00A00Type@@@@UAEPAXI@Z"
+ },
+ {
+  "address": "0x709BB0",
+  "symbol": "?Clone@?$KVPairTemplateClass@UInvSlotStruct@@@@UBEPAVKVPairClass@@XZ",
+  "evidence": "UnknownB00A00Type renamed InvSlotStruct: the KVPair's Get_Type_Name 0x709C80 returns the string 'InvSlotStruct' (0xB94480) (SD, run 2026-11-15b)",
+  "replaces": "?Clone@?$KVPairTemplateClass@UUnknownB00A00Type@@@@UBEPAVKVPairClass@@XZ"
+ },
+ {
+  "address": "0x709C80",
+  "symbol": "?Get_Type_Name@?$KVPairTemplateClass@UInvSlotStruct@@@@UBEPBDXZ",
+  "evidence": "UnknownB00A00Type renamed InvSlotStruct: the KVPair's Get_Type_Name 0x709C80 returns the string 'InvSlotStruct' (0xB94480) (SD, run 2026-11-15b)",
+  "replaces": "?Get_Type_Name@?$KVPairTemplateClass@UUnknownB00A00Type@@@@UBEPBDXZ"
+ },
+ {
+  "address": "0x709CA0",
+  "symbol": "?Get_Value_String@?$KVPairTemplateClass@UInvSlotStruct@@@@UBEPADPADH@Z",
+  "evidence": "UnknownB00A00Type renamed InvSlotStruct: the KVPair's Get_Type_Name 0x709C80 returns the string 'InvSlotStruct' (0xB94480) (SD, run 2026-11-15b)",
+  "replaces": "?Get_Value_String@?$KVPairTemplateClass@UUnknownB00A00Type@@@@UBEPADPADH@Z"
+ },
+ {
+  "address": "0x709CE0",
+  "symbol": "?Is_Changed@?$KVPairTemplateClass@UInvSlotStruct@@@@UBE_NXZ",
+  "evidence": "UnknownB00A00Type renamed InvSlotStruct: the KVPair's Get_Type_Name 0x709C80 returns the string 'InvSlotStruct' (0xB94480) (SD, run 2026-11-15b)",
+  "replaces": "?Is_Changed@?$KVPairTemplateClass@UUnknownB00A00Type@@@@UBE_NXZ"
+ },
+ {
+  "address": "0x709D30",
+  "symbol": "?Update_Saved@?$KVPairTemplateClass@UInvSlotStruct@@@@UAEXXZ",
+  "evidence": "UnknownB00A00Type renamed InvSlotStruct: the KVPair's Get_Type_Name 0x709C80 returns the string 'InvSlotStruct' (0xB94480) (SD, run 2026-11-15b)",
+  "replaces": "?Update_Saved@?$KVPairTemplateClass@UUnknownB00A00Type@@@@UAEXXZ"
+ },
+ {
+  "address": "0x709D60",
+  "symbol": "??_G?$KVPairTemplateClass@UInvSlotStruct@@@@UAEPAXI@Z",
+  "evidence": "UnknownB00A00Type renamed InvSlotStruct: the KVPair's Get_Type_Name 0x709C80 returns the string 'InvSlotStruct' (0xB94480) (SD, run 2026-11-15b)",
+  "replaces": "??_G?$KVPairTemplateClass@UUnknownB00A00Type@@@@UAEPAXI@Z"
+ },
+ {
+  "address": "0x709D90",
+  "symbol": "??1?$KVPairTemplateClass@UInvSlotStruct@@@@UAE@XZ",
+  "evidence": "UnknownB00A00Type renamed InvSlotStruct: the KVPair's Get_Type_Name 0x709C80 returns the string 'InvSlotStruct' (0xB94480) (SD, run 2026-11-15b)",
+  "replaces": "??1?$KVPairTemplateClass@UUnknownB00A00Type@@@@UAE@XZ"
+ },
+ {
+  "address": "0x709E10",
+  "symbol": "?Set_Value_String@?$KVPairTemplateClass@UInvSlotStruct@@@@UAE_NPBD@Z",
+  "evidence": "UnknownB00A00Type renamed InvSlotStruct: the KVPair's Get_Type_Name 0x709C80 returns the string 'InvSlotStruct' (0xB94480) (SD, run 2026-11-15b)",
+  "replaces": "?Set_Value_String@?$KVPairTemplateClass@UUnknownB00A00Type@@@@UAE_NPBD@Z"
+ },
+ {
+  "address": "0x752170",
+  "symbol": "??0InvSlotStruct@@QAE@ABU0@@Z",
+  "evidence": "UnknownB00A00Type renamed InvSlotStruct: the KVPair's Get_Type_Name 0x709C80 returns the string 'InvSlotStruct' (0xB94480) (SD, run 2026-11-15b)",
+  "replaces": "??0UnknownB00A00Type@@QAE@ABU0@@Z"
+ },
+ {
+  "address": "0xB00A00",
+  "symbol": "??_7?$DeltaTemplateClass@UInvSlotStruct@@@@6B@",
+  "evidence": "UnknownB00A00Type renamed InvSlotStruct: the KVPair's Get_Type_Name 0x709C80 returns the string 'InvSlotStruct' (0xB94480) (SD, run 2026-11-15b)",
+  "replaces": "??_7?$DeltaTemplateClass@UUnknownB00A00Type@@@@6B@",
+  "kind": "vtable"
+ },
+ {
+  "address": "0xB01E28",
+  "symbol": "??_7?$KVPairTemplateClass@UInvSlotStruct@@@@6B@",
+  "evidence": "UnknownB00A00Type renamed InvSlotStruct: the KVPair's Get_Type_Name 0x709C80 returns the string 'InvSlotStruct' (0xB94480) (SD, run 2026-11-15b)",
+  "replaces": "??_7?$KVPairTemplateClass@UUnknownB00A00Type@@@@6B@",
+  "kind": "vtable"
+ },
+ {
+  "address": "0xB01E4C",
+  "symbol": "??_7?$DeltaTemplateAccessorClass@UInvSlotStruct@@@@6B@",
+  "evidence": "UnknownB00A00Type renamed InvSlotStruct: the KVPair's Get_Type_Name 0x709C80 returns the string 'InvSlotStruct' (0xB94480) (SD, run 2026-11-15b)",
+  "replaces": "??_7?$DeltaTemplateAccessorClass@UUnknownB00A00Type@@@@6B@",
+  "kind": "vtable"
+ },
+ {
+  "address": "0xB01FD0",
+  "symbol": "??_7?$KVAccessorClass@UInvSlotStruct@@@@6B@",
+  "evidence": "UnknownB00A00Type renamed InvSlotStruct: the KVPair's Get_Type_Name 0x709C80 returns the string 'InvSlotStruct' (0xB94480) (SD, run 2026-11-15b)",
+  "replaces": "??_7?$KVAccessorClass@UUnknownB00A00Type@@@@6B@",
+  "kind": "vtable"
  }
 ]

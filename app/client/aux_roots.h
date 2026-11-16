@@ -58,12 +58,12 @@ inline char *Unknown_Hex_String(char *buf, int size, const unsigned char *data, 
 
 
 
-// NAME 1: the value type of the leaf vtable 0xB00A00 (no name in the client, Net-7 or C#)
-struct UnknownB00A00Type { float R; float G; float B; UnknownB00A00Type() {} UnknownB00A00Type(const UnknownB00A00Type &v) { R = v.R; G = v.G; B = v.B; } };	// vtable 0xB00A00, three floats (a colour), constructor empty
-inline bool operator!=(const UnknownB00A00Type &a, const UnknownB00A00Type &b) { return *(const int *)&a.R != *(const int *)&b.R || *(const int *)&a.G != *(const int *)&b.G || *(const int *)&a.B != *(const int *)&b.B; }
-inline const char *Type_Name(UnknownB00A00Type *) { return "UnknownB00A00Type"; }
-inline char *Value_To_String(char *buf, int size, const UnknownB00A00Type &value) { return Unknown_Hex_String(buf, size, (const unsigned char *)&value, sizeof(value)); }
-inline bool String_To_Value(const char *, UnknownB00A00Type *) { return false; }
+// NAME 5: the client's Get_Type_Name string 'InvSlotStruct' (KVPair vtable 0xB01E28, 0x709C80, string 0xB94480), leaf vtable 0xB00A00; the name is the client's, though the members hold colours
+struct InvSlotStruct { float R; float G; float B; InvSlotStruct() {} InvSlotStruct(const InvSlotStruct &v) { R = v.R; G = v.G; B = v.B; } };	// vtable 0xB00A00, three floats (a colour), constructor empty
+inline bool operator!=(const InvSlotStruct &a, const InvSlotStruct &b) { return *(const int *)&a.R != *(const int *)&b.R || *(const int *)&a.G != *(const int *)&b.G || *(const int *)&a.B != *(const int *)&b.B; }
+inline const char *Type_Name(InvSlotStruct *) { return "InvSlotStruct"; }
+inline char *Value_To_String(char *buf, int size, const InvSlotStruct &value) { return Unknown_Hex_String(buf, size, (const unsigned char *)&value, sizeof(value)); }
+inline bool String_To_Value(const char *, InvSlotStruct *) { return false; }
 #include "..\common\guild_defs.h"	// GuildRankType (KVPair vtable 0xB01AF4, leaf vtable 0xB00A58), its Type_Name 0x83D8B0 and converters 0x83D7D0 / 0x83D860
 
 
@@ -101,7 +101,7 @@ inline const char *Type_Name(UnknownB013ECEnum *) { return "int"; }	// the KVPai
 
 
 // NAME 1: the value type of the leaf vtable 0xB016DC (no name in the client, Net-7 or C#)
-struct UnknownB016DCType { int I00; int I04; int I08; UnknownB016DCType() : I00(-1), I04(-1), I08(-1) {} UnknownB016DCType(const UnknownB016DCType &v) { I00 = v.I00; I04 = v.I04; I08 = v.I08; } };	// vtable 0xB016DC, 12 bytes, constructed {-1, -1, -1} (the Mounts elements' default, Ship 0x6F6E29); the copy constructor is the client's: sclient's 0x751BE0 calls it out of line (0x752170, folded with UnknownB00A00Type's)
+struct UnknownB016DCType { int I00; int I04; int I08; UnknownB016DCType() : I00(-1), I04(-1), I08(-1) {} UnknownB016DCType(const UnknownB016DCType &v) { I00 = v.I00; I04 = v.I04; I08 = v.I08; } };	// vtable 0xB016DC, 12 bytes, constructed {-1, -1, -1} (the Mounts elements' default, Ship 0x6F6E29); the copy constructor is the client's: sclient's 0x751BE0 calls it out of line (0x752170, folded with InvSlotStruct's)
 inline bool operator!=(const UnknownB016DCType &a, const UnknownB016DCType &b) { return memcmp(&a, &b, sizeof(a)) != 0; }
 inline const char *Type_Name(UnknownB016DCType *) { return "UnknownB016DCType"; }
 inline char *Value_To_String(char *buf, int size, const UnknownB016DCType &value) { return Unknown_Hex_String(buf, size, (const unsigned char *)&value, sizeof(value)); }
@@ -527,8 +527,8 @@ public:
 	DeltaStringClass GuildName;	// +0x3830
 	DeltaTemplateClass<GuildRankType> GuildRank;	// +0x38B8
 	DeltaStringClass GuildRankName;	// +0x3940
-	DeltaTemplateClass<UnknownB00A00Type> SameGuildTagColor;	// +0x39C8
-	DeltaTemplateClass<UnknownB00A00Type> OtherGuildTagColor;	// +0x3A58
+	DeltaTemplateClass<InvSlotStruct> SameGuildTagColor;	// +0x39C8
+	DeltaTemplateClass<InvSlotStruct> OtherGuildTagColor;	// +0x3A58
 	DeltaStringClass InterruptibleAbilityName;	// +0x3AE8
 	DeltaTemplateClass<InterruptStateType> InterruptState;	// +0x3B70
 	DeltaTemplateClass<DurationClass> InterruptibleActivationTime;	// +0x3BF8
@@ -555,11 +555,11 @@ public:
 
 	DeltaStringClass Name;	// +0xA0
 	DeltaTemplateClass<float> Intensity;	// +0x128
-	DeltaTemplateClass<UnknownB00A00Type> DiffuseRGB;	// +0x1B0
-	DeltaTemplateClass<UnknownB00A00Type> SpecularRGB;	// +0x240
-	DeltaTemplateClass<UnknownB00A00Type> AmbientRGB;	// +0x2D0
+	DeltaTemplateClass<InvSlotStruct> DiffuseRGB;	// +0x1B0
+	DeltaTemplateClass<InvSlotStruct> SpecularRGB;	// +0x240
+	DeltaTemplateClass<InvSlotStruct> AmbientRGB;	// +0x2D0
 	DeltaTemplateClass<WW3DLightAttenuationType> Attenuation;	// +0x360
-	DeltaTemplateClass<UnknownB00A00Type> AttenuationFactors;	// +0x3E8
+	DeltaTemplateClass<InvSlotStruct> AttenuationFactors;	// +0x3E8
 };
 
 // vtable 0xB01064, constructor 0x6F9C30
