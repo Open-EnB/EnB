@@ -1475,7 +1475,7 @@ Base copy: reconstructed. Headers: 687 from reconstructed.
 | audio/ambientsoundmanager.cpp | reconstructed | 56 | 3 | - | - | - |  |
 | shared/attrib_dir.cpp | reconstructed | 138 | 2 | - | - | - |  |
 | shared/attrib_dir_collective.cpp | reconstructed | 112 | 3 | - | - | - |  |
-| client/aux_roots.cpp | reconstructed | 436 | 5 | - | - | - |  |
+| client/aux_roots.cpp | reconstructed | 437 | 5 | - | - | - |  |
 | client/avatar.cpp | reconstructed | 230 | 5 | - | - | - |  |
 | shared/avatar_desc.cpp | reconstructed | 75 | 2 | - | - | - |  |
 | client/avatar_pip.cpp | reconstructed | 14 | 7 | - | - | - |  |
@@ -1676,7 +1676,7 @@ Base copy: reconstructed. Headers: 687 from reconstructed.
 | common/interrupt_defs.cpp | reconstructed | 2 | 0 | - | - | - |  |
 | client/intrface.cpp | reconstructed | 64 | 0 | - | - | - |  |
 | client/intrlist.cpp | reconstructed | 56 | 1 | - | - | - |  |
-| client/inv_data.cpp | reconstructed | 33 | 7 | - | - | - |  |
+| client/inv_data.cpp | reconstructed | 34 | 7 | - | - | - |  |
 | client/inv_data_peek.cpp | reconstructed | 33 | 0 | - | - | - |  |
 | client/inv_manu_render.cpp | reconstructed | 21 | 1 | - | - | - |  |
 | client/inv_render.cpp | reconstructed | 64 | 6 | - | - | - |  |
@@ -1748,7 +1748,7 @@ Base copy: reconstructed. Headers: 687 from reconstructed.
 | shared/auxdata/permstr.cpp | reconstructed | 8 | 1 | - | - | - |  |
 | client/pip_scene.cpp | reconstructed | 10 | 1 | - | - | - |  |
 | packets/pk.cpp | reconstructed | 58 | 1 | - | - | - |  |
-| packets/pk_player_object_relationship.cpp | reconstructed | 56 | 6 | - | - | - |  |
+| packets/pk_player_object_relationship.cpp | reconstructed | 57 | 6 | - | - | - |  |
 | packets/pk_sub_parts.cpp | reconstructed | 36 | 1 | - | - | - |  |
 | packets/pkaction.cpp | reconstructed | 26 | 1 | - | - | - |  |
 | packets/pkauxdata.cpp | reconstructed | 26 | 0 | - | - | - |  |
@@ -1938,8 +1938,8 @@ Base copy: reconstructed. Headers: 687 from reconstructed.
 | client/skill_data_peek.cpp | reconstructed | 22 | 0 | - | - | - |  |
 | common/skill_level_availability.cpp | reconstructed | 3 | 0 | - | - | - |  |
 | client/skill_render.cpp | reconstructed | 28 | 5 | - | - | - |  |
-| client/skillnam.cpp | reconstructed | 51 | 12 | - | - | - |  |
-| client/slot_data.cpp | reconstructed | 24 | 3 | - | - | - |  |
+| client/skillnam.cpp | reconstructed | 52 | 12 | - | - | - |  |
+| client/slot_data.cpp | reconstructed | 25 | 3 | - | - | - |  |
 | client/slot_data_render.cpp | reconstructed | 52 | 3 | - | - | - |  |
 | client/smouse.cpp | reconstructed | 12 | 1 | - | - | - |  |
 | client/soptions.cpp | reconstructed | 13 | 0 | - | - | - |  |
@@ -2026,7 +2026,7 @@ Base copy: reconstructed. Headers: 687 from reconstructed.
 | client/ui_mesh.cpp | reconstructed | 101 | 3 | - | - | - |  |
 | client/ui_mfd.cpp | reconstructed | 98 | 3 | - | - | - |  |
 | client/ui_mfd_extended_context.cpp | reconstructed | 9 | 1 | - | - | - |  |
-| client/ui_mfd_extended_context_harvestable.cpp | reconstructed | 33 | 8 | - | - | - |  |
+| client/ui_mfd_extended_context_harvestable.cpp | reconstructed | 34 | 8 | - | - | - |  |
 | client/ui_mfd_extended_context_strings.cpp | reconstructed | 20 | 1 | - | - | - |  |
 | client/ui_mfdm.cpp | reconstructed | 57 | 2 | - | - | - |  |
 | client/ui_missn.cpp | reconstructed | 65 | 4 | - | - | - |  |
@@ -2037,7 +2037,7 @@ Base copy: reconstructed. Headers: 687 from reconstructed.
 | client/ui_option_control_keys.cpp | reconstructed | 50 | 3 | - | - | - |  |
 | client/ui_option_font.cpp | reconstructed | 44 | 3 | - | - | - |  |
 | client/ui_option_main.cpp | reconstructed | 32 | 0 | - | - | - |  |
-| client/ui_option_quit.cpp | reconstructed | 34 | 1 | - | - | - |  |
+| client/ui_option_quit.cpp | reconstructed | 35 | 1 | - | - | - |  |
 | client/ui_option_slider.cpp | reconstructed | 37 | 2 | - | - | - |  |
 | client/ui_pda_cargo.cpp | reconstructed | 51 | 3 | - | - | - |  |
 | client/ui_pda_equip.cpp | reconstructed | 48 | 3 | - | - | - |  |
@@ -2064,7 +2064,7 @@ Base copy: reconstructed. Headers: 687 from reconstructed.
 | client/ui_radio_list.cpp | reconstructed | 63 | 3 | - | - | - |  |
 | client/ui_radio_main.cpp | reconstructed | 49 | 4 | - | - | - |  |
 | client/ui_refinery.cpp | reconstructed | 76 | 6 | - | - | - |  |
-| client/ui_registration.cpp | reconstructed | 235 | 10 | - | - | - |  |
+| client/ui_registration.cpp | reconstructed | 234 | 11 | - | - | - |  |
 | client/ui_scan.cpp | reconstructed | 75 | 5 | - | - | - |  |
 | client/ui_scut.cpp | reconstructed | 84 | 1 | - | - | - |  |
 | client/ui_scut_gadgets.cpp | reconstructed | 47 | 1 | - | - | - |  |
