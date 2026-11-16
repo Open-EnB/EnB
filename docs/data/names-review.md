@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1966 |
 | 2 | describes what the code does | 4981 |
-| 1 | neutral placeholder | 25142 |
+| 1 | neutral placeholder | 25148 |
 
 ## For review (score 3 and below)
 
@@ -20649,6 +20649,15 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_729770` | `app/client/unknown_7294d0.cpp:17` | untagged neutral name (D10) |
 | 1 | `Unknown_7294D0` | `app/client/unknown_7294d0.cpp:20` | untagged neutral name (D10) |
 | 1 | `Unknown_6F5140` | `app/client/unknown_7294d0.cpp:58` | untagged neutral name (D10) |
+| 1 | `UnknownAF0DD0Class` | `app/client/unknown_73fa60.cpp:7` | neutral (D10), vtable 0xAF0DD0 |
+| 1 | `arg` | `app/client/unknown_73fa60.cpp:11` | neutral |
+| 1 | `Unknown_04` | `app/client/unknown_73fa60.cpp:11` | untagged neutral name (D10) |
+| 1 | `node, object` | `app/client/unknown_73fa60.cpp:12` | neutral |
+| 1 | `Unknown_73FDB0` | `app/client/unknown_73fa60.cpp:12` | untagged neutral name (D10) |
+| 1 | `Unknown8CClass` | `app/client/unknown_73fa60.cpp:15` | neutral (D10), co.h +0x8C list (vtable 0xB03194) |
+| 1 | `Unknown_6F5090` | `app/client/unknown_73fa60.cpp:25` | untagged neutral name (D10) |
+| 1 | `node, next` | `app/client/unknown_73fa60.cpp:34` | neutral |
+| 1 | `Unknown_73FEF0` | `app/client/unknown_73fa60.cpp:62` | untagged neutral name (D10) |
 | 1 | `Unknown_75B7B0` | `app/client/unknown_75b7b0.cpp:18` | untagged neutral name (D10) |
 | 1 | `Unknown_75BB50` | `app/client/unknown_75b7b0.cpp:24` | untagged neutral name (D10) |
 | 1 | `Unknown_75B8F0` | `app/client/unknown_75b7b0.cpp:31` | untagged neutral name (D10) |
@@ -24787,6 +24796,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_4BE9D0` | `app/shared/unknown_4be9d0.h:20` | neutral (D10); callers avatar_desc.cpp's 0x4C1460 / 0x4C15F0 / Convert_Names, 0x5D6DC0, 0x616220, 0x649FE0 |
 | 1 | `unknown_4dfbf0.h` | `app/shared/unknown_4dfbf0.h:19` | provisional file name (D137) |
 | 1 | `unknown_4e0700.h` | `app/shared/unknown_4e0700.h:15` | provisional file name (D137) |
+| 1 | `Unknown4E4B00Equal` | `app/shared/unknown_4e4b00.cpp:8` | neutral (D10), case-insensitive string equality functor |
+| 1 | `a, b` | `app/shared/unknown_4e4b00.cpp:10` | neutral |
+| 1 | `Unknown4E4B50Hash` | `app/shared/unknown_4e4b00.cpp:13` | neutral (D10), case-insensitive std::string hash functor |
+| 1 | `s` | `app/shared/unknown_4e4b00.cpp:15` | neutral |
 | 1 | `Unknown_4F2440` | `app/shared/unknown_4f1e20.cpp:6` | untagged neutral name (D10) |
 | 1 | `std:` | `app/shared/unknown_4f1e20.cpp:75` | neutral (D10): the text without its leading and trailing white space |
 | 1 | `std:` | `app/shared/unknown_4f5570.cpp:15` | what it is |
@@ -24933,15 +24946,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_540A20` | `programs/clientpoc/poc_world.cpp:96` | untagged neutral name (D10) |
 | 1 | `Unknown_B70E40` | `programs/clientpoc/poc_world.cpp:109` | untagged neutral name (D10) |
 | 1 | `UnknownB02C90Class` | `programs/clientpoc/poc_world2.cpp:14` | untagged neutral name (D10) |
-| 1 | `Unknown04` | `programs/clientpoc/poc_world2.cpp:17` | untagged neutral name (D10) |
-| 1 | `Unknown_725AD0` | `programs/clientpoc/poc_world2.cpp:38` | untagged neutral name (D10) |
-| 1 | `Unknown1C` | `programs/clientpoc/poc_world2.cpp:41` | untagged neutral name (D10) |
-| 1 | `Unknown_744240` | `programs/clientpoc/poc_world2.cpp:45` | untagged neutral name (D10) |
-| 1 | `UnknownAF0DD0Class` | `programs/clientpoc/poc_world2.cpp:50` | untagged neutral name (D10) |
-| 1 | `Unknown_73FDB0` | `programs/clientpoc/poc_world2.cpp:50` | untagged neutral name (D10) |
-| 1 | `Unknown_6F5090` | `programs/clientpoc/poc_world2.cpp:64` | untagged neutral name (D10) |
-| 1 | `Unknown8CClass` | `programs/clientpoc/poc_world2.cpp:82` | untagged neutral name (D10) |
-| 1 | `Unknown_04` | `programs/clientpoc/poc_world2.cpp:100` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `programs/clientpoc/poc_world2.cpp:23` | untagged neutral name (D10) |
+| 1 | `Unknown_725AD0` | `programs/clientpoc/poc_world2.cpp:44` | untagged neutral name (D10) |
+| 1 | `Unknown1C` | `programs/clientpoc/poc_world2.cpp:47` | untagged neutral name (D10) |
+| 1 | `Unknown_744240` | `programs/clientpoc/poc_world2.cpp:51` | untagged neutral name (D10) |
 | 1 | `DeltaUnknownGlobal` | `stubs/app_stubs.cpp:46` | untagged neutral name (D10) |
 | 1 | `UnknownGlobal` | `stubs/app_stubs.cpp:47` | untagged neutral name (D10) |
 | 1 | `Unknown_BDB1C0` | `stubs/app_stubs.cpp:84` | untagged neutral name (D10) |
@@ -25083,12 +25091,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_BE67C4` | `tests/clienttest/ui_login_stubs.cpp:17` | untagged neutral name (D10) |
 | 1 | `UnknownEventDispatcherClass` | `tests/clienttest/ui_stubs.cpp:22` | untagged neutral name (D10) |
 | 1 | `Unknown_540A20` | `tests/clienttest/ui_stubs.cpp:23` | untagged neutral name (D10) |
-| 1 | `UnknownAF0DD0Class` | `tests/clienttest/ui_stubs.cpp:32` | untagged neutral name (D10) |
-| 1 | `Unknown_73FDB0` | `tests/clienttest/ui_stubs.cpp:32` | untagged neutral name (D10) |
-| 1 | `Unknown_BE5BD0` | `tests/clienttest/ui_stubs.cpp:33` | untagged neutral name (D10) |
-| 1 | `Unknown_496110` | `tests/clienttest/ui_stubs.cpp:38` | untagged neutral name (D10) |
-| 1 | `Unknown_BDADC8` | `tests/clienttest/ui_stubs.cpp:39` | untagged neutral name (D10) |
-| 1 | `Unknown_BDBB84` | `tests/clienttest/ui_stubs.cpp:40` | untagged neutral name (D10) |
+| 1 | `Unknown_BE5BD0` | `tests/clienttest/ui_stubs.cpp:32` | untagged neutral name (D10) |
+| 1 | `Unknown_496110` | `tests/clienttest/ui_stubs.cpp:37` | untagged neutral name (D10) |
+| 1 | `Unknown_BDADC8` | `tests/clienttest/ui_stubs.cpp:38` | untagged neutral name (D10) |
+| 1 | `Unknown_BDBB84` | `tests/clienttest/ui_stubs.cpp:39` | untagged neutral name (D10) |
 | 1 | `Unknown_Get_Ticks` | `tests/kerneltest/kerneltest.cpp:24` | untagged neutral name (D10) |
 | 1 | `Unknown_9179D0` | `tests/kerneltest/kerneltest.cpp:25` | untagged neutral name (D10) |
 | 1 | `Unknown_42EA80` | `tests/kerneltest/kerneltest.cpp:28` | untagged neutral name (D10) |
@@ -27226,31 +27232,31 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `gadget` | `app/client/tooltip.h:40` | the FAIL_IF's; NAME 1 [event]: the callback's |
 | 2 | `Lines` | `app/client/tooltip.h:56` | 'lines > MAX_LINES' |
 | 2 | `TutorialLineStruct` | `app/client/tutorial_manager.h:28` | what it holds (one Speech%d / Text%d pair, 0xC bytes) |
-| 2 | `Speech` | `app/client/tutorial_manager.h:44` | the ini key |
-| 2 | `Text` | `app/client/tutorial_manager.h:45` | the ini key |
-| 2 | `SkipBlend` | `app/client/tutorial_manager.h:46` | the ini key |
-| 2 | `TutorialStepStruct` | `app/client/tutorial_manager.h:49` | what it holds (one TUTORIAL-n section, 0x14 bytes) |
-| 2 | `Add_Line` | `app/client/tutorial_manager.h:57` | describes what it does |
-| 2 | `Get_Line` | `app/client/tutorial_manager.h:58` | describes what it does |
-| 2 | `Name` | `app/client/tutorial_manager.h:60` | the ini key |
-| 2 | `std:` | `app/client/tutorial_manager.h:61` | describes what it holds |
-| 2 | `Set_Instance` | `app/client/tutorial_manager.h:70` | describes what it does |
-| 2 | `Start_Step` | `app/client/tutorial_manager.h:71` | describes what it does |
-| 2 | `Stop_Step` | `app/client/tutorial_manager.h:72` | describes what it does |
-| 2 | `Set_Completed` | `app/client/tutorial_manager.h:73` | describes what it does |
-| 2 | `Is_Completed` | `app/client/tutorial_manager.h:74` | describes what it does |
-| 2 | `Was_Just_Finished` | `app/client/tutorial_manager.h:75` | describes what it does |
-| 2 | `Find` | `app/client/tutorial_manager.h:76` | describes what it does |
-| 2 | `Next_Line` | `app/client/tutorial_manager.h:77` | describes what it does |
-| 2 | `Write_Completed_File` | `app/client/tutorial_manager.h:78` | describes what it does |
-| 2 | `Read_Completed_File` | `app/client/tutorial_manager.h:79` | describes what it does |
-| 2 | `Reload` | `app/client/tutorial_manager.h:80` | describes what it does |
-| 2 | `Instance` | `app/client/tutorial_manager.h:82` | describes what it holds |
-| 2 | `std:` | `app/client/tutorial_manager.h:85` | describes what it holds |
-| 2 | `std:` | `app/client/tutorial_manager.h:86` | describes what it holds |
-| 2 | `CurrentStep` | `app/client/tutorial_manager.h:87` | describes what it holds |
-| 2 | `CurrentLine` | `app/client/tutorial_manager.h:88` | describes what it holds |
-| 2 | `LastFinished` | `app/client/tutorial_manager.h:89` | describes what it holds |
+| 2 | `Speech` | `app/client/tutorial_manager.h:33` | the ini key |
+| 2 | `Text` | `app/client/tutorial_manager.h:34` | the ini key |
+| 2 | `SkipBlend` | `app/client/tutorial_manager.h:35` | the ini key |
+| 2 | `TutorialStepStruct` | `app/client/tutorial_manager.h:38` | what it holds (one TUTORIAL-n section, 0x14 bytes) |
+| 2 | `Add_Line` | `app/client/tutorial_manager.h:43` | describes what it does |
+| 2 | `Get_Line` | `app/client/tutorial_manager.h:44` | describes what it does |
+| 2 | `Name` | `app/client/tutorial_manager.h:46` | the ini key |
+| 2 | `std:` | `app/client/tutorial_manager.h:47` | describes what it holds |
+| 2 | `Set_Instance` | `app/client/tutorial_manager.h:56` | describes what it does |
+| 2 | `Start_Step` | `app/client/tutorial_manager.h:57` | describes what it does |
+| 2 | `Stop_Step` | `app/client/tutorial_manager.h:58` | describes what it does |
+| 2 | `Set_Completed` | `app/client/tutorial_manager.h:59` | describes what it does |
+| 2 | `Is_Completed` | `app/client/tutorial_manager.h:60` | describes what it does |
+| 2 | `Was_Just_Finished` | `app/client/tutorial_manager.h:61` | describes what it does |
+| 2 | `Find` | `app/client/tutorial_manager.h:62` | describes what it does |
+| 2 | `Next_Line` | `app/client/tutorial_manager.h:63` | describes what it does |
+| 2 | `Write_Completed_File` | `app/client/tutorial_manager.h:64` | describes what it does |
+| 2 | `Read_Completed_File` | `app/client/tutorial_manager.h:65` | describes what it does |
+| 2 | `Reload` | `app/client/tutorial_manager.h:66` | describes what it does |
+| 2 | `Instance` | `app/client/tutorial_manager.h:68` | describes what it holds |
+| 2 | `std:` | `app/client/tutorial_manager.h:71` | describes what it holds |
+| 2 | `std:` | `app/client/tutorial_manager.h:72` | describes what it holds |
+| 2 | `CurrentStep` | `app/client/tutorial_manager.h:73` | describes what it holds |
+| 2 | `CurrentLine` | `app/client/tutorial_manager.h:74` | describes what it holds |
+| 2 | `LastFinished` | `app/client/tutorial_manager.h:75` | describes what it holds |
 | 2 | `Analyze_Player_Id` | `app/client/ui_analyze.cpp:163` | the player id read as an inline accessor (as ui_manu.cpp's Manu_Player_Id) |
 | 2 | `Get_Avatar` | `app/client/ui_attrb.cpp:98` | ClientClass's slot +0x28 |
 | 2 | `Layer` | `app/client/ui_attrb_skills.h:57` | what it is |
@@ -30801,7 +30807,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `TimeMgrClass` | `app/client/time_mgr.h:19` | D24, the client's file time_mgr.cpp |
 | 3 | `tooltip.h` | `app/client/tooltip.h:17` | header name assumed from the client's tooltip.cpp |
 | 3 | `tutorial_manager.h` | `app/client/tutorial_manager.h:19` | header name assumed from the client's tutorial_manager.cpp |
-| 3 | `TutorialManagerClass` | `app/client/tutorial_manager.h:64` | by convention (D24) from the client's file tutorial_manager.cpp ('Tutorial Manager' in its messages, 'starting up Tutorial Manager system') |
+| 3 | `TutorialManagerClass` | `app/client/tutorial_manager.h:50` | by convention (D24) from the client's file tutorial_manager.cpp ('Tutorial Manager' in its messages, 'starting up Tutorial Manager system') |
 | 3 | `As_Space_Client` | `app/client/ui_analyze.cpp:32` | ui_manu.cpp's FAIL_IF's |
 | 3 | `UI_CLOSED` | `app/client/ui_analyze.h:17` | the assert's |
 | 3 | `UIAnalyzeClass` | `app/client/ui_analyze.h:23` | class-from-file (D24) for app\client\ui_analyze.cpp |
