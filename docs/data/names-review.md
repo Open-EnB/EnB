@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 37 |
 | 3 | by convention from a client-named file or sibling | 1961 |
 | 2 | describes what the code does | 4958 |
-| 1 | neutral placeholder | 25103 |
+| 1 | neutral placeholder | 25105 |
 
 ## For review (score 3 and below)
 
@@ -10002,6 +10002,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6AB890` | `app/client/tooltip.cpp:188` | untagged neutral name (D10) |
 | 1 | `Unknown_6AB8C0` | `app/client/tooltip.cpp:196` | untagged neutral name (D10) |
 | 1 | `Unknown_6AB8F0` | `app/client/tooltip.cpp:208` | untagged neutral name (D10) |
+| 1 | `Unknown_Remove_Callback` | `app/client/tooltip.cpp:215` | neutral (D10); two inline layers and a named callback: the client calls the callback's constructor 0x6AC050 out of line and passes its address by lea |
+| 1 | `Unknown_Remove_Destroy` | `app/client/tooltip.cpp:215` | untagged neutral name (D10) |
 | 1 | `Unknown65B810ViewClass` | `app/client/tooltip.cpp:223` | untagged neutral name (D10) |
 | 1 | `LoginUnknown18Class` | `app/client/tooltip.cpp:237` | untagged neutral name (D10) |
 | 1 | `Unknown_44` | `app/client/tooltip.cpp:237` | untagged neutral name (D10) |

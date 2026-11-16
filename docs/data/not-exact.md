@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-860 entries in 296 files.
+859 entries in 296 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -260,7 +260,7 @@ edit the comments in the code, not this file.
 | `app/client/manufacturing_category_ui_util.cpp:162` | `Unknown_7EB4D0` | marker | NOT EXACT: shape (explain.py; an inline budget: the client expands std::string assign inline at case 153, ours at 160, as 0x7EA190) (0x7EB4D0) |
 | `app/client/mclient.cpp:133` | `MovieClientClass::Unknown_08` | marker | NOT EXACT: functional (M1): register allocation, the client keeps the next effect node in ebx where this keeps the flag constant 1 (two forms; attempts.py show 0x7EC7C0) 0x7EC7C0 |
 | `app/client/mclient.cpp:242` | `MovieClientClass::Render` | marker | NOT EXACT: functional (M1): register and stack allocation, the client holds this in esi and lays the matrix over the saved flags (two forms; attempts.py show 0x7ECDC0) 0x7ECDC0 |
-| `app/client/mv3dsnd.cpp:142` | `Movie3DSoundClass::Movie3DSoundClass` | marker | NOT EXACT: functional (M1): inline budget (0.45 with the inline_depth(0) below, 0.30 without; attempts.py show 0x7EDCB0): the client calls GenericList's constructor, HashListClass::Find (0x7EEBD0), the node's constructor (0x7EED40) and Add(node) (0x7EEE00) out of line but expands Add(record, key) around the last two; inline_depth(0) gives Find, leaves Add(record, key) out of line too, and lays the... |
+| `app/client/mv3dsnd.cpp:142` | `Movie3DSoundClass::Movie3DSoundClass` | marker | NOT EXACT: functional (M1): inline budget (attempts.py show 0x7EDCB0): the client calls GenericList's constructor, HashListClass::Find (0x7EEBD0), the node's constructor (0x7EED40) and Add(node) (0x7EEE00) out of line and expands Add(record, key) around the last two; under the inline_depth(0) below Add(record, key) is written out by hand, so all four are calls as the client's, but Set_List_Created... |
 | `app/client/mv3dsnd.cpp:210` | `Movie3DSoundClass::~Movie3DSoundClass` | marker | NOT EXACT: functional (M1): exception states, the client's inlined ~HashListClass sets none for the list's two nodes (base and member forms of the hash list give the same; attempts.py show 0x7EE340) 0x7EE340 |
 | `app/client/nav_list_builder.cpp:157` | `NavListBuilderClass::Unknown_7B7EF0` | marker | NOT EXACT: order only (the loop's exit reloads co_from before to; ours to first) @0x7B7EF0 |
 | `app/client/nav_list_line_draw.cpp:61` | `NavListLineDrawClass::Unknown_7B99C0` | marker | NOT EXACT: inline budget (0.69, attempts.py 0x7B99C0): the client calls Scene = NULL (0x7BA340) out of line inside the inlined 0x7B9CD0 and threads the size test's begin == 0 path; here Scene's release is inlined @0x7B99C0 |
@@ -352,7 +352,7 @@ edit the comments in the code, not this file.
 | `app/client/tasks/tsk_login.cpp:1098` | `LoginTaskClass::Fetch_EA_Ticket` | marker | NOT EXACT: shape (the client merges the two message boxes' tails; attempts.py show 0x76A7B0) 0x76A7B0 |
 | `app/client/textgadg.cpp:389` | `TextGadgetClass::Unknown_6AAD10` | marker | NOT EXACT: registers and stack (0.58; 0x128 bytes of locals in the client, 0x12C here): the client keeps the text in ebx and &Text in ebp (recomputed after the width loop), here &Text in ebx and the text spilled |
 | `app/client/tooltip.cpp:93` | `UIViewUnknown30Class::Unknown_6AB5B0` | marker | NOT EXACT: register (0.80): the view's loads for the second 0x65F5F0 call and the sort object go to eax / ecx the other way round |
-| `app/client/tooltip.cpp:216` | `UIViewUnknown30Class::Unknown_6AB930` | marker | NOT EXACT: inline-budget (0.75): the client calls the DestroyGadgetEvent callback's constructor 0x6AC050 out of line for the disconnect (inlined here) and loads the gadget's name before the avatar id |
+| `app/client/tooltip.cpp:216` | `UIViewUnknown30Class::Unknown_6AB930` | marker | NOT EXACT: register allocation (the client loads the gadget's name before the avatar id for Packet_0068; the callback's constructor 0x6AC050 is out of line as the client's) |
 | `app/client/tooltip.cpp:268` | `UIViewUnknown30Class::Unknown_6ABC10` | marker | NOT EXACT: shape (0.48): the client keeps the split loop whole (width from the stack, 'lines = MAX_LINES' on the latch); VC6 peels the first pass here |
 | `app/client/ui_analyze.cpp:126` | `UIAnalyzeClass::Unknown_54` | marker | NOT EXACT: register (after the button loop the client keeps the zero in ebp and the space client in ebx, ours the other way round, and loads the name table's pointer before the gadget pointer; 0-based loop, named key event, the icon loop 1-based, the buffer at the top: no) (0x5439F0) @0x5439F0 |
 | `app/client/ui_analyze.cpp:314` | `UIAnalyzeClass::Unknown_60` | marker | NOT EXACT: inline budget (the client calls the first 'Validity' find out of line, 0x5465C0, and the 'Validity' / 'Mode' Casts in the second and third, 0x5468D0 / 0x546920, but inlines the last find whole; its blocks also come in another order) (0x5443F0) @0x5443F0 |
@@ -434,7 +434,6 @@ edit the comments in the code, not this file.
 | `app/client/ui_cpit.cpp:266` | `UICpitClass::Unknown_54` | marker | NOT EXACT: inline budget (the client calls the name's _Tidy(true) out of line at the gutter loop's end, ours expands it) |
 | `app/client/ui_cpit.cpp:701` | `UICpitClass::Unknown_68` | marker | NOT EXACT: inline budget (the client calls Unknown_Find_Field<float> out of line, 0x546710, in the expanded 0x584000; ours expands it and calls the Cast) |
 | `app/client/ui_cpit.cpp:1278` | `UICpitClass::Unknown_5821C0` | marker | NOT EXACT: written from the client (its expanded 0x584000 calls the find out of line, ours inlines it) |
-| `app/client/ui_cpit.cpp:1866` | `UICpitClass::Unknown_583DC0` | marker | NOT EXACT: inline budget (the client calls the list's _Construct out of line, 0x584F90, and keeps emp in bl; ours expands it) |
 | `app/client/ui_dynamicwindow.cpp:352` | `UIDynamicWindowClass::Add_Text` | marker | NOT EXACT: 0x58AE90, inline-budget: the client calls std::string::_Eos out of line for the font name's string where this inlines it (docs/attempts/58AE90) |
 | `app/client/ui_dynamicwindow.cpp:369` | `UIDynamicWindowClass::Add_Text` | marker | NOT EXACT: inline-budget: the client calls std::string::_Eos out of line for both strings where this inlines them (docs/attempts/58B160) 0x58B160 |
 | `app/client/ui_experience.cpp:136` | `UIExperienceClass::UIExperienceClass` | marker | NOT EXACT: functional (D64): the client calls GenericNode::GenericNode out of line (an EH state for the node) |
