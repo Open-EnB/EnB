@@ -317,6 +317,15 @@ PRs and the verify service:
   verify_pr.py -> verify): check the pid's command line (`tasklist`, `Get-CimInstance Win32_Process`) before
   releasing a lease you did not take.
 
+- **Verify waits and lease refusals (2026-11-16):** verify / report give up after 600 s on the lock, and `verify.py --pool K`
+  exits at once on a host-memory lease refusal ("4 GB must stay free"): briefs say `--lock-wait 6000` and a bounded
+  lease-retry loop. A verify waiting for the lock rmtrees its verify-<lib> scratch when it starts: builders copy objects
+  aside before offline analyses beside a queued verify.
+- **`TaskStop` on a background `sh` retry loop does not kill the loop** (a second verify ran): track PIDs and kill them.
+- **A bring-over that fast-forwards skips the automatic pad retune.
+- **Parallel builders on one tool file invent the same switch under one name** (three USE_CALL_TIES): give parallel tool
+  builders disjoint rule names / phases in the briefs.
+
 Claims and briefs:
 - **`run_branch.py claim FILE` counts only functions its index thinks not exact** (a file came back "all exact"
   with four NOT EXACT functions): claim near misses by address range. It can hang minutes after a GitHub API rate

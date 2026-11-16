@@ -1184,6 +1184,9 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
   constructor gives the same C2440: pass `.Peek()`.
 * **`RefCountPtr<T> x = Create_Peek(p)` of the same type is elided:** the client's copy and release want
   `RefCountPtr<T> x = RefCountPtr<T>(Create_Peek(p))`; a factory's RefCountPtr result passed on to the next call wants a named local (the nested call came out 4 bytes short).
+* **`Create_Get(x->Peek_*())` drops a reference that was never added (2026-11-16, LV):** a delayed crash: a sub-object is
+  freed while its HLod still holds it, EIP in a junk vtable slot. Use `Create_Peek` for a peeked pointer (the client's
+  0x497300 is Create_Peek byte for byte).
 * **An inline empty virtual in a base header is emitted by every file that makes a derived class's table:** a per-file
   view that declares it out of line hides those pairs. A base whose constructor the client calls out of line belongs in its own .cpp.
 * **RefCountPtr<T> needs T complete:** an inline constructor with RefCountPtr<T> members in a shared header
@@ -1272,6 +1275,9 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
   temporary with its conditional-destroy flag (`test bl,1`, `and ebx,~1`): the implicit conversion reproduces
   it; a RefCountPtr<Derived> assigned to RefCountPtr<Base> goes through the template `operator=`, with another
   register order than the same-type one. `mov eax,[ecx]; ret` is RefCountPtr::operator-> out of line.
+  With a `RefCountPtr<Derived>` of an object deriving from both sides of an overloaded pair (Add_Object(
+  DynamicWindowElementClass*) / Add_Object(DynamicWindowRenderObjectClass*)) the call silently picks the most-derived
+  overload (2026-11-16, TT): the client's overload shows which RefCountPtr type its source used.
 * **HashList walks:** the client uses both forms, and the test decides: `while (node && node->Next()) ... node
   = node->Next()` tests only `Next()`; `HashNodeClass::Next_Valid` adds the Is_Valid test (`[eax+8]`), and
   `cur = node; node = cur->Next_Valid();` decides a whole function's register allocation (0x7B8210 exact on
@@ -1412,9 +1418,17 @@ are in 3.0.
   silently cost neighbours' `$E` / order pairs (9 lost, sclient's ~deque<int> moved); as its own last round it
   gained 423 at 74 addresses, 0 lost. A measure script pointed at a missing obj folder prints 0 / 0: check the
   folder first.
+  A tie rule that runs before D166 can take D166's credits (which widen ranges) (2026-11-16, CR4): new tie rules go
+  after D166 or must count toward ranges. For non-short tied COMDATs, other objects' calls reach their own copies:
+  only the object's own calls are evidence.
+* **Under /Gy every own function is its own section (2026-11-16, CR5):** order an object's functions with objmatch's
+  `_object_order` (section, then offset), never per section. objmatch's `_call_lock` is not reentrant (CR2): a helper
+  that holds it must call eh_stubs() first, else a silent deadlock.
 * **One tree file can be several client objects, and objmatch's own-range rule assumes one:** a file that spans
   objects (land.cpp: three) credits across the boundaries wrongly. Splitting it regained functions and moved the
   rest by D66 between the files (interim names, D137).
+  An object's own range can also span a quarter of the app through one stray exact function (unknown_7cef30, 2026-11-16,
+  CR6): never use "inside another object's range" as a guard.
 * **Code at far-off addresses added to a file widens its range, and identical twins elsewhere in that range turn
   ambiguous (lost outright):** recognise it by a file that gained a function far from its object and an address in
   the middle that was exact before. Give the far code its own file (the 0x6B6050 gadget in ui_starbase.cpp cost
@@ -1442,6 +1456,9 @@ are in 3.0.
   need their client addresses named there before their callers match. A symbols_named.json
   rename alone can change pairs: rerun the verify before keeping such a gain. Check `lost outright` for short
   pairs before keeping a change. Example: an inline `Get_Desc` lost a folded RefCountPtr `Peek` / `operator->`.
+* **symbols_named.json mangled names must use VC6 back-references (`PAV1@`), else they silently match nothing
+  (2026-11-16, F1):** read the name from the object (`objdiff.py OBJ --list`). Naming one of several same-byte template
+  copies can push other files' tie-broken copies onto it: pairs_cmp after every naming.
 * **symbols_named.json and `--apply-named` traps (2026-11):** `symbols.py --apply-named` keeps names removed from symbols_named.json (restore docs/data/symbols.json and ghidra_symbols.py from HEAD and apply again). When `wt.py rebase` stops on docs/data/symbols.json, re-run `--apply-named` before continuing: taking either side drops one side's names and the recorded verify still looks clean. Renaming a class or virtual that symbols.json names loses its short / vtable-proved pairs: add `replaces` rows, and the mangled `PAV<name>@@` / `ABV<name>@@` forms need their own. A name for a symbol that two objects define takes away the other object's range credit when that object's copy sits elsewhere; a name for a function far from its object, or a COMDAT beside identical `$E` initialisers, can move range credits too: screen with `.work/FD/conflicts.py` and trust only the verify. Funclet evidence (0xAA8000-0xACD000) must use the whole .text (`objmatch._whole_text`): match_objects' text / start is the region slice for app files.
 * **symbols.json regeneration is not neutral:** objmatch reads docs/data/symbols.json (self names D88 / D213,
   known vtables, D115's initialiser targets) and symbols.py reads the existing file through objmatch, so a
@@ -1490,6 +1507,8 @@ are in 3.0.
   importer-PID`, then check out aux_roots.*); its results reach the log only once the importer lock frees. An
   `appfile.py match` on untracked `aux_roots_pN.cpp` copies with your own VM sweeps without the lock, but appfile
   pads through a different window than verify: use it to narrow candidates, decide with `auxpad.py sweep`.
+  aux_roots.h is no longer what `auxroots.py generate` writes (2026-11-16, AR: ~146 hand-edited lines, padding includes,
+  Vector3 / InvSlotStruct): regenerating would undo them.
 * **SEND_SYMBOL_PAD (`tools/vc6/sendpad.py`):** aux_roots_send.h's SEND_SYMBOL_PAD keeps sclient.cpp's padded
   constructors 0x758210 and 0x702240 exact (different instances, not twins), and 0x74D990, which sclient.cpp
   defines after `#include "aux_roots.h"`. The window moves with any declaration or definition-order change
@@ -1599,7 +1618,9 @@ are in 3.0.
   blank lines; a static generated stand-in is reported "defined but not compiled"; `explain.py` wants appfile's own
   object path (`.work/<agent>/appfile/obj/X.obj`). `match --pool` reads stdin: inside a `while read` loop it eats the loop's input (add `< /dev/null`).
 * **appfile.py, `match` and `show` limits:** `match` wipes the agent's `appfile/obj` on every run, so two runs of same-named drafts under one `--agent` overwrite each other's object (FileNotFoundError or another variant's result): run variants in series or one `ENB_AGENT` each. `match` refuses "the object lacks void" for a parenthesised definition `static void (Name)(...)` unless `--allow-missing`. Operator members (`??_5`, `??U`) and nested-class members (the demangled name drops the outer class) show as no marker: `--allow-missing` too. `show` refuses a file app-functions.json does not attribute (a new file): a throwaway wrapper that sets the range's `file` in memory gives show and draft (Tools item: a `--range` option). A `#line` in a draft is easy to lose when the file goes into the tree: count the padding from the draft without it.
-* **appfile.py, markers and includes:** a `// @0xADDR` marker skips a `template <...>` line on its own, so it never attaches to a template function: join the template line to the definition line. `--diff` prints nothing once the marker line is replaced by a `// NOT EXACT` line: run explain.py on `.work/<agent>/appfile/obj/X.obj`. A draft outside app/ with relative `..\..\wwlib\x.h` includes needs `-I app/shared -I wwlib -I wwdebug -I wwmath`; `-I DIR` did not resolve app/shared's subdirectory includes (`auxdata\permstr.h`) even absolute: run `match` on the tree path with the default `-I auto`. A draft can be tried lock-free while your own verify waits: copy the .cpp and the edited header into `.work/<id>/dr/` (reported: quoted includes resolve from the draft's folder first, against the invocation bullet above: check which header the object used).
+* **`attempts.py record --forms` takes a count; `--blocker` one class from a fixed list (2026-11-16, QE / F1):** `short`
+  and `type` are refused; free text goes in `--evidence`.
+* **appfile.py, markers and includes:** a `// @0xADDR` marker skips a `template <...>` line on its own, so it never attaches to a template function: join the template line to the definition line. `--diff` prints nothing once the marker line is replaced by a `// NOT EXACT` line: run explain.py on `.work/<agent>/appfile/obj/X.obj`. A draft outside app/ with relative `..\..\wwlib\x.h` includes needs `-I app/shared -I wwlib -I wwdebug -I wwmath`; `-I DIR` did not resolve app/shared's subdirectory includes (`auxdata\permstr.h`) even absolute: run `match` on the tree path with the default `-I auto`. A draft outside the tree fails on relative includes (QE): put it in its file's directory as an untracked file. A draft can be tried lock-free while your own verify waits: copy the .cpp and the edited header into `.work/<id>/dr/` (reported: quoted includes resolve from the draft's folder first, against the invocation bullet above: check which header the object used).
 * **appfile.py PREFIX means "ours is a prefix of the client's measured size":** the client size runs to the next
   verified function start, so it can include int3 padding after the client's `ret`, inter-object padding, or a
   file-local static / initialiser stored without a thunk (the tools' function starts lack those). Verify counts
@@ -1824,6 +1845,11 @@ Stand-ins and gen_stubs (clienttest, udpreplay, kerneltest, the POC):
   must be renamed into place; input is tagged 0x5043 and `ENB_POC_INPUT_TAG=1` drops untagged input. Counting asserts in messages.log (stubs.log's copy is appended to it): count timestamped lines only and normalise by frames; retail fires effect_description.cpp's asserts 266 / 318 / 348 in the same 4:3:3 ratio, so a flood there is the client's own (F1, 2026-11-14). A recording that starts docked logs no 'Render: Frame Rate' on either
   client (tools/harness/README.md); a ~5700 s session (/play 7's session 5) grew messages.log to 2 GB and e2e.py's in-memory
   Events list until the host ran low on memory (E2, 2026-11-15; progress.md §4 Tools).
+  Live runs (2026-11-16, checker, LV): the login screen swallows the first click on the username field (the remembered
+  name stays): `_login_live.scn` clicks twice with wait-quiet 0.5, then End + 14 Backspace before each `text`. `e2e.py`
+  options (--live, --retail, --instance, --antprox-arg) go before `run`. One admin account on the local Net-7 server:
+  two logins collide (no START_ACK, the character starts in space): check tasklist for client.exe / antprox.exe
+  before each live run.
 * **Retiring a stand-in must not take its neighbours with it** (deleting a hand stand-in from stubs/app_stubs.cpp
   also removed the CRT wrappers beside it): gen_stubs' generated stand-ins return null, `standins.py check` and the
   link gate pass, and only a POC run shows it (a crash on a null inside the real function that copies it). Run
