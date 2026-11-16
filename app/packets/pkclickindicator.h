@@ -22,6 +22,7 @@
 class ClickIndicatorPacketClass : public PacketClass
 {
 public:
+	ClickIndicatorPacketClass(bool turn_on, int obj_id);	// 0x87E7D0  // NAME 2: the stores (no caller left)
 	ClickIndicatorPacketClass(RawPacketClass *raw);	// 0x87E870
 	virtual RawPacketClass *Build();	// +0x04 0x87E910
 	virtual bool Process_Packet(void *client);	// +0x08 0x7393D0 (cpacket.cpp)

@@ -3,6 +3,15 @@
 #include <stdio.h>
 
 
+CreateAttachmentPacketClass::CreateAttachmentPacketClass(int unknown0c, int parent_id, int child_id, int unknown18)
+{
+	Unknown0C = unknown0c;
+	Parent_ID = parent_id;
+	Child_ID = child_id;
+	Unknown18 = unknown18;
+	Unknown1C = Unknown_14(unknown0c, -1);
+}
+
 CreateAttachmentPacketClass::CreateAttachmentPacketClass(RawPacketClass *raw)
 {
 	raw->Get(Parent_ID);

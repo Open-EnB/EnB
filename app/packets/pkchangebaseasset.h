@@ -17,11 +17,13 @@
 #define PKCHANGEBASEASSET_H
 
 #include "pk.h"
+#include "vector3.h"
 
 // opcode 38 (0x0026, CHANGE_BASE_ASSET): vtable 0xB0A050, constructor 0x87E560, 0x28 bytes
 class ChangeBaseAssetPacketClass : public PacketClass
 {
 public:
+	ChangeBaseAssetPacketClass(int game_id, int base_asset, float scale, const Vector3 &hsv_shift);	// 0x87E420  // NAME 2: the stores (no caller left)
 	ChangeBaseAssetPacketClass(RawPacketClass *raw);	// 0x87E560
 	virtual RawPacketClass *Build();	// +0x04 0x87E620
 	virtual bool Process_Packet(void *client);	// +0x08 0x737400 (cpacket.cpp)
@@ -32,7 +34,7 @@ public:
 	int GameID;	// +0x0C  // NAME 3: the client's Print text 'GameID='
 	int BaseAsset;	// +0x10  // NAME 3: the client's Print text 'BaseAsset='
 	float Scale;	// +0x14  // NAME 3: the client's Print text 'Scale='
-	float Unknown18[3];	// +0x18
+	Vector3 HSVShift;	// +0x18  // NAME 3: the client's Print text 'HSVShift='
 	int Unknown24;	// +0x24
 };
 

@@ -3,13 +3,18 @@
 #include <stdio.h>
 
 
+RequestTransformChangePacketClass::RequestTransformChangePacketClass(int player_id, int game_id, const Vector3 &position, const Quaternion &orientation, const Vector3 &velocity) :
+	PlayerID(player_id), GameID(game_id), Position(position), Orientation(orientation), Velocity(velocity)
+{
+}
+
 RequestTransformChangePacketClass::RequestTransformChangePacketClass(RawPacketClass *raw)
 {
 	raw->Get(&PlayerID, sizeof(PlayerID));
 	raw->Get(&GameID, sizeof(GameID));
-	raw->Get(Unknown14, sizeof(Unknown14));
-	raw->Get(Unknown20, sizeof(Unknown20));
-	raw->Get(Unknown30, sizeof(Unknown30));
+	raw->Get(&Position, sizeof(Position));
+	raw->Get(&Orientation, sizeof(Orientation));
+	raw->Get(&Velocity, sizeof(Velocity));
 }
 
 RawPacketClass *RequestTransformChangePacketClass::Build()
@@ -17,20 +22,20 @@ RawPacketClass *RequestTransformChangePacketClass::Build()
 	RawPacketClass *raw = new RawPacketClass(67, Get_Data_Size());
 	raw->Add(&PlayerID, sizeof(PlayerID));
 	raw->Add(&GameID, sizeof(GameID));
-	raw->Add(Unknown14, sizeof(Unknown14));
-	raw->Add(Unknown20, sizeof(Unknown20));
-	raw->Add(Unknown30, sizeof(Unknown30));
+	raw->Add(&Position, sizeof(Position));
+	raw->Add(&Orientation, sizeof(Orientation));
+	raw->Add(&Velocity, sizeof(Velocity));
 	return(raw);
 }
 
 int RequestTransformChangePacketClass::Get_Data_Size()
 {
-	return(sizeof(PlayerID) + sizeof(GameID) + sizeof(Unknown14) + sizeof(Unknown20) + sizeof(Unknown30));
+	return(sizeof(PlayerID) + sizeof(GameID) + sizeof(Position) + sizeof(Orientation) + sizeof(Velocity));
 }
 
 int RequestTransformChangePacketClass::Print(char *buffer, int)
 {
-	return(sprintf(buffer, "%s {PlayerID=%d GameID=%d Position={%f %f %f} Orientation={%f %f %f %f} Velocity={%f %f %f}}", "Request_Transform_Change", PlayerID, GameID, Unknown14[0], Unknown14[1], Unknown14[2], Unknown20[0], Unknown20[1], Unknown20[2], Unknown20[3], Unknown30[0], Unknown30[1], Unknown30[2]));
+	return(sprintf(buffer, "%s {PlayerID=%d GameID=%d Position={%f %f %f} Orientation={%f %f %f %f} Velocity={%f %f %f}}", "Request_Transform_Change", PlayerID, GameID, Position[0], Position[1], Position[2], Orientation[0], Orientation[1], Orientation[2], Orientation[3], Velocity[0], Velocity[1], Velocity[2]));
 }
 
 

@@ -31,17 +31,21 @@ int SetZBandPacketClass::Print(char *buffer, int)
 	return(sprintf(buffer, "%s {Min=%f Max=%f}", "Set_ZBand", Min, Max));
 }
 
+SetBBoxPacketClass::SetBBoxPacketClass(const Vector2 &min, const Vector2 &max) : XMin(min), XMax(max)
+{
+}
+
 SetBBoxPacketClass::SetBBoxPacketClass(RawPacketClass *raw)
 {
-	raw->Get(XMin, sizeof(XMin));
-	raw->Get(XMax, sizeof(XMax));
+	raw->Get(&XMin, sizeof(XMin));
+	raw->Get(&XMax, sizeof(XMax));
 }
 
 RawPacketClass *SetBBoxPacketClass::Build()
 {
 	RawPacketClass *raw = new RawPacketClass(43, Get_Data_Size());
-	raw->Add(XMin, sizeof(XMin));
-	raw->Add(XMax, sizeof(XMax));
+	raw->Add(&XMin, sizeof(XMin));
+	raw->Add(&XMax, sizeof(XMax));
 	return(raw);
 }
 

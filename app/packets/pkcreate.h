@@ -17,11 +17,13 @@
 #define PKCREATE_H
 
 #include "pk.h"
+#include "vector3.h"
 
 // opcode 4 (0x0004, CREATE): vtable 0xB0A140, constructor 0x87FA70, 0x28 bytes
 class CreatePacketClass : public PacketClass
 {
 public:
+	CreatePacketClass(int game_id, short base_asset, char type, float scale, int unknown, const Vector3 &hsv, int channel);	// 0x87F920  // NAME 2: the stores (no caller left)
 	CreatePacketClass(RawPacketClass *raw);	// 0x87FA70
 	virtual RawPacketClass *Build();	// +0x04 0x87FB40
 	virtual bool Process_Packet(void *client);	// +0x08 0x733700 (cpacket.cpp)
@@ -34,7 +36,7 @@ public:
 	short BaseAsset;	// +0x14  // NAME 3: the client's Print text 'BaseAsset='
 	char Type;	// +0x16  // NAME 3: the client's Print text 'Type='
 	char Unknown17[0x1];	// +0x17
-	float HSV[3];	// +0x18  // NAME 3: the client's Print text 'HSV='
+	Vector3 HSV;	// +0x18  // NAME 3: the client's Print text 'HSV='
 	int Unknown24;	// +0x24
 };
 

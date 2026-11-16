@@ -17,11 +17,14 @@
 #define PKREQUESTTRANSFORMCHANGE_H
 
 #include "pk.h"
+#include "vector3.h"
+#include "quat.h"
 
 // opcode 67 (0x0043, REQUEST_TRANSFORM_CHANGE): vtable 0xB0B808, constructor 0x8A28C0, 0x3C bytes
 class RequestTransformChangePacketClass : public PacketClass  // NAME 2: Net-7's opcode name REQUEST_TRANSFORM_CHANGE (the Net-7 opcode table; no structure check)
 {
 public:
+	RequestTransformChangePacketClass(int player_id, int game_id, const Vector3 &position, const Quaternion &orientation, const Vector3 &velocity);	// 0x8A27B0  // NAME 2: the stores (no caller left)
 	RequestTransformChangePacketClass(RawPacketClass *raw);	// 0x8A28C0
 	virtual RawPacketClass *Build();	// +0x04 0x8A2990
 	virtual bool Process_Packet(void *client);	// +0x08 0x867EC0 (clientstub.cpp l.80)
@@ -30,9 +33,9 @@ public:
 
 	int PlayerID;	// +0x0C  // NAME 3: the client's Print text 'PlayerID='
 	int GameID;	// +0x10  // NAME 3: the client's Print text 'GameID='
-	float Unknown14[3];	// +0x14
-	float Unknown20[4];	// +0x20
-	float Unknown30[3];	// +0x30
+	Vector3 Position;	// +0x14  // NAME 3: the client's Print text 'Position='
+	Quaternion Orientation;	// +0x20  // NAME 3: the client's Print text 'Orientation='
+	Vector3 Velocity;	// +0x30  // NAME 3: the client's Print text 'Velocity='
 };
 
 #endif

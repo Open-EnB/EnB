@@ -22,6 +22,7 @@
 class CameraControlPacketClass : public PacketClass
 {
 public:
+	CameraControlPacketClass(int message, int game_id);	// 0x878280  // NAME 2: the stores (no caller left)
 	CameraControlPacketClass(RawPacketClass *raw);	// 0x878390
 	virtual RawPacketClass *Build();	// +0x04 0x878450
 	virtual bool Process_Packet(void *client);	// +0x08 0x739FF0 (cpacket.cpp)

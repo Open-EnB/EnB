@@ -3,6 +3,11 @@
 #include <stdio.h>
 
 
+CameraControlPacketClass::CameraControlPacketClass(int message, int game_id) : Message(message), GameID(game_id), Unknown14(-1)
+{
+	Unknown14 = Unknown_14(game_id, -1);
+}
+
 CameraControlPacketClass::CameraControlPacketClass(RawPacketClass *raw) : Message(-1), GameID(0), Unknown14(-1)
 {
 	raw->Get(Message);

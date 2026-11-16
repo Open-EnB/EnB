@@ -22,6 +22,7 @@
 class TradePacketClass : public PacketClass
 {
 public:
+	TradePacketClass(bool type, int partner_id);	// 0x8AB290  // NAME 2: the stores (no caller left)
 	TradePacketClass(RawPacketClass *raw);	// 0x8AB370
 	virtual RawPacketClass *Build();	// +0x04 0x8AB410
 	virtual bool Process_Packet(void *client);	// +0x08 0x739DE0 (cpacket.cpp)

@@ -3,12 +3,18 @@
 #include <stdio.h>
 
 
+ChangeBaseAssetPacketClass::ChangeBaseAssetPacketClass(int game_id, int base_asset, float scale, const Vector3 &hsv_shift) :
+	GameID(game_id), BaseAsset(base_asset), Scale(scale), HSVShift(hsv_shift)
+{
+	Unknown24 = Unknown_14(GameID, -1);
+}
+
 ChangeBaseAssetPacketClass::ChangeBaseAssetPacketClass(RawPacketClass *raw)
 {
 	raw->Get(&GameID, sizeof(GameID));
 	raw->Get(&BaseAsset, sizeof(BaseAsset));
 	raw->Get(&Scale, sizeof(Scale));
-	raw->Get(Unknown18, sizeof(Unknown18));
+	raw->Get(&HSVShift, sizeof(HSVShift));
 }
 
 RawPacketClass *ChangeBaseAssetPacketClass::Build()
@@ -17,18 +23,18 @@ RawPacketClass *ChangeBaseAssetPacketClass::Build()
 	raw->Add(&GameID, sizeof(GameID));
 	raw->Add(&BaseAsset, sizeof(BaseAsset));
 	raw->Add(&Scale, sizeof(Scale));
-	raw->Add(Unknown18, sizeof(Unknown18));
+	raw->Add(&HSVShift, sizeof(HSVShift));
 	return(raw);
 }
 
 int ChangeBaseAssetPacketClass::Get_Data_Size()
 {
-	return(sizeof(GameID) + sizeof(BaseAsset) + sizeof(Scale) + sizeof(Unknown18));
+	return(sizeof(GameID) + sizeof(BaseAsset) + sizeof(Scale) + sizeof(HSVShift));
 }
 
 int ChangeBaseAssetPacketClass::Print(char *buffer, int)
 {
-	return(sprintf(buffer, "%s {GameID=%d BaseAsset=%d Scale=%g HSVShift=(%g,%g,%g)}", "Change_Base_Asset", GameID, BaseAsset, Scale, Unknown18[0], Unknown18[1], Unknown18[2]));
+	return(sprintf(buffer, "%s {GameID=%d BaseAsset=%d Scale=%g HSVShift=(%g,%g,%g)}", "Change_Base_Asset", GameID, BaseAsset, Scale, HSVShift[0], HSVShift[1], HSVShift[2]));
 }
 
 

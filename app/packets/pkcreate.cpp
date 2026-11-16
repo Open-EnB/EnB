@@ -2,6 +2,15 @@
 #include "pkcreate.h"
 #include <stdio.h>
 
+CreatePacketClass::CreatePacketClass(int game_id, short base_asset, char type, float scale, int, const Vector3 &hsv, int channel) :
+	GameID(game_id), Scale(scale), BaseAsset(base_asset), Type(type), HSV(hsv)
+{
+	if (channel == -1) {
+		Unknown24 = Unknown_14(GameID, Type);
+	} else {
+		Unknown24 = Unknown_14(channel, Type);
+	}
+}
 
 CreatePacketClass::CreatePacketClass(RawPacketClass *raw)
 {
@@ -9,7 +18,7 @@ CreatePacketClass::CreatePacketClass(RawPacketClass *raw)
 	raw->Get(&Scale, sizeof(Scale));
 	raw->Get(&BaseAsset, sizeof(BaseAsset));
 	raw->Get(&Type, sizeof(Type));
-	raw->Get(HSV, sizeof(HSV));
+	raw->Get(&HSV, sizeof(HSV));
 }
 
 RawPacketClass *CreatePacketClass::Build()
@@ -19,7 +28,7 @@ RawPacketClass *CreatePacketClass::Build()
 	raw->Add(&Scale, sizeof(Scale));
 	raw->Add(&BaseAsset, sizeof(BaseAsset));
 	raw->Add(&Type, sizeof(Type));
-	raw->Add(HSV, sizeof(HSV));
+	raw->Add(&HSV, sizeof(HSV));
 	return(raw);
 }
 
@@ -41,5 +50,8 @@ int CreatePacketClass::Print(char *buffer, int)
 **	  0xC416FC, atexit 0x42B320). Drafted from the client by the packet decoder (tools/re/pkdecode.py,
 **	  pkemit.py): members from the raw message's Get / Build's Add (sizes) and Print (types,
 **	  names: 'Name=%d'), the constructors' stores in the initialiser list.
+**	* The sending constructor 0x87F920 (no caller left): HSV a Vector3 (the client copies it as one
+**	  struct after the initialiser list's stores), its fifth argument unused, the channel if / else around
+**	  two Unknown_14 calls (a ?: form loads the argument before the push).
 **	* The file name is provisional (provisional, pk + its first named class's name).
 */

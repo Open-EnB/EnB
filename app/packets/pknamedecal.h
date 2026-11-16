@@ -19,6 +19,7 @@
 #include "pk.h"
 #include <vector>
 #include "vector4.h"
+#include "vector3.h"
 
 // One decal of a DECAL packet: 24 bytes, read and written as 4 + 4 + 16 bytes (its vector's insert
 // helpers are this object's, 0x8810F0-0x881250). The 16 bytes are a Vector4: the client copies a
@@ -51,6 +52,7 @@ public:
 class NameDecalPacketClass : public PacketClass
 {
 public:
+	NameDecalPacketClass(int game_id, const char *name, const Vector3 &rgb);	// 0x880DA0  // NAME 2: the stores (no caller left)
 	NameDecalPacketClass(RawPacketClass *raw);	// 0x880EE0
 	virtual RawPacketClass *Build();	// +0x04 0x880FA0
 	virtual bool Process_Packet(void *client);	// +0x08 0x735FC0 (cpacket.cpp)
@@ -60,7 +62,7 @@ public:
 
 	int GameID;	// +0x0C  // NAME 3: the client's Print text 'GameID='
 	char Name[32];	// +0x10  // NAME 3: the client's Print text 'Name='
-	float RGB[3];	// +0x30  // NAME 3: the client's Print text 'RGB='
+	Vector3 RGB;	// +0x30  // NAME 3: the client's Print text 'RGB='
 	int Unknown3C;	// +0x3C
 };
 
