@@ -43,6 +43,11 @@ int Starbase_Avatar_ChangePacketClass::Print(char *buffer, int len)
 	return(_snprintf(buffer, len, "Starbase_Avatar_Change {AvatarID=%d RoomType=%d Orient=%f Position=(%f,%f,%f) ActionFlag=%d}", AvatarID, RoomType, Orient, Unknown18, Unknown1C, Unknown20, ActionFlag));
 }
 
+StarbaseAvatarUpdatePacketClass::StarbaseAvatarUpdatePacketClass(int avatar_id, float orient, Vector3 *position, int action_flag, int room) :
+	AvatarID(avatar_id), Orient(orient), Unknown14(position->X), Unknown18(position->Y), Unknown1C(position->Z), ActionFlag(action_flag), Room(room)
+{
+}
+
 StarbaseAvatarUpdatePacketClass::StarbaseAvatarUpdatePacketClass(RawPacketClass *raw)
 {
 	raw->Get(&AvatarID, sizeof(AvatarID));

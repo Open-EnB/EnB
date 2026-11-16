@@ -59,6 +59,7 @@ public:
 class VerbUpdatePacketClass : public PacketClass
 {
 public:
+	VerbUpdatePacketClass(int game_id, const std::set<VerbEnum> &drops, const std::set<VerbEnum> &adds);	// 0x8AF8D0  // NAME 1 [game_id, drops, adds]: the members'
 	VerbUpdatePacketClass(RawPacketClass *raw);	// 0x8AFD10
 	virtual RawPacketClass *Build();	// +0x04 0x8AFF40
 	virtual bool Process_Packet(void *client);	// +0x08 0x7388B0 (cpacket.cpp)

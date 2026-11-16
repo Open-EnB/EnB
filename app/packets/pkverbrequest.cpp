@@ -110,6 +110,13 @@ int VerbListPacketClass::Print(char *buffer, int)
 	return(sprintf(buffer, "%s { GameID=%d Verbs=%s }", "VerbList", GameID, verbs.c_str()));
 }
 
+VerbUpdatePacketClass::VerbUpdatePacketClass(int game_id, const std::set<VerbEnum> &drops, const std::set<VerbEnum> &adds) :
+	GameID(game_id),
+	Drops(drops),
+	Adds(adds)
+{
+}
+
 VerbUpdatePacketClass::VerbUpdatePacketClass(RawPacketClass *raw) :
 	GameID(0)
 {

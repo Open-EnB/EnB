@@ -228,6 +228,7 @@ public:
 class GuildRankNamesGuildPacketClass : public PacketClass  // NAME 3: the client's Print text 'GuildRankNamesGuild {' and the PacketClass convention
 {
 public:
+	GuildRankNamesGuildPacketClass(__int64 player_id, const std::vector<GuildRankNameStruct> &ranks);	// 0x892340  // NAME 1 [player_id, ranks]: the members'
 	GuildRankNamesGuildPacketClass(RawPacketClass *raw);	// 0x892670
 	virtual RawPacketClass *Build();	// +0x04 0x8928E0
 	virtual bool Process_Packet(void *client);	// +0x08 0x869210 (clientstub.cpp)

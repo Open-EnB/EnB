@@ -2,6 +2,10 @@
 #include "pkequipuse.h"
 #include <stdio.h>
 
+EquipUsePacketClass::EquipUsePacketClass(int game_id, int inventory, int slot) :
+	GameID(game_id), Inventory(inventory), Slot(slot)
+{
+}
 
 EquipUsePacketClass::EquipUsePacketClass(RawPacketClass *raw)
 {
