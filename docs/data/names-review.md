@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1966 |
 | 2 | describes what the code does | 4981 |
-| 1 | neutral placeholder | 25148 |
+| 1 | neutral placeholder | 25153 |
 
 ## For review (score 3 and below)
 
@@ -16037,25 +16037,25 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Buttons` | `app/client/ui_popupmsg.h:45` | neutral (D10) |
 | 1 | `UIPowerGaugeClass` | `app/client/ui_power.cpp:18` | neutral (D10) |
 | 1 | `mesh, format, sound` | `app/client/ui_power.cpp:21` | what 0x5DBFC0 passes |
-| 1 | `value` | `app/client/ui_power.cpp:22` | the base's |
-| 1 | `Unknown_Power_Field` | `app/client/ui_power.cpp:28` | neutral (D10) |
-| 1 | `Unknown_Find_Field` | `app/client/ui_power.cpp:28` | untagged neutral name (D10) |
-| 1 | `Unknown70` | `app/client/ui_power.cpp:28` | untagged neutral name (D10) |
-| 1 | `Unknown_Power_Find` | `app/client/ui_power.cpp:29` | neutral (D10) |
-| 1 | `Unknown_28` | `app/client/ui_power.cpp:39` | untagged neutral name (D10) |
-| 1 | `Unknown_65FFA0` | `app/client/ui_power.cpp:41` | untagged neutral name (D10) |
-| 1 | `Unknown64` | `app/client/ui_power.cpp:43` | untagged neutral name (D10) |
-| 1 | `Unknown_6870E0` | `app/client/ui_power.cpp:43` | untagged neutral name (D10) |
-| 1 | `Unknown_5DC390` | `app/client/ui_power.cpp:70` | untagged neutral name (D10) |
-| 1 | `Unknown_Watch_0C` | `app/client/ui_power.cpp:87` | untagged neutral name (D10) |
-| 1 | `Unknown_08` | `app/client/ui_power.cpp:93` | untagged neutral name (D10) |
-| 1 | `UnknownObjectWatchClass` | `app/client/ui_power.cpp:96` | untagged neutral name (D10) |
-| 1 | `Unknown_10` | `app/client/ui_power.cpp:100` | untagged neutral name (D10) |
-| 1 | `Unknown10BC` | `app/client/ui_power.cpp:104` | untagged neutral name (D10) |
-| 1 | `Is_Unknown2C_08` | `app/client/ui_power.cpp:109` | untagged neutral name (D10) |
-| 1 | `Unknown_5DCAE0` | `app/client/ui_power.cpp:167` | untagged neutral name (D10) |
-| 1 | `Unknown_687150` | `app/client/ui_power.cpp:169` | untagged neutral name (D10) |
-| 1 | `Unknown5DB670InterfaceClass` | `app/client/ui_power.cpp:200` | untagged neutral name (D10) |
+| 1 | `value` | `app/client/ui_power.cpp:23` | the base's |
+| 1 | `Unknown_Power_Field` | `app/client/ui_power.cpp:29` | neutral (D10) |
+| 1 | `Unknown_Find_Field` | `app/client/ui_power.cpp:29` | untagged neutral name (D10) |
+| 1 | `Unknown70` | `app/client/ui_power.cpp:29` | untagged neutral name (D10) |
+| 1 | `Unknown_Power_Find` | `app/client/ui_power.cpp:30` | neutral (D10) |
+| 1 | `Unknown_28` | `app/client/ui_power.cpp:40` | untagged neutral name (D10) |
+| 1 | `Unknown_65FFA0` | `app/client/ui_power.cpp:42` | untagged neutral name (D10) |
+| 1 | `Unknown64` | `app/client/ui_power.cpp:44` | untagged neutral name (D10) |
+| 1 | `Unknown_6870E0` | `app/client/ui_power.cpp:44` | untagged neutral name (D10) |
+| 1 | `Unknown_5DC390` | `app/client/ui_power.cpp:71` | untagged neutral name (D10) |
+| 1 | `Unknown_Watch_0C` | `app/client/ui_power.cpp:88` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `app/client/ui_power.cpp:94` | untagged neutral name (D10) |
+| 1 | `UnknownObjectWatchClass` | `app/client/ui_power.cpp:97` | untagged neutral name (D10) |
+| 1 | `Unknown_10` | `app/client/ui_power.cpp:101` | untagged neutral name (D10) |
+| 1 | `Unknown10BC` | `app/client/ui_power.cpp:105` | untagged neutral name (D10) |
+| 1 | `Is_Unknown2C_08` | `app/client/ui_power.cpp:110` | untagged neutral name (D10) |
+| 1 | `Unknown_5DCAE0` | `app/client/ui_power.cpp:168` | untagged neutral name (D10) |
+| 1 | `Unknown_687150` | `app/client/ui_power.cpp:170` | untagged neutral name (D10) |
+| 1 | `Unknown5DB670InterfaceClass` | `app/client/ui_power.cpp:206` | untagged neutral name (D10) |
 | 1 | `ui_power.h` | `app/client/ui_power.h:5` | provisional header name |
 | 1 | `UIPowerClass` | `app/client/ui_power.h:18` | neutral (D10), from the tooltips' section UI_POWER |
 | 1 | `UnknownObjectWatchClass` | `app/client/ui_power.h:18` | untagged neutral name (D10) |
@@ -19410,6 +19410,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_10` | `app/client/ui_talkt.cpp:30` | untagged neutral name (D10) |
 | 1 | `Unknown_14` | `app/client/ui_talkt.cpp:30` | untagged neutral name (D10) |
 | 1 | `Unknown_BE67C4` | `app/client/ui_talkt.cpp:42` | neutral (D10) |
+| 1 | `robj` | `app/client/ui_talkt.cpp:45` | as ui_avatr.cpp's |
+| 1 | `Unknown_497300` | `app/client/ui_talkt.cpp:45` | untagged neutral name (D10) |
 | 1 | `Unknown_B8BBC4` | `app/client/ui_talkt.cpp:59` | neutral (D10) |
 | 1 | `Unknown_Empty` | `app/client/ui_talkt.cpp:62` | neutral (D10): a codeless layer |
 | 1 | `Unknown_Clear1` | `app/client/ui_talkt.cpp:63` | neutral (D10): a codeless layer |
@@ -20233,6 +20235,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_62ADE0` | `app/client/unknown_62a7c0.cpp:48` | untagged neutral name (D10) |
 | 1 | `Unknown_00` | `app/client/unknown_62a7c0.cpp:53` | untagged neutral name (D10) |
 | 1 | `Unknown10BC` | `app/client/unknown_62a7c0.cpp:59` | untagged neutral name (D10) |
+| 1 | `Unknown_62AFA0` | `app/client/unknown_62a7c0.cpp:81` | untagged neutral name (D10) |
 | 1 | `unknown_62a7c0.h` | `app/client/unknown_62a7c0.h:2` | neutral (D137) |
 | 1 | `Unknown62A7C0Class` | `app/client/unknown_62a7c0.h:10` | neutral (D10) |
 | 1 | `robj` | `app/client/unknown_62a7c0.h:13` | what it reads |
@@ -20241,6 +20244,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_00` | `app/client/unknown_62a7c0.h:16` | untagged neutral name (D10) |
 | 1 | `percent` | `app/client/unknown_62a7c0.h:17` | what it is |
 | 1 | `Unknown_62ADE0` | `app/client/unknown_62a7c0.h:17` | untagged neutral name (D10) |
+| 1 | `shield, fill` | `app/client/unknown_62a7c0.h:18` | what they are |
+| 1 | `Unknown_62AFA0` | `app/client/unknown_62a7c0.h:18` | untagged neutral name (D10) |
 | 1 | `Unknown_66B770Class` | `app/client/unknown_66b770.cpp:4` | untagged neutral name (D10) |
 | 1 | `Unknown60` | `app/client/unknown_66b770.cpp:6` | untagged neutral name (D10) |
 | 1 | `Unknown_40` | `app/client/unknown_66b770.cpp:20` | untagged neutral name (D10) |
@@ -24925,9 +24930,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_847D20` | `programs/clientpoc/poc_standins.cpp:23` | untagged neutral name (D10) |
 | 1 | `Unknown_846C90` | `programs/clientpoc/poc_standins.cpp:30` | untagged neutral name (D10) |
 | 1 | `Unknown_497300` | `programs/clientpoc/poc_ui.cpp:19` | untagged neutral name (D10) |
-| 1 | `Unknown_42F940` | `programs/clientpoc/poc_window.cpp:79` | untagged neutral name (D10) |
-| 1 | `Unknown_42FAC0` | `programs/clientpoc/poc_window.cpp:80` | untagged neutral name (D10) |
-| 1 | `Unknown_42FBA0` | `programs/clientpoc/poc_window.cpp:81` | untagged neutral name (D10) |
+| 1 | `Unknown_42F940` | `programs/clientpoc/poc_window.cpp:120` | untagged neutral name (D10) |
+| 1 | `Unknown_42FAC0` | `programs/clientpoc/poc_window.cpp:121` | untagged neutral name (D10) |
+| 1 | `Unknown_42FBA0` | `programs/clientpoc/poc_window.cpp:122` | untagged neutral name (D10) |
 | 1 | `Unknown_6CE420` | `programs/clientpoc/poc_world.cpp:70` | untagged neutral name (D10) |
 | 1 | `Unknown_BA8C20` | `programs/clientpoc/poc_world.cpp:89` | untagged neutral name (D10) |
 | 1 | `Unknown_BA8C24` | `programs/clientpoc/poc_world.cpp:89` | untagged neutral name (D10) |
@@ -27616,7 +27621,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Page` | `app/client/ui_petition_player.h:29` | what it holds |
 | 2 | `Buttons` | `app/client/ui_petition_player.h:30` | what they are |
 | 2 | `ExitButton` | `app/client/ui_popup_browser.h:23` | its model's name |
-| 2 | `Sound` | `app/client/ui_power.cpp:24` | what the warning's name takes |
+| 2 | `Sound` | `app/client/ui_power.cpp:25` | what the warning's name takes |
 | 2 | `EnergyGauge` | `app/client/ui_power.h:31` | its tooltip |
 | 2 | `ShieldGauge` | `app/client/ui_power.h:32` | its tooltip |
 | 2 | `HullGauge` | `app/client/ui_power.h:33` | its tooltip |
@@ -27769,9 +27774,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Unknown5DD960ButtonNames` | `app/client/unknown_5dd960.cpp:10` | what it holds |
 | 2 | `key` | `app/client/unknown_5dd960.h:28` | InterfaceClass's |
 | 2 | `Buttons` | `app/client/unknown_5dd960.h:31` | what it holds |
-| 2 | `Shield` | `app/client/unknown_62a7c0.h:19` | the sub-objects' names |
-| 2 | `Object` | `app/client/unknown_62a7c0.h:20` | what it holds |
-| 2 | `Percent` | `app/client/unknown_62a7c0.h:21` | what it holds |
+| 2 | `Shield` | `app/client/unknown_62a7c0.h:20` | the sub-objects' names |
+| 2 | `Object` | `app/client/unknown_62a7c0.h:21` | what it holds |
+| 2 | `Percent` | `app/client/unknown_62a7c0.h:22` | what it holds |
 | 2 | `Get_Type` | `app/client/unknown_67d430.h:20` | reads Type |
 | 2 | `Type` | `app/client/unknown_67d430.h:21` | 0x67DB40 switches on it |
 | 2 | `std:` | `app/client/unknown_67d430.h:22` | 0x67D780's second argument |

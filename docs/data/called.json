@@ -255,9 +255,6 @@
 "??0Unknown8B5D90Class@@QAE@XZ": [
 "0x8B5D90"
 ],
-"??0Unknown8CClass@@QAE@XZ": [
-"0x73FA60"
-],
 "??0VertexMaterialClass@@QAE@ABV0@@Z": [
 "0x92E9B0"
 ],
@@ -1790,9 +1787,6 @@
 ],
 "?Unknown_725AD0@UnknownB02C90Class@@QAE?AVMatrix3D@@XZ": [
 "0x725AD0"
-],
-"?Unknown_73FDB0@UnknownAF0DD0Class@@QAEXPAV?$DataNode@PAVUnknownAF0DD0Class@@@@PAVClientObjectClass@@@Z": [
-"0x73FDB0"
 ],
 "?Unknown_744240@SClient@@QAEXUKernelEventClass@@@Z": [
 "0x744240"

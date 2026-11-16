@@ -1,7 +1,6 @@
 {
  "ambiguous": [
-  "0x474080",
-  "0x541A10"
+  "0x474080"
  ],
  "copy": "reconstructed",
  "description": "UITalkTreeClass (D24 class-from-file; table 0xAF8B4C, 0x180 bytes), client 0x64B6E0-0x64EF40 (__FILE__ 0xB8BC9C, asserts on lines 171-920; ends at the vector's destructor 0x64EF40 and its COMDATs before ui_talkt_space.cpp) (TK1)",
@@ -36,6 +35,7 @@
   "0x515730",
   "0x515750",
   "0x517030",
+  "0x51C600",
   "0x51C630",
   "0x52B210",
   "0x52B240",
@@ -47,10 +47,12 @@
   "0x52B330",
   "0x52B350",
   "0x5411F0",
+  "0x541A10",
   "0x543750",
   "0x543770",
   "0x546510",
   "0x553A80",
+  "0x56EFE0",
   "0x56F010",
   "0x64B910",
   "0x64B940",
@@ -77,6 +79,7 @@
   "0x64EEA0",
   "0x64EED0",
   "0x64EF40",
+  "0x64EF90",
   "0x64EFC0",
   "0x64F000",
   "0x64F030",
@@ -85,7 +88,8 @@
   "0x64F270",
   "0x64F2C0",
   "0x64F2F0",
-  "0x64F300"
+  "0x64F300",
+  "0x6A25E0"
  ],
  "merged": [],
  "name": "client/ui_talkt.cpp",
@@ -119,6 +123,7 @@
   "0x515730",
   "0x515750",
   "0x517030",
+  "0x51C600",
   "0x51C630",
   "0x52B210",
   "0x52B240",
@@ -130,16 +135,19 @@
   "0x52B330",
   "0x52B350",
   "0x5411F0",
+  "0x541A10",
   "0x543750",
   "0x543770",
   "0x546510",
   "0x553A80",
+  "0x56EFE0",
   "0x56F010",
   "0x64CC20",
   "0x64EF40",
   "0x64F270",
   "0x64F2F0",
-  "0x64F300"
+  "0x64F300",
+  "0x6A25E0"
  ],
  "short_known": [
   "0x42B320",

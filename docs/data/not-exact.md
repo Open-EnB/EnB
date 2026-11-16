@@ -603,7 +603,7 @@ edit the comments in the code, not this file.
 | `app/client/ui_talkt.cpp:357` | `UITalkTreeClass::Unknown_90` | marker | NOT EXACT: 0x64CC90 (Unknown_90: the vector's _Destroy out of line in the client) |
 | `app/client/ui_talkt.cpp:535` | `UITalkTreeClass::Unknown_68` | marker | NOT EXACT: 0x64D400 (Unknown_68: the second append's _Grow out of line in the client) |
 | `app/client/ui_talkt.cpp:618` | `UITalkTreeClass::Unknown_60` | marker | NOT EXACT: 0x64D770 (Unknown_60: this in edi, one slot fewer) |
-| `app/client/ui_talkt.cpp:839` | `UITalkTreeClass::Unknown_64E7A0` | marker | NOT EXACT: 0x64E7A0 (Unknown_64E7A0: one slot fewer) |
+| `app/client/ui_talkt.cpp:839` | `UITalkTreeClass::Unknown_64E7A0` | marker | NOT EXACT: 0x64E7A0 (Unknown_64E7A0: registers only: the bit test, and the 0x497300 call's return slot loaded before its argument) |
 | `app/client/ui_trade.cpp:96` | `UITradeClass::~UITradeClass` | marker | NOT EXACT: register-only (explain.py): the client loads client->PDAInterface into ebx and schedules PDA's assignment around it @0x650560 |
 | `app/client/ui_trade.cpp:131` | `UITradeClass::Unknown_54` | marker | NOT EXACT: shape (explain.py; register and hoisting): the first id through ecx, the style call's register, 0x653A80's shared Change_Text set-up not hoisted @0x650A40 |
 | `app/client/ui_trade.cpp:265` | `UITradeClass::Unknown_60` | marker | NOT EXACT: register (the box's +0x34 through edx, -1 kept in ebx; explain.py names a relocation: symbols.json's stale return type for 0x695680) @0x651510 |
