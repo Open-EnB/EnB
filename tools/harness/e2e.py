@@ -1079,7 +1079,7 @@ def live_mode(args):
     """antprox's arguments for --live (a live server in place of /REPLAY), else None."""
     if not getattr(args, 'live', None):
         return None
-    return ['/SERVER:' + args.live, '/NET7BIN:' + args.net7bin, '/OPCODES']
+    return ['/SERVER:' + args.live, '/NET7BIN:' + args.net7bin, '/OPCODES'] + list(getattr(args, 'antprox_arg', None) or [])
 
 
 _REC_INPUT = re.compile(r'input: untagged (?:mouse 0x(20[147])|key 0x([0-9A-Fa-f]+))(?: at (-?\d+), (-?\d+))?')
@@ -1334,6 +1334,8 @@ def main(argv=None):
     ap.add_argument('--live', nargs='?', const='localhost', metavar='SERVER',
                     help='a live server in place of antprox /REPLAY (default localhost: the local Net-7 server)')
     ap.add_argument('--net7bin', default='C:\\EnBDevelopment\\Net7\\bin_local', help="--live: antprox's /NET7BIN")
+    ap.add_argument('--antprox-arg', action='append', metavar='ARG',
+                    help='--live: one more antprox argument (repeatable; an ARG starting with - needs --antprox-arg=ARG)')
     args = ap.parse_args(argv)
     args.record = args.command == 'record'
     if args.live:

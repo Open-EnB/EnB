@@ -632,13 +632,18 @@ without the export still runs (`no stand-in marker` in e2e.log; later scenarios 
 in `build/d3d8shot/` must be current: `python tools/harness/run_reference.py build` after any change to
 d3d8shot.c (a proxy of 2026-11-04 ignored the trigger, and every shot step waited out its 15 s).
 
-**Station operations on a live server (2026-11-15):** `e2e.py run --live [SERVER] --retail --instance NAME` runs
-the `sb_*` scenarios (and only those; the default set leaves them out) against a real Net-7 server through antprox
-`/SERVER:SERVER /NET7BIN:DIR /OPCODES` instead of `/REPLAY`. SERVER defaults to `localhost`, `--net7bin` to the
-user's local 2010 server (`C:\EnBDevelopment\Net7\bin_local`, account admin / admin, safe for any scenario).
-`ANTPROX_EXE` then defaults to AntaresProxy's dev publish: the frozen 1.0.0 (D253) cannot bind loopback. Retail
-only for now: antprox refuses a build it cannot patch (AntaresProxy W33, `docs/net7-eaudp-plan.md`, is the way
-to ours). Live antprox logs opcode numbers; e2e appends the names (`... = sent TALK_TREE` is the server's,
+**Station operations on a live server (2026-11-15):** `e2e.py --live [SERVER] [--retail] --instance NAME run
+sb_vendor sb_talk` (options before `run`: `--live` takes an optional SERVER, so `--live run` would read `run` as
+the server) runs the `sb_*` scenarios (and only those; the default set leaves them out) against a real Net-7
+server through antprox `/SERVER:SERVER /NET7BIN:DIR /OPCODES` instead of `/REPLAY`. SERVER defaults to
+`localhost`, `--net7bin` to the user's local 2010 server (`C:\EnBDevelopment\Net7\bin_local`, account admin /
+admin, safe for any scenario). `--antprox-arg ARG` (repeatable; `--antprox-arg=ARG` when ARG starts with `-`)
+appends ARG to antprox's command line. `ANTPROX_EXE` then defaults to AntaresProxy's dev publish: the frozen
+1.0.0 (D253) cannot bind loopback. Both clients run live: the retail copy (`--retail`) and ours (`--exe`, default
+this tree's build), which the dev publish (2026-11-16, AntaresProxy W33) launches unmodified on EA-UDP since it
+cannot patch an unknown build. The login (`_login_live.scn`) clicks the username field twice (the login screen
+swallows the first click) and clears each field (End, 14 Backspaces) before typing, since the client remembers
+the last name. Live antprox logs opcode numbers; e2e appends the names (`... = sent TALK_TREE` is the server's,
 `= received NAME` the client's), so steps match on names as in replay.
 - **Where the avatar is:** `D3D8SHOT_CAMERA=FILE` makes the proxy write the frame's first view matrices to FILE
   (every 2nd Present). The first is the room camera; the avatar is 6.4 units ahead of it. Each room has its own
