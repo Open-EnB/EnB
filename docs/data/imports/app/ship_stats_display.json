@@ -27,7 +27,8 @@
   "0x58E9C0",
   "0x6A2DA0",
   "0x6A2ED0",
-  "0x6A33B0"
+  "0x6A33B0",
+  "0x6A3C10"
  ],
  "merged": [],
  "name": "client/ship_stats_display.cpp",
@@ -55,6 +56,7 @@
  "short_known": [
   "0x42B320",
   "0x5464F0",
-  "0x553A80"
+  "0x553A80",
+  "0x6A3C10"
  ]
 }

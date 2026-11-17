@@ -23,6 +23,9 @@ Its short COMDATs (USE_CONTRIB_SHORTS): _Destroy 0x455FE0 there, at the first ho
 CK_CALLSEQ (D246 / CK): co_data.obj's ClientObjectDataAccessClass<RadarDataClass>::Get, not exact, is located at 0x79E300 by
 Get_Radar_Data's call; its calls in order give the tied hashtable<..RadarDataClass..>::find_or_insert 0x7A0EC0 (five
 byte-identical instances), whose own calls then give its resize 0x7A3B50 (`ck_callseq`).
+CK_CALLSEQ_VTBL (D246 / CK2V): sclient.obj's MemberCallback<CameraModuleClass, SClient, ..CameraModuleSignal..> vtable,
+placed in the client by its slots the run knows, gives its short Sender_Type 0x7593E0 and Type 0x759400 their slot
+addresses (`ck_callseq`).
 """
 import os
 import sys
@@ -326,6 +329,17 @@ class ContribShorts(unittest.TestCase):
 class CkCallseq(unittest.TestCase):
     def test_cases(self):
         _check(self, CK_CALLSEQ, 'USE_CK_CALLSEQ', 'ck_callseq', APP_REGION)
+
+
+CK_CALLSEQ_VTBL = [
+    ('sclient.obj', '?Sender_Type@?$MemberCallback@VCameraModuleClass@@VSClient@@P82@AEXPAVCameraModuleSignal@@PAV1@@ZV3@@SignalBaseClass@@UBEABVtype_info@@XZ', '0x7593E0'),
+    ('sclient.obj', '?Type@?$MemberCallback@VCameraModuleClass@@VSClient@@P82@AEXPAVCameraModuleSignal@@PAV1@@ZV3@@SignalBaseClass@@UBEABVtype_info@@XZ', '0x759400'),
+]
+
+
+class CkCallseqVtbl(unittest.TestCase):
+    def test_cases(self):
+        _check(self, CK_CALLSEQ_VTBL, 'USE_CK_CALLSEQ_VTBL', 'ck_callseq', APP_REGION, off_status='short')
 
 
 if __name__ == '__main__':

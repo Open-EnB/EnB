@@ -164,6 +164,16 @@ the alignment follows call chains down (stars.obj's three Create_NEW instances 0
 (<ClientObjectClass *, Radar / Gutter / Starmap / Navigation / EmoteDataClass *>), byte-identical: each
 ClientObjectDataAccessClass<T>::Get (not exact, located by Get_T_Data's call) gives its find_or_insert, pair
 constructor and iterator, and find_or_insert its resize (0x7A0EC0, 0x7A3B50 for Radar).
+Vtable slots feed it too (D246 / CK2V, USE_CK_CALLSEQ_VTBL; `callseq_location_vtbl`): a vtable whose client address
+the run knows (one address in D80's `known`, an exact function's vptr store), the one address the vptr stores of
+located not-exact functions give it (their `??_7` DIR32 relocations in order against the client function's
+immediates of stored tables, counts equal, one to one), or (USE_CK_CALLSEQ_VTBL_SLOTS) the one client table (a
+`.rdata` address the code stores through `mov [reg], imm32`, as many `.text` slots as ours) that holds every slot the
+run knows at one address at its offset, one of them the class's own, places each slot symbol at the client table's
+slot (a weak `??_E` read as its `??_G`; one table to one address and back; D80's vtable_check, symbols.json's names
+and `known` must not disagree). A not-exact virtual there is a located caller; a tied or short one is a target under
+the same conditions as an aligned call's (camctl.obj's CamCtlGadgetClass ??_G / ~ / Unknown_50 0x65BB90..,
+sclient.obj's MemberCallback<CameraModuleClass..> Sender_Type / Type 0x7593E0 / 0x759400).
 
 A searched match counts only at a function start (D189(2)): an address the client's thunk table or a
 call / jump reaches, or one right after padding (int3 / nop) or after the end of another function (a
@@ -302,6 +312,14 @@ USE_CK_CALLSEQ_NAMED = True
 # ... and a not-exact function an aligned caller's call reaches is located there in turn (one address from every
 # aligned caller, a verified start no other symbol holds), so the alignment follows call chains down
 USE_CK_CALLSEQ_DEEP = True
+# ... and (D246 / CK2V) the vtable slots of the vptrs located constructors store: a vtable the run knows (an exact
+# function's vptr store) or one a located not-exact function's vptr stores align with (its `??_7` relocations in
+# order against the client function's vtable immediates) gives each slot symbol the client table's slot address,
+# a location for a not-exact virtual and a target for a tied / short one (`callseq_location_vtbl`)
+USE_CK_CALLSEQ_VTBL = True
+# ... and a vtable no vptr store places is at the one client table (a stored vptr, as many `.text` slots as ours) that
+# holds every slot whose symbol the run knows at one address, at its offset, at least one of them the class's own
+USE_CK_CALLSEQ_VTBL_SLOTS = True
 
 
 def generated(name):
@@ -1191,7 +1209,9 @@ def match_objects(img, paths, region=None, callers=False, extern_called=None, ca
         located = {}    # USE_CK_CALLSEQ_DEEP: {symbol: address or None} of not-exact functions aligned calls reach
         for _ in range(CK_CALLSEQ_ROUNDS):
             n_located = len(located)
-            got = callseq_ties(img, results, pending, done, claimed, called, text, start, thunk, known, located)
+            vslots = callseq_location_vtbl(img, results, claimed, called, text, start, thunk, known, located)                 if USE_CK_CALLSEQ_VTBL else None
+            got = callseq_ties(img, results, pending, done, claimed, called, text, start, thunk, known, located,
+                               vslots)
             for item, a in got:
                 r, obj, sec, s, length = item[:5]
                 if r['status'] == 'short':
@@ -1316,7 +1336,7 @@ def _padding_img(img, lo, hi):
     return all(b in (0xCC, 0x90) for b in img.data[o:o + (hi - lo)])
 
 
-def callseq_ties(img, results, pending, done, claimed, called, text, base, thunk, known, located=None):
+def callseq_ties(img, results, pending, done, claimed, called, text, base, thunk, known, located=None, vslots=None):
     """D246 (CK): [(item, address)] for tied (`multiple`) and `short` functions that a located not-exact caller's
     calls reach. A caller is located when the exact functions' calls give its symbol exactly one address, a verified
     start no other symbol holds. Its object's REL32 relocations (offset order) align one to one with the client
@@ -1356,6 +1376,8 @@ def callseq_ties(img, results, pending, done, claimed, called, text, base, thunk
         at = mine or called.get(sym, set()) or (self_names().get(sym, set()) if USE_CK_CALLSEQ_NAMED else set())
         if not at and located and located.get(sym) is not None:
             at = {located[sym]}
+        if not at and vslots and vslots.get(sym) is not None:
+            at = {vslots[sym]}      # USE_CK_CALLSEQ_VTBL: a not-exact virtual at its slot address
         if len(at) != 1:
             continue
         a = next(iter(at))
@@ -1393,6 +1415,9 @@ def callseq_ties(img, results, pending, done, claimed, called, text, base, thunk
                     target[name].add(t)
                 elif located is not None and USE_CK_CALLSEQ_DEEP and name in by_sym and                         not any(it[0]['status'] == 'exact' for it in by_sym[name]):
                     reach[name].add(t)
+    for name, t in (vslots or {}).items():
+        if t is not None and name in want:
+            target[name].add(t)     # USE_CK_CALLSEQ_VTBL: a tied / short virtual at its slot address
     for name, ts in reach.items():
         t = next(iter(ts))
         if len(ts) > 1 or located.get(name, t) != t or t not in startset or claimed[t] - {name}:
@@ -1420,6 +1445,180 @@ def callseq_ties(img, results, pending, done, claimed, called, text, base, thunk
     for (r, *_), a in props:
         by_addr[a].add(r['symbol'])
     return [(item, a) for item, a in props if len(by_addr[a]) == 1]
+
+
+def _client_vtable(img, v):
+    """True when client address V is a vtable: a `.rdata` address the code stores through `mov dword ptr [reg],
+    imm32` (constructors and destructors write a table's start; vtables.py's stored_vptrs) whose first dword
+    points into `.text`. Most of the client's classes carry no RTTI, so the store is the mark."""
+    if getattr(img, '_ck2v_stored', None) is None:
+        t0, t1, raw = img.section('.text')
+        r0, r1, _ = img.section('.rdata')
+        text = img.data[raw:raw + (t1 - t0)]
+        stored = set()
+        for m in re.finditer(rb'\xC7[\x00\x01\x02\x03\x06\x07]', text):
+            o = m.start() + 2
+            if o + 4 <= len(text):
+                x = struct.unpack_from('<I', text, o)[0]
+                if r0 <= x < r1 and t0 <= img.u32(x) < t1:
+                    stored.add(x)
+        img._ck2v_stored = stored
+    return v in img._ck2v_stored
+
+
+def _client_vptrs(img, a, end):
+    """[vtable address] of the instructions in the client function [a, end) whose last four bytes are a vtable's
+    address (a vptr store `mov [r+d], offset vtable`, or a push / mov / lea of it), in address order; None when the
+    disassembly stops short of END."""
+    out = []
+    last = a
+    for ins in img.disasm(a, end - a):
+        last = ins.address + ins.size
+        if ins.size >= 5:
+            v = struct.unpack_from('<I', ins.bytes, ins.size - 4)[0]
+            if _client_vtable(img, v):
+                out.append(v)
+        if last >= end:
+            break
+    return out if last >= end or _padding_img(img, last, end) else None
+
+
+def _own_slot(vt, slot):
+    """True when SLOT (a mangled method) belongs to the class of vtable VT (`??_7<class>@@6B...`), not a base."""
+    if '@@6B' not in vt:
+        return False
+    cls = vt[4:vt.index('@@6B') + 2]
+    if slot.startswith(('??_G', '??_E', '??1')):
+        return slot[4 if slot[2] == '_' else 3:].startswith(cls)
+    return slot.startswith('?') and not slot.startswith('??') and slot.split('@', 1)[1].startswith(cls)
+
+
+def _client_vtable_slots(img, thunk):
+    """{'at': {function address: [(vtable, offset)]}, 'len': {vtable: slots}} of the client's stored vtables
+    in `.rdata` (a table's slots: the dwords from it that point into `.text`, up to the next table)."""
+    if getattr(img, '_ck2v_vt', None) is None:
+        lo, hi, raw = img.section('.rdata')
+        tlo, thi, _ = img.section('.text')
+        _client_vtable(img, 0)
+        vts = sorted(img._ck2v_stored)
+        nxt = dict(zip(vts, vts[1:] + [hi]))
+        at, ln = collections.defaultdict(list), {}
+        for V in vts:
+            k = 0
+            while V + 4 * k < nxt[V]:
+                f = struct.unpack_from('<I', img.data, img.offset(V + 4 * k))[0]
+                if not tlo <= f < thi:
+                    break
+                at[thunk.get(f, f)].append((V, 4 * k))
+                k += 1
+            ln[V] = k
+        img._ck2v_vt = {'at': at, 'len': ln}
+    return img._ck2v_vt
+
+
+def callseq_location_vtbl(img, results, claimed, called, text, base, thunk, known, located=None):
+    """D246 (CK2V): {slot symbol: client address, or None when two tables disagree} from the vtables whose client
+    address the run knows: one address in D80's `known` (an exact function's vptr store), or the one address the
+    vptr stores of located not-exact functions give it. A not-exact function is located as callseq_ties locates a
+    caller (the exact functions' calls, D88's self name, a deep location); its object's `??_7` DIR32 relocations
+    (offset order) align one to one with the client function's vtable immediates (_client_vptrs) when the counts
+    agree, one table to one address and back, and every table D80 knows is at its known address. A table's slot i
+    then gives its slot symbol the client table's slot i (thunks resolved, a `.text` address) unless D80's
+    vtable_check finds a known slot elsewhere in the table, symbols.json names another function there, or the
+    symbol is known at another address."""
+    starts = _verified_starts(img)
+    startset = set(starts)
+    by_sym = collections.defaultdict(list)
+    for item in results:
+        by_sym[item[0]['symbol']].append(item)
+    tables = collections.defaultdict(set)      # vtable symbol -> client addresses
+    for name, v in known.items():
+        if name.startswith('??_7'):
+            tables[name] |= set(v)
+    for sym, items in by_sym.items():
+        if any(it[0]['status'] == 'exact' for it in items):
+            continue    # an exact function's vptr stores are in `known` already
+        if len(items) > 1 and any(it[1].symbol_class(sym) != 2 for it in items):
+            continue
+        at = called.get(sym, set()) or (self_names().get(sym, set()) if USE_CK_CALLSEQ_NAMED else set())
+        if not at and located and located.get(sym) is not None:
+            at = {located[sym]}
+        if len(at) != 1:
+            continue
+        a = next(iter(at))
+        if a not in startset or claimed[a] - {sym} or not base <= a < base + len(text):
+            continue
+        i = bisect.bisect_right(starts, a)
+        end = starts[i] if i < len(starts) else base + len(text)
+        vps = None
+        for r, obj, sec, s, length in items:
+            if length <= 0:
+                continue
+            relocs = [x[3]['name'] for x in obj.reloc_targets(sec, s, length)
+                      if x[2] == 0x06 and x[1] == 4 and x[3] is not None and x[3]['name'].startswith('??_7')]
+            if not relocs:
+                continue
+            if vps is None:
+                vps = _client_vptrs(img, a, end) or []
+            if len(relocs) != len(vps):
+                continue
+            fwd, back = {}, {}
+            if all(fwd.setdefault(n, v) == v and back.setdefault(v, n) == n for n, v in zip(relocs, vps)) and \
+                    all(not known.get(n) or v in known[n] for n, v in fwd.items()):
+                for n, v in fwd.items():
+                    tables[n].add(v)
+    defs = collections.defaultdict(list)       # vtable symbol -> [(object, its symbol, [(offset, slot)])]
+    for obj in {id(it[1]): it[1] for it in results}.values():
+        weak = {x['name'] for x in obj.symbols if x['class'] == 105}
+        for vt, sl in vtable_slots(obj):
+            if vt in tables or USE_CK_CALLSEQ_VTBL_SLOTS:
+                sym = next(x for x in obj.symbols if x['name'] == vt and x['section'] > 0)
+                # a weak `??_E` (the vector deleting destructor the class never defines) is its `??_G`
+                sl = [(off, '??_G' + n[4:] if n.startswith('??_E') and n in weak else n) for off, n in sl]
+                defs[vt].append((obj, sym, sl))
+    if USE_CK_CALLSEQ_VTBL_SLOTS:
+        held = _client_vtable_slots(img, thunk)
+        for vt, d in defs.items():
+            if tables.get(vt) or len({tuple(sl) for _, _, sl in d}) != 1 or not d[0][2]:
+                continue
+            sl = d[0][2]
+            n = max(off for off, _ in sl) // 4 + 1
+            cands, own = None, False
+            for off, slot in sl:
+                kn = known.get(slot)
+                if not kn or len(kn) != 1 or generated(slot):
+                    continue
+                v = next(iter(kn))
+                at = {V for V, o in held['at'].get(v, ()) if o == off and held['len'][V] == n}
+                cands = at if cands is None else cands & at
+                own = own or _own_slot(vt, slot)
+            if cands and len(cands) == 1 and own:
+                tables[vt].add(next(iter(cands)))
+    names = self_names()
+    owners = collections.defaultdict(set)
+    for k, v in names.items():
+        for x in v:
+            owners[x].add(k[4:] if k.startswith(('??_E', '??_G')) else k)
+    out = collections.defaultdict(set)
+    vt_at = collections.Counter(next(iter(tables[vt])) for vt in defs if len(tables[vt]) == 1)
+    for vt, d in defs.items():
+        if len(tables[vt]) != 1 or len({tuple(sl) for _, _, sl in d}) != 1 or vt_at[next(iter(tables[vt]))] > 1:
+            continue    # one table to one client address and back
+        va = next(iter(tables[vt]))
+        if any(vtable_check(obj, sym, va, known, img) is False for obj, sym, _ in d):
+            continue
+        for off, slot in d[0][2]:
+            o = img.offset(va + off)
+            if o is None or generated(slot) or not slot.startswith('?'):
+                continue
+            v = struct.unpack_from('<I', img.data, o)[0]
+            v = thunk.get(v, v)
+            n = slot[4:] if slot.startswith(('??_E', '??_G')) else slot
+            if not base <= v < base + len(text) or (owners.get(v) and n not in owners[v]) or \
+                    (known.get(slot) and v not in known[slot]):
+                continue
+            out[slot].add(v)
+    return {k: (next(iter(v)) if len(v) == 1 else None) for k, v in out.items()}
 
 
 def function_start(img, va):
