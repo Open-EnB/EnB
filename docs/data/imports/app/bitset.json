@@ -18,8 +18,5 @@
   "0x4A4C30"
  ],
  "merged": [],
- "name": "shared/auxdata/bitset.cpp",
- "short_known": [
-  "0x4A4960"
- ]
+ "name": "shared/auxdata/bitset.cpp"
 }

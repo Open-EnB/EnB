@@ -1,0 +1,35 @@
+# Station (live server): room 2's first vendor (Vila Mosj): the talk tree, its Trade reply, the trade windows
+# (the vendor's list and the cargo, fa_ce02a.ini, about 10 s after the reply), closed again, and back home.
+name: starbase vendor: talk tree and trade windows
+timeout: 300
+include _sb_home
+# room 1: the door to room 2 at -44,-58
+walk-to -44,-38
+face -90 tol 5
+hold 0x41 until msg 'Changing room from 1 to 2' within 15
+# room 2: to the vendor's counter
+walk-to 2,52
+walk-to 23,27
+walk-to 42.7,6.4
+face -39
+click 567,381 until antprox 'sent TALK_TREE' every 2 within 20
+wait-quiet proxy 1.0 within 20
+# the reply that opens trade
+click 507,878
+wait-event antprox 'sent ITEM_BASE' within 20
+wait-event proxy 'fa_ce02a\.ini' within 40
+wait-quiet proxy 1.0 within 20
+shot vendor_trade
+# the vendor list's close box, then the talk window's Done
+click gadget trade.close
+wait-quiet proxy 1.0 within 20
+click gadget talk.done until antprox 'sent TALK_TREE_ACTION' every 2 within 20
+wait-quiet proxy 1.0 within 20
+# back: room 2's door at 0,72, then home
+walk-to 23,27
+walk-to 2,52
+walk-to 0,62
+face 90 tol 5
+hold 0x41 until msg 'Changing room from 2 to 1' within 15
+walk-to -44,-38
+walk-to -48,5

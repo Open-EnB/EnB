@@ -29,7 +29,6 @@ UnknownEventDispatcherClass *Unknown_540A20()	// 0x540A20 (intrface.cpp's functi
 
 // ------------------------------------------------------------------------- ui_cpit.cpp's effect node and string
 
-void UnknownAF0DD0Class::Unknown_73FDB0(DataNode<UnknownAF0DD0Class *> *, ClientObjectClass *) { Trace("stub UnknownAF0DD0Class::Unknown_73FDB0 (0x73FDB0)"); }
 std::string Unknown_BE5BD0;		// 0xBE5BD0 (ui_cpit.cpp's)
 
 // ------------------------------------------------------------------------- ro_funcs.cpp, fontmanager.cpp, the globals

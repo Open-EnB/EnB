@@ -57,8 +57,8 @@ public:
 	virtual void Unknown_70(ControlKeysManager *manager);	// +0x70 0x694BE0 (FAIL_IF '!manager')  // NAME 3 [manager]: the FAIL_IF's
 	virtual void Unknown_74(ControlKeysManager *manager);	// +0x74 0x695110 (FAIL_IF '!manager')  // NAME 3 [manager]: the FAIL_IF's
 	virtual void Unknown_7C(UIViewClass *view, bool arg);	// +0x7C 0x694B10 (the windows onto the view)  // NAME 1 [view, arg]: InterfaceClass's
-	RefCountPtr<UIPdaCargoClass> Unknown_695630();	// 0x695630 (the cargo window when Active)
-	RefCountPtr<UIPdaCargoClass> Unknown_695680();	// 0x695680 (the cargo window)
+	RefCountPtr<UIInvClass> Unknown_695630();	// 0x695630 (the cargo window when Active; the base type: ui_trade.cpp destroys it with RefCountPtr<UIInvClass>'s 0x653C00, not the cargo type's 0x6960D0)  // provisional (F1)
+	RefCountPtr<UIInvClass> Unknown_695680();	// 0x695680 (the cargo window)
 	RefCountPtr<InterfaceClass> Unknown_6956C0(int index);	// 0x6956C0 (G_ASSERT 'false' past 4)  // NAME 1 [index]: neutral
 	bool Unknown_695780(int index);						// 0x695780 (asks for window 'index', the others closed)  // NAME 1 [index]: neutral
 	bool Unknown_695A00(int index, bool arg);			// 0x695A00 (closes window 'index')  // NAME 1 [index, arg]: neutral

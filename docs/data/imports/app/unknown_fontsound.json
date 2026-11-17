@@ -4,6 +4,7 @@
  "description": "the object between font32bit.cpp and fontdatabase.cpp, client 0x6BCFB0-0x6BDA3F (no __FILE__; PROVISIONAL name, FNT1): Unknown_6BCFB0Class's constructor 0x6BCFB0 / destructor 0x6BD060 / Play 0x6BD270 (NOT EXACT, D64), Clear 0x6BD190, Update 0x6BD420, Remove 0x6BD530 and the vector instances 0x6BD5F0-0x6BD9E0",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x42F250",
   "0x67F660",
   "0x6BD020",
@@ -28,10 +29,12 @@
  "merged": [],
  "name": "client/unknown_fontsound.cpp",
  "shared": [
+  "0x42B320",
   "0x42F250",
   "0x67F660"
  ],
  "short_known": [
+  "0x42B320",
   "0x67F660"
  ]
 }

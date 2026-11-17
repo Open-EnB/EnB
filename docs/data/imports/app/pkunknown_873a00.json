@@ -4,6 +4,7 @@
  "description": "the MoneyClass packet-data wrapper's object, 0x873A00-0x873AE0 (no assert: the file name provisional, NAME 1): written by hand (builder P5)",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x873A00",
   "0x873A40",
   "0x873A90",
@@ -11,7 +12,10 @@
  ],
  "merged": [],
  "name": "packets/pkunknown_873a00.cpp",
+ "shared": [
+  "0x42B320"
+ ],
  "short_known": [
-  "0x873A90"
+  "0x42B320"
  ]
 }

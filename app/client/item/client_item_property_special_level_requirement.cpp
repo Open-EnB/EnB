@@ -96,7 +96,7 @@ bool ClientItemPropertySpecialLevelRequirementClass::Is_Usable()
 
 	if (Kind == KIND_TOTAL) {
 		NameClass name("RPGInfo");
-		DeltaCompoundClass *rpg_aux_data = Unknown_Find_Valid<DeltaCompoundClass>(aux_data, name);
+		DeltaRPGInfoClass *rpg_aux_data = Unknown_Find_Valid<DeltaRPGInfoClass>(aux_data, name);
 
 		FAIL_IF(!rpg_aux_data) return(false);
 	} else {

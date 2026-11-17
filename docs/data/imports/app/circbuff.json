@@ -18,9 +18,5 @@
   "0x8310D0"
  ],
  "merged": [],
- "name": "common/circbuff.cpp",
- "short_known": [
-  "0x830EB0",
-  "0x830ED0"
- ]
+ "name": "common/circbuff.cpp"
 }

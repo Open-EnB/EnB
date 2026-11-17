@@ -4,6 +4,7 @@
  "description": "RECONSTRUCTED from client.exe: __FILE__ e:\\build\\beta\\G\\app\\client\\gd_galaxy_map.cpp (G_ASSERT 'GalaxyMap' l.61, FAIL_IF '!GalaxyMap' l.76/158/178/198); 0x668E30-0x66955F, table 0xAFA120",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x42F250",
   "0x50A8C0",
   "0x50A8E0",
@@ -35,6 +36,7 @@
  "merged": [],
  "name": "client/gd_galaxy_map.cpp",
  "shared": [
+  "0x42B320",
   "0x42F250",
   "0x50A8C0",
   "0x50A8E0",
@@ -55,6 +57,7 @@
   "0x50AAC0"
  ],
  "short_known": [
+  "0x42B320",
   "0x50A8C0",
   "0x50A8E0",
   "0x50A900",

@@ -10,6 +10,7 @@ the ledger (split from importer.py; same options as `importer.py verify`).
 import argparse
 import collections
 import contextlib
+import json
 import os
 import shutil
 import sys
@@ -28,6 +29,24 @@ from ledger import load_state, save_state  # noqa: E402
 from vc6lock import hold_lock, pool_lease, set_agent  # noqa: E402
 
 _img = None
+# D246 (CR6): each library's call map (the relocated calls its exact functions make to symbols it does not define),
+# written by every verify; the next verify passes the other libraries' maps to objmatch (USE_EXTERN_CALLED)
+CALLED = os.path.join(REPO, 'docs', 'data', 'called.json')
+
+
+def load_called():
+    try:
+        with open(CALLED, encoding='utf-8') as f:
+            return json.load(f)
+    except (OSError, ValueError):
+        return {}
+
+
+def save_called(called):
+    with open(CALLED, 'w', encoding='utf-8', newline='\n') as f:
+        json.dump({lib: {k: v[k] for k in sorted(v)} for lib, v in sorted(called.items())}, f, indent=0,
+                  sort_keys=False)
+        f.write('\n')
 
 
 def image():
@@ -38,7 +57,7 @@ def image():
 
 
 
-def compile_and_match(paths, tag, ambiguous=None, tiebreak=None, shared=None):
+def compile_and_match(paths, tag, ambiguous=None, tiebreak=None, shared=None, extern_called=None, called_out=None):
     """Compile files from the repository; {file key: set(addresses)} plus compiler output.
     `ambiguous` (a dict, optional) receives {file key: set(first address)} of the functions found
     at several places in client.exe whose copies are all identical (objmatch `multiple` with
@@ -70,7 +89,13 @@ def compile_and_match(paths, tag, ambiguous=None, tiebreak=None, shared=None):
             rc, text = rc or r, text + t
     objs = [os.path.join(out, f) for f in os.listdir(out)] if os.path.isdir(out) else []
     found = collections.defaultdict(set)
-    for r in match_objects(image(), objs, app and app['region'], callers=True) if objs else []:
+    own = {}
+    res = match_objects(image(), objs, app and app['region'], callers=True, extern_called=extern_called,
+                        called_out=own) if objs else []
+    if called_out is not None:
+        defined = {r['symbol'] for r in res}
+        called_out.update({k: [f'0x{a:06X}' for a in sorted(v)] for k, v in own.items() if k not in defined})
+    for r in res:
         if r['status'] == 'exact':
             found[key_of(r['object'])].add(r['addresses'][0])
             if r.get('caller_tiebreak') and tiebreak is not None:
@@ -97,6 +122,8 @@ def verify(state, libs=None):
     free = queue.Queue()
     for h in vc6.hosts():
         free.put(h)
+    prev = load_called()
+    called = {lib: v for lib, v in prev.items() if lib in state}
 
     def one(lib):
         host = free.get()
@@ -105,7 +132,14 @@ def verify(state, libs=None):
             s = state[lib]
             paths = [os.path.join(dest(lib), f['name']) for f in s['files'].values()]
             amb, tie, sha = {}, {}, {}
-            found, text = compile_and_match(paths, f'verify-{lib}', amb, tie, sha)
+            ext = collections.defaultdict(set)
+            for other, m in prev.items():
+                if other != lib:
+                    for k, v in m.items():
+                        ext[k] |= {int(a, 16) for a in v}
+            out = {}
+            found, text = compile_and_match(paths, f'verify-{lib}', amb, tie, sha, ext, out)
+            called[lib] = out
             return lib, found, text, (amb, tie, sha)
         finally:
             free.put(host)
@@ -114,6 +148,7 @@ def verify(state, libs=None):
     order = sorted(libs, key=lambda l: -len(state[l]['files']))
     with cf.ThreadPoolExecutor(max(1, len(vc6.hosts()))) as ex:
         results = {lib: (found, text, amb) for lib, found, text, amb in ex.map(one, order)}
+    save_called(called)
     for lib in libs:
         s = state[lib]
         found, text, (amb, tie, sha) = results[lib]

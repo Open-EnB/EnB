@@ -6,6 +6,7 @@
  "description": "GLOBAL_AVATAR_LIST 112's object, 0x8629A0-0x8633D0 (no assert: the file name provisional, NAME 1): written by hand (builder P9)",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x42E170",
   "0x52B210",
   "0x52B240",
@@ -36,6 +37,7 @@
  "merged": [],
  "name": "packets/pkglobalavatarlist.cpp",
  "shared": [
+  "0x42B320",
   "0x42E170",
   "0x52B210",
   "0x52B240",
@@ -54,6 +56,7 @@
   "0x6179B0"
  ],
  "short_known": [
+  "0x42B320",
   "0x42E170",
   "0x52B2D0",
   "0x52B2F0",

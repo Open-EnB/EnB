@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x455FB0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "INTERIM name (D137, NAME 3; no __FILE__): the object after stredit.cpp's <string> initialiser 0x84B330, before vendor_defs.cpp: 0x84B360 ('Effect Radius : %d', 'to group', ...), its struct's implicit destructor 0x84B8A0 and copy constructor 0x84B930; its neighbours are TargetGeneratorSummaryBF's converters, whose bits it reads (SE1); the converters 0x84BE40 / 0x84BE60 (NOT EXACT) / 0x84C060, the flag table's 0x84BAC0-0x84BDF0 (GD1)",
  "expected": {},
@@ -11,6 +9,7 @@
   "0x42A940",
   "0x42A970",
   "0x42AB30",
+  "0x42B320",
   "0x42C4E0",
   "0x42CAB0",
   "0x42CD30",
@@ -20,6 +19,7 @@
   "0x432B80",
   "0x4B5740",
   "0x4F5C60",
+  "0x603BB0",
   "0x84B360",
   "0x84B8A0",
   "0x84B930",
@@ -41,6 +41,7 @@
   "0x42A940",
   "0x42A970",
   "0x42AB30",
+  "0x42B320",
   "0x42C4E0",
   "0x42CAB0",
   "0x42CD30",
@@ -49,9 +50,11 @@
   "0x42D120",
   "0x432B80",
   "0x4B5740",
-  "0x4F5C60"
+  "0x4F5C60",
+  "0x603BB0"
  ],
  "short_known": [
+  "0x42B320",
   "0x42D120",
   "0x84BE40"
  ]

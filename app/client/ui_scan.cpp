@@ -838,8 +838,8 @@ void UIScanClass::Unknown_60F1A0(bool arg)
 		FAIL_IF(!aux_data) return;
 
 		DeltaReputationClass *reputation = (!arg && !expired) ?
-			(DeltaReputationClass *)Unknown_Scan_Changed<DeltaCompoundClass>((DeltaCompoundClass *)aux_data, "Reputation") :
-			(DeltaReputationClass *)Unknown_Scan_Find<DeltaCompoundClass>((DeltaCompoundClass *)aux_data, "Reputation");
+			Unknown_Scan_Changed<DeltaReputationClass>((DeltaCompoundClass *)aux_data, "Reputation") :
+			Unknown_Scan_Find<DeltaReputationClass>((DeltaCompoundClass *)aux_data, "Reputation");
 
 
 		if (reputation) {

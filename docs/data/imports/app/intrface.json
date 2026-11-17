@@ -4,6 +4,7 @@
  "description": "InterfaceClass (intrface.h; the callbacks' RTTI names it InterfaceMemberClass), client 0x540A90-0x541930 (__FILE__ 0xB793AC, asserts on the client's lines 84-447, D25): the constructors 0x540A90 (NOT EXACT: register) and 0x540D30, the destructor, activate / deactivate, onto a view 0x5412F0 (NOT EXACT: the bool argument), the partial deactivation 0x541550 / 0x541690 (NOT EXACT: register), the KeysSavedEvent and GadgetGroupToFrontEvent callbacks; with them the MemberCallback instances 0x541AD0-0x541D90 (UI)",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x42F250",
   "0x45CC10",
   "0x45CC30",
@@ -72,6 +73,7 @@
  "merged": [],
  "name": "client/intrface.cpp",
  "shared": [
+  "0x42B320",
   "0x42F250",
   "0x45CC10",
   "0x45CC30",
@@ -97,6 +99,8 @@
   "0x51E220",
   "0x540CE0",
   "0x5411F0",
+  "0x5419E0",
+  "0x541A10",
   "0x541AD0",
   "0x541AF0",
   "0x541B10",
@@ -109,6 +113,7 @@
   "0x541DD0"
  ],
  "short_known": [
+  "0x42B320",
   "0x45E1B0",
   "0x4A1930",
   "0x4A19A0",

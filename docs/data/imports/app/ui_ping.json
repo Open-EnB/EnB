@@ -1,14 +1,14 @@
 {
- "ambiguous": [
-  "0x46BE90",
-  "0x474080"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "ui_ping.cpp (the client's __FILE__ 0xB84560; client 0x5D7630-0x5D8C3F by its asserts (lines 256-271), 'fc_ping.ini' and its table 0xAF5768, after ui_petition_stuck.cpp, before 0x5D8C40's object): the ping window's constructor, destructor, slots +0x54-+0x68 and its stats update 0x5D85B0 (PG1)",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x42F250",
   "0x45CC10",
+  "0x474080",
+  "0x4740B0",
   "0x4A1930",
   "0x4A19A0",
   "0x4A19C0",
@@ -25,9 +25,12 @@
   "0x515710",
   "0x515730",
   "0x515750",
+  "0x51C600",
   "0x51C630",
   "0x5411F0",
+  "0x56EFE0",
   "0x56F010",
+  "0x56F040",
   "0x56F070",
   "0x5D7630",
   "0x5D79D0",
@@ -38,6 +41,7 @@
   "0x5D84A0",
   "0x5D8510",
   "0x5D85B0",
+  "0x5D8BD0",
   "0x5D8BF0",
   "0x5D8C20",
   "0x5D8C30"
@@ -45,8 +49,11 @@
  "merged": [],
  "name": "client/ui_ping.cpp",
  "shared": [
+  "0x42B320",
   "0x42F250",
   "0x45CC10",
+  "0x474080",
+  "0x4740B0",
   "0x4A1930",
   "0x4A19A0",
   "0x4A19C0",
@@ -63,14 +70,19 @@
   "0x515710",
   "0x515730",
   "0x515750",
+  "0x51C600",
   "0x51C630",
   "0x5411F0",
+  "0x56EFE0",
   "0x56F010",
+  "0x56F040",
   "0x56F070",
+  "0x5D8BD0",
   "0x5D8C20",
   "0x5D8C30"
  ],
  "short_known": [
+  "0x42B320",
   "0x4A1930",
   "0x4A19A0",
   "0x4A19C0",
@@ -88,6 +100,7 @@
   "0x515730",
   "0x515750",
   "0x5411F0",
+  "0x5D8BD0",
   "0x5D8C20",
   "0x5D8C30"
  ]

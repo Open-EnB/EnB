@@ -15,6 +15,7 @@ public:
 	void Unknown_62AA20(ClientObjectClass *co);			// 0x62AA20 (a new object: the shields back to empty)  // NAME 1 [co]: what it holds
 	virtual void Unknown_00();							// +0x00 0x62AAE0 (the object's ShieldPercent now)
 	void Unknown_62ADE0(float percent);					// 0x62ADE0 (one third of the percent to each shield)  // NAME 1 [percent]: what it is
+	void Unknown_62AFA0(UVControllerClass *shield, float fill);	// 0x62AFA0 (one shield's V offset from its fill; no caller in the client: this unused)  // NAME 1 [shield, fill]: what they are
 
 	UVControllerClass *Shield[3];						// +0x04 shield01, +0x08 shield02, +0x0C shield03  // NAME 2: the sub-objects' names
 	ClientObjectClass *Object;							// +0x10  // NAME 2: what it holds

@@ -1,11 +1,10 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "connect.cpp: the connection base (0x820F90, 0x820FE0), the factories 0x821000-0x821B40, the forwarding and peek wrappers 0x821BB0-0x822060, ConnectionManager 0x822070-0x822EA0 and its factory 0x822F10, the stream connection 0x823320-0x8238C0, the asserts on the client's lines (D25); Remove_Dead 0x822B50 NOT EXACT",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x433CE0",
   "0x726AF0",
   "0x726B10",
@@ -16,6 +15,7 @@
   "0x726BB0",
   "0x726BD0",
   "0x726BF0",
+  "0x820F30",
   "0x820F90",
   "0x820FB0",
   "0x820FE0",
@@ -89,11 +89,13 @@
   "0x823D20",
   "0x823D70",
   "0x823DB0",
-  "0x823DE0"
+  "0x823DE0",
+  "0x823E10"
  ],
  "merged": [],
  "name": "common/connect.cpp",
  "shared": [
+  "0x42B320",
   "0x433CE0",
   "0x726AF0",
   "0x726B10",
@@ -109,6 +111,7 @@
   "0x823A10"
  ],
  "short_known": [
+  "0x42B320",
   "0x433CE0",
   "0x726AF0",
   "0x726B10",
@@ -121,17 +124,7 @@
   "0x726BF0",
   "0x820F90",
   "0x820FE0",
-  "0x8232C0",
-  "0x8232E0",
-  "0x823300",
   "0x823550",
   "0x823A10"
- ],
- "tiebreak": [
-  "0x823A30",
-  "0x823D20",
-  "0x823D70",
-  "0x823DB0",
-  "0x823DE0"
  ]
 }

@@ -27,23 +27,24 @@ void Unknown_8B3E70(void)	// NAME 1: neutral placeholder (D10)
 	crc32_made = true;
 }
 
-// Static helper matching 0x8B3EC0's body (inlined by Unknown_8B3F60; 0x8B3EC0 itself is outside this claim).
-static unsigned int crc32_buf(const unsigned char *data, int len, unsigned int crc)	// NAME 2: static helper for 0x8B3EC0
+// 0x8B3EC0: CRC-32 over len bytes (inlined by Unknown_8B3F60; called out of line by CordCon).
+unsigned int Cord_CRC(const unsigned char *data, int len, unsigned int crc)	// NAME 1: placeholder (as cordcon.h's)
 {
+	unsigned int val = crc;
 	if (!crc32_made) {
 		Unknown_8B3E70();
 	}
 	for (int i = 0; i < len; i++) {
-		crc = (crc >> 8) ^ crc32_table[(data[i] ^ crc) & 0xFF];
+		val = (val >> 8) ^ crc32_table[(data[i] ^ val) & 0xFF];
 	}
-	return crc;
+	return val;
 }
 
 // 0x8B3F60
 unsigned int Unknown_8B3F60(const char *str, unsigned int crc)	// NAME 1: neutral placeholder (D10)
 {
 	int len = strlen(str);
-	return crc32_buf((const unsigned char *)str, len, crc);
+	return Cord_CRC((const unsigned char *)str, len, crc);
 }
 
 // 0x8B4020

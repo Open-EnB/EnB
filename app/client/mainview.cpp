@@ -28,13 +28,13 @@ class UIStarmapClass { public: StarmapPipClass *Unknown_7C8DB0(bool on); };	// u
 
 
 
-// enbdazzle.cpp's visibility handler (0x75DD00, 8 bytes)
-class MainViewDazzleHandlerClass : public DazzleVisibilityClass	// NAME 1: neutral (D10)
-{
-public:
-	MainViewDazzleHandlerClass(SClient *client); ~MainViewDazzleHandlerClass();	// 0x75DD00 / 0x75DE70 (Shutdown 0x50C2F0)  // NAME 1 [client]: what 0x50BA60 passes
-	SClient *Client;								// +0x04  // NAME 2: what it holds
-};
+#include "enbdazzle.h"	// MainViewDazzleHandlerClass (0x75DD00, 8 bytes): the +0x128 visibility handler
+
+
+
+
+
+
 
 #include "ui_scan.h"
 #include "gutter_radar.h"	// the +0x84 object (0x7B6BD0)
@@ -2314,6 +2314,15 @@ void MainViewClass::Unknown_514480()
 		GraphicsChanged = true;
 	}
 	Unknown_C404F8 = OptionClass::Instance->Get_Bool("Doppler_Enabled");
+}
+
+// 0x5146A0: reloads the Graphics_* options, marks both flags dirty and applies them
+void MainViewClass::Unknown_5146A0()
+{
+	Unknown_514480();
+	GraphicsChanged = true;
+	DefaultChanged = true;
+	Unknown_5146D0();
 }
 
 // 0x5146D0

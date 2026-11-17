@@ -1,9 +1,9 @@
 // Earth & Beyond client (reconstruction): app\shared\kv_pair_string.cpp. Notes at the end of the file.
 #include <string.h>
 #include <stdlib.h>
+#include <string>
 #include "kv_pair_string.h"
 #include "g_assert.h"
-
 
 
 
@@ -94,4 +94,8 @@ void KVPairStringClass::Update_Saved()
 **	accessor, and Clone 0x4B8250 inlines it. The slots (kv_pair.h): Get_Type_Name 0x4B8090 ("char *"),
 **	Get_Value_String 0x4B8360 (strncpy), Set_Value_String 0x4B83A0, Is_Changed 0x4B83D0 (strcmp
 **	with the copy), Update_Saved 0x4B8450 (a new copy); the destructor 0x4B80E0 deletes the accessor.
+**	The file's last initialiser 0x4B8490 (CRT table entry 93, after Update_Saved and before kv_tripl's
+**	0x4B84C0) is std::ctype<unsigned short>::id's guarded atexit, which every file that includes the
+**	STL locale headers emits at its end (kv_list's 0x4B7DB0, kv_tripl's 0x4BB060): the client's file
+**	included one. <string> is the provisional choice (any <xlocale> includer gives the same bytes).
 */

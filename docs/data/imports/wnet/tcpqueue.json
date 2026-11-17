@@ -22,13 +22,5 @@
   "0x8BF8D0"
  ],
  "merged": [],
- "name": "tcpqueue.cpp",
- "short_known": [
-  "0x8BEA10"
- ],
- "tiebreak": [
-  "0x8BF620",
-  "0x8BF7E0",
-  "0x8BF8D0"
- ]
+ "name": "tcpqueue.cpp"
 }

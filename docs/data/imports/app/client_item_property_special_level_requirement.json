@@ -11,6 +11,7 @@
   "0x42A940",
   "0x42A970",
   "0x42AB30",
+  "0x42B320",
   "0x42C4E0",
   "0x42CAB0",
   "0x42CD30",
@@ -36,7 +37,8 @@
   "0x530A50",
   "0x530A80",
   "0x530AA0",
-  "0x531430"
+  "0x531430",
+  "0x5314D0"
  ],
  "merged": [],
  "name": "client/item/client_item_property_special_level_requirement.cpp",
@@ -46,6 +48,7 @@
   "0x42A940",
   "0x42A970",
   "0x42AB30",
+  "0x42B320",
   "0x42C4E0",
   "0x42CAB0",
   "0x42CD30",
@@ -66,16 +69,10 @@
   "0x52F560",
   "0x52F710"
  ],
- "shared_callers": [
-  "0x52F450"
- ],
  "short_known": [
+  "0x42B320",
   "0x42D120",
   "0x42E170",
   "0x530A80"
- ],
- "tiebreak": [
-  "0x52F450",
-  "0x531430"
  ]
 }

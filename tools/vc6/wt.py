@@ -175,7 +175,8 @@ DEFS = (LIBDEFS, IMPORTER)                              # Python files that name
 # symbols.json, from every library's verify objects; a conflict takes the target's side until the next regeneration)
 APP_INV = ('docs/app-inventory.md', 'docs/data/app-functions.json')
 COVERAGE = 'docs/coverage.md'
-GENERATED = (OLD_IMPORTS, *NAMES_OUT, 'docs/imports.md', *APP_INV, COVERAGE)
+CALLED = 'docs/data/called.json'                       # each library's calls out, written by verify (D257's EXTERN_CALLED)
+GENERATED = (OLD_IMPORTS, *NAMES_OUT, 'docs/imports.md', *APP_INV, COVERAGE, CALLED)
 # the rule (pipeline-plan §4 item 2): a conflict in any of them takes either side (wt.py: the target's), then the
 # file is regenerated: verify (shards of the touched libraries), report.py, names.py, notexact.py, app_inventory.py
 

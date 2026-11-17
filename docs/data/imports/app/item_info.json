@@ -1,9 +1,5 @@
 {
- "ambiguous": [
-  "0x42AAE0",
-  "0x42AFF0",
-  "0x4333D0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "RECONSTRUCTED: client 0x83E7C0-0x842930, ItemBaseInfoClass (an item's typed fields and two effect descriptions) and _ItemField's type table 0xBF34E0; the file name and 29 assert lines are the client's (e:\\build\\beta\\G\\app\\Common\\item_info.cpp)",
  "expected": {},
@@ -13,6 +9,7 @@
   "0x42A940",
   "0x42A970",
   "0x42AB30",
+  "0x42B320",
   "0x42CAB0",
   "0x42CD30",
   "0x42CF30",
@@ -27,8 +24,11 @@
   "0x45E1B0",
   "0x4C39B0",
   "0x4DD6D0",
+  "0x4DDDB0",
+  "0x4DEC60",
   "0x4E2C00",
   "0x4E8070",
+  "0x4EEAB0",
   "0x528320",
   "0x529250",
   "0x5293B0",
@@ -92,6 +92,7 @@
   "0x42A940",
   "0x42A970",
   "0x42AB30",
+  "0x42B320",
   "0x42CAB0",
   "0x42CD30",
   "0x42CF30",
@@ -106,8 +107,11 @@
   "0x45E1B0",
   "0x4C39B0",
   "0x4DD6D0",
+  "0x4DDDB0",
+  "0x4DEC60",
   "0x4E2C00",
   "0x4E8070",
+  "0x4EEAB0",
   "0x528320",
   "0x529250",
   "0x5293B0",
@@ -115,16 +119,17 @@
   "0x83E7C0",
   "0x83EBF0",
   "0x83EDD0",
+  "0x83F080",
+  "0x83F280",
+  "0x83F2B0",
   "0x842310"
  ],
  "short_known": [
+  "0x42B320",
   "0x42D120",
   "0x42E170",
   "0x45E1B0",
   "0x4DD6D0",
   "0x842310"
- ],
- "tiebreak": [
-  "0x8428D0"
  ]
 }

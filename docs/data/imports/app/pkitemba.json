@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x474080"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "opcode 37 (ITEM_BASE), client 0x895300-0x895BD0, the client's file (its FAIL_IF '!Info' on line 42): written by hand (builder P5)",
  "expected": {},
@@ -11,9 +9,11 @@
   "0x42A940",
   "0x42A970",
   "0x42AB30",
+  "0x42B320",
   "0x42CAB0",
   "0x42CD30",
   "0x42D120",
+  "0x528EF0",
   "0x528F20",
   "0x52B210",
   "0x52B240",
@@ -43,9 +43,11 @@
   "0x42A940",
   "0x42A970",
   "0x42AB30",
+  "0x42B320",
   "0x42CAB0",
   "0x42CD30",
   "0x42D120",
+  "0x528EF0",
   "0x528F20",
   "0x52B210",
   "0x52B240",
@@ -60,6 +62,7 @@
   "0x895570"
  ],
  "short_known": [
+  "0x42B320",
   "0x42D120",
   "0x52B2D0",
   "0x52B2F0",

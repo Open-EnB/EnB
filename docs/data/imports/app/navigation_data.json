@@ -4,6 +4,7 @@
  "description": "RECONSTRUCTED: navigation_data.obj 0x7BA8B0-0x7BA9B0, __FILE__ 0xB9EFD4 (FAIL_IF '!packet' line 55), vtable 0xB065C8 (typeid .PAVNavigationDataClass@@)",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x79D130",
   "0x7BA8B0",
   "0x7BA8F0",
@@ -14,9 +15,11 @@
  "merged": [],
  "name": "client/navigation_data.cpp",
  "shared": [
+  "0x42B320",
   "0x79D130"
  ],
  "short_known": [
+  "0x42B320",
   "0x79D130",
   "0x7BA920"
  ]

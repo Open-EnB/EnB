@@ -6,6 +6,7 @@
  "description": "LOGIN 2's object, 0x89A740-0x89AB00 (no assert: the file name provisional, NAME 1): written by hand (builder P9)",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x52B210",
   "0x52B240",
   "0x52B270",
@@ -27,6 +28,7 @@
  "merged": [],
  "name": "packets/pklogin.cpp",
  "shared": [
+  "0x42B320",
   "0x52B210",
   "0x52B240",
   "0x52B270",
@@ -39,6 +41,7 @@
   "0x5953D0"
  ],
  "short_known": [
+  "0x42B320",
   "0x52B2D0",
   "0x52B2F0",
   "0x52B310",

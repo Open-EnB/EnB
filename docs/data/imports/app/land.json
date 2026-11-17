@@ -6,6 +6,7 @@
  "description": "the terrain, client 0x468E90-0x47A2F0 (PROVISIONAL file name; profile label Land::Update_Lightmap_ManualThreaded 0x46DA70): rebuilt, partly NOT EXACT (marked); VIDTEST draws its land with it since 2026-10-28, its trees with programs/vidtest/viddeco.cpp (D101, M2.4)",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x42F250",
   "0x45CC10",
   "0x45CC30",
@@ -92,6 +93,7 @@
   "0x4632B0",
   "0x4632D0",
   "0x4632F0",
+  "0x463320",
   "0x463340",
   "0x463370",
   "0x463460",
@@ -126,6 +128,7 @@
  "merged": [],
  "name": "shared/land.cpp",
  "shared": [
+  "0x42B320",
   "0x42F250",
   "0x45CC10",
   "0x45CC30",
@@ -212,6 +215,7 @@
   "0x4632B0",
   "0x4632D0",
   "0x4632F0",
+  "0x463320",
   "0x463340",
   "0x463370",
   "0x463460",
@@ -223,6 +227,7 @@
   "0x46C620"
  ],
  "short_known": [
+  "0x42B320",
   "0x45E1B0",
   "0x4627A0",
   "0x4628B0",

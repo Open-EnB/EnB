@@ -1,12 +1,12 @@
 {
  "ambiguous": [
-  "0x42B2F0",
-  "0x474080"
+  "0x42B2F0"
  ],
  "copy": "reconstructed",
  "description": "UIViewClass (the client's 'UIViewClass::Render', __FILE__ e:\\build\\beta\\G\\app\\Client\\uiview.cpp; client 0x65A6C0-0x65B8E0): the views' base over view.cpp's ViewClass, and the second view Unknown65B810ViewClass (0x65B810), the FAIL_IFs on the client's lines 234 / 257 / 268 / 271 / 274 (LD4)",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x42F250",
   "0x444160",
   "0x50B680",
@@ -26,6 +26,7 @@
   "0x514D30",
   "0x514D50",
   "0x514D70",
+  "0x5C4030",
   "0x5C4060",
   "0x65A6C0",
   "0x65A710",
@@ -50,6 +51,7 @@
  "merged": [],
  "name": "client/uiview.cpp",
  "shared": [
+  "0x42B320",
   "0x42F250",
   "0x444160",
   "0x50B680",
@@ -69,10 +71,12 @@
   "0x514D30",
   "0x514D50",
   "0x514D70",
+  "0x5C4030",
   "0x5C4060",
   "0x65A710"
  ],
  "short_known": [
+  "0x42B320",
   "0x50B680",
   "0x50B6A0",
   "0x50B6C0",

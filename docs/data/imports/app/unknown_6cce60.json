@@ -4,6 +4,7 @@
  "description": "FontSys's members after the layout core: Update_Text's countdowns 0x6CCE60, the pointer-over test 0x6CD180 and the click test 0x6CD6F0 (client 0x6CCE60-0x6CD900); NOT EXACT (D64, functional for the POC); interim file (D137: no string; probably unknown_6ca0c0.cpp's object) (PROVISIONAL name, TXT3)",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x42F250",
   "0x431C80",
   "0x444160",
@@ -22,6 +23,7 @@
  "merged": [],
  "name": "client/unknown_6cce60.cpp",
  "shared": [
+  "0x42B320",
   "0x42F250",
   "0x431C80",
   "0x444160",
@@ -31,6 +33,7 @@
   "0x6CE730"
  ],
  "short_known": [
+  "0x42B320",
   "0x431C80"
  ]
 }

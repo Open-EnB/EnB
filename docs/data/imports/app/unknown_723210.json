@@ -4,6 +4,7 @@
  "description": "RECONSTRUCTED from client.exe 0x7231C0-0x725050 (no __FILE__/assert/RTTI: interim name after its first function, D137): a client-side robot sending random play packets from a priority_queue of timed actions (vtables 0xB02C54-0xB02C84, static 0xBE7CF0); SClient +0x12BC's class; all 16 own functions exact plus its std::list / vector / heap instances (O22)",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x42F250",
   "0x52B210",
   "0x52B240",
@@ -63,6 +64,7 @@
  "merged": [],
  "name": "client/unknown_723210.cpp",
  "shared": [
+  "0x42B320",
   "0x42F250",
   "0x52B210",
   "0x52B240",
@@ -84,6 +86,7 @@
   "0x724A80"
  ],
  "short_known": [
+  "0x42B320",
   "0x52B2D0",
   "0x52B2F0",
   "0x52B310",

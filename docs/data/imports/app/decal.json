@@ -1,8 +1,6 @@
 {
  "ambiguous": [
-  "0x474080",
-  "0x474480",
-  "0x497300"
+  "0x474080"
  ],
  "copy": "reconstructed",
  "description": "decal.cpp (the client's assert __FILE__ 0xB9AFCC): the decal library's Load 0x75BE00 (decal_textures.ini, decal_swatches.ini, secret_decal_textures.ini) and a decal index's material 0x75CB10; interim here (D137): 0x618A50, 0x618C10, 0x619280, 0x61DF40; functional NOT EXACT for the POC (D64)",
@@ -11,6 +9,10 @@
   "0x42F250",
   "0x46BE90",
   "0x46BEC0",
+  "0x47D040",
+  "0x584DF0",
+  "0x58E9C0",
+  "0x604ED0",
   "0x618C10",
   "0x75CB10",
   "0x75CFA0",
@@ -37,6 +39,12 @@
   "0x42F250",
   "0x46BE90",
   "0x46BEC0",
-  "0x618C10"
+  "0x47D040",
+  "0x584DF0",
+  "0x58E9C0",
+  "0x604ED0",
+  "0x618C10",
+  "0x75CFA0",
+  "0x75D000"
  ]
 }

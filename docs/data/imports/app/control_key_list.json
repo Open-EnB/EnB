@@ -1,13 +1,13 @@
 {
- "ambiguous": [
-  "0x430450"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "InterfaceClass's +0x4C key list (intrface.h's InterfaceKeyListClass, control_keys_manager.h's ControlKeyListClass), client 0x721C70-0x721FC0; so far 0x721CC0 and 0x721F40 (activated), NOT EXACT (D64, functional for the POC). File PROVISIONAL (D137: no string; after control_keys_manager.cpp's container instances) (ACT)",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x42FCF0",
   "0x430370",
+  "0x430450",
   "0x721C70",
   "0x721CC0",
   "0x721CF0",
@@ -36,11 +36,14 @@
  "merged": [],
  "name": "client/control_key_list.cpp",
  "shared": [
+  "0x42B320",
   "0x42FCF0",
   "0x430370",
+  "0x430450",
   "0x722720"
  ],
  "short_known": [
+  "0x42B320",
   "0x42FCF0",
   "0x722720"
  ]

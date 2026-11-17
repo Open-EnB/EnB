@@ -1,8 +1,5 @@
 {
- "ambiguous": [
-  "0x455FB0",
-  "0x47D640"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "packet classes (opcode 170) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
  "expected": {},
@@ -12,6 +9,7 @@
   "0x42A940",
   "0x42A970",
   "0x42AB30",
+  "0x42B320",
   "0x42CAB0",
   "0x42CD30",
   "0x42D050",
@@ -23,6 +21,7 @@
   "0x433700",
   "0x433A10",
   "0x47D440",
+  "0x47D640",
   "0x47E480",
   "0x47E4D0",
   "0x47EB50",
@@ -37,6 +36,7 @@
   "0x52B330",
   "0x52B350",
   "0x5953D0",
+  "0x603BB0",
   "0x87ACD0",
   "0x87AE50",
   "0x87AE80",
@@ -88,6 +88,7 @@
   "0x42A940",
   "0x42A970",
   "0x42AB30",
+  "0x42B320",
   "0x42CAB0",
   "0x42CD30",
   "0x42D050",
@@ -99,6 +100,7 @@
   "0x433700",
   "0x433A10",
   "0x47D440",
+  "0x47D640",
   "0x47E480",
   "0x47E4D0",
   "0x47EB50",
@@ -113,9 +115,11 @@
   "0x52B330",
   "0x52B350",
   "0x5953D0",
+  "0x603BB0",
   "0x87C210"
  ],
  "short_known": [
+  "0x42B320",
   "0x42D120",
   "0x42E170",
   "0x52B2D0",
@@ -123,7 +127,6 @@
   "0x52B310",
   "0x52B330",
   "0x5953D0",
-  "0x87C210",
-  "0x87C3A0"
+  "0x87C210"
  ]
 }

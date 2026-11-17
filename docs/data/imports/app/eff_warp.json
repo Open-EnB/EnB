@@ -1,11 +1,10 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "RECONSTRUCTED from the client: the object 0x6F25A0-0x6F27C0 (effect.ini's WarpEffect, table 0xB005F0), between the guarded <string> statics 0x6F2570 (eff_seek.cpp's) and 0x6F27A0; no __FILE__: the name eff_warp.cpp is provisional (D137), it sorts after eff_seek.cpp",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x42F250",
   "0x6E4860",
   "0x6E4880",
@@ -13,11 +12,13 @@
   "0x6F25A0",
   "0x6F2640",
   "0x6F2670",
-  "0x6F2690"
+  "0x6F2690",
+  "0x6F27A0"
  ],
  "merged": [],
  "name": "client/eff_warp.cpp",
  "shared": [
+  "0x42B320",
   "0x42F250",
   "0x6E4860",
   "0x6E4880",
@@ -25,6 +26,7 @@
   "0x6F2670"
  ],
  "short_known": [
+  "0x42B320",
   "0x6E4860",
   "0x6E4880",
   "0x6F2670"

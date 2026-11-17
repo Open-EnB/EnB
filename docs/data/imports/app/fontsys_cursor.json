@@ -1,11 +1,10 @@
 {
- "ambiguous": [
-  "0x46BE90"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "TextCursorClass (fontsys_cursor.h), client 0x685680-0x685E70 (__FILE__ 0xB8FD0C, FAIL_IF '!line' / '!text' on the client's lines 78 / 86, D25): the edit boxes' text cursor over Rect3DClass; all exact (BTN)",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x42F250",
   "0x45CC10",
   "0x45CC30",
@@ -89,6 +88,7 @@
   "0x48FE60",
   "0x48FF40",
   "0x48FF70",
+  "0x5C40C0",
   "0x67E880",
   "0x67E8A0",
   "0x67E8D0",
@@ -117,6 +117,7 @@
  "merged": [],
  "name": "client/fontsys_cursor.cpp",
  "shared": [
+  "0x42B320",
   "0x42F250",
   "0x45CC10",
   "0x45CC30",
@@ -200,6 +201,7 @@
   "0x48FE60",
   "0x48FF40",
   "0x48FF70",
+  "0x5C40C0",
   "0x67E880",
   "0x67E8A0",
   "0x67E8D0",
@@ -217,6 +219,7 @@
   "0x685E70"
  ],
  "short_known": [
+  "0x42B320",
   "0x45E1B0",
   "0x4627A0",
   "0x4628D0",

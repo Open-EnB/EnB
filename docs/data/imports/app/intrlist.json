@@ -1,17 +1,18 @@
 {
- "ambiguous": [
-  "0x430450"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "intrlist.cpp (__FILE__ 0xB8FD5C): InterfaceClass's +0x64 list (intrface.h's InterfaceUnknown64Class, an SList of gadget entries), client 0x686FA0-0x687360; so far 0x6871D0 (activated; FAIL_IF '!View' on the client's line 88, D25), NOT EXACT (D64, functional for the POC) (ACT)",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x42F250",
   "0x42FCF0",
   "0x430370",
+  "0x430450",
   "0x686740",
   "0x6867C0",
   "0x686840",
+  "0x686880",
   "0x6868A0",
   "0x686920",
   "0x686960",
@@ -66,13 +67,16 @@
  "merged": [],
  "name": "client/intrlist.cpp",
  "shared": [
+  "0x42B320",
   "0x42F250",
   "0x42FCF0",
   "0x430370",
+  "0x430450",
   "0x687C50",
   "0x688340"
  ],
  "short_known": [
+  "0x42B320",
   "0x42FCF0",
   "0x687C50",
   "0x688340"

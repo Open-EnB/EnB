@@ -6,6 +6,7 @@
  "description": "CameraController04Class (NAME 1, neutral), the camera manager's state-4 controller (table 0xB04C98, 0x14 bytes), client 0x7934E0-0x79390F (__FILE__ 0xB9E330, FAIL_IF l.73; its Vector3 initialiser 0x7934F0 first, <string>'s 0x7938F0 last); 0x793740 functional, not exact (CC1)",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x42F250",
   "0x7923C0",
   "0x7923E0",
@@ -23,6 +24,7 @@
  "merged": [],
  "name": "client/camctrl_entersector.cpp",
  "shared": [
+  "0x42B320",
   "0x42F250",
   "0x7923C0",
   "0x7923E0",
@@ -31,8 +33,8 @@
   "0x792460"
  ],
  "short_known": [
+  "0x42B320",
   "0x7923C0",
-  "0x792410",
-  "0x793720"
+  "0x792410"
  ]
 }

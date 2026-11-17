@@ -1,9 +1,5 @@
 {
- "ambiguous": [
-  "0x42B250",
-  "0x4B7E00",
-  "0x4B7E30"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "SymbolSubstitutionClass, client 0x4FCBD0-0x4FD7A0 with the string's and the table's instances to 0x4FE770: the report on the client's line 112 (D25); NOT EXACT: Substitute_Symbols 0x4FD3B0",
  "expected": {},
@@ -13,6 +9,8 @@
   "0x42A940",
   "0x42A970",
   "0x42AB30",
+  "0x42B250",
+  "0x42B320",
   "0x42C4E0",
   "0x42CAB0",
   "0x42CD30",
@@ -23,6 +21,8 @@
   "0x47CE60",
   "0x4B5740",
   "0x4B7DE0",
+  "0x4B7E00",
+  "0x4B7E30",
   "0x4C39B0",
   "0x4E2C00",
   "0x4E2CC0",
@@ -57,6 +57,8 @@
   "0x42A940",
   "0x42A970",
   "0x42AB30",
+  "0x42B250",
+  "0x42B320",
   "0x42C4E0",
   "0x42CAB0",
   "0x42CD30",
@@ -67,6 +69,8 @@
   "0x47CE60",
   "0x4B5740",
   "0x4B7DE0",
+  "0x4B7E00",
+  "0x4B7E30",
   "0x4C39B0",
   "0x4E2C00",
   "0x4E2CC0",
@@ -74,6 +78,7 @@
   "0x4FDF20"
  ],
  "short_known": [
+  "0x42B320",
   "0x42D120",
   "0x42E170",
   "0x4B7DE0",

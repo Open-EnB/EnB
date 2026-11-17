@@ -533,9 +533,10 @@ def convert_shots(out):
         print(f'd3d8shot.log: {len(presents)} frame lines; the last: {presents[-1].strip() if presents else "-"}')
 
 
-def start_antprox(inst, out, env, args):
+def start_antprox(inst, out, env, args, mode=None):
     """antprox /REPLAY starting inst's client (out\antprox.out, out\antprox-logs); (antprox, client PID or None,
-    start time). Used by replay and tools/harness/e2e.py."""
+    start time). Used by replay and tools/harness/e2e.py. mode: antprox's arguments in place of /REPLAY (a live
+    server: e2e.py's --live, e.g. ['/SERVER:localhost', '/NET7BIN:...', '/OPCODES'])."""
     logdir = os.path.join(out, 'antprox-logs')
     os.makedirs(logdir, exist_ok=True)
     # antprox picks its loopback address at start: two starting together can pick the same one, so start one at a
@@ -552,13 +553,13 @@ def start_antprox(inst, out, env, args):
             except OSError:
                 pass
             time.sleep(0.2)
-    a = subprocess.Popen([ANTPROX, '/REPLAY', '/CLIENT:' + inst.exe, '/LOGDIR:' + logdir]
+    a = subprocess.Popen([ANTPROX] + list(mode or ['/REPLAY']) + ['/CLIENT:' + inst.exe, '/LOGDIR:' + logdir]
                          + ['/CLIENTOP:' + x.lstrip('-') for x in args], cwd=inst.dir, env=env,  # antprox adds the '-'
                          stdout=open(os.path.join(out, 'antprox.out'), 'w'), stderr=subprocess.STDOUT)
     start = time.time()
     pid = None
     try:
-        while time.time() - start < 20 and a.poll() is None:
+        while not mode and time.time() - start < 20 and a.poll() is None:
             if 'Replay server ready' in open(os.path.join(out, 'antprox.out'), errors='replace').read():
                 break
             time.sleep(0.1)

@@ -1,0 +1,18 @@
+# Station (live server): the NPC of room 1 at -52,-14: the talk tree through two replies to its end, and back home.
+name: starbase NPC: a talk tree to its end
+timeout: 200
+include _sb_home
+walk-to -34,-13
+walk-to -44.9,-14.3
+face -179
+click 618,487 until antprox 'sent TALK_TREE' every 2 within 20
+wait-quiet proxy 1.0 within 20
+shot talk_first
+click 442,910
+expect-event antprox 'sent TALK_TREE' within 15
+wait-quiet proxy 1.0 within 20
+shot talk_second
+click gadget talk.done until antprox 'sent TALK_TREE_ACTION' every 2 within 12
+wait-quiet proxy 1.0 within 20
+walk-to -34,-13
+walk-to -48,5

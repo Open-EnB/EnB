@@ -6,6 +6,7 @@
  "description": "RECONSTRUCTED from client.exe: viewbttn.obj 0x6B56A0-0x6B6050 (__FILE__ 0xB91D5C, FAIL_IF l.237, G_ASSERTs l.389-390; vtables 0xAFE0C4, 0xAFE0B8; option 'Cpit_ThrottleRightMouse')",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x42F250",
   "0x50A8C0",
   "0x50A8E0",
@@ -41,11 +42,13 @@
   "0x6B5800",
   "0x6B5E40",
   "0x6B5E90",
-  "0x6B5ED0"
+  "0x6B5ED0",
+  "0x6B5FB0"
  ],
  "merged": [],
  "name": "client/viewbttn.cpp",
  "shared": [
+  "0x42B320",
   "0x42F250",
   "0x50A8C0",
   "0x50A8E0",
@@ -79,6 +82,7 @@
   "0x6B57B0"
  ],
  "short_known": [
+  "0x42B320",
   "0x50A8C0",
   "0x50A8E0",
   "0x50A900",

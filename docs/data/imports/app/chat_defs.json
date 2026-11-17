@@ -6,8 +6,10 @@
  "in_tree": [
   "0x830460",
   "0x830770",
+  "0x830830",
   "0x8308C0",
-  "0x830AA0"
+  "0x830AA0",
+  "0x830B60"
  ],
  "merged": [],
  "name": "common/chat_defs.cpp"

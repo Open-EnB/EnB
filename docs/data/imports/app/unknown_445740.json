@@ -4,6 +4,7 @@
  "description": "RECONSTRUCTED: the steering behaviours (SteeringClass, SteeringTurnClass), their settings' encoder 0x447CC0 and the encoder's float / bool adds 0x448260 / 0x448390, client 0x445740-0x448BD0 (no __FILE__ names the object: D137 interim name; between main.cpp's object and fp_ita.cpp's)",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x42F250",
   "0x445740",
   "0x445860",
@@ -54,6 +55,7 @@
  "merged": [],
  "name": "shared/unknown_445740.cpp",
  "shared": [
+  "0x42B320",
   "0x42F250",
   "0x447C40",
   "0x4481E0",
@@ -81,6 +83,7 @@
   "0x448B60"
  ],
  "short_known": [
+  "0x42B320",
   "0x448580",
   "0x448640",
   "0x448780",

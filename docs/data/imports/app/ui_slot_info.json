@@ -4,6 +4,7 @@
  "description": "RECONSTRUCTED: ui_slot_info.cpp, the slot information screens' base UISlotInfoClass (the client's file per its asserts, 'e:\\build\\beta\\G\\app\\Client\\ui_slot_info.cpp' at 0xB8A6DC), 0x62FDF0-0x630480, functional from the pseudocode (SK1)",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x42F250",
   "0x45CC10",
   "0x4A1930",
@@ -43,6 +44,7 @@
  "merged": [],
  "name": "client/ui_slot_info.cpp",
  "shared": [
+  "0x42B320",
   "0x42F250",
   "0x45CC10",
   "0x4A1930",
@@ -65,11 +67,13 @@
   "0x532150",
   "0x532170",
   "0x5328F0",
+  "0x630400",
   "0x630460",
   "0x630470",
   "0x630480"
  ],
  "short_known": [
+  "0x42B320",
   "0x4A1930",
   "0x4A19A0",
   "0x4A19C0",

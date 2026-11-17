@@ -10,6 +10,7 @@
  "headers_from": null,
  "in_tree": [
   "0x42F250",
+  "0x455590",
   "0x92D920",
   "0x92D9A0",
   "0x92DB30",
@@ -24,6 +25,10 @@
  "merged": [],
  "name": "coltest.cpp",
  "shared": [
-  "0x42F250"
+  "0x42F250",
+  "0x455590"
+ ],
+ "short_known": [
+  "0x455590"
  ]
 }

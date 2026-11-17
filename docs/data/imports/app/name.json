@@ -15,6 +15,7 @@
   "0x4AD610",
   "0x4AD6F0",
   "0x4AD7D0",
+  "0x4AD870",
   "0x4AD890",
   "0x4AD9F0",
   "0x4ADB80",
@@ -23,6 +24,10 @@
  "merged": [],
  "name": "shared/auxdata/name.cpp",
  "shared": [
-  "0x42F250"
+  "0x42F250",
+  "0x4AD870"
+ ],
+ "short_known": [
+  "0x4AD870"
  ]
 }

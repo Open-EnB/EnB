@@ -6,6 +6,7 @@
  "description": "DeltaStringClass (D24; String from the asserts), client 0x4A78F0-0x4A8082: 9 functions and DeltaStringValueClass's Get, Set, Clone; asserts on the client's lines 28-130 (D25)",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x4A3C50",
   "0x4A3C70",
   "0x4A3C90",
@@ -30,6 +31,7 @@
  "merged": [],
  "name": "shared/auxdata/delta_string.cpp",
  "shared": [
+  "0x42B320",
   "0x4A3C50",
   "0x4A3C70",
   "0x4A3C90",
@@ -39,6 +41,7 @@
   "0x4A7F00"
  ],
  "short_known": [
+  "0x42B320",
   "0x4A3C50",
   "0x4A3C70",
   "0x4A3C90",

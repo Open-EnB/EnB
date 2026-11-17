@@ -1,11 +1,10 @@
 {
- "ambiguous": [
-  "0x8AD6C0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "opcode 62 written by hand over FlagPacketClass (builder P3, 19 of 19 exact in appfile.py match; asserts on the client's lines 179-187 and 277-285); packet classes (opcode 64, 63) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build (its opcode from Get_Type where the client calls it), Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x42F250",
   "0x44C2B0",
   "0x52B210",
@@ -54,6 +53,7 @@
   "0x8AD220",
   "0x8AD300",
   "0x8AD690",
+  "0x8AD6C0",
   "0x8AD6F0",
   "0x8AD730",
   "0x8AD760",
@@ -96,6 +96,7 @@
  "merged": [],
  "name": "packets/pkupdate.cpp",
  "shared": [
+  "0x42B320",
   "0x42F250",
   "0x44C2B0",
   "0x52B210",
@@ -127,6 +128,7 @@
   "0x8AE5A0"
  ],
  "short_known": [
+  "0x42B320",
   "0x52B2D0",
   "0x52B2F0",
   "0x52B310",
@@ -136,29 +138,17 @@
   "0x8ABB60",
   "0x8ABB80",
   "0x8ABBD0",
-  "0x8ABD90",
-  "0x8ABDB0",
   "0x8ABE90",
   "0x8ABEB0",
   "0x8ABED0",
   "0x8ABF20",
-  "0x8AC4F0",
-  "0x8AC510",
   "0x8AC960",
   "0x8AC980",
   "0x8AC9A0",
   "0x8AC9F0",
-  "0x8AD200",
-  "0x8AD9A0",
-  "0x8AD9D0",
   "0x8ADD80",
   "0x8ADDD0",
-  "0x8AE070",
-  "0x8AE090",
   "0x8AE220",
-  "0x8AE350",
-  "0x8AE370",
-  "0x8AE5A0",
-  "0x8AE770"
+  "0x8AE5A0"
  ]
 }

@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B250"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "the lookup tables, client 0x4EC1F0-0x4F0080 with the instances: the asserts on the client's lines 38-433 (D25); NOT EXACT: the continuous table's Create 0x4ED660, the sampled table's constructor 0x4EDBE0",
  "expected": {},
@@ -11,6 +9,8 @@
   "0x42A940",
   "0x42A970",
   "0x42AB30",
+  "0x42B250",
+  "0x42B320",
   "0x42C4E0",
   "0x42CAB0",
   "0x42CD30",
@@ -29,6 +29,7 @@
   "0x4EC220",
   "0x4EC260",
   "0x4EC6B0",
+  "0x4EC6F0",
   "0x4EC710",
   "0x4EC760",
   "0x4EC7D0",
@@ -44,6 +45,7 @@
   "0x4EDA40",
   "0x4EDA70",
   "0x4EDAB0",
+  "0x4EDAD0",
   "0x4EDB00",
   "0x4EDE30",
   "0x4EDE60",
@@ -99,6 +101,8 @@
   "0x42A940",
   "0x42A970",
   "0x42AB30",
+  "0x42B250",
+  "0x42B320",
   "0x42C4E0",
   "0x42CAB0",
   "0x42CD30",
@@ -113,15 +117,17 @@
   "0x45CC30",
   "0x45E1B0",
   "0x4B5740",
+  "0x4EC6F0",
+  "0x4EEAB0",
+  "0x4EEE50",
   "0x4EF140"
  ],
  "short_known": [
+  "0x42B320",
   "0x42D120",
   "0x42E170",
   "0x45E1B0",
+  "0x4EC6F0",
   "0x4EF140"
- ],
- "tiebreak": [
-  "0x4EE9F0"
  ]
 }

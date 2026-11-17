@@ -27,14 +27,5 @@
   "0x6974B0"
  ],
  "merged": [],
- "name": "client/pt_data.cpp",
- "tiebreak": [
-  "0x697340",
-  "0x697370",
-  "0x6973B0",
-  "0x6973F0",
-  "0x697430",
-  "0x697470",
-  "0x6974B0"
- ]
+ "name": "client/pt_data.cpp"
 }

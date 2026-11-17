@@ -105,7 +105,48 @@ and `funclet_tie` set. It runs last so that no earlier credit is displaced (in t
 ~deque<int> 0x755A10 to emote_data's copy 0x7E6570), and its credits never widen an object's range (the funclet
 fixes the symbol's address, not which object's copy the linker kept: dynamic_window_class's
 ~RefCountPtr<DynamicWindowElementClass> 0x517030 lies in dynamic_window_background's stretch). Mostly shared
-COMDAT destructors (~basic_string<char> 0x42A6C0, RefCountPtr / vector instances).
+COMDAT destructors (~basic_string<char> 0x42A6C0, RefCountPtr / vector instances). What the funclets leave
+gets one pushed round (D246 / CR4, USE_PUSHED_TIES) the same way: the one survivor that exact functions'
+absolute references under the function's own symbol reach (pushed_targets: an atexit destructor, an eh vector
+iterator's element dtor, a qsort / bsearch compare function); `exact` with `tiebreak` and `pushed_tie` set,
+never widening an object's range (~RefCountPtr<RenderObjClass> 0x4740B0, IndexClass's search_compfunc 0x9CCC50).
+Last, an own-call round (D246 / CR4, USE_CALL_TIES): the one survivor the object's own exact functions' relocated
+calls under the function's own symbol reach (obj_called; D166 without its every-caller-is-ours test: it credits
+the address, not a placement); `exact` with `tiebreak` and `call_tie` set, never widening an object's range It runs
+after D166 has nothing more (run before it, it took D166's credits, which widen ranges, and cost range pairs).
+When the object's own calls do not reach one survivor, the one address every exact function's calls reach under
+the symbol (D188's `called`, any object's, CR1's evidence) decides (CR7). The same own-call evidence also runs
+in the funclet round for a tie the funclets leave (CR5 / CR7): the one unclaimed survivor the object's own exact
+functions call; that credit places the object's copy (`call_tie` and `call_placed`) and counts for its range.
+(CR1's form, one last round after the loop feeding nothing, adds nothing over these two: measured, dropped.)
+The funclet round's evidence reaches further (CR2, run 2026-11-16): (1) USE_FUNCLET_NOTEXACT: the funclets of a parent
+that is not exact count as well when client.exe's bytes locate its FuncInfo (the address symbols.json names
+with the parent's symbol from a proof other than an exact match, by its EH prologue's pushed stub; else the one
+client FuncInfo whose whole unwind map matches the object's), only its matching states; (2) USE_FUNCLET_FOLDED:
+several symbols proposed at one address, all COMDAT bodies with one body_sig, are a linker fold (D193 for
+non-short bodies: ~RefCountPtr<LegoClass> / <ClientLegoImplClass> 0x700BC0) and are all credited; (3)
+USE_FUNCLET_OWN: a symbol reached at several addresses (a template with several client copies) takes, in one
+object, the one address that object's own funclets reach; (4) USE_FUNCLET_NAMED: among several reaches, one at
+an address symbols.json names with another function (a self name) is dropped (funclet_reach).
+
+Then one short-order round (D246 / CR1, USE_SHORT_ORDER; `short_order`): a gap between two consecutive exact own
+functions of one object in object order whose own functions are all `short` is aligned one to one with the client
+functions between the two addresses (verified starts, D27) when the counts agree (USE_GAP_ORDER: the gap may
+also hold tied `multiple` own functions, `gap_order`), the gap's bytes are only those
+functions and their padding, and each fullmatches its counterpart, unclaimed and not contradicted by D80; `exact`
+with `order` and `short_order` set. Object order is the proof (D242), the bytes confirm it (D188's never by pattern
+alone holds: the pattern decides nothing on its own).
+
+The same round aligns each object's edges (D246 / CR6, USE_EDGE_ORDER; `edge_order`): the own functions before the
+object's first exact own function in object order take, nearest first, the client functions right below it, and
+those after its last exact one the client functions right after it, each with only padding to its neighbour,
+fullmatching, unclaimed and not contradicted by D80; an address two symbols would take stays alone. P-C4-1: the
+object's range ends at its exact functions, so an edge function with a byte-identical copy at another object's edge
+stayed tied (ui_symbolchat's and sbaseview's option-struct constructors 0x64A330 / 0x69AC20).
+
+The call evidence of D188 may include other libraries' exact functions' calls
+(D246 / CR6, USE_EXTERN_CALLED; match_objects' extern_called): verify passes each library the call maps the
+previous verify wrote for the others (docs/data/called.json), so no second matching pass is needed.
 
 A searched match counts only at a function start (D189(2)): an address the client's thunk table or a
 call / jump reaches, or one right after padding (int3 / nop) or after the end of another function (a
@@ -119,7 +160,10 @@ address the run knows independently of its bytes (D188): a slot of a vtable whos
 (symbols.json's vtables, or one D171 learned, `vtable`; one an exact function's vptr store gave,
 `vptr`), or the target of a call (REL32) in an exact function's relocations (`call`), or (D246 / C21)
 the target of a jmp in an unwind funclet of an exact function whose bytes match the object's funclet
-for the same unwind state (`funclet`). Its pattern
+for the same unwind state (`funclet`), or (D246 / CR3) the client's immediate of an absolute (DIR32)
+reference to the function in an exact function: pushed as an argument (an eh vector iterator's element
+ctor / dtor, an atexit destructor, an ostream manipulator), moved into a register or stored (`pushed`,
+USE_PUSHED_CALLS, pushed_targets; below call and funclet). Its pattern
 must fullmatch there, no relocation target may contradict it (D80's checks), the proofs must name one
 address, and no other symbol may hold it. Never by pattern alone. One exception (D193): COMDAT
 bodies with the same bytes and the same relocations (a linker-folded inline, such as RefCountPtr's
@@ -157,6 +201,78 @@ USE_FUNCLET_CALLS = True
 # calls to under the function's own symbol is its address (`funclet_tie`: its own round after every other
 # tie rule, before the short round; never widens an object's range)
 USE_FUNCLET_TIES = True
+# D246 / CR3 (run 2026-11-16): a short function whose address (or its thunk's) an exact function holds as an
+# absolute immediate (pushed as an argument, moved into a register, stored) is located by client.exe's bytes
+# like a call's target (short_known's `pushed` kind, below call and funclet; pushed_targets)
+USE_PUSHED_CALLS = True
+# D246 / CR4 (run 2026-11-16): the same pushed evidence breaks a D166 tie of a non-short body, like the funclet
+# tie: of a `multiple` function's byte-identical copies, the one exact functions' absolute references under the
+# function's own symbol reach (pushed_targets: one client address only) is its address (`pushed_tie`: its own
+# round after the funclet round, before the short round; never widens an object's range)
+USE_PUSHED_TIES = True
+# D246 / CR4: what the pushed round leaves, the object's own exact functions' relocated calls (REL32) under the
+# function's own symbol break the tie when they reach one survivor (`call_tie`: its own round once D166's caller
+# tie-break resolves nothing more; never widens an object's range). Unlike D166 the address may have callers in other objects too:
+# it credits the address (the copy the object's calls reach), not a placement. Only the object's own calls count:
+# another object's calls reach its own copy (emote_data / sclient's deque<int>::_Freefront 0x7E7CD0 / 0x756710)
+# The same switch, two more forms of the evidence (CR7, folding CR5's and CR1's variants): (1) in the funclet round,
+# a tie the funclets leave is the one unclaimed survivor the object's own exact functions call (CR5); such a credit
+# places the object's copy and counts for its range (`call_placed`); (2) in the own-call round, when the object's
+# own calls do not reach one survivor, the one address every exact function's calls reach under the symbol
+# (D188's `called`, CR1's evidence; other libraries' too with USE_EXTERN_CALLED)
+USE_CALL_TIES = True
+# CR2 (run 2026-11-16): a funclet's reach at an address symbols.json names with another function is not
+# evidence for the funclet's symbol (fontdatabase.obj's funclets reach ~StringClass at FontSoundStruct's
+# destructor 0x67F660: our member type, not the client's); among several reaches it is dropped and the
+# symbol's other reach decides (funclet_reach)
+USE_FUNCLET_NAMED = True
+# CR2: several symbols the funclet round proposes at one address, all COMDAT bodies with the same bytes and
+# relocations (D193's linker fold, for non-short bodies: ~RefCountPtr<LineDisplayTextClass> and
+# ~RefCountPtr<FontStyleClass> at 0x51C630), are all credited (funclet_folded)
+USE_FUNCLET_FOLDED = True
+# CR2: the funclets of a parent whose body is not exact count like an exact parent's (funclet_targets) when
+# client.exe's own bytes locate the parent's FuncInfo: the address symbols.json names with the parent's symbol
+# from a proof other than an exact match (its EH prologue `push -1; push offset stub`), or the one client
+# FuncInfo whose whole unwind map (state count, every state's funclet) matches the object's
+# (notexact_funclet_targets)
+USE_FUNCLET_NOTEXACT = True
+# CR2: a symbol the funclets reach at several client addresses (a template with several copies in client.exe:
+# ~RefCountPtr<InterfaceClass> at 0x541A10, 0x54B570, 0x56CE00, 0x643BA0) is, for one object, the one address
+# that object's own matching funclets reach (the funclet round only; like P-CGP-1's obj_called)
+USE_FUNCLET_OWN = True
+# CR5 (run 2026-11-16): a not-exact parent whose whole unwind map matches several client FuncInfos takes the one
+# client.exe's placement picks (notexact_funclet_targets): of the candidates pushed once and not by an exact
+# function, the one whose push site lies between the client addresses of the parent's exact neighbours in its
+# object (the own functions before and after it in object order, D242), else the one whose parent an exact
+# function of the same object calls under the parent's symbol (the call target within 0x10 bytes before the
+# push); several left, none is used
+USE_FUNCLET_PLACED = True
+# D246 (CR1, run 2026-11-16): object order places short own functions (D242 / D251's evidence, not the pattern
+# alone): between two consecutive exact own functions of one object in object order, when every own function
+# between them is short and the client has exactly as many functions between the two addresses, each the same
+# length as its counterpart and fullmatching it, unclaimed and uncontradicted, the k-th takes the k-th
+# (`short_order`, its own round before the D188 short round)
+USE_SHORT_ORDER = True
+# D246 (CR1): the same gap alignment when some of the gap's own functions are tied (`multiple`) rather than short
+# (`gap_order`); each must still fullmatch the client function at its position, with its length
+USE_GAP_ORDER = True
+# D246 (CR6): the same alignment at an object's two edges: the own functions before its first exact own function
+# (after its last) in object order take the client functions right below it (right after it), padding-only gaps
+# (`edge_order`); cross-object byte-identical copies (P-C4-1's range end)
+USE_EDGE_ORDER = True
+# D246 (CR6, CR1's EXTERN_CALLED in its cheap form): the relocated calls other libraries' exact functions make (the
+# previous verify's call map, docs/data/called.json, passed as match_objects' extern_called) join D188's `called`
+USE_EXTERN_CALLED = True
+# D246 (CR8): a COMDAT the other rules leave tied (`multiple`) whose one survivor lies in the contribution of an
+# object holding the symbol: the linker keeps the first holder's copy in that holder's code, so a copy lies between
+# the holder's first exact own function and the next object's first, within RANGE_GAP of the holder's last
+# (`contrib`; kv_list's std::_Distance 0x4B7E00, above its range, below kv_tripl's)
+USE_CONTRIB_TIES = True
+# ... and when several holders' contributions hold a copy, the first holder's in link order (the lowest range)
+USE_CONTRIB_FIRST = True
+# ... and the `short` COMDATs (too short to search) at the one verified start in the first holder's contribution
+# that holds their bytes and length, then padding, D80's break_tie not contradicting
+USE_CONTRIB_SHORTS = True
 
 
 def generated(name):
@@ -589,11 +705,13 @@ def run_self_names(img, objs, known, thunk):
     return {k: v for k, v in out.items() if len(v) == 1}
 
 
-def match_objects(img, paths, region=None, callers=False):
+def match_objects(img, paths, region=None, callers=False, extern_called=None, called_out=None):
     """region=(lo, hi): search only [lo, hi) of .text (E&B's app region for app files: a pattern
     that also occurs in the libraries is still exact there). callers=True: D166's caller tie-break
     (caller_tiebreak) for identical copies the other rules leave tied; such a result is 'exact'
-    with `caller_tiebreak` set."""
+    with `caller_tiebreak` set. extern_called ({symbol: addresses}, optional): calls other libraries' exact
+    functions make (USE_EXTERN_CALLED); called_out (a dict, optional) receives this run's own {symbol: {addresses}}
+    the exact functions call, the extern ones left out."""
     start, end, raw = img.section('.text')
     text = img.data[raw:raw + (end - start)]
     if region:
@@ -661,6 +779,7 @@ def match_objects(img, paths, region=None, callers=False):
             elif typ == 0x14:
                 v = addr + k + 4 + struct.unpack('<i', text[o + k:o + k + 4])[0]
                 called[sym['name']].add(thunk.get(v, v) & 0xFFFFFFFF)   # D188: a call's target
+                own_called[sym['name']].add(thunk.get(v, v) & 0xFFFFFFFF)
                 obj_called[(id(obj), sym['name'])].add(thunk.get(v, v) & 0xFFFFFFFF)   # P-CGP-1
             else:
                 continue
@@ -668,13 +787,38 @@ def match_objects(img, paths, region=None, callers=False):
         if USE_FUNCLET_CALLS:
             for name, t in funclet_targets(img, obj, sec, s, length, addr, thunk):
                 funclet_called[name].add(t)      # D246 / C21: a matching unwind funclet's jump
+                obj_funclet[(id(obj), name)].add(t)  # CR2: the object's own funclets' reach
+        if USE_PUSHED_CALLS:
+            for name, t, _ in pushed_targets(img, obj, sec, s, length, addr, text, start, thunk):
+                pushed_called[name].add(t)       # D246 / CR3: an absolute function reference's immediate
     called = collections.defaultdict(set)   # D188: {symbol: {addresses}} the exact functions call
+    own_called = collections.defaultdict(set)   # the same, this run's own functions only (called_out)
+    if USE_EXTERN_CALLED and extern_called:
+        for k, v in extern_called.items():
+            called[k] |= set(v)
     funclet_called = collections.defaultdict(set)   # D246 / C21: {symbol: {addresses}} their funclets jump to
+    pushed_called = collections.defaultdict(set)    # D246 / CR3: {symbol: {addresses}} they push / load / store
+    obj_funclet = collections.defaultdict(set)      # CR2: {(object, symbol): {addresses}} its own funclets jump to
     vptrs = collections.defaultdict(set)    # D188: {vtable symbol: {addresses}} their vptr stores give
     obj_called = collections.defaultdict(set)   # P-CGP-1: {(object, symbol): {addresses}} its exact functions call
     for r, obj, sec, s, length in results:
         if r['status'] == 'exact':
             learn(r, obj, sec, s, length, int(r['addresses'][0], 16))
+    if USE_FUNCLET_CALLS and USE_FUNCLET_NOTEXACT:
+        held = {a for a, v in claimed.items() if v}
+        bounds = {}     # CR5: {id(r): (exact own neighbour before, after)} in object order (D242)
+        for order in _object_order(results).values():
+            for k, a, item in order:
+                if a is None:
+                    lo, hi = _neighbours(order, k)
+                    if lo is not None and hi is not None:
+                        bounds[id(item[0])] = (lo, hi)
+        for r, obj, sec, s, length in results:
+            if r['status'] in ('none', 'multiple'):
+                for name, t in notexact_funclet_targets(img, obj, sec, s, length, r['symbol'], thunk, held,
+                                                        bounds.get(id(r)), obj_called.get((id(obj), r['symbol']), ())):
+                    funclet_called[name].add(t)     # CR2: a not-exact parent's matching funclets
+                    obj_funclet[(id(obj), name)].add(t)
     shorts = [x for x in results if x[0]['status'] == 'short' and x[4] > 0]
     folded_at = collections.defaultdict(lambda: collections.defaultdict(set))  # D193: {address: {COMDAT body: {symbols}}}
     # D88: when D80 resolves nothing more, the self name breaks a tie: the one survivor that
@@ -685,8 +829,10 @@ def match_objects(img, paths, region=None, callers=False):
     # copies the linker may take from another object); then back to D80
     # D174 (P-TK2-1(b)): the caller tie-break's credits feed D80, the self name and the range like any
     # exact function, and what those credit may let the caller tie-break resolve more: repeat both
+    call_tied = set()   # CR5: id(r) of the funclet round's own-call credits
+    call_round, call_credited = False, True     # D246 / CR4: the own-call round, after D166 (below)
     while True:
-        phase = 'd80'
+        phase = 'calltie' if call_round else 'd80'
         changed = True
         while changed:
             changed = False
@@ -698,7 +844,8 @@ def match_objects(img, paths, region=None, callers=False):
             if phase in ('range', 'init', 'xcu', 'order'):
                 for r, obj, sec, s, length in results:
                     # D246 / C35: a funclet tie fixes the symbol's address, not which object's copy the linker kept
-                    if r['status'] == 'exact' and obj.own(sec) and not r.get('funclet_tie'):
+                    if r['status'] == 'exact' and obj.own(sec) and not r.get('funclet_tie') \
+                            and not r.get('pushed_tie') and not (r.get('call_tie') and not r.get('call_placed')):
                         a = int(r['addresses'][0], 16)
                         lo, hi = ranges.get(id(obj), (a, a))
                         ranges[id(obj)] = (min(lo, a), max(hi, a))
@@ -713,7 +860,8 @@ def match_objects(img, paths, region=None, callers=False):
                 while grown:    # chained: a COMDAT within RANGE_GAP of the widened range widens it too
                     grown = False
                     for r, obj, sec, s, length in results:
-                        if r['status'] == 'exact' and not obj.own(sec) and id(obj) in ranges and not r.get('funclet_tie'):
+                        if r['status'] == 'exact' and not obj.own(sec) and id(obj) in ranges and not r.get('funclet_tie') \
+                                and not r.get('pushed_tie') and not (r.get('call_tie') and not r.get('call_placed')):
                             a = int(r['addresses'][0], 16)
                             wlo, whi = wide[id(obj)]
                             if wlo <= a <= whi:
@@ -761,10 +909,39 @@ def match_objects(img, paths, region=None, callers=False):
                         continue
                     ranges[key] = (nlo, nhi)
             registered = initialiser_targets(results, pending, ranges, text, start, known, thunk) if phase == 'init' else {}
+            if phase == 'shortorder':
+                # D246 / CR1: short own functions placed by object order
+                got = short_order(img, results, text, start, claimed, known)
+                if USE_EDGE_ORDER:
+                    # D246 / CR6: the same alignment at each object's edges, after the gaps
+                    taken = {a for _, a in got}
+                    edge = [(it, a) for it, a in edge_order(img, results, text, start, claimed, known)
+                            if a not in taken]
+                    for it, _ in edge:
+                        it[0]['edge_order'] = True
+                    got = got + edge
+                for (r, obj, sec, s, length), a in got:
+                    if r['status'] == 'multiple':
+                        r['tiebreak'] = True
+                        if not r.get('edge_order'):
+                            r['gap_order'] = True
+                        r.pop('count', None), r.pop('identical', None)
+                        done.add(id(r))
+                    elif not r.get('edge_order'):
+                        r['short_order'] = True
+                    r['status'] = 'exact'
+                    r['addresses'] = [f'0x{a:06X}']
+                    r['order'] = True
+                    claimed[a].add(r['symbol'])
+                    learn(r, obj, sec, s, length, a)
+                shorts = [x for x in shorts if x[0]['status'] == 'short']
+                phase = 'd80' if got else 'short'
+                changed = True
+                continue
             if phase == 'short':
                 # D188: a short function at an address the run knows independently of its bytes
                 got = short_known(img, shorts, text, start, known, thunk, called, vptrs, claimed, folded_at,
-                                  funclet_called)
+                                  funclet_reach(funclet_called), pushed_called)
                 for (r, obj, sec, s, length), a, kind in got:
                     if not obj.own(sec):
                         folded_at[a][body_sig(obj, sec, s, length)].add(r['symbol'])
@@ -812,7 +989,7 @@ def match_objects(img, paths, region=None, callers=False):
                     learn(r, obj, sec, s, length, a)
                     done.add(id(r))
                 # D246 / C35: what every other tie rule left, by funclet evidence, before the short round
-                phase = 'd80' if got else 'funclet' if USE_FUNCLET_TIES else 'short'
+                phase = 'd80' if got else 'funclet' if USE_FUNCLET_TIES else 'pushed' if USE_PUSHED_TIES else 'shortorder' if USE_SHORT_ORDER else 'short'
                 changed = True
                 continue
             for item in pending:
@@ -826,7 +1003,38 @@ def match_objects(img, paths, region=None, callers=False):
                 elif phase == 'funclet':
                     # D246 / C35: one address a matching funclet reaches under this symbol, among the survivors
                     if obj.symbol_class(r['symbol']) == 2 and not generated(r['symbol']):
-                        reach = funclet_called.get(r['symbol'], ())
+                        reach = funclet_reach(funclet_called).get(r['symbol'], ())
+                        if len(reach) != 1 and USE_FUNCLET_OWN:
+                            # CR2: a template with several client copies: the copy the object's own funclets reach
+                            # (only when the symbol's reach is not one address: the symbol's evidence comes first,
+                            # as in D254; trying the object's own first lost 12 ~RefCountPtr<SceneClass> 0x5C40C0)
+                            own = obj_funclet.get((id(obj), r['symbol']), set())
+                            reach = funclet_reach({r['symbol']: own}).get(r['symbol'], ())
+                        if len(reach) == 1 and next(iter(reach)) in survivors:
+                            proposals.append((item, next(iter(reach))))
+                        elif USE_CALL_TIES:
+                            # CR5 / CR7: the one survivor the object's own exact functions call (~DynamicWindow-
+                            # HorizontalClass 0x5187B0, called by its scalar deleting destructor 0x518780)
+                            reach = obj_called.get((id(obj), r['symbol']), set())
+                            hit = [h for h in survivors if len(reach) == 1 and h in reach
+                                   and not claimed[h] - {r['symbol']}]
+                            if len(hit) == 1:
+                                proposals.append((item, hit[0]))
+                                call_tied.add(id(r))
+                elif phase == 'calltie':
+                    # D246 / CR4: one survivor the object's own exact functions call under this symbol
+                    if obj.symbol_class(r['symbol']) == 2 and not generated(r['symbol']):
+                        reach = obj_called.get((id(obj), r['symbol']), ())
+                        if len(reach) != 1:
+                            # CR1 / CR7: else the one address every exact function's calls reach (Create_Peek
+                            # 0x55C490, RefCountPtr<RenderObjClass>::operator= 0x5988A0)
+                            reach = called.get(r['symbol'], ())
+                        if len(reach) == 1 and next(iter(reach)) in survivors:
+                            proposals.append((item, next(iter(reach))))
+                elif phase == 'pushed':
+                    # D246 / CR4: one address exact functions' absolute references reach under this symbol
+                    if obj.symbol_class(r['symbol']) == 2 and not generated(r['symbol']):
+                        reach = pushed_called.get(r['symbol'], ())
                         if len(reach) == 1 and next(iter(reach)) in survivors:
                             proposals.append((item, next(iter(reach))))
                 elif phase == 'selfname':
@@ -875,9 +1083,12 @@ def match_objects(img, paths, region=None, callers=False):
                         top = max(left.values())
                         if top > (True, False, 0) and sum(e == top for e in left.values()) == 1:
                             winner[a] = next(k for k, e in left.items() if e == top)
+            folds = funclet_folded(proposals, claimed) if phase == 'funclet' else {}
             for item, a in proposals:
                 r, obj, sec, s, length, hits = item
-                if len(by_addr[a]) > 1 and winner.get(a) != r['symbol'] or claimed[a] - {r['symbol']}:
+                if r['symbol'] in folds.get(a, ()):
+                    pass                                # CR2: a linker-folded COMDAT body, every symbol credited
+                elif len(by_addr[a]) > 1 and winner.get(a) != r['symbol'] or claimed[a] - {r['symbol']}:
                     continue
                 r['status'] = 'exact'
                 r['addresses'] = [f'0x{a:06X}']
@@ -888,8 +1099,14 @@ def match_objects(img, paths, region=None, callers=False):
                     r['range'] = True
                 if phase == 'init':
                     r['initialiser'] = True
-                if phase == 'funclet':
+                if phase == 'funclet' and id(r) in call_tied:
+                    r['call_tie'] = r['call_placed'] = True     # CR5: the object's own call places its copy
+                elif phase == 'funclet':
                     r['funclet_tie'] = True
+                if phase == 'pushed':
+                    r['pushed_tie'] = True
+                if phase == 'calltie':
+                    r['call_tie'] = True
                 r.pop('count'), r.pop('identical')
                 claimed[a].add(r['symbol'])
                 learn(r, obj, sec, s, length, a)
@@ -901,7 +1118,12 @@ def match_objects(img, paths, region=None, callers=False):
             elif changed:
                 phase = 'd80'                           # back to D80 after a round that credited
             elif phase == 'funclet':
-                phase, changed = 'short', True          # nor the funclets (D246 / C35): one short round
+                # nor the funclets (D246 / C35): the pushed references (D246 / CR4), then one short round
+                phase, changed = ('pushed' if USE_PUSHED_TIES else 'shortorder' if USE_SHORT_ORDER else 'short'), True
+            elif phase == 'pushed':
+                phase, changed = ('shortorder' if USE_SHORT_ORDER else 'short'), True   # nor the pushed references (D246 / CR4): short order (CR1), then one short round
+            elif phase == 'calltie':
+                pass                                    # the own-call round credited nothing (D246 / CR4)
             elif phase == 'selfname':
                 phase, changed = 'range', True          # neither D80 nor the self name: one range round
             elif phase == 'range':
@@ -909,15 +1131,35 @@ def match_objects(img, paths, region=None, callers=False):
             elif phase == 'init':
                 phase, changed = 'xcu', True            # nor the initialiser: the CRT table round (D242), the
                                                         # object-order round (D242), then one short round (D188)
-        if not callers:
-            break
-        credited = caller_tiebreak(img, results, pending, claimed, text, start, thunk, known)
+        # D246 / CR4: the own-call round runs only when D166 resolves nothing more (D166's credits widen ranges,
+        # an own-call credit never does: run first, it took D166's credits and cost range pairs), and again only
+        # after a round of it that credited
+        if call_round:
+            call_credited = phase != 'calltie'
+        credited = caller_tiebreak(img, results, pending, claimed, text, start, thunk, known) if callers else []
+        call_round = False
         if not credited:
+            if USE_CALL_TIES and call_credited:
+                call_round, call_credited = True, False
+                continue
             break
         for item in credited:
             r, obj, sec, s, length, hits = item
             done.add(id(r))
             learn(r, obj, sec, s, length, int(r['addresses'][0], 16))
+    if USE_CONTRIB_TIES:
+        for item, a in contribution_ties(results, pending, done, claimed, text, start, img, known):
+            r, obj, sec, s, length, hits = item
+            r['status'] = 'exact'
+            r['addresses'] = [f'0x{a:06X}']
+            r['tiebreak'] = True
+            r['contrib'] = True
+            r.pop('count', None), r.pop('identical', None)
+            claimed[a].add(r['symbol'])
+            learn(r, obj, sec, s, length, a)
+            done.add(id(r))
+    if called_out is not None:
+        called_out.update({k: set(v) for k, v in own_called.items()})
     for r, *_ in results:
         r.pop('shared', None)
         if r['status'] != 'exact' or not r.get('shared_callers'):
@@ -929,6 +1171,78 @@ def match_objects(img, paths, region=None, callers=False):
         if r.get('short_known') and not obj.own(sec):
             r['shared'] = True      # D188: a short COMDAT credits the address, not a file placement
     return [x[0] for x in results]
+
+
+def contribution_ties(results, pending, done, claimed, text, base, img, known):
+    """D246 (CR8): [(pending item, address)] for tied COMDATs (`multiple`, not own code) whose survivors (break_tie)
+    include exactly one that lies in the contribution of an object holding the symbol: at or above that object's
+    first exact own function, below the next object's, at most RANGE_GAP above its last; the address claimed by no
+    other symbol and proposed by no other symbol. Ranges are the exact own functions' (no ties of the tie rounds
+    that fix a symbol's address but not the copy: funclet, pushed, unplaced call ties)."""
+    ranges = {}
+    for r, obj, sec, s, length in results:
+        if r['status'] == 'exact' and obj.own(sec) and not r.get('funclet_tie') and not r.get('pushed_tie')                 and not (r.get('call_tie') and not r.get('call_placed')):
+            a = int(r['addresses'][0], 16)
+            lo, hi = ranges.get(id(obj), (a, a))
+            ranges[id(obj)] = (min(lo, a), max(hi, a))
+    if not ranges:
+        return []
+    los = sorted((lo, key) for key, (lo, hi) in ranges.items())
+    keys = [lo for lo, _ in los]
+    holders = collections.defaultdict(set)
+    for r, obj, *_ in results:
+        holders[r['symbol']].add(id(obj))
+
+    def owner(h):
+        i = bisect.bisect_right(keys, h) - 1
+        if i < 0:
+            return None
+        key = los[i][1]
+        if i + 1 < len(los) and keys[i + 1] == keys[i]:
+            return None     # two objects start at one address: no single contribution
+        return key if h <= ranges[key][1] + RANGE_GAP else None
+
+    props = []
+    for item in pending:
+        r, obj, sec, s, length, hits = item
+        if id(r) in done or r['status'] != 'multiple' or obj.own(sec) or generated(r['symbol']):
+            continue
+        survivors = break_tie(obj, sec, s, length, text, base, hits, img, known)[0]
+        inside = [h for h in survivors if owner(h) in holders[r['symbol']] and not claimed[h] - {r['symbol']}]
+        if len(inside) > 1 and USE_CONTRIB_FIRST:
+            # several holders' contributions hold a copy: the linker keeps the first holder's in link order
+            first = min((ranges[k][0], k) for k in holders[r['symbol']] if k in ranges)[1]
+            inside = [h for h in inside if owner(h) == first]
+        if len(inside) == 1:
+            props.append((item, inside[0]))
+    if USE_CONTRIB_SHORTS:
+        # a short COMDAT (too short to search): the verified starts in its holders' contributions where its bytes
+        # fullmatch, as long as the client function there (then padding), confirmed by D80's break_tie
+        starts = _verified_starts(img)
+        for r, obj, sec, s, length in results:
+            if r['status'] != 'short' or length <= 0 or obj.own(sec) or generated(r['symbol'])                     or obj.symbol_class(r['symbol']) != 2:
+                continue
+            inside = []
+            held = [k for k in holders[r['symbol']] if k in ranges]
+            # only the first holder's contribution in link order: a lone copy in a later holder's code may be another
+            # function with its bytes (an own getter of the object), the first holder's copy not found
+            for k in [min((ranges[k][0], k) for k in held)[1]] if held else []:
+                lo = ranges[k][0]
+                i = bisect.bisect_right(keys, lo)
+                hi = min(ranges[k][1] + RANGE_GAP, keys[i] - 1 if i < len(keys) else ranges[k][1] + RANGE_GAP)
+                j = bisect.bisect_left(starts, lo)
+                while j < len(starts) and starts[j] <= hi:
+                    a = starts[j]
+                    e = starts[j + 1] if j + 1 < len(starts) else a + length
+                    if owner(a) == k and not claimed[a] - {r['symbol']} and                             _fullmatch_at(obj, sec, s, length, text, base, a) and _padding(text, base, a + length, e)                             and break_tie(obj, sec, s, length, text, base, [a], img, known)[0] == [a]:
+                        inside.append(a)
+                    j += 1
+            if len(inside) == 1:
+                props.append(((r, obj, sec, s, length, []), inside[0]))
+    by_addr = collections.defaultdict(set)
+    for (r, *_), a in props:
+        by_addr[a].add(r['symbol'])
+    return [(item, a) for item, a in props if len(by_addr[a]) == 1]
 
 
 def function_start(img, va):
@@ -978,7 +1292,7 @@ def body_sig(obj, sec, s, length):
 
 
 def short_known(img, shorts, text, base, known, thunk, called, vptrs, claimed, folded_at=None,
-                funclet_called=None):
+                funclet_called=None, pushed_called=None):
     """D188: [(item, address, kind)] for the `short` functions at an address the run knows independently
     of their bytes: a call's target in an exact function (`call`), or a slot of a vtable whose address is
     known (`vptr` when an exact function's vptr store gave it, `vtable` otherwise: symbols.json, D171).
@@ -989,7 +1303,9 @@ def short_known(img, shorts, text, base, known, thunk, called, vptrs, claimed, f
     a COMDAT body with the same bytes and relocations, all are credited.
     D246 / C21: a rel32 jump from an unwind funclet of an exact function, where the funclet matches the
     object's funclet for the same unwind state (`funclet_called`, funclet_targets), is call evidence
-    (`funclet`)."""
+    (`funclet`).
+    D246 / CR3: a function's address held as an absolute immediate by an exact function (`pushed_called`,
+    pushed_targets) is evidence too (`pushed`, below call and funclet)."""
     folded_at = folded_at if folded_at is not None else {}
     objs = list({id(x[1]): x[1] for x in shorts}.values())
     slot_of = collections.defaultdict(lambda: collections.defaultdict(set))   # symbol -> address -> kinds
@@ -1024,6 +1340,9 @@ def short_known(img, shorts, text, base, known, thunk, called, vptrs, claimed, f
     for name, addrs in (funclet_called or {}).items():
         for a in addrs:
             slot_of[name][a].add('funclet')
+    for name, addrs in (pushed_called or {}).items():
+        for a in addrs:
+            slot_of[name][a].add('pushed')
     props = []
     for item in shorts:
         r, obj, sec, s, length = item
@@ -1049,7 +1368,7 @@ def short_known(img, shorts, text, base, known, thunk, called, vptrs, claimed, f
         survivors, _ = break_tie(obj, sec, s, length, text, base, [a], img, known)
         if survivors != [a]:
             continue
-        kind = 'call' if 'call' in kinds else 'funclet' if 'funclet' in kinds else             'vptr' if 'vptr' in kinds else 'vtable'
+        kind = 'call' if 'call' in kinds else 'funclet' if 'funclet' in kinds else             'pushed' if 'pushed' in kinds else 'vptr' if 'vptr' in kinds else 'vtable'
         props.append((item, a, kind))
     by_addr = collections.defaultdict(set)
     bodies = collections.defaultdict(set)       # D193: the COMDAT bodies proposed at each address
@@ -1223,6 +1542,166 @@ def object_unwind(obj, sec, s, length):
     return None
 
 
+def funclet_folded(proposals, claimed):
+    """CR2: {address: {symbols}} of the funclet round's proposals that a linker fold explains (D193 for
+    non-short bodies): two or more symbols at one address, every proposal there a COMDAT (not the object's
+    own code) with one body_sig, and nothing else already exact there. USE_FUNCLET_FOLDED switches it."""
+    if not USE_FUNCLET_FOLDED:
+        return {}
+    at = collections.defaultdict(list)
+    for (r, obj, sec, s, length, hits), a in proposals:
+        at[a].append((r['symbol'], None if obj.own(sec) else body_sig(obj, sec, s, length)))
+    out = {}
+    for a, props in at.items():
+        syms = {x[0] for x in props}
+        sigs = {x[1] for x in props}
+        if len(syms) > 1 and len(sigs) == 1 and None not in sigs and not claimed[a] - syms:
+            out[a] = syms
+    return out
+
+
+_funcinfos = {}
+EH_PROLOGUE = re.compile(rb'\x6A\xFF\x68(....)\x64\xA1\x00\x00\x00\x00', re.S)
+
+
+def client_funcinfos(img):
+    """CR2: ({stub VA: [funclet VA by state]}, {state count: [stub VA]}) of client.exe's C++ EH FuncInfos."""
+    stubs = eh_stubs(img)                    # takes _call_lock itself (not reentrant)
+    with _call_lock:
+        if id(img) not in _funcinfos:
+            maps, by_n = {}, collections.defaultdict(list)
+            for stub, off in stubs.items():
+                nstate, pmap = struct.unpack_from('<iI', img.data, off + 4)
+                moff = img.offset(pmap)
+                if moff is None or not 0 < nstate < 0x1000 or moff + 8 * nstate > len(img.data):
+                    continue
+                maps[stub] = [struct.unpack_from('<I', img.data, moff + 8 * i + 4)[0] for i in range(nstate)]
+                by_n[nstate].append(stub)
+            _funcinfos[id(img)] = (maps, by_n)
+        return _funcinfos[id(img)]
+
+
+def _state_pattern(obj, xsec, st):
+    """(compiled pattern, length, fixed prefix) of an object funclet (start, end)."""
+    pat, _, flen = obj.pattern(xsec, st[0], st[1])
+    info = obj.sections[xsec]
+    first = min([va - st[0] for va, _, typ in info['relocs'] if st[0] <= va < st[1]] + [flen])
+    return re.compile(pat, re.S), flen, bytes(obj.data[info['raw'] + st[0]:info['raw'] + st[0] + first])
+
+
+def _state_match(sp, cf, text, base):
+    co = cf - base
+    rx, flen, prefix = sp
+    return 0 <= co and co + flen <= len(text) and text.startswith(prefix, co) and \
+        rx.fullmatch(text, co, co + flen) is not None
+
+
+_eh_pushes = {}
+
+
+def eh_pushes(img):
+    """CR5: {EH handler stub VA: [VA of each `push offset stub`]} of client.exe."""
+    maps, _ = client_funcinfos(img)          # takes _call_lock itself (not reentrant)
+    text, base = _whole_text(img)
+    with _call_lock:
+        if id(img) not in _eh_pushes:
+            out = collections.defaultdict(list)
+            for m in re.finditer(rb'(?=\x68(....))', text, re.S):
+                v = struct.unpack_from('<I', text, m.start() + 1)[0]
+                if v in maps:
+                    out[v].append(base + m.start())
+            _eh_pushes[id(img)] = out
+        return _eh_pushes[id(img)]
+
+
+def notexact_funclet_targets(img, obj, sec, s, length, symbol, thunk, held, rng=None, calls=()):
+    """CR2: [(symbol, client address)] the matching unwind funclets of a function that is not exact reach (the
+    same pairs as funclet_targets), its client FuncInfo located by client.exe's bytes alone: (1) the one address
+    symbols.json names with its symbol from a proof other than an exact match (self_names), whose EH prologue
+    (`push -1; push offset stub; mov eax, fs:[0]`) pushes the stub; else (2) the one client FuncInfo with the
+    object's state count whose every state's funclet matches the object's, its stub pushed by no function an
+    exact symbol (`held`: their addresses) starts within 0x10 bytes before; (3, CR5, USE_FUNCLET_PLACED) of several
+    such FuncInfos, the one whose push site lies strictly between `rng` (lo, hi: the client addresses of the
+    exact own functions just before and after the parent in object order), else the one whose parent the
+    object's exact functions call under its symbol (`calls`: those call targets, one within 0x10 bytes before
+    the push). Only matching states count."""
+    ou = object_unwind(obj, sec, s, length)
+    if ou is None:
+        return []
+    k, xsec, states = ou
+    text, base = _whole_text(img)
+    maps, by_n = client_funcinfos(img)
+    stub = None
+    named = {thunk.get(a, a) for a in self_names().get(symbol, ())}
+    if len(named) == 1:
+        o = next(iter(named)) - base
+        m = EH_PROLOGUE.search(text, max(o, 0), max(o, 0) + 0x18) if 0 <= o < len(text) else None
+        if m:
+            v = struct.unpack_from('<I', text, m.start() + 3)[0]
+            stub = v if v in maps and len(maps[v]) == len(states) else None
+    sps = [None if st is None else _state_pattern(obj, xsec, st) for st in states]
+    if stub is None:
+        if all(st is None for st in states):
+            return []
+        good = [c for c in by_n.get(len(states), ())
+                if all(sp is None or _state_match(sp, maps[c][i], text, base) for i, sp in enumerate(sps))]
+        if len(good) > 1 and USE_FUNCLET_PLACED:
+            pushes = eh_pushes(img)
+            free = [c for c in good if len(pushes.get(c, ())) == 1 and
+                    not any(pushes[c][0] - d in held for d in range(0x11))]
+            placed = [c for c in free if rng and rng[0] < pushes[c][0] < rng[1]]
+            if len(placed) != 1:
+                placed = [c for c in free if any(pushes[c][0] - d in calls for d in range(0x11))]
+            good = placed if len(placed) == 1 else good
+        if len(good) != 1:
+            return []
+        stub = good[0]
+        push = text.find(b'\x68' + struct.pack('<I', stub))
+        if push < 0 or text.find(b'\x68' + struct.pack('<I', stub), push + 1) >= 0 or \
+                any(base + push - d in held for d in range(0x11)):
+            return []
+    out = []
+    for i, st in enumerate(states):
+        cf = maps[stub][i]
+        if st is None or not _state_match(sps[i], cf, text, base):
+            continue
+        co = cf - base
+        for j, n, typ, sym, add in obj.reloc_targets(xsec, st[0], st[1] - st[0]):
+            if typ != 0x14 or n != 4 or sym is None or sym['class'] != 2 or generated(sym['name']):
+                continue
+            t = (cf + j + 4 + struct.unpack_from('<i', text, co + j)[0]) & 0xFFFFFFFF
+            out.append((sym['name'], thunk.get(t, t)))
+    return out
+
+
+_funclet_owners = None
+
+
+def funclet_reach(funclet_called):
+    """CR2: funclet_called {symbol: {addresses}} without the addresses symbols.json names with another
+    function from a proof other than an exact match (self_names: a vtable slot, a string, a named row;
+    USE_FUNCLET_NAMED): a matching funclet's wildcarded target is the client's function,
+    whatever our object's symbol there is, so a reach the client names otherwise is our source's type,
+    not evidence that the symbol is there. Only to choose among several reaches: a single reach stays, since
+    a linker-folded COMDAT is named with one of its symbols only (aux_roots' ~DeltaTemplateClass copies at
+    InvSlotStruct's)."""
+    global _funclet_owners
+    if not USE_FUNCLET_NAMED:
+        return funclet_called
+    if _funclet_owners is None:
+        _funclet_owners = collections.defaultdict(set)
+        for k, v in self_names().items():
+            for a in v:
+                _funclet_owners[a].add(k[4:] if k.startswith(('??_E', '??_G')) else k)
+    owners = _funclet_owners
+    out = {}
+    for name, addrs in funclet_called.items():
+        n = name[4:] if name.startswith(('??_E', '??_G')) else name
+        keep = {a for a in addrs if not owners.get(a) or n in owners[a]} if len(addrs) > 1 else addrs
+        out[name] = keep or addrs
+    return out
+
+
 def funclet_targets(img, obj, sec, s, length, addr, thunk):
     """D246 / C21: [(symbol, client address)] the unwind funclets of an exact function reach: for each
     unwind state whose funclet in the object matches the client's funclet of the same state (the client
@@ -1259,6 +1738,45 @@ def funclet_targets(img, obj, sec, s, length, addr, thunk):
                 continue
             t = (cf + j + 4 + struct.unpack_from('<i', text, co + j)[0]) & 0xFFFFFFFF
             out.append((sym['name'], thunk.get(t, t)))
+    return out
+
+
+def pushed_form(body, k):
+    """D246 / CR3: the instruction form of an absolute (DIR32) field at offset k of a function's bytes:
+    `push` (68 imm32), `mov` (B8+r imm32: mov reg, offset f, then pushed or stored), `lea` (8D /r disp32),
+    `store` (C7 /0 ... imm32: mov [mem], offset f) or `other`."""
+    if k >= 1 and body[k - 1] == 0x68:
+        return 'push'
+    if k >= 1 and 0xB8 <= body[k - 1] <= 0xBF:
+        return 'mov'
+    if k >= 2 and body[k - 2] == 0x8D:
+        return 'lea'
+    if any(k >= j and body[k - j] == 0xC7 for j in (6, 7, 3, 4, 2)):
+        return 'store'
+    return 'other'
+
+
+def pushed_targets(img, obj, sec, s, length, addr, text, base, thunk):
+    """D246 / CR3: [(symbol, client address, form)] the absolute function references of an exact function
+    reach: each DIR32 relocation whose symbol is an external function (COFF type 0x20; not a vtable, not a
+    `_$E` name) pairs the object's symbol with the client's immediate at the same offset, incremental thunks
+    resolved, when that lies in client.exe's .text: a function pushed as an argument (an eh vector iterator's
+    element ctor / dtor, an atexit destructor, an ostream manipulator), loaded into a register or stored."""
+    tlo, thi, _ = img.section('.text')
+    info = obj.sections[sec]
+    body = obj.data[info['raw'] + s:info['raw'] + s + length]
+    o = addr - base
+    out = []
+    for k, n, typ, sym, addend in obj.reloc_targets(sec, s, length):
+        if typ != 0x06 or n != 4 or sym is None or sym['class'] != 2 or (sym['type'] >> 4) != 2 \
+                or generated(sym['name']) or sym['name'].startswith('??_7'):
+            continue
+        if not 0 <= o + k <= len(text) - 4:
+            continue
+        v = (struct.unpack_from('<I', text, o + k)[0] - struct.unpack('<I', addend)[0]) & 0xFFFFFFFF
+        v = thunk.get(v, v)
+        if tlo <= v < thi:
+            out.append((sym['name'], v, pushed_form(body, k)))
     return out
 
 
@@ -1541,6 +2059,7 @@ def xcu_previous(img):
 
 
 USE_XCU_POSITION = True     # D242 P-C1-2: the `_$E` initialisers credited by their CRT table position
+USE_XCU_SUBRUN = True       # C15 (2026-11-16): the unique consecutive sub-run fitting every initialiser
 XCU_TABLE = (0xB6C000, 0xB6D700)
 USE_OBJECT_ORDER = True     # D242 P-C1-1: an own-function tie inside one object assigned in object order
 
@@ -1592,6 +2111,17 @@ def _object_order(results):
     return out
 
 
+def xcu_subrun(run, n, fits):
+    """C15 (run 2026-11-16, amends P-C1-2): the n table entries an object's n initialisers take out of RUN (the
+    entries lying in their windows, address order): the one consecutive sub-run of length n that FITS (every
+    initialiser at its entry), None if none or more than one. An object's first window can also hold the previous
+    object's last initialiser (sectorsound's 0x43D2F0 in soundlib's window), so the whole run is not required to be
+    the object's. Without USE_XCU_SUBRUN only a run of exactly n entries is tried."""
+    subs = [run[i:i + n] for i in range(len(run) - n + 1)] if USE_XCU_SUBRUN else [run] if len(run) == n else []
+    subs = [x for x in subs if fits(x)]
+    return subs[0] if len(subs) == 1 else None
+
+
 def _neighbours(order, key):
     """(address of the nearest exact own function before KEY in object order, of the nearest after), None if none."""
     before = [a for k, a, _ in order if k < key and a is not None]
@@ -1606,7 +2136,8 @@ def xcu_position(img, results, ranges, text, base, claimed, thunk):
     nearest exact own functions in object order, clipped to the object's range +- RANGE_GAP and to the exact own
     functions of the other objects of the run; the table entries lying in the union of those windows must be
     consecutive in the table, as many as the initialisers, each the n-th initialiser's (inside its own window,
-    its pattern fullmatching there, no other symbol there; an initialiser already exact must sit at its entry).
+    its pattern fullmatching there, no other symbol there; an initialiser already exact must sit at its entry;
+    C15: the one such sub-run of the entries in the windows, `xcu_subrun`).
     Then the `_$E` functions they reference (the constructor wrapper they call, the atexit stub they push or jump
     to, transitively) are credited at the targets the initialisers' bytes give, where their patterns fullmatch.
     kind is 'table' or 'linked'. The names stay unused across objects: the position is the proof."""
@@ -1636,16 +2167,17 @@ def xcu_position(img, results, ranges, text, base, claimed, thunk):
             p, q = _neighbours(orders[key], (sec, s))
             wins.append((max(blo, p + 1 if p is not None else blo), min(bhi, q - 1 if q is not None else bhi)))
         run = sorted({t for t in table for w in wins if w[0] <= t <= w[1]})
-        if len(run) != len(inits) or any(index[b] != index[a] + 1 for a, b in zip(run, run[1:])):
-            continue
-        ok = True
-        for n, (w0, w1), a in zip(inits, wins, run):
-            r, _, sec, s, length = defs[n]
-            if not w0 <= a <= w1 or claimed[a] - {n} or (r['status'] == 'exact' and int(r['addresses'][0], 16) != a) \
-                    or r['status'] != 'exact' and not _fullmatch_at(obj, sec, s, length, text, base, a):
-                ok = False
-                break
-        if not ok:
+        def fits(sub):
+            if any(index[b] != index[a] + 1 for a, b in zip(sub, sub[1:])):
+                return False
+            for n, (w0, w1), a in zip(inits, wins, sub):
+                r, _, sec, s, length = defs[n]
+                if not w0 <= a <= w1 or claimed[a] - {n} or (r['status'] == 'exact' and int(r['addresses'][0], 16) != a) \
+                        or r['status'] != 'exact' and not _fullmatch_at(obj, sec, s, length, text, base, a):
+                    return False
+            return True
+        run = xcu_subrun(run, len(inits), fits)
+        if run is None:
             continue
         got = {n: a for n, a in zip(inits, run)}
         todo = list(got.items())
@@ -1674,6 +2206,97 @@ def xcu_position(img, results, ranges, text, base, claimed, thunk):
 
 
 USE_ORDER_IN_RANGE = True
+
+
+_starts_cache = {}
+
+
+def _verified_starts(img):
+    if id(img) not in _starts_cache:
+        _starts_cache[id(img)] = img.function_starts()[0]
+    return _starts_cache[id(img)]
+
+
+def _padding(text, base, lo, hi):
+    return all(b in (0xCC, 0x90) for b in text[lo - base:hi - base])
+
+
+def short_order(img, results, text, base, claimed, known):
+    """D246 / CR1: [(item, address)] for short own functions placed by object order. For each pair of consecutive
+    exact own functions P, Q of one object in object order (P's address below Q's) whose own functions between them
+    are all `short`: the client's verified starts strictly between P and Q must be as many as those functions, P's
+    end, the gaps and the last one's end up to Q only padding, and each start must fullmatch its counterpart (the
+    k-th function in object order at the k-th address), unclaimed, with D80's checks leaving it."""
+    starts = _verified_starts(img)
+    out = []
+    for key, order in _object_order(results).items():
+        exact = [i for i, (k, a, it) in enumerate(order) if a is not None]
+        for i, j in zip(exact, exact[1:]):
+            members = [it for _, _, it in order[i + 1:j]]
+            p, q = order[i][1], order[j][1]
+            kinds = ('short', 'multiple') if USE_GAP_ORDER else ('short',)
+            if not members or q <= p or any(it[0]['status'] not in kinds or it[4] <= 0 for it in members):
+                continue
+            cands = starts[bisect.bisect_right(starts, p):bisect.bisect_left(starts, q)]
+            if len(cands) != len(members) or not _padding(text, base, p + order[i][2][4], cands[0]):
+                continue
+            ok = True
+            for (r, obj, sec, s, length), a, e in zip(members, cands, cands[1:] + [q]):
+                if claimed[a] or not _fullmatch_at(obj, sec, s, length, text, base, a) or \
+                        not _padding(text, base, a + length, e) or \
+                        break_tie(obj, sec, s, length, text, base, [a], img, known)[0] != [a]:
+                    ok = False
+                    break
+            if ok:
+                out += list(zip(members, cands))
+    return out
+
+
+def edge_order(img, results, text, base, claimed, known):
+    """D246 / CR6: [(item, address)] for own functions at an object's edges placed by object order. An object whose
+    exact own functions rise in object order: the own functions before its first exact one P, nearest first, take
+    the client's verified starts right below P one by one (each start's function, its own length, then only padding
+    up to the next one), and the own functions after its last exact one Q, nearest first, the starts right after
+    Q's end; each `short` or `multiple`, fullmatching there, unclaimed, with D80's checks leaving it. The first that
+    fails ends that edge. An address two symbols take (another object's edge or gap function with the same bytes)
+    is left alone. Not a test of other objects' ranges: one stray exact function makes a range span a quarter of
+    the app (unknown_7cef30's 0x60A3E0-0x7DC8F0 covers both constructors below). P-C4-1: an object's range ends at its exact
+    functions, so a byte-identical copy of an edge function in another object's code tied with it (sbaseview's and
+    ui_symbolchat's option-struct constructors 0x69AC20 / 0x64A330)."""
+    starts = _verified_starts(img)
+    orders = _object_order(results)
+
+    def ok_at(key, item, a, nxt):
+        r, obj, sec, s, length = item
+        return r['status'] in ('short', 'multiple') and length > 0 and not claimed[a] and             _fullmatch_at(obj, sec, s, length, text, base, a) and _padding(text, base, a + length, nxt) and             break_tie(obj, sec, s, length, text, base, [a], img, known)[0] == [a]
+
+    out = []
+    for key, order in orders.items():
+        exact = [i for i, (k, a, it) in enumerate(order) if a is not None]
+        if not exact or any(order[i][1] >= order[j][1] for i, j in zip(exact, exact[1:])):
+            continue
+        bound = order[exact[0]][1]
+        for j in range(exact[0] - 1, -1, -1):
+            k = bisect.bisect_left(starts, bound) - 1
+            if k < 0 or not ok_at(key, order[j][2], starts[k], bound):
+                break
+            out.append((order[j][2], starts[k]))
+            bound = starts[k]
+        end = order[exact[-1]][1] + order[exact[-1]][2][4]
+        for j in range(exact[-1] + 1, len(order)):
+            k = bisect.bisect_left(starts, end)
+            if k >= len(starts):
+                break
+            a = starts[k]
+            item = order[j][2]
+            if not _padding(text, base, end, a) or not ok_at(key, item, a, a + item[4]):
+                break
+            out.append((item, a))
+            end = a + item[4]
+    by_addr = collections.defaultdict(set)
+    for (r, *_), a in out:
+        by_addr[a].add(r['symbol'])
+    return [(it, a) for it, a in out if len(by_addr[a]) == 1]
 
 
 def object_order(pending, done, survivors_of, ranges, claimed, obj_called, results):

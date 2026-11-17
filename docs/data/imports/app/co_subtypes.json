@@ -4,6 +4,7 @@
  "description": "the object subclasses' run 0x70E2E0-0x70F030 (D122: no assert or __FILE__, between co_subtype_base.cpp and extrap.cpp): types 24 and 28's constructors, destructors and every vtable slot of the run; NOT EXACT: type 28's aim 0x70E850",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x42F250",
   "0x447C40",
   "0x44B210",
@@ -62,6 +63,7 @@
  "merged": [],
  "name": "client/co_subtypes.cpp",
  "shared": [
+  "0x42B320",
   "0x42F250",
   "0x447C40",
   "0x44B210",
@@ -102,6 +104,7 @@
   "0x70F030"
  ],
  "short_known": [
+  "0x42B320",
   "0x44B210",
   "0x44B230",
   "0x44B250",

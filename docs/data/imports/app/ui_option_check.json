@@ -4,6 +4,7 @@
  "description": "app\\client\\ui_option_check.cpp, provisional name (NAME 1, D137; no __FILE__): the options' check pages 'opt03a' (fa_opt03a-chat.ini / fa_opt03a-camera.ini, tooltips UI_OPTION_CHECK), UIOptionCheckClass over ChatPanelUIBase, 0x5C9910-0x5CA00F",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x42F250",
   "0x45CC10",
   "0x4A1930",
@@ -43,6 +44,7 @@
  "merged": [],
  "name": "client/ui_option_check.cpp",
  "shared": [
+  "0x42B320",
   "0x42F250",
   "0x45CC10",
   "0x4A1930",
@@ -69,6 +71,7 @@
   "0x5CA000"
  ],
  "short_known": [
+  "0x42B320",
   "0x4A1930",
   "0x4A19A0",
   "0x4A19C0",
@@ -89,7 +92,6 @@
   "0x5623B0",
   "0x5623D0",
   "0x5623F0",
-  "0x5C9CE0",
   "0x5C9FF0",
   "0x5CA000"
  ]

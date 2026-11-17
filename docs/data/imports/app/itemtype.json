@@ -6,6 +6,7 @@
  "in_tree": [
   "0x42A970",
   "0x42AB30",
+  "0x42B320",
   "0x843110",
   "0x8431B0",
   "0x8431F0",
@@ -21,6 +22,10 @@
  "name": "common/itemtype.cpp",
  "shared": [
   "0x42A970",
-  "0x42AB30"
+  "0x42AB30",
+  "0x42B320"
+ ],
+ "short_known": [
+  "0x42B320"
  ]
 }

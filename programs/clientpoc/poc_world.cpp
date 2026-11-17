@@ -26,23 +26,8 @@
 #include "..\..\ww3d2\light.h"
 #include "..\..\wwlib\multilist.h"
 
-// ---------------------------------------------------------------- enbdazzle.cpp's visibility handler (0x75DD00, 8 bytes): the base's answer
-class MainViewDazzleHandlerClass : public DazzleVisibilityClass
-{
-public:
-	MainViewDazzleHandlerClass(SClient *client);
-	~MainViewDazzleHandlerClass();
-	SClient *Client;
-};
-MainViewDazzleHandlerClass::MainViewDazzleHandlerClass(SClient *client) : Client(client)
-{
-	STUB_CALLED("POC MainViewDazzleHandlerClass: the base's visibility");
-	void Poc_Start_Watchdog();	// at world entry (the main view's constructor), as the scene stand-in did
-	Poc_Start_Watchdog();
-}
-MainViewDazzleHandlerClass::~MainViewDazzleHandlerClass()
-{
-}
+// enbdazzle.cpp's visibility handler (0x75DD00-0x75E6D0) is real app code since QE: its stand-in left here (the watchdog
+// starts with the first client object, poc_world2.cpp).
 
 // cameraeffects.cpp's constructor 0x6E2BD0 and its SList slots are real app code since S1: its stand-in left here.
 

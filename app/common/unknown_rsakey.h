@@ -103,6 +103,7 @@ public:
 			return(false);
 		}
 		Compute();
+		Modulus.MaxBitPrecision();	// D130: not the client's; keeps Compute()'s Unsigned_Divide out of line in 0x85AFB0
 		return(true);
 	}
 

@@ -1,12 +1,12 @@
 {
  "ambiguous": [
-  "0x42AFF0",
   "0x42B2F0"
  ],
  "copy": "reconstructed",
  "description": "DeltaClass and DeltaCompoundClass (D24; the earlier research's DeltaBase, DeltaCompound), client 0x4A4D40-0x4A6040: Get_Lookup's assert on the client's line 227 (D25); Add 0x4A5670 not exact",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x4A3C50",
   "0x4A3C70",
   "0x4A3C90",
@@ -49,11 +49,13 @@
   "0x4A5F00",
   "0x4A5F50",
   "0x4A5F90",
-  "0x4A5FD0"
+  "0x4A5FD0",
+  "0x4A6040"
  ],
  "merged": [],
  "name": "shared/auxdata/delta.cpp",
  "shared": [
+  "0x42B320",
   "0x4A3C50",
   "0x4A3C70",
   "0x4A3C90",
@@ -62,12 +64,15 @@
   "0x4A4E50",
   "0x4A5150",
   "0x4A5880",
+  "0x4A58C0",
   "0x4A5A10",
   "0x4A5A30",
   "0x4A5F00",
-  "0x4A5FD0"
+  "0x4A5FD0",
+  "0x4A6040"
  ],
  "short_known": [
+  "0x42B320",
   "0x4A3C50",
   "0x4A3C70",
   "0x4A3C90",

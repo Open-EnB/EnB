@@ -1,8 +1,5 @@
 {
- "ambiguous": [
-  "0x42AC90",
-  "0x42B250"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "the key names, client 0x42B3D0-0x42E350 (the object after inpdsp.cpp; builder H19): the name -> code and code -> name lookups 0x42B610 / 0x42B6A0, the event text 0x42B7E0, the table fill 0x42BAE0 / 0x42BC90 and the tables' instances",
  "expected": {},
@@ -12,6 +9,8 @@
   "0x42A940",
   "0x42A970",
   "0x42AB30",
+  "0x42B250",
+  "0x42B320",
   "0x42B3D0",
   "0x42B400",
   "0x42B420",
@@ -36,9 +35,12 @@
   "0x42D050",
   "0x42D120",
   "0x42D140",
+  "0x42D160",
   "0x42D180",
   "0x42D300",
+  "0x42D330",
   "0x42D5D0",
+  "0x42D600",
   "0x42D8A0",
   "0x42D9D0",
   "0x42DAA0",
@@ -60,6 +62,8 @@
   "0x42A940",
   "0x42A970",
   "0x42AB30",
+  "0x42B250",
+  "0x42B320",
   "0x42B420",
   "0x42C4E0",
   "0x42CA10",
@@ -70,7 +74,11 @@
   "0x42D050",
   "0x42D120",
   "0x42D140",
+  "0x42D180",
+  "0x42D300",
+  "0x42D330",
   "0x42D8A0",
+  "0x42DAA0",
   "0x42DB00",
   "0x42DB80",
   "0x42DC10",
@@ -78,6 +86,7 @@
   "0x42E170"
  ],
  "short_known": [
+  "0x42B320",
   "0x42D120",
   "0x42D140",
   "0x42E170"

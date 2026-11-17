@@ -6,6 +6,7 @@
  "description": "TargetFindClass (D24 class-from-file), the cycling target finder (the client's __FILE__ 0xB9F7D4, FAIL_IFs at lines 181-249; client 0x7C3EC0-0x7C509F) (TF1)",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x42F250",
   "0x7C3F10",
   "0x7C3F40",
@@ -37,9 +38,11 @@
  "merged": [],
  "name": "client/target_find.cpp",
  "shared": [
+  "0x42B320",
   "0x42F250"
  ],
  "short_known": [
+  "0x42B320",
   "0x7C3F40",
   "0x7C3F90"
  ]

@@ -1,7 +1,6 @@
 {
  "ambiguous": [
-  "0x42B2F0",
-  "0x4ACBB0"
+  "0x42B2F0"
  ],
  "copy": "reconstructed",
  "description": "PROVISIONAL name (D137: no string ties the object to a file). client.exe 0x7C97B0-0x7CEF30, one object: the settings store singleton 0x7CA2D0 (tsk_game.h's Unknown_7CA2D0Class, table 0xB0734C, 0x70 bytes): its eight browsers (a map of descriptors, DX8WebBrowser open / close / navigate), the browsers' game dispatch object (ATL shapes, CreateStdDispatch over the client's own type library), the canonicalised string settings, the lkey check (poll 0x7CB6F0, WinInet thread 0x7CB8F0) and the exit URL (ShellExecuteEx). NOT EXACT (D64, functional): 0x7CB8F0 (order-only)",
@@ -12,6 +11,7 @@
   "0x42A940",
   "0x42A970",
   "0x42AB30",
+  "0x42B320",
   "0x42C4E0",
   "0x42CAB0",
   "0x42CD30",
@@ -26,6 +26,7 @@
   "0x4B5740",
   "0x4C39B0",
   "0x4FDB50",
+  "0x5AF130",
   "0x5AF150",
   "0x5AF230",
   "0x5AF710",
@@ -37,6 +38,7 @@
   "0x6B1970",
   "0x6B1AF0",
   "0x6B1FF0",
+  "0x6B2230",
   "0x6B23E0",
   "0x7C97B0",
   "0x7C9CD0",
@@ -105,6 +107,7 @@
   "0x42A940",
   "0x42A970",
   "0x42AB30",
+  "0x42B320",
   "0x42C4E0",
   "0x42CAB0",
   "0x42CD30",
@@ -119,6 +122,7 @@
   "0x4B5740",
   "0x4C39B0",
   "0x4FDB50",
+  "0x5AF130",
   "0x5AF150",
   "0x5AF230",
   "0x5AF710",
@@ -130,10 +134,12 @@
   "0x6B1970",
   "0x6B1AF0",
   "0x6B1FF0",
+  "0x6B2230",
   "0x6B23E0",
   "0x7C9E90"
  ],
  "short_known": [
+  "0x42B320",
   "0x42D120",
   "0x42E170"
  ]

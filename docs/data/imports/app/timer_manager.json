@@ -6,6 +6,7 @@
  "in_tree": [
   "0x4A0C40",
   "0x4A0CE0",
+  "0x4A0D30",
   "0x4A0D50",
   "0x4A0DE0",
   "0x4A0E20",
@@ -14,16 +15,19 @@
   "0x4A0ED0",
   "0x4A0F00",
   "0x4A0F30",
-  "0x4A0F60"
+  "0x4A0F60",
+  "0x4A0F80"
  ],
  "merged": [],
  "name": "shared/timer_manager.cpp",
  "shared": [
   "0x4A0EB0",
-  "0x4A0F60"
+  "0x4A0F60",
+  "0x4A0F80"
  ],
  "short_known": [
   "0x4A0EB0",
-  "0x4A0F60"
+  "0x4A0F60",
+  "0x4A0F80"
  ]
 }

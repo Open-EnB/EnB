@@ -6,6 +6,7 @@
  "description": "No string of the file in the client; the link order puts it between gd_robj.cpp and gd_selct.cpp (0x66C8F0-0x66CBF0): a full-screen rectangle gadget (table 0xAFAB64) and the shortcut bar's proxy button (table 0xAFAC78, constructor 0x66C9C0)",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x42F250",
   "0x50A8C0",
   "0x50A8E0",
@@ -49,6 +50,7 @@
  "merged": [],
  "name": "client/gd_scut_proxy.cpp",
  "shared": [
+  "0x42B320",
   "0x42F250",
   "0x50A8C0",
   "0x50A8E0",
@@ -80,6 +82,7 @@
   "0x66CA10"
  ],
  "short_known": [
+  "0x42B320",
   "0x50A8C0",
   "0x50A8E0",
   "0x50A900",

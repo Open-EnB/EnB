@@ -1,9 +1,5 @@
 {
- "ambiguous": [
-  "0x42AAE0",
-  "0x474480",
-  "0x519950"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "DynamicWindowVerticalClass (D24 class-from-file), a dynamic window's column (table 0xAEDB84, 0x64 bytes), client 0x51EAE0-0x51F8B5 (__FILE__ 0xB77010, FAIL_IF '!element' on the client's line 52, D25); NOT EXACT (D64): Set_Flags 0x51EF50, Set_Alignment 0x51EFB0, Update_Content_Size 0x51F850 (DW1)",
  "expected": {},
@@ -14,7 +10,10 @@
   "0x517030",
   "0x5188E0",
   "0x5194F0",
+  "0x519570",
+  "0x5195A0",
   "0x5195E0",
+  "0x519950",
   "0x5199F0",
   "0x51EAE0",
   "0x51EB70",
@@ -54,20 +53,13 @@
   "0x517030",
   "0x5188E0",
   "0x5194F0",
+  "0x519570",
+  "0x5195A0",
   "0x5195E0",
-  "0x5199F0"
- ],
- "shared_callers": [
+  "0x519950",
   "0x5199F0"
  ],
  "short_known": [
-  "0x5188E0",
-  "0x51F020",
-  "0x51F480",
-  "0x51F530",
-  "0x51F590"
- ],
- "tiebreak": [
-  "0x5199F0"
+  "0x5188E0"
  ]
 }

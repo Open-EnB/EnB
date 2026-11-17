@@ -24,8 +24,5 @@
  "name": "projector.cpp",
  "shared": [
   "0x42F250"
- ],
- "short_known": [
-  "0x965010"
  ]
 }

@@ -4,6 +4,7 @@
  "description": "the ticket and the character slot, client 0x8C06E0-0x8C1B40, the module linked after WWOnline's wnet (PROVISIONAL file name, D10; kernel-map-step9.md 5.1): 13 functions exact; its KV templates 0x8C0C40-0x8C1570 not rebuilt",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x8C06E0",
   "0x8C0750",
   "0x8C0770",
@@ -52,6 +53,7 @@
  "merged": [],
  "name": "shared/unknown_login_data.cpp",
  "shared": [
+  "0x42B320",
   "0x8C0F70",
   "0x8C1040",
   "0x8C1190",
@@ -60,15 +62,13 @@
   "0x8C14D0"
  ],
  "short_known": [
-  "0x8C0750",
-  "0x8C0AC0",
+  "0x42B320",
   "0x8C0F70",
   "0x8C1040",
   "0x8C1190",
   "0x8C1240",
   "0x8C1480",
   "0x8C14D0",
-  "0x8C16D0",
   "0x8C1B30"
  ]
 }

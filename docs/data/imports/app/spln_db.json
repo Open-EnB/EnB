@@ -1,7 +1,6 @@
 {
  "ambiguous": [
-  "0x457CA0",
-  "0x45C0E0"
+  "0x457CA0"
  ],
  "copy": "reconstructed",
  "description": "the spline database, client 0x485000-0x48A000 (39 asserts), functional from VIDTEST's loader 0x41CB20/0x41F620-0x420100 (NOT EXACT, D42; M2.4)",
@@ -95,7 +94,8 @@
   "0x48AC50",
   "0x48ACC0",
   "0x48ACF0",
-  "0x48AD60"
+  "0x48AD60",
+  "0x73FCE0"
  ],
  "merged": [],
  "name": "shared/spln_db.cpp",
@@ -120,7 +120,8 @@
   "0x48A9E0",
   "0x48AB30",
   "0x48AC50",
-  "0x48ACC0"
+  "0x48ACC0",
+  "0x73FCE0"
  ],
  "short_known": [
   "0x4627A0",

@@ -1,8 +1,5 @@
 {
- "ambiguous": [
-  "0x46BE90",
-  "0x474080"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "SlotDataRenderClass (D24 class-from-file), what draws a slot's item (the client's __FILE__ 0xB91684, asserts on lines 89-531; object 0x6A7B60-0x6A9B50 between <string>'s initialisers 0x6A7B20 / 0x6A9B30) (SR1)",
  "expected": {},
@@ -12,6 +9,7 @@
   "0x42A940",
   "0x42A970",
   "0x42AB30",
+  "0x42B320",
   "0x42CAB0",
   "0x42CD30",
   "0x42CF30",
@@ -22,6 +20,9 @@
   "0x45CC30",
   "0x45E1B0",
   "0x46BE90",
+  "0x4740B0",
+  "0x47D010",
+  "0x47D2E0",
   "0x68B410",
   "0x68B430",
   "0x68B450",
@@ -69,6 +70,7 @@
   "0x42A940",
   "0x42A970",
   "0x42AB30",
+  "0x42B320",
   "0x42CAB0",
   "0x42CD30",
   "0x42CF30",
@@ -79,6 +81,9 @@
   "0x45CC30",
   "0x45E1B0",
   "0x46BE90",
+  "0x4740B0",
+  "0x47D010",
+  "0x47D2E0",
   "0x68B410",
   "0x68B430",
   "0x68B450",
@@ -90,6 +95,7 @@
   "0x6A7BB0"
  ],
  "short_known": [
+  "0x42B320",
   "0x42D120",
   "0x45E1B0",
   "0x68B410",
@@ -100,7 +106,6 @@
   "0x68B4B0",
   "0x68B4D0",
   "0x68C0F0",
-  "0x6A7BB0",
-  "0x6A8980"
+  "0x6A7BB0"
  ]
 }

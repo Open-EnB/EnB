@@ -6,6 +6,7 @@
  "description": "enbscene.cpp (the client's assert __FILE__, 'Land.Peek() == (LandClass*)obj' line 106 in 0x75F440), client 0x75ECF0-0x75F852: MainViewSceneClass's constructor 0x75ECF0, destructor 0x75EED0, Add / Remove_Render_Object 0x75F180 / 0x75F440, Remove_All_Render_Objects 0x75F560 (WE7), 0x75F690 (the 'plt' list's day / night), 0x75F700 and its static 0x75F750 (particle emitters' colour keys) (WE5); 0x75F8B0 (+0x68) and 0x75FB00 not built yet",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x42F250",
   "0x431C80",
   "0x45CC10",
@@ -43,6 +44,7 @@
  "merged": [],
  "name": "client/enbscene.cpp",
  "shared": [
+  "0x42B320",
   "0x42F250",
   "0x431C80",
   "0x45CC10",
@@ -62,6 +64,7 @@
   "0x495F60"
  ],
  "short_known": [
+  "0x42B320",
   "0x431C80",
   "0x495E10",
   "0x495E30",

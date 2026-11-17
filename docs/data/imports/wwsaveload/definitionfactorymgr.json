@@ -13,7 +13,11 @@
   "0xA07B00",
   "0xA07B40",
   "0xA07B90",
-  "0xA07BE0"
+  "0xA07BE0",
+  "0xA07BF0",
+  "0xA07C10",
+  "0xA07C50",
+  "0xA07C70"
  ],
  "merged": [],
  "name": "definitionfactorymgr.cpp"

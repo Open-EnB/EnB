@@ -632,6 +632,39 @@ without the export still runs (`no stand-in marker` in e2e.log; later scenarios 
 in `build/d3d8shot/` must be current: `python tools/harness/run_reference.py build` after any change to
 d3d8shot.c (a proxy of 2026-11-04 ignored the trigger, and every shot step waited out its 15 s).
 
+**Station operations on a live server (2026-11-15):** `e2e.py --live [SERVER] [--retail] --instance NAME run
+sb_vendor sb_talk` (options before `run`: `--live` takes an optional SERVER, so `--live run` would read `run` as
+the server) runs the `sb_*` scenarios (and only those; the default set leaves them out) against a real Net-7
+server through antprox `/SERVER:SERVER /NET7BIN:DIR /OPCODES` instead of `/REPLAY`. SERVER defaults to
+`localhost`, `--net7bin` to the user's local 2010 server (`C:\EnBDevelopment\Net7\bin_local`, account admin /
+admin, safe for any scenario). `--antprox-arg ARG` (repeatable; `--antprox-arg=ARG` when ARG starts with `-`)
+appends ARG to antprox's command line. `ANTPROX_EXE` then defaults to AntaresProxy's dev publish: the frozen
+1.0.0 (D253) cannot bind loopback. Both clients run live: the retail copy (`--retail`) and ours (`--exe`, default
+this tree's build), which the dev publish (2026-11-16, AntaresProxy W33) launches unmodified on EA-UDP since it
+cannot patch an unknown build. The login (`_login_live.scn`) clicks the username field twice (the login screen
+swallows the first click) and clears each field (End, 14 Backspaces) before typing, since the client remembers
+the last name. Live antprox logs opcode numbers; e2e appends the names (`... = sent TALK_TREE` is the server's,
+`= received NAME` the client's), so steps match on names as in replay.
+- **Where the avatar is:** `D3D8SHOT_CAMERA=FILE` makes the proxy write the frame's first view matrices to FILE
+  (every 2nd Present). The first is the room camera; the avatar is 6.4 units ahead of it. Each room has its own
+  coordinates; the room changes show in messages.log (`Changing room from A to B`).
+- **Walking steps:** `walk-to X,Y [tol T] [within S]`, `face YAW [tol D] [within S]`, `hold VK until SOURCE
+  PATTERN [within S]` (walk through a door until the room changes), `pose` (logs it). They are closed loops on
+  the pose, not timed input, since the avatar starts on a random pad of the hangar. Measured on retail: 'A' and a
+  held right button both walk about 26 units a second with about 4.5 units of coast; the right button steers by
+  the cursor's offset from where it went down (about 0.43 degrees a second per pixel); nothing turns in place
+  (a 180 degree turn takes about 11 s and drifts about 9 units); turning is ignored during the hangar's entry
+  camera move. A wall stops a walk: give a waypoint. `_sb_home.scn` logs in (`_login_live.scn`) and walks from
+  any pad to room 1's middle; every `sb_*` scenario starts and ends there.
+- **Recording a person's session:** `e2e.py record --live --retail --instance NAME` starts the same session with
+  the input tag off, so the user plays. It writes `recorded.txt` (time, each key and click, a back-buffer shot
+  per click, the pose, the packets both ways until the next input) and `track.txt` (the walk and the room
+  changes). A scenario is written from it by hand: poses become `walk-to` / `face`, clicks keep their
+  coordinates, the packets become the events to wait for.
+- **State:** GM chat commands put back what a scenario spends (`/createcredits N`, `/createitem ID COUNT`).
+- First results: `sb_vendor` (room 2, a vendor's talk tree and trade window, back) and `sb_talk` (an NPC's
+  two-page talk tree) pass on retail in one session, 224 s.
+
 **Smoke set (D237):** a landing that retires a stand-in runs `e2e.py run --exe <its worktree's clientpoc.exe>
 --instance <name>` and lands only with every line as expected.
 

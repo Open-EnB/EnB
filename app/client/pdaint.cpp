@@ -482,7 +482,7 @@ void PDAInterfaceClass::Unknown_74(ControlKeysManager *manager)
 }
 
 // 0x695630
-RefCountPtr<UIPdaCargoClass> PDAInterfaceClass::Unknown_695630()
+RefCountPtr<UIInvClass> PDAInterfaceClass::Unknown_695630()
 {
 	if (Cargo->Is_Active()) {
 		return(Cargo);
@@ -491,7 +491,7 @@ RefCountPtr<UIPdaCargoClass> PDAInterfaceClass::Unknown_695630()
 }
 
 // 0x695680
-RefCountPtr<UIPdaCargoClass> PDAInterfaceClass::Unknown_695680()
+RefCountPtr<UIInvClass> PDAInterfaceClass::Unknown_695680()
 {
 	if (Cargo) {
 		return(Cargo);

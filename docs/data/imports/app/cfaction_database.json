@@ -1,9 +1,5 @@
 {
- "ambiguous": [
-  "0x42B250",
-  "0x42B2F0",
-  "0x455FB0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "CFactionDatabaseClass, client 0x7E4A30-0x7E50D0 with the table's instances to 0x7E5E50: _Factions's initializer and destructor, Init (NOT EXACT: register-only), Shutdown, the static empty string, Get_Name, Get_Description (line 98, D25)",
  "expected": {},
@@ -13,6 +9,8 @@
   "0x42A940",
   "0x42A970",
   "0x42AB30",
+  "0x42B250",
+  "0x42B320",
   "0x42C4E0",
   "0x42CAB0",
   "0x42CD30",
@@ -22,6 +20,8 @@
   "0x42DB80",
   "0x42E170",
   "0x4B5740",
+  "0x603BB0",
+  "0x7E4AB0",
   "0x7E4AE0",
   "0x7E4B10",
   "0x7E4BE0",
@@ -34,13 +34,15 @@
   "0x7E53E0",
   "0x7E54B0",
   "0x7E5660",
+  "0x7E56A0",
   "0x7E56C0",
   "0x7E5840",
   "0x7E5870",
   "0x7E5B10",
   "0x7E5C40",
   "0x7E5C70",
-  "0x7E5E50"
+  "0x7E5E50",
+  "0x7E5F40"
  ],
  "merged": [],
  "name": "client/cfaction_database.cpp",
@@ -50,6 +52,8 @@
   "0x42A940",
   "0x42A970",
   "0x42AB30",
+  "0x42B250",
+  "0x42B320",
   "0x42C4E0",
   "0x42CAB0",
   "0x42CD30",
@@ -58,9 +62,11 @@
   "0x42DB00",
   "0x42DB80",
   "0x42E170",
-  "0x4B5740"
+  "0x4B5740",
+  "0x603BB0"
  ],
  "short_known": [
+  "0x42B320",
   "0x42D120",
   "0x42E170"
  ]

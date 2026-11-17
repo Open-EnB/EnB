@@ -4,6 +4,7 @@
  "description": "the send-only opcode 30002's object, 0x861760-0x861B00 (no assert: the file name provisional, NAME 1): written by hand (builder P5)",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x42F250",
   "0x52B210",
   "0x52B240",
@@ -28,6 +29,7 @@
  "merged": [],
  "name": "packets/pkunknown_861760.cpp",
  "shared": [
+  "0x42B320",
   "0x42F250",
   "0x52B210",
   "0x52B240",
@@ -42,13 +44,12 @@
   "0x861960"
  ],
  "short_known": [
+  "0x42B320",
   "0x52B2D0",
   "0x52B2F0",
   "0x52B310",
   "0x52B330",
   "0x5953D0",
-  "0x861960",
-  "0x861A90",
-  "0x861AE0"
+  "0x861960"
  ]
 }

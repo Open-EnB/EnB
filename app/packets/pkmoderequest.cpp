@@ -41,7 +41,7 @@ int Packet_004BClass::Print(char *buffer, int)
 **
 **	* Client 0x89CDB0-0x89D040 (0x89CD80 is the previous object's guarded static, 0xC416FC; this one's is 0x89D040):
 **	  opcode 75, written by hand (builder P4, 2026-10-27).
-**	* Not rebuilt: 0x89CE00, between the value constructor and the scalar deleting destructor, returns 0x7F
-**	  and nothing refers to it (no vtable slot, no call).
+**	* 0x89CE00 is the header's inline Get_Priority (returns 0x7F): the vtable 0xB0B314's slot +0x1C, through the
+**	  thunk 0x40B988 (symbols.json named it PacketClass::Get_Priority until QE's symbols_named.json row).
 **	* The file name is provisional (no assert names it).
 */

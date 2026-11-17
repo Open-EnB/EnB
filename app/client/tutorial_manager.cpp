@@ -47,23 +47,23 @@ TutorialLineStruct *TutorialStepStruct::Get_Line(int index)
 	}
 	return 0;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+TutorialLineStruct::TutorialLineStruct(const char *speech, const char *text, bool skip_blend)
+{
+	Speech = nstrdup(speech);
+	Text = nstrdup(text);
+	SkipBlend = skip_blend;
+}
+TutorialLineStruct::~TutorialLineStruct()
+{
+	delete [] Speech;
+	delete [] Text;
+	Speech = 0;
+	Text = 0;
+}
+TutorialStepStruct::TutorialStepStruct(const char *name)
+{
+	Name = nstrdup(name);
+}
 
 
 
@@ -431,7 +431,8 @@ void TutorialManagerClass::Reload()
 **	Reconstruction notes
 **
 **	client.exe 0x6AC280-0x6AD7B0 (then the table's and the list's instances to about 0x6AEE60):
-**	TutorialStepStruct's destructor 0x6AC280, Add_Line 0x6AC340 and Get_Line 0x6AC5C0 (both without a
+**	TutorialLineStruct's ctor/dtor 0x6AC180 / 0x6AC1C0, TutorialStepStruct's ctor 0x6AC200,
+**	destructor 0x6AC280, Add_Line 0x6AC340 and Get_Line 0x6AC5C0 (both without a
 **	caller, inlined where used), the manager's constructor 0x6AC600 (the table built as Steps(100)), the
 **	destructor 0x6ACD10, Set_Instance 0x6ACF30 (0xBE66C8), Start_Step 0x6ACF50, Stop_Step 0x6AD080,
 **	Set_Completed 0x6AD0A0, Is_Completed 0x6AD120, Was_Just_Finished 0x6AD1A0, Find 0x6AD230 (no caller;

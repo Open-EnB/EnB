@@ -1,8 +1,6 @@
 {
  "ambiguous": [
-  "0x42B2F0",
-  "0x46BE90",
-  "0x497300"
+  "0x42B2F0"
  ],
  "copy": "reconstructed",
  "description": "UIMissnClass (D24 class-from-file), the character info window's missions tab (0xEC bytes, tables 0xAF3C9C / 0xAF3C90 / 0xAF3C84; 0x5738B0 makes it), client 0x5C4170-~0x5C735F (__FILE__ 0xB82708, ui_missn.cpp; its 'TSI22A' / 'fa_TSI22A.ini' strings before it; ui_mfdm.cpp's RefCountPtr COMDATs 0x5C4030-0x5C40EF before, the adjustor thunks 0x5C7340 / 0x5C7350 close it before ui_mount.cpp): the constructor 0x5C4170, the destructor 0x5C42E0 and the slots +0x54 0x5C4610 (FAIL_IFs l.123 / 155, G_ASSERTs l.147 / 151), +0x7C 0x5C4490 (the dialog box made again), +0x58 0x5C4BB0, +0x5C 0x5C4C40, +0x68 0x5C4EA0 and 0x5C6610 (FAIL_IF l.663) exact; 0x5C66D0 (FAIL_IFs l.688-690, the forfeit / dismissal packets) NOT EXACT (register) (TB1)",
@@ -13,9 +11,12 @@
   "0x42A940",
   "0x42A970",
   "0x42AB30",
+  "0x42B320",
   "0x42F250",
   "0x4407B0",
   "0x45CC10",
+  "0x4740B0",
+  "0x497300",
   "0x4A1930",
   "0x4A19A0",
   "0x4A19C0",
@@ -84,9 +85,12 @@
   "0x42A940",
   "0x42A970",
   "0x42AB30",
+  "0x42B320",
   "0x42F250",
   "0x4407B0",
   "0x45CC10",
+  "0x4740B0",
+  "0x497300",
   "0x4A1930",
   "0x4A19A0",
   "0x4A19C0",
@@ -123,6 +127,7 @@
   "0x5C7350"
  ],
  "short_known": [
+  "0x42B320",
   "0x4A1930",
   "0x4A19A0",
   "0x4A19C0",

@@ -23,8 +23,5 @@
  "name": "dx8texman.cpp",
  "shared": [
   "0x42F250"
- ],
- "short_known": [
-  "0x995C00"
  ]
 }

@@ -1,14 +1,10 @@
 {
- "ambiguous": [
-  "0x42AAE0",
-  "0x42AFF0",
-  "0x46BE90",
-  "0x474080"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "InterfaceSceneClass (interface_scene.h), client 0x6DA4D0-0x6DADDF (__FILE__ 0xB928F4, FAIL_IF '!InsideRenderWithPIPScenes' on the client's line 147, D25): the views' 2-D scene over its static sort list, and the inline functions of interface_static_sort_list.h its constructor instantiates (IS)",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x42F250",
   "0x45CC10",
   "0x45CC30",
@@ -23,6 +19,7 @@
   "0x495EF0",
   "0x495F20",
   "0x495F40",
+  "0x5C40C0",
   "0x6DA4D0",
   "0x6DA570",
   "0x6DA590",
@@ -45,6 +42,7 @@
   "0x6DADE0",
   "0x6DAEB0",
   "0x6DAF80",
+  "0x6DCE20",
   "0x6DCE80",
   "0x6DCED0",
   "0x6DCF10",
@@ -61,17 +59,24 @@
   "0x6DDF60",
   "0x6DE370",
   "0x6DE3C0",
+  "0x6DE400",
   "0x6DE430",
+  "0x6DE6D0",
   "0x6DE700",
+  "0x6DE9A0",
   "0x6DE9D0",
   "0x6DF010",
   "0x6DF080",
   "0x6DF130",
+  "0x6DF160",
+  "0x6DF190",
+  "0x6DF1C0",
   "0x6DF880"
  ],
  "merged": [],
  "name": "client/interface_scene.cpp",
  "shared": [
+  "0x42B320",
   "0x42F250",
   "0x45CC10",
   "0x45CC30",
@@ -86,7 +91,9 @@
   "0x495EF0",
   "0x495F20",
   "0x495F40",
+  "0x5C40C0",
   "0x6DA570",
+  "0x6DA8D0",
   "0x6DACA0",
   "0x6DACC0",
   "0x6DACF0",
@@ -95,6 +102,7 @@
   "0x6DADE0",
   "0x6DAEB0",
   "0x6DAF80",
+  "0x6DCE20",
   "0x6DCE80",
   "0x6DCED0",
   "0x6DCF10",
@@ -103,10 +111,17 @@
   "0x6DD9B0",
   "0x6DDC30",
   "0x6DDF60",
+  "0x6DE400",
+  "0x6DE6D0",
+  "0x6DE9A0",
   "0x6DF130",
+  "0x6DF160",
+  "0x6DF190",
+  "0x6DF1C0",
   "0x6DF880"
  ],
  "short_known": [
+  "0x42B320",
   "0x45E1B0",
   "0x495E10",
   "0x495E30",
@@ -118,12 +133,5 @@
   "0x6DACA0",
   "0x6DACF0",
   "0x6DF880"
- ],
- "tiebreak": [
-  "0x6DD0F0",
-  "0x6DD3A0",
-  "0x6DE430",
-  "0x6DE700",
-  "0x6DE9D0"
  ]
 }

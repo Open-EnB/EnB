@@ -1,0 +1,26 @@
+{
+ "ambiguous": [],
+ "copy": "reconstructed",
+ "description": "RECONSTRUCTED: case-insensitive std::string equality (0x4E4B00) and hash (0x4E4B50) functors; client 0x4E4B00-0x4E4C85 between chat_filter_util.cpp (0x4E4AD0) and combo_ffactory.cpp (0x4E4D10); provisional name (D137)",
+ "expected": {},
+ "in_tree": [
+  "0x42A6C0",
+  "0x42A970",
+  "0x42AB30",
+  "0x42B320",
+  "0x4E4B00",
+  "0x4E4B50",
+  "0x4E4CE0"
+ ],
+ "merged": [],
+ "name": "shared/unknown_4e4b00.cpp",
+ "shared": [
+  "0x42A6C0",
+  "0x42A970",
+  "0x42AB30",
+  "0x42B320"
+ ],
+ "short_known": [
+  "0x42B320"
+ ]
+}

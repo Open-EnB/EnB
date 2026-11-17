@@ -6,6 +6,7 @@
  "description": "the change table's object 0x4AB580-0x4AC250 (no assert, no __FILE__: PROVISIONAL file name, M1.3): 0x4AB5F0-0x4ABD90 and the three visitors (vtables 0xAEB2F4, 0xAEB300, 0xAEB30C); 0x4AB7D0 and 0x4ABB80 not exact; 0x4AB580 not rebuilt",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x4AB5F0",
   "0x4AB660",
   "0x4AB6F0",
@@ -25,5 +26,11 @@
   "0x4ABE40"
  ],
  "merged": [],
- "name": "shared/auxdata/unknown_changes.cpp"
+ "name": "shared/auxdata/unknown_changes.cpp",
+ "shared": [
+  "0x42B320"
+ ],
+ "short_known": [
+  "0x42B320"
+ ]
 }

@@ -4,6 +4,7 @@
  "description": "opcodes 221 (GPS_REQUEST) and 222 (GPSResponse) written by hand (builder P4, 12 of 12 exact in appfile.py match), client 0x887F20-0x888670; the file name provisional (NAME 1)",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x52B210",
   "0x52B240",
   "0x52B270",
@@ -33,6 +34,7 @@
  "merged": [],
  "name": "packets/pkgpsrequest.cpp",
  "shared": [
+  "0x42B320",
   "0x52B210",
   "0x52B240",
   "0x52B270",
@@ -45,6 +47,7 @@
   "0x5953D0"
  ],
  "short_known": [
+  "0x42B320",
   "0x52B2D0",
   "0x52B2F0",
   "0x52B310",

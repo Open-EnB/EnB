@@ -4,6 +4,7 @@
  "description": "Fire 21 (FireEquipped 22 derives from it), the object 0x887290-0x887560 after pkfindplayerrequest.cpp (no assert: the name provisional, pk + the class's Get_Name): written by hand (builder P10)",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x52B210",
   "0x52B240",
   "0x52B270",
@@ -30,6 +31,7 @@
  "merged": [],
  "name": "packets/pkfire.cpp",
  "shared": [
+  "0x42B320",
   "0x52B210",
   "0x52B240",
   "0x52B270",
@@ -47,6 +49,7 @@
   "0x887320"
  ],
  "short_known": [
+  "0x42B320",
   "0x52B2D0",
   "0x52B2F0",
   "0x52B310",
@@ -56,7 +59,6 @@
   "0x86E5B0",
   "0x8872E0",
   "0x887300",
-  "0x887320",
-  "0x8874E0"
+  "0x887320"
  ]
 }

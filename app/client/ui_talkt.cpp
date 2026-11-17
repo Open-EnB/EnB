@@ -42,7 +42,7 @@ public:
 extern FontManagerClass *Unknown_BE67C4;				// NAME 1: neutral (D10)
 #include "..\shared\unknown_4a1590.h"
 #include "..\input\input.h"	// Unknown_42EB20 (0x42EB20)
-
+RefCountPtr<RenderObjClass> Unknown_497300(RenderObjClass *robj);	// 0x497300 (cdecl, ro_funcs.cpp's neighbourhood: a RefCountPtr over a peek, Add_Ref)  // NAME 1 [robj]: as ui_avatr.cpp's
 #include "control_key_list.h"	// ControlKeyListClass: InterfaceClass +0x4C (Add 0x721E60, Remove 0x721EF0), keyed by kernel.h's KernelEventClass
 
 
@@ -836,7 +836,7 @@ void UITalkTreeClass::Unknown_64E640()
 	SpeechFile.erase();
 }
 
-// NOT EXACT: 0x64E7A0 (Unknown_64E7A0: one slot fewer)
+// NOT EXACT: 0x64E7A0 (Unknown_64E7A0: registers only: the bit test, and the 0x497300 call's return slot loaded before its argument)
 void UITalkTreeClass::Unknown_64E7A0()
 {
 	RefCountPtr<RenderObjClass> bttn_obj;
@@ -846,7 +846,7 @@ void UITalkTreeClass::Unknown_64E7A0()
 			break;
 		}
 		if (Buttons[lp]->Is_Unknown2C_02() && Is_Unknown2C_03(Buttons[lp])) {
-			bttn_obj = Create_Get(Buttons[lp]->Peek_Render_Obj());
+			bttn_obj = Unknown_497300(Buttons[lp]->Peek_Render_Obj());
 			active = lp - 1;
 			break;
 		}
@@ -884,7 +884,7 @@ void UITalkTreeClass::Unknown_64E7A0()
 
 
 	FAIL_IF(!font) return;
-	FontSplitStringClass split(font->Font, Responses[Unknown174].Text.c_str(), (float)PlayerLineWidth, 0);
+	const TalkTreeResponseStruct &response = Responses[Unknown174];	FontSplitStringClass split(font->Font, response.Text.c_str(), (float)PlayerLineWidth, 0);
 	int count = split.Count();
 	for (int i = 0; i < count; i++) {
 		if (!font) {
@@ -896,14 +896,14 @@ void UITalkTreeClass::Unknown_64E7A0()
 			FAIL_IF(!font) continue;
 		}
 		font->Change_Text(split.Get(i), 0);
-		RefCountPtr<Unknown51C800Class> element = Create_NEW(new Unknown51C800Class(font.Peek(), 0x10));
+		RefCountPtr<DynamicWindowElementClass> element = Create_NEW((DynamicWindowElementClass *)new Unknown51C800Class(font.Peek(), 0x10));
 		Unknown168->Add_Object(element.Peek(), i);
 		font = NULL;
 	}
 	InterfaceSortScopeClass sort(this);
 	const AABoxClass &box = bttn_obj->Get_Bounding_Box();
-	Vector2 center(box.Center.X, box.Center.Y);
-	Unknown168->Set_Center(center);
+
+	Unknown168->Set_Center(Vector2(box.Center.X, box.Center.Y));
 	Unknown168->Add_To_Scene(Peek_Scene());
 }
 

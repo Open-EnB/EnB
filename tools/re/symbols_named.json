@@ -3066,5 +3066,85 @@
   "evidence": "UnknownB00A00Type renamed InvSlotStruct: the KVPair's Get_Type_Name 0x709C80 returns the string 'InvSlotStruct' (0xB94480) (SD, run 2026-11-15b)",
   "replaces": "??_7?$KVAccessorClass@UUnknownB00A00Type@@@@6B@",
   "kind": "vtable"
+ },
+ {
+  "address": "0x89CB40",
+  "symbol": "?Get_Priority@ModeChangePacketClass@@UAEHXZ",
+  "evidence": "ModeChangePacketClass's vtable 0xB0B2E4 slot +0x1C is the thunk 0x401AEB to it (returns 0x7F; pkmodechange.h's override, QD); PacketClass::Get_Priority is 0x52B2F0 (returns 0) (QE, 2026-11-16)",
+  "replaces": "?Get_Priority@PacketClass@@UAEHXZ"
+ },
+ {
+  "address": "0x89CE00",
+  "symbol": "?Get_Priority@Packet_004BClass@@UAEHXZ",
+  "evidence": "Packet_004BClass's vtable 0xB0B314 slot +0x1C is the thunk 0x40B988 to it (returns 0x7F; pkmoderequest.h's override); PacketClass::Get_Priority is 0x52B2F0 (returns 0) (QE, 2026-11-16)",
+  "replaces": "?Get_Priority@PacketClass@@UAEHXZ"
+ },
+ {
+  "address": "0x5989A0",
+  "symbol": "?Create_NEW@@YA?AV?$RefCountPtr@VUISymbolChatClass@@@@PAVUISymbolChatClass@@@Z",
+  "evidence": "UIGroupClass::Unknown_54 0x594040 (ui_group.cpp) calls it (0x59409C) on 'new UISymbolChatClass' (0x64A480's constructor result) and stores the result in SymbolChatUI; the body is Create_NEW's (the bytes of the named copies 0x4A46F0 and others) (F1, 2026-11-16)"
+ },
+ {
+  "address": "0xAFE0B8",
+  "symbol": "??_7UnknownAFE0B8Class@@6B@",
+  "evidence": "viewbttn.cpp's drag-pointer table: Unknown_6B5FD0 stores it (0x6B5FF6) into its 'new' object; slot +0x00 is the thunk to 0x6B5ED0 (UnknownAFE0B8Class::Unknown_00, exact in viewbttn), slot +0x04 the thunk 0x410D20 to 0x6B5FB0 (F1, 2026-11-16)",
+  "kind": "vtable"
+ },
+ {
+  "address": "0x653C00",
+  "symbol": "??1?$RefCountPtr@VUIInvClass@@@@QAE@XZ",
+  "evidence": "ui_trade's unwind funclets (parents 0x651390, 0x651510, 0x652EB0) reach it for the locals PDA->Unknown_695630 / 695680 return; its bytes are those of RefCountPtr<UIPdaCargoClass>'s destructor 0x6960D0, which pdaint's object places between Create_NEW<UIPdaCargoClass> 0x6960A0 and Create_NEW<UIVaultClass> 0x696110, so the trade window's T is another class with the same RefCountClass at +0x38: UIInvClass, whose Unknown_5A03B0 ui_trade calls through it (F1, 2026-11-16; provisional)"
+ },
+ {
+  "address": "0xAE74DC",
+  "symbol": "??_7RawFileFactoryClass@@6B@",
+  "evidence": "soundlib.cpp's static at 0xBDAC60: its initialiser 0x43D320 calls 0x43D390 (stores the vtable 0xAE74DC, whose slots +4 / +8 are RawFileFactoryClass::Get_File 0x9D0780 / Return_File 0x9D07B0) and registers 0x43D350 -> 0x43D370 (stores FileFactoryClass's vtable 0xAE74CC) (AR run 2026-11-16, C6)",
+  "kind": "vtable"
+ },
+ {
+  "address": "0x43D390",
+  "symbol": "??0RawFileFactoryClass@@QAE@XZ",
+  "evidence": "soundlib.cpp's static at 0xBDAC60: its initialiser 0x43D320 calls 0x43D390 (stores the vtable 0xAE74DC, whose slots +4 / +8 are RawFileFactoryClass::Get_File 0x9D0780 / Return_File 0x9D07B0) and registers 0x43D350 -> 0x43D370 (stores FileFactoryClass's vtable 0xAE74CC) (AR run 2026-11-16, C6)"
+ },
+ {
+  "address": "0x43D370",
+  "symbol": "??1RawFileFactoryClass@@UAE@XZ",
+  "evidence": "soundlib.cpp's static at 0xBDAC60: its initialiser 0x43D320 calls 0x43D390 (stores the vtable 0xAE74DC, whose slots +4 / +8 are RawFileFactoryClass::Get_File 0x9D0780 / Return_File 0x9D07B0) and registers 0x43D350 -> 0x43D370 (stores FileFactoryClass's vtable 0xAE74CC) (AR run 2026-11-16, C6)"
+ },
+ {
+  "address": "0x43D3B0",
+  "symbol": "??_GRawFileFactoryClass@@UAEPAXI@Z",
+  "evidence": "soundlib.cpp's static at 0xBDAC60: its initialiser 0x43D320 calls 0x43D390 (stores the vtable 0xAE74DC, whose slots +4 / +8 are RawFileFactoryClass::Get_File 0x9D0780 / Return_File 0x9D07B0) and registers 0x43D350 -> 0x43D370 (stores FileFactoryClass's vtable 0xAE74CC) (AR run 2026-11-16, C6)"
+ },
+ {
+  "address": "0x519240",
+  "symbol": "?Child_Changed@DynamicWindowHorizontalClass@@UAEXAAVDynamicWindowElementClass@@@Z",
+  "evidence": "slot 0 of DynamicWindowHorizontalClass's DynamicWindowContainerClass vtable 0xAED480 (thunk 0x417440), between Set_Position 0x5191F0 and Remove_All_Children 0x5192E0; byte-identical to the vertical's 0x51F600, which the tie had given this name (NM, run 2026-11-16)"
+ },
+ {
+  "address": "0x51F600",
+  "symbol": "?Child_Changed@DynamicWindowVerticalClass@@UAEXAAVDynamicWindowElementClass@@@Z",
+  "evidence": "slot 0 of DynamicWindowVerticalClass's DynamicWindowContainerClass vtable 0xAEDB74 (thunk 0x4031DE), between Set_Position 0x51F5B0 and Remove_All_Children 0x51F6D0 (NM, run 2026-11-16)",
+  "replaces": "?Child_Changed@DynamicWindowHorizontalClass@@UAEXAAVDynamicWindowElementClass@@@Z"
+ },
+ {
+  "address": "0x5314D0",
+  "symbol": "?Unknown_Find_Field@@YAPAVDeltaRPGInfoClass@@PAVDeltaCompoundClass@@ABVNameClass@@@Z",
+  "evidence": "auxdata.h's find of a field tested against DeltaCompoundClass's type 0xBE3A74 (shared by its derived classes); its one caller, Is_Usable 0x531080 (0x5310F9), finds 'RPGInfo', a DeltaRPGInfoClass (aux_roots.h, Player.RPGInfo) (NM, run 2026-11-16)"
+ },
+ {
+  "address": "0x5927E0",
+  "symbol": "?Unknown_Find_Field@@YAPAVDeltaGroupInfoClass@@PAVDeltaCompoundClass@@ABVNameClass@@@Z",
+  "evidence": "auxdata.h's find of a field tested against 0xBE3A74; every caller (0x591C30, 0x592C50 in ui_friends.cpp, 0x596770, 0x597E40 in ui_group.cpp) finds 'GroupInfo' (0xB7F434), a DeltaGroupInfoClass (NM, run 2026-11-16)"
+ },
+ {
+  "address": "0x610370",
+  "symbol": "?Unknown_Find_Field@@YAPAVDeltaReputationClass@@PAVDeltaCompoundClass@@ABVNameClass@@@Z",
+  "evidence": "auxdata.h's find of a field tested against 0xBE3A74; its caller 0x60F1A0 (0x60F55B, 0x60F585) finds 'Reputation' (0xB7F178), a DeltaReputationClass (NM, run 2026-11-16)"
+ },
+ {
+  "address": "0x7E7AD0",
+  "symbol": "??1?$RefCountPtr@VSound3DClass@@@@QAE@XZ",
+  "evidence": "reached only by the unwind funclets 0xAD37A0 / 0xAD37E0 of emote_data.cpp's 0x7E63A0 / 0x7E6860, right after Create_Get<Sound3DClass> 0x7E7AA0: the RefCountPtr<Sound3DClass> it returns; byte-identical to ~RefCountPtr<AudibleSoundClass> 0x64EFC0 (NM, run 2026-11-16)"
  }
 ]

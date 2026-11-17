@@ -1,19 +1,13 @@
 {
  "ambiguous": [
   "0x42B2F0",
-  "0x439C40",
-  "0x46BE90",
-  "0x474080",
-  "0x474450",
-  "0x474480",
-  "0x519950",
-  "0x5988A0",
   "0x7AE610"
  ],
  "copy": "reconstructed",
  "description": "RECONSTRUCTED from client.exe: __FILE__ 'e:\\build\\beta\\G\\app\\client\\nav_list_line_draw.cpp' (0xB9EF98, FAIL_IF '!Client' l.137 in 0x7B9DC0); the object starts at the constructor 0x7B97F0 after nav_list_builder.cpp's template instances",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x42F250",
   "0x45CC10",
   "0x4627A0",
@@ -94,16 +88,28 @@
   "0x466B80",
   "0x466BA0",
   "0x466BC0",
+  "0x5C0970",
+  "0x5C40C0",
   "0x7B97F0",
   "0x7B98E0",
   "0x7B9C80",
   "0x7B9CB0",
   "0x7B9CD0",
-  "0x7BA2C0"
+  "0x7BA2C0",
+  "0x7BA340",
+  "0x7BA380",
+  "0x7BA3B0",
+  "0x7BA3E0",
+  "0x7BA480",
+  "0x7BA7F0",
+  "0x7BA820",
+  "0x7BA890",
+  "0x7BA8A0"
  ],
  "merged": [],
  "name": "client/nav_list_line_draw.cpp",
  "shared": [
+  "0x42B320",
   "0x42F250",
   "0x45CC10",
   "0x4627A0",
@@ -184,9 +190,12 @@
   "0x466B80",
   "0x466BA0",
   "0x466BC0",
+  "0x5C0970",
+  "0x5C40C0",
   "0x7B9CB0"
  ],
  "short_known": [
+  "0x42B320",
   "0x4627A0",
   "0x4628D0",
   "0x4628F0",

@@ -6,6 +6,7 @@
  "description": "client 0x78E190-0x78F700 (the asserts' __FILE__ nlp.cpp, lines 413, 454, 708): the lexicon (NLPLexiconClass), PlayerNLPClass (vtable 0xB04A2C) with the text parser 0x78F050; NOT EXACT functional for the POC (D64) where marked",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x42F250",
   "0x78E190",
   "0x78E2C0",
@@ -27,6 +28,10 @@
  "merged": [],
  "name": "client/nlp.cpp",
  "shared": [
+  "0x42B320",
   "0x42F250"
+ ],
+ "short_known": [
+  "0x42B320"
  ]
 }

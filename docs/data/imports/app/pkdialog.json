@@ -4,6 +4,7 @@
  "description": "opcode 98's object, 0x8812D0-0x8816A0 (no assert: the file name provisional, NAME 1): written by hand (builder P3), 6 of 6 exact in appfile.py match",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x52B210",
   "0x52B240",
   "0x52B270",
@@ -28,6 +29,7 @@
  "merged": [],
  "name": "packets/pkdialog.cpp",
  "shared": [
+  "0x42B320",
   "0x52B210",
   "0x52B240",
   "0x52B270",
@@ -42,13 +44,13 @@
   "0x8813C0"
  ],
  "short_known": [
+  "0x42B320",
   "0x52B2D0",
   "0x52B2F0",
   "0x52B310",
   "0x52B330",
   "0x5953D0",
   "0x8813A0",
-  "0x8813C0",
-  "0x881600"
+  "0x8813C0"
  ]
 }

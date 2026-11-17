@@ -4,6 +4,7 @@
  "description": "opcodes 5000, 5001 and 5010 and their two structs written by hand (builder P5); opcodes 5004, 5005, 5006 and 5009 written by hand (builder P4, 23 of 23 exact); packet classes (opcode 5002, 5003, 5011) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build (its opcode from Get_Type where the client calls it), Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x52B210",
   "0x52B240",
   "0x52B270",
@@ -105,6 +106,7 @@
  "merged": [],
  "name": "packets/pktask.cpp",
  "shared": [
+  "0x42B320",
   "0x52B210",
   "0x52B240",
   "0x52B270",
@@ -123,32 +125,17 @@
   "0x8AA850"
  ],
  "short_known": [
+  "0x42B320",
   "0x52B2D0",
   "0x52B2F0",
   "0x52B310",
   "0x52B330",
   "0x5953D0",
   "0x8A8B00",
-  "0x8A8C90",
-  "0x8A8CB0",
   "0x8A8E10",
-  "0x8A8FC0",
-  "0x8A8FE0",
   "0x8A90B0",
-  "0x8A9240",
-  "0x8A9260",
   "0x8A9340",
-  "0x8A94D0",
-  "0x8A94F0",
   "0x8A95D0",
-  "0x8A96B0",
-  "0x8A9A00",
-  "0x8A9A20",
-  "0x8A9C90",
-  "0x8AA190",
-  "0x8AA760",
-  "0x8AA850",
-  "0x8AA950",
-  "0x8AA970"
+  "0x8AA850"
  ]
 }

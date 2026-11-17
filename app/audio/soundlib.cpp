@@ -21,7 +21,7 @@ void Unknown_442870();							// NAME 1 [Unknown_442870]: 0x442870, surfacetypes.
 extern Random2Class Unknown_BDADC8;			// NAME 1 [Unknown_BDADC8]: 0xBDADC8, a global generator outside this file
 
 #include "..\client\option.h"				// OptionClass, option.cpp's object at 0xBE8B38 (D107)
-
+static RawFileFactoryClass _RawFileFactory;	// 0xBDAC60, never referenced: its initialiser 0x43D320 (ctor 0x43D390, atexit 0x43D350 -> 0x43D370) is the first of the file's .CRT$XCU entries  // NAME 1: neutral
 
 
 

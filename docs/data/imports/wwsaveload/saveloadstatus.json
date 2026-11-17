@@ -17,15 +17,14 @@
   "0xA06F10",
   "0xA06F30",
   "0xA07000",
-  "0xA070A0"
+  "0xA07090",
+  "0xA070A0",
+  "0xA070B0"
  ],
  "merged": [],
  "name": "saveloadstatus.cpp",
  "shared": [
   "0x42F250",
   "0x909500"
- ],
- "short_known": [
-  "0xA070A0"
  ]
 }

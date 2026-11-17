@@ -20,10 +20,5 @@
   "0x4C4940"
  ],
  "merged": [],
- "name": "shared/chat_edit_stream.cpp",
- "short_known": [
-  "0x4C43D0",
-  "0x4C43F0",
-  "0x4C4830"
- ]
+ "name": "shared/chat_edit_stream.cpp"
 }

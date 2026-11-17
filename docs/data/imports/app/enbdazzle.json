@@ -1,0 +1,40 @@
+{
+ "ambiguous": [],
+ "copy": "reconstructed",
+ "description": "RECONSTRUCTED from client.exe: enbdazzle.cpp's __FILE__ (FAIL_IF '_Instances' l.50 in 0x75DD00), vtable 0xB03D38 (DazzleVisibilityClass's one slot), 0x75DD00-0x75E6D0",
+ "expected": {},
+ "in_tree": [
+  "0x42B320",
+  "0x42F250",
+  "0x447C40",
+  "0x4826C0",
+  "0x483760",
+  "0x483780",
+  "0x75DD00",
+  "0x75DE70",
+  "0x75DEB0",
+  "0x75E6B0",
+  "0x75E6E0",
+  "0x75E700",
+  "0x75E9F0",
+  "0x75EA30",
+  "0x75EA60",
+  "0x75EC20",
+  "0x7C4FF0"
+ ],
+ "merged": [],
+ "name": "client/enbdazzle.cpp",
+ "shared": [
+  "0x42B320",
+  "0x42F250",
+  "0x447C40",
+  "0x4826C0",
+  "0x483760",
+  "0x483780"
+ ],
+ "short_known": [
+  "0x42B320",
+  "0x4826C0",
+  "0x483760"
+ ]
+}

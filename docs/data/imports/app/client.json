@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x45C0E0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "ClientClass, client 0x726100-0x728450 with the hash lists' instances: the asserts on the client's lines 165-443 (D25); NOT EXACT: the constructor 0x726100, Find_Object 0x727070, Remove_Object 0x727600, the DEBUG packet senders 0x728010 / 0x728240, 0x7283B0",
  "expected": {},
@@ -11,6 +9,7 @@
   "0x42A940",
   "0x42A970",
   "0x42AB30",
+  "0x42B320",
   "0x42DB80",
   "0x42F250",
   "0x447C40",
@@ -76,6 +75,7 @@
   "0x728100",
   "0x728150",
   "0x728180",
+  "0x7281D0",
   "0x7281F0",
   "0x728210",
   "0x728240",
@@ -105,7 +105,8 @@
   "0x729260",
   "0x7292A0",
   "0x7292D0",
-  "0x729320"
+  "0x729320",
+  "0x73FCE0"
  ],
  "merged": [],
  "name": "client/client.cpp",
@@ -115,6 +116,7 @@
   "0x42A940",
   "0x42A970",
   "0x42AB30",
+  "0x42B320",
   "0x42DB80",
   "0x42F250",
   "0x447C40",
@@ -151,14 +153,18 @@
   "0x726C10",
   "0x726C40",
   "0x7280E0",
+  "0x728450",
+  "0x728480",
   "0x729220",
   "0x729240",
   "0x729260",
   "0x7292A0",
   "0x7292D0",
-  "0x729320"
+  "0x729320",
+  "0x73FCE0"
  ],
  "short_known": [
+  "0x42B320",
   "0x52B2D0",
   "0x52B2F0",
   "0x52B310",
@@ -179,7 +185,6 @@
   "0x726BF0",
   "0x726C40",
   "0x7280E0",
-  "0x7281F0",
   "0x729220",
   "0x729240"
  ]

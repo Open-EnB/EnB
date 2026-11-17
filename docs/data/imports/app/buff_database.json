@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B250"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "BuffDefStruct / BuffDatabaseClass, client 0x676CD0-0x677660 with the table's instances to 0x678420: the reports on the client's lines 47 / 78 (D25); NOT EXACT: the destructor 0x677410",
  "expected": {},
@@ -11,6 +9,8 @@
   "0x42A940",
   "0x42A970",
   "0x42AB30",
+  "0x42B250",
+  "0x42B320",
   "0x42C4E0",
   "0x42CD30",
   "0x42D050",
@@ -47,6 +47,8 @@
   "0x42A940",
   "0x42A970",
   "0x42AB30",
+  "0x42B250",
+  "0x42B320",
   "0x42C4E0",
   "0x42CD30",
   "0x42D050",
@@ -56,8 +58,8 @@
   "0x441480"
  ],
  "short_known": [
+  "0x42B320",
   "0x42E170",
-  "0x431C80",
-  "0x677640"
+  "0x431C80"
  ]
 }

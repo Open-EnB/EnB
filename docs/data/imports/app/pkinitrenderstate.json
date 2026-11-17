@@ -4,6 +4,7 @@
  "description": "packet classes (opcode 47, 48, 49, 50) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x52B210",
   "0x52B240",
   "0x52B270",
@@ -51,6 +52,7 @@
  "merged": [],
  "name": "packets/pkinitrenderstate.cpp",
  "shared": [
+  "0x42B320",
   "0x52B210",
   "0x52B240",
   "0x52B270",
@@ -71,6 +73,7 @@
   "0x8A2310"
  ],
  "short_known": [
+  "0x42B320",
   "0x52B2D0",
   "0x52B2F0",
   "0x52B310",
@@ -78,15 +81,11 @@
   "0x5953D0",
   "0x8A19F0",
   "0x8A1A40",
-  "0x8A1C00",
   "0x8A1D00",
   "0x8A1D50",
-  "0x8A1EE0",
   "0x8A1FE0",
   "0x8A2030",
-  "0x8A21C0",
   "0x8A22C0",
-  "0x8A2310",
-  "0x8A24A0"
+  "0x8A2310"
  ]
 }

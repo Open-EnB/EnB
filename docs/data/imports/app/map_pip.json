@@ -1,14 +1,15 @@
 {
  "ambiguous": [
-  "0x42B2F0",
-  "0x46BE90",
-  "0x541A10"
+  "0x42B2F0"
  ],
  "copy": "reconstructed",
  "description": "MapPipClass (D24 class-from-file), the map picture-in-picture views' base (the client's __FILE__ 0xB909E0; client 0x6927C0-0x693020) (MP1)",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x42F250",
+  "0x4740B0",
+  "0x541A10",
   "0x6927C0",
   "0x6929D0",
   "0x6929F0",
@@ -28,14 +29,15 @@
  "merged": [],
  "name": "client/map_pip.cpp",
  "shared": [
-  "0x42F250"
+  "0x42B320",
+  "0x42F250",
+  "0x4740B0",
+  "0x541A10"
  ],
  "short_known": [
+  "0x42B320",
   "0x6929D0",
   "0x6929F0",
-  "0x692A10",
-  "0x693000",
-  "0x693020",
-  "0x693040"
+  "0x692A10"
  ]
 }

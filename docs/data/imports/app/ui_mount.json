@@ -4,6 +4,7 @@
  "description": "e:\\build\\beta\\G\\app\\Client\\ui_mount.cpp (the client's __FILE__ 0xB82A4C: FAIL_IF lines 199-201 in 0x5C7630, 271-392 in 0x5C77A0); UIMountClass, the equipment mount points window (0x404 bytes, tables 0xAF3DE8 / 0xAF3DDC / 0xAF3DD0)",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x42F250",
   "0x45CC10",
   "0x4A1930",
@@ -30,6 +31,8 @@
   "0x58B770",
   "0x58B790",
   "0x58B7C0",
+  "0x5C7360",
+  "0x5C7390",
   "0x5C73B0",
   "0x5C7470",
   "0x5C74A0",
@@ -45,6 +48,7 @@
  "merged": [],
  "name": "client/ui_mount.cpp",
  "shared": [
+  "0x42B320",
   "0x42F250",
   "0x45CC10",
   "0x4A1930",
@@ -75,6 +79,7 @@
   "0x5C8860"
  ],
  "short_known": [
+  "0x42B320",
   "0x4A1930",
   "0x4A19A0",
   "0x4A19C0",

@@ -4,6 +4,7 @@
  "description": "the log-off packets (opcodes 3, 185, 186, 187), client 0x89AB30-0x89B340: constructors, Build, Get_Data_Size, Print, Close_Channel; the file name assumed from the link order (NAME 2)",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x52B210",
   "0x52B240",
   "0x52B270",
@@ -49,6 +50,7 @@
  "merged": [],
  "name": "packets/pklogoff.cpp",
  "shared": [
+  "0x42B320",
   "0x52B210",
   "0x52B240",
   "0x52B270",
@@ -66,6 +68,7 @@
   "0x89B1B0"
  ],
  "short_known": [
+  "0x42B320",
   "0x52B2D0",
   "0x52B2F0",
   "0x52B310",
@@ -74,12 +77,7 @@
   "0x747C50",
   "0x89AB70",
   "0x89ABC0",
-  "0x89AD30",
-  "0x89AF40",
   "0x89B000",
-  "0x89B0F0",
-  "0x89B1B0",
-  "0x89B2A0",
-  "0x89B2F0"
+  "0x89B1B0"
  ]
 }

@@ -1,8 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0",
-  "0x455FB0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "the chat filter factory, client 0x4E42C0-0x4E4AF0 (__FILE__ from 0x4E42C0's '!filter' FAIL_IF, line 10; ends at <string>'s guarded ctype initialiser 0x4E4AD0): builds the word-list filter with 14 words; rebuilt by builder O10 (2026-11-13)",
  "expected": {},
@@ -12,12 +9,15 @@
   "0x42A940",
   "0x42A970",
   "0x42AB30",
+  "0x42B320",
   "0x42D050",
   "0x4E2250",
   "0x4E2270",
   "0x4E42C0",
   "0x4E49E0",
-  "0x4E4A10"
+  "0x4E4A10",
+  "0x4E4AA0",
+  "0x4E4AD0"
  ],
  "merged": [],
  "name": "shared/chat_filter_util.cpp",
@@ -27,11 +27,14 @@
   "0x42A940",
   "0x42A970",
   "0x42AB30",
+  "0x42B320",
   "0x42D050",
   "0x4E2250",
-  "0x4E2270"
+  "0x4E2270",
+  "0x4E4AA0"
  ],
  "short_known": [
+  "0x42B320",
   "0x4E2250"
  ]
 }

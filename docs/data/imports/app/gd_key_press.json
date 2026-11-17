@@ -5,6 +5,7 @@
  "expected": {},
  "in_tree": [
   "0x42A6C0",
+  "0x42B320",
   "0x42F250",
   "0x50A8C0",
   "0x50A8E0",
@@ -38,6 +39,7 @@
  "name": "client/gd_key_press.cpp",
  "shared": [
   "0x42A6C0",
+  "0x42B320",
   "0x42F250",
   "0x50A8C0",
   "0x50A8E0",
@@ -59,6 +61,7 @@
   "0x51C630"
  ],
  "short_known": [
+  "0x42B320",
   "0x50A8C0",
   "0x50A8E0",
   "0x50A900",

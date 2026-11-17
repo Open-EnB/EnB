@@ -1,8 +1,6 @@
 {
  "ambiguous": [
-  "0x42B2F0",
-  "0x46BE90",
-  "0x474080"
+  "0x42B2F0"
  ],
  "copy": "reconstructed",
  "description": "UIAnalyzeClass (ui_analyze.cpp's __FILE__; laid out from the constructor 0x5435D0, 0x11C bytes): the constructor 0x5435D0 and destructor 0x5437C0 (line 116), slots +0x58 / +0x5C / +0x68 / +0x7C (0x544090 / 0x544270 / 0x544BB0 / 0x544020), MANUFACTURE_ACTION 0x545D30, the column hides 0x546000, the column icon 0x5461C0 and the text helper 0x544C50 (FAIL_IF line 483) (claim PR #167, AN1); 0x545E40 / 0x546090 NOT EXACT (inline budget)",
@@ -10,9 +8,12 @@
  "in_tree": [
   "0x42A6C0",
   "0x42A820",
+  "0x42B320",
   "0x42F250",
   "0x45CC10",
   "0x46BE90",
+  "0x474080",
+  "0x4740B0",
   "0x4A1930",
   "0x4A19A0",
   "0x4A19C0",
@@ -30,6 +31,7 @@
   "0x515710",
   "0x515730",
   "0x515750",
+  "0x51A6F0",
   "0x51C630",
   "0x52B210",
   "0x52B240",
@@ -60,6 +62,7 @@
   "0x5461C0",
   "0x546480",
   "0x5464B0",
+  "0x5464F0",
   "0x546510",
   "0x5465C0",
   "0x546780",
@@ -75,9 +78,12 @@
  "shared": [
   "0x42A6C0",
   "0x42A820",
+  "0x42B320",
   "0x42F250",
   "0x45CC10",
   "0x46BE90",
+  "0x474080",
+  "0x4740B0",
   "0x4A1930",
   "0x4A19A0",
   "0x4A19C0",
@@ -95,6 +101,7 @@
   "0x515710",
   "0x515730",
   "0x515750",
+  "0x51A6F0",
   "0x51C630",
   "0x52B210",
   "0x52B240",
@@ -110,7 +117,10 @@
   "0x543770",
   "0x544250",
   "0x544B90",
+  "0x546480",
   "0x5464B0",
+  "0x5464F0",
+  "0x546510",
   "0x5465C0",
   "0x5468D0",
   "0x546970",
@@ -119,6 +129,7 @@
   "0x546A20"
  ],
  "short_known": [
+  "0x42B320",
   "0x4A1930",
   "0x4A19A0",
   "0x4A19C0",
@@ -145,6 +156,7 @@
   "0x543770",
   "0x544250",
   "0x544B90",
+  "0x5464F0",
   "0x546A10",
   "0x546A20"
  ]

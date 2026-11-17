@@ -65,9 +65,5 @@
   "0x9E3390"
  ],
  "merged": [],
- "name": "mpmath.cpp",
- "short_known": [
-  "0x9E04C0",
-  "0x9E04D0"
- ]
+ "name": "mpmath.cpp"
 }

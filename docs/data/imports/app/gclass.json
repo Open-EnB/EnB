@@ -1,11 +1,10 @@
 {
- "ambiguous": [
-  "0x45C0E0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "GClass, client 0x4A15E0-0x4A3000 (__FILE__ e:\\build\\beta\\G\\app\\shared\\gclass.cpp, asserts on the client's lines 325 / 344, D25): the constructors 0x4A1880 / 0x4A1B40, the destructor 0x4A1BD0, the slots 0x4A1800-0x4A2010, the statics 0x4A17B0 / 0x4A20A0, the template instances to 0x4A2650 and the relation table 0x4A26E0-0x4A2FD0 (unreferenced in the client); NOT EXACT: 0x4A17B0",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x457FA0",
   "0x45CA00",
   "0x48A060",
@@ -72,11 +71,13 @@
   "0x4A2EF0",
   "0x4A2F70",
   "0x4A2FA0",
-  "0x4A2FD0"
+  "0x4A2FD0",
+  "0x73FCE0"
  ],
  "merged": [],
  "name": "shared/gclass.cpp",
  "shared": [
+  "0x42B320",
   "0x457FA0",
   "0x45CA00",
   "0x48A060",
@@ -94,9 +95,11 @@
   "0x4A1AB0",
   "0x4A1AD0",
   "0x4A1AF0",
-  "0x4A2680"
+  "0x4A2680",
+  "0x73FCE0"
  ],
  "short_known": [
+  "0x42B320",
   "0x4A1910",
   "0x4A1930",
   "0x4A1980",
@@ -111,8 +114,5 @@
   "0x4A1AD0",
   "0x4A1AF0",
   "0x4A2680"
- ],
- "tiebreak": [
-  "0x4A2FD0"
  ]
 }
