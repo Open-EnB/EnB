@@ -3787,7 +3787,11 @@ below name only the work items, the blocked work, the leads and the queues.
    * **effect_description.cpp / item_effect.cpp (E1, U2):** Fill_Values 0x8335D0 NOT EXACT (register / prologue) with its string::find instance 0x8348B0, which returns with it; item_effect.cpp's four helpers 0x835770-0x8357F0 are not produced (faction_and_reputation.cpp starts at 0x835860).
    * **spln_db.cpp (P1):** the remaining NOT EXACT functions (item 10) hang on where GenericNode's ctor / Unlink / Link are emitted (file or build level).
    * **Types (C12):** sclient.h's `deque<int>` Unknown11AC / Unknown120C and emote_data.h's `deque<int>` Queue are distinct client copies (0x755A10 / 0x7E6570): one of them has another element type; find it from the copies' element size / constructor before the next sclient pad sweep (FE, run 2026-11-15b).
-   * **ww3d2 dx8wrapper.h lines 321-322 (C13, QC):** env_map_manager 0x760770 calls the global-MipCountType `_Create_DX8_Texture` overload; the client's (0x925C50 / 0x925CC0) take `TextureClass::MipCountType`: retype the overloads and the call (verify ww3d2 and app).
+   * **ww3d2 env_map_manager 0x760770:** a frame-layout residue (194 masked rows); the `TextureClass::MipCountType` names of
+     0x925C50 / 0x925CC0 in symbols.json are stale (the initial map's Generals names; our dx8wrapper.obj emits the global
+     `MipCountType`, Zero Hour's under D9): no retype.
+   * **symbols.json's stale exact names (Tools):** refresh with symbols.py at a quiet landing, 0x925C50 / 0x925CC0 first,
+     and find why symbols.py kept an old mangled name for an address whose object now emits another.
    * **wt/AR (c823403b9, 2026-11-16):** the Vector3 / InvSlotStruct leaf retype of aux_roots.h is done on the worktree but not landed: it waits for a send-pad window on the head after CR7 (no value 0..63 kept 0x74D990 0x758210 0x742B60 0x743380 0x744B60).
    * **ui_talkt (2026-11-16):** 0x64E7A0 parked again, register-only (10 rows: the bit test `and eax,1; test al,al` not folded; the lea before the argument load at 0x497300's call): a lever is needed from another function. Its `Unknown_497300` becomes `Create_Peek` once 0x497300 is named (byte-identical).
    * **Unknown_Find_Field copies 0x5314D0 / 0x5927E0 / 0x610370** (type global 0xBE3A74, F1): name all three together after their field types.

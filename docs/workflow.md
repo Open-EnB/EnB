@@ -1647,6 +1647,9 @@ are in 3.0.
   PREFIX: give it its own marker. Example: 0x81EEA0, 402 bytes, padded to 0x81F0DF. The last function before a
   PermStringInit static reports PREFIX the same way, and REL shows on float immediates. A trailing jump table or `$E` initialiser makes PREFIX mean exact; conversely
   appfile can say EXACT where verify does not (a jump table's bytes, a stale callee name in symbols.json).
+* **A symbols.json "exact" mangled name is our older build's, not client evidence:** explain.py's "relocation:
+  ... a different declaration?" against such a name can be a stale entry (the initial map took some from
+  Renegade / Generals headers). Grep the symbol in the current build/<lib>/obj before retyping to match it.
 * **explain.py's class can be wrong:** it says inline-budget for a function followed by a static initialiser (read
   objdiff first), and register-only where the lever was an inline-budget one (an `x.clear()` two layers down).
 * **appfile.py false exacts:** one template compiled from two files (with and without an EH frame) can match at
