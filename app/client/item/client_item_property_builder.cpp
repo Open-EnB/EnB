@@ -23,7 +23,7 @@ void ClientItemPropertyBuilderClass::Build(UIItemExaminationPropertyRouterBaseCl
 }
 
 
-// NOT EXACT: 0x521C10 (frame layout: the same code, but four strings and three RefCountPtrs sit in other stack slots; and the level requirement reads &Item->TemplateInfo then its Referent where ours folds [eax+0x5C])
+// NOT EXACT: 0x521C10 (0.85, register allocation only: the Unknown529810 property's Create and its Route take edx / eax where ours take eax / edx; tried a local id, a named RefCountPtr, both worse)
 void ClientItemPropertyBuilderClass::Unknown_521C10(UIItemExaminationPropertyRouterBaseClass &router)
 {
 	std::string maker = Data->Unknown_688830()->Get_Builder_Name(Slot);	// NAME 1 [maker, name, maker2, value, quality, level, structure, tooltip]: neutral
@@ -32,11 +32,11 @@ void ClientItemPropertyBuilderClass::Unknown_521C10(UIItemExaminationPropertyRou
 	router.Route(ClientItemPropertyNameClass::Create(name));
 	router.Route(ClientItemPropertyUnknown529810Class::Create(Item->Unknown08));
 	router.Route(ClientItemPropertyIconClass::Create(Create_Get(((Unknown831340Class *)Item)->Unknown_831840())));
-	int value = 0;
-	if (Item->Get_Template_Info()->Get_Int(ITEM_INFO_TYPE, &value)) {
-		router.Route(ClientItemPropertyTypeClass::Create(Item->Unknown48, value, Item->Unknown08));
+	int value = 0; const RefCountPtr<ItemInfoClass> &template_info = Item->Get_Template_Info();
+	if (template_info->Get_Int(ITEM_INFO_TYPE, &value)) {
+		int id = Item->Unknown08; int type = Item->Unknown48; router.Route(ClientItemPropertyTypeClass::Create(type, value, id));	// NAME 1 [id, type]: neutral; both branches start with the same loads, which VC6 hoists above the branch as the client has them
 	} else {
-		router.Route(ClientItemPropertyTypeClass::Create(Item->Unknown48, Item->Unknown08));
+		int id = Item->Unknown08; int type = Item->Unknown48; router.Route(ClientItemPropertyTypeClass::Create(type, id));
 	}
 	router.Route(ClientItemPropertyDescriptionClass::Create(Item->Description));
 	float quality = Data->Unknown_688830()->Get_Quality(Slot);
@@ -72,9 +72,9 @@ void ClientItemPropertyBuilderClass::Unknown_521C10(UIItemExaminationPropertyRou
 		}
 	}
 	if (!maker.empty()) {
-		router.Route(ClientItemPropertySpecialMakerClass::Create(maker, ClientItemPropertySpecialMakerClass::MAKER_PLAYER));
+		RefCountPtr<ClientItemPropertySpecialClass> special = ClientItemPropertySpecialMakerClass::Create(maker, ClientItemPropertySpecialMakerClass::MAKER_PLAYER); router.Route(special);	// NAME 1 [special]: neutral
 	} else if (!maker2.empty()) {
-		router.Route(ClientItemPropertySpecialMakerClass::Create(maker2, ClientItemPropertySpecialMakerClass::MAKER_CORPORATION));
+		RefCountPtr<ClientItemPropertySpecialClass> special = ClientItemPropertySpecialMakerClass::Create(maker2, ClientItemPropertySpecialMakerClass::MAKER_CORPORATION); router.Route(special);
 	}
 }
 
@@ -884,5 +884,8 @@ void ClientItemPropertyBuilderClass::Unknown_5285A0(UIItemExaminationPropertyRou
 **	client_item_property_builder.h (interim, D137).
 **	CIPB, run 2026-11-17b: 0x527F40 exact once 0x528460 takes the ItemEffectDescriptionClass (its vector at +0) and
 **	reads Get_Effects() in the loop: the extra inline accessor layer is the budget that sends both strings' _Tidy
-**	out of line and puts delta above delta2 in the frame.
+**	out of line and puts delta above delta2 in the frame. 0x521C10 0.70 -> 0.85: Get_Int through a template_info
+**	reference (the client does not fold &Item->TemplateInfo), the maker properties through a named
+**	RefCountPtr<ClientItemPropertySpecialClass> (the client converts into a local at 0x20, overlaying the structure
+**	property: this one change put every string and RefCountPtr in the client's slots), the type branch's loads per branch.
 */
