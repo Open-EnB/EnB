@@ -130,6 +130,13 @@ NOT_LINKED = {
     ('ww3d2', 'pot.cpp'):
         'D55: identical to wwmath\'s pot.cpp; both matched the same two client functions (Find_POT, Find_POT_Log2), '
         'and a program linking both libraries fails on the duplicate. wwmath\'s copy supplies them; ww3d2/pot.h stays',
+    ('ww3d2', 'bw_render.cpp'):
+        'Generals\' older copy (BW_Render, rev 4 of 2/06/01) of Renegade\'s bwrender.cpp (BWRenderClass, 4/04/01): '
+        'the same code under another class name. The client holds one such object (0x9BE190-0x9BE600; no string '
+        'or assert names it) and its only users are BWRenderClass\'s (rinfo.h\'s RenderInfoClass::BWRenderer, '
+        'called by MeshModelClass::Shadow_Render 0x9589E0 at 0x958A86 / 0x958A9F; texproject.cpp); a library '
+        'object nothing references is not linked, and nothing includes bw_render.h',
+    ('ww3d2', 'bw_render.h'): 'its header (included only by bw_render.cpp)',
 }
 
 
