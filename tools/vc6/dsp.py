@@ -210,7 +210,7 @@ def projects(standin_gen=None, force_unresolved=False, extra_objs=()):
         srcs = [repo_rel(p) for p in B.sources(lib)]
         if not srcs:
             continue
-        d = L.LIB_TREE.get(lib, lib)
+        d = L.LIB_TREE.get(lib, lib).replace(BS, '/')    # LIB_TREE is Windows-style; '/' works on both hosts
         ff = {}
         for s in srcs:
             f = L.flags_of(os.path.join(REPO, s))
