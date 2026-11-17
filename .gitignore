@@ -2,3 +2,12 @@ __pycache__/
 *.pyc
 .work/
 build/
+
+# the generated VC6 workspace (tools/vc6/dsp.py, D248) and the IDE build's files
+*.dsp
+*.dsw
+*.plg
+*.ncb
+*.opt
+client_release/
+programs/clientpoc/gen/
