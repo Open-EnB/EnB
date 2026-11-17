@@ -4,10 +4,12 @@
 
 .DESCRIPTION
   docs/setup-vc6.md explains every step. Needs Hyper-V (Windows Pro, Enterprise or Education), the
-  account in the Hyper-V Administrators group (no elevation), Python 3, 7-Zip, OpenSSH client and
-  internet access. Unattended from start to finish; about 30-60 minutes, most of it downloads.
+  account in the Hyper-V Administrators group (no elevation), 7-Zip, the OpenSSH client and internet
+  access; no Python (the helpers are EnBSetup.ps1's). It lists what it will download with the
+  third-party notice and asks first (-AcceptDownloads: no question); then it runs unattended, about
+  30-60 minutes, most of it downloads.
 
-   1. tools/vc6/setup/media.py: the VC6 and SP4 discs from the Internet Archive, hash-checked,
+   1. The VC6 and SP4 discs from the Internet Archive (EnBSetup.ps1 Get-VC6Media), SHA-1-checked,
       turned into ISOs.
    2. Windows: Microsoft's "Windows 10 MSIX packaging environment" image (the Hyper-V Quick Create
       gallery's, downloaded directly and SHA-256-checked; Windows 10 Enterprise Evaluation, 90 days
@@ -17,7 +19,8 @@
    4. The VM: generation 2, Secure Boot, the pool's hardware, the Windows disk, three DVDs (seed,
       VC6, SP4). First boot runs guest\Setup-Guest.ps1: OpenSSH with our key, VC6 by file copy
       (guest\Install-VC6.ps1, every file SHA-1-checked), the pool base's settings.
-   5. Checks over SSH: cl answers 12.00.8804 and an object stamps @comp.id build 8799.
+   5. Checks over SSH (EnBSetup.ps1 Test-BuildVM): cl answers 12.00.8804 and an object stamps
+      @comp.id build 8799.
    6. Unless -NoBase: shuts the VM down, removes the DVDs and copies its disk to
       <PoolDir>\base-vc6.vhdx (read-only), the parent of every pool clone; the VM stays as the
       pool's hardware template (never started by the pool).
@@ -40,6 +43,7 @@ param(
     [string]$ConfigFile = '',
     [switch]$NoBase,
     [switch]$ReplaceBase,
+    [switch]$AcceptDownloads,
     [int]$TimeoutMinutes = 90
 )
 $ErrorActionPreference = 'Stop'
@@ -52,6 +56,7 @@ function Sha256([string]$path) {
     try { return -join ([System.Security.Cryptography.SHA256]::Create().ComputeHash($s) | ForEach-Object { $_.ToString('X2') }) }
     finally { $s.Dispose() }
 }
+. (Join-Path $PSScriptRoot 'EnBSetup.ps1')
 $Repo = (Resolve-Path (Join-Path $PSScriptRoot '..\..\..')).Path
 if (-not $ConfigFile) { $ConfigFile = Join-Path $Repo '.work\vc6_config.json' }
 $Gallery = @{   # the Quick Create gallery's entry (https://go.microsoft.com/fwlink/?linkid=851584)
@@ -66,7 +71,6 @@ function Need([string]$cmd, [string]$hint) { if (-not (Get-Command $cmd -ErrorAc
 Step 'checks'
 if ($PSVersionTable.PSEdition -ne 'Desktop') { throw 'run with Windows PowerShell 5.1 (powershell.exe), not pwsh: the seed ISO writer needs it' }
 Need 'Get-VM' 'enable Hyper-V (Windows features: Hyper-V) and add your account to Hyper-V Administrators'
-Need 'python' 'install Python 3 (https://www.python.org/)'
 Need 'ssh' 'enable the OpenSSH Client (Settings > Optional features)'
 Need 'ssh-keygen' 'enable the OpenSSH Client (Settings > Optional features)'
 if (Get-VM -Name $Name -ErrorAction SilentlyContinue) { throw "a VM named $Name exists already (remove it, or pick -Name)" }
@@ -74,12 +78,18 @@ if (-not (Get-VMSwitch -Name $Switch -ErrorAction SilentlyContinue)) { throw "Hy
 $base = Join-Path $PoolDir 'base-vc6.vhdx'
 if (-not $NoBase -and (Test-Path $base) -and -not $ReplaceBase) { throw "$base exists (pass -ReplaceBase after destroying the pool's clones, or -NoBase)" }
 if ($ReplaceBase -and (Get-VM | Where-Object { $_.Name.StartsWith($Prefix) -and $_.Name -ne $Name })) { throw "pool VMs $Prefix* still exist: destroy them first (python tools/vc6/pool.py destroy --all-free); their disks are children of the base" }
+[void](Get-SevenZip)
+$downloads = @(Get-VC6MediaItems)
+if (-not $WindowsVhdx) {
+    $downloads += @{ Name = 'Windows 10 Enterprise Evaluation, the Hyper-V Quick Create gallery''s MSIX packaging environment (Microsoft; 90 days from first boot)'
+                     Uri = $Gallery.Uri; Url = $Gallery.Uri; Size = '4.7 GB' }
+}
+if (-not (Confirm-Download $downloads -Accept:$AcceptDownloads)) { throw 'nothing downloaded: run again and answer y, or see docs/setup-vc6.md section 4 (your own Windows and media)' }
 New-Item -ItemType Directory -Force $MediaDir, $PoolDir | Out-Null
 
 # ---------------------------------------------------------------- 1. VC6 media
 Step 'VC6 and SP4 media'
-python -I (Join-Path $PSScriptRoot 'media.py') --media $MediaDir --download
-if ($LASTEXITCODE) { throw 'media.py failed' }
+Get-VC6Media $MediaDir
 
 # ---------------------------------------------------------------- 2. Windows disk
 $vmDir = Join-Path $PoolDir $Name
@@ -244,19 +254,19 @@ if (Test-Path $ConfigFile) { (Get-Content -Raw $ConfigFile | ConvertFrom-Json).P
 $cfg.user = $User; $cfg.key = $Key; $cfg.pool_dir = $PoolDir; $cfg.template_vm = $Name; $cfg.prefix = $Prefix; $cfg.switch = $Switch
 New-Item -ItemType Directory -Force (Split-Path $ConfigFile) | Out-Null
 [System.IO.File]::WriteAllText($ConfigFile, ($cfg | ConvertTo-Json))
-$env:ENB_VC6_CONFIG = $ConfigFile
-$env:ENB_VC6_HOSTS = "$User@$ip"
-python -I (Join-Path $PSScriptRoot 'check_vm.py')
-if ($LASTEXITCODE) { throw 'the VM does not compile as VC6 SP4 (check_vm.py)' }
+if (-not (Test-BuildVM "$User@$ip" $Key)) { throw 'the VM does not compile as VC6 SP4 (Test-BuildVM)' }
 
 # ---------------------------------------------------------------- 6. the pool's base
+# the VC6 and SP4 discs go in every case: their drives take E: and F:, and the build names its sources
+# through a subst E: (the client's e:\build\beta\G, tools/vc6/vc6.py _alias_setup)
+Stop-VM -VM $vm
+Get-VMDvdDrive -VM $vm | Remove-VMDvdDrive
+if ($NoBase) { Start-VM -VM $vm; [void](Get-VMAddress $Name) }
 if (-not $NoBase) {
     Step "pool base $base"
-    Stop-VM -VM $vm
-    Get-VMDvdDrive -VM $vm | Remove-VMDvdDrive
     if (Test-Path $base) { Set-ItemProperty $base -Name IsReadOnly -Value $false; Remove-Item $base }
     Copy-Item $disk $base
     Set-ItemProperty $base -Name IsReadOnly -Value $true
-    Write-Host "base ready; clones: python tools/vc6/pool.py lease --agent NAME"
+    Write-Host "base ready; clones (the maintainer's pool, Python): python tools/vc6/pool.py lease --agent NAME"
 }
 Step "done: $Name ($User@$ip), settings in $ConfigFile"

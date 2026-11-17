@@ -1605,7 +1605,14 @@ are in 3.0.
   `.file` record) and compiler label numbers (`$L`, `$T`) that differ between any two builds, and moves every
   relocation's symbol index; COMDAT order can differ with the same code. (d) Over SSH, `cmd /c cd /d X && tool`
   runs `tool` in the outer shell's folder (the `cd` was a subshell's): give the tool its folder (`tar -C X`).
-  Windows' `tar -T LIST` keeps a CR in each name: write the list with LF.
+  Windows' `tar -T LIST` keeps a CR in each name: write the list with LF. (e) `msdev /MAKE` keeps the last exe when no
+  input is newer, a source dropped from the project included: msdev.py deletes clientpoc.exe before the stand-in
+  build's first pass, or that pass "links" with the last run's stand-ins and generates none. (f) The SDK header hashes
+  (toolchain.md §2) are of CRLF files (this host's `core.autocrlf=true` checkout); GitHub's archives and an
+  `autocrlf=false` clone have LF: hash headers through `Get-SdkSha` / build_client.py's `sha256`, never raw. (g)
+  Python's embeddable package confines `sys.path` with its `python312._pth`: Build-Client.ps1 deletes it in the VM, so
+  the tools import their neighbours. (h) In the VM's copy (no `.git`) every git-backed read needs the files themselves:
+  build.py's `tracked()` walks the tree, and the ledger's shards (`docs/data/imports`) travel with the copy.
 
 ### 3.6 RE tools, Ghidra and REA
 

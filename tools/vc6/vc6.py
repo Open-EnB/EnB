@@ -15,6 +15,11 @@ computer name, so names are not reliable), has its own sync cache, and a thread 
 with use_host(). Without a hosts file, ENB_VC6_HOST or the first discovered VM is used.
 
 Paths given to compile must be under C:\\EnBDevelopment. Configuration: docs/toolchain.md §1.1.
+
+Local mode (ENB_VC6_LOCAL=1): the tools run inside a build VM, on its own copy of the tree
+(tools/Build-Client.ps1 puts it there, so the host needs no Python). Commands then run in place:
+ssh() is a local process, scp() a copy, sync() nothing (the tree is already at the VM's
+C:\\EnBDevelopment).
 """
 import argparse
 import io
@@ -33,11 +38,14 @@ USER = CFG['user']             # the VM account (vc6config.py)
 HOSTS_FILE = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))),
                           '.work', 'vc6_hosts.json')
 _local = threading.local()
+LOCAL = os.environ.get('ENB_VC6_LOCAL') == '1'
 
 
 def hosts():
     """The build VMs, as user@ip. ENB_VC6_HOSTS (comma-separated) or ENB_VC6_HOST restricts a
     process to some of them, so two jobs can run side by side on different VMs."""
+    if LOCAL:
+        return ['local']
     if os.environ.get('ENB_VC6_HOSTS'):
         return [h.strip() for h in os.environ['ENB_VC6_HOSTS'].split(',') if h.strip()]
     if os.environ.get('ENB_VC6_HOST'):
@@ -79,8 +87,8 @@ def ssh_args():
 
 
 def ssh(command, check=True):
-    p = subprocess.run(['ssh'] + ssh_args() + [current_host(), command], capture_output=True, text=True,
-                       encoding='latin1')
+    args = command if LOCAL else ['ssh'] + ssh_args() + [current_host(), command]
+    p = subprocess.run(args, capture_output=True, text=True, encoding='latin1')
     if check and p.returncode != 0:
         sys.stderr.write(p.stdout + p.stderr)
         raise SystemExit(f'ssh failed ({p.returncode}): {command[:120]}')
@@ -88,13 +96,21 @@ def ssh(command, check=True):
 
 
 def scp(src, dst):
+    if LOCAL:
+        import shutil
+        if os.path.normcase(os.path.abspath(src)) != os.path.normcase(os.path.abspath(dst)):
+            os.makedirs(os.path.dirname(os.path.abspath(dst)), exist_ok=True)
+            shutil.copy(src, dst)
+        return
     p = subprocess.run(['scp', '-q'] + ssh_args() + [src, dst], capture_output=True, text=True)
     if p.returncode != 0:
         raise SystemExit(f'scp failed: {p.stderr.strip()}')
 
 
 def remote(path):
-    """scp target for a Windows path in the VM."""
+    """scp target for a Windows path in the VM (local mode: the path itself)."""
+    if LOCAL:
+        return path
     return f"{current_host()}:{path.replace(BS, '/')}"
 
 
@@ -117,6 +133,8 @@ def sync(dirs):
     and files deleted locally are deleted in the VM too. Delete the cache file to force a full
     sync (for example after reverting the VM to a checkpoint).
     """
+    if LOCAL:
+        return 0
     try:
         cache = json.load(open(sync_cache_path()))
     except (OSError, ValueError):

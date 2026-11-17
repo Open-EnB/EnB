@@ -154,7 +154,9 @@ enb-vc6-02` the other, VM, disk and config folder each gone, non-pool VMs untouc
 
 Cloned to `C:\EnBDevelopment\SDK` (outside the repository, like the EA clones). The sources below
 are the copies this project used; the SDKs are Microsoft's and RAD's, and the project does not
-distribute them (D150): bring your own copy and check it against these SHA-256 hashes.
+distribute them (D150): bring your own copy and check it against these SHA-256 hashes. A header's (`.h`) hash
+is of the file with CRLF line ends (a Windows checkout; GitHub's archives and an `autocrlf=false`
+clone have LF): `Get-SdkSha` in tools/vc6/setup/EnBSetup.ps1 and tools/build_client.py normalise before hashing.
 
 | File (under `SDK\`) | SHA-256 |
 |---|---|

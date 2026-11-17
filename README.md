@@ -34,15 +34,17 @@ chart is a slight undercount.
 ## Build it yourself
 
 You can compile the reconstructed client on your own Windows PC, with the same compiler Westwood
-used (Visual C++ 6.0 SP4, in a Hyper-V virtual machine the project's scripts set up for you).
-Clone the repository to `C:\EnBDevelopment\EnB`, then run one command:
+used (Visual C++ 6.0 SP4, in a Hyper-V virtual machine the project's scripts set up for you). Your
+PC needs Windows with Hyper-V and nothing else of ours: no Python, no compiler. Put the repository
+at `C:\EnBDevelopment\EnB`, then run one command:
 
 ```powershell
-python tools\build_client.py
+powershell -ExecutionPolicy Bypass -File tools\Build-Client.ps1
 ```
 
-It makes the build VM, fetches and checks the SDKs, generates a Visual C++ 6.0 workspace
-(`app\main\main.dsw`) and builds it with the IDE's own build. The result is `build\client\client.exe`.
+It makes the build VM, asks before each download of third-party software (the compiler, Windows,
+the SDKs), generates a Visual C++ 6.0 workspace (`app\main\main.dsw`) and builds it inside the VM
+with the IDE's own build. The result is `build\client\client.exe`.
 **[docs/build-your-own.md](docs/build-your-own.md)** is the step-by-step guide: what you need, what
 each step does, and how to run what you built.
 

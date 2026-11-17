@@ -44,7 +44,9 @@ def alias_path(path):
 
 def sync_tree(projs):
     """Send every project's source and include directories and its .dsp to the VM, and the
-    prebuilt libraries to the same paths there."""
+    prebuilt libraries to the same paths there (nothing in local mode: the tree is the VM's own)."""
+    if vc6.LOCAL:
+        return 0
     dirs = set()
     for p in projs:
         dirs.add(os.path.join(REPO, p.dir))
@@ -83,10 +85,14 @@ def run_make(project, rebuild=False, out=DEFAULT_OUT):
     ws = os.path.basename(dsp.WORKSPACE)
     log = f'{vc6.WORK}\\msdev_{project}.log'
     flag = ' /REBUILD' if rebuild else ''
-    lines = setup + [f'cd /d "{ws_dir}"',
+    lines = setup + [f'if not exist "{ws_dir}\\{ws}" (echo MSDEV_ALIAS_FAILED & exit /b 1)',
+                     f'cd /d "{ws_dir}"',
                      f'msdev {ws} /MAKE "{project} - Win32 {dsp.CONFIG}"{flag} /OUT "{log}" > nul 2>&1',
                      'echo MSDEV_RC=%ERRORLEVEL%']
     r = vc6.run_bat(lines)
+    if 'MSDEV_ALIAS_FAILED' in (r.stdout or ''):
+        raise SystemExit(f'{ws_dir} does not reach the workspace: the subst {ALIAS[:2]} failed (a drive already '
+                         f'has that letter in the VM, a DVD drive for one: remove it; vc6._alias_setup)')
     rc = None
     for l in (r.stdout or '').splitlines():
         if l.startswith('MSDEV_RC='):
@@ -154,8 +160,12 @@ def make(project, rebuild=False, out=DEFAULT_OUT):
     gen = os.path.join(gen_dir, 'poc_gen_stubs.cpp')
     if os.path.exists(gen):
         os.remove(gen)
-    rc, text = run_make(dsp.STANDIN, rebuild, out)
     exe_rel = f'programs/{dsp.STANDIN}/{dsp.CONFIG}/{dsp.STANDIN}.exe'
+    # the first pass must link: msdev keeps the last exe when no input is newer (the stand-ins' file
+    # dropped from the project does not count), and that exe already has the last run's stand-ins
+    vm_exe = vc6.ROOT + BS + os.path.relpath(REPO, vc6.ROOT) + BS + exe_rel.replace('/', BS)
+    vc6.ssh(f'cmd /c if exist "{vm_exe}" del "{vm_exe}"', check=False)
+    rc, text = run_make(dsp.STANDIN, rebuild, out)
     if ' error(s)' in text and ' 0 error(s)' not in text:
         if 'error C' in text:
             return rc, text                       # a compile error: no stand-ins can help

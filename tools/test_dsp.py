@@ -94,6 +94,36 @@ def coff(sections, symbols):
     return out + blobs + syms + struct.pack('<I', 4)
 
 
+class BuildClientTest(unittest.TestCase):
+    def test_sdk_header_hash_ignores_line_ends(self):
+        """docs/toolchain.md §2's header hashes are of CRLF files; GitHub's archives have LF."""
+        import tempfile
+        sys.path.insert(0, HERE)
+        import build_client
+        d = tempfile.mkdtemp()
+        lf, crlf, lib = (os.path.join(d, n) for n in ('a.h', 'b.h', 'c.lib'))
+        open(lf, 'wb').write(b'int a;\nint b;\n')
+        open(crlf, 'wb').write(b'int a;\r\nint b;\r\n')
+        open(lib, 'wb').write(b'x\ny\n')
+        self.assertEqual(build_client.sha256(lf), build_client.sha256(crlf))
+        import hashlib
+        self.assertEqual(build_client.sha256(lib), hashlib.sha256(b'x\ny\n').hexdigest())   # binaries as they are
+
+    def test_tracked_without_git(self):
+        """build.py's file list walks the tree when there is no git checkout (the VM's copy)."""
+        real = B.REPO
+        try:
+            import tempfile
+            d = tempfile.mkdtemp()
+            os.makedirs(os.path.join(d, 'wwdebug', 'client_release'))
+            open(os.path.join(d, 'wwdebug', 'wwdebug.cpp'), 'w').close()
+            open(os.path.join(d, 'wwdebug', 'client_release', 'x.obj'), 'w').close()
+            B.REPO = d
+            self.assertEqual(B.tracked('wwdebug'), ['wwdebug/wwdebug.cpp'])
+        finally:
+            B.REPO = real
+
+
 class ObjcmpTest(unittest.TestCase):
     def test_label_numbers_and_index_ignored(self):
         a = coff([('.text', b'\xe8\0\0\0\0', [(1, 1, 20)])], ['.file', '$L100'])

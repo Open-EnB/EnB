@@ -90,10 +90,22 @@ def sources(lib):
     """The committed .cpp/.c files of a library (paths under the repository), NOT_LINKED dropped."""
     out = []
     top = I.LIB_TREE.get(lib, lib).replace(BS, '/')      # wlib, wnet: libs/wwonline/<lib>
-    for f in git('ls-files', '--', top + '/').splitlines():
+    for f in tracked(top):
         if f.lower().endswith(('.cpp', '.c')) and not I.not_linked(lib, os.path.basename(f)):
             if lib in I.APP_LIBS or f.count('/') == top.count('/') + 1:
                 out.append(os.path.join(REPO, f.replace('/', os.sep)))
+    return sorted(out)
+
+
+def tracked(top):
+    """The files under `top` (repository-relative, '/'): git's committed list, or without a git checkout
+    (a copy of the tree, as tools/Build-Client.ps1 sends to the VM: only committed files) every file."""
+    if os.path.isdir(os.path.join(REPO, '.git')) or os.path.isfile(os.path.join(REPO, '.git')):
+        return git('ls-files', '--', top + '/').splitlines()
+    out = []
+    for d, dirs, files in os.walk(os.path.join(REPO, top.replace('/', os.sep))):
+        dirs[:] = [x for x in dirs if x.lower() != 'client_release']
+        out += [os.path.relpath(os.path.join(d, f), REPO).replace(os.sep, '/') for f in files]
     return sorted(out)
 
 
