@@ -82,15 +82,3 @@ const char *Type_Name(MoneyClass)
 // 0xBDB1C0: a global Random4Class with seed 0x1105 (its initialiser 0x444240; its home file is unknown). Data, so it
 // can't log; seeded as the client's
 Random4Class Unknown_BDB1C0(0x1105);
-
-// ------------------------------------------------------------------------- enbassetmgr.cpp
-
-#include "enbassetmgr.h"
-
-// 0x48B7B0 (not rebuilt; gen_stubs skips the overload): the named texture recoloured by hsv, cached in the client under
-// '#name!H%gS%gV%g'. A stand-in that works: the texture as loaded, not recoloured
-TextureClass *ENBAssetManager::Recolor_Texture(const char *name, float *hsv, MipCountType mip)
-{
-	STUB_CALLED("ENBAssetManager::Recolor_Texture(name) (0x48B7B0)");
-	return Get_Texture(name, mip);
-}

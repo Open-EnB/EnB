@@ -1275,9 +1275,6 @@
 "?Read_PCX_File@@YAPAVSurface@@AAVFileClass@@PAVPaletteClass@@PAXJ@Z": [
 "0x9DE210"
 ],
-"?Recolor_Texture@ENBAssetManager@@QAEPAVTextureClass@@PBDPAMW4MipCountType@@@Z": [
-"0x48B7B0"
-],
 "?Register_Application_Exception_Callback@@YAXP6AXXZ@Z": [
 "0x9CEA10"
 ],

@@ -285,6 +285,37 @@ void ENBAssetManager::Recolor_Vertices(unsigned int *color, int count, Vector3 &
 	}
 }
 
+// @0x48B7B0
+TextureClass *ENBAssetManager::Recolor_Texture(const char *name, float *hsv, MipCountType mip)	// the named texture with an HSV shift: the cached copy, else the plain texture (loaded and hashed when new) recoloured
+{
+	WWPROFILE("ENBAssetManager::Get_Texture with HSV shift");
+	if ((WWMath::Fabs(hsv[0] - ident_HSV.X) > 1.0f) ||
+	    (WWMath::Fabs(hsv[1] - ident_HSV.Y) > 0.01f) ||
+	    (WWMath::Fabs(hsv[2] - ident_HSV.Z) > 0.01f)) {
+		if ((name == NULL) || (strlen(name) == 0)) {
+			return(NULL);
+		}
+		TextureClass *newtex = Unknown_48CF90(name, hsv);
+		if (newtex == NULL) {
+			char lower_case_name[256];
+			strcpy(lower_case_name, name);
+			_strlwr(lower_case_name);
+			TextureClass *tex = TextureHash.Get(StringClass(lower_case_name));
+			if (!tex) {
+				tex = W3DNEW TextureClass(lower_case_name, NULL, mip);
+				TextureHash.Insert(tex->Get_Texture_Name(), tex);
+			}
+			newtex = Recolor_Texture(tex, hsv);
+			if (newtex == NULL) {
+				tex->Add_Ref();
+				newtex = tex;
+			}
+		}
+		return(newtex);
+	}
+	return(Get_Texture(name, mip));
+}
+
 // @0x48CF90
 TextureClass *ENBAssetManager::Unknown_48CF90(const char *name, float *hsv)
 {
@@ -597,37 +628,6 @@ void Unknown_48E9D0(RenderObjClass *robj)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // @0x48EB90
 void ENBAssetManager::Post_Process(RenderObjClass *robj)
 {
@@ -721,4 +721,9 @@ void ENBAssetManager::Release_Unused_Textures(void)
 **	(its uncalled out-of-line copy, after a NULL test; inlined into the Recolor_ helpers) with two returns: that single
 **	merge is what lets the client drop REF_PTR_SET's null test. 0x48CF90 must be defined
 **	before 0x48CB40 in this file, or it loses its EH frame.
+**	U3 (2026-11-17): 0x48B7B0, the named texture with an HSV shift (its profile 'ENBAssetManager::Get_Texture with HSV
+**	shift'; the header keeps the name Recolor_Texture): no shift, Get_Texture (slot +0x30); else 0x48CF90 inlined (its
+**	HashTemplateClass Get out of line: 0x48F8D0), then the plain texture under its lower-case name (an explicit
+**	StringClass key: its EH state) loaded and hashed when new, recoloured. Exact only when defined before 0x48CF90, and
+**	then 0x48CF90 loses its EH frame (the same order effect as above): a trade, 34 blank lines before Post_Process became 3.
 */
