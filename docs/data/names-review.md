@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1966 |
 | 2 | describes what the code does | 4981 |
-| 1 | neutral placeholder | 25154 |
+| 1 | neutral placeholder | 25150 |
 
 ## For review (score 3 and below)
 
@@ -93,7 +93,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `UnknownB0133CEnum` | `app/client/aux_roots.h:85` | untagged neutral name (D10) |
 | 1 | `UnknownB01394Enum` | `app/client/aux_roots.h:86` | untagged neutral name (D10) |
 | 1 | `UnknownB013ECEnum` | `app/client/aux_roots.h:87` | untagged neutral name (D10) |
-| 1 | `UnknownB016DCType` | `app/client/aux_roots.h:103` | the value type of the leaf vtable 0xB016DC (no name in the client, Net-7 or C#) |
 | 1 | `UnknownB03588Enum` | `app/client/aux_roots.h:138` | the value type of the leaf vtable 0xB03588 (no name in the client, Net-7 or C#) |
 | 1 | `UnknownB035E0Enum` | `app/client/aux_roots.h:143` | the value type of the leaf vtable 0xB035E0 (no name in the client, Net-7 or C#) |
 | 1 | `Unknown9C` | `app/client/aux_roots.h:181` | neutral (D10): a member, not a field of the tree |
@@ -2060,6 +2059,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_700820` | `app/client/co.cpp:2571` | untagged neutral name (D10) |
 | 1 | `Unknown_700860` | `app/client/co.cpp:2587` | untagged neutral name (D10) |
 | 1 | `Unknown_7009A0` | `app/client/co.cpp:2595` | untagged neutral name (D10) |
+| 1 | `UnknownRTTIClass` | `app/client/co.cpp:2648` | untagged neutral name (D10) |
 | 1 | `UnknownRootClass` | `app/client/co.h:48` | untagged neutral name (D10) |
 | 1 | `object` | `app/client/co.h:49` | neutral |
 | 1 | `Unknown_731FA0` | `app/client/co.h:49` | untagged neutral name (D10) |
@@ -5647,16 +5647,14 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown831340Class` | `app/client/inv_data_peek.cpp:12` | neutral (D10); NAME 3 [item_template_id]: ui_manu.cpp's |
 | 1 | `Unknown_8318B0` | `app/client/inv_data_peek.cpp:12` | untagged neutral name (D10) |
 | 1 | `mounts_name` | `app/client/inv_data_peek.cpp:101` | neutral (D10) |
-| 1 | `UnknownB016DCType` | `app/client/inv_data_peek.cpp:102` | untagged neutral name (D10) |
 | 1 | `Unknown_Find_Field` | `app/client/inv_data_peek.cpp:102` | untagged neutral name (D10) |
 | 1 | `Unknown70` | `app/client/inv_data_peek.cpp:103` | untagged neutral name (D10) |
 | 1 | `UnknownRTTIClass` | `app/client/inv_data_peek.cpp:159` | untagged neutral name (D10) |
 | 1 | `Unknown04` | `app/client/inv_data_peek.cpp:245` | untagged neutral name (D10) |
 | 1 | `UnknownGlobal` | `app/client/inv_data_peek.cpp:245` | untagged neutral name (D10) |
-| 1 | `UnknownB016DCType` | `app/client/inv_data_peek.h:60` | untagged neutral name (D10) |
-| 1 | `Get_Mount_I00` | `app/client/inv_data_peek.h:61` | neutral (D10), as UnknownB016DCType's member |
-| 1 | `Get_Mount_I08` | `app/client/inv_data_peek.h:62` | neutral (D10), as UnknownB016DCType's member |
-| 1 | `Get_Mount_I04` | `app/client/inv_data_peek.h:63` | neutral (D10), as UnknownB016DCType's member |
+| 1 | `Get_Mount_I00` | `app/client/inv_data_peek.h:61` | neutral (D10), as InvSlotStruct's member |
+| 1 | `Get_Mount_I08` | `app/client/inv_data_peek.h:62` | neutral (D10), as InvSlotStruct's member |
+| 1 | `Get_Mount_I04` | `app/client/inv_data_peek.h:63` | neutral (D10), as InvSlotStruct's member |
 | 1 | `Unknown04` | `app/client/inv_data_peek.h:192` | untagged neutral name (D10) |
 | 1 | `UnknownGlobal` | `app/client/inv_data_peek.h:192` | untagged neutral name (D10) |
 | 1 | `find` | `app/client/inv_data_peek.h:208` | neutral (D10): the assert's text |
@@ -15025,7 +15023,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown70` | `app/client/ui_mount.cpp:277` | untagged neutral name (D10) |
 | 1 | `model_file` | `app/client/ui_mount.cpp:278` | neutral (D10) |
 | 1 | `mounts_field` | `app/client/ui_mount.cpp:279` | neutral (D10) |
-| 1 | `UnknownB016DCType` | `app/client/ui_mount.cpp:280` | untagged neutral name (D10) |
 | 1 | `bones_field` | `app/client/ui_mount.cpp:282` | neutral (D10) |
 | 1 | `Unknown0C` | `app/client/ui_mount.cpp:422` | untagged neutral name (D10) |
 | 1 | `Unknown_843440` | `app/client/ui_mount.cpp:425` | untagged neutral name (D10) |
@@ -15558,7 +15555,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_8C` | `app/client/ui_pda_equip.cpp:377` | untagged neutral name (D10) |
 | 1 | `Unknown_A4` | `app/client/ui_pda_equip.cpp:400` | untagged neutral name (D10) |
 | 1 | `Unknown_542250` | `app/client/ui_pda_equip.cpp:432` | untagged neutral name (D10) |
-| 1 | `UnknownB016DCType` | `app/client/ui_pda_equip.cpp:457` | untagged neutral name (D10) |
 | 1 | `Unknown04` | `app/client/ui_pda_equip.cpp:464` | untagged neutral name (D10) |
 | 1 | `Unknown08` | `app/client/ui_pda_equip.cpp:465` | untagged neutral name (D10) |
 | 1 | `ui_pda_equip.h` | `app/client/ui_pda_equip.h:5` | provisional header name for ui_pda_equip.cpp |
