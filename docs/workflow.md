@@ -1647,6 +1647,12 @@ are in 3.0.
   PREFIX: give it its own marker. Example: 0x81EEA0, 402 bytes, padded to 0x81F0DF. The last function before a
   PermStringInit static reports PREFIX the same way, and REL shows on float immediates. A trailing jump table or `$E` initialiser makes PREFIX mean exact; conversely
   appfile can say EXACT where verify does not (a jump table's bytes, a stale callee name in symbols.json).
+* **A crediting rule over call chains reaches only callers something locates:** most uncredited COMDAT siblings hang
+  off callers that are themselves unnamed and uncredited; measure how many callers a new location source adds
+  before building the rule.
+* **An out-of-line definition of a COMDAT the linker placed elsewhere counts as the object's own code** (selection
+  NODUPLICATES): it stretches the object's range for range rules. Check `CoffObject.own()` on the .obj; `inline`
+  (selection ANY) gives the same bytes without it.
 * **A symbols.json "exact" mangled name is our older build's, not client evidence:** explain.py's "relocation:
   ... a different declaration?" against such a name can be a stale entry (the initial map took some from
   Renegade / Generals headers). Grep the symbol in the current build/<lib>/obj before retyping to match it.
