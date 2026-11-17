@@ -150,7 +150,7 @@ before placing (`docs/data/triage.md`).
 
 **The week of 2026-11-10 to 2026-11-17 (D225)** departs from this table: its first four sessions run the
 coordinator and the reasoning builders on Fable with D89's count limits lifted; the rows that apply per
-session are in [week-plan-2026-11-10.md](week-plan-2026-11-10.md) §2. From session 5 this table holds again.
+session are in [archive/week-plan-2026-11-10.md](archive/week-plan-2026-11-10.md) §2. From session 5 this table holds again.
 
 The plan log of each run (`.work/<run>/plan.md`) records model and tokens per builder, so this
 table gets evidence. Rule of thumb for Fable: estimate Fable's cost for one attempt against Opus's
