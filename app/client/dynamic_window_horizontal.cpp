@@ -302,11 +302,11 @@ void DynamicWindowHorizontalClass::Child_Changed(DynamicWindowElementClass &chil
 	Flags &= ~6;
 	for (std::vector< RefCountPtr<DynamicWindowElementClass> >::iterator it = Elements.begin(); it != Elements.end(); ++it) {
 		if (*it) {
-			if ((*it)->Has_Flags(2) && ++FillXCount == 0) {
-				Set_Flags(2);
+			if ((*it)->Has_Flags(2)) {
+				FillXCount++;
 			}
-			if ((*it)->Has_Flags(4) && ++FillYCount == 0) {
-				Set_Flags(4);
+			if ((*it)->Has_Flags(4)) {
+				FillYCount++;
 			}
 		}
 	}
