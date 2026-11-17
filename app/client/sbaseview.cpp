@@ -1106,7 +1106,7 @@ void SBaseViewClass::Unknown_69F8F0(int type, int arg)
 				client->ChatPanel->Unknown_568690();
 			}
 			if (!Unknown198) {
-				Unknown198 = Create_Get(new SBaseViewUnknown198Class((SClient *)((ClientClass *)Client)->As_Space_Client()));
+				Unknown198 = Create_Get(new Unknown65A020Class((SClient *)((ClientClass *)Client)->As_Space_Client()));
 				Unknown198->Unknown_54();
 				Unknown198->Unknown_7C(this, true);
 				((SClient *)((ClientClass *)Client)->As_Space_Client())->Unknown_74CA70();

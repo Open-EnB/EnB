@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 226 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
-| 3 | by convention from a client-named file or sibling | 1966 |
+| 3 | by convention from a client-named file or sibling | 1967 |
 | 2 | describes what the code does | 4981 |
-| 1 | neutral placeholder | 25150 |
+| 1 | neutral placeholder | 25195 |
 
 ## For review (score 3 and below)
 
@@ -7248,7 +7248,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown1138` | `app/client/sbaseview.cpp:1085` | untagged neutral name (D10) |
 | 1 | `Unknown_5685C0` | `app/client/sbaseview.cpp:1102` | untagged neutral name (D10) |
 | 1 | `Unknown_568690` | `app/client/sbaseview.cpp:1106` | untagged neutral name (D10) |
-| 1 | `SBaseViewUnknown198Class` | `app/client/sbaseview.cpp:1109` | untagged neutral name (D10) |
+| 1 | `Unknown65A020Class` | `app/client/sbaseview.cpp:1109` | untagged neutral name (D10) |
 | 1 | `Unknown_88` | `app/client/sbaseview.cpp:1165` | untagged neutral name (D10) |
 | 1 | `Unknown_Rotate_Vector` | `app/client/sbaseview.cpp:1233` | neutral (D10) |
 | 1 | `Unknown_6A0590` | `app/client/sbaseview.cpp:1243` | untagged neutral name (D10) |
@@ -7493,7 +7493,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `SBaseViewUnknown184Class` | `app/client/sbaseview.h:325` | neutral (D10): the starbase view's +0x184 (0x69F8F0 case 5: 0x5EB810, 0xB08 bytes; 'TSM03A')  // NAME 1 [view, layer]: what 0x69F8F0 passes |
 | 1 | `Unknown` | `app/client/sbaseview.h:325` | untagged neutral name (D10) |
 | 1 | `SBaseViewUnknown188Class` | `app/client/sbaseview.h:326` | neutral (D10): the starbase view's +0x188 (0x69F8F0 case 6: 0x5435D0, 0x11C bytes; 'FA_TSM02A.INI')  // NAME 1 [view, layer]: what 0x69F8F0 passes |
-| 1 | `SBaseViewUnknown198Class` | `app/client/sbaseview.h:327` | neutral (D10): the starbase view's +0x198 (0x69F8F0 case 9: 0x65A020, 0xB8 bytes; 'JWEB00')  // NAME 1 [client]: what 0x69F8F0 passes |
 | 1 | `Unknown761C80Class` | `app/client/sbaseview.h:347` | untagged neutral name (D10) |
 | 1 | `SBaseViewChannelStruct` | `app/client/sbaseview.h:354` | neutral (D10) |
 | 1 | `Unknown65B810ViewClass` | `app/client/sbaseview.h:376` | untagged neutral name (D10) |
@@ -7597,6 +7596,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown170` | `app/client/sbaseview.h:459` | untagged neutral name (D10) |
 | 1 | `Unknown178` | `app/client/sbaseview.h:461` | untagged neutral name (D10) |
 | 1 | `Unknown17C` | `app/client/sbaseview.h:461` | untagged neutral name (D10) |
+| 1 | `Unknown65A020Class` | `app/client/sbaseview.h:464` | untagged neutral name (D10) |
 | 1 | `Unknown198` | `app/client/sbaseview.h:464` | untagged neutral name (D10) |
 | 1 | `Unknown1A8` | `app/client/sbaseview.h:466` | untagged neutral name (D10) |
 | 1 | `Unknown1C0` | `app/client/sbaseview.h:472` | untagged neutral name (D10) |
@@ -20243,6 +20243,51 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_62ADE0` | `app/client/unknown_62a7c0.h:17` | untagged neutral name (D10) |
 | 1 | `shield, fill` | `app/client/unknown_62a7c0.h:18` | what they are |
 | 1 | `Unknown_62AFA0` | `app/client/unknown_62a7c0.h:18` | untagged neutral name (D10) |
+| 1 | `Unknown_BE67C4` | `app/client/unknown_65a020.cpp:15` | neutral (D10) |
+| 1 | `LineDisplayClientClass` | `app/client/unknown_65a020.cpp:18` | neutral (D10) |
+| 1 | `Unknown_00` | `app/client/unknown_65a020.cpp:21` | untagged neutral name (D10) |
+| 1 | `Unknown_04` | `app/client/unknown_65a020.cpp:21` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `app/client/unknown_65a020.cpp:21` | untagged neutral name (D10) |
+| 1 | `Unknown_0C` | `app/client/unknown_65a020.cpp:21` | untagged neutral name (D10) |
+| 1 | `Unknown_10` | `app/client/unknown_65a020.cpp:22` | untagged neutral name (D10) |
+| 1 | `Unknown_14` | `app/client/unknown_65a020.cpp:22` | untagged neutral name (D10) |
+| 1 | `robj, make_geometry_unique` | `app/client/unknown_65a020.cpp:26` | as ui_manu.cpp's |
+| 1 | `Unknown_496AE0` | `app/client/unknown_65a020.cpp:26` | untagged neutral name (D10) |
+| 1 | `Unknown_B8C58C` | `app/client/unknown_65a020.cpp:29` | neutral (D10) |
+| 1 | `Unknown65A020Class` | `app/client/unknown_65a020.cpp:32` | untagged neutral name (D10) |
+| 1 | `Unknown5BB320Class` | `app/client/unknown_65a020.cpp:33` | untagged neutral name (D10) |
+| 1 | `Unknown0B4` | `app/client/unknown_65a020.cpp:34` | untagged neutral name (D10) |
+| 1 | `Unknown0AC` | `app/client/unknown_65a020.cpp:36` | untagged neutral name (D10) |
+| 1 | `Unknown_BE67BC` | `app/client/unknown_65a020.cpp:37` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/unknown_65a020.cpp:44` | untagged neutral name (D10) |
+| 1 | `Unknown_54` | `app/client/unknown_65a020.cpp:50` | untagged neutral name (D10) |
+| 1 | `Unknown64` | `app/client/unknown_65a020.cpp:57` | untagged neutral name (D10) |
+| 1 | `Unknown_6870E0` | `app/client/unknown_65a020.cpp:57` | untagged neutral name (D10) |
+| 1 | `Unknown_5BB4F0` | `app/client/unknown_65a020.cpp:58` | untagged neutral name (D10) |
+| 1 | `Unknown4C` | `app/client/unknown_65a020.cpp:61` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `app/client/unknown_65a020.cpp:68` | untagged neutral name (D10) |
+| 1 | `Unknown_5153B0` | `app/client/unknown_65a020.cpp:70` | untagged neutral name (D10) |
+| 1 | `Unknown_7CA2D0` | `app/client/unknown_65a020.cpp:78` | untagged neutral name (D10) |
+| 1 | `Unknown_7CA570` | `app/client/unknown_65a020.cpp:78` | untagged neutral name (D10) |
+| 1 | `Unknown_7CB240` | `app/client/unknown_65a020.cpp:79` | untagged neutral name (D10) |
+| 1 | `Unknown_515400` | `app/client/unknown_65a020.cpp:82` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/unknown_65a020.cpp:86` | untagged neutral name (D10) |
+| 1 | `Unknown_7CA5C0` | `app/client/unknown_65a020.cpp:90` | untagged neutral name (D10) |
+| 1 | `Unknown_68` | `app/client/unknown_65a020.cpp:96` | untagged neutral name (D10) |
+| 1 | `Unknown_30` | `app/client/unknown_65a020.cpp:100` | untagged neutral name (D10) |
+| 1 | `Unknown_69F440` | `app/client/unknown_65a020.cpp:100` | untagged neutral name (D10) |
+| 1 | `unknown_65a020.h` | `app/client/unknown_65a020.h:4` | provisional name (D137): the client's file sorts between ui_verb.cpp and uiview.cpp |
+| 1 | `Unknown65A020Class` | `app/client/unknown_65a020.h:14` | neutral (D10) |
+| 1 | `Unknown5BB320Class` | `app/client/unknown_65a020.h:14` | untagged neutral name (D10) |
+| 1 | `client` | `app/client/unknown_65a020.h:17` | what 0x69F8F0 passes |
+| 1 | `Unknown_54` | `app/client/unknown_65a020.h:19` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `app/client/unknown_65a020.h:20` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/unknown_65a020.h:21` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/unknown_65a020.h:22` | untagged neutral name (D10) |
+| 1 | `key` | `app/client/unknown_65a020.h:23` | InterfaceClass's |
+| 1 | `Unknown_68` | `app/client/unknown_65a020.h:23` | untagged neutral name (D10) |
+| 1 | `Unknown0AC` | `app/client/unknown_65a020.h:25` | untagged neutral name (D10) |
+| 1 | `Unknown0B4` | `app/client/unknown_65a020.h:26` | untagged neutral name (D10) |
 | 1 | `Unknown_66B770Class` | `app/client/unknown_66b770.cpp:4` | untagged neutral name (D10) |
 | 1 | `Unknown60` | `app/client/unknown_66b770.cpp:6` | untagged neutral name (D10) |
 | 1 | `Unknown_40` | `app/client/unknown_66b770.cpp:20` | untagged neutral name (D10) |
@@ -31181,6 +31226,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `UIVerbClass` | `app/client/ui_verb.h:39` | class-from-file (D24) for ui_verb.cpp |
 | 3 | `uiview.h` | `app/client/uiview.h:15` | the header of uiview.cpp (its __FILE__ 'e:\build\beta\G\app\Client\uiview.cpp') |
 | 3 | `InterfaceMesh` | `app/client/unknown_5bb250.h:36` | the FAIL_IFs' '!InterfaceMesh' (ui_faction.cpp's 0x58D400 l.118; ui_attrb_skills.cpp's 0x549AA0 l.121 names its own +0xBC) |
+| 3 | `As_Space_Client` | `app/client/unknown_65a020.cpp:23` | ui_manu.cpp's FAIL_IF's |
 | 3 | `RSLRegistryClass` | `app/client/unknown_763e00.h:16` | ClientClass +0x18 holds it, named RSLRegistry by mclient.cpp's G_ASSERT 'RSLRegistry' (l.83); class name by D24 (P-M1b-1) |
 | 3 | `SignalBaseClass` | `app/client/unknown_signalbase.h:17` | the client's RTTI (the scope of MemberCallback) |
 | 3 | `user_click_indicator.h` | `app/client/user_click_indicator.h:15` | header name assumed from the client's user_click_indicator.cpp |
