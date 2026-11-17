@@ -83,7 +83,7 @@ template <class T>
 class ExprMathEvalBinaryClass : public ExprMathEvalClass<T>	// NAME 3 [ExprMathEvalBinaryClass]
 {
 public:
-	ExprMathEvalBinaryClass(const RefCountPtr<ExprMathEvalClass<T> > &left, const RefCountPtr<ExprMathEvalClass<T> > &right);
+	ExprMathEvalBinaryClass(const RefCountPtr<ExprMathEvalClass<T> > &left, const RefCountPtr<ExprMathEvalClass<T> > &right) : m_left(left), m_right(right) {}
 	virtual bool Is_Constant() { return m_left->Is_Constant() && m_right->Is_Constant(); }
 
 protected:
@@ -91,12 +91,12 @@ protected:
 	RefCountPtr<ExprMathEvalClass<T> > m_right;		// NAME 3 [m_right]
 };
 
-template <class T>
-ExprMathEvalBinaryClass<T>::ExprMathEvalBinaryClass(const RefCountPtr<ExprMathEvalClass<T> > &left, const RefCountPtr<ExprMathEvalClass<T> > &right) :
-	m_left(left),
-	m_right(right)
-{
-}
+// The constructor is an inline member: VC6 compiles it where it is first referenced. Float's
+// factory references it (^, %) before the groups, so the float groups see a body that can't
+// throw and their `new`s have no EH state (0x4C8920, 0x4C9010); int's first reference is from
+// its groups (its % node is a template), so its body (0x4CDB20) follows them and int's `new`s
+// keep theirs (0x4CC760, 0x4CD270). These lines also keep the FAIL_IFs below at the client's
+// lines 175 and 190.
 
 // A prefix operator's base: constant when its operand is (no vtable of its own in the client).
 template <class T>
@@ -298,7 +298,6 @@ class ExprMathArithmeticOpsClass	// NAME 3 [ExprMathArithmeticOpsClass]: flag 1
 {
 public:
 	typedef RefCountPtr<ExprMathEvalClass<T> > PtrType;
-	// NOT EXACT: float only (0x4C8920): the client's float copy has no EH frame for new; int's is exact (attempts.csv)
 	static PtrType Create_Binary(const std::string &name, const PtrType &left, const PtrType &right)
 	{
 		if (name == "/") {
@@ -355,7 +354,6 @@ class ExprMathCompareOpsClass	// NAME 3 [ExprMathCompareOpsClass]: flag 2
 {
 public:
 	typedef RefCountPtr<ExprMathEvalClass<T> > PtrType;
-	// NOT EXACT: float only (0x4C9010): the client's float copy has no EH frame for new; int's is exact (attempts.csv)
 	static PtrType Create_Binary(const std::string &name, const PtrType &left, const PtrType &right)
 	{
 		if (name == "<=") {

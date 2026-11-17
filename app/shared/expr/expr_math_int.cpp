@@ -32,12 +32,15 @@ RefCountPtr<ExprMathEvalClass<int> > Expr_Math_Int(unsigned int flags, const cha
 }
 
 
-// x % y, the remainder.
-class ExprMathIntModuloClass : public ExprMathEvalBinaryClass<int>	// NAME 3 [ExprMathIntModuloClass]
+// x % y, the remainder. A class template: the client compiles its functions among the templates'
+// (Evaluate 0x4CC6E0, deleting dtor 0x4CD980, dtor 0x4CDA60), not after the factory as float's
+// ^ and % nodes are, and int's EvalBinary constructor (0x4CDB20) after the groups.
+template <class T>
+class ExprMathIntModuloClass : public ExprMathEvalBinaryClass<T>	// NAME 3 [ExprMathIntModuloClass]
 {
 public:
-	ExprMathIntModuloClass(const RefCountPtr<ExprMathEvalClass<int> > &left, const RefCountPtr<ExprMathEvalClass<int> > &right) : ExprMathEvalBinaryClass<int>(left, right) {}
-	virtual int Evaluate(ExprMathContextClass<int> *context) { return m_left->Evaluate(context) % m_right->Evaluate(context); }
+	ExprMathIntModuloClass(const RefCountPtr<ExprMathEvalClass<T> > &left, const RefCountPtr<ExprMathEvalClass<T> > &right) : ExprMathEvalBinaryClass<T>(left, right) {}
+	virtual T Evaluate(ExprMathContextClass<T> *context) { return m_left->Evaluate(context) % m_right->Evaluate(context); }
 };
 
 
@@ -53,7 +56,7 @@ ExprMathIntFactoryClass::ExprMathIntFactoryClass(unsigned int flags) :
 ExprMathIntFactoryClass::PtrType ExprMathIntFactoryClass::Create_Binary(const std::string &name, const PtrType &left, const PtrType &right)
 {
 	if (name == "%") {
-		return Create_NEW((ExprMathEvalClass<int> *)new ExprMathIntModuloClass(left, right));
+		return Create_NEW((ExprMathEvalClass<int> *)new ExprMathIntModuloClass<int>(left, right));
 	}
 	PtrType result;
 	if ((m_flags & 1) && (result = ExprMathArithmeticOpsClass<int>::Create_Binary(name, left, right))) {
