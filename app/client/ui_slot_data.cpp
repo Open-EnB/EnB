@@ -127,17 +127,17 @@ SlotDataInterface::SlotDataInterface(SClient *client) :
 	UnknownB8_3 = true;
 }
 
-
-
-
-
-
-
-
-
-
-
-
+static inline int Unknown_Button_Count(SlotDataInterface *window) { return(window->Buttons.size()); }	// NAME 1: what it returns (the layer that leaves size() 0x62F7E0 out of line in 0x62E320)
+static inline void Unknown_Destroy_Buttons(SlotDataInterface *window)	// NAME 1: what it does (inline in 0x62E320; copy 0x62FB00 / _Destroy 0x62F840 out of line under it)
+{
+	int count = Unknown_Button_Count(window);
+	for (int i = 0; i < count; i++) {
+		window->Unknown64.Unknown_687150((GadgetClass *)window->Buttons[i]);
+		GadgetClass::Destroy((GadgetClass *)window->Buttons[i]);
+		window->Buttons[i] = NULL;
+	}
+	window->Buttons.clear();
+}
 
 
 
@@ -175,7 +175,7 @@ void SlotDataInterface::Unknown_62E150()
 }
 
 // 0x62E320
-// NOT EXACT: functional (D64), from the pseudocode
+
 SlotDataInterface::~SlotDataInterface()
 {
 	SlotDataInterface::Unknown_7C(NULL, false);
@@ -191,14 +191,14 @@ SlotDataInterface::~SlotDataInterface()
 		delete SlotDrag;
 	}
 	SlotDrag = NULL;
-	int count = Buttons.size();
-	for (int i = 0; i < count; i++) {
-		Unknown64.Unknown_687150((GadgetClass *)Buttons[i]);
-		GadgetClass::Destroy((GadgetClass *)Buttons[i]);
-		Buttons[i] = NULL;
-	}
-	Buttons.erase(Buttons.begin(), Buttons.end());
-	SlotDataClass::Unknown_6A7AB0().disconnect(SlotData, this, &SlotDataInterface::Slot_Data_Changed, SlotDataEventDataChange(0));
+	Unknown_Destroy_Buttons(this);
+
+
+
+
+
+
+	SlotDataClass::Unknown_6A7AB0().Remove(SlotData, this, &SlotDataInterface::Slot_Data_Changed, SlotDataEventDataChange(0));
 	REF_PTR_RELEASE(SelectedHilight);
 	REF_PTR_RELEASE(SlotData);
 }
@@ -858,4 +858,8 @@ void SlotDataInterface::Unknown_62F620(const char *name)
 **	the client's RTTI (MemberCallback<SlotDataClass, SlotDataInterface, ...>), as ui_slot_scut.h's declaration has it.
 **	Written from the pseudocode, the asserts on the client's lines; the functions so marked (D64) are
 **	functional only. 0x62DD20 (a second constructor, over InterfaceClass's (view, unknown)) has no caller found.
+**	2026-11-17 (U1): the destructor 0x62E320 exact: the buttons' loop and clear() in a file-local inline
+**	(Unknown_Destroy_Buttons) with size() through one more layer (Unknown_Button_Count), and the callback taken off
+**	through SignalMap::Remove (as ui_avatar_cust.cpp's 0x54BAB0): the client's out-of-line size 0x62F7E0, copy 0x62FB00,
+**	_Destroy 0x62F840 and EventCallbackClass<SlotDataEventDataChange>'s constructor 0x62FCD0 come with it.
 */

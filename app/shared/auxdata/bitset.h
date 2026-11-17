@@ -34,7 +34,7 @@ public:
 	void Clear(unsigned int pos);											// 0x4A4BB0  // NAME 2: describes what it does
 	void Clear_All();															// 0x4A4C00  // NAME 2: describes what it does
 	bool Is_Any_Set() const;												// 0x4A4C30  // NAME 2: describes what it does
-
+	bool Is_None_Set() const;												// 0x4A4C60 (no caller in the client)  // NAME 1: Is_Any_Set's inverse
 	char *Buffer;																// +0x0 (assert name)
 	unsigned int NumBytes;													// +0x4: the name is a guess (no assert names it)  // NAME 2: after the asserts' NumBits
 	unsigned int NumBits;													// +0x8 (assert name)

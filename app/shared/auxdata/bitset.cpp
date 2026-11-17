@@ -131,6 +131,17 @@ bool BitSetClass::Is_Any_Set() const
 	return false;
 }
 
+// 0x4A4C60
+bool BitSetClass::Is_None_Set() const
+{
+	for (unsigned int i = 0; i < NumBytes; i++) {
+		if (Buffer[i] != 0) {
+			return false;
+		}
+	}
+	return true;
+}
+
 /*
 **	Notes (here, below the code, because the asserts pin the lines above: D25)
 **
@@ -140,4 +151,6 @@ bool BitSetClass::Is_Any_Set() const
 **	Client functions 0x4A47B0-0x4A4C4B, all byte-exact. The asserts are on the client's __LINE__
 **	values (8, 19, 28, 29, 36, 92, 100, 113); the blank lines and comments between functions are
 **	placed to keep them there. Class and member names: bitset.h.
+**	2026-11-17 (U1): 0x4A4C60, Is_Any_Set's inverse (no caller), the object's last function: delta.cpp's
+**	PermStringInitClass static 0x4A4C90 opens the next object.
 */
