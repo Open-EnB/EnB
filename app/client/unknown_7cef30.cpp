@@ -311,8 +311,11 @@ std::vector<SubsBundleStruct> RegistrationUnknown1ACClass::Unknown_7D3960()
 }
 
 // Defined here, after 0x7D3960 (which expands the implicit form) and before 0x7D3CC0 (which expands this one
-// under one EH state); the deleting destructor 0x7DF400 calls the byte-identical copy 0x60A3E0
-SubsBundleStruct::~SubsBundleStruct()
+// under one EH state); the deleting destructor 0x7DF400 calls the byte-identical copy 0x60A3E0. Inline (a COMDAT):
+// the client's one copy, 0x60A3E0, lies among ui_registration.cpp's COMDATs (0x60A090 / 0x60A5B0) and the unwind
+// funclets of 0x449CC0 (~RegistrationUnknown568Struct) and 0x603820 call it too, so an earlier object contributed it;
+// an out-of-line definition here would sit inside this object
+inline SubsBundleStruct::~SubsBundleStruct()
 {
 }
 
