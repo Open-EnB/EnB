@@ -359,5 +359,78 @@ class CkCallseqVtbl(unittest.TestCase):
         _check(self, CK_CALLSEQ_VTBL, 'USE_CK_CALLSEQ_VTBL', 'ck_callseq', APP_REGION, off_status='short')
 
 
+VX_CREATE_BINARY_FLOAT = '?Create_Binary@?$ExprMathCompareOpsClass@M@@SA?AV?$RefCountPtr@V?$ExprMathEvalClass@M@@@@ABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@ABV2@1@Z'
+VX_SHARE_BUFFER_V2 = '??1?$ShareBufferClass@VVector2@@@@UAE@XZ'
+
+
+def _vx_results(test, name, switch, on):
+    path = os.path.join(OBJS, name)
+    if not os.path.exists(path):
+        test.skipTest(f'{path} missing')
+    img = objmatch.ClientImage(objmatch.DEFAULT_CLIENT)
+    setattr(objmatch, switch, on)
+    try:
+        return {r['symbol']: r for r in objmatch.match_objects(img, [path], APP_REGION)}
+    finally:
+        setattr(objmatch, switch, True)
+
+
+class VxVtblContra(unittest.TestCase):
+    """VX P1: expr_math_float.obj's Create_Binary<float> matches only 0x4CD270, whose vptr stores hold the <int>
+    tables (0xAEBF88: slot 2 the thunk to Evaluate<int> 0x4CE080, not Evaluate<float> 0x4C9CB0): rejected."""
+    def test_rejected(self):
+        res = _vx_results(self, 'expr_math_float.obj', 'USE_VX_VTBL_CONTRA', True)
+        self.assertNotEqual(res[VX_CREATE_BINARY_FLOAT]['status'], 'exact')
+        self.assertIn('0x4CD270', res[VX_CREATE_BINARY_FLOAT].get('vx_rejected', []))
+        res = _vx_results(self, 'expr_math_float.obj', 'USE_VX_VTBL_CONTRA', False)
+        self.assertEqual(res[VX_CREATE_BINARY_FLOAT]['addresses'], ['0x4CD270'])
+
+
+class VxSameTargets(unittest.TestCase):
+    """VX P3: the ~ShareBufferClass<T> copies 0x483600 / 0x483670 / 0x51A7B0 store their own tables (0xAEA230, 0xAEA218,
+    0xAED57C): not D54's identical copies; 0x51A610 / 0x51A7B0 (both 0xAED57C) are."""
+    def test_not_identical(self):
+        path = os.path.join(OBJS, 'dynamic_window_icon.obj')
+        if not os.path.exists(path):
+            self.skipTest(f'{path} missing')
+        img = objmatch.ClientImage(objmatch.DEFAULT_CLIENT)
+        start, end, raw = img.section('.text')
+        text = img.data[raw:raw + (end - start)]
+        obj = objmatch.CoffObject(path)
+        sec, s, e = next((sec, s, e) for name, sec, s, e in obj.functions() if name == VX_SHARE_BUFFER_V2)
+        length = obj.pattern(sec, s, e)[2]
+        relocs = obj.relocated(sec, s, length)
+        strs = {k for k, n, typ, sym, add in obj.reloc_targets(sec, s, length)
+                if sym is not None and obj.literal(sym) is not None}
+        self.assertFalse(objmatch.same_copies(text, start, [0x483600, 0x483670, 0x51A7B0], relocs, img, strs))
+        self.assertTrue(objmatch.same_copies(text, start, [0x51A610, 0x51A7B0], relocs, img, strs))
+        self.assertTrue(objmatch.same_copies(text, start, [0x483600, 0x483670, 0x51A7B0], relocs, img))   # the old reading
+
+
+class VxSlotContra(unittest.TestCase):
+    """VX P2: client_item_property_special_maker.obj's Get_Lines matches 0x52BC30 with the special effect's; the maker's
+    table 0xAEDF00 (its exact constructor 0x52C980 stores it) holds 0x52CBF0 at that slot: not credited at 0x52BC30."""
+    def test_slot(self):
+        paths = [os.path.join(OBJS, n) for n in ('client_item_property_special_maker.obj',
+                                                 'client_item_property_special_effect.obj')]
+        if not all(os.path.exists(x) for x in paths):
+            self.skipTest('objects missing')
+        img = objmatch.ClientImage(objmatch.DEFAULT_CLIENT)
+        sym = '?Get_Lines@ClientItemPropertySpecialMakerClass@@'
+        was = objmatch.USE_VX_SLOT_CONTRA
+        for on in (True, False):
+            objmatch.USE_VX_SLOT_CONTRA = on
+            try:
+                res = [r for r in objmatch.match_objects(img, paths, APP_REGION) if r['symbol'].startswith(sym)]
+            finally:
+                objmatch.USE_VX_SLOT_CONTRA = was
+            self.assertEqual(len(res), 1)
+            if on:
+                self.assertEqual(res[0].get('vx_slot'), '0x52BC30')
+                self.assertNotEqual(res[0]['status'], 'exact')
+            else:
+                self.assertEqual((res[0]['status'], res[0]['addresses']), ('exact', ['0x52BC30']))
+
+
 if __name__ == '__main__':
     unittest.main()

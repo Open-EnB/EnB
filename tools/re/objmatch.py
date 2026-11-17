@@ -334,6 +334,146 @@ USE_CK_CALLSEQ_VTBL = True
 # ... and a vtable no vptr store places is at the one client table (a stored vptr, as many `.text` slots as ours) that
 # holds every slot whose symbol the run knows at one address, at its offset, at least one of them the class's own
 USE_CK_CALLSEQ_VTBL_SLOTS = True
+# D246 / VX P1: a candidate address whose `??_7` DIR32 (a vptr store of a table the object defines) holds a client
+# table another class owns (a slot whose symbol the run knows elsewhere holds a function symbols.json names as a member
+# of a class neither the vtable's nor its slots': `vx_table_foreign`) is not the function, even when the run or
+# symbols.json already places the table there (a wrong credit places it: expr_math_float's Create_Binary<float> at
+# 0x4CD270 stored 0xAEBF88, ExprMathEvalEqualClass<int>'s table, slot 2 the thunk to Evaluate<int> 0x4CE080).
+# Applied to every pattern hit before the D80 rounds (a lone hit included) and in break_tie (`vx_vtable_contradicted`)
+USE_VX_VTBL_CONTRA = True
+# VX P3: D54's identical-copies check (same_copies) reads an absolute reference as a C string only where the object's
+# relocation targets a literal: a vtable's bytes read as one ('se@', the thunk to RefCountClass::Delete_This 0x406573
+# little-endian) made the six ~ShareBufferClass<T> copies 0x483600..0x51A7B0, each storing its own table, "identical"
+USE_VX_SAME_TARGETS = True
+# VX P2: an exact virtual that shares its address with another symbol is not credited there when a client table of its
+# own class, placed by the run (one known address, not `vx_table_foreign`), holds another function at its slot
+# (client_item_property_special_maker.obj's Get_Lines matched 0x52BC30, ClientItemPropertySpecialEffectClass's; the
+# maker's table 0xAEDF00, stored by its exact constructor 0x52C980, holds 0x52CBF0 at that slot): `vx_slot_contradicted`
+USE_VX_SLOT_CONTRA = False
+
+
+def _vx_class(name):
+    """VX: the class part of a mangled member / vtable name ('' for a free function): `?Evaluate@?$ExprMathEvalEqualClass@H@@..`
+    -> `?$ExprMathEvalEqualClass@H`, `??_7CharacterViewAvatarClass@@6B..` -> `CharacterViewAvatarClass`."""
+    if name.startswith(('??_7', '??_G', '??_E')):
+        rest = name[4:]
+    elif name.startswith(('??0', '??1')):
+        rest = name[3:]
+    elif name.startswith('?') and not name.startswith('??'):
+        rest = name[1:].split('@', 1)[1] if '@' in name[1:] else ''
+    else:
+        return ''
+    return rest.split('@@')[0] if '@@' in rest else ''
+
+
+_vx_named = None
+_vx_virtual = re.compile(r'@@[EFMNUV][AB]E')
+
+
+def _vx_names():
+    """VX: {address: {class keys}} of symbols.json's named functions (thunks left out)."""
+    global _vx_named
+    if _vx_named is None:
+        _vx_named = collections.defaultdict(set)
+        for name, addrs in symbol_addresses().items():
+            if name.startswith('j_') or name.startswith('??_7'):
+                continue
+            c = _vx_class(name)
+            # only a virtual's name (a non-virtual in a slot is a wrong name: StreakLineClass::Set_Merge_Abort_Factor
+            # at 0x974BC0, Bitmap2DObjClass's Set_Aspect slot, a byte-identical setter)
+            if c and _vx_virtual.search(name):
+                for a in addrs:
+                    _vx_named[a].add(c)
+    return _vx_named
+
+
+def vx_table_foreign(obj, sym, raw, known, img):
+    """VX P1 / P2: True if the client table at `raw` holds, at a slot whose symbol the run knows elsewhere, a function
+    symbols.json names as a member of another class than the vtable's and its slots' (ExprMathEvalEqualClass<float>'s
+    Evaluate slot holding Evaluate<int> 0x4CE080): the table is another class's, not ours. A slot holding another of our
+    own slots' functions (a slot inserted / removed: CompositeRenderObjClass's Cast_AABox.. one slot off in
+    CharacterViewAvatarClass's table) or a member of our own class (an override we lack: ScriptedMovieViewClass's
+    0x8023A0 in ViewClass::Unknown_18's slot) is a layout difference, not a contradiction."""
+    info = obj.sections[sym['section'] - 1]
+    slots = []
+    for va, symidx, typ in info['relocs']:
+        if typ != 0x06 or va < sym['value']:
+            continue
+        slot = obj.symbol_at(symidx)
+        if slot is not None and slot['class'] in (2, 105):     # 105: a weak `??_E` (read with its `??_G`)
+            slots.append((va - sym['value'], slot['name']))
+    def at(n):
+        # a deleting destructor's slot: VC6 emits `??_G` (scalar) or `??_E` (vector); symbols.json may name either
+        twin = ('??_G' if n[3] == 'E' else '??_E') + n[4:] if n.startswith(('??_E', '??_G')) else None
+        return known.get(n, set()) | (known.get(twin, set()) if twin else set())
+    ours = {_vx_class(sym['name'])} | {_vx_class(n) for _, n in slots}
+    mine = set()
+    for _, n in slots:
+        mine |= at(n)
+    named = _vx_names()
+    thunk = thunks_of(img)
+    for off, n in slots:
+        want = at(n)
+        if not want:
+            continue
+        o = img.offset(raw + off)
+        if o is None:
+            continue
+        v = struct.unpack_from('<I', img.data, o)[0]
+        have = thunk.get(v, v)
+        if have in want or have in mine:
+            continue
+        cls = named.get(have, set())
+        if cls and not cls & ours:
+            return True
+    return False
+
+
+def vx_slot_contradicted(img, results, known, thunk):
+    """VX P2: the exact results (ids) whose address another symbol also holds while a placed table of the class (one
+    known address, not another class's) holds one other address at the symbol's slot."""
+    slot_at = collections.defaultdict(set)
+    for obj in {id(it[1]): it[1] for it in results}.values():
+        for vt, sl in vtable_slots(obj):
+            kn = known.get(vt)
+            if not kn or len(kn) != 1:
+                continue
+            raw = next(iter(kn))
+            sym = next((x for x in obj.symbols if x['name'] == vt and x['section'] > 0), None)
+            if sym is None or vx_table_foreign(obj, sym, raw, known, img):
+                continue
+            for off, slot in sl:
+                o = img.offset(raw + off)
+                if o is not None and not generated(slot):
+                    v = struct.unpack_from('<I', img.data, o)[0]
+                    slot_at[slot].add(thunk.get(v, v))
+    holders = collections.defaultdict(set)
+    for r, *_ in results:
+        if r['status'] == 'exact':
+            holders[int(r['addresses'][0], 16)].add(r['symbol'])
+    out = set()
+    for r, *_ in results:
+        if r['status'] != 'exact':
+            continue
+        a = int(r['addresses'][0], 16)
+        want = slot_at.get(r['symbol'])
+        if want and len(want) == 1 and a not in want and holders[a] - {r['symbol']}:
+            out.add(id(r))
+    return out
+
+
+def vx_vtable_contradicted(obj, sec, start, length, text, base, h, img, known):
+    """VX P1: True if a `??_7` DIR32 of the function at `h` (VA; text[0] at `base`) stores a client table whose slots
+    contradict the object's vtable with another class's member (`vx_table_foreign`)."""
+    o = h - base
+    for k, n, typ, sym, addend in obj.reloc_targets(sec, start, length):
+        if typ != 0x06 or n != 4 or sym is None or sym['section'] <= 0 or not sym['name'].startswith('??_7') \
+                or struct.unpack('<I', addend)[0] != 0 or o + k + 4 > len(text):
+            continue
+        raw = struct.unpack('<I', text[o + k:o + k + 4])[0]
+        if vx_table_foreign(obj, sym, raw, known, img):
+            return True
+    return False
 
 
 def generated(name):
@@ -577,6 +717,11 @@ def break_tie(obj, sec, start, length, text, base, hits, img, known=None):
             if n != 4 or sym is None or o + k + 4 > len(text):
                 continue
             raw = struct.unpack('<I', text[o + k:o + k + 4])[0]
+            if USE_VX_VTBL_CONTRA and typ == 0x06 and sym['section'] > 0 and sym['name'].startswith('??_7') \
+                    and struct.unpack('<I', addend)[0] == 0 \
+                    and vx_table_foreign(obj, sym, raw, known, img):
+                ok = False      # VX P1: a known table placement the slots contradict confirms nothing
+                break
             lit = obj.literal(sym)
             if lit is not None and typ == 0x06:
                 add = struct.unpack('<I', addend)[0]
@@ -619,7 +764,7 @@ def break_tie(obj, sec, start, length, text, base, hits, img, known=None):
     return survivors, confirmed
 
 
-def same_copies(text, base, hits, relocs, img=None):
+def same_copies(text, base, hits, relocs, img=None, strings=None):
     """True if every copy found at `hits` (VAs; text[0] is at VA `base`) is the same function,
     the masked fields included: a relative call/jump (REL32) must reach the same target, any
     other relocated field must hold the same value. Two functions that differ only in their
@@ -647,7 +792,8 @@ def same_copies(text, base, hits, relocs, img=None):
                 out.append(h + k + 4 + struct.unpack('<i', raw)[0])
             elif typ == 0x06 and n == 4 and img is not None:
                 va = struct.unpack('<I', raw)[0]
-                out.append(cstring(va) or va)
+                # VX P3 (`strings`: the offsets whose target is a literal): any other reference compares its value
+                out.append(va if strings is not None and k not in strings else cstring(va) or va)
             else:
                 out.append(bytes(raw))
         return out
@@ -779,6 +925,8 @@ def match_objects(img, paths, region=None, callers=False, extern_called=None, ca
         lo, hi = max(region[0], start), min(region[1], end)
         text, start = text[lo - start:hi - start], lo
     results, pending = [], []
+    thunk = thunks_of(img)
+    known = {k: {thunk.get(a, a) for a in v} for k, v in symbol_addresses().items()}
     for path in paths:
         obj = CoffObject(path)
         for name, sec, s, e in obj.functions():
@@ -794,19 +942,32 @@ def match_objects(img, paths, region=None, callers=False, extern_called=None, ca
                 if len(anchored) < len(hits):
                     r['unanchored'] = len(hits) - len(anchored)
                 hits = anchored
+                if USE_VX_VTBL_CONTRA and hits:
+                    kept = [h for h in hits if not vx_vtable_contradicted(obj, sec, s, length, text, start, h, img, known)]
+                    if len(kept) < len(hits):
+                        r['vx_rejected'] = [f'0x{a:06X}' for a in hits if a not in kept][:5]
+                    hits = kept
                 r['addresses'] = [f'0x{a:06X}' for a in hits[:5]]
                 r['status'] = 'exact' if len(hits) == 1 else 'multiple' if hits else 'none'
+                if len(hits) == 1 and r.get('vx_rejected'):
+                    # VX P1: a lone survivor of rejected copies is not exact by elimination: D80 must confirm it
+                    # (wwlib's Surface::Surface: 0x4DCD10 stores AttribDirCollective's MemberCallbackClass table,
+                    # and 0x6AC050's table 0xAFDB28, six slots, is not Surface's either)
+                    r['status'] = 'multiple'
+                    r['count'] = 1
+                    r['identical'] = False     # one copy: not D54's ambiguous column
+                    pending.append((r, obj, sec, s, length, hits))
                 if len(hits) > 1:
                     # every copy, and whether they are all the same function (D54)
                     r['count'] = len(hits)
-                    r['identical'] = same_copies(text, start, hits, obj.relocated(sec, s, length), img)
+                    strs = {k for k, n, typ, sym, add in obj.reloc_targets(sec, s, length)
+                            if sym is not None and obj.literal(sym) is not None} if USE_VX_SAME_TARGETS else None
+                    r['identical'] = same_copies(text, start, hits, obj.relocated(sec, s, length), img, strs)
                     pending.append((r, obj, sec, s, length, hits))
             results.append((r, obj, sec, s, length))
     # D80: what the exact functions show about the link (an external symbol's address) helps to break
     # the ties of the others; repeat until nothing more resolves (a destructor found once settles the
     # scalar deleting destructors that call it).
-    thunk = thunks_of(img)
-    known = {k: {thunk.get(a, a) for a in v} for k, v in symbol_addresses().items()}
     done = set()
 
     # one client function is one source function (VC6 does not fold identical code): an address two
@@ -1249,6 +1410,15 @@ def match_objects(img, paths, region=None, callers=False, extern_called=None, ca
                 learn(r, obj, sec, s, length, a)
             if not got and len(located) == n_located:
                 break
+    if USE_VX_SLOT_CONTRA:
+        bad = vx_slot_contradicted(img, results, known, thunk)
+        for r, *_ in results:
+            if id(r) in bad:
+                r['vx_slot'] = r['addresses'][0]
+                r['status'] = 'none'
+                for k in ('tiebreak', 'range', 'selfname', 'order', 'call_tie', 'call_placed', 'funclet_tie',
+                          'pushed_tie', 'contrib', 'ck_callseq', 'short_known', 'caller_tiebreak', 'initialiser', 'xcu'):
+                    r.pop(k, None)
     if called_out is not None:
         called_out.update({k: set(v) for k, v in own_called.items()})
     for r, *_ in results:

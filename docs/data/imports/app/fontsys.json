@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x483600"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "FontSys, the client's text object (vtable 0xAFECB4; __FILE__ 0xB92828, G_ASSERT 'SortLevel == SORT_LEVEL_NONE || ...' on the client's line 914, D25): constructors 0x6D47C0 / 0x6D4C70, Set_Container 0x6D5920, the bounding volumes 0x6D5B90 / 0x6D5C10, Render 0x6D8270, Set_Transform 0x6D87F0, Set_Position 0x6D88C0, the texture holder 0x6D8B90; NOT EXACT first forms for the POC (FS); file start interim (D137)",
  "expected": {},
@@ -96,7 +94,11 @@
   "0x497330",
   "0x4FABB0",
   "0x510CC0",
+  "0x51A5E0",
+  "0x51A610",
   "0x51A650",
+  "0x51A780",
+  "0x51A7B0",
   "0x67E880",
   "0x67E8A0",
   "0x67E8D0",
@@ -231,7 +233,11 @@
   "0x497330",
   "0x4FABB0",
   "0x510CC0",
+  "0x51A5E0",
+  "0x51A610",
   "0x51A650",
+  "0x51A780",
+  "0x51A7B0",
   "0x67E880",
   "0x67E8A0",
   "0x67E8D0",

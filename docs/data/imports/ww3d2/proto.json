@@ -10,6 +10,7 @@
  "headers_from": null,
  "in_tree": [
   "0x42F250",
+  "0x48F6F0",
   "0x93E550",
   "0x93E570",
   "0x93E580",
@@ -33,6 +34,7 @@
  "name": "proto.cpp",
  "shared": [
   "0x42F250",
+  "0x48F6F0",
   "0x93E570",
   "0x93E5B0",
   "0x93E790",

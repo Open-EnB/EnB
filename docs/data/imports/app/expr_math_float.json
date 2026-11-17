@@ -115,8 +115,7 @@
   "0x4CB940",
   "0x4CB970",
   "0x4CBA10",
-  "0x4CBAC0",
-  "0x4CD270"
+  "0x4CBAC0"
  ],
  "merged": [],
  "name": "shared/expr/expr_math_float.cpp",

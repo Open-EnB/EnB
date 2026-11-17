@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x483600"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "RECONSTRUCTED from client.exe 0x519A20-0x51A7AF (__FILE__ 0xB76BA0 e:\\build\\beta\\G\\app\\Client\\dynamic_window_icon.cpp; FAIL_IFs lines 28-83): DynamicWindowIconClass, a texture quad element on DynamicWindowRenderObjectClass (table 0xAED4FC)",
  "expected": {},
@@ -23,12 +21,16 @@
   "0x51A080",
   "0x51A190",
   "0x51A4F0",
+  "0x51A5E0",
+  "0x51A610",
   "0x51A650",
   "0x51A690",
   "0x51A6C0",
   "0x51A6F0",
   "0x51A720",
   "0x51A750",
+  "0x51A780",
+  "0x51A7B0",
   "0x51A7F0",
   "0x7BF7A0"
  ],
@@ -43,10 +45,14 @@
   "0x46BE90",
   "0x497330",
   "0x51A4F0",
+  "0x51A5E0",
+  "0x51A610",
   "0x51A650",
   "0x51A6C0",
   "0x51A6F0",
   "0x51A720",
+  "0x51A780",
+  "0x51A7B0",
   "0x7BF7A0"
  ],
  "short_known": [
