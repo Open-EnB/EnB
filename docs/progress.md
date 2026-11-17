@@ -10,7 +10,7 @@ Newest first within each section. Dates are when the entry was written.
   entry is a handoff); stale `importer-1272` leases released; PR #209 (the week plan) merged, green with no human comment.
 - **The week's record (item 1):** [archive/week-2026-11-10-record.md](archive/week-2026-11-10-record.md): exact functions
   20,414 -> 25,034, pairs 30,896 -> 41,260; Opus phase 105-111 pairs a point, Fable phase 40; by kind crediting ~430,
-  new files ~100, finishing ~33, harness ~19, levers ~9, names alone ~1-2. From it §3 **P-D72-1** (models: the user's).
+  new files ~100, finishing ~33, harness ~19, levers ~9, names alone ~1-2. From it §3 **P-D72-1**, approved by the user the same morning: D263.
   §4 refreshed (ea9308e31: 1 deleted, 15 cut, 10 added; the old queue pointed at for session 1).
 - **Tracking proposal for `.work/week-2026-11-10/`** (nothing moved; Part B of `.work/week-2026-11-17/s0-s4-and-tracked.md`):
   queue.md, state.tsv, queue.tsv, opus-queue.tsv / .md, queue-a.md / -b.md, map-notes-a.md / -b.md, layout_b9.md,
@@ -3735,6 +3735,7 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 | D260 | 2026-11-16 | The user: the newcomer's build needs no Python on the host (Windows, Hyper-V and PowerShell are assumed already; Python runs in the VM, which the project controls), and no third-party package is downloaded without the person's yes: each download is listed with its address and the notice "These packages are third-party software, downloaded from the addresses shown. Open-EnB does not distribute them, grants no licence to them, and makes no promise about them. Make sure you have the right to download and use them before you continue." (tools/vc6/setup/EnBSetup.ps1 Confirm-Download; `-AcceptDownloads` only when a person runs it so). Carried out: tools/Build-Client.ps1, New-BuildVM.ps1 without Python | user |
 | D261 | 2026-11-16 | The user, away from 2026-11-16 22:30 to 2026-11-20 19:00: the week runs unattended on [week-plan-2026-11-17.md](week-plan-2026-11-17.md). Sessions are started by scheduled tasks (an interactive `claude --remote-control` per session, the launcher in `.work/week-2026-11-17/launcher/`); Opus coordinator and builders, Sonnet helpers, agy builders, no Fable; at most 54 % of the new week by Friday 18:45. **D148 is relaxed until the user's return:** the coordinator merges its own run PR (and the plan's) once `vc6-verify` and the hosted checks are green without anyone's comment; a PR that needs `/verify-approved` or `/accept-d66` stays the user's (agents never post them), is frozen, and the next run stacks on its branch. Every session begins with a recovery step for a predecessor that was cut off. The week plan of 2026-11-10 is archived; its sessions 13 and 14 did not run as written and their items are carried forward (the new plan's §2). The relaxation ends on 2026-11-20 19:00 unless the user renews it | user |
 | D262 | 2026-11-17 | coordinator (D246), run 2026-11-17 (CK): objmatch's last phase, `callseq_ties` (USE_CK_CALLSEQ, _NAMED, _DEEP): a not-exact function whose client address is known (the exact functions' calls, D88's self name, or the aligned callers) has its REL32 relocations aligned in order with the client function's outside calls and jumps (equal counts, one address per symbol and back, every D80-known symbol at its address and at least one); a tied or short callee is credited at its aligned target when it fullmatches there, D80 does not contradict it and no other symbol holds it. Evidence: client.exe's call targets. Its credits never widen ranges. +41 pairs, 0 lost (full verify). Object order does not place COMDATs (consecutive COMDAT pairs rise 4661 of 5071 times): no order rule for them. |
+| D263 | 2026-11-17 | The user (P-D72-1, proposed by session 0 of the week plan from the week of 2026-11-10's record): D72's model table revised (docs/builders.md §4): no Fable builder, the D89 stuck-function round included, until Fable's cost changes (Fable builders 33-39 pairs a point against Opus's 105-150); that round runs on Opus, one round then parked; agy (Gemini 4 Hydrogen) widened to known-pattern new-file rows and files' untried functions; the order of worth (crediting, new files, finishing, harness, levers; names alone ~1-2) goes in the table's note. D225's week paragraph removed. |
 
 ## 3. Open decisions
 
@@ -3743,16 +3744,6 @@ a branch the loss valve stopped. Anything else a builder proposes is the coordin
 (D246 (e)); only the coordinator adds an item here. The old rule's twenty items were settled by run 2026-11-12's coordinator (section 4 item 1); P-EA1-1 (a POC input) stays the user's.
 
 * **P-EA1-1** (2026-11-06, EA1; recommend not yet, after more POC paths have run on it): make `ClientPOC_EA` (D200) the POC's default instead of `--ea`? One replay reached the class screen and shows EA's six; `ClientPOC` still has what antprox's Net-7 sessions may need, including 401 installed files outside EA's set. If it becomes a project input, the scripts in `.work/eadata/` move to `tools/` (never the data).
-* **P-D72-1** (2026-11-17, session 0 of the week plan; recommend yes): revise D72's model table (docs/builders.md §4)
-  from the week of 2026-11-10's figures ([archive/week-2026-11-10-record.md](archive/week-2026-11-10-record.md)):
-  (a) drop the D225 paragraph (that week is over); (b) drop Fable as a builder model, the D89 stuck-function row
-  included, until its cost changes: Fable builders gave 33-39 pairs a point and its stuck-function packets 8, against
-  Opus builders' 105-150 (about 3.5 points per million Fable builder tokens against Opus's 1.2-2.6); an Opus round
-  under D89 takes that row; (c) widen agy (Gemini 4 Hydrogen) from "bounded POC and triage items" to known-pattern
-  new-file rows and files' untried functions (about 255 pairs at no Claude cost in one session); (d) add the order of
-  worth to the table's note: crediting ~430 pairs a point, new files ~100, finishing ~33, harness ~19 (it finds
-  behaviour bugs byte matching cannot), levers ~9; names alone ~1-2 (their pairs show up as crediting). Models are
-  the user's (D246 (d)); until then the week plan of 2026-11-17 §2 already runs (b) and (c).
 
 ## 4. Next steps
 

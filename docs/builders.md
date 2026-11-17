@@ -134,24 +134,24 @@ before placing (`docs/data/triage.md`).
 6. What's left and the best next lead. Confirm the tree is clean of your work and VMs released.
 7. Model and approximate tokens used (the coordinator logs them, §4).
 
-## 4. Which model runs what (D72)
+## 4. Which model runs what (D72, revised by D263)
 
 | Role | Model | Why |
 |---|---|---|
 | Coordinator | Opus | the user's choice (D96, after D93's evaluation) |
 | Builders: verify loops, byte matching, RE, programs | **Opus** (default) | their tokens are mostly tool output; a stronger model doesn't cut the iteration count |
-| A reasoning puzzle with small input (an inline-budget, frame or shape near-miss) **after two failed Opus attempts**, under D89's limits (never a register-only or order-only residue; one Fable round per function, 8 forms (every variant compile counts, scratch probes included: D141), 4 functions per session, no cap on the queue (D136: rounds are scheduled more often instead), one Fable builder at a time; `attempts.py show` says LIMIT REACHED); or a one-shot analysis whose wrong answer would cost a builder run | Fable | the only cases where the expected total is lower |
+| A stuck single function (an inline-budget, frame or shape near-miss) after two failed rounds, under D89's limits (never a register-only or order-only residue; one round of 8 forms (every variant compile counts, scratch probes included: D141), then parked with its attempts row; one such builder a session) | Opus (D263) | Fable builders gave about a third of Opus's pairs a point (week of 2026-11-10) and its stuck-function packets 8 a point; no Fable builder until its cost changes |
 | Read-only audits, cross-referencing, doc moves, log digging, generator reruns: anything a tool checks afterwards (verify, names.py, a diff); Explore agents | Sonnet | cheap, and the check catches mistakes |
 | Landing finished branches for the coordinator (`.claude/agents/lander.md`: `wt.py bring-over`, one line back per branch) | Sonnet (D223) | the tools decide; it never edits source, and the logs stay out of the coordinator's context |
 | The harness check (D182) and a POC run or replay for the coordinator (`.claude/agents/checker.md`: one line back per program) | Sonnet (D226) | the programs decide; it never edits source, and the logs and the frame stay out of the coordinator's context |
 | Filing builders' traps and leftovers into workflow.md §3 and progress.md §4, and returning their calls and proposals to the coordinator (`.claude/agents/doc-filer.md`) | Sonnet (D226, D246) | it quotes the reports and docs_check checks it; the log entry, the decisions and §3 stay the coordinator's |
 | Grep-level searches, log triage | Haiku | never edits tree code |
-| Bounded POC and triage items (the functions of one file, 30-60 min), when the user's agy window has room | Gemini 4 Hydrogen (high) through agy (D187; `tools/agy/README.md`) | the user's Google subscription, outside the Claude windows; the coordinator verifies each landing and runs the POC itself |
+| Known-pattern new-file rows, files' untried functions, bounded POC and triage items (30-60 min each), when the user's agy window has room (down to its floor) | Gemini 4 Hydrogen (high) through agy (D187, D263; `tools/agy/README.md`) | the user's Google subscription, outside the Claude windows (about 255 pairs in one session at no Claude cost); the coordinator verifies each landing and runs the POC itself |
 
-**The week of 2026-11-10 to 2026-11-17 (D225)** departs from this table: its first four sessions run the
-coordinator and the reasoning builders on Fable with D89's count limits lifted; the rows that apply per
-session are in [archive/week-plan-2026-11-10.md](archive/week-plan-2026-11-10.md) §2. From session 5 this table holds again.
+**Order of worth** (pairs per meter point, the week of 2026-11-10:
+[archive/week-2026-11-10-record.md](archive/week-2026-11-10-record.md)): crediting ~430, known-pattern new files
+~100, finishing ~33, harness ~19 (it also finds behaviour bugs byte matching cannot), levers and stuck functions
+~9; names alone ~1-2 (their pairs show up as crediting's). Coordinators order a run's launches by it.
 
 The plan log of each run (`.work/<run>/plan.md`) records model and tokens per builder, so this
-table gets evidence. Rule of thumb for Fable: estimate Fable's cost for one attempt against Opus's
-cost times the attempts you expect; choose Fable only when that is lower.
+table gets evidence; a model change is the user's (D246 (d)).
