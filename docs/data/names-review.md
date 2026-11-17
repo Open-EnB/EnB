@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1967 |
 | 2 | describes what the code does | 4981 |
-| 1 | neutral placeholder | 25195 |
+| 1 | neutral placeholder | 25201 |
 
 ## For review (score 3 and below)
 
@@ -72,6 +72,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown74` | `app/client/acticon.cpp:98` | untagged neutral name (D10) |
 | 1 | `Unknown_6766E0` | `app/client/acticon.cpp:123` | untagged neutral name (D10) |
 | 1 | `Unknown_676A00` | `app/client/acticon.cpp:147` | untagged neutral name (D10) |
+| 1 | `Unknown_676A50` | `app/client/acticon.cpp:157` | neutral (D10); it returns the entries' count |
 | 1 | `Unknown_671300Class` | `app/client/acticon.h:9` | untagged neutral name (D10) |
 | 1 | `robj, layer` | `app/client/acticon.h:27` | the base's; NAME 2 [bar]: ui_cpit.cpp's 'WARP_BAR' |
 | 1 | `Unknown_AC` | `app/client/acticon.h:29` | untagged neutral name (D10) |
@@ -18544,12 +18545,14 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `UnknownB8_2` | `app/client/ui_slot_data.cpp:99` | untagged neutral name (D10) |
 | 1 | `UnknownB8_3` | `app/client/ui_slot_data.cpp:100` | untagged neutral name (D10) |
 | 1 | `Unknown_9C` | `app/client/ui_slot_data.cpp:104` | untagged neutral name (D10) |
+| 1 | `Unknown_Button_Count` | `app/client/ui_slot_data.cpp:130` | what it returns (the layer that leaves size() 0x62F7E0 out of line in 0x62E320) |
+| 1 | `Unknown_Destroy_Buttons` | `app/client/ui_slot_data.cpp:131` | what it does (inline in 0x62E320; copy 0x62FB00 / _Destroy 0x62F840 out of line under it) |
+| 1 | `Unknown64` | `app/client/ui_slot_data.cpp:135` | untagged neutral name (D10) |
+| 1 | `Unknown_687150` | `app/client/ui_slot_data.cpp:135` | untagged neutral name (D10) |
 | 1 | `Unknown_88` | `app/client/ui_slot_data.cpp:150` | untagged neutral name (D10) |
 | 1 | `Unknown_6A7AB0` | `app/client/ui_slot_data.cpp:163` | untagged neutral name (D10) |
 | 1 | `Unknown_62E150` | `app/client/ui_slot_data.cpp:170` | untagged neutral name (D10) |
 | 1 | `Unknown_A8` | `app/client/ui_slot_data.cpp:174` | untagged neutral name (D10) |
-| 1 | `Unknown64` | `app/client/ui_slot_data.cpp:196` | untagged neutral name (D10) |
-| 1 | `Unknown_687150` | `app/client/ui_slot_data.cpp:196` | untagged neutral name (D10) |
 | 1 | `Unknown_CC` | `app/client/ui_slot_data.cpp:207` | untagged neutral name (D10) |
 | 1 | `Unknown_B0` | `app/client/ui_slot_data.cpp:210` | untagged neutral name (D10) |
 | 1 | `Unknown_D0` | `app/client/ui_slot_data.cpp:214` | untagged neutral name (D10) |
@@ -21292,6 +21295,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_5890B0` | `app/client/unknown_msgbox.cpp:368` | untagged neutral name (D10) |
 | 1 | `Unknown_5893F0` | `app/client/unknown_msgbox.cpp:393` | untagged neutral name (D10) |
 | 1 | `Unknown_5896C0` | `app/client/unknown_msgbox.cpp:413` | untagged neutral name (D10) |
+| 1 | `Unknown_5898F0` | `app/client/unknown_msgbox.cpp:440` | untagged neutral name (D10) |
+| 1 | `Unknown_30` | `app/client/unknown_msgbox.cpp:444` | untagged neutral name (D10) |
 | 1 | `Unknown_78F700Class` | `app/client/unknown_personality.cpp:13` | untagged neutral name (D10) |
 | 1 | `Unknown_78F9F0` | `app/client/unknown_personality.cpp:36` | untagged neutral name (D10) |
 | 1 | `Unknown_7901C0` | `app/client/unknown_personality.cpp:121` | untagged neutral name (D10) |
@@ -23168,6 +23173,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `UnknownRTTIClass` | `app/shared/auxdata/auxdata.h:154` | untagged neutral name (D10) |
 | 1 | `Unknown_Find_Set_Field` | `app/shared/auxdata/auxdata.h:160` | neutral (D10) |
 | 1 | `Unknown70` | `app/shared/auxdata/auxdata.h:163` | untagged neutral name (D10) |
+| 1 | `Is_None_Set` | `app/shared/auxdata/bitset.h:37` | Is_Any_Set's inverse |
 | 1 | `Unknown70` | `app/shared/auxdata/delta.cpp:9` | untagged neutral name (D10) |
 | 1 | `Unknown78` | `app/shared/auxdata/delta.cpp:11` | untagged neutral name (D10) |
 | 1 | `Unknown7C` | `app/shared/auxdata/delta.cpp:12` | untagged neutral name (D10) |
