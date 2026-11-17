@@ -79,6 +79,24 @@ class ProgressTests(unittest.TestCase):
         self.assertEqual(tab.size(0x1100), 0x800 if 0x2000 - 0x1100 > 0x800 else 0x2000 - 0x1100)
         self.assertEqual(tab.size(0x2000, 0x20), 0x20)
 
+    def test_fill_is_charged_to_the_function_before(self):
+        tab = progress.Tables.__new__(progress.Tables)
+        tab.text_va, tab.text_end, tab.estimated_sizes = 0x1000, 0x1100, 0
+        tab.thunks = tab.padding1 = (0, 0)
+        tab.starts, tab.lengths = [0x1000, 0x1040, 0x1080, 0x10C0], {0x1000: 0x10, 0x1040: 0x20, 0x1080: 0x20}
+        # 0x1010-0x1040 int3 fill; 0x1060-0x1080 zeros with a relocation target; no entry for 0x10C0
+        tab.fill = {0x1040: (0x30, 0, 0), 0x1080: (0x20, 0x20, 0x8)}
+        tab.fill_keys = sorted(tab.fill)
+        buf = bytearray(0x100)
+        exact = progress.CODE['exact']
+        buf[0:0x10] = bytes([exact]) * 0x10
+        buf[0x40:0x60] = bytes([exact]) * 0x20
+        st = progress.charge_fill(buf, tab)
+        self.assertEqual(buf[0x10:0x40], bytes([exact]) * 0x30)
+        self.assertEqual(buf[0x60:0x80], bytes(0x20))           # zero run holding a relocation target: rejected
+        self.assertEqual(st['by_state']['exact'], 0x30)
+        self.assertEqual(st['zero_rejected'], [1, 0x20])
+
     def test_not_exact_row(self):
         m = progress.NOT_EXACT_ROW.match('| `app/common/connect.cpp:800` | `ConnectionManagerClass::Remove_Dead` | marker | x |')
         self.assertEqual(m.groups(), ('app/common/connect.cpp', '800', 'ConnectionManagerClass::Remove_Dead'))

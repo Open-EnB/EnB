@@ -37,6 +37,14 @@ its measured length rounded up to the 16-byte alignment when that is shorter. A 
 length whose next start is unknown is charged at most 2 KB. The sizes always come from today's tables,
 so the history differs from day to day only by what each day's commit had proven.
 
+FILL. From 2026-11-17 on (FILL_DAY; earlier history rows used the old accounting), the inter-function
+alignment fill after a function is charged to that function's state (exact, NOT EXACT, ...; fill after an
+unattributed function stays unattributed; never 'linker'). A fill run starts at a function's recorded end
+(the size above), is all 0xCC / 0x90 / 0x00, and ends at the next start, which must be a D27 verified start
+on a 16-byte boundary (no table start in between). A run holding a 0x00 byte counts only when it is shorter
+than 16 bytes or no relocation target falls inside it. The runs come from docs/data/fill-runs.tsv, written
+from client.exe by `progress.py --fill-table` (the card itself still reads committed data only).
+
 "Bytes rebuilt" (the card's first bar and the README line) is exact plus third-party plus linker: what is
 proven from our source plus what comes back unchanged by linking the same libraries with the same toolchain.
 The bars show the states in DISPLAY order (those three in greens first). "Written in C++" is exact plus NOT EXACT.
@@ -78,6 +86,9 @@ PAD2 = (0xA420AC, 0xAA1C00)           # incremental-link padding (library-matchi
 EH = (0xAA1C00, 0xAE2830)             # compiler-generated exception-handling stubs
 FIRST_COMMIT_DAY = '2026-10-22'
 RULE_CHANGE = '2026-10-25'            # D80
+FILL_DAY = '2026-11-17'               # alignment fill charged to the preceding function from this day on
+FILL_TABLE = DATA + '/fill-runs.tsv'   # written by --fill-table from client.exe
+FILL_BYTES = b'\xcc\x90\x00'
 THIRD_PARTY = ('libcmt', 'libcpmt', 'libcimt', 'comsupp', 'd3dx8')
 LIBS = ('app', 'binkmovie', 'wlib', 'wnet', 'ww3d2', 'wwaudio', 'wwdebug', 'wwlib', 'wwmath', 'wwsaveload',
         'wwshade')
@@ -224,6 +235,8 @@ class Tables:
         self.padding1 = (THUNK_END, first_app)
         self.thunks = (self.text_va, THUNK_END)
         self.estimated_sizes = 0
+        self.fill = read_fill_table(src)
+        self.fill_keys = sorted(self.fill)
 
     def size(self, addr, length=None):
         i = bisect.bisect_right(self.starts, addr)
@@ -386,6 +399,106 @@ def place_by_anchor(tab, sets, anchors, line, taken):
     return None
 
 
+def read_fill_table(src):
+    """{start: (run, zero_back, reloc_back)} from FILL_TABLE: for each D27 verified start on a 16-byte
+    boundary, the length of the 0xCC / 0x90 / 0x00 run just before it, and how far back from the start the
+    nearest 0x00 byte and the nearest relocation target in that run lie (0: none)."""
+    out = {}
+    b = src.read(FILL_TABLE)
+    for line in (b or b'').decode('ascii', 'replace').splitlines():
+        if not line or line.startswith('#'):
+            continue
+        f = line.split('\t')
+        out[int(f[0], 16)] = (int(f[1]), int(f[2]), int(f[3]))
+    return out
+
+
+def build_fill_table(path):
+    """Write FILL_TABLE from client.exe (tools/re/clientimage.py, D27's verified starts, the .reloc table)."""
+    import struct
+    from clientimage import ClientImage
+    img = ClientImage()
+    va, end, raw = img.section('.text')
+    body = img.data[raw:raw + (end - va)]
+    starts, _ = img.function_starts()
+    targets = set()
+    rva, rend, rraw = img.section('.reloc')
+    d = img.data[rraw:rraw + (rend - rva)]
+    o = 0
+    while o + 8 <= len(d):
+        page, size = struct.unpack_from('<II', d, o)
+        if size < 8:
+            break
+        for k in range(o + 8, o + size, 2):
+            e = struct.unpack_from('<H', d, k)[0]
+            if e >> 12 == 3:
+                off = img.offset(img.base + page + (e & 0xFFF))
+                if off is not None:
+                    t = struct.unpack_from('<I', img.data, off)[0]
+                    if va <= t < end:
+                        targets.add(t)
+        o += size
+    lines = ['# progress.py --fill-table: verified start (hex), fill run before it (bytes), distance back to the '
+             'nearest 0x00 and to the nearest relocation target inside the run (0: none)']
+    for s in starts:
+        if s % 16 or not va < s < end:
+            continue
+        n = zb = rb = 0
+        while s - n - 1 >= va and body[s - n - 1 - va] in FILL_BYTES:
+            n += 1
+            if not zb and body[s - n - va] == 0:
+                zb = n
+            if not rb and s - n in targets:
+                rb = n
+        if n:
+            lines.append('%X\t%d\t%d\t%d' % (s, n, zb, rb))
+    write_text(path, '\n'.join(lines) + '\n')
+    return len(lines) - 1
+
+
+def charge_fill(buf, tab):
+    """Paint each alignment fill run (FILL above) in the state of the function before it.
+    Returns {'by_state': {state: bytes}, 'zero_rejected': [runs, bytes], 'runs': n}."""
+    st = {'by_state': {s: 0 for s in STATES}, 'zero_rejected': [0, 0], 'runs': 0}
+    keys, fill = tab.fill_keys, tab.fill
+    if not keys:
+        return st
+    saved = tab.estimated_sizes
+    starts = tab.starts
+    linker = (tab.thunks, tab.padding1, PAD2, EH)
+    for i, a in enumerate(starts):
+        e = a + tab.size(a)
+        nxt = starts[i + 1] if i + 1 < len(starts) else tab.text_end
+        if e >= nxt or e <= tab.text_va:
+            continue
+        k = bisect.bisect_right(keys, e)
+        if k >= len(keys):
+            continue
+        v = keys[k]
+        if v > nxt:
+            continue
+        run, zb, rb = fill[v]
+        n = v - e
+        if n > run:
+            continue
+        if zb and zb <= n and n >= 16 and rb and rb <= n:
+            st['zero_rejected'][0] += 1
+            st['zero_rejected'][1] += n
+            continue
+        if any(e < b and v > a for a, b in linker):     # the linker's own padding stays 'linker'
+            continue
+        lo, hi = e - tab.text_va, v - tab.text_va
+        code = buf[lo - 1]
+        if buf.count(CODE['unattr'], lo, hi) != n:      # already charged to something else
+            continue
+        st['by_state'][STATE_OF_CODE[code]] += n
+        st['runs'] += 1
+        if code != CODE['unattr']:
+            buf[lo:hi] = bytes([code]) * n
+    tab.estimated_sizes = saved
+    return st
+
+
 def paint(buf, tab, start, end, code):
     s = max(start, tab.text_va) - tab.text_va
     e = min(end, tab.text_end) - tab.text_va
@@ -410,8 +523,8 @@ def dense_span(addrs, gap=0x2000):
     return (best[0], best[-1]) if len(best) >= 8 else None
 
 
-def measure(src, tab, label=''):
-    """Paint the .text of client.exe by state and total it."""
+def measure(src, tab, label='', fill=True):
+    """Paint the .text of client.exe by state and total it (fill: charge alignment fill, FILL above)."""
     sets = Sets(src)
     tab.estimated_sizes = 0
     buf = bytearray(tab.text_size)           # 0 = unattributed
@@ -436,6 +549,7 @@ def measure(src, tab, label=''):
     avg = ne_bytes // resolved if located else 0
     for a in sets.exact | sets.amb:
         paint(buf, tab, a, a + tab.size(a), CODE['exact'])
+    fill_stats = charge_fill(buf, tab) if fill else None
     for lo, hi in (tab.thunks, tab.padding1, PAD2, EH):
         paint(buf, tab, lo, hi, CODE['linker'])
     counts = {s: buf.count(CODE[s]) for s in STATES}
@@ -446,6 +560,7 @@ def measure(src, tab, label=''):
     r = Result()
     r.buf, r.counts, r.sets, r.tab = buf, counts, sets, tab
     r.unresolved, r.avg_ne = unresolved, avg
+    r.fill = fill_stats
     r.located = len(located)
     r.exact_functions = len(sets.exact | sets.amb)
     r.total = tab.text_size
@@ -516,7 +631,7 @@ def backfill(tab, rebuild, today):
         if d in have or d == today:
             continue
         try:
-            r = measure(Src(h), tab)
+            r = measure(Src(h), tab, fill=d >= FILL_DAY)
         except Exception as e:              # an old commit with data in a format we do not read
             print('history %s (%s): skipped: %s' % (d, h[:8], e), file=sys.stderr)
             continue
@@ -610,7 +725,7 @@ def render_card(r, names, hist, today_label):
                 'up' if d >= 0 else 'down', '▲' if d >= 0 else '▼', abs(d))
     eb = names['eb']
     ntot = sum(eb.values()) or 1
-    W, H = 880, 520
+    W, H = 880, 536
     o = [svg_open(W, H, 'Earth & Beyond client rebuild: %.2f%% rebuilt (%.2f%% byte-exact), %.2f%% written in C++'
                   % (rebuilt_p, exact_p, pct(written, tot)),
                   '%s of %s bytes of client.exe .text are rebuilt: %s byte for byte from source, the rest runtime libraries '
@@ -674,6 +789,8 @@ def render_card(r, names, hist, today_label):
             'days under-count.' % RULE_CHANGE,
             'Measured from committed data only (tools/progress.py); NOT EXACT placement: %d entries located, %d charged an average '
             'function (%s bytes).' % (r.located, r.unresolved, fmt(r.avg_ne)),
+            'From %s, alignment fill (0xCC / 0x90 / unreferenced 0x00 runs before an aligned verified start) is charged to the '
+            'function before it; earlier days used the old accounting.' % FILL_DAY,
             'Updated %s.' % today_label]
     for i, t in enumerate(foot):
         o.append('    <text x="28" y="%d" class="muted" font-size="11">%s</text>\n' % (464 + i * 16, esc(t)))
@@ -722,6 +839,11 @@ def render_chart(hist):
         o.append('    <line x1="%.1f" x2="%.1f" y1="%d" y2="%d" class="grid" stroke-dasharray="4 3"/>'
                  '<text x="%.1f" y="%d" class="muted" font-size="11" text-anchor="end">counting rule D80</text>\n'
                  % (x, x, py, py + ph, x - 4, py + 12))
+    if d0 <= datetime.date.fromisoformat(FILL_DAY) <= d1:
+        x = X(FILL_DAY)
+        o.append('    <line x1="%.1f" x2="%.1f" y1="%d" y2="%d" class="grid" stroke-dasharray="4 3"/>'
+                 '<text x="%.1f" y="%d" class="muted" font-size="11" text-anchor="end">fill charged</text>\n'
+                 % (x, x, py, py + ph, x - 4, py + 28))
     for cls, vals in (('l-written', wr), ('l-exact', ex)):
         pts = ' '.join('%.1f,%.1f' % (X(h['date']), Y(v)) for h, v in zip(rows, vals))
         o.append('    <polyline points="%s" fill="none" class="%s" stroke-width="2.5" stroke-linejoin="round"/>\n' % (pts, cls))
@@ -729,7 +851,8 @@ def render_chart(hist):
             o.append('    <circle cx="%.1f" cy="%.1f" r="3.2" class="%s" fill="none" stroke-width="2"><title>%s: %.2f%%</title></circle>\n'
                      % (X(h['date']), Y(v), cls, h['date'], v))
     o.append('    <text x="28" y="%d" class="muted" font-size="11">One point per day, from that day\'s last commit; '
-             'the D80 rule change (%s) makes earlier days under-count.</text>\n' % (H - 14, RULE_CHANGE))
+             'the D80 rule change (%s) makes earlier days under-count; alignment fill is charged to the '
+             'function before it from %s on.</text>\n' % (H - 14, RULE_CHANGE, FILL_DAY))
     o.append('  </g>\n</svg>\n')
     return ''.join(o)
 
@@ -860,7 +983,11 @@ def main():
     ap.add_argument('--print', action='store_true', dest='show', help='print the numbers, write no files')
     ap.add_argument('--no-names', action='store_true', help='skip the declaration census (slow)')
     ap.add_argument('--readme', action='store_true', help='rewrite the status line in README.md')
+    ap.add_argument('--fill-table', action='store_true', help='rewrite %s from client.exe and stop' % FILL_TABLE)
     a = ap.parse_args()
+    if a.fill_table:
+        print('%s: %d fill runs' % (FILL_TABLE, build_fill_table(os.path.join(ROOT, FILL_TABLE))))
+        return
 
     src = Src(None)
     tab = Tables(src)
@@ -886,6 +1013,12 @@ def main():
     print('  written in C++ (exact + NOT EXACT): %.2f%%' % pct(c['exact'] + c['notexact'], r.total))
     print('  exact functions %s, pairs %s; NOT EXACT located %d, unplaced %d (avg %d bytes); sizes estimated for %d functions'
           % (fmt(r.exact_functions), fmt(r.sets.pairs), r.located, r.unresolved, r.avg_ne, r.tab.estimated_sizes))
+    if r.fill:
+        f = r.fill
+        print('  alignment fill: %d runs, %s bytes charged to the function before (%s); zero runs with a relocation '
+              'target rejected: %d runs, %s bytes' % (f['runs'], fmt(sum(f['by_state'].values())),
+              ', '.join('%s %s' % (SHORT[s], fmt(f['by_state'][s])) for s in DISPLAY if f['by_state'][s]),
+              f['zero_rejected'][0], fmt(f['zero_rejected'][1])))
     eb = names['eb']
     nt = sum(eb.values())
     print('  names: ' + ', '.join('%d: %d (%.1f%%)' % (k, eb[k], pct(eb[k], nt)) for k in (5, 4, 3, 2, 1)) +

@@ -15,7 +15,7 @@ engineered** from the executable and rebuilt until its functions match.
 ## Status
 
 <!-- progress:start -->
-As of 2026-11-17, **76.43%** of client.exe's `.text` is rebuilt: **60.53%** byte for byte from source (25,078 functions), 15.91% runtime libraries and linker output. **71.98%** is written in C++. Of 80,640 declarations in E&B's code, **66.4%** score 4-5 on D56's name scale (untagged names count as 5, 66.1% of all).
+As of 2026-11-17, **84.62%** of client.exe's `.text` is rebuilt: **68.71%** byte for byte from source (25,201 functions), 15.91% runtime libraries and linker output. **80.37%** is written in C++. Of 80,779 declarations in E&B's code, **66.5%** score 4-5 on D56's name scale (untagged names count as 5, 66.1% of all).
 
 [![Rebuild progress](docs/progress.svg)](tools/progress.py)
 
@@ -29,7 +29,8 @@ committed in `docs/data/`. "Rebuilt" counts the bytes proven byte for byte from 
 runtime libraries and linker output that come back unchanged with the same toolchain; the definitions of
 each bar are in the footnote of the card and in [docs/README.md](docs/README.md). The counting rule changed on 2026-10-25 (decision D80: identical
 functions that differ only in a relocation target are now told apart), so the early part of the
-chart is a slight undercount.
+chart is a slight undercount. From 2026-11-17 the alignment fill between functions (int3 / nop runs, and zero runs no relocation
+points into, before the next 16-byte-aligned function) is charged to the function before it, which lifts that day's figures.
 
 ## Build it yourself
 
