@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-856 entries in 297 files.
+855 entries in 297 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -233,8 +233,7 @@ edit the comments in the code, not this file.
 | `app/client/inv_transaction.cpp:170` | `InvTransactionClass::Unknown_690D20` | marker | NOT EXACT: 0x690D20, 20 rows: register and order of the packet's arguments 0x690D20 |
 | `app/client/item/client_item_property_builder.cpp:26` | `ClientItemPropertyBuilderClass::Unknown_521C10` | marker | NOT EXACT: 0x521C10 (frame layout: the same code, but four strings and three RefCountPtrs sit in other stack slots; and the level requirement reads &Item->TemplateInfo then its Referent where ours folds [eax+0x5C]) |
 | `app/client/item/client_item_property_builder.cpp:82` | `ClientItemPropertyBuilderClass::Unknown_522860` | marker | NOT EXACT: 0x522860 (functional, 0.61: the same calls, strings and asserts in order; the frame is 0xC smaller, VC6 inlines string assigns in other cases, and case 35 releases its property through the RefCountPtr the flags use, 0x529130) |
-| `app/client/item/client_item_property_builder.cpp:812` | `ClientItemPropertyBuilderClass::Unknown_527F40` | marker | NOT EXACT: 0x527F40 (0.78: the same code; the client pushes esi at entry, ours after the FAIL_IF, and its frame is 8 bytes bigger) |
-| `app/client/item/client_item_property_builder.cpp:883` | `ClientItemPropertyBuilderClass::Unknown_5285A0` | mention | NOT EXACT. The callees in files the tree does not have yet are declared in client_item_property_builder.h (interim, D137). |
+| `app/client/item/client_item_property_builder.cpp:883` | `ClientItemPropertyBuilderClass::Unknown_5285A0` | mention | NOT EXACT. The callees in files the tree does not have yet are declared in client_item_property_builder.h (interim, D137). CIPB, run 2026-11-17b: 0x527F40 exact once 0x528460 takes the ItemEffectDescriptionClass (its vector at +0) and reads Get_Effects() in the loop: the extra inline accessor layer is the budget that sends both strings' _Tidy out of line and puts delta above delta2 in the frame. |
 | `app/client/item/client_item_property_special_level_requirement.cpp:91` | `ClientItemPropertySpecialLevelRequirementClass::Is_Usable` | marker | NOT EXACT: 0x531080 (inline-budget: the client calls UnknownRTTIClass<DeltaTemplateClass<int> >::Cast out of line, 0x531590, and compares Value < Level after reloading this; the rest, asserts and lines match) |
 | `app/client/item/client_item_property_special_profession_requirement.cpp:102` | `ClientItemPropertySpecialProfessionRequirementClass::Is_Usable` | marker | NOT EXACT: 0x52D900 (register-only: the client tests and casts the found field in eax, ours copies it to ecx first; the same code, asserts and lines) |
 | `app/client/item/client_item_property_special_race_requirement.cpp:108` | `ClientItemPropertySpecialRaceRequirementClass::Is_Usable` | marker | NOT EXACT: 0x52E500 (register-only: the client tests and casts the found field in eax, ours copies it to ecx first; the same code, asserts and lines) |

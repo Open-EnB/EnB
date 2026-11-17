@@ -124,7 +124,7 @@ private:
 	void Unknown_522860(UIItemExaminationPropertyRouterBaseClass &router);								// the attributes and requirements  // NAME 1: neutral (D10)
 	void Unknown_527F40(UIItemExaminationPropertyRouterBaseClass &router);								// the effects  // NAME 1: neutral (D10)
 	void Unknown_5285A0(UIItemExaminationPropertyRouterBaseClass &router);								// the flags  // NAME 1: neutral (D10)
-	void Unknown_528460(UIItemExaminationPropertyRouterBaseClass &router, const std::vector<ItemEffectClass> &effects);	// the effects to specials  // NAME 1: neutral (D10); NAME 1 [effects]
+	void Unknown_528460(UIItemExaminationPropertyRouterBaseClass &router, const ItemEffectDescriptionClass &effects);	// the effects to specials  // NAME 1: neutral (D10); NAME 1 [effects]
 
 	SClient *SpaceClient;																				// +0x00  // NAME 1: neutral
 	Unknown688830Item *Item;																			// +0x04  // NAME 1: neutral

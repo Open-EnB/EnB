@@ -809,7 +809,7 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 }
 
 
-// NOT EXACT: 0x527F40 (0.78: the same code; the client pushes esi at entry, ours after the FAIL_IF, and its frame is 8 bytes bigger)
+// 0x527F40
 void ClientItemPropertyBuilderClass::Unknown_527F40(UIItemExaminationPropertyRouterBaseClass &router)
 {
 	const RefCountPtr<ItemInfoClass> &template_info = Item->Get_Template_Info();
@@ -821,19 +821,19 @@ void ClientItemPropertyBuilderClass::Unknown_527F40(UIItemExaminationPropertyRou
 	if (!delta.empty()) {
 		effects.Set_Summary(delta);
 	}
-	Unknown_528460(router, effects.Get_Effects());
+	Unknown_528460(router, effects);
 	ItemEffectDescriptionClass effects2 = template_info->Get_Equip_Effects();
 	std::string delta2 = Data->Unknown_688830()->Get_Instance_Equip_Effect_Info(Slot);
 	if (!delta2.empty()) {
 		effects2.Set_Summary(delta2);
 	}
-	Unknown_528460(router, effects2.Get_Effects());
+	Unknown_528460(router, effects2);
 }
 
-void ClientItemPropertyBuilderClass::Unknown_528460(UIItemExaminationPropertyRouterBaseClass &router, const std::vector<ItemEffectClass> &effects)
+void ClientItemPropertyBuilderClass::Unknown_528460(UIItemExaminationPropertyRouterBaseClass &router, const ItemEffectDescriptionClass &effects)
 {
-	unsigned int count = effects.size();	// unused: an inline layer the client spends budget on (0x527F40 calls the RefCountPtr copies out of line)  // NAME 1 [count]: neutral
-	for (std::vector<ItemEffectClass>::const_iterator it = effects.begin(); it != effects.end(); ++it) {	// NAME 1 [it, special]: neutral
+	unsigned int count = effects.Get_Effects().size();	// unused: an inline layer the client spends budget on (0x527F40 calls the RefCountPtr copies and both strings' _Tidy out of line)  // NAME 1 [count]: neutral
+	for (std::vector<ItemEffectClass>::const_iterator it = effects.Get_Effects().begin(); it != effects.Get_Effects().end(); ++it) {	// NAME 1 [it, special]: neutral
 		RefCountPtr<ClientItemPropertySpecialClass> special = ClientItemPropertySpecialEffectClass::Create(*it);
 		router.Route(special);
 	}
@@ -882,4 +882,7 @@ void ClientItemPropertyBuilderClass::Unknown_5285A0(UIItemExaminationPropertyRou
 **	copy: level 0 worse, 1 unchanged, 2 better; the requirements; the asserts on the client's lines 155-796) and
 **	0x527F40 (inline budget) NOT EXACT. The callees in files the tree does not have yet are declared in
 **	client_item_property_builder.h (interim, D137).
+**	CIPB, run 2026-11-17b: 0x527F40 exact once 0x528460 takes the ItemEffectDescriptionClass (its vector at +0) and
+**	reads Get_Effects() in the loop: the extra inline accessor layer is the budget that sends both strings' _Tidy
+**	out of line and puts delta above delta2 in the frame.
 */
