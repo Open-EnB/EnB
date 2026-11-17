@@ -20,6 +20,9 @@ CONTRIB_TIES (D246 / CR8): a tied COMDAT whose one survivor lies in its holder's
 function to the next object's, at most RANGE_GAP past its last): px_process.obj's vector<PxProcessClass *> helpers
 right after its code, against byte-identical copies in other files' code (`contrib`).
 Its short COMDATs (USE_CONTRIB_SHORTS): _Destroy 0x455FE0 there, at the first holder's verified start holding its bytes.
+CK_CALLSEQ (D246 / CK): co_data.obj's ClientObjectDataAccessClass<RadarDataClass>::Get, not exact, is located at 0x79E300 by
+Get_Radar_Data's call; its calls in order give the tied hashtable<..RadarDataClass..>::find_or_insert 0x7A0EC0 (five
+byte-identical instances), whose own calls then give its resize 0x7A3B50 (`ck_callseq`).
 """
 import os
 import sys
@@ -268,6 +271,10 @@ CONTRIB_TIES = [
 CONTRIB_SHORTS = [
     ('px_process.obj', '?_Destroy@?$vector@PAVPxProcessClass@@V?$allocator@PAVPxProcessClass@@@std@@@std@@IAEXPAPAVPxProcessClass@@0@Z', '0x455FE0'),
 ]
+CK_CALLSEQ = [
+    ('co_data.obj', '?find_or_insert@?$hashtable@U?$pair@QAVClientObjectClass@@PAVRadarDataClass@@@std@@PAVClientObjectClass@@U?$hash@PAVClientObjectClass@@@2@U?$_Select1st@U?$pair@QAVClientObjectClass@@PAVRadarDataClass@@@std@@@2@U?$equal_to@PAVClientObjectClass@@@2@V?$allocator@PAVRadarDataClass@@@2@@std@@QAEAAU?$pair@QAVClientObjectClass@@PAVRadarDataClass@@@2@ABU32@@Z', '0x7A0EC0'),
+    ('co_data.obj', '?resize@?$hashtable@U?$pair@QAVClientObjectClass@@PAVRadarDataClass@@@std@@PAVClientObjectClass@@U?$hash@PAVClientObjectClass@@@2@U?$_Select1st@U?$pair@QAVClientObjectClass@@PAVRadarDataClass@@@std@@@2@U?$equal_to@PAVClientObjectClass@@@2@V?$allocator@PAVRadarDataClass@@@2@@std@@QAEXI@Z', '0x7A3B50'),
+]
 APP_REGION = (0x401000, 0x8C1B50)
 
 
@@ -314,6 +321,11 @@ class ContribTies(unittest.TestCase):
 class ContribShorts(unittest.TestCase):
     def test_cases(self):
         _check(self, CONTRIB_SHORTS, 'USE_CONTRIB_SHORTS', 'contrib', APP_REGION, off_status='short')
+
+
+class CkCallseq(unittest.TestCase):
+    def test_cases(self):
+        _check(self, CK_CALLSEQ, 'USE_CK_CALLSEQ', 'ck_callseq', APP_REGION)
 
 
 if __name__ == '__main__':

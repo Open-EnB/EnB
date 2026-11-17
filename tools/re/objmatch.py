@@ -148,6 +148,23 @@ The call evidence of D188 may include other libraries' exact functions' calls
 (D246 / CR6, USE_EXTERN_CALLED; match_objects' extern_called): verify passes each library the call maps the
 previous verify wrote for the others (docs/data/called.json), so no second matching pass is needed.
 
+Last of all, a call-sequence round (D246 / CK, run 2026-11-17, USE_CK_CALLSEQ; `callseq_ties`) for what every rule
+above leaves `multiple` or `short`: a function that is not exact but whose address the run knows (the one address
+the exact functions' calls give its symbol; with USE_CK_CALLSEQ_NAMED, else D88's self name) is aligned with the
+client function there: the object's REL32 relocations in offset order against the client's rel32 calls / jumps that
+leave the function (capstone, up to the next verified start; padding after the code), one to one when the counts
+agree, one symbol to one address and back, every symbol D80 knows at its known address and at least one so. A tied
+or short callee is credited at its aligned target when every aligned caller gives that one address, it fullmatches
+there (a `multiple`'s own hit), D80's break_tie leaves it and no other symbol holds or is proposed there (a file
+static named in several objects is left alone); `exact` with `ck_callseq` (and `tiebreak`, or `short_known` =
+`callseq`), never counted toward ranges. Its credits align like located callers in the next of CK_CALLSEQ_ROUNDS
+rounds (their exact calls are not call-tie evidence this late), and (USE_CK_CALLSEQ_DEEP) a not-exact function an
+aligned call reaches is located there in turn when every aligned caller gives it that one unheld verified start, so
+the alignment follows call chains down (stars.obj's three Create_NEW instances 0x482F00 / 0x482F60 / 0x482FC0). First case: co_data.obj's five hash_map instances
+(<ClientObjectClass *, Radar / Gutter / Starmap / Navigation / EmoteDataClass *>), byte-identical: each
+ClientObjectDataAccessClass<T>::Get (not exact, located by Get_T_Data's call) gives its find_or_insert, pair
+constructor and iterator, and find_or_insert its resize (0x7A0EC0, 0x7A3B50 for Radar).
+
 A searched match counts only at a function start (D189(2)): an address the client's thunk table or a
 call / jump reaches, or one right after padding (int3 / nop) or after the end of another function (a
 `ret`, `ret n`, `jmp`, an indirect `jmp`, or a jump table's last entry), or a 16-byte aligned one (a
@@ -273,6 +290,18 @@ USE_CONTRIB_FIRST = True
 # ... and the `short` COMDATs (too short to search) at the one verified start in the first holder's contribution
 # that holds their bytes and length, then padding, D80's break_tie not contradicting
 USE_CONTRIB_SHORTS = True
+# D246 (CK, run 2026-11-17): a function located by call evidence but not exact (the one address the exact functions'
+# calls give its symbol) has the object's relocated calls in the client's order: when the client function there has
+# as many outside branches as the object's REL32 relocations, every one under a symbol whose address the run knows
+# lands there and at least one does, the others' targets locate the tied / short callees (`ck_callseq`)
+USE_CK_CALLSEQ = True
+CK_CALLSEQ_ROUNDS = 8
+# ... and a caller that symbols.json names from a proof other than an exact match (D88's self name: a vtable slot,
+# a string) is located there when no exact function calls it
+USE_CK_CALLSEQ_NAMED = True
+# ... and a not-exact function an aligned caller's call reaches is located there in turn (one address from every
+# aligned caller, a verified start no other symbol holds), so the alignment follows call chains down
+USE_CK_CALLSEQ_DEEP = True
 
 
 def generated(name):
@@ -1158,6 +1187,26 @@ def match_objects(img, paths, region=None, callers=False, extern_called=None, ca
             claimed[a].add(r['symbol'])
             learn(r, obj, sec, s, length, a)
             done.add(id(r))
+    if USE_CK_CALLSEQ:
+        located = {}    # USE_CK_CALLSEQ_DEEP: {symbol: address or None} of not-exact functions aligned calls reach
+        for _ in range(CK_CALLSEQ_ROUNDS):
+            n_located = len(located)
+            got = callseq_ties(img, results, pending, done, claimed, called, text, start, thunk, known, located)
+            for item, a in got:
+                r, obj, sec, s, length = item[:5]
+                if r['status'] == 'short':
+                    r['short_known'] = 'callseq'
+                else:
+                    r['tiebreak'] = True
+                    done.add(id(r))
+                r['status'] = 'exact'
+                r['addresses'] = [f'0x{a:06X}']
+                r['ck_callseq'] = True
+                r.pop('count', None), r.pop('identical', None)
+                claimed[a].add(r['symbol'])
+                learn(r, obj, sec, s, length, a)
+            if not got and len(located) == n_located:
+                break
     if called_out is not None:
         called_out.update({k: set(v) for k, v in own_called.items()})
     for r, *_ in results:
@@ -1239,6 +1288,134 @@ def contribution_ties(results, pending, done, claimed, text, base, img, known):
                     j += 1
             if len(inside) == 1:
                 props.append(((r, obj, sec, s, length, []), inside[0]))
+    by_addr = collections.defaultdict(set)
+    for (r, *_), a in props:
+        by_addr[a].add(r['symbol'])
+    return [(item, a) for item, a in props if len(by_addr[a]) == 1]
+
+
+def _client_branches(img, a, end, thunk):
+    """[target] of the rel32 calls / jumps (E8, E9, 0F 8x) in the client function [a, end) that leave it, in address
+    order (thunks resolved); None when the disassembly stops short of END (data in the body)."""
+    out = []
+    last = a
+    for ins in img.disasm(a, end - a):
+        last = ins.address + ins.size
+        b = ins.bytes
+        if (len(b) == 5 and b[0] in (0xE8, 0xE9)) or (len(b) == 6 and b[0] == 0x0F and 0x80 <= b[1] <= 0x8F):
+            t = (ins.address + ins.size + struct.unpack_from('<i', b, len(b) - 4)[0]) & 0xFFFFFFFF
+            if not a <= t < end:
+                out.append(thunk.get(t, t))
+        if last >= end:
+            break
+    return out if last >= end or _padding_img(img, last, end) else None
+
+
+def _padding_img(img, lo, hi):
+    o = img.offset(lo)
+    return all(b in (0xCC, 0x90) for b in img.data[o:o + (hi - lo)])
+
+
+def callseq_ties(img, results, pending, done, claimed, called, text, base, thunk, known, located=None):
+    """D246 (CK): [(item, address)] for tied (`multiple`) and `short` functions that a located not-exact caller's
+    calls reach. A caller is located when the exact functions' calls give its symbol exactly one address, a verified
+    start no other symbol holds. Its object's REL32 relocations (offset order) align one to one with the client
+    function's outside rel32 branches (address order, up to the next verified start, padding excepted) when the counts
+    agree, one symbol takes one address and distinct symbols distinct ones, every symbol the run knows (D80's
+    `known`) is at its known address and at least one is. A callee item is credited at its aligned target when every
+    located caller gives the symbol that one address, its pattern fullmatches there (for a `multiple`, the target is
+    one of its hits), D80's break_tie leaves it and no other symbol holds or is proposed there."""
+    starts = _verified_starts(img)
+    startset = set(starts)
+    by_sym = collections.defaultdict(list)
+    for item in results:
+        by_sym[item[0]['symbol']].append(item)
+    want = collections.defaultdict(list)     # symbol -> items still to place
+    for item in results:
+        r = item[0]
+        if r['status'] == 'short' and item[4] > 0:
+            want[r['symbol']].append(item)
+    hits_of = {}
+    for item in pending:
+        r = item[0]
+        if id(r) not in done and r['status'] == 'multiple':
+            want[r['symbol']].append(item[:5])
+            hits_of[id(r)] = set(item[5])
+    if not want:
+        return []
+    target = collections.defaultdict(set)   # symbol -> addresses the aligned callers give it
+    reach = collections.defaultdict(set)    # USE_CK_CALLSEQ_DEEP: the same for the not-exact, not-wanted symbols
+    for sym, items in by_sym.items():
+        # a function this rule credited aligns like a located one (its exact functions' calls are not call-tie
+        # evidence before this round)
+        if len(items) > 1 and any(it[1].symbol_class(sym) != 2 for it in items):
+            continue    # file statics of one name in several objects: the name is not one function
+        mine = {int(it[0]['addresses'][0], 16) for it in items if it[0].get('ck_callseq')}
+        if any(it[0]['status'] == 'exact' and not it[0].get('ck_callseq') for it in items):
+            continue
+        at = mine or called.get(sym, set()) or (self_names().get(sym, set()) if USE_CK_CALLSEQ_NAMED else set())
+        if not at and located and located.get(sym) is not None:
+            at = {located[sym]}
+        if len(at) != 1:
+            continue
+        a = next(iter(at))
+        if a not in startset or claimed[a] - {sym} or not base <= a < base + len(text):
+            continue
+        i = bisect.bisect_right(starts, a)
+        end = starts[i] if i < len(starts) else base + len(text)
+        branches = _client_branches(img, a, end, thunk)
+        if branches is None:
+            continue
+        for r, obj, sec, s, length in items:
+            if length <= 0:
+                continue
+            relocs = [x for x in obj.reloc_targets(sec, s, length) if x[2] == 0x14 and x[1] == 4]
+            if len(relocs) != len(branches):
+                continue
+            fwd, back, anchors, ok = {}, {}, 0, True
+            for (k, n, typ, sym2, addend), t in zip(relocs, branches):
+                if sym2 is None or sym2['name'].startswith('.') or sym2['class'] not in (2, 3):
+                    continue    # a section-relative target: no symbol to check
+                name = sym2['name']
+                if fwd.setdefault(name, t) != t or back.setdefault(t, name) != name:
+                    ok = False
+                    break
+                kn = known.get(name)
+                if kn:
+                    if t not in kn:
+                        ok = False
+                        break
+                    anchors += 1
+            if not ok or not anchors:
+                continue
+            for name, t in fwd.items():
+                if name in want:
+                    target[name].add(t)
+                elif located is not None and USE_CK_CALLSEQ_DEEP and name in by_sym and                         not any(it[0]['status'] == 'exact' for it in by_sym[name]):
+                    reach[name].add(t)
+    for name, ts in reach.items():
+        t = next(iter(ts))
+        if len(ts) > 1 or located.get(name, t) != t or t not in startset or claimed[t] - {name}:
+            located[name] = None    # two addresses for one symbol: located nowhere
+        elif name not in located:
+            located[name] = t
+    props = []
+    for name, ts in target.items():
+        if len(ts) != 1:
+            continue
+        t = next(iter(ts))
+        if t not in startset or claimed[t] - {name} or not base <= t < base + len(text):
+            continue
+        if len(by_sym[name]) > 1 and any(it[1].symbol_class(name) != 2 for it in by_sym[name]):
+            continue
+        for item in want[name]:
+            r, obj, sec, s, length = item
+            if r['status'] == 'multiple' and t not in hits_of.get(id(r), ()):
+                continue
+            if not _fullmatch_at(obj, sec, s, length, text, base, t) or \
+                    break_tie(obj, sec, s, length, text, base, [t], img, known)[0] != [t]:
+                continue
+            props.append((item, t))
     by_addr = collections.defaultdict(set)
     for (r, *_), a in props:
         by_addr[a].add(r['symbol'])
