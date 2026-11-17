@@ -294,7 +294,7 @@ bool CallbackManager::Process(unsigned int time)
 **
 **	Names: CallbackManager, Process and Callbacks are the client's ('CallbackManager::Process' is Process's
 **	WWPROFILE label, 'Callbacks' and 'iter.Iter' are assert texts); the rest are neutral (NAME tags in the
-**	header). The only user is timer_manager.cpp (0x4A0C40-0x4A0F90, not yet in the tree): its constructor
+**	header). The only user is timer_manager.cpp (0x4A0C40-0x4A0F90, rebuilt): its constructor
 **	news the manager (0x0C bytes) and calls 0x49B9F0, its destructor 0x49BA30; it adds through Add 0x49BBF0
 **	(owner, timeGetTime() + delay, a new 0x10-byte callback), removes through Remove_All(owner) 0x49C1C0 and
 **	loops on Process 0x49C860 while it returns true.
