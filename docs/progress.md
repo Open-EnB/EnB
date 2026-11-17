@@ -4173,6 +4173,12 @@ below name only the work items, the blocked work, the leads and the queues.
    * **Starbase render stalls:** ours-only stalls over 5 s in `_play7` (SBaseViewClass::Unknown_0C into WW3D::Render); a recording that reaches the generated stand-ins the link still writes.
    * **The starbase gadget's own file** around 0x6B6050-0x6B6170: confirm its range (0x6B6050 is exact).
    * **Client-names rows with most work left** (counts of 2026-11-14, recount with notexact.py first): co.cpp, ui_registration, mainview, ui_manu, attrib_dir, ui_chat_panel's rest, ui_scan.
+   * **ui_interrupt.cpp:** its local inline `operator >` and `Millisecond` say "duration.h's, not rebuilt there yet";
+     app/shared/duration.h exists without them: move them into duration.h (pairs checked) or drop the interim note.
+   * **Placeholder tags:** "NAME 1 neutral placeholder" on Cord_CRC / Cord_SHA in app/client/unknown_8b3e70.cpp / .h and
+     libs/wwonline/wlib/unknown_8b45b0.h, names symbols.json already has: retag or drop.
+   * **Score snapshots in comments:** "NOT EXACT: 0.93 / 0.72" figures (linebox.cpp:83, nav_list_line_draw.cpp:130, ...):
+     re-measure or drop the numbers at each file's next edit.
 
 2. **Step 9 (D90)**, left in its files (history: the log entries of 2026-10-28 and 2026-10-29):
    * co.cpp: the thunks 0x70E2A0-0x70E2D0 (too short for verify to count); type 28's aim 0x70E850 (frame / shape);
