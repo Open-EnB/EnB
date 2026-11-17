@@ -20,6 +20,10 @@ CONTRIB_TIES (D246 / CR8): a tied COMDAT whose one survivor lies in its holder's
 function to the next object's, at most RANGE_GAP past its last): px_process.obj's vector<PxProcessClass *> helpers
 right after its code, against byte-identical copies in other files' code (`contrib`).
 Its short COMDATs (USE_CONTRIB_SHORTS): _Destroy 0x455FE0 there, at the first holder's verified start holding its bytes.
+GAP_EDGE (D246 / EX): camera_manager.obj's short getter 0x79B4D0, right after the exact setter 0x79B4B0 in a gap that
+also holds the not-exact 0x79B4F0 (short_order's count test fails), takes the next verified start after the setter's
+end (`gap_edge`). USE_EX_GAP_KNOWN: boolpars.obj's destructor and Set_Callbacks between the exact deleting destructor
+0x49A3C0 and the not-exact Parse, which symbols.json places at 0x49A430.
 CK_CALLSEQ (D246 / CK): co_data.obj's ClientObjectDataAccessClass<RadarDataClass>::Get, not exact, is located at 0x79E300 by
 Get_Radar_Data's call; its calls in order give the tied hashtable<..RadarDataClass..>::find_or_insert 0x7A0EC0 (five
 byte-identical instances), whose own calls then give its resize 0x7A3B50 (`ck_callseq`).
@@ -274,6 +278,11 @@ CONTRIB_TIES = [
 CONTRIB_SHORTS = [
     ('px_process.obj', '?_Destroy@?$vector@PAVPxProcessClass@@V?$allocator@PAVPxProcessClass@@@std@@@std@@IAEXPAPAVPxProcessClass@@0@Z', '0x455FE0'),
 ]
+GAP_EDGE = [
+    ('camera_manager.obj', '?Unknown_79B4D0@CameraManagerClass@@QAE_NXZ', '0x79B4D0'),
+    ('boolpars.obj', '??1BoolParserClass@@UAE@XZ', '0x49A3F0'),
+    ('boolpars.obj', '?Set_Callbacks@BoolParserClass@@QAEXPAV?$hash_map@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@PAVBoolEvaluatorClass@@U?$hash@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@U?$equal_to@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@V?$allocator@PAVBoolEvaluatorClass@@@2@@std@@@Z', '0x49A410'),
+]
 CK_CALLSEQ = [
     ('co_data.obj', '?find_or_insert@?$hashtable@U?$pair@QAVClientObjectClass@@PAVRadarDataClass@@@std@@PAVClientObjectClass@@U?$hash@PAVClientObjectClass@@@2@U?$_Select1st@U?$pair@QAVClientObjectClass@@PAVRadarDataClass@@@std@@@2@U?$equal_to@PAVClientObjectClass@@@2@V?$allocator@PAVRadarDataClass@@@2@@std@@QAEAAU?$pair@QAVClientObjectClass@@PAVRadarDataClass@@@2@ABU32@@Z', '0x7A0EC0'),
     ('co_data.obj', '?resize@?$hashtable@U?$pair@QAVClientObjectClass@@PAVRadarDataClass@@@std@@PAVClientObjectClass@@U?$hash@PAVClientObjectClass@@@2@U?$_Select1st@U?$pair@QAVClientObjectClass@@PAVRadarDataClass@@@std@@@2@U?$equal_to@PAVClientObjectClass@@@2@V?$allocator@PAVRadarDataClass@@@2@@std@@QAEXI@Z', '0x7A3B50'),
@@ -324,6 +333,11 @@ class ContribTies(unittest.TestCase):
 class ContribShorts(unittest.TestCase):
     def test_cases(self):
         _check(self, CONTRIB_SHORTS, 'USE_CONTRIB_SHORTS', 'contrib', APP_REGION, off_status='short')
+
+
+class GapEdge(unittest.TestCase):
+    def test_cases(self):
+        _check(self, GAP_EDGE, 'USE_EX_GAP_EDGE', 'gap_edge', APP_REGION, off_status='short')
 
 
 class CkCallseq(unittest.TestCase):

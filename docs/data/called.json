@@ -747,6 +747,9 @@
 "?Enter_Child@WWProfileIterator@@QAEXH@Z": [
 "0x9EBA00"
 ],
+"?Enter_Parent@WWProfileIterator@@QAEXXZ": [
+"0x9EBA40"
+],
 "?Entry_Count@INIClass@@QBEHPBD@Z": [
 "0x9C8F30"
 ],

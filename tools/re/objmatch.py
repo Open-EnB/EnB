@@ -287,6 +287,16 @@ USE_GAP_ORDER = True
 # (after its last) in object order take the client functions right below it (right after it), padding-only gaps
 # (`edge_order`); cross-object byte-identical copies (P-C4-1's range end)
 USE_EDGE_ORDER = True
+# D246 (EX, run 2026-11-17b): the same alignment at a gap's two edges when the gap also holds a not-exact own
+# function (which ends short_order's count test): from the exact P forward and from the exact Q backward, the
+# `short` / `multiple` own functions take the client's verified starts next to P's end (Q's start) one by one, each
+# its own length, then only padding, fullmatching, unclaimed, D80 not contradicting; the first other one ends that
+# side (`gap_edge`; camera_manager's 0x79B4D0 after 0x79B4B0, before the not-exact 0x79B4F0)
+USE_EX_GAP_EDGE = True
+# ... and a not-exact own function that symbols.json gives one address (D80's known: D88's self name, a proof) is an
+# anchor too: the gap members after it take the verified starts from the one after its address, those before it end
+# (then padding) at its address; after an object's last such anchor the members follow it the same way
+USE_EX_GAP_KNOWN = True
 # D246 (CR6, CR1's EXTERN_CALLED in its cheap form): the relocated calls other libraries' exact functions make (the
 # previous verify's call map, docs/data/called.json, passed as match_objects' extern_called) join D188's `called`
 USE_EXTERN_CALLED = True
@@ -967,14 +977,22 @@ def match_objects(img, paths, region=None, callers=False, extern_called=None, ca
                     for it, _ in edge:
                         it[0]['edge_order'] = True
                     got = got + edge
+                if USE_EX_GAP_EDGE:
+                    # D246 (EX): the gaps' edges when a not-exact own function sits inside the gap
+                    taken = {a for _, a in got} | {it[0]['symbol'] for it, _ in got}
+                    gedge = [(it, a) for it, a in gap_edges(img, results, text, start, claimed, known)
+                             if a not in taken and it[0]['symbol'] not in taken]
+                    for it, _ in gedge:
+                        it[0]['gap_edge'] = True
+                    got = got + gedge
                 for (r, obj, sec, s, length), a in got:
                     if r['status'] == 'multiple':
                         r['tiebreak'] = True
-                        if not r.get('edge_order'):
+                        if not r.get('edge_order') and not r.get('gap_edge'):
                             r['gap_order'] = True
                         r.pop('count', None), r.pop('identical', None)
                         done.add(id(r))
-                    elif not r.get('edge_order'):
+                    elif not r.get('edge_order') and not r.get('gap_edge'):
                         r['short_order'] = True
                     r['status'] = 'exact'
                     r['addresses'] = [f'0x{a:06X}']
@@ -2669,6 +2687,74 @@ def edge_order(img, results, text, base, claimed, known):
                 break
             out.append((item, a))
             end = a + item[4]
+    by_addr = collections.defaultdict(set)
+    for (r, *_), a in out:
+        by_addr[a].add(r['symbol'])
+    return [(it, a) for it, a in out if len(by_addr[a]) == 1]
+
+
+def gap_edges(img, results, text, base, claimed, known):
+    """D246 (EX): [(item, address)] for `short` / `multiple` own functions at the edges of a gap between two
+    consecutive exact own functions P, Q of one object in object order (P's address below Q's) that short_order cannot
+    align because the gap holds another kind of function (not exact). Forward from P's end: each gap member in object
+    order, while it is short or tied, takes the next verified start (only padding before it), fullmatching there with
+    its own length and then only padding up to the next start; backward from Q the same with the starts below Q.
+    Every address stays strictly between P and Q, unclaimed, D80's break_tie leaving it; the two sides may not
+    overlap, and an address two symbols take is left alone. USE_EX_GAP_KNOWN: a not-exact own function that D80's
+    known (symbols.json) gives one address, unclaimed by another symbol, anchors the same way (the member after it at
+    the very next verified start, no padding test since its client length is unknown), also as an object's last
+    anchor (the members after it follow it)."""
+    starts = _verified_starts(img)
+
+    def ok_at(item, a, nxt):
+        r, obj, sec, s, length = item
+        return r['status'] in ('short', 'multiple') and length > 0 and not claimed[a] and \
+            _fullmatch_at(obj, sec, s, length, text, base, a) and _padding(text, base, a + length, nxt) and \
+            break_tie(obj, sec, s, length, text, base, [a], img, known)[0] == [a]
+
+    out = []
+    for key, order in _object_order(results).items():
+        # anchors: the exact own functions (address, end) and, USE_EX_GAP_KNOWN, a not-exact own function that
+        # symbols.json gives one address (D80's known; its end there is the next verified start)
+        anchors = []
+        for idx, (k, a, it) in enumerate(order):
+            if a is not None:
+                anchors.append((idx, a, a + it[4], True))
+            elif USE_EX_GAP_KNOWN and it[0]['status'] == 'none' and len(known.get(it[0]['symbol'], ())) == 1:
+                a = next(iter(known[it[0]['symbol']]))
+                k2 = bisect.bisect_right(starts, a)
+                if k2 < len(starts) and not claimed[a] - {it[0]['symbol']}:
+                    anchors.append((idx, a, starts[k2], False))
+        tail = [(anchors[-1], (len(order), 0xFFFFFFFF, 0, True))] if anchors and not anchors[-1][3] else []
+        for (i, p, pend, pexact), (j, q, _, _) in list(zip(anchors, anchors[1:])) + tail:
+            members = [it for _, _, it in order[i + 1:j]]
+            if not members or q <= p or (pexact and q != 0xFFFFFFFF and order[j][1] is not None and
+                                        all(it[0]['status'] in ('short', 'multiple') for it in members)):
+                continue        # nothing between, out of order, or short_order's case
+            fwd, end, pad = [], pend, pexact
+            for item in members:
+                k = bisect.bisect_left(starts, end)
+                if k >= len(starts) or starts[k] >= q or item[0]['status'] not in ('short', 'multiple'):
+                    break
+                a = starts[k]
+                nxt = starts[k + 1] if k + 1 < len(starts) else a + item[4]
+                if (pad and not _padding(text, base, end, a)) or (not pad and a != end) or \
+                        not ok_at(item, a, min(nxt, q)):
+                    break
+                fwd.append((item, a))
+                end, pad = a + item[4], True
+            bwd, bound = [], q
+            for item in reversed(members[len(fwd):]) if q != 0xFFFFFFFF else ():
+                k = bisect.bisect_left(starts, bound) - 1
+                if k < 0 or starts[k] < end or (fwd == [] and not pexact and starts[k] <= p) or \
+                        item[0]['status'] not in ('short', 'multiple'):
+                    break
+                a = starts[k]
+                if not ok_at(item, a, bound):
+                    break
+                bwd.append((item, a))
+                bound = a
+            out += fwd + bwd
     by_addr = collections.defaultdict(set)
     for (r, *_), a in out:
         by_addr[a].add(r['symbol'])
