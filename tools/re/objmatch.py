@@ -349,7 +349,7 @@ USE_VX_SAME_TARGETS = True
 # own class, placed by the run (one known address, not `vx_table_foreign`), holds another function at its slot
 # (client_item_property_special_maker.obj's Get_Lines matched 0x52BC30, ClientItemPropertySpecialEffectClass's; the
 # maker's table 0xAEDF00, stored by its exact constructor 0x52C980, holds 0x52CBF0 at that slot): `vx_slot_contradicted`
-USE_VX_SLOT_CONTRA = False
+USE_VX_SLOT_CONTRA = True
 
 
 def _vx_class(name):
