@@ -297,6 +297,10 @@ USE_EX_GAP_EDGE = True
 # anchor too: the gap members after it take the verified starts from the one after its address, those before it end
 # (then padding) at its address; after an object's last such anchor the members follow it the same way
 USE_EX_GAP_KNOWN = True
+# ... and, forward from an exact anchor's end, a member may start where the padding after the previous function ends
+# (16-aligned) when no verified start lies there: functions nothing calls (D27's starts are call targets), the
+# padding is the boundary the linker leaves (`gap_edge` too; delta_interpolator's Get_Change 0x4A6360)
+USE_EX_GAP_PADDED = True
 # D246 (CR6, CR1's EXTERN_CALLED in its cheap form): the relocated calls other libraries' exact functions make (the
 # previous verify's call map, docs/data/called.json, passed as match_objects' extern_called) join D188's `called`
 USE_EXTERN_CALLED = True
@@ -2693,14 +2697,28 @@ def edge_order(img, results, text, base, claimed, known):
     return [(it, a) for it, a in out if len(by_addr[a]) == 1]
 
 
+def _after_padding(text, base, end, limit):
+    """The first 16-aligned address at or after END below LIMIT whose byte is not padding, with only padding
+    (int3 / nop) before it from END; None when there is none or the padding runs past 31 bytes (two alignment
+    units: a start nothing calls is taken only that close)."""
+    a = (end + 15) & ~15
+    while a < limit and a - end <= 31 and a - base < len(text) and text[a - base] in (0xCC, 0x90):
+        a += 16
+    if a >= limit or a - end > 31 or a - base >= len(text) or not _padding(text, base, end, a):
+        return None
+    return a
+
+
 def gap_edges(img, results, text, base, claimed, known):
     """D246 (EX): [(item, address)] for `short` / `multiple` own functions at the edges of a gap between two
     consecutive exact own functions P, Q of one object in object order (P's address below Q's) that short_order cannot
-    align because the gap holds another kind of function (not exact). Forward from P's end: each gap member in object
+    align (a not-exact member, or a count of verified starts that differs). Forward from P's end: each gap member in object
     order, while it is short or tied, takes the next verified start (only padding before it), fullmatching there with
     its own length and then only padding up to the next start; backward from Q the same with the starts below Q.
-    Every address stays strictly between P and Q, unclaimed, D80's break_tie leaving it; the two sides may not
-    overlap, and an address two symbols take is left alone. USE_EX_GAP_KNOWN: a not-exact own function that D80's
+    Every address stays strictly between P and Q, unclaimed, D80's break_tie leaving it, and no other member of the
+    gap fullmatches there; the two sides may not overlap, and an address two symbols take is left alone.
+    USE_EX_GAP_PADDED: forward from an exact anchor, a member may start at the first 16-aligned non-padding byte
+    within 31 bytes of the previous end when no verified start lies there. USE_EX_GAP_KNOWN: a not-exact own function that D80's
     known (symbols.json) gives one address, unclaimed by another symbol, anchors the same way (the member after it at
     the very next verified start, no padding test since its client length is unknown), also as an object's last
     anchor (the members after it follow it)."""
@@ -2728,18 +2746,34 @@ def gap_edges(img, results, text, base, claimed, known):
         tail = [(anchors[-1], (len(order), 0xFFFFFFFF, 0, True))] if anchors and not anchors[-1][3] else []
         for (i, p, pend, pexact), (j, q, _, _) in list(zip(anchors, anchors[1:])) + tail:
             members = [it for _, _, it in order[i + 1:j]]
-            if not members or q <= p or (pexact and q != 0xFFFFFFFF and order[j][1] is not None and
-                                        all(it[0]['status'] in ('short', 'multiple') for it in members)):
-                continue        # nothing between, out of order, or short_order's case
+            if not members or q <= p:
+                continue        # nothing between, or out of order (what short_order took the hook drops)
+
+            def alone(item, a):
+                # no other member of the gap has these bytes there: one symbol to one address (D80)
+                return not any(o is not item and o[0]['status'] in ('short', 'multiple') and o[4] > 0 and
+                               _fullmatch_at(o[1], o[2], o[3], o[4], text, base, a) for o in members)
             fwd, end, pad = [], pend, pexact
             for item in members:
+                if item[0]['status'] not in ('short', 'multiple'):
+                    break
                 k = bisect.bisect_left(starts, end)
-                if k >= len(starts) or starts[k] >= q or item[0]['status'] not in ('short', 'multiple'):
+                if pad and USE_EX_GAP_PADDED:
+                    a = _after_padding(text, base, end, q)
+                    if a is not None and (k >= len(starts) or starts[k] != a):
+                        # no verified start there: the member's bytes, then padding to the next 16-byte boundary
+                        e = (a + item[4] + 15) & ~15
+                        if a < q and e <= q and ok_at(item, a, e) and alone(item, a):
+                            fwd.append((item, a))
+                            end = a + item[4]
+                            continue
+                        break
+                if k >= len(starts) or starts[k] >= q:
                     break
                 a = starts[k]
                 nxt = starts[k + 1] if k + 1 < len(starts) else a + item[4]
                 if (pad and not _padding(text, base, end, a)) or (not pad and a != end) or \
-                        not ok_at(item, a, min(nxt, q)):
+                        not ok_at(item, a, min(nxt, q)) or not alone(item, a):
                     break
                 fwd.append((item, a))
                 end, pad = a + item[4], True
@@ -2750,7 +2784,7 @@ def gap_edges(img, results, text, base, claimed, known):
                         item[0]['status'] not in ('short', 'multiple'):
                     break
                 a = starts[k]
-                if not ok_at(item, a, bound):
+                if not ok_at(item, a, bound) or not alone(item, a):
                     break
                 bwd.append((item, a))
                 bound = a

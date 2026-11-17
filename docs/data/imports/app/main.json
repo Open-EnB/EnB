@@ -28,8 +28,5 @@
  "name": "main/main.cpp",
  "shared": [
   "0x42F250"
- ],
- "short_known": [
-  "0x4454C0"
  ]
 }

@@ -23,7 +23,8 @@ Its short COMDATs (USE_CONTRIB_SHORTS): _Destroy 0x455FE0 there, at the first ho
 GAP_EDGE (D246 / EX): camera_manager.obj's short getter 0x79B4D0, right after the exact setter 0x79B4B0 in a gap that
 also holds the not-exact 0x79B4F0 (short_order's count test fails), takes the next verified start after the setter's
 end (`gap_edge`). USE_EX_GAP_KNOWN: boolpars.obj's destructor and Set_Callbacks between the exact deleting destructor
-0x49A3C0 and the not-exact Parse, which symbols.json places at 0x49A430.
+0x49A3C0 and the not-exact Parse, which symbols.json places at 0x49A430. USE_EX_GAP_PADDED: delta_interpolator.obj's
+Get_Change 0x4A6360 (nothing calls it, so no verified start) right after the destructor 0x4A6330's padding.
 CK_CALLSEQ (D246 / CK): co_data.obj's ClientObjectDataAccessClass<RadarDataClass>::Get, not exact, is located at 0x79E300 by
 Get_Radar_Data's call; its calls in order give the tied hashtable<..RadarDataClass..>::find_or_insert 0x7A0EC0 (five
 byte-identical instances), whose own calls then give its resize 0x7A3B50 (`ck_callseq`).
@@ -280,6 +281,7 @@ CONTRIB_SHORTS = [
 ]
 GAP_EDGE = [
     ('camera_manager.obj', '?Unknown_79B4D0@CameraManagerClass@@QAE_NXZ', '0x79B4D0'),
+    ('delta_interpolator.obj', '?Get_Change@DeltaInterpolatorClass@@QBEMXZ', '0x4A6360'),
     ('boolpars.obj', '??1BoolParserClass@@UAE@XZ', '0x49A3F0'),
     ('boolpars.obj', '?Set_Callbacks@BoolParserClass@@QAEXPAV?$hash_map@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@PAVBoolEvaluatorClass@@U?$hash@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@U?$equal_to@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@V?$allocator@PAVBoolEvaluatorClass@@@2@@std@@@Z', '0x49A410'),
 ]
@@ -297,8 +299,9 @@ class ShortOrder(unittest.TestCase):
 
 class GapOrder(unittest.TestCase):
     def test_cases(self):
-        # with the gap round off, the edge round (USE_EDGE_ORDER) places them at the same addresses
-        _check(self, GAP_ORDER, 'USE_GAP_ORDER', 'gap_order', APP_REGION, also_off=('USE_EDGE_ORDER',))
+        # with the gap round off, the edge round (USE_EDGE_ORDER) and the gap-edge round (USE_EX_GAP_EDGE) place them
+        # at the same addresses
+        _check(self, GAP_ORDER, 'USE_GAP_ORDER', 'gap_order', APP_REGION, also_off=('USE_EDGE_ORDER', 'USE_EX_GAP_EDGE'))
 
 
 class EdgeOrder(unittest.TestCase):
