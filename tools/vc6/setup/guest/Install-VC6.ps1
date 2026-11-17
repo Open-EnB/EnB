@@ -21,7 +21,7 @@ $ErrorActionPreference = 'Stop'
 
 function Find-Disc([string]$label) {
     $v = Get-Volume | Where-Object { $_.FileSystemLabel -eq $label -and $_.DriveLetter } | Select-Object -First 1
-    if (-not $v) { throw "disc '$label' not attached (attach the ISO made by tools/vc6/setup/media.py)" }
+    if (-not $v) { throw "disc '$label' not attached (attach the ISO made by tools/vc6/setup/EnBSetup.ps1 Get-VC6Media)" }
     return "$($v.DriveLetter):\"
 }
 

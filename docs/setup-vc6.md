@@ -18,7 +18,7 @@ Contents: §1 requirements · §2 the scripted route · §3 what you get · §4 
 | Memory | 16 GB minimum; 32 GB for a pool of several VMs (each clone starts with 2 GB and settles near 1.1 GB) |
 | Disk | about 60 GB: 4.7 GB Windows image download, 1.3 GB VC6 media (plus 1.2 GB of ISOs), 15-20 GB per VM disk |
 | Account | a member of the **Hyper-V Administrators** group (no elevation needed after that) |
-| Software | Python 3.10+, [7-Zip](https://www.7-zip.org/), the OpenSSH client (Settings > Optional features), Windows PowerShell 5.1 (built in), git |
+| Software | [7-Zip](https://www.7-zip.org/), the OpenSSH client (Settings > Optional features), Windows PowerShell 5.1 (built in). Making the VM needs no Python; the maintainer's tools (the pool, verify) need Python 3.10+ and git |
 | Repository | cloned to **`C:\EnBDevelopment\EnB`**: the VM mirrors `C:\EnBDevelopment` at the same path, so include paths and `__FILE__` strings match |
 | Network | internet access for the host and the VM (the VM installs the OpenSSH Server capability from Windows Update) |
 
@@ -37,10 +37,11 @@ From the repository root, in a normal (not elevated) PowerShell window:
 powershell -ExecutionPolicy Bypass -File tools\vc6\setup\New-BuildVM.ps1
 ```
 
-It runs unattended, 30-60 minutes (mostly downloads), and stops with an error message at the first
-problem. What it does:
+It first lists what it will download (below) with the third-party notice and asks; `-AcceptDownloads`
+answers yes for an unattended run. Then it runs unattended, 30-60 minutes (mostly downloads), and
+stops with an error message at the first problem. What it does:
 
-1. **The VC6 media** (`tools/vc6/setup/media.py`, into `C:\EnBDevelopment\Tools\Media`): downloads
+1. **The VC6 media** (`Get-VC6Media` in `tools/vc6/setup/EnBSetup.ps1`, into `C:\EnBDevelopment\Tools\Media`): downloads
    the two Internet Archive items, checks their SHA-1, unpacks them with 7-Zip and turns each disc
    image (MDF) into an ISO that Hyper-V attaches directly; no mounting tool is needed.
 
@@ -64,7 +65,7 @@ problem. What it does:
    `guest\Setup-Guest.ps1` installs the OpenSSH Server with your key (`~\.ssh\enb_vc6`, created if
    missing), installs VC6 SP4 (`guest\Install-VC6.ps1`, §7), and applies the build VM settings
    (Windows Update, SysMain and Search off, Defender exclusions, fixed page file).
-5. **The check** (`tools/vc6/setup/check_vm.py`): `cl` answers *12.00.8804*, `link` *6.00.8447*,
+5. **The check** (`Test-BuildVM` in `tools/vc6/setup/EnBSetup.ps1`): `cl` answers *12.00.8804*, `link` *6.00.8447*,
    and a compiled object carries `@comp.id` product 11, **build 8799**. Anything else stops here.
 6. **The pool's base**: the VM is shut down, its DVDs removed, and its disk copied to
    `C:\EnBDevelopment\Tools\VMPool\base-vc6.vhdx` (read-only). Pool clones are differencing disks
@@ -82,7 +83,7 @@ Then try it:
 ```powershell
 python tools\vc6\pool.py lease --agent me          # starts a clone, prints ENB_VC6_HOSTS=user@ip
 $env:ENB_VC6_HOSTS = 'user@<ip>'
-python tools\vc6\setup\check_vm.py                  # PASS
+powershell -File tools\vc6\setup\Test-BuildVM.ps1 -Target user@<ip>   # PASS
 python tools\vc6\importer.py verify --lib wwdebug   # a library's pairs, as in docs/workflow.md
 python tools\vc6\pool.py release --agent me
 ```
@@ -112,7 +113,7 @@ For a Windows you install yourself, or if the image download is no longer offere
    * Your own licensed Windows 10 media.
    Create a local administrator account (any name; tell the tools with `"user"` in
    `.work\vc6_config.json`). Give the VM internet access (Default Switch).
-2. **The media**: `python tools\vc6\setup\media.py --media C:\EnBDevelopment\Tools\Media --download`,
+2. **The media**: `powershell -Command ". tools\vc6\setup\EnBSetup.ps1; Get-VC6Media C:\EnBDevelopment\Tools\Media"`,
    then in Hyper-V Manager attach `vc6pro-disc1.iso` and `vs6sp4.iso` as DVD drives (VM Settings >
    SCSI Controller > DVD Drive). *Alternative*: mount the original MDF files inside the VM with
    [WinCDEmu](https://wincdemu.sysprogs.org/); to eject a WinCDEmu disc use Disk Management
@@ -127,7 +128,7 @@ For a Windows you install yourself, or if the image download is no longer offere
    *The original installers instead*: VC6's `SETUP.EXE` (Custom; clear everything except Visual
    C++ 6.0), then SP4's `SETUPSP4.EXE`. That is how the reference VM
    was made; §7 shows the file copy gives the same compiler.
-5. **On the host**: `python tools\vc6\vc6.py discover`, then `python tools\vc6\setup\check_vm.py`
+5. **On the host**: `python tools\vc6\vc6.py discover`, then `powershell -File tools\vc6\setup\Test-BuildVM.ps1 -Target user@<ip>`
    must print PASS. For a pool, shut the VM down and copy its disk to
    `C:\EnBDevelopment\Tools\VMPool\base-vc6.vhdx` (read-only), and set `"template_vm"` to its name.
 
@@ -150,11 +151,11 @@ licensed Windows (`-WindowsVhdx`, or §4) does not expire.
 
 | Symptom | Cause and fix |
 |---|---|
-| `media.py`: SHA-1 differs | an interrupted or changed download: delete the `.7z` and rerun |
+| `Get-VC6Media`: SHA-1 differs | an interrupted or changed download: delete the `.7z` and rerun |
 | The script waits at "waiting for Windows setup" for more than 20 minutes | watch the console: `vmconnect localhost enb-vc6-template`. An out-of-box screen means the answer file was not read (a different Windows image): finish the screens by hand with the account `user` and the password from §3, then run `C:\EnBSetup\Setup-Guest.ps1` (§4 step 4) |
 | `guest setup failed: ... OpenSSH` | the VM had no internet: check the Default Switch, rerun `C:\EnBSetup\Setup-Guest.ps1` in the VM |
 | `Install-VC6.ps1`: disc not attached | attach both ISOs (§4 step 2); the labels must be `VSP600ENU1` and `VS6SP4` |
-| `check_vm.py`: build 8798 or 8966 | another VC6 (an Introductory edition's back end, or SP5) is first on the VM's PATH |
+| `Test-BuildVM`: build 8798 or 8966 | another VC6 (an Introductory edition's back end, or SP5) is first on the VM's PATH |
 | `ssh: connect ... timed out` after a host restart | the Default Switch changed subnet: `python tools\vc6\vc6.py discover` |
 | `pool.py`: host memory | raise `reserve_gb`/lower `max_vms` in `.work\vc6_config.json`, or stop other VMs |
 
@@ -175,7 +176,7 @@ its source on the two discs by content, or through the setup's INF files where s
 
 The list is `tools/vc6/setup/vc6-files.tsv` (paths and hashes only). The compiler, linker,
 headers and libraries a build uses are therefore the same bytes as the reference VM's, and
-`check_vm.py` proves the result per VM.
+`Test-BuildVM.ps1` proves the result per VM.
 
 **Tested end to end on 2026-10-29** (a separate test pool, `-Prefix enb-vc6t-`): `New-BuildVM.ps1`
 ran unattended in 5.5 minutes with the downloads already in the media folder (Windows 10 21H2, build

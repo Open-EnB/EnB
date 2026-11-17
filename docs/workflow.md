@@ -1596,6 +1596,24 @@ are in 3.0.
   `Start-Process`) survives. TaskStop of a background shell leaves its child processes: check Win32_Process before
   restarting.
 
+* **The IDE build (`dsp.py` / `msdev.py`, D248, 2026-11-16):** (a) give cl the include directories as build.py does,
+  absolute real paths: relative ones (`..\..\wwlib`, reached through the E: alias) changed the code of 10 app
+  objects (aux_roots.obj's register choice and frame offsets; its tie-breaks follow cl's internal state, see
+  "aux_roots.cpp's SYMBOL_PAD"). (b) `msdev /MAKE` does not build a project whose dependency failed: `main`'s link
+  fails until the reconstruction is whole, so `clientpoc` depends on the libraries only and compiles app\main's
+  two files itself. (c) Compare objects with `objcmp.py`, not bytes: the symbol table holds the source path (the
+  `.file` record) and compiler label numbers (`$L`, `$T`) that differ between any two builds, and moves every
+  relocation's symbol index; COMDAT order can differ with the same code. (d) Over SSH, `cmd /c cd /d X && tool`
+  runs `tool` in the outer shell's folder (the `cd` was a subshell's): give the tool its folder (`tar -C X`).
+  Windows' `tar -T LIST` keeps a CR in each name: write the list with LF. (e) `msdev /MAKE` keeps the last exe when no
+  input is newer, a source dropped from the project included: msdev.py deletes clientpoc.exe before the stand-in
+  build's first pass, or that pass "links" with the last run's stand-ins and generates none. (f) The SDK header hashes
+  (toolchain.md §2) are of CRLF files (this host's `core.autocrlf=true` checkout); GitHub's archives and an
+  `autocrlf=false` clone have LF: hash headers through `Get-SdkSha` / build_client.py's `sha256`, never raw. (g)
+  Python's embeddable package confines `sys.path` with its `python312._pth`: Build-Client.ps1 deletes it in the VM, so
+  the tools import their neighbours. (h) In the VM's copy (no `.git`) every git-backed read needs the files themselves:
+  build.py's `tracked()` walks the tree, and the ledger's shards (`docs/data/imports`) travel with the copy.
+
 ### 3.6 RE tools, Ghidra and REA
 
 * `.work/pseudo/`: never delete it, and remove a worktree only with `wt.py remove` (CLAUDE.md, RE tools step 3).
