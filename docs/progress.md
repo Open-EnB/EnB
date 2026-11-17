@@ -3700,6 +3700,17 @@ a branch the loss valve stopped. Anything else a builder proposes is the coordin
 (D246 (e)); only the coordinator adds an item here. The old rule's twenty items were settled by run 2026-11-12's coordinator (section 4 item 1); P-EA1-1 (a POC input) stays the user's.
 
 * **P-EA1-1** (2026-11-06, EA1; recommend not yet, after more POC paths have run on it): make `ClientPOC_EA` (D200) the POC's default instead of `--ea`? One replay reached the class screen and shows EA's six; `ClientPOC` still has what antprox's Net-7 sessions may need, including 401 installed files outside EA's set. If it becomes a project input, the scripts in `.work/eadata/` move to `tools/` (never the data).
+* **P-D72-1** (2026-11-17, session 0 of the week plan; recommend yes): revise D72's model table (docs/builders.md §4)
+  from the week of 2026-11-10's figures ([archive/week-2026-11-10-record.md](archive/week-2026-11-10-record.md)):
+  (a) drop the D225 paragraph (that week is over); (b) drop Fable as a builder model, the D89 stuck-function row
+  included, until its cost changes: Fable builders gave 33-39 pairs a point and its stuck-function packets 8, against
+  Opus builders' 105-150 (about 3.5 points per million Fable builder tokens against Opus's 1.2-2.6); an Opus round
+  under D89 takes that row; (c) widen agy (Gemini 4 Hydrogen) from "bounded POC and triage items" to known-pattern
+  new-file rows and files' untried functions (about 255 pairs at no Claude cost in one session); (d) add the order of
+  worth to the table's note: crediting ~430 pairs a point, new files ~100, finishing ~33, harness ~19 (it finds
+  behaviour bugs byte matching cannot), levers ~9; names alone ~1-2 (their pairs show up as crediting). Models are
+  the user's (D246 (d)); until then the week plan of 2026-11-17 §2 already runs (b) and (c).
+
 ## 4. Next steps
 
 Outstanding work only (rewritten 2026-10-31: what is done went to the log entries, which hold each item's
