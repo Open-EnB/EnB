@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x497300"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "StarmapDataClass (the client's typeid name), the object's starmap icon and mesh (the client's __FILE__ 0xB9F3A4, asserts at lines 147-354; 0x7BE600-0x7BF810) (RD1)",
  "expected": {},
@@ -133,6 +131,7 @@
   "0x7BF4A0",
   "0x7BF4C0",
   "0x7BF630",
+  "0x7BF770",
   "0x7BF7A0",
   "0x7BF7D0",
   "0x7BF800",
