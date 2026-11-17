@@ -381,15 +381,10 @@ float ClientObjectClass::Unknown_6F3ED0()
 	return(WWMath::Clamp(k * x, -0.628318548f, 0.628318548f));
 }
 #pragma auto_inline(on)
-// 0x6F45E0
-float ClientObjectClass::Unknown_6F45E0()
-{
-	if (Unknown_6F5A40()) {
-		return(Unknown_B93AE0);
-	}
-	return(Unknown_B93AE4);
-}
-
+// 0x6F4550 (unreferenced in the client)
+int ClientObjectClass::Unknown_6F4550() { return(0); }
+// 0x6F4570 (unreferenced in the client)
+int ClientObjectClass::Unknown_6F4570() { return(-1); }
 // 0x6F4590
 float ClientObjectClass::Unknown_6F4590()
 {
@@ -397,6 +392,15 @@ float ClientObjectClass::Unknown_6F4590()
 		return(Unknown_6F45E0() * Unknown_B93AD8);
 	}
 	return(Unknown_6F45E0() * Unknown_B93ADC);
+}
+
+// 0x6F45E0
+float ClientObjectClass::Unknown_6F45E0()
+{
+	if (Unknown_6F5A40()) {
+		return(Unknown_B93AE0);
+	}
+	return(Unknown_B93AE4);
 }
 static inline bool Clamp_In_Place(float &value, float min, float max)
 {
@@ -413,10 +417,6 @@ static inline bool Clamp_In_Place(float &value, float min, float max)
 #include "emote_data.h"
 
 #include "camera_manager.h"
-
-
-
-
 
 
 
@@ -2559,10 +2559,10 @@ bool ClientObjectClass::Unknown_700670(Vector3 &color)
 
 
 
-// 0x6F4550 (unreferenced in the client)
-int ClientObjectClass::Unknown_6F4550() { return(0); }
-// 0x6F4570 (unreferenced in the client)
-int ClientObjectClass::Unknown_6F4570() { return(-1); }
+
+
+
+
 // 0x700800 (unreferenced in the client)
 int ClientObjectClass::Unknown_700800() { return(0); }
 

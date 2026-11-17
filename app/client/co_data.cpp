@@ -11,19 +11,19 @@
 // Not the client's source (its sgistl form is unknown: P-L21-1, attempts row 0x71DCE0): the value maps' hashtable
 // constructor flat gives the client's out-of-line hash_map() 0x7A2140.. (reserve's size() inlined: the B form)
 namespace std {
-template<> hashtable<pair<ClientObjectClass * const, RadarDataClass *>, ClientObjectClass *, hash<ClientObjectClass *>, _Select1st<pair<ClientObjectClass * const, RadarDataClass *> >, equal_to<ClientObjectClass *>, allocator<RadarDataClass *> >::hashtable(
+template<> inline hashtable<pair<ClientObjectClass * const, RadarDataClass *>, ClientObjectClass *, hash<ClientObjectClass *>, _Select1st<pair<ClientObjectClass * const, RadarDataClass *> >, equal_to<ClientObjectClass *>, allocator<RadarDataClass *> >::hashtable(
 	size_type __n, const hasher &__hf, const key_equal &__eql) : _M_hash(__hf), _M_equals(__eql), _M_get_key(_Select1st<pair<ClientObjectClass * const, RadarDataClass *> >()), _M_buckets(), _M_num_elements(0)
 	{ const size_type __n_buckets = _M_next_size(__n); _M_buckets.reserve(__n_buckets); _M_buckets.insert(_M_buckets.end(), __n_buckets, (_Node *)0); _M_num_elements = 0; }
-template<> hashtable<pair<ClientObjectClass * const, GutterDataClass *>, ClientObjectClass *, hash<ClientObjectClass *>, _Select1st<pair<ClientObjectClass * const, GutterDataClass *> >, equal_to<ClientObjectClass *>, allocator<GutterDataClass *> >::hashtable(
+template<> inline hashtable<pair<ClientObjectClass * const, GutterDataClass *>, ClientObjectClass *, hash<ClientObjectClass *>, _Select1st<pair<ClientObjectClass * const, GutterDataClass *> >, equal_to<ClientObjectClass *>, allocator<GutterDataClass *> >::hashtable(
 	size_type __n, const hasher &__hf, const key_equal &__eql) : _M_hash(__hf), _M_equals(__eql), _M_get_key(_Select1st<pair<ClientObjectClass * const, GutterDataClass *> >()), _M_buckets(), _M_num_elements(0)
 	{ const size_type __n_buckets = _M_next_size(__n); _M_buckets.reserve(__n_buckets); _M_buckets.insert(_M_buckets.end(), __n_buckets, (_Node *)0); _M_num_elements = 0; }
-template<> hashtable<pair<ClientObjectClass * const, StarmapDataClass *>, ClientObjectClass *, hash<ClientObjectClass *>, _Select1st<pair<ClientObjectClass * const, StarmapDataClass *> >, equal_to<ClientObjectClass *>, allocator<StarmapDataClass *> >::hashtable(
+template<> inline hashtable<pair<ClientObjectClass * const, StarmapDataClass *>, ClientObjectClass *, hash<ClientObjectClass *>, _Select1st<pair<ClientObjectClass * const, StarmapDataClass *> >, equal_to<ClientObjectClass *>, allocator<StarmapDataClass *> >::hashtable(
 	size_type __n, const hasher &__hf, const key_equal &__eql) : _M_hash(__hf), _M_equals(__eql), _M_get_key(_Select1st<pair<ClientObjectClass * const, StarmapDataClass *> >()), _M_buckets(), _M_num_elements(0)
 	{ const size_type __n_buckets = _M_next_size(__n); _M_buckets.reserve(__n_buckets); _M_buckets.insert(_M_buckets.end(), __n_buckets, (_Node *)0); _M_num_elements = 0; }
-template<> hashtable<pair<ClientObjectClass * const, NavigationDataClass *>, ClientObjectClass *, hash<ClientObjectClass *>, _Select1st<pair<ClientObjectClass * const, NavigationDataClass *> >, equal_to<ClientObjectClass *>, allocator<NavigationDataClass *> >::hashtable(
+template<> inline hashtable<pair<ClientObjectClass * const, NavigationDataClass *>, ClientObjectClass *, hash<ClientObjectClass *>, _Select1st<pair<ClientObjectClass * const, NavigationDataClass *> >, equal_to<ClientObjectClass *>, allocator<NavigationDataClass *> >::hashtable(
 	size_type __n, const hasher &__hf, const key_equal &__eql) : _M_hash(__hf), _M_equals(__eql), _M_get_key(_Select1st<pair<ClientObjectClass * const, NavigationDataClass *> >()), _M_buckets(), _M_num_elements(0)
 	{ const size_type __n_buckets = _M_next_size(__n); _M_buckets.reserve(__n_buckets); _M_buckets.insert(_M_buckets.end(), __n_buckets, (_Node *)0); _M_num_elements = 0; }
-template<> hashtable<pair<ClientObjectClass * const, EmoteDataClass *>, ClientObjectClass *, hash<ClientObjectClass *>, _Select1st<pair<ClientObjectClass * const, EmoteDataClass *> >, equal_to<ClientObjectClass *>, allocator<EmoteDataClass *> >::hashtable(
+template<> inline hashtable<pair<ClientObjectClass * const, EmoteDataClass *>, ClientObjectClass *, hash<ClientObjectClass *>, _Select1st<pair<ClientObjectClass * const, EmoteDataClass *> >, equal_to<ClientObjectClass *>, allocator<EmoteDataClass *> >::hashtable(
 	size_type __n, const hasher &__hf, const key_equal &__eql) : _M_hash(__hf), _M_equals(__eql), _M_get_key(_Select1st<pair<ClientObjectClass * const, EmoteDataClass *> >()), _M_buckets(), _M_num_elements(0)
 	{ const size_type __n_buckets = _M_next_size(__n); _M_buckets.reserve(__n_buckets); _M_buckets.insert(_M_buckets.end(), __n_buckets, (_Node *)0); _M_num_elements = 0; }
 }

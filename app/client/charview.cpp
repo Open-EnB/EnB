@@ -1222,43 +1222,43 @@ void CharacterViewClass::Unknown_67C4C0(const Vector3 &color, bool now)
 
 
 
+// 0x67BEB0
+void CharacterViewClass::Unknown_67BEB0()
+{
+	for (int i = 0; i < 3; i++) {
+		for (int j = 0; j < 3; j++) {
+			if (Unknown3B8[i][j][0]) {
+				Unknown3B8[i][j][0]->Release_Ref();
+				Unknown3B8[i][j][0] = NULL;
+			}
+			if (Unknown3B8[i][j][1]) {
+				Unknown3B8[i][j][1]->Release_Ref();
+				Unknown3B8[i][j][1] = NULL;
+			}
+		}
+	}
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x67BF20 (Unknown_04: an avatar of each race, profession and gender, the body weights set)
+void CharacterViewClass::Unknown_67BF20()
+{
+	for (int i = 0; i < 3; i++) {
+		for (int j = 0; j < 3; j++) {
+			AvatarDescClass *male = new AvatarDescClass(i, j, 0);
+			AvatarDescClass *female = new AvatarDescClass(i, j, 1);
+			male->Body_Weight[0] = 0.5f;
+			male->Body_Weight[4] = 0.25f;
+			male->Body_Weight[3] = 0.25f;
+			female->Body_Weight[0] = 0.5f;
+			male->Body_Weight[2] = 0.25f;
+			female->Body_Weight[1] = 0.25f;
+			Unknown3B8[i][j][0] = new CharacterViewAvatarClass(male, 1, 0, Unknown_Inline_Env_Maps(this));
+			Unknown3B8[i][j][1] = new CharacterViewAvatarClass(female, 1, 0, Unknown_Inline_Env_Maps(this));
+			delete male;
+			delete female;
+		}
+	}
+}
 
 
 // 0x67C1E0 (no caller in the client: empty)
@@ -1310,44 +1310,6 @@ void CharacterViewClass::Unknown_67C340(Vector3 *out, int index)
 void CharacterViewClass::Unknown_67C380(const Vector3 *in, int index)
 {
 	Unknown4B0[index] = *in;
-}
-
-// 0x67BEB0
-void CharacterViewClass::Unknown_67BEB0()
-{
-	for (int i = 0; i < 3; i++) {
-		for (int j = 0; j < 3; j++) {
-			if (Unknown3B8[i][j][0]) {
-				Unknown3B8[i][j][0]->Release_Ref();
-				Unknown3B8[i][j][0] = NULL;
-			}
-			if (Unknown3B8[i][j][1]) {
-				Unknown3B8[i][j][1]->Release_Ref();
-				Unknown3B8[i][j][1] = NULL;
-			}
-		}
-	}
-}
-
-// 0x67BF20 (Unknown_04: an avatar of each race, profession and gender, the body weights set)
-void CharacterViewClass::Unknown_67BF20()
-{
-	for (int i = 0; i < 3; i++) {
-		for (int j = 0; j < 3; j++) {
-			AvatarDescClass *male = new AvatarDescClass(i, j, 0);
-			AvatarDescClass *female = new AvatarDescClass(i, j, 1);
-			male->Body_Weight[0] = 0.5f;
-			male->Body_Weight[4] = 0.25f;
-			male->Body_Weight[3] = 0.25f;
-			female->Body_Weight[0] = 0.5f;
-			male->Body_Weight[2] = 0.25f;
-			female->Body_Weight[1] = 0.25f;
-			Unknown3B8[i][j][0] = new CharacterViewAvatarClass(male, 1, 0, Unknown_Inline_Env_Maps(this));
-			Unknown3B8[i][j][1] = new CharacterViewAvatarClass(female, 1, 0, Unknown_Inline_Env_Maps(this));
-			delete male;
-			delete female;
-		}
-	}
 }
 
 // 0x67C7B0

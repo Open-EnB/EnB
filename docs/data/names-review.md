@@ -1361,10 +1361,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_67C310` | `app/client/charview.cpp:1298` | untagged neutral name (D10) |
 | 1 | `Unknown_67C340` | `app/client/charview.cpp:1304` | untagged neutral name (D10) |
 | 1 | `Unknown_67C380` | `app/client/charview.cpp:1310` | untagged neutral name (D10) |
-| 1 | `Unknown_Inline_Push` | `app/client/charview.cpp:1365` | untagged neutral name (D10) |
-| 1 | `Unknown_67C920` | `app/client/charview.cpp:1371` | untagged neutral name (D10) |
-| 1 | `Unknown_Inline_Pop` | `app/client/charview.cpp:1381` | untagged neutral name (D10) |
-| 1 | `Unknown_67CD40` | `app/client/charview.cpp:1401` | untagged neutral name (D10) |
+| 1 | `Unknown_Inline_Push` | `app/client/charview.cpp:1327` | untagged neutral name (D10) |
+| 1 | `Unknown_67C920` | `app/client/charview.cpp:1333` | untagged neutral name (D10) |
+| 1 | `Unknown_Inline_Pop` | `app/client/charview.cpp:1343` | untagged neutral name (D10) |
+| 1 | `Unknown_67CD40` | `app/client/charview.cpp:1363` | untagged neutral name (D10) |
 | 1 | `CharacterViewModeType` | `app/client/charview.h:45` | neutral (D10); NAME 3 [CHARACTER_POPUP_MESSAGE, CHARACTER_LASTVIEWMODE]: the FAIL_IF's |
 | 1 | `CharacterViewUnknown1D4Struct` | `app/client/charview.h:52` | neutral (D10) |
 | 1 | `Unknown0C` | `app/client/charview.h:54` | untagged neutral name (D10) |
@@ -1927,7 +1927,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown10BC` | `app/client/co.cpp:370` | untagged neutral name (D10) |
 | 1 | `Unknown_6F5A40` | `app/client/co.cpp:373` | untagged neutral name (D10) |
 | 1 | `Unknown_6F4290` | `app/client/co.cpp:376` | untagged neutral name (D10) |
-| 1 | `Unknown_6F45E0` | `app/client/co.cpp:385` | untagged neutral name (D10) |
+| 1 | `Unknown_6F4550` | `app/client/co.cpp:385` | untagged neutral name (D10) |
+| 1 | `Unknown_6F4570` | `app/client/co.cpp:387` | untagged neutral name (D10) |
+| 1 | `Unknown_6F45E0` | `app/client/co.cpp:392` | untagged neutral name (D10) |
 | 1 | `Unknown_20` | `app/client/co.cpp:425` | untagged neutral name (D10) |
 | 1 | `Unknown_7E7A40` | `app/client/co.cpp:429` | untagged neutral name (D10) |
 | 1 | `Unknown_79B670` | `app/client/co.cpp:430` | untagged neutral name (D10) |
@@ -2054,8 +2056,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_728330` | `app/client/co.cpp:2470` | untagged neutral name (D10) |
 | 1 | `Unknown_7008B0` | `app/client/co.cpp:2491` | untagged neutral name (D10) |
 | 1 | `Unknown_700670` | `app/client/co.cpp:2508` | untagged neutral name (D10) |
-| 1 | `Unknown_6F4550` | `app/client/co.cpp:2563` | untagged neutral name (D10) |
-| 1 | `Unknown_6F4570` | `app/client/co.cpp:2565` | untagged neutral name (D10) |
 | 1 | `Unknown_700800` | `app/client/co.cpp:2567` | untagged neutral name (D10) |
 | 1 | `Unknown_700820` | `app/client/co.cpp:2571` | untagged neutral name (D10) |
 | 1 | `Unknown_700860` | `app/client/co.cpp:2587` | untagged neutral name (D10) |
