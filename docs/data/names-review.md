@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1967 |
 | 2 | describes what the code does | 4981 |
-| 1 | neutral placeholder | 25201 |
+| 1 | neutral placeholder | 25205 |
 
 ## For review (score 3 and below)
 
@@ -5472,6 +5472,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Find_Interface` | `app/client/interface_static_sort_list.h:129` | neutral |
 | 1 | `BackInterface` | `app/client/interface_static_sort_list.h:133` | neutral (FrontInterface's opposite) |
 | 1 | `LastRenderObj` | `app/client/interface_static_sort_list.h:137` | neutral |
+| 1 | `UnknownEventDispatcherClass` | `app/client/intrface.cpp:39` | untagged neutral name (D10) |
+| 1 | `Unknown_540A20` | `app/client/intrface.cpp:40` | neutral (D10) |
 | 1 | `Unknown44` | `app/client/intrface.cpp:69` | untagged neutral name (D10) |
 | 1 | `Unknown70` | `app/client/intrface.cpp:71` | untagged neutral name (D10) |
 | 1 | `Unknown74` | `app/client/intrface.cpp:72` | untagged neutral name (D10) |
@@ -21906,7 +21908,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `_FacilityNames` | `app/common/starbase_defs.cpp:8` | what it holds |
 | 1 | `_RoomDecorationNames` | `app/common/starbase_defs.cpp:9` | what it holds |
 | 1 | `_ArtNames` | `app/common/starbase_defs.cpp:10` | what it holds |
-| 1 | `Unknown_42EB80` | `app/common/stredit.cpp:277` | untagged neutral name (D10) |
+| 1 | `Unknown_42EB80` | `app/common/stredit.cpp:278` | untagged neutral name (D10) |
 | 1 | `Get_Max_Len` | `app/common/stredit.h:42` | the member it returns |
 | 1 | `Get_Insert_Mode` | `app/common/stredit.h:43` | the member it returns |
 | 1 | `Unknown04` | `app/common/stredit.h:48` | untagged neutral name (D10) |
@@ -22068,23 +22070,29 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_42F940` | `app/input/input.cpp:79` | untagged neutral name (D10) |
 | 1 | `Unknown_42E7B0` | `app/input/input.cpp:84` | untagged neutral name (D10) |
 | 1 | `Unknown_42FAC0` | `app/input/input.cpp:86` | untagged neutral name (D10) |
-| 1 | `Unknown_42E8A0` | `app/input/input.cpp:101` | untagged neutral name (D10) |
-| 1 | `Unknown04` | `app/input/input.cpp:110` | untagged neutral name (D10) |
-| 1 | `Unknown08` | `app/input/input.cpp:110` | untagged neutral name (D10) |
-| 1 | `Unknown0C` | `app/input/input.cpp:111` | untagged neutral name (D10) |
-| 1 | `Unknown_42EA80` | `app/input/input.cpp:114` | untagged neutral name (D10) |
-| 1 | `Unknown_42EB20` | `app/input/input.cpp:128` | untagged neutral name (D10) |
-| 1 | `Unknown_42EB50` | `app/input/input.cpp:136` | untagged neutral name (D10) |
-| 1 | `Unknown_42EB80` | `app/input/input.cpp:141` | untagged neutral name (D10) |
-| 1 | `unknown1, unknown2` | `app/input/input.cpp:173` | neutral (D10), as KeyboardClass::Unknown_0C |
-| 1 | `Unknown_42EC60` | `app/input/input.cpp:173` | untagged neutral name (D10) |
-| 1 | `Unknown_0C` | `app/input/input.cpp:175` | untagged neutral name (D10) |
-| 1 | `Unknown_42EC90` | `app/input/input.cpp:178` | untagged neutral name (D10) |
-| 1 | `Unknown_42ECC0` | `app/input/input.cpp:186` | untagged neutral name (D10) |
-| 1 | `Unknown_42ECF0` | `app/input/input.cpp:194` | untagged neutral name (D10) |
-| 1 | `Unknown_42ED20` | `app/input/input.cpp:199` | untagged neutral name (D10) |
-| 1 | `Unknown_42ED80` | `app/input/input.cpp:204` | untagged neutral name (D10) |
-| 1 | `Unknown_42EDB0` | `app/input/input.cpp:209` | untagged neutral name (D10) |
+| 1 | `Unknown_42E820` | `app/input/input.cpp:101` | neutral (D10) |
+| 1 | `Unknown_04` | `app/input/input.cpp:101` | untagged neutral name (D10) |
+| 1 | `Unknown_42E840` | `app/input/input.cpp:102` | neutral (D10) |
+| 1 | `Unknown_08` | `app/input/input.cpp:102` | untagged neutral name (D10) |
+| 1 | `Unknown_42E860` | `app/input/input.cpp:103` | neutral (D10) |
+| 1 | `Unknown_42E880` | `app/input/input.cpp:104` | neutral (D10) |
+| 1 | `Unknown_42E8A0` | `app/input/input.cpp:106` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `app/input/input.cpp:115` | untagged neutral name (D10) |
+| 1 | `Unknown08` | `app/input/input.cpp:115` | untagged neutral name (D10) |
+| 1 | `Unknown0C` | `app/input/input.cpp:116` | untagged neutral name (D10) |
+| 1 | `Unknown_42EA80` | `app/input/input.cpp:119` | untagged neutral name (D10) |
+| 1 | `Unknown_42EB20` | `app/input/input.cpp:133` | untagged neutral name (D10) |
+| 1 | `Unknown_42EB50` | `app/input/input.cpp:141` | untagged neutral name (D10) |
+| 1 | `Unknown_42EB80` | `app/input/input.cpp:146` | untagged neutral name (D10) |
+| 1 | `unknown1, unknown2` | `app/input/input.cpp:178` | neutral (D10), as KeyboardClass::Unknown_0C |
+| 1 | `Unknown_42EC60` | `app/input/input.cpp:178` | untagged neutral name (D10) |
+| 1 | `Unknown_0C` | `app/input/input.cpp:180` | untagged neutral name (D10) |
+| 1 | `Unknown_42EC90` | `app/input/input.cpp:183` | untagged neutral name (D10) |
+| 1 | `Unknown_42ECC0` | `app/input/input.cpp:191` | untagged neutral name (D10) |
+| 1 | `Unknown_42ECF0` | `app/input/input.cpp:199` | untagged neutral name (D10) |
+| 1 | `Unknown_42ED20` | `app/input/input.cpp:204` | untagged neutral name (D10) |
+| 1 | `Unknown_42ED80` | `app/input/input.cpp:209` | untagged neutral name (D10) |
+| 1 | `Unknown_42EDB0` | `app/input/input.cpp:214` | untagged neutral name (D10) |
 | 1 | `Unknown_42EE00` | `app/input/input.cpp:289` | untagged neutral name (D10) |
 | 1 | `Unknown_42EE90` | `app/input/input.cpp:303` | untagged neutral name (D10) |
 | 1 | `Unknown_BDAA80` | `app/input/input.cpp:345` | untagged neutral name (D10) |
@@ -24995,9 +25003,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_BA8C48` | `programs/clientpoc/poc_world.cpp:91` | untagged neutral name (D10) |
 | 1 | `Unknown_BA8C4C` | `programs/clientpoc/poc_world.cpp:91` | untagged neutral name (D10) |
 | 1 | `Unknown_BA8C50` | `programs/clientpoc/poc_world.cpp:92` | untagged neutral name (D10) |
-| 1 | `UnknownEventDispatcherClass` | `programs/clientpoc/poc_world.cpp:95` | untagged neutral name (D10) |
-| 1 | `Unknown_540A20` | `programs/clientpoc/poc_world.cpp:96` | untagged neutral name (D10) |
-| 1 | `Unknown_B70E40` | `programs/clientpoc/poc_world.cpp:109` | untagged neutral name (D10) |
+| 1 | `Unknown_B70E40` | `programs/clientpoc/poc_world.cpp:104` | untagged neutral name (D10) |
 | 1 | `UnknownB02C90Class` | `programs/clientpoc/poc_world2.cpp:14` | untagged neutral name (D10) |
 | 1 | `Unknown04` | `programs/clientpoc/poc_world2.cpp:23` | untagged neutral name (D10) |
 | 1 | `Unknown_725AD0` | `programs/clientpoc/poc_world2.cpp:44` | untagged neutral name (D10) |
@@ -25142,12 +25148,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_B08CC0` | `tests/clienttest/ui_avsel_stubs.cpp:29` | untagged neutral name (D10) |
 | 1 | `Unknown_B08CC4` | `tests/clienttest/ui_avsel_stubs.cpp:30` | untagged neutral name (D10) |
 | 1 | `Unknown_BE67C4` | `tests/clienttest/ui_login_stubs.cpp:17` | untagged neutral name (D10) |
-| 1 | `UnknownEventDispatcherClass` | `tests/clienttest/ui_stubs.cpp:22` | untagged neutral name (D10) |
-| 1 | `Unknown_540A20` | `tests/clienttest/ui_stubs.cpp:23` | untagged neutral name (D10) |
-| 1 | `Unknown_BE5BD0` | `tests/clienttest/ui_stubs.cpp:32` | untagged neutral name (D10) |
-| 1 | `Unknown_496110` | `tests/clienttest/ui_stubs.cpp:37` | untagged neutral name (D10) |
-| 1 | `Unknown_BDADC8` | `tests/clienttest/ui_stubs.cpp:38` | untagged neutral name (D10) |
-| 1 | `Unknown_BDBB84` | `tests/clienttest/ui_stubs.cpp:39` | untagged neutral name (D10) |
+| 1 | `Unknown_BE5BD0` | `tests/clienttest/ui_stubs.cpp:26` | untagged neutral name (D10) |
+| 1 | `Unknown_496110` | `tests/clienttest/ui_stubs.cpp:31` | untagged neutral name (D10) |
+| 1 | `Unknown_BDADC8` | `tests/clienttest/ui_stubs.cpp:32` | untagged neutral name (D10) |
+| 1 | `Unknown_BDBB84` | `tests/clienttest/ui_stubs.cpp:33` | untagged neutral name (D10) |
 | 1 | `Unknown_Get_Ticks` | `tests/kerneltest/kerneltest.cpp:24` | untagged neutral name (D10) |
 | 1 | `Unknown_9179D0` | `tests/kerneltest/kerneltest.cpp:25` | untagged neutral name (D10) |
 | 1 | `Unknown_42EA80` | `tests/kerneltest/kerneltest.cpp:28` | untagged neutral name (D10) |

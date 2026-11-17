@@ -25,7 +25,7 @@ SplitStringClass::~SplitStringClass()
 }
 
 
-// NOT EXACT: register and stack-slot allocation of in / out / skip (the client keeps skip in the cursor argument's slot); 2 forms
+// NOT EXACT: inline-budget: the client calls the pad lines' std::string("") assign(const char *, n) out of line, ours inlines it; then stack slots (3 forms)
 bool SplitStringClass::Split(const char *text, float width, int cursor)
 {
 	Lines.clear();
@@ -132,7 +132,11 @@ add_line:
 	}
 
 	int last = Lines.size() - 1;
-	if (last > CursorLine) {
+	if (last <= CursorLine) {
+		while (last++ < CursorLine) {
+			Lines.push_back(std::string(""));
+		}
+	} else {
 		while (last > CursorLine) {
 			if (Lines[last].length() != 0) {
 				break;
@@ -140,12 +144,8 @@ add_line:
 			Lines.pop_back();
 			last--;
 		}
-	} else {
-		while (last < CursorLine) {
-			Lines.push_back(std::string(""));
-			last++;
-		}
 	}
+
 
 	delete [] buf;
 	return true;

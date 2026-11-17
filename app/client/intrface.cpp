@@ -36,12 +36,12 @@
 
 // The SignalMap (0x4F9740 / 0x4F98D0), as far as the interfaces connect to it
 // (the signal map: unknown_signalbase.h's SignalMap, its Add / Remove)
-
-
-
-
-
-
+class UnknownEventDispatcherClass;
+UnknownEventDispatcherClass *Unknown_540A20()	// 0x540A20: the interfaces' own signal map, the function-local static 0xBE5AF0 (ui_chat_panel.cpp, ui_chat_window.cpp, ui_option_font.cpp)  // NAME 1 [Unknown_540A20]: neutral (D10)
+{
+	static SignalMap _map;
+	return((UnknownEventDispatcherClass *)&_map);
+}
 
 
 

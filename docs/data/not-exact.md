@@ -681,8 +681,8 @@ edit the comments in the code, not this file.
 | `app/common/optdlg.cpp:489` | `Unknown_8476C0` | marker | NOT EXACT: functional (D64), as 0x847630: the inlined 0x846CD0's first test (the client loads the first Type into ecx and the table into eax before comparing); the rest, servers.ini's list and the folder browser, is the client's |
 | `app/common/optdlg.cpp:584` | `Unknown_847BB0` | marker | NOT EXACT: functional (D64), as 0x847630: the inlined 0x846CD0's first test |
 | `app/common/optdlg.cpp:603` | `Unknown_847C40` | marker | NOT EXACT: functional (D64), as 0x847630: the inlined 0x846CD0's first test |
-| `app/common/stredit.cpp:21` | `StrEditClass::StrEditClass` | mention | NOT EXACT for it. <string>'s guarded initialiser at 0x84B330 ends the object (workflow.md 3.3): the client's next function, 0x84B360 ("Effect Radius : %d"), is another file's. |
-| `app/common/stredit.cpp:190` | `StrEditClass::Process_Key` | marker | NOT EXACT: the modifier bits (0.58): the client tests the event's flags as bit-fields, see the notes |
+| `app/common/stredit.cpp:22` | `StrEditClass::StrEditClass` | mention | NOT EXACT: the shared tail. <string>'s guarded initialiser at 0x84B330 ends the object (workflow.md 3.3): the client's next function, 0x84B360 ("Effect Radius : %d"), is another file's. |
+| `app/common/stredit.cpp:191` | `StrEditClass::Process_Key` | marker | NOT EXACT: shape (0.78, 26 rows): the client keeps the delete / backspace shared tail (and ecx, 3; rep movsb; StrLen--; result) in the backspace block, ours in the delete block |
 | `app/common/target_generator_summary.cpp:92` | `String_To_Value` | marker | NOT EXACT: inline-budget (the temporary string's _Eos stays out of line in the client, and value lives in ebx) |
 | `app/common/tcpconn.cpp:661` | `TCPListenerClass::Listen` | marker | NOT EXACT: ours merges the two `ret == SOCKET_ERROR` failure tails (lines 706 / 716); the client keeps both. |
 | `app/common/udpconn.cpp:126` | `UDPConnection::UDPConnection` | marker | NOT EXACT: two register choices (con's Ip_ / Port_ reads, the openc tail); Encrypt stays unset |
@@ -806,7 +806,7 @@ edit the comments in the code, not this file.
 | `app/shared/rs_track.cpp:11` | `RsTrackClass::RsTrackClass` | marker | NOT EXACT: shape (0.82): the client stores the vtables before loading RenderStateList's +0x2C byte and compares the inlined assert's pointer with ebx |
 | `app/shared/rs_track.cpp:34` | `RsTrackClass::RsTrackClass` | marker | NOT EXACT: shape (0.83): as 0x45FDA0 |
 | `app/shared/rs_track.cpp:507` | `RsTrackClass::Unknown_1C8` | marker | NOT EXACT: shape (0.75): the client saves edi after the early returns; the last call loads UnknownC4 into ecx |
-| `app/shared/split_string.cpp:28` | `SplitStringClass::Split` | marker | NOT EXACT: register and stack-slot allocation of in / out / skip (the client keeps skip in the cursor argument's slot); 2 forms |
+| `app/shared/split_string.cpp:28` | `SplitStringClass::Split` | marker | NOT EXACT: inline-budget: the client calls the pad lines' std::string("") assign(const char *, n) out of line, ours inlines it; then stack slots (3 forms) |
 | `app/shared/spln_db.cpp:95` | `SplineDatabaseClass::Save` | marker | NOT EXACT: shape (the filename copy and the save chunks: the client inlines Save_Chunks with Write_String and Save_Entry out of line) @0x484D00 |
 | `app/shared/spln_db.cpp:487` | `SplineDatabaseClass::Get_Color_Curves` | marker | NOT EXACT: inline-budget (the client calls HashListClass::Find out of line for _G only) |
 | `app/shared/spln_db.cpp:710` | `SplineDatabaseClass::Create_Hermite` | marker | NOT EXACT: inline-budget (the client calls GenericNode's constructor out of line inside the new HashNodeClass, so the new keeps an EH state) |
