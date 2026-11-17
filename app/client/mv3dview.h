@@ -1,7 +1,7 @@
 // Earth & Beyond client (reconstruction): app\client\mv3dview.h, the 3-D movie family: the 3-D movie view (the client's
 // app\Client\mv3dview.cpp per its asserts), the sounds it plays (mv3dsnd.cpp) and the mesh sound both it and the
 // scripted movie put on a model's bone (meshsnd.cpp). The header's name is provisional (NAME 1): one header for the
-// three objects until meshsnd.cpp and mv3dsnd.cpp are rebuilt (L16, 2026-11-11). Include it after sclient.h.
+// three objects, meshsnd.cpp and mv3dsnd.cpp now built on it (L16, 2026-11-11). Include it after sclient.h.
 #ifndef MV3DVIEW_H  // NAME 1 [mv3dview.h]: provisional header name for mv3dview.cpp
 #define MV3DVIEW_H
 

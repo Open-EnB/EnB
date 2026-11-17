@@ -106,19 +106,21 @@ LEAF = {
     0xB00D8C: ('DeltaTemplateClass<bool>', None),
     0xAEB1EC: ('DeltaTemplateClass<DurationClass>', None),
     0xAEAFB8: ('DeltaTemplateClass<MoneyClass>', None),
+    # C5 (AR, run 2026-11-16): its slot +0x00 0x703D50 builds KVPairTemplateClass<Vector3> (0xAEB484) with the
+    # accessor 0xB01B2C, whose Set 0x705FD0 compares with fld / fcomp: wwmath's Vector3 (aux_roots.h declares
+    # strconv_lib.cpp's conversions 0x4A3750 / 0x4A3810 and Type_Name 'Vector3')
+    0xB00A00: ('DeltaTemplateClass<Vector3>', None),
 }
 INTERPOLATOR = 0xAEAE54
 # Value types whose constructor the client shows (the leaf constructors' default argument, the Reads'
 # local): the colour's does nothing (a stack temporary is copied), 0x705640's T starts as
 # {1.0f, 0, 0, -1, 0}, 0x757B00's 16 bytes are zeroed.
 BLOB_FORMS = {
-    0xB00A00: ('three floats (a colour), constructor empty',
-               'float R; float G; float B; NAME() {} NAME(const NAME &v) { R = v.R; G = v.G; B = v.B; }'),
     0xB01A40: ('20 bytes, constructed {1.0f, 0.0f, 0.0f, -1, 0.0f} (0x705640; Ship 0x6F70BE stores the zeros as immediates among register zeros: floats, workflow.md 3.1)',
                'float F00; float F04; float F08; int I0C; float F10; NAME() : F00(1.0f), F04(0.0f), F08(0.0f), I0C(-1), F10(0.0f) {} '
                'NAME(const NAME &v) { F00 = v.F00; F04 = v.F04; F08 = v.F08; I0C = v.I0C; F10 = v.F10; } '
                'NAME &operator=(const NAME &v) { F00 = v.F00; F04 = v.F04; F08 = v.F08; I0C = v.I0C; F10 = v.F10; return *this; }'),
-    0xB016DC: ('12 bytes, constructed {-1, -1, -1} (the Mounts elements\' default, Ship 0x6F6E29); the copy constructor is the client\'s: sclient\'s 0x751BE0 calls it out of line (0x752170, folded with UnknownB00A00Type\'s)',
+    0xB016DC: ('12 bytes, constructed {-1, -1, -1} (the Mounts elements\' default, Ship 0x6F6E29); the copy constructor is the client\'s: sclient\'s 0x751BE0 calls it out of line (0x752170)',
                'int I00; int I04; int I08; NAME() : I00(-1), I04(-1), I08(-1) {} '
                'NAME(const NAME &v) { I00 = v.I00; I04 = v.I04; I08 = v.I08; }'),
     0xB03694: ('16 bytes, zeroed (0x757B00)',
@@ -147,6 +149,7 @@ CLIENT_TYPES = {
     0xB01A40: ('ProjectedDecalClass', 0xB01D00, 0x708C60, 'inline'),
     0xB03694: ('SkillLevelAvailabilityStruct', 0xB03AB4, 0x759CE0, 'inline'),
     0xB03A24: ('HullPreviewStatusEnum', 0xB03A7C, 0x759B50, 'inline'),
+    0xB016DC: ('InvSlotStruct', 0xB01E28, 0x709C80, 'inline'),   # its slot +0x00 0x706DF0 builds that KVPair (C5)
 }
 # An enum's inline conversions where the client's KVPair shows another form than the default
 # (_snprintf / sscanf into a local, == 1): leaf vtable -> (Value_To_String's value parameter, its body,
@@ -177,14 +180,13 @@ ENUM_EXTERN = {
     0xB01394: (None, 0x846040, 0x846090),
     0xB0133C: (None, 0x846110, 0x846160),
 }
-# A blob's operator!= where the client's Set_Value shows it (the rest memcmp): the colour 0xB00A00's
-# accessor Set 0x7080C0 compares the three fields as dwords (cmp/jne, no FPU), the delta's first.
+# A blob's operator!= where the client's Set_Value shows it (the rest memcmp): InvSlotStruct's (0xB016DC)
+# accessor Set 0x7080C0 compares the three ints (cmp/jne), the delta's first.
 BLOB_NE = {
     # 0xB03694: its KVPair's Is_Changed 0x759D30 compares the four ints (cmp/jne), the saved value's first
     0xB03694: 'inline bool operator!=(const NAME &a, const NAME &b) { return a.I00 != b.I00 || a.I04 != b.I04 || '
               'a.I08 != b.I08 || a.I0C != b.I0C; }',
-    0xB00A00: 'inline bool operator!=(const NAME &a, const NAME &b) { return *(const int *)&a.R != *(const int *)&b.R || '
-              '*(const int *)&a.G != *(const int *)&b.G || *(const int *)&a.B != *(const int *)&b.B; }',
+    0xB016DC: 'inline bool operator!=(const NAME &a, const NAME &b) { return a.I00 != b.I00 || a.I04 != b.I04 || a.I08 != b.I08; }',
 }
 # A blob's conversions the client calls out of line (another file's functions, not rebuilt; stand-ins in
 # stubs/aux_roots_stubs.cpp): leaf vtable -> (String_To_Value, Value_To_String), from the KVPair's
@@ -192,6 +194,12 @@ BLOB_NE = {
 # 0x84A560 (buf, size, &value), both in app\Common\skill_level_availability.cpp ('%d,%d,%d,%d', 0xBB0C88).
 BLOB_EXTERN = {0xB03694: (0x84A600, 0x84A560)}
 BLOB_CONV = {
+    # 0xB016DC: Get_Value_String 0x709CA0 sprintf's '%d,%d,%d' (0xB94490, the size unused); Set_Value_String 0x709E10
+    # sscanf's it into a default-constructed local, true on three fields (C5)
+    0xB016DC: ('InvSlotStruct',
+               'inline bool operator!=(const NAME &a, const NAME &b) { return a.I00 != b.I00 || a.I04 != b.I04 || a.I08 != b.I08; }',
+               '{ sprintf(buf, "%d,%d,%d", value.I00, value.I04, value.I08); return buf; }',
+               '{ return sscanf(text, "%d,%d,%d", &value->I00, &value->I04, &value->I08) == 3; }'),
     0xB01A40: ('ProjectedDecalClass',
                'inline bool operator!=(const NAME &a, const NAME &b) '
                '{ return !(a.F00 == b.F00 && a.F04 == b.F04 && a.F08 == b.F08 && a.I0C == b.I0C && a.F10 == b.F10); }',
@@ -767,7 +775,7 @@ inline char *Unknown_Hex_String(char *buf, int size, const unsigned char *data, 
 # 0x7045F0, 0x7014B0, 0x701D70, 0x758210) by one step of a cycle of 64: each matches only in a window of
 # it. The pad's enumerators put the file inside the windows; retune SYMBOL_PAD when a header aux_roots.cpp
 # includes gains or loses declarations (.work/hx1/exp.py sweeps it by compiling aux_roots.cpp alone).
-SYMBOL_PAD = 29
+SYMBOL_PAD = 33
 # Definition order in aux_roots.cpp, a second lever (SC2, 2026-11-08d): with DeltaItemArrayClass<DeltaStringClass>
 # (MountBoneNames) instantiated, no pad holds the six with the client's address order (0x7014B0 and 0x7045F0
 # share only 57..59, where 0x6FB1E0 fails); PrimaryCategory's inline constructor (0x6FB1E0) defined last moves

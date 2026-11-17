@@ -1141,9 +1141,9 @@
  },
  {
   "address": "0x706DF0",
-  "symbol": "?Unknown_00@?$DeltaTemplateClass@UUnknownB016DCType@@@@UAEXPAVKVEncoderClass@@@Z",
-  "evidence": "the client's vtable 0xB016DC holds it at +0x00 (0xB00A00's slot is 0x703D50): the UnknownB016DCType instance (K2 2026-11-08); DeltaChildVisitorClass renamed KVEncoderClass (D206)",
-  "replaces": "?Unknown_00@?$DeltaTemplateClass@UInvSlotStruct@@@@UAEXPAVDeltaChildVisitorClass@@@Z"
+  "symbol": "?Unknown_00@?$DeltaTemplateClass@UInvSlotStruct@@@@UAEXPAVKVEncoderClass@@@Z",
+  "evidence": "leaf vtable 0xB016DC's value type is InvSlotStruct: its slot +0x00 0x706DF0 builds KVPairTemplateClass<InvSlotStruct> (0xB01E28, Get_Type_Name 0x709C80 'InvSlotStruct') with the accessor 0xB01E4C, whose Set 0x7080C0 compares ints (C5, AR run 2026-11-16)",
+  "replaces": "?Unknown_00@?$DeltaTemplateClass@UUnknownB016DCType@@@@UAEXPAVKVEncoderClass@@@Z"
  },
  {
   "address": "0x757770",
@@ -1184,27 +1184,27 @@
  },
  {
   "address": "0x703F40",
-  "symbol": "?Write@?$DeltaTemplateClass@UInvSlotStruct@@@@UAE_NAAVLinearBufferClass@@@Z",
-  "evidence": "the client's vtable 0xB00A00 holds it at +0x30 (0xB016DC's slot is 0x706FF0); the two instances' bodies are identical (12-byte values), so objmatch's exact name went to the other instance (SY1's lead, K2 2026-11-08)",
-  "replaces": "?Write@?$DeltaTemplateClass@UUnknownB016DCType@@@@UAE_NAAVLinearBufferClass@@@Z"
- },
- {
-  "address": "0x706FF0",
-  "symbol": "?Write@?$DeltaTemplateClass@UUnknownB016DCType@@@@UAE_NAAVLinearBufferClass@@@Z",
-  "evidence": "the client's vtable 0xB016DC holds it at +0x30 (0xB00A00's slot is 0x703F40); the two instances' bodies are identical (12-byte values), so objmatch's exact name went to the other instance (SY1's lead, K2 2026-11-08)",
+  "symbol": "?Write@?$DeltaTemplateClass@VVector3@@@@UAE_NAAVLinearBufferClass@@@Z",
+  "evidence": "leaf vtable 0xB00A00's value type is Vector3: its slot +0x00 0x703D50 builds KVPairTemplateClass<Vector3> (0xAEB484) with the accessor 0xB01B2C, whose Set 0x705FD0 compares with fld / fcomp (C5, AR run 2026-11-16)",
   "replaces": "?Write@?$DeltaTemplateClass@UInvSlotStruct@@@@UAE_NAAVLinearBufferClass@@@Z"
  },
  {
+  "address": "0x706FF0",
+  "symbol": "?Write@?$DeltaTemplateClass@UInvSlotStruct@@@@UAE_NAAVLinearBufferClass@@@Z",
+  "evidence": "leaf vtable 0xB016DC's value type is InvSlotStruct: its slot +0x00 0x706DF0 builds KVPairTemplateClass<InvSlotStruct> (0xB01E28, Get_Type_Name 0x709C80 'InvSlotStruct') with the accessor 0xB01E4C, whose Set 0x7080C0 compares ints (C5, AR run 2026-11-16)",
+  "replaces": "?Write@?$DeltaTemplateClass@UUnknownB016DCType@@@@UAE_NAAVLinearBufferClass@@@Z"
+ },
+ {
   "address": "0x700CB0",
-  "symbol": "??_G?$DeltaTemplateClass@UInvSlotStruct@@@@UAEPAXI@Z",
-  "evidence": "the client's vtable 0xB00A00 holds it at +0x04 (0xB016DC's slot is 0x706730); the two instances' bodies are identical (12-byte values), so objmatch's exact name went to the other instance (SY1's lead, K2 2026-11-08)",
-  "replaces": "??_G?$DeltaTemplateClass@UUnknownB016DCType@@@@UAEPAXI@Z"
+  "symbol": "??_G?$DeltaTemplateClass@VVector3@@@@UAEPAXI@Z",
+  "evidence": "leaf vtable 0xB00A00's value type is Vector3: its slot +0x00 0x703D50 builds KVPairTemplateClass<Vector3> (0xAEB484) with the accessor 0xB01B2C, whose Set 0x705FD0 compares with fld / fcomp (C5, AR run 2026-11-16)",
+  "replaces": "??_G?$DeltaTemplateClass@UInvSlotStruct@@@@UAEPAXI@Z"
  },
  {
   "address": "0x706730",
-  "symbol": "??_G?$DeltaTemplateClass@UUnknownB016DCType@@@@UAEPAXI@Z",
-  "evidence": "the client's vtable 0xB016DC holds it at +0x04 (0xB00A00's slot is 0x700CB0); the two instances' bodies are identical (12-byte values), so objmatch's exact name went to the other instance (SY1's lead, K2 2026-11-08)",
-  "replaces": "??_G?$DeltaTemplateClass@UInvSlotStruct@@@@UAEPAXI@Z"
+  "symbol": "??_G?$DeltaTemplateClass@UInvSlotStruct@@@@UAEPAXI@Z",
+  "evidence": "leaf vtable 0xB016DC's value type is InvSlotStruct: its slot +0x00 0x706DF0 builds KVPairTemplateClass<InvSlotStruct> (0xB01E28, Get_Type_Name 0x709C80 'InvSlotStruct') with the accessor 0xB01E4C, whose Set 0x7080C0 compares ints (C5, AR run 2026-11-16)",
+  "replaces": "??_G?$DeltaTemplateClass@UUnknownB016DCType@@@@UAEPAXI@Z"
  },
  {
   "address": "0x6F6000",
@@ -2794,15 +2794,15 @@
  },
  {
   "address": "0x6F8CF0",
-  "symbol": "??1?$DeltaTemplateClass@UInvSlotStruct@@@@UAE@XZ",
-  "evidence": "called by the deleting destructor 0x700CB0, which the client's vtable 0xB00A00 holds at +0x04; the unwind funclets of DeltaLightClass::DeltaLightClass 0x6F9870 (whose vptr stores are 0xB00A00) and DeltaShipClass::~DeltaShipClass 0x6F8D30 jump to it (TY, run 2026-11-15)",
-  "replaces": "??1?$DeltaTemplateClass@UUnknownB016DCType@@@@UAE@XZ"
+  "symbol": "??1?$DeltaTemplateClass@VVector3@@@@UAE@XZ",
+  "evidence": "leaf vtable 0xB00A00's value type is Vector3: its slot +0x00 0x703D50 builds KVPairTemplateClass<Vector3> (0xAEB484) with the accessor 0xB01B2C, whose Set 0x705FD0 compares with fld / fcomp (C5, AR run 2026-11-16)",
+  "replaces": "??1?$DeltaTemplateClass@UInvSlotStruct@@@@UAE@XZ"
  },
  {
   "address": "0x706AF0",
-  "symbol": "??1?$DeltaTemplateClass@UUnknownB016DCType@@@@UAE@XZ",
-  "evidence": "its one caller is the deleting destructor 0x706730, which the client's vtable 0xB016DC holds at +0x04 (TY, run 2026-11-15)",
-  "replaces": "??1?$DeltaTemplateClass@UInvSlotStruct@@@@UAE@XZ"
+  "symbol": "??1?$DeltaTemplateClass@UInvSlotStruct@@@@UAE@XZ",
+  "evidence": "leaf vtable 0xB016DC's value type is InvSlotStruct: its slot +0x00 0x706DF0 builds KVPairTemplateClass<InvSlotStruct> (0xB01E28, Get_Type_Name 0x709C80 'InvSlotStruct') with the accessor 0xB01E4C, whose Set 0x7080C0 compares ints (C5, AR run 2026-11-16)",
+  "replaces": "??1?$DeltaTemplateClass@UUnknownB016DCType@@@@UAE@XZ"
  },
  {
   "address": "0x8D4D40",
@@ -2952,118 +2952,118 @@
  {
   "address": "0x7080A0",
   "symbol": "?Get@?$DeltaTemplateAccessorClass@UInvSlotStruct@@@@UAEABUInvSlotStruct@@XZ",
-  "evidence": "UnknownB00A00Type renamed InvSlotStruct: the KVPair's Get_Type_Name 0x709C80 returns the string 'InvSlotStruct' (0xB94480) (SD, run 2026-11-15b)",
+  "evidence": "leaf vtable 0xB016DC's value type is InvSlotStruct: its slot +0x00 0x706DF0 builds KVPairTemplateClass<InvSlotStruct> (0xB01E28, Get_Type_Name 0x709C80 'InvSlotStruct') with the accessor 0xB01E4C, whose Set 0x7080C0 compares ints (C5, AR run 2026-11-16)",
   "replaces": "?Get@?$DeltaTemplateAccessorClass@UUnknownB00A00Type@@@@UAEABUUnknownB00A00Type@@XZ"
  },
  {
   "address": "0x7080C0",
   "symbol": "?Set@?$DeltaTemplateAccessorClass@UInvSlotStruct@@@@UAEXABUInvSlotStruct@@@Z",
-  "evidence": "UnknownB00A00Type renamed InvSlotStruct: the KVPair's Get_Type_Name 0x709C80 returns the string 'InvSlotStruct' (0xB94480) (SD, run 2026-11-15b)",
+  "evidence": "leaf vtable 0xB016DC's value type is InvSlotStruct: its slot +0x00 0x706DF0 builds KVPairTemplateClass<InvSlotStruct> (0xB01E28, Get_Type_Name 0x709C80 'InvSlotStruct') with the accessor 0xB01E4C, whose Set 0x7080C0 compares ints (C5, AR run 2026-11-16)",
   "replaces": "?Set@?$DeltaTemplateAccessorClass@UUnknownB00A00Type@@@@UAEXABUUnknownB00A00Type@@@Z"
  },
  {
   "address": "0x708140",
   "symbol": "?Clone@?$DeltaTemplateAccessorClass@UInvSlotStruct@@@@UBEPAV?$KVAccessorClass@UInvSlotStruct@@@@XZ",
-  "evidence": "UnknownB00A00Type renamed InvSlotStruct: the KVPair's Get_Type_Name 0x709C80 returns the string 'InvSlotStruct' (0xB94480) (SD, run 2026-11-15b)",
+  "evidence": "leaf vtable 0xB016DC's value type is InvSlotStruct: its slot +0x00 0x706DF0 builds KVPairTemplateClass<InvSlotStruct> (0xB01E28, Get_Type_Name 0x709C80 'InvSlotStruct') with the accessor 0xB01E4C, whose Set 0x7080C0 compares ints (C5, AR run 2026-11-16)",
   "replaces": "?Clone@?$DeltaTemplateAccessorClass@UUnknownB00A00Type@@@@UBEPAV?$KVAccessorClass@UUnknownB00A00Type@@@@XZ"
  },
  {
   "address": "0x709080",
   "symbol": "??_G?$DeltaTemplateAccessorClass@UInvSlotStruct@@@@UAEPAXI@Z",
-  "evidence": "UnknownB00A00Type renamed InvSlotStruct: the KVPair's Get_Type_Name 0x709C80 returns the string 'InvSlotStruct' (0xB94480) (SD, run 2026-11-15b)",
+  "evidence": "leaf vtable 0xB016DC's value type is InvSlotStruct: its slot +0x00 0x706DF0 builds KVPairTemplateClass<InvSlotStruct> (0xB01E28, Get_Type_Name 0x709C80 'InvSlotStruct') with the accessor 0xB01E4C, whose Set 0x7080C0 compares ints (C5, AR run 2026-11-16)",
   "replaces": "??_G?$DeltaTemplateAccessorClass@UUnknownB00A00Type@@@@UAEPAXI@Z"
  },
  {
   "address": "0x709630",
   "symbol": "??1?$DeltaTemplateAccessorClass@UInvSlotStruct@@@@UAE@XZ",
-  "evidence": "UnknownB00A00Type renamed InvSlotStruct: the KVPair's Get_Type_Name 0x709C80 returns the string 'InvSlotStruct' (0xB94480) (SD, run 2026-11-15b)",
+  "evidence": "leaf vtable 0xB016DC's value type is InvSlotStruct: its slot +0x00 0x706DF0 builds KVPairTemplateClass<InvSlotStruct> (0xB01E28, Get_Type_Name 0x709C80 'InvSlotStruct') with the accessor 0xB01E4C, whose Set 0x7080C0 compares ints (C5, AR run 2026-11-16)",
   "replaces": "??1?$DeltaTemplateAccessorClass@UUnknownB00A00Type@@@@UAE@XZ"
  },
  {
   "address": "0x709650",
   "symbol": "??_G?$KVAccessorClass@UInvSlotStruct@@@@UAEPAXI@Z",
-  "evidence": "UnknownB00A00Type renamed InvSlotStruct: the KVPair's Get_Type_Name 0x709C80 returns the string 'InvSlotStruct' (0xB94480) (SD, run 2026-11-15b)",
+  "evidence": "leaf vtable 0xB016DC's value type is InvSlotStruct: its slot +0x00 0x706DF0 builds KVPairTemplateClass<InvSlotStruct> (0xB01E28, Get_Type_Name 0x709C80 'InvSlotStruct') with the accessor 0xB01E4C, whose Set 0x7080C0 compares ints (C5, AR run 2026-11-16)",
   "replaces": "??_G?$KVAccessorClass@UUnknownB00A00Type@@@@UAEPAXI@Z"
  },
  {
   "address": "0x709BB0",
   "symbol": "?Clone@?$KVPairTemplateClass@UInvSlotStruct@@@@UBEPAVKVPairClass@@XZ",
-  "evidence": "UnknownB00A00Type renamed InvSlotStruct: the KVPair's Get_Type_Name 0x709C80 returns the string 'InvSlotStruct' (0xB94480) (SD, run 2026-11-15b)",
+  "evidence": "leaf vtable 0xB016DC's value type is InvSlotStruct: its slot +0x00 0x706DF0 builds KVPairTemplateClass<InvSlotStruct> (0xB01E28, Get_Type_Name 0x709C80 'InvSlotStruct') with the accessor 0xB01E4C, whose Set 0x7080C0 compares ints (C5, AR run 2026-11-16)",
   "replaces": "?Clone@?$KVPairTemplateClass@UUnknownB00A00Type@@@@UBEPAVKVPairClass@@XZ"
  },
  {
   "address": "0x709C80",
   "symbol": "?Get_Type_Name@?$KVPairTemplateClass@UInvSlotStruct@@@@UBEPBDXZ",
-  "evidence": "UnknownB00A00Type renamed InvSlotStruct: the KVPair's Get_Type_Name 0x709C80 returns the string 'InvSlotStruct' (0xB94480) (SD, run 2026-11-15b)",
+  "evidence": "leaf vtable 0xB016DC's value type is InvSlotStruct: its slot +0x00 0x706DF0 builds KVPairTemplateClass<InvSlotStruct> (0xB01E28, Get_Type_Name 0x709C80 'InvSlotStruct') with the accessor 0xB01E4C, whose Set 0x7080C0 compares ints (C5, AR run 2026-11-16)",
   "replaces": "?Get_Type_Name@?$KVPairTemplateClass@UUnknownB00A00Type@@@@UBEPBDXZ"
  },
  {
   "address": "0x709CA0",
   "symbol": "?Get_Value_String@?$KVPairTemplateClass@UInvSlotStruct@@@@UBEPADPADH@Z",
-  "evidence": "UnknownB00A00Type renamed InvSlotStruct: the KVPair's Get_Type_Name 0x709C80 returns the string 'InvSlotStruct' (0xB94480) (SD, run 2026-11-15b)",
+  "evidence": "leaf vtable 0xB016DC's value type is InvSlotStruct: its slot +0x00 0x706DF0 builds KVPairTemplateClass<InvSlotStruct> (0xB01E28, Get_Type_Name 0x709C80 'InvSlotStruct') with the accessor 0xB01E4C, whose Set 0x7080C0 compares ints (C5, AR run 2026-11-16)",
   "replaces": "?Get_Value_String@?$KVPairTemplateClass@UUnknownB00A00Type@@@@UBEPADPADH@Z"
  },
  {
   "address": "0x709CE0",
   "symbol": "?Is_Changed@?$KVPairTemplateClass@UInvSlotStruct@@@@UBE_NXZ",
-  "evidence": "UnknownB00A00Type renamed InvSlotStruct: the KVPair's Get_Type_Name 0x709C80 returns the string 'InvSlotStruct' (0xB94480) (SD, run 2026-11-15b)",
+  "evidence": "leaf vtable 0xB016DC's value type is InvSlotStruct: its slot +0x00 0x706DF0 builds KVPairTemplateClass<InvSlotStruct> (0xB01E28, Get_Type_Name 0x709C80 'InvSlotStruct') with the accessor 0xB01E4C, whose Set 0x7080C0 compares ints (C5, AR run 2026-11-16)",
   "replaces": "?Is_Changed@?$KVPairTemplateClass@UUnknownB00A00Type@@@@UBE_NXZ"
  },
  {
   "address": "0x709D30",
   "symbol": "?Update_Saved@?$KVPairTemplateClass@UInvSlotStruct@@@@UAEXXZ",
-  "evidence": "UnknownB00A00Type renamed InvSlotStruct: the KVPair's Get_Type_Name 0x709C80 returns the string 'InvSlotStruct' (0xB94480) (SD, run 2026-11-15b)",
+  "evidence": "leaf vtable 0xB016DC's value type is InvSlotStruct: its slot +0x00 0x706DF0 builds KVPairTemplateClass<InvSlotStruct> (0xB01E28, Get_Type_Name 0x709C80 'InvSlotStruct') with the accessor 0xB01E4C, whose Set 0x7080C0 compares ints (C5, AR run 2026-11-16)",
   "replaces": "?Update_Saved@?$KVPairTemplateClass@UUnknownB00A00Type@@@@UAEXXZ"
  },
  {
   "address": "0x709D60",
   "symbol": "??_G?$KVPairTemplateClass@UInvSlotStruct@@@@UAEPAXI@Z",
-  "evidence": "UnknownB00A00Type renamed InvSlotStruct: the KVPair's Get_Type_Name 0x709C80 returns the string 'InvSlotStruct' (0xB94480) (SD, run 2026-11-15b)",
+  "evidence": "leaf vtable 0xB016DC's value type is InvSlotStruct: its slot +0x00 0x706DF0 builds KVPairTemplateClass<InvSlotStruct> (0xB01E28, Get_Type_Name 0x709C80 'InvSlotStruct') with the accessor 0xB01E4C, whose Set 0x7080C0 compares ints (C5, AR run 2026-11-16)",
   "replaces": "??_G?$KVPairTemplateClass@UUnknownB00A00Type@@@@UAEPAXI@Z"
  },
  {
   "address": "0x709D90",
   "symbol": "??1?$KVPairTemplateClass@UInvSlotStruct@@@@UAE@XZ",
-  "evidence": "UnknownB00A00Type renamed InvSlotStruct: the KVPair's Get_Type_Name 0x709C80 returns the string 'InvSlotStruct' (0xB94480) (SD, run 2026-11-15b)",
+  "evidence": "leaf vtable 0xB016DC's value type is InvSlotStruct: its slot +0x00 0x706DF0 builds KVPairTemplateClass<InvSlotStruct> (0xB01E28, Get_Type_Name 0x709C80 'InvSlotStruct') with the accessor 0xB01E4C, whose Set 0x7080C0 compares ints (C5, AR run 2026-11-16)",
   "replaces": "??1?$KVPairTemplateClass@UUnknownB00A00Type@@@@UAE@XZ"
  },
  {
   "address": "0x709E10",
   "symbol": "?Set_Value_String@?$KVPairTemplateClass@UInvSlotStruct@@@@UAE_NPBD@Z",
-  "evidence": "UnknownB00A00Type renamed InvSlotStruct: the KVPair's Get_Type_Name 0x709C80 returns the string 'InvSlotStruct' (0xB94480) (SD, run 2026-11-15b)",
+  "evidence": "leaf vtable 0xB016DC's value type is InvSlotStruct: its slot +0x00 0x706DF0 builds KVPairTemplateClass<InvSlotStruct> (0xB01E28, Get_Type_Name 0x709C80 'InvSlotStruct') with the accessor 0xB01E4C, whose Set 0x7080C0 compares ints (C5, AR run 2026-11-16)",
   "replaces": "?Set_Value_String@?$KVPairTemplateClass@UUnknownB00A00Type@@@@UAE_NPBD@Z"
  },
  {
   "address": "0x752170",
   "symbol": "??0InvSlotStruct@@QAE@ABU0@@Z",
-  "evidence": "UnknownB00A00Type renamed InvSlotStruct: the KVPair's Get_Type_Name 0x709C80 returns the string 'InvSlotStruct' (0xB94480) (SD, run 2026-11-15b)",
+  "evidence": "leaf vtable 0xB016DC's value type is InvSlotStruct: its slot +0x00 0x706DF0 builds KVPairTemplateClass<InvSlotStruct> (0xB01E28, Get_Type_Name 0x709C80 'InvSlotStruct') with the accessor 0xB01E4C, whose Set 0x7080C0 compares ints (C5, AR run 2026-11-16)",
   "replaces": "??0UnknownB00A00Type@@QAE@ABU0@@Z"
  },
  {
   "address": "0xB00A00",
-  "symbol": "??_7?$DeltaTemplateClass@UInvSlotStruct@@@@6B@",
-  "evidence": "UnknownB00A00Type renamed InvSlotStruct: the KVPair's Get_Type_Name 0x709C80 returns the string 'InvSlotStruct' (0xB94480) (SD, run 2026-11-15b)",
-  "replaces": "??_7?$DeltaTemplateClass@UUnknownB00A00Type@@@@6B@",
+  "symbol": "??_7?$DeltaTemplateClass@VVector3@@@@6B@",
+  "evidence": "leaf vtable 0xB00A00's value type is Vector3: its slot +0x00 0x703D50 builds KVPairTemplateClass<Vector3> (0xAEB484) with the accessor 0xB01B2C, whose Set 0x705FD0 compares with fld / fcomp (C5, AR run 2026-11-16)",
+  "replaces": "??_7?$DeltaTemplateClass@UInvSlotStruct@@@@6B@",
   "kind": "vtable"
  },
  {
   "address": "0xB01E28",
   "symbol": "??_7?$KVPairTemplateClass@UInvSlotStruct@@@@6B@",
-  "evidence": "UnknownB00A00Type renamed InvSlotStruct: the KVPair's Get_Type_Name 0x709C80 returns the string 'InvSlotStruct' (0xB94480) (SD, run 2026-11-15b)",
+  "evidence": "leaf vtable 0xB016DC's value type is InvSlotStruct: its slot +0x00 0x706DF0 builds KVPairTemplateClass<InvSlotStruct> (0xB01E28, Get_Type_Name 0x709C80 'InvSlotStruct') with the accessor 0xB01E4C, whose Set 0x7080C0 compares ints (C5, AR run 2026-11-16)",
   "replaces": "??_7?$KVPairTemplateClass@UUnknownB00A00Type@@@@6B@",
   "kind": "vtable"
  },
  {
   "address": "0xB01E4C",
   "symbol": "??_7?$DeltaTemplateAccessorClass@UInvSlotStruct@@@@6B@",
-  "evidence": "UnknownB00A00Type renamed InvSlotStruct: the KVPair's Get_Type_Name 0x709C80 returns the string 'InvSlotStruct' (0xB94480) (SD, run 2026-11-15b)",
+  "evidence": "leaf vtable 0xB016DC's value type is InvSlotStruct: its slot +0x00 0x706DF0 builds KVPairTemplateClass<InvSlotStruct> (0xB01E28, Get_Type_Name 0x709C80 'InvSlotStruct') with the accessor 0xB01E4C, whose Set 0x7080C0 compares ints (C5, AR run 2026-11-16)",
   "replaces": "??_7?$DeltaTemplateAccessorClass@UUnknownB00A00Type@@@@6B@",
   "kind": "vtable"
  },
  {
   "address": "0xB01FD0",
   "symbol": "??_7?$KVAccessorClass@UInvSlotStruct@@@@6B@",
-  "evidence": "UnknownB00A00Type renamed InvSlotStruct: the KVPair's Get_Type_Name 0x709C80 returns the string 'InvSlotStruct' (0xB94480) (SD, run 2026-11-15b)",
+  "evidence": "leaf vtable 0xB016DC's value type is InvSlotStruct: its slot +0x00 0x706DF0 builds KVPairTemplateClass<InvSlotStruct> (0xB01E28, Get_Type_Name 0x709C80 'InvSlotStruct') with the accessor 0xB01E4C, whose Set 0x7080C0 compares ints (C5, AR run 2026-11-16)",
   "replaces": "??_7?$KVAccessorClass@UUnknownB00A00Type@@@@6B@",
   "kind": "vtable"
  },
@@ -3146,5 +3146,100 @@
   "address": "0x7E7AD0",
   "symbol": "??1?$RefCountPtr@VSound3DClass@@@@QAE@XZ",
   "evidence": "reached only by the unwind funclets 0xAD37A0 / 0xAD37E0 of emote_data.cpp's 0x7E63A0 / 0x7E6860, right after Create_Get<Sound3DClass> 0x7E7AA0: the RefCountPtr<Sound3DClass> it returns; byte-identical to ~RefCountPtr<AudibleSoundClass> 0x64EFC0 (NM, run 2026-11-16)"
+ },
+ {
+  "address": "0x4B2AA0",
+  "symbol": "??_G?$KVAccessorClass@VVector3@@@@UAEPAXI@Z",
+  "evidence": "leaf vtable 0xB00A00's value type is Vector3: its slot +0x00 0x703D50 builds KVPairTemplateClass<Vector3> (0xAEB484) with the accessor 0xB01B2C, whose Set 0x705FD0 compares with fld / fcomp (C5, AR run 2026-11-16)",
+  "replaces": "??_G?$KVAccessorClass@UUnknownB016DCType@@@@UAEPAXI@Z"
+ },
+ {
+  "address": "0x701AC0",
+  "symbol": "??1?$DeltaArrayClass@UInvSlotStruct@@@@UAE@XZ",
+  "evidence": "leaf vtable 0xB016DC's value type is InvSlotStruct: its slot +0x00 0x706DF0 builds KVPairTemplateClass<InvSlotStruct> (0xB01E28, Get_Type_Name 0x709C80 'InvSlotStruct') with the accessor 0xB01E4C, whose Set 0x7080C0 compares ints (C5, AR run 2026-11-16)",
+  "replaces": "??1?$DeltaArrayClass@UUnknownB016DCType@@@@UAE@XZ"
+ },
+ {
+  "address": "0x705890",
+  "symbol": "??_G?$DeltaArrayClass@UInvSlotStruct@@@@UAEPAXI@Z",
+  "evidence": "leaf vtable 0xB016DC's value type is InvSlotStruct: its slot +0x00 0x706DF0 builds KVPairTemplateClass<InvSlotStruct> (0xB01E28, Get_Type_Name 0x709C80 'InvSlotStruct') with the accessor 0xB01E4C, whose Set 0x7080C0 compares ints (C5, AR run 2026-11-16)",
+  "replaces": "??_G?$DeltaArrayClass@UUnknownB016DCType@@@@UAEPAXI@Z"
+ },
+ {
+  "address": "0x705FB0",
+  "symbol": "?Get@?$DeltaTemplateAccessorClass@VVector3@@@@UAEABVVector3@@XZ",
+  "evidence": "leaf vtable 0xB00A00's value type is Vector3: its slot +0x00 0x703D50 builds KVPairTemplateClass<Vector3> (0xAEB484) with the accessor 0xB01B2C, whose Set 0x705FD0 compares with fld / fcomp (C5, AR run 2026-11-16)",
+  "replaces": "?Get@?$DeltaTemplateAccessorClass@UUnknownB016DCType@@@@UAEABUUnknownB016DCType@@XZ"
+ },
+ {
+  "address": "0x705FD0",
+  "symbol": "?Set@?$DeltaTemplateAccessorClass@VVector3@@@@UAEXABVVector3@@@Z",
+  "evidence": "leaf vtable 0xB00A00's value type is Vector3: its slot +0x00 0x703D50 builds KVPairTemplateClass<Vector3> (0xAEB484) with the accessor 0xB01B2C, whose Set 0x705FD0 compares with fld / fcomp (C5, AR run 2026-11-16)",
+  "replaces": "?Set@?$DeltaTemplateAccessorClass@UUnknownB016DCType@@@@UAEXABUUnknownB016DCType@@@Z"
+ },
+ {
+  "address": "0x706050",
+  "symbol": "?Clone@?$DeltaTemplateAccessorClass@VVector3@@@@UBEPAV?$KVAccessorClass@VVector3@@@@XZ",
+  "evidence": "leaf vtable 0xB00A00's value type is Vector3: its slot +0x00 0x703D50 builds KVPairTemplateClass<Vector3> (0xAEB484) with the accessor 0xB01B2C, whose Set 0x705FD0 compares with fld / fcomp (C5, AR run 2026-11-16)",
+  "replaces": "?Clone@?$DeltaTemplateAccessorClass@UUnknownB016DCType@@@@UBEPAV?$KVAccessorClass@UUnknownB016DCType@@@@XZ"
+ },
+ {
+  "address": "0x7067C0",
+  "symbol": "??_G?$DeltaTemplateAccessorClass@VVector3@@@@UAEPAXI@Z",
+  "evidence": "leaf vtable 0xB00A00's value type is Vector3: its slot +0x00 0x703D50 builds KVPairTemplateClass<Vector3> (0xAEB484) with the accessor 0xB01B2C, whose Set 0x705FD0 compares with fld / fcomp (C5, AR run 2026-11-16)",
+  "replaces": "??_G?$DeltaTemplateAccessorClass@UUnknownB016DCType@@@@UAEPAXI@Z"
+ },
+ {
+  "address": "0x706B80",
+  "symbol": "??1?$DeltaTemplateAccessorClass@VVector3@@@@UAE@XZ",
+  "evidence": "leaf vtable 0xB00A00's value type is Vector3: its slot +0x00 0x703D50 builds KVPairTemplateClass<Vector3> (0xAEB484) with the accessor 0xB01B2C, whose Set 0x705FD0 compares with fld / fcomp (C5, AR run 2026-11-16)",
+  "replaces": "??1?$DeltaTemplateAccessorClass@UUnknownB016DCType@@@@UAE@XZ"
+ },
+ {
+  "address": "0xAEB4BC",
+  "kind": "vtable",
+  "symbol": "??_7?$KVAccessorClass@VVector3@@@@6B@",
+  "evidence": "leaf vtable 0xB00A00's value type is Vector3: its slot +0x00 0x703D50 builds KVPairTemplateClass<Vector3> (0xAEB484) with the accessor 0xB01B2C, whose Set 0x705FD0 compares with fld / fcomp (C5, AR run 2026-11-16)",
+  "replaces": "??_7?$KVAccessorClass@UUnknownB016DCType@@@@6B@"
+ },
+ {
+  "address": "0xB00E40",
+  "kind": "vtable",
+  "symbol": "??_7?$DeltaArrayClass@UInvSlotStruct@@@@6B@",
+  "evidence": "leaf vtable 0xB016DC's value type is InvSlotStruct: its slot +0x00 0x706DF0 builds KVPairTemplateClass<InvSlotStruct> (0xB01E28, Get_Type_Name 0x709C80 'InvSlotStruct') with the accessor 0xB01E4C, whose Set 0x7080C0 compares ints (C5, AR run 2026-11-16)",
+  "replaces": "??_7?$DeltaArrayClass@UUnknownB016DCType@@@@6B@"
+ },
+ {
+  "address": "0xB01B2C",
+  "kind": "vtable",
+  "symbol": "??_7?$DeltaTemplateAccessorClass@VVector3@@@@6B@",
+  "evidence": "leaf vtable 0xB00A00's value type is Vector3: its slot +0x00 0x703D50 builds KVPairTemplateClass<Vector3> (0xAEB484) with the accessor 0xB01B2C, whose Set 0x705FD0 compares with fld / fcomp (C5, AR run 2026-11-16)",
+  "replaces": "??_7?$DeltaTemplateAccessorClass@UUnknownB016DCType@@@@6B@"
+ },
+ {
+  "address": "0x703D50",
+  "symbol": "?Unknown_00@?$DeltaTemplateClass@VVector3@@@@UAEXPAVKVEncoderClass@@@Z",
+  "evidence": "the client's vtable 0xB00A00 holds it (+0x00 / +0x2C; 0xB016DC's are 0x706DF0 / 0x706F60): leaf vtable 0xB00A00's value type is Vector3: its slot +0x00 0x703D50 builds KVPairTemplateClass<Vector3> (0xAEB484) with the accessor 0xB01B2C, whose Set 0x705FD0 compares with fld / fcomp (C5, AR run 2026-11-16)"
+ },
+ {
+  "address": "0x703EC0",
+  "symbol": "?Read@?$DeltaTemplateClass@VVector3@@@@UAE_NAAVLinearBufferClass@@ABVDurationClass@@@Z",
+  "evidence": "the client's vtable 0xB00A00 holds it (+0x00 / +0x2C; 0xB016DC's are 0x706DF0 / 0x706F60): leaf vtable 0xB00A00's value type is Vector3: its slot +0x00 0x703D50 builds KVPairTemplateClass<Vector3> (0xAEB484) with the accessor 0xB01B2C, whose Set 0x705FD0 compares with fld / fcomp (C5, AR run 2026-11-16)"
+ },
+ {
+  "address": "0x706F60",
+  "symbol": "?Read@?$DeltaTemplateClass@UInvSlotStruct@@@@UAE_NAAVLinearBufferClass@@ABVDurationClass@@@Z",
+  "evidence": "leaf vtable 0xB016DC's value type is InvSlotStruct: its slot +0x00 0x706DF0 builds KVPairTemplateClass<InvSlotStruct> (0xB01E28, Get_Type_Name 0x709C80 'InvSlotStruct') with the accessor 0xB01E4C, whose Set 0x7080C0 compares ints (C5, AR run 2026-11-16)",
+  "replaces": "?Read@?$DeltaTemplateClass@UUnknownB016DCType@@@@UAE_NAAVLinearBufferClass@@ABVDurationClass@@@Z"
+ },
+ {
+  "address": "0x7099F0",
+  "symbol": "?Cast@?$UnknownRTTIClass@VDeltaStatsClass@@@@SAPAVDeltaStatsClass@@PAVDeltaClass@@@Z",
+  "evidence": "rtti.h's Cast (assert line 0x20 in '..\\shared/auxdata/rtti.h'); its one caller 0x6FC0F3 (ClientObjectClass 0x6FBEF0) casts LookupClass::Find's result for 'CurrentStats' (0xB93DCC), the Player root's DeltaStatsClass field (AR run 2026-11-16)"
+ },
+ {
+  "address": "0x709B30",
+  "symbol": "?Cast@?$UnknownRTTIClass@V?$DeltaTemplateClass@W4GuildRankType@@@@@@SAPAV?$DeltaTemplateClass@W4GuildRankType@@@@PAVDeltaClass@@@Z",
+  "evidence": "rtti.h's Cast (assert line 0x20 in '..\\shared/auxdata/rtti.h'); its one caller 0x700496 (ClientObjectClass::Unknown_700400, exact) casts LookupClass::Find's result for 'GuildRank' (0xB93DA0), a DeltaTemplateClass<GuildRankType> (AR run 2026-11-16)"
  }
 ]

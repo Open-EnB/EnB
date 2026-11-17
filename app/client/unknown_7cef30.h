@@ -92,7 +92,7 @@ struct RegistrationUnknown3C4Struct  // NAME 1 [RegistrationUnknown3C4Struct]: n
 struct SubsBundleStruct  // NAME 1 [SubsBundleStruct]: the reply's 'bundle' elements
 {
 	SubsBundleStruct() : BundleId(""), BundleDescription(""), BundleName(""), BundleType(0), BundleStatus(0) {}
-	~SubsBundleStruct();	// 0x60A3E0 (byte-identical copies; defined between 0x7D3960 and 0x7D3CC0: see the .cpp)
+	~SubsBundleStruct();	// 0x60A3E0 (a COMDAT another object contributed; defined inline between 0x7D3960 and 0x7D3CC0: see the .cpp)
 	std::string BundleId;			// +0x00 'bundle-id'
 	std::string BundleDescription;	// +0x10 'bundle-description'
 	std::string BundleName;			// +0x20 'bundle-name'

@@ -469,5 +469,5 @@ void OptionFontInterface::Apply_To_All()
 **	Object 0x5CC350-0x5CE23F: the constructor 0x5CC350 opens it, after ui_option_control_keys.cpp's adjustor thunks; the
 **	template instances 0x5CDDD0 (a vector's _Tidy) and 0x5CDE10 (vector<OptionFontSettingStruct>::insert) and this page's
 **	adjustor thunks 0x5CE220 / 0x5CE230 close it; ui_option_main.cpp's 0x5CE240 follows. The chat panel's 0x56C7E0
-**	(request 12, not written yet) makes it and listens for OptionFontInterfaceEvent (0x56C7B0).
+**	(request 12, ui_chat_panel.cpp's) makes it and listens for OptionFontInterfaceEvent (0x56C7B0).
 */

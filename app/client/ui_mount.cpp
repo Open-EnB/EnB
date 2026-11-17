@@ -277,7 +277,7 @@ void UIMountClass::Build()
 	if (!model_name || !model_name->Unknown70) return;
 	const char *model_file = model_name->Get();  // NAME 1: neutral (D10)
 	NameClass mounts_field("Inventory.Mounts");  // NAME 1: neutral (D10)
-	DeltaArrayClass<UnknownB016DCType> *mounts = Unknown_Find_Field<DeltaArrayClass<UnknownB016DCType> >(auxdata, mounts_field);
+	DeltaArrayClass<InvSlotStruct> *mounts = Unknown_Find_Field<DeltaArrayClass<InvSlotStruct> >(auxdata, mounts_field);
 	if (!mounts || !mounts->Unknown70) return;
 	NameClass bones_field("Inventory.MountBoneNames");  // NAME 1: neutral (D10)
 	DeltaItemArrayClass<DeltaStringClass> *bone_names = Unknown_Find_Field<DeltaItemArrayClass<DeltaStringClass> >(auxdata, bones_field);
@@ -382,7 +382,7 @@ void UIMountClass::Build()
 
 
 	for (int i = 0; i < count; i++) {
-		UnknownB016DCType *mount = &mounts->Get_Value(i);
+		InvSlotStruct *mount = &mounts->Get_Value(i);
 		if (!mount->I00) continue;
 		const char *bone_name = ((DeltaStringClass *)bone_names->Children[i])->Get();
 		if (!bone_name) continue;

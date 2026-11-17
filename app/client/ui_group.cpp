@@ -235,7 +235,7 @@ void UIGroupUnknownE8Class::Unknown_592C50()
 		Unknown04->Set_Hidden(1);
 		return;
 	}
-	DeltaGroupInfoClass *group = (DeltaGroupInfoClass *)Unknown_Group_Find<DeltaCompoundClass>(aux, "GroupInfo");
+	DeltaGroupInfoClass *group = Unknown_Group_Find<DeltaGroupInfoClass>(aux, "GroupInfo");
 	if (group && group->Unknown70) {
 		if (group->Formation.Value) {
 			const char *name = group->FormationName.String;
@@ -1266,10 +1266,10 @@ void UIGroupClass::Unknown_596770(bool arg)
 	FAIL_IF(!aux) return;
 	DeltaGroupInfoClass *group;
 	if (arg) {
-		DeltaGroupInfoClass *t = (DeltaGroupInfoClass *)Unknown_Find_Field<DeltaCompoundClass>(aux, "GroupInfo");
+		DeltaGroupInfoClass *t = Unknown_Find_Field<DeltaGroupInfoClass>(aux, "GroupInfo");
 		group = (t && t->Unknown70) ? t : NULL;
 	} else {
-		DeltaGroupInfoClass *t = (DeltaGroupInfoClass *)Unknown_Find_Field<DeltaCompoundClass>(aux, "GroupInfo");
+		DeltaGroupInfoClass *t = Unknown_Find_Field<DeltaGroupInfoClass>(aux, "GroupInfo");
 		group = (t && t->Unknown70 > 1) ? t : NULL;
 	}
 	if (group) {
@@ -1609,7 +1609,7 @@ bool UIGroupClass::Unknown_5979A0()
 	SClient *sclient = (SClient *)((ClientClass *)Client)->As_Space_Client();
 	DeltaCompoundClass *aux = sclient->AuxData;
 	if (aux) {
-		DeltaGroupInfoClass *group = (DeltaGroupInfoClass *)Unknown_Find_Field<DeltaCompoundClass>(aux, "GroupInfo");
+		DeltaGroupInfoClass *group = Unknown_Find_Field<DeltaGroupInfoClass>(aux, "GroupInfo");
 		if (group && group->Unknown70) {
 			return(stricmp(group->FormationName.String, "") ? true : false);
 		}
@@ -1627,7 +1627,7 @@ bool UIGroupClass::Unknown_597A60()
 	SClient *sclient = (SClient *)((ClientClass *)Client)->As_Space_Client();
 	DeltaCompoundClass *aux = sclient->AuxData;
 	if (aux) {
-		DeltaGroupInfoClass *group = (DeltaGroupInfoClass *)Unknown_Find_Field<DeltaCompoundClass>(aux, "GroupInfo");
+		DeltaGroupInfoClass *group = Unknown_Find_Field<DeltaGroupInfoClass>(aux, "GroupInfo");
 		if (group && group->Unknown70) {
 			return(group->Formation.Value ? true : false);
 		}
@@ -1768,7 +1768,7 @@ void UIGroupClass::Unknown_597E40(bool value)
 		Unknown0C0[4]->Unknown_40(false);
 		DeltaCompoundClass *aux = ((SClient *)((ClientClass *)Client)->As_Space_Client())->AuxData;
 		if (aux) {
-			DeltaGroupInfoClass *group = (DeltaGroupInfoClass *)Unknown_Group_FieldA<DeltaCompoundClass>(aux, "GroupInfo");
+			DeltaGroupInfoClass *group = Unknown_Group_FieldA<DeltaGroupInfoClass>(aux, "GroupInfo");
 			if (group && group->Formation.Value) return;
 		}
 		Unknown0C0[5]->Unknown_40(false);
@@ -1780,17 +1780,17 @@ void UIGroupClass::Unknown_597E40(bool value)
 	Unknown0C0[7]->Unknown_40(false);
 	DeltaCompoundClass *aux = ((SClient *)((ClientClass *)Client)->As_Space_Client())->AuxData;
 	DeltaGroupInfoClass *group;
-	if (!aux || !(group = (DeltaGroupInfoClass *)Unknown_Group_FieldA<DeltaCompoundClass>(aux, "GroupInfo")) || !group->Formation.Value) {
+	if (!aux || !(group = Unknown_Group_FieldA<DeltaGroupInfoClass>(aux, "GroupInfo")) || !group->Formation.Value) {
 		Unknown0C0[4]->Unknown_40(false);
 	}
 	aux = ((SClient *)((ClientClass *)Client)->As_Space_Client())->AuxData;
 	if (aux) {
-		DeltaGroupInfoClass *info = (DeltaGroupInfoClass *)Unknown_Group_FieldB<DeltaCompoundClass>(aux, "GroupInfo");
+		DeltaGroupInfoClass *info = Unknown_Group_FieldB<DeltaGroupInfoClass>(aux, "GroupInfo");
 		if (info && info->Formation.Value) goto set;
 	}
 	aux = ((SClient *)((ClientClass *)Client)->As_Space_Client())->AuxData;
 	if (aux) {
-		DeltaGroupInfoClass *named = (DeltaGroupInfoClass *)Unknown_Group_FieldC<DeltaCompoundClass>(aux, "GroupInfo");
+		DeltaGroupInfoClass *named = Unknown_Group_FieldC<DeltaGroupInfoClass>(aux, "GroupInfo");
 		if (named) {
 			const char *formation = named->FormationName.String;
 			if (stricmp(formation, "")) return;
@@ -1872,7 +1872,7 @@ void UIGroupClass::Unknown_598370()
 		SClient *sclient = (SClient *)((ClientClass *)Client)->As_Space_Client();
 		DeltaCompoundClass *aux = sclient->AuxData;
 		if (aux) {
-			DeltaGroupInfoClass *group = (DeltaGroupInfoClass *)Unknown_Group_Find_Set<DeltaCompoundClass>(aux, "GroupInfo");
+			DeltaGroupInfoClass *group = Unknown_Group_Find_Set<DeltaGroupInfoClass>(aux, "GroupInfo");
 			if (group) {
 				for (unsigned int i = 0; i < Members.size(); i++) {
 					Members[i]->Unknown18 = ((DeltaGroupMemberClass *)group->Members.Children[i])->Position.Value;

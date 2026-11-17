@@ -9,8 +9,10 @@ loses declarations.
       compile aux_roots.cpp alone with each pad value (~5 s a variant), print pad -> which of the six
       constructors are exact, and the windows where all six are; --hold takes the importer lock once, at the
       first value, and keeps it to the end (given back on every exit, Ctrl-C included): one wait in the queue
-  auxpad.py set N [--client EXE]
-      write SYMBOL_PAD = N in tools/re/auxroots.py and regenerate aux_roots.h/.cpp as auxroots.py does
+  auxpad.py set N
+      write SYMBOL_PAD = N in tools/re/auxroots.py and the pad block of aux_roots.cpp in place (as sweep does);
+      aux_roots.h is not touched: `auxroots.py generate` no longer writes the committed aux_roots.h (its
+      hand edits: the *_defs.h includes, Vector3 / InvSlotStruct ...), so regenerating it broke sclient.cpp's compile
 
 sweep takes the importer lock per variant (the tree's aux_roots.cpp holds the variant only inside it and
 is restored after), never for the whole sweep. Every value's exact address set (all of aux_roots.cpp's) goes
@@ -21,7 +23,6 @@ that the form the other tools take works here). Measuring logic: HX1's exp.py.
 import argparse
 import os
 import re
-import subprocess
 import sys
 
 import vc6config
@@ -110,16 +111,24 @@ def sweep(a):
 
 
 def set_pad(a):
+    """SYMBOL_PAD = N in tools/re/auxroots.py, and aux_roots.cpp's pad block set to N in place. Not a regeneration:
+    `auxroots.py generate` writes an aux_roots.h without the committed file's hand edits (2026-11-17, AR2: a
+    sendpad.py sweep after `set 33` failed at every value on Type_Name / Value_To_String / String_To_Value(Vector3))."""
     with open(AUXROOTS, 'rb') as f:
         src = f.read().decode('utf-8')
     new, k = re.subn(r'^SYMBOL_PAD = \d+', f'SYMBOL_PAD = {a.n}', src, flags=re.M)
     assert k == 1, 'SYMBOL_PAD line not found'
-    with open(AUXROOTS, 'wb') as f:
-        f.write(new.encode('utf-8'))
-    cmd = [sys.executable, AUXROOTS, 'generate']
-    if a.client:
-        cmd += ['--client', a.client]
-    return subprocess.call(cmd)
+    with open(CPP, 'rb') as f:
+        cpp = f.read().decode('latin-1')
+    padded = with_pad(cpp, a.n)
+    if new != src:
+        with open(AUXROOTS, 'wb') as f:
+            f.write(new.encode('utf-8'))
+    if padded != cpp:
+        with open(CPP, 'wb') as f:
+            f.write(padded.encode('latin-1'))
+    print(f'auxpad: SYMBOL_PAD = {a.n} (tools/re/auxroots.py, app/client/aux_roots.cpp)')
+    return 0
 
 
 def parser():
@@ -139,7 +148,6 @@ def parser():
                    help="every value's exact address set, as JSON (default %(default)s)")
     t = sub.add_parser('set')
     t.add_argument('n', type=int)
-    t.add_argument('--client')
     return ap
 
 

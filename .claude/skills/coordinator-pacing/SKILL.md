@@ -66,7 +66,7 @@ The rules behind the allowance (defaults in the script, all overridable):
 - **Harness check (D182):** at a heartbeat after any landed commit that rebuilds a file clienttest or udpreplay links
   (app code under app/, wlib / wnet, their stubs), run them at HEAD on a quiet copy: a worktree at HEAD (`python
   tools/vc6/wt.py new hc`, `build.py build --lib app --allow-dirty` there, copy build/art/MSS32.DLL) or the main tree when no
-  builder has uncommitted app edits; then `clienttest.py build` + `run` (103 checks, exit 0, trace equal to expected.txt) and
+  builder has uncommitted app edits; then `clienttest.py build` + `run` (102 checks, exit 0, trace equal to expected.txt) and
   `udpreplay.py build`, `run alex3`, `handshake` (54/54). Log the result; a failure is a health item: give it to one bounded
   builder (Sonnet: tests/ stand-ins only, never app code) before the next launches. Always once more before the handoff.
 

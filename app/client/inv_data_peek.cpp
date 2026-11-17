@@ -99,7 +99,7 @@ void InvDataPeekClass::Attach(DeltaCompoundClass *root)
 		}
 		if (HasMounts) {
 			NameClass mounts_name("Inventory.Mounts");  // NAME 1: neutral (D10)
-			DeltaArrayClass<UnknownB016DCType> *t = Unknown_Find_Field<DeltaArrayClass<UnknownB016DCType> >(root, mounts_name);
+			DeltaArrayClass<InvSlotStruct> *t = Unknown_Find_Field<DeltaArrayClass<InvSlotStruct> >(root, mounts_name);
 			Mounts = (t && t->Unknown70) ? t : 0;
 			G_ASSERT(Mounts);
 		}
@@ -292,12 +292,12 @@ InvDataPeekItemStruct *InvDataPeekClass::Get_Item(int slot, bool flag)
 }
 
 // 0x68AB80
-UnknownB016DCType *InvDataPeekClass::Get_Mount(int slot)
+InvSlotStruct *InvDataPeekClass::Get_Mount(int slot)
 {
 	Status = 2;
 	if ((unsigned int)slot < Count) {
 		if (Mounts) {
-			UnknownB016DCType *m = &Mounts->Get_Value(slot);
+			InvSlotStruct *m = &Mounts->Get_Value(slot);
 			Status = 1 >= Mounts->Children[slot]->Unknown70;
 			return(m);
 		}
@@ -309,7 +309,7 @@ UnknownB016DCType *InvDataPeekClass::Get_Mount(int slot)
 // 0x68AC50
 int InvDataPeekClass::Get_Mount_I00(int slot)
 {
-	UnknownB016DCType *m = Get_Mount(slot);
+	InvSlotStruct *m = Get_Mount(slot);
 	if (m) return(m->I00);
 	if (Peek_Value(slot, 0, -2) == -2) return(0);
 	return(-1);
@@ -318,7 +318,7 @@ int InvDataPeekClass::Get_Mount_I00(int slot)
 // 0x68AD80
 int InvDataPeekClass::Get_Mount_I08(int slot)
 {
-	UnknownB016DCType *m = Get_Mount(slot);
+	InvSlotStruct *m = Get_Mount(slot);
 	if (m) return(m->I08);
 	return(-1);
 }
@@ -326,7 +326,7 @@ int InvDataPeekClass::Get_Mount_I08(int slot)
 // 0x68AE50
 int InvDataPeekClass::Get_Mount_I04(int slot)
 {
-	UnknownB016DCType *m = Get_Mount(slot);
+	InvSlotStruct *m = Get_Mount(slot);
 	if (m) return(m->I04);
 	return(-1);
 }

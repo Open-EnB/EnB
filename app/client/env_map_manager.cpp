@@ -47,7 +47,7 @@ void EnvironmentMapManagerClass::Load(const char *env_map_ini_filename)
 		sprintf(section, "PROCTEX-%02d", index);
 	}
 }
-// NOT EXACT: relocation (explain.py: our DX8Wrapper::_Create_DX8_Texture takes MipCountType, the client's TextureClass::MipCountType), then frame layout (similarity 0.69, its calls one for one the client's): functional for POC (D64)
+// NOT EXACT: frame layout (explain.py's first class, relocation, is symbols.json's stale TextureClass::MipCountType name for 0x925CC0: dx8wrapper.obj emits the global one) (similarity 0.69, its calls one for one the client's): functional for POC (D64)
 // 0x760770
 void EnvironmentMapManagerClass::Unknown_760770(int base_asset, bool a)
 {

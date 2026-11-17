@@ -1508,7 +1508,10 @@ are in 3.0.
   `appfile.py match` on untracked `aux_roots_pN.cpp` copies with your own VM sweeps without the lock, but appfile
   pads through a different window than verify: use it to narrow candidates, decide with `auxpad.py sweep`.
   aux_roots.h is no longer what `auxroots.py generate` writes (2026-11-16, AR: ~146 hand-edited lines, padding includes,
-  Vector3 / InvSlotStruct): regenerating would undo them.
+  Vector3 / InvSlotStruct): regenerating would undo them. `auxpad.py set N` regenerated until 2026-11-17 (AR2): a
+  sendpad.py sweep run after it failed at every value on kv_pair.h's Type_Name / Value_To_String / String_To_Value
+  (C2665, `Vector3`) while verify of the committed tree had none; it now writes the pad in place. A pad sweep whose
+  every value fails to compile is a tree problem, not a pad one: `git status` / `git diff` the tree first.
 * **SEND_SYMBOL_PAD (`tools/vc6/sendpad.py`):** aux_roots_send.h's SEND_SYMBOL_PAD keeps sclient.cpp's padded
   constructors 0x758210 and 0x702240 exact (different instances, not twins), and 0x74D990, which sclient.cpp
   defines after `#include "aux_roots.h"`. The window moves with any declaration or definition-order change
@@ -1647,6 +1650,15 @@ are in 3.0.
   PREFIX: give it its own marker. Example: 0x81EEA0, 402 bytes, padded to 0x81F0DF. The last function before a
   PermStringInit static reports PREFIX the same way, and REL shows on float immediates. A trailing jump table or `$E` initialiser makes PREFIX mean exact; conversely
   appfile can say EXACT where verify does not (a jump table's bytes, a stale callee name in symbols.json).
+* **A crediting rule over call chains reaches only callers something locates:** most uncredited COMDAT siblings hang
+  off callers that are themselves unnamed and uncredited; measure how many callers a new location source adds
+  before building the rule.
+* **An out-of-line definition of a COMDAT the linker placed elsewhere counts as the object's own code** (selection
+  NODUPLICATES): it stretches the object's range for range rules. Check `CoffObject.own()` on the .obj; `inline`
+  (selection ANY) gives the same bytes without it.
+* **A symbols.json "exact" mangled name is our older build's, not client evidence:** explain.py's "relocation:
+  ... a different declaration?" against such a name can be a stale entry (the initial map took some from
+  Renegade / Generals headers). Grep the symbol in the current build/<lib>/obj before retyping to match it.
 * **explain.py's class can be wrong:** it says inline-budget for a function followed by a static initialiser (read
   objdiff first), and register-only where the lever was an inline-budget one (an `x.clear()` two layers down).
 * **appfile.py false exacts:** one template compiled from two files (with and without an EH frame) can match at
