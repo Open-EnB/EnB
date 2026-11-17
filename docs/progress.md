@@ -4,6 +4,48 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
+### 2026-11-17 (06:25 PST, morning; run 2026-11-17, week plan session 0): the week of 2026-11-10's record (P-D72-1), progress.md §4 from the old queue, a readability pass, and bounded crediting to spend the old week: callseq_ties (D262, +41), AR's aux_roots retype landed after finding auxpad.py's regeneration bug (+32, 0x758210 in D246's valve), the match audit's bw_render duplicate (+2) and two typing fixes; +77 pairs over the run's baseline, 0 lost outright
+
+- **Session** Opus coordinator, unattended (D261), started by the launcher at 04:00. How it started: clean (the planning
+  entry is a handoff); stale `importer-1272` leases released; PR #209 (the week plan) merged, green with no human comment.
+- **The week's record (item 1):** [archive/week-2026-11-10-record.md](archive/week-2026-11-10-record.md): exact functions
+  20,414 -> 25,034, pairs 30,896 -> 41,260; Opus phase 105-111 pairs a point, Fable phase 40; by kind crediting ~430,
+  new files ~100, finishing ~33, harness ~19, levers ~9, names alone ~1-2. From it §3 **P-D72-1** (models: the user's).
+  §4 refreshed (ea9308e31: 1 deleted, 15 cut, 10 added; the old queue pointed at for session 1).
+- **Tracking proposal for `.work/week-2026-11-10/`** (nothing moved; Part B of `.work/week-2026-11-17/s0-s4-and-tracked.md`):
+  queue.md, state.tsv, queue.tsv, opus-queue.tsv / .md, queue-a.md / -b.md, map-notes-a.md / -b.md, layout_b9.md,
+  layout_a.md into `docs/archive/week-2026-11-10/`; libraries.md into docs/archive (three references follow); merge.py and
+  opus_queue_s9.py into tools/re only if session 1 reuses them; the rest stays untracked.
+- **Landed** (run/2026-11-17): 2b1c2eaa3 DynamicWindowHorizontalClass::Child_Changed written as the client's 0x519240
+  (session 12's "identical copies under D80" were not identical: +1, a D66 move); 01467c8d4 RD's readability pass (3
+  comments, 2 ledger descriptions, 0 pairs; libs/ and the D137 notes not read); 12e346bc1 TY2 ui_group's GroupInfo finds
+  typed DeltaGroupInfoClass (+1); fa4fd1a22 / 6596cd0fc MA: ww3d2's bw_render.cpp NOT_LINKED (Generals' older copy; the
+  client's one object is BWRenderClass's: +2, 9 D66 moves) and ~SubsBundleStruct inline (unknown_7cef30's 68 stray pairs
+  classified, none false); a7b43c027..2626c8896 AR: aux_roots' 0xB00A00 Vector3 / 0xB016DC InvSlotStruct, aux pad 33,
+  auxpad.py `set` no longer regenerates aux_roots.h (AR2: the drifted generator made both earlier send-pad sweeps compile
+  failures, not "no window") (+32); fd790cc36 CK's callseq_ties (D262: +41 at 40 addresses, census 350 -> 306).
+- **Calls (D246):** D80-by-self-name rejected (not a tie); RD launched as a Sonnet builder at Opus allowance 0; handoff
+  moved 11:30 -> 08:30 so the old week's last points went to builders; session 12's items 3 / 4 dropped as stale (their
+  addresses credited); TY2 skipped 0x760770's retype (the MipCountType names are stale Generals entries; §4 rewritten,
+  refresh queued); bw_render NOT_LINKED; callseq_ties adopted (D262), object order for COMDATs rejected on CK's measure;
+  **0x758210 accepted inside D246's valve** (sclient's send-pad address; AR +32, no value 0..63 keeps it; entry in
+  accepted-corrections.json, §4 regain item).
+- **Pairs per point:** +77 for about 1 (95 % -> 96 %) points of the old week (95 % at 04:02). By kind: crediting 41 (CK),
+  retypes / names 34 (AR, TY2), match audit 2, source fix 1. Builders: Opus CK ~180k, MA ~120k, AR2 ~70k, TY2 ~60k
+  tokens; Sonnet RD ~92k, helpers / doc-filer / landers / checkers ~600k together. No agy (Gemini week at its floor).
+- **Meter:** old week 95 % -> 1 (95 % -> 96 %) at the handoff (floor / cap 99): the projection allowed builders only after the
+  handoff moved; the measured burn was near zero for the first hour.
+- **PRs:** #209 merged. **#210 frozen for `/accept-d66`** (D66 moves: 0x51F600, bw_render's nine, AR's sclient holders).
+- **Verified vs not:** every landing's verify, link and stand-in checks; harness at 8438e173f green (clienttest 102 / 0,
+  udpreplay alex3, handshake 54/54); at fd790cc36: clienttest 102 / 0 failed, trace equal; udpreplay alex3 exit 0 (7 of 8 same set), handshake 54/54; e2e 25 / 25 PASS in 308 s.
+- **Unlanded:** wt/Q1 (ui_mfd / ui_chat_window forms; §4 item), untouched.
+- **Next ten items** (session 1 maps first): (1) session 1's map and queue; (2) callseq_ties' next location sources
+  (pushed / funclet refs, vptr vtable slots: 189 siblings); (3) sclient 0x758210's regain at the next header change;
+  (4) auxroots.py `generate` brought back to the committed aux_roots.h; (5) symbols.json's stale exact names (0x925C50 /
+  0x925CC0 first); (6) the live e2e scenarios of the 2026-11-15 recording; (7) FontSys::Update_Text 0x6D64C0;
+  (8) the Unknown_Find_Field copies 0x5314D0 / 0x610370 typed; (9) ui_registration 0x6053F0 and ~SubsBundleStruct in the
+  header; (10) the tracking proposal above at a quiet tree.
+
 ### 2026-11-16 (22:15 PST, evening; planning session): the unattended week's plan (D261): eight scheduled sessions from Tuesday 04:00 to Friday 18:15, the coordinator merging green PRs, the week plan of 2026-11-10 archived with its open items carried forward; no code change
 
 - **Session** Fable 5.2, with the user, an hour before the user's departure (back Friday 2026-11-20 19:00).
@@ -3793,9 +3835,11 @@ below name only the work items, the blocked work, the leads and the queues.
      `MipCountType`, Zero Hour's under D9): no retype.
    * **symbols.json's stale exact names (Tools):** refresh with symbols.py at a quiet landing, 0x925C50 / 0x925CC0 first,
      and find why symbols.py kept an old mangled name for an address whose object now emits another.
-   * **wt/AR (c823403b9, 2026-11-16):** the Vector3 / InvSlotStruct leaf retype of aux_roots.h is done on the worktree but not landed: it waits for a send-pad window on the head after CR7 (no value 0..63 kept 0x74D990 0x758210 0x742B60 0x743380 0x744B60).
+   * **sclient 0x758210 (send pad, D246 entry):** lost since aux_roots.h's Vector3 / InvSlotStruct retype: no send-pad
+     value 0..63 keeps it with aux pad 33; regain at a later header change (a sendpad sweep on that head).
    * **ui_talkt (2026-11-16):** 0x64E7A0 parked again, register-only (10 rows: the bit test `and eax,1; test al,al` not folded; the lea before the argument load at 0x497300's call): a lever is needed from another function. Its `Unknown_497300` becomes `Create_Peek` once 0x497300 is named (byte-identical).
-   * **Unknown_Find_Field copies 0x5314D0 / 0x5927E0 / 0x610370** (type global 0xBE3A74, F1): name all three together after their field types.
+   * **Unknown_Find_Field copies 0x5314D0 / 0x610370** (type global 0xBE3A74, F1): type them after their field types
+     (DeltaRPGInfoClass 'RPGInfo', DeltaReputationClass 'Reputation'), as ui_group's 0x5927E0 now is.
    * **FontSys::Update_Text 0x6D64C0 as its own item** (F1): Convert_Color_Clamp out of line twice, ShaderClass::Reset, three `??_H` vector ctors, the argument read as a dword.
    * **DynamicWindowHorizontalClass (CR5):** its DynamicWindowContainerClass sub-vtable fails vtable_check vs 0xAED480; fixing it lets D80 credit 0x5187B0. **0x7E7AD0** is likely ~RefCountPtr<Sound3DClass> (funclets of 0x7E63A0 / 0x7E6860, after 0x7E7AA0): name it in symbols.json.
    * **0x449CC0 ~RegistrationUnknown568Struct (2026-11-16):** EH states for the inlined SubsPricingOptionStruct members need unknown_7cef30.h, shared with ui_registration.
@@ -4169,12 +4213,11 @@ below name only the work items, the blocked work, the leads and the queues.
        Toggle_Drop_Down / Add_Item as the budget notch.
      - ui_scan.h's Unknown59E2C0Class 0x59E970 (the interrupt display) has no file.
    * **The old queue's rows:** `.work/week-2026-11-10/queue.md`'s open and parked rows (ids in `.work/log/notin4_ids.txt`) are folded into the week's new queue by session 1 of [week-plan-2026-11-17.md](week-plan-2026-11-17.md); the old state.tsv is stale (most 'open' and 'parked' rows already have a file). Rows with no file and not named above: open 212 (unknown_6f25a0.cpp 0x6F25A0-0x6F2820), 449 (0x499180-0x4995C0, between accel and boolpars), 459 (0x4F5830-0x4F5AA0, between orbitalmanager and safe_ptr), 464 (unknown_6912a0.cpp 0x6912A0-0x691570), 499 (unknown_83d740.cpp 0x83D740-0x83D7D0), 538 (0x4B0B00, 7 bytes); parked 92 (0x4A1590) and 535 (0x4A6C90, names only).
-   * **ui_group.cpp:** GroupInfo finds typed DeltaGroupInfoClass.
    * **wt/Q1's forms:** ui_mfd 0x5BDC20's radius sum and ui_chat_window's Vector3 tl, rebased onto the current ui_analyze / ui_manu, or dropped.
    * **Block-shape frame lever (D252)** across the frame class's remaining members, then the parked ones once each (0x478B50 first).
    * **Inline-budget class's 'multiple' callees through their callers:** 0x780810's ColorizationHalfStruct copies, musicmanager's helpers via Load_INI, 0x56CC30 / 0x56CD50 via 0x56C180; show the crediting status in `appfile.py match` first.
    * **Funclet evidence beyond ties:** tied non-short bodies (0x56CCE0, 0x53CF80, 0x6A28E0, 0x700BC0) and a NOT EXACT parent's other unwind states (D250 / D254 funclet_targets): the same unwind-map matching; measure first.
-   * **aux_roots' 9 untried functions** (pad-sensitive: one builder, the landing retunes), with wt/AR's retype.
+   * **aux_roots' 9 untried functions** (pad-sensitive: one builder, the landing retunes).
    * **Starbase render stalls:** ours-only stalls over 5 s in `_play7` (SBaseViewClass::Unknown_0C into WW3D::Render); a recording that reaches the generated stand-ins the link still writes.
    * **The starbase gadget's own file** around 0x6B6050-0x6B6170: confirm its range (0x6B6050 is exact).
    * **Client-names rows with most work left** (counts of 2026-11-14, recount with notexact.py first): co.cpp, ui_registration, mainview, ui_manu, attrib_dir, ui_chat_panel's rest, ui_scan.
