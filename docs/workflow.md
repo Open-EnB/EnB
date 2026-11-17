@@ -1508,7 +1508,10 @@ are in 3.0.
   `appfile.py match` on untracked `aux_roots_pN.cpp` copies with your own VM sweeps without the lock, but appfile
   pads through a different window than verify: use it to narrow candidates, decide with `auxpad.py sweep`.
   aux_roots.h is no longer what `auxroots.py generate` writes (2026-11-16, AR: ~146 hand-edited lines, padding includes,
-  Vector3 / InvSlotStruct): regenerating would undo them.
+  Vector3 / InvSlotStruct): regenerating would undo them. `auxpad.py set N` regenerated until 2026-11-17 (AR2): a
+  sendpad.py sweep run after it failed at every value on kv_pair.h's Type_Name / Value_To_String / String_To_Value
+  (C2665, `Vector3`) while verify of the committed tree had none; it now writes the pad in place. A pad sweep whose
+  every value fails to compile is a tree problem, not a pad one: `git status` / `git diff` the tree first.
 * **SEND_SYMBOL_PAD (`tools/vc6/sendpad.py`):** aux_roots_send.h's SEND_SYMBOL_PAD keeps sclient.cpp's padded
   constructors 0x758210 and 0x702240 exact (different instances, not twins), and 0x74D990, which sclient.cpp
   defines after `#include "aux_roots.h"`. The window moves with any declaration or definition-order change
