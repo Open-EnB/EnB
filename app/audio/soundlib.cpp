@@ -22,10 +22,10 @@ extern Random2Class Unknown_BDADC8;			// NAME 1 [Unknown_BDADC8]: 0xBDADC8, a gl
 
 #include "..\client\option.h"				// OptionClass, option.cpp's object at 0xBE8B38 (D107)
 static RawFileFactoryClass _RawFileFactory;	// 0xBDAC60, never referenced: its initialiser 0x43D320 (ctor 0x43D390, atexit 0x43D350 -> 0x43D370) is the first of the file's .CRT$XCU entries  // NAME 1: neutral
-
-
-
-
+// Not the client's source (its sgistl form is unknown: P-L21-1, attempts row 0x71DCE0): the hashtable constructor flat gives the client's out-of-line hash_map() 0x4402E0 (reserve's size() inlined: the B form)
+namespace std {
+template<> inline hashtable<pair<std::string const, SoundDefClass * >, std::string, hash<std::string >, _Select1st<pair<std::string const, SoundDefClass * > >, equal_to<std::string >, allocator<SoundDefClass * > >::hashtable(size_type __n, const hasher &__hf, const key_equal &__eql) : _M_hash(__hf), _M_equals(__eql), _M_get_key(_Select1st<pair<std::string const, SoundDefClass * > >()), _M_buckets(), _M_num_elements(0) { const size_type __n_buckets = _M_next_size(__n); _M_buckets.reserve(__n_buckets); _M_buckets.insert(_M_buckets.end(), __n_buckets, (_Node *)0); _M_num_elements = 0; }
+}
 
 // The client stores members that the tree's wwaudio headers keep protected (E&B's m_Unknown7C,
 // m_Unknown80, Sound3DClass's m_Unknown164-16C): these classes make them reachable, no code of their own.

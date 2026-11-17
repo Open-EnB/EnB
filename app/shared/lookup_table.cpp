@@ -17,10 +17,10 @@ static float floor_output[9] = { 0.0f, 0.0f, 0.0f, 0.0f, 10.0f, 10.0f, 10.0f, 20
 static float ceiling_output[9] = { 0.0f, 0.0f, 10.0f, 10.0f, 10.0f, 20.0f, 20.0f, 30.0f, 30.0f };	// 0xB75288
 static float closest_output[9] = { 0.0f, 0.0f, 0.0f, 0.0f, 10.0f, 10.0f, 20.0f, 20.0f, 30.0f };	// 0xB752AC
 static float interpolated_output[9] = { 0.0f, 0.0f, 1.0f, 2.0f, 10.0f, 11.0f, 17.0f, 23.0f, 30.0f };	// 0xB752D0
-
-
-
-
+// Not the client's source (its sgistl form is unknown: P-L21-1, attempts row 0x71DCE0): the hashtable constructor flat gives the client's out-of-line hash_map() 0x4EE810 (reserve's size() inlined: the B form)
+namespace std {
+template<> inline hashtable<pair<std::string const, RefCountPtr<LookupTableClass> >, std::string, hash<std::string >, _Select1st<pair<std::string const, RefCountPtr<LookupTableClass> > >, equal_to<std::string >, allocator<RefCountPtr<LookupTableClass> > >::hashtable(size_type __n, const hasher &__hf, const key_equal &__eql) : _M_hash(__hf), _M_equals(__eql), _M_get_key(_Select1st<pair<std::string const, RefCountPtr<LookupTableClass> > >()), _M_buckets(), _M_num_elements(0) { const size_type __n_buckets = _M_next_size(__n); _M_buckets.reserve(__n_buckets); _M_buckets.insert(_M_buckets.end(), __n_buckets, (_Node *)0); _M_num_elements = 0; }
+}
 
 
 

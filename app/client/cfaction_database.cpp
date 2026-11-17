@@ -4,7 +4,7 @@
 #include "..\shared\g_assert.h"
 #include "..\..\wwlib\ini.h"
 #include "..\..\wwlib\inisup.h"
-
+namespace std { template<> inline hashtable<pair<std::string const, CFactionDatabaseClass::FactionStruct >, std::string, hash<std::string >, _Select1st<pair<std::string const, CFactionDatabaseClass::FactionStruct > >, equal_to<std::string >, allocator<CFactionDatabaseClass::FactionStruct > >::hashtable(size_type __n, const hasher &__hf, const key_equal &__eql) : _M_hash(__hf), _M_equals(__eql), _M_get_key(_Select1st<pair<std::string const, CFactionDatabaseClass::FactionStruct > >()), _M_buckets(), _M_num_elements(0) { const size_type __n_buckets = _M_next_size(__n); _M_buckets.reserve(__n_buckets); _M_buckets.insert(_M_buckets.end(), __n_buckets, (_Node *)0); _M_num_elements = 0; } }  // Not the client's source (its sgistl form is unknown: P-L21-1, attempts row 0x71DCE0): the hashtable constructor flat gives the client's out-of-line hash_map() 0x7E5170 (reserve's size() inlined: the B form)
 std::hash_map<std::string, CFactionDatabaseClass::FactionStruct> CFactionDatabaseClass::_Factions;
 int CFactionDatabaseClass::UseCount;
 // 0x7E4BE0

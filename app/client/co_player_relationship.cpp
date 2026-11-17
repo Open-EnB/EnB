@@ -20,10 +20,10 @@ bool String_To_Value(const char *text, Vector3 *value);	// 0x4A3810 (strconv_lib
 #include "co_player_relationship.h"
 GutterColorSetStruct::GutterColorSetStruct() : Target(Vector3(0.66f, 0.66f, 0.66f), Vector3(0.66f, 0.66f, 0.66f)), Mouse(Vector3(0.66f, 0.66f, 0.66f), Vector3(0.66f, 0.66f, 0.66f)),
 	NotTarget(Vector3(0.66f, 0.66f, 0.66f), Vector3(0.66f, 0.66f, 0.66f)) {}
-
-
-
-
+// Not the client's source (its sgistl form is unknown: P-L21-1, attempts row 0x71DCE0): the hashtable constructor flat gives the client's out-of-line hash_map() 0x70CE50 (reserve's size() inlined: the B form)
+namespace std {
+template<> inline hashtable<pair<std::string const, GutterColorSetStruct >, std::string, hash<std::string >, _Select1st<pair<std::string const, GutterColorSetStruct > >, equal_to<std::string >, allocator<GutterColorSetStruct > >::hashtable(size_type __n, const hasher &__hf, const key_equal &__eql) : _M_hash(__hf), _M_equals(__eql), _M_get_key(_Select1st<pair<std::string const, GutterColorSetStruct > >()), _M_buckets(), _M_num_elements(0) { const size_type __n_buckets = _M_next_size(__n); _M_buckets.reserve(__n_buckets); _M_buckets.insert(_M_buckets.end(), __n_buckets, (_Node *)0); _M_num_elements = 0; }
+}
 
 
 
