@@ -352,6 +352,14 @@ USE_VX_SAME_TARGETS = True
 USE_VX_SLOT_CONTRA = True
 
 
+# D246 (CR3, run 2026-11-17b): a COMDAT D258 leaves tied whose one survivor lies in the gap between two objects (above
+# the last exact own function of the object below, below the first of the object above): the linker put the copy in
+# one of the two contributions, so when only one of the two holds the symbol it is that holder's copy (`cr3_gap`;
+# dbgconn's ~hash_map<string, PacketStatsStruct> 0x823EA0 below dbgconn's first exact own 0x823F70, above connect's
+# last 0x823E10, its other copy 0x42B540 held by inpkeys' ~hash_map<int, string>)
+USE_CR3_GAP_HOLDER = True
+
+
 def _vx_class(name):
     """VX: the class part of a mangled member / vtable name ('' for a free function): `?Evaluate@?$ExprMathEvalEqualClass@H@@..`
     -> `?$ExprMathEvalEqualClass@H`, `??_7CharacterViewAvatarClass@@6B..` -> `CharacterViewAvatarClass`."""
@@ -1410,6 +1418,17 @@ def match_objects(img, paths, region=None, callers=False, extern_called=None, ca
                 learn(r, obj, sec, s, length, a)
             if not got and len(located) == n_located:
                 break
+    if USE_CR3_GAP_HOLDER:
+        for item, a in cr3_gap_holder(results, pending, done, claimed, text, start, img, known):
+            r, obj, sec, s, length, hits = item
+            r['status'] = 'exact'
+            r['addresses'] = [f'0x{a:06X}']
+            r['tiebreak'] = True
+            r['cr3_gap'] = True
+            r.pop('count', None), r.pop('identical', None)
+            claimed[a].add(r['symbol'])
+            learn(r, obj, sec, s, length, a)
+            done.add(id(r))
     if USE_VX_SLOT_CONTRA:
         bad = vx_slot_contradicted(img, results, known, thunk)
         for r, *_ in results:
@@ -1417,7 +1436,7 @@ def match_objects(img, paths, region=None, callers=False, extern_called=None, ca
                 r['vx_slot'] = r['addresses'][0]
                 r['status'] = 'none'
                 for k in ('tiebreak', 'range', 'selfname', 'order', 'call_tie', 'call_placed', 'funclet_tie',
-                          'pushed_tie', 'contrib', 'ck_callseq', 'short_known', 'caller_tiebreak', 'initialiser', 'xcu'):
+                          'pushed_tie', 'contrib', 'cr3_gap', 'ck_callseq', 'short_known', 'caller_tiebreak', 'initialiser', 'xcu'):
                     r.pop(k, None)
     if called_out is not None:
         called_out.update({k: set(v) for k, v in own_called.items()})
@@ -1500,6 +1519,65 @@ def contribution_ties(results, pending, done, claimed, text, base, img, known):
                     j += 1
             if len(inside) == 1:
                 props.append(((r, obj, sec, s, length, []), inside[0]))
+    by_addr = collections.defaultdict(set)
+    for (r, *_), a in props:
+        by_addr[a].add(r['symbol'])
+    return [(item, a) for item, a in props if len(by_addr[a]) == 1]
+
+
+def cr3_gap_holder(results, pending, done, claimed, text, base, img, known):
+    """D246 (CR3): [(pending item, address)] for tied COMDATs (`multiple`, not own code) left by contribution_ties
+    whose survivors (break_tie) not claimed by another symbol include exactly one lying in a gap between two objects'
+    ranges of exact own functions (above the lower object's last, below the upper object's first, within RANGE_GAP of
+    each) where exactly one of the two objects holds the symbol, and no other symbol proposes that address. Ranges are
+    contribution_ties' (exact own functions, no funclet / pushed / unplaced call ties)."""
+    ranges = {}
+    for r, obj, sec, s, length in results:
+        if r['status'] == 'exact' and obj.own(sec) and not r.get('funclet_tie') and not r.get('pushed_tie') \
+                and not (r.get('call_tie') and not r.get('call_placed')):
+            a = int(r['addresses'][0], 16)
+            lo, hi = ranges.get(id(obj), (a, a))
+            ranges[id(obj)] = (min(lo, a), max(hi, a))
+    if len(ranges) < 2:
+        return []
+    los = sorted((lo, key) for key, (lo, hi) in ranges.items())
+    keys = [lo for lo, _ in los]
+    holders = collections.defaultdict(set)
+    for r, obj, *_ in results:
+        holders[r['symbol']].add(id(obj))
+
+    def neighbours(h):
+        """(object below, object above) when H lies in the gap between two adjacent objects' ranges, else None"""
+        i = bisect.bisect_right(keys, h) - 1
+        if i < 0 or i + 1 >= len(los) or keys[i + 1] == keys[i] or (i > 0 and keys[i - 1] == keys[i]):
+            return None
+        lower, upper = los[i][1], los[i + 1][1]
+        lhi = ranges[lower][1]
+        if not lhi < h < keys[i + 1] or h > lhi + RANGE_GAP or h < keys[i + 1] - RANGE_GAP:
+            return None
+        # no other object's range reaches into the gap (ranges overlap when objects interleave)
+        if any(ranges[k][1] >= h for _, k in los[:i]):
+            return None
+        return lower, upper
+
+    props = []
+    for item in pending:
+        r, obj, sec, s, length, hits = item
+        if id(r) in done or r['status'] != 'multiple' or obj.own(sec) or generated(r['symbol']):
+            continue
+        survivors = break_tie(obj, sec, s, length, text, base, hits, img, known)[0]
+        inside = []
+        for h in survivors:
+            if claimed[h] - {r['symbol']}:
+                continue
+            nb = neighbours(h)
+            if nb is None:
+                continue
+            held = [k for k in nb if k in holders[r['symbol']]]
+            if len(held) == 1:
+                inside.append(h)
+        if len(inside) == 1:
+            props.append((item, inside[0]))
     by_addr = collections.defaultdict(set)
     for (r, *_), a in props:
         by_addr[a].add(r['symbol'])

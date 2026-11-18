@@ -343,6 +343,28 @@ class GapEdge(unittest.TestCase):
         _check(self, GAP_EDGE, 'USE_EX_GAP_EDGE', 'gap_edge', APP_REGION, off_status='short')
 
 
+CR3_DBGCONN_HASH_MAP_DTOR = '??1?$hash_map@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@UPacketStatsStruct@@U?$hash@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@U?$equal_to@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@V?$allocator@UPacketStatsStruct@@@2@@std@@QAE@XZ'
+
+
+class Cr3GapHolder(unittest.TestCase):
+    """D246 (CR3): dbgconn.obj's ~hash_map<string, PacketStatsStruct> has copies 0x42B540 and 0x823EA0; 0x823EA0 lies
+    between connect.obj's last exact own function and dbgconn.obj's first, and only dbgconn holds the symbol."""
+    def test_gap(self):
+        paths = [os.path.join(OBJS, n) for n in ('connect.obj', 'dbgconn.obj')]
+        if not all(os.path.exists(p) for p in paths):
+            self.skipTest('connect.obj / dbgconn.obj missing')
+        img = objmatch.ClientImage(objmatch.DEFAULT_CLIENT)
+        res = {r['symbol']: r for r in objmatch.match_objects(img, paths, APP_REGION)}
+        r = res[CR3_DBGCONN_HASH_MAP_DTOR]
+        self.assertEqual((r['status'], r['addresses'], r.get('cr3_gap')), ('exact', ['0x823EA0'], True))
+        objmatch.USE_CR3_GAP_HOLDER = False
+        try:
+            res = {r['symbol']: r for r in objmatch.match_objects(img, paths, APP_REGION)}
+        finally:
+            objmatch.USE_CR3_GAP_HOLDER = True
+        self.assertEqual(res[CR3_DBGCONN_HASH_MAP_DTOR]['status'], 'multiple')
+
+
 class CkCallseq(unittest.TestCase):
     def test_cases(self):
         _check(self, CK_CALLSEQ, 'USE_CK_CALLSEQ', 'ck_callseq', APP_REGION)
