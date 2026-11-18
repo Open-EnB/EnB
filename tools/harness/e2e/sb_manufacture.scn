@@ -10,7 +10,7 @@ timeout: 300
 include _sb_home
 walk-to -47,30
 walk-to -44,38
-face 8
+face 8 tol 4
 wait-quiet proxy 1.0 within 20
 click 617,525 until antprox 'received MANUFACTURE_ITEM_CATAGORY' every 2 within 20
 wait-quiet proxy 1.0 within 20

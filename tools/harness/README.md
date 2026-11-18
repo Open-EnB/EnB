@@ -670,9 +670,8 @@ the last name. Live antprox logs opcode numbers; e2e appends the names (`... = s
   INVENTORY_MOVE; selling below the price paid asks 'You will take significant losses on this sale' Yes / No first;
   a vendor refuses to buy back what she sells, Vila Mosj and Miyoshi alike: a warhead is bought, an Iron from
   sb_refinery sold) and `sb_jobs` (room 3's job terminal: JOB_LIST,
-  the Combat / Trade / Explore tabs, the close box). The local server lists no jobs (SectorManager::RefreshJobs
-  finds no mission with a job category: JOB_LIST is 8 bytes, every tab empty), so a job's description, accept
-  and delete cannot be driven there. The buy / sell clicks of the recordings miss their double-clicks: the
+  the Combat / Trade / Explore tabs, the close box). The 2010 server listed no jobs (SectorManager::RefreshJobs
+  found no mission with a job category: JOB_LIST 8 bytes); since 2026-11-18 the server and DB have them (below). The buy / sell clicks of the recordings miss their double-clicks: the
   recorder logs only button-downs (0x201 / 0x204 / 0x207), not 0x203 or the button-ups. Results: retail and ours
   (this tree's clientpoc.exe at run/2026-11-18 1a45b1d78) pass all four `sb_*` in one session each (ours 417 s);
   `e2e.py compare` reads live runs too (packet names only: the live log has no sizes; the walk's
@@ -696,6 +695,21 @@ the last name. Live antprox logs opcode numbers; e2e appends the names (`... = s
   sb_manufacture 7, sb_refinery 8, sb_dismantle 5, sb_vendor 7, sb_talk 5). Before the fixes ours crashed
   opening the dismantling terminal (0x69F8F0 case 6 built a stand-in in place of UIAnalyzeClass 0x5435D0) and hit
   generated stand-ins for the manufacturing window's sort scope (0x541980 / 0x6E18B0).
+- 2026-11-18 (H1, phase 3; the coordinator's Net7.exe and job missions 422 / 425-427, Joves Fury's terminal at
+  level 10: the board fills on RefreshJobs' 5-minute refresh after the server starts, 5-9 random jobs): the room-3
+  terminal is the one with the jobs. `sb_jobs_accept`: each tab and its first row (a tab alone sends nothing; a row
+  sends STARBASE_REQUEST 7, the server's JOB_DESCRIPTION), Accept Job on the Explore tab's first job (action 8,
+  JOB_ACCEPT_REPLY and the job item's ITEM_BASE), the close box (action 9; the server answers JOB_ACCEPT_REPLY too),
+  then the PDA's missions (U): the new third mission, its Forfeit (603,356), Yes on 'Are you sure you want to
+  forfeit this mission?' (500,405): MISSION_FORFEIT. A board without an Explore job fails it: rerun after the next
+  refresh. Leftover: the Deploy Satellite job's item stays in the cargo (a stack, column 2 row 4) after the forfeit.
+  JOB_DELETE is never sent (the server's notes). `sb_manufacture_make`: the Vesta 4P's three components by GM
+  (`/createitem 1381 1`, `1399 1`, `1435 1`: BlackBox CoreCage, Evolver PowR-Prison, Vortex Dielectric
+  Micro-Plates; net7 item_base), the tree to the Vesta 4P, Manufacture (MANUFACTURE_ACTION; about 3 s later the
+  server's PRIORITY_MESSAGE 'NAME manufactured a 200% Vesta 4P', 'Attempt Succeeded', the Vesta in cargo column 2
+  row 3), then the Vesta sold at Miyoshi Basho (PRIORITY_MESSAGE 'You have gained N credits'), so the cargo comes
+  back as it was (a spare set of components from failed tries stays in column 3). Retail and ours (wt/H1B) pass
+  both with no stand-in hit and the SAME packets (sb_jobs_accept 9, sb_manufacture_make 23).
 - **A character saved in space** (the local server sometimes keeps the undocked place: the login ends beside
   Jove's Fury and `_sb_home` fails at its first walk-to, pose ~116000,-224000): `e2e.py --live localhost
   --retail --instance NAME run _sb_dock` (named only) logs in, targets the station (641,1009, SET_TARGET) and
