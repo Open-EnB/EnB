@@ -2202,6 +2202,68 @@ USE_CR6_NAMED_CALLERS = True
 # (shiputils' Create_NEW<TextureMapperClass> 0x8138F0 from Unknown_812390, one of ui_chat_panel's four tied Create_Get
 # at 0x56CDD0 from ChatPanelInterface::Unknown_54 0x5629E0)
 USE_CR6_LOCATED = True
+# ... and (CR6) a not-exact caller located by its string literals: each literal its relocations reference that the
+# client holds once (.rdata / .data, at a string's start) gives the set of client functions (verified starts) whose
+# code holds its address; the caller is at the one function every such set contains (an assert's expression text
+# narrows the object's __FILE__ string to one function): attrib_dir_collective's Add_Destination at 0x4DC310 ('find !=
+# DestinationAttributes.end()', 'ValueFunction') calls its pair<const string, DestinationStruct *> and pair<const string,
+# float> constructors, byte-identical, at 0x4DDB20 and 0x4DD6F0 in that order
+USE_CR6_STRING_LOCATED = True
+
+
+def cr6_string_located(img, items, starts, claimed):
+    """CR6: {symbol: address} by USE_CR6_STRING_LOCATED (above) for ITEMS [(r, obj, sec, s, length)]."""
+    tstart, tend, traw = img.section('.text')
+    text = img.data[traw:traw + (tend - tstart)]
+    pools = []
+    for name in ('.rdata', '.data'):
+        if name in img.sections:
+            va, end, raw = img.section(name)
+            pools.append((va, img.data[raw:raw + (end - va)]))
+    lit_va, lit_fns = {}, {}
+
+    def where(lit):
+        if lit not in lit_va:
+            found = []
+            for va, blob in pools:
+                i = blob.find(lit)
+                while i >= 0 and len(found) < 2:
+                    if i == 0 or blob[i - 1] == 0:
+                        found.append(va + i)
+                    i = blob.find(lit, i + 1)
+            lit_va[lit] = found[0] if len(found) == 1 else None
+        return lit_va[lit]
+
+    def fns(va):
+        if va not in lit_fns:
+            out, key, i = set(), struct.pack('<I', va), text.find(struct.pack('<I', va))
+            while i >= 0:
+                j = bisect.bisect_right(starts, tstart + i) - 1
+                if j >= 0:
+                    out.add(starts[j])
+                i = text.find(key, i + 1)
+            lit_fns[va] = out
+        return lit_fns[va]
+
+    out = {}
+    for r, obj, sec, s, length in items:
+        cand = None
+        for k, n, typ, sym, addend in obj.reloc_targets(sec, s, length):
+            lit = obj.literal(sym) if sym is not None and typ == 0x06 else None
+            if not lit or len(lit) < 4:
+                continue
+            va = where(lit)
+            if va is None:
+                continue
+            f = fns(va)
+            if not f:
+                continue
+            cand = set(f) if cand is None else cand & f
+        if cand and len(cand) == 1:
+            a = next(iter(cand))
+            if not claimed[a] - {r['symbol']}:
+                out[r['symbol']] = a
+    return out
 
 
 def cr6_named_callers(img, results, pending, done, claimed, text, base, thunk, known, called=None, located=None,
@@ -2227,6 +2289,7 @@ def cr6_named_callers(img, results, pending, done, claimed, text, base, thunk, k
         by_sym[r['symbol']].append(obj)
     given = collections.defaultdict(set)       # id(item) -> {address} from every aligned caller
     items = {}
+    callers, unplaced = [], []
     for r, obj, sec, s, length in results:
         mine = tied.get(id(obj))
         if not mine or r['status'] == 'exact' or r['symbol'] in exact_syms or r['symbol'] in mine:
@@ -2241,9 +2304,15 @@ def cr6_named_callers(img, results, pending, done, claimed, text, base, thunk, k
                 at = {located[sym]}
             if not at and vslots and vslots.get(sym) is not None:
                 at = {vslots[sym]}
-        if len(at) != 1:
-            continue
-        a = next(iter(at))
+        if not at:
+            unplaced.append((r, obj, sec, s, length))
+        elif len(at) == 1:
+            callers.append(((r, obj, sec, s, length), next(iter(at))))
+    if USE_CR6_STRING_LOCATED and unplaced:
+        found = cr6_string_located(img, unplaced, starts, claimed)
+        callers += [(it, found[it[0]['symbol']]) for it in unplaced if it[0]['symbol'] in found]
+    for (r, obj, sec, s, length), a in callers:
+        mine = tied[id(obj)]
         if a not in startset or claimed[a] - {r['symbol']}:
             continue
         i = bisect.bisect_right(starts, a)

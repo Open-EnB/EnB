@@ -652,6 +652,19 @@ class Cr6NamedCallers(unittest.TestCase):
                        '0x755B60')],
                'USE_CR6_NAMED_CALLERS', 'cr6_named', APP_REGION)
 
+    def test_string_located(self):
+        """USE_CR6_STRING_LOCATED: attrib_dir_collective.obj's Add_Destination (not exact, no name) is the one client
+        function holding its assert texts ('find != DestinationAttributes.end()', 'ValueFunction'), 0x4DC310; its
+        calls to the two byte-identical pair<const string, T> constructors, in order, reach 0x4DDB20 (T =
+        DestinationStruct *) and 0x4DD6F0 (T = float)."""
+        p = '??0?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@'
+        _check(self, [('attrib_dir_collective.obj', p + 'PAUDestinationStruct@AttribDirCollective@@@std@@QAE@ABV?$basic_'
+                       'string@DU?$char_traits@D@std@@V?$allocator@D@2@@1@ABQAUDestinationStruct@AttribDirCollective@@@Z',
+                       '0x4DDB20'),
+                      ('attrib_dir_collective.obj', p + 'M@std@@QAE@ABV?$basic_string@DU?$char_traits@D@std@@V?$allocator'
+                       '@D@2@@1@ABM@Z', '0x4DD6F0')],
+               'USE_CR6_STRING_LOCATED', 'cr6_named', APP_REGION)
+
 
 if __name__ == '__main__':
     unittest.main()
