@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "OrbitalManager and OrbitalObject, the sector's planets and suns (the client's __FILE__ 0xB759A0, asserts on lines 131 / 294 / 336 / 338 / 390 / 728; client 0x4F28A0-0x4F51C0) (WE4)",
  "expected": {},
@@ -34,7 +32,8 @@
   "0x4F5200",
   "0x4F5240",
   "0x4F5260",
-  "0x4F5500"
+  "0x4F5500",
+  "0x4F5540"
  ],
  "merged": [],
  "name": "shared/orbitalmanager.cpp",

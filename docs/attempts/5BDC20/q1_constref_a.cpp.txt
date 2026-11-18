@@ -1,0 +1,18 @@
+void UIMFDClass::Set_ETA(UIMFDValueStruct &value)
+{
+	if (value.Target != value.Self) {
+		value.Int = -1;
+		value.Flags |= 0x20;
+		const Vector3 &a = value.Self->Unknown_24();
+		Vector3 b = value.Target->Unknown_24();
+		float dist = (b - a).Length();
+		dist = dist - (value.Self->Unknown_30() + value.Target->Unknown_30());
+		if (dist < 0.0f) {
+			dist = 0.0f;
+		}
+		float speed = value.Self->Unknown_2C().Length();
+		if (speed >= 0.001) {
+			value.Int = (int)(dist / speed * 0.001000f);
+		}
+	}
+}

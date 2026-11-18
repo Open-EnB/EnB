@@ -43,18 +43,8 @@
 
 // ------------------------------------------------------------------------- globals (data)
 
-int DeltaUnknownGlobal = 0;					// delta.h
-int DeltaCompoundClass::UnknownGlobal = 0;	// 0xBE3A74
-int DeltaStringClass::UnknownGlobal = 0;	// 0xBE3A9C
 
 // ------------------------------------------------------------------------- strconv_lib.h
-
-// 0x848C80: RELATIONSHIP's relationship (opcode 137), the client's defaults
-RelationshipClass::RelationshipClass()
-{
-	Reaction = (MobReactionType)1;
-	IsAttacking = false;
-}
 
 // MoneyClass's (money.cpp, 0x4F0AB0 / 0x4F0BE0 / 0x4F0640)
 char *Value_To_String(char *buf, int size, const MoneyClass &value)
@@ -77,8 +67,3 @@ const char *Type_Name(MoneyClass)
 #include <string>
 #include <vector>
 
-// ------------------------------------------------------------------------- the warp camera's placements (unknown_7979a0.cpp)
-
-// 0xBDB1C0: a global Random4Class with seed 0x1105 (its initialiser 0x444240; its home file is unknown). Data, so it
-// can't log; seeded as the client's
-Random4Class Unknown_BDB1C0(0x1105);

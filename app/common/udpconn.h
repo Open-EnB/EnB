@@ -48,11 +48,13 @@ struct UDPChannelClass		// NAME 1: describes what it is
 
 // The connection (0xD0 bytes; constructors 0x82C680 by name, 0x82C980 by address, 0x82CBF0 over
 // an accepted CordCon).
+class CritSec;
 class UDPConnection : public ConnectionClass	// NAME 1: after the file udpconn.cpp (no RTTI or string)
 {
 public:
 	UDPConnection(const char *host, unsigned short port, bool encrypt);	// 0x82C680
 	UDPConnection(unsigned int ip, unsigned short port, bool encrypt);	// 0x82C980 (host order)
+	static CritSec Lock;	// 0xBE96A0 (atexit 0x82C630, guarded: a static member)  // NAME 2: what it guards
 	UDPConnection(CordCon *con, CordMgr *mgr);							// 0x82CBF0
 	virtual ~UDPConnection();											// +0x00 0x82C950 / 0x82CDC0
 	virtual bool Send_Message(RawPacketClass *packet);					// +0x04 0x82D980

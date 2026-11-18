@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "Unknown686010Class, the gauge of four Line2DClass (a frame open on one side and a line at the level; 0x2C bytes, no table) that Unknown515640Class news for +0x84, client 0x686010-0x68672F: the constructor, the destructor, 0x6863E0 (the frame), 0x6865E0 (the level), <string>'s guarded static 0x686710. PROVISIONAL file (D137: no string; after the action entries' object 0x685E80, before intrlist.cpp)",
  "expected": {},
@@ -11,7 +9,8 @@
   "0x686010",
   "0x686350",
   "0x6863E0",
-  "0x6865E0"
+  "0x6865E0",
+  "0x686710"
  ],
  "merged": [],
  "name": "client/unknown_686010.cpp",

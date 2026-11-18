@@ -12,8 +12,8 @@
 #include "camera.h"
 #include "bridge_int.h"	// the bridge's Get_Hit (0x6E2CC0)
 
-// The file's own generator (0x6E2B90 constructs it at 0xBE67E8; only this file's effects call it)
-static Random2Class CameraEffectsRandom;	// NAME 1: neutral (D10)
+// The file's own generator (0x6E2BA0 constructs it at 0xBE67E8, seeded with rand(); only this file's effects call it)
+static Random2Class CameraEffectsRandom(rand());	// NAME 1: neutral (D10)
 
 // The effects' base (table 0xAFFE6C, one slot: the shared return-false copy 0x9CCD10); each effect
 // registers itself with the camera effects object it gets (that object's slot +0x10)
@@ -415,7 +415,7 @@ bool UnknownAFFE74Class::Unknown_00()
 **	#62; its shield lookups are co.cpp's form, two dead finds spend the inline budget). The file's evidence: the
 **	effects' tables 0xAFFE64 / 0xAFFE6C / 0xAFFE84 sit between the floats 0xAFFE60-0xAFFE80 that
 **	0x6E2CC0 and 0x6E37F0 read; 0x6E2CC0 and 0x6E37F0 (called by 0x6E32E0, the assert's) store them;
-**	the generator 0xBE67E8 is constructed by the initialiser at 0x6E2B90 and called only from
+**	the generator 0xBE67E8 is constructed by the initialiser at 0x6E2BA0 (seeded with rand()) and called only from
 **	0x6E3B60, 0x6E3D30 and 0x6E3F00. S1 (2026-11-14): 0x6E32E0 (its G_ASSERT(false) on line 250; its cases in
 **	the order of its EH states: 2, 1, 3) with the kick (table 0xAFFE70, 0x6E3D30) and the timed shake (0xAFFE74,
 **	0x6E3F00), their constructors inline in it. U3 (2026-11-17): the effects' constructors are .cpp definitions

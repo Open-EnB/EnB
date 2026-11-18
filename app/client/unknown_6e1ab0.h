@@ -27,7 +27,7 @@ class Unknown6E1AB0Class : public DynamicMeshClass  // NAME 1 [Unknown6E1AB0Clas
 {
 public:
 	Unknown6E1AB0Class(const Vector4 &color, const Vector2 &position, const Vector2 &size);	// 0x6E1AB0  // NAME 1 [color, position, size]: what Line2DClass passes (its color, (0, 0), (0.1, 0.1))
-	virtual ~Unknown6E1AB0Class() {}														// 0x6DFA10 (inline: line2d.obj's copy, which 0x6E1F30 calls)
+	// ~Unknown6E1AB0Class(): implicit														// 0x6DFA10 (inline: line2d.obj's copy, which 0x6E1F30 calls)
 
 	virtual int Class_ID() const { return 0x10009; }										// 0x6DF960 (line2d.obj's copy, shared by both tables)  // NAME 2: E&B's class id
 	virtual void Set_Color(const Vector4 &color);											// 0x6E21D0 (slot 122: the four vertices' color)  // NAME 1: what it does

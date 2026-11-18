@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "the game task, client 0x765F80-0x767230 (kernel-map.md 6, step 9): the asserts on the client's lines 58-389 (D25); NOT EXACT: Init (inline budget); the redirect packet's handler 0x766FC0 not rebuilt",
  "expected": {},
@@ -38,7 +36,8 @@
   "0x766FC0",
   "0x767030",
   "0x7670A0",
-  "0x7671E0"
+  "0x7671E0",
+  "0x767210"
  ],
  "merged": [],
  "name": "client/tasks/tsk_game.cpp",

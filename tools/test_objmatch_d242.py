@@ -133,6 +133,10 @@ class XcuPosition(unittest.TestCase):
     def setUp(self):
         self.saved = dict(objmatch._xcu)
         self.addCleanup(lambda: (objmatch._xcu.clear(), objmatch._xcu.update(self.saved)))
+        # D242's consecutive-run rule alone: CR4's sparse fallback (D267) is tested in tools/re/test_objmatch.py
+        sparse = objmatch.USE_CR4_XCU_SPARSE
+        objmatch.USE_CR4_XCU_SPARSE = False
+        self.addCleanup(setattr, objmatch, 'USE_CR4_XCU_SPARSE', sparse)
         # obj: _$E3 (initialiser: call _$E1; push _$E2; ret), F exact at 0x1100, _$E6 (initialiser), _$E1, _$E2
         init = b'\xe8\0\0\0\0\x68\0\0\0\0\xc3'
         self.obj = FakeObj({1: (init, True, [(1, 4, 0x14, '_$E1'), (6, 4, 0x06, '_$E2')]),

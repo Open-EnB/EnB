@@ -40,18 +40,14 @@
 #ifndef LISTNODE_H
 #define LISTNODE_H
 
-
 /*
 ** Includes
 */
 #include	"assert.h"
 
-
 #ifdef __BORLANDC__
 #pragma warn -inl
 #endif
-
-
 /*
 **	This is a doubly linked list node. Typical use of this node is to derive
 **	objects from this node. The interface class for this node can be used for
@@ -60,7 +56,11 @@
 class GenericList;
 class GenericNode {
 	public:
+#ifdef LISTNODE_GENERICNODE_LATE
+		GenericNode(void);
+#else
 		GenericNode(void) : NextNode(0), PrevNode(0) {}
+#endif
 		virtual ~GenericNode(void) {Unlink();}
 		GenericNode(GenericNode & node) {node.Link(this);}
 		GenericNode & operator = (GenericNode & node) {
@@ -324,3 +324,11 @@ public:
 
 
 #endif
+
+// Earth & Beyond client (reconstruction): changes to Renegade's listnode.h
+// EnB: GenericNode(void): with LISTNODE_GENERICNODE_LATE defined the class only declares it and the including
+//       file defines it after its users (spln_db.cpp, after SplineEntryClass::Print): the client's copy 0x48A060
+//       follows every user in spln_db's object, so Create_Hermite 0x485C10 and Create_Color 0x487400 keep the
+//       new HashNodeClass's EH state around the out-of-line call; a body compiled before them drops it from all
+//       but the first (Create_Linear 0x485990). Four blank lines above the class make room for the #ifdef, so
+//       Link's assert stays on line 94. Without the macro the header compiles as before.

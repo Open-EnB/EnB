@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Renegade(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
+**
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -106,7 +106,7 @@ class Listener3DClass : public Sound3DClass
 		//////////////////////////////////////////////////////////////////////
 		//	Velocity methods
 		//////////////////////////////////////////////////////////////////////				
-
+		virtual void			Set_Velocity (const Vector3 &velocity) { }
 
 
 	protected:
@@ -128,7 +128,6 @@ class Listener3DClass : public Sound3DClass
 		virtual void			Get_Sample_MS_Position (S32 *len, S32 *pos) { }
 		virtual S32				Get_Sample_Playback_Rate (void)			{ return 0; }
 		virtual void			Set_Sample_Playback_Rate (S32 rate)		{ }
-		virtual void			Set_Velocity (const Vector3 &velocity) { }	// E&B: hides Sound3DClass's two-argument Set_Velocity; last vtable slot (0xA02DE0)
 
 		//////////////////////////////////////////////////////////////////////
 		//	Handle information
@@ -146,8 +145,3 @@ class Listener3DClass : public Sound3DClass
 
 
 #endif //__LISTENER_H
-
-// Earth & Beyond client (reconstruction): changes to Renegade's Listener.h (frozen 2026-11-07 from importer.py)
-// EnB: class Listener3DClass (line 109 at the freeze): (Listener3DClass: its one-argument Set_Velocity is declared
-//       last, after Set_Sample_Playback_Rate, as its vtable slot shows)
-// EnB: class Listener3DClass (line 131 at the freeze): (the same)

@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "CameraManagerClass (D24 class-from-file; 0x4C bytes, SClient +0x12A8), client 0x798D20-0x79B9CF (__FILE__ 0xB9E5C0, asserts on lines 76-677; after the camctrl object's <string> initialiser 0x798CF0, ending with its own at 0x79B9B0 after vector<CameraControllerClass *>'s destructor 0x79B6D0 and insert 0x79B710); 0x7998B0 and 0x799E40 NOT EXACT (CM1, CS1)",
  "expected": {},
@@ -50,7 +48,8 @@
   "0x79B690",
   "0x79B6B0",
   "0x79B6D0",
-  "0x79B710"
+  "0x79B710",
+  "0x79B9B0"
  ],
  "merged": [],
  "name": "client/camera_manager.cpp",

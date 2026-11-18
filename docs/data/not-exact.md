@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-852 entries in 296 files.
+842 entries in 295 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -409,7 +409,7 @@ edit the comments in the code, not this file.
 | `app/client/ui_chat_panel.cpp:2382` | `ChatPanelInterface::Unknown_56C180` | marker | NOT EXACT: frame (0x18 vs the client's 0x1C: the client keeps &ChatInt in edi and calls RefCountPtr's operator=(NULL) 0x56CD50 out of line; 349 instructions vs 346) 0x56C180 |
 | `app/client/ui_chat_window.cpp:170` | `ChatWindowInterface::Unknown_A0` | marker | NOT EXACT: functional (CW2): frame 0x54 vs the client's 0x50 and the history loop (0.40) |
 | `app/client/ui_chat_window.cpp:246` | `ChatWindowInterface::Unknown_7C` | marker | NOT EXACT: functional (CW2): register residue around Create_Peek(Peek_Scene()) (eax / edx swapped; 0.81) |
-| `app/client/ui_chat_window.cpp:351` | `ChatWindowInterface::Unknown_A4` | marker | NOT EXACT: functional (CW2): the inlined 0x571A70's RectClass stores (the client stores Bottom first; frame 8 vs 0xC; 0.61) |
+| `app/client/ui_chat_window.cpp:351` | `ChatWindowInterface::Unknown_A4` | marker | NOT EXACT: functional (CW2): the inlined 0x571A70's RectClass stores (the client stores Bottom first and copies tl by integer moves; frame 0xC now as the client's with tl a Vector3; 0.75) |
 | `app/client/ui_chat_window.cpp:362` | `ChatWindowInterface::Unknown_CC` | marker | NOT EXACT: functional (CW2): as 0x570CD0 (0.70) |
 | `app/client/ui_chat_window.cpp:378` | `ChatWindowInterface::Unknown_AC` | marker | NOT EXACT: functional (CW2): register residue (0.78) |
 | `app/client/ui_chat_window.cpp:403` | `ChatWindowInterface::Unknown_B0` | marker | NOT EXACT: functional (CW2): the inlined 0x5719A0 (0.66; exact with 0x5719A0 as Vector3 &f(Vector3 &color, entry), which inlines vector::size 0x571B70 into 0x56FD30: proposal) |
@@ -494,7 +494,7 @@ edit the comments in the code, not this file.
 | `app/client/ui_mesh.cpp:203` | `UIMeshClass::Unknown_5B8FF0` | marker | NOT EXACT: 0x5B8FF0 (0.50): as 0x5B8EE0 |
 | `app/client/ui_mfd.cpp:494` | `UIMFDClass::Update_Line` | marker | NOT EXACT: 0x5BCE50, register only: ours keeps line in ebx (one more saved register), the client in esi, reloading it from its slot |
 | `app/client/ui_mfd.cpp:581` | `UIMFDClass::Get_Value` | marker | NOT EXACT: 0x5BD540, inline budget: the client calls 0x5BDED0's two finds (case 10) where ours inlines 0x5BE330 |
-| `app/client/ui_mfd.cpp:675` | `UIMFDClass::Set_ETA` | marker | NOT EXACT: 0x5BDC20, the two positions' frame slots are swapped (register/frame only) |
+| `app/client/ui_mfd.cpp:675` | `UIMFDClass::Set_ETA` | marker | NOT EXACT: 0x5BDC20, the two positions' frame slots are swapped (slot order only: binding Self's to a const reference fixes the slots but calls Target's Unknown_30 first) |
 | `app/client/ui_mfd.cpp:702` | `UIMFDClass::Set_Same_Dir` | marker | NOT EXACT: 0x5BDDF0, the first matrix is read through eax where the client reads its slot (frame) |
 | `app/client/ui_mfd.cpp:713` | `UIMFDClass::Set_SP_Cur` | marker | NOT EXACT: 0x5BDED0, inline budget: the ShieldPercent find out of line as the client (0x5BF2B0); the client also calls Set_SP_Max's float Cast out of line |
 | `app/client/ui_mfd.cpp:985` | `Unknown5BE980Class::Unknown_90` | marker | NOT EXACT: 0x5BECF0, the case block's first load of each line's Font comes before the 'lea' ([esi+0x128]) where the client loads it after the stores ([edi+0x40]); the duplicated default and the zero in ebx do match (attempts.csv) |
@@ -642,16 +642,10 @@ edit the comments in the code, not this file.
 | `app/client/unknown_personality.cpp:12` | `Unknown_78F700Class::~Unknown_78F700Class` | marker | NOT EXACT: functional for POC (D64), frame (the client's has an EH frame: a member or base with a destructor not known yet) |
 | `app/client/unknown_personality.cpp:77` | `Unknown_78F700Class::Load` | marker | NOT EXACT: functional for POC (D64), inline-budget (ours inlines 0x7901C0 differently) |
 | `app/client/unknown_personality.cpp:173` | `Unknown_790260Class::Unknown_790360` | marker | NOT EXACT: functional for POC (D64), field-offset (the client inlines the delete of a failed load: the destructor) |
-| `app/client/unknown_phoneme.cpp:66` | `Unknown_791310Class::Unknown_791310Class` | marker | NOT EXACT: functional for POC (D64), shape (the index loop) |
-| `app/client/unknown_phoneme.cpp:83` | `Unknown_791310Class::Unknown_791400` | marker | NOT EXACT: functional for POC (D64), literal (the shapes' initial stores in another order) |
-| `app/client/unknown_phoneme.cpp:185` | `Unknown_791310Class::Unknown_7917B0` | marker | NOT EXACT: functional for POC (D64), shape (the index entry's loads) |
-| `app/client/unknown_phoneme.cpp:205` | `Unknown_791310Class::Unknown_791880` | marker | NOT EXACT: functional for POC (D64), shape (the branch layout) |
-| `app/client/unknown_phoneme.cpp:246` | `Unknown_791310Class::Unknown_791970` | marker | NOT EXACT: functional for POC (D64), shape (the branch layout) |
-| `app/client/unknown_phoneme.cpp:292` | `Unknown_791310Class::Unknown_791B00` | marker | NOT EXACT: functional for POC (D64), shape (the branch layout) |
-| `app/client/unknown_phoneme.cpp:326` | `Unknown_791310Class::Unknown_791BF0` | marker | NOT EXACT: functional for POC (D64), shape (the branch layout) |
-| `app/client/unknown_phoneme.cpp:400` | `Unknown_791310Class::Unknown_791E50` | marker | NOT EXACT: functional for POC (D64), shape (the branch layout) |
-| `app/client/unknown_phoneme.cpp:427` | `Unknown_791310Class::Unknown_791F10` | marker | NOT EXACT: functional for POC (D64), shape (2 rows) |
-| `app/client/unknown_phoneme.cpp:445` | `Unknown_791310Class::Unknown_791F80` | marker | NOT EXACT: functional for POC (D64), shape (registers and the branch layout) |
+| `app/client/unknown_phoneme.cpp:84` | `Unknown_791310Class::Unknown_791400` | marker | NOT EXACT: functional for POC (D64), register (prev and last kept in memory, 12 in ebx; the case bodies in the client's order, from its jump table, and 't' written out as the client inlines it) |
+| `app/client/unknown_phoneme.cpp:196` | `Unknown_791310Class::Unknown_7917B0` | marker | NOT EXACT: functional for POC (D64), register (First and Count loaded into the other registers; 6 index forms tried) |
+| `app/client/unknown_phoneme.cpp:216` | `Unknown_791310Class::Unknown_791880` | marker | NOT EXACT: functional for POC (D64), shape (the client merges the 'g' case's tail with the second-letter vowel's; switch and if-chain forms tried) |
+| `app/client/unknown_phoneme.cpp:339` | `Unknown_791310Class::Unknown_791BF0` | marker | NOT EXACT: functional for POC (D64), register (the text pointer in ecx, not eax) and the second-letter test the client keeps |
 | `app/client/viewbttn.cpp:17` | `ViewButtonClass::ViewButtonClass` | marker | NOT EXACT: the client keeps an EH state around the new UnknownAFE0B8Class (a byte state store before Get_Bool, attempts.csv); ours has none |
 | `app/client/viewbttn.cpp:160` | `ViewButtonClass::Unknown_2C` | marker | NOT EXACT: register allocation only (explain.py; attempts.csv) |
 | `app/client/viewbttn.cpp:404` | `Unknown_6B5FD0` | marker | NOT EXACT: the client's EH frame around the new (attempts.csv); ours has none |
@@ -728,7 +722,7 @@ edit the comments in the code, not this file.
 | `app/shared/definition_manager.h:115` | `?` | marker | NOT EXACT: shape (explain.py), two registers swapped in the inlined hashtable destructor and one EH state store more in ours (0x4EAFB0) |
 | `app/shared/dynamic_obj.cpp:9` | `DynObj::DynObj` | marker | NOT EXACT: shape (the client duplicates the epilogue into the allocation-failed path; attempts.py show 0x44AC70) |
 | `app/shared/dynamic_obj.cpp:18` | `DynObj::DynObj` | marker | NOT EXACT: register (the source's PxWrapper in edi, ours in ecx; attempts.py show 0x44ADA0) |
-| `app/shared/enbassetmgr.cpp:333` | `ENBAssetManager::Recolor_Texture` | marker | NOT EXACT: register-only (explain.py: identical once registers are normalised; the client loads the mip count after pushing the format, ours before; 19 argument forms, attempts.py show 0x48CB40); the logic is the client's (D64) |
+| `app/shared/enbassetmgr.cpp:334` | `ENBAssetManager::Recolor_Texture` | marker | NOT EXACT: register-only (explain.py: identical once registers are normalised; the client loads the mip count after pushing the format, ours before; 19 argument forms, attempts.py show 0x48CB40); the logic is the client's (D64) |
 | `app/shared/expr/expr_math_builder.h:71` | `?` | marker | NOT EXACT: 0x4CB260 (float), 0x4CFB00 (int): the client releases left on the first early return and leaves right to a shared exit; ours releases both in place |
 | `app/shared/expr/expr_math_int.cpp:96` | `ExprMathIntFactoryClass::Create_Unary` | marker | NOT EXACT: 0x4CC120 similarity 0.78: the client inlines more of the five groups' assignments (float's form, 0x4C8370, is exact) @0x4CC120 |
 | `app/shared/expr/expr_math_parser_impl.cpp:33` | `ExprMathParserImplClass::Add_Similar` | marker | NOT EXACT: the loop latch reloads it / &it->Ops in the other order (2 instructions swapped, same length) |
@@ -737,7 +731,7 @@ edit the comments in the code, not this file.
 | `app/shared/fp_ita.cpp:188` | `FpItaClass::Unknown_08` | mention | NOT EXACT (order: the first normalising multiply loads the factor first, inv * dir.X, and the push after Inv_Sqrt takes edx where ours takes ecx). |
 | `app/shared/fp_tt.cpp:41` | `FpTTClass::Unknown_04` | marker | NOT EXACT: 0.44, frame (sub esp 0x48 against 0x44): the client shares stack slots between the target delta, the climb vector and the new axes |
 | `app/shared/fp_tt.cpp:320` | `FpTTClass::Unknown_08` | marker | NOT EXACT: written from the client's code (the obstacle pass, then 0x449540's steer around or away from the nearest) |
-| `app/shared/fp_tt.cpp:529` | `FpTTClass::Unknown_0C` | mention | NOT EXACT. - 0x449CC0 (the out-of-line destructor of unknown_7cef30.h's RegistrationUnknown568Struct) and 0x44A980 (vector<SubsCouponStruct>::operator=) lie inside this object's span: COMDAT copies of a header this file reached (or the linker's identical-code folding); no source form here produces them yet. |
+| `app/shared/fp_tt.cpp:529` | `FpTTClass::Unknown_0C` | mention | NOT EXACT. - 0x449CC0 (~RegistrationUnknown568Struct: ui_registration.cpp's COMDAT, credited there) and 0x44A980 (vector<SubsCouponStruct>::operator=) lie inside this object's span: COMDAT copies of a header this file reached (or the linker's identical-code folding); no source form here produces them yet. |
 | `app/shared/gclass.cpp:12` | `GClass::Unknown_4A17B0` | marker | NOT EXACT: order-only (0.65; the client saves esi before the first test, VC6 after the Is_Valid tests; fifteen forms, attempts.py show 0x4A17B0) |
 | `app/shared/heightfield.cpp:34` | `HeightFieldClass::Load` | marker | NOT EXACT: order-only (the client loads Size before Count - 1 and copies it for HalfSize), parked |
 | `app/shared/heightfield.cpp:202` | `HeightFieldClass::Get_Downhill` | marker | NOT EXACT: shape (0x463F00, 27 masked rows: the client pops edi before the last height and doesn't merge case 2's tail into case 3's; attempts.csv) |
@@ -790,8 +784,6 @@ edit the comments in the code, not this file.
 | `app/shared/px_collision.cpp:331` | `PxObject::~PxObject` | mention | NOT EXACT) tests the objects' world OBBoxes (each DynObj's slot +0x7C box turned by its slot +0x3C transform) against the meshes: with both meshes an OBBoxIntersectionTestClass each way (Unknown08 set to (1, 0, 0)); with one, the other object's box swept by its slot +0x40 velocity (OBBoxCollisionTestClass) cast in the mesh's space, the hit normal turned back into Unknown08 (negated when the mesh i... |
 | `app/shared/px_collision.cpp:338` | `PxObject::~PxObject` | mention | NOT EXACT; no caller) is the two boxes' separating-axis test on the six face axes: per axis the overlap is the own extent minus the centres' distance plus the other box's projected half-edges; a negative one separates (false); the least one sets Unknown08 (pointing from A to B), Unknown14 (the other box's deepest corner), Unknown24 (the depth) and clears Unknown20. Not rebuilt: the std::string mem... |
 | `app/shared/px_collision.h:46` | `?` | mention | NOT EXACT; the client calls MeshGeometryClass::Cast_OBBox / Intersect_OBBox on them) // NAME 3 [aobj_coll_rep, bobj_coll_rep]: the FAIL_IF's |
-| `app/shared/px_process.cpp:89` | `PxProcessClass::Push` | marker | NOT EXACT: shape (the client's inlined insert knows _Last - _P is 0 (xor dl, dl) and computes max(size(), 1) with ja; ours reloads; attempts.py show 0x455D10) |
-| `app/shared/px_process.cpp:96` | `PxProcessClass::Pop` | marker | NOT EXACT: shape (register: the client keeps the old end in esi and copies through edx; attempts.py show 0x455F60) |
 | `app/shared/ro_funcs.cpp:279` | `Unknown_4967F0` | marker | NOT EXACT: shape |
 | `app/shared/robj2texture.cpp:54` | `RObj2Texture::Render_TextureMap` | marker | NOT EXACT (attempts.py 0x497700): order-only: the client's frame 0xA4 and instructions, its stack slots in another order (the blocks around the back-buffer copy and the lock loop give the size) |
 | `app/shared/robj2texture.cpp:213` | `Create_Projector_Render_Target` | mention | NOT EXACT: order-only, its stack slots in another order (the frame size comes from the blocks around the back-buffer copy and the lock loop). |
@@ -805,10 +797,8 @@ edit the comments in the code, not this file.
 | `app/shared/split_string.cpp:28` | `SplitStringClass::Split` | marker | NOT EXACT: inline-budget: the client calls the pad lines' std::string("") assign(const char *, n) out of line, ours inlines it; then stack slots (3 forms) |
 | `app/shared/spln_db.cpp:95` | `SplineDatabaseClass::Save` | marker | NOT EXACT: shape (the filename copy and the save chunks: the client inlines Save_Chunks with Write_String and Save_Entry out of line) @0x484D00 |
 | `app/shared/spln_db.cpp:487` | `SplineDatabaseClass::Get_Color_Curves` | marker | NOT EXACT: inline-budget (the client calls HashListClass::Find out of line for _G only) |
-| `app/shared/spln_db.cpp:710` | `SplineDatabaseClass::Create_Hermite` | marker | NOT EXACT: inline-budget (the client calls GenericNode's constructor out of line inside the new HashNodeClass, so the new keeps an EH state) |
 | `app/shared/spln_db.cpp:893` | `SplineDatabaseClass::Create_Blend` | marker | NOT EXACT: inline-budget (the client calls HashListClass::Find and Add(node) out of line) |
 | `app/shared/spln_db.cpp:1391` | `SplineDatabaseClass::Unpack` | marker | NOT EXACT: shape (written from the pseudocode: the count loop and the merge path) @0x486F60 |
-| `app/shared/spln_db.cpp:1520` | `SplineDatabaseClass::Create_Color` | marker | NOT EXACT: inline-budget (as Create_Hermite: GenericNode's constructor out of line in the client) |
 | `app/shared/spln_db.cpp:1539` | `SplineDatabaseClass::Resolve` | marker | NOT EXACT: inline-budget (HashListClass::Find out of line at some lookups) |
 | `app/shared/spln_db.cpp:1680` | `SplineDatabaseClass::Save_Chunks` | marker | NOT EXACT: shape / inline budget (the client inlines Save_Entry here and calls Save_Curve) @0x487B20 |
 | `app/shared/spln_db.cpp:1732` | `SplineDatabaseClass::Save_Entry` | marker | NOT EXACT: shape / inline budget (the client inlines Save_Curve's switch) |
@@ -825,7 +815,7 @@ edit the comments in the code, not this file.
 | `app/shared/time_string_format.cpp:18` | `TimeStringFormatClass::Format` | marker | NOT EXACT: order: the last Add_Unit's portion copy follows its inline Get here, the client stores the copy first and tests its registers @0x4FE890 |
 | `app/shared/time_string_format.cpp:36` | `TimeStringFormatClass::Add_Unit` | marker | NOT EXACT: inline-budget: Result's two appends inline here, the client calls append(ptr, n) and append(str, 0, npos) @0x4FEDB0 |
 | `app/shared/unique_design_id_lookup.cpp:92` | `UniqueDesignIDLookupClass::Add_Identifier` | marker | NOT EXACT: inline budget, the client calls the pair constructor 0x5024A0 out of line in Map[identifier] (frame 0xC0, ours 0xBC) |
-| `app/shared/unique_design_id_lookup.cpp:122` | `UniqueDesignIDLookupClass::Add_Identifier` | mention | NOT EXACT: Add_Identifier 0x500760 (inline budget). |
+| `app/shared/unique_design_id_lookup.cpp:123` | `UniqueDesignIDLookupClass::Add_Identifier` | mention | NOT EXACT: Add_Identifier 0x500760 (inline budget). |
 | `app/shared/unknown_445740.cpp:91` | `SteeringClass::Avoid_Obstacles` | marker | NOT EXACT: frame (explain.py): the client keeps the avoidance vector's X (0.0f) on the FPU and its frame is 4 bytes smaller; the inverse rotation's terms load in another order 0x446000 |
 | `app/shared/unknown_445740.cpp:185` | `SteeringClass::Separation` | marker | NOT EXACT: shape (explain.py): one load order (the client loads the owner's radius and fsubr's the distance) 0x446810 |
 | `app/shared/unknown_445740.cpp:209` | `SteeringClass::Cohesion` | marker | NOT EXACT: register-only: the inlined Inverse_Transform_Vector's terms in another FPU order (fld st(1) / fld st(0)) 0x4469A0 |

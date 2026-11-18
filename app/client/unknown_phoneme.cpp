@@ -63,33 +63,34 @@ static int __cdecl Unknown_7913B0(const void *a, const void *b)	// NAME 1: neutr
 }
 
 // 0x791310
-// NOT EXACT: functional for POC (D64), shape (the index loop)
 Unknown_791310Class::Unknown_791310Class()
 {
 	qsort(Unknown_B9DAB8, 0x23, sizeof(Unknown_PhonemeGroupStruct), Unknown_7913B0);
 	memset(Unknown_BE8570, 0, sizeof(Unknown_BE8570));
-	for (int i = 0; i < 0x23; i++) {
-		int letter = tolower(*Unknown_B9DAB8[i].Text) - 'a';
+	Unknown_PhonemeGroupStruct *group = Unknown_B9DAB8;	// NAME 1 [group]: neutral
+	for (int i = 0; i < 0x23; i++, group++) {
+		int letter = tolower(*group->Text) - 'a';
 		if (letter >= 0 && letter < 26) {
-			if (Unknown_BE8570[letter].Count == 0) {
+			int count = Unknown_BE8570[letter].Count;	// NAME 1 [count]: neutral
+			if (count == 0) {
 				Unknown_BE8570[letter].First = i;
 			}
-			Unknown_BE8570[letter].Count++;
+			Unknown_BE8570[letter].Count = count + 1;
 		}
 	}
 }
 
 // 0x791400
-// NOT EXACT: functional for POC (D64), literal (the shapes' initial stores in another order)
+// NOT EXACT: functional for POC (D64), register (prev and last kept in memory, 12 in ebx; the case bodies in the client's order, from its jump table, and 't' written out as the client inlines it)
 int Unknown_791310Class::Unknown_791400(const char *text, int *phonemes, int max)
 {
 	char prev = '\0';
 	char buffer[1024];
 	memset(buffer, 0, sizeof(buffer));
-	int len = strlen(text);
+	unsigned int len = strlen(text);
 	int last = -1;
 	int count = 0;
-	if (len > 0x3FE) {
+	if (len >= 0x3FF) {
 		len = 0x3FF;
 	}
 	strncpy(buffer, text, len);
@@ -106,26 +107,11 @@ int Unknown_791310Class::Unknown_791400(const char *text, int *phonemes, int max
 				case 'a':
 					n = Unknown_791880(p, prev, shapes);
 					break;
-				case 'b':
-				case 'm':
-				case 'p':
-					shapes[0] = 9;
-					break;
-				case 'c':
-				case 'g':
-				case 'k':
-				case 'q':
-					shapes[0] = 12;
-					break;
 				case 'd':
 					shapes[0] = 11;
 					break;
 				case 'e':
 					n = Unknown_791970(p, prev, shapes);
-					break;
-				case 'f':
-				case 'v':
-					shapes[0] = 7;
 					break;
 				case 'i':
 					n = Unknown_791B00(p, prev, shapes);
@@ -142,6 +128,17 @@ int Unknown_791310Class::Unknown_791400(const char *text, int *phonemes, int max
 				case 'o':
 					n = Unknown_791BF0(p, prev, shapes);
 					break;
+				case 'b':
+				case 'm':
+				case 'p':
+					shapes[0] = 9;
+					break;
+				case 'c':
+				case 'g':
+				case 'k':
+				case 'q':
+					shapes[0] = 12;
+					break;
 				case 'r':
 					shapes[0] = 6;
 					break;
@@ -149,10 +146,24 @@ int Unknown_791310Class::Unknown_791400(const char *text, int *phonemes, int max
 					n = Unknown_791E50(p, prev, shapes);
 					break;
 				case 't':
-					n = Unknown_791F10(p, prev, shapes);
+					n = 1;
+					shapes[0] = 11;
+					if (p[1] == 'c') {
+						if (p[2] == 'h') {
+							shapes[0] = 8;
+							n = 3;
+						}
+					} else if (p[1] == 'h') {
+						shapes[0] = 10;
+						n = 2;
+					}
 					break;
 				case 'u':
 					n = Unknown_791F80(p, prev, shapes);
+					break;
+				case 'f':
+				case 'v':
+					shapes[0] = 7;
 					break;
 				case 'w':
 					shapes[0] = 4;
@@ -182,7 +193,7 @@ int Unknown_791310Class::Unknown_791400(const char *text, int *phonemes, int max
 }
 
 // 0x7917B0
-// NOT EXACT: functional for POC (D64), shape (the index entry's loads)
+// NOT EXACT: functional for POC (D64), register (First and Count loaded into the other registers; 6 index forms tried)
 int Unknown_791310Class::Unknown_7917B0(const char *text, char prev, int *shapes)
 {
 	int letter = (char)tolower(*text) - 'a';
@@ -202,229 +213,218 @@ int Unknown_791310Class::Unknown_7917B0(const char *text, char prev, int *shapes
 }
 
 // 0x791880
-// NOT EXACT: functional for POC (D64), shape (the branch layout)
+// NOT EXACT: functional for POC (D64), shape (the client merges the 'g' case's tail with the second-letter vowel's; switch and if-chain forms tried)
 int Unknown_791310Class::Unknown_791880(const char *text, char prev, int *shapes)
 {
+	int n = 1;
 	shapes[0] = 11;
 	shapes[1] = -1;
 	char c = text[1];
 	if (c != '\0' && IS_VOWEL(c)) {
-		if (c == 'i') {
+		n = 2;
+		switch (c) {
+			case 'u':
+				if (prev == 'g') {
+					shapes[1] = 1;
+				} else if (prev == 'l') {
+					shapes[0] = 0;
+				} else if (prev == 's') {
+					shapes[0] = 0;
+					shapes[1] = 4;
+				} else {
+					shapes[0] = 0;
+				}
+				break;
+			case 'o':
+				shapes[1] = 1;
+				break;
+			case 'i':
+				shapes[1] = 1;
+				if (text[2] == 's') {
+					shapes[0] = 0;
+				}
+				break;
+		}
+	} else {
+		c = text[2];
+		if (c != '\0' && IS_VOWEL(c)) {
 			shapes[1] = 1;
-			if (text[2] == 's') {
-				shapes[0] = 0;
-			}
-			return(2);
+		} else {
+			shapes[0] = 0;
 		}
-		if (c == 'o') {
-			shapes[1] = 1;
-			return(2);
-		}
-		if (c != 'u') {
-			return(2);
-		}
-		if (prev == 'g') {
-			shapes[1] = 1;
-			return(2);
-		}
-		shapes[0] = 0;
-		if (prev != 'l' && prev == 's') {
-			shapes[1] = 4;
-		}
-		return(2);
 	}
-	c = text[2];
-	if (c != '\0' && IS_VOWEL(c)) {
-		shapes[1] = 1;
-		return(1);
-	}
-	shapes[0] = 0;
-	return(1);
+	return(n);
 }
 
 // 0x791970
-// NOT EXACT: functional for POC (D64), shape (the branch layout)
 int Unknown_791310Class::Unknown_791970(const char *text, char prev, int *shapes)
 {
+	int n = 1;
 	shapes[1] = -1;
 	shapes[0] = 1;
 	char c = text[1];
 	if (c == '\0' || !IS_VOWEL(c)) {
 		if (prev != 'b' && c != '\0') {
 			shapes[0] = 4;
-			return(1);
+		} else {
+			shapes[0] = 1;
 		}
-		shapes[0] = 1;
-		return(1);
+	} else {
+		n = 2;
+		switch (c) {
+			case 'a':
+				if (text[2] == 'u') {
+					n = 3;
+					shapes[0] = 1;
+					shapes[1] = 4;
+				}
+				break;
+			case 'i':
+				if (prev == 'h') {
+					shapes[0] = 0;
+					shapes[1] = 1;
+				} else if (text[2] == 'g') {
+					shapes[0] = 11;
+					shapes[1] = 1;
+				} else {
+					shapes[0] = (text[2] != 'z') + 1;
+				}
+				break;
+			case 'o':
+				shapes[0] = (prev != 'p') ? 11 : 1;
+				break;
+			case 'u':
+				shapes[0] = 4;
+				break;
+		}
 	}
-	switch (c) {
-		case 'a':
-			if (text[2] == 'u') {
-				shapes[0] = 1;
-				shapes[1] = 4;
-				return(3);
-			}
-			break;
-		case 'i':
-			if (prev == 'h') {
-				shapes[0] = 0;
-				shapes[1] = 1;
-				return(2);
-			}
-			if (text[2] == 'g') {
-				shapes[0] = 11;
-				shapes[1] = 1;
-				return(2);
-			}
-			shapes[0] = (text[2] != 'z') + 1;
-			return(2);
-		case 'o':
-			shapes[0] = (prev != 'p') ? 11 : 1;
-			return(2);
-		case 'u':
-			shapes[0] = 4;
-			return(2);
-	}
-	return(2);
+	return(n);
 }
 
 // 0x791B00
-// NOT EXACT: functional for POC (D64), shape (the branch layout)
 int Unknown_791310Class::Unknown_791B00(const char *text, char prev, int *shapes)
 {
+	int n = 1;
 	shapes[0] = 2;
 	shapes[1] = -1;
 	char c = text[1];
-	if (c == '\0' || !IS_VOWEL(c)) {
+	if (c != '\0' && IS_VOWEL(c)) {
+		shapes[0] = 11;
+		shapes[1] = -1;
+		n = 2;
+		switch (text[1]) {
+			case 'e':
+				if (text[2] == '\0' && prev == 'l') {
+					shapes[0] = 0;
+					shapes[1] = 1;
+				} else if (text[2] == 'u' || text[2] == 'w') {
+					shapes[0] = 4;
+					n = 3;
+				} else {
+					shapes[0] = 1;
+				}
+				break;
+			case 'o':
+				shapes[0] = 1;
+				break;
+		}
+	} else {
 		shapes[0] = 2;
 		shapes[1] = -1;
-		return(1);
 	}
-	shapes[0] = 11;
-	shapes[1] = -1;
-	if (text[1] == 'e') {
-		c = text[2];
-		if (c == '\0' && prev == 'l') {
-			shapes[0] = 0;
-			shapes[1] = 1;
-			return(2);
-		}
-		if (c != 'u' && c != 'w') {
-			shapes[0] = 1;
-			return(2);
-		}
-		shapes[0] = 4;
-		return(3);
-	}
-	if (text[1] == 'o') {
-		shapes[0] = 1;
-	}
-	return(2);
+	return(n);
 }
 
 // 0x791BF0
-// NOT EXACT: functional for POC (D64), shape (the branch layout)
+// NOT EXACT: functional for POC (D64), register (the text pointer in ecx, not eax) and the second-letter test the client keeps
 int Unknown_791310Class::Unknown_791BF0(const char *text, char prev, int *shapes)
 {
+	int n = 1;
 	shapes[0] = 3;
 	shapes[1] = -1;
 	char c = text[1];
-	if (c == '\0') {
-		return(1);
-	}
-	if (!IS_VOWEL(c)) {
-		c = text[2];
-		if (c != '\0' && IS_VOWEL(c)) {
+	if (c != '\0' && IS_VOWEL(c)) {
+		shapes[0] = 5;
+		shapes[1] = -1;
+		n = 2;
+		switch (text[1]) {
+			case 'a':
+				if (text[-2] == 'b' && text[-1] == 'r') {
+					shapes[0] = 5;
+				} else {
+					shapes[0] = 3;
+					shapes[1] = 4;
+				}
+				break;
+			case 'e':
+				shapes[0] = 4;
+				if (text[-1] == 'd' && text[2] == 's') {
+					shapes[0] = 5;
+				} else if (text[-2] == 'p' && text[-1] == 'h') {
+					shapes[0] = 1;
+				}
+				break;
+			case 'i':
+				shapes[0] = 5;
+				shapes[1] = 1;
+				break;
+			case 'o':
+				shapes[0] = 4;
+				break;
+			case 'u':
+				shapes[0] = 4;
+				if (text[-2] == 't' && text[-1] == 'r') {
+					shapes[0] = 5;
+				} else if (text[-2] == 't' && text[-1] == 'h') {
+					if (strncmp(text + 2, "ght", 3) == 0) {
+						shapes[0] = 5;
+						n = 5;
+					}
+				} else if (text[2] == 'r') {
+					n = 3;
+					shapes[0] = 11;
+				}
+				break;
+		}
+	} else if (c != '\0') {
+		char next = text[2];	// NAME 1 [next]: neutral
+		if (next != '\0' && IS_VOWEL(next)) {
 			shapes[0] = 4;
 			shapes[1] = -1;
-			return(1);
-		}
-		shapes[0] = 3;
-		shapes[1] = -1;
-		return(1);
-	}
-	shapes[0] = 5;
-	shapes[1] = -1;
-	switch (text[1]) {
-		case 'a':
-			if (text[-2] == 'b' && text[-1] == 'r') {
-				shapes[0] = 5;
-				return(2);
-			}
+		} else {
 			shapes[0] = 3;
-			shapes[1] = 4;
-			return(2);
-		case 'e':
-			shapes[0] = 4;
-			if (text[-1] == 'd' && text[2] == 's') {
-				shapes[0] = 5;
-				return(2);
-			}
-			if (text[-2] == 'p' && text[-1] == 'h') {
-				shapes[0] = 1;
-				return(2);
-			}
-			break;
-		case 'i':
-			shapes[0] = 5;
-			shapes[1] = 1;
-			return(2);
-		case 'o':
-			shapes[0] = 4;
-			return(2);
-		case 'u':
-			shapes[0] = 4;
-			if (text[-2] == 't') {
-				if (text[-1] == 'r') {
-					shapes[0] = 5;
-					return(2);
-				}
-				if (text[-1] == 'h') {
-					if (strncmp(text + 2, "ght", 3) != 0) {
-						return(2);
-					}
-					shapes[0] = 5;
-					return(5);
-				}
-			}
-			if (text[2] == 'r') {
-				shapes[0] = 11;
-				return(3);
-			}
-			break;
+			shapes[1] = -1;
+		}
 	}
-	return(2);
+	return(n);
 }
 
 // 0x791E50
-// NOT EXACT: functional for POC (D64), shape (the branch layout)
 int Unknown_791310Class::Unknown_791E50(const char *text, char prev, int *shapes)
 {
+	int n = 1;
 	shapes[0] = 14;
 	shapes[1] = -1;
 	char c = text[1];
 	if (c == 'h' || c == 'u') {
 		shapes[0] = 8;
-		return(1);
-	}
-	if (c == 'c') {
+	} else if (c == 'c') {
 		if (text[2] == 'h') {
 			shapes[0] = 8;
 			shapes[1] = 11;
-			return(3);
+			n = 3;
+		} else {
+			shapes[0] = 11;
+			n = 2;
 		}
-		shapes[0] = 11;
-		return(2);
-	}
-	if (strncmp(text + 1, "eou", 3) == 0) {
+	} else if (strncmp(text + 1, "eou", 3) == 0) {
 		shapes[0] = 8;
-		return(4);
+		n = 4;
 	}
-	return(1);
+	return(n);
 }
 
 // 0x791F10
-// NOT EXACT: functional for POC (D64), shape (2 rows)
 int Unknown_791310Class::Unknown_791F10(const char *text, char prev, int *shapes)
 {
 	int n = 1;
@@ -442,24 +442,25 @@ int Unknown_791310Class::Unknown_791F10(const char *text, char prev, int *shapes
 }
 
 // 0x791F80
-// NOT EXACT: functional for POC (D64), shape (registers and the branch layout)
 int Unknown_791310Class::Unknown_791F80(const char *text, char prev, int *shapes)
 {
+	int n = 1;
 	shapes[0] = 5;
 	char c = text[1];
-	if (c == '\0' || !IS_VOWEL(c)) {
+	if (c != '\0' && IS_VOWEL(c)) {
+		n = 2;
+		if (c == 'e' || c == 'i') {
+			shapes[0] = 4;
+			shapes[1] = -1;
+		}
+	} else {
 		c = text[2];
 		if (c != '\0' && !IS_VOWEL(c)) {
 			shapes[0] = 5;
 			shapes[1] = -1;
 		}
-		return(1);
 	}
-	if (c == 'e' || c == 'i') {
-		shapes[0] = 4;
-		shapes[1] = -1;
-	}
-	return(2);
+	return(n);
 }
 
 /*
@@ -467,4 +468,12 @@ int Unknown_791310Class::Unknown_791F80(const char *text, char prev, int *shapes
 **
 **	0x791400's 't' is inline in the client (0x791F10's code, which nothing calls). The 'o' rules read
 **	text[-2] and text[-1] before the buffer's start, as the client does. 0x792040 on is another file's.
+**	The letter rules 0x7917B0-0x791F80 are members, not static: each ends 'ret 0xc' with three
+**	arguments (thiscall, this unused). Their exact forms keep the length in one local n (1, 2 for a vowel
+**	after the letter) returned at one exit: VC6 keeps it in a register (0x791E50's edi) where early
+**	returns of literals fold it away. The constructor walks the table with a pointer beside the index.
 */
+
+
+
+

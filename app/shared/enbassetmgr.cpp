@@ -1,4 +1,5 @@
 // Earth & Beyond client (reconstruction): app\Shared\enbassetmgr.cpp (__FILE__ in the assert at 0xB721AC). Notes at the end of the file.
+#define HASHTEMPLATE_STRINGCLASS_LATE	// hashtemplate.h declares Get_Hash_Value<StringClass>; its body follows Post_Process (0x48E940)
 #include "enbassetmgr.h"
 #include "rendobj.h"
 #include "proto.h"
@@ -627,7 +628,6 @@ void Unknown_48E9D0(RenderObjClass *robj)
 }
 
 
-
 // @0x48EB90
 void ENBAssetManager::Post_Process(RenderObjClass *robj)
 {
@@ -638,6 +638,23 @@ void ENBAssetManager::Post_Process(RenderObjClass *robj)
 	if (!DX8Wrapper::Get_Current_Caps()->Support_TnL() && strnicmp(name, "plt", 3) == 0) {
 		Unknown_48E620(robj);
 	}
+}
+
+// HashTemplateKeyClass<StringClass>::Get_Hash_Value (hashtemplate.h, defined late: the client's copy 0x48E940 follows 0x48E620)
+template <> inline unsigned int HashTemplateKeyClass<StringClass>::Get_Hash_Value(const StringClass& s)
+{
+	unsigned int len=s.Get_Length();
+	unsigned char* buffer=(unsigned char*)s.Peek_Buffer();
+	if (len<8) {
+		unsigned int hval=0;
+		for (unsigned int a=0;a<len;++a) {
+			hval+=37*hval+buffer[a];
+		}
+		return hval;
+	}
+	unsigned int hval = *((const unsigned int*)(buffer+len-8));
+	hval = hval + (hval>>5) + (hval>>10) + (hval >> 20);
+	return hval;
 }
 
 // @0x48ECA0

@@ -45,5 +45,12 @@ prepare the handoff and tell the user to run `/clear` (or start a new session).
    PR summary to `.work/run-<date>/pr-summary.md` (what landed, pairs before and after, what is parked, the
    calls the coordinator made under D246 with any valve losses by address, and the few items D246 (d) leaves
    to the user), then `python tools/run_branch.py ready --summary .work/run-<date>/pr-summary.md`:
-   it pushes the run branch and takes the PR out of draft. The verify service posts `vc6-verify` within minutes;
-   the user merges. Report the PR's link.
+   it pushes the run branch and takes the PR out of draft. **When the run changed
+   `docs/data/accepted-corrections.json` (D240 / D246 entries added, regained ones deleted), `ready` first opens a
+   second PR holding nothing but that file (`accept-corrections-run-<date>`, from origin/master, D268) and names it
+   atop the run PR's summary**: the verify service judges a PR with master's corrections list, never the PR's
+   (D202), so the run PR's `vc6-verify` fails on those losses until the user merges the corrections PR; it then
+   re-verifies on its own. `python tools/run_branch.py corrections` does that step alone (rerun it after a later
+   corrections change; it updates the same PR). The user merges the corrections PR (D261's self-merge does not
+   cover it); never put any other file on it. The verify service posts `vc6-verify` within minutes; the user
+   merges. Report both PRs' links, the corrections PR first.

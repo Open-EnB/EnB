@@ -1767,21 +1767,21 @@ void MainViewClass::Unknown_512B10(int x, int y, float *fx, float *fy)
 
 
 
-// the picking candidates (0xBE71E0, 64 entries of 0x20 bytes) and their count (0xBE79E0; the G_ASSERT's 'InfoCount'):
-// qsort's comparators 0x7196C0 (by distance) and 0x719730 (by angle) read them (their file is unknown)
-struct PickInfoStruct	// NAME 1: neutral (D10)
-{
-	Vector3 Dir;									// +0x00 towards the object, normalised
-	float Dist2;									// +0x0C the squared distance
-	float Cos;										// +0x10 the cosine between Dir and the ray
-	float CosSize;									// +0x14 the cosine of the occluder's half angle, -1 for the others  // NAME 3: the G_ASSERT's 'cos_occluder_size'
-	ClientObjectClass *Object;						// +0x18
-	bool Occluder;									// +0x1C (types 2, 3 and 10)
-};
-PickInfoStruct Info[64];		// NAME 2: InfoCount's
-int InfoCount;					// NAME 3: the G_ASSERT's
-int __cdecl Unknown_7196C0(const void *a, const void *b);	// 0x7196C0 (qsort: the indices by distance)  // NAME 1 [a, b]: qsort's
-int __cdecl Unknown_719730(const void *a, const void *b);	// 0x719730 (qsort: the indices by angle)  // NAME 1 [a, b]: qsort's
+// the picking candidates (0xBE71E0, 64 entries of 0x20 bytes), their count (0xBE79E0; the G_ASSERT's 'InfoCount')
+// and qsort's comparators 0x7196C0 (by distance) and 0x719730 (by angle): another object's (unknown_7196c0.cpp)
+#include "unknown_7196c0.h"
+
+
+
+
+
+
+
+
+
+
+
+
 
 // NOT EXACT: functional (MV2, from the disassembly)
 // slot +0x60: the object under the screen point (x, y in 0..1): the avatar's model first unless skip_avatar, then the

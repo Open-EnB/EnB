@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "opcode 72's object, 0x85C5F0-0x85D170 (no assert: the file name provisional, NAME 1): written by hand (builder P7)",
  "expected": {},
@@ -31,7 +29,8 @@
   "0x85CF80",
   "0x85D000",
   "0x85D110",
-  "0x85D140"
+  "0x85D140",
+  "0x85D170"
  ],
  "merged": [],
  "name": "packets/pkcreatecharacter.cpp",

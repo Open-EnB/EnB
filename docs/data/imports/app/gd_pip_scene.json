@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "The client's own string 'e:\\build\\beta\\G\\app\\Client\\gd_pip_scene.cpp' (asserts 'PIPScene' l.50, '!PIPScene' l.64 / l.147, '!PIPScene->Peek_Client()' l.148, '!mouse' l.151); 0x66ACE0-0x66B230, table 0xAFA65C",
  "expected": {},
@@ -31,7 +29,8 @@
   "0x66ADD0",
   "0x66AE60",
   "0x66B080",
-  "0x66B170"
+  "0x66B170",
+  "0x66B210"
  ],
  "merged": [],
  "name": "client/gd_pip_scene.cpp",

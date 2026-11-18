@@ -348,7 +348,7 @@ void ChatWindowInterface::Unknown_74(ControlKeysManager *manager)
 	manager->Remove_Keys((ControlKeyListClass *)&Unknown4C, std::string("Toggle Chat Window"), 0);
 }
 
-// 0x570CD0  // NOT EXACT: functional (CW2): the inlined 0x571A70's RectClass stores (the client stores Bottom first; frame 8 vs 0xC; 0.61)
+// 0x570CD0  // NOT EXACT: functional (CW2): the inlined 0x571A70's RectClass stores (the client stores Bottom first and copies tl by integer moves; frame 0xC now as the client's with tl a Vector3; 0.75)
 void ChatWindowInterface::Unknown_A4()
 {
 	Unknown_571A70(&Viewport);
@@ -623,8 +623,8 @@ inline Vector3 ChatWindowInterface::Unknown_5719A0(const Unknown67D430EntryStruc
 inline void ChatWindowInterface::Unknown_571A70(ChatViewportStruct *vp)
 {
 	FAIL_IF(!vp) return;
-	const Matrix3D &tl_tm = InterfaceMesh->Get_Bone_Transform(vp->TLBone);
-	Vector2 tl(tl_tm[0][3], tl_tm[1][3]);
+	Vector3 tl = InterfaceMesh->Get_Bone_Transform(vp->TLBone).Get_Translation();
+
 	const Matrix3D &br_tm = InterfaceMesh->Get_Bone_Transform(vp->BRBone);
 	vp->Rect.Set(tl.X, tl.Y, br_tm[0][3], br_tm[1][3]);
 }

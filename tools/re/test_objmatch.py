@@ -64,11 +64,13 @@ class FuncletEvidence(unittest.TestCase):
                 # the rule's switch: without it the function stays short
                 objmatch.USE_FUNCLET_CALLS = False
                 objmatch.USE_CONTRIB_SHORTS = False     # CR8: its contribution places it too
+                objmatch.USE_CR1_NAMED_TARGETS = False  # CR1: its named targets place it too
                 try:
                     res = {r['symbol']: r for r in objmatch.match_objects(img, [path])}
                 finally:
                     objmatch.USE_FUNCLET_CALLS = True
                     objmatch.USE_CONTRIB_SHORTS = True
+                    objmatch.USE_CR1_NAMED_TARGETS = True
                 self.assertEqual(res[sym]['status'], 'short')
 
 
@@ -122,11 +124,13 @@ class PushedEvidence(unittest.TestCase):
                 # the rule's switch: without it the function stays short
                 objmatch.USE_PUSHED_CALLS = False
                 objmatch.USE_CONTRIB_SHORTS = False     # CR8: its contribution places it too
+                objmatch.USE_CR1_NAMED_TARGETS = False  # CR1: its named targets place it too
                 try:
                     res = {r['symbol']: r for r in objmatch.match_objects(img, [path], (0x401000, 0x8C1B50))}
                 finally:
                     objmatch.USE_PUSHED_CALLS = True
                     objmatch.USE_CONTRIB_SHORTS = True
+                    objmatch.USE_CR1_NAMED_TARGETS = True
                 self.assertEqual(res[sym]['status'], 'short')
 
 PUSHED_TIES = [
@@ -184,10 +188,12 @@ class CallTies(unittest.TestCase):
                 self.assertTrue(res[sym].get('call_tie'))
                 # the rule's switch: without it the copies stay tied
                 objmatch.USE_CALL_TIES = False
+                objmatch.USE_CR1_NAMED_TARGETS = False  # CR1: its named targets place it too
                 try:
                     res = {r['symbol']: r for r in objmatch.match_objects(img, [path])}
                 finally:
                     objmatch.USE_CALL_TIES = True
+                    objmatch.USE_CR1_NAMED_TARGETS = True
                 self.assertEqual(res[sym]['status'], 'multiple')
 # CR2 (run 2026-11-16): object list, symbol, client address, the result key it sets, the switch that gives it
 BEYOND = [
@@ -294,14 +300,16 @@ APP_REGION = (0x401000, 0x8C1B50)
 
 class ShortOrder(unittest.TestCase):
     def test_cases(self):
-        _check(self, SHORT_ORDER, 'USE_SHORT_ORDER', 'short_order', off_status='short')
+        # CR2: cr2_tiling places them too (the gap's bytes tiled)
+        _check(self, SHORT_ORDER, 'USE_SHORT_ORDER', 'short_order', off_status='short', also_off=('USE_CR2_TILING',))
 
 
 class GapOrder(unittest.TestCase):
     def test_cases(self):
         # with the gap round off, the edge round (USE_EDGE_ORDER) and the gap-edge round (USE_EX_GAP_EDGE) place them
         # at the same addresses
-        _check(self, GAP_ORDER, 'USE_GAP_ORDER', 'gap_order', APP_REGION, also_off=('USE_EDGE_ORDER', 'USE_EX_GAP_EDGE'))
+        _check(self, GAP_ORDER, 'USE_GAP_ORDER', 'gap_order', APP_REGION, also_off=('USE_EDGE_ORDER', 'USE_EX_GAP_EDGE', 'USE_CR2_TILING',
+                                                                                     'USE_CR2_DATA_AGREE'))
 
 
 class EdgeOrder(unittest.TestCase):
@@ -340,7 +348,8 @@ class ContribShorts(unittest.TestCase):
 
 class GapEdge(unittest.TestCase):
     def test_cases(self):
-        _check(self, GAP_EDGE, 'USE_EX_GAP_EDGE', 'gap_edge', APP_REGION, off_status='short')
+        _check(self, GAP_EDGE, 'USE_EX_GAP_EDGE', 'gap_edge', APP_REGION, off_status='short',
+               also_off=('USE_CR1_NAMED_TARGETS',))   # CR1: the named targets place it too
 
 
 CR3_DBGCONN_HASH_MAP_DTOR = '??1?$hash_map@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@UPacketStatsStruct@@U?$hash@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@U?$equal_to@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@V?$allocator@UPacketStatsStruct@@@2@@std@@QAE@XZ'
@@ -374,6 +383,18 @@ CK_CALLSEQ_VTBL = [
     ('sclient.obj', '?Sender_Type@?$MemberCallback@VCameraModuleClass@@VSClient@@P82@AEXPAVCameraModuleSignal@@PAV1@@ZV3@@SignalBaseClass@@UBEABVtype_info@@XZ', '0x7593E0'),
     ('sclient.obj', '?Type@?$MemberCallback@VCameraModuleClass@@VSClient@@P82@AEXPAVCameraModuleSignal@@PAV1@@ZV3@@SignalBaseClass@@UBEABVtype_info@@XZ', '0x759400'),
 ]
+
+
+CR1_NAMED_TARGETS = [
+    ('selector.obj', '??0DependentSelectorClass@@QAE@XZ', '0x49FC90'),
+]
+
+
+class Cr1NamedTargets(unittest.TestCase):
+    """D246 (CR1): selector.obj's short DependentSelectorClass constructor stores its vtable 0xAEA9C0, which the
+    object's exact functions place; the one verified start storing it with the constructor's length is 0x49FC90."""
+    def test_cases(self):
+        _check(self, CR1_NAMED_TARGETS, 'USE_CR1_NAMED_TARGETS', 'named_targets', APP_REGION, off_status='short')
 
 
 class CkCallseqVtbl(unittest.TestCase):
@@ -498,6 +519,124 @@ class NamedAwayAlone(unittest.TestCase):
         finally:
             objmatch.USE_NAMED_AWAY_ALONE = True
         self.assertEqual((r['status'], r['addresses']), ('exact', ['0x9DA8C0']))
+
+
+W3D_OBJS = os.environ.get('OBJMATCH_W3D_OBJS', os.path.join(MAIN, 'build', 'ww3d2', 'obj'))
+
+
+def _one(test, path, region, off=()):
+    if not os.path.exists(path):
+        test.skipTest(f'{path} missing')
+    img = objmatch.ClientImage(objmatch.DEFAULT_CLIENT)
+    owner = lambda sw: objmatch.ClientImage if hasattr(objmatch.ClientImage, sw) else objmatch   # D27's switches too
+    for sw in off:
+        setattr(owner(sw), sw, False)
+    try:
+        return {r['symbol']: r for r in objmatch.match_objects(img, [path], region)}
+    finally:
+        for sw in off:
+            setattr(owner(sw), sw, True)
+
+
+class Cr2Tiling(unittest.TestCase):
+    """D246 (CR2): ww3d.obj's forwarders between the exact Toggle_Windowed 0x917850 and Set_Device_Resolution 0x9178A0
+    tile the client's bytes (jmp 0x917860 / call 0x917870 / jmp 0x917880 / call 0x917890); the verified starts hold
+    only the jmps, so short_order's count test fails (`cr2_tiling`). Since SX D27's starts hold the calls too
+    (USE_JMP_PAD_STARTS) and short_order places them; cr2_tiling still does without that switch."""
+    CASES = [('WW3D::Get_Render_Device', '0x917860'), ('WW3D::Get_Render_Device_Desc', '0x917870'),
+             ('WW3D::Get_Render_Device_Count', '0x917880'), ('WW3D::Get_Render_Device_Name', '0x917890')]
+
+    def test_cases(self):
+        path = os.path.join(W3D_OBJS, 'ww3d.obj')
+        res = {r['name']: r for r in _one(self, path, None).values()}
+        for name, addr in self.CASES:
+            with self.subTest(name=name):
+                self.assertEqual((res[name]['status'], res[name]['addresses']), ('exact', [addr]))
+        res = {r['name']: r for r in _one(self, path, None, ('USE_JMP_PAD_STARTS',)).values()}
+        for name, addr in self.CASES:
+            with self.subTest(name=name, starts='old'):
+                self.assertEqual((res[name]['status'], res[name]['addresses']), ('exact', [addr]))
+                self.assertTrue(res[name].get('cr2_tiling'))
+        res = {r['name']: r for r in _one(self, path, None, ('USE_CR2_TILING', 'USE_JMP_PAD_STARTS')).values()}
+        self.assertEqual(res['WW3D::Get_Render_Device']['status'], 'short')
+
+
+class Cr2DataAgree(unittest.TestCase):
+    """D246 (CR2): unknown_7196c0.obj's two qsort comparators have the same bytes at 0x7196C0 and 0x719730 but read
+    Info+0xC / Info+0x10: only 0x7196C0 = Unknown_7196C0, 0x719730 = Unknown_719730 gives Info one address
+    (`cr2_data`)."""
+    def test_cases(self):
+        path = os.path.join(OBJS, 'unknown_7196c0.obj')
+        res = _one(self, path, APP_REGION)
+        for sym, addr in (('?Unknown_7196C0@@YAHPBX0@Z', '0x7196C0'), ('?Unknown_719730@@YAHPBX0@Z', '0x719730')):
+            with self.subTest(sym=sym):
+                self.assertEqual((res[sym]['status'], res[sym]['addresses']), ('exact', [addr]))
+                self.assertTrue(res[sym].get('cr2_data'))
+        res = _one(self, path, APP_REGION, ('USE_CR2_DATA_AGREE',))
+        self.assertEqual(res['?Unknown_7196C0@@YAHPBX0@Z']['status'], 'multiple')
+
+
+class Cr2XcuStarts(unittest.TestCase):
+    """D246 (CR2): camctrl_dock.obj's atexit stub $E97 0x793090 and initialiser $E105 0x7930B0 (the CRT table's
+    entry), after its last own function, are no verified starts (D27); with the table's entries and the atexit-
+    registered addresses as starts the order rules place them (`gap_edge`). Since SX D27's starts hold them
+    (USE_CRT_REGISTERED_STARTS), so USE_CR2_XCU_STARTS alone changes nothing."""
+    def test_cases(self):
+        path = os.path.join(OBJS, 'camctrl_dock.obj')
+        res = _one(self, path, APP_REGION)
+        for sym, addr in (('_$E97', '0x793090'), ('_$E105', '0x7930B0')):
+            with self.subTest(sym=sym):
+                self.assertEqual((res[sym]['status'], res[sym]['addresses']), ('exact', [addr]))
+        res = _one(self, path, APP_REGION, ('USE_CR2_XCU_STARTS',))
+        self.assertEqual(res['_$E97']['status'], 'exact')
+        res = _one(self, path, APP_REGION, ('USE_CR2_XCU_STARTS', 'USE_CRT_REGISTERED_STARTS'))
+        self.assertEqual(res['_$E97']['status'], 'short')
+
+
+SLNODE_POOL ='?Allocator@?$AutoPoolClass@VGenericSLNode@@$0BAA@@@0V?$ObjectPoolClass@VGenericSLNode@@$0BAA@@@A'
+
+
+class Cr2ExternData(unittest.TestCase):
+    """D246 (CR2): slnode.obj's initialiser $E6 zeroes GenericSLNode's pool, which app's exact 0x42FD10 places at
+    0xC1CD60 (another library's DIR32 field, passed as extern data): the CRT table entry 0x9CEDA0 is the one where
+    D80 confirms it (dx8renderer's $E252 has the same bytes for its own pool), its atexit stub $E3 0x9CEDD0."""
+    def test_cases(self):
+        path = os.path.join(MAIN, 'build', 'wwlib', 'obj', 'slnode.obj')
+        if not os.path.exists(path):
+            self.skipTest(f'{path} missing')
+        img = objmatch.ClientImage(objmatch.DEFAULT_CLIENT)
+        ext = {objmatch.CR2_DATA_PREFIX + SLNODE_POOL: {0xC1CD60}}
+        res = {r['symbol']: r for r in objmatch.match_objects(img, [path], None, extern_called=ext)}
+        self.assertEqual((res['_$E6']['status'], res['_$E6']['addresses']), ('exact', ['0x9CEDA0']))
+        self.assertEqual((res['_$E3']['status'], res['_$E3']['addresses']), ('exact', ['0x9CEDD0']))
+        objmatch.USE_CR2_EXTERN_DATA = False
+        try:
+            res = {r['symbol']: r for r in objmatch.match_objects(img, [path], None, extern_called=ext)}
+        finally:
+            objmatch.USE_CR2_EXTERN_DATA = True
+        self.assertNotEqual(res['_$E6']['status'], 'exact')
+
+
+class Cr4XcuSparse(unittest.TestCase):
+    """D246 (CR4): delta.obj lists two initialisers, `_$E5` (entry 50, 0x4A4C90) and the guarded header static `_$E29`;
+    the client's stretch holds entries 51-52 our object does not list, so no consecutive sub-run fits; `_$E29`
+    fullmatches at one entry of its window (bounded by its neighbours bitset.obj and delta_interpolator.obj), 0x4A6070
+    (entry 53)."""
+    def test_sparse(self):
+        paths = [os.path.join(OBJS, n) for n in ('bitset.obj', 'delta.obj', 'delta_interpolator.obj')]
+        if not all(os.path.exists(p) for p in paths):
+            self.skipTest('bitset.obj / delta.obj / delta_interpolator.obj missing')
+        img = objmatch.ClientImage(objmatch.DEFAULT_CLIENT)
+        def get():
+            return {(r['object'], r['symbol']): r for r in objmatch.match_objects(img, paths, APP_REGION, callers=True)}[
+                ('delta.obj', '_$E29')]
+        r = get()
+        self.assertEqual((r['status'], r['addresses'], r.get('xcu')), ('exact', ['0x4A6070'], 'sparse'))
+        objmatch.USE_CR4_XCU_SPARSE = False
+        try:
+            self.assertEqual(get()['status'], 'multiple')
+        finally:
+            objmatch.USE_CR4_XCU_SPARSE = True
 
 
 if __name__ == '__main__':

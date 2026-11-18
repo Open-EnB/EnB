@@ -48,6 +48,8 @@ public:
 	bool Key_Exchange(bool wait, int *error);						// 0x829180: the RSA exchange, 'CONNECT RSA EXCH FAILED: %d : %d'  // NAME 2: what it does
 	void Close();													// 0x829A10: Disconnect through the vtable  // NAME 1: describes what it does
 	void Set_Name_Unknown();										// 0x829E00 (no caller): Name = "unknown"  // NAME 1: what it does
+	static TCPMgr TCPManager;										// 0xBE9180 (initialiser 0x828A40; its atexit 0x828A70 is guarded: a static member)  // NAME 2: what it is
+	static std::set<class TCPListenerClass *> Listeners;			// 0xBE91A8 (initialiser 0x828AA0; atexit 0x828AE0 shares TCPManager's guard 0xBE95B8: the same class)  // NAME 2: what it holds
 	static TCPMgr *Get_Manager();									// 0x829E30 (no caller): the TCP manager 0xBE9180  // NAME 1: what it returns
 
 	TCPCon *Con;					// +0x24 NAME 4: as Renegade's TCPMgr calls a TCPCon (getOutgoingConnection's conn)

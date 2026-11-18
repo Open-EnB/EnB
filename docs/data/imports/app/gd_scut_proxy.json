@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "No string of the file in the client; the link order puts it between gd_robj.cpp and gd_selct.cpp (0x66C8F0-0x66CBF0): a full-screen rectangle gadget (table 0xAFAB64) and the shortcut bar's proxy button (table 0xAFAC78, constructor 0x66C9C0)",
  "expected": {},
@@ -45,7 +43,8 @@
   "0x66CA80",
   "0x66CB20",
   "0x66CB50",
-  "0x66CB80"
+  "0x66CB80",
+  "0x66CBD0"
  ],
  "merged": [],
  "name": "client/gd_scut_proxy.cpp",

@@ -594,7 +594,7 @@ void PxList::Set_Test_Mask(PxBox *box, int test, int mask)
 	Updating = false;
 }
 
-static std::vector<PxBox *> Notified;  // NAME 2: the boxes a corner change has already reported
+static struct PxBoxVector : public std::vector<PxBox *> {} Notified;  // NAME 2: the boxes a corner change has already reported; the wrapper's name too (notes)
 
 // 0x44C900
 // NOT EXACT: inline budget (the client calls vector::insert(it, x) out of line; attempts.py show 0x44C900)
@@ -811,7 +811,10 @@ bool PxList::Is_Sorted()
 ** Notified vector keeps each other box to one report per call. Set_Self / Set_Test_Mask report the overlaps whose
 ** filter result changes. A box reports b only when (b->Self & Mask) == Test.
 **
-** The vector<PxBox *> members 0x44D370-0x44D6D0 (insert, lower_bound, clear and their helpers) are this file's
+** Notified's initialiser 0x44C840 calls a no-argument constructor 0x44C8D0 out of line and its atexit stub
+** 0x44C870 tail-jumps to the destructor 0x44C890 (both emitted right after the stub): the implicit constructor and
+** destructor of a class over the vector (PxBoxVector, its name provisional), which VC6 keeps out of a $E where a
+** bare vector's inline. The vector<PxBox *> members 0x44D370-0x44D6D0 (insert, lower_bound, clear and their helpers) are this file's
 ** instances. 0x44D040, between Set_Corners and Dump, is not px.cpp's (PX2): it is the implicit copy constructor of
 ** a 0x5C-byte structure (std::strings at +0x00, +0x10, +0x24, +0x34, ints at +0x20, +0x44, +0x48, a bool at +0x4C,
 ** a vector of 4-byte elements at +0x50), called only from 0x4708F0 (a template instance in the no-file stretch

@@ -22,6 +22,7 @@
 #define __GCLASS_H
 
 #include "..\..\wwlib\listnode.h"
+template<class T> class DynamicVectorClass;
 #include "..\client\unknown_signalbase.h"
 
 class GClass;
@@ -84,6 +85,8 @@ public:
 
 	static void Unknown_4A17B0();														// 0x4A17B0 (+0x08 of every node's value in the list +0x10 fills)  // NAME 1: neutral (D10): its address
 	static void Unknown_4A20A0();														// 0x4A20A0 (empties the dirty list)  // NAME 1: neutral (D10): its address
+	static List<DataNode<UnknownGadgetBase00Class *> *> _Nodes;							// 0xBE39F8 (the list Unknown_10 fills; its atexit 0x4A1610 is guarded: a static member)  // NAME 1: neutral (D10)
+	static DynamicVectorClass<GClass *> _DirtyList;										// 0xBE3A18 (the dirty list; atexit 0x4A1740, guarded)  // NAME 1: neutral (D10)
 
 	unsigned char Flags;																// +0x08 (1: in the dirty list, +0x18)  // NAME 1: neutral (D10)
 	int Unknown0C;																		// +0x0C (the copy constructor copies it)

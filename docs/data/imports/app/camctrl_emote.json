@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "CameraController10Class (NAME 1, neutral), the camera manager's state-10 controller (table 0xB04BEC, 0x10 bytes), client 0x7930D0-0x7934DF (__FILE__ 0xB9E2D8, FAIL_IF l.62; ending with <string>'s initialiser 0x7934C0) (CC1)",
  "expected": {},
@@ -20,7 +18,8 @@
   "0x793230",
   "0x793250",
   "0x793280",
-  "0x7932A0"
+  "0x7932A0",
+  "0x7934C0"
  ],
  "merged": [],
  "name": "client/camctrl_emote.cpp",

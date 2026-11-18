@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x474080"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "RadarIconDataClass (D24), the base of the gutter and starmap data (the client's __FILE__ 0xB9F220, FAIL_IFs at lines 64-138; 0x7BC040-0x7BC6D0, ended by <string>'s initialiser 0x7BC6F0) (GR2)",
  "expected": {},
@@ -9,6 +7,7 @@
   "0x42B320",
   "0x42F250",
   "0x46BEC0",
+  "0x474080",
   "0x4740B0",
   "0x47D040",
   "0x47D370",
@@ -33,6 +32,7 @@
   "0x42B320",
   "0x42F250",
   "0x46BEC0",
+  "0x474080",
   "0x4740B0",
   "0x47D040",
   "0x47D370",

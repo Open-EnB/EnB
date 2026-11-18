@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "RECONSTRUCTED from client.exe 0x7E81B0-0x7E9B20: __FILE__ 'app\\Client\\influence.cpp' (asserts l.203/217/221/281/354), vtables 0xB07730/0xB07748/0xB07778/0xB0776C/0xB0779C, strings 'NEBULA_ROOT', 'nebula.ini', 'Room%02d'",
  "expected": {},
@@ -47,7 +45,8 @@
   "0x7E99D0",
   "0x7E9A00",
   "0x7E9A50",
-  "0x7E9AD0"
+  "0x7E9AD0",
+  "0x7E9AF0"
  ],
  "merged": [],
  "name": "client/influence.cpp",

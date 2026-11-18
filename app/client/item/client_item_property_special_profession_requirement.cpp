@@ -105,7 +105,7 @@ bool ClientItemPropertySpecialProfessionRequirementClass::Is_Usable()
 	DeltaCompoundClass *aux_data = (DeltaCompoundClass *)SpaceClient->AuxData;
 	FAIL_IF(!aux_data) return(false);
 	NameClass name("RPGInfo.Profession");
-	DeltaTemplateClass<UnknownB03588Enum> *profession_aux_data = Unknown_Find_Valid<DeltaTemplateClass<UnknownB03588Enum> >(aux_data, name);
+	DeltaTemplateClass<ProfessionType> *profession_aux_data = Unknown_Find_Valid<DeltaTemplateClass<ProfessionType> >(aux_data, name);
 	FAIL_IF(!profession_aux_data) return(false);
 	return((Professions & (1 << profession_aux_data->Value)) == 0);
 }

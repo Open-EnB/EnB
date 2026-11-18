@@ -127,9 +127,25 @@ void Unknown_442930(int surfacetype, const Matrix3D &tm)	// NAME 1 [Unknown_4429
 	}
 }
 
+
+// @0x442980
+bool Unknown_442980(char **table, int &surfacetype)	// NAME 1 [Unknown_442980, table]: neutral (D10); 0x442980, no callers
+{
+	if (surfacetype < 0 || surfacetype >= SURFACE_TYPE_MAX) {
+		surfacetype = 0;
+	}
+	if (table[surfacetype] == NULL) {
+		surfacetype = 0;
+	}
+	return table[surfacetype] ? true : false;
+}
+
 /*
 **	Reconstruction notes:
-**	surfacetypes.cpp (0x442650-0x442970) loads surface walking/running footstep sound effects
+**	surfacetypes.cpp (0x442650-0x4429B0, its initialiser 0x4429D0) loads surface walking/running footstep sound effects
 **	from footsteps.ini into two 32-entry tables indexed by surface type (SURFACE_TYPE_MAX = 32).
 **	Asserts on lines 65 and 80 confirm the client file name e:\build\beta\G\app\Audio\surfacetypes.cpp.
+**	0x442980 (no callers, nothing reads it) checks a surface type against a table passed in, the
+**	same test 0x4428E0 / 0x442930 make: it lies between 0x442930 and this object's initialiser
+**	0x4429D0, so it is this file's.
 */

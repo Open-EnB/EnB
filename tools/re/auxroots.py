@@ -775,7 +775,7 @@ inline char *Unknown_Hex_String(char *buf, int size, const unsigned char *data, 
 # 0x7045F0, 0x7014B0, 0x701D70, 0x758210) by one step of a cycle of 64: each matches only in a window of
 # it. The pad's enumerators put the file inside the windows; retune SYMBOL_PAD when a header aux_roots.cpp
 # includes gains or loses declarations (.work/hx1/exp.py sweeps it by compiling aux_roots.cpp alone).
-SYMBOL_PAD = 33
+SYMBOL_PAD = 29
 # Definition order in aux_roots.cpp, a second lever (SC2, 2026-11-08d): with DeltaItemArrayClass<DeltaStringClass>
 # (MountBoneNames) instantiated, no pad holds the six with the client's address order (0x7014B0 and 0x7045F0
 # share only 57..59, where 0x6FB1E0 fails); PrimaryCategory's inline constructor (0x6FB1E0) defined last moves
@@ -803,7 +803,7 @@ enum AuxRootsSymbolPadType { %s };	// NAME 1: a build aid (HX1)
 # 46-49 (and 44; same sweep). ST1's sbaseview.h retype (AvatarUI +0x19C onto ui_avatar_cust.h's
 # StarbaseAvatarCreationInterface, the stand-in class gone): 1-7 (and 62-63; .work/st1/sendpad_imp.py).
 # TC1's ui_stringentry.h (UIPTradeCreditsClass out of sclient.h): 0x758210 and 0x702240 both only at 33 and 55-57: 56.
-SEND_SYMBOL_PAD = 19
+SEND_SYMBOL_PAD = 46
 SEND_PAD = '''// VC6 symbol pad (not the client's code): sclient.cpp's copy of 0x758210 matches only when the count of
 // the declarations it sees falls in a window (tools/re/auxroots.py SEND_SYMBOL_PAD)
 enum AuxRootsSendSymbolPadType { %s };	// NAME 1: a build aid (SC1)

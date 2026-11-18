@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "NavListBuilderClass (D24): the constructor, destructor, 0x7B7C80 and Clear of the object at 0x7B7BF0 (the client's __FILE__ 0xB9EE4C, FAIL_IF '!from' at line 150); the rest is not rebuilt (GR2)",
  "expected": {},
@@ -15,12 +13,12 @@
   "0x4A0B90",
   "0x4A0BD0",
   "0x4A0C10",
+  "0x7B7B60",
   "0x7B7BA0",
   "0x7B7BF0",
   "0x7B7C30",
   "0x7B7C60",
   "0x7B7C80",
-  "0x7B7EF0",
   "0x7B81E0",
   "0x7B8210",
   "0x7B8510",
@@ -40,7 +38,8 @@
   "0x7B9630",
   "0x7B9670",
   "0x7B96A0",
-  "0x7B9780"
+  "0x7B9780",
+  "0x7B97C0"
  ],
  "merged": [],
  "name": "client/nav_list_builder.cpp",

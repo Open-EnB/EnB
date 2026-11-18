@@ -34,7 +34,7 @@ UniqueDesignIDLookupClass::UniqueDesignIDLookupClass(const std::string &filename
 
 	FAIL_IF(!section) return;
 	for (INIEntry *entry = section->EntryList.First_Valid(); entry != NULL; entry = entry->Next_Valid()) {
-		int id = INVALID_ID;
+		unsigned int id = INVALID_ID;
 		std::stringstream stream(std::string(entry->Entry));
 		stream >> id;
 		if (id == INVALID_ID) {
@@ -90,7 +90,7 @@ std::string UniqueDesignIDLookupClass::Get_Identifier(int id)
 
 
 // NOT EXACT: inline budget, the client calls the pair constructor 0x5024A0 out of line in Map[identifier] (frame 0xC0, ours 0xBC)
-void UniqueDesignIDLookupClass::Add_Identifier(int id, const std::string &identifier)
+void UniqueDesignIDLookupClass::Add_Identifier(unsigned int id, const std::string &identifier)
 {
 	std::string key(identifier);
 	std::transform(key.begin(), key.end(), key.begin(), tolower);
@@ -117,7 +117,8 @@ const int UniqueDesignIDLookupClass::INVALID_ID = 0;
 **	(line 73), Get_Identifier 0x5005F0 and the virtual Add_Identifier 0x500760 (line 101).
 **	INVALID_ID is the client's 0xAECC44 (0, read from memory: not folded; 0x838970-0x838B80 read it
 **	too). Nothing in the client constructs the class (no caller of the constructor). The VC6
-**	iostream instances compile from the toolchain's own headers; operator<<(int) 0x500AB0,
-**	operator>>(int &), stringstream::str() and stringbuf::str() differ from the client's (shape,
-**	library code). NOT EXACT: Add_Identifier 0x500760 (inline budget).
+**	iostream instances compile from the toolchain's own headers. The ids go through the streams
+**	unsigned: operator<<(unsigned int) 0x500AB0 calls num_put's do_put(unsigned long) (slot 0x10),
+**	operator>>(unsigned int &) 0x500DC0 num_get's do_get(unsigned int &) (slot 0x1C). stringstream::str()
+**	and stringbuf::str() differ (library code). NOT EXACT: Add_Identifier 0x500760 (inline budget).
 */

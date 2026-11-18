@@ -7,8 +7,8 @@
 #include <ctype.h>
 // The one TCP manager (0xBE9180, constructed by the static initialiser 0x828A10) and the buffer
 // small writes are encrypted in (0xBE91B8).
-static TCPMgr TCPManager;		// NAME 2: what it is
-static std::set<TCPListenerClass *> Listeners;	// 0xBE91A8 (initialiser 0x828AA0): every listener  // NAME 2: what it holds
+TCPMgr TCPConnection::TCPManager;
+std::set<TCPListenerClass *> TCPConnection::Listeners;	// 0xBE91A8 (initialiser 0x828AA0): every listener  // NAME 2: what it holds
 static unsigned char WriteBuffer[0x400];	// NAME 2: what it holds
 // E&B's message reporter 0x4BC000 (cdecl, printf-style: the sender (the pooled "" 0xBDA908), the
 // category, the file and line, a format); not rebuilt
@@ -584,7 +584,7 @@ TCPListenerClass::TCPListenerClass() :
 {
 	KeyPair.Load(file_auto_ptr(_TheFileFactory, "server_rsa_keyset.dat"));
 	
-	Listeners.insert(this);
+	TCPConnection::Listeners.insert(this);
 }
 
 bool TCPListenerClass::Is_Listening() { return(PortNumber != 0); }
@@ -645,7 +645,7 @@ TCPListenerClass::~TCPListenerClass()
 	FAIL_IF(PortNumber != 0) {
 		Stop();
 	}
-	Listeners.erase(this);
+	TCPConnection::Listeners.erase(this);
 }
 
 
@@ -808,7 +808,7 @@ void TCPListenerClass::Send_Key(TCPConnection *connection)
 // inlines it while it waits
 void TCPListenerClass::Pump_All()
 {
-	for (std::set<TCPListenerClass *>::iterator it = Listeners.begin(); it != Listeners.end(); ++it) {
+	for (std::set<TCPListenerClass *>::iterator it = TCPConnection::Listeners.begin(); it != TCPConnection::Listeners.end(); ++it) {
 		(*it)->Accept(false);
 	}
 }

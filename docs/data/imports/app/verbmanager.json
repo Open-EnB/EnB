@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "VerbManagerClass (D24 class-from-file), the verb windows' registry (the client's __FILE__ 0xBA8268, 0x81F890's 'false' assert on line 143; client 0x81F100-0x81FA40 and its map / list instances; 0x81F610 / 0x81F560 call 0x81F890, 0x81F6A0 inlines 0x81FA40) (VB1)",
  "expected": {},
@@ -41,7 +39,8 @@
   "0x8203C0",
   "0x820440",
   "0x820750",
-  "0x8207D0"
+  "0x8207D0",
+  "0x820800"
  ],
  "merged": [],
  "name": "client/verbmanager.cpp",

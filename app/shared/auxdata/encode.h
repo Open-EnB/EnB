@@ -204,6 +204,7 @@ class TreeCodecHolderClass  // NAME 2: describes what it does
 public:
 	TreeCodecHolderClass(TreeCodecClass *&codec);		// 0x4A99E0
 	~TreeCodecHolderClass();									// 0x4A9A50
+	static TreeCodecHolderClass Holder;						// 0xBE3AB0 (initialiser 0x4A9970; atexit 0x4A99A0 guarded, bit 4 of 0xBE3AFD after the pools': a static member)  // NAME 1: neutral (D10)
 
 	TreeCodecClass *Codec;  // NAME 2: describes what it does
 };

@@ -75,11 +75,7 @@ enum WW3DLightAttenuationType { UNKNOWN_B0100C_0 };	// vtable 0xB0100C, 4 bytes
 inline const char *Type_Name(WW3DLightAttenuationType *) { return "WW3DLightAttenuationType"; }
 bool String_To_Value(const char *text, WW3DLightAttenuationType *value);	// 0x82F180
 char *Value_To_String(char *buf, int size, WW3DLightAttenuationType value);	// 0x82F1D0
-// NAME 1: the value type of the leaf vtable 0xB011D4 (no name in the client, Net-7 or C#)
-enum UnknownB011D4Enum { UNKNOWN_B011D4_0 };	// vtable 0xB011D4, 4 bytes
-inline const char *Type_Name(UnknownB011D4Enum *) { return "UnknownB011D4Enum"; }
-inline char *Value_To_String(char *buf, int size, UnknownB011D4Enum value) { _snprintf(buf, size, "%d", (int)value); return buf; }
-inline bool String_To_Value(const char *text, UnknownB011D4Enum *value) { int v; if (sscanf(text, "%d", &v) != 1) return false; *value = (UnknownB011D4Enum)v; return true; }
+// leaf vtable 0xB011D4's value type is unsigned int: its KVAccessorClass table 0xAEB258 (slot 0 KVAccessorClass<unsigned int>'s ??_G) is stored by 0x706D80
 #include "..\common\manufacturing_defs.h"	// the subcategory, mode, validity and difficulty types (vtables 0xB0122C, 0xB013EC, 0xB01394, 0xB0133C) and their converters
 inline const char *Type_Name(UnknownB0122CEnum *) { return "int"; }	// the KVPair's Get_Type_Name 0x708690 says 'int'
 inline const char *Type_Name(UnknownB0133CEnum *) { return "int"; }	// the KVPair's Get_Type_Name 0x708AE0 says 'int'
@@ -135,16 +131,13 @@ inline bool operator!=(const ProjectedDecalClass &a, const ProjectedDecalClass &
 inline const char *Type_Name(ProjectedDecalClass *) { return "ProjectedDecalClass"; }
 inline char *Value_To_String(char *buf, int, const ProjectedDecalClass &value) { sprintf(buf, "%f,%f,%f,%d,%f", value.F00, value.F04, value.F08, value.ProjDecalAssetID, value.F10); return buf; }
 inline bool String_To_Value(const char *text, ProjectedDecalClass *value) { return sscanf(text, "%f,%f,%f,%d,%f", &value->F00, &value->F04, &value->F08, &value->ProjDecalAssetID, &value->F10) == 5; }
-// NAME 1: the value type of the leaf vtable 0xB03588 (no name in the client, Net-7 or C#)
-enum UnknownB03588Enum { UNKNOWN_B03588_0 };	// vtable 0xB03588, 4 bytes
-inline const char *Type_Name(UnknownB03588Enum *) { return "UnknownB03588Enum"; }
-inline char *Value_To_String(char *buf, int size, UnknownB03588Enum value) { _snprintf(buf, size, "%d", (int)value); return buf; }
-inline bool String_To_Value(const char *text, UnknownB03588Enum *value) { int v; if (sscanf(text, "%d", &v) != 1) return false; *value = (UnknownB03588Enum)v; return true; }
-// NAME 1: the value type of the leaf vtable 0xB035E0 (no name in the client, Net-7 or C#)
-enum UnknownB035E0Enum { UNKNOWN_B035E0_0 };	// vtable 0xB035E0, 4 bytes
-inline const char *Type_Name(UnknownB035E0Enum *) { return "UnknownB035E0Enum"; }
-inline char *Value_To_String(char *buf, int size, UnknownB035E0Enum value) { _snprintf(buf, size, "%d", (int)value); return buf; }
-inline bool String_To_Value(const char *text, UnknownB035E0Enum *value) { int v; if (sscanf(text, "%d", &v) != 1) return false; *value = (UnknownB035E0Enum)v; return true; }
+#include "..\common\prof.h"	// leaf vtable 0xB03588's value type: KVAccessorClass table 0xAEC9C8 is stored by both ~KVPointerAccessor<ProfessionType> 0x4F76E0 and this accessor's destructor 0x7595F0
+#include "..\common\race.h"	// leaf vtable 0xB035E0's value type: KVAccessorClass table 0xAEC9DC is shared with shipcust_desc's RaceType accessor likewise
+#ifndef KVPAIR_PROF_RACE_TYPE_NAMES	// the profession's and race's pairs name their type from the saved value (prof.cpp 0x848CA0, race.cpp 0x848FF0)
+#define KVPAIR_PROF_RACE_TYPE_NAMES
+template<> inline const char *KVPairTemplateClass<ProfessionType>::Get_Type_Name() const { return Type_Name(Value); }	// 0x4F6ED0
+template<> inline const char *KVPairTemplateClass<RaceType>::Get_Type_Name() const { return Type_Name(Value); }	// 0x4F70C0
+#endif
 #include "..\common\skill_level_availability.h"	// SkillLevelAvailabilityStruct (KVPair vtable 0xB03AB4, leaf vtable 0xB03694) and its converters 0x84A560 / 0x84A600
 
 
@@ -679,8 +672,8 @@ public:
 	DeltaTemplateClass<float> ExpectedQuality;	// +0x9AC
 	DeltaTemplateClass<float> MinimumQuality;	// +0xA34
 	DeltaTemplateClass<float> MaximumQuality;	// +0xABC
-	DeltaTemplateClass<UnknownB011D4Enum> AdditionalIterations;	// +0xB44
-	DeltaTemplateClass<UnknownB011D4Enum> TechLevelFilterBitfield;	// +0xBCC
+	DeltaTemplateClass<unsigned int> AdditionalIterations;	// +0xB44
+	DeltaTemplateClass<unsigned int> TechLevelFilterBitfield;	// +0xBCC
 };
 
 // vtable 0xB03638 (e.g. Player.RPGInfo.Skills.N)
@@ -722,8 +715,8 @@ class DeltaRPGInfoClass : public DeltaCompoundClass
 public:
 	DeltaRPGInfoClass(const char *name);	// 0x752E60
 
-	DeltaTemplateClass<UnknownB035E0Enum> Race;	// +0x9C
-	DeltaTemplateClass<UnknownB03588Enum> Profession;	// +0x124
+	DeltaTemplateClass<RaceType> Race;	// +0x9C
+	DeltaTemplateClass<ProfessionType> Profession;	// +0x124
 	DeltaItemArrayClass<DeltaSkillClass> Skills;	// +0x1AC
 	DeltaItemArrayClass<DeltaSkillAbilityClass> SkillAbilities;	// +0x248
 	DeltaTemplateClass<int> SkillPoints;	// +0x2E4
@@ -1181,7 +1174,7 @@ inline DeltaManufacturingLabClass::DeltaManufacturingLabClass(int unknown) :
 	MinimumQuality("MinimumQuality", 1.0f),
 	MaximumQuality("MaximumQuality", 1.0f),
 	AdditionalIterations("AdditionalIterations"),
-	TechLevelFilterBitfield("TechLevelFilterBitfield", (UnknownB011D4Enum)511)
+	TechLevelFilterBitfield("TechLevelFilterBitfield", 511)
 {
 	Add(&Name);
 	Add(&Mode);

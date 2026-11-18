@@ -217,7 +217,8 @@ class Sound3DClass : public AudibleSoundClass
 //       time (call [vtbl+0x184] with two arguments). So the one-argument Set_Velocity of SoundPseudo3DClass and
 //       Listener3DClass no longer override it: SoundPseudo3DClass's vtable 0xB15EE4 keeps 0x9F8920 in slot 97 and has
 //       the empty one-argument virtual (0x9FFA90, ret 4) as its first own slot (105); Listener3DClass's vtable 0xB163D0
-//       has it (0xA02DE0, ret 4) as its last slot (121), after Set_Sample_Playback_Rate
+//       has it (0xA02D00, ret 4) as its first own slot (107), where Renegade's Listener.h declares it, before
+//       Start_Sample (slots 108-121 hold Start_Sample 0xA02D10 .. Set_Sample_Playback_Rate 0xA02DE0, body by body)
 // EnB: class Sound3DClass (line 197 at the freeze): Sound3DClass has E&B fields: 12 bytes after m_CurrentVelocity
 //       (+0x148) and four ints after m_LastUpdate (+0x160 to +0x16C), all zeroed by the constructors (client 0x9F76A0,
 //       0x9F7C90, 0x9F9220) and not copied by operator=. Meaning not known: m_Unknown148 (a Vector3 by size),

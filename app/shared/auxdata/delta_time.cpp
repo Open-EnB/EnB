@@ -12,7 +12,7 @@
 // The per-class global (0xBE3AA4) and the constructor (0x4A8150): an explicit specialisation with
 // delta_template.h's body (the header declares the instance `extern template`, and VC6 can't
 // instantiate a constructor alone: C2909)
-template<> int DeltaTemplateClass<DurationClass>::UnknownGlobal = 0;
+template<> int DeltaTemplateClass<DurationClass>::UnknownGlobal = DeltaUnknownCounter++;
 
 template<> DeltaTemplateClass<DurationClass>::DeltaTemplateClass(const char *name, const DurationClass &value) :
 	DeltaClass(name),

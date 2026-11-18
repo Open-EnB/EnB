@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "RECONSTRUCTED: the 3-D movie view (Movie3DViewClass), the client's object 0x7EEF60-0x7F0F50: __FILE__ e:\\build\\beta\\G\\app\\Client\\mv3dview.cpp (0xBA1F58) with its asserts '!Started' (l.472, 0x7EFD00) and 'str && *str' (l.697, 0x7F0880); it opens with the initialiser of its RandomClass static (0x7EEF60, after mv3dsnd.cpp's guarded <string> initialiser 0x7EEF30) and plays one of movie3d.ini's movies",
  "expected": {},
@@ -35,6 +33,7 @@
   "0x514D30",
   "0x514D70",
   "0x53B310",
+  "0x7EEF60",
   "0x7EEF90",
   "0x7EF170",
   "0x7EF190",
@@ -68,7 +67,8 @@
   "0x7F0DD0",
   "0x7F0E40",
   "0x7F0E70",
-  "0x7F0EC0"
+  "0x7F0EC0",
+  "0x7F0F30"
  ],
  "merged": [],
  "name": "client/mv3dview.cpp",

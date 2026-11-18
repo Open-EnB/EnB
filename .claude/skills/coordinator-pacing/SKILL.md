@@ -211,6 +211,9 @@ Landing and bring-over (the lander does the landing; these are what you see arou
 - **A link check refused for "D2022 cannot open ...stubs.rsp", "Failed to open ...sync.tar" or a burst of unresolved
   symbols the branches do not touch is a VM sync flake:** the identical batch rerun once has passed each time. Tell the
   lander to retry once before treating such a refusal as real.
+- **A landing that adds a definition to a library (wwlib/_mono.cpp) needs that library rebuilt in the main tree before the next landing's link check:** the check copies the main tree's built libraries, and a stale one refuses the next branch for an unresolved symbol it does not touch (`build.py build --lib wwlib` at the run head).
+- **Bring-over retunes only the send pad:** an aux-pad loss (aux_roots' padded constructors) needs a builder's `auxpad.py sweep` before the landing.
+- **A builder may file a send-pad address (0x758210, 0x702240, 0x74D990) as a D240 loss:** those are the pad, retuned at the landing, never `accepted-corrections.json` entries: say so in the brief.
 - **A verify that reports "0 client functions" is a tool failure, never a loss:** a bring-over that then reports
   thousands lost outright compared against an empty app. The cause was app's `cl` command line passing Windows'
   32767-character limit (664 sources); `tools/vc6/vc6.py` now uses a response file over 8000 characters.

@@ -1,0 +1,17 @@
+{
+ "ambiguous": [],
+ "copy": "reconstructed",
+ "description": "RECONSTRUCTED, PROVISIONAL name (D137): client 0x7196A0-0x719777, its own object between postate.cpp (closing initialiser 0x719640) and control_keys_manager.cpp (0x7197A0) by the CRT initialiser table 0xB6CB84-0xB6CB94 and the .bss order (Info 0xBE71E0, InfoCount 0xBE79E0 between postate's 0xBE71D4 and control_keys_manager's 0xBE7B80): MainViewClass::Unknown_60's picking candidates, their initialiser 0x7196A0 (a bare ret) and qsort comparators 0x7196C0 (by distance) / 0x719730 (by angle)",
+ "expected": {},
+ "in_tree": [
+  "0x42F250",
+  "0x7196A0",
+  "0x7196C0",
+  "0x719730"
+ ],
+ "merged": [],
+ "name": "client/unknown_7196c0.cpp",
+ "shared": [
+  "0x42F250"
+ ]
+}

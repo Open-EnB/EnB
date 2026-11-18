@@ -24,7 +24,11 @@ with NDEBUG (D61: E&B's own asserts, G_ASSERT/FAIL_IF, don't test it). In the dr
 before a function's definition; each compiled function whose demangled name is that definition's
 is reported EXACT when its bytes (relocations masked, as objmatch.py) are the client's at ADDR,
 otherwise with its objmatch status and objdiff similarity to ADDR. `--diff
-NAME` prints the full objdiff of one function.
+NAME` prints the full objdiff of one function. Each EXACT line ends with how verify credits it from this object
+alone, and a summary of these comes first (CR1): `[credited]` (its bytes occur once), `[by rule: FLAG]` (a tie rule
+placed it there), `[elsewhere: ADDR]`, `[tied: N]` (N identical client copies) or `[short]` (too short to search
+for); a tied or short function is credited only through evidence (an exact caller first of all, D166 / call ties;
+a vtable slot; a named target), so split it off and make a caller exact first.
 
 Include directories (D112(5)): with no -I (or `-I auto`, which may be mixed with explicit ones) the
 draft's #includes are resolved recursively as VC6 resolves them, quoted ones from the including
@@ -40,6 +44,7 @@ non-inline function the draft marks (after one retry with the VM's sync cache re
 """
 import argparse
 import bisect
+import collections
 import difflib
 import json
 import os
@@ -375,6 +380,28 @@ def compile_draft(a, includes, sync, out):
     return rc, log, objs, before
 
 
+NL = chr(10)
+CREDIT_ORDER = ('credited', 'by rule', 'elsewhere', 'tied', 'short', 'prefix')
+TIE_FLAGS = ('caller_tiebreak', 'call_tie', 'funclet_tie', 'pushed_tie', 'ck_callseq', 'named_targets', 'cr3_gap',
+             'contrib', 'selfname', 'range', 'initialiser', 'xcu', 'order', 'short_known', 'tiebreak')
+
+
+def crediting(r, addr):
+    """CR1 (C3, IB2): how verify would credit an EXACT function from this object alone: `credited` (its bytes occur
+    once), `by rule: FLAG` (a tie rule placed it here in this run), `elsewhere: ADDR` (exact at another address),
+    `tied: N` (the pattern occurs N times: credited only when evidence picks the copy, an exact caller first of all)
+    or `short` (too short to search for: credited only at an address known otherwise)."""
+    if r['status'] == 'exact':
+        at = int(r['addresses'][0], 16)
+        if at != addr:
+            return f'elsewhere: 0x{at:06X}'
+        flags = [f for f in TIE_FLAGS if r.get(f)]
+        return f'by rule: {flags[0]}' if flags else 'credited'
+    if r['status'] == 'multiple':
+        return f"tied: {r.get('count', len(r['addresses']))}"
+    return 'short'
+
+
 def _match(a):
     import vc6
     from objmatch import CoffObject, match_objects
@@ -421,12 +448,18 @@ def _match(a):
     obj = CoffObject(objs[0])
     funcs = {name: (sec, s, e) for name, sec, s, e in obj.functions()}
     exact = 0
+    lines = []                  # printed after the crediting summary (CR1): the status up front
+    credit = collections.Counter()
+
+    def emit(text):
+        lines.append(text)
+
     for r in match_objects(img, objs):
         addrs = want.get(r['name'], [])
         addr = addrs.pop(0) if addrs else None
         hits = [int(x, 16) for x in r['addresses']]
         if addr is None:
-            print(f"  {r['status']:8s} {r['name']:50s} len {r['length']:4d} (no marker) {' '.join(r['addresses'][:3])}")
+            emit(f"  {r['status']:8s} {r['name']:50s} len {r['length']:4d} (no marker) {' '.join(r['addresses'][:3])}")
             continue
         sec, s, e = funcs[r['symbol']]
         pat, _, length = obj.pattern(sec, s, e)
@@ -435,18 +468,21 @@ def _match(a):
             exact += 1
             client_size = app.size(addr)
             if client_size != length:
-                print(f"  PREFIX   {r['name']:50s} len {r['length']:4d} 0x{addr:06X}: the client's function is {client_size} bytes")
+                credit['prefix'] += 1
+                emit(f"  PREFIX   {r['name']:50s} len {r['length']:4d} 0x{addr:06X}: the client's function is {client_size} bytes")
                 continue
             note = {'exact': '', 'short': ' (too short to search for: matched at its marker only)',
                     'multiple': f" (the pattern also occurs at {' '.join(x for x in r['addresses'] if int(x, 16) != addr)})"}
-            print(f"  EXACT    {r['name']:50s} len {r['length']:4d} 0x{addr:06X}{note.get(r['status'], '')}")
+            how = crediting(r, addr)
+            credit[how.split(':')[0]] += 1
+            emit(f"  EXACT    {r['name']:50s} len {r['length']:4d} 0x{addr:06X}{note.get(r['status'], '')} [{how}]")
             continue
         left = objdiff.obj_lines(obj, sec, s, s + length)
         right = objdiff.client_lines(img, addr, length)
         sm = difflib.SequenceMatcher(None, [objdiff.norm(t) for _, _, t in left],
                                      [objdiff.norm(t) for _, _, t in right], autojunk=False)
         where = f" (pattern at {' '.join(r['addresses'][:3])})" if hits else ''
-        print(f"  {r['status']:8s} {r['name']:50s} len {r['length']:4d} 0x{addr:06X} similarity {sm.ratio():.2f}{where}")
+        emit(f"  {r['status']:8s} {r['name']:50s} len {r['length']:4d} 0x{addr:06X} similarity {sm.ratio():.2f}{where}")
         if a.diff and a.diff in (r['name'], r['symbol']):
             for op, i1, i2, j1, j2 in sm.get_opcodes():
                 for k in range(max(i2 - i1, j2 - j1)):
@@ -454,8 +490,14 @@ def _match(a):
                     rgt = right[j1 + k] if j1 + k < j2 else None
                     lt = f'{lft[0]:5x} {lft[2]}' if lft else ''
                     rt = f'{rgt[0]:06x} {rgt[2]}' if rgt else ''
-                    print(f"    {' ' if op == 'equal' else '*'} {lt:44.44s} | {rt}")
+                    emit(f"    {' ' if op == 'equal' else '*'} {lt:44.44s} | {rt}")
     missing = [f'{n}@0x{x:X}' for n, xs in want.items() for x in xs]
+    if exact:
+        print(f'crediting of the {exact} exact: ' + ', '.join(f'{credit[k]} {k}' for k in CREDIT_ORDER if credit[k]))
+        if credit['tied'] or credit['short']:
+            print('  tied / short: the bytes are right but the address is credited only through evidence (an exact '
+                  'caller, D166 / call ties; a vtable slot; a named target): make a caller exact first')
+    print(NL.join(lines))
     print(f'{exact} of {total} markers exact; {len(missing)} defined but not compiled'
           + (f': {", ".join(missing)}' if missing else ''))
 

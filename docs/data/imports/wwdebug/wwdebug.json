@@ -12,6 +12,10 @@
   "0x9EE7A0",
   "0x9EE7D0",
   "0x9EE7E0",
+  "0x9EE7F0",
+  "0x9EE800",
+  "0x9EE810",
+  "0x9EE820",
   "0x9EE830",
   "0x9EE880",
   "0x9EE8D0",
@@ -20,8 +24,5 @@
   "0x9EE960"
  ],
  "merged": [],
- "name": "wwdebug.cpp",
- "short_known": [
-  "0x9EE7E0"
- ]
+ "name": "wwdebug.cpp"
 }

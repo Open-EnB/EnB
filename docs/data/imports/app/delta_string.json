@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "DeltaStringClass (D24; String from the asserts), client 0x4A78F0-0x4A8082: 9 functions and DeltaStringValueClass's Get, Set, Clone; asserts on the client's lines 28-130 (D25)",
  "expected": {},
@@ -12,6 +10,9 @@
   "0x4A3C90",
   "0x4A4E50",
   "0x4A5150",
+  "0x4A7870",
+  "0x4A78A0",
+  "0x4A78C0",
   "0x4A78F0",
   "0x4A79B0",
   "0x4A79E0",
@@ -26,7 +27,8 @@
   "0x4A7F00",
   "0x4A7F30",
   "0x4A7F50",
-  "0x4A8060"
+  "0x4A8060",
+  "0x4A80A0"
  ],
  "merged": [],
  "name": "shared/auxdata/delta_string.cpp",

@@ -86,7 +86,7 @@ extern FontManagerClass *Unknown_BE67C4;	// NAME 1: neutral (D10)
 
 // The names of the window's texts (0xB81868)
 static const char *Unknown_B81868[] = { "Go_tsm01a", "Cost_tsm01a", "Quality_Range_tsm01a", "Expected_Quality_tsm01a", "Result_tsm01a", "" };	// NAME 1: neutral (D10)
-static __int64 Unknown_BE5C20 = 5;						// NAME 1: neutral (D10): the seconds before a filter request is given back (initialised at run time, 0x5AF9D0)
+static inline __int64 Unknown_Filter_Seconds() { return 5; } static __int64 Unknown_BE5C20 = Unknown_Filter_Seconds();	// NAME 1: neutral (D10): the seconds before a filter request is given back (initialised at run time, 0x5AF9D0: a constant initialiser is static data, an inline call gives the $E; the helper is interim)
 static unsigned int Unknown_B8183C = 9;					// NAME 1: neutral (D10): the filter requests allowed
 static const float Unknown_AF2D18 = 1.0f;				// NAME 1: neutral (D10): what 0x5B3A70 stores (read from .rdata)
 

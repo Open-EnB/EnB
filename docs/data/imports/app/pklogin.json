@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "LOGIN 2's object, 0x89A740-0x89AB00 (no assert: the file name provisional, NAME 1): written by hand (builder P9)",
  "expected": {},
@@ -23,7 +21,8 @@
   "0x89A940",
   "0x89A9B0",
   "0x89AAA0",
-  "0x89AAC0"
+  "0x89AAC0",
+  "0x89AB00"
  ],
  "merged": [],
  "name": "packets/pklogin.cpp",

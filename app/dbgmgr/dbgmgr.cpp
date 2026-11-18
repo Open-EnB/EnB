@@ -20,7 +20,7 @@ struct DbgStepStruct {			// NAME 1 [DbgStepStruct]: a step of the step log, 0x5C
 	int Depth;					// +0x58 Unknown_BE59C4 at Begin_Step
 };
 
-static std::deque<DbgStepStruct> Steps;		// 0xBE5990  // NAME 1 [Steps]: Begin_Step pushes, End_Step pops
+struct DbgStepDeque : public std::deque<DbgStepStruct> { DbgStepDeque(const std::allocator<DbgStepStruct> &alloc = std::allocator<DbgStepStruct>()) : std::deque<DbgStepStruct>(alloc) {} static DbgStepDeque Steps; }; DbgStepDeque DbgStepDeque::Steps;	// 0xBE5990 (guard 0xBE59C0 bit 1; notes)  // NAME 1 [Steps]: Begin_Step pushes, End_Step pops; NAME 2 [DbgStepDeque]: the wrapper
 static bool Timing = true;					// 0xB761D8  // NAME 1 [Timing]: End_Step prints the milliseconds
 static int Unknown_BE59C4;					// 0xBE59C4, cleared by Unknown_509E70
 
@@ -151,7 +151,7 @@ void Unknown_Debug_Begin_Step(const char *buf)
 	}
 	step.End = 0;
 	step.Depth = Unknown_BE59C4;
-	Steps.push_back(step);
+	DbgStepDeque::Steps.push_back(step);
 }
 
 
@@ -160,8 +160,8 @@ void Unknown_Debug_Begin_Step(const char *buf)
 void Unknown_Debug_End_Step(const char *buf)
 {
 	G_ASSERT(buf);
-	DbgStepStruct step = Steps.back();
-	Steps.pop_back();
+	DbgStepStruct step = DbgStepDeque::Steps.back();
+	DbgStepDeque::Steps.pop_back();
 	if (Timing) {
 		step.End = Unknown_Get_Ticks();
 	}
@@ -177,11 +177,15 @@ void Unknown_Debug_End_Step(const char *buf)
 **
 ** The file is e:\build\beta\G\app\dbgmgr\dbgmgr.cpp: every assert and reporter call of 0x509C40-0x50A1E0 names it.
 ** Its functions in client order: the static deque's initializer 0x509AD0 and atexit destructor 0x509B00 (compiler
-** generated), std::deque<DbgStepStruct>::~deque 0x509B30, WWDebug's message handler 0x509C10, the output 0x509C40
+** generated), the wrapper's implicit destructor 0x509B30, WWDebug's message handler 0x509C10, the output 0x509C40
 ** (reporter by WWDebug type, then OutputDebugString of an empty 80-byte prefix, the text and a newline), the print forms
 ** 0x509D50 / 0x509DC0 / 0x509E30, the empty 0x509E50, the start 0x509E70 (installs 0x509C10, prints
 ** "Earth and Beyond"), the end 0x509EB0 (asserts the memory log's counts, then WWMemoryLogClass::Release_Log),
-** WinMain's step log 0x509EF0 / 0x50A1E0, then the deque's out-of-line members 0x50A560-0x50A810.
+** WinMain's step log 0x509EF0 / 0x50A1E0, then the wrapper's constructor 0x50A560 and the deque's out-of-line members
+** 0x50A5A0-0x50A810. Steps' initialiser calls the constructor out of line with an allocator temporary (ret 4) and
+** its atexit stub is guarded (0xBE59C0 bit 1) and tail-jumps to the out-of-line destructor: a class over the deque
+** (workflow 3.1.2) held as a class static member, not a file static (whose stub is unguarded). DbgStepDeque and
+** its holding Steps as its own member are provisional: the client names neither class.
 **
 ** 0x509EB0's assert text is 'Get_Allocate_Count() == Get_Free_Count()' with no class, and it calls the protected
 ** WWMemoryLogClass::Release_Log: E&B's code probably sat in a WWMemoryLogClass-derived scope. The forwarders above

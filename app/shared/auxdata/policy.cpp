@@ -3,7 +3,7 @@
 #include "policy.h"
 #include "delta.h"
 #include "lookup.h"
-
+int DeltaUnknownCounter;
 
 
 
@@ -546,4 +546,8 @@ void PolicyStateClass::Add(const RefCountPtr<PolicyConditionClass> &condition)
 **	what the fields below gave (a parent whose children's rules differ gets a rule of its own,
 **	DESCEND, with the smallest value), the sets' rules in one list per field ordered by action.
 **	Get_Action gives the first enabled rule's action and value (EXCLUDE when none).
+**
+**	DeltaUnknownCounter (0xBE3B44, delta.h), the counter the Delta classes' per-class globals are numbered from:
+**	placed here by .bss order (PROVISIONAL, D137): after this object's PermStringInit 0xBE3B40, before
+**	delta_visitor.cpp's 0xBE3B48; no string names it.
 */

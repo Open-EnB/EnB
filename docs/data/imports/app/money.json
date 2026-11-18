@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "money.cpp (the client's __FILE__ from 0x4F0220's asserts): so far the free operators 0x4F04C0-0x4F0740 (negate, + / -, * by a float both ways, the six comparisons), all exact",
  "expected": {},
@@ -70,7 +68,8 @@
   "0x4F18B0",
   "0x4F1980",
   "0x4F1CC0",
-  "0x4F1D50"
+  "0x4F1D50",
+  "0x4F1DF0"
  ],
  "merged": [],
  "name": "shared/money.cpp",

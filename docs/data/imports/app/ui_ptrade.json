@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x474080"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "ui_ptrade.cpp (the client's __FILE__ 0xB8513C 'e:\\build\\beta\\G\\app\\Client\\ui_ptrade.cpp'; client 0x5E1B80-0x5E3EEF by its asserts (lines 82-392) and its callers, before ui_radio_entry): UIPTradeClass (sclient.h, interim, D137), so far the constructor and destructors 0x5E1BE0-0x5E1F2F, the slots +0x5C / +0x60 / +0x68 / +0x7C, slot +0x58 0x5E26F0, the credits texts 0x5E3210 / 0x5E3340 and 0x5E3750-0x5E3EEF (PT1); not yet the set-up 0x5E1FA0 (slot +0x54) and the TRADE 31 handlers 0x5E2F70 / 0x5E3050 / 0x5E3130 (clienttest's stand-ins, D182)",
  "expected": {},
@@ -13,6 +11,7 @@
   "0x42D050",
   "0x42F250",
   "0x45CC10",
+  "0x474080",
   "0x4740B0",
   "0x497300",
   "0x4A1930",
@@ -75,6 +74,8 @@
   "0x5921C0",
   "0x5921F0",
   "0x598A10",
+  "0x5E1B90",
+  "0x5E1BC0",
   "0x5E1BE0",
   "0x5E1D50",
   "0x5E1D80",
@@ -111,6 +112,7 @@
   "0x42D050",
   "0x42F250",
   "0x45CC10",
+  "0x474080",
   "0x4740B0",
   "0x497300",
   "0x4A1930",

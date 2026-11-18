@@ -28,6 +28,7 @@ bool Lego_Type_From_Name(const char *name, int *type);			// 0x843890 (l.75)  // 
 class LegoIdentifierClass	// NAME 3: by convention from the client's lego_identifier.cpp (D24)
 {
 public:
+	static std::string EmptyName;	// 0xBF3598: an empty identifier's name (atexit 0x843790, guarded: a static member)  // NAME 2: what it holds
 	LegoIdentifierClass();										// 0x843910
 	LegoIdentifierClass(const std::string &name);				// 0x843970
 	LegoIdentifierClass(const LegoIdentifierClass &src);		// 0x843B50

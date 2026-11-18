@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "client 0x78CEE0-0x78E190, the run between avatar.cpp and nlp.cpp (PROVISIONAL file name, D10: no __FILE__): the creator's constructor (registry, folders; D69: never run), the byte sum, Make_Folder, the name's Set_Name / Write / Read / Get_Size; exact; the avatar files' functions 0x78D480-0x78DE40 not yet",
  "expected": {},
@@ -25,7 +23,8 @@
   "0x78E0A0",
   "0x78E0E0",
   "0x78E110",
-  "0x78E140"
+  "0x78E140",
+  "0x78E160"
  ],
  "merged": [],
  "name": "client/unknown_creator.cpp",

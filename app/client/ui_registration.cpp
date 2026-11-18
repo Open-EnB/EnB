@@ -36,7 +36,7 @@
 #define __UI_REGISTRATION_MEMBERS
 #include "ui_registration.h"
 extern FontManagerClass *Unknown_BE67C4;  // NAME 1: 0xBE67C4
-
+inline SubsBundleStruct::~SubsBundleStruct() {}	// visible here (one line: the asserts' __LINE__): ~RegistrationUnknown568Struct 0x449CC0 inlines it and its unwind calls the COMDAT 0x60A3E0
 // What the text gadgets get by field (their dynamic initializers open the object, 0x5EED20-0x5EF0A0), and the characters they also allow (client .data 0xB85ECC)
 extern const int Unknown_B08C90;  // NAME 1 [Unknown_B08C90]: 0xB08C90 (textgadg.h's flags)
 extern const int Unknown_B08C94;  // NAME 1 [Unknown_B08C94]: 0xB08C94 (textgadg.h's flags)

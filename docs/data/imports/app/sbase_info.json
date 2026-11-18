@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "RECONSTRUCTED: the starbase tables (client 0x6974F0-0x69ABC0, __FILE__ 'e:\\build\\beta\\G\\app\\Client\\sbase_info.cpp'): the NPC, facility, room and starbase classes, their Add_ / Find_ functions (asserts on lines 163-238) and the LOUNGE_NPC loader 0x6987A0 (lines 345-382), then the SGI hash_map instances",
  "expected": {},
@@ -70,7 +68,8 @@
   "0x69A7A0",
   "0x69A7D0",
   "0x69A9A0",
-  "0x69A9D0"
+  "0x69A9D0",
+  "0x69ABA0"
  ],
  "merged": [],
  "name": "client/sbase_info.cpp",

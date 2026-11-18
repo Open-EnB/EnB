@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "E&B's 3-D movie sounds (Movie3DSoundClass, 0x7EDCB0-0x7EEF50): G_ASSERT 'false' l.160 with __FILE__ e:\\build\\beta\\G\\app\\Client\\mv3dsnd.cpp; movie3d.ini SFX keys 'FPS', 'Name', 'Bone', 'Time%d', 'Duration%d', 'Anim'; List tables 0xB079F4 / 0xB079F8",
  "expected": {},
@@ -28,7 +26,8 @@
   "0x7EED40",
   "0x7EED80",
   "0x7EEDB0",
-  "0x7EEE00"
+  "0x7EEE00",
+  "0x7EEF30"
  ],
  "merged": [],
  "name": "client/mv3dsnd.cpp",

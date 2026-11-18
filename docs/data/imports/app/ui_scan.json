@@ -1,8 +1,7 @@
 {
  "ambiguous": [
   "0x42B2F0",
-  "0x474080",
-  "0x5BBB00"
+  "0x474080"
  ],
  "copy": "reconstructed",
  "description": "UIScanClass (D24 class-from-file), the cockpit's scanner over Unknown5BE980Class, client 0x60D750-~0x610560 (__FILE__ 0xB8899C; asserts '!UIMesh' l.270, 'UIMesh' l.178, 'robj' l.185 / 224, 'false' l.468, '!Client' / '!sclient' / '!ts' l.733-739): constructor 0x60D800, slots +0x54 0x60D8D0, +0x58 0x60E1E0, +0x5C 0x60E2C0, +0x60 0x60E480, +0x68 0x60E300, +0x88 0x60E580, 0x60E540, destructor 0x60DF90 (WE9)",
@@ -45,7 +44,10 @@
   "0x546710",
   "0x57DBF0",
   "0x57DC20",
+  "0x5BBB00",
   "0x5BBB30",
+  "0x60D780",
+  "0x60D7B0",
   "0x60D7D0",
   "0x60D800",
   "0x60D8A0",

@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "E&B's movie client (MovieClientClass, 0x7EC3E0-0x7ED140): G_ASSERT 'RSLRegistry' l.83 with __FILE__ e:\\build\\beta\\G\\app\\Client\\mclient.cpp; vtable 0xB07864, the view callback's 0xB078D4",
  "expected": {},
@@ -28,7 +26,8 @@
   "0x7ECD80",
   "0x7ED090",
   "0x7ED0C0",
-  "0x7ED100"
+  "0x7ED100",
+  "0x7ED120"
  ],
  "merged": [],
  "name": "client/mclient.cpp",

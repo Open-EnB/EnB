@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "TargetingClass (name from the asserts' 'targeting', file name provisional: D137), TargetFindClass's selection through REQUEST_TARGET (client 0x7C6120-0x7C636F, bounded by <string>'s initialisers 0x7C60F0 / 0x7C6350) (TR1)",
  "expected": {},
@@ -27,7 +25,8 @@
   "0x7C6220",
   "0x7C6250",
   "0x7C6280",
-  "0x7C62B0"
+  "0x7C62B0",
+  "0x7C6350"
  ],
  "merged": [],
  "name": "client/targeting.cpp",
