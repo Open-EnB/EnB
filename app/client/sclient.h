@@ -813,7 +813,7 @@ public:
 	void Unknown_802B20();								// 0x802B20 (G_ASSERTs '*itor' l.1142, '!"Invalid command.  Ending Movie"' 1149): the script run up to the movie's time
 	void Unknown_8022C0(float time);					// 0x8022C0 (FAIL_IF 'ScriptedScene == NULL', l.832): the ambient light's fade one step on  // NAME 1 [time]: what the fade gets
 	void Unknown_802330(float time);					// 0x802330 (FAIL_IF 'ScriptedScene == NULL', l.855): the fog colour's fade one step on  // NAME 1 [time]: what the fade gets
-	void Unknown_8023A0(bool on);						// 0x8023A0 (G_ASSERT 'ClientInterface', l.877)  // NAME 1 [on]: neutral
+	virtual void Unknown_18(bool on);					// +0x18 0x8023A0 (the client's table 0xB07C84 holds it at ViewClass's +0x18; G_ASSERT 'ClientInterface', l.877)  // NAME 1 [on]: neutral
 	void Unknown_802900();								// 0x802900: +0x6D set once +0x6C is
 	void Unknown_802AD0(int arg);						// 0x802AD0: every sound of +0xF0 gets arg twice (0x7ED6C0)  // NAME 1 [arg]: neutral
 	static void Unknown_802D30(); void Unknown_8099B0(const char *filename);	// 0x802D30 (G_ASSERT 'AssetManager', l.1178; the destructor inlines it): the unused assets released, the mesh renderer invalidated; 0x8099B0 (G_ASSERTs 'filename' l.3632, 'scriptfile' 3634; the constructor passes arg): the script loaded  // NAME 2 [filename]: the assert's
