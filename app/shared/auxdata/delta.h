@@ -81,7 +81,7 @@ public:
 
 // Per-class globals stored at +0x04 (E&B's own type information, rtti.h?): DeltaClass 0xBE3A78,
 // DeltaCompoundClass 0xBE3A74 (its static UnknownGlobal: rtti.h's cast 0x598D80 compares it).
-extern int DeltaUnknownGlobal;  // NAME 1: neutral (D10)
+extern int DeltaUnknownGlobal; extern int DeltaUnknownCounter;  // NAME 1: neutral (D10); the counter (0xBE3B44) numbers them
 
 // vtable 0xAEAD70, size 0x84
 class DeltaClass : public DeltaInterfaceClass  // NAME 3: by convention (D24) from the client's file delta.cpp (D37; earlier research notes: DeltaBase)

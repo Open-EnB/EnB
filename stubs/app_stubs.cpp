@@ -43,9 +43,6 @@
 
 // ------------------------------------------------------------------------- globals (data)
 
-int DeltaUnknownGlobal = 0;					// delta.h
-int DeltaCompoundClass::UnknownGlobal = 0;	// 0xBE3A74
-int DeltaStringClass::UnknownGlobal = 0;	// 0xBE3A9C
 
 // ------------------------------------------------------------------------- strconv_lib.h
 

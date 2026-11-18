@@ -15,7 +15,7 @@
 
 
 
-
+int DeltaStringClass::UnknownGlobal = DeltaUnknownCounter++;
 DeltaStringClass::DeltaStringClass(const char *name, const char *string) :
 	DeltaClass(name),
 	String(0)

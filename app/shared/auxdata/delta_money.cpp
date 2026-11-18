@@ -22,7 +22,7 @@ void DeltaTemplateClass<MoneyClass>::Set_Value(const MoneyClass &value) { if (!(
 // The per-class global (0xBE3A94), the constructor (0x4A7080, delta_template.h's body) and the
 // destructor (0x4A7100): delta_money.h's specialisation declares every member out of line, so the
 // roots call the constructor and destructor as the client does (EH state before the destructor)
-int DeltaTemplateClass<MoneyClass>::UnknownGlobal = 0;
+int DeltaTemplateClass<MoneyClass>::UnknownGlobal = DeltaUnknownCounter++;
 
 DeltaTemplateClass<MoneyClass>::DeltaTemplateClass(const char *name, const MoneyClass &value) :
 	DeltaClass(name),

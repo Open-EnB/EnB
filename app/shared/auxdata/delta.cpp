@@ -2,7 +2,7 @@
 #include "delta.h"
 #include "lookup.h"
 #include "..\g_assert.h"
-
+int DeltaUnknownGlobal = DeltaUnknownCounter++; int DeltaCompoundClass::UnknownGlobal = DeltaUnknownCounter++;
 DeltaClass::DeltaClass(const char *name) :
 	Name(name),
 	FullName(name),
@@ -268,4 +268,14 @@ void DeltaCompoundClass::Add(DeltaClass *child)
 **	size() is dead code, but it spends VC6's inline budget, so the last size() of the inlined
 **	insert is called out of line (0x4A58C0) as in the client; without it VC6 inlines that one too
 **	(D40; `Children.capacity();` or a dead `if` on size() do the same, `end()`/`begin()` don't).
+**
+**	The per-class globals are numbered at start-up from the counter DeltaUnknownCounter (0xBE3B44): the
+**	client's CRT table lists this object's initialisers 0x4A4CE0 (DeltaUnknownGlobal 0xBE3A78) and 0x4A4D10
+**	(DeltaCompoundClass::UnknownGlobal 0xBE3A74), `mov eax,[0xBE3B44]; mov [g],eax; inc eax; mov [0xBE3B44],eax`,
+**	after the header's PermStringInit pair and before the constructor 0x4A4D40. delta_money.cpp (0x4A7050),
+**	delta_string.cpp (0x4A78C0) and delta_time.cpp (0x4A8120) number theirs the same way. The template
+**	classes' globals (DeltaTemplateClass<T>, DeltaArrayClass<T>, DeltaItemArrayClass<T>) are numbered the same
+**	way in the client, one initialiser per object at its end (0x529580 numbers six), but here every
+**	aux_roots.h includer would number all thirty of them: they stay zero-initialised until the headers are
+**	split as the client's objects see them (XI, 2026-11-17).
 */
