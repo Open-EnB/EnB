@@ -68,7 +68,8 @@
   "0x70D6D0",
   "0x70D800",
   "0x70D860",
-  "0x70DA40"
+  "0x70DA40",
+  "0x70DB70"
  ],
  "merged": [],
  "name": "client/co_player_relationship.cpp",

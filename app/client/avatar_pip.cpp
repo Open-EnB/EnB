@@ -17,7 +17,7 @@
 #include "sphere.h"
 #include "aabox.h"
 #include "wwmath.h"
-
+#include "aux_player.h"	// the player's constructors (0x7E49C0 / 0x7E4A30 number them)
 RefCountPtr<RenderObjClass> Unknown_497300(RenderObjClass *robj);	// 0x497300 (cdecl, ro_funcs.cpp's neighbourhood)  // NAME 1 [robj]: as ui_avatr.cpp's
 template<class C> inline C *Unknown_Find_Valid(DeltaCompoundClass *root, const NameClass &name) { C *t = Unknown_Find_Field<C>(root, name); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10): as co.cpp's
 

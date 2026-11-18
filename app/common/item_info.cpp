@@ -1,7 +1,7 @@
 // Earth & Beyond client (reconstruction): app\common\item_info.cpp
 // Client 0x83E7C0-0x842930: an item's info (its typed fields and two effect descriptions). Notes at the end of the file.
 #include "item_info.h"
-#include <stdio.h>
+#include "..\client\aux_item.h"	// the item family's constructors (0x529580 numbers them); <stdio.h> through aux_roots.h
 #include <stdlib.h>
 #include <string.h>
 #include "..\packets\pk.h"

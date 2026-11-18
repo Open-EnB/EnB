@@ -2,7 +2,7 @@
 #include "starmap_pip_support.h"
 #include "..\shared\g_assert.h"
 #include "vector3.h"
-
+#include "aux_group.h"	// the group constructors (0x7C3E20 / 0x7C3E50 number them)
 
 StarmapPipSupportClass::StarmapPipSupportClass() :
 	Unknown_466920Class(Vector3(0.0f, 0.0f, 0.0f), Vector3(1.0f, 1.0f, 1.0f), 2.0f, 0.8f, 0.8f, 0.8f, 0.8f),

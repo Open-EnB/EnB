@@ -1,5 +1,7 @@
 {
- "ambiguous": [],
+ "ambiguous": [
+  "0x529580"
+ ],
  "copy": "reconstructed",
  "description": "RECONSTRUCTED: client 0x83E7C0-0x842930, ItemBaseInfoClass (an item's typed fields and two effect descriptions) and _ItemField's type table 0xBF34E0; the file name and 29 assert lines are the client's (e:\\build\\beta\\G\\app\\Common\\item_info.cpp)",
  "expected": {},

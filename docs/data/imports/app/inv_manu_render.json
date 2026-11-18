@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "InvManuRenderClass (D24 class-from-file), an inventory slot on the manufacturing screen (the client's __FILE__ 0xB900CC, asserts on lines 121-160; object 0x68B370-0x68BEFA, permstr.h's initialiser 0x68BEC0 ends it) (IR2)",
  "expected": {},
@@ -29,7 +27,9 @@
   "0x68B980",
   "0x68BCF0",
   "0x68BD60",
-  "0x68BDA0"
+  "0x68BDA0",
+  "0x68BE10",
+  "0x68BE50"
  ],
  "merged": [],
  "name": "client/inv_manu_render.cpp",

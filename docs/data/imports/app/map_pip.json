@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "MapPipClass (D24 class-from-file), the map picture-in-picture views' base (the client's __FILE__ 0xB909E0; client 0x6927C0-0x693020) (MP1)",
  "expected": {},
@@ -26,7 +24,9 @@
   "0x693020",
   "0x693040",
   "0x693060",
-  "0x693090"
+  "0x693090",
+  "0x6930C0",
+  "0x6930F0"
  ],
  "merged": [],
  "name": "client/map_pip.cpp",

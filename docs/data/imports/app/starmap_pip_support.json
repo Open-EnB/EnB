@@ -4,6 +4,7 @@
  "description": "StarmapPipSupportClass (D24 class-from-file), the map PIPs' range lines (the client's __FILE__ 0xB9F7AC; client 0x7C3AC0-0x7C3EB3 by its asserts, lines 151-162; 0x7C3A90 before it is called only from starmap_pip.cpp's window, 0x7C3F10 up reaches target_find.cpp's literals) (PS1)",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x42F250",
   "0x45CC10",
   "0x4627A0",
@@ -90,12 +91,15 @@
   "0x7C3BC0",
   "0x7C3C60",
   "0x7C3CA0",
+  "0x7C3E20",
+  "0x7C3E50",
   "0x7C3EA0",
   "0x7C3EB0"
  ],
  "merged": [],
  "name": "client/starmap_pip_support.cpp",
  "shared": [
+  "0x42B320",
   "0x42F250",
   "0x45CC10",
   "0x4627A0",
@@ -181,6 +185,7 @@
   "0x7C3EB0"
  ],
  "short_known": [
+  "0x42B320",
   "0x4627A0",
   "0x4628D0",
   "0x4628F0",

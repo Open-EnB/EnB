@@ -14,7 +14,7 @@
 #include "ffactory.h"
 #include "wwfile.h"
 #include "nstrdup.h"
-#include <stdio.h>
+#include "..\aux_lego.h"	// the lego constructors (0x76D2C0 numbers them); <stdio.h> through aux_roots.h
 #include <string>
 #include "..\client.h"
 #include "..\mclient.h"						// MovieClientClass (0x1178 bytes, vtable 0xB07864)

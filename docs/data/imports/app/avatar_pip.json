@@ -1,6 +1,5 @@
 {
  "ambiguous": [
-  "0x42B2F0",
   "0x4982F0"
  ],
  "copy": "reconstructed",
@@ -34,7 +33,9 @@
   "0x7E43E0",
   "0x7E4740",
   "0x7E4940",
-  "0x7E4980"
+  "0x7E4980",
+  "0x7E49C0",
+  "0x7E4A30"
  ],
  "merged": [],
  "name": "client/avatar_pip.cpp",
