@@ -533,7 +533,7 @@ bool GalaxyMapRenderClass::Unknown_7A7560()
 	return(changed);
 }
 
-// NOT EXACT: written from the client's code (see attempts.csv)
+// NOT EXACT: order: the calls and inlining are the client's (0x7ADFC0 inlined with both 0x7AC070s); the client squares the inlined lengths' components in another x87 order (x, z, y)
 void GalaxyMapRenderClass::Unknown_7A7D70(bool changed)
 {
 	if (changed) {
@@ -1504,7 +1504,7 @@ void GalaxyMapRenderSectorClass::Unknown_7AC070(bool invert)
 	Set_Color(Unknown_7ABA70(color, invert));
 	Name->Set_Color(color);
 }
-// NOT EXACT: written from the client's code (see attempts.csv)
+// NOT EXACT: frame: the calls and inlining are the client's (0x7AC070 as its layer, insert(P, x)); frame 0xb0 vs 0xa4: the client shares the colour's slot with the sorted branch's position
 
 
 void GalaxyMapRenderSectorClass::Unknown_7AC130(bool visible, bool show_gates, bool show_name, bool place_name)
@@ -1515,9 +1515,9 @@ void GalaxyMapRenderSectorClass::Unknown_7AC130(bool visible, bool show_gates, b
 
 	FAIL_IF(!robj) { return; }
 	robj->Set_Hidden(!visible);
-	Vector3 color;
-	Set_Color(Unknown_7ABA70(color, place_name));
-	Name->Set_Color(color);
+	Unknown_7AC070(place_name);
+
+
 	std::vector<float> angles;
 	for (std::vector<RefCountPtr<GalaxyMapRenderGateClass> >::iterator it = Gates.begin(); it != Gates.end(); ++it) {
 		float angle = (*it)->Unknown_7AD090(visible, show_gates, place_name);
@@ -1525,31 +1525,26 @@ void GalaxyMapRenderSectorClass::Unknown_7AC130(bool visible, bool show_gates, b
 	}
 	if (place_name) {
 		Matrix3D tm(true);
-		if (angles.empty()) {
-			Vector3 pos = robj->Get_Position();
-			tm.Set_Translation(tm.Get_Y_Vector() * 2.0f + pos);
-			Name->Set_Transform(tm);
-			Name->Set_Justify(2, 0);
-		} else {
+		if (!angles.empty()) {
 			std::sort(angles.begin(), angles.end());
 			float first = angles.back() - (2.0f * WWMATH_PI);
 			float last = angles.front() + (2.0f * WWMATH_PI);
-			angles.insert(angles.begin(), 1, first);
+			angles.insert(angles.begin(), first);
 			angles.push_back(last);
 			float gap = 0.0f;
 			float start = first;
 			float prev = first;
 			for (std::vector<float>::iterator f = angles.begin(); f != angles.end(); ++f) {
-				float d = *f - prev;
+				float a = *f; float d = a - prev;
 				if (gap < d) { gap = d; start = prev; }
-				prev = *f;
+				prev = a;
 			}
-			float angle = gap * 0.5 + start;
+			Matrix3D rot(true);
+			float angle = gap * 0.5f + start;
 			if (angle >= WWMATH_PI) { angle -= (2.0f * WWMATH_PI); }
 			if (angle < -WWMATH_PI) { angle += (2.0f * WWMATH_PI); }
 			angle = WWMath::Clamp(angle, -WWMATH_PI, WWMATH_PI);
 			float dist = 2.0f;
-			Matrix3D rot(true);
 			if (fabs(angle) <= DEG_TO_RADF(90.0f)) {
 				rot.Rotate_Z(angle);
 				Name->Set_Justify(0, 3);
@@ -1561,6 +1556,11 @@ void GalaxyMapRenderSectorClass::Unknown_7AC130(bool visible, bool show_gates, b
 			Vector3 pos = robj->Get_Position();
 			rot.Set_Translation(rot.Get_X_Vector() * dist + pos);
 			Name->Set_Transform(rot);
+		} else {
+			Vector3 pos = robj->Get_Position();
+			tm.Set_Translation(tm.Get_Y_Vector() * 2.0f + pos);
+			Name->Set_Transform(tm);
+			Name->Set_Justify(2, 0);
 		}
 		Name->Unknown_6CE7D0(0);
 		if (!Name->Peek_Scene()) { Name->Add(robj->Peek_Scene()); }
@@ -1986,8 +1986,8 @@ void GalaxyMapRenderGateClass::Unknown_7ADFC0(const Vector3 &a, const Vector3 &b
 {
 	Vector3 pos;
 	To->Get_Position(pos);
-	float da = (a - pos).Length(); float db = (b - pos).Length();
-	bool flipped = da > db;
+	bool flipped = (a - pos).Length() > (b - pos).Length();
+
 	if (flipped != Flipped) {
 		Flipped = flipped;
 		To->Unknown_7AC070(!Flipped);
