@@ -1,7 +1,7 @@
 // Earth & Beyond client (reconstruction)
 /*
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
-**	Original location: e:\build\beta\G\app\display\display.cpp (client 0x442AC0-0x443003)
+**	Original location: e:\build\beta\G\app\display\display.cpp (client 0x442A00-0x443003)
 **
 **	The display handler: WinMain's start-up (0x442AC0) picks the render device from the registry
 **	(read only), sets the window's size, registers the WM_PAINT handler and E&B's three prototype
@@ -43,35 +43,35 @@ struct UnknownDisplayStruct							// NAME 1 [UnknownDisplayStruct]: neutral (D10
 	int Bits;										// NAME 2 [Bits]: Registry_Load_Render_Device's depth
 	int Windowed;									// NAME 2 [Windowed]: Registry_Load_Render_Device's argument
 	int TextureDepth;								// NAME 2 [TextureDepth]: the assert text 'texture depth'
+
+	UnknownDisplayStruct();							// 0x442A00
+	UnknownDisplayStruct(const char *name, int width, int height, int bits, int windowed, int texturedepth);	// 0x442A40  // NAME 1 [name, width, height, bits, windowed, texturedepth]: the members they set
 };
 
 int Unknown_BDADB8;									// 0xBDADB8: the display's window (0: no display)  // NAME 1 [Unknown_BDADB8]: as main_client.cpp
 
 static int Unknown_442FA0(int message, int wparam);	// NAME 1 [Unknown_442FA0, message, wparam]: neutral (D10)
+// @0x442A00
+UnknownDisplayStruct::UnknownDisplayStruct()
+{
+	Width = -1;
+	Height = -1;
+	Bits = -1;
+	Windowed = -1;
+	TextureDepth = -1;
+	Name[0] = 0;
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// @0x442A40
+UnknownDisplayStruct::UnknownDisplayStruct(const char *name, int width, int height, int bits, int windowed, int texturedepth)
+{
+	Width = width;
+	Height = height;
+	Bits = bits;
+	Windowed = windowed;
+	TextureDepth = texturedepth;
+	strcpy(Name, name);
+}
 
 
 
@@ -202,23 +202,23 @@ void Unknown_442AC0(HWND window)						// NAME 1 [Unknown_442AC0]: as main_client
 {
 	Unknown_BDADB8 = (int)window;
 
-	UnknownDisplayStruct current;					// NAME 1 [current]: neutral (D10)
-	current.Width = 800;
-	current.Height = 600;
-	current.Bits = 32;
-	current.Windowed = 0;
-	current.TextureDepth = 32;
-	strcpy(current.Name, "DirectX7(0)");
+	UnknownDisplayStruct current("DirectX7(0)", 800, 600, 32, 0, 32);	// NAME 1 [current]: neutral (D10)
+
+
+
+
+
+
 
 	WW3D::Set_Default_Native_Screen_Size(0.25f);
 
 	UnknownDisplayStruct reg;						// NAME 1 [reg]: neutral (D10)
-	reg.Width = -1;
-	reg.Height = -1;
-	reg.Bits = -1;
-	reg.Windowed = -1;
-	reg.TextureDepth = -1;
-	reg.Name[0] = 0;
+
+
+
+
+
+
 	if (WW3D::Registry_Load_Render_Device("Software\\Westwood Studios\\Earth and Beyond\\Render", reg.Name, sizeof(reg.Name),
 			reg.Width, reg.Height, reg.Bits, reg.Windowed, reg.TextureDepth)) {
 		if (reg.Name[0] != 0) {
@@ -306,12 +306,15 @@ void Unknown_442FF0()								// NAME 1 [Unknown_442FF0]: as main_client.cpp
 /*
 **	Reconstruction notes
 **
-**	client.exe: display.cpp's object, 0x442AC0-0x443003 (__FILE__ in the texture depth report, line
+**	client.exe: display.cpp's object, 0x442A00-0x443003 (__FILE__ in the texture depth report, line
 **	260). Exact: the start-up 0x442AC0, its WM_PAINT handler 0x442FA0 (file-local; the tools'
 **	function starts lack it, so appfile reports 0x442AC0 PREFIX), the shut-down 0x442FF0. Its
 **	static is the window 0xBDADB8 (kernel.cpp's statics follow at 0xBDADBC).
 **	The two settings blocks are one struct: the client keeps both at 0x114-byte strides (name, then
 **	width, height, bits, windowed, texture depth), the registry's filled by Registry_Load_Render_Device.
+**	Its two constructors are the object's first functions, 0x442A00 (every field -1, empty name) and
+**	0x442A40 (the fields, then the name copied), out of line and uncalled: the start-up inlines both
+**	(the stores come in the constructors' order).
 **	The '-NOTFC' test builds a name ("G-<device>-<bits>", else "G") into the registry block's buffer
 **	and nothing reads it: the client's code as compiled. The stores 0xBB964C (0.25) and 0xBFAEA5 (1)
 **	are WW3D::DefaultNativeScreenSize and ThumbnailManagerClass::CreateThumbnailIfNotFound; the three
