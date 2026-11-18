@@ -85,6 +85,43 @@ class ClientImage:
             va += 1; o += 1; misses += 1
         return out
 
+    # D246 (SX, CR2's D27 proposal, run 2026-11-17c): two more kinds of start.
+    # USE_JMP_PAD_STARTS: the start after inter-function padding whose code before it ends on a `jmp rel32` (E9 at
+    # five bytes before the padding; the old test reads the operand's last byte there, so 0x917870 / 0x917890 were
+    # missed): +2,833 (2,651 of them the EH stub area's frame-handler thunks, 182 library starts). A boundary whose
+    # first dword points up to 4 KB back is a switch's jump table, not a start (0x9BBE30, inside exact 0x9BBD10).
+    # USE_CRT_REGISTERED_STARTS: the CRT initialiser table's entries (.CRT$XCU merged into .data, XCU_TABLE) and
+    # every `push imm32; call atexit` operand: the CRT calls each entry and atexit each registered address, so each
+    # is a function's entry (incremental linking reaches many through no thunk and no call): +1,275 (1,167 in the
+    # application range), 28 of them also found by the first kind. Together +4,080, none inside an exact function
+    # (symbols.json lengths) or reached by a branch of the function before it; verify's pairs unchanged.
+    USE_JMP_PAD_STARTS = True
+    USE_CRT_REGISTERED_STARTS = True
+    XCU_TABLE = (0xB6C000, 0xB6D700)
+    ATEXIT = 0xA25F00
+
+    def crt_initialisers(self):
+        """The non-zero entries of the CRT initialiser table (.CRT$XCU merged into .data, XCU_TABLE), in table
+        order: the initialisers of every object, in link order."""
+        out = []
+        for va in range(self.XCU_TABLE[0], self.XCU_TABLE[1], 4):
+            o = self.offset(va)
+            v = struct.unpack_from('<I', self.data, o)[0] if o is not None else 0
+            if v:
+                out.append(v)
+        return out
+
+    def crt_registered_starts(self):
+        """The CRT initialiser table's entries and the `push imm32; call atexit` operands that lie in .text."""
+        ts, te, raw = self.section('.text')
+        body = self.data[raw:raw + te - ts]
+        out = set(self.crt_initialisers())
+        for m in re.finditer(rb'\x68(....)\xE8', body, re.S):
+            o = m.start() + 5
+            if ts + o + 5 + struct.unpack_from('<i', body, o + 1)[0] == self.ATEXIT:
+                out.add(struct.unpack('<I', m.group(1))[0])
+        return {a for a in out if ts <= a < te}
+
     def function_starts(self, verified=True):
         """Function entry points, and the incremental thunk table.
 
@@ -103,6 +140,9 @@ class ClientImage:
         long int3 run (the linker's fill, `fill_runs()`) the 1-15 byte rule fired every 240 bytes,
         1,734 false starts in 0xA420AC-0xAA1C00 and 0xAE2830-end. No call targets change (int3
         decodes one byte at a time, so the sweep resynchronises at the same seeds).
+
+        USE_JMP_PAD_STARTS and USE_CRT_REGISTERED_STARTS (above) add the padding boundary after a
+        `jmp rel32` and the CRT-registered entries (initialiser table, atexit operands).
         """
         start, end, raw = self.section('.text')
         thunks = self.incremental_thunks()
@@ -118,6 +158,11 @@ class ClientImage:
                 prev = body[lib_off + m.start() - 1]
                 if prev in (0xC3, 0xC2, 0xCC, 0xE9) or body[lib_off + m.start() - 3] == 0xC2:
                     starts.add(va)
+                elif (self.USE_JMP_PAD_STARTS and body[lib_off + m.start() - 5] == 0xE9
+                      and not va - 0x1000 <= struct.unpack_from('<I', body, va - start)[0] < va):
+                    starts.add(va)      # not a switch's jump table (its entries point back into its function)
+        if self.USE_CRT_REGISTERED_STARTS:
+            starts |= self.crt_registered_starts()
         if verified:
             calls = self._swept_calls(sorted(starts | {start}), start, end, body)
         else:
