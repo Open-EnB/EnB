@@ -300,14 +300,16 @@ APP_REGION = (0x401000, 0x8C1B50)
 
 class ShortOrder(unittest.TestCase):
     def test_cases(self):
-        _check(self, SHORT_ORDER, 'USE_SHORT_ORDER', 'short_order', off_status='short')
+        # CR2: cr2_tiling places them too (the gap's bytes tiled)
+        _check(self, SHORT_ORDER, 'USE_SHORT_ORDER', 'short_order', off_status='short', also_off=('USE_CR2_TILING',))
 
 
 class GapOrder(unittest.TestCase):
     def test_cases(self):
         # with the gap round off, the edge round (USE_EDGE_ORDER) and the gap-edge round (USE_EX_GAP_EDGE) place them
         # at the same addresses
-        _check(self, GAP_ORDER, 'USE_GAP_ORDER', 'gap_order', APP_REGION, also_off=('USE_EDGE_ORDER', 'USE_EX_GAP_EDGE'))
+        _check(self, GAP_ORDER, 'USE_GAP_ORDER', 'gap_order', APP_REGION, also_off=('USE_EDGE_ORDER', 'USE_EX_GAP_EDGE', 'USE_CR2_TILING',
+                                                                                     'USE_CR2_DATA_AGREE'))
 
 
 class EdgeOrder(unittest.TestCase):
@@ -517,6 +519,79 @@ class NamedAwayAlone(unittest.TestCase):
         finally:
             objmatch.USE_NAMED_AWAY_ALONE = True
         self.assertEqual((r['status'], r['addresses']), ('exact', ['0x9DA8C0']))
+
+
+W3D_OBJS = os.environ.get('OBJMATCH_W3D_OBJS', os.path.join(MAIN, 'build', 'ww3d2', 'obj'))
+
+
+def _one(test, path, region, off=()):
+    if not os.path.exists(path):
+        test.skipTest(f'{path} missing')
+    img = objmatch.ClientImage(objmatch.DEFAULT_CLIENT)
+    for sw in off:
+        setattr(objmatch, sw, False)
+    try:
+        return {r['symbol']: r for r in objmatch.match_objects(img, [path], region)}
+    finally:
+        for sw in off:
+            setattr(objmatch, sw, True)
+
+
+class Cr2Tiling(unittest.TestCase):
+    """D246 (CR2): ww3d.obj's forwarders between the exact Toggle_Windowed 0x917850 and Set_Device_Resolution 0x9178A0
+    tile the client's bytes (jmp 0x917860 / call 0x917870 / jmp 0x917880 / call 0x917890); the verified starts hold
+    only the jmps, so short_order's count test fails (`cr2_tiling`)."""
+    CASES = [('WW3D::Get_Render_Device', '0x917860'), ('WW3D::Get_Render_Device_Desc', '0x917870'),
+             ('WW3D::Get_Render_Device_Count', '0x917880'), ('WW3D::Get_Render_Device_Name', '0x917890')]
+
+    def test_cases(self):
+        path = os.path.join(W3D_OBJS, 'ww3d.obj')
+        res = {r['name']: r for r in _one(self, path, None).values()}
+        for name, addr in self.CASES:
+            with self.subTest(name=name):
+                self.assertEqual((res[name]['status'], res[name]['addresses']), ('exact', [addr]))
+                self.assertTrue(res[name].get('cr2_tiling'))
+        res = {r['name']: r for r in _one(self, path, None, ('USE_CR2_TILING',)).values()}
+        self.assertEqual(res['WW3D::Get_Render_Device']['status'], 'short')
+
+
+class Cr2DataAgree(unittest.TestCase):
+    """D246 (CR2): unknown_7196c0.obj's two qsort comparators have the same bytes at 0x7196C0 and 0x719730 but read
+    Info+0xC / Info+0x10: only 0x7196C0 = Unknown_7196C0, 0x719730 = Unknown_719730 gives Info one address
+    (`cr2_data`)."""
+    def test_cases(self):
+        path = os.path.join(OBJS, 'unknown_7196c0.obj')
+        res = _one(self, path, APP_REGION)
+        for sym, addr in (('?Unknown_7196C0@@YAHPBX0@Z', '0x7196C0'), ('?Unknown_719730@@YAHPBX0@Z', '0x719730')):
+            with self.subTest(sym=sym):
+                self.assertEqual((res[sym]['status'], res[sym]['addresses']), ('exact', [addr]))
+                self.assertTrue(res[sym].get('cr2_data'))
+        res = _one(self, path, APP_REGION, ('USE_CR2_DATA_AGREE',))
+        self.assertEqual(res['?Unknown_7196C0@@YAHPBX0@Z']['status'], 'multiple')
+
+
+SLNODE_POOL = '?Allocator@?$AutoPoolClass@VGenericSLNode@@$0BAA@@@0V?$ObjectPoolClass@VGenericSLNode@@$0BAA@@@A'
+
+
+class Cr2ExternData(unittest.TestCase):
+    """D246 (CR2): slnode.obj's initialiser $E6 zeroes GenericSLNode's pool, which app's exact 0x42FD10 places at
+    0xC1CD60 (another library's DIR32 field, passed as extern data): the CRT table entry 0x9CEDA0 is the one where
+    D80 confirms it (dx8renderer's $E252 has the same bytes for its own pool), its atexit stub $E3 0x9CEDD0."""
+    def test_cases(self):
+        path = os.path.join(MAIN, 'build', 'wwlib', 'obj', 'slnode.obj')
+        if not os.path.exists(path):
+            self.skipTest(f'{path} missing')
+        img = objmatch.ClientImage(objmatch.DEFAULT_CLIENT)
+        ext = {objmatch.CR2_DATA_PREFIX + SLNODE_POOL: {0xC1CD60}}
+        res = {r['symbol']: r for r in objmatch.match_objects(img, [path], None, extern_called=ext)}
+        self.assertEqual((res['_$E6']['status'], res['_$E6']['addresses']), ('exact', ['0x9CEDA0']))
+        self.assertEqual((res['_$E3']['status'], res['_$E3']['addresses']), ('exact', ['0x9CEDD0']))
+        objmatch.USE_CR2_EXTERN_DATA = False
+        try:
+            res = {r['symbol']: r for r in objmatch.match_objects(img, [path], None, extern_called=ext)}
+        finally:
+            objmatch.USE_CR2_EXTERN_DATA = True
+        self.assertNotEqual(res['_$E6']['status'], 'exact')
 
 
 if __name__ == '__main__':

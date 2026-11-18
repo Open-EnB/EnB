@@ -1018,6 +1018,9 @@ def match_objects(img, paths, region=None, callers=False, extern_called=None, ca
                 v = struct.unpack('<I', text[o + k:o + k + 4])[0] - struct.unpack('<I', addend)[0]
                 if sym['name'].startswith('??_7'):
                     vptrs[sym['name']].add(v)            # D188: a vptr store (constructor / destructor)
+                elif (sym['type'] >> 4) != 2 and _in_image(img, v & 0xFFFFFFFF):
+                    # CR2: a global's address, for the other libraries (an addend below zero wraps: `[sym-4]`)
+                    own_data[sym['name']].add(v & 0xFFFFFFFF)
             elif typ == 0x14:
                 v = addr + k + 4 + struct.unpack('<i', text[o + k:o + k + 4])[0]
                 called[sym['name']].add(thunk.get(v, v) & 0xFFFFFFFF)   # D188: a call's target
@@ -1035,8 +1038,14 @@ def match_objects(img, paths, region=None, callers=False, extern_called=None, ca
                 pushed_called[name].add(t)       # D246 / CR3: an absolute function reference's immediate
     called = collections.defaultdict(set)   # D188: {symbol: {addresses}} the exact functions call
     own_called = collections.defaultdict(set)   # the same, this run's own functions only (called_out)
+    own_data = collections.defaultdict(set)     # CR2: {global: {addresses}} the exact functions' DIR32 fields give
     if USE_EXTERN_CALLED and extern_called:
         for k, v in extern_called.items():
+            if k.startswith(CR2_DATA_PREFIX):
+                if USE_CR2_EXTERN_DATA:
+                    # CR2: another library's exact functions place this global (D80's known, data only)
+                    known.setdefault(k[len(CR2_DATA_PREFIX):], set()).update(v)
+                continue
             called[k] |= set(v)
     funclet_called = collections.defaultdict(set)   # D246 / C21: {symbol: {addresses}} their funclets jump to
     pushed_called = collections.defaultdict(set)    # D246 / CR3: {symbol: {addresses}} they push / load / store
@@ -1170,6 +1179,15 @@ def match_objects(img, paths, region=None, callers=False, extern_called=None, ca
                     for it, _ in gedge:
                         it[0]['gap_edge'] = True
                     got = got + gedge
+                if USE_CR2_TILING:
+                    # D246 (CR2): a gap its members tile exactly, the verified starts aside
+                    taken = {a for _, a in got} | {it[0]['symbol'] for it, _ in got}
+                    tiles = [(it, a) for it, a in cr2_tiling(img, results, text, start, claimed, known)
+                             if a not in taken and it[0]['symbol'] not in taken]
+                    for it, _ in tiles:
+                        it[0]['cr2_tiling'] = True
+                        it[0]['gap_edge'] = True    # not short_order's / gap_order's flag below
+                    got = got + tiles
                 for (r, obj, sec, s, length), a in got:
                     if r['status'] == 'multiple':
                         r['tiebreak'] = True
@@ -1441,9 +1459,10 @@ def match_objects(img, paths, region=None, callers=False, extern_called=None, ca
             claimed[a].add(r['symbol'])
             learn(r, obj, sec, s, length, a)
             done.add(id(r))
-    if USE_CR1_NAMED_TARGETS:
-        for item, a in cr1_named_targets(img, results, pending, done, claimed, text, start, thunk, known):
-            r, obj, sec, s, length = item
+    def named_round():
+        got = cr1_named_targets(img, results, pending, done, claimed, text, start, thunk, known)
+        for item, a in got:
+            r, obj, sec, s, length = item[:5]
             if r['status'] == 'short':
                 r['short_known'] = 'named'
             else:
@@ -1455,6 +1474,73 @@ def match_objects(img, paths, region=None, callers=False, extern_called=None, ca
             r.pop('count', None), r.pop('identical', None)
             claimed[a].add(r['symbol'])
             learn(r, obj, sec, s, length, a)
+        return got
+
+    def late_order_round():
+        # CR2: the shortorder phase's three rules again, on what the late phases placed
+        got = short_order(img, results, text, start, claimed, known)
+        taken = {a for _, a in got}
+        if USE_EDGE_ORDER:
+            got = got + [(it, a) for it, a in edge_order(img, results, text, start, claimed, known) if a not in taken]
+        if USE_EX_GAP_EDGE:
+            taken = {a for _, a in got} | {it[0]['symbol'] for it, _ in got}
+            got = got + [(it, a) for it, a in gap_edges(img, results, text, start, claimed, known)
+                         if a not in taken and it[0]['symbol'] not in taken]
+        if USE_CR2_TILING:
+            taken = {a for _, a in got} | {it[0]['symbol'] for it, _ in got}
+            tiles = [(it, a) for it, a in cr2_tiling(img, results, text, start, claimed, known)
+                     if a not in taken and it[0]['symbol'] not in taken]
+            for it, _ in tiles:
+                it[0]['cr2_tiling'] = True
+            got = got + tiles
+        seen = set()
+        for (r, obj, sec, s, length), a in got:
+            if a in seen or r['status'] == 'exact':
+                continue
+            seen.add(a)
+            if r['status'] == 'multiple':
+                r['tiebreak'] = True
+                r.pop('count', None), r.pop('identical', None)
+                done.add(id(r))
+            r['status'] = 'exact'
+            r['addresses'] = [f'0x{a:06X}']
+            r['order'] = True
+            r['cr2_late_order'] = True
+            claimed[a].add(r['symbol'])
+            learn(r, obj, sec, s, length, a)
+        return seen
+
+    if USE_CR1_NAMED_TARGETS:
+        named_round()
+    if USE_CR2_DATA_AGREE:
+        for item, a in cr2_data_agree(img, results, pending, done, claimed, text, start, known):
+            r, obj, sec, s, length = item[:5]
+            r['status'] = 'exact'
+            r['addresses'] = [f'0x{a:06X}']
+            r['tiebreak'] = True
+            r['cr2_data'] = True
+            r.pop('count', None), r.pop('identical', None)
+            claimed[a].add(r['symbol'])
+            learn(r, obj, sec, s, length, a)
+            done.add(id(r))
+    if USE_CR2_XCU_KNOWN:
+        for item, a, kind in cr2_xcu_known(img, results, claimed, text, start, known, thunk):
+            r, obj, sec, s, length = item
+            if r['status'] == 'multiple':
+                r['tiebreak'] = True
+                done.add(id(r))
+            else:
+                r['short_known'] = 'xcu'
+            r['status'] = 'exact'
+            r['addresses'] = [f'0x{a:06X}']
+            r['cr2_xcu'] = True
+            r.pop('count', None), r.pop('identical', None)
+            claimed[a].add(r['symbol'])
+            learn(r, obj, sec, s, length, a)
+    if USE_CR2_LATE_ORDER and USE_SHORT_ORDER:     # the shortorder phase's switch gates its late round too
+        for _ in range(CR2_LATE_ROUNDS):
+            if not late_order_round() and not (USE_CR1_NAMED_TARGETS and named_round()):
+                break
     if USE_VX_SLOT_CONTRA:
         bad = vx_slot_contradicted(img, results, known, thunk)
         for r, *_ in results:
@@ -1485,6 +1571,7 @@ def match_objects(img, paths, region=None, callers=False, extern_called=None, ca
                     r.pop(k, None)
     if called_out is not None:
         called_out.update({k: set(v) for k, v in own_called.items()})
+        called_out.update({CR2_DATA_PREFIX + k: set(v) for k, v in own_data.items()})
     for r, *_ in results:
         r.pop('shared', None)
         if r['status'] != 'exact' or not r.get('shared_callers'):
@@ -1579,6 +1666,265 @@ def contribution_ties(results, pending, done, claimed, text, base, img, known):
 # leaves it, no other symbol holds or proposes it, and every other symbol whose bytes fullmatch there is refuted
 # (TextFileClass::TextFileClass 0x9E5E30 stores ??_7TextFileClass, ListenerHandleClass's same bytes another table)
 USE_CR1_NAMED_TARGETS = True
+
+# D246 (CR2, run 2026-11-17c, SIB's proposal (a)): the object-order rules (short_order, edge_order, gap_edges)
+# run once more after the late phases (callseq, CR3's gap holder, CR1's named targets), whose credits give them
+# new exact neighbours, alternating with CR1's named targets until neither credits more (ww3d's 0x918220
+# Set_Ext_Swap_Interval and 0x918250 Get_Collision_Box_Display_Mask, CR1's, bound the gap holding the forwarder
+# 0x918230 Get_Ext_Swap_Interval).
+USE_CR2_LATE_ORDER = True
+CR2_LATE_ROUNDS = 6
+# D246 (CR2, SIB (a)): cr2_tiling, short_order without the verified starts. The verified starts (D27, call
+# targets) split a run of unreferenced forwarders wrongly (ww3d 0x917860 jmp / 0x917870 call / 0x917880 jmp /
+# 0x917890 call: only the two jmp forwarders are starts, the padding after a `jmp rel32` is not seen as a function's
+# end), so the counts short_order compares differ.
+USE_CR2_TILING = True
+
+
+# D246 (CR2, NFS's proposal (b)): cr2_data_agree, one data symbol at one address. Tied functions (`multiple`) whose
+# DIR32 relocations name data symbols: each candidate address implies the symbol's client address (the field minus
+# its addend); the assignment of the tied functions to distinct candidates in which every data symbol, with what
+# the exact functions' fields give it, has one address is the evidence (unknown_7196c0's comparators 0x7196C0 /
+# 0x719730 read Info+0xC / Info+0x10: only the order 0x7196C0 = Dist2's, 0x719730 = Cos's gives Info one address,
+# 0xBE71E0). A function credited only when every consistent assignment puts it at one address.
+USE_CR2_DATA_AGREE = True
+CR2_DATA_NODES = 20000
+
+
+def _data_key(obj, sym):
+    """The key of a relocation's data symbol (an external by name, a static or a section by object and name), or
+    None for a function, a code section, a vtable, a string literal or a generated name."""
+    if sym is None or (sym['type'] >> 4) == 2 or sym['name'].startswith(('??_7', '??_C@')) or generated(sym['name']):
+        return None
+    if sym['class'] == 2:
+        if sym['section'] > 0 and obj.sections[sym['section'] - 1]['flags'] & 0x20:
+            return None
+        return sym['name']
+    if sym['class'] == 3 and sym['section'] > 0:
+        if obj.sections[sym['section'] - 1]['flags'] & 0x20:
+            return None
+        return (obj.path, sym['name'], sym['section'])
+    return None
+
+
+def _data_implied(obj, sec, s, length, text, base, a):
+    """{data key: client address} the DIR32 fields of a function placed at A imply; None when two disagree."""
+    out = {}
+    o = a - base
+    for k, n, typ, sym, addend in obj.reloc_targets(sec, s, length):
+        if n != 4 or typ != 0x06 or o + k + 4 > len(text):
+            continue
+        key = _data_key(obj, sym)
+        if key is None:
+            continue
+        v = (struct.unpack('<I', text[o + k:o + k + 4])[0] - struct.unpack('<I', addend)[0]) & 0xFFFFFFFF
+        if out.setdefault(key, v) != v:
+            return None
+    return out
+
+
+def cr2_data_agree(img, results, pending, done, claimed, text, base, known):
+    """D246 (CR2): [(pending item, address)] (USE_CR2_DATA_AGREE above)."""
+    cands = []      # (item, {address: implied})
+    for item in pending:
+        r, obj, sec, s, length, hits = item
+        if id(r) in done or r['status'] != 'multiple':
+            continue
+        surv = break_tie(obj, sec, s, length, text, base, hits, img, known)[0]
+        opts = {}
+        for h in surv:
+            if claimed[h] - {r['symbol']}:
+                continue
+            imp = _data_implied(obj, sec, s, length, text, base, h)
+            if imp is None or any(isinstance(key, str) and known.get(key) and v not in known[key]
+                                  for key, v in imp.items()):
+                continue
+            opts[h] = imp
+        if len(opts) >= 2 and len({tuple(sorted(i.items(), key=str)) for i in opts.values()}) >= 2:
+            cands.append((item, opts))
+    if not cands:
+        return []
+    keys = set()
+    for _, opts in cands:
+        for imp in opts.values():
+            keys |= set(imp)
+    # what the exact functions' own fields give those symbols
+    fixed = collections.defaultdict(set)
+    for r, obj, sec, s, length in results:
+        if r['status'] == 'exact':
+            imp = _data_implied(obj, sec, s, length, text, base, int(r['addresses'][0], 16))
+            for key, v in (imp or {}).items():
+                if key in keys:
+                    fixed[key].add(v)
+    for key in keys:
+        if isinstance(key, str) and known.get(key):
+            fixed[key] |= set(known[key])
+    fixed = {k: next(iter(v)) for k, v in fixed.items() if len(v) == 1}
+    # components: tied functions linked by a shared data symbol
+    parent = list(range(len(cands)))
+
+    def find(i):
+        while parent[i] != i:
+            parent[i] = parent[parent[i]]
+            i = parent[i]
+        return i
+    first = {}
+    for i, (_, opts) in enumerate(cands):
+        for key in {k for imp in opts.values() for k in imp}:
+            if key in first:
+                parent[find(i)] = find(first[key])
+            else:
+                first[key] = i
+    comps = collections.defaultdict(list)
+    for i in range(len(cands)):
+        comps[find(i)].append(i)
+    out = []
+    for members in comps.values():
+        ckeys = {k for i in members for imp in cands[i][1].values() for k in imp}
+        if not any(k in fixed for k in ckeys):
+            # unanchored: only a closed permutation of externals (the members' candidates are as many addresses as
+            # members, all of one object): a static is one per object, so other objects' copies of a header's
+            # initialisers agree among themselves (px.obj's $E15 / $E17 and `_Notified`, copies in 16 objects)
+            addrs = {h for i in members for h in cands[i][1]}
+            if len(members) < 2 or len(addrs) != len(members) or any(not isinstance(k, str) for k in ckeys) or \
+                    len({cands[i][0][1].path for i in members}) != 1:
+                continue
+        sols, nodes = [], [0]
+
+        def walk(k, taken, bound, chosen):
+            nodes[0] += 1
+            if nodes[0] > CR2_DATA_NODES:
+                return
+            if k == len(members):
+                sols.append(dict(chosen))
+                return
+            for h, imp in cands[members[k]][1].items():
+                if h in taken or any(bound.get(key, v) != v for key, v in imp.items()):
+                    continue
+                new = {key: v for key, v in imp.items() if key not in bound}
+                bound.update(new)
+                chosen[members[k]] = h
+                walk(k + 1, taken | {h}, bound, chosen)
+                del chosen[members[k]]
+                for key in new:
+                    del bound[key]
+        walk(0, frozenset(), dict(fixed), {})
+        if nodes[0] > CR2_DATA_NODES or not sols:
+            continue
+        for i in members:
+            at = {sol[i] for sol in sols}
+            if len(at) == 1:
+                out.append((cands[i][0], at.pop()))
+    by_addr = collections.defaultdict(set)
+    for (r, *_), a in out:
+        by_addr[a].add(r['symbol'])
+    return [(it, a) for it, a in out if len(by_addr[a]) == 1]
+
+
+# D246 (CR2, SIB's / INST's proposal (c)): USE_CR2_EXTERN_DATA: the globals the exact functions' DIR32 fields place
+# go out with the calls (verify's called.json, names prefixed CR2_DATA_PREFIX) and come back to the other libraries
+# as D80's known. USE_CR2_XCU_KNOWN: an object's `_$E` initialiser (its .CRT$XCU lists it), short or tied, at the
+# one CRT table entry where its bytes fullmatch and D80 confirms it (a global it writes or a function it calls at
+# its known address), nothing refuting it; then the `_$E` functions it reaches (the atexit stub it pushes) at the
+# targets its bytes give (as xcu_position). slnode.obj's $E6 0x9CEDA0 zeroes GenericSLNode's pool 0xC1CD60 (placed
+# by app's exact 0x42FD10), its atexit stub $E3 0x9CEDD0; dx8renderer's $E252 has the same bytes for its own pool.
+CR2_DATA_PREFIX = 'data:'
+USE_CR2_EXTERN_DATA = False
+USE_CR2_XCU_KNOWN = False
+
+
+def _in_image(img, va):
+    """True if VA lies in one of the client's sections (virtual size: .bss included)."""
+    return any(start <= va < start + vsize for start, vsize, _, _ in img.sections.values())
+
+
+def cr2_xcu_known(img, results, claimed, text, base, known, thunk):
+    """D246 (CR2): [(item, address, kind)] (USE_CR2_XCU_KNOWN above)."""
+    table = [t for t in xcu_table(img) if base <= t < base + len(text)]
+    by_obj = collections.defaultdict(dict)
+    for item in results:
+        by_obj[id(item[1])][item[0]['symbol']] = item
+    out = []
+    for key, defs in by_obj.items():
+        obj = next(iter(defs.values()))[1]
+        got = {}
+        for n in xcu_initialisers(obj):
+            if n not in defs or not generated(n) or defs[n][0]['status'] not in ('short', 'multiple'):
+                continue
+            r, _, sec, s, length = defs[n]
+            if length <= 0:
+                continue
+            surv, conf = [], []
+            for t in table:
+                if claimed[t] - {n} or not _fullmatch_at(obj, sec, s, length, text, base, t):
+                    continue
+                sv, cf = break_tie(obj, sec, s, length, text, base, [t], img, known)
+                surv += sv
+                # the proof is a global it writes at its known address: a call (PermStringInitClass's, ios_base::
+                # Init's) is the same in every object's copy (money.obj's $E17 took cameraeffects' 0x4442C0)
+                imp = _data_implied(obj, sec, s, length, text, base, t) if cf else None
+                if imp and any(isinstance(key, str) and v in known.get(key, ()) for key, v in imp.items()):
+                    conf += cf
+            if len(conf) == 1:
+                got[n] = conf[0]
+        todo = list(got.items())
+        while todo:         # the `_$E` functions the initialiser's bytes reach (xcu_position's walk)
+            n, a = todo.pop()
+            r, _, sec, s, length = defs[n]
+            o = a - base
+            for k, sz, typ, sym, addend in obj.reloc_targets(sec, s, length):
+                if sz != 4 or sym is None or sym['name'] not in defs or not generated(sym['name']) \
+                        or sym['name'] in got or typ not in (0x06, 0x14) or o + k + 4 > len(text):
+                    continue
+                v = struct.unpack('<I', text[o + k:o + k + 4])[0]
+                v = (v - struct.unpack('<I', addend)[0]) & 0xFFFFFFFF if typ == 0x06 \
+                    else (a + k + 4 + struct.unpack('<i', text[o + k:o + k + 4])[0]) & 0xFFFFFFFF
+                v = thunk.get(v, v)
+                tr, _, tsec, ts, tlen = defs[sym['name']]
+                if claimed[v] - {sym['name']} or tr['status'] == 'exact' or tlen <= 0 or \
+                        not _fullmatch_at(obj, tsec, ts, tlen, text, base, v):
+                    continue
+                got[sym['name']] = v
+                todo.append((sym['name'], v))
+        for n, a in got.items():
+            if defs[n][0]['status'] != 'exact':
+                out.append((defs[n], a, 'xcu_known'))
+    by_addr = collections.defaultdict(set)
+    for (r, obj, *_), a, _k in out:
+        by_addr[a].add((id(obj), r['symbol']))
+    return [x for x in out if len(by_addr[x[1]]) == 1]
+
+
+def cr2_tiling(img, results, text, base, claimed, known):
+    """D246 (CR2): [(item, address)] for the own functions between two consecutive exact own functions P, Q of one
+    object in object order (P below Q), all `short` or `multiple`, when they tile the client's bytes between P's end
+    and Q exactly: the first at the first 16-aligned non-padding byte after P's end, each next one likewise after
+    the previous one's end (only int3 / nop between, at most 31 bytes), the last one's end followed by padding only
+    up to Q; each fullmatching there with its own length, unclaimed, D80's break_tie leaving it. The object's own
+    order is the evidence (VC6 /Gy keeps it, D242), as in short_order; no verified start is needed."""
+    out = []
+    for key, order in _object_order(results).items():
+        exact = [i for i, (k, a, it) in enumerate(order) if a is not None]
+        for i, j in zip(exact, exact[1:]):
+            members = [it for _, _, it in order[i + 1:j]]
+            p, q = order[i][1], order[j][1]
+            if not members or q <= p or any(it[0]['status'] not in ('short', 'multiple') or it[4] <= 0
+                                             for it in members):
+                continue
+            end, got = p + order[i][2][4], []
+            for item in members:
+                r, obj, sec, s, length = item
+                a = _after_padding(text, base, end, q)
+                if a is None or a + length > q or claimed[a] or \
+                        not _fullmatch_at(obj, sec, s, length, text, base, a) or \
+                        break_tie(obj, sec, s, length, text, base, [a], img, known)[0] != [a]:
+                    got = None
+                    break
+                got.append((item, a))
+                end = a + length
+            if got and _padding(text, base, end, q) and q - end <= 31:
+                out += got
+    return out
 
 
 def _cr1_alias(n):
@@ -3050,10 +3396,36 @@ USE_ORDER_IN_RANGE = True
 _starts_cache = {}
 
 
+# D246 (CR2, SIB's proposal (c)): the order rules (short_order, edge_order, gap_edges, CR1's candidates) also take
+# the CRT initialiser table's entries and the functions the client registers with atexit (`push imm32; call
+# atexit`) as starts: the CRT calls each entry and atexit each registered address, so each is a function's entry.
+# 1,275 of them are not D27's verified starts (incremental linking reaches them through no thunk and no call), which
+# left the `_$E` initialisers and their atexit stubs out of the order alignment. objmatch only: D27's set
+# (clientimage.function_starts) is unchanged.
+USE_CR2_XCU_STARTS = False
+CR2_ATEXIT = 0xA25F00       # atexit (symbols.json)
+
+
+def cr2_registered_starts(img):
+    """The CRT table's entries and the atexit-registered addresses in .text (USE_CR2_XCU_STARTS)."""
+    ts, te, raw = img.section('.text')
+    body = img.data[raw:raw + te - ts]
+    out = set(xcu_table(img))
+    for m in re.finditer(rb'\x68(....)\xE8', body, re.S):
+        o = m.start() + 5
+        if ts + o + 5 + struct.unpack_from('<i', body, o + 1)[0] == CR2_ATEXIT:
+            out.add(struct.unpack('<I', m.group(1))[0])
+    return {a for a in out if ts <= a < te}
+
+
 def _verified_starts(img):
-    if id(img) not in _starts_cache:
-        _starts_cache[id(img)] = img.function_starts()[0]
-    return _starts_cache[id(img)]
+    key = (id(img), USE_CR2_XCU_STARTS)
+    if key not in _starts_cache:
+        starts = img.function_starts()[0]
+        if USE_CR2_XCU_STARTS:
+            starts = sorted(set(starts) | cr2_registered_starts(img))
+        _starts_cache[key] = starts
+    return _starts_cache[key]
 
 
 def _padding(text, base, lo, hi):
