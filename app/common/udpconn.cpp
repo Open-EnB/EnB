@@ -14,7 +14,7 @@
 
 // The lock around every CordMgr / CordCon call (0xBE96A0) and the message buffer Receive reads
 // into and the sends copy into (0xBE96B8: the header, then the payload).
-static CritSec Lock;
+CritSec UDPConnection::Lock;
 static char Buffer[UDP_DATABUFFER_SIZE];
 
 CordMgrTaskClass *CordMgrTaskClass::Task = 0;
@@ -717,9 +717,9 @@ bool UDPListenerClass::Listen(unsigned short port)
 
 
 	FAIL_IF(PortNumber != 0) return(false);
-	Lock.lock();
+	UDPConnection::Lock.lock();
 	bool ok = Mgr->Listen(0, port);
-	Lock.unlock();
+	UDPConnection::Lock.unlock();
 	if (!ok) {
 		return(false);
 	}
@@ -740,9 +740,9 @@ bool UDPListenerClass::Stop()
 
 
 	FAIL_IF(PortNumber == 0) return(false);
-	Lock.lock();
+	UDPConnection::Lock.lock();
 	bool ok = Mgr->Unlisten(0, PortNumber);
-	Lock.unlock();
+	UDPConnection::Lock.unlock();
 	PortNumber = 0;
 	return(ok == true);
 }
@@ -751,9 +751,9 @@ bool UDPListenerClass::Stop()
 ConnectionClass *UDPListenerClass::Accept()
 {
 	CordCon *con;
-	Lock.lock();
+	UDPConnection::Lock.lock();
 	bool ok = Mgr->Find_Connection(&con, PortNumber, 0);
-	Lock.unlock();
+	UDPConnection::Lock.unlock();
 	if (ok) {
 		ConnectionClass *new_connection = new UDPConnection(con, Mgr);
 

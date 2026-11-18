@@ -2698,6 +2698,9 @@
 "data:?DeltaUnknownGlobal@@3HA": [
 "0xBE3A78"
 ],
+"data:?EmptyName@LegoIdentifierClass@@2V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@A": [
+"0xBF3598"
+],
 "data:?Enabled@BandwidthAccountingClass@@2_NA": [
 "0xBF40A8"
 ],
@@ -2790,6 +2793,12 @@
 ],
 "data:?LastTime@BandwidthAccountingClass@@2IA": [
 "0xBF4080"
+],
+"data:?Listeners@TCPConnection@@2V?$set@PAVTCPListenerClass@@U?$less@PAVTCPListenerClass@@@std@@V?$allocator@PAVTCPListenerClass@@@3@@std@@A": [
+"0xBE91A8"
+],
+"data:?Lock@UDPConnection@@2VCritSec@@A": [
+"0xBE96A0"
 ],
 "data:?MainWindow@@3PAUHWND__@@A": [
 "0xC1E1B4"
@@ -2895,6 +2904,9 @@
 ],
 "data:?SyncTime@WW3D@@0IA": [
 "0xBFAE3C"
+],
+"data:?TCPManager@TCPConnection@@2VTCPMgr@@A": [
+"0xBE9180"
 ],
 "data:?Task@CordMgrTaskClass@@2PAV1@A": [
 "0xBF16C4"

@@ -26,7 +26,7 @@
 #include "..\shared\unknown_4fac20.h"
 
 // The name of an empty identifier (its initialiser 0x8436D0 opens the object, its destructor 0x843790)
-static std::string EmptyName("");	// 0xBF3598  // NAME 2: what it holds
+std::string LegoIdentifierClass::EmptyName("");	// 0xBF3598  // NAME 2: what it holds
 
 // Between the bone names
 static char *Separator = "/";		// 0xBAECD4  // NAME 2: what it holds
