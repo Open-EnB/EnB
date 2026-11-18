@@ -15,7 +15,7 @@
 #include "..\..\wwlib\ini.h"
 #include "..\..\wwlib\point.h"
 #include "kv_acc_array.h"
-
+INIClass AvatarDescClass::AvatarDefinitions;	// 0xBE55D8  // NAME 2: avatardef.ini (initialiser 0x4BE970, before the constructors; atexit 0x4BE9A0 guarded: a static member)
 // 0x4BEB50
 AvatarDescClass::AvatarDescClass()
 {
@@ -409,7 +409,7 @@ void AvatarDescClass::Reset()
 
 void Message_Error(const char *sender, const char *category, const char *file, int line, const char *format, ...);	// NAME 5 [Message_Error]: the client's WWPROFILE("Message_Error") label (D198)
 
-static INIClass AvatarDefinitions;	// 0xBE55D8  // NAME 2: avatardef.ini
+// (AvatarDefinitions 0xBE55D8: defined at the top, AvatarDescClass's static member)
 static const char *AvatarGenderNames[] = { "male_", "female_" };	// 0xB73CC8  // NAME 2: what it holds
 static const char *AvatarRaceNames[] = { "terran_", "jenquai_", "progen_" };	// 0xB73CD0  // NAME 2: what it holds
 static const char *AvatarProfessionNames[] = { "warrior", "tradesman", "explorer", "default" };	// 0xB73CDC  // NAME 2: what it holds

@@ -2647,6 +2647,9 @@
 "data:?AssetManager@@3PAVENBAssetManager@@A": [
 "0xBDADC0"
 ],
+"data:?AvatarDefinitions@AvatarDescClass@@2VINIClass@@A": [
+"0xBE55D8"
+],
 "data:?Borrow@?$Int@$0EA@@@2_NA": [
 "0xC1F255"
 ],
@@ -2947,9 +2950,6 @@
 ],
 "data:?UnknownGlobal@?$DeltaItemArrayClass@VDeltaCategoryClass@@@@2HA": [
 "0xC41620"
-],
-"data:?UnknownGlobal@?$DeltaItemArrayClass@VDeltaEquipItemClass@@@@2HA": [
-"0xC415A4"
 ],
 "data:?UnknownGlobal@?$DeltaItemArrayClass@VDeltaFactionClass@@@@2HA": [
 "0xC415F8"
