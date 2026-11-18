@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1967 |
 | 2 | describes what the code does | 4981 |
-| 1 | neutral placeholder | 25207 |
+| 1 | neutral placeholder | 25211 |
 
 ## For review (score 3 and below)
 
@@ -1161,8 +1161,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_00` | `app/client/cameraeffects.cpp:25` | untagged neutral name (D10) |
 | 1 | `UnknownAFFE64Class` | `app/client/cameraeffects.cpp:30` | neutral (D10) |
 | 1 | `owner, force` | `app/client/cameraeffects.cpp:33` | neutral |
-| 1 | `Unknown08` | `app/client/cameraeffects.cpp:33` | untagged neutral name (D10) |
-| 1 | `Unknown14` | `app/client/cameraeffects.cpp:33` | untagged neutral name (D10) |
+| 1 | `Unknown08` | `app/client/cameraeffects.cpp:35` | untagged neutral name (D10) |
+| 1 | `Unknown14` | `app/client/cameraeffects.cpp:36` | untagged neutral name (D10) |
 | 1 | `UnknownAFFE84Class` | `app/client/cameraeffects.cpp:40` | neutral (D10) |
 | 1 | `owner, damage` | `app/client/cameraeffects.cpp:43` | neutral |
 | 1 | `Unknown0C` | `app/client/cameraeffects.cpp:46` | untagged neutral name (D10) |
@@ -1170,12 +1170,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `owner, amount` | `app/client/cameraeffects.cpp:53` | neutral |
 | 1 | `UnknownAFFE74Class` | `app/client/cameraeffects.cpp:60` | neutral (D10) |
 | 1 | `owner, amount, time` | `app/client/cameraeffects.cpp:63` | neutral |
-| 1 | `Unknown15` | `app/client/cameraeffects.cpp:63` | untagged neutral name (D10) |
-| 1 | `Unknown_Get_Ticks` | `app/client/cameraeffects.cpp:63` | untagged neutral name (D10) |
 | 1 | `Unknown_Find_Valid` | `app/client/cameraeffects.cpp:69` | neutral (D10): as co.cpp's; Unknown_Accel_Value NAME 1: neutral (D10), the form 0x6E3710 / 0x6E3B60 inline (an int time, converted after the test; AccelClass::Get_Value takes a float) |
 | 1 | `Unknown_Find_Field` | `app/client/cameraeffects.cpp:69` | untagged neutral name (D10) |
 | 1 | `Unknown70` | `app/client/cameraeffects.cpp:69` | untagged neutral name (D10) |
 | 1 | `Unknown_Accel_Value` | `app/client/cameraeffects.cpp:69` | untagged neutral name (D10) |
+| 1 | `Unknown15` | `app/client/cameraeffects.cpp:76` | untagged neutral name (D10) |
 | 1 | `Unknown24` | `app/client/cameraeffects.cpp:77` | untagged neutral name (D10) |
 | 1 | `Unknown_Shake_Field` | `app/client/cameraeffects.cpp:82` | neutral (D10) |
 | 1 | `Unknown_491550` | `app/client/cameraeffects.cpp:83` | neutral (D10) |
@@ -1184,7 +1183,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown18` | `app/client/cameraeffects.cpp:122` | untagged neutral name (D10) |
 | 1 | `Unknown_54` | `app/client/cameraeffects.cpp:133` | untagged neutral name (D10) |
 | 1 | `Unknown_6E32E0` | `app/client/cameraeffects.cpp:237` | untagged neutral name (D10) |
-| 1 | `Unknown10BC` | `app/client/cameraeffects.cpp:280` | untagged neutral name (D10) |
+| 1 | `Unknown_6E34F0` | `app/client/cameraeffects.cpp:256` | neutral (D10) |
+| 1 | `Unknown_1C` | `app/client/cameraeffects.cpp:260` | untagged neutral name (D10) |
+| 1 | `Unknown10BC` | `app/client/cameraeffects.cpp:310` | untagged neutral name (D10) |
+| 1 | `Unknown_Get_Ticks` | `app/client/cameraeffects.cpp:394` | untagged neutral name (D10) |
 | 1 | `Unknown_04` | `app/client/cammod.cpp:13` | untagged neutral name (D10) |
 | 1 | `Unknown_0C` | `app/client/cammod.cpp:19` | untagged neutral name (D10) |
 | 1 | `cammod.h` | `app/client/cammod.h:3` | PROVISIONAL (D137) |
@@ -23535,15 +23537,17 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_48E9D0` | `app/shared/enbassetmgr.cpp:28` | untagged neutral name (D10) |
 | 1 | `Unknown_48E620, robj` | `app/shared/enbassetmgr.cpp:29` | neutral (D10) |
 | 1 | `Unknown_48E620` | `app/shared/enbassetmgr.cpp:29` | untagged neutral name (D10) |
-| 1 | `Unknown_48CF90` | `app/shared/enbassetmgr.cpp:289` | untagged neutral name (D10) |
-| 1 | `Recolored_Texture` | `app/shared/enbassetmgr.cpp:335` | descriptive (inlined) |
+| 1 | `Unknown_48CF90` | `app/shared/enbassetmgr.cpp:298` | untagged neutral name (D10) |
+| 1 | `Unknown_48CAF0` | `app/shared/enbassetmgr.cpp:366` | untagged neutral name (D10) |
 | 1 | `Unknown_48ECA0` | `app/shared/enbassetmgr.cpp:644` | untagged neutral name (D10) |
 | 1 | `Unknown_78` | `app/shared/enbassetmgr.h:28` | compatibility alias for Create_Render_Obj |
 | 1 | `name, mip` | `app/shared/enbassetmgr.h:37` | what it passes on |
 | 1 | `Unknown_48CF90, name, hsv` | `app/shared/enbassetmgr.h:38` | neutral (D10) |
 | 1 | `Unknown_48CF90` | `app/shared/enbassetmgr.h:38` | untagged neutral name (D10) |
-| 1 | `Unknown_48ECA0, textures, count` | `app/shared/enbassetmgr.h:45` | neutral (D10) |
-| 1 | `Unknown_48ECA0` | `app/shared/enbassetmgr.h:45` | untagged neutral name (D10) |
+| 1 | `Unknown_48CAF0, texture, hsv` | `app/shared/enbassetmgr.h:39` | neutral (D10) |
+| 1 | `Unknown_48CAF0` | `app/shared/enbassetmgr.h:39` | untagged neutral name (D10) |
+| 1 | `Unknown_48ECA0, textures, count` | `app/shared/enbassetmgr.h:46` | neutral (D10) |
+| 1 | `Unknown_48ECA0` | `app/shared/enbassetmgr.h:46` | untagged neutral name (D10) |
 | 1 | `Unknown4E8700Class` | `app/shared/event.cpp:87` | neutral (D10), static ActiveIterators wrapper (0x4E86C0/0x4E8700) |
 | 1 | `ActiveIterators` | `app/shared/event.cpp:90` | the iterators of the Send_Event calls in progress (0xBE5610), fixed up by Remove_Listener and ~Subject |
 | 1 | `Pop_Iterator` | `app/shared/event.cpp:196` | pops Send_Event's iterator; false once ~Subject cleared it (inlined into 0x4E8E40) |
@@ -32014,12 +32018,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `DurationTemplateClass` | `app/shared/duration.h:25` | by convention (D24) from the client's file duration.h (D37) |
 | 3 | `DurationClass` | `app/shared/duration.h:206` | by convention (D24) from the client's file duration.h (D37) |
 | 3 | `AABoxClass` | `app/shared/dynamic_obj.h:87` | 6 dwords returned by value; type a guess |
-| 3 | `Recolor_Sphere` | `app/shared/enbassetmgr.cpp:445` | EA hueshift style for CLASSID_SPHERE |
-| 3 | `Recolor_Ring` | `app/shared/enbassetmgr.cpp:473` | EA hueshift style for CLASSID_RING |
+| 3 | `Recolor_Sphere` | `app/shared/enbassetmgr.cpp:476` | EA hueshift style for CLASSID_SPHERE |
+| 3 | `Recolor_Ring` | `app/shared/enbassetmgr.cpp:504` | EA hueshift style for CLASSID_RING |
 | 3 | `Post_Process` | `app/shared/enbassetmgr.h:30` | its profile string |
-| 3 | `Recolor_Sphere` | `app/shared/enbassetmgr.h:42` | EA hueshift style for CLASSID_SPHERE |
-| 3 | `Recolor_Ring` | `app/shared/enbassetmgr.h:43` | EA hueshift style for CLASSID_RING |
-| 3 | `AssetManager` | `app/shared/enbassetmgr.h:47` | 0xBDADC0, scriptedmovie.cpp's G_ASSERT 'AssetManager' (0x802D30) |
+| 3 | `Recolor_Sphere` | `app/shared/enbassetmgr.h:43` | EA hueshift style for CLASSID_SPHERE |
+| 3 | `Recolor_Ring` | `app/shared/enbassetmgr.h:44` | EA hueshift style for CLASSID_RING |
+| 3 | `AssetManager` | `app/shared/enbassetmgr.h:48` | 0xBDADC0, scriptedmovie.cpp's G_ASSERT 'AssetManager' (0x802D30) |
 | 3 | `event.h` | `app/shared/event.h:6` | by convention from event.cpp (D24) |
 | 3 | `expr_lexer_impl.h` | `app/shared/expr/expr_lexer_impl.h:15` | header name assumed from the client's expr_lexer_impl.cpp |
 | 3 | `ExprLexerImplClass` | `app/shared/expr/expr_lexer_impl.h:24` | class-from-file (D24) |
