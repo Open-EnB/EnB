@@ -3947,8 +3947,7 @@ below name only the work items, the blocked work, the leads and the queues.
      Interim names (D137): ui_item_examination_attributes / _description / _specials.cpp; declaration-only ui_slot_info.h /
      ui_dynamicwindow.h / dynamic_window_icon.h wait for their files.
    * The expression library (app/shared/expr/, EX1-EX4, 2026-11-05 night): NOT EXACT expr_math_parser_impl Add_Similar 0x4D0DF0
-     (register), Parse_Level 0x4D10E0 (inline budget: a token scope closing before the returns, untried); expr_math_float
-     0x4C8920 / 0x4C9010 (frame: no EH frame for `new` in float's copy, int's exact),
+     (register), Parse_Level 0x4D10E0 (inline budget: a token scope closing before the returns, untried);
      Create_Unary 0x4CC120 (inline budget), Visit_Binary 0x4CB260 / 0x4CFB00 (shape: a merged tail, 28 calls vs 24);
      std::fill 0x4D3CF0 / copy_backward 0x4D3EC0 parked (npos as an immediate -1); 0x4C7B70's guarded initialiser wants a D99
      row. Lead (tools): a vtable-slot pairing for the operator classes' byte-identical dtors / deleting dtors (~60 addresses
@@ -4003,7 +4002,7 @@ below name only the work items, the blocked work, the leads and the queues.
      ro_funcs 0x4967F0 (frame) / 0x496960,
      unknown_847d20 0x847FE0 (inline-budget);
      ENBAssetManager (enbassetmgr.cpp: EA published it, `C:\EnBDevelopment\EA\CnC_Renegade\Code\ww3d2\hueshift\
-     enbassetmgr.cpp`): Recolor_Texture 0x48CB40 (register); the ledger's queue: BINK (E&B's
+     enbassetmgr.cpp`): Recolor_Texture 0x48CB40 (register); 0x48CF90 (the cached-texture lookup: regain; accepted inside D246's valve, its entry open; lead: Get_Hash_Value<StringClass> 0x48E940 is compiled late in the file, a wwlib hashtemplate.h form); the ledger's queue: BINK (E&B's
      BINKMovie gaps 0xA161B0-0xA17330), SORT2-3, LD2 (shipcust_desc), DW's icon / move / toggle.
      Leads by file: dbgmgr End_Step 0x50A1E0 (a dead store our compiler drops), ctrngadg 0x50ABC0 (block layout), tooltip
      0x6AB5B0 / 0x6AB930 / 0x6ABC60, textgadg 0x6AAD10, gclass 0x4A17B0, filter match
@@ -4017,7 +4016,7 @@ below name only the work items, the blocked work, the leads and the queues.
      cordmgr Pump / Go_Away / ACK2, cordmgr's INFMSG 0x859940 can use wdebug.h's 40-byte timebuf; gadget 0x6609A0;
      gclass 0x4A17B0 (order); font32bit Make_Proportional 0x6BC120; fontsound 0x6BCFB0 / 0x6BD060; fontsys
      Render 0x6D8270 (compare order + floor / scale form), 0x6D47C0 (EH state), 0x6D5170, Change_Text 0x6CDBC0 / 0x6CDAB0
-     (functional); stredit Process_Key 0x84AAD0;
+     (functional);
      dynamic windows' Set_Alignment; ui_avsel 0x55F140 (erase inline on the FAIL_IF path), 0x55E070
      (register); htmlview Parse exact (frame: 16 Wstrings, 4 attribute stacks; `.work/HV3`) and a harness test for it.
      Files next to today's: gd_proxy.cpp (settles unknown_66b770.cpp), 0x66C8F0-0x66C9A0 (a 640x480 gadget,
@@ -4205,10 +4204,7 @@ below name only the work items, the blocked work, the leads and the queues.
    * **Score snapshots in comments:** "NOT EXACT: 0.93 / 0.72" figures (linebox.cpp:83, nav_list_line_draw.cpp:130, ...):
      re-measure or drop the numbers at each file's next edit.
 
-   * **CompositeRenderObjClass / RenderObjClass slot count:** our table has one slot more before +0xD4 than the client's (Cast_AABox vs Cast_OBBox); seen at CharacterViewAvatarClass 0xB044D0 and Unknown78A910AvatarClass 0xB04808.
-   * **ScriptedMovieViewClass** lacks the client's ViewClass +0x18 override 0x8023A0.
-   * **To match:** Create_Binary<float> 0x4C9010; ClientItemPropertySpecialMakerClass::Get_Lines 0x52CBF0.
-   * **0x540A20 rename** to `static SignalMap &InterfaceClass::Get_Signal_Map()` (callers ui_chat_panel, ui_chat_window, ui_option_font), landed only if the verify keeps every pair.
+   * **symbols.json duplicate labels** (the vtable slot count of the Composite / RenderObj tables follows the client's; vtables.py's insert / delete lines come from these): 0x986150 / 0x9861B0 (both Set_Base_Model_Name), 0x986370 (named Cast_AABox, is Cast_Ray), two Intersect_OBBox, two Delete_Decal; 0x4CD270 and 0xAEBFD8 are <int>: a symbols.py regeneration naming identical copies by the client's vtable slot (at a quiet tree, then a full verify).
    * **0x4DD240 AttribDirCollective::MemberStruct:** lever: Add_Member 0x4DC720's inline budget.
    * **wlib 0x8B6FE0** is a second byte-identical Wstring::get and needs its own symbol.
 2. **Step 9 (D90)**, left in its files (history: the log entries of 2026-10-28 and 2026-10-29):
@@ -4453,9 +4449,10 @@ below name only the work items, the blocked work, the leads and the queues.
    Run 2026-11-15 tool leads: lv2_intcopy.py into tools/re or an explain.py "value copy" hint; rerun explain.py over the Opus queue's list 3 (its classes are stale); symbols.json's 0x6689C0 argument type against gd_dynamicwindow.h; a String_Trim 0x4FAC20 symbols_named row; the stl_hashtable.h comment through sgistl_adapt.py; explain.py naming the callee when a pushed immediate differs; lv1_callees.py's unnamed-callee pairing (P-LV1-3).
    Crediting and scan tool leads: (C3, IB2) `appfile.py match` should show the crediting status up front (a callee with multiple / ambiguous client patterns needs an exact caller) so the inline-budget queue can split such callees off; (C4, BS2) symbols.json's 0x660D30 is still InterfaceDeactivationGadgetClass after D239's rename, so explain.py misreads 0x6B56A0 as relocation: `symbols.py` rename at a quiet tree; (C19 b, SD) `appfile.MARKER` should also parse `// 0xADDR` (272 of 406 app files are invisible to marker scans); (C19 c, SD) `lits.py` (app literals the client lacks, with a spacing / underscore variant; `.work/SD/lits.py` in wt/SD, with strscan.py and rename_named.py) into tools/re as a post-landing check; (C2, LIB) rerun order for docs/data/rtlib-tiling.json and coverage.md after naming landings: `rttile.py`, then `symbols.py --coverage-only` (rttile needs `.work/libs` to regenerate).
 
-   * **Crediting tools:** the census's remaining siblings hang off about 96 unnamed client callers (a naming / new-file lever, not a rule);
+   * **Crediting tools:** the census has 175 left, siblings 147 (name or file their unnamed client callers; copy2 / short-copy2 need new files or names, not a rule);
      class 3 "two symbols, one body" (0x4C4430, 0x823EA0) needs a rule. Vtable slots are done (CK2V); pushed / funclet references as a
      location source are dropped (measured: at most 4 siblings, all behind ~SlotDataInterface, now exact). CK's scripts: `.work/CK/`.
+   * **USE_NAMED_AWAY without a same-run competitor:** wwsaveload's definition / definitionmgr / parameter / twiddler hold 0x9DA8C0 (the client's ??_E_ENUM_VALUE, placed elsewhere by D88): builder NA measured it (0 gained, 0 lost outright; tie-broken credits excluded); delete this item when it lands, else a full measure is open.
    * **symbols.json stale names:** 0xAEBF74..0xAEBFD8 are <int> ExprMath tables (not <float>); 0xB10ED0 is DynamicVectorClass<HAnimComboDataClass*>'s.
    * **progress.py** should attribute inter-function alignment fill (9.1 % of .text is counted unattributed): credit it to the preceding function's category or a "fill" bar (a card change, no pairs).
    * **`.work/coord/open_rows.py`** to the new queue.tsv columns; **`triage.py plan --out`** (the week queue's written output).
@@ -4482,7 +4479,7 @@ below name only the work items, the blocked work, the leads and the queues.
      - manufacturing_defs 0x845AA0 String_To_Value(ManufacturingModeBitFlag) (inline-budget: the failed lookup gets an inlined _Tidy(true), the client calls ??_G(0)), 0x845D40 Value_To_String (inline-budget: one exit against a split string dtor / inlined append)
      - emote_data 0x7E6860 (layout 0.63: the client puts the shared stop block before the active block), 0x7E70A0 (frame 0.31: the client's locals are 4 bytes larger); eff_line 0x6E5E00 (register), 0x6E6030 (order: x87 load / store order around two Vector2 normalisations)
      - ui_vault 0x656FF0 (inline-budget: string::_Eos for FilterName("") called against inlined, as cargo's 0x5CF9B0), 0x657430 (order, as cargo's 0x5CFE40), 0x657AA0 (frame: shrink-wrapped pushes for the filter tail), 0x657DA0 (order: INVENTORY_SORT argument loads)
-     - ship_stats_display 0x6A34E0 (shape 0.72: the arrow texture pick's registers; a ternary spends the inline budget); shortcut_range_gauge 0x6A4020 (shape 0.67: the hidden case laid out last; `1 - distance/range` before the frame time); ship_equip_pip 0x542250 (literal / frame 0.46), 0x542A10 (literal 0.85: product order in each translation sum), 0x542EE0 (shape 0.92: Camera loaded early)
+     - ship_stats_display 0x6A34E0 (shape 0.72: the arrow texture pick's registers; a ternary spends the inline budget); shortcut_range_gauge 0x6A4020 (parked after round 2, shape 0.67: the hidden case laid out last; `1 - distance/range` before the frame time); ship_equip_pip 0x542250 (literal / frame 0.46), 0x542A10 (literal 0.85: product order in each translation sum), 0x542EE0 (shape 0.92: Camera loaded early)
      - accel 0x4990C0 (shape)
      - camera_manager 0x79B4F0, 0x799E40 (frame)
      - cammod_chase 0x79BFC0 (0.42, inline-budget)
@@ -4519,7 +4516,7 @@ below name only the work items, the blocked work, the leads and the queues.
      - unknown_75b7b0 0x75B8F0 (0.83, order), 0x75BB50 (0.37, inline-budget); unknown_79c8e0 0x79C970 (0.52, shape);
        unknown_7979a0 0x7981B0, 0x798570, 0x7987F0 (frame: the sizes are the client's, the slot order is left)
    * Near misses by file (attempts.csv rows where recorded):
-     - client_item_property_builder 0x522860 (0.61, 17.7 KB, all 37 asserts in order), 0x521C10 (0.70), 0x527F40 (0.78,
+     - client_item_property_builder 0x522860 (parked at 0.62 after its D89 round, 2 forms; 17.7 KB, all 37 asserts in order; lead: retype Route's parameter so the 32 case locals are RefCountPtr<ClientItemPropertyClass> (unwind funclets 0x529130 / 0x529040; touches ui_item_examination_property_router.h / inv_render); the residue is frame 0x660 vs 0x66C and cases 26 / 29 / 33's inline assign), 0x521C10 (0.70, register residue, parked), 0x527F40 (0.78,
        frame)
      - unknown_7cef30 0x7D4E30 (inline-budget, 0.71: the request dtor 0x7D4D60 stays out of line);
        unknown_7e1e40 0x7E1F10 (frame: the EH states around the _bstr_t members, six forms)
@@ -4583,15 +4580,16 @@ below name only the work items, the blocked work, the leads and the queues.
    * fontsys Render 0x6D8270 (frame, 0.52, 2 forms; 0x6D8080, 0x6D8B70 and 0x6D8B80 are compiler-made); line2d Set 0x6DFA50 (frame, 0.77 only in a non-client order, 0.64 kept; two rounds); linebox 0x6E0350 (order 0.93); bar2d 0x6B6900 (shape 0.76, inline-budget residue), bar3d 0x6B88F0 (shape 0.93); gauge3d copy ctor 0x6D9980 (order-only)
    * influence 0x7E87C0 (inline-budget 0.68), 0x7E9560 (shape 0.86)
    * time_string_format inline-budget 0x4FE780, 0x4FE890, 0x4FEDB0, 0x4FF390, 0x4FF490, 0x4FF590, 0x4FF6A0 (std::string _Tidy / append inline one layer more than the client's: perhaps one missing source layer)
-   * ui_treem 0x655460 (inline-budget 0.27), 0x655700 (order 0.80); unknown_586240 0x586F60 (order); gd_uisld 0x6755E0, 0x675F00 (order); musiclist 0x437C30 (shape 0.74); unknown_761c80 0x762410 (inline-budget 0.78); game_action_validity 0x83CA30 (inline-budget, 38 forms)
+   * ui_treem 0x655460 (inline-budget 0.27), 0x655700 (order 0.80); unknown_586240 0x586F60 (order); gd_uisld 0x6755E0, 0x675F00 (order); musiclist 0x437C30 (shape 0.74, parked after round 2); unknown_761c80 0x762410 (inline-budget 0.78); game_action_validity 0x83CA30 (inline-budget, 38 forms)
    * html image / gifload: Set_Data 0x76D4A0 (literal), Decode 0x76D990 (frame), Get_Next_Code 0x76DF60 (shape), Draw 0x76E610 (shape), Get_Font 0x76EB70 (frame); the loader's Open 0x76E9D0 is PREFIX (Tools)
    * ui_chat_panel 0x5689D0 (inline-budget 0.63), 0x569A00 (shape 0.64); attrib_dir_collective: the rest of 0x4DA7D0-0x4E0700 hangs on the three parked parents 0x4DBFD0, 0x4DC310, 0x4DC720
    * Session 9 night run (2026-11-14, attempts rows each): musicmanager.cpp MusicManagerClass::Update 0x43AE30 (M1; shape 0.61, round 1's faithful form); ui_guild UIGuildClass::Unknown_81C380 (B95; inline-budget); sclient Init 0x741180 (B96; inline budget, parked after the second round), Shutdown 0x741BB0 (0.73, inline budget: the +0x133C element's destructor, then register), Render 0x744690 (B97; order, 0.81; the transform copy), 0x744260 (shape 0.81), 0x745750 / 0x7436A0 / 0x74CA90 (inline budget); spln_db.cpp x3 (A3; inline-budget / shape) and soundlib 0x4402E0 (A3; blocked COMDATs); unknown_499180.cpp 0x4991F0 (A11); 0x4A9C30 and 0x62AA20 (A17; partial: `static const` 0.29f keeps the FPU load but VC6 does not CSE -0.29f); ui_chat_panel / attrib_dir_collective / fontsys / linebox (A13) and avatar.cpp / galaxy_map_render.cpp (A15: 34 attempts rows, D89 rows parked). 0x42C4E0 (A13) is a shared holder, for /accept-d66.
    * wlib unknown_8b45b0.cpp (O29): Cord_SHA 0x8B4A90 NOT EXACT, register only (911 vs 912 bytes; logic = hashlib SHA-1; no lever found). unknown_5dd960.cpp (O28): ctor 0x5DD960 order (shape 0.87, parked; dead code, no caller).
    * Run 2026-11-15 (attempts rows each): 0x514010 (shape 0.69), 0x463F00 Get_Downhill (0.84), 0x50B360 (order), 0x734130 (register), 0x73CC90, 0x7102B0, 0x710530, 0x718830 (4 rows), 0x70E850 (10 rows, x87 order), 0x6F3FA0, 0x4FE890 Format (order 0.80), 0x4FEDB0 Add_Unit, 0x744D80 (order 0.95), 0x5BDC20 (slot order, 22 forms), 0x570CD0 / 0x570E40 (shape), 0x819FB0 / 0x81C380 (inline-budget), 0x79C970 (18 rows: fld st(0) / fld mem after Inv_Sqrt), 0x46F120, 0x49AE30, 0x732880, 0x6C3030 (inline-budget: ~pair's inlined _Tidy); frame misses fontsys 0x6D8270, fp_tt 0x449540, camera_manager 0x799E40, sbaseview 0x6A0590, galaxy 0x7A83D0 (0.80). Run 2026-11-16 (attempts rows each): robj2texture 0x497700 now order-only (frame 0xA4 and 592 instructions as the client, masked 121 -> 2; D89 bans chasing it; FN, from BS2's draft); ui_starbase 0x63AC60 (FontSys::Set_Color, 38 -> 10 masked rows, shape left); the early-return sweep's misses: 0x799E40, 0x510D40, 0x6A0590, 0x6C1500 (the 4-byte-local sign without a working form), 0x795A80 (register-only, kept at 0 / 0), BS1's and BS2's ten and eight attempts rows; inline-budget IB2: 0x4DD240, 0x73F680, 0x598A10, 0x7C30E0 and 0x709A40 (the last two multiple patterns, no exact caller; untried for the same reason: 0x7099F0, the musicmanager four, 0x56CC30 / 0x56CD50); QA: inpkeys 0x42C650 / 0x42C830 (inline budget: the client inlines size() in reserve; a dropped iterator user changes nothing: dead end, FN), 0x42D330 / 0x42D600 (multiple behind them), 0x42D160 (D99 exact row); FN: 0x7EDCB0 (the ctor's inline_depth(0) sends HashListClass's base ctor out of line), 0x780810 / 0x780AC0 (implicit operator= theory wrong); QC: 0x842A60 (register, constant folding), 0x4AB7D0 / 0x4ABB80 (register), 0x8C0F90 (order), 0x468240 (frame: an out-of-line D3DXPLANE ctor for planes 0-1), 0x455A50 (inline budget); QB: D99 rows 0x8B5B70..0x8B5BD0, 0x8B6FE0.
 
-   * StrEditClass::Process_Key 0x84AAD0: lead: the shared delete / backspace tail sits in the backspace block in the client.
-   * SplitStringClass::Split 0x4F9D90: the pad line's assign(const char *, n) is out of line in the client.
+   * StrEditClass::Process_Key 0x84AAD0 (parked after three rounds, none exact): lead: the shared delete / backspace tail sits in the backspace block in the client; untried: case 8 before 0x2E.
+   * SplitStringClass::Split 0x4F9D90 (parked after three rounds, none exact): lead: the pad line's assign(const char *, n) is out of line in the client; the pad string is built outside the normal constructor path.
+   * Run 2026-11-17: 0x693E70 PDAInterfaceClass::Unknown_68 (0.78: ebx zero in case 1, the play tail after case 10); enbassetmgr 0x48CB40 (register); cameraeffects 0x6E2CC0 (register); dynamic_window_toggle 0x51DEB0 (inline budget); sound_manager 0x75AB50 / 0x75B4B0 (the deque's ??_F calls the constructor out of line).
 11. **Reminders:** D7 (revisited 2026-11-10, D224: byte-exact stays the goal; check in again if it becomes too costly;
    `docs/data/not-exact.md` shows how much functional code waits); which bool-return form gives a bare
    `setcc al` without the `xor`; the inline budget blocks most parked UI rows: a study of VC6's /Ob2 budget (F8 /

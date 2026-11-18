@@ -1044,6 +1044,11 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
   T even when no ctor is emitted. A static member `hash_map<K, OwnClass>` inside its own class fails with
   C2079: define it at file scope. A friend `Create_Peek(T*)` inside RefCountPtr<T> resolves only once
   RefCountPtr<T> is instantiated: declare the named local first.
+* **A switch label that is not a case start changes register allocation function-wide:** a result moves from a register to the stack once a `goto` label sits anywhere but at a case start. Recognise it by a whole function's registers differing after a label was added for cross-jump placement; label forms cost more than they win, so place shared tails by statement order instead.
+* **A per-case tail comes from a view local set in the switch:** `mov eax,N / push eax / call Set_View` in every case is `if (view != DEFAULT) Set_View(view); return(true);` after the switch, inside an if whose function-level exit is `return(false)`. A per-expansion `RefCountPtr` temporary with its own stack slots per case comes from a macro that calls an inline helper with `temp.Peek()`.
+* **A callee's `_Tidy` inlined in ours but called in the client can be the helper's parameter type:** passing the containing object and calling its inline accessor fixed it where dead locals did not. A Route of a temporary against a named `RefCountPtr` moves every frame slot (the named one overlays a sibling block's slot): look for a named local before chasing slot order.
+* **A StringClass's EH state around a call to an inline template that runs out of line (`Get_Hash_Value`) depends on definition order:** the first such function in the file keeps the state, later ones drop it. Compare the unwind tables of the file's functions before changing a body.
+* **A template's out-of-class (non-inline) member is compiled at the end of the TU, an in-class inline one where first referenced:** whether the body is compiled before a `new` that calls it decides whether that `new` gets an EH state. So whether a node class is a template, and the order of first references, both matter (a function with no state where the client has one, or the reverse).
 
 ### 3.2 Templates and STL
 
@@ -1536,6 +1541,9 @@ are in 3.0.
   (money.h's pattern; a declaration added to delta_array.h reaches aux_roots and sclient: `#ifdef
   __DELTA_ARRAY_MEMBERS`), and keep a single caller's accessor file-local. A hash_map / list / vector member in a header sclient.cpp includes can leave no pad window at all (the signal classes' members sit behind `__SIGNAL_MEMBERS` for that). A stopped sendpad.py leaves its pool lease: release it.
 * **A verify can lose sbaseview 0x6A1180 to unrelated header changes** (an order-only print-argument pair; a D246 entry is open); `appfile.py match` scores 0x6A1180 / 0x69D030 'none' even at baseline: check build.py objects or the verify.
+* **A COMDAT whose kept client copy came from an app object (app flags, first in link order) can byte-match another library's function:** that false credit then blocks its callers in D80. Before changing source, check the client caller's call target (`client.py dis`) to see which copy it reaches.
+* **`objmatch.py` on a single .obj does not apply USE_NAMED_AWAY unless a competitor is in the same run:** a standalone check can show a credit the full verify drops. Confirm in the verify's own output.
+* **Offline objmatch measurements must read the same `docs/data/called.json` on both sides, and a new tie rule placed before `callseq_ties` hides the functions it credits as aligned callers:** put tie phases after callseq.
 
 ### 3.5 Build VMs and vc6.py
 
@@ -1828,6 +1836,9 @@ are in 3.0.
 * **A vtable slot that names `??_E` is often a weak external of `??_G`:** match on `??_G` as well, or the virtual destructors are missed.
 * **`objmatch.same_copies` read a vtable starting with thunk 0x406573 as the C string "se@":** the identical-copies check should compare relocation targets (switch USE_VX_SAME_TARGETS; check objmatch.py has it before relying on it).
 * **`tools/re/test_objmatch.py`'s FuncletBeyond fails against `.work/CK/objs` with or without a new switch** (the default build/app/obj is missing): known, not a regression.
+* **`vtables.py` insert / delete lines can come from duplicate labels in symbols.json** (two names at one address, an identical copy named by vtable slot): check the slot counts and the client's call offsets (`client.py dis`) before changing a library header.
+* **Tool arguments:** `verify.py --pool` takes an integer (the VM count). `appfile.py match --diff` needs the full `Class::Method` name and a `// @0xADDR` marker on an existing blank line (a new line shifts asserts).
+* **Unwind funclets show a function's local `RefCountPtr` types:** N funclets jumping to one destructor means N locals of one instantiation; use them before retyping locals.
 
 ### 3.7 Harnesses, programs, unattended runs
 
