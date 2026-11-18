@@ -256,6 +256,22 @@
    "moved_to": null,
    "decision": "D240",
    "note": "D240, run 2026-11-18 (AS 50b3a5e12): aux_roots.h split by family with DeltaTemplateClass's ctor in class and the numbering statics opt-in; every family object's numbering counts now equal the client's CRT table. ui_starbase's guarded <string> initialiser 0x646120: the client's CRT table entries 416-418 are 0x644BE0 (unguarded), 0x644DE0 (guarded), 0x646120 (guarded), two objects in that window; ours merges the numbering and matches 0x644DE0 instead. Lost until regained."
+  },
+  {
+   "address": "0x72D5F0",
+   "lib": "app",
+   "file": "client_lego_impl",
+   "moved_to": null,
+   "decision": "D246",
+   "note": "D246 valve, run 2026-11-18 (AB d27d7d5e0..16a6c02ae): LegoBoneMapClass 0x72D5F0 becomes a 2-row order-only tie after the Elements / Buffs arrays became DeltaDerivedItemArrayClass<T> (client stores 0x707040 / 0x6F73DA, the client's numbering of 0xC416A4 / 0xC41600); one regain round (the template moved into aux_roots.h) failed. The landing gains 15 non-pad pairs. Lost until regained."
+  },
+  {
+   "address": "0x755C60",
+   "lib": "app",
+   "file": "sclient",
+   "moved_to": null,
+   "decision": "D246",
+   "note": "D246 valve, run 2026-11-18 (AB 16a6c02ae): sclient takes aux_ship_player.h instead of aux_roots_all.h (+4); DeltaTemplateClass<HullPreviewStatusEnum>'s constructor 0x755C60 becomes an ambiguous copy; the regain probe (ship + player + Hull families) numbers T<HullPreview> where the client does not (15 stores against 14). The landing gains 15 non-pad pairs. Lost until regained."
   }
  ]
 }
