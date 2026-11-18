@@ -3329,6 +3329,7 @@ def xcu_position(img, results, ranges, text, base, claimed, thunk):
     for item in results:
         by_obj[id(item[1])][item[0]['symbol']] = item
     out = []
+    sparse_objs = set()     # CR4: id() of the objects xcu_sparse placed
     for key, defs in by_obj.items():
         if key not in ranges:
             continue
@@ -3363,6 +3364,7 @@ def xcu_position(img, results, ranges, text, base, claimed, thunk):
             got = xcu_sparse(inits, wins, run, index, defs, claimed, obj, text, base)
             if not got:
                 continue
+            sparse_objs.add(key)
         else:
             continue
         todo = list(got.items())
@@ -3387,6 +3389,12 @@ def xcu_position(img, results, ranges, text, base, claimed, thunk):
         for n, a in got.items():
             if defs[n][0]['status'] != 'exact':
                 out.append((defs[n], a, ('sparse' if sub is None else 'table') if n in inits else 'linked'))
+    if sparse_objs:
+        # CR4: a sparse object's pick that another object's credit of this round also takes is dropped
+        holders = collections.defaultdict(set)
+        for item, a, kind in out:
+            holders[a].add(id(item[1]))
+        out = [x for x in out if id(x[0][1]) not in sparse_objs or len(holders[x[1]]) == 1]
     return out
 
 
