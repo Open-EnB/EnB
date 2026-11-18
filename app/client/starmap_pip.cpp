@@ -1252,7 +1252,7 @@ void Unknown_7C3220Class::Set_Name(std::string name)
 }
 
 #include "..\shared\auxdata\auxdata.h"
-#include "aux_roots.h"					// DeltaGroupInfoClass (0x7C2850)
+#include "aux_group.h"					// DeltaGroupInfoClass (0x7C2850)
 
 // NOT EXACT: inline budget (0.78, attempts.py 0x7C2760): the client calls UnknownRTTIClass<DeltaCompoundClass>::Cast out of line in Unknown_Find_Field; here it is inlined (Find_Valid helpers one, two and three layers deep give the same)
 // @0x7C2760

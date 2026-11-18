@@ -14,7 +14,7 @@
 #include "..\packets\pkmanufactureitemcatagorypacket.h"
 #include "..\shared\g_assert.h"
 #include "..\shared\auxdata\auxdata.h"
-#include "aux_roots.h"
+#include "aux_manu.h"
 #include "sbaseview.h"
 #include "local_interface_sort.h"
 #include "..\audio\soundlib.h"

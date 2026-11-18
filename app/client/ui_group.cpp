@@ -9,7 +9,7 @@
 #include "rendobj.h"
 #include "control_keys_manager.h"
 #include "..\shared\auxdata\auxdata.h"
-#include "aux_roots.h"				// (after auxdata.h: its Type_Name(int *) for kv_pair.h, C2665 without)
+#include "aux_group.h"				// (after auxdata.h: its Type_Name(int *) for kv_pair.h, C2665 without)
 #include "..\shared\g_assert.h"
 #include "..\..\wwlib\nstrdup.h"
 #include "..\packets\pkcta_request.h"

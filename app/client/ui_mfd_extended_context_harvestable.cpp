@@ -5,7 +5,7 @@
 #include "client.h"
 #include "co.h"
 #include "fontdatabase.h"
-#include "aux_roots.h"
+#include "aux_harvestable.h"
 #include "..\shared\g_assert.h"
 #include "..\shared\auxdata\auxdata.h"
 #include "..\shared\auxdata\delta_item_array.h"

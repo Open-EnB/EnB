@@ -25,7 +25,7 @@ template<class C> inline C *Unknown_Find_Valid(DeltaCompoundClass *root, const N
 #include "distance_calc_client.h"	// 0x7E6060 / 0x7E6130
 #define MFD_RAD_TO_DEG 57.29577791868204	// 0xAF3630  // NAME 2: what it holds
 #include "targeting.h"	// SClient +0x12A4 (the FAIL_IF's '!targeting')
-
+#include "..\shared\auxdata\delta_numbering.h"	// 0x5BF3A0 numbers the float field's global
 // The compass heading of a transform, in degrees
 static inline int Get_Heading(const Matrix3D &m)	// NAME 2: what it does
 {

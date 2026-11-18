@@ -30,7 +30,8 @@
   "0x6A2DA0",
   "0x6A2ED0",
   "0x6A33B0",
-  "0x6A3C10"
+  "0x6A3C10",
+  "0x6A3D30"
  ],
  "merged": [],
  "name": "client/ship_stats_display.cpp",

@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "RECONSTRUCTED: the PDA's star map PIP (StarmapPipClass over MapPipClass) and its labels; __FILE__ 0xB9F4D8, asserts 283-1157, constructor 0x7BF930, table 0xB06C8C",
  "expected": {},
@@ -67,6 +65,7 @@
   "0x7C2D60",
   "0x7C2DA0",
   "0x7C2E40",
+  "0x7C3180",
   "0x7C3220",
   "0x7C3720",
   "0x7C3830",

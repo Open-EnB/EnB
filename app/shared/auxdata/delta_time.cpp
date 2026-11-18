@@ -9,12 +9,12 @@
 
 // (the client's file has no assert before line 31)
 
-// The per-class global (0xBE3AA4) and the constructor (0x4A8150): an explicit specialisation with
-// delta_template.h's body (the header declares the instance `extern template`, and VC6 can't
-// instantiate a constructor alone: C2909)
-template<> int DeltaTemplateClass<DurationClass>::UnknownGlobal = DeltaUnknownCounter++;
+// The per-class global (0xBE3AA4) and the constructor (0x4A8150): members of delta_template.h's whole-class
+// specialisation DeltaTemplateClass<DurationClass> (out of line here: the interpolator's constructor 0x4A6110
+// calls it)
+int DeltaTemplateClass<DurationClass>::UnknownGlobal = DeltaUnknownCounter++;
 
-template<> DeltaTemplateClass<DurationClass>::DeltaTemplateClass(const char *name, const DurationClass &value) :
+DeltaTemplateClass<DurationClass>::DeltaTemplateClass(const char *name, const DurationClass &value) :
 	DeltaClass(name),
 	Value(value)
 {
@@ -22,7 +22,7 @@ template<> DeltaTemplateClass<DurationClass>::DeltaTemplateClass(const char *nam
 }
 
 
-template<> bool DeltaTemplateClass<DurationClass>::Read(LinearBufferClass &buf, const DurationClass &base)
+bool DeltaTemplateClass<DurationClass>::Read(LinearBufferClass &buf, const DurationClass &base)
 {
 	int value;
 	if (buf.Read(&value, sizeof(value)) != sizeof(value)) {
@@ -50,7 +50,7 @@ template<> bool DeltaTemplateClass<DurationClass>::Read(LinearBufferClass &buf, 
 
 
 
-template<> bool DeltaTemplateClass<DurationClass>::Write(LinearBufferClass &buf)
+bool DeltaTemplateClass<DurationClass>::Write(LinearBufferClass &buf)
 {
 	int value = Value.Get();
 	if (buf.Write(&value, sizeof(value)) != sizeof(value)) {
@@ -81,7 +81,7 @@ public:
 
 static KVAccessorClass<unsigned int> *Make_Accessor(DurationClass *duration);  // NAME 2: describes what it does
 
-template<> void DeltaTemplateClass<DurationClass>::Unknown_00(KVEncoderClass *visitor)
+void DeltaTemplateClass<DurationClass>::Unknown_00(KVEncoderClass *visitor)
 {
 	visitor->Add_Value(Unknown80, Name.Get_String(), Make_Accessor(&Value));
 }

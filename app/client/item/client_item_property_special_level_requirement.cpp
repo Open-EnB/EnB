@@ -1,7 +1,7 @@
 #include "client_item_property_special_level_requirement.h"
 #include <stdlib.h>
 #include "..\sclient.h"
-#include "..\aux_roots.h"
+#include "..\aux_skill.h"
 #include "..\..\shared\auxdata\auxdata.h"
 
 template<class C> inline C *Unknown_Find_Valid(DeltaCompoundClass *root, const NameClass &name) { C *t = Unknown_Find_Field<C>(root, name); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10): as co.cpp's

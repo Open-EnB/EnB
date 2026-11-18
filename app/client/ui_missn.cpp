@@ -15,7 +15,7 @@
 #include "unknown_675120.h"
 #include "gd_uiback.h"		// UIBackGadget (0x674260)
 #include "assetmgr.h"
-#include <stdio.h>
+#include "aux_player.h"	// the player's constructors (0x5C6F10 numbers them; <stdio.h> through aux_roots.h), before ui_missn.h
 #include "ui_missn.h"
 
 // (the FAIL_IFs' InterfaceMesh is the interface base's +0x84, Unknown5BB320Class::InterfaceMesh: sclient.h)

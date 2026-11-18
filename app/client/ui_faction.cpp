@@ -218,7 +218,7 @@ bool UIFactionClass::Unknown_68(int key)
 
 
 #include "..\shared\auxdata\auxdata.h"
-#include "aux_roots.h"				// (after auxdata.h, as ui_buff.cpp)
+#include "aux_player.h"				// (after auxdata.h, as ui_buff.cpp)
 
 // A field under root that is set (+0x70), else NULL (auxdata.h's Unknown_Find_Set_Field); and one changed since (+0x70 above 1): as co_player_relationship.cpp's wrapper; 0x58DC20's dead size() reads at its end keep rtti.h's cast out of line (0x58EAE0), as the client's
 

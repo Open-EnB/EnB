@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "UILineDisplayClass, client 0x5A4B50-0x5A8C70 with the tables' instances to 0x5AAE30: the asserts on the client's lines 172-595 (D25); NOT EXACT: 0x5A4B50, the destructor 0x5A58A0, 0x5A69B0, 0x5A7A80, 0x5A7E80, Clear 0x5A8100, 0x5A8B60, 0x5A8C70; the mission messages 0x5A8350 declared only",
  "expected": {},
@@ -110,6 +108,7 @@
   "0x5AA360",
   "0x5AA490",
   "0x5AA510",
+  "0x5AA540",
   "0x5AA5B0",
   "0x5AA790",
   "0x5AA7C0",
@@ -117,6 +116,7 @@
   "0x5AA9D0",
   "0x5AAA40",
   "0x5AABF0",
+  "0x5AADA0",
   "0x5AAE20",
   "0x5AAE30"
  ],

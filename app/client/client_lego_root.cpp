@@ -1,7 +1,7 @@
 // Earth & Beyond client (reconstruction): app\Client\client_lego_root.cpp. Notes at the end of the file.
 #include "client_lego_root.h"
 #include "co.h"
-#include "aux_roots.h"
+#include "aux_lego.h"
 #include "..\shared\auxdata\auxdata.h"
 // The asserts name DeltaClass::Is_Valid(), not declared in delta.h (a declaration there moves aux_roots.cpp's pad window: interim, D137)
 #define Is_Valid() Unknown70

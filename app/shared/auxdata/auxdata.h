@@ -23,7 +23,7 @@
 #include "name.h"
 #include "..\g_assert.h"
 #include "rtti.h"
-
+#include "delta_money.h"	// the money field's whole-class specialisation before any use (else its users instantiate the primary template: a second global)
 
 
 

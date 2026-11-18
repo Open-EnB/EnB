@@ -1,7 +1,7 @@
 // Earth & Beyond client (reconstruction): app\client\inv_data_peek.cpp, a view of an inventory list
 // (the client's file per its asserts, 'e:\build\beta\G\app\Client\inv_data_peek.cpp' at 0xB8FFCC). Notes at the end.
 #define __DELTA_ARRAY_MEMBERS	// delta_array.h's Get_Value
-#include <string.h>
+#include "aux_item.h"	// the item family's constructors (0x68B280 numbers them); <string.h> through aux_roots.h
 #include "inv_data_peek.h"
 
 static const char *ItemFieldNames[14] = {	// 0xB8FEB4  // NAME 2: describes what it does

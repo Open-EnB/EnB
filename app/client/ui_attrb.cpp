@@ -16,7 +16,7 @@
 #include "..\audio\soundlib.h"
 #include "ui_attrb.h"
 #include "..\shared\auxdata\permstr.h"	// (its PermStringInitClass static: 0x5495F0)
-
+#include "..\shared\auxdata\delta_numbering.h"	// 0x548210 numbers the int field's global
 extern FontManagerClass *Unknown_BE67C4;			// NAME 1 [Unknown_BE67C4]: 0xBE67C4
 #include "avatar.h"
 #include "gd_uiback.h"		// UIBackGadget (0x674260)

@@ -4,7 +4,7 @@
 #include "..\packets\pk_player_object_relationship.h"
 #include "..\shared\g_assert.h"
 #include "..\shared\auxdata\auxdata.h"
-#include "aux_roots.h"
+#include "aux_group.h"
 #include "..\..\wwlib\inisup.h"
 #include "..\..\wwlib\ini.h"
 #include <string>

@@ -368,7 +368,7 @@ public:
 	static int UnknownGlobal;							// the per-class global at +0x04 (0xC4162C)
 };
 int UIManuCategoriesClass::UnknownGlobal;
-#include "aux_roots.h"				// (after auxdata.h, as ui_cpit.cpp): 'Validity' is DeltaManufacturingLabClass's DeltaTemplateClass<UnknownB01394Enum> (0xC41640)
+#include "aux_manu.h"				// (after auxdata.h, as ui_cpit.cpp): 'Validity' is DeltaManufacturingLabClass's DeltaTemplateClass<UnknownB01394Enum> (0xC41640)
 
 
 

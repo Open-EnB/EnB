@@ -157,6 +157,7 @@ template<> inline const char *KVPairTemplateClass<FormationState>::Get_Type_Name
 class DeltaShakeClass : public DeltaCompoundClass
 {
 public:
+#if defined(AUX_ROOTS_ALL) || defined(AUX_CTORS_SHIP)
 	DeltaShakeClass(const char *name) :
 		DeltaCompoundClass(name),
 		Unknown9C(0),
@@ -170,6 +171,9 @@ public:
 		Add(&ForceZ);
 		Add(&Damage);
 	}
+#else
+	DeltaShakeClass(const char *name);
+#endif
 
 	int Unknown9C;	// +0x9C  // NAME 1: neutral (D10): a member, not a field of the tree
 	DeltaTemplateClass<float> ForceX;	// +0xA0
@@ -202,6 +206,7 @@ public:
 class DeltaEffectClass : public DeltaCompoundClass
 {
 public:
+#if defined(AUX_ROOTS_ALL) || defined(AUX_CTORS_ITEM)
 	DeltaEffectClass(const char *name) :
 		DeltaCompoundClass(name),
 		Range("Range"),
@@ -214,6 +219,9 @@ public:
 		Add(&Targets);
 		Add(&Validity);
 	}
+#else
+	DeltaEffectClass(const char *name);
+#endif
 
 	DeltaTemplateClass<float> Range;	// +0x9C
 	DeltaTemplateClass<EffectGeneratorUsageBF> Usage;	// +0x124
@@ -226,6 +234,7 @@ public:
 class DeltaEquipItemClass : public DeltaItemClass
 {
 public:
+#if defined(AUX_ROOTS_ALL) || defined(AUX_CTORS_ITEM)
 	DeltaEquipItemClass(const char *name) :
 		DeltaItemClass(name),
 		ReadyTime("ReadyTime", 0),
@@ -238,6 +247,9 @@ public:
 		Add(&ItemState);
 		Add(&Effects);
 	}
+#else
+	DeltaEquipItemClass(const char *name);
+#endif
 
 	DeltaTemplateClass<DurationClass> ReadyTime;	// +0x5F8
 	DeltaTemplateClass<float> TargetRange;	// +0x688
@@ -250,6 +262,7 @@ public:
 class DeltaShipInvClass : public DeltaCompoundClass
 {
 public:
+#if defined(AUX_ROOTS_ALL) || defined(AUX_CTORS_SHIPINV)
 	DeltaShipInvClass(const char *name) :
 		DeltaCompoundClass(name),
 		CargoSpace("CargoSpace"),
@@ -276,6 +289,9 @@ public:
 		Add(&Hull);
 		Add(&PlayerTrade);
 	}
+#else
+	DeltaShipInvClass(const char *name);
+#endif
 
 	DeltaTemplateClass<int> CargoSpace;	// +0x9C
 	DeltaStringClass EquipMountModel;	// +0x124
@@ -295,6 +311,7 @@ public:
 class DeltaAttachmentClass : public DeltaCompoundClass
 {
 public:
+#if defined(AUX_ROOTS_ALL) || defined(AUX_CTORS_LEGO)
 	DeltaAttachmentClass(const char *name) :
 		DeltaCompoundClass(name),
 		BoneName("BoneName", ""),
@@ -307,6 +324,9 @@ public:
 		Add(&Assets);
 		Add(&Data);
 	}
+#else
+	DeltaAttachmentClass(const char *name);
+#endif
 
 	DeltaStringClass BoneName;	// +0x9C
 	DeltaTemplateClass<int> Type;	// +0x124
@@ -319,6 +339,7 @@ public:
 class DeltaLegoClass : public DeltaCompoundClass
 {
 public:
+#if defined(AUX_ROOTS_ALL) || defined(AUX_CTORS_LEGO)
 	DeltaLegoClass(const char *name) :
 		DeltaCompoundClass(name),
 		Scale("Scale", 1.0f),
@@ -327,6 +348,9 @@ public:
 		Add(&Scale);
 		Add(&Attachments);
 	}
+#else
+	DeltaLegoClass(const char *name);
+#endif
 
 	DeltaTemplateClass<float> Scale;	// +0x9C
 	DeltaItemArrayClass<DeltaAttachmentClass> Attachments;	// +0x124
@@ -351,10 +375,14 @@ public:
 class DeltaElementsClass : public DeltaItemArrayClass<DeltaElementClass>
 {
 public:
+#if defined(AUX_ROOTS_ALL) || defined(AUX_CTORS_BUFF)
 	DeltaElementsClass(const char *name, unsigned int count) : DeltaItemArrayClass<DeltaElementClass>(name, count)
 	{
 		Unknown04 = UnknownGlobal;
 	}
+#else
+	DeltaElementsClass(const char *name, unsigned int count);
+#endif
 
 	static int UnknownGlobal;	// the per-class global at +0x04
 };
@@ -364,6 +392,7 @@ public:
 class DeltaBuffClass : public DeltaCompoundClass
 {
 public:
+#if defined(AUX_ROOTS_ALL) || defined(AUX_CTORS_BUFF)
 	DeltaBuffClass(const char *name) :
 		DeltaCompoundClass(name),
 		BuffType("BuffType", ""),
@@ -378,6 +407,9 @@ public:
 		Add(&BuffRemovalTime);
 		Add(&Elements);
 	}
+#else
+	DeltaBuffClass(const char *name);
+#endif
 
 	DeltaStringClass BuffType;	// +0x9C
 	DeltaStringClass ScrubTypeName;	// +0x124
@@ -391,10 +423,14 @@ public:
 class DeltaBuffsClass : public DeltaItemArrayClass<DeltaBuffClass>
 {
 public:
+#if defined(AUX_ROOTS_ALL) || defined(AUX_CTORS_BUFF)
 	DeltaBuffsClass(const char *name, unsigned int count) : DeltaItemArrayClass<DeltaBuffClass>(name, count)
 	{
 		Unknown04 = UnknownGlobal;
 	}
+#else
+	DeltaBuffsClass(const char *name, unsigned int count);
+#endif
 	~DeltaBuffsClass() {}	// user-declared: the client stores the vtable 0xB00B0C first (0x6F8EA9)
 
 	static int UnknownGlobal;	// the per-class global at +0x04
@@ -405,6 +441,7 @@ public:
 class DeltaStatsClass : public DeltaCompoundClass
 {
 public:
+#if defined(AUX_ROOTS_ALL) || defined(AUX_CTORS_SHIP)
 	DeltaStatsClass(const char *name) :
 		DeltaCompoundClass(name),
 		Defense("Defense"),
@@ -439,6 +476,9 @@ public:
 		Add(&ResistChemical);
 		Add(&ResistPsionic);
 	}
+#else
+	DeltaStatsClass(const char *name);
+#endif
 
 	DeltaTemplateClass<int> Defense;	// +0x9C
 	DeltaTemplateClass<int> MissileDefense;	// +0x124
@@ -586,6 +626,7 @@ public:
 class DeltaSubCategoryClass : public DeltaCompoundClass
 {
 public:
+#if defined(AUX_ROOTS_ALL) || defined(AUX_CTORS_MANU)
 	DeltaSubCategoryClass(const char *name) :
 		DeltaCompoundClass(name),
 		Name("Name", ""),
@@ -596,6 +637,9 @@ public:
 		Add(&ID);
 		Add(&Visible);
 	}
+#else
+	DeltaSubCategoryClass(const char *name);
+#endif
 
 	DeltaStringClass Name;	// +0x9C
 	DeltaTemplateClass<UnknownB0122CEnum> ID;	// +0x124
@@ -607,6 +651,7 @@ public:
 class DeltaCategoryClass : public DeltaCompoundClass
 {
 public:
+#if defined(AUX_ROOTS_ALL) || defined(AUX_CTORS_MANU)
 	DeltaCategoryClass(const char *name) :
 		DeltaCompoundClass(name),
 		Name("Name", ""),
@@ -617,6 +662,9 @@ public:
 		Add(&Subcategories);
 		Add(&ID);
 	}
+#else
+	DeltaCategoryClass(const char *name);
+#endif
 
 	DeltaStringClass Name;	// +0x9C
 	DeltaTemplateClass<int> ID;	// +0x124
@@ -738,6 +786,7 @@ public:
 class DeltaMissionStageClass : public DeltaCompoundClass
 {
 public:
+#if defined(AUX_ROOTS_ALL) || defined(AUX_CTORS_MISSION)
 	DeltaMissionStageClass(const char *name) :
 		DeltaCompoundClass(name),
 		Text("Text", ""),
@@ -746,6 +795,9 @@ public:
 		Add(&Text);
 		Add(&IsTimed);
 	}
+#else
+	DeltaMissionStageClass(const char *name);
+#endif
 
 	DeltaStringClass Text;	// +0x9C
 	DeltaTemplateClass<bool> IsTimed;	// +0x124
@@ -784,6 +836,7 @@ public:
 class DeltaFactionClass : public DeltaCompoundClass
 {
 public:
+#if defined(AUX_ROOTS_ALL) || defined(AUX_CTORS_FACTION)
 	DeltaFactionClass(const char *name) :
 		DeltaCompoundClass(name),
 		Name("Name", ""),
@@ -794,6 +847,9 @@ public:
 		Add(&Reaction);
 		Add(&Order);
 	}
+#else
+	DeltaFactionClass(const char *name);
+#endif
 
 	DeltaStringClass Name;	// +0x9C
 	DeltaTemplateClass<float> Reaction;	// +0x124
@@ -805,6 +861,7 @@ public:
 class DeltaReputationClass : public DeltaCompoundClass
 {
 public:
+#if defined(AUX_ROOTS_ALL) || defined(AUX_CTORS_FACTION)
 	DeltaReputationClass(const char *name) :
 		DeltaCompoundClass(name),
 		Faction("Faction", 32),
@@ -813,6 +870,9 @@ public:
 		Add(&Faction);
 		Add(&Affiliation);
 	}
+#else
+	DeltaReputationClass(const char *name);
+#endif
 
 	DeltaItemArrayClass<DeltaFactionClass> Faction;	// +0x9C
 	DeltaStringClass Affiliation;	// +0x138
@@ -883,6 +943,7 @@ public:
 class DeltaHulkClass : public UnknownRootClass
 {
 public:
+#if defined(AUX_ROOTS_ALL) || defined(AUX_CTORS_HULK)
 	DeltaHulkClass(int unknown) :
 		UnknownRootClass(unknown, "Hulk"),
 		Name("Name", ""),
@@ -909,6 +970,9 @@ public:
 		Cargo.Unknown80 = 0xCF;
 		DeltaCompoundClass::Unknown_48();
 	}
+#else
+	DeltaHulkClass(int unknown);
+#endif
 
 	DeltaStringClass Name;	// +0xA0
 	DeltaStringClass Owner;	// +0x128
@@ -928,6 +992,7 @@ public:
 class DeltaPlanetClass : public UnknownRootClass
 {
 public:
+#if defined(AUX_ROOTS_ALL) || defined(AUX_CTORS_PLANET)
 	DeltaPlanetClass(int unknown) :
 		UnknownRootClass(unknown, "Planet"),
 		Name("Name", "")
@@ -935,6 +1000,9 @@ public:
 		Add(&Name);
 		DeltaCompoundClass::Unknown_48();
 	}
+#else
+	DeltaPlanetClass(int unknown);
+#endif
 
 	DeltaStringClass Name;	// +0xA0
 };
@@ -944,6 +1012,7 @@ public:
 class DeltaStarbaseClass : public UnknownRootClass
 {
 public:
+#if defined(AUX_ROOTS_ALL) || defined(AUX_CTORS_STARBASE)
 	DeltaStarbaseClass(int unknown) :
 		UnknownRootClass(unknown, "Starbase"),
 		Name("Name", "")
@@ -951,6 +1020,9 @@ public:
 		Add(&Name);
 		DeltaCompoundClass::Unknown_48();
 	}
+#else
+	DeltaStarbaseClass(int unknown);
+#endif
 
 	DeltaStringClass Name;	// +0xA0
 };
@@ -960,6 +1032,7 @@ public:
 class DeltaStargateClass : public UnknownRootClass
 {
 public:
+#if defined(AUX_ROOTS_ALL) || defined(AUX_CTORS_STARGATE)
 	DeltaStargateClass(int unknown) :
 		UnknownRootClass(unknown, "Stargate"),
 		Name("Name", "")
@@ -967,6 +1040,9 @@ public:
 		Add(&Name);
 		DeltaCompoundClass::Unknown_48();
 	}
+#else
+	DeltaStargateClass(int unknown);
+#endif
 
 	DeltaStringClass Name;	// +0xA0
 };
@@ -976,6 +1052,7 @@ public:
 // The factory 0x6F6000 is ClientObjectClass's member (co.h; `ret 8`, called with the object in ecx)
 // though it uses nothing of the object; aux_roots.cpp defines it.
 
+#if defined(AUX_ROOTS_ALL) || defined(AUX_CTORS_SHIP)
 // Ship (0x6F66E0)
 inline DeltaShipClass::DeltaShipClass(int unknown) :
 	UnknownRootClass(unknown, "Ship"),
@@ -1101,7 +1178,9 @@ inline DeltaShipClass::DeltaShipClass(int unknown) :
 	Add(1, &FactionIdentifier);
 	DeltaCompoundClass::Unknown_48();
 }
+#endif
 
+#if defined(AUX_ROOTS_ALL) || defined(AUX_CTORS_LIGHT)
 // Light (0x6F9870)
 inline DeltaLightClass::DeltaLightClass(int unknown) :
 	UnknownRootClass(unknown, "Light"),
@@ -1122,7 +1201,9 @@ inline DeltaLightClass::DeltaLightClass(int unknown) :
 	Add(&AttenuationFactors);
 	DeltaCompoundClass::Unknown_48();
 }
+#endif
 
+#if defined(AUX_ROOTS_ALL) || defined(AUX_CTORS_DECORATION)
 // Decoration (0x6F9C30)
 inline DeltaDecorationClass::DeltaDecorationClass(int unknown) :
 	UnknownRootClass(unknown, "Decoration"),
@@ -1135,7 +1216,9 @@ inline DeltaDecorationClass::DeltaDecorationClass(int unknown) :
 	Add(&RadarRange);
 	DeltaCompoundClass::Unknown_48();
 }
+#endif
 
+#if defined(AUX_ROOTS_ALL) || defined(AUX_CTORS_HARVESTABLE)
 // Harvestable (0x6F9ED0)
 inline DeltaHarvestableClass::DeltaHarvestableClass(int unknown) :
 	UnknownRootClass(unknown, "Harvestable"),
@@ -1150,7 +1233,9 @@ inline DeltaHarvestableClass::DeltaHarvestableClass(int unknown) :
 	Add(&TechLevel);
 	DeltaCompoundClass::Unknown_48();
 }
+#endif
 
+#if defined(AUX_ROOTS_ALL) || defined(AUX_CTORS_MANU)
 // ManufacturingLab (0x6FA6F0)
 inline DeltaManufacturingLabClass::DeltaManufacturingLabClass(int unknown) :
 	UnknownRootClass(unknown, "ManufacturingLab"),
@@ -1199,7 +1284,9 @@ inline DeltaManufacturingLabClass::DeltaManufacturingLabClass(int unknown) :
 	Add(&TechLevelFilterBitfield);
 	DeltaCompoundClass::Unknown_48();
 }
+#endif
 
+#if defined(AUX_ROOTS_ALL) || defined(AUX_CTORS_COMPONENT)
 // Component (0x6FBDA0)
 inline DeltaComponentClass::DeltaComponentClass(int unknown) :
 	UnknownRootClass(unknown, "Component"),
@@ -1208,5 +1295,6 @@ inline DeltaComponentClass::DeltaComponentClass(int unknown) :
 	Add(&Name);
 	DeltaCompoundClass::Unknown_48();
 }
+#endif
 
 #endif //__AUX_ROOTS_H

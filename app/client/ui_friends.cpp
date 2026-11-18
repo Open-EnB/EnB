@@ -657,7 +657,7 @@ void UIFriendsClass::Unknown_591A30()
 }
 
 #include "..\shared\auxdata\auxdata.h"
-#include "aux_roots.h"				// (after auxdata.h: its Type_Name(int *) for kv_pair.h, C2665 without)
+#include "aux_group.h"				// (after auxdata.h: its Type_Name(int *) for kv_pair.h, C2665 without)
 
 // auxdata.h's find through one more inline level, as ui_group.cpp's; the dead size() reads here and in 0x591C30's loop spend the inline budget (D130, not the client's code) so the find 0x5927E0 and the name's _Eos stay out of line as in the client
 template<class C> inline C *Unknown_Friends_Find(DeltaCompoundClass *root, const NameClass &name) { root->Children.size(); return(Unknown_Find_Field<C>(root, name)); }  // NAME 1: neutral (D10)

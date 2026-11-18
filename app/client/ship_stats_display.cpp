@@ -13,7 +13,7 @@
 #include "fontmanager.h"
 #include "..\shared\auxdata\auxdata.h"
 #include "..\shared\g_assert.h"
-
+#include "..\shared\auxdata\delta_numbering.h"	// 0x6A3D30 numbers two globals
 class TextureClass *Unknown_4960C0(RenderObjClass *robj, int arg);		// 0x4960C0 (ro_funcs.cpp)  // NAME 1 [robj, arg]: as gadget.cpp's
 bool Unknown_495FD0(RenderObjClass *robj, TextureClass *tex, int index);	// 0x495FD0 (ro_funcs.cpp): the texture onto the mesh's stage index  // NAME 1 [robj, tex, index]: as avatar.cpp's
 extern FontManagerClass *Unknown_BE67C4;	// NAME 1: neutral (D10)

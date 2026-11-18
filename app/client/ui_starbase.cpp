@@ -598,7 +598,7 @@ void UIStarbaseClass::Unknown_641B70()
 #include "postate.h"
 #include "coltest.h"
 #include "random.h"
-#include "aux_roots.h"
+#include "aux_group.h"
 #include "..\shared\auxdata\auxdata.h"
 extern RandomClass Unknown_BDBB84; extern Random4Class Unknown_BDB1C0;	// NAME 1 [Unknown_BDB1C0]: 0xBDB1C0, as camctrl_dock.cpp's
 // The docking sounds by the starbase's column +0x18 (0xB8A8B0: 0x6415B0)

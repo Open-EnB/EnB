@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "TargetFindClass (D24 class-from-file), the cycling target finder (the client's __FILE__ 0xB9F7D4, FAIL_IFs at lines 181-249; client 0x7C3EC0-0x7C509F) (TF1)",
  "expected": {},
@@ -33,6 +31,8 @@
   "0x7C4940",
   "0x7C4A80",
   "0x7C4AC0",
+  "0x7C4DB0",
+  "0x7C4DE0",
   "0x7C4E30",
   "0x7C4FF0",
   "0x7C5040"

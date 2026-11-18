@@ -7,7 +7,7 @@
 #include "radar_data.h"
 #include "..\shared\g_assert.h"
 #include "..\shared\auxdata\auxdata.h"
-#include "aux_roots.h"
+#include "aux_group.h"
 #include <algorithm>
 
 #include "distance_calc_client.h"	// 0x7E6060 / 0x7E6130

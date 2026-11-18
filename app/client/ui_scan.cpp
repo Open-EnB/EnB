@@ -535,7 +535,7 @@ UIScanThreatClass::~UIScanThreatClass()
 }
 
 #include "..\shared\auxdata\auxdata.h"
-#include "aux_roots.h"				// (after auxdata.h, as ui_faction.cpp)
+#include "aux_faction.h"				// (after auxdata.h, as ui_faction.cpp)
 #include "cfaction_database.h"
 #include <stdio.h>
 #include "co_player_relationship.h"

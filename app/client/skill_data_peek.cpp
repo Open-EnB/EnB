@@ -2,7 +2,7 @@
 // (the client's file per its asserts, 'e:\build\beta\G\app\Client\skill_data_peek.cpp' at 0xB914A4). Notes at the end.
 #include <string.h>
 #include "skill_data_peek.h"
-#include "aux_roots.h"
+#include "aux_skill.h"
 
 static const char *SkillFieldNames[7] = {	// 0xB913DC  // NAME 2: describes what it does
 	"Level", "RecycleTime", "LastActivation", "Availability", "Affiliations", "QuestOnlyLevels", "MaxSkillLevels"

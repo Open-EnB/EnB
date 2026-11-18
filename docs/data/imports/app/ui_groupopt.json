@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "RECONSTRUCTED: the group options window (UIGroupOptClass, class-from-file D24), client 0x59AD10-0x59BEDF by its __FILE__ asserts (l.187-414) and its object's guard 0x59BE70",
  "expected": {},
@@ -55,6 +53,8 @@
   "0x59BC00",
   "0x59BDD0",
   "0x59BE00",
+  "0x59BE40",
+  "0x59BE70",
   "0x59BEC0",
   "0x59BED0"
  ],

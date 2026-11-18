@@ -3,7 +3,7 @@
 #include "eff_o.h"
 #include "client.h"
 #include "..\shared\auxdata\auxdata.h"
-#include "aux_roots.h"
+#include "aux_roots_all.h"
 #include "co_data.h"
 #include "rendobj.h"
 #include "sphere.h"

@@ -24,6 +24,7 @@ inline bool String_To_Value(const char *text, HullPreviewStatusEnum *value) { re
 class DeltaHullClass : public UnknownSendRootClass
 {
 public:
+#if defined(AUX_ROOTS_ALL) || defined(AUX_CTORS_HULL)
 	DeltaHullClass(int unknown) :
 		UnknownSendRootClass(unknown, "Hull"),
 		Name("Name", ""),
@@ -43,6 +44,9 @@ public:
 		Add(&Status);
 		Unknown_48();
 	}
+#else
+	DeltaHullClass(int unknown);
+#endif
 
 	DeltaStringClass Name;	// +0xAC
 	DeltaStringClass Owner;	// +0x134
@@ -53,6 +57,7 @@ public:
 	DeltaTemplateClass<HullPreviewStatusEnum> Status;	// +0xA54
 };
 
+#if defined(AUX_ROOTS_ALL) || defined(AUX_CTORS_SKILL)
 // Player.RPGInfo (0x752E60)
 inline
 DeltaRPGInfoClass::DeltaRPGInfoClass(const char *name) :
@@ -91,7 +96,9 @@ DeltaRPGInfoClass::DeltaRPGInfoClass(const char *name) :
 	Add(&SkillPowerupEnd);
 	Add(&SkillPowerupAbilityNumber);
 }
+#endif
 
+#if defined(AUX_ROOTS_ALL) || defined(AUX_CTORS_SKILL)
 // Player.RPGInfo.Skills.N (0x753520)
 inline
 DeltaSkillClass::DeltaSkillClass(const char *name) :
@@ -112,7 +119,9 @@ DeltaSkillClass::DeltaSkillClass(const char *name) :
 	Add(&MaxSkillLevels);
 	Add(&Affiliations);
 }
+#endif
 
+#if defined(AUX_ROOTS_ALL) || defined(AUX_CTORS_SKILL)
 // Player.RPGInfo.SkillAbilities.N (0x7538B0)
 inline
 DeltaSkillAbilityClass::DeltaSkillAbilityClass(const char *name) :
@@ -133,7 +142,9 @@ DeltaSkillAbilityClass::DeltaSkillAbilityClass(const char *name) :
 	Add(&Validity);
 	Add(&CanBeUsedWhileIncapacitated);
 }
+#endif
 
+#if defined(AUX_ROOTS_ALL) || defined(AUX_CTORS_MISSION)
 // Player.Missions.N (0x753DF0)
 inline
 DeltaMissionClass::DeltaMissionClass(const char *name) :
@@ -178,7 +189,9 @@ DeltaMissionClass::DeltaMissionClass(const char *name) :
 	Add(&StageExpirationTime);
 	Add(&HasGivenNewMissionMessage);
 }
+#endif
 
+#if defined(AUX_ROOTS_ALL) || defined(AUX_CTORS_GROUP)
 // Player.GroupInfo (0x7548D0)
 inline
 DeltaGroupInfoClass::DeltaGroupInfoClass(const char *name) :
@@ -207,7 +220,9 @@ DeltaGroupInfoClass::DeltaGroupInfoClass(const char *name) :
 	Add(&Position);
 	Add(&Members);
 }
+#endif
 
+#if defined(AUX_ROOTS_ALL) || defined(AUX_CTORS_GROUP)
 // Player.GroupInfo.Members.N (0x754DB0)
 inline
 DeltaGroupMemberClass::DeltaGroupMemberClass(const char *name) :
@@ -222,7 +237,9 @@ DeltaGroupMemberClass::DeltaGroupMemberClass(const char *name) :
 	Add(&Formation);
 	Add(&Position);
 }
+#endif
 
+#if defined(AUX_ROOTS_ALL) || defined(AUX_CTORS_PLAYER)
 // Player (0x752510)
 inline
 DeltaPlayerClass::DeltaPlayerClass() :
@@ -266,6 +283,7 @@ DeltaPlayerClass::DeltaPlayerClass() :
 	Add(&GroupInfo);
 	Unknown_48();
 }
+#endif
 
 // VC6 symbol pad (not the client's code): sclient.cpp's copy of 0x758210 matches only when the count of
 // the declarations it sees falls in a window (tools/re/auxroots.py SEND_SYMBOL_PAD)

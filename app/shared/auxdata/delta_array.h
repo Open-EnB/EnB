@@ -35,7 +35,7 @@ public:
 	static int UnknownGlobal;	// the per-class global at +0x04 (float: 0xC415DC)
 };
 
-template<class T> int DeltaArrayClass<T>::UnknownGlobal;
+// UnknownGlobal: defined in delta_numbering.h
 
 // (the lines down to the constructor's assert hold code of the client's header not rebuilt yet:
 // the assert is on line 71)
