@@ -37,50 +37,7 @@
 #include "..\shared\auxdata\delta_money.h"
 
 
-// ------------------------------------------------------------------------- value types
-
-// The int and bool conversions and type names are strconv_lib.h's (the client's are out of line,
-// unknown_strconv.cpp 0x4A30A0-0x4A3640)
-inline char *Unknown_Hex_String(char *buf, int size, const unsigned char *data, int n)
-{
-	int k = 0;
-	for (int i = 0; i < n && k + 3 <= size; i++) {
-		k += _snprintf(buf + k, size - k, "%02x", data[i]);
-	}
-	if (k < size) {
-		buf[k] = 0;
-	}
-	return buf;
-}
-
-#include "..\common\interrupt_defs.h"	// InterruptStateType (KVPair vtable 0xB01B40, leaf vtable 0xB009A8) and its converters 0x83D9E0 / 0x83DA80
-
-
-
-
-// leaf vtable 0xB00A00's value type is wwmath's Vector3: its slot +0x00 0x703D50 builds KVPairTemplateClass<Vector3> (vtable 0xAEB484, kv_encoder.cpp's) with the accessor 0xB01B2C, whose Set 0x705FD0 compares with fld / fcomp (Vector3's operator!=)
-#include "vector3.h"
-inline const char *Type_Name(Vector3 *) { return "Vector3"; }	// KVPairTemplateClass<Vector3>::Get_Type_Name 0x4B24F0
-char *Value_To_String(char *buf, int size, const Vector3 &value);	// 0x4A3750 (strconv_lib.cpp)
-bool String_To_Value(const char *text, Vector3 *value);	// 0x4A3810 (strconv_lib.cpp)
-
-#include "..\common\guild_defs.h"	// GuildRankType (KVPair vtable 0xB01AF4, leaf vtable 0xB00A58), its Type_Name 0x83D8B0 and converters 0x83D7D0 / 0x83D860
-
-
-template<> inline const char *KVPairTemplateClass<GuildRankType>::Get_Type_Name() const { return Type_Name(Value); }	// 0x708240
-
-
-// NAME 5: the client's Get_Type_Name string 'WW3DLightAttenuationType' (KVPair vtable 0xB01B78, 0x708520 inline), leaf vtable 0xB0100C
-enum WW3DLightAttenuationType { UNKNOWN_B0100C_0 };	// vtable 0xB0100C, 4 bytes
-inline const char *Type_Name(WW3DLightAttenuationType *) { return "WW3DLightAttenuationType"; }
-bool String_To_Value(const char *text, WW3DLightAttenuationType *value);	// 0x82F180
-char *Value_To_String(char *buf, int size, WW3DLightAttenuationType value);	// 0x82F1D0
-// leaf vtable 0xB011D4's value type is unsigned int: its KVAccessorClass table 0xAEB258 (slot 0 KVAccessorClass<unsigned int>'s ??_G) is stored by 0x706D80
-#include "..\common\manufacturing_defs.h"	// the subcategory, mode, validity and difficulty types (vtables 0xB0122C, 0xB013EC, 0xB01394, 0xB0133C) and their converters
-inline const char *Type_Name(UnknownB0122CEnum *) { return "int"; }	// the KVPair's Get_Type_Name 0x708690 says 'int'
-inline const char *Type_Name(UnknownB0133CEnum *) { return "int"; }	// the KVPair's Get_Type_Name 0x708AE0 says 'int'
-inline const char *Type_Name(UnknownB01394Enum *) { return "int"; }	// the KVPair's Get_Type_Name 0x708970 says 'int'
-inline const char *Type_Name(UnknownB013ECEnum *) { return "int"; }	// the KVPair's Get_Type_Name 0x708800 says 'int'
+#include "aux_roots_types.h"
 
 
 
@@ -96,55 +53,98 @@ inline const char *Type_Name(UnknownB013ECEnum *) { return "int"; }	// the KVPai
 
 
 
-// NAME 5: the client's Get_Type_Name string 'InvSlotStruct' (KVPair vtable 0xB01E28, 0x709C80 inline, string 0xB94480), leaf vtable 0xB016DC: its slot +0x00 0x706DF0 builds that KVPair (the Mounts elements)
-struct InvSlotStruct { int I00; int I04; int I08; InvSlotStruct() : I00(-1), I04(-1), I08(-1) {} InvSlotStruct(const InvSlotStruct &v) { I00 = v.I00; I04 = v.I04; I08 = v.I08; } };	// vtable 0xB016DC, 12 bytes, constructed {-1, -1, -1} (the Mounts elements' default, Ship 0x6F6E29); the copy constructor is the client's: sclient's 0x751BE0 calls it out of line (0x752170)
-inline bool operator!=(const InvSlotStruct &a, const InvSlotStruct &b) { return a.I00 != b.I00 || a.I04 != b.I04 || a.I08 != b.I08; }	// the accessor's Set 0x7080C0 compares the three ints (cmp / jne)
-inline const char *Type_Name(InvSlotStruct *) { return "InvSlotStruct"; }
-inline char *Value_To_String(char *buf, int, const InvSlotStruct &value) { sprintf(buf, "%d,%d,%d", value.I00, value.I04, value.I08); return buf; }	// Get_Value_String 0x709CA0 (the size unused)
-inline bool String_To_Value(const char *text, InvSlotStruct *value) { return sscanf(text, "%d,%d,%d", &value->I00, &value->I04, &value->I08) == 3; }	// Set_Value_String 0x709E10
-// NAME 5: the client's Get_Type_Name string 'ItemStateEnum' (KVPair vtable 0xB019F4, 0x707FF0 inline), leaf vtable 0xB017EC
-enum ItemStateEnum { UNKNOWN_B017EC_0 };	// vtable 0xB017EC, 4 bytes
-inline const char *Type_Name(ItemStateEnum *) { return "ItemStateEnum"; }
-bool String_To_Value(const char *text, ItemStateEnum *value);	// 0x842930
-char *Value_To_String(char *buf, int size, ItemStateEnum value);	// 0x842970
-// NAME 5: the client's Get_Type_Name string 'EffectGeneratorUsageBF' (KVPair vtable 0xB0194C, 0x707BA0, Type_Name 0x835370), leaf vtable 0xB01844
-enum EffectGeneratorUsageBF { UNKNOWN_B01844_0 };	// vtable 0xB01844, 4 bytes
-const char *Type_Name(EffectGeneratorUsageBF value);	// 0x835370 ('EffectGeneratorUsageBF')
-template<> inline const char *KVPairTemplateClass<EffectGeneratorUsageBF>::Get_Type_Name() const { return Type_Name(Value); }	// 0x707BA0
-bool String_To_Value(const char *text, EffectGeneratorUsageBF *value);	// 0x835390
-char *Value_To_String(char *buf, int size, EffectGeneratorUsageBF value);	// 0x835590
-// NAME 5: the client's Get_Type_Name string 'TargetGeneratorSummaryBF' (KVPair vtable 0xB01984, 0x707D10, Type_Name 0x84BE40), leaf vtable 0xB0189C
-enum TargetGeneratorSummaryBF { UNKNOWN_B0189C_0 };	// vtable 0xB0189C, 4 bytes
-const char *Type_Name(TargetGeneratorSummaryBF value);	// 0x84BE40 ('TargetGeneratorSummaryBF')
-template<> inline const char *KVPairTemplateClass<TargetGeneratorSummaryBF>::Get_Type_Name() const { return Type_Name(Value); }	// 0x707D10
-bool String_To_Value(const char *text, TargetGeneratorSummaryBF *value);	// 0x84BE60
-char *Value_To_String(char *buf, int size, TargetGeneratorSummaryBF value);	// 0x84C060
-// NAME 5: the client's Get_Type_Name string 'GameActionValidityBitFlag' (KVPair vtable 0xB019BC, 0x707E80, Type_Name 0x83D270), leaf vtable 0xB018F4
-enum GameActionValidityBitFlag { UNKNOWN_B018F4_0 };	// vtable 0xB018F4, 4 bytes
-const char *Type_Name(GameActionValidityBitFlag value);	// 0x83D270 ('GameActionValidityBitFlag')
-template<> inline const char *KVPairTemplateClass<GameActionValidityBitFlag>::Get_Type_Name() const { return Type_Name(Value); }	// 0x707E80
-bool String_To_Value(const char *text, GameActionValidityBitFlag *value);	// 0x83D290
-char *Value_To_String(char *buf, int size, GameActionValidityBitFlag value);	// 0x83D490
-// NAME 5: the client's Get_Type_Name string 'ProjectedDecalClass' (KVPair vtable 0xB01D00, 0x708C60 inline), leaf vtable 0xB01A40; member ProjDecalAssetID from 0x7633E0 FAIL_IF
-struct ProjectedDecalClass { float F00; float F04; float F08; int ProjDecalAssetID; float F10; ProjectedDecalClass() : F00(1.0f), F04(0.0f), F08(0.0f), ProjDecalAssetID(-1), F10(0.0f) {} ProjectedDecalClass(const ProjectedDecalClass &v) { F00 = v.F00; F04 = v.F04; F08 = v.F08; ProjDecalAssetID = v.ProjDecalAssetID; F10 = v.F10; } ProjectedDecalClass &operator=(const ProjectedDecalClass &v) { F00 = v.F00; F04 = v.F04; F08 = v.F08; ProjDecalAssetID = v.ProjDecalAssetID; F10 = v.F10; return *this; } };	// vtable 0xB01A40, 20 bytes, constructed {1.0f, 0.0f, 0.0f, -1, 0.0f} (0x705640; Ship 0x6F70BE stores the zeros as immediates among register zeros: floats, workflow.md 3.1)
-inline bool operator!=(const ProjectedDecalClass &a, const ProjectedDecalClass &b) { return !(a.F00 == b.F00 && a.F04 == b.F04 && a.F08 == b.F08 && a.ProjDecalAssetID == b.ProjDecalAssetID && a.F10 == b.F10); }
-inline const char *Type_Name(ProjectedDecalClass *) { return "ProjectedDecalClass"; }
-inline char *Value_To_String(char *buf, int, const ProjectedDecalClass &value) { sprintf(buf, "%f,%f,%f,%d,%f", value.F00, value.F04, value.F08, value.ProjDecalAssetID, value.F10); return buf; }
-inline bool String_To_Value(const char *text, ProjectedDecalClass *value) { return sscanf(text, "%f,%f,%f,%d,%f", &value->F00, &value->F04, &value->F08, &value->ProjDecalAssetID, &value->F10) == 5; }
-#include "..\common\prof.h"	// leaf vtable 0xB03588's value type: KVAccessorClass table 0xAEC9C8 is stored by both ~KVPointerAccessor<ProfessionType> 0x4F76E0 and this accessor's destructor 0x7595F0
-#include "..\common\race.h"	// leaf vtable 0xB035E0's value type: KVAccessorClass table 0xAEC9DC is shared with shipcust_desc's RaceType accessor likewise
-#ifndef KVPAIR_PROF_RACE_TYPE_NAMES	// the profession's and race's pairs name their type from the saved value (prof.cpp 0x848CA0, race.cpp 0x848FF0)
-#define KVPAIR_PROF_RACE_TYPE_NAMES
-template<> inline const char *KVPairTemplateClass<ProfessionType>::Get_Type_Name() const { return Type_Name(Value); }	// 0x4F6ED0
-template<> inline const char *KVPairTemplateClass<RaceType>::Get_Type_Name() const { return Type_Name(Value); }	// 0x4F70C0
-#endif
-#include "..\common\skill_level_availability.h"	// SkillLevelAvailabilityStruct (KVPair vtable 0xB03AB4, leaf vtable 0xB03694) and its converters 0x84A560 / 0x84A600
 
 
 
 
 
-#include "aux_formation.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -182,129 +182,129 @@ public:
 	DeltaTemplateClass<float> Damage;	// +0x238
 };
 
-// vtable 0xB0111C (e.g. Ship.Inventory.Cargo.N)
-// NAME 4: Net-7 AuxItem confirmed by structure (C# fields = ours (same names, same order); Net-7 Construct 10 children = ours); C# Item
-class DeltaItemClass : public DeltaCompoundClass
-{
-public:
-	DeltaItemClass(const char *name);	// 0x6FA150
+#include "aux_roots_item.h"
 
-	DeltaTemplateClass<int> ItemTemplateID;	// +0x9C
-	DeltaTemplateClass<int> StackCount;	// +0x124
-	DeltaTemplateClass<MoneyClass> Price;	// +0x1B0
-	DeltaTemplateClass<float> AveCost;	// +0x240
-	DeltaTemplateClass<float> Structure;	// +0x2C8
-	DeltaTemplateClass<float> Quality;	// +0x350
-	DeltaStringClass InstanceInfo;	// +0x3D8
-	DeltaStringClass InstanceActivatedEffectInfo;	// +0x460
-	DeltaStringClass InstanceEquipEffectInfo;	// +0x4E8
-	DeltaStringClass BuilderName;	// +0x570
-};
 
-// vtable 0xB01790 (e.g. Ship.Inventory.Equipped.N.Effects)
-// NAME 4: Net-7 AuxEffect confirmed by structure (C# fields = ours (same names, same order); Net-7 Construct 4 children = ours); C# ItemEffects
-class DeltaEffectClass : public DeltaCompoundClass
-{
-public:
-#if defined(AUX_ROOTS_ALL) || defined(AUX_CTORS_ITEM)
-	DeltaEffectClass(const char *name) :
-		DeltaCompoundClass(name),
-		Range("Range"),
-		Usage("Usage"),
-		Targets("Targets"),
-		Validity("Validity", (GameActionValidityBitFlag)256)
-	{
-		Add(&Range);
-		Add(&Usage);
-		Add(&Targets);
-		Add(&Validity);
-	}
-#else
-	DeltaEffectClass(const char *name);
-#endif
 
-	DeltaTemplateClass<float> Range;	// +0x9C
-	DeltaTemplateClass<EffectGeneratorUsageBF> Usage;	// +0x124
-	DeltaTemplateClass<TargetGeneratorSummaryBF> Targets;	// +0x1AC
-	DeltaTemplateClass<GameActionValidityBitFlag> Validity;	// +0x234
-};
 
-// vtable 0xB01734 (e.g. Ship.Inventory.Equipped.N)
-// NAME 4: Net-7 AuxEquipItem confirmed by structure (C# fields differ (4 vs 14); Net-7 Construct 14 children = ours); C# EquippedItem
-class DeltaEquipItemClass : public DeltaItemClass
-{
-public:
-#if defined(AUX_ROOTS_ALL) || defined(AUX_CTORS_ITEM)
-	DeltaEquipItemClass(const char *name) :
-		DeltaItemClass(name),
-		ReadyTime("ReadyTime", 0),
-		TargetRange("TargetRange"),
-		ItemState("ItemState"),
-		Effects("Effects")
-	{
-		Add(&ReadyTime);
-		Add(&TargetRange);
-		Add(&ItemState);
-		Add(&Effects);
-	}
-#else
-	DeltaEquipItemClass(const char *name);
-#endif
 
-	DeltaTemplateClass<DurationClass> ReadyTime;	// +0x5F8
-	DeltaTemplateClass<float> TargetRange;	// +0x688
-	DeltaTemplateClass<ItemStateEnum> ItemState;	// +0x710
-	DeltaEffectClass Effects;	// +0x798
-};
 
-// vtable 0xB00C7C (e.g. Ship.Inventory)
-// NAME 4: Net-7 AuxShipInv confirmed by structure (C# fields = ours (same names, same order); Net-7 Construct 11 children = ours); C# ShipInventory
-class DeltaShipInvClass : public DeltaCompoundClass
-{
-public:
-#if defined(AUX_ROOTS_ALL) || defined(AUX_CTORS_SHIPINV)
-	DeltaShipInvClass(const char *name) :
-		DeltaCompoundClass(name),
-		CargoSpace("CargoSpace"),
-		EquipMountModel("EquipMountModel", ""),
-		Mounts("Mounts", 20),
-		MountBoneNames("MountBoneNames", 20),
-		FutureWeapons("FutureWeapons"),
-		FutureDevices("FutureDevices"),
-		Cargo("Cargo", 40),
-		Equipped("Equipped", 20),
-		Ammo("Ammo", 20),
-		Hull("Hull", 1),
-		PlayerTrade("PlayerTrade", 6)
-	{
-		Add(&CargoSpace);
-		Add(&EquipMountModel);
-		Add(&Mounts);
-		Add(&MountBoneNames);
-		Add(&FutureWeapons);
-		Add(&FutureDevices);
-		Add(&Cargo);
-		Add(&Equipped);
-		Add(&Ammo);
-		Add(&Hull);
-		Add(&PlayerTrade);
-	}
-#else
-	DeltaShipInvClass(const char *name);
-#endif
 
-	DeltaTemplateClass<int> CargoSpace;	// +0x9C
-	DeltaStringClass EquipMountModel;	// +0x124
-	DeltaArrayClass<InvSlotStruct> Mounts;	// +0x1AC
-	DeltaItemArrayClass<DeltaStringClass> MountBoneNames;	// +0x248
-	DeltaTemplateClass<int> FutureWeapons;	// +0x2E4
-	DeltaTemplateClass<int> FutureDevices;	// +0x36C
-	DeltaItemArrayClass<DeltaItemClass> Cargo;	// +0x3F4
-	DeltaItemArrayClass<DeltaEquipItemClass> Equipped;	// +0x490
-	DeltaItemArrayClass<DeltaItemClass> Ammo;	// +0x52C
-	DeltaItemArrayClass<DeltaItemClass> Hull;	// +0x5C8
-	DeltaItemArrayClass<DeltaItemClass> PlayerTrade;	// +0x664
-};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // vtable 0xB01680 (e.g. Ship.Legos.Attachments.N)
 // NAME 4: Net-7 AuxAttachment confirmed by structure (C# fields = ours (same names, same order); Net-7 Construct 4 children = ours); C# LegoAttachment
@@ -724,161 +724,7 @@ public:
 	DeltaTemplateClass<unsigned int> TechLevelFilterBitfield;	// +0xBCC
 };
 
-// vtable 0xB03638 (e.g. Player.RPGInfo.Skills.N)
-// NAME 4: Net-7 AuxSkill confirmed by structure (C# fields = ours (same names, same order); Net-7 Construct 7 children = ours); C# Skill
-class DeltaSkillClass : public DeltaCompoundClass
-{
-public:
-	DeltaSkillClass(const char *name);	// 0x753520
-
-	DeltaTemplateClass<int> Level;	// +0x9C
-	DeltaTemplateClass<int> RecycleTime;	// +0x124
-	DeltaTemplateClass<DurationClass> LastActivation;	// +0x1B0
-	DeltaTemplateClass<SkillLevelAvailabilityStruct> Availability;	// +0x240
-	DeltaTemplateClass<int> QuestOnlyLevels;	// +0x2D4
-	DeltaTemplateClass<int> MaxSkillLevels;	// +0x35C
-	DeltaStringClass Affiliations;	// +0x3E4
-};
-
-// vtable 0xB036EC (e.g. Player.RPGInfo.SkillAbilities.N)
-// NAME 4: Net-7 AuxSkillAbility confirmed by structure (C# fields = ours (same names, same order); Net-7 Construct 7 children = ours); C# SkillAbility
-class DeltaSkillAbilityClass : public DeltaCompoundClass
-{
-public:
-	DeltaSkillAbilityClass(const char *name);	// 0x7538B0
-
-	DeltaTemplateClass<bool> HasAbility;	// +0x9C
-	DeltaTemplateClass<EffectGeneratorUsageBF> Usage;	// +0x124
-	DeltaTemplateClass<TargetGeneratorSummaryBF> Targets;	// +0x1AC
-	DeltaTemplateClass<int> Range;	// +0x234
-	DeltaTemplateClass<int> Radius;	// +0x2BC
-	DeltaTemplateClass<GameActionValidityBitFlag> Validity;	// +0x344
-	DeltaTemplateClass<bool> CanBeUsedWhileIncapacitated;	// +0x3CC
-};
-
-// vtable 0xB03474 (e.g. Player.RPGInfo)
-// NAME 4: Net-7 AuxRPGInfo confirmed by structure (C# fields = ours (same names, same order); Net-7 Construct 16 children = ours); C# PilotRpgInfo
-class DeltaRPGInfoClass : public DeltaCompoundClass
-{
-public:
-	DeltaRPGInfoClass(const char *name);	// 0x752E60
-
-	DeltaTemplateClass<RaceType> Race;	// +0x9C
-	DeltaTemplateClass<ProfessionType> Profession;	// +0x124
-	DeltaItemArrayClass<DeltaSkillClass> Skills;	// +0x1AC
-	DeltaItemArrayClass<DeltaSkillAbilityClass> SkillAbilities;	// +0x248
-	DeltaTemplateClass<int> SkillPoints;	// +0x2E4
-	DeltaTemplateClass<int> TotalSkillPoints;	// +0x36C
-	DeltaTemplateClass<float> CombatExp;	// +0x3F4
-	DeltaTemplateClass<int> CombatLevel;	// +0x47C
-	DeltaTemplateClass<float> TradeExp;	// +0x504
-	DeltaTemplateClass<int> TradeLevel;	// +0x58C
-	DeltaTemplateClass<float> ExploreExp;	// +0x614
-	DeltaTemplateClass<int> ExploreLevel;	// +0x69C
-	DeltaTemplateClass<int> HullUpgradeLevel;	// +0x724
-	DeltaTemplateClass<DurationClass> SkillPowerupStart;	// +0x7B0
-	DeltaTemplateClass<DurationClass> SkillPowerupEnd;	// +0x840
-	DeltaTemplateClass<int> SkillPowerupAbilityNumber;	// +0x8D0
-};
-
-// vtable 0xB037A4 (e.g. Player.Missions.N.Stages.N)
-// NAME 4: Net-7 AuxMissionStage confirmed by structure (C# fields = ours (same names, same order); Net-7 Construct 2 children = ours); C# MissionStage
-class DeltaMissionStageClass : public DeltaCompoundClass
-{
-public:
-#if defined(AUX_ROOTS_ALL) || defined(AUX_CTORS_MISSION)
-	DeltaMissionStageClass(const char *name) :
-		DeltaCompoundClass(name),
-		Text("Text", ""),
-		IsTimed("IsTimed")
-	{
-		Add(&Text);
-		Add(&IsTimed);
-	}
-#else
-	DeltaMissionStageClass(const char *name);
-#endif
-
-	DeltaStringClass Text;	// +0x9C
-	DeltaTemplateClass<bool> IsTimed;	// +0x124
-};
-
-// vtable 0xB03748 (e.g. Player.Missions.N)
-// NAME 4: Net-7 AuxMission confirmed by structure (C# fields = ours (same names, same order); Net-7 Construct 19 children = ours); C# Mission
-class DeltaMissionClass : public DeltaCompoundClass
-{
-public:
-	DeltaMissionClass(const char *name);	// 0x753DF0
-
-	DeltaTemplateClass<int> ID;	// +0x9C
-	DeltaStringClass Name;	// +0x124
-	DeltaStringClass Summary;	// +0x1AC
-	DeltaStringClass Reward;	// +0x234
-	DeltaStringClass FailureConsequence;	// +0x2BC
-	DeltaStringClass IssuingFaction;	// +0x344
-	DeltaTemplateClass<bool> IsTimed;	// +0x3CC
-	DeltaTemplateClass<DurationClass> ExpirationTime;	// +0x458
-	DeltaTemplateClass<int> StartTime;	// +0x4E8
-	DeltaTemplateClass<bool> IsForfeitable;	// +0x570
-	DeltaTemplateClass<bool> IsComplete;	// +0x5F8
-	DeltaTemplateClass<bool> IsFailed;	// +0x680
-	DeltaTemplateClass<bool> IsExpired;	// +0x708
-	DeltaTemplateClass<bool> IsFullyVisible;	// +0x790
-	DeltaTemplateClass<int> StageCount;	// +0x818
-	DeltaTemplateClass<int> Stage;	// +0x8A0
-	DeltaItemArrayClass<DeltaMissionStageClass> Stages;	// +0x928
-	DeltaTemplateClass<DurationClass> StageExpirationTime;	// +0x9C8
-	DeltaTemplateClass<bool> HasGivenNewMissionMessage;	// +0xA58
-};
-
-// vtable 0xB03B14 (e.g. Player.Reputation.Faction.N)
-// NAME 4: Net-7 AuxFaction confirmed by structure (C# fields = ours (same names, same order); Net-7 Construct 3 children = ours); C# FactionStanding
-class DeltaFactionClass : public DeltaCompoundClass
-{
-public:
-#if defined(AUX_ROOTS_ALL) || defined(AUX_CTORS_FACTION)
-	DeltaFactionClass(const char *name) :
-		DeltaCompoundClass(name),
-		Name("Name", ""),
-		Reaction("Reaction"),
-		Order("Order")
-	{
-		Add(&Name);
-		Add(&Reaction);
-		Add(&Order);
-	}
-#else
-	DeltaFactionClass(const char *name);
-#endif
-
-	DeltaStringClass Name;	// +0x9C
-	DeltaTemplateClass<float> Reaction;	// +0x124
-	DeltaTemplateClass<int> Order;	// +0x1AC
-};
-
-// vtable 0xB033BC (e.g. Player.Reputation)
-// NAME 4: Net-7 AuxReputation confirmed by structure (C# fields = ours (same names, same order); Net-7 Construct 2 children = ours); C# PilotReputation
-class DeltaReputationClass : public DeltaCompoundClass
-{
-public:
-#if defined(AUX_ROOTS_ALL) || defined(AUX_CTORS_FACTION)
-	DeltaReputationClass(const char *name) :
-		DeltaCompoundClass(name),
-		Faction("Faction", 32),
-		Affiliation("Affiliation", "")
-	{
-		Add(&Faction);
-		Add(&Affiliation);
-	}
-#else
-	DeltaReputationClass(const char *name);
-#endif
-
-	DeltaItemArrayClass<DeltaFactionClass> Faction;	// +0x9C
-	DeltaStringClass Affiliation;	// +0x138
-};
-
-#include "aux_roots_group.h"
+#include "aux_roots_player.h"
 
 
 
@@ -911,32 +757,186 @@ public:
 
 
 
-// vtable 0xB03360, constructor 0x752510
-// NAME 3: the client's root string "Player", Westwood XxxClass (D24); structure = Net-7 AuxPlayerIndex / C# PilotData (C# fields = ours (same names, same order); Net-7 Construct 18 children = ours)
-class DeltaPlayerClass : public UnknownSendRootClass
-{
-public:
-	DeltaPlayerClass();
 
-	DeltaTemplateClass<MoneyClass> Money;	// +0xB0
-	DeltaTemplateClass<int> XPDebt;	// +0x140
-	DeltaItemArrayClass<DeltaItemClass> SecureInventory;	// +0x1C8
-	DeltaItemArrayClass<DeltaItemClass> VendorInventory;	// +0x264
-	DeltaItemArrayClass<DeltaItemClass> RewardInventory;	// +0x300
-	DeltaItemArrayClass<DeltaItemClass> OverflowInventory;	// +0x39C
-	DeltaRPGInfoClass RPGInfo;	// +0x438
-	DeltaStringClass CommunityEventFlags;	// +0xD90
-	DeltaTemplateClass<int> MusicID;	// +0xE18
-	DeltaItemArrayClass<DeltaMissionClass> Missions;	// +0xEA0
-	DeltaReputationClass Reputation;	// +0xF3C
-	DeltaTemplateClass<int> PIPAvatarID;	// +0x10FC
-	DeltaStringClass RegistrationStarbase;	// +0x1184
-	DeltaStringClass RegistrationStarbaseSector;	// +0x120C
-	DeltaStringClass SectorName;	// +0x1294
-	DeltaTemplateClass<int> SectorNum;	// +0x131C
-	DeltaTemplateClass<int> ClientSendUITriggers;	// +0x13A4
-	DeltaGroupInfoClass GroupInfo;	// +0x142C
-};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // vtable 0xB008F0
 // NAME 3: the client's root string "Hulk", Westwood XxxClass (D24); structure = Net-7 AuxHulkIndex / C# HulkObject (C# fields = ours (same names, same order); Net-7 Construct 8 children = ours)

@@ -852,6 +852,12 @@
 "?Get_Bounding_Sphere@MeshGeometryClass@@QAEXPAVSphereClass@@@Z": [
 "0x92A8E0"
 ],
+"?Get_Category_Count@WWMemoryLogClass@@SAHXZ": [
+"0x9ED6E0"
+],
+"?Get_Category_Name@WWMemoryLogClass@@SAPBDH@Z": [
+"0x9ED6F0"
+],
 "?Get_Clip_Planes@CameraClass@@QBEXAAM0@Z": [
 "0x945950"
 ],
@@ -860,6 +866,9 @@
 ],
 "?Get_Culling_System@CullableClass@@QBEPAVCullSystemClass@@XZ": [
 "0x8C8E60"
+],
+"?Get_Current_Allocated_Memory@WWMemoryLogClass@@SAHH@Z": [
+"0x9ED700"
 ],
 "?Get_DX8_Render_State_Value_Name@DX8Wrapper@@SAXAAVStringClass@@W4_D3DRENDERSTATETYPE@@I@Z": [
 "0x927BF0"
@@ -992,6 +1001,28 @@
 ],
 "?Get_Time_Since_Reset@WWProfileManager@@SAMXZ": [
 "0x9EAD70"
+],
+"?Get_Total_Allocated_Memory@IndexBufferClass@@SAIXZ": [
+"0x94C390",
+"0x94F000"
+],
+"?Get_Total_Allocated_Memory@VertexBufferClass@@SAIXZ": [
+"0x950DF0"
+],
+"?Get_Total_Allocated_Size@FastAllocatorGeneral@@QAEIXZ": [
+"0x9DAD20"
+],
+"?Get_Total_Allocation_Count@FastAllocatorGeneral@@QAEIXZ": [
+"0x9DAD60"
+],
+"?Get_Total_Buffer_Count@IndexBufferClass@@SAIXZ": [
+"0x94EFE0"
+],
+"?Get_Total_Buffer_Count@VertexBufferClass@@SAIXZ": [
+"0x950DD0"
+],
+"?Get_Total_Heap_Size@FastAllocatorGeneral@@QAEIXZ": [
+"0x9DACE0"
 ],
 "?Get_UV_Offset_Rate@SegmentedLineClass@@QAE?AVVector2@@XZ": [
 "0x969200"
@@ -1370,6 +1401,9 @@
 ],
 "?Reset_Colors@ParticleBufferClass@@QAEXAAU?$ParticlePropertyStruct@VVector3@@@@@Z": [
 "0x95EF40"
+],
+"?Reset_Counters@WWMemoryLogClass@@SAXXZ": [
+"0x9EDEF0"
 ],
 "?Reset_Current_Static_Sort_Lists_To_Default@WW3D@@SAXXZ": [
 "0x919080"
@@ -1791,6 +1825,12 @@
 "?Unknown_8B7C60@Unknown8B5D90Class@@QAEHHPBDAAV1@@Z": [
 "0x8B7C60"
 ],
+"?Unknown_94B910@@YAHXZ": [
+"0x94B910"
+],
+"?Unknown_Reset_Statistics@FastAllocatorGeneral@@QAEXXZ": [
+"0x9DADA0"
+],
 "?Unknown_Restore_Device@WW3D@@SA?AW4WW3DErrorType@@XZ": [
 "0x9179D0"
 ],
@@ -1829,6 +1869,19 @@
 ],
 "?YFlip@Targa@@QAEXXZ": [
 "0x9D33D0"
+],
+"?_Get_Total_Locked_Surface_Count@TextureBaseClass@@SAHXZ": [
+"0x94C980"
+],
+"?_Get_Total_Locked_Surface_Size@TextureBaseClass@@SAHXZ": [
+"0x94C280"
+],
+"?_Get_Total_Texture_Count@TextureBaseClass@@SAHXZ": [
+"0x94C7B0"
+],
+"?_Get_Total_Texture_Size@TextureBaseClass@@SAHXZ": [
+"0x94C390",
+"0x94F000"
 ],
 "?_Getfacet@locale@std@@QBEPBVfacet@12@I_N@Z": [
 "0xA1A3E3"
@@ -2931,30 +2984,25 @@
 "0xBE3B00"
 ],
 "data:?UnknownGlobal@?$DeltaArrayClass@M@@2HA": [
-"0xC415DC",
-"0xC415E8"
+"0xC415DC"
 ],
 "data:?UnknownGlobal@?$DeltaArrayClass@UInvSlotStruct@@@@2HA": [
 "0xC41580",
 "0xC415D8"
 ],
 "data:?UnknownGlobal@?$DeltaArrayClass@UProjectedDecalClass@@@@2HA": [
-"0xC41584",
-"0xC415F8"
+"0xC41584"
 ],
 "data:?UnknownGlobal@?$DeltaDerivedItemArrayClass@VDeltaBuffClass@@@@2HA": [
-"0xC415FC",
 "0xC41600"
 ],
 "data:?UnknownGlobal@?$DeltaDerivedItemArrayClass@VDeltaElementClass@@@@2HA": [
 "0xC41620",
-"0xC41668",
 "0xC416A4"
 ],
 "data:?UnknownGlobal@?$DeltaItemArrayClass@VDeltaAttachmentClass@@@@2HA": [
 "0xC41580",
-"0xC415A4",
-"0xC41658"
+"0xC415A4"
 ],
 "data:?UnknownGlobal@?$DeltaItemArrayClass@VDeltaBuffClass@@@@2HA": [
 "0xC41570"
@@ -2972,13 +3020,11 @@
 "0xC41624"
 ],
 "data:?UnknownGlobal@?$DeltaItemArrayClass@VDeltaFactionClass@@@@2HA": [
-"0xC41584",
 "0xC415F8",
 "0xC41628",
 "0xC41644"
 ],
 "data:?UnknownGlobal@?$DeltaItemArrayClass@VDeltaGroupMemberClass@@@@2HA": [
-"0xC41588",
 "0xC41624",
 "0xC41644"
 ],
@@ -2995,11 +3041,9 @@
 "0xC416A4"
 ],
 "data:?UnknownGlobal@?$DeltaItemArrayClass@VDeltaMissionClass@@@@2HA": [
-"0xC415FC",
-"0xC41600"
+"0xC415FC"
 ],
 "data:?UnknownGlobal@?$DeltaItemArrayClass@VDeltaMissionStageClass@@@@2HA": [
-"0xC415DC",
 "0xC415E8",
 "0xC415F8"
 ],
@@ -3011,11 +3055,9 @@
 "data:?UnknownGlobal@?$DeltaItemArrayClass@VDeltaSkillAbilityClass@@@@2HA": [
 "0xC415E8",
 "0xC41624",
-"0xC41668",
-"0xC416A4"
+"0xC41668"
 ],
 "data:?UnknownGlobal@?$DeltaItemArrayClass@VDeltaSkillClass@@@@2HA": [
-"0xC41580",
 "0xC41658",
 "0xC41668"
 ],
@@ -3046,8 +3088,7 @@
 "0xC415D8"
 ],
 "data:?UnknownGlobal@?$DeltaTemplateClass@UProjectedDecalClass@@@@2HA": [
-"0xC41588",
-"0xC41644"
+"0xC41588"
 ],
 "data:?UnknownGlobal@?$DeltaTemplateClass@USkillLevelAvailabilityStruct@@@@2HA": [
 "0xC4166C",
@@ -3061,8 +3102,7 @@
 "0xBE3A94"
 ],
 "data:?UnknownGlobal@?$DeltaTemplateClass@VVector3@@@@2HA": [
-"0xC41590",
-"0xC416AC"
+"0xC41590"
 ],
 "data:?UnknownGlobal@?$DeltaTemplateClass@W4EffectGeneratorUsageBF@@@@2HA": [
 "0xC4166C",
@@ -3070,7 +3110,6 @@
 "0xC416AC"
 ],
 "data:?UnknownGlobal@?$DeltaTemplateClass@W4FormationState@@@@2HA": [
-"0xC41590",
 "0xC41654"
 ],
 "data:?UnknownGlobal@?$DeltaTemplateClass@W4GameActionValidityBitFlag@@@@2HA": [
@@ -3078,28 +3117,24 @@
 "0xC4168C"
 ],
 "data:?UnknownGlobal@?$DeltaTemplateClass@W4GuildRankType@@@@2HA": [
-"0xC4158C",
-"0xC4166C"
+"0xC4158C"
 ],
 "data:?UnknownGlobal@?$DeltaTemplateClass@W4HullPreviewStatusEnum@@@@2HA": [
-"0xC415A8"
+"0xBDA90C"
 ],
 "data:?UnknownGlobal@?$DeltaTemplateClass@W4InterruptStateType@@@@2HA": [
-"0xC415A8",
-"0xC41670"
+"0xC415A8"
 ],
 "data:?UnknownGlobal@?$DeltaTemplateClass@W4ItemStateEnum@@@@2HA": [
 "0xC4168C",
 "0xC41690"
 ],
 "data:?UnknownGlobal@?$DeltaTemplateClass@W4ProfessionType@@@@2HA": [
-"0xC4158C",
 "0xC41674",
 "0xC41690",
 "0xC416F0"
 ],
 "data:?UnknownGlobal@?$DeltaTemplateClass@W4RaceType@@@@2HA": [
-"0xC41654",
 "0xC41670",
 "0xC41674",
 "0xC416F0"
@@ -3125,7 +3160,6 @@
 "0xC41564"
 ],
 "data:?UnknownGlobal@?$DeltaTemplateClass@_N@@2HA": [
-"0xBDA90C",
 "0xC41630",
 "0xC41670",
 "0xC4168C",
@@ -3825,6 +3859,9 @@
 ],
 "data:__real@4@3fe7d6bf950000000000": [
 "0xAE8718"
+],
+"data:__real@4@3feb8000000000000000": [
+"0xAEEDD0"
 ],
 "data:__real@4@3feb8637bd0000000000": [
 "0xAE7928"

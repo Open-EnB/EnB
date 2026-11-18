@@ -13,49 +13,7 @@
 
 #include "aux_roots.h"
 
-// NAME 5: the client's Get_Type_Name string 'HullPreviewStatusEnum' (KVPair vtable 0xB03A7C, 0x759B50 inline), leaf vtable 0xB03A24
-enum HullPreviewStatusEnum { UNKNOWN_B03A24_0 };	// vtable 0xB03A24, 4 bytes
-inline const char *Type_Name(HullPreviewStatusEnum *) { return "HullPreviewStatusEnum"; }
-inline char *Value_To_String(char *buf, int, const HullPreviewStatusEnum &value) { sprintf(buf, "%d", value); return buf; }
-inline bool String_To_Value(const char *text, HullPreviewStatusEnum *value) { return sscanf(text, "%d", *value) != 0; }
-
-// vtable 0xB03304, built inline in 0x7518A0
-// NAME 3: the client's root string "Hull", Westwood XxxClass (D24); structure = - (no match)
-class DeltaHullClass : public UnknownSendRootClass
-{
-public:
-#if defined(AUX_ROOTS_ALL) || defined(AUX_CTORS_HULL)
-	DeltaHullClass(int unknown) :
-		UnknownSendRootClass(unknown, "Hull"),
-		Name("Name", ""),
-		Owner("Owner", ""),
-		Inventory("Inventory"),
-		HullIndex("HullIndex"),
-		BaseAsset("BaseAsset"),
-		ExchangeCost("ExchangeCost"),
-		Status("Status")
-	{
-		Add(&Name);
-		Add(&Owner);
-		Add(&Inventory);
-		Add(&HullIndex);
-		Add(&BaseAsset);
-		Add(&ExchangeCost);
-		Add(&Status);
-		Unknown_48();
-	}
-#else
-	DeltaHullClass(int unknown);
-#endif
-
-	DeltaStringClass Name;	// +0xAC
-	DeltaStringClass Owner;	// +0x134
-	DeltaShipInvClass Inventory;	// +0x1BC
-	DeltaTemplateClass<int> HullIndex;	// +0x8BC
-	DeltaTemplateClass<int> BaseAsset;	// +0x944
-	DeltaTemplateClass<int> ExchangeCost;	// +0x9CC
-	DeltaTemplateClass<HullPreviewStatusEnum> Status;	// +0xA54
-};
+#include "aux_roots_hull.h"
 
 #if defined(AUX_ROOTS_ALL) || defined(AUX_CTORS_SKILL)
 // Player.RPGInfo (0x752E60)
