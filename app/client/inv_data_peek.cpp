@@ -426,3 +426,5 @@ void InvDataPeekClass::Update_Fields()
 **	the field's position, found once per Attach by name (Update_Fields); the four string getters are one pattern written
 **	four times (their FAIL_IF texts differ: Get_Builder_Name repeats Get_Instance_Info's), not a template.
 */
+
+#pragma auto_inline(on)	// (the end-of-file initialisers: the client merges the numbering into one function)

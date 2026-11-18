@@ -39,7 +39,8 @@
   "0x68AE50",
   "0x68AF20",
   "0x68AFF0",
-  "0x68B0C0"
+  "0x68B0C0",
+  "0x68B280"
  ],
  "merged": [],
  "name": "client/inv_data_peek.cpp",
