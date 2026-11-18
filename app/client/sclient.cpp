@@ -1,4 +1,4 @@
-// Earth & Beyond client (reconstruction)
+#include "..\shared\auxdata\permstr.h"	// Earth & Beyond client (reconstruction)
 /*
 **	Original location: e:\build\beta\G\app\Client\sclient.cpp (client 0x7405E0-0x7429B0, the skeleton); SClient (sclient.h). Notes at the end.
 */

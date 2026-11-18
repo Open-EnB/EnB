@@ -1,4 +1,4 @@
-// Earth & Beyond client (reconstruction): app\client\mainview.cpp (the client's __FILE__). Notes at the end of the file.
+#include "..\shared\auxdata\permstr.h"	// Earth & Beyond client (reconstruction): app\client\mainview.cpp (the client's __FILE__). Notes at the end of the file.
 #include <stdio.h>
 #include <string>
 #include <vector>

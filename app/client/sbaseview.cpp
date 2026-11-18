@@ -1,4 +1,4 @@
-// Earth & Beyond client (reconstruction)
+#include "..\shared\auxdata\permstr.h"	// Earth & Beyond client (reconstruction)
 #define AUX_CTORS_BUFF		// first: the manufacturing lab's and the buff's trees, numbered at start-up (0x6A2C30, 0x6A2CB0, 0x6A2D20)
 #include "aux_manu.h"
 #include "sbaseview.h"
