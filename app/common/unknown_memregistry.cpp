@@ -6,32 +6,34 @@
 #include "memconn.h"
 #include <map>
 
-// The memory listeners by port (0xBE9160)
-static std::map<unsigned short, MemoryServerClass *> Servers;	// NAME 2: what it holds
+// The memory listeners by port (0xBE9160). Its atexit stub 0x8275A0 is guarded (0xBE9170 bit 1), which VC6 gives a class
+// static member, not a file static; the class is probably MemoryConnectionFactoryClass (its members are the users),
+// held here by a local class (interim, D137) because memconn.h reaches sclient.cpp (pad-sensitive)
+struct MemoryServerRegistryClass { static std::map<unsigned short, MemoryServerClass *> Servers; }; std::map<unsigned short, MemoryServerClass *> MemoryServerRegistryClass::Servers;	// NAME 2: what it holds; the holder's name provisional
 
 bool MemoryConnectionFactoryClass::Register(unsigned short port, MemoryServerClass *server)
 {
 	if (Is_Listening(port)) {
 		return(false);
 	}
-	Servers[port] = server;
+	MemoryServerRegistryClass::Servers[port] = server;
 	return(true);
 }
 
 bool MemoryConnectionFactoryClass::Is_Listening(unsigned short port)
 {
-	return(Servers.find(port) != Servers.end());
+	return(MemoryServerRegistryClass::Servers.find(port) != MemoryServerRegistryClass::Servers.end());
 }
 
 bool MemoryConnectionFactoryClass::Unregister(unsigned short port)
 {
-	Servers.erase(port);
+	MemoryServerRegistryClass::Servers.erase(port);
 	return(true);
 }
 
 bool MemoryConnectionFactoryClass::Unregister_All()
 {
-	Servers.clear();
+	MemoryServerRegistryClass::Servers.clear();
 	return(true);
 }
 
@@ -40,5 +42,5 @@ ConnectionClass *MemoryConnectionFactoryClass::Connect(unsigned short port)
 	if (!Is_Listening(port)) {
 		return(0);
 	}
-	return(Servers[port]->Connect());
+	return(MemoryServerRegistryClass::Servers[port]->Connect());
 }
