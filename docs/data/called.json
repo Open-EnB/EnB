@@ -2954,8 +2954,8 @@
 "data:?UnknownGlobal@?$DeltaItemArrayClass@VDeltaCategoryClass@@@@2HA": [
 "0xC41620"
 ],
-"data:?UnknownGlobal@?$DeltaItemArrayClass@VDeltaFactionClass@@@@2HA": [
-"0xC415F8"
+"data:?UnknownGlobal@?$DeltaItemArrayClass@VDeltaEquipItemClass@@@@2HA": [
+"0xC415A4"
 ],
 "data:?UnknownGlobal@?$DeltaItemArrayClass@VDeltaGroupMemberClass@@@@2HA": [
 "0xC41644"
@@ -2983,6 +2983,9 @@
 ],
 "data:?UnknownGlobal@?$DeltaItemArrayClass@VDeltaStringClass@@@@2HA": [
 "0xC415C8"
+],
+"data:?UnknownGlobal@?$DeltaItemArrayClass@VDeltaSubCategoryClass@@@@2HA": [
+"0xC4160C"
 ],
 "data:?UnknownGlobal@?$DeltaTemplateClass@H@@2HA": [
 "0xC416A8"

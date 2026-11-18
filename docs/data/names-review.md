@@ -10,8 +10,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 226 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1967 |
-| 2 | describes what the code does | 4982 |
-| 1 | neutral placeholder | 25221 |
+| 2 | describes what the code does | 4986 |
+| 1 | neutral placeholder | 25224 |
 
 ## For review (score 3 and below)
 
@@ -21774,9 +21774,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_843440` | `app/common/itemtype.h:21` | neutral (D10); NAME 1 [mount_type]: what it is given |
 | 1 | `Unknown_BAE854` | `app/common/itemtype.h:22` | neutral (D10) |
 | 1 | `Unknown_8433C0` | `app/common/itemtype.h:36` | neutral (D10) |
-| 1 | `LegoSplitStruct` | `app/common/lego_identifier.h:53` | neutral (D10), the client's 'split' locals |
-| 1 | `State` | `app/common/lego_identifier.h:58` | neutral (D10) |
-| 1 | `Base` | `app/common/lego_identifier.h:59` | neutral (D10) |
+| 1 | `LegoSplitStruct` | `app/common/lego_identifier.h:54` | neutral (D10), the client's 'split' locals |
+| 1 | `State` | `app/common/lego_identifier.h:59` | neutral (D10) |
+| 1 | `Base` | `app/common/lego_identifier.h:60` | neutral (D10) |
 | 1 | `UnknownBufferClass` | `app/common/manufacturing_defs.cpp:12` | what it holds (no client string names it) |
 | 1 | `Buffer` | `app/common/manufacturing_defs.cpp:18` | what it holds |
 | 1 | `Owned` | `app/common/manufacturing_defs.cpp:19` | what it says |
@@ -21938,21 +21938,21 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `TCPConnection` | `app/common/tcpconn.h:33` | after the file tcpconn.cpp (no RTTI or string) |
 | 1 | `Close` | `app/common/tcpconn.h:49` | describes what it does |
 | 1 | `Set_Name_Unknown` | `app/common/tcpconn.h:50` | what it does |
-| 1 | `Get_Manager` | `app/common/tcpconn.h:51` | what it returns |
-| 1 | `TCPListenerClass` | `app/common/tcpconn.h:66` | after the file tcpconn.cpp |
+| 1 | `Get_Manager` | `app/common/tcpconn.h:53` | what it returns |
+| 1 | `TCPListenerClass` | `app/common/tcpconn.h:68` | after the file tcpconn.cpp |
 | 1 | `Get_Unknown04` | `app/common/udpconn.cpp:377` | untagged neutral name (D10) |
 | 1 | `Unknown_Create_Packet` | `app/common/udpconn.cpp:556` | untagged neutral name (D10) |
 | 1 | `Unknown_82DCB0` | `app/common/udpconn.cpp:564` | no caller, no string |
 | 1 | `Unknown_82E1D0` | `app/common/udpconn.cpp:786` | untagged neutral name (D10) |
 | 1 | `UDPChannelKeyClass` | `app/common/udpconn.h:35` | describes what it is |
 | 1 | `UDPChannelClass` | `app/common/udpconn.h:44` | describes what it is |
-| 1 | `UDPConnection` | `app/common/udpconn.h:51` | after the file udpconn.cpp (no RTTI or string) |
-| 1 | `Unknown_82DCB0` | `app/common/udpconn.h:73` | no caller, no string |
-| 1 | `Unknown_RateClass` | `app/common/udpconn.h:76` | untagged neutral name (D10) |
-| 1 | `UDPConnectionManagerClass` | `app/common/udpconn.h:94` | after the file udpconn.cpp |
-| 1 | `Unknown_82E1D0` | `app/common/udpconn.h:101` | the CordMgr's pending messages (ClientTask::Run; tsk_game.h) |
-| 1 | `UDPListenerClass` | `app/common/udpconn.h:104` | after the file udpconn.cpp |
-| 1 | `CordMgrTaskClass` | `app/common/udpconn.h:120` | after its profile label 'CordMgr::Run' |
+| 1 | `UDPConnection` | `app/common/udpconn.h:52` | after the file udpconn.cpp (no RTTI or string) |
+| 1 | `Unknown_82DCB0` | `app/common/udpconn.h:75` | no caller, no string |
+| 1 | `Unknown_RateClass` | `app/common/udpconn.h:78` | untagged neutral name (D10) |
+| 1 | `UDPConnectionManagerClass` | `app/common/udpconn.h:96` | after the file udpconn.cpp |
+| 1 | `Unknown_82E1D0` | `app/common/udpconn.h:103` | the CordMgr's pending messages (ClientTask::Run; tsk_game.h) |
+| 1 | `UDPListenerClass` | `app/common/udpconn.h:106` | after the file udpconn.cpp |
+| 1 | `CordMgrTaskClass` | `app/common/udpconn.h:122` | after its profile label 'CordMgr::Run' |
 | 1 | `Unknown_BF3DB4` | `app/common/unknown_847d20.cpp:9` | background brush for the EULA / ROC static text (0xBF3DB4) |
 | 1 | `Unknown_847FE0` | `app/common/unknown_847d20.cpp:11` | dialog procedure for the EULA / ROC dialog (0x847FE0) |
 | 1 | `Unknown_847D20` | `app/common/unknown_847d20.cpp:14` | the text file in a dialog (EULA, ROC); false when declined  // NAME 1 [filename]: what WinMain passes |
@@ -22280,6 +22280,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Pre_Run` | `app/kernel/kernel.h:71` | Run_One_Cycle's order |
 | 1 | `Cycle_Focus` | `app/kernel/kernel.h:89` | what it does |
 | 1 | `Remove_Running` | `app/kernel/kernel.h:101` | what it does |
+| 1 | `Unknown_BDBB84` | `app/kernel/unknown_4441e0.cpp:4` | neutral (D10) |
+| 1 | `Unknown_BDADC8` | `app/kernel/unknown_4441e0.cpp:5` | neutral (D10) |
+| 1 | `Unknown_BDB1B8` | `app/kernel/unknown_4441e0.cpp:6` | neutral (D10) |
+| 1 | `Unknown_BDB1C0` | `app/kernel/unknown_4441e0.cpp:7` | neutral (D10) |
 | 1 | `Unknown_Debug_Print` | `app/main/main.cpp:21` | 0x509E30 (dbgmgr.cpp), the log line |
 | 1 | `Unknown_VersionStruct` | `app/main/main.cpp:23` | two ints (tsk_login.cpp reads Major / Minor of 0x4456C0's) |
 | 1 | `major, minor` | `app/main/main.cpp:25` | its members |
@@ -23196,12 +23200,14 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_Find_Set_Field` | `app/shared/auxdata/auxdata.h:160` | neutral (D10) |
 | 1 | `Unknown70` | `app/shared/auxdata/auxdata.h:163` | untagged neutral name (D10) |
 | 1 | `Is_None_Set` | `app/shared/auxdata/bitset.h:37` | Is_Any_Set's inverse |
+| 1 | `DeltaUnknownGlobal` | `app/shared/auxdata/delta.cpp:5` | untagged neutral name (D10) |
+| 1 | `DeltaUnknownCounter` | `app/shared/auxdata/delta.cpp:5` | untagged neutral name (D10) |
+| 1 | `UnknownGlobal` | `app/shared/auxdata/delta.cpp:5` | untagged neutral name (D10) |
 | 1 | `Unknown70` | `app/shared/auxdata/delta.cpp:9` | untagged neutral name (D10) |
 | 1 | `Unknown78` | `app/shared/auxdata/delta.cpp:11` | untagged neutral name (D10) |
 | 1 | `Unknown7C` | `app/shared/auxdata/delta.cpp:12` | untagged neutral name (D10) |
 | 1 | `Unknown80` | `app/shared/auxdata/delta.cpp:13` | untagged neutral name (D10) |
 | 1 | `Unknown04` | `app/shared/auxdata/delta.cpp:15` | untagged neutral name (D10) |
-| 1 | `DeltaUnknownGlobal` | `app/shared/auxdata/delta.cpp:15` | untagged neutral name (D10) |
 | 1 | `Unknown_18` | `app/shared/auxdata/delta.cpp:19` | untagged neutral name (D10) |
 | 1 | `Unknown_40` | `app/shared/auxdata/delta.cpp:22` | untagged neutral name (D10) |
 | 1 | `Unknown_1C` | `app/shared/auxdata/delta.cpp:26` | untagged neutral name (D10) |
@@ -23216,7 +23222,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_48` | `app/shared/auxdata/delta.cpp:138` | untagged neutral name (D10) |
 | 1 | `Unknown98` | `app/shared/auxdata/delta.cpp:153` | untagged neutral name (D10) |
 | 1 | `Unknown_00` | `app/shared/auxdata/delta.h:79` | untagged neutral name (D10) |
-| 1 | `DeltaUnknownGlobal` | `app/shared/auxdata/delta.h:84` | neutral (D10) |
+| 1 | `DeltaUnknownGlobal` | `app/shared/auxdata/delta.h:84` | neutral (D10); the counter (0xBE3B44) numbers them |
+| 1 | `DeltaUnknownCounter` | `app/shared/auxdata/delta.h:84` | untagged neutral name (D10) |
 | 1 | `Unknown_0C` | `app/shared/auxdata/delta.h:94` | untagged neutral name (D10) |
 | 1 | `Unknown_10` | `app/shared/auxdata/delta.h:95` | untagged neutral name (D10) |
 | 1 | `Unknown_18` | `app/shared/auxdata/delta.h:97` | untagged neutral name (D10) |
@@ -23250,14 +23257,16 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown04` | `app/shared/auxdata/delta_item_array.h:52` | untagged neutral name (D10) |
 | 1 | `Unknown_34` | `app/shared/auxdata/delta_money.cpp:21` | untagged neutral name (D10) |
 | 1 | `UnknownGlobal` | `app/shared/auxdata/delta_money.cpp:25` | untagged neutral name (D10) |
+| 1 | `DeltaUnknownCounter` | `app/shared/auxdata/delta_money.cpp:25` | untagged neutral name (D10) |
 | 1 | `Unknown04` | `app/shared/auxdata/delta_money.cpp:31` | untagged neutral name (D10) |
 | 1 | `Unknown_00` | `app/shared/auxdata/delta_money.cpp:35` | untagged neutral name (D10) |
 | 1 | `Unknown80` | `app/shared/auxdata/delta_money.cpp:35` | untagged neutral name (D10) |
 | 1 | `delta_money.h` | `app/shared/auxdata/delta_money.h:5` | provisional file name (the specialisation's members are delta_money.cpp's) |
 | 1 | `Unknown_00` | `app/shared/auxdata/delta_money.h:30` | untagged neutral name (D10) |
 | 1 | `UnknownGlobal` | `app/shared/auxdata/delta_money.h:38` | untagged neutral name (D10) |
+| 1 | `UnknownGlobal` | `app/shared/auxdata/delta_string.cpp:18` | untagged neutral name (D10) |
+| 1 | `DeltaUnknownCounter` | `app/shared/auxdata/delta_string.cpp:18` | untagged neutral name (D10) |
 | 1 | `Unknown04` | `app/shared/auxdata/delta_string.cpp:23` | untagged neutral name (D10) |
-| 1 | `UnknownGlobal` | `app/shared/auxdata/delta_string.cpp:23` | untagged neutral name (D10) |
 | 1 | `Unknown_34` | `app/shared/auxdata/delta_string.cpp:56` | untagged neutral name (D10) |
 | 1 | `Unknown_00` | `app/shared/auxdata/delta_string.cpp:160` | untagged neutral name (D10) |
 | 1 | `Unknown80` | `app/shared/auxdata/delta_string.cpp:162` | untagged neutral name (D10) |
@@ -23269,6 +23278,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown04` | `app/shared/auxdata/delta_template.h:58` | untagged neutral name (D10) |
 | 1 | `Unknown80` | `app/shared/auxdata/delta_template.h:131` | untagged neutral name (D10) |
 | 1 | `UnknownGlobal` | `app/shared/auxdata/delta_time.cpp:15` | untagged neutral name (D10) |
+| 1 | `DeltaUnknownCounter` | `app/shared/auxdata/delta_time.cpp:15` | untagged neutral name (D10) |
 | 1 | `Unknown04` | `app/shared/auxdata/delta_time.cpp:21` | untagged neutral name (D10) |
 | 1 | `Unknown_Get_Ticks` | `app/shared/auxdata/delta_time.cpp:66` | untagged neutral name (D10) |
 | 1 | `Unknown_00` | `app/shared/auxdata/delta_time.cpp:84` | untagged neutral name (D10) |
@@ -23290,6 +23300,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_08` | `app/shared/auxdata/encode.h:101` | untagged neutral name (D10) |
 | 1 | `Unknown_Sum` | `app/shared/auxdata/encode.h:156` | untagged neutral name (D10) |
 | 1 | `Unknown_All` | `app/shared/auxdata/encode.h:157` | untagged neutral name (D10) |
+| 1 | `Holder` | `app/shared/auxdata/encode.h:207` | neutral (D10) |
 | 1 | `Unknown_Set_Size` | `app/shared/auxdata/linearbu.cpp:279` | untagged neutral name (D10) |
 | 1 | `Unknown_Set_Size` | `app/shared/auxdata/linearbu.h:44` | untagged neutral name (D10) |
 | 1 | `Unknown04` | `app/shared/auxdata/linearbu.h:48` | untagged neutral name (D10) |
@@ -23301,6 +23312,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_Test_70_Above_1` | `app/shared/auxdata/lookup.h:39` | untagged neutral name (D10) |
 | 1 | `Unknown10` | `app/shared/auxdata/lookup.h:45` | untagged neutral name (D10) |
 | 1 | `Unknown_Debug_Printf` | `app/shared/auxdata/permstr.cpp:8` | untagged neutral name (D10) |
+| 1 | `DeltaUnknownCounter` | `app/shared/auxdata/policy.cpp:6` | untagged neutral name (D10) |
 | 1 | `Unknown98` | `app/shared/auxdata/policy.cpp:187` | untagged neutral name (D10) |
 | 1 | `Unknown7C` | `app/shared/auxdata/policy.cpp:227` | untagged neutral name (D10) |
 | 1 | `UnknownRTTIClass` | `app/shared/auxdata/rtti.h:30` | neutral (D10) |
@@ -23342,13 +23354,13 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_4C15F0` | `app/shared/avatar_desc.cpp:784` | untagged neutral name (D10) |
 | 1 | `Unknown_Test` | `app/shared/avatar_desc.cpp:1121` | untagged neutral name (D10) |
 | 1 | `LoginUnknown350Class` | `app/shared/avatar_desc.h:9` | untagged neutral name (D10) |
-| 1 | `Unknown_PacketDataClass` | `app/shared/avatar_desc.h:28` | untagged neutral name (D10) |
-| 1 | `unknown, unknown2` | `app/shared/avatar_desc.h:32` | neutral (D10) |
-| 1 | `Unknown_00` | `app/shared/avatar_desc.h:41` | untagged neutral name (D10) |
-| 1 | `convert` | `app/shared/avatar_desc.h:49` | what it selects |
-| 1 | `Unknown_4C1460` | `app/shared/avatar_desc.h:49` | untagged neutral name (D10) |
-| 1 | `Unknown_4C15F0` | `app/shared/avatar_desc.h:50` | untagged neutral name (D10) |
-| 1 | `Unknown0C` | `app/shared/avatar_desc.h:66` | untagged neutral name (D10) |
+| 1 | `Unknown_PacketDataClass` | `app/shared/avatar_desc.h:29` | untagged neutral name (D10) |
+| 1 | `unknown, unknown2` | `app/shared/avatar_desc.h:34` | neutral (D10) |
+| 1 | `Unknown_00` | `app/shared/avatar_desc.h:43` | untagged neutral name (D10) |
+| 1 | `convert` | `app/shared/avatar_desc.h:51` | what it selects |
+| 1 | `Unknown_4C1460` | `app/shared/avatar_desc.h:51` | untagged neutral name (D10) |
+| 1 | `Unknown_4C15F0` | `app/shared/avatar_desc.h:52` | untagged neutral name (D10) |
+| 1 | `Unknown0C` | `app/shared/avatar_desc.h:68` | untagged neutral name (D10) |
 | 1 | `BoolContext` | `app/shared/boolpars.cpp:7` | 0xBE34D8, set only around BoolExpressionClass::Evaluate |
 | 1 | `callback_manager.h` | `app/shared/callback_manager.h:4` | the .cpp's name (D137) |
 | 1 | `CallbackClass` | `app/shared/callback_manager.h:12` | neutral (D10) |
@@ -23619,9 +23631,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown04` | `app/shared/g_assert.cpp:10` | neutral (D10) |
 | 1 | `std:` | `app/shared/g_assert.cpp:13` | neutral (D10); the key type is unknown |
 | 1 | `Unknown_BE5648` | `app/shared/g_assert.cpp:13` | untagged neutral name (D10) |
-| 1 | `_Nodes` | `app/shared/gclass.cpp:9` | neutral (D10) |
 | 1 | `UnknownGadgetBase00Class` | `app/shared/gclass.cpp:9` | untagged neutral name (D10) |
-| 1 | `_DirtyList` | `app/shared/gclass.cpp:10` | neutral (D10) |
 | 1 | `Unknown_4A17B0` | `app/shared/gclass.cpp:13` | untagged neutral name (D10) |
 | 1 | `Unknown_08` | `app/shared/gclass.cpp:20` | untagged neutral name (D10) |
 | 1 | `Unknown_10` | `app/shared/gclass.cpp:27` | untagged neutral name (D10) |
@@ -23638,60 +23648,46 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_48` | `app/shared/gclass.cpp:318` | untagged neutral name (D10) |
 | 1 | `Unknown_18` | `app/shared/gclass.cpp:348` | untagged neutral name (D10) |
 | 1 | `Unknown_4A20A0` | `app/shared/gclass.cpp:358` | untagged neutral name (D10) |
-| 1 | `GClassRelationNode` | `app/shared/gclass.cpp:369` | neutral (D10): 0x28 bytes, the other entry's number and the value |
-| 1 | `GClassRelationEntryClass` | `app/shared/gclass.cpp:371` | neutral (D10): 0x30 bytes, table 0xAEAB80 |
-| 1 | `id` | `app/shared/gclass.cpp:374` | neutral |
-| 1 | `Id` | `app/shared/gclass.cpp:376` | neutral (D10) |
-| 1 | `Sources` | `app/shared/gclass.cpp:377` | neutral (D10) |
-| 1 | `Targets` | `app/shared/gclass.cpp:378` | neutral (D10) |
-| 1 | `GClassRelationTableClass` | `app/shared/gclass.cpp:381` | neutral (D10): table 0xAEAB78 |
-| 1 | `Add` | `app/shared/gclass.cpp:387` | neutral (D10) |
-| 1 | `id` | `app/shared/gclass.cpp:388` | neutral; NAME 1: neutral (D10) |
-| 1 | `Find` | `app/shared/gclass.cpp:389` | neutral (D10) |
-| 1 | `from, to, value` | `app/shared/gclass.cpp:390` | neutral; NAME 1: neutral (D10) |
-| 1 | `from, to` | `app/shared/gclass.cpp:391` | neutral; NAME 1: neutral (D10) |
-| 1 | `Entries` | `app/shared/gclass.cpp:393` | neutral (D10) |
-| 1 | `NextId` | `app/shared/gclass.cpp:394` | neutral (D10) |
-| 1 | `_Relations` | `app/shared/gclass.cpp:397` | neutral (D10) |
-| 1 | `Unknown_B72F54` | `app/shared/gclass.cpp:398` | neutral (D10): its address |
-| 1 | `GClassTargetNode` | `app/shared/gclass.h:29` | neutral (D10): the target as the value, the targeting GClass as the context |
-| 1 | `GClassTargetingList` | `app/shared/gclass.h:30` | neutral (D10): the asserts' Get_Targeting_List() |
-| 1 | `UnknownGadgetBase00Class` | `app/shared/gclass.h:33` | neutral (D10): the inline base's first table (0xAEAB48) |
-| 1 | `Unknown_04` | `app/shared/gclass.h:37` | untagged neutral name (D10) |
-| 1 | `Unknown_08` | `app/shared/gclass.h:38` | untagged neutral name (D10) |
-| 1 | `UnknownGadgetBase04Class` | `app/shared/gclass.h:42` | neutral (D10): the inline base's second table (0xAEAB3C) |
-| 1 | `Unknown_4A1930` | `app/shared/gclass.h:46` | neutral (D10): its address; NAME 1 [unknown1, unknown2, unknown3]: neutral |
-| 1 | `object, old_target, new_target` | `app/shared/gclass.h:53` | what they hold |
-| 1 | `Object` | `app/shared/gclass.h:55` | neutral (D10) |
-| 1 | `OldTarget` | `app/shared/gclass.h:56` | neutral (D10) |
-| 1 | `NewTarget` | `app/shared/gclass.h:57` | neutral (D10) |
-| 1 | `that` | `app/shared/gclass.h:64` | neutral |
-| 1 | `Unknown_0C` | `app/shared/gclass.h:66` | untagged neutral name (D10) |
-| 1 | `Unknown_10` | `app/shared/gclass.h:67` | untagged neutral name (D10) |
-| 1 | `unknown1, unknown2, buffer, size` | `app/shared/gclass.h:68` | neutral |
-| 1 | `Unknown_14` | `app/shared/gclass.h:68` | untagged neutral name (D10) |
-| 1 | `Unknown_18` | `app/shared/gclass.h:69` | untagged neutral name (D10) |
-| 1 | `Unknown_1C` | `app/shared/gclass.h:70` | untagged neutral name (D10) |
-| 1 | `Unknown_20` | `app/shared/gclass.h:71` | untagged neutral name (D10) |
-| 1 | `Unknown_24` | `app/shared/gclass.h:72` | untagged neutral name (D10) |
-| 1 | `Unknown_28` | `app/shared/gclass.h:73` | untagged neutral name (D10) |
-| 1 | `Unknown_2C` | `app/shared/gclass.h:74` | untagged neutral name (D10) |
-| 1 | `target, node` | `app/shared/gclass.h:75` | what it does with them |
-| 1 | `Unknown_30` | `app/shared/gclass.h:75` | untagged neutral name (D10) |
-| 1 | `Unknown_34` | `app/shared/gclass.h:76` | untagged neutral name (D10) |
-| 1 | `node` | `app/shared/gclass.h:77` | what it does with it |
-| 1 | `Unknown_38` | `app/shared/gclass.h:77` | untagged neutral name (D10) |
-| 1 | `target` | `app/shared/gclass.h:78` | what it compares |
-| 1 | `Unknown_3C` | `app/shared/gclass.h:78` | untagged neutral name (D10) |
-| 1 | `Unknown_40` | `app/shared/gclass.h:79` | untagged neutral name (D10) |
-| 1 | `node` | `app/shared/gclass.h:80` | what it does with it |
-| 1 | `Unknown_44` | `app/shared/gclass.h:80` | untagged neutral name (D10) |
-| 1 | `Unknown_48` | `app/shared/gclass.h:81` | untagged neutral name (D10) |
-| 1 | `Unknown_4A17B0` | `app/shared/gclass.h:85` | neutral (D10): its address |
-| 1 | `Unknown_4A20A0` | `app/shared/gclass.h:86` | neutral (D10): its address |
-| 1 | `Flags` | `app/shared/gclass.h:88` | neutral (D10) |
-| 1 | `Unknown0C` | `app/shared/gclass.h:89` | untagged neutral name (D10) |
-| 1 | `Signals` | `app/shared/gclass.h:90` | neutral (D10) |
+| 1 | `GClassTargetNode` | `app/shared/gclass.h:30` | neutral (D10): the target as the value, the targeting GClass as the context |
+| 1 | `GClassTargetingList` | `app/shared/gclass.h:31` | neutral (D10): the asserts' Get_Targeting_List() |
+| 1 | `UnknownGadgetBase00Class` | `app/shared/gclass.h:34` | neutral (D10): the inline base's first table (0xAEAB48) |
+| 1 | `Unknown_04` | `app/shared/gclass.h:38` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `app/shared/gclass.h:39` | untagged neutral name (D10) |
+| 1 | `UnknownGadgetBase04Class` | `app/shared/gclass.h:43` | neutral (D10): the inline base's second table (0xAEAB3C) |
+| 1 | `Unknown_4A1930` | `app/shared/gclass.h:47` | neutral (D10): its address; NAME 1 [unknown1, unknown2, unknown3]: neutral |
+| 1 | `object, old_target, new_target` | `app/shared/gclass.h:54` | what they hold |
+| 1 | `Object` | `app/shared/gclass.h:56` | neutral (D10) |
+| 1 | `OldTarget` | `app/shared/gclass.h:57` | neutral (D10) |
+| 1 | `NewTarget` | `app/shared/gclass.h:58` | neutral (D10) |
+| 1 | `that` | `app/shared/gclass.h:65` | neutral |
+| 1 | `Unknown_0C` | `app/shared/gclass.h:67` | untagged neutral name (D10) |
+| 1 | `Unknown_10` | `app/shared/gclass.h:68` | untagged neutral name (D10) |
+| 1 | `unknown1, unknown2, buffer, size` | `app/shared/gclass.h:69` | neutral |
+| 1 | `Unknown_14` | `app/shared/gclass.h:69` | untagged neutral name (D10) |
+| 1 | `Unknown_18` | `app/shared/gclass.h:70` | untagged neutral name (D10) |
+| 1 | `Unknown_1C` | `app/shared/gclass.h:71` | untagged neutral name (D10) |
+| 1 | `Unknown_20` | `app/shared/gclass.h:72` | untagged neutral name (D10) |
+| 1 | `Unknown_24` | `app/shared/gclass.h:73` | untagged neutral name (D10) |
+| 1 | `Unknown_28` | `app/shared/gclass.h:74` | untagged neutral name (D10) |
+| 1 | `Unknown_2C` | `app/shared/gclass.h:75` | untagged neutral name (D10) |
+| 1 | `target, node` | `app/shared/gclass.h:76` | what it does with them |
+| 1 | `Unknown_30` | `app/shared/gclass.h:76` | untagged neutral name (D10) |
+| 1 | `Unknown_34` | `app/shared/gclass.h:77` | untagged neutral name (D10) |
+| 1 | `node` | `app/shared/gclass.h:78` | what it does with it |
+| 1 | `Unknown_38` | `app/shared/gclass.h:78` | untagged neutral name (D10) |
+| 1 | `target` | `app/shared/gclass.h:79` | what it compares |
+| 1 | `Unknown_3C` | `app/shared/gclass.h:79` | untagged neutral name (D10) |
+| 1 | `Unknown_40` | `app/shared/gclass.h:80` | untagged neutral name (D10) |
+| 1 | `node` | `app/shared/gclass.h:81` | what it does with it |
+| 1 | `Unknown_44` | `app/shared/gclass.h:81` | untagged neutral name (D10) |
+| 1 | `Unknown_48` | `app/shared/gclass.h:82` | untagged neutral name (D10) |
+| 1 | `Unknown_4A17B0` | `app/shared/gclass.h:86` | neutral (D10): its address |
+| 1 | `Unknown_4A20A0` | `app/shared/gclass.h:87` | neutral (D10): its address |
+| 1 | `_Nodes` | `app/shared/gclass.h:88` | neutral (D10) |
+| 1 | `_DirtyList` | `app/shared/gclass.h:89` | neutral (D10) |
+| 1 | `Flags` | `app/shared/gclass.h:91` | neutral (D10) |
+| 1 | `Unknown0C` | `app/shared/gclass.h:92` | untagged neutral name (D10) |
+| 1 | `Signals` | `app/shared/gclass.h:93` | neutral (D10) |
 | 1 | `Unknown_Percent` | `app/shared/graphics_settings.h:84` | neutral (D10): value's place in [min, max] as a percentage |
 | 1 | `Unknown_Percent` | `app/shared/graphics_settings.h:91` | neutral (D10) |
 | 1 | `Get_Height_2` | `app/shared/heightfield.h:52` | the same code at a second address (0x463CD0) |
@@ -24869,6 +24865,22 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_4991F0` | `app/shared/unknown_499180.cpp:21` | neutral (D10) |
 | 1 | `Unknown_4995C0` | `app/shared/unknown_499180.cpp:67` | neutral (D10) |
 | 1 | `unknown_4a1590.h` | `app/shared/unknown_4a1590.h:19` | neutral header name (D10) |
+| 1 | `GClassRelationNode` | `app/shared/unknown_4a2690.cpp:5` | neutral (D10): 0x28 bytes, the other entry's number and the value |
+| 1 | `GClassRelationEntryClass` | `app/shared/unknown_4a2690.cpp:7` | neutral (D10): 0x30 bytes, table 0xAEAB80 |
+| 1 | `id` | `app/shared/unknown_4a2690.cpp:10` | neutral |
+| 1 | `Id` | `app/shared/unknown_4a2690.cpp:12` | neutral (D10) |
+| 1 | `Sources` | `app/shared/unknown_4a2690.cpp:13` | neutral (D10) |
+| 1 | `Targets` | `app/shared/unknown_4a2690.cpp:14` | neutral (D10) |
+| 1 | `GClassRelationTableClass` | `app/shared/unknown_4a2690.cpp:17` | neutral (D10): table 0xAEAB78 |
+| 1 | `Add` | `app/shared/unknown_4a2690.cpp:23` | neutral (D10) |
+| 1 | `id` | `app/shared/unknown_4a2690.cpp:24` | neutral; NAME 1: neutral (D10) |
+| 1 | `Find` | `app/shared/unknown_4a2690.cpp:25` | neutral (D10) |
+| 1 | `from, to, value` | `app/shared/unknown_4a2690.cpp:26` | neutral; NAME 1: neutral (D10) |
+| 1 | `from, to` | `app/shared/unknown_4a2690.cpp:27` | neutral; NAME 1: neutral (D10) |
+| 1 | `Entries` | `app/shared/unknown_4a2690.cpp:29` | neutral (D10) |
+| 1 | `NextId` | `app/shared/unknown_4a2690.cpp:30` | neutral (D10) |
+| 1 | `_Relations` | `app/shared/unknown_4a2690.cpp:33` | neutral (D10) |
+| 1 | `Unknown_B72F54` | `app/shared/unknown_4a2690.cpp:34` | neutral (D10): its address |
 | 1 | `unknown_4be9d0.h` | `app/shared/unknown_4be9d0.h:15` | neutral (D137) |
 | 1 | `Unknown_4BE9D0` | `app/shared/unknown_4be9d0.h:20` | neutral (D10); callers avatar_desc.cpp's 0x4C1460 / 0x4C15F0 / Convert_Names, 0x5D6DC0, 0x616220, 0x649FE0 |
 | 1 | `unknown_4dfbf0.h` | `app/shared/unknown_4dfbf0.h:19` | provisional file name (D137) |
@@ -24979,25 +24991,22 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown134` | `app/wwudp/cordmgr.h:79` | untagged neutral name (D10) |
 | 1 | `Release` | `app/wwudp/cordmgr.h:122` | after Pump_Releases |
 | 1 | `unknown_cordmsg.cpp` | `app/wwudp/unknown_cordmsg.cpp:12` | PROVISIONAL file name (no assert or __FILE__ names the object) |
-| 1 | `Unknown_BDADC8` | `programs/clientpoc/poc_data.cpp:15` | untagged neutral name (D10) |
-| 1 | `Unknown_BDBB84` | `programs/clientpoc/poc_data.cpp:16` | untagged neutral name (D10) |
-| 1 | `Unknown_C07550` | `programs/clientpoc/poc_data.cpp:17` | untagged neutral name (D10) |
-| 1 | `Unknown_BE5BD0` | `programs/clientpoc/poc_data.cpp:18` | untagged neutral name (D10) |
-| 1 | `Unknown00` | `programs/clientpoc/poc_data.cpp:20` | untagged neutral name (D10) |
-| 1 | `Unknown_BE7D80` | `programs/clientpoc/poc_data.cpp:21` | untagged neutral name (D10) |
-| 1 | `Unknown_B08C90` | `programs/clientpoc/poc_data.cpp:24` | untagged neutral name (D10) |
-| 1 | `Unknown_B08C94` | `programs/clientpoc/poc_data.cpp:25` | untagged neutral name (D10) |
-| 1 | `Unknown_B08C98` | `programs/clientpoc/poc_data.cpp:26` | untagged neutral name (D10) |
-| 1 | `Unknown_B08CA8` | `programs/clientpoc/poc_data.cpp:27` | untagged neutral name (D10) |
-| 1 | `Unknown_B08CA0` | `programs/clientpoc/poc_data.cpp:28` | untagged neutral name (D10) |
-| 1 | `Unknown_B08CB4` | `programs/clientpoc/poc_data.cpp:29` | untagged neutral name (D10) |
-| 1 | `Unknown_B08C9C` | `programs/clientpoc/poc_data.cpp:30` | untagged neutral name (D10) |
-| 1 | `Unknown_B08CAC` | `programs/clientpoc/poc_data.cpp:31` | untagged neutral name (D10) |
-| 1 | `Unknown_B08CB0` | `programs/clientpoc/poc_data.cpp:32` | untagged neutral name (D10) |
-| 1 | `Unknown_B08CB8` | `programs/clientpoc/poc_data.cpp:33` | untagged neutral name (D10) |
-| 1 | `Unknown_B08CBC` | `programs/clientpoc/poc_data.cpp:34` | untagged neutral name (D10) |
-| 1 | `Unknown_B08CC0` | `programs/clientpoc/poc_data.cpp:35` | untagged neutral name (D10) |
-| 1 | `Unknown_B08CC4` | `programs/clientpoc/poc_data.cpp:36` | untagged neutral name (D10) |
+| 1 | `Unknown_C07550` | `programs/clientpoc/poc_data.cpp:15` | untagged neutral name (D10) |
+| 1 | `Unknown00` | `programs/clientpoc/poc_data.cpp:17` | untagged neutral name (D10) |
+| 1 | `Unknown_BE7D80` | `programs/clientpoc/poc_data.cpp:18` | untagged neutral name (D10) |
+| 1 | `Unknown_B08C90` | `programs/clientpoc/poc_data.cpp:21` | untagged neutral name (D10) |
+| 1 | `Unknown_B08C94` | `programs/clientpoc/poc_data.cpp:22` | untagged neutral name (D10) |
+| 1 | `Unknown_B08C98` | `programs/clientpoc/poc_data.cpp:23` | untagged neutral name (D10) |
+| 1 | `Unknown_B08CA8` | `programs/clientpoc/poc_data.cpp:24` | untagged neutral name (D10) |
+| 1 | `Unknown_B08CA0` | `programs/clientpoc/poc_data.cpp:25` | untagged neutral name (D10) |
+| 1 | `Unknown_B08CB4` | `programs/clientpoc/poc_data.cpp:26` | untagged neutral name (D10) |
+| 1 | `Unknown_B08C9C` | `programs/clientpoc/poc_data.cpp:27` | untagged neutral name (D10) |
+| 1 | `Unknown_B08CAC` | `programs/clientpoc/poc_data.cpp:28` | untagged neutral name (D10) |
+| 1 | `Unknown_B08CB0` | `programs/clientpoc/poc_data.cpp:29` | untagged neutral name (D10) |
+| 1 | `Unknown_B08CB8` | `programs/clientpoc/poc_data.cpp:30` | untagged neutral name (D10) |
+| 1 | `Unknown_B08CBC` | `programs/clientpoc/poc_data.cpp:31` | untagged neutral name (D10) |
+| 1 | `Unknown_B08CC0` | `programs/clientpoc/poc_data.cpp:32` | untagged neutral name (D10) |
+| 1 | `Unknown_B08CC4` | `programs/clientpoc/poc_data.cpp:33` | untagged neutral name (D10) |
 | 1 | `Unknown_BE56D8` | `programs/clientpoc/poc_link.cpp:19` | untagged neutral name (D10) |
 | 1 | `Unknown_847D20` | `programs/clientpoc/poc_standins.cpp:23` | untagged neutral name (D10) |
 | 1 | `Unknown_846C90` | `programs/clientpoc/poc_standins.cpp:30` | untagged neutral name (D10) |
@@ -25025,9 +25034,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_725AD0` | `programs/clientpoc/poc_world2.cpp:44` | untagged neutral name (D10) |
 | 1 | `Unknown1C` | `programs/clientpoc/poc_world2.cpp:47` | untagged neutral name (D10) |
 | 1 | `Unknown_744240` | `programs/clientpoc/poc_world2.cpp:51` | untagged neutral name (D10) |
-| 1 | `DeltaUnknownGlobal` | `stubs/app_stubs.cpp:46` | untagged neutral name (D10) |
-| 1 | `UnknownGlobal` | `stubs/app_stubs.cpp:47` | untagged neutral name (D10) |
-| 1 | `Unknown_BDB1C0` | `stubs/app_stubs.cpp:77` | untagged neutral name (D10) |
 | 1 | `Unknown98` | `tests/auxdata_smoke/auxdata_smoke.cpp:53` | untagged neutral name (D10) |
 | 1 | `Unknown_All` | `tests/auxdata_smoke/auxdata_smoke.cpp:54` | untagged neutral name (D10) |
 | 1 | `Unknown70` | `tests/auxdata_smoke/auxdata_smoke.cpp:94` | untagged neutral name (D10) |
@@ -25164,10 +25170,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_B08CC0` | `tests/clienttest/ui_avsel_stubs.cpp:29` | untagged neutral name (D10) |
 | 1 | `Unknown_B08CC4` | `tests/clienttest/ui_avsel_stubs.cpp:30` | untagged neutral name (D10) |
 | 1 | `Unknown_BE67C4` | `tests/clienttest/ui_login_stubs.cpp:17` | untagged neutral name (D10) |
-| 1 | `Unknown_BE5BD0` | `tests/clienttest/ui_stubs.cpp:26` | untagged neutral name (D10) |
-| 1 | `Unknown_496110` | `tests/clienttest/ui_stubs.cpp:31` | untagged neutral name (D10) |
-| 1 | `Unknown_BDADC8` | `tests/clienttest/ui_stubs.cpp:32` | untagged neutral name (D10) |
-| 1 | `Unknown_BDBB84` | `tests/clienttest/ui_stubs.cpp:33` | untagged neutral name (D10) |
+| 1 | `Unknown_496110` | `tests/clienttest/ui_stubs.cpp:30` | untagged neutral name (D10) |
 | 1 | `Unknown_Get_Ticks` | `tests/kerneltest/kerneltest.cpp:24` | untagged neutral name (D10) |
 | 1 | `Unknown_9179D0` | `tests/kerneltest/kerneltest.cpp:25` | untagged neutral name (D10) |
 | 1 | `Unknown_42EA80` | `tests/kerneltest/kerneltest.cpp:28` | untagged neutral name (D10) |
@@ -28282,16 +28285,17 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `LegoTypes` | `app/common/lego_identifier.cpp:41` | what it holds |
 | 2 | `Lego_Type_Name` | `app/common/lego_identifier.h:25` | what it does |
 | 2 | `Lego_Type_From_Name` | `app/common/lego_identifier.h:26` | what it does |
-| 2 | `Is_Empty` | `app/common/lego_identifier.h:36` | what it returns |
-| 2 | `Get_Count` | `app/common/lego_identifier.h:40` | what it returns |
-| 2 | `std:` | `app/common/lego_identifier.h:41` | what it returns |
-| 2 | `std:` | `app/common/lego_identifier.h:42` | what it does |
-| 2 | `Add` | `app/common/lego_identifier.h:43` | what it does |
+| 2 | `std:` | `app/common/lego_identifier.h:31` | what it holds |
+| 2 | `Is_Empty` | `app/common/lego_identifier.h:37` | what it returns |
+| 2 | `Get_Count` | `app/common/lego_identifier.h:41` | what it returns |
+| 2 | `std:` | `app/common/lego_identifier.h:42` | what it returns |
+| 2 | `std:` | `app/common/lego_identifier.h:43` | what it does |
 | 2 | `Add` | `app/common/lego_identifier.h:44` | what it does |
-| 2 | `std:` | `app/common/lego_identifier.h:45` | what it returns |
-| 2 | `Set_Name` | `app/common/lego_identifier.h:46` | what it does |
-| 2 | `std:` | `app/common/lego_identifier.h:60` | what it holds |
-| 2 | `Rest` | `app/common/lego_identifier.h:61` | what it holds |
+| 2 | `Add` | `app/common/lego_identifier.h:45` | what it does |
+| 2 | `std:` | `app/common/lego_identifier.h:46` | what it returns |
+| 2 | `Set_Name` | `app/common/lego_identifier.h:47` | what it does |
+| 2 | `std:` | `app/common/lego_identifier.h:61` | what it holds |
+| 2 | `Rest` | `app/common/lego_identifier.h:62` | what it holds |
 | 2 | `MODE_MANUFACTURE` | `app/common/manufacturing_defs.h:47` | the name table |
 | 2 | `MODE_ANALYZE` | `app/common/manufacturing_defs.h:48` | the name table |
 | 2 | `MODE_REFINE` | `app/common/manufacturing_defs.h:50` | the name table |
@@ -28344,40 +28348,42 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `flag, name` | `app/common/target_generator_summary.cpp:68` | what they hold |
 | 2 | `Flag` | `app/common/target_generator_summary.cpp:70` | what it holds |
 | 2 | `std:` | `app/common/target_generator_summary.cpp:71` | what it holds |
-| 2 | `TCPManager` | `app/common/tcpconn.cpp:10` | what it is |
 | 2 | `std:` | `app/common/tcpconn.cpp:11` | what it holds |
 | 2 | `WriteBuffer` | `app/common/tcpconn.cpp:12` | what it holds |
 | 2 | `Try_Connect` | `app/common/tcpconn.h:47` | what it does |
 | 2 | `Key_Exchange` | `app/common/tcpconn.h:48` | what it does |
-| 2 | `Encrypt` | `app/common/tcpconn.h:55` | what it holds |
-| 2 | `Key` | `app/common/tcpconn.h:56` | what it holds |
-| 2 | `SendRC4` | `app/common/tcpconn.h:57` | what it does |
-| 2 | `ReceiveRC4` | `app/common/tcpconn.h:58` | what it does |
-| 2 | `Name` | `app/common/tcpconn.h:59` | what it holds |
-| 2 | `IP` | `app/common/tcpconn.h:60` | what it holds |
-| 2 | `Port` | `app/common/tcpconn.h:61` | what it holds |
-| 2 | `Accept` | `app/common/tcpconn.h:76` | what it does |
-| 2 | `Pump_Pending` | `app/common/tcpconn.h:77` | what it does |
-| 2 | `Send_Key` | `app/common/tcpconn.h:78` | what it does |
-| 2 | `Pump_All` | `app/common/tcpconn.h:79` | what it does |
-| 2 | `std:` | `app/common/tcpconn.h:83` | what it holds |
-| 2 | `KeyPair` | `app/common/tcpconn.h:84` | what it holds |
+| 2 | `TCPManager` | `app/common/tcpconn.h:51` | what it is |
+| 2 | `std:` | `app/common/tcpconn.h:52` | what it holds |
+| 2 | `Encrypt` | `app/common/tcpconn.h:57` | what it holds |
+| 2 | `Key` | `app/common/tcpconn.h:58` | what it holds |
+| 2 | `SendRC4` | `app/common/tcpconn.h:59` | what it does |
+| 2 | `ReceiveRC4` | `app/common/tcpconn.h:60` | what it does |
+| 2 | `Name` | `app/common/tcpconn.h:61` | what it holds |
+| 2 | `IP` | `app/common/tcpconn.h:62` | what it holds |
+| 2 | `Port` | `app/common/tcpconn.h:63` | what it holds |
+| 2 | `Accept` | `app/common/tcpconn.h:78` | what it does |
+| 2 | `Pump_Pending` | `app/common/tcpconn.h:79` | what it does |
+| 2 | `Send_Key` | `app/common/tcpconn.h:80` | what it does |
+| 2 | `Pump_All` | `app/common/tcpconn.h:81` | what it does |
+| 2 | `std:` | `app/common/tcpconn.h:85` | what it holds |
+| 2 | `KeyPair` | `app/common/tcpconn.h:86` | what it holds |
 | 2 | `TheMgr` | `app/common/udpconn.cpp:31` | what it holds |
 | 2 | `Init_Mgr` | `app/common/udpconn.cpp:34` | what it does |
 | 2 | `Find_Ptr` | `app/common/udpconn.cpp:352` | getPointer through one more inline layer (Send_Data's last lookup: inline budget) |
 | 2 | `Channel` | `app/common/udpconn.h:37` | what it holds |
 | 2 | `Reliable` | `app/common/udpconn.h:38` | 3 reliable, 4 sequenced |
 | 2 | `Channel` | `app/common/udpconn.h:46` | the CordCon channel openc gave |
-| 2 | `Try_Connect` | `app/common/udpconn.h:68` | what it does |
-| 2 | `Send_Data` | `app/common/udpconn.h:70` | what it does |
-| 2 | `Open_Fixed_Channel` | `app/common/udpconn.h:71` | what it does |
-| 2 | `Is_Fixed_Channel` | `app/common/udpconn.h:72` | what it does |
-| 2 | `Mgr` | `app/common/udpconn.h:115` | what it holds |
-| 2 | `Init` | `app/common/udpconn.h:129` | what it does |
-| 2 | `Get_Mgr` | `app/common/udpconn.h:130` | what it returns |
-| 2 | `Shutdown_Task` | `app/common/udpconn.h:131` | what it does |
-| 2 | `Task` | `app/common/udpconn.h:133` | what it holds |
-| 2 | `Mgr` | `app/common/udpconn.h:134` | what it holds |
+| 2 | `Lock` | `app/common/udpconn.h:57` | what it guards |
+| 2 | `Try_Connect` | `app/common/udpconn.h:70` | what it does |
+| 2 | `Send_Data` | `app/common/udpconn.h:72` | what it does |
+| 2 | `Open_Fixed_Channel` | `app/common/udpconn.h:73` | what it does |
+| 2 | `Is_Fixed_Channel` | `app/common/udpconn.h:74` | what it does |
+| 2 | `Mgr` | `app/common/udpconn.h:117` | what it holds |
+| 2 | `Init` | `app/common/udpconn.h:131` | what it does |
+| 2 | `Get_Mgr` | `app/common/udpconn.h:132` | what it returns |
+| 2 | `Shutdown_Task` | `app/common/udpconn.h:133` | what it does |
+| 2 | `Task` | `app/common/udpconn.h:135` | what it holds |
+| 2 | `Mgr` | `app/common/udpconn.h:136` | what it holds |
 | 2 | `std:` | `app/common/unknown_memregistry.cpp:10` | what it holds |
 | 2 | `MusicTypeNames` | `app/common/unknown_navlist.cpp:7` | what it holds |
 | 2 | `Music_Type_From_Name` | `app/common/unknown_navlist.h:25` | what it does |
@@ -29073,9 +29079,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Error` | `app/shared/auxdata/encode.h:197` | describes what it does |
 | 2 | `Mode` | `app/shared/auxdata/encode.h:198` | describes what it does |
 | 2 | `TreeCodecHolderClass` | `app/shared/auxdata/encode.h:202` | describes what it does |
-| 2 | `Codec` | `app/shared/auxdata/encode.h:208` | describes what it does |
-| 2 | `RecordCodec` | `app/shared/auxdata/encode.h:211` | describes what it does |
-| 2 | `Get_Tree_Codec` | `app/shared/auxdata/encode.h:212` | describes what it does |
+| 2 | `Codec` | `app/shared/auxdata/encode.h:209` | describes what it does |
+| 2 | `RecordCodec` | `app/shared/auxdata/encode.h:212` | describes what it does |
+| 2 | `Get_Tree_Codec` | `app/shared/auxdata/encode.h:213` | describes what it does |
 | 2 | `Read` | `app/shared/auxdata/linearbu.h:28` | describes what it does |
 | 2 | `Read_String` | `app/shared/auxdata/linearbu.h:30` | describes what it does |
 | 2 | `Write` | `app/shared/auxdata/linearbu.h:31` | describes what it does |
@@ -29212,33 +29218,34 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Encode_Changes` | `app/shared/auxdata/unknown_root.h:57` | describes what it does |
 | 2 | `Policy` | `app/shared/auxdata/unknown_root.h:59` | describes what it does |
 | 2 | `Changes` | `app/shared/auxdata/unknown_root.h:61` | describes what it does |
-| 2 | `AvatarDefinitions` | `app/shared/avatar_desc.cpp:412` | avatardef.ini |
+| 2 | `AvatarDescClass::AvatarDefinitions` | `app/shared/avatar_desc.cpp:18` | avatardef.ini (initialiser 0x4BE970, before the constructors; atexit 0x4BE9A0 guarded: a static member) |
 | 2 | `AvatarGenderNames` | `app/shared/avatar_desc.cpp:413` | what it holds |
 | 2 | `AvatarRaceNames` | `app/shared/avatar_desc.cpp:414` | what it holds |
 | 2 | `AvatarProfessionNames` | `app/shared/avatar_desc.cpp:415` | what it holds |
-| 2 | `name` | `app/shared/avatar_desc.h:33` | Load_Defaults' |
-| 2 | `Write_Short` | `app/shared/avatar_desc.h:38` | what it does |
-| 2 | `Read_Short` | `app/shared/avatar_desc.h:39` | what it does |
-| 2 | `Get_Short_Size` | `app/shared/avatar_desc.h:40` | what it does |
-| 2 | `Clear` | `app/shared/avatar_desc.h:43` | what it does |
-| 2 | `Is_Valid` | `app/shared/avatar_desc.h:44` | what it does |
-| 2 | `Reset` | `app/shared/avatar_desc.h:45` | what it does |
-| 2 | `Load_Defaults` | `app/shared/avatar_desc.h:46` | what it does |
-| 2 | `std:` | `app/shared/avatar_desc.h:47` | what it does |
-| 2 | `std:` | `app/shared/avatar_desc.h:48` | what it does |
-| 2 | `Get_Body_Morph` | `app/shared/avatar_desc.h:51` | what it does |
-| 2 | `Get_Head_Morph` | `app/shared/avatar_desc.h:52` | what it does |
-| 2 | `Get_Facial_Feature` | `app/shared/avatar_desc.h:53` | what it does |
-| 2 | `Get_Hair_Offset` | `app/shared/avatar_desc.h:54` | its key |
-| 2 | `Get_Skin_Offset` | `app/shared/avatar_desc.h:55` | its key |
-| 2 | `Get_Eye_Offset` | `app/shared/avatar_desc.h:56` | its key |
-| 2 | `Get_Shirt_Primary_Offset` | `app/shared/avatar_desc.h:57` | its key |
-| 2 | `Get_Shirt_Secondary_Offset` | `app/shared/avatar_desc.h:58` | its key |
-| 2 | `Get_Pants_Primary_Offset` | `app/shared/avatar_desc.h:59` | its key |
-| 2 | `Get_Pants_Secondary_Offset` | `app/shared/avatar_desc.h:60` | its key |
-| 2 | `Save_Defaults` | `app/shared/avatar_desc.h:61` | what it does |
-| 2 | `Upgrade` | `app/shared/avatar_desc.h:62` | what it does |
-| 2 | `Convert_Names` | `app/shared/avatar_desc.h:63` | what it does |
+| 2 | `AvatarDefinitions` | `app/shared/avatar_desc.h:32` | what it holds |
+| 2 | `name` | `app/shared/avatar_desc.h:35` | Load_Defaults' |
+| 2 | `Write_Short` | `app/shared/avatar_desc.h:40` | what it does |
+| 2 | `Read_Short` | `app/shared/avatar_desc.h:41` | what it does |
+| 2 | `Get_Short_Size` | `app/shared/avatar_desc.h:42` | what it does |
+| 2 | `Clear` | `app/shared/avatar_desc.h:45` | what it does |
+| 2 | `Is_Valid` | `app/shared/avatar_desc.h:46` | what it does |
+| 2 | `Reset` | `app/shared/avatar_desc.h:47` | what it does |
+| 2 | `Load_Defaults` | `app/shared/avatar_desc.h:48` | what it does |
+| 2 | `std:` | `app/shared/avatar_desc.h:49` | what it does |
+| 2 | `std:` | `app/shared/avatar_desc.h:50` | what it does |
+| 2 | `Get_Body_Morph` | `app/shared/avatar_desc.h:53` | what it does |
+| 2 | `Get_Head_Morph` | `app/shared/avatar_desc.h:54` | what it does |
+| 2 | `Get_Facial_Feature` | `app/shared/avatar_desc.h:55` | what it does |
+| 2 | `Get_Hair_Offset` | `app/shared/avatar_desc.h:56` | its key |
+| 2 | `Get_Skin_Offset` | `app/shared/avatar_desc.h:57` | its key |
+| 2 | `Get_Eye_Offset` | `app/shared/avatar_desc.h:58` | its key |
+| 2 | `Get_Shirt_Primary_Offset` | `app/shared/avatar_desc.h:59` | its key |
+| 2 | `Get_Shirt_Secondary_Offset` | `app/shared/avatar_desc.h:60` | its key |
+| 2 | `Get_Pants_Primary_Offset` | `app/shared/avatar_desc.h:61` | its key |
+| 2 | `Get_Pants_Secondary_Offset` | `app/shared/avatar_desc.h:62` | its key |
+| 2 | `Save_Defaults` | `app/shared/avatar_desc.h:63` | what it does |
+| 2 | `Upgrade` | `app/shared/avatar_desc.h:64` | what it does |
+| 2 | `Convert_Names` | `app/shared/avatar_desc.h:65` | what it does |
 | 2 | `boolpars.cpp` | `app/shared/boolpars.cpp:9` | describes what it does |
 | 2 | `Duplicate_Text` | `app/shared/boolpars.cpp:300` | describes what it does (not in the client: inlined into Parse) |
 | 2 | `BoolValueStruct` | `app/shared/boolpars.h:29` | describes what it holds |
@@ -29908,7 +29915,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `EscapedNewLines` | `app/shared/split_string.h:47` | what it does |
 | 2 | `TrimLast` | `app/shared/split_string.h:48` | what it does |
 | 2 | `TrimLines` | `app/shared/split_string.h:49` | what it does |
-| 2 | `SplineFileHeaderStruct` | `app/shared/spln_db.cpp:15` | chunk 0x800 (version 0x100, entry count, 0, 0), read by Load_Header (0xBE34A8) |
+| 2 | `SplineFileHeaderStruct` | `app/shared/spln_db.cpp:16` | chunk 0x800 (version 0x100, entry count, 0, 0), read by Load_Header (0xBE34A8) |
 | 2 | `Copy_String` | `app/shared/spln_db.cpp:25` | an inline copy for the entry's strings (its inlining leaves VectorClass's constructor out of line, as the client's 0x489050) |
 | 2 | `SplineEntryHeaderStruct` | `app/shared/spln_db.cpp:32` | the 0x24 bytes before an entry's name (chunks 0x810 / 0x811) |
 | 2 | `SplineParamsStruct` | `app/shared/spln_db.h:49` | the four parameters an entry carries from the file (+0x10, copied as one) |
@@ -31297,7 +31304,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `ItemSortEnum` | `app/common/itemtype.h:31` | the client's 'UnknownItemSortEnum'; ITEMSORT_NONE: the name 'no sort' |
 | 3 | `lego_identifier.h` | `app/common/lego_identifier.h:18` | by convention from the client's lego_identifier.cpp (D24) |
 | 3 | `LegoIdentifierClass` | `app/common/lego_identifier.h:28` | by convention from the client's lego_identifier.cpp (D24) |
-| 3 | `Is_Invalid` | `app/common/lego_identifier.h:56` | the client's asserts 'split.Is_Invalid()' |
+| 3 | `Is_Invalid` | `app/common/lego_identifier.h:57` | the client's asserts 'split.Is_Invalid()' |
 | 3 | `manufacturing_defs.h` | `app/common/manufacturing_defs.h:19` | header name assumed from the client's manufacturing_defs.cpp |
 | 3 | `MfgTypeEnum` | `app/common/manufacturing_defs.h:61` | the client's MfgTypeStruct / _TypeDef |
 | 3 | `MfgCategoryEnum` | `app/common/manufacturing_defs.h:63` | the client's MfgCategoryStruct / _CategoryDef |
@@ -32017,7 +32024,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `PolicyRuleSetClass` | `app/shared/auxdata/policy.h:97` | after the assert's RuleSet (policy.cpp) |
 | 3 | `PolicyClass` | `app/shared/auxdata/policy.h:144` | by convention (D24) from the client's file policy.cpp |
 | 3 | `avatar_desc.h` | `app/shared/avatar_desc.h:18` | header name assumed from the client's avatar_desc.cpp |
-| 3 | `AvatarDescClass` | `app/shared/avatar_desc.h:28` | by convention (D24) from the client's avatar_desc.cpp |
+| 3 | `AvatarDescClass` | `app/shared/avatar_desc.h:29` | by convention (D24) from the client's avatar_desc.cpp |
 | 3 | `boolpars.h` | `app/shared/boolpars.h:20` | header name assumed from the client's boolpars.cpp |
 | 3 | `BoolParserClass` | `app/shared/boolpars.h:164` | by convention (D24) from the client's file boolpars.cpp (vtable 0xAEA938) |
 | 3 | `combo_ffactory.h` | `app/shared/combo_ffactory.h:19` | header name assumed from the client's combo_ffactory.cpp |
@@ -32092,8 +32099,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `fp_tt.h` | `app/shared/fp_tt.h:16` | the header of fp_tt.cpp |
 | 3 | `FpTTClass` | `app/shared/fp_tt.h:22` | class-from-file (D24) for fp_tt.cpp |
 | 3 | `gclass.h` | `app/shared/gclass.h:21` | header name assumed from the client's gclass.cpp |
-| 3 | `Get_Target_Node` | `app/shared/gclass.h:82` | the client's assert 'Get_Target_Node()' |
-| 3 | `Get_Targeting_List` | `app/shared/gclass.h:83` | the client's assert 'Get_Targeting_List() != NULL' |
+| 3 | `Get_Target_Node` | `app/shared/gclass.h:83` | the client's assert 'Get_Target_Node()' |
+| 3 | `Get_Targeting_List` | `app/shared/gclass.h:84` | the client's assert 'Get_Targeting_List() != NULL' |
 | 3 | `graphics_settings.h` | `app/shared/graphics_settings.h:18` | the client's header path |
 | 3 | `ini_manager.h` | `app/shared/ini_manager.h:17` | header name assumed from the client's ini_manager.cpp |
 | 3 | `INIManagerClass` | `app/shared/ini_manager.h:25` | by convention (D24) from the client's file ini_manager.cpp |
