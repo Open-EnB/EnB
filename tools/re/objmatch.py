@@ -3565,7 +3565,8 @@ USE_SG_XCU_FIRST = True
 # D246 (SG, run 2026-11-18): an initialiser that follows the object's last exact own function in object order (<string>'s
 # guard, which VC6 emits after them) may lie further than RANGE_GAP beyond it, past the object's template instances: its
 # window runs up to the next object's exact own function (the table round still needs the consecutive entries and a
-# fullmatch). The data binders' guard 0x7A08F0 (CRT entry 631) sits 0x2C30 after Remove_Emote_Data 0x79DCC0, past their
+# fullmatch). Only <string>'s plain guard (_string_guard): on AB's aux headers co's Elements / Buffs numbering
+# initialiser (0x709B80's bytes, also 0x7BDF40's) took the open window too and reached both copies, so neither was credited. The data binders' guard 0x7A08F0 (CRT entry 631) sits 0x2C30 after Remove_Emote_Data 0x79DCC0, past their
 # hash_map instances; env_map_manager's 0x761C50 (597) after its vector instances; shiputils' 0x813970 (724)
 USE_SG_XCU_OPEN_END = True
 USE_XCU_POSITION = True     # D242 P-C1-2: the `_$E` initialisers credited by their CRT table position
@@ -3633,6 +3634,14 @@ def _neighbours(order, key):
     return (before[-1] if before else None), (after[0] if after else None)
 
 
+def _string_guard(obj, sec, s, length):
+    """True for <string>'s plain guarded initialiser (std::ctype<unsigned short>::id's: its relocations reach only the
+    guard byte, the static and atexit), not one VC6 merged with other statics' initialisers (the Delta numbering's)."""
+    names = {sym['name'] for k, sz, typ, sym, addend in obj.reloc_targets(sec, s, length) if sym is not None}
+    return '?id@?$ctype@G@std@@$E' in names and all(
+        n in ('?id@?$ctype@G@std@@$E', '_atexit') or n.startswith('??_B?1???id@?$ctype@G@std@@') for n in names)
+
+
 def xcu_position(img, results, ranges, text, base, claimed, thunk):
     """D242 P-C1-2 (amends D94(b)): [(item, address, kind)] of `_$E` functions credited by the CRT initialiser table.
     The table lists every object's initialisers in link order, so the n-th initialiser an object's .CRT$XCU lists
@@ -3671,7 +3680,7 @@ def xcu_position(img, results, ranges, text, base, claimed, thunk):
         for n in inits:
             r, _, sec, s, length = defs[n]
             p, q = _neighbours(orders[key], (sec, s))
-            if USE_SG_XCU_OPEN_END and q is None and above:
+            if USE_SG_XCU_OPEN_END and q is None and above and _string_guard(obj, sec, s, length):
                 # SG: past the object's last exact own function the window runs to the next object's, not RANGE_GAP
                 wins.append((max(blo, p + 1 if p is not None else blo), above[0] - 1))
                 continue
