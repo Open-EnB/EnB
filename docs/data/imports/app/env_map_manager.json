@@ -1,6 +1,5 @@
 {
  "ambiguous": [
-  "0x42B2F0",
   "0x474080"
  ],
  "copy": "reconstructed",
@@ -34,7 +33,8 @@
   "0x761870",
   "0x7618B0",
   "0x761A30",
-  "0x761BC0"
+  "0x761BC0",
+  "0x761C50"
  ],
  "merged": [],
  "name": "client/env_map_manager.cpp",

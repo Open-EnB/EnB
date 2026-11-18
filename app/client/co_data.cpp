@@ -66,78 +66,11 @@ int ClientObjectDataClass::Unknown_18()
 	return(0);
 }
 
-template<>
-DataBinderClass<ClientObjectClass *> &DataBinderClass<ClientObjectClass *>::Instance()
-{
-	static DataBinderClass<ClientObjectClass *> binder;
-	return(binder);
-}
-
-// the five removals are the functions below, inlined (each copies co once, as the client does); the dead
-// Get_Game_ID read, not the client's, keeps Has, Get and Remove out of line here as the client has them (D130)
-void ClientObjectDataClass::Remove_All(ClientObjectClass *co)
-{
-	Remove_Radar_Data(co);
-	Remove_Gutter_Data(co);
-	Remove_Starmap_Data(co);
-	Remove_Navigation_Data(co);
-	Remove_Emote_Data(co);
-	co->Get_Game_ID();
-}
-
-RadarDataClass *Get_Radar_Data(ClientObjectClass *co, bool create)
-{
-	return(ClientObjectDataAccessClass<RadarDataClass>::Get(co, create));
-}
-
-bool Remove_Radar_Data(ClientObjectClass *co)
-{
-	return(ClientObjectDataAccessClass<RadarDataClass>::Remove(co));
-}
-
-GutterDataClass *Get_Gutter_Data(ClientObjectClass *co, bool create)
-{
-	return(ClientObjectDataAccessClass<GutterDataClass>::Get(co, create));
-}
-
-bool Remove_Gutter_Data(ClientObjectClass *co)
-{
-	return(ClientObjectDataAccessClass<GutterDataClass>::Remove(co));
-}
-
-StarmapDataClass *Get_Starmap_Data(ClientObjectClass *co, bool create)
-{
-	return(ClientObjectDataAccessClass<StarmapDataClass>::Get(co, create));
-}
-
-bool Remove_Starmap_Data(ClientObjectClass *co)
-{
-	return(ClientObjectDataAccessClass<StarmapDataClass>::Remove(co));
-}
-
-NavigationDataClass *Get_Navigation_Data(ClientObjectClass *co, bool create)
-{
-	return(ClientObjectDataAccessClass<NavigationDataClass>::Get(co, create));
-}
-
-bool Remove_Navigation_Data(ClientObjectClass *co)
-{
-	return(ClientObjectDataAccessClass<NavigationDataClass>::Remove(co));
-}
-
-EmoteDataClass *Get_Emote_Data(ClientObjectClass *co, bool create)
-{
-	return(ClientObjectDataAccessClass<EmoteDataClass>::Get(co, create));
-}
-
-bool Remove_Emote_Data(ClientObjectClass *co)
-{
-	return(ClientObjectDataAccessClass<EmoteDataClass>::Remove(co));
-}
-
 /*
 **	Notes (reconstruction)
 **
+**	SG (run 2026-11-18): two objects by the CRT initialiser table: this one ends with <string>'s guard 0x79D220
+**	(entry 630) after Unknown_18; the binders from 0x79D250 (guard 0x7A08F0, entry 631) are unknown_79d250.cpp.
 **	The client's co_data.obj: 0x79D0F0-0x7A4770. ClientObjectDataClass's constructor (the assert
 **	'co', line 42), its inline Peek_Client_Object and destructor (vtable 0xB056CC), Get_Client (the
 **	FAIL_IF '!ClientObject', line 54) and Unknown_18 (Get_Client inlined), the binder's Instance

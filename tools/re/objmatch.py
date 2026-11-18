@@ -3562,6 +3562,12 @@ def xcu_previous(img):
 # (std::ctype<unsigned short>::id, guard byte 0xC416FC) at 0x4CBA90, expr_math_float's (CRT entry 104, after float's
 # code), instead of its own 0x4D0200 (entry 105, after int's last function 0x4D01D0)
 USE_SG_XCU_FIRST = True
+# D246 (SG, run 2026-11-18): an initialiser that follows the object's last exact own function in object order (<string>'s
+# guard, which VC6 emits after them) may lie further than RANGE_GAP beyond it, past the object's template instances: its
+# window runs up to the next object's exact own function (the table round still needs the consecutive entries and a
+# fullmatch). The data binders' guard 0x7A08F0 (CRT entry 631) sits 0x2C30 after Remove_Emote_Data 0x79DCC0, past their
+# hash_map instances; env_map_manager's 0x761C50 (597) after its vector instances; shiputils' 0x813970 (724)
+USE_SG_XCU_OPEN_END = True
 USE_XCU_POSITION = True     # D242 P-C1-2: the `_$E` initialisers credited by their CRT table position
 USE_XCU_SUBRUN = True       # C15 (2026-11-16): the unique consecutive sub-run fitting every initialiser
 XCU_TABLE = ClientImage.XCU_TABLE     # 0xB6C000-0xB6D700 (clientimage.crt_initialisers)
@@ -3665,6 +3671,10 @@ def xcu_position(img, results, ranges, text, base, claimed, thunk):
         for n in inits:
             r, _, sec, s, length = defs[n]
             p, q = _neighbours(orders[key], (sec, s))
+            if USE_SG_XCU_OPEN_END and q is None and above:
+                # SG: past the object's last exact own function the window runs to the next object's, not RANGE_GAP
+                wins.append((max(blo, p + 1 if p is not None else blo), above[0] - 1))
+                continue
             wins.append((max(blo, p + 1 if p is not None else blo), min(bhi, q - 1 if q is not None else bhi)))
         run = sorted({t for t in table for w in wins if w[0] <= t <= w[1]})
         def fits(sub):
