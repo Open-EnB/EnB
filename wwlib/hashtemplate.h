@@ -412,6 +412,9 @@ template <class KeyType, class ValueType> inline HashTemplateClass<KeyType,Value
 // for filenames, so it takes into account the four characters that come before
 // the file extension (.xxx - extension expected to be 4 characters).
 
+#ifdef HASHTEMPLATE_STRINGCLASS_LATE
+template <> inline unsigned int HashTemplateKeyClass<StringClass>::Get_Hash_Value(const StringClass& s);
+#else
 template <> inline unsigned int HashTemplateKeyClass<StringClass>::Get_Hash_Value(const StringClass& s)
 {
 	unsigned int len=s.Get_Length();
@@ -427,7 +430,15 @@ template <> inline unsigned int HashTemplateKeyClass<StringClass>::Get_Hash_Valu
 	hval = hval + (hval>>5) + (hval>>10) + (hval >> 20);
 	return hval;
 }
+#endif
 
 
 
 #endif
+
+// Earth & Beyond client (reconstruction): changes to Zero Hour's hashtemplate.h (frozen 2026-11-07 from importer.py)
+// EnB: HashTemplateKeyClass<StringClass>::Get_Hash_Value: with HASHTEMPLATE_STRINGCLASS_LATE defined the header only
+//       declares the specialisation and the including file defines it later (enbassetmgr.cpp, after Post_Process):
+//       the client's ENBAssetManager functions 0x48B7B0, 0x48CF90 keep an EH state on the StringClass around the
+//       out-of-line call (0x412DA0 -> 0x48E940), and the copy 0x48E940 is emitted late (after 0x48E620); a body
+//       visible before them drops the state from all but the first. Without the macro the header is unchanged

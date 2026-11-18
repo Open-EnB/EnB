@@ -266,14 +266,6 @@
    "note": "run 2026-11-17 (coordinator, D246 valve): sclient's send-pad address. wt/AR's aux_roots retype (0xB00A00 Vector3, 0xB016DC InvSlotStruct, +32 pairs) leaves no send-pad value keeping it: the sweep over 0..63 on run/2026-11-17 (aux pad 33) keeps the other four watched addresses at 7..33 / 35..49 and loses 0x758210 at every value. Regain round: that sweep (the two earlier ones were void, auxpad.py set had regenerated aux_roots.h; fixed in AR). Lost until regained (a later header change or pad window)."
   },
   {
-   "address": "0x48CF90",
-   "lib": "app",
-   "file": "enbassetmgr",
-   "moved_to": null,
-   "decision": "D246",
-   "note": "run 2026-11-17b (coordinator, D246 valve): wt/U3's 87600037c rebuilds Recolor_Texture(name, hsv, mip) 0x48B7B0 (profile string 'ENBAssetManager::Get_Texture with HSV shift'; +3: 0x48B7B0, 0x48F8D0 HashTemplateClass::Get, 0x48CED0) and loses 0x48CF90: of 0x48B7B0 / 0x48CF90 / 0x48CB40 only the first defined keeps its EH state on the StringClass around the out-of-line Get_Hash_Value call, the client keeps all three. Regain round: U3's forms (d)-(j) (helper, in place, implicit / named key, late placement). Lead: the client's Get_Hash_Value<StringClass> copy 0x48E940 sits after 0x48E620 (compiled late, not nothrow?): a wwlib hashtemplate.h form. Open entries before this one: 5."
-  },
-  {
    "address": "0x7045F0",
    "lib": "app",
    "file": "aux_roots",
