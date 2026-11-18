@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "expr_math_float.cpp (the client's __FILE__; FAIL_IF line 25), client 0x4C7B70-0x4CBAEF: Expr_Math_Float, the float factory (vtable 0xAEBBE0) with ^ / % of its own, and expr_math_eval_impl.h / expr_math_builder.h instantiated for float (EX4)",
  "expected": {},
@@ -129,6 +127,7 @@
   "0x4CB940",
   "0x4CB970",
   "0x4CBA10",
+  "0x4CBA90",
   "0x4CBAC0"
  ],
  "merged": [],

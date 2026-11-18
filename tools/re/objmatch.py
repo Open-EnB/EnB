@@ -999,6 +999,8 @@ def match_objects(img, paths, region=None, callers=False, extern_called=None, ca
     # the ties of the others; repeat until nothing more resolves (a destructor found once settles the
     # scalar deleting destructors that call it).
     done = set()
+    xcu_tried = set()   # SG: id(r) of the XCU-listed initialisers the CRT table round has tried (USE_SG_XCU_FIRST)
+    xcu_listed = {}     # id(obj) -> its .CRT$XCU symbols
 
     # one client function is one source function (VC6 does not fold identical code): an address two
     # different symbols would take, or that a symbol of another name already holds, is left alone
@@ -1247,6 +1249,8 @@ def match_objects(img, paths, region=None, callers=False, extern_called=None, ca
                     learn(r, obj, sec, s, length, a)
                     changed = True
                 shorts = [x for x in shorts if x[0]['status'] == 'short']
+                if USE_SG_XCU_FIRST:
+                    xcu_tried.update(id(it[0]) for it in pending if id(it[0]) not in done)
                 phase = 'd80' if changed else 'order'
                 changed = True
                 continue
@@ -1327,6 +1331,9 @@ def match_objects(img, paths, region=None, callers=False, extern_called=None, ca
                         if len(own) == 1:
                             proposals.append((item, own[0]))
                 elif id(obj) in ranges:
+                    if USE_SG_XCU_FIRST and id(r) not in xcu_tried and r['symbol'] in xcu_listed.setdefault(
+                            id(obj), set(xcu_initialisers(obj))):
+                        continue        # SG: the CRT table round places an XCU-listed initialiser first
                     lo, hi = ranges[id(obj)]
                     # an address another function is already exact at is not this one's (one client function
                     # is one source function)
@@ -3549,6 +3556,12 @@ def xcu_previous(img):
     return _xcu['prev']
 
 
+# D246 (SG, run 2026-11-18): an initialiser an object's .CRT$XCU lists is placed by the CRT table round (xcu_position)
+# before the range round may break its tie; the range round takes it only after the table round has tried it. The range
+# took the first copy inside a range widened downwards, the previous object's: expr_math_int's <string> guard
+# (std::ctype<unsigned short>::id, guard byte 0xC416FC) at 0x4CBA90, expr_math_float's (CRT entry 104, after float's
+# code), instead of its own 0x4D0200 (entry 105, after int's last function 0x4D01D0)
+USE_SG_XCU_FIRST = True
 USE_XCU_POSITION = True     # D242 P-C1-2: the `_$E` initialisers credited by their CRT table position
 USE_XCU_SUBRUN = True       # C15 (2026-11-16): the unique consecutive sub-run fitting every initialiser
 XCU_TABLE = ClientImage.XCU_TABLE     # 0xB6C000-0xB6D700 (clientimage.crt_initialisers)

@@ -6,7 +6,7 @@
 #include "tcpconn.h"
 #include "udpconn.h"
 #include "memconn.h"
-
+#include <string>	// the client object ends with <string>'s guard 0x820F00 (CRT entry 738)
 // One port on every transport: TCP, UDP and in-process
 CompositeListenerClass::CompositeListenerClass() :
 	TCP(0),

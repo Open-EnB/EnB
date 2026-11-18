@@ -4,6 +4,7 @@
  "description": "PARTIAL (kernel-map.md step 8): TCPConnection over wnet's TCPCon / TCPMgr (D73), client 0x828DE0-0x829C40: the constructor by address, the destructor, Connect (line 119), Try_Connect, Is_Connected, Disconnect, Get_Address, Close, Transport_Write / Read with their RC4 (lines 440 / 518); the constructors by host and over a socket; the RSA key exchange Key_Exchange (functional, NOT EXACT); the listener's destructor, Stop / Accept (Listen functional), Pump_All and the set of listeners (0xBE91A8) with its std::set instances, the listener's constructor with RSAKeyClass's SSH1 key file loader, Send_Key, Pump_Pending (RSAKeyClass::Decrypt inlined; BigInt's helpers 0x82C0B0-0x82C220 out of line); Key_Exchange 0x829180 and Listen 0x82A470 NOT EXACT",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x726B90",
   "0x726BB0",
   "0x726BD0",
@@ -68,11 +69,13 @@
   "0x82C220",
   "0x82C260",
   "0x82C330",
-  "0x82C530"
+  "0x82C530",
+  "0x82C5B0"
  ],
  "merged": [],
  "name": "common/tcpconn.cpp",
  "shared": [
+  "0x42B320",
   "0x726B90",
   "0x726BB0",
   "0x726BD0",
@@ -86,6 +89,7 @@
   "0x82C330"
  ],
  "short_known": [
+  "0x42B320",
   "0x726B90",
   "0x726BB0",
   "0x726BD0",

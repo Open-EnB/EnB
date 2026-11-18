@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "the registration screen's XML reader Sub14CImplClass (MSXML DOMDocument through #import's smart pointers; vtable 0xAF70DC / 0xAF70C8 slots 0x7DFED0-0x7E1C80), no __FILE__ or assert. File PROVISIONAL (D137)",
  "expected": {},
@@ -63,7 +61,8 @@
   "0x7E1D90",
   "0x7E1DB0",
   "0x7E1DD0",
-  "0x7E1DF0"
+  "0x7E1DF0",
+  "0x7E1E10"
  ],
  "merged": [],
  "name": "client/unknown_7dfed0.cpp",

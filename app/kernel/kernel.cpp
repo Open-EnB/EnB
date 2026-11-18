@@ -16,7 +16,7 @@
 #include <windows.h>
 #include <malloc.h>
 #include "ww3d.h"			// WW3D::Unknown_Restore_Device (0x9179D0): the device check
-
+#include <string>	// the client object ends with <string>'s guard 0x4441B0 (CRT entry 16)
 unsigned int Unknown_Get_Ticks();		// the aux-data clock 0x4A3B40 (unknown_root.h)
 bool Unknown_42EA80(KernelEventClass *event);	// NAME 1 [Unknown_42EA80]: the input queue's next event (input.cpp)
 void Unknown_42E8A0(KernelEventClass *event);	// NAME 1 [Unknown_42E8A0]: hands the event on (input.cpp)

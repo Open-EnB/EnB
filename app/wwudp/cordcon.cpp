@@ -24,7 +24,7 @@
 #include <time.h>
 #include <windows.h>
 // ------------------------------------------------------------------------ CordChannelClass
-
+#include <string>	// the client object ends with <string>'s guard 0x856870 (CRT entry 791)
 // The channels come from a pool of 1024 (0xBF40D8; ObjectPoolClass::Allocate_Object_Memory 0x8563E0
 // with blocks of 4 + 1024 x 0x78 bytes).
 DEFINE_AUTO_POOL(CordChannelClass, 1024)

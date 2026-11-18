@@ -12,7 +12,7 @@
 // NAME 1 [unknown_cordmsg.cpp]: PROVISIONAL file name (no assert or __FILE__ names the object)
 #include "cordcon.h"
 #include <time.h>
-
+#include <string>	// the client object ends with <string>'s guard 0x85BF00 (CRT entry 793)
 // 0x85BE00: never sent, received now.
 CordMessageClass::CordMessageClass() :
 	SentTime(0)

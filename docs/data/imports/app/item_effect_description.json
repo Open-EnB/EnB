@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "RECONSTRUCTED: client 0x83DB00-0x83E7C0, ItemEffectDescriptionClass (an item's effects, their duration, range and radius) with SummarySeparator's initialiser and vector<ItemEffectClass>'s destructor 0x83E770; the file name and the G_ASSERT's line 204 are the client's (e:\\build\\beta\\G\\app\\common\\item_effect_description.cpp)",
  "expected": {},
@@ -45,7 +43,8 @@
   "0x83EE00",
   "0x83F080",
   "0x83F280",
-  "0x83F2B0"
+  "0x83F2B0",
+  "0x83F2F0"
  ],
  "merged": [],
  "name": "common/item_effect_description.cpp",

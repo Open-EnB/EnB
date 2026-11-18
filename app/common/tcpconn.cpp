@@ -14,7 +14,7 @@ static unsigned char WriteBuffer[0x400];	// NAME 2: what it holds
 // category, the file and line, a format); not rebuilt
 void Message_Info(const char *sender, const char *category, const char *file, int line,
 	const char *format, ...);	// NAME 5 [Message_Info]: the client's WWPROFILE("Message_Info") label (D198)
-
+#include <string>	// the client object ends with <string>'s guard 0x82C5B0 (CRT entry 747)
 // 0x828C40 (no caller): TCPMgr::setBlocking's ioctlsocket as a free function
 int Set_Blocking(SOCKET socket, bool block) { unsigned long flag = 1; if (block) flag = 0; return(ioctlsocket(socket, FIONBIO, &flag)); }	// NAME 1: what it does (no caller)
 

@@ -12,7 +12,7 @@ extern RandomClass Unknown_BDBB84;	// NAME 1 [Unknown_BDBB84]: neutral (D10), as
 unsigned int Unknown_Get_Ticks();	// 0x4A3B40, the aux-data clock (soundlib.cpp's)
 #include "..\..\wwlib\argv.h"
 #include <mmsystem.h>
-
+#include <string>	// the client object ends with <string>'s guard 0x43BFA0 (CRT entry 8)
 
 
 
