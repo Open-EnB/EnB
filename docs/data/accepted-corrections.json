@@ -90,14 +90,6 @@
    "note": "<string>'s guarded initialiser of std::ctype<unsigned short>::id (guard 0xC416FC, atexit 0x42B320), a false pair: every <string> includer has a byte-identical copy, and 0x620CA0 is ui_ship_cust.cpp's (after its map / MemberCallback copies 0x61F760-0x620CD0); ui_shipcust.cpp's own is 0x62A6F0, after its code 0x620D20-0x62A720. master credited it to ui_shipcust only while the two files shared one map type (ui_shipcust's false _Min 0x6209D0 widened its range); PR #163's type split drops it, and D196's chained range widening credits it to ui_ship_cust (SC4, 2026-11-05)."
   },
   {
-   "address": "0x648380",
-   "lib": "app",
-   "file": "ui_starbase",
-   "moved_to": "0x646120",
-   "decision": "D197",
-   "note": "<string>'s guarded initialiser of std::ctype<unsigned short>::id: 0x646120 and 0x648380 are the client's two byte-identical copies in one object and ours compiles one, so D100 credits it to whichever copy the file's own range reaches first. A new function low in ui_starbase.cpp (0x640CC0, P-ST1-1) moves the credit to 0x646120: not a code loss (the kind of D66 (vi))."
-  },
-  {
    "address": "0x7B7EF0",
    "lib": "app",
    "file": "nav_list_builder",
@@ -248,14 +240,6 @@
    "moved_to": null,
    "decision": "D240",
    "note": "DeltaItemArrayClass<DeltaSubCategoryClass>'s padded constructor, lost to the aux pad when aux_roots.h types its three unnamed delta value types as ProfessionType, RaceType and unsigned int (KV, run 2026-11-17c). Evidence: the client's KVAccessorClass tables are shared between the instances (0xAEC9C8 stored by both 0x4F76E0 and 0x7595F0; 0xAEC9DC likewise; 0xAEB258 slot 0 stored by 0x706D80); the retype gains 30 pairs. A full auxpad sweep 0..63 finds no value keeping all six padded constructors; pad 29 keeps 4 of 6 (0x758210 is credited in sclient). Regain: a pad window after the next header change, or the aux pad's tie-break order."
-  },
-  {
-   "address": "0x646120",
-   "lib": "app",
-   "file": "ui_starbase",
-   "moved_to": null,
-   "decision": "D240",
-   "note": "D240, run 2026-11-18 (AS 50b3a5e12): aux_roots.h split by family with DeltaTemplateClass's ctor in class and the numbering statics opt-in; every family object's numbering counts now equal the client's CRT table. ui_starbase's guarded <string> initialiser 0x646120: the client's CRT table entries 416-418 are 0x644BE0 (unguarded), 0x644DE0 (guarded), 0x646120 (guarded), two objects in that window; ours merges the numbering and matches 0x644DE0 instead. Lost until regained."
   },
   {
    "address": "0x72D5F0",
