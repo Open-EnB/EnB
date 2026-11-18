@@ -96,6 +96,9 @@
 "??0INIClass@@QAE@XZ": [
 "0x9C7C60"
 ],
+"??0Init@ios_base@std@@QAE@XZ": [
+"0xA18314"
+],
 "??0LayerClass@@QAE@ABV0@@Z": [
 "0x967930"
 ],
@@ -303,6 +306,9 @@
 "??0_Lockit@std@@QAE@XZ": [
 "0xA19CDC"
 ],
+"??0_Winit@std@@QAE@XZ": [
+"0xA18FD6"
+],
 "??0exception@@QAE@ABQBD@Z": [
 "0xA28F2F"
 ],
@@ -365,6 +371,9 @@
 ],
 "??1INIClass@@UAE@XZ": [
 "0x9C7FC0"
+],
+"??1Init@ios_base@std@@QAE@XZ": [
+"0xA18493"
 ],
 "??1LayerClass@@UAE@XZ": [
 "0x967A50"
@@ -455,6 +464,9 @@
 ],
 "??1_Lockit@std@@QAE@XZ": [
 "0xA19D78"
+],
+"??1_Winit@std@@QAE@XZ": [
+"0xA19157"
 ],
 "??1exception@@UAE@XZ": [
 "0xA28FD5"
