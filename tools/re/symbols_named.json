@@ -3397,5 +3397,40 @@
   "evidence": "aux_roots.h's UnknownB03970Enum renamed FormationState (148276192: the KVPair's Get_Type_Name 0x759E80 returns 0x835CF0's 'FormationState', 0xBA9734); the client address keeps its earlier proof",
   "kind": "vtable",
   "replaces": "??_7?$KVAccessorClass@W4UnknownB03970Enum@@@@6B@"
+ },
+ {
+  "address": "0x4CA070",
+  "symbol": "??_G?$ExprMathEvalLessEqualClass@M@@UAEPAXI@Z",
+  "evidence": "slot 1 of the vtable 0xAEBD84 that the exact 0x4C9010 (expr_math_float.cpp) stores at +0x5C (the object relocates that store to this class's vtable); byte-identical copies tie it otherwise (SIB, 2026-11-17)"
+ },
+ {
+  "address": "0x4CA0A0",
+  "symbol": "??_G?$ExprMathEvalLessClass@M@@UAEPAXI@Z",
+  "evidence": "slot 1 of the vtable 0xAEBD70 that the exact 0x4C9010 (expr_math_float.cpp) stores at +0xB2 (the object relocates that store to this class's vtable); byte-identical copies tie it otherwise (SIB, 2026-11-17)"
+ },
+ {
+  "address": "0x4CA0D0",
+  "symbol": "??_G?$ExprMathEvalGreaterEqualClass@M@@UAEPAXI@Z",
+  "evidence": "slot 1 of the vtable 0xAEBD5C that the exact 0x4C9010 (expr_math_float.cpp) stores at +0x108 (the object relocates that store to this class's vtable); byte-identical copies tie it otherwise (SIB, 2026-11-17)"
+ },
+ {
+  "address": "0x4CA100",
+  "symbol": "??_G?$ExprMathEvalGreaterClass@M@@UAEPAXI@Z",
+  "evidence": "slot 1 of the vtable 0xAEBD48 that the exact 0x4C9010 (expr_math_float.cpp) stores at +0x15E (the object relocates that store to this class's vtable); byte-identical copies tie it otherwise (SIB, 2026-11-17)"
+ },
+ {
+  "address": "0x4CA130",
+  "symbol": "??_G?$ExprMathEvalEqualClass@M@@UAEPAXI@Z",
+  "evidence": "slot 1 of the vtable 0xAEBD34 that the exact 0x4C9010 (expr_math_float.cpp) stores at +0x1B0 (the object relocates that store to this class's vtable); byte-identical copies tie it otherwise (SIB, 2026-11-17)"
+ },
+ {
+  "address": "0x4CA160",
+  "symbol": "??_G?$ExprMathEvalNotEqualClass@M@@UAEPAXI@Z",
+  "evidence": "slot 1 of the vtable 0xAEBD20 that the exact 0x4C9010 (expr_math_float.cpp) stores at +0x1FF (the object relocates that store to this class's vtable); byte-identical copies tie it otherwise (SIB, 2026-11-17)"
+ },
+ {
+  "address": "0x759420",
+  "symbol": "?Event_Type@?$EventCallbackClass@VCameraModuleSignal@@@SignalBaseClass@@UBEABVtype_info@@XZ",
+  "evidence": "slot 2 of the vtable 0xB03BE4 that the exact 0x7599E0 (sclient.cpp) stores at +0x4 (the object relocates that store to this class's vtable); byte-identical copies tie it otherwise (SIB, 2026-11-17)"
  }
 ]
