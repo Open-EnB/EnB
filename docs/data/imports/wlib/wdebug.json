@@ -7,6 +7,7 @@
  },
  "headers_from": null,
  "in_tree": [
+  "0x42B320",
   "0x8B5510",
   "0x8B5540",
   "0x8B5560",
@@ -18,8 +19,15 @@
   "0x8B5B90",
   "0x8B5BB0",
   "0x8B5BD0",
-  "0x8B5BF0"
+  "0x8B5BF0",
+  "0x8B5D60"
  ],
  "merged": [],
- "name": "wdebug.cpp"
+ "name": "wdebug.cpp",
+ "shared": [
+  "0x42B320"
+ ],
+ "short_known": [
+  "0x42B320"
+ ]
 }

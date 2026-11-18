@@ -20,7 +20,7 @@
 #include "wdebug.h"
 #include "streamer.h"
 #include "odevice.h"
-
+#include <string>
 
 static MsgManager         *msg_manager=NULL;
 
@@ -202,3 +202,6 @@ void MsgManager::createStreamers(void)
 // EnB: MsgManager::errorStream (line 157 at the freeze): 0x8B5BF0 (after errorStream 0x8B5BD0, reached through an
 //       incremental thunk: a member, not a static): each streamer pointer, if NULL, gets new Streamer (0x50 bytes,
 //       Streamer::Streamer 0x8B4F60), in the order debug, info, warn, error
+// EnB: Line 23 (a blank line at the freeze): #include <string>: the client's object ends with <string>'s guarded
+//       std::ctype<unsigned short>::id initialiser 0x8B5D60 (CRT entry 934, `mov cl, [0xC416FC]`, atexit 0x42B320),
+//       after its initialiser 0x8B5510 (entry 933) and the streams 0x8B5BF0; E&B's file included it, through which header is not known

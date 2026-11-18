@@ -41,7 +41,7 @@ for the 'get' functions. E.g. getString("KEY",valWstring);
 #include <stdlib.h>
 #include <stdio.h>
 #include <ctype.h>
-
+#include <string>
 #include "configfile.h"
 #include "wdebug.h"
 
@@ -319,3 +319,6 @@ static char *Eat_Spaces(char *string)
 // EnB: Line 285 at the freeze: MDC's later additions (setString, setInt, removeEntry, writeFile) are not in the
 //       client: its configfile object runs from the constructor 0x8B23C0 to getInt(char *, sint16 &) 0x8B3830, then the
 //       Dictionary templates
+// EnB: Line 44 (a blank line at the freeze): #include <string>: the client's object ends with <string>'s guarded
+//       std::ctype<unsigned short>::id initialiser 0x8B3B20 (CRT entry 932, `mov cl, [0xC416FC]`, atexit 0x42B320),
+//       after getInt 0x8B3830 and the Dictionary templates; E&B's file included it, through which header is not known
