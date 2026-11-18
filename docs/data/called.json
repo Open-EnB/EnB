@@ -2984,24 +2984,29 @@
 "0xBE3B00"
 ],
 "data:?UnknownGlobal@?$DeltaArrayClass@M@@2HA": [
-"0xC415DC"
+"0xC415DC",
+"0xC415E8"
 ],
 "data:?UnknownGlobal@?$DeltaArrayClass@UInvSlotStruct@@@@2HA": [
 "0xC41580",
 "0xC415D8"
 ],
 "data:?UnknownGlobal@?$DeltaArrayClass@UProjectedDecalClass@@@@2HA": [
-"0xC41584"
+"0xC41584",
+"0xC415F8"
 ],
 "data:?UnknownGlobal@?$DeltaDerivedItemArrayClass@VDeltaBuffClass@@@@2HA": [
+"0xC415FC",
 "0xC41600"
 ],
 "data:?UnknownGlobal@?$DeltaDerivedItemArrayClass@VDeltaElementClass@@@@2HA": [
+"0xC41668",
 "0xC416A4"
 ],
 "data:?UnknownGlobal@?$DeltaItemArrayClass@VDeltaAttachmentClass@@@@2HA": [
 "0xC41580",
-"0xC415A4"
+"0xC415A4",
+"0xC41658"
 ],
 "data:?UnknownGlobal@?$DeltaItemArrayClass@VDeltaBuffClass@@@@2HA": [
 "0xC41570"
@@ -3017,10 +3022,12 @@
 "0xC41624"
 ],
 "data:?UnknownGlobal@?$DeltaItemArrayClass@VDeltaFactionClass@@@@2HA": [
+"0xC41584",
 "0xC415F8",
 "0xC41628"
 ],
 "data:?UnknownGlobal@?$DeltaItemArrayClass@VDeltaGroupMemberClass@@@@2HA": [
+"0xC41588",
 "0xC41644"
 ],
 "data:?UnknownGlobal@?$DeltaItemArrayClass@VDeltaItemClass@@@@2HA": [
@@ -3032,9 +3039,11 @@
 "0xC4162C"
 ],
 "data:?UnknownGlobal@?$DeltaItemArrayClass@VDeltaMissionClass@@@@2HA": [
-"0xC415FC"
+"0xC415FC",
+"0xC41600"
 ],
 "data:?UnknownGlobal@?$DeltaItemArrayClass@VDeltaMissionStageClass@@@@2HA": [
+"0xC415DC",
 "0xC415E8",
 "0xC41668"
 ],
@@ -3044,9 +3053,11 @@
 ],
 "data:?UnknownGlobal@?$DeltaItemArrayClass@VDeltaSkillAbilityClass@@@@2HA": [
 "0xC41658",
-"0xC41668"
+"0xC41668",
+"0xC416A4"
 ],
 "data:?UnknownGlobal@?$DeltaItemArrayClass@VDeltaSkillClass@@@@2HA": [
+"0xC41580",
 "0xC415E8",
 "0xC41658"
 ],
@@ -3059,12 +3070,14 @@
 ],
 "data:?UnknownGlobal@?$DeltaTemplateClass@H@@2HA": [
 "0xC416A8",
-"0xC416AC"
+"0xC416AC",
+"0xC416F0"
 ],
 "data:?UnknownGlobal@?$DeltaTemplateClass@I@@2HA": [
 "0xC4163C"
 ],
 "data:?UnknownGlobal@?$DeltaTemplateClass@M@@2HA": [
+"0xC416A8",
 "0xC416F0"
 ],
 "data:?UnknownGlobal@?$DeltaTemplateClass@UInvSlotStruct@@@@2HA": [
@@ -3072,10 +3085,12 @@
 "0xC415D8"
 ],
 "data:?UnknownGlobal@?$DeltaTemplateClass@UProjectedDecalClass@@@@2HA": [
-"0xC41588"
+"0xC41588",
+"0xC41644"
 ],
 "data:?UnknownGlobal@?$DeltaTemplateClass@USkillLevelAvailabilityStruct@@@@2HA": [
 "0xC4166C",
+"0xC41674",
 "0xC416A8"
 ],
 "data:?UnknownGlobal@?$DeltaTemplateClass@VDurationClass@@@@2HA": [
@@ -3085,33 +3100,39 @@
 "0xBE3A94"
 ],
 "data:?UnknownGlobal@?$DeltaTemplateClass@VVector3@@@@2HA": [
-"0xC41590"
+"0xC41590",
+"0xC416AC"
 ],
 "data:?UnknownGlobal@?$DeltaTemplateClass@W4EffectGeneratorUsageBF@@@@2HA": [
 "0xC41678"
 ],
 "data:?UnknownGlobal@?$DeltaTemplateClass@W4FormationState@@@@2HA": [
+"0xC41590",
 "0xC41654"
 ],
 "data:?UnknownGlobal@?$DeltaTemplateClass@W4GameActionValidityBitFlag@@@@2HA": [
 "0xC4168C"
 ],
 "data:?UnknownGlobal@?$DeltaTemplateClass@W4GuildRankType@@@@2HA": [
-"0xC4158C"
+"0xC4158C",
+"0xC4166C"
 ],
 "data:?UnknownGlobal@?$DeltaTemplateClass@W4HullPreviewStatusEnum@@@@2HA": [
-"0xBDA90C"
+"0xC415A8"
 ],
 "data:?UnknownGlobal@?$DeltaTemplateClass@W4InterruptStateType@@@@2HA": [
-"0xC415A8"
+"0xC415A8",
+"0xC41670"
 ],
 "data:?UnknownGlobal@?$DeltaTemplateClass@W4ItemStateEnum@@@@2HA": [
 "0xC41690"
 ],
 "data:?UnknownGlobal@?$DeltaTemplateClass@W4ProfessionType@@@@2HA": [
+"0xC4158C",
 "0xC41674"
 ],
 "data:?UnknownGlobal@?$DeltaTemplateClass@W4RaceType@@@@2HA": [
+"0xC41654",
 "0xC41670"
 ],
 "data:?UnknownGlobal@?$DeltaTemplateClass@W4TargetGeneratorSummaryBF@@@@2HA": [
@@ -3133,6 +3154,7 @@
 "0xC41564"
 ],
 "data:?UnknownGlobal@?$DeltaTemplateClass@_N@@2HA": [
+"0xBDA90C",
 "0xC4166C",
 "0xC416AC"
 ],

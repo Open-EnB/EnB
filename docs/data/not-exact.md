@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-852 entries in 305 files.
+851 entries in 305 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -455,7 +455,6 @@ edit the comments in the code, not this file.
 | `app/client/ui_friends.cpp:358` | `UIFriendsClass::Unknown_5908B0` | marker | NOT EXACT: register allocation (the client keeps 0 in ebx and the insert position in a stack slot; ours holds the position in ebx; frame 0x18 vs 0x14) 0x5908B0 |
 | `app/client/ui_friends.cpp:604` | `UIFriendsClass::Unknown_5913E0` | marker | NOT EXACT: inline budget and registers (the client keeps the list iterator's ++ inline and calls the players' ??_G and list::clear out of line; names' first / last in edi / ebx) 0x5913E0 |
 | `app/client/ui_group.cpp:226` | `UIGroupUnknownE8Class::Unknown_592C50` | marker | NOT EXACT: register / frame (the client keeps one temporary's slot for all five Create_NEW results and compares with the zero in ebx; ours gives the loop's its own slot) |
-| `app/client/ui_group.cpp:341` | `UIGroupMemberClass::~UIGroupMemberClass` | marker | NOT EXACT: inline budget (the client calls RefCountPtr's operator=(NULL) 0x5988A0 out of line for +0x38 / +0x30 here, 0x593790 expands it) |
 | `app/client/ui_group.cpp:643` | `UIGroupClass::Unknown_54` | marker | NOT EXACT: register (the arguments of 0x6870E0 / 0x5BB4F0 and the mesh for Get_Style in other registers) |
 | `app/client/ui_group.cpp:731` | `UIGroupClass::Unknown_68` | marker | NOT EXACT: inline budget: ours inlines 0x593180 and Action2PacketClass's string _Tidy, which the client calls out of line |
 | `app/client/ui_group.cpp:1020` | `UIGroupClass::Unknown_595530` | marker | NOT EXACT: inline budget (the client expands 0x593790 and calls RefCountPtr's copy 0x51E950 and Create_NEW 0x598A10 out of line; 0.74) |
@@ -549,7 +548,7 @@ edit the comments in the code, not this file.
 | `app/client/ui_registration.cpp:2529` | `RegistrationInterface::Unknown_5FB0C0` | marker | NOT EXACT: inline-budget (explain.py: the client calls the second append(1, '-') and the first end()'s _Freeze out of line) @0x5FB0C0 |
 | `app/client/ui_registration.cpp:2916` | `RegistrationInterface::Unknown_5F0100` | marker | NOT EXACT: field-offset (explain.py's first mismatch; the shape is inline-budget: the client calls the map's begin 0x606960, the iterator's operator++(int) 0x604DF0 and pop_back's copy 0x60A060 / _Destroy 0x605950 out of line, and destroys the reply under one EH state) @0x5FB9F0 |
 | `app/client/ui_registration.cpp:2971` | `RegistrationInterface::Unknown_5FBD30` | marker | NOT EXACT: inline-budget (functional, pseudocode-faithful, D89: Unknown_5F86F0 now out of line as in the client (auto_inline(off), IB); the client still calls the radio map's begin out of line at case 0 and its stack frame is 0x80 bytes smaller) @0x5FBD30 |
-| `app/client/ui_registration.cpp:3681` | `RegistrationInterface::Unknown_5F00C0` | marker | NOT EXACT: shape (explain.py's first mismatch is a relocation, the string destructor's thunk; 3453 instructions against 3085, frame 0x718 against 0xB34; D89; 0x5F86F0 out of line as the client's since IB): the client calls 0x603660 out of line @0x600000 |
+| `app/client/ui_registration.cpp:3681` | `RegistrationInterface::Unknown_5F00C0` | marker | NOT EXACT: shape (explain.py's first mismatch is a relocation, the string destructor's thunk; 3426 instructions against 3085, frame 0x718 against 0xB34; D89; 0x5F86F0 out of line as the client's since IB; case 7 through the uncalled 0x5FA5F0 (LY) calls 0x603660 / 0x605010 out of line as the client) @0x600000 |
 | `app/client/ui_scan.cpp:68` | `UIScanClass::Unknown_54` | marker | NOT EXACT: functional (WE9; similarity 0.59): the verb window's and the fonts' set-up order and registers @0x60D8D0 |
 | `app/client/ui_scan.cpp:305` | `UIScanClass::Unknown_68` | marker | NOT EXACT: register (TL1; similarity 0.54, WE9's 0.51): the client keeps the key's slot for next and this in ecx, tests the key as -5 then dec, dec @0x60E300 |
 | `app/client/ui_scan.cpp:500` | `UIScanClass::Unknown_88` | marker | NOT EXACT: order (WE9; similarity 0.85): the client builds the old target's Remove arguments before calling 0x4F7EF0, ours after @0x60E580 |
