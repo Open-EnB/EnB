@@ -1,0 +1,15 @@
+import re, sys
+root = r"C:\EnBDevelopment\EnB\.work\wt\CQ\app\client"
+b = root + r"\item\client_item_property_builder.cpp"
+s = open(b, newline="").read()
+start = s.index("void ClientItemPropertyBuilderClass::Unknown_522860")
+end = s.index("void ClientItemPropertyBuilderClass::Unknown_527F40")
+body = s[start:end]
+body = re.sub(r"RefCountPtr<ClientItemProperty(Attribute|Option|Special)Class> property", "RefCountPtr<ClientItemPropertyClass> property", body)
+s = s[:start] + body + s[end:]
+open(b, "w", newline="").write(s)
+if len(sys.argv) > 1 and sys.argv[1] == "const":
+    h = root + r"\ui_item_examination_property_router.h"
+    t = open(h, newline="").read()
+    t = t.replace("virtual void Route(const RefCountPtr<ClientItemPropertyClass> &property) = 0;", "virtual void Route(const RefCountPtr<const ClientItemPropertyClass> &property) = 0;")
+    open(h, "w", newline="").write(t)
