@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x474080"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "SClient's skeleton, client 0x7405E0-0x7429B0 (the window before the first assert, l.749) and the base slots' overrides 0x743330 / 0x744B90 / 0x744BD0 / 0x745730; NOT EXACT: the destructor 0x740BB0, Init 0x741180, Shutdown 0x741BB0 (D90 9d)",
  "expected": {},
@@ -434,7 +432,9 @@
   "0x7559A0",
   "0x7559E0",
   "0x755A10",
+  "0x755AF0",
   "0x755B20",
+  "0x755B60",
   "0x755B90",
   "0x755BD0",
   "0x755C00",
