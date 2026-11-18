@@ -70,7 +70,7 @@
 #include <time.h>
 #include <string>
 #include <vector>
-// rs_track.cpp's render object (Class_ID 0x10001): the render states the packets switch
+static std::string Unknown_BE7D58("critical_hit_1.wav");	// 0xBE7D58 (initialiser 0x733280, atexit 0x733340): ui_cpit.cpp's EMP sound text, nothing here reads it  // NAME 1: neutral (D10). rs_track.cpp's render object (Class_ID 0x10001): the render states the packets switch
 #include "..\shared\rs_track.h"
 #define RSTRACK_CLASSID	0x10001	// NAME 2: the class id the handlers test
 #include "verbmanager.h"
