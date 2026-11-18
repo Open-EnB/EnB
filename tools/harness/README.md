@@ -657,8 +657,10 @@ the last name. Live antprox logs opcode numbers; e2e appends the names (`... = s
   camera move. A wall stops a walk: give a waypoint. `_sb_home.scn` logs in (`_login_live.scn`) and walks from
   any pad to room 1's middle; every `sb_*` scenario starts and ends there.
 - **Recording a person's session:** `e2e.py record --live --retail --instance NAME` starts the same session with
-  the input tag off, so the user plays. It writes `recorded.txt` (time, each key and click, a back-buffer shot
-  per click, the pose, the packets both ways until the next input) and `track.txt` (the walk and the room
+  the input tag off, so the user plays. It writes `recorded.txt` (time, each key and every button message: the
+  downs (`click`, `rclick`, `mclick`, each with a back-buffer shot), the double-clicks (`dblclick`, ...) and the
+  ups (`up`, `rup`, `mup`: where a drag let go; before 2026-11-18 only the downs were kept), the pose, the
+  packets both ways until the next input) and `track.txt` (the walk and the room
   changes). A scenario is written from it by hand: poses become `walk-to` / `face`, clicks keep their
   coordinates, the packets become the events to wait for.
 - **State:** GM chat commands put back what a scenario spends (`/createcredits N`, `/createitem ID COUNT`).
@@ -666,16 +668,29 @@ the last name. Live antprox logs opcode numbers; e2e appends the names (`... = s
   two-page talk tree) pass on retail in one session, 224 s.
 - 2026-11-18 (H1): `sb_buysell` (room 2's Miyoshi Basho: a vendor row and Buy, a cargo slot and Sell, each an
   INVENTORY_MOVE; selling below the price paid asks 'You will take significant losses on this sale' Yes / No first;
-  Vila Mosj refuses to buy back what she sells, so both are done at Miyoshi; one warhead bought and one sold, the
-  stack keeps its slot and count) and `sb_jobs` (room 3's job terminal: JOB_LIST,
+  a vendor refuses to buy back what she sells, Vila Mosj and Miyoshi alike: a warhead is bought, an Iron from
+  sb_refinery sold) and `sb_jobs` (room 3's job terminal: JOB_LIST,
   the Combat / Trade / Explore tabs, the close box). The local server lists no jobs (SectorManager::RefreshJobs
   finds no mission with a job category: JOB_LIST is 8 bytes, every tab empty), so a job's description, accept
   and delete cannot be driven there. The buy / sell clicks of the recordings miss their double-clicks: the
   recorder logs only button-downs (0x201 / 0x204 / 0x207), not 0x203 or the button-ups. Results: retail and ours
   (this tree's clientpoc.exe at run/2026-11-18 1a45b1d78) pass all four `sb_*` in one session each (ours 417 s);
   `e2e.py compare` reads live runs too (packet names only: the live log has no sizes; the walk's
-  STARBASE_AVATAR_CHANGE count follows the pilot, so it is left out), and sb_buysell (21 packets), sb_jobs (4),
+  STARBASE_AVATAR_CHANGE count follows the pilot, so it is left out), and sb_buysell, sb_jobs (4),
   sb_vendor (7) and sb_talk (5) send the SAME packets on both.
+- 2026-11-18 (H1, phase 2): `sb_refinery` (room 1's refinery terminal at -29.7,-7.1: 'Choose resource to create'
+  lists what the cargo's ores make; Iron, then Refine 1 takes 5 Iron Ore and 92 credits, MANUFACTURE_ACTION; the
+  Iron reaches the cargo at the next login; `/createitem 2842 5` puts the ore back: a slash command goes out as
+  CLIENT_CHAT, not CLIENT_CHAT_REQUEST, and the chat entry does not open while a terminal window is up) and
+  `sb_manufacture` (room 1's manufacturing terminal at -43.4,40.6: the category tree, each node a
+  MANUFACTURE_ACTION, to a leaf's item list, MANUFACTURE_ITEM_CATAGORY, and its item, MANUFACTURE_ITEM_ID; the
+  server names the components '(missing)' and refuses; Manufacture stays disabled) and `sb_dismantle` (room 1's
+  dismantling terminal at -52.9,34.4: a Vesta 4P dragged onto 'Place Item Here', INVENTORY_MOVE on the button-up,
+  the parts listed, '<<Inv' takes it back, MANUFACTURE_ACTION; ammunition and ore do not dismantle and send
+  nothing; the Vesta was put in cargo column 2 row 2 once with `/createitem 3246 1`). New steps for it: `down
+  X,Y` and `up X,Y` (the left button pressed / moved there held and let go: a drag; the item windows move an item
+  on the button-up). `compare` now counts each scenario's packets from its own first step (the proxy's `mark
+  NAME`), so a session's first scenario no longer includes the login.
 - **A character saved in space** (the local server sometimes keeps the undocked place: the login ends beside
   Jove's Fury and `_sb_home` fails at its first walk-to, pose ~116000,-224000): `e2e.py --live localhost
   --retail --instance NAME run _sb_dock` (named only) logs in, targets the station (641,1009, SET_TARGET) and

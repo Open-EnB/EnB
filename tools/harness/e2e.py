@@ -32,6 +32,8 @@ The format (one step a line, '#' comments, shell-style quoting):
     expect-no SOURCE PATTERN      from here to the scenario's end no line of SOURCE may match (checked continuously)
     expect-no CRASH               short for: expect-no stubs '^CRASH:' (every scenario has it from the start)
     click gadget NAME | click X,Y   rclick ... | move ...    mouse at a gadget of e2e/gadgets.txt or client pixels
+    down X,Y / up X,Y             the left button pressed at a point / moved there held and let go: a drag (the
+                                  client's item windows move an item on the button-up, e.g. into a terminal's slot)
     click X,Y until SOURCE PATTERN [redo K] [every S] [within T]   the click again every S seconds (default 0.5)
                                   until the line is seen (default T 60 s): for input the client ignores until it is
                                   ready. redo K: each repeat first posts the K input steps before this one again
@@ -102,7 +104,7 @@ ORDER = ['world_entry', 'starmap', 'options', 'pda_pages', 'cargo', 'chat']
 LAST = []
 STANDIN_HIT = 'stand-in hit:'
 SOURCES = ('antprox', 'stubs', 'msg', 'proxy', 'files', 'any')
-ACTIONS = ('click', 'rclick', 'move', 'key', 'text', 'stray')
+ACTIONS = ('click', 'rclick', 'move', 'down', 'up', 'key', 'text', 'stray')
 WALK_KEY = 0x41         # 'A': the starbase's walk key (the user's recording of 2026-11-15)
 
 
@@ -384,7 +386,7 @@ def parse(text, name='?', gadgets=None, loader=None, _depth=0):
             if len(args) != 2 or args[0] not in SOURCES:
                 raise ScenarioError(f'{where}: expect-no SOURCE PATTERN | expect-no CRASH')
             st.update(source=_source(args[0]), pattern=_regex(args[1], where))
-        elif op in ('click', 'rclick', 'move'):
+        elif op in ('click', 'rclick', 'move', 'down', 'up'):
             until = None
             if 'until' in args:
                 k = args.index('until')
@@ -1082,14 +1084,18 @@ def live_mode(args):
     return ['/SERVER:' + args.live, '/NET7BIN:' + args.net7bin, '/OPCODES'] + list(getattr(args, 'antprox_arg', None) or [])
 
 
-_REC_INPUT = re.compile(r'input: untagged (?:mouse 0x(20[147])|key 0x([0-9A-Fa-f]+))(?: at (-?\d+), (-?\d+))?')
+_REC_INPUT = re.compile(r'input: untagged (?:mouse 0x(20[1-9])|key 0x([0-9A-Fa-f]+))(?: at (-?\d+), (-?\d+))?')
+# every button message d3d8shot logs (In_Take: all but WM_MOUSEMOVE): the downs get a shot, the double-clicks
+# (0x203 / 0x206 / 0x209) and the ups (0x202 / 0x205 / 0x208: where a drag let go) are rows of their own
+_REC_BUTTON = {'201': 'click', '202': 'up', '203': 'dblclick', '204': 'rclick', '205': 'rup', '206': 'rdblclick',
+               '207': 'mclick', '208': 'mup', '209': 'mdblclick'}
 _REC_PACKET = re.compile(r'\b(received|sent) ([A-Z][A-Z0-9_]{3,})')
 _REC_NOISE = re.compile(r'KEEP_?ALIVE|TIME_REQUEST|CLIENT_SET_TIME|DEBUG|PING|STARBASE_AVATAR_CHANGE|OP_[23]')
 
 
 def record(args):
-    """A person plays one session (--live: against a live server). Every button-down and key-down the proxy logs
-    is a row; a button-down is followed by a back-buffer shot (shot_click_NNNN_*.png). The session is written as
+    """A person plays one session (--live: against a live server). Every button message (down, up, double-click)
+    and key-down the proxy logs is a row; a left or right button-down is followed by a back-buffer shot (shot_click_NNNN_*.png). The session is written as
     recorded.txt: each input with the packets that followed it. The source for new scenarios and gadgets.txt."""
     s = Session(args, [{'name': 'record', 'messages': True, 'timeout': 86400}])
     print(f'e2e record: play in the client window; close the client (or Ctrl+C here) to end. Logs: {s.out}',
@@ -1106,7 +1112,7 @@ def record(args):
         m = _REC_INPUT.search(text) if src == 'proxy' else None
         if m:
             what = (f'key 0x{m.group(2)}' if m.group(2) else
-                    {'201': 'click', '204': 'rclick', '207': 'mclick'}[m.group(1)] + f' {m.group(3)},{m.group(4)}')
+                    _REC_BUTTON[m.group(1)] + f' {m.group(3)},{m.group(4)}')
             rows.append([t, what, {}, '', where()])
             return
         m = re.search(r'Changing room from (-?\d+) to (-?\d+)', text) if src == 'msg' else None
@@ -1208,7 +1214,7 @@ def run_all(scs, args, report):
 def _desc(st):
     if st['op'] in ('wait-event', 'expect-event', 'expect-no'):
         return f'{st["source"]} {st["pattern"].pattern!r}'
-    if st['op'] in ('click', 'rclick', 'move'):
+    if st['op'] in ('click', 'rclick', 'move', 'down', 'up'):
         return ((f'gadget {st["gadget"]} ' if st['gadget'] else '') + f'({st["x"]},{st["y"]})'
                 + (f' until {st["until"]["source"]} {st["until"]["pattern"].pattern!r}' if st.get('until') else ''))
     if st['op'] == 'wait-quiet':
@@ -1251,6 +1257,8 @@ def sent_packets(run_dir):
             if src == 'e2e' and text.startswith('scenario '):
                 cur = text.split()[1]
                 out.setdefault(cur, [])
+            elif src == 'proxy' and cur and re.search(r': mark (\S+)', text) and text.split(': mark ')[1].split()[0] == cur:
+                out[cur] = []           # the scenario's first own step: the session's first scenario drops its includes
             elif src == 'antprox' and cur:
                 p = re.search(r'connection #\d+: received (\w+) 0x[0-9a-f]+, (\d+) bytes', text)
                 if p and not p.group(1).startswith(skip):

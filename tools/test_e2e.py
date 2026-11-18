@@ -247,12 +247,27 @@ class SummaryTest(unittest.TestCase):
         self.assertEqual(line, 'PASS  n: gen 2 hit, 1 own (B); 2 untagged (human) input dropped')
 
 
+class RecordTest(unittest.TestCase):
+    def test_record_rows_every_button_message(self):
+        rows = []
+        for line in ('input: untagged mouse 0x201 at 60, 680', 'input: untagged mouse 0x202 at 120, 610',
+                     'input: untagged mouse 0x203 at 60, 680', 'input: untagged mouse 0x205 at 5, 6',
+                     'input: untagged key 0x41', 'input: replayed mouse 0x201 at 1, 2'):
+            m = e2e._REC_INPUT.search(line)
+            if m:
+                rows.append(f'key 0x{m.group(2)}' if m.group(2) else
+                            e2e._REC_BUTTON[m.group(1)] + f' {m.group(3)},{m.group(4)}')
+        self.assertEqual(rows, ['click 60,680', 'up 120,610', 'dblclick 60,680', 'rup 5,6', 'key 0x41'])
+
+
 class CompareTest(unittest.TestCase):
     def test_sent_packets_replay_and_live(self):
         lines = ['    1.00 e2e     scenario a',
                  '    1.10 antprox [ 4] connection #2: received LOGIN 0x0002, 40 bytes',
                  '    1.20 antprox [ 4] connection #2: received KEEP_ALIVE 0x0010, 4 bytes',
                  '    2.00 e2e     scenario b',
+                 '    2.01 antprox 18/11/26 08:21:01.000 [    4] Sending [0x0002] via UDP = received LOGIN',
+                 '    2.02 proxy   frame 84560: mark b (no Stub_Log_Mark export)',
                  '    2.10 antprox 18/11/26 08:21:02.358 [    4] Sending [0x0027] via UDP = received INVENTORY_MOVE',
                  '    2.20 antprox 18/11/26 08:21:02.400 [    4] Sending [0x0056] via UDP = received STARBASE_AVATAR_CHANGE',
                  '    2.30 antprox 18/11/26 08:21:02.500 [    4] Sending [0x3008] via UDP = received OP_',

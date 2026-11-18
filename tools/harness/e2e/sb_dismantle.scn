@@ -1,0 +1,33 @@
+# Station (live server): room 1's dismantling terminal at -52.9,34.4, from the user's recording of 2026-11-15
+# (.work/e2e/202650-record, 121-138 s, where the user dismantled a Vesta 4P): the terminal opens the dismantle window
+# (the client's MANUFACTURE_ITEM_CATAGORY) beside the cargo; an item dragged onto 'Place Item Here' (INVENTORY_MOVE on
+# the button-up; the server's ITEM_BASEs: the window shows the parts it would give back, the cost, Dismantle) and
+# '<<Inv' takes it back (MANUFACTURE_ACTION) without dismantling it, so the cargo does not change. The close box;
+# home. Needs an item that dismantles (ammunition and ore do not: nothing is sent): a Vesta 4P in cargo column 2,
+# row 2, put there once with the GM command `/createitem 3246 1` (2026-11-18).
+name: starbase dismantling: an item placed and taken back
+timeout: 300
+include _sb_home
+walk-to -50,25
+walk-to -52.9,34.4
+face 102
+wait-quiet proxy 1.0 within 20
+click 548,533 until antprox 'received MANUFACTURE_ITEM_CATAGORY' every 2 within 20
+wait-quiet proxy 1.0 within 20
+shot dismantle_open
+# the Vesta 4P (cargo column 2, row 2) dragged onto 'Place Item Here'
+down 136,520
+wait-quiet proxy 0.3 within 5
+up 370,640
+expect-event antprox 'received INVENTORY_MOVE' within 10
+wait-quiet proxy 1.0 within 20
+shot dismantle_placed
+click 380,435
+expect-event antprox 'received MANUFACTURE_ACTION' within 10
+wait-quiet proxy 1.0 within 20
+shot dismantle_back
+click 866,277
+expect-event antprox 'received MANUFACTURE_ACTION' within 10
+wait-quiet proxy 1.0 within 20
+walk-to -50,25
+walk-to -48,5

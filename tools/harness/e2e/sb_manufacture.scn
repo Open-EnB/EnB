@@ -1,0 +1,46 @@
+# Station (live server): room 1's manufacturing terminal at -43.4,40.6, from the user's recording of 2026-11-15
+# (.work/e2e/202650-record, 143-165 s, its clicks as recorded): the terminal opens the manufacturing window (the
+# client's MANUFACTURE_ITEM_CATAGORY); the category tree (each MANUFACTURE_ACTION) down to a leaf (its item list:
+# MANUFACTURE_ITEM_CATAGORY), the item (MANUFACTURE_ITEM_ID): the server's MESSAGE_STRINGs name its components,
+# each '(missing)', and 'Unable to create Vesta 4P. Missing required component(s).'; this character has none, so
+# nothing is made and the cargo does not change (the user's manufacture of a Sculptor Major IPS 8 used parts this
+# character no longer has). The close box; home.
+name: starbase manufacturing: the category tree to an item and its components
+timeout: 300
+include _sb_home
+walk-to -47,30
+walk-to -44,38
+face 8
+wait-quiet proxy 1.0 within 20
+click 617,525 until antprox 'received MANUFACTURE_ITEM_CATAGORY' every 2 within 20
+wait-quiet proxy 1.0 within 20
+shot manu_open
+# the category row: the computer (the root), then the '?' slot beside it ('Choose selection')
+click 460,263
+expect-event antprox 'received MANUFACTURE_ACTION' within 10
+wait-quiet proxy 1.0 within 20
+click 598,285
+expect-event antprox 'received MANUFACTURE_ACTION' within 10
+wait-quiet proxy 1.0 within 20
+# the root's two children (Items, Components) fill the column below it: Items; then its children (a column at
+# x 684): the third (silver), then its first child (x 784), a leaf: its item list (MANUFACTURE_ITEM_CATAGORY)
+click 569,428
+wait-quiet proxy 1.0 within 20
+click 661,641
+wait-quiet proxy 1.0 within 20
+click 784,416
+expect-event antprox 'received MANUFACTURE_ITEM_CATAGORY' within 10
+wait-quiet proxy 1.0 within 20
+shot manu_list
+# the list's one item, Vesta 4P (MANUFACTURE_ITEM_ID): the server names its components '(missing)'
+click 465,409
+expect-event antprox 'received MANUFACTURE_ITEM_ID' within 10
+wait-event antprox 'sent MESSAGE_STRING' within 10
+wait-quiet proxy 1.0 within 20
+shot manu_item
+# Manufacture (325,350, left of the window) stays disabled without the components: it sends nothing
+click 858,221
+expect-event antprox 'received MANUFACTURE_ACTION' within 10
+wait-quiet proxy 1.0 within 20
+walk-to -47,30
+walk-to -48,5
