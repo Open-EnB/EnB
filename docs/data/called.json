@@ -183,9 +183,6 @@
 "??0RenderObjClass@@QAE@XZ": [
 "0x941880"
 ],
-"??0SBaseViewUnknown188Class@@QAE@PAVUIViewClass@@PAVLayerClass@@@Z": [
-"0x5435D0"
-],
 "??0ScaleTextureMapperClass@@QAE@ABVVector2@@I@Z": [
 "0x932180"
 ],
@@ -1795,12 +1792,6 @@
 "?Unknown_585D10@UIAvatarCustUnknown368Class@@QAEXXZ": [
 "0x585D10"
 ],
-"?Unknown_695780@UIAnalyzePDAClass@@QAE_N_N@Z": [
-"0x695780"
-],
-"?Unknown_695A00@UIAnalyzePDAClass@@QAEXHH@Z": [
-"0x695A00"
-],
 "?Unknown_6AAD10@UIAvselEditClass@@QAEXXZ": [
 "0x6AAD10"
 ],
@@ -1821,9 +1812,6 @@
 ],
 "?Unknown_744240@SClient@@QAEXUKernelEventClass@@@Z": [
 "0x744240"
-],
-"?Unknown_744560@UIAnalyzeSClientClass@@QAEXH@Z": [
-"0x744560"
 ],
 "?Unknown_80C180@UIAvatarCustPipClass@@QAEXXZ": [
 "0x80C180"

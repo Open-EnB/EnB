@@ -35,6 +35,7 @@
 // the +0x70 scene (0xC8 bytes, constructor 0x761C80; 0x69B5E0 sets its ambient light)
 #include "unknown_761c80.h"	// Unknown761C80Class
 #include "ui_refinery.h"	// UIRefineryClass (+0x184, 0x69F8F0)
+#include "ui_analyze.h"	// UIAnalyzeClass (+0x188, 0x69F8F0: the dismantling window)
 float Unknown_77B7D0(float t);	// 0x77B7D0: an easing of 0..1 (0x69ED80)  // NAME 1 [Unknown_77B7D0, t]: neutral (D10)
 #include "sbase_info.h"	// StarbaseInfoClass (+0x1B4; LOUNGE_NPC 0x6A0FD0, 0x6A2120)
 #include "ui_avatar_cust.h"	// AvatarUI (+0x19C, 0x69F8F0)
@@ -52,7 +53,6 @@ class UITalkTreeSpaceClass : public InterfaceClass	// NAME 3: class-from-file (D
 public:
 	char Unknown84[0x184 - 0x84];
 };
-
 // 0x69AC20
 SBaseViewChannelStruct::SBaseViewChannelStruct() :
 	Mode(0),
@@ -1050,7 +1050,7 @@ void SBaseViewClass::Unknown_69F8F0(int type, int arg)
 			break;
 		case 6:
 			if (!Unknown188) {
-				Unknown188 = Create_Get(new SBaseViewUnknown188Class(this, Unknown7C));
+				Unknown188 = Create_Get((SBaseViewUnknown188Class *)(InterfaceClass *)new UIAnalyzeClass(this, *Unknown7C));	// (ui_analyze.h; sbaseview.h keeps its stand-in type, as case 5)
 				Unknown188->Unknown_54();
 				Unknown_6B4940(Unknown188.Peek());
 				Unknown188->Unknown_58();

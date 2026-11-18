@@ -39,7 +39,7 @@ extern FontManagerClass *Unknown_BE67C4;	// NAME 1: neutral (D10)
 #include "gadget.h"
 #include "gd_slider.h"
 #include "unknown_7e7e00.h"
-
+#include "local_interface_sort.h"	// InterfaceSortScopeClass: the window's sort scope (0x541980, InterfaceSortClass's destructor 0x6E18B0)
 
 
 
@@ -209,14 +209,14 @@ void UIManuClass::Unknown_7C(UIViewClass *view, bool arg)
 	}
 }
 
-// intrface.cpp's scope object (constructor 0x541980 over an interface, destructor 0x6E18B0), as slot +0x58 holds it
-class UIManuScopeClass	// NAME 1: neutral (D10)
-{
-public:
-	UIManuScopeClass(InterfaceClass *iface);			// 0x541980  // NAME 1 [iface]: neutral
-	~UIManuScopeClass();								// 0x6E18B0
-	char Unknown00[0x10];
-};
+// (lines kept: the asserts below carry the client's line numbers)
+
+
+
+
+
+
+
 
 // NOT EXACT: inline budget (the client calls 0x5B6CA0 and 0x5B2950 out of line here; its frame is 0x14 bytes smaller) (0x5B0BB0)
 void UIManuClass::Unknown_58()
@@ -224,7 +224,7 @@ void UIManuClass::Unknown_58()
 	SClient *sclient = Client->As_Space_Client();
 	((ClientClass *)Client)->Send_Packet(&ManufactureItemCatagoryPacketClass(sclient->Unknown1138, 1));
 	if (State == UI_CLOSED) {
-		UIManuScopeClass scope(this);
+		InterfaceSortScopeClass scope(this);
 		State = UI_OPEN;
 		Unknown0BAC = sclient->PDAInterface->Unknown_695780(false);
 		Unknown0B98 = -1;

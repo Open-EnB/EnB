@@ -691,6 +691,11 @@ the last name. Live antprox logs opcode numbers; e2e appends the names (`... = s
   X,Y` and `up X,Y` (the left button pressed / moved there held and let go: a drag; the item windows move an item
   on the button-up). `compare` now counts each scenario's packets from its own first step (the proxy's `mark
   NAME`), so a session's first scenario no longer includes the login.
+  Results: retail passes all seven `sb_*`; ours (wt/H1 after its ui_manu / sbaseview / ui_analyze fixes) passes
+  all seven with no stand-in hit, and every scenario sends the SAME packets as retail (sb_buysell 9, sb_jobs 4,
+  sb_manufacture 7, sb_refinery 8, sb_dismantle 5, sb_vendor 7, sb_talk 5). Before the fixes ours crashed
+  opening the dismantling terminal (0x69F8F0 case 6 built a stand-in in place of UIAnalyzeClass 0x5435D0) and hit
+  generated stand-ins for the manufacturing window's sort scope (0x541980 / 0x6E18B0).
 - **A character saved in space** (the local server sometimes keeps the undocked place: the login ends beside
   Jove's Fury and `_sb_home` fails at its first walk-to, pose ~116000,-224000): `e2e.py --live localhost
   --retail --instance NAME run _sb_dock` (named only) logs in, targets the station (641,1009, SET_TARGET) and

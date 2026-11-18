@@ -61,10 +61,16 @@ public:
 
 enum
 {
-	USER_INPUT = 0,										// (the G_ASSERTs 'source != USER_INPUT'; the buttons pass 0)  // NAME 3: the asserts'
+	USER_INPUT = 0										// (the G_ASSERTs 'source != USER_INPUT'; the buttons pass 0)  // NAME 3: the asserts'
+};
+#ifndef ENB_UI_STATE_ENUM	// UI_CLOSED / UI_OPEN: also ui_manu.h / ui_analyze.h (sbaseview.cpp includes both)
+#define ENB_UI_STATE_ENUM
+enum
+{
 	UI_CLOSED = 0,										// (the destructor's G_ASSERT 'State == UI_CLOSED'; slot +0x5C sets it)  // NAME 3: the assert's
 	UI_OPEN = 2											// (slot +0x58 sets it)  // NAME 1: neutral (D10)
 };
+#endif
 
 // ui_manu.cpp's manufacturing window (0xBC8 bytes, tables 0xAF2D4C / 0xAF2D40 / 0xAF2D34; made by 0x69F8F0, sbaseview.cpp)
 // (natural alignment: the __int64 at +0xBB8 rounds the size up to 0xBC8, 0x69F8F0's new; no #pragma pack)
