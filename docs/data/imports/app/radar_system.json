@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "RadarSystemClass (D24), the radar's pass over the objects (the client's __FILE__ 0xB9F270, G_ASSERT at line 64; 0x7BC770-0x7BDE19) (GR2)",
  "expected": {},
@@ -41,7 +39,10 @@
   "0x7BDBF0",
   "0x7BDC70",
   "0x7BDD50",
-  "0x7BDDF0"
+  "0x7BDDF0",
+  "0x7BDE30",
+  "0x7BDEA0",
+  "0x7BDF40"
  ],
  "merged": [],
  "name": "client/radar_system.cpp",

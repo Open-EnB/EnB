@@ -144,9 +144,9 @@ template<> inline const char *KVPairTemplateClass<RaceType>::Get_Type_Name() con
 
 
 
-// NAME 5: the client's Get_Type_Name string 'FormationState' (KVPair 0x759E80 hands the saved value to Type_Name 0x835CF0; 0x759EA0 / 0x75A200 call 0x835D80 / 0x835D10), leaf vtable 0xB03970: the groups' 'Formation'
-#include "..\common\faction_and_reputation.h"	// FormationState and its three converters (4 bytes)
-template<> inline const char *KVPairTemplateClass<FormationState>::Get_Type_Name() const { return Type_Name(Value); }	// 0x759E80
+#include "aux_formation.h"
+
+
 
 
 
@@ -878,38 +878,38 @@ public:
 	DeltaStringClass Affiliation;	// +0x138
 };
 
-// vtable 0xB039C8 (e.g. Player.GroupInfo.Members.N)
-// NAME 4: Net-7 AuxGroupMember confirmed by structure (C# fields = ours (same names, same order); Net-7 Construct 4 children = ours); C# GroupMember
-class DeltaGroupMemberClass : public DeltaCompoundClass
-{
-public:
-	DeltaGroupMemberClass(const char *name);	// 0x754DB0
+#include "aux_roots_group.h"
 
-	DeltaStringClass Name;	// +0x9C
-	DeltaTemplateClass<int> GameID;	// +0x124
-	DeltaTemplateClass<FormationState> Formation;	// +0x1AC
-	DeltaTemplateClass<int> Position;	// +0x234
-};
 
-// vtable 0xB038B8 (e.g. Player.GroupInfo)
-// NAME 4: Net-7 AuxGroupInfo confirmed by structure (C# fields = ours (same names, same order); Net-7 Construct 11 children = ours); C# PilotGroupInfo
-class DeltaGroupInfoClass : public DeltaCompoundClass
-{
-public:
-	DeltaGroupInfoClass(const char *name);	// 0x7548D0
 
-	DeltaTemplateClass<bool> IsGroupLeader;	// +0x9C
-	DeltaTemplateClass<bool> LookingForGroup;	// +0x124
-	DeltaTemplateClass<bool> AllowGroupInvite;	// +0x1AC
-	DeltaTemplateClass<bool> ShowNonCombatActivities;	// +0x234
-	DeltaTemplateClass<bool> ForceAutoSplit;	// +0x2BC
-	DeltaTemplateClass<bool> RestrictedLootingRights;	// +0x344
-	DeltaTemplateClass<bool> AutoReleaseLootingRestrictions;	// +0x3CC
-	DeltaStringClass FormationName;	// +0x454
-	DeltaTemplateClass<FormationState> Formation;	// +0x4DC
-	DeltaTemplateClass<int> Position;	// +0x564
-	DeltaItemArrayClass<DeltaGroupMemberClass> Members;	// +0x5EC
-};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // vtable 0xB03360, constructor 0x752510
 // NAME 3: the client's root string "Player", Westwood XxxClass (D24); structure = Net-7 AuxPlayerIndex / C# PilotData (C# fields = ours (same names, same order); Net-7 Construct 18 children = ours)

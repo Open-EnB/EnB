@@ -5,6 +5,9 @@
 **	(and numbers at start-up, the Delta templates' per-class globals: workflow.md 3.4) exactly the
 **	families whose constructors it sees, as the client's objects do (their initialisers from 0xBE3B44).
 **	Include this header first, before anything that includes aux_roots.h (the macros must come first).
+**	The group classes parse first (aux_roots_group.h, before aux_roots.h's): the objects number T<int>,
+**	T<FormationState>, T<bool> in that order, as the client's do (co_player_relationship 0x70D830, ui_starbase 0x644BE0,
+**	starmap_pip 0x7C3150: the Delta templates number in the order their classes are first instantiated).
 **
 **	// NAME 1 [aux_group.h]: provisional file name (the client's headers are not named by any string)
 */
@@ -18,6 +21,7 @@
 
 #include "..\shared\auxdata\delta_numbering.h"
 #define AUX_CTORS_GROUP
+#include "aux_roots_group.h"
 #include "aux_roots_send.h"
 
 #endif //__AUX_GROUP_H

@@ -191,53 +191,7 @@ DeltaMissionClass::DeltaMissionClass(const char *name) :
 }
 #endif
 
-#if defined(AUX_ROOTS_ALL) || defined(AUX_CTORS_GROUP)
-// Player.GroupInfo (0x7548D0)
-inline
-DeltaGroupInfoClass::DeltaGroupInfoClass(const char *name) :
-	DeltaCompoundClass(name),
-	IsGroupLeader("IsGroupLeader"),
-	LookingForGroup("LookingForGroup", true),
-	AllowGroupInvite("AllowGroupInvite", true),
-	ShowNonCombatActivities("ShowNonCombatActivities", true),
-	ForceAutoSplit("ForceAutoSplit", true),
-	RestrictedLootingRights("RestrictedLootingRights", true),
-	AutoReleaseLootingRestrictions("AutoReleaseLootingRestrictions", true),
-	FormationName("FormationName", ""),
-	Formation("Formation"),
-	Position("Position", -1),
-	Members("Members", 5)
-{
-	Add(&IsGroupLeader);
-	Add(&LookingForGroup);
-	Add(&AllowGroupInvite);
-	Add(&ShowNonCombatActivities);
-	Add(&ForceAutoSplit);
-	Add(&RestrictedLootingRights);
-	Add(&AutoReleaseLootingRestrictions);
-	Add(&FormationName);
-	Add(&Formation);
-	Add(&Position);
-	Add(&Members);
-}
-#endif
-
-#if defined(AUX_ROOTS_ALL) || defined(AUX_CTORS_GROUP)
-// Player.GroupInfo.Members.N (0x754DB0)
-inline
-DeltaGroupMemberClass::DeltaGroupMemberClass(const char *name) :
-	DeltaCompoundClass(name),
-	Name("Name", ""),
-	GameID("GameID"),
-	Formation("Formation"),
-	Position("Position", -1)
-{
-	Add(&Name);
-	Add(&GameID);
-	Add(&Formation);
-	Add(&Position);
-}
-#endif
+#include "aux_group_ctors.h"
 
 #if defined(AUX_ROOTS_ALL) || defined(AUX_CTORS_PLAYER)
 // Player (0x752510)
