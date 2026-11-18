@@ -17,6 +17,11 @@
     python tools/run_branch.py ready --summary FILE [--co-author 'NAME <EMAIL>']
                                                           the progress card regenerated and committed
                                                           (tools/progress.py), the PR's summary from FILE, out of draft
+                                                          (first `corrections` below, its PR named atop the summary)
+    python tools/run_branch.py corrections [--co-author ...]
+                                                          D268: the run's accepted-corrections.json changes alone,
+                                                          as PR accept-corrections-run-<date> from origin/master
+                                                          (no checkout); the user merges it before the run PR
     python tools/run_branch.py status                       branch, PR, claims
     python tools/run_branch.py cleanup [--dry]              after a run's PR merged: delete the local branches (and their
                                                           worktrees) whose every commit is in origin/master, keep
@@ -268,12 +273,95 @@ def progress_card(co_author=None):
         git('commit', '-q', '-m', msg + (f'\n\nCo-Authored-By: {co_author}' if co_author else ''), '--', *CARD)
 
 
+CORRECTIONS = 'docs/data/accepted-corrections.json'
+
+
+def corrections_pr(r, b, co_author=None):
+    """D268: the run's changes to accepted-corrections.json as a PR of their own from origin/master (branch
+    accept-corrections-<run>), built with plumbing (no checkout; the main tree stays on the run branch). The verify
+    service reads master's corrections list, never the PR's (D202), so the user merges this PR before the run PR is
+    verified. Returns the PR's number, or None when the run left the file as master has it."""
+    git('fetch', '-q', 'origin')
+    mb = git('merge-base', 'origin/master', b)
+    if not git('diff', '--name-only', mb, b, '--', CORRECTIONS):
+        return None
+    blob = lambda rev: git('rev-parse', f'{rev}:{CORRECTIONS}')
+    if git('diff', '--name-only', mb, 'origin/master', '--', CORRECTIONS):
+        # master's copy moved since the run branched: three-way merge the run's change onto it
+        import tempfile
+        with tempfile.TemporaryDirectory() as d:
+            paths = []
+            for name, rev in (('ours', 'origin/master'), ('base', mb), ('theirs', b)):
+                pth = os.path.join(d, name)
+                with open(pth, 'w', encoding='utf-8', newline='') as f:
+                    f.write(subprocess.run(['git', 'show', f'{rev}:{CORRECTIONS}'], cwd=ROOT, capture_output=True,
+                                           text=True, encoding='utf-8').stdout)
+                paths.append(pth)
+            if subprocess.run(['git', 'merge-file', *paths], cwd=ROOT).returncode:
+                sys.exit(f'run_branch: the run\'s {CORRECTIONS} conflicts with master\'s; merge origin/master into {b} first')
+            new = git('hash-object', '-w', paths[0])
+    else:
+        new = blob(b)
+    import json
+    load = lambda rev: {(c['lib'], c['file'], c['address'], c.get('moved_to')): c['decision'] for c in
+                        json.loads(subprocess.run(['git', 'show', rev], cwd=ROOT, capture_output=True, text=True,
+                                                  encoding='utf-8').stdout)['corrections']}
+    old, cur = load(f'origin/master:{CORRECTIONS}'), load(new)
+    added = [k for k in cur if k not in old]
+    gone = [k for k in old if k not in cur]
+    line = lambda k: f'- {k[0]} {k[1]} {k[2]}' + (f' -> {k[3]}' if k[3] else '') + f' ({(cur | old)[k]})'
+    run = b[4:]
+    subject = f'Accept the corrections of run {run}: {CORRECTIONS} only (+{len(added)} / -{len(gone)} entries)'
+    body = (f'The run PR\'s changes to `{CORRECTIONS}` alone (D268): the verify service reads master\'s corrections '
+            f'list, never the PR\'s (D202), so this merges before the run PR `{b}` is verified. The entries\' '
+            f'evidence is in their notes and the run PR\'s summary.\n\n'
+            + (f'Added:\n' + '\n'.join(map(line, added)) + '\n\n' if added else '')
+            + (f'Removed (regained on the run branch):\n' + '\n'.join(map(line, gone)) + '\n\n' if gone else '')
+            + 'No other change.')
+    env = dict(os.environ, GIT_INDEX_FILE=os.path.join(ROOT, '.git', 'run_branch-corrections.index'))
+    sub = lambda *args: subprocess.run(['git', *args], cwd=ROOT, env=env, capture_output=True, text=True,
+                                       check=True).stdout.strip()
+    try:
+        sub('read-tree', 'origin/master')
+        sub('update-index', '--cacheinfo', f'100644,{new},{CORRECTIONS}')
+        tree = sub('write-tree')
+    finally:
+        try:
+            os.remove(env['GIT_INDEX_FILE'])
+        except OSError:
+            pass
+    msg = subject + '\n\n' + body + (f'\n\nCo-Authored-By: {co_author}' if co_author else '')
+    commit = subprocess.run(['git', 'commit-tree', tree, '-p', 'origin/master', '-F', '-'], cwd=ROOT, input=msg,
+                            capture_output=True, text=True, encoding='utf-8', check=True).stdout.strip()
+    cb = f'accept-corrections-run-{run}'
+    if subprocess.run(['git', 'push', '--force', 'origin', f'{commit}:refs/heads/{cb}'], cwd=ROOT).returncode:
+        sys.exit('run_branch: push of the corrections branch failed (see the pre-push check above)')
+    p = run_pr(r, cb)
+    if p:
+        gh('pr', 'edit', str(p['number']), '-R', r, '--title', subject, '--body', body)
+    else:
+        gh('pr', 'create', '-R', r, '--base', 'master', '--head', cb, '--title', subject, '--body', body)
+        p = run_pr(r, cb)
+    print(f'corrections PR #{p["number"]} ({cb}, +{len(added)} / -{len(gone)}): the user merges it before the run PR')
+    return p['number']
+
+
+def cmd_corrections(a):
+    n = corrections_pr(C.repo(), branch(), a.co_author)
+    if n is None:
+        print(f'the run leaves {CORRECTIONS} as master has it: no corrections PR')
+
+
 def cmd_ready(a):
     r, b = C.repo(), branch()
     p = run_pr(r, b)
     if not p:
         sys.exit(f'run_branch: {b} has no open PR')
     summary = open(a.summary, encoding='utf-8').read().strip()
+    cn = corrections_pr(r, b, a.co_author)
+    if cn:
+        summary = (f'**Merge #{cn} first** (the run\'s {CORRECTIONS} changes alone, D268), the verify service then '
+                   f'verifies this PR again on its own (master moved).\n\n' + summary)
     body = body_of(r, p['number'])
     block = f'<!-- run-summary -->\n{summary}\n<!-- /run-summary -->'
     body = SUMMARY.sub(lambda _: block, body) if SUMMARY.search(body) else block + '\n\n' + body
@@ -361,11 +449,13 @@ def main():
     rd = sub.add_parser('ready')
     rd.add_argument('--summary', required=True)
     rd.add_argument('--co-author', help="the card commit's Co-Authored-By value (D71), e.g. 'Claude Opus 5.5 <noreply@anthropic.com>'")
+    co = sub.add_parser('corrections')
+    co.add_argument('--co-author', help="the commit's Co-Authored-By value (D71)")
     sub.add_parser('status')
     sub.add_parser('cleanup').add_argument('--dry', action='store_true')
     a = ap.parse_args()
     return {'start': cmd_start, 'claim': cmd_claim, 'release': cmd_release, 'push': cmd_push,
-            'ready': cmd_ready, 'status': cmd_status, 'cleanup': cmd_cleanup}[a.cmd](a) or 0
+            'ready': cmd_ready, 'corrections': cmd_corrections, 'status': cmd_status, 'cleanup': cmd_cleanup}[a.cmd](a) or 0
 
 
 if __name__ == '__main__':
