@@ -3443,5 +3443,95 @@
   "address": "0x60D760",
   "symbol": "??_ERegistrationInterface@@W3AEPAXI@Z",
   "evidence": "RegistrationInterface's UnknownGadgetBase04Class vtable: stored at +0 of the base by 0x5EF0B0 (0x5EFAAA) and 0x5F0F10 (0x5F0F41), app/client/ui_registration.cpp's constructor and destructor; slot 0 0x60D760 is 'sub ecx, 4; jmp 0x40BD6B', the thunk to RegistrationInterface's scalar deleting destructor 0x5F06C0 (exact), slot 1 UnknownGadgetBase04Class::Unknown_4A1930; ui_manu.obj's same-shaped table jumps to UIManuClass's instead (SIB, 2026-11-17)"
+ },
+ {
+  "address": "0xA02D00",
+  "symbol": "?Set_Velocity@Listener3DClass@@UAEXABVVector3@@@Z",
+  "evidence": "Listener3DClass vtable 0xB163D0 slot 107 (0xB1657C); body `ret 4` is this declaration's, with the one-argument Set_Velocity first (slot 107) as in Renegade's Listener.h; the earlier names put it last and shifted every slot by one (INST, run 2026-11-17c)",
+  "replaces": "?Start_Sample@Listener3DClass@@MAEXXZ"
+ },
+ {
+  "address": "0xA02D10",
+  "symbol": "?Start_Sample@Listener3DClass@@MAEXXZ",
+  "evidence": "Listener3DClass vtable 0xB163D0 slot 108 (0xB16580); body `ret` is this declaration's, with the one-argument Set_Velocity first (slot 107) as in Renegade's Listener.h; the earlier names put it last and shifted every slot by one (INST, run 2026-11-17c)",
+  "replaces": "?Stop_Sample@Listener3DClass@@MAEXXZ"
+ },
+ {
+  "address": "0xA02D20",
+  "symbol": "?Stop_Sample@Listener3DClass@@MAEXXZ",
+  "evidence": "Listener3DClass vtable 0xB163D0 slot 109 (0xB16584); body `ret` is this declaration's, with the one-argument Set_Velocity first (slot 107) as in Renegade's Listener.h; the earlier names put it last and shifted every slot by one (INST, run 2026-11-17c)",
+  "replaces": "?Resume_Sample@Listener3DClass@@MAEXXZ"
+ },
+ {
+  "address": "0xA02D30",
+  "symbol": "?Resume_Sample@Listener3DClass@@MAEXXZ",
+  "evidence": "Listener3DClass vtable 0xB163D0 slot 110 (0xB16588); body `ret` is this declaration's, with the one-argument Set_Velocity first (slot 107) as in Renegade's Listener.h; the earlier names put it last and shifted every slot by one (INST, run 2026-11-17c)",
+  "replaces": "?End_Sample@Listener3DClass@@MAEXXZ"
+ },
+ {
+  "address": "0xA02D40",
+  "symbol": "?End_Sample@Listener3DClass@@MAEXXZ",
+  "evidence": "Listener3DClass vtable 0xB163D0 slot 111 (0xB1658C); body `ret` is this declaration's, with the one-argument Set_Velocity first (slot 107) as in Renegade's Listener.h; the earlier names put it last and shifted every slot by one (INST, run 2026-11-17c)",
+  "replaces": "?Set_Sample_Volume@Listener3DClass@@MAEXJ@Z"
+ },
+ {
+  "address": "0xA02D50",
+  "symbol": "?Set_Sample_Volume@Listener3DClass@@MAEXJ@Z",
+  "evidence": "Listener3DClass vtable 0xB163D0 slot 112 (0xB16590); body `ret 4` is this declaration's, with the one-argument Set_Velocity first (slot 107) as in Renegade's Listener.h; the earlier names put it last and shifted every slot by one (INST, run 2026-11-17c)",
+  "replaces": "?Get_Sample_Volume@Listener3DClass@@MAEJXZ"
+ },
+ {
+  "address": "0xA02D60",
+  "symbol": "?Get_Sample_Volume@Listener3DClass@@MAEJXZ",
+  "evidence": "Listener3DClass vtable 0xB163D0 slot 113 (0xB16594); body `xor eax, eax; ret` is this declaration's, with the one-argument Set_Velocity first (slot 107) as in Renegade's Listener.h; the earlier names put it last and shifted every slot by one (INST, run 2026-11-17c)",
+  "replaces": "?Set_Sample_Pan@Listener3DClass@@MAEXJ@Z"
+ },
+ {
+  "address": "0xA02D70",
+  "symbol": "?Set_Sample_Pan@Listener3DClass@@MAEXJ@Z",
+  "evidence": "Listener3DClass vtable 0xB163D0 slot 114 (0xB16598); body `ret 4` is this declaration's, with the one-argument Set_Velocity first (slot 107) as in Renegade's Listener.h; the earlier names put it last and shifted every slot by one (INST, run 2026-11-17c)",
+  "replaces": "?Get_Sample_Pan@Listener3DClass@@MAEJXZ"
+ },
+ {
+  "address": "0xA02D80",
+  "symbol": "?Get_Sample_Pan@Listener3DClass@@MAEJXZ",
+  "evidence": "Listener3DClass vtable 0xB163D0 slot 115 (0xB1659C); body `mov eax, 0x40; ret` is this declaration's, with the one-argument Set_Velocity first (slot 107) as in Renegade's Listener.h; the earlier names put it last and shifted every slot by one (INST, run 2026-11-17c)",
+  "replaces": "?Set_Sample_Loop_Count@Listener3DClass@@MAEXK@Z"
+ },
+ {
+  "address": "0xA02D90",
+  "symbol": "?Set_Sample_Loop_Count@Listener3DClass@@MAEXK@Z",
+  "evidence": "Listener3DClass vtable 0xB163D0 slot 116 (0xB165A0); body `ret 4` is this declaration's, with the one-argument Set_Velocity first (slot 107) as in Renegade's Listener.h; the earlier names put it last and shifted every slot by one (INST, run 2026-11-17c)",
+  "replaces": "?Get_Sample_Loop_Count@Listener3DClass@@MAEKXZ"
+ },
+ {
+  "address": "0xA02DA0",
+  "symbol": "?Get_Sample_Loop_Count@Listener3DClass@@MAEKXZ",
+  "evidence": "Listener3DClass vtable 0xB163D0 slot 117 (0xB165A4); body `xor eax, eax; ret` is this declaration's, with the one-argument Set_Velocity first (slot 107) as in Renegade's Listener.h; the earlier names put it last and shifted every slot by one (INST, run 2026-11-17c)",
+  "replaces": "?Set_Sample_MS_Position@Listener3DClass@@MAEXK@Z"
+ },
+ {
+  "address": "0xA02DB0",
+  "symbol": "?Set_Sample_MS_Position@Listener3DClass@@MAEXK@Z",
+  "evidence": "Listener3DClass vtable 0xB163D0 slot 118 (0xB165A8); body `ret 4` is this declaration's, with the one-argument Set_Velocity first (slot 107) as in Renegade's Listener.h; the earlier names put it last and shifted every slot by one (INST, run 2026-11-17c)",
+  "replaces": "?Get_Sample_MS_Position@Listener3DClass@@MAEXPAJ0@Z"
+ },
+ {
+  "address": "0xA02DC0",
+  "symbol": "?Get_Sample_MS_Position@Listener3DClass@@MAEXPAJ0@Z",
+  "evidence": "Listener3DClass vtable 0xB163D0 slot 119 (0xB165AC); body `ret 8` is this declaration's, with the one-argument Set_Velocity first (slot 107) as in Renegade's Listener.h; the earlier names put it last and shifted every slot by one (INST, run 2026-11-17c)",
+  "replaces": "?Get_Sample_Playback_Rate@Listener3DClass@@MAEJXZ"
+ },
+ {
+  "address": "0xA02DD0",
+  "symbol": "?Get_Sample_Playback_Rate@Listener3DClass@@MAEJXZ",
+  "evidence": "Listener3DClass vtable 0xB163D0 slot 120 (0xB165B0); body `xor eax, eax; ret` is this declaration's, with the one-argument Set_Velocity first (slot 107) as in Renegade's Listener.h; the earlier names put it last and shifted every slot by one (INST, run 2026-11-17c)",
+  "replaces": "?Set_Sample_Playback_Rate@Listener3DClass@@MAEXJ@Z"
+ },
+ {
+  "address": "0xA02DE0",
+  "symbol": "?Set_Sample_Playback_Rate@Listener3DClass@@MAEXJ@Z",
+  "evidence": "Listener3DClass vtable 0xB163D0 slot 121 (0xB165B4); body `ret 4` is this declaration's, with the one-argument Set_Velocity first (slot 107) as in Renegade's Listener.h; the earlier names put it last and shifted every slot by one (INST, run 2026-11-17c)",
+  "replaces": "?Set_Velocity@Listener3DClass@@MAEXABVVector3@@@Z"
  }
 ]
