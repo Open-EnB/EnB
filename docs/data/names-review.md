@@ -29743,7 +29743,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `ProjectorManager` | `app/shared/projscen.h:44` | what it holds |
 | 2 | `ProjectionDef` | `app/shared/projscen.h:45` | as ProjectorCasterClass's |
 | 2 | `Overlap` | `app/shared/px.cpp:267` | what it tests |
-| 2 | `std:` | `app/shared/px.cpp:597` | the boxes a corner change has already reported |
+| 2 | `PxBoxVector` | `app/shared/px.cpp:597` | the boxes a corner change has already reported; the wrapper's name too (notes) |
 | 2 | `px.h` | `app/shared/px.h:14` | provisional header name (px.cpp's) |
 | 2 | `PxEnd` | `app/shared/px.h:25` | a box's low or high end in the sorted lists |
 | 2 | `box, type` | `app/shared/px.h:33` | what it stores |
@@ -29827,6 +29827,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `a, b` | `app/shared/px_collision.h:40` | _Collision_Callback's arguments |
 | 2 | `A` | `app/shared/px_collision.h:48` | the constructor's argument |
 | 2 | `B` | `app/shared/px_collision.h:49` | as above |
+| 2 | `PxProcessStack` | `app/shared/px_process.cpp:26` | Push / Pop's, and the wrapper's name (0xBDC080; notes) |
 | 2 | `PxProcessNode` | `app/shared/px_process.h:23` | px_process.cpp's list entries (the asserts' 'node') |
 | 2 | `Process` | `app/shared/px_process.h:29` | what PxProcessClass::Process calls |
 | 2 | `Remove` | `app/shared/px_process.h:30` | what it does |
@@ -29837,7 +29838,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Get_Current` | `app/shared/px_process.h:50` | what it returns |
 | 2 | `process` | `app/shared/px_process.h:51` | what it does |
 | 2 | `Pop` | `app/shared/px_process.h:52` | what it does |
-| 2 | `std:` | `app/shared/px_process.h:56` | Push / Pop's |
 | 2 | `Is_Close` | `app/shared/px_wrapper.cpp:208` | what it tests |
 | 2 | `Is_Close` | `app/shared/px_wrapper.cpp:213` | as above |
 | 2 | `Create_Boxes` | `app/shared/px_wrapper.h:42` | what it does |
