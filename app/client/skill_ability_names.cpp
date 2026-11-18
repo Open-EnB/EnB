@@ -11,7 +11,7 @@
 #include "..\shared\g_assert.h"
 #include "..\shared\kv_tripl.h"
 #include "..\shared\split_string.h"
-
+namespace std { template<> inline hashtable<pair<std::string const, unsigned int >, std::string, hash<std::string >, _Select1st<pair<std::string const, unsigned int > >, equal_to<std::string >, allocator<unsigned int > >::hashtable(size_type __n, const hasher &__hf, const key_equal &__eql) : _M_hash(__hf), _M_equals(__eql), _M_get_key(_Select1st<pair<std::string const, unsigned int > >()), _M_buckets(), _M_num_elements(0) { const size_type __n_buckets = _M_next_size(__n); _M_buckets.reserve(__n_buckets); _M_buckets.insert(_M_buckets.end(), __n_buckets, (_Node *)0); _M_num_elements = 0; } }  // Not the client's source (its sgistl form is unknown: P-L21-1, attempts row 0x71DCE0): the hashtable constructor flat gives the client's out-of-line hash_map() 0x42C650 (inpkeys.cpp's copy, the one the static initialiser 0x8143D0 calls)
 // skillnam.cpp's (not rebuilt yet)
 class SkillNamesDatabase { public: static int Max_Skill();	// NAME 5: 0x6A4F40's assert
 	static int Unknown_818170(const std::string &name);	// NAME 1: neutral (D10)
