@@ -4,6 +4,59 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
+### 2026-11-18 (04:32 PST, night; run 2026-11-17c, week plan session 2): crediting from the client's own targets, data and CRT table (D267: CR1, CR2, CR4, CR5, +290), D27's verified starts widened (+4,080 starts, verify neutral), the static initialisers' forms (XI, PX; two new files), aux_roots' delta value types retyped (KV +30, 0x7045F0 under D240), the census siblings (SIB), the "define after its users" EH lever (RG, LV); +461 pairs over the run's baseline, 0 lost outright
+
+- **Session** Opus coordinator, unattended (D261), launcher start 19:15. How it started: clean (#212 merged by the user at 18:04
+  after /accept-d66; nothing frozen); run/2026-11-17c from origin/master b1509f0fc, PR #214.
+- **Landed** (run/2026-11-17c; per branch in `.work/run-2026-11-17c/plan.md`): NFS fe907c857 (surfacetypes / display / item_effect /
+  sound_manager / unknown_phoneme, new unknown_7196c0.cpp, +16); CR1 d9a354d0b (USE_CR1_NAMED_TARGETS, appfile.py match's crediting
+  status, +12); SIB e81acc505 (FormationState rows, ExprMathEval ??_G names by stored vtables, RegistrationInterface vector<long>,
+  +36, 3 D66 moves line2d -> unknown_6e1ab0); INST cc378947d (Listener3DClass slot order +8, wwlib/_mono.cpp imported, MonoClass
+  stand-ins retired); F1 + SN 18afbb581 (pal_mgr 0x848C80 +2; ~265 stale symbols.json names fixed, 0 pairs); CR2 69c2b84e2
+  (TILING / LATE_ORDER / DATA_AGREE / XCU_STARTS / EXTERN_DATA / XCU_KNOWN, +183); SX b81d61cc5 (D27 starts: jmp rel32 + padding,
+  CRT-registered; jump-table guard; 0 / 0); e32f3c57f fill table (26,692 -> 30,690 runs); KV 41c1b9418 (aux_roots.h's delta value
+  types ProfessionType / RaceType / unsigned int, 42 symbols_named rows, aux pad 29, +30, 0x7045F0 D240 4ba180646); RG 3e8e2f202
+  (0x48CF90 regained: hashtemplate.h's Get_Hash_Value<StringClass> declared first, defined after its users; wt/Q1's forms);
+  LV 344a85ec0 (the same lever in listnode.h: spln_db 0x485C10 / 0x487400, +2); deaa121b8 (D246 entries 0x5CE830 / 0x6B55D0
+  regained); CR4 53f8b0a75 (USE_CR4_XCU_SPARSE, +86); XI 4f0b55b11 (statics as class members, Delta numbering counter in policy.cpp,
+  new unknown_4a2690.cpp and kernel/unknown_4441e0.cpp, send pad 19 -> 46, +60, 15 D66 moves gclass -> unknown_4a2690, 0x758210
+  held again); LV2 + IN 2dba6373b (unique_design_id_lookup's id unsigned +2; ui_registration's inline ~SubsBundleStruct: 0x449CC0
+  +2); CR5 952333de5 (FOLD_HELD / FOLD_VTBL / FOLD_ROUNDS, +9); PX cd5212d60 (px / px_process statics as wrapper classes over
+  std::vector, +10; sclient's shared holder of 0x702240 dropped, aux_roots holds it); HM 77e621aaf (skill_ability_names' flat hashtable specialisation, +1); XA 804e3293d (static initialisers in dbgmgr, unknown_memregistry, ui_manu, event, ui_pda_equip, cpacket, +12).
+- **Measured, no change:** UR (ui_registration.cpp is one client object: one __FILE__, one CRT group with its guard last, one
+  template tail); CB (0x472C80 / 0x4708F0 / 0x472910 are ui_registration's instances moved into unknown_46c730's holes by an
+  incremental relink); DT (the rule for where VC6 puts template-static numbering initialisers; the trial +7 / -44 reverted: the
+  aux_roots.h split is the next item); IS (0xB016DC already InvSlotStruct since 2026-11-16).
+- **Calls (D246):** C1-C39 in the plan log. Rules: D267 (crediting from the client's own targets, data and CRT table); D27 widened
+  (its §2 row amended). Others: the provisional placements (unknown_7196c0.cpp, unknown_4a2690.cpp, kernel/unknown_4441e0.cpp,
+  pal_mgr 0x848C80, policy.cpp's DeltaUnknownCounter, PxBoxVector / PxProcessStack NAME 2); 0x7045F0 under D240 (client-evidenced
+  retype, no aux pad value keeps all six); XI's 0x702240 "D240" refused (a send-pad address: the pad, retuned to 46); the D246
+  valve: 6 open entries at the start -> 2 (0x6B5620 view, 0x6A1180 sbaseview): 0x48CF90, 0x758210, 0x5CE830, 0x6B55D0 regained;
+  CR4's include-removal idea dropped (IN: 36 of its 39 objects are delta numbering). Coordinator misses: two briefs on stale leads
+  (CB: 0x605650 already credited; IS: already retyped): check a builder's lead against the run branch (`git log -S`, the ledger)
+  before briefing it.
+- **Pairs per point:** +461 pairs for about 7 points of the week (5 % at 19:22 -> 12 % at the handoff): about 65 a point.
+  By kind: crediting rules 290 (CR1 12, CR2 183, CR4 86, CR5 9) and names / instances 74 (SIB 36, INST 8, KV 30); static
+  initialisers and new files 98 (NFS 16, XI 60, PX 10, XA 12); finishing levers 10 (F1 2, RG 1, LV 2, LV2 2, IN 2, HM 1); landing figures, which overlap through shared and moved pairs: the net is +461. Builders
+  (Opus, tokens): CR2 ~400k, XI ~430k, SIB ~380k, NFS ~330k, SN ~300k, CR4 ~300k, LV ~250k, KV ~250k, CR1 ~230k, INST ~210k,
+  PX ~180k, RG ~170k, F1 ~150k, SX ~150k, DT ~150k, IN ~130k, LV2 ~120k, CR5 ~90k, CB ~75k, UR ~70k, IS ~45k, XA ~250k, HM ~90k; Sonnet
+  landers / checkers / doc-filers ~1.2M. No agy (the Gemini week resets 2026-11-21).
+- **Meter:** week 5 % at 19:22 -> 12 % at the handoff (floor 13, cap 15).
+- **PRs:** #212 merged by the user before the session. **#214** ready for review at the handoff, waiting for the user: it changes tools (objmatch / clientimage crediting rules, D267, D27) and moves holders (D66), so the service waits for `/verify-approved` and `/accept-d66` on its head; frozen from the handoff (no further push).
+- **Verified vs not:** every landing's verify, stand-in and link checks (tools-only landings --no-link); checker after each
+  landing that retired a stand-in or moved code across files: fe907c857, e81acc505, cc378947d, 18afbb581, 41c1b9418, 4f0b55b11,
+  cd5212d60: clienttest 102/102 trace equal, udpreplay alex3 7 of 8 (baseline), handshake 54/54, e2e 25/25 (~308 s), clientpoc
+  link clean each time. At the handoff (804e3293d, after HM and XA): clienttest 102/102 trace equal; udpreplay alex3 7 of 8; handshake 54/54; e2e 25/25 in 307 s; clientpoc link clean.
+- **The queue:** untried 18 open / 5 done; known-pattern and unique new files 0 open (5 done); finishing 199 open / 46 parked;
+  stuck 2 / 82 parked; crediting 9 open; harness 15; tools 14; names 9 (`.work/week-2026-11-17/queue.md`).
+- **Next ten items:** (1) split aux_roots.h by root class with DT's three changes (in-class DeltaTemplateClass ctor, a whole-class
+  DeltaTemplateClass<DurationClass>, the counters), one builder with pad checks (§4); (2) the agy batch after the Gemini reset
+  (2026-11-21 19:26 PST); (3) the live e2e station scenarios (session 3); (4) XI's list after (1): 115 <string> guard copies
+  (D196 / D197), 82 PermString pairs; (5) the next crediting rule from CR4's multiples table (289 app; 35 held ties without own
+  evidence); (6) the tools moves (sib / SN / LV / CB / CR scripts into tools/re) and test_objmatch.FuncletBeyond's failure on fresh
+  objects; (7) Set_Corners 0x44C900 with the PxBoxVector lead; (8) 0x719670 (postate ids); (9) the provisional names above;
+  (10) the queue's next finishing rows (ui_combobox, gd_buffgadg, ...).
+
 ### 2026-11-17 (17:30 PST, evening; run 2026-11-17b, week plan session 1, the map): the week's queue (718 rows, 134 stale found), the unattributed bytes split (alignment fill 9.1 % of .text, now charged on the card: unattributed 11.74 % -> 3.73 %), crediting by client vtables (CK2V, VX, WA / EN), gap rules (EX), the flat hash_map form at 18 sites (CD, FL), new file unknown_65a020.cpp; +356 pairs over the run's baseline, 0 lost outright except 0x48CF90 (D246 valve)
 
 - **Session** Opus coordinator, unattended (D261), launcher start 12:15. How it started: clean (session 0's handoff; #210 merged
@@ -3548,7 +3601,7 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 | D24 | 2026-10-24 | App classes the client doesn't name get Westwood `XxxClass` names (`BitSetClass`) | user; conventions.md §1 |
 | D25 | 2026-10-24 | App asserts sit on their real `__LINE__` through the file layout (blank lines, comments) in tree files; `#line` only in drafts | user |
 | D26 | 2026-10-24 | merged into D14 (2026-10-27) | user; done e278d81, d2955f0 |
-| D27 | 2026-10-24 | Verified function starts (decoded call targets) are the default for every tool | user; done 5d7079f |
+| D27 | 2026-10-24 | Verified function starts (decoded call targets) are the default for every tool; since run 2026-11-17c (D267) also the start after a `jmp rel32` plus padding and the CRT-registered starts (.CRT$XCU entries, atexit targets), with a jump-table guard (clientimage USE_JMP_PAD_STARTS / USE_CRT_REGISTERED_STARTS) | user; done 5d7079f |
 | D28 | 2026-10-24 | Keep ww3d.h's unused Renegade `MinStaticSortLevel`/`MaxStaticSortLevel` declarations (noise compensation for meshmatdesc after 694a02b, not evidence); revisit when the noise is understood | user; kept 2026-10-25 (evening): the noise is operand-order tie-breaking (builder C), D18 likewise; closed 2026-10-27 (D110): the noise is understood (operand-order tie-breaking, 2026-10-25); kept as is, no revisit |
 | D29 | 2026-10-24 | Keep 8f5cbfe's protected `D3DTexture` (needed by 5534f64, which writes it as 0x94B660 does); patch reasons reworded. Its comment (D35, merged 2026-10-27) cites 0x94B660 (5534f64), not `Apply` 0x94BC80 | user; done a1cbc31 |
 | D30 | 2026-10-24 | Build VMs come from a pool of differencing clones of a base VHDX (`vc6_config`), no warm sync cache (each leasee syncs its tree), cap set by host memory (`pool.py create --max`, default 7; one VM per 2 GB free above a 3 GB floor); the old fixed clones are retired (amended 2026-10-27, D110) | user; done b156da0, 4b1f45b; clones retired 2026-10-24 ([toolchain.md](toolchain.md) §1.3) |
@@ -3788,6 +3841,7 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 | D264 | 2026-11-17 | The user: STL libraries that might fit may be downloaded from public GitHub repositories (into `C:\EnBDevelopment\SDK\stl-candidates\`, recorded in its SOURCES.md, read as untrusted data); a swap into the tree is reported to the user first. Session 1's measure: no swap (SGI 3.0 / 3.2x, STLport 4.5.3) | user |
 | D265 | 2026-11-17 | The user (run 2026-11-17b): the progress card charges each inter-function alignment fill run (0xCC / 0x90 / 0x00 from a function's end to the next 16-aligned D27 verified start; zero runs guarded by .reloc; linker regions stay linker) to the state of the function before it, from 2026-11-17 on (docs/data/fill-runs.tsv, `progress.py --fill-table`); history rows before keep the old accounting | user |
 | D266 | 2026-11-17 | Crediting from client tables and gaps (run 2026-11-17b): a client vtable placed by a vptr store, a located constructor's ??_7 relocations or its own known slots gives its slots' virtuals an address (CK2V); a candidate whose vptr store holds another class's client table is rejected and D54 compares vtable references (VX); short / tied own functions take a gap's edge or the first aligned start after padding between exact neighbours, one symbol per address (EX); a COMDAT tied in the gap between two objects goes to the one holding it (CR3); an exact copy is not credited where D88's self names place its symbol elsewhere (WA). Evidence: client.exe's tables, verified starts, bytes and link order | coordinator (D246) |
+| D267 | 2026-11-18 | Crediting from the client's own targets, data and CRT table (run 2026-11-17c): a short or tied function is credited where the names of the client's call / jump targets and absolute references agree with its relocations (CR1 USE_CR1_NAMED_TARGETS); a gap whose short / tied own functions tile the client bytes exactly is credited in object order, and the order rules run again late (CR2 TILING / LATE_ORDER); tied functions are assigned so every data symbol they reference gets one address (CR2 DATA_AGREE; no anchorless group but a closed set of one object's externals); the .CRT$XCU entries and atexit targets are starts for the order rules and the D27 set, globals placed by exact functions go out as `data:` names, and a short `$E` initialiser is credited at the table entry where a global it writes sits at its known address, or at the one entry in its object's window where it fullmatches (CR2 XCU_*, CR4 XCU_SPARSE with a cross-object guard); a tie whose every byte-identical copy is held is credited as a D193 fold at the one same-shape copy the symbol's own object reaches by calls, funclets or its stored vtable's slot (CR5 FOLD_*). Each rule checked by hand on every new credit under 30 (samples otherwise) with no false pair; D27 widened (SX). | coordinator (D246) |
 
 ## 3. Open decisions
 
@@ -4256,6 +4310,8 @@ below name only the work items, the blocked work, the leads and the queues.
    * **0x4DD240 AttribDirCollective::MemberStruct:** lever: Add_Member 0x4DC720's inline budget.
    * **wlib 0x8B6FE0** is a second byte-identical Wstring::get and needs its own symbol.
    * **px.cpp Set_Corners 0x44C900 (parked):** inline budget: the client calls `vector::insert(it, x)` 0x44D370 out of line; lead: a member of PxBoxVector (provisional name, NAME 2; PxProcessStack likewise) doing the lower_bound and the insert.
+   * **Static initialisers left after XA:** unknown_memregistry's `Servers` sits in a local holder class (interim, D137): make it a static member of MemoryConnectionFactoryClass at memconn.h's next pad retune (memconn.h reaches sclient); connect.cpp's Network_INI 0x820F60 (Get_Network_INI's assert reads the name unqualified); shiputils' `_MetalDatabase` 0x80E870 / 0x80E8A0 (too short to credit while 0x80E8C0 is a prefix match); crediting-only: g_assert's atexit 0x4E94D0, co.cpp's basset.ini local static atexit 0x6F5830, item_effect's array atexit 0x8352F0, the ui_refinery / ui_registration flag initialisers (byte-identical copies). Provisional names: DbgStepDeque, MemoryServerRegistryClass, event.cpp's two `{"", "", -1}` statics, ui_manu's Unknown_Filter_Seconds.
+   * **Ties after CR5 (fresh objects, `.work/hm/check_fresh.log`):** delta_money's KVPairTemplateClass<MoneyClass>::Get_Value_String 0x4A7630 (order residue; strconv_lib.h's by-value declaration moves 6 aux_roots pairs: with the aux_roots.h split); CR5's 34 "cands=0" ties, a different class. Use verify objects for any tie analysis, never main-tree build/app/obj.
    * **App CRT / atexit initialisers still not exact (353 starts, one list per start in `.work/xi/list.tsv`):** 115 `<string>` guard copies (D196 / D197 range question), 82 PermStringInit pairs, 76 Delta per-class numbering (71 template ones blocked: every aux_roots.h includer numbers ~30 types where the client's objects number 1-6; lead: the aux_roots.h split below, which unblocks those and most of the 82), 14 guarded atexit stubs, 49 other. The Delta numbering (work item): split aux_roots.h by root class (lego, group, skill / RPG, manufacturing, ...), each client object including only its family's header, aux_roots.h still including them in today's order (pads); in the same landing DeltaTemplateClass's constructor in-class (keeping the asserts on lines 91 and 110), DeltaTemplateClass<DurationClass> a whole-class specialisation like delta_money.h's for Money, and `= DeltaUnknownCounter++` on the three templates' static definitions (counter 0xBE3B44). The client's aux_roots.obj has no parse-time initialiser: aux_roots.cpp must not compile the inline root constructors with those types. A trial of the in-class ctor + counters alone gave +7 / -44 outright (Duration ctor 0x4A8150 inlined; every aux_roots.h includer's initialisers). Client families: `.work/dt/cset.log`; land.obj's empty ctype id `ret` 0x46C710 has no guarded initialiser.
    * **Crediting leads:** UIScanClass::Unknown_Watch_0C 0x5BBB00 may be inherited from UIMFDClass; 14 ties whose caller reaches a copy outside the symbol's hits (hash_map<string, ...> ctors, Create_Peek, ~GalaxyMapRequestPacketClass).
 2. **Step 9 (D90)**, left in its files (history: the log entries of 2026-10-28 and 2026-10-29):

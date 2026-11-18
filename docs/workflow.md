@@ -855,6 +855,7 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
   against 121 bytes, 2026-11-16, QA / QB): when the client's size is the larger, declare `virtual ~X() {}`
   before judging the rest.
 * **A static whose `$E` calls its constructor out of line, with an atexit stub `mov ecx, X; jmp dtor`:** its type is a class over the container, not a bare `vector` (VC6 keeps a class's implicit ctor / dtor out of the `$E` and its stub). A no-argument ctor copying a local allocator byte is that class's implicit constructor; a ctor called with an allocator temporary built in the `$E` is a user ctor with the allocator as a default argument. An unguarded stub means a file static or global, a guarded one a class static member. `inline_depth` / `auto_inline` pragmas cannot reproduce this form.
+* **A scalar the client initialises at run time with a constant** (a `$E` storing `__int64 5`): constant forms (`5.0`, `__int64(5)`) stay static data; only a call, e.g. an inline helper returning the value, gives the run-time initialiser.
 * **EH states and callee visibility:** a `new` loses its EH state when the same-file ctor can't throw: define
   that ctor after its caller; a state store before an out-of-line call means the callee's body isn't visible
   in the client's TU (a full specialisation with out-of-line members, delta_money.h); a body the client
