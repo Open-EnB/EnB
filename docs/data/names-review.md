@@ -23543,13 +23543,13 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_44B070` | `app/shared/dynamic_obj.h:82` | untagged neutral name (D10) |
 | 1 | `low, high` | `app/shared/dynamic_obj.h:84` | PxWrapper 0x456900's FAIL_IFs |
 | 1 | `Unknown04` | `app/shared/dynamic_obj.h:86` | untagged neutral name (D10) |
-| 1 | `Unknown_48E9D0, robj` | `app/shared/enbassetmgr.cpp:28` | neutral (D10) |
-| 1 | `Unknown_48E9D0` | `app/shared/enbassetmgr.cpp:28` | untagged neutral name (D10) |
-| 1 | `Unknown_48E620, robj` | `app/shared/enbassetmgr.cpp:29` | neutral (D10) |
-| 1 | `Unknown_48E620` | `app/shared/enbassetmgr.cpp:29` | untagged neutral name (D10) |
-| 1 | `Unknown_48CF90` | `app/shared/enbassetmgr.cpp:298` | untagged neutral name (D10) |
-| 1 | `Unknown_48CAF0` | `app/shared/enbassetmgr.cpp:366` | untagged neutral name (D10) |
-| 1 | `Unknown_48ECA0` | `app/shared/enbassetmgr.cpp:644` | untagged neutral name (D10) |
+| 1 | `Unknown_48E9D0, robj` | `app/shared/enbassetmgr.cpp:29` | neutral (D10) |
+| 1 | `Unknown_48E9D0` | `app/shared/enbassetmgr.cpp:29` | untagged neutral name (D10) |
+| 1 | `Unknown_48E620, robj` | `app/shared/enbassetmgr.cpp:30` | neutral (D10) |
+| 1 | `Unknown_48E620` | `app/shared/enbassetmgr.cpp:30` | untagged neutral name (D10) |
+| 1 | `Unknown_48CF90` | `app/shared/enbassetmgr.cpp:299` | untagged neutral name (D10) |
+| 1 | `Unknown_48CAF0` | `app/shared/enbassetmgr.cpp:367` | untagged neutral name (D10) |
+| 1 | `Unknown_48ECA0` | `app/shared/enbassetmgr.cpp:661` | untagged neutral name (D10) |
 | 1 | `Unknown_78` | `app/shared/enbassetmgr.h:28` | compatibility alias for Create_Render_Obj |
 | 1 | `name, mip` | `app/shared/enbassetmgr.h:37` | what it passes on |
 | 1 | `Unknown_48CF90, name, hsv` | `app/shared/enbassetmgr.h:38` | neutral (D10) |
@@ -32029,8 +32029,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `DurationTemplateClass` | `app/shared/duration.h:25` | by convention (D24) from the client's file duration.h (D37) |
 | 3 | `DurationClass` | `app/shared/duration.h:206` | by convention (D24) from the client's file duration.h (D37) |
 | 3 | `AABoxClass` | `app/shared/dynamic_obj.h:87` | 6 dwords returned by value; type a guess |
-| 3 | `Recolor_Sphere` | `app/shared/enbassetmgr.cpp:476` | EA hueshift style for CLASSID_SPHERE |
-| 3 | `Recolor_Ring` | `app/shared/enbassetmgr.cpp:504` | EA hueshift style for CLASSID_RING |
+| 3 | `Recolor_Sphere` | `app/shared/enbassetmgr.cpp:477` | EA hueshift style for CLASSID_SPHERE |
+| 3 | `Recolor_Ring` | `app/shared/enbassetmgr.cpp:505` | EA hueshift style for CLASSID_RING |
 | 3 | `Post_Process` | `app/shared/enbassetmgr.h:30` | its profile string |
 | 3 | `Recolor_Sphere` | `app/shared/enbassetmgr.h:43` | EA hueshift style for CLASSID_SPHERE |
 | 3 | `Recolor_Ring` | `app/shared/enbassetmgr.h:44` | EA hueshift style for CLASSID_RING |
