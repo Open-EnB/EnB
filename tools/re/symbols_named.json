@@ -663,9 +663,9 @@
  },
  {
   "address": "0x67EF80",
-  "symbol": "??_EFontSys@@UAEPAXI@Z",
-  "evidence": "FontSys's vtable 0xAFBF28 (the vtable's proof, as before); the class is the client's FontSys: Get_Name 0x67EF20 returns \"FontSys\", the profile label 'FontSys::Change_Text' 0x6CDBC0 (renamed from FontStyleClass, 2026-11-03)",
-  "replaces": "??_EFontStyleClass@@UAEPAXI@Z"
+  "symbol": "??_GChatFontSys@@UAEPAXI@Z",
+  "evidence": "slot 1 of ChatFontSys's vtable 0xAFBF28 (through the thunk 0x4159F6); calls the destructor 0x67EFB0; FontSys's own ??_G is 0x6D4C40, slot 1 of FontSys's vtable 0xAFECB4 (SN, 2026-11-17)",
+  "replaces": "??_GFontSys@@UAEPAXI@Z"
  },
  {
   "address": "0x6D5920",
@@ -2144,8 +2144,9 @@
  },
  {
   "address": "0x6A29C0",
-  "symbol": "??1?$RefCountPtr@VSBaseViewUnknown198Class@@@@QAE@XZ",
-  "evidence": "SBaseViewClass::SBaseViewClass 0x69AD30 (also 0x69B0C0, 0x69F8F0) (sbaseview.cpp): unwind funclet 0xAC04F8 'mov ecx, dword ptr [ebp - 0x10]; add ecx, 0x198; jmp' reaches it, the same state's funclet in the object jumps to this symbol, and its body matches at 0x6A29C0 (funclet-only callers, objmatch's tie-break never proposes it); FD 2026-11-15"
+  "symbol": "??1?$RefCountPtr@VUnknown65A020Class@@@@QAE@XZ",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the named name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "??1?$RefCountPtr@VSBaseViewUnknown198Class@@@@QAE@XZ"
  },
  {
   "address": "0x6A2A30",
@@ -2619,8 +2620,9 @@
  },
  {
   "address": "0x7148F0",
-  "symbol": "??1Unknown98Class@@UAE@XZ",
-  "evidence": "UnknownB026ECClass::UnknownB026ECClass 0x714870 (also 0x714940, 0x714B50, 0x715670, 0x715BA0, 0x715DE0, 0x716000, 0x717140, 0x718000, 0x718160, 0x718510, 0x7187A0, 0x7192A0) (postate.cpp): unwind funclet 0xAC8030 'mov ecx, dword ptr [ebp - 0x10]; jmp' reaches it, the same state's funclet in the object jumps to this symbol, and its body matches at 0x7148F0 (funclet-only callers, objmatch's tie-break never proposes it; short: no pair until D188 takes funclet evidence); FD 2026-11-15"
+  "symbol": "??1PositionalStateClass@@UAE@XZ",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the named name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "??1Unknown98Class@@UAE@XZ"
  },
  {
   "address": "0x44B7B0",
@@ -3533,5 +3535,1473 @@
   "symbol": "?Set_Sample_Playback_Rate@Listener3DClass@@MAEXJ@Z",
   "evidence": "Listener3DClass vtable 0xB163D0 slot 121 (0xB165B4); body `ret 4` is this declaration's, with the one-argument Set_Velocity first (slot 107) as in Renegade's Listener.h; the earlier names put it last and shifted every slot by one (INST, run 2026-11-17c)",
   "replaces": "?Set_Velocity@Listener3DClass@@MAEXABVVector3@@@Z"
+ },
+ {
+  "address": "0x7E01B0",
+  "symbol": "?Slot3@Sub14CImplClass@@UAE?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@PBDH0@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the vtable name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Slot3@Sub14CImplClass@@UAEXXZ"
+ },
+ {
+  "address": "0x7E0960",
+  "symbol": "?Slot4@Sub14CImplClass@@UAEHPBDH0@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the vtable name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Slot4@Sub14CImplClass@@UAEXXZ"
+ },
+ {
+  "address": "0x7E09F0",
+  "symbol": "?Slot5@Sub14CImplClass@@UAEMPBDH0@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the vtable name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Slot5@Sub14CImplClass@@UAEXXZ"
+ },
+ {
+  "address": "0x7E0A80",
+  "symbol": "?Slot6@Sub14CImplClass@@UAEHPBD@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the vtable name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Slot6@Sub14CImplClass@@UAEXXZ"
+ },
+ {
+  "address": "0x7E0BC0",
+  "symbol": "?Slot7@Sub14CImplClass@@UAE?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@PBD0H0@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the vtable name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Slot7@Sub14CImplClass@@UAEXXZ"
+ },
+ {
+  "address": "0x7E1200",
+  "symbol": "?Slot8@Sub14CImplClass@@UAEHPBD0H0@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the vtable name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Slot8@Sub14CImplClass@@UAEXXZ"
+ },
+ {
+  "address": "0x7E1290",
+  "symbol": "?Slot13@Sub14CImplClass@@UAE_NPAVSubsRequestClass@@H@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the vtable name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Slot13@Sub14CImplClass@@UAEXXZ"
+ },
+ {
+  "address": "0x7E15B0",
+  "symbol": "?Slot16@Sub14CImplClass@@UAE?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@XZ",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the vtable name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Slot16@Sub14CImplClass@@UAEXXZ"
+ },
+ {
+  "address": "0x7E1940",
+  "symbol": "?Slot9@Sub14CImplClass@@UAEHXZ",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the vtable name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Slot9@Sub14CImplClass@@UAEXXZ"
+ },
+ {
+  "address": "0x45D9E0",
+  "symbol": "??0Unknown45D9E0Class@@QAE@PAVRsTrackClass@@PAVProjectionDefClass@@PAVProjectorManagerClass@@@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "??0Unknown45D9E0Class@@QAE@PAVRsTrackClass@@HH@Z"
+ },
+ {
+  "address": "0x462470",
+  "symbol": "?Unknown_462470@RsTrackClass@@QAEXPAVProjectionDefClass@@PAVProjectorManagerClass@@@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Unknown_462470@RsTrackClass@@QAEXHH@Z"
+ },
+ {
+  "address": "0x532BA0",
+  "symbol": "??0UIItemExaminationAttributesClass@@QAE@PAVGadgetCollectionInterface@@@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "??0UIItemExaminationAttributesClass@@QAE@PAVUIDynamicWindowUnknown84Class@@@Z"
+ },
+ {
+  "address": "0x5352D0",
+  "symbol": "??0UIItemExaminationOptionsClass@@QAE@PAVGadgetCollectionInterface@@@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "??0UIItemExaminationOptionsClass@@QAE@PAVUIDynamicWindowUnknown84Class@@@Z"
+ },
+ {
+  "address": "0x537AD0",
+  "symbol": "??0UIItemExaminationSpecialsClass@@QAE@PAVGadgetCollectionInterface@@@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "??0UIItemExaminationSpecialsClass@@QAE@PAVUIDynamicWindowUnknown84Class@@@Z"
+ },
+ {
+  "address": "0x53A0A0",
+  "symbol": "?Set_Name@UIItemExaminationTitleClass@@QAEXABVClientItemPropertyNameClass@@@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Set_Name@UIItemExaminationTitleClass@@QAEXABVUIItemExaminationTitleNameClass@@@Z"
+ },
+ {
+  "address": "0x53A2C0",
+  "symbol": "?Set_Icon@UIItemExaminationTitleClass@@QAEXABVClientItemPropertyIconClass@@@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Set_Icon@UIItemExaminationTitleClass@@QAEXABUUIItemExaminationTitleIconStruct@@@Z"
+ },
+ {
+  "address": "0x54EDA0",
+  "symbol": "?Get_Starbase@SBaseViewClass@@QAE?AV?$RefCountPtr@VUnknown5BB320Class@@@@XZ",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Get_Starbase@SBaseViewClass@@QAE?AV?$RefCountPtr@VUIStarbaseClass@@@@XZ"
+ },
+ {
+  "address": "0x551D40",
+  "symbol": "??0?$RefCountPtr@VRefCountClass@@@@QAE@ABV?$RefCountPtr@VCharacterViewAvatarClass@@@@@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "??0?$RefCountPtr@VRefCountClass@@@@QAE@ABV?$RefCountPtr@VUIAvatarCustAvatarClass@@@@@Z"
+ },
+ {
+  "address": "0x564F50",
+  "symbol": "?Unknown_564F50@ChatPanelInterface@@QAE_NXZ",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Unknown_564F50@ChatPanelInterface@@QAEXXZ"
+ },
+ {
+  "address": "0x56CCB0",
+  "symbol": "?Create_Get@@YA?AV?$RefCountPtr@VChatPanelUIBase@@@@PAVChatPanelUIBase@@@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Create_Get@@YA?AV?$RefCountPtr@VUIChatPanelWindowClass@@@@PAVUIChatPanelWindowClass@@@Z"
+ },
+ {
+  "address": "0x56F420",
+  "symbol": "??0ChatWindowInterface@@QAE@PAVSClient@@PAVUnknown67D430Class@@PAVChatGadgetClass@@@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "??0ChatWindowInterface@@QAE@PAVSClient@@PAVUnknown67D430Class@@PAVUnknown65BFD0Class@@@Z"
+ },
+ {
+  "address": "0x570F20",
+  "symbol": "?Unknown_570F20@ChatWindowInterface@@QAEPAVChatGadgetClass@@XZ",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Unknown_570F20@ChatWindowInterface@@QAEPAVUnknown65BFD0Class@@XZ"
+ },
+ {
+  "address": "0x571F00",
+  "symbol": "??0UIChatWindowSplitClass@@QAE@PAVSClient@@PAVUnknown67D430Class@@PAVChatGadgetClass@@H@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "??0UIChatWindowSplitClass@@QAE@PAVSClient@@PAVUnknown67D430Class@@PAVUnknown65BFD0Class@@H@Z"
+ },
+ {
+  "address": "0x58E950",
+  "symbol": "?Create_NEW@@YA?AV?$RefCountPtr@VUIFactionPanelClass@@@@PAVUIFactionPanelClass@@@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Create_NEW@@YA?AV?$RefCountPtr@VUnknown58EB50Class@@@@PAVUnknown58EB50Class@@@Z"
+ },
+ {
+  "address": "0x5B6410",
+  "symbol": "?Unknown_5B6410@UIManuClass@@QAEPAVCheckBoxGadgetClass@@HPBDH_N@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Unknown_5B6410@UIManuClass@@QAEPAVUIManuCheckButtonClass@@HPBDH_N@Z"
+ },
+ {
+  "address": "0x5B6680",
+  "symbol": "?Unknown_2C@UIManuTechLevelButtonClass@@UAE_NPAUKernelEventClass@@MMI@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Unknown_2C@UIManuTechLevelButtonClass@@UAE_NHHHH@Z"
+ },
+ {
+  "address": "0x5B6720",
+  "symbol": "?Unknown_2C@UIManuAllLevelsButtonClass@@UAE_NPAUKernelEventClass@@MMI@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Unknown_2C@UIManuAllLevelsButtonClass@@UAE_NHHHH@Z"
+ },
+ {
+  "address": "0x5B8DF0",
+  "symbol": "?Unknown_5B8DF0@UIMeshClass@@QAEXHPBD_N11HH@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Unknown_5B8DF0@UIMeshClass@@QAEXHPBD_NHHHH@Z"
+ },
+ {
+  "address": "0x5DCD20",
+  "symbol": "??0UIProc5DCD20Class@@QAE@PAVUIMeshClass@@PBD_N22HH@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "??0UIProc5DCD20Class@@QAE@PAVUIMeshClass@@PBD_NHHHH@Z"
+ },
+ {
+  "address": "0x5DCF00",
+  "symbol": "??0UIProc5DCD20Class@@QAE@PAVUIMeshClass@@PAVHAnimClass@@_N22HH@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "??0UIProc5DCD20Class@@QAE@PAVUIMeshClass@@PAVHAnimClass@@_NHHHH@Z"
+ },
+ {
+  "address": "0x5F2A80",
+  "symbol": "?Unknown_5F2A80@RegistrationInterface@@QAEX_NPAVUIComboBoxClass@@@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Unknown_5F2A80@RegistrationInterface@@QAEXHPAVUIComboBoxClass@@@Z"
+ },
+ {
+  "address": "0x5F33E0",
+  "symbol": "?Unknown_5F33E0@RegistrationInterface@@QAEHG@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Unknown_5F33E0@RegistrationInterface@@QAEPAVRenderObjClass@@G@Z"
+ },
+ {
+  "address": "0x605900",
+  "symbol": "?erase@?$vector@JV?$allocator@J@std@@@std@@QAEPAJPAJ@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?erase@?$vector@HV?$allocator@H@std@@@std@@QAEPAHPAH@Z"
+ },
+ {
+  "address": "0x607D00",
+  "symbol": "?insert@?$vector@JV?$allocator@J@std@@@std@@QAEXPAJIABJ@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?insert@?$vector@HV?$allocator@H@std@@@std@@QAEXPAHIABH@Z"
+ },
+ {
+  "address": "0x610040",
+  "symbol": "?Remove@SignalMap@@QAEXPAVClientObjectClass@@PAVUIScanClass@@P83@AEXPAVPlayerObjectRelationshipChangeEvent@@0@ZABV4@@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?disconnect@SignalMap@@QAEXPAVClientObjectClass@@PAVUIScanClass@@P83@AEXPAVPlayerObjectRelationshipChangeEvent@@0@ZABV4@@Z"
+ },
+ {
+  "address": "0x612510",
+  "symbol": "?Unknown_00@UIScutBarClass@@UAEXPAVSubjectClass@@PAX@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Unknown_00@UIScutBarClass@@UAEXPAXPAH@Z"
+ },
+ {
+  "address": "0x614360",
+  "symbol": "?Create_Shortcut@UIScutGadgetsClass@@QAEPAVRObjGadgetClass@@HPAVUIScutProxyGadgetClass@@@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Create_Shortcut@UIScutGadgetsClass@@QAEPAVRObjGadgetClass@@HPAVUnknown66CB20Class@@@Z"
+ },
+ {
+  "address": "0x668860",
+  "symbol": "??0DynamicWindowGadgetClass@@QAE@ABV?$RefCountPtr@VDynamicWindowRenderObjectClass@@@@II_N@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "??0DynamicWindowGadgetClass@@QAE@ABV?$RefCountPtr@VDynamicWindowClass@@@@II_N@Z"
+ },
+ {
+  "address": "0x6689C0",
+  "symbol": "??0DynamicWindowGadgetClass@@QAE@PAVDynamicWindowRenderObjectClass@@II_N@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "??0DynamicWindowGadgetClass@@QAE@PAVDynamicWindowClass@@II_N@Z"
+ },
+ {
+  "address": "0x668BE0",
+  "symbol": "?Set_Dynamic_Object@DynamicWindowGadgetClass@@QAEXABV?$RefCountPtr@VDynamicWindowRenderObjectClass@@@@@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Set_Dynamic_Object@DynamicWindowGadgetClass@@QAEXABV?$RefCountPtr@VDynamicWindowClass@@@@@Z"
+ },
+ {
+  "address": "0x694AA0",
+  "symbol": "?Unknown_694AA0@ChatPanelInterface@@QAE?AV?$RefCountPtr@VChatPanelUIBase@@@@XZ",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Unknown_694AA0@ChatPanelInterface@@QAE?AV?$RefCountPtr@VUIChatPanelWindowClass@@@@XZ"
+ },
+ {
+  "address": "0x695630",
+  "symbol": "?Unknown_695630@PDAInterfaceClass@@QAE?AV?$RefCountPtr@VUIInvClass@@@@XZ",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Unknown_695630@PDAInterfaceClass@@QAE?AV?$RefCountPtr@VUnknown5CF9B0Class@@@@XZ"
+ },
+ {
+  "address": "0x695680",
+  "symbol": "?Unknown_695680@PDAInterfaceClass@@QAE?AV?$RefCountPtr@VUIInvClass@@@@XZ",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Unknown_695680@PDAInterfaceClass@@QAE?AV?$RefCountPtr@VUnknown5CF9B0Class@@@@XZ"
+ },
+ {
+  "address": "0x696030",
+  "symbol": "?Create_NEW@@YA?AV?$RefCountPtr@VUIPdaEquipClass@@@@PAVUIPdaEquipClass@@@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Create_NEW@@YA?AV?$RefCountPtr@VUnknown5D10C0Class@@@@PAVUnknown5D10C0Class@@@Z"
+ },
+ {
+  "address": "0x6960A0",
+  "symbol": "?Create_NEW@@YA?AV?$RefCountPtr@VUIPdaCargoClass@@@@PAVUIPdaCargoClass@@@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Create_NEW@@YA?AV?$RefCountPtr@VUnknown5CF9B0Class@@@@PAVUnknown5CF9B0Class@@@Z"
+ },
+ {
+  "address": "0x696110",
+  "symbol": "?Create_NEW@@YA?AV?$RefCountPtr@VUIVaultClass@@@@PAVUIVaultClass@@@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Create_NEW@@YA?AV?$RefCountPtr@VUnknown656FF0Class@@@@PAVUnknown656FF0Class@@@Z"
+ },
+ {
+  "address": "0x6AB190",
+  "symbol": "?Unknown_6AB190@TextGadgetClass@@SAPADPADMAAV?$RefCountPtr@VFont32Class@@@@AAH@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Unknown_6AB190@TextGadgetClass@@SAPADPADMAAPAVFont32Class@@AAH@Z"
+ },
+ {
+  "address": "0x6CF520",
+  "symbol": "??0ManagedFontClass@@QAE@PBDPAVRenderObjClass@@@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "??0ManagedFontClass@@QAE@PBDH@Z"
+ },
+ {
+  "address": "0x6CF930",
+  "symbol": "?Unknown_6CF930@ManagedFontClass@@QAEXPAUFontStringStruct@@PAVRenderObjClass@@@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Unknown_6CF930@ManagedFontClass@@QAEXPAUFontStringStruct@@H@Z"
+ },
+ {
+  "address": "0x6D1FD0",
+  "symbol": "?Create@FontManagerClass@@QAEPAVManagedFontClass@@PBDPAVRenderObjClass@@@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Create@FontManagerClass@@QAEPAVManagedFontClass@@PBDH@Z"
+ },
+ {
+  "address": "0x719D50",
+  "symbol": "?Create@ControlKeysManager@@SA_NPAVSClient@@@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Create@ControlKeysManager@@SA_NPAVControlKeysSClientClass@@@Z"
+ },
+ {
+  "address": "0x719E10",
+  "symbol": "?Destroy@ControlKeysManager@@SA_NPAVSClient@@@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Destroy@ControlKeysManager@@SA_NPAVControlKeysSClientClass@@@Z"
+ },
+ {
+  "address": "0x719E80",
+  "symbol": "?Get@ControlKeysManager@@SAPAV1@PAVSClient@@@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Get@ControlKeysManager@@SAPAV1@PAVControlKeysSClientClass@@@Z"
+ },
+ {
+  "address": "0x71A100",
+  "symbol": "?Get_Key_Id@ControlKeysManager@@SAHPAVSClient@@ABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@ABUControlKeyValueStruct@@@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Get_Key_Id@ControlKeysManager@@SAHPAVControlKeysSClientClass@@ABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@ABUControlKeyValueStruct@@@Z"
+ },
+ {
+  "address": "0x71A3F0",
+  "symbol": "?Init@ControlKeysManager@@QAEXPAVSClient@@@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Init@ControlKeysManager@@QAEXPAVControlKeysSClientClass@@@Z"
+ },
+ {
+  "address": "0x72E090",
+  "symbol": "?Create_NEW@@YA?AV?$RefCountPtr@VLegoClass@@@@PAVLegoClass@@@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Create_NEW@@YA?AV?$RefCountPtr@VClientLegoImplClass@@@@PAVClientLegoImplClass@@@Z"
+ },
+ {
+  "address": "0x739690",
+  "symbol": "?Get_UnknownF8@ChatPanelInterface@@QAE?AV?$RefCountPtr@VChatPanelUIBase@@@@XZ",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Get_UnknownF8@ChatPanelInterface@@QAE?AV?$RefCountPtr@VUIChatPanelUnknownF8Class@@@@XZ"
+ },
+ {
+  "address": "0x750B30",
+  "symbol": "?Unknown_750B30@SClient@@QAEXM@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Unknown_750B30@SClient@@QAEXH@Z"
+ },
+ {
+  "address": "0x76C2C0",
+  "symbol": "?Add_Movie@MovieTaskClass@@QAEXPBDK@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Add_Movie@MovieTaskClass@@QAEXPBDH@Z"
+ },
+ {
+  "address": "0x79F8E0",
+  "symbol": "?Get@?$DataBinderClass@PAVClientObjectClass@@@@QBEABQAVRadarDataClass@@ABQAVClientObjectClass@@ABU?$DataBinderType@VRadarDataClass@@@@@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Get@?$DataBinderClass@PAVClientObjectClass@@@@QAEABQAVRadarDataClass@@ABQAVClientObjectClass@@ABU?$DataBinderType@VRadarDataClass@@@@@Z"
+ },
+ {
+  "address": "0x79FC30",
+  "symbol": "?Get@?$DataBinderClass@PAVClientObjectClass@@@@QBEABQAVGutterDataClass@@ABQAVClientObjectClass@@ABU?$DataBinderType@VGutterDataClass@@@@@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Get@?$DataBinderClass@PAVClientObjectClass@@@@QAEABQAVGutterDataClass@@ABQAVClientObjectClass@@ABU?$DataBinderType@VGutterDataClass@@@@@Z"
+ },
+ {
+  "address": "0x79FF80",
+  "symbol": "?Get@?$DataBinderClass@PAVClientObjectClass@@@@QBEABQAVStarmapDataClass@@ABQAVClientObjectClass@@ABU?$DataBinderType@VStarmapDataClass@@@@@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Get@?$DataBinderClass@PAVClientObjectClass@@@@QAEABQAVStarmapDataClass@@ABQAVClientObjectClass@@ABU?$DataBinderType@VStarmapDataClass@@@@@Z"
+ },
+ {
+  "address": "0x7A02D0",
+  "symbol": "?Get@?$DataBinderClass@PAVClientObjectClass@@@@QBEABQAVNavigationDataClass@@ABQAVClientObjectClass@@ABU?$DataBinderType@VNavigationDataClass@@@@@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Get@?$DataBinderClass@PAVClientObjectClass@@@@QAEABQAVNavigationDataClass@@ABQAVClientObjectClass@@ABU?$DataBinderType@VNavigationDataClass@@@@@Z"
+ },
+ {
+  "address": "0x7A0620",
+  "symbol": "?Get@?$DataBinderClass@PAVClientObjectClass@@@@QBEABQAVEmoteDataClass@@ABQAVClientObjectClass@@ABU?$DataBinderType@VEmoteDataClass@@@@@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Get@?$DataBinderClass@PAVClientObjectClass@@@@QAEABQAVEmoteDataClass@@ABQAVClientObjectClass@@ABU?$DataBinderType@VEmoteDataClass@@@@@Z"
+ },
+ {
+  "address": "0x7AD070",
+  "symbol": "?Get_Line@GalaxyMapRenderLineClass@@QAEAAV?$RefCountPtr@VGalaxyMapLineRObjClass@@@@XZ",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Get_Line@GalaxyMapRenderLineClass@@QAEAAV?$RefCountPtr@VSegmentedLineClass@@@@XZ"
+ },
+ {
+  "address": "0x7B1540",
+  "symbol": "?fill@std@@YAXPAV?$RefCountPtr@VGalaxyMapRenderItemClass@@@@0ABV2@@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?fill@std@@YAXPAUGalaxyMapRenderUpdateStruct@@0ABU2@@Z"
+ },
+ {
+  "address": "0x7B1590",
+  "symbol": "?copy_backward@std@@YAPAV?$RefCountPtr@VGalaxyMapRenderItemClass@@@@PAV2@00@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?copy_backward@std@@YAPAUGalaxyMapRenderUpdateStruct@@PAU2@00@Z"
+ },
+ {
+  "address": "0x7B17E0",
+  "symbol": "?_Construct@std@@YAXPAV?$RefCountPtr@VGalaxyMapRenderItemClass@@@@ABV2@@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?_Construct@std@@YAXPAUGalaxyMapRenderUpdateStruct@@ABU2@@Z"
+ },
+ {
+  "address": "0x80B030",
+  "symbol": "?_Construct@std@@YAXPAPAVMeshSoundClass@@ABQAV2@@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?_Construct@std@@YAXPAPAVScriptedMovieSoundClass@@ABQAV2@@Z"
+ },
+ {
+  "address": "0x854FC0",
+  "symbol": "?buildMsgHeader@CordCon@@QAE_NPAEPAHHHIHH@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?buildMsgHeader@CordCon@@QAE_NPAEPAHHHIED@Z"
+ },
+ {
+  "address": "0x875060",
+  "symbol": "?Add_Attacker@PlayerObjectIsAttackingUpdatePacket@@QAEXK@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Add_Attacker@PlayerObjectIsAttackingUpdatePacket@@QAEXH@Z"
+ },
+ {
+  "address": "0x895300",
+  "symbol": "??0ItemBasePacketClass@@QAE@HHHHABV?$RefCountPtr@VItemInfoClass@@@@FFFHHIHABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@11H@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "??0ItemBasePacketClass@@QAE@HHHHABV?$RefCountPtr@VItemBaseInfoClass@@@@FFFHHIHABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@11H@Z"
+ },
+ {
+  "address": "0x899E90",
+  "symbol": "?fill@std@@YAXPAULoungeNPCRoomStruct@@0ABU2@@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?fill@std@@YAXPAULoungeNPCUnknown10Struct@@0ABU2@@Z"
+ },
+ {
+  "address": "0x899F00",
+  "symbol": "?copy_backward@std@@YAPAULoungeNPCRoomStruct@@PAU2@00@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?copy_backward@std@@YAPAULoungeNPCUnknown10Struct@@PAU2@00@Z"
+ },
+ {
+  "address": "0x899F80",
+  "symbol": "?fill@std@@YAXPAULoungeNPCNPCStruct@@0ABU2@@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?fill@std@@YAXPAULoungeNPCUnknown30Struct@@0ABU2@@Z"
+ },
+ {
+  "address": "0x89A110",
+  "symbol": "?copy_backward@std@@YAPAULoungeNPCNPCStruct@@PAU2@00@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?copy_backward@std@@YAPAULoungeNPCUnknown30Struct@@PAU2@00@Z"
+ },
+ {
+  "address": "0x89A2D0",
+  "symbol": "?_Construct@std@@YAXPAULoungeNPCRoomStruct@@ABU2@@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?_Construct@std@@YAXPAULoungeNPCUnknown10Struct@@ABU2@@Z"
+ },
+ {
+  "address": "0x89A320",
+  "symbol": "?_Construct@std@@YAXPAULoungeNPCFacilityStruct@@ABU2@@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?_Construct@std@@YAXPAULoungeNPCUnknown20Struct@@ABU2@@Z"
+ },
+ {
+  "address": "0x89A360",
+  "symbol": "?_Construct@std@@YAXPAULoungeNPCNPCStruct@@ABU2@@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?_Construct@std@@YAXPAULoungeNPCUnknown30Struct@@ABU2@@Z"
+ },
+ {
+  "address": "0x8DEE60",
+  "symbol": "??8@YAHABVMatrix4@@0@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "??8@YAHABVMatrix4x4@@0@Z"
+ },
+ {
+  "address": "0x8DEEC0",
+  "symbol": "??9@YAHABVMatrix4@@0@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "??9@YAHABVMatrix4x4@@0@Z"
+ },
+ {
+  "address": "0x909E60",
+  "symbol": "?Find_Sound_List@AnimatedSoundMgrClass@@CAPAUAnimSoundList@1@PAVHAnimClass@@@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Find_Sound_List@AnimatedSoundMgrClass@@CAPAV?$SimpleDynVecClass@UANIM_SOUND_INFO@AnimatedSoundMgrClass@@@@PAVHAnimClass@@@Z"
+ },
+ {
+  "address": "0x90D9F0",
+  "symbol": "??_GSpherePrototypeClass@@MAEPAXI@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "??_GSpherePrototypeClass@@UAEPAXI@Z"
+ },
+ {
+  "address": "0x90DEC0",
+  "symbol": "??1SpherePrototypeClass@@MAE@XZ",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "??1SpherePrototypeClass@@UAE@XZ"
+ },
+ {
+  "address": "0x912970",
+  "symbol": "??_GRingPrototypeClass@@MAEPAXI@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "??_GRingPrototypeClass@@UAEPAXI@Z"
+ },
+ {
+  "address": "0x912E10",
+  "symbol": "??1RingPrototypeClass@@MAE@XZ",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "??1RingPrototypeClass@@UAE@XZ"
+ },
+ {
+  "address": "0x9174F0",
+  "symbol": "??_GParticleEmitterPrototypeClass@@MAEPAXI@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "??_GParticleEmitterPrototypeClass@@UAEPAXI@Z"
+ },
+ {
+  "address": "0x925C50",
+  "symbol": "?_Create_DX8_Texture@DX8Wrapper@@SAPAUIDirect3DTexture8@@PBDW4MipCountType@@@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?_Create_DX8_Texture@DX8Wrapper@@SAPAUIDirect3DTexture8@@PBDW4MipCountType@TextureClass@@@Z"
+ },
+ {
+  "address": "0x925CC0",
+  "symbol": "?_Create_DX8_Texture@DX8Wrapper@@SAPAUIDirect3DTexture8@@PAUIDirect3DSurface8@@W4MipCountType@@@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?_Create_DX8_Texture@DX8Wrapper@@SAPAUIDirect3DTexture8@@PAUIDirect3DSurface8@@W4MipCountType@TextureClass@@@Z"
+ },
+ {
+  "address": "0x9B3210",
+  "symbol": "?Set_Mesh@AABTreeClass@@QAEXPAVMeshGeometryClass@@@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Set_Mesh@AABTreeClass@@AAEXPAVMeshGeometryClass@@@Z"
+ },
+ {
+  "address": "0x62D270",
+  "symbol": "?Unknown_88@UISkillsClass@@UAEPAVSlotDataClass@@XZ",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the vtable name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Unknown_88@Unknown62D1F0Class@@UAEXXZ"
+ },
+ {
+  "address": "0x62D360",
+  "symbol": "?Unknown_98@UISkillsClass@@UAE_NPAVSlotDataGadgetClass@@PAUKernelEventClass@@I@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the vtable name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Unknown_98@Unknown62D1F0Class@@UAEXXZ"
+ },
+ {
+  "address": "0x62D540",
+  "symbol": "?Unknown_A0@UISkillsClass@@UAE_NPAVSlotDataGadgetClass@@@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the vtable name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Unknown_A0@Unknown62D1F0Class@@UAEXXZ"
+ },
+ {
+  "address": "0x62D590",
+  "symbol": "?Unknown_A4@UISkillsClass@@UAEXAAV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@HH@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the vtable name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Unknown_A4@Unknown62D1F0Class@@UAEXXZ"
+ },
+ {
+  "address": "0x62D6A0",
+  "symbol": "?Unknown_AC@UISkillsClass@@UAEPAVSlotDataGadgetClass@@PAVRenderObjClass@@PBH@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the vtable name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Unknown_AC@Unknown62D1F0Class@@UAEPAVSlotDataGadgetClass@@PAVRenderObjClass@@PBH@Z"
+ },
+ {
+  "address": "0x62DC00",
+  "symbol": "?Unknown_9C@UISkillsClass@@UAE_NH_N@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the vtable name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Unknown_9C@Unknown62D1F0Class@@UAEXXZ"
+ },
+ {
+  "address": "0x62EB90",
+  "symbol": "?Unknown_B4@SlotDataInterface@@UAEXHH@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the vtable name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Unknown_B4@Unknown62D1F0Class@@UAEXXZ"
+ },
+ {
+  "address": "0x62EE10",
+  "symbol": "?Unknown_B8@SlotDataInterface@@UAEX_N@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the vtable name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Unknown_B8@Unknown62D1F0Class@@UAEXXZ"
+ },
+ {
+  "address": "0x62EEA0",
+  "symbol": "?Unknown_BC@SlotDataInterface@@UAEXXZ",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the vtable name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Unknown_BC@Unknown62D1F0Class@@UAEXXZ"
+ },
+ {
+  "address": "0x62F190",
+  "symbol": "?Unknown_C4@SlotDataInterface@@UAE_NPAVRenderObjClass@@PBDH@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the vtable name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Unknown_C4@Unknown62D1F0Class@@UAEXXZ"
+ },
+ {
+  "address": "0x62F260",
+  "symbol": "?Unknown_C0@SlotDataInterface@@UAE_NAAV?$RefCountPtr@VRenderObjClass@@@@PBDH@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the vtable name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Unknown_C0@Unknown62D1F0Class@@UAEXXZ"
+ },
+ {
+  "address": "0x62F300",
+  "symbol": "?Unknown_C8@SlotDataInterface@@UAEXXZ",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the vtable name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Unknown_C8@Unknown62D1F0Class@@UAEXXZ"
+ },
+ {
+  "address": "0x660DA0",
+  "symbol": "??_GRectangleGadgetClass@@UAEPAXI@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the vtable name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "??_EInterfaceDeactivationGadgetClass@@UAEPAXI@Z"
+ },
+ {
+  "address": "0x436AF0",
+  "symbol": "??1BridgeSoundManagerClass@@QAE@XZ",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "??1BridgeSoundManager@@QAE@XZ"
+ },
+ {
+  "address": "0x436B60",
+  "symbol": "?Reset@BridgeSoundManagerClass@@QAEXH@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Reset@BridgeSoundManager@@QAEXH@Z"
+ },
+ {
+  "address": "0x436BA0",
+  "symbol": "?Play_Sounds@BridgeSoundManagerClass@@QAEXHH@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Play_Sounds@BridgeSoundManager@@QAEXHH@Z"
+ },
+ {
+  "address": "0x46B2E0",
+  "symbol": "??1?$queue@VVector2i@@V?$deque@VVector2i@@V?$allocator@VVector2i@@@std@@@std@@@std@@QAE@XZ",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "??1?$deque@VVector2i@@V?$allocator@VVector2i@@@std@@@std@@QAE@XZ"
+ },
+ {
+  "address": "0x4CC6E0",
+  "symbol": "?Evaluate@?$ExprMathIntModuloClass@H@@UAEHPAV?$ExprMathContextClass@H@@@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Evaluate@ExprMathIntModuloClass@@UAEHPAV?$ExprMathContextClass@H@@@Z"
+ },
+ {
+  "address": "0x4CD980",
+  "symbol": "??_G?$ExprMathIntModuloClass@H@@UAEPAXI@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "??_GExprMathIntModuloClass@@UAEPAXI@Z"
+ },
+ {
+  "address": "0x4CDA60",
+  "symbol": "??1?$ExprMathIntModuloClass@H@@UAE@XZ",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "??1ExprMathIntModuloClass@@UAE@XZ"
+ },
+ {
+  "address": "0x53B310",
+  "symbol": "?Unknown_04@ObserverClass@@UAEXPAVSubjectClass@@@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Unknown_04@UnknownAEEA88Class@@UAEXPAV?$DynamicVectorClass@PAVUnknownAEEA88Class@@@@@Z"
+ },
+ {
+  "address": "0x541A50",
+  "symbol": "?Remove@SignalMap@@QAEXPAVControlKeysManager@@PAVInterfaceClass@@P83@AEXPAVKeysSavedEvent@@0@ZABV4@@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Remove@InterfaceSignalMapClass@@QAEXPAVControlKeysManager@@PAVInterfaceClass@@P83@AEXPAVKeysSavedEvent@@0@ZABV4@@Z"
+ },
+ {
+  "address": "0x5464B0",
+  "symbol": "??1?$RefCountPtr@V?$UIInvStripOfClass@VRenderObjClass@@@@@@QAE@XZ",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "??1?$RefCountPtr@VUIAnalyzeInvClass@@@@QAE@XZ"
+ },
+ {
+  "address": "0x551D20",
+  "symbol": "??C?$RefCountPtr@VCharacterViewAvatarClass@@@@QBEPAVCharacterViewAvatarClass@@XZ",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "??C?$RefCountPtr@VUIAvatarCustAvatarClass@@@@QBEPAVUIAvatarCustAvatarClass@@XZ"
+ },
+ {
+  "address": "0x56CE40",
+  "symbol": "?Remove@SignalMap@@QAEXPAVInterfaceClass@@PAVChatPanelInterface@@P83@AEXPAVOptionFontInterfaceEvent@@0@ZABV4@@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Remove@UnknownEventDispatcherClass@@QAEXPAVInterfaceClass@@PAVChatPanelInterface@@P83@AEXPAVOptionFontInterfaceEvent@@0@ZABV4@@Z"
+ },
+ {
+  "address": "0x56CEC0",
+  "symbol": "?Remove@SignalMap@@QAEXPAVChatWindowInterface@@PAVChatPanelInterface@@P83@AEXPAVChatWindowInterfaceEvent@@0@ZABV4@@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Remove@UnknownEventDispatcherClass@@QAEXPAVChatWindowInterface@@PAVChatPanelInterface@@P83@AEXPAVChatWindowInterfaceEvent@@0@ZABV4@@Z"
+ },
+ {
+  "address": "0x584CB0",
+  "symbol": "??1?$RefCountPtr@VUIAvatarDialogClass@@@@QAE@XZ",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "??1?$RefCountPtr@VUICpitUnknownE0Class@@@@QAE@XZ"
+ },
+ {
+  "address": "0x58E980",
+  "symbol": "??1?$RefCountPtr@VUIFactionPanelClass@@@@QAE@XZ",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "??1?$RefCountPtr@VUnknown58EB50Class@@@@QAE@XZ"
+ },
+ {
+  "address": "0x604150",
+  "symbol": "??1?$_com_ptr_t@V?$_com_IIID@UIXMLDOMDocument@MSXML@@$1?_GUID_2933bf81_7b36_11d2_b20e_00c04f983e60@@3U__s_GUID@@A@@@@QAE@XZ",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "??1Sub14CUnknown10Ptr@@QAE@XZ"
+ },
+ {
+  "address": "0x6041C0",
+  "symbol": "??1?$vector@VStringClass@@V?$allocator@VStringClass@@@std@@@std@@QAE@XZ",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "??1?$vector@UGalaxyMapRenderUpdateStruct@@V?$allocator@UGalaxyMapRenderUpdateStruct@@@std@@@std@@QAE@XZ"
+ },
+ {
+  "address": "0x660D30",
+  "symbol": "??0RectangleGadgetClass@@QAE@HHHHH@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "??0InterfaceDeactivationGadgetClass@@QAE@HHHHH@Z"
+ },
+ {
+  "address": "0x660E40",
+  "symbol": "?Unknown_64@RectangleGadgetClass@@UAEXAAVAABoxClass@@@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Unknown_64@InterfaceDeactivationGadgetClass@@UAEXAAVAABoxClass@@@Z"
+ },
+ {
+  "address": "0x670E30",
+  "symbol": "??0SlotDataShortcutGadgetClass@@QAE@PAVSlotDataIFaceClass@@PAVSlotDataRenderClass@@PAVLayerClass@@@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "??0Unknown_670E30Class@@QAE@PAVSlotDataIFaceClass@@PAVSlotDataRenderClass@@PAVLayerClass@@@Z"
+ },
+ {
+  "address": "0x670F40",
+  "symbol": "??_GSlotDataShortcutGadgetClass@@UAEPAXI@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "??_GUnknown_670E30Class@@UAEPAXI@Z"
+ },
+ {
+  "address": "0x670F70",
+  "symbol": "??1SlotDataShortcutGadgetClass@@UAE@XZ",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "??1Unknown_670E30Class@@UAE@XZ"
+ },
+ {
+  "address": "0x671050",
+  "symbol": "?Unknown_04@SlotDataShortcutGadgetClass@@UAEXXZ",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Unknown_04@Unknown_670E30Class@@UAEXXZ"
+ },
+ {
+  "address": "0x671090",
+  "symbol": "?Unknown_7C@SlotDataShortcutGadgetClass@@UAEXH@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Unknown_7C@Unknown_670E30Class@@UAEXH@Z"
+ },
+ {
+  "address": "0x671110",
+  "symbol": "?Unknown_80@SlotDataShortcutGadgetClass@@UAEXH@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Unknown_80@Unknown_670E30Class@@UAEXH@Z"
+ },
+ {
+  "address": "0x671150",
+  "symbol": "?Unknown_84@SlotDataShortcutGadgetClass@@UAEXH@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Unknown_84@Unknown_670E30Class@@UAEXH@Z"
+ },
+ {
+  "address": "0x6F2FB0",
+  "symbol": "??_GPositionalStateClass@@UAEPAXI@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "??_GUnknown98Class@@UAEPAXI@Z"
+ },
+ {
+  "address": "0x740B20",
+  "symbol": "??1?$hash_map@IPAVCharacterViewAvatarClass@@U?$hash@I@std@@U?$equal_to@I@3@V?$allocator@PAVCharacterViewAvatarClass@@@3@@std@@QAE@XZ",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "??1?$hash_map@IPAVSClientUnknown1394Class@@U?$hash@I@std@@U?$equal_to@I@3@V?$allocator@PAVSClientUnknown1394Class@@@3@@std@@QAE@XZ"
+ },
+ {
+  "address": "0x7567B0",
+  "symbol": "?begin@?$hashtable@U?$pair@$$CBIPAVCharacterViewAvatarClass@@@std@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIPAVCharacterViewAvatarClass@@@std@@@2@U?$equal_to@I@2@V?$allocator@PAVCharacterViewAvatarClass@@@2@@std@@QAE?AU?$_Hashtable_iterator@U?$pair@$$CBIPAVCharacterViewAvatarClass@@@std@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIPAVCharacterViewAvatarClass@@@std@@@2@U?$equal_to@I@2@V?$allocator@PAVCharacterViewAvatarClass@@@2@@2@XZ",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?begin@?$hashtable@U?$pair@$$CBIPAVSClientUnknown1394Class@@@std@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIPAVSClientUnknown1394Class@@@std@@@2@U?$equal_to@I@2@V?$allocator@PAVSClientUnknown1394Class@@@2@@std@@QAE?AU?$_Hashtable_iterator@U?$pair@$$CBIPAVSClientUnknown1394Class@@@std@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIPAVSClientUnknown1394Class@@@std@@@2@U?$equal_to@I@2@V?$allocator@PAVSClientUnknown1394Class@@@2@@2@XZ"
+ },
+ {
+  "address": "0x756890",
+  "symbol": "??1?$vector@PAU?$_Hashtable_node@U?$pair@$$CBIPAVCharacterViewAvatarClass@@@std@@@std@@V?$_Bucket_allocator@PAU?$_Hashtable_node@U?$pair@$$CBIPAVCharacterViewAvatarClass@@@std@@@std@@@2@@std@@QAE@XZ",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "??1?$vector@PAU?$_Hashtable_node@U?$pair@$$CBIPAVSClientUnknown1394Class@@@std@@@std@@V?$_Bucket_allocator@PAU?$_Hashtable_node@U?$pair@$$CBIPAVSClientUnknown1394Class@@@std@@@std@@@2@@std@@QAE@XZ"
+ },
+ {
+  "address": "0x7569D0",
+  "symbol": "?_M_initialize_buckets@?$hashtable@U?$pair@$$CBIPAVCharacterViewAvatarClass@@@std@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIPAVCharacterViewAvatarClass@@@std@@@2@U?$equal_to@I@2@V?$allocator@PAVCharacterViewAvatarClass@@@2@@std@@AAEXI@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?_M_initialize_buckets@?$hashtable@U?$pair@$$CBIPAVSClientUnknown1394Class@@@std@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIPAVSClientUnknown1394Class@@@std@@@2@U?$equal_to@I@2@V?$allocator@PAVSClientUnknown1394Class@@@2@@std@@AAEXI@Z"
+ },
+ {
+  "address": "0x756D10",
+  "symbol": "?size@?$vector@PAU?$_Hashtable_node@U?$pair@$$CBIPAVCharacterViewAvatarClass@@@std@@@std@@V?$_Bucket_allocator@PAU?$_Hashtable_node@U?$pair@$$CBIPAVCharacterViewAvatarClass@@@std@@@std@@@2@@std@@QBEIXZ",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?size@?$vector@PAU?$_Hashtable_node@U?$pair@$$CBIPAVSClientUnknown1394Class@@@std@@@std@@V?$_Bucket_allocator@PAU?$_Hashtable_node@U?$pair@$$CBIPAVSClientUnknown1394Class@@@std@@@std@@@2@@std@@QBEIXZ"
+ },
+ {
+  "address": "0x756D40",
+  "symbol": "?_Destroy@?$vector@PAU?$_Hashtable_node@U?$pair@$$CBIPAVCharacterViewAvatarClass@@@std@@@std@@V?$_Bucket_allocator@PAU?$_Hashtable_node@U?$pair@$$CBIPAVCharacterViewAvatarClass@@@std@@@std@@@2@@std@@IAEXPAPAU?$_Hashtable_node@U?$pair@$$CBIPAVCharacterViewAvatarClass@@@std@@@2@0@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?_Destroy@?$vector@PAU?$_Hashtable_node@U?$pair@$$CBIPAVSClientUnknown1394Class@@@std@@@std@@V?$_Bucket_allocator@PAU?$_Hashtable_node@U?$pair@$$CBIPAVSClientUnknown1394Class@@@std@@@std@@@2@@std@@IAEXPAPAU?$_Hashtable_node@U?$pair@$$CBIPAVSClientUnknown1394Class@@@std@@@2@0@Z"
+ },
+ {
+  "address": "0x757260",
+  "symbol": "?_Ucopy@?$vector@PAU?$_Hashtable_node@U?$pair@$$CBIPAVCharacterViewAvatarClass@@@std@@@std@@V?$_Bucket_allocator@PAU?$_Hashtable_node@U?$pair@$$CBIPAVCharacterViewAvatarClass@@@std@@@std@@@2@@std@@IAEPAPAU?$_Hashtable_node@U?$pair@$$CBIPAVCharacterViewAvatarClass@@@std@@@2@PBQAU32@0PAPAU32@@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?_Ucopy@?$vector@PAU?$_Hashtable_node@U?$pair@$$CBIPAVSClientUnknown1394Class@@@std@@@std@@V?$_Bucket_allocator@PAU?$_Hashtable_node@U?$pair@$$CBIPAVSClientUnknown1394Class@@@std@@@std@@@2@@std@@IAEPAPAU?$_Hashtable_node@U?$pair@$$CBIPAVSClientUnknown1394Class@@@std@@@2@PBQAU32@0PAPAU32@@Z"
+ },
+ {
+  "address": "0x7572A0",
+  "symbol": "?_Ufill@?$vector@PAU?$_Hashtable_node@U?$pair@$$CBIPAVCharacterViewAvatarClass@@@std@@@std@@V?$_Bucket_allocator@PAU?$_Hashtable_node@U?$pair@$$CBIPAVCharacterViewAvatarClass@@@std@@@std@@@2@@std@@IAEXPAPAU?$_Hashtable_node@U?$pair@$$CBIPAVCharacterViewAvatarClass@@@std@@@2@IABQAU32@@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?_Ufill@?$vector@PAU?$_Hashtable_node@U?$pair@$$CBIPAVSClientUnknown1394Class@@@std@@@std@@V?$_Bucket_allocator@PAU?$_Hashtable_node@U?$pair@$$CBIPAVSClientUnknown1394Class@@@std@@@std@@@2@@std@@IAEXPAPAU?$_Hashtable_node@U?$pair@$$CBIPAVSClientUnknown1394Class@@@std@@@2@IABQAU32@@Z"
+ },
+ {
+  "address": "0x757680",
+  "symbol": "??E?$_Hashtable_iterator@U?$pair@$$CBIPAVCharacterViewAvatarClass@@@std@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIPAVCharacterViewAvatarClass@@@std@@@2@U?$equal_to@I@2@V?$allocator@PAVCharacterViewAvatarClass@@@2@@std@@QAEAAU01@XZ",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "??E?$_Hashtable_iterator@U?$pair@$$CBIPAVSClientUnknown1394Class@@@std@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIPAVSClientUnknown1394Class@@@std@@@2@U?$equal_to@I@2@V?$allocator@PAVSClientUnknown1394Class@@@2@@std@@QAEAAU01@XZ"
+ },
+ {
+  "address": "0x757700",
+  "symbol": "?clear@?$hashtable@U?$pair@$$CBIPAVCharacterViewAvatarClass@@@std@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIPAVCharacterViewAvatarClass@@@std@@@2@U?$equal_to@I@2@V?$allocator@PAVCharacterViewAvatarClass@@@2@@std@@QAEXXZ",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?clear@?$hashtable@U?$pair@$$CBIPAVSClientUnknown1394Class@@@std@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIPAVSClientUnknown1394Class@@@std@@@2@U?$equal_to@I@2@V?$allocator@PAVSClientUnknown1394Class@@@2@@std@@QAEXXZ"
+ },
+ {
+  "address": "0x763E00",
+  "symbol": "??0RSLRegistryClass@@QAE@XZ",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "??0Unknown763E00Class@@QAE@XZ"
+ },
+ {
+  "address": "0x763E30",
+  "symbol": "??1RSLRegistryClass@@QAE@XZ",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "??1Unknown763E00Class@@QAE@XZ"
+ },
+ {
+  "address": "0x763E70",
+  "symbol": "?Unknown_763E70@RSLRegistryClass@@QAEXPBD@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Unknown_763E70@Unknown763E00Class@@QAEXPBD@Z"
+ },
+ {
+  "address": "0x763FF0",
+  "symbol": "?Unknown_763FF0@RSLRegistryClass@@QAEXXZ",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Unknown_763FF0@Unknown763E00Class@@QAEXXZ"
+ },
+ {
+  "address": "0x764030",
+  "symbol": "?Unknown_764030@RSLRegistryClass@@QAEPAXH@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Unknown_764030@Unknown763E00Class@@QAEPAXH@Z"
+ },
+ {
+  "address": "0x764060",
+  "symbol": "?Unknown_764060@RSLRegistryClass@@QAEPAVRenderStateListClass@@PBD@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Unknown_764060@Unknown763E00Class@@QAEPAVRenderStateListClass@@PBD@Z"
+ },
+ {
+  "address": "0x7AF200",
+  "symbol": "?insert@?$vector@V?$RefCountPtr@VGalaxyMapRenderItemClass@@@@V?$allocator@V?$RefCountPtr@VGalaxyMapRenderItemClass@@@@@std@@@std@@QAEPAV?$RefCountPtr@VGalaxyMapRenderItemClass@@@@PAV3@ABV3@@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?insert@?$vector@UGalaxyMapRenderUpdateStruct@@V?$allocator@UGalaxyMapRenderUpdateStruct@@@std@@@std@@QAEPAUGalaxyMapRenderUpdateStruct@@PAU3@ABU3@@Z"
+ },
+ {
+  "address": "0x7B0410",
+  "symbol": "?size@?$vector@V?$RefCountPtr@VGalaxyMapRenderItemClass@@@@V?$allocator@V?$RefCountPtr@VGalaxyMapRenderItemClass@@@@@std@@@std@@QBEIXZ",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?size@?$vector@UGalaxyMapRenderUpdateStruct@@V?$allocator@UGalaxyMapRenderUpdateStruct@@@std@@@std@@QBEIXZ"
+ },
+ {
+  "address": "0x7B0440",
+  "symbol": "?_Ucopy@?$vector@V?$RefCountPtr@VGalaxyMapRenderItemClass@@@@V?$allocator@V?$RefCountPtr@VGalaxyMapRenderItemClass@@@@@std@@@std@@IAEPAV?$RefCountPtr@VGalaxyMapRenderItemClass@@@@PBV3@0PAV3@@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?_Ucopy@?$vector@UGalaxyMapRenderUpdateStruct@@V?$allocator@UGalaxyMapRenderUpdateStruct@@@std@@@std@@IAEPAUGalaxyMapRenderUpdateStruct@@PBU3@0PAU3@@Z"
+ },
+ {
+  "address": "0x7B0490",
+  "symbol": "?_Ufill@?$vector@V?$RefCountPtr@VGalaxyMapRenderItemClass@@@@V?$allocator@V?$RefCountPtr@VGalaxyMapRenderItemClass@@@@@std@@@std@@IAEXPAV?$RefCountPtr@VGalaxyMapRenderItemClass@@@@IABV3@@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?_Ufill@?$vector@UGalaxyMapRenderUpdateStruct@@V?$allocator@UGalaxyMapRenderUpdateStruct@@@std@@@std@@IAEXPAUGalaxyMapRenderUpdateStruct@@IABU3@@Z"
+ },
+ {
+  "address": "0x80A9D0",
+  "symbol": "?_Destroy@?$vector@PAVMeshSoundClass@@V?$allocator@PAVMeshSoundClass@@@std@@@std@@IAEXPAPAVMeshSoundClass@@0@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?_Destroy@?$vector@PAVScriptedMovieSoundClass@@V?$allocator@PAVScriptedMovieSoundClass@@@std@@@std@@IAEXPAPAVScriptedMovieSoundClass@@0@Z"
+ },
+ {
+  "address": "0x80ABF0",
+  "symbol": "?size@?$vector@PAVMeshSoundClass@@V?$allocator@PAVMeshSoundClass@@@std@@@std@@QBEIXZ",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?size@?$vector@PAVScriptedMovieSoundClass@@V?$allocator@PAVScriptedMovieSoundClass@@@std@@@std@@QBEIXZ"
+ },
+ {
+  "address": "0x80AC20",
+  "symbol": "?_Ucopy@?$vector@PAVMeshSoundClass@@V?$allocator@PAVMeshSoundClass@@@std@@@std@@IAEPAPAVMeshSoundClass@@PBQAV3@0PAPAV3@@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?_Ucopy@?$vector@PAVScriptedMovieSoundClass@@V?$allocator@PAVScriptedMovieSoundClass@@@std@@@std@@IAEPAPAVScriptedMovieSoundClass@@PBQAV3@0PAPAV3@@Z"
+ },
+ {
+  "address": "0x80AC60",
+  "symbol": "?_Ufill@?$vector@PAVMeshSoundClass@@V?$allocator@PAVMeshSoundClass@@@std@@@std@@IAEXPAPAVMeshSoundClass@@IABQAV3@@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?_Ufill@?$vector@PAVScriptedMovieSoundClass@@V?$allocator@PAVScriptedMovieSoundClass@@@std@@@std@@IAEXPAPAVScriptedMovieSoundClass@@IABQAV3@@Z"
+ },
+ {
+  "address": "0x897F40",
+  "symbol": "??1LoungeNPCNPCStruct@@QAE@XZ",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "??1LoungeNPCUnknown30Struct@@QAE@XZ"
+ },
+ {
+  "address": "0x898D10",
+  "symbol": "?size@?$vector@ULoungeNPCRoomStruct@@V?$allocator@ULoungeNPCRoomStruct@@@std@@@std@@QBEIXZ",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?size@?$vector@ULoungeNPCUnknown10Struct@@V?$allocator@ULoungeNPCUnknown10Struct@@@std@@@std@@QBEIXZ"
+ },
+ {
+  "address": "0x898D90",
+  "symbol": "??1?$vector@ULoungeNPCNPCStruct@@V?$allocator@ULoungeNPCNPCStruct@@@std@@@std@@QAE@XZ",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "??1?$vector@ULoungeNPCUnknown30Struct@@V?$allocator@ULoungeNPCUnknown30Struct@@@std@@@std@@QAE@XZ"
+ },
+ {
+  "address": "0x898DE0",
+  "symbol": "?insert@?$vector@ULoungeNPCRoomStruct@@V?$allocator@ULoungeNPCRoomStruct@@@std@@@std@@QAEXPAULoungeNPCRoomStruct@@IABU3@@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?insert@?$vector@ULoungeNPCUnknown10Struct@@V?$allocator@ULoungeNPCUnknown10Struct@@@std@@@std@@QAEXPAULoungeNPCUnknown10Struct@@IABU3@@Z"
+ },
+ {
+  "address": "0x899220",
+  "symbol": "?erase@?$vector@ULoungeNPCRoomStruct@@V?$allocator@ULoungeNPCRoomStruct@@@std@@@std@@QAEPAULoungeNPCRoomStruct@@PAU3@0@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?erase@?$vector@ULoungeNPCUnknown10Struct@@V?$allocator@ULoungeNPCUnknown10Struct@@@std@@@std@@QAEPAULoungeNPCUnknown10Struct@@PAU3@0@Z"
+ },
+ {
+  "address": "0x8992B0",
+  "symbol": "?_Destroy@?$vector@ULoungeNPCRoomStruct@@V?$allocator@ULoungeNPCRoomStruct@@@std@@@std@@IAEXPAULoungeNPCRoomStruct@@0@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?_Destroy@?$vector@ULoungeNPCUnknown10Struct@@V?$allocator@ULoungeNPCUnknown10Struct@@@std@@@std@@IAEXPAULoungeNPCUnknown10Struct@@0@Z"
+ },
+ {
+  "address": "0x8992D0",
+  "symbol": "?insert@?$vector@ULoungeNPCFacilityStruct@@V?$allocator@ULoungeNPCFacilityStruct@@@std@@@std@@QAEXPAULoungeNPCFacilityStruct@@IABU3@@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?insert@?$vector@ULoungeNPCUnknown20Struct@@V?$allocator@ULoungeNPCUnknown20Struct@@@std@@@std@@QAEXPAULoungeNPCUnknown20Struct@@IABU3@@Z"
+ },
+ {
+  "address": "0x8996B0",
+  "symbol": "?erase@?$vector@ULoungeNPCFacilityStruct@@V?$allocator@ULoungeNPCFacilityStruct@@@std@@@std@@QAEPAULoungeNPCFacilityStruct@@PAU3@0@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?erase@?$vector@ULoungeNPCUnknown20Struct@@V?$allocator@ULoungeNPCUnknown20Struct@@@std@@@std@@QAEPAULoungeNPCUnknown20Struct@@PAU3@0@Z"
+ },
+ {
+  "address": "0x899720",
+  "symbol": "?_Destroy@?$vector@ULoungeNPCFacilityStruct@@V?$allocator@ULoungeNPCFacilityStruct@@@std@@@std@@IAEXPAULoungeNPCFacilityStruct@@0@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?_Destroy@?$vector@ULoungeNPCUnknown20Struct@@V?$allocator@ULoungeNPCUnknown20Struct@@@std@@@std@@IAEXPAULoungeNPCUnknown20Struct@@0@Z"
+ },
+ {
+  "address": "0x899740",
+  "symbol": "?insert@?$vector@ULoungeNPCNPCStruct@@V?$allocator@ULoungeNPCNPCStruct@@@std@@@std@@QAEXPAULoungeNPCNPCStruct@@IABU3@@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?insert@?$vector@ULoungeNPCUnknown30Struct@@V?$allocator@ULoungeNPCUnknown30Struct@@@std@@@std@@QAEXPAULoungeNPCUnknown30Struct@@IABU3@@Z"
+ },
+ {
+  "address": "0x899B80",
+  "symbol": "?erase@?$vector@ULoungeNPCNPCStruct@@V?$allocator@ULoungeNPCNPCStruct@@@std@@@std@@QAEPAULoungeNPCNPCStruct@@PAU3@0@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?erase@?$vector@ULoungeNPCUnknown30Struct@@V?$allocator@ULoungeNPCUnknown30Struct@@@std@@@std@@QAEPAULoungeNPCUnknown30Struct@@PAU3@0@Z"
+ },
+ {
+  "address": "0x899C70",
+  "symbol": "?_Destroy@?$vector@ULoungeNPCNPCStruct@@V?$allocator@ULoungeNPCNPCStruct@@@std@@@std@@IAEXPAULoungeNPCNPCStruct@@0@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?_Destroy@?$vector@ULoungeNPCUnknown30Struct@@V?$allocator@ULoungeNPCUnknown30Struct@@@std@@@std@@IAEXPAULoungeNPCUnknown30Struct@@0@Z"
+ },
+ {
+  "address": "0x899CB0",
+  "symbol": "?_Ucopy@?$vector@ULoungeNPCRoomStruct@@V?$allocator@ULoungeNPCRoomStruct@@@std@@@std@@IAEPAULoungeNPCRoomStruct@@PBU3@0PAU3@@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?_Ucopy@?$vector@ULoungeNPCUnknown10Struct@@V?$allocator@ULoungeNPCUnknown10Struct@@@std@@@std@@IAEPAULoungeNPCUnknown10Struct@@PBU3@0PAU3@@Z"
+ },
+ {
+  "address": "0x899D00",
+  "symbol": "?_Ufill@?$vector@ULoungeNPCRoomStruct@@V?$allocator@ULoungeNPCRoomStruct@@@std@@@std@@IAEXPAULoungeNPCRoomStruct@@IABU3@@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?_Ufill@?$vector@ULoungeNPCUnknown10Struct@@V?$allocator@ULoungeNPCUnknown10Struct@@@std@@@std@@IAEXPAULoungeNPCUnknown10Struct@@IABU3@@Z"
+ },
+ {
+  "address": "0x899E00",
+  "symbol": "?_Ucopy@?$vector@ULoungeNPCNPCStruct@@V?$allocator@ULoungeNPCNPCStruct@@@std@@@std@@IAEPAULoungeNPCNPCStruct@@PBU3@0PAU3@@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?_Ucopy@?$vector@ULoungeNPCUnknown30Struct@@V?$allocator@ULoungeNPCUnknown30Struct@@@std@@@std@@IAEPAULoungeNPCUnknown30Struct@@PBU3@0PAU3@@Z"
+ },
+ {
+  "address": "0x899E50",
+  "symbol": "?_Ufill@?$vector@ULoungeNPCNPCStruct@@V?$allocator@ULoungeNPCNPCStruct@@@std@@@std@@IAEXPAULoungeNPCNPCStruct@@IABU3@@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?_Ufill@?$vector@ULoungeNPCUnknown30Struct@@V?$allocator@ULoungeNPCUnknown30Struct@@@std@@@std@@IAEXPAULoungeNPCUnknown30Struct@@IABU3@@Z"
+ },
+ {
+  "address": "0x89A560",
+  "symbol": "??4LoungeNPCNPCStruct@@QAEAAU0@ABU0@@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "??4LoungeNPCUnknown30Struct@@QAEAAU0@ABU0@@Z"
+ },
+ {
+  "address": "0x995CE0",
+  "symbol": "??_G?$MultiListClass@VTextureTrackerClass@@@@UAEPAXI@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "??_G?$MultiListClass@VDX8TextureTrackerClass@@@@UAEPAXI@Z"
+ },
+ {
+  "address": "0x9B4B30",
+  "symbol": "??0AABTreeBuilderClass@@QAE@XZ",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "??0CNode@@QAE@XZ"
+ },
+ {
+  "address": "0xA08A80",
+  "symbol": "??1?$MultiListClass@VShdRendererNodeClass@@@@UAE@XZ",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "??1?$MultiListClass@VRendererListContainerClass@@@@UAE@XZ"
+ },
+ {
+  "address": "0xA0A6A0",
+  "symbol": "?Resize@?$SimpleVecClass@UShdSubMeshStruct@@@@UAE_NH@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Resize@?$SimpleVecClass@UANIM_SOUND_INFO@AnimatedSoundMgrClass@@@@UAE_NH@Z"
+ },
+ {
+  "address": "0xA0A740",
+  "symbol": "?Uninitialised_Grow@?$SimpleVecClass@UShdSubMeshStruct@@@@UAE_NH@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Uninitialised_Grow@?$SimpleVecClass@UANIM_SOUND_INFO@AnimatedSoundMgrClass@@@@UAE_NH@Z"
+ },
+ {
+  "address": "0xA0A780",
+  "symbol": "??_G?$SimpleVecClass@UShdSubMeshStruct@@@@UAEPAXI@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "??_G?$SimpleVecClass@UANIM_SOUND_INFO@AnimatedSoundMgrClass@@@@UAEPAXI@Z"
+ },
+ {
+  "address": "0x56D8D0",
+  "symbol": "?Add_Slider@ChatPanelUIBase@@QAEPAVGadgetSlider@@H_N@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Unknown_56D8D0@ChatPanelUIBase@@QAEPAVGadgetSlider@@H_N@Z"
+ },
+ {
+  "address": "0x56DEE0",
+  "symbol": "?On_Back_Gadget_Moved@ChatPanelUIBase@@QAEXPAVDestroyGadgetEvent@@PAVGadgetClass@@@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Unknown_56DEE0@ChatPanelUIBase@@QAEXPAVDestroyGadgetEvent@@PAVGadgetClass@@@Z"
+ },
+ {
+  "address": "0x57A330",
+  "symbol": "?Update_Drop_Down@UIComboBoxClass@@QAEXXZ",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Unknown_57A330@UIComboBoxClass@@QAEXXZ"
+ },
+ {
+  "address": "0x57AAB0",
+  "symbol": "?Update_Rows@UIComboBoxClass@@QAEXXZ",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Unknown_57AAB0@UIComboBoxClass@@QAEXXZ"
+ },
+ {
+  "address": "0x57AC70",
+  "symbol": "?Select@UIComboBoxClass@@QAEXH@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Unknown_57AC70@UIComboBoxClass@@QAEXH@Z"
+ },
+ {
+  "address": "0x57AD50",
+  "symbol": "?Select_Text@UIComboBoxClass@@QAEXPBD@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Unknown_57AD50@UIComboBoxClass@@QAEXPBD@Z"
+ },
+ {
+  "address": "0x57B1D0",
+  "symbol": "?Add_Items@UIComboBoxClass@@QAEXPAPBD@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Unknown_57B1D0@UIComboBoxClass@@QAEXPAPBD@Z"
+ },
+ {
+  "address": "0x57B210",
+  "symbol": "?Clear_Items@UIComboBoxClass@@QAEXXZ",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Unknown_57B210@UIComboBoxClass@@QAEXXZ"
+ },
+ {
+  "address": "0x57B440",
+  "symbol": "?Close_Drop_Down@UIComboBoxClass@@QAEXXZ",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Unknown_57B440@UIComboBoxClass@@QAEXXZ"
+ },
+ {
+  "address": "0x57B570",
+  "symbol": "?Hide_Arrow@UIComboBoxClass@@QAEX_N@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Unknown_57B570@UIComboBoxClass@@QAEX_N@Z"
+ },
+ {
+  "address": "0x57B5C0",
+  "symbol": "?Set_Hover_Only@UIComboBoxClass@@QAEXHH@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Unknown_57B5C0@UIComboBoxClass@@QAEXHH@Z"
+ },
+ {
+  "address": "0x5B8B40",
+  "symbol": "?Get_Sub_Object_By_Name@UIMeshClass@@QAEPAVRenderObjClass@@PBD@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Unknown_5B8B40@UIMeshClass@@QAEPAVRenderObjClass@@PBD@Z"
+ },
+ {
+  "address": "0x5B9160",
+  "symbol": "?Get_Bone_Index@UIMeshClass@@QAEHPBD@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Unknown_5B9160@UIMeshClass@@QAEHPBD@Z"
+ },
+ {
+  "address": "0x6E7770",
+  "symbol": "?Set_Source_Object_ID@UnknownB00060EffectClass@@UAEXH@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Unknown_28@UnknownB00060EffectClass@@UAEXH@Z"
+ },
+ {
+  "address": "0x6E80D0",
+  "symbol": "?Set_Source_Object_ID@UnknownB0009CEffectClass@@UAEXH@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Unknown_28@UnknownB0009CEffectClass@@UAEXH@Z"
+ },
+ {
+  "address": "0x6E81B0",
+  "symbol": "?Set_Target_Object_ID@UnknownB0009CEffectClass@@UAEXH@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Unknown_34@UnknownB0009CEffectClass@@UAEXH@Z"
+ },
+ {
+  "address": "0x7B18A0",
+  "symbol": "??_G?$RefCountPtr@VGalaxyMapRenderItemClass@@@@QAEPAXI@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "??_G?$RefCountPtr@VGalaxyMapRenderSectorClass@@@@QAEPAXI@Z"
+ },
+ {
+  "address": "0x8023A0",
+  "symbol": "?Unknown_18@ScriptedMovieViewClass@@UAEX_N@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Unknown_8023A0@ScriptedMovieViewClass@@QAEX_N@Z"
+ },
+ {
+  "address": "0x87CD10",
+  "symbol": "?Add_NPC@Packet_00ABClass@@QAEXABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Add_Unknown30@Packet_00ABClass@@QAEXABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z"
+ },
+ {
+  "address": "0x88B340",
+  "symbol": "?_Ucopy@?$vector@UGroupServerEntryStruct@@V?$allocator@UGroupServerEntryStruct@@@std@@@std@@IAEPAUGroupServerEntryStruct@@PBU3@0PAU3@@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?_Ucopy@?$vector@UColorizationRegionStruct@@V?$allocator@UColorizationRegionStruct@@@std@@@std@@IAEPAUColorizationRegionStruct@@PBU3@0PAU3@@Z"
+ },
+ {
+  "address": "0x88B750",
+  "symbol": "?_Ufill@?$vector@UGroupServerEntryStruct@@V?$allocator@UGroupServerEntryStruct@@@std@@@std@@IAEXPAUGroupServerEntryStruct@@IABU3@@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?_Ufill@?$vector@UColorizationRegionStruct@@V?$allocator@UColorizationRegionStruct@@@std@@@std@@IAEXPAUColorizationRegionStruct@@IABU3@@Z"
+ },
+ {
+  "address": "0x8984F0",
+  "symbol": "?Add_Room@LoungeNPCPacketClass@@QAEXABULoungeNPCRoomStruct@@@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Add_Unknown10@LoungeNPCPacketClass@@QAEXABULoungeNPCUnknown10Struct@@@Z"
+ },
+ {
+  "address": "0x898790",
+  "symbol": "?Add_Facility@LoungeNPCPacketClass@@QAEXABULoungeNPCFacilityStruct@@@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Add_Unknown20@LoungeNPCPacketClass@@QAEXABULoungeNPCUnknown20Struct@@@Z"
+ },
+ {
+  "address": "0x898A30",
+  "symbol": "?Add_NPC@LoungeNPCPacketClass@@QAEXABULoungeNPCNPCStruct@@@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Add_Unknown30@LoungeNPCPacketClass@@QAEXABULoungeNPCUnknown30Struct@@@Z"
+ },
+ {
+  "address": "0x94C040",
+  "symbol": "?Apply_Null@TextureBaseClass@@SAXI@Z",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?Apply_Null@TextureClass@@CAXI@Z"
+ },
+ {
+  "address": "0x94C7B0",
+  "symbol": "?_Get_Total_Texture_Count@TextureBaseClass@@SAHXZ",
+  "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
+  "replaces": "?_Get_Total_Texture_Count@TextureClass@@SAHXZ"
+ },
+ {
+  "address": "0xB00768",
+  "symbol": "??_7PositionalStateClass@@6B@",
+  "kind": "vtable",
+  "evidence": "stored by PositionalStateClass's destructor 0x7148F0 and ??_G 0x6F2FB0 (both byte-exact under those names); co.h's Unknown98Class was renamed PositionalStateClass (ae5cb5147) (stale-name scan, SN, 2026-11-17)",
+  "replaces": "??_7Unknown98Class@@6B@"
+ },
+ {
+  "address": "0xAF9B80",
+  "symbol": "??_7RectangleGadgetClass@@6B@",
+  "kind": "vtable",
+  "evidence": "stored by RectangleGadgetClass's constructor 0x660D30 (byte-exact); D239 renamed InterfaceDeactivationGadgetClass (stale-name scan, SN, 2026-11-17)",
+  "replaces": "??_7InterfaceDeactivationGadgetClass@@6B@"
+ },
+ {
+  "address": "0xAFB1A4",
+  "symbol": "??_7SlotDataShortcutGadgetClass@@6B@",
+  "kind": "vtable",
+  "evidence": "stored by SlotDataShortcutGadgetClass's constructor 0x670E30 (byte-exact under that name) (stale-name scan, SN, 2026-11-17)",
+  "replaces": "??_7Unknown_670E30Class@@6B@"
+ },
+ {
+  "address": "0xAEE298",
+  "symbol": "??_7UIItemExaminationClass@@6BGadgetCollectionInterface@@@",
+  "kind": "vtable",
+  "evidence": "UIItemExaminationClass's constructor 0x531660 / destructor 0x5321C0 store it; the base UIDynamicWindowUnknown84Class was renamed GadgetCollectionInterface (its parts' constructors 0x532BA0 / 0x5352D0 / 0x537AD0 now take GadgetCollectionInterface *) (stale-name scan, SN, 2026-11-17)",
+  "replaces": "??_7UIItemExaminationClass@@6BUIDynamicWindowUnknown84Class@@@"
+ },
+ {
+  "address": "0xAEBDF8",
+  "symbol": "??_7?$ExprMathIntModuloClass@H@@6B@",
+  "kind": "vtable",
+  "evidence": "expr_math_int.cpp's ExprMathIntModuloClass is a class template (5c2aff539), so the table is ExprMathIntModuloClass<int>'s (stale-name scan, SN, 2026-11-17)",
+  "replaces": "??_7ExprMathIntModuloClass@@6B@"
+ },
+ {
+  "address": "0x570F50",
+  "symbol": "?Unknown_AC@ChatWindowInterface@@UAEX_N@Z",
+  "evidence": "ChatWindowInterface's +0xAC slot; the source declares it taking a bool now (stale-name scan, SN, 2026-11-17)",
+  "replaces": "?Unknown_AC@ChatWindowInterface@@UAEXPBD@Z"
+ },
+ {
+  "address": "0x660DD0",
+  "symbol": "?Unknown_30@RectangleGadgetClass@@UAE_NMM@Z",
+  "evidence": "gadget.h's RectangleGadgetClass +0x30 0x660DD0; D239 renamed InterfaceDeactivationGadgetClass (stale-name scan, SN, 2026-11-17)",
+  "replaces": "?Unknown_30@InterfaceDeactivationGadgetClass@@UAE_NMM@Z"
+ },
+ {
+  "address": "0x917120",
+  "symbol": "?Get_Opacity_Keyframes@ParticleEmitterDefClass@@UBEXAAU?$ParticlePropertyStruct@M@@@Z",
+  "evidence": "vtable slot: ??_7ParticleEmitterDefClass@@6B@ slot 24 (our objects' table, aligned with the client's) holds this address; symbols.json's ?Get_Rotation_Keyframes name here disagrees with every aligned table's slot (a duplicate label or a name one slot off) (SN, 2026-11-17)",
+  "replaces": "?Get_Rotation_Keyframes@ParticleEmitterDefClass@@UBEXAAU?$ParticlePropertyStruct@M@@@Z"
+ },
+ {
+  "address": "0x944710",
+  "symbol": "?Set_Transform@CameraClass@@UAEXABVMatrix3D@@@Z",
+  "evidence": "vtable slot: ??_7CameraClass@@6BRefCountClass@@@ slot 20 (our objects' table, aligned with the client's) holds this address; symbols.json's ?Set_Transform name here disagrees with every aligned table's slot (a duplicate label or a name one slot off) (SN, 2026-11-17)",
+  "replaces": "?Set_Transform@Animatable3DObjClass@@UAEXABVMatrix3D@@@Z"
+ },
+ {
+  "address": "0x944730",
+  "symbol": "?Set_Position@CameraClass@@UAEXABVVector3@@@Z",
+  "evidence": "vtable slot: ??_7CameraClass@@6BRefCountClass@@@ slot 21 (our objects' table, aligned with the client's) holds this address; symbols.json's ?Set_Position name here disagrees with every aligned table's slot (a duplicate label or a name one slot off) (SN, 2026-11-17)",
+  "replaces": "?Set_Position@Animatable3DObjClass@@UAEXABVVector3@@@Z"
+ },
+ {
+  "address": "0x96BF90",
+  "symbol": "?Clone@DazzleRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+  "evidence": "vtable slot: ??_7DazzleRenderObjClass@@6BRefCountClass@@@ slot 2 (our objects' table, aligned with the client's) holds this address; symbols.json's ?Clone name here disagrees with every aligned table's slot (a duplicate label or a name one slot off) (SN, 2026-11-17)",
+  "replaces": "?Clone@ParticleEmitterClass@@UBEPAVRenderObjClass@@XZ"
+ },
+ {
+  "address": "0x976880",
+  "symbol": "?Clone@DynamicMeshClass@@UBEPAVRenderObjClass@@XZ",
+  "evidence": "vtable slot: ??_7ChatFontSys@@6BRefCountClass@@@ slot 2, ??_7DynamicMeshClass@@6BRefCountClass@@@ slot 2, ??_7GalaxyMapRObjClass@@6BRefCountClass@@@ slot 2 (our objects' table, aligned with the client's) holds this address; symbols.json's ?Clone name here disagrees with every aligned table's slot (a duplicate label or a name one slot off) (SN, 2026-11-17)",
+  "replaces": "?Clone@ParticleEmitterClass@@UBEPAVRenderObjClass@@XZ"
+ },
+ {
+  "address": "0x986150",
+  "symbol": "?Set_Name@CompositeRenderObjClass@@UAEXPBD@Z",
+  "evidence": "vtable slot: ??_7Animatable3DObjClass@@6BRefCountClass@@@ slot 5, ??_7CharacterViewAvatarClass@@6BRefCountClass@@@ slot 5, ??_7CollectionClass@@6BRefCountClass@@@ slot 5 (our objects' table, aligned with the client's) holds this address; symbols.json's ?Set_Base_Model_Name name here disagrees with every aligned table's slot (a duplicate label or a name one slot off) (SN, 2026-11-17)",
+  "replaces": "?Set_Base_Model_Name@CompositeRenderObjClass@@UAEXPBD@Z"
+ },
+ {
+  "address": "0x986370",
+  "symbol": "?Cast_Ray@CompositeRenderObjClass@@UAE_NAAVRayCollisionTestClass@@@Z",
+  "evidence": "vtable slot: ??_7Animatable3DObjClass@@6BRefCountClass@@@ slot 52, ??_7CharacterViewAvatarClass@@6BRefCountClass@@@ slot 52, ??_7CompositeRenderObjClass@@6BRefCountClass@@@ slot 52 (our objects' table, aligned with the client's) holds this address; symbols.json's ?Cast_AABox name here disagrees with every aligned table's slot (a duplicate label or a name one slot off) (SN, 2026-11-17)",
+  "replaces": "?Cast_AABox@CompositeRenderObjClass@@UAE_NAAVAABoxCollisionTestClass@@@Z"
+ },
+ {
+  "address": "0x9863D0",
+  "symbol": "?Cast_AABox@CompositeRenderObjClass@@UAE_NAAVAABoxCollisionTestClass@@@Z",
+  "evidence": "vtable slot: ??_7Animatable3DObjClass@@6BRefCountClass@@@ slot 53, ??_7CharacterViewAvatarClass@@6BRefCountClass@@@ slot 53, ??_7CompositeRenderObjClass@@6BRefCountClass@@@ slot 53 (our objects' table, aligned with the client's) holds this address; symbols.json's ?Cast_OBBox name here disagrees with every aligned table's slot (a duplicate label or a name one slot off) (SN, 2026-11-17)",
+  "replaces": "?Cast_OBBox@CompositeRenderObjClass@@UAE_NAAVOBBoxCollisionTestClass@@@Z"
+ },
+ {
+  "address": "0x986430",
+  "symbol": "?Cast_OBBox@CompositeRenderObjClass@@UAE_NAAVOBBoxCollisionTestClass@@@Z",
+  "evidence": "vtable slot: ??_7Animatable3DObjClass@@6BRefCountClass@@@ slot 54, ??_7CharacterViewAvatarClass@@6BRefCountClass@@@ slot 54, ??_7CompositeRenderObjClass@@6BRefCountClass@@@ slot 54 (our objects' table, aligned with the client's) holds this address; symbols.json's ?Intersect_AABox name here disagrees with every aligned table's slot (a duplicate label or a name one slot off) (SN, 2026-11-17)",
+  "replaces": "?Intersect_AABox@CompositeRenderObjClass@@UAE_NAAVAABoxIntersectionTestClass@@@Z"
+ },
+ {
+  "address": "0x986490",
+  "symbol": "?Intersect_AABox@CompositeRenderObjClass@@UAE_NAAVAABoxIntersectionTestClass@@@Z",
+  "evidence": "vtable slot: ??_7Animatable3DObjClass@@6BRefCountClass@@@ slot 55, ??_7CharacterViewAvatarClass@@6BRefCountClass@@@ slot 55, ??_7CompositeRenderObjClass@@6BRefCountClass@@@ slot 55 (our objects' table, aligned with the client's) holds this address; symbols.json's ?Intersect_OBBox name here disagrees with every aligned table's slot (a duplicate label or a name one slot off) (SN, 2026-11-17)",
+  "replaces": "?Intersect_OBBox@CompositeRenderObjClass@@UAE_NAAVOBBoxIntersectionTestClass@@@Z"
+ },
+ {
+  "address": "0x986550",
+  "symbol": "?Create_Decal@CompositeRenderObjClass@@UAEXPAVDecalGeneratorClass@@@Z",
+  "evidence": "vtable slot: ??_7Animatable3DObjClass@@6BRefCountClass@@@ slot 80, ??_7CharacterViewAvatarClass@@6BRefCountClass@@@ slot 80, ??_7CollectionClass@@6BRefCountClass@@@ slot 80 (our objects' table, aligned with the client's) holds this address; symbols.json's ?Delete_Decal name here disagrees with every aligned table's slot (a duplicate label or a name one slot off) (SN, 2026-11-17)",
+  "replaces": "?Delete_Decal@CompositeRenderObjClass@@UAEXK@Z"
+ },
+ {
+  "address": "0x98FA70",
+  "symbol": "?Delete_Decal@HLodClass@@UAEXK@Z",
+  "evidence": "vtable slot: ??_7HLodClass@@6BRefCountClass@@@ slot 81 (our objects' table, aligned with the client's) holds this address; symbols.json's ?Create_Decal name here disagrees with every aligned table's slot (a duplicate label or a name one slot off) (SN, 2026-11-17)",
+  "replaces": "?Create_Decal@HLodClass@@UAEXPAVDecalGeneratorClass@@@Z"
+ },
+ {
+  "address": "0x9F9020",
+  "symbol": "?Get_Factory@Sound3DClass@@UBEABVPersistFactoryClass@@XZ",
+  "evidence": "vtable slot: ??_7Listener3DClass@@6BPersistClass@@@ slot 2 (our objects' table, aligned with the client's) holds this address; symbols.json's ?Get_Factory name here disagrees with every aligned table's slot (a duplicate label or a name one slot off) (SN, 2026-11-17)",
+  "replaces": "?Get_Factory@FilteredSoundClass@@UBEABVPersistFactoryClass@@XZ"
+ },
+ {
+  "address": "0x9FFAC0",
+  "symbol": "?Set_DropOff_Radius@SoundPseudo3DClass@@UAEXM@Z",
+  "evidence": "vtable slot: ??_7FilteredSoundClass@@6BMultiListObjectClass@@@ slot 30, ??_7SoundPseudo3DClass@@6BMultiListObjectClass@@@ slot 30 (our objects' table, aligned with the client's) holds this address; symbols.json's ?Set_Definition name here disagrees with every aligned table's slot (a duplicate label or a name one slot off) (SN, 2026-11-17)",
+  "replaces": "?Set_Definition@AudibleSoundClass@@UAEXPAVAudibleSoundDefinitionClass@@@Z"
+ },
+ {
+  "address": "0xA0B9B0",
+  "symbol": "?Init@ShdBumpDiffDefClass@@UAEXXZ",
+  "evidence": "vtable slot: ??_7ShdBumpDiffDefClass@@6BEditableClass@@@ slot 5 (our objects' table, aligned with the client's) holds this address; symbols.json's ?Init name here disagrees with every aligned table's slot (a duplicate label or a name one slot off) (SN, 2026-11-17)",
+  "replaces": "?Init@ShdBumpSpecDefClass@@UAEXXZ"
+ },
+ {
+  "address": "0xAEBF74",
+  "symbol": "??_7?$ExprMathEvalNotEqualClass@H@@6B@",
+  "kind": "vtable",
+  "evidence": "slot 1 is ExprMathEvalNotEqualClass<int>'s ??_E (0x4CE660); CompareOps<int>::Create_Binary 0x4CD270 stores it after ExprMathEvalBinaryClass<int>'s constructor (SN, 2026-11-17)",
+  "replaces": "??_7?$ExprMathEvalNotEqualClass@M@@6B@"
+ },
+ {
+  "address": "0xAEBD20",
+  "symbol": "??_7?$ExprMathEvalNotEqualClass@M@@6B@",
+  "kind": "vtable",
+  "evidence": "slot 1 is ExprMathEvalNotEqualClass<float>'s ??_G (0x4CA160); stored by CompareOps<float>::Create_Binary 0x4C9010 (SN, 2026-11-17)"
+ },
+ {
+  "address": "0xAEBF88",
+  "symbol": "??_7?$ExprMathEvalEqualClass@H@@6B@",
+  "kind": "vtable",
+  "evidence": "slot 1 is ExprMathEvalEqualClass<int>'s ??_E (0x4CE630); CompareOps<int>::Create_Binary 0x4CD270 stores it after ExprMathEvalBinaryClass<int>'s constructor (SN, 2026-11-17)",
+  "replaces": "??_7?$ExprMathEvalEqualClass@M@@6B@"
+ },
+ {
+  "address": "0xAEBD34",
+  "symbol": "??_7?$ExprMathEvalEqualClass@M@@6B@",
+  "kind": "vtable",
+  "evidence": "slot 1 is ExprMathEvalEqualClass<float>'s ??_G (0x4CA130); stored by CompareOps<float>::Create_Binary 0x4C9010 (SN, 2026-11-17)"
+ },
+ {
+  "address": "0xAEBF9C",
+  "symbol": "??_7?$ExprMathEvalGreaterClass@H@@6B@",
+  "kind": "vtable",
+  "evidence": "slot 1 is ExprMathEvalGreaterClass<int>'s ??_E (0x4CE600); CompareOps<int>::Create_Binary 0x4CD270 stores it after ExprMathEvalBinaryClass<int>'s constructor (SN, 2026-11-17)",
+  "replaces": "??_7?$ExprMathEvalGreaterClass@M@@6B@"
+ },
+ {
+  "address": "0xAEBD48",
+  "symbol": "??_7?$ExprMathEvalGreaterClass@M@@6B@",
+  "kind": "vtable",
+  "evidence": "slot 1 is ExprMathEvalGreaterClass<float>'s ??_G (0x4CA100); stored by CompareOps<float>::Create_Binary 0x4C9010 (SN, 2026-11-17)"
+ },
+ {
+  "address": "0xAEBFB0",
+  "symbol": "??_7?$ExprMathEvalGreaterEqualClass@H@@6B@",
+  "kind": "vtable",
+  "evidence": "slot 1 is ExprMathEvalGreaterEqualClass<int>'s ??_E (0x4CE5D0); CompareOps<int>::Create_Binary 0x4CD270 stores it after ExprMathEvalBinaryClass<int>'s constructor (SN, 2026-11-17)",
+  "replaces": "??_7?$ExprMathEvalGreaterEqualClass@M@@6B@"
+ },
+ {
+  "address": "0xAEBD5C",
+  "symbol": "??_7?$ExprMathEvalGreaterEqualClass@M@@6B@",
+  "kind": "vtable",
+  "evidence": "slot 1 is ExprMathEvalGreaterEqualClass<float>'s ??_G (0x4CA0D0); stored by CompareOps<float>::Create_Binary 0x4C9010 (SN, 2026-11-17)"
+ },
+ {
+  "address": "0xAEBFC4",
+  "symbol": "??_7?$ExprMathEvalLessClass@H@@6B@",
+  "kind": "vtable",
+  "evidence": "slot 1 is ExprMathEvalLessClass<int>'s ??_E (0x4CE5A0); CompareOps<int>::Create_Binary 0x4CD270 stores it after ExprMathEvalBinaryClass<int>'s constructor (SN, 2026-11-17)",
+  "replaces": "??_7?$ExprMathEvalLessClass@M@@6B@"
+ },
+ {
+  "address": "0xAEBD70",
+  "symbol": "??_7?$ExprMathEvalLessClass@M@@6B@",
+  "kind": "vtable",
+  "evidence": "slot 1 is ExprMathEvalLessClass<float>'s ??_G (0x4CA0A0); stored by CompareOps<float>::Create_Binary 0x4C9010 (SN, 2026-11-17)"
+ },
+ {
+  "address": "0xAEBFD8",
+  "symbol": "??_7?$ExprMathEvalLessEqualClass@H@@6B@",
+  "kind": "vtable",
+  "evidence": "slot 1 is ExprMathEvalLessEqualClass<int>'s ??_E (0x4CE570); CompareOps<int>::Create_Binary 0x4CD270 stores it after ExprMathEvalBinaryClass<int>'s constructor (SN, 2026-11-17)",
+  "replaces": "??_7?$ExprMathEvalLessEqualClass@M@@6B@"
+ },
+ {
+  "address": "0xAEBD84",
+  "symbol": "??_7?$ExprMathEvalLessEqualClass@M@@6B@",
+  "kind": "vtable",
+  "evidence": "slot 1 is ExprMathEvalLessEqualClass<float>'s ??_G (0x4CA070); stored by CompareOps<float>::Create_Binary 0x4C9010 (SN, 2026-11-17)"
+ },
+ {
+  "address": "0x4CD270",
+  "symbol": "?Create_Binary@?$ExprMathCompareOpsClass@H@@SA?AV?$RefCountPtr@V?$ExprMathEvalClass@H@@@@ABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@ABV2@1@Z",
+  "evidence": "calls ExprMathEvalBinaryClass<int>'s constructor and stores the <int> compare vtables 0xAEBF74-0xAEBFD8 (SN, 2026-11-17)",
+  "replaces": "?Create_Binary@?$ExprMathCompareOpsClass@M@@SA?AV?$RefCountPtr@V?$ExprMathEvalClass@M@@@@ABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@ABV2@1@Z"
+ },
+ {
+  "address": "0x4C9010",
+  "symbol": "?Create_Binary@?$ExprMathCompareOpsClass@M@@SA?AV?$RefCountPtr@V?$ExprMathEvalClass@M@@@@ABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@ABV2@1@Z",
+  "evidence": "stores the <float> compare vtables 0xAEBD20-0xAEBD84 (slot 1 the named ??_G<float> 0x4CA070-0x4CA160); the <int> twin is 0x4CD270 (SN, 2026-11-17)"
+ },
+ {
+  "address": "0xB10ED0",
+  "symbol": "??_7?$DynamicVectorClass@PAVHAnimComboDataClass@@@@6B@",
+  "kind": "vtable",
+  "evidence": "slots 0/2/3/4/5 are DynamicVectorClass<HAnimComboDataClass*>'s ??_G 0x9320A0, Resize, Clear and both ID (exact); HAnimComboClass's constructors 0x931630 / 0x931660 store it (SN, 2026-11-17)",
+  "replaces": "??_7?$DynamicVectorClass@PAUPlayingSoundStruct@@@@6B@"
+ },
+ {
+  "address": "0x6D4C40",
+  "symbol": "??_GFontSys@@UAEPAXI@Z",
+  "evidence": "slot 1 of FontSys's vtable 0xAFECB4 (fontmanager.h: 0x6D47C0 stores it); calls the destructor 0x67F230 (SN, 2026-11-17)"
+ },
+ {
+  "address": "0x91B9B0",
+  "symbol": "??_G?$DLListClass@VThumbnailManagerClass@@@@UAEPAXI@Z",
+  "evidence": "stores the one-slot vtable 0xB10A74 that texturethumbnail.cpp's static initialiser 0x9190F0 (atexit 0x919120) puts in ThumbnailManagerList 0xBFAE98 (DLListClass<ThumbnailManagerClass>: vtable + head + tail); the client's ParticleEmitterPrototypeClass table 0xB10A60 has 5 slots, so 0xB10A74 is not its Get_Definition (SN, 2026-11-17)",
+  "replaces": "?Get_Definition@ParticleEmitterPrototypeClass@@UBEPAVParticleEmitterDefClass@@XZ"
+ },
+ {
+  "address": "0xB10A74",
+  "symbol": "??_7?$DLListClass@VThumbnailManagerClass@@@@6B@",
+  "kind": "vtable",
+  "evidence": "texturethumbnail.cpp's static initialiser 0x9190F0 stores it in ThumbnailManagerList 0xBFAE98 and zeroes head / tail; its slot 0 is the ??_G 0x91B9B0 (SN, 2026-11-17)"
  }
 ]
