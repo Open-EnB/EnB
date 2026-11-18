@@ -371,6 +371,12 @@ USE_NAMED_AWAY_ALONE = True
 # last 0x823E10, its other copy 0x42B540 held by inpkeys' ~hash_map<int, string>)
 USE_CR3_GAP_HOLDER = True
 
+# D246 (CR5, run 2026-11-17c): a tied COMDAT whose every client copy another symbol holds is a D193 linker fold when
+# its own object's exact functions (their calls and unwind funclets) reach exactly one of the held copies and every
+# holder there is a COMDAT of the same shape: credited there (`cr5_fold`, `folded`); evidence reaching two copies, or
+# an absolute reference to the symbol, leaves it tied
+USE_CR5_FOLD_HELD = True
+
 
 def _vx_class(name):
     """VX: the class part of a mangled member / vtable name ('' for a free function): `?Evaluate@?$ExprMathEvalEqualClass@H@@..`
@@ -1541,6 +1547,18 @@ def match_objects(img, paths, region=None, callers=False, extern_called=None, ca
         for _ in range(CR2_LATE_ROUNDS):
             if not late_order_round() and not (USE_CR1_NAMED_TARGETS and named_round()):
                 break
+    if USE_CR5_FOLD_HELD:
+        for item, a in cr5_fold_held(img, results, pending, done, claimed, text, start, thunk):
+            r, obj, sec, s, length = item[:5]
+            r['status'] = 'exact'
+            r['addresses'] = [f'0x{a:06X}']
+            r['tiebreak'] = True
+            r['folded'] = True
+            r['cr5_fold'] = True
+            r.pop('count', None), r.pop('identical', None)
+            claimed[a].add(r['symbol'])
+            learn(r, obj, sec, s, length, a)
+            done.add(id(r))
     if USE_VX_SLOT_CONTRA:
         bad = vx_slot_contradicted(img, results, known, thunk)
         for r, *_ in results:
@@ -2062,6 +2080,62 @@ def cr1_named_targets(img, results, pending, done, claimed, text, base, thunk, k
     for (r, *_), a in props:
         by_addr[a].add(r['symbol'])
     return [(item, a) for item, a in props if len(by_addr[a]) == 1]
+
+
+def cr5_fold_held(img, results, pending, done, claimed, text, base, thunk):
+    """D246 (CR5): [(pending item, address)] for tied COMDATs (`multiple`, not own code) whose own object's evidence
+    reaches exactly one client copy, held there by another symbol: the linker folded the two (D193). The evidence is
+    every rel32 call / jump to the symbol in the object's other exact functions and in their unwind funclets
+    (funclet_targets); any other reference to it (an absolute address) leaves it tied. The address must be one of the
+    symbol's hits, and every symbol exact there a COMDAT of the same shape (bytes and relocation offsets / types:
+    body_sig without the target names, which differ between instances whose targets are folded too)."""
+    exact_at = collections.defaultdict(list)
+    by_obj = collections.defaultdict(list)
+    for r, obj, sec, s, length in results:
+        if r['status'] == 'exact':
+            exact_at[int(r['addresses'][0], 16)].append((r, obj, sec, s, length))
+            by_obj[id(obj)].append((r, obj, sec, s, length))
+
+    def shape(obj, sec, s, length):
+        b, rel = body_sig(obj, sec, s, length)
+        return b, tuple((k, n, typ) for k, n, typ, _, _ in rel)
+
+    fl = {}
+    out = []
+    for item in pending:
+        r, obj, sec, s, length, hits = item
+        if r['status'] != 'multiple' or id(r) in done or obj.own(sec):
+            continue
+        sym = r['symbol']
+        cands, bad = set(), False
+        for r2, obj2, sec2, s2, len2 in by_obj[id(obj)]:
+            if r2['symbol'] == sym:
+                continue
+            a2 = int(r2['addresses'][0], 16)
+            for k, n, typ, t, _ in obj.reloc_targets(sec2, s2, len2):
+                if t is None or t['name'] != sym:
+                    continue
+                if n != 4 or typ != 0x14:
+                    bad = True
+                    continue
+                o = a2 - base
+                v = (a2 + k + 4 + struct.unpack('<i', text[o + k:o + k + 4])[0]) & 0xFFFFFFFF
+                cands.add(thunk.get(v, v))
+            key = (id(r2), a2)
+            if key not in fl:
+                fl[key] = funclet_targets(img, obj, sec2, s2, len2, a2, thunk)
+            cands |= {t for n2, t in fl[key] if n2 == sym}
+        if bad or len(cands) != 1:
+            continue
+        a = next(iter(cands))
+        holders = [h for h in exact_at.get(a, ()) if h[0]['symbol'] != sym]
+        if a not in hits or not holders or not claimed[a] - {sym}:
+            continue
+        mine = shape(obj, sec, s, length)
+        if any(h[1].own(h[2]) or shape(*h[1:5]) != mine for h in holders):
+            continue
+        out.append((item, a))
+    return out
 
 
 def cr3_gap_holder(results, pending, done, claimed, text, base, img, known):

@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x474080"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "RECONSTRUCTED from client.exe: ui_dynamicwindow.cpp's object 0x589D30-0x58B62F (__FILE__ 0xB7EF24, FAIL_IF lines 252-373; UIDynamicWindowClass, tables 0xAF12DC / D0 / C4 / AC, its gadget side 0xAF1380)",
  "expected": {},
@@ -35,6 +33,7 @@
   "0x51D730",
   "0x532B10",
   "0x5411F0",
+  "0x56EFE0",
   "0x56F010",
   "0x589D30",
   "0x58A030",

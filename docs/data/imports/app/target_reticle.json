@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x474080"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "TargetReticleClass (D24 class-from-file), the reticle round a target (the client's __FILE__ 0xB9F85C, FAIL_IFs at lines 82-281; client 0x7C50B0-0x7C60F0) (TR1)",
  "expected": {},
@@ -9,6 +7,7 @@
   "0x42B320",
   "0x42F250",
   "0x46BEC0",
+  "0x474080",
   "0x4740B0",
   "0x47D040",
   "0x47D370",
@@ -32,6 +31,7 @@
   "0x42B320",
   "0x42F250",
   "0x46BEC0",
+  "0x474080",
   "0x4740B0",
   "0x47D040",
   "0x47D370",
