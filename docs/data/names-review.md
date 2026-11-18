@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1967 |
 | 2 | describes what the code does | 4982 |
-| 1 | neutral placeholder | 25226 |
+| 1 | neutral placeholder | 25221 |
 
 ## For review (score 3 and below)
 
@@ -91,26 +91,23 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `AuxRootsSymbolPadType` | `app/client/aux_roots.cpp:120` | a build aid (HX1) |
 | 1 | `aux_roots.h` | `app/client/aux_roots.h:8` | provisional file name (the client's code is in co.cpp and an unattributed object) |
 | 1 | `Unknown_Hex_String` | `app/client/aux_roots.h:44` | untagged neutral name (D10) |
-| 1 | `UnknownB011D4Enum` | `app/client/aux_roots.h:78` | the value type of the leaf vtable 0xB011D4 (no name in the client, Net-7 or C#) |
-| 1 | `UnknownB0122CEnum` | `app/client/aux_roots.h:84` | untagged neutral name (D10) |
-| 1 | `UnknownB0133CEnum` | `app/client/aux_roots.h:85` | untagged neutral name (D10) |
-| 1 | `UnknownB01394Enum` | `app/client/aux_roots.h:86` | untagged neutral name (D10) |
-| 1 | `UnknownB013ECEnum` | `app/client/aux_roots.h:87` | untagged neutral name (D10) |
-| 1 | `UnknownB03588Enum` | `app/client/aux_roots.h:138` | the value type of the leaf vtable 0xB03588 (no name in the client, Net-7 or C#) |
-| 1 | `UnknownB035E0Enum` | `app/client/aux_roots.h:143` | the value type of the leaf vtable 0xB035E0 (no name in the client, Net-7 or C#) |
-| 1 | `Unknown9C` | `app/client/aux_roots.h:181` | neutral (D10): a member, not a field of the tree |
-| 1 | `Unknown04` | `app/client/aux_roots.h:363` | untagged neutral name (D10) |
-| 1 | `UnknownGlobal` | `app/client/aux_roots.h:363` | untagged neutral name (D10) |
-| 1 | `UnknownRootClass` | `app/client/aux_roots.h:469` | untagged neutral name (D10) |
-| 1 | `Unknown2390` | `app/client/aux_roots.h:518` | neutral (D10): a member, not a field of the tree |
-| 1 | `Unknown2394` | `app/client/aux_roots.h:519` | neutral (D10): a member, not a field of the tree |
-| 1 | `Unknown2398` | `app/client/aux_roots.h:520` | neutral (D10): a member, not a field of the tree |
-| 1 | `UnknownSendRootClass` | `app/client/aux_roots.h:863` | untagged neutral name (D10) |
-| 1 | `Unknown80` | `app/client/aux_roots.h:915` | untagged neutral name (D10) |
-| 1 | `Unknown_48` | `app/client/aux_roots.h:917` | untagged neutral name (D10) |
-| 1 | `Unknown420` | `app/client/aux_roots.h:926` | neutral (D10): a member, not a field of the tree |
-| 1 | `Unknown424` | `app/client/aux_roots.h:927` | neutral (D10): a member, not a field of the tree |
-| 1 | `Unknown428` | `app/client/aux_roots.h:928` | neutral (D10): a member, not a field of the tree |
+| 1 | `UnknownB0122CEnum` | `app/client/aux_roots.h:80` | untagged neutral name (D10) |
+| 1 | `UnknownB0133CEnum` | `app/client/aux_roots.h:81` | untagged neutral name (D10) |
+| 1 | `UnknownB01394Enum` | `app/client/aux_roots.h:82` | untagged neutral name (D10) |
+| 1 | `UnknownB013ECEnum` | `app/client/aux_roots.h:83` | untagged neutral name (D10) |
+| 1 | `Unknown9C` | `app/client/aux_roots.h:174` | neutral (D10): a member, not a field of the tree |
+| 1 | `Unknown04` | `app/client/aux_roots.h:356` | untagged neutral name (D10) |
+| 1 | `UnknownGlobal` | `app/client/aux_roots.h:356` | untagged neutral name (D10) |
+| 1 | `UnknownRootClass` | `app/client/aux_roots.h:462` | untagged neutral name (D10) |
+| 1 | `Unknown2390` | `app/client/aux_roots.h:511` | neutral (D10): a member, not a field of the tree |
+| 1 | `Unknown2394` | `app/client/aux_roots.h:512` | neutral (D10): a member, not a field of the tree |
+| 1 | `Unknown2398` | `app/client/aux_roots.h:513` | neutral (D10): a member, not a field of the tree |
+| 1 | `UnknownSendRootClass` | `app/client/aux_roots.h:856` | untagged neutral name (D10) |
+| 1 | `Unknown80` | `app/client/aux_roots.h:908` | untagged neutral name (D10) |
+| 1 | `Unknown_48` | `app/client/aux_roots.h:910` | untagged neutral name (D10) |
+| 1 | `Unknown420` | `app/client/aux_roots.h:919` | neutral (D10): a member, not a field of the tree |
+| 1 | `Unknown424` | `app/client/aux_roots.h:920` | neutral (D10): a member, not a field of the tree |
+| 1 | `Unknown428` | `app/client/aux_roots.h:921` | neutral (D10): a member, not a field of the tree |
 | 1 | `aux_roots_send.h` | `app/client/aux_roots_send.h:5` | provisional file name (a build aid: kept out of aux_roots.cpp, workflow.md 3.3) |
 | 1 | `UnknownSendRootClass` | `app/client/aux_roots_send.h:24` | untagged neutral name (D10) |
 | 1 | `Unknown_48` | `app/client/aux_roots_send.h:44` | untagged neutral name (D10) |
@@ -6083,7 +6080,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_Find_Valid` | `app/client/item/client_item_property_special_profession_requirement.cpp:6` | neutral (D10): as co.cpp's |
 | 1 | `Unknown_Find_Field` | `app/client/item/client_item_property_special_profession_requirement.cpp:6` | untagged neutral name (D10) |
 | 1 | `Unknown70` | `app/client/item/client_item_property_special_profession_requirement.cpp:6` | untagged neutral name (D10) |
-| 1 | `UnknownB03588Enum` | `app/client/item/client_item_property_special_profession_requirement.cpp:108` | untagged neutral name (D10) |
 | 1 | `Create` | `app/client/item/client_item_property_special_profession_requirement.h:29` | as the effect's; NAME 1 [professions]: the bits it tests |
 | 1 | `space_client, sort_order, professions, label, tooltip` | `app/client/item/client_item_property_special_profession_requirement.h:31` | the members they fill |
 | 1 | `SpaceClient` | `app/client/item/client_item_property_special_profession_requirement.h:36` | as the builder's |
@@ -6092,7 +6088,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_Find_Valid` | `app/client/item/client_item_property_special_race_requirement.cpp:6` | neutral (D10): as co.cpp's |
 | 1 | `Unknown_Find_Field` | `app/client/item/client_item_property_special_race_requirement.cpp:6` | untagged neutral name (D10) |
 | 1 | `Unknown70` | `app/client/item/client_item_property_special_race_requirement.cpp:6` | untagged neutral name (D10) |
-| 1 | `UnknownB035E0Enum` | `app/client/item/client_item_property_special_race_requirement.cpp:114` | untagged neutral name (D10) |
 | 1 | `Create` | `app/client/item/client_item_property_special_race_requirement.h:29` | as the effect's; NAME 1 [races]: the bits it tests; NAME 1 [race]: the builder's attribute 17, which adds a bit |
 | 1 | `space_client, sort_order, races, label, tooltip` | `app/client/item/client_item_property_special_race_requirement.h:31` | the members they fill |
 | 1 | `SpaceClient` | `app/client/item/client_item_property_special_race_requirement.h:36` | as the builder's |
@@ -24657,12 +24652,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `LoginUnknown88CClass` | `app/shared/shipcust_desc.h:10` | untagged neutral name (D10) |
 | 1 | `LoginUnknown44Class` | `app/shared/shipcust_desc.h:10` | untagged neutral name (D10) |
 | 1 | `LoginUnknown20Class` | `app/shared/shipcust_desc.h:10` | untagged neutral name (D10) |
-| 1 | `Unknown10` | `app/shared/shipcust_desc.h:47` | untagged neutral name (D10) |
-| 1 | `Unknown14` | `app/shared/shipcust_desc.h:47` | untagged neutral name (D10) |
-| 1 | `Unknown_00` | `app/shared/shipcust_desc.h:49` | untagged neutral name (D10) |
-| 1 | `Unknown_PacketDataClass` | `app/shared/shipcust_desc.h:72` | untagged neutral name (D10) |
-| 1 | `Unknown3C` | `app/shared/shipcust_desc.h:77` | untagged neutral name (D10) |
-| 1 | `Ship_Name_Empty` | `app/shared/shipcust_desc.h:119` | what the constructor stores |
+| 1 | `Unknown10` | `app/shared/shipcust_desc.h:50` | untagged neutral name (D10) |
+| 1 | `Unknown14` | `app/shared/shipcust_desc.h:50` | untagged neutral name (D10) |
+| 1 | `Unknown_00` | `app/shared/shipcust_desc.h:52` | untagged neutral name (D10) |
+| 1 | `Unknown_PacketDataClass` | `app/shared/shipcust_desc.h:75` | untagged neutral name (D10) |
+| 1 | `Unknown3C` | `app/shared/shipcust_desc.h:80` | untagged neutral name (D10) |
+| 1 | `Ship_Name_Empty` | `app/shared/shipcust_desc.h:122` | what the constructor stores |
 | 1 | `SplineFloatArrayClass` | `app/shared/spline.h:26` | a float array of a set size (0x10 bytes: +0x00 the vtable, +0x04 the values, +0x08 their count, +0x0C the last index) |
 | 1 | `Evaluate, Get_Value, Find_Index` | `app/shared/spline.h:38` | what they do (spline.inl, assert line 33) |
 | 1 | `Read, Create` | `app/shared/spline.h:42` | what they do (0x483A20 has no caller: Load 0x4838B0 and Create 0x483BB0 inline it; Create has none) |
@@ -29886,15 +29881,15 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Get_Type` | `app/shared/selector.h:23` | what it does |
 | 2 | `Create` | `app/shared/selector.h:26` | what it does |
 | 2 | `Create` | `app/shared/selector.h:27` | what it does |
-| 2 | `ShipCustSettingsClass` | `app/shared/shipcust_desc.h:44` | the parts' key 'Settings%d' |
-| 2 | `ShipCustPartClass` | `app/shared/shipcust_desc.h:61` | the description's key 'PartAttributes%d' |
-| 2 | `Write_Short` | `app/shared/shipcust_desc.h:87` | what it does |
-| 2 | `Read_Short` | `app/shared/shipcust_desc.h:88` | what it does |
-| 2 | `Get_Short_Size` | `app/shared/shipcust_desc.h:89` | what it does |
-| 2 | `Set_Race` | `app/shared/shipcust_desc.h:111` | what it does |
-| 2 | `Reset_Parts` | `app/shared/shipcust_desc.h:112` | what it does |
-| 2 | `Set_Profession` | `app/shared/shipcust_desc.h:113` | what it does |
-| 2 | `Ship_Name` | `app/shared/shipcust_desc.h:120` | its key 'ShipName' |
+| 2 | `ShipCustSettingsClass` | `app/shared/shipcust_desc.h:47` | the parts' key 'Settings%d' |
+| 2 | `ShipCustPartClass` | `app/shared/shipcust_desc.h:64` | the description's key 'PartAttributes%d' |
+| 2 | `Write_Short` | `app/shared/shipcust_desc.h:90` | what it does |
+| 2 | `Read_Short` | `app/shared/shipcust_desc.h:91` | what it does |
+| 2 | `Get_Short_Size` | `app/shared/shipcust_desc.h:92` | what it does |
+| 2 | `Set_Race` | `app/shared/shipcust_desc.h:114` | what it does |
+| 2 | `Reset_Parts` | `app/shared/shipcust_desc.h:115` | what it does |
+| 2 | `Set_Profession` | `app/shared/shipcust_desc.h:116` | what it does |
+| 2 | `Ship_Name` | `app/shared/shipcust_desc.h:123` | its key 'ShipName' |
 | 2 | `spline.h` | `app/shared/spline.h:19` | the client's __FILE__ |
 | 2 | `ctors, ~, Load, Save` | `app/shared/spline.h:30` | what they do; the ints are inline (unknown_480b10.cpp 0x480B10 news one: +0x04, +0x08 zeroed) |
 | 2 | `Resize` | `app/shared/spline.h:34` | after what it does (0x483820: deletes the values, news size of them set to value) |
@@ -30238,19 +30233,19 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `StarbaseSoundClass` | `app/audio/starbasesound.h:16` | class-from-file (D24) for audio/starbasesound.cpp |
 | 3 | `acticon.h` | `app/client/acticon.h:17` | header name assumed from the client's acticon.cpp |
 | 3 | `ActIconClass` | `app/client/acticon.h:24` | class-from-file (D24) for app\Client\acticon.cpp |
-| 3 | `DeltaElementsClass` | `app/client/aux_roots.h:357` | Net-7 AuxElements at the same place in the tree, its child count differs (Net-7 Construct 4 children != ours 5) |
-| 3 | `DeltaBuffsClass` | `app/client/aux_roots.h:397` | Net-7 AuxBuffs at the same place in the tree, its child count differs (Net-7 Construct 16 children != ours 15) |
-| 3 | `DeltaShipClass` | `app/client/aux_roots.h:468` | the client's root string "Ship", Westwood XxxClass (D24); structure = Net-7 AuxShipIndex / C# ShipObject (C# fields = ours (same names, same order); Net-7 Construct 58 children = ours) |
-| 3 | `DeltaComponentClass` | `app/client/aux_roots.h:540` | the client's root string "Component", Westwood XxxClass (D24); structure = C# ComponentObject (C# fields = ours (same names, same order)) |
-| 3 | `DeltaLightClass` | `app/client/aux_roots.h:550` | the client's root string "Light", Westwood XxxClass (D24); structure = C# LightObject (C# fields = ours (same names, same order)) |
-| 3 | `DeltaDecorationClass` | `app/client/aux_roots.h:566` | the client's root string "Decoration", Westwood XxxClass (D24); structure = C# DecorationObject (C# fields = ours (same names, same order)) |
-| 3 | `DeltaHarvestableClass` | `app/client/aux_roots.h:578` | the client's root string "Harvestable", Westwood XxxClass (D24); structure = Net-7 AuxHarvestable / C# HarvestableObject (C# fields = ours (same names, same order); Net-7 Construct 4 children = ours) |
-| 3 | `DeltaManufacturingLabClass` | `app/client/aux_roots.h:657` | the client's root string "ManufacturingLab", Westwood XxxClass (D24); structure = Net-7 AuxManufacturingIndex / C# ManufacturingLabObject (C# fields = ours (same names, same order); Net-7 Construct 21 children = ours) |
-| 3 | `DeltaPlayerClass` | `app/client/aux_roots.h:862` | the client's root string "Player", Westwood XxxClass (D24); structure = Net-7 AuxPlayerIndex / C# PilotData (C# fields = ours (same names, same order); Net-7 Construct 18 children = ours) |
-| 3 | `DeltaHulkClass` | `app/client/aux_roots.h:889` | the client's root string "Hulk", Westwood XxxClass (D24); structure = Net-7 AuxHulkIndex / C# HulkObject (C# fields = ours (same names, same order); Net-7 Construct 8 children = ours) |
-| 3 | `DeltaPlanetClass` | `app/client/aux_roots.h:934` | the client's root string "Planet", Westwood XxxClass (D24); structure = C# PlanetObject (C# fields = ours (same names, same order)) |
-| 3 | `DeltaStarbaseClass` | `app/client/aux_roots.h:950` | the client's root string "Starbase", Westwood XxxClass (D24); structure = C# StarbaseObject (C# fields = ours (same names, same order)) |
-| 3 | `DeltaStargateClass` | `app/client/aux_roots.h:966` | the client's root string "Stargate", Westwood XxxClass (D24); structure = C# StargateObject (C# fields = ours (same names, same order)) |
+| 3 | `DeltaElementsClass` | `app/client/aux_roots.h:350` | Net-7 AuxElements at the same place in the tree, its child count differs (Net-7 Construct 4 children != ours 5) |
+| 3 | `DeltaBuffsClass` | `app/client/aux_roots.h:390` | Net-7 AuxBuffs at the same place in the tree, its child count differs (Net-7 Construct 16 children != ours 15) |
+| 3 | `DeltaShipClass` | `app/client/aux_roots.h:461` | the client's root string "Ship", Westwood XxxClass (D24); structure = Net-7 AuxShipIndex / C# ShipObject (C# fields = ours (same names, same order); Net-7 Construct 58 children = ours) |
+| 3 | `DeltaComponentClass` | `app/client/aux_roots.h:533` | the client's root string "Component", Westwood XxxClass (D24); structure = C# ComponentObject (C# fields = ours (same names, same order)) |
+| 3 | `DeltaLightClass` | `app/client/aux_roots.h:543` | the client's root string "Light", Westwood XxxClass (D24); structure = C# LightObject (C# fields = ours (same names, same order)) |
+| 3 | `DeltaDecorationClass` | `app/client/aux_roots.h:559` | the client's root string "Decoration", Westwood XxxClass (D24); structure = C# DecorationObject (C# fields = ours (same names, same order)) |
+| 3 | `DeltaHarvestableClass` | `app/client/aux_roots.h:571` | the client's root string "Harvestable", Westwood XxxClass (D24); structure = Net-7 AuxHarvestable / C# HarvestableObject (C# fields = ours (same names, same order); Net-7 Construct 4 children = ours) |
+| 3 | `DeltaManufacturingLabClass` | `app/client/aux_roots.h:650` | the client's root string "ManufacturingLab", Westwood XxxClass (D24); structure = Net-7 AuxManufacturingIndex / C# ManufacturingLabObject (C# fields = ours (same names, same order); Net-7 Construct 21 children = ours) |
+| 3 | `DeltaPlayerClass` | `app/client/aux_roots.h:855` | the client's root string "Player", Westwood XxxClass (D24); structure = Net-7 AuxPlayerIndex / C# PilotData (C# fields = ours (same names, same order); Net-7 Construct 18 children = ours) |
+| 3 | `DeltaHulkClass` | `app/client/aux_roots.h:882` | the client's root string "Hulk", Westwood XxxClass (D24); structure = Net-7 AuxHulkIndex / C# HulkObject (C# fields = ours (same names, same order); Net-7 Construct 8 children = ours) |
+| 3 | `DeltaPlanetClass` | `app/client/aux_roots.h:927` | the client's root string "Planet", Westwood XxxClass (D24); structure = C# PlanetObject (C# fields = ours (same names, same order)) |
+| 3 | `DeltaStarbaseClass` | `app/client/aux_roots.h:943` | the client's root string "Starbase", Westwood XxxClass (D24); structure = C# StarbaseObject (C# fields = ours (same names, same order)) |
+| 3 | `DeltaStargateClass` | `app/client/aux_roots.h:959` | the client's root string "Stargate", Westwood XxxClass (D24); structure = C# StargateObject (C# fields = ours (same names, same order)) |
 | 3 | `DeltaHullClass` | `app/client/aux_roots_send.h:23` | the client's root string "Hull", Westwood XxxClass (D24); structure = - (no match) |
 | 3 | `avatar_pip.h` | `app/client/avatar_pip.h:18` | header name assumed from the client's avatar_pip.cpp |
 | 3 | `AvatarPipClass` | `app/client/avatar_pip.h:35` | class-from-file (D24) for app\client\avatar_pip.cpp |
@@ -32176,7 +32171,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `SelectorClass` | `app/shared/selector.h:11` | Westwood style (D24) after the client's selector.cpp |
 | 3 | `SelectorType` | `app/shared/selector.h:14` | the numbers 0x49FAB0 passes to 0x49FB70 for 'Dependent', 'Independent', 'Counted' |
 | 3 | `shipcust_desc.h` | `app/shared/shipcust_desc.h:20` | header name assumed from the client's shipcust_desc.cpp |
-| 3 | `ShipCustDescClass` | `app/shared/shipcust_desc.h:72` | by convention (D24) from the client's shipcust_desc.cpp |
+| 3 | `ShipCustDescClass` | `app/shared/shipcust_desc.h:75` | by convention (D24) from the client's shipcust_desc.cpp |
 | 3 | `split_string.h` | `app/shared/split_string.h:18` | header name assumed from the client's split_string.cpp |
 | 3 | `SplitStringClass` | `app/shared/split_string.h:24` | D24, from split_string.cpp |
 | 3 | `spln_db.h` | `app/shared/spln_db.h:34` | header of the client's app\shared\spln_db.cpp (assert __FILE__) |

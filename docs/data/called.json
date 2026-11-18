@@ -2927,11 +2927,11 @@
 "data:?UnknownGlobal@?$DeltaItemArrayClass@VDeltaAttachmentClass@@@@2HA": [
 "0xC41580"
 ],
-"data:?UnknownGlobal@?$DeltaItemArrayClass@VDeltaCategoryClass@@@@2HA": [
-"0xC41620"
-],
 "data:?UnknownGlobal@?$DeltaItemArrayClass@VDeltaEquipItemClass@@@@2HA": [
 "0xC415A4"
+],
+"data:?UnknownGlobal@?$DeltaItemArrayClass@VDeltaFactionClass@@@@2HA": [
+"0xC415F8"
 ],
 "data:?UnknownGlobal@?$DeltaItemArrayClass@VDeltaGroupMemberClass@@@@2HA": [
 "0xC41644"
@@ -2960,11 +2960,11 @@
 "data:?UnknownGlobal@?$DeltaItemArrayClass@VDeltaStringClass@@@@2HA": [
 "0xC415C8"
 ],
-"data:?UnknownGlobal@?$DeltaItemArrayClass@VDeltaSubCategoryClass@@@@2HA": [
-"0xC4160C"
-],
 "data:?UnknownGlobal@?$DeltaTemplateClass@H@@2HA": [
 "0xC416A8"
+],
+"data:?UnknownGlobal@?$DeltaTemplateClass@I@@2HA": [
+"0xC4163C"
 ],
 "data:?UnknownGlobal@?$DeltaTemplateClass@M@@2HA": [
 "0xC416F0"
@@ -3008,11 +3008,14 @@
 "data:?UnknownGlobal@?$DeltaTemplateClass@W4ItemStateEnum@@@@2HA": [
 "0xC41690"
 ],
+"data:?UnknownGlobal@?$DeltaTemplateClass@W4ProfessionType@@@@2HA": [
+"0xC41674"
+],
+"data:?UnknownGlobal@?$DeltaTemplateClass@W4RaceType@@@@2HA": [
+"0xC41670"
+],
 "data:?UnknownGlobal@?$DeltaTemplateClass@W4TargetGeneratorSummaryBF@@@@2HA": [
 "0xC41688"
-],
-"data:?UnknownGlobal@?$DeltaTemplateClass@W4UnknownB011D4Enum@@@@2HA": [
-"0xC4163C"
 ],
 "data:?UnknownGlobal@?$DeltaTemplateClass@W4UnknownB0122CEnum@@@@2HA": [
 "0xC41630"
@@ -3025,12 +3028,6 @@
 ],
 "data:?UnknownGlobal@?$DeltaTemplateClass@W4UnknownB013ECEnum@@@@2HA": [
 "0xC41634"
-],
-"data:?UnknownGlobal@?$DeltaTemplateClass@W4UnknownB03588Enum@@@@2HA": [
-"0xC41674"
-],
-"data:?UnknownGlobal@?$DeltaTemplateClass@W4UnknownB035E0Enum@@@@2HA": [
-"0xC41670"
 ],
 "data:?UnknownGlobal@?$DeltaTemplateClass@W4WW3DLightAttenuationType@@@@2HA": [
 "0xC41564"
