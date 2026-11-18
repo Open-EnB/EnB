@@ -4,6 +4,55 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
+### 2026-11-17 (17:30 PST, evening; run 2026-11-17b, week plan session 1, the map): the week's queue (718 rows, 134 stale found), the unattributed bytes split (alignment fill 9.1 % of .text, now charged on the card: unattributed 11.74 % -> 3.73 %), crediting by client vtables (CK2V, VX, WA / EN), gap rules (EX), the flat hash_map form at 18 sites (CD, FL), new file unknown_65a020.cpp; +356 pairs over the run's baseline, 0 lost outright except 0x48CF90 (D246 valve)
+
+- **Session** Opus coordinator, unattended (D261), launcher start 12:15. How it started: clean (session 0's handoff; #210 merged
+  by the user's /accept-d66). The user joined by Remote Control: STL question (answered), D264 (STL downloads), "shoot for the
+  ceiling" (spend to the 7 % cap), D265 (fill on the card, today, over the cap if needed).
+- **The map (items 0, 1):** S1-U's split of the unattributed 12.1 % (876,158 B at ea9e11e50): alignment fill 659,012 B (75 %),
+  tail bytes / jump tables / data 50,843 B, no-name functions 471 / ~142 KB, exact-but-uncredited copies 204 / 19,360 B (most bytes
+  a point), written-not-exact 3. S1-Q's queue `.work/week-2026-11-17/queue.md` / `queue.tsv` / `state.tsv` (rerun:
+  `.work/S1-Q/fold.py`, `p4.py`, `build_queue.py`; build_queue now applies state.tsv's states): 1,144 open app functions, 1,008
+  inside existing files' homes, 136 between; triage hints spent. Rows: untried 23 (116 fn), known-pattern new file 2 (11), unique
+  new file 3 (7), finishing 214 + 40 parked (851), stuck 2 + 82 parked (159), crediting 17, harness 16, tools 14, names 11
+  (+109 exact-but-unnamed); agy-suitable 25 rows (127 fn). S1-ST's staleness sweep: of 224 small / §4 rows 11 stale, 17 partly
+  done; EX then found 79 rows the 2026-11-13b audit called exact are not exact.
+- **Landed** (run/2026-11-17b): NF65 6cc881fb8 unknown_65a020.cpp (starbase web window, +34); CK2V 4e4bfbc8b callseq vtable-slot
+  locations (+11); CD 1d692d564 co_data's flat hashtable constructors (+15); U1 84d9be640 ~SlotDataInterface + 3 (+10); EX
+  4860676e6..7ca3a0272 gap_edges (+57); FL fada1e720 the flat form at 13 more sites (+22); SO d2b176478 source order (+4); VX
+  fe49579eb..a3f947170 client-vtable veto / D54 vtable compare (+43, 9 false pairs removed); U2 a37057f6f (+9); PF 66b0ade96
+  the card's fill; CIPB 0246cae19..d32b071ac (+9); U3 b83ff9f6b..ecdd7d64d (+10, 0x48CF90 in the valve: 7c5532242); CR3
+  4c0c7f4ca gap holder (+2); VL 119603561..774858b79 (+3); U4 f088554a2..1b889ff29 (+1); WA e06bf492a _LOGICAL_TYPE_STRUCT names
+  + USE_NAMED_AWAY; CP 4730f7581 (0x522860 0.56 -> 0.62); CS 4295f0a4e..3e5ace52a (+1, Get_Signal_Map rename); EN a6f1553fb _ENUM_VALUE names (+32 shared, 15 false 0x9DA8C0 holders out); U5 d384e486a / CQ 50558409d attempts rows (Process_Key, Split, 0x522860 parked); NA 719537de4 USE_NAMED_AWAY_ALONE (4 wwsaveload false holders out); 93e0156e4 attempts 0x71DCE0 (the STL measure); e2b280010 conventions.md.
+- **Not landed / measured nothing:** CK2P pushed / funclet location sources (0 credited; bound recorded in §4); CRS (all four
+  §4 cases already credited: rows deleted); SL STL candidates (no swap, below).
+- **STL (the user's question, D264):** the client's STL is VC6's Dinkumware (rtti.txt; conventions.md settled, e2b280010) with
+  an SGI-lineage hash_map. SL fetched SGI 3.0, egcs 2.91.57, SGI 3.2x and STLport 4.5.3 into `C:\EnBDevelopment\SDK\stl-candidates\`
+  (SOURCES.md): STLport fails three client fingerprints; SGI 3.0's node allocate loses 26 exact; nothing gives P-L21-1's B form, so
+  the per-file flat specialisations stay. EASTL ruled out (2005+, namespace eastl). Recommendation to the user: no swap.
+- **Calls (D246):** the plan log's C1-C23 (`.work/run-2026-11-17b/plan.md`). The rules: D266 (crediting from client vtables and
+  gaps). Others: the plan's crediting items 3 / 4 stale; unknown_65a020 stays provisional (ui_web.cpp the candidate, D137);
+  FL's `template<> inline`; CK2V / VX / EX / CR3 / WA / EN rules adopted; 0x48CF90 inside the valve (open D246 entries 5 -> 6);
+  CP's Fable proposal rejected (D263: the D89 round on Opus); RenderObjClass unchanged (VL: symbols.json's duplicate labels).
+- **Pairs per point:** +356 for about 5 points of the week (2 % at 13:12, 4 % at 15:42, 5 % at 16:46: about 70 pairs a point). By kind:
+  crediting ~180 (CK2V 11, EX 57, VX 43, CR3 2, WA / EN ~65 shared holders), known pattern / new files ~80 (NF65 34, CD 15, FL 22,
+  SO 4, U1 10), finishing ~25. Builders (Opus): CK2V ~230k, EX ~250k, VX ~300k, U3 ~260k, U4 ~260k, CD ~200k, S1-Q ~180k, U2 ~250k,
+  CIPB ~150k, FL ~150k, U1 ~150k, CR3 ~160k, VL ~150k, CP ~150k, WA ~150k, CK2P ~110k, SL ~110k, NF65 ~95k, PF ~90k, EN ~90k, CRS
+  ~75k, CS ~60k, U5 ~60k (+ CQ, NA); Sonnet S1-U ~80k, S1-ST ~140k, landers / checkers / doc-filer ~700k. No agy (Gemini week at
+  33 % against its 30 % floor; P-S1Q-1's batch waits for the 2026-11-21 reset).
+- **Meter:** week 0 % at 12:16 -> 5 % at 17:25 (about 5 points for the session) at the handoff (floor 5, cap 7; the user asked for the cap).
+- **PRs:** #210 merged by the user before the session. **#212 frozen** for `/verify-approved` (tools: objmatch rules, progress.py)
+  and `/accept-d66` (VX's 9 false pairs, WA / EN's 0x9DA8C0 holders, 0x8D6DE0, 0x514CF0, 0x83EDD0, wwaudio 0xA029F0 / 0xA02A00).
+- **Verified vs not:** every landing's verify, link and stand-in checks; checker at 6cc881fb8 and edc7179be: clienttest 102/102,
+  trace equal; udpreplay alex3 7 of 8 same set; handshake 54/54; e2e 25/25 (~306 s). At d384e486a (the last code landing): clienttest 102/102, trace equal; udpreplay alex3 7 of 8; handshake 54/54; e2e 25/25 in 308 s.
+- **Next ten items:** (1) the agy batch of the queue's 25 rows after the Gemini reset (2026-11-21 19:26 PST); (2) the census's
+  147 siblings: name / file their ~96 unnamed client callers (queue order); (3) symbols.json's duplicate labels (VL) and stale
+  ExprMath / 0xB10ED0 names: a symbols.py regeneration naming identical copies by client vtable slot; (4) 0x48CF90's regain
+  (Get_Hash_Value<StringClass> 0x48E940 compiled late: a wwlib hashtemplate.h form); (5) the live e2e station scenarios
+  (session 3); (6) the queue's next finishing rows (`queue.md` from the top, Opus); (7) unknown_65a020.cpp's name; (8) 0x4DD240
+  (Add_Member 0x4DC720's inline budget); (9) enbassetmgr 0x48CB40 / cameraeffects 0x6E2CC0 / 0x75AB50's deque ??_F;
+  (10) the 267 fill runs ending at unverified table starts once those starts are verified.
+
 ### 2026-11-17 (06:25 PST, morning; run 2026-11-17, week plan session 0): the week of 2026-11-10's record (P-D72-1), progress.md §4 from the old queue, a readability pass, and bounded crediting to spend the old week: callseq_ties (D262, +41), AR's aux_roots retype landed after finding auxpad.py's regeneration bug (+32, 0x758210 in D246's valve), the match audit's bw_render duplicate (+2) and two typing fixes; +77 pairs over the run's baseline, 0 lost outright
 
 - **Session** Opus coordinator, unattended (D261), started by the launcher at 04:00. How it started: clean (the planning
@@ -3736,6 +3785,9 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 | D261 | 2026-11-16 | The user, away from 2026-11-16 22:30 to 2026-11-20 19:00: the week runs unattended on [week-plan-2026-11-17.md](week-plan-2026-11-17.md). Sessions are started by scheduled tasks (an interactive `claude --remote-control` per session, the launcher in `.work/week-2026-11-17/launcher/`); Opus coordinator and builders, Sonnet helpers, agy builders, no Fable; at most 54 % of the new week by Friday 18:45. **D148 is relaxed until the user's return:** the coordinator merges its own run PR (and the plan's) once `vc6-verify` and the hosted checks are green without anyone's comment; a PR that needs `/verify-approved` or `/accept-d66` stays the user's (agents never post them), is frozen, and the next run stacks on its branch. Every session begins with a recovery step for a predecessor that was cut off. The week plan of 2026-11-10 is archived; its sessions 13 and 14 did not run as written and their items are carried forward (the new plan's §2). The relaxation ends on 2026-11-20 19:00 unless the user renews it | user |
 | D262 | 2026-11-17 | coordinator (D246), run 2026-11-17 (CK): objmatch's last phase, `callseq_ties` (USE_CK_CALLSEQ, _NAMED, _DEEP): a not-exact function whose client address is known (the exact functions' calls, D88's self name, or the aligned callers) has its REL32 relocations aligned in order with the client function's outside calls and jumps (equal counts, one address per symbol and back, every D80-known symbol at its address and at least one); a tied or short callee is credited at its aligned target when it fullmatches there, D80 does not contradict it and no other symbol holds it. Evidence: client.exe's call targets. Its credits never widen ranges. +41 pairs, 0 lost (full verify). Object order does not place COMDATs (consecutive COMDAT pairs rise 4661 of 5071 times): no order rule for them. |
 | D263 | 2026-11-17 | The user (P-D72-1, proposed by session 0 of the week plan from the week of 2026-11-10's record): D72's model table revised (docs/builders.md §4): no Fable builder, the D89 stuck-function round included, until Fable's cost changes (Fable builders 33-39 pairs a point against Opus's 105-150); that round runs on Opus, one round then parked; agy (Gemini 4 Hydrogen) widened to known-pattern new-file rows and files' untried functions; the order of worth (crediting, new files, finishing, harness, levers; names alone ~1-2) goes in the table's note. D225's week paragraph removed. |
+| D264 | 2026-11-17 | The user: STL libraries that might fit may be downloaded from public GitHub repositories (into `C:\EnBDevelopment\SDK\stl-candidates\`, recorded in its SOURCES.md, read as untrusted data); a swap into the tree is reported to the user first. Session 1's measure: no swap (SGI 3.0 / 3.2x, STLport 4.5.3) | user |
+| D265 | 2026-11-17 | The user (run 2026-11-17b): the progress card charges each inter-function alignment fill run (0xCC / 0x90 / 0x00 from a function's end to the next 16-aligned D27 verified start; zero runs guarded by .reloc; linker regions stay linker) to the state of the function before it, from 2026-11-17 on (docs/data/fill-runs.tsv, `progress.py --fill-table`); history rows before keep the old accounting | user |
+| D266 | 2026-11-17 | Crediting from client tables and gaps (run 2026-11-17b): a client vtable placed by a vptr store, a located constructor's ??_7 relocations or its own known slots gives its slots' virtuals an address (CK2V); a candidate whose vptr store holds another class's client table is rejected and D54 compares vtable references (VX); short / tied own functions take a gap's edge or the first aligned start after padding between exact neighbours, one symbol per address (EX); a COMDAT tied in the gap between two objects goes to the one holding it (CR3); an exact copy is not credited where D88's self names place its symbol elsewhere (WA). Evidence: client.exe's tables, verified starts, bytes and link order | coordinator (D246) |
 
 ## 3. Open decisions
 
@@ -4140,7 +4192,7 @@ below name only the work items, the blocked work, the leads and the queues.
      `__LINE__` of every later assert: a session of its own).
    * ui_guild.cpp (provisional): 0x81C380 (the member list rebuilt from a vector of strings) and its string helper
      0x81D290 (calls 0x4FB810 / 0x4FC990).
-   * client_item_property_builder.cpp: 0x522860 / 0x521C10 / 0x527F40 (NOT EXACT); ui_item_examination's router /
+   * client_item_property_builder.cpp: 0x522860 / 0x521C10 (NOT EXACT); ui_item_examination's router /
      builder stand-ins (need D218 carried out first: UISlotInfoItem = InvDataClass, UISlotInfoItemUnknown54Class =
      InvDataPeekClass in shared headers, ui_item_examination and inv_render onto them). client_item_property_attribute.h:
      the client's inline code the tree lacks (13 functions, 18 asserts, used by its includers); the visitor's slot +0x20
@@ -4452,9 +4504,7 @@ below name only the work items, the blocked work, the leads and the queues.
    * **Crediting tools:** the census has 175 left, siblings 147 (name or file their unnamed client callers; copy2 / short-copy2 need new files or names, not a rule);
      class 3 "two symbols, one body" (0x4C4430, 0x823EA0) needs a rule. Vtable slots are done (CK2V); pushed / funclet references as a
      location source are dropped (measured: at most 4 siblings, all behind ~SlotDataInterface, now exact). CK's scripts: `.work/CK/`.
-   * **USE_NAMED_AWAY without a same-run competitor:** wwsaveload's definition / definitionmgr / parameter / twiddler hold 0x9DA8C0 (the client's ??_E_ENUM_VALUE, placed elsewhere by D88): builder NA measured it (0 gained, 0 lost outright; tie-broken credits excluded); delete this item when it lands, else a full measure is open.
    * **symbols.json stale names:** 0xAEBF74..0xAEBFD8 are <int> ExprMath tables (not <float>); 0xB10ED0 is DynamicVectorClass<HAnimComboDataClass*>'s.
-   * **progress.py** should attribute inter-function alignment fill (9.1 % of .text is counted unattributed): credit it to the preceding function's category or a "fill" bar (a card change, no pairs).
    * **`.work/coord/open_rows.py`** to the new queue.tsv columns; **`triage.py plan --out`** (the week queue's written output).
    * **0x4A4C90** (Delta.cpp's static initialiser) as a verified function start.
 10. **Parked leftovers** (each waits for a lever; `attempts.py show ADDR`): inv_data_peek 0x68A090 / 0x68A270 /
