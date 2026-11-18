@@ -142,6 +142,12 @@ void Unknown_848A10(int palette, float u, float v, float *rgb)
 	Sample_Palette(Secret_Palettes[palette], u, v, rgb);
 }
 
+// 0x848C80: the next object's only function, here by position (D137, provisional)
+#include "..\packets\pk_player_object_relationship.h"
+RelationshipClass::RelationshipClass() : Reaction((MobReactionType) 1), IsAttacking(false)
+{
+}
+
 /*
 **	Reconstruction notes:
 **	- Client object: e:\build\beta\G\app\Common\pal_mgr.cpp (0x848130-0x848C61), after
@@ -154,4 +160,7 @@ void Unknown_848A10(int palette, float u, float v, float *rgb)
 **	  Secret_Palettes; asserts on lines 130-132, 139-141).
 **	- 0x848B80, 0x848BB0, 0x848BD0, 0x848C10, 0x848C50: std::vector<Unknown848450Struct *>
 **	  instantiations (size, _Destroy, _Ucopy, _Ufill, std::_Construct).
+**	- 0x848C80: RelationshipClass::RelationshipClass (pk_player_object_relationship.h), the one
+**	  function between this object and prof.cpp; its own object's file is unknown, so it sits here by
+**	  position (D137, provisional; callers in uiscan, radar, co and the RELATIONSHIP packet).
 */
