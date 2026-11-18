@@ -298,6 +298,7 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
 | **register-only, order-only** (two attempts, then the stop rule) | | |
 | A constant loaded before a variable, or the reverse | Operand order: `elapsed * 0.05F * K` loads the constant first, `step = elapsed * 0.05F; step *= K;` loads `elapsed`; `a == b` vs `b == a`, `Pos > size` vs `size < Pos` differ (D18/D28) | |
 | Registers differ around a call or an argument | A temporary, a local copy of an argument, or a member / id read into a local before the call (`int id = Client->X; Packet p(N, id);`); one shared variable reusing a dead argument slot. `tools/vc6/trydiff.py` keeps a variant's object for `objdiff.py` / `explain.py` | Accept 0x82A6C0 |
+| The client keeps a single-exit function's `int n` length local in a register, ours folds it away | VC6 folds the local away where an early `return(literal)` exists: keep one exit (small letter-rule helpers) | |
 | Register-only: the client loads the called object after the arguments | A named local for that object (`RsTrackClass *track = ...; track->X(a, b);`) | cpacket 0x737610 |
 | The client loads packet fields, ids or a member chain before the argument pushes; a member pushed before `mov ecx,eax` after `new` | Read them through (file-static) inline accessors (`Get_Avatar_ID()`, `Unknown_Player_ID(Client)`); `View_Of(this)->f(args)` loads ecx before the arguments | cpacket handlers 32-35 |
 | A different frame slot for a helper object | A temporary (`X().Unregister(p)`) gets another slot than a named local | memconn.cpp |
@@ -1047,7 +1048,7 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
 * **A switch label that is not a case start changes register allocation function-wide:** a result moves from a register to the stack once a `goto` label sits anywhere but at a case start. Recognise it by a whole function's registers differing after a label was added for cross-jump placement; label forms cost more than they win, so place shared tails by statement order instead.
 * **A per-case tail comes from a view local set in the switch:** `mov eax,N / push eax / call Set_View` in every case is `if (view != DEFAULT) Set_View(view); return(true);` after the switch, inside an if whose function-level exit is `return(false)`. A per-expansion `RefCountPtr` temporary with its own stack slots per case comes from a macro that calls an inline helper with `temp.Peek()`.
 * **A callee's `_Tidy` inlined in ours but called in the client can be the helper's parameter type:** passing the containing object and calling its inline accessor fixed it where dead locals did not. A Route of a temporary against a named `RefCountPtr` moves every frame slot (the named one overlays a sibling block's slot): look for a named local before chasing slot order.
-* **A StringClass's EH state around a call to an inline template that runs out of line (`Get_Hash_Value`) depends on definition order:** the first such function in the file keeps the state, later ones drop it. Compare the unwind tables of the file's functions before changing a body.
+* **A StringClass's EH state around a call to an inline template that runs out of line (`Get_Hash_Value`) depends on definition order:** the first such function in the file keeps the state, later ones drop it. Compare the unwind tables of the file's functions before changing a body. Lever: when the client's out-of-line copy of an inline helper sits after its users in the object and every user keeps the state around the call, declare the helper first and define it after the users (a body compiled before a call lets VC6 treat the call as nothrow); in a library header gate it with a macro (hashtemplate.h HASHTEMPLATE_STRINGCLASS_LATE, listnode.h LISTNODE_GENERICNODE_LATE). It changes only the state: VC6 still inlines a body it has seen only later in the file, so a caller that inlines the helper where the client calls it has another cause.
 * **A template's out-of-class (non-inline) member is compiled at the end of the TU, an in-class inline one where first referenced:** whether the body is compiled before a `new` that calls it decides whether that `new` gets an EH state. So whether a node class is a template, and the order of first references, both matter (a function with no state where the client has one, or the reverse).
 
 ### 3.2 Templates and STL
@@ -1317,7 +1318,7 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
   instances (MemberCallback's Is_Equal / Call / ??_G) pairs only inside the compiling file's window.
 * **iostreams:** `std::stringstream` compiles byte-exact from VC6's own `<sstream>`
   (unique_design_id_lookup.cpp); operator<<(int), operator>>(int&) and stringstream::str still differ as
-  library code: no include helps.
+  library code: no include helps. When a toolchain iostream instance (operator<< / >>) differs while its EH states match, compare which facet vtable slot it calls (num_put 0x10, num_get 0x1C): a slot difference means the argument type in our source is wrong (unsigned against int).
 * **Client constants, not literals:** a field loaded from 0xAECC44 is `UniqueDesignIDLookupClass::INVALID_ID`;
   0xBDA908 is the pooled "" literal (strlen + assign), not a static std::string; E&B's INFMSG keeps `char
   timebuf[40]` while strftime is told 80; `DurationClass now((unsigned)client->Unknown10BC)` explains a
@@ -1343,7 +1344,7 @@ are in 3.0.
   `importer.compile_and_match` (verify's includes, defines, flags and `source_alias`) to see the errors.
 * **Verify compiles the tree as it is:** chain a tree writer and verify with `&&` (a failed writer leaves verify
   compiling new headers with old sources), and a worktree script must `git checkout -- .` before `checkout
-  --detach`, or the checkout aborts and the next verify runs on a stale tree.
+  --detach`, or the checkout aborts and the next verify runs on a stale tree. `verify.py` imports objmatch at process start: editing objmatch while a verify waits for the lock does not change that verify.
 * **The importer lock is global, first-come among new-code waiters (D238, tools/vc6/lockq.py, `importer.py
   lock-status`):** a ticket untouched for 120 s loses its place, and a worktree made before that code (or before any
   lock change) waits without a ticket and starves behind the queue: rebase it or copy the lock files. Every verify, report.py, auxpad.py /
@@ -1361,7 +1362,7 @@ are in 3.0.
 * **Verify scratch is private only with an agent:** with `--agent NAME`, `ENB_AGENT`, or inside a wt.py worktree
   (automatic) verify writes `.work/<agent>/tmp/enb_import/verify-<lib>`; a main-tree run without an agent uses
   `%TEMP%\enb_import`, which every other such run overwrites (a new file's .obj vanishes minutes later). Copy the
-  objects out before vtables.py or objdiff.
+  objects out before vtables.py or objdiff. A verify also deletes and rebuilds that folder when it gets the importer lock: an offline measurement reading those objects meanwhile fails (FileNotFoundError), so copy them aside first.
 * **`wt.py bring-over NAME` without `--target`** lands on the main tree's branch when that is `run/*` and refuses
   on any other; in a run still pass `--target run/<date>`.
 * **`ledger.py describe` takes the plain path:** `describe app shared/damtype.h`, not `headers/shared/damtype.h` (that writes a doubled `headers/headers/` shard; Tools item: make describe strip it).
@@ -1462,8 +1463,8 @@ are in 3.0.
   exact-vtable type likewise changes the mangled names its symbols_named.json rows rely on: add `replaces`
   entries (a retype or the rename of a short virtual does the same; `--apply-named` rewrites them as source `named`, dropping length and proof); out-of-line conversions
   need their client addresses named there before their callers match. A symbols_named.json
-  rename alone can change pairs: rerun the verify before keeping such a gain. Check `lost outright` for short
-  pairs before keeping a change. Example: an inline `Get_Desc` lost a folded RefCountPtr `Peek` / `operator->`.
+  rename alone can change pairs: rerun the verify before keeping such a gain. A source rename that leaves a symbols.json name stale drops that name silently out of the objects (a scan after each rename finds them; `symbols.py --apply-named` with `replaces` rows fixes them without a regeneration), and retyping a template argument means renaming that type's function names there too, not only its vtables: twin instances with identical bodies otherwise lose their name tie-break and drop out as lost outright. Check `lost outright` for short
+  pairs before keeping a change. Example: an inline `Get_Desc` lost a folded RefCountPtr `Peek` / `operator->`. A name alone does not credit a short (D188): name the vtable (kind `vtable`) to credit the slots' shorts.
 * **symbols_named.json mangled names must use VC6 back-references (`PAV1@`), else they silently match nothing
   (2026-11-16, F1):** read the name from the object (`objdiff.py OBJ --list`). Naming one of several same-byte template
   copies can push other files' tie-broken copies onto it: pairs_cmp after every naming.
@@ -1488,6 +1489,8 @@ are in 3.0.
   absence from the client's object says which headers that file never saw (before adding an `#include`).
   Other dynamic initialisers (PermStringInit's `$E70` / `$E68` pairs) and implicit destructors emitted out of
   line for funclets need D99 rows. A function only thunks name (nothing calls it) is credited only by a D99 exact row (O1, 2026-11-14: co.cpp 0x6F4550 / 0x6F4570 / 0x700800). A neighbour's `<string>` initialiser reaching a shared header costs the other file a pair the client's object lacks (N1, 2026-11-14: view.cpp 0x6B55D0 / 0x6B5620 against viewbttn.cpp, accepted under D246).
+* **Initialiser order in an object:** VC6 always emits `<string>`'s guarded initialiser as an object's last `.CRT$XCU` entry (a guard before another initialiser of "the same file" means two objects); statics defined before an `#include <iostream>` are initialised before ios Init; consecutive class static members share one guard byte (bits 1, 2, 4, ...), so a guarded atexit stub where ours has a file static is a class static member.
+* **A guarded ctype initialiser that does not fullmatch in the client may be merged with template-static numbering** (the guard's `call atexit` followed by `mov eax,[0xBE3B44]; mov [id],eax; inc eax ...`): check the bytes after it before blaming an include.
 * **Accepted corrections must be on master, and on the target branch, before landing (D202):** verify_pr.py and
   verify_watch.py judge a PR with master's tools and read accepted-corrections.json from master, never from the
   PR; `wt.py bring-over` reads it at the target's tip. A PR's own objmatch change or corrections entry does not
@@ -1543,7 +1546,7 @@ are in 3.0.
 * **A verify can lose sbaseview 0x6A1180 to unrelated header changes** (an order-only print-argument pair; a D246 entry is open); `appfile.py match` scores 0x6A1180 / 0x69D030 'none' even at baseline: check build.py objects or the verify.
 * **A COMDAT whose kept client copy came from an app object (app flags, first in link order) can byte-match another library's function:** that false credit then blocks its callers in D80. Before changing source, check the client caller's call target (`client.py dis`) to see which copy it reaches.
 * **`objmatch.py` on a single .obj does not apply USE_NAMED_AWAY unless a competitor is in the same run:** a standalone check can show a credit the full verify drops. Confirm in the verify's own output.
-* **Offline objmatch measurements must read the same `docs/data/called.json` on both sides, and a new tie rule placed before `callseq_ties` hides the functions it credits as aligned callers:** put tie phases after callseq.
+* **Offline objmatch measurements must read the same `docs/data/called.json` on both sides, and a new tie rule placed before `callseq_ties` hides the functions it credits as aligned callers:** put tie phases after callseq. An offline measurement without the extern_called data of `called.json` overstates gains (shorts placed by cross-library calls show as gained): check against the before-ledger.
 
 ### 3.5 Build VMs and vc6.py
 
@@ -1597,7 +1600,7 @@ are in 3.0.
   trydiff.py's FILE is relative to the library root, and its `%TEMP%\td_<name>` folders are shared between builders
   (short names collide).
 * **A worktree verify on a freshly leased VM can fail with "cannot open linearbu.h":** delete
-  `%TEMP%\enb_vc6_synccache_<ip>.json` or run a full verify first.
+  `%TEMP%\enb_vc6_synccache_<ip>.json` or run a full verify first. The same stale cache makes a worktree verify compile other builders' landed sources at the worktree path (gains in files you did not touch are the sign): drop the worktree's keys from that file and verify again.
 * **A one-off C1083 on a tracked, unchanged header:** a worktree's first `build.py build --lib app` failed one file
   with "Cannot open include file '..\packets\pkcolorization.h'"; the rerun built every file. Rerun once before
   blaming a commit; a new file can fail the same way while other worktrees verify (read `compile_errors` in the app library.json).
@@ -1795,6 +1798,8 @@ are in 3.0.
   target up. `client.py refs` and clientimage.py's `dword_refs` miss a vtable's reference to a function the table
   holds through a thunk: find the E9 thunk first, then references to it. Live or dormant code: look for call,
   jump and pointer references to the function and to its incremental thunk (`.work/px2/thunkrefs.py`).
+* **Incremental relinks move grown COMDATs into free holes of other objects:** signs are no int3 padding before the start (25 of 18,691 app starts) or functions packed with nop alignment only; such a function belongs to its callers' object and its address is never range or boundary evidence.
+* **Two byte-identical helper copies reached from one file are not evidence of two objects:** check for two element types (int / long) first; the tests are the asserts' `__FILE__` address, the CRT group with its guard last, and one template tail.
 * **Vtables and .rdata:** count a table's slots up to its 0 entry, not up to the next constant (a subclass's
   float constant can sit right after its own vtable). The pooled empty string literal 0xBDA908 lies in .bss, so
   `ClientImage.cstr()` returns None for it: read "" there. symbols.json can name a base's vtable after a derived
@@ -1833,11 +1838,12 @@ are in 3.0.
 * **Crediting-tool scripts hard-code a worktree:** a crediting session's measure.py / census.py carry `MREPO = .work/wt/<id>` of the session that wrote them: set it to your own worktree before running, or they read another tree's objects.
 * **Census `credited_callers` counts the client's callers of the uncredited address, not the tree's callers of the symbol:** bound a location source by client call sites.
 * **Reading verify's scratch objects while a verify runs in the same worktree fails:** verify rewrites `verify-<lib>/*.obj`; run census.py (or anything that reads them) before or after, not during.
-* **A vtable slot that names `??_E` is often a weak external of `??_G`:** match on `??_G` as well, or the virtual destructors are missed.
+* **A vtable slot that names `??_E` is often a weak external of `??_G`:** match on `??_G` as well, or the virtual destructors are missed. In a .obj's relocations that symbol is storage class 105 (weak external): a filter on classes (2, 3) drops it.
 * **`objmatch.same_copies` read a vtable starting with thunk 0x406573 as the C string "se@":** the identical-copies check should compare relocation targets (switch USE_VX_SAME_TARGETS; check objmatch.py has it before relying on it).
 * **`tools/re/test_objmatch.py`'s FuncletBeyond fails against `.work/CK/objs` with or without a new switch** (the default build/app/obj is missing): known, not a regression.
 * **`vtables.py` insert / delete lines can come from duplicate labels in symbols.json** (two names at one address, an identical copy named by vtable slot): check the slot counts and the client's call offsets (`client.py dis`) before changing a library header.
-* **Tool arguments:** `verify.py --pool` takes an integer (the VM count). `appfile.py match --diff` needs the full `Class::Method` name and a `// @0xADDR` marker on an existing blank line (a new line shifts asserts).
+* **A vtable alignment between two candidate slot orders can look proven when both put the same kind of stub (`ret 4`) in the checked slot:** check every slot's body. symbols.json's vtable-proved slot names then carry the wrong order and lose pairs when the header is fixed, until `replaces` rows are added.
+* **Tool arguments:** `verify.py --pool` takes an integer (the VM count). `appfile.py match --diff` needs the full `Class::Method` name and a `// @0xADDR` marker on an existing blank line (a new line shifts asserts). It cannot find operators (`??_5`, `??U`): use `objdiff.py .work/<ID>/appfile/obj/X.obj MANGLED ADDR`.
 * **Unwind funclets show a function's local `RefCountPtr` types:** N funclets jumping to one destructor means N locals of one instantiation; use them before retyping locals.
 
 ### 3.7 Harnesses, programs, unattended runs
@@ -1854,7 +1860,7 @@ Builds and links (every program: clienttest, udpreplay, kerneltest, VIDTEST, the
   function then passes the harness build as a gen stand-in ("gen Message_Error") with only an expected.txt
   mismatch. After a file rename delete its stale `build/app/obj/<old file>.obj` (it can still link in). Never
   run clienttest on an app.lib with a failed file (the unresolved list and trace diff are that file's).
-  `build.py link --out DIR` reads every library from DIR: copy the whole build/ there.
+  `build.py link --out DIR` reads every library from DIR: copy the whole build/ there. A fresh worktree's check builds every linked library (wwlib's `_mono.cpp` defines `?Mono@@3VMonoClass@@A`), not only app and binkmovie, or that symbol is unresolved.
 * **build.py builds tracked files only** (`git ls-files`). `build.py --lib` refuses a dirty library unless
   `--allow-dirty`; even then a new untracked file is silently left out and a gen stand-in (of its constructor,
   say) takes its place: `git add -N FILE` (or commit it, a detached WIP commit inside the worktree will do)
