@@ -1,7 +1,8 @@
 // Earth & Beyond client (reconstruction): SignalBaseClass, what SignalList and SignalMap share: the callback lists'
 // own code (delete, emit, remove) and the iterators of the emits in progress, so that callbacks may connect and
 // disconnect while their signal is emitted.
-// File PROVISIONAL (D137: no __FILE__; client 0x4F7930-0x4F7EF0, an object of its own: SignalList's and SignalMap's
+// File PROVISIONAL (D137: no __FILE__; client 0x4F7930-0x4F7FF0, an object of its own (SG: with the two
+// function-local static dispatchers 0x4F7EF0 / 0x4F7F60 and <string>'s guard 0x4F7FD0, CRT entry 135): SignalList's and SignalMap's
 // constructors call its constructor 0x4F7930 out of line, and its one template instance 0x4F7C50 follows it).
 #include "unknown_signalbase.h"
 
@@ -65,4 +66,20 @@ bool SignalBaseClass::Remove_From(CallbackList &list, const CallbackClass &callb
 		}
 	}
 	return(false);
+}
+
+
+// @0x4F7EF0
+SignalMap &Unknown_4F7EF0()
+{
+	static SignalMap s_map;
+	return(s_map);
+}
+
+
+// @0x4F7F60
+SignalList &Unknown_4F7F60()
+{
+	static SignalList s_list;
+	return(s_list);
 }

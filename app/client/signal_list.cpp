@@ -1,6 +1,7 @@
 // Earth & Beyond client (reconstruction): SignalList (callbacks by the event's type) and the two function-local
 // static dispatchers.
-// File PROVISIONAL (D137: no __FILE__; client 0x4F7EF0-0x4F9350, an object of its own: its template instances
+// File PROVISIONAL (D137: no __FILE__; client 0x4F8000-0x4F9350, an object of its own (SG: the two dispatchers
+// 0x4F7EF0 / 0x4F7F60 precede <string>'s guard 0x4F7FD0, CRT entry 135, and are unknown_signalbase.cpp's): its template instances
 // 0x4F8910-0x4F9320 follow SignalList::emit and precede SignalMap's constructor).
 #include "unknown_signalbase.h"
 
@@ -8,22 +9,6 @@
 #define ENABLE_WWPROFILE
 #endif
 #include "wwprofile.h"
-
-
-// @0x4F7EF0
-SignalMap &Unknown_4F7EF0()
-{
-	static SignalMap s_map;
-	return(s_map);
-}
-
-
-// @0x4F7F60
-SignalList &Unknown_4F7F60()
-{
-	static SignalList s_list;
-	return(s_list);
-}
 
 
 // @0x4F8000

@@ -152,91 +152,6 @@ void ExprMathUnaryClass::Accept(ExprMathTreeVisitorClass *visitor)
 }
 
 
-// @0x4D3190
-void ExprMathInfixPrinterClass::Visit_Leaf(ExprMathTreeClass *node)
-{
-	printf("%s", node->Get_Token().Text.c_str());
-}
-
-
-// @0x4D31D0
-void ExprMathInfixPrinterClass::Visit_Binary(ExprMathBinaryClass *node)
-{
-	printf("(");
-	node->Get_Left()->Accept(this);
-	printf("%s", node->Get_Token().Text.c_str());
-	node->Get_Right()->Accept(this);
-	printf(")");
-}
-
-
-// @0x4D3260
-void ExprMathInfixPrinterClass::Visit_Unary(ExprMathUnaryClass *node)
-{
-	printf("(%s", node->Get_Token().Text.c_str());
-	node->Get_Child()->Accept(this);
-	printf(")");
-}
-
-
-// @0x4D32D0
-void ExprMathPostfixPrinterClass::Visit_Leaf(ExprMathTreeClass *node)
-{
-	printf("%s ", node->Get_Token().Text.c_str());
-}
-
-
-// @0x4D3310
-void ExprMathPostfixPrinterClass::Visit_Binary(ExprMathBinaryClass *node)
-{
-	node->Get_Left()->Accept(this);
-	node->Get_Right()->Accept(this);
-	printf("%s ", node->Get_Token().Text.c_str());
-}
-
-
-// @0x4D3380
-void ExprMathPostfixPrinterClass::Visit_Unary(ExprMathUnaryClass *node)
-{
-	node->Get_Child()->Accept(this);
-	printf("%s ", node->Get_Token().Text.c_str());
-}
-
-
-// @0x4D33D0
-ExprMathTokenCollectorClass::ExprMathTokenCollectorClass(int type) :
-	m_type(type)
-{
-}
-
-
-// @0x4D3410
-void ExprMathTokenCollectorClass::Visit_Leaf(ExprMathTreeClass *node)
-{
-	const ExprMathTokenClass &token = node->Get_Token();
-	if (token.Type == m_type) {
-		m_tokens.push_back(token);
-	}
-}
-
-
-// @0x4D36C0
-void ExprMathTokenCollectorClass::Visit_Binary(ExprMathBinaryClass *node)
-{
-	ExprMathTokenCollectorClass::Visit_Leaf(node);
-	node->Get_Left()->Accept(this);
-	node->Get_Right()->Accept(this);
-}
-
-
-// @0x4D3960
-void ExprMathTokenCollectorClass::Visit_Unary(ExprMathUnaryClass *node)
-{
-	ExprMathTokenCollectorClass::Visit_Leaf(node);
-	node->Get_Child()->Accept(this);
-}
-
-
 /*
 **	Reconstruction notes
 **
@@ -245,6 +160,8 @@ void ExprMathTokenCollectorClass::Visit_Unary(ExprMathUnaryClass *node)
 **	Get_Token 0x4D27D0, Set_Token 0x4D27F0, Accept 0x4D2980), the binary node 0xAEC108 (0x4D29A0-0x4D2DD0)
 **	and the unary node 0xAEC114 (0x4D2DF0-0x4D3140; <string>'s static initialiser sits in Accept's padding at
 **	0x4D3160). The node constructor and destructor store no base vtable, so the node class is the root.
+**	SG (run 2026-11-18): this object ends with <string>'s guard 0x4D3160 (CRT entry 109); the visitors below
+**	are unknown_4d3190.cpp, closed by their own guard 0x4D4290 (entry 110).
 **	Then two visitors with no vtable in the client (never constructed): an infix printer (0x4D3190-0x4D3260)
 **	and a postfix printer (0x4D32D0-0x4D3380), both printf, and the token collector's constructor 0x4D33D0
 **	(vtable 0xAEC120) and its visits Visit_Leaf 0x4D3410, Visit_Binary 0x4D36C0, Visit_Unary 0x4D3960, then

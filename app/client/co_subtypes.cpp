@@ -4,58 +4,6 @@
 #include "rendobj.h"
 #include "..\shared\heightfield.h"
 
-// 0x70E2E0
-Unknown70E2E0Class::Unknown70E2E0Class(ClientClass *client, int type, unsigned id) :
-	Unknown70DBC0Class(client, type, id),
-	Unknown220(false)
-{
-}
-
-// 0x70E330
-int Unknown70E2E0Class::Unknown_44()
-{
-	return((int)this);
-}
-
-// 0x70E380 (scalar deleting 0x70E350)
-Unknown70E2E0Class::~Unknown70E2E0Class()
-{
-}
-
-// 0x70E3B0 (inlined into the next three)
-void Unknown70E2E0Class::Unknown_70E3B0(const Vector3 &pos)
-{
-	HeightFieldClass *field = Client->Unknown1144;
-	float height = field->Get_Height(pos);
-	Unknown20C = pos.Z - height;
-}
-
-// 0x70E3F0
-void Unknown70E2E0Class::Unknown_Dyn68(Vector3 pos)
-{
-	DynObj::Unknown_Dyn68(pos);
-	Unknown_70E3B0(pos);
-}
-
-// 0x70E460
-void Unknown70E2E0Class::Unknown_Dyn6C(const Matrix3D &tm)
-{
-	DynObj::Unknown_Dyn6C(tm);
-	Unknown_70E3B0(tm.Get_Translation());
-}
-
-// 0x70E4E0
-void Unknown70E2E0Class::Unknown_20()
-{
-	Unknown70DBC0Class::Unknown_20();
-	Unknown_70E3B0(Unknown_24());
-}
-
-// 0x70E530
-void Unknown70E2E0Class::Unknown_3C()
-{
-}
-
 // 0x70E5A0
 Unknown70E5A0Class::Unknown70E5A0Class(ClientClass *client, unsigned id) :
 	ClientObjectClass(client, 28, id),
@@ -151,6 +99,8 @@ void Unknown70E5A0Class::Unknown_20()
 /*
 ** Notes
 **
+** SG (run 2026-11-18): the run is two objects by the CRT initialiser table: type 24 (0x70E2E0-0x70E590, <string>'s
+** guard 0x70E550, entry 555) is unknown_70e2e0.cpp; this file is type 28 (0x70E5A0-0x70F030, guard 0x70F000, entry 556).
 ** The run 0x70E2E0-0x70F030 lies between co_subtype_base.cpp (type 24's base, 0x70DBC0-0x70E2D0, D132) and
 ** extrap.cpp (from 0x70F040) and has no assert or string naming its file: D122 names it co_subtypes.cpp until one
 ** does. It holds CREATE 4's two subclasses of ClientObjectClass (cpacket.cpp's switch: type 24 -> 0x70E2E0, type 28
