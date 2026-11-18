@@ -104,8 +104,8 @@ public:
 	bool UnknownCA;				// +0xCA (0x5FB9F0 sets it)
 	int UnknownCC;				// +0xCC
 	LayerClass *Layer;			// +0xD0: the constructor's layer
-	int UnknownD4;				// +0xD4: the screen's state (0x5FAFF0's 0x5F3770(0x16); 0x5FB950 tests 0x16)
-	std::vector<int> UnknownD8;	// +0xD8: the states to go back to (0x5FB9F0 pops one into 0x5F3770)
+	long UnknownD4;				// +0xD4: the screen's state (0x5FAFF0's 0x5F3770(0x16); 0x5FB950 tests 0x16)  // NAME 1 [long]: UnknownD8's element type (0x5F87D0 pushes it with no conversion)
+	std::vector<long> UnknownD8;	// +0xD8: the states to go back to (0x5FB9F0 pops one into 0x5F3770); not vector<int>: the client has its own copies (size 0x604250, _Ucopy 0x609040, insert 0x6056F0) apart from vector<int>'s (size 0x604100)  // NAME 1 [long]: some 4-byte type other than int
 	std::map<int, RegistrationButtonStruct> UnknownE8;	// +0xE8: the buttons by id (0x5F2B20)
 	std::map<int, RegistrationTextStruct> UnknownF8;	// +0xF8: the text fields by id (0x5FB0C0: 0x2B, the card number)
 	std::map<int, RegistrationComboStruct> Unknown108;	// +0x108: the combo boxes by id (0x5F9700 0x19, 0x5F98C0 0x16, 0x5F9EB0 0x2A; 0x5FB9F0 calls 0x57B3C0 on all)
