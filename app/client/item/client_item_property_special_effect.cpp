@@ -1,5 +1,5 @@
 #include "client_item_property_special_effect.h"
-#include "client_item_property_builder.h"	// ItemEffectClass (effect_description.h)
+#include "..\..\common\item_info.h"	// ItemEffectClass (effect_description.h)
 
 RefCountPtr<ClientItemPropertySpecialEffectClass> ClientItemPropertySpecialEffectClass::Create(const ItemEffectClass &effect)
 {
