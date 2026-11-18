@@ -355,6 +355,13 @@ USE_VX_SLOT_CONTRA = True
 # of a COMDAT (`named_away`; wwaudio's inlined-loop ??_E_LOGICAL_TYPE_STRUCT matched mixfile's FileOffsetStruct copy
 # 0x9DA8C0, while Resize<_LOGICAL_TYPE_STRUCT> 0x9F6A80 calls the app objects' ??_M copy 0x4338D0)
 USE_NAMED_AWAY = True
+# D246 (NA, run 2026-11-17b): the same with no other symbol exact at the copy's address, when the credit is a lone
+# byte match with no tie-break behind it (`named_away_alone`): the self name is a proof, the lone match is not
+# (wwsaveload's inlined-loop ??_E_ENUM_VALUE copies matched only mixfile's FileOffsetStruct ??_E 0x9DA8C0; D88 names
+# the client's ??_M form 0x433970, whose bytes the copy does not fullmatch, so a fullmatch guard drops nothing). A
+# tie-broken credit stays: self names from shifted vtable slots exist (0x67EF80 ??_GFontSys, 0xA02D00 Start_Sample,
+# 0x91B9B0 Get_Definition) and D80 holds those credits at 0x6D4C40 / 0xA02D40 / 0x9174E0
+USE_NAMED_AWAY_ALONE = True
 
 
 # D246 (CR3, run 2026-11-17b): a COMDAT D258 leaves tied whose one survivor lies in the gap between two objects (above
@@ -1445,13 +1452,19 @@ def match_objects(img, paths, region=None, callers=False, extern_called=None, ca
                     r.pop(k, None)
     if USE_NAMED_AWAY:
         names = self_names()
-        for r, obj, sec, *_ in results:
+        for r, obj, sec, s, length in results:
             if r['status'] != 'exact' or obj.own(sec):
                 continue
             a = int(r['addresses'][0], 16)
             there = {thunk.get(x, x) for x in names.get(r['symbol'], ())}
-            if len(there) == 1 and a not in there and claimed[a] - {r['symbol']}:
-                r['named_away'] = f'0x{next(iter(there)):06X}'
+            if len(there) != 1 or a in there:
+                continue
+            h = next(iter(there))
+            alone = not claimed[a] - {r['symbol']}
+            if not alone or USE_NAMED_AWAY_ALONE and not r.get('tiebreak'):
+                r['named_away'] = f'0x{h:06X}'
+                if alone:
+                    r['named_away_alone'] = True
                 r['status'] = 'none'
                 for k in ('tiebreak', 'range', 'selfname', 'order', 'call_tie', 'call_placed', 'funclet_tie',
                           'pushed_tie', 'contrib', 'ck_callseq', 'short_known', 'caller_tiebreak', 'initialiser', 'xcu'):

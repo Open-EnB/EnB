@@ -480,5 +480,25 @@ class NamedAway(unittest.TestCase):
                          ('exact', ['0x9DA8C0']))
 
 
+class NamedAwayAlone(unittest.TestCase):
+    """NA (run 2026-11-17b, USE_NAMED_AWAY_ALONE): wwsaveload's inlined-loop ??_E_ENUM_VALUE matches only 0x9DA8C0
+    (mixfile's FileOffsetStruct ??_E; no other symbol of the run is exact there); D88's self name is 0x433970, so the
+    lone, untie-broken credit is dropped."""
+    def test_named_away_alone(self):
+        p = os.path.join(MAIN, 'build', 'wwsaveload', 'obj', 'twiddler.obj')
+        if not os.path.exists(p):
+            self.skipTest(f'{p} missing')
+        img = objmatch.ClientImage(objmatch.DEFAULT_CLIENT)
+        sym = '??_E_ENUM_VALUE@EnumParameterClass@@QAEPAXI@Z'
+        r = {x['symbol']: x for x in objmatch.match_objects(img, [p])}[sym]
+        self.assertEqual((r['status'], r['named_away'], r.get('named_away_alone')), ('none', '0x433970', True))
+        objmatch.USE_NAMED_AWAY_ALONE = False
+        try:
+            r = {x['symbol']: x for x in objmatch.match_objects(img, [p])}[sym]
+        finally:
+            objmatch.USE_NAMED_AWAY_ALONE = True
+        self.assertEqual((r['status'], r['addresses']), ('exact', ['0x9DA8C0']))
+
+
 if __name__ == '__main__':
     unittest.main()
