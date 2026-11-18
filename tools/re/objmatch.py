@@ -379,6 +379,7 @@ USE_CR5_FOLD_HELD = True
 # (CR5) the same, with a third kind of own evidence: the slot of a vtable the object's exact functions store
 # (vtbl_slot_targets) that the object's vtable gives the symbol
 USE_CR5_FOLD_VTBL = True
+CR5_FOLD_ROUNDS = 4        # (CR5) the fold round repeats while it credits: a credit's own calls are evidence too
 
 
 def _vx_class(name):
@@ -1550,8 +1551,11 @@ def match_objects(img, paths, region=None, callers=False, extern_called=None, ca
         for _ in range(CR2_LATE_ROUNDS):
             if not late_order_round() and not (USE_CR1_NAMED_TARGETS and named_round()):
                 break
-    if USE_CR5_FOLD_HELD:
-        for item, a in cr5_fold_held(img, results, pending, done, claimed, text, start, thunk):
+    for _ in range(CR5_FOLD_ROUNDS if USE_CR5_FOLD_HELD else 0):
+        got = cr5_fold_held(img, results, pending, done, claimed, text, start, thunk)
+        if not got:
+            break
+        for item, a in got:
             r, obj, sec, s, length = item[:5]
             r['status'] = 'exact'
             r['addresses'] = [f'0x{a:06X}']
