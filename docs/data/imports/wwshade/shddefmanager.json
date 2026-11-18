@@ -8,6 +8,8 @@
  "headers_from": null,
  "in_tree": [
   "0x42F250",
+  "0x433970",
+  "0x4339F0",
   "0xA08C90",
   "0xA08CC0",
   "0xA08D00",
@@ -23,6 +25,11 @@
  "merged": [],
  "name": "shddefmanager.cpp",
  "shared": [
-  "0x42F250"
+  "0x42F250",
+  "0x433970",
+  "0x4339F0"
+ ],
+ "short_known": [
+  "0x4339F0"
  ]
 }

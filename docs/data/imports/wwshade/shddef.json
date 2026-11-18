@@ -8,6 +8,8 @@
  "headers_from": null,
  "in_tree": [
   "0x42F250",
+  "0x433970",
+  "0x4339F0",
   "0x45CC10",
   "0x45CC30",
   "0x45E1B0",
@@ -37,6 +39,8 @@
  "name": "shddef.cpp",
  "shared": [
   "0x42F250",
+  "0x433970",
+  "0x4339F0",
   "0x45CC10",
   "0x45CC30",
   "0x45E1B0",
@@ -53,6 +57,7 @@
   "0xA0F0E0"
  ],
  "short_known": [
+  "0x4339F0",
   "0x45E1B0",
   "0x9FE490",
   "0x9FE4A0",
