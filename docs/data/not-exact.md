@@ -270,8 +270,7 @@ edit the comments in the code, not this file.
 | `app/client/nlp.cpp:460` | `PlayerNLPClass::Unknown_78F050` | marker | NOT EXACT: functional for POC (D64), shape (a merged or split tail) |
 | `app/client/option.cpp:810` | `OptionClass::Get_String` | marker | NOT EXACT: shape, block order: this order gives the client's inlining (the "" path calls _Grow) but places the "" path first; the client places the copy first |
 | `app/client/option.cpp:856` | `OptionClass::Get_Default_String` | marker | NOT EXACT: shape, as Get_String |
-| `app/client/pdaint.cpp:208` | `PDAInterfaceClass::Unknown_68` | mention | NOT EXACT: inline-budget (cases in the client's code order; the client inlines the 18 window releases of PDA_Close_Chat_Window, each in its own stack slots, ours calls them: 0.38)) |
-| `app/client/pdaint.cpp:530` | `PDAInterfaceClass::Unknown_695780` | mention | NOT EXACT: shape (the client places the epilogue after the first FAIL_IF and copies the Set_View tail into each case: 0.64)) |
+| `app/client/pdaint.cpp:208` | `PDAInterfaceClass::Unknown_68` | mention | NOT EXACT: layout and registers (0.78): the client keeps 0 in ebx only inside case 1, places the play tail right after case 10's active branch, and has no `add eax, 0x127C` after loading ChatPanel) |
 | `app/client/pdaint.cpp:747` | `PDAInterfaceClass::Unknown_695FE0` | mention | NOT EXACT: block order (the client puts the off branch's own return first: 0.59)) |
 | `app/client/postate.cpp:920` | `Unknown717010Class::Unknown_717430` | marker | NOT EXACT: inline-budget (the client calls the float field's Cast 0x546970 out of line in the first lookups, ours inlines all; 286 vs 314 instructions; one form; attempts.py show 0x717430) |
 | `app/client/postate.cpp:1012` | `Unknown717010Class::Unknown_7179A0` | marker | NOT EXACT: inline-budget (the client calls the bool field's Cast 0x584FF0 out of line for 'AutoLevel', ours inlines it; register-only after; one form; attempts.py show 0x7179A0) |

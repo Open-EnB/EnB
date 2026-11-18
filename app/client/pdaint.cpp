@@ -196,16 +196,16 @@ void PDAInterfaceClass::Unknown_60()
 }
 // the chat panel's window (0x694AA0) put away when a PDA window opens (inlined in each of 0x693E70's cases)
 static inline bool PDA_Window_Active(PDAInterfaceClass *pda, int index) { RefCountPtr<InterfaceClass> window = pda->Unknown_6956C0(index); if (window) { return(window->Is_Active()); } return(false); }	// 0x695C50's body inline (cases 7 / 9: the release inline on the found path, out of line on the other)  // NAME 1: neutral (D10)
-inline void PDA_Close_Chat_Window(ChatPanelInterface *chat)	// NAME 1: neutral (D10)
-{
-	if (chat->Unknown_694AA0()) {
-		RefCountPtr<ChatPanelUIBase> window = chat->Unknown_694AA0();
-		window->Unknown_5C();
-		window->Closed = 1;
-	}
-}
+// the window's own close, called with the raw pointer of a temporary: the client keeps it in esi and the temporary
+// alive until the call returns (EH state set around Unknown_5C), each expansion in its own stack slots
+inline void PDA_Close_Window(ChatPanelUIBase *window) { window->Unknown_5C(); window->Closed = 1; }	// NAME 1: neutral (D10)
+// a macro, not a function: as an inline function the client's budget for the 25 releases runs out (ours called
+// 18 of them out of line, __forceinline 4); a named RefCountPtr local in a macro shared one slot across the cases
+#define PDA_Close_Chat_Window(chat) { if (chat->Unknown_694AA0()) { PDA_Close_Window(chat->Unknown_694AA0().Peek()); } }	// NAME 1: neutral (D10)
 
-// 0x693E70 (NOT EXACT: inline-budget (cases in the client's code order; the client inlines the 18 window releases of PDA_Close_Chat_Window, each in its own stack slots, ours calls them: 0.38))
+
+
+// 0x693E70 (NOT EXACT: layout and registers (0.78): the client keeps 0 in ebx only inside case 1, places the play tail right after case 10's active branch, and has no `add eax, 0x127C` after loading ChatPanel)
 bool PDAInterfaceClass::Unknown_68(int key)
 {
 	if (!UnknownBC) {
@@ -216,66 +216,66 @@ bool PDAInterfaceClass::Unknown_68(int key)
 	const char *sound;
 	switch (key) {
 	case 1:
-		if (!Unknown_695C50(4)) {
-			Unknown_695780(4);
-			PDA_Close_Chat_Window(chat);
-			sound = "SR_scifielectronic40.wav";
-			goto play;
-		}
-		Unknown_695A00(4, true);
-		break;
-	case 2:
-		if (!Unknown_695C50(2)) {
-			Unknown_695780(2);
-			PDA_Close_Chat_Window(chat);
-			sound = "SR_scifielectronic40.wav";
-			goto play;
-		}
-		Unknown_695A00(2, true);
-		break;
-	case 10:
-		if (!Character->Is_Active()) {
-			Character->Unknown_5742B0(0);
-			Unknown_695780(2);
-			PDA_Close_Chat_Window(chat);
-		} else if (Character->Unknown_574220(0)) {
-			Unknown_695A00(2, true);
-		} else {
-			Character->Unknown_5742B0(0);
-		}
-		break;
-	case 11:
-		if (!Character->Is_Active()) {
-			Character->Unknown_5742B0(1);
-			Unknown_695780(2);
-			PDA_Close_Chat_Window(chat);
-		} else if (Character->Unknown_574220(1)) {
-			Unknown_695A00(2, true);
-		} else {
-			Character->Unknown_5742B0(1);
-		}
-		break;
-	case 12:
-		if (!Starmap->Is_Active()) {
-			Starmap->Unknown_7C8C20(0);
-			Unknown_695780(4);
-		} else if (Starmap->Unknown_7C8BA0(0)) {
+		if (Unknown_695C50(4)) {
 			Unknown_695A00(4, true);
 			break;
+		}
+		Unknown_695780(4);
+		PDA_Close_Chat_Window(chat);
+		sound = "SR_scifielectronic40.wav";
+		goto play;
+	case 2:
+		if (Unknown_695C50(2)) {
+			Unknown_695A00(2, true);
+			break;
+		}
+		Unknown_695780(2);
+		PDA_Close_Chat_Window(chat);
+		sound = "SR_scifielectronic40.wav";
+		goto play;
+	case 10:
+		if (Character->Is_Active()) {
+			if (Character->Unknown_574220(0)) Unknown_695A00(2, true);
+			else Character->Unknown_5742B0(0);
 		} else {
+			Character->Unknown_5742B0(0);
+			Unknown_695780(2);
+			PDA_Close_Chat_Window(chat);
+		}
+
+		break;
+	case 11:
+		if (Character->Is_Active()) {
+			if (Character->Unknown_574220(1)) Unknown_695A00(2, true);
+			else Character->Unknown_5742B0(1);
+		} else {
+			Character->Unknown_5742B0(1);
+			Unknown_695780(2);
+			PDA_Close_Chat_Window(chat);
+		}
+
+		break;
+	case 12:
+		if (Starmap->Is_Active()) {
+			if (Starmap->Unknown_7C8BA0(0)) {
+				Unknown_695A00(4, true);
+				break;
+			}
 			Starmap->Unknown_7C8C20(0);
+		} else {
+			Starmap->Unknown_7C8C20(0); Unknown_695780(4);
 		}
 		PDA_Close_Chat_Window(chat);
 		break;
 	case 13:
-		if (!Starmap->Is_Active()) {
+		if (Starmap->Is_Active()) {
+			if (Starmap->Unknown_7C8BA0(1)) {
+				Unknown_695A00(4, true);
+				break;
+			}
 			Starmap->Unknown_7C8C20(1);
-			Unknown_695780(4);
-		} else if (Starmap->Unknown_7C8BA0(1)) {
-			Unknown_695A00(4, true);
-			break;
 		} else {
-			Starmap->Unknown_7C8C20(1);
+			Starmap->Unknown_7C8C20(1); Unknown_695780(4);
 		}
 		PDA_Close_Chat_Window(chat);
 		break;
@@ -289,10 +289,10 @@ bool PDAInterfaceClass::Unknown_68(int key)
 				break;
 			}
 		
-		if (!Unknown_695780(0)) {
-			Unknown_695780(1);
-		} else {
+		if (Unknown_695780(0)) {
 			OpenedCargoInterface = Equipment;
+		} else {
+			Unknown_695780(1);
 		}
 		PDA_Close_Chat_Window(chat);
 		break;
@@ -309,41 +309,41 @@ bool PDAInterfaceClass::Unknown_68(int key)
 				break;
 			}
 		
-		if (!Unknown_695780(0)) {
-			Unknown_695780(3);
-		} else {
+		if (Unknown_695780(0)) {
 			OpenedCargoInterface = Vault;
+		} else {
+			Unknown_695780(3);
 		}
 		PDA_Close_Chat_Window(chat);
 		break;
 	case 3:
 	case 8:
-		if (!Unknown_695C50(0)) {
-			Unknown_695780(0);
-			PDA_Close_Chat_Window(chat);
-			sound = "SR_scifielectronic40.wav";
-			goto play;
+		if (Unknown_695C50(0)) {
+			Unknown_695A00(0, true);
+			Unknown_695A00(1, true);
+			Unknown_695A00(3, true);
+			break;
 		}
-		Unknown_695A00(0, true);
-		Unknown_695A00(1, true);
-		Unknown_695A00(3, true);
-		break;
+		Unknown_695780(0);
+		PDA_Close_Chat_Window(chat);
+		sound = "SR_scifielectronic40.wav";
+		goto play;
 	case 4:
 		if (chat) {
 			if (chat->Unknown_694AA0()) {
-				RefCountPtr<ChatPanelUIBase> window = chat->Unknown_694AA0();
-				window->Unknown_5C();
-				window->Closed = 1;
+				PDA_Close_Window(chat->Unknown_694AA0().Peek());
+
+
 			} else {
 				chat->Unknown_565F30(1);
 			}
 		}
 		break;
 	case 6:
-		if (!Ping->Is_Active()) {
-			Ping->Unknown_58();
-		} else {
+		if (Ping->Is_Active()) {
 			Ping->Unknown_5C();
+		} else {
+			Ping->Unknown_58();
 		}
 		break;
 	default:
@@ -527,49 +527,49 @@ RefCountPtr<InterfaceClass> PDAInterfaceClass::Unknown_6956C0(int index)
 }
 
 
-// 0x695780 (NOT EXACT: shape (the client places the epilogue after the first FAIL_IF and copies the Set_View tail into each case: 0.64))
+// 0x695780
 bool PDAInterfaceClass::Unknown_695780(int index)
 {
 	FAIL_IF(!Get_Client()) return(false);
 	SClient *sc = Get_Client()->As_Space_Client();
 	FAIL_IF(!sc) return(false);
-	if (sc->Bridge && sc->Bridge->Is_Busy()) {
-		return(false);
-	}
-	UnknownB0 = Unknown_6956C0(index);
-	if (!UnknownB0) {
-		return(false);
-	}
-	if (UnknownB0->Is_Active()) {
-		UnknownB0 = NULL;
-		return(false);
-	}
-	for (int i = 0; i < 5; i++) {
-		if (i != index && ((index != 1 && index != 3) || i != 0)) {
-			Unknown_695A00(i, false);
+	if (sc->Bridge == NULL || !sc->Bridge->Is_Busy()) {
+		UnknownB0 = Unknown_6956C0(index);
+		if (UnknownB0) {
+			if (UnknownB0->Is_Active()) {
+				UnknownB0 = NULL;
+			} else {
+				for (int i = 0; i < 5; i++) {
+					if (i != index && (index != 1 || i != 0) && (index != 3 || i != 0)) {
+						Unknown_695A00(i, false);
+					}
+				}
+
+				int view = BridgeInterface::VIEW_MAIN;
+				switch (index) {
+				case 0:
+					sc->Unknown_744560(0);
+					view = BridgeInterface::VIEW_CARGO;
+					break;
+				case 1: sc->Unknown_744560(0xF); break;
+				case 3: sc->Unknown_744560(0x11); break;
+				case 2:
+					sc->Unknown_744560(2);
+					view = BridgeInterface::VIEW_CHARACTER;
+					break;
+				case 4:
+					sc->Unknown_744560(0x13);
+					view = BridgeInterface::VIEW_STAR_MAP;
+					break;
+				}
+				if (view != BridgeInterface::VIEW_MAIN) {
+					sc->Bridge->Set_View(view);
+				}
+				return(true);
+			}
 		}
 	}
-	int view;
-	switch (index) {
-	case 0:
-		sc->Unknown_744560(0);
-		view = BridgeInterface::VIEW_CARGO;
-		break;
-	case 1: sc->Unknown_744560(0xF); return(true);
-	case 3: sc->Unknown_744560(0x11); return(true);
-	case 2:
-		sc->Unknown_744560(2);
-		view = BridgeInterface::VIEW_CHARACTER;
-		break;
-	case 4:
-		sc->Unknown_744560(0x13);
-		view = BridgeInterface::VIEW_STAR_MAP;
-		break;
-	default:
-		return(true);
-	}
-	sc->Bridge->Set_View(view);
-	return(true);
+	return(false);
 }
 
 
