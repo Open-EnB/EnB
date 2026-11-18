@@ -427,6 +427,11 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
   function of its own (land.cpp's Load_Prototype_Names). **Dead reads act by their total**, not their place: sweep the
   count of identical reads. **Your own statement mass moves the budget both ways:** statements added to a function
   that is itself inlined can stop an inline in its caller, and fewer can start one.
+  An uncalled same-file function whose body a near miss writes out, or whose calls the client makes out of line in it, is that
+  near miss's inline layer: call it there instead of the written-out body (found by statement copies; it closed members of
+  galaxy_map_render, the ui_group / ui_registration destructors and a registration case switch; Set_Corners 0x44C900 has no
+  candidate). A written-out copy of a same-file function called instead, with no gain, leaves the object unchanged or worse: log it in attempts. A try script that
+  runs `git checkout` on the file resets it: commit before running one.
 * **Levers that closed inline-budget and order near misses elsewhere:** step with `Next_Valid()`; an unused argument
   for a `ret N` mismatch; increments inside conditions; the object read into a local before the call; `clear()` for
   `erase(begin(), end())`; the member passed instead of the local; the client's own member as the missing inline
@@ -1432,6 +1437,7 @@ are in 3.0.
   A tie rule that runs before D166 can take D166's credits (which widen ranges) (2026-11-16, CR4): new tie rules go
   after D166 or must count toward ranges. For non-short tied COMDATs, other objects' calls reach their own copies:
   only the object's own calls are evidence.
+* **A widened candidate pool moves credits:** a rule family that adds candidates for tied / short functions (caller-located: a located not-exact caller's rel32 calls, a string-located holder) can take another rule's credits; compare the credit list (`pairs_cmp.py` addresses) before and after, not the total. A widened search window (a CRT initialiser's window run to the next object's exact function, an initialiser placed before the range round) must be limited to the initialiser kind it was measured on (plain `<string>` guards: relocations only to the ctype guard byte, the static and atexit): unlimited, it reached the numbering initialisers of two other objects and lost their functions outright.
 * **Under /Gy every own function is its own section (2026-11-16, CR5):** order an object's functions with objmatch's
   `_object_order` (section, then offset), never per section. objmatch's `_call_lock` is not reentrant (CR2): a helper
   that holds it must call eh_stubs() first, else a silent deadlock.
@@ -1538,8 +1544,8 @@ are in 3.0.
   runs it (unless `--no-sendpad`) when the verify loses sclient.cpp pairs and the diff touches such a header. One sweep base
   at a time: a second landing needs a rebase and a new sweep (bring-over refuses a branch losing 0x74D990 or
   0x758210 outright). The sweep's watch set comes from HEAD's ledger (a verify that
-  already lost 0x758210 no longer drops it from the set): check 0x758210 / 0x702240 in `.work/log/sendpad.log`. `appfile.py match` and single-file compiles pad through a
-  different window than verify (a constant set of false losses): decide with sendpad.py / the full verify only.
+  already lost 0x758210 no longer drops it from the set): check 0x758210 / 0x702240 in `.work/log/sendpad.log`. `appfile.py match`, its draft compiles and single-file compiles pad and break ties through a
+  different window than verify (a constant set of false losses, tie-break pairs it cannot see): decide with sendpad.py / the full verify only.
   A member added to a header that sclient.cpp or aux_roots.cpp includes flips pad-sensitive pairs beyond the
   watch list (client_item_property_builder.cpp in §3.9 has the case).
 * **More pad-sensitive headers:** declarations added to a header reached through sbaseview.h move sclient's send pad 0x758210 (a declaration stays local in the .cpp that needs it); replacing aux_roots.h's views with an include of a new header lost the six padded constructors (0x702240, 0x7045F0): keep aux_roots.cpp's declaration count, with money.h's guard pattern. Out-of-class definitions of member templates compile in VC6 (only explicit specialisations hit C1001): a way to add a member without changing a pad-sensitive header (a plain overload in kv_encoder_base.h cost the send pad and 0x597080).
@@ -1604,7 +1610,7 @@ are in 3.0.
   trydiff.py's FILE is relative to the library root, and its `%TEMP%\td_<name>` folders are shared between builders
   (short names collide).
 * **A worktree verify on a freshly leased VM can fail with "cannot open linearbu.h":** delete
-  `%TEMP%\enb_vc6_synccache_<ip>.json` or run a full verify first. The same stale cache makes a worktree verify compile other builders' landed sources at the worktree path (gains in files you did not touch are the sign): drop the worktree's keys from that file and verify again.
+  `%TEMP%\enb_vc6_synccache_<ip>.json` or run a full verify first. A cache left by an older worktree of the same name fails every compile of the new one: delete it. The same stale cache makes a worktree verify compile other builders' landed sources at the worktree path (gains in files you did not touch are the sign): drop the worktree's keys from that file and verify again.
 * **A one-off C1083 on a tracked, unchanged header:** a worktree's first `build.py build --lib app` failed one file
   with "Cannot open include file '..\packets\pkcolorization.h'"; the rerun built every file. Rerun once before
   blaming a commit; a new file can fail the same way while other worktrees verify (read `compile_errors` in the app library.json).
@@ -1844,7 +1850,7 @@ are in 3.0.
 * **Reading verify's scratch objects while a verify runs in the same worktree fails:** verify rewrites `verify-<lib>/*.obj`; run census.py (or anything that reads them) before or after, not during.
 * **A vtable slot that names `??_E` is often a weak external of `??_G`:** match on `??_G` as well, or the virtual destructors are missed. In a .obj's relocations that symbol is storage class 105 (weak external): a filter on classes (2, 3) drops it.
 * **`objmatch.same_copies` read a vtable starting with thunk 0x406573 as the C string "se@":** the identical-copies check should compare relocation targets (switch USE_VX_SAME_TARGETS; check objmatch.py has it before relying on it).
-* **`tools/re/test_objmatch.py`'s FuncletBeyond fails against `.work/CK/objs` with or without a new switch** (the default build/app/obj is missing): known, not a regression.
+* **`tools/re/test_objmatch.py`'s fixtures pin object contents:** each case names functions of objects built at one time, so a landing that changes an object's layout (a type moved, a fold gone, a pad renumbered) leaves a case with a stale object or a rule it no longer exercises. Re-pick cases from a full fresh match of the current objects (`build/app/obj` refreshed first: a stale tree of objects fails cases with or without a new switch) and run the whole file.
 * **`vtables.py` insert / delete lines can come from duplicate labels in symbols.json** (two names at one address, an identical copy named by vtable slot): check the slot counts and the client's call offsets (`client.py dis`) before changing a library header.
 * **A vtable alignment between two candidate slot orders can look proven when both put the same kind of stub (`ret 4`) in the checked slot:** check every slot's body. symbols.json's vtable-proved slot names then carry the wrong order and lose pairs when the header is fixed, until `replaces` rows are added.
 * **Tool arguments:** `verify.py --pool` takes an integer (the VM count). `appfile.py match --diff` needs the full `Class::Method` name and a `// @0xADDR` marker on an existing blank line (a new line shifts asserts). It cannot find operators (`??_5`, `??U`): use `objdiff.py .work/<ID>/appfile/obj/X.obj MANGLED ADDR`.
@@ -1910,6 +1916,7 @@ Stand-ins and gen_stubs (clienttest, udpreplay, kerneltest, the POC):
   options (--live, --retail, --instance, --antprox-arg) go before `run`. One admin account on the local Net-7 server:
   two logins collide (no START_ACK, the character starts in space): check tasklist for client.exe / antprox.exe
   before each live run.
+* **Live station scenarios (sb_buysell, sb_jobs, sb_manufacture ...):** a job board tab click sends nothing, a row click sends STARBASE_REQUEST for JOB_DESCRIPTION; the board is random (assert one tab, not a row) and Net-7 refreshes it every 5 minutes, empty after a server start; a crafted item's sale answers PRIORITY_MESSAGE; slash commands (/createitem) go out as CLIENT_CHAT; the chat entry does not open while a terminal window is up; vendors refuse their own goods (sell something they do not make). Components, warheads and credits drift between runs: assert deltas, not totals.
 * **Retiring a stand-in must not take its neighbours with it** (deleting a hand stand-in from stubs/app_stubs.cpp
   also removed the CRT wrappers beside it): gen_stubs' generated stand-ins return null, `standins.py check` and the
   link gate pass, and only a POC run shows it (a crash on a null inside the real function that copies it). Run
@@ -1923,6 +1930,7 @@ Stand-ins and gen_stubs (clienttest, udpreplay, kerneltest, the POC):
   that defines a stubbed function deletes its stub and joins udpreplay.py's source list. A `// standins: keep`
   marker does not help when clienttest links the object itself (it links ui_chat_panel.obj and sclient.obj): a
   real function there that clienttest stubs gives LNK2005, which linkgate catches.
+* **A harness linking app.lib can pull in most of the client through one inline constructor:** auxreplay's reference to the DeltaPlayerClass constructor resolved from sclient.obj and dragged in almost all of app.lib (171 unresolved). Link it as clientpoc does: logging stand-ins, wlib / wnet and the system libraries, gen_stubs, force_unresolved, MSS32.DLL beside the exe.
 * **Generated stand-ins answer 0.** A gen stand-in of a bool hook answers false (Pre_Render hides every hooked
   model), of a data pointer is NULL (newly real code that dereferences it crashes: use the tree's symbol, e.g.
   DX8Wrapper::CurrentCaps), of a data global `Unknown_XXXXXX` may really be a library's static or a global the
@@ -1981,7 +1989,7 @@ Stand-ins and gen_stubs (clienttest, udpreplay, kerneltest, the POC):
   real: rename the fake, then link. A rebuilt callee or gen-stubbed constructor can pull its whole object in
   (hand stand-ins for its by-value-return callees; control_keys_manager.obj needed one); co.obj drags in
   aux_roots.obj once sclient.cpp news DeltaPlayerClass or the Hull root: stand in each symbol only
-  aux_roots.obj defines (tests/clienttest/aux_roots_stubs.cpp). ui_registration.h pulls in many UI headers.
+  aux_roots.obj defines (the old tests/clienttest/aux_roots_stubs.cpp is gone: sclient.obj now compiles those constructors). ui_registration.h pulls in many UI headers.
   clienttest.py strips udpreplay's staged stub of a function that became real. A constant defined only in
   programs/clientpoc/ (poc_data.cpp) needs its twin in clienttest's stand-ins.
 
@@ -2220,6 +2228,8 @@ are alphabetical; add a note under its file's heading (merge with what is there)
   inline-budget pairs flip with any change to duration.h / delta_template.h (see there).
 * aux_roots.h's blank lines are `__LINE__` padding: put NAME comments on existing comment lines, never on a new
   line (2026-11-16, SD, the InvSlotStruct rename across 19 `replaces` rows).
+* **Family headers (aux_group.h, aux_skill.h, aux_player.h, aux_item.h, aux_manu.h, aux_lego.h, aux_faction.h, aux_buff.h, aux_harvestable.h, aux_shipinv.h, aux_ship*.h, aux_roots_all.h):** a family header defines every AUX_CTORS_* macro before it includes its class headers; a family header comes before any header that includes aux_roots.h. A new header aux_roots.cpp sees, and every split or move of a class between headers, moves the aux pad window: sweep (`auxpad.py sweep`) after each. A file takes its object's family header, not aux_roots_all.h, when the client's object numbers only that family's types. `auxroots.py generate` reproduces the checked-in layout again from its HAND_TYPES / FAMILY_* / SPLITS tables (test_auxroots_gen): change the layout in the tables and regenerate, never in the generated files only.
+* **`auto_inline(off)` left on at a file's end stops VC6 merging numbering initialisers:** close every `auto_inline(off)` with `(on)` on an existing blank line. `crtnum.py`'s attribution of a CRT table entry to a file can be wrong: check an entry's file against its own bytes before placing a function on it.
 
 #### avatar.cpp
 
