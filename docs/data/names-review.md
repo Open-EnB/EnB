@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1967 |
 | 2 | describes what the code does | 4981 |
-| 1 | neutral placeholder | 25205 |
+| 1 | neutral placeholder | 25207 |
 
 ## For review (score 3 and below)
 
@@ -5959,8 +5959,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown08` | `app/client/item/client_item_property_builder.cpp:33` | untagged neutral name (D10) |
 | 1 | `Unknown831340Class` | `app/client/item/client_item_property_builder.cpp:34` | untagged neutral name (D10) |
 | 1 | `Unknown_831840` | `app/client/item/client_item_property_builder.cpp:34` | untagged neutral name (D10) |
+| 1 | `id, type` | `app/client/item/client_item_property_builder.cpp:37` | neutral; both branches start with the same loads, which VC6 hoists above the branch as the client has them |
 | 1 | `Unknown48` | `app/client/item/client_item_property_builder.cpp:37` | untagged neutral name (D10) |
 | 1 | `quality_property, structure_property` | `app/client/item/client_item_property_builder.cpp:52` | neutral |
+| 1 | `special` | `app/client/item/client_item_property_builder.cpp:75` | neutral |
 | 1 | `info, count, i, ok, base, actual, level and the cases' locals` | `app/client/item/client_item_property_builder.cpp:86` | neutral |
 | 1 | `Unknown50` | `app/client/item/client_item_property_builder.cpp:181` | untagged neutral name (D10) |
 | 1 | `effects, delta, effects2, delta2` | `app/client/item/client_item_property_builder.cpp:819` | neutral |
