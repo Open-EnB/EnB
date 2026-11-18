@@ -24,8 +24,8 @@ class AudibleSoundClass;
 // A queued sound (4 bytes, new'd by 0x75AE30): its name, nstrdup'd
 struct SoundManagerQueueEntryStruct  // NAME 1: neutral (D10)
 {
-	SoundManagerQueueEntryStruct(const char *name);
-	~SoundManagerQueueEntryStruct() { if (Name) { delete [] Name; Name = NULL; } }	// inline in 0x75AC50 / 0x75AB70
+	SoundManagerQueueEntryStruct(const char *name);									// 0x75AAB0 (uncalled; inlined in 0x75AE30)
+	~SoundManagerQueueEntryStruct();												// 0x75AAE0 (uncalled; inlined in 0x75AC50 / 0x75AB70)
 
 	char *Name;																		// +0x00  // NAME 2: what 0x75AE30 stores (nstrdup of its name)
 };

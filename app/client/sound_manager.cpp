@@ -6,9 +6,19 @@
 #include "..\..\wwlib\nstrdup.h"
 #include "..\shared\g_assert.h"
 
-inline SoundManagerQueueEntryStruct::SoundManagerQueueEntryStruct(const char *name) :
+// 0x75AAB0
+SoundManagerQueueEntryStruct::SoundManagerQueueEntryStruct(const char *name) :
 	Name(nstrdup(name))
 {
+}
+
+// @0x75AAE0
+SoundManagerQueueEntryStruct::~SoundManagerQueueEntryStruct()
+{
+	if (Name) {
+		delete [] Name;
+		Name = NULL;
+	}
 }
 
 // 0x75AB10
@@ -33,16 +43,6 @@ SoundManagerClass::~SoundManagerClass()
 		}
 	}
 }
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -120,4 +120,6 @@ void SoundManagerClass::Unknown_75B320()
 **	queued one played; AudibleSoundClass vtable +0xC4 is Is_Playing). File placement from the asserts'
 **	__FILE__ (0xB9AE38); the header beside it is PROVISIONAL (D137). The other files' local declarations
 **	(main_client.cpp, sclient.cpp, cpacket.cpp, ui_cpit.cpp: char Unknown00[0x340]) are left as they are.
+**	The object starts with the queued entry's constructor 0x75AAB0 and destructor 0x75AAE0: out of line and
+**	uncalled (soptions.cpp ends at 0x75AAB0), inlined in 0x75AE30 and 0x75AC50 / 0x75AB70.
 */
