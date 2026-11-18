@@ -376,6 +376,9 @@ USE_CR3_GAP_HOLDER = True
 # holder there is a COMDAT of the same shape: credited there (`cr5_fold`, `folded`); evidence reaching two copies, or
 # an absolute reference to the symbol, leaves it tied
 USE_CR5_FOLD_HELD = True
+# (CR5) the same, with a third kind of own evidence: the slot of a vtable the object's exact functions store
+# (vtbl_slot_targets) that the object's vtable gives the symbol
+USE_CR5_FOLD_VTBL = True
 
 
 def _vx_class(name):
@@ -2082,6 +2085,31 @@ def cr1_named_targets(img, results, pending, done, claimed, text, base, thunk, k
     return [(item, a) for item, a in props if len(by_addr[a]) == 1]
 
 
+def vtbl_slot_targets(img, obj, sec, s, length, addr, text, base, thunk, sym):
+    """CR5: {client addresses} the vtables an exact function of the object stores (a dir32 `??_7` relocation, its
+    client value less the addend) hold at the slots the object's own vtable gives `sym` (vtable_slots)."""
+    slots = {}
+    for vt, sl in vtable_slots(obj):
+        offs = [off for off, n in sl if n == sym]
+        if offs:
+            slots[vt] = offs
+    out = set()
+    if not slots:
+        return out
+    o = addr - base
+    for k, n, typ, t, addend in obj.reloc_targets(sec, s, length):
+        if typ != 0x06 or n != 4 or t is None or t['name'] not in slots:
+            continue
+        v = (struct.unpack('<I', text[o + k:o + k + 4])[0] - struct.unpack('<I', addend)[0]) & 0xFFFFFFFF
+        for off in slots[t['name']]:
+            f = img.offset(v + off)
+            if f is None or f + 4 > len(img.data):
+                continue
+            x = struct.unpack_from('<I', img.data, f)[0]
+            out.add(thunk.get(x, x))
+    return out
+
+
 def cr5_fold_held(img, results, pending, done, claimed, text, base, thunk):
     """D246 (CR5): [(pending item, address)] for tied COMDATs (`multiple`, not own code) whose own object's evidence
     reaches exactly one client copy, held there by another symbol: the linker folded the two (D193). The evidence is
@@ -2125,6 +2153,8 @@ def cr5_fold_held(img, results, pending, done, claimed, text, base, thunk):
             if key not in fl:
                 fl[key] = funclet_targets(img, obj, sec2, s2, len2, a2, thunk)
             cands |= {t for n2, t in fl[key] if n2 == sym}
+            if USE_CR5_FOLD_VTBL:
+                cands |= vtbl_slot_targets(img, obj, sec2, s2, len2, a2, text, base, thunk, sym)
         if bad or len(cands) != 1:
             continue
         a = next(iter(cands))
