@@ -378,21 +378,21 @@ RegistrationInterface::RegistrationInterface(UIViewClass *view, LayerClass *laye
 	TheDX8MeshRenderer.Invalidate();
 }
 
-// @0x5F0F10
+// @0x5F0F10 (through the uncalled 0x5F1660: the client inlines it here as its layer)
 RegistrationInterface::~RegistrationInterface()
 {
-	Unknown1B8 = NULL;
-	Unknown1B4 = NULL;
-	RegistrationUnknown1ACClass::Unknown_7CF190();
-	Unknown_5C();
-	InterfaceClass::Unknown_5C();
-	Unknown_5F3600();
-	UnknownBC->Unknown_67A670();
-	UnknownBC->Unknown_67A9B0(0);
-	UnknownBC->Unknown_67A9B0(3);
-	WW3DAssetManager::Get_Instance()->Free_Assets();
-	UnknownC0->Unknown0018->Unknown_515400();
+	Unknown_5F1660();
 }
+
+
+
+
+
+
+
+
+
+
 
 // @0x5F1660
 void RegistrationInterface::Unknown_5F1660()

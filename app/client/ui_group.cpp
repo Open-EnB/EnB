@@ -338,28 +338,28 @@ UIGroupMemberClass::UIGroupMemberClass(UIGroupClass *owner) :
 
 
 // 0x5932E0
-// NOT EXACT: inline budget (the client calls RefCountPtr's operator=(NULL) 0x5988A0 out of line for +0x38 / +0x30 here, 0x593790 expands it)
+// (the members released through the uncalled 0x593790, inlined here as the client's layer: its RefCountPtr operator=(NULL) 0x5988A0 for +0x38 / +0x30 stays a call)
 UIGroupMemberClass::~UIGroupMemberClass()
 {
 	bool active = Get_Interface()->Is_Active();
 	if (active) {
 		Get_Interface()->Unknown_5C();
 	}
-	if (Unknown3C) {
-		Get_Interface()->Unknown64.Unknown_687150(Unknown3C);
-		GadgetClass::Destroy(Unknown3C);
-		Unknown3C = NULL;
-	}
-	if (Unknown38) {
-		Unknown38->Remove();
-		Unknown38 = NULL;
-	}
-	if (Unknown2C) {
-		Unknown2C->Unknown_5DCAE0();
-		delete Unknown2C;
-		Unknown2C = NULL;
-	}
-	Unknown30 = NULL;
+	Unknown_593790();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	if (Unknown28) {
 		delete Unknown28;
 		Unknown28 = NULL;
