@@ -3256,9 +3256,6 @@
 "data:?Unknown_BE5BC4@@3PAVUIComboBoxClass@@A": [
 "0xBE5BC4"
 ],
-"data:?Unknown_BE5BD0@@3V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@A": [
-"0xBE5BD0"
-],
 "data:?Unknown_BE5D70@@3PAPBDA": [
 "0xBE5D70"
 ],
@@ -3400,6 +3397,9 @@
 "data:?_DefaultVolume@SoundLibraryClass@@2MA": [
 "0xB6F408"
 ],
+"data:?_DirtyList@GClass@@2V?$DynamicVectorClass@PAVGClass@@@@A": [
+"0xBE3A18"
+],
 "data:?_Facsav@?$_Tidyfac@V?$ctype@D@std@@@std@@0PAV?$ctype@D@2@A": [
 "0xBE5674"
 ],
@@ -3534,6 +3534,9 @@
 ],
 "data:?_Nilrefs@?$_Tree@W4VerbEnum@@W41@U_Kfn@?$set@W4VerbEnum@@U?$less@W4VerbEnum@@@std@@V?$allocator@W4VerbEnum@@@3@@std@@U?$less@W4VerbEnum@@@4@V?$allocator@W4VerbEnum@@@4@@std@@1IA": [
 "0xBF43DC"
+],
+"data:?_Nodes@GClass@@2V?$List@PAV?$DataNode@PAVUnknownGadgetBase00Class@@@@@@A": [
+"0xBE39F8"
 ],
 "data:?_NumActivated@SkillAbilityNamesDatabase@@0HA": [
 "0xBE8DF8"

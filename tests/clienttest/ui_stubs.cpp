@@ -23,7 +23,6 @@
 
 // ------------------------------------------------------------------------- ui_cpit.cpp's effect node and string
 
-std::string Unknown_BE5BD0;		// 0xBE5BD0 (ui_cpit.cpp's)
 
 // ------------------------------------------------------------------------- ro_funcs.cpp, fontmanager.cpp, the globals
 

@@ -15,7 +15,6 @@
 Random2Class Unknown_BDADC8;					// 0xBDADC8 (soundlib.cpp's view)
 RandomClass Unknown_BDBB84;						// 0xBDBB84 (eff_o.cpp's, ui_avatr.cpp's, ui_line_display.cpp's)
 RectClass Unknown_C07550;						// 0xC07550 (sclient.cpp's, scriptedmovie.cpp's)
-std::string Unknown_BE5BD0;						// 0xBE5BD0 (ui_cpit.cpp's)
 
 struct TestEffectStruct { char Unknown00[0x64]; };	// sclient.cpp's record, 0x64 bytes (only its size matters here)
 std::vector<TestEffectStruct> Unknown_BE7D80;		// 0xBE7D80 (sclient.cpp's)

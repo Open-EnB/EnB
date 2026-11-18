@@ -392,7 +392,7 @@ public:
 	void Unknown_75B0D0(const char *name, int channel);	// 0x75B0D0  // NAME 1 [name, channel]: cpacket.cpp's
 };
 extern SoundManagerClass *SoundManager;	// 0xBE82A4  // NAME 2: what it holds
-extern std::string Unknown_BE5BD0;		// 0xBE5BD0: the sound of an EMP hit (0x583DC0 plays it when inflicted is 3)  // NAME 1: neutral (D10)
+static std::string Unknown_BE5BD0("critical_hit_1.wav");	// 0xBE5BD0: the sound of an EMP hit (0x583DC0 plays it when inflicted is 3; initialiser 0x57D590)  // NAME 1: neutral (D10)
 
 
 
