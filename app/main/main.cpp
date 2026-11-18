@@ -1,8 +1,10 @@
 // Earth & Beyond client (reconstruction)
 /*
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
-**	Original location: unknown; the object at client 0x445330-0x445725 has no __FILE__ string, and
-**	its log texts start 'Main.cpp:', so the name is main.cpp; the folder is a guess (app\main, beside
+**	Original location: unknown; the object at client 0x445560-0x445725 has no __FILE__ string (SG, run 2026-11-18:
+**	the five functions 0x445330-0x4454C0 with the 'Main.cpp:' log texts are unknown_4441e0.cpp's object, CRT
+**	entries 17-23, closed by <string>'s guard 0x445540; this object's are entries 24-27), and
+**	the name stays main.cpp; the folder is a guess (app\main, beside
 **	main_client.cpp, whose WinMain calls nearly everything here). Interim placement (D137).
 **
 **	WinMain's helpers: the exception hooks, the window-message handlers, the build texts and
@@ -28,66 +30,6 @@ struct Unknown_VersionStruct							// NAME 1 [Unknown_VersionStruct]: two ints (
 };
 
 unsigned long Unknown_BDBE4C;							// 0xBDBE4C: WinMain's GetTickCount at start-up  // NAME 1 [Unknown_BDBE4C]: neutral (D10)
-static bool Unknown_BDBE50;								// 0xBDBE50  // NAME 1 [Unknown_BDBE50]: neutral (D10)
-
-// 0x445330
-int Unknown_445330(EXCEPTION_POINTERS *info)
-{
-	return Exception_Handler(info->ExceptionRecord->ExceptionCode, info);
-}
-
-// 0x445350
-void Unknown_445350()
-{
-	if (!Unknown_BDBE50) {
-		Unknown_BDBE50 = true;
-	}
-}
-
-// 0x445420
-int Unknown_445420(int unknown, int active)
-{
-	if (WW3D::Is_Windowed()) {
-		return -1;
-	}
-	KernelClass *kernel = KernelClass::Get_Instance();
-	if (kernel == NULL) {
-		return -1;
-	}
-	if (active) {
-		Unknown_Debug_Print("Main.cpp: activating kernel rendering.");
-		kernel->Render_Enabled = true;
-		if (WWAudioClass::Get_Instance() != NULL) {
-			WWAudioClass::Get_Instance()->Temp_Disable_Audio(false);
-		}
-		WW3D::On_Activate_App();
-	} else {
-		Unknown_Debug_Print("Main.cpp: deactivating kernel rendering.");
-		kernel->Render_Enabled = false;
-		if (WWAudioClass::Get_Instance() != NULL) {
-			WWAudioClass::Get_Instance()->Temp_Disable_Audio(true);
-		}
-		WW3D::On_Deactivate_App();
-	}
-	return -1;
-}
-
-// 0x4454A0
-int Unknown_4454A0(int unknown, int unknown2)
-{
-	KernelClass *kernel = KernelClass::Get_Instance();
-	if (kernel != NULL) {
-		kernel->Render_Enabled = false;
-		kernel->Quit = true;
-	}
-	return -1;
-}
-
-// 0x4454C0
-int Unknown_4454C0(int unknown, int unknown2)
-{
-	return 0;
-}
 
 static char Unknown_BDBE90[128];						// 0xBDBE90  // NAME 1 [Unknown_BDBE90]: neutral (D10)
 static char Unknown_BDBF10[128];						// 0xBDBF10  // NAME 1 [Unknown_BDBF10]: neutral (D10)
