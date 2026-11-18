@@ -4,9 +4,9 @@
 #include <stdio.h>
 #include <string.h>
 
-std::string Unknown_BE8AA0;
-std::string Unknown_BE8AB0;
 std::string Unknown_BE8AC0;
+std::string Unknown_BE8AB0;
+std::string Unknown_BE8AA0;
 int Unknown_BE8AD4;
 Sub14CClass *Unknown_BE8AD8;
 

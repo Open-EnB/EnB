@@ -38,6 +38,7 @@ import rootguard  # noqa: E402
 TRACES = roots.EA_TRACES      # the frozen reference traces (D154)
 
 APP = [r'app\client\client.cpp', r'app\client\sclient.cpp', r'app\client\cpacket.cpp',
+       r'app\client\unknown_725050.cpp',   # UnknownB02C90Class's members, split out of client.cpp (SG)
        r'app\common\connect.cpp', r'app\common\dbgconn.cpp', r'app\common\circbuff.cpp',
        r'app\shared\auxdata\linearbu.cpp', r'app\packets\pk.cpp', r'app\packets\clientstub.cpp',
        r'app\common\unknown_navlist.cpp',   # WARP 155's navigation list (as udpreplay.py's CONN)
