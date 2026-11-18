@@ -205,13 +205,13 @@ inline void PDA_Close_Window(ChatPanelUIBase *window) { window->Unknown_5C(); wi
 
 
 
-// 0x693E70 (NOT EXACT: layout and registers (0.78): the client keeps 0 in ebx only inside case 1, places the play tail right after case 10's active branch, and has no `add eax, 0x127C` after loading ChatPanel)
+// 0x693E70 (NOT EXACT: layout and registers (0.78): the client keeps 0 in ebx only inside case 1, and places the play tail right after case 10's active branch)
 bool PDAInterfaceClass::Unknown_68(int key)
 {
 	if (!UnknownBC) {
 		return(true);
 	}
-	ChatPanelInterface *chat = Get_Client()->As_Space_Client()->ChatPanel.Peek();
+	SClient *sc = Get_Client()->As_Space_Client(); ChatPanelInterface *chat = sc->ChatPanel.Peek();	// through a local: the Peek straight off the call left an add eax, 0x127C the client lacks
 	SClient *client = Get_Client()->As_Space_Client();
 	const char *sound;
 	switch (key) {
