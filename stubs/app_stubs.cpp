@@ -49,13 +49,6 @@ int DeltaStringClass::UnknownGlobal = 0;	// 0xBE3A9C
 
 // ------------------------------------------------------------------------- strconv_lib.h
 
-// 0x848C80: RELATIONSHIP's relationship (opcode 137), the client's defaults
-RelationshipClass::RelationshipClass()
-{
-	Reaction = (MobReactionType)1;
-	IsAttacking = false;
-}
-
 // MoneyClass's (money.cpp, 0x4F0AB0 / 0x4F0BE0 / 0x4F0640)
 char *Value_To_String(char *buf, int size, const MoneyClass &value)
 {
