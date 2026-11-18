@@ -3678,8 +3678,8 @@ request_failed:
 static const char *ProductBeta = "EB-BETA";  // NAME 1 [ProductBeta]: client .data 0xB85EE4 (0x600000 compares the bundle ids with it)
 static const char *RegistrationGameId = "2184";  // NAME 1 [RegistrationGameId]: client .data 0xB85EF0 (0x600000: 0x7D7E10's third argument, atoi'd against the game features' ids)
 
-// NOT EXACT: shape (explain.py's first mismatch is a relocation, the string destructor's thunk; 3453 instructions against
-// 3085, frame 0x718 against 0xB34; D89; 0x5F86F0 out of line as the client's since IB): the client calls 0x603660 out of line
+// NOT EXACT: shape (explain.py's first mismatch is a relocation, the string destructor's thunk; 3426 instructions against
+// 3085, frame 0x718 against 0xB34; D89; 0x5F86F0 out of line as the client's since IB; case 7 through the uncalled 0x5FA5F0 (LY) calls 0x603660 / 0x605010 out of line as the client)
 // @0x600000
 void RegistrationInterface::Unknown_5F00C0()
 {
@@ -3968,9 +3968,9 @@ void RegistrationInterface::Unknown_5F00C0()
 			return;
 		case 7:
 			if (Unknown390.Unknown10 == 0) {
-				Unknown588 = Unknown1AC->Unknown_7D3570();
-				std::sort(Unknown588.begin(), Unknown588.end());
-				Unknown328 = Unknown588[0];
+				Unknown_5FA5F0();
+
+
 				if (Unknown328.Unknown10 == ProductEB && (Unknown328.Unknown20 == 3 || Unknown328.Unknown20 == 4)) {
 					if (Unknown11E) {
 						Unknown11B = true;
