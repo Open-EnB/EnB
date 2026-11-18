@@ -364,10 +364,10 @@ FAMILY_MOVED = {0x6FA150: ('aux_item.h', "the item family's constructor"),
 # the player's tree (the skill's, RPGInfo's, FormationState), the ship's last (GuildRankType, Vector3,
 # InterruptStateType), and 0x7598E0 the ship inventory's and items' arrays, then the player's tree's, then the lego's,
 # buff's and ship's: the client's sclient.cpp parsed those classes first. So the value types (aux_roots_types.h), the
-# item classes with the ship inventory (aux_roots_item.h), Hull (aux_roots_hull.h, out of aux_roots_send.h) and the
-# player's tree (aux_roots_player.h, the group's header inside) are headers of their own, included back where they
-# were (aux_roots.h line-neutral): an object that includes aux_roots.h alone sees the classes in the same order as
-# before, aux_ship_player.h includes them first. The types header leaves out delta_interpolator.h (its
+# class families (SPLITS below) and Hull (aux_roots_hull.h, out of aux_roots_send.h) are headers of their own,
+# included back where they were (aux_roots.h line-neutral): an object that includes aux_roots.h alone sees the classes
+# in the same order as before, aux_ship_player.h includes the item's, the ship inventory's, Hull's and the player's
+# tree first. The types header leaves out delta_interpolator.h (its
 # DeltaInterpolatorClass instantiates T<float> before the item's T<int>; aux_roots.h includes it as before).
 TYPES_MARK = '// ------------------------------------------------------------------------- value types'
 CLASSES_MARK = '// ------------------------------------------------------------------------- the compounds'
