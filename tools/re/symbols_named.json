@@ -5003,5 +5003,90 @@
   "symbol": "??_7?$DLListClass@VThumbnailManagerClass@@@@6B@",
   "kind": "vtable",
   "evidence": "texturethumbnail.cpp's static initialiser 0x9190F0 stores it in ThumbnailManagerList 0xBFAE98 and zeroes head / tail; its slot 0 is the ??_G 0x91B9B0 (SN, 2026-11-17)"
+ },
+ {
+  "address": "0xB1634C",
+  "symbol": "??_7Sound3DHandleClass@@6B@",
+  "kind": "vtable",
+  "evidence": "stored by Sound3DHandleClass's constructor 0xA02860 and destructor 0xA02920 (both byte-exact); its 26 slots are Sound3DHandleClass's (sound3dhandle.obj's table slot for slot); no ListenerHandleClass is built in the client (Listener3DClass's Allocate_Miles_Handle 0xA02EB0 is a bare ret) (SN, 2026-11-17)",
+  "replaces": "??_7ListenerHandleClass@@6B@"
+ },
+ {
+  "address": "0xA028A0",
+  "symbol": "?As_ListenerHandleClass@SoundHandleClass@@UAEPAVListenerHandleClass@@XZ",
+  "evidence": "slot 4 of Sound3DHandleClass's vtable 0xB1634C (stored by its constructor 0xA02860); the ListenerHandleClass name came from reading that table as ListenerHandleClass's (SN, 2026-11-17)",
+  "replaces": "?As_ListenerHandleClass@ListenerHandleClass@@UAEPAV1@XZ"
+ },
+ {
+  "address": "0xA029B0",
+  "symbol": "?Start_Sample@Sound3DHandleClass@@UAEXXZ",
+  "evidence": "slot 10 of Sound3DHandleClass's vtable 0xB1634C (stored by its constructor 0xA02860); the ListenerHandleClass name came from reading that table as ListenerHandleClass's (SN, 2026-11-17)",
+  "replaces": "?Start_Sample@ListenerHandleClass@@UAEXXZ"
+ },
+ {
+  "address": "0xA029C0",
+  "symbol": "?Stop_Sample@Sound3DHandleClass@@UAEXXZ",
+  "evidence": "slot 11 of Sound3DHandleClass's vtable 0xB1634C (stored by its constructor 0xA02860); the ListenerHandleClass name came from reading that table as ListenerHandleClass's (SN, 2026-11-17)",
+  "replaces": "?Stop_Sample@ListenerHandleClass@@UAEXXZ"
+ },
+ {
+  "address": "0xA029D0",
+  "symbol": "?Resume_Sample@Sound3DHandleClass@@UAEXXZ",
+  "evidence": "slot 12 of Sound3DHandleClass's vtable 0xB1634C (stored by its constructor 0xA02860); the ListenerHandleClass name came from reading that table as ListenerHandleClass's (SN, 2026-11-17)",
+  "replaces": "?Resume_Sample@ListenerHandleClass@@UAEXXZ"
+ },
+ {
+  "address": "0xA029E0",
+  "symbol": "?End_Sample@Sound3DHandleClass@@UAEXXZ",
+  "evidence": "slot 13 of Sound3DHandleClass's vtable 0xB1634C (stored by its constructor 0xA02860); the ListenerHandleClass name came from reading that table as ListenerHandleClass's (SN, 2026-11-17)",
+  "replaces": "?End_Sample@ListenerHandleClass@@UAEXXZ"
+ },
+ {
+  "address": "0xA029F0",
+  "symbol": "?Set_Sample_Pan@Sound3DHandleClass@@UAEXJ@Z",
+  "evidence": "slot 14 of Sound3DHandleClass's vtable 0xB1634C (stored by its constructor 0xA02860); the ListenerHandleClass name came from reading that table as ListenerHandleClass's (SN, 2026-11-17)",
+  "replaces": "?Set_Sample_Pan@ListenerHandleClass@@UAEXJ@Z"
+ },
+ {
+  "address": "0xA02A00",
+  "symbol": "?Get_Sample_Pan@Sound3DHandleClass@@UAEJXZ",
+  "evidence": "slot 15 of Sound3DHandleClass's vtable 0xB1634C (stored by its constructor 0xA02860); the ListenerHandleClass name came from reading that table as ListenerHandleClass's (SN, 2026-11-17)",
+  "replaces": "?Get_Sample_Pan@ListenerHandleClass@@UAEJXZ"
+ },
+ {
+  "address": "0xA02A10",
+  "symbol": "?Set_Sample_Volume@Sound3DHandleClass@@UAEXJ@Z",
+  "evidence": "slot 16 of Sound3DHandleClass's vtable 0xB1634C (stored by its constructor 0xA02860); the ListenerHandleClass name came from reading that table as ListenerHandleClass's (SN, 2026-11-17)",
+  "replaces": "?Set_Sample_Volume@ListenerHandleClass@@UAEXJ@Z"
+ },
+ {
+  "address": "0xA02A30",
+  "symbol": "?Get_Sample_Volume@Sound3DHandleClass@@UAEJXZ",
+  "evidence": "slot 17 of Sound3DHandleClass's vtable 0xB1634C (stored by its constructor 0xA02860); the ListenerHandleClass name came from reading that table as ListenerHandleClass's (SN, 2026-11-17)",
+  "replaces": "?Get_Sample_Volume@ListenerHandleClass@@UAEJXZ"
+ },
+ {
+  "address": "0xA02A50",
+  "symbol": "?Set_Sample_Loop_Count@Sound3DHandleClass@@UAEXK@Z",
+  "evidence": "slot 18 of Sound3DHandleClass's vtable 0xB1634C (stored by its constructor 0xA02860); the ListenerHandleClass name came from reading that table as ListenerHandleClass's (SN, 2026-11-17)",
+  "replaces": "?Set_Sample_Loop_Count@ListenerHandleClass@@UAEXK@Z"
+ },
+ {
+  "address": "0xA02A70",
+  "symbol": "?Get_Sample_Loop_Count@Sound3DHandleClass@@UAEKXZ",
+  "evidence": "slot 19 of Sound3DHandleClass's vtable 0xB1634C (stored by its constructor 0xA02860); the ListenerHandleClass name came from reading that table as ListenerHandleClass's (SN, 2026-11-17)",
+  "replaces": "?Get_Sample_Loop_Count@ListenerHandleClass@@UAEKXZ"
+ },
+ {
+  "address": "0xA02BE0",
+  "symbol": "?Get_Sample_Playback_Rate@Sound3DHandleClass@@UAEJXZ",
+  "evidence": "slot 24 of Sound3DHandleClass's vtable 0xB1634C (stored by its constructor 0xA02860); the ListenerHandleClass name came from reading that table as ListenerHandleClass's (SN, 2026-11-17)",
+  "replaces": "?Get_Sample_Playback_Rate@ListenerHandleClass@@UAEJXZ"
+ },
+ {
+  "address": "0xA02C00",
+  "symbol": "?Set_Sample_Playback_Rate@Sound3DHandleClass@@UAEXJ@Z",
+  "evidence": "slot 25 of Sound3DHandleClass's vtable 0xB1634C (stored by its constructor 0xA02860); the ListenerHandleClass name came from reading that table as ListenerHandleClass's (SN, 2026-11-17)",
+  "replaces": "?Set_Sample_Playback_Rate@ListenerHandleClass@@UAEXJ@Z"
  }
 ]
