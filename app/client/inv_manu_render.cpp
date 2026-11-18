@@ -3,7 +3,7 @@
 #include <string>
 #include <stdio.h>
 #include "..\shared\g_assert.h"
-#include "..\shared\auxdata\permstr.h"	// (its PermStringInitClass static: 0x68BEC0)
+#include "..\shared\auxdata\permstr.h"	// (its PermStringInitClass static: 0x68B320, CRT entry 476)
 #include "inv_manu_render.h"
 #include "rendobj.h"
 #include "fontmanager.h"

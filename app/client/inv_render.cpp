@@ -10,7 +10,7 @@
 #include "..\audio\soundlib.h"
 #include <stdio.h>
 #include "..\shared\money.h"
-#include "..\shared\auxdata\permstr.h"	// (its PermStringInitClass static: 0x68FB10)
+#include "..\shared\auxdata\permstr.h"	// (its PermStringInitClass static: 0x68BEC0, CRT entry 479)
 #include "ui_item_examination_property_router.h"
 #include "aux_item.h"	// the item family's constructors (0x68FAA0 numbers them)
 #include "inv_data_peek.h"	// InvDataPeekClass (InvDataClass::Unknown_688830 / 688850)
