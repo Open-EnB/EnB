@@ -410,7 +410,7 @@ void RegistrationInterface::Unknown_5F1660()
 	UnknownC0->Unknown0018->Unknown_515400();
 }
 
-// @0x5F1730
+// @0x5F1730 (the uncalled 0x5F1940 and 0x5FB030 inlined as the client's layers)
 void RegistrationInterface::Unknown_60()
 {
 	Unknown_5F2280();
@@ -422,28 +422,28 @@ void RegistrationInterface::Unknown_60()
 		(*combo).second.Combo->Unknown_60();
 		combo++;
 	}
-	if (UnknownD4 == 0x16) {
-		float frames = (float)Unknown1C0->Get_Num_Frames();
-		float frame = Unknown1BC->Get_Frame(0);
-		float seconds = WW3D::Get_Frame_Time() * 0.001f;
-		frame = seconds * 30.0f + frame;
-		if (frame > frames) {
-			frame = 0.0f;
-		}
-		Unknown1BC->Set_Frame(0, frame);
-		DialogRenderObj->Update_Sub_Object_Transforms();
-	}
+	Unknown_5F1940();
+
+
+
+
+
+
+
+
+
+
 	if (Unknown1C4 != 0 && --Unknown1C4 == 0) {
-		int width;
-		int height;
-		int bits;
-		bool windowed;
-		WW3D::Get_Device_Resolution(width, height, bits, windowed);
-		RenderObjClass *label = DialogRenderObj->Get_Sub_Object_By_Name("LABEL_TEXT");
-		Unknown_7CA2D0()->Unknown_7CA5C0(4, label, NULL);
-		UnknownC0->Unknown0018->Unknown_5153B0();
-		label->Release_Ref();
+		Unknown_5FB030();
 	}
+
+
+
+
+
+
+
+
 }
 
 // @0x5F1940
