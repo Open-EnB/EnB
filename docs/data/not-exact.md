@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-852 entries in 296 files.
+846 entries in 296 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -642,16 +642,10 @@ edit the comments in the code, not this file.
 | `app/client/unknown_personality.cpp:12` | `Unknown_78F700Class::~Unknown_78F700Class` | marker | NOT EXACT: functional for POC (D64), frame (the client's has an EH frame: a member or base with a destructor not known yet) |
 | `app/client/unknown_personality.cpp:77` | `Unknown_78F700Class::Load` | marker | NOT EXACT: functional for POC (D64), inline-budget (ours inlines 0x7901C0 differently) |
 | `app/client/unknown_personality.cpp:173` | `Unknown_790260Class::Unknown_790360` | marker | NOT EXACT: functional for POC (D64), field-offset (the client inlines the delete of a failed load: the destructor) |
-| `app/client/unknown_phoneme.cpp:66` | `Unknown_791310Class::Unknown_791310Class` | marker | NOT EXACT: functional for POC (D64), shape (the index loop) |
-| `app/client/unknown_phoneme.cpp:83` | `Unknown_791310Class::Unknown_791400` | marker | NOT EXACT: functional for POC (D64), literal (the shapes' initial stores in another order) |
-| `app/client/unknown_phoneme.cpp:185` | `Unknown_791310Class::Unknown_7917B0` | marker | NOT EXACT: functional for POC (D64), shape (the index entry's loads) |
-| `app/client/unknown_phoneme.cpp:205` | `Unknown_791310Class::Unknown_791880` | marker | NOT EXACT: functional for POC (D64), shape (the branch layout) |
-| `app/client/unknown_phoneme.cpp:246` | `Unknown_791310Class::Unknown_791970` | marker | NOT EXACT: functional for POC (D64), shape (the branch layout) |
-| `app/client/unknown_phoneme.cpp:292` | `Unknown_791310Class::Unknown_791B00` | marker | NOT EXACT: functional for POC (D64), shape (the branch layout) |
-| `app/client/unknown_phoneme.cpp:326` | `Unknown_791310Class::Unknown_791BF0` | marker | NOT EXACT: functional for POC (D64), shape (the branch layout) |
-| `app/client/unknown_phoneme.cpp:400` | `Unknown_791310Class::Unknown_791E50` | marker | NOT EXACT: functional for POC (D64), shape (the branch layout) |
-| `app/client/unknown_phoneme.cpp:427` | `Unknown_791310Class::Unknown_791F10` | marker | NOT EXACT: functional for POC (D64), shape (2 rows) |
-| `app/client/unknown_phoneme.cpp:445` | `Unknown_791310Class::Unknown_791F80` | marker | NOT EXACT: functional for POC (D64), shape (registers and the branch layout) |
+| `app/client/unknown_phoneme.cpp:84` | `Unknown_791310Class::Unknown_791400` | marker | NOT EXACT: functional for POC (D64), register (prev and last kept in memory, 12 in ebx; the case bodies in the client's order, from its jump table, and 't' written out as the client inlines it) |
+| `app/client/unknown_phoneme.cpp:196` | `Unknown_791310Class::Unknown_7917B0` | marker | NOT EXACT: functional for POC (D64), register (First and Count loaded into the other registers; 6 index forms tried) |
+| `app/client/unknown_phoneme.cpp:216` | `Unknown_791310Class::Unknown_791880` | marker | NOT EXACT: functional for POC (D64), shape (the client merges the 'g' case's tail with the second-letter vowel's; switch and if-chain forms tried) |
+| `app/client/unknown_phoneme.cpp:339` | `Unknown_791310Class::Unknown_791BF0` | marker | NOT EXACT: functional for POC (D64), register (the text pointer in ecx, not eax) and the second-letter test the client keeps |
 | `app/client/viewbttn.cpp:17` | `ViewButtonClass::ViewButtonClass` | marker | NOT EXACT: the client keeps an EH state around the new UnknownAFE0B8Class (a byte state store before Get_Bool, attempts.csv); ours has none |
 | `app/client/viewbttn.cpp:160` | `ViewButtonClass::Unknown_2C` | marker | NOT EXACT: register allocation only (explain.py; attempts.csv) |
 | `app/client/viewbttn.cpp:404` | `Unknown_6B5FD0` | marker | NOT EXACT: the client's EH frame around the new (attempts.csv); ours has none |
