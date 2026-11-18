@@ -2908,9 +2908,6 @@
 "data:?SoundManager@@3PAVSoundManagerClass@@A": [
 "0xBE82A4"
 ],
-"data:?Stack@PxProcessClass@@2V?$vector@PAVPxProcessClass@@V?$allocator@PAVPxProcessClass@@@std@@@std@@A": [
-"0xBDC080"
-],
 "data:?SyncTime@WW3D@@0IA": [
 "0xBFAE3C"
 ],

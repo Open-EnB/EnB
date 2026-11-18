@@ -52,8 +52,6 @@ public:
 	static void Pop();									// 0x455F60 (as above, at their ends)  // NAME 2: what it does
 
 	PxProcessNode Root;						// +0x00 (the client's name, the FAIL_IF 'Root.Next != &Root')
-
-	static std::vector<PxProcessClass *> Stack;	// 0xBDC080 (constructed by 0x4559E0)  // NAME 2: Push / Pop's
 };
 
 #endif
