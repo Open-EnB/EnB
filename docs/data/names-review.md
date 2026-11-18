@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1967 |
 | 2 | describes what the code does | 4986 |
-| 1 | neutral placeholder | 25224 |
+| 1 | neutral placeholder | 25233 |
 
 ## For review (score 3 and below)
 
@@ -2423,6 +2423,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `KeyMappingStruct` | `app/client/control_keys_manager.h:89` | neutral (D10): one key definition's mapping (0xC bytes): its DefPtr and keys |
 | 1 | `KeyIdStruct` | `app/client/control_keys_manager.h:97` | neutral (D10): the value of _KeyIds (0x14 bytes) |
 | 1 | `std:` | `app/client/control_keys_manager.h:171` | neutral (D10) |
+| 1 | `std:` | `app/client/cpacket.cpp:73` | neutral (D10). rs_track.cpp's render object (Class_ID 0x10001): the render states the packets switch |
+| 1 | `Unknown_BE7D58` | `app/client/cpacket.cpp:73` | untagged neutral name (D10) |
 | 1 | `name, channel` | `app/client/cpacket.cpp:89` | the packet's fields |
 | 1 | `Unknown_75AE30` | `app/client/cpacket.cpp:89` | untagged neutral name (D10) |
 | 1 | `name, channel` | `app/client/cpacket.cpp:90` | the packet's fields |
@@ -14313,7 +14315,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `ViewUnknown34Class` | `app/client/ui_login.cpp:911` | untagged neutral name (D10) |
 | 1 | `Unknown_BE67C4` | `app/client/ui_manu.cpp:34` | neutral (D10) |
 | 1 | `Unknown_B81868` | `app/client/ui_manu.cpp:88` | neutral (D10) |
-| 1 | `Unknown_BE5C20` | `app/client/ui_manu.cpp:89` | neutral (D10): the seconds before a filter request is given back (initialised at run time, 0x5AF9D0) |
+| 1 | `Unknown_Filter_Seconds` | `app/client/ui_manu.cpp:89` | neutral (D10): the seconds before a filter request is given back (initialised at run time, 0x5AF9D0: a constant initialiser is static data, an inline call gives the $E; the helper is interim) |
+| 1 | `Unknown_BE5C20` | `app/client/ui_manu.cpp:89` | untagged neutral name (D10) |
 | 1 | `Unknown_B8183C` | `app/client/ui_manu.cpp:90` | neutral (D10): the filter requests allowed |
 | 1 | `Unknown_AF2D18` | `app/client/ui_manu.cpp:91` | neutral (D10): what 0x5B3A70 stores (read from .rdata) |
 | 1 | `Unknown5BB320Class` | `app/client/ui_manu.cpp:95` | untagged neutral name (D10) |
@@ -15487,7 +15490,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `robj` | `app/client/ui_pda_equip.cpp:27` | as ui_avatr.cpp's |
 | 1 | `Unknown_497300` | `app/client/ui_pda_equip.cpp:27` | untagged neutral name (D10) |
 | 1 | `Unknown_BE67C4` | `app/client/ui_pda_equip.cpp:28` | neutral (D10) |
-| 1 | `LineDisplayClientClass` | `app/client/ui_pda_equip.cpp:30` | neutral (D10) |
+| 1 | `Unknown_BE5D28` | `app/client/ui_pda_equip.cpp:30` | neutral (D10); what InterfaceClass's +0x40 points to, as far as this file calls it (as pdaint.cpp declares it); Unknown_BE5D28: 0xBE5D28 (0x5D10A0), as starmap_data.cpp's LargeTextureSize, nothing reads it (NAME 1: neutral, D10) |
 | 1 | `Unknown_00` | `app/client/ui_pda_equip.cpp:33` | untagged neutral name (D10) |
 | 1 | `Unknown_04` | `app/client/ui_pda_equip.cpp:33` | untagged neutral name (D10) |
 | 1 | `Unknown_08` | `app/client/ui_pda_equip.cpp:33` | untagged neutral name (D10) |
@@ -21992,7 +21995,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_Get_Ticks` | `app/dbgmgr/dbgmgr.cpp:13` | untagged neutral name (D10) |
 | 1 | `Unknown_509C40` | `app/dbgmgr/dbgmgr.cpp:14` | the log's output (WWDebug's handler 0x509C10 and the print forms) |
 | 1 | `DbgStepStruct` | `app/dbgmgr/dbgmgr.cpp:16` | a step of the step log, 0x5C bytes (44 to a deque block of 0xFD0) |
-| 1 | `Steps` | `app/dbgmgr/dbgmgr.cpp:23` | Begin_Step pushes, End_Step pops |
+| 1 | `Steps` | `app/dbgmgr/dbgmgr.cpp:23` | Begin_Step pushes, End_Step pops; NAME 2 [DbgStepDeque]: the wrapper |
 | 1 | `Timing` | `app/dbgmgr/dbgmgr.cpp:24` | End_Step prints the milliseconds |
 | 1 | `Unknown_BE59C4` | `app/dbgmgr/dbgmgr.cpp:25` | untagged neutral name (D10) |
 | 1 | `Unknown_509C10` | `app/dbgmgr/dbgmgr.cpp:27` | WWDebug's message handler |
@@ -23573,6 +23576,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown4E8700Class` | `app/shared/event.cpp:87` | neutral (D10), static ActiveIterators wrapper (0x4E86C0/0x4E8700) |
 | 1 | `ActiveIterators` | `app/shared/event.cpp:90` | the iterators of the Send_Event calls in progress (0xBE5610), fixed up by Remove_Listener and ~Subject |
 | 1 | `Pop_Iterator` | `app/shared/event.cpp:196` | pops Send_Event's iterator; false once ~Subject cleared it (inlined into 0x4E8E40) |
+| 1 | `Unknown_BE5628Struct` | `app/shared/event.cpp:215` | neutral (D10); 12 bytes, nothing refers to its two statics |
+| 1 | `Unknown00` | `app/shared/event.cpp:217` | neutral (D10) |
+| 1 | `Unknown04` | `app/shared/event.cpp:218` | neutral (D10) |
+| 1 | `Unknown08` | `app/shared/event.cpp:219` | neutral (D10) |
+| 1 | `Unknown_BE5638` | `app/shared/event.cpp:221` | neutral (D10) |
+| 1 | `Unknown_BE5628` | `app/shared/event.cpp:222` | neutral (D10) |
 | 1 | `Unknown_BE350C` | `app/shared/fp_ita.cpp:7` | neutral (D10): SClient::Do_Frame's frame toggle (sclient.cpp) |
 | 1 | `Unknown_04` | `app/shared/fp_ita.cpp:119` | untagged neutral name (D10) |
 | 1 | `Unknown_0C` | `app/shared/fp_ita.cpp:167` | untagged neutral name (D10) |
@@ -28384,7 +28393,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Shutdown_Task` | `app/common/udpconn.h:133` | what it does |
 | 2 | `Task` | `app/common/udpconn.h:135` | what it holds |
 | 2 | `Mgr` | `app/common/udpconn.h:136` | what it holds |
-| 2 | `std:` | `app/common/unknown_memregistry.cpp:10` | what it holds |
+| 2 | `MemoryServerRegistryClass` | `app/common/unknown_memregistry.cpp:12` | what it holds; the holder's name provisional |
 | 2 | `MusicTypeNames` | `app/common/unknown_navlist.cpp:7` | what it holds |
 | 2 | `Music_Type_From_Name` | `app/common/unknown_navlist.h:25` | what it does |
 | 2 | `Music_Type_Name` | `app/common/unknown_navlist.h:26` | what it does |
