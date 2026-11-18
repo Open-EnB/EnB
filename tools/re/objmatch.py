@@ -3551,7 +3551,6 @@ def xcu_previous(img):
 
 USE_XCU_POSITION = True     # D242 P-C1-2: the `_$E` initialisers credited by their CRT table position
 USE_XCU_SUBRUN = True       # C15 (2026-11-16): the unique consecutive sub-run fitting every initialiser
-USE_XCU_MONOTONE = True     # DN (2026-11-18): an initialiser's window ignores an earlier own function out of address order
 XCU_TABLE = ClientImage.XCU_TABLE     # 0xB6C000-0xB6D700 (clientimage.crt_initialisers)
 USE_OBJECT_ORDER = True     # D242 P-C1-1: an own-function tie inside one object assigned in object order
 
@@ -3653,12 +3652,6 @@ def xcu_position(img, results, ranges, text, base, claimed, thunk):
         for n in inits:
             r, _, sec, s, length = defs[n]
             p, q = _neighbours(orders[key], (sec, s))
-            if USE_XCU_MONOTONE and p is not None and q is not None and p >= q:
-                # DN: an own function placed out of address order before the initialiser (an inline constructor
-                # the object emits first, the client later: co_player_relationship's GutterColorSetStruct()
-                # 0x70A790 before $E147 0x709EF0) would empty the window: bound it by the nearest earlier one below q
-                lower = [a for k, a, _ in orders[key] if k < (sec, s) and a is not None and a < q]
-                p = lower[-1] if lower else None
             wins.append((max(blo, p + 1 if p is not None else blo), min(bhi, q - 1 if q is not None else bhi)))
         run = sorted({t for t in table for w in wins if w[0] <= t <= w[1]})
         def fits(sub):
