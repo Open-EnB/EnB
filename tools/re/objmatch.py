@@ -1441,6 +1441,20 @@ def match_objects(img, paths, region=None, callers=False, extern_called=None, ca
             claimed[a].add(r['symbol'])
             learn(r, obj, sec, s, length, a)
             done.add(id(r))
+    if USE_CR1_NAMED_TARGETS:
+        for item, a in cr1_named_targets(img, results, pending, done, claimed, text, start, thunk, known):
+            r, obj, sec, s, length = item
+            if r['status'] == 'short':
+                r['short_known'] = 'named'
+            else:
+                r['tiebreak'] = True
+                done.add(id(r))
+            r['status'] = 'exact'
+            r['addresses'] = [f'0x{a:06X}']
+            r['named_targets'] = True
+            r.pop('count', None), r.pop('identical', None)
+            claimed[a].add(r['symbol'])
+            learn(r, obj, sec, s, length, a)
     if USE_VX_SLOT_CONTRA:
         bad = vx_slot_contradicted(img, results, known, thunk)
         for r, *_ in results:
@@ -1448,7 +1462,7 @@ def match_objects(img, paths, region=None, callers=False, extern_called=None, ca
                 r['vx_slot'] = r['addresses'][0]
                 r['status'] = 'none'
                 for k in ('tiebreak', 'range', 'selfname', 'order', 'call_tie', 'call_placed', 'funclet_tie',
-                          'pushed_tie', 'contrib', 'cr3_gap', 'ck_callseq', 'short_known', 'caller_tiebreak', 'initialiser', 'xcu'):
+                          'pushed_tie', 'contrib', 'cr3_gap', 'named_targets', 'ck_callseq', 'short_known', 'caller_tiebreak', 'initialiser', 'xcu'):
                     r.pop(k, None)
     if USE_NAMED_AWAY:
         names = self_names()
@@ -1467,7 +1481,7 @@ def match_objects(img, paths, region=None, callers=False, extern_called=None, ca
                     r['named_away_alone'] = True
                 r['status'] = 'none'
                 for k in ('tiebreak', 'range', 'selfname', 'order', 'call_tie', 'call_placed', 'funclet_tie',
-                          'pushed_tie', 'contrib', 'ck_callseq', 'short_known', 'caller_tiebreak', 'initialiser', 'xcu'):
+                          'pushed_tie', 'contrib', 'named_targets', 'ck_callseq', 'short_known', 'caller_tiebreak', 'initialiser', 'xcu'):
                     r.pop(k, None)
     if called_out is not None:
         called_out.update({k: set(v) for k, v in own_called.items()})
@@ -1550,6 +1564,154 @@ def contribution_ties(results, pending, done, claimed, text, base, img, known):
                     j += 1
             if len(inside) == 1:
                 props.append(((r, obj, sec, s, length, []), inside[0]))
+    by_addr = collections.defaultdict(set)
+    for (r, *_), a in props:
+        by_addr[a].add(r['symbol'])
+    return [(item, a) for item, a in props if len(by_addr[a]) == 1]
+
+
+# D246 (CR1, run 2026-11-17c): census class 3, "two symbols, one body": a `short` or tied function whose one candidate
+# address the client's named targets pick (`named_targets`). At a verified start where its pattern fullmatches (and,
+# for a short, the client function is exactly as long), its relocated call / jump targets and absolute references
+# are compared with the names the run knows at the client's targets there (symbols.json and the run's exact
+# functions, D80's `known`): confirmed when one names the relocation's own symbol, refuted when the target is named
+# and none of the names is it. Credited when exactly one address is confirmed and not refuted, D80's break_tie
+# leaves it, no other symbol holds or proposes it, and every other symbol whose bytes fullmatch there is refuted
+# (TextFileClass::TextFileClass 0x9E5E30 stores ??_7TextFileClass, ListenerHandleClass's same bytes another table)
+USE_CR1_NAMED_TARGETS = True
+
+
+def _cr1_alias(n):
+    out = {n}
+    if n.startswith(('??_E', '??_G')):
+        out.add(('??_G' if n[3] == 'E' else '??_E') + n[4:])
+    return out
+
+
+def cr1_named_targets(img, results, pending, done, claimed, text, base, thunk, known):
+    """D246 (CR1): [(item, address)] for `short` and tied (`multiple`) functions whose relocation targets the
+    client's named targets confirm at exactly one candidate address (USE_CR1_NAMED_TARGETS above)."""
+    starts = _verified_starts(img)
+    startset = set(starts)
+    sites, _ = call_sites(img)
+    back = collections.defaultdict(set)
+    for t, d in thunk.items():
+        back[d].add(t)
+    owners = collections.defaultdict(set)
+    for k, v in known.items():
+        for a in v:
+            owners[a].add(k[2:] if k.startswith('j_') else k)     # a thunk's name names its target
+    hi = base + len(text)
+
+    def at(name):
+        out = set()
+        for n in _cr1_alias(name):
+            out |= set(known.get(n, ())) | set(known.get('j_' + n, ()))
+        return out
+
+    def relocs(obj, sec, s, length):
+        out = []
+        for k, n, typ, sym, add in obj.reloc_targets(sec, s, length):
+            if sym is None or n != 4 or typ not in (0x14, 0x06) or sym['name'].startswith('.') \
+                    or sym['class'] not in (2, 3, 105):
+                continue    # 105: a weak external (`??_E` for the `??_G` it defaults to)
+            out.append((k, typ, sym['name']))
+        return out
+
+    def score(rel, a):
+        conf = ref = 0
+        for k, typ, name in rel:
+            o = a + k - base
+            if not 0 <= o <= len(text) - 4:
+                return 0, 1
+            v = struct.unpack_from('<I', text, o)[0]
+            if typ == 0x14:
+                v = (a + k + 4 + v) & 0xFFFFFFFF
+            v = thunk.get(v, v)
+            there = owners.get(v)
+            if not there:
+                continue
+            if _cr1_alias(name) & there:
+                conf += 1
+            else:
+                ref += 1
+        return conf, ref
+
+    def exact_length(a, length):
+        i = bisect.bisect_right(starts, a)
+        nxt = starts[i] if i < len(starts) else hi
+        return a + length <= nxt and _padding(text, base, a + length, nxt)
+
+    by_sym = collections.defaultdict(list)
+    for item in results:
+        by_sym[item[0]['symbol']].append(item)
+    items = []
+    for item in results:
+        r = item[0]
+        if r['status'] == 'short' and item[4] > 0:
+            items.append((item, None))
+    for item in pending:
+        if id(item[0]) not in done and item[0]['status'] == 'multiple':
+            items.append((item[:5], item[5]))
+    pats = collections.defaultdict(list)    # (pattern, length) -> items: the symbols whose bytes fullmatch alike
+    info = {}
+    for item, hits in items:
+        r, obj, sec, s, length = item
+        if generated(r['symbol']):
+            continue
+        if len(by_sym[r['symbol']]) > 1 and any(it[1].symbol_class(r['symbol']) != 2 for it in by_sym[r['symbol']]):
+            continue    # file statics of one name in several objects: the name is not one function
+        pat = obj.pattern(sec, s, s + length)[0]
+        info[id(r)] = (pat, relocs(obj, sec, s, length))
+        pats[(pat, length)].append(item)
+    props = []
+    for item, hits in items:
+        r, obj, sec, s, length = item
+        if id(r) not in info:
+            continue
+        pat, rel = info[id(r)]
+        if not rel:
+            continue
+        if hits is not None:
+            cands = set(hits)
+        else:
+            # a short's candidates: where the client references a named target at a relocation's offset
+            cands = set()
+            for k, typ, name in rel:
+                if name == r['symbol']:
+                    continue
+                for v in at(name):
+                    for t in {v} | back.get(v, set()):
+                        if typ == 0x14:
+                            cands.update(x + 1 - k for x in sites.get(t, ()))
+                        else:
+                            needle = struct.pack('<I', t)
+                            i = text.find(needle)
+                            while i >= 0:
+                                cands.add(base + i - k)
+                                i = text.find(needle, i + 1)
+        mine = at(r['symbol'])
+        good = []
+        for a in cands:
+            if a not in startset or not base <= a < hi or (mine and a not in mine):
+                continue
+            if not _fullmatch_at(obj, sec, s, length, text, base, a):
+                continue
+            if hits is None and not exact_length(a, length):
+                continue
+            c, f = score(rel, a)
+            if c and not f:
+                good.append(a)
+        if len(good) != 1:
+            continue
+        a = good[0]
+        if claimed[a] - {r['symbol']} or break_tie(obj, sec, s, length, text, base, [a], img, known)[0] != [a]:
+            continue
+        # every other symbol with these bytes is refuted there
+        rivals = [it for it in pats[(pat, length)] if it[0]['symbol'] != r['symbol']]
+        if any(score(info[id(it[0])][1], a)[1] == 0 for it in rivals):
+            continue
+        props.append((item, a))
     by_addr = collections.defaultdict(set)
     for (r, *_), a in props:
         by_addr[a].add(r['symbol'])

@@ -64,11 +64,13 @@ class FuncletEvidence(unittest.TestCase):
                 # the rule's switch: without it the function stays short
                 objmatch.USE_FUNCLET_CALLS = False
                 objmatch.USE_CONTRIB_SHORTS = False     # CR8: its contribution places it too
+                objmatch.USE_CR1_NAMED_TARGETS = False  # CR1: its named targets place it too
                 try:
                     res = {r['symbol']: r for r in objmatch.match_objects(img, [path])}
                 finally:
                     objmatch.USE_FUNCLET_CALLS = True
                     objmatch.USE_CONTRIB_SHORTS = True
+                    objmatch.USE_CR1_NAMED_TARGETS = True
                 self.assertEqual(res[sym]['status'], 'short')
 
 
@@ -122,11 +124,13 @@ class PushedEvidence(unittest.TestCase):
                 # the rule's switch: without it the function stays short
                 objmatch.USE_PUSHED_CALLS = False
                 objmatch.USE_CONTRIB_SHORTS = False     # CR8: its contribution places it too
+                objmatch.USE_CR1_NAMED_TARGETS = False  # CR1: its named targets place it too
                 try:
                     res = {r['symbol']: r for r in objmatch.match_objects(img, [path], (0x401000, 0x8C1B50))}
                 finally:
                     objmatch.USE_PUSHED_CALLS = True
                     objmatch.USE_CONTRIB_SHORTS = True
+                    objmatch.USE_CR1_NAMED_TARGETS = True
                 self.assertEqual(res[sym]['status'], 'short')
 
 PUSHED_TIES = [
@@ -184,10 +188,12 @@ class CallTies(unittest.TestCase):
                 self.assertTrue(res[sym].get('call_tie'))
                 # the rule's switch: without it the copies stay tied
                 objmatch.USE_CALL_TIES = False
+                objmatch.USE_CR1_NAMED_TARGETS = False  # CR1: its named targets place it too
                 try:
                     res = {r['symbol']: r for r in objmatch.match_objects(img, [path])}
                 finally:
                     objmatch.USE_CALL_TIES = True
+                    objmatch.USE_CR1_NAMED_TARGETS = True
                 self.assertEqual(res[sym]['status'], 'multiple')
 # CR2 (run 2026-11-16): object list, symbol, client address, the result key it sets, the switch that gives it
 BEYOND = [
@@ -340,7 +346,8 @@ class ContribShorts(unittest.TestCase):
 
 class GapEdge(unittest.TestCase):
     def test_cases(self):
-        _check(self, GAP_EDGE, 'USE_EX_GAP_EDGE', 'gap_edge', APP_REGION, off_status='short')
+        _check(self, GAP_EDGE, 'USE_EX_GAP_EDGE', 'gap_edge', APP_REGION, off_status='short',
+               also_off=('USE_CR1_NAMED_TARGETS',))   # CR1: the named targets place it too
 
 
 CR3_DBGCONN_HASH_MAP_DTOR = '??1?$hash_map@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@UPacketStatsStruct@@U?$hash@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@U?$equal_to@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@V?$allocator@UPacketStatsStruct@@@2@@std@@QAE@XZ'
@@ -374,6 +381,18 @@ CK_CALLSEQ_VTBL = [
     ('sclient.obj', '?Sender_Type@?$MemberCallback@VCameraModuleClass@@VSClient@@P82@AEXPAVCameraModuleSignal@@PAV1@@ZV3@@SignalBaseClass@@UBEABVtype_info@@XZ', '0x7593E0'),
     ('sclient.obj', '?Type@?$MemberCallback@VCameraModuleClass@@VSClient@@P82@AEXPAVCameraModuleSignal@@PAV1@@ZV3@@SignalBaseClass@@UBEABVtype_info@@XZ', '0x759400'),
 ]
+
+
+CR1_NAMED_TARGETS = [
+    ('selector.obj', '??0DependentSelectorClass@@QAE@XZ', '0x49FC90'),
+]
+
+
+class Cr1NamedTargets(unittest.TestCase):
+    """D246 (CR1): selector.obj's short DependentSelectorClass constructor stores its vtable 0xAEA9C0, which the
+    object's exact functions place; the one verified start storing it with the constructor's length is 0x49FC90."""
+    def test_cases(self):
+        _check(self, CR1_NAMED_TARGETS, 'USE_CR1_NAMED_TARGETS', 'named_targets', APP_REGION, off_status='short')
 
 
 class CkCallseqVtbl(unittest.TestCase):
