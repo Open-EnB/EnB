@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1967 |
 | 2 | describes what the code does | 4988 |
-| 1 | neutral placeholder | 25264 |
+| 1 | neutral placeholder | 25286 |
 
 ## For review (score 3 and below)
 
@@ -85,7 +85,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `id, ini, section` | `app/client/acticon.h:46` | the base's |
 | 1 | `aux_buff.h` | `app/client/aux_buff.h:10` | provisional file name (the client's headers are not named by any string) |
 | 1 | `aux_faction.h` | `app/client/aux_faction.h:9` | provisional file name (the client's headers are not named by any string) |
-| 1 | `aux_group.h` | `app/client/aux_group.h:9` | provisional file name (the client's headers are not named by any string) |
+| 1 | `aux_formation.h` | `app/client/aux_formation.h:4` | provisional file name (the client's headers are not named by any string) |
+| 1 | `aux_group.h` | `app/client/aux_group.h:12` | provisional file name (the client's headers are not named by any string) |
+| 1 | `aux_group_ctors.h` | `app/client/aux_group_ctors.h:5` | provisional file name (the client's headers are not named by any string) |
+| 1 | `aux_group_ship.h` | `app/client/aux_group_ship.h:11` | provisional file name (the client's headers are not named by any string) |
 | 1 | `aux_harvestable.h` | `app/client/aux_harvestable.h:9` | provisional file name (the client's headers are not named by any string) |
 | 1 | `aux_item.h` | `app/client/aux_item.h:9` | provisional file name (the client's headers are not named by any string) |
 | 1 | `aux_lego.h` | `app/client/aux_lego.h:9` | provisional file name (the client's headers are not named by any string) |
@@ -97,27 +100,46 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown80` | `app/client/aux_roots.cpp:43` | untagged neutral name (D10) |
 | 1 | `AuxRootsSymbolPadType` | `app/client/aux_roots.cpp:68` | a build aid (HX1) |
 | 1 | `aux_roots.h` | `app/client/aux_roots.h:8` | provisional file name (the client's code is in co.cpp and an unattributed object) |
-| 1 | `Unknown_Hex_String` | `app/client/aux_roots.h:44` | untagged neutral name (D10) |
-| 1 | `UnknownB0122CEnum` | `app/client/aux_roots.h:80` | untagged neutral name (D10) |
-| 1 | `UnknownB0133CEnum` | `app/client/aux_roots.h:81` | untagged neutral name (D10) |
-| 1 | `UnknownB01394Enum` | `app/client/aux_roots.h:82` | untagged neutral name (D10) |
-| 1 | `UnknownB013ECEnum` | `app/client/aux_roots.h:83` | untagged neutral name (D10) |
 | 1 | `Unknown9C` | `app/client/aux_roots.h:178` | neutral (D10): a member, not a field of the tree |
 | 1 | `UnknownRootClass` | `app/client/aux_roots.h:502` | untagged neutral name (D10) |
 | 1 | `Unknown2390` | `app/client/aux_roots.h:551` | neutral (D10): a member, not a field of the tree |
 | 1 | `Unknown2394` | `app/client/aux_roots.h:552` | neutral (D10): a member, not a field of the tree |
 | 1 | `Unknown2398` | `app/client/aux_roots.h:553` | neutral (D10): a member, not a field of the tree |
-| 1 | `UnknownSendRootClass` | `app/client/aux_roots.h:916` | untagged neutral name (D10) |
 | 1 | `Unknown80` | `app/client/aux_roots.h:969` | untagged neutral name (D10) |
 | 1 | `Unknown_48` | `app/client/aux_roots.h:971` | untagged neutral name (D10) |
 | 1 | `Unknown420` | `app/client/aux_roots.h:983` | neutral (D10): a member, not a field of the tree |
 | 1 | `Unknown424` | `app/client/aux_roots.h:984` | neutral (D10): a member, not a field of the tree |
 | 1 | `Unknown428` | `app/client/aux_roots.h:985` | neutral (D10): a member, not a field of the tree |
+| 1 | `UnknownB013ECEnum` | `app/client/aux_roots.h:1243` | untagged neutral name (D10) |
+| 1 | `UnknownB0133CEnum` | `app/client/aux_roots.h:1246` | untagged neutral name (D10) |
+| 1 | `UnknownB0122CEnum` | `app/client/aux_roots.h:1255` | untagged neutral name (D10) |
 | 1 | `aux_roots_all.h` | `app/client/aux_roots_all.h:9` | provisional file name (the client's headers are not named by any string) |
+| 1 | `aux_roots_group.h` | `app/client/aux_roots_group.h:6` | provisional file name (the client's headers are not named by any string) |
+| 1 | `aux_roots_hull.h` | `app/client/aux_roots_hull.h:6` | provisional file name (the client's headers are not named by any string) |
+| 1 | `UnknownSendRootClass` | `app/client/aux_roots_hull.h:25` | untagged neutral name (D10) |
+| 1 | `Unknown_48` | `app/client/aux_roots_hull.h:46` | untagged neutral name (D10) |
+| 1 | `aux_roots_item.h` | `app/client/aux_roots_item.h:6` | provisional file name (the client's headers are not named by any string) |
+| 1 | `aux_roots_lego.h` | `app/client/aux_roots_lego.h:6` | provisional file name (the client's headers are not named by any string) |
+| 1 | `aux_roots_manu.h` | `app/client/aux_roots_manu.h:6` | provisional file name (the client's headers are not named by any string) |
+| 1 | `UnknownB0122CEnum` | `app/client/aux_roots_manu.h:26` | untagged neutral name (D10) |
+| 1 | `UnknownRootClass` | `app/client/aux_roots_manu.h:92` | untagged neutral name (D10) |
+| 1 | `UnknownB013ECEnum` | `app/client/aux_roots_manu.h:98` | untagged neutral name (D10) |
+| 1 | `UnknownB01394Enum` | `app/client/aux_roots_manu.h:99` | untagged neutral name (D10) |
+| 1 | `UnknownB0133CEnum` | `app/client/aux_roots_manu.h:101` | untagged neutral name (D10) |
+| 1 | `aux_roots_player.h` | `app/client/aux_roots_player.h:6` | provisional file name (the client's headers are not named by any string) |
+| 1 | `UnknownSendRootClass` | `app/client/aux_roots_player.h:150` | untagged neutral name (D10) |
 | 1 | `aux_roots_send.h` | `app/client/aux_roots_send.h:5` | provisional file name (a build aid: kept out of aux_roots.cpp, workflow.md 3.3) |
-| 1 | `UnknownSendRootClass` | `app/client/aux_roots_send.h:24` | untagged neutral name (D10) |
-| 1 | `Unknown_48` | `app/client/aux_roots_send.h:45` | untagged neutral name (D10) |
-| 1 | `AuxRootsSendSymbolPadType` | `app/client/aux_roots_send.h:290` | a build aid (SC1) |
+| 1 | `UnknownSendRootClass` | `app/client/aux_roots_send.h:158` | untagged neutral name (D10) |
+| 1 | `Unknown_48` | `app/client/aux_roots_send.h:196` | untagged neutral name (D10) |
+| 1 | `AuxRootsSendSymbolPadType` | `app/client/aux_roots_send.h:202` | a build aid (SC1) |
+| 1 | `aux_roots_shipinv.h` | `app/client/aux_roots_shipinv.h:6` | provisional file name (the client's headers are not named by any string) |
+| 1 | `aux_roots_skill.h` | `app/client/aux_roots_skill.h:6` | provisional file name (the client's headers are not named by any string) |
+| 1 | `aux_roots_types.h` | `app/client/aux_roots_types.h:6` | provisional file name (the client's headers are not named by any string) |
+| 1 | `Unknown_Hex_String` | `app/client/aux_roots_types.h:31` | untagged neutral name (D10) |
+| 1 | `UnknownB0122CEnum` | `app/client/aux_roots_types.h:67` | untagged neutral name (D10) |
+| 1 | `UnknownB0133CEnum` | `app/client/aux_roots_types.h:68` | untagged neutral name (D10) |
+| 1 | `UnknownB01394Enum` | `app/client/aux_roots_types.h:69` | untagged neutral name (D10) |
+| 1 | `UnknownB013ECEnum` | `app/client/aux_roots_types.h:70` | untagged neutral name (D10) |
 | 1 | `aux_ship.h` | `app/client/aux_ship.h:9` | provisional file name (the client's headers are not named by any string) |
 | 1 | `aux_ship_player.h` | `app/client/aux_ship_player.h:10` | provisional file name (the client's headers are not named by any string) |
 | 1 | `aux_shipinv.h` | `app/client/aux_shipinv.h:9` | provisional file name (the client's headers are not named by any string) |
@@ -30289,13 +30311,13 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `DeltaLightClass` | `app/client/aux_roots.h:583` | the client's root string "Light", Westwood XxxClass (D24); structure = C# LightObject (C# fields = ours (same names, same order)) |
 | 3 | `DeltaDecorationClass` | `app/client/aux_roots.h:599` | the client's root string "Decoration", Westwood XxxClass (D24); structure = C# DecorationObject (C# fields = ours (same names, same order)) |
 | 3 | `DeltaHarvestableClass` | `app/client/aux_roots.h:611` | the client's root string "Harvestable", Westwood XxxClass (D24); structure = Net-7 AuxHarvestable / C# HarvestableObject (C# fields = ours (same names, same order); Net-7 Construct 4 children = ours) |
-| 3 | `DeltaManufacturingLabClass` | `app/client/aux_roots.h:698` | the client's root string "ManufacturingLab", Westwood XxxClass (D24); structure = Net-7 AuxManufacturingIndex / C# ManufacturingLabObject (C# fields = ours (same names, same order); Net-7 Construct 21 children = ours) |
-| 3 | `DeltaPlayerClass` | `app/client/aux_roots.h:915` | the client's root string "Player", Westwood XxxClass (D24); structure = Net-7 AuxPlayerIndex / C# PilotData (C# fields = ours (same names, same order); Net-7 Construct 18 children = ours) |
 | 3 | `DeltaHulkClass` | `app/client/aux_roots.h:942` | the client's root string "Hulk", Westwood XxxClass (D24); structure = Net-7 AuxHulkIndex / C# HulkObject (C# fields = ours (same names, same order); Net-7 Construct 8 children = ours) |
 | 3 | `DeltaPlanetClass` | `app/client/aux_roots.h:991` | the client's root string "Planet", Westwood XxxClass (D24); structure = C# PlanetObject (C# fields = ours (same names, same order)) |
 | 3 | `DeltaStarbaseClass` | `app/client/aux_roots.h:1011` | the client's root string "Starbase", Westwood XxxClass (D24); structure = C# StarbaseObject (C# fields = ours (same names, same order)) |
 | 3 | `DeltaStargateClass` | `app/client/aux_roots.h:1031` | the client's root string "Stargate", Westwood XxxClass (D24); structure = C# StargateObject (C# fields = ours (same names, same order)) |
-| 3 | `DeltaHullClass` | `app/client/aux_roots_send.h:23` | the client's root string "Hull", Westwood XxxClass (D24); structure = - (no match) |
+| 3 | `DeltaHullClass` | `app/client/aux_roots_hull.h:24` | the client's root string "Hull", Westwood XxxClass (D24); structure = - (no match) |
+| 3 | `DeltaManufacturingLabClass` | `app/client/aux_roots_manu.h:91` | the client's root string "ManufacturingLab", Westwood XxxClass (D24); structure = Net-7 AuxManufacturingIndex / C# ManufacturingLabObject (C# fields = ours (same names, same order); Net-7 Construct 21 children = ours) |
+| 3 | `DeltaPlayerClass` | `app/client/aux_roots_player.h:149` | the client's root string "Player", Westwood XxxClass (D24); structure = Net-7 AuxPlayerIndex / C# PilotData (C# fields = ours (same names, same order); Net-7 Construct 18 children = ours) |
 | 3 | `avatar_pip.h` | `app/client/avatar_pip.h:18` | header name assumed from the client's avatar_pip.cpp |
 | 3 | `AvatarPipClass` | `app/client/avatar_pip.h:35` | class-from-file (D24) for app\client\avatar_pip.cpp |
 | 3 | `Client` | `app/client/avatar_pip.h:49` | the FAIL_IF's |

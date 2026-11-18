@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-842 entries in 295 files.
+852 entries in 305 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -23,9 +23,19 @@ edit the comments in the code, not this file.
 | `app/audio/sectorsound.cpp:56` | `SectorSoundClass::Load_INI` | marker | NOT EXACT: register-only (explain.py, same length, 0.76): the frame is the client's since num_channels == 0 returns (D252); the client loads 'this' for Load_Section before the pushes and &ini into eax |
 | `app/audio/soundlib.cpp:157` | `SoundDefClass::SoundDefClass` | marker | NOT EXACT: inline budget (explain.py: 66 calls vs 67), reserve inlines size() and calls _Destroy where the client calls size() and inlines _Destroy; one more string destructor called |
 | `app/audio/unknown_431e30.cpp:128` | `Unknown431E30Class::Update` | marker | NOT EXACT: inline budget (explain.py: 10 calls, the client 11; 421 bytes, 0.59): the client calls the end() iterator copy 0x432C00 out of line in the inlined Get_Sector_Music, here it is inline; dead reads inside Get_Sector_Music, a const_iterator and an inline wrapper changed nothing |
+| `app/client/aux_group_ctors.h:4` | `DeltaGroupInfoClass::DeltaGroupInfoClass` | mention | NOT EXACT (D42) where aux_roots.h is. NAME 1 [aux_group_ctors.h]: provisional file name (the client's headers are not named by any string) |
 | `app/client/aux_roots.cpp:2` | `ClientObjectClass::Unknown_Create_Aux_Root` | mention | NOT EXACT (D42): functional. NAME 1 [aux_roots.cpp]: provisional file name (the client's constructors are in co.cpp 0x6F6000-0x6FBEF0 and the Player object 0x751BE0) |
-| `app/client/aux_roots.h:10` | `Unknown_Hex_String` | mention | NOT EXACT (D42): functional; see the generator's docstring for what differs. |
-| `app/client/aux_roots_send.h:4` | `Type_Name` | mention | NOT EXACT (D42) where aux_roots.h is. NAME 1 [aux_roots_send.h]: provisional file name (a build aid: kept out of aux_roots.cpp, workflow.md 3.3) |
+| `app/client/aux_roots.h:10` | `?` | mention | NOT EXACT (D42): functional; see the generator's docstring for what differs. |
+| `app/client/aux_roots_group.h:4` | `?` | mention | NOT EXACT (D42) where aux_roots.h is. NAME 1 [aux_roots_group.h]: provisional file name (the client's headers are not named by any string) |
+| `app/client/aux_roots_hull.h:5` | `Type_Name` | marker | NOT EXACT (D42) where aux_roots.h is. NAME 1 [aux_roots_hull.h]: provisional file name (the client's headers are not named by any string) |
+| `app/client/aux_roots_item.h:5` | `?` | marker | NOT EXACT (D42) where aux_roots.h is. NAME 1 [aux_roots_item.h]: provisional file name (the client's headers are not named by any string) |
+| `app/client/aux_roots_lego.h:5` | `?` | marker | NOT EXACT (D42) where aux_roots.h is. NAME 1 [aux_roots_lego.h]: provisional file name (the client's headers are not named by any string) |
+| `app/client/aux_roots_manu.h:5` | `?` | marker | NOT EXACT (D42) where aux_roots.h is. NAME 1 [aux_roots_manu.h]: provisional file name (the client's headers are not named by any string) |
+| `app/client/aux_roots_player.h:5` | `?` | marker | NOT EXACT (D42) where aux_roots.h is. NAME 1 [aux_roots_player.h]: provisional file name (the client's headers are not named by any string) |
+| `app/client/aux_roots_send.h:4` | `DeltaRPGInfoClass::DeltaRPGInfoClass` | mention | NOT EXACT (D42) where aux_roots.h is. NAME 1 [aux_roots_send.h]: provisional file name (a build aid: kept out of aux_roots.cpp, workflow.md 3.3) |
+| `app/client/aux_roots_shipinv.h:5` | `?` | marker | NOT EXACT (D42) where aux_roots.h is. NAME 1 [aux_roots_shipinv.h]: provisional file name (the client's headers are not named by any string) |
+| `app/client/aux_roots_skill.h:5` | `?` | marker | NOT EXACT (D42) where aux_roots.h is. NAME 1 [aux_roots_skill.h]: provisional file name (the client's headers are not named by any string) |
+| `app/client/aux_roots_types.h:5` | `Unknown_Hex_String` | marker | NOT EXACT (D42) where aux_roots.h is. NAME 1 [aux_roots_types.h]: provisional file name (the client's headers are not named by any string) |
 | `app/client/avatar.cpp:1196` | `CharacterViewAvatarClass::Unknown_780810` | marker | NOT EXACT: inline-budget (the client keeps vector::insert out of line and emits 0x780AC0 ColorizationHalfStruct::operator= out of line at Shirt, inline at Pants) |
 | `app/client/avatar.cpp:1310` | `CharacterViewAvatarClass::Unknown_780AF0` | marker | NOT EXACT: functional for POC (D64), literal (__LINE__) |
 | `app/client/avatar.cpp:1615` | `CharacterViewAvatarClass::Unknown_781EA0` | marker | NOT EXACT: functional for POC (D64), register (ebx for the zero where the client has ebp; the client keeps Unknown314 = 1 apart from = n) |
