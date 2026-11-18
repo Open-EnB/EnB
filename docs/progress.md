@@ -3874,8 +3874,6 @@ below name only the work items, the blocked work, the leads and the queues.
      `MipCountType`, Zero Hour's under D9): no retype.
    * **symbols.json's stale exact names (Tools):** refresh with symbols.py at a quiet landing, 0x925C50 / 0x925CC0 first,
      and find why symbols.py kept an old mangled name for an address whose object now emits another.
-   * **sclient 0x758210 (send pad, D246 entry):** lost since aux_roots.h's Vector3 / InvSlotStruct retype: no send-pad
-     value 0..63 keeps it with aux pad 33; regain at a later header change (a sendpad sweep on that head).
    * **ui_talkt (2026-11-16):** 0x64E7A0 parked again, register-only (10 rows: the bit test `and eax,1; test al,al` not folded; the lea before the argument load at 0x497300's call): a lever is needed from another function. Its `Unknown_497300` becomes `Create_Peek` once 0x497300 is named (byte-identical).
    * **FontSys::Update_Text 0x6D64C0 as its own item** (F1): Convert_Color_Clamp out of line twice, ShaderClass::Reset, three `??_H` vector ctors, the argument read as a dword.
    * **postate.cpp:19's question (2026-11-16):** 0xBE71D4 is set at cpacket.cpp:1354 and sclient.cpp:2720 (antprox W33).
@@ -4259,7 +4257,7 @@ below name only the work items, the blocked work, the leads and the queues.
    * **wlib 0x8B6FE0** is a second byte-identical Wstring::get and needs its own symbol.
    * **px.cpp / px_process.cpp (atexit stubs):** the client's 0x44C870 is `mov ecx, 0xBDC068; jmp ~vector<T>` (out of line) where ours inlines it in `$E15`; the static object whose ctor 0x44C8D0 the client calls out of line.
    * **App CRT / atexit initialisers still not exact (353 starts, one list per start in `.work/xi/list.tsv`):** 115 `<string>` guard copies (D196 / D197 range question), 82 PermStringInit pairs, 76 Delta per-class numbering (71 template ones blocked: every aux_roots.h includer numbers ~30 types where the client's objects number 1-6; lead: split aux_roots.h so each object sees only the root classes the client's object sees, which unblocks those and most of the 82), 14 guarded atexit stubs, 49 other. The Delta numbering: DeltaTemplateClass<T>::UnknownGlobal = counter 0xBE3B44++, its initialiser split guarded / guard-less per object as the client's (36 objects' `$E` pairs); land.obj's empty ctype id `ret` 0x46C710 has no guarded initialiser.
-   * **sclient.h / aux_roots.h (crediting leads):** sclient's UnknownB016DCType looks like InvSlotStruct (0x751BE0 calls j_InvSlotStruct::InvSlotStruct for it; KVPair Clone 0x709BB0 and DeltaTemplate Unknown_00 0x706DF0 are shared with InvSlotStruct's copies): a retype item; UIScanClass::Unknown_Watch_0C 0x5BBB00 may be inherited from UIMFDClass; 14 ties whose caller reaches a copy outside the symbol's hits (hash_map<string, ...> ctors, Create_Peek, ~GalaxyMapRequestPacketClass).
+   * **Crediting leads:** UIScanClass::Unknown_Watch_0C 0x5BBB00 may be inherited from UIMFDClass; 14 ties whose caller reaches a copy outside the symbol's hits (hash_map<string, ...> ctors, Create_Peek, ~GalaxyMapRequestPacketClass).
 2. **Step 9 (D90)**, left in its files (history: the log entries of 2026-10-28 and 2026-10-29):
    * co.cpp: the thunks 0x70E2A0-0x70E2D0 (too short for verify to count); type 28's aim 0x70E850 (frame / shape);
      the base's slot +0x04 0x7251C0 (a pure placeholder) and its attach / detach rows; the damage state 0x6FE1E0;
