@@ -2,6 +2,7 @@
 #include <windows.h>
 #include <string.h>
 #include "textgadg.h"
+#include "..\shared\auxdata\permstr.h"	// (its PermStringInitClass static: 0x6A9FB0, CRT entry 513)
 #include "..\common\stredit.h"
 #include "fontmanager.h"
 #include "font32bit.h"
@@ -14,7 +15,6 @@
 #include "scene.h"
 #include "ww3d.h"
 #include "..\shared\g_assert.h"
-
 
 
 

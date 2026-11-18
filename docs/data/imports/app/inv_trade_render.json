@@ -1,6 +1,5 @@
 {
  "ambiguous": [
-  "0x42B2F0",
   "0x474080"
  ],
  "copy": "reconstructed",
@@ -28,11 +27,14 @@
   "0x68B4D0",
   "0x68C0F0",
   "0x68C110",
+  "0x68FB10",
+  "0x68FB40",
   "0x68FB60",
   "0x68FC30",
   "0x68FC50",
   "0x68FC80",
-  "0x6902E0"
+  "0x6902E0",
+  "0x690850"
  ],
  "merged": [],
  "name": "client/inv_trade_render.cpp",

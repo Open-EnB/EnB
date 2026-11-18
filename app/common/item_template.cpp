@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "..\client\client.h"
+#include "..\shared\auxdata\permstr.h"	// (its PermStringInitClass static: 0x8312F0, CRT entry 754)
 #include "ini.h"
 #include "strtok_r.h"
 #include "rendobj.h"
@@ -13,7 +14,6 @@
 #include "matrix3d.h"
 #include "vector4.h"
 #include "..\packets\pkitemba.h"
-
 // 0x831340
 Unknown831340Class::Unknown831340Class(int a, int b, int c, const RefCountPtr<ItemInfoClass> &d, int e, int f, int g, int h, int i, int j, int k, int l,
 	const std::string &name, const std::string &m, const std::string &n) :

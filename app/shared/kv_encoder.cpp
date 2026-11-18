@@ -171,37 +171,6 @@ void KVEncoderClass::Add_Matrix3D_Elements_Frame(int mask, const char *name, Mat
 	}
 }
 
-// @0x4B5AD0
-KVFilterEncoderClass::KVFilterEncoderClass(KVListClass *list, int flags, const char *prefix) :
-	KVEncoderClass(list, flags, prefix)
-{
-}
-
-// @0x4B5BE0
-void KVFilterEncoderClass::Add_Child(int mask, const char *name, DeltaInterfaceClass *child)
-{
-	const char *key = Make_Key(name);
-	for (std::vector<std::string>::iterator i = Excludes.begin(); i != Excludes.end(); ++i) {
-		if (strncmp(i->c_str(), key, i->length()) == 0) {
-			return;
-		}
-	}
-	KVEncoderClass::Add_Child(mask, name, child);
-}
-
-// @0x4B5C60
-void KVFilterEncoderClass::Add_Exclude(const char *prefix)
-{
-	Excludes.push_back(std::string(prefix));
-}
-
-// @0x4B5D70
-// NOT EXACT: inline budget: the client's string destructor calls _Refcnt and deallocate out of line (0x4B5E40, 0x4B5E60) here; attempts.csv
-void KVFilterEncoderClass::Clear_Excludes()
-{
-	Excludes.clear();
-}
-
 #pragma auto_inline(off)
 // @0x4B2BB0
 void KVEncoderBaseClass::Add(int mask, const char *name, Vector3 *value)
@@ -248,8 +217,8 @@ void KVEncoderBaseClass::Add(int mask, const char *name, AccelClass *value)
 **	and AccelClass, each over one value or over a value kept per frame (the frame toggle 0xBE350C); KVEncoderClass's own
 **	five (0x4B1CC0-0x4B2210) add one float pair per element. The typed pairs and
 **	accessors this object instantiates follow them: 0x4B2420-0x4B3760. KVFilterEncoderClass's constructor, Add_Child, Add_Exclude
-**	and Clear_Excludes (0x4B5AD0-0x4B5D70) sit in the client after kv_encoder_base.cpp's templates and before a <string> initialiser
-**	0x4B5E80, with no static of their own: probably kv_encoder_base.cpp's object. Placed here with their class (interim, D137).
+**	and Clear_Excludes (0x4B5AD0-0x4B5D70) are an object of their own by the CRT table (permstr.h's static 0x4B5A80 opens it,
+**	<string>'s initialiser 0x4B5E80 closes it): kv_filter_encoder.cpp (PS, run 2026-11-18).
 **	KVFrameAccessorClass has two constructors (QC, 2026-11-16): the typed adds' takes the two values by reference and
 **	picks the order by the frame toggle (after the base's vtable store, as the client's callers do); Clone's 0x4B3030 /
 **	0x4B30C0 / 0x4B3100 take the two pointers as they are: the client copies them with no base vtable store and the

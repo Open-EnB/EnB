@@ -1,10 +1,10 @@
 // Earth & Beyond client (reconstruction): app\shared\kv_util.cpp, KV lists to and from ini sections. Notes at the end.
 #include <string.h>
 #include "kv_tripl.h"
+#include "auxdata\permstr.h"	// (its PermStringInitClass static: 0x4BB090, CRT entry 95)
 #include "g_assert.h"
 #include "ini.h"
 #include "inisup.h"
-
 static char KeyBuffer[0x200];		// 0xBE509C  // NAME 2: describes what it does
 
 

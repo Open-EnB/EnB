@@ -1347,89 +1347,6 @@ void StarmapPipClass::Unknown_7C2D30()
 // 0x7C2DA0 (the labels' vector clear) .. 0x7C30E0 are not rebuilt yet.
 
 
-// @0x7C3220
-Unknown_7C3220Class::Unknown_7C3220Class(const RefCountPtr<SceneClass> &scene, bool arg, int type) :
-	ObjectID(0),
-	Scene(scene),
-	Name("")
-{
-	Unknown_BE67BC->Load("fc_radar.ini");
-	switch (type) {
-		case 4:
-			Text = Create_NEW(new FontSys("RADAR_NAME", 0, 0));
-			Text->Set_Sort_Level(arg ? 1 : 2);
-			Text->Unknown_6CE910(!arg);
-			break;
-		case 3:
-			Text = Create_NEW(new FontSys("RADAR_JUMPSTART", 0, 0));
-			Text->Set_Sort_Level(3);
-			Text->Unknown_6D8A80(true);
-			break;
-		case 0:
-			Text = Create_NEW(new FontSys("RADAR_GROUP", 0, 0));
-			Text->Set_Sort_Level(4);
-			break;
-		case 1:
-			Text = Create_NEW(new FontSys("RADAR_PLAYER", 0, 0));
-			Text->Set_Sort_Level(5);
-			break;
-		case 2:
-			Text = Create_NEW(new FontSys("RADAR_OBJECT", 0, 0));
-			Text->Set_Sort_Level(6);
-			break;
-	}
-}
-
-
-// @0x7C3720
-Unknown_7C3220Class::~Unknown_7C3220Class()
-{
-	Text->Remove();
-	Text = NULL;
-	Unknown_BE67BC->Unload("fc_radar.ini");
-}
-
-// @0x7C3830
-void Unknown_7C3220Class::Unknown_7C3830(ClientObjectClass *co)
-{
-	if (co) {
-		unsigned id = co->Get_Game_ID();
-		std::string name("");
-		co->Unknown_6FF7A0(name);
-		if (ObjectID != id || strcmp(Text->Unknown_6D87D0(), name.c_str()) != 0) {
-			ObjectID = id;
-			if (name.compare("Unknown") == 0 && Name.length()) {
-				name = Name;
-			}
-			Text->Change_Text(name.c_str(), 0);
-			if (!Text->Peek_Scene()) {
-				Text->Add(Scene.Peek());
-			}
-		}
-		if (ObjectID) {
-			StarmapDataClass *sdata = Get_Starmap_Data(co, false);
-			if (sdata) {
-				Text->Set_Position(sdata->Get_Position());
-			} else {
-				ObjectID = 0;
-				Text->Remove();
-			}
-		}
-	} else if (ObjectID) {
-		ObjectID = 0;
-		Text->Remove();
-	}
-}
-
-
-#pragma auto_inline(off)
-// @0x7C3A90
-void Unknown_7C3220Class::Unknown_7C3A90(int left, int top, int right, int bottom)
-{
-	Text->Unknown_6D88F0(left, top, right, bottom);
-}
-#pragma auto_inline(on)
-
 /*
 **	Reconstruction notes
 **
@@ -1439,8 +1356,8 @@ void Unknown_7C3220Class::Unknown_7C3A90(int left, int top, int right, int botto
 **	and its literals ('STARMAP_X_POS' 0xB9F4A8 .. 'Starmap_ShowCoords' 0xB9F470) sit just before the file's
 **	first FAIL_IF strings (0xB9F4B8, 0xB9F4D8); the label class's 'RADAR_*' literals (0xB9F704-0xB9F734) follow
 **	the slots' messages (0xB9F50C-0xB9F5D8). 'Starmap_Label' 0xB9F31C is pooled with an earlier object's.
-**	0x7C3A90 ends the object: a forward to FontSys called only from this file (0x7C1770, 0x7C2340), defined after
-**	0x7C3830 where the order puts it; starmap_pip_support.cpp starts at 0x7C3AC0.
+**	<string>'s initialiser 0x7C3180 ends the object (CRT entry 667); permstr.h's static 0x7C31D0 (entry 668) opens
+**	starmap_pip_support.cpp's, so the label class 0x7C3220-0x7C3A90 is there (PS, run 2026-11-18).
 **
 **	The FAIL_IFs on 1039 and 1069 sit in inlines the client expands (1039: 0x7C0260, 0x7C1120, 0x7C1510, 0x7C1A90;
 **	1069: 0x7C1510, 0x7C1B70): Unknown_Set_ScaleMult and Unknown_Set_54 here, defined where their lines put them, after
@@ -1450,8 +1367,7 @@ void Unknown_7C3220Class::Unknown_7C3A90(int left, int top, int right, int botto
 **
 **	The object starts at 0x7BF820: permstr.h's PermStringInitClass static (0xBE87BC), then the four colours of
 **	0x7C1C50's coordinates (0x7BF870-0x7BF900, in their definition order). 0x7C1C50 calls 0x7C1200 inline and keeps
-**	the tail after the fallback only in the if (show) {} else {} form. 0x7C3A90 sits under auto_inline(off): the
-**	client calls it from 0x7C1770 and 0x7C2340 (VC6 expands a later definition otherwise).
+**	the tail after the fallback only in the if (show) {} else {} form.
 **
 **	Exact: 0x7BF870, 0x7BF8A0, 0x7BF8D0, 0x7BF900, 0x7BF930, 0x7BFF20, 0x7C01C0, 0x7C0240, 0x7C0330, 0x7C0620, 0x7C0910,
 **	0x7C0AF0, 0x7C0BC0, 0x7C0D40, 0x7C0D70, 0x7C0EA0, 0x7C0EE0, 0x7C0FA0, 0x7C1060, 0x7C10D0, 0x7C1120, 0x7C1200, 0x7C1280,
