@@ -26,8 +26,8 @@
 #include "ship_equip_pip.h"
 RefCountPtr<RenderObjClass> Unknown_497300(RenderObjClass *robj);	// 0x497300 (cdecl, ro_funcs.cpp's neighbourhood)  // NAME 1 [robj]: as ui_avatr.cpp's
 extern FontManagerClass *Unknown_BE67C4;	// NAME 1: neutral (D10)
-// What InterfaceClass's +0x40 points to, as far as this file calls it (as pdaint.cpp declares it)
-class LineDisplayClientClass  // NAME 1: neutral (D10)
+#include "vector2i.h"
+static Vector2i Unknown_BE5D28(0x100, 0x100); class LineDisplayClientClass  // NAME 1: neutral (D10); what InterfaceClass's +0x40 points to, as far as this file calls it (as pdaint.cpp declares it); Unknown_BE5D28: 0xBE5D28 (0x5D10A0), as starmap_data.cpp's LargeTextureSize, nothing reads it (NAME 1: neutral, D10)
 {
 public:
 	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
