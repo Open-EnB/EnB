@@ -20,6 +20,8 @@
 #define AUX_CTORS_HARVESTABLE
 #define AUX_CTORS_SKILL
 #define AUX_CTORS_ITEM
+#include "aux_roots_skill.h"	// the skill classes, then the item's (ui_mfd_extended_context_harvestable)
+#include "aux_roots_item.h"
 #include "aux_roots_send.h"
 
 #endif //__AUX_HARVESTABLE_H

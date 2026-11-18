@@ -18,6 +18,8 @@
 
 #include "..\shared\auxdata\delta_numbering.h"
 #define AUX_CTORS_MANU
+#define AUX_CTORS_ITEM		// (aux_item.h's: before the class headers it gates)
+#include "aux_roots_manu.h"	// the item classes, then the manufacturing ones (ui_manu: 0xC41630 before T<bool>)
 #include "aux_item.h"
 
 // ManufacturingLab.PrimaryCategories.N (0x6FB1E0)

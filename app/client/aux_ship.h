@@ -21,6 +21,8 @@
 #define AUX_CTORS_SHIPINV
 #define AUX_CTORS_LEGO
 #define AUX_CTORS_BUFF
+#define AUX_CTORS_ITEM		// (aux_item.h's: before the class headers it gates)
+#include "aux_roots.h"		// aux_roots.h's class order (T<float> first: ship_stats_display 0x6A3C30)
 #include "aux_item.h"
 #include "aux_buff.h"
 

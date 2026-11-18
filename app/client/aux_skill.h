@@ -18,6 +18,7 @@
 
 #include "..\shared\auxdata\delta_numbering.h"
 #define AUX_CTORS_SKILL
+#include "aux_roots_skill.h"	// the skill classes first, T<float> last (skill_data 0x6A5210)
 #include "aux_roots_send.h"
 
 #endif //__AUX_SKILL_H

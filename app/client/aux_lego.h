@@ -18,6 +18,7 @@
 
 #include "..\shared\auxdata\delta_numbering.h"
 #define AUX_CTORS_LEGO
+#include "aux_roots_lego.h"	// the lego classes first: T<int>, T<float>, I<Attachment> (client_lego_impl 0x731490)
 #include "aux_roots.h"
 
 #endif //__AUX_LEGO_H

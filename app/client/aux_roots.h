@@ -257,6 +257,7 @@ public:
 
 
 
+#include "aux_roots_shipinv.h"
 
 
 
@@ -305,56 +306,55 @@ public:
 
 
 
+#include "aux_roots_lego.h"
 
-// vtable 0xB01680 (e.g. Ship.Legos.Attachments.N)
-// NAME 4: Net-7 AuxAttachment confirmed by structure (C# fields = ours (same names, same order); Net-7 Construct 4 children = ours); C# LegoAttachment
-class DeltaAttachmentClass : public DeltaCompoundClass
-{
-public:
-#if defined(AUX_ROOTS_ALL) || defined(AUX_CTORS_LEGO)
-	DeltaAttachmentClass(const char *name) :
-		DeltaCompoundClass(name),
-		BoneName("BoneName", ""),
-		Type("Type"),
-		Assets("Assets"),
-		Data("Data", "")
-	{
-		Add(&BoneName);
-		Add(&Type);
-		Add(&Assets);
-		Add(&Data);
-	}
-#else
-	DeltaAttachmentClass(const char *name);
-#endif
 
-	DeltaStringClass BoneName;	// +0x9C
-	DeltaTemplateClass<int> Type;	// +0x124
-	DeltaTemplateClass<int> Assets;	// +0x1AC
-	DeltaStringClass Data;	// +0x234
-};
 
-// vtable 0xB00B68 (e.g. Ship.Legos)
-// NAME 4: Net-7 AuxLego confirmed by structure (C# fields = ours (same names, same order); Net-7 Construct 2 children = ours); C# ShipLegos
-class DeltaLegoClass : public DeltaCompoundClass
-{
-public:
-#if defined(AUX_ROOTS_ALL) || defined(AUX_CTORS_LEGO)
-	DeltaLegoClass(const char *name) :
-		DeltaCompoundClass(name),
-		Scale("Scale", 1.0f),
-		Attachments("Attachments", 18)
-	{
-		Add(&Scale);
-		Add(&Attachments);
-	}
-#else
-	DeltaLegoClass(const char *name);
-#endif
 
-	DeltaTemplateClass<float> Scale;	// +0x9C
-	DeltaItemArrayClass<DeltaAttachmentClass> Attachments;	// +0x124
-};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // vtable 0xB01F74 (e.g. Ship.BuffArray.N.Elements.N)
 // NAME 4: Net-7 AuxElement confirmed by structure (Net-7 Construct 5 = ours; the element of AuxElements (Net-7 sizes that 4, the client 5); C# fields = ours (same names, same order)); C# BuffElement
@@ -621,167 +621,167 @@ public:
 	DeltaTemplateClass<int> TechLevel;	// +0x24C
 };
 
-// vtable 0xB01BE8 (e.g. ManufacturingLab.PrimaryCategories.N.Categories.N.Subcategories.N)
-// NAME 4: Net-7 AuxSubCategory confirmed by structure (Net-7 Construct 3 = ours; AuxSubCategories holds SubCategory[5]; C# fields = ours (same names, same order)); C# ItemSubcategoryEntry
-class DeltaSubCategoryClass : public DeltaCompoundClass
-{
-public:
-#if defined(AUX_ROOTS_ALL) || defined(AUX_CTORS_MANU)
-	DeltaSubCategoryClass(const char *name) :
-		DeltaCompoundClass(name),
-		Name("Name", ""),
-		ID("ID", (UnknownB0122CEnum)-1),
-		Visible("Visible")
-	{
-		Add(&Name);
-		Add(&ID);
-		Add(&Visible);
-	}
-#else
-	DeltaSubCategoryClass(const char *name);
-#endif
+#include "aux_roots_manu.h"
 
-	DeltaStringClass Name;	// +0x9C
-	DeltaTemplateClass<UnknownB0122CEnum> ID;	// +0x124
-	DeltaTemplateClass<bool> Visible;	// +0x1AC
-};
 
-// vtable 0xB014A0 (e.g. ManufacturingLab.PrimaryCategories.N.Categories.N)
-// NAME 4: Net-7 AuxCategory confirmed by structure (Net-7 Construct 3 = ours; AuxCategories holds Category[5]; C# fields = ours (same names, same order)); C# ItemCategoryEntry
-class DeltaCategoryClass : public DeltaCompoundClass
-{
-public:
-#if defined(AUX_ROOTS_ALL) || defined(AUX_CTORS_MANU)
-	DeltaCategoryClass(const char *name) :
-		DeltaCompoundClass(name),
-		Name("Name", ""),
-		ID("ID", -1),
-		Subcategories("Subcategories", 5)
-	{
-		Add(&Name);
-		Add(&Subcategories);
-		Add(&ID);
-	}
-#else
-	DeltaCategoryClass(const char *name);
-#endif
 
-	DeltaStringClass Name;	// +0x9C
-	DeltaTemplateClass<int> ID;	// +0x124
-	DeltaItemArrayClass<DeltaSubCategoryClass> Subcategories;	// +0x1AC
-};
 
-// vtable 0xB01444 (e.g. ManufacturingLab.PrimaryCategories.N)
-// NAME 4: Net-7 AuxPrimaryCategory confirmed by structure (Net-7 Construct 2 = ours; AuxPrimaryCategories holds PrimaryCategory[2] (Init(0), Init(1)); C# fields = ours (same names, same order)); C# ItemCategoryGroup
-class DeltaPrimaryCategoryClass : public DeltaCompoundClass
-{
-public:
-	DeltaPrimaryCategoryClass(const char *name);	// 0x6FB1E0
 
-	DeltaStringClass Name;	// +0x9C
-	DeltaItemArrayClass<DeltaCategoryClass> Categories;	// +0x124
-};
 
-// vtable 0xB015B4 (e.g. ManufacturingLab.KnownFormula.N)
-// NAME 4: Net-7 AuxKnownFormula confirmed by structure (C# fields = ours (same names, same order); Net-7 Construct 3 children = ours); C# Formula
-class DeltaKnownFormulaClass : public DeltaCompoundClass
-{
-public:
-	DeltaKnownFormulaClass(const char *name);	// 0x6FB760
 
-	DeltaStringClass ItemName;	// +0x9C
-	DeltaTemplateClass<int> ItemID;	// +0x124
-	DeltaTemplateClass<int> TechLevel;	// +0x1AC
-};
 
-// vtable 0xB01178, constructor 0x6FA6F0
-// NAME 3: the client's root string "ManufacturingLab", Westwood XxxClass (D24); structure = Net-7 AuxManufacturingIndex / C# ManufacturingLabObject (C# fields = ours (same names, same order); Net-7 Construct 21 children = ours)
-class DeltaManufacturingLabClass : public UnknownRootClass
-{
-public:
-	DeltaManufacturingLabClass(int unknown);
 
-	DeltaStringClass Name;	// +0xA0
-	DeltaTemplateClass<UnknownB013ECEnum> Mode;	// +0x128
-	DeltaTemplateClass<UnknownB01394Enum> Validity;	// +0x1B0
-	DeltaStringClass FailureMessage;	// +0x238
-	DeltaTemplateClass<UnknownB0133CEnum> Difficulty;	// +0x2C0
-	DeltaItemArrayClass<DeltaItemClass> ManufactureTarget;	// +0x348
-	DeltaItemArrayClass<DeltaItemClass> ManufactureComponents;	// +0x3E4
-	DeltaItemArrayClass<DeltaItemClass> ManufactureOverride;	// +0x480
-	DeltaTemplateClass<MoneyClass> NegotiatedCost;	// +0x520
-	DeltaTemplateClass<MoneyClass> BaseCost;	// +0x5B0
-	DeltaItemArrayClass<DeltaPrimaryCategoryClass> PrimaryCategories;	// +0x640
-	DeltaItemArrayClass<DeltaKnownFormulaClass> KnownFormula;	// +0x6DC
-	DeltaItemArrayClass<DeltaKnownFormulaClass> PreviousAttempts;	// +0x778
-	DeltaTemplateClass<UnknownB0122CEnum> CurrentItemCategory;	// +0x814
-	DeltaTemplateClass<float> SuccessProbability;	// +0x89C
-	DeltaTemplateClass<float> CriticalSuccessProbability;	// +0x924
-	DeltaTemplateClass<float> ExpectedQuality;	// +0x9AC
-	DeltaTemplateClass<float> MinimumQuality;	// +0xA34
-	DeltaTemplateClass<float> MaximumQuality;	// +0xABC
-	DeltaTemplateClass<unsigned int> AdditionalIterations;	// +0xB44
-	DeltaTemplateClass<unsigned int> TechLevelFilterBitfield;	// +0xBCC
-};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#include "aux_roots_skill.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 #include "aux_roots_player.h"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

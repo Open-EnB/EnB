@@ -23,6 +23,7 @@
 #define AUX_CTORS_FACTION
 #define AUX_CTORS_GROUP
 #define AUX_CTORS_PLAYER
+#include "aux_roots_player.h"	// the skill classes, the item's, then the mission's, faction's, group's and player's (ui_faction)
 #include "aux_roots_send.h"
 
 #endif //__AUX_PLAYER_H

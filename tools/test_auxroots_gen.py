@@ -1,6 +1,6 @@
 """tools/re/auxroots.py generate reproduces the committed aux-data files byte for byte (2026-11-18, AB): aux_roots.h,
 aux_roots.cpp, aux_roots_send.h, the group's headers (aux_roots_group.h, aux_group_ctors.h, aux_formation.h, aux_roots_types.h, aux_roots_item.h, aux_roots_hull.h,
-aux_roots_player.h; DN), the family headers' moved constructors (aux_item.h, aux_manu.h) and
+aux_roots_player.h, aux_roots_shipinv.h, aux_roots_lego.h, aux_roots_manu.h, aux_roots_skill.h; DN), the family headers' moved constructors (aux_item.h, aux_manu.h) and
 stubs/aux_roots_stubs.cpp, so the pad tools (auxpad.py, sendpad.py) and a regeneration keep the committed layout.
 Needs client.exe (the retail install, ENB_RETAIL_INSTALL); skipped without it.
 
@@ -36,7 +36,8 @@ class GenerateTest(unittest.TestCase):
             auxroots.generate(doc, tmp)
             files = [(f, os.path.join(CLIENT_DIR, f)) for f in ('aux_roots.h', 'aux_roots.cpp', 'aux_roots_send.h',
                                                                    'aux_roots_group.h', 'aux_group_ctors.h', 'aux_formation.h',
-                                                                   'aux_roots_types.h', 'aux_roots_item.h', 'aux_roots_hull.h', 'aux_roots_player.h')]
+                                                                   'aux_roots_types.h', 'aux_roots_item.h', 'aux_roots_hull.h', 'aux_roots_player.h',
+                                                                   'aux_roots_shipinv.h', 'aux_roots_lego.h', 'aux_roots_manu.h', 'aux_roots_skill.h')]
             files += [(h, os.path.join(CLIENT_DIR, h)) for h, _ in auxroots.FAMILY_MOVED.values()]
             files.append(('aux_roots_stubs.cpp', os.path.join(REPO, 'stubs', 'aux_roots_stubs.cpp')))
             for name, ref in files:

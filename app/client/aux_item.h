@@ -18,6 +18,7 @@
 
 #include "..\shared\auxdata\delta_numbering.h"
 #define AUX_CTORS_ITEM
+#include "aux_roots_item.h"	// the item classes first: T<int> before T<float> (inv_render 0x68FAA0)
 #include "aux_roots.h"
 
 // Ship.Inventory.Cargo.N (0x6FA150)
