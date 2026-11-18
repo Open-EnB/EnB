@@ -31,7 +31,7 @@ typedef std::hash_map<int, RefCountPtr<GalaxyMapRenderSectorClass> > RenderSecto
 typedef std::hash_map<int, RefCountPtr<GalaxyMapRenderGateClass> > RenderGatesType;		// NAME 1: what it holds
 static GalaxyMapRenderSystemClass *New_Item(const RefCountPtr<GalaxyMapSystemClass> &data);	// 0x7A9370 (static: called without a thunk)  // NAME 1: what it does
 static GalaxyMapRenderSectorClass *New_Item(const RefCountPtr<GalaxyMapSectorClass> &data);	// 0x7A93F0 (static)
-
+static GalaxyMapRenderGateClass *New_Item(const RefCountPtr<GalaxyMapGateClass> &data) { return(new GalaxyMapRenderGateClass(data)); }	// for Create_Item 0x7B0E10 (inlined there)  // NAME 1: as the other overloads
 
 
 
@@ -119,19 +119,19 @@ template <class CONTAINER, class T>
 static bool Find_Item(RefCountPtr<T> &result, CONTAINER &container, int id)	// NAME 1: what it does
 {
 	CONTAINER::iterator it = container.find(id);
-	if (it == container.end()) { return(false); }
-	result = (*it).second;
-	FAIL_IF(!result) { return(false); }
-	return(true);
+	if (it != container.end()) {
+		result = (*it).second;
+		FAIL_IF(!result) { return(false); }
+		return(true);
+	}	return(false);
 }
-
 // 0x7B0E10: Create_Item<GalaxyMapRenderGateClass> (0x7A8B70 calls it)
 template <class CONTAINER, class T, class DATA>
 static bool Create_Item(RefCountPtr<T> &result, CONTAINER &container, const RefCountPtr<DATA> &data, const RefCountPtr<SceneClass> &scene)	// NAME 1: what it does
 {
 	int id = data->Get_Hash_ID();
 	if (!Find_Item(result, container, id)) {
-		result = Create_NEW(new T(data));
+		result = Create_NEW(New_Item(data));
 		container[id] = result;
 		if (scene) { result->Add_To_Scene(scene); }
 		return(true);
@@ -820,7 +820,7 @@ bool GalaxyMapRenderClass::Unknown_7A89A0(SphereClass &sphere)
 	return(false);
 }
 
-// NOT EXACT: written from the client's code (see attempts.csv)
+// NOT EXACT: register / frame: the calls and inlining are the client's (Create_Item and the 0x7AA8C0 / 0x7ABFE0 layers); the client keeps 0 in ebp and this in ebx, frame 0x60 against ours 0x64 (see attempts.csv)
 
 
 
@@ -871,34 +871,34 @@ void GalaxyMapRenderClass::Unknown_7A8B70()
 	GalaxyMapSystemIteratorClass systems(GalaxyMap);
 	while (systems.Current) {
 		RefCountPtr<GalaxyMapRenderSystemClass> render;
-		int id = systems.Current->Get_Hash_ID();
-		if (Find_Item(render, Systems, id)) {
-			render->Sectors.clear();
-		} else {
-			render = Create_NEW(New_Item(systems.Current));
-			Systems[id] = render;
-			if (Scene) { render->Add_To_Scene(Scene); }
+		if (!Create_Item(render, Systems, systems.Current, Scene)) {
+			render->Unknown_7AA8C0();
 		}
+
+
+
+
+
 		systems.Next();
 	}
 	GalaxyMapSectorIteratorClass sectors(GalaxyMap);
 	while (sectors.Current) {
 		RefCountPtr<GalaxyMapRenderSectorClass> render;
-		int id = sectors.Current->Get_Hash_ID();
-		if (Find_Item(render, Sectors, id)) {
-			render->Gates.clear();
-		} else {
-			render = Create_NEW(New_Item(sectors.Current));
-			Sectors[id] = render;
-			if (Scene) { render->Add_To_Scene(Scene); }
+		if (!Create_Item(render, Sectors, sectors.Current, Scene)) {
+			render->Unknown_7ABFE0();
 		}
-		if (render->Unknown_7AB6D0(Systems, GalaxyMap->Unknown_7A5400(sectors.Current))) {
-			if (render->Needs_Update()) {
-				Updates.push_back(RefCountPtr<GalaxyMapRenderItemClass>(render));
-			}
-		} else {
+
+
+
+
+
+		if (!render->Unknown_7AB6D0(Systems, GalaxyMap->Unknown_7A5400(sectors.Current))) {
 			Remove_Item(Sectors, RefCountPtr<GalaxyMapRenderItemClass>(render));
+		} else if (render->Needs_Update()) {
+			Updates.push_back(RefCountPtr<GalaxyMapRenderItemClass>(render));
 		}
+
+
 		sectors.Next();
 	}
 	GalaxyMapGateIteratorClass gates(GalaxyMap);
@@ -2021,6 +2021,11 @@ const RefCountPtr<GalaxyMapRenderSectorClass> &GalaxyMapRenderGateClass::Unknown
 **	GalaxyMapRenderGateClass's constructor 0x7AC870 sits under auto_inline(off): its one caller,
 **	Create_Item<GalaxyMapRenderGateClass> 0x7B0E10, calls it (`new T(data)`, non-null branch), where
 **	/Ob2 would inline it; Create_Item returns false after the creating branch (the client's epilogue
-**	for the found case comes last). GalaxyMapRenderMeshClass's constructor is a .cpp function: the
+**	for the found case comes last).
+**	0x7A8B70's loops: Create_Item for systems and sectors as for gates (inlined there, so Find_Item
+**	0x7B14A0 / 0x7B0D70, New_Item and operator[] stay calls, one level deeper), the found branch through
+**	the uncalled members 0x7AA8C0 / 0x7ABFE0 (their clear stays a call), the remove branch first;
+**	Create_Item calls New_Item; Find_Item tests it != end() first (the client's one return-false tail).
+**	GalaxyMapRenderMeshClass's constructor is a .cpp function: the
 **	client keeps an uncalled copy at 0x7A9B20, its derived constructors inline it.
 */
