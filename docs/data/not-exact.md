@@ -179,12 +179,12 @@ edit the comments in the code, not this file.
 | `app/client/galaxy_map_pip.cpp:407` | `GalaxyMapPipClass::Unknown_5404E0` | marker | NOT EXACT: only UnknownRTTIClass::Cast: the client calls it out of line here, ours expands it, and one register follows (see notes) @0x5404E0 |
 | `app/client/galaxy_map_render.cpp:428` | `GalaxyMapRenderClass::Unknown_7A72C0` | marker | NOT EXACT: written from the client's code (see attempts.csv) |
 | `app/client/galaxy_map_render.cpp:467` | `GalaxyMapRenderClass::Unknown_7A7560` | marker | NOT EXACT: written from the client's code (see attempts.csv) |
-| `app/client/galaxy_map_render.cpp:536` | `GalaxyMapRenderClass::Unknown_7A7D70` | marker | NOT EXACT: written from the client's code (see attempts.csv) |
+| `app/client/galaxy_map_render.cpp:536` | `GalaxyMapRenderClass::Unknown_7A7D70` | marker | NOT EXACT: order: the calls and inlining are the client's (0x7ADFC0 inlined with both 0x7AC070s); the client squares the inlined lengths' components in another x87 order (x, z, y) |
 | `app/client/galaxy_map_render.cpp:569` | `GalaxyMapRenderClass::Unknown_7A7D70` | marker | NOT EXACT: written from the client's code (see attempts.csv) |
-| `app/client/galaxy_map_render.cpp:823` | `GalaxyMapRenderClass::Unknown_7A8B70` | marker | NOT EXACT: written from the client's code (see attempts.csv) |
+| `app/client/galaxy_map_render.cpp:823` | `GalaxyMapRenderClass::Unknown_7A8B70` | marker | NOT EXACT: register / frame: the calls and inlining are the client's (Create_Item and the 0x7AA8C0 / 0x7ABFE0 layers); the client keeps 0 in ebp and this in ebx, frame 0x60 against ours 0x64 (see attempts.csv) |
 | `app/client/galaxy_map_render.cpp:925` | `GalaxyMapRenderClass::Unknown_7A9500` | marker | NOT EXACT: written from the client's code (see attempts.csv) |
 | `app/client/galaxy_map_render.cpp:1370` | `GalaxyMapRenderSectorClass::Unknown_7AB6D0` | marker | NOT EXACT: order-only (the frame is the client's with the colour at function scope; the key's copy and the iterator sit in each other's slots) |
-| `app/client/galaxy_map_render.cpp:1507` | `GalaxyMapRenderSectorClass::Unknown_7AC130` | marker | NOT EXACT: written from the client's code (see attempts.csv) |
+| `app/client/galaxy_map_render.cpp:1507` | `GalaxyMapRenderSectorClass::Unknown_7AC130` | marker | NOT EXACT: frame: the calls and inlining are the client's (0x7AC070 as its layer, insert(P, x)); frame 0xb0 vs 0xa4: the client shares the colour's slot with the sorted branch's position |
 | `app/client/galaxy_map_render.cpp:1610` | `GalaxyMapRenderGateClass::Unknown_7ACEF0` | marker | NOT EXACT: written from the client's code (see attempts.csv) |
 | `app/client/galaxy_map_render.cpp:1699` | `GalaxyMapRenderGateClass::Unknown_7AD090` | marker | NOT EXACT: inline-budget (the client inlines name's ~RefCountPtr and so keeps the pointer in esi; ours calls it); the matrix (identity, Set_Translation, Rotate_Z(s, c)), the branch order and '!line' are the client's |
 | `app/client/galaxy_map_render.cpp:1761` | `Unknown_7ADF80` | marker | NOT EXACT: written from the client's code (see attempts.csv) |
