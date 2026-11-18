@@ -235,6 +235,111 @@ def hexu(v):
     return f'{v:X}'
 
 
+# The value types whose committed declarations are hand edits (AR2 2026-11-17 and earlier: the *_defs.h
+# includes, Vector3, InvSlotStruct's and ProjectedDecalClass's evidence comments): leaf vtable -> (the C++
+# value type the members use, None for the generated name; the exact text aux_roots.h holds in place of the
+# generated declarations, '' when another entry's text covers it). The text keeps the generated block's line
+# count where the file had it (its blank lines are __LINE__ padding: workflow.md 3.9, aux_roots.cpp). 0xB00A00
+# (Vector3) is a LEAF, not a value type of its own: its text sits between 0xB009A8's and 0xB00A58's.
+HAND_TYPES = {
+    0xB009A8: (None, r'''#include "..\common\interrupt_defs.h"	// InterruptStateType (KVPair vtable 0xB01B40, leaf vtable 0xB009A8) and its converters 0x83D9E0 / 0x83DA80
+
+
+
+'''),
+    0xB00A00: (None, r'''// leaf vtable 0xB00A00's value type is wwmath's Vector3: its slot +0x00 0x703D50 builds KVPairTemplateClass<Vector3> (vtable 0xAEB484, kv_encoder.cpp's) with the accessor 0xB01B2C, whose Set 0x705FD0 compares with fld / fcomp (Vector3's operator!=)
+#include "vector3.h"
+inline const char *Type_Name(Vector3 *) { return "Vector3"; }	// KVPairTemplateClass<Vector3>::Get_Type_Name 0x4B24F0
+char *Value_To_String(char *buf, int size, const Vector3 &value);	// 0x4A3750 (strconv_lib.cpp)
+bool String_To_Value(const char *text, Vector3 *value);	// 0x4A3810 (strconv_lib.cpp)
+'''),
+    0xB00A58: (None, r'''#include "..\common\guild_defs.h"	// GuildRankType (KVPair vtable 0xB01AF4, leaf vtable 0xB00A58), its Type_Name 0x83D8B0 and converters 0x83D7D0 / 0x83D860
+
+
+template<> inline const char *KVPairTemplateClass<GuildRankType>::Get_Type_Name() const { return Type_Name(Value); }	// 0x708240
+
+'''),
+    0xB011D4: ('unsigned int', r'''// leaf vtable 0xB011D4's value type is unsigned int: its KVAccessorClass table 0xAEB258 (slot 0 KVAccessorClass<unsigned int>'s ??_G) is stored by 0x706D80
+#include "..\common\manufacturing_defs.h"	// the subcategory, mode, validity and difficulty types (vtables 0xB0122C, 0xB013EC, 0xB01394, 0xB0133C) and their converters
+inline const char *Type_Name(UnknownB0122CEnum *) { return "int"; }	// the KVPair's Get_Type_Name 0x708690 says 'int'
+inline const char *Type_Name(UnknownB0133CEnum *) { return "int"; }	// the KVPair's Get_Type_Name 0x708AE0 says 'int'
+inline const char *Type_Name(UnknownB01394Enum *) { return "int"; }	// the KVPair's Get_Type_Name 0x708970 says 'int'
+inline const char *Type_Name(UnknownB013ECEnum *) { return "int"; }	// the KVPair's Get_Type_Name 0x708800 says 'int'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+'''),
+    0xB0122C: (None, r''''''),
+    0xB0133C: (None, r''''''),
+    0xB01394: (None, r''''''),
+    0xB013EC: (None, r''''''),
+    0xB016DC: (None, r'''// NAME 5: the client's Get_Type_Name string 'InvSlotStruct' (KVPair vtable 0xB01E28, 0x709C80 inline, string 0xB94480), leaf vtable 0xB016DC: its slot +0x00 0x706DF0 builds that KVPair (the Mounts elements)
+struct InvSlotStruct { int I00; int I04; int I08; InvSlotStruct() : I00(-1), I04(-1), I08(-1) {} InvSlotStruct(const InvSlotStruct &v) { I00 = v.I00; I04 = v.I04; I08 = v.I08; } };	// vtable 0xB016DC, 12 bytes, constructed {-1, -1, -1} (the Mounts elements' default, Ship 0x6F6E29); the copy constructor is the client's: sclient's 0x751BE0 calls it out of line (0x752170)
+inline bool operator!=(const InvSlotStruct &a, const InvSlotStruct &b) { return a.I00 != b.I00 || a.I04 != b.I04 || a.I08 != b.I08; }	// the accessor's Set 0x7080C0 compares the three ints (cmp / jne)
+inline const char *Type_Name(InvSlotStruct *) { return "InvSlotStruct"; }
+inline char *Value_To_String(char *buf, int, const InvSlotStruct &value) { sprintf(buf, "%d,%d,%d", value.I00, value.I04, value.I08); return buf; }	// Get_Value_String 0x709CA0 (the size unused)
+inline bool String_To_Value(const char *text, InvSlotStruct *value) { return sscanf(text, "%d,%d,%d", &value->I00, &value->I04, &value->I08) == 3; }	// Set_Value_String 0x709E10'''),
+    0xB01A40: (None, r'''// NAME 5: the client's Get_Type_Name string 'ProjectedDecalClass' (KVPair vtable 0xB01D00, 0x708C60 inline), leaf vtable 0xB01A40; member ProjDecalAssetID from 0x7633E0 FAIL_IF
+struct ProjectedDecalClass { float F00; float F04; float F08; int ProjDecalAssetID; float F10; ProjectedDecalClass() : F00(1.0f), F04(0.0f), F08(0.0f), ProjDecalAssetID(-1), F10(0.0f) {} ProjectedDecalClass(const ProjectedDecalClass &v) { F00 = v.F00; F04 = v.F04; F08 = v.F08; ProjDecalAssetID = v.ProjDecalAssetID; F10 = v.F10; } ProjectedDecalClass &operator=(const ProjectedDecalClass &v) { F00 = v.F00; F04 = v.F04; F08 = v.F08; ProjDecalAssetID = v.ProjDecalAssetID; F10 = v.F10; return *this; } };	// vtable 0xB01A40, 20 bytes, constructed {1.0f, 0.0f, 0.0f, -1, 0.0f} (0x705640; Ship 0x6F70BE stores the zeros as immediates among register zeros: floats, workflow.md 3.1)
+inline bool operator!=(const ProjectedDecalClass &a, const ProjectedDecalClass &b) { return !(a.F00 == b.F00 && a.F04 == b.F04 && a.F08 == b.F08 && a.ProjDecalAssetID == b.ProjDecalAssetID && a.F10 == b.F10); }
+inline const char *Type_Name(ProjectedDecalClass *) { return "ProjectedDecalClass"; }
+inline char *Value_To_String(char *buf, int, const ProjectedDecalClass &value) { sprintf(buf, "%f,%f,%f,%d,%f", value.F00, value.F04, value.F08, value.ProjDecalAssetID, value.F10); return buf; }
+inline bool String_To_Value(const char *text, ProjectedDecalClass *value) { return sscanf(text, "%f,%f,%f,%d,%f", &value->F00, &value->F04, &value->F08, &value->ProjDecalAssetID, &value->F10) == 5; }'''),
+    0xB03588: ('ProfessionType', r'''#include "..\common\prof.h"	// leaf vtable 0xB03588's value type: KVAccessorClass table 0xAEC9C8 is stored by both ~KVPointerAccessor<ProfessionType> 0x4F76E0 and this accessor's destructor 0x7595F0
+#include "..\common\race.h"	// leaf vtable 0xB035E0's value type: KVAccessorClass table 0xAEC9DC is shared with shipcust_desc's RaceType accessor likewise
+#ifndef KVPAIR_PROF_RACE_TYPE_NAMES	// the profession's and race's pairs name their type from the saved value (prof.cpp 0x848CA0, race.cpp 0x848FF0)
+#define KVPAIR_PROF_RACE_TYPE_NAMES
+template<> inline const char *KVPairTemplateClass<ProfessionType>::Get_Type_Name() const { return Type_Name(Value); }	// 0x4F6ED0
+template<> inline const char *KVPairTemplateClass<RaceType>::Get_Type_Name() const { return Type_Name(Value); }	// 0x4F70C0
+#endif'''),
+    0xB035E0: ('RaceType', r''''''),
+    0xB03694: (None, r'''#include "..\common\skill_level_availability.h"	// SkillLevelAvailabilityStruct (KVPair vtable 0xB03AB4, leaf vtable 0xB03694) and its converters 0x84A560 / 0x84A600
+
+
+
+
+'''),
+    0xB03970: ('FormationState', r'''// NAME 5: the client's Get_Type_Name string 'FormationState' (KVPair 0x759E80 hands the saved value to Type_Name 0x835CF0; 0x759EA0 / 0x75A200 call 0x835D80 / 0x835D10), leaf vtable 0xB03970: the groups' 'Formation'
+#include "..\common\faction_and_reputation.h"	// FormationState and its three converters (4 bytes)
+template<> inline const char *KVPairTemplateClass<FormationState>::Get_Type_Name() const { return Type_Name(Value); }	// 0x759E80
+
+'''),
+}
+
+
+# The family gates (AS, run 2026-11-18): each aux-data constructor body in aux_roots.h / aux_roots_send.h is
+# compiled only under `AUX_ROOTS_ALL` or its family's `AUX_CTORS_<FAMILY>` (app/client/aux_<family>.h), so an
+# object numbers (the Delta templates' per-class globals, workflow.md 3.4) exactly the families it sees, as the
+# client's objects do. In-class constructors (by the class's Delta<X>Class name) get an `#else` declaration;
+# out-of-class inline definitions are wrapped whole (with their comment lines).
+FAMILY_INCLASS = {
+    'Shake': 'SHIP', 'Effect': 'ITEM', 'EquipItem': 'ITEM', 'ShipInv': 'SHIPINV', 'Attachment': 'LEGO',
+    'Lego': 'LEGO', 'Elements': 'BUFF', 'Buff': 'BUFF', 'Buffs': 'BUFF', 'Stats': 'SHIP', 'SubCategory': 'MANU',
+    'Category': 'MANU', 'MissionStage': 'MISSION', 'Faction': 'FACTION', 'Reputation': 'FACTION',
+    'Hulk': 'HULK', 'Planet': 'PLANET', 'Starbase': 'STARBASE', 'Stargate': 'STARGATE', 'Hull': 'HULL',
+}
+FAMILY_OUTOFCLASS = {
+    'Ship': 'SHIP', 'Light': 'LIGHT', 'Decoration': 'DECORATION', 'Harvestable': 'HARVESTABLE',
+    'ManufacturingLab': 'MANU', 'Component': 'COMPONENT', 'RPGInfo': 'SKILL', 'Skill': 'SKILL',
+    'SkillAbility': 'SKILL', 'Mission': 'MISSION', 'GroupInfo': 'GROUP', 'GroupMember': 'GROUP', 'Player': 'PLAYER',
+}
+# aux_roots.cpp's nested constructors that live in a family header (the families' objects compile them too),
+# included back where aux_roots.cpp defined them: address -> (header, the include line's note after the
+# constructor's comment). The generator writes the body into the header in place (OUT_DIR only).
+FAMILY_MOVED = {0x6FA150: ('aux_item.h', "the item family's constructor"),
+                0x6FB1E0: ('aux_manu.h', "the manufacturing family's")}
+
 class Gen:
     def __init__(self, doc):
         self.hints = json.load(open(NAMES)) if os.path.exists(NAMES) else {}
@@ -316,6 +421,8 @@ class Gen:
             size = 12 if t == 'color' else int(t[5:])
             name = CLIENT_TYPES[vt][0] if vt in CLIENT_TYPES else f'Unknown{hexu(vt)}Type'
             self.types[vt] = ('blob', size, name)
+        if vt in HAND_TYPES and HAND_TYPES[vt][0]:
+            name = HAND_TYPES[vt][0]
         return f'DeltaTemplateClass<{name}>'
 
     def name_for(self, n, vt, root):
@@ -348,7 +455,7 @@ class Gen:
             return 'true' if v else 'false'
         if f['type'] == 'money':
             return f'MoneyClass({i})'
-        if f['type'] == 'enum':
+        if f['type'] == 'enum' and cls != 'DeltaTemplateClass<unsigned int>':
             return f'({cls[len("DeltaTemplateClass<"):-1]}){i}'
         return str(i)
 
@@ -566,9 +673,14 @@ class Gen:
 
     def type_decls(self, only=None, skip=()):
         out = []
-        for vt, (kind, size, name) in sorted(self.types.items()):
+        for vt in sorted(set(self.types) | {0xB00A00}):
             if (only is not None and vt not in only) or vt in skip:
                 continue
+            if vt in HAND_TYPES:
+                if HAND_TYPES[vt][1]:
+                    out.append(HAND_TYPES[vt][1])
+                continue
+            kind, size, name = self.types[vt]
             if vt in CLIENT_TYPES:
                 cn, kv, gtn, src = CLIENT_TYPES[vt]
                 out.append(f'// NAME 5: the client\'s Get_Type_Name string \'{cn}\' (KVPair vtable 0x{hexu(kv)}, '
@@ -640,6 +752,8 @@ class Gen:
         """stubs/aux_roots_stubs.cpp (D44): stand-ins for the ENUM_EXTERN conversions, the value as a number."""
         out = [STUBS_HEAD]
         for vt, (kind, size, name) in sorted(self.types.items()):
+            if vt in HAND_TYPES:
+                continue        # declared by the headers HAND_TYPES includes, their conversions rebuilt there
             ext = ENUM_EXTERN.get(vt) if kind == 'enum' else None
             bext = BLOB_EXTERN.get(vt) if kind != 'enum' else None
             if bext:
@@ -662,7 +776,8 @@ class Gen:
             out.append(f'char *Value_To_String(char *buf, int size, {name} value)\n{{\n'
                        f'\tSTUB_CALLED("Value_To_String({name}) (0x{v2s:X})");\n'
                        f'\t_snprintf(buf, size, "%d", (int)value);\n\treturn buf;\n}}\n')
-        return '\n'.join(out)
+        # no stand-in left (every conversion rebuilt): the committed file ends in two blank lines
+        return '\n'.join(out) + ('\n\n' if len(out) == 1 else '')
 
 
 STUBS = os.path.join(REPO, 'stubs', 'aux_roots_stubs.cpp')
@@ -813,7 +928,7 @@ enum AuxRootsSendSymbolPadType { %s };	// NAME 1: a build aid (SC1)
 SOURCE = r'''// Earth & Beyond client (reconstruction): GENERATED by tools/re/auxroots.py, do not edit.
 // The aux-data roots' constructors and the CREATE factory (M1.3, D43). NOT EXACT (D42): functional.
 // NAME 1 [aux_roots.cpp]: provisional file name (the client's constructors are in co.cpp 0x6F6000-0x6FBEF0 and the Player object 0x751BE0)
-#include "aux_roots.h"
+#include "aux_roots_all.h"
 #include "co.h"	// ClientObjectClass: the factory 0x6F6000 is its member
 
 %(ctors)s
@@ -836,6 +951,75 @@ UnknownRootClass *ClientObjectClass::Unknown_Create_Aux_Root(int type, int unkno
 	}
 	return 0;
 }'''
+
+
+def family_gate(text):
+    """text (aux_roots.h / aux_roots_send.h) with each constructor body behind its family's gate (FAMILY_INCLASS,
+    FAMILY_OUTOFCLASS; AS's .work/as/gate.py)."""
+    def cond(fam):
+        return '#if defined(AUX_ROOTS_ALL) || defined(AUX_CTORS_%s)' % fam
+    L = text.split('\n')
+    out = []
+    i = 0
+    cls = None
+    while i < len(L):
+        line = L[i]
+        m = re.match(r'^class Delta(\w+)Class\b', line)
+        if m:
+            cls = m.group(1)
+        m = re.match(r'^\tDelta(\w+)Class\((.*?)\)( :.*| \{.*)?$', line)
+        if m and m.group(1) == cls and cls in FAMILY_INCLASS and m.group(3):
+            # in-class constructor: to the line closing its body ('\t}' or the one-liner itself)
+            j = i
+            if not line.rstrip().endswith('}'):
+                while L[j] != '\t}':
+                    j += 1
+            out.append(cond(FAMILY_INCLASS[cls]))
+            out.extend(L[i:j + 1])
+            out += ['#else', '\tDelta%sClass(%s);' % (cls, m.group(2)), '#endif']
+            i = j + 1
+            continue
+        m = re.match(r'^(inline )?Delta(\w+)Class::Delta(\w+)Class\(', line)
+        if m and m.group(2) == m.group(3) and m.group(2) in FAMILY_OUTOFCLASS:
+            # out-of-class inline definition: from its comment line(s) / 'inline' line to its closing '}'
+            k = len(out)
+            while k > 0 and (out[k - 1].startswith('//') or out[k - 1] == 'inline'):
+                k -= 1
+            j = i
+            while L[j] != '}':
+                j += 1
+            head = out[k:]
+            del out[k:]
+            out.append(cond(FAMILY_OUTOFCLASS[m.group(2)]))
+            out += head + L[i:j + 1] + ['#endif']
+            i = j + 1
+            continue
+        out.append(line)
+        i += 1
+    return '\n'.join(out)
+
+
+def family_body(out_dir, header, body):
+    """Write a FAMILY_MOVED constructor's body into its family header in place (from the body's comment line to
+    its closing '}'); warn when the header has no such block."""
+    path = os.path.join(out_dir, header)
+    first = body.split('\n', 1)[0]
+    try:
+        with open(path, encoding='latin-1', newline='') as f:
+            text = f.read()
+    except OSError:
+        print(f'auxroots: {header} missing: its constructor ({first}) is not written', file=sys.stderr)
+        return
+    i = text.find(first + '\n')
+    j = text.find('\n}\n', i)
+    if i < 0 or j < 0:
+        print(f'auxroots: {header} has no block {first!r}: not written', file=sys.stderr)
+        return
+    new = text[:i] + body + text[j + 2:]
+    if new != text:
+        with open(path, 'w', encoding='latin-1', newline='\n') as f:
+            f.write(new)
+        print(f'auxroots: {header}: {first} rewritten')
 
 
 def generate(doc, out_dir):
@@ -893,7 +1077,15 @@ def generate(doc, out_dir):
         (SEND_PAD % ', '.join(f'AUX_ROOTS_SEND_PAD_{i:02d}' for i in range(SEND_SYMBOL_PAD)) if SEND_SYMBOL_PAD else ''))
     h = HEADER.replace('%(types)s', g.type_decls(skip=send_types)).replace('%(classes)s', classes).replace(
         '%(inline_roots)s', ''.join(text + '\n\n' for _, text in sorted(inline_roots)))
+    send = family_gate(send)
+    h = family_gate(h)
     # the client's order (its objects compile in address order: VC6's inlining depends on what came before)
+    moved = {}      # FAMILY_MOVED: header -> the body, an include line in its place
+    for k, (a, text) in enumerate(g.nested):
+        if a in FAMILY_MOVED:
+            header, note = FAMILY_MOVED[a]
+            moved[header] = text
+            g.nested[k] = (a, f'#include "{header}"\t{text.split(chr(10), 1)[0]}: {note}')
     ctors += g.nested + [(0x6F8C70, SHIP_ADD), (0x6F6000, FACTORY.replace('%(cases)s', '\n'.join(cases)))]
     c = SOURCE.replace('%(ctors)s', '\n\n'.join(text for _, text in sorted(ctors, key=lambda x: DEF_ORDER.get(x[0], x[0]))))
     pad = PAD % ', '.join(f'AUX_ROOTS_PAD_{i:02d}' for i in range(SYMBOL_PAD)) if SYMBOL_PAD else ''
@@ -903,6 +1095,8 @@ def generate(doc, out_dir):
         with open(os.path.join(out_dir, name), 'w', newline='\n') as f:
             f.write(text)
     if os.path.normcase(os.path.abspath(out_dir)) == os.path.normcase(OUT_DIR):
+        for header, body in sorted(moved.items()):
+            family_body(out_dir, header, body)
         with open(STUBS, 'w', newline='\n') as f:
             f.write(g.stub_source())
     print(f'{len(g.classes)} classes ({len(roots)} roots), {len(g.types)} value types -> {out_dir}')

@@ -11,8 +11,9 @@ loses declarations.
       first value, and keeps it to the end (given back on every exit, Ctrl-C included): one wait in the queue
   auxpad.py set N
       write SYMBOL_PAD = N in tools/re/auxroots.py and the pad block of aux_roots.cpp in place (as sweep does);
-      aux_roots.h is not touched: `auxroots.py generate` no longer writes the committed aux_roots.h (its
-      hand edits: the *_defs.h includes, Vector3 / InvSlotStruct ...), so regenerating it broke sclient.cpp's compile
+      aux_roots.h is not touched (a regeneration is not needed: since 2026-11-18, AB, `auxroots.py generate`
+      writes the committed aux_roots.h / .cpp / aux_roots_send.h byte for byte again, the hand edits in its
+      HAND_TYPES and the family gates in FAMILY_*; tools/test_auxroots_gen.py checks it)
 
 sweep takes the importer lock per variant (the tree's aux_roots.cpp holds the variant only inside it and
 is restored after), never for the whole sweep. Every value's exact address set (all of aux_roots.cpp's) goes
@@ -111,9 +112,10 @@ def sweep(a):
 
 
 def set_pad(a):
-    """SYMBOL_PAD = N in tools/re/auxroots.py, and aux_roots.cpp's pad block set to N in place. Not a regeneration:
-    `auxroots.py generate` writes an aux_roots.h without the committed file's hand edits (2026-11-17, AR2: a
-    sendpad.py sweep after `set 33` failed at every value on Type_Name / Value_To_String / String_To_Value(Vector3))."""
+    """SYMBOL_PAD = N in tools/re/auxroots.py, and aux_roots.cpp's pad block set to N in place. Not a regeneration
+    (2026-11-17, AR2: then `auxroots.py generate` wrote an aux_roots.h without the committed file's hand edits, and a
+    sendpad.py sweep after `set 33` failed at every value on Type_Name / Value_To_String / String_To_Value(Vector3);
+    the generator holds those edits since 2026-11-18, but an in-place edit keeps the window to one file)."""
     with open(AUXROOTS, 'rb') as f:
         src = f.read().decode('utf-8')
     new, k = re.subn(r'^SYMBOL_PAD = \d+', f'SYMBOL_PAD = {a.n}', src, flags=re.M)
