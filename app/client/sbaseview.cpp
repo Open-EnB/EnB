@@ -1,4 +1,6 @@
 // Earth & Beyond client (reconstruction)
+#define AUX_CTORS_BUFF		// first: the manufacturing lab's and the buff's trees, numbered at start-up (0x6A2C30, 0x6A2CB0, 0x6A2D20)
+#include "aux_manu.h"
 #include "sbaseview.h"
 #include "wwmath.h"
 #include "..\shared\g_assert.h"
@@ -500,8 +502,6 @@ void SBaseViewClass::Unknown_69D930(int type)
 	}
 }
 #pragma auto_inline(on)
-
-
 
 
 

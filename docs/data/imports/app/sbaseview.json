@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "SBaseViewClass (sbaseview.cpp's __FILE__; client 0x69CDE0-0x6A2530): the short and middle-sized members 0x69D930-0x6A2480, the asserts on the client's lines 738 / 1667 (D25; 1261 / 1262 left for 0x6A0590), UI1; NOT EXACT 0x69F710; the large ones not yet",
  "expected": {},
@@ -118,6 +116,7 @@
   "0x6A0FD0",
   "0x6A1000",
   "0x6A1130",
+  "0x6A1180",
   "0x6A1880",
   "0x6A1B80",
   "0x6A1C90",
@@ -160,7 +159,10 @@
   "0x6A2B50",
   "0x6A2B80",
   "0x6A2BC0",
-  "0x6A2BF0"
+  "0x6A2BF0",
+  "0x6A2C30",
+  "0x6A2CB0",
+  "0x6A2D20"
  ],
  "merged": [],
  "name": "client/sbaseview.cpp",
