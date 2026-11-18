@@ -28,7 +28,7 @@ class UniqueDesignIDLookupClass  // NAME 3: by convention (D24) from the client'
 public:
 	UniqueDesignIDLookupClass(const std::string &filename, const std::string &section_name);	// 0x4FFC70
 	virtual ~UniqueDesignIDLookupClass();														// 0x5002C0
-	virtual void Add_Identifier(int id, const std::string &name);							// 0x500760  // NAME 2: describes what it does
+	virtual void Add_Identifier(unsigned int id, const std::string &name);						// 0x500760  // NAME 2: describes what it does
 
 	int Get_ID(const std::string &name);														// 0x500470  // NAME 2: describes what it does
 	std::string Get_Identifier(int id);														// 0x5005F0  // NAME 2: describes what it does

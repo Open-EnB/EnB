@@ -3617,6 +3617,9 @@
 "data:?_Psave@?1??use_facet@std@@YAABV?$ctype@D@2@ABVlocale@2@PBV32@_N@Z@4PBVfacet@42@B": [
 "0xBE5670"
 ],
+"data:?_Psave@?1??use_facet@std@@YAABV?$num_get@DV?$istreambuf_iterator@DU?$char_traits@D@std@@@std@@@2@ABVlocale@2@PBV32@_N@Z@4PBVfacet@42@B": [
+"0xBE5978"
+],
 "data:?_Psave@?1??use_facet@std@@YAABV?$num_put@DV?$ostreambuf_iterator@DU?$char_traits@D@std@@@std@@@2@ABVlocale@2@PBV32@_N@Z@4PBVfacet@42@B": [
 "0xBE5974"
 ],
@@ -3667,6 +3670,9 @@
 ],
 "data:?id@?$ctype@D@std@@2V0locale@2@A": [
 "0xC40F7C"
+],
+"data:?id@?$num_get@DV?$istreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@2V0locale@2@A": [
+"0xC40F78"
 ],
 "data:?id@?$num_put@DV?$ostreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@2V0locale@2@A": [
 "0xC40F84"
