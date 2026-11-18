@@ -409,7 +409,7 @@ edit the comments in the code, not this file.
 | `app/client/ui_chat_panel.cpp:2382` | `ChatPanelInterface::Unknown_56C180` | marker | NOT EXACT: frame (0x18 vs the client's 0x1C: the client keeps &ChatInt in edi and calls RefCountPtr's operator=(NULL) 0x56CD50 out of line; 349 instructions vs 346) 0x56C180 |
 | `app/client/ui_chat_window.cpp:170` | `ChatWindowInterface::Unknown_A0` | marker | NOT EXACT: functional (CW2): frame 0x54 vs the client's 0x50 and the history loop (0.40) |
 | `app/client/ui_chat_window.cpp:246` | `ChatWindowInterface::Unknown_7C` | marker | NOT EXACT: functional (CW2): register residue around Create_Peek(Peek_Scene()) (eax / edx swapped; 0.81) |
-| `app/client/ui_chat_window.cpp:351` | `ChatWindowInterface::Unknown_A4` | marker | NOT EXACT: functional (CW2): the inlined 0x571A70's RectClass stores (the client stores Bottom first; frame 8 vs 0xC; 0.61) |
+| `app/client/ui_chat_window.cpp:351` | `ChatWindowInterface::Unknown_A4` | marker | NOT EXACT: functional (CW2): the inlined 0x571A70's RectClass stores (the client stores Bottom first and copies tl by integer moves; frame 0xC now as the client's with tl a Vector3; 0.75) |
 | `app/client/ui_chat_window.cpp:362` | `ChatWindowInterface::Unknown_CC` | marker | NOT EXACT: functional (CW2): as 0x570CD0 (0.70) |
 | `app/client/ui_chat_window.cpp:378` | `ChatWindowInterface::Unknown_AC` | marker | NOT EXACT: functional (CW2): register residue (0.78) |
 | `app/client/ui_chat_window.cpp:403` | `ChatWindowInterface::Unknown_B0` | marker | NOT EXACT: functional (CW2): the inlined 0x5719A0 (0.66; exact with 0x5719A0 as Vector3 &f(Vector3 &color, entry), which inlines vector::size 0x571B70 into 0x56FD30: proposal) |
@@ -494,7 +494,7 @@ edit the comments in the code, not this file.
 | `app/client/ui_mesh.cpp:203` | `UIMeshClass::Unknown_5B8FF0` | marker | NOT EXACT: 0x5B8FF0 (0.50): as 0x5B8EE0 |
 | `app/client/ui_mfd.cpp:494` | `UIMFDClass::Update_Line` | marker | NOT EXACT: 0x5BCE50, register only: ours keeps line in ebx (one more saved register), the client in esi, reloading it from its slot |
 | `app/client/ui_mfd.cpp:581` | `UIMFDClass::Get_Value` | marker | NOT EXACT: 0x5BD540, inline budget: the client calls 0x5BDED0's two finds (case 10) where ours inlines 0x5BE330 |
-| `app/client/ui_mfd.cpp:675` | `UIMFDClass::Set_ETA` | marker | NOT EXACT: 0x5BDC20, the two positions' frame slots are swapped (register/frame only) |
+| `app/client/ui_mfd.cpp:675` | `UIMFDClass::Set_ETA` | marker | NOT EXACT: 0x5BDC20, the two positions' frame slots are swapped (slot order only: binding Self's to a const reference fixes the slots but calls Target's Unknown_30 first) |
 | `app/client/ui_mfd.cpp:702` | `UIMFDClass::Set_Same_Dir` | marker | NOT EXACT: 0x5BDDF0, the first matrix is read through eax where the client reads its slot (frame) |
 | `app/client/ui_mfd.cpp:713` | `UIMFDClass::Set_SP_Cur` | marker | NOT EXACT: 0x5BDED0, inline budget: the ShieldPercent find out of line as the client (0x5BF2B0); the client also calls Set_SP_Max's float Cast out of line |
 | `app/client/ui_mfd.cpp:985` | `Unknown5BE980Class::Unknown_90` | marker | NOT EXACT: 0x5BECF0, the case block's first load of each line's Font comes before the 'lea' ([esi+0x128]) where the client loads it after the stores ([edi+0x40]); the duplicated default and the zero in ebx do match (attempts.csv) |
@@ -722,7 +722,7 @@ edit the comments in the code, not this file.
 | `app/shared/definition_manager.h:115` | `?` | marker | NOT EXACT: shape (explain.py), two registers swapped in the inlined hashtable destructor and one EH state store more in ours (0x4EAFB0) |
 | `app/shared/dynamic_obj.cpp:9` | `DynObj::DynObj` | marker | NOT EXACT: shape (the client duplicates the epilogue into the allocation-failed path; attempts.py show 0x44AC70) |
 | `app/shared/dynamic_obj.cpp:18` | `DynObj::DynObj` | marker | NOT EXACT: register (the source's PxWrapper in edi, ours in ecx; attempts.py show 0x44ADA0) |
-| `app/shared/enbassetmgr.cpp:333` | `ENBAssetManager::Recolor_Texture` | marker | NOT EXACT: register-only (explain.py: identical once registers are normalised; the client loads the mip count after pushing the format, ours before; 19 argument forms, attempts.py show 0x48CB40); the logic is the client's (D64) |
+| `app/shared/enbassetmgr.cpp:334` | `ENBAssetManager::Recolor_Texture` | marker | NOT EXACT: register-only (explain.py: identical once registers are normalised; the client loads the mip count after pushing the format, ours before; 19 argument forms, attempts.py show 0x48CB40); the logic is the client's (D64) |
 | `app/shared/expr/expr_math_builder.h:71` | `?` | marker | NOT EXACT: 0x4CB260 (float), 0x4CFB00 (int): the client releases left on the first early return and leaves right to a shared exit; ours releases both in place |
 | `app/shared/expr/expr_math_int.cpp:96` | `ExprMathIntFactoryClass::Create_Unary` | marker | NOT EXACT: 0x4CC120 similarity 0.78: the client inlines more of the five groups' assignments (float's form, 0x4C8370, is exact) @0x4CC120 |
 | `app/shared/expr/expr_math_parser_impl.cpp:33` | `ExprMathParserImplClass::Add_Similar` | marker | NOT EXACT: the loop latch reloads it / &it->Ops in the other order (2 instructions swapped, same length) |

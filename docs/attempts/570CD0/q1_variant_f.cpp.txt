@@ -1,0 +1,8 @@
+inline void ChatWindowInterface::Unknown_571A70(ChatViewportStruct *vp)
+{
+	FAIL_IF(!vp) return;
+	Vector3 tl = InterfaceMesh->Get_Bone_Transform(vp->TLBone).Get_Translation();
+
+	const Matrix3D &br_tm = InterfaceMesh->Get_Bone_Transform(vp->BRBone);
+	((Vector2 *)&vp->Rect)[1].Set(br_tm[0][3], br_tm[1][3]); vp->Rect.Left = tl.X; vp->Rect.Top = tl.Y;
+}

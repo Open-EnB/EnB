@@ -672,7 +672,7 @@ void UIMFDClass::Set_Dist(UIMFDValueStruct &value)
 	}
 }
 
-// NOT EXACT: 0x5BDC20, the two positions' frame slots are swapped (register/frame only)
+// NOT EXACT: 0x5BDC20, the two positions' frame slots are swapped (slot order only: binding Self's to a const reference fixes the slots but calls Target's Unknown_30 first)
 void UIMFDClass::Set_ETA(UIMFDValueStruct &value)
 {
 	if (value.Target != value.Self) {
@@ -681,7 +681,7 @@ void UIMFDClass::Set_ETA(UIMFDValueStruct &value)
 		Vector3 a = value.Self->Unknown_24();
 		Vector3 b = value.Target->Unknown_24();
 		float dist = (b - a).Length();
-		dist -= value.Target->Unknown_30() + value.Self->Unknown_30();
+		dist = dist - (value.Self->Unknown_30() + value.Target->Unknown_30());
 		if (dist < 0.0f) {
 			dist = 0.0f;
 		}
