@@ -100,7 +100,11 @@ python tools/harness/auxreplay.py run alex3 --dump [--out DIR]   # the messages 
 ```
 
 * **tests/auxreplay** links the generated roots (`app/client/aux_roots.h`, tools/re/auxroots.py)
-  and the auxdata library. Per channel it makes a root for each CREATE (0x0004: the type byte at
+  and the auxdata library. Since Player's tree compiles in sclient.cpp (4292c395e, 2026-11-08) the aux objects'
+  callees take most of app.lib into the link (aux_roots.obj -> item_effect.obj -> pk.obj -> cpacket.obj ->
+  sclient.obj), so it links as clientpoc does: wlib, wnet, WinInet, shell32 and the old iostreams, then a second
+  pass with a logging stand-in for each symbol still unresolved (build.py `gen_stubs`; the rest at address 0,
+  `force_unresolved`); `run` copies build/art's MSS32.DLL into the working directory, as clienttest.py. Per channel it makes a root for each CREATE (0x0004: the type byte at
   offset 10, through the factory 0x6F6000's cases; a repeated id replaces the object, as the reference decoder's
   `aux-census`) and one Player root (game id 0). Each AUX_DATA (0x001B) goes through the packet
   entry 0x7364C0's body: `LinearBufferClass(payload + 6, len - 6, 0x400, false)`, then
