@@ -85,11 +85,6 @@ void ClientLegoRootClass::Unknown_732690() {}
 // (co.h's +0x134 AccelClass links from app.lib: accel.cpp)
 // (co.cpp's SUBPARTS 0x6FEF70 gets a sub part's lego from 0x7294D0: app.lib's unknown_7294d0.cpp)
 
-// co.cpp's per-frame update 0x6F3C60 prints the player's position on wwlib's mono screen (the client's global at
-// 0xC1ECC0, constructed next to mono.cpp's code; no tree file defines it)
-#include "_mono.h"
-MonoClass Mono;
-
 // SClient::Do_Frame's data globals (gen_stubs --link skips data): the frame's toggle and the input flags
 int Unknown_BE350C = 0;
 int Unknown_BE5F34 = 0;
