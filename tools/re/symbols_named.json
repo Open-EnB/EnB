@@ -3261,5 +3261,141 @@
   "address": "0x4339F0",
   "symbol": "??1_ENUM_VALUE@EnumParameterClass@@QAE@XZ",
   "evidence": "the destructor 0x433970 (_ENUM_VALUE's vector deleting destructor) passes to ??_M and calls on its scalar path; `jmp StringClass::Free_String` (name at offset 0); follows ??1_LOGICAL_TYPE_STRUCT 0x433950 in unknown_431e30.obj's COMDAT order (EN, 2026-11-17)"
+ },
+ {
+  "address": "0x754F90",
+  "symbol": "??1?$DeltaTemplateClass@W4FormationState@@@@UAE@XZ",
+  "evidence": "aux_roots.h's UnknownB03970Enum renamed FormationState (148276192: the KVPair's Get_Type_Name 0x759E80 returns 0x835CF0's 'FormationState', 0xBA9734); the client address keeps its earlier proof",
+  "replaces": "??1?$DeltaTemplateClass@W4UnknownB03970Enum@@@@UAE@XZ"
+ },
+ {
+  "address": "0x755E30",
+  "symbol": "??_G?$DeltaTemplateClass@W4FormationState@@@@UAEPAXI@Z",
+  "evidence": "aux_roots.h's UnknownB03970Enum renamed FormationState (148276192: the KVPair's Get_Type_Name 0x759E80 returns 0x835CF0's 'FormationState', 0xBA9734); the client address keeps its earlier proof",
+  "replaces": "??_G?$DeltaTemplateClass@W4UnknownB03970Enum@@@@UAEPAXI@Z"
+ },
+ {
+  "address": "0x758770",
+  "symbol": "?Read@?$DeltaTemplateClass@W4FormationState@@@@UAE_NAAVLinearBufferClass@@ABVDurationClass@@@Z",
+  "evidence": "aux_roots.h's UnknownB03970Enum renamed FormationState (148276192: the KVPair's Get_Type_Name 0x759E80 returns 0x835CF0's 'FormationState', 0xBA9734); the client address keeps its earlier proof",
+  "replaces": "?Read@?$DeltaTemplateClass@W4UnknownB03970Enum@@@@UAE_NAAVLinearBufferClass@@ABVDurationClass@@@Z"
+ },
+ {
+  "address": "0x7587E0",
+  "symbol": "?Write@?$DeltaTemplateClass@W4FormationState@@@@UAE_NAAVLinearBufferClass@@@Z",
+  "evidence": "aux_roots.h's UnknownB03970Enum renamed FormationState (148276192: the KVPair's Get_Type_Name 0x759E80 returns 0x835CF0's 'FormationState', 0xBA9734); the client address keeps its earlier proof",
+  "replaces": "?Write@?$DeltaTemplateClass@W4UnknownB03970Enum@@@@UAE_NAAVLinearBufferClass@@@Z"
+ },
+ {
+  "address": "0x759340",
+  "symbol": "?Get@?$DeltaTemplateAccessorClass@W4FormationState@@@@UAEABW4FormationState@@XZ",
+  "evidence": "aux_roots.h's UnknownB03970Enum renamed FormationState (148276192: the KVPair's Get_Type_Name 0x759E80 returns 0x835CF0's 'FormationState', 0xBA9734); the client address keeps its earlier proof",
+  "replaces": "?Get@?$DeltaTemplateAccessorClass@W4UnknownB03970Enum@@@@UAEABW4UnknownB03970Enum@@XZ"
+ },
+ {
+  "address": "0x759360",
+  "symbol": "?Set@?$DeltaTemplateAccessorClass@W4FormationState@@@@UAEXABW4FormationState@@@Z",
+  "evidence": "aux_roots.h's UnknownB03970Enum renamed FormationState (148276192: the KVPair's Get_Type_Name 0x759E80 returns 0x835CF0's 'FormationState', 0xBA9734); the client address keeps its earlier proof",
+  "replaces": "?Set@?$DeltaTemplateAccessorClass@W4UnknownB03970Enum@@@@UAEXABW4UnknownB03970Enum@@@Z"
+ },
+ {
+  "address": "0x7593A0",
+  "symbol": "?Clone@?$DeltaTemplateAccessorClass@W4FormationState@@@@UBEPAV?$KVAccessorClass@W4FormationState@@@@XZ",
+  "evidence": "aux_roots.h's UnknownB03970Enum renamed FormationState (148276192: the KVPair's Get_Type_Name 0x759E80 returns 0x835CF0's 'FormationState', 0xBA9734); the client address keeps its earlier proof",
+  "replaces": "?Clone@?$DeltaTemplateAccessorClass@W4UnknownB03970Enum@@@@UBEPAV?$KVAccessorClass@W4UnknownB03970Enum@@@@XZ"
+ },
+ {
+  "address": "0x759500",
+  "symbol": "??_G?$DeltaTemplateAccessorClass@W4FormationState@@@@UAEPAXI@Z",
+  "evidence": "aux_roots.h's UnknownB03970Enum renamed FormationState (148276192: the KVPair's Get_Type_Name 0x759E80 returns 0x835CF0's 'FormationState', 0xBA9734); the client address keeps its earlier proof",
+  "replaces": "??_G?$DeltaTemplateAccessorClass@W4UnknownB03970Enum@@@@UAEPAXI@Z"
+ },
+ {
+  "address": "0x759610",
+  "symbol": "??1?$DeltaTemplateAccessorClass@W4FormationState@@@@UAE@XZ",
+  "evidence": "aux_roots.h's UnknownB03970Enum renamed FormationState (148276192: the KVPair's Get_Type_Name 0x759E80 returns 0x835CF0's 'FormationState', 0xBA9734); the client address keeps its earlier proof",
+  "replaces": "??1?$DeltaTemplateAccessorClass@W4UnknownB03970Enum@@@@UAE@XZ"
+ },
+ {
+  "address": "0x759630",
+  "symbol": "??_G?$KVAccessorClass@W4FormationState@@@@UAEPAXI@Z",
+  "evidence": "aux_roots.h's UnknownB03970Enum renamed FormationState (148276192: the KVPair's Get_Type_Name 0x759E80 returns 0x835CF0's 'FormationState', 0xBA9734); the client address keeps its earlier proof",
+  "replaces": "??_G?$KVAccessorClass@W4UnknownB03970Enum@@@@UAEPAXI@Z"
+ },
+ {
+  "address": "0x759DC0",
+  "symbol": "?Clone@?$KVPairTemplateClass@W4FormationState@@@@UBEPAVKVPairClass@@XZ",
+  "evidence": "aux_roots.h's UnknownB03970Enum renamed FormationState (148276192: the KVPair's Get_Type_Name 0x759E80 returns 0x835CF0's 'FormationState', 0xBA9734); the client address keeps its earlier proof",
+  "replaces": "?Clone@?$KVPairTemplateClass@W4UnknownB03970Enum@@@@UBEPAVKVPairClass@@XZ"
+ },
+ {
+  "address": "0x759E80",
+  "symbol": "?Get_Type_Name@?$KVPairTemplateClass@W4FormationState@@@@UBEPBDXZ",
+  "evidence": "aux_roots.h's UnknownB03970Enum renamed FormationState (148276192: the KVPair's Get_Type_Name 0x759E80 returns 0x835CF0's 'FormationState', 0xBA9734); the client address keeps its earlier proof",
+  "replaces": "?Get_Type_Name@?$KVPairTemplateClass@W4UnknownB03970Enum@@@@UBEPBDXZ"
+ },
+ {
+  "address": "0x759EA0",
+  "symbol": "?Get_Value_String@?$KVPairTemplateClass@W4FormationState@@@@UBEPADPADH@Z",
+  "evidence": "aux_roots.h's UnknownB03970Enum renamed FormationState (148276192: the KVPair's Get_Type_Name 0x759E80 returns 0x835CF0's 'FormationState', 0xBA9734); the client address keeps its earlier proof",
+  "replaces": "?Get_Value_String@?$KVPairTemplateClass@W4UnknownB03970Enum@@@@UBEPADPADH@Z"
+ },
+ {
+  "address": "0x759ED0",
+  "symbol": "?Is_Changed@?$KVPairTemplateClass@W4FormationState@@@@UBE_NXZ",
+  "evidence": "aux_roots.h's UnknownB03970Enum renamed FormationState (148276192: the KVPair's Get_Type_Name 0x759E80 returns 0x835CF0's 'FormationState', 0xBA9734); the client address keeps its earlier proof",
+  "replaces": "?Is_Changed@?$KVPairTemplateClass@W4UnknownB03970Enum@@@@UBE_NXZ"
+ },
+ {
+  "address": "0x759F00",
+  "symbol": "?Update_Saved@?$KVPairTemplateClass@W4FormationState@@@@UAEXXZ",
+  "evidence": "aux_roots.h's UnknownB03970Enum renamed FormationState (148276192: the KVPair's Get_Type_Name 0x759E80 returns 0x835CF0's 'FormationState', 0xBA9734); the client address keeps its earlier proof",
+  "replaces": "?Update_Saved@?$KVPairTemplateClass@W4UnknownB03970Enum@@@@UAEXXZ"
+ },
+ {
+  "address": "0x75A090",
+  "symbol": "??_G?$KVPairTemplateClass@W4FormationState@@@@UAEPAXI@Z",
+  "evidence": "aux_roots.h's UnknownB03970Enum renamed FormationState (148276192: the KVPair's Get_Type_Name 0x759E80 returns 0x835CF0's 'FormationState', 0xBA9734); the client address keeps its earlier proof",
+  "replaces": "??_G?$KVPairTemplateClass@W4UnknownB03970Enum@@@@UAEPAXI@Z"
+ },
+ {
+  "address": "0x75A0C0",
+  "symbol": "??1?$KVPairTemplateClass@W4FormationState@@@@UAE@XZ",
+  "evidence": "aux_roots.h's UnknownB03970Enum renamed FormationState (148276192: the KVPair's Get_Type_Name 0x759E80 returns 0x835CF0's 'FormationState', 0xBA9734); the client address keeps its earlier proof",
+  "replaces": "??1?$KVPairTemplateClass@W4UnknownB03970Enum@@@@UAE@XZ"
+ },
+ {
+  "address": "0x75A200",
+  "symbol": "?Set_Value_String@?$KVPairTemplateClass@W4FormationState@@@@UAE_NPBD@Z",
+  "evidence": "aux_roots.h's UnknownB03970Enum renamed FormationState (148276192: the KVPair's Get_Type_Name 0x759E80 returns 0x835CF0's 'FormationState', 0xBA9734); the client address keeps its earlier proof",
+  "replaces": "?Set_Value_String@?$KVPairTemplateClass@W4UnknownB03970Enum@@@@UAE_NPBD@Z"
+ },
+ {
+  "address": "0xB03970",
+  "symbol": "??_7?$DeltaTemplateClass@W4FormationState@@@@6B@",
+  "evidence": "aux_roots.h's UnknownB03970Enum renamed FormationState (148276192: the KVPair's Get_Type_Name 0x759E80 returns 0x835CF0's 'FormationState', 0xBA9734); the client address keeps its earlier proof",
+  "kind": "vtable",
+  "replaces": "??_7?$DeltaTemplateClass@W4UnknownB03970Enum@@@@6B@"
+ },
+ {
+  "address": "0xB03B70",
+  "symbol": "??_7?$KVPairTemplateClass@W4FormationState@@@@6B@",
+  "evidence": "aux_roots.h's UnknownB03970Enum renamed FormationState (148276192: the KVPair's Get_Type_Name 0x759E80 returns 0x835CF0's 'FormationState', 0xBA9734); the client address keeps its earlier proof",
+  "kind": "vtable",
+  "replaces": "??_7?$KVPairTemplateClass@W4UnknownB03970Enum@@@@6B@"
+ },
+ {
+  "address": "0xB03B94",
+  "symbol": "??_7?$DeltaTemplateAccessorClass@W4FormationState@@@@6B@",
+  "evidence": "aux_roots.h's UnknownB03970Enum renamed FormationState (148276192: the KVPair's Get_Type_Name 0x759E80 returns 0x835CF0's 'FormationState', 0xBA9734); the client address keeps its earlier proof",
+  "kind": "vtable",
+  "replaces": "??_7?$DeltaTemplateAccessorClass@W4UnknownB03970Enum@@@@6B@"
+ },
+ {
+  "address": "0xB03BD0",
+  "symbol": "??_7?$KVAccessorClass@W4FormationState@@@@6B@",
+  "evidence": "aux_roots.h's UnknownB03970Enum renamed FormationState (148276192: the KVPair's Get_Type_Name 0x759E80 returns 0x835CF0's 'FormationState', 0xBA9734); the client address keeps its earlier proof",
+  "kind": "vtable",
+  "replaces": "??_7?$KVAccessorClass@W4UnknownB03970Enum@@@@6B@"
  }
 ]
