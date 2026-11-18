@@ -528,19 +528,21 @@ def _one(test, path, region, off=()):
     if not os.path.exists(path):
         test.skipTest(f'{path} missing')
     img = objmatch.ClientImage(objmatch.DEFAULT_CLIENT)
+    owner = lambda sw: objmatch.ClientImage if hasattr(objmatch.ClientImage, sw) else objmatch   # D27's switches too
     for sw in off:
-        setattr(objmatch, sw, False)
+        setattr(owner(sw), sw, False)
     try:
         return {r['symbol']: r for r in objmatch.match_objects(img, [path], region)}
     finally:
         for sw in off:
-            setattr(objmatch, sw, True)
+            setattr(owner(sw), sw, True)
 
 
 class Cr2Tiling(unittest.TestCase):
     """D246 (CR2): ww3d.obj's forwarders between the exact Toggle_Windowed 0x917850 and Set_Device_Resolution 0x9178A0
     tile the client's bytes (jmp 0x917860 / call 0x917870 / jmp 0x917880 / call 0x917890); the verified starts hold
-    only the jmps, so short_order's count test fails (`cr2_tiling`)."""
+    only the jmps, so short_order's count test fails (`cr2_tiling`). Since SX D27's starts hold the calls too
+    (USE_JMP_PAD_STARTS) and short_order places them; cr2_tiling still does without that switch."""
     CASES = [('WW3D::Get_Render_Device', '0x917860'), ('WW3D::Get_Render_Device_Desc', '0x917870'),
              ('WW3D::Get_Render_Device_Count', '0x917880'), ('WW3D::Get_Render_Device_Name', '0x917890')]
 
@@ -550,8 +552,12 @@ class Cr2Tiling(unittest.TestCase):
         for name, addr in self.CASES:
             with self.subTest(name=name):
                 self.assertEqual((res[name]['status'], res[name]['addresses']), ('exact', [addr]))
+        res = {r['name']: r for r in _one(self, path, None, ('USE_JMP_PAD_STARTS',)).values()}
+        for name, addr in self.CASES:
+            with self.subTest(name=name, starts='old'):
+                self.assertEqual((res[name]['status'], res[name]['addresses']), ('exact', [addr]))
                 self.assertTrue(res[name].get('cr2_tiling'))
-        res = {r['name']: r for r in _one(self, path, None, ('USE_CR2_TILING',)).values()}
+        res = {r['name']: r for r in _one(self, path, None, ('USE_CR2_TILING', 'USE_JMP_PAD_STARTS')).values()}
         self.assertEqual(res['WW3D::Get_Render_Device']['status'], 'short')
 
 
@@ -573,7 +579,8 @@ class Cr2DataAgree(unittest.TestCase):
 class Cr2XcuStarts(unittest.TestCase):
     """D246 (CR2): camctrl_dock.obj's atexit stub $E97 0x793090 and initialiser $E105 0x7930B0 (the CRT table's
     entry), after its last own function, are no verified starts (D27); with the table's entries and the atexit-
-    registered addresses as starts the order rules place them (`gap_edge`)."""
+    registered addresses as starts the order rules place them (`gap_edge`). Since SX D27's starts hold them
+    (USE_CRT_REGISTERED_STARTS), so USE_CR2_XCU_STARTS alone changes nothing."""
     def test_cases(self):
         path = os.path.join(OBJS, 'camctrl_dock.obj')
         res = _one(self, path, APP_REGION)
@@ -581,6 +588,8 @@ class Cr2XcuStarts(unittest.TestCase):
             with self.subTest(sym=sym):
                 self.assertEqual((res[sym]['status'], res[sym]['addresses']), ('exact', [addr]))
         res = _one(self, path, APP_REGION, ('USE_CR2_XCU_STARTS',))
+        self.assertEqual(res['_$E97']['status'], 'exact')
+        res = _one(self, path, APP_REGION, ('USE_CR2_XCU_STARTS', 'USE_CRT_REGISTERED_STARTS'))
         self.assertEqual(res['_$E97']['status'], 'short')
 
 

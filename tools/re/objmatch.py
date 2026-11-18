@@ -3245,7 +3245,7 @@ def xcu_previous(img):
 
 USE_XCU_POSITION = True     # D242 P-C1-2: the `_$E` initialisers credited by their CRT table position
 USE_XCU_SUBRUN = True       # C15 (2026-11-16): the unique consecutive sub-run fitting every initialiser
-XCU_TABLE = (0xB6C000, 0xB6D700)
+XCU_TABLE = ClientImage.XCU_TABLE     # 0xB6C000-0xB6D700 (clientimage.crt_initialisers)
 USE_OBJECT_ORDER = True     # D242 P-C1-1: an own-function tie inside one object assigned in object order
 
 
@@ -3253,13 +3253,7 @@ def xcu_table(img):
     """The non-zero entries of the client's CRT initialiser table (.CRT$XCU merged into .data, XCU_TABLE), in table
     order: the initialisers of every object, in link order."""
     if 'table' not in _xcu:
-        out = []
-        for va in range(XCU_TABLE[0], XCU_TABLE[1], 4):
-            o = img.offset(va)
-            v = struct.unpack_from('<I', img.data, o)[0] if o is not None else 0
-            if v:
-                out.append(v)
-        _xcu['table'] = out
+        _xcu['table'] = img.crt_initialisers()
     return _xcu['table']
 
 
@@ -3401,28 +3395,21 @@ _starts_cache = {}
 # atexit`) as starts: the CRT calls each entry and atexit each registered address, so each is a function's entry.
 # 1,275 of them are not D27's verified starts (incremental linking reaches them through no thunk and no call), which
 # left the `_$E` initialisers and their atexit stubs out of the order alignment. objmatch only: D27's set
-# (clientimage.function_starts) is unchanged.
+# (clientimage.function_starts) is unchanged. Since SX (run 2026-11-17c) D27's set takes them itself
+# (ClientImage.USE_CRT_REGISTERED_STARTS, the same set): this switch adds them only while that one is off.
 USE_CR2_XCU_STARTS = True
-CR2_ATEXIT = 0xA25F00       # atexit (symbols.json)
 
 
 def cr2_registered_starts(img):
     """The CRT table's entries and the atexit-registered addresses in .text (USE_CR2_XCU_STARTS)."""
-    ts, te, raw = img.section('.text')
-    body = img.data[raw:raw + te - ts]
-    out = set(xcu_table(img))
-    for m in re.finditer(rb'\x68(....)\xE8', body, re.S):
-        o = m.start() + 5
-        if ts + o + 5 + struct.unpack_from('<i', body, o + 1)[0] == CR2_ATEXIT:
-            out.add(struct.unpack('<I', m.group(1))[0])
-    return {a for a in out if ts <= a < te}
+    return img.crt_registered_starts()
 
 
 def _verified_starts(img):
-    key = (id(img), USE_CR2_XCU_STARTS)
+    key = (id(img), USE_CR2_XCU_STARTS, img.USE_CRT_REGISTERED_STARTS, img.USE_JMP_PAD_STARTS)
     if key not in _starts_cache:
         starts = img.function_starts()[0]
-        if USE_CR2_XCU_STARTS:
+        if USE_CR2_XCU_STARTS and not img.USE_CRT_REGISTERED_STARTS:
             starts = sorted(set(starts) | cr2_registered_starts(img))
         _starts_cache[key] = starts
     return _starts_cache[key]
