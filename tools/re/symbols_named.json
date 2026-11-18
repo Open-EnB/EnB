@@ -1135,9 +1135,9 @@
  },
  {
   "address": "0x705230",
-  "symbol": "?Unknown_00@?$DeltaTemplateClass@W4UnknownB011D4Enum@@@@UAEXPAVKVEncoderClass@@@Z",
-  "evidence": "DeltaChildVisitorClass renamed KVEncoderClass (D206)",
-  "replaces": "?Unknown_00@?$DeltaTemplateClass@W4UnknownB011D4Enum@@@@UAEXPAVDeltaChildVisitorClass@@@Z"
+  "symbol": "?Unknown_00@?$DeltaTemplateClass@I@@UAEXPAVKVEncoderClass@@@Z",
+  "evidence": "DeltaChildVisitorClass renamed KVEncoderClass (D206); the value type renamed with the client's shared KVAccessorClass tables: 0xAEC9C8 is stored by both ~KVPointerAccessorClass<ProfessionType> 0x4F76E0 and ~DeltaTemplateAccessorClass 0x7595F0, 0xAEC9DC by ~KVPointerAccessorClass<RaceType> 0x4F7730 and 0x7595D0, 0xAEB258's slot 0 is KVAccessorClass<unsigned int>'s ??_G 0x4A8600 and 0x706D80 stores it (KV, 2026-11-17)",
+  "replaces": "?Unknown_00@?$DeltaTemplateClass@W4UnknownB011D4Enum@@@@UAEXPAVKVEncoderClass@@@Z"
  },
  {
   "address": "0x706DF0",
@@ -1153,15 +1153,15 @@
  },
  {
   "address": "0x757BF0",
-  "symbol": "?Unknown_00@?$DeltaTemplateClass@W4UnknownB035E0Enum@@@@UAEXPAVKVEncoderClass@@@Z",
-  "evidence": "DeltaChildVisitorClass renamed KVEncoderClass (D206)",
-  "replaces": "?Unknown_00@?$DeltaTemplateClass@W4UnknownB035E0Enum@@@@UAEXPAVDeltaChildVisitorClass@@@Z"
+  "symbol": "?Unknown_00@?$DeltaTemplateClass@W4RaceType@@@@UAEXPAVKVEncoderClass@@@Z",
+  "evidence": "DeltaChildVisitorClass renamed KVEncoderClass (D206); the value type renamed with the client's shared KVAccessorClass tables: 0xAEC9C8 is stored by both ~KVPointerAccessorClass<ProfessionType> 0x4F76E0 and ~DeltaTemplateAccessorClass 0x7595F0, 0xAEC9DC by ~KVPointerAccessorClass<RaceType> 0x4F7730 and 0x7595D0, 0xAEB258's slot 0 is KVAccessorClass<unsigned int>'s ??_G 0x4A8600 and 0x706D80 stores it (KV, 2026-11-17)",
+  "replaces": "?Unknown_00@?$DeltaTemplateClass@W4UnknownB035E0Enum@@@@UAEXPAVKVEncoderClass@@@Z"
  },
  {
   "address": "0x757E10",
-  "symbol": "?Unknown_00@?$DeltaTemplateClass@W4UnknownB03588Enum@@@@UAEXPAVKVEncoderClass@@@Z",
-  "evidence": "DeltaChildVisitorClass renamed KVEncoderClass (D206)",
-  "replaces": "?Unknown_00@?$DeltaTemplateClass@W4UnknownB03588Enum@@@@UAEXPAVDeltaChildVisitorClass@@@Z"
+  "symbol": "?Unknown_00@?$DeltaTemplateClass@W4ProfessionType@@@@UAEXPAVKVEncoderClass@@@Z",
+  "evidence": "DeltaChildVisitorClass renamed KVEncoderClass (D206); the value type renamed with the client's shared KVAccessorClass tables: 0xAEC9C8 is stored by both ~KVPointerAccessorClass<ProfessionType> 0x4F76E0 and ~DeltaTemplateAccessorClass 0x7595F0, 0xAEC9DC by ~KVPointerAccessorClass<RaceType> 0x4F7730 and 0x7595D0, 0xAEB258's slot 0 is KVAccessorClass<unsigned int>'s ??_G 0x4A8600 and 0x706D80 stores it (KV, 2026-11-17)",
+  "replaces": "?Unknown_00@?$DeltaTemplateClass@W4UnknownB03588Enum@@@@UAEXPAVKVEncoderClass@@@Z"
  },
  {
   "address": "0x758610",
@@ -5088,5 +5088,278 @@
   "symbol": "?Set_Sample_Playback_Rate@Sound3DHandleClass@@UAEXJ@Z",
   "evidence": "slot 25 of Sound3DHandleClass's vtable 0xB1634C (stored by its constructor 0xA02860); the ListenerHandleClass name came from reading that table as ListenerHandleClass's (SN, 2026-11-17)",
   "replaces": "?Set_Sample_Playback_Rate@ListenerHandleClass@@UAEXJ@Z"
+ },
+ {
+  "address": "0xAEB258",
+  "symbol": "??_7?$KVAccessorClass@I@@6B@",
+  "evidence": "slot 0 is KVAccessorClass<unsigned int>'s ??_G 0x4A8600, which stores it; DurationAccessorClass's destructor 0x4A85E0 and DeltaTemplateAccessorClass's 0x706D80 store it too; the KVAccessorClass / KVPairTemplateClass tables are shared between the template instances: the client has one table per value type (KV, 2026-11-17)",
+  "kind": "vtable",
+  "replaces": "??_7?$KVAccessorClass@W4UnknownB011D4Enum@@@@6B@"
+ },
+ {
+  "address": "0xAEB26C",
+  "symbol": "??_7?$KVPairTemplateClass@I@@6B@",
+  "evidence": "stored by KVPairTemplateClass<unsigned int>'s Clone 0x4A8770 and destructor 0x4A8910, and by DeltaTemplateClass's encoder slot 0x705230; the KVAccessorClass / KVPairTemplateClass tables are shared between the template instances: the client has one table per value type (KV, 2026-11-17)",
+  "kind": "vtable",
+  "replaces": "??_7?$KVPairTemplateClass@W4UnknownB011D4Enum@@@@6B@"
+ },
+ {
+  "address": "0xAEC920",
+  "symbol": "??_7?$KVPairTemplateClass@W4ProfessionType@@@@6B@",
+  "evidence": "stored by KVPairTemplateClass<ProfessionType>'s Clone 0x4F6E10 and destructor 0x4F7470 (shipcust_desc.cpp), and by DeltaTemplateClass's encoder slot 0x757E10; the KVAccessorClass / KVPairTemplateClass tables are shared between the template instances: the client has one table per value type (KV, 2026-11-17)",
+  "kind": "vtable",
+  "replaces": "??_7?$KVPairTemplateClass@W4UnknownB03588Enum@@@@6B@"
+ },
+ {
+  "address": "0xAEC958",
+  "symbol": "??_7?$KVPairTemplateClass@W4RaceType@@@@6B@",
+  "evidence": "stored by KVPairTemplateClass<RaceType>'s Clone 0x4F7000 and destructor 0x4F7550 (shipcust_desc.cpp), and by DeltaTemplateClass's encoder slot 0x757BF0; the KVAccessorClass / KVPairTemplateClass tables are shared between the template instances: the client has one table per value type (KV, 2026-11-17)",
+  "kind": "vtable",
+  "replaces": "??_7?$KVPairTemplateClass@W4UnknownB035E0Enum@@@@6B@"
+ },
+ {
+  "address": "0xAEC9C8",
+  "symbol": "??_7?$KVAccessorClass@W4ProfessionType@@@@6B@",
+  "evidence": "stored by ~KVPointerAccessorClass<ProfessionType> 0x4F76E0, KVAccessorClass<ProfessionType>'s ??_G 0x4F7700 and DeltaTemplateAccessorClass's destructor 0x7595F0; the KVAccessorClass / KVPairTemplateClass tables are shared between the template instances: the client has one table per value type (KV, 2026-11-17)",
+  "kind": "vtable",
+  "replaces": "??_7?$KVAccessorClass@W4UnknownB03588Enum@@@@6B@"
+ },
+ {
+  "address": "0xAEC9DC",
+  "symbol": "??_7?$KVAccessorClass@W4RaceType@@@@6B@",
+  "evidence": "stored by ~KVPointerAccessorClass<RaceType> 0x4F7730, KVAccessorClass<RaceType>'s ??_G 0x4F7750 and DeltaTemplateAccessorClass's destructor 0x7595D0; the KVAccessorClass / KVPairTemplateClass tables are shared between the template instances: the client has one table per value type (KV, 2026-11-17)",
+  "kind": "vtable",
+  "replaces": "??_7?$KVAccessorClass@W4UnknownB035E0Enum@@@@6B@"
+ },
+ {
+  "address": "0x6FBA10",
+  "symbol": "??1?$DeltaTemplateClass@I@@UAE@XZ",
+  "evidence": "the value type renamed with the client's shared KVAccessorClass tables: 0xAEC9C8 is stored by both ~KVPointerAccessorClass<ProfessionType> 0x4F76E0 and ~DeltaTemplateAccessorClass 0x7595F0, 0xAEC9DC by ~KVPointerAccessorClass<RaceType> 0x4F7730 and 0x7595D0, 0xAEB258's slot 0 is KVAccessorClass<unsigned int>'s ??_G 0x4A8600 and 0x706D80 stores it (KV, 2026-11-17)",
+  "kind": "function",
+  "replaces": "??1?$DeltaTemplateClass@W4UnknownB011D4Enum@@@@UAE@XZ"
+ },
+ {
+  "address": "0x700E00",
+  "symbol": "??_G?$DeltaTemplateClass@I@@UAEPAXI@Z",
+  "evidence": "the value type renamed with the client's shared KVAccessorClass tables: 0xAEC9C8 is stored by both ~KVPointerAccessorClass<ProfessionType> 0x4F76E0 and ~DeltaTemplateAccessorClass 0x7595F0, 0xAEC9DC by ~KVPointerAccessorClass<RaceType> 0x4F7730 and 0x7595D0, 0xAEB258's slot 0 is KVAccessorClass<unsigned int>'s ??_G 0x4A8600 and 0x706D80 stores it (KV, 2026-11-17)",
+  "kind": "function",
+  "replaces": "??_G?$DeltaTemplateClass@W4UnknownB011D4Enum@@@@UAEPAXI@Z"
+ },
+ {
+  "address": "0x705390",
+  "symbol": "?Read@?$DeltaTemplateClass@I@@UAE_NAAVLinearBufferClass@@ABVDurationClass@@@Z",
+  "evidence": "the value type renamed with the client's shared KVAccessorClass tables: 0xAEC9C8 is stored by both ~KVPointerAccessorClass<ProfessionType> 0x4F76E0 and ~DeltaTemplateAccessorClass 0x7595F0, 0xAEC9DC by ~KVPointerAccessorClass<RaceType> 0x4F7730 and 0x7595D0, 0xAEB258's slot 0 is KVAccessorClass<unsigned int>'s ??_G 0x4A8600 and 0x706D80 stores it (KV, 2026-11-17)",
+  "kind": "function",
+  "replaces": "?Read@?$DeltaTemplateClass@W4UnknownB011D4Enum@@@@UAE_NAAVLinearBufferClass@@ABVDurationClass@@@Z"
+ },
+ {
+  "address": "0x705400",
+  "symbol": "?Write@?$DeltaTemplateClass@I@@UAE_NAAVLinearBufferClass@@@Z",
+  "evidence": "the value type renamed with the client's shared KVAccessorClass tables: 0xAEC9C8 is stored by both ~KVPointerAccessorClass<ProfessionType> 0x4F76E0 and ~DeltaTemplateAccessorClass 0x7595F0, 0xAEC9DC by ~KVPointerAccessorClass<RaceType> 0x4F7730 and 0x7595D0, 0xAEB258's slot 0 is KVAccessorClass<unsigned int>'s ??_G 0x4A8600 and 0x706D80 stores it (KV, 2026-11-17)",
+  "kind": "function",
+  "replaces": "?Write@?$DeltaTemplateClass@W4UnknownB011D4Enum@@@@UAE_NAAVLinearBufferClass@@@Z"
+ },
+ {
+  "address": "0x706450",
+  "symbol": "?Get@?$DeltaTemplateAccessorClass@I@@UAEABIXZ",
+  "evidence": "the value type renamed with the client's shared KVAccessorClass tables: 0xAEC9C8 is stored by both ~KVPointerAccessorClass<ProfessionType> 0x4F76E0 and ~DeltaTemplateAccessorClass 0x7595F0, 0xAEC9DC by ~KVPointerAccessorClass<RaceType> 0x4F7730 and 0x7595D0, 0xAEB258's slot 0 is KVAccessorClass<unsigned int>'s ??_G 0x4A8600 and 0x706D80 stores it (KV, 2026-11-17)",
+  "kind": "function",
+  "replaces": "?Get@?$DeltaTemplateAccessorClass@W4UnknownB011D4Enum@@@@UAEABW4UnknownB011D4Enum@@XZ"
+ },
+ {
+  "address": "0x706470",
+  "symbol": "?Set@?$DeltaTemplateAccessorClass@I@@UAEXABI@Z",
+  "evidence": "the value type renamed with the client's shared KVAccessorClass tables: 0xAEC9C8 is stored by both ~KVPointerAccessorClass<ProfessionType> 0x4F76E0 and ~DeltaTemplateAccessorClass 0x7595F0, 0xAEC9DC by ~KVPointerAccessorClass<RaceType> 0x4F7730 and 0x7595D0, 0xAEB258's slot 0 is KVAccessorClass<unsigned int>'s ??_G 0x4A8600 and 0x706D80 stores it (KV, 2026-11-17)",
+  "kind": "function",
+  "replaces": "?Set@?$DeltaTemplateAccessorClass@W4UnknownB011D4Enum@@@@UAEXABW4UnknownB011D4Enum@@@Z"
+ },
+ {
+  "address": "0x7064B0",
+  "symbol": "?Clone@?$DeltaTemplateAccessorClass@I@@UBEPAV?$KVAccessorClass@I@@XZ",
+  "evidence": "the value type renamed with the client's shared KVAccessorClass tables: 0xAEC9C8 is stored by both ~KVPointerAccessorClass<ProfessionType> 0x4F76E0 and ~DeltaTemplateAccessorClass 0x7595F0, 0xAEC9DC by ~KVPointerAccessorClass<RaceType> 0x4F7730 and 0x7595D0, 0xAEB258's slot 0 is KVAccessorClass<unsigned int>'s ??_G 0x4A8600 and 0x706D80 stores it (KV, 2026-11-17)",
+  "kind": "function",
+  "replaces": "?Clone@?$DeltaTemplateAccessorClass@W4UnknownB011D4Enum@@@@UBEPAV?$KVAccessorClass@W4UnknownB011D4Enum@@@@XZ"
+ },
+ {
+  "address": "0x706910",
+  "symbol": "??_G?$DeltaTemplateAccessorClass@I@@UAEPAXI@Z",
+  "evidence": "the value type renamed with the client's shared KVAccessorClass tables: 0xAEC9C8 is stored by both ~KVPointerAccessorClass<ProfessionType> 0x4F76E0 and ~DeltaTemplateAccessorClass 0x7595F0, 0xAEC9DC by ~KVPointerAccessorClass<RaceType> 0x4F7730 and 0x7595D0, 0xAEB258's slot 0 is KVAccessorClass<unsigned int>'s ??_G 0x4A8600 and 0x706D80 stores it (KV, 2026-11-17)",
+  "kind": "function",
+  "replaces": "??_G?$DeltaTemplateAccessorClass@W4UnknownB011D4Enum@@@@UAEPAXI@Z"
+ },
+ {
+  "address": "0x706D80",
+  "symbol": "??1?$DeltaTemplateAccessorClass@I@@UAE@XZ",
+  "evidence": "the value type renamed with the client's shared KVAccessorClass tables: 0xAEC9C8 is stored by both ~KVPointerAccessorClass<ProfessionType> 0x4F76E0 and ~DeltaTemplateAccessorClass 0x7595F0, 0xAEC9DC by ~KVPointerAccessorClass<RaceType> 0x4F7730 and 0x7595D0, 0xAEB258's slot 0 is KVAccessorClass<unsigned int>'s ??_G 0x4A8600 and 0x706D80 stores it (KV, 2026-11-17)",
+  "kind": "function",
+  "replaces": "??1?$DeltaTemplateAccessorClass@W4UnknownB011D4Enum@@@@UAE@XZ"
+ },
+ {
+  "address": "0x753C20",
+  "symbol": "??1?$DeltaTemplateClass@W4RaceType@@@@UAE@XZ",
+  "evidence": "the value type renamed with the client's shared KVAccessorClass tables: 0xAEC9C8 is stored by both ~KVPointerAccessorClass<ProfessionType> 0x4F76E0 and ~DeltaTemplateAccessorClass 0x7595F0, 0xAEC9DC by ~KVPointerAccessorClass<RaceType> 0x4F7730 and 0x7595D0, 0xAEB258's slot 0 is KVAccessorClass<unsigned int>'s ??_G 0x4A8600 and 0x706D80 stores it (KV, 2026-11-17)",
+  "kind": "function",
+  "replaces": "??1?$DeltaTemplateClass@W4UnknownB035E0Enum@@@@UAE@XZ"
+ },
+ {
+  "address": "0x753C40",
+  "symbol": "??1?$DeltaTemplateClass@W4ProfessionType@@@@UAE@XZ",
+  "evidence": "the value type renamed with the client's shared KVAccessorClass tables: 0xAEC9C8 is stored by both ~KVPointerAccessorClass<ProfessionType> 0x4F76E0 and ~DeltaTemplateAccessorClass 0x7595F0, 0xAEC9DC by ~KVPointerAccessorClass<RaceType> 0x4F7730 and 0x7595D0, 0xAEB258's slot 0 is KVAccessorClass<unsigned int>'s ??_G 0x4A8600 and 0x706D80 stores it (KV, 2026-11-17)",
+  "kind": "function",
+  "replaces": "??1?$DeltaTemplateClass@W4UnknownB03588Enum@@@@UAE@XZ"
+ },
+ {
+  "address": "0x755DD0",
+  "symbol": "??_G?$DeltaTemplateClass@W4RaceType@@@@UAEPAXI@Z",
+  "evidence": "the value type renamed with the client's shared KVAccessorClass tables: 0xAEC9C8 is stored by both ~KVPointerAccessorClass<ProfessionType> 0x4F76E0 and ~DeltaTemplateAccessorClass 0x7595F0, 0xAEC9DC by ~KVPointerAccessorClass<RaceType> 0x4F7730 and 0x7595D0, 0xAEB258's slot 0 is KVAccessorClass<unsigned int>'s ??_G 0x4A8600 and 0x706D80 stores it (KV, 2026-11-17)",
+  "kind": "function",
+  "replaces": "??_G?$DeltaTemplateClass@W4UnknownB035E0Enum@@@@UAEPAXI@Z"
+ },
+ {
+  "address": "0x755E00",
+  "symbol": "??_G?$DeltaTemplateClass@W4ProfessionType@@@@UAEPAXI@Z",
+  "evidence": "the value type renamed with the client's shared KVAccessorClass tables: 0xAEC9C8 is stored by both ~KVPointerAccessorClass<ProfessionType> 0x4F76E0 and ~DeltaTemplateAccessorClass 0x7595F0, 0xAEC9DC by ~KVPointerAccessorClass<RaceType> 0x4F7730 and 0x7595D0, 0xAEB258's slot 0 is KVAccessorClass<unsigned int>'s ??_G 0x4A8600 and 0x706D80 stores it (KV, 2026-11-17)",
+  "kind": "function",
+  "replaces": "??_G?$DeltaTemplateClass@W4UnknownB03588Enum@@@@UAEPAXI@Z"
+ },
+ {
+  "address": "0x757D50",
+  "symbol": "?Read@?$DeltaTemplateClass@W4RaceType@@@@UAE_NAAVLinearBufferClass@@ABVDurationClass@@@Z",
+  "evidence": "the value type renamed with the client's shared KVAccessorClass tables: 0xAEC9C8 is stored by both ~KVPointerAccessorClass<ProfessionType> 0x4F76E0 and ~DeltaTemplateAccessorClass 0x7595F0, 0xAEC9DC by ~KVPointerAccessorClass<RaceType> 0x4F7730 and 0x7595D0, 0xAEB258's slot 0 is KVAccessorClass<unsigned int>'s ??_G 0x4A8600 and 0x706D80 stores it (KV, 2026-11-17)",
+  "kind": "function",
+  "replaces": "?Read@?$DeltaTemplateClass@W4UnknownB035E0Enum@@@@UAE_NAAVLinearBufferClass@@ABVDurationClass@@@Z"
+ },
+ {
+  "address": "0x757DC0",
+  "symbol": "?Write@?$DeltaTemplateClass@W4RaceType@@@@UAE_NAAVLinearBufferClass@@@Z",
+  "evidence": "the value type renamed with the client's shared KVAccessorClass tables: 0xAEC9C8 is stored by both ~KVPointerAccessorClass<ProfessionType> 0x4F76E0 and ~DeltaTemplateAccessorClass 0x7595F0, 0xAEC9DC by ~KVPointerAccessorClass<RaceType> 0x4F7730 and 0x7595D0, 0xAEB258's slot 0 is KVAccessorClass<unsigned int>'s ??_G 0x4A8600 and 0x706D80 stores it (KV, 2026-11-17)",
+  "kind": "function",
+  "replaces": "?Write@?$DeltaTemplateClass@W4UnknownB035E0Enum@@@@UAE_NAAVLinearBufferClass@@@Z"
+ },
+ {
+  "address": "0x757F70",
+  "symbol": "?Read@?$DeltaTemplateClass@W4ProfessionType@@@@UAE_NAAVLinearBufferClass@@ABVDurationClass@@@Z",
+  "evidence": "the value type renamed with the client's shared KVAccessorClass tables: 0xAEC9C8 is stored by both ~KVPointerAccessorClass<ProfessionType> 0x4F76E0 and ~DeltaTemplateAccessorClass 0x7595F0, 0xAEC9DC by ~KVPointerAccessorClass<RaceType> 0x4F7730 and 0x7595D0, 0xAEB258's slot 0 is KVAccessorClass<unsigned int>'s ??_G 0x4A8600 and 0x706D80 stores it (KV, 2026-11-17)",
+  "kind": "function",
+  "replaces": "?Read@?$DeltaTemplateClass@W4UnknownB03588Enum@@@@UAE_NAAVLinearBufferClass@@ABVDurationClass@@@Z"
+ },
+ {
+  "address": "0x757FE0",
+  "symbol": "?Write@?$DeltaTemplateClass@W4ProfessionType@@@@UAE_NAAVLinearBufferClass@@@Z",
+  "evidence": "the value type renamed with the client's shared KVAccessorClass tables: 0xAEC9C8 is stored by both ~KVPointerAccessorClass<ProfessionType> 0x4F76E0 and ~DeltaTemplateAccessorClass 0x7595F0, 0xAEC9DC by ~KVPointerAccessorClass<RaceType> 0x4F7730 and 0x7595D0, 0xAEB258's slot 0 is KVAccessorClass<unsigned int>'s ??_G 0x4A8600 and 0x706D80 stores it (KV, 2026-11-17)",
+  "kind": "function",
+  "replaces": "?Write@?$DeltaTemplateClass@W4UnknownB03588Enum@@@@UAE_NAAVLinearBufferClass@@@Z"
+ },
+ {
+  "address": "0x759200",
+  "symbol": "?Get@?$DeltaTemplateAccessorClass@W4RaceType@@@@UAEABW4RaceType@@XZ",
+  "evidence": "the value type renamed with the client's shared KVAccessorClass tables: 0xAEC9C8 is stored by both ~KVPointerAccessorClass<ProfessionType> 0x4F76E0 and ~DeltaTemplateAccessorClass 0x7595F0, 0xAEC9DC by ~KVPointerAccessorClass<RaceType> 0x4F7730 and 0x7595D0, 0xAEB258's slot 0 is KVAccessorClass<unsigned int>'s ??_G 0x4A8600 and 0x706D80 stores it (KV, 2026-11-17)",
+  "kind": "function",
+  "replaces": "?Get@?$DeltaTemplateAccessorClass@W4UnknownB035E0Enum@@@@UAEABW4UnknownB035E0Enum@@XZ"
+ },
+ {
+  "address": "0x759220",
+  "symbol": "?Set@?$DeltaTemplateAccessorClass@W4RaceType@@@@UAEXABW4RaceType@@@Z",
+  "evidence": "the value type renamed with the client's shared KVAccessorClass tables: 0xAEC9C8 is stored by both ~KVPointerAccessorClass<ProfessionType> 0x4F76E0 and ~DeltaTemplateAccessorClass 0x7595F0, 0xAEC9DC by ~KVPointerAccessorClass<RaceType> 0x4F7730 and 0x7595D0, 0xAEB258's slot 0 is KVAccessorClass<unsigned int>'s ??_G 0x4A8600 and 0x706D80 stores it (KV, 2026-11-17)",
+  "kind": "function",
+  "replaces": "?Set@?$DeltaTemplateAccessorClass@W4UnknownB035E0Enum@@@@UAEXABW4UnknownB035E0Enum@@@Z"
+ },
+ {
+  "address": "0x759260",
+  "symbol": "?Clone@?$DeltaTemplateAccessorClass@W4RaceType@@@@UBEPAV?$KVAccessorClass@W4RaceType@@@@XZ",
+  "evidence": "the value type renamed with the client's shared KVAccessorClass tables: 0xAEC9C8 is stored by both ~KVPointerAccessorClass<ProfessionType> 0x4F76E0 and ~DeltaTemplateAccessorClass 0x7595F0, 0xAEC9DC by ~KVPointerAccessorClass<RaceType> 0x4F7730 and 0x7595D0, 0xAEB258's slot 0 is KVAccessorClass<unsigned int>'s ??_G 0x4A8600 and 0x706D80 stores it (KV, 2026-11-17)",
+  "kind": "function",
+  "replaces": "?Clone@?$DeltaTemplateAccessorClass@W4UnknownB035E0Enum@@@@UBEPAV?$KVAccessorClass@W4UnknownB035E0Enum@@@@XZ"
+ },
+ {
+  "address": "0x7592A0",
+  "symbol": "?Get@?$DeltaTemplateAccessorClass@W4ProfessionType@@@@UAEABW4ProfessionType@@XZ",
+  "evidence": "the value type renamed with the client's shared KVAccessorClass tables: 0xAEC9C8 is stored by both ~KVPointerAccessorClass<ProfessionType> 0x4F76E0 and ~DeltaTemplateAccessorClass 0x7595F0, 0xAEC9DC by ~KVPointerAccessorClass<RaceType> 0x4F7730 and 0x7595D0, 0xAEB258's slot 0 is KVAccessorClass<unsigned int>'s ??_G 0x4A8600 and 0x706D80 stores it (KV, 2026-11-17)",
+  "kind": "function",
+  "replaces": "?Get@?$DeltaTemplateAccessorClass@W4UnknownB03588Enum@@@@UAEABW4UnknownB03588Enum@@XZ"
+ },
+ {
+  "address": "0x7592C0",
+  "symbol": "?Set@?$DeltaTemplateAccessorClass@W4ProfessionType@@@@UAEXABW4ProfessionType@@@Z",
+  "evidence": "the value type renamed with the client's shared KVAccessorClass tables: 0xAEC9C8 is stored by both ~KVPointerAccessorClass<ProfessionType> 0x4F76E0 and ~DeltaTemplateAccessorClass 0x7595F0, 0xAEC9DC by ~KVPointerAccessorClass<RaceType> 0x4F7730 and 0x7595D0, 0xAEB258's slot 0 is KVAccessorClass<unsigned int>'s ??_G 0x4A8600 and 0x706D80 stores it (KV, 2026-11-17)",
+  "kind": "function",
+  "replaces": "?Set@?$DeltaTemplateAccessorClass@W4UnknownB03588Enum@@@@UAEXABW4UnknownB03588Enum@@@Z"
+ },
+ {
+  "address": "0x759300",
+  "symbol": "?Clone@?$DeltaTemplateAccessorClass@W4ProfessionType@@@@UBEPAV?$KVAccessorClass@W4ProfessionType@@@@XZ",
+  "evidence": "the value type renamed with the client's shared KVAccessorClass tables: 0xAEC9C8 is stored by both ~KVPointerAccessorClass<ProfessionType> 0x4F76E0 and ~DeltaTemplateAccessorClass 0x7595F0, 0xAEC9DC by ~KVPointerAccessorClass<RaceType> 0x4F7730 and 0x7595D0, 0xAEB258's slot 0 is KVAccessorClass<unsigned int>'s ??_G 0x4A8600 and 0x706D80 stores it (KV, 2026-11-17)",
+  "kind": "function",
+  "replaces": "?Clone@?$DeltaTemplateAccessorClass@W4UnknownB03588Enum@@@@UBEPAV?$KVAccessorClass@W4UnknownB03588Enum@@@@XZ"
+ },
+ {
+  "address": "0x7594A0",
+  "symbol": "??_G?$DeltaTemplateAccessorClass@W4RaceType@@@@UAEPAXI@Z",
+  "evidence": "the value type renamed with the client's shared KVAccessorClass tables: 0xAEC9C8 is stored by both ~KVPointerAccessorClass<ProfessionType> 0x4F76E0 and ~DeltaTemplateAccessorClass 0x7595F0, 0xAEC9DC by ~KVPointerAccessorClass<RaceType> 0x4F7730 and 0x7595D0, 0xAEB258's slot 0 is KVAccessorClass<unsigned int>'s ??_G 0x4A8600 and 0x706D80 stores it (KV, 2026-11-17)",
+  "kind": "function",
+  "replaces": "??_G?$DeltaTemplateAccessorClass@W4UnknownB035E0Enum@@@@UAEPAXI@Z"
+ },
+ {
+  "address": "0x7594D0",
+  "symbol": "??_G?$DeltaTemplateAccessorClass@W4ProfessionType@@@@UAEPAXI@Z",
+  "evidence": "the value type renamed with the client's shared KVAccessorClass tables: 0xAEC9C8 is stored by both ~KVPointerAccessorClass<ProfessionType> 0x4F76E0 and ~DeltaTemplateAccessorClass 0x7595F0, 0xAEC9DC by ~KVPointerAccessorClass<RaceType> 0x4F7730 and 0x7595D0, 0xAEB258's slot 0 is KVAccessorClass<unsigned int>'s ??_G 0x4A8600 and 0x706D80 stores it (KV, 2026-11-17)",
+  "kind": "function",
+  "replaces": "??_G?$DeltaTemplateAccessorClass@W4UnknownB03588Enum@@@@UAEPAXI@Z"
+ },
+ {
+  "address": "0x7595D0",
+  "symbol": "??1?$DeltaTemplateAccessorClass@W4RaceType@@@@UAE@XZ",
+  "evidence": "the value type renamed with the client's shared KVAccessorClass tables: 0xAEC9C8 is stored by both ~KVPointerAccessorClass<ProfessionType> 0x4F76E0 and ~DeltaTemplateAccessorClass 0x7595F0, 0xAEC9DC by ~KVPointerAccessorClass<RaceType> 0x4F7730 and 0x7595D0, 0xAEB258's slot 0 is KVAccessorClass<unsigned int>'s ??_G 0x4A8600 and 0x706D80 stores it (KV, 2026-11-17)",
+  "kind": "function",
+  "replaces": "??1?$DeltaTemplateAccessorClass@W4UnknownB035E0Enum@@@@UAE@XZ"
+ },
+ {
+  "address": "0x7595F0",
+  "symbol": "??1?$DeltaTemplateAccessorClass@W4ProfessionType@@@@UAE@XZ",
+  "evidence": "the value type renamed with the client's shared KVAccessorClass tables: 0xAEC9C8 is stored by both ~KVPointerAccessorClass<ProfessionType> 0x4F76E0 and ~DeltaTemplateAccessorClass 0x7595F0, 0xAEC9DC by ~KVPointerAccessorClass<RaceType> 0x4F7730 and 0x7595D0, 0xAEB258's slot 0 is KVAccessorClass<unsigned int>'s ??_G 0x4A8600 and 0x706D80 stores it (KV, 2026-11-17)",
+  "kind": "function",
+  "replaces": "??1?$DeltaTemplateAccessorClass@W4UnknownB03588Enum@@@@UAE@XZ"
+ },
+ {
+  "address": "0xB011D4",
+  "symbol": "??_7?$DeltaTemplateClass@I@@6B@",
+  "evidence": "the value type renamed with the client's shared KVAccessorClass tables: 0xAEC9C8 is stored by both ~KVPointerAccessorClass<ProfessionType> 0x4F76E0 and ~DeltaTemplateAccessorClass 0x7595F0, 0xAEC9DC by ~KVPointerAccessorClass<RaceType> 0x4F7730 and 0x7595D0, 0xAEB258's slot 0 is KVAccessorClass<unsigned int>'s ??_G 0x4A8600 and 0x706D80 stores it (KV, 2026-11-17)",
+  "kind": "vtable",
+  "replaces": "??_7?$DeltaTemplateClass@W4UnknownB011D4Enum@@@@6B@"
+ },
+ {
+  "address": "0xB01CEC",
+  "symbol": "??_7?$DeltaTemplateAccessorClass@I@@6B@",
+  "evidence": "the value type renamed with the client's shared KVAccessorClass tables: 0xAEC9C8 is stored by both ~KVPointerAccessorClass<ProfessionType> 0x4F76E0 and ~DeltaTemplateAccessorClass 0x7595F0, 0xAEC9DC by ~KVPointerAccessorClass<RaceType> 0x4F7730 and 0x7595D0, 0xAEB258's slot 0 is KVAccessorClass<unsigned int>'s ??_G 0x4A8600 and 0x706D80 stores it (KV, 2026-11-17)",
+  "kind": "vtable",
+  "replaces": "??_7?$DeltaTemplateAccessorClass@W4UnknownB011D4Enum@@@@6B@"
+ },
+ {
+  "address": "0xB03588",
+  "symbol": "??_7?$DeltaTemplateClass@W4ProfessionType@@@@6B@",
+  "evidence": "the value type renamed with the client's shared KVAccessorClass tables: 0xAEC9C8 is stored by both ~KVPointerAccessorClass<ProfessionType> 0x4F76E0 and ~DeltaTemplateAccessorClass 0x7595F0, 0xAEC9DC by ~KVPointerAccessorClass<RaceType> 0x4F7730 and 0x7595D0, 0xAEB258's slot 0 is KVAccessorClass<unsigned int>'s ??_G 0x4A8600 and 0x706D80 stores it (KV, 2026-11-17)",
+  "kind": "vtable",
+  "replaces": "??_7?$DeltaTemplateClass@W4UnknownB03588Enum@@@@6B@"
+ },
+ {
+  "address": "0xB035E0",
+  "symbol": "??_7?$DeltaTemplateClass@W4RaceType@@@@6B@",
+  "evidence": "the value type renamed with the client's shared KVAccessorClass tables: 0xAEC9C8 is stored by both ~KVPointerAccessorClass<ProfessionType> 0x4F76E0 and ~DeltaTemplateAccessorClass 0x7595F0, 0xAEC9DC by ~KVPointerAccessorClass<RaceType> 0x4F7730 and 0x7595D0, 0xAEB258's slot 0 is KVAccessorClass<unsigned int>'s ??_G 0x4A8600 and 0x706D80 stores it (KV, 2026-11-17)",
+  "kind": "vtable",
+  "replaces": "??_7?$DeltaTemplateClass@W4UnknownB035E0Enum@@@@6B@"
+ },
+ {
+  "address": "0xB03AEC",
+  "symbol": "??_7?$DeltaTemplateAccessorClass@W4RaceType@@@@6B@",
+  "evidence": "the value type renamed with the client's shared KVAccessorClass tables: 0xAEC9C8 is stored by both ~KVPointerAccessorClass<ProfessionType> 0x4F76E0 and ~DeltaTemplateAccessorClass 0x7595F0, 0xAEC9DC by ~KVPointerAccessorClass<RaceType> 0x4F7730 and 0x7595D0, 0xAEB258's slot 0 is KVAccessorClass<unsigned int>'s ??_G 0x4A8600 and 0x706D80 stores it (KV, 2026-11-17)",
+  "kind": "vtable",
+  "replaces": "??_7?$DeltaTemplateAccessorClass@W4UnknownB035E0Enum@@@@6B@"
+ },
+ {
+  "address": "0xB03B00",
+  "symbol": "??_7?$DeltaTemplateAccessorClass@W4ProfessionType@@@@6B@",
+  "evidence": "the value type renamed with the client's shared KVAccessorClass tables: 0xAEC9C8 is stored by both ~KVPointerAccessorClass<ProfessionType> 0x4F76E0 and ~DeltaTemplateAccessorClass 0x7595F0, 0xAEC9DC by ~KVPointerAccessorClass<RaceType> 0x4F7730 and 0x7595D0, 0xAEB258's slot 0 is KVAccessorClass<unsigned int>'s ??_G 0x4A8600 and 0x706D80 stores it (KV, 2026-11-17)",
+  "kind": "vtable",
+  "replaces": "??_7?$DeltaTemplateAccessorClass@W4UnknownB03588Enum@@@@6B@"
  }
 ]

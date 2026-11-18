@@ -35,8 +35,11 @@ char *Value_To_String(char *buf, int size, const ShipCustomizationMetal &value);
 bool String_To_Value(const char *text, ShipCustomizationMetal *value);			// 0x4F6A00 (line 401)
 inline const char *Type_Name(ShipCustomizationMetal *) { return "ShipCustomizationMetal"; }	// 0x4F72B0
 // the profession's and race's pairs name their type from the saved value (prof.cpp 0x848CA0, race.cpp 0x848FF0)
+#ifndef KVPAIR_PROF_RACE_TYPE_NAMES
+#define KVPAIR_PROF_RACE_TYPE_NAMES
 template<> inline const char *KVPairTemplateClass<ProfessionType>::Get_Type_Name() const { return Type_Name(Value); }	// 0x4F6ED0
 template<> inline const char *KVPairTemplateClass<RaceType>::Get_Type_Name() const { return Type_Name(Value); }	// 0x4F70C0
+#endif
 #endif
 
 // A colour setting (0x20 bytes, vtable 0xAEC91C over 0xAEADC8; constructor 0x618500 inline), two in
