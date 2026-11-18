@@ -1,4 +1,5 @@
 // Earth & Beyond client (reconstruction): app\shared\spln_db.cpp. Notes at the end of the file.
+#define LISTNODE_GENERICNODE_LATE	// listnode.h declares GenericNode(); its body follows the users (0x48A060)
 #include "spln_db.h"
 #include "curve.h"
 #include "hermitespline.h"
@@ -21,7 +22,6 @@ struct SplineFileHeaderStruct
 };
 
 static SplineFileHeaderStruct _Header;
-
 // NAME 2: an inline copy for the entry's strings (its inlining leaves VectorClass's constructor out of line, as the client's 0x489050)
 static inline void Copy_String(char *&copy, const char *string)
 {
@@ -707,7 +707,7 @@ bool SplineDatabaseClass::Create_Linear(const char *spline_name, const char *des
 
 
 
-// NOT EXACT: inline-budget (the client calls GenericNode's constructor out of line inside the new HashNodeClass, so the new keeps an EH state)
+// @0x485C10 (the new HashNodeClass keeps its EH state: GenericNode's constructor is defined at the end of the file)
 bool SplineDatabaseClass::Create_Hermite(const char *spline_name, const char *description, Curve1DClass **curve, bool hidden)
 {
 	G_ASSERT(spline_name);
@@ -1517,7 +1517,7 @@ unsigned int SplineDatabaseClass::Get_Key(const char *name)
 
 
 
-// NOT EXACT: inline-budget (as Create_Hermite: GenericNode's constructor out of line in the client)
+// @0x487400 (as Create_Hermite: GenericNode's constructor defined at the end of the file)
 bool SplineDatabaseClass::Create_Color(const char *name, const char *description, unsigned int red_key, unsigned int green_key, unsigned int blue_key)
 {
 	G_ASSERT(name);
@@ -3233,6 +3233,9 @@ void SplineEntryClass::Print(FileClass *file, unsigned int depth)
 {
 	file->Printf_Indented(depth, "%s %s\n", Name, Description);
 }
+
+// GenericNode::GenericNode (listnode.h, defined late: the client's copy 0x48A060 follows every user)
+inline GenericNode::GenericNode(void) : NextNode(0), PrevNode(0) {}
 
 /*
 **	Reconstruction notes
