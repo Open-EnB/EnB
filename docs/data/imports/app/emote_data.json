@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "RECONSTRUCTED from client.exe: emote_data.obj 0x7E62F0-0x7E7E60 (__FILE__ 0xBA14AC, FAIL_IF lines 135/136, G_ASSERT lines 275/291; vtable 0xB075CC, typeid .PAVEmoteDataClass@@)",
  "expected": {},
@@ -35,7 +33,8 @@
   "0x7E7B10",
   "0x7E7CD0",
   "0x7E7D70",
-  "0x7E7E00"
+  "0x7E7E00",
+  "0x7E7E40"
  ],
  "merged": [],
  "name": "client/emote_data.cpp",

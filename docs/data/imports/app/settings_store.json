@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "PROVISIONAL name (D137: no string ties the object to a file). client.exe 0x7C97B0-0x7CEF30, one object: the settings store singleton 0x7CA2D0 (tsk_game.h's Unknown_7CA2D0Class, table 0xB0734C, 0x70 bytes): its eight browsers (a map of descriptors, DX8WebBrowser open / close / navigate), the browsers' game dispatch object (ATL shapes, CreateStdDispatch over the client's own type library), the canonicalised string settings, the lkey check (poll 0x7CB6F0, WinInet thread 0x7CB8F0) and the exit URL (ShellExecuteEx). NOT EXACT (D64, functional): 0x7CB8F0 (order-only)",
  "expected": {},
@@ -100,7 +98,8 @@
   "0x7CE9D0",
   "0x7CEA50",
   "0x7CEAC0",
-  "0x7CEC90"
+  "0x7CEC90",
+  "0x7CECC0"
  ],
  "merged": [],
  "name": "client/tasks/settings_store.cpp",

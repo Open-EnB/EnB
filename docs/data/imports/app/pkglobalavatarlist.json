@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "GLOBAL_AVATAR_LIST 112's object, 0x8629A0-0x8633D0 (no assert: the file name provisional, NAME 1): written by hand (builder P9)",
  "expected": {},
@@ -32,7 +30,8 @@
   "0x863170",
   "0x8632A0",
   "0x863330",
-  "0x863360"
+  "0x863360",
+  "0x8633D0"
  ],
  "merged": [],
  "name": "packets/pkglobalavatarlist.cpp",

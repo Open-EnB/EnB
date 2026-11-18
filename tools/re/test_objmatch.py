@@ -617,5 +617,27 @@ class Cr2ExternData(unittest.TestCase):
         self.assertNotEqual(res['_$E6']['status'], 'exact')
 
 
+class Cr4XcuSparse(unittest.TestCase):
+    """D246 (CR4): delta.obj lists two initialisers, `_$E5` (entry 50, 0x4A4C90) and the guarded header static `_$E29`;
+    the client's stretch holds entries 51-52 our object does not list, so no consecutive sub-run fits; `_$E29`
+    fullmatches at one entry of its window (bounded by its neighbours bitset.obj and delta_interpolator.obj), 0x4A6070
+    (entry 53)."""
+    def test_sparse(self):
+        paths = [os.path.join(OBJS, n) for n in ('bitset.obj', 'delta.obj', 'delta_interpolator.obj')]
+        if not all(os.path.exists(p) for p in paths):
+            self.skipTest('bitset.obj / delta.obj / delta_interpolator.obj missing')
+        img = objmatch.ClientImage(objmatch.DEFAULT_CLIENT)
+        def get():
+            return {(r['object'], r['symbol']): r for r in objmatch.match_objects(img, paths, APP_REGION, callers=True)}[
+                ('delta.obj', '_$E29')]
+        r = get()
+        self.assertEqual((r['status'], r['addresses'], r.get('xcu')), ('exact', ['0x4A6070'], 'sparse'))
+        objmatch.USE_CR4_XCU_SPARSE = False
+        try:
+            self.assertEqual(get()['status'], 'multiple')
+        finally:
+            objmatch.USE_CR4_XCU_SPARSE = True
+
+
 if __name__ == '__main__':
     unittest.main()

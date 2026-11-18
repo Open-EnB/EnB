@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "the packets' client-side handlers (its asserts' __FILE__ e:\\build\\beta\\G\\app\\client\\cpacket.cpp), client 0x7333B0-0x73F680: PacketClass slot +0x08 Process_Packet(SClient *) per class, the bodies here, the classes in app/packets (D90 9d)",
  "expected": {},
@@ -51,6 +49,8 @@
   "0x7292A0",
   "0x7292D0",
   "0x729320",
+  "0x733230",
+  "0x733260",
   "0x7333B0",
   "0x733550",
   "0x733570",
@@ -160,7 +160,8 @@
   "0x73F5F0",
   "0x73F770",
   "0x73F950",
-  "0x73F9E0"
+  "0x73F9E0",
+  "0x73FA30"
  ],
  "merged": [],
  "name": "client/cpacket.cpp",

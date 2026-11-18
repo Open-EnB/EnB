@@ -3316,7 +3316,8 @@ def xcu_position(img, results, ranges, text, base, claimed, thunk):
     functions of the other objects of the run; the table entries lying in the union of those windows must be
     consecutive in the table, as many as the initialisers, each the n-th initialiser's (inside its own window,
     its pattern fullmatching there, no other symbol there; an initialiser already exact must sit at its entry;
-    C15: the one such sub-run of the entries in the windows, `xcu_subrun`).
+    C15: the one such sub-run of the entries in the windows, `xcu_subrun`; CR4: else the one fullmatching entry of
+    each initialiser's window, in order, `xcu_sparse`, kind 'sparse').
     Then the `_$E` functions they reference (the constructor wrapper they call, the atexit stub they push or jump
     to, transitively) are credited at the targets the initialisers' bytes give, where their patterns fullmatch.
     kind is 'table' or 'linked'. The names stay unused across objects: the position is the proof."""
@@ -3355,10 +3356,15 @@ def xcu_position(img, results, ranges, text, base, claimed, thunk):
                         or r['status'] != 'exact' and not _fullmatch_at(obj, sec, s, length, text, base, a):
                     return False
             return True
-        run = xcu_subrun(run, len(inits), fits)
-        if run is None:
+        sub = xcu_subrun(run, len(inits), fits)
+        if sub is not None:
+            got = {n: a for n, a in zip(inits, sub)}
+        elif USE_CR4_XCU_SPARSE:
+            got = xcu_sparse(inits, wins, run, index, defs, claimed, obj, text, base)
+            if not got:
+                continue
+        else:
             continue
-        got = {n: a for n, a in zip(inits, run)}
         todo = list(got.items())
         while todo:         # what the initialisers' own bytes reach: the wrapper they call, the atexit stub they push
             n, a = todo.pop()
@@ -3380,8 +3386,37 @@ def xcu_position(img, results, ranges, text, base, claimed, thunk):
                 todo.append((sym['name'], v))
         for n, a in got.items():
             if defs[n][0]['status'] != 'exact':
-                out.append((defs[n], a, 'table' if n in inits else 'linked'))
+                out.append((defs[n], a, ('sparse' if sub is None else 'table') if n in inits else 'linked'))
     return out
+
+
+# D246 (CR4, run 2026-11-17c): when no consecutive sub-run fits (the client's stretch holds initialisers our object
+# lacks, or one of ours sits outside its window), each initialiser whose window holds exactly one table entry where it
+# fullmatches unclaimed takes that entry, when every such pick keeps the object's initialiser order in the table and no
+# two share an entry (delta.obj's guarded header-static `_$E29` at 0x4A6070, entry 53, with entries 51-52 between it
+# and `_$E5` 0x4A4C90 that our delta.obj does not list); kind `sparse`
+USE_CR4_XCU_SPARSE = True
+
+
+def xcu_sparse(inits, wins, run, index, defs, claimed, obj, text, base):
+    """CR4: {initialiser: table entry} by USE_CR4_XCU_SPARSE (above), {} when the picks disagree."""
+    got = {}
+    for n, (w0, w1) in zip(inits, wins):
+        r, _, sec, s, length = defs[n]
+        if r['status'] == 'exact':
+            continue
+        c = [a for a in run if w0 <= a <= w1 and not claimed[a] - {n}
+             and _fullmatch_at(obj, sec, s, length, text, base, a)]
+        if len(c) > 1:
+            return {}
+        if c:
+            got[n] = c[0]
+    fixed = [(k, int(defs[n][0]['addresses'][0], 16)) for k, n in enumerate(inits) if defs[n][0]['status'] == 'exact']
+    picks = sorted([(inits.index(n), a) for n, a in got.items()] + fixed)
+    if len({a for _, a in picks}) < len(picks) or any(a not in index for _, a in picks) or \
+            any(index[b] <= index[a] for (_, a), (_, b) in zip(picks, picks[1:])):
+        return {}
+    return got
 
 
 USE_ORDER_IN_RANGE = True
