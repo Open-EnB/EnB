@@ -125,6 +125,53 @@ char *Value_To_String(char *buf, int size, EffectGeneratorUsageBF value)
 	return(Bounded_Strcpy(buf, size, text.c_str()));
 }
 
+// A word's bits or'ed (the client's |= loads each word pair before it stores, as through this reference)
+inline void Or_Bits(unsigned int &bits, unsigned int other)	// NAME 1 [Or_Bits, bits, other]: neutral
+{
+	bits |= other;
+}
+
+// An 8-byte bit field: two words of bits (its four functions are out of line and the client calls none of them)
+struct UnknownBitField64Struct	// NAME 1 [UnknownBitField64Struct]: neutral (D10); 0x835770-0x835814
+{
+	UnknownBitField64Struct();
+	UnknownBitField64Struct(unsigned int low, unsigned int high);	// NAME 1 [low, high]: the members they set
+	UnknownBitField64Struct &operator|=(const UnknownBitField64Struct &other);	// NAME 1 [other]: neutral
+
+	unsigned int Low;	// +0x00  // NAME 1: what it holds
+	unsigned int High;	// +0x04  // NAME 1: what it holds
+};
+
+// @0x835770
+UnknownBitField64Struct::UnknownBitField64Struct()
+{
+	Low = 0;
+	High = 0;
+}
+
+// @0x835790
+UnknownBitField64Struct::UnknownBitField64Struct(unsigned int low, unsigned int high)
+{
+	Low = low;
+	High = high;
+}
+
+// @0x8357C0
+UnknownBitField64Struct &UnknownBitField64Struct::operator|=(const UnknownBitField64Struct &other)
+{
+	Or_Bits(Low, other.Low);
+	Or_Bits(High, other.High);
+	return(*this);
+}
+
+// @0x8357F0: b's words read first, then a's
+UnknownBitField64Struct operator|(const UnknownBitField64Struct &a, const UnknownBitField64Struct &b)	// NAME 1 [a, b]: neutral
+{
+	unsigned int bhigh = b.High, blow = b.Low;	// NAME 1 [bhigh, blow, ahigh, alow]: neutral
+	unsigned int ahigh = a.High, alow = a.Low;
+	return(UnknownBitField64Struct(alow | blow, ahigh | bhigh));
+}
+
 /*
 **	Reconstruction notes
 **
@@ -135,4 +182,9 @@ char *Value_To_String(char *buf, int size, EffectGeneratorUsageBF value)
 **	EffectGeneratorUsageBF's converters Type_Name 0x835370, String_To_Value 0x835390 and Value_To_String 0x835590,
 **	in target_generator_summary.cpp's pattern (its LV2 form, operator|= with i < sizeof / sizeof, is the client's
 **	String_To_Value here). The file name is assumed: no assert names it.
+**	Last, an 8-byte bit field's four functions 0x835770 (cleared), 0x835790 (both words), 0x8357C0 (|=) and
+**	0x8357F0 (|), uncalled: they lie between Value_To_String 0x835590 and the <string> initialiser 0x835830
+**	that closes this object (faction_and_reputation.cpp's notes), so they are this file's; which bits they
+**	hold is not shown. The forms of |= and | are the ones that match (plain 'Low |= other.Low' schedules the
+**	second load earlier; a plain | reads a's words first).
 */
