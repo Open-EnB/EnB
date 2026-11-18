@@ -159,6 +159,9 @@
 "??0Random3Class@@QAE@II@Z": [
 "0x9D0230"
 ],
+"??0Random4Class@@QAE@I@Z": [
+"0x9D03B0"
+],
 "??0RandomClass@@QAE@I@Z": [
 "0x9CFFD0"
 ],
@@ -3240,6 +3243,9 @@
 ],
 "data:?Unknown_BDADC8@@3VRandom2Class@@A": [
 "0xBDADC8"
+],
+"data:?Unknown_BDB1B8@@3VRandom3Class@@A": [
+"0xBDB1B8"
 ],
 "data:?Unknown_BDB1C0@@3VRandom4Class@@A": [
 "0xBDB1C0"

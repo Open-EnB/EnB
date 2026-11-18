@@ -12,8 +12,6 @@
 #include "..\..\wwlib\random.h"
 #include "..\..\wwmath\rect.h"
 
-Random2Class Unknown_BDADC8;					// 0xBDADC8 (soundlib.cpp's view)
-RandomClass Unknown_BDBB84;						// 0xBDBB84 (eff_o.cpp's, ui_avatr.cpp's, ui_line_display.cpp's)
 RectClass Unknown_C07550;						// 0xC07550 (sclient.cpp's, scriptedmovie.cpp's)
 
 struct TestEffectStruct { char Unknown00[0x64]; };	// sclient.cpp's record, 0x64 bytes (only its size matters here)

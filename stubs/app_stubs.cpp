@@ -67,8 +67,3 @@ const char *Type_Name(MoneyClass)
 #include <string>
 #include <vector>
 
-// ------------------------------------------------------------------------- the warp camera's placements (unknown_7979a0.cpp)
-
-// 0xBDB1C0: a global Random4Class with seed 0x1105 (its initialiser 0x444240; its home file is unknown). Data, so it
-// can't log; seeded as the client's
-Random4Class Unknown_BDB1C0(0x1105);

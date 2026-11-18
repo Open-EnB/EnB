@@ -28,8 +28,6 @@
 
 class RenderObjClass;
 void Unknown_496110(RenderObjClass *, float, float, float) { Trace("stub Unknown_496110"); }	// 0x496110 (a model's highlight)
-Random2Class Unknown_BDADC8;		// 0xBDADC8 (soundlib.cpp's)
-RandomClass Unknown_BDBB84;		// 0xBDBB84 (avatar.cpp's)
 
 // ------------------------------------------------------------------------- wlib's Wstring (message.cpp)
 
