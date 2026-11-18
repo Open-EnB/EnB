@@ -1,0 +1,34 @@
+{
+ "ambiguous": [],
+ "copy": "reconstructed",
+ "description": "RECONSTRUCTED: the unnamed object after main.cpp's (client 0x445560-0x445725, no __FILE__, CRT entries 24-27): the LoadString build texts and the four version structs; exact. Name PROVISIONAL (D137): the client links objects in name order, so its name sorts between main\\main.cpp and shared\\unknown_445740's.",
+ "expected": {},
+ "in_tree": [
+  "0x42F250",
+  "0x4338D0",
+  "0x433950",
+  "0x445560",
+  "0x445590",
+  "0x4455C0",
+  "0x4455F0",
+  "0x445610",
+  "0x445630",
+  "0x445660",
+  "0x445680",
+  "0x4456A0",
+  "0x4456C0",
+  "0x4456E0",
+  "0x445700",
+  "0x445720"
+ ],
+ "merged": [],
+ "name": "main/unknown_445560.cpp",
+ "shared": [
+  "0x42F250",
+  "0x4338D0",
+  "0x433950"
+ ],
+ "short_known": [
+  "0x433950"
+ ]
+}

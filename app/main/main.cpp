@@ -1,128 +1,94 @@
-// Earth & Beyond client (reconstruction)
-/*
-**	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
-**	Original location: unknown; the object at client 0x445560-0x445725 has no __FILE__ string (SG, run 2026-11-18:
-**	the five functions 0x445330-0x4454C0 with the 'Main.cpp:' log texts are unknown_4441e0.cpp's object, CRT
-**	entries 17-23, closed by <string>'s guard 0x445540; this object's are entries 24-27), and
-**	the name stays main.cpp; the folder is a guess (app\main, beside
-**	main_client.cpp, whose WinMain calls nearly everything here). Interim placement (D137).
-**
-**	WinMain's helpers: the exception hooks, the window-message handlers, the build texts and
-**	versions. Notes at the end.
-*/
+// Earth & Beyond client (reconstruction): app\main\main.cpp. Notes at the end of the file.
+#include "random.h"
 
+RandomClass Unknown_BDBB84;				// 0xBDBB84 (initialiser 0x4441E0)  // NAME 1: neutral (D10)
+Random2Class Unknown_BDADC8;			// 0xBDADC8 (initialiser 0x444200)  // NAME 1: neutral (D10)
+Random3Class Unknown_BDB1B8;			// 0xBDB1B8 (initialiser 0x444220; nothing reads it)  // NAME 1: neutral (D10)
+Random4Class Unknown_BDB1C0(0x1105);	// 0xBDB1C0 (initialiser 0x444240)  // NAME 1: neutral (D10)
 
-
+#include <iostream>
 #include <windows.h>
 #include "..\..\wwlib\Except.h"
-#include "..\..\wwlib\win.h"
 #include "ww3d.h"
 #include "WWAudio.h"
 #include "..\kernel\kernel.h"
+#include <string>	// <string>'s guard 0x445540 (CRT entry 23) closes the object
 
 void Unknown_Debug_Print(const char *text);			// NAME 1 [Unknown_Debug_Print]: 0x509E30 (dbgmgr.cpp), the log line
+static bool Unknown_BDBE50;								// 0xBDBE50  // NAME 1 [Unknown_BDBE50]: neutral (D10)
 
-struct Unknown_VersionStruct							// NAME 1 [Unknown_VersionStruct]: two ints (tsk_login.cpp reads Major / Minor of 0x4456C0's)
+// 0x445330
+int Unknown_445330(EXCEPTION_POINTERS *info)
 {
-	Unknown_VersionStruct(int major = 0, int minor = 0) : Major(major), Minor(minor) {}	// NAME 1 [major, minor]: its members
-	int Major;											// NAME 1: tsk_login.cpp's
-	int Minor;											// NAME 1: tsk_login.cpp's
-};
-
-unsigned long Unknown_BDBE4C;							// 0xBDBE4C: WinMain's GetTickCount at start-up  // NAME 1 [Unknown_BDBE4C]: neutral (D10)
-
-static char Unknown_BDBE90[128];						// 0xBDBE90  // NAME 1 [Unknown_BDBE90]: neutral (D10)
-static char Unknown_BDBF10[128];						// 0xBDBF10  // NAME 1 [Unknown_BDBF10]: neutral (D10)
-static char Unknown_BDBF90[128];						// 0xBDBF90  // NAME 1 [Unknown_BDBF90]: neutral (D10)
-
-// 0x445560
-char *Unknown_445560()
-{
-	LoadString(ProgramInstance, 1, Unknown_BDBE90, sizeof(Unknown_BDBE90));
-	return Unknown_BDBE90;
+	return Exception_Handler(info->ExceptionRecord->ExceptionCode, info);
 }
 
-// 0x445590
-char *Unknown_445590()
+// 0x445350
+void Unknown_445350()
 {
-	LoadString(ProgramInstance, 2, Unknown_BDBF10, sizeof(Unknown_BDBF10));
-	return Unknown_BDBF10;
+	if (!Unknown_BDBE50) {
+		Unknown_BDBE50 = true;
+	}
 }
 
-// 0x4455C0
-char *Unknown_4455C0()
+// 0x445420
+int Unknown_445420(int unknown, int active)
 {
-	LoadString(ProgramInstance, 3, Unknown_BDBF90, sizeof(Unknown_BDBF90));
-	return Unknown_BDBF90;
+	if (WW3D::Is_Windowed()) {
+		return -1;
+	}
+	KernelClass *kernel = KernelClass::Get_Instance();
+	if (kernel == NULL) {
+		return -1;
+	}
+	if (active) {
+		Unknown_Debug_Print("Main.cpp: activating kernel rendering.");
+		kernel->Render_Enabled = true;
+		if (WWAudioClass::Get_Instance() != NULL) {
+			WWAudioClass::Get_Instance()->Temp_Disable_Audio(false);
+		}
+		WW3D::On_Activate_App();
+	} else {
+		Unknown_Debug_Print("Main.cpp: deactivating kernel rendering.");
+		kernel->Render_Enabled = false;
+		if (WWAudioClass::Get_Instance() != NULL) {
+			WWAudioClass::Get_Instance()->Temp_Disable_Audio(true);
+		}
+		WW3D::On_Deactivate_App();
+	}
+	return -1;
 }
 
-// 0x4455F0
-char *Unknown_4455F0()
+// 0x4454A0
+int Unknown_4454A0(int unknown, int unknown2)
 {
-	return "Windows";
+	KernelClass *kernel = KernelClass::Get_Instance();
+	if (kernel != NULL) {
+		kernel->Render_Enabled = false;
+		kernel->Quit = true;
+	}
+	return -1;
 }
 
-char *Unknown_B704A0 = "Release";						// 0xB704A0  // NAME 1 [Unknown_B704A0]: neutral (D10)
-
-// 0x445610
-char *Unknown_445610()
+// 0x4454C0
+int Unknown_4454C0(int unknown, int unknown2)
 {
-	return Unknown_B704A0;
+	return 0;
 }
-
-static Unknown_VersionStruct Unknown_BDBE78(42);		// 0xBDBE78 (initialiser 0x445630)  // NAME 1 [Unknown_BDBE78]: neutral (D10)
-static Unknown_VersionStruct Unknown_BDBE80;			// 0xBDBE80 (0x445660)  // NAME 1 [Unknown_BDBE80]: neutral (D10)
-static Unknown_VersionStruct Unknown_BDBE88;			// 0xBDBE88 (0x445680)  // NAME 1 [Unknown_BDBE88]: neutral (D10)
-static Unknown_VersionStruct Unknown_BDBE70;			// 0xBDBE70 (0x4456A0)  // NAME 1 [Unknown_BDBE70]: neutral (D10)
-
-// 0x4456C0
-Unknown_VersionStruct *Unknown_4456C0()
-{
-	return &Unknown_BDBE78;
-}
-
-// 0x4456E0
-Unknown_VersionStruct *Unknown_4456E0()
-{
-	return &Unknown_BDBE80;
-}
-
-// 0x445700
-Unknown_VersionStruct *Unknown_445700()
-{
-	return &Unknown_BDBE88;
-}
-
-// 0x445720
-Unknown_VersionStruct *Unknown_445720()
-{
-	return &Unknown_BDBE70;
-}
-
 
 /*
-**	Reconstruction notes (2026-11-01, builder MC): every function above is byte-exact with appfile.py
-**	match, the four version initialisers ($E functions 0x445630, 0x445660, 0x445680, 0x4456A0: the
-**	first stores 42, 0) included.
+**	Notes
 **
-**	* 0x445330 goes to SetUnhandledExceptionFilter (cast, it is cdecl) and 0x445350 to Except.cpp's
-**	  Register_Application_Exception_Callback, both from WinMain; the handlers 0x445420 (WM_ACTIVATEAPP),
-**	  0x4454A0 (WM_DESTROY) and 0x4454C0 (WM_CLOSE) go to input.cpp's 0x42F940. Their first argument is
-**	  not read; the second is WM_ACTIVATEAPP's wParam.
-**	* 0x917840 is WW3D::Is_Windowed (it returns DX8Wrapper's IsWindowed 0xC0063D); 0x918FA0 is
-**	  WW3D::On_Activate_App (WW3D_DX8 is not defined: `return WW3D_ERROR_OK`); 0xC404D8 is
-**	  WWAudioClass's instance.
-**	* The object's edges: it ends at 0x445725 (the next function 0x445740 does vector arithmetic on a
-**	  transform: another file). Before 0x445330 lie 0x444290 (SysFreeString of a member: a _bstr_t
-**	  Data_t's), 0x444F60 and 0x4450B0 (copies of a string with a trailing field), after kernel.cpp's
-**	  list helpers; whether they belong to this object is not known. 0x445510 (`delete` of the pointer
-**	  at the object's start; no reference in the client) sits between the handlers and the texts and is
-**	  not written: its class is unknown.
-**	* The bss order (0xBDBE4C, 0xBDBE50, 0xBDBE70-0xBDBE8C, 0xBDBE90-0xBDC00F) is not checked.
-**	* (2026-11-02, builder KRN) 0x445510's body is hanim.h's NamedPivotMapClass::WeightInfoStruct
-**	  destructor (`if (Name) delete [] Name`, 8-byte element): the client passes it (thunk 0x417F58) to
-**	  `eh vector destructor iterator` in VectorClass<WeightInfoStruct>::Resize 0x45D0F0 and in 0x42A100 /
-**	  0x45CB70; an inline COMDAT the linker placed here, so this object made it: what in main.cpp uses
-**	  the vector is not known. 0x445540 is <string>'s guarded static (0xC416FC, atexit 0x42B320, workflow.md
-**	  §3.3 app\packets): this file includes <string>. Neither is written (too short for verify to count).
+**	RECONSTRUCTED (XI, 2026-11-17): client.exe 0x4441E0-0x445560, an object of its own after kernel.cpp: the CRT
+**	initialiser table lists, in this order, the four generators' initialisers (entries 17-20: 0x4441E0 RandomClass
+**	0xBDBB84, 0x444200 Random2Class 0xBDADC8, 0x444220 Random3Class(0, 0) 0xBDB1B8, 0x444240 Random4Class(0x1105)
+**	0xBDB1C0), then <iostream>'s ios_base::Init (0x4442C0, atexit 0x444380) and _Winit (0x445260, atexit 0x445300) and
+**	<string>'s guard 0x445540 last; so the generators are defined before <iostream> is included. SG (run 2026-11-18):
+**	the object also holds 0x445330-0x4454C0 (main.cpp's exception hooks and window-message handlers, whose log texts
+**	start 'Main.cpp:'), before the guard; main.cpp's own initialisers are entries 24-27. Its other code is
+**	library instances only (0x444290, 0x444F60, 0x4450B0); 0x444390-0x444F60 is int3 fill.
+**	S2 (run 2026-11-18): the file is main.cpp, by its own log texts ('Main.cpp: activating / deactivating
+**	kernel rendering.' in 0x445420; client wins, CLAUDE.md); it was unknown_4441e0.cpp in app\kernel. The
+**	object after it (0x445560-0x445725, the build texts and versions), which held the name before, is
+**	unknown_445560.cpp. The directory stays app\main, beside main_client.cpp (interim, D137).
 */
