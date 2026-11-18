@@ -65,4 +65,23 @@ template<class T> DeltaItemArrayClass<T>::DeltaItemArrayClass(const char *name, 
 	}
 }
 
+// An item array with a vtable and per-class global of its own (the Buff's Elements 0xB01EBC, Ship's BuffArray
+// 0xB00B0C): the client builds the base, then stores the two (0x707292, 0x6F73DA). A template: the client
+// numbers its globals (0xC416A4, 0xC41600) as template statics, at an object's end (ui_buff 0x561CB0, co
+// 0x707A20), and the bases' (0xC41694, 0xC41570) a round later (0x561D00, 0x709B80). Placement interim (D137).
+template<class T> class DeltaDerivedItemArrayClass : public DeltaItemArrayClass<T>	// NAME 1: neutral (no client name)
+{
+public:
+	DeltaDerivedItemArrayClass(const char *name, unsigned int count);
+	~DeltaDerivedItemArrayClass() {}	// user-declared: Ship's destructor stores 0xB00B0C first (0x6F8EA9)
+
+	static int UnknownGlobal;	// the per-class global at +0x04 (delta_numbering.h)
+};
+
+template<class T> DeltaDerivedItemArrayClass<T>::DeltaDerivedItemArrayClass(const char *name, unsigned int count) :
+	DeltaItemArrayClass<T>(name, count)
+{
+	Unknown04 = UnknownGlobal;
+}
+
 #endif //__DELTA_ITEM_ARRAY_H

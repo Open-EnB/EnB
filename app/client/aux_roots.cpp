@@ -4,10 +4,6 @@
 #include "aux_roots_all.h"
 #include "co.h"	// ClientObjectClass: the factory 0x6F6000 is its member
 
-int DeltaElementsClass::UnknownGlobal;
-
-int DeltaBuffsClass::UnknownGlobal;
-
 // the CREATE factory (0x6F6000)
 UnknownRootClass *ClientObjectClass::Unknown_Create_Aux_Root(int type, int unknown)
 {
@@ -63,24 +59,10 @@ DeltaKnownFormulaClass::DeltaKnownFormulaClass(const char *name) :
 	Add(&TechLevel);
 }
 
-// Ship.BuffArray.N.Elements.N (0x707430)
-DeltaElementClass::DeltaElementClass(const char *name) :
-	DeltaCompoundClass(name),
-	SourceEntity("SourceEntity", ""),
-	SourceObject("SourceObject", ""),
-	Magnitude("Magnitude"),
-	IsActive("IsActive"),
-	ExpirationTime("ExpirationTime", 0)
-{
-	Add(&SourceEntity);
-	Add(&SourceObject);
-	Add(&Magnitude);
-	Add(&IsActive);
-	Add(&ExpirationTime);
-}
+#include "aux_buff.h"	// Ship.BuffArray.N.Elements.N (0x707430): the buff family's constructor
 
 #include "aux_manu.h"	// ManufacturingLab.PrimaryCategories.N (0x6FB1E0): the manufacturing family's
 
 // VC6 symbol pad (not the client's code): the constructors above match only when the count of the
 // declarations this file sees falls in a window of a cycle of 64 (tools/re/auxroots.py SYMBOL_PAD)
-enum AuxRootsSymbolPadType { AUX_ROOTS_PAD_00, AUX_ROOTS_PAD_01, AUX_ROOTS_PAD_02, AUX_ROOTS_PAD_03, AUX_ROOTS_PAD_04, AUX_ROOTS_PAD_05, AUX_ROOTS_PAD_06, AUX_ROOTS_PAD_07, AUX_ROOTS_PAD_08, AUX_ROOTS_PAD_09, AUX_ROOTS_PAD_10, AUX_ROOTS_PAD_11, AUX_ROOTS_PAD_12, AUX_ROOTS_PAD_13, AUX_ROOTS_PAD_14, AUX_ROOTS_PAD_15, AUX_ROOTS_PAD_16, AUX_ROOTS_PAD_17, AUX_ROOTS_PAD_18, AUX_ROOTS_PAD_19, AUX_ROOTS_PAD_20, AUX_ROOTS_PAD_21, AUX_ROOTS_PAD_22, AUX_ROOTS_PAD_23, AUX_ROOTS_PAD_24, AUX_ROOTS_PAD_25, AUX_ROOTS_PAD_26, AUX_ROOTS_PAD_27, AUX_ROOTS_PAD_28 };	// NAME 1: a build aid (HX1)
+enum AuxRootsSymbolPadType { AUX_ROOTS_PAD_00, AUX_ROOTS_PAD_01, AUX_ROOTS_PAD_02, AUX_ROOTS_PAD_03, AUX_ROOTS_PAD_04, AUX_ROOTS_PAD_05, AUX_ROOTS_PAD_06, AUX_ROOTS_PAD_07, AUX_ROOTS_PAD_08, AUX_ROOTS_PAD_09, AUX_ROOTS_PAD_10, AUX_ROOTS_PAD_11, AUX_ROOTS_PAD_12, AUX_ROOTS_PAD_13, AUX_ROOTS_PAD_14, AUX_ROOTS_PAD_15, AUX_ROOTS_PAD_16, AUX_ROOTS_PAD_17, AUX_ROOTS_PAD_18, AUX_ROOTS_PAD_19, AUX_ROOTS_PAD_20, AUX_ROOTS_PAD_21, AUX_ROOTS_PAD_22, AUX_ROOTS_PAD_23, AUX_ROOTS_PAD_24, AUX_ROOTS_PAD_25 };	// NAME 1: a build aid (HX1)

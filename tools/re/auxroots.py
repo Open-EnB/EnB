@@ -80,6 +80,9 @@ SEND_HEADER_ROOTS = {'Player': 0x7518A0}
 # Element (0x707430): the client's is inline too, but its only caller is the Buff array 0x707040,
 # into which ours does not inline the Elements array's base (ARRAY_DERIVED; the client does), so
 # an inline Element is lost there (0x707430); plain, it stays exact.
+# Element is FAMILY_MOVED into aux_buff.h (AB 2026-11-18): `inline` there for the objects that number its int and
+# bool at parse time (ui_buff 0x561C10, as the client's inline one does), plain under AUX_ROOTS_ALL (aux_roots.cpp,
+# its one definition: inline, ours goes into the Elements base, out of line here, and 0x707430 is lost).
 OOLINE_PLAIN = {0xB01F74}
 # Compounds whose destructor the client declares (an empty body: VC6 stores the class's vtable first,
 # which an implicit destructor leaves out): Harvestable 0x6FA5E0, the Buffs array (inlined: the address of its store).
@@ -89,6 +92,12 @@ USER_DTOR = {0xB010C0: 0x6FA5E0,
 # constructor and then stores the array's own vtable and per-class global (Ship's BuffArray:
 # 0x707040 stores 0xB01A98, Ship 0x6F73DA then 0xB00B0C and [0xC41600]; the two vtables differ
 # only in the destructor slot). Array vtable -> (instance vtable, instance constructor).
+# Both are instances of one class template (delta_item_array.h's DeltaDerivedItemArrayClass<T>, AB 2026-11-18):
+# the client numbers their globals (0xC416A4 Elements', 0xC41600 Buffs') as template statics, in an object's
+# end-of-file (guarded) initialiser, and their bases' (0xC41694, 0xC41570) a round later (ui_buff 0x561CB0 /
+# 0x561D00, ship_stats_display 0x6A3CA0 / 0x6A3D30, co 0x707A20 / 0x709B80); the two destructors (0x707810,
+# 0x703A90) have one form. The typedef keeps the class's line count (blank lines: aux_roots.h's padding).
+DERIVED_TEMPLATE = 'DeltaDerivedItemArrayClass'
 ARRAY_DERIVED = {0xB00B0C: (0xB01A98, 0x707040),
                  0xB01EBC: (0xB01F18, None)}     # the Buff's Elements (0x7071F7, 0x707292: the base inlined)
 # The value arrays' elements start from (delta_array.h's third argument), which auxextract doesn't
@@ -338,7 +347,8 @@ FAMILY_OUTOFCLASS = {
 # included back where aux_roots.cpp defined them: address -> (header, the include line's note after the
 # constructor's comment). The generator writes the body into the header in place (OUT_DIR only).
 FAMILY_MOVED = {0x6FA150: ('aux_item.h', "the item family's constructor"),
-                0x6FB1E0: ('aux_manu.h', "the manufacturing family's")}
+                0x6FB1E0: ('aux_manu.h', "the manufacturing family's"),
+                0x707430: ('aux_buff.h', "the buff family's constructor")}
 
 class Gen:
     def __init__(self, doc):
@@ -522,9 +532,12 @@ class Gen:
                         ([f'\t~{name}() {{}}\t// user-declared: the client stores the vtable 0x{hexu(vt)} first (0x{USER_DTOR[vt]:X})']
                          if vt in USER_DTOR else []) + ['',
                          '\tstatic int UnknownGlobal;\t// the per-class global at +0x04', '};']
-                self.decl[vt] = '\n'.join(lines)
+                # the class's place, as an instance of the derived template (see DERIVED_TEMPLATE)
+                count = family_gate('\n'.join(lines)).count('\n') + 1
+                lines = [lines[0].replace(f': {inst} (', f': {DERIVED_TEMPLATE}<{ecls}> on {inst} (', 1), tag,
+                         f'typedef {DERIVED_TEMPLATE}<{ecls}> {name};']
+                self.decl[vt] = '\n'.join(lines + [''] * (count - len(lines)))
                 self.order.append(vt)
-                self.nested.append((0, f'int {name}::UnknownGlobal;'))
                 return name
             if inst is not None and self.instances.setdefault(inst, vt) == vt:
                 self.classes[vt] = inst
@@ -646,7 +659,9 @@ class Gen:
             # Not Element's (OOLINE_PLAIN): its caller, the Buff array, is inlined into ours.
             lines.append(f'\t{sig};\t// 0x{self.ooline[vt]:X}')
             self.nested.append((self.ooline[vt], '\n'.join(
-                [f'// {path} (0x{self.ooline[vt]:X})'] + ([] if vt in OOLINE_PLAIN else ['inline']) +
+                [f'// {path} (0x{self.ooline[vt]:X})'] +
+                (['inline'] if vt not in OOLINE_PLAIN else
+                 ['#if !defined(AUX_ROOTS_ALL)', 'inline', '#endif'] if self.ooline[vt] in FAMILY_MOVED else []) +
                 [f'{name}::{sig} :', '\t' + ',\n\t'.join(init), '{'] + body + ['}'])))
         else:
             lines.append(f'\t{sig} :')
@@ -890,7 +905,7 @@ inline char *Unknown_Hex_String(char *buf, int size, const unsigned char *data, 
 # 0x7045F0, 0x7014B0, 0x701D70, 0x758210) by one step of a cycle of 64: each matches only in a window of
 # it. The pad's enumerators put the file inside the windows; retune SYMBOL_PAD when a header aux_roots.cpp
 # includes gains or loses declarations (.work/hx1/exp.py sweeps it by compiling aux_roots.cpp alone).
-SYMBOL_PAD = 29
+SYMBOL_PAD = 26
 # Definition order in aux_roots.cpp, a second lever (SC2, 2026-11-08d): with DeltaItemArrayClass<DeltaStringClass>
 # (MountBoneNames) instantiated, no pad holds the six with the client's address order (0x7014B0 and 0x7045F0
 # share only 57..59, where 0x6FB1E0 fails); PrimaryCategory's inline constructor (0x6FB1E0) defined last moves

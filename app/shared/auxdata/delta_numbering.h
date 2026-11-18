@@ -25,5 +25,6 @@
 template<class T> int DeltaTemplateClass<T>::UnknownGlobal = DeltaUnknownCounter++;
 template<class T> int DeltaArrayClass<T>::UnknownGlobal = DeltaUnknownCounter++;
 template<class T> int DeltaItemArrayClass<T>::UnknownGlobal = DeltaUnknownCounter++;
+template<class T> int DeltaDerivedItemArrayClass<T>::UnknownGlobal = DeltaUnknownCounter++;
 
 #endif //__DELTA_NUMBERING_H

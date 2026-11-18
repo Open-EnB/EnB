@@ -370,22 +370,22 @@ public:
 	DeltaTemplateClass<DurationClass> ExpirationTime;	// +0x2C0
 };
 
-// vtable 0xB01EBC: DeltaItemArrayClass<DeltaElementClass> (vtable 0xB01F18) with a vtable and per-class global of its own (e.g. Ship.BuffArray.N.Elements): the client builds the base, then stores the two
+// vtable 0xB01EBC: DeltaDerivedItemArrayClass<DeltaElementClass> on DeltaItemArrayClass<DeltaElementClass> (vtable 0xB01F18) with a vtable and per-class global of its own (e.g. Ship.BuffArray.N.Elements): the client builds the base, then stores the two
 // NAME 3: Net-7 AuxElements at the same place in the tree, its child count differs (Net-7 Construct 4 children != ours 5)
-class DeltaElementsClass : public DeltaItemArrayClass<DeltaElementClass>
-{
-public:
-#if defined(AUX_ROOTS_ALL) || defined(AUX_CTORS_BUFF)
-	DeltaElementsClass(const char *name, unsigned int count) : DeltaItemArrayClass<DeltaElementClass>(name, count)
-	{
-		Unknown04 = UnknownGlobal;
-	}
-#else
-	DeltaElementsClass(const char *name, unsigned int count);
-#endif
+typedef DeltaDerivedItemArrayClass<DeltaElementClass> DeltaElementsClass;
 
-	static int UnknownGlobal;	// the per-class global at +0x04
-};
+
+
+
+
+
+
+
+
+
+
+
+
 
 // vtable 0xB01E60 (e.g. Ship.BuffArray.N)
 // NAME 4: Net-7 AuxBuff confirmed by structure (C# fields = ours (same names, same order); Net-7 Construct 5 children = ours); C# Buff
@@ -418,23 +418,23 @@ public:
 	DeltaElementsClass Elements;	// +0x2C8
 };
 
-// vtable 0xB00B0C: DeltaItemArrayClass<DeltaBuffClass> (vtable 0xB01A98, constructor 0x707040) with a vtable and per-class global of its own (e.g. Ship.BuffArray): the client builds the base, then stores the two
+// vtable 0xB00B0C: DeltaDerivedItemArrayClass<DeltaBuffClass> on DeltaItemArrayClass<DeltaBuffClass> (vtable 0xB01A98, constructor 0x707040) with a vtable and per-class global of its own (e.g. Ship.BuffArray): the client builds the base, then stores the two
 // NAME 3: Net-7 AuxBuffs at the same place in the tree, its child count differs (Net-7 Construct 16 children != ours 15)
-class DeltaBuffsClass : public DeltaItemArrayClass<DeltaBuffClass>
-{
-public:
-#if defined(AUX_ROOTS_ALL) || defined(AUX_CTORS_BUFF)
-	DeltaBuffsClass(const char *name, unsigned int count) : DeltaItemArrayClass<DeltaBuffClass>(name, count)
-	{
-		Unknown04 = UnknownGlobal;
-	}
-#else
-	DeltaBuffsClass(const char *name, unsigned int count);
-#endif
-	~DeltaBuffsClass() {}	// user-declared: the client stores the vtable 0xB00B0C first (0x6F8EA9)
+typedef DeltaDerivedItemArrayClass<DeltaBuffClass> DeltaBuffsClass;
 
-	static int UnknownGlobal;	// the per-class global at +0x04
-};
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // vtable 0xB00AB0 (e.g. Ship.BaseStats)
 // NAME 4: Net-7 AuxStats confirmed by structure (C# fields = ours (same names, same order); Net-7 Construct 15 children = ours); C# ShipStats

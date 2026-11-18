@@ -164,9 +164,6 @@ std::vector<TestEffectStruct> Unknown_BE7D80;	// 0xBE7D80 (sclient.cpp's 0x750C2
 // doesn't link)
 #include "..\..\..\app\client\aux_roots.h"
 template<> int DeltaTemplateClass<bool>::UnknownGlobal = 0;
-// ui_buff.cpp (BUFF) names these two classes' per-class globals; app.lib has them in aux_roots.obj
-int DeltaElementsClass::UnknownGlobal;
-int DeltaBuffsClass::UnknownGlobal;
 // (co.cpp's constructor asks the factory 0x6F6000 for its aux root: clienttest.cpp's stand-in hands out the harness's)
 
 // ------------------------------------------------------------------------- extrap.cpp's state nodes (postate.cpp's)

@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "RECONSTRUCTED from client.exe 0x6A2D50-0x6A3D50: __FILE__ e:\\build\\beta\\G\\app\\Client\\ship_stats_display.cpp (asserts l.76, 81, 87, 113, 114, 128, 155, 217); the PDA equipment window's ship statistics (SSDC table 0xBE65E0)",
  "expected": {},
@@ -31,6 +29,8 @@
   "0x6A2ED0",
   "0x6A33B0",
   "0x6A3C10",
+  "0x6A3C30",
+  "0x6A3CA0",
   "0x6A3D30"
  ],
  "merged": [],

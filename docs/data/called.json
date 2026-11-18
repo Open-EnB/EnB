@@ -2943,7 +2943,6 @@
 "0xBE3B00"
 ],
 "data:?UnknownGlobal@?$DeltaArrayClass@M@@2HA": [
-"0xC41584",
 "0xC415DC"
 ],
 "data:?UnknownGlobal@?$DeltaArrayClass@UInvSlotStruct@@@@2HA": [
@@ -2951,22 +2950,27 @@
 "0xC415D8"
 ],
 "data:?UnknownGlobal@?$DeltaArrayClass@UProjectedDecalClass@@@@2HA": [
-"0xC41584",
-"0xC41588"
+"0xC41584"
+],
+"data:?UnknownGlobal@?$DeltaDerivedItemArrayClass@VDeltaBuffClass@@@@2HA": [
+"0xC41600"
+],
+"data:?UnknownGlobal@?$DeltaDerivedItemArrayClass@VDeltaElementClass@@@@2HA": [
+"0xC416A4"
 ],
 "data:?UnknownGlobal@?$DeltaItemArrayClass@VDeltaAttachmentClass@@@@2HA": [
 "0xC41580",
 "0xC415A4"
 ],
 "data:?UnknownGlobal@?$DeltaItemArrayClass@VDeltaBuffClass@@@@2HA": [
-"0xC415DC"
+"0xC41570"
 ],
 "data:?UnknownGlobal@?$DeltaItemArrayClass@VDeltaCategoryClass@@@@2HA": [
 "0xC41620",
 "0xC41624"
 ],
 "data:?UnknownGlobal@?$DeltaItemArrayClass@VDeltaElementClass@@@@2HA": [
-"0xC416A4"
+"0xC41694"
 ],
 "data:?UnknownGlobal@?$DeltaItemArrayClass@VDeltaEquipItemClass@@@@2HA": [
 "0xC415A4",
@@ -3021,7 +3025,6 @@
 "0xC41620"
 ],
 "data:?UnknownGlobal@?$DeltaTemplateClass@H@@2HA": [
-"0xC41570",
 "0xC4166C",
 "0xC416A8",
 "0xC416F0"
@@ -3030,7 +3033,6 @@
 "0xC4163C"
 ],
 "data:?UnknownGlobal@?$DeltaTemplateClass@M@@2HA": [
-"0xC41694",
 "0xC416A8",
 "0xC416AC",
 "0xC416F0"
@@ -3040,8 +3042,7 @@
 "0xC415D8"
 ],
 "data:?UnknownGlobal@?$DeltaTemplateClass@UProjectedDecalClass@@@@2HA": [
-"0xC41588",
-"0xC41600"
+"0xC41588"
 ],
 "data:?UnknownGlobal@?$DeltaTemplateClass@USkillLevelAvailabilityStruct@@@@2HA": [
 "0xC4166C",
@@ -3119,9 +3120,6 @@
 "0xC41670",
 "0xC4168C",
 "0xC416AC"
-],
-"data:?UnknownGlobal@DeltaBuffsClass@@2HA": [
-"0xC41600"
 ],
 "data:?UnknownGlobal@DeltaCompoundClass@@2HA": [
 "0xBE3A74"
