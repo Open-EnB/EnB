@@ -102,17 +102,17 @@ static ChatChannelStruct Unknown_B7C530[18] = {	// NAME 1: neutral (D10): 17 ent
 
 
 
-// The interface event dispatcher (0x540A20 returns its function-local static at 0xBE5AF0): intrface.cpp's signal map. Add news a
-// SignalBaseClass::MemberCallback (its constructor 0x56D0F0); Remove builds one on the stack and disconnects it (0x56CE40, 0x56CEC0)
-class UnknownEventDispatcherClass : public SignalMap	// NAME 1: neutral (D10)
-{
-public:
-	void Add(void *sender, SignalBaseClass::CallbackClass *callback) { connect(sender, callback); }	// 0x4F9740 (the client's 'SignalMap::connect')
-	template <class SENDER, class OBJECT, class EVENT> void Add(SENDER *sender, OBJECT *object, void (OBJECT::*function)(EVENT *, SENDER *)) { Add(sender, new SignalBaseClass::MemberCallback<SENDER, OBJECT, void (OBJECT::*)(EVENT *, SENDER *), EVENT>(object, function)); }
-	void Remove(void *sender, const SignalBaseClass::CallbackClass &callback) { disconnect(sender, callback); }	// 0x4F98D0 (the client's 'SignalMap::disconnect')
-	template <class SENDER, class OBJECT, class EVENT> void Remove(SENDER *sender, OBJECT *object, void (OBJECT::*function)(EVENT *, SENDER *), const EVENT &event) { Remove(sender, SignalBaseClass::MemberCallback<SENDER, OBJECT, void (OBJECT::*)(EVENT *, SENDER *), EVENT>(object, function)); }	// 0x56CE40, 0x56CEC0
-};
-UnknownEventDispatcherClass *Unknown_540A20();			// 0x540A20 (intrface.cpp)  // NAME 1: neutral (D10)
+
+
+
+
+
+
+
+
+
+
+
 
 // The chat window's prompts by destination (0xB7C2B8)
 static const char *Unknown_B7C2B8[] = { "Broadcast:", "Local:", "To Guild:", "To Group", "To Radio:", "To ", "Secure:", "Secure:", "Secure:", "Reply:" };	// NAME 1: neutral (D10)
@@ -279,7 +279,7 @@ ChatPanelInterface::~ChatPanelInterface()
 		Unknown110 = NULL;
 	}
 	if (ChatInt) {
-		Unknown_540A20()->Remove(ChatInt.Peek(), this, &ChatPanelInterface::Unknown_56C730, ChatWindowInterfaceEvent());
+		InterfaceClass::Get_Signal_Map().Remove(ChatInt.Peek(), this, &ChatPanelInterface::Unknown_56C730, ChatWindowInterfaceEvent());
 		ChatInt->Unknown_7C(NULL, false);
 		ChatInt = NULL;
 	}
@@ -1365,7 +1365,7 @@ void ChatPanelInterface::Unknown_5685C0()
 {
 	if (UnknownF8) {
 		if (Unknown10D) {
-			Unknown_540A20()->Remove((InterfaceClass *)UnknownF8.Peek(), this, &ChatPanelInterface::Unknown_56C7B0, OptionFontInterfaceEvent());
+			InterfaceClass::Get_Signal_Map().Remove((InterfaceClass *)UnknownF8.Peek(), this, &ChatPanelInterface::Unknown_56C7B0, OptionFontInterfaceEvent());
 			Unknown10D = false;
 		}
 		UnknownF8->Unknown_7C(NULL, 0);
@@ -2385,7 +2385,7 @@ void ChatPanelInterface::Unknown_56C180(int window)
 {
 	bool active = Active;
 	if (ChatInt) {
-		Unknown_540A20()->Remove(ChatInt.Peek(), this, &ChatPanelInterface::Unknown_56C730, ChatWindowInterfaceEvent());
+		InterfaceClass::Get_Signal_Map().Remove(ChatInt.Peek(), this, &ChatPanelInterface::Unknown_56C730, ChatWindowInterfaceEvent());
 		ChatInt->Unknown_7C(NULL, 0);
 		ChatInt = NULL;
 	}
@@ -2406,8 +2406,8 @@ void ChatPanelInterface::Unknown_56C180(int window)
 			break;
 	}
 	if (ChatInt) {
-		UnknownEventDispatcherClass *dispatcher = Unknown_540A20();
-		dispatcher->Add(ChatInt.Peek(), this, &ChatPanelInterface::Unknown_56C730);
+		SignalMap &dispatcher = InterfaceClass::Get_Signal_Map();
+		dispatcher.Add(ChatInt.Peek(), this, &ChatPanelInterface::Unknown_56C730);
 		ChatInt->Unknown_5417D0(this);
 		ChatInt->Unknown_54();
 		ChatInt->Unknown_7C(View, active);
@@ -2428,7 +2428,7 @@ void ChatPanelInterface::Unknown_56C180(int window)
 void ChatPanelInterface::Unknown_56C6A0()
 {
 	if (ChatInt) {
-		Unknown_540A20()->Remove(ChatInt.Peek(), this, &ChatPanelInterface::Unknown_56C730, ChatWindowInterfaceEvent());
+		InterfaceClass::Get_Signal_Map().Remove(ChatInt.Peek(), this, &ChatPanelInterface::Unknown_56C730, ChatWindowInterfaceEvent());
 		ChatInt->Unknown_7C(NULL, 0);
 		ChatInt = NULL;
 	}
@@ -2469,7 +2469,7 @@ void ChatPanelInterface::Unknown_56C7E0()
 	UnknownF8->Unknown_54();
 	UnknownF8->Unknown_7C(View, 1);
 	Unknown10D = true;
-	Unknown_540A20()->Add((InterfaceClass *)UnknownF8.Peek(), this, &ChatPanelInterface::Unknown_56C7B0);
+	InterfaceClass::Get_Signal_Map().Add((InterfaceClass *)UnknownF8.Peek(), this, &ChatPanelInterface::Unknown_56C7B0);
 }
 
 

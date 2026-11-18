@@ -3,7 +3,7 @@
 #include "..\..\wwlib\ini.h"
 #include "..\..\wwlib\wwstring.h"
 #include <stdio.h>
-
+namespace std { template<> inline hashtable<pair<int const, RefCountPtr<LegoBoneMapClass> >, int, hash<int >, _Select1st<pair<int const, RefCountPtr<LegoBoneMapClass> > >, equal_to<int >, allocator<RefCountPtr<LegoBoneMapClass> > >::hashtable(size_type __n, const hasher &__hf, const key_equal &__eql); }  // Not the client's source (its sgistl form is unknown: P-L21-1, attempts row 0x71DCE0): the hashtable constructor flat gives the client's out-of-line hash_map() 0x72E560 (reserve's size() inlined: the B form)
 static const char *_Attach_Bone = "ATTACH";  // NAME 1 [_Attach_Bone]: neutral (D10), 0xB95070
 static std::hash_map<int, RefCountPtr<LegoBoneMapClass> > _Global_Bone_Maps;  // 0xBE7D28: the client's assert (a file static: the asserts name it unqualified in the bone map's constructor too)
 static INIClass *_CBASSET_INI = NULL;  // 0xBE7D44: the client's asserts
@@ -869,3 +869,7 @@ LegoKnobClass::~LegoKnobClass(void)
 **	  at function scope: the client's frame 0x84 and slots), with the orphan data's vector through a
 **	  reference in the State==0 branch and the LegoChildStruct through a reference (lea esi/add eax,0x14).
 */
+
+namespace std {
+template<> inline hashtable<pair<int const, RefCountPtr<LegoBoneMapClass> >, int, hash<int >, _Select1st<pair<int const, RefCountPtr<LegoBoneMapClass> > >, equal_to<int >, allocator<RefCountPtr<LegoBoneMapClass> > >::hashtable(size_type __n, const hasher &__hf, const key_equal &__eql) : _M_hash(__hf), _M_equals(__eql), _M_get_key(_Select1st<pair<int const, RefCountPtr<LegoBoneMapClass> > >()), _M_buckets(), _M_num_elements(0) { const size_type __n_buckets = _M_next_size(__n); _M_buckets.reserve(__n_buckets); _M_buckets.insert(_M_buckets.end(), __n_buckets, (_Node *)0); _M_num_elements = 0; }
+}

@@ -36,6 +36,7 @@ public:
 	TextureClass *Recolor_Texture(TextureClass *texture, float *hsv);				// NAME 5: EA hueshift enbassetmgr.h
 	TextureClass *Recolor_Texture(const char *name, float *hsv, MipCountType mip);	// 0x48B7B0 (the client's symbol; mip goes to Get_Texture)  // NAME 1 [name, mip]: what it passes on
 	TextureClass *Unknown_48CF90(const char *name, float *hsv);						// NAME 1 [Unknown_48CF90, name, hsv]: neutral (D10)
+	TextureClass *Unknown_48CAF0(TextureClass *texture, float *hsv);				// 0x48CAF0: the cached copy (0x48CF90), else Recolor_Texture  // NAME 1 [Unknown_48CAF0, texture, hsv]: neutral (D10)
 	void Recolor_Mesh(RenderObjClass *robj, float *hsv);							// NAME 5: EA hueshift enbassetmgr.h
 	void Recolor_HLOD(RenderObjClass *robj, float *hsv);							// NAME 5: EA hueshift enbassetmgr.h
 	void Recolor_ParticleEmitter(RenderObjClass *robj, float *hsv);					// NAME 5: EA hueshift enbassetmgr.h

@@ -164,6 +164,16 @@ the alignment follows call chains down (stars.obj's three Create_NEW instances 0
 (<ClientObjectClass *, Radar / Gutter / Starmap / Navigation / EmoteDataClass *>), byte-identical: each
 ClientObjectDataAccessClass<T>::Get (not exact, located by Get_T_Data's call) gives its find_or_insert, pair
 constructor and iterator, and find_or_insert its resize (0x7A0EC0, 0x7A3B50 for Radar).
+Vtable slots feed it too (D246 / CK2V, USE_CK_CALLSEQ_VTBL; `callseq_location_vtbl`): a vtable whose client address
+the run knows (one address in D80's `known`, an exact function's vptr store), the one address the vptr stores of
+located not-exact functions give it (their `??_7` DIR32 relocations in order against the client function's
+immediates of stored tables, counts equal, one to one), or (USE_CK_CALLSEQ_VTBL_SLOTS) the one client table (a
+`.rdata` address the code stores through `mov [reg], imm32`, as many `.text` slots as ours) that holds every slot the
+run knows at one address at its offset, one of them the class's own, places each slot symbol at the client table's
+slot (a weak `??_E` read as its `??_G`; one table to one address and back; D80's vtable_check, symbols.json's names
+and `known` must not disagree). A not-exact virtual there is a located caller; a tied or short one is a target under
+the same conditions as an aligned call's (camctl.obj's CamCtlGadgetClass ??_G / ~ / Unknown_50 0x65BB90..,
+sclient.obj's MemberCallback<CameraModuleClass..> Sender_Type / Type 0x7593E0 / 0x759400).
 
 A searched match counts only at a function start (D189(2)): an address the client's thunk table or a
 call / jump reaches, or one right after padding (int3 / nop) or after the end of another function (a
@@ -277,6 +287,20 @@ USE_GAP_ORDER = True
 # (after its last) in object order take the client functions right below it (right after it), padding-only gaps
 # (`edge_order`); cross-object byte-identical copies (P-C4-1's range end)
 USE_EDGE_ORDER = True
+# D246 (EX, run 2026-11-17b): the same alignment at a gap's two edges when the gap also holds a not-exact own
+# function (which ends short_order's count test): from the exact P forward and from the exact Q backward, the
+# `short` / `multiple` own functions take the client's verified starts next to P's end (Q's start) one by one, each
+# its own length, then only padding, fullmatching, unclaimed, D80 not contradicting; the first other one ends that
+# side (`gap_edge`; camera_manager's 0x79B4D0 after 0x79B4B0, before the not-exact 0x79B4F0)
+USE_EX_GAP_EDGE = True
+# ... and a not-exact own function that symbols.json gives one address (D80's known: D88's self name, a proof) is an
+# anchor too: the gap members after it take the verified starts from the one after its address, those before it end
+# (then padding) at its address; after an object's last such anchor the members follow it the same way
+USE_EX_GAP_KNOWN = True
+# ... and, forward from an exact anchor's end, a member may start where the padding after the previous function ends
+# (16-aligned) when no verified start lies there: functions nothing calls (D27's starts are call targets), the
+# padding is the boundary the linker leaves (`gap_edge` too; delta_interpolator's Get_Change 0x4A6360)
+USE_EX_GAP_PADDED = True
 # D246 (CR6, CR1's EXTERN_CALLED in its cheap form): the relocated calls other libraries' exact functions make (the
 # previous verify's call map, docs/data/called.json, passed as match_objects' extern_called) join D188's `called`
 USE_EXTERN_CALLED = True
@@ -302,6 +326,174 @@ USE_CK_CALLSEQ_NAMED = True
 # ... and a not-exact function an aligned caller's call reaches is located there in turn (one address from every
 # aligned caller, a verified start no other symbol holds), so the alignment follows call chains down
 USE_CK_CALLSEQ_DEEP = True
+# ... and (D246 / CK2V) the vtable slots of the vptrs located constructors store: a vtable the run knows (an exact
+# function's vptr store) or one a located not-exact function's vptr stores align with (its `??_7` relocations in
+# order against the client function's vtable immediates) gives each slot symbol the client table's slot address,
+# a location for a not-exact virtual and a target for a tied / short one (`callseq_location_vtbl`)
+USE_CK_CALLSEQ_VTBL = True
+# ... and a vtable no vptr store places is at the one client table (a stored vptr, as many `.text` slots as ours) that
+# holds every slot whose symbol the run knows at one address, at its offset, at least one of them the class's own
+USE_CK_CALLSEQ_VTBL_SLOTS = True
+# D246 / VX P1: a candidate address whose `??_7` DIR32 (a vptr store of a table the object defines) holds a client
+# table another class owns (a slot whose symbol the run knows elsewhere holds a function symbols.json names as a member
+# of a class neither the vtable's nor its slots': `vx_table_foreign`) is not the function, even when the run or
+# symbols.json already places the table there (a wrong credit places it: expr_math_float's Create_Binary<float> at
+# 0x4CD270 stored 0xAEBF88, ExprMathEvalEqualClass<int>'s table, slot 2 the thunk to Evaluate<int> 0x4CE080).
+# Applied to every pattern hit before the D80 rounds (a lone hit included) and in break_tie (`vx_vtable_contradicted`)
+USE_VX_VTBL_CONTRA = True
+# VX P3: D54's identical-copies check (same_copies) reads an absolute reference as a C string only where the object's
+# relocation targets a literal: a vtable's bytes read as one ('se@', the thunk to RefCountClass::Delete_This 0x406573
+# little-endian) made the six ~ShareBufferClass<T> copies 0x483600..0x51A7B0, each storing its own table, "identical"
+USE_VX_SAME_TARGETS = True
+# VX P2: an exact virtual that shares its address with another symbol is not credited there when a client table of its
+# own class, placed by the run (one known address, not `vx_table_foreign`), holds another function at its slot
+# (client_item_property_special_maker.obj's Get_Lines matched 0x52BC30, ClientItemPropertySpecialEffectClass's; the
+# maker's table 0xAEDF00, stored by its exact constructor 0x52C980, holds 0x52CBF0 at that slot): `vx_slot_contradicted`
+USE_VX_SLOT_CONTRA = True
+# D246 (WA, run 2026-11-17b): an exact COMDAT copy at an address another symbol is also exact at is not credited there
+# when symbols.json names the symbol at one other address from a proof (D88's self name): the linker keeps one copy
+# of a COMDAT (`named_away`; wwaudio's inlined-loop ??_E_LOGICAL_TYPE_STRUCT matched mixfile's FileOffsetStruct copy
+# 0x9DA8C0, while Resize<_LOGICAL_TYPE_STRUCT> 0x9F6A80 calls the app objects' ??_M copy 0x4338D0)
+USE_NAMED_AWAY = True
+# D246 (NA, run 2026-11-17b): the same with no other symbol exact at the copy's address, when the credit is a lone
+# byte match with no tie-break behind it (`named_away_alone`): the self name is a proof, the lone match is not
+# (wwsaveload's inlined-loop ??_E_ENUM_VALUE copies matched only mixfile's FileOffsetStruct ??_E 0x9DA8C0; D88 names
+# the client's ??_M form 0x433970, whose bytes the copy does not fullmatch, so a fullmatch guard drops nothing). A
+# tie-broken credit stays: self names from shifted vtable slots exist (0x67EF80 ??_GFontSys, 0xA02D00 Start_Sample,
+# 0x91B9B0 Get_Definition) and D80 holds those credits at 0x6D4C40 / 0xA02D40 / 0x9174E0
+USE_NAMED_AWAY_ALONE = True
+
+
+# D246 (CR3, run 2026-11-17b): a COMDAT D258 leaves tied whose one survivor lies in the gap between two objects (above
+# the last exact own function of the object below, below the first of the object above): the linker put the copy in
+# one of the two contributions, so when only one of the two holds the symbol it is that holder's copy (`cr3_gap`;
+# dbgconn's ~hash_map<string, PacketStatsStruct> 0x823EA0 below dbgconn's first exact own 0x823F70, above connect's
+# last 0x823E10, its other copy 0x42B540 held by inpkeys' ~hash_map<int, string>)
+USE_CR3_GAP_HOLDER = True
+
+
+def _vx_class(name):
+    """VX: the class part of a mangled member / vtable name ('' for a free function): `?Evaluate@?$ExprMathEvalEqualClass@H@@..`
+    -> `?$ExprMathEvalEqualClass@H`, `??_7CharacterViewAvatarClass@@6B..` -> `CharacterViewAvatarClass`."""
+    if name.startswith(('??_7', '??_G', '??_E')):
+        rest = name[4:]
+    elif name.startswith(('??0', '??1')):
+        rest = name[3:]
+    elif name.startswith('?') and not name.startswith('??'):
+        rest = name[1:].split('@', 1)[1] if '@' in name[1:] else ''
+    else:
+        return ''
+    return rest.split('@@')[0] if '@@' in rest else ''
+
+
+_vx_named = None
+_vx_virtual = re.compile(r'@@[EFMNUV][AB]E')
+
+
+def _vx_names():
+    """VX: {address: {class keys}} of symbols.json's named functions (thunks left out)."""
+    global _vx_named
+    if _vx_named is None:
+        _vx_named = collections.defaultdict(set)
+        for name, addrs in symbol_addresses().items():
+            if name.startswith('j_') or name.startswith('??_7'):
+                continue
+            c = _vx_class(name)
+            # only a virtual's name (a non-virtual in a slot is a wrong name: StreakLineClass::Set_Merge_Abort_Factor
+            # at 0x974BC0, Bitmap2DObjClass's Set_Aspect slot, a byte-identical setter)
+            if c and _vx_virtual.search(name):
+                for a in addrs:
+                    _vx_named[a].add(c)
+    return _vx_named
+
+
+def vx_table_foreign(obj, sym, raw, known, img):
+    """VX P1 / P2: True if the client table at `raw` holds, at a slot whose symbol the run knows elsewhere, a function
+    symbols.json names as a member of another class than the vtable's and its slots' (ExprMathEvalEqualClass<float>'s
+    Evaluate slot holding Evaluate<int> 0x4CE080): the table is another class's, not ours. A slot holding another of our
+    own slots' functions (a slot inserted / removed: CompositeRenderObjClass's Cast_AABox.. one slot off in
+    CharacterViewAvatarClass's table) or a member of our own class (an override we lack: ScriptedMovieViewClass's
+    0x8023A0 in ViewClass::Unknown_18's slot) is a layout difference, not a contradiction."""
+    info = obj.sections[sym['section'] - 1]
+    slots = []
+    for va, symidx, typ in info['relocs']:
+        if typ != 0x06 or va < sym['value']:
+            continue
+        slot = obj.symbol_at(symidx)
+        if slot is not None and slot['class'] in (2, 105):     # 105: a weak `??_E` (read with its `??_G`)
+            slots.append((va - sym['value'], slot['name']))
+    def at(n):
+        # a deleting destructor's slot: VC6 emits `??_G` (scalar) or `??_E` (vector); symbols.json may name either
+        twin = ('??_G' if n[3] == 'E' else '??_E') + n[4:] if n.startswith(('??_E', '??_G')) else None
+        return known.get(n, set()) | (known.get(twin, set()) if twin else set())
+    ours = {_vx_class(sym['name'])} | {_vx_class(n) for _, n in slots}
+    mine = set()
+    for _, n in slots:
+        mine |= at(n)
+    named = _vx_names()
+    thunk = thunks_of(img)
+    for off, n in slots:
+        want = at(n)
+        if not want:
+            continue
+        o = img.offset(raw + off)
+        if o is None:
+            continue
+        v = struct.unpack_from('<I', img.data, o)[0]
+        have = thunk.get(v, v)
+        if have in want or have in mine:
+            continue
+        cls = named.get(have, set())
+        if cls and not cls & ours:
+            return True
+    return False
+
+
+def vx_slot_contradicted(img, results, known, thunk):
+    """VX P2: the exact results (ids) whose address another symbol also holds while a placed table of the class (one
+    known address, not another class's) holds one other address at the symbol's slot."""
+    slot_at = collections.defaultdict(set)
+    for obj in {id(it[1]): it[1] for it in results}.values():
+        for vt, sl in vtable_slots(obj):
+            kn = known.get(vt)
+            if not kn or len(kn) != 1:
+                continue
+            raw = next(iter(kn))
+            sym = next((x for x in obj.symbols if x['name'] == vt and x['section'] > 0), None)
+            if sym is None or vx_table_foreign(obj, sym, raw, known, img):
+                continue
+            for off, slot in sl:
+                o = img.offset(raw + off)
+                if o is not None and not generated(slot):
+                    v = struct.unpack_from('<I', img.data, o)[0]
+                    slot_at[slot].add(thunk.get(v, v))
+    holders = collections.defaultdict(set)
+    for r, *_ in results:
+        if r['status'] == 'exact':
+            holders[int(r['addresses'][0], 16)].add(r['symbol'])
+    out = set()
+    for r, *_ in results:
+        if r['status'] != 'exact':
+            continue
+        a = int(r['addresses'][0], 16)
+        want = slot_at.get(r['symbol'])
+        if want and len(want) == 1 and a not in want and holders[a] - {r['symbol']}:
+            out.add(id(r))
+    return out
+
+
+def vx_vtable_contradicted(obj, sec, start, length, text, base, h, img, known):
+    """VX P1: True if a `??_7` DIR32 of the function at `h` (VA; text[0] at `base`) stores a client table whose slots
+    contradict the object's vtable with another class's member (`vx_table_foreign`)."""
+    o = h - base
+    for k, n, typ, sym, addend in obj.reloc_targets(sec, start, length):
+        if typ != 0x06 or n != 4 or sym is None or sym['section'] <= 0 or not sym['name'].startswith('??_7') \
+                or struct.unpack('<I', addend)[0] != 0 or o + k + 4 > len(text):
+            continue
+        raw = struct.unpack('<I', text[o + k:o + k + 4])[0]
+        if vx_table_foreign(obj, sym, raw, known, img):
+            return True
+    return False
 
 
 def generated(name):
@@ -545,6 +737,11 @@ def break_tie(obj, sec, start, length, text, base, hits, img, known=None):
             if n != 4 or sym is None or o + k + 4 > len(text):
                 continue
             raw = struct.unpack('<I', text[o + k:o + k + 4])[0]
+            if USE_VX_VTBL_CONTRA and typ == 0x06 and sym['section'] > 0 and sym['name'].startswith('??_7') \
+                    and struct.unpack('<I', addend)[0] == 0 \
+                    and vx_table_foreign(obj, sym, raw, known, img):
+                ok = False      # VX P1: a known table placement the slots contradict confirms nothing
+                break
             lit = obj.literal(sym)
             if lit is not None and typ == 0x06:
                 add = struct.unpack('<I', addend)[0]
@@ -587,7 +784,7 @@ def break_tie(obj, sec, start, length, text, base, hits, img, known=None):
     return survivors, confirmed
 
 
-def same_copies(text, base, hits, relocs, img=None):
+def same_copies(text, base, hits, relocs, img=None, strings=None):
     """True if every copy found at `hits` (VAs; text[0] is at VA `base`) is the same function,
     the masked fields included: a relative call/jump (REL32) must reach the same target, any
     other relocated field must hold the same value. Two functions that differ only in their
@@ -615,7 +812,8 @@ def same_copies(text, base, hits, relocs, img=None):
                 out.append(h + k + 4 + struct.unpack('<i', raw)[0])
             elif typ == 0x06 and n == 4 and img is not None:
                 va = struct.unpack('<I', raw)[0]
-                out.append(cstring(va) or va)
+                # VX P3 (`strings`: the offsets whose target is a literal): any other reference compares its value
+                out.append(va if strings is not None and k not in strings else cstring(va) or va)
             else:
                 out.append(bytes(raw))
         return out
@@ -747,6 +945,8 @@ def match_objects(img, paths, region=None, callers=False, extern_called=None, ca
         lo, hi = max(region[0], start), min(region[1], end)
         text, start = text[lo - start:hi - start], lo
     results, pending = [], []
+    thunk = thunks_of(img)
+    known = {k: {thunk.get(a, a) for a in v} for k, v in symbol_addresses().items()}
     for path in paths:
         obj = CoffObject(path)
         for name, sec, s, e in obj.functions():
@@ -762,19 +962,32 @@ def match_objects(img, paths, region=None, callers=False, extern_called=None, ca
                 if len(anchored) < len(hits):
                     r['unanchored'] = len(hits) - len(anchored)
                 hits = anchored
+                if USE_VX_VTBL_CONTRA and hits:
+                    kept = [h for h in hits if not vx_vtable_contradicted(obj, sec, s, length, text, start, h, img, known)]
+                    if len(kept) < len(hits):
+                        r['vx_rejected'] = [f'0x{a:06X}' for a in hits if a not in kept][:5]
+                    hits = kept
                 r['addresses'] = [f'0x{a:06X}' for a in hits[:5]]
                 r['status'] = 'exact' if len(hits) == 1 else 'multiple' if hits else 'none'
+                if len(hits) == 1 and r.get('vx_rejected'):
+                    # VX P1: a lone survivor of rejected copies is not exact by elimination: D80 must confirm it
+                    # (wwlib's Surface::Surface: 0x4DCD10 stores AttribDirCollective's MemberCallbackClass table,
+                    # and 0x6AC050's table 0xAFDB28, six slots, is not Surface's either)
+                    r['status'] = 'multiple'
+                    r['count'] = 1
+                    r['identical'] = False     # one copy: not D54's ambiguous column
+                    pending.append((r, obj, sec, s, length, hits))
                 if len(hits) > 1:
                     # every copy, and whether they are all the same function (D54)
                     r['count'] = len(hits)
-                    r['identical'] = same_copies(text, start, hits, obj.relocated(sec, s, length), img)
+                    strs = {k for k, n, typ, sym, add in obj.reloc_targets(sec, s, length)
+                            if sym is not None and obj.literal(sym) is not None} if USE_VX_SAME_TARGETS else None
+                    r['identical'] = same_copies(text, start, hits, obj.relocated(sec, s, length), img, strs)
                     pending.append((r, obj, sec, s, length, hits))
             results.append((r, obj, sec, s, length))
     # D80: what the exact functions show about the link (an external symbol's address) helps to break
     # the ties of the others; repeat until nothing more resolves (a destructor found once settles the
     # scalar deleting destructors that call it).
-    thunk = thunks_of(img)
-    known = {k: {thunk.get(a, a) for a in v} for k, v in symbol_addresses().items()}
     done = set()
 
     # one client function is one source function (VC6 does not fold identical code): an address two
@@ -949,14 +1162,22 @@ def match_objects(img, paths, region=None, callers=False, extern_called=None, ca
                     for it, _ in edge:
                         it[0]['edge_order'] = True
                     got = got + edge
+                if USE_EX_GAP_EDGE:
+                    # D246 (EX): the gaps' edges when a not-exact own function sits inside the gap
+                    taken = {a for _, a in got} | {it[0]['symbol'] for it, _ in got}
+                    gedge = [(it, a) for it, a in gap_edges(img, results, text, start, claimed, known)
+                             if a not in taken and it[0]['symbol'] not in taken]
+                    for it, _ in gedge:
+                        it[0]['gap_edge'] = True
+                    got = got + gedge
                 for (r, obj, sec, s, length), a in got:
                     if r['status'] == 'multiple':
                         r['tiebreak'] = True
-                        if not r.get('edge_order'):
+                        if not r.get('edge_order') and not r.get('gap_edge'):
                             r['gap_order'] = True
                         r.pop('count', None), r.pop('identical', None)
                         done.add(id(r))
-                    elif not r.get('edge_order'):
+                    elif not r.get('edge_order') and not r.get('gap_edge'):
                         r['short_order'] = True
                     r['status'] = 'exact'
                     r['addresses'] = [f'0x{a:06X}']
@@ -1191,7 +1412,9 @@ def match_objects(img, paths, region=None, callers=False, extern_called=None, ca
         located = {}    # USE_CK_CALLSEQ_DEEP: {symbol: address or None} of not-exact functions aligned calls reach
         for _ in range(CK_CALLSEQ_ROUNDS):
             n_located = len(located)
-            got = callseq_ties(img, results, pending, done, claimed, called, text, start, thunk, known, located)
+            vslots = callseq_location_vtbl(img, results, claimed, called, text, start, thunk, known, located)                 if USE_CK_CALLSEQ_VTBL else None
+            got = callseq_ties(img, results, pending, done, claimed, called, text, start, thunk, known, located,
+                               vslots)
             for item, a in got:
                 r, obj, sec, s, length = item[:5]
                 if r['status'] == 'short':
@@ -1207,6 +1430,45 @@ def match_objects(img, paths, region=None, callers=False, extern_called=None, ca
                 learn(r, obj, sec, s, length, a)
             if not got and len(located) == n_located:
                 break
+    if USE_CR3_GAP_HOLDER:
+        for item, a in cr3_gap_holder(results, pending, done, claimed, text, start, img, known):
+            r, obj, sec, s, length, hits = item
+            r['status'] = 'exact'
+            r['addresses'] = [f'0x{a:06X}']
+            r['tiebreak'] = True
+            r['cr3_gap'] = True
+            r.pop('count', None), r.pop('identical', None)
+            claimed[a].add(r['symbol'])
+            learn(r, obj, sec, s, length, a)
+            done.add(id(r))
+    if USE_VX_SLOT_CONTRA:
+        bad = vx_slot_contradicted(img, results, known, thunk)
+        for r, *_ in results:
+            if id(r) in bad:
+                r['vx_slot'] = r['addresses'][0]
+                r['status'] = 'none'
+                for k in ('tiebreak', 'range', 'selfname', 'order', 'call_tie', 'call_placed', 'funclet_tie',
+                          'pushed_tie', 'contrib', 'cr3_gap', 'ck_callseq', 'short_known', 'caller_tiebreak', 'initialiser', 'xcu'):
+                    r.pop(k, None)
+    if USE_NAMED_AWAY:
+        names = self_names()
+        for r, obj, sec, s, length in results:
+            if r['status'] != 'exact' or obj.own(sec):
+                continue
+            a = int(r['addresses'][0], 16)
+            there = {thunk.get(x, x) for x in names.get(r['symbol'], ())}
+            if len(there) != 1 or a in there:
+                continue
+            h = next(iter(there))
+            alone = not claimed[a] - {r['symbol']}
+            if not alone or USE_NAMED_AWAY_ALONE and not r.get('tiebreak'):
+                r['named_away'] = f'0x{h:06X}'
+                if alone:
+                    r['named_away_alone'] = True
+                r['status'] = 'none'
+                for k in ('tiebreak', 'range', 'selfname', 'order', 'call_tie', 'call_placed', 'funclet_tie',
+                          'pushed_tie', 'contrib', 'ck_callseq', 'short_known', 'caller_tiebreak', 'initialiser', 'xcu'):
+                    r.pop(k, None)
     if called_out is not None:
         called_out.update({k: set(v) for k, v in own_called.items()})
     for r, *_ in results:
@@ -1294,6 +1556,65 @@ def contribution_ties(results, pending, done, claimed, text, base, img, known):
     return [(item, a) for item, a in props if len(by_addr[a]) == 1]
 
 
+def cr3_gap_holder(results, pending, done, claimed, text, base, img, known):
+    """D246 (CR3): [(pending item, address)] for tied COMDATs (`multiple`, not own code) left by contribution_ties
+    whose survivors (break_tie) not claimed by another symbol include exactly one lying in a gap between two objects'
+    ranges of exact own functions (above the lower object's last, below the upper object's first, within RANGE_GAP of
+    each) where exactly one of the two objects holds the symbol, and no other symbol proposes that address. Ranges are
+    contribution_ties' (exact own functions, no funclet / pushed / unplaced call ties)."""
+    ranges = {}
+    for r, obj, sec, s, length in results:
+        if r['status'] == 'exact' and obj.own(sec) and not r.get('funclet_tie') and not r.get('pushed_tie') \
+                and not (r.get('call_tie') and not r.get('call_placed')):
+            a = int(r['addresses'][0], 16)
+            lo, hi = ranges.get(id(obj), (a, a))
+            ranges[id(obj)] = (min(lo, a), max(hi, a))
+    if len(ranges) < 2:
+        return []
+    los = sorted((lo, key) for key, (lo, hi) in ranges.items())
+    keys = [lo for lo, _ in los]
+    holders = collections.defaultdict(set)
+    for r, obj, *_ in results:
+        holders[r['symbol']].add(id(obj))
+
+    def neighbours(h):
+        """(object below, object above) when H lies in the gap between two adjacent objects' ranges, else None"""
+        i = bisect.bisect_right(keys, h) - 1
+        if i < 0 or i + 1 >= len(los) or keys[i + 1] == keys[i] or (i > 0 and keys[i - 1] == keys[i]):
+            return None
+        lower, upper = los[i][1], los[i + 1][1]
+        lhi = ranges[lower][1]
+        if not lhi < h < keys[i + 1] or h > lhi + RANGE_GAP or h < keys[i + 1] - RANGE_GAP:
+            return None
+        # no other object's range reaches into the gap (ranges overlap when objects interleave)
+        if any(ranges[k][1] >= h for _, k in los[:i]):
+            return None
+        return lower, upper
+
+    props = []
+    for item in pending:
+        r, obj, sec, s, length, hits = item
+        if id(r) in done or r['status'] != 'multiple' or obj.own(sec) or generated(r['symbol']):
+            continue
+        survivors = break_tie(obj, sec, s, length, text, base, hits, img, known)[0]
+        inside = []
+        for h in survivors:
+            if claimed[h] - {r['symbol']}:
+                continue
+            nb = neighbours(h)
+            if nb is None:
+                continue
+            held = [k for k in nb if k in holders[r['symbol']]]
+            if len(held) == 1:
+                inside.append(h)
+        if len(inside) == 1:
+            props.append((item, inside[0]))
+    by_addr = collections.defaultdict(set)
+    for (r, *_), a in props:
+        by_addr[a].add(r['symbol'])
+    return [(item, a) for item, a in props if len(by_addr[a]) == 1]
+
+
 def _client_branches(img, a, end, thunk):
     """[target] of the rel32 calls / jumps (E8, E9, 0F 8x) in the client function [a, end) that leave it, in address
     order (thunks resolved); None when the disassembly stops short of END (data in the body)."""
@@ -1316,7 +1637,7 @@ def _padding_img(img, lo, hi):
     return all(b in (0xCC, 0x90) for b in img.data[o:o + (hi - lo)])
 
 
-def callseq_ties(img, results, pending, done, claimed, called, text, base, thunk, known, located=None):
+def callseq_ties(img, results, pending, done, claimed, called, text, base, thunk, known, located=None, vslots=None):
     """D246 (CK): [(item, address)] for tied (`multiple`) and `short` functions that a located not-exact caller's
     calls reach. A caller is located when the exact functions' calls give its symbol exactly one address, a verified
     start no other symbol holds. Its object's REL32 relocations (offset order) align one to one with the client
@@ -1356,6 +1677,8 @@ def callseq_ties(img, results, pending, done, claimed, called, text, base, thunk
         at = mine or called.get(sym, set()) or (self_names().get(sym, set()) if USE_CK_CALLSEQ_NAMED else set())
         if not at and located and located.get(sym) is not None:
             at = {located[sym]}
+        if not at and vslots and vslots.get(sym) is not None:
+            at = {vslots[sym]}      # USE_CK_CALLSEQ_VTBL: a not-exact virtual at its slot address
         if len(at) != 1:
             continue
         a = next(iter(at))
@@ -1393,6 +1716,9 @@ def callseq_ties(img, results, pending, done, claimed, called, text, base, thunk
                     target[name].add(t)
                 elif located is not None and USE_CK_CALLSEQ_DEEP and name in by_sym and                         not any(it[0]['status'] == 'exact' for it in by_sym[name]):
                     reach[name].add(t)
+    for name, t in (vslots or {}).items():
+        if t is not None and name in want:
+            target[name].add(t)     # USE_CK_CALLSEQ_VTBL: a tied / short virtual at its slot address
     for name, ts in reach.items():
         t = next(iter(ts))
         if len(ts) > 1 or located.get(name, t) != t or t not in startset or claimed[t] - {name}:
@@ -1420,6 +1746,180 @@ def callseq_ties(img, results, pending, done, claimed, called, text, base, thunk
     for (r, *_), a in props:
         by_addr[a].add(r['symbol'])
     return [(item, a) for item, a in props if len(by_addr[a]) == 1]
+
+
+def _client_vtable(img, v):
+    """True when client address V is a vtable: a `.rdata` address the code stores through `mov dword ptr [reg],
+    imm32` (constructors and destructors write a table's start; vtables.py's stored_vptrs) whose first dword
+    points into `.text`. Most of the client's classes carry no RTTI, so the store is the mark."""
+    if getattr(img, '_ck2v_stored', None) is None:
+        t0, t1, raw = img.section('.text')
+        r0, r1, _ = img.section('.rdata')
+        text = img.data[raw:raw + (t1 - t0)]
+        stored = set()
+        for m in re.finditer(rb'\xC7[\x00\x01\x02\x03\x06\x07]', text):
+            o = m.start() + 2
+            if o + 4 <= len(text):
+                x = struct.unpack_from('<I', text, o)[0]
+                if r0 <= x < r1 and t0 <= img.u32(x) < t1:
+                    stored.add(x)
+        img._ck2v_stored = stored
+    return v in img._ck2v_stored
+
+
+def _client_vptrs(img, a, end):
+    """[vtable address] of the instructions in the client function [a, end) whose last four bytes are a vtable's
+    address (a vptr store `mov [r+d], offset vtable`, or a push / mov / lea of it), in address order; None when the
+    disassembly stops short of END."""
+    out = []
+    last = a
+    for ins in img.disasm(a, end - a):
+        last = ins.address + ins.size
+        if ins.size >= 5:
+            v = struct.unpack_from('<I', ins.bytes, ins.size - 4)[0]
+            if _client_vtable(img, v):
+                out.append(v)
+        if last >= end:
+            break
+    return out if last >= end or _padding_img(img, last, end) else None
+
+
+def _own_slot(vt, slot):
+    """True when SLOT (a mangled method) belongs to the class of vtable VT (`??_7<class>@@6B...`), not a base."""
+    if '@@6B' not in vt:
+        return False
+    cls = vt[4:vt.index('@@6B') + 2]
+    if slot.startswith(('??_G', '??_E', '??1')):
+        return slot[4 if slot[2] == '_' else 3:].startswith(cls)
+    return slot.startswith('?') and not slot.startswith('??') and slot.split('@', 1)[1].startswith(cls)
+
+
+def _client_vtable_slots(img, thunk):
+    """{'at': {function address: [(vtable, offset)]}, 'len': {vtable: slots}} of the client's stored vtables
+    in `.rdata` (a table's slots: the dwords from it that point into `.text`, up to the next table)."""
+    if getattr(img, '_ck2v_vt', None) is None:
+        lo, hi, raw = img.section('.rdata')
+        tlo, thi, _ = img.section('.text')
+        _client_vtable(img, 0)
+        vts = sorted(img._ck2v_stored)
+        nxt = dict(zip(vts, vts[1:] + [hi]))
+        at, ln = collections.defaultdict(list), {}
+        for V in vts:
+            k = 0
+            while V + 4 * k < nxt[V]:
+                f = struct.unpack_from('<I', img.data, img.offset(V + 4 * k))[0]
+                if not tlo <= f < thi:
+                    break
+                at[thunk.get(f, f)].append((V, 4 * k))
+                k += 1
+            ln[V] = k
+        img._ck2v_vt = {'at': at, 'len': ln}
+    return img._ck2v_vt
+
+
+def callseq_location_vtbl(img, results, claimed, called, text, base, thunk, known, located=None):
+    """D246 (CK2V): {slot symbol: client address, or None when two tables disagree} from the vtables whose client
+    address the run knows: one address in D80's `known` (an exact function's vptr store), or the one address the
+    vptr stores of located not-exact functions give it. A not-exact function is located as callseq_ties locates a
+    caller (the exact functions' calls, D88's self name, a deep location); its object's `??_7` DIR32 relocations
+    (offset order) align one to one with the client function's vtable immediates (_client_vptrs) when the counts
+    agree, one table to one address and back, and every table D80 knows is at its known address. A table's slot i
+    then gives its slot symbol the client table's slot i (thunks resolved, a `.text` address) unless D80's
+    vtable_check finds a known slot elsewhere in the table, symbols.json names another function there, or the
+    symbol is known at another address."""
+    starts = _verified_starts(img)
+    startset = set(starts)
+    by_sym = collections.defaultdict(list)
+    for item in results:
+        by_sym[item[0]['symbol']].append(item)
+    tables = collections.defaultdict(set)      # vtable symbol -> client addresses
+    for name, v in known.items():
+        if name.startswith('??_7'):
+            tables[name] |= set(v)
+    for sym, items in by_sym.items():
+        if any(it[0]['status'] == 'exact' for it in items):
+            continue    # an exact function's vptr stores are in `known` already
+        if len(items) > 1 and any(it[1].symbol_class(sym) != 2 for it in items):
+            continue
+        at = called.get(sym, set()) or (self_names().get(sym, set()) if USE_CK_CALLSEQ_NAMED else set())
+        if not at and located and located.get(sym) is not None:
+            at = {located[sym]}
+        if len(at) != 1:
+            continue
+        a = next(iter(at))
+        if a not in startset or claimed[a] - {sym} or not base <= a < base + len(text):
+            continue
+        i = bisect.bisect_right(starts, a)
+        end = starts[i] if i < len(starts) else base + len(text)
+        vps = None
+        for r, obj, sec, s, length in items:
+            if length <= 0:
+                continue
+            relocs = [x[3]['name'] for x in obj.reloc_targets(sec, s, length)
+                      if x[2] == 0x06 and x[1] == 4 and x[3] is not None and x[3]['name'].startswith('??_7')]
+            if not relocs:
+                continue
+            if vps is None:
+                vps = _client_vptrs(img, a, end) or []
+            if len(relocs) != len(vps):
+                continue
+            fwd, back = {}, {}
+            if all(fwd.setdefault(n, v) == v and back.setdefault(v, n) == n for n, v in zip(relocs, vps)) and \
+                    all(not known.get(n) or v in known[n] for n, v in fwd.items()):
+                for n, v in fwd.items():
+                    tables[n].add(v)
+    defs = collections.defaultdict(list)       # vtable symbol -> [(object, its symbol, [(offset, slot)])]
+    for obj in {id(it[1]): it[1] for it in results}.values():
+        weak = {x['name'] for x in obj.symbols if x['class'] == 105}
+        for vt, sl in vtable_slots(obj):
+            if vt in tables or USE_CK_CALLSEQ_VTBL_SLOTS:
+                sym = next(x for x in obj.symbols if x['name'] == vt and x['section'] > 0)
+                # a weak `??_E` (the vector deleting destructor the class never defines) is its `??_G`
+                sl = [(off, '??_G' + n[4:] if n.startswith('??_E') and n in weak else n) for off, n in sl]
+                defs[vt].append((obj, sym, sl))
+    if USE_CK_CALLSEQ_VTBL_SLOTS:
+        held = _client_vtable_slots(img, thunk)
+        for vt, d in defs.items():
+            if tables.get(vt) or len({tuple(sl) for _, _, sl in d}) != 1 or not d[0][2]:
+                continue
+            sl = d[0][2]
+            n = max(off for off, _ in sl) // 4 + 1
+            cands, own = None, False
+            for off, slot in sl:
+                kn = known.get(slot)
+                if not kn or len(kn) != 1 or generated(slot):
+                    continue
+                v = next(iter(kn))
+                at = {V for V, o in held['at'].get(v, ()) if o == off and held['len'][V] == n}
+                cands = at if cands is None else cands & at
+                own = own or _own_slot(vt, slot)
+            if cands and len(cands) == 1 and own:
+                tables[vt].add(next(iter(cands)))
+    names = self_names()
+    owners = collections.defaultdict(set)
+    for k, v in names.items():
+        for x in v:
+            owners[x].add(k[4:] if k.startswith(('??_E', '??_G')) else k)
+    out = collections.defaultdict(set)
+    vt_at = collections.Counter(next(iter(tables[vt])) for vt in defs if len(tables[vt]) == 1)
+    for vt, d in defs.items():
+        if len(tables[vt]) != 1 or len({tuple(sl) for _, _, sl in d}) != 1 or vt_at[next(iter(tables[vt]))] > 1:
+            continue    # one table to one client address and back
+        va = next(iter(tables[vt]))
+        if any(vtable_check(obj, sym, va, known, img) is False for obj, sym, _ in d):
+            continue
+        for off, slot in d[0][2]:
+            o = img.offset(va + off)
+            if o is None or generated(slot) or not slot.startswith('?'):
+                continue
+            v = struct.unpack_from('<I', img.data, o)[0]
+            v = thunk.get(v, v)
+            n = slot[4:] if slot.startswith(('??_E', '??_G')) else slot
+            if not base <= v < base + len(text) or (owners.get(v) and n not in owners[v]) or \
+                    (known.get(slot) and v not in known[slot]):
+                continue
+            out[slot].add(v)
+    return {k: (next(iter(v)) if len(v) == 1 else None) for k, v in out.items()}
 
 
 def function_start(img, va):
@@ -2470,6 +2970,104 @@ def edge_order(img, results, text, base, claimed, known):
                 break
             out.append((item, a))
             end = a + item[4]
+    by_addr = collections.defaultdict(set)
+    for (r, *_), a in out:
+        by_addr[a].add(r['symbol'])
+    return [(it, a) for it, a in out if len(by_addr[a]) == 1]
+
+
+def _after_padding(text, base, end, limit):
+    """The first 16-aligned address at or after END below LIMIT whose byte is not padding, with only padding
+    (int3 / nop) before it from END; None when there is none or the padding runs past 31 bytes (two alignment
+    units: a start nothing calls is taken only that close)."""
+    a = (end + 15) & ~15
+    while a < limit and a - end <= 31 and a - base < len(text) and text[a - base] in (0xCC, 0x90):
+        a += 16
+    if a >= limit or a - end > 31 or a - base >= len(text) or not _padding(text, base, end, a):
+        return None
+    return a
+
+
+def gap_edges(img, results, text, base, claimed, known):
+    """D246 (EX): [(item, address)] for `short` / `multiple` own functions at the edges of a gap between two
+    consecutive exact own functions P, Q of one object in object order (P's address below Q's) that short_order cannot
+    align (a not-exact member, or a count of verified starts that differs). Forward from P's end: each gap member in object
+    order, while it is short or tied, takes the next verified start (only padding before it), fullmatching there with
+    its own length and then only padding up to the next start; backward from Q the same with the starts below Q.
+    Every address stays strictly between P and Q, unclaimed, D80's break_tie leaving it, and no other member of the
+    gap fullmatches there; the two sides may not overlap, and an address two symbols take is left alone.
+    USE_EX_GAP_PADDED: forward from an exact anchor, a member may start at the first 16-aligned non-padding byte
+    within 31 bytes of the previous end when no verified start lies there. USE_EX_GAP_KNOWN: a not-exact own function that D80's
+    known (symbols.json) gives one address, unclaimed by another symbol, anchors the same way (the member after it at
+    the very next verified start, no padding test since its client length is unknown), also as an object's last
+    anchor (the members after it follow it)."""
+    starts = _verified_starts(img)
+
+    def ok_at(item, a, nxt):
+        r, obj, sec, s, length = item
+        return r['status'] in ('short', 'multiple') and length > 0 and not claimed[a] and \
+            _fullmatch_at(obj, sec, s, length, text, base, a) and _padding(text, base, a + length, nxt) and \
+            break_tie(obj, sec, s, length, text, base, [a], img, known)[0] == [a]
+
+    out = []
+    for key, order in _object_order(results).items():
+        # anchors: the exact own functions (address, end) and, USE_EX_GAP_KNOWN, a not-exact own function that
+        # symbols.json gives one address (D80's known; its end there is the next verified start)
+        anchors = []
+        for idx, (k, a, it) in enumerate(order):
+            if a is not None:
+                anchors.append((idx, a, a + it[4], True))
+            elif USE_EX_GAP_KNOWN and it[0]['status'] == 'none' and len(known.get(it[0]['symbol'], ())) == 1:
+                a = next(iter(known[it[0]['symbol']]))
+                k2 = bisect.bisect_right(starts, a)
+                if k2 < len(starts) and not claimed[a] - {it[0]['symbol']}:
+                    anchors.append((idx, a, starts[k2], False))
+        tail = [(anchors[-1], (len(order), 0xFFFFFFFF, 0, True))] if anchors and not anchors[-1][3] else []
+        for (i, p, pend, pexact), (j, q, _, _) in list(zip(anchors, anchors[1:])) + tail:
+            members = [it for _, _, it in order[i + 1:j]]
+            if not members or q <= p:
+                continue        # nothing between, or out of order (what short_order took the hook drops)
+
+            def alone(item, a):
+                # no other member of the gap has these bytes there: one symbol to one address (D80)
+                return not any(o is not item and o[0]['status'] in ('short', 'multiple') and o[4] > 0 and
+                               _fullmatch_at(o[1], o[2], o[3], o[4], text, base, a) for o in members)
+            fwd, end, pad = [], pend, pexact
+            for item in members:
+                if item[0]['status'] not in ('short', 'multiple'):
+                    break
+                k = bisect.bisect_left(starts, end)
+                if pad and USE_EX_GAP_PADDED:
+                    a = _after_padding(text, base, end, q)
+                    if a is not None and (k >= len(starts) or starts[k] != a):
+                        # no verified start there: the member's bytes, then padding to the next 16-byte boundary
+                        e = (a + item[4] + 15) & ~15
+                        if a < q and e <= q and ok_at(item, a, e) and alone(item, a):
+                            fwd.append((item, a))
+                            end = a + item[4]
+                            continue
+                        break
+                if k >= len(starts) or starts[k] >= q:
+                    break
+                a = starts[k]
+                nxt = starts[k + 1] if k + 1 < len(starts) else a + item[4]
+                if (pad and not _padding(text, base, end, a)) or (not pad and a != end) or \
+                        not ok_at(item, a, min(nxt, q)) or not alone(item, a):
+                    break
+                fwd.append((item, a))
+                end, pad = a + item[4], True
+            bwd, bound = [], q
+            for item in reversed(members[len(fwd):]) if q != 0xFFFFFFFF else ():
+                k = bisect.bisect_left(starts, bound) - 1
+                if k < 0 or starts[k] < end or (fwd == [] and not pexact and starts[k] <= p) or \
+                        item[0]['status'] not in ('short', 'multiple'):
+                    break
+                a = starts[k]
+                if not ok_at(item, a, bound) or not alone(item, a):
+                    break
+                bwd.append((item, a))
+                bound = a
+            out += fwd + bwd
     by_addr = collections.defaultdict(set)
     for (r, *_), a in out:
         by_addr[a].add(r['symbol'])

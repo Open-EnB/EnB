@@ -436,6 +436,19 @@ const char *ViewUnknown34Class::Unknown_589740(INIClass &ini)
 	return(font);
 }
 
+// 0x5898F0
+bool ViewUnknown34Class::Unknown_5898F0(float x, float y)
+{
+	if (Active) {
+		for (int i = 0; i < OptionCount; i++) {
+			if (OptionGadgets[i]->Unknown_30(x, y)) {
+				return(true);
+			}
+		}
+	}
+	return(false);
+}
+
 /*
 **	Reconstruction notes (MSG, 2026-11-02)
 **
@@ -449,4 +462,6 @@ const char *ViewUnknown34Class::Unknown_589740(INIClass &ini)
 **	QC (2026-11-16): 0x5893F0 (the front, popped; no caller) and 0x589530, Flush_Queue itself, out of line and
 **	uncalled: defined here, after 0x589140, and still inlined (with ~message / _Freefront out of line) in the
 **	destructor and 0x588A70 (VC6 inlines a later-defined function of the same file).
+**	2026-11-17 (U1): 0x5898F0, the point over one of the options' gadgets (gd_text_editor.cpp's 0x6735A0), after the
+**	font 0x589740.
 */

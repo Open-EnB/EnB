@@ -20,7 +20,7 @@ static Random2Class CameraEffectsRandom;	// NAME 1: neutral (D10)
 class UnknownAFFE6CClass	// NAME 1: neutral (D10)
 {
 public:
-	UnknownAFFE6CClass(CameraEffectsClass *owner) : Owner(owner) { Owner->Add_Tail(this); }	// (SList's slot +0x10, 0x6E4250)  // NAME 1 [owner]: neutral
+	UnknownAFFE6CClass(CameraEffectsClass *owner);	// 0x6E3530 (SList's slot +0x10, 0x6E4250)  // NAME 1 [owner]: neutral
 	~UnknownAFFE6CClass() { Owner->Remove(this); }	// (inline in 0x6E2CC0: SList's slot +0x1C, 0x6E4440; not virtual)
 	virtual bool Unknown_00() { return(false); }	// +0x00 (true while the effect still moves the camera)
 	CameraEffectsClass *Owner;						// +0x04
@@ -30,7 +30,7 @@ public:
 class UnknownAFFE64Class : public UnknownAFFE6CClass	// NAME 1: neutral (D10)
 {
 public:
-	UnknownAFFE64Class(CameraEffectsClass *owner, const Vector3 &force) : UnknownAFFE6CClass(owner), Unknown08(force) { if (Unknown08.X > 12.0f || Unknown08.Y > 12.0f) { Unknown08.Normalize(); Unknown08 *= 12.0f; } Unknown14.Set_Value(0.0f, true); Unknown14.Set_Target(1.0f, 0.0015f); }	// (inline in 0x6E2CC0)  // NAME 1 [owner, force]: neutral
+	UnknownAFFE64Class(CameraEffectsClass *owner, const Vector3 &force);	// 0x6E3590 (inline in 0x6E2CC0)  // NAME 1 [owner, force]: neutral
 	virtual bool Unknown_00();						// +0x00 0x6E3710
 	Vector3 Unknown08;								// +0x08 (the force, 'Shake.ForceX'-'Z')
 	AccelClass Unknown14;							// +0x14 (accel.h's)
@@ -50,7 +50,7 @@ public:
 class UnknownAFFE70Class : public UnknownAFFE6CClass	// NAME 1: neutral (D10)
 {
 public:
-	UnknownAFFE70Class(CameraEffectsClass *owner, float amount) : UnknownAFFE6CClass(owner), Unknown08(amount) { Unknown0C.Set_Value(0.0f, true); Unknown0C.Set_Target(1.0f, 0.001f); }	// (inline in 0x6E32E0)  // NAME 1 [owner, amount]: neutral
+	UnknownAFFE70Class(CameraEffectsClass *owner, float amount);	// 0x6E3C70 (inline in 0x6E32E0)  // NAME 1 [owner, amount]: neutral
 	virtual bool Unknown_00();						// +0x00 0x6E3D30
 	float Unknown08;								// +0x08 (0x6E32E0's amount)
 	AccelClass Unknown0C;							// +0x0C (accel.h's)
@@ -60,7 +60,7 @@ public:
 class UnknownAFFE74Class : public UnknownAFFE6CClass	// NAME 1: neutral (D10)
 {
 public:
-	UnknownAFFE74Class(CameraEffectsClass *owner, float amount, float time) : UnknownAFFE6CClass(owner), Unknown08(amount) { owner->Unknown15 = false; Unknown0C = Unknown_Get_Ticks() + time * 1000.0f; }	// (inline in 0x6E32E0; +0x15 cleared)  // NAME 1 [owner, amount, time]: neutral
+	UnknownAFFE74Class(CameraEffectsClass *owner, float amount, float time);	// 0x6E3E40 (inline in 0x6E32E0; +0x15 cleared)  // NAME 1 [owner, amount, time]: neutral
 	virtual bool Unknown_00();						// +0x00 0x6E3F00
 	float Unknown08;								// +0x08 (0x6E32E0's amount)
 	unsigned Unknown0C;								// +0x0C (the tick count it ends at: time seconds from now)
@@ -252,6 +252,36 @@ void CameraEffectsClass::Unknown_6E32E0(int type, float amount, float time)
 	}
 }
 
+// 0x6E34F0: the camera effects of the client's current view (no caller in the client)
+CameraEffectsClass *Unknown_6E34F0(SClient *client)	// NAME 1: neutral (D10)
+{
+	SClient *self = (SClient *)client->As_Space_Client();
+	if (self && self->CurrentView) {
+		UIViewClass *view = self->CurrentView->Unknown_1C();
+		if (view) {
+			return(view->CameraEffects);
+		}
+	}
+	return(NULL);
+}
+
+// 0x6E3530
+UnknownAFFE6CClass::UnknownAFFE6CClass(CameraEffectsClass *owner) : Owner(owner)
+{
+	Owner->Add_Tail(this);
+}
+
+// 0x6E3590
+UnknownAFFE64Class::UnknownAFFE64Class(CameraEffectsClass *owner, const Vector3 &force) : UnknownAFFE6CClass(owner), Unknown08(force)
+{
+	if (Unknown08.X > 12.0f || Unknown08.Y > 12.0f) {
+		Unknown08.Normalize();
+		Unknown08 *= 12.0f;
+	}
+	Unknown14.Set_Value(0.0f, true);
+	Unknown14.Set_Target(1.0f, 0.0015f);
+}
+
 // 0x6E37F0
 UnknownAFFE84Class::UnknownAFFE84Class(CameraEffectsClass *owner, float damage) : UnknownAFFE6CClass(owner)
 {
@@ -331,6 +361,13 @@ bool UnknownAFFE84Class::Unknown_00()
 	return(true);
 }
 
+// 0x6E3C70
+UnknownAFFE70Class::UnknownAFFE70Class(CameraEffectsClass *owner, float amount) : UnknownAFFE6CClass(owner), Unknown08(amount)
+{
+	Unknown0C.Set_Value(0.0f, true);
+	Unknown0C.Set_Target(1.0f, 0.001f);
+}
+
 // 0x6E3D30
 bool UnknownAFFE70Class::Unknown_00()
 {
@@ -348,6 +385,13 @@ bool UnknownAFFE70Class::Unknown_00()
 	Owner->Unknown18.Y += CameraEffectsRandom(0, 25) * amount;
 	Owner->Unknown24 = true;
 	return(true);
+}
+
+// 0x6E3E40
+UnknownAFFE74Class::UnknownAFFE74Class(CameraEffectsClass *owner, float amount, float time) : UnknownAFFE6CClass(owner), Unknown08(amount)
+{
+	owner->Unknown15 = false;
+	Unknown0C = Unknown_Get_Ticks() + time * 1000.0f;
 }
 
 // 0x6E3F00
@@ -374,8 +418,10 @@ bool UnknownAFFE74Class::Unknown_00()
 **	the generator 0xBE67E8 is constructed by the initialiser at 0x6E2B90 and called only from
 **	0x6E3B60, 0x6E3D30 and 0x6E3F00. S1 (2026-11-14): 0x6E32E0 (its G_ASSERT(false) on line 250; its cases in
 **	the order of its EH states: 2, 1, 3) with the kick (table 0xAFFE70, 0x6E3D30) and the timed shake (0xAFFE74,
-**	0x6E3F00), their constructors inline in it. Not yet rebuilt: CameraEffectsClass's own functions
-**	(0x6E3590), the effects 0x6E3C70-0x6E3D30. Then: CameraEffectsClass is an SList<UnknownAFFE6CClass> (its table
+**	0x6E3F00), their constructors inline in it. U3 (2026-11-17): the effects' constructors are .cpp definitions
+**	after 0x6E32E0 (VC6 inlines them into 0x6E2CC0 / 0x6E32E0 and keeps the uncalled out-of-line copies the client
+**	has, with thunks: the base's 0x6E3530, the shake's 0x6E3590, the kick's 0x6E3C70, the timed shake's 0x6E3E40),
+**	and 0x6E34F0, a free function no client code calls: the client's current view's CameraEffects. Then: CameraEffectsClass is an SList<UnknownAFFE6CClass> (its table
 **	0xAFFDDC: SList's slots 0x6E4000-0x6E46C0 in this object, slot +0x34 0x6E2CC0); the effects' base adds itself
 **	with Add_Tail and its inline destructor (out of line 0x6E3560) takes itself off with Remove. The constructor
 **	0x6E2BD0, SList's destructor 0x6E2C40 and the implicit deleting copy 0x6E2C10 exact; 0x6E2CC0 (the shake fields,

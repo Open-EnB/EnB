@@ -44,9 +44,11 @@
   "0x4C8870",
   "0x4C8890",
   "0x4C88E0",
+  "0x4C8920",
   "0x4C8B80",
   "0x4C8CE0",
   "0x4C8EB0",
+  "0x4C9010",
   "0x4C92D0",
   "0x4C9300",
   "0x4C94C0",
@@ -115,8 +117,7 @@
   "0x4CB940",
   "0x4CB970",
   "0x4CBA10",
-  "0x4CBAC0",
-  "0x4CD270"
+  "0x4CBAC0"
  ],
  "merged": [],
  "name": "shared/expr/expr_math_float.cpp",

@@ -51,8 +51,8 @@ ClientItemPropertySpecialMakerClass::~ClientItemPropertySpecialMakerClass()
 std::vector<ClientItemPropertySpecialLineStruct> ClientItemPropertySpecialMakerClass::Get_Lines()
 {
 	std::vector<ClientItemPropertySpecialLineStruct> lines;
-	lines.push_back(ClientItemPropertySpecialLineStruct("Manufactured by: ", true));
-	lines.push_back(ClientItemPropertySpecialLineStruct(Maker, false));
+	lines.push_back(ClientItemPropertySpecialLineStruct("Manufactured by: ", false));
+	lines.push_back(ClientItemPropertySpecialLineStruct(Maker, true));
 	return(lines);
 }
 

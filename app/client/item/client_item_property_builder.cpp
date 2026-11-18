@@ -23,7 +23,7 @@ void ClientItemPropertyBuilderClass::Build(UIItemExaminationPropertyRouterBaseCl
 }
 
 
-// NOT EXACT: 0x521C10 (frame layout: the same code, but four strings and three RefCountPtrs sit in other stack slots; and the level requirement reads &Item->TemplateInfo then its Referent where ours folds [eax+0x5C])
+// NOT EXACT: 0x521C10 (0.85, register allocation only: the Unknown529810 property's Create and its Route take edx / eax where ours take eax / edx; tried a local id, a named RefCountPtr, both worse)
 void ClientItemPropertyBuilderClass::Unknown_521C10(UIItemExaminationPropertyRouterBaseClass &router)
 {
 	std::string maker = Data->Unknown_688830()->Get_Builder_Name(Slot);	// NAME 1 [maker, name, maker2, value, quality, level, structure, tooltip]: neutral
@@ -32,11 +32,11 @@ void ClientItemPropertyBuilderClass::Unknown_521C10(UIItemExaminationPropertyRou
 	router.Route(ClientItemPropertyNameClass::Create(name));
 	router.Route(ClientItemPropertyUnknown529810Class::Create(Item->Unknown08));
 	router.Route(ClientItemPropertyIconClass::Create(Create_Get(((Unknown831340Class *)Item)->Unknown_831840())));
-	int value = 0;
-	if (Item->Get_Template_Info()->Get_Int(ITEM_INFO_TYPE, &value)) {
-		router.Route(ClientItemPropertyTypeClass::Create(Item->Unknown48, value, Item->Unknown08));
+	int value = 0; const RefCountPtr<ItemInfoClass> &template_info = Item->Get_Template_Info();
+	if (template_info->Get_Int(ITEM_INFO_TYPE, &value)) {
+		int id = Item->Unknown08; int type = Item->Unknown48; router.Route(ClientItemPropertyTypeClass::Create(type, value, id));	// NAME 1 [id, type]: neutral; both branches start with the same loads, which VC6 hoists above the branch as the client has them
 	} else {
-		router.Route(ClientItemPropertyTypeClass::Create(Item->Unknown48, Item->Unknown08));
+		int id = Item->Unknown08; int type = Item->Unknown48; router.Route(ClientItemPropertyTypeClass::Create(type, id));
 	}
 	router.Route(ClientItemPropertyDescriptionClass::Create(Item->Description));
 	float quality = Data->Unknown_688830()->Get_Quality(Slot);
@@ -72,14 +72,14 @@ void ClientItemPropertyBuilderClass::Unknown_521C10(UIItemExaminationPropertyRou
 		}
 	}
 	if (!maker.empty()) {
-		router.Route(ClientItemPropertySpecialMakerClass::Create(maker, ClientItemPropertySpecialMakerClass::MAKER_PLAYER));
+		RefCountPtr<ClientItemPropertySpecialClass> special = ClientItemPropertySpecialMakerClass::Create(maker, ClientItemPropertySpecialMakerClass::MAKER_PLAYER); router.Route(special);	// NAME 1 [special]: neutral
 	} else if (!maker2.empty()) {
-		router.Route(ClientItemPropertySpecialMakerClass::Create(maker2, ClientItemPropertySpecialMakerClass::MAKER_CORPORATION));
+		RefCountPtr<ClientItemPropertySpecialClass> special = ClientItemPropertySpecialMakerClass::Create(maker2, ClientItemPropertySpecialMakerClass::MAKER_CORPORATION); router.Route(special);
 	}
 }
 
 
-// NOT EXACT: 0x522860 (functional, 0.61: the same calls, strings and asserts in order; the frame is 0xC smaller, VC6 inlines string assigns in other cases, and case 35 releases its property through the RefCountPtr the flags use, 0x529130)
+// NOT EXACT: 0x522860 (functional, 0.62: the same calls, strings and asserts in order; the frame is 0xC smaller, and the inline budget falls differently: the client expands the string constructors in cases 26 / 29 / 33 and calls them in the Modes case, ours the reverse; case 26 keeps its level in ebx, ours in esi)
 void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRouterBaseClass &router)
 {
 	Data->Unknown_688830()->Get_Quality(Slot);
@@ -227,7 +227,7 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 			}
 			if (actual < base) {
 				level = 0;
-			} else if (base < actual) {
+			} else if (actual > base) {
 				level = 2;
 			}
 			RefCountPtr<ClientItemPropertyAttributeClass> property = ClientItemPropertyAttributeIntegerClass::Create(5, "Damage", "units", "Base damage inflicted by weapon", 0, base, actual, level);
@@ -241,11 +241,11 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 			int actual = base;
 			if (info->Has_Field(ITEM_INFO_EFFECT_RANGE)) {
 				info->Get_Int(ITEM_INFO_EFFECT_RANGE, &actual);
-				if (base <= actual) {
-					level = 2;
-				} else {
-					level = 0;
-				}
+				level = (actual < base) ? 0 : 2;
+
+
+
+
 			}
 			RefCountPtr<ClientItemPropertyAttributeClass> property = ClientItemPropertyAttributeDistanceClass::Create(10, "Effect Range", "Range of effect.", 1, base, actual, level);
 			router.Route(property);
@@ -258,11 +258,11 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 			int actual = base;
 			if (info->Has_Field(ITEM_INFO_EFFECT_RADIUS)) {
 				info->Get_Int(ITEM_INFO_EFFECT_RADIUS, &actual);
-				if (base <= actual) {
-					level = 2;
-				} else {
-					level = 0;
-				}
+				level = (actual < base) ? 0 : 2;
+
+
+
+
 			}
 			RefCountPtr<ClientItemPropertyAttributeClass> property = ClientItemPropertyAttributeDistanceClass::Create(10, "Effect Radius", "Radius of effect.", 1, base, actual, level);
 			router.Route(property);
@@ -293,10 +293,10 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 
 				G_ASSERT(ok);
 			}
-			if (base < actual) {
-				level = 0;
-			} else if (actual < base) {
+			if (actual < base) {
 				level = 2;
+			} else if (actual > base) {
+				level = 0;
 			}
 			RefCountPtr<ClientItemPropertyAttributeClass> property = ClientItemPropertyAttributeFloatClass::Create(6, "Energy Use", "units", "Energy required to activate item", 0, base, actual, level);
 			router.Route(property);
@@ -316,10 +316,10 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 
 				G_ASSERT(ok);
 			}
-			if (base < actual) {
-				level = 0;
-			} else if (actual < base) {
+			if (actual < base) {
 				level = 2;
+			} else if (actual > base) {
+				level = 0;
 			}
 			RefCountPtr<ClientItemPropertyAttributeClass> property = ClientItemPropertyAttributeFloatClass::Create(6, "Energy Drain", "units/sec", "Energy required to activate item", 0, base, actual, level);
 			router.Route(property);
@@ -379,7 +379,7 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 			}
 			if (actual < base) {
 				level = 0;
-			} else if (base < actual) {
+			} else if (actual > base) {
 				level = 2;
 			}
 			RefCountPtr<ClientItemPropertyAttributeClass> property = ClientItemPropertyAttributeFloatClass::Create(6, "Maneuverability", "units", "Ability to defeat anti-missile systems", 0, (float)base, (float)actual, level);
@@ -402,7 +402,7 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 			}
 			if (actual < base) {
 				level = 0;
-			} else if (base < actual) {
+			} else if (actual > base) {
 				level = 2;
 			}
 			RefCountPtr<ClientItemPropertyAttributeClass> property = ClientItemPropertyAttributeFloatClass::Create(6, "Max Power", "units", "Maximum amount of power this reactor can hold", 0, (float)base, (float)actual, level);
@@ -427,11 +427,11 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 			int actual = base;
 			if (info->Has_Field(ITEM_INFO_RANGE)) {
 				info->Get_Int(ITEM_INFO_RANGE, &actual);
-				if (base <= actual) {
-					level = 2;
-				} else {
-					level = 0;
-				}
+				level = (actual < base) ? 0 : 2;
+
+
+
+
 			}
 			RefCountPtr<ClientItemPropertyAttributeClass> property = ClientItemPropertyAttributeDistanceClass::Create(6, "Range", "The maximum targeting range of the item.", 0, base, actual, level);
 			router.Route(property);
@@ -444,11 +444,11 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 			float actual = base;
 			if (info->Has_Field(ITEM_INFO_RECHARGE)) {
 				info->Get_Float(ITEM_INFO_RECHARGE, &actual);
-				if (base <= actual) {
-					level = 2;
-				} else {
-					level = 0;
-				}
+				level = (actual < base) ? 0 : 2;
+
+
+
+
 			}
 			RefCountPtr<ClientItemPropertyAttributeClass> property = ClientItemPropertyAttributeFloatClass::Create(6, "Recharge", "units/sec", "The amount of energy regenerated per second.", 0, base, actual, level);
 			router.Route(property);
@@ -461,11 +461,11 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 			int level = 1;
 			if (info->Has_Field(ITEM_INFO_RELOAD_TIME)) {
 				info->Get_Float(ITEM_INFO_RELOAD_TIME, &actual);
-				if (base <= actual) {
-					level = 2;
-				} else {
-					level = 0;
-				}
+				level = (actual < base) ? 0 : 2;
+
+
+
+
 			}
 			RefCountPtr<ClientItemPropertyAttributeClass> property = ClientItemPropertyAttributeSecondsClass::Create(6, "Reload Time", "The number of seconds that must elapse between activations.", 0, base, actual, level);
 			router.Route(property);
@@ -478,11 +478,11 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 			int actual = base;
 			if (info->Has_Field(ITEM_INFO_ROUNDS_FIRED)) {
 				info->Get_Int(ITEM_INFO_ROUNDS_FIRED, &actual);
-				if (base <= actual) {
-					level = 2;
-				} else {
-					level = 0;
-				}
+				level = (actual < base) ? 0 : 2;
+
+
+
+
 			}
 			RefCountPtr<ClientItemPropertyAttributeClass> property = ClientItemPropertyAttributeIntegerClass::Create(6, "Rounds Fired", "rounds", "The number of rounds fired per burst.", 1, base, actual, level);
 			router.Route(property);
@@ -526,10 +526,10 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 
 				G_ASSERT(ok);
 			}
-			if (base < actual) {
-				level = 0;
-			} else if (actual < base) {
+			if (actual < base) {
 				level = 2;
+			} else if (actual > base) {
+				level = 0;
 			}
 			RefCountPtr<ClientItemPropertyAttributeClass> property = ClientItemPropertyAttributeFloatClass::Create(6, "Shield Use", "units", "Shield energy required to activate item", 0, base, actual, level);
 			router.Route(property);
@@ -551,7 +551,7 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 			}
 			if (actual < base) {
 				level = 0;
-			} else if (base < actual) {
+			} else if (actual > base) {
 				level = 2;
 			}
 			RefCountPtr<ClientItemPropertyAttributeClass> property = ClientItemPropertyAttributeIntegerClass::Create(6, "Capacity", "units", "Maximum amount of damage this shield can absorb when fully charged.", 0, base, actual, level);
@@ -572,10 +572,10 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 
 				G_ASSERT(ok);
 			}
-			if (base < actual) {
-				level = 0;
-			} else if (actual < base) {
+			if (actual < base) {
 				level = 2;
+			} else if (actual > base) {
+				level = 0;
 			}
 			RefCountPtr<ClientItemPropertyAttributeClass> property = ClientItemPropertyAttributeFloatClass::Create(6, "Shield Drain", "units/sec", "Shield energy required to activate item", 0, base, actual, level);
 			router.Route(property);
@@ -588,11 +588,11 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 			float actual = base;
 			if (info->Has_Field(ITEM_INFO_SHIELD_RECHARGE)) {
 				info->Get_Float(ITEM_INFO_SHIELD_RECHARGE, &actual);
-				if (base <= actual) {
-					level = 2;
-				} else {
-					level = 0;
-				}
+				level = (actual < base) ? 0 : 2;
+
+
+
+
 			}
 			RefCountPtr<ClientItemPropertyAttributeClass> property = ClientItemPropertyAttributeFloatClass::Create(6, "Recharge", "units/sec", "The amount of shield energy regenerated per second.", 0, base, actual, level);
 			router.Route(property);
@@ -635,7 +635,7 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 			}
 			if (actual < base) {
 				level = 2;
-			} else if (base < actual) {
+			} else if (actual > base) {
 				level = 0;
 			}
 			RefCountPtr<ClientItemPropertyAttributeClass> property = ClientItemPropertyAttributeDistanceClass::Create(6, "Signature", "Specifies an increased distance that an NPC will notice the player when engine is equipped.", 0, base, actual, level);
@@ -662,7 +662,7 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 			}
 			if (actual < base) {
 				level = 0;
-			} else if (base < actual) {
+			} else if (actual > base) {
 				level = 2;
 			}
 			RefCountPtr<ClientItemPropertyAttributeClass> property = ClientItemPropertyAttributeIntegerClass::Create(6, "Thrust", "units", "Higher thrust values will increase the ship's maximum speed.", 0, base, actual, level);
@@ -697,7 +697,7 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 			}
 			if (actual < base) {
 				level = 0;
-			} else if (base < actual) {
+			} else if (actual > base) {
 				level = 2;
 			}
 			RefCountPtr<ClientItemPropertyAttributeClass> property = ClientItemPropertyAttributeIntegerClass::Create(6, "Warp", "", "Shows how fast the ship will travel while warping with this engine equipped.", 0, base, actual, level);
@@ -718,10 +718,10 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 
 				G_ASSERT(ok);
 			}
-			if (base < actual) {
-				level = 2;
-			} else if (actual < base) {
+			if (actual < base) {
 				level = 0;
+			} else if (actual > base) {
+				level = 2;
 			}
 			RefCountPtr<ClientItemPropertyAttributeClass> property = ClientItemPropertyAttributeFloatClass::Create(6, "Warp Drain", "units/sec", "How fast engine will drain reactor when in free warp (warping with no target.)", 0, base, actual, level);
 			router.Route(property);
@@ -772,10 +772,10 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 
 				G_ASSERT(ok);
 			}
-			if (base < actual) {
-				level = 2;
-			} else if (actual < base) {
+			if (actual < base) {
 				level = 0;
+			} else if (actual > base) {
+				level = 2;
 			}
 			RefCountPtr<ClientItemPropertyAttributeClass> property = ClientItemPropertyAttributeFloatClass::Create(7, "Build Value", "levels", "Improvement in Build/Refine ability when used.", 0, base, actual, level);
 			router.Route(property);
@@ -795,10 +795,10 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 
 				G_ASSERT(ok);
 			}
-			if (base < actual) {
-				level = 2;
-			} else if (actual < base) {
+			if (actual < base) {
 				level = 0;
+			} else if (actual > base) {
+				level = 2;
 			}
 			RefCountPtr<ClientItemPropertyAttributeClass> property = ClientItemPropertyAttributePercentClass::Create(8, "Critical", "Improvement in chances for a Critical Success when used.", 0, base, actual, level);
 			router.Route(property);
@@ -809,7 +809,7 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 }
 
 
-// NOT EXACT: 0x527F40 (0.78: the same code; the client pushes esi at entry, ours after the FAIL_IF, and its frame is 8 bytes bigger)
+// 0x527F40
 void ClientItemPropertyBuilderClass::Unknown_527F40(UIItemExaminationPropertyRouterBaseClass &router)
 {
 	const RefCountPtr<ItemInfoClass> &template_info = Item->Get_Template_Info();
@@ -821,19 +821,19 @@ void ClientItemPropertyBuilderClass::Unknown_527F40(UIItemExaminationPropertyRou
 	if (!delta.empty()) {
 		effects.Set_Summary(delta);
 	}
-	Unknown_528460(router, effects.Get_Effects());
+	Unknown_528460(router, effects);
 	ItemEffectDescriptionClass effects2 = template_info->Get_Equip_Effects();
 	std::string delta2 = Data->Unknown_688830()->Get_Instance_Equip_Effect_Info(Slot);
 	if (!delta2.empty()) {
 		effects2.Set_Summary(delta2);
 	}
-	Unknown_528460(router, effects2.Get_Effects());
+	Unknown_528460(router, effects2);
 }
 
-void ClientItemPropertyBuilderClass::Unknown_528460(UIItemExaminationPropertyRouterBaseClass &router, const std::vector<ItemEffectClass> &effects)
+void ClientItemPropertyBuilderClass::Unknown_528460(UIItemExaminationPropertyRouterBaseClass &router, const ItemEffectDescriptionClass &effects)
 {
-	unsigned int count = effects.size();	// unused: an inline layer the client spends budget on (0x527F40 calls the RefCountPtr copies out of line)  // NAME 1 [count]: neutral
-	for (std::vector<ItemEffectClass>::const_iterator it = effects.begin(); it != effects.end(); ++it) {	// NAME 1 [it, special]: neutral
+	unsigned int count = effects.Get_Effects().size();	// unused: an inline layer the client spends budget on (0x527F40 calls the RefCountPtr copies and both strings' _Tidy out of line)  // NAME 1 [count]: neutral
+	for (std::vector<ItemEffectClass>::const_iterator it = effects.Get_Effects().begin(); it != effects.Get_Effects().end(); ++it) {	// NAME 1 [it, special]: neutral
 		RefCountPtr<ClientItemPropertySpecialClass> special = ClientItemPropertySpecialEffectClass::Create(*it);
 		router.Route(special);
 	}
@@ -882,4 +882,10 @@ void ClientItemPropertyBuilderClass::Unknown_5285A0(UIItemExaminationPropertyRou
 **	copy: level 0 worse, 1 unchanged, 2 better; the requirements; the asserts on the client's lines 155-796) and
 **	0x527F40 (inline budget) NOT EXACT. The callees in files the tree does not have yet are declared in
 **	client_item_property_builder.h (interim, D137).
+**	CIPB, run 2026-11-17b: 0x527F40 exact once 0x528460 takes the ItemEffectDescriptionClass (its vector at +0) and
+**	reads Get_Effects() in the loop: the extra inline accessor layer is the budget that sends both strings' _Tidy
+**	out of line and puts delta above delta2 in the frame. 0x521C10 0.70 -> 0.85: Get_Int through a template_info
+**	reference (the client does not fold &Item->TemplateInfo), the maker properties through a named
+**	RefCountPtr<ClientItemPropertySpecialClass> (the client converts into a local at 0x20, overlaying the structure
+**	property: this one change put every string and RefCountPtr in the client's slots), the type branch's loads per branch.
 */

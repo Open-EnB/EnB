@@ -252,8 +252,8 @@ function) in this form:
 The client was built with **Visual C++ 6.0** **Service Pack 4** (compiler build 8799, confirmed; [toolchain.md](toolchain.md)) and linked by LINK 6.0
 (see [binary.md](binary.md)). The code should be valid VC6 C++: no `nullptr`, `auto`,
 `override`, range-for, `<cstdint>`; `for`-loop variables leak into the enclosing scope under VC6
-(write code that works either way); STL is VC6's Dinkumware (or STLport, as Generals used; which
-one E&B used isn't known yet).
+(write code that works either way); STL is VC6's Dinkumware (rtti.txt's `std@@` types include its
+`_Mpunct`; no STLport `_STL@@`), with an SGI-lineage hash_map / hash_set on top (D87, `libs/sgistl/`).
 
 The code is meant to build with a modern MSVC too (the playable build, not set up yet), so it must
 also be valid standard C++ (the `for`-scope rule above is why). Where VC6 and the standard disagree, use a macro in a

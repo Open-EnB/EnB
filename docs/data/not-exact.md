@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-857 entries in 297 files.
+852 entries in 296 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -231,10 +231,9 @@ edit the comments in the code, not this file.
 | `app/client/inv_trade_render.cpp:64` | `InvTradeRenderClass::Unknown_2C` | marker | NOT EXACT: 0x68FE10, 26 rows: register and block order (the item's name arm sits after the function's last jump in the client) 0x68FE10 |
 | `app/client/inv_transaction.cpp:118` | `InvTransactionClass::Unknown_690AA0` | marker | NOT EXACT: 0x690AA0, 17 rows: register, and the client keeps State = 2 before the else 0x690AA0 |
 | `app/client/inv_transaction.cpp:170` | `InvTransactionClass::Unknown_690D20` | marker | NOT EXACT: 0x690D20, 20 rows: register and order of the packet's arguments 0x690D20 |
-| `app/client/item/client_item_property_builder.cpp:26` | `ClientItemPropertyBuilderClass::Unknown_521C10` | marker | NOT EXACT: 0x521C10 (frame layout: the same code, but four strings and three RefCountPtrs sit in other stack slots; and the level requirement reads &Item->TemplateInfo then its Referent where ours folds [eax+0x5C]) |
-| `app/client/item/client_item_property_builder.cpp:82` | `ClientItemPropertyBuilderClass::Unknown_522860` | marker | NOT EXACT: 0x522860 (functional, 0.61: the same calls, strings and asserts in order; the frame is 0xC smaller, VC6 inlines string assigns in other cases, and case 35 releases its property through the RefCountPtr the flags use, 0x529130) |
-| `app/client/item/client_item_property_builder.cpp:812` | `ClientItemPropertyBuilderClass::Unknown_527F40` | marker | NOT EXACT: 0x527F40 (0.78: the same code; the client pushes esi at entry, ours after the FAIL_IF, and its frame is 8 bytes bigger) |
-| `app/client/item/client_item_property_builder.cpp:883` | `ClientItemPropertyBuilderClass::Unknown_5285A0` | mention | NOT EXACT. The callees in files the tree does not have yet are declared in client_item_property_builder.h (interim, D137). |
+| `app/client/item/client_item_property_builder.cpp:26` | `ClientItemPropertyBuilderClass::Unknown_521C10` | marker | NOT EXACT: 0x521C10 (0.85, register allocation only: the Unknown529810 property's Create and its Route take edx / eax where ours take eax / edx; tried a local id, a named RefCountPtr, both worse) |
+| `app/client/item/client_item_property_builder.cpp:82` | `ClientItemPropertyBuilderClass::Unknown_522860` | marker | NOT EXACT: 0x522860 (functional, 0.62: the same calls, strings and asserts in order; the frame is 0xC smaller, and the inline budget falls differently: the client expands the string constructors in cases 26 / 29 / 33 and calls them in the Modes case, ours the reverse; case 26 keeps its level in ebx, ours in esi) |
+| `app/client/item/client_item_property_builder.cpp:883` | `ClientItemPropertyBuilderClass::Unknown_5285A0` | mention | NOT EXACT. The callees in files the tree does not have yet are declared in client_item_property_builder.h (interim, D137). CIPB, run 2026-11-17b: 0x527F40 exact once 0x528460 takes the ItemEffectDescriptionClass (its vector at +0) and reads Get_Effects() in the loop: the extra inline accessor layer is the budget that sends both strings' _Tidy out of line and puts delta above delta2 in the frame. 0... |
 | `app/client/item/client_item_property_special_level_requirement.cpp:91` | `ClientItemPropertySpecialLevelRequirementClass::Is_Usable` | marker | NOT EXACT: 0x531080 (inline-budget: the client calls UnknownRTTIClass<DeltaTemplateClass<int> >::Cast out of line, 0x531590, and compares Value < Level after reloading this; the rest, asserts and lines match) |
 | `app/client/item/client_item_property_special_profession_requirement.cpp:102` | `ClientItemPropertySpecialProfessionRequirementClass::Is_Usable` | marker | NOT EXACT: 0x52D900 (register-only: the client tests and casts the found field in eax, ours copies it to ecx first; the same code, asserts and lines) |
 | `app/client/item/client_item_property_special_race_requirement.cpp:108` | `ClientItemPropertySpecialRaceRequirementClass::Is_Usable` | marker | NOT EXACT: 0x52E500 (register-only: the client tests and casts the found field in eax, ours copies it to ecx first; the same code, asserts and lines) |
@@ -271,8 +270,7 @@ edit the comments in the code, not this file.
 | `app/client/nlp.cpp:460` | `PlayerNLPClass::Unknown_78F050` | marker | NOT EXACT: functional for POC (D64), shape (a merged or split tail) |
 | `app/client/option.cpp:810` | `OptionClass::Get_String` | marker | NOT EXACT: shape, block order: this order gives the client's inlining (the "" path calls _Grow) but places the "" path first; the client places the copy first |
 | `app/client/option.cpp:856` | `OptionClass::Get_Default_String` | marker | NOT EXACT: shape, as Get_String |
-| `app/client/pdaint.cpp:208` | `PDAInterfaceClass::Unknown_68` | mention | NOT EXACT: inline-budget (cases in the client's code order; the client inlines the 18 window releases of PDA_Close_Chat_Window, each in its own stack slots, ours calls them: 0.38)) |
-| `app/client/pdaint.cpp:530` | `PDAInterfaceClass::Unknown_695780` | mention | NOT EXACT: shape (the client places the epilogue after the first FAIL_IF and copies the Set_View tail into each case: 0.64)) |
+| `app/client/pdaint.cpp:208` | `PDAInterfaceClass::Unknown_68` | mention | NOT EXACT: layout and registers (0.78): the client keeps 0 in ebx only inside case 1, and places the play tail right after case 10's active branch) |
 | `app/client/pdaint.cpp:747` | `PDAInterfaceClass::Unknown_695FE0` | mention | NOT EXACT: block order (the client puts the off branch's own return first: 0.59)) |
 | `app/client/postate.cpp:920` | `Unknown717010Class::Unknown_717430` | marker | NOT EXACT: inline-budget (the client calls the float field's Cast 0x546970 out of line in the first lookups, ours inlines all; 286 vs 314 instructions; one form; attempts.py show 0x717430) |
 | `app/client/postate.cpp:1012` | `Unknown717010Class::Unknown_7179A0` | marker | NOT EXACT: inline-budget (the client calls the bool field's Cast 0x584FF0 out of line for 'AutoLevel', ours inlines it; register-only after; one form; attempts.py show 0x7179A0) |
@@ -570,7 +568,6 @@ edit the comments in the code, not this file.
 | `app/client/ui_shipcust.cpp:1908` | `ShipCustomizeInterface::Unknown_627200` | marker | NOT EXACT: functional (D64) @0x627200 |
 | `app/client/ui_skills.cpp:187` | `UISkillsClass::Unknown_62D730` | marker | NOT EXACT: functional (D64), from the pseudocode |
 | `app/client/ui_slot_data.cpp:110` | `SlotDataInterface::SlotDataInterface` | marker | NOT EXACT: functional (D64), from the pseudocode |
-| `app/client/ui_slot_data.cpp:178` | `SlotDataInterface::~SlotDataInterface` | marker | NOT EXACT: functional (D64), from the pseudocode |
 | `app/client/ui_slot_info.cpp:135` | `UISlotInfoClass::Unknown_630070` | marker | NOT EXACT: functional (D64), from the pseudocode |
 | `app/client/ui_slot_scut.cpp:90` | `SlotDataShortcutInterface::Update` | marker | NOT EXACT: one out-of-line begin() more than the client in the last set's destructor (attempts.py show 0x6309F0) @0x6309F0 |
 | `app/client/ui_starbase.cpp:678` | `UIStarbaseClass::Unknown_54` | marker | NOT EXACT: 0x634140, functional from the pseudocode (D64; SU1): the window's set-up (slot +0x54): the full-screen gadget, the +0x1F8 interface, the player's avatar entry with its name and guild texts, the 14 NPC slots, the four terminals, the four doors with their signs, the ship on the hangar's extents, the bar and table models and the '%s_%dmd' animated models 0x634140 |
@@ -682,8 +679,8 @@ edit the comments in the code, not this file.
 | `app/common/optdlg.cpp:489` | `Unknown_8476C0` | marker | NOT EXACT: functional (D64), as 0x847630: the inlined 0x846CD0's first test (the client loads the first Type into ecx and the table into eax before comparing); the rest, servers.ini's list and the folder browser, is the client's |
 | `app/common/optdlg.cpp:584` | `Unknown_847BB0` | marker | NOT EXACT: functional (D64), as 0x847630: the inlined 0x846CD0's first test |
 | `app/common/optdlg.cpp:603` | `Unknown_847C40` | marker | NOT EXACT: functional (D64), as 0x847630: the inlined 0x846CD0's first test |
-| `app/common/stredit.cpp:21` | `StrEditClass::StrEditClass` | mention | NOT EXACT for it. <string>'s guarded initialiser at 0x84B330 ends the object (workflow.md 3.3): the client's next function, 0x84B360 ("Effect Radius : %d"), is another file's. |
-| `app/common/stredit.cpp:190` | `StrEditClass::Process_Key` | marker | NOT EXACT: the modifier bits (0.58): the client tests the event's flags as bit-fields, see the notes |
+| `app/common/stredit.cpp:22` | `StrEditClass::StrEditClass` | mention | NOT EXACT: the shared tail. <string>'s guarded initialiser at 0x84B330 ends the object (workflow.md 3.3): the client's next function, 0x84B360 ("Effect Radius : %d"), is another file's. |
+| `app/common/stredit.cpp:191` | `StrEditClass::Process_Key` | marker | NOT EXACT: shape (0.78, 26 rows): the client keeps the delete / backspace shared tail (and ecx, 3; rep movsb; StrLen--; result) in the backspace block, ours in the delete block |
 | `app/common/target_generator_summary.cpp:92` | `String_To_Value` | marker | NOT EXACT: inline-budget (the temporary string's _Eos stays out of line in the client, and value lives in ebx) |
 | `app/common/tcpconn.cpp:661` | `TCPListenerClass::Listen` | marker | NOT EXACT: ours merges the two `ret == SOCKET_ERROR` failure tails (lines 706 / 716); the client keeps both. |
 | `app/common/udpconn.cpp:126` | `UDPConnection::UDPConnection` | marker | NOT EXACT: two register choices (con's Ip_ / Port_ reads, the openc tail); Encrypt stays unset |
@@ -731,11 +728,9 @@ edit the comments in the code, not this file.
 | `app/shared/definition_manager.h:115` | `?` | marker | NOT EXACT: shape (explain.py), two registers swapped in the inlined hashtable destructor and one EH state store more in ours (0x4EAFB0) |
 | `app/shared/dynamic_obj.cpp:9` | `DynObj::DynObj` | marker | NOT EXACT: shape (the client duplicates the epilogue into the allocation-failed path; attempts.py show 0x44AC70) |
 | `app/shared/dynamic_obj.cpp:18` | `DynObj::DynObj` | marker | NOT EXACT: register (the source's PxWrapper in edi, ours in ecx; attempts.py show 0x44ADA0) |
-| `app/shared/enbassetmgr.cpp:302` | `ENBAssetManager::Recolor_Texture` | marker | NOT EXACT: register-only (explain.py: identical once registers are normalised; the client loads the mip count after pushing the format, ours before; 19 argument forms, attempts.py show 0x48CB40); the logic is the client's (D64) |
+| `app/shared/enbassetmgr.cpp:333` | `ENBAssetManager::Recolor_Texture` | marker | NOT EXACT: register-only (explain.py: identical once registers are normalised; the client loads the mip count after pushing the format, ours before; 19 argument forms, attempts.py show 0x48CB40); the logic is the client's (D64) |
 | `app/shared/expr/expr_math_builder.h:71` | `?` | marker | NOT EXACT: 0x4CB260 (float), 0x4CFB00 (int): the client releases left on the first early return and leaves right to a shared exit; ours releases both in place |
-| `app/shared/expr/expr_math_eval_impl.h:301` | `EXPR_MATH_COMPARE_CLASS` | marker | NOT EXACT: float only (0x4C8920): the client's float copy has no EH frame for new; int's is exact (attempts.csv) |
-| `app/shared/expr/expr_math_eval_impl.h:358` | `EXPR_MATH_COMPARE_CLASS` | marker | NOT EXACT: float only (0x4C9010): the client's float copy has no EH frame for new; int's is exact (attempts.csv) |
-| `app/shared/expr/expr_math_int.cpp:93` | `ExprMathIntFactoryClass::Create_Unary` | marker | NOT EXACT: 0x4CC120 similarity 0.78: the client inlines more of the five groups' assignments (float's form, 0x4C8370, is exact) @0x4CC120 |
+| `app/shared/expr/expr_math_int.cpp:96` | `ExprMathIntFactoryClass::Create_Unary` | marker | NOT EXACT: 0x4CC120 similarity 0.78: the client inlines more of the five groups' assignments (float's form, 0x4C8370, is exact) @0x4CC120 |
 | `app/shared/expr/expr_math_parser_impl.cpp:33` | `ExprMathParserImplClass::Add_Similar` | marker | NOT EXACT: the loop latch reloads it / &it->Ops in the other order (2 instructions swapped, same length) |
 | `app/shared/expr/expr_math_parser_impl.cpp:81` | `ExprMathParserImplClass::Parse_Level` | marker | NOT EXACT: the level > size guard keeps its own return NULL, and the token's destructor is inline / called on the other two exits |
 | `app/shared/fp_ita.cpp:117` | `FpItaClass::Unknown_04` | marker | NOT EXACT (0.93, attempts.py 0x448D00): order: the client multiplies inv * dir.X (the factor loaded first) and pushes edx after Inv_Sqrt 0x448D00 |
@@ -807,7 +802,7 @@ edit the comments in the code, not this file.
 | `app/shared/rs_track.cpp:11` | `RsTrackClass::RsTrackClass` | marker | NOT EXACT: shape (0.82): the client stores the vtables before loading RenderStateList's +0x2C byte and compares the inlined assert's pointer with ebx |
 | `app/shared/rs_track.cpp:34` | `RsTrackClass::RsTrackClass` | marker | NOT EXACT: shape (0.83): as 0x45FDA0 |
 | `app/shared/rs_track.cpp:507` | `RsTrackClass::Unknown_1C8` | marker | NOT EXACT: shape (0.75): the client saves edi after the early returns; the last call loads UnknownC4 into ecx |
-| `app/shared/split_string.cpp:28` | `SplitStringClass::Split` | marker | NOT EXACT: register and stack-slot allocation of in / out / skip (the client keeps skip in the cursor argument's slot); 2 forms |
+| `app/shared/split_string.cpp:28` | `SplitStringClass::Split` | marker | NOT EXACT: inline-budget: the client calls the pad lines' std::string("") assign(const char *, n) out of line, ours inlines it; then stack slots (3 forms) |
 | `app/shared/spln_db.cpp:95` | `SplineDatabaseClass::Save` | marker | NOT EXACT: shape (the filename copy and the save chunks: the client inlines Save_Chunks with Write_String and Save_Entry out of line) @0x484D00 |
 | `app/shared/spln_db.cpp:487` | `SplineDatabaseClass::Get_Color_Curves` | marker | NOT EXACT: inline-budget (the client calls HashListClass::Find out of line for _G only) |
 | `app/shared/spln_db.cpp:710` | `SplineDatabaseClass::Create_Hermite` | marker | NOT EXACT: inline-budget (the client calls GenericNode's constructor out of line inside the new HashNodeClass, so the new keeps an EH state) |

@@ -279,7 +279,7 @@ void StarmapDataClass::Create_Mesh()
 	r2t.Orthographic = true;
 	r2t.Format = WW3D_FORMAT_R5G6B5;
 	Texture = Create_Peek(r2t.Render_TextureMap(robj, &sphere));
-	Mesh = Create_Peek((DynamicMeshClass *)new StarmapMeshClass(Unknown_B9F38C, Unknown_B9F390));
+	Mesh = Create_NEW((DynamicMeshClass *)new StarmapMeshClass(Unknown_B9F38C, Unknown_B9F390));
 	Mesh->Disable_Sort();
 	Mesh->Set_Sort_Level(4);
 	MeshSize = -1.0f;
@@ -365,4 +365,6 @@ const int Unknown_B9F390 = 4;
 **
 **	The client's __FILE__ 0xB9F3A4. The object opens with the two Vector2i statics' initialisers at 0x7BE600 and
 **	0x7BE620; 0x7BE5A0, before them, closes radar_system_data_cache.cpp (it numbers two locale facets from 0xBE3B44).
+**	Create_Mesh wraps the new mesh with Create_NEW (no Add_Ref: the client's out-of-line copy 0x7BF770 stores the
+**	pointer alone and the caller's operator= adds the one reference).
 */

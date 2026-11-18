@@ -15,7 +15,8 @@
   "0x4A4B80",
   "0x4A4BB0",
   "0x4A4C00",
-  "0x4A4C30"
+  "0x4A4C30",
+  "0x4A4C60"
  ],
  "merged": [],
  "name": "shared/auxdata/bitset.cpp"

@@ -186,9 +186,6 @@
 "??0SBaseViewUnknown188Class@@QAE@PAVUIViewClass@@PAVLayerClass@@@Z": [
 "0x5435D0"
 ],
-"??0SBaseViewUnknown198Class@@QAE@PAVSClient@@@Z": [
-"0x65A020"
-],
 "??0ScaleTextureMapperClass@@QAE@ABVVector2@@I@Z": [
 "0x932180"
 ],
@@ -750,6 +747,9 @@
 "?Enter_Child@WWProfileIterator@@QAEXH@Z": [
 "0x9EBA00"
 ],
+"?Enter_Parent@WWProfileIterator@@QAEXXZ": [
+"0x9EBA40"
+],
 "?Entry_Count@INIClass@@QBEHPBD@Z": [
 "0x9C8F30"
 ],
@@ -1275,9 +1275,6 @@
 "?Read_PCX_File@@YAPAVSurface@@AAVFileClass@@PAVPaletteClass@@PAXJ@Z": [
 "0x9DE210"
 ],
-"?Recolor_Texture@ENBAssetManager@@QAEPAVTextureClass@@PBDPAMW4MipCountType@@@Z": [
-"0x48B7B0"
-],
 "?Register_Application_Exception_Callback@@YAXP6AXXZ@Z": [
 "0x9CEA10"
 ],
@@ -1742,9 +1739,6 @@
 ],
 "?Unknown_497300@@YA?AV?$RefCountPtr@VRenderObjClass@@@@PAVRenderObjClass@@@Z": [
 "0x497300"
-],
-"?Unknown_540A20@@YAPAVUnknownEventDispatcherClass@@XZ": [
-"0x540A20"
 ],
 "?Unknown_565F60@ChatPanelInterface@@QAEXH@Z": [
 "0x565F60"

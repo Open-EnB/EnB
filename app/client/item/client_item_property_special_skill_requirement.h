@@ -31,7 +31,7 @@ public:
 		REQUIRED_TO_ACTIVATE = 1															// 'You must have this skill level to activate this item.' (attributes 27, 28)
 	};
 
-	static RefCountPtr<ClientItemPropertySpecialClass> Create(SClient *space_client, const std::string &skill, int level, RequirementType type);	// 0x52E760 (the sort order is the type; G_ASSERT(0) on another, line 48)  // NAME 1 [Create]: as the effect's; NAME 1 [skill, level, type]: what they hold
+	static RefCountPtr<ClientItemPropertySpecialSkillRequirementClass> Create(SClient *space_client, const std::string &skill, int level, RequirementType type);	// 0x52E760 (the sort order is the type; G_ASSERT(0) on another, line 48)  // NAME 1 [Create]: as the effect's; NAME 1 [skill, level, type]: what they hold
 
 	ClientItemPropertySpecialSkillRequirementClass(SClient *space_client, int sort_order, const std::string &tooltip, const std::string &skill, int level);	// 0x52E9E0  // NAME 1 [space_client, sort_order, tooltip, skill, level]: the members they fill
 	virtual ~ClientItemPropertySpecialSkillRequirementClass();								// 0x52EBE0 (deleting 0x52EBB0)

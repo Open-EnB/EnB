@@ -26,8 +26,8 @@ public:
 };
 
 // The interface event dispatcher (0x540A20 returns its function-local static at 0xBE5AF0), as ui_chat_panel.cpp declares it
-class UnknownEventDispatcherClass;
-UnknownEventDispatcherClass *Unknown_540A20();			// 0x540A20 (intrface.cpp)  // NAME 1: neutral (D10)
+
+
 
 // What InterfaceClass::Client points to, as far as this file calls it (as ui_chat_panel.cpp declares it)
 class LineDisplayClientClass  // NAME 1: neutral (D10)
@@ -293,7 +293,7 @@ bool ChatWindowInterface::Unknown_68(int key)
 {
 	switch (key) {
 		case 1:
-			((SignalMap *)Unknown_540A20())->emit(this, ChatWindowInterfaceEvent(1));
+			InterfaceClass::Get_Signal_Map().emit(this, ChatWindowInterfaceEvent(1));
 			break;
 		case 2:
 			Unknown_C4(1, 0);

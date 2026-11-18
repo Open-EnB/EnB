@@ -872,7 +872,7 @@ void ScriptedMovieViewClass::Unknown_802330(float time)
 
 
 // 0x8023A0
-void ScriptedMovieViewClass::Unknown_8023A0(bool on)
+void ScriptedMovieViewClass::Unknown_18(bool on)
 {
 	G_ASSERT(ClientInterface);
 	if (on) {

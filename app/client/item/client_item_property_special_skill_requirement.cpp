@@ -31,7 +31,7 @@ template<class C> inline C *Unknown_Find_Valid(DeltaCompoundClass *root, const N
 
 
 
-RefCountPtr<ClientItemPropertySpecialClass> ClientItemPropertySpecialSkillRequirementClass::Create(SClient *space_client, const std::string &skill, int level, RequirementType type)
+RefCountPtr<ClientItemPropertySpecialSkillRequirementClass> ClientItemPropertySpecialSkillRequirementClass::Create(SClient *space_client, const std::string &skill, int level, RequirementType type)
 {
 	std::string tooltip;
 	int sort_order;
@@ -46,7 +46,7 @@ RefCountPtr<ClientItemPropertySpecialClass> ClientItemPropertySpecialSkillRequir
 			break;
 		default:
 			G_ASSERT(0);
-			return(RefCountPtr<ClientItemPropertySpecialClass>());
+			return(RefCountPtr<ClientItemPropertySpecialSkillRequirementClass>());
 	}
 	RefCountPtr<ClientItemPropertySpecialSkillRequirementClass> requirement = Create_NEW(new ClientItemPropertySpecialSkillRequirementClass(space_client, sort_order, tooltip, skill, level));
 	return(requirement);
@@ -104,7 +104,7 @@ bool ClientItemPropertySpecialSkillRequirementClass::Is_Usable()
 /*
 **	Reconstruction notes (RECONSTRUCTED): the client's 0x52E760-0x52F9DF (__FILE__ 0xB78430,
 **	'e:\build\beta\G\app\Client\item\client_item_property_special_skill_requirement.cpp'), a skill requirement as a
-**	special property (table 0xAEE104, 0x3C bytes): Create 0x52E760 (the constructor inlined into it; G_ASSERT(0)
+**	special property (table 0xAEE104, 0x3C bytes): Create 0x52E760 (its own RefCountPtr type: 0x522860 converts the result into its local; the constructor inlined into it; G_ASSERT(0)
 **	at line 48 for another type; sort order 0 to equip, 1 to activate), the constructor 0x52E9E0, the destructors
 **	0x52EBE0 / 0x52EBB0, the table's slots 0x52EC50 (Get_Lines: 'Requires ', the skill in bold, ' level ', the level
 **	in bold) and 0x52F010 (Is_Usable: FAIL_IFs at lines 92, 95, 98 and 99; true when the player's RPGInfo.Skills

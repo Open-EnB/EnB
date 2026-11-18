@@ -153,6 +153,12 @@ void Unknown_676A00()
 	}
 }
 
+// 0x676A50 (no caller in the client)
+int Unknown_676A50()	// NAME 1: neutral (D10); it returns the entries' count
+{
+	return(Actions.Length());
+}
+
 /*
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\Client\acticon.cpp (the client's own string: G_ASSERT
@@ -168,4 +174,5 @@ void Unknown_676A00()
 **	0xBE6000 (static initialiser 0x676510; its Resize inline, the entry's constructor inline): its loop is a
 **	top-tested 'while (true)' (a 'for (;;)', 'for (;; count++)' or goto form is rotated, 0.54); 0x676A00 deletes
 **	them (SClient::Unload_INIs).
+**	2026-11-17 (U1): 0x676A50 (no caller) returns the VectorClass's length (its +8, 0xBE6008), after 0x676A00.
 */

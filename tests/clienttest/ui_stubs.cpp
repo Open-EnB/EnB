@@ -19,13 +19,7 @@
 
 // ------------------------------------------------------------------------- ui_chat_panel.cpp's dispatcher and handler
 
-class UnknownEventDispatcherClass;
-UnknownEventDispatcherClass *Unknown_540A20()	// 0x540A20 (intrface.cpp's function-local static SignalMap 0xBE5AF0): a real map, ui_chat_panel.cpp connects to it
-{
-	static SignalMap map;
-	Trace("stub Unknown_540A20");
-	return((UnknownEventDispatcherClass *)&map);
-}
+// (InterfaceClass::Get_Signal_Map, the dispatcher, is rebuilt in intrface.cpp)
 
 // ------------------------------------------------------------------------- ui_cpit.cpp's effect node and string
 

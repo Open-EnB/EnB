@@ -9,7 +9,7 @@
 #include <errno.h>
 #include <sys/types.h>
 #include <sys/stat.h>
-
+namespace std { template<> inline hashtable<pair<std::string const, PacketStatsStruct >, std::string, hash<std::string >, _Select1st<pair<std::string const, PacketStatsStruct > >, equal_to<std::string >, allocator<PacketStatsStruct > >::hashtable(size_type __n, const hasher &__hf, const key_equal &__eql) : _M_hash(__hf), _M_equals(__eql), _M_get_key(_Select1st<pair<std::string const, PacketStatsStruct > >()), _M_buckets(), _M_num_elements(0) { const size_type __n_buckets = _M_next_size(__n); _M_buckets.reserve(__n_buckets); _M_buckets.insert(_M_buckets.end(), __n_buckets, (_Node *)0); _M_num_elements = 0; } }  // Not the client's source (its sgistl form is unknown: P-L21-1, attempts row 0x71DCE0): the hashtable constructor flat gives the client's out-of-line hash_map() 0x8257D0 (reserve's size() inlined: the B form)
 INIClass &Get_Network_INI();	// connect.cpp 0x821B40
 static PacketStatsMap Packet_Stats;	// 0xBE9008 (the statistics wrapper's)  // NAME 2: what it holds
 static char Log_Directory[256];	// 0xBE9024  // NAME 2: what it holds

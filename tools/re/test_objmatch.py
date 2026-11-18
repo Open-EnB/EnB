@@ -20,9 +20,17 @@ CONTRIB_TIES (D246 / CR8): a tied COMDAT whose one survivor lies in its holder's
 function to the next object's, at most RANGE_GAP past its last): px_process.obj's vector<PxProcessClass *> helpers
 right after its code, against byte-identical copies in other files' code (`contrib`).
 Its short COMDATs (USE_CONTRIB_SHORTS): _Destroy 0x455FE0 there, at the first holder's verified start holding its bytes.
+GAP_EDGE (D246 / EX): camera_manager.obj's short getter 0x79B4D0, right after the exact setter 0x79B4B0 in a gap that
+also holds the not-exact 0x79B4F0 (short_order's count test fails), takes the next verified start after the setter's
+end (`gap_edge`). USE_EX_GAP_KNOWN: boolpars.obj's destructor and Set_Callbacks between the exact deleting destructor
+0x49A3C0 and the not-exact Parse, which symbols.json places at 0x49A430. USE_EX_GAP_PADDED: delta_interpolator.obj's
+Get_Change 0x4A6360 (nothing calls it, so no verified start) right after the destructor 0x4A6330's padding.
 CK_CALLSEQ (D246 / CK): co_data.obj's ClientObjectDataAccessClass<RadarDataClass>::Get, not exact, is located at 0x79E300 by
 Get_Radar_Data's call; its calls in order give the tied hashtable<..RadarDataClass..>::find_or_insert 0x7A0EC0 (five
 byte-identical instances), whose own calls then give its resize 0x7A3B50 (`ck_callseq`).
+CK_CALLSEQ_VTBL (D246 / CK2V): sclient.obj's MemberCallback<CameraModuleClass, SClient, ..CameraModuleSignal..> vtable,
+placed in the client by its slots the run knows, gives its short Sender_Type 0x7593E0 and Type 0x759400 their slot
+addresses (`ck_callseq`).
 """
 import os
 import sys
@@ -271,6 +279,12 @@ CONTRIB_TIES = [
 CONTRIB_SHORTS = [
     ('px_process.obj', '?_Destroy@?$vector@PAVPxProcessClass@@V?$allocator@PAVPxProcessClass@@@std@@@std@@IAEXPAPAVPxProcessClass@@0@Z', '0x455FE0'),
 ]
+GAP_EDGE = [
+    ('camera_manager.obj', '?Unknown_79B4D0@CameraManagerClass@@QAE_NXZ', '0x79B4D0'),
+    ('delta_interpolator.obj', '?Get_Change@DeltaInterpolatorClass@@QBEMXZ', '0x4A6360'),
+    ('boolpars.obj', '??1BoolParserClass@@UAE@XZ', '0x49A3F0'),
+    ('boolpars.obj', '?Set_Callbacks@BoolParserClass@@QAEXPAV?$hash_map@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@PAVBoolEvaluatorClass@@U?$hash@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@U?$equal_to@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@V?$allocator@PAVBoolEvaluatorClass@@@2@@std@@@Z', '0x49A410'),
+]
 CK_CALLSEQ = [
     ('co_data.obj', '?find_or_insert@?$hashtable@U?$pair@QAVClientObjectClass@@PAVRadarDataClass@@@std@@PAVClientObjectClass@@U?$hash@PAVClientObjectClass@@@2@U?$_Select1st@U?$pair@QAVClientObjectClass@@PAVRadarDataClass@@@std@@@2@U?$equal_to@PAVClientObjectClass@@@2@V?$allocator@PAVRadarDataClass@@@2@@std@@QAEAAU?$pair@QAVClientObjectClass@@PAVRadarDataClass@@@2@ABU32@@Z', '0x7A0EC0'),
     ('co_data.obj', '?resize@?$hashtable@U?$pair@QAVClientObjectClass@@PAVRadarDataClass@@@std@@PAVClientObjectClass@@U?$hash@PAVClientObjectClass@@@2@U?$_Select1st@U?$pair@QAVClientObjectClass@@PAVRadarDataClass@@@std@@@2@U?$equal_to@PAVClientObjectClass@@@2@V?$allocator@PAVRadarDataClass@@@2@@std@@QAEXI@Z', '0x7A3B50'),
@@ -285,8 +299,9 @@ class ShortOrder(unittest.TestCase):
 
 class GapOrder(unittest.TestCase):
     def test_cases(self):
-        # with the gap round off, the edge round (USE_EDGE_ORDER) places them at the same addresses
-        _check(self, GAP_ORDER, 'USE_GAP_ORDER', 'gap_order', APP_REGION, also_off=('USE_EDGE_ORDER',))
+        # with the gap round off, the edge round (USE_EDGE_ORDER) and the gap-edge round (USE_EX_GAP_EDGE) place them
+        # at the same addresses
+        _check(self, GAP_ORDER, 'USE_GAP_ORDER', 'gap_order', APP_REGION, also_off=('USE_EDGE_ORDER', 'USE_EX_GAP_EDGE'))
 
 
 class EdgeOrder(unittest.TestCase):
@@ -323,9 +338,166 @@ class ContribShorts(unittest.TestCase):
         _check(self, CONTRIB_SHORTS, 'USE_CONTRIB_SHORTS', 'contrib', APP_REGION, off_status='short')
 
 
+class GapEdge(unittest.TestCase):
+    def test_cases(self):
+        _check(self, GAP_EDGE, 'USE_EX_GAP_EDGE', 'gap_edge', APP_REGION, off_status='short')
+
+
+CR3_DBGCONN_HASH_MAP_DTOR = '??1?$hash_map@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@UPacketStatsStruct@@U?$hash@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@U?$equal_to@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@V?$allocator@UPacketStatsStruct@@@2@@std@@QAE@XZ'
+
+
+class Cr3GapHolder(unittest.TestCase):
+    """D246 (CR3): dbgconn.obj's ~hash_map<string, PacketStatsStruct> has copies 0x42B540 and 0x823EA0; 0x823EA0 lies
+    between connect.obj's last exact own function and dbgconn.obj's first, and only dbgconn holds the symbol."""
+    def test_gap(self):
+        paths = [os.path.join(OBJS, n) for n in ('connect.obj', 'dbgconn.obj')]
+        if not all(os.path.exists(p) for p in paths):
+            self.skipTest('connect.obj / dbgconn.obj missing')
+        img = objmatch.ClientImage(objmatch.DEFAULT_CLIENT)
+        res = {r['symbol']: r for r in objmatch.match_objects(img, paths, APP_REGION)}
+        r = res[CR3_DBGCONN_HASH_MAP_DTOR]
+        self.assertEqual((r['status'], r['addresses'], r.get('cr3_gap')), ('exact', ['0x823EA0'], True))
+        objmatch.USE_CR3_GAP_HOLDER = False
+        try:
+            res = {r['symbol']: r for r in objmatch.match_objects(img, paths, APP_REGION)}
+        finally:
+            objmatch.USE_CR3_GAP_HOLDER = True
+        self.assertEqual(res[CR3_DBGCONN_HASH_MAP_DTOR]['status'], 'multiple')
+
+
 class CkCallseq(unittest.TestCase):
     def test_cases(self):
         _check(self, CK_CALLSEQ, 'USE_CK_CALLSEQ', 'ck_callseq', APP_REGION)
+
+
+CK_CALLSEQ_VTBL = [
+    ('sclient.obj', '?Sender_Type@?$MemberCallback@VCameraModuleClass@@VSClient@@P82@AEXPAVCameraModuleSignal@@PAV1@@ZV3@@SignalBaseClass@@UBEABVtype_info@@XZ', '0x7593E0'),
+    ('sclient.obj', '?Type@?$MemberCallback@VCameraModuleClass@@VSClient@@P82@AEXPAVCameraModuleSignal@@PAV1@@ZV3@@SignalBaseClass@@UBEABVtype_info@@XZ', '0x759400'),
+]
+
+
+class CkCallseqVtbl(unittest.TestCase):
+    def test_cases(self):
+        _check(self, CK_CALLSEQ_VTBL, 'USE_CK_CALLSEQ_VTBL', 'ck_callseq', APP_REGION, off_status='short')
+
+
+VX_CREATE_BINARY_FLOAT = '?Create_Binary@?$ExprMathCompareOpsClass@M@@SA?AV?$RefCountPtr@V?$ExprMathEvalClass@M@@@@ABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@ABV2@1@Z'
+VX_SHARE_BUFFER_V2 = '??1?$ShareBufferClass@VVector2@@@@UAE@XZ'
+
+
+def _vx_results(test, name, switch, on):
+    path = os.path.join(OBJS, name)
+    if not os.path.exists(path):
+        test.skipTest(f'{path} missing')
+    img = objmatch.ClientImage(objmatch.DEFAULT_CLIENT)
+    setattr(objmatch, switch, on)
+    try:
+        return {r['symbol']: r for r in objmatch.match_objects(img, [path], APP_REGION)}
+    finally:
+        setattr(objmatch, switch, True)
+
+
+class VxVtblContra(unittest.TestCase):
+    """VX P1: expr_math_float.obj's Create_Binary<float> matches only 0x4CD270, whose vptr stores hold the <int>
+    tables (0xAEBF88: slot 2 the thunk to Evaluate<int> 0x4CE080, not Evaluate<float> 0x4C9CB0): rejected."""
+    def test_rejected(self):
+        res = _vx_results(self, 'expr_math_float.obj', 'USE_VX_VTBL_CONTRA', True)
+        self.assertNotEqual(res[VX_CREATE_BINARY_FLOAT]['status'], 'exact')
+        self.assertIn('0x4CD270', res[VX_CREATE_BINARY_FLOAT].get('vx_rejected', []))
+        res = _vx_results(self, 'expr_math_float.obj', 'USE_VX_VTBL_CONTRA', False)
+        self.assertEqual(res[VX_CREATE_BINARY_FLOAT]['addresses'], ['0x4CD270'])
+
+
+class VxSameTargets(unittest.TestCase):
+    """VX P3: the ~ShareBufferClass<T> copies 0x483600 / 0x483670 / 0x51A7B0 store their own tables (0xAEA230, 0xAEA218,
+    0xAED57C): not D54's identical copies; 0x51A610 / 0x51A7B0 (both 0xAED57C) are."""
+    def test_not_identical(self):
+        path = os.path.join(OBJS, 'dynamic_window_icon.obj')
+        if not os.path.exists(path):
+            self.skipTest(f'{path} missing')
+        img = objmatch.ClientImage(objmatch.DEFAULT_CLIENT)
+        start, end, raw = img.section('.text')
+        text = img.data[raw:raw + (end - start)]
+        obj = objmatch.CoffObject(path)
+        sec, s, e = next((sec, s, e) for name, sec, s, e in obj.functions() if name == VX_SHARE_BUFFER_V2)
+        length = obj.pattern(sec, s, e)[2]
+        relocs = obj.relocated(sec, s, length)
+        strs = {k for k, n, typ, sym, add in obj.reloc_targets(sec, s, length)
+                if sym is not None and obj.literal(sym) is not None}
+        self.assertFalse(objmatch.same_copies(text, start, [0x483600, 0x483670, 0x51A7B0], relocs, img, strs))
+        self.assertTrue(objmatch.same_copies(text, start, [0x51A610, 0x51A7B0], relocs, img, strs))
+        self.assertTrue(objmatch.same_copies(text, start, [0x483600, 0x483670, 0x51A7B0], relocs, img))   # the old reading
+
+
+class VxSlotContra(unittest.TestCase):
+    """VX P2: client_item_property_special_maker.obj's Get_Lines matches 0x52BC30 with the special effect's; the maker's
+    table 0xAEDF00 (its exact constructor 0x52C980 stores it) holds 0x52CBF0 at that slot: not credited at 0x52BC30."""
+    def test_slot(self):
+        paths = [os.path.join(OBJS, n) for n in ('client_item_property_special_maker.obj',
+                                                 'client_item_property_special_effect.obj')]
+        if not all(os.path.exists(x) for x in paths):
+            self.skipTest('objects missing')
+        img = objmatch.ClientImage(objmatch.DEFAULT_CLIENT)
+        sym = '?Get_Lines@ClientItemPropertySpecialMakerClass@@'
+        was = objmatch.USE_VX_SLOT_CONTRA
+        for on in (True, False):
+            objmatch.USE_VX_SLOT_CONTRA = on
+            try:
+                res = [r for r in objmatch.match_objects(img, paths, APP_REGION) if r['symbol'].startswith(sym)]
+            finally:
+                objmatch.USE_VX_SLOT_CONTRA = was
+            self.assertEqual(len(res), 1)
+            if on:
+                self.assertEqual(res[0].get('vx_slot'), '0x52BC30')
+                self.assertNotEqual(res[0]['status'], 'exact')
+            else:
+                self.assertEqual((res[0]['status'], res[0]['addresses']), ('exact', ['0x52BC30']))
+
+
+
+class NamedAway(unittest.TestCase):
+    """WA (run 2026-11-17b, USE_NAMED_AWAY): wwaudio's inlined-loop ??_E_LOGICAL_TYPE_STRUCT matches 0x9DA8C0
+    (mixfile's FileOffsetStruct copy, also soundstreamhandle.obj's ??_E_ENUM_VALUE's match); symbols.json names the
+    client's copy 0x4338D0 (Resize<_LOGICAL_TYPE_STRUCT> 0x9F6A80 calls it), so the 0x9DA8C0 credit is dropped."""
+    def test_named_away(self):
+        objs = os.path.join(MAIN, 'build', 'wwaudio', 'obj')
+        paths = [os.path.join(objs, n) for n in ('WWAudio.obj', 'soundstreamhandle.obj')]
+        if not all(os.path.exists(p) for p in paths):
+            self.skipTest(f'{objs} missing')
+        img = objmatch.ClientImage(objmatch.DEFAULT_CLIENT)
+        sym = '??_E_LOGICAL_TYPE_STRUCT@WWAudioClass@@QAEPAXI@Z'
+        resize = '?Resize@?$DynamicVectorClass@U_LOGICAL_TYPE_STRUCT@WWAudioClass@@@@UAE_NHPBU_LOGICAL_TYPE_STRUCT@WWAudioClass@@@Z'
+        res = {(r['object'], r['symbol']): r for r in objmatch.match_objects(img, paths)}
+        self.assertEqual(res[('WWAudio.obj', sym)]['status'], 'none')
+        self.assertEqual(res[('WWAudio.obj', sym)]['named_away'], '0x4338D0')
+        self.assertEqual(res[('WWAudio.obj', resize)]['addresses'], ['0x9F6A80'])
+        objmatch.USE_NAMED_AWAY = False
+        try:
+            res = {(r['object'], r['symbol']): r for r in objmatch.match_objects(img, paths)}
+        finally:
+            objmatch.USE_NAMED_AWAY = True
+        self.assertEqual((res[('WWAudio.obj', sym)]['status'], res[('WWAudio.obj', sym)]['addresses']),
+                         ('exact', ['0x9DA8C0']))
+
+
+class NamedAwayAlone(unittest.TestCase):
+    """NA (run 2026-11-17b, USE_NAMED_AWAY_ALONE): wwsaveload's inlined-loop ??_E_ENUM_VALUE matches only 0x9DA8C0
+    (mixfile's FileOffsetStruct ??_E; no other symbol of the run is exact there); D88's self name is 0x433970, so the
+    lone, untie-broken credit is dropped."""
+    def test_named_away_alone(self):
+        p = os.path.join(MAIN, 'build', 'wwsaveload', 'obj', 'twiddler.obj')
+        if not os.path.exists(p):
+            self.skipTest(f'{p} missing')
+        img = objmatch.ClientImage(objmatch.DEFAULT_CLIENT)
+        sym = '??_E_ENUM_VALUE@EnumParameterClass@@QAEPAXI@Z'
+        r = {x['symbol']: x for x in objmatch.match_objects(img, [p])}[sym]
+        self.assertEqual((r['status'], r['named_away'], r.get('named_away_alone')), ('none', '0x433970', True))
+        objmatch.USE_NAMED_AWAY_ALONE = False
+        try:
+            r = {x['symbol']: x for x in objmatch.match_objects(img, [p])}[sym]
+        finally:
+            objmatch.USE_NAMED_AWAY_ALONE = True
+        self.assertEqual((r['status'], r['addresses']), ('exact', ['0x9DA8C0']))
 
 
 if __name__ == '__main__':

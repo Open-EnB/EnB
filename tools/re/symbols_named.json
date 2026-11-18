@@ -3241,5 +3241,25 @@
   "address": "0x709B30",
   "symbol": "?Cast@?$UnknownRTTIClass@V?$DeltaTemplateClass@W4GuildRankType@@@@@@SAPAV?$DeltaTemplateClass@W4GuildRankType@@@@PAVDeltaClass@@@Z",
   "evidence": "rtti.h's Cast (assert line 0x20 in '..\\shared/auxdata/rtti.h'); its one caller 0x700496 (ClientObjectClass::Unknown_700400, exact) casts LookupClass::Find's result for 'GuildRank' (0xB93DA0), a DeltaTemplateClass<GuildRankType> (AR run 2026-11-16)"
+ },
+ {
+  "address": "0x4338D0",
+  "symbol": "??_E_LOGICAL_TYPE_STRUCT@WWAudioClass@@QAEPAXI@Z",
+  "evidence": "DynamicVectorClass<_LOGICAL_TYPE_STRUCT>::Resize 0x9F6A80 (vtable-named) calls it through the thunk 0x4175E9 for delete[] (push 3); the ??_M form with an out-of-line destructor is the app objects' copy (they include WWAudio.h and come first in link order), not wwaudio's inlined loop (0x9DA8C0 is mixfile's FileOffsetStruct copy) (WA, 2026-11-17)"
+ },
+ {
+  "address": "0x433950",
+  "symbol": "??1_LOGICAL_TYPE_STRUCT@WWAudioClass@@QAE@XZ",
+  "evidence": "the destructor 0x4338D0 (_LOGICAL_TYPE_STRUCT's vector deleting destructor) passes to ??_M and calls on its scalar path; `jmp StringClass::Free_String` (WA, 2026-11-17)"
+ },
+ {
+  "address": "0x433970",
+  "symbol": "??_E_ENUM_VALUE@EnumParameterClass@@QAEPAXI@Z",
+  "evidence": "COMDAT order of its owning object unknown_431e30.obj (client 0x431E30-, the only app object whose instances sit here): ?copy 0x433540, ??_E/??1 _LOGICAL_TYPE_STRUCT 0x4338D0/0x433950, ??_E/??1 _ENUM_VALUE, ??_G basic_string 0x433A10, the client's order exactly; the bytes fit _ENUM_VALUE (8 bytes, StringClass name at offset 0): ??_M with size 8 around the destructor 0x4339F0; no callers (EN, 2026-11-17)"
+ },
+ {
+  "address": "0x4339F0",
+  "symbol": "??1_ENUM_VALUE@EnumParameterClass@@QAE@XZ",
+  "evidence": "the destructor 0x433970 (_ENUM_VALUE's vector deleting destructor) passes to ??_M and calls on its scalar path; `jmp StringClass::Free_String` (name at offset 0); follows ??1_LOGICAL_TYPE_STRUCT 0x433950 in unknown_431e30.obj's COMDAT order (EN, 2026-11-17)"
  }
 ]

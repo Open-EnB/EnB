@@ -1044,6 +1044,11 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
   T even when no ctor is emitted. A static member `hash_map<K, OwnClass>` inside its own class fails with
   C2079: define it at file scope. A friend `Create_Peek(T*)` inside RefCountPtr<T> resolves only once
   RefCountPtr<T> is instantiated: declare the named local first.
+* **A switch label that is not a case start changes register allocation function-wide:** a result moves from a register to the stack once a `goto` label sits anywhere but at a case start. Recognise it by a whole function's registers differing after a label was added for cross-jump placement; label forms cost more than they win, so place shared tails by statement order instead.
+* **A per-case tail comes from a view local set in the switch:** `mov eax,N / push eax / call Set_View` in every case is `if (view != DEFAULT) Set_View(view); return(true);` after the switch, inside an if whose function-level exit is `return(false)`. A per-expansion `RefCountPtr` temporary with its own stack slots per case comes from a macro that calls an inline helper with `temp.Peek()`.
+* **A callee's `_Tidy` inlined in ours but called in the client can be the helper's parameter type:** passing the containing object and calling its inline accessor fixed it where dead locals did not. A Route of a temporary against a named `RefCountPtr` moves every frame slot (the named one overlays a sibling block's slot): look for a named local before chasing slot order.
+* **A StringClass's EH state around a call to an inline template that runs out of line (`Get_Hash_Value`) depends on definition order:** the first such function in the file keeps the state, later ones drop it. Compare the unwind tables of the file's functions before changing a body.
+* **A template's out-of-class (non-inline) member is compiled at the end of the TU, an in-class inline one where first referenced:** whether the body is compiled before a `new` that calls it decides whether that `new` gets an EH state. So whether a node class is a template, and the order of first references, both matter (a function with no state where the client has one, or the reverse).
 
 ### 3.2 Templates and STL
 
@@ -1090,6 +1095,9 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
   reproduced begin() out of line and size() called; an extra inline helper layer around begin() also pushes
   size() out of line, forwarding-only wrappers change nothing. `vector::resize(0)` shows as an out-of-line
   size(), `test; jbe`, then `erase(begin, end)` after a zero store.
+* **A file-local explicit specialisation reaches the client's form where a header change cannot:** when an out-of-line `hash_map()` calls `reserve`'s `size()` where the client inlines it, a file-local `template<> inline` specialisation of that type's `hashtable(n, hf, eql)` constructor written flat gives the client's form; a cheaper allocator or `#pragma inline_depth` does nothing. Keep it in the .cpp (a shared header macro is not the client's source).
+* **A file-local specialisation can disturb a fragile neighbour's register order by its position:** declare it early and define it at the end of the file (VC6 instantiates at the TU's end).
+* **The client's hashtable is SGI 3.3's node allocation:** SGI 3.0 and 3.3 differ in code only there, and the client takes 3.3's `_M_get_node` layering; 3.0's one-layer node `allocate` loses exact functions.
 * **VC6 mangles a function template as `?Name@@...`, not `??$Name@@...`:** a COMDAT name that lacks `??$` is
   not evidence against a template: compare against the client's symbol by the plain `?Name@@` form before
   concluding the function is not a template instance.
@@ -1533,6 +1541,9 @@ are in 3.0.
   (money.h's pattern; a declaration added to delta_array.h reaches aux_roots and sclient: `#ifdef
   __DELTA_ARRAY_MEMBERS`), and keep a single caller's accessor file-local. A hash_map / list / vector member in a header sclient.cpp includes can leave no pad window at all (the signal classes' members sit behind `__SIGNAL_MEMBERS` for that). A stopped sendpad.py leaves its pool lease: release it.
 * **A verify can lose sbaseview 0x6A1180 to unrelated header changes** (an order-only print-argument pair; a D246 entry is open); `appfile.py match` scores 0x6A1180 / 0x69D030 'none' even at baseline: check build.py objects or the verify.
+* **A COMDAT whose kept client copy came from an app object (app flags, first in link order) can byte-match another library's function:** that false credit then blocks its callers in D80. Before changing source, check the client caller's call target (`client.py dis`) to see which copy it reaches.
+* **`objmatch.py` on a single .obj does not apply USE_NAMED_AWAY unless a competitor is in the same run:** a standalone check can show a credit the full verify drops. Confirm in the verify's own output.
+* **Offline objmatch measurements must read the same `docs/data/called.json` on both sides, and a new tie rule placed before `callseq_ties` hides the functions it credits as aligned callers:** put tie phases after callseq.
 
 ### 3.5 Build VMs and vc6.py
 
@@ -1632,7 +1643,7 @@ are in 3.0.
   skips `//` lines): a plain `// 0xADDR` line between marker and function overrides it. `--diff NAME` prints
   nothing for a demangled name, for a function without a marker, or on a tree file (copy it to a draft): use
   `objdiff.py .work/<agent>/appfile/obj/X.obj MANGLED ADDR` (the name from `objdiff.py --list`). Constructors
-  can fall outside `appfile.py show`'s `__FILE__` windows. mark.py's `NAME=ADDR` can't name `operator=`.
+  can fall outside `appfile.py show`'s `__FILE__` windows. mark.py's `NAME=ADDR` can't name `operator=`. mark.py puts its `// @ADDR` marker on the nearest blank line above a definition: a `// 0xADDR` comment or `#pragma` directly above it makes the marker land on an earlier function ("defined but not compiled"); an appfile marker with trailing text after `// @0xADDR` reads "(no marker)".
 * **appfile.py invocation:** `--pool` takes no count; a marker is exactly `// @0xADDR` on its own line; a header copy
   placed beside the draft is not used (the tree's header is); parallel runs under one agent name share one objects
   directory, so give each run its own `--agent`; `-D V=1` breaks `<utility>`; the markers over blank lines count the
@@ -1649,7 +1660,7 @@ are in 3.0.
   the following symbol. A start missing from the function starts makes match report the previous function as
   PREFIX: give it its own marker. Example: 0x81EEA0, 402 bytes, padded to 0x81F0DF. The last function before a
   PermStringInit static reports PREFIX the same way, and REL shows on float immediates. A trailing jump table or `$E` initialiser makes PREFIX mean exact; conversely
-  appfile can say EXACT where verify does not (a jump table's bytes, a stale callee name in symbols.json).
+  appfile can say EXACT where verify does not (a jump table's bytes, a stale callee name in symbols.json, a register-order residue that depends on the file's state): verify decides, and a sweep under verify's compile costs about 3 s a form.
 * **A crediting rule over call chains reaches only callers something locates:** most uncredited COMDAT siblings hang
   off callers that are themselves unnamed and uncredited; measure how many callers a new location source adds
   before building the rule.
@@ -1819,6 +1830,15 @@ are in 3.0.
 * **explain.py, 2026-11 limits:** it stops at the auxdata.h `__FILE__` string relocation (D41) on co.cpp's finds (use objdiff row counts); its client window overruns a function whose next start is not verified, inflating the masked residue (cut it at the client's `ret`, `.work/nf/ex.py`); and it masks jump targets, so a branch that skips one store reads as "identical once masked" and can be misread as a relocation / slot class: run `.work/JD/rowdiff.py OBJ SYMBOL ADDR` (branches whose targets differ) or `.work/Q1-relcheck.py` first. A NULL test whose `je` jumps past the `= NULL` store is `if (p) { release; p = NULL; }`, not REF_PTR_RELEASE / `RefCountPtr = NULL` (both store unconditionally).
 * **`appfile.py match`, 2026-11:** it prints nothing / "0 of 0 markers" for files whose functions carry `// 0xADDR:` comments and no `// @0x` markers: run objdiff.py on `.work/<ID>/appfile/obj/<file>.obj`, or add the marker in a draft copy. In its exact list, dead `vector.size()` reads add template instances (_Ucopy, _Ufill, insert) as "exact": other objects' copies, not gains.
 * **names.py** reads `// NAME 1: neutral` after a `static std::string X(...)` declaration as naming `std:`: use `// NAME 1 [X]: ...`.
+* **Crediting-tool scripts hard-code a worktree:** a crediting session's measure.py / census.py carry `MREPO = .work/wt/<id>` of the session that wrote them: set it to your own worktree before running, or they read another tree's objects.
+* **Census `credited_callers` counts the client's callers of the uncredited address, not the tree's callers of the symbol:** bound a location source by client call sites.
+* **Reading verify's scratch objects while a verify runs in the same worktree fails:** verify rewrites `verify-<lib>/*.obj`; run census.py (or anything that reads them) before or after, not during.
+* **A vtable slot that names `??_E` is often a weak external of `??_G`:** match on `??_G` as well, or the virtual destructors are missed.
+* **`objmatch.same_copies` read a vtable starting with thunk 0x406573 as the C string "se@":** the identical-copies check should compare relocation targets (switch USE_VX_SAME_TARGETS; check objmatch.py has it before relying on it).
+* **`tools/re/test_objmatch.py`'s FuncletBeyond fails against `.work/CK/objs` with or without a new switch** (the default build/app/obj is missing): known, not a regression.
+* **`vtables.py` insert / delete lines can come from duplicate labels in symbols.json** (two names at one address, an identical copy named by vtable slot): check the slot counts and the client's call offsets (`client.py dis`) before changing a library header.
+* **Tool arguments:** `verify.py --pool` takes an integer (the VM count). `appfile.py match --diff` needs the full `Class::Method` name and a `// @0xADDR` marker on an existing blank line (a new line shifts asserts).
+* **Unwind funclets show a function's local `RefCountPtr` types:** N funclets jumping to one destructor means N locals of one instantiation; use them before retyping locals.
 
 ### 3.7 Harnesses, programs, unattended runs
 

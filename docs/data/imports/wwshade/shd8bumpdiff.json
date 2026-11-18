@@ -6,6 +6,8 @@
  "headers_from": null,
  "in_tree": [
   "0x42F250",
+  "0x433970",
+  "0x4339F0",
   "0x45CC10",
   "0x468E70",
   "0xA0F2E0",
@@ -51,6 +53,8 @@
  "name": "shd8bumpdiff.cpp",
  "shared": [
   "0x42F250",
+  "0x433970",
+  "0x4339F0",
   "0x45CC10",
   "0x468E70",
   "0xA0F2E0",
@@ -62,6 +66,7 @@
   "0xA12A50"
  ],
  "short_known": [
+  "0x4339F0",
   "0x468E70",
   "0xA12A10",
   "0xA12A20",

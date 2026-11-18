@@ -285,6 +285,37 @@ void ENBAssetManager::Recolor_Vertices(unsigned int *color, int count, Vector3 &
 	}
 }
 
+// @0x48B7B0
+TextureClass *ENBAssetManager::Recolor_Texture(const char *name, float *hsv, MipCountType mip)	// the named texture with an HSV shift: the cached copy, else the plain texture (loaded and hashed when new) recoloured
+{
+	WWPROFILE("ENBAssetManager::Get_Texture with HSV shift");
+	if ((WWMath::Fabs(hsv[0] - ident_HSV.X) > 1.0f) ||
+	    (WWMath::Fabs(hsv[1] - ident_HSV.Y) > 0.01f) ||
+	    (WWMath::Fabs(hsv[2] - ident_HSV.Z) > 0.01f)) {
+		if ((name == NULL) || (strlen(name) == 0)) {
+			return(NULL);
+		}
+		TextureClass *newtex = Unknown_48CF90(name, hsv);
+		if (newtex == NULL) {
+			char lower_case_name[256];
+			strcpy(lower_case_name, name);
+			_strlwr(lower_case_name);
+			TextureClass *tex = TextureHash.Get(StringClass(lower_case_name));
+			if (!tex) {
+				tex = W3DNEW TextureClass(lower_case_name, NULL, mip);
+				TextureHash.Insert(tex->Get_Texture_Name(), tex);
+			}
+			newtex = Recolor_Texture(tex, hsv);
+			if (newtex == NULL) {
+				tex->Add_Ref();
+				newtex = tex;
+			}
+		}
+		return(newtex);
+	}
+	return(Get_Texture(name, mip));
+}
+
 // @0x48CF90
 TextureClass *ENBAssetManager::Unknown_48CF90(const char *name, float *hsv)
 {
@@ -331,14 +362,14 @@ TextureClass *ENBAssetManager::Recolor_Texture(TextureClass *texture, float *hsv
 	return(newtex);
 }
 
-// The cached copy under the HSV name, else a new one
-static inline TextureClass *Recolored_Texture(ENBAssetManager *mgr, TextureClass *texture, float *hsv)	// NAME 1 [Recolored_Texture]: descriptive (inlined)
+// @0x48CAF0
+TextureClass *ENBAssetManager::Unknown_48CAF0(TextureClass *texture, float *hsv)	// the cached copy under the HSV name, else a new one (inlined into the Recolor_ helpers; the out-of-line copy is uncalled)
 {
-	TextureClass *newtex = mgr->Unknown_48CF90(texture->Get_Texture_Name(), hsv);
+	if (texture == NULL) return(NULL);
+	TextureClass *newtex = Unknown_48CF90(texture->Get_Texture_Name(), hsv);
 	if (newtex) return(newtex);
-	return(mgr->Recolor_Texture(texture, hsv));
+	return(Recolor_Texture(texture, hsv));
 }
-
 // @0x48D1F0
 void ENBAssetManager::Recolor_Mesh(RenderObjClass *robj, float *hsv)	// NAME 5: EA hueshift enbassetmgr.h
 {
@@ -366,7 +397,7 @@ void ENBAssetManager::Recolor_Mesh(RenderObjClass *robj, float *hsv)	// NAME 5: 
 	for (i = 0; i < material->Texture_Count(); i++) {
 		oldtex = material->Peek_Texture(i);
 		if (oldtex) {
-			newtex = Recolored_Texture(this, oldtex, hsv);
+			newtex = Unknown_48CAF0(oldtex, hsv);
 			if (newtex) {
 				model->Replace_Texture(oldtex, newtex);
 				material->Replace_Texture(i, newtex);
@@ -432,7 +463,7 @@ void ENBAssetManager::Recolor_ParticleEmitter(RenderObjClass *robj, float *hsv)	
 
 	TextureClass *tex = emit->Get_Texture();
 	if (tex != NULL) {
-		TextureClass *newtex = Recolored_Texture(this, tex, hsv);
+		TextureClass *newtex = Unknown_48CAF0(tex, hsv);
 		if (newtex != NULL) {
 			emit->Set_Texture(newtex);
 			newtex->Release_Ref();
@@ -461,7 +492,7 @@ void ENBAssetManager::Recolor_Sphere(RenderObjClass *robj, float *hsv)	// NAME 3
 	}
 	TextureClass *tex = sphere->Peek_Texture();
 	if (tex != NULL) {
-		TextureClass *newtex = Recolored_Texture(this, tex, hsv);
+		TextureClass *newtex = Unknown_48CAF0(tex, hsv);
 		if (newtex != NULL) {
 			sphere->Set_Texture(newtex);
 			newtex->Release_Ref();
@@ -489,7 +520,7 @@ void ENBAssetManager::Recolor_Ring(RenderObjClass *robj, float *hsv)	// NAME 3 [
 	}
 	TextureClass *tex = ring->Peek_Texture();
 	if (tex != NULL) {
-		TextureClass *newtex = Recolored_Texture(this, tex, hsv);
+		TextureClass *newtex = Unknown_48CAF0(tex, hsv);
 		if (newtex != NULL) {
 			ring->Set_Texture(newtex);
 			newtex->Release_Ref();
@@ -597,37 +628,6 @@ void Unknown_48E9D0(RenderObjClass *robj)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // @0x48EB90
 void ENBAssetManager::Post_Process(RenderObjClass *robj)
 {
@@ -717,7 +717,13 @@ void ENBAssetManager::Release_Unused_Textures(void)
 **	0x48BF20 and Recolor_Vertices 0x48C590 inlined into it, Recolor out of line) except that it first asks 0x48CF90 for a
 **	cached copy under '#name!H%gS%gV%g' (lower case, with a reference) and only then 0x48CB40 ('Recolor_Texture()'), which
 **	makes a new texture from the same file with the old one's format, filters and address modes and Set_HSV_Shift (shifted
-**	when it loads, not copied from a surface as in Renegade), and caches it. The cache-or-new choice is an inline helper
-**	with two returns: that single merge is what lets the client drop REF_PTR_SET's null test. 0x48CF90 must be defined
+**	when it loads, not copied from a surface as in Renegade), and caches it. The cache-or-new choice is the member 0x48CAF0
+**	(its uncalled out-of-line copy, after a NULL test; inlined into the Recolor_ helpers) with two returns: that single
+**	merge is what lets the client drop REF_PTR_SET's null test. 0x48CF90 must be defined
 **	before 0x48CB40 in this file, or it loses its EH frame.
+**	U3 (2026-11-17): 0x48B7B0, the named texture with an HSV shift (its profile 'ENBAssetManager::Get_Texture with HSV
+**	shift'; the header keeps the name Recolor_Texture): no shift, Get_Texture (slot +0x30); else 0x48CF90 inlined (its
+**	HashTemplateClass Get out of line: 0x48F8D0), then the plain texture under its lower-case name (an explicit
+**	StringClass key: its EH state) loaded and hashed when new, recoloured. Exact only when defined before 0x48CF90, and
+**	then 0x48CF90 loses its EH frame (the same order effect as above): a trade, 34 blank lines before Post_Process became 3.
 */

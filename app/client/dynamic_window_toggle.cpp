@@ -164,6 +164,11 @@ ToggleButtonStateEvent::ToggleButtonStateEvent() :
 {
 }
 
+ToggleButtonStateEvent::ToggleButtonStateEvent(int state) :
+	State(state)
+{
+}
+
 /*
 **	Reconstruction notes (DW1, 2026-11-10)
 **
@@ -172,6 +177,7 @@ ToggleButtonStateEvent::ToggleButtonStateEvent() :
 **	destructor 0x51E0F0, the callbacks' base destructor 0x51E220 (inline), Set_State 0x51E250, the two
 **	Create_Render_Object 0x51E2C0 / 0x51E3D0 (a two-triangle strip of the texture, size wide and high, centred), the
 **	gadget event 0x51E730, ToggleButtonStateEvent's out-of-line default constructor 0x51E7F0 (IE3: only the item
-**	examination option row calls it) and the template helpers after it (RefCountPtr, the vector's, the MemberCallback's slots
+**	examination option row calls it) and its state constructor 0x51E810 (U3: a .cpp definition, inline in the gadget event;
+**	the out-of-line copy is uncalled) and the template helpers after it (RefCountPtr, the vector's, the MemberCallback's slots
 **	0x51E980-0x51EAB0). The class name is the client's RTTI (ToggleButtonDynamicWindow, ToggleButtonStateEvent).
 */

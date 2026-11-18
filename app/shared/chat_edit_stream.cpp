@@ -32,10 +32,10 @@ void *Unknown_ChatStreamClass::Unknown_4C4410()
 }
 
 // 0x4C4430
-Unknown_ChatStreamClass::Unknown_ChatStreamClass() :
-	Unknown04(NULL),
-	Unknown08(0)
+Unknown_ChatStreamClass::Unknown_ChatStreamClass()
 {
+	Unknown04 = NULL;
+	Unknown08 = 0;
 }
 
 // 0x4C4460

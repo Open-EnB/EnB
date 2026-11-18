@@ -18,7 +18,8 @@
 **	key. Process_Key takes a key event: Home / End / Left / Right (with Ctrl by words), Insert, Delete, Backspace,
 **	Enter as a newline with flag 0x40, and the event's character (input.cpp's 0x42EB80) through the flags and Chars.
 **	The event's modifier bits are read as bit-fields in the client (shr / test 1: key up bit 12, shift 8, ctrl 9,
-**	alt 10), which kernel.h's KernelEventClass does not declare: Process_Key is NOT EXACT for it.
+**	alt 10: kernel.h's KernelEventClass bit-fields). Process_Key's key is an int local read before the up test, the
+**	result an int (the strchr test's 'allowed' shares it), the character an int; still NOT EXACT: the shared tail.
 **	<string>'s guarded initialiser at 0x84B330 ends the object (workflow.md 3.3): the client's next function, 0x84B360
 **	("Effect Radius : %d"), is another file's.
 */
@@ -187,14 +188,15 @@ StrEditClass::~StrEditClass()
 
 
 
-// NOT EXACT: the modifier bits (0.58): the client tests the event's flags as bit-fields, see the notes
+// NOT EXACT: shape (0.78, 26 rows): the client keeps the delete / backspace shared tail (and ecx, 3; rep movsb; StrLen--; result) in the backspace block, ours in the delete block
 bool StrEditClass::Process_Key(KernelEventClass *event)
 {
-	bool result = false;
+	int key = event->Key;
+	int result = false;
 	if (event->Is_Up()) {
 		return(false);
 	}
-	switch (event->Key) {
+	switch (key) {
 		case 1: case 2: case 9: case 0x0C:
 		case 0x10: case 0x11: case 0x12: case 0x13: case 0x14:
 		case 0x1B: case 0x21: case 0x22: case 0x26: case 0x28: case 0x2C:
@@ -214,28 +216,27 @@ bool StrEditClass::Process_Key(KernelEventClass *event)
 			break;
 
 		case 0x25:
-			if (Cursor > String) {
-				do {
-					Cursor--;
-					if (!event->Is_Ctrl() || isspace(*Cursor)) {
-						result = true;
-						goto done;
-					}
-				} while (Cursor > String);
+			while (Cursor > String) {
+				Cursor--;
+				if (!event->Is_Ctrl() || isspace(*Cursor)) {
+					break;
+				}
 			}
+
+
+
+
 			result = true;
 			break;
 
 		case 0x27:
-			if (Cursor < String + StrLen) {
-				do {
-					Cursor++;
-					if (!event->Is_Ctrl() || isspace(*Cursor)) {
-						result = true;
-						goto done;
-					}
-				} while (Cursor < String + StrLen);
+			while (Cursor < String + StrLen) {
+				Cursor++;
+				if (!event->Is_Ctrl() || isspace(*Cursor)) {
+					break;
+				}
 			}
+
 			result = true;
 			break;
 
@@ -264,28 +265,27 @@ bool StrEditClass::Process_Key(KernelEventClass *event)
 
 		default:
 		{
-			char c;
+			int c;
 			if ((event->Flags & 0x700) && !event->Is_Shift()) {
 				break;
 			}
-			if (event->Key == 0x0D) {
+			if (key == 0x0D) {
 				if (!(Flags & 0x40)) {
 					break;
 				}
 				c = '\n';
 			} else {
-				c = Unknown_42EB80(event);
+				c = (unsigned char)Unknown_42EB80(event);
 				if (c == 0 || !isprint(c)) {
 					break;
 				}
-				bool allowed = false;
 				if (Chars != NULL) {
 					if (!(Flags & 0x1C)) {
-						if (!(Flags & 0x20)) {
-							if (strchr(Chars, c) == NULL) {
+						if (Flags & 0x20) {
+							if (strchr(Chars, c) != NULL) {
 								break;
 							}
-						} else if (strchr(Chars, c) != NULL) {
+						} else if (strchr(Chars, c) == NULL) {
 							break;
 						}
 					} else if (Flags & 0x20) {
@@ -293,11 +293,11 @@ bool StrEditClass::Process_Key(KernelEventClass *event)
 							break;
 						}
 					} else if (strchr(Chars, c) != NULL) {
-						allowed = true;
+						result = true;
 					}
 				}
 				if ((Flags & 0x200) && c == ' ') {
-					allowed = true;
+					result = true;
 				}
 				if (Flags & 1) {
 					c = toupper(c);
@@ -305,20 +305,20 @@ bool StrEditClass::Process_Key(KernelEventClass *event)
 				if (Flags & 2) {
 					c = tolower(c);
 				}
-				if (!allowed && (((Flags & 4) && !isdigit(c)) || ((Flags & 8) && !isalpha(c)) || ((Flags & 0x10) && !isalnum(c)))) {
+				if (!result && (((Flags & 4) && !isdigit(c)) || ((Flags & 8) && !isalpha(c)) || ((Flags & 0x10) && !isalnum(c)))) {
 					break;
 				}
 			}
 			result = true;
 			if (StrLen < MaxLen) {
-				if (!InsertMode) {
+				if (InsertMode) {
+					memmove(Cursor + 1, Cursor, strlen(Cursor) + 1);
+					StrLen++;
+				} else {
 					if (Cursor == String + StrLen) {
 						Cursor[1] = '\0';
 						StrLen++;
 					}
-				} else {
-					memmove(Cursor + 1, Cursor, strlen(Cursor) + 1);
-					StrLen++;
 				}
 				*Cursor++ = c;
 			} else if (StrLen != MaxLen) {
@@ -331,9 +331,9 @@ bool StrEditClass::Process_Key(KernelEventClass *event)
 			break;
 		}
 	}
-done:
+
 	G_ASSERT(String[MaxLen + 1] == STRING_CHECK_VALUE);
-	return(result);
+	return(result ? true : false);
 }
 
 

@@ -98,6 +98,11 @@ void Unknown_42E7B0()
 	}
 }
 
+void Unknown_42E820() { Unknown_BDAA74->Unknown_04(); }	// the mouse's slot +0x04, no caller  // NAME 1 [Unknown_42E820]: neutral (D10)
+void Unknown_42E840() { Unknown_BDAA74->Unknown_08(); }	// the mouse's slot +0x08, no caller  // NAME 1 [Unknown_42E840]: neutral (D10)
+void Unknown_42E860() { Unknown_BDAA70->Unknown_04(); }	// the keyboard's slot +0x04, no caller  // NAME 1 [Unknown_42E860]: neutral (D10)
+void Unknown_42E880() { Unknown_BDAA70->Unknown_08(); }	// the keyboard's slot +0x08, no caller  // NAME 1 [Unknown_42E880]: neutral (D10)
+
 void Unknown_42E8A0(KernelEventClass *event)
 {
 	if (TrackMouseCounter > 0) {
@@ -281,11 +286,6 @@ void Unknown_42EDB0()
 
 
 
-
-
-
-
-
 bool Unknown_42EE00(bool enable)
 {
 	if (enable) {
@@ -347,4 +347,6 @@ bool KeyQueueClass::Add(KernelEventClass &event)
 **	0x42EB20 (UITalkTreeClass 0x64DF80's: the queue emptied) needs the queue in a local: through the
 **	global each store is an immediate 0 (26 bytes against 20); 0x42EB50 (the queue's Add, slot +0x04)
 **	has no caller in the client. The two took their 13 lines from the padding before 0x42EE00.
+**	0x42E820 / 0x42E840 / 0x42E860 / 0x42E880 (no caller, no reference: tail calls of the mouse's and the keyboard's
+**	slots +0x04 / +0x08) take their 5 lines from the same padding.
 */
