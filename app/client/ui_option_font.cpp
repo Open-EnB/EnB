@@ -17,8 +17,8 @@
 extern FontManagerClass *Unknown_BE67C4;	// NAME 1: neutral (D10)
 // fontDatabase (0xBE67B8) is declared by fontdatabase.h / tsk_game.h under the client's FAIL_IF name
 
-class UnknownEventDispatcherClass;
-UnknownEventDispatcherClass *Unknown_540A20();			// 0x540A20 (intrface.cpp: the interfaces' signal map)  // NAME 1: neutral (D10)
+
+
 
 // The buttons Unknown_54 makes, ids 1-4: their models' names and their texts (0xB832D8 / 0xB832E8)
 static const char *Unknown_B832D8[4] = { "exit", "ok", "cancel", "resolution" };	// NAME 1: neutral (D10)
@@ -195,7 +195,7 @@ void OptionFontInterface::Unknown_5C()
 	for (unsigned int i = 0; i < FontNames.size(); i++) {
 		fontDatabase->Set_Font(FontNames[i].c_str(), Settings[i].Index, Settings[i].Scale, Settings[i].Spacing, Settings[i].Unknown98, false);
 	}
-	((SignalMap *)Unknown_540A20())->emit(this, OptionFontInterfaceEvent());
+	InterfaceClass::Get_Signal_Map().emit(this, OptionFontInterfaceEvent());
 }
 
 // 0x5CD0C0
@@ -221,13 +221,13 @@ bool OptionFontInterface::Unknown_68(int key)
 			if (SameCheck->Checked) {
 				Apply_To_All();
 			}
-			((SignalMap *)Unknown_540A20())->emit(this, OptionFontInterfaceEvent());
+			InterfaceClass::Get_Signal_Map().emit(this, OptionFontInterfaceEvent());
 			return(false); }
 		case 12:
 			Update_Slider(0, false);
 			if (SameCheck->Checked) {
 				Apply_To_All();
-				((SignalMap *)Unknown_540A20())->emit(this, OptionFontInterfaceEvent());
+				InterfaceClass::Get_Signal_Map().emit(this, OptionFontInterfaceEvent());
 			}
 			return(false);
 		case 6: {
@@ -249,7 +249,7 @@ bool OptionFontInterface::Unknown_68(int key)
 				fontDatabase->Set_Font(FontNames[Selected].c_str(), index, 16777215.0f, 0xFFFFFF, 0xFFFFFF, false);
 			}
 			Update_Slider(1, false);
-			((SignalMap *)Unknown_540A20())->emit(this, OptionFontInterfaceEvent());
+			InterfaceClass::Get_Signal_Map().emit(this, OptionFontInterfaceEvent());
 			return(false);
 		}
 		case 8: {
@@ -262,7 +262,7 @@ bool OptionFontInterface::Unknown_68(int key)
 				fontDatabase->Set_Font(FontNames[Selected].c_str(), 0xFFFFFF, scale, 0xFFFFFF, 0xFFFFFF, false);
 			}
 			Update_Slider(2, false);
-			((SignalMap *)Unknown_540A20())->emit(this, OptionFontInterfaceEvent());
+			InterfaceClass::Get_Signal_Map().emit(this, OptionFontInterfaceEvent());
 			return(false);
 		}
 		case 9: {
@@ -275,7 +275,7 @@ bool OptionFontInterface::Unknown_68(int key)
 				fontDatabase->Set_Font(FontNames[Selected].c_str(), 0xFFFFFF, 16777215.0f, spacing - 3, 0xFFFFFF, false);
 			}
 			Update_Slider(3, false);
-			((SignalMap *)Unknown_540A20())->emit(this, OptionFontInterfaceEvent());
+			InterfaceClass::Get_Signal_Map().emit(this, OptionFontInterfaceEvent());
 			return(false);
 		}
 		case 10: {
@@ -288,7 +288,7 @@ bool OptionFontInterface::Unknown_68(int key)
 				fontDatabase->Set_Font(FontNames[Selected].c_str(), 0xFFFFFF, 16777215.0f, 0xFFFFFF, value - 12, false);
 			}
 			Update_Slider(4, false);
-			((SignalMap *)Unknown_540A20())->emit(this, OptionFontInterfaceEvent());
+			InterfaceClass::Get_Signal_Map().emit(this, OptionFontInterfaceEvent());
 			return(false);
 		}
 	}

@@ -19,7 +19,7 @@
 
 // ------------------------------------------------------------------------- ui_chat_panel.cpp's dispatcher and handler
 
-// (Unknown_540A20, the dispatcher, is rebuilt in intrface.cpp)
+// (InterfaceClass::Get_Signal_Map, the dispatcher, is rebuilt in intrface.cpp)
 
 // ------------------------------------------------------------------------- ui_cpit.cpp's effect node and string
 

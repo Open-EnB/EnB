@@ -92,7 +92,7 @@ char *Unknown_BA8C20 = "General", *Unknown_BA8C24 = "Out of Context", *Unknown_B
 	*Unknown_BA8C50 = "Enforcers";
 // (the chat panel's combos, ChatPanelInterface::Unknown_5689D0, and the windows its options combo opens, 0x569A00, are
 // rebuilt in ui_chat_panel.cpp: the real UIComboBoxClass from ui_combobox.cpp, O19)
-// (Unknown_540A20, the interfaces' signal map, is rebuilt in intrface.cpp)
+// (InterfaceClass::Get_Signal_Map, the interfaces' signal map, is rebuilt in intrface.cpp)
 
 // ---------------------------------------------------------------- the render states rs_list.cpp makes from files not in the tree yet
 // (unknown_45a090.cpp's 'link' state and unknown_45f390.cpp's 'sound' state are rebuilt in app.lib)

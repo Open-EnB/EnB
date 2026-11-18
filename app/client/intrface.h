@@ -34,6 +34,7 @@ class GadgetClass;  // gadget.cpp's
 class LoginUnknown0CClass;  // sclient.h's: the views' +0x04 (the input dispatcher)
 class InterfaceStaticSortListClass;  // interface_static_sort_list.cpp's: the views' scene's +0x9C ('ssl')
 class InterfaceClass;
+class SignalMap;
 struct InterfaceUnknown64EntryStruct;  // intrlist.cpp's list entry
 
 // What InterfaceClass holds at +0x64 (0x0C bytes, constructor 0x686FA0; intrlist.cpp's functions), as far as ui_group.cpp calls it
@@ -94,6 +95,7 @@ class InterfaceClass : public GClass, public RefCountClass  // NAME 3: by conven
 public:
 	InterfaceClass(UIViewClass *view, int unknown);										// 0x540A90 (+0x48 the view, +0x44 the second, referenced)  // NAME 2 [view]: the member's assert '!View'; NAME 1 [unknown]: neutral
 	virtual ~InterfaceClass();																// 0x540E90 (slot 0x540D00; G_ASSERT '!View')
+	static SignalMap &Get_Signal_Map();													// 0x540A20: the function-local static 0xBE5AF0 (the chat panel's, chat window's and font option's events)  // NAME 2: as GadgetClass's and ControlKeysManager's
 	virtual void Unknown_54() { Unknown_10(); }												// 0x515690 (the slot +0x10; inline: emitted next to smouse.cpp); Init calls it after construction
 	virtual void Unknown_58();																// 0x541010 (activates: G_ASSERT '!PartialDeactivatedGadget')
 	virtual void Unknown_5C();																// 0x541210 (deactivates when Active)
