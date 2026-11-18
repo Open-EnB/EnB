@@ -454,5 +454,31 @@ class VxSlotContra(unittest.TestCase):
                 self.assertEqual((res[0]['status'], res[0]['addresses']), ('exact', ['0x52BC30']))
 
 
+
+class NamedAway(unittest.TestCase):
+    """WA (run 2026-11-17b, USE_NAMED_AWAY): wwaudio's inlined-loop ??_E_LOGICAL_TYPE_STRUCT matches 0x9DA8C0
+    (mixfile's FileOffsetStruct copy, also soundstreamhandle.obj's ??_E_ENUM_VALUE's match); symbols.json names the
+    client's copy 0x4338D0 (Resize<_LOGICAL_TYPE_STRUCT> 0x9F6A80 calls it), so the 0x9DA8C0 credit is dropped."""
+    def test_named_away(self):
+        objs = os.path.join(MAIN, 'build', 'wwaudio', 'obj')
+        paths = [os.path.join(objs, n) for n in ('WWAudio.obj', 'soundstreamhandle.obj')]
+        if not all(os.path.exists(p) for p in paths):
+            self.skipTest(f'{objs} missing')
+        img = objmatch.ClientImage(objmatch.DEFAULT_CLIENT)
+        sym = '??_E_LOGICAL_TYPE_STRUCT@WWAudioClass@@QAEPAXI@Z'
+        resize = '?Resize@?$DynamicVectorClass@U_LOGICAL_TYPE_STRUCT@WWAudioClass@@@@UAE_NHPBU_LOGICAL_TYPE_STRUCT@WWAudioClass@@@Z'
+        res = {(r['object'], r['symbol']): r for r in objmatch.match_objects(img, paths)}
+        self.assertEqual(res[('WWAudio.obj', sym)]['status'], 'none')
+        self.assertEqual(res[('WWAudio.obj', sym)]['named_away'], '0x4338D0')
+        self.assertEqual(res[('WWAudio.obj', resize)]['addresses'], ['0x9F6A80'])
+        objmatch.USE_NAMED_AWAY = False
+        try:
+            res = {(r['object'], r['symbol']): r for r in objmatch.match_objects(img, paths)}
+        finally:
+            objmatch.USE_NAMED_AWAY = True
+        self.assertEqual((res[('WWAudio.obj', sym)]['status'], res[('WWAudio.obj', sym)]['addresses']),
+                         ('exact', ['0x9DA8C0']))
+
+
 if __name__ == '__main__':
     unittest.main()
