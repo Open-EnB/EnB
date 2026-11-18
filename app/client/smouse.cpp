@@ -1,4 +1,5 @@
 // Earth & Beyond client (reconstruction): app\Client\smouse.cpp (__FILE__ 0xB76820). Notes at the end of the file.
+#include "..\shared\auxdata\permstr.h"	// PermStringInit: the client's CRT stretch opens with it
 #include "tasks\tsk_login.h"
 #include "rendobj.h"
 #include "bmp2d.h"
@@ -6,7 +7,6 @@
 #include "vector3.h"
 #include "..\shared\g_assert.h"
 #include <math.h>
-
 void Unknown_42ECF0(float *x, float *y);	// 0x42ECF0 (input.cpp): the pointer's position, 0..1  // NAME 1 [x, y]: as scriptedmovie.cpp's
 
 // mousetbl.cpp's table (0xBE7C70, filled by 0x7228C0: 'arrow_blank.tga', 'arrow.tga', 'cursor_w.tga' ...)

@@ -1,5 +1,6 @@
 // Earth & Beyond client (reconstruction): app\client\ui_faction.cpp, the character info window's faction tab (the client's
 // file per its asserts, 'e:\build\beta\G\app\Client\ui_faction.cpp'). Notes at the end of the file.
+#include "..\shared\auxdata\permstr.h"	// PermStringInit: the client's CRT stretch opens with it
 #include <string>
 #include "sclient.h"
 #include "rendobj.h"
@@ -17,7 +18,6 @@
 #include "..\shared\g_assert.h"
 #include "cfaction_database.h"
 #include "ui_faction.h"
-
 // (the FAIL_IFs' InterfaceMesh is the interface base's +0x84, Unknown5BB320Class::InterfaceMesh: sclient.h)
 extern FontManagerClass *Unknown_BE67C4;			// NAME 1 [Unknown_BE67C4]: 0xBE67C4
 

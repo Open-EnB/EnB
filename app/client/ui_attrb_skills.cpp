@@ -1,5 +1,6 @@
 // Earth & Beyond client (reconstruction): app\client\ui_attrb_skills.cpp, the character info window's attributes tab (the
 // client's file per its asserts, 'e:\build\beta\G\app\Client\ui_attrb_skills.cpp'). Notes at the end of the file.
+#include "..\shared\auxdata\permstr.h"	// PermStringInit: the client's CRT stretch opens with it
 #include "sclient.h"
 #include "rendobj.h"
 #include "..\..\wwlib\ref_ptr.h"
@@ -10,7 +11,6 @@
 #include "ui_attrb_skills.h"
 #include "avatar.h"
 extern FontManagerClass *Unknown_BE67C4;			// NAME 1 [Unknown_BE67C4]: 0xBE67C4
-
 #include "gd_attrb_skills.h"
 
 

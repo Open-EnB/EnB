@@ -73,11 +73,11 @@ public:
 };
 
 // The base DeltaClass's constructor stores first (vtable 0xAEADC8: one slot, _purecall).
-class DeltaInterfaceClass  // NAME 2: describes what it does
-{
-public:
-	virtual void Unknown_00(KVEncoderClass *visitor) = 0;
-};
+#include "unknown_aeadc8.h"	// DeltaInterfaceClass
+
+
+
+
 
 // Per-class globals stored at +0x04 (E&B's own type information, rtti.h?): DeltaClass 0xBE3A78,
 // DeltaCompoundClass 0xBE3A74 (its static UnknownGlobal: rtti.h's cast 0x598D80 compares it).

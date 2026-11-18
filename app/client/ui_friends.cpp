@@ -1,6 +1,7 @@
 // Earth & Beyond client (reconstruction): app\client\ui_friends.cpp (the client's __FILE__
 // 'e:\build\beta\G\app\Client\ui_friends.cpp', 0x58F090-0x5928AF by its asserts and its string order).
 // Every function from 0x58F0F0 written (FR1, FR2: the constructor, the destructor, slots +0x54 / +0x68, 0x591C30); the near misses carry NOT EXACT.
+#include "..\shared\auxdata\permstr.h"	// PermStringInit: the client's CRT stretch opens with it
 #define __INTRFACE_MEMBERS	// intrface.h's members (0x591EE0 calls InterfaceClass's 0x541930)
 #include <string.h>
 #include <wchar.h>
@@ -21,7 +22,6 @@
 #include "option.h"
 #include "..\audio\soundlib.h"
 #include "..\shared\g_assert.h"
-
 // The client at InterfaceClass +0x40, as ui_chat_panel.cpp declares it
 class LineDisplayClientClass  // NAME 1: neutral (D10)
 {

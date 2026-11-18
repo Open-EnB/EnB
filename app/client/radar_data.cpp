@@ -1,4 +1,5 @@
 // radar_data.cpp: a client object's radar colours (0x7BB1D0-0x7BC030); notes at the end
+#include "..\shared\auxdata\permstr.h"	// PermStringInit: the client's CRT stretch opens with it
 #include <string>
 #include "radar_data.h"
 #include "sclient.h"
@@ -9,7 +10,6 @@
 #include "unknown_signalbase.h"
 #include "wwmath.h"
 #include "..\shared\g_assert.h"
-
 unsigned int Unknown_Get_Ticks();				// 0x4A3B40, the aux-data clock
 
 

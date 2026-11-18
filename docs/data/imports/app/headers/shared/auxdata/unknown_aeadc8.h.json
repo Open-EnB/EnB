@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "RECONSTRUCTED: the one-slot key/value interface DeltaInterfaceClass (vtable 0xAEADC8), out of delta.h so unknown_packetdata.h gets it without permstr.h (the client's CRT table: objects including it have no PermStringInit initialiser). Provisional name (D137)."
+}

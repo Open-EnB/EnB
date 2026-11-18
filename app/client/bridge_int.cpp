@@ -1,8 +1,8 @@
 // Earth & Beyond client (reconstruction): bridge_int.cpp, the ship's bridge around the first-person camera (notes at the end)
+#include "..\shared\auxdata\permstr.h"	// PermStringInit: the client's CRT stretch opens with it
 #include <stdio.h>
 #include <math.h>
 #include <string>
-
 #include "bridge_int.h"
 #include "sclient.h"
 #include "ui_mesh.h"
