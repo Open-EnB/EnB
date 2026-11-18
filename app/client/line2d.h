@@ -23,7 +23,7 @@ class Line2DClass : public Unknown6E1AB0Class  // NAME 2 [Line2DClass]: the head
 {
 public:
 	Line2DClass(const Vector4 &color, const Vector2 &from, const Vector2 &to, float width);	// 0x6DF890  // NAME 1 [color, from, to, width]: what it does with them
-	virtual ~Line2DClass() {}																// 0x6DFA30
+	// ~Line2DClass(): implicit																// 0x6DFA30
 
 	void Set(const Vector2 &from, const Vector2 &to, float width);							// 0x6DFA50  // NAME 1: what it does
 
