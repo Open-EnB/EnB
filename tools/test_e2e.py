@@ -247,5 +247,21 @@ class SummaryTest(unittest.TestCase):
         self.assertEqual(line, 'PASS  n: gen 2 hit, 1 own (B); 2 untagged (human) input dropped')
 
 
+class CompareTest(unittest.TestCase):
+    def test_sent_packets_replay_and_live(self):
+        lines = ['    1.00 e2e     scenario a',
+                 '    1.10 antprox [ 4] connection #2: received LOGIN 0x0002, 40 bytes',
+                 '    1.20 antprox [ 4] connection #2: received KEEP_ALIVE 0x0010, 4 bytes',
+                 '    2.00 e2e     scenario b',
+                 '    2.10 antprox 18/11/26 08:21:02.358 [    4] Sending [0x0027] via UDP = received INVENTORY_MOVE',
+                 '    2.20 antprox 18/11/26 08:21:02.400 [    4] Sending [0x0056] via UDP = received STARBASE_AVATAR_CHANGE',
+                 '    2.30 antprox 18/11/26 08:21:02.500 [    4] Sending [0x3008] via UDP = received OP_',
+                 '    2.40 antprox 18/11/26 08:21:02.600 [    4] <SERVER TO CLIENT UDP> ----> 001d [0027] = sent MESSAGE_STRING']
+        with tempfile.TemporaryDirectory() as d:
+            with open(os.path.join(d, 'events.log'), 'w', encoding='utf-8') as f:
+                f.write('\n'.join(lines) + '\n')
+            self.assertEqual(e2e.sent_packets(d), {'a': ['LOGIN 40'], 'b': ['INVENTORY_MOVE', 'OP_3008']})
+
+
 if __name__ == '__main__':
     unittest.main()

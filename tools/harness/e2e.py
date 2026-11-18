@@ -1255,6 +1255,11 @@ def sent_packets(run_dir):
                 p = re.search(r'connection #\d+: received (\w+) 0x[0-9a-f]+, (\d+) bytes', text)
                 if p and not p.group(1).startswith(skip):
                     out[cur].append(f'{p.group(1)} {p.group(2)}')
+                # --live: 'Sending [0x0027] via UDP = received INVENTORY_MOVE' (name_live's, no size); the walk's
+                # STARBASE_AVATAR_CHANGE count follows the pilot's closed loops, not the scenario
+                p = None if p else re.search(r'Sending \[0x([0-9a-f]+)\] via \w+ = received (\w+)$', text)
+                if p and not p.group(2).startswith(skip + ('STARBASE_AVATAR_CHANGE',)):
+                    out[cur].append(p.group(2) if p.group(2) != 'OP_' else 'OP_' + p.group(1))
     return out
 
 

@@ -664,6 +664,22 @@ the last name. Live antprox logs opcode numbers; e2e appends the names (`... = s
 - **State:** GM chat commands put back what a scenario spends (`/createcredits N`, `/createitem ID COUNT`).
 - First results: `sb_vendor` (room 2, a vendor's talk tree and trade window, back) and `sb_talk` (an NPC's
   two-page talk tree) pass on retail in one session, 224 s.
+- 2026-11-18 (H1): `sb_buysell` (room 2's Miyoshi Basho: a vendor row and Buy, a cargo slot and Sell, each an
+  INVENTORY_MOVE; selling below the price paid asks 'You will take significant losses on this sale' Yes / No first;
+  Vila Mosj refuses to buy back what she sells, so both are done at Miyoshi; one warhead bought and one sold, the
+  stack keeps its slot and count) and `sb_jobs` (room 3's job terminal: JOB_LIST,
+  the Combat / Trade / Explore tabs, the close box). The local server lists no jobs (SectorManager::RefreshJobs
+  finds no mission with a job category: JOB_LIST is 8 bytes, every tab empty), so a job's description, accept
+  and delete cannot be driven there. The buy / sell clicks of the recordings miss their double-clicks: the
+  recorder logs only button-downs (0x201 / 0x204 / 0x207), not 0x203 or the button-ups. Results: retail and ours
+  (this tree's clientpoc.exe at run/2026-11-18 1a45b1d78) pass all four `sb_*` in one session each (ours 417 s);
+  `e2e.py compare` reads live runs too (packet names only: the live log has no sizes; the walk's
+  STARBASE_AVATAR_CHANGE count follows the pilot, so it is left out), and sb_buysell (21 packets), sb_jobs (4),
+  sb_vendor (7) and sb_talk (5) send the SAME packets on both.
+- **A character saved in space** (the local server sometimes keeps the undocked place: the login ends beside
+  Jove's Fury and `_sb_home` fails at its first walk-to, pose ~116000,-224000): `e2e.py --live localhost
+  --retail --instance NAME run _sb_dock` (named only) logs in, targets the station (641,1009, SET_TARGET) and
+  docks (the target panel's right verb, 1238,672, until SERVER_HANDOFF); then run the `sb_*` set again.
 
 **Smoke set (D237):** a landing that retires a stand-in runs `e2e.py run --exe <its worktree's clientpoc.exe>
 --instance <name>` and lands only with every line as expected.

@@ -1,0 +1,16 @@
+# Live server, named only (e2e.py --live localhost --retail --instance NAME run _sb_dock): when the character was
+# saved in space (Jupiter sector, beside Jove's Fury; the login then ends in space and _sb_home's first walk-to
+# fails), log in and dock, so the next session starts in the station. From the user's recording of 2026-11-15
+# (.work/e2e/202650-record, 376-406 s): the target box under the warp button (641,1009) selects the station
+# (SET_TARGET), the right verb icon of the target panel (1238,672) docks (ACTION, then the server's SERVER_HANDOFF).
+name: live: dock at Jove's Fury from space
+timeout: 300
+include _login_live
+click 641,1009 until antprox 'sent SET_TARGET' every 2 within 20
+wait-quiet proxy 1.0 within 20
+shot dock_target
+click 1238,672 until antprox 'sent SERVER_HANDOFF' every 5 within 180
+wait-event msg 'Changing room from -1 to 0' within 120
+wait-quiet proxy 2.0 within 30
+shot docked
+alive 20

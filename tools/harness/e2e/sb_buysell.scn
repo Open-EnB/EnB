@@ -1,0 +1,62 @@
+# Station (live server): buy and sell at room 2's second vendor (Miyoshi Basho), from the user's recording of
+# 2026-11-15 (.work/e2e/202650-record: buying at Vila Mosj 58-106 s, selling at Miyoshi Basho 259-278 s). A
+# vendor's talk tree's Trade reply opens the vendor list (right) and the cargo (left); a vendor row and Buy sends
+# INVENTORY_MOVE, a cargo slot and Sell sends INVENTORY_MOVE. Vila Mosj refuses to buy back what she sells (the
+# server's MESSAGE_STRING, 'Vendor does not want this item!'), so both are done at Miyoshi Basho: one Mi MXM
+# Warhead (164 credits) bought, then one sold. Ammunition stacks, so the warheads stay in one cargo slot whatever
+# a failed run left there.
+name: starbase vendor: buy and sell
+timeout: 400
+include _sb_home
+# room 1: the door to room 2 at -44,-58
+walk-to -44,-38
+face -90 tol 5
+hold 0x41 until msg 'Changing room from 1 to 2' within 15
+# room 2: to Miyoshi Basho's counter (this approach from the door puts her right of the avatar)
+walk-to 2,52
+walk-to 23,27
+walk-to 28.2,32.0
+face 50
+wait-quiet proxy 1.0 within 20
+pose
+click 1005,400 until antprox 'sent TALK_TREE' every 2 within 20
+wait-quiet proxy 1.0 within 20
+# the reply that opens trade
+click 438,887
+wait-event antprox 'sent ITEM_BASE' within 20
+wait-event proxy 'fa_ce02a\.ini' within 40
+wait-quiet proxy 1.0 within 20
+# buy: the vendor list's first row (Mi MXM Warhead), then Buy (Buy Stack beside it buys 240)
+click 1060,440
+wait-quiet proxy 0.5 within 10
+click 987,960
+expect-event antprox 'received INVENTORY_MOVE' within 15
+wait-event antprox 'sent AUX_DATA' within 15
+wait-quiet proxy 1.0 within 20
+shot bought
+# sell: the warheads are in the cargo's first free slot (column 1, row 4 with this character's cargo: the credit
+# chip and two stacks of 50 ahead of it), then Sell (one; Sell All below it takes the stack); the client asks 'You
+# will take significant losses on this sale. Do you wish to proceed?' (Yes / No), Yes sends INVENTORY_MOVE and the
+# server answers with MESSAGE_STRING and 'You have gained N credits'. One bought, one sold: the stack keeps its count
+click 60,680
+wait-quiet proxy 0.5 within 10
+click 112,776
+wait-quiet proxy 1.0 within 20
+shot sell_confirm
+click 486,561 until antprox 'received INVENTORY_MOVE' every 2 within 15
+wait-event antprox 'sent MESSAGE_STRING' within 15
+wait-quiet proxy 1.0 within 20
+shot sold
+# the vendor list's close box, then the talk window's Done
+click gadget trade.close
+wait-quiet proxy 1.0 within 20
+click gadget talk.done until antprox 'sent TALK_TREE_ACTION' every 2 within 20
+wait-quiet proxy 1.0 within 20
+# back: room 2's door at 0,72, then home
+walk-to 23,27
+walk-to 2,52
+walk-to 0,62
+face 90 tol 5
+hold 0x41 until msg 'Changing room from 2 to 1' within 15
+walk-to -44,-38
+walk-to -48,5

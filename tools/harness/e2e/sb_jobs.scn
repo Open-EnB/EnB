@@ -1,0 +1,42 @@
+# Station (live server): room 3's job board, from the user's recording of 2026-11-15 (.work/e2e/202650-record,
+# 204-251 s): the terminal opens the job window (STARBASE_REQUEST, the server's JOB_LIST), its three tabs (Combat,
+# Trade, Explore), the close box; then back through room 1's door to room 3 and home.
+name: starbase job board: list, tabs
+timeout: 300
+include _sb_home
+# room 1: the door to room 3 at -44,80
+walk-to -47,40
+walk-to -44.5,62
+face 90 tol 5
+hold 0x41 until msg 'Changing room from 1 to 3' within 15
+# room 3: from the door (0,-90) round to the job terminal at -43,29
+walk-to -6.8,-52.7
+walk-to -33.4,-39.1
+walk-to -40.9,-6.5
+walk-to -43,28
+face 93
+click 638,654 until antprox 'sent JOB_LIST' every 2 within 20
+wait-quiet proxy 1.0 within 20
+shot jobs_open
+click 143,424
+wait-quiet proxy 1.0 within 20
+shot jobs_trade
+click 130,456
+wait-quiet proxy 1.0 within 20
+shot jobs_explore
+click 129,387
+wait-quiet proxy 1.0 within 20
+shot jobs_combat
+click 1253,340
+wait-quiet proxy 1.0 within 20
+shot jobs_closed
+# back to room 3's door, then home
+walk-to -40.9,-6.5
+walk-to -33.4,-39.1
+walk-to -6.8,-52.7
+walk-to 0.5,-66
+face -90 tol 5
+hold 0x41 until msg 'Changing room from 3 to 1' within 15
+walk-to -44.5,62
+walk-to -47,40
+walk-to -48,5
