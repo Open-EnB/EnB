@@ -145,7 +145,7 @@ struct SubsCouponStruct  // NAME 1 [SubsCouponStruct]: the reply's 'coupon' elem
 };
 
 // The 0xF4-byte entries of the interface's vector +0x568: one 'subscription-info' (0x7D3CC0's list, read by 0x7D1060;
-// copy constructor 0x43AAB0, destructor 0x449CC0, both out of line in an earlier object)
+// copy constructor 0x43AAB0 out of line in an earlier object; destructor 0x449CC0: ui_registration.cpp's copy, which sees ~SubsBundleStruct)
 struct RegistrationUnknown568Struct  // NAME 1 [RegistrationUnknown568Struct]: neutral (D10)
 {
 	RegistrationUnknown568Struct() : EntitlementStatus(0), EntitlementStatusReason(0) {}

@@ -527,7 +527,7 @@ void FpTTClass::Unknown_0C(float &yaw, float &pitch)
 **	  the other one.
 **	- 0x449EA0 (2778 bytes: the obstacle pass over the proximity list 0x4568E0, then 0x449540's steer, or its own around
 **	  or away from the nearest obstacle, then the proximity box toward the target) is written NOT EXACT.
-**	- 0x449CC0 (the out-of-line destructor of unknown_7cef30.h's RegistrationUnknown568Struct) and 0x44A980
+**	- 0x449CC0 (~RegistrationUnknown568Struct: ui_registration.cpp's COMDAT, credited there) and 0x44A980
 **	  (vector<SubsCouponStruct>::operator=) lie inside this object's span: COMDAT copies of a header this file
 **	  reached (or the linker's identical-code folding); no source form here produces them yet.
 */
