@@ -2399,6 +2399,1828 @@
 ],
 "_wcslen": [
 "0xA2AD9D"
+],
+"data:?$S6@?1??Wildcard@NameClass@@SAABVPermString@@XZ@4EA": [
+"0xBE3B28"
+],
+"data:??_8?$basic_iostream@DU?$char_traits@D@std@@@std@@7B?$basic_istream@DU?$char_traits@D@std@@@1@@": [
+"0xAECD10"
+],
+"data:??_8?$basic_iostream@DU?$char_traits@D@std@@@std@@7B?$basic_ostream@DU?$char_traits@D@std@@@1@@": [
+"0xAECD04"
+],
+"data:??_8?$basic_stringstream@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@7B?$basic_istream@DU?$char_traits@D@std@@@1@@": [
+"0xAECCE8"
+],
+"data:??_8?$basic_stringstream@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@7B?$basic_ostream@DU?$char_traits@D@std@@@1@@": [
+"0xAECCDC"
+],
+"data:??_B?1???id@?$ctype@G@std@@$D@@9@51": [
+"0xC416FC"
+],
+"data:??_B?1???id@?$num_get@DV?$istreambuf_iterator@DU?$char_traits@D@std@@@$D@@9@51": [
+"0xC416C6"
+],
+"data:??_B?1???id@?$num_put@DV?$ostreambuf_iterator@DU?$char_traits@D@std@@@$D@@9@51": [
+"0xC416B0"
+],
+"data:??_B?1???id@?$numpunct@D@std@@$D@@9@51": [
+"0xC416C7"
+],
+"data:??_C@_00A@?$AA@": [
+"0xB6E948",
+"0xB831F8",
+"0xBDA908"
+],
+"data:??_R0?AVCameraModuleClass@@@8": [
+"0xB9ABE8"
+],
+"data:??_R0?AVCameraModuleSignal@@@8": [
+"0xB9ACA8"
+],
+"data:??_R0?AVChatWindowInterface@@@8": [
+"0xB7D3E0"
+],
+"data:??_R0?AVChatWindowInterfaceEvent@@@8": [
+"0xB7D4B0"
+],
+"data:??_R0?AVClientGroupEvent@@@8": [
+"0xB7F9C8"
+],
+"data:??_R0?AVClientObjectClass@@@8": [
+"0xB7F9A0"
+],
+"data:??_R0?AVControlKeysManager@@@8": [
+"0xB79520"
+],
+"data:??_R0?AVDestroyGadgetEvent@@@8": [
+"0xB7D688",
+"0xB8CA28"
+],
+"data:??_R0?AVFlashingGadgetEvent@@@8": [
+"0xB78FC0"
+],
+"data:??_R0?AVGClass@@@8": [
+"0xB72EA0"
+],
+"data:??_R0?AVGadgetClass@@@8": [
+"0xB78F08",
+"0xB7D5C0"
+],
+"data:??_R0?AVGadgetCollectionInterface@@@8": [
+"0xB76F18"
+],
+"data:??_R0?AVGadgetEvent@@@8": [
+"0xB76FF0"
+],
+"data:??_R0?AVGadgetGroupToFrontEvent@@@8": [
+"0xB794F0"
+],
+"data:??_R0?AVGadgetSlider@@@8": [
+"0xB8D5C8"
+],
+"data:??_R0?AVGadgetSliderEvent@@@8": [
+"0xB8D5E8"
+],
+"data:??_R0?AVInterfaceClass@@@8": [
+"0xB7D2E0"
+],
+"data:??_R0?AVKeysSavedEvent@@@8": [
+"0xB795E8"
+],
+"data:??_R0?AVMovableUIBackGadget@@@8": [
+"0xB7D5C0"
+],
+"data:??_R0?AVMovableUIBackGadgetMoved@@@8": [
+"0xB7D688"
+],
+"data:??_R0?AVOptionFontInterface@@@8": [
+"0xB7D2E0"
+],
+"data:??_R0?AVOptionFontInterfaceEvent@@@8": [
+"0xB7D3B0"
+],
+"data:??_R0?AVPlayerObjectRelationshipChangeEvent@@@8": [
+"0xB88C00"
+],
+"data:??_R0?AVSlotDataClass@@@8": [
+"0xB8A5C0"
+],
+"data:??_R0?AVSlotDataEventDataChange@@@8": [
+"0xB8A688"
+],
+"data:??_R0?AVTargetChangeEvent@@@8": [
+"0xB72EC0"
+],
+"data:??_R0?AVToggleButtonDynamicWindow@@@8": [
+"0xB76EA8"
+],
+"data:??_R0?AVToggleButtonStateEvent@@@8": [
+"0xB76ED8"
+],
+"data:??_R0PAVEmoteDataClass@@@8": [
+"0xB9E818"
+],
+"data:??_R0PAVGutterDataClass@@@8": [
+"0xB9E7A0"
+],
+"data:??_R0PAVNavigationDataClass@@@8": [
+"0xB9E7F0"
+],
+"data:??_R0PAVRadarDataClass@@@8": [
+"0xB9E778"
+],
+"data:??_R0PAVStarmapDataClass@@@8": [
+"0xB9E7C8"
+],
+"data:??_R0PBV?$MemberCallback@VCameraModuleClass@@VSClient@@P82@AEXPAVCameraModuleSignal@@PAV1@@ZV3@@SignalBaseClass@@@8": [
+"0xB9AC10"
+],
+"data:??_R0PBV?$MemberCallback@VChatWindowInterface@@VChatPanelInterface@@P82@AEXPAVChatWindowInterfaceEvent@@PAV1@@ZV3@@SignalBaseClass@@@8": [
+"0xB7D408"
+],
+"data:??_R0PBV?$MemberCallback@VClientObjectClass@@VRadarDataClass@@P82@AEXPAVClientGroupEvent@@PAV1@@ZV3@@SignalBaseClass@@@8": [
+"0xB9F180"
+],
+"data:??_R0PBV?$MemberCallback@VClientObjectClass@@VRadarDataClass@@P82@AEXPAVPlayerObjectRelationshipChangeEvent@@PAV1@@ZV3@@SignalBaseClass@@@8": [
+"0xB9F0D0"
+],
+"data:??_R0PBV?$MemberCallback@VClientObjectClass@@VUIScanClass@@P82@AEXPAVPlayerObjectRelationshipChangeEvent@@PAV1@@ZV3@@SignalBaseClass@@@8": [
+"0xB88B50"
+],
+"data:??_R0PBV?$MemberCallback@VControlKeysManager@@VInterfaceClass@@P82@AEXPAVKeysSavedEvent@@PAV1@@ZV3@@SignalBaseClass@@@8": [
+"0xB79548"
+],
+"data:??_R0PBV?$MemberCallback@VGadgetClass@@VAvatarCreationInterface@@P82@AEXPAVFlashingGadgetEvent@@PAV1@@ZV3@@SignalBaseClass@@@8": [
+"0xB7B840"
+],
+"data:??_R0PBV?$MemberCallback@VGadgetClass@@VAvatarSelectionInterface@@P82@AEXPAVFlashingGadgetEvent@@PAV1@@ZV3@@SignalBaseClass@@@8": [
+"0xB7C060"
+],
+"data:??_R0PBV?$MemberCallback@VGadgetClass@@VBridgeInterface@@P82@AEXPAVFlashingGadgetEvent@@PAV1@@ZV3@@SignalBaseClass@@@8": [
+"0xB78F28"
+],
+"data:??_R0PBV?$MemberCallback@VGadgetClass@@VChatPanelUIBase@@P82@AEXPAVDestroyGadgetEvent@@PAV1@@ZV3@@SignalBaseClass@@@8": [
+"0xB7D5E8"
+],
+"data:??_R0PBV?$MemberCallback@VGadgetClass@@VClassSelectInterface@@P82@AEXPAVFlashingGadgetEvent@@PAV1@@ZV3@@SignalBaseClass@@@8": [
+"0xB7E308"
+],
+"data:??_R0PBV?$MemberCallback@VGadgetClass@@VLoginInterface@@P82@AEXPAVFlashingGadgetEvent@@PAV1@@ZV3@@SignalBaseClass@@@8": [
+"0xB817A8"
+],
+"data:??_R0PBV?$MemberCallback@VGadgetClass@@VShipCustomizeInterface@@P82@AEXPAVFlashingGadgetEvent@@PAV1@@ZV3@@SignalBaseClass@@@8": [
+"0xB8A1D8"
+],
+"data:??_R0PBV?$MemberCallback@VGadgetClass@@VStarbaseAvatarCreationInterface@@P82@AEXPAVFlashingGadgetEvent@@PAV1@@ZV3@@SignalBaseClass@@@8": [
+"0xB7AC80"
+],
+"data:??_R0PBV?$MemberCallback@VGadgetClass@@VStarbaseShipCustomizeInterface@@P82@AEXPAVFlashingGadgetEvent@@PAV1@@ZV3@@SignalBaseClass@@@8": [
+"0xB89BB0"
+],
+"data:??_R0PBV?$MemberCallback@VGadgetClass@@VUIViewUnknown30Class@@P82@AEXPAVDestroyGadgetEvent@@PAV1@@ZV3@@SignalBaseClass@@@8": [
+"0xB91998"
+],
+"data:??_R0PBV?$MemberCallback@VGadgetCollectionInterface@@VToggleButtonDynamicWindow@@P82@AEXPAVGadgetEvent@@PAV1@@ZV3@@SignalBaseClass@@@8": [
+"0xB76F48"
+],
+"data:??_R0PBV?$MemberCallback@VInterfaceClass@@VChatPanelInterface@@P82@AEXPAVOptionFontInterfaceEvent@@PAV1@@ZV3@@SignalBaseClass@@@8": [
+"0xB7D308"
+],
+"data:??_R0PBV?$MemberCallback@VSlotDataClass@@VSlotDataInterface@@P82@AEXPAVSlotDataEventDataChange@@PAV1@@ZV3@@SignalBaseClass@@@8": [
+"0xB8A5E8"
+],
+"data:??_R0PBV?$MemberCallback@VSlotDataClass@@VSlotDataShortcutInterface@@P82@AEXPAVSlotDataEventDataChange@@PAV1@@ZV3@@SignalBaseClass@@@8": [
+"0xB8A7B8"
+],
+"data:??_R0PBV?$MemberCallback@VSlotDataClass@@VUnknown669FB0Class@@P82@AEXPAVSlotDataEventDataChange@@PAV1@@ZV3@@SignalBaseClass@@@8": [
+"0xB8D100"
+],
+"data:??_R0PBV?$MemberCallback@VToggleButtonDynamicWindow@@VUIItemExaminationOptionClass@@P82@AEXPAVToggleButtonStateEvent@@PAV1@@ZV3@@SignalBaseClass@@@8": [
+"0xB789B0"
+],
+"data:??_R0PBV?$MemberCallback@XVInterfaceClass@@P81@AEXPAVGadgetGroupToFrontEvent@@PAX@ZV2@@SignalBaseClass@@@8": [
+"0xB79460"
+],
+"data:??_R0X@8": [
+"0xB79450"
+],
+"data:?AT_MAX_LOD@RenderObjClass@@2MB": [
+"0xB11560"
+],
+"data:?AT_MIN_LOD@RenderObjClass@@2MB": [
+"0xB1155C"
+],
+"data:?ActiveIterators@CallbackManager@@2VActiveIteratorsClass@1@A": [
+"0xBE34E0"
+],
+"data:?Allocator@?$AutoPoolClass@VCompoundRecordClass@@$0IA@@@0V?$ObjectPoolClass@VCompoundRecordClass@@$0IA@@@A": [
+"0xBE3AB8"
+],
+"data:?Allocator@?$AutoPoolClass@VCordChannelClass@@$0EAA@@@0V?$ObjectPoolClass@VCordChannelClass@@$0EAA@@@A": [
+"0xBF40D8"
+],
+"data:?Allocator@?$AutoPoolClass@VDeltaListNodeClass@@$0BAA@@@0V?$ObjectPoolClass@VDeltaListNodeClass@@$0BAA@@@A": [
+"0xBE3AE8"
+],
+"data:?Allocator@?$AutoPoolClass@VGenericSLNode@@$0BAA@@@0V?$ObjectPoolClass@VGenericSLNode@@$0BAA@@@A": [
+"0xC1CD60"
+],
+"data:?Allocator@?$AutoPoolClass@VHAnimComboDataClass@@$0BAA@@@0V?$ObjectPoolClass@VHAnimComboDataClass@@$0BAA@@@A": [
+"0xC00708"
+],
+"data:?Allocator@?$AutoPoolClass@VLeafRecordClass@@$0IA@@@0V?$ObjectPoolClass@VLeafRecordClass@@$0IA@@@A": [
+"0xBE3AD0"
+],
+"data:?Allocator@?$AutoPoolClass@VNavNodeStruct@@$0BA@@@0V?$ObjectPoolClass@VNavNodeStruct@@$0BA@@@A": [
+"0xBE8738"
+],
+"data:?AreStaticSortListsEnabled@WW3D@@0_NA": [
+"0xBFAE50"
+],
+"data:?AssetManager@@3PAVENBAssetManager@@A": [
+"0xBDADC0"
+],
+"data:?Borrow@?$Int@$0EA@@@2_NA": [
+"0xC1F255"
+],
+"data:?BwIn@BandwidthAccountingClass@@2IA": [
+"0xBF4074"
+],
+"data:?BwOut@BandwidthAccountingClass@@2IA": [
+"0xBF4070"
+],
+"data:?BytesIn@BandwidthAccountingClass@@2IA": [
+"0xBF4064"
+],
+"data:?BytesOut@BandwidthAccountingClass@@2IA": [
+"0xBF4060"
+],
+"data:?Carry@?$Int@$0EA@@@2_NA": [
+"0xC1F254"
+],
+"data:?Converter@@3PAVConvertClass@@A": [
+"0xBE64A4"
+],
+"data:?Count@Unknown_6D8B90Class@@2HA": [
+"0xBE67CC"
+],
+"data:?CreateThumbnailIfNotFound@ThumbnailManagerClass@@0_NA": [
+"0xBFAEA5"
+],
+"data:?CurrentAdapterIdentifier@DX8Wrapper@@1U_D3DADAPTER_IDENTIFIER8@@A": [
+"0xBFF838"
+],
+"data:?CurrentCaps@DX8Wrapper@@1PAVDX8Caps@@A": [
+"0xC006A0"
+],
+"data:?D3DDevice@DX8Wrapper@@1PAUIDirect3DDevice8@@A": [
+"0xC00660"
+],
+"data:?DebugLibSemaphore@@3VCritSec@@A": [
+"0xBF5258"
+],
+"data:?DefaultFont@@3VWWFontClass@@A": [
+"0xBE6098"
+],
+"data:?DefaultFontData@@3PAEA": [
+"0xB8DBF8"
+],
+"data:?DefaultNativeScreenSize@WW3D@@0MA": [
+"0xBB964C"
+],
+"data:?DeltaUnknownGlobal@@3HA": [
+"0xBE3A78"
+],
+"data:?Enabled@BandwidthAccountingClass@@2_NA": [
+"0xBF40A8"
+],
+"data:?Entries@BandwidthAccountingClass@@2V?$DynamicVectorClass@UBandwidthEntryClass@@@@A": [
+"0xBF4048"
+],
+"data:?Error@?$Int@$0EA@@@2HA": [
+"0xC1F250"
+],
+"data:?FontData@@3PAPAXA": [
+"0xBE63B8"
+],
+"data:?FontNames@@3PAPBDA": [
+"0xB8F2EC"
+],
+"data:?ForgetIn@BandwidthAccountingClass@@2_NA": [
+"0xBB13E8"
+],
+"data:?ForgetOut@BandwidthAccountingClass@@2_NA": [
+"0xBB13E9"
+],
+"data:?FrameCounter@WWProfileManager@@0HA": [
+"0xC4048C"
+],
+"data:?GlobalErrorStrings@@3PAPADA": [
+"0xBB25F0"
+],
+"data:?GutterColors@@3V?$hash_map@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@UGutterColorSetStruct@@U?$hash@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@U?$equal_to@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@V?$allocator@UGutterColorSetStruct@@@2@@std@@A": [
+"0xBE70E8"
+],
+"data:?HasCMOVSupport@CPUDetectClass@@0_NA": [
+"0xC1EC94"
+],
+"data:?INVALID_ID@UniqueDesignIDLookupClass@@2HB": [
+"0xAECC44"
+],
+"data:?Identity@Matrix3D@@2V1@B": [
+"0xBF9330"
+],
+"data:?Info@@3PAUPickInfoStruct@@A": [
+"0xBE71E0"
+],
+"data:?Instance@BuffDatabaseClass@@2PAV1@A": [
+"0xBE6014"
+],
+"data:?Instance@KernelClass@@2PAV1@A": [
+"0xBDADBC"
+],
+"data:?Instance@OptionClass@@2PAV1@A": [
+"0xBE8B38"
+],
+"data:?Instance@TutorialManagerClass@@2PAV1@A": [
+"0xBE66C8"
+],
+"data:?Invalid_Text@ExprMathTokenClass@@2PBDB": [
+"0xB7459C"
+],
+"data:?IsProfileEnabled@WWProfileManager@@0_NA": [
+"0xC40488"
+],
+"data:?IsScreenUVBiased@WW3D@@0_NA": [
+"0xBFAE4F"
+],
+"data:?IsSortingEnabled@WW3D@@0_NA": [
+"0xBFAE50"
+],
+"data:?KeyRepeatCount@@3HA": [
+"0xBDAA84"
+],
+"data:?LandHorizonTable@@3PAY0BAA@VVector3@@A": [
+"0xBDC0E8"
+],
+"data:?LastInIndex@BandwidthAccountingClass@@2HA": [
+"0xBB13F0"
+],
+"data:?LastInIp@BandwidthAccountingClass@@2IA": [
+"0xBF40AC"
+],
+"data:?LastInPort@BandwidthAccountingClass@@2GA": [
+"0xBF40B0"
+],
+"data:?LastOutIndex@BandwidthAccountingClass@@2HA": [
+"0xBB13F4"
+],
+"data:?LastOutIp@BandwidthAccountingClass@@2IA": [
+"0xBF40B4"
+],
+"data:?LastOutPort@BandwidthAccountingClass@@2GA": [
+"0xBF40B8"
+],
+"data:?LastTime@BandwidthAccountingClass@@2IA": [
+"0xBF4080"
+],
+"data:?MainWindow@@3PAUHWND__@@A": [
+"0xC1E1B4"
+],
+"data:?Mgr@CordMgrTaskClass@@2PAVCordMgr@@A": [
+"0xBF16C0"
+],
+"data:?Mono@@3VMonoClass@@A": [
+"0xC1ECC0"
+],
+"data:?MungeSortOnLoad@WW3D@@0_NA": [
+"0xBFAE51"
+],
+"data:?Next_Serial@PacketClass@@2HA": [
+"0xBF4128"
+],
+"data:?OverbrightModifyOnLoad@WW3D@@0_NA": [
+"0xBFAE52"
+],
+"data:?PacketsIn@BandwidthAccountingClass@@2IA": [
+"0xBF406C"
+],
+"data:?PacketsOut@BandwidthAccountingClass@@2IA": [
+"0xBF4068"
+],
+"data:?Palette@@3VPaletteClass@@A": [
+"0xBE60B8"
+],
+"data:?PeakIn@BandwidthAccountingClass@@2HA": [
+"0xBF408C"
+],
+"data:?PeakInPerAddr@BandwidthAccountingClass@@2IA": [
+"0xBF4090"
+],
+"data:?PeakOut@BandwidthAccountingClass@@2HA": [
+"0xBF4084"
+],
+"data:?PeakOutPerAddr@BandwidthAccountingClass@@2IA": [
+"0xBF4088"
+],
+"data:?PpsIn@BandwidthAccountingClass@@2IA": [
+"0xBF407C"
+],
+"data:?PpsOut@BandwidthAccountingClass@@2IA": [
+"0xBF4078"
+],
+"data:?PreviousSyncTime@WW3D@@0IA": [
+"0xBFAE40"
+],
+"data:?ProgramInstance@@3PAUHINSTANCE__@@A": [
+"0xC1E1B8"
+],
+"data:?Public_Palettes@@3V?$vector@PAUUnknown848450Struct@@V?$allocator@PAUUnknown848450Struct@@@std@@@std@@A": [
+"0xBF3F58"
+],
+"data:?Queue@KeyboardClass@@2PAVKeyQueueClass@@A": [
+"0xBDAAC4"
+],
+"data:?Queue@MouseClass@@2PAVKeyQueueClass@@A": [
+"0xBDAAC8"
+],
+"data:?RaceNames@@3PAPADA": [
+"0xBB06E0"
+],
+"data:?RecordCodec@@3VRecordCodecClass@@A": [
+"0xBE3AB4"
+],
+"data:?RemapSizes@@3PAHA": [
+"0xBE6438"
+],
+"data:?Remaps@@3PAPAEA": [
+"0xBE63CC"
+],
+"data:?RenderStates@DX8Wrapper@@1PAIA": [
+"0xBFF438"
+],
+"data:?ScreenResolution@Render2DClass@@1VRectClass@@A": [
+"0xC07550"
+],
+"data:?Secret_Palettes@@3V?$vector@PAUUnknown848450Struct@@V?$allocator@PAUUnknown848450Struct@@@std@@@std@@A": [
+"0xBF3F68"
+],
+"data:?SectorTypeNames@@3PAPADA": [
+"0xBB0AC0"
+],
+"data:?ShaderDirty@ShaderClass@@1_NA": [
+"0xBBB034"
+],
+"data:?Sizes@BandwidthAccountingClass@@2PAHA": [
+"0xBF4094"
+],
+"data:?SnapshotActivated@WW3D@@0_NA": [
+"0xBFAE75"
+],
+"data:?SortCountdown@BandwidthAccountingClass@@2HA": [
+"0xBB13EC"
+],
+"data:?SoundManager@@3PAVSoundManagerClass@@A": [
+"0xBE82A4"
+],
+"data:?Stack@PxProcessClass@@2V?$vector@PAVPxProcessClass@@V?$allocator@PAVPxProcessClass@@@std@@@std@@A": [
+"0xBDC080"
+],
+"data:?SyncTime@WW3D@@0IA": [
+"0xBFAE3C"
+],
+"data:?Task@CordMgrTaskClass@@2PAV1@A": [
+"0xBF16C4"
+],
+"data:?Templates@CharTemplateClass@@2V?$vector@PAVCharTemplateClass@@V?$allocator@PAVCharTemplateClass@@@std@@@std@@A": [
+"0xBF3070"
+],
+"data:?TheDX8MeshRenderer@@3VDX8MeshRendererClass@@A": [
+"0xC07630"
+],
+"data:?TheInstance@WW3DAssetManager@@1PAV1@A": [
+"0xBDADC0",
+"0xBFAEE0"
+],
+"data:?TotalCost@PredictiveLODOptimizerClass@@0MA": [
+"0xC0754C"
+],
+"data:?TrackMouseCounter@@3HA": [
+"0xBDAA80"
+],
+"data:?TreeCodec@@3PAVTreeCodecClass@@A": [
+"0xBE3B00"
+],
+"data:?UnknownGlobal@?$DeltaArrayClass@M@@2HA": [
+"0xC415DC"
+],
+"data:?UnknownGlobal@?$DeltaArrayClass@UInvSlotStruct@@@@2HA": [
+"0xC415D8"
+],
+"data:?UnknownGlobal@?$DeltaArrayClass@UProjectedDecalClass@@@@2HA": [
+"0xC41584"
+],
+"data:?UnknownGlobal@?$DeltaItemArrayClass@VDeltaAttachmentClass@@@@2HA": [
+"0xC41580"
+],
+"data:?UnknownGlobal@?$DeltaItemArrayClass@VDeltaCategoryClass@@@@2HA": [
+"0xC41620"
+],
+"data:?UnknownGlobal@?$DeltaItemArrayClass@VDeltaEquipItemClass@@@@2HA": [
+"0xC415A4"
+],
+"data:?UnknownGlobal@?$DeltaItemArrayClass@VDeltaGroupMemberClass@@@@2HA": [
+"0xC41644"
+],
+"data:?UnknownGlobal@?$DeltaItemArrayClass@VDeltaItemClass@@@@2HA": [
+"0xC41624"
+],
+"data:?UnknownGlobal@?$DeltaItemArrayClass@VDeltaKnownFormulaClass@@@@2HA": [
+"0xC41628"
+],
+"data:?UnknownGlobal@?$DeltaItemArrayClass@VDeltaMissionClass@@@@2HA": [
+"0xC415FC"
+],
+"data:?UnknownGlobal@?$DeltaItemArrayClass@VDeltaMissionStageClass@@@@2HA": [
+"0xC415E8"
+],
+"data:?UnknownGlobal@?$DeltaItemArrayClass@VDeltaPrimaryCategoryClass@@@@2HA": [
+"0xC4162C"
+],
+"data:?UnknownGlobal@?$DeltaItemArrayClass@VDeltaSkillAbilityClass@@@@2HA": [
+"0xC41668"
+],
+"data:?UnknownGlobal@?$DeltaItemArrayClass@VDeltaSkillClass@@@@2HA": [
+"0xC41658"
+],
+"data:?UnknownGlobal@?$DeltaItemArrayClass@VDeltaStringClass@@@@2HA": [
+"0xC415C8"
+],
+"data:?UnknownGlobal@?$DeltaItemArrayClass@VDeltaSubCategoryClass@@@@2HA": [
+"0xC4160C"
+],
+"data:?UnknownGlobal@?$DeltaTemplateClass@H@@2HA": [
+"0xC416A8"
+],
+"data:?UnknownGlobal@?$DeltaTemplateClass@M@@2HA": [
+"0xC416F0"
+],
+"data:?UnknownGlobal@?$DeltaTemplateClass@UInvSlotStruct@@@@2HA": [
+"0xC41594"
+],
+"data:?UnknownGlobal@?$DeltaTemplateClass@UProjectedDecalClass@@@@2HA": [
+"0xC41588"
+],
+"data:?UnknownGlobal@?$DeltaTemplateClass@USkillLevelAvailabilityStruct@@@@2HA": [
+"0xC4166C"
+],
+"data:?UnknownGlobal@?$DeltaTemplateClass@VDurationClass@@@@2HA": [
+"0xBE3AA4"
+],
+"data:?UnknownGlobal@?$DeltaTemplateClass@VMoneyClass@@@@2HA": [
+"0xBE3A94"
+],
+"data:?UnknownGlobal@?$DeltaTemplateClass@VVector3@@@@2HA": [
+"0xC41590"
+],
+"data:?UnknownGlobal@?$DeltaTemplateClass@W4EffectGeneratorUsageBF@@@@2HA": [
+"0xC41678"
+],
+"data:?UnknownGlobal@?$DeltaTemplateClass@W4FormationState@@@@2HA": [
+"0xC41654"
+],
+"data:?UnknownGlobal@?$DeltaTemplateClass@W4GameActionValidityBitFlag@@@@2HA": [
+"0xC4168C"
+],
+"data:?UnknownGlobal@?$DeltaTemplateClass@W4GuildRankType@@@@2HA": [
+"0xC4158C"
+],
+"data:?UnknownGlobal@?$DeltaTemplateClass@W4HullPreviewStatusEnum@@@@2HA": [
+"0xBDA90C"
+],
+"data:?UnknownGlobal@?$DeltaTemplateClass@W4InterruptStateType@@@@2HA": [
+"0xC415A8"
+],
+"data:?UnknownGlobal@?$DeltaTemplateClass@W4ItemStateEnum@@@@2HA": [
+"0xC41690"
+],
+"data:?UnknownGlobal@?$DeltaTemplateClass@W4TargetGeneratorSummaryBF@@@@2HA": [
+"0xC41688"
+],
+"data:?UnknownGlobal@?$DeltaTemplateClass@W4UnknownB011D4Enum@@@@2HA": [
+"0xC4163C"
+],
+"data:?UnknownGlobal@?$DeltaTemplateClass@W4UnknownB0122CEnum@@@@2HA": [
+"0xC41630"
+],
+"data:?UnknownGlobal@?$DeltaTemplateClass@W4UnknownB0133CEnum@@@@2HA": [
+"0xC41638"
+],
+"data:?UnknownGlobal@?$DeltaTemplateClass@W4UnknownB01394Enum@@@@2HA": [
+"0xC41640"
+],
+"data:?UnknownGlobal@?$DeltaTemplateClass@W4UnknownB013ECEnum@@@@2HA": [
+"0xC41634"
+],
+"data:?UnknownGlobal@?$DeltaTemplateClass@W4UnknownB03588Enum@@@@2HA": [
+"0xC41674"
+],
+"data:?UnknownGlobal@?$DeltaTemplateClass@W4UnknownB035E0Enum@@@@2HA": [
+"0xC41670"
+],
+"data:?UnknownGlobal@?$DeltaTemplateClass@W4WW3DLightAttenuationType@@@@2HA": [
+"0xC41564"
+],
+"data:?UnknownGlobal@?$DeltaTemplateClass@_N@@2HA": [
+"0xC416AC"
+],
+"data:?UnknownGlobal@DeltaBuffsClass@@2HA": [
+"0xC41600"
+],
+"data:?UnknownGlobal@DeltaCompoundClass@@2HA": [
+"0xBE3A74"
+],
+"data:?UnknownGlobal@DeltaStringClass@@2HA": [
+"0xBE3A9C"
+],
+"data:?UnknownGlobal@UIManuComponentsClass@@2HA": [
+"0xC41624"
+],
+"data:?UnknownGlobal@UIManuListClass@@2HA": [
+"0xC41628"
+],
+"data:?UnknownGlobal@UIManuTechLevelFilterClass@@2HA": [
+"0xC4163C"
+],
+"data:?Unknown_B0804C@@3HB": [
+"0xB0804C"
+],
+"data:?Unknown_B08C98@@3HB": [
+"0xB08CAC"
+],
+"data:?Unknown_B08C9C@@3HB": [
+"0xB08C9C",
+"0xB08CAC"
+],
+"data:?Unknown_B08CA8@@3HB": [
+"0xB08CA8"
+],
+"data:?Unknown_B08CAC@@3HB": [
+"0xB08C98",
+"0xB08C9C",
+"0xB08CAC",
+"0xB08CC0"
+],
+"data:?Unknown_B08CB0@@3HB": [
+"0xB08CB0"
+],
+"data:?Unknown_B08CBC@@3HB": [
+"0xB08CBC"
+],
+"data:?Unknown_B08CC0@@3HB": [
+"0xB08CAC",
+"0xB08CC0"
+],
+"data:?Unknown_B08CC4@@3HB": [
+"0xB08CC4"
+],
+"data:?Unknown_B704A0@@3PADA": [
+"0xB704A0"
+],
+"data:?Unknown_B721A0@@3MA": [
+"0xB721A0"
+],
+"data:?Unknown_B721A4@@3MA": [
+"0xB721A4"
+],
+"data:?Unknown_B8D430@@3HB": [
+"0xB8D430"
+],
+"data:?Unknown_B8D434@@3HB": [
+"0xB8D434"
+],
+"data:?Unknown_B8D438@@3HB": [
+"0xB8D438"
+],
+"data:?Unknown_B8D43C@@3HB": [
+"0xB8D43C"
+],
+"data:?Unknown_B8D440@@3HB": [
+"0xB8D440"
+],
+"data:?Unknown_B8D444@@3HB": [
+"0xB8D444"
+],
+"data:?Unknown_B8D448@@3HB": [
+"0xB8D448"
+],
+"data:?Unknown_B8F870@@3PADA": [
+"0xB8F870"
+],
+"data:?Unknown_B93ACC@@3PAHA": [
+"0xB93ACC"
+],
+"data:?Unknown_B93AD8@@3MA": [
+"0xB93AD8"
+],
+"data:?Unknown_B93ADC@@3MA": [
+"0xB93ADC"
+],
+"data:?Unknown_B93AE0@@3MA": [
+"0xB93AE0"
+],
+"data:?Unknown_B93AE4@@3MA": [
+"0xB93AE4"
+],
+"data:?Unknown_B93AE8@@3MA": [
+"0xB93AE8"
+],
+"data:?Unknown_B93AEC@@3MA": [
+"0xB93AEC"
+],
+"data:?Unknown_B9489C@@3_NA": [
+"0xB9489C"
+],
+"data:?Unknown_B9489E@@3_NA": [
+"0xB9489E"
+],
+"data:?Unknown_B9489F@@3_NA": [
+"0xB9489F"
+],
+"data:?Unknown_B9F38C@@3HB": [
+"0xB9F38C"
+],
+"data:?Unknown_B9F390@@3HB": [
+"0xB9F390"
+],
+"data:?Unknown_BA8C20@@3PADA": [
+"0xBA8C20"
+],
+"data:?Unknown_BA8C24@@3PADA": [
+"0xBA8C24"
+],
+"data:?Unknown_BA8C28@@3PADA": [
+"0xBA8C28"
+],
+"data:?Unknown_BA8C2C@@3PADA": [
+"0xBA8C2C"
+],
+"data:?Unknown_BA8C30@@3PADA": [
+"0xBA8C30"
+],
+"data:?Unknown_BA8C34@@3PADA": [
+"0xBA8C34"
+],
+"data:?Unknown_BA8C38@@3PADA": [
+"0xBA8C38"
+],
+"data:?Unknown_BA8C3C@@3PADA": [
+"0xBA8C3C"
+],
+"data:?Unknown_BA8C40@@3PADA": [
+"0xBA8C40"
+],
+"data:?Unknown_BA8C44@@3PADA": [
+"0xBA8C44"
+],
+"data:?Unknown_BA8C48@@3PADA": [
+"0xBA8C48"
+],
+"data:?Unknown_BA8C4C@@3PADA": [
+"0xBA8C4C"
+],
+"data:?Unknown_BA8C50@@3PADA": [
+"0xBA8C50"
+],
+"data:?Unknown_BAE854@@3PAPBDA": [
+"0xBAE854"
+],
+"data:?Unknown_BB9654@@3_NA": [
+"0xBB9654"
+],
+"data:?Unknown_BDA968@@3PAVInputQueueClass@@A": [
+"0xBDA968"
+],
+"data:?Unknown_BDA96C@@3PAEA": [
+"0xBDA96C"
+],
+"data:?Unknown_BDAA70@@3PAVKeyboardClass@@A": [
+"0xBDAA70"
+],
+"data:?Unknown_BDAA74@@3PAVMouseClass@@A": [
+"0xBDAA74"
+],
+"data:?Unknown_BDAA78@@3PAVInputUnknownBDAA78Class@@A": [
+"0xBDAA78"
+],
+"data:?Unknown_BDAA7C@@3PAUHWND__@@A": [
+"0xBDAA7C"
+],
+"data:?Unknown_BDADB8@@3HA": [
+"0xBDADB8"
+],
+"data:?Unknown_BDADC8@@3VRandom2Class@@A": [
+"0xBDADC8"
+],
+"data:?Unknown_BDB1C0@@3VRandom4Class@@A": [
+"0xBDB1C0"
+],
+"data:?Unknown_BDBB84@@3VRandomClass@@A": [
+"0xBDBB84"
+],
+"data:?Unknown_BDBE4C@@3KA": [
+"0xBDBE4C"
+],
+"data:?Unknown_BDC0A0@@3VUnknown45C430Class@@A": [
+"0xBDC0A0"
+],
+"data:?Unknown_BDC0D8@@3PAVLandUnknown466BE0Class@@A": [
+"0xBDC0D8"
+],
+"data:?Unknown_BE34D0@@3_NA": [
+"0xBE34D0"
+],
+"data:?Unknown_BE350C@@3HA": [
+"0xBE350C"
+],
+"data:?Unknown_BE56D8@@3PAY01VShipCustSettingsClass@@A": [
+"0xBE56D8"
+],
+"data:?Unknown_BE5BC4@@3PAVUIComboBoxClass@@A": [
+"0xBE5BC4"
+],
+"data:?Unknown_BE5BD0@@3V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@A": [
+"0xBE5BD0"
+],
+"data:?Unknown_BE5D70@@3PAPBDA": [
+"0xBE5D70"
+],
+"data:?Unknown_BE5EB0@@3UKernelEventClass@@A": [
+"0xBE5EB0"
+],
+"data:?Unknown_BE5F24@@3PAVGadgetClass@@A": [
+"0xBE5F24"
+],
+"data:?Unknown_BE5F28@@3PAVGadgetClass@@A": [
+"0xBE5F28"
+],
+"data:?Unknown_BE5F2C@@3PAVGadgetClass@@A": [
+"0xBE5F2C"
+],
+"data:?Unknown_BE5F34@@3HA": [
+"0xBE5F34"
+],
+"data:?Unknown_BE5F34@@3IA": [
+"0xBE5F34"
+],
+"data:?Unknown_BE67B4@@3PAVUnknown_6BCFB0Class@@A": [
+"0xBE67B4"
+],
+"data:?Unknown_BE67BC@@3PAVFontStringFilesClass@@A": [
+"0xBE67BC"
+],
+"data:?Unknown_BE67C4@@3PAVFontManagerClass@@A": [
+"0xBE67C4"
+],
+"data:?Unknown_BE67D0@@3HA": [
+"0xBE67D0"
+],
+"data:?Unknown_BE67D4@@3HA": [
+"0xBE67D4"
+],
+"data:?Unknown_BE67D8@Unknown_6D8B90Class@@2HA": [
+"0xBE67D8"
+],
+"data:?Unknown_BE71D4@@3IA": [
+"0xBE71D4"
+],
+"data:?Unknown_BE7C70@@3PAPAUMouseCursorStruct@@A": [
+"0xBE7C70"
+],
+"data:?Unknown_BE82D0@@3PAVUnknown_764480Class@@A": [
+"0xBE82D0"
+],
+"data:?Unknown_BE856C@@3PAVUnknown_790560Class@@A": [
+"0xBE856C"
+],
+"data:?Unknown_BE8AA0@@3V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@A": [
+"0xBE8AA0"
+],
+"data:?Unknown_BE8AB0@@3V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@A": [
+"0xBE8AB0"
+],
+"data:?Unknown_BE8AC0@@3V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@A": [
+"0xBE8AC0"
+],
+"data:?Unknown_BE8AD4@@3HA": [
+"0xBE8AD4"
+],
+"data:?Unknown_BE8AD8@@3PAVSub14CClass@@A": [
+"0xBE8AD8"
+],
+"data:?Unknown_C01290@@3HA": [
+"0xC01290"
+],
+"data:?Unknown_C07550@@3VRectClass@@A": [
+"0xC07550"
+],
+"data:?Unknown_C404F8@@3_NA": [
+"0xC404F8"
+],
+"data:?Unknown_Main_Window@@3PAUHWND__@@A": [
+"0xBDAA7C"
+],
+"data:?UseCount@CFactionDatabaseClass@@0HA": [
+"0xBE8B24"
+],
+"data:?ZFar@DX8Wrapper@@1MA": [
+"0xC00630"
+],
+"data:?ZNear@DX8Wrapper@@1MA": [
+"0xC005B0"
+],
+"data:?_AbilityIndex@SkillAbilityNamesDatabase@@0V?$hash_map@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@IU?$hash@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@U?$equal_to@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@V?$allocator@I@2@@std@@A": [
+"0xBE8DC8"
+],
+"data:?_ActiveInterface@UISlotInfoClass@@2PAV1@A": [
+"0xBE5E5C"
+],
+"data:?_ActiveUI@TextBaseGadgetClass@@2PAV1@A": [
+"0xBE66C0"
+],
+"data:?_AllAbilities@SkillAbilityNamesDatabase@@0V?$vector@PAUUnknown815320Struct@@V?$allocator@PAUUnknown815320Struct@@@std@@@std@@A": [
+"0xBE8DA8"
+],
+"data:?_AllSkills@SkillNamesDatabase@@0V?$vector@PAVSkillNameClass@@V?$allocator@PAVSkillNameClass@@@std@@@std@@A": [
+"0xBE8E28"
+],
+"data:?_Audio@SoundLibraryClass@@2PAVWWAudioClass@@A": [
+"0xBDAC68"
+],
+"data:?_C@?1??_Nullstr@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@CAPBDXZ@4DB": [
+"0xAE70A4"
+],
+"data:?_Cltab@?$ctype@D@std@@0PBFB": [
+"0xC40F70"
+],
+"data:?_CurrentDialog@SoundLibraryClass@@2PAVAudibleSoundClass@@A": [
+"0xBDAC6C"
+],
+"data:?_DefaultDialogVolume@SoundLibraryClass@@2MA": [
+"0xB6F40C"
+],
+"data:?_DefaultDropOffRadius@SoundLibraryClass@@2MA": [
+"0xB6F3FC"
+],
+"data:?_DefaultMaxInstances@SoundLibraryClass@@2HA": [
+"0xB6F410"
+],
+"data:?_DefaultMaxVolRadius@SoundLibraryClass@@2MA": [
+"0xB6F400"
+],
+"data:?_DefaultPSW@ControlKeysManager@@2V?$vector@UKeyMappingStruct@@V?$allocator@UKeyMappingStruct@@@std@@@std@@A": [
+"0xBE7BB8"
+],
+"data:?_DefaultPriority@SoundLibraryClass@@2MA": [
+"0xB6F404"
+],
+"data:?_DefaultSIM@ControlKeysManager@@2V?$vector@UKeyMappingStruct@@V?$allocator@UKeyMappingStruct@@@std@@@std@@A": [
+"0xBE7C30"
+],
+"data:?_DefaultUser@ControlKeysManager@@2V?$vector@UKeyMappingStruct@@V?$allocator@UKeyMappingStruct@@@std@@@std@@A": [
+"0xBE7BF8"
+],
+"data:?_DefaultVolume@SoundLibraryClass@@2MA": [
+"0xB6F408"
+],
+"data:?_Facsav@?$_Tidyfac@V?$ctype@D@std@@@std@@0PAV?$ctype@D@2@A": [
+"0xBE5674"
+],
+"data:?_Facsav@?$_Tidyfac@V?$num_get@DV?$istreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@@std@@0PAV?$num_get@DV?$istreambuf_iterator@DU?$char_traits@D@std@@@std@@@2@A": [
+"0xBE5988"
+],
+"data:?_Facsav@?$_Tidyfac@V?$num_put@DV?$ostreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@@std@@0PAV?$num_put@DV?$ostreambuf_iterator@DU?$char_traits@D@std@@@std@@@2@A": [
+"0xBE5984"
+],
+"data:?_Facsav@?$_Tidyfac@V?$numpunct@D@std@@@std@@0PAV?$numpunct@D@2@A": [
+"0xBE5980"
+],
+"data:?_Factions@CFactionDatabaseClass@@0V?$hash_map@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@UFactionStruct@CFactionDatabaseClass@@U?$hash@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@U?$equal_to@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@V?$allocator@UFactionStruct@CFactionDatabaseClass@@@2@@std@@A": [
+"0xBE8B08"
+],
+"data:?_Fpz@std@@3_JB": [
+"0xB17340"
+],
+"data:?_Global@_Locimp@locale@std@@0PAV123@A": [
+"0xC40F68"
+],
+"data:?_Id_cnt@id@locale@std@@0HA": [
+"0xC40F6C"
+],
+"data:?_Instance@Unknown431E30Class@@2PAV1@A": [
+"0xBDAC38"
+],
+"data:?_IntersectionNormal@IntersectionClass@@1VVector3@@A": [
+"0xC07488"
+],
+"data:?_KeyDefinitions@ControlKeysManager@@2V?$hash_map@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@V?$auto_ptr@UControlKeyDefStruct@@@2@U?$hash@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@U?$equal_to@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@V?$allocator@V?$auto_ptr@UControlKeyDefStruct@@@std@@@2@@std@@A": [
+"0xBE7BC8"
+],
+"data:?_KeyIds@ControlKeysManager@@2V?$hash_map@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@UKeyIdStruct@@U?$hash@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@U?$equal_to@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@V?$allocator@UKeyIdStruct@@@2@@std@@A": [
+"0xBE7B98"
+],
+"data:?_Module@@3VCComModule@ATL@@A": [
+"0xBE87E8"
+],
+"data:?_NextDialogDef@SoundLibraryClass@@2PAVSoundDefClass@@A": [
+"0xBDAC70"
+],
+"data:?_NextDialogName@SoundLibraryClass@@2PADA": [
+"0xBDAC74"
+],
+"data:?_Nil@?$_Tree@DU?$pair@$$CBDPAVChatFilterNodeClass@@@std@@U_Kfn@?$map@DPAVChatFilterNodeClass@@U?$less@D@std@@V?$allocator@PAVChatFilterNodeClass@@@3@@2@U?$less@D@2@V?$allocator@PAVChatFilterNodeClass@@@2@@std@@1PAU_Node@12@A": [
+"0xBE55F4"
+],
+"data:?_Nil@?$_Tree@GU?$pair@$$CBGPAVMemoryServerClass@@@std@@U_Kfn@?$map@GPAVMemoryServerClass@@U?$less@G@std@@V?$allocator@PAVMemoryServerClass@@@3@@2@U?$less@G@2@V?$allocator@PAVMemoryServerClass@@@2@@std@@1PAU_Node@12@A": [
+"0xBE9178"
+],
+"data:?_Nil@?$_Tree@HHU_Kfn@?$set@HU?$less@H@std@@V?$allocator@H@2@@std@@U?$less@H@3@V?$allocator@H@3@@std@@1PAU_Node@12@A": [
+"0xBE5E68"
+],
+"data:?_Nil@?$_Tree@HU?$pair@$$CBHPAV?$list@PAVUIVerbClass@@V?$allocator@PAVUIVerbClass@@@std@@@std@@@std@@U_Kfn@?$map@HPAV?$list@PAVUIVerbClass@@V?$allocator@PAVUIVerbClass@@@std@@@std@@U?$less@H@2@V?$allocator@PAV?$list@PAVUIVerbClass@@V?$allocator@PAVUIVerbClass@@@std@@@std@@@2@@2@U?$less@H@2@V?$allocator@PAV?$list@PAVUIVerbClass@@V?$allocator@PAVUIVerbClass@@@std@@@std@@@2@@std@@1PAU_Node@12@A": [
+"0xBE8E7C"
+],
+"data:?_Nil@?$_Tree@HU?$pair@$$CBHURegistrationButtonStruct@@@std@@U_Kfn@?$map@HURegistrationButtonStruct@@U?$less@H@std@@V?$allocator@URegistrationButtonStruct@@@3@@2@U?$less@H@2@V?$allocator@URegistrationButtonStruct@@@2@@std@@1PAU_Node@12@A": [
+"0xBE5DFC"
+],
+"data:?_Nil@?$_Tree@HU?$pair@$$CBHURegistrationComboStruct@@@std@@U_Kfn@?$map@HURegistrationComboStruct@@U?$less@H@std@@V?$allocator@URegistrationComboStruct@@@3@@2@U?$less@H@2@V?$allocator@URegistrationComboStruct@@@2@@std@@1PAU_Node@12@A": [
+"0xBE5E0C"
+],
+"data:?_Nil@?$_Tree@HU?$pair@$$CBHURegistrationTextStruct@@@std@@U_Kfn@?$map@HURegistrationTextStruct@@U?$less@H@std@@V?$allocator@URegistrationTextStruct@@@3@@2@U?$less@H@2@V?$allocator@URegistrationTextStruct@@@2@@std@@1PAU_Node@12@A": [
+"0xBE5E04"
+],
+"data:?_Nil@?$_Tree@HU?$pair@$$CBHUShipCustGadgetStruct@@@std@@U_Kfn@?$map@HUShipCustGadgetStruct@@U?$less@H@std@@V?$allocator@UShipCustGadgetStruct@@@3@@2@U?$less@H@2@V?$allocator@UShipCustGadgetStruct@@@2@@std@@1PAU_Node@12@A": [
+"0xBE5E44"
+],
+"data:?_Nil@?$_Tree@HU?$pair@$$CBHUStarbaseShipCustGadgetStruct@@@std@@U_Kfn@?$map@HUStarbaseShipCustGadgetStruct@@U?$less@H@std@@V?$allocator@UStarbaseShipCustGadgetStruct@@@3@@2@U?$less@H@2@V?$allocator@UStarbaseShipCustGadgetStruct@@@2@@std@@1PAU_Node@12@A": [
+"0xBE5E28"
+],
+"data:?_Nil@?$_Tree@HU?$pair@$$CBHUUnknown_7C9F00Struct@@@std@@U_Kfn@?$map@HUUnknown_7C9F00Struct@@U?$less@H@std@@V?$allocator@UUnknown_7C9F00Struct@@@3@@2@U?$less@H@2@V?$allocator@UUnknown_7C9F00Struct@@@2@@std@@1PAU_Node@12@A": [
+"0xBE888C"
+],
+"data:?_Nil@?$_Tree@HU?$pair@$$CBHUUnknown_BE5648Struct@@@std@@U_Kfn@?$map@HUUnknown_BE5648Struct@@U?$less@H@std@@V?$allocator@UUnknown_BE5648Struct@@@3@@2@U?$less@H@2@V?$allocator@UUnknown_BE5648Struct@@@2@@std@@1PAU_Node@12@A": [
+"0xBE5668"
+],
+"data:?_Nil@?$_Tree@PAVTCPListenerClass@@PAV1@U_Kfn@?$set@PAVTCPListenerClass@@U?$less@PAVTCPListenerClass@@@std@@V?$allocator@PAVTCPListenerClass@@@3@@std@@U?$less@PAVTCPListenerClass@@@4@V?$allocator@PAVTCPListenerClass@@@4@@std@@1PAU_Node@12@A": [
+"0xBE9698"
+],
+"data:?_Nil@?$_Tree@PBDU?$pair@QBDPAVDeltaClass@@@std@@U_Kfn@?$map@PBDPAVDeltaClass@@U?$less@PBD@std@@V?$allocator@PAVDeltaClass@@@3@@2@U?$less@PBD@2@V?$allocator@PAVDeltaClass@@@2@@std@@1PAU_Node@12@A": [
+"0xBE3A84"
+],
+"data:?_Nil@?$_Tree@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@V12@@2@U_Kfn@?$map@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@V?$allocator@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@@2@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@V?$allocator@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@@std@@1PAU_Node@12@A": [
+"0xBE5C18"
+],
+"data:?_Nil@?$_Tree@W4VerbEnum@@W41@U_Kfn@?$set@W4VerbEnum@@U?$less@W4VerbEnum@@@std@@V?$allocator@W4VerbEnum@@@3@@std@@U?$less@W4VerbEnum@@@4@V?$allocator@W4VerbEnum@@@4@@std@@1PAU_Node@12@A": [
+"0xBE5E74"
+],
+"data:?_Nilrefs@?$_Tree@DU?$pair@$$CBDPAVChatFilterNodeClass@@@std@@U_Kfn@?$map@DPAVChatFilterNodeClass@@U?$less@D@std@@V?$allocator@PAVChatFilterNodeClass@@@3@@2@U?$less@D@2@V?$allocator@PAVChatFilterNodeClass@@@2@@std@@1IA": [
+"0xBE55F0"
+],
+"data:?_Nilrefs@?$_Tree@GU?$pair@$$CBGPAVMemoryServerClass@@@std@@U_Kfn@?$map@GPAVMemoryServerClass@@U?$less@G@std@@V?$allocator@PAVMemoryServerClass@@@3@@2@U?$less@G@2@V?$allocator@PAVMemoryServerClass@@@2@@std@@1IA": [
+"0xBE9174"
+],
+"data:?_Nilrefs@?$_Tree@HHU_Kfn@?$set@HU?$less@H@std@@V?$allocator@H@2@@std@@U?$less@H@3@V?$allocator@H@3@@std@@1IA": [
+"0xBE5E64"
+],
+"data:?_Nilrefs@?$_Tree@HU?$pair@$$CBHPAV?$list@PAVUIVerbClass@@V?$allocator@PAVUIVerbClass@@@std@@@std@@@std@@U_Kfn@?$map@HPAV?$list@PAVUIVerbClass@@V?$allocator@PAVUIVerbClass@@@std@@@std@@U?$less@H@2@V?$allocator@PAV?$list@PAVUIVerbClass@@V?$allocator@PAVUIVerbClass@@@std@@@std@@@2@@2@U?$less@H@2@V?$allocator@PAV?$list@PAVUIVerbClass@@V?$allocator@PAVUIVerbClass@@@std@@@std@@@2@@std@@1IA": [
+"0xBE8E78"
+],
+"data:?_Nilrefs@?$_Tree@HU?$pair@$$CBHURegistrationButtonStruct@@@std@@U_Kfn@?$map@HURegistrationButtonStruct@@U?$less@H@std@@V?$allocator@URegistrationButtonStruct@@@3@@2@U?$less@H@2@V?$allocator@URegistrationButtonStruct@@@2@@std@@1IA": [
+"0xBE5DF8"
+],
+"data:?_Nilrefs@?$_Tree@HU?$pair@$$CBHURegistrationComboStruct@@@std@@U_Kfn@?$map@HURegistrationComboStruct@@U?$less@H@std@@V?$allocator@URegistrationComboStruct@@@3@@2@U?$less@H@2@V?$allocator@URegistrationComboStruct@@@2@@std@@1IA": [
+"0xBE5E08"
+],
+"data:?_Nilrefs@?$_Tree@HU?$pair@$$CBHURegistrationTextStruct@@@std@@U_Kfn@?$map@HURegistrationTextStruct@@U?$less@H@std@@V?$allocator@URegistrationTextStruct@@@3@@2@U?$less@H@2@V?$allocator@URegistrationTextStruct@@@2@@std@@1IA": [
+"0xBE5E00"
+],
+"data:?_Nilrefs@?$_Tree@HU?$pair@$$CBHUShipCustGadgetStruct@@@std@@U_Kfn@?$map@HUShipCustGadgetStruct@@U?$less@H@std@@V?$allocator@UShipCustGadgetStruct@@@3@@2@U?$less@H@2@V?$allocator@UShipCustGadgetStruct@@@2@@std@@1IA": [
+"0xBE5E40"
+],
+"data:?_Nilrefs@?$_Tree@HU?$pair@$$CBHUStarbaseShipCustGadgetStruct@@@std@@U_Kfn@?$map@HUStarbaseShipCustGadgetStruct@@U?$less@H@std@@V?$allocator@UStarbaseShipCustGadgetStruct@@@3@@2@U?$less@H@2@V?$allocator@UStarbaseShipCustGadgetStruct@@@2@@std@@1IA": [
+"0xBE5E24"
+],
+"data:?_Nilrefs@?$_Tree@HU?$pair@$$CBHUUnknown_7C9F00Struct@@@std@@U_Kfn@?$map@HUUnknown_7C9F00Struct@@U?$less@H@std@@V?$allocator@UUnknown_7C9F00Struct@@@3@@2@U?$less@H@2@V?$allocator@UUnknown_7C9F00Struct@@@2@@std@@1IA": [
+"0xBE8888"
+],
+"data:?_Nilrefs@?$_Tree@HU?$pair@$$CBHUUnknown_BE5648Struct@@@std@@U_Kfn@?$map@HUUnknown_BE5648Struct@@U?$less@H@std@@V?$allocator@UUnknown_BE5648Struct@@@3@@2@U?$less@H@2@V?$allocator@UUnknown_BE5648Struct@@@2@@std@@1IA": [
+"0xBE5664"
+],
+"data:?_Nilrefs@?$_Tree@PAVTCPListenerClass@@PAV1@U_Kfn@?$set@PAVTCPListenerClass@@U?$less@PAVTCPListenerClass@@@std@@V?$allocator@PAVTCPListenerClass@@@3@@std@@U?$less@PAVTCPListenerClass@@@4@V?$allocator@PAVTCPListenerClass@@@4@@std@@1IA": [
+"0xBE9694"
+],
+"data:?_Nilrefs@?$_Tree@PBDU?$pair@QBDPAVDeltaClass@@@std@@U_Kfn@?$map@PBDPAVDeltaClass@@U?$less@PBD@std@@V?$allocator@PAVDeltaClass@@@3@@2@U?$less@PBD@2@V?$allocator@PAVDeltaClass@@@2@@std@@1IA": [
+"0xBE3A80"
+],
+"data:?_Nilrefs@?$_Tree@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@V12@@2@U_Kfn@?$map@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@V?$allocator@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@@2@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@V?$allocator@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@@std@@1IA": [
+"0xBE66CC"
+],
+"data:?_Nilrefs@?$_Tree@W4VerbEnum@@W41@U_Kfn@?$set@W4VerbEnum@@U?$less@W4VerbEnum@@@std@@V?$allocator@W4VerbEnum@@@3@@std@@U?$less@W4VerbEnum@@@4@V?$allocator@W4VerbEnum@@@4@@std@@1IA": [
+"0xBF43DC"
+],
+"data:?_NumActivated@SkillAbilityNamesDatabase@@0HA": [
+"0xBE8DF8"
+],
+"data:?_NumKeyDefs@ControlKeysManager@@2IA": [
+"0xBE7C44"
+],
+"data:?_ParticleEmitterLoader@@3VParticleEmitterLoaderClass@@A": [
+"0xBFAE1C"
+],
+"data:?_PlayUndefined@SoundLibraryClass@@2_NA": [
+"0xBDAC78"
+],
+"data:?_PresetATestBlendSpriteShader@ShaderClass@@2V1@A": [
+"0xC01184"
+],
+"data:?_PresetATestSpriteShader@ShaderClass@@2V1@A": [
+"0xC0117C"
+],
+"data:?_PresetAdditiveSpriteShader@ShaderClass@@2V1@A": [
+"0xC010F8"
+],
+"data:?_PresetAlpha2DShader@ShaderClass@@2V1@A": [
+"0xC01180"
+],
+"data:?_PresetAlphaShader@ShaderClass@@2V1@A": [
+"0xC01190"
+],
+"data:?_PresetAlphaSolidShader@ShaderClass@@2V1@A": [
+"0xC0118C"
+],
+"data:?_PresetAlphaSpriteShader@ShaderClass@@2V1@A": [
+"0xC01174"
+],
+"data:?_PresetMultiplicativeShader@ShaderClass@@2V1@A": [
+"0xC010EC"
+],
+"data:?_PresetMultiplicativeSpriteShader@ShaderClass@@2V1@A": [
+"0xC01130"
+],
+"data:?_PresetOpaqueShader@ShaderClass@@2V1@A": [
+"0xC0113C",
+"0xC01140"
+],
+"data:?_PresetOpaqueSolidShader@ShaderClass@@2V1@A": [
+"0xC0113C"
+],
+"data:?_PresetScreenSpriteShader@ShaderClass@@2V1@A": [
+"0xC010F0"
+],
+"data:?_Psave@?1??use_facet@std@@YAABV?$ctype@D@2@ABVlocale@2@PBV32@_N@Z@4PBVfacet@42@B": [
+"0xBE5670"
+],
+"data:?_Psave@?1??use_facet@std@@YAABV?$num_put@DV?$ostreambuf_iterator@DU?$char_traits@D@std@@@std@@@2@ABVlocale@2@PBV32@_N@Z@4PBVfacet@42@B": [
+"0xBE5974"
+],
+"data:?_Psave@?1??use_facet@std@@YAABV?$numpunct@D@2@ABVlocale@2@PBV32@_N@Z@4PBVfacet@42@B": [
+"0xBE597C"
+],
+"data:?_RayDirection@IntersectionClass@@1VVector3@@A": [
+"0xC07478"
+],
+"data:?_RayLocation@IntersectionClass@@1VVector3@@A": [
+"0xC07498"
+],
+"data:?_References@CharTemplateClass@@2HA": [
+"0xBF3084"
+],
+"data:?_RingLoader@@3VRingLoaderClass@@A": [
+"0xBFA960"
+],
+"data:?_SkillAbilities@SkillAbilityNamesDatabase@@0V?$vector@UUnknown8155B0Struct@@V?$allocator@UUnknown8155B0Struct@@@std@@@std@@A": [
+"0xBE8DB8"
+],
+"data:?_SkillIndex@SkillNamesDatabase@@0V?$hash_map@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@HU?$hash@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@U?$equal_to@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@V?$allocator@H@2@@std@@A": [
+"0xBE8E38"
+],
+"data:?_SoundDefs@SoundLibraryClass@@2V?$hash_map@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@PAVSoundDefClass@@U?$hash@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@U?$equal_to@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@V?$allocator@PAVSoundDefClass@@@2@@std@@A": [
+"0xBDAC48"
+],
+"data:?_SphereLoader@@3VSphereLoaderClass@@A": [
+"0xBFA954"
+],
+"data:?_Stz@?$fpos@H@std@@0HA": [
+"0xC416C8"
+],
+"data:?_TheFileFactory@@3PAVFileFactoryClass@@A": [
+"0xBC77DC"
+],
+"data:?_TheSimpleFileFactory@@3PAVSimpleFileFactoryClass@@A": [
+"0xBC77E0"
+],
+"data:?_TheWritingFileFactory@@3PAVFileFactoryClass@@A": [
+"0xBC77E4"
+],
+"data:?_theInstance@WWAudioClass@@0PAV1@A": [
+"0xC404D8"
+],
+"data:?fontDatabase@@3PAVFontDatabaseClass@@A": [
+"0xBE67B8"
+],
+"data:?id@?$ctype@D@std@@2V0locale@2@A": [
+"0xC40F7C"
+],
+"data:?id@?$num_put@DV?$ostreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@2V0locale@2@A": [
+"0xC40F84"
+],
+"data:?id@?$numpunct@D@std@@2V0locale@2@A": [
+"0xC40F80"
+],
+"data:?m_EmptyString@StringClass@@0PADA": [
+"0xBC7730"
+],
+"data:?m_NullChar@StringClass@@0DA": [
+"0xC1DD7C"
+],
+"data:?matrix_changes@DX8Wrapper@@1IA": [
+"0xC00678"
+],
+"data:?npos@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@2IB": [
+"0xAE70A8"
+],
+"data:?number_of_DX8_calls@@3IA": [
+"0xC006AC"
+],
+"data:?render_state@DX8Wrapper@@1URenderStateStruct@@A": [
+"0xBFFC80"
+],
+"data:?render_state_changed@DX8Wrapper@@1IA": [
+"0xBFAEF0"
+],
+"data:?render_state_changes@DX8Wrapper@@1IA": [
+"0xC00690"
+],
+"data:?wildcard@?1??Wildcard@NameClass@@SAABVPermString@@XZ@4V3@A": [
+"0xBE3B24"
+],
+"data:_IID_IBindStatusCallback": [
+"0xB18F98"
+],
+"data:_IID_IDispatch": [
+"0xB18F68"
+],
+"data:_IID_IHttpNegotiate": [
+"0xB18F88"
+],
+"data:_IID_IStream": [
+"0xB18F78"
+],
+"data:_IID_IUnknown": [
+"0xB18FA8"
+],
+"data:__GUID_00000000_0000_0000_c000_000000000046": [
+"0xBA0FA8"
+],
+"data:__GUID_2933bf80_7b36_11d2_b20e_00c04f983e60": [
+"0xBA0FC0"
+],
+"data:__GUID_2933bf81_7b36_11d2_b20e_00c04f983e60": [
+"0xBA0F78"
+],
+"data:__GUID_2933bf82_7b36_11d2_b20e_00c04f983e60": [
+"0xBA0FD8"
+],
+"data:__GUID_2933bf83_7b36_11d2_b20e_00c04f983e60": [
+"0xBA0FF0"
+],
+"data:__GUID_2933bf8b_7b36_11d2_b20e_00c04f983e60": [
+"0xBA1008"
+],
+"data:__GUID_2933bf90_7b36_11d2_b20e_00c04f983e60": [
+"0xBA0F90"
+],
+"data:__TI2?AVbad_cast@std@@": [
+"0xB26858"
+],
+"data:__real@4@00000000000000000000": [
+"0xAE7244"
+],
+"data:__real@4@3fe1c90fdb0000000000": [
+"0xB0037C",
+"0xB00380",
+"0xB00384"
+],
+"data:__real@4@3fe7d6bf950000000000": [
+"0xAE8718"
+],
+"data:__real@4@3feb8637bd0000000000": [
+"0xAE7928"
+],
+"data:__real@4@3feea7c5ac0000000000": [
+"0xAEA9E0",
+"0xB0C158"
+],
+"data:__real@4@3ff1d1b7170000000000": [
+"0xAE7840",
+"0xAF18E4"
+],
+"data:__real@4@3ff391a2b40000000000": [
+"0xB07CF8"
+],
+"data:__real@4@3ff3d1b7170000000000": [
+"0xB053C4"
+],
+"data:__real@4@3ff48000000000000000": [
+"0xB024BC"
+],
+"data:__real@4@3ff4ebedfa0000000000": [
+"0xAFC3F0"
+],
+"data:__real@4@3ff583126e978d4fe000": [
+"0xAEDC40"
+],
+"data:__real@4@3ff583126f0000000000": [
+"0xAE7E14",
+"0xAEDC40"
+],
+"data:__real@4@3ff5ccccccccccccd000": [
+"0xAEA67C",
+"0xAF1560"
+],
+"data:__real@4@3ff5cccccd0000000000": [
+"0xAEA67C",
+"0xAF1560"
+],
+"data:__real@4@3ff683126f0000000000": [
+"0xAFEB70"
+],
+"data:__real@4@3ff68888888888888800": [
+"0xAEA678",
+"0xAF155C"
+],
+"data:__real@4@3ff68888890000000000": [
+"0xAEA678",
+"0xAF155C"
+],
+"data:__real@4@3ff78000000000000000": [
+"0xAE9AAC"
+],
+"data:__real@4@3ff78080808080808000": [
+"0xAE8BB4"
+],
+"data:__real@4@3ff78080810000000000": [
+"0xAE8BB4",
+"0xAE981C",
+"0xAFE934"
+],
+"data:__real@4@3ff7a3d70a0000000000": [
+"0xB000EC"
+],
+"data:__real@4@3ff7cde32e0000000000": [
+"0xB0012C"
+],
+"data:__real@4@3ff8a3d70a0000000000": [
+"0xAE72F8",
+"0xAE74FC",
+"0xAEA58C",
+"0xAEA594",
+"0xAEA598"
+],
+"data:__real@4@3ff8cccccd0000000000": [
+"0xB0608C"
+],
+"data:__real@4@3ff98888888888888800": [
+"0xAEA674"
+],
+"data:__real@4@3ff98efa355555555800": [
+"0xAFDF14"
+],
+"data:__real@4@3ff990d0c20000000000": [
+"0xB06094"
+],
+"data:__real@4@3ff9a3d70a0000000000": [
+"0xAFD374"
+],
+"data:__real@4@3ffa8888890000000000": [
+"0xAEF784"
+],
+"data:__real@4@3ffacccccd0000000000": [
+"0xAE9AE4"
+],
+"data:__real@4@3ffb8000000000000000": [
+"0xAEC888"
+],
+"data:__real@4@3ffb8888890000000000": [
+"0xB07288"
+],
+"data:__real@4@3ffbcccccd0000000000": [
+"0xAE74F8",
+"0xAEFA60",
+"0xAF4520"
+],
+"data:__real@4@3ffbf5c28f0000000000": [
+"0xAFFE80"
+],
+"data:__real@4@3ffc8000000000000000": [
+"0xAE9AB8",
+"0xB07BC8"
+],
+"data:__real@4@3ffc99999a0000000000": [
+"0xAFDF18"
+],
+"data:__real@4@3ffcb2b8c30000000000": [
+"0xB007CC"
+],
+"data:__real@4@3ffccccccd0000000000": [
+"0xAEEA94",
+"0xAFBDDC"
+],
+"data:__real@4@3ffd8000000000000000": [
+"0xAE7A38"
+],
+"data:__real@4@3ffd947ae10000000000": [
+"0xAF7ADC"
+],
+"data:__real@4@3ffd99999a0000000000": [
+"0xAED028"
+],
+"data:__real@4@3ffda8f5c30000000000": [
+"0xAEFBE0"
+],
+"data:__real@4@3ffdaaaaaa0000000000": [
+"0xB00134"
+],
+"data:__real@4@3ffdaaaaab0000000000": [
+"0xAF7AE8"
+],
+"data:__real@4@3ffdb333330000000000": [
+"0xAFB1A0"
+],
+"data:__real@4@3ffdcccccd0000000000": [
+"0xAEEA9C"
+],
+"data:__real@4@3ffdeb851f0000000000": [
+"0xAFA27C"
+],
+"data:__real@4@3ffdf9999a0000000000": [
+"0xB06154"
+],
+"data:__real@4@3ffdfb33330000000000": [
+"0xB06158"
+],
+"data:__real@4@3ffe8000000000000000": [
+"0xAE7930",
+"0xAF451C"
+],
+"data:__real@4@3ffe8ccccd0000000000": [
+"0xAF202C"
+],
+"data:__real@4@3ffe93cd3a0000000000": [
+"0xAE7B88"
+],
+"data:__real@4@3ffe99999a0000000000": [
+"0xAEC88C"
+],
+"data:__real@4@3ffea0d97c0000000000": [
+"0xB007C4"
+],
+"data:__real@4@3ffeaaaaab0000000000": [
+"0xAF7AD8"
+],
+"data:__real@4@3ffeab851f0000000000": [
+"0xAFD370"
+],
+"data:__real@4@3ffeb333330000000000": [
+"0xAEFBCC"
+],
+"data:__real@4@3ffeb504f30000000000": [
+"0xAE7968"
+],
+"data:__real@4@3ffec000000000000000": [
+"0xAFF7EC"
+],
+"data:__real@4@3ffecccccd0000000000": [
+"0xAF8418"
+],
+"data:__real@4@3ffee666660000000000": [
+"0xAEEDD4"
+],
+"data:__real@4@3ffef333330000000000": [
+"0xAEF8F0"
+],
+"data:__real@4@3ffefccccd0000000000": [
+"0xB06090"
+],
+"data:__real@4@3ffefd70a40000000000": [
+"0xAEEB4C"
+],
+"data:__real@4@3ffeff00690000000000": [
+"0xAEA8AC"
+],
+"data:__real@4@3ffefff9720000000000": [
+"0xAE7E10"
+],
+"data:__real@4@3fff8000000000000000": [
+"0xAE7240",
+"0xAEA590"
+],
+"data:__real@4@3fff8ccccd0000000000": [
+"0xAEEB50"
+],
+"data:__real@4@3fff99999a0000000000": [
+"0xAEEC48"
+],
+"data:__real@4@3fffa000000000000000": [
+"0xB000E8"
+],
+"data:__real@4@3fffbf0b770000000000": [
+"0xAFFE78"
+],
+"data:__real@4@3fffc000000000000000": [
+"0xAF8424"
+],
+"data:__real@4@3fffc90fdb0000000000": [
+"0xAEC884"
+],
+"data:__real@4@40008000000000000000": [
+"0xAE7964"
+],
+"data:__real@4@4000c000000000000000": [
+"0xAE7960",
+"0xAF7AE4"
+],
+"data:__real@4@4000c1f07c0000000000": [
+"0xAFFE7C"
+],
+"data:__real@4@4000c90e380000000000": [
+"0xAE792C"
+],
+"data:__real@4@4000c90fdb0000000000": [
+"0xAE78F8"
+],
+"data:__real@4@40018000000000000000": [
+"0xAEA664"
+],
+"data:__real@4@4001a000000000000000": [
+"0xAED3F8",
+"0xAF8428"
+],
+"data:__real@4@4001c000000000000000": [
+"0xB024F4"
+],
+"data:__real@4@4001c90fdb0000000000": [
+"0xAE9B28"
+],
+"data:__real@4@4001e9999a0000000000": [
+"0xB07EB8"
+],
+"data:__real@4@40028000000000000000": [
+"0xAED080"
+],
+"data:__real@4@40029000000000000000": [
+"0xAEEEC4"
+],
+"data:__real@4@4002a000000000000000": [
+"0xAEA8A8"
+],
+"data:__real@4@4002c000000000000000": [
+"0xAFFE68"
+],
+"data:__real@4@40038000000000000000": [
+"0xB0473C"
+],
+"data:__real@4@4003a000000000000000": [
+"0xB04728"
+],
+"data:__real@4@4003f000000000000000": [
+"0xAF5C14"
+],
+"data:__real@4@4004c800000000000000": [
+"0xAE783C"
+],
+"data:__real@4@4004ec00000000000000": [
+"0xB071C8"
+],
+"data:__real@4@4004f000000000000000": [
+"0xAEA660"
+],
+"data:__real@4@40059600000000000000": [
+"0xB053D0"
+],
+"data:__real@4@4005c800000000000000": [
+"0xAEA214"
+],
+"data:__real@4@4006c000000000000000": [
+"0xAFAE60"
+],
+"data:__real@4@4006c800000000000000": [
+"0xAF580C"
+],
+"data:__real@4@4006f000000000000000": [
+"0xAEF774"
+],
+"data:__real@4@4006f800000000000000": [
+"0xAE9AB0"
+],
+"data:__real@4@4006ff00000000000000": [
+"0xAE8BB8"
+],
+"data:__real@4@4006fff8000000000000": [
+"0xAE9AB4"
+],
+"data:__real@4@40078000000000000000": [
+"0xAFE98C"
+],
+"data:__real@4@4007a000000000000000": [
+"0xAEF77C"
+],
+"data:__real@4@4007b400000000000000": [
+"0xAEA65C"
+],
+"data:__real@4@4007f000000000000000": [
+"0xAEF778"
+],
+"data:__real@4@4007fa00000000000000": [
+"0xAE7848"
+],
+"data:__real@4@4008a000000000000000": [
+"0xAEF780"
+],
+"data:__real@4@4008fa00000000000000": [
+"0xAE73B4"
+],
+"data:__real@4@4009fa00000000000000": [
+"0xB0528C"
+],
+"data:__real@4@400ae100000000000000": [
+"0xAED07C"
+],
+"data:__real@4@400bfa00000000000000": [
+"0xAED084"
+],
+"data:__real@4@400d9c40000000000000": [
+"0xB032F4"
+],
+"data:__real@4@400dea60000000000000": [
+"0xAE9B08"
+],
+"data:__real@4@400dfa00000000000000": [
+"0xAED088"
+],
+"data:__real@4@400effff000000000000": [
+"0xAE8734"
+],
+"data:__real@4@400fc350000000000000": [
+"0xAEA9E4"
+],
+"data:__real@4@4012f424000000000000": [
+"0xB0289C"
+],
+"data:__real@4@4014f424000000000000": [
+"0xB00130"
+],
+"data:__real@4@4015bebc200000000000": [
+"0xB028A0"
+],
+"data:__real@4@bff1d1b7170000000000": [
+"0xAE785C"
+],
+"data:__real@4@bff583126f0000000000": [
+"0xAEAA1C"
+],
+"data:__real@4@bff5cccccd0000000000": [
+"0xAED210"
+],
+"data:__real@4@bff68888890000000000": [
+"0xAED20C"
+],
+"data:__real@4@bff9cccccd0000000000": [
+"0xAEEEC8"
+],
+"data:__real@4@bffccccccd0000000000": [
+"0xAEEAA0"
+],
+"data:__real@4@bffd8000000000000000": [
+"0xAE7CE4"
+],
+"data:__real@4@bffdf9999a0000000000": [
+"0xB0614C"
+],
+"data:__real@4@bffdfb33330000000000": [
+"0xB06150"
+],
+"data:__real@4@bffe8000000000000000": [
+"0xAF3F1C"
+],
+"data:__real@4@bffea0d97c0000000000": [
+"0xB007C8"
+],
+"data:__real@4@bffeb5c28f0000000000": [
+"0xAF7AE0"
+],
+"data:__real@4@bfff8000000000000000": [
+"0xAE784C"
+],
+"data:__real@4@c000c90fdb0000000000": [
+"0xB0247C"
+],
+"data:__real@4@c002b000000000000000": [
+"0xB04748"
+],
+"data:__real@4@c007f000000000000000": [
+"0xAF8420"
+],
+"data:__real@4@c007fa00000000000000": [
+"0xB007D0"
+],
+"data:__real@4@c008fa00000000000000": [
+"0xB02468"
+],
+"data:__real@8@00000000000000000000": [
+"0xAF5D88"
+],
+"data:__real@8@3feb8637bd0000000000": [
+"0xAE7950"
+],
+"data:__real@8@3feea7c5ac0000000000": [
+"0xB0C160"
+],
+"data:__real@8@3feec22e450672894800": [
+"0xAF2C98"
+],
+"data:__real@8@3ff1d1b7170000000000": [
+"0xAE7850"
+],
+"data:__real@8@3ff1d1b71758e2196800": [
+"0xAE7850"
+],
+"data:__real@8@3ff583126e978d4fe000": [
+"0xAF3640"
+],
+"data:__real@8@3ff783126f0000000000": [
+"0xB07F48"
+],
+"data:__real@8@3ff8a3d70a0000000000": [
+"0xAF3F00"
+],
+"data:__real@8@3ff98efa355555555800": [
+"0xAFBDD0"
+],
+"data:__real@8@3ffbb2b8c2aaaaaaa800": [
+"0xAEA680"
+],
+"data:__real@8@3ffd860a920000000000": [
+"0xB05968"
+],
+"data:__real@8@3ffdeb851eb851eb8800": [
+"0xAF16B0"
+],
+"data:__real@8@3ffe8000000000000000": [
+"0xAE8728"
+],
+"data:__real@8@3ffe860a920000000000": [
+"0xAEF060"
+],
+"data:__real@8@3ffec90fdb0000000000": [
+"0xAF1550"
+],
+"data:__real@8@3fff8000000000000000": [
+"0xAE9AA0"
+],
+"data:__real@8@3fffc000000000000000": [
+"0xAEEC60"
+],
+"data:__real@8@3fffc90fdb0000000000": [
+"0xAEEA60"
+],
+"data:__real@8@3fffe666666666666800": [
+"0xAF3AF0"
+],
+"data:__real@8@4004c800000000000000": [
+"0xB03188"
+],
+"data:__real@8@4004e52ee0681e792800": [
+"0xAF3630"
+],
+"data:__real@8@4006b400000000000000": [
+"0xAF3BF0"
+],
+"data:__real@8@4007b400000000000000": [
+"0xAF3610"
+],
+"data:__real@8@4009b400000000000000": [
+"0xAF3620"
+],
+"data:__real@8@bffe8000000000000000": [
+"0xAFE478"
+],
+"data:__real@8@bfff8000000000000000": [
+"0xAED070"
+],
+"data:__real@8@bfffc90fdb0000000000": [
+"0xAEEA70"
 ]
 },
 "binkmovie": {
@@ -3476,6 +5298,1024 @@
 ],
 "_strupr": [
 "0xA41C70"
+],
+"data:??_C@_00A@?$AA@": [
+"0xBDA908"
+],
+"data:?AT_MAX_LOD@RenderObjClass@@2MB": [
+"0xB11560"
+],
+"data:?AT_MIN_LOD@RenderObjClass@@2MB": [
+"0xB1155C"
+],
+"data:?Allocator@?$AutoPoolClass@VGenericSLNode@@$0BAA@@@0V?$ObjectPoolClass@VGenericSLNode@@$0BAA@@@A": [
+"0xC1CD60"
+],
+"data:?Allocator@?$AutoPoolClass@VHAnimComboDataClass@@$0BAA@@@0V?$ObjectPoolClass@VHAnimComboDataClass@@$0BAA@@@A": [
+"0xC00708"
+],
+"data:?Allocator@?$AutoPoolClass@VMatPassTaskClass@@$0BAA@@@0V?$ObjectPoolClass@VMatPassTaskClass@@$0BAA@@@A": [
+"0xC075B8"
+],
+"data:?Allocator@?$AutoPoolClass@VPolyRenderTaskClass@@$0BAA@@@0V?$ObjectPoolClass@VPolyRenderTaskClass@@$0BAA@@@A": [
+"0xC075A0"
+],
+"data:?Ambient_Color@DX8Wrapper@@1VVector3@@A": [
+"0xC00530"
+],
+"data:?AnimSoundLists@AnimatedSoundMgrClass@@0V?$DynamicVectorClass@PAUAnimSoundList@AnimatedSoundMgrClass@@@@A": [
+"0xBFA588"
+],
+"data:?AnimationNameHash@AnimatedSoundMgrClass@@0V?$HashTemplateClass@VStringClass@@PAUAnimSoundList@AnimatedSoundMgrClass@@@@A": [
+"0xBFA5A0"
+],
+"data:?AreDecalsEnabled@WW3D@@0_NA": [
+"0xBB9645"
+],
+"data:?AreStaticSortListsEnabled@WW3D@@0_NA": [
+"0xBFAE50"
+],
+"data:?ArraySize@PredictiveLODOptimizerClass@@0HA": [
+"0xC07544"
+],
+"data:?BLINK_ON_TIME_STRING@@3PBDB": [
+"0xBBB320"
+],
+"data:?BLINK_PERIOD_STRING@@3PBDB": [
+"0xBBB31C"
+],
+"data:?BitDepth@DX8Wrapper@@1HA": [
+"0xBB9C50"
+],
+"data:?CreateThumbnailIfNotFound@ThumbnailManagerClass@@0_NA": [
+"0xBFAEA5"
+],
+"data:?CurRenderDevice@DX8Wrapper@@1HA": [
+"0xBB9C44"
+],
+"data:?CurrentAdapterIdentifier@DX8Wrapper@@1U_D3DADAPTER_IDENTIFIER8@@A": [
+"0xBFF838"
+],
+"data:?CurrentCaps@DX8Wrapper@@1PAVDX8Caps@@A": [
+"0xC006A0"
+],
+"data:?CurrentDX8LightEnables@DX8Wrapper@@1PA_NA": [
+"0xBFAEF8"
+],
+"data:?CurrentDepthBuffer@DX8Wrapper@@1PAUIDirect3DSurface8@@A": [
+"0xC00668"
+],
+"data:?CurrentRenderTarget@DX8Wrapper@@1PAUIDirect3DSurface8@@A": [
+"0xC00664"
+],
+"data:?CurrentShader@ShaderClass@@1KA": [
+"0xC01194"
+],
+"data:?CurrentStaticSortLists@WW3D@@0PAVStaticSortListClass@@A": [
+"0xBFAE6C"
+],
+"data:?D3D8Lib@@3PAUHINSTANCE__@@A": [
+"0xC006DC"
+],
+"data:?D3DDevice@DX8Wrapper@@1PAUIDirect3DDevice8@@A": [
+"0xC00660"
+],
+"data:?D3DFormatToWW3DFormatConversionArray@@3PAW4WW3DFormat@@A": [
+"0xC0B948"
+],
+"data:?D3DFormatToWW3DZFormatConversionArray@@3PAW4WW3DZFormat@@A": [
+"0xC0B808"
+],
+"data:?D3DInterface@DX8Wrapper@@1PAUIDirect3D8@@A": [
+"0xC0065C"
+],
+"data:?DAZZLE_AREA_STRING@@3PBDB": [
+"0xBBB2CC"
+],
+"data:?DAZZLE_COLOR_STRING@@3PBDB": [
+"0xBBB314"
+],
+"data:?DAZZLE_DIRECTION_AREA_STRING@@3PBDB": [
+"0xBBB2EC"
+],
+"data:?DAZZLE_DIRECTION_STRING@@3PBDB": [
+"0xBBB2F0"
+],
+"data:?DAZZLE_INI_FILENAME@@3PBDB": [
+"0xBB9640"
+],
+"data:?DAZZLE_INTENSITY_POW_STRING@@3PBDB": [
+"0xBBB2C4"
+],
+"data:?DAZZLE_INTENSITY_STRING@@3PBDB": [
+"0xBBB2E8"
+],
+"data:?DAZZLE_LENSFLARE_STRING@@3PBDB": [
+"0xBBB324"
+],
+"data:?DAZZLE_LIST_STRING@@3PBDB": [
+"0xBBB2C0"
+],
+"data:?DAZZLE_SCALE_X_STRING@@3PBDB": [
+"0xBBB2DC"
+],
+"data:?DAZZLE_SCALE_Y_STRING@@3PBDB": [
+"0xBBB2E0"
+],
+"data:?DAZZLE_SIZE_POW_STRING@@3PBDB": [
+"0xBBB2C8"
+],
+"data:?DAZZLE_TEST_COLOR_STRING@@3PBDB": [
+"0xBBB318"
+],
+"data:?DAZZLE_TEXTURE_STRING@@3PBDB": [
+"0xBBB304"
+],
+"data:?DX8Transforms@DX8Wrapper@@1PAVMatrix4@@A": [
+"0xBFAFB8"
+],
+"data:?DecalIDGenerator@DecalSystemClass@@1KA": [
+"0xC076E0"
+],
+"data:?DecalRejectionDistance@WW3D@@0MA": [
+"0xBB9648"
+],
+"data:?DefaultDebugShader@WW3D@@0VShaderClass@@A": [
+"0xBFAE20"
+],
+"data:?DefaultDepthBuffer@DX8Wrapper@@1PAUIDirect3DSurface8@@A": [
+"0xC00670"
+],
+"data:?DefaultNativeScreenSize@WW3D@@0MA": [
+"0xBB964C"
+],
+"data:?DefaultRemoveOnComplete@ParticleEmitterClass@@0_NA": [
+"0xBBB58C"
+],
+"data:?DefaultRenderTarget@DX8Wrapper@@1PAUIDirect3DSurface8@@A": [
+"0xC0066C"
+],
+"data:?DefaultStaticSortLists@WW3D@@0PAVStaticSortListClass@@A": [
+"0xBFAE68"
+],
+"data:?Direct3DCreate8Ptr@@3P6GPAUIDirect3D8@@I@ZA": [
+"0xC006D8"
+],
+"data:?DisplayMask@BoxRenderObjClass@@1HA": [
+"0xC0BCBC"
+],
+"data:?DistortionList@@3V?$DynamicVectorClass@PAVUnknownDistortionClass@@@@A": [
+"0xC0BAA8"
+],
+"data:?DuplicateLocationHash@@3V?$HashTemplateClass@VVector3@@I@@A": [
+"0xC06A68"
+],
+"data:?EnablePerPolygonCulling@MaterialPassClass@@1_NA": [
+"0xBBAEE0"
+],
+"data:?Enabled@DX8RendererDebugger@@0_NA": [
+"0xC0CBE8"
+],
+"data:?FADEOUT_END_STRING@@3PBDB": [
+"0xBBB2F8"
+],
+"data:?FADEOUT_START_STRING@@3PBDB": [
+"0xBBB2F4"
+],
+"data:?FLARE_COLOR_STRING@@3PBDB": [
+"0xBBB33C"
+],
+"data:?FLARE_COUNT_STRING@@3PBDB": [
+"0xBBB330"
+],
+"data:?FLARE_LOCATION_STRING@@3PBDB": [
+"0xBBB334"
+],
+"data:?FLARE_SIZE_STRING@@3PBDB": [
+"0xBBB338"
+],
+"data:?FLARE_UV_STRING@@3PBDB": [
+"0xBBB340"
+],
+"data:?FogColor@DX8Wrapper@@1KA": [
+"0xC00658"
+],
+"data:?FogEnable@DX8Wrapper@@1_NA": [
+"0xC00654"
+],
+"data:?FrameCount@DX8Wrapper@@1KA": [
+"0xC006A4"
+],
+"data:?FrameCount@WW3D@@0HA": [
+"0xBFAE58"
+],
+"data:?HALO_COLOR_STRING@@3PBDB": [
+"0xBBB310"
+],
+"data:?HALO_INTENSITY_POW@@3PBDB": [
+"0xBBB2D0"
+],
+"data:?HALO_INTENSITY_STRING@@3PBDB": [
+"0xBBB2E4"
+],
+"data:?HALO_SCALE_X_STRING@@3PBDB": [
+"0xBBB2D4"
+],
+"data:?HALO_SCALE_Y_STRING@@3PBDB": [
+"0xBBB2D8"
+],
+"data:?HALO_TEXTURE_STRING@@3PBDB": [
+"0xBBB308"
+],
+"data:?HISTORY_WEIGHT_STRING@@3PBDB": [
+"0xBBB300"
+],
+"data:?HasCMOVSupport@CPUDetectClass@@0_NA": [
+"0xC1EC94"
+],
+"data:?Identity@Matrix3D@@2V1@B": [
+"0xBF9330"
+],
+"data:?InheritedWorldSpaceEmitterVel@@3VVector3@@A": [
+"0xC076D0"
+],
+"data:?Instance@AssetStatusClass@@0V1@A": [
+"0xC0C8D8"
+],
+"data:?IsCapturing@WW3D@@0_NA": [
+"0xBFAE4E"
+],
+"data:?IsDeviceLost@DX8Wrapper@@1_NA": [
+"0xC005EC"
+],
+"data:?IsInitted@BoxRenderObjClass@@1_NA": [
+"0xC0BCB8"
+],
+"data:?IsInitted@DX8Wrapper@@1_NA": [
+"0xC0063C"
+],
+"data:?IsInitted@WW3D@@0_NA": [
+"0xBFAE4C"
+],
+"data:?IsProfileEnabled@WWProfileManager@@0_NA": [
+"0xC40488"
+],
+"data:?IsRenderToTexture@DX8Wrapper@@1_NA": [
+"0xC00674"
+],
+"data:?IsRendering@WW3D@@0_NA": [
+"0xBFAE4D"
+],
+"data:?IsScreenUVBiased@WW3D@@0_NA": [
+"0xBFAE4F"
+],
+"data:?IsSortingEnabled@WW3D@@0_NA": [
+"0xBB9644"
+],
+"data:?IsTexturingEnabled@WW3D@@0_NA": [
+"0xBB9660"
+],
+"data:?IsWindowed@DX8Wrapper@@1_NA": [
+"0xC0063D"
+],
+"data:?LENSFLARE_LIST_STRING@@3PBDB": [
+"0xBBB328"
+],
+"data:?LENSFLARE_TEXTURE_STRING@@3PBDB": [
+"0xBBB32C"
+],
+"data:?LODMaxScreenSizes@ParticleBufferClass@@1PAMA": [
+"0xBBB148"
+],
+"data:?LastFrameMemoryAllocations@WW3D@@0HA": [
+"0xBFAE28"
+],
+"data:?LastFrameMemoryFrees@WW3D@@0HA": [
+"0xBFAE24"
+],
+"data:?Light_Environment@DX8Wrapper@@1PAVLightEnvironmentClass@@A": [
+"0xC00648"
+],
+"data:?LightmapDebugShader@WW3D@@0VShaderClass@@A": [
+"0xBFAE30"
+],
+"data:?Lite@WW3D@@0_NA": [
+"0xBFAE8C"
+],
+"data:?LocationHash@@3V?$HashTemplateClass@VVector3@@I@@A": [
+"0xC069E8"
+],
+"data:?Managed_Textures@DX8TextureManagerClass@@0V?$MultiListClass@VTextureTrackerClass@@@@A": [
+"0xC0BA50"
+],
+"data:?Movie@WW3D@@0PAVFrameGrabClass@@A": [
+"0xBFAE54"
+],
+"data:?MungeSortOnLoad@WW3D@@0_NA": [
+"0xBFAE51"
+],
+"data:?NPatchesGapFillingMode@WW3D@@0W4NPatchesGapFillingModeEnum@1@A": [
+"0xBB9658"
+],
+"data:?NPatchesLevel@WW3D@@0IA": [
+"0xBB965C"
+],
+"data:?NullShader@MeshMatDescClass@@2VShaderClass@@A": [
+"0xC011F0"
+],
+"data:?NumObjects@PredictiveLODOptimizerClass@@0HA": [
+"0xC07548"
+],
+"data:?ObjectArray@PredictiveLODOptimizerClass@@0PAPAVRenderObjClass@@A": [
+"0xC07540"
+],
+"data:?OverbrightModifyOnLoad@WW3D@@0_NA": [
+"0xBFAE52"
+],
+"data:?PauseRecord@WW3D@@0_NA": [
+"0xBFAE2C"
+],
+"data:?PermutationArray@ParticleBufferClass@@1QBIB": [
+"0xB11DA8"
+],
+"data:?PixelCenterX@WW3D@@0MA": [
+"0xBFAE44"
+],
+"data:?PixelCenterY@WW3D@@0MA": [
+"0xBFAE48"
+],
+"data:?Pixel_Shader@DX8Wrapper@@1KA": [
+"0xC00644"
+],
+"data:?Pixel_Shader_Constants@DX8Wrapper@@1PAVVector4@@A": [
+"0xBFAF38"
+],
+"data:?PointMaterial@PointGroupClass@@0PAVVertexMaterialClass@@A": [
+"0xC069E4"
+],
+"data:?PrelitMode@WW3D@@0W4PrelitModeEnum@1@A": [
+"0xBB9650"
+],
+"data:?Presets@VertexMaterialClass@@0PAPAV1@A": [
+"0xC006FC"
+],
+"data:?PreviousSyncTime@WW3D@@0IA": [
+"0xBFAE40"
+],
+"data:?ProjectionMatrix@DX8Wrapper@@1VMatrix4@@A": [
+"0xC00570"
+],
+"data:?Quads@@3PAVDX8IndexBufferClass@@A": [
+"0xC044E8"
+],
+"data:?RADIUS_STRING@@3PBDB": [
+"0xBBB344"
+],
+"data:?RecordNextFrame@WW3D@@0_NA": [
+"0xBFAE34"
+],
+"data:?RenderStates@DX8Wrapper@@1PAIA": [
+"0xBFF438"
+],
+"data:?ResolutionHeight@DX8Wrapper@@1HA": [
+"0xBB9C4C"
+],
+"data:?ResolutionWidth@DX8Wrapper@@1HA": [
+"0xBB9C48"
+],
+"data:?RingLODCosts@@3PAMA": [
+"0xBFA964"
+],
+"data:?RingMeshArray@@3PAVRingMeshClass@@A": [
+"0xBFA9B8"
+],
+"data:?SIZE_OPTIMIZATION_LIMIT_STRING@@3PBDB": [
+"0xBBB2FC"
+],
+"data:?ScreenResolution@Render2DClass@@1VRectClass@@A": [
+"0xC07550"
+],
+"data:?ShaderDirty@ShaderClass@@1_NA": [
+"0xBBB034"
+],
+"data:?Shadow_Map@DX8Wrapper@@1PAPAVZTextureClass@@A": [
+"0xC00634"
+],
+"data:?SideHash@@3V?$HashTemplateClass@UTriangleSide@@USideIndexInfo@@@@A": [
+"0xC06A28"
+],
+"data:?SnapshotActivated@WW3D@@0_NA": [
+"0xBFAE75"
+],
+"data:?SortingQuads@@3PAVSortingIndexBufferClass@@A": [
+"0xC014B0"
+],
+"data:?SortingTris@@3PAVSortingIndexBufferClass@@A": [
+"0xC04500"
+],
+"data:?SoundLibrary@AnimatedSoundMgrClass@@0PAVSoundLibraryBridgeClass@@A": [
+"0xBFA5B4"
+],
+"data:?SphereLODCosts@@3PAMA": [
+"0xBFA928"
+],
+"data:?SphereMeshArray@@3PAVSphereMeshClass@@A": [
+"0xBFA5B8"
+],
+"data:?SyncTime@WW3D@@0IA": [
+"0xBFAE3C"
+],
+"data:?TextureBitDepth@DX8Wrapper@@1HA": [
+"0xBB9C54"
+],
+"data:?TextureFilter@WW3D@@0HA": [
+"0xBFAE88"
+],
+"data:?TextureLoadSuspended@TextureLoader@@0_NA": [
+"0xC011F8"
+],
+"data:?TextureStageStates@DX8Wrapper@@1PAY0CA@IA": [
+"0xBFEFF8"
+],
+"data:?Textures@DX8Wrapper@@1PAPAUIDirect3DBaseTexture8@@A": [
+"0xBFAEFC"
+],
+"data:?TheDX8MeshRenderer@@3VDX8MeshRendererClass@@A": [
+"0xC07630"
+],
+"data:?TheInstance@WW3DAssetManager@@1PAV1@A": [
+"0xBFAEE0"
+],
+"data:?ThumbFileHeader@@3PBDB": [
+"0xBB9718"
+],
+"data:?ThumbnailEnabled@WW3D@@0_NA": [
+"0xBB9654"
+],
+"data:?TotalActiveCount@ParticleBufferClass@@1IA": [
+"0xC07470"
+],
+"data:?TotalCost@PredictiveLODOptimizerClass@@0MA": [
+"0xC0754C"
+],
+"data:?Tris@@3PAVDX8IndexBufferClass@@A": [
+"0xC06948"
+],
+"data:?USE_CAMERA_TRANSLATION@@3PBDB": [
+"0xBBB30C"
+],
+"data:?VertexDiffuse@@3V?$VectorClass@VVector4@@@@A": [
+"0xC06908"
+],
+"data:?VertexLoc@@3V?$VectorClass@VVector3@@@@A": [
+"0xC06928"
+],
+"data:?VertexUV@@3V?$VectorClass@VVector2@@@@A": [
+"0xC044C8"
+],
+"data:?Vertex_Processing_Behavior@DX8Wrapper@@1KA": [
+"0xC00650"
+],
+"data:?Vertex_Shader@DX8Wrapper@@1KA": [
+"0xC00640"
+],
+"data:?Vertex_Shader_Constants@DX8Wrapper@@1PAVVector4@@A": [
+"0xBFFEF0"
+],
+"data:?VisibleObjArray1@PredictiveLODOptimizerClass@@0PAVLODHeapNode@@A": [
+"0xC0753C"
+],
+"data:?VisibleObjArray2@PredictiveLODOptimizerClass@@0PAVLODHeapNode@@A": [
+"0xC07534"
+],
+"data:?VisibleObjArraySize@PredictiveLODOptimizerClass@@0HA": [
+"0xC07538"
+],
+"data:?WW3DFormatToD3DFormatConversionArray@@3PAW4_D3DFORMAT@@A": [
+"0xBBB8E8"
+],
+"data:?WW3DZFormatToD3DFormatConversionArray@@3PAW4_D3DFORMAT@@A": [
+"0xBBB94C"
+],
+"data:?ZBias@DX8Wrapper@@1HA": [
+"0xBFAF1C"
+],
+"data:?ZFar@DX8Wrapper@@1MA": [
+"0xC00630"
+],
+"data:?ZNear@DX8Wrapper@@1MA": [
+"0xC005B0"
+],
+"data:?_AggregateLoader@@3VAggregateLoaderClass@@A": [
+"0xC0BCC4"
+],
+"data:?_BoxLoader@@3VBoxLoaderClass@@A": [
+"0xC0BB44"
+],
+"data:?_C@?1??_Nullstr@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@CAPBDXZ@4DB": [
+"0xAE70A4"
+],
+"data:?_CollectionLoader@@3VCollectionLoaderClass@@A": [
+"0xC0B74C"
+],
+"data:?_DX8SingleThreaded@@3_NA": [
+"0xC006A8"
+],
+"data:?_DazzleLoader@@3VDazzleLoaderClass@@A": [
+"0xC07520"
+],
+"data:?_DistLODLoader@@3VDistLODLoaderClass@@A": [
+"0xC0BCC8"
+],
+"data:?_EnableTriangleDraw@DX8Wrapper@@1_NA": [
+"0xBB9C40"
+],
+"data:?_EnableTriangleDraw@SortingRendererClass@@0_NA": [
+"0xBBB5D0"
+],
+"data:?_FastSinTable@@3PAMA": [
+"0xBF52CC"
+],
+"data:?_HLodLoader@@3VHLodLoaderClass@@A": [
+"0xC0B748"
+],
+"data:?_HModelLoader@@3VHModelLoaderClass@@A": [
+"0xC011A8"
+],
+"data:?_IntersectionNormal@IntersectionClass@@1VVector3@@A": [
+"0xC07488"
+],
+"data:?_LightFactory@@3V?$SimplePersistFactoryClass@VLightClass@@$0BAAAB@@@A": [
+"0xC014A8"
+],
+"data:?_MagTextureFilters@@3PAY03IA": [
+"0xC01398"
+],
+"data:?_MainThreadID@DX8Wrapper@@1IA": [
+"0xC0069C"
+],
+"data:?_MeshLoader@@3VMeshLoaderClass@@A": [
+"0xC011A4"
+],
+"data:?_MinTextureFilters@@3PAY03IA": [
+"0xC01318"
+],
+"data:?_MipMapFilters@@3PAY03IA": [
+"0xC01298"
+],
+"data:?_NormalTable@MetalMapManagerClass@@0PAVVector3@@A": [
+"0xC0C8D4"
+],
+"data:?_NullLoader@@3VNullLoaderClass@@A": [
+"0xC011DC"
+],
+"data:?_ParticleEmitterLoader@@3VParticleEmitterLoaderClass@@A": [
+"0xBFAE1C"
+],
+"data:?_PolygonCullMode@@3KA": [
+"0xBBB038"
+],
+"data:?_PresetATest2DShader@ShaderClass@@2V1@A": [
+"0xC01188"
+],
+"data:?_PresetATestBlend2DShader@ShaderClass@@2V1@A": [
+"0xC01168"
+],
+"data:?_PresetATestBlendSpriteShader@ShaderClass@@2V1@A": [
+"0xC01184"
+],
+"data:?_PresetATestSpriteShader@ShaderClass@@2V1@A": [
+"0xC0117C"
+],
+"data:?_PresetAdditive2DShader@ShaderClass@@2V1@A": [
+"0xC01180"
+],
+"data:?_PresetAdditiveShader@ShaderClass@@2V1@A": [
+"0xC01170"
+],
+"data:?_PresetAdditiveSolidShader@ShaderClass@@2V1@A": [
+"0xC01134"
+],
+"data:?_PresetAdditiveSpriteShader@ShaderClass@@2V1@A": [
+"0xC010F8"
+],
+"data:?_PresetAlpha2DShader@ShaderClass@@2V1@A": [
+"0xC01138"
+],
+"data:?_PresetAlphaShader@ShaderClass@@2V1@A": [
+"0xC01190"
+],
+"data:?_PresetAlphaSolidShader@ShaderClass@@2V1@A": [
+"0xC0118C"
+],
+"data:?_PresetAlphaSpriteShader@ShaderClass@@2V1@A": [
+"0xC01174"
+],
+"data:?_PresetBumpenvmapShader@ShaderClass@@2V1@A": [
+"0xC01178"
+],
+"data:?_PresetMultiplicative2DShader@ShaderClass@@2V1@A": [
+"0xC010FC"
+],
+"data:?_PresetMultiplicativeShader@ShaderClass@@2V1@A": [
+"0xC010EC"
+],
+"data:?_PresetMultiplicativeSpriteShader@ShaderClass@@2V1@A": [
+"0xC01130"
+],
+"data:?_PresetOpaque2DShader@ShaderClass@@2V1@A": [
+"0xC0116C"
+],
+"data:?_PresetOpaqueShader@ShaderClass@@2V1@A": [
+"0xC01140"
+],
+"data:?_PresetOpaqueSolidShader@ShaderClass@@2V1@A": [
+"0xC0113C"
+],
+"data:?_PresetOpaqueSpriteShader@ShaderClass@@2V1@A": [
+"0xC010F4"
+],
+"data:?_PresetScreen2DShader@ShaderClass@@2V1@A": [
+"0xC010E8"
+],
+"data:?_PresetScreenSpriteShader@ShaderClass@@2V1@A": [
+"0xC010F0"
+],
+"data:?_QuadVertexLocationOrientationTable@PointGroupClass@@0PAY03VVector3@@A": [
+"0xC014B8"
+],
+"data:?_QuadVertexUVFrameTable@PointGroupClass@@0PAPAVVector2@@A": [
+"0xC069D0"
+],
+"data:?_RayDirection@IntersectionClass@@1VVector3@@A": [
+"0xC07478"
+],
+"data:?_RayLocation@IntersectionClass@@1VVector3@@A": [
+"0xC07498"
+],
+"data:?_RingLoader@@3VRingLoaderClass@@A": [
+"0xBFA960"
+],
+"data:?_ScreenspaceVertexLocationSizeTable@PointGroupClass@@0PAY02VVector3@@A": [
+"0xC06970"
+],
+"data:?_SphereLoader@@3VSphereLoaderClass@@A": [
+"0xBFA954"
+],
+"data:?_TheFileFactory@@3PAVFileFactoryClass@@A": [
+"0xBC77DC"
+],
+"data:?_TriVertexLocationOrientationTable@PointGroupClass@@0PAY02VVector3@@A": [
+"0xC04508"
+],
+"data:?_TriVertexUVFrameTable@PointGroupClass@@0PAPAVVector2@@A": [
+"0xC069BC"
+],
+"data:?_UnknownInvalidationTime@TextureLoader@@2IA": [
+"0xC01290"
+],
+"data:?_dazzle_rendering_enabled@DazzleRenderObjClass@@0_NA": [
+"0xBBB34C"
+],
+"data:?axis_1@?1??Cast_Semi_Infinite_Axis_Aligned_Ray@AABTreeClass@@QAEHABVVector3@@HAAE@Z@4QBHB": [
+"0xB10D50"
+],
+"data:?axis_2@?1??Cast_Semi_Infinite_Axis_Aligned_Ray@AABTreeClass@@QAEHABVVector3@@HAAE@Z@4QBHB": [
+"0xB10D68"
+],
+"data:?axis_r@?1??Cast_Semi_Infinite_Axis_Aligned_Ray@AABTreeClass@@QAEHABVVector3@@HAAE@Z@4QBHB": [
+"0xB10D38"
+],
+"data:?direction@?1??Cast_Semi_Infinite_Axis_Aligned_Ray@AABTreeClass@@QAEHABVVector3@@HAAE@Z@4QBHB": [
+"0xB10D80"
+],
+"data:?draw_calls@DX8Wrapper@@1IA": [
+"0xC00698"
+],
+"data:?hWnd@DX8WebBrowser@@0PAUHWND__@@A": [
+"0xBFAEE8"
+],
+"data:?index_buffer_changes@DX8Wrapper@@1IA": [
+"0xC00684"
+],
+"data:?light_changes@DX8Wrapper@@1IA": [
+"0xC00688"
+],
+"data:?m_EmptyString@StringClass@@0PADA": [
+"0xBC7730"
+],
+"data:?m_EmptyString@WideStringClass@@0PAGA": [
+"0xBCAF9C"
+],
+"data:?m_NullChar@StringClass@@0DA": [
+"0xC1DD7C"
+],
+"data:?m_NullChar@WideStringClass@@0GA": [
+"0xC1FABC"
+],
+"data:?material_changes@DX8Wrapper@@1IA": [
+"0xC0067C"
+],
+"data:?matrix_changes@DX8Wrapper@@1IA": [
+"0xC00678"
+],
+"data:?missing_image_color_values@@3PAIA": [
+"0xBBD7A0"
+],
+"data:?missing_image_run_lengths@@3PAEA": [
+"0xBBBAFC"
+],
+"data:?npos@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@2IB": [
+"0xAE70A8"
+],
+"data:?number_of_DX8_calls@@3IA": [
+"0xC006AC"
+],
+"data:?old_prj@DX8Wrapper@@1U_D3DMATRIX@@A": [
+"0xBFF3F8"
+],
+"data:?old_view@DX8Wrapper@@1U_D3DMATRIX@@A": [
+"0xC004F0"
+],
+"data:?old_world@DX8Wrapper@@1U_D3DMATRIX@@A": [
+"0xC005F0"
+],
+"data:?rand4@@3VRandom4Class@@A": [
+"0xC00720"
+],
+"data:?render_state@DX8Wrapper@@1URenderStateStruct@@A": [
+"0xBFFC80"
+],
+"data:?render_state_changed@DX8Wrapper@@1IA": [
+"0xBFAEF0"
+],
+"data:?render_state_changes@DX8Wrapper@@1IA": [
+"0xC00690"
+],
+"data:?sign@?4??Cast_Semi_Infinite_Axis_Aligned_Ray_To_Triangle@@YA_NABVVector3@@00ABVVector4@@0HHHHAAE@Z@4QBMB": [
+"0xB10D30"
+],
+"data:?temp_index_array@@3PAUTempIndexStruct@@A": [
+"0xC076E8"
+],
+"data:?temp_index_array_count@@3IA": [
+"0xC0B70C"
+],
+"data:?texture_changes@DX8Wrapper@@1IA": [
+"0xC0068C"
+],
+"data:?texture_stage_state_changes@DX8Wrapper@@1IA": [
+"0xC00694"
+],
+"data:?vertex_buffer_changes@DX8Wrapper@@1IA": [
+"0xC00680"
+],
+"data:__GUID_00000000_0000_0000_c000_000000000046": [
+"0xBA0FA8"
+],
+"data:__GUID_2b2cc8b0_2dc0_48c6_b6fd_c07820a6477e": [
+"0xBB9C08"
+],
+"data:__GUID_ee883b17_0778_4b18_a12b_e44c0d298412": [
+"0xBB9BF8"
+],
+"data:__real@4@00000000000000000000": [
+"0xAE7244"
+],
+"data:__real@4@3fd683126f0000000000": [
+"0xB12068"
+],
+"data:__real@4@3fe08000000000000000": [
+"0xB12064"
+],
+"data:__real@4@3feb8637bd0000000000": [
+"0xAE7928"
+],
+"data:__real@4@3fef8000800080008000": [
+"0xB14744"
+],
+"data:__real@4@3ff1d1b7170000000000": [
+"0xAE7840"
+],
+"data:__real@4@3ff583126e978d4fe000": [
+"0xAE7E14",
+"0xAEDC40"
+],
+"data:__real@4@3ff583126f0000000000": [
+"0xAE7E14"
+],
+"data:__real@4@3ff78000000000000000": [
+"0xAE9AAC"
+],
+"data:__real@4@3ff78080808080808000": [
+"0xAE8BB4"
+],
+"data:__real@4@3ff78080810000000000": [
+"0xAFE934"
+],
+"data:__real@4@3ff78888888888888800": [
+"0xB14740"
+],
+"data:__real@4@3ff7cde32e0000000000": [
+"0xB0012C"
+],
+"data:__real@4@3ff7cde32e147ae14800": [
+"0xB10F9C"
+],
+"data:__real@4@3ff8a3d70a0000000000": [
+"0xAE74FC"
+],
+"data:__real@4@3ff98888888888888800": [
+"0xAEA674"
+],
+"data:__real@4@3ff9c90fdb0000000000": [
+"0xB11D38"
+],
+"data:__real@4@3ffacccccd0000000000": [
+"0xAE9AE4"
+],
+"data:__real@4@3ffb8000000000000000": [
+"0xAEC888"
+],
+"data:__real@4@3ffb93dd980000000000": [
+"0xB121A0"
+],
+"data:__real@4@3ffbcccccd0000000000": [
+"0xAE74F8"
+],
+"data:__real@4@3ffc8000000000000000": [
+"0xAE9AB8"
+],
+"data:__real@4@3ffcd9b3d00000000000": [
+"0xB12198"
+],
+"data:__real@4@3ffd8000000000000000": [
+"0xAE7A38"
+],
+"data:__real@4@3ffdaaaaaaaaaaaaa800": [
+"0xB12F4C"
+],
+"data:__real@4@3ffdb000000000000000": [
+"0xB11140"
+],
+"data:__real@4@3ffdffffde0000000000": [
+"0xB144DC"
+],
+"data:__real@4@3ffe8000000000000000": [
+"0xAE7930"
+],
+"data:__real@4@3ffe99999a0000000000": [
+"0xAEC88C"
+],
+"data:__real@4@3ffeb717590000000000": [
+"0xB1219C"
+],
+"data:__real@4@3ffeddb22d0000000000": [
+"0xB11D34"
+],
+"data:__real@4@3ffee666660000000000": [
+"0xAEEDD4"
+],
+"data:__real@4@3ffeff00690000000000": [
+"0xAEA8AC"
+],
+"data:__real@4@3fff8000000000000000": [
+"0xAE7240"
+],
+"data:__real@4@3fff8000540000000000": [
+"0xB10D98"
+],
+"data:__real@4@3fff8020c50000000000": [
+"0xB13770"
+],
+"data:__real@4@3fff8ccccd0000000000": [
+"0xAEEB50"
+],
+"data:__real@4@3fffc90fdb0000000000": [
+"0xAEC884"
+],
+"data:__real@4@40008000000000000000": [
+"0xAE7964"
+],
+"data:__real@4@4000c90fdb0000000000": [
+"0xAE78F8"
+],
+"data:__real@4@40018000000000000000": [
+"0xAEA664"
+],
+"data:__real@4@4001a000000000000000": [
+"0xAF8428"
+],
+"data:__real@4@4001c000000000000000": [
+"0xB024F4"
+],
+"data:__real@4@4001c90fdb0000000000": [
+"0xAE9B28"
+],
+"data:__real@4@40028000000000000000": [
+"0xB14468"
+],
+"data:__real@4@4004f000000000000000": [
+"0xAEA660"
+],
+"data:__real@4@4005fe00000000000000": [
+"0xB141F4"
+],
+"data:__real@4@4006a2f9832237cda000": [
+"0xB0C654"
+],
+"data:__real@4@4006b400000000000000": [
+"0xB12F54"
+],
+"data:__real@4@4006ff00000000000000": [
+"0xAE8BB8"
+],
+"data:__real@4@4006fffd710000000000": [
+"0xB141F8"
+],
+"data:__real@4@40078000000000000000": [
+"0xAFE98C"
+],
+"data:__real@4@4007b400000000000000": [
+"0xAEA65C"
+],
+"data:__real@4@4007fa00000000000000": [
+"0xAE7848"
+],
+"data:__real@4@4008fa00000000000000": [
+"0xAE73B4"
+],
+"data:__real@4@400effff000000000000": [
+"0xAE8734"
+],
+"data:__real@4@4012f424000000000000": [
+"0xB0289C"
+],
+"data:__real@4@401c8000000000000000": [
+"0xB1218C"
+],
+"data:__real@4@407effffff0000000000": [
+"0xB068F4"
+],
+"data:__real@4@bff1d1b7170000000000": [
+"0xAE785C"
+],
+"data:__real@4@bff583126f0000000000": [
+"0xAEAA1C"
+],
+"data:__real@4@bffd8000000000000000": [
+"0xAE7CE4"
+],
+"data:__real@4@bffe8000000000000000": [
+"0xAF3F1C"
+],
+"data:__real@4@bfff8000000000000000": [
+"0xAE784C"
+],
+"data:__real@4@c0008000000000000000": [
+"0xAF9B7C"
+],
+"data:__real@8@00000000000000000000": [
+"0xAF5D88"
+],
+"data:__real@8@3feea7c5ac471b478800": [
+"0xB10C78"
+],
+"data:__real@8@3ff1d1b7170000000000": [
+"0xAE7850"
+],
+"data:__real@8@3ff98efa355555555800": [
+"0xAFBDD0"
+],
+"data:__real@8@3ffccccccd0000000000": [
+"0xB12098"
+],
+"data:__real@8@3ffddf66f30000000000": [
+"0xB117B0"
+],
+"data:__real@8@3ffe8000000000000000": [
+"0xAE8728"
+],
+"data:__real@8@3ffee666660000000000": [
+"0xB14470"
+],
+"data:__real@8@3fff8000000000000000": [
+"0xAE9AA0"
+],
+"data:__real@8@40008000000000000000": [
+"0xB11998"
+],
+"data:__real@8@4001c90fdb0000000000": [
+"0xB10FA0"
+],
+"data:__real@8@4005b400000000000000": [
+"0xB14738"
+],
+"data:__real@8@4008fa00000000000000": [
+"0xB10F70"
+],
+"data:__real@8@bfff8000000000000000": [
+"0xAED070"
 ]
 },
 "wwaudio": {
@@ -3742,6 +6582,228 @@
 ],
 "_strstr": [
 "0xA26870"
+],
+"data:??_C@_00A@?$AA@": [
+"0xBDA908"
+],
+"data:?Allocator@?$AutoPoolClass@VAudibleInfoClass@SoundSceneClass@@$0EA@@@0V?$ObjectPoolClass@VAudibleInfoClass@SoundSceneClass@@$0EA@@@A": [
+"0xC40500"
+],
+"data:?AudibleSoundDefinitionClassName@@3PADA": [
+"0xBCB748"
+],
+"data:?INI_CINEMATIC_VOLUME_ENTRY@@3PBDB": [
+"0xBCB374"
+],
+"data:?INI_DEFAULT_VOLUME_SECTION@@3PBDB": [
+"0xBCB364"
+],
+"data:?INI_DIALOG_VOLUME_ENTRY@@3PBDB": [
+"0xBCB370"
+],
+"data:?INI_MUSIC_VOLUME_ENTRY@@3PBDB": [
+"0xBCB368"
+],
+"data:?INI_SOUND_VOLUME_ENTRY@@3PBDB": [
+"0xBCB36C"
+],
+"data:?IsProfileEnabled@WWProfileManager@@0_NA": [
+"0xC40488"
+],
+"data:?PreviousSyncTime@WW3D@@0IA": [
+"0xBFAE40"
+],
+"data:?SyncTime@WW3D@@0IA": [
+"0xBFAE3C"
+],
+"data:?SystemTime@@3VSysTimeClass@@A": [
+"0xC1FAD8"
+],
+"data:?VALUE_NAME_BITS@@3PBDB": [
+"0xBCB32C"
+],
+"data:?VALUE_NAME_CINEMATIC_ENABLED@@3PBDB": [
+"0xBCB344"
+],
+"data:?VALUE_NAME_CINEMATIC_VOL@@3PBDB": [
+"0xBCB354"
+],
+"data:?VALUE_NAME_DEVICE_NAME@@3PBDB": [
+"0xBCB334"
+],
+"data:?VALUE_NAME_DIALOG_ENABLED@@3PBDB": [
+"0xBCB340"
+],
+"data:?VALUE_NAME_DIALOG_VOL@@3PBDB": [
+"0xBCB350"
+],
+"data:?VALUE_NAME_HERTZ@@3PBDB": [
+"0xBCB330"
+],
+"data:?VALUE_NAME_IS_STEREO@@3PBDB": [
+"0xBCB328"
+],
+"data:?VALUE_NAME_MUSIC_ENABLED@@3PBDB": [
+"0xBCB338"
+],
+"data:?VALUE_NAME_MUSIC_VOL@@3PBDB": [
+"0xBCB348"
+],
+"data:?VALUE_NAME_SOUND_ENABLED@@3PBDB": [
+"0xBCB33C"
+],
+"data:?VALUE_NAME_SOUND_VOL@@3PBDB": [
+"0xBCB34C"
+],
+"data:?VALUE_NAME_SPEAKER_TYPE@@3PBDB": [
+"0xBCB358"
+],
+"data:?WWAUDIO_INI_FILENAME@@3PBDB": [
+"0xBCB35C"
+],
+"data:?WWAUDIO_INI_RELATIVE_PATHNAME@@3PBDB": [
+"0xBCB360"
+],
+"data:?_AudibleSoundDefPersistFactory@@3V?$SimplePersistFactoryClass@VAudibleSoundDefinitionClass@@$0DAAAA@@@A": [
+"0xC40580"
+],
+"data:?_AudibleSoundPersistFactory@@3V?$SimplePersistFactoryClass@VAudibleSoundClass@@$0DAAAB@@@A": [
+"0xC40578"
+],
+"data:?_FastSinTable@@3PAMA": [
+"0xBF52CC"
+],
+"data:?_FilteredSoundPersistFactory@@3V?$SimplePersistFactoryClass@VFilteredSoundClass@@$0DAAAC@@@A": [
+"0xC405F0"
+],
+"data:?_LogicalListenerPersistFactory@@3V?$SimplePersistFactoryClass@VLogicalListenerClass@@$0DAAAI@@@A": [
+"0xC405E0"
+],
+"data:?_LogicalSoundPersistFactory@@3V?$SimplePersistFactoryClass@VLogicalSoundClass@@$0DAAAH@@@A": [
+"0xC405D8"
+],
+"data:?_MSSLockCriticalSection@MMSLockClass@@2U_RTL_CRITICAL_SECTION@@A": [
+"0xC40518"
+],
+"data:?_PseudoSound3DPersistFactory@@3V?$SimplePersistFactoryClass@VSoundPseudo3DClass@@$0DAAAE@@@A": [
+"0xC40588"
+],
+"data:?_Sound3DPersistFactory@@3V?$SimplePersistFactoryClass@VSound3DClass@@$0DAAAD@@@A": [
+"0xC404F0"
+],
+"data:?_SoundDefFactory@@3V?$SimpleDefinitionFactoryClass@VAudibleSoundDefinitionClass@@$0FAAA@$1?AudibleSoundDefinitionClassName@@3PADA@@A": [
+"0xC40568"
+],
+"data:?_TheFileFactory@@3PAVFileFactoryClass@@A": [
+"0xBC77DC"
+],
+"data:?_TimerSyncEvent@WWAudioClass@@0PAXA": [
+"0xC404DC"
+],
+"data:?_UnknownDopplerFlag@Sound3DClass@@2_NA": [
+"0xC404F8"
+],
+"data:?_theInstance@WWAudioClass@@0PAV1@A": [
+"0xC404D8"
+],
+"data:?is_init@?1??Get@SysTimeClass@@QAEKXZ@4_NA": [
+"0xC1EC9C"
+],
+"data:?m_CriticalSection@WWAudioThreadsClass@@0VCriticalSectionClass@@A": [
+"0xC40538"
+],
+"data:?m_EmptyString@StringClass@@0PADA": [
+"0xBC7730"
+],
+"data:?m_GlobalScale@LogicalListenerClass@@0MA": [
+"0xBCB758"
+],
+"data:?m_GlobalSoundList@SoundSceneObjClass@@1V?$DynamicVectorClass@PAVSoundSceneObjClass@@@@A": [
+"0xC405C0"
+],
+"data:?m_IDListMutex@SoundSceneObjClass@@1VCriticalSectionClass@@A": [
+"0xC405B0"
+],
+"data:?m_IsFlushing@WWAudioThreadsClass@@0_NA": [
+"0xC40548"
+],
+"data:?m_ListMutex@WWAudioThreadsClass@@0VCriticalSectionClass@@A": [
+"0xC40530"
+],
+"data:?m_NewestTimestamp@LogicalListenerClass@@0KA": [
+"0xBCB754"
+],
+"data:?m_NextAvailableID@SoundSceneObjClass@@1KA": [
+"0xBCB750"
+],
+"data:?m_NullChar@StringClass@@0DA": [
+"0xC1DD7C"
+],
+"data:?m_OldestTimestamp@LogicalListenerClass@@0KA": [
+"0xC405E8"
+],
+"data:?m_ReleaseListHead@WWAudioThreadsClass@@0PAU_DELAYED_RELEASE_INFO@1@A": [
+"0xC40544"
+],
+"data:?m_UnknownReleaseList@SoundSceneObjClass@@1V?$DynamicVectorClass@PAVRefCountClass@@@@A": [
+"0xC40598"
+],
+"data:?m_UnknownReleaseListMutex@SoundSceneObjClass@@1VCriticalSectionClass@@A": [
+"0xC40590"
+],
+"data:?m_hDelayedReleaseEvent@WWAudioThreadsClass@@0PAXA": [
+"0xBCB6DC"
+],
+"data:?m_hDelayedReleaseThread@WWAudioThreadsClass@@0PAXA": [
+"0xBCB6D8"
+],
+"data:__real@4@00000000000000000000": [
+"0xAE7244"
+],
+"data:__real@4@3ff583126e978d4fe000": [
+"0xAEDC40"
+],
+"data:__real@4@3ff88102040810204000": [
+"0xB15DD8"
+],
+"data:__real@4@3ff8a3d70a3d70a3d800": [
+"0xAE72F8"
+],
+"data:__real@4@3ffacccccd0000000000": [
+"0xAE9AE4"
+],
+"data:__real@4@3ffd8000000000000000": [
+"0xAE7A38"
+],
+"data:__real@4@3ffdb000000000000000": [
+"0xB11140"
+],
+"data:__real@4@3ffdcccccc0000000000": [
+"0xB1583C"
+],
+"data:__real@4@3ffe8000000000000000": [
+"0xAE7930"
+],
+"data:__real@4@3ffe99999a0000000000": [
+"0xAEC88C"
+],
+"data:__real@4@3ffed9999a0000000000": [
+"0xAEEA98"
+],
+"data:__real@4@3fff8000000000000000": [
+"0xAE7240"
+],
+"data:__real@4@4005c800000000000000": [
+"0xAEA214"
+],
+"data:__real@4@4005fe00000000000000": [
+"0xB141F4"
+],
+"data:__real@4@4006a2f9832237cda000": [
+"0xB0C654"
+],
+"data:__real@4@4008fa00000000000000": [
+"0xAE73B4"
 ]
 },
 "wwdebug": {
@@ -3795,6 +6857,54 @@
 ],
 "_vsprintf": [
 "0xA29336"
+],
+"data:?CurrentNode@WWProfileManager@@0PAVWWProfileHierachyNodeClass@@A": [
+"0xBCB090"
+],
+"data:?CurrentRootNode@WWProfileManager@@0PAVWWProfileHierachyNodeClass@@A": [
+"0xBCB094"
+],
+"data:?FrameCounter@WWProfileManager@@0HA": [
+"0xC4048C"
+],
+"data:?InvProcessorTicksPerSecond@CPUDetectClass@@0NA": [
+"0xC1EBF0"
+],
+"data:?ResetTime@WWProfileManager@@0_JA": [
+"0xC40490"
+],
+"data:?Root@WWProfileManager@@0VWWProfileHierachyNodeClass@@A": [
+"0xC40420"
+],
+"data:?SystemTime@@3VSysTimeClass@@A": [
+"0xC1FAD8"
+],
+"data:?TabCount@WWMemoryAndTimeLog@@2IA": [
+"0xC40470"
+],
+"data:?_TheFileFactory@@3PAVFileFactoryClass@@A": [
+"0xBC77DC"
+],
+"data:?_TheWritingFileFactory@@3PAVFileFactoryClass@@A": [
+"0xBC77E4"
+],
+"data:?is_init@?1??Get@SysTimeClass@@QAEKXZ@4_NA": [
+"0xC1EC9C"
+],
+"data:?m_EmptyString@StringClass@@0PADA": [
+"0xBC7730"
+],
+"data:?m_NullChar@StringClass@@0DA": [
+"0xC1DD7C"
+],
+"data:__real@4@00000000000000000000": [
+"0xAE7244"
+],
+"data:__real@4@4002a000000000000000": [
+"0xAEA8A8"
+],
+"data:__real@4@4008fa00000000000000": [
+"0xAE73B4"
 ]
 },
 "wwlib": {
@@ -4397,6 +7507,231 @@
 ],
 "_stricmp": [
 "0xA2A9A0"
+],
+"data:?AT_MAX_LOD@RenderObjClass@@2MB": [
+"0xB11560"
+],
+"data:?AT_MIN_LOD@RenderObjClass@@2MB": [
+"0xB1155C"
+],
+"data:?Ambient_Color@DX8Wrapper@@1VVector3@@A": [
+"0xC00530"
+],
+"data:?CurrentCaps@DX8Wrapper@@1PAVDX8Caps@@A": [
+"0xC006A0"
+],
+"data:?CurrentDX8LightEnables@DX8Wrapper@@1PA_NA": [
+"0xBFAEF8"
+],
+"data:?D3DDevice@DX8Wrapper@@1PAUIDirect3DDevice8@@A": [
+"0xC00660"
+],
+"data:?IsProfileEnabled@WWProfileManager@@0_NA": [
+"0xC40488"
+],
+"data:?Pass_0_Vertex_Shader@Shd7BumpDiffClass@@1VShdHWVertexShader@@A": [
+"0xC40988"
+],
+"data:?Pass_0_Vertex_Shader@Shd7BumpSpecClass@@1VShdHWVertexShader@@A": [
+"0xC40A98"
+],
+"data:?Pass_1_Vertex_Shader@Shd7BumpDiffClass@@1VShdHWVertexShader@@A": [
+"0xC40990"
+],
+"data:?Pass_1_Vertex_Shader@Shd7BumpSpecClass@@1VShdHWVertexShader@@A": [
+"0xC40AA0"
+],
+"data:?Pixel_Shader@DX8Wrapper@@1KA": [
+"0xC00644"
+],
+"data:?Pixel_Shader@Shd8BumpDiffClass@@1VShdHWPixelShader@@A": [
+"0xC409F8"
+],
+"data:?Pixel_Shader@Shd8BumpSpecClass@@1VShdHWPixelShader@@A": [
+"0xC40B00"
+],
+"data:?RenderStates@DX8Wrapper@@1PAIA": [
+"0xBFF438"
+],
+"data:?Render_Info@DX8Wrapper@@1PAVRenderInfoClass@@A": [
+"0xC0064C"
+],
+"data:?Self_Shadow_Pixel_Shader@Shd8BumpDiffClass@@1VShdHWPixelShader@@A": [
+"0xC409E0"
+],
+"data:?Self_Shadow_Pixel_Shader@Shd8BumpSpecClass@@1VShdHWPixelShader@@A": [
+"0xC40AB8"
+],
+"data:?Self_Shadow_Vertex_Shader@Shd8BumpDiffClass@@1VShdHWVertexShader@@A": [
+"0xC409F0"
+],
+"data:?Self_Shadow_Vertex_Shader@Shd8BumpSpecClass@@1VShdHWVertexShader@@A": [
+"0xC40B08"
+],
+"data:?Shadow_Map@DX8Wrapper@@1PAPAVZTextureClass@@A": [
+"0xC00634"
+],
+"data:?ShdBumpDiffDefClassFactory@@3V?$SimpleShdDefFactoryClass@VShdBumpDiffDefClass@@$03$1?ShdBumpDiffDefClassName@@3PADA@@A": [
+"0xC40720"
+],
+"data:?ShdBumpDiffDefClassName@@3PADA": [
+"0xBCB82C"
+],
+"data:?ShdBumpSpecDefClassFactory@@3V?$SimpleShdDefFactoryClass@VShdBumpSpecDefClass@@$02$1?ShdBumpSpecDefClassName@@3PADA@@A": [
+"0xC40738"
+],
+"data:?ShdBumpSpecDefClassName@@3PADA": [
+"0xBCB83C"
+],
+"data:?ShdCubeMapDefClassFactory@@3V?$SimpleShdDefFactoryClass@VShdCubeMapDefClass@@$04$1?ShdCubeMapDefClassName@@3PADA@@A": [
+"0xC40710"
+],
+"data:?ShdCubeMapDefClassName@@3PADA": [
+"0xBCB814"
+],
+"data:?ShdGlossMaskDefClassFactory@@3V?$SimpleShdDefFactoryClass@VShdGlossMaskDefClass@@$01$1?ShdGlossMaskDefClassName@@3PADA@@A": [
+"0xC40788"
+],
+"data:?ShdGlossMaskDefClassName@@3PADA": [
+"0xBCB84C"
+],
+"data:?ShdRenderer@ShdRendererClass@@0PAV1@A": [
+"0xC406C4"
+],
+"data:?ShdSimpleDefClassFactory@@3V?$SimpleShdDefFactoryClass@VShdSimpleDefClass@@$00$1?ShdSimpleDefClassName@@3PADA@@A": [
+"0xC40798"
+],
+"data:?ShdSimpleDefClassName@@3PADA": [
+"0xBCB858"
+],
+"data:?SnapshotActivated@WW3D@@0_NA": [
+"0xBFAE75"
+],
+"data:?TheInstance@WW3DAssetManager@@1PAV1@A": [
+"0xBFAEE0"
+],
+"data:?Using_Hardware@ShdHWVertexShader@@0_NA": [
+"0xBCB860"
+],
+"data:?Version@ShdBumpDiffDefClass@@0VShdVersion@@A": [
+"0xC4072C"
+],
+"data:?Version@ShdBumpSpecDefClass@@0VShdVersion@@A": [
+"0xC40730"
+],
+"data:?Vertex_Shader@DX8Wrapper@@1KA": [
+"0xC00640"
+],
+"data:?Vertex_Shader@Shd6BumpDiffClass@@1VShdHWVertexShader@@A": [
+"0xC408F8"
+],
+"data:?Vertex_Shader@Shd6BumpSpecClass@@1VShdHWVertexShader@@A": [
+"0xC40A08"
+],
+"data:?Vertex_Shader@Shd8BumpDiffClass@@1VShdHWVertexShader@@A": [
+"0xC409E8"
+],
+"data:?Vertex_Shader@Shd8BumpSpecClass@@1VShdHWVertexShader@@A": [
+"0xC40AB0"
+],
+"data:?Vertex_Shader_Constants@DX8Wrapper@@1PAVVector4@@A": [
+"0xBFFEF0"
+],
+"data:?View_Projection_Matrix@Shd6BumpDiffClass@@1VMatrix4@@A": [
+"0xC40900"
+],
+"data:?View_Projection_Matrix@Shd6BumpSpecClass@@1VMatrix4@@A": [
+"0xC40A10"
+],
+"data:?View_Projection_Matrix@Shd7BumpDiffClass@@1VMatrix4@@A": [
+"0xC40948"
+],
+"data:?View_Projection_Matrix@Shd7BumpSpecClass@@1VMatrix4@@A": [
+"0xC40A58"
+],
+"data:?View_Projection_Matrix@Shd8BumpDiffClass@@1VMatrix4@@A": [
+"0xC409A0"
+],
+"data:?View_Projection_Matrix@Shd8BumpSpecClass@@1VMatrix4@@A": [
+"0xC40AC0"
+],
+"data:?_FactoryListHead@ShdDefManagerClass@@0PAVShdDefFactoryClass@@A": [
+"0xC406CC"
+],
+"data:?_ShdMeshLoader@@3VShdMeshLoaderClass@@A": [
+"0xC406C8"
+],
+"data:?light_changes@DX8Wrapper@@1IA": [
+"0xC00688"
+],
+"data:?m_EmptyString@StringClass@@0PADA": [
+"0xBC7730"
+],
+"data:?m_NullChar@StringClass@@0DA": [
+"0xC1DD7C"
+],
+"data:?material_changes@DX8Wrapper@@1IA": [
+"0xC0067C"
+],
+"data:?number_of_DX8_calls@@3IA": [
+"0xC006AC"
+],
+"data:?render_state@DX8Wrapper@@1URenderStateStruct@@A": [
+"0xBFFC80"
+],
+"data:?render_state_changed@DX8Wrapper@@1IA": [
+"0xBFAEF0"
+],
+"data:?render_state_changes@DX8Wrapper@@1IA": [
+"0xC00690"
+],
+"data:?shd6bumpdiff_vsh_code@@3PAKA": [
+"0xBCB8FC"
+],
+"data:?shd6bumpspec_vsh_code@@3PAKA": [
+"0xBCD08C"
+],
+"data:?shd7bumpdiffpass0_vsh_code@@3PAKA": [
+"0xBCBBA0"
+],
+"data:?shd7bumpdiffpass1_vsh_code@@3PAKA": [
+"0xBCBFEC"
+],
+"data:?shd7bumpspecpass0_vsh_code@@3PAKA": [
+"0xBCD520"
+],
+"data:?shd7bumpspecpass1_vsh_code@@3PAKA": [
+"0xBCD974"
+],
+"data:?shd8bumpdiff_psh_code@@3PAKA": [
+"0xBCC8FC"
+],
+"data:?shd8bumpdiff_vsh_code@@3PAKA": [
+"0xBCC43C"
+],
+"data:?shd8bumpspec_psh_code@@3PAKA": [
+"0xBCE3F0"
+],
+"data:?shd8bumpspec_vsh_code@@3PAKA": [
+"0xBCDDAC"
+],
+"data:?shd8ssbumpdiff_psh_code@@3PAKA": [
+"0xBCD050"
+],
+"data:?shd8ssbumpdiff_vsh_code@@3PAKA": [
+"0xBCC9A0"
+],
+"data:?shd8ssbumpspec_psh_code@@3PAKA": [
+"0xBCEB7C"
+],
+"data:?shd8ssbumpspec_vsh_code@@3PAKA": [
+"0xBCE4CC"
+],
+"data:__real@4@00000000000000000000": [
+"0xAE7244"
+],
+"data:__real@4@3ffe8000000000000000": [
+"0xAE7930"
 ]
 }
 }
