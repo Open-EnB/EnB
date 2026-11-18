@@ -75,6 +75,7 @@ CONN = [r'app\common\circbuff.cpp', r'app\common\connect.cpp', r'app\common\udpc
         r'app\common\item_effect_description.cpp',   # its two effect descriptions
         r'app\common\effect_description.cpp',        # their effects' texts and values
         r'app\common\item_effect.cpp',               # their effects (ItemEffectClass)
+        r'app\common\unknown_835040.cpp',            # the usage names' converters, split out of item_effect.cpp (SG)
         r'app\common\recustomization_cost.cpp']      # RECUSTOMIZE_AVATAR_START 131 / _SHIP_START 129's costs
 # the packet classes rebuilt in their own files (pkclasses.py: pk_classes.h includes their headers;
 # conn_replay.cpp sends what their Build makes)
