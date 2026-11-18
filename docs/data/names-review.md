@@ -83,7 +83,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Flash` | `app/client/acticon.h:37` | what slot +0xAC does with it |
 | 1 | `Unknown_685E80Class` | `app/client/acticon.h:43` | untagged neutral name (D10) |
 | 1 | `id, ini, section` | `app/client/acticon.h:46` | the base's |
-| 1 | `aux_buff.h` | `app/client/aux_buff.h:9` | provisional file name (the client's headers are not named by any string) |
+| 1 | `aux_buff.h` | `app/client/aux_buff.h:10` | provisional file name (the client's headers are not named by any string) |
 | 1 | `aux_faction.h` | `app/client/aux_faction.h:9` | provisional file name (the client's headers are not named by any string) |
 | 1 | `aux_group.h` | `app/client/aux_group.h:9` | provisional file name (the client's headers are not named by any string) |
 | 1 | `aux_harvestable.h` | `app/client/aux_harvestable.h:9` | provisional file name (the client's headers are not named by any string) |
@@ -92,11 +92,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `aux_manu.h` | `app/client/aux_manu.h:9` | provisional file name (the client's headers are not named by any string) |
 | 1 | `aux_player.h` | `app/client/aux_player.h:9` | provisional file name (the client's headers are not named by any string) |
 | 1 | `aux_roots.cpp` | `app/client/aux_roots.cpp:3` | provisional file name (the client's constructors are in co.cpp 0x6F6000-0x6FBEF0 and the Player object 0x751BE0) |
-| 1 | `UnknownGlobal` | `app/client/aux_roots.cpp:7` | untagged neutral name (D10) |
-| 1 | `UnknownRootClass` | `app/client/aux_roots.cpp:12` | untagged neutral name (D10) |
-| 1 | `Unknown_Create_Aux_Root` | `app/client/aux_roots.cpp:12` | untagged neutral name (D10) |
-| 1 | `Unknown80` | `app/client/aux_roots.cpp:47` | untagged neutral name (D10) |
-| 1 | `AuxRootsSymbolPadType` | `app/client/aux_roots.cpp:86` | a build aid (HX1) |
+| 1 | `UnknownRootClass` | `app/client/aux_roots.cpp:8` | untagged neutral name (D10) |
+| 1 | `Unknown_Create_Aux_Root` | `app/client/aux_roots.cpp:8` | untagged neutral name (D10) |
+| 1 | `Unknown80` | `app/client/aux_roots.cpp:43` | untagged neutral name (D10) |
+| 1 | `AuxRootsSymbolPadType` | `app/client/aux_roots.cpp:68` | a build aid (HX1) |
 | 1 | `aux_roots.h` | `app/client/aux_roots.h:8` | provisional file name (the client's code is in co.cpp and an unattributed object) |
 | 1 | `Unknown_Hex_String` | `app/client/aux_roots.h:44` | untagged neutral name (D10) |
 | 1 | `UnknownB0122CEnum` | `app/client/aux_roots.h:80` | untagged neutral name (D10) |
@@ -104,8 +103,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `UnknownB01394Enum` | `app/client/aux_roots.h:82` | untagged neutral name (D10) |
 | 1 | `UnknownB013ECEnum` | `app/client/aux_roots.h:83` | untagged neutral name (D10) |
 | 1 | `Unknown9C` | `app/client/aux_roots.h:178` | neutral (D10): a member, not a field of the tree |
-| 1 | `Unknown04` | `app/client/aux_roots.h:381` | untagged neutral name (D10) |
-| 1 | `UnknownGlobal` | `app/client/aux_roots.h:381` | untagged neutral name (D10) |
 | 1 | `UnknownRootClass` | `app/client/aux_roots.h:502` | untagged neutral name (D10) |
 | 1 | `Unknown2390` | `app/client/aux_roots.h:551` | neutral (D10): a member, not a field of the tree |
 | 1 | `Unknown2394` | `app/client/aux_roots.h:552` | neutral (D10): a member, not a field of the tree |
@@ -121,6 +118,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `UnknownSendRootClass` | `app/client/aux_roots_send.h:24` | untagged neutral name (D10) |
 | 1 | `Unknown_48` | `app/client/aux_roots_send.h:45` | untagged neutral name (D10) |
 | 1 | `AuxRootsSendSymbolPadType` | `app/client/aux_roots_send.h:290` | a build aid (SC1) |
+| 1 | `aux_ship.h` | `app/client/aux_ship.h:9` | provisional file name (the client's headers are not named by any string) |
+| 1 | `aux_ship_player.h` | `app/client/aux_ship_player.h:10` | provisional file name (the client's headers are not named by any string) |
 | 1 | `aux_shipinv.h` | `app/client/aux_shipinv.h:9` | provisional file name (the client's headers are not named by any string) |
 | 1 | `aux_skill.h` | `app/client/aux_skill.h:9` | provisional file name (the client's headers are not named by any string) |
 | 1 | `Unknown_BDBB84` | `app/client/avatar.cpp:31` | neutral (D10), as eff_o.cpp's |
@@ -7144,100 +7143,100 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown10` | `app/client/sbase_info.h:118` | untagged neutral name (D10) |
 | 1 | `Unknown14` | `app/client/sbase_info.h:119` | untagged neutral name (D10) |
 | 1 | `Unknown18` | `app/client/sbase_info.h:120` | untagged neutral name (D10) |
-| 1 | `Unknown_77B7D0, t` | `app/client/sbaseview.cpp:36` | neutral (D10) |
-| 1 | `Unknown_77B7D0` | `app/client/sbaseview.cpp:36` | untagged neutral name (D10) |
-| 1 | `Unknown_94B910` | `app/client/sbaseview.cpp:46` | untagged neutral name (D10) |
-| 1 | `Unknown84` | `app/client/sbaseview.cpp:51` | untagged neutral name (D10) |
-| 1 | `Unknown65B810ViewClass` | `app/client/sbaseview.cpp:71` | untagged neutral name (D10) |
-| 1 | `Unknown50` | `app/client/sbaseview.cpp:72` | untagged neutral name (D10) |
-| 1 | `Unknown54` | `app/client/sbaseview.cpp:73` | untagged neutral name (D10) |
-| 1 | `Unknown58` | `app/client/sbaseview.cpp:74` | untagged neutral name (D10) |
-| 1 | `Unknown5C` | `app/client/sbaseview.cpp:75` | untagged neutral name (D10) |
-| 1 | `Unknown68` | `app/client/sbaseview.cpp:76` | untagged neutral name (D10) |
-| 1 | `Unknown7C` | `app/client/sbaseview.cpp:77` | untagged neutral name (D10) |
-| 1 | `Unknown80` | `app/client/sbaseview.cpp:78` | untagged neutral name (D10) |
-| 1 | `UnknownB4` | `app/client/sbaseview.cpp:80` | untagged neutral name (D10) |
-| 1 | `UnknownE4` | `app/client/sbaseview.cpp:81` | untagged neutral name (D10) |
-| 1 | `UnknownE8` | `app/client/sbaseview.cpp:82` | untagged neutral name (D10) |
-| 1 | `Unknown170` | `app/client/sbaseview.cpp:83` | untagged neutral name (D10) |
-| 1 | `Unknown1B0` | `app/client/sbaseview.cpp:84` | untagged neutral name (D10) |
-| 1 | `Unknown1BC` | `app/client/sbaseview.cpp:86` | untagged neutral name (D10) |
-| 1 | `Unknown1C4` | `app/client/sbaseview.cpp:87` | untagged neutral name (D10) |
-| 1 | `Unknown1D4` | `app/client/sbaseview.cpp:89` | untagged neutral name (D10) |
-| 1 | `Unknown1E0` | `app/client/sbaseview.cpp:90` | untagged neutral name (D10) |
-| 1 | `Unknown1EC` | `app/client/sbaseview.cpp:91` | untagged neutral name (D10) |
-| 1 | `Unknown1ED` | `app/client/sbaseview.cpp:92` | untagged neutral name (D10) |
-| 1 | `Unknown1EE` | `app/client/sbaseview.cpp:93` | untagged neutral name (D10) |
-| 1 | `Unknown1EF` | `app/client/sbaseview.cpp:94` | untagged neutral name (D10) |
-| 1 | `Unknown1F0` | `app/client/sbaseview.cpp:95` | untagged neutral name (D10) |
-| 1 | `Unknown_BE67BC` | `app/client/sbaseview.cpp:101` | untagged neutral name (D10) |
-| 1 | `Unknown_5C` | `app/client/sbaseview.cpp:105` | untagged neutral name (D10) |
-| 1 | `Unknown70` | `app/client/sbaseview.cpp:107` | untagged neutral name (D10) |
-| 1 | `Unknown_04` | `app/client/sbaseview.cpp:126` | untagged neutral name (D10) |
-| 1 | `Unknown761C80Class` | `app/client/sbaseview.cpp:131` | untagged neutral name (D10) |
-| 1 | `Unknown6C` | `app/client/sbaseview.cpp:133` | untagged neutral name (D10) |
-| 1 | `Unknown78` | `app/client/sbaseview.cpp:137` | untagged neutral name (D10) |
-| 1 | `Unknown74` | `app/client/sbaseview.cpp:139` | untagged neutral name (D10) |
-| 1 | `Unknown1C` | `app/client/sbaseview.cpp:143` | untagged neutral name (D10) |
-| 1 | `Unknown20` | `app/client/sbaseview.cpp:143` | untagged neutral name (D10) |
-| 1 | `Unknown1B8` | `app/client/sbaseview.cpp:145` | untagged neutral name (D10) |
-| 1 | `Unknown_54` | `app/client/sbaseview.cpp:148` | untagged neutral name (D10) |
-| 1 | `Unknown_7C` | `app/client/sbaseview.cpp:149` | untagged neutral name (D10) |
-| 1 | `Unknown1A8` | `app/client/sbaseview.cpp:150` | untagged neutral name (D10) |
-| 1 | `Unknown0F1` | `app/client/sbaseview.cpp:151` | untagged neutral name (D10) |
-| 1 | `Unknown1AC` | `app/client/sbaseview.cpp:154` | untagged neutral name (D10) |
-| 1 | `Unknown_6B4940` | `app/client/sbaseview.cpp:156` | untagged neutral name (D10) |
-| 1 | `Unknown_58` | `app/client/sbaseview.cpp:167` | untagged neutral name (D10) |
-| 1 | `Unknown_10` | `app/client/sbaseview.cpp:176` | untagged neutral name (D10) |
-| 1 | `Unknown64` | `app/client/sbaseview.cpp:180` | untagged neutral name (D10) |
-| 1 | `Unknown174` | `app/client/sbaseview.cpp:181` | untagged neutral name (D10) |
-| 1 | `Unknown178` | `app/client/sbaseview.cpp:182` | untagged neutral name (D10) |
-| 1 | `Unknown17C` | `app/client/sbaseview.cpp:183` | untagged neutral name (D10) |
-| 1 | `Unknown180` | `app/client/sbaseview.cpp:184` | untagged neutral name (D10) |
-| 1 | `Unknown184` | `app/client/sbaseview.cpp:185` | untagged neutral name (D10) |
-| 1 | `Unknown188` | `app/client/sbaseview.cpp:186` | untagged neutral name (D10) |
-| 1 | `Unknown18C` | `app/client/sbaseview.cpp:187` | untagged neutral name (D10) |
-| 1 | `Unknown190` | `app/client/sbaseview.cpp:188` | untagged neutral name (D10) |
-| 1 | `Unknown198` | `app/client/sbaseview.cpp:190` | untagged neutral name (D10) |
-| 1 | `Unknown_6A1130` | `app/client/sbaseview.cpp:193` | untagged neutral name (D10) |
-| 1 | `Unknown_6A0540` | `app/client/sbaseview.cpp:194` | untagged neutral name (D10) |
-| 1 | `Unknown00` | `app/client/sbaseview.cpp:196` | untagged neutral name (D10) |
-| 1 | `Unknown_69D930` | `app/client/sbaseview.cpp:209` | untagged neutral name (D10) |
-| 1 | `Unknown_69F480` | `app/client/sbaseview.cpp:212` | untagged neutral name (D10) |
-| 1 | `Unknown_6A0E00` | `app/client/sbaseview.cpp:226` | untagged neutral name (D10) |
-| 1 | `Unknown_18` | `app/client/sbaseview.cpp:242` | untagged neutral name (D10) |
-| 1 | `Unknown_69D030` | `app/client/sbaseview.cpp:248` | untagged neutral name (D10) |
-| 1 | `Unknown_0C` | `app/client/sbaseview.cpp:253` | untagged neutral name (D10) |
-| 1 | `Unknown_69ED80` | `app/client/sbaseview.cpp:259` | untagged neutral name (D10) |
-| 1 | `Unknown_69F710` | `app/client/sbaseview.cpp:261` | untagged neutral name (D10) |
-| 1 | `Unknown_6A0EC0` | `app/client/sbaseview.cpp:262` | untagged neutral name (D10) |
-| 1 | `Unknown24` | `app/client/sbaseview.cpp:267` | untagged neutral name (D10) |
-| 1 | `Unknown28` | `app/client/sbaseview.cpp:267` | untagged neutral name (D10) |
-| 1 | `Unknown_6A1180` | `app/client/sbaseview.cpp:282` | untagged neutral name (D10) |
-| 1 | `Unknown_Avatar_ID` | `app/client/sbaseview.cpp:288` | neutral (D10), as ui_cpit.cpp's |
-| 1 | `Unknown_1134` | `app/client/sbaseview.cpp:289` | neutral (D10) |
-| 1 | `Unknown1134` | `app/client/sbaseview.cpp:289` | untagged neutral name (D10) |
-| 1 | `Unknown_84` | `app/client/sbaseview.cpp:290` | neutral (D10) |
-| 1 | `Unknown5BB320Class` | `app/client/sbaseview.cpp:290` | untagged neutral name (D10) |
-| 1 | `Unknown_14` | `app/client/sbaseview.cpp:294` | untagged neutral name (D10) |
-| 1 | `Unknown_64CF90` | `app/client/sbaseview.cpp:298` | untagged neutral name (D10) |
-| 1 | `Unknown_639030` | `app/client/sbaseview.cpp:301` | untagged neutral name (D10) |
-| 1 | `Unknown_64CFF0` | `app/client/sbaseview.cpp:313` | untagged neutral name (D10) |
-| 1 | `Unknown_64D3E0` | `app/client/sbaseview.cpp:315` | untagged neutral name (D10) |
-| 1 | `Unknown_69CDE0` | `app/client/sbaseview.cpp:316` | untagged neutral name (D10) |
-| 1 | `Unknown_74BA30` | `app/client/sbaseview.cpp:327` | untagged neutral name (D10) |
-| 1 | `Unknown_6A1B80` | `app/client/sbaseview.cpp:330` | untagged neutral name (D10) |
-| 1 | `Unknown10BC` | `app/client/sbaseview.cpp:332` | untagged neutral name (D10) |
-| 1 | `Unknown_64EEA0` | `app/client/sbaseview.cpp:338` | untagged neutral name (D10) |
-| 1 | `Unknown_596770` | `app/client/sbaseview.cpp:345` | untagged neutral name (D10) |
-| 1 | `Unknown_69CBE0` | `app/client/sbaseview.cpp:351` | untagged neutral name (D10) |
-| 1 | `Unknown_69CC10` | `app/client/sbaseview.cpp:359` | untagged neutral name (D10) |
-| 1 | `Unknown_69CCD0` | `app/client/sbaseview.cpp:372` | untagged neutral name (D10) |
-| 1 | `Unknown_74C9D0` | `app/client/sbaseview.cpp:402` | untagged neutral name (D10) |
-| 1 | `Unknown_8C` | `app/client/sbaseview.cpp:404` | untagged neutral name (D10) |
-| 1 | `Unknown_695FE0` | `app/client/sbaseview.cpp:406` | untagged neutral name (D10) |
-| 1 | `Unknown_6A2120` | `app/client/sbaseview.cpp:425` | untagged neutral name (D10) |
-| 1 | `Unknown_74CA70` | `app/client/sbaseview.cpp:429` | untagged neutral name (D10) |
+| 1 | `Unknown_77B7D0, t` | `app/client/sbaseview.cpp:38` | neutral (D10) |
+| 1 | `Unknown_77B7D0` | `app/client/sbaseview.cpp:38` | untagged neutral name (D10) |
+| 1 | `Unknown_94B910` | `app/client/sbaseview.cpp:48` | untagged neutral name (D10) |
+| 1 | `Unknown84` | `app/client/sbaseview.cpp:53` | untagged neutral name (D10) |
+| 1 | `Unknown65B810ViewClass` | `app/client/sbaseview.cpp:73` | untagged neutral name (D10) |
+| 1 | `Unknown50` | `app/client/sbaseview.cpp:74` | untagged neutral name (D10) |
+| 1 | `Unknown54` | `app/client/sbaseview.cpp:75` | untagged neutral name (D10) |
+| 1 | `Unknown58` | `app/client/sbaseview.cpp:76` | untagged neutral name (D10) |
+| 1 | `Unknown5C` | `app/client/sbaseview.cpp:77` | untagged neutral name (D10) |
+| 1 | `Unknown68` | `app/client/sbaseview.cpp:78` | untagged neutral name (D10) |
+| 1 | `Unknown7C` | `app/client/sbaseview.cpp:79` | untagged neutral name (D10) |
+| 1 | `Unknown80` | `app/client/sbaseview.cpp:80` | untagged neutral name (D10) |
+| 1 | `UnknownB4` | `app/client/sbaseview.cpp:82` | untagged neutral name (D10) |
+| 1 | `UnknownE4` | `app/client/sbaseview.cpp:83` | untagged neutral name (D10) |
+| 1 | `UnknownE8` | `app/client/sbaseview.cpp:84` | untagged neutral name (D10) |
+| 1 | `Unknown170` | `app/client/sbaseview.cpp:85` | untagged neutral name (D10) |
+| 1 | `Unknown1B0` | `app/client/sbaseview.cpp:86` | untagged neutral name (D10) |
+| 1 | `Unknown1BC` | `app/client/sbaseview.cpp:88` | untagged neutral name (D10) |
+| 1 | `Unknown1C4` | `app/client/sbaseview.cpp:89` | untagged neutral name (D10) |
+| 1 | `Unknown1D4` | `app/client/sbaseview.cpp:91` | untagged neutral name (D10) |
+| 1 | `Unknown1E0` | `app/client/sbaseview.cpp:92` | untagged neutral name (D10) |
+| 1 | `Unknown1EC` | `app/client/sbaseview.cpp:93` | untagged neutral name (D10) |
+| 1 | `Unknown1ED` | `app/client/sbaseview.cpp:94` | untagged neutral name (D10) |
+| 1 | `Unknown1EE` | `app/client/sbaseview.cpp:95` | untagged neutral name (D10) |
+| 1 | `Unknown1EF` | `app/client/sbaseview.cpp:96` | untagged neutral name (D10) |
+| 1 | `Unknown1F0` | `app/client/sbaseview.cpp:97` | untagged neutral name (D10) |
+| 1 | `Unknown_BE67BC` | `app/client/sbaseview.cpp:103` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/sbaseview.cpp:107` | untagged neutral name (D10) |
+| 1 | `Unknown70` | `app/client/sbaseview.cpp:109` | untagged neutral name (D10) |
+| 1 | `Unknown_04` | `app/client/sbaseview.cpp:128` | untagged neutral name (D10) |
+| 1 | `Unknown761C80Class` | `app/client/sbaseview.cpp:133` | untagged neutral name (D10) |
+| 1 | `Unknown6C` | `app/client/sbaseview.cpp:135` | untagged neutral name (D10) |
+| 1 | `Unknown78` | `app/client/sbaseview.cpp:139` | untagged neutral name (D10) |
+| 1 | `Unknown74` | `app/client/sbaseview.cpp:141` | untagged neutral name (D10) |
+| 1 | `Unknown1C` | `app/client/sbaseview.cpp:145` | untagged neutral name (D10) |
+| 1 | `Unknown20` | `app/client/sbaseview.cpp:145` | untagged neutral name (D10) |
+| 1 | `Unknown1B8` | `app/client/sbaseview.cpp:147` | untagged neutral name (D10) |
+| 1 | `Unknown_54` | `app/client/sbaseview.cpp:150` | untagged neutral name (D10) |
+| 1 | `Unknown_7C` | `app/client/sbaseview.cpp:151` | untagged neutral name (D10) |
+| 1 | `Unknown1A8` | `app/client/sbaseview.cpp:152` | untagged neutral name (D10) |
+| 1 | `Unknown0F1` | `app/client/sbaseview.cpp:153` | untagged neutral name (D10) |
+| 1 | `Unknown1AC` | `app/client/sbaseview.cpp:156` | untagged neutral name (D10) |
+| 1 | `Unknown_6B4940` | `app/client/sbaseview.cpp:158` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `app/client/sbaseview.cpp:169` | untagged neutral name (D10) |
+| 1 | `Unknown_10` | `app/client/sbaseview.cpp:178` | untagged neutral name (D10) |
+| 1 | `Unknown64` | `app/client/sbaseview.cpp:182` | untagged neutral name (D10) |
+| 1 | `Unknown174` | `app/client/sbaseview.cpp:183` | untagged neutral name (D10) |
+| 1 | `Unknown178` | `app/client/sbaseview.cpp:184` | untagged neutral name (D10) |
+| 1 | `Unknown17C` | `app/client/sbaseview.cpp:185` | untagged neutral name (D10) |
+| 1 | `Unknown180` | `app/client/sbaseview.cpp:186` | untagged neutral name (D10) |
+| 1 | `Unknown184` | `app/client/sbaseview.cpp:187` | untagged neutral name (D10) |
+| 1 | `Unknown188` | `app/client/sbaseview.cpp:188` | untagged neutral name (D10) |
+| 1 | `Unknown18C` | `app/client/sbaseview.cpp:189` | untagged neutral name (D10) |
+| 1 | `Unknown190` | `app/client/sbaseview.cpp:190` | untagged neutral name (D10) |
+| 1 | `Unknown198` | `app/client/sbaseview.cpp:192` | untagged neutral name (D10) |
+| 1 | `Unknown_6A1130` | `app/client/sbaseview.cpp:195` | untagged neutral name (D10) |
+| 1 | `Unknown_6A0540` | `app/client/sbaseview.cpp:196` | untagged neutral name (D10) |
+| 1 | `Unknown00` | `app/client/sbaseview.cpp:198` | untagged neutral name (D10) |
+| 1 | `Unknown_69D930` | `app/client/sbaseview.cpp:211` | untagged neutral name (D10) |
+| 1 | `Unknown_69F480` | `app/client/sbaseview.cpp:214` | untagged neutral name (D10) |
+| 1 | `Unknown_6A0E00` | `app/client/sbaseview.cpp:228` | untagged neutral name (D10) |
+| 1 | `Unknown_18` | `app/client/sbaseview.cpp:244` | untagged neutral name (D10) |
+| 1 | `Unknown_69D030` | `app/client/sbaseview.cpp:250` | untagged neutral name (D10) |
+| 1 | `Unknown_0C` | `app/client/sbaseview.cpp:255` | untagged neutral name (D10) |
+| 1 | `Unknown_69ED80` | `app/client/sbaseview.cpp:261` | untagged neutral name (D10) |
+| 1 | `Unknown_69F710` | `app/client/sbaseview.cpp:263` | untagged neutral name (D10) |
+| 1 | `Unknown_6A0EC0` | `app/client/sbaseview.cpp:264` | untagged neutral name (D10) |
+| 1 | `Unknown24` | `app/client/sbaseview.cpp:269` | untagged neutral name (D10) |
+| 1 | `Unknown28` | `app/client/sbaseview.cpp:269` | untagged neutral name (D10) |
+| 1 | `Unknown_6A1180` | `app/client/sbaseview.cpp:284` | untagged neutral name (D10) |
+| 1 | `Unknown_Avatar_ID` | `app/client/sbaseview.cpp:290` | neutral (D10), as ui_cpit.cpp's |
+| 1 | `Unknown_1134` | `app/client/sbaseview.cpp:291` | neutral (D10) |
+| 1 | `Unknown1134` | `app/client/sbaseview.cpp:291` | untagged neutral name (D10) |
+| 1 | `Unknown_84` | `app/client/sbaseview.cpp:292` | neutral (D10) |
+| 1 | `Unknown5BB320Class` | `app/client/sbaseview.cpp:292` | untagged neutral name (D10) |
+| 1 | `Unknown_14` | `app/client/sbaseview.cpp:296` | untagged neutral name (D10) |
+| 1 | `Unknown_64CF90` | `app/client/sbaseview.cpp:300` | untagged neutral name (D10) |
+| 1 | `Unknown_639030` | `app/client/sbaseview.cpp:303` | untagged neutral name (D10) |
+| 1 | `Unknown_64CFF0` | `app/client/sbaseview.cpp:315` | untagged neutral name (D10) |
+| 1 | `Unknown_64D3E0` | `app/client/sbaseview.cpp:317` | untagged neutral name (D10) |
+| 1 | `Unknown_69CDE0` | `app/client/sbaseview.cpp:318` | untagged neutral name (D10) |
+| 1 | `Unknown_74BA30` | `app/client/sbaseview.cpp:329` | untagged neutral name (D10) |
+| 1 | `Unknown_6A1B80` | `app/client/sbaseview.cpp:332` | untagged neutral name (D10) |
+| 1 | `Unknown10BC` | `app/client/sbaseview.cpp:334` | untagged neutral name (D10) |
+| 1 | `Unknown_64EEA0` | `app/client/sbaseview.cpp:340` | untagged neutral name (D10) |
+| 1 | `Unknown_596770` | `app/client/sbaseview.cpp:347` | untagged neutral name (D10) |
+| 1 | `Unknown_69CBE0` | `app/client/sbaseview.cpp:353` | untagged neutral name (D10) |
+| 1 | `Unknown_69CC10` | `app/client/sbaseview.cpp:361` | untagged neutral name (D10) |
+| 1 | `Unknown_69CCD0` | `app/client/sbaseview.cpp:374` | untagged neutral name (D10) |
+| 1 | `Unknown_74C9D0` | `app/client/sbaseview.cpp:404` | untagged neutral name (D10) |
+| 1 | `Unknown_8C` | `app/client/sbaseview.cpp:406` | untagged neutral name (D10) |
+| 1 | `Unknown_695FE0` | `app/client/sbaseview.cpp:408` | untagged neutral name (D10) |
+| 1 | `Unknown_6A2120` | `app/client/sbaseview.cpp:427` | untagged neutral name (D10) |
+| 1 | `Unknown_74CA70` | `app/client/sbaseview.cpp:431` | untagged neutral name (D10) |
 | 1 | `Unknown_69D9D0` | `app/client/sbaseview.cpp:733` | untagged neutral name (D10) |
 | 1 | `Unknown_69DB50` | `app/client/sbaseview.cpp:757` | untagged neutral name (D10) |
 | 1 | `Unknown_69DBA0` | `app/client/sbaseview.cpp:765` | untagged neutral name (D10) |
@@ -23288,6 +23287,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown24C` | `app/shared/auxdata/delta_interpolator.h:55` | untagged neutral name (D10) |
 | 1 | `UnknownGlobal` | `app/shared/auxdata/delta_item_array.h:31` | untagged neutral name (D10) |
 | 1 | `Unknown04` | `app/shared/auxdata/delta_item_array.h:52` | untagged neutral name (D10) |
+| 1 | `DeltaDerivedItemArrayClass` | `app/shared/auxdata/delta_item_array.h:72` | neutral (no client name) |
 | 1 | `Unknown_34` | `app/shared/auxdata/delta_money.cpp:21` | untagged neutral name (D10) |
 | 1 | `UnknownGlobal` | `app/shared/auxdata/delta_money.cpp:25` | untagged neutral name (D10) |
 | 1 | `DeltaUnknownCounter` | `app/shared/auxdata/delta_money.cpp:25` | untagged neutral name (D10) |
@@ -25110,8 +25110,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown00` | `tests/clienttest/client_stubs.cpp:156` | untagged neutral name (D10) |
 | 1 | `Unknown_BE7D80` | `tests/clienttest/client_stubs.cpp:157` | untagged neutral name (D10) |
 | 1 | `UnknownGlobal` | `tests/clienttest/client_stubs.cpp:166` | untagged neutral name (D10) |
-| 1 | `UnknownB02C90Class` | `tests/clienttest/client_stubs.cpp:177` | untagged neutral name (D10) |
-| 1 | `Unknown_725AD0` | `tests/clienttest/client_stubs.cpp:179` | untagged neutral name (D10) |
+| 1 | `UnknownB02C90Class` | `tests/clienttest/client_stubs.cpp:174` | untagged neutral name (D10) |
+| 1 | `Unknown_725AD0` | `tests/clienttest/client_stubs.cpp:176` | untagged neutral name (D10) |
 | 1 | `Unknown135C` | `tests/clienttest/clienttest.cpp:111` | untagged neutral name (D10) |
 | 1 | `Unknown_BDAA7C` | `tests/clienttest/clienttest.cpp:126` | untagged neutral name (D10) |
 | 1 | `Unknown_BDA968` | `tests/clienttest/clienttest.cpp:127` | untagged neutral name (D10) |
@@ -30745,7 +30745,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `sbase_info.h` | `app/client/sbase_info.h:20` | header name assumed from the client's sbase_info.cpp |
 | 3 | `StarbaseNPCClass` | `app/client/sbase_info.h:58` | by the other two classes' names and the assert '!npc' |
 | 3 | `StarbaseInfoClass` | `app/client/sbase_info.h:126` | by convention (D24) from the client's file sbase_info.cpp and its message category 'Starbase Info' |
-| 3 | `UITalkTreeSpaceClass` | `app/client/sbaseview.cpp:48` | class-from-file (D24) for ui_talkt_space.cpp |
+| 3 | `UITalkTreeSpaceClass` | `app/client/sbaseview.cpp:50` | class-from-file (D24) for ui_talkt_space.cpp |
 | 3 | `AmbientAvatar` | `app/client/sbaseview.h:201` | 0x633180's FAIL_IF '!Avatar && !AmbientAvatar' |
 | 3 | `NameTag` | `app/client/sbaseview.h:202` | 0x633180's FAIL_IF '!NameTag' |
 | 3 | `UIStarbaseClass` | `app/client/sbaseview.h:231` | class-from-file (D24) for app\client\ui_starbase.cpp |
