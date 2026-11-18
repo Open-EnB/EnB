@@ -212,6 +212,15 @@ void Subject::Send_Event(Event *event)
 	}
 }
 
+struct Unknown_BE5628Struct {	// NAME 1: neutral (D10); 12 bytes, nothing refers to its two statics
+	Unknown_BE5628Struct() : Unknown00(""), Unknown04(""), Unknown08(-1) {}
+	const char *Unknown00;	// NAME 1: neutral (D10)
+	const char *Unknown04;	// NAME 1: neutral (D10)
+	int Unknown08;			// NAME 1: neutral (D10)
+};
+static Unknown_BE5628Struct Unknown_BE5638;	// 0xBE5638 (0x4E93B0)  // NAME 1: neutral (D10)
+static Unknown_BE5628Struct Unknown_BE5628;	// 0xBE5628 (0x4E93E0)  // NAME 1: neutral (D10)
+
 /*
 **	Reconstruction notes
 **
@@ -227,4 +236,7 @@ void Subject::Send_Event(Event *event)
 **	inlined std::find; Send_Event's pop is an inline helper returning bool (its setne / test al, al).
 **	The classes' names follow the client's asserts (Is_Subject, Is_Listener, Data->Subjects, Data->Listeners);
 **	Event, On_Event, Send_Event, Add_Listener, Remove_Listener, Remove_Subject and Remove_All_Subjects are ours.
+**	The two 12-byte statics 0xBE5638 / 0xBE5628 ({"", "", -1}, initialisers 0x4E93B0 / 0x4E93E0 after the
+**	template helpers; the CRT table lists them after ActiveIterators' 0x4E8670 and before g_assert.cpp's 0x4E9490):
+**	nothing refers to them, so their type, names and placement in this file are provisional.
 */
