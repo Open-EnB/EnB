@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "The client's own string 'e:\\build\\beta\\G\\app\\Client\\gd_selct.cpp' (G_ASSERT 'font' l.369 of 0x66D520); GD_SELECT_FONT; 0x66CC00-0x66D911, table 0xAFADD4",
  "expected": {},
@@ -30,7 +28,8 @@
   "0x66D050",
   "0x66D080",
   "0x66D1B0",
-  "0x66D520"
+  "0x66D520",
+  "0x66DA20"
  ],
  "merged": [],
  "name": "client/gd_selct.cpp",

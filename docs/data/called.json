@@ -390,6 +390,9 @@
 "??1PrimitivePrototypeClass@@UAE@XZ": [
 "0x93E630"
 ],
+"??1RawFileClass@@UAE@XZ": [
+"0x683FB0"
+],
 "??1RegistryClass@@QAE@XZ": [
 "0x9D1680"
 ],
@@ -4337,6 +4340,27 @@
 ],
 "_wcstoul": [
 "0xA2C078"
+],
+"data:??_C@_11A@?$AA?$AA@": [
+"0xC1E1DC"
+],
+"data:?CurrentCaps@DX8Wrapper@@1PAVDX8Caps@@A": [
+"0xC006A0"
+],
+"data:?TheInstance@WW3DAssetManager@@1PAV1@A": [
+"0xBFAEE0"
+],
+"data:?_TheFileFactory@@3PAVFileFactoryClass@@A": [
+"0xBC77DC"
+],
+"data:?mTokenHooks@SubTitleParserClass@@0PAUtagTokenHook@1@A": [
+"0xBCEBD8"
+],
+"data:?m_EmptyString@StringClass@@0PADA": [
+"0xBC7730"
+],
+"data:__real@4@3fff8000000000000000": [
+"0xAE7240"
 ]
 },
 "wlib": {
@@ -4429,6 +4453,12 @@
 ],
 "_toupper": [
 "0xA2850B"
+],
+"data:??_C@_00A@?$AA@": [
+"0xBDA908"
+],
+"data:?DebugLibSemaphore@@3VCritSec@@A": [
+"0xBF5258"
 ]
 },
 "wnet": {
@@ -4587,6 +4617,15 @@
 ],
 "_vsprintf": [
 "0xA29336"
+],
+"data:??_B?1???id@?$ctype@G@std@@$D@@9@51": [
+"0xC416FC"
+],
+"data:?accountingCallback@UDP@@0P6AX_NHIG@ZA": [
+"0xBF52C4"
+],
+"data:__iob": [
+"0xBCFAA8"
 ]
 },
 "ww3d2": {
@@ -7060,6 +7099,450 @@
 ],
 "_wcslen": [
 "0xA2AD9D"
+],
+"data:??_C@_00A@?$AA@": [
+"0xBDA908"
+],
+"data:??_C@_11A@?$AA?$AA@": [
+"0xC1E1DC"
+],
+"data:?AMDProcessor@CPUDetectClass@@0W4AMDProcessorType@1@A": [
+"0xC1EC54"
+],
+"data:?Allocator@?$AutoPoolClass@VGenericSLNode@@$0BAA@@@0V?$ObjectPoolClass@VGenericSLNode@@$0BAA@@@A": [
+"0xC1CD60"
+],
+"data:?Allocator@?$AutoPoolClass@VMultiListNodeClass@@$0BAA@@@0V?$ObjectPoolClass@VMultiListNodeClass@@$0BAA@@@A": [
+"0xC1E1C0"
+],
+"data:?AppCallback@@3P6AXXZA": [
+"0xC1CD24"
+],
+"data:?AppVersionCallback@@3P6APADXZA": [
+"0xC1CD28"
+],
+"data:?Argc@ArgvClass@@1HA": [
+"0xC1E184"
+],
+"data:?Argv@ArgvClass@@1PAPADA": [
+"0xC1DD84"
+],
+"data:?AvailablePageMemory@CPUDetectClass@@0IA": [
+"0xC1EC58"
+],
+"data:?AvailablePhysicalMemory@CPUDetectClass@@0IA": [
+"0xC1EC50"
+],
+"data:?AvailableVirtualMemory@CPUDetectClass@@0IA": [
+"0xC1EC64"
+],
+"data:?BlackColor@@3VRGBClass@@B": [
+"0xC1FAE4"
+],
+"data:?BlackColor@HSVClass@@0V1@B": [
+"0xC1FAE0"
+],
+"data:?BlueLeft@DSurface@@1HA": [
+"0xC1ECF8"
+],
+"data:?BlueRight@DSurface@@1HA": [
+"0xC1ECF4"
+],
+"data:?Borrow@?$Int@$0EA@@@2_NA": [
+"0xC1F255"
+],
+"data:?CRC32_Table@@3PAKA": [
+"0xBCAB9C"
+],
+"data:?Carry@?$Int@$0EA@@@2_NA": [
+"0xC1F254"
+],
+"data:?Clipper@DSurface@@1PAUIDirectDrawClipper@@A": [
+"0xC1ECE8"
+],
+"data:?CompactLog@CPUDetectClass@@0VStringClass@@A": [
+"0xC1EC60"
+],
+"data:?Counter@SecureRandomClass@@0IA": [
+"0xC1F290"
+],
+"data:?Current@MonoClass@@2PAV1@A": [
+"0xC1ECB8"
+],
+"data:?CurrentPalette@@3PAEA": [
+"0xC3FCF8"
+],
+"data:?Debug_Windowed@@3_NA": [
+"0xC3FCF4"
+],
+"data:?DirectDrawErrorHandler@@3P6AHJ@ZA": [
+"0xC40410"
+],
+"data:?DirectDrawObject@@3PAUIDirectDraw@@A": [
+"0xC403FC"
+],
+"data:?EighthbrightMask@DSurface@@1GA": [
+"0xC1ED08"
+],
+"data:?Enabled@MonoClass@@0_NA": [
+"0xC1ECBC"
+],
+"data:?Error@?$Int@$0EA@@@2HA": [
+"0xC1F250"
+],
+"data:?ExceptionRecursions@@3HA": [
+"0xBC626C"
+],
+"data:?ExitOnException@@3_NA": [
+"0xC1CD2C"
+],
+"data:?ExtendedFeatureBits@CPUDetectClass@@0IA": [
+"0xC1EC10"
+],
+"data:?FeatureBits@CPUDetectClass@@0IA": [
+"0xC1EC0C"
+],
+"data:?GreenLeft@DSurface@@1HA": [
+"0xC1ED00"
+],
+"data:?GreenRight@DSurface@@1HA": [
+"0xC1ECFC"
+],
+"data:?HalfbrightMask@DSurface@@1GA": [
+"0xC1ED04"
+],
+"data:?Has3DNowSupport@CPUDetectClass@@0_NA": [
+"0xC1EC96"
+],
+"data:?HasCMOVSupport@CPUDetectClass@@0_NA": [
+"0xC1EC94"
+],
+"data:?HasCPUIDInstruction@CPUDetectClass@@0_NA": [
+"0xC1EC90"
+],
+"data:?HasExtended3DNowSupport@CPUDetectClass@@0_NA": [
+"0xC1EC97"
+],
+"data:?HasMMXSupport@CPUDetectClass@@0_NA": [
+"0xC1EC95"
+],
+"data:?HasRDTSCInstruction@CPUDetectClass@@0_NA": [
+"0xC1EC91"
+],
+"data:?HasSSE2Support@CPUDetectClass@@0_NA": [
+"0xC1EC93"
+],
+"data:?HasSSESupport@CPUDetectClass@@0_NA": [
+"0xC1EC92"
+],
+"data:?ImageHelp@@3PAUHINSTANCE__@@A": [
+"0xBC6268"
+],
+"data:?InitialKey@RC4Class@@0URC4Key@1@A": [
+"0xC1ED10"
+],
+"data:?InitialKeyBuilt@RC4Class@@0_NA": [
+"0xC1EE12"
+],
+"data:?Initialized@SecureRandomClass@@0_NA": [
+"0xC1F288"
+],
+"data:?IntelProcessor@CPUDetectClass@@0W4IntelProcessorType@1@A": [
+"0xC1EC4C"
+],
+"data:?InvProcessorTicksPerSecond@CPUDetectClass@@0NA": [
+"0xC1EBF0"
+],
+"data:?IsLocked@RegistryClass@@0_NA": [
+"0xC1E1D8"
+],
+"data:?KeepBlankEntries@INIClass@@0_NA": [
+"0xC0CC04"
+],
+"data:?L1DataCacheLineSize@CPUDetectClass@@0IA": [
+"0xC1EC5C"
+],
+"data:?L1DataCacheSetAssociative@CPUDetectClass@@0IA": [
+"0xC1EC80"
+],
+"data:?L1DataCacheSize@CPUDetectClass@@0IA": [
+"0xC1EBAC"
+],
+"data:?L1InstructionCacheLineSize@CPUDetectClass@@0IA": [
+"0xC1EBC4"
+],
+"data:?L1InstructionCacheSetAssociative@CPUDetectClass@@0IA": [
+"0xC1EBCC"
+],
+"data:?L1InstructionCacheSize@CPUDetectClass@@0IA": [
+"0xC1EBC8"
+],
+"data:?L1InstructionTraceCacheSetAssociative@CPUDetectClass@@0IA": [
+"0xC1EC8C"
+],
+"data:?L1InstructionTraceCacheSize@CPUDetectClass@@0IA": [
+"0xC1EBD0"
+],
+"data:?L2CacheLineSize@CPUDetectClass@@0IA": [
+"0xC1EC14"
+],
+"data:?L2CacheSetAssociative@CPUDetectClass@@0IA": [
+"0xC1EC84"
+],
+"data:?L2CacheSize@CPUDetectClass@@0IA": [
+"0xC1EC74"
+],
+"data:?MainWindow@@3PAUHWND__@@A": [
+"0xC1E1B4"
+],
+"data:?Mix1@Random3Class@@1PAHA": [
+"0xBC7734"
+],
+"data:?Mix2@Random3Class@@1PAHA": [
+"0xBC7784"
+],
+"data:?Mono@@3VMonoClass@@A": [
+"0xC1ECC0"
+],
+"data:?OSVersionBuildNumber@CPUDetectClass@@0IA": [
+"0xC1EBB8"
+],
+"data:?OSVersionExtraInfo@CPUDetectClass@@0VStringClass@@A": [
+"0xC1EBB0"
+],
+"data:?OSVersionNumberMajor@CPUDetectClass@@0IA": [
+"0xC1EC7C"
+],
+"data:?OSVersionNumberMinor@CPUDetectClass@@0IA": [
+"0xC1EC48"
+],
+"data:?OSVersionPlatformId@CPUDetectClass@@0IA": [
+"0xC1EC04"
+],
+"data:?PaletteSurface@@3PAUIDirectDrawSurface@@A": [
+"0xC40408"
+],
+"data:?PixelFormat@DSurface@@1U_DDPIXELFORMAT@@A": [
+"0xC1ECC8"
+],
+"data:?ProcessorFamily@CPUDetectClass@@0HA": [
+"0xC1EBBC"
+],
+"data:?ProcessorLog@CPUDetectClass@@0VStringClass@@A": [
+"0xC1EBEC"
+],
+"data:?ProcessorManufacturer@CPUDetectClass@@0W4ProcessorManufacturerType@1@A": [
+"0xC1EC98"
+],
+"data:?ProcessorModel@CPUDetectClass@@0HA": [
+"0xC1EBFC"
+],
+"data:?ProcessorRevision@CPUDetectClass@@0HA": [
+"0xC1EC00"
+],
+"data:?ProcessorSpeed@CPUDetectClass@@0HA": [
+"0xC1EC70"
+],
+"data:?ProcessorString@CPUDetectClass@@0PADA": [
+"0xC1EC18"
+],
+"data:?ProcessorTicksPerSecond@CPUDetectClass@@0_JA": [
+"0xC1EC68"
+],
+"data:?ProcessorType@CPUDetectClass@@0HA": [
+"0xC1EBB4"
+],
+"data:?ProgramInstance@@3PAUHINSTANCE__@@A": [
+"0xC1E1B8"
+],
+"data:?QuarterbrightMask@DSurface@@1GA": [
+"0xC1ED06"
+],
+"data:?Random@@3VRandom4Class@@A": [
+"0xC1E1E0"
+],
+"data:?RandomCache@SecureRandomClass@@0PAIA": [
+"0xC1F258"
+],
+"data:?RandomCacheEntries@SecureRandomClass@@0HA": [
+"0xC1F28C"
+],
+"data:?RandomHelper@SecureRandomClass@@0VRandom3Class@@A": [
+"0xC1F280"
+],
+"data:?RedLeft@DSurface@@1HA": [
+"0xC1ECF0"
+],
+"data:?RedRight@DSurface@@1HA": [
+"0xC1ECEC"
+],
+"data:?Remainder@?$Int@$0EA@@@2V1@A": [
+"0xC1F150"
+],
+"data:?ReservedMask@StringClass@@0IA": [
+"0xC1DD80"
+],
+"data:?RiseProcessor@CPUDetectClass@@0W4RiseProcessorType@1@A": [
+"0xC1EBD4"
+],
+"data:?Seeds@SecureRandomClass@@0PAEA": [
+"0xC1F26C"
+],
+"data:?SymbolsAvailable@@3_NA": [
+"0xC1CD20"
+],
+"data:?SystemTime@@3VSysTimeClass@@A": [
+"0xC1FAD8"
+],
+"data:?ThreadList@@3V?$DynamicVectorClass@PAUtThreadInfoType@@@@A": [
+"0xC1CC08"
+],
+"data:?TotalPageMemory@CPUDetectClass@@0IA": [
+"0xC1EBF8"
+],
+"data:?TotalPhysicalMemory@CPUDetectClass@@0IA": [
+"0xC1EC78"
+],
+"data:?TotalVirtualMemory@CPUDetectClass@@0IA": [
+"0xC1EBA8"
+],
+"data:?TryingToExit@@3_NA": [
+"0xC1CD2D"
+],
+"data:?VIAProcessor@CPUDetectClass@@0W4VIAProcessorType@1@A": [
+"0xC1EBC0"
+],
+"data:?VendorID@CPUDetectClass@@0PADA": [
+"0xC1EBD8"
+],
+"data:?Windows9xVersionTable@@3PAUOSInfoStruct@@A": [
+"0xBC7C50"
+],
+"data:?_DefaultFileFactory@@3VSimpleFileFactoryClass@@A": [
+"0xC1E188"
+],
+"data:?_DefaultWritingFileFactory@@3VSimpleFileFactoryClass@@A": [
+"0xC1E1A0"
+],
+"data:?_DesiredBufferSize@BufferedFileClass@@0HA": [
+"0xBCAFB0"
+],
+"data:?_SimpleFileFactory@@3VSimpleFileFactoryClass@@A": [
+"0xC1ECA0"
+],
+"data:?_Table@CRC@@0PAKA": [
+"0xBC7828"
+],
+"data:?_TheFileFactory@@3PAVFileFactoryClass@@A": [
+"0xBC77DC"
+],
+"data:?_TheWritingFileFactory@@3PAVFileFactoryClass@@A": [
+"0xBC77E4"
+],
+"data:?is_init@?1??Get@SysTimeClass@@QAEKXZ@4_NA": [
+"0xC1EC9C"
+],
+"data:?m_EmptyString@StringClass@@0PADA": [
+"0xBC7730"
+],
+"data:?m_EmptyString@WideStringClass@@0PAGA": [
+"0xBCAF9C"
+],
+"data:?m_FreeTempPtr@WideStringClass@@0PAPAGA": [
+"0xBCAFA0"
+],
+"data:?m_Mutex@StringClass@@0VFastCriticalSectionClass@@A": [
+"0xC1CD78"
+],
+"data:?m_NullChar@StringClass@@0DA": [
+"0xC1DD7C"
+],
+"data:?m_ResTempPtr@WideStringClass@@0PAPAGA": [
+"0xC1FAC0"
+],
+"data:?m_TempMutex@WideStringClass@@0VFastCriticalSectionClass@@A": [
+"0xC1F6A4"
+],
+"data:?m_TempStrings@StringClass@@0PADA": [
+"0xC1CD7C"
+],
+"data:?m_UsedTempStringCount@WideStringClass@@0HA": [
+"0xC1FAB8"
+],
+"data:?primeTable@@3PAGA": [
+"0xBC9000"
+],
+"data:?test_event@@3PAXA": [
+"0xC1ECC4"
+],
+"data:?x@?4???A?$IndexClass@HPAUINIEntry@@@@QBEABQAUINIEntry@@ABH@Z@4PAU2@A": [
+"0xC41708"
+],
+"data:?x@?4???A?$IndexClass@HPAUINISection@@@@QBEABQAUINISection@@ABH@Z@4PAU2@A": [
+"0xC41718"
+],
+"data:__real@4@00000000000000000000": [
+"0xAE7244"
+],
+"data:__real@4@3fdf8000000000000000": [
+"0xB14868"
+],
+"data:__real@4@3ff8a3d70a3d70a3d800": [
+"0xAE72F8"
+],
+"data:__real@4@3ffba6809d0000000000": [
+"0xB1543C"
+],
+"data:__real@4@3ffbe978d50000000000": [
+"0xB15450"
+],
+"data:__real@4@3ffcb504f30000000000": [
+"0xB1545C"
+],
+"data:__real@4@3ffd8000000000000000": [
+"0xAE7A38"
+],
+"data:__real@4@3ffd9916870000000000": [
+"0xB15458"
+],
+"data:__real@4@3ffda9a0270000000000": [
+"0xB15444"
+],
+"data:__real@4@3ffdd65fd90000000000": [
+"0xB15440"
+],
+"data:__real@4@3ffe8000000000000000": [
+"0xAE7930"
+],
+"data:__real@4@3ffe9645a20000000000": [
+"0xB15454"
+],
+"data:__real@4@3ffeb504f30000000000": [
+"0xAE7968"
+],
+"data:__real@4@3ffef333330000000000": [
+"0xAEF8F0"
+],
+"data:__real@4@3fff8000000000000000": [
+"0xAE7240"
+],
+"data:__real@4@3fff8666660000000000": [
+"0xB14A2C"
+],
+"data:__real@4@40068000000000000000": [
+"0xB1544C"
+],
+"data:__real@4@bffcacbfb10000000000": [
+"0xB15448"
+],
+"data:__real@8@3ff8a3d70a3d70a3d800": [
+"0xB147D8"
+],
+"data:__real@8@3fff8000000000000000": [
+"0xAE9AA0"
+],
+"data:__real@8@400fc350000000000000": [
+"0xB154B8"
 ]
 },
 "wwmath": {
@@ -7185,6 +7668,222 @@
 ],
 "_stricmp": [
 "0xA2A9A0"
+],
+"data:?Allocator@?$AutoPoolClass@VAABTreeLinkClass@@$0BAA@@@0V?$ObjectPoolClass@VAABTreeLinkClass@@$0BAA@@@A": [
+"0xBF98F0"
+],
+"data:?Allocator@?$AutoPoolClass@VAABTreeNodeClass@@$0BAA@@@0V?$ObjectPoolClass@VAABTreeNodeClass@@$0BAA@@@A": [
+"0xBF9908"
+],
+"data:?Allocator@?$AutoPoolClass@VGridLinkClass@@$0BAA@@@0V?$ObjectPoolClass@VGridLinkClass@@$0BAA@@@A": [
+"0xBF98D8"
+],
+"data:?COINCIDENCE_EPSILON@CollisionMath@@0MB": [
+"0xB0C9C8"
+],
+"data:?Identity@Matrix3@@2V1@B": [
+"0xBF9618"
+],
+"data:?Identity@Matrix3D@@2V1@B": [
+"0xBF9330"
+],
+"data:?IsProfileEnabled@WWProfileManager@@0_NA": [
+"0xC40488"
+],
+"data:?OOIntMax@Vector3Randomizer@@1MB": [
+"0xB170F4"
+],
+"data:?Randomizer@Vector3Randomizer@@1VRandom3Class@@A": [
+"0xC40B10"
+],
+"data:?RotateX180@Matrix3@@2V1@B": [
+"0xBF95F0"
+],
+"data:?RotateX180@Matrix3D@@2V1@B": [
+"0xBF9390"
+],
+"data:?RotateX270@Matrix3@@2V1@B": [
+"0xBF9578"
+],
+"data:?RotateX270@Matrix3D@@2V1@B": [
+"0xBF9450"
+],
+"data:?RotateX90@Matrix3@@2V1@B": [
+"0xBF95C8"
+],
+"data:?RotateX90@Matrix3D@@2V1@B": [
+"0xBF9480"
+],
+"data:?RotateY180@Matrix3@@2V1@B": [
+"0xBF94B0"
+],
+"data:?RotateY180@Matrix3D@@2V1@B": [
+"0xBF9360"
+],
+"data:?RotateY270@Matrix3@@2V1@B": [
+"0xBF9528"
+],
+"data:?RotateY270@Matrix3D@@2V1@B": [
+"0xBF9300"
+],
+"data:?RotateY90@Matrix3@@2V1@B": [
+"0xBF95A0"
+],
+"data:?RotateY90@Matrix3D@@2V1@B": [
+"0xBF93F0"
+],
+"data:?RotateZ180@Matrix3@@2V1@B": [
+"0xBF94D8"
+],
+"data:?RotateZ180@Matrix3D@@2V1@B": [
+"0xBF93C0"
+],
+"data:?RotateZ270@Matrix3@@2V1@B": [
+"0xBF9500"
+],
+"data:?RotateZ270@Matrix3D@@2V1@B": [
+"0xBF9420"
+],
+"data:?RotateZ90@Matrix3@@2V1@B": [
+"0xBF9550"
+],
+"data:?RotateZ90@Matrix3D@@2V1@B": [
+"0xBF92D0"
+],
+"data:?Stats@CollisionMath@@0UColmathStatsStruct@1@A": [
+"0xBF9958"
+],
+"data:?Tables@LookupTableMgrClass@@1V?$RefMultiListClass@VLookupTableClass@@@@A": [
+"0xBF9920"
+],
+"data:?_CardinalSpline1DFactory@@3V?$SimplePersistFactoryClass@VCardinalSpline1DClass@@$0IAAAD@@@A": [
+"0xBF9948"
+],
+"data:?_CardinalSpline3DFactory@@3V?$SimplePersistFactoryClass@VCardinalSpline3DClass@@$0IABAD@@@A": [
+"0xBF9950"
+],
+"data:?_CatmullRomSpline1DFactory@@3V?$SimplePersistFactoryClass@VCatmullRomSpline1DClass@@$0IAAAC@@@A": [
+"0xBF98C0"
+],
+"data:?_CatmullRomSpline3DFactory@@3V?$SimplePersistFactoryClass@VCatmullRomSpline3DClass@@$0IABAC@@@A": [
+"0xBF98B8"
+],
+"data:?_FastAcosTable@@3PAMA": [
+"0xBF82CC"
+],
+"data:?_FastAsinTable@@3PAMA": [
+"0xBF62CC"
+],
+"data:?_FastInvSinTable@@3PAMA": [
+"0xBF72CC"
+],
+"data:?_FastSinTable@@3PAMA": [
+"0xBF52CC"
+],
+"data:?_HermiteSpline1DFactory@@3V?$SimplePersistFactoryClass@VHermiteSpline1DClass@@$0IAAAB@@@A": [
+"0xBF98C8"
+],
+"data:?_HermiteSpline3DFactory@@3V?$SimplePersistFactoryClass@VHermiteSpline3DClass@@$0IABAB@@@A": [
+"0xBF98D0"
+],
+"data:?_LinearCurve1DFactory@@3V?$SimplePersistFactoryClass@VLinearCurve1DClass@@$0IAAAA@@@A": [
+"0xBF98A8"
+],
+"data:?_LinearCurve3DFactory@@3V?$SimplePersistFactoryClass@VLinearCurve3DClass@@$0IABAA@@@A": [
+"0xBF98B0"
+],
+"data:?_TCBSpline3DFactory@@3V?$SimplePersistFactoryClass@VTCBSpline3DClass@@$0IABAE@@@A": [
+"0xBF9940"
+],
+"data:?_TheFileFactory@@3PAVFileFactoryClass@@A": [
+"0xBC77DC"
+],
+"data:?m_EmptyString@StringClass@@0PADA": [
+"0xBC7730"
+],
+"data:?m_NullChar@StringClass@@0DA": [
+"0xC1DD7C"
+],
+"data:__real@4@00000000000000000000": [
+"0xAE7244"
+],
+"data:__real@4@3fe4abcc760000000000": [
+"0xB0C624"
+],
+"data:__real@4@3fef8000000000000000": [
+"0xB0C65C"
+],
+"data:__real@4@3ff1d1b7170000000000": [
+"0xAE7840"
+],
+"data:__real@4@3ff38008008008008000": [
+"0xB0C620"
+],
+"data:__real@4@3ff68000000000000000": [
+"0xAFE93C"
+],
+"data:__real@4@3ff7c90fdb0000000000": [
+"0xB0C61C"
+],
+"data:__real@4@3ffd8000000000000000": [
+"0xAE7A38"
+],
+"data:__real@4@3ffe8000000000000000": [
+"0xAE7930"
+],
+"data:__real@4@3ffeb504f30000000000": [
+"0xAE7968"
+],
+"data:__real@4@3ffeb504f367f3bcd800": [
+"0xB0C650"
+],
+"data:__real@4@3ffef9999a0000000000": [
+"0xB0C658"
+],
+"data:__real@4@3fff8000000000000000": [
+"0xAE7240"
+],
+"data:__real@4@4000c000000000000000": [
+"0xAE7960"
+],
+"data:__real@4@40018000000000000000": [
+"0xAEA664"
+],
+"data:__real@4@4001c000000000000000": [
+"0xB024F4"
+],
+"data:__real@4@4006a2f9832237cda000": [
+"0xB0C654"
+],
+"data:__real@4@40088000000000000000": [
+"0xAFE938"
+],
+"data:__real@4@407effffff0000000000": [
+"0xB068F4"
+],
+"data:__real@4@bff1d1b7170000000000": [
+"0xAE785C"
+],
+"data:__real@4@bfff8000000000000000": [
+"0xAE784C"
+],
+"data:__real@4@c07effffff0000000000": [
+"0xB0C840"
+],
+"data:__real@8@00000000000000000000": [
+"0xAF5D88"
+],
+"data:__real@8@3ff583126e978d4fe000": [
+"0xAF3640"
+],
+"data:__real@8@3ffe8000000000000000": [
+"0xAE8728"
+],
+"data:__real@8@3fff8000000000000000": [
+"0xAE9AA0"
+],
+"data:__real@8@40028000000000000000": [
+"0xB0C838"
 ]
 },
 "wwsaveload": {
@@ -7277,6 +7976,63 @@
 ],
 "_stricmp": [
 "0xA2A9A0"
+],
+"data:??_C@_00A@?$AA@": [
+"0xBDA908"
+],
+"data:?Allocator@?$AutoPoolClass@VGenericSLNode@@$0BAA@@@0V?$ObjectPoolClass@VGenericSLNode@@$0BAA@@@A": [
+"0xC1CD60"
+],
+"data:?DefinitionHash@DefinitionMgrClass@@0PAV?$HashTemplateClass@VStringClass@@PAV?$DynamicVectorClass@PAVDefinitionClass@@@@@@A": [
+"0xC4067C"
+],
+"data:?FactoryListHead@SaveLoadSystemClass@@1PAVPersistFactoryClass@@A": [
+"0xC40658"
+],
+"data:?PointerRemapper@SaveLoadSystemClass@@1VPointerRemapClass@@A": [
+"0xC40608"
+],
+"data:?PostLoadList@SaveLoadSystemClass@@1V?$SList@VPostLoadableClass@@@@A": [
+"0xC405F8"
+],
+"data:?SubSystemListHead@SaveLoadSystemClass@@1PAVSaveLoadSubSystemClass@@A": [
+"0xC40654"
+],
+"data:?SystemTime@@3VSysTimeClass@@A": [
+"0xC1FAD8"
+],
+"data:?TwiddlerClassName@@3PADA": [
+"0xBCB7E8"
+],
+"data:?_DefinitionCount@DefinitionMgrClass@@0HA": [
+"0xC40684"
+],
+"data:?_FactoryListHead@DefinitionFactoryMgrClass@@0PAVDefinitionFactoryClass@@A": [
+"0xC406C0"
+],
+"data:?_MaxDefinitionCount@DefinitionMgrClass@@0HA": [
+"0xC40688"
+],
+"data:?_SortedDefinitionArray@DefinitionMgrClass@@0PAPAVDefinitionClass@@A": [
+"0xC40680"
+],
+"data:?_TheDefinitionMgr@@3VDefinitionMgrClass@@A": [
+"0xC40670"
+],
+"data:?_TwiddlerFactory@@3V?$SimpleDefinitionFactoryClass@VTwiddlerClass@@$0OAAA@$1?TwiddlerClassName@@3PADA@@A": [
+"0xC406B0"
+],
+"data:?_TwiddlerPersistFactory@@3V?$SimplePersistFactoryClass@VTwiddlerClass@@$0BAC@@@A": [
+"0xC406A8"
+],
+"data:?is_init@?1??Get@SysTimeClass@@QAEKXZ@4_NA": [
+"0xC1EC9C"
+],
+"data:?m_EmptyString@StringClass@@0PADA": [
+"0xBC7730"
+],
+"data:?m_NullChar@StringClass@@0DA": [
+"0xC1DD7C"
 ]
 },
 "wwshade": {

@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "GLOBAL_CREATE_CHARACTER 114's object, 0x864090-0x864780 (no assert: the file name provisional, NAME 1): written by hand (builder P9)",
  "expected": {},
@@ -31,7 +29,8 @@
   "0x864590",
   "0x864610",
   "0x864720",
-  "0x864750"
+  "0x864750",
+  "0x864780"
  ],
  "merged": [],
  "name": "packets/pkglobalcreatecharacter.cpp",

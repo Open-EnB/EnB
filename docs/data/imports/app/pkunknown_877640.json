@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "opcode 97's object, 0x877640-0x877C50 (no assert: the file name provisional, NAME 1): written by hand (builder P5)",
  "expected": {},
@@ -32,7 +30,8 @@
   "0x877A60",
   "0x877B20",
   "0x877BF0",
-  "0x877C10"
+  "0x877C10",
+  "0x877C50"
  ],
  "merged": [],
  "name": "packets/pkunknown_877640.cpp",

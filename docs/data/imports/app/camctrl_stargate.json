@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "CameraController03Class (NAME 1, neutral), the camera manager's state-3 controller (table 0xB05014, 0x1C bytes), client 0x7958F0-0x79619F (__FILE__ 0xB9E47C, FAIL_IF l.65; ending with <string>'s initialiser 0x796180); 0x795A80 functional, not exact; 0x795C80 not rebuilt (CC1)",
  "expected": {},
@@ -18,7 +16,8 @@
   "0x7959A0",
   "0x7959D0",
   "0x795A50",
-  "0x795C60"
+  "0x795C60",
+  "0x796180"
  ],
  "merged": [],
  "name": "client/camctrl_stargate.cpp",

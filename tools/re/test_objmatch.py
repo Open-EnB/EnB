@@ -570,7 +570,21 @@ class Cr2DataAgree(unittest.TestCase):
         self.assertEqual(res['?Unknown_7196C0@@YAHPBX0@Z']['status'], 'multiple')
 
 
-SLNODE_POOL = '?Allocator@?$AutoPoolClass@VGenericSLNode@@$0BAA@@@0V?$ObjectPoolClass@VGenericSLNode@@$0BAA@@@A'
+class Cr2XcuStarts(unittest.TestCase):
+    """D246 (CR2): camctrl_dock.obj's atexit stub $E97 0x793090 and initialiser $E105 0x7930B0 (the CRT table's
+    entry), after its last own function, are no verified starts (D27); with the table's entries and the atexit-
+    registered addresses as starts the order rules place them (`gap_edge`)."""
+    def test_cases(self):
+        path = os.path.join(OBJS, 'camctrl_dock.obj')
+        res = _one(self, path, APP_REGION)
+        for sym, addr in (('_$E97', '0x793090'), ('_$E105', '0x7930B0')):
+            with self.subTest(sym=sym):
+                self.assertEqual((res[sym]['status'], res[sym]['addresses']), ('exact', [addr]))
+        res = _one(self, path, APP_REGION, ('USE_CR2_XCU_STARTS',))
+        self.assertEqual(res['_$E97']['status'], 'short')
+
+
+SLNODE_POOL ='?Allocator@?$AutoPoolClass@VGenericSLNode@@$0BAA@@@0V?$ObjectPoolClass@VGenericSLNode@@$0BAA@@@A'
 
 
 class Cr2ExternData(unittest.TestCase):

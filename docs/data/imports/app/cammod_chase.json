@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "ChaseCameraModuleClass (table 0xB054E4, 0x38 bytes), client 0x79BB80-0x79C48F (__FILE__ 0xB9E658, FAIL_IFs on lines 30 / 43 / 148-150; ends with its <string> initialiser 0x79C470); 0x79BFC0 not rebuilt (CM1)",
  "expected": {},
@@ -26,7 +24,8 @@
   "0x79BE90",
   "0x79BEC0",
   "0x79BEF0",
-  "0x79BF40"
+  "0x79BF40",
+  "0x79C470"
  ],
  "merged": [],
  "name": "client/cammod_chase.cpp",

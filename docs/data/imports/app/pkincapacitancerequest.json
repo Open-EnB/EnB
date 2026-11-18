@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "opcode 142 written by hand (builder P4, 4 of 4 exact); packet classes (opcode 141, 143, 145) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
  "expected": {},
@@ -61,7 +59,8 @@
   "0x8734E0",
   "0x873650",
   "0x873720",
-  "0x873740"
+  "0x873740",
+  "0x873770"
  ],
  "merged": [],
  "name": "packets/pkincapacitancerequest.cpp",

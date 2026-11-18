@@ -1829,8 +1829,8 @@ def cr2_data_agree(img, results, pending, done, claimed, text, base, known):
 # targets its bytes give (as xcu_position). slnode.obj's $E6 0x9CEDA0 zeroes GenericSLNode's pool 0xC1CD60 (placed
 # by app's exact 0x42FD10), its atexit stub $E3 0x9CEDD0; dx8renderer's $E252 has the same bytes for its own pool.
 CR2_DATA_PREFIX = 'data:'
-USE_CR2_EXTERN_DATA = False
-USE_CR2_XCU_KNOWN = False
+USE_CR2_EXTERN_DATA = True
+USE_CR2_XCU_KNOWN = True
 
 
 def _in_image(img, va):
@@ -3402,7 +3402,7 @@ _starts_cache = {}
 # 1,275 of them are not D27's verified starts (incremental linking reaches them through no thunk and no call), which
 # left the `_$E` initialisers and their atexit stubs out of the order alignment. objmatch only: D27's set
 # (clientimage.function_starts) is unchanged.
-USE_CR2_XCU_STARTS = False
+USE_CR2_XCU_STARTS = True
 CR2_ATEXIT = 0xA25F00       # atexit (symbols.json)
 
 

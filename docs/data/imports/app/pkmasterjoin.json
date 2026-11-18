@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "MASTER_JOIN 53's object, 0x8974C0-0x8977D0 (no assert: the file name provisional, NAME 1): written by hand (builder P6)",
  "expected": {},
@@ -23,7 +21,8 @@
   "0x897650",
   "0x8976C0",
   "0x897780",
-  "0x8977A0"
+  "0x8977A0",
+  "0x8977D0"
  ],
  "merged": [],
  "name": "packets/pkmasterjoin.cpp",
