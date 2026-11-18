@@ -3432,5 +3432,16 @@
   "address": "0x759420",
   "symbol": "?Event_Type@?$EventCallbackClass@VCameraModuleSignal@@@SignalBaseClass@@UBEABVtype_info@@XZ",
   "evidence": "slot 2 of the vtable 0xB03BE4 that the exact 0x7599E0 (sclient.cpp) stores at +0x4 (the object relocates that store to this class's vtable); byte-identical copies tie it otherwise (SIB, 2026-11-17)"
+ },
+ {
+  "address": "0xAF7014",
+  "symbol": "??_7RegistrationInterface@@6BUnknownGadgetBase04Class@@@",
+  "evidence": "RegistrationInterface's UnknownGadgetBase04Class vtable: stored at +0 of the base by 0x5EF0B0 (0x5EFAAA) and 0x5F0F10 (0x5F0F41), app/client/ui_registration.cpp's constructor and destructor; slot 0 0x60D760 is 'sub ecx, 4; jmp 0x40BD6B', the thunk to RegistrationInterface's scalar deleting destructor 0x5F06C0 (exact), slot 1 UnknownGadgetBase04Class::Unknown_4A1930; ui_manu.obj's same-shaped table jumps to UIManuClass's instead (SIB, 2026-11-17)",
+  "kind": "vtable"
+ },
+ {
+  "address": "0x60D760",
+  "symbol": "??_ERegistrationInterface@@W3AEPAXI@Z",
+  "evidence": "RegistrationInterface's UnknownGadgetBase04Class vtable: stored at +0 of the base by 0x5EF0B0 (0x5EFAAA) and 0x5F0F10 (0x5F0F41), app/client/ui_registration.cpp's constructor and destructor; slot 0 0x60D760 is 'sub ecx, 4; jmp 0x40BD6B', the thunk to RegistrationInterface's scalar deleting destructor 0x5F06C0 (exact), slot 1 UnknownGadgetBase04Class::Unknown_4A1930; ui_manu.obj's same-shaped table jumps to UIManuClass's instead (SIB, 2026-11-17)"
  }
 ]
