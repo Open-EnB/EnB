@@ -376,7 +376,8 @@ class Cr3GapHolder(unittest.TestCase):
 
 class CkCallseq(unittest.TestCase):
     def test_cases(self):
-        _check(self, CK_CALLSEQ, 'USE_CK_CALLSEQ', 'ck_callseq', APP_REGION)
+        # CR6's named callers reach the same copies from the same located caller, less strictly: off as well
+        _check(self, CK_CALLSEQ, 'USE_CK_CALLSEQ', 'ck_callseq', APP_REGION, also_off=('USE_CR6_NAMED_CALLERS',))
 
 
 CK_CALLSEQ_VTBL = [
@@ -637,6 +638,19 @@ class Cr4XcuSparse(unittest.TestCase):
             self.assertEqual(get()['status'], 'multiple')
         finally:
             objmatch.USE_CR4_XCU_SPARSE = True
+
+
+class Cr6NamedCallers(unittest.TestCase):
+    """D246 (CR6): sclient.obj's Create_NEW<ChatPanelInterface> and Create_NEW<UITalkTreeSpaceClass> (21 bytes,
+    byte-identical with 157 client copies) are called by SClient::Init, not exact, which symbols.json names at 0x741180
+    from its vtable slot; its calls into the two symbols' copies, in order, are the client function's calls to 0x755AF0
+    and 0x755B60 (`cr6_named`)."""
+    def test_cases(self):
+        _check(self, [('sclient.obj', '?Create_NEW@@YA?AV?$RefCountPtr@VChatPanelInterface@@@@PAVChatPanelInterface@@@Z',
+                       '0x755AF0'),
+                      ('sclient.obj', '?Create_NEW@@YA?AV?$RefCountPtr@VUITalkTreeSpaceClass@@@@PAVUITalkTreeSpaceClass@@@Z',
+                       '0x755B60')],
+               'USE_CR6_NAMED_CALLERS', 'cr6_named', APP_REGION)
 
 
 if __name__ == '__main__':

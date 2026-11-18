@@ -1566,6 +1566,19 @@ def match_objects(img, paths, region=None, callers=False, extern_called=None, ca
             claimed[a].add(r['symbol'])
             learn(r, obj, sec, s, length, a)
             done.add(id(r))
+    if USE_CR6_NAMED_CALLERS:
+        for item, a in cr6_named_callers(img, results, pending, done, claimed, text, start, thunk, known, called,
+                                         located if USE_CK_CALLSEQ else None,
+                                         vslots if USE_CK_CALLSEQ and USE_CK_CALLSEQ_VTBL else None):
+            r, obj, sec, s, length = item[:5]
+            r['status'] = 'exact'
+            r['addresses'] = [f'0x{a:06X}']
+            r['tiebreak'] = True
+            r['cr6_named'] = True
+            r.pop('count', None), r.pop('identical', None)
+            claimed[a].add(r['symbol'])
+            learn(r, obj, sec, s, length, a)
+            done.add(id(r))
     if USE_VX_SLOT_CONTRA:
         bad = vx_slot_contradicted(img, results, known, thunk)
         for r, *_ in results:
@@ -2170,6 +2183,97 @@ def cr5_fold_held(img, results, pending, done, claimed, text, base, thunk):
             continue
         out.append((item, a))
     return out
+
+
+# D246 (CR6, run 2026-11-18): cr6_named_callers. A tied function (`multiple`) that a not-exact function of its own
+# object calls, where symbols.json names that caller from a proof other than an exact match (D88's self name: a vtable
+# slot, a string), takes the client copy the named caller's own calls reach. The object's REL32 calls under the tied
+# symbols of its object, in offset order, align one to one with the client function's outside rel32 branches that
+# land on those symbols' unclaimed survivors (address order, up to the next verified start) when the two counts agree
+# (or, when the caller calls one tied symbol, the client function reaches exactly one of its copies: the counts may
+# differ where the client inlines or repeats a call); one symbol one address, distinct symbols distinct addresses, each address one of its symbol's survivors (D80's
+# break_tie). Unlike CK's callseq the caller's other calls need not align (it is not exact: inlining and the stand-ins
+# change them); only the calls into the tied copies are compared. Every named caller that calls a symbol must give it
+# the same address; no other symbol holds or is proposed there. UICpitClass::Unknown_54 0x57DD20 (its vtable slot)
+# calls ui_cpit's Create_Get at 0x584C80; SClient::Init 0x741180 sclient's two Create_NEW at 0x755AF0 / 0x755B60.
+USE_CR6_NAMED_CALLERS = True
+# ... and (CR6) a caller located as CK's callseq locates one: the one address the exact functions' calls give its symbol
+# (D188's `called`), an aligned caller's call (USE_CK_CALLSEQ_DEEP) or its vtable slot (USE_CK_CALLSEQ_VTBL)
+# (shiputils' Create_NEW<TextureMapperClass> 0x8138F0 from Unknown_812390, one of ui_chat_panel's four tied Create_Get
+# at 0x56CDD0 from ChatPanelInterface::Unknown_54 0x5629E0)
+USE_CR6_LOCATED = True
+
+
+def cr6_named_callers(img, results, pending, done, claimed, text, base, thunk, known, called=None, located=None,
+                      vslots=None):
+    """D246 (CR6): [(pending item, address)] (USE_CR6_NAMED_CALLERS above)."""
+    names = self_names()
+    starts = _verified_starts(img)
+    startset = set(starts)
+    tied = collections.defaultdict(dict)        # id(obj) -> {symbol: (item, survivors)}
+    for item in pending:
+        r, obj, sec, s, length, hits = item
+        if id(r) in done or r['status'] != 'multiple':
+            continue
+        surv = {h for h in break_tie(obj, sec, s, length, text, base, hits, img, known)[0]
+                if not claimed[h] - {r['symbol']}}
+        if surv:
+            tied[id(obj)][r['symbol']] = (item, surv)
+    if not tied:
+        return []
+    exact_syms = {r['symbol'] for r, *_ in results if r['status'] == 'exact'}
+    by_sym = collections.defaultdict(list)
+    for r, obj, *_ in results:
+        by_sym[r['symbol']].append(obj)
+    given = collections.defaultdict(set)       # id(item) -> {address} from every aligned caller
+    items = {}
+    for r, obj, sec, s, length in results:
+        mine = tied.get(id(obj))
+        if not mine or r['status'] == 'exact' or r['symbol'] in exact_syms or r['symbol'] in mine:
+            continue
+        sym = r['symbol']
+        if len(by_sym[sym]) > 1 and any(o.symbol_class(sym) != 2 for o in by_sym[sym]):
+            continue        # file statics of one name in several objects: the name is not one function
+        at = {thunk.get(a, a) for a in names.get(sym, ())}
+        if USE_CR6_LOCATED:
+            at = at or set((called or {}).get(sym, ()))
+            if not at and located and located.get(sym) is not None:
+                at = {located[sym]}
+            if not at and vslots and vslots.get(sym) is not None:
+                at = {vslots[sym]}
+        if len(at) != 1:
+            continue
+        a = next(iter(at))
+        if a not in startset or claimed[a] - {r['symbol']}:
+            continue
+        i = bisect.bisect_right(starts, a)
+        end = starts[i] if i < len(starts) else base + len(text)
+        ours = [t['name'] for k, n, typ, t, _ in obj.reloc_targets(sec, s, length)
+                if t is not None and n == 4 and typ == 0x14 and t['name'] in mine]
+        if not ours:
+            continue
+        pool = set().union(*(mine[n][1] for n in set(ours)))
+        branches = _client_branches(img, a, end, thunk)
+        if branches is None:
+            continue
+        theirs = [t for t in branches if t in pool]
+        m = {}
+        if len(set(ours)) == 1 and len(set(theirs)) == 1:
+            m = {ours[0]: theirs[0]}          # one tied symbol, one copy reached: the call counts may differ
+        elif len(theirs) != len(ours) or any(m.setdefault(n, t) != t for n, t in zip(ours, theirs)) or \
+                len(set(m.values())) != len(m):
+            continue
+        if any(t not in mine[n][1] for n, t in m.items()):
+            continue
+        for n, t in m.items():
+            it = mine[n][0]
+            items[id(it[0])] = it
+            given[id(it[0])].add(t)
+    props = [(items[k], next(iter(v))) for k, v in given.items() if len(v) == 1]
+    by_addr = collections.defaultdict(set)
+    for it, a in props:
+        by_addr[a].add(it[0]['symbol'])
+    return [(it, a) for it, a in props if len(by_addr[a]) == 1]
 
 
 def cr3_gap_holder(results, pending, done, claimed, text, base, img, known):
