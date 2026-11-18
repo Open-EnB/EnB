@@ -1571,14 +1571,17 @@ def match_objects(img, paths, region=None, callers=False, extern_called=None, ca
                                          located if USE_CK_CALLSEQ else None,
                                          vslots if USE_CK_CALLSEQ and USE_CK_CALLSEQ_VTBL else None):
             r, obj, sec, s, length = item[:5]
+            if r['status'] == 'short':
+                r['short_known'] = 'cr6'        # USE_CR6_SHORTS
+            else:
+                r['tiebreak'] = True
+                done.add(id(r))
             r['status'] = 'exact'
             r['addresses'] = [f'0x{a:06X}']
-            r['tiebreak'] = True
             r['cr6_named'] = True
             r.pop('count', None), r.pop('identical', None)
             claimed[a].add(r['symbol'])
             learn(r, obj, sec, s, length, a)
-            done.add(id(r))
     if USE_VX_SLOT_CONTRA:
         bad = vx_slot_contradicted(img, results, known, thunk)
         for r, *_ in results:
@@ -2209,6 +2212,12 @@ USE_CR6_LOCATED = True
 # DestinationAttributes.end()', 'ValueFunction') calls its pair<const string, DestinationStruct *> and pair<const string,
 # float> constructors, byte-identical, at 0x4DDB20 and 0x4DD6F0 in that order
 USE_CR6_STRING_LOCATED = True
+# ... and (CR6) a `short` function (too short to search) the located caller calls is a callee too: its candidates are
+# the client branch targets where its bytes fullmatch, unclaimed, with only padding up to the next verified start and
+# D80's break_tie leaving them (the call is the evidence, the bytes confirm it, as CK's callseq credits shorts);
+# credited `short_known` 'cr6' (shiputils' RefCountPtr<MeshModelClass>::operator-> 0x813950 from Unknown_812390;
+# scriptedmovie's two `ret 8` vector _Destroy 0x80A990 / 0x80AA10, in call order from 0x8008B0)
+USE_CR6_SHORTS = True
 
 
 def cr6_string_located(img, items, starts, claimed):
@@ -2281,6 +2290,20 @@ def cr6_named_callers(img, results, pending, done, claimed, text, base, thunk, k
                 if not claimed[h] - {r['symbol']}}
         if surv:
             tied[id(obj)][r['symbol']] = (item, surv)
+    if USE_CR6_SHORTS:
+        for r, obj, sec, s, length in results:
+            if r['status'] == 'short' and length > 0 and not generated(r['symbol']):
+                tied[id(obj)].setdefault(r['symbol'], ((r, obj, sec, s, length, []), None))
+
+    def short_at(item, t):
+        """USE_CR6_SHORTS: the short function's bytes at T, unclaimed, then only padding up to the next start."""
+        r, obj, sec, s, length = item[:5]
+        if claimed[t] - {r['symbol']} or not _fullmatch_at(obj, sec, s, length, text, base, t):
+            return False
+        i = bisect.bisect_right(starts, t)
+        nxt = starts[i] if i < len(starts) else t + length
+        return nxt >= t + length and _padding(text, base, t + length, nxt) and \
+            break_tie(obj, sec, s, length, text, base, [t], img, known)[0] == [t]
     if not tied:
         return []
     exact_syms = {r['symbol'] for r, *_ in results if r['status'] == 'exact'}
@@ -2321,10 +2344,12 @@ def cr6_named_callers(img, results, pending, done, claimed, text, base, thunk, k
                 if t is not None and n == 4 and typ == 0x14 and t['name'] in mine]
         if not ours:
             continue
-        pool = set().union(*(mine[n][1] for n in set(ours)))
         branches = _client_branches(img, a, end, thunk)
         if branches is None:
             continue
+        cset = {n: mine[n][1] if mine[n][1] is not None else {t for t in set(branches) if short_at(mine[n][0], t)}
+                for n in set(ours)}
+        pool = set().union(*cset.values())
         theirs = [t for t in branches if t in pool]
         m = {}
         if len(set(ours)) == 1 and len(set(theirs)) == 1:
@@ -2332,7 +2357,7 @@ def cr6_named_callers(img, results, pending, done, claimed, text, base, thunk, k
         elif len(theirs) != len(ours) or any(m.setdefault(n, t) != t for n, t in zip(ours, theirs)) or \
                 len(set(m.values())) != len(m):
             continue
-        if any(t not in mine[n][1] for n, t in m.items()):
+        if not m or any(t not in cset[n] for n, t in m.items()):
             continue
         for n, t in m.items():
             it = mine[n][0]

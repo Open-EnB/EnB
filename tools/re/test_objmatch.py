@@ -665,6 +665,13 @@ class Cr6NamedCallers(unittest.TestCase):
                        '@D@2@@1@ABM@Z', '0x4DD6F0')],
                'USE_CR6_STRING_LOCATED', 'cr6_named', APP_REGION)
 
+    def test_short(self):
+        """USE_CR6_SHORTS: shiputils.obj's RefCountPtr<MeshModelClass>::operator-> (`mov eax, [ecx]; ret`, too short to
+        search) is the one target of Unknown_812390's (0x812390, located by the exact functions' calls) client calls
+        that holds its bytes, 0x813950."""
+        _check(self, [('shiputils.obj', '??C?$RefCountPtr@VMeshModelClass@@@@QBEPAVMeshModelClass@@XZ', '0x813950')],
+               'USE_CR6_SHORTS', 'cr6_named', APP_REGION, off_status='short')
+
 
 if __name__ == '__main__':
     unittest.main()
