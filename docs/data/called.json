@@ -2927,6 +2927,9 @@
 "data:?UnknownGlobal@?$DeltaItemArrayClass@VDeltaAttachmentClass@@@@2HA": [
 "0xC41580"
 ],
+"data:?UnknownGlobal@?$DeltaItemArrayClass@VDeltaCategoryClass@@@@2HA": [
+"0xC41620"
+],
 "data:?UnknownGlobal@?$DeltaItemArrayClass@VDeltaEquipItemClass@@@@2HA": [
 "0xC415A4"
 ],
