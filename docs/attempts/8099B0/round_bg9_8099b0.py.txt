@@ -1,0 +1,177 @@
+HYPOTHESIS = ('the skip loop shares the tab loop entry-test temp (cl, mov al,cl) only when both entry tests are *p on '
+              'the same pointer p (base: je into the 2nd test); the client sets p = line before the tab loop, so the '
+              'tab loop tests p[...] without advancing p (index loop over p, strength-reduced to eax)')
+FILE = 'app/client/scriptedmovie.cpp'
+SYMBOL = 'ScriptedMovieViewClass::Unknown_8099B0'
+ADDRESS = 0x8099B0
+OLD = "\t\tchar *p;\n\t\tfor (p = line; *p != 0; p++) if (*p == '\\t') *p = ' '; p = line;\n"
+FORMS = {
+    # H1: index loop over p (int i), p = line before
+    'idx_p': [(OLD, "\t\tchar *p = line;\n\t\tfor (int i = 0; p[i] != 0; i++) if (p[i] == '\\t') p[i] = ' ';\n")],
+    # H1b: unsigned index
+    'idx_p_u': [(OLD, "\t\tchar *p = line;\n\t\tfor (unsigned int i = 0; p[i] != 0; i++) if (p[i] == '\\t') p[i] = ' ';\n")],
+    # H1c: pointer arithmetic spelling of the index
+    'idx_p_ar': [(OLD, "\t\tchar *p = line;\n\t\tfor (int i = 0; *(p + i) != 0; i++) if (*(p + i) == '\\t') *(p + i) = ' ';\n")],
+    # H1d: while form of the index loop
+    'idx_p_w': [(OLD, "\t\tchar *p = line;\n\t\tint i = 0; while (p[i] != 0) { if (p[i] == '\\t') p[i] = ' '; i++; }\n")],
+    # H2 (probe of the mechanism): entry test *p guards a q loop
+    'guard_q': [(OLD, "\t\tchar *p = line;\n\t\tif (*p != 0) for (char *q = p; *q != 0; q++) if (*q == '\\t') *q = ' ';\n")],
+    # H3: strlen-bounded index loop over p (the entry test is then a length)
+    'idx_len': [(OLD, "\t\tchar *p = line;\n\t\tfor (int i = 0; i < (int)strlen(p); i++) if (p[i] == '\\t') p[i] = ' ';\n")],
+}
+HYPOTHESIS = ('VC6 merges the tab loop entry test with the skip loop entry test (one temp, cl) only when both read through '
+              'the same symbol (tree: *p / *p, idx_p: p[0] / *p merge; q forms *q / *p do not); the client also has the '
+              'tab pointer set before that test (lea eax before je): entry test on *p with q set before it')
+FILE = 'app/client/scriptedmovie.cpp'
+SYMBOL = 'ScriptedMovieViewClass::Unknown_8099B0'
+ADDRESS = 0x8099B0
+OLD = "\t\tchar *p;\n\t\tfor (p = line; *p != 0; p++) if (*p == '\\t') *p = ' '; p = line;\n"
+FORMS = {
+    # P1: q = p before; entry test *p; do-while over q
+    'do_qp': [(OLD, "\t\tchar *p = line; char *q = p;\n\t\tif (*p != 0) do { if (*q == '\\t') *q = ' '; } while (*++q != 0);\n")],
+    # P2: q = line before; entry test *p; do-while over q
+    'do_ql': [(OLD, "\t\tchar *p = line; char *q = line;\n\t\tif (*p != 0) do { if (*q == '\\t') *q = ' '; } while (*++q != 0);\n")],
+    # P3: for over q whose condition starts from p's char: q = p in the init, test p[q - p]
+    'for_pq': [(OLD, "\t\tchar *p = line;\n\t\tfor (char *q = p; p[q - p] != 0; q++) if (*q == '\\t') *q = ' ';\n")],
+    # P4: while over q with the first test on *p (q declared before p)
+    'while_qp': [(OLD, "\t\tchar *q = line; char *p = line;\n\t\tif (*p != 0) while (*q != 0) { if (*q == '\\t') *q = ' '; q++; }\n")],
+    # P5: tab loop over p (index i), skip reads p: i's pointer IV made explicit as q = p + i
+    'idx_q': [(OLD, "\t\tchar *p = line;\n\t\tfor (int i = 0; p[i] != 0; i++) { char *q = p + i; if (*q == '\\t') *q = ' '; }\n")],
+}
+HYPOTHESIS = ('base jumps the tab loop entry-fail edge into the skip test (cl merged) but p = line sits there; q forms '
+              'thread it to the end at IR level (al). The client merges AND has p set before: something between the '
+              'two loops blocks IR threading but emits no code there: an inline helper call boundary')
+FILE = 'app/client/scriptedmovie.cpp'
+SYMBOL = 'ScriptedMovieViewClass::Unknown_8099B0'
+ADDRESS = 0x8099B0
+OLD = "\t\tchar *p;\n\t\tfor (p = line; *p != 0; p++) if (*p == '\\t') *p = ' '; p = line;\n"
+SKIP = "\t\twhile (*p != 0 && *p <= ' ') p++;\n"
+TRIM = "\t\tunsigned int len = strlen(p);\n\t\twhile (len != 0 && p[len - 1] <= ' ') p[--len] = 0;\n"
+ANCH = "\n\n#include \"ffactory.h\"\n"
+def helper(text):
+    return (ANCH, "\n" + text + "\n#include \"ffactory.h\"\n")
+TABS_FOR = "static void Tabs_To_Spaces(char *q) { for (; *q != 0; q++) if (*q == '\\t') *q = ' '; }"
+TABS_WHILE = "static void Tabs_To_Spaces(char *q) { while (*q != 0) { if (*q == '\\t') *q = ' '; q++; } }"
+SKIP_FN = "static char *Skip_White(char *p) { while (*p != 0 && *p <= ' ') p++; return(p); }"
+FORMS = {
+    # h1: tab loop an inline helper on p, p = line before
+    'h_tabs_p': [helper(TABS_FOR), (OLD, "\t\tchar *p = line;\n\t\tTabs_To_Spaces(p);\n")],
+    # h2: the same, the helper called on line
+    'h_tabs_line': [helper(TABS_FOR), (OLD, "\t\tchar *p = line;\n\t\tTabs_To_Spaces(line);\n")],
+    # h3: while-loop helper on p
+    'h_tabsw_p': [helper(TABS_WHILE), (OLD, "\t\tchar *p = line;\n\t\tTabs_To_Spaces(p);\n")],
+    # h4: skip loop a helper, p = line before, tab loop over q inline
+    'h_skip': [helper(SKIP_FN), (OLD + SKIP, "\t\tchar *p = line;\n\t\tfor (char *q = line; *q != 0; q++) if (*q == '\\t') *q = ' ';\n\t\tp = Skip_White(p);\n")],
+    # h5: skip loop a helper, tab loop the tree form over p (p reset by the helper's argument)
+    'h_skip_tree': [helper(SKIP_FN), (OLD + SKIP, "\t\tchar *p;\n\t\tfor (p = line; *p != 0; p++) if (*p == '\\t') *p = ' ';\n\t\tp = Skip_White(line);\n")],
+}
+HYPOTHESIS = ('q form threads the entry-fail edge at IR level because nothing sits between the loops; a statement there '
+              'that emits no code (a dead or later-overwritten assignment) blocks that early threading so VC6 merges the '
+              'skip test with the entry test (cl) while p = line stays before the tab loop')
+FILE = 'app/client/scriptedmovie.cpp'
+SYMBOL = 'ScriptedMovieViewClass::Unknown_8099B0'
+ADDRESS = 0x8099B0
+OLD = "\t\tchar *p;\n\t\tfor (p = line; *p != 0; p++) if (*p == '\\t') *p = ' '; p = line;\n"
+Q = "\t\tchar *p = line;\n\t\tfor (char *q = line; *q != 0; q++) if (*q == '\\t') *q = ' ';"
+LEN_OLD = "\t\tunsigned int len = strlen(p);\n"
+FRAME_OLD = "\t\tint frame = atoi(p);\n"
+TEMP_OLD = "\t\tScriptedMovieLineClass *temp = NULL;\n"
+COUNT_OLD = "\t\ttotal_count += count + 1;\n\t\tcount = 0;\n"
+FORMS = {
+    # d_len: len declared = 0 between the loops, assigned strlen later
+    'd_len': [(OLD, Q + " unsigned int len = 0;\n"), (LEN_OLD, "\t\tlen = strlen(p);\n")],
+    # d_frame: frame declared = 0 between the loops, assigned atoi later
+    'd_frame': [(OLD, Q + " int frame = 0;\n"), (FRAME_OLD, "\t\tframe = atoi(p);\n")],
+    # d_temp: temp declared = NULL between the loops (its later '= NULL' a plain assignment)
+    'd_temp': [(OLD, Q + " ScriptedMovieLineClass *temp = NULL;\n"), (TEMP_OLD, "\t\ttemp = NULL;\n")],
+    # d_count: count = 0 between the loops
+    'd_count': [(COUNT_OLD, "\t\ttotal_count += count + 1;\n\n"), (OLD, Q + " count = 0;\n")],
+    # d_len2: len declared without init between the loops plus a dead len = 0 (no init form of d_len)
+    'd_lenp': [(OLD, Q + " unsigned int len = 0; p = line;\n"), (LEN_OLD, "\t\tlen = strlen(p);\n")],
+}
+HYPOTHESIS = ('d_temp proved it: a statement between the tab loop and the skip loop blocks VC6 early jump threading, '
+              'giving the client cl merge with p = line before; find the statement that blocks it and then emits no '
+              'code (a redundant store or copy, an empty inline call)')
+FILE = 'app/client/scriptedmovie.cpp'
+SYMBOL = 'ScriptedMovieViewClass::Unknown_8099B0'
+ADDRESS = 0x8099B0
+OLD = "\t\tchar *p;\n\t\tfor (p = line; *p != 0; p++) if (*p == '\\t') *p = ' '; p = line;\n"
+Q = "\t\tchar *p = line;\n\t\tfor (char *q = line; *q != 0; q++) if (*q == '\\t') *q = ' ';"
+ANCH = "\n\n#include \"ffactory.h\"\n"
+def helper(text):
+    return (ANCH, "\n" + text + "\n#include \"ffactory.h\"\n")
+FORMS = {
+    # e1: count = 0 again between the loops (redundant store)
+    'e_count2': [(OLD, Q + " count = 0;\n")],
+    # e2: self copy of p
+    'e_pself': [(OLD, Q + " p = p;\n")],
+    # e3: an empty inline function call
+    'e_nop': [helper("static inline void Nop_Line(const char *) {}"), (OLD, Q + " Nop_Line(p);\n")],
+    # e4: an empty block / dead if
+    'e_if0': [(OLD, Q + " if (0) p++;\n")],
+    # e5: redundant p = line after a q loop whose start is p (p's first def used by the loop)
+    'e_qp_pline': [(OLD, "\t\tchar *p = line;\n\t\tfor (char *q = p; *q != 0; q++) if (*q == '\\t') *q = ' '; p = line;\n")],
+    # e6: total_count re-stored (a redundant memory store of an unchanged variable)
+    'e_frame_pad': [(OLD, Q + " frame_pad = frame_pad;\n")],
+}
+HYPOTHESIS = ('the client statement between the tab loop and the skip loop is a test VC6 folds only after early jump '
+              'threading (a null test of p = line: G_ASSERT(p), if (p == NULL) / if (p != NULL)): it blocks the '
+              'threading (cl merge, as d_temp) and then emits nothing')
+FILE = 'app/client/scriptedmovie.cpp'
+SYMBOL = 'ScriptedMovieViewClass::Unknown_8099B0'
+ADDRESS = 0x8099B0
+OLD = "\t\tchar *p;\n\t\tfor (p = line; *p != 0; p++) if (*p == '\\t') *p = ' '; p = line;\n"
+Q = "\t\tchar *p = line;\n\t\tfor (char *q = line; *q != 0; q++) if (*q == '\\t') *q = ' ';"
+FORMS = {
+    'g_assert_p': [(OLD, Q + " G_ASSERT(p);\n")],
+    'g_assert_line': [(OLD, Q + " G_ASSERT(line);\n")],
+    'if_null_cont': [(OLD, Q + " if (p == NULL) continue;\n")],
+    'if_p_body': [(OLD, Q + " if (p != NULL)\n")],
+    # the tree form with the same folded test between (does it still put lea esi after?)
+    'tree_g_assert': [(OLD, "\t\tchar *p = line; G_ASSERT(p);\n\t\tfor (char *q = line; *q != 0; q++) if (*q == '\\t') *q = ' ';\n")],
+}
+HYPOTHESIS = ('the tab loop indexes line with count itself (for (count = 0; line[count]; count++), strength-reduced to '
+              'the eax pointer) and count = 0 follows it: that reset blocks early threading (cl merge, as d_temp) and '
+              'is then redundant (count is dead in the loop after IV elimination), leaving B0 the xor ebx / store '
+              '[esp+0x24] and p = line before the loop')
+FILE = 'app/client/scriptedmovie.cpp'
+SYMBOL = 'ScriptedMovieViewClass::Unknown_8099B0'
+ADDRESS = 0x8099B0
+OLD = ("\t\ttotal_count += count + 1;\n\t\tcount = 0;\n\t\tchar *p;\n"
+       "\t\tfor (p = line; *p != 0; p++) if (*p == '\\t') *p = ' '; p = line;\n")
+def form(pdecl_first, idx, loop='for'):
+    if loop == 'for':
+        tab = ("\t\tfor (count = 0; %s[count] != 0; count++) if (%s[count] == '\\t') %s[count] = ' ';\n" % (idx, idx, idx))
+    else:
+        tab = ("\t\tcount = 0; while (%s[count] != 0) { if (%s[count] == '\\t') %s[count] = ' '; count++; }\n" % (idx, idx, idx))
+    if pdecl_first:
+        return [(OLD, "\t\ttotal_count += count + 1;\n\t\tchar *p = line;\n" + tab + "\t\tcount = 0;\n")]
+    return [(OLD, "\t\ttotal_count += count + 1;\n" + tab + "\t\tcount = 0;\n\t\tchar *p = line;\n")]
+FORMS = {
+    'cnt_line_p1': form(True, 'line'),
+    'cnt_p_p1': form(True, 'p'),
+    'cnt_line_p2': form(False, 'line'),
+    'cnt_line_w': form(True, 'line', 'while'),
+    'cnt_p_w': form(True, 'p', 'while'),
+}
+HYPOTHESIS = ('what blocks early threading but leaves no code in the join block: a control-flow boundary there (a label, '
+              'a scope block around the skip loop, the tab loop leaving by break, an if around the skip loop)')
+FILE = 'app/client/scriptedmovie.cpp'
+SYMBOL = 'ScriptedMovieViewClass::Unknown_8099B0'
+ADDRESS = 0x8099B0
+OLD = "\t\tchar *p;\n\t\tfor (p = line; *p != 0; p++) if (*p == '\\t') *p = ' '; p = line;\n"
+SKIP = "\t\twhile (*p != 0 && *p <= ' ') p++;\n"
+Q = "\t\tchar *p = line;\n\t\tfor (char *q = line; *q != 0; q++) if (*q == '\\t') *q = ' ';"
+FORMS = {
+    # a label before the skip loop (block boundary in the IR)
+    'f_label': [(OLD, Q + " skip_white:\n")],
+    # the skip loop in its own scope block
+    'f_block': [(OLD + SKIP, Q + " {\n\t\twhile (*p != 0 && *p <= ' ') p++; }\n")],
+    # the tab loop leaves by break (for (;;))
+    'f_break': [(OLD, "\t\tchar *p = line;\n\t\tfor (char *q = line; ; q++) { if (*q == 0) break; if (*q == '\\t') *q = ' '; }\n")],
+    # the skip loop under an if on its first char
+    'f_if_skip': [(OLD + SKIP, Q + "\n\t\tif (*p != 0) while (*p != 0 && *p <= ' ') p++;\n")],
+    # the tab loop over q declared at the top of the outer loop body, before line
+    'f_qtop': [("\t\tchar line[DEFAULT_STRING_SIZE];\n", "\t\tchar line[DEFAULT_STRING_SIZE]; char *q;\n"),
+               (OLD, "\t\tchar *p = line;\n\t\tfor (q = line; *q != 0; q++) if (*q == '\\t') *q = ' ';\n")],
+}
