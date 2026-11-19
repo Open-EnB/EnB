@@ -20,27 +20,27 @@
 #include "random.h"
 extern RandomClass Unknown_BDBB84;					// NAME 1 [Unknown_BDBB84]: neutral (D10), as eff_o.cpp's
 
-// The +0xB8 gadget's +0x54 (ui_avatr.cpp's UIAvatrUnknown094Unknown054Struct), as far as 0x54CAE0 calls it
-class UIAvatarCustPip054Class	// NAME 1: neutral (D10)
-{
-public:
-	virtual void Unknown_000(); virtual void Unknown_004(); virtual void Unknown_008(); virtual void Unknown_00C(); virtual void Unknown_010(); virtual void Unknown_014(); virtual void Unknown_018(); virtual void Unknown_01C();
-	virtual void Unknown_020(); virtual void Unknown_024(); virtual void Unknown_028(); virtual void Unknown_02C(); virtual void Unknown_030(); virtual void Unknown_034(); virtual void Unknown_038(); virtual void Unknown_03C();
-	virtual void Unknown_040(); virtual void Unknown_044(); virtual void Unknown_048(); virtual void Unknown_04C(); virtual void Unknown_050(); virtual void Unknown_054(); virtual void Unknown_058(); virtual void Unknown_05C();
-	virtual void Unknown_060(); virtual void Unknown_064(); virtual void Unknown_068(); virtual void Unknown_06C(); virtual void Unknown_070(); virtual void Unknown_074(); virtual void Unknown_078(); virtual void Unknown_07C();
-	virtual void Unknown_080(); virtual void Unknown_084(); virtual void Unknown_088(); virtual void Unknown_08C(); virtual void Unknown_090(); virtual void Unknown_094(); virtual void Unknown_098(); virtual void Unknown_09C();
-	virtual void Unknown_0A0(); virtual void Unknown_0A4(); virtual void Unknown_0A8(); virtual void Unknown_0AC(); virtual void Unknown_0B0(); virtual void Unknown_0B4(); virtual void Unknown_0B8(); virtual void Unknown_0BC();
-	virtual void Unknown_0C0(); virtual void Unknown_0C4(); virtual void Unknown_0C8(); virtual void Unknown_0CC(); virtual void Unknown_0D0(); virtual void Unknown_0D4(); virtual void Unknown_0D8(); virtual void Unknown_0DC();
-	virtual void Unknown_0E0(); virtual void Unknown_0E4(); virtual void Unknown_0E8(); virtual void Unknown_0EC(); virtual void Unknown_0F0(); virtual void Unknown_0F4(); virtual void Unknown_0F8(); virtual void Unknown_0FC();
-	virtual void Unknown_100(); virtual void Unknown_104(); virtual void Unknown_108(); virtual void Unknown_10C(); virtual void Unknown_110(); virtual void Unknown_114(); virtual void Unknown_118(); virtual void Unknown_11C();
-	virtual void Unknown_120(); virtual void Unknown_124(); virtual void Unknown_128(); virtual void Unknown_12C(); virtual void Unknown_130(); virtual void Unknown_134(); virtual void Unknown_138(); virtual void Unknown_13C();
-	virtual void Unknown_140(); virtual void Unknown_144(); virtual void Unknown_148(); virtual void Unknown_14C(); virtual void Unknown_150(); virtual void Unknown_154(); virtual void Unknown_158(); virtual void Unknown_15C();
-	virtual void Unknown_160(); virtual void Unknown_164(); virtual void Unknown_168(); virtual void Unknown_16C(); virtual void Unknown_170(); virtual void Unknown_174(); virtual void Unknown_178(); virtual void Unknown_17C();
-	virtual void Unknown_180(); virtual void Unknown_184(); virtual void Unknown_188(); virtual void Unknown_18C(); virtual void Unknown_190(); virtual void Unknown_194(); virtual void Unknown_198(); virtual void Unknown_19C();
-	virtual void Unknown_1A0(); virtual void Unknown_1A4(); virtual void Unknown_1A8(); virtual void Unknown_1AC(); virtual void Unknown_1B0(); virtual void Unknown_1B4(); virtual void Unknown_1B8(); virtual void Unknown_1BC();
-	virtual void Unknown_1C0();
-	virtual void Unknown_1C4();							// +0x1C4 (0x54CAE0, last)
-};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // gadget.cpp's gadget, gd_robj.h's model gadget (slot +0x08's answer) and the pulls' gadget (unknown_671300.h's
 // Unknown_671300Class)
@@ -78,31 +78,31 @@ public:
 
 
 
-// The window's +0xB8: ship_pip.cpp's gadget (ui_avatr.cpp's ShipPipClass, its +0x94), as far as this file calls it
-class UIAvatarCustPipClass	// NAME 1: neutral (D10)
-{
-public:
-	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
-	virtual void Unknown_10(); virtual void Unknown_14(); virtual void Unknown_18(); virtual void Unknown_1C();
-	virtual void Unknown_20(); virtual void Unknown_24(); virtual void Unknown_28(); virtual void Unknown_2C();
-	virtual void Unknown_30(); virtual void Unknown_34(); virtual void Unknown_38(); virtual void Unknown_3C();
-	virtual void Unknown_40(bool on);					// +0x40 (shown)  // NAME 1 [on]: neutral
-	virtual void Unknown_44(); virtual void Unknown_48(); virtual void Unknown_4C(); virtual void Unknown_50();
-	virtual void Unknown_54(); virtual void Unknown_58(); virtual void Unknown_5C(); virtual void Is_Enabled();
-	virtual void Unknown_64(); virtual void Unknown_68(); virtual void Unknown_6C(); virtual void Unknown_70();
-	virtual void Unknown_74(); virtual void Unknown_78(); virtual void Unknown_7C(); virtual void Unknown_80();
-	virtual void Unknown_84(const RefCountPtr<RefCountClass> &object);	// +0x84 (the avatar after a change, 0x54E690, through a converted temporary; the pointer's class not known)  // NAME 1 [object]: neutral
-	virtual void Unknown_88();							// +0x88 (0x54DFE0, after +0xDC)
-	virtual void Unknown_8C();							// +0x8C (0x54DFE0)
-	void Unknown_80C180();								// 0x80C180 (the window's destructor, after its slot +0x80, as ui_avatr.cpp's)
+// The window's +0xB8: ship_pip.cpp's gadget (ui_avatr.cpp's +0x94); its +0x54 is avatar.h's CharacterViewAvatarClass
+#include "ship_pip.h"
 
-	char Unknown04[0x54 - 0x04];						// +0x04
-	UIAvatarCustPip054Class *Unknown54;					// +0x54 (the per-frame 0x54CAE0 calls its slot +0x1C4: ui_avatr.cpp's ShipPipClass +0x54)
-	char Unknown58[0xB8 - 0x58];						// +0x58
-	float UnknownB8, UnknownBC, UnknownC0, UnknownC4, UnknownC8;	// +0xB8 (its model's turn: 0x54E3C0 sets them while a turn button is down)
-	char UnknownCC[0xDC - 0xCC];						// +0xCC
-	bool UnknownDC;	void Set_UnknownDC(bool on) { UnknownDC = on; }	// +0xDC (0x54DFE0: set in mode 1, the head, through an inline setter: the client's eax for the store)  // NAME 1 [Set_UnknownDC]: neutral (D10)
-};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // (the pulls' gadget, 0x80 bytes, constructor 0x671300: unknown_671300.h's Unknown_671300Class)
 
@@ -473,7 +473,7 @@ void StarbaseAvatarCreationInterface::Unknown_60()
 	Unknown_54FAA0();
 	Unknown_550A10();
 	Unknown0B8->Unknown_78();
-	Unknown0B8->Unknown54->Unknown_1C4();
+	((CharacterViewAvatarClass *)Unknown0B8->Unknown054.Peek())->Unknown_1C4();
 	Unknown5BB320Class::Unknown_60();
 }
 
@@ -723,7 +723,7 @@ void StarbaseAvatarCreationInterface::Unknown_54DFE0(int mode)
 			if (frame) frame->Set_Hidden(false);
 			Unknown_550140(0x1A);
 			Unknown_5513E0("fa_avatar_color.tga");
-			Unknown0B8->Set_UnknownDC(true);
+			Unknown0B8->Set_Unknown0DC(true);
 			Unknown0B8->Unknown_88();
 			Unknown0B8->Unknown_8C();
 			{ CharacterViewAvatarClass *avatar = Unknown0BC.Peek(); avatar->Unknown231 = true;
@@ -735,7 +735,7 @@ void StarbaseAvatarCreationInterface::Unknown_54DFE0(int mode)
 			if (frame) frame->Set_Hidden(false);
 			Unknown_550140(0x24);
 			Unknown_5513E0("fa_avatar_color.tga");
-			Unknown0B8->Set_UnknownDC(false);
+			Unknown0B8->Set_Unknown0DC(false);
 			Unknown0B8->Unknown_88();
 			Unknown0B8->Unknown_8C();
 			{ CharacterViewAvatarClass *avatar = Unknown0BC.Peek(); avatar->Unknown231 = false;
@@ -748,31 +748,31 @@ void StarbaseAvatarCreationInterface::Unknown_54DFE0(int mode)
 void StarbaseAvatarCreationInterface::Unknown_54E3C0()
 {
 	if (UIAvatarCust_Held(Unknown1CC[3])) {
-		UIAvatarCust_Set(Unknown0B8->UnknownB8, -UIAvatarCustTurn);
+		UIAvatarCust_Set(Unknown0B8->Unknown0B8, -UIAvatarCustTurn);
 	} else if (UIAvatarCust_Held(Unknown1CC[4])) {
-		UIAvatarCust_Set(Unknown0B8->UnknownB8, UIAvatarCustTurn);
+		UIAvatarCust_Set(Unknown0B8->Unknown0B8, UIAvatarCustTurn);
 	} else {
-		Unknown0B8->UnknownB8 = 0;
-		Unknown0B8->UnknownBC = 0;
+		Unknown0B8->Unknown0B8 = 0;
+		Unknown0B8->Unknown0BC = 0;
 	}
 	if (UIAvatarCust_Held(Unknown1CC[11])) {
-		UIAvatarCust_Set(Unknown0B8->UnknownC0, -UIAvatarCustTilt);
+		UIAvatarCust_Set(Unknown0B8->Unknown0C0, -UIAvatarCustTilt);
 	} else if (UIAvatarCust_Held(Unknown1CC[10])) {
-		UIAvatarCust_Set(Unknown0B8->UnknownC0, UIAvatarCustTilt);
+		UIAvatarCust_Set(Unknown0B8->Unknown0C0, UIAvatarCustTilt);
 	} else if (UIAvatarCust_Held(Unknown1CC[8])) {
-		UIAvatarCust_Set(Unknown0B8->UnknownC4, -UIAvatarCustTilt);
+		UIAvatarCust_Set(Unknown0B8->Unknown0C4, -UIAvatarCustTilt);
 	} else if (UIAvatarCust_Held(Unknown1CC[9])) {
-		UIAvatarCust_Set(Unknown0B8->UnknownC4, UIAvatarCustTilt);
+		UIAvatarCust_Set(Unknown0B8->Unknown0C4, UIAvatarCustTilt);
 	} else {
-		Unknown0B8->UnknownC0 = 0;
-		Unknown0B8->UnknownC4 = 0;
+		Unknown0B8->Unknown0C0 = 0;
+		Unknown0B8->Unknown0C4 = 0;
 	}
 	if (UIAvatarCust_Held(Unknown1CC[5])) {
-		UIAvatarCust_Set(Unknown0B8->UnknownC8, -UIAvatarCustRise);
+		UIAvatarCust_Set(Unknown0B8->Unknown0C8, -UIAvatarCustRise);
 	} else if (UIAvatarCust_Held(Unknown1CC[6])) {
-		UIAvatarCust_Set(Unknown0B8->UnknownC8, UIAvatarCustRise);
+		UIAvatarCust_Set(Unknown0B8->Unknown0C8, UIAvatarCustRise);
 	} else {
-		Unknown0B8->UnknownC8 = 0;
+		Unknown0B8->Unknown0C8 = 0;
 	}
 	if (Unknown0B0 == 1) {
 		if (UIAvatarCust_Held(Unknown204[13])) {
@@ -2372,5 +2372,5 @@ void StarbaseAvatarCreationInterface::Unknown_551C80()
 **	tattoo pull: order-only), 0x54FFC0 (order-only) and 0x5502F0 (two bools' stack slots). Not rebuilt: Init
 **	0x54BD30 (slot +0x54). The key handler 0x54CBC0 (slot +0x68) functional (CS1, 2026-11-04; NOT EXACT 0.42).
 **	+0xC0 is the old look (an AvatarDescClass, 0x10C bytes, up to the gadgets at +0x1CC), the avatar's +0xF8
-**	the new one; the +0xB8 gadget is ship_pip.cpp's (ui_avatr.cpp's ShipPipClass).
+**	the new one; the +0xB8 gadget is ship_pip.cpp's (ship_pip.h's ShipPipClass).
 */

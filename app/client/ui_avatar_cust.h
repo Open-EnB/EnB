@@ -16,7 +16,7 @@ class LayerClass;
 class GadgetClass;
 class RObjGadgetClass;		// gd_robj.h's (the buttons at +0x1CC / +0x204 / +0x240: their slot +0x8C, the model at +0x30)
 class FlashingGadgetEvent;
-class UIAvatarCustPipClass;
+class ShipPipClass;	// ship_pip.h
 class CharacterViewAvatarClass;	// avatar.h
 class UIAvatarCustUnknown368Class;
 struct UIAvatarCustGadgetHolderStruct;
@@ -78,7 +78,7 @@ public:
 	LayerClass *Unknown0AC;								// +0xAC (the constructor's layer)
 	int Unknown0B0;										// +0xB0 (the mode: 1, 2)
 	SBaseViewClass *Unknown0B4;							// +0xB4 (its Client's EnvironmentMapManager; 0x551A80 calls 0x69F440)
-	UIAvatarCustPipClass *Unknown0B8;					// +0xB8 (ship_pip.cpp's gadget)
+	ShipPipClass *Unknown0B8;					// +0xB8 (ship_pip.cpp's gadget)
 	RefCountPtr<CharacterViewAvatarClass> Unknown0BC;	// +0xBC (a RefCountPtr: the destructor 0x54BAB0 releases it twice, by hand and as a member)
 	AvatarDescClass Unknown0C0;							// +0xC0 (the old look: 0x551BF0)
 	RObjGadgetClass *Unknown1CC[14];					// +0x1CC ([0] on in mode 1, [1] in mode 2)

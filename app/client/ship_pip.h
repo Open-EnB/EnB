@@ -68,6 +68,7 @@ public:
 	RefCountPtr<LightClass> Unknown04C;									// +0x4C the first light (slot +0x74)
 	RefCountPtr<LightClass> Unknown050;									// +0x50 the second light (slot +0x74)
 	RefCountPtr<RenderObjClass> Unknown054;								// +0x54 the model (slots +0x7C / +0x84; ui_avatr.cpp calls its slot +0x1C4 every frame: the CharacterView's AvatarRObj)
+	RenderObjClass *Peek_Unknown054() const { return(Unknown054.Peek()); }	// (ui_avatr.cpp's 0x556B20 reads +0x54 through an inline getter)  // NAME 1: neutral (D10): the member it returns
 	Vector3 Unknown058;													// +0x58 the model's bounding sphere's centre
 	Vector2 Unknown064;													// +0x64 the top left in 640x480 (0x80C540: Set)
 	Matrix3D Unknown06C;												// +0x6C the camera before the pan (identity; slot +0x8C's Look_At)
@@ -88,6 +89,7 @@ public:
 	RefCountPtr<RenderObjClass> FloatParent;							// +0xD4 'BONE_HOV01A' (0x80C220's G_ASSERT; the model on its bone 'NewShipScale')  // NAME 3: the assert's
 	RefCountPtr<RenderObjClass> Unknown0D8;								// +0xD8 (only released: 0x80C180, 0x80C220, the destructor; its type is not known)
 	bool Unknown0DC;													// +0xDC (slots +0x88 / +0x8C, type 1: the near view)
+	void Set_Unknown0DC(bool on) { Unknown0DC = on; }					// (ui_avatr.cpp's 0x556B20 and ui_avatar_cust.cpp's 0x54DFE0 store through an inline setter: eax for the store)  // NAME 1: neutral (D10): the member it sets; [on]: neutral
 	float Unknown0E0;													// +0xE0 the turn's momentum x (slot +0x2C; slot +0x78 decays it by 0.99)
 	float Unknown0E4;													// +0xE4 the turn's momentum y
 	bool Unknown0E8;													// +0xE8 (true; slot +0x2C clears it while dragging, slot +0x78 does nothing without it)
