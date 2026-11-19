@@ -626,25 +626,25 @@ struct UIStarbaseSymbolChatOptionStruct	// NAME 1: neutral (D10): a row of the m
 	RefCountPtr<Unknown51C800Class> Text;				// +0x04 (the option's name)
 	GadgetClass *Gadget;								// +0x08 (a DynamicWindowGadgetClass over Window; its id the option)
 };
-class UIStarbaseUnknown1F8Class : public InterfaceClass	// NAME 1: neutral (D10)
-{
-public:
-	UIStarbaseUnknown1F8Class(SClient *sclient);		// 0x644F80  // NAME 1 [sclient]: what 0x634140 passes
-	virtual ~UIStarbaseUnknown1F8Class();				// +0x00 0x6452C0 (deleting 0x645290)
-	virtual void Unknown_58();							// +0x58 0x645B20 (opened at the pointer, 'fontclick.wav')
-	virtual void Unknown_5C();							// +0x5C 0x645C50
-	virtual bool Unknown_68(int key);					// +0x68 0x645C80 (an option chosen: kept in +0x84)  // NAME 1 [key]: InterfaceClass's
-	void Unknown_645510();								// 0x645510 (the four options made, those the player cannot use greyed)
-	void Unknown_645A60();								// 0x645A60 (the options removed)
-	void Unknown_645CC0();								// 0x645CC0 (empty; no caller)
-	void Unknown_645CE0();								// 0x645CE0 (the options rebuilt unless open; the starbase interface's 0x63B630)
-	int Unknown_645DC0();								// 0x645DC0 (the chosen option, cleared; the starbase interface's 0x63DFE0)
-	int Unknown84;										// +0x84 (the chosen option: 0x645C80)
-	RefCountPtr<DynamicWindowClass> Window;				// +0x88 (SYMBOL_CHAT_WINDOW)
-	RefCountPtr<DynamicWindowClass> Section;			// +0x8C (SYMBOL_CHAT_SECTION)
-	GadgetClass *Gadget;								// +0x90 (a DynamicWindowGadgetClass over Window)
-	std::vector<UIStarbaseSymbolChatOptionStruct *> Options;	// +0x94
-};
+// (UIStarbaseUnknown1F8Class: sbaseview.h, for the starbase interface's RefCountPtr at +0x1F8; these lines kept blank)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // The VB_ models of 0x634140's NPC slots (0xB8AA18, by the NPC's 0x6976C0), the ico_ models of its terminals (0xB90C2C),
 // the door bones by room (0xB8AA3C, four a room) and their 0x698730 keys (0xB8AABC), the starbase models of the door
@@ -2542,7 +2542,7 @@ void UIStarbaseClass::Unknown_63B630(int type, int index)
 			break;
 		case 100:
 			UnknownC0.C = index;
-			((UIStarbaseUnknown1F8Class *)Unknown1F8.Peek())->Unknown_645CE0();
+			Unknown1F8->Unknown_645CE0();
 			Unknown1F8->Unknown_58();
 			break;
 	}
@@ -2980,7 +2980,7 @@ void UIStarbaseClass::Unknown_63DFE0()
 			Unknown1F8->Unknown_5C();
 			return;
 		}
-		int option = ((UIStarbaseUnknown1F8Class *)Unknown1F8.Peek())->Unknown_645DC0();
+		int option = Unknown1F8->Unknown_645DC0();
 		if (option) {
 			switch (option) {
 				case 4:
