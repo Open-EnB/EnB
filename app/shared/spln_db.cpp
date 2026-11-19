@@ -1756,24 +1756,16 @@ bool SplineDatabaseClass::Save_Entry(ChunkSaveClass &csave, SplineEntryClass *en
 	return csave.End_Chunk();
 }
 
-// NOT EXACT: shape (the switch layout)
+// NOT EXACT: shape (the client pushes ebx inside the linear case and repeats the epilogue at its first two failures)
 bool SplineDatabaseClass::Save_Curve(ChunkSaveClass &csave, SplineEntryClass *entry)
 {
 	switch (entry->Type) {
-		case TYPE_COLOR:
-			return true;
-		case TYPE_BLEND:
-			if (!Save_Hermite(csave, entry)) {
-				return false;
-			}
-			if (!csave.Write(&entry->AlphaKey, 4)) {
-				return false;
-			}
-			return csave.Write(&entry->BetaKey, 4) != 0;
 		case TYPE_LINEAR:
 		{
 			Curve1DClass *curve = entry->Curve;
 			bool looping = curve->Is_Looping();
+			float point; float t;
+			unsigned int extra;
 			if (!csave.Write(&looping, 1)) {
 				return false;
 			}
@@ -1782,9 +1774,6 @@ bool SplineDatabaseClass::Save_Curve(ChunkSaveClass &csave, SplineEntryClass *en
 				return false;
 			}
 			for (int i = 0; i < count; i++) {
-				float point;
-				float t;
-				unsigned int extra;
 				curve->Get_Key(i, &point, &t, &extra);
 				if (!csave.Write(&point, 4)) {
 					return false;
@@ -1800,11 +1789,22 @@ bool SplineDatabaseClass::Save_Curve(ChunkSaveClass &csave, SplineEntryClass *en
 		}
 		case TYPE_HERMITE:
 			return Save_Hermite(csave, entry);
+		case TYPE_COLOR:
+			return true;
+		case TYPE_BLEND:
+			if (!Save_Hermite(csave, entry)) {
+				return false;
+			}
+			if (!csave.Write(&entry->AlphaKey, 4)) {
+				return false;
+			}
+			{ bool ok = csave.Write(&entry->BetaKey, 4) != 0; return ok; }	// the client's setne
+		case 0: return false;		// the client's jump table starts at type 0 (to the false return), in this case order
 	}
 	return false;
 }
 
-// NOT EXACT: frame (0x18 in the client: the key and tangent locals share other slots)
+// 0x4883A0
 bool SplineDatabaseClass::Save_Hermite(ChunkSaveClass &csave, SplineEntryClass *entry)
 {
 	HermiteSpline1DClass *curve = (HermiteSpline1DClass *)entry->Curve;
@@ -1813,13 +1813,15 @@ bool SplineDatabaseClass::Save_Hermite(ChunkSaveClass &csave, SplineEntryClass *
 		return false;
 	}
 	int count = curve->Key_Count();
+	unsigned int extra;		// the loop's locals at function scope: the client's six slots (0x18), looping in the entry argument's
+	float t;
+	float point;
+	float in_tan;
+	float out_tan;
 	if (!csave.Write(&count, 4)) {
 		return false;
 	}
 	for (int i = 0; i < count; i++) {
-		unsigned int extra;
-		float t;
-		float point;
 		curve->Get_Key(i, &point, &t, &extra);
 		if (!csave.Write(&point, 4)) {
 			return false;
@@ -1830,8 +1832,6 @@ bool SplineDatabaseClass::Save_Hermite(ChunkSaveClass &csave, SplineEntryClass *
 		if (!csave.Write(&extra, 4)) {
 			return false;
 		}
-		float in_tan;
-		float out_tan;
 		curve->Get_Tangents(i, &in_tan, &out_tan);
 		if (!csave.Write(&in_tan, 4)) {
 			return false;
