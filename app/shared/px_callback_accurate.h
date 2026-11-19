@@ -41,6 +41,8 @@ struct PxAccurateActiveStruct  // NAME 2: Active's element (8 bytes; the FAIL_IF
 	PxObject *Object;					// +0x00 (the client's name, the FAIL_IF)
 	bool Inside;						// +0x04 (Process's last test result)  // NAME 2: what it holds
 
+	PxAccurateActiveStruct() : Object(NULL), Inside(false) {}		// the client stores {NULL, false} as Active(0)'s fill value (0x44F3D0)
+	PxAccurateActiveStruct(PxObject *object, bool inside) : Object(object), Inside(inside) {}
 	bool operator<(const PxAccurateActiveStruct &b) const { return(Object < b.Object); }	// Active is sorted by address (lower_bound 0x451B60)
 };
 

@@ -6,7 +6,7 @@
 #include "..\shared\g_assert.h"
 
 // 0x44E020
-// NOT EXACT: inline budget (the client calls __stl_next_prime, the buckets' reserve 0x451420 and insert 0x451520 out of line; ours inlines them; attempts.py show 0x44E020)
+// Exact with PxAccurateActiveStruct's zeroing default constructor (Active(0)'s fill value; the client stores {NULL, false} before _Ufill 0x451370 in 0x44F3D0)
 PxAccurateCallback::PxAccurateCallback(PxObject *object, PxCallbackFunction callback) :
 	Object(object),
 	Callback(callback),
@@ -16,7 +16,7 @@ PxAccurateCallback::PxAccurateCallback(PxObject *object, PxCallbackFunction call
 }
 
 // 0x44E260
-// NOT EXACT: inline budget (as 0x44E020; attempts.py show 0x44E260)
+// Exact as 0x44E020
 PxAccurateCallback::PxAccurateCallback(PxObject *object, const PxAccurateCallback &src) :
 	Object(object),
 	Callback(src.Callback),
@@ -165,7 +165,7 @@ void PxAccurateCallback::Activate(PxObject *object, bool inside)
 // 0x44F200
 void PxAccurateCallback::Deactivate(PxObject *object, bool &inside)
 {
-	PxAccurateActiveStruct key = { object, false };
+	PxAccurateActiveStruct key(object, false);
 	std::vector<PxAccurateActiveStruct>::iterator it = std::lower_bound(Active.begin(), Active.end(), key);
 	FAIL_IF(it == Active.end() || it->Object != object) return;
 	inside = it->Inside;
@@ -205,7 +205,7 @@ void PxAccurateCallback::Exit(PxObject *object)
 }
 
 // 0x44F3D0
-// NOT EXACT: inline budget (the base's hash_map constructor is called out of line, 0x450DB0)
+// Exact as 0x44E020: the hashtable constructor 0x450DB0 and _Ufill 0x451370 out of line, the fill value {NULL, false} stored
 PxAccurateBoxCallback::PxAccurateBoxCallback(PxObject *object, PxCallbackFunction callback, const Vector3 &extent) :
 	PxAccurateCallback(object, callback),
 	Box(NULL),
@@ -295,7 +295,7 @@ bool PxAccurateBoxCallback::Test(PxObject *object)
 }
 
 // 0x450030
-// NOT EXACT: inline budget (as 0x44F3D0)
+// Exact as 0x44F3D0
 PxAccurateSphereCallback::PxAccurateSphereCallback(PxObject *object, PxCallbackFunction callback, float radius) :
 	PxAccurateCallback(object, callback),
 	InnerBox(NULL),
@@ -312,7 +312,7 @@ PxAccurateSphereCallback::PxAccurateSphereCallback(PxObject *object, PxCallbackF
 }
 
 // 0x450350
-// NOT EXACT: inline budget (as 0x44F3D0)
+// Exact as 0x44F3D0
 PxAccurateSphereCallback::PxAccurateSphereCallback(PxObject *object, const PxAccurateSphereCallback &src) :
 	PxAccurateCallback(object, src),
 	InnerBox(NULL),

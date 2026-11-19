@@ -1,7 +1,6 @@
 {
  "ambiguous": [
-  "0x4333A0",
-  "0x4333D0"
+  "0x42A890"
  ],
  "copy": "reconstructed",
  "description": "px_callback_accurate.cpp, client 0x44E020-0x451BF0 (its __FILE__; FAIL_IFs lines 133 / 170): the base's constructors (NOT EXACT), destructor, overlap handling 0x44E470-0x44F200 (PX3; Overlap NOT EXACT), Process, Enter / Exit; the box class PxAccurateBoxCallback 0x44F3D0-0x44FF40 and the sphere class PxAccurateSphereCallback 0x450030-0x450AC0 (constructors NOT EXACT), the boxes' On_Enter / On_Exit (NOT EXACT) and the template instances 0x450B40-0x451B60",
@@ -9,10 +8,13 @@
  "in_tree": [
   "0x42B250",
   "0x42B320",
+  "0x4334D0",
+  "0x44E020",
   "0x44E150",
   "0x44E170",
   "0x44E1A0",
   "0x44E1D0",
+  "0x44E260",
   "0x44E390",
   "0x44E780",
   "0x44E960",
@@ -23,6 +25,7 @@
   "0x44F2F0",
   "0x44F370",
   "0x44F3A0",
+  "0x44F3D0",
   "0x44F870",
   "0x44F8A0",
   "0x44F8C0",
@@ -32,7 +35,9 @@
   "0x44FE90",
   "0x44FF10",
   "0x44FF40",
+  "0x450030",
   "0x450320",
+  "0x450350",
   "0x450620",
   "0x4506B0",
   "0x450820",
@@ -53,6 +58,7 @@
   "0x451370",
   "0x4513B0",
   "0x4513D0",
+  "0x451420",
   "0x4514F0",
   "0x451520",
   "0x4517C0",
@@ -71,6 +77,7 @@
  "shared": [
   "0x42B250",
   "0x42B320",
+  "0x4334D0",
   "0x44E150",
   "0x44E170",
   "0x44F8A0",
