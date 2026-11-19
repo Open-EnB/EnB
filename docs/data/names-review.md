@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1971 |
 | 2 | describes what the code does | 4991 |
-| 1 | neutral placeholder | 25426 |
+| 1 | neutral placeholder | 25429 |
 
 ## For review (score 3 and below)
 
@@ -9719,16 +9719,17 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `std:` | `app/client/tasks/tsk_game.h:173` | neutral (D10) |
 | 1 | `Unknown24` | `app/client/tasks/tsk_game.h:173` | untagged neutral name (D10) |
 | 1 | `Unknown34` | `app/client/tasks/tsk_game.h:174` | untagged neutral name (D10) |
-| 1 | `Unknown38` | `app/client/tasks/tsk_game.h:175` | untagged neutral name (D10) |
-| 1 | `Unknown3C` | `app/client/tasks/tsk_game.h:176` | untagged neutral name (D10) |
-| 1 | `Unknown40` | `app/client/tasks/tsk_game.h:177` | untagged neutral name (D10) |
-| 1 | `Unknown44` | `app/client/tasks/tsk_game.h:178` | untagged neutral name (D10) |
-| 1 | `Unknown48` | `app/client/tasks/tsk_game.h:179` | untagged neutral name (D10) |
-| 1 | `Unknown4C` | `app/client/tasks/tsk_game.h:180` | untagged neutral name (D10) |
-| 1 | `Unknown50` | `app/client/tasks/tsk_game.h:181` | untagged neutral name (D10) |
-| 1 | `std:` | `app/client/tasks/tsk_game.h:182` | neutral (D10) |
-| 1 | `Unknown60` | `app/client/tasks/tsk_game.h:182` | untagged neutral name (D10) |
-| 1 | `Unknown_7CA2D0` | `app/client/tasks/tsk_game.h:184` | a function-static instance |
+| 1 | `Get_Unknown34` | `app/client/tasks/tsk_game.h:175` | neutral (D10) |
+| 1 | `Unknown38` | `app/client/tasks/tsk_game.h:176` | untagged neutral name (D10) |
+| 1 | `Unknown3C` | `app/client/tasks/tsk_game.h:177` | untagged neutral name (D10) |
+| 1 | `Unknown40` | `app/client/tasks/tsk_game.h:178` | untagged neutral name (D10) |
+| 1 | `Unknown44` | `app/client/tasks/tsk_game.h:179` | untagged neutral name (D10) |
+| 1 | `Unknown48` | `app/client/tasks/tsk_game.h:180` | untagged neutral name (D10) |
+| 1 | `Unknown4C` | `app/client/tasks/tsk_game.h:181` | untagged neutral name (D10) |
+| 1 | `Unknown50` | `app/client/tasks/tsk_game.h:182` | untagged neutral name (D10) |
+| 1 | `std:` | `app/client/tasks/tsk_game.h:183` | neutral (D10) |
+| 1 | `Unknown60` | `app/client/tasks/tsk_game.h:183` | untagged neutral name (D10) |
+| 1 | `Unknown_7CA2D0` | `app/client/tasks/tsk_game.h:185` | a function-static instance |
 | 1 | `Unknown_Get_Ticks` | `app/client/tasks/tsk_login.cpp:15` | untagged neutral name (D10) |
 | 1 | `Unknown_Debug_Print` | `app/client/tasks/tsk_login.cpp:26` | 0x509E30 (dbgmgr.cpp), the log line |
 | 1 | `Unknown0C` | `app/client/tasks/tsk_login.cpp:27` | untagged neutral name (D10) |
@@ -11717,6 +11718,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_40` | `app/client/ui_chat_panel.cpp:586` | untagged neutral name (D10) |
 | 1 | `Unknown_56BEF0` | `app/client/ui_chat_panel.cpp:590` | untagged neutral name (D10) |
 | 1 | `Unknown_7CA2D0` | `app/client/ui_chat_panel.cpp:593` | untagged neutral name (D10) |
+| 1 | `Get_Unknown34` | `app/client/ui_chat_panel.cpp:593` | untagged neutral name (D10) |
 | 1 | `Unknown_5685C0` | `app/client/ui_chat_panel.cpp:594` | untagged neutral name (D10) |
 | 1 | `Unknown_5698F0` | `app/client/ui_chat_panel.cpp:606` | untagged neutral name (D10) |
 | 1 | `Unknown_569A00` | `app/client/ui_chat_panel.cpp:610` | untagged neutral name (D10) |
@@ -11745,6 +11747,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_565100` | `app/client/ui_chat_panel.cpp:926` | untagged neutral name (D10) |
 | 1 | `Unknown_565120` | `app/client/ui_chat_panel.cpp:932` | untagged neutral name (D10) |
 | 1 | `Unknown_565390` | `app/client/ui_chat_panel.cpp:950` | untagged neutral name (D10) |
+| 1 | `Unknown_567930` | `app/client/ui_chat_panel.cpp:997` | untagged neutral name (D10) |
 | 1 | `Unknown_5658B0` | `app/client/ui_chat_panel.cpp:1014` | untagged neutral name (D10) |
 | 1 | `Unknown_565BA0` | `app/client/ui_chat_panel.cpp:1032` | untagged neutral name (D10) |
 | 1 | `Unknown_565C00` | `app/client/ui_chat_panel.cpp:1045` | untagged neutral name (D10) |
@@ -11758,7 +11761,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_56EED0` | `app/client/ui_chat_panel.cpp:1219` | untagged neutral name (D10) |
 | 1 | `Unknown_56EFB0` | `app/client/ui_chat_panel.cpp:1234` | untagged neutral name (D10) |
 | 1 | `Unknown_744E70` | `app/client/ui_chat_panel.cpp:1247` | untagged neutral name (D10) |
-| 1 | `Unknown_567930` | `app/client/ui_chat_panel.cpp:1265` | untagged neutral name (D10) |
 | 1 | `Unknown_567970` | `app/client/ui_chat_panel.cpp:1273` | untagged neutral name (D10) |
 | 1 | `Unknown_5679A0` | `app/client/ui_chat_panel.cpp:1281` | untagged neutral name (D10) |
 | 1 | `Unknown_5680B0` | `app/client/ui_chat_panel.cpp:1285` | untagged neutral name (D10) |
@@ -12399,10 +12401,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_7C` | `app/client/ui_combobox.h:60` | untagged neutral name (D10) |
 | 1 | `Unknown_57A310` | `app/client/ui_combobox.h:63` | untagged neutral name (D10) |
 | 1 | `Set_Hover_Only` | `app/client/ui_combobox.h:78` | the rows' member it sets; NAME 1 [first, last]: neutral |
-| 1 | `Model` | `app/client/ui_combobox.h:86` | what the constructors are given |
-| 1 | `std:` | `app/client/ui_combobox.h:87` | neutral |
-| 1 | `Layer` | `app/client/ui_combobox.h:91` | its type |
-| 1 | `Owner` | `app/client/ui_combobox.h:95` | what the constructors are given |
+| 1 | `Get_Selected_Text` | `app/client/ui_combobox.h:82` | what it returns |
+| 1 | `Model` | `app/client/ui_combobox.h:87` | what the constructors are given |
+| 1 | `std:` | `app/client/ui_combobox.h:88` | neutral |
+| 1 | `Layer` | `app/client/ui_combobox.h:92` | its type |
+| 1 | `Owner` | `app/client/ui_combobox.h:96` | what the constructors are given |
 | 1 | `Unknown_BE67C4` | `app/client/ui_commands.cpp:18` | 0xBE67C4 |
 | 1 | `Unknown_B7E4D4` | `app/client/ui_commands.cpp:21` | neutral (D10) |
 | 1 | `Unknown_5C` | `app/client/ui_commands.cpp:36` | untagged neutral name (D10) |
@@ -27589,27 +27592,27 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Hide_Arrow` | `app/client/ui_combobox.h:77` | describes what it does; NAME 1 [on]: neutral |
 | 2 | `Is_Pointer_Over` | `app/client/ui_combobox.h:79` | describes what it does |
 | 2 | `Get_Item_Text` | `app/client/ui_combobox.h:81` | describes what it does |
-| 2 | `Show_Selected` | `app/client/ui_combobox.h:82` | describes what it does |
-| 2 | `Mesh` | `app/client/ui_combobox.h:84` | its type and use |
-| 2 | `Anim` | `app/client/ui_combobox.h:88` | its type and use |
-| 2 | `WidthAnim` | `app/client/ui_combobox.h:89` | what Init sets its frame from |
-| 2 | `DropAnim` | `app/client/ui_combobox.h:90` | what Update_Drop_Down sets its frame from |
-| 2 | `Width` | `app/client/ui_combobox.h:92` | what Init does with it |
-| 2 | `MaxRows` | `app/client/ui_combobox.h:93` | what Init and Add_Item do with it |
-| 2 | `NumRows` | `app/client/ui_combobox.h:94` | what Add_Item counts |
-| 2 | `SelectKey` | `app/client/ui_combobox.h:96` | when the owner gets it |
-| 2 | `ToggleKey` | `app/client/ui_combobox.h:97` | when the owner gets it |
-| 2 | `State` | `app/client/ui_combobox.h:98` | what Update_Drop_Down switches on |
-| 2 | `RowsShown` | `app/client/ui_combobox.h:99` | what Update_Drop_Down animates |
-| 2 | `Arrow` | `app/client/ui_combobox.h:100` | its sub-object's name |
-| 2 | `TextField` | `app/client/ui_combobox.h:101` | its bone's name |
-| 2 | `Slider` | `app/client/ui_combobox.h:102` | its type |
-| 2 | `TopItem` | `app/client/ui_combobox.h:103` | what Update_Rows reads |
-| 2 | `Selected` | `app/client/ui_combobox.h:104` | what Select / Select_Text set |
-| 2 | `std:` | `app/client/ui_combobox.h:105` | what the rows show |
-| 2 | `std:` | `app/client/ui_combobox.h:106` | what they are |
-| 2 | `std:` | `app/client/ui_combobox.h:107` | what Set_Label shows |
-| 2 | `ArrowHidden` | `app/client/ui_combobox.h:108` | what Hide_Arrow sets |
+| 2 | `Show_Selected` | `app/client/ui_combobox.h:83` | describes what it does |
+| 2 | `Mesh` | `app/client/ui_combobox.h:85` | its type and use |
+| 2 | `Anim` | `app/client/ui_combobox.h:89` | its type and use |
+| 2 | `WidthAnim` | `app/client/ui_combobox.h:90` | what Init sets its frame from |
+| 2 | `DropAnim` | `app/client/ui_combobox.h:91` | what Update_Drop_Down sets its frame from |
+| 2 | `Width` | `app/client/ui_combobox.h:93` | what Init does with it |
+| 2 | `MaxRows` | `app/client/ui_combobox.h:94` | what Init and Add_Item do with it |
+| 2 | `NumRows` | `app/client/ui_combobox.h:95` | what Add_Item counts |
+| 2 | `SelectKey` | `app/client/ui_combobox.h:97` | when the owner gets it |
+| 2 | `ToggleKey` | `app/client/ui_combobox.h:98` | when the owner gets it |
+| 2 | `State` | `app/client/ui_combobox.h:99` | what Update_Drop_Down switches on |
+| 2 | `RowsShown` | `app/client/ui_combobox.h:100` | what Update_Drop_Down animates |
+| 2 | `Arrow` | `app/client/ui_combobox.h:101` | its sub-object's name |
+| 2 | `TextField` | `app/client/ui_combobox.h:102` | its bone's name |
+| 2 | `Slider` | `app/client/ui_combobox.h:103` | its type |
+| 2 | `TopItem` | `app/client/ui_combobox.h:104` | what Update_Rows reads |
+| 2 | `Selected` | `app/client/ui_combobox.h:105` | what Select / Select_Text set |
+| 2 | `std:` | `app/client/ui_combobox.h:106` | what the rows show |
+| 2 | `std:` | `app/client/ui_combobox.h:107` | what they are |
+| 2 | `std:` | `app/client/ui_combobox.h:108` | what Set_Label shows |
+| 2 | `ArrowHidden` | `app/client/ui_combobox.h:109` | what Hide_Arrow sets |
 | 2 | `Slider` | `app/client/ui_commands.h:46` | what it is |
 | 2 | `Top` | `app/client/ui_commands.h:47` | what it holds |
 | 2 | `Selected` | `app/client/ui_commands.h:48` | what it holds |
@@ -31145,7 +31148,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `Get_Client` | `app/client/ui_cinfo.h:31` | the FAIL_IF's |
 | 3 | `ui_combobox.h` | `app/client/ui_combobox.h:5` | header name by convention (D24) from the client's ui_combobox.cpp |
 | 3 | `UIComboBoxClass` | `app/client/ui_combobox.h:50` | class-from-file (D24) |
-| 3 | `AttachBone` | `app/client/ui_combobox.h:85` | the assert's |
+| 3 | `AttachBone` | `app/client/ui_combobox.h:86` | the assert's |
 | 3 | `std:` | `app/client/ui_commands.h:21` | the ini key |
 | 3 | `std:` | `app/client/ui_commands.h:22` | the ini key |
 | 3 | `CtrnGadgetClass` | `app/client/ui_cpit.cpp:206` | ctrngadg.h's (D24 class-from-file) |
