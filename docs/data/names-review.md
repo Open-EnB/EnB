@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1971 |
 | 2 | describes what the code does | 4990 |
-| 1 | neutral placeholder | 25165 |
+| 1 | neutral placeholder | 25167 |
 
 ## For review (score 3 and below)
 
@@ -14013,6 +14013,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_B810F4` | `app/client/ui_login.cpp:283` | neutral (D10) |
 | 1 | `Unknown_B8110C` | `app/client/ui_login.cpp:284` | neutral (D10) |
 | 1 | `Unknown_B8111C` | `app/client/ui_login.cpp:285` | neutral (D10) |
+| 1 | `store` | `app/client/ui_login.cpp:318` | neutral (D10) |
+| 1 | `Unknown_7CA2D0Class` | `app/client/ui_login.cpp:318` | untagged neutral name (D10) |
 | 1 | `Unknown_7CA2D0` | `app/client/ui_login.cpp:318` | untagged neutral name (D10) |
 | 1 | `Unknown60` | `app/client/ui_login.cpp:318` | untagged neutral name (D10) |
 | 1 | `Unknown_28` | `app/client/ui_login.cpp:319` | untagged neutral name (D10) |
