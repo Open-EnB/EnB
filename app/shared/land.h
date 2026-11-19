@@ -52,6 +52,7 @@ class HeightFieldClass;
 class TextureClass;
 class DX8VertexBufferClass;
 class IndexBufferClass;
+class DX8IndexBufferClass;
 class Vector2;
 class VertexMaterialClass;
 class LandClass;
@@ -109,10 +110,12 @@ public:
 	~LandPatchRecordClass(void);
 
 // NAME 1: members after their offsets (ctor 0x474990)
-	RefCountPtr<RefCountClass>	Unknown00;
-	RefCountPtr<RefCountClass>	Unknown04;
-	RefCountPtr<RefCountClass>	Unknown08;
-	RefCountPtr<RefCountClass>	Unknown0C;
+// +0x00 / +0x08 the decorations' and their shadows' vertex buffers, +0x04 / +0x0C their index buffers: Build_Decorations
+// 0x47A2F0 fills them through Create_NEW<DX8VertexBufferClass> 0x47CF50 and Create_NEW<DX8IndexBufferClass> 0x47CFB0
+	RefCountPtr<DX8VertexBufferClass>	Unknown00;
+	RefCountPtr<DX8IndexBufferClass>	Unknown04;
+	RefCountPtr<DX8VertexBufferClass>	Unknown08;
+	RefCountPtr<DX8IndexBufferClass>	Unknown0C;
 	int							Unknown10;
 	int							Unknown14;
 	int							Unknown18;

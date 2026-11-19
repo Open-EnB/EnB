@@ -762,8 +762,8 @@ void LandClass::Build_Decorations(std::vector<std::string> &names, std::vector<L
 			for (int pass = 0; pass < 2; pass++) {
 				std::vector<LandDecorationVertexStruct> &verts = pass ? shadow_vertices[p] : tree_vertices[p];
 				std::vector<unsigned short> &idx = pass ? shadow_indices[p] : tree_indices[p];
-				RefCountPtr<RefCountClass> &vb = pass ? record.Unknown08 : record.Unknown00;
-				RefCountPtr<RefCountClass> &ib = pass ? record.Unknown0C : record.Unknown04;
+				RefCountPtr<DX8VertexBufferClass> &vb = pass ? record.Unknown08 : record.Unknown00;
+				RefCountPtr<DX8IndexBufferClass> &ib = pass ? record.Unknown0C : record.Unknown04;
 				int &vertex_count = pass ? record.Unknown18 : record.Unknown10;
 				int &index_count = pass ? record.Unknown1C : record.Unknown14;
 				int nv = verts.size();
