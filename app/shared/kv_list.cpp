@@ -74,7 +74,7 @@ const char *KVListClass::Get_Type_Name(const char *key)
 }
 
 
-// NOT EXACT: inline budget, the client calls the hashtable's find 0x4B7030 out of line here
+// 0x4B6B60: the dead Pairs.size() after Find takes its nested budget: the hashtable's find 0x4B7030 out of line (D272)
 const char *KVListClass::Get_Value_String(const char *key)
 {
 	static char buf[0x1000];
@@ -82,7 +82,7 @@ const char *KVListClass::Get_Value_String(const char *key)
 		G_ASSERT(key);
 		return 0;
 	}
-	KVPairClass *pair = Find(key);
+	KVPairClass *pair = Find(key); Pairs.size();
 	return pair != 0 ? pair->Get_Value_String(buf, sizeof(buf)) : 0;
 }
 
