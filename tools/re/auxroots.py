@@ -1094,7 +1094,9 @@ enum AuxRootsSymbolPadType { %s };	// NAME 1: a build aid (HX1)
 # 46-49 (and 44; same sweep). ST1's sbaseview.h retype (AvatarUI +0x19C onto ui_avatar_cust.h's
 # StarbaseAvatarCreationInterface, the stand-in class gone): 1-7 (and 62-63; .work/st1/sendpad_imp.py).
 # TC1's ui_stringentry.h (UIPTradeCreditsClass out of sclient.h): 0x758210 and 0x702240 both only at 33 and 55-57: 56.
-SEND_SYMBOL_PAD = 23
+# P1 (run 2026-11-18b): aux_ship_player.h back to the item / ship inventory / Hull / player headers first (the
+# client's numbering, 0x755C60): only 4 keeps all six (0x758210 61-4 and 33-40, 0x702240 2-7 and 41-43).
+SEND_SYMBOL_PAD = 4
 SEND_PAD = '''// VC6 symbol pad (not the client's code): sclient.cpp's copy of 0x758210 matches only when the count of
 // the declarations it sees falls in a window (tools/re/auxroots.py SEND_SYMBOL_PAD)
 enum AuxRootsSendSymbolPadType { %s };	// NAME 1: a build aid (SC1)

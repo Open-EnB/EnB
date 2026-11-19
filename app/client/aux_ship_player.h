@@ -29,7 +29,10 @@
 #define AUX_CTORS_GROUP
 #define AUX_CTORS_PLAYER
 #define AUX_CTORS_HULL
-#include "aux_roots.h"		// aux_roots.h's class order: the send pad's window (SEND_SYMBOL_PAD) needs it
+#include "aux_roots_item.h"	// the item's classes, Hull's and the player's tree before the ship's: the client's numbering 0x758CD0 / 0x7598E0
+#include "aux_roots_shipinv.h"
+#include "aux_roots_hull.h"
+#include "aux_roots_player.h"
 #include "aux_item.h"
 #include "aux_buff.h"
 #include "aux_roots_send.h"
