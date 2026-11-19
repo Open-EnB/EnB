@@ -383,6 +383,10 @@ SPLITS = [
     ('aux_roots_shipinv.h', 'DeltaShipInvClass', 'DeltaShipInvClass', "The ship inventory's class.", ['aux_roots_item.h']),
     ('aux_roots_lego.h', 'DeltaAttachmentClass', 'DeltaLegoClass', 'The lego classes (Attachment, Lego).',
      ['aux_roots_types.h']),
+    # its members instantiate T<bool> before delta_interpolator.h's T<float>: radar_system_data_cache / gutter_data
+    # number T<bool>, T<float> in that order (CRT entries 656 / 639, aux_decoration.h)
+    ('aux_roots_decoration.h', 'DeltaDecorationClass', 'DeltaDecorationClass', "The decoration's class.",
+     ['aux_roots_types.h']),
     ('aux_roots_manu.h', 'DeltaSubCategoryClass', 'DeltaManufacturingLabClass',
      "The manufacturing classes (SubCategory, Category, PrimaryCategory, KnownFormula, the lab's root).",
      ['aux_roots_item.h']),
@@ -1124,7 +1128,8 @@ def family_gate(text):
     """text (aux_roots.h / aux_roots_send.h) with each constructor body behind its family's gate (FAMILY_INCLASS,
     FAMILY_OUTOFCLASS; AS's .work/as/gate.py)."""
     def cond(fam):
-        return '#if defined(AUX_ROOTS_ALL) || defined(AUX_CTORS_%s)' % fam
+        return '#if defined(AUX_ROOTS_ALL)' + ''.join(' || defined(AUX_CTORS_%s)' % f
+                                                      for f in (fam if isinstance(fam, tuple) else (fam,)))
     L = text.split('\n')
     out = []
     i = 0

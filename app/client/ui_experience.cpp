@@ -13,10 +13,10 @@
 #include "..\shared\uvcontrl.h"
 #include "..\shared\auxdata\permstr.h"	// (its PermStringInitClass static: 0x58BF90)
 #include "..\shared\auxdata\auxdata.h"
+#include "..\shared\auxdata\delta_numbering.h"
 #include "..\shared\g_assert.h"
 
 void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);	// 0x496AE0 (ro_funcs.cpp, cdecl: effect.ini's ResetMappers)  // NAME 1 [robj, make_geometry_unique]: what the helpers pass
-
 
 
 
@@ -198,22 +198,22 @@ void UIExperienceClass::Unknown_10()
 	DeltaCompoundClass *aux = (DeltaCompoundClass *)sclient->AuxData;
 	char text[32];
 	if (CombatBar->Exists) {
-		DeltaTemplateClass<float> *field = Unknown_Find_Field<DeltaTemplateClass<float> >(aux, NameClass("RPGInfo.CombatExp"));
-		float value = (field && field->Unknown70) ? field->Value : 0.0f;
+		DeltaTemplateClass<float> *field = Unknown_Find_Set_Field<DeltaTemplateClass<float> >(aux, NameClass("RPGInfo.CombatExp"));
+		float value = field ? field->Value : 0.0f;
 		CombatBar->Set_Value(value);
 		_snprintf(text, sizeof(text), "Progress: %1.2f%%", value * 100.0f);
 		CombatBar->Set_Unknown14(text);
 	}
 	if (TradeBar->Exists) {
-		DeltaTemplateClass<float> *field = Unknown_Find_Field<DeltaTemplateClass<float> >(aux, NameClass("RPGInfo.TradeExp"));
-		float value = (field && field->Unknown70) ? field->Value : 0.0f;
+		DeltaTemplateClass<float> *field = Unknown_Find_Set_Field<DeltaTemplateClass<float> >(aux, NameClass("RPGInfo.TradeExp"));
+		float value = field ? field->Value : 0.0f;
 		TradeBar->Set_Value(value);
 		_snprintf(text, sizeof(text), "Progress: %1.2f%%", value * 100.0f);
 		TradeBar->Set_Unknown14(text);
 	}
 	if (ExploreBar->Exists) {
-		DeltaTemplateClass<float> *field = Unknown_Find_Field<DeltaTemplateClass<float> >(aux, NameClass("RPGInfo.ExploreExp"));
-		float value = (field && field->Unknown70) ? field->Value : 0.0f;
+		DeltaTemplateClass<float> *field = Unknown_Find_Set_Field<DeltaTemplateClass<float> >(aux, NameClass("RPGInfo.ExploreExp"));
+		float value = field ? field->Value : 0.0f;
 		ExploreBar->Set_Value(value);
 		_snprintf(text, sizeof(text), "Progress: %1.2f%%", value * 100.0f);
 		ExploreBar->Set_Unknown14(text);

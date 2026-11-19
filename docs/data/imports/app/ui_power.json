@@ -47,7 +47,8 @@
   "0x5DCB90",
   "0x5DCBC0",
   "0x5DCBE0",
-  "0x5DCC80"
+  "0x5DCC80",
+  "0x5DCCB0"
  ],
  "merged": [],
  "name": "client/ui_power.cpp",
