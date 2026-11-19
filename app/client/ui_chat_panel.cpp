@@ -558,7 +558,7 @@ void ChatPanelInterface::Unknown_60()
 // 0x563260
 void ChatPanelInterface::Unknown_64() {}
 
-// NOT EXACT: register (5698F0's NULL assignment through the uncalled 0x568910 puts RefCountPtr's operator=(NULL) 0x56CC30 out of line as the client: 242 instructions vs 240, residue 21 rows; left: case 16's browser flag tested in cl, the client's al)
+// 0x5698F0's NULL assignment goes through the uncalled 0x568910 (RefCountPtr's operator=(NULL) 0x56CC30 out of line as the client's) and case 16 reads the browser flag through Get_Unknown34() (al, as the client)
 // 0x563280
 bool ChatPanelInterface::Unknown_68(int key)
 {
@@ -590,7 +590,7 @@ bool ChatPanelInterface::Unknown_68(int key)
 			Unknown_56BEF0();
 			return(true);
 		case 16:
-			if (!Unknown_7CA2D0()->Unknown34) {
+			if (!Unknown_7CA2D0()->Get_Unknown34()) {
 				Unknown_5685C0();
 				UnknownF8 = Create_Get((ChatPanelUIBase *)new UIPopupBrowserClass(Client->As_Space_Client(), 6, "Online Manual", 0));
 				UnknownF8->Unknown_54();
@@ -1135,7 +1135,7 @@ void ChatPanelInterface::Unknown_565F80()
 			Unknown104 = Create_Get((ChatPanelUIBase *)new UIOptionAccountClass(Client->As_Space_Client(), 1));
 			break;
 		case 11:
-			if (!Unknown_7CA2D0()->Unknown34) {
+			if (!Unknown_7CA2D0()->Get_Unknown34()) {
 				Unknown104 = Create_Get((ChatPanelUIBase *)new UIPopupBrowserClass(Client->As_Space_Client(), 5, "Credits", 0));
 				UnknownEC = Unknown104.Peek();
 			}
@@ -2086,7 +2086,7 @@ void ChatPanelInterface::Unknown_569A00()
 		Unknown_56C7E0();
 		return;
 	} else if (!strcmp(text.c_str(), "Credits")) {
-		if (!Unknown_7CA2D0()->Unknown34) {
+		if (!Unknown_7CA2D0()->Get_Unknown34()) {
 			Unknown_5685C0();
 			UnknownF8 = Create_Get((ChatPanelUIBase *)new UIPopupBrowserClass(Client->As_Space_Client(), 5, "Credits", 0));
 			UnknownF8->Unknown_54();
@@ -2095,7 +2095,7 @@ void ChatPanelInterface::Unknown_569A00()
 		}
 		return;
 	} else if (!strcmp(text.c_str(), "Self Help")) {
-		if (!Unknown_7CA2D0()->Unknown34) {
+		if (!Unknown_7CA2D0()->Get_Unknown34()) {
 			Unknown_5685C0();
 			UnknownF8 = Create_Get((ChatPanelUIBase *)new UIPopupBrowserClass(Client->As_Space_Client(), 0, "Knowledgebase", 0));
 			UnknownF8->Unknown_54();

@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-865 entries in 306 files.
+864 entries in 306 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -406,7 +406,6 @@ edit the comments in the code, not this file.
 | `app/client/ui_chat_panel.cpp:260` | `ChatPanelInterface::~ChatPanelInterface` | marker | NOT EXACT: inline-budget/shape: 1220B, sim 0.50 (4 dead size() reads send _Eos out of line; UnknownD4=NULL 0x56CC30, Remove 0x56CE40, ChatInt=NULL 0x56CD50, ~list erase still inline) @0x562440 0x562410 / 0x562440 |
 | `app/client/ui_chat_panel.cpp:447` | `ChatPanelInterface::Unknown_54` | marker | NOT EXACT: register: 351 vs 352 insns (2 dead size() reads send string::assign 0x562D8E out of line; ebp vs ebx zero-reg choice) @0x5629E0 0x5629E0 |
 | `app/client/ui_chat_panel.cpp:521` | `ChatPanelInterface::Unknown_60` | marker | NOT EXACT: register (the client copies the lag light's table pointer to edx for Is_Hidden, ebx in ours; then eax / edx swapped at As_Space_Client); 0x56C0C0 is out of line through auto_inline(off), as the client 0x5630B0 |
-| `app/client/ui_chat_panel.cpp:561` | `ChatPanelInterface::Unknown_68` | marker | NOT EXACT: register (5698F0's NULL assignment through the uncalled 0x568910 puts RefCountPtr's operator=(NULL) 0x56CC30 out of line as the client: 242 instructions vs 240, residue 21 rows; left: case 16's browser flag tested in cl, the client's al) 0x563280 |
 | `app/client/ui_chat_panel.cpp:640` | `ChatPanelInterface::Unknown_563910` | marker | NOT EXACT: inline-budget (the second branch's name copy: the client inlines assign with _Grow out of line, ours expands _Grow; frame 0xC vs 8) 0x563910 |
 | `app/client/ui_chat_panel.cpp:830` | `ChatPanelInterface::Unknown_5646A0` | marker | NOT EXACT: shape: 1748B vs 1760B, sim 0.66 (case 5 before case 4 matches; tail Unknown_B4 merges and case 4 calls _Eos out of line) @0x5646A0 0x5646A0: talk on channel 'channel' (0..5 channels, 6..8 +0x158 names, 9 reply); false on chat if unavailable (Guild/Group keeps channel) |
 | `app/client/ui_chat_panel.cpp:948` | `ChatPanelInterface::Unknown_565390` | marker | NOT EXACT: inline-budget (Chat_Default_Channel through the uncalled 0x567930 as the client: 341 instructions vs 328; the client still calls string assign out of line for the channel copy and the label, ours expands _Grow) 0x565390 |
