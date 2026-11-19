@@ -83,7 +83,7 @@ void RadarSystemClass::Unknown_7BCA40(bool arg)
 	TargetPath->Clear();
 }
 
-// NOT EXACT: register (ours keeps a zero register and this in edi; the client gutter in ebx, starmap in edi, this in ebp)
+// NOT EXACT: register (73 masked rows: ours keeps a zero register in ebx where the client keeps gutter, so loop 1's tests and loop 2's node advances differ)
 // @0x7BCA70
 void RadarSystemClass::Unknown_7BCA70(GutterRadarClass *gutter, StarmapPipClass *starmap, const RefCountPtr<RefCountClass> &scene)
 {
@@ -143,7 +143,7 @@ void RadarSystemClass::Unknown_7BCA70(GutterRadarClass *gutter, StarmapPipClass 
 
 			FAIL_IF(!co) continue;
 			entry.Set_Object(co);
-			if (!entry.Get_Is_Targetable()) {
+			bool hidden = !entry.Get_Is_Targetable(); if (hidden) {
 				gutter->Update(&entry);
 				GutterDataClass *gdata = entry.Get_Gutter_Data(false);
 				if (gdata) {
@@ -170,15 +170,18 @@ void RadarSystemClass::Unknown_7BCA70(GutterRadarClass *gutter, StarmapPipClass 
 		FAIL_IF(!co) continue;
 		entry.Set_Object(co);
 		bool valid = entry.Get_Is_Targetable();
-		if (co->Unknown_24().Is_Valid() && valid) {
-			Unknown_7BDD50(entry, scene);
-			bool show_gutter = (gutter && Unknown_7BDBF0(entry));
-			GutterDataClass *gdata = entry.Get_Gutter_Data(show_gutter);
-			bool label = Unknown_7BDC70(entry);
-			bool show_starmap = (starmap && label);
-			StarmapDataClass *sdata = entry.Get_Starmap_Data(label);
-			if (show_gutter || show_starmap) {
-				RadarDataClass *rdata = entry.Get_Radar_Data(true);
+		if (!co->Unknown_24().Is_Valid() || !valid) {
+			node = node->Next_Valid();
+			continue;
+		}
+		Unknown_7BDD50(entry, scene);
+		bool show_gutter = (gutter && Unknown_7BDBF0(entry));
+		GutterDataClass *gdata = entry.Get_Gutter_Data(show_gutter);
+		bool label = Unknown_7BDC70(entry);
+		bool show_starmap = (starmap && label);
+		StarmapDataClass *sdata = entry.Get_Starmap_Data(label);
+		if (show_gutter || show_starmap) {
+			RadarDataClass *rdata = entry.Get_Radar_Data(true);
 
 
 
@@ -205,59 +208,56 @@ void RadarSystemClass::Unknown_7BCA70(GutterRadarClass *gutter, StarmapPipClass 
 
 
 
-
-
-
-				FAIL_IF(!rdata) {
-					node = node->Next_Valid();
-					continue;
-				}
-				rdata->Unknown_7BB570();
-				if (show_gutter) {
-					gutter->Update(&entry);
-					GutterCount++;
-				} else if (gdata) {
-					gdata->Remove_From_Scene();
-				}
-			} else if (gdata) {
-				gdata->Remove_From_Scene();
+			FAIL_IF(!rdata) {
+				node = node->Next_Valid();
+				continue;
 			}
-			if (show_starmap) {
-				starmap->Unknown_7C0620(&entry);
-			} else if (sdata) {
-				sdata->Remove_From_Scene();
-			}
+			rdata->Unknown_7BB570();
+		}
+		if (show_gutter) {
+			gutter->Update(&entry);
+			GutterCount++;
+		} else if (gdata) {
+			gdata->Remove_From_Scene();
+		}
+		if (show_starmap) {
+			starmap->Unknown_7C0620(&entry);
+		} else if (sdata) {
+			sdata->Remove_From_Scene();
 		}
 		node = node->Next_Valid();
 	}
-	ClientObjectClass *hit = mouse_target.Get_Target();
-	if (hit && (Client->Get_Avatar()->Get_Game_ID() == hit->Get_Game_ID())) {
-		hit = NULL;
+
+
+
+	if (mouse_target.Get_Target() && (Client->Get_Avatar()->Get_Game_ID() == mouse_target.Get_Target()->Get_Game_ID())) {
+		Unknown_7BD860(NULL);
+	} else {
+		Unknown_7BD860(mouse_target.Get_Target());
 	}
-	Unknown_7BD860(hit);
 	if (gutter) {
 		gutter->Clear_Mouse_Target();
 	}
 	if (starmap) {
 		starmap->Unknown_7C0910(Target, WarpPath, TargetPath);
 	}
-	if (Unknown4D && mouse_target.Get_Target()) {
+	if (Unknown4D) {
+		ClientObjectClass *target = mouse_target.Get_Target();
 		static ClientObjectClass *last;
-		if (last != mouse_target.Get_Target()) {
-			last = mouse_target.Get_Target();
+		if (target && last != target) {
+			last = target;
 			std::string text;
-			last->Unknown_6FF7A0(text);
+			target->Unknown_6FF7A0(text);
 			text += ": RenderObjName: ";
-			RenderObjClass *robj = last->RenderObject;
-			if (!robj) {
-				text += "No Render Object";
-			} else if (robj->Get_Name()) {
-				text += robj->Get_Name();
-			} else if (robj->Get_Base_Model_Name()) {
-				text += robj->Get_Base_Model_Name();
-			} else {
-				text += "No Name";
-			}
+			RenderObjClass *robj = target->RenderObject;
+			if (robj) {
+				if (robj->Get_Name()) {
+					text += robj->Get_Name();
+				} else if (robj->Get_Base_Model_Name()) {
+					text += robj->Get_Base_Model_Name();
+				} else text += "No Name";
+			} else text += "No Render Object";
+
 			Client->Unknown_74D990(0x17, (char *)text.c_str(), 0);
 		}
 	}
