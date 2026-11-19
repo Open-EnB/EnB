@@ -1344,6 +1344,9 @@ def match_objects(img, paths, region=None, callers=False, extern_called=None, ca
                     reach = obj_called.get((id(obj), r['symbol']))
                     if reach:
                         inside = [h for h in inside if h in reach]
+                    if USE_NB_XCU_STRETCH and inside and r['symbol'] in xcu_listed.setdefault(
+                            id(obj), set(xcu_initialisers(obj))) and _string_guard(obj, sec, s, length):
+                        inside = [h for h in inside if xcu_in_stretch(img, results, obj, xcu_listed, h)]
                     if len(inside) == 1:
                         proposals.append((item, inside[0]))
             by_addr = collections.defaultdict(set)
@@ -3569,6 +3572,13 @@ USE_SG_XCU_FIRST = True
 # initialiser (0x709B80's bytes, also 0x7BDF40's) took the open window too and reached both copies, so neither was credited. The data binders' guard 0x7A08F0 (CRT entry 631) sits 0x2C30 after Remove_Emote_Data 0x79DCC0, past their
 # hash_map instances; env_map_manager's 0x761C50 (597) after its vector instances; shiputils' 0x813970 (724)
 USE_SG_XCU_OPEN_END = True
+# D246 (NB, run 2026-11-18): the range round (a tie inside the object's range) places an initialiser the object's
+# .CRT$XCU lists only at a CRT table entry inside the object's stretch: no entry from the object's own table-placed
+# initialisers to it (both ends included) is another object's table-placed initialiser. Only <string>'s plain guard
+# (_string_guard), the kind measured: unknown_root.obj's guard `_$E32` took 0x4A7840 (CRT entry 60) by the range round
+# beside delta_money.obj's own `_$E32` placed there by the table (the claim is by symbol name, and `_$E` names are per
+# translation unit), past delta.obj's entries 50-53, with unknown_root's own PermStringInit at entry 49
+USE_NB_XCU_STRETCH = True
 USE_XCU_POSITION = True     # D242 P-C1-2: the `_$E` initialisers credited by their CRT table position
 USE_XCU_SUBRUN = True       # C15 (2026-11-16): the unique consecutive sub-run fitting every initialiser
 XCU_TABLE = ClientImage.XCU_TABLE     # 0xB6C000-0xB6D700 (clientimage.crt_initialisers)
@@ -3640,6 +3650,32 @@ def _string_guard(obj, sec, s, length):
     names = {sym['name'] for k, sz, typ, sym, addend in obj.reloc_targets(sec, s, length) if sym is not None}
     return '?id@?$ctype@G@std@@$E' in names and all(
         n in ('?id@?$ctype@G@std@@$E', '_atexit') or n.startswith('??_B?1???id@?$ctype@G@std@@') for n in names)
+
+
+def xcu_in_stretch(img, results, obj, xcu_listed, h):
+    """USE_NB_XCU_STRETCH: False when H is a CRT table entry outside OBJ's stretch (an entry from OBJ's own exact
+    XCU-listed initialisers to H, both ends included, holds another object's exact XCU-listed initialiser); True when
+    H is no table entry or OBJ has no exact XCU-listed initialiser at a table entry."""
+    table = xcu_table(img)
+    index = _xcu.get('index')
+    if index is None:
+        index = _xcu['index'] = {a: i for i, a in enumerate(table)}
+    if h not in index:
+        return True
+    held = collections.defaultdict(set)     # table index -> id() of the objects whose XCU-listed initialiser is exact there
+    for r, o, sec, s, length in results:
+        if r['status'] == 'exact' and generated(r['symbol']):
+            a = int(r['addresses'][0], 16)
+            if id(o) not in xcu_listed:
+                xcu_listed[id(o)] = set(xcu_initialisers(o))
+            if a in index and r['symbol'] in xcu_listed[id(o)]:
+                held[index[a]].add(id(o))
+    own = [i for i, k in held.items() if id(obj) in k]
+    if not own:
+        return True
+    i = index[h]
+    lo, hi = min(own + [i]), max(own + [i])
+    return not any(held[j] - {id(obj)} for j in range(lo, hi + 1))
 
 
 def xcu_position(img, results, ranges, text, base, claimed, thunk):

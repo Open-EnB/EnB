@@ -700,5 +700,32 @@ class Cr6NamedCallers(unittest.TestCase):
                'USE_CR6_SHORTS', 'cr6_named', APP_REGION, off_status='short')
 
 
+class NbXcuStretch(unittest.TestCase):
+    """D246 (NB): USE_NB_XCU_STRETCH's test, xcu_in_stretch on the client's CRT table. unknown_root.obj's <string> guard
+    `_$E32` took 0x4A7840 (CRT entry 60) by the range round in the full app run, where delta_money.obj's own `_$E32`
+    sits by the table round, past delta.obj's entries 50-53, with unknown_root's PermStringInit 0x4A3B80 at entry 49:
+    entry 60 lies outside unknown_root's stretch and inside delta_money's (the full run: that one credit gone, nothing
+    else changed). Synthetic results, so no object is needed."""
+    def test_stretch(self):
+        img = objmatch.ClientImage(objmatch.DEFAULT_CLIENT)
+
+        class Obj:
+            pass
+        root, delta, money = Obj(), Obj(), Obj()
+
+        def res(obj, sym, a):
+            return ({'symbol': sym, 'status': 'exact', 'addresses': [f'0x{a:06X}']}, obj, 1, 0, 16)
+        results = [res(root, '_$E5', 0x4A3B80), res(root, '_$E32', 0x42B2F0), res(delta, '_$E5', 0x4A4C90),
+                   res(money, '_$E5', 0x4A7000), res(money, '_$E32', 0x4A7840)]
+        listed = {id(root): {'_$E5', '_$E32'}, id(delta): {'_$E5'}, id(money): {'_$E5', '_$E32'}}
+        self.assertFalse(objmatch.xcu_in_stretch(img, results, root, listed, 0x4A7840))
+        self.assertTrue(objmatch.xcu_in_stretch(img, results, money, listed, 0x4A7840))
+        self.assertTrue(objmatch.xcu_in_stretch(img, results, root, listed, 0x4A3B80))
+        self.assertTrue(objmatch.xcu_in_stretch(img, results, root, listed, 0x4A3B40))   # no table entry
+        other = Obj()
+        listed[id(other)] = {'_$E5'}
+        self.assertTrue(objmatch.xcu_in_stretch(img, results, other, listed, 0x4A7840))  # no own entry: no bound
+
+
 if __name__ == '__main__':
     unittest.main()
