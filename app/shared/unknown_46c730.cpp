@@ -804,8 +804,8 @@ void LandClass::Get_Vertex_Color(unsigned int x, unsigned int y, Vector3 &color)
 	color.Set((float)rgb[2] * (1.0f / 255.0f), (float)rgb[1] * (1.0f / 255.0f), (float)rgb[0] * (1.0f / 255.0f));
 }
 
-// NOT EXACT: shape (2042 masked rows, frame 0x7C vs the client's 0x6C: the prologue's set-up order and the corner
-// blocks' index forms; LD7's carry form, attempts.csv 0x470F80)
+// NOT EXACT: field-offset (0.84, 367 masked rows: the corners' register choices and set-up order; running row indices,
+// Get_Vertex_Color / Unpack_Slope16 inlined (/Ob2), Unknown1EC taken before the averages; attempts.csv 0x470F80)
 void LandClass::Unknown_470F80(unsigned char *a, unsigned char *b, unsigned char *c)
 {
 	// the client: three copies of 65535 / (pi / 2) = 41720.875 (float 0xAE9AD0 in the four corners'
@@ -815,234 +815,258 @@ void LandClass::Unknown_470F80(unsigned char *a, unsigned char *b, unsigned char
 	static const double HORIZON_SCALE_1 = 41720.875;
 	unsigned int size = Field->Get_Size();
 	unsigned int mask = Field->Get_Mask();
-	unsigned int log2 = Field->Get_Log2();
-	unsigned int last = size - 1;
-	unsigned int last_row = mask & last;			// the last row (column), wrapped
+	unsigned int last_row = mask & (size - 1);	// the last row (column), wrapped
 	unsigned int wrap = mask & size;				// the row (column) after the last, wrapped: 0
 	unsigned short *hz = (unsigned short *)c;	// per cell: the horizons towards -x and +x (log-coded tangents)
-	unsigned short avg[2];
 	unsigned char h[8];
-	unsigned int bits;
-	unsigned char *rgb;
+	Vector3 color;
 	unsigned int n = 0;
 	unsigned int x;
 	unsigned int y;
 	unsigned int k0, k1, k2, k3;
-
+	unsigned int i2, j2, i3, j3;
+	unsigned int i0, j0, i1, j1;	// running indices of the rows' vertices: x 2 into the horizons, x 3 into a and b
 	// the first row: its vertices average with the last row's (the field wraps); the corners with all four corners
-	k0 = (0 << log2);
-	k1 = k0 + mask;
-	k2 = (mask << log2);
-	k3 = k2 + mask;
-	avg[0] = (unsigned short)(((unsigned int)hz[k0 * 2 + 0] + (unsigned int)hz[k1 * 2 + 0] + (unsigned int)hz[k2 * 2 + 0] + (unsigned int)hz[k3 * 2 + 0]) >> 2);
-	avg[1] = (unsigned short)(((unsigned int)hz[k0 * 2 + 1] + (unsigned int)hz[k1 * 2 + 1] + (unsigned int)hz[k2 * 2 + 1] + (unsigned int)hz[k3 * 2 + 1]) >> 2);
-	bits = (avg[0] + 0x77000) << 11 | 0x7FF;
-	Unknown1E8[n] = (unsigned short)(atan(*(float *)&bits) * HORIZON_SCALE_4);
-	bits = (avg[1] + 0x77000) << 11 | 0x7FF;
-	Unknown1EC[n] = (unsigned short)(atan(*(float *)&bits) * HORIZON_SCALE_4);
-	h[0] = (unsigned char)(avg[0] >> 8);
-	h[1] = (unsigned char)(avg[1] >> 8);
-	h[2] = (unsigned char)(((unsigned int)a[k0 * 3 + 1] + (unsigned int)a[k1 * 3 + 1] + (unsigned int)a[k2 * 3 + 1] + (unsigned int)a[k3 * 3 + 1]) >> 2);
-	h[3] = (unsigned char)(((unsigned int)b[k0 * 3 + 1] + (unsigned int)b[k1 * 3 + 1] + (unsigned int)b[k2 * 3 + 1] + (unsigned int)b[k3 * 3 + 1]) >> 2);
-	h[4] = (unsigned char)(((unsigned int)a[k0 * 3] + (unsigned int)a[k1 * 3] + (unsigned int)a[k2 * 3] + (unsigned int)a[k3 * 3]) >> 2);
-	h[5] = (unsigned char)(((unsigned int)b[k0 * 3 + 2] + (unsigned int)b[k1 * 3 + 2] + (unsigned int)b[k2 * 3 + 2] + (unsigned int)b[k3 * 3 + 2]) >> 2);
-	h[6] = (unsigned char)(((unsigned int)b[k0 * 3] + (unsigned int)b[k1 * 3] + (unsigned int)b[k2 * 3] + (unsigned int)b[k3 * 3]) >> 2);
-	h[7] = (unsigned char)(((unsigned int)a[k0 * 3 + 2] + (unsigned int)a[k1 * 3 + 2] + (unsigned int)a[k2 * 3 + 2] + (unsigned int)a[k3 * 3 + 2]) >> 2);
-	rgb = &Colors[(0 << log2) * 3];
+	k0 = 0 << Field->Get_Log2();
+	i0 = k0 * 2;
+	j0 = i0 + k0;
+	k1 = mask << Field->Get_Log2();
+	i1 = k1 * 2;
+	j1 = i1 + k1;
+	k2 = k0 + mask;
+	i2 = k2 * 2;
+	j2 = i2 + k2;
+	k3 = k1 + mask;
+	i3 = k3 * 2;
+	j3 = i3 + k3;
 	{
-		Vector3 color((float)rgb[2] * (1.0f / 255.0f), (float)rgb[1] * (1.0f / 255.0f), (float)rgb[0] * (1.0f / 255.0f));
-		Unknown_472F80(&Unknown1F0[n], &Unknown1F4[n], &Unknown1F8[n], h, Unknown1E4[n], color);
-	}
-	n++;
-	for (x = 1; x < last; x++) {
-		avg[0] = (unsigned short)(((unsigned int)hz[(k0 * 2 + x * 2) + 0] + (unsigned int)hz[(k2 * 2 + x * 2) + 0]) >> 1);
-		avg[1] = (unsigned short)(((unsigned int)hz[(k0 * 2 + x * 2) + 1] + (unsigned int)hz[(k2 * 2 + x * 2) + 1]) >> 1);
-		bits = (avg[0] + 0x77000) << 11 | 0x7FF;
-		Unknown1E8[n] = (unsigned short)(atan(*(float *)&bits) * HORIZON_SCALE_2);
-		bits = (avg[1] + 0x77000) << 11 | 0x7FF;
-		Unknown1EC[n] = (unsigned short)(atan(*(float *)&bits) * HORIZON_SCALE_2);
+		unsigned short avg[2];
+		unsigned short *ec = Unknown1EC;
+		avg[0] = (unsigned short)(((unsigned int)hz[i3] + (unsigned int)hz[i2] + (unsigned int)hz[i1] + (unsigned int)hz[i0]) >> 2);
+		avg[1] = (unsigned short)(((unsigned int)hz[i3 + 1] + (unsigned int)hz[i2 + 1] + (unsigned int)hz[i1 + 1] + (unsigned int)hz[i0 + 1]) >> 2);
+		Unknown1E8[n] = (unsigned short)(atan(Unpack_Slope16(avg[0])) * HORIZON_SCALE_4);
+		ec[n] = (unsigned short)(atan(Unpack_Slope16(avg[1])) * HORIZON_SCALE_4);
 		h[0] = (unsigned char)(avg[0] >> 8);
 		h[1] = (unsigned char)(avg[1] >> 8);
-		h[2] = (unsigned char)(((unsigned int)a[(k0 * 3 + x * 3) + 1] + (unsigned int)a[(k2 * 3 + x * 3) + 1]) >> 1);
-		h[3] = (unsigned char)(((unsigned int)b[(k0 * 3 + x * 3) + 1] + (unsigned int)b[(k2 * 3 + x * 3) + 1]) >> 1);
-		h[4] = (unsigned char)(((unsigned int)a[(k0 * 3 + x * 3)] + (unsigned int)a[(k2 * 3 + x * 3)]) >> 1);
-		h[5] = (unsigned char)(((unsigned int)b[(k0 * 3 + x * 3) + 2] + (unsigned int)b[(k2 * 3 + x * 3) + 2]) >> 1);
-		h[6] = (unsigned char)(((unsigned int)b[(k0 * 3 + x * 3)] + (unsigned int)b[(k2 * 3 + x * 3)]) >> 1);
-		h[7] = (unsigned char)(((unsigned int)a[(k0 * 3 + x * 3) + 2] + (unsigned int)a[(k2 * 3 + x * 3) + 2]) >> 1);
-		rgb = &Colors[((0 << log2) + x) * 3];
-		{
-			Vector3 color((float)rgb[2] * (1.0f / 255.0f), (float)rgb[1] * (1.0f / 255.0f), (float)rgb[0] * (1.0f / 255.0f));
-			Unknown_472F80(&Unknown1F0[n], &Unknown1F4[n], &Unknown1F8[n], h, Unknown1E4[n], color);
-		}
-		n++;
-	}
-	k0 = (0 << log2) + wrap;
-	k1 = (mask << log2) + wrap;
-	k2 = (0 << log2) + last;
-	k3 = (mask << log2) + last;
-	avg[0] = (unsigned short)(((unsigned int)hz[k0 * 2 + 0] + (unsigned int)hz[k1 * 2 + 0] + (unsigned int)hz[k2 * 2 + 0] + (unsigned int)hz[k3 * 2 + 0]) >> 2);
-	avg[1] = (unsigned short)(((unsigned int)hz[k0 * 2 + 1] + (unsigned int)hz[k1 * 2 + 1] + (unsigned int)hz[k2 * 2 + 1] + (unsigned int)hz[k3 * 2 + 1]) >> 2);
-	bits = (avg[0] + 0x77000) << 11 | 0x7FF;
-	Unknown1E8[n] = (unsigned short)(atan(*(float *)&bits) * HORIZON_SCALE_4);
-	bits = (avg[1] + 0x77000) << 11 | 0x7FF;
-	Unknown1EC[n] = (unsigned short)(atan(*(float *)&bits) * HORIZON_SCALE_4);
-	h[0] = (unsigned char)(avg[0] >> 8);
-	h[1] = (unsigned char)(avg[1] >> 8);
-	h[2] = (unsigned char)(((unsigned int)a[k0 * 3 + 1] + (unsigned int)a[k1 * 3 + 1] + (unsigned int)a[k2 * 3 + 1] + (unsigned int)a[k3 * 3 + 1]) >> 2);
-	h[3] = (unsigned char)(((unsigned int)b[k0 * 3 + 1] + (unsigned int)b[k1 * 3 + 1] + (unsigned int)b[k2 * 3 + 1] + (unsigned int)b[k3 * 3 + 1]) >> 2);
-	h[4] = (unsigned char)(((unsigned int)a[k0 * 3] + (unsigned int)a[k1 * 3] + (unsigned int)a[k2 * 3] + (unsigned int)a[k3 * 3]) >> 2);
-	h[5] = (unsigned char)(((unsigned int)b[k0 * 3 + 2] + (unsigned int)b[k1 * 3 + 2] + (unsigned int)b[k2 * 3 + 2] + (unsigned int)b[k3 * 3 + 2]) >> 2);
-	h[6] = (unsigned char)(((unsigned int)b[k0 * 3] + (unsigned int)b[k1 * 3] + (unsigned int)b[k2 * 3] + (unsigned int)b[k3 * 3]) >> 2);
-	h[7] = (unsigned char)(((unsigned int)a[k0 * 3 + 2] + (unsigned int)a[k1 * 3 + 2] + (unsigned int)a[k2 * 3 + 2] + (unsigned int)a[k3 * 3 + 2]) >> 2);
-	rgb = &Colors[((0 << log2) + size) * 3 - 3];
-	{
-		Vector3 color((float)rgb[2] * (1.0f / 255.0f), (float)rgb[1] * (1.0f / 255.0f), (float)rgb[0] * (1.0f / 255.0f));
+		h[2] = (unsigned char)(((unsigned int)a[j0 + 1] + (unsigned int)a[j1 + 1] + (unsigned int)a[j2 + 1] + (unsigned int)a[j3 + 1]) >> 2);
+		h[3] = (unsigned char)(((unsigned int)b[j0 + 1] + (unsigned int)b[j1 + 1] + (unsigned int)b[j2 + 1] + (unsigned int)b[j3 + 1]) >> 2);
+		h[4] = (unsigned char)(((unsigned int)a[j0] + (unsigned int)a[j1] + (unsigned int)a[j2] + (unsigned int)a[j3]) >> 2);
+		h[5] = (unsigned char)(((unsigned int)b[j0 + 2] + (unsigned int)b[j1 + 2] + (unsigned int)b[j2 + 2] + (unsigned int)b[j3 + 2]) >> 2);
+		h[6] = (unsigned char)(((unsigned int)b[j0] + (unsigned int)b[j1] + (unsigned int)b[j2] + (unsigned int)b[j3]) >> 2);
+		h[7] = (unsigned char)(((unsigned int)a[j0 + 2] + (unsigned int)a[j1 + 2] + (unsigned int)a[j2 + 2] + (unsigned int)a[j3 + 2]) >> 2);
+		Get_Vertex_Color(0, 0, color);
 		Unknown_472F80(&Unknown1F0[n], &Unknown1F4[n], &Unknown1F8[n], h, Unknown1E4[n], color);
-	}
-	n++;
-	// the inner rows: the first and last columns average with each other, the rest is the cell's own
-	for (y = 1; y < last; y++) {
-		k0 = y << log2;
-		k1 = k0 + mask;
-		avg[0] = (unsigned short)(((unsigned int)hz[k0 * 2 + 0] + (unsigned int)hz[k1 * 2 + 0]) >> 1);
-		avg[1] = (unsigned short)(((unsigned int)hz[k0 * 2 + 1] + (unsigned int)hz[k1 * 2 + 1]) >> 1);
-		bits = (avg[0] + 0x77000) << 11 | 0x7FF;
-		Unknown1E8[n] = (unsigned short)(atan(*(float *)&bits) * HORIZON_SCALE_2);
-		bits = (avg[1] + 0x77000) << 11 | 0x7FF;
-		Unknown1EC[n] = (unsigned short)(atan(*(float *)&bits) * HORIZON_SCALE_2);
-		h[0] = (unsigned char)(avg[0] >> 8);
-		h[1] = (unsigned char)(avg[1] >> 8);
-		h[2] = (unsigned char)(((unsigned int)a[k0 * 3 + 1] + (unsigned int)a[k1 * 3 + 1]) >> 1);
-		h[3] = (unsigned char)(((unsigned int)b[k0 * 3 + 1] + (unsigned int)b[k1 * 3 + 1]) >> 1);
-		h[4] = (unsigned char)(((unsigned int)a[k0 * 3] + (unsigned int)a[k1 * 3]) >> 1);
-		h[5] = (unsigned char)(((unsigned int)b[k0 * 3 + 2] + (unsigned int)b[k1 * 3 + 2]) >> 1);
-		h[6] = (unsigned char)(((unsigned int)b[k0 * 3] + (unsigned int)b[k1 * 3]) >> 1);
-		h[7] = (unsigned char)(((unsigned int)a[k0 * 3 + 2] + (unsigned int)a[k1 * 3 + 2]) >> 1);
-		rgb = &Colors[(y << log2) * 3];
-		{
-			Vector3 color((float)rgb[2] * (1.0f / 255.0f), (float)rgb[1] * (1.0f / 255.0f), (float)rgb[0] * (1.0f / 255.0f));
-			Unknown_472F80(&Unknown1F0[n], &Unknown1F4[n], &Unknown1F8[n], h, Unknown1E4[n], color);
-		}
 		n++;
-		for (x = 1; x < last; x++) {
-			k0 = (y << log2) + x;
-			avg[0] = (unsigned int)hz[k0 * 2 + 0];
-			avg[1] = (unsigned int)hz[k0 * 2 + 1];
-			bits = (avg[0] + 0x77000) << 11 | 0x7FF;
-			Unknown1E8[n] = (unsigned short)(atan(*(float *)&bits) * HORIZON_SCALE_1);
-			bits = (avg[1] + 0x77000) << 11 | 0x7FF;
-			Unknown1EC[n] = (unsigned short)(atan(*(float *)&bits) * HORIZON_SCALE_1);
+	}
+	i0 += 2;
+	j0 += 3;
+	i1 += 2;
+	j1 += 3;
+	for (x = 1; x < size - 1; x++) {
+		{
+			unsigned short avg[2];
+			unsigned short *ec = Unknown1EC;
+			avg[0] = (unsigned short)(((unsigned int)hz[i0] + (unsigned int)hz[i1]) >> 1);
+			avg[1] = (unsigned short)(((unsigned int)hz[i0 + 1] + (unsigned int)hz[i1 + 1]) >> 1);
+			Unknown1E8[n] = (unsigned short)(atan(Unpack_Slope16(avg[0])) * HORIZON_SCALE_2);
+			ec[n] = (unsigned short)(atan(Unpack_Slope16(avg[1])) * HORIZON_SCALE_2);
 			h[0] = (unsigned char)(avg[0] >> 8);
 			h[1] = (unsigned char)(avg[1] >> 8);
-			h[2] = a[k0 * 3 + 1];
-			h[3] = b[k0 * 3 + 1];
-			h[4] = a[k0 * 3];
-			h[5] = b[k0 * 3 + 2];
-			h[6] = b[k0 * 3];
-			h[7] = a[k0 * 3 + 2];
-			rgb = &Colors[((y << log2) + x) * 3];
-			{
-				Vector3 color((float)rgb[2] * (1.0f / 255.0f), (float)rgb[1] * (1.0f / 255.0f), (float)rgb[0] * (1.0f / 255.0f));
-				Unknown_472F80(&Unknown1F0[n], &Unknown1F4[n], &Unknown1F8[n], h, Unknown1E4[n], color);
-			}
+			h[2] = (unsigned char)(((unsigned int)a[j1 + 1] + (unsigned int)a[j0 + 1]) >> 1);
+			h[3] = (unsigned char)(((unsigned int)b[j1 + 1] + (unsigned int)b[j0 + 1]) >> 1);
+			h[4] = (unsigned char)(((unsigned int)a[j1] + (unsigned int)a[j0]) >> 1);
+			h[5] = (unsigned char)(((unsigned int)b[j1 + 2] + (unsigned int)b[j0 + 2]) >> 1);
+			h[6] = (unsigned char)(((unsigned int)b[j1] + (unsigned int)b[j0]) >> 1);
+			h[7] = (unsigned char)(((unsigned int)a[j1 + 2] + (unsigned int)a[j0 + 2]) >> 1);
+			Get_Vertex_Color(x, 0, color);
+			Unknown_472F80(&Unknown1F0[n], &Unknown1F4[n], &Unknown1F8[n], h, Unknown1E4[n], color);
 			n++;
 		}
-		k0 = (y << log2) + wrap;
-		k1 = (y << log2) + last;
-		avg[0] = (unsigned short)(((unsigned int)hz[k0 * 2 + 0] + (unsigned int)hz[k1 * 2 + 0]) >> 1);
-		avg[1] = (unsigned short)(((unsigned int)hz[k0 * 2 + 1] + (unsigned int)hz[k1 * 2 + 1]) >> 1);
-		bits = (avg[0] + 0x77000) << 11 | 0x7FF;
-		Unknown1E8[n] = (unsigned short)(atan(*(float *)&bits) * HORIZON_SCALE_2);
-		bits = (avg[1] + 0x77000) << 11 | 0x7FF;
-		Unknown1EC[n] = (unsigned short)(atan(*(float *)&bits) * HORIZON_SCALE_2);
+		i0 += 2;
+		j0 += 3;
+		i1 += 2;
+		j1 += 3;
+	}
+	k2 = (0 << Field->Get_Log2()) + wrap;
+	i2 = k2 * 2;
+	j2 = i2 + k2;
+	k3 = (mask << Field->Get_Log2()) + wrap;
+	i3 = k3 * 2;
+	j3 = i3 + k3;
+	{
+		unsigned short avg[2];
+		unsigned short *ec = Unknown1EC;
+		avg[0] = (unsigned short)(((unsigned int)hz[i3] + (unsigned int)hz[i2] + (unsigned int)hz[i1] + (unsigned int)hz[i0]) >> 2);
+		avg[1] = (unsigned short)(((unsigned int)hz[i3 + 1] + (unsigned int)hz[i2 + 1] + (unsigned int)hz[i1 + 1] + (unsigned int)hz[i0 + 1]) >> 2);
+		Unknown1E8[n] = (unsigned short)(atan(Unpack_Slope16(avg[0])) * HORIZON_SCALE_4);
+		ec[n] = (unsigned short)(atan(Unpack_Slope16(avg[1])) * HORIZON_SCALE_4);
 		h[0] = (unsigned char)(avg[0] >> 8);
 		h[1] = (unsigned char)(avg[1] >> 8);
-		h[2] = (unsigned char)(((unsigned int)a[k0 * 3 + 1] + (unsigned int)a[k1 * 3 + 1]) >> 1);
-		h[3] = (unsigned char)(((unsigned int)b[k0 * 3 + 1] + (unsigned int)b[k1 * 3 + 1]) >> 1);
-		h[4] = (unsigned char)(((unsigned int)a[k0 * 3] + (unsigned int)a[k1 * 3]) >> 1);
-		h[5] = (unsigned char)(((unsigned int)b[k0 * 3 + 2] + (unsigned int)b[k1 * 3 + 2]) >> 1);
-		h[6] = (unsigned char)(((unsigned int)b[k0 * 3] + (unsigned int)b[k1 * 3]) >> 1);
-		h[7] = (unsigned char)(((unsigned int)a[k0 * 3 + 2] + (unsigned int)a[k1 * 3 + 2]) >> 1);
-		rgb = &Colors[((y << log2) + size) * 3 - 3];
-		{
-			Vector3 color((float)rgb[2] * (1.0f / 255.0f), (float)rgb[1] * (1.0f / 255.0f), (float)rgb[0] * (1.0f / 255.0f));
-			Unknown_472F80(&Unknown1F0[n], &Unknown1F4[n], &Unknown1F8[n], h, Unknown1E4[n], color);
-		}
+		h[2] = (unsigned char)(((unsigned int)a[j0 + 1] + (unsigned int)a[j1 + 1] + (unsigned int)a[j2 + 1] + (unsigned int)a[j3 + 1]) >> 2);
+		h[3] = (unsigned char)(((unsigned int)b[j0 + 1] + (unsigned int)b[j1 + 1] + (unsigned int)b[j2 + 1] + (unsigned int)b[j3 + 1]) >> 2);
+		h[4] = (unsigned char)(((unsigned int)a[j0] + (unsigned int)a[j1] + (unsigned int)a[j2] + (unsigned int)a[j3]) >> 2);
+		h[5] = (unsigned char)(((unsigned int)b[j0 + 2] + (unsigned int)b[j1 + 2] + (unsigned int)b[j2 + 2] + (unsigned int)b[j3 + 2]) >> 2);
+		h[6] = (unsigned char)(((unsigned int)b[j0] + (unsigned int)b[j1] + (unsigned int)b[j2] + (unsigned int)b[j3]) >> 2);
+		h[7] = (unsigned char)(((unsigned int)a[j0 + 2] + (unsigned int)a[j1 + 2] + (unsigned int)a[j2 + 2] + (unsigned int)a[j3 + 2]) >> 2);
+		Get_Vertex_Color(size - 1, 0, color);
+		Unknown_472F80(&Unknown1F0[n], &Unknown1F4[n], &Unknown1F8[n], h, Unknown1E4[n], color);
 		n++;
+	}
+	// the inner rows: the first and last columns average with each other, the rest is the cell's own
+	for (y = 1; y < size - 1; y++) {
+		k0 = y << Field->Get_Log2();
+		i0 = k0 * 2;
+		j0 = i0 + k0;
+		k1 = k0 + mask;
+		i1 = k1 * 2;
+		j1 = i1 + k1;
+		{
+			unsigned short avg[2];
+			unsigned short *ec = Unknown1EC;
+			avg[0] = (unsigned short)(((unsigned int)hz[i1] + (unsigned int)hz[i0]) >> 1);
+			avg[1] = (unsigned short)(((unsigned int)hz[i1 + 1] + (unsigned int)hz[i0 + 1]) >> 1);
+			Unknown1E8[n] = (unsigned short)(atan(Unpack_Slope16(avg[0])) * HORIZON_SCALE_2);
+			ec[n] = (unsigned short)(atan(Unpack_Slope16(avg[1])) * HORIZON_SCALE_2);
+			h[0] = (unsigned char)(avg[0] >> 8);
+			h[1] = (unsigned char)(avg[1] >> 8);
+			h[2] = (unsigned char)(((unsigned int)a[j1 + 1] + (unsigned int)a[j0 + 1]) >> 1);
+			h[3] = (unsigned char)(((unsigned int)b[j1 + 1] + (unsigned int)b[j0 + 1]) >> 1);
+			h[4] = (unsigned char)(((unsigned int)a[j1] + (unsigned int)a[j0]) >> 1);
+			h[5] = (unsigned char)(((unsigned int)b[j1 + 2] + (unsigned int)b[j0 + 2]) >> 1);
+			h[6] = (unsigned char)(((unsigned int)b[j1] + (unsigned int)b[j0]) >> 1);
+			h[7] = (unsigned char)(((unsigned int)a[j1 + 2] + (unsigned int)a[j0 + 2]) >> 1);
+			Get_Vertex_Color(0, y, color);
+			Unknown_472F80(&Unknown1F0[n], &Unknown1F4[n], &Unknown1F8[n], h, Unknown1E4[n], color);
+			n++;
+		}
+		i0 += 2;
+		j0 += 3;
+		for (x = 1; x < size - 1; x++) {
+			Unknown1E8[n] = (unsigned short)(atan(Unpack_Slope16(hz[i0])) * HORIZON_SCALE_1);
+			Unknown1EC[n] = (unsigned short)(atan(Unpack_Slope16(hz[i0 + 1])) * HORIZON_SCALE_1);
+			h[0] = (unsigned char)(hz[i0] >> 8);
+			h[1] = (unsigned char)(hz[i0 + 1] >> 8);
+			h[2] = a[j0 + 1];
+			h[3] = b[j0 + 1];
+			h[4] = a[j0];
+			h[5] = b[j0 + 2];
+			h[6] = b[j0];
+			h[7] = a[j0 + 2];
+			Get_Vertex_Color(x, y, color);
+			Unknown_472F80(&Unknown1F0[n], &Unknown1F4[n], &Unknown1F8[n], h, Unknown1E4[n], color);
+			n++;
+			i0 += 2;
+			j0 += 3;
+		}
+		k1 = (y << Field->Get_Log2()) + wrap;
+		i1 = k1 * 2;
+		j1 = i1 + k1;
+		{
+			unsigned short avg[2];
+			unsigned short *ec = Unknown1EC;
+			avg[0] = (unsigned short)(((unsigned int)hz[i1] + (unsigned int)hz[i0]) >> 1);
+			avg[1] = (unsigned short)(((unsigned int)hz[i1 + 1] + (unsigned int)hz[i0 + 1]) >> 1);
+			Unknown1E8[n] = (unsigned short)(atan(Unpack_Slope16(avg[0])) * HORIZON_SCALE_2);
+			ec[n] = (unsigned short)(atan(Unpack_Slope16(avg[1])) * HORIZON_SCALE_2);
+			h[0] = (unsigned char)(avg[0] >> 8);
+			h[1] = (unsigned char)(avg[1] >> 8);
+			h[2] = (unsigned char)(((unsigned int)a[j1 + 1] + (unsigned int)a[j0 + 1]) >> 1);
+			h[3] = (unsigned char)(((unsigned int)b[j1 + 1] + (unsigned int)b[j0 + 1]) >> 1);
+			h[4] = (unsigned char)(((unsigned int)a[j1] + (unsigned int)a[j0]) >> 1);
+			h[5] = (unsigned char)(((unsigned int)b[j1 + 2] + (unsigned int)b[j0 + 2]) >> 1);
+			h[6] = (unsigned char)(((unsigned int)b[j1] + (unsigned int)b[j0]) >> 1);
+			h[7] = (unsigned char)(((unsigned int)a[j1 + 2] + (unsigned int)a[j0 + 2]) >> 1);
+			Get_Vertex_Color(size - 1, y, color);
+			Unknown_472F80(&Unknown1F0[n], &Unknown1F4[n], &Unknown1F8[n], h, Unknown1E4[n], color);
+			n++;
+		}
 	}
 	// the last row: averages with the first
-	k0 = last_row << log2;
-	k1 = wrap << log2;
+	k0 = last_row << Field->Get_Log2();
+	i0 = k0 * 2;
+	j0 = i0 + k0;
+	k1 = wrap << Field->Get_Log2();
+	i1 = k1 * 2;
+	j1 = i1 + k1;
 	k2 = k0 + mask;
+	i2 = k2 * 2;
+	j2 = i2 + k2;
 	k3 = k1 + mask;
-	avg[0] = (unsigned short)(((unsigned int)hz[k0 * 2 + 0] + (unsigned int)hz[k1 * 2 + 0] + (unsigned int)hz[k2 * 2 + 0] + (unsigned int)hz[k3 * 2 + 0]) >> 2);
-	avg[1] = (unsigned short)(((unsigned int)hz[k0 * 2 + 1] + (unsigned int)hz[k1 * 2 + 1] + (unsigned int)hz[k2 * 2 + 1] + (unsigned int)hz[k3 * 2 + 1]) >> 2);
-	bits = (avg[0] + 0x77000) << 11 | 0x7FF;
-	Unknown1E8[n] = (unsigned short)(atan(*(float *)&bits) * HORIZON_SCALE_4);
-	bits = (avg[1] + 0x77000) << 11 | 0x7FF;
-	Unknown1EC[n] = (unsigned short)(atan(*(float *)&bits) * HORIZON_SCALE_4);
-	h[0] = (unsigned char)(avg[0] >> 8);
-	h[1] = (unsigned char)(avg[1] >> 8);
-	h[2] = (unsigned char)(((unsigned int)a[k0 * 3 + 1] + (unsigned int)a[k1 * 3 + 1] + (unsigned int)a[k2 * 3 + 1] + (unsigned int)a[k3 * 3 + 1]) >> 2);
-	h[3] = (unsigned char)(((unsigned int)b[k0 * 3 + 1] + (unsigned int)b[k1 * 3 + 1] + (unsigned int)b[k2 * 3 + 1] + (unsigned int)b[k3 * 3 + 1]) >> 2);
-	h[4] = (unsigned char)(((unsigned int)a[k0 * 3] + (unsigned int)a[k1 * 3] + (unsigned int)a[k2 * 3] + (unsigned int)a[k3 * 3]) >> 2);
-	h[5] = (unsigned char)(((unsigned int)b[k0 * 3 + 2] + (unsigned int)b[k1 * 3 + 2] + (unsigned int)b[k2 * 3 + 2] + (unsigned int)b[k3 * 3 + 2]) >> 2);
-	h[6] = (unsigned char)(((unsigned int)b[k0 * 3] + (unsigned int)b[k1 * 3] + (unsigned int)b[k2 * 3] + (unsigned int)b[k3 * 3]) >> 2);
-	h[7] = (unsigned char)(((unsigned int)a[k0 * 3 + 2] + (unsigned int)a[k1 * 3 + 2] + (unsigned int)a[k2 * 3 + 2] + (unsigned int)a[k3 * 3 + 2]) >> 2);
-	rgb = &Colors[(last << log2) * 3];
+	i3 = k3 * 2;
+	j3 = i3 + k3;
 	{
-		Vector3 color((float)rgb[2] * (1.0f / 255.0f), (float)rgb[1] * (1.0f / 255.0f), (float)rgb[0] * (1.0f / 255.0f));
-		Unknown_472F80(&Unknown1F0[n], &Unknown1F4[n], &Unknown1F8[n], h, Unknown1E4[n], color);
-	}
-	n++;
-	for (x = 1; x < last; x++) {
-		k0 = (last_row << log2) + x;
-		k1 = (wrap << log2) + x;
-		avg[0] = (unsigned short)(((unsigned int)hz[k0 * 2 + 0] + (unsigned int)hz[k1 * 2 + 0]) >> 1);
-		avg[1] = (unsigned short)(((unsigned int)hz[k0 * 2 + 1] + (unsigned int)hz[k1 * 2 + 1]) >> 1);
-		bits = (avg[0] + 0x77000) << 11 | 0x7FF;
-		Unknown1E8[n] = (unsigned short)(atan(*(float *)&bits) * HORIZON_SCALE_2);
-		bits = (avg[1] + 0x77000) << 11 | 0x7FF;
-		Unknown1EC[n] = (unsigned short)(atan(*(float *)&bits) * HORIZON_SCALE_2);
+		unsigned short avg[2];
+		unsigned short *ec = Unknown1EC;
+		avg[0] = (unsigned short)(((unsigned int)hz[i3] + (unsigned int)hz[i2] + (unsigned int)hz[i1] + (unsigned int)hz[i0]) >> 2);
+		avg[1] = (unsigned short)(((unsigned int)hz[i3 + 1] + (unsigned int)hz[i2 + 1] + (unsigned int)hz[i1 + 1] + (unsigned int)hz[i0 + 1]) >> 2);
+		Unknown1E8[n] = (unsigned short)(atan(Unpack_Slope16(avg[0])) * HORIZON_SCALE_4);
+		ec[n] = (unsigned short)(atan(Unpack_Slope16(avg[1])) * HORIZON_SCALE_4);
 		h[0] = (unsigned char)(avg[0] >> 8);
 		h[1] = (unsigned char)(avg[1] >> 8);
-		h[2] = (unsigned char)(((unsigned int)a[k0 * 3 + 1] + (unsigned int)a[k1 * 3 + 1]) >> 1);
-		h[3] = (unsigned char)(((unsigned int)b[k0 * 3 + 1] + (unsigned int)b[k1 * 3 + 1]) >> 1);
-		h[4] = (unsigned char)(((unsigned int)a[k0 * 3] + (unsigned int)a[k1 * 3]) >> 1);
-		h[5] = (unsigned char)(((unsigned int)b[k0 * 3 + 2] + (unsigned int)b[k1 * 3 + 2]) >> 1);
-		h[6] = (unsigned char)(((unsigned int)b[k0 * 3] + (unsigned int)b[k1 * 3]) >> 1);
-		h[7] = (unsigned char)(((unsigned int)a[k0 * 3 + 2] + (unsigned int)a[k1 * 3 + 2]) >> 1);
-		rgb = &Colors[((last << log2) + x) * 3];
-		{
-			Vector3 color((float)rgb[2] * (1.0f / 255.0f), (float)rgb[1] * (1.0f / 255.0f), (float)rgb[0] * (1.0f / 255.0f));
-			Unknown_472F80(&Unknown1F0[n], &Unknown1F4[n], &Unknown1F8[n], h, Unknown1E4[n], color);
-		}
+		h[2] = (unsigned char)(((unsigned int)a[j0 + 1] + (unsigned int)a[j1 + 1] + (unsigned int)a[j2 + 1] + (unsigned int)a[j3 + 1]) >> 2);
+		h[3] = (unsigned char)(((unsigned int)b[j0 + 1] + (unsigned int)b[j1 + 1] + (unsigned int)b[j2 + 1] + (unsigned int)b[j3 + 1]) >> 2);
+		h[4] = (unsigned char)(((unsigned int)a[j0] + (unsigned int)a[j1] + (unsigned int)a[j2] + (unsigned int)a[j3]) >> 2);
+		h[5] = (unsigned char)(((unsigned int)b[j0 + 2] + (unsigned int)b[j1 + 2] + (unsigned int)b[j2 + 2] + (unsigned int)b[j3 + 2]) >> 2);
+		h[6] = (unsigned char)(((unsigned int)b[j0] + (unsigned int)b[j1] + (unsigned int)b[j2] + (unsigned int)b[j3]) >> 2);
+		h[7] = (unsigned char)(((unsigned int)a[j0 + 2] + (unsigned int)a[j1 + 2] + (unsigned int)a[j2 + 2] + (unsigned int)a[j3 + 2]) >> 2);
+		Get_Vertex_Color(0, size - 1, color);
+		Unknown_472F80(&Unknown1F0[n], &Unknown1F4[n], &Unknown1F8[n], h, Unknown1E4[n], color);
 		n++;
 	}
-	k0 = (last_row << log2) + wrap;
-	k1 = (wrap << log2) + wrap;
-	k2 = (wrap << log2) + last;
-	k3 = (last_row << log2) + last;
-	avg[0] = (unsigned short)(((unsigned int)hz[k0 * 2 + 0] + (unsigned int)hz[k1 * 2 + 0] + (unsigned int)hz[k2 * 2 + 0] + (unsigned int)hz[k3 * 2 + 0]) >> 2);
-	avg[1] = (unsigned short)(((unsigned int)hz[k0 * 2 + 1] + (unsigned int)hz[k1 * 2 + 1] + (unsigned int)hz[k2 * 2 + 1] + (unsigned int)hz[k3 * 2 + 1]) >> 2);
-	bits = (avg[0] + 0x77000) << 11 | 0x7FF;
-	Unknown1E8[n] = (unsigned short)(atan(*(float *)&bits) * HORIZON_SCALE_4);
-	bits = (avg[1] + 0x77000) << 11 | 0x7FF;
-	Unknown1EC[n] = (unsigned short)(atan(*(float *)&bits) * HORIZON_SCALE_4);
-	h[0] = (unsigned char)(avg[0] >> 8);
-	h[1] = (unsigned char)(avg[1] >> 8);
-	h[2] = (unsigned char)(((unsigned int)a[k0 * 3 + 1] + (unsigned int)a[k1 * 3 + 1] + (unsigned int)a[k2 * 3 + 1] + (unsigned int)a[k3 * 3 + 1]) >> 2);
-	h[3] = (unsigned char)(((unsigned int)b[k0 * 3 + 1] + (unsigned int)b[k1 * 3 + 1] + (unsigned int)b[k2 * 3 + 1] + (unsigned int)b[k3 * 3 + 1]) >> 2);
-	h[4] = (unsigned char)(((unsigned int)a[k0 * 3] + (unsigned int)a[k1 * 3] + (unsigned int)a[k2 * 3] + (unsigned int)a[k3 * 3]) >> 2);
-	h[5] = (unsigned char)(((unsigned int)b[k0 * 3 + 2] + (unsigned int)b[k1 * 3 + 2] + (unsigned int)b[k2 * 3 + 2] + (unsigned int)b[k3 * 3 + 2]) >> 2);
-	h[6] = (unsigned char)(((unsigned int)b[k0 * 3] + (unsigned int)b[k1 * 3] + (unsigned int)b[k2 * 3] + (unsigned int)b[k3 * 3]) >> 2);
-	h[7] = (unsigned char)(((unsigned int)a[k0 * 3 + 2] + (unsigned int)a[k1 * 3 + 2] + (unsigned int)a[k2 * 3 + 2] + (unsigned int)a[k3 * 3 + 2]) >> 2);
-	rgb = &Colors[((last << log2) + size) * 3 - 3];
-	{
-		Vector3 color((float)rgb[2] * (1.0f / 255.0f), (float)rgb[1] * (1.0f / 255.0f), (float)rgb[0] * (1.0f / 255.0f));
-		Unknown_472F80(&Unknown1F0[n], &Unknown1F4[n], &Unknown1F8[n], h, Unknown1E4[n], color);
+	i0 += 2;
+	j0 += 3;
+	i1 += 2;
+	j1 += 3;
+	for (x = 1; x < size - 1; x++) {
+		{
+			unsigned short avg[2];
+			unsigned short *ec = Unknown1EC;
+			avg[0] = (unsigned short)(((unsigned int)hz[i0] + (unsigned int)hz[i1]) >> 1);
+			avg[1] = (unsigned short)(((unsigned int)hz[i0 + 1] + (unsigned int)hz[i1 + 1]) >> 1);
+			Unknown1E8[n] = (unsigned short)(atan(Unpack_Slope16(avg[0])) * HORIZON_SCALE_2);
+			ec[n] = (unsigned short)(atan(Unpack_Slope16(avg[1])) * HORIZON_SCALE_2);
+			h[0] = (unsigned char)(avg[0] >> 8);
+			h[1] = (unsigned char)(avg[1] >> 8);
+			h[2] = (unsigned char)(((unsigned int)a[j1 + 1] + (unsigned int)a[j0 + 1]) >> 1);
+			h[3] = (unsigned char)(((unsigned int)b[j1 + 1] + (unsigned int)b[j0 + 1]) >> 1);
+			h[4] = (unsigned char)(((unsigned int)a[j1] + (unsigned int)a[j0]) >> 1);
+			h[5] = (unsigned char)(((unsigned int)b[j1 + 2] + (unsigned int)b[j0 + 2]) >> 1);
+			h[6] = (unsigned char)(((unsigned int)b[j1] + (unsigned int)b[j0]) >> 1);
+			h[7] = (unsigned char)(((unsigned int)a[j1 + 2] + (unsigned int)a[j0 + 2]) >> 1);
+			Get_Vertex_Color(x, size - 1, color);
+			Unknown_472F80(&Unknown1F0[n], &Unknown1F4[n], &Unknown1F8[n], h, Unknown1E4[n], color);
+			n++;
+		}
+		i0 += 2;
+		j0 += 3;
+		i1 += 2;
+		j1 += 3;
 	}
-	n++;
+	k2 = (last_row << Field->Get_Log2()) + wrap;
+	i2 = k2 * 2;
+	j2 = i2 + k2;
+	k3 = (wrap << Field->Get_Log2()) + wrap;
+	i3 = k3 * 2;
+	j3 = i3 + k3;
+	{
+		unsigned short avg[2];
+		unsigned short *ec = Unknown1EC;
+		avg[0] = (unsigned short)(((unsigned int)hz[i3] + (unsigned int)hz[i2] + (unsigned int)hz[i1] + (unsigned int)hz[i0]) >> 2);
+		avg[1] = (unsigned short)(((unsigned int)hz[i3 + 1] + (unsigned int)hz[i2 + 1] + (unsigned int)hz[i1 + 1] + (unsigned int)hz[i0 + 1]) >> 2);
+		Unknown1E8[n] = (unsigned short)(atan(Unpack_Slope16(avg[0])) * HORIZON_SCALE_4);
+		ec[n] = (unsigned short)(atan(Unpack_Slope16(avg[1])) * HORIZON_SCALE_4);
+		h[0] = (unsigned char)(avg[0] >> 8);
+		h[1] = (unsigned char)(avg[1] >> 8);
+		h[2] = (unsigned char)(((unsigned int)a[j0 + 1] + (unsigned int)a[j1 + 1] + (unsigned int)a[j2 + 1] + (unsigned int)a[j3 + 1]) >> 2);
+		h[3] = (unsigned char)(((unsigned int)b[j0 + 1] + (unsigned int)b[j1 + 1] + (unsigned int)b[j2 + 1] + (unsigned int)b[j3 + 1]) >> 2);
+		h[4] = (unsigned char)(((unsigned int)a[j0] + (unsigned int)a[j1] + (unsigned int)a[j2] + (unsigned int)a[j3]) >> 2);
+		h[5] = (unsigned char)(((unsigned int)b[j0 + 2] + (unsigned int)b[j1 + 2] + (unsigned int)b[j2 + 2] + (unsigned int)b[j3 + 2]) >> 2);
+		h[6] = (unsigned char)(((unsigned int)b[j0] + (unsigned int)b[j1] + (unsigned int)b[j2] + (unsigned int)b[j3]) >> 2);
+		h[7] = (unsigned char)(((unsigned int)a[j0 + 2] + (unsigned int)a[j1 + 2] + (unsigned int)a[j2 + 2] + (unsigned int)a[j3 + 2]) >> 2);
+		Get_Vertex_Color(size - 1, size - 1, color);
+		Unknown_472F80(&Unknown1F0[n], &Unknown1F4[n], &Unknown1F8[n], h, Unknown1E4[n], color);
+		n++;
+	}
 }
 
 // NOT EXACT: literal (13 masked rows: the direction loop's x87 stack, the client copies nz and ny where ours copies w.Y and exchanges w.X; attempts.csv 0x472F80)
