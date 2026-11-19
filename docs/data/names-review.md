@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1971 |
 | 2 | describes what the code does | 4990 |
-| 1 | neutral placeholder | 25162 |
+| 1 | neutral placeholder | 25165 |
 
 ## For review (score 3 and below)
 
@@ -4234,6 +4234,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Add_Items` | `app/client/galaxy_map_render.cpp:191` | what it does |
 | 1 | `Remove_Items` | `app/client/galaxy_map_render.cpp:201` | what it does |
 | 1 | `Find_Nearest` | `app/client/galaxy_map_render.cpp:209` | what it does |
+| 1 | `Find_Nearest_Second` | `app/client/galaxy_map_render.cpp:224` | what it does |
 | 1 | `Unknown14` | `app/client/galaxy_map_render.cpp:256` | untagged neutral name (D10) |
 | 1 | `Unknown1C` | `app/client/galaxy_map_render.cpp:256` | untagged neutral name (D10) |
 | 1 | `Unknown28` | `app/client/galaxy_map_render.cpp:256` | untagged neutral name (D10) |
@@ -4250,9 +4251,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_7A7D70` | `app/client/galaxy_map_render.cpp:400` | untagged neutral name (D10) |
 | 1 | `Unknown_7A72C0` | `app/client/galaxy_map_render.cpp:444` | untagged neutral name (D10) |
 | 1 | `Unknown_7A7560` | `app/client/galaxy_map_render.cpp:458` | untagged neutral name (D10) |
-| 1 | `Unknown_7AAE90` | `app/client/galaxy_map_render.cpp:494` | untagged neutral name (D10) |
-| 1 | `Unknown_7AAE10` | `app/client/galaxy_map_render.cpp:504` | untagged neutral name (D10) |
-| 1 | `Unknown_7AD5B0` | `app/client/galaxy_map_render.cpp:513` | untagged neutral name (D10) |
+| 1 | `Unknown_7AAE10` | `app/client/galaxy_map_render.cpp:487` | untagged neutral name (D10) |
+| 1 | `Unknown_7AD5B0` | `app/client/galaxy_map_render.cpp:498` | untagged neutral name (D10) |
 | 1 | `Unknown_7AC130` | `app/client/galaxy_map_render.cpp:543` | untagged neutral name (D10) |
 | 1 | `Unknown_7AADA0` | `app/client/galaxy_map_render.cpp:551` | untagged neutral name (D10) |
 | 1 | `Unknown_7AD850` | `app/client/galaxy_map_render.cpp:556` | untagged neutral name (D10) |
@@ -4271,6 +4271,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_7AAB60` | `app/client/galaxy_map_render.cpp:955` | untagged neutral name (D10) |
 | 1 | `Unknown_7A97A0` | `app/client/galaxy_map_render.cpp:956` | untagged neutral name (D10) |
 | 1 | `Unknown_7ACEF0` | `app/client/galaxy_map_render.cpp:968` | untagged neutral name (D10) |
+| 1 | `Unknown_7AAE90` | `app/client/galaxy_map_render.cpp:988` | untagged neutral name (D10) |
 | 1 | `Unknown2C` | `app/client/galaxy_map_render.cpp:1181` | untagged neutral name (D10) |
 | 1 | `Unknown_7AA950` | `app/client/galaxy_map_render.cpp:1207` | untagged neutral name (D10) |
 | 1 | `Unknown38` | `app/client/galaxy_map_render.cpp:1247` | untagged neutral name (D10) |
@@ -6196,7 +6197,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6E1940` | `app/client/local_interface_sort.h:40` | untagged neutral name (D10) |
 | 1 | `Previous` | `app/client/local_interface_sort.h:43` | neutral |
 | 1 | `InterfaceSortScopeClass` | `app/client/local_interface_sort.h:48` | neutral (D10) |
-| 1 | `Unknown_C404F8` | `app/client/mainview.cpp:21` | neutral (D10): the client's 0xC404F8, 0x514480 copies 'Doppler_Enabled' to it (its home file is unknown) |
+| 1 | `Unknown_C404F8` | `app/client/mainview.cpp:22` | neutral (D10): the client's 0xC404F8, 0x514480 copies 'Doppler_Enabled' to it (its home file is unknown) |
 | 1 | `Unknown_7C8DB0` | `app/client/mainview.cpp:24` | untagged neutral name (D10) |
 | 1 | `MainViewOrbitalCallbackClass` | `app/client/mainview.cpp:48` | neutral (D10) |
 | 1 | `view` | `app/client/mainview.cpp:51` | neutral |
@@ -6279,21 +6280,23 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_510440` | `app/client/mainview.cpp:578` | untagged neutral name (D10) |
 | 1 | `Unknown14EC` | `app/client/mainview.cpp:579` | untagged neutral name (D10) |
 | 1 | `Unknown_50EE60` | `app/client/mainview.cpp:801` | untagged neutral name (D10) |
-| 1 | `Unknown10BC` | `app/client/mainview.cpp:905` | untagged neutral name (D10) |
-| 1 | `Unknown10C0` | `app/client/mainview.cpp:906` | untagged neutral name (D10) |
-| 1 | `Unknown1390` | `app/client/mainview.cpp:909` | untagged neutral name (D10) |
-| 1 | `Unknown14` | `app/client/mainview.cpp:914` | untagged neutral name (D10) |
-| 1 | `Unknown34` | `app/client/mainview.cpp:915` | untagged neutral name (D10) |
-| 1 | `Unknown_75F690` | `app/client/mainview.cpp:920` | untagged neutral name (D10) |
-| 1 | `Unknown58` | `app/client/mainview.cpp:921` | untagged neutral name (D10) |
-| 1 | `Unknown10F8` | `app/client/mainview.cpp:923` | untagged neutral name (D10) |
+| 1 | `Unknown_Server_Time` | `app/client/mainview.cpp:897` | neutral (D10) |
+| 1 | `Unknown10BC` | `app/client/mainview.cpp:897` | untagged neutral name (D10) |
+| 1 | `Unknown10C0` | `app/client/mainview.cpp:897` | untagged neutral name (D10) |
+| 1 | `Unknown_Time` | `app/client/mainview.cpp:898` | neutral (D10) |
+| 1 | `Unknown1390` | `app/client/mainview.cpp:907` | untagged neutral name (D10) |
+| 1 | `Unknown14` | `app/client/mainview.cpp:912` | untagged neutral name (D10) |
+| 1 | `Unknown34` | `app/client/mainview.cpp:913` | untagged neutral name (D10) |
+| 1 | `Unknown_75F690` | `app/client/mainview.cpp:919` | untagged neutral name (D10) |
+| 1 | `Unknown58` | `app/client/mainview.cpp:920` | untagged neutral name (D10) |
+| 1 | `Unknown10F8` | `app/client/mainview.cpp:922` | untagged neutral name (D10) |
+| 1 | `Unknown10EC` | `app/client/mainview.cpp:928` | untagged neutral name (D10) |
 | 1 | `Unknown10F0` | `app/client/mainview.cpp:929` | untagged neutral name (D10) |
-| 1 | `Unknown10EC` | `app/client/mainview.cpp:930` | untagged neutral name (D10) |
-| 1 | `Unknown4C` | `app/client/mainview.cpp:959` | untagged neutral name (D10) |
-| 1 | `Unknown2C` | `app/client/mainview.cpp:960` | untagged neutral name (D10) |
-| 1 | `Unknown30` | `app/client/mainview.cpp:963` | untagged neutral name (D10) |
-| 1 | `Unknown_75F700` | `app/client/mainview.cpp:964` | untagged neutral name (D10) |
-| 1 | `Unknown_53E470` | `app/client/mainview.cpp:999` | untagged neutral name (D10) |
+| 1 | `Unknown4C` | `app/client/mainview.cpp:956` | untagged neutral name (D10) |
+| 1 | `Unknown2C` | `app/client/mainview.cpp:957` | untagged neutral name (D10) |
+| 1 | `Unknown30` | `app/client/mainview.cpp:960` | untagged neutral name (D10) |
+| 1 | `Unknown_75F700` | `app/client/mainview.cpp:961` | untagged neutral name (D10) |
+| 1 | `Unknown_53E470` | `app/client/mainview.cpp:996` | untagged neutral name (D10) |
 | 1 | `Unknown10F9` | `app/client/mainview.cpp:1037` | untagged neutral name (D10) |
 | 1 | `Unknown10FC` | `app/client/mainview.cpp:1038` | untagged neutral name (D10) |
 | 1 | `Unknown1100` | `app/client/mainview.cpp:1038` | untagged neutral name (D10) |
@@ -7061,13 +7064,13 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_693020` | `app/client/radar_system.cpp:113` | untagged neutral name (D10) |
 | 1 | `Unknown_7BD860` | `app/client/radar_system.cpp:116` | untagged neutral name (D10) |
 | 1 | `Unknown_7C0440` | `app/client/radar_system.cpp:122` | untagged neutral name (D10) |
-| 1 | `Unknown_7BDD50` | `app/client/radar_system.cpp:174` | untagged neutral name (D10) |
-| 1 | `Unknown_7BDBF0` | `app/client/radar_system.cpp:175` | untagged neutral name (D10) |
-| 1 | `Unknown_7BDC70` | `app/client/radar_system.cpp:177` | untagged neutral name (D10) |
+| 1 | `Unknown_7BDD50` | `app/client/radar_system.cpp:177` | untagged neutral name (D10) |
+| 1 | `Unknown_7BDBF0` | `app/client/radar_system.cpp:178` | untagged neutral name (D10) |
+| 1 | `Unknown_7BDC70` | `app/client/radar_system.cpp:180` | untagged neutral name (D10) |
 | 1 | `Unknown_7BB570` | `app/client/radar_system.cpp:215` | untagged neutral name (D10) |
-| 1 | `Unknown_7C0620` | `app/client/radar_system.cpp:226` | untagged neutral name (D10) |
+| 1 | `Unknown_7C0620` | `app/client/radar_system.cpp:224` | untagged neutral name (D10) |
 | 1 | `Unknown_7C0910` | `app/client/radar_system.cpp:242` | untagged neutral name (D10) |
-| 1 | `Unknown_6FF7A0` | `app/client/radar_system.cpp:249` | untagged neutral name (D10) |
+| 1 | `Unknown_6FF7A0` | `app/client/radar_system.cpp:250` | untagged neutral name (D10) |
 | 1 | `Unknown_74D990` | `app/client/radar_system.cpp:261` | untagged neutral name (D10) |
 | 1 | `Unknown_7BD4C0` | `app/client/radar_system.cpp:267` | untagged neutral name (D10) |
 | 1 | `Unknown_7BD5D0` | `app/client/radar_system.cpp:312` | untagged neutral name (D10) |
@@ -23680,13 +23683,13 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown1F8` | `app/shared/land.cpp:85` | untagged neutral name (D10) |
 | 1 | `Unknown120C` | `app/shared/land.cpp:91` | untagged neutral name (D10) |
 | 1 | `Unknown1214` | `app/shared/land.cpp:93` | untagged neutral name (D10) |
-| 1 | `Unknown_466E70` | `app/shared/land.cpp:335` | untagged neutral name (D10) |
-| 1 | `Unknown178` | `app/shared/land.cpp:349` | untagged neutral name (D10) |
-| 1 | `Unknown180` | `app/shared/land.cpp:350` | untagged neutral name (D10) |
-| 1 | `Unknown188` | `app/shared/land.cpp:351` | untagged neutral name (D10) |
-| 1 | `Unknown_466F10` | `app/shared/land.cpp:391` | untagged neutral name (D10) |
-| 1 | `Unknown11` | `app/shared/land.cpp:605` | untagged neutral name (D10) |
-| 1 | `Unknown_466F40` | `app/shared/land.cpp:608` | untagged neutral name (D10) |
+| 1 | `Unknown_466E70` | `app/shared/land.cpp:333` | untagged neutral name (D10) |
+| 1 | `Unknown178` | `app/shared/land.cpp:347` | untagged neutral name (D10) |
+| 1 | `Unknown180` | `app/shared/land.cpp:348` | untagged neutral name (D10) |
+| 1 | `Unknown188` | `app/shared/land.cpp:349` | untagged neutral name (D10) |
+| 1 | `Unknown_466F10` | `app/shared/land.cpp:389` | untagged neutral name (D10) |
+| 1 | `Unknown11` | `app/shared/land.cpp:603` | untagged neutral name (D10) |
+| 1 | `Unknown_466F40` | `app/shared/land.cpp:606` | untagged neutral name (D10) |
 | 1 | `UnknownXX` | `app/shared/land.h:19` | untagged neutral name (D10) |
 | 1 | `LandPatchClass` | `app/shared/land.h:75` | the land's patch (0x30 bytes, new'd per grid cell by Load_Assets 0x4691D0; ctor 0x474530, dtor 0x474560) |
 | 1 | `VertexBuffer` | `app/shared/land.h:90` | members after their offsets (ctor 0x474530) |
