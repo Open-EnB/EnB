@@ -10,8 +10,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 226 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1971 |
-| 2 | describes what the code does | 4991 |
-| 1 | neutral placeholder | 25167 |
+| 2 | describes what the code does | 4990 |
+| 1 | neutral placeholder | 25162 |
 
 ## For review (score 3 and below)
 
@@ -7657,6 +7657,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_C07550` | `app/client/sclient.cpp:293` | neutral (D10): the text's coordinate range |
 | 1 | `Unknown_6E6A90` | `app/client/sclient.cpp:296` | untagged neutral name (D10) |
 | 1 | `Unknown_BE81B0` | `app/client/sclient.cpp:298` | neutral (D10) |
+| 1 | `TestEffectStruct` | `app/client/sclient.cpp:300` | neutral (D10) |
+| 1 | `Unknown_BE7D80` | `app/client/sclient.cpp:300` | untagged neutral name (D10) |
 | 1 | `Unknown1198` | `app/client/sclient.cpp:303` | untagged neutral name (D10) |
 | 1 | `Unknown126C` | `app/client/sclient.cpp:304` | untagged neutral name (D10) |
 | 1 | `Unknown1270` | `app/client/sclient.cpp:305` | untagged neutral name (D10) |
@@ -7875,8 +7877,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Lego` | `app/client/sclient.cpp:4366` | what it is |
 | 1 | `Count, Interval, Target, Scale, HSVShift, Speedup, Delay` | `app/client/sclient.cpp:4367` | what 0x750C20 does with them |
 | 1 | `Name` | `app/client/sclient.cpp:4368` | what 0x750C20 prints |
-| 1 | `std:` | `app/client/sclient.cpp:4370` | neutral (D10) |
-| 1 | `Unknown_BE7D80` | `app/client/sclient.cpp:4370` | untagged neutral name (D10) |
 | 1 | `Unknown_6EA550` | `app/client/sclient.cpp:4380` | untagged neutral name (D10) |
 | 1 | `Unknown_74D570` | `app/client/sclient.cpp:4480` | untagged neutral name (D10) |
 | 1 | `Unknown_74D690` | `app/client/sclient.cpp:4493` | untagged neutral name (D10) |
@@ -21503,9 +21503,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `ConnectionListenerClass` | `app/common/connect.h:128` | describes what it is |
 | 1 | `ConnectionEntryClass` | `app/common/connect.h:159` | describes what it is |
 | 1 | `Unknown05` | `app/common/connect.h:163` | untagged neutral name (D10) |
-| 1 | `ConnectionManager` | `app/common/connect.h:169` | the client's log string |
-| 1 | `Set_Unknown05` | `app/common/connect.h:185` | untagged neutral name (D10) |
-| 1 | `Unknown1C` | `app/common/connect.h:197` | untagged neutral name (D10) |
+| 1 | `NetworkINIClass` | `app/common/connect.h:170` | describes what it is (interim holder, D137) |
+| 1 | `ConnectionManager` | `app/common/connect.h:179` | the client's log string |
+| 1 | `Set_Unknown05` | `app/common/connect.h:195` | untagged neutral name (D10) |
+| 1 | `Unknown1C` | `app/common/connect.h:207` | untagged neutral name (D10) |
 | 1 | `Unknown_Get_Ticks` | `app/common/dbgconn.cpp:5` | untagged neutral name (D10) |
 | 1 | `Unknown2A` | `app/common/dbgconn.cpp:88` | untagged neutral name (D10) |
 | 1 | `Unknown_831E90` | `app/common/distance_calc.cpp:6` | untagged neutral name (D10) |
@@ -24935,22 +24936,19 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Release` | `app/wwudp/cordmgr.h:122` | after Pump_Releases |
 | 1 | `unknown_cordmsg.cpp` | `app/wwudp/unknown_cordmsg.cpp:13` | PROVISIONAL file name (no assert or __FILE__ names the object) |
 | 1 | `Unknown_C07550` | `programs/clientpoc/poc_data.cpp:15` | untagged neutral name (D10) |
-| 1 | `Unknown00` | `programs/clientpoc/poc_data.cpp:17` | untagged neutral name (D10) |
-| 1 | `Unknown_BE7D80` | `programs/clientpoc/poc_data.cpp:18` | untagged neutral name (D10) |
-| 1 | `Unknown_B08C90` | `programs/clientpoc/poc_data.cpp:21` | untagged neutral name (D10) |
-| 1 | `Unknown_B08C94` | `programs/clientpoc/poc_data.cpp:22` | untagged neutral name (D10) |
-| 1 | `Unknown_B08C98` | `programs/clientpoc/poc_data.cpp:23` | untagged neutral name (D10) |
-| 1 | `Unknown_B08CA8` | `programs/clientpoc/poc_data.cpp:24` | untagged neutral name (D10) |
-| 1 | `Unknown_B08CA0` | `programs/clientpoc/poc_data.cpp:25` | untagged neutral name (D10) |
-| 1 | `Unknown_B08CB4` | `programs/clientpoc/poc_data.cpp:26` | untagged neutral name (D10) |
-| 1 | `Unknown_B08C9C` | `programs/clientpoc/poc_data.cpp:27` | untagged neutral name (D10) |
-| 1 | `Unknown_B08CAC` | `programs/clientpoc/poc_data.cpp:28` | untagged neutral name (D10) |
-| 1 | `Unknown_B08CB0` | `programs/clientpoc/poc_data.cpp:29` | untagged neutral name (D10) |
-| 1 | `Unknown_B08CB8` | `programs/clientpoc/poc_data.cpp:30` | untagged neutral name (D10) |
-| 1 | `Unknown_B08CBC` | `programs/clientpoc/poc_data.cpp:31` | untagged neutral name (D10) |
-| 1 | `Unknown_B08CC0` | `programs/clientpoc/poc_data.cpp:32` | untagged neutral name (D10) |
-| 1 | `Unknown_B08CC4` | `programs/clientpoc/poc_data.cpp:33` | untagged neutral name (D10) |
-| 1 | `Unknown_BE56D8` | `programs/clientpoc/poc_link.cpp:19` | untagged neutral name (D10) |
+| 1 | `Unknown_B08C90` | `programs/clientpoc/poc_data.cpp:19` | untagged neutral name (D10) |
+| 1 | `Unknown_B08C94` | `programs/clientpoc/poc_data.cpp:20` | untagged neutral name (D10) |
+| 1 | `Unknown_B08C98` | `programs/clientpoc/poc_data.cpp:21` | untagged neutral name (D10) |
+| 1 | `Unknown_B08CA8` | `programs/clientpoc/poc_data.cpp:22` | untagged neutral name (D10) |
+| 1 | `Unknown_B08CA0` | `programs/clientpoc/poc_data.cpp:23` | untagged neutral name (D10) |
+| 1 | `Unknown_B08CB4` | `programs/clientpoc/poc_data.cpp:24` | untagged neutral name (D10) |
+| 1 | `Unknown_B08C9C` | `programs/clientpoc/poc_data.cpp:25` | untagged neutral name (D10) |
+| 1 | `Unknown_B08CAC` | `programs/clientpoc/poc_data.cpp:26` | untagged neutral name (D10) |
+| 1 | `Unknown_B08CB0` | `programs/clientpoc/poc_data.cpp:27` | untagged neutral name (D10) |
+| 1 | `Unknown_B08CB8` | `programs/clientpoc/poc_data.cpp:28` | untagged neutral name (D10) |
+| 1 | `Unknown_B08CBC` | `programs/clientpoc/poc_data.cpp:29` | untagged neutral name (D10) |
+| 1 | `Unknown_B08CC0` | `programs/clientpoc/poc_data.cpp:30` | untagged neutral name (D10) |
+| 1 | `Unknown_B08CC4` | `programs/clientpoc/poc_data.cpp:31` | untagged neutral name (D10) |
 | 1 | `Unknown_847D20` | `programs/clientpoc/poc_standins.cpp:23` | untagged neutral name (D10) |
 | 1 | `Unknown_846C90` | `programs/clientpoc/poc_standins.cpp:30` | untagged neutral name (D10) |
 | 1 | `Unknown_497300` | `programs/clientpoc/poc_ui.cpp:19` | untagged neutral name (D10) |
@@ -25007,11 +25005,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_Debug_Print` | `tests/clienttest/client_stubs.cpp:150` | untagged neutral name (D10) |
 | 1 | `Unknown_Debug_Printf` | `tests/clienttest/client_stubs.cpp:151` | untagged neutral name (D10) |
 | 1 | `Unknown_C07550` | `tests/clienttest/client_stubs.cpp:155` | untagged neutral name (D10) |
-| 1 | `Unknown00` | `tests/clienttest/client_stubs.cpp:156` | untagged neutral name (D10) |
-| 1 | `Unknown_BE7D80` | `tests/clienttest/client_stubs.cpp:157` | untagged neutral name (D10) |
-| 1 | `UnknownGlobal` | `tests/clienttest/client_stubs.cpp:166` | untagged neutral name (D10) |
-| 1 | `UnknownB02C90Class` | `tests/clienttest/client_stubs.cpp:174` | untagged neutral name (D10) |
-| 1 | `Unknown_725AD0` | `tests/clienttest/client_stubs.cpp:176` | untagged neutral name (D10) |
+| 1 | `UnknownGlobal` | `tests/clienttest/client_stubs.cpp:164` | untagged neutral name (D10) |
+| 1 | `UnknownB02C90Class` | `tests/clienttest/client_stubs.cpp:172` | untagged neutral name (D10) |
+| 1 | `Unknown_725AD0` | `tests/clienttest/client_stubs.cpp:174` | untagged neutral name (D10) |
 | 1 | `Unknown135C` | `tests/clienttest/clienttest.cpp:111` | untagged neutral name (D10) |
 | 1 | `Unknown_BDAA7C` | `tests/clienttest/clienttest.cpp:126` | untagged neutral name (D10) |
 | 1 | `Unknown_BDA968` | `tests/clienttest/clienttest.cpp:127` | untagged neutral name (D10) |
@@ -25183,7 +25179,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_Debug_End_Step` | `tests/udpreplay/connect_stubs.cpp:33` | untagged neutral name (D10) |
 | 1 | `Unknown_Debug_Print` | `tests/udpreplay/connect_stubs.cpp:34` | untagged neutral name (D10) |
 | 1 | `Unknown_Debug_Printf` | `tests/udpreplay/connect_stubs.cpp:35` | untagged neutral name (D10) |
-| 1 | `Unknown_BE56D8` | `tests/udpreplay/shipcust_stubs.cpp:27` | untagged neutral name (D10) |
 | 2 | `ambientsoundmanager.h` | `app/audio/ambientsoundmanager.h:5` | ambientsoundmanager.cpp is the client's; header name assumed |
 | 2 | `RandomSoundStruct` | `app/audio/ambientsoundmanager.h:27` | what it holds (the channel array's name is the client's RandomSounds) |
 | 2 | `std:` | `app/audio/ambientsoundmanager.h:31` | what Play_2D_Sound gets |
@@ -27941,7 +27936,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Host_Name` | `app/common/connect.cpp:37` | what it holds |
 | 2 | `Local_Address` | `app/common/connect.cpp:38` | what it holds |
 | 2 | `Local_IP` | `app/common/connect.cpp:39` | what it holds |
-| 2 | `Get_Network_INI` | `app/common/connect.cpp:41` | what it does |
 | 2 | `Is_Local` | `app/common/connect.cpp:42` | what it does |
 | 2 | `Next_Port` | `app/common/connect.cpp:44` | what it holds |
 | 2 | `Create_Connection` | `app/common/connect.cpp:78` | what it does |
@@ -27979,32 +27973,32 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Memory` | `app/common/connect.h:155` | what it holds |
 | 2 | `Connection` | `app/common/connect.h:161` | what it holds |
 | 2 | `Marked` | `app/common/connect.h:162` | what it holds |
-| 2 | `Peek` | `app/common/connect.h:174` | what it does |
-| 2 | `Get_Packet` | `app/common/connect.h:175` | what it does |
-| 2 | `Receive` | `app/common/connect.h:176` | what it does |
-| 2 | `Broadcast` | `app/common/connect.h:177` | what it does |
-| 2 | `Mark` | `app/common/connect.h:178` | what it does |
-| 2 | `Clear_Marks` | `app/common/connect.h:179` | what it does |
-| 2 | `Get_Port` | `app/common/connect.h:181` | what it does |
-| 2 | `Set_Name` | `app/common/connect.h:182` | what it does |
-| 2 | `Set_Listener` | `app/common/connect.h:183` | what it does |
-| 2 | `Accept_New` | `app/common/connect.h:184` | what it does |
-| 2 | `Remove_Connection` | `app/common/connect.h:186` | what it does |
-| 2 | `Add_Unwrapped` | `app/common/connect.h:187` | what it does |
-| 2 | `Destroy_Connection` | `app/common/connect.h:188` | what it does |
-| 2 | `Destroy_All` | `app/common/connect.h:189` | what it does |
-| 2 | `Remove_Dead` | `app/common/connect.h:190` | what it does |
-| 2 | `Is_Managed` | `app/common/connect.h:191` | what it does |
-| 2 | `Add_Connection` | `app/common/connect.h:192` | what it does |
-| 2 | `std:` | `app/common/connect.h:194` | what it holds |
-| 2 | `RoundRobin` | `app/common/connect.h:195` | what it holds |
-| 2 | `Current` | `app/common/connect.h:196` | what it holds |
-| 2 | `Name` | `app/common/connect.h:198` | what it holds |
-| 2 | `Listener` | `app/common/connect.h:199` | what it holds |
-| 2 | `Create_Connection` | `app/common/connect.h:204` | what it does |
-| 2 | `Create_Connection` | `app/common/connect.h:205` | what it does |
-| 2 | `Create_Connection` | `app/common/connect.h:206` | what it does |
-| 2 | `Create_Connection_Manager` | `app/common/connect.h:207` | what it does |
+| 2 | `Peek` | `app/common/connect.h:184` | what it does |
+| 2 | `Get_Packet` | `app/common/connect.h:185` | what it does |
+| 2 | `Receive` | `app/common/connect.h:186` | what it does |
+| 2 | `Broadcast` | `app/common/connect.h:187` | what it does |
+| 2 | `Mark` | `app/common/connect.h:188` | what it does |
+| 2 | `Clear_Marks` | `app/common/connect.h:189` | what it does |
+| 2 | `Get_Port` | `app/common/connect.h:191` | what it does |
+| 2 | `Set_Name` | `app/common/connect.h:192` | what it does |
+| 2 | `Set_Listener` | `app/common/connect.h:193` | what it does |
+| 2 | `Accept_New` | `app/common/connect.h:194` | what it does |
+| 2 | `Remove_Connection` | `app/common/connect.h:196` | what it does |
+| 2 | `Add_Unwrapped` | `app/common/connect.h:197` | what it does |
+| 2 | `Destroy_Connection` | `app/common/connect.h:198` | what it does |
+| 2 | `Destroy_All` | `app/common/connect.h:199` | what it does |
+| 2 | `Remove_Dead` | `app/common/connect.h:200` | what it does |
+| 2 | `Is_Managed` | `app/common/connect.h:201` | what it does |
+| 2 | `Add_Connection` | `app/common/connect.h:202` | what it does |
+| 2 | `std:` | `app/common/connect.h:204` | what it holds |
+| 2 | `RoundRobin` | `app/common/connect.h:205` | what it holds |
+| 2 | `Current` | `app/common/connect.h:206` | what it holds |
+| 2 | `Name` | `app/common/connect.h:208` | what it holds |
+| 2 | `Listener` | `app/common/connect.h:209` | what it holds |
+| 2 | `Create_Connection` | `app/common/connect.h:214` | what it does |
+| 2 | `Create_Connection` | `app/common/connect.h:215` | what it does |
+| 2 | `Create_Connection` | `app/common/connect.h:216` | what it does |
+| 2 | `Create_Connection_Manager` | `app/common/connect.h:217` | what it does |
 | 2 | `Packet_Stats` | `app/common/dbgconn.cpp:14` | what it holds |
 | 2 | `Log_Directory` | `app/common/dbgconn.cpp:15` | what it holds |
 | 2 | `Record_Sent` | `app/common/dbgconn.cpp:210` | what it does |
