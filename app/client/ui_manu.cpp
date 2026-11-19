@@ -218,7 +218,7 @@ void UIManuClass::Unknown_7C(UIViewClass *view, bool arg)
 
 
 
-// NOT EXACT: inline budget (the client calls 0x5B6CA0 and 0x5B2950 out of line here; its frame is 0x14 bytes smaller) (0x5B0BB0)
+// NOT EXACT: inline budget (0x5B2820 inlined, its 0x5B6CA0 / 0x5B2950 out of line as the client's; left: the sort scope's stores and the font-style block's temporaries; the client's frame is 0xC bytes smaller) (0x5B0BB0)
 void UIManuClass::Unknown_58()
 {
 	SClient *sclient = Client->As_Space_Client();
@@ -227,13 +227,13 @@ void UIManuClass::Unknown_58()
 		InterfaceSortScopeClass scope(this);
 		State = UI_OPEN;
 		Unknown0BAC = sclient->PDAInterface->Unknown_695780(false);
-		Unknown0B98 = -1;
-		Unknown_5B6CA0();
-		for (int j = 0; j < 4; j++) {
-			Unknown0B80[j] = -1;
-		}
-		Unknown0B0->Unknown_66FA90(0, 10.0f, true);
-		Unknown_5B2950();
+		Unknown_5B2820();
+
+
+
+
+
+
 		Unknown_BE67C4->Add(InterfaceMesh->Peek_Mesh_Object());
 		RefCountPtr<FontSys> name_text = Create_Peek(Unknown_BE67C4->Get_Style("Name_tsm01a", InterfaceMesh->Peek_Mesh_Object()));
 		RefCountPtr<RenderObjClass> name_obj = Create_Get(InterfaceMesh->Peek_Object()->Get_Sub_Object_By_Name("name"));
@@ -815,10 +815,10 @@ void UIManuClass::Unknown_5B2480()
 void UIManuClass::Unknown_5B2820()
 {
 	Unknown0B98 = -1;
-	for (int i = 0; i < 10; i++) {
-		Unknown11C[i].Gadget->Unknown_40(false);
-		Unknown11C[i].Gadget->Unknown_8C(true);
-	}
+	Unknown_5B6CA0();
+
+
+
 	for (int j = 0; j < 4; j++) {
 		Unknown0B80[j] = -1;
 	}
@@ -1009,7 +1009,7 @@ void UIManuClass::Unknown_5B3640(bool all)
 		Unknown0BB0 = -1;
 	}
 	Unknown0BAD = true;
-	UIManuListClass *list = Unknown_Find_Valid_List("PreviousAttempts");
+	UIManuListClass *list = Unknown_Previous_Attempts(this);
 	if (list) {
 		Unknown_5B3260(list);
 	}
@@ -1112,11 +1112,11 @@ bool UIManuClass::Unknown_5B3D70(UIManuNodeClass *tree, int a, int b, int c)
 	return(true);
 }
 
-// NOT EXACT: inline budget (the client calls the find, 0x5B3CA0 and 0x5B3D70 out of line) (0x5B3E00)
+// NOT EXACT: inline budget (the find out of line as the client's, 0x5467F0, through two inline layers; the first two passes are 0x5B3B90 / 0x5B3CA0 inlined, calling 0x5B3CA0 / 0x5B3D70 as the client; left: the third pass's inlined 0x5B3D70, whose vector size the client calls out of line) (0x5B3E00)
 void UIManuClass::Unknown_5B3E00()
 {
-	NameClass name("PrimaryCategories");
-	UIManuCategoriesClass *categories = Unknown_Find_Field<UIManuCategoriesClass>((DeltaCompoundClass *)Unknown0BA0, name);
+
+	UIManuCategoriesClass *categories = Unknown_Manu_Raw<UIManuCategoriesClass>(Unknown0BA0, "PrimaryCategories");
 	if (!categories || !categories->Unknown70) {
 		return;
 	}
@@ -1125,15 +1125,15 @@ void UIManuClass::Unknown_5B3E00()
 	int pick = -1;
 	int count = tree->Unknown084.size();
 	for (int a = 0; a < count; a++) {
-		int count2 = tree->Unknown084[a]->Unknown1A8.size();
-		for (int b = 0; b < count2; b++) {
-			if (!Unknown_5B3CA0(tree, a, b)) {
-				found++;
-				pick = a;
-				break;
-			}
+		if (!Unknown_5B3B90(tree, a)) {
+			found++;
+			pick = a;
 		}
 	}
+
+
+
+
 	if (found == 0) {
 		Unknown0B80[0] = -2;
 		return;
@@ -1150,20 +1150,20 @@ void UIManuClass::Unknown_5B3E00()
 	pick = -1;
 	found = 0;
 	count = tree->Unknown084[Unknown0B80[0]]->Unknown1A8.size();
-	if (count < 1) {
-		return;
-	}
+
+
+
 	for (int b = 0; b < count; b++) {
-		int a = Unknown0B80[0];
-		int count3 = tree->Unknown084[a]->Unknown1A8[b]->Unknown230.size();
-		for (int c = 0; c < count3; c++) {
-			if (!Unknown_5B3D70(tree, a, b, c)) {
-				found++;
-				pick = b;
-				break;
-			}
+		if (!Unknown_5B3CA0(tree, Unknown0B80[0], b)) {
+			found++;
+			pick = b;
 		}
 	}
+
+
+
+
+
 	if (found != 1) {
 		return;
 	}
@@ -1175,9 +1175,9 @@ void UIManuClass::Unknown_5B3E00()
 	pick = -1;
 	found = 0;
 	count = tree->Unknown084[Unknown0B80[0]]->Unknown1A8[Unknown0B80[1]]->Unknown230.size();
-	if (count < 1) {
-		return;
-	}
+
+
+
 	for (int c = 0; c < count; c++) {
 		if (!Unknown_5B3D70(tree, Unknown0B80[0], Unknown0B80[1], c)) {
 			pick = c;
