@@ -31,7 +31,6 @@ HeightFieldClass::HeightFieldClass(void) :
 {
 }
 
-// NOT EXACT: order-only (the client loads Size before Count - 1 and copies it for HalfSize), parked
 HeightFieldClass *HeightFieldClass::Load(const char *ini_name, unsigned int max_size)
 {
 	INIClass ini;
@@ -51,8 +50,8 @@ HeightFieldClass *HeightFieldClass::Load(const char *ini_name, unsigned int max_
 	field->Mask = field->Size - 1;
 	field->CountMask = field->Count - 1;
 	field->Log2 = Find_POT_Log2(field->Size);
-	float spacing = hscale / (float)field->Size;
 	field->HalfSize = field->Size >> 1;
+	float spacing = hscale / (float)field->Size;
 	vscale = vscale / (float)field->MaxValue;
 	field->XSpacing = spacing;
 	field->YSpacing = spacing;

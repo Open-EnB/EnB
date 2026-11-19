@@ -777,6 +777,9 @@
 "?Find_POT@@YAHH@Z": [
 "0x8C8F30"
 ],
+"?Find_POT_Log2@@YAII@Z": [
+"0x8C8F60"
+],
 "?Find_Point_Closest_To@LineSegClass@@QBE?AVVector3@@ABV2@@Z": [
 "0x8DE5C0"
 ],
@@ -1343,6 +1346,9 @@
 ],
 "?Render@Render2DClass@@QAEXXZ": [
 "0x9721E0"
+],
+"?Render@SegmentedLineClass@@UAEXAAVRenderInfoClass@@@Z": [
+"0x9695A0"
 ],
 "?Render@WW3D@@SA?AW4WW3DErrorType@@PAVSceneClass@@PAVCameraClass@@_N2ABVVector3@@@Z": [
 "0x917C80"
@@ -4208,6 +4214,9 @@
 ],
 "data:__real@4@4015bebc200000000000": [
 "0xB028A0"
+],
+"data:__real@4@407effffff0000000000": [
+"0xB068F4"
 ],
 "data:__real@4@bff1d1b7170000000000": [
 "0xAE785C"
