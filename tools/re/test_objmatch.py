@@ -667,6 +667,30 @@ class Cr4XcuSparse(unittest.TestCase):
             objmatch.USE_CR4_XCU_SPARSE = True
 
 
+class ObXcuOnePerEntry(unittest.TestCase):
+    """D246 (OB): permstr.obj's two .CRT$XCU initialisers (byte-identical, 178 bytes) are both found once, at 0x4ADC50,
+    the CRT table's entry 76; an entry is one function pointer, so the first keeps it and the second, with no later
+    entry it fullmatches, is left uncredited (`xcu_twin`). Compared by object, not by `_$E` name."""
+    def test_one(self):
+        path = os.path.join(OBJS, 'permstr.obj')
+        if not os.path.exists(path):
+            self.skipTest(f'{path} missing')
+        img = objmatch.ClientImage(objmatch.DEFAULT_CLIENT)
+        inits = objmatch.xcu_initialisers(objmatch.CoffObject(path))
+
+        def at():
+            res = {r['symbol']: r for r in objmatch.match_objects(img, [path], APP_REGION)}
+            return [n for n in inits if res[n]['status'] == 'exact' and res[n]['addresses'] == ['0x4ADC50']], res
+        got, res = at()
+        self.assertEqual(got, inits[:1])
+        self.assertEqual([res[n].get('xcu_twin') for n in inits[1:]], ['0x4ADC50'] * (len(inits) - 1))
+        objmatch.USE_OB_XCU_ONE_PER_ENTRY = False
+        try:
+            self.assertEqual(len(at()[0]), 2)
+        finally:
+            objmatch.USE_OB_XCU_ONE_PER_ENTRY = True
+
+
 class Cr6NamedCallers(unittest.TestCase):
     """D246 (CR6): sclient.obj's Create_NEW<ChatPanelInterface> and Create_NEW<UITalkTreeSpaceClass> (21 bytes,
     byte-identical with 157 client copies) are called by SClient::Init, not exact, which symbols.json names at 0x741180

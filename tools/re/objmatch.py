@@ -995,6 +995,8 @@ def match_objects(img, paths, region=None, callers=False, extern_called=None, ca
                     r['identical'] = same_copies(text, start, hits, obj.relocated(sec, s, length), img, strs)
                     pending.append((r, obj, sec, s, length, hits))
             results.append((r, obj, sec, s, length))
+    if USE_OB_XCU_ONE_PER_ENTRY:
+        xcu_one_per_entry(img, results, text, start)
     # D80: what the exact functions show about the link (an external symbol's address) helps to break
     # the ties of the others; repeat until nothing more resolves (a destructor found once settles the
     # scalar deleting destructors that call it).
@@ -3778,6 +3780,46 @@ def xcu_position(img, results, ranges, text, base, claimed, thunk):
 # two share an entry (delta.obj's guarded header-static `_$E29` at 0x4A6070, entry 53, with entries 51-52 between it
 # and `_$E5` 0x4A4C90 that our delta.obj does not list); kind `sparse`
 USE_CR4_XCU_SPARSE = True
+
+# D246 (OB, run 2026-11-18): a CRT table entry is one function pointer, so it takes one initialiser per object. Two
+# initialisers one object's .CRT$XCU lists that the plain search finds exact at one table entry (permstr.obj's `_$E4`
+# and `_$E9`, byte-identical, both at 0x4ADC50, entry 76; the client's permstr stretch holds that one entry) are
+# not both its: the first in .CRT$XCU order keeps the entry, a later one goes to the nearest later table entry it
+# fullmatches that no exact function holds, else is left uncredited (status 'none', `xcu_twin` the entry). Measured
+# on the plain search's credits only (the 2026-11-18 app objects: this one case); the rounds' credits already keep
+# one symbol per address (`claimed`).
+USE_OB_XCU_ONE_PER_ENTRY = True
+
+
+def xcu_one_per_entry(img, results, text, base):
+    """OB: USE_OB_XCU_ONE_PER_ENTRY (above), applied to the plain search's results in place."""
+    table = [t for t in xcu_table(img) if base <= t < base + len(text)]
+    index = {a: i for i, a in enumerate(table)}
+    held = {int(r['addresses'][0], 16) for r, *_ in results if r['status'] == 'exact'}
+    by_obj = collections.defaultdict(dict)
+    for item in results:
+        by_obj[id(item[1])][item[0]['symbol']] = item
+    for defs in by_obj.values():
+        obj = next(iter(defs.values()))[1]
+        seen = {}
+        for n in xcu_initialisers(obj):
+            if n not in defs or not generated(n) or defs[n][0]['status'] != 'exact':
+                continue
+            r, _, sec, s, length = defs[n]
+            a = int(r['addresses'][0], 16)
+            if a not in index:
+                continue
+            if a not in seen:
+                seen[a] = n
+                continue
+            later = [t for t in table[index[a] + 1:] if t not in held and _fullmatch_at(obj, sec, s, length, text, base, t)]
+            r['xcu_twin'] = f'0x{a:06X}'
+            if later:
+                r['addresses'] = [f'0x{later[0]:06X}']
+                held.add(later[0])
+            else:
+                r['status'] = 'none'
+                r['addresses'] = []
 
 
 def xcu_sparse(inits, wins, run, index, defs, claimed, obj, text, base):
