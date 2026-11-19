@@ -41,7 +41,7 @@ void Unknown_Reset_Distortion_List(void)
 	DistortionEnabled = false;
 
 	const DX8Caps * caps = DX8Wrapper::Get_Current_Caps();
-	if (caps->Support_Cubemaps()) {
+	if (caps->Support_Distortion()) {
 		int width, height, bits;
 		bool windowed;
 		WW3D::Get_Device_Resolution(width, height, bits, windowed);
