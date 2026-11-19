@@ -4614,7 +4614,7 @@ below name only the work items, the blocked work, the leads and the queues.
    * **`.work/coord/open_rows.py`** to the new queue.tsv columns; **`triage.py plan --out`** (the week queue's written output).
    * **0x4A4C90** (Delta.cpp's static initialiser) as a verified function start.
    * **Tools (P3, P4):** Ghidra body lengths into app-functions.json (P3); name the about 193 unplaced NOT EXACT entries (symbols.py) so the card stops estimating them by the median (P4).
-10. **Parked leftovers** (each waits for a lever; `attempts.py show ADDR`): inv_data_peek 0x68A090 / 0x68A270 /
+10. **Parked leftovers** (each waits for a lever; `attempts.py show ADDR`): ui_talkt 0x64C8D0 (0.74: only the two inlined erases swapped; dead reads cut the later site first, the client the earlier: a source layer rather than a budget form); ui_chat_window 0x56FD30 (frame 0x48 against 0x50: the client keeps index in its own slot; start from the P4 + window-at-function-scope form, 155 rows); inv_data_peek 0x68A090 / 0x68A270 /
    0x68A450 / 0x68A8C0 (register: the failure path's inlined string ctor `[ecx+ebx]` vs `[ebx+ecx]`, skill_data_peek
    0x6A5730's residue); fontsys 0x6CD950 (0.71, register: index edi / slot ebp swapped by every clamp form, ~120 forms; a
    copy at the top fixes the registers but hoists the mov); fontdatabase's Set_Font 0x6C38F0
