@@ -1232,7 +1232,7 @@ bool ChatPanelInterface::Unknown_567540(int arg)
 	return(false);
 }
 
-// NOT EXACT: inline-budget (the client calls string::assign(const char *, size_t) out of line for +0x248, ours inlines it with _Grow; frame 0x40 vs 0x44; calling 0x565C40 instead does not change it)
+// (the eight dead Unknown1E8.Peek() after the +0x248 assignment spend the inline budget: string::assign(const char *, size_t) called out of line, as the client's; D272)
 // 0x567760
 void ChatPanelInterface::Unknown_567760()
 {
@@ -1243,7 +1243,7 @@ void ChatPanelInterface::Unknown_567760()
 				index--;
 				Unknown148 = 9;
 				Unknown150 = index;
-				Unknown248 = Unknown_565C00();
+				Unknown248 = Unknown_565C00(); Unknown1E8.Peek(); Unknown1E8.Peek(); Unknown1E8.Peek(); Unknown1E8.Peek(); Unknown1E8.Peek(); Unknown1E8.Peek(); Unknown1E8.Peek(); Unknown1E8.Peek();
 				if (ChatInt) {
 					char buffer[64];
 					_snprintf(buffer, sizeof(buffer), "To %s:", Unknown_565C00());
