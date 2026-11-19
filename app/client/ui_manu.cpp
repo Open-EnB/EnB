@@ -691,7 +691,7 @@ void UIManuClass::Unknown_5B1C20(int level)
 
 inline UIManuListClass *UIManuClass::Unknown_Find_List(const char *field) { NameClass name(field); return(Unknown_Find_Field<UIManuListClass>((DeltaCompoundClass *)Unknown0BA0, name)); }
 template<class C> inline C *Unknown_Find_Set_List(DeltaCompoundClass *root, const NameClass &name) { C *t = Unknown_Find_Field<C>(root, name); return((t != NULL && t->Unknown70 != 0) ? t : NULL); }	// NAME 1: neutral (D10): the set test as one conditional expression (0x5B3850's jumps go straight to the end) with the explicit compares (their cost sends the 'PreviousAttempts' Cast out of line as the client's 0x5B7260)
-inline UIManuListClass *UIManuClass::Unknown_Find_Valid_List(const char *field) { NameClass name(field); return(Unknown_Find_Set_List<UIManuListClass>((DeltaCompoundClass *)Unknown0BA0, name)); }
+inline UIManuListClass *UIManuClass::Unknown_Find_Valid_List(const char *field) { NameClass name(field); DeltaCompoundClass *root = (DeltaCompoundClass *)Unknown0BA0; return(Unknown_Find_Set_List<UIManuListClass>(root, name)); }	// the root read into a local after the name (its cost sends both Casts out of line in 0x5B1ED0's inlined 0x5B3850 as the client's 0x5B7260; 0x5B3850 stays exact)
 static inline UIManuListClass *Unknown_Previous_Attempts(UIManuClass *manu) { return(manu->Unknown_Find_Valid_List("PreviousAttempts")); }	// NAME 1: neutral (D10): the extra layer of the 'PreviousAttempts' list (0x5B3850 calls its Cast out of line, the 'KnownFormula' one inline)
 inline UIManuListClass *UIManuClass::Unknown_Get_List()
 {
@@ -701,7 +701,7 @@ inline UIManuListClass *UIManuClass::Unknown_Get_List()
 	return(Unknown_Find_Valid_List("KnownFormula"));
 }
 
-// NOT EXACT: inline budget (0x5B3850 inlined: the client calls rtti.h's Cast out of line, 0x5B7260, in its 'KnownFormula' find too) (0x5B1ED0)
+// 0x5B1ED0
 void UIManuClass::Unknown_5B1ED0(int row)
 {
 	if (Unknown0B94 != 0 && row < Unknown0B94 && Unknown0B98 == 3) {
@@ -1866,8 +1866,8 @@ void UIManuClass::Unknown_5B6D30()
 **	aux_roots.h, included on a blank line before them; 0x5B5320's static helpers 0x5B5CD0 (the target's item name,
 **	FAIL_IFs 1517-1529, its static 'Unknown Item' string destroyed by 0x5B5FF0) and 0x5B6060 (the Validity's message)
 **	are defined before it, and the client emits them after it.
-**	The constructor, destructor, slots +0x54 / +0x58 / +0x5C / +0x60 / +0x68, 0x5B1ED0, 0x5B2480, 0x5B2BD0, 0x5B2FE0,
-**	0x5B3640, 0x5B3850, 0x5B3E00, 0x5B4680, 0x5B4850, 0x5B4B10, 0x5B5320, 0x5B5CD0 and 0x5B67C0 compile but are not exact (see their NOT
+**	The constructor, destructor, slots +0x54 / +0x58 / +0x5C / +0x60 / +0x68, 0x5B2480, 0x5B2BD0, 0x5B2FE0,
+**	0x5B3640, 0x5B3E00, 0x5B4680, 0x5B4850, 0x5B4B10, 0x5B5320, 0x5B5CD0 and 0x5B67C0 compile but are not exact (see their NOT
 **	EXACT notes; most are the client's inline budget: it calls finds, casts or the tree checks out of line where this
 **	compile inlines them). The static __int64 0x5AF9D0 initialises is the filter request interval.
 */
