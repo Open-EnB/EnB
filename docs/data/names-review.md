@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1971 |
 | 2 | describes what the code does | 4991 |
-| 1 | neutral placeholder | 25425 |
+| 1 | neutral placeholder | 25426 |
 
 ## For review (score 3 and below)
 
@@ -2428,7 +2428,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `ControlKeyValueStruct` | `app/client/control_keys_manager.h:77` | neutral (D10): the 4-byte key value 0x5CB000's options screen copies |
 | 1 | `KeyMappingStruct` | `app/client/control_keys_manager.h:89` | neutral (D10): one key definition's mapping (0xC bytes): its DefPtr and keys |
 | 1 | `KeyIdStruct` | `app/client/control_keys_manager.h:97` | neutral (D10): the value of _KeyIds (0x14 bytes) |
-| 1 | `std:` | `app/client/control_keys_manager.h:171` | neutral (D10) |
+| 1 | `ControlKeysInstancesClass` | `app/client/control_keys_manager.h:104` | neutral (D10): _Instances' type, a class over hash_map<unsigned int, ControlKeysManager> (control_keys_manager.cpp) |
+| 1 | `std:` | `app/client/control_keys_manager.h:172` | neutral (D10) |
 | 1 | `std:` | `app/client/cpacket.cpp:73` | neutral (D10). rs_track.cpp's render object (Class_ID 0x10001): the render states the packets switch |
 | 1 | `Unknown_BE7D58` | `app/client/cpacket.cpp:73` | untagged neutral name (D10) |
 | 1 | `name, channel` | `app/client/cpacket.cpp:89` | the packet's fields |
@@ -23945,45 +23946,45 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown11` | `app/shared/land.cpp:605` | untagged neutral name (D10) |
 | 1 | `Unknown_466F40` | `app/shared/land.cpp:608` | untagged neutral name (D10) |
 | 1 | `UnknownXX` | `app/shared/land.h:19` | untagged neutral name (D10) |
-| 1 | `LandPatchClass` | `app/shared/land.h:74` | the land's patch (0x30 bytes, new'd per grid cell by Load_Assets 0x4691D0; ctor 0x474530, dtor 0x474560) |
-| 1 | `VertexBuffer` | `app/shared/land.h:89` | members after their offsets (ctor 0x474530) |
-| 1 | `LandPatchRecordClass` | `app/shared/land.h:104` | one record per patch, 0x28 bytes (new[]'d by Load_Assets 0x4691D0; ctor 0x474990, dtor 0x4749D0) |
-| 1 | `Unknown00` | `app/shared/land.h:111` | members after their offsets (ctor 0x474990) |
-| 1 | `Unknown04` | `app/shared/land.h:113` | untagged neutral name (D10) |
-| 1 | `Unknown08` | `app/shared/land.h:114` | untagged neutral name (D10) |
-| 1 | `Unknown0C` | `app/shared/land.h:115` | untagged neutral name (D10) |
-| 1 | `Unknown10` | `app/shared/land.h:116` | untagged neutral name (D10) |
-| 1 | `Unknown14` | `app/shared/land.h:117` | untagged neutral name (D10) |
-| 1 | `Unknown18` | `app/shared/land.h:118` | untagged neutral name (D10) |
-| 1 | `Unknown1C` | `app/shared/land.h:119` | untagged neutral name (D10) |
-| 1 | `Add_Unknown1218` | `app/shared/land.h:171` | the vector at +0x1218 (0x4786A0 push_back, 0x4788B0 clear; called by 0x75F8B0) |
-| 1 | `Clear_Unknown1218` | `app/shared/land.h:173` | untagged neutral name (D10) |
-| 1 | `Unknown_46E120` | `app/shared/land.h:210` | unknown; the steps of Compute_Horizons 0x46E670 (not rebuilt): the shadow casters into the height field (0x46E120), |
-| 1 | `Unknown_46F120` | `app/shared/land.h:213` | untagged neutral name (D10) |
-| 1 | `Unknown_473290` | `app/shared/land.h:214` | untagged neutral name (D10) |
-| 1 | `Unknown_470F80` | `app/shared/land.h:215` | untagged neutral name (D10) |
-| 1 | `Unknown_472F80` | `app/shared/land.h:216` | unknown; the sky's share per vertex in R, G, B from eight horizon codes, the normal's index and the colour (0x472F80, called by 0x470F80) |
-| 1 | `Unknown_4733C0` | `app/shared/land.h:222` | unknown; one height-field row each into Unknown_473290's buffers, with VScale / Spacing (0x4733C0: 4 bytes a vertex, 0x473780 and 0x473BC0: 3) |
-| 1 | `Unknown_473780` | `app/shared/land.h:224` | untagged neutral name (D10) |
-| 1 | `Unknown_473BC0` | `app/shared/land.h:225` | untagged neutral name (D10) |
-| 1 | `Unknown120` | `app/shared/land.h:256` | untagged neutral name (D10) |
-| 1 | `Unknown178` | `app/shared/land.h:273` | untagged neutral name (D10) |
-| 1 | `Unknown17C` | `app/shared/land.h:274` | untagged neutral name (D10) |
-| 1 | `Unknown180` | `app/shared/land.h:275` | untagged neutral name (D10) |
-| 1 | `Unknown184` | `app/shared/land.h:276` | untagged neutral name (D10) |
-| 1 | `Unknown188` | `app/shared/land.h:277` | untagged neutral name (D10) |
-| 1 | `Unknown190` | `app/shared/land.h:279` | untagged neutral name (D10) |
-| 1 | `Unknown191` | `app/shared/land.h:280` | untagged neutral name (D10) |
-| 1 | `Unknown192` | `app/shared/land.h:281` | untagged neutral name (D10) |
-| 1 | `Unknown1E4` | `app/shared/land.h:292` | untagged neutral name (D10) |
-| 1 | `Unknown1E8` | `app/shared/land.h:293` | untagged neutral name (D10) |
-| 1 | `Unknown1EC` | `app/shared/land.h:294` | untagged neutral name (D10) |
-| 1 | `Unknown1F0` | `app/shared/land.h:295` | untagged neutral name (D10) |
-| 1 | `Unknown1F4` | `app/shared/land.h:296` | untagged neutral name (D10) |
-| 1 | `Unknown1F8` | `app/shared/land.h:297` | untagged neutral name (D10) |
-| 1 | `Unknown120C` | `app/shared/land.h:306` | untagged neutral name (D10) |
-| 1 | `Unknown1214` | `app/shared/land.h:308` | untagged neutral name (D10) |
-| 1 | `Unknown1218` | `app/shared/land.h:309` | untagged neutral name (D10) |
+| 1 | `LandPatchClass` | `app/shared/land.h:75` | the land's patch (0x30 bytes, new'd per grid cell by Load_Assets 0x4691D0; ctor 0x474530, dtor 0x474560) |
+| 1 | `VertexBuffer` | `app/shared/land.h:90` | members after their offsets (ctor 0x474530) |
+| 1 | `LandPatchRecordClass` | `app/shared/land.h:105` | one record per patch, 0x28 bytes (new[]'d by Load_Assets 0x4691D0; ctor 0x474990, dtor 0x4749D0) |
+| 1 | `Unknown00` | `app/shared/land.h:112` | members after their offsets (ctor 0x474990) |
+| 1 | `Unknown04` | `app/shared/land.h:116` | untagged neutral name (D10) |
+| 1 | `Unknown08` | `app/shared/land.h:117` | untagged neutral name (D10) |
+| 1 | `Unknown0C` | `app/shared/land.h:118` | untagged neutral name (D10) |
+| 1 | `Unknown10` | `app/shared/land.h:119` | untagged neutral name (D10) |
+| 1 | `Unknown14` | `app/shared/land.h:120` | untagged neutral name (D10) |
+| 1 | `Unknown18` | `app/shared/land.h:121` | untagged neutral name (D10) |
+| 1 | `Unknown1C` | `app/shared/land.h:122` | untagged neutral name (D10) |
+| 1 | `Add_Unknown1218` | `app/shared/land.h:174` | the vector at +0x1218 (0x4786A0 push_back, 0x4788B0 clear; called by 0x75F8B0) |
+| 1 | `Clear_Unknown1218` | `app/shared/land.h:176` | untagged neutral name (D10) |
+| 1 | `Unknown_46E120` | `app/shared/land.h:213` | unknown; the steps of Compute_Horizons 0x46E670 (not rebuilt): the shadow casters into the height field (0x46E120), |
+| 1 | `Unknown_46F120` | `app/shared/land.h:216` | untagged neutral name (D10) |
+| 1 | `Unknown_473290` | `app/shared/land.h:217` | untagged neutral name (D10) |
+| 1 | `Unknown_470F80` | `app/shared/land.h:218` | untagged neutral name (D10) |
+| 1 | `Unknown_472F80` | `app/shared/land.h:219` | unknown; the sky's share per vertex in R, G, B from eight horizon codes, the normal's index and the colour (0x472F80, called by 0x470F80) |
+| 1 | `Unknown_4733C0` | `app/shared/land.h:225` | unknown; one height-field row each into Unknown_473290's buffers, with VScale / Spacing (0x4733C0: 4 bytes a vertex, 0x473780 and 0x473BC0: 3) |
+| 1 | `Unknown_473780` | `app/shared/land.h:227` | untagged neutral name (D10) |
+| 1 | `Unknown_473BC0` | `app/shared/land.h:228` | untagged neutral name (D10) |
+| 1 | `Unknown120` | `app/shared/land.h:259` | untagged neutral name (D10) |
+| 1 | `Unknown178` | `app/shared/land.h:276` | untagged neutral name (D10) |
+| 1 | `Unknown17C` | `app/shared/land.h:277` | untagged neutral name (D10) |
+| 1 | `Unknown180` | `app/shared/land.h:278` | untagged neutral name (D10) |
+| 1 | `Unknown184` | `app/shared/land.h:279` | untagged neutral name (D10) |
+| 1 | `Unknown188` | `app/shared/land.h:280` | untagged neutral name (D10) |
+| 1 | `Unknown190` | `app/shared/land.h:282` | untagged neutral name (D10) |
+| 1 | `Unknown191` | `app/shared/land.h:283` | untagged neutral name (D10) |
+| 1 | `Unknown192` | `app/shared/land.h:284` | untagged neutral name (D10) |
+| 1 | `Unknown1E4` | `app/shared/land.h:295` | untagged neutral name (D10) |
+| 1 | `Unknown1E8` | `app/shared/land.h:296` | untagged neutral name (D10) |
+| 1 | `Unknown1EC` | `app/shared/land.h:297` | untagged neutral name (D10) |
+| 1 | `Unknown1F0` | `app/shared/land.h:298` | untagged neutral name (D10) |
+| 1 | `Unknown1F4` | `app/shared/land.h:299` | untagged neutral name (D10) |
+| 1 | `Unknown1F8` | `app/shared/land.h:300` | untagged neutral name (D10) |
+| 1 | `Unknown120C` | `app/shared/land.h:309` | untagged neutral name (D10) |
+| 1 | `Unknown1214` | `app/shared/land.h:311` | untagged neutral name (D10) |
+| 1 | `Unknown1218` | `app/shared/land.h:312` | untagged neutral name (D10) |
 | 1 | `land_lighting.h` | `app/shared/land_lighting.h:18` | no assert or __FILE__ names the file |
 | 1 | `LandUnknown466BE0Class` | `app/shared/landdmap.cpp:11` | untagged neutral name (D10) |
 | 1 | `Unknown_BDC0D8` | `app/shared/landdmap.cpp:11` | untagged neutral name (D10) |
@@ -25956,33 +25957,33 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Modifiers` | `app/client/control_keys_manager.h:86` | the modifier bits |
 | 2 | `std:` | `app/client/control_keys_manager.h:91` | describes what it does |
 | 2 | `Id` | `app/client/control_keys_manager.h:99` | what it holds |
-| 2 | `Set_Key` | `app/client/control_keys_manager.h:142` | describes what it does |
-| 2 | `Get_Key` | `app/client/control_keys_manager.h:143` | describes what it does |
-| 2 | `Add_Keys` | `app/client/control_keys_manager.h:144` | describes what it does |
-| 2 | `Remove_Keys` | `app/client/control_keys_manager.h:145` | describes what it does |
-| 2 | `Save` | `app/client/control_keys_manager.h:146` | describes what it does |
-| 2 | `Get_Signal_Map` | `app/client/control_keys_manager.h:147` | describes what it does |
-| 2 | `Restore_Keys` | `app/client/control_keys_manager.h:148` | describes what it does |
-| 2 | `Set_Default_PSW` | `app/client/control_keys_manager.h:149` | describes what it does |
-| 2 | `Set_Default_SIM` | `app/client/control_keys_manager.h:150` | describes what it does |
-| 2 | `std:` | `app/client/control_keys_manager.h:151` | describes what it does |
-| 2 | `Build_Keys_Map` | `app/client/control_keys_manager.h:152` | describes what it does |
-| 2 | `Init` | `app/client/control_keys_manager.h:153` | describes what it does |
-| 2 | `Load_Definitions` | `app/client/control_keys_manager.h:154` | describes what it does |
-| 2 | `Load_Keys` | `app/client/control_keys_manager.h:155` | describes what it does |
-| 2 | `Save_Keys` | `app/client/control_keys_manager.h:156` | describes what it does |
-| 2 | `Find_Mappings` | `app/client/control_keys_manager.h:157` | describes what it does |
-| 2 | `Create` | `app/client/control_keys_manager.h:158` | describes what it does |
-| 2 | `Destroy` | `app/client/control_keys_manager.h:159` | what its caller uses it for |
-| 2 | `Get` | `app/client/control_keys_manager.h:160` | describes what it does |
-| 2 | `Get_Key_Id` | `app/client/control_keys_manager.h:161` | describes what it does |
+| 2 | `Set_Key` | `app/client/control_keys_manager.h:143` | describes what it does |
+| 2 | `Get_Key` | `app/client/control_keys_manager.h:144` | describes what it does |
+| 2 | `Add_Keys` | `app/client/control_keys_manager.h:145` | describes what it does |
+| 2 | `Remove_Keys` | `app/client/control_keys_manager.h:146` | describes what it does |
+| 2 | `Save` | `app/client/control_keys_manager.h:147` | describes what it does |
+| 2 | `Get_Signal_Map` | `app/client/control_keys_manager.h:148` | describes what it does |
+| 2 | `Restore_Keys` | `app/client/control_keys_manager.h:149` | describes what it does |
+| 2 | `Set_Default_PSW` | `app/client/control_keys_manager.h:150` | describes what it does |
+| 2 | `Set_Default_SIM` | `app/client/control_keys_manager.h:151` | describes what it does |
+| 2 | `std:` | `app/client/control_keys_manager.h:152` | describes what it does |
+| 2 | `Build_Keys_Map` | `app/client/control_keys_manager.h:153` | describes what it does |
+| 2 | `Init` | `app/client/control_keys_manager.h:154` | describes what it does |
+| 2 | `Load_Definitions` | `app/client/control_keys_manager.h:155` | describes what it does |
+| 2 | `Load_Keys` | `app/client/control_keys_manager.h:156` | describes what it does |
+| 2 | `Save_Keys` | `app/client/control_keys_manager.h:157` | describes what it does |
+| 2 | `Find_Mappings` | `app/client/control_keys_manager.h:158` | describes what it does |
+| 2 | `Create` | `app/client/control_keys_manager.h:159` | describes what it does |
+| 2 | `Destroy` | `app/client/control_keys_manager.h:160` | what its caller uses it for |
+| 2 | `Get` | `app/client/control_keys_manager.h:161` | describes what it does |
 | 2 | `Get_Key_Id` | `app/client/control_keys_manager.h:162` | describes what it does |
-| 2 | `Register_Key` | `app/client/control_keys_manager.h:163` | describes what it does |
-| 2 | `Reset_Keys` | `app/client/control_keys_manager.h:165` | describes what it does |
-| 2 | `Copy_Keys` | `app/client/control_keys_manager.h:166` | describes what it does |
-| 2 | `Client` | `app/client/control_keys_manager.h:168` | what it holds |
-| 2 | `std:` | `app/client/control_keys_manager.h:174` | what it holds |
-| 2 | `PlayerID` | `app/client/control_keys_manager.h:179` | what it holds |
+| 2 | `Get_Key_Id` | `app/client/control_keys_manager.h:163` | describes what it does |
+| 2 | `Register_Key` | `app/client/control_keys_manager.h:164` | describes what it does |
+| 2 | `Reset_Keys` | `app/client/control_keys_manager.h:166` | describes what it does |
+| 2 | `Copy_Keys` | `app/client/control_keys_manager.h:167` | describes what it does |
+| 2 | `Client` | `app/client/control_keys_manager.h:169` | what it holds |
+| 2 | `std:` | `app/client/control_keys_manager.h:175` | what it holds |
+| 2 | `PlayerID` | `app/client/control_keys_manager.h:181` | what it holds |
 | 2 | `cpacket.cpp` | `app/client/cpacket.cpp:75` | the class id the handlers test |
 | 2 | `SoundManager` | `app/client/cpacket.cpp:94` | what it holds |
 | 2 | `all` | `app/client/debris.h:31` | the Debris%02d keys they come from |
@@ -29721,48 +29722,48 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Add_Section` | `app/shared/kv_util.cpp:108` | describes what it does |
 | 2 | `LandLodDistances` | `app/shared/land.cpp:46` | the distance (in field cells) of level 1 per lod setting, doubled per level (0xB7188C: eight entries, VIDTEST's |
 | 2 | `land.h` | `app/shared/land.h:36` | after LandClass; no assert or __FILE__ names the file |
-| 2 | `LandDecorationStruct` | `app/shared/land.h:63` | one decoration, 0x38 bytes (Create_Decorations 0x479D00's local, the .dcb reader 0x4795D0); a tree's |
-| 2 | `Init` | `app/shared/land.h:81` | after what they do (0x4746C0, called by Load_Assets per patch; 0x474790) |
-| 2 | `Draw_Strip` | `app/shared/land.h:84` | the patch's strip at its level: what Render 0x474B30 inlines (0x474590, its out-of-line copy is unreferenced) |
-| 2 | `Draw` | `app/shared/land.h:86` | the patch's four quarters of its level's indices (0x4745D0, called by Render 0x474B30) |
-| 2 | `X` | `app/shared/land.h:96` | +0x18, the patch's corner in world units (Update_Patches 0x46B3C0) |
-| 2 | `Visible` | `app/shared/land.h:99` | +0x24, not culled by the camera (Update_Patches) |
-| 2 | `Visited` | `app/shared/land.h:101` | +0x2C, Limit_Levels' mark (0x46AA40) |
-| 2 | `Visible` | `app/shared/land.h:120` | +0x20, the patch's Visible (Update_Patches 0x46B3C0) |
-| 2 | `Level` | `app/shared/land.h:121` | +0x24, the patch's Level (Update_Patches) |
-| 2 | `MAX_LEVELS` | `app/shared/land.h:136` | the per-level arrays at +0x94..+0xE0 (5 each) |
-| 2 | `MAX_SEAS` | `app/shared/land.h:137` | the sea arrays at +0x140..+0x170 (2 each; Load_Assets clamps to 2) |
-| 2 | `Create` | `app/shared/land.h:143` | Create, Load_Assets describe VIDTEST 0x4068F0 / 0x405750 and the client's 0x46A3A0 / 0x4691D0 ("LoadAssets" in symbols.json) |
-| 2 | `Update_Lightmap_Full` | `app/shared/land.h:155` | Update_Lightmap_Full and Update_Lightmap_Threaded describe 0x46D900 / 0x46DDD0 (VIDTEST 0x40A9F0) |
-| 2 | `Get_Color` | `app/shared/land.h:161` | the colour map at a position (0x46BB20 / 0x46BBF0: Colors, B G R per vertex) |
-| 2 | `Save_Sea_Mask` | `app/shared/land.h:164` | writes an 8-bit grey TGA, 255 where the height field is at or above the sea level (0x46BCC0; nothing calls it) |
-| 2 | `Update_Patches` | `app/shared/land.h:166` | each patch's position, level of detail (lod: an index into the distance table 0xB7188C), edge quarters and visibility (0x46B3C0, called by 0x50F1B0) |
-| 2 | `Set_Strip_Buffer` | `app/shared/land.h:168` | what they set (0x478640 / 0x478670) |
-| 2 | `Set_Dirty` | `app/shared/land.h:174` | VIDTEST's: it writes +0x136 (0x40AB10); none in the client |
-| 2 | `Load_Prototype_Names` | `app/shared/land.h:176` | the decorations (decoration.ini, the zone's land_%04d.dcb; mainview's loader 0x5137F0 reads the .dcb and builds |
-| 2 | `Load_Decorations_Ini` | `app/shared/land.h:181` | the same as an ini ([Prototypes] NUM_PROTOS, PROTO%d; [DECO%d] DecID, M (the matrix, column by column), Scale): |
-| 2 | `Create_Decorations` | `app/shared/land.h:186` | VIDTEST's Land::Create_Decorations (0x415C40 ~ 0x479D00): decoration.ini [set]'s NUM_DECOS trees at random on the |
-| 2 | `Has_Sea` | `app/shared/land.h:190` | the sea's (mainview's Render_Planet_Mode 0x50E6E0 reads +0xE8 and +0x160: the camera under the sea level) |
-| 2 | `Prepare_Lighting` | `app/shared/land.h:195` | after what they do (0x46C730, 0x46CAE0 (not rebuilt), 0x46D410, 0x46D6B0, 0x46D8B0, 0x46D880) |
-| 2 | `Build_Index_Buffers` | `app/shared/land.h:198` | the strip and edge index buffers of each level for patches of size vertices a side (0x478240) |
-| 2 | `Apply_Colors` | `app/shared/land.h:199` | the lit rectangle times the colour map, plus +0x1214 when there is one (0x46D410) |
-| 2 | `Limit_Levels` | `app/shared/land.h:202` | limits the patches' levels outwards from the camera's patch, one level per patch (0x46AA40, called by Update_Patches 0x46B3C0) |
-| 2 | `Load_PLD` | `app/shared/land.h:204` | the height map's horizon tables (+0x1E4..+0x1F8, the normals +0x1FC) in a .pld beside the .pgm (0x46EB60, 0x46ECF0), computed from the ini (0x46E670, not rebuilt) |
-| 2 | `Init_Horizon_Tables` | `app/shared/land.h:208` | the reciprocal table and the shared horizon table (0x46EF60, called by Compute_Horizons 0x46E670) |
-| 2 | `Nearest_Normal` | `app/shared/land.h:218` | the index of the table normal nearest n (0x46F0A0) and the colour map's colour of a grid vertex (0x470EF0): both inlined |
-| 2 | `Set_Lighting` | `app/shared/land.h:227` | a one-line inline setter: its extra inline depth is what keeps the record's operator= out of line inside the inlined |
-| 2 | `LightmapSerial` | `app/shared/land.h:235` | members after what the ctor 0x468E90, the dtor 0x46A480 and Load_Assets 0x4691D0 do with them; UnknownXX: use not known |
-| 2 | `StripBuffers` | `app/shared/land.h:238` | a level's triangle strip over a patch (Build_Index_Buffers 0x478240) |
-| 2 | `StripCounts` | `app/shared/land.h:239` | its index count less 2 |
-| 2 | `EdgeBuffers` | `app/shared/land.h:240` | a level's edge fans, four sides (none at level 0) |
-| 2 | `EdgeCounts` | `app/shared/land.h:241` | their index count: LandPatchClass::Draw draws a quarter (one side) per bit |
-| 2 | `Reciprocals` | `app/shared/land.h:242` | +0xE4, 1 / n for n = 1 .. 2 Size - 1 (0x46EF60) |
-| 2 | `CameraCellZ` | `app/shared/land.h:254` | +0x114, the camera's cell (patch units) at the last Update_Patches 0x46B3C0 |
-| 2 | `SeaTextures` | `app/shared/land.h:267` | +0x140, the sea swatch's textures, pass x stage (Load_Assets 0x4691D0) |
-| 2 | `SeaMaterials` | `app/shared/land.h:269` | +0x158, the swatch's material per pass |
-| 2 | `Lighting` | `app/shared/land.h:283` | the 0x2D-byte lighting record (VIDTEST's LandLightingStruct, its names), one struct member: its generated operator= 0x4744C0 is what the |
-| 2 | `UpdateMin` | `app/shared/land.h:286` | the lightmap rectangle being updated and the time-sliced update's cursor (0x46D900 / 0x46DA70) |
-| 2 | `Normals` | `app/shared/land.h:298` | what Prepare_Lighting 0x46C730 makes of the lighting record |
+| 2 | `LandDecorationStruct` | `app/shared/land.h:64` | one decoration, 0x38 bytes (Create_Decorations 0x479D00's local, the .dcb reader 0x4795D0); a tree's |
+| 2 | `Init` | `app/shared/land.h:82` | after what they do (0x4746C0, called by Load_Assets per patch; 0x474790) |
+| 2 | `Draw_Strip` | `app/shared/land.h:85` | the patch's strip at its level: what Render 0x474B30 inlines (0x474590, its out-of-line copy is unreferenced) |
+| 2 | `Draw` | `app/shared/land.h:87` | the patch's four quarters of its level's indices (0x4745D0, called by Render 0x474B30) |
+| 2 | `X` | `app/shared/land.h:97` | +0x18, the patch's corner in world units (Update_Patches 0x46B3C0) |
+| 2 | `Visible` | `app/shared/land.h:100` | +0x24, not culled by the camera (Update_Patches) |
+| 2 | `Visited` | `app/shared/land.h:102` | +0x2C, Limit_Levels' mark (0x46AA40) |
+| 2 | `Visible` | `app/shared/land.h:123` | +0x20, the patch's Visible (Update_Patches 0x46B3C0) |
+| 2 | `Level` | `app/shared/land.h:124` | +0x24, the patch's Level (Update_Patches) |
+| 2 | `MAX_LEVELS` | `app/shared/land.h:139` | the per-level arrays at +0x94..+0xE0 (5 each) |
+| 2 | `MAX_SEAS` | `app/shared/land.h:140` | the sea arrays at +0x140..+0x170 (2 each; Load_Assets clamps to 2) |
+| 2 | `Create` | `app/shared/land.h:146` | Create, Load_Assets describe VIDTEST 0x4068F0 / 0x405750 and the client's 0x46A3A0 / 0x4691D0 ("LoadAssets" in symbols.json) |
+| 2 | `Update_Lightmap_Full` | `app/shared/land.h:158` | Update_Lightmap_Full and Update_Lightmap_Threaded describe 0x46D900 / 0x46DDD0 (VIDTEST 0x40A9F0) |
+| 2 | `Get_Color` | `app/shared/land.h:164` | the colour map at a position (0x46BB20 / 0x46BBF0: Colors, B G R per vertex) |
+| 2 | `Save_Sea_Mask` | `app/shared/land.h:167` | writes an 8-bit grey TGA, 255 where the height field is at or above the sea level (0x46BCC0; nothing calls it) |
+| 2 | `Update_Patches` | `app/shared/land.h:169` | each patch's position, level of detail (lod: an index into the distance table 0xB7188C), edge quarters and visibility (0x46B3C0, called by 0x50F1B0) |
+| 2 | `Set_Strip_Buffer` | `app/shared/land.h:171` | what they set (0x478640 / 0x478670) |
+| 2 | `Set_Dirty` | `app/shared/land.h:177` | VIDTEST's: it writes +0x136 (0x40AB10); none in the client |
+| 2 | `Load_Prototype_Names` | `app/shared/land.h:179` | the decorations (decoration.ini, the zone's land_%04d.dcb; mainview's loader 0x5137F0 reads the .dcb and builds |
+| 2 | `Load_Decorations_Ini` | `app/shared/land.h:184` | the same as an ini ([Prototypes] NUM_PROTOS, PROTO%d; [DECO%d] DecID, M (the matrix, column by column), Scale): |
+| 2 | `Create_Decorations` | `app/shared/land.h:189` | VIDTEST's Land::Create_Decorations (0x415C40 ~ 0x479D00): decoration.ini [set]'s NUM_DECOS trees at random on the |
+| 2 | `Has_Sea` | `app/shared/land.h:193` | the sea's (mainview's Render_Planet_Mode 0x50E6E0 reads +0xE8 and +0x160: the camera under the sea level) |
+| 2 | `Prepare_Lighting` | `app/shared/land.h:198` | after what they do (0x46C730, 0x46CAE0 (not rebuilt), 0x46D410, 0x46D6B0, 0x46D8B0, 0x46D880) |
+| 2 | `Build_Index_Buffers` | `app/shared/land.h:201` | the strip and edge index buffers of each level for patches of size vertices a side (0x478240) |
+| 2 | `Apply_Colors` | `app/shared/land.h:202` | the lit rectangle times the colour map, plus +0x1214 when there is one (0x46D410) |
+| 2 | `Limit_Levels` | `app/shared/land.h:205` | limits the patches' levels outwards from the camera's patch, one level per patch (0x46AA40, called by Update_Patches 0x46B3C0) |
+| 2 | `Load_PLD` | `app/shared/land.h:207` | the height map's horizon tables (+0x1E4..+0x1F8, the normals +0x1FC) in a .pld beside the .pgm (0x46EB60, 0x46ECF0), computed from the ini (0x46E670, not rebuilt) |
+| 2 | `Init_Horizon_Tables` | `app/shared/land.h:211` | the reciprocal table and the shared horizon table (0x46EF60, called by Compute_Horizons 0x46E670) |
+| 2 | `Nearest_Normal` | `app/shared/land.h:221` | the index of the table normal nearest n (0x46F0A0) and the colour map's colour of a grid vertex (0x470EF0): both inlined |
+| 2 | `Set_Lighting` | `app/shared/land.h:230` | a one-line inline setter: its extra inline depth is what keeps the record's operator= out of line inside the inlined |
+| 2 | `LightmapSerial` | `app/shared/land.h:238` | members after what the ctor 0x468E90, the dtor 0x46A480 and Load_Assets 0x4691D0 do with them; UnknownXX: use not known |
+| 2 | `StripBuffers` | `app/shared/land.h:241` | a level's triangle strip over a patch (Build_Index_Buffers 0x478240) |
+| 2 | `StripCounts` | `app/shared/land.h:242` | its index count less 2 |
+| 2 | `EdgeBuffers` | `app/shared/land.h:243` | a level's edge fans, four sides (none at level 0) |
+| 2 | `EdgeCounts` | `app/shared/land.h:244` | their index count: LandPatchClass::Draw draws a quarter (one side) per bit |
+| 2 | `Reciprocals` | `app/shared/land.h:245` | +0xE4, 1 / n for n = 1 .. 2 Size - 1 (0x46EF60) |
+| 2 | `CameraCellZ` | `app/shared/land.h:257` | +0x114, the camera's cell (patch units) at the last Update_Patches 0x46B3C0 |
+| 2 | `SeaTextures` | `app/shared/land.h:270` | +0x140, the sea swatch's textures, pass x stage (Load_Assets 0x4691D0) |
+| 2 | `SeaMaterials` | `app/shared/land.h:272` | +0x158, the swatch's material per pass |
+| 2 | `Lighting` | `app/shared/land.h:286` | the 0x2D-byte lighting record (VIDTEST's LandLightingStruct, its names), one struct member: its generated operator= 0x4744C0 is what the |
+| 2 | `UpdateMin` | `app/shared/land.h:289` | the lightmap rectangle being updated and the time-sliced update's cursor (0x46D900 / 0x46DA70) |
+| 2 | `Normals` | `app/shared/land.h:301` | what Prepare_Lighting 0x46C730 makes of the lighting record |
 | 2 | `LandLightingStruct` | `app/shared/land_lighting.h:24` | VIDTEST's name for the 0x30-byte lighting record its Update_Lighting 0x4250B0 hands the land (esp+0x74) |
 | 2 | `Create_Displacement_Map` | `app/shared/landdmap.h:33` | CreateTexture into +0x30 (0x4676D0; inlined in the ctor) |
 | 2 | `Create_Height_Texture` | `app/shared/landdmap.h:34` | D3DXCreateTexture into +0x34 (0x467710; inlined in the ctor) |
