@@ -79,7 +79,7 @@ void ClientItemPropertyBuilderClass::Unknown_521C10(UIItemExaminationPropertyRou
 }
 
 
-// NOT EXACT: 0x522860 (functional, 0.62: the same calls, strings and asserts in order; the frame is 0xC smaller, and the inline budget falls differently: the client expands the string constructors in cases 26 / 29 / 33 and calls them in the Modes case, ours the reverse; case 26 keeps its level in ebx, ours in esi)
+// NOT EXACT: 0x522860 (functional, 0.62, masked residue 309 rows: the same calls, strings and asserts in order, byte-equal through case 25; the inline budget falls differently: the client expands case 26's three string assigns and the separator's _Eos and calls the Modes Create's three string constructors out of line (their allocator temporaries are the 0xC larger frame), ours the reverse; case 26 keeps its level in ebx, ours in esi)
 void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRouterBaseClass &router)
 {
 	Data->Unknown_688830()->Get_Quality(Slot);
@@ -599,8 +599,8 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 			break;
 		}
 		case ITEM_INFO_ACTIVATE_SKILL_LEVEL: {
-			int unknown = 1;
 			std::string skill;
+			int unknown = 1;
 			template_info->Get_String(ITEM_INFO_ACTIVATE_SKILL, skill);
 			template_info->Get_Int(ITEM_INFO_ACTIVATE_SKILL_LEVEL, &unknown);
 			RefCountPtr<ClientItemPropertySpecialClass> property = ClientItemPropertySpecialSkillRequirementClass::Create(SpaceClient, skill, unknown, ClientItemPropertySpecialSkillRequirementClass::REQUIRED_TO_ACTIVATE);
@@ -670,7 +670,7 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 			break;
 		}
 		case ITEM_INFO_TRADE_LEVEL: {
-			int trade_level_required;
+			int trade_level_required = 0;
 			template_info->Get_Int(ITEM_INFO_TRADE_LEVEL, &trade_level_required);
 
 
@@ -788,8 +788,8 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 
 
 			G_ASSERT(ok);
-			float actual = base;
 			int level = 1;
+			float actual = base;
 			if (info->Has_Field(ITEM_INFO_CRITICAL)) {
 				ok = info->Get_Float(ITEM_INFO_CRITICAL, &actual);
 
