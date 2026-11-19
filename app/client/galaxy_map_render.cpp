@@ -220,20 +220,20 @@ static void Find_Nearest(RefCountPtr<T> &result, CONTAINER &container, const Lin
 	}
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+template <class T, class CONTAINER>
+static void Find_Nearest_Second(RefCountPtr<T> &result, CONTAINER &container, const LineSegClass &ray, const Vector3 &pos)	// NAME 1: what it does
+{
+	float best = FLT_MAX;
+	result = NULL;
+	for (CONTAINER::iterator it = container.begin(); it != container.end(); ++it) {
+		RefCountPtr<T> item = (*it).second;
+		Vector3 contact;
+		if (item->Intersect(ray, &contact)) {
+			float d = (contact - pos).Length2();
+			if (best > d) { best = d; result = item; }
+		}
+	}
+}
 
 
 
@@ -464,7 +464,7 @@ void GalaxyMapRenderClass::Unknown_7A7450()
 	Unknown_7A7D70(Unknown_7A9840());
 }
 
-// NOT EXACT: written from the client's code (see attempts.csv)
+// NOT EXACT: order: the client keeps tm[0][3] on the FPU from the camera copy to ray.P0.X and materialises the ray's end in a temporary sharing contact's slot (see attempts.csv)
 bool GalaxyMapRenderClass::Unknown_7A7560()
 {
 	bool changed = false;
@@ -476,26 +476,9 @@ bool GalaxyMapRenderClass::Unknown_7A7560()
 	Vector3 to = from + (Point - from) * 2.0f;
 	LineSegClass ray(from, to);
 	RefCountPtr<GalaxyMapRenderSystemClass> system;
-	float best = FLT_MAX;
-	system = NULL;
-	for (RenderSystemsType::iterator it = Systems.begin(); it != Systems.end(); ++it) {
-		RefCountPtr<GalaxyMapRenderSystemClass> s = (*it).second;
-		Vector3 contact;
-		if (s->Intersect(ray, &contact)) {
-			float d = (contact - Point).Length2();
-			if (d < best) {
-				best = d;
-				system = s;
-			}
-		}
-	}
+	Find_Nearest_Second(system, Systems, ray, Point);
 	if (system != PickedSystem) {
-		if (PickedSystem) {
-			PickedSystem->Unknown_7AAE90();
-			PickedSystem = NULL;
-		}
-		if (PickedSector) { PickedSector = NULL; }
-		if (PickedGate) { PickedGate = NULL; }
+		Unknown_7A9840();
 		PickedSystem = system;
 		changed = true;
 	}
@@ -515,23 +498,40 @@ bool GalaxyMapRenderClass::Unknown_7A7560()
 			RefCountPtr<GalaxyMapRenderGateClass> gate;
 			float nearest = Unknown_B9E93C;
 			for (RenderGatesType::iterator g = Gates.begin(); g != Gates.end(); ++g) {
-				if (!(*g).second->Intra) {
-					float dist = (*g).second->Unknown_7AD5B0(Point);
+				const RefCountPtr<GalaxyMapRenderGateClass> &item = (*g).second;
+				if (!item->Intra) {
+					float dist = item->Unknown_7AD5B0(Point);
 					if (dist > 0.0f && dist < nearest) {
 						nearest = dist;
-						gate = (*g).second;
+						gate = item;
 					}
 				}
 			}
 			if (PickedGate != gate) {
 				PickedGate = gate;
-				PickedGatePoint = Point;
 				changed = true;
+				PickedGatePoint = Point;
 			}
 		}
 	}
 	return(changed);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // NOT EXACT: order: the calls and inlining are the client's (0x7ADFC0 inlined with both 0x7AC070s); the client squares the inlined lengths' components in another x87 order (x, z, y)
 void GalaxyMapRenderClass::Unknown_7A7D70(bool changed)
