@@ -88,7 +88,7 @@ std::vector<ClientItemPropertySpecialLineStruct> ClientItemPropertySpecialLevelR
 	return(lines);
 }
 
-// NOT EXACT: 0x531080 (inline-budget: the client calls UnknownRTTIClass<DeltaTemplateClass<int> >::Cast out of line, 0x531590, and compares Value < Level after reloading this; the rest, asserts and lines match)
+// 0x531080 (the dead aux_data->Children.size() in the failure branch spends the inline budget: the Cast 0x531590 called out of line, as the client's; D272)
 bool ClientItemPropertySpecialLevelRequirementClass::Is_Usable()
 {
 	DeltaCompoundClass *aux_data = (DeltaCompoundClass *)SpaceClient->AuxData;
@@ -111,7 +111,7 @@ bool ClientItemPropertySpecialLevelRequirementClass::Is_Usable()
 
 
 		FAIL_IF(!level_aux_data) return(false);
-		if (level_aux_data->Value < Level) {
+		if (level_aux_data->Value < Level) { aux_data->Children.size();
 			return(false);
 		}
 	}
