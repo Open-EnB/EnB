@@ -1002,14 +1002,14 @@ void UIManuClass::Unknown_5B3580(bool force)
 	}
 }
 
-// NOT EXACT: inline budget (the client calls rtti.h's Cast out of line, 0x5B7260, in both finds; registers) (0x5B3640)
+// NOT EXACT: inline budget (the client calls rtti.h's Cast out of line, 0x5B7260, in both finds: ours calls the first find 0x5B70C0 and inlines the second Cast) (0x5B3640)
 void UIManuClass::Unknown_5B3640(bool all)
 {
 	if (!Unknown0BAD) {
 		Unknown0BB0 = -1;
 	}
 	Unknown0BAD = true;
-	UIManuListClass *list = Unknown_Previous_Attempts(this);
+	UIManuListClass *list = Unknown_Get_List();	// Unknown0BAD was just set: the 'KnownFormula' branch folds away (the client has no such code here)
 	if (list) {
 		Unknown_5B3260(list);
 	}
