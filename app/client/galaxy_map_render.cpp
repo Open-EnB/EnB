@@ -464,7 +464,7 @@ void GalaxyMapRenderClass::Unknown_7A7450()
 	Unknown_7A7D70(Unknown_7A9840());
 }
 
-// NOT EXACT: order: the client keeps tm[0][3] on the FPU from the camera copy to ray.P0.X and materialises the ray's end in a temporary sharing contact's slot (see attempts.csv)
+
 bool GalaxyMapRenderClass::Unknown_7A7560()
 {
 	bool changed = false;
@@ -473,7 +473,7 @@ bool GalaxyMapRenderClass::Unknown_7A7560()
 		tm.Translate_Z(25.0f);
 	}
 	Vector3 from = tm.Get_Translation();
-	Vector3 to = from + (Point - from) * 2.0f;
+	Vector3 to = from; to += (Point - from) * 2.0f;
 	LineSegClass ray(from, to);
 	RefCountPtr<GalaxyMapRenderSystemClass> system;
 	Find_Nearest_Second(system, Systems, ray, Point);
@@ -492,9 +492,13 @@ bool GalaxyMapRenderClass::Unknown_7A7560()
 	}
 	if (PickedSystem) {
 		PickedGate = NULL;
-	} else if (PickedGate) {
-		float d = PickedGate->Unknown_7AD5B0(Point);
-		if (d <= 0.0f || d >= Unknown_B9E93C) {
+	} else {
+		bool search = true;
+		if (PickedGate) {
+			float d = PickedGate->Unknown_7AD5B0(Point);
+			search = (d <= 0.0f || d >= Unknown_B9E93C);
+		}
+		if (search) {
 			RefCountPtr<GalaxyMapRenderGateClass> gate;
 			float nearest = Unknown_B9E93C;
 			for (RenderGatesType::iterator g = Gates.begin(); g != Gates.end(); ++g) {
@@ -516,10 +520,6 @@ bool GalaxyMapRenderClass::Unknown_7A7560()
 	}
 	return(changed);
 }
-
-
-
-
 
 
 

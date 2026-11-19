@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-833 entries in 302 files.
+832 entries in 302 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -186,7 +186,6 @@ edit the comments in the code, not this file.
 | `app/client/galaxy_map_client.cpp:176` | `GalaxyMapClientClass::Unknown_7A52F0` | mention | NOT EXACT: the client keeps 0 in ebp and loads buffer.Buffer after new (register / order; attempts.py show 0x7A52F0) |
 | `app/client/galaxy_map_pip.cpp:407` | `GalaxyMapPipClass::Unknown_5404E0` | marker | NOT EXACT: only UnknownRTTIClass::Cast: the client calls it out of line here, ours expands it, and one register follows (see notes) @0x5404E0 |
 | `app/client/galaxy_map_render.cpp:428` | `GalaxyMapRenderClass::Unknown_7A72C0` | marker | NOT EXACT: written from the client's code (see attempts.csv) |
-| `app/client/galaxy_map_render.cpp:467` | `GalaxyMapRenderClass::Unknown_7A7560` | marker | NOT EXACT: order: the client keeps tm[0][3] on the FPU from the camera copy to ray.P0.X and materialises the ray's end in a temporary sharing contact's slot (see attempts.csv) |
 | `app/client/galaxy_map_render.cpp:536` | `GalaxyMapRenderClass::Unknown_7A7D70` | marker | NOT EXACT: order: the calls and inlining are the client's (0x7ADFC0 inlined with both 0x7AC070s); the client squares the inlined lengths' components in another x87 order (x, z, y) |
 | `app/client/galaxy_map_render.cpp:569` | `GalaxyMapRenderClass::Unknown_7A7D70` | marker | NOT EXACT: written from the client's code (see attempts.csv) |
 | `app/client/galaxy_map_render.cpp:823` | `GalaxyMapRenderClass::Unknown_7A8B70` | marker | NOT EXACT: register / frame: the calls and inlining are the client's (Create_Item and the 0x7AA8C0 / 0x7ABFE0 layers); the client keeps 0 in ebp and this in ebx, frame 0x60 against ours 0x64 (see attempts.csv) |
