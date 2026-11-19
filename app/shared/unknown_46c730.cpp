@@ -612,8 +612,8 @@ unsigned char LandClass::Nearest_Normal(const Vector3 &n)
 	return best_index;
 }
 
-// NOT EXACT: shape (frame 0x220 vs the client's 0x19C: the client recomputes y + 1 per x step and fetches all eight heights
-// before the differences; LD7's form with the client's free Normalize at its nine normalises (NF), attempts.csv 0x46F120)
+// NOT EXACT: frame (0x20C vs the client's 0x19C: the client packs its nine normalised vectors into one slot; the corner and
+// rows blocks' y - 1 forms; BG5: every block's crosses in ring order before its normalises, attempts.csv 0x46F120)
 void LandClass::Unknown_46F120(void)
 {
 	int i;
@@ -644,6 +644,7 @@ void LandClass::Unknown_46F120(void)
 			float h21 = Field->Get_Height_2(xp, y);
 			float h02 = Field->Get_Height_2(xp - 2, yp);
 			float h12 = Field->Get_Height_2(x, yp);
+			float h22 = Field->Get_Height_2(xp, yp);
 			Vector3 v00(-spacing, -spacing, h00 - h);
 			Vector3 v10(0.0f, -spacing, h10 - h);
 			Vector3 v20(spacing, -spacing, h20 - h);
@@ -651,7 +652,6 @@ void LandClass::Unknown_46F120(void)
 			Vector3 v21(spacing, 0.0f, h21 - h);
 			Vector3 v02(-spacing, spacing, h02 - h);
 			Vector3 v12(0.0f, spacing, h12 - h);
-			float h22 = Field->Get_Height_2(xp, yp);
 			Vector3 v22(spacing, spacing, h22 - h);
 			Vector3 c1;
 			Vector3::Cross_Product(v00, v10, &c1);
@@ -688,26 +688,25 @@ void LandClass::Unknown_46F120(void)
 			float h = Field->Get_Height_2(x, y);
 			float h21 = Field->Get_Height_2(xp, y);
 			float h02 = Field->Get_Height_2(xp - 2, yp);
+			float h22 = Field->Get_Height_2(xp, yp);
 			Vector3 v00(-spacing, -spacing, h00 - h);
 			Vector3 v20(spacing, -spacing, h20 - h);
 			Vector3 v01(-spacing, 0.0f, h01 - h);
 			Vector3 v21(spacing, 0.0f, h21 - h);
 			Vector3 v02(-spacing, spacing, h02 - h);
-			float h22 = Field->Get_Height_2(xp, yp);
 			Vector3 v22(spacing, spacing, h22 - h);
+			Vector3 c10;
+			Vector3::Cross_Product(v20, v21, &c10);
+			Vector3 c11;
+			Vector3::Cross_Product(v21, v22, &c11);
 			Vector3 c9;
 			Vector3::Cross_Product(v02, v01, &c9);
 			Vector3 c8;
 			Vector3::Cross_Product(v01, v00, &c8);
 			Vector3 n = Normalize(c8 + c9);
-			Unknown1E4[index] = Nearest_Normal(n);
-			Vector3 c11;
-			Vector3::Cross_Product(v21, v22, &c11);
-			Vector3 c10;
-			Vector3::Cross_Product(v20, v21, &c10);
+			Unknown1E4[index++] = Nearest_Normal(n);
 			n = Normalize(c10 + c11);
-			Unknown1E4[index + 1] = Nearest_Normal(n);
-			index += 2;
+			Unknown1E4[index++] = Nearest_Normal(n);
 		}
 		index = (size - 1) * size + 1;
 	}
@@ -719,46 +718,47 @@ void LandClass::Unknown_46F120(void)
 		for (x = 0; x < size + 1; x += size) {
 			int xp = x + 1;
 			int yp = y + 1;
-			float h00 = Field->Get_Height_2(xp - 2, y - 1);
-			float h10 = Field->Get_Height_2(x, y - 1);
-			float h20 = Field->Get_Height_2(xp, y - 1);
+			float h00 = Field->Get_Height_2(xp - 2, yp - 2);
+			float h10 = Field->Get_Height_2(x, yp - 2);
+			float h20 = Field->Get_Height_2(xp, yp - 2);
 			float h = Field->Get_Height_2(x, y);
 			float h02 = Field->Get_Height_2(xp - 2, yp);
 			float h12 = Field->Get_Height_2(x, yp);
+			float h22 = Field->Get_Height_2(xp, yp);
 			Vector3 v00(-spacing, -spacing, h00 - h);
 			Vector3 v10(0.0f, -spacing, h10 - h);
 			Vector3 v20(spacing, -spacing, h20 - h);
 			Vector3 v02(-spacing, spacing, h02 - h);
 			Vector3 v12(0.0f, spacing, h12 - h);
-			float h22 = Field->Get_Height_2(xp, yp);
 			Vector3 v22(spacing, spacing, h22 - h);
 			Vector3 c13;
 			Vector3::Cross_Product(v00, v10, &c13);
 			Vector3 c12;
 			Vector3::Cross_Product(v10, v20, &c12);
-			Vector3 n = Normalize(c12 + c13);
-			Unknown1E4[index] = Nearest_Normal(n);
 			Vector3 c15;
 			Vector3::Cross_Product(v22, v12, &c15);
 			Vector3 c14;
 			Vector3::Cross_Product(v12, v02, &c14);
+			Vector3 n = Normalize(c12 + c13);
+			Unknown1E4[index] = Nearest_Normal(n);
 			n = Normalize(c14 + c15);
 			Unknown1E4[index + size] = Nearest_Normal(n);
 			index += size - 1;
 		}
 		index += 3 - size * 2;
-		// the interior even x in 2 .. Size - 2: one quadrant each at (x - 1, y - 1), (x, y - 1), (x - 1, y), (x, y)
+		// the interior even x in 2 .. Size - 2: one quadrant each at (x - 1, yp - 2), (x, yp - 2), (x - 1, y), (x, y)
 		for (x = 2; x <= size - 2; x += 2) {
 			int xp = x + 1;
 			int yp = y + 1;
-			float h00 = Field->Get_Height_2(xp - 2, y - 1);
-			float h10 = Field->Get_Height_2(x, y - 1);
-			float h20 = Field->Get_Height_2(xp, y - 1);
+			float h00 = Field->Get_Height_2(xp - 2, yp - 2);
+			float h10 = Field->Get_Height_2(x, yp - 2);
+			float h20 = Field->Get_Height_2(xp, yp - 2);
 			float h01 = Field->Get_Height_2(xp - 2, y);
 			float h = Field->Get_Height_2(x, y);
 			float h21 = Field->Get_Height_2(xp, y);
 			float h02 = Field->Get_Height_2(xp - 2, yp);
 			float h12 = Field->Get_Height_2(x, yp);
+			float h22 = Field->Get_Height_2(xp, yp);
 			Vector3 v00(-spacing, -spacing, h00 - h);
 			Vector3 v10(0.0f, -spacing, h10 - h);
 			Vector3 v20(spacing, -spacing, h20 - h);
@@ -766,30 +766,29 @@ void LandClass::Unknown_46F120(void)
 			Vector3 v21(spacing, 0.0f, h21 - h);
 			Vector3 v02(-spacing, spacing, h02 - h);
 			Vector3 v12(0.0f, spacing, h12 - h);
-			float h22 = Field->Get_Height_2(xp, yp);
 			Vector3 v22(spacing, spacing, h22 - h);
 			Vector3 c17;
 			Vector3::Cross_Product(v00, v10, &c17);
-			Vector3 c16;
-			Vector3::Cross_Product(v01, v00, &c16);
-			Vector3 n = Normalize(c16 + c17);
-			Unknown1E4[index] = Nearest_Normal(n);
 			Vector3 c19;
 			Vector3::Cross_Product(v10, v20, &c19);
 			Vector3 c18;
 			Vector3::Cross_Product(v20, v21, &c18);
-			n = Normalize(c18 + c19);
-			Unknown1E4[index + 1] = Nearest_Normal(n);
-			Vector3 c21;
-			Vector3::Cross_Product(v12, v02, &c21);
-			Vector3 c20;
-			Vector3::Cross_Product(v02, v01, &c20);
-			n = Normalize(c20 + c21);
-			Unknown1E4[index + size] = Nearest_Normal(n);
 			Vector3 c23;
 			Vector3::Cross_Product(v21, v22, &c23);
 			Vector3 c22;
 			Vector3::Cross_Product(v22, v12, &c22);
+			Vector3 c21;
+			Vector3::Cross_Product(v12, v02, &c21);
+			Vector3 c20;
+			Vector3::Cross_Product(v02, v01, &c20);
+			Vector3 c16;
+			Vector3::Cross_Product(v01, v00, &c16);
+			Vector3 n = Normalize(c16 + c17);
+			Unknown1E4[index] = Nearest_Normal(n);
+			n = Normalize(c18 + c19);
+			Unknown1E4[index + 1] = Nearest_Normal(n);
+			n = Normalize(c20 + c21);
+			Unknown1E4[index + size] = Nearest_Normal(n);
 			n = Normalize(c22 + c23);
 			Unknown1E4[index + size + 1] = Nearest_Normal(n);
 			index += 2;
