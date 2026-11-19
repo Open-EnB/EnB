@@ -6,6 +6,7 @@
 
 #include <string>
 #include "sclient.h"
+#include "unknown_675120.h"	// ButtonGadgetClass (Add_Button news one at 0x56D510)
 
 class RenderObjClass;
 class GadgetClass;			// gadget.cpp's
@@ -33,7 +34,7 @@ public:
 	virtual bool Unknown_98(const char *name, const char *ini);	// +0x98 0x56DB20 (the model and its ini: ui_starbase.cpp's lights panel passes 'light02a', 'fa_light02a.ini')  // NAME 1 [name, ini]: what 0x646360 passes
 	virtual void Unknown_9C() {}						// +0x9C 0x5623F0 (the movable back gadget moved the window: 0x56DEE0 calls it)
 
-	GadgetClass *Add_Button(int id, const char *bttn_name, const char *text);	// 0x56D510 (a button over the model's sub-object bttn_name, with the font style 'text' when given; the lights panel's 0x646360)  // NAME 2 [Add_Button]: what it does; NAME 1 [id, text]: what 0x646360 passes; NAME 3 [bttn_name]: the FAIL_IF's
+	ButtonGadgetClass *Add_Button(int id, const char *bttn_name, const char *text);	// 0x56D510 (a button over the model's sub-object bttn_name, with the font style 'text' when given; the lights panel's 0x646360)  // NAME 2 [Add_Button]: what it does; NAME 1 [id, text]: what 0x646360 passes; NAME 3 [bttn_name]: the FAIL_IF's
 	CheckBoxGadgetClass *Add_Check_Button(int id, const char *bttn_name, const char *text);	// 0x56D6F0 (FAIL_IF '!bttn_name || !*bttn_name', '!robj': a check button over the model's sub-object, 0x7E7F20; ui_option_channel.cpp passes 'check%02d' and NULL)  // NAME 2 [Add_Check_Button]: what it does; NAME 1 [id, text]: as 0x56D510's; NAME 3 [bttn_name]: the FAIL_IF's
 	GadgetSlider *Add_Slider(int id, bool unknown);	// 0x56D8D0 (0x646360: its four sliders, ids 8-11; unknown is GadgetSlider's bool: the client pushes the argument's dword as loaded)  // NAME 2 [Add_Slider]: what it does; NAME 1 [id, unknown]: neutral
 	UIBackGadget *Add_Back_Gadget(bool movable, const Vector3 &offset);	// 0x56D970 (FAIL_IF 'MovableBackGadget'; the back gadget over the whole model, id 0: movable, a MovableUIBackGadget kept in MovableBackGadget, with the offset; else a plain UIBackGadget)  // NAME 2 [Add_Back_Gadget]: what it does; NAME 1 [movable, offset]: what it does with them

@@ -89,7 +89,7 @@ void ChatPanelUIBase::Unknown_58()
 
 
 // 0x56D510
-GadgetClass *ChatPanelUIBase::Add_Button(int id, const char *bttn_name, const char *text)
+ButtonGadgetClass *ChatPanelUIBase::Add_Button(int id, const char *bttn_name, const char *text)
 {
 	FAIL_IF(!bttn_name || !*bttn_name) return(NULL);
 

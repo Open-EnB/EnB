@@ -467,7 +467,7 @@ void ChatPanelInterface::Unknown_54()
 		Unknown258->Set_Hidden(1);
 	}
 	for (int i = 0; i < 6; i++) {
-		UnknownA4[i + 1] = (ButtonGadgetClass *)Add_Button(i + 1, buttons[i], texts[i]);
+		UnknownA4[i + 1] = Add_Button(i + 1, buttons[i], texts[i]);
 		if (tips[i]) {
 			GadgetClass::Set_Tooltip(UnknownA4[i + 1], "UI_CHAT_PANEL", tips[i]);
 		}
