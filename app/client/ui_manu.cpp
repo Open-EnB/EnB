@@ -1872,3 +1872,4 @@ void UIManuClass::Unknown_5B6D30()
 **	compile inlines them). The static __int64 0x5AF9D0 initialises is the filter request interval.
 */
 template UIManuListClass *Unknown_Find_Field<UIManuListClass>(DeltaCompoundClass *root, const NameClass &name);	// D164: not the client's form; emits auxdata.h's find for the lists out of line (0x5B70C0, which the client's 0x5B16C0 calls) now that 0x5B5320's 'PreviousAttempts' find is 0x5B3580's set find (0x5B6DB0)
+template UIManuComponentsClass *Unknown_Find_Field<UIManuComponentsClass>(DeltaCompoundClass *root, const NameClass &name);	// D164: not the client's form; emits auxdata.h's 'ManufactureTarget' find out of line (0x5B7050, which the client's 0x5B5CD0 calls)
