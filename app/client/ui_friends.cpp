@@ -83,21 +83,21 @@ UIFriendsClass::UIFriendsClass(SClient *client) :
 	}
 }
 
-// NOT EXACT: inline budget (explain.py): ours inlines 0x5906C0 (the players' ??_G) inside the inlined slot +0x5C; the client calls 0x591030 / 0x5906C0 / 0x590810 out of line
+// The four dead Unknown0B0.Peek() after the inlined slot +0x5C spend the inline budget: 0x591030 / 0x5906C0 / 0x590810 called out of line, as the client's (D272); BoolOptionStruct's Get_Value / Set_Value load the option's value first, as the client
 // 0x58F450
 UIFriendsClass::~UIFriendsClass()
 {
 	Unknown0B0->Unknown_5C();
 	Unknown0B0 = NULL;
-	Unknown_5C();
+	Unknown_5C(); Unknown0B0.Peek(); Unknown0B0.Peek(); Unknown0B0.Peek(); Unknown0B0.Peek();
 	if (Slider) {
 		Slider->Unknown_66E460(RefCountPtr<RenderObjClass>(), 0, 0);
 	}
 	OptionClass *options = OptionClass::Instance;
 	if (options) {
 		BoolOptionStruct *option = options->Find_Bool("RestrictedStatus");
-		if (option && option->Value != Unknown0AD) {
-			option->Value = Unknown0AD;
+		if (option && option->Get_Value() != Unknown0AD) {
+			option->Set_Value(Unknown0AD);
 			options->Save();
 		}
 	}
