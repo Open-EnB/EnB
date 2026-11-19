@@ -2287,6 +2287,117 @@ def cr6_string_located(img, items, starts, claimed):
     return out
 
 
+# ... and (CR7) a not-exact caller located by its exact callees: each symbol its REL32 relocations call that is exact at
+# one address (its own object's row, else every exact row of that external name agreeing) gives the set of client
+# functions (verified starts) holding a call / jmp rel32 to that address or to an incremental-link thunk of it; the
+# caller is at the one function every such set contains, given at least CR7_CALLEE_MIN such callees and the address
+# unclaimed (the string rule's intersection with calls for strings; cr6_named_callers' call alignment then confirms it)
+USE_CR7_CALLEE_LOCATED = True
+CR7_CALLEE_MIN = 2
+
+
+def cr7_callee_located(img, results, items, starts, claimed, thunk):
+    """CR7: {symbol: address} by USE_CR7_CALLEE_LOCATED (above) for ITEMS [(r, obj, sec, s, length)]."""
+    sites, _ = call_sites(img)
+    alias = collections.defaultdict(set)
+    for th, dst in thunk.items():
+        alias[dst].add(th)
+    own_at, ext_at = {}, collections.defaultdict(set)
+    for r, obj, *_ in results:
+        if r['status'] == 'exact':
+            a = int(r['addresses'][0], 16)
+            own_at[(id(obj), r['symbol'])] = a
+            ext_at[r['symbol']].add(a)
+    fn_cache = {}
+
+    def fns(a):
+        if a not in fn_cache:
+            out = set()
+            for n in {a} | alias.get(a, set()):
+                for x in sites.get(n, ()):
+                    if x in thunk:
+                        continue
+                    j = bisect.bisect_right(starts, x) - 1
+                    if j >= 0:
+                        out.add(starts[j])
+            fn_cache[a] = out
+        return fn_cache[a]
+
+    out = {}
+    for r, obj, sec, s, length in items:
+        cand, used = None, set()
+        for k, n, typ, t, _ in obj.reloc_targets(sec, s, length):
+            if t is None or n != 4 or typ != 0x14:
+                continue
+            a = own_at.get((id(obj), t['name']))
+            if a is None:
+                at = ext_at.get(t['name'], set())
+                a = next(iter(at)) if len(at) == 1 else None
+            if a is None or a in used:
+                continue
+            f = fns(a)
+            if not f:
+                continue
+            used.add(a)
+            cand = set(f) if cand is None else cand & f
+        if cand and len(cand) == 1 and len(used) >= CR7_CALLEE_MIN:
+            a = next(iter(cand))
+            if not claimed[a] - {r['symbol']}:
+                out[r['symbol']] = a
+    return out
+
+
+# ... and (CR7) when the caller's calls into the tied copies do not align as a whole (it is not exact: one helper's
+# calls may be inlined, repeated or missing), they are aligned per pool instead: the tied symbols whose candidate copies
+# overlap form one pool (union of overlapping survivor sets), and each pool's calls (object order) are aligned with
+# the client function's branches into that pool's copies by the same rule (one symbol and one copy reached, or equal
+# counts mapping one to one); a pool that does not align gives nothing, the others still do. Distinct symbols still
+# get distinct addresses, and every caller must agree (the checks below). GalaxyMapRenderClass::Unknown_7A8B70 (its
+# self name) calls its Create_NEW<System> / <Sector> at 0x7B1A50 / 0x7B1C80 and hash_map::find at 0x7B1AB0, while
+# its two RefCountPtr<GalaxyMapRenderItemClass> conversions reach one client copy (not aligned, left tied).
+USE_CR7_POOL_ALIGN = True
+
+
+def _cr6_align(ours, theirs, cset):
+    """{symbol: address} aligning OURS (call order) with THEIRS (client branch order), None when they do not align:
+    one symbol and one copy reached (counts may differ), or equal counts mapping one to one; each address one of
+    the symbol's candidates (CSET)."""
+    m = {}
+    if not ours:
+        return None
+    if len(set(ours)) == 1 and len(set(theirs)) == 1:
+        m = {ours[0]: theirs[0]}          # one tied symbol, one copy reached: the call counts may differ
+    elif len(theirs) != len(ours) or any(m.setdefault(n, t) != t for n, t in zip(ours, theirs)) or \
+            len(set(m.values())) != len(m):
+        return None
+    if not m or any(t not in cset[n] for n, t in m.items()):
+        return None
+    return m
+
+
+def _cr7_pools(cset):
+    """USE_CR7_POOL_ALIGN: the symbols of CSET grouped by overlapping candidate sets (connected components)."""
+    syms = sorted(cset)
+    parent = {n: n for n in syms}
+
+    def root(n):
+        while parent[n] != n:
+            parent[n] = parent[parent[n]]
+            n = parent[n]
+        return n
+    owner = {}
+    for n in syms:
+        for t in cset[n]:
+            if t in owner:
+                parent[root(n)] = root(owner[t])
+            else:
+                owner[t] = n
+    groups = collections.defaultdict(set)
+    for n in syms:
+        groups[root(n)].add(n)
+    return list(groups.values())
+
+
 def cr6_named_callers(img, results, pending, done, claimed, text, base, thunk, known, called=None, located=None,
                       vslots=None):
     """D246 (CR6): [(pending item, address)] (USE_CR6_NAMED_CALLERS above)."""
@@ -2346,6 +2457,10 @@ def cr6_named_callers(img, results, pending, done, claimed, text, base, thunk, k
     if USE_CR6_STRING_LOCATED and unplaced:
         found = cr6_string_located(img, unplaced, starts, claimed)
         callers += [(it, found[it[0]['symbol']]) for it in unplaced if it[0]['symbol'] in found]
+        unplaced = [it for it in unplaced if it[0]['symbol'] not in found]
+    if USE_CR7_CALLEE_LOCATED and unplaced:
+        found = cr7_callee_located(img, results, unplaced, starts, claimed, thunk)
+        callers += [(it, found[it[0]['symbol']]) for it in unplaced if it[0]['symbol'] in found]
     for (r, obj, sec, s, length), a in callers:
         mine = tied[id(obj)]
         if a not in startset or claimed[a] - {r['symbol']}:
@@ -2363,13 +2478,18 @@ def cr6_named_callers(img, results, pending, done, claimed, text, base, thunk, k
                 for n in set(ours)}
         pool = set().union(*cset.values())
         theirs = [t for t in branches if t in pool]
-        m = {}
-        if len(set(ours)) == 1 and len(set(theirs)) == 1:
-            m = {ours[0]: theirs[0]}          # one tied symbol, one copy reached: the call counts may differ
-        elif len(theirs) != len(ours) or any(m.setdefault(n, t) != t for n, t in zip(ours, theirs)) or \
-                len(set(m.values())) != len(m):
-            continue
-        if not m or any(t not in cset[n] for n, t in m.items()):
+        m = _cr6_align(ours, theirs, cset)
+        if m is None and USE_CR7_POOL_ALIGN:
+            m = {}
+            for group in _cr7_pools(cset):
+                ours_p = [n for n in ours if n in group]
+                pool_p = set().union(*(cset[n] for n in group))
+                got = _cr6_align(ours_p, [t for t in branches if t in pool_p], cset)
+                if got:
+                    m.update(got)
+            if m and len(set(m.values())) != len(m):
+                m = None
+        if not m:
             continue
         for n, t in m.items():
             it = mine[n][0]

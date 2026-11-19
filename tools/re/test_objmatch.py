@@ -344,7 +344,8 @@ class XcuSubrun(unittest.TestCase):
 
 class ContribTies(unittest.TestCase):
     def test_cases(self):
-        _check(self, CONTRIB_TIES, 'USE_CONTRIB_TIES', 'contrib', APP_REGION)
+        # CR7's per-pool alignment reaches _Lower_bound's 0x44D6D0 from its caller too: off as well
+        _check(self, CONTRIB_TIES, 'USE_CONTRIB_TIES', 'contrib', APP_REGION, also_off=('USE_CR7_POOL_ALIGN',))
 
 
 class ContribShorts(unittest.TestCase):
@@ -714,7 +715,8 @@ class Cr6NamedCallers(unittest.TestCase):
                        '0x4DDB20'),
                       ('attrib_dir_collective.obj', p + 'M@std@@QAE@ABV?$basic_string@DU?$char_traits@D@std@@V?$allocator'
                        '@D@2@@1@ABM@Z', '0x4DD6F0')],
-               'USE_CR6_STRING_LOCATED', 'cr6_named', APP_REGION)
+               'USE_CR6_STRING_LOCATED', 'cr6_named', APP_REGION,
+               also_off=('USE_CR7_CALLEE_LOCATED',))    # CR7: its exact callees locate it as well
 
     def test_short(self):
         """USE_CR6_SHORTS: shiputils.obj's RefCountPtr<MeshModelClass>::operator-> (`mov eax, [ecx]; ret`, too short to
@@ -722,6 +724,38 @@ class Cr6NamedCallers(unittest.TestCase):
         that holds its bytes, 0x813950."""
         _check(self, [('shiputils.obj', '??C?$RefCountPtr@VMeshModelClass@@@@QBEPAVMeshModelClass@@XZ', '0x813950')],
                'USE_CR6_SHORTS', 'cr6_named', APP_REGION, off_status='short')
+
+
+_GMR_ITER = ('QAE?AU?$_Hashtable_iterator@U?$pair@$$CBHV?$RefCountPtr@VGalaxyMapRenderXClass@@@@@std@@HU?$hash@H@2@U?$'
+             '_Select1st@U?$pair@$$CBHV?$RefCountPtr@VGalaxyMapRenderXClass@@@@@std@@@2@U?$equal_to@H@2@V?$allocator@V?$'
+             'RefCountPtr@VGalaxyMapRenderXClass@@@@@2@@2@ABH@Z')
+_GMR_TABLE_FIND = ('?find@?$hashtable@U?$pair@$$CBHV?$RefCountPtr@VGalaxyMapRenderXClass@@@@@std@@HU?$hash@H@2@U?$_Select1st'
+                   '@U?$pair@$$CBHV?$RefCountPtr@VGalaxyMapRenderXClass@@@@@std@@@2@U?$equal_to@H@2@V?$allocator@V?$RefCount'
+                   'Ptr@VGalaxyMapRenderXClass@@@@@2@@std@@' + _GMR_ITER)
+_GMR_MAP_FIND = ('?find@?$hash_map@HV?$RefCountPtr@VGalaxyMapRenderXClass@@@@U?$hash@H@std@@U?$equal_to@H@3@V?$allocator@V?$'
+                 'RefCountPtr@VGalaxyMapRenderXClass@@@@@3@@std@@' + _GMR_ITER)
+
+
+class Cr7Callers(unittest.TestCase):
+    """D246 (CR7): galaxy_map_render.obj's not-exact callers of its tied copies."""
+    def test_callee_located(self):
+        """USE_CR7_CALLEE_LOCATED: GalaxyMapRenderSectorClass::Unknown_7AB6D0 (not exact, no client name) is the one
+        client function calling all its exact callees, 0x7AB6D0; its one call to hashtable<System>::find reaches the
+        copy 0x7B1DE0 (of 0x7B1AB0 / 0x7B1DE0 left)."""
+        sym = _GMR_TABLE_FIND.replace('X', 'System')
+        _check(self, [('galaxy_map_render.obj', sym, '0x7B1DE0')], 'USE_CR7_CALLEE_LOCATED', 'cr6_named', APP_REGION)
+
+    def test_pool_align(self):
+        """USE_CR7_POOL_ALIGN: GalaxyMapRenderClass::Unknown_7A8B70 (its self name) calls Create_NEW<System>,
+        Create_NEW<Sector>, hash_map<Sector>::find and two RefCountPtr<GalaxyMapRenderItemClass> conversions; the client
+        function reaches one conversion copy only, so the whole alignment fails, but the Create_NEW pool aligns
+        (0x7B1A50, 0x7B1C80, call order) and the find pool too (0x7B1AB0)."""
+        new = '?Create_NEW@@YA?AV?$RefCountPtr@VGalaxyMapRender%sClass@@@@PAVGalaxyMapRender%sClass@@@Z'
+        find = _GMR_MAP_FIND.replace('X', 'Sector')
+        _check(self, [('galaxy_map_render.obj', new % ('System', 'System'), '0x7B1A50'),
+                      ('galaxy_map_render.obj', new % ('Sector', 'Sector'), '0x7B1C80'),
+                      ('galaxy_map_render.obj', find, '0x7B1AB0')],
+               'USE_CR7_POOL_ALIGN', 'cr6_named', APP_REGION)
 
 
 class NbXcuStretch(unittest.TestCase):
