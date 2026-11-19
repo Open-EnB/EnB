@@ -10,7 +10,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 226 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1971 |
-| 2 | describes what the code does | 4988 |
+| 2 | describes what the code does | 4987 |
 | 1 | neutral placeholder | 25449 |
 
 ## For review (score 3 and below)
@@ -29350,7 +29350,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `s_Size` | `app/shared/auxdata/permstr.cpp:23` | after the asserts' s_Table |
 | 2 | `s_Count` | `app/shared/auxdata/permstr.cpp:24` | after the asserts' s_Table |
 | 2 | `Is_Prime` | `app/shared/auxdata/permstr.cpp:26` | describes what it does |
-| 2 | `PermStringInitInstance` | `app/shared/auxdata/permstr.cpp:223` | describes what it does |
 | 2 | `Get_String` | `app/shared/auxdata/permstr.h:33` | describes what it does |
 | 2 | `Find` | `app/shared/auxdata/permstr.h:36` | describes what it does |
 | 2 | `Print_Statistics` | `app/shared/auxdata/permstr.h:37` | describes what it does |

@@ -1915,7 +1915,8 @@ Stand-ins and gen_stubs (clienttest, udpreplay, kerneltest, the POC):
   name stays): `_login_live.scn` clicks twice with wait-quiet 0.5, then End + 14 Backspace before each `text`. `e2e.py`
   options (--live, --retail, --instance, --antprox-arg) go before `run`. One admin account on the local Net-7 server:
   two logins collide (no START_ACK, the character starts in space): check tasklist for client.exe / antprox.exe
-  before each live run.
+  before each live run. Net7.exe holds `logs\Net7_server_YYYY_MM_DD.log` without sharing: it cannot be read while the
+  server runs; the server is ready when UDP port 3693 is bound (netstat).
 * **Live station scenarios (sb_buysell, sb_jobs, sb_manufacture ...):** a job board tab click sends nothing, a row click sends STARBASE_REQUEST for JOB_DESCRIPTION; the board is random (assert one tab, not a row) and Net-7 refreshes it every 5 minutes, empty after a server start; a crafted item's sale answers PRIORITY_MESSAGE; slash commands (/createitem) go out as CLIENT_CHAT; the chat entry does not open while a terminal window is up; vendors refuse their own goods (sell something they do not make). Components, warheads and credits drift between runs: assert deltas, not totals.
 * **Retiring a stand-in must not take its neighbours with it** (deleting a hand stand-in from stubs/app_stubs.cpp
   also removed the CRT wrappers beside it): gen_stubs' generated stand-ins return null, `standins.py check` and the
