@@ -46,8 +46,9 @@ def main():
     img = ClientImage()
     starts, thunks = img.function_starts()
     t0, t1, raw = img.section('.text')
-    app = [s for s in starts if s < APP_END]
     targets = set(thunks.values())
+    # from the first thunk target: the CRT-registered starts (D267) include 8 thunk-table entries (0x4046BF, ...)
+    app = [s for s in starts if min(targets) <= s < APP_END]
     strings = img.strings(5)
 
     files = {va: normalise(m.group(1)) for va, s in strings.items() if (m := SOURCE.match(s))}

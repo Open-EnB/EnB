@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1971 |
 | 2 | describes what the code does | 4987 |
-| 1 | neutral placeholder | 25449 |
+| 1 | neutral placeholder | 25443 |
 
 ## For review (score 3 and below)
 
@@ -2595,11 +2595,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_64D230` | `app/client/cpacket.cpp:1621` | untagged neutral name (D10) |
 | 1 | `Unknown_81F810` | `app/client/cpacket.cpp:1632` | untagged neutral name (D10) |
 | 1 | `Unknown_81F780` | `app/client/cpacket.cpp:1643` | untagged neutral name (D10) |
-| 1 | `Unknown6D47C0Class` | `app/client/cpacket.cpp:1678` | neutral (D10) |
-| 1 | `name, unknown, text` | `app/client/cpacket.cpp:1681` | what the handler passes |
-| 1 | `x, y` | `app/client/cpacket.cpp:1682` | neutral |
-| 1 | `Unknown_6D8780` | `app/client/cpacket.cpp:1682` | untagged neutral name (D10) |
-| 1 | `Unknown08` | `app/client/cpacket.cpp:1684` | untagged neutral name (D10) |
 | 1 | `Unknown6EF4C0Class` | `app/client/cpacket.cpp:1688` | neutral (D10) |
 | 1 | `client, id, time, duration, unknown, text, offset, velocity` | `app/client/cpacket.cpp:1691` | what the handler passes |
 | 1 | `Unknown_18` | `app/client/cpacket.cpp:1699` | untagged neutral name (D10) |
@@ -2608,6 +2603,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `id` | `app/client/cpacket.cpp:1703` | the packet's Victim |
 | 1 | `Unknown04` | `app/client/cpacket.cpp:1705` | untagged neutral name (D10) |
 | 1 | `Unknown_583DC0` | `app/client/cpacket.cpp:1776` | untagged neutral name (D10) |
+| 1 | `Unknown_6D8780` | `app/client/cpacket.cpp:1780` | untagged neutral name (D10) |
 | 1 | `Unknown_48` | `app/client/cpacket.cpp:1785` | untagged neutral name (D10) |
 | 1 | `Unknown1278` | `app/client/cpacket.cpp:1850` | untagged neutral name (D10) |
 | 1 | `Unknown_661940` | `app/client/cpacket.cpp:1850` | untagged neutral name (D10) |
@@ -2646,6 +2642,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown14` | `app/client/cpacket.cpp:2323` | untagged neutral name (D10) |
 | 1 | `Unknown1C` | `app/client/cpacket.cpp:2323` | untagged neutral name (D10) |
 | 1 | `Unknown_63CF30` | `app/client/cpacket.cpp:2338` | untagged neutral name (D10) |
+| 1 | `Unknown08` | `app/client/cpacket.cpp:2404` | untagged neutral name (D10) |
 | 1 | `Unknown44` | `app/client/cpacket.cpp:2495` | untagged neutral name (D10) |
 | 1 | `Unknown_597080` | `app/client/cpacket.cpp:2503` | untagged neutral name (D10) |
 | 1 | `UnknownD8` | `app/client/cpacket.cpp:2511` | untagged neutral name (D10) |
@@ -7957,7 +7954,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `SClientUnknown12C4Class` | `app/client/sclient.h:99` | neutral (D10): the elements of SClient +0x12C4 |
 | 1 | `SClientUnknown1334Class` | `app/client/sclient.h:100` | neutral (D10): 0xB8 bytes, destructor 0x618A50; decal.cpp's 0x75BE00 loads the decal INIs into it |
 | 1 | `SClientUnknown12BCClass` | `app/client/sclient.h:102` | neutral (D10): what SClient +0x12BC points to (a virtual destructor) |
-| 1 | `Unknown6D47C0Class` | `app/client/sclient.h:103` | neutral (D10): the 0x4E8-byte text object CLIENT_DAMAGE 100 makes (constructor 0x6D47C0; cpacket.cpp) |
 | 1 | `Unknown_BE67BC` | `app/client/sclient.h:110` | neutral (D10); fontdatabase.h declares it too |
 | 1 | `ViewUnknown34MessageStruct` | `app/client/sclient.h:154` | neutral (D10): a box queued while one is shown (0x10 bytes, 0x589140) |
 | 1 | `Type` | `app/client/sclient.h:158` | 0x588A70's argument |
@@ -12579,7 +12575,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6740E0` | `app/client/ui_cpit.cpp:1793` | untagged neutral name (D10) |
 | 1 | `Unknown_583DA0` | `app/client/ui_cpit.cpp:1861` | untagged neutral name (D10) |
 | 1 | `Unknown_583DC0` | `app/client/ui_cpit.cpp:1867` | untagged neutral name (D10) |
-| 1 | `Unknown6D47C0Class` | `app/client/ui_cpit.cpp:1867` | untagged neutral name (D10) |
 | 1 | `Unknown2F4` | `app/client/ui_cpit.cpp:2011` | untagged neutral name (D10) |
 | 1 | `Unknown4C5` | `app/client/ui_cpit.cpp:2015` | untagged neutral name (D10) |
 | 1 | `Unknown_584690` | `app/client/ui_cpit.cpp:2022` | untagged neutral name (D10) |
@@ -12597,7 +12592,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `ui_cpit.h` | `app/client/ui_cpit.h:4` | provisional header name for ui_cpit.cpp |
 | 1 | `Unknown_673EE0Class` | `app/client/ui_cpit.h:15` | untagged neutral name (D10) |
 | 1 | `Unknown_671300Class` | `app/client/ui_cpit.h:16` | untagged neutral name (D10) |
-| 1 | `Unknown6D47C0Class` | `app/client/ui_cpit.h:19` | untagged neutral name (D10) |
 | 1 | `UnknownObjectWatchClass` | `app/client/ui_cpit.h:27` | neutral (D10) |
 | 1 | `UnknownAF0DD0Class` | `app/client/ui_cpit.h:27` | untagged neutral name (D10) |
 | 1 | `arg` | `app/client/ui_cpit.h:31` | eff_o.h's |

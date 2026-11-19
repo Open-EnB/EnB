@@ -143,6 +143,10 @@
 "thunked": true
 },
 {
+"address": "0x42B2F0",
+"thunked": false
+},
+{
 "address": "0x42B320",
 "thunked": true
 },
@@ -151,8 +155,24 @@
 "thunked": true
 },
 {
+"address": "0x42B3D0",
+"thunked": false
+},
+{
+"address": "0x42B400",
+"thunked": false
+},
+{
 "address": "0x42B420",
 "thunked": true
+},
+{
+"address": "0x42B4F0",
+"thunked": false
+},
+{
+"address": "0x42B520",
+"thunked": false
 },
 {
 "address": "0x42B540",
@@ -165,6 +185,10 @@
 {
 "address": "0x42B6A0",
 "thunked": true
+},
+{
+"address": "0x42B770",
+"thunked": false
 },
 {
 "address": "0x42B7E0",
@@ -305,6 +329,10 @@
 {
 "address": "0x42E190",
 "thunked": true
+},
+{
+"address": "0x42E360",
+"thunked": false
 },
 {
 "address": "0x42E390",
@@ -525,6 +553,10 @@
 {
 "address": "0x42F860",
 "thunked": true
+},
+{
+"address": "0x42F880",
+"thunked": false
 },
 {
 "address": "0x42F940",
@@ -867,6 +899,10 @@
 "thunked": true
 },
 {
+"address": "0x433CB0",
+"thunked": false
+},
+{
 "address": "0x433CE0",
 "thunked": true
 },
@@ -1111,6 +1147,10 @@
 "thunked": true
 },
 {
+"address": "0x436A30",
+"thunked": false
+},
+{
 "address": "0x436A60",
 "thunked": true
 },
@@ -1143,6 +1183,10 @@
 {
 "address": "0x437070",
 "thunked": true
+},
+{
+"address": "0x437090",
+"thunked": false
 },
 {
 "address": "0x4370C0",
@@ -1437,6 +1481,10 @@
 "thunked": true
 },
 {
+"address": "0x43BFA0",
+"thunked": false
+},
+{
 "address": "0x43BFD0",
 "thunked": true
 },
@@ -1511,6 +1559,18 @@
 "thunked": true
 },
 {
+"address": "0x43D2F0",
+"thunked": false
+},
+{
+"address": "0x43D320",
+"thunked": false
+},
+{
+"address": "0x43D350",
+"thunked": false
+},
+{
 "address": "0x43D370",
 "thunked": true
 },
@@ -1571,8 +1631,26 @@
 "file_evidence": "between"
 },
 {
+"address": "0x43E780",
+"thunked": false,
+"file": "app\\audio\\soundlib.cpp",
+"file_evidence": "between"
+},
+{
+"address": "0x43E7B0",
+"thunked": false,
+"file": "app\\audio\\soundlib.cpp",
+"file_evidence": "between"
+},
+{
 "address": "0x43E7E0",
 "thunked": true,
+"file": "app\\audio\\soundlib.cpp",
+"file_evidence": "between"
+},
+{
+"address": "0x43E8B0",
+"thunked": false,
 "file": "app\\audio\\soundlib.cpp",
 "file_evidence": "between"
 },
@@ -1807,6 +1885,10 @@
 "thunked": true
 },
 {
+"address": "0x441880",
+"thunked": false
+},
+{
 "address": "0x4418B0",
 "thunked": true
 },
@@ -1853,6 +1935,10 @@
 "thunked": true
 },
 {
+"address": "0x442620",
+"thunked": false
+},
+{
 "address": "0x442650",
 "thunked": true,
 "file": "app\\audio\\surfacetypes.cpp",
@@ -1873,6 +1959,10 @@
 {
 "address": "0x442980",
 "thunked": true
+},
+{
+"address": "0x4429D0",
+"thunked": false
 },
 {
 "address": "0x442A00",
@@ -2113,8 +2203,36 @@
 "thunked": true
 },
 {
+"address": "0x4441B0",
+"thunked": false
+},
+{
+"address": "0x4441E0",
+"thunked": false
+},
+{
+"address": "0x444200",
+"thunked": false
+},
+{
+"address": "0x444220",
+"thunked": false
+},
+{
+"address": "0x444240",
+"thunked": false
+},
+{
 "address": "0x444290",
 "thunked": true
+},
+{
+"address": "0x4442C0",
+"thunked": false
+},
+{
+"address": "0x444380",
+"thunked": false
 },
 {
 "address": "0x444F60",
@@ -2123,6 +2241,14 @@
 {
 "address": "0x4450B0",
 "thunked": true
+},
+{
+"address": "0x445260",
+"thunked": false
+},
+{
+"address": "0x445300",
+"thunked": false
 },
 {
 "address": "0x445330",
@@ -2135,6 +2261,10 @@
 {
 "address": "0x445510",
 "thunked": true
+},
+{
+"address": "0x445540",
+"thunked": false
 },
 {
 "address": "0x445560",
@@ -2155,6 +2285,22 @@
 {
 "address": "0x445610",
 "thunked": true
+},
+{
+"address": "0x445630",
+"thunked": false
+},
+{
+"address": "0x445660",
+"thunked": false
+},
+{
+"address": "0x445680",
+"thunked": false
+},
+{
+"address": "0x4456A0",
+"thunked": false
 },
 {
 "address": "0x4456C0",
@@ -2387,6 +2533,18 @@
 {
 "address": "0x448B60",
 "thunked": true
+},
+{
+"address": "0x448BB0",
+"thunked": false
+},
+{
+"address": "0x448BE0",
+"thunked": false
+},
+{
+"address": "0x448C10",
+"thunked": false
 },
 {
 "address": "0x448C30",
@@ -2802,6 +2960,14 @@
 "file_evidence": "assert"
 },
 {
+"address": "0x44C840",
+"thunked": false
+},
+{
+"address": "0x44C870",
+"thunked": false
+},
+{
 "address": "0x44C890",
 "thunked": true
 },
@@ -3213,6 +3379,10 @@
 "thunked": true
 },
 {
+"address": "0x451BD0",
+"thunked": false
+},
+{
 "address": "0x451C00",
 "thunked": true
 },
@@ -3279,6 +3449,10 @@
 {
 "address": "0x452460",
 "thunked": true
+},
+{
+"address": "0x452750",
+"thunked": false
 },
 {
 "address": "0x452780",
@@ -3508,6 +3682,18 @@
 {
 "address": "0x4559B0",
 "thunked": true,
+"file": "app\\shared\\px_process.cpp",
+"file_evidence": "between"
+},
+{
+"address": "0x4559E0",
+"thunked": false,
+"file": "app\\shared\\px_process.cpp",
+"file_evidence": "between"
+},
+{
+"address": "0x455A10",
+"thunked": false,
 "file": "app\\shared\\px_process.cpp",
 "file_evidence": "between"
 },
@@ -4105,6 +4291,10 @@
 {
 "address": "0x45A290",
 "thunked": true
+},
+{
+"address": "0x45A2B0",
+"thunked": false
 },
 {
 "address": "0x45A2D0",
@@ -4816,6 +5006,10 @@
 {
 "address": "0x45FC50",
 "thunked": true
+},
+{
+"address": "0x45FD70",
+"thunked": false
 },
 {
 "address": "0x45FDA0",
@@ -6122,6 +6316,10 @@
 "thunked": true
 },
 {
+"address": "0x46C710",
+"thunked": false
+},
+{
 "address": "0x46C730",
 "thunked": true
 },
@@ -6307,6 +6505,10 @@
 "thunked": true
 },
 {
+"address": "0x477E20",
+"thunked": false
+},
+{
 "address": "0x478200",
 "thunked": true
 },
@@ -6357,6 +6559,14 @@
 {
 "address": "0x47A2F0",
 "thunked": true
+},
+{
+"address": "0x47C580",
+"thunked": false
+},
+{
+"address": "0x47C6A0",
+"thunked": false
 },
 {
 "address": "0x47CCE0",
@@ -7476,6 +7686,24 @@
 "file_evidence": "between"
 },
 {
+"address": "0x487F00",
+"thunked": false,
+"file": "app\\shared\\spln_db.cpp",
+"file_evidence": "between"
+},
+{
+"address": "0x4881F0",
+"thunked": false,
+"file": "app\\shared\\spln_db.cpp",
+"file_evidence": "between"
+},
+{
+"address": "0x4883A0",
+"thunked": false,
+"file": "app\\shared\\spln_db.cpp",
+"file_evidence": "between"
+},
+{
 "address": "0x488500",
 "thunked": true,
 "file": "app\\shared\\spln_db.cpp",
@@ -7484,6 +7712,30 @@
 {
 "address": "0x4887F0",
 "thunked": true,
+"file": "app\\shared\\spln_db.cpp",
+"file_evidence": "between"
+},
+{
+"address": "0x488870",
+"thunked": false,
+"file": "app\\shared\\spln_db.cpp",
+"file_evidence": "between"
+},
+{
+"address": "0x488DC0",
+"thunked": false,
+"file": "app\\shared\\spln_db.cpp",
+"file_evidence": "between"
+},
+{
+"address": "0x488F20",
+"thunked": false,
+"file": "app\\shared\\spln_db.cpp",
+"file_evidence": "between"
+},
+{
+"address": "0x488FB0",
+"thunked": false,
 "file": "app\\shared\\spln_db.cpp",
 "file_evidence": "between"
 },
@@ -7704,6 +7956,10 @@
 "thunked": true
 },
 {
+"address": "0x48AEA0",
+"thunked": false
+},
+{
 "address": "0x48AED0",
 "thunked": true
 },
@@ -7826,12 +8082,20 @@
 "thunked": true
 },
 {
+"address": "0x48E620",
+"thunked": false
+},
+{
 "address": "0x48E910",
 "thunked": true
 },
 {
 "address": "0x48E940",
 "thunked": true
+},
+{
+"address": "0x48E9D0",
+"thunked": false
 },
 {
 "address": "0x48EB90",
@@ -7955,6 +8219,10 @@
 {
 "address": "0x491550",
 "thunked": true
+},
+{
+"address": "0x491660",
+"thunked": false
 },
 {
 "address": "0x491680",
@@ -9030,6 +9298,18 @@
 "thunked": true
 },
 {
+"address": "0x49B8F0",
+"thunked": false
+},
+{
+"address": "0x49B920",
+"thunked": false
+},
+{
+"address": "0x49B950",
+"thunked": false
+},
+{
 "address": "0x49B980",
 "thunked": true
 },
@@ -9177,8 +9457,18 @@
 "thunked": true
 },
 {
+"address": "0x49D2D0",
+"thunked": false
+},
+{
 "address": "0x49D340",
 "thunked": true,
+"file": "app\\shared\\damtype.cpp",
+"file_evidence": "assert"
+},
+{
+"address": "0x49D460",
+"thunked": false,
 "file": "app\\shared\\damtype.cpp",
 "file_evidence": "assert"
 },
@@ -9301,6 +9591,10 @@
 "thunked": true
 },
 {
+"address": "0x49E860",
+"thunked": false
+},
+{
 "address": "0x49E890",
 "thunked": true
 },
@@ -9395,6 +9689,10 @@
 "thunked": true
 },
 {
+"address": "0x49F250",
+"thunked": false
+},
+{
 "address": "0x49F270",
 "thunked": true
 },
@@ -9417,6 +9715,10 @@
 {
 "address": "0x49FA50",
 "thunked": true
+},
+{
+"address": "0x49FA80",
+"thunked": false
 },
 {
 "address": "0x49FAB0",
@@ -9689,8 +9991,24 @@
 "thunked": true
 },
 {
+"address": "0x4A15E0",
+"thunked": false
+},
+{
+"address": "0x4A1610",
+"thunked": false
+},
+{
 "address": "0x4A1640",
 "thunked": true
+},
+{
+"address": "0x4A1710",
+"thunked": false
+},
+{
+"address": "0x4A1740",
+"thunked": false
 },
 {
 "address": "0x4A1770",
@@ -9881,8 +10199,20 @@
 "thunked": true
 },
 {
+"address": "0x4A2650",
+"thunked": false
+},
+{
 "address": "0x4A2680",
 "thunked": true
+},
+{
+"address": "0x4A2690",
+"thunked": false
+},
+{
+"address": "0x4A26C0",
+"thunked": false
 },
 {
 "address": "0x4A26E0",
@@ -10033,6 +10363,10 @@
 "thunked": true
 },
 {
+"address": "0x4A3720",
+"thunked": false
+},
+{
 "address": "0x4A3750",
 "thunked": true,
 "file": "app\\shared\\strconv_lib.cpp",
@@ -10073,6 +10407,14 @@
 {
 "address": "0x4A3B40",
 "thunked": true
+},
+{
+"address": "0x4A3B80",
+"thunked": false
+},
+{
+"address": "0x4A3BB0",
+"thunked": false
 },
 {
 "address": "0x4A3BD0",
@@ -10275,6 +10617,22 @@
 "thunked": true
 },
 {
+"address": "0x4A4C90",
+"thunked": false
+},
+{
+"address": "0x4A4CC0",
+"thunked": false
+},
+{
+"address": "0x4A4CE0",
+"thunked": false
+},
+{
+"address": "0x4A4D10",
+"thunked": false
+},
+{
 "address": "0x4A4D40",
 "thunked": true
 },
@@ -10433,6 +10791,22 @@
 "thunked": true
 },
 {
+"address": "0x4A6070",
+"thunked": false
+},
+{
+"address": "0x4A60A0",
+"thunked": false
+},
+{
+"address": "0x4A60D0",
+"thunked": false
+},
+{
+"address": "0x4A60F0",
+"thunked": false
+},
+{
 "address": "0x4A6110",
 "thunked": true
 },
@@ -10525,6 +10899,10 @@
 "file_evidence": "assert"
 },
 {
+"address": "0x4A6EB0",
+"thunked": false
+},
+{
 "address": "0x4A6EE0",
 "thunked": true
 },
@@ -10543,6 +10921,22 @@
 {
 "address": "0x4A6FB0",
 "thunked": true
+},
+{
+"address": "0x4A6FD0",
+"thunked": false
+},
+{
+"address": "0x4A7000",
+"thunked": false
+},
+{
+"address": "0x4A7030",
+"thunked": false
+},
+{
+"address": "0x4A7050",
+"thunked": false
 },
 {
 "address": "0x4A7080",
@@ -10645,6 +11039,22 @@
 "thunked": true
 },
 {
+"address": "0x4A7840",
+"thunked": false
+},
+{
+"address": "0x4A7870",
+"thunked": false
+},
+{
+"address": "0x4A78A0",
+"thunked": false
+},
+{
+"address": "0x4A78C0",
+"thunked": false
+},
+{
 "address": "0x4A78F0",
 "thunked": true,
 "file": "app\\shared\\auxdata\\delta_string.cpp",
@@ -10731,6 +11141,22 @@
 {
 "address": "0x4A8060",
 "thunked": true
+},
+{
+"address": "0x4A80A0",
+"thunked": false
+},
+{
+"address": "0x4A80D0",
+"thunked": false
+},
+{
+"address": "0x4A8100",
+"thunked": false
+},
+{
+"address": "0x4A8120",
+"thunked": false
 },
 {
 "address": "0x4A8150",
@@ -10825,6 +11251,26 @@
 "thunked": true
 },
 {
+"address": "0x4A89E0",
+"thunked": false
+},
+{
+"address": "0x4A8A10",
+"thunked": false
+},
+{
+"address": "0x4A8A40",
+"thunked": false
+},
+{
+"address": "0x4A8A60",
+"thunked": false
+},
+{
+"address": "0x4A8AA0",
+"thunked": false
+},
+{
 "address": "0x4A8AF0",
 "thunked": true
 },
@@ -10847,6 +11293,12 @@
 {
 "address": "0x4A8FD0",
 "thunked": true,
+"file": "app\\shared\\auxdata\\encode.cpp",
+"file_evidence": "between"
+},
+{
+"address": "0x4A9190",
+"thunked": false,
 "file": "app\\shared\\auxdata\\encode.cpp",
 "file_evidence": "between"
 },
@@ -10883,6 +11335,42 @@
 {
 "address": "0x4A9710",
 "thunked": true,
+"file": "app\\shared\\auxdata\\encode.cpp",
+"file_evidence": "between"
+},
+{
+"address": "0x4A9850",
+"thunked": false,
+"file": "app\\shared\\auxdata\\encode.cpp",
+"file_evidence": "between"
+},
+{
+"address": "0x4A9890",
+"thunked": false,
+"file": "app\\shared\\auxdata\\encode.cpp",
+"file_evidence": "between"
+},
+{
+"address": "0x4A98E0",
+"thunked": false,
+"file": "app\\shared\\auxdata\\encode.cpp",
+"file_evidence": "between"
+},
+{
+"address": "0x4A9920",
+"thunked": false,
+"file": "app\\shared\\auxdata\\encode.cpp",
+"file_evidence": "between"
+},
+{
+"address": "0x4A9970",
+"thunked": false,
+"file": "app\\shared\\auxdata\\encode.cpp",
+"file_evidence": "between"
+},
+{
+"address": "0x4A99A0",
+"thunked": false,
 "file": "app\\shared\\auxdata\\encode.cpp",
 "file_evidence": "between"
 },
@@ -11157,6 +11645,14 @@
 "thunked": true
 },
 {
+"address": "0x4AB5A0",
+"thunked": false
+},
+{
+"address": "0x4AB5D0",
+"thunked": false
+},
+{
 "address": "0x4AB5F0",
 "thunked": true
 },
@@ -11231,6 +11727,14 @@
 {
 "address": "0x4ABE40",
 "thunked": true
+},
+{
+"address": "0x4AC200",
+"thunked": false
+},
+{
+"address": "0x4AC230",
+"thunked": false
 },
 {
 "address": "0x4AC250",
@@ -11317,6 +11821,14 @@
 "thunked": true
 },
 {
+"address": "0x4AD330",
+"thunked": false
+},
+{
+"address": "0x4AD360",
+"thunked": false
+},
+{
 "address": "0x4AD380",
 "thunked": true
 },
@@ -11366,7 +11878,17 @@
 },
 {
 "address": "0x4ADBB0",
-"thunked": true,
+"thunked": true
+},
+{
+"address": "0x4ADC50",
+"thunked": false,
+"file": "app\\shared\\auxdata\\permstr.cpp",
+"file_evidence": "assert"
+},
+{
+"address": "0x4ADD40",
+"thunked": false,
 "file": "app\\shared\\auxdata\\permstr.cpp",
 "file_evidence": "assert"
 },
@@ -11411,6 +11933,14 @@
 "thunked": true,
 "file": "app\\shared\\auxdata\\permstr.cpp",
 "file_evidence": "assert"
+},
+{
+"address": "0x4AE3B0",
+"thunked": false
+},
+{
+"address": "0x4AE3E0",
+"thunked": false
 },
 {
 "address": "0x4AE400",
@@ -11643,6 +12173,14 @@
 "thunked": true
 },
 {
+"address": "0x4B0630",
+"thunked": false
+},
+{
+"address": "0x4B0660",
+"thunked": false
+},
+{
 "address": "0x4B0680",
 "thunked": true
 },
@@ -11681,6 +12219,10 @@
 {
 "address": "0x4B0BD0",
 "thunked": true
+},
+{
+"address": "0x4B0C60",
+"thunked": false
 },
 {
 "address": "0x4B0C90",
@@ -11763,6 +12305,10 @@
 "thunked": true
 },
 {
+"address": "0x4B1130",
+"thunked": false
+},
+{
 "address": "0x4B1160",
 "thunked": true
 },
@@ -11833,6 +12379,14 @@
 {
 "address": "0x4B1700",
 "thunked": true
+},
+{
+"address": "0x4B1740",
+"thunked": false
+},
+{
+"address": "0x4B1770",
+"thunked": false
 },
 {
 "address": "0x4B1790",
@@ -12131,6 +12685,18 @@
 "thunked": true
 },
 {
+"address": "0x4B37D0",
+"thunked": false
+},
+{
+"address": "0x4B3800",
+"thunked": false
+},
+{
+"address": "0x4B3830",
+"thunked": false
+},
+{
 "address": "0x4B3850",
 "thunked": true,
 "file": "app\\shared\\kv_encoder_base.cpp",
@@ -12195,6 +12761,12 @@
 "thunked": true,
 "file": "app\\shared\\kv_encoder_base.cpp",
 "file_evidence": "assert"
+},
+{
+"address": "0x4B43E0",
+"thunked": false,
+"file": "app\\shared\\kv_encoder_base.cpp",
+"file_evidence": "between"
 },
 {
 "address": "0x4B45B0",
@@ -12289,6 +12861,18 @@
 "thunked": true
 },
 {
+"address": "0x4B5A50",
+"thunked": false
+},
+{
+"address": "0x4B5A80",
+"thunked": false
+},
+{
+"address": "0x4B5AB0",
+"thunked": false
+},
+{
 "address": "0x4B5AD0",
 "thunked": true
 },
@@ -12321,6 +12905,18 @@
 "thunked": true
 },
 {
+"address": "0x4B5E80",
+"thunked": false
+},
+{
+"address": "0x4B5EB0",
+"thunked": false
+},
+{
+"address": "0x4B5EE0",
+"thunked": false
+},
+{
 "address": "0x4B5F00",
 "thunked": true
 },
@@ -12331,6 +12927,18 @@
 {
 "address": "0x4B60B0",
 "thunked": true
+},
+{
+"address": "0x4B6230",
+"thunked": false
+},
+{
+"address": "0x4B6260",
+"thunked": false
+},
+{
+"address": "0x4B6290",
+"thunked": false
 },
 {
 "address": "0x4B62B0",
@@ -12451,6 +13059,10 @@
 "thunked": true
 },
 {
+"address": "0x4B7DB0",
+"thunked": false
+},
+{
 "address": "0x4B7DE0",
 "thunked": true
 },
@@ -12461,6 +13073,14 @@
 {
 "address": "0x4B7E30",
 "thunked": true
+},
+{
+"address": "0x4B7E60",
+"thunked": false
+},
+{
+"address": "0x4B7E90",
+"thunked": false
 },
 {
 "address": "0x4B7EB0",
@@ -12475,6 +13095,14 @@
 {
 "address": "0x4B7F50",
 "thunked": true
+},
+{
+"address": "0x4B7F70",
+"thunked": false
+},
+{
+"address": "0x4B7FA0",
+"thunked": false
 },
 {
 "address": "0x4B7FC0",
@@ -12527,6 +13155,10 @@
 {
 "address": "0x4B8450",
 "thunked": true
+},
+{
+"address": "0x4B8490",
+"thunked": false
 },
 {
 "address": "0x4B84C0",
@@ -12719,6 +13351,18 @@
 "thunked": true
 },
 {
+"address": "0x4BB060",
+"thunked": false
+},
+{
+"address": "0x4BB090",
+"thunked": false
+},
+{
+"address": "0x4BB0C0",
+"thunked": false
+},
+{
 "address": "0x4BB0E0",
 "thunked": true
 },
@@ -12727,6 +13371,16 @@
 "thunked": true,
 "file": "app\\shared\\kv_util.cpp",
 "file_evidence": "assert"
+},
+{
+"address": "0x4BB4C0",
+"thunked": false,
+"file": "app\\shared\\kv_util.cpp",
+"file_evidence": "assert"
+},
+{
+"address": "0x4BB870",
+"thunked": false
 },
 {
 "address": "0x4BB8A0",
@@ -12775,6 +13429,10 @@
 {
 "address": "0x4BC460",
 "thunked": true
+},
+{
+"address": "0x4BC5A0",
+"thunked": false
 },
 {
 "address": "0x4BC8F0",
@@ -12849,6 +13507,10 @@
 "thunked": true
 },
 {
+"address": "0x4BDFB0",
+"thunked": false
+},
+{
 "address": "0x4BDFE0",
 "thunked": true
 },
@@ -12875,6 +13537,22 @@
 {
 "address": "0x4BE7A0",
 "thunked": true
+},
+{
+"address": "0x4BE920",
+"thunked": false
+},
+{
+"address": "0x4BE950",
+"thunked": false
+},
+{
+"address": "0x4BE970",
+"thunked": false
+},
+{
+"address": "0x4BE9A0",
+"thunked": false
 },
 {
 "address": "0x4BE9D0",
@@ -13159,6 +13837,10 @@
 "thunked": true
 },
 {
+"address": "0x4C4330",
+"thunked": false
+},
+{
 "address": "0x4C4360",
 "thunked": true
 },
@@ -13307,6 +13989,10 @@
 {
 "address": "0x4C5650",
 "thunked": true
+},
+{
+"address": "0x4C5680",
+"thunked": false
 },
 {
 "address": "0x4C56B0",
@@ -13481,6 +14167,10 @@
 "thunked": true
 },
 {
+"address": "0x4C7590",
+"thunked": false
+},
+{
 "address": "0x4C75C0",
 "thunked": true
 },
@@ -13511,6 +14201,10 @@
 {
 "address": "0x4C7AE0",
 "thunked": true
+},
+{
+"address": "0x4C7B70",
+"thunked": false
 },
 {
 "address": "0x4C7BA0",
@@ -13949,6 +14643,10 @@
 {
 "address": "0x4CBA10",
 "thunked": true
+},
+{
+"address": "0x4CBA90",
+"thunked": false
 },
 {
 "address": "0x4CBAC0",
@@ -14453,6 +15151,10 @@
 "thunked": true
 },
 {
+"address": "0x4D0200",
+"thunked": false
+},
+{
 "address": "0x4D0230",
 "thunked": true,
 "file": "app\\shared\\expr\\expr_math_lexer_factory.cpp",
@@ -14469,6 +15171,10 @@
 {
 "address": "0x4D0510",
 "thunked": true
+},
+{
+"address": "0x4D0530",
+"thunked": false
 },
 {
 "address": "0x4D0560",
@@ -14503,6 +15209,10 @@
 {
 "address": "0x4D0A70",
 "thunked": true
+},
+{
+"address": "0x4D0A90",
+"thunked": false
 },
 {
 "address": "0x4D0AC0",
@@ -14581,6 +15291,10 @@
 {
 "address": "0x4D22B0",
 "thunked": true
+},
+{
+"address": "0x4D2550",
+"thunked": false
 },
 {
 "address": "0x4D2580",
@@ -14689,6 +15403,10 @@
 "thunked": true
 },
 {
+"address": "0x4D3160",
+"thunked": false
+},
+{
 "address": "0x4D3190",
 "thunked": true
 },
@@ -14755,6 +15473,10 @@
 {
 "address": "0x4D40C0",
 "thunked": true
+},
+{
+"address": "0x4D4290",
+"thunked": false
 },
 {
 "address": "0x4D42C0",
@@ -15445,6 +16167,10 @@
 "thunked": true
 },
 {
+"address": "0x4DA770",
+"thunked": false
+},
+{
 "address": "0x4DA7A0",
 "thunked": true
 },
@@ -15909,6 +16635,10 @@
 "thunked": true
 },
 {
+"address": "0x4DF820",
+"thunked": false
+},
+{
 "address": "0x4DF850",
 "thunked": true
 },
@@ -16009,8 +16739,16 @@
 "thunked": true
 },
 {
+"address": "0x4E06D0",
+"thunked": false
+},
+{
 "address": "0x4E0700",
 "thunked": true
+},
+{
+"address": "0x4E0810",
+"thunked": false
 },
 {
 "address": "0x4E0840",
@@ -16225,6 +16963,10 @@
 "thunked": true
 },
 {
+"address": "0x4E4290",
+"thunked": false
+},
+{
 "address": "0x4E42C0",
 "thunked": true,
 "file": "app\\shared\\chat_filter_util.cpp",
@@ -16243,12 +16985,20 @@
 "thunked": true
 },
 {
+"address": "0x4E4AD0",
+"thunked": false
+},
+{
 "address": "0x4E4B00",
 "thunked": true
 },
 {
 "address": "0x4E4B50",
 "thunked": true
+},
+{
+"address": "0x4E4CE0",
+"thunked": false
 },
 {
 "address": "0x4E4D10",
@@ -16435,6 +17185,10 @@
 "thunked": true
 },
 {
+"address": "0x4E71B0",
+"thunked": false
+},
+{
 "address": "0x4E71E0",
 "thunked": true
 },
@@ -16563,6 +17317,18 @@
 "file_evidence": "assert"
 },
 {
+"address": "0x4E8670",
+"thunked": false,
+"file": "app\\shared\\event.cpp",
+"file_evidence": "between"
+},
+{
+"address": "0x4E86A0",
+"thunked": false,
+"file": "app\\shared\\event.cpp",
+"file_evidence": "between"
+},
+{
 "address": "0x4E86C0",
 "thunked": true,
 "file": "app\\shared\\event.cpp",
@@ -16655,12 +17421,28 @@
 "thunked": true
 },
 {
+"address": "0x4E93B0",
+"thunked": false
+},
+{
+"address": "0x4E93E0",
+"thunked": false
+},
+{
 "address": "0x4E9410",
 "thunked": true
 },
 {
 "address": "0x4E9450",
 "thunked": true
+},
+{
+"address": "0x4E9490",
+"thunked": false
+},
+{
+"address": "0x4E94D0",
+"thunked": false
 },
 {
 "address": "0x4E94F0",
@@ -16873,6 +17655,10 @@
 "thunked": true
 },
 {
+"address": "0x4EB8E0",
+"thunked": false
+},
+{
 "address": "0x4EB910",
 "thunked": true
 },
@@ -16907,6 +17693,10 @@
 {
 "address": "0x4EC040",
 "thunked": true
+},
+{
+"address": "0x4EC1F0",
+"thunked": false
 },
 {
 "address": "0x4EC260",
@@ -17199,6 +17989,10 @@
 "thunked": true
 },
 {
+"address": "0x4EFC70",
+"thunked": false
+},
+{
 "address": "0x4EFCA0",
 "thunked": true
 },
@@ -17441,8 +18235,20 @@
 "thunked": true
 },
 {
+"address": "0x4F1DF0",
+"thunked": false
+},
+{
 "address": "0x4F1E20",
 "thunked": true
+},
+{
+"address": "0x4F2440",
+"thunked": false
+},
+{
+"address": "0x4F25A0",
+"thunked": false
 },
 {
 "address": "0x4F25D0",
@@ -17577,8 +18383,28 @@
 "thunked": true
 },
 {
+"address": "0x4F5540",
+"thunked": false
+},
+{
+"address": "0x4F5570",
+"thunked": false
+},
+{
+"address": "0x4F5630",
+"thunked": false
+},
+{
+"address": "0x4F56A0",
+"thunked": false
+},
+{
 "address": "0x4F56F0",
 "thunked": true
+},
+{
+"address": "0x4F5800",
+"thunked": false
 },
 {
 "address": "0x4F5830",
@@ -17601,6 +18427,10 @@
 "thunked": true
 },
 {
+"address": "0x4F5DE0",
+"thunked": false
+},
+{
 "address": "0x4F5E10",
 "thunked": true
 },
@@ -17621,6 +18451,18 @@
 "thunked": true,
 "file": "app\\shared\\safe_ptr.cpp",
 "file_evidence": "assert"
+},
+{
+"address": "0x4F5F60",
+"thunked": false
+},
+{
+"address": "0x4F5F90",
+"thunked": false
+},
+{
+"address": "0x4F5FB0",
+"thunked": false
 },
 {
 "address": "0x4F6160",
@@ -17965,6 +18807,10 @@
 "file_evidence": "assert"
 },
 {
+"address": "0x4F7900",
+"thunked": false
+},
+{
 "address": "0x4F7930",
 "thunked": true
 },
@@ -17993,8 +18839,20 @@
 "thunked": true
 },
 {
+"address": "0x4F7F40",
+"thunked": false
+},
+{
 "address": "0x4F7F60",
 "thunked": true
+},
+{
+"address": "0x4F7FB0",
+"thunked": false
+},
+{
+"address": "0x4F7FD0",
+"thunked": false
 },
 {
 "address": "0x4F8000",
@@ -18084,6 +18942,10 @@
 "thunked": true
 },
 {
+"address": "0x4F92F0",
+"thunked": false
+},
+{
 "address": "0x4F9320",
 "thunked": true
 },
@@ -18109,6 +18971,10 @@
 "address": "0x4F9AD0",
 "thunked": true,
 "name": "SignalMap::emit"
+},
+{
+"address": "0x4F9BC0",
+"thunked": false
 },
 {
 "address": "0x4F9BF0",
@@ -18149,6 +19015,10 @@
 "thunked": true
 },
 {
+"address": "0x4FA8C0",
+"thunked": false
+},
+{
 "address": "0x4FA8F0",
 "thunked": true
 },
@@ -18175,6 +19045,10 @@
 {
 "address": "0x4FABB0",
 "thunked": true
+},
+{
+"address": "0x4FABF0",
+"thunked": false
 },
 {
 "address": "0x4FAC20",
@@ -18207,6 +19081,10 @@
 {
 "address": "0x4FB5B0",
 "thunked": true
+},
+{
+"address": "0x4FB7E0",
+"thunked": false
 },
 {
 "address": "0x4FB810",
@@ -18253,6 +19131,10 @@
 "thunked": true
 },
 {
+"address": "0x4FCBA0",
+"thunked": false
+},
+{
 "address": "0x4FCBD0",
 "thunked": true
 },
@@ -18271,6 +19153,10 @@
 {
 "address": "0x4FD190",
 "thunked": true
+},
+{
+"address": "0x4FD2C0",
+"thunked": false
 },
 {
 "address": "0x4FD330",
@@ -18337,6 +19223,10 @@
 {
 "address": "0x4FE5A0",
 "thunked": true
+},
+{
+"address": "0x4FE750",
+"thunked": false
 },
 {
 "address": "0x4FE780",
@@ -18443,6 +19333,10 @@
 "thunked": true,
 "file": "app\\shared\\duration.h",
 "file_evidence": "assert"
+},
+{
+"address": "0x4FFC40",
+"thunked": false
 },
 {
 "address": "0x4FFC70",
@@ -18937,6 +19831,10 @@
 "thunked": true
 },
 {
+"address": "0x5099D0",
+"thunked": false
+},
+{
 "address": "0x509A70",
 "thunked": true
 },
@@ -18947,6 +19845,14 @@
 {
 "address": "0x509AB0",
 "thunked": true
+},
+{
+"address": "0x509AD0",
+"thunked": false
+},
+{
+"address": "0x509B00",
+"thunked": false
 },
 {
 "address": "0x509B30",
@@ -19127,6 +20033,18 @@
 {
 "address": "0x50B2C0",
 "thunked": true
+},
+{
+"address": "0x50B2E0",
+"thunked": false
+},
+{
+"address": "0x50B310",
+"thunked": false
+},
+{
+"address": "0x50B340",
+"thunked": false
 },
 {
 "address": "0x50B360",
@@ -19760,12 +20678,24 @@
 "thunked": true
 },
 {
+"address": "0x514B30",
+"thunked": false
+},
+{
 "address": "0x514B60",
 "thunked": true
 },
 {
 "address": "0x514BD0",
 "thunked": true
+},
+{
+"address": "0x514C40",
+"thunked": false
+},
+{
+"address": "0x514C90",
+"thunked": false
 },
 {
 "address": "0x514CC0",
@@ -19806,6 +20736,18 @@
 {
 "address": "0x514E70",
 "thunked": true
+},
+{
+"address": "0x514F60",
+"thunked": false
+},
+{
+"address": "0x514F90",
+"thunked": false
+},
+{
+"address": "0x514FC0",
+"thunked": false
 },
 {
 "address": "0x514FE0",
@@ -19854,6 +20796,10 @@
 "thunked": true,
 "file": "app\\client\\smouse.cpp",
 "file_evidence": "assert"
+},
+{
+"address": "0x515610",
+"thunked": false
 },
 {
 "address": "0x515640",
@@ -19908,12 +20854,24 @@
 "thunked": true
 },
 {
+"address": "0x515A10",
+"thunked": false
+},
+{
 "address": "0x515A40",
 "thunked": true
 },
 {
 "address": "0x515A50",
 "thunked": true
+},
+{
+"address": "0x515A60",
+"thunked": false
+},
+{
+"address": "0x515A90",
+"thunked": false
 },
 {
 "address": "0x515AB0",
@@ -20052,6 +21010,10 @@
 "thunked": true
 },
 {
+"address": "0x517210",
+"thunked": false
+},
+{
 "address": "0x517240",
 "thunked": true
 },
@@ -20180,6 +21142,10 @@
 {
 "address": "0x518680",
 "thunked": true
+},
+{
+"address": "0x5186C0",
+"thunked": false
 },
 {
 "address": "0x5186F0",
@@ -20454,6 +21420,10 @@
 "thunked": true
 },
 {
+"address": "0x51A7F0",
+"thunked": false
+},
+{
 "address": "0x51A820",
 "thunked": true
 },
@@ -20538,6 +21508,10 @@
 {
 "address": "0x51AF40",
 "thunked": true
+},
+{
+"address": "0x51AF70",
+"thunked": false
 },
 {
 "address": "0x51AFA0",
@@ -20776,6 +21750,10 @@
 "thunked": true
 },
 {
+"address": "0x51C7D0",
+"thunked": false
+},
+{
 "address": "0x51C800",
 "thunked": true
 },
@@ -20958,6 +21936,10 @@
 "thunked": true
 },
 {
+"address": "0x51D760",
+"thunked": false
+},
+{
 "address": "0x51D790",
 "thunked": true,
 "file": "app\\client\\dynamic_window_toggle.cpp",
@@ -21068,6 +22050,10 @@
 {
 "address": "0x51EA50",
 "thunked": true
+},
+{
+"address": "0x51EA80",
+"thunked": false
 },
 {
 "address": "0x51EAB0",
@@ -21240,6 +22226,10 @@
 "thunked": true
 },
 {
+"address": "0x51F990",
+"thunked": false
+},
+{
 "address": "0x51F9C0",
 "thunked": true
 },
@@ -21262,6 +22252,10 @@
 {
 "address": "0x51FE50",
 "thunked": true
+},
+{
+"address": "0x51FE70",
+"thunked": false
 },
 {
 "address": "0x51FEA0",
@@ -21290,6 +22284,10 @@
 "thunked": true
 },
 {
+"address": "0x5203A0",
+"thunked": false
+},
+{
 "address": "0x5203D0",
 "thunked": true,
 "file": "app\\client\\item\\client_item_property_attribute_float.cpp",
@@ -21314,6 +22312,10 @@
 {
 "address": "0x520730",
 "thunked": true
+},
+{
+"address": "0x520760",
+"thunked": false
 },
 {
 "address": "0x520790",
@@ -21342,6 +22344,10 @@
 "thunked": true
 },
 {
+"address": "0x520AF0",
+"thunked": false
+},
+{
 "address": "0x520B20",
 "thunked": true,
 "file": "app\\client\\item\\client_item_property_attribute_percent.cpp",
@@ -21366,6 +22372,10 @@
 {
 "address": "0x520FF0",
 "thunked": true
+},
+{
+"address": "0x521020",
+"thunked": false
 },
 {
 "address": "0x521050",
@@ -21394,6 +22404,10 @@
 "thunked": true
 },
 {
+"address": "0x521530",
+"thunked": false
+},
+{
 "address": "0x521560",
 "thunked": true,
 "file": "app\\client\\item\\client_item_property_attribute_string.cpp",
@@ -21418,6 +22432,18 @@
 {
 "address": "0x521AD0",
 "thunked": true
+},
+{
+"address": "0x521B00",
+"thunked": false
+},
+{
+"address": "0x521B30",
+"thunked": false
+},
+{
+"address": "0x521B60",
+"thunked": false
 },
 {
 "address": "0x521B80",
@@ -21562,12 +22588,20 @@
 "thunked": true
 },
 {
+"address": "0x529580",
+"thunked": false
+},
+{
 "address": "0x5295C0",
 "thunked": true
 },
 {
 "address": "0x5296D0",
 "thunked": true
+},
+{
+"address": "0x5297E0",
+"thunked": false
 },
 {
 "address": "0x529810",
@@ -21602,6 +22636,10 @@
 "thunked": true
 },
 {
+"address": "0x529AB0",
+"thunked": false
+},
+{
 "address": "0x529AE0",
 "thunked": true
 },
@@ -21632,6 +22670,10 @@
 {
 "address": "0x529F60",
 "thunked": true
+},
+{
+"address": "0x529F90",
+"thunked": false
 },
 {
 "address": "0x529FC0",
@@ -21668,6 +22710,10 @@
 "thunked": true
 },
 {
+"address": "0x52A330",
+"thunked": false
+},
+{
 "address": "0x52A360",
 "thunked": true
 },
@@ -21700,6 +22746,10 @@
 "thunked": true
 },
 {
+"address": "0x52A810",
+"thunked": false
+},
+{
 "address": "0x52A840",
 "thunked": true
 },
@@ -21722,6 +22772,18 @@
 {
 "address": "0x52AC60",
 "thunked": true
+},
+{
+"address": "0x52AC80",
+"thunked": false
+},
+{
+"address": "0x52ACB0",
+"thunked": false
+},
+{
+"address": "0x52ACE0",
+"thunked": false
 },
 {
 "address": "0x52AD00",
@@ -21800,6 +22862,10 @@
 "thunked": true
 },
 {
+"address": "0x52B3B0",
+"thunked": false
+},
+{
 "address": "0x52B3E0",
 "thunked": true
 },
@@ -21822,6 +22888,10 @@
 {
 "address": "0x52B7F0",
 "thunked": true
+},
+{
+"address": "0x52B810",
+"thunked": false
 },
 {
 "address": "0x52B840",
@@ -21876,6 +22946,10 @@
 "thunked": true
 },
 {
+"address": "0x52C740",
+"thunked": false
+},
+{
 "address": "0x52C770",
 "thunked": true,
 "file": "app\\client\\item\\client_item_property_special_maker.cpp",
@@ -21904,6 +22978,18 @@
 {
 "address": "0x52CEE0",
 "thunked": true
+},
+{
+"address": "0x52CF10",
+"thunked": false
+},
+{
+"address": "0x52CF40",
+"thunked": false
+},
+{
+"address": "0x52CF70",
+"thunked": false
 },
 {
 "address": "0x52CF90",
@@ -21950,6 +23036,22 @@
 "thunked": true
 },
 {
+"address": "0x52DA50",
+"thunked": false
+},
+{
+"address": "0x52DAC0",
+"thunked": false
+},
+{
+"address": "0x52DB10",
+"thunked": false
+},
+{
+"address": "0x52DB40",
+"thunked": false
+},
+{
 "address": "0x52DB60",
 "thunked": true,
 "file": "app\\client\\item\\client_item_property_special_race_requirement.cpp",
@@ -21992,6 +23094,22 @@
 {
 "address": "0x52E620",
 "thunked": true
+},
+{
+"address": "0x52E650",
+"thunked": false
+},
+{
+"address": "0x52E6C0",
+"thunked": false
+},
+{
+"address": "0x52E710",
+"thunked": false
+},
+{
+"address": "0x52E740",
+"thunked": false
 },
 {
 "address": "0x52E760",
@@ -22066,6 +23184,14 @@
 "thunked": true
 },
 {
+"address": "0x52F8D0",
+"thunked": false
+},
+{
+"address": "0x52F940",
+"thunked": false
+},
+{
 "address": "0x52F990",
 "thunked": true
 },
@@ -22096,6 +23222,10 @@
 {
 "address": "0x52FF50",
 "thunked": true
+},
+{
+"address": "0x52FF80",
+"thunked": false
 },
 {
 "address": "0x52FFB0",
@@ -22138,6 +23268,10 @@
 "thunked": true
 },
 {
+"address": "0x530360",
+"thunked": false
+},
+{
 "address": "0x530390",
 "thunked": true
 },
@@ -22174,8 +23308,24 @@
 "thunked": true
 },
 {
+"address": "0x5304B0",
+"thunked": false
+},
+{
+"address": "0x5304E0",
+"thunked": false
+},
+{
+"address": "0x530510",
+"thunked": false
+},
+{
 "address": "0x530530",
-"thunked": true,
+"thunked": true
+},
+{
+"address": "0x530820",
+"thunked": false,
 "file": "app\\client\\item\\client_item_property_special_level_requirement.cpp",
 "file_evidence": "assert"
 },
@@ -22214,12 +23364,32 @@
 "thunked": true
 },
 {
+"address": "0x531460",
+"thunked": false
+},
+{
 "address": "0x5314D0",
 "thunked": true
 },
 {
+"address": "0x531540",
+"thunked": false
+},
+{
 "address": "0x531590",
 "thunked": true
+},
+{
+"address": "0x5315E0",
+"thunked": false
+},
+{
+"address": "0x531610",
+"thunked": false
+},
+{
+"address": "0x531630",
+"thunked": false
 },
 {
 "address": "0x531660",
@@ -22348,6 +23518,10 @@
 "thunked": true
 },
 {
+"address": "0x532B40",
+"thunked": false
+},
+{
 "address": "0x532B70",
 "thunked": true
 },
@@ -22450,6 +23624,12 @@
 "file_evidence": "between"
 },
 {
+"address": "0x5344C0",
+"thunked": false,
+"file": "app\\client\\item\\client_item_property_attribute.h",
+"file_evidence": "between"
+},
+{
 "address": "0x5344F0",
 "thunked": true,
 "file": "app\\client\\item\\client_item_property_attribute.h",
@@ -22492,6 +23672,10 @@
 {
 "address": "0x5351D0",
 "thunked": true
+},
+{
+"address": "0x5352A0",
+"thunked": false
 },
 {
 "address": "0x5352D0",
@@ -22636,6 +23820,12 @@
 "file_evidence": "between"
 },
 {
+"address": "0x537020",
+"thunked": false,
+"file": "app\\client\\item\\client_item_property_option.h",
+"file_evidence": "between"
+},
+{
 "address": "0x537050",
 "thunked": true,
 "file": "app\\client\\item\\client_item_property_option.h",
@@ -22724,6 +23914,10 @@
 {
 "address": "0x537A80",
 "thunked": true
+},
+{
+"address": "0x537AA0",
+"thunked": false
 },
 {
 "address": "0x537AD0",
@@ -22816,6 +24010,12 @@
 "file_evidence": "between"
 },
 {
+"address": "0x539170",
+"thunked": false,
+"file": "app\\client\\item\\client_item_property_special.h",
+"file_evidence": "between"
+},
+{
 "address": "0x5391A0",
 "thunked": true,
 "file": "app\\client\\item\\client_item_property_special.h",
@@ -22838,6 +24038,10 @@
 "thunked": true,
 "file": "app\\client\\item\\client_item_property_special.h",
 "file_evidence": "assert"
+},
+{
+"address": "0x539950",
+"thunked": false
 },
 {
 "address": "0x539980",
@@ -22872,6 +24076,10 @@
 "thunked": true,
 "file": "app\\client\\ui_item_examination_title.cpp",
 "file_evidence": "assert"
+},
+{
+"address": "0x53AA00",
+"thunked": false
 },
 {
 "address": "0x53AA30",
@@ -22916,12 +24124,28 @@
 "file_evidence": "assert"
 },
 {
+"address": "0x53AF00",
+"thunked": false
+},
+{
 "address": "0x53AF30",
 "thunked": true
 },
 {
 "address": "0x53AF40",
 "thunked": true
+},
+{
+"address": "0x53AF50",
+"thunked": false
+},
+{
+"address": "0x53AF80",
+"thunked": false
+},
+{
+"address": "0x53AFA0",
+"thunked": false
 },
 {
 "address": "0x53B040",
@@ -23054,6 +24278,10 @@
 "thunked": true
 },
 {
+"address": "0x53D0A0",
+"thunked": false
+},
+{
 "address": "0x53D0D0",
 "thunked": true
 },
@@ -23076,6 +24304,10 @@
 {
 "address": "0x53D1C0",
 "thunked": true
+},
+{
+"address": "0x53D1F0",
+"thunked": false
 },
 {
 "address": "0x53D220",
@@ -23236,6 +24468,10 @@
 "thunked": true
 },
 {
+"address": "0x53E920",
+"thunked": false
+},
+{
 "address": "0x53E950",
 "thunked": true
 },
@@ -23298,12 +24534,24 @@
 "file_evidence": "assert"
 },
 {
+"address": "0x53F2F0",
+"thunked": false
+},
+{
 "address": "0x53F320",
 "thunked": true
 },
 {
 "address": "0x53F330",
 "thunked": true
+},
+{
+"address": "0x53F340",
+"thunked": false
+},
+{
+"address": "0x53F370",
+"thunked": false
 },
 {
 "address": "0x53F390",
@@ -23398,8 +24646,20 @@
 "thunked": true
 },
 {
+"address": "0x5409A0",
+"thunked": false
+},
+{
+"address": "0x5409D0",
+"thunked": false
+},
+{
 "address": "0x540A20",
 "thunked": true
+},
+{
+"address": "0x540A70",
+"thunked": false
 },
 {
 "address": "0x540A90",
@@ -23584,6 +24844,10 @@
 "thunked": true
 },
 {
+"address": "0x541D30",
+"thunked": false
+},
+{
 "address": "0x541D60",
 "thunked": true
 },
@@ -23654,6 +24918,14 @@
 {
 "address": "0x543550",
 "thunked": true
+},
+{
+"address": "0x543580",
+"thunked": false
+},
+{
+"address": "0x5435B0",
+"thunked": false
 },
 {
 "address": "0x5435D0",
@@ -23792,6 +25064,10 @@
 "thunked": true
 },
 {
+"address": "0x546540",
+"thunked": false
+},
+{
 "address": "0x5465C0",
 "thunked": true
 },
@@ -23816,6 +25092,10 @@
 "thunked": true
 },
 {
+"address": "0x546860",
+"thunked": false
+},
+{
 "address": "0x5468D0",
 "thunked": true
 },
@@ -23838,6 +25118,14 @@
 {
 "address": "0x546A20",
 "thunked": true
+},
+{
+"address": "0x546A30",
+"thunked": false
+},
+{
+"address": "0x546A60",
+"thunked": false
 },
 {
 "address": "0x546A80",
@@ -23918,8 +25206,16 @@
 "thunked": true
 },
 {
+"address": "0x548190",
+"thunked": false
+},
+{
 "address": "0x5481C0",
 "thunked": true
+},
+{
+"address": "0x548210",
+"thunked": false
 },
 {
 "address": "0x548240",
@@ -23928,6 +25224,14 @@
 {
 "address": "0x548250",
 "thunked": true
+},
+{
+"address": "0x548260",
+"thunked": false
+},
+{
+"address": "0x548290",
+"thunked": false
 },
 {
 "address": "0x5482B0",
@@ -23962,12 +25266,24 @@
 "thunked": true
 },
 {
+"address": "0x5495A0",
+"thunked": false
+},
+{
 "address": "0x5495D0",
 "thunked": true
 },
 {
 "address": "0x5495E0",
 "thunked": true
+},
+{
+"address": "0x5495F0",
+"thunked": false
+},
+{
+"address": "0x549620",
+"thunked": false
 },
 {
 "address": "0x549640",
@@ -24150,12 +25466,28 @@
 "thunked": true
 },
 {
+"address": "0x54B680",
+"thunked": false
+},
+{
+"address": "0x54B6F0",
+"thunked": false
+},
+{
 "address": "0x54B740",
 "thunked": true
 },
 {
 "address": "0x54B750",
 "thunked": true
+},
+{
+"address": "0x54B760",
+"thunked": false
+},
+{
+"address": "0x54B790",
+"thunked": false
 },
 {
 "address": "0x54B7B0",
@@ -24372,6 +25704,10 @@
 "thunked": true
 },
 {
+"address": "0x551E80",
+"thunked": false
+},
+{
 "address": "0x551EB0",
 "thunked": true
 },
@@ -24488,6 +25824,10 @@
 {
 "address": "0x553A80",
 "thunked": true
+},
+{
+"address": "0x553AA0",
+"thunked": false
 },
 {
 "address": "0x553AD0",
@@ -24696,6 +26036,10 @@
 "thunked": true
 },
 {
+"address": "0x55C5D0",
+"thunked": false
+},
+{
 "address": "0x55C600",
 "thunked": true
 },
@@ -24880,6 +26224,10 @@
 "thunked": true
 },
 {
+"address": "0x560360",
+"thunked": false
+},
+{
 "address": "0x560390",
 "thunked": true
 },
@@ -24924,12 +26272,24 @@
 "thunked": true
 },
 {
+"address": "0x560830",
+"thunked": false
+},
+{
 "address": "0x560860",
 "thunked": true
 },
 {
 "address": "0x560870",
 "thunked": true
+},
+{
+"address": "0x560880",
+"thunked": false
+},
+{
+"address": "0x5608B0",
+"thunked": false
 },
 {
 "address": "0x5608D0",
@@ -24977,6 +26337,12 @@
 "address": "0x561030",
 "thunked": true,
 "file": "app\\client\\ui_buff.cpp",
+"file_evidence": "between"
+},
+{
+"address": "0x5615C0",
+"thunked": false,
+"file": "app\\client\\ui_buff.cpp",
 "file_evidence": "assert"
 },
 {
@@ -25000,8 +26366,24 @@
 "thunked": true
 },
 {
+"address": "0x561C10",
+"thunked": false
+},
+{
 "address": "0x561C40",
 "thunked": true
+},
+{
+"address": "0x561CB0",
+"thunked": false
+},
+{
+"address": "0x561D00",
+"thunked": false
+},
+{
+"address": "0x561D30",
+"thunked": false
 },
 {
 "address": "0x561D60",
@@ -25010,6 +26392,14 @@
 {
 "address": "0x561D70",
 "thunked": true
+},
+{
+"address": "0x561D80",
+"thunked": false
+},
+{
+"address": "0x561DB0",
+"thunked": false
 },
 {
 "address": "0x561DD0",
@@ -25070,6 +26460,12 @@
 {
 "address": "0x563760",
 "thunked": true,
+"file": "app\\client\\ui_chat_panel.cpp",
+"file_evidence": "between"
+},
+{
+"address": "0x5638C0",
+"thunked": false,
 "file": "app\\client\\ui_chat_panel.cpp",
 "file_evidence": "between"
 },
@@ -25274,6 +26670,12 @@
 {
 "address": "0x568690",
 "thunked": true,
+"file": "app\\client\\ui_chat_panel.cpp",
+"file_evidence": "between"
+},
+{
+"address": "0x568700",
+"thunked": false,
 "file": "app\\client\\ui_chat_panel.cpp",
 "file_evidence": "between"
 },
@@ -25492,6 +26894,10 @@
 "thunked": true
 },
 {
+"address": "0x56D1D0",
+"thunked": false
+},
+{
 "address": "0x56D200",
 "thunked": true
 },
@@ -25592,6 +26998,10 @@
 {
 "address": "0x56E010",
 "thunked": true
+},
+{
+"address": "0x56E040",
+"thunked": false
 },
 {
 "address": "0x56E070",
@@ -25700,6 +27110,10 @@
 {
 "address": "0x56F130",
 "thunked": true
+},
+{
+"address": "0x56F3D0",
+"thunked": false
 },
 {
 "address": "0x56F400",
@@ -25922,6 +27336,10 @@
 "thunked": true
 },
 {
+"address": "0x571EB0",
+"thunked": false
+},
+{
 "address": "0x571EE0",
 "thunked": true
 },
@@ -25988,6 +27406,10 @@
 {
 "address": "0x573430",
 "thunked": true
+},
+{
+"address": "0x573480",
+"thunked": false
 },
 {
 "address": "0x5734B0",
@@ -26090,12 +27512,20 @@
 "thunked": true
 },
 {
+"address": "0x574560",
+"thunked": false
+},
+{
 "address": "0x574590",
 "thunked": true
 },
 {
 "address": "0x5745A0",
 "thunked": true
+},
+{
+"address": "0x5745B0",
+"thunked": false
 },
 {
 "address": "0x5746C0",
@@ -26218,6 +27648,10 @@
 {
 "address": "0x578070",
 "thunked": true
+},
+{
+"address": "0x5780A0",
+"thunked": false
 },
 {
 "address": "0x5780D0",
@@ -26402,6 +27836,10 @@
 "thunked": true
 },
 {
+"address": "0x57BA80",
+"thunked": false
+},
+{
 "address": "0x57BAB0",
 "thunked": true
 },
@@ -26498,12 +27936,32 @@
 "thunked": true
 },
 {
+"address": "0x57D4F0",
+"thunked": false
+},
+{
 "address": "0x57D520",
 "thunked": true
 },
 {
 "address": "0x57D530",
 "thunked": true
+},
+{
+"address": "0x57D540",
+"thunked": false
+},
+{
+"address": "0x57D570",
+"thunked": false
+},
+{
+"address": "0x57D590",
+"thunked": false
+},
+{
+"address": "0x57D650",
+"thunked": false
 },
 {
 "address": "0x57D6C0",
@@ -26864,12 +28322,20 @@
 "thunked": true
 },
 {
+"address": "0x584FC0",
+"thunked": false
+},
+{
 "address": "0x584FF0",
 "thunked": true
 },
 {
 "address": "0x585040",
 "thunked": true
+},
+{
+"address": "0x585090",
+"thunked": false
 },
 {
 "address": "0x5850C0",
@@ -26936,6 +28402,10 @@
 {
 "address": "0x585840",
 "thunked": true
+},
+{
+"address": "0x5858D0",
+"thunked": false
 },
 {
 "address": "0x585900",
@@ -27082,6 +28552,10 @@
 "thunked": true
 },
 {
+"address": "0x5874F0",
+"thunked": false
+},
+{
 "address": "0x587520",
 "thunked": true
 },
@@ -27192,6 +28666,10 @@
 {
 "address": "0x589CA0",
 "thunked": true
+},
+{
+"address": "0x589CE0",
+"thunked": false
 },
 {
 "address": "0x589D10",
@@ -27388,6 +28866,10 @@
 "thunked": true
 },
 {
+"address": "0x58B5D0",
+"thunked": false
+},
+{
 "address": "0x58B600",
 "thunked": true
 },
@@ -27398,6 +28880,14 @@
 {
 "address": "0x58B620",
 "thunked": true
+},
+{
+"address": "0x58B630",
+"thunked": false
+},
+{
+"address": "0x58B660",
+"thunked": false
 },
 {
 "address": "0x58B680",
@@ -27448,12 +28938,24 @@
 "thunked": true
 },
 {
+"address": "0x58BF40",
+"thunked": false
+},
+{
 "address": "0x58BF70",
 "thunked": true
 },
 {
 "address": "0x58BF80",
 "thunked": true
+},
+{
+"address": "0x58BF90",
+"thunked": false
+},
+{
+"address": "0x58BFC0",
+"thunked": false
 },
 {
 "address": "0x58BFE0",
@@ -27548,6 +29050,22 @@
 {
 "address": "0x58CF60",
 "thunked": true
+},
+{
+"address": "0x58CFD0",
+"thunked": false
+},
+{
+"address": "0x58D000",
+"thunked": false
+},
+{
+"address": "0x58D030",
+"thunked": false
+},
+{
+"address": "0x58D060",
+"thunked": false
 },
 {
 "address": "0x58D080",
@@ -27650,6 +29168,14 @@
 "thunked": true
 },
 {
+"address": "0x58E9F0",
+"thunked": false
+},
+{
+"address": "0x58EA60",
+"thunked": false
+},
+{
 "address": "0x58EAE0",
 "thunked": true
 },
@@ -27688,12 +29214,24 @@
 "thunked": true
 },
 {
+"address": "0x58F050",
+"thunked": false
+},
+{
 "address": "0x58F080",
 "thunked": true
 },
 {
 "address": "0x58F090",
 "thunked": true
+},
+{
+"address": "0x58F0A0",
+"thunked": false
+},
+{
+"address": "0x58F0D0",
+"thunked": false
 },
 {
 "address": "0x58F0F0",
@@ -27890,8 +29428,16 @@
 "thunked": true
 },
 {
+"address": "0x5927B0",
+"thunked": false
+},
+{
 "address": "0x5927E0",
 "thunked": true
+},
+{
+"address": "0x592850",
+"thunked": false
 },
 {
 "address": "0x5928A0",
@@ -27900,6 +29446,14 @@
 {
 "address": "0x5928B0",
 "thunked": true
+},
+{
+"address": "0x5928C0",
+"thunked": false
+},
+{
+"address": "0x5928F0",
+"thunked": false
 },
 {
 "address": "0x592910",
@@ -28276,6 +29830,14 @@
 "thunked": true
 },
 {
+"address": "0x598D00",
+"thunked": false
+},
+{
+"address": "0x598D30",
+"thunked": false
+},
+{
 "address": "0x598D80",
 "thunked": true
 },
@@ -28422,12 +29984,24 @@
 "thunked": true
 },
 {
+"address": "0x59AC70",
+"thunked": false
+},
+{
 "address": "0x59ACA0",
 "thunked": true
 },
 {
 "address": "0x59ACB0",
 "thunked": true
+},
+{
+"address": "0x59ACC0",
+"thunked": false
+},
+{
+"address": "0x59ACF0",
+"thunked": false
 },
 {
 "address": "0x59AD10",
@@ -28520,12 +30094,28 @@
 "thunked": true
 },
 {
+"address": "0x59BE40",
+"thunked": false
+},
+{
+"address": "0x59BE70",
+"thunked": false
+},
+{
 "address": "0x59BEC0",
 "thunked": true
 },
 {
 "address": "0x59BED0",
 "thunked": true
+},
+{
+"address": "0x59BEE0",
+"thunked": false
+},
+{
+"address": "0x59BF10",
+"thunked": false
 },
 {
 "address": "0x59BF30",
@@ -28572,8 +30162,16 @@
 "thunked": true
 },
 {
+"address": "0x59C640",
+"thunked": false
+},
+{
 "address": "0x59C670",
 "thunked": true
+},
+{
+"address": "0x59C6C0",
+"thunked": false
 },
 {
 "address": "0x59C6F0",
@@ -28600,6 +30198,10 @@
 "thunked": true,
 "file": "app\\client\\ui_hot_keys.cpp",
 "file_evidence": "assert"
+},
+{
+"address": "0x59DE50",
+"thunked": false
 },
 {
 "address": "0x59DE80",
@@ -28630,12 +30232,24 @@
 "thunked": true
 },
 {
+"address": "0x59E220",
+"thunked": false
+},
+{
 "address": "0x59E250",
 "thunked": true
 },
 {
 "address": "0x59E260",
 "thunked": true
+},
+{
+"address": "0x59E270",
+"thunked": false
+},
+{
+"address": "0x59E2A0",
+"thunked": false
 },
 {
 "address": "0x59E2C0",
@@ -28670,6 +30284,18 @@
 {
 "address": "0x59E970",
 "thunked": true
+},
+{
+"address": "0x59E9B0",
+"thunked": false
+},
+{
+"address": "0x59E9E0",
+"thunked": false
+},
+{
+"address": "0x59EA10",
+"thunked": false
 },
 {
 "address": "0x59EA30",
@@ -28872,6 +30498,10 @@
 "thunked": true
 },
 {
+"address": "0x5A1090",
+"thunked": false
+},
+{
 "address": "0x5A10C0",
 "thunked": true
 },
@@ -28894,6 +30524,14 @@
 {
 "address": "0x5A1110",
 "thunked": true
+},
+{
+"address": "0x5A1120",
+"thunked": false
+},
+{
+"address": "0x5A1150",
+"thunked": false
 },
 {
 "address": "0x5A1170",
@@ -29120,12 +30758,28 @@
 "thunked": true
 },
 {
+"address": "0x5A4A70",
+"thunked": false
+},
+{
+"address": "0x5A4AB0",
+"thunked": false
+},
+{
 "address": "0x5A4AE0",
 "thunked": true
 },
 {
 "address": "0x5A4AF0",
 "thunked": true
+},
+{
+"address": "0x5A4B00",
+"thunked": false
+},
+{
+"address": "0x5A4B30",
+"thunked": false
 },
 {
 "address": "0x5A4B50",
@@ -29440,6 +31094,10 @@
 "thunked": true
 },
 {
+"address": "0x5AA540",
+"thunked": false
+},
+{
 "address": "0x5AA5B0",
 "thunked": true
 },
@@ -29466,6 +31124,10 @@
 {
 "address": "0x5AABF0",
 "thunked": true
+},
+{
+"address": "0x5AADA0",
+"thunked": false
 },
 {
 "address": "0x5AAE20",
@@ -29534,6 +31196,10 @@
 {
 "address": "0x5AC930",
 "thunked": true
+},
+{
+"address": "0x5ACB30",
+"thunked": false
 },
 {
 "address": "0x5ACB60",
@@ -29680,6 +31346,10 @@
 "thunked": true
 },
 {
+"address": "0x5AF900",
+"thunked": false
+},
+{
 "address": "0x5AF930",
 "thunked": true
 },
@@ -29690,6 +31360,18 @@
 {
 "address": "0x5AF970",
 "thunked": true
+},
+{
+"address": "0x5AF980",
+"thunked": false
+},
+{
+"address": "0x5AF9B0",
+"thunked": false
+},
+{
+"address": "0x5AF9D0",
+"thunked": false
 },
 {
 "address": "0x5AFA00",
@@ -29940,6 +31622,24 @@
 "file_evidence": "assert"
 },
 {
+"address": "0x5B5CD0",
+"thunked": false,
+"file": "app\\client\\ui_manu.cpp",
+"file_evidence": "assert"
+},
+{
+"address": "0x5B5FF0",
+"thunked": false,
+"file": "app\\client\\ui_manu.cpp",
+"file_evidence": "between"
+},
+{
+"address": "0x5B6060",
+"thunked": false,
+"file": "app\\client\\ui_manu.cpp",
+"file_evidence": "between"
+},
+{
 "address": "0x5B6410",
 "thunked": true,
 "file": "app\\client\\ui_manu.cpp",
@@ -30020,6 +31720,10 @@
 "thunked": true
 },
 {
+"address": "0x5B6FD0",
+"thunked": false
+},
+{
 "address": "0x5B7050",
 "thunked": true
 },
@@ -30030,6 +31734,10 @@
 {
 "address": "0x5B7130",
 "thunked": true
+},
+{
+"address": "0x5B71A0",
+"thunked": false
 },
 {
 "address": "0x5B7210",
@@ -30056,6 +31764,14 @@
 "thunked": true
 },
 {
+"address": "0x5B7370",
+"thunked": false
+},
+{
+"address": "0x5B73A0",
+"thunked": false
+},
+{
 "address": "0x5B73C0",
 "thunked": true
 },
@@ -30080,6 +31796,14 @@
 {
 "address": "0x5B7880",
 "thunked": true
+},
+{
+"address": "0x5B79C0",
+"thunked": false
+},
+{
+"address": "0x5B7A40",
+"thunked": false
 },
 {
 "address": "0x5B7AB0",
@@ -30112,6 +31836,10 @@
 {
 "address": "0x5B80B0",
 "thunked": true
+},
+{
+"address": "0x5B80D0",
+"thunked": false
 },
 {
 "address": "0x5B8100",
@@ -30604,6 +32332,10 @@
 "thunked": true
 },
 {
+"address": "0x5BB220",
+"thunked": false
+},
+{
 "address": "0x5BB250",
 "thunked": true
 },
@@ -30644,12 +32376,24 @@
 "thunked": true
 },
 {
+"address": "0x5BB680",
+"thunked": false
+},
+{
 "address": "0x5BB6B0",
 "thunked": true
 },
 {
 "address": "0x5BB6C0",
 "thunked": true
+},
+{
+"address": "0x5BB6D0",
+"thunked": false
+},
+{
+"address": "0x5BB700",
+"thunked": false
 },
 {
 "address": "0x5BB720",
@@ -31008,8 +32752,16 @@
 "thunked": true
 },
 {
+"address": "0x5BF320",
+"thunked": false
+},
+{
 "address": "0x5BF350",
 "thunked": true
+},
+{
+"address": "0x5BF3A0",
+"thunked": false
 },
 {
 "address": "0x5BF3D0",
@@ -31048,6 +32800,14 @@
 "thunked": true
 },
 {
+"address": "0x5BF460",
+"thunked": false
+},
+{
+"address": "0x5BF490",
+"thunked": false
+},
+{
 "address": "0x5BF4B0",
 "thunked": true
 },
@@ -31074,6 +32834,18 @@
 {
 "address": "0x5BF680",
 "thunked": true
+},
+{
+"address": "0x5BF6B0",
+"thunked": false
+},
+{
+"address": "0x5BF6E0",
+"thunked": false
+},
+{
+"address": "0x5BF710",
+"thunked": false
 },
 {
 "address": "0x5BF730",
@@ -31214,6 +32986,14 @@
 "thunked": true
 },
 {
+"address": "0x5C0FD0",
+"thunked": false
+},
+{
+"address": "0x5C1040",
+"thunked": false
+},
+{
 "address": "0x5C1090",
 "thunked": true
 },
@@ -31286,6 +33066,18 @@
 {
 "address": "0x5C1F20",
 "thunked": true
+},
+{
+"address": "0x5C1F60",
+"thunked": false
+},
+{
+"address": "0x5C1F90",
+"thunked": false
+},
+{
+"address": "0x5C1FC0",
+"thunked": false
 },
 {
 "address": "0x5C1FE0",
@@ -31516,6 +33308,18 @@
 "thunked": true
 },
 {
+"address": "0x5C40F0",
+"thunked": false
+},
+{
+"address": "0x5C4120",
+"thunked": false
+},
+{
+"address": "0x5C4150",
+"thunked": false
+},
+{
 "address": "0x5C4170",
 "thunked": true
 },
@@ -31648,6 +33452,14 @@
 "thunked": true
 },
 {
+"address": "0x5C6F10",
+"thunked": false
+},
+{
+"address": "0x5C6F80",
+"thunked": false
+},
+{
 "address": "0x5C7000",
 "thunked": true
 },
@@ -31674,6 +33486,14 @@
 {
 "address": "0x5C7350",
 "thunked": true
+},
+{
+"address": "0x5C7360",
+"thunked": false
+},
+{
+"address": "0x5C7390",
+"thunked": false
 },
 {
 "address": "0x5C73B0",
@@ -31720,12 +33540,20 @@
 "thunked": true
 },
 {
+"address": "0x5C8750",
+"thunked": false
+},
+{
 "address": "0x5C8780",
 "thunked": true
 },
 {
 "address": "0x5C87D0",
 "thunked": true
+},
+{
+"address": "0x5C8820",
+"thunked": false
 },
 {
 "address": "0x5C8850",
@@ -31768,12 +33596,20 @@
 "thunked": true
 },
 {
+"address": "0x5C8C70",
+"thunked": false
+},
+{
 "address": "0x5C8CA0",
 "thunked": true
 },
 {
 "address": "0x5C8CB0",
 "thunked": true
+},
+{
+"address": "0x5C8CC0",
+"thunked": false
 },
 {
 "address": "0x5C8DB0",
@@ -31824,6 +33660,10 @@
 "thunked": true
 },
 {
+"address": "0x5C98C0",
+"thunked": false
+},
+{
 "address": "0x5C98F0",
 "thunked": true
 },
@@ -31870,6 +33710,10 @@
 {
 "address": "0x5C9F20",
 "thunked": true
+},
+{
+"address": "0x5C9FC0",
+"thunked": false
 },
 {
 "address": "0x5C9FF0",
@@ -31970,6 +33814,10 @@
 "thunked": true
 },
 {
+"address": "0x5CC300",
+"thunked": false
+},
+{
 "address": "0x5CC330",
 "thunked": true
 },
@@ -32044,6 +33892,10 @@
 "thunked": true
 },
 {
+"address": "0x5CE1F0",
+"thunked": false
+},
+{
 "address": "0x5CE220",
 "thunked": true
 },
@@ -32082,6 +33934,10 @@
 {
 "address": "0x5CE670",
 "thunked": true
+},
+{
+"address": "0x5CE6B0",
+"thunked": false
 },
 {
 "address": "0x5CE6E0",
@@ -32130,6 +33986,10 @@
 {
 "address": "0x5CECB0",
 "thunked": true
+},
+{
+"address": "0x5CED80",
+"thunked": false
 },
 {
 "address": "0x5CEDB0",
@@ -32188,12 +34048,24 @@
 "thunked": true
 },
 {
+"address": "0x5CF910",
+"thunked": false
+},
+{
 "address": "0x5CF940",
 "thunked": true
 },
 {
 "address": "0x5CF950",
 "thunked": true
+},
+{
+"address": "0x5CF960",
+"thunked": false
+},
+{
+"address": "0x5CF990",
+"thunked": false
 },
 {
 "address": "0x5CF9B0",
@@ -32252,14 +34124,30 @@
 "thunked": true
 },
 {
+"address": "0x5D1000",
+"thunked": false
+},
+{
 "address": "0x5D1030",
 "thunked": true
 },
 {
 "address": "0x5D1040",
-"thunked": true,
+"thunked": true
+},
+{
+"address": "0x5D1050",
+"thunked": false
+},
+{
+"address": "0x5D1080",
+"thunked": false,
 "file": "app\\client\\gd_attrb_skills.cpp",
 "file_evidence": "assert"
+},
+{
+"address": "0x5D10A0",
+"thunked": false
 },
 {
 "address": "0x5D10C0",
@@ -32362,12 +34250,32 @@
 "thunked": true
 },
 {
+"address": "0x5D32A0",
+"thunked": false
+},
+{
+"address": "0x5D32D0",
+"thunked": false
+},
+{
 "address": "0x5D3300",
 "thunked": true
 },
 {
 "address": "0x5D3310",
 "thunked": true
+},
+{
+"address": "0x5D3320",
+"thunked": false
+},
+{
+"address": "0x5D3350",
+"thunked": false
+},
+{
+"address": "0x5D3380",
+"thunked": false
 },
 {
 "address": "0x5D33B0",
@@ -32414,6 +34322,10 @@
 "thunked": true
 },
 {
+"address": "0x5D4100",
+"thunked": false
+},
+{
 "address": "0x5D4130",
 "thunked": true
 },
@@ -32450,6 +34362,10 @@
 {
 "address": "0x5D4660",
 "thunked": true
+},
+{
+"address": "0x5D4690",
+"thunked": false
 },
 {
 "address": "0x5D46C0",
@@ -32544,6 +34460,10 @@
 "thunked": true
 },
 {
+"address": "0x5D56F0",
+"thunked": false
+},
+{
 "address": "0x5D5720",
 "thunked": true
 },
@@ -32608,12 +34528,24 @@
 "thunked": true
 },
 {
+"address": "0x5D5FE0",
+"thunked": false
+},
+{
 "address": "0x5D6010",
 "thunked": true
 },
 {
 "address": "0x5D6020",
 "thunked": true
+},
+{
+"address": "0x5D6030",
+"thunked": false
+},
+{
+"address": "0x5D6060",
+"thunked": false
 },
 {
 "address": "0x5D6080",
@@ -32736,6 +34668,10 @@
 "thunked": true
 },
 {
+"address": "0x5D7300",
+"thunked": false
+},
+{
 "address": "0x5D7330",
 "thunked": true
 },
@@ -32768,6 +34704,10 @@
 "thunked": true,
 "file": "app\\client\\ui_petition_stuck.cpp",
 "file_evidence": "assert"
+},
+{
+"address": "0x5D75E0",
+"thunked": false
 },
 {
 "address": "0x5D7610",
@@ -32818,6 +34758,10 @@
 {
 "address": "0x5D8BD0",
 "thunked": true
+},
+{
+"address": "0x5D8BF0",
+"thunked": false
 },
 {
 "address": "0x5D8C20",
@@ -32942,6 +34886,10 @@
 "thunked": true
 },
 {
+"address": "0x5DAE40",
+"thunked": false
+},
+{
 "address": "0x5DAE70",
 "thunked": true
 },
@@ -32982,6 +34930,10 @@
 {
 "address": "0x5DB580",
 "thunked": true
+},
+{
+"address": "0x5DB620",
+"thunked": false
 },
 {
 "address": "0x5DB650",
@@ -33028,12 +34980,24 @@
 "file_evidence": "assert"
 },
 {
+"address": "0x5DBF20",
+"thunked": false
+},
+{
 "address": "0x5DBF50",
 "thunked": true
 },
 {
 "address": "0x5DBF60",
 "thunked": true
+},
+{
+"address": "0x5DBF70",
+"thunked": false
+},
+{
+"address": "0x5DBFA0",
+"thunked": false
 },
 {
 "address": "0x5DBFC0",
@@ -33082,6 +35046,14 @@
 {
 "address": "0x5DCBE0",
 "thunked": true
+},
+{
+"address": "0x5DCC80",
+"thunked": false
+},
+{
+"address": "0x5DCCB0",
+"thunked": false
 },
 {
 "address": "0x5DCCE0",
@@ -33186,6 +35158,10 @@
 "thunked": true
 },
 {
+"address": "0x5DDC40",
+"thunked": false
+},
+{
 "address": "0x5DDC70",
 "thunked": true
 },
@@ -33236,6 +35212,10 @@
 {
 "address": "0x5DE500",
 "thunked": true
+},
+{
+"address": "0x5DE690",
+"thunked": false
 },
 {
 "address": "0x5DE6C0",
@@ -33324,6 +35304,10 @@
 "thunked": true
 },
 {
+"address": "0x5DF920",
+"thunked": false
+},
+{
 "address": "0x5DF950",
 "thunked": true
 },
@@ -33386,6 +35370,10 @@
 "thunked": true
 },
 {
+"address": "0x5E0980",
+"thunked": false
+},
+{
 "address": "0x5E09B0",
 "thunked": true
 },
@@ -33444,12 +35432,24 @@
 "thunked": true
 },
 {
+"address": "0x5E1B40",
+"thunked": false
+},
+{
 "address": "0x5E1B70",
 "thunked": true
 },
 {
 "address": "0x5E1B80",
 "thunked": true
+},
+{
+"address": "0x5E1B90",
+"thunked": false
+},
+{
+"address": "0x5E1BC0",
+"thunked": false
 },
 {
 "address": "0x5E1BE0",
@@ -33570,6 +35570,14 @@
 "thunked": true
 },
 {
+"address": "0x5E40D0",
+"thunked": false
+},
+{
+"address": "0x5E4110",
+"thunked": false
+},
+{
 "address": "0x5E4140",
 "thunked": true
 },
@@ -33666,6 +35674,10 @@
 "thunked": true
 },
 {
+"address": "0x5E6240",
+"thunked": false
+},
+{
 "address": "0x5E6270",
 "thunked": true
 },
@@ -33730,6 +35742,10 @@
 {
 "address": "0x5E7480",
 "thunked": true
+},
+{
+"address": "0x5E74B0",
+"thunked": false
 },
 {
 "address": "0x5E74E0",
@@ -33832,6 +35848,10 @@
 "thunked": true
 },
 {
+"address": "0x5E93C0",
+"thunked": false
+},
+{
 "address": "0x5E93F0",
 "thunked": true
 },
@@ -33896,6 +35916,10 @@
 "thunked": true
 },
 {
+"address": "0x5EAAF0",
+"thunked": false
+},
+{
 "address": "0x5EAB20",
 "thunked": true
 },
@@ -33948,12 +35972,24 @@
 "thunked": true
 },
 {
+"address": "0x5EB770",
+"thunked": false
+},
+{
 "address": "0x5EB7A0",
 "thunked": true
 },
 {
 "address": "0x5EB7B0",
 "thunked": true
+},
+{
+"address": "0x5EB7C0",
+"thunked": false
+},
+{
+"address": "0x5EB7F0",
+"thunked": false
 },
 {
 "address": "0x5EB810",
@@ -34111,11 +36147,33 @@
 "address": "0x5EDFD0",
 "thunked": true,
 "file": "app\\client\\ui_refinery.cpp",
+"file_evidence": "between"
+},
+{
+"address": "0x5EE460",
+"thunked": false,
+"file": "app\\client\\ui_refinery.cpp",
 "file_evidence": "assert"
+},
+{
+"address": "0x5EE780",
+"thunked": false
+},
+{
+"address": "0x5EE7F0",
+"thunked": false
 },
 {
 "address": "0x5EEBA0",
 "thunked": true
+},
+{
+"address": "0x5EEC10",
+"thunked": false
+},
+{
+"address": "0x5EEC90",
+"thunked": false
 },
 {
 "address": "0x5EED00",
@@ -34124,6 +36182,74 @@
 {
 "address": "0x5EED10",
 "thunked": true
+},
+{
+"address": "0x5EED20",
+"thunked": false
+},
+{
+"address": "0x5EED60",
+"thunked": false
+},
+{
+"address": "0x5EED90",
+"thunked": false
+},
+{
+"address": "0x5EEDD0",
+"thunked": false
+},
+{
+"address": "0x5EEE00",
+"thunked": false
+},
+{
+"address": "0x5EEE40",
+"thunked": false
+},
+{
+"address": "0x5EEE70",
+"thunked": false
+},
+{
+"address": "0x5EEEA0",
+"thunked": false
+},
+{
+"address": "0x5EEEE0",
+"thunked": false
+},
+{
+"address": "0x5EEF20",
+"thunked": false
+},
+{
+"address": "0x5EEF60",
+"thunked": false
+},
+{
+"address": "0x5EEF90",
+"thunked": false
+},
+{
+"address": "0x5EEFD0",
+"thunked": false
+},
+{
+"address": "0x5EF000",
+"thunked": false
+},
+{
+"address": "0x5EF030",
+"thunked": false
+},
+{
+"address": "0x5EF060",
+"thunked": false
+},
+{
+"address": "0x5EF080",
+"thunked": false
 },
 {
 "address": "0x5EF0B0",
@@ -35206,6 +37332,10 @@
 "thunked": true
 },
 {
+"address": "0x60C530",
+"thunked": false
+},
+{
 "address": "0x60C9C0",
 "thunked": true
 },
@@ -35228,6 +37358,18 @@
 {
 "address": "0x60D770",
 "thunked": true
+},
+{
+"address": "0x60D780",
+"thunked": false
+},
+{
+"address": "0x60D7B0",
+"thunked": false
+},
+{
+"address": "0x60D7D0",
+"thunked": false
 },
 {
 "address": "0x60D800",
@@ -35400,6 +37542,10 @@
 "thunked": true
 },
 {
+"address": "0x610130",
+"thunked": false
+},
+{
 "address": "0x610160",
 "thunked": true
 },
@@ -35438,6 +37584,10 @@
 "thunked": true
 },
 {
+"address": "0x6103E0",
+"thunked": false
+},
+{
 "address": "0x610430",
 "thunked": true
 },
@@ -35456,6 +37606,10 @@
 {
 "address": "0x6104F0",
 "thunked": true
+},
+{
+"address": "0x610510",
+"thunked": false
 },
 {
 "address": "0x610540",
@@ -35698,6 +37852,12 @@
 "file_evidence": "assert"
 },
 {
+"address": "0x613130",
+"thunked": false,
+"file": "app\\client\\ui_scut.cpp",
+"file_evidence": "between"
+},
+{
 "address": "0x613160",
 "thunked": true,
 "file": "app\\client\\ui_scut.cpp",
@@ -35716,6 +37876,14 @@
 {
 "address": "0x613670",
 "thunked": true
+},
+{
+"address": "0x613680",
+"thunked": false
+},
+{
+"address": "0x6136B0",
+"thunked": false
 },
 {
 "address": "0x6136D0",
@@ -35888,6 +38056,10 @@
 "thunked": true
 },
 {
+"address": "0x615A20",
+"thunked": false
+},
+{
 "address": "0x615A50",
 "thunked": true
 },
@@ -36006,12 +38178,24 @@
 "thunked": true
 },
 {
+"address": "0x618110",
+"thunked": false
+},
+{
 "address": "0x618140",
 "thunked": true
 },
 {
 "address": "0x618150",
 "thunked": true
+},
+{
+"address": "0x618160",
+"thunked": false
+},
+{
+"address": "0x618190",
+"thunked": false
 },
 {
 "address": "0x6181B0",
@@ -36394,6 +38578,10 @@
 {
 "address": "0x620C70",
 "thunked": true
+},
+{
+"address": "0x620CA0",
+"thunked": false
 },
 {
 "address": "0x620CD0",
@@ -36798,6 +38986,10 @@
 "thunked": true
 },
 {
+"address": "0x62A6F0",
+"thunked": false
+},
+{
 "address": "0x62A720",
 "thunked": true
 },
@@ -36808,6 +39000,14 @@
 {
 "address": "0x62A760",
 "thunked": true
+},
+{
+"address": "0x62A770",
+"thunked": false
+},
+{
+"address": "0x62A7A0",
+"thunked": false
 },
 {
 "address": "0x62A7C0",
@@ -36832,6 +39032,10 @@
 {
 "address": "0x62AFA0",
 "thunked": true
+},
+{
+"address": "0x62AFF0",
+"thunked": false
 },
 {
 "address": "0x62B020",
@@ -36902,6 +39106,18 @@
 {
 "address": "0x62B880",
 "thunked": true
+},
+{
+"address": "0x62B8B0",
+"thunked": false
+},
+{
+"address": "0x62B8E0",
+"thunked": false
+},
+{
+"address": "0x62B910",
+"thunked": false
 },
 {
 "address": "0x62B930",
@@ -37004,6 +39220,10 @@
 "thunked": true
 },
 {
+"address": "0x62D140",
+"thunked": false
+},
+{
 "address": "0x62D170",
 "thunked": true
 },
@@ -37014,6 +39234,14 @@
 {
 "address": "0x62D190",
 "thunked": true
+},
+{
+"address": "0x62D1A0",
+"thunked": false
+},
+{
+"address": "0x62D1D0",
+"thunked": false
 },
 {
 "address": "0x62D1F0",
@@ -37094,12 +39322,24 @@
 "thunked": true
 },
 {
+"address": "0x62DC80",
+"thunked": false
+},
+{
 "address": "0x62DCB0",
 "thunked": true
 },
 {
 "address": "0x62DCC0",
 "thunked": true
+},
+{
+"address": "0x62DCD0",
+"thunked": false
+},
+{
+"address": "0x62DD00",
+"thunked": false
 },
 {
 "address": "0x62DD20",
@@ -37336,6 +39576,10 @@
 "thunked": true
 },
 {
+"address": "0x62FC70",
+"thunked": false
+},
+{
 "address": "0x62FCA0",
 "thunked": true
 },
@@ -37362,6 +39606,14 @@
 {
 "address": "0x62FD90",
 "thunked": true
+},
+{
+"address": "0x62FDA0",
+"thunked": false
+},
+{
+"address": "0x62FDD0",
+"thunked": false
 },
 {
 "address": "0x62FDF0",
@@ -37404,6 +39656,10 @@
 {
 "address": "0x630400",
 "thunked": true
+},
+{
+"address": "0x630430",
+"thunked": false
 },
 {
 "address": "0x630460",
@@ -37584,8 +39840,20 @@
 "thunked": true
 },
 {
+"address": "0x632DA0",
+"thunked": false
+},
+{
 "address": "0x632DD0",
 "thunked": true
+},
+{
+"address": "0x632E00",
+"thunked": false
+},
+{
+"address": "0x632E30",
+"thunked": false
 },
 {
 "address": "0x632E50",
@@ -38232,8 +40500,16 @@
 "thunked": true
 },
 {
+"address": "0x644BE0",
+"thunked": false
+},
+{
 "address": "0x644C10",
 "thunked": true
+},
+{
+"address": "0x644DE0",
+"thunked": false
 },
 {
 "address": "0x644E30",
@@ -38306,6 +40582,10 @@
 {
 "address": "0x645E80",
 "thunked": true
+},
+{
+"address": "0x646120",
+"thunked": false
 },
 {
 "address": "0x646150",
@@ -38390,6 +40670,10 @@
 {
 "address": "0x648340",
 "thunked": true
+},
+{
+"address": "0x648380",
+"thunked": false
 },
 {
 "address": "0x6483B0",
@@ -38518,6 +40802,10 @@
 "thunked": true
 },
 {
+"address": "0x649840",
+"thunked": false
+},
+{
 "address": "0x649870",
 "thunked": true
 },
@@ -38572,6 +40860,10 @@
 {
 "address": "0x64A2B0",
 "thunked": true
+},
+{
+"address": "0x64A2E0",
+"thunked": false
 },
 {
 "address": "0x64A310",
@@ -38650,6 +40942,10 @@
 {
 "address": "0x64B3F0",
 "thunked": true
+},
+{
+"address": "0x64B690",
+"thunked": false
 },
 {
 "address": "0x64B6C0",
@@ -38862,6 +41158,10 @@
 "thunked": true
 },
 {
+"address": "0x64F2C0",
+"thunked": false
+},
+{
 "address": "0x64F2F0",
 "thunked": true
 },
@@ -38902,6 +41202,10 @@
 {
 "address": "0x64F630",
 "thunked": true
+},
+{
+"address": "0x64F740",
+"thunked": false
 },
 {
 "address": "0x64F770",
@@ -38992,12 +41296,24 @@
 "thunked": true
 },
 {
+"address": "0x6504C0",
+"thunked": false
+},
+{
 "address": "0x6504F0",
 "thunked": true
 },
 {
 "address": "0x650500",
 "thunked": true
+},
+{
+"address": "0x650510",
+"thunked": false
+},
+{
+"address": "0x650540",
+"thunked": false
 },
 {
 "address": "0x650560",
@@ -39226,6 +41542,10 @@
 {
 "address": "0x6547C0",
 "thunked": true
+},
+{
+"address": "0x654810",
+"thunked": false
 },
 {
 "address": "0x654840",
@@ -39488,6 +41808,10 @@
 "thunked": true
 },
 {
+"address": "0x656FA0",
+"thunked": false
+},
+{
 "address": "0x656FD0",
 "thunked": true
 },
@@ -39538,6 +41862,10 @@
 {
 "address": "0x657DA0",
 "thunked": true
+},
+{
+"address": "0x658060",
+"thunked": false
 },
 {
 "address": "0x658090",
@@ -39698,6 +42026,10 @@
 "thunked": true
 },
 {
+"address": "0x659FC0",
+"thunked": false
+},
+{
 "address": "0x659FF0",
 "thunked": true
 },
@@ -39740,6 +42072,10 @@
 {
 "address": "0x65A620",
 "thunked": true
+},
+{
+"address": "0x65A670",
+"thunked": false
 },
 {
 "address": "0x65A6A0",
@@ -39843,6 +42179,10 @@
 "thunked": true
 },
 {
+"address": "0x65B900",
+"thunked": false
+},
+{
 "address": "0x65B930",
 "thunked": true,
 "file": "app\\client\\camctl.cpp",
@@ -39867,6 +42207,22 @@
 {
 "address": "0x65BC20",
 "thunked": true
+},
+{
+"address": "0x65BE50",
+"thunked": false
+},
+{
+"address": "0x65BE80",
+"thunked": false
+},
+{
+"address": "0x65BEA0",
+"thunked": false
+},
+{
+"address": "0x65BF60",
+"thunked": false
 },
 {
 "address": "0x65BFD0",
@@ -39943,8 +42299,20 @@
 "file_evidence": "assert"
 },
 {
+"address": "0x65EC80",
+"thunked": false
+},
+{
+"address": "0x65ECB0",
+"thunked": false
+},
+{
 "address": "0x65ECE0",
 "thunked": true
+},
+{
+"address": "0x65ED30",
+"thunked": false
 },
 {
 "address": "0x65ED50",
@@ -39979,6 +42347,12 @@
 "thunked": true,
 "file": "app\\client\\gadget.cpp",
 "file_evidence": "assert"
+},
+{
+"address": "0x65F2B0",
+"thunked": false,
+"file": "app\\client\\gadget.cpp",
+"file_evidence": "between"
 },
 {
 "address": "0x65F2D0",
@@ -40159,6 +42533,10 @@
 {
 "address": "0x661150",
 "thunked": true
+},
+{
+"address": "0x661180",
+"thunked": false
 },
 {
 "address": "0x6611B0",
@@ -40363,6 +42741,18 @@
 "thunked": true
 },
 {
+"address": "0x662D40",
+"thunked": false
+},
+{
+"address": "0x662D70",
+"thunked": false
+},
+{
+"address": "0x662DA0",
+"thunked": false
+},
+{
 "address": "0x662DC0",
 "thunked": true,
 "file": "app\\client\\gd_attrb_skills.cpp",
@@ -40457,6 +42847,14 @@
 "thunked": true
 },
 {
+"address": "0x665120",
+"thunked": false
+},
+{
+"address": "0x665150",
+"thunked": false
+},
+{
 "address": "0x665180",
 "thunked": true
 },
@@ -40489,6 +42887,12 @@
 "thunked": true,
 "file": "app\\client\\gd_buffgadg.cpp",
 "file_evidence": "assert"
+},
+{
+"address": "0x665920",
+"thunked": false,
+"file": "app\\client\\gd_buffgadg.cpp",
+"file_evidence": "between"
 },
 {
 "address": "0x665940",
@@ -40597,6 +43001,10 @@
 "thunked": true
 },
 {
+"address": "0x667B30",
+"thunked": false
+},
+{
 "address": "0x667B60",
 "thunked": true
 },
@@ -40663,6 +43071,10 @@
 "file_evidence": "assert"
 },
 {
+"address": "0x668E00",
+"thunked": false
+},
+{
 "address": "0x668E30",
 "thunked": true,
 "file": "app\\client\\gd_galaxy_map.cpp",
@@ -40709,6 +43121,10 @@
 "thunked": true,
 "file": "app\\client\\gd_galaxy_map.cpp",
 "file_evidence": "assert"
+},
+{
+"address": "0x669540",
+"thunked": false
 },
 {
 "address": "0x669570",
@@ -40773,6 +43189,14 @@
 {
 "address": "0x669E70",
 "thunked": true
+},
+{
+"address": "0x669F60",
+"thunked": false
+},
+{
+"address": "0x669F90",
+"thunked": false
 },
 {
 "address": "0x669FB0",
@@ -40853,6 +43277,10 @@
 "thunked": true
 },
 {
+"address": "0x66A6A0",
+"thunked": false
+},
+{
 "address": "0x66A6D0",
 "thunked": true
 },
@@ -40896,6 +43324,10 @@
 "file_evidence": "assert"
 },
 {
+"address": "0x66ACB0",
+"thunked": false
+},
+{
 "address": "0x66ACE0",
 "thunked": true,
 "file": "app\\client\\gd_pip_scene.cpp",
@@ -40930,6 +43362,10 @@
 "thunked": true,
 "file": "app\\client\\gd_pip_scene.cpp",
 "file_evidence": "assert"
+},
+{
+"address": "0x66B210",
+"thunked": false
 },
 {
 "address": "0x66B240",
@@ -41150,6 +43586,10 @@
 "thunked": true
 },
 {
+"address": "0x66C8C0",
+"thunked": false
+},
+{
 "address": "0x66C8F0",
 "thunked": true
 },
@@ -41194,6 +43634,10 @@
 "thunked": true
 },
 {
+"address": "0x66CBD0",
+"thunked": false
+},
+{
 "address": "0x66CC00",
 "thunked": true
 },
@@ -41218,6 +43662,10 @@
 "thunked": true,
 "file": "app\\client\\gd_selct.cpp",
 "file_evidence": "assert"
+},
+{
+"address": "0x66DA20",
+"thunked": false
 },
 {
 "address": "0x66DA50",
@@ -41374,6 +43822,10 @@
 {
 "address": "0x670600",
 "thunked": true
+},
+{
+"address": "0x670620",
+"thunked": false
 },
 {
 "address": "0x670650",
@@ -41536,6 +43988,10 @@
 "thunked": true,
 "file": "app\\client\\gd_slot_data.cpp",
 "file_evidence": "assert"
+},
+{
+"address": "0x6712D0",
+"thunked": false
 },
 {
 "address": "0x671300",
@@ -41754,6 +44210,10 @@
 "thunked": true
 },
 {
+"address": "0x673EB0",
+"thunked": false
+},
+{
 "address": "0x673EE0",
 "thunked": true
 },
@@ -41912,6 +44372,10 @@
 "thunked": true
 },
 {
+"address": "0x674F60",
+"thunked": false
+},
+{
 "address": "0x674F90",
 "thunked": true
 },
@@ -42026,6 +44490,10 @@
 "thunked": true
 },
 {
+"address": "0x675FD0",
+"thunked": false
+},
+{
 "address": "0x676000",
 "thunked": true
 },
@@ -42044,6 +44512,10 @@
 {
 "address": "0x6762B0",
 "thunked": true
+},
+{
+"address": "0x676510",
+"thunked": false
 },
 {
 "address": "0x6765D0",
@@ -42174,6 +44646,10 @@
 {
 "address": "0x678240",
 "thunked": true
+},
+{
+"address": "0x6783F0",
+"thunked": false
 },
 {
 "address": "0x678420",
@@ -42476,6 +44952,10 @@
 "thunked": true
 },
 {
+"address": "0x67C3C0",
+"thunked": false
+},
+{
 "address": "0x67C440",
 "thunked": true
 },
@@ -42540,6 +45020,10 @@
 "thunked": true
 },
 {
+"address": "0x67D400",
+"thunked": false
+},
+{
 "address": "0x67D430",
 "thunked": true
 },
@@ -42572,12 +45056,24 @@
 "thunked": true
 },
 {
+"address": "0x67DA40",
+"thunked": false
+},
+{
 "address": "0x67DA60",
 "thunked": true
 },
 {
+"address": "0x67DB20",
+"thunked": false
+},
+{
 "address": "0x67DB40",
 "thunked": true
+},
+{
+"address": "0x67DC50",
+"thunked": false
 },
 {
 "address": "0x67DC80",
@@ -42884,6 +45380,10 @@
 "thunked": true
 },
 {
+"address": "0x681270",
+"thunked": false
+},
+{
 "address": "0x6812A0",
 "thunked": true
 },
@@ -43008,6 +45508,22 @@
 {
 "address": "0x683160",
 "thunked": true
+},
+{
+"address": "0x6831B0",
+"thunked": false
+},
+{
+"address": "0x6831E0",
+"thunked": false
+},
+{
+"address": "0x683210",
+"thunked": false
+},
+{
+"address": "0x683250",
+"thunked": false
 },
 {
 "address": "0x683270",
@@ -43374,6 +45890,10 @@
 "file_evidence": "assert"
 },
 {
+"address": "0x685650",
+"thunked": false
+},
+{
 "address": "0x685680",
 "thunked": true
 },
@@ -43420,6 +45940,10 @@
 "thunked": true
 },
 {
+"address": "0x685E30",
+"thunked": false
+},
+{
 "address": "0x685E60",
 "thunked": true
 },
@@ -43462,6 +45986,10 @@
 {
 "address": "0x6865E0",
 "thunked": true
+},
+{
+"address": "0x686710",
+"thunked": false
 },
 {
 "address": "0x686740",
@@ -43722,6 +46250,18 @@
 "thunked": true
 },
 {
+"address": "0x688390",
+"thunked": false
+},
+{
+"address": "0x6883C0",
+"thunked": false
+},
+{
+"address": "0x6883F0",
+"thunked": false
+},
+{
 "address": "0x688410",
 "thunked": true
 },
@@ -43830,8 +46370,20 @@
 "thunked": true
 },
 {
+"address": "0x6899F0",
+"thunked": false
+},
+{
 "address": "0x689A20",
 "thunked": true
+},
+{
+"address": "0x689A30",
+"thunked": false
+},
+{
+"address": "0x689A60",
+"thunked": false
 },
 {
 "address": "0x689A80",
@@ -44004,6 +46556,26 @@
 "file_evidence": "assert"
 },
 {
+"address": "0x68B280",
+"thunked": false
+},
+{
+"address": "0x68B2C0",
+"thunked": false
+},
+{
+"address": "0x68B2F0",
+"thunked": false
+},
+{
+"address": "0x68B320",
+"thunked": false
+},
+{
+"address": "0x68B350",
+"thunked": false
+},
+{
 "address": "0x68B370",
 "thunked": true
 },
@@ -44080,6 +46652,22 @@
 "thunked": true
 },
 {
+"address": "0x68BE10",
+"thunked": false
+},
+{
+"address": "0x68BE50",
+"thunked": false
+},
+{
+"address": "0x68BEC0",
+"thunked": false
+},
+{
+"address": "0x68BEF0",
+"thunked": false
+},
+{
 "address": "0x68BF10",
 "thunked": true
 },
@@ -44090,6 +46678,10 @@
 {
 "address": "0x68C110",
 "thunked": true
+},
+{
+"address": "0x68C130",
+"thunked": false
 },
 {
 "address": "0x68C160",
@@ -44340,6 +46932,22 @@
 "file_evidence": "assert"
 },
 {
+"address": "0x68FAA0",
+"thunked": false
+},
+{
+"address": "0x68FAE0",
+"thunked": false
+},
+{
+"address": "0x68FB10",
+"thunked": false
+},
+{
+"address": "0x68FB40",
+"thunked": false
+},
+{
 "address": "0x68FB60",
 "thunked": true
 },
@@ -44366,6 +46974,10 @@
 "thunked": true,
 "file": "app\\client\\inv_trade_render.cpp",
 "file_evidence": "assert"
+},
+{
+"address": "0x690850",
+"thunked": false
 },
 {
 "address": "0x690880",
@@ -44406,6 +47018,10 @@
 {
 "address": "0x6910C0",
 "thunked": true
+},
+{
+"address": "0x691140",
+"thunked": false
 },
 {
 "address": "0x691170",
@@ -44480,6 +47096,18 @@
 "thunked": true
 },
 {
+"address": "0x692740",
+"thunked": false
+},
+{
+"address": "0x692770",
+"thunked": false
+},
+{
+"address": "0x6927A0",
+"thunked": false
+},
+{
 "address": "0x6927C0",
 "thunked": true
 },
@@ -44544,6 +47172,14 @@
 {
 "address": "0x693090",
 "thunked": true
+},
+{
+"address": "0x6930C0",
+"thunked": false
+},
+{
+"address": "0x6930F0",
+"thunked": false
 },
 {
 "address": "0x693140",
@@ -44724,6 +47360,10 @@
 {
 "address": "0x696290",
 "thunked": true
+},
+{
+"address": "0x6962D0",
+"thunked": false
 },
 {
 "address": "0x696300",
@@ -45074,6 +47714,18 @@
 {
 "address": "0x69A9D0",
 "thunked": true
+},
+{
+"address": "0x69ABA0",
+"thunked": false
+},
+{
+"address": "0x69ABD0",
+"thunked": false
+},
+{
+"address": "0x69AC00",
+"thunked": false
 },
 {
 "address": "0x69AC20",
@@ -45521,7 +48173,31 @@
 },
 {
 "address": "0x6A2BF0",
-"thunked": true,
+"thunked": true
+},
+{
+"address": "0x6A2C30",
+"thunked": false
+},
+{
+"address": "0x6A2CB0",
+"thunked": false
+},
+{
+"address": "0x6A2D20",
+"thunked": false
+},
+{
+"address": "0x6A2D50",
+"thunked": false
+},
+{
+"address": "0x6A2D80",
+"thunked": false
+},
+{
+"address": "0x6A2DA0",
+"thunked": false,
 "file": "app\\client\\ship_stats_display.cpp",
 "file_evidence": "assert"
 },
@@ -45548,6 +48224,18 @@
 "thunked": true
 },
 {
+"address": "0x6A3C30",
+"thunked": false
+},
+{
+"address": "0x6A3CA0",
+"thunked": false
+},
+{
+"address": "0x6A3D30",
+"thunked": false
+},
+{
 "address": "0x6A3D60",
 "thunked": true,
 "file": "app\\client\\shortcut_range_gauge.cpp",
@@ -45568,6 +48256,18 @@
 {
 "address": "0x6A4500",
 "thunked": true
+},
+{
+"address": "0x6A4550",
+"thunked": false
+},
+{
+"address": "0x6A4580",
+"thunked": false
+},
+{
+"address": "0x6A45B0",
+"thunked": false
 },
 {
 "address": "0x6A45D0",
@@ -45644,8 +48344,24 @@
 "file_evidence": "assert"
 },
 {
+"address": "0x6A5210",
+"thunked": false
+},
+{
+"address": "0x6A5280",
+"thunked": false
+},
+{
 "address": "0x6A52D0",
 "thunked": true
+},
+{
+"address": "0x6A52E0",
+"thunked": false
+},
+{
+"address": "0x6A5310",
+"thunked": false
 },
 {
 "address": "0x6A5330",
@@ -45698,6 +48414,10 @@
 "file_evidence": "assert"
 },
 {
+"address": "0x6A5900",
+"thunked": false
+},
+{
 "address": "0x6A5970",
 "thunked": true,
 "file": "app\\client\\skill_data_peek.h",
@@ -45726,6 +48446,22 @@
 "thunked": true,
 "file": "app\\client\\skill_data_peek.cpp",
 "file_evidence": "assert"
+},
+{
+"address": "0x6A5D90",
+"thunked": false
+},
+{
+"address": "0x6A5E00",
+"thunked": false
+},
+{
+"address": "0x6A5E50",
+"thunked": false
+},
+{
+"address": "0x6A5E80",
+"thunked": false
 },
 {
 "address": "0x6A5EA0",
@@ -45826,6 +48562,10 @@
 "thunked": true
 },
 {
+"address": "0x6A73F0",
+"thunked": false
+},
+{
 "address": "0x6A7420",
 "thunked": true
 },
@@ -45868,6 +48608,14 @@
 {
 "address": "0x6A7AB0",
 "thunked": true
+},
+{
+"address": "0x6A7B00",
+"thunked": false
+},
+{
+"address": "0x6A7B20",
+"thunked": false
 },
 {
 "address": "0x6A7B50",
@@ -46040,6 +48788,10 @@
 "thunked": true
 },
 {
+"address": "0x6A9B30",
+"thunked": false
+},
+{
 "address": "0x6A9B60",
 "thunked": true
 },
@@ -46051,6 +48803,18 @@
 "address": "0x6A9E40",
 "thunked": true,
 "name": "Splash::Render"
+},
+{
+"address": "0x6A9F80",
+"thunked": false
+},
+{
+"address": "0x6A9FB0",
+"thunked": false
+},
+{
+"address": "0x6A9FE0",
+"thunked": false
 },
 {
 "address": "0x6AA000",
@@ -46159,6 +48923,10 @@
 "file_evidence": "assert"
 },
 {
+"address": "0x6AB2F0",
+"thunked": false
+},
+{
 "address": "0x6AB320",
 "thunked": true
 },
@@ -46249,6 +49017,10 @@
 {
 "address": "0x6AC0F0",
 "thunked": true
+},
+{
+"address": "0x6AC120",
+"thunked": false
 },
 {
 "address": "0x6AC150",
@@ -46475,6 +49247,10 @@
 "thunked": true
 },
 {
+"address": "0x6AF1F0",
+"thunked": false
+},
+{
 "address": "0x6AF220",
 "thunked": true
 },
@@ -46639,6 +49415,10 @@
 "thunked": true
 },
 {
+"address": "0x6B2410",
+"thunked": false
+},
+{
 "address": "0x6B2440",
 "thunked": true
 },
@@ -46731,6 +49511,10 @@
 "thunked": true
 },
 {
+"address": "0x6B3A40",
+"thunked": false
+},
+{
 "address": "0x6B3A70",
 "thunked": true
 },
@@ -46773,6 +49557,10 @@
 "thunked": true,
 "file": "app\\client\\user_click_indicator.cpp",
 "file_evidence": "assert"
+},
+{
+"address": "0x6B4450",
+"thunked": false
 },
 {
 "address": "0x6B4480",
@@ -46903,6 +49691,18 @@
 "thunked": true
 },
 {
+"address": "0x6B5620",
+"thunked": false
+},
+{
+"address": "0x6B5650",
+"thunked": false
+},
+{
+"address": "0x6B5680",
+"thunked": false
+},
+{
 "address": "0x6B56A0",
 "thunked": true
 },
@@ -46973,6 +49773,10 @@
 {
 "address": "0x6B6130",
 "thunked": true
+},
+{
+"address": "0x6B6180",
+"thunked": false
 },
 {
 "address": "0x6B61B0",
@@ -47506,6 +50310,10 @@
 {
 "address": "0x6BD9E0",
 "thunked": true
+},
+{
+"address": "0x6BDA10",
+"thunked": false
 },
 {
 "address": "0x6BDA40",
@@ -48128,6 +50936,10 @@
 "thunked": true
 },
 {
+"address": "0x6C9FE0",
+"thunked": false
+},
+{
 "address": "0x6CA010",
 "thunked": true
 },
@@ -48191,6 +51003,10 @@
 {
 "address": "0x6CE910",
 "thunked": true
+},
+{
+"address": "0x6CE960",
+"thunked": false
 },
 {
 "address": "0x6CE990",
@@ -48531,6 +51347,10 @@
 "thunked": true
 },
 {
+"address": "0x6D4670",
+"thunked": false
+},
+{
 "address": "0x6D46A0",
 "thunked": true
 },
@@ -48668,6 +51488,10 @@
 {
 "address": "0x6D8AB0",
 "thunked": true
+},
+{
+"address": "0x6D8B40",
+"thunked": false
 },
 {
 "address": "0x6D8B70",
@@ -48814,6 +51638,10 @@
 {
 "address": "0x6DA8D0",
 "thunked": true
+},
+{
+"address": "0x6DA900",
+"thunked": false
 },
 {
 "address": "0x6DA930",
@@ -49196,6 +52024,10 @@
 "thunked": true
 },
 {
+"address": "0x6DF820",
+"thunked": false
+},
+{
 "address": "0x6DF850",
 "thunked": true
 },
@@ -49400,6 +52232,10 @@
 "thunked": true
 },
 {
+"address": "0x6E1A80",
+"thunked": false
+},
+{
 "address": "0x6E1AB0",
 "thunked": true
 },
@@ -49482,6 +52318,18 @@
 {
 "address": "0x6E2B40",
 "thunked": true
+},
+{
+"address": "0x6E2B50",
+"thunked": false
+},
+{
+"address": "0x6E2B80",
+"thunked": false
+},
+{
+"address": "0x6E2BA0",
+"thunked": false
 },
 {
 "address": "0x6E2BD0",
@@ -49602,6 +52450,14 @@
 "thunked": true
 },
 {
+"address": "0x6E46F0",
+"thunked": false
+},
+{
+"address": "0x6E4720",
+"thunked": false
+},
+{
 "address": "0x6E4750",
 "thunked": true
 },
@@ -49646,6 +52502,10 @@
 "thunked": true,
 "file": "app\\client\\eff_attach.cpp",
 "file_evidence": "assert"
+},
+{
+"address": "0x6E5010",
+"thunked": false
 },
 {
 "address": "0x6E5040",
@@ -49748,6 +52608,10 @@
 "thunked": true,
 "file": "app\\client\\eff_line.cpp",
 "file_evidence": "assert"
+},
+{
+"address": "0x6E66E0",
+"thunked": false
 },
 {
 "address": "0x6E6710",
@@ -50038,6 +52902,12 @@
 "file_evidence": "between"
 },
 {
+"address": "0x6EA5C0",
+"thunked": false,
+"file": "app\\client\\eff_o.cpp",
+"file_evidence": "between"
+},
+{
 "address": "0x6EA5E0",
 "thunked": true,
 "file": "app\\client\\eff_o.cpp",
@@ -50136,6 +53006,10 @@
 "thunked": true
 },
 {
+"address": "0x6ECC20",
+"thunked": false
+},
+{
 "address": "0x6ECC50",
 "thunked": true,
 "file": "app\\client\\eff_particlejet.cpp",
@@ -50176,6 +53050,10 @@
 "thunked": true,
 "file": "app\\client\\eff_particlejet.cpp",
 "file_evidence": "assert"
+},
+{
+"address": "0x6ED690",
+"thunked": false
 },
 {
 "address": "0x6ED6C0",
@@ -50252,6 +53130,10 @@
 {
 "address": "0x6EEE40",
 "thunked": true
+},
+{
+"address": "0x6EEE70",
+"thunked": false
 },
 {
 "address": "0x6EEEA0",
@@ -50402,6 +53284,10 @@
 "thunked": true
 },
 {
+"address": "0x6F01D0",
+"thunked": false
+},
+{
 "address": "0x6F0200",
 "thunked": true
 },
@@ -50420,6 +53306,10 @@
 {
 "address": "0x6F03C0",
 "thunked": true
+},
+{
+"address": "0x6F0550",
+"thunked": false
 },
 {
 "address": "0x6F0580",
@@ -50518,6 +53408,12 @@
 "file_evidence": "between"
 },
 {
+"address": "0x6F0FB0",
+"thunked": false,
+"file": "app\\client\\eff_seek.cpp",
+"file_evidence": "between"
+},
+{
 "address": "0x6F0FD0",
 "thunked": true,
 "file": "app\\client\\eff_seek.cpp",
@@ -50562,6 +53458,12 @@
 {
 "address": "0x6F1590",
 "thunked": true,
+"file": "app\\client\\eff_seek.cpp",
+"file_evidence": "between"
+},
+{
+"address": "0x6F1740",
+"thunked": false,
 "file": "app\\client\\eff_seek.cpp",
 "file_evidence": "between"
 },
@@ -50658,6 +53560,10 @@
 "thunked": true
 },
 {
+"address": "0x6F2570",
+"thunked": false
+},
+{
 "address": "0x6F25A0",
 "thunked": true
 },
@@ -50672,6 +53578,18 @@
 {
 "address": "0x6F2690",
 "thunked": true
+},
+{
+"address": "0x6F27A0",
+"thunked": false
+},
+{
+"address": "0x6F27D0",
+"thunked": false
+},
+{
+"address": "0x6F2800",
+"thunked": false
 },
 {
 "address": "0x6F2820",
@@ -50800,6 +53718,12 @@
 "file_evidence": "assert"
 },
 {
+"address": "0x6F3B80",
+"thunked": false,
+"file": "app\\client\\co.cpp",
+"file_evidence": "between"
+},
+{
 "address": "0x6F3BA0",
 "thunked": true,
 "file": "app\\client\\co.cpp",
@@ -50911,7 +53835,19 @@
 "address": "0x6F5140",
 "thunked": true,
 "file": "app\\client\\co.cpp",
+"file_evidence": "between"
+},
+{
+"address": "0x6F51D0",
+"thunked": false,
+"file": "app\\client\\co.cpp",
 "file_evidence": "assert"
+},
+{
+"address": "0x6F5830",
+"thunked": false,
+"file": "app\\client\\co.cpp",
+"file_evidence": "between"
 },
 {
 "address": "0x6F5850",
@@ -52154,6 +55090,10 @@
 "thunked": true
 },
 {
+"address": "0x7057D0",
+"thunked": false
+},
+{
 "address": "0x705860",
 "thunked": true
 },
@@ -52650,6 +55590,10 @@
 "thunked": true
 },
 {
+"address": "0x707A20",
+"thunked": false
+},
+{
 "address": "0x707AE0",
 "thunked": true
 },
@@ -53070,6 +56014,10 @@
 "thunked": true
 },
 {
+"address": "0x709B80",
+"thunked": false
+},
+{
 "address": "0x709BB0",
 "thunked": true
 },
@@ -53106,6 +56054,22 @@
 "thunked": true
 },
 {
+"address": "0x709EA0",
+"thunked": false
+},
+{
+"address": "0x709ED0",
+"thunked": false
+},
+{
+"address": "0x709EF0",
+"thunked": false
+},
+{
+"address": "0x709F20",
+"thunked": false
+},
+{
 "address": "0x709F40",
 "thunked": true
 },
@@ -53122,6 +56086,12 @@
 {
 "address": "0x70A540",
 "thunked": true,
+"file": "app\\client\\co_player_relationship.cpp",
+"file_evidence": "between"
+},
+{
+"address": "0x70A770",
+"thunked": false,
 "file": "app\\client\\co_player_relationship.cpp",
 "file_evidence": "between"
 },
@@ -53186,10 +56156,22 @@
 "file_evidence": "assert"
 },
 {
+"address": "0x70B770",
+"thunked": false,
+"file": "app\\client\\co_player_relationship.cpp",
+"file_evidence": "between"
+},
+{
 "address": "0x70B790",
 "thunked": true,
 "file": "app\\client\\co_player_relationship.cpp",
 "file_evidence": "assert"
+},
+{
+"address": "0x70BAA0",
+"thunked": false,
+"file": "app\\client\\co_player_relationship.cpp",
+"file_evidence": "between"
 },
 {
 "address": "0x70BAC0",
@@ -53204,6 +56186,12 @@
 "file_evidence": "assert"
 },
 {
+"address": "0x70BF40",
+"thunked": false,
+"file": "app\\client\\co_player_relationship.cpp",
+"file_evidence": "between"
+},
+{
 "address": "0x70BF60",
 "thunked": true,
 "file": "app\\client\\co_player_relationship.cpp",
@@ -53216,10 +56204,22 @@
 "file_evidence": "assert"
 },
 {
+"address": "0x70C280",
+"thunked": false,
+"file": "app\\client\\co_player_relationship.cpp",
+"file_evidence": "between"
+},
+{
 "address": "0x70C2A0",
 "thunked": true,
 "file": "app\\client\\co_player_relationship.cpp",
 "file_evidence": "assert"
+},
+{
+"address": "0x70C5B0",
+"thunked": false,
+"file": "app\\client\\co_player_relationship.cpp",
+"file_evidence": "between"
 },
 {
 "address": "0x70C5D0",
@@ -53230,6 +56230,30 @@
 {
 "address": "0x70CAF0",
 "thunked": true,
+"file": "app\\client\\co_player_relationship.cpp",
+"file_evidence": "between"
+},
+{
+"address": "0x70CBC0",
+"thunked": false,
+"file": "app\\client\\co_player_relationship.cpp",
+"file_evidence": "between"
+},
+{
+"address": "0x70CBE0",
+"thunked": false,
+"file": "app\\client\\co_player_relationship.cpp",
+"file_evidence": "between"
+},
+{
+"address": "0x70CC00",
+"thunked": false,
+"file": "app\\client\\co_player_relationship.cpp",
+"file_evidence": "between"
+},
+{
+"address": "0x70CC20",
+"thunked": false,
 "file": "app\\client\\co_player_relationship.cpp",
 "file_evidence": "between"
 },
@@ -53300,12 +56324,20 @@
 "thunked": true
 },
 {
+"address": "0x70D830",
+"thunked": false
+},
+{
 "address": "0x70D860",
 "thunked": true
 },
 {
 "address": "0x70DA40",
 "thunked": true
+},
+{
+"address": "0x70DB70",
+"thunked": false
 },
 {
 "address": "0x70DBC0",
@@ -53404,6 +56436,10 @@
 "thunked": true
 },
 {
+"address": "0x70E270",
+"thunked": false
+},
+{
 "address": "0x70E2A0",
 "thunked": true
 },
@@ -53456,6 +56492,10 @@
 "thunked": true
 },
 {
+"address": "0x70E550",
+"thunked": false
+},
+{
 "address": "0x70E580",
 "thunked": true
 },
@@ -53490,6 +56530,10 @@
 {
 "address": "0x70E850",
 "thunked": true
+},
+{
+"address": "0x70F000",
+"thunked": false
 },
 {
 "address": "0x70F030",
@@ -54057,6 +57101,18 @@
 {
 "address": "0x7147D0",
 "thunked": true
+},
+{
+"address": "0x7147F0",
+"thunked": false
+},
+{
+"address": "0x714820",
+"thunked": false
+},
+{
+"address": "0x714850",
+"thunked": false
 },
 {
 "address": "0x714870",
@@ -54883,6 +57939,18 @@
 "thunked": true
 },
 {
+"address": "0x719640",
+"thunked": false
+},
+{
+"address": "0x719670",
+"thunked": false
+},
+{
+"address": "0x7196A0",
+"thunked": false
+},
+{
 "address": "0x7196C0",
 "thunked": true
 },
@@ -54891,12 +57959,52 @@
 "thunked": true
 },
 {
+"address": "0x7197A0",
+"thunked": false
+},
+{
+"address": "0x719850",
+"thunked": false
+},
+{
+"address": "0x719880",
+"thunked": false
+},
+{
 "address": "0x7198B0",
 "thunked": true
 },
 {
+"address": "0x719940",
+"thunked": false
+},
+{
+"address": "0x7199D0",
+"thunked": false
+},
+{
+"address": "0x719A60",
+"thunked": false
+},
+{
+"address": "0x719AF0",
+"thunked": false
+},
+{
+"address": "0x719B20",
+"thunked": false
+},
+{
 "address": "0x719B50",
 "thunked": true
+},
+{
+"address": "0x719C20",
+"thunked": false
+},
+{
+"address": "0x719C50",
+"thunked": false
 },
 {
 "address": "0x719C80",
@@ -55019,6 +58127,12 @@
 {
 "address": "0x71B0F0",
 "thunked": true,
+"file": "app\\client\\control_keys_manager.cpp",
+"file_evidence": "between"
+},
+{
+"address": "0x71B140",
+"thunked": false,
 "file": "app\\client\\control_keys_manager.cpp",
 "file_evidence": "between"
 },
@@ -55487,6 +58601,10 @@
 "thunked": true
 },
 {
+"address": "0x721C40",
+"thunked": false
+},
+{
 "address": "0x721C70",
 "thunked": true
 },
@@ -55497,6 +58615,10 @@
 {
 "address": "0x721CF0",
 "thunked": true
+},
+{
+"address": "0x721D20",
+"thunked": false
 },
 {
 "address": "0x721D50",
@@ -55601,6 +58723,14 @@
 {
 "address": "0x723150",
 "thunked": true
+},
+{
+"address": "0x7231C0",
+"thunked": false
+},
+{
+"address": "0x7231F0",
+"thunked": false
 },
 {
 "address": "0x723210",
@@ -55743,6 +58873,10 @@
 "thunked": true
 },
 {
+"address": "0x724EE0",
+"thunked": false
+},
+{
 "address": "0x724F10",
 "thunked": true
 },
@@ -55771,6 +58905,10 @@
 "thunked": true
 },
 {
+"address": "0x7255F0",
+"thunked": false
+},
+{
 "address": "0x725610",
 "thunked": true
 },
@@ -55797,6 +58935,10 @@
 {
 "address": "0x725E70",
 "thunked": true
+},
+{
+"address": "0x7260D0",
+"thunked": false
 },
 {
 "address": "0x726100",
@@ -56165,6 +59307,18 @@
 "thunked": true
 },
 {
+"address": "0x729450",
+"thunked": false
+},
+{
+"address": "0x729480",
+"thunked": false
+},
+{
+"address": "0x7294B0",
+"thunked": false
+},
+{
 "address": "0x7294D0",
 "thunked": true
 },
@@ -56183,6 +59337,30 @@
 {
 "address": "0x7299B0",
 "thunked": true
+},
+{
+"address": "0x7299E0",
+"thunked": false
+},
+{
+"address": "0x729A10",
+"thunked": false
+},
+{
+"address": "0x729A60",
+"thunked": false
+},
+{
+"address": "0x729A90",
+"thunked": false
+},
+{
+"address": "0x729AB0",
+"thunked": false
+},
+{
+"address": "0x729AE0",
+"thunked": false
 },
 {
 "address": "0x729B00",
@@ -56741,6 +59919,10 @@
 "thunked": true
 },
 {
+"address": "0x731490",
+"thunked": false
+},
+{
 "address": "0x7314C0",
 "thunked": true
 },
@@ -56785,8 +59967,20 @@
 "thunked": true
 },
 {
+"address": "0x731ED0",
+"thunked": false
+},
+{
 "address": "0x731F20",
 "thunked": true
+},
+{
+"address": "0x731F50",
+"thunked": false
+},
+{
+"address": "0x731F80",
+"thunked": false
 },
 {
 "address": "0x731FA0",
@@ -56855,6 +60049,30 @@
 {
 "address": "0x733160",
 "thunked": true
+},
+{
+"address": "0x7331B0",
+"thunked": false
+},
+{
+"address": "0x7331E0",
+"thunked": false
+},
+{
+"address": "0x733230",
+"thunked": false
+},
+{
+"address": "0x733260",
+"thunked": false
+},
+{
+"address": "0x733280",
+"thunked": false
+},
+{
+"address": "0x733340",
+"thunked": false
 },
 {
 "address": "0x7333B0",
@@ -57650,6 +60868,10 @@
 "thunked": true
 },
 {
+"address": "0x73FA30",
+"thunked": false
+},
+{
 "address": "0x73FA60",
 "thunked": true
 },
@@ -57670,12 +60892,36 @@
 "thunked": true
 },
 {
+"address": "0x73FE70",
+"thunked": false
+},
+{
+"address": "0x73FEA0",
+"thunked": false
+},
+{
+"address": "0x73FED0",
+"thunked": false
+},
+{
 "address": "0x73FEF0",
 "thunked": true
 },
 {
 "address": "0x740050",
 "thunked": true
+},
+{
+"address": "0x740400",
+"thunked": false
+},
+{
+"address": "0x7404C0",
+"thunked": false
+},
+{
+"address": "0x740530",
+"thunked": false
 },
 {
 "address": "0x7405E0",
@@ -57771,6 +61017,12 @@
 "thunked": true,
 "file": "app\\client\\sclient.cpp",
 "file_evidence": "assert"
+},
+{
+"address": "0x7441D0",
+"thunked": false,
+"file": "app\\client\\sclient.cpp",
+"file_evidence": "between"
 },
 {
 "address": "0x744240",
@@ -58883,6 +62135,10 @@
 "thunked": true
 },
 {
+"address": "0x758CD0",
+"thunked": false
+},
+{
 "address": "0x758D60",
 "thunked": true
 },
@@ -59075,6 +62331,10 @@
 "thunked": true
 },
 {
+"address": "0x7598E0",
+"thunked": false
+},
+{
 "address": "0x7599B0",
 "thunked": true
 },
@@ -59189,6 +62449,10 @@
 {
 "address": "0x75A200",
 "thunked": true
+},
+{
+"address": "0x75A250",
+"thunked": false
 },
 {
 "address": "0x75A280",
@@ -59321,6 +62585,10 @@
 "thunked": true
 },
 {
+"address": "0x75B780",
+"thunked": false
+},
+{
 "address": "0x75B7B0",
 "thunked": true
 },
@@ -59443,6 +62711,10 @@
 "thunked": true
 },
 {
+"address": "0x75EA30",
+"thunked": false
+},
+{
 "address": "0x75EA60",
 "thunked": true
 },
@@ -59487,6 +62759,10 @@
 {
 "address": "0x75F700",
 "thunked": true
+},
+{
+"address": "0x75F750",
+"thunked": false
 },
 {
 "address": "0x75F8B0",
@@ -59569,6 +62845,10 @@
 "thunked": true
 },
 {
+"address": "0x761C50",
+"thunked": false
+},
+{
 "address": "0x761C80",
 "thunked": true
 },
@@ -59647,6 +62927,10 @@
 {
 "address": "0x762F00",
 "thunked": true
+},
+{
+"address": "0x762F30",
+"thunked": false
 },
 {
 "address": "0x762F60",
@@ -59829,6 +63113,10 @@
 "thunked": true
 },
 {
+"address": "0x765F50",
+"thunked": false
+},
+{
 "address": "0x765F80",
 "thunked": true
 },
@@ -59936,6 +63224,10 @@
 {
 "address": "0x7671E0",
 "thunked": true
+},
+{
+"address": "0x767210",
+"thunked": false
 },
 {
 "address": "0x767240",
@@ -60271,6 +63563,10 @@
 "thunked": true
 },
 {
+"address": "0x76BC20",
+"thunked": false
+},
+{
 "address": "0x76BC50",
 "thunked": true
 },
@@ -60305,6 +63601,10 @@
 {
 "address": "0x76BDB0",
 "thunked": true
+},
+{
+"address": "0x76BF10",
+"thunked": false
 },
 {
 "address": "0x76BF40",
@@ -60355,6 +63655,18 @@
 {
 "address": "0x76C5A0",
 "thunked": true
+},
+{
+"address": "0x76C5F0",
+"thunked": false
+},
+{
+"address": "0x76C620",
+"thunked": false
+},
+{
+"address": "0x76C650",
+"thunked": false
 },
 {
 "address": "0x76C670",
@@ -60453,6 +63765,14 @@
 {
 "address": "0x76D020",
 "thunked": true
+},
+{
+"address": "0x76D2C0",
+"thunked": false
+},
+{
+"address": "0x76D2F0",
+"thunked": false
 },
 {
 "address": "0x76D340",
@@ -60561,6 +63881,10 @@
 {
 "address": "0x76E9D0",
 "thunked": true
+},
+{
+"address": "0x76EB10",
+"thunked": false
 },
 {
 "address": "0x76EB70",
@@ -60793,6 +64117,10 @@
 {
 "address": "0x777EE0",
 "thunked": true
+},
+{
+"address": "0x7784D0",
+"thunked": false
 },
 {
 "address": "0x778590",
@@ -61871,6 +65199,10 @@
 "thunked": true
 },
 {
+"address": "0x78A8C0",
+"thunked": false
+},
+{
 "address": "0x78A8F0",
 "thunked": true
 },
@@ -62003,6 +65335,10 @@
 "thunked": true
 },
 {
+"address": "0x78CE90",
+"thunked": false
+},
+{
 "address": "0x78CEC0",
 "thunked": true
 },
@@ -62057,6 +65393,10 @@
 {
 "address": "0x78E140",
 "thunked": true
+},
+{
+"address": "0x78E160",
+"thunked": false
 },
 {
 "address": "0x78E190",
@@ -62351,6 +65691,10 @@
 "thunked": true
 },
 {
+"address": "0x7922F0",
+"thunked": false
+},
+{
 "address": "0x792320",
 "thunked": true
 },
@@ -62407,6 +65751,14 @@
 "file_evidence": "assert"
 },
 {
+"address": "0x793090",
+"thunked": false
+},
+{
+"address": "0x7930B0",
+"thunked": false
+},
+{
 "address": "0x7930E0",
 "thunked": true
 },
@@ -62437,6 +65789,14 @@
 "file_evidence": "assert"
 },
 {
+"address": "0x7934C0",
+"thunked": false
+},
+{
+"address": "0x7934F0",
+"thunked": false
+},
+{
 "address": "0x793520",
 "thunked": true
 },
@@ -62465,6 +65825,10 @@
 "thunked": true,
 "file": "app\\client\\camctrl_entersector.cpp",
 "file_evidence": "assert"
+},
+{
+"address": "0x7938F0",
+"thunked": false
 },
 {
 "address": "0x793920",
@@ -62507,6 +65871,10 @@
 "file_evidence": "assert"
 },
 {
+"address": "0x7944E0",
+"thunked": false
+},
+{
 "address": "0x794510",
 "thunked": true
 },
@@ -62529,6 +65897,10 @@
 {
 "address": "0x794670",
 "thunked": true
+},
+{
+"address": "0x7946A0",
+"thunked": false
 },
 {
 "address": "0x7946D0",
@@ -62571,6 +65943,10 @@
 "file_evidence": "assert"
 },
 {
+"address": "0x795380",
+"thunked": false
+},
+{
 "address": "0x7953B0",
 "thunked": true
 },
@@ -62599,6 +65975,10 @@
 "thunked": true,
 "file": "app\\client\\camctrl_rescue.cpp",
 "file_evidence": "assert"
+},
+{
+"address": "0x7958D0",
+"thunked": false
 },
 {
 "address": "0x795900",
@@ -62633,6 +66013,10 @@
 "thunked": true,
 "file": "app\\client\\camctrl_stargate.cpp",
 "file_evidence": "assert"
+},
+{
+"address": "0x796180",
+"thunked": false
 },
 {
 "address": "0x7961B0",
@@ -62677,6 +66061,10 @@
 "file_evidence": "assert"
 },
 {
+"address": "0x7972F0",
+"thunked": false
+},
+{
 "address": "0x797320",
 "thunked": true
 },
@@ -62715,6 +66103,10 @@
 "file_evidence": "assert"
 },
 {
+"address": "0x797970",
+"thunked": false
+},
+{
 "address": "0x7979A0",
 "thunked": true
 },
@@ -62751,6 +66143,10 @@
 "thunked": true
 },
 {
+"address": "0x798AB0",
+"thunked": false
+},
+{
 "address": "0x798AE0",
 "thunked": true
 },
@@ -62773,6 +66169,10 @@
 {
 "address": "0x798CD0",
 "thunked": true
+},
+{
+"address": "0x798CF0",
+"thunked": false
 },
 {
 "address": "0x798D20",
@@ -62957,8 +66357,16 @@
 "thunked": true
 },
 {
+"address": "0x79B9B0",
+"thunked": false
+},
+{
 "address": "0x79B9E0",
 "thunked": true
+},
+{
+"address": "0x79BA30",
+"thunked": false
 },
 {
 "address": "0x79BA50",
@@ -62967,6 +66375,10 @@
 {
 "address": "0x79BAD0",
 "thunked": true
+},
+{
+"address": "0x79BB50",
+"thunked": false
 },
 {
 "address": "0x79BB80",
@@ -63055,6 +66467,10 @@
 "file_evidence": "assert"
 },
 {
+"address": "0x79C470",
+"thunked": false
+},
+{
 "address": "0x79C4A0",
 "thunked": true
 },
@@ -63075,6 +66491,10 @@
 "thunked": true
 },
 {
+"address": "0x79C8B0",
+"thunked": false
+},
+{
 "address": "0x79C8E0",
 "thunked": true
 },
@@ -63089,6 +66509,10 @@
 {
 "address": "0x79C970",
 "thunked": true
+},
+{
+"address": "0x79D0C0",
+"thunked": false
 },
 {
 "address": "0x79D0F0",
@@ -63127,8 +66551,16 @@
 "file_evidence": "assert"
 },
 {
+"address": "0x79D220",
+"thunked": false
+},
+{
 "address": "0x79D250",
 "thunked": true
+},
+{
+"address": "0x79D2A0",
+"thunked": false
 },
 {
 "address": "0x79D2C0",
@@ -63285,6 +66717,10 @@
 {
 "address": "0x7A06C0",
 "thunked": true
+},
+{
+"address": "0x7A08F0",
+"thunked": false
 },
 {
 "address": "0x7A0920",
@@ -63685,6 +67121,10 @@
 "thunked": true
 },
 {
+"address": "0x7A5700",
+"thunked": false
+},
+{
 "address": "0x7A5730",
 "thunked": true
 },
@@ -63851,6 +67291,18 @@
 "thunked": true,
 "file": "app\\client\\galaxy_map_render.cpp",
 "file_evidence": "assert"
+},
+{
+"address": "0x7A9370",
+"thunked": false,
+"file": "app\\client\\galaxy_map_render.cpp",
+"file_evidence": "between"
+},
+{
+"address": "0x7A93F0",
+"thunked": false,
+"file": "app\\client\\galaxy_map_render.cpp",
+"file_evidence": "between"
 },
 {
 "address": "0x7A9470",
@@ -64815,6 +68267,10 @@
 "thunked": true
 },
 {
+"address": "0x7B2500",
+"thunked": false
+},
+{
 "address": "0x7B2530",
 "thunked": true
 },
@@ -64965,6 +68421,10 @@
 "thunked": true
 },
 {
+"address": "0x7B4640",
+"thunked": false
+},
+{
 "address": "0x7B4670",
 "thunked": true
 },
@@ -64979,6 +68439,14 @@
 {
 "address": "0x7B46A0",
 "thunked": true
+},
+{
+"address": "0x7B46B0",
+"thunked": false
+},
+{
+"address": "0x7B46E0",
+"thunked": false
 },
 {
 "address": "0x7B4700",
@@ -65021,6 +68489,22 @@
 "thunked": true,
 "file": "app\\client\\gd_starmap.cpp",
 "file_evidence": "assert"
+},
+{
+"address": "0x7B4E60",
+"thunked": false
+},
+{
+"address": "0x7B4E90",
+"thunked": false
+},
+{
+"address": "0x7B4EE0",
+"thunked": false
+},
+{
+"address": "0x7B4F10",
+"thunked": false
 },
 {
 "address": "0x7B4F30",
@@ -65119,6 +68603,14 @@
 "file_evidence": "assert"
 },
 {
+"address": "0x7B6B70",
+"thunked": false
+},
+{
+"address": "0x7B6BA0",
+"thunked": false
+},
+{
 "address": "0x7B6BD0",
 "thunked": true
 },
@@ -65151,6 +68643,10 @@
 "thunked": true
 },
 {
+"address": "0x7B7790",
+"thunked": false
+},
+{
 "address": "0x7B77C0",
 "thunked": true
 },
@@ -65163,6 +68659,18 @@
 "thunked": true,
 "file": "app\\client\\mouse_targeting.cpp",
 "file_evidence": "assert"
+},
+{
+"address": "0x7B7B30",
+"thunked": false
+},
+{
+"address": "0x7B7B60",
+"thunked": false
+},
+{
+"address": "0x7B7BA0",
+"thunked": false
 },
 {
 "address": "0x7B7BF0",
@@ -65277,6 +68785,10 @@
 "thunked": true
 },
 {
+"address": "0x7B97C0",
+"thunked": false
+},
+{
 "address": "0x7B97F0",
 "thunked": true
 },
@@ -65339,6 +68851,10 @@
 "thunked": true
 },
 {
+"address": "0x7BA860",
+"thunked": false
+},
+{
 "address": "0x7BA890",
 "thunked": true
 },
@@ -65363,6 +68879,10 @@
 "thunked": true,
 "file": "app\\client\\navigation_data.cpp",
 "file_evidence": "assert"
+},
+{
+"address": "0x7BA990",
+"thunked": false
 },
 {
 "address": "0x7BA9C0",
@@ -65391,6 +68911,18 @@
 {
 "address": "0x7BB110",
 "thunked": true
+},
+{
+"address": "0x7BB150",
+"thunked": false
+},
+{
+"address": "0x7BB180",
+"thunked": false
+},
+{
+"address": "0x7BB1B0",
+"thunked": false
 },
 {
 "address": "0x7BB1D0",
@@ -65491,6 +69023,10 @@
 "thunked": true
 },
 {
+"address": "0x7BBFB0",
+"thunked": false
+},
+{
 "address": "0x7BBFE0",
 "thunked": true
 },
@@ -65557,6 +69093,18 @@
 {
 "address": "0x7BC6D0",
 "thunked": true
+},
+{
+"address": "0x7BC6F0",
+"thunked": false
+},
+{
+"address": "0x7BC720",
+"thunked": false
+},
+{
+"address": "0x7BC750",
+"thunked": false
 },
 {
 "address": "0x7BC770",
@@ -65665,6 +69213,26 @@
 "thunked": true
 },
 {
+"address": "0x7BDE30",
+"thunked": false
+},
+{
+"address": "0x7BDEA0",
+"thunked": false
+},
+{
+"address": "0x7BDF40",
+"thunked": false
+},
+{
+"address": "0x7BDF70",
+"thunked": false
+},
+{
+"address": "0x7BDFA0",
+"thunked": false
+},
+{
 "address": "0x7BDFC0",
 "thunked": true
 },
@@ -65744,7 +69312,27 @@
 },
 {
 "address": "0x7BE560",
-"thunked": true
+"thunked": true,
+"file": "app\\client\\radar_system_data_cache.cpp",
+"file_evidence": "assert"
+},
+{
+"address": "0x7BE5A0",
+"thunked": false
+},
+{
+"address": "0x7BE5D0",
+"thunked": false
+},
+{
+"address": "0x7BE600",
+"thunked": false,
+"file": "app\\client\\gd_attrb_skills.cpp",
+"file_evidence": "assert"
+},
+{
+"address": "0x7BE620",
+"thunked": false
 },
 {
 "address": "0x7BE640",
@@ -65833,12 +69421,40 @@
 "thunked": true
 },
 {
+"address": "0x7BF7D0",
+"thunked": false
+},
+{
 "address": "0x7BF800",
 "thunked": true
 },
 {
 "address": "0x7BF810",
 "thunked": true
+},
+{
+"address": "0x7BF820",
+"thunked": false
+},
+{
+"address": "0x7BF850",
+"thunked": false
+},
+{
+"address": "0x7BF870",
+"thunked": false
+},
+{
+"address": "0x7BF8A0",
+"thunked": false
+},
+{
+"address": "0x7BF8D0",
+"thunked": false
+},
+{
+"address": "0x7BF900",
+"thunked": false
 },
 {
 "address": "0x7BF930",
@@ -66067,6 +69683,22 @@
 "thunked": true
 },
 {
+"address": "0x7C3150",
+"thunked": false
+},
+{
+"address": "0x7C3180",
+"thunked": false
+},
+{
+"address": "0x7C31D0",
+"thunked": false
+},
+{
+"address": "0x7C3200",
+"thunked": false
+},
+{
 "address": "0x7C3220",
 "thunked": true
 },
@@ -66109,12 +69741,28 @@
 "file_evidence": "assert"
 },
 {
+"address": "0x7C3E20",
+"thunked": false
+},
+{
+"address": "0x7C3E50",
+"thunked": false
+},
+{
 "address": "0x7C3EA0",
 "thunked": true
 },
 {
 "address": "0x7C3EB0",
 "thunked": true
+},
+{
+"address": "0x7C3EC0",
+"thunked": false
+},
+{
+"address": "0x7C3EF0",
+"thunked": false
 },
 {
 "address": "0x7C3F10",
@@ -66219,6 +69867,14 @@
 "thunked": true
 },
 {
+"address": "0x7C4DB0",
+"thunked": false
+},
+{
+"address": "0x7C4DE0",
+"thunked": false
+},
+{
 "address": "0x7C4E30",
 "thunked": true
 },
@@ -66229,6 +69885,14 @@
 {
 "address": "0x7C5040",
 "thunked": true
+},
+{
+"address": "0x7C50B0",
+"thunked": false
+},
+{
+"address": "0x7C50E0",
+"thunked": false
 },
 {
 "address": "0x7C5100",
@@ -66263,6 +69927,10 @@
 {
 "address": "0x7C6060",
 "thunked": true
+},
+{
+"address": "0x7C60F0",
+"thunked": false
 },
 {
 "address": "0x7C6120",
@@ -66303,6 +69971,18 @@
 {
 "address": "0x7C62B0",
 "thunked": true
+},
+{
+"address": "0x7C6350",
+"thunked": false
+},
+{
+"address": "0x7C6380",
+"thunked": false
+},
+{
+"address": "0x7C63B0",
+"thunked": false
 },
 {
 "address": "0x7C63D0",
@@ -66419,6 +70099,14 @@
 "thunked": true
 },
 {
+"address": "0x7C9650",
+"thunked": false
+},
+{
+"address": "0x7C9680",
+"thunked": false
+},
+{
 "address": "0x7C96D0",
 "thunked": true
 },
@@ -66429,6 +70117,10 @@
 {
 "address": "0x7C96F0",
 "thunked": true
+},
+{
+"address": "0x7C9780",
+"thunked": false
 },
 {
 "address": "0x7C97B0",
@@ -66461,6 +70153,10 @@
 {
 "address": "0x7CA2D0",
 "thunked": true
+},
+{
+"address": "0x7CA320",
+"thunked": false
 },
 {
 "address": "0x7CA340",
@@ -66665,6 +70361,22 @@
 {
 "address": "0x7CEC90",
 "thunked": true
+},
+{
+"address": "0x7CECC0",
+"thunked": false
+},
+{
+"address": "0x7CECF0",
+"thunked": false
+},
+{
+"address": "0x7CEDB0",
+"thunked": false
+},
+{
+"address": "0x7CEE70",
+"thunked": false
 },
 {
 "address": "0x7CEF30",
@@ -66995,6 +70707,10 @@
 "thunked": true
 },
 {
+"address": "0x7DFEA0",
+"thunked": false
+},
+{
 "address": "0x7DFED0",
 "thunked": true
 },
@@ -67179,6 +70895,10 @@
 "thunked": true
 },
 {
+"address": "0x7E1E10",
+"thunked": false
+},
+{
 "address": "0x7E1E40",
 "thunked": true
 },
@@ -67295,6 +71015,14 @@
 "thunked": true
 },
 {
+"address": "0x7E3160",
+"thunked": false
+},
+{
+"address": "0x7E3190",
+"thunked": false
+},
+{
 "address": "0x7E31B0",
 "thunked": true
 },
@@ -67343,6 +71071,22 @@
 "thunked": true
 },
 {
+"address": "0x7E49C0",
+"thunked": false
+},
+{
+"address": "0x7E4A30",
+"thunked": false
+},
+{
+"address": "0x7E4AB0",
+"thunked": false
+},
+{
+"address": "0x7E4AE0",
+"thunked": false
+},
+{
 "address": "0x7E4B10",
 "thunked": true
 },
@@ -67353,6 +71097,10 @@
 {
 "address": "0x7E4F00",
 "thunked": true
+},
+{
+"address": "0x7E4F90",
+"thunked": false
 },
 {
 "address": "0x7E5040",
@@ -67417,6 +71165,10 @@
 "thunked": true
 },
 {
+"address": "0x7E5F40",
+"thunked": false
+},
+{
 "address": "0x7E5F70",
 "thunked": true
 },
@@ -67441,6 +71193,10 @@
 "thunked": true,
 "file": "app\\client\\distance_calc_client.cpp",
 "file_evidence": "assert"
+},
+{
+"address": "0x7E62C0",
+"thunked": false
 },
 {
 "address": "0x7E62F0",
@@ -67539,6 +71295,10 @@
 {
 "address": "0x7E7E00",
 "thunked": true
+},
+{
+"address": "0x7E7E40",
+"thunked": false
 },
 {
 "address": "0x7E7E70",
@@ -67709,6 +71469,10 @@
 "thunked": true
 },
 {
+"address": "0x7E9AF0",
+"thunked": false
+},
+{
 "address": "0x7E9B20",
 "thunked": true,
 "file": "app\\client\\manufacturing_category_ui_util.cpp",
@@ -67743,6 +71507,10 @@
 "thunked": true,
 "file": "app\\client\\manufacturing_category_ui_util.cpp",
 "file_evidence": "assert"
+},
+{
+"address": "0x7EC3B0",
+"thunked": false
 },
 {
 "address": "0x7EC3E0",
@@ -67815,6 +71583,10 @@
 "thunked": true
 },
 {
+"address": "0x7ED120",
+"thunked": false
+},
+{
 "address": "0x7ED150",
 "thunked": true
 },
@@ -67863,6 +71635,10 @@
 {
 "address": "0x7EDC50",
 "thunked": true
+},
+{
+"address": "0x7EDC80",
+"thunked": false
 },
 {
 "address": "0x7EDCB0",
@@ -67937,6 +71713,14 @@
 {
 "address": "0x7EEE00",
 "thunked": true
+},
+{
+"address": "0x7EEF30",
+"thunked": false
+},
+{
+"address": "0x7EEF60",
+"thunked": false
 },
 {
 "address": "0x7EEF90",
@@ -68083,6 +71867,10 @@
 {
 "address": "0x7F0EC0",
 "thunked": true
+},
+{
+"address": "0x7F0F30",
+"thunked": false
 },
 {
 "address": "0x7F0F60",
@@ -68651,6 +72439,10 @@
 "thunked": true
 },
 {
+"address": "0x7FEB30",
+"thunked": false
+},
+{
 "address": "0x7FEB60",
 "thunked": true
 },
@@ -68717,6 +72509,34 @@
 {
 "address": "0x7FF060",
 "thunked": true
+},
+{
+"address": "0x7FF0E0",
+"thunked": false
+},
+{
+"address": "0x7FF110",
+"thunked": false
+},
+{
+"address": "0x7FF140",
+"thunked": false
+},
+{
+"address": "0x7FF170",
+"thunked": false
+},
+{
+"address": "0x7FF1A0",
+"thunked": false
+},
+{
+"address": "0x7FF1D0",
+"thunked": false
+},
+{
+"address": "0x7FF200",
+"thunked": false
 },
 {
 "address": "0x7FF230",
@@ -69421,6 +73241,10 @@
 "thunked": true
 },
 {
+"address": "0x80B130",
+"thunked": false
+},
+{
 "address": "0x80B160",
 "thunked": true
 },
@@ -69439,6 +73263,66 @@
 {
 "address": "0x80B520",
 "thunked": true,
+"file": "app\\client\\ship_pip.cpp",
+"file_evidence": "between"
+},
+{
+"address": "0x80B6F0",
+"thunked": false,
+"file": "app\\client\\ship_pip.cpp",
+"file_evidence": "between"
+},
+{
+"address": "0x80B720",
+"thunked": false,
+"file": "app\\client\\ship_pip.cpp",
+"file_evidence": "between"
+},
+{
+"address": "0x80B750",
+"thunked": false,
+"file": "app\\client\\ship_pip.cpp",
+"file_evidence": "between"
+},
+{
+"address": "0x80B7D0",
+"thunked": false,
+"file": "app\\client\\ship_pip.cpp",
+"file_evidence": "between"
+},
+{
+"address": "0x80B850",
+"thunked": false,
+"file": "app\\client\\ship_pip.cpp",
+"file_evidence": "between"
+},
+{
+"address": "0x80B8D0",
+"thunked": false,
+"file": "app\\client\\ship_pip.cpp",
+"file_evidence": "between"
+},
+{
+"address": "0x80B900",
+"thunked": false,
+"file": "app\\client\\ship_pip.cpp",
+"file_evidence": "between"
+},
+{
+"address": "0x80B930",
+"thunked": false,
+"file": "app\\client\\ship_pip.cpp",
+"file_evidence": "between"
+},
+{
+"address": "0x80B9B0",
+"thunked": false,
+"file": "app\\client\\ship_pip.cpp",
+"file_evidence": "between"
+},
+{
+"address": "0x80BA30",
+"thunked": false,
 "file": "app\\client\\ship_pip.cpp",
 "file_evidence": "between"
 },
@@ -69521,8 +73405,26 @@
 "thunked": true
 },
 {
+"address": "0x80E840",
+"thunked": false
+},
+{
+"address": "0x80E870",
+"thunked": false
+},
+{
+"address": "0x80E8A0",
+"thunked": false
+},
+{
 "address": "0x80E8C0",
 "thunked": true,
+"file": "app\\client\\shiputils.cpp",
+"file_evidence": "assert"
+},
+{
+"address": "0x80EAF0",
+"thunked": false,
 "file": "app\\client\\shiputils.cpp",
 "file_evidence": "assert"
 },
@@ -69530,11 +73432,29 @@
 "address": "0x80EFF0",
 "thunked": true,
 "file": "app\\client\\shiputils.cpp",
+"file_evidence": "between"
+},
+{
+"address": "0x80F020",
+"thunked": false,
+"file": "app\\client\\shiputils.cpp",
 "file_evidence": "assert"
 },
 {
 "address": "0x80F220",
 "thunked": true,
+"file": "app\\client\\shiputils.cpp",
+"file_evidence": "between"
+},
+{
+"address": "0x80F250",
+"thunked": false,
+"file": "app\\client\\shiputils.cpp",
+"file_evidence": "assert"
+},
+{
+"address": "0x80F470",
+"thunked": false,
 "file": "app\\client\\shiputils.cpp",
 "file_evidence": "assert"
 },
@@ -69542,11 +73462,23 @@
 "address": "0x80FCE0",
 "thunked": true,
 "file": "app\\client\\shiputils.cpp",
+"file_evidence": "between"
+},
+{
+"address": "0x80FD10",
+"thunked": false,
+"file": "app\\client\\shiputils.cpp",
 "file_evidence": "assert"
 },
 {
 "address": "0x80FF20",
 "thunked": true,
+"file": "app\\client\\shiputils.cpp",
+"file_evidence": "assert"
+},
+{
+"address": "0x810130",
+"thunked": false,
 "file": "app\\client\\shiputils.cpp",
 "file_evidence": "assert"
 },
@@ -69569,10 +73501,28 @@
 "file_evidence": "assert"
 },
 {
+"address": "0x811780",
+"thunked": false,
+"file": "app\\client\\shiputils.cpp",
+"file_evidence": "between"
+},
+{
+"address": "0x8117B0",
+"thunked": false,
+"file": "app\\client\\shiputils.cpp",
+"file_evidence": "between"
+},
+{
 "address": "0x8117D0",
 "thunked": true,
 "file": "app\\client\\shiputils.cpp",
 "file_evidence": "assert"
+},
+{
+"address": "0x812080",
+"thunked": false,
+"file": "app\\client\\shiputils.cpp",
+"file_evidence": "between"
 },
 {
 "address": "0x812210",
@@ -69605,6 +73555,18 @@
 {
 "address": "0x813950",
 "thunked": true
+},
+{
+"address": "0x813970",
+"thunked": false
+},
+{
+"address": "0x8139A0",
+"thunked": false
+},
+{
+"address": "0x8139D0",
+"thunked": false
 },
 {
 "address": "0x8139F0",
@@ -69687,6 +73649,30 @@
 "file_evidence": "assert"
 },
 {
+"address": "0x8141C0",
+"thunked": false
+},
+{
+"address": "0x814230",
+"thunked": false
+},
+{
+"address": "0x814280",
+"thunked": false
+},
+{
+"address": "0x814310",
+"thunked": false
+},
+{
+"address": "0x8143D0",
+"thunked": false
+},
+{
+"address": "0x814400",
+"thunked": false
+},
+{
 "address": "0x814430",
 "thunked": true
 },
@@ -69737,6 +73723,12 @@
 "file_evidence": "assert"
 },
 {
+"address": "0x815590",
+"thunked": false,
+"file": "app\\client\\skill_ability_names.cpp",
+"file_evidence": "between"
+},
+{
 "address": "0x8155B0",
 "thunked": true,
 "file": "app\\client\\skill_ability_names.cpp",
@@ -69745,6 +73737,12 @@
 {
 "address": "0x815640",
 "thunked": true,
+"file": "app\\client\\skill_ability_names.cpp",
+"file_evidence": "between"
+},
+{
+"address": "0x815670",
+"thunked": false,
 "file": "app\\client\\skill_ability_names.cpp",
 "file_evidence": "between"
 },
@@ -69801,6 +73799,10 @@
 "thunked": true
 },
 {
+"address": "0x8168C0",
+"thunked": false
+},
+{
 "address": "0x8168F0",
 "thunked": true
 },
@@ -69831,6 +73833,18 @@
 {
 "address": "0x816CE0",
 "thunked": true
+},
+{
+"address": "0x816D70",
+"thunked": false
+},
+{
+"address": "0x816E00",
+"thunked": false
+},
+{
+"address": "0x816E30",
+"thunked": false
 },
 {
 "address": "0x816E60",
@@ -69945,6 +73959,10 @@
 {
 "address": "0x818E90",
 "thunked": true
+},
+{
+"address": "0x8190A0",
+"thunked": false
 },
 {
 "address": "0x8190D0",
@@ -70185,6 +74203,10 @@
 "thunked": true
 },
 {
+"address": "0x81DFE0",
+"thunked": false
+},
+{
 "address": "0x81E010",
 "thunked": true
 },
@@ -70255,6 +74277,10 @@
 {
 "address": "0x81EEA0",
 "thunked": true
+},
+{
+"address": "0x81F0B0",
+"thunked": false
 },
 {
 "address": "0x81F0E0",
@@ -70367,6 +74393,10 @@
 "thunked": true
 },
 {
+"address": "0x820800",
+"thunked": false
+},
+{
 "address": "0x820830",
 "thunked": true
 },
@@ -70429,6 +74459,18 @@
 {
 "address": "0x820EC0",
 "thunked": true
+},
+{
+"address": "0x820F00",
+"thunked": false
+},
+{
+"address": "0x820F30",
+"thunked": false
+},
+{
+"address": "0x820F60",
+"thunked": false
 },
 {
 "address": "0x820F90",
@@ -70819,6 +74861,18 @@
 "thunked": true
 },
 {
+"address": "0x823E10",
+"thunked": false
+},
+{
+"address": "0x823E40",
+"thunked": false
+},
+{
+"address": "0x823E70",
+"thunked": false
+},
+{
 "address": "0x823EA0",
 "thunked": true
 },
@@ -71017,6 +75071,10 @@
 "thunked": true
 },
 {
+"address": "0x826450",
+"thunked": false
+},
+{
 "address": "0x826480",
 "thunked": true
 },
@@ -71187,6 +75245,18 @@
 "thunked": true
 },
 {
+"address": "0x827530",
+"thunked": false
+},
+{
+"address": "0x827560",
+"thunked": false
+},
+{
+"address": "0x8275A0",
+"thunked": false
+},
+{
 "address": "0x8275D0",
 "thunked": true
 },
@@ -71269,6 +75339,22 @@
 {
 "address": "0x828A10",
 "thunked": true
+},
+{
+"address": "0x828A40",
+"thunked": false
+},
+{
+"address": "0x828A70",
+"thunked": false
+},
+{
+"address": "0x828AA0",
+"thunked": false
+},
+{
+"address": "0x828AE0",
+"thunked": false
 },
 {
 "address": "0x828B10",
@@ -71545,8 +75631,20 @@
 "thunked": true
 },
 {
+"address": "0x82C5B0",
+"thunked": false
+},
+{
 "address": "0x82C5E0",
 "thunked": true
+},
+{
+"address": "0x82C600",
+"thunked": false
+},
+{
+"address": "0x82C630",
+"thunked": false
 },
 {
 "address": "0x82C660",
@@ -71816,6 +75914,10 @@
 "thunked": true
 },
 {
+"address": "0x82EC80",
+"thunked": false
+},
+{
 "address": "0x82ECB0",
 "thunked": true
 },
@@ -71842,6 +75944,10 @@
 {
 "address": "0x82F1D0",
 "thunked": true
+},
+{
+"address": "0x82F210",
+"thunked": false
 },
 {
 "address": "0x82F2A0",
@@ -71948,6 +76054,14 @@
 "thunked": true
 },
 {
+"address": "0x830430",
+"thunked": false
+},
+{
+"address": "0x830460",
+"thunked": false
+},
+{
 "address": "0x830770",
 "thunked": true,
 "file": "app\\common\\chat_defs.cpp",
@@ -71956,6 +76070,12 @@
 {
 "address": "0x830830",
 "thunked": true,
+"file": "app\\common\\chat_defs.cpp",
+"file_evidence": "between"
+},
+{
+"address": "0x8308C0",
+"thunked": false,
 "file": "app\\common\\chat_defs.cpp",
 "file_evidence": "between"
 },
@@ -72022,8 +76142,20 @@
 "thunked": true
 },
 {
+"address": "0x8312F0",
+"thunked": false
+},
+{
+"address": "0x831320",
+"thunked": false
+},
+{
 "address": "0x831340",
 "thunked": true
+},
+{
+"address": "0x8316B0",
+"thunked": false
 },
 {
 "address": "0x8316D0",
@@ -72036,6 +76168,10 @@
 {
 "address": "0x8318B0",
 "thunked": true
+},
+{
+"address": "0x831920",
+"thunked": false
 },
 {
 "address": "0x831950",
@@ -72056,6 +76192,10 @@
 {
 "address": "0x831CF0",
 "thunked": true
+},
+{
+"address": "0x831E60",
+"thunked": false
 },
 {
 "address": "0x831E90",
@@ -72118,6 +76258,14 @@
 "thunked": true
 },
 {
+"address": "0x8330B0",
+"thunked": false
+},
+{
+"address": "0x833170",
+"thunked": false
+},
+{
 "address": "0x8331E0",
 "thunked": true,
 "file": "app\\common\\effect_description.cpp",
@@ -72126,6 +76274,12 @@
 {
 "address": "0x8335D0",
 "thunked": true,
+"file": "app\\common\\effect_description.cpp",
+"file_evidence": "assert"
+},
+{
+"address": "0x833880",
+"thunked": false,
 "file": "app\\common\\effect_description.cpp",
 "file_evidence": "assert"
 },
@@ -72144,6 +76298,30 @@
 {
 "address": "0x833D40",
 "thunked": true,
+"file": "app\\common\\effect_description.cpp",
+"file_evidence": "between"
+},
+{
+"address": "0x833D80",
+"thunked": false,
+"file": "app\\common\\effect_description.cpp",
+"file_evidence": "between"
+},
+{
+"address": "0x833E40",
+"thunked": false,
+"file": "app\\common\\effect_description.cpp",
+"file_evidence": "between"
+},
+{
+"address": "0x833EB0",
+"thunked": false,
+"file": "app\\common\\effect_description.cpp",
+"file_evidence": "between"
+},
+{
+"address": "0x833F70",
+"thunked": false,
 "file": "app\\common\\effect_description.cpp",
 "file_evidence": "between"
 },
@@ -72188,6 +76366,10 @@
 "thunked": true
 },
 {
+"address": "0x834CB0",
+"thunked": false
+},
+{
 "address": "0x834D30",
 "thunked": true
 },
@@ -72216,8 +76398,28 @@
 "thunked": true
 },
 {
+"address": "0x835010",
+"thunked": false
+},
+{
+"address": "0x835040",
+"thunked": false
+},
+{
+"address": "0x835100",
+"thunked": false
+},
+{
+"address": "0x835170",
+"thunked": false
+},
+{
 "address": "0x8351E0",
 "thunked": true
+},
+{
+"address": "0x8352F0",
+"thunked": false
 },
 {
 "address": "0x835320",
@@ -72250,6 +76452,10 @@
 {
 "address": "0x8357F0",
 "thunked": true
+},
+{
+"address": "0x835830",
+"thunked": false
 },
 {
 "address": "0x835860",
@@ -73066,6 +77272,10 @@
 "thunked": true
 },
 {
+"address": "0x83C700",
+"thunked": false
+},
+{
 "address": "0x83C730",
 "thunked": true
 },
@@ -73098,8 +77308,24 @@
 "thunked": true
 },
 {
+"address": "0x83CE80",
+"thunked": false
+},
+{
+"address": "0x83CF40",
+"thunked": false
+},
+{
+"address": "0x83CFB0",
+"thunked": false
+},
+{
 "address": "0x83D0E0",
 "thunked": true
+},
+{
+"address": "0x83D1F0",
+"thunked": false
 },
 {
 "address": "0x83D220",
@@ -73116,6 +77342,10 @@
 {
 "address": "0x83D490",
 "thunked": true
+},
+{
+"address": "0x83D670",
+"thunked": false
 },
 {
 "address": "0x83D6A0",
@@ -73142,6 +77372,10 @@
 {
 "address": "0x83D8B0",
 "thunked": true
+},
+{
+"address": "0x83D8D0",
+"thunked": false
 },
 {
 "address": "0x83D900",
@@ -73196,6 +77430,14 @@
 "thunked": true
 },
 {
+"address": "0x83E270",
+"thunked": false
+},
+{
+"address": "0x83E330",
+"thunked": false
+},
+{
 "address": "0x83E3A0",
 "thunked": true
 },
@@ -73239,7 +77481,15 @@
 },
 {
 "address": "0x83F2B0",
-"thunked": true,
+"thunked": true
+},
+{
+"address": "0x83F2F0",
+"thunked": false
+},
+{
+"address": "0x83F320",
+"thunked": false,
 "file": "app\\common\\item_info.cpp",
 "file_evidence": "assert"
 },
@@ -73486,6 +77736,10 @@
 "thunked": true
 },
 {
+"address": "0x842900",
+"thunked": false
+},
+{
 "address": "0x842930",
 "thunked": true
 },
@@ -73500,6 +77754,10 @@
 "thunked": true,
 "file": "app\\common\\item_state.cpp",
 "file_evidence": "assert"
+},
+{
+"address": "0x8430E0",
+"thunked": false
 },
 {
 "address": "0x843110",
@@ -73554,6 +77812,18 @@
 "thunked": true,
 "file": "app\\common\\itemtype.cpp",
 "file_evidence": "assert"
+},
+{
+"address": "0x8436A0",
+"thunked": false
+},
+{
+"address": "0x8436D0",
+"thunked": false
+},
+{
+"address": "0x843790",
+"thunked": false
 },
 {
 "address": "0x843810",
@@ -73672,6 +77942,10 @@
 "thunked": true
 },
 {
+"address": "0x8451D0",
+"thunked": false
+},
+{
 "address": "0x845200",
 "thunked": true
 },
@@ -73788,6 +78062,10 @@
 "thunked": true
 },
 {
+"address": "0x846270",
+"thunked": false
+},
+{
 "address": "0x8462A0",
 "thunked": true
 },
@@ -73850,6 +78128,10 @@
 {
 "address": "0x8469B0",
 "thunked": true
+},
+{
+"address": "0x846A20",
+"thunked": false
 },
 {
 "address": "0x846A50",
@@ -73920,8 +78202,24 @@
 "thunked": true
 },
 {
+"address": "0x848100",
+"thunked": false
+},
+{
+"address": "0x848130",
+"thunked": false
+},
+{
+"address": "0x8481C0",
+"thunked": false
+},
+{
 "address": "0x848250",
-"thunked": true,
+"thunked": true
+},
+{
+"address": "0x848450",
+"thunked": false,
 "file": "app\\common\\pal_mgr.cpp",
 "file_evidence": "assert"
 },
@@ -74108,6 +78406,10 @@
 "thunked": true
 },
 {
+"address": "0x84A270",
+"thunked": false
+},
+{
 "address": "0x84A2A0",
 "thunked": true,
 "file": "app\\common\\sector_types.cpp",
@@ -74132,6 +78434,10 @@
 {
 "address": "0x84A410",
 "thunked": true
+},
+{
+"address": "0x84A440",
+"thunked": false
 },
 {
 "address": "0x84A470",
@@ -74262,6 +78568,10 @@
 "thunked": true
 },
 {
+"address": "0x84B330",
+"thunked": false
+},
+{
 "address": "0x84B360",
 "thunked": true
 },
@@ -74274,8 +78584,24 @@
 "thunked": true
 },
 {
+"address": "0x84BAC0",
+"thunked": false
+},
+{
+"address": "0x84BB80",
+"thunked": false
+},
+{
+"address": "0x84BBF0",
+"thunked": false
+},
+{
 "address": "0x84BCB0",
 "thunked": true
+},
+{
+"address": "0x84BDC0",
+"thunked": false
 },
 {
 "address": "0x84BDF0",
@@ -74292,6 +78618,10 @@
 {
 "address": "0x84C060",
 "thunked": true
+},
+{
+"address": "0x84C240",
+"thunked": false
 },
 {
 "address": "0x84C270",
@@ -74348,6 +78678,14 @@
 "thunked": true,
 "file": "app\\common\\weapontype.cpp",
 "file_evidence": "assert"
+},
+{
+"address": "0x84C6C0",
+"thunked": false
+},
+{
+"address": "0x84C6F0",
+"thunked": false
 },
 {
 "address": "0x84C720",
@@ -74476,6 +78814,14 @@
 {
 "address": "0x84DF00",
 "thunked": true
+},
+{
+"address": "0x84DF30",
+"thunked": false
+},
+{
+"address": "0x84DF70",
+"thunked": false
 },
 {
 "address": "0x84DFC0",
@@ -74818,6 +79164,10 @@
 "thunked": true
 },
 {
+"address": "0x856870",
+"thunked": false
+},
+{
 "address": "0x8568A0",
 "thunked": true
 },
@@ -75026,6 +79376,10 @@
 "thunked": true
 },
 {
+"address": "0x85BC50",
+"thunked": false
+},
+{
 "address": "0x85BC80",
 "thunked": true
 },
@@ -75044,6 +79398,10 @@
 {
 "address": "0x85BEC0",
 "thunked": true
+},
+{
+"address": "0x85BF00",
+"thunked": false
 },
 {
 "address": "0x85BF30",
@@ -75090,6 +79448,10 @@
 "thunked": true
 },
 {
+"address": "0x85C5C0",
+"thunked": false
+},
+{
 "address": "0x85C5F0",
 "thunked": true
 },
@@ -75122,6 +79484,10 @@
 "thunked": true
 },
 {
+"address": "0x85D170",
+"thunked": false
+},
+{
 "address": "0x85D1A0",
 "thunked": true
 },
@@ -75150,6 +79516,10 @@
 "thunked": true
 },
 {
+"address": "0x85D480",
+"thunked": false
+},
+{
 "address": "0x85D4B0",
 "thunked": true
 },
@@ -75176,6 +79546,10 @@
 {
 "address": "0x85D750",
 "thunked": true
+},
+{
+"address": "0x85D780",
+"thunked": false
 },
 {
 "address": "0x85D7B0",
@@ -75208,6 +79582,10 @@
 {
 "address": "0x85DA50",
 "thunked": true
+},
+{
+"address": "0x85DA70",
+"thunked": false
 },
 {
 "address": "0x85DAA0",
@@ -75250,6 +79628,10 @@
 {
 "address": "0x85DDE0",
 "thunked": true
+},
+{
+"address": "0x85DE00",
+"thunked": false
 },
 {
 "address": "0x85DE30",
@@ -75330,6 +79712,10 @@
 {
 "address": "0x85E5F0",
 "thunked": true
+},
+{
+"address": "0x85E610",
+"thunked": false
 },
 {
 "address": "0x85E640",
@@ -75498,6 +79884,10 @@
 "thunked": true
 },
 {
+"address": "0x85F220",
+"thunked": false
+},
+{
 "address": "0x85F250",
 "thunked": true
 },
@@ -75580,6 +79970,10 @@
 {
 "address": "0x85F820",
 "thunked": true
+},
+{
+"address": "0x85F840",
+"thunked": false
 },
 {
 "address": "0x85F870",
@@ -75916,6 +80310,10 @@
 "thunked": true
 },
 {
+"address": "0x860D00",
+"thunked": false
+},
+{
 "address": "0x860D30",
 "thunked": true
 },
@@ -76072,6 +80470,10 @@
 "thunked": true
 },
 {
+"address": "0x861730",
+"thunked": false
+},
+{
 "address": "0x861760",
 "thunked": true
 },
@@ -76104,6 +80506,10 @@
 "thunked": true
 },
 {
+"address": "0x861B00",
+"thunked": false
+},
+{
 "address": "0x861B30",
 "thunked": true
 },
@@ -76134,6 +80540,10 @@
 {
 "address": "0x861D60",
 "thunked": true
+},
+{
+"address": "0x861D80",
+"thunked": false
 },
 {
 "address": "0x861DB0",
@@ -76200,6 +80610,10 @@
 {
 "address": "0x862300",
 "thunked": true
+},
+{
+"address": "0x862320",
+"thunked": false
 },
 {
 "address": "0x862350",
@@ -76286,6 +80700,10 @@
 "thunked": true
 },
 {
+"address": "0x862970",
+"thunked": false
+},
+{
 "address": "0x8629A0",
 "thunked": true
 },
@@ -76326,6 +80744,10 @@
 "thunked": true
 },
 {
+"address": "0x8633D0",
+"thunked": false
+},
+{
 "address": "0x863400",
 "thunked": true
 },
@@ -76352,6 +80774,10 @@
 {
 "address": "0x8636C0",
 "thunked": true
+},
+{
+"address": "0x8636F0",
+"thunked": false
 },
 {
 "address": "0x863720",
@@ -76418,6 +80844,10 @@
 "thunked": true
 },
 {
+"address": "0x864060",
+"thunked": false
+},
+{
 "address": "0x864090",
 "thunked": true
 },
@@ -76444,6 +80874,10 @@
 {
 "address": "0x864750",
 "thunked": true
+},
+{
+"address": "0x864780",
+"thunked": false
 },
 {
 "address": "0x8647B0",
@@ -76474,6 +80908,10 @@
 "thunked": true
 },
 {
+"address": "0x8649E0",
+"thunked": false
+},
+{
 "address": "0x864A10",
 "thunked": true
 },
@@ -76500,6 +80938,10 @@
 {
 "address": "0x864FC0",
 "thunked": true
+},
+{
+"address": "0x864FF0",
+"thunked": false
 },
 {
 "address": "0x865020",
@@ -76532,6 +80974,10 @@
 {
 "address": "0x865390",
 "thunked": true
+},
+{
+"address": "0x8653C0",
+"thunked": false
 },
 {
 "address": "0x8653F0",
@@ -76642,6 +81088,10 @@
 "thunked": true
 },
 {
+"address": "0x865D30",
+"thunked": false
+},
+{
 "address": "0x865D60",
 "thunked": true
 },
@@ -76668,6 +81118,10 @@
 {
 "address": "0x866640",
 "thunked": true
+},
+{
+"address": "0x866770",
+"thunked": false
 },
 {
 "address": "0x8667A0",
@@ -76700,6 +81154,10 @@
 {
 "address": "0x866A60",
 "thunked": true
+},
+{
+"address": "0x866A90",
+"thunked": false
 },
 {
 "address": "0x866AC0",
@@ -76746,6 +81204,10 @@
 "thunked": true
 },
 {
+"address": "0x866FE0",
+"thunked": false
+},
+{
 "address": "0x867010",
 "thunked": true
 },
@@ -76782,6 +81244,10 @@
 "thunked": true
 },
 {
+"address": "0x8674F0",
+"thunked": false
+},
+{
 "address": "0x867520",
 "thunked": true
 },
@@ -76810,6 +81276,10 @@
 "thunked": true
 },
 {
+"address": "0x867830",
+"thunked": false
+},
+{
 "address": "0x867860",
 "thunked": true
 },
@@ -76832,6 +81302,10 @@
 {
 "address": "0x867A40",
 "thunked": true
+},
+{
+"address": "0x867A70",
+"thunked": false
 },
 {
 "address": "0x867AA0",
@@ -77728,6 +82202,10 @@
 "file_evidence": "assert"
 },
 {
+"address": "0x869690",
+"thunked": false
+},
+{
 "address": "0x8696C0",
 "thunked": true
 },
@@ -78002,6 +82480,10 @@
 "file_evidence": "assert"
 },
 {
+"address": "0x86F040",
+"thunked": false
+},
+{
 "address": "0x86F070",
 "thunked": true
 },
@@ -78062,6 +82544,10 @@
 "thunked": true
 },
 {
+"address": "0x86F600",
+"thunked": false
+},
+{
 "address": "0x86F630",
 "thunked": true
 },
@@ -78090,6 +82576,10 @@
 "thunked": true
 },
 {
+"address": "0x86FCD0",
+"thunked": false
+},
+{
 "address": "0x86FD00",
 "thunked": true
 },
@@ -78116,6 +82606,10 @@
 {
 "address": "0x870370",
 "thunked": true
+},
+{
+"address": "0x8703A0",
+"thunked": false
 },
 {
 "address": "0x8703D0",
@@ -78198,6 +82692,10 @@
 "thunked": true
 },
 {
+"address": "0x870E60",
+"thunked": false
+},
+{
 "address": "0x870E90",
 "thunked": true
 },
@@ -78258,6 +82756,10 @@
 "thunked": true
 },
 {
+"address": "0x8714C0",
+"thunked": false
+},
+{
 "address": "0x8714F0",
 "thunked": true
 },
@@ -78286,6 +82788,10 @@
 "thunked": true
 },
 {
+"address": "0x871A00",
+"thunked": false
+},
+{
 "address": "0x871A30",
 "thunked": true
 },
@@ -78312,6 +82818,10 @@
 {
 "address": "0x871F00",
 "thunked": true
+},
+{
+"address": "0x871F40",
+"thunked": false
 },
 {
 "address": "0x871F70",
@@ -78402,6 +82912,10 @@
 "thunked": true
 },
 {
+"address": "0x872E30",
+"thunked": false
+},
+{
 "address": "0x872F70",
 "thunked": true
 },
@@ -78442,6 +82956,10 @@
 "thunked": true
 },
 {
+"address": "0x873770",
+"thunked": false
+},
+{
 "address": "0x8737A0",
 "thunked": true
 },
@@ -78470,6 +82988,10 @@
 "thunked": true
 },
 {
+"address": "0x8739D0",
+"thunked": false
+},
+{
 "address": "0x873A00",
 "thunked": true
 },
@@ -78480,6 +83002,10 @@
 {
 "address": "0x873A90",
 "thunked": true
+},
+{
+"address": "0x873AB0",
+"thunked": false
 },
 {
 "address": "0x873AE0",
@@ -78678,6 +83204,10 @@
 "thunked": true
 },
 {
+"address": "0x8754A0",
+"thunked": false
+},
+{
 "address": "0x8754D0",
 "thunked": true
 },
@@ -78720,6 +83250,10 @@
 "thunked": true
 },
 {
+"address": "0x875B50",
+"thunked": false
+},
+{
 "address": "0x875B70",
 "thunked": true
 },
@@ -78742,6 +83276,10 @@
 {
 "address": "0x876180",
 "thunked": true
+},
+{
+"address": "0x876330",
+"thunked": false
 },
 {
 "address": "0x876360",
@@ -78792,6 +83330,10 @@
 "thunked": true
 },
 {
+"address": "0x8769F0",
+"thunked": false
+},
+{
 "address": "0x876A20",
 "thunked": true
 },
@@ -78822,6 +83364,10 @@
 {
 "address": "0x876CC0",
 "thunked": true
+},
+{
+"address": "0x876D00",
+"thunked": false
 },
 {
 "address": "0x876D30",
@@ -78888,6 +83434,10 @@
 "thunked": true
 },
 {
+"address": "0x877340",
+"thunked": false
+},
+{
 "address": "0x877370",
 "thunked": true
 },
@@ -78918,6 +83468,10 @@
 {
 "address": "0x8775E0",
 "thunked": true
+},
+{
+"address": "0x877610",
+"thunked": false
 },
 {
 "address": "0x877640",
@@ -78952,6 +83506,10 @@
 "thunked": true
 },
 {
+"address": "0x877C50",
+"thunked": false
+},
+{
 "address": "0x877C80",
 "thunked": true
 },
@@ -78984,6 +83542,10 @@
 "thunked": true
 },
 {
+"address": "0x878000",
+"thunked": false
+},
+{
 "address": "0x878030",
 "thunked": true
 },
@@ -79006,6 +83568,10 @@
 {
 "address": "0x878210",
 "thunked": true
+},
+{
+"address": "0x878250",
+"thunked": false
 },
 {
 "address": "0x878280",
@@ -79042,6 +83608,10 @@
 {
 "address": "0x878560",
 "thunked": true
+},
+{
+"address": "0x8785A0",
+"thunked": false
 },
 {
 "address": "0x8785D0",
@@ -79204,6 +83774,10 @@
 "thunked": true
 },
 {
+"address": "0x87A910",
+"thunked": false
+},
+{
 "address": "0x87A940",
 "thunked": true
 },
@@ -79230,6 +83804,10 @@
 {
 "address": "0x87AC70",
 "thunked": true
+},
+{
+"address": "0x87ACA0",
+"thunked": false
 },
 {
 "address": "0x87ACD0",
@@ -79396,6 +83974,10 @@
 "thunked": true
 },
 {
+"address": "0x87DE90",
+"thunked": false
+},
+{
 "address": "0x87DEC0",
 "thunked": true
 },
@@ -79432,6 +84014,10 @@
 "thunked": true
 },
 {
+"address": "0x87E3F0",
+"thunked": false
+},
+{
 "address": "0x87E420",
 "thunked": true
 },
@@ -79464,6 +84050,10 @@
 "thunked": true
 },
 {
+"address": "0x87E7A0",
+"thunked": false
+},
+{
 "address": "0x87E7D0",
 "thunked": true
 },
@@ -79490,6 +84080,10 @@
 {
 "address": "0x87EA00",
 "thunked": true
+},
+{
+"address": "0x87EA30",
+"thunked": false
 },
 {
 "address": "0x87EA60",
@@ -79560,6 +84154,10 @@
 "thunked": true
 },
 {
+"address": "0x87F2F0",
+"thunked": false
+},
+{
 "address": "0x87F320",
 "thunked": true
 },
@@ -79590,6 +84188,10 @@
 {
 "address": "0x87F8A0",
 "thunked": true
+},
+{
+"address": "0x87F8F0",
+"thunked": false
 },
 {
 "address": "0x87F920",
@@ -79624,6 +84226,10 @@
 "thunked": true
 },
 {
+"address": "0x87FCC0",
+"thunked": false
+},
+{
 "address": "0x87FCF0",
 "thunked": true
 },
@@ -79650,6 +84256,10 @@
 {
 "address": "0x87FEF0",
 "thunked": true
+},
+{
+"address": "0x87FF30",
+"thunked": false
 },
 {
 "address": "0x87FF60",
@@ -79680,6 +84290,10 @@
 "thunked": true
 },
 {
+"address": "0x880290",
+"thunked": false
+},
+{
 "address": "0x8802C0",
 "thunked": true
 },
@@ -79704,6 +84318,10 @@
 "thunked": true,
 "file": "app\\packets\\pkdebug.cpp",
 "file_evidence": "assert"
+},
+{
+"address": "0x880590",
+"thunked": false
 },
 {
 "address": "0x8805C0",
@@ -79794,6 +84412,10 @@
 "thunked": true
 },
 {
+"address": "0x8812D0",
+"thunked": false
+},
+{
 "address": "0x881300",
 "thunked": true
 },
@@ -79828,6 +84450,10 @@
 {
 "address": "0x881620",
 "thunked": true
+},
+{
+"address": "0x8816A0",
+"thunked": false
 },
 {
 "address": "0x8816D0",
@@ -79964,6 +84590,18 @@
 {
 "address": "0x882650",
 "thunked": true
+},
+{
+"address": "0x882680",
+"thunked": false
+},
+{
+"address": "0x8826B0",
+"thunked": false
+},
+{
+"address": "0x8826E0",
+"thunked": false
 },
 {
 "address": "0x882710",
@@ -80218,6 +84856,10 @@
 "thunked": true
 },
 {
+"address": "0x885FD0",
+"thunked": false
+},
+{
 "address": "0x886000",
 "thunked": true
 },
@@ -80278,6 +84920,10 @@
 "thunked": true
 },
 {
+"address": "0x886550",
+"thunked": false
+},
+{
 "address": "0x886580",
 "thunked": true
 },
@@ -80326,6 +84972,10 @@
 {
 "address": "0x886C20",
 "thunked": true
+},
+{
+"address": "0x886C40",
+"thunked": false
 },
 {
 "address": "0x886C70",
@@ -80384,6 +85034,10 @@
 "thunked": true
 },
 {
+"address": "0x887260",
+"thunked": false
+},
+{
 "address": "0x887290",
 "thunked": true
 },
@@ -80418,6 +85072,10 @@
 {
 "address": "0x887500",
 "thunked": true
+},
+{
+"address": "0x887540",
+"thunked": false
 },
 {
 "address": "0x887570",
@@ -80456,6 +85114,10 @@
 "thunked": true,
 "file": "app\\packets\\pkflag.cpp",
 "file_evidence": "assert"
+},
+{
+"address": "0x8878D0",
+"thunked": false
 },
 {
 "address": "0x887900",
@@ -80530,6 +85192,10 @@
 "thunked": true
 },
 {
+"address": "0x887EF0",
+"thunked": false
+},
+{
 "address": "0x887F20",
 "thunked": true
 },
@@ -80586,6 +85252,10 @@
 "thunked": true
 },
 {
+"address": "0x888670",
+"thunked": false
+},
+{
 "address": "0x8886A0",
 "thunked": true
 },
@@ -80624,6 +85294,10 @@
 {
 "address": "0x888AA0",
 "thunked": true
+},
+{
+"address": "0x888B30",
+"thunked": false
 },
 {
 "address": "0x888B60",
@@ -80868,6 +85542,10 @@
 {
 "address": "0x88BCE0",
 "thunked": true
+},
+{
+"address": "0x88BD10",
+"thunked": false
 },
 {
 "address": "0x88BD40",
@@ -81152,6 +85830,10 @@
 {
 "address": "0x88E840",
 "thunked": true
+},
+{
+"address": "0x88EC40",
+"thunked": false
 },
 {
 "address": "0x88EC70",
@@ -81682,6 +86364,10 @@
 "thunked": true
 },
 {
+"address": "0x894390",
+"thunked": false
+},
+{
 "address": "0x8943C0",
 "thunked": true
 },
@@ -81710,6 +86396,10 @@
 "thunked": true
 },
 {
+"address": "0x8949D0",
+"thunked": false
+},
+{
 "address": "0x894A00",
 "thunked": true
 },
@@ -81736,6 +86426,10 @@
 {
 "address": "0x894C30",
 "thunked": true
+},
+{
+"address": "0x894C70",
+"thunked": false
 },
 {
 "address": "0x894CA0",
@@ -81786,6 +86480,10 @@
 "thunked": true
 },
 {
+"address": "0x8952D0",
+"thunked": false
+},
+{
 "address": "0x895300",
 "thunked": true,
 "file": "app\\packets\\pkitemba.cpp",
@@ -81820,6 +86518,10 @@
 "thunked": true
 },
 {
+"address": "0x895BD0",
+"thunked": false
+},
+{
 "address": "0x895C00",
 "thunked": true
 },
@@ -81842,6 +86544,10 @@
 {
 "address": "0x895E80",
 "thunked": true
+},
+{
+"address": "0x895ED0",
+"thunked": false
 },
 {
 "address": "0x895F00",
@@ -81992,6 +86698,10 @@
 "thunked": true
 },
 {
+"address": "0x897490",
+"thunked": false
+},
+{
 "address": "0x8974C0",
 "thunked": true
 },
@@ -82018,6 +86728,10 @@
 {
 "address": "0x8977A0",
 "thunked": true
+},
+{
+"address": "0x8977D0",
+"thunked": false
 },
 {
 "address": "0x897800",
@@ -82176,6 +86890,10 @@
 "thunked": true
 },
 {
+"address": "0x89A710",
+"thunked": false
+},
+{
 "address": "0x89A740",
 "thunked": true
 },
@@ -82202,6 +86920,10 @@
 {
 "address": "0x89AAC0",
 "thunked": true
+},
+{
+"address": "0x89AB00",
+"thunked": false
 },
 {
 "address": "0x89AB30",
@@ -82318,6 +87040,10 @@
 {
 "address": "0x89B2F0",
 "thunked": true
+},
+{
+"address": "0x89B310",
+"thunked": false
 },
 {
 "address": "0x89B340",
@@ -82520,6 +87246,10 @@
 "thunked": true
 },
 {
+"address": "0x89C610",
+"thunked": false
+},
+{
 "address": "0x89C640",
 "thunked": true
 },
@@ -82568,6 +87298,10 @@
 "thunked": true
 },
 {
+"address": "0x89CAC0",
+"thunked": false
+},
+{
 "address": "0x89CAF0",
 "thunked": true
 },
@@ -82598,6 +87332,10 @@
 {
 "address": "0x89CD40",
 "thunked": true
+},
+{
+"address": "0x89CD80",
+"thunked": false
 },
 {
 "address": "0x89CDB0",
@@ -82632,6 +87370,10 @@
 "thunked": true
 },
 {
+"address": "0x89D040",
+"thunked": false
+},
+{
 "address": "0x89D070",
 "thunked": true
 },
@@ -82658,6 +87400,10 @@
 {
 "address": "0x89D2A0",
 "thunked": true
+},
+{
+"address": "0x89D2E0",
+"thunked": false
 },
 {
 "address": "0x89D310",
@@ -82694,6 +87440,10 @@
 {
 "address": "0x89D620",
 "thunked": true
+},
+{
+"address": "0x89D730",
+"thunked": false
 },
 {
 "address": "0x89D760",
@@ -82800,6 +87550,10 @@
 "thunked": true
 },
 {
+"address": "0x89E0F0",
+"thunked": false
+},
+{
 "address": "0x89E120",
 "thunked": true
 },
@@ -82840,6 +87594,10 @@
 "thunked": true
 },
 {
+"address": "0x89E5B0",
+"thunked": false
+},
+{
 "address": "0x89E5E0",
 "thunked": true
 },
@@ -82874,6 +87632,10 @@
 {
 "address": "0x89E850",
 "thunked": true
+},
+{
+"address": "0x89E890",
+"thunked": false
 },
 {
 "address": "0x89E8C0",
@@ -82940,6 +87702,10 @@
 "thunked": true
 },
 {
+"address": "0x89EEF0",
+"thunked": false
+},
+{
 "address": "0x89EF20",
 "thunked": true
 },
@@ -82966,6 +87732,10 @@
 {
 "address": "0x89F190",
 "thunked": true
+},
+{
+"address": "0x89F1C0",
+"thunked": false
 },
 {
 "address": "0x89F1F0",
@@ -82996,6 +87766,10 @@
 "thunked": true
 },
 {
+"address": "0x89F460",
+"thunked": false
+},
+{
 "address": "0x89F490",
 "thunked": true
 },
@@ -83018,6 +87792,10 @@
 {
 "address": "0x89F6D0",
 "thunked": true
+},
+{
+"address": "0x89F710",
+"thunked": false
 },
 {
 "address": "0x89F740",
@@ -83046,6 +87824,10 @@
 {
 "address": "0x89FAE0",
 "thunked": true
+},
+{
+"address": "0x89FB20",
+"thunked": false
 },
 {
 "address": "0x89FB50",
@@ -83180,6 +87962,10 @@
 "thunked": true
 },
 {
+"address": "0x8A14D0",
+"thunked": false
+},
+{
 "address": "0x8A1500",
 "thunked": true
 },
@@ -83202,6 +87988,10 @@
 {
 "address": "0x8A15E0",
 "thunked": true
+},
+{
+"address": "0x8A1630",
+"thunked": false
 },
 {
 "address": "0x8A1660",
@@ -83238,6 +88028,10 @@
 {
 "address": "0x8A18F0",
 "thunked": true
+},
+{
+"address": "0x8A1920",
+"thunked": false
 },
 {
 "address": "0x8A1950",
@@ -83368,6 +88162,10 @@
 "thunked": true
 },
 {
+"address": "0x8A2500",
+"thunked": false
+},
+{
 "address": "0x8A2530",
 "thunked": true
 },
@@ -83390,6 +88188,10 @@
 {
 "address": "0x8A2740",
 "thunked": true
+},
+{
+"address": "0x8A2780",
+"thunked": false
 },
 {
 "address": "0x8A27B0",
@@ -83418,6 +88220,10 @@
 {
 "address": "0x8A2AA0",
 "thunked": true
+},
+{
+"address": "0x8A2B40",
+"thunked": false
 },
 {
 "address": "0x8A2B70",
@@ -83450,6 +88256,10 @@
 {
 "address": "0x8A2D10",
 "thunked": true
+},
+{
+"address": "0x8A2D40",
+"thunked": false
 },
 {
 "address": "0x8A2D70",
@@ -83530,6 +88340,10 @@
 {
 "address": "0x8A3580",
 "thunked": true
+},
+{
+"address": "0x8A35D0",
+"thunked": false
 },
 {
 "address": "0x8A3600",
@@ -83644,6 +88458,10 @@
 "thunked": true
 },
 {
+"address": "0x8A4220",
+"thunked": false
+},
+{
 "address": "0x8A4250",
 "thunked": true
 },
@@ -83700,6 +88518,10 @@
 "thunked": true
 },
 {
+"address": "0x8A4760",
+"thunked": false
+},
+{
 "address": "0x8A4790",
 "thunked": true
 },
@@ -83726,6 +88548,10 @@
 {
 "address": "0x8A4990",
 "thunked": true
+},
+{
+"address": "0x8A49C0",
+"thunked": false
 },
 {
 "address": "0x8A49F0",
@@ -83774,6 +88600,10 @@
 {
 "address": "0x8A4EB0",
 "thunked": true
+},
+{
+"address": "0x8A4EF0",
+"thunked": false
 },
 {
 "address": "0x8A4F20",
@@ -83832,6 +88662,10 @@
 "thunked": true
 },
 {
+"address": "0x8A54E0",
+"thunked": false
+},
+{
 "address": "0x8A5510",
 "thunked": true
 },
@@ -83864,6 +88698,10 @@
 "thunked": true
 },
 {
+"address": "0x8A5770",
+"thunked": false
+},
+{
 "address": "0x8A57A0",
 "thunked": true
 },
@@ -83892,6 +88730,10 @@
 "thunked": true
 },
 {
+"address": "0x8A5A80",
+"thunked": false
+},
+{
 "address": "0x8A5AB0",
 "thunked": true
 },
@@ -83918,6 +88760,10 @@
 {
 "address": "0x8A5FD0",
 "thunked": true
+},
+{
+"address": "0x8A6110",
+"thunked": false
 },
 {
 "address": "0x8A6140",
@@ -83952,6 +88798,10 @@
 "thunked": true
 },
 {
+"address": "0x8A6400",
+"thunked": false
+},
+{
 "address": "0x8A6430",
 "thunked": true
 },
@@ -83978,6 +88828,10 @@
 {
 "address": "0x8A65B0",
 "thunked": true
+},
+{
+"address": "0x8A65E0",
+"thunked": false
 },
 {
 "address": "0x8A6610",
@@ -84030,6 +88884,10 @@
 {
 "address": "0x8A6A20",
 "thunked": true
+},
+{
+"address": "0x8A6A50",
+"thunked": false
 },
 {
 "address": "0x8A6A80",
@@ -84136,6 +88994,10 @@
 "thunked": true
 },
 {
+"address": "0x8A7E70",
+"thunked": false
+},
+{
 "address": "0x8A7EA0",
 "thunked": true
 },
@@ -84218,6 +89080,10 @@
 {
 "address": "0x8A85B0",
 "thunked": true
+},
+{
+"address": "0x8A85E0",
+"thunked": false
 },
 {
 "address": "0x8A8610",
@@ -84572,6 +89438,10 @@
 "thunked": true
 },
 {
+"address": "0x8AAA80",
+"thunked": false
+},
+{
 "address": "0x8AAAB0",
 "thunked": true
 },
@@ -84598,6 +89468,10 @@
 {
 "address": "0x8AACE0",
 "thunked": true
+},
+{
+"address": "0x8AAD20",
+"thunked": false
 },
 {
 "address": "0x8AAD50",
@@ -84660,6 +89534,10 @@
 "thunked": true
 },
 {
+"address": "0x8AB260",
+"thunked": false
+},
+{
 "address": "0x8AB290",
 "thunked": true
 },
@@ -84696,6 +89574,10 @@
 "thunked": true
 },
 {
+"address": "0x8AB530",
+"thunked": false
+},
+{
 "address": "0x8AB560",
 "thunked": true
 },
@@ -84724,6 +89606,10 @@
 "thunked": true
 },
 {
+"address": "0x8AB7D0",
+"thunked": false
+},
+{
 "address": "0x8AB800",
 "thunked": true
 },
@@ -84746,6 +89632,10 @@
 {
 "address": "0x8ABA10",
 "thunked": true
+},
+{
+"address": "0x8ABA50",
+"thunked": false
 },
 {
 "address": "0x8ABA80",
@@ -85070,6 +89960,10 @@
 "thunked": true
 },
 {
+"address": "0x8AE7E0",
+"thunked": false
+},
+{
 "address": "0x8AE810",
 "thunked": true
 },
@@ -85096,6 +89990,10 @@
 {
 "address": "0x8AEA70",
 "thunked": true
+},
+{
+"address": "0x8AEAB0",
+"thunked": false
 },
 {
 "address": "0x8AEAE0",
@@ -85266,6 +90164,10 @@
 "thunked": true
 },
 {
+"address": "0x8B15C0",
+"thunked": false
+},
+{
 "address": "0x8B15F0",
 "thunked": true
 },
@@ -85316,6 +90218,10 @@
 {
 "address": "0x8B1A40",
 "thunked": true
+},
+{
+"address": "0x8B1A70",
+"thunked": false
 },
 {
 "address": "0x8B1AA0",
@@ -85374,6 +90280,18 @@
 "thunked": true
 },
 {
+"address": "0x8B2050",
+"thunked": false
+},
+{
+"address": "0x8B2080",
+"thunked": false
+},
+{
+"address": "0x8B20B0",
+"thunked": false
+},
+{
 "address": "0x8B20D0",
 "thunked": true
 },
@@ -85411,6 +90329,10 @@
 {
 "address": "0x8B2350",
 "thunked": true
+},
+{
+"address": "0x8B2390",
+"thunked": false
 },
 {
 "address": "0x8B23C0",
@@ -85463,6 +90385,10 @@
 {
 "address": "0x8B3AB0",
 "thunked": true
+},
+{
+"address": "0x8B3B20",
+"thunked": false
 },
 {
 "address": "0x8B3B50",
@@ -85665,6 +90591,14 @@
 "thunked": true
 },
 {
+"address": "0x8B5510",
+"thunked": false
+},
+{
+"address": "0x8B5540",
+"thunked": false
+},
+{
 "address": "0x8B5560",
 "thunked": true
 },
@@ -85703,6 +90637,10 @@
 {
 "address": "0x8B5BF0",
 "thunked": true
+},
+{
+"address": "0x8B5D60",
+"thunked": false
 },
 {
 "address": "0x8B5D90",
@@ -86353,6 +91291,10 @@
 "thunked": true
 },
 {
+"address": "0x8BCA20",
+"thunked": false
+},
+{
 "address": "0x8BCA50",
 "thunked": true
 },
@@ -86423,6 +91365,10 @@
 {
 "address": "0x8BE270",
 "thunked": true
+},
+{
+"address": "0x8BE770",
+"thunked": false
 },
 {
 "address": "0x8BE7A0",
@@ -86573,6 +91519,18 @@
 "thunked": true
 },
 {
+"address": "0x8C0660",
+"thunked": false
+},
+{
+"address": "0x8C0690",
+"thunked": false
+},
+{
+"address": "0x8C06C0",
+"thunked": false
+},
+{
 "address": "0x8C06E0",
 "thunked": true
 },
@@ -86715,6 +91673,10 @@
 {
 "address": "0x8C1570",
 "thunked": true
+},
+{
+"address": "0x8C15C0",
+"thunked": false
 },
 {
 "address": "0x8C15F0",
