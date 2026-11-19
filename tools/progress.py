@@ -20,10 +20,12 @@ to the first):
   exact       a function proven byte for byte: a (file, address) pair in the ledger (D80 ties
               included), or one of D54's `multiple` exact functions (the identical copies)
   NOT EXACT   functions written functionally (docs/data/not-exact.md, D64); an entry's address comes
-              from symbols.json by name, else from its neighbours in the same source file
+              from the entry itself (an app function's address right after its `NOT EXACT`, or the
+              `Unknown_XXXXXX` name of the function), else from symbols.json by name, else from its
+              neighbours in the same source file
               (functions of one object are contiguous and in source order); a whole-file entry takes
               the functions app-functions.json attributes to that file; the few entries that
-              cannot be placed are charged the average size of those that could (reported)
+              cannot be placed are charged the median size of those that could (reported)
   stubbed     functions replaced by a stub in stubs/ (a STUB_CALLED name or comment gives the
               client address) and not otherwise exact
   third-party the C and C++ runtime, COM support and D3DX (library-matching.md section 3.7): the
@@ -34,7 +36,8 @@ to the first):
 Function sizes come from the verified function starts (D27): a function runs to the next known start
 (app-functions.json for the app region, the named and matched functions for the libraries), or to
 its measured length rounded up to the 16-byte alignment when that is shorter. A function without a
-length whose next start is unknown is charged at most 2 KB. The sizes always come from today's tables,
+length runs to the next known start in the app region (its trailing fill included; the starts are
+D27's), elsewhere at most 2 KB. The sizes always come from today's tables,
 so the history differs from day to day only by what each day's commit had proven.
 
 FILL. The inter-function alignment fill after a function is charged to that function's state (exact, NOT EXACT, ...; fill after an
@@ -88,6 +91,7 @@ import declcensus  # noqa: E402
 DATA = 'docs/data'
 HISTORY_CSV = os.path.join(ROOT, DATA, 'progress-history.csv')
 SVG_DIR = os.path.join(ROOT, 'docs')
+APP_START = 0x401000                   # E&B's own objects start here
 LIB_START = 0x8C1B50                  # E&B's own objects end here (docs/binary.md section 2)
 TEXT_VA, TEXT_SIZE = 0x401000, 0x6E58DD      # fallback; read from docs/binary.md
 THUNK_END = 0x419650
@@ -254,6 +258,8 @@ class Tables:
         if n:
             return max(1, min(gap, ((addr + n + 15) & ~15) - addr))
         self.estimated_sizes += 1
+        if APP_START <= addr < LIB_START:
+            return max(1, gap)
         return max(1, min(gap, 0x800))
 
 
@@ -262,6 +268,8 @@ class Tables:
 NOT_EXACT_ROW = re.compile(r'^\| `([^`]+?):(\d+)` \| `([^`]*)` \|')
 STUB_CALL = re.compile(r'STUB_CALLED\(\s*"([^"]*)"')
 ADDR = re.compile(r'0x([0-9A-Fa-f]{6})\b')
+NE_OWN_ADDR = re.compile(r'NOT EXACT\b\s*(?:\(D64\))?\s*[:(]?\s*0x([0-9A-Fa-f]{6})\b')   # the entry's own address
+NE_NAME_ADDR = re.compile(r'(?:^|::)~?Unknown_?([0-9A-Fa-f]{6})$')
 
 
 class Sets:
@@ -298,7 +306,7 @@ class Sets:
             for line in t.decode('utf-8', 'replace').splitlines():
                 m = NOT_EXACT_ROW.match(line)
                 if m:
-                    self.notexact.append((m.group(1), int(m.group(2)), m.group(3)))
+                    self.notexact.append((m.group(1), int(m.group(2)), m.group(3), line))
         self.stub_addrs = self._stubs()
 
     def _stubs(self):
@@ -328,11 +336,25 @@ class Sets:
 
 # ------------------------------------------------------------------------------------ accounting
 
+def own_address(func, row):
+    """The address a NOT EXACT entry names for itself: its function's `Unknown_XXXXXX` name, or the address
+    right after the row's `NOT EXACT` (an address further on is a callee or a neighbour); None when neither."""
+    m = NE_NAME_ADDR.search(func)
+    if not m:
+        cells = row.split('|')
+        m = NE_OWN_ADDR.search(cells[4] if len(cells) > 4 else '')
+    return int(m.group(1), 16) if m else None
+
+
 def locate_notexact(tab, sets):
     """Addresses of the NOT EXACT functions: ({address}, unresolved entry count)."""
     found, unresolved = set(), 0
     by_file = {}
-    for path, line, func in sets.notexact:
+    for path, line, func, row in sets.notexact:
+        own = own_address(func, row)
+        if own is not None and own in tab.app_funcs and own not in sets.exact:
+            found.add(own)
+            continue
         by_file.setdefault(path, []).append((line, func))
     appfile = {}
     for a, f in tab.app_funcs.items():
@@ -549,19 +571,19 @@ def measure(src, tab, label='', fill=True):
     for a in sets.stub_addrs:
         paint(buf, tab, a, a + tab.size(a), CODE['stub'])
     located, unresolved = locate_notexact(tab, sets)
-    ne_bytes = 0
+    ne_sizes = []
     for a in located:
         paint(buf, tab, a, a + tab.size(a), CODE['notexact'])
-        ne_bytes += tab.size(a)
-    resolved = max(1, len(located))
-    avg = ne_bytes // resolved if located else 0
+        ne_sizes.append(tab.size(a))
+    ne_sizes.sort()
+    avg = ne_sizes[len(ne_sizes) // 2] if ne_sizes else 0       # the median: a few 10 KB functions skew the mean
     for a in sets.exact | sets.amb:
         paint(buf, tab, a, a + tab.size(a), CODE['exact'])
     fill_stats = charge_fill(buf, tab) if fill else None
     for lo, hi in (tab.thunks, tab.padding1, PAD2, EH):
         paint(buf, tab, lo, hi, CODE['linker'])
     counts = {s: buf.count(CODE[s]) for s in STATES}
-    # entries that could not be placed are charged an average function, out of the unattributed bytes
+    # entries that could not be placed are charged a median function, out of the unattributed bytes
     extra = min(unresolved * avg, counts['unattr'])
     counts['notexact'] += extra
     counts['unattr'] -= extra
@@ -803,7 +825,7 @@ def render_card(r, names, hist, today_label):
     # footnote
     foot = ['Counting rule changed on %s (D80): identical functions that differ only in a relocation target are told apart, so earlier '
             'days under-count.' % RULE_CHANGE,
-            'Measured from committed data only (tools/progress.py); NOT EXACT placement: %d entries located, %d charged an average '
+            'Measured from committed data only (tools/progress.py); NOT EXACT placement: %d entries located, %d charged a median '
             'function (%s bytes).' % (r.located, r.unresolved, fmt(r.avg_ne)),
             'Alignment fill (0xCC / 0x90 / unreferenced 0x00 runs before an aligned verified start) is charged to the '
             'function before it, on every day of the history.',
@@ -1030,7 +1052,7 @@ def main():
     own = own_code(r.total, c)
     print('  own code (.text less third-party and linker): %s bytes; byte-exact %.2f%%, written in C++ (exact + NOT EXACT) '
           '%.2f%%' % (fmt(own), pct(c['exact'], own), pct(c['exact'] + c['notexact'], own)))
-    print('  exact functions %s, pairs %s; NOT EXACT located %d, unplaced %d (avg %d bytes); sizes estimated for %d functions'
+    print('  exact functions %s, pairs %s; NOT EXACT located %d, unplaced %d (median %d bytes); sizes estimated for %d functions'
           % (fmt(r.exact_functions), fmt(r.sets.pairs), r.located, r.unresolved, r.avg_ne, r.tab.estimated_sizes))
     if r.fill:
         f = r.fill
