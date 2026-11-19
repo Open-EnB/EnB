@@ -392,10 +392,10 @@ bool Is_Validity_Attempt(UnknownB01394Enum validity);				// 0x846210 (manufactur
 static const char *Unknown_B81880[] = { "Manufacturing Target", "Attempt Succeeded", "N/A", " " };	// NAME 1: neutral (D10)
 template<class C> inline C *Unknown_Find_Valid(DeltaCompoundClass *root, const NameClass &name) { C *t = Unknown_Find_Field<C>(root, name); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10): as co.cpp's
 template<class C> inline C *Unknown_Find_Valid_Field(DeltaCompoundClass *const &root, const char *name) { NameClass n(name); DeltaCompoundClass *r = root; C *t = Unknown_Find_Field<C>(r, n); if (t && t->Unknown70) return(t); return(NULL); } template<class C> inline C *Unknown_Find_Valid(DeltaCompoundClass *const &root, const char *name) { return(Unknown_Find_Valid_Field<C>(root, name)); }	// NAME 1: neutral (D10): as ui_analyze.cpp's (two inline layers: the client's finds 0x546780 / 0x5467F0 out of line in 0x5B4680)
-// NOT EXACT: frame (sub esp 0xAC vs the client's 0x9C: the client keeps the 0x10-byte key event in another local's slot; the instructions otherwise the same, 741 = 741; a named event in its own block, the name block, the buffer's block: no) (0x5AFFC0)
+// NOT EXACT: register (the frame is the client's with each loop's own name buffer, 64 and 32 bytes, sharing the key event's slot; left: the recent texture in eax where the client has ecx, and the name table's pointer loaded after the strip address) (0x5AFFC0)
 void UIManuClass::Unknown_54()
 {
-	for (int id = 1; id <= 6; id++) {
+	for (int id = 1; id < 7; id++) {
 		RefCountPtr<RenderObjClass> robj = Create_Get(InterfaceMesh->Peek_Object()->Get_Sub_Object_By_Name(Unknown_B81850[id - 1]));
 		if (robj) {
 			Unknown_496AE0(robj.Peek(), 0);
@@ -411,27 +411,27 @@ void UIManuClass::Unknown_54()
 		GadgetClass::Set_Tooltip(Unknown0CC[5], "UI_MANUFACTURE", "ICON_RECENT");
 	}
 	GadgetClass::Set_Tooltip(Unknown0CC[6], "UI_MANUFACTURE", "ICON_GO");
-	{
-	char name[64];
+
+
 	for (int row = 0; row < 10; row++) {
-		sprintf(name, "desc%02d", row);
+		char name[64]; sprintf(name, "desc%02d", row);
 		Unknown0E8[row] = new ButtonGadgetClass(InterfaceMesh, name, Layer, 0x55, 3);
 		Unknown64.Unknown_6870E0(Unknown0E8[row], row + 8, View, 1, 0);
 		Unknown_5BB4F0(Unknown0E8[row]);
 	}
 	for (int level = 1; level <= NUM_TECH_LEVEL_FILTER_CHECK_BUTTONS; level++) {
-		_snprintf(name, 32, "T_LEV_ON_%02d", level);
-		Unknown11C[level - 1].Gadget = Unknown_5B6410(level + 0x20, name, level, false);
-		Unknown11C[level - 1].Gadget->Unknown_40(true);
-		Unknown11C[level - 1].Gadget->Unknown_8C(false);
-		Unknown11C[level - 1].Gadget->Unknown_7E8030(false);
+		UIManuRowStruct &row = Unknown11C[level - 1]; char name[32]; _snprintf(name, 32, "T_LEV_ON_%02d", level);
+		row.Gadget = Unknown_5B6410(level + 0x20, name, level, false);
+		row.Gadget->Unknown_40(true);
+		row.Gadget->Unknown_8C(false);
+		row.Gadget->Unknown_7E8030(false);
 		_snprintf(name, 32, "T_LEV_OFF_%02d", level);
-		Unknown11C[level - 1].Unknown04 = Unknown_5B6410(level + 0x2A, name, level, true);
-		Unknown11C[level - 1].Unknown04->Unknown_40(false);
-		Unknown11C[level - 1].Unknown04->Unknown_8C(true);
-		Unknown11C[level - 1].Unknown04->Unknown_7E8030(false);
+		row.Unknown04 = Unknown_5B6410(level + 0x2A, name, level, true);
+		row.Unknown04->Unknown_40(false);
+		row.Unknown04->Unknown_8C(true);
+		row.Unknown04->Unknown_7E8030(false);
 	}
-	}
+
 	((ControlKeyListClass *)Unknown4C)->Add(KernelEventClass(0x1B), (void *)1);
 	Unknown0B0 = new GadgetSlider(false, &Layer);
 	Unknown0B0->Unknown_66E460(Create_Peek(InterfaceMesh->Peek_Object()), 0, 1);
@@ -1467,9 +1467,9 @@ void UIManuClass::Unknown_5B4B10()
 
 
 	char text[64];
-	if (min && max && min->Value != -1.0f && max->Value != -1.0f) {
-		float min_quality = min->Value;
-		float max_quality = max->Value;
+	if (min && max) {
+		float min_quality = min->Value; float max_quality = max->Value;
+		if (min_quality != -1.0f && max_quality != -1.0f) {
 		FAIL_IF(min_quality < 0.0f) min_quality = 0.0f;
 		FAIL_IF(max_quality > 3.0f) max_quality = 3.0f;
 		FAIL_IF(min_quality > max_quality) min_quality = max_quality;
@@ -1478,7 +1478,7 @@ void UIManuClass::Unknown_5B4B10()
 		} else {
 			sprintf(text, "%2.0f%%-%2.0f%%", min_quality * 100.0f, max_quality * 100.0f);
 		}
-	} else {
+	} else strcpy(text, Unknown_B81880[2]); } else {
 		strcpy(text, Unknown_B81880[2]);
 	}
 	Unknown_5B1AF0(2, true, text);
