@@ -118,7 +118,11 @@ class ClientImage:
         return out
 
     def crt_registered_starts(self):
-        """The CRT initialiser table's entries and the `push imm32; call atexit` operands that lie in .text."""
+        """The CRT initialiser table's entries and the `push imm32; call atexit` operands that lie in .text.
+
+        An entry that is an incremental-thunk table slot (8 of them: 0x4046BF, 0x4046C4, 0x406384, ...; the CRT
+        reaches those initialisers through their thunk) is not a function start: it is dropped here (the thunk's
+        target is a start already, from the table)."""
         ts, te, raw = self.section('.text')
         body = self.data[raw:raw + te - ts]
         out = set(self.crt_initialisers())
@@ -126,7 +130,8 @@ class ClientImage:
             o = m.start() + 5
             if ts + o + 5 + struct.unpack_from('<i', body, o + 1)[0] == self.ATEXIT:
                 out.add(struct.unpack('<I', m.group(1))[0])
-        return {a for a in out if ts <= a < te}
+        thunks = self.incremental_thunks()
+        return {a for a in out if ts <= a < te and a not in thunks}
 
     def function_starts(self, verified=True):
         """Function entry points, and the incremental thunk table.
