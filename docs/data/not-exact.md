@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-851 entries in 306 files.
+865 entries in 306 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -542,12 +542,25 @@ edit the comments in the code, not this file.
 | `app/client/ui_refinery.cpp:617` | `UIRefineryClass::Unknown_5EDCC0` | marker | NOT EXACT: inline budget (the client calls the 'NegotiatedCost' Cast out of line; the 'Money' find out of line as the client; dead finds before it push the 0x5ECBB0 copies out too) (0x5EDCC0) |
 | `app/client/ui_refinery.cpp:637` | `UIRefineryClass::Unknown_5EDFD0` | marker | NOT EXACT: inline budget (the client calls all three finds' Unknown_Find_Field out of line, 0x5465C0 / 0x417D82, with the name in the caller; ours calls the inline layer out of line, or inlines the find; frame 0xBC vs 0xEC) (0x5EDFD0) |
 | `app/client/ui_refinery.cpp:687` | `Unknown_5EE460` | marker | NOT EXACT: register (ebx / ebp swapped and the static's _Eos inlined, as ui_manu.cpp's 0x5B5CD0) (0x5EE460) |
+| `app/client/ui_registration.cpp:285` | `RegistrationInterface::RegistrationInterface` | mention | NOT EXACT: inline-budget (attempts.csv: the first string of +0x2CC / +0x328 inline here, out of line in the client; +0x328's id vector the reverse) |
+| `app/client/ui_registration.cpp:465` | `RegistrationInterface::Unknown_68` | mention | NOT EXACT: inline-budget (attempts.csv: functional, map operator[] inline; the client calls 0x604280 / 0x604650 / 0x6047D0 / 0x604BA0) |
+| `app/client/ui_registration.cpp:630` | `RegistrationInterface::Unknown_5F2280` | mention | NOT EXACT: inline-budget (attempts.csv: functional) |
+| `app/client/ui_registration.cpp:888` | `RegistrationInterface::Unknown_5F2B20` | mention | NOT EXACT: order-only around the button struct's stores (attempts.csv) |
+| `app/client/ui_registration.cpp:968` | `RegistrationInterface::Unknown_5F3250` | mention | NOT EXACT: frame (attempts.csv: sub esp 0x30 vs the client's 0x28; the client calls begin 0x605970, _Min 0x608450) |
+| `app/client/ui_registration.cpp:1266` | `RegistrationInterface::Unknown_5F3770` | mention | NOT EXACT: inline-budget (attempts.csv: functional, generated from pseudocode per case; the same frame and first 0x1400 bytes) |
+| `app/client/ui_registration.cpp:1877` | `RegistrationInterface::Unknown_5F8560` | mention | NOT EXACT: inline-budget (attempts.csv: the client calls begin 0x606960, iterator++ 0x607120) |
+| `app/client/ui_registration.cpp:1947` | `RegistrationInterface::Unknown_5F8AD0` | mention | NOT EXACT: inline-budget (attempts.csv: the client calls 0x606150 / 0x6047D0 / 0x6074B0) |
+| `app/client/ui_registration.cpp:1970` | `RegistrationInterface::Unknown_5F8CD0` | mention | NOT EXACT: register choice (attempts.csv) |
+| `app/client/ui_registration.cpp:2010` | `RegistrationInterface::Unknown_5F8EA0` | mention | NOT EXACT: shape (attempts.csv: the client's bl bool form not reproduced) |
 | `app/client/ui_registration.cpp:2080` | `RegistrationInterface::Unknown_5F9460` | marker | NOT EXACT: shape (explain.py: 14 calls in ours, 13 in the client; the value_type temporaries' stack slots differ) @0x5F9460 |
 | `app/client/ui_registration.cpp:2347` | `RegistrationInterface::Unknown_5FA0B0` | marker | NOT EXACT: field-offset (explain.py; 340 instructions each: register choice in the inlined operator= into +0x2CC and the 'EB' compare) @0x5FA0B0 |
 | `app/client/ui_registration.cpp:2529` | `RegistrationInterface::Unknown_5FB0C0` | marker | NOT EXACT: inline-budget (explain.py: the client calls the second append(1, '-') and the first end()'s _Freeze out of line) @0x5FB0C0 |
 | `app/client/ui_registration.cpp:2916` | `RegistrationInterface::Unknown_5F0100` | marker | NOT EXACT: field-offset (explain.py's first mismatch; the shape is inline-budget: the client calls the map's begin 0x606960, the iterator's operator++(int) 0x604DF0 and pop_back's copy 0x60A060 / _Destroy 0x605950 out of line, and destroys the reply under one EH state) @0x5FB9F0 |
 | `app/client/ui_registration.cpp:2971` | `RegistrationInterface::Unknown_5FBD30` | marker | NOT EXACT: inline-budget (functional, pseudocode-faithful, D89: Unknown_5F86F0 now out of line as in the client (auto_inline(off), IB); the client still calls the radio map's begin out of line at case 0 and its stack frame is 0x80 bytes smaller) @0x5FBD30 |
 | `app/client/ui_registration.cpp:3681` | `RegistrationInterface::Unknown_5F00C0` | marker | NOT EXACT: shape (explain.py's first mismatch is a relocation, the string destructor's thunk; 3426 instructions against 3085, frame 0x718 against 0xB34; D89; 0x5F86F0 out of line as the client's since IB; case 7 through the uncalled 0x5FA5F0 (LY) calls 0x603660 / 0x605010 out of line as the client) @0x600000 |
+| `app/client/ui_registration.cpp:4325` | `RegistrationInterface::Unknown_603820` | mention | NOT EXACT: inline-budget (attempts.csv: _Eos out of line in the client) |
+| `app/client/ui_registration.cpp:4345` | `RegistrationInterface::Unknown_6039E0` | mention | NOT EXACT: order-only (attempts.csv: this in ebp, end in edi) |
+| `app/client/ui_registration.cpp:4359` | `RegistrationInterface::Unknown_603A60` | mention | NOT EXACT: shape (attempts.csv: the gmtime copy's registers popped before the compare) |
 | `app/client/ui_scan.cpp:68` | `UIScanClass::Unknown_54` | marker | NOT EXACT: functional (WE9; similarity 0.59): the verb window's and the fonts' set-up order and registers @0x60D8D0 |
 | `app/client/ui_scan.cpp:305` | `UIScanClass::Unknown_68` | marker | NOT EXACT: register (TL1; similarity 0.54, WE9's 0.51): the client keeps the key's slot for next and this in ecx, tests the key as -5 then dec, dec @0x60E300 |
 | `app/client/ui_scan.cpp:500` | `UIScanClass::Unknown_88` | marker | NOT EXACT: order (WE9; similarity 0.85): the client builds the old target's Remove arguments before calling 0x4F7EF0, ours after @0x60E580 |
@@ -566,6 +579,7 @@ edit the comments in the code, not this file.
 | `app/client/ui_ship_cust.cpp:1169` | `StarbaseShipCustomizeInterface::Unknown_61BD80` | marker | NOT EXACT: functional (D64) @0x61BD80 |
 | `app/client/ui_ship_cust.cpp:1489` | `StarbaseShipCustomizeInterface::Unknown_61DBF0` | marker | NOT EXACT: register (0.62: the client loads the avatar id into eax, VC6 here into edx; the rest is the same) |
 | `app/client/ui_ship_cust.cpp:1954` | `StarbaseShipCustomizeInterface::Unknown_61DF80` | marker | NOT EXACT: inline budget (0.47, 1705 bytes against 0x611: as ui_avatar_cust.cpp's 0x550A10; the client copies only the first model's translation, builds the second's Matrix3D through ??_H, and calls the third Rotate_Y out of line) @0x61DF80 |
+| `app/client/ui_ship_cust.cpp:2034` | `StarbaseShipCustomizeInterface::Unknown_61E8B0` | mention | NOT EXACT: register (attempts.csv, parked at 0.62: the avatar id loads into edx, the client's eax, in every form) |
 | `app/client/ui_ship_cust.cpp:2041` | `StarbaseShipCustomizeInterface::Unknown_61E8E0` | marker | NOT EXACT: inline budget (0.42: the client calls the credits line's append out of line but inlines the cost line's, and keeps this in a frame slot; ui_avatar_cust.cpp's twin 0x551520 is exact in this form) @0x61E8E0 |
 | `app/client/ui_ship_cust.cpp:2143` | `StarbaseShipCustomizeInterface::Unknown_61F250` | marker | NOT EXACT: functional (D64) @0x61F250 |
 | `app/client/ui_shipcust.cpp:232` | `Unknown620D20Class::Unknown_621390` | marker | NOT EXACT: functional (D64) @0x621390 |
