@@ -178,7 +178,7 @@ void ClientTaskClass::Connect_Master()
 	G_ASSERT(Master_Connection == NULL);
 	Unknown_Log("HANDOFF:INF", "Connecting to master server....");
 
-	INIClass &ini = Get_Network_INI();
+	INIClass &ini = NetworkINIClass::Get_Network_INI();
 	int port = ini.Get_Int("MasterServer", "Port", 3801);
 	if (Address == 0) {
 		Master_Connection = Create_Connection("MasterServer", true);

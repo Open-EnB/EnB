@@ -164,6 +164,16 @@ struct ConnectionEntryClass	// NAME 1: describes what it is
 	ConnectionEntryClass(PeekConnectionClass *connection) : Connection(connection), Marked(false), Unknown05(false) {}
 };
 
+// network.ini, loaded on first use (Get_Network_INI 0x821B40, the INI 0xBE8EA8). A class static: the client's
+// atexit stub 0x820F60 is guarded (a file static's is not) and the assert reads the name unqualified.
+class INIClass;
+class NetworkINIClass	// NAME 1: describes what it is (interim holder, D137)
+{
+	public:
+		static INIClass &Get_Network_INI();	// 0x821B40
+		static INIClass Network_INI;			// 0xBE8EA8
+};
+
 // The connection manager (S: 'ConnectionManager: probing port %hd...'; vtable 0xB085D0, constructor
 // 0x822070, 0x28 bytes): connections polled round robin, a listener (docs/kernel-map.md 4)
 class ConnectionManagerClass	// NAME 1 [ConnectionManager]: the client's log string
