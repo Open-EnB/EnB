@@ -1,5 +1,6 @@
 // Earth & Beyond client (reconstruction): app\client\ui_faction.cpp, the character info window's faction tab (the client's
 // file per its asserts, 'e:\build\beta\G\app\Client\ui_faction.cpp'). Notes at the end of the file.
+#include "..\shared\auxdata\permstr.h"	// PermStringInit: the client's CRT stretch opens with it
 #include <string>
 #include "sclient.h"
 #include "rendobj.h"
@@ -17,7 +18,6 @@
 #include "..\shared\g_assert.h"
 #include "cfaction_database.h"
 #include "ui_faction.h"
-
 // (the FAIL_IFs' InterfaceMesh is the interface base's +0x84, Unknown5BB320Class::InterfaceMesh: sclient.h)
 extern FontManagerClass *Unknown_BE67C4;			// NAME 1 [Unknown_BE67C4]: 0xBE67C4
 
@@ -218,7 +218,7 @@ bool UIFactionClass::Unknown_68(int key)
 
 
 #include "..\shared\auxdata\auxdata.h"
-#include "aux_roots.h"				// (after auxdata.h, as ui_buff.cpp)
+#include "aux_player.h"				// (after auxdata.h, as ui_buff.cpp)
 
 // A field under root that is set (+0x70), else NULL (auxdata.h's Unknown_Find_Set_Field); and one changed since (+0x70 above 1): as co_player_relationship.cpp's wrapper; 0x58DC20's dead size() reads at its end keep rtti.h's cast out of line (0x58EAE0), as the client's
 

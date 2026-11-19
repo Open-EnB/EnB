@@ -1,7 +1,7 @@
 // Earth & Beyond client (reconstruction): app\client\skill_ability_data_peek.cpp, a view of RPGInfo.SkillAbilities
 // (the client's file per its asserts, 'e:\build\beta\G\app\Client\skill_ability_data_peek.cpp' at 0xBA7990). Notes at the end.
 #include <string.h>
-#include "aux_roots.h"
+#include "aux_skill.h"
 #include "skill_ability_data_peek.h"
 
 static const char *SkillAbilityFieldNames[7] = {	// 0xBA7910  // NAME 2: describes what it does
@@ -239,3 +239,5 @@ void SkillAbilityDataPeekClass::Update_Fields()
 **	skill_data_peek.cpp's twin. Object from 0x8139A0: permstr.h's PermStringInit (the instance 0xBE8D58, its atexit 0x8139D0)
 **	opens it. Its end: see importer.py's RECONSTRUCTED entry.
 */
+
+#pragma auto_inline(on)	// (the end-of-file initialisers: the client merges the numbering into one function)

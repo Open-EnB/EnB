@@ -8,7 +8,7 @@
 #include "textureloader.h"
 #include "..\shared\g_assert.h"
 #include "..\..\ww3d2\ww3d.h"	// WW3D::Get_Frame_Time (0xBFAE3C - 0xBFAE40, read inline)
-
+#include "aux_manu.h"	// the manufacturing constructors (0x5B79C0 / 0x5B7A40 number them)
 bool Unknown_495FD0(RenderObjClass *robj, TextureClass *texture, int unknown);	// 0x495FD0 (ro_funcs.cpp, cdecl): the texture onto the model  // NAME 1 [robj, texture, unknown]: as ui_manu.cpp
 
 #include <string.h>	// memset (the constructor's three arrays)

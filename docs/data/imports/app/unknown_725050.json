@@ -1,0 +1,36 @@
+{
+ "ambiguous": [],
+ "copy": "reconstructed",
+ "description": "RECONSTRUCTED: UnknownB02C90Class's members (co.h; client 0x725050-0x7260F0) out of client.cpp; their own object by the CRT initialiser table (<string>'s guard 0x7260D0, entry 573, before ClientClass's constructor 0x726100; client.cpp's guard is 0x729450, entry 574); provisional name (D137)",
+ "expected": {},
+ "in_tree": [
+  "0x42B320",
+  "0x42F250",
+  "0x447C40",
+  "0x6F2C50",
+  "0x6F2C70",
+  "0x725050",
+  "0x7250C0",
+  "0x7250F0",
+  "0x725120",
+  "0x7255F0",
+  "0x725610",
+  "0x7257F0",
+  "0x725C60",
+  "0x7260D0"
+ ],
+ "merged": [],
+ "name": "client/unknown_725050.cpp",
+ "shared": [
+  "0x42B320",
+  "0x42F250",
+  "0x447C40",
+  "0x6F2C50",
+  "0x6F2C70"
+ ],
+ "short_known": [
+  "0x42B320",
+  "0x6F2C50",
+  "0x6F2C70"
+ ]
+}

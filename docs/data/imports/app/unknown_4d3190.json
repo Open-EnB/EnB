@@ -1,0 +1,50 @@
+{
+ "ambiguous": [],
+ "copy": "reconstructed",
+ "description": "RECONSTRUCTED: the expression tree's printers and token collector (client 0x4D3190-0x4D42B0) out of expr_math_tree.cpp; its own object by the CRT initialiser table (expr_math_tree.cpp's object ends with <string>'s guard 0x4D3160, entry 109, this one with 0x4D4290, entry 110); provisional name (D137)",
+ "expected": {},
+ "in_tree": [
+  "0x42A820",
+  "0x42A940",
+  "0x42A970",
+  "0x42AB30",
+  "0x42B320",
+  "0x42CD30",
+  "0x42E170",
+  "0x4C4CA0",
+  "0x4D3190",
+  "0x4D31D0",
+  "0x4D3260",
+  "0x4D32D0",
+  "0x4D3310",
+  "0x4D3380",
+  "0x4D33D0",
+  "0x4D3410",
+  "0x4D36C0",
+  "0x4D3960",
+  "0x4D3BE0",
+  "0x4D3C20",
+  "0x4D3C60",
+  "0x4D3CB0",
+  "0x4D3CF0",
+  "0x4D3EC0",
+  "0x4D40C0",
+  "0x4D4290"
+ ],
+ "merged": [],
+ "name": "shared/expr/unknown_4d3190.cpp",
+ "shared": [
+  "0x42A820",
+  "0x42A940",
+  "0x42A970",
+  "0x42AB30",
+  "0x42B320",
+  "0x42CD30",
+  "0x42E170",
+  "0x4C4CA0"
+ ],
+ "short_known": [
+  "0x42B320",
+  "0x42E170"
+ ]
+}

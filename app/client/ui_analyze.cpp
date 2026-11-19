@@ -14,7 +14,7 @@
 #include "..\packets\pkmanufactureitemcatagorypacket.h"
 #include "..\shared\g_assert.h"
 #include "..\shared\auxdata\auxdata.h"
-#include "aux_roots.h"
+#include "aux_manu.h"
 #include "sbaseview.h"
 #include "local_interface_sort.h"
 #include "..\audio\soundlib.h"
@@ -38,8 +38,8 @@ bool Unknown_495FD0(RenderObjClass *robj, TextureClass *texture, int unknown);	/
 
 extern FontManagerClass *Unknown_BE67C4;	// NAME 1: neutral (D10)
 
-class UIAnalyzePDAClass { public: void Unknown_695A00(int a, int b); bool Unknown_695780(bool arg); };	// NAME 1: neutral (D10): PDAInterfaceClass's 0x695780 / 0x695A00, as ui_manu.cpp's  // NAME 1 [a, b, arg]: neutral
-class UIAnalyzeSClientClass { public: void Unknown_744560(int arg); };	// NAME 1: neutral (D10): SClient's 0x744560 (slot +0x58 passes 0x19, slot +0x5C 0x1A)  // NAME 1 [arg]: neutral
+// the PDA's window calls: sclient.h's PDAInterfaceClass 0x695780 (open window 'index') / 0x695A00 (close it)
+// and SClient 0x744560 (slot +0x58 passes 0x19, slot +0x5C 0x1A)
 
 // The window's buttons (0xB79664: slot +0x54's ids 1..6; [1..3] the category columns, their icons '%sf')
 static const char *Unknown_B79664[] = { "exit", "item00", "cat00", "sub00", "go", "inv" };	// NAME 1: neutral (D10)
@@ -185,7 +185,7 @@ void UIAnalyzeClass::Unknown_58()
 	((ClientClass *)Client)->Send_Packet(&ManufactureItemCatagoryPacketClass(Analyze_Player_Id(sclient), 2));
 	if (State == UI_CLOSED) {
 		State = UI_OPEN;
-		Unknown118 = ((UIAnalyzePDAClass *)sclient->PDAInterface)->Unknown_695780(false);
+		Unknown118 = sclient->PDAInterface->Unknown_695780(false);
 		Unknown_BE67C4->Add(InterfaceMesh->Peek_Mesh_Object());
 		Unknown_545610();
 		Unknown0D0->Unknown_69DC40();
@@ -201,7 +201,7 @@ void UIAnalyzeClass::Unknown_58()
 		Unknown0E0[2]->Unknown_40(false);
 		Unknown0E0[3]->Unknown_40(false);
 		Unknown0E0[4]->Unknown_40(false);
-		((UIAnalyzeSClientClass *)sclient)->Unknown_744560(0x19);
+		sclient->Unknown_744560(0x19);
 	}
 }
 
@@ -219,11 +219,11 @@ void UIAnalyzeClass::Unknown_5C()
 		Unknown0D8->Unknown_5C();
 		Unknown0DC->Unknown_5C();
 		if (Unknown118) {
-			((UIAnalyzePDAClass *)sclient->PDAInterface)->Unknown_695A00(0, 1);
+			sclient->PDAInterface->Unknown_695A00(0, 1);
 		}
 		Unknown_BE67C4->Remove(InterfaceMesh->Peek_Mesh_Object());
 		Unknown5BB320Class::Unknown_5C();
-		((UIAnalyzeSClientClass *)sclient)->Unknown_744560(0x1A);
+		sclient->Unknown_744560(0x1A);
 	}
 }
 

@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "the account server's 'subs-interface' requests and replies (client 0x7CECC0-0x7DFE70: globals, 0x7CEF30 / 0x7CF190, SubsRequestClass 0x7D4D60-0x7DC8F0). File PROVISIONAL (D137: no __FILE__ or assert)",
  "expected": {},
@@ -156,7 +154,8 @@
   "0x7DF430",
   "0x7DF7C0",
   "0x7DFB60",
-  "0x7DFE70"
+  "0x7DFE70",
+  "0x7DFEA0"
  ],
  "merged": [],
  "name": "client/unknown_7cef30.cpp",

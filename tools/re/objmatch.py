@@ -995,10 +995,14 @@ def match_objects(img, paths, region=None, callers=False, extern_called=None, ca
                     r['identical'] = same_copies(text, start, hits, obj.relocated(sec, s, length), img, strs)
                     pending.append((r, obj, sec, s, length, hits))
             results.append((r, obj, sec, s, length))
+    if USE_OB_XCU_ONE_PER_ENTRY:
+        xcu_one_per_entry(img, results, text, start)
     # D80: what the exact functions show about the link (an external symbol's address) helps to break
     # the ties of the others; repeat until nothing more resolves (a destructor found once settles the
     # scalar deleting destructors that call it).
     done = set()
+    xcu_tried = set()   # SG: id(r) of the XCU-listed initialisers the CRT table round has tried (USE_SG_XCU_FIRST)
+    xcu_listed = {}     # id(obj) -> its .CRT$XCU symbols
 
     # one client function is one source function (VC6 does not fold identical code): an address two
     # different symbols would take, or that a symbol of another name already holds, is left alone
@@ -1247,6 +1251,8 @@ def match_objects(img, paths, region=None, callers=False, extern_called=None, ca
                     learn(r, obj, sec, s, length, a)
                     changed = True
                 shorts = [x for x in shorts if x[0]['status'] == 'short']
+                if USE_SG_XCU_FIRST:
+                    xcu_tried.update(id(it[0]) for it in pending if id(it[0]) not in done)
                 phase = 'd80' if changed else 'order'
                 changed = True
                 continue
@@ -1327,6 +1333,9 @@ def match_objects(img, paths, region=None, callers=False, extern_called=None, ca
                         if len(own) == 1:
                             proposals.append((item, own[0]))
                 elif id(obj) in ranges:
+                    if USE_SG_XCU_FIRST and id(r) not in xcu_tried and r['symbol'] in xcu_listed.setdefault(
+                            id(obj), set(xcu_initialisers(obj))):
+                        continue        # SG: the CRT table round places an XCU-listed initialiser first
                     lo, hi = ranges[id(obj)]
                     # an address another function is already exact at is not this one's (one client function
                     # is one source function)
@@ -1337,6 +1346,9 @@ def match_objects(img, paths, region=None, callers=False, extern_called=None, ca
                     reach = obj_called.get((id(obj), r['symbol']))
                     if reach:
                         inside = [h for h in inside if h in reach]
+                    if USE_NB_XCU_STRETCH and inside and r['symbol'] in xcu_listed.setdefault(
+                            id(obj), set(xcu_initialisers(obj))) and _string_guard(obj, sec, s, length):
+                        inside = [h for h in inside if xcu_in_stretch(img, results, obj, xcu_listed, h)]
                     if len(inside) == 1:
                         proposals.append((item, inside[0]))
             by_addr = collections.defaultdict(set)
@@ -1566,6 +1578,22 @@ def match_objects(img, paths, region=None, callers=False, extern_called=None, ca
             claimed[a].add(r['symbol'])
             learn(r, obj, sec, s, length, a)
             done.add(id(r))
+    if USE_CR6_NAMED_CALLERS:
+        for item, a in cr6_named_callers(img, results, pending, done, claimed, text, start, thunk, known, called,
+                                         located if USE_CK_CALLSEQ else None,
+                                         vslots if USE_CK_CALLSEQ and USE_CK_CALLSEQ_VTBL else None):
+            r, obj, sec, s, length = item[:5]
+            if r['status'] == 'short':
+                r['short_known'] = 'cr6'        # USE_CR6_SHORTS
+            else:
+                r['tiebreak'] = True
+                done.add(id(r))
+            r['status'] = 'exact'
+            r['addresses'] = [f'0x{a:06X}']
+            r['cr6_named'] = True
+            r.pop('count', None), r.pop('identical', None)
+            claimed[a].add(r['symbol'])
+            learn(r, obj, sec, s, length, a)
     if USE_VX_SLOT_CONTRA:
         bad = vx_slot_contradicted(img, results, known, thunk)
         for r, *_ in results:
@@ -2170,6 +2198,188 @@ def cr5_fold_held(img, results, pending, done, claimed, text, base, thunk):
             continue
         out.append((item, a))
     return out
+
+
+# D246 (CR6, run 2026-11-18): cr6_named_callers. A tied function (`multiple`) that a not-exact function of its own
+# object calls, where symbols.json names that caller from a proof other than an exact match (D88's self name: a vtable
+# slot, a string), takes the client copy the named caller's own calls reach. The object's REL32 calls under the tied
+# symbols of its object, in offset order, align one to one with the client function's outside rel32 branches that
+# land on those symbols' unclaimed survivors (address order, up to the next verified start) when the two counts agree
+# (or, when the caller calls one tied symbol, the client function reaches exactly one of its copies: the counts may
+# differ where the client inlines or repeats a call); one symbol one address, distinct symbols distinct addresses, each address one of its symbol's survivors (D80's
+# break_tie). Unlike CK's callseq the caller's other calls need not align (it is not exact: inlining and the stand-ins
+# change them); only the calls into the tied copies are compared. Every named caller that calls a symbol must give it
+# the same address; no other symbol holds or is proposed there. UICpitClass::Unknown_54 0x57DD20 (its vtable slot)
+# calls ui_cpit's Create_Get at 0x584C80; SClient::Init 0x741180 sclient's two Create_NEW at 0x755AF0 / 0x755B60.
+USE_CR6_NAMED_CALLERS = True
+# ... and (CR6) a caller located as CK's callseq locates one: the one address the exact functions' calls give its symbol
+# (D188's `called`), an aligned caller's call (USE_CK_CALLSEQ_DEEP) or its vtable slot (USE_CK_CALLSEQ_VTBL)
+# (shiputils' Create_NEW<TextureMapperClass> 0x8138F0 from Unknown_812390, one of ui_chat_panel's four tied Create_Get
+# at 0x56CDD0 from ChatPanelInterface::Unknown_54 0x5629E0)
+USE_CR6_LOCATED = True
+# ... and (CR6) a not-exact caller located by its string literals: each literal its relocations reference that the
+# client holds once (.rdata / .data, at a string's start) gives the set of client functions (verified starts) whose
+# code holds its address; the caller is at the one function every such set contains (an assert's expression text
+# narrows the object's __FILE__ string to one function): attrib_dir_collective's Add_Destination at 0x4DC310 ('find !=
+# DestinationAttributes.end()', 'ValueFunction') calls its pair<const string, DestinationStruct *> and pair<const string,
+# float> constructors, byte-identical, at 0x4DDB20 and 0x4DD6F0 in that order
+USE_CR6_STRING_LOCATED = True
+# ... and (CR6) a `short` function (too short to search) the located caller calls is a callee too: its candidates are
+# the client branch targets where its bytes fullmatch, unclaimed, with only padding up to the next verified start and
+# D80's break_tie leaving them (the call is the evidence, the bytes confirm it, as CK's callseq credits shorts);
+# credited `short_known` 'cr6' (shiputils' RefCountPtr<MeshModelClass>::operator-> 0x813950 from Unknown_812390;
+# scriptedmovie's two `ret 8` vector _Destroy 0x80A990 / 0x80AA10, in call order from 0x8008B0)
+USE_CR6_SHORTS = True
+
+
+def cr6_string_located(img, items, starts, claimed):
+    """CR6: {symbol: address} by USE_CR6_STRING_LOCATED (above) for ITEMS [(r, obj, sec, s, length)]."""
+    tstart, tend, traw = img.section('.text')
+    text = img.data[traw:traw + (tend - tstart)]
+    pools = []
+    for name in ('.rdata', '.data'):
+        if name in img.sections:
+            va, end, raw = img.section(name)
+            pools.append((va, img.data[raw:raw + (end - va)]))
+    lit_va, lit_fns = {}, {}
+
+    def where(lit):
+        if lit not in lit_va:
+            found = []
+            for va, blob in pools:
+                i = blob.find(lit)
+                while i >= 0 and len(found) < 2:
+                    if i == 0 or blob[i - 1] == 0:
+                        found.append(va + i)
+                    i = blob.find(lit, i + 1)
+            lit_va[lit] = found[0] if len(found) == 1 else None
+        return lit_va[lit]
+
+    def fns(va):
+        if va not in lit_fns:
+            out, key, i = set(), struct.pack('<I', va), text.find(struct.pack('<I', va))
+            while i >= 0:
+                j = bisect.bisect_right(starts, tstart + i) - 1
+                if j >= 0:
+                    out.add(starts[j])
+                i = text.find(key, i + 1)
+            lit_fns[va] = out
+        return lit_fns[va]
+
+    out = {}
+    for r, obj, sec, s, length in items:
+        cand = None
+        for k, n, typ, sym, addend in obj.reloc_targets(sec, s, length):
+            lit = obj.literal(sym) if sym is not None and typ == 0x06 else None
+            if not lit or len(lit) < 4:
+                continue
+            va = where(lit)
+            if va is None:
+                continue
+            f = fns(va)
+            if not f:
+                continue
+            cand = set(f) if cand is None else cand & f
+        if cand and len(cand) == 1:
+            a = next(iter(cand))
+            if not claimed[a] - {r['symbol']}:
+                out[r['symbol']] = a
+    return out
+
+
+def cr6_named_callers(img, results, pending, done, claimed, text, base, thunk, known, called=None, located=None,
+                      vslots=None):
+    """D246 (CR6): [(pending item, address)] (USE_CR6_NAMED_CALLERS above)."""
+    names = self_names()
+    starts = _verified_starts(img)
+    startset = set(starts)
+    tied = collections.defaultdict(dict)        # id(obj) -> {symbol: (item, survivors)}
+    for item in pending:
+        r, obj, sec, s, length, hits = item
+        if id(r) in done or r['status'] != 'multiple':
+            continue
+        surv = {h for h in break_tie(obj, sec, s, length, text, base, hits, img, known)[0]
+                if not claimed[h] - {r['symbol']}}
+        if surv:
+            tied[id(obj)][r['symbol']] = (item, surv)
+    if USE_CR6_SHORTS:
+        for r, obj, sec, s, length in results:
+            if r['status'] == 'short' and length > 0 and not generated(r['symbol']):
+                tied[id(obj)].setdefault(r['symbol'], ((r, obj, sec, s, length, []), None))
+
+    def short_at(item, t):
+        """USE_CR6_SHORTS: the short function's bytes at T, unclaimed, then only padding up to the next start."""
+        r, obj, sec, s, length = item[:5]
+        if claimed[t] - {r['symbol']} or not _fullmatch_at(obj, sec, s, length, text, base, t):
+            return False
+        i = bisect.bisect_right(starts, t)
+        nxt = starts[i] if i < len(starts) else t + length
+        return nxt >= t + length and _padding(text, base, t + length, nxt) and \
+            break_tie(obj, sec, s, length, text, base, [t], img, known)[0] == [t]
+    if not tied:
+        return []
+    exact_syms = {r['symbol'] for r, *_ in results if r['status'] == 'exact'}
+    by_sym = collections.defaultdict(list)
+    for r, obj, *_ in results:
+        by_sym[r['symbol']].append(obj)
+    given = collections.defaultdict(set)       # id(item) -> {address} from every aligned caller
+    items = {}
+    callers, unplaced = [], []
+    for r, obj, sec, s, length in results:
+        mine = tied.get(id(obj))
+        if not mine or r['status'] == 'exact' or r['symbol'] in exact_syms or r['symbol'] in mine:
+            continue
+        sym = r['symbol']
+        if len(by_sym[sym]) > 1 and any(o.symbol_class(sym) != 2 for o in by_sym[sym]):
+            continue        # file statics of one name in several objects: the name is not one function
+        at = {thunk.get(a, a) for a in names.get(sym, ())}
+        if USE_CR6_LOCATED:
+            at = at or set((called or {}).get(sym, ()))
+            if not at and located and located.get(sym) is not None:
+                at = {located[sym]}
+            if not at and vslots and vslots.get(sym) is not None:
+                at = {vslots[sym]}
+        if not at:
+            unplaced.append((r, obj, sec, s, length))
+        elif len(at) == 1:
+            callers.append(((r, obj, sec, s, length), next(iter(at))))
+    if USE_CR6_STRING_LOCATED and unplaced:
+        found = cr6_string_located(img, unplaced, starts, claimed)
+        callers += [(it, found[it[0]['symbol']]) for it in unplaced if it[0]['symbol'] in found]
+    for (r, obj, sec, s, length), a in callers:
+        mine = tied[id(obj)]
+        if a not in startset or claimed[a] - {r['symbol']}:
+            continue
+        i = bisect.bisect_right(starts, a)
+        end = starts[i] if i < len(starts) else base + len(text)
+        ours = [t['name'] for k, n, typ, t, _ in obj.reloc_targets(sec, s, length)
+                if t is not None and n == 4 and typ == 0x14 and t['name'] in mine]
+        if not ours:
+            continue
+        branches = _client_branches(img, a, end, thunk)
+        if branches is None:
+            continue
+        cset = {n: mine[n][1] if mine[n][1] is not None else {t for t in set(branches) if short_at(mine[n][0], t)}
+                for n in set(ours)}
+        pool = set().union(*cset.values())
+        theirs = [t for t in branches if t in pool]
+        m = {}
+        if len(set(ours)) == 1 and len(set(theirs)) == 1:
+            m = {ours[0]: theirs[0]}          # one tied symbol, one copy reached: the call counts may differ
+        elif len(theirs) != len(ours) or any(m.setdefault(n, t) != t for n, t in zip(ours, theirs)) or \
+                len(set(m.values())) != len(m):
+            continue
+        if not m or any(t not in cset[n] for n, t in m.items()):
+            continue
+        for n, t in m.items():
+            it = mine[n][0]
+            items[id(it[0])] = it
+            given[id(it[0])].add(t)
+    props = [(items[k], next(iter(v))) for k, v in given.items() if len(v) == 1]
+    by_addr = collections.defaultdict(set)
+    for it, a in props:
+        by_addr[a].add(it[0]['symbol'])
+    return [(it, a) for it, a in props if len(by_addr[a]) == 1]
 
 
 def cr3_gap_holder(results, pending, done, claimed, text, base, img, known):
@@ -3351,6 +3561,26 @@ def xcu_previous(img):
     return _xcu['prev']
 
 
+# D246 (SG, run 2026-11-18): an initialiser an object's .CRT$XCU lists is placed by the CRT table round (xcu_position)
+# before the range round may break its tie; the range round takes it only after the table round has tried it. The range
+# took the first copy inside a range widened downwards, the previous object's: expr_math_int's <string> guard
+# (std::ctype<unsigned short>::id, guard byte 0xC416FC) at 0x4CBA90, expr_math_float's (CRT entry 104, after float's
+# code), instead of its own 0x4D0200 (entry 105, after int's last function 0x4D01D0)
+USE_SG_XCU_FIRST = True
+# D246 (SG, run 2026-11-18): an initialiser that follows the object's last exact own function in object order (<string>'s
+# guard, which VC6 emits after them) may lie further than RANGE_GAP beyond it, past the object's template instances: its
+# window runs up to the next object's exact own function (the table round still needs the consecutive entries and a
+# fullmatch). Only <string>'s plain guard (_string_guard): on AB's aux headers co's Elements / Buffs numbering
+# initialiser (0x709B80's bytes, also 0x7BDF40's) took the open window too and reached both copies, so neither was credited. The data binders' guard 0x7A08F0 (CRT entry 631) sits 0x2C30 after Remove_Emote_Data 0x79DCC0, past their
+# hash_map instances; env_map_manager's 0x761C50 (597) after its vector instances; shiputils' 0x813970 (724)
+USE_SG_XCU_OPEN_END = True
+# D246 (NB, run 2026-11-18): the range round (a tie inside the object's range) places an initialiser the object's
+# .CRT$XCU lists only at a CRT table entry inside the object's stretch: no entry from the object's own table-placed
+# initialisers to it (both ends included) is another object's table-placed initialiser. Only <string>'s plain guard
+# (_string_guard), the kind measured: unknown_root.obj's guard `_$E32` took 0x4A7840 (CRT entry 60) by the range round
+# beside delta_money.obj's own `_$E32` placed there by the table (the claim is by symbol name, and `_$E` names are per
+# translation unit), past delta.obj's entries 50-53, with unknown_root's own PermStringInit at entry 49
+USE_NB_XCU_STRETCH = True
 USE_XCU_POSITION = True     # D242 P-C1-2: the `_$E` initialisers credited by their CRT table position
 USE_XCU_SUBRUN = True       # C15 (2026-11-16): the unique consecutive sub-run fitting every initialiser
 XCU_TABLE = ClientImage.XCU_TABLE     # 0xB6C000-0xB6D700 (clientimage.crt_initialisers)
@@ -3416,6 +3646,40 @@ def _neighbours(order, key):
     return (before[-1] if before else None), (after[0] if after else None)
 
 
+def _string_guard(obj, sec, s, length):
+    """True for <string>'s plain guarded initialiser (std::ctype<unsigned short>::id's: its relocations reach only the
+    guard byte, the static and atexit), not one VC6 merged with other statics' initialisers (the Delta numbering's)."""
+    names = {sym['name'] for k, sz, typ, sym, addend in obj.reloc_targets(sec, s, length) if sym is not None}
+    return '?id@?$ctype@G@std@@$E' in names and all(
+        n in ('?id@?$ctype@G@std@@$E', '_atexit') or n.startswith('??_B?1???id@?$ctype@G@std@@') for n in names)
+
+
+def xcu_in_stretch(img, results, obj, xcu_listed, h):
+    """USE_NB_XCU_STRETCH: False when H is a CRT table entry outside OBJ's stretch (an entry from OBJ's own exact
+    XCU-listed initialisers to H, both ends included, holds another object's exact XCU-listed initialiser); True when
+    H is no table entry or OBJ has no exact XCU-listed initialiser at a table entry."""
+    table = xcu_table(img)
+    index = _xcu.get('index')
+    if index is None:
+        index = _xcu['index'] = {a: i for i, a in enumerate(table)}
+    if h not in index:
+        return True
+    held = collections.defaultdict(set)     # table index -> id() of the objects whose XCU-listed initialiser is exact there
+    for r, o, sec, s, length in results:
+        if r['status'] == 'exact' and generated(r['symbol']):
+            a = int(r['addresses'][0], 16)
+            if id(o) not in xcu_listed:
+                xcu_listed[id(o)] = set(xcu_initialisers(o))
+            if a in index and r['symbol'] in xcu_listed[id(o)]:
+                held[index[a]].add(id(o))
+    own = [i for i, k in held.items() if id(obj) in k]
+    if not own:
+        return True
+    i = index[h]
+    lo, hi = min(own + [i]), max(own + [i])
+    return not any(held[j] - {id(obj)} for j in range(lo, hi + 1))
+
+
 def xcu_position(img, results, ranges, text, base, claimed, thunk):
     """D242 P-C1-2 (amends D94(b)): [(item, address, kind)] of `_$E` functions credited by the CRT initialiser table.
     The table lists every object's initialisers in link order, so the n-th initialiser an object's .CRT$XCU lists
@@ -3454,6 +3718,10 @@ def xcu_position(img, results, ranges, text, base, claimed, thunk):
         for n in inits:
             r, _, sec, s, length = defs[n]
             p, q = _neighbours(orders[key], (sec, s))
+            if USE_SG_XCU_OPEN_END and q is None and above and _string_guard(obj, sec, s, length):
+                # SG: past the object's last exact own function the window runs to the next object's, not RANGE_GAP
+                wins.append((max(blo, p + 1 if p is not None else blo), above[0] - 1))
+                continue
             wins.append((max(blo, p + 1 if p is not None else blo), min(bhi, q - 1 if q is not None else bhi)))
         run = sorted({t for t in table for w in wins if w[0] <= t <= w[1]})
         def fits(sub):
@@ -3512,6 +3780,46 @@ def xcu_position(img, results, ranges, text, base, claimed, thunk):
 # two share an entry (delta.obj's guarded header-static `_$E29` at 0x4A6070, entry 53, with entries 51-52 between it
 # and `_$E5` 0x4A4C90 that our delta.obj does not list); kind `sparse`
 USE_CR4_XCU_SPARSE = True
+
+# D246 (OB, run 2026-11-18): a CRT table entry is one function pointer, so it takes one initialiser per object. Two
+# initialisers one object's .CRT$XCU lists that the plain search finds exact at one table entry (permstr.obj's `_$E4`
+# and `_$E9`, byte-identical, both at 0x4ADC50, entry 76; the client's permstr stretch holds that one entry) are
+# not both its: the first in .CRT$XCU order keeps the entry, a later one goes to the nearest later table entry it
+# fullmatches that no exact function holds, else is left uncredited (status 'none', `xcu_twin` the entry). Measured
+# on the plain search's credits only (the 2026-11-18 app objects: this one case); the rounds' credits already keep
+# one symbol per address (`claimed`).
+USE_OB_XCU_ONE_PER_ENTRY = True
+
+
+def xcu_one_per_entry(img, results, text, base):
+    """OB: USE_OB_XCU_ONE_PER_ENTRY (above), applied to the plain search's results in place."""
+    table = [t for t in xcu_table(img) if base <= t < base + len(text)]
+    index = {a: i for i, a in enumerate(table)}
+    held = {int(r['addresses'][0], 16) for r, *_ in results if r['status'] == 'exact'}
+    by_obj = collections.defaultdict(dict)
+    for item in results:
+        by_obj[id(item[1])][item[0]['symbol']] = item
+    for defs in by_obj.values():
+        obj = next(iter(defs.values()))[1]
+        seen = {}
+        for n in xcu_initialisers(obj):
+            if n not in defs or not generated(n) or defs[n][0]['status'] != 'exact':
+                continue
+            r, _, sec, s, length = defs[n]
+            a = int(r['addresses'][0], 16)
+            if a not in index:
+                continue
+            if a not in seen:
+                seen[a] = n
+                continue
+            later = [t for t in table[index[a] + 1:] if t not in held and _fullmatch_at(obj, sec, s, length, text, base, t)]
+            r['xcu_twin'] = f'0x{a:06X}'
+            if later:
+                r['addresses'] = [f'0x{later[0]:06X}']
+                held.add(later[0])
+            else:
+                r['status'] = 'none'
+                r['addresses'] = []
 
 
 def xcu_sparse(inits, wins, run, index, defs, claimed, obj, text, base):

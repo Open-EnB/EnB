@@ -17,17 +17,20 @@ EDGE_ORDER (D246 / CR6): an own function before an object's first exact own func
 byte-identical copy in another object's code, is the client function right below that exact one (`edge_order`):
 scriptedmovieline.obj's and ui_symbolchat.obj's constructors (copies at 0x56E170 / 0x69AC20).
 CONTRIB_TIES (D246 / CR8): a tied COMDAT whose one survivor lies in its holder's contribution (from its first exact own
-function to the next object's, at most RANGE_GAP past its last): px_process.obj's vector<PxProcessClass *> helpers
-right after its code, against byte-identical copies in other files' code (`contrib`).
-Its short COMDATs (USE_CONTRIB_SHORTS): _Destroy 0x455FE0 there, at the first holder's verified start holding its bytes.
+function to the next object's, at most RANGE_GAP past its last): px.obj's PxBox * helpers right after its code
+(_Construct 0x44D6A0, _Lower_bound 0x44D6D0), against byte-identical copies in other files' code (`contrib`).
+Its short COMDATs (USE_CONTRIB_SHORTS): vector<PxBox *>::_Destroy 0x44D5D0 (`ret 8`) there, at the first holder's
+verified start holding its bytes. (px_process.obj's vector<PxProcessClass *> helpers were the cases until other rules
+came to credit them first: fresh objects of 2026-11-18.)
 GAP_EDGE (D246 / EX): camera_manager.obj's short getter 0x79B4D0, right after the exact setter 0x79B4B0 in a gap that
 also holds the not-exact 0x79B4F0 (short_order's count test fails), takes the next verified start after the setter's
 end (`gap_edge`). USE_EX_GAP_KNOWN: boolpars.obj's destructor and Set_Callbacks between the exact deleting destructor
 0x49A3C0 and the not-exact Parse, which symbols.json places at 0x49A430. USE_EX_GAP_PADDED: delta_interpolator.obj's
 Get_Change 0x4A6360 (nothing calls it, so no verified start) right after the destructor 0x4A6330's padding.
 CK_CALLSEQ (D246 / CK): co_data.obj's ClientObjectDataAccessClass<RadarDataClass>::Get, not exact, is located at 0x79E300 by
-Get_Radar_Data's call; its calls in order give the tied hashtable<..RadarDataClass..>::find_or_insert 0x7A0EC0 (five
-byte-identical instances), whose own calls then give its resize 0x7A3B50 (`ck_callseq`).
+Get_Radar_Data's call; its calls in order give the tied pair<ClientObjectClass *const, RadarDataClass *>'s constructor
+0x7A0A80 (its one caller is 0x79E300) and _Hashtable_const_iterator's 0x7A0920 (`ck_callseq`). (find_or_insert
+0x7A0EC0 and its resize 0x7A3B50 were the cases until other rules came to credit them first: fresh objects of 2026-11-18.)
 CK_CALLSEQ_VTBL (D246 / CK2V): sclient.obj's MemberCallback<CameraModuleClass, SClient, ..CameraModuleSignal..> vtable,
 placed in the client by its slots the run knows, gives its short Sender_Type 0x7593E0 and Type 0x759400 their slot
 addresses (`ck_callseq`).
@@ -197,9 +200,10 @@ class CallTies(unittest.TestCase):
                 self.assertEqual(res[sym]['status'], 'multiple')
 # CR2 (run 2026-11-16): object list, symbol, client address, the result key it sets, the switch that gives it
 BEYOND = [
-    # two template destructors with one body, linker-folded at 0x700BC0: both credited by the funclet round
-    (['client_lego_impl.obj'], '??1?$RefCountPtr@VLegoClass@@@@QAE@XZ', '0x700BC0', 'funclet_tie',
-     'USE_FUNCLET_FOLDED'),
+    # two template destructors with one body, linker-folded at 0x53CF80: both credited by the funclet round
+    # (client_lego_impl.obj's pair at 0x700BC0 was the case until ca123b2eb gave Create's lego one type)
+    (['ui_ptrade.obj', 'ui_group.obj'], '??1?$RefCountPtr@VCharacterViewAvatarClass@@@@QAE@XZ', '0x53CF80',
+     'funclet_tie', 'USE_FUNCLET_FOLDED'),
     # a parent not exact: its FuncInfo located by its whole unwind map (or its named address)
     (['lookup_table.obj'], '??1LookupTableClass@@UAE@XZ', '0x4EC6F0', 'short_known', 'USE_FUNCLET_NOTEXACT'),
     # CR5: a not-exact parent whose unwind map matches several client FuncInfos, the one placed between its exact
@@ -217,6 +221,8 @@ class FuncletBeyond(unittest.TestCase):
                 if not all(os.path.exists(p) for p in paths):
                     self.skipTest(f'{paths} missing')
                 res = {r['symbol']: r for r in objmatch.match_objects(img, paths)}
+                if sym not in res:
+                    self.skipTest(f'{sym} not in {names}: objects older than the case')
                 self.assertEqual(res[sym]['status'], 'exact')
                 self.assertEqual(res[sym]['addresses'], [addr])
                 self.assertTrue(res[sym].get(key))
@@ -279,11 +285,11 @@ EDGE_ORDER = [
     ('ui_symbolchat.obj', '??0UISymbolChatOptionStruct@@QAE@XZ', '0x64A330'),
 ]
 CONTRIB_TIES = [
-    ('px_process.obj', '?_Ucopy@?$vector@PAVPxProcessClass@@V?$allocator@PAVPxProcessClass@@@std@@@std@@IAEPAPAVPxProcessClass@@PBQAV3@0PAPAV3@@Z', '0x456000'),
-    ('px_process.obj', '?_Construct@std@@YAXPAPAVPxProcessClass@@ABQAV2@@Z', '0x456080'),
+    ('px.obj', '?_Construct@std@@YAXPAPAVPxBox@@ABQAV2@@Z', '0x44D6A0'),
+    ('px.obj', '?_Lower_bound@std@@YAPAPAVPxBox@@PAPAV2@0ABQAV2@PAH@Z', '0x44D6D0'),
 ]
 CONTRIB_SHORTS = [
-    ('px_process.obj', '?_Destroy@?$vector@PAVPxProcessClass@@V?$allocator@PAVPxProcessClass@@@std@@@std@@IAEXPAPAVPxProcessClass@@0@Z', '0x455FE0'),
+    ('px.obj', '?_Destroy@?$vector@PAVPxBox@@V?$allocator@PAVPxBox@@@std@@@std@@IAEXPAPAVPxBox@@0@Z', '0x44D5D0'),
 ]
 GAP_EDGE = [
     ('camera_manager.obj', '?Unknown_79B4D0@CameraManagerClass@@QAE_NXZ', '0x79B4D0'),
@@ -292,8 +298,8 @@ GAP_EDGE = [
     ('boolpars.obj', '?Set_Callbacks@BoolParserClass@@QAEXPAV?$hash_map@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@PAVBoolEvaluatorClass@@U?$hash@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@U?$equal_to@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@V?$allocator@PAVBoolEvaluatorClass@@@2@@std@@@Z', '0x49A410'),
 ]
 CK_CALLSEQ = [
-    ('co_data.obj', '?find_or_insert@?$hashtable@U?$pair@QAVClientObjectClass@@PAVRadarDataClass@@@std@@PAVClientObjectClass@@U?$hash@PAVClientObjectClass@@@2@U?$_Select1st@U?$pair@QAVClientObjectClass@@PAVRadarDataClass@@@std@@@2@U?$equal_to@PAVClientObjectClass@@@2@V?$allocator@PAVRadarDataClass@@@2@@std@@QAEAAU?$pair@QAVClientObjectClass@@PAVRadarDataClass@@@2@ABU32@@Z', '0x7A0EC0'),
-    ('co_data.obj', '?resize@?$hashtable@U?$pair@QAVClientObjectClass@@PAVRadarDataClass@@@std@@PAVClientObjectClass@@U?$hash@PAVClientObjectClass@@@2@U?$_Select1st@U?$pair@QAVClientObjectClass@@PAVRadarDataClass@@@std@@@2@U?$equal_to@PAVClientObjectClass@@@2@V?$allocator@PAVRadarDataClass@@@2@@std@@QAEXI@Z', '0x7A3B50'),
+    ('co_data.obj', '??0?$pair@QAVClientObjectClass@@PAVRadarDataClass@@@std@@QAE@ABQAVClientObjectClass@@ABQAVRadarDataClass@@@Z', '0x7A0A80'),
+    ('co_data.obj', '??0?$_Hashtable_const_iterator@U?$pair@QAVClientObjectClass@@PAVRadarDataClass@@@std@@PAVClientObjectClass@@U?$hash@PAVClientObjectClass@@@2@U?$_Select1st@U?$pair@QAVClientObjectClass@@PAVRadarDataClass@@@std@@@2@U?$equal_to@PAVClientObjectClass@@@2@V?$allocator@PAVRadarDataClass@@@2@@std@@QAE@ABU?$_Hashtable_iterator@U?$pair@QAVClientObjectClass@@PAVRadarDataClass@@@std@@PAVClientObjectClass@@U?$hash@PAVClientObjectClass@@@2@U?$_Select1st@U?$pair@QAVClientObjectClass@@PAVRadarDataClass@@@std@@@2@U?$equal_to@PAVClientObjectClass@@@2@V?$allocator@PAVRadarDataClass@@@2@@1@@Z', '0x7A0920'),
 ]
 APP_REGION = (0x401000, 0x8C1B50)
 
@@ -376,7 +382,8 @@ class Cr3GapHolder(unittest.TestCase):
 
 class CkCallseq(unittest.TestCase):
     def test_cases(self):
-        _check(self, CK_CALLSEQ, 'USE_CK_CALLSEQ', 'ck_callseq', APP_REGION)
+        # CR6's named callers reach the same copies from the same located caller, less strictly: off as well
+        _check(self, CK_CALLSEQ, 'USE_CK_CALLSEQ', 'ck_callseq', APP_REGION, also_off=('USE_CR6_NAMED_CALLERS',))
 
 
 CK_CALLSEQ_VTBL = [
@@ -402,7 +409,6 @@ class CkCallseqVtbl(unittest.TestCase):
         _check(self, CK_CALLSEQ_VTBL, 'USE_CK_CALLSEQ_VTBL', 'ck_callseq', APP_REGION, off_status='short')
 
 
-VX_CREATE_BINARY_FLOAT = '?Create_Binary@?$ExprMathCompareOpsClass@M@@SA?AV?$RefCountPtr@V?$ExprMathEvalClass@M@@@@ABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@ABV2@1@Z'
 VX_SHARE_BUFFER_V2 = '??1?$ShareBufferClass@VVector2@@@@UAE@XZ'
 
 
@@ -419,14 +425,16 @@ def _vx_results(test, name, switch, on):
 
 
 class VxVtblContra(unittest.TestCase):
-    """VX P1: expr_math_float.obj's Create_Binary<float> matches only 0x4CD270, whose vptr stores hold the <int>
-    tables (0xAEBF88: slot 2 the thunk to Evaluate<int> 0x4CE080, not Evaluate<float> 0x4C9CB0): rejected."""
+    """VX P1: bar2d.obj's ~ShareBufferClass<Vector2> matches only 0x6BB740, whose vptr store is ShareBufferClass<Vector4>'s
+    table 0xAFE6EC (its slots hold <Vector4>'s members, not <Vector2>'s): rejected. (expr_math_float.obj's
+    Create_Binary<float> at 0x4CD270 was the case until it became exact at 0x4C9010 by its own bytes, the rule's
+    reading confirmed: fresh objects of 2026-11-18.)"""
     def test_rejected(self):
-        res = _vx_results(self, 'expr_math_float.obj', 'USE_VX_VTBL_CONTRA', True)
-        self.assertNotEqual(res[VX_CREATE_BINARY_FLOAT]['status'], 'exact')
-        self.assertIn('0x4CD270', res[VX_CREATE_BINARY_FLOAT].get('vx_rejected', []))
-        res = _vx_results(self, 'expr_math_float.obj', 'USE_VX_VTBL_CONTRA', False)
-        self.assertEqual(res[VX_CREATE_BINARY_FLOAT]['addresses'], ['0x4CD270'])
+        res = _vx_results(self, 'bar2d.obj', 'USE_VX_VTBL_CONTRA', True)
+        self.assertNotEqual(res[VX_SHARE_BUFFER_V2]['status'], 'exact')
+        self.assertIn('0x6BB740', res[VX_SHARE_BUFFER_V2].get('vx_rejected', []))
+        res = _vx_results(self, 'bar2d.obj', 'USE_VX_VTBL_CONTRA', False)
+        self.assertEqual(res[VX_SHARE_BUFFER_V2]['addresses'], ['0x6BB740'])
 
 
 class VxSameTargets(unittest.TestCase):
@@ -452,7 +460,10 @@ class VxSameTargets(unittest.TestCase):
 
 class VxSlotContra(unittest.TestCase):
     """VX P2: client_item_property_special_maker.obj's Get_Lines matches 0x52BC30 with the special effect's; the maker's
-    table 0xAEDF00 (its exact constructor 0x52C980 stores it) holds 0x52CBF0 at that slot: not credited at 0x52BC30."""
+    table 0xAEDF00 (its exact constructor 0x52C980 stores it) holds 0x52CBF0 at that slot: not credited at 0x52BC30.
+    Since the maker's Get_Lines was rebuilt it is exact at 0x52CBF0 by its own bytes (the rule's reading confirmed), and
+    no app object exercises the rule any more (a full match of the fresh objects of 2026-11-18 sets `vx_slot` nowhere):
+    with such an object the test checks that reading, with the switch on and off."""
     def test_slot(self):
         paths = [os.path.join(OBJS, n) for n in ('client_item_property_special_maker.obj',
                                                  'client_item_property_special_effect.obj')]
@@ -461,6 +472,16 @@ class VxSlotContra(unittest.TestCase):
         img = objmatch.ClientImage(objmatch.DEFAULT_CLIENT)
         sym = '?Get_Lines@ClientItemPropertySpecialMakerClass@@'
         was = objmatch.USE_VX_SLOT_CONTRA
+        objmatch.USE_VX_SLOT_CONTRA = False
+        try:
+            off = [r for r in objmatch.match_objects(img, paths, APP_REGION) if r['symbol'].startswith(sym)]
+        finally:
+            objmatch.USE_VX_SLOT_CONTRA = was
+        if len(off) == 1 and off[0].get('addresses') == ['0x52CBF0']:
+            self.assertEqual(off[0]['status'], 'exact')
+            on = [r for r in objmatch.match_objects(img, paths, APP_REGION) if r['symbol'].startswith(sym)]
+            self.assertEqual((on[0]['status'], on[0]['addresses'], on[0].get('vx_slot')), ('exact', ['0x52CBF0'], None))
+            return
         for on in (True, False):
             objmatch.USE_VX_SLOT_CONTRA = on
             try:
@@ -580,17 +601,20 @@ class Cr2XcuStarts(unittest.TestCase):
     """D246 (CR2): camctrl_dock.obj's atexit stub $E97 0x793090 and initialiser $E105 0x7930B0 (the CRT table's
     entry), after its last own function, are no verified starts (D27); with the table's entries and the atexit-
     registered addresses as starts the order rules place them (`gap_edge`). Since SX D27's starts hold them
-    (USE_CRT_REGISTERED_STARTS), so USE_CR2_XCU_STARTS alone changes nothing."""
+    (USE_CRT_REGISTERED_STARTS), so USE_CR2_XCU_STARTS alone changes nothing. The compiler numbers `$E` per
+    translation unit (an initialiser more in a header renumbers the rest: $E99 / $E107 since f92f6a0bf), so the
+    pair is the object's two highest-numbered `$E` functions."""
     def test_cases(self):
         path = os.path.join(OBJS, 'camctrl_dock.obj')
         res = _one(self, path, APP_REGION)
-        for sym, addr in (('_$E97', '0x793090'), ('_$E105', '0x7930B0')):
+        atexit, init = sorted((s for s in res if s.startswith('_$E')), key=lambda s: int(s[3:]))[-2:]
+        for sym, addr in ((atexit, '0x793090'), (init, '0x7930B0')):
             with self.subTest(sym=sym):
                 self.assertEqual((res[sym]['status'], res[sym]['addresses']), ('exact', [addr]))
         res = _one(self, path, APP_REGION, ('USE_CR2_XCU_STARTS',))
-        self.assertEqual(res['_$E97']['status'], 'exact')
+        self.assertEqual(res[atexit]['status'], 'exact')
         res = _one(self, path, APP_REGION, ('USE_CR2_XCU_STARTS', 'USE_CRT_REGISTERED_STARTS'))
-        self.assertEqual(res['_$E97']['status'], 'short')
+        self.assertEqual(res[atexit]['status'], 'short')
 
 
 SLNODE_POOL ='?Allocator@?$AutoPoolClass@VGenericSLNode@@$0BAA@@@0V?$ObjectPoolClass@VGenericSLNode@@$0BAA@@@A'
@@ -618,25 +642,113 @@ class Cr2ExternData(unittest.TestCase):
 
 
 class Cr4XcuSparse(unittest.TestCase):
-    """D246 (CR4): delta.obj lists two initialisers, `_$E5` (entry 50, 0x4A4C90) and the guarded header static `_$E29`;
-    the client's stretch holds entries 51-52 our object does not list, so no consecutive sub-run fits; `_$E29`
-    fullmatches at one entry of its window (bounded by its neighbours bitset.obj and delta_interpolator.obj), 0x4A6070
-    (entry 53)."""
+    """D246 (CR4): memconn.obj's guarded header static initialiser (`test` / `or` of its guard byte 0xC416FC, then
+    atexit) fullmatches at one entry of its window, 0x827530 (the CRT table's entry at 0xB6CEFC), where no consecutive
+    sub-run of the object's initialisers fits the client's stretch (`xcu` 'sparse'). Found by its address: the compiler
+    numbers `$E` per translation unit. (delta.obj's `_$E29` at 0x4A6070 was the case until delta.obj came to list the
+    stretch's other entries, f92f6a0bf: fresh objects of 2026-11-18.)"""
     def test_sparse(self):
-        paths = [os.path.join(OBJS, n) for n in ('bitset.obj', 'delta.obj', 'delta_interpolator.obj')]
-        if not all(os.path.exists(p) for p in paths):
-            self.skipTest('bitset.obj / delta.obj / delta_interpolator.obj missing')
+        path = os.path.join(OBJS, 'memconn.obj')
+        if not os.path.exists(path):
+            self.skipTest(f'{path} missing')
         img = objmatch.ClientImage(objmatch.DEFAULT_CLIENT)
+
         def get():
-            return {(r['object'], r['symbol']): r for r in objmatch.match_objects(img, paths, APP_REGION, callers=True)}[
-                ('delta.obj', '_$E29')]
-        r = get()
-        self.assertEqual((r['status'], r['addresses'], r.get('xcu')), ('exact', ['0x4A6070'], 'sparse'))
+            return {r['symbol']: r for r in objmatch.match_objects(img, [path], APP_REGION, callers=True)}
+        res = get()
+        syms = [k for k, r in res.items() if k.startswith('_$E') and r.get('addresses') == ['0x827530']]
+        self.assertEqual(len(syms), 1)
+        r = res[syms[0]]
+        self.assertEqual((r['status'], r['addresses'], r.get('xcu')), ('exact', ['0x827530'], 'sparse'))
         objmatch.USE_CR4_XCU_SPARSE = False
         try:
-            self.assertEqual(get()['status'], 'multiple')
+            self.assertEqual(get()[syms[0]]['status'], 'multiple')
         finally:
             objmatch.USE_CR4_XCU_SPARSE = True
+
+
+class ObXcuOnePerEntry(unittest.TestCase):
+    """D246 (OB): permstr.obj's two .CRT$XCU initialisers (byte-identical, 178 bytes) are both found once, at 0x4ADC50,
+    the CRT table's entry 76; an entry is one function pointer, so the first keeps it and the second, with no later
+    entry it fullmatches, is left uncredited (`xcu_twin`). Compared by object, not by `_$E` name."""
+    def test_one(self):
+        path = os.path.join(OBJS, 'permstr.obj')
+        if not os.path.exists(path):
+            self.skipTest(f'{path} missing')
+        img = objmatch.ClientImage(objmatch.DEFAULT_CLIENT)
+        inits = objmatch.xcu_initialisers(objmatch.CoffObject(path))
+
+        def at():
+            res = {r['symbol']: r for r in objmatch.match_objects(img, [path], APP_REGION)}
+            return [n for n in inits if res[n]['status'] == 'exact' and res[n]['addresses'] == ['0x4ADC50']], res
+        got, res = at()
+        self.assertEqual(got, inits[:1])
+        self.assertEqual([res[n].get('xcu_twin') for n in inits[1:]], ['0x4ADC50'] * (len(inits) - 1))
+        objmatch.USE_OB_XCU_ONE_PER_ENTRY = False
+        try:
+            self.assertEqual(len(at()[0]), 2)
+        finally:
+            objmatch.USE_OB_XCU_ONE_PER_ENTRY = True
+
+
+class Cr6NamedCallers(unittest.TestCase):
+    """D246 (CR6): sclient.obj's Create_NEW<ChatPanelInterface> and Create_NEW<UITalkTreeSpaceClass> (21 bytes,
+    byte-identical with 157 client copies) are called by SClient::Init, not exact, which symbols.json names at 0x741180
+    from its vtable slot; its calls into the two symbols' copies, in order, are the client function's calls to 0x755AF0
+    and 0x755B60 (`cr6_named`)."""
+    def test_cases(self):
+        _check(self, [('sclient.obj', '?Create_NEW@@YA?AV?$RefCountPtr@VChatPanelInterface@@@@PAVChatPanelInterface@@@Z',
+                       '0x755AF0'),
+                      ('sclient.obj', '?Create_NEW@@YA?AV?$RefCountPtr@VUITalkTreeSpaceClass@@@@PAVUITalkTreeSpaceClass@@@Z',
+                       '0x755B60')],
+               'USE_CR6_NAMED_CALLERS', 'cr6_named', APP_REGION)
+
+    def test_string_located(self):
+        """USE_CR6_STRING_LOCATED: attrib_dir_collective.obj's Add_Destination (not exact, no name) is the one client
+        function holding its assert texts ('find != DestinationAttributes.end()', 'ValueFunction'), 0x4DC310; its
+        calls to the two byte-identical pair<const string, T> constructors, in order, reach 0x4DDB20 (T =
+        DestinationStruct *) and 0x4DD6F0 (T = float)."""
+        p = '??0?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@'
+        _check(self, [('attrib_dir_collective.obj', p + 'PAUDestinationStruct@AttribDirCollective@@@std@@QAE@ABV?$basic_'
+                       'string@DU?$char_traits@D@std@@V?$allocator@D@2@@1@ABQAUDestinationStruct@AttribDirCollective@@@Z',
+                       '0x4DDB20'),
+                      ('attrib_dir_collective.obj', p + 'M@std@@QAE@ABV?$basic_string@DU?$char_traits@D@std@@V?$allocator'
+                       '@D@2@@1@ABM@Z', '0x4DD6F0')],
+               'USE_CR6_STRING_LOCATED', 'cr6_named', APP_REGION)
+
+    def test_short(self):
+        """USE_CR6_SHORTS: shiputils.obj's RefCountPtr<MeshModelClass>::operator-> (`mov eax, [ecx]; ret`, too short to
+        search) is the one target of Unknown_812390's (0x812390, located by the exact functions' calls) client calls
+        that holds its bytes, 0x813950."""
+        _check(self, [('shiputils.obj', '??C?$RefCountPtr@VMeshModelClass@@@@QBEPAVMeshModelClass@@XZ', '0x813950')],
+               'USE_CR6_SHORTS', 'cr6_named', APP_REGION, off_status='short')
+
+
+class NbXcuStretch(unittest.TestCase):
+    """D246 (NB): USE_NB_XCU_STRETCH's test, xcu_in_stretch on the client's CRT table. unknown_root.obj's <string> guard
+    `_$E32` took 0x4A7840 (CRT entry 60) by the range round in the full app run, where delta_money.obj's own `_$E32`
+    sits by the table round, past delta.obj's entries 50-53, with unknown_root's PermStringInit 0x4A3B80 at entry 49:
+    entry 60 lies outside unknown_root's stretch and inside delta_money's (the full run: that one credit gone, nothing
+    else changed). Synthetic results, so no object is needed."""
+    def test_stretch(self):
+        img = objmatch.ClientImage(objmatch.DEFAULT_CLIENT)
+
+        class Obj:
+            pass
+        root, delta, money = Obj(), Obj(), Obj()
+
+        def res(obj, sym, a):
+            return ({'symbol': sym, 'status': 'exact', 'addresses': [f'0x{a:06X}']}, obj, 1, 0, 16)
+        results = [res(root, '_$E5', 0x4A3B80), res(root, '_$E32', 0x42B2F0), res(delta, '_$E5', 0x4A4C90),
+                   res(money, '_$E5', 0x4A7000), res(money, '_$E32', 0x4A7840)]
+        listed = {id(root): {'_$E5', '_$E32'}, id(delta): {'_$E5'}, id(money): {'_$E5', '_$E32'}}
+        self.assertFalse(objmatch.xcu_in_stretch(img, results, root, listed, 0x4A7840))
+        self.assertTrue(objmatch.xcu_in_stretch(img, results, money, listed, 0x4A7840))
+        self.assertTrue(objmatch.xcu_in_stretch(img, results, root, listed, 0x4A3B80))
+        self.assertTrue(objmatch.xcu_in_stretch(img, results, root, listed, 0x4A3B40))   # no table entry
+        other = Obj()
+        listed[id(other)] = {'_$E5'}
+        self.assertTrue(objmatch.xcu_in_stretch(img, results, other, listed, 0x4A7840))  # no own entry: no bound
 
 
 if __name__ == '__main__':

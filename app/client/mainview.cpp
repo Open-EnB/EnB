@@ -1,4 +1,4 @@
-// Earth & Beyond client (reconstruction): app\client\mainview.cpp (the client's __FILE__). Notes at the end of the file.
+#include "..\shared\auxdata\permstr.h"	// Earth & Beyond client (reconstruction): app\client\mainview.cpp (the client's __FILE__). Notes at the end of the file.
 #include <stdio.h>
 #include <string>
 #include <vector>
@@ -1105,7 +1105,7 @@ void MainViewClass::Update(CameraClass *camera, bool under)
 
 #include "..\shared\auxdata\auxdata.h"
 #include "..\shared\auxdata\delta_string.h"
-#include "aux_roots.h"			// (Type_Name(int *) for DeltaTemplateClass<int>)
+#include "aux_buff.h"			// (Type_Name(int *) for DeltaTemplateClass<int>; the buff family: the guard 0x514C40 numbers the Elements array, 0x514C90 its base, as ui_buff.cpp's)
 #include "ui_chat_panel.h"	// ChatPanelInterface (SClient +0x127C): the main view's 0x512400 calls 0x563910, reads +0x118
 
 
@@ -2367,26 +2367,6 @@ void MainViewClass::Unknown_18(bool arg)
 	if (Radar) Radar->Unknown_7BCA40(arg);
 }
 
-// 0x514CC0: the view at SClient +0x1358 (sclient.h): the base with 1
-Unknown514CC0ViewClass::Unknown514CC0ViewClass(ClientTaskClass *task) :
-	UIViewClass(task, 1)
-{
-}
-
-// 0x514DE0
-Unknown514CC0ViewClass::~Unknown514CC0ViewClass()
-{
-	REF_PTR_RELEASE(Unknown4C);
-}
-
-// 0x514E70: slot +0x08: its interface object over a layer of the base's scene and camera
-void Unknown514CC0ViewClass::Unknown_08()
-{
-	Unknown4C = new Unknown5B7AB0Class(this, LayerClass(Unknown1C, Unknown20.Peek()));
-	Unknown4C->Unknown_54();
-	Unknown_6B4940(Unknown4C);
-}
-
 /*
 **	Notes (LD3, 2026-10-28)
 **
@@ -2406,4 +2386,8 @@ void Unknown514CC0ViewClass::Unknown_08()
 **	otherwise, an identity transform; Remove only in the same case. The constructor is not exact (scheduling)
 **	(attempts.csv 0x50B360). All the functions clienttest drives are rebuilt (HN2, MV2).
 **	
+**	S2 (run 2026-11-18): the CRT table ends this object with 0x514B30 (entry 148), <string>'s guard batched with
+**	the Elements array's numbering 0x514C40 (149) and the base array's 0x514C90 (150), as ui_buff.cpp's
+**	object: so this file includes aux_buff.h (on aux_roots.h's line). Unknown514CC0ViewClass (0x514CC0-
+**	0x514F80, closed by the plain guard 0x514F60, entry 151) is an object of its own: unknown_514cc0.cpp.
 */

@@ -2,11 +2,11 @@
 #include <string>
 #include <float.h>
 #include "radar_system_data_cache.h"
+#include "..\shared\auxdata\permstr.h"	// (its PermStringInitClass static: 0x7BDF70, CRT entry 655)
 #include "co.h"
 #include "co_data.h"
 #include "navigation_data.h"
 #include "..\shared\g_assert.h"
-
 extern "C" bool Unknown_831F90(const Vector3 &a, float a_radius, const Vector3 &b, float b_radius, float range);	// 0x831F90 (distance_calc.h, C linkage): the two spheres within range; the client reads al, the definition returns an int  // NAME 1: neutral (D10)
 
 // @0x7BDFC0

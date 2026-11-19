@@ -1,5 +1,6 @@
 // Earth & Beyond client (reconstruction): app\client\ui_attrb_skills.cpp, the character info window's attributes tab (the
 // client's file per its asserts, 'e:\build\beta\G\app\Client\ui_attrb_skills.cpp'). Notes at the end of the file.
+#include "..\shared\auxdata\permstr.h"	// PermStringInit: the client's CRT stretch opens with it
 #include "sclient.h"
 #include "rendobj.h"
 #include "..\..\wwlib\ref_ptr.h"
@@ -10,7 +11,6 @@
 #include "ui_attrb_skills.h"
 #include "avatar.h"
 extern FontManagerClass *Unknown_BE67C4;			// NAME 1 [Unknown_BE67C4]: 0xBE67C4
-
 #include "gd_attrb_skills.h"
 
 
@@ -174,7 +174,7 @@ void UIAttrbSkillsClass::Unknown_54()
 
 
 #include "..\shared\auxdata\auxdata.h"
-#include "aux_roots.h"				// (after auxdata.h, as ui_buff.cpp)
+#include "aux_skill.h"				// (after auxdata.h, as ui_buff.cpp)
 // auxdata.h's find, set (+0x70) or changed since (+0x70 above 1), else NULL, through two inline layers (NameClass and the root copy inner, ui_analyze.cpp's form; IB2: in place of a dead size() read): the find is called out of line, as the client's
 template<class C> inline C *Unknown_Find_Set_Field_Inner(DeltaCompoundClass * root, const char *name) { NameClass n(name); DeltaCompoundClass *r = root; C *t = Unknown_Find_Field<C>(r, n); return((t && t->Unknown70) ? t : NULL); } template<class C> inline C *Unknown_Find_Set_Field(DeltaCompoundClass * root, const char *name) { return(Unknown_Find_Set_Field_Inner<C>(root, name)); }	// NAME 1: neutral (D10)
 template<class C> inline C *Unknown_Find_Changed_Field_Inner(DeltaCompoundClass * root, const char *name) { NameClass n(name); DeltaCompoundClass *r = root; C *t = Unknown_Find_Field<C>(r, n); return((t && t->Unknown70 > 1) ? t : NULL); } template<class C> inline C *Unknown_Find_Changed_Field(DeltaCompoundClass * root, const char *name) { return(Unknown_Find_Changed_Field_Inner<C>(root, name)); }	// NAME 1: neutral (D10)

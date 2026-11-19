@@ -27,7 +27,7 @@
 //
 void Message_Warn(const char *sender, const char *category, const char *file, int line,
 	const char *format, ...);	// NAME 5 [Message_Warn]: the client's WWPROFILE("Message_Warn") label (D198)
-
+#include <string>	// the client object ends with <string>'s guard 0x85BC50 (CRT entry 792)
 // 0x8B3EC0 (Cord_CRC) moved to its client object app\client\unknown_8b3e70.cpp (D25: blank lines keep log lines).
 
 

@@ -2,6 +2,7 @@
 // window (the client's __FILE__ 'e:\build\beta\G\app\Client\ship_stats_display.cpp', 0x6A2D50-0x6A3D50). Notes at the end.
 #include <stdio.h>
 #include <string>
+#include "aux_ship.h"		// first: the ship's tree, numbered at start-up (0x6A3C30, 0x6A3CA0, 0x6A3D30)
 #include "ship_stats_display.h"
 #include "sclient.h"
 #include "client.h"
@@ -13,7 +14,6 @@
 #include "fontmanager.h"
 #include "..\shared\auxdata\auxdata.h"
 #include "..\shared\g_assert.h"
-
 class TextureClass *Unknown_4960C0(RenderObjClass *robj, int arg);		// 0x4960C0 (ro_funcs.cpp)  // NAME 1 [robj, arg]: as gadget.cpp's
 bool Unknown_495FD0(RenderObjClass *robj, TextureClass *tex, int index);	// 0x495FD0 (ro_funcs.cpp): the texture onto the mesh's stage index  // NAME 1 [robj, tex, index]: as avatar.cpp's
 extern FontManagerClass *Unknown_BE67C4;	// NAME 1: neutral (D10)

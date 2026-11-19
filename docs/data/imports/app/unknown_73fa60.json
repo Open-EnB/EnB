@@ -4,19 +4,25 @@
  "description": "RECONSTRUCTED: Unknown8CClass (GenericList subclass, 0x73FA60 / 0x73FAF0 / 0x73FB20, GenericList::~GenericList 0x73FCE0) and UnknownAF0DD0Class::Unknown_73FDB0 (0x73FDB0); client 0x73FA60-0x73FE38 between cpacket.cpp (0x73FA30) and Unknown_73FEF0; provisional name (D137)",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x457FA0",
   "0x45CA00",
   "0x73FA60",
   "0x73FAF0",
   "0x73FB20",
   "0x73FCE0",
-  "0x73FDB0"
+  "0x73FDB0",
+  "0x73FE70"
  ],
  "merged": [],
  "name": "client/unknown_73fa60.cpp",
  "shared": [
+  "0x42B320",
   "0x457FA0",
   "0x45CA00",
   "0x73FCE0"
+ ],
+ "short_known": [
+  "0x42B320"
  ]
 }

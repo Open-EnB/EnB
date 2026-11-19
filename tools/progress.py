@@ -37,8 +37,7 @@ its measured length rounded up to the 16-byte alignment when that is shorter. A 
 length whose next start is unknown is charged at most 2 KB. The sizes always come from today's tables,
 so the history differs from day to day only by what each day's commit had proven.
 
-FILL. From 2026-11-17 on (FILL_DAY; earlier history rows used the old accounting), the inter-function
-alignment fill after a function is charged to that function's state (exact, NOT EXACT, ...; fill after an
+FILL. The inter-function alignment fill after a function is charged to that function's state (exact, NOT EXACT, ...; fill after an
 unattributed function stays unattributed; never 'linker'). A fill run starts at a function's recorded end
 (the size above), is all 0xCC / 0x90 / 0x00, and ends at the next start, which must be a D27 verified start
 on a 16-byte boundary (no table start in between). A run holding a 0x00 byte counts only when it is shorter
@@ -47,7 +46,15 @@ from client.exe by `progress.py --fill-table` (the card itself still reads commi
 
 "Bytes rebuilt" (the card's first bar and the README line) is exact plus third-party plus linker: what is
 proven from our source plus what comes back unchanged by linking the same libraries with the same toolchain.
-The bars show the states in DISPLAY order (those three in greens first). "Written in C++" is exact plus NOT EXACT.
+The bars show the states in DISPLAY order (those three in greens first).
+
+OWN CODE. "Written in C++" (exact plus NOT EXACT) and the byte-exact share quoted beside it (card title,
+second bar, over-time chart, README line) are measured over E&B's own code: `.text` minus third-party minus
+linker, so both reach 100 % when the tree is complete (over all of `.text` they would cap near 84 %). The EH
+stubs stay in linker although our source produces them: they sit apart at 0xAA1C00-0xAE2830 (cheap to
+separate), but crediting one needs the function that owns it (its FuncInfo / unwind map in client.exe, not in
+the committed data) and the verify compares functions, never the stubs, so none could ever count as exact or
+written; in "our code" they would only cap both shares near 96 %. They come back with the relink like thunks.
 
 READABLE NAMES. tools/re/declcensus.py counts every declaration (types, functions, members, globals,
 parameters, locals) in app/, stubs/, programs/ and tests/ and scores it on D56's scale by its
@@ -56,7 +63,9 @@ parameters, locals) in app/, stubs/, programs/ and tests/ and scores it on D56's
 
 HISTORY. docs/data/progress-history.csv has one row per day, measured on that day's last commit
 (`git show REF:path`). The counting rule changed on 2026-10-25 (D80: identical functions that differ
-only in a relocation target are now told apart), so earlier days under-count.
+only in a relocation target are now told apart), so earlier days under-count. Every day is measured under
+today's rules otherwise (fill charged, sizes from today's tables): the history was rebuilt with
+`--history --rebuild` on 2026-11-18, which removed the step the fill accounting had left at 2026-11-17.
 
 The look of the SVGs follows Open-BFME's progress card (a card, a daily history, a code map), written
 from scratch for this project's ledger. Standard library only.
@@ -86,7 +95,6 @@ PAD2 = (0xA420AC, 0xAA1C00)           # incremental-link padding (library-matchi
 EH = (0xAA1C00, 0xAE2830)             # compiler-generated exception-handling stubs
 FIRST_COMMIT_DAY = '2026-10-22'
 RULE_CHANGE = '2026-10-25'            # D80
-FILL_DAY = '2026-11-17'               # alignment fill charged to the preceding function from this day on
 FILL_TABLE = DATA + '/fill-runs.tsv'   # written by --fill-table from client.exe
 FILL_BYTES = b'\xcc\x90\x00'
 THIRD_PARTY = ('libcmt', 'libcpmt', 'libcimt', 'comsupp', 'd3dx8')
@@ -567,6 +575,11 @@ def measure(src, tab, label='', fill=True):
     return r
 
 
+def own_code(total, counts):
+    """E&B's own code (OWN CODE above): .text minus third-party minus linker."""
+    return total - counts['third'] - counts['linker']
+
+
 def region_table(r):
     """Per library region: bytes by state."""
     tab = r.tab
@@ -631,7 +644,7 @@ def backfill(tab, rebuild, today):
         if d in have or d == today:
             continue
         try:
-            r = measure(Src(h), tab, fill=d >= FILL_DAY)
+            r = measure(Src(h), tab)
         except Exception as e:              # an old commit with data in a format we do not read
             print('history %s (%s): skipped: %s' % (d, h[:8], e), file=sys.stderr)
             continue
@@ -711,10 +724,10 @@ def stacked(x, y, w, h, parts, cls_prefix='s-', colors=None):
 
 def render_card(r, names, hist, today_label):
     c, tot = r.counts, r.total
-    exact_p = pct(c['exact'], tot)
     rebuilt = sum(c[s] for s in REBUILT)
     rebuilt_p = pct(rebuilt, tot)
     written = c['exact'] + c['notexact']
+    own = own_code(tot, c)
     delta = ''
     prev = [h for h in hist if h['date'] < today_label]
     if prev:
@@ -726,10 +739,11 @@ def render_card(r, names, hist, today_label):
     eb = names['eb']
     ntot = sum(eb.values()) or 1
     W, H = 880, 536
-    o = [svg_open(W, H, 'Earth & Beyond client rebuild: %.2f%% rebuilt (%.2f%% byte-exact), %.2f%% written in C++'
-                  % (rebuilt_p, exact_p, pct(written, tot)),
+    o = [svg_open(W, H, 'Earth & Beyond client rebuild: %.2f%% of .text rebuilt; of our own code %.2f%% byte-exact, '
+                  '%.2f%% written in C++' % (rebuilt_p, pct(c['exact'], own), pct(written, own)),
                   '%s of %s bytes of client.exe .text are rebuilt: %s byte for byte from source, the rest runtime libraries '
-                  'and linker output; %s are written in C++.' % (fmt(rebuilt), fmt(tot), fmt(c['exact']), fmt(written)))]
+                  'and linker output; of the %s bytes of E&B\'s own code (.text less runtime and linker output) %s are '
+                  'written in C++.' % (fmt(rebuilt), fmt(tot), fmt(c['exact']), fmt(own), fmt(written)))]
     o.append('    <text x="28" y="30" class="muted" font-size="13" font-weight="600" letter-spacing="1.3">'
              'EARTH &amp; BEYOND CLIENT · REBUILD PROGRESS</text>\n')
     # bar 1
@@ -748,12 +762,14 @@ def render_card(r, names, hist, today_label):
              'from source, %s KB runtime and D3DX, %s KB the linker\'s thunks, padding and EH stubs.</text>\n'
              % (fmt(c['exact'] // 1024), fmt(c['third'] // 1024), fmt(c['linker'] // 1024)))
     # bar 2
-    o.append('    <text x="28" y="164" class="strong" font-size="15" font-weight="600">Written in C++</text>\n')
-    o.append('    <text x="852" y="164" class="strong" font-size="20" font-weight="700" text-anchor="end">%.2f%%</text>\n' % pct(written, tot))
+    o.append('    <text x="28" y="164" class="strong" font-size="15" font-weight="600">Written in C++'
+             '<tspan class="muted" font-size="12.5" font-weight="400" dx="8">of E&amp;B\'s own code</tspan></text>\n')
+    o.append('    <text x="852" y="164" class="strong" font-size="20" font-weight="700" text-anchor="end">%.2f%%</text>\n' % pct(written, own))
     o.append('    ' + stacked(28, 174, 824, 16, [('exact', c['exact']), ('notexact', c['notexact']),
-                                                  ('unattr', tot - written)]) + '\n')
-    o.append('    <text x="28" y="208" class="muted" font-size="12.5">%s bytes written as source: %s byte-exact + %s NOT EXACT '
-             '(functional, D64). Stubs are not counted.</text>\n' % (fmt(written), fmt(c['exact']), fmt(c['notexact'])))
+                                                  ('unattr', own - written)]) + '\n')
+    o.append('    <text x="28" y="208" class="muted" font-size="12.5">Own code = .text less runtime and linker output (%s bytes): '
+             '%.2f%% byte-exact + %.2f%% NOT EXACT (D64); stubs not counted.</text>\n'
+             % (fmt(own), pct(c['exact'], own), pct(c['notexact'], own)))
     # bar 3: names
     unt = names['untagged5']
     o.append('    <text x="28" y="248" class="strong" font-size="15" font-weight="600">Readable names (D56 scale)</text>\n')
@@ -789,8 +805,8 @@ def render_card(r, names, hist, today_label):
             'days under-count.' % RULE_CHANGE,
             'Measured from committed data only (tools/progress.py); NOT EXACT placement: %d entries located, %d charged an average '
             'function (%s bytes).' % (r.located, r.unresolved, fmt(r.avg_ne)),
-            'From %s, alignment fill (0xCC / 0x90 / unreferenced 0x00 runs before an aligned verified start) is charged to the '
-            'function before it; earlier days used the old accounting.' % FILL_DAY,
+            'Alignment fill (0xCC / 0x90 / unreferenced 0x00 runs before an aligned verified start) is charged to the '
+            'function before it, on every day of the history.',
             'Updated %s.' % today_label]
     for i, t in enumerate(foot):
         o.append('    <text x="28" y="%d" class="muted" font-size="11">%s</text>\n' % (464 + i * 16, esc(t)))
@@ -801,20 +817,24 @@ def render_card(r, names, hist, today_label):
 def render_chart(hist):
     W, H = 880, 300
     o = [svg_open(W, H, 'Earth & Beyond client rebuild over time',
-                  'Share of client.exe .text that is byte-exact and that is written in C++, per day.')]
+                  'Share of E&B\'s own code (client.exe .text less runtime libraries and linker output) that is '
+                  'byte-exact and that is written in C++, per day.')]
     o.append('    <text x="28" y="30" class="muted" font-size="13" font-weight="600" letter-spacing="1.3">'
              'EARTH &amp; BEYOND CLIENT · OVER TIME</text>\n')
     o.append('    <line x1="400" x2="424" y1="25" y2="25" class="l-exact" stroke-width="3"/>'
              '<text x="430" y="29" class="muted" font-size="12">byte-exact</text>'
              '<line x1="520" x2="544" y1="25" y2="25" class="l-written" stroke-width="3"/>'
              '<text x="550" y="29" class="muted" font-size="12">written in C++ (exact + NOT EXACT)</text>\n')
+    o.append('    <text x="70" y="44" class="muted" font-size="11">%% of E&amp;B\'s own code (.text less runtime and '
+             'linker output)</text>\n'.replace('%%', '%'))
     px, py, pw, ph = 70, 52, 770, 190
     rows = [h for h in hist if int(h['text_bytes'] or 0)]
     if not rows:
         o.append('  </g>\n</svg>\n')
         return ''.join(o)
-    ex = [pct(int(h['bytes_exact']), int(h['text_bytes'])) for h in rows]
-    wr = [pct(int(h['bytes_exact']) + int(h['bytes_notexact']), int(h['text_bytes'])) for h in rows]
+    own = [own_code(int(h['text_bytes']), {s: int(h['bytes_' + s]) for s in ('third', 'linker')}) for h in rows]
+    ex = [pct(int(h['bytes_exact']), n) for h, n in zip(rows, own)]
+    wr = [pct(int(h['bytes_exact']) + int(h['bytes_notexact']), n) for h, n in zip(rows, own)]
     top = max(wr + ex + [1.0])
     step = next(s for s in (1, 2, 5, 10, 20, 25, 50) if top / s <= 5)
     ymax = (int(top // step) + 1) * step
@@ -839,11 +859,6 @@ def render_chart(hist):
         o.append('    <line x1="%.1f" x2="%.1f" y1="%d" y2="%d" class="grid" stroke-dasharray="4 3"/>'
                  '<text x="%.1f" y="%d" class="muted" font-size="11" text-anchor="end">counting rule D80</text>\n'
                  % (x, x, py, py + ph, x - 4, py + 12))
-    if d0 <= datetime.date.fromisoformat(FILL_DAY) <= d1:
-        x = X(FILL_DAY)
-        o.append('    <line x1="%.1f" x2="%.1f" y1="%d" y2="%d" class="grid" stroke-dasharray="4 3"/>'
-                 '<text x="%.1f" y="%d" class="muted" font-size="11" text-anchor="end">fill charged</text>\n'
-                 % (x, x, py, py + ph, x - 4, py + 28))
     for cls, vals in (('l-written', wr), ('l-exact', ex)):
         pts = ' '.join('%.1f,%.1f' % (X(h['date']), Y(v)) for h, v in zip(rows, vals))
         o.append('    <polyline points="%s" fill="none" class="%s" stroke-width="2.5" stroke-linejoin="round"/>\n' % (pts, cls))
@@ -851,8 +866,8 @@ def render_chart(hist):
             o.append('    <circle cx="%.1f" cy="%.1f" r="3.2" class="%s" fill="none" stroke-width="2"><title>%s: %.2f%%</title></circle>\n'
                      % (X(h['date']), Y(v), cls, h['date'], v))
     o.append('    <text x="28" y="%d" class="muted" font-size="11">One point per day, from that day\'s last commit; '
-             'the D80 rule change (%s) makes earlier days under-count; alignment fill is charged to the '
-             'function before it from %s on.</text>\n' % (H - 14, RULE_CHANGE, FILL_DAY))
+             'the D80 rule change (%s) makes earlier days under-count; every day is measured under '
+             'today\'s other rules.</text>\n' % (H - 14, RULE_CHANGE))
     o.append('  </g>\n</svg>\n')
     return ''.join(o)
 
@@ -957,13 +972,15 @@ def update_readme(r, names):
     c, tot = r.counts, r.total
     eb = names['eb']
     ntot = sum(eb.values()) or 1
-    line = ("As of %s, **%.2f%%** of client.exe's `.text` is rebuilt: **%.2f%%** byte for byte from source (%s functions), "
-            "%.2f%% runtime libraries and linker output. **%.2f%%** is written in C++. "
+    own = own_code(tot, c)
+    line = ("As of %s, **%.2f%%** of client.exe's `.text` is rebuilt: %.2f%% byte for byte from source, "
+            "%.2f%% runtime libraries and linker output. Of E&B's own code (`.text` less runtime and linker output), "
+            "**%.2f%%** is byte-exact (%s functions) and **%.2f%%** written in C++. "
             "Of %s declarations in E&B's code, **%.1f%%** score 4-5 on D56's name scale "
             "(untagged names count as 5, %.1f%% of all)."
             % (datetime.date.today().isoformat(), pct(sum(c[s] for s in REBUILT), tot), pct(c['exact'], tot),
-               fmt(r.exact_functions), pct(c['third'] + c['linker'], tot),
-               pct(c['exact'] + c['notexact'], tot), fmt(ntot), pct(eb[5] + eb[4], ntot), pct(names['untagged5'], ntot)))
+               pct(c['third'] + c['linker'], tot), pct(c['exact'], own), fmt(r.exact_functions),
+               pct(c['exact'] + c['notexact'], own), fmt(ntot), pct(eb[5] + eb[4], ntot), pct(names['untagged5'], ntot)))
     a, b = '<!-- progress:start -->', '<!-- progress:end -->'
     i, j = t.find(a), t.find(b)
     if i < 0 or j < 0:
@@ -1010,7 +1027,9 @@ def main():
     for s in DISPLAY:
         print('  %-30s %10s  %6.2f%%' % (STATE_NAMES[s], fmt(c[s]), pct(c[s], r.total)))
     print('  rebuilt (exact + third-party + linker): %.2f%%' % pct(sum(c[s] for s in REBUILT), r.total))
-    print('  written in C++ (exact + NOT EXACT): %.2f%%' % pct(c['exact'] + c['notexact'], r.total))
+    own = own_code(r.total, c)
+    print('  own code (.text less third-party and linker): %s bytes; byte-exact %.2f%%, written in C++ (exact + NOT EXACT) '
+          '%.2f%%' % (fmt(own), pct(c['exact'], own), pct(c['exact'] + c['notexact'], own)))
     print('  exact functions %s, pairs %s; NOT EXACT located %d, unplaced %d (avg %d bytes); sizes estimated for %d functions'
           % (fmt(r.exact_functions), fmt(r.sets.pairs), r.located, r.unresolved, r.avg_ne, r.tab.estimated_sizes))
     if r.fill:

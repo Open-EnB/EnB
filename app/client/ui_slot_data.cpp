@@ -1,5 +1,6 @@
 // Earth & Beyond client (reconstruction): app\client\ui_slot_data.cpp, the slot windows' base (the client's file per its
 // asserts, 'e:\build\beta\G\app\Client\ui_slot_data.cpp' at 0xB8A4F4). Notes at the end of the file.
+#include "..\shared\auxdata\permstr.h"	// PermStringInit: the client's CRT stretch opens with it
 #include <stdio.h>
 #define __INTRFACE_MEMBERS
 #include "ui_slot_data.h"
@@ -15,7 +16,6 @@
 #include "local_interface_sort.h"
 #include "..\kernel\kernel.h"
 #include "..\shared\g_assert.h"
-
 // What InterfaceClass's +0x40 points to, as far as this file calls it (as ui_inv.cpp declares it)
 class LineDisplayClientClass  // NAME 1: neutral (D10)
 {

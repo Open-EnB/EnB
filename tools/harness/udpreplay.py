@@ -61,6 +61,7 @@ sys.path.insert(0, os.path.join(REPO, 'tools', 'vc6'))
 import rootguard  # noqa: E402
 TRACES = roots.EA_TRACES      # the frozen reference traces (D154, fetch_reference.py)
 WWUDP = [r'app\wwudp\cordcon.cpp', r'app\wwudp\cordmgr.cpp', r'app\wwudp\unknown_cordmsg.cpp',
+         r'app\wwudp\unknown_85bf30.cpp',   # CordStatsClass (CordCon's +0x68), split out of unknown_cordmsg.cpp
          r'app\client\unknown_8b3e70.cpp']   # Cord_CRC 0x8B3EC0, called by cordcon.cpp
 # --conn (conn): the connection layer over them (docs/kernel-map.md 4), with what it needs
 CONN = [r'app\common\circbuff.cpp', r'app\common\connect.cpp', r'app\common\udpconn.cpp',
@@ -74,6 +75,7 @@ CONN = [r'app\common\circbuff.cpp', r'app\common\connect.cpp', r'app\common\udpc
         r'app\common\item_effect_description.cpp',   # its two effect descriptions
         r'app\common\effect_description.cpp',        # their effects' texts and values
         r'app\common\item_effect.cpp',               # their effects (ItemEffectClass)
+        r'app\common\unknown_835040.cpp',            # the usage names' converters, split out of item_effect.cpp (SG)
         r'app\common\recustomization_cost.cpp']      # RECUSTOMIZE_AVATAR_START 131 / _SHIP_START 129's costs
 # the packet classes rebuilt in their own files (pkclasses.py: pk_classes.h includes their headers;
 # conn_replay.cpp sends what their Build makes)

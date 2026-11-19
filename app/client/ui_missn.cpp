@@ -15,12 +15,12 @@
 #include "unknown_675120.h"
 #include "gd_uiback.h"		// UIBackGadget (0x674260)
 #include "assetmgr.h"
-#include <stdio.h>
+#include "aux_player.h"	// the player's constructors (0x5C6F10 numbers them; <stdio.h> through aux_roots.h), before ui_missn.h
 #include "ui_missn.h"
-
+#include "..\shared\auxdata\auxdata.h"
 // (the FAIL_IFs' InterfaceMesh is the interface base's +0x84, Unknown5BB320Class::InterfaceMesh: sclient.h)
 extern FontManagerClass *Unknown_BE67C4;			// NAME 1 [Unknown_BE67C4]: 0xBE67C4
-
+#include "aux_roots.h"				// DeltaMissionClass (after auxdata.h, as ui_buff.cpp)
 // What InterfaceClass's +0x40 points to, as far as this file calls it (as ui_cinfo.cpp declares it)
 class LineDisplayClientClass  // NAME 1: neutral (D10)
 {

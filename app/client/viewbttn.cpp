@@ -1,4 +1,5 @@
 // Earth & Beyond client (reconstruction): app\client\viewbttn.cpp (__FILE__ 0xB91D5C). Notes at the end of the file.
+#include "..\shared\auxdata\permstr.h"	// PermStringInit: the client's CRT stretch opens with it
 #include <stddef.h>
 #include "viewbttn.h"
 #include "radar_system.h"
@@ -29,7 +30,6 @@ ViewButtonClass::ViewButtonClass(int x, int y, int width, int height, MainViewCl
 	Unknown4C = new UnknownAFE0B8Class;
 	ThrottleRightMouse = OptionClass::Instance->Get_Bool("Cpit_ThrottleRightMouse");
 }
-
 ViewButtonClass::~ViewButtonClass()
 {
 	BoolOptionStruct *option = OptionClass::Instance->Find_Bool("Cpit_ThrottleRightMouse");

@@ -1,7 +1,7 @@
-#include "client_item_property_builder.h"
+#include "..\aux_item.h"	// the item family's constructors (0x529580 numbers them)
+#include "client_item_property_builder.h"	// Unknown831340Class (0x831840): client.h's item template, through inv_data.h
 #include "..\ui_item_examination_property_router.h"
 #include "..\..\shared\g_assert.h"
-// Unknown831340Class (0x831840): client.h's item template, through inv_data.h
 ClientItemPropertyBuilderClass::ClientItemPropertyBuilderClass(SClient *space_client, Unknown688830Item *item, const RefCountPtr<InvDataClass> &data, int slot) :
 	SpaceClient(space_client),
 	Item(item),

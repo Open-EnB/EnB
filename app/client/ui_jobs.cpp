@@ -1,5 +1,5 @@
 // Earth & Beyond client (reconstruction): app\Client\ui_jobs.cpp. Notes at the end of the file.
-#include <stdio.h>
+#include "aux_item.h"	// the item family's constructors (0x5A4A70 numbers them); <stdio.h> through aux_roots.h
 #include <stdlib.h>
 #include <string.h>
 #include "ui_jobs.h"

@@ -1,0 +1,41 @@
+# Station (live server): room 1's refinery terminal at -29.7,-7.1, from the user's recording of 2026-11-15
+# (.work/e2e/202650-record, 170-191 s): the terminal opens 'Choose resource to create' (the client's
+# MANUFACTURE_ITEM_CATAGORY) listing what the cargo's ores make (Iron first: the stack of Iron Ore, item 2842, in
+# cargo column 1 row 2); Iron (REFINERY_ITEM_ID) shows the material required (5 Iron Ore) and the cost (92);
+# Refine 1 (MANUFACTURE_ACTION; the server's MESSAGE_STRING) takes them; the Iron lands in the cargo at the next
+# login (a stack in column 2 row 1, one more each run; it adds Steel to the list, below Iron). The close box, then
+# the GM command puts the ore back; home.
+name: starbase refinery: refine one Iron
+timeout: 300
+include _sb_home
+walk-to -38,25
+walk-to -31,12
+walk-to -29.7,-5
+face -90
+click 667,608 until antprox 'received MANUFACTURE_ITEM_CATAGORY' every 2 within 20
+wait-quiet proxy 1.0 within 20
+shot refinery_open
+click 489,348
+expect-event antprox 'received REFINERY_ITEM_ID' within 10
+wait-quiet proxy 1.0 within 20
+shot refinery_iron
+click 379,357
+expect-event antprox 'received MANUFACTURE_ACTION' within 10
+wait-event antprox 'sent MESSAGE_STRING' within 20
+wait-quiet proxy 1.0 within 20
+shot refinery_refined
+click 866,277
+expect-event antprox 'received MANUFACTURE_ACTION' within 10
+wait-quiet proxy 1.0 within 20
+shot refinery_closed
+# put back the 5 Iron Ore (item 2842) the refine took: the GM command in the chat entry
+key 0x0D
+wait-quiet proxy 0.5 within 10
+text '/createitem 2842 5'
+key 0x0D
+# a slash command goes out as CLIENT_CHAT (with an AVATAR_EMOTE); the server answers 'Item 2842 Created 5'
+expect-event antprox 'received CLIENT_CHAT$' within 10
+wait-event antprox 'sent MESSAGE_STRING' within 10
+wait-quiet proxy 2.0 within 20
+walk-to -31,12
+walk-to -48,5

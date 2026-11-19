@@ -3,7 +3,7 @@
 #include "co.h"
 #include "client.h"
 #include "rendobj.h"
-
+#include "aux_lego.h"	// the lego constructors (0x7299E0 / 0x729A10 number them)
 // A base asset's model as 0x729770 returns it (8 bytes; constructors 0x729990 / 0x7299B0, destructor 0x729740)
 struct Unknown729990Struct					// NAME 1: neutral (D10)
 {

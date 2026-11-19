@@ -3,11 +3,11 @@
 #include <string>
 #include <stdio.h>
 #include "..\shared\g_assert.h"
-#include "..\shared\auxdata\permstr.h"	// (its PermStringInitClass static: 0x68BEC0)
+#include "..\shared\auxdata\permstr.h"	// (its PermStringInitClass static: 0x68B320, CRT entry 476)
 #include "inv_manu_render.h"
 #include "rendobj.h"
 #include "fontmanager.h"
-
+#include "aux_shipinv.h"	// the ship inventory's and item constructors (0x68BE10 / 0x68BE50 number them)
 #include "inv_data_peek.h"	// InvDataPeekClass (InvDataClass::Unknown_688830)
 class Unknown831340Class { public: class TextureClass *Unknown_831840(); char Unknown00[0x14]; std::string Name; char Unknown24[0x48 - 0x24]; int TechLevel; };	// client.h's item template (item_template.cpp), as far as this file reads it
 typedef InvDataPeekClass Unknown688830Class;	// inv_data_peek.h's view of an inventory list, under this file's old name  // NAME 1: neutral (D10)

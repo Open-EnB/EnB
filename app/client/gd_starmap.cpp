@@ -3,7 +3,7 @@
 #include "starmap_pip.h"
 #include "..\shared\g_assert.h"
 #include "..\kernel\kernel.h"
-
+#include "aux_group.h"	// the group constructors (0x7B4E60 / 0x7B4E90 number them)
 
 
 

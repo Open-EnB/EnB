@@ -1,5 +1,6 @@
 // Earth & Beyond client (reconstruction): app\client\gd_attrb_skills.cpp, the attributes tab's skill gadget
 // (the client's file per its asserts, 'e:\build\beta\G\app\Client\gd_attrb_skills.cpp' at 0xB8CCCC). Notes at the end.
+#include "..\shared\auxdata\permstr.h"	// PermStringInit: the client's CRT stretch opens with it
 #include <stdio.h>
 #include <string>
 #include <vector>
@@ -29,7 +30,6 @@ class SkillDataClass : public Unknown6A7A00Base, public RefCountClass	// NAME 1:
 public:
 	char Unknown20[0x30];	SkillDataPeekClass Unknown50;	// +0x50
 };
-
 
 
 

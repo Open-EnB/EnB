@@ -1,6 +1,6 @@
 // Earth & Beyond client (reconstruction): app\packets\pkrequesttime.cpp. Notes at the end of the file.
 #include "pkrequesttime.h"
-#include "..\shared\auxdata\unknown_root.h"
+unsigned int Unknown_Get_Ticks();	// 0x4A3B40 (delta_time.cpp; unknown_root.h's, not included: the client object has no permstr.h static)
 #include <stdio.h>
 
 RequestTimePacketClass::RequestTimePacketClass()

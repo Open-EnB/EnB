@@ -5,10 +5,10 @@
 #include "..\shared\g_assert.h"
 #include "..\shared\money.h"
 #include "inv_trade_render.h"
+#include "..\shared\auxdata\permstr.h"	// (its PermStringInitClass static: 0x68FB10, CRT entry 483)
 #include "rendobj.h"
 #include "fontmanager.h"
 #include "fontdatabase.h"
-
 // inv_data.cpp's, as far as this file calls it (its list: inv_data_peek.h's class, declared here as far as used: the header's statics would change this file's initialiser 0x690850)
 class Unknown688830Item { public: char Unknown00[0x14]; std::string Unknown14; };	// NAME 1: neutral (D10)
 struct InvDataPeekItemStruct; class InvDataPeekClass { public: InvDataPeekItemStruct *Get_Item(int slot, bool flag); int Get_Item_Template_ID(int slot); bool Slot_Changed(int slot); MoneyClass Get_Price(int slot); }; typedef InvDataPeekClass Unknown688830Class;	// inv_data_peek.h's, as this file calls it  // NAME 1: neutral (D10)

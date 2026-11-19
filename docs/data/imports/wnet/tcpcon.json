@@ -8,6 +8,7 @@
  },
  "headers_from": null,
  "in_tree": [
+  "0x42B320",
   "0x8B4450",
   "0x8BBA70",
   "0x8BBC40",
@@ -28,14 +29,17 @@
   "0x8BC710",
   "0x8BC7D0",
   "0x8BC8C0",
-  "0x8BC980"
+  "0x8BC980",
+  "0x8BCA20"
  ],
  "merged": [],
  "name": "tcpcon.cpp",
  "shared": [
+  "0x42B320",
   "0x8BBC40"
  ],
  "short_known": [
+  "0x42B320",
   "0x8BBC40"
  ]
 }

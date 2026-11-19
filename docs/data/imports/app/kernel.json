@@ -4,6 +4,7 @@
  "description": "the task kernel, client 0x443020-0x444150 (kernel-map.md 6, step 1): KernelClass and TaskClass; the asserts on the client's lines 74 / 157 / 196 / 225 / 474 (D25); NOT EXACT: Remove_Task (the client calls list's iterator++ 0x444190 out of line), Is_Running, TaskClass::Is_Focused",
  "expected": {},
  "in_tree": [
+  "0x42B320",
   "0x443020",
   "0x443050",
   "0x443070",
@@ -46,14 +47,17 @@
   "0x444120",
   "0x444140",
   "0x444160",
-  "0x444190"
+  "0x444190",
+  "0x4441B0"
  ],
  "merged": [],
  "name": "kernel/kernel.cpp",
  "shared": [
+  "0x42B320",
   "0x444160"
  ],
  "short_known": [
+  "0x42B320",
   "0x443FA0",
   "0x443FC0",
   "0x443FE0",

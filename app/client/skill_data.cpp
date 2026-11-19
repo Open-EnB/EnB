@@ -1,7 +1,7 @@
 // Earth & Beyond client (reconstruction): app\client\skill_data.cpp, a slot's data for a skill
 // (the client's file per its asserts, 'e:\build\beta\G\app\Client\skill_data.cpp' at 0xB91300). Notes at the end.
 #include "skill_data.h"
-#include "aux_roots.h"
+#include "aux_skill.h"
 
 // (0x818590's assert names it; skillnam.cpp is not rebuilt yet)
 class SkillNamesDatabase { public: static int Max_Skill(); };	// NAME 5: 0x6A4F40's assert

@@ -1,7 +1,7 @@
 #include "client_item_property_special_skill_requirement.h"
 #include <stdlib.h>
 #include "..\sclient.h"
-#include "..\aux_roots.h"
+#include "..\aux_skill.h"
 #include "..\skillnam.h"
 #include "..\..\shared\auxdata\auxdata.h"
 #include "..\..\shared\auxdata\delta_item_array.h"

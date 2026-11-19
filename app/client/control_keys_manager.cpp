@@ -20,11 +20,11 @@ namespace std { template<> inline hashtable<pair<unsigned int const, ControlKeys
 static std::string _Empty;  // NAME 2: 0xBE7B80, what the accessors return without a definition
 static std::hash_map<unsigned int, ControlKeysManager> _Instances;  // 0xBE7BE0: the client's asserts, one manager per SClient
 unsigned int ControlKeysManager::_NumKeyDefs;
-std::hash_map<std::string, std::auto_ptr<ControlKeyDefStruct> > ControlKeysManager::_KeyDefinitions;
-std::hash_map<std::string, KeyIdStruct> ControlKeysManager::_KeyIds;
 std::vector<KeyMappingStruct> ControlKeysManager::_DefaultPSW;
 std::vector<KeyMappingStruct> ControlKeysManager::_DefaultSIM;
 std::vector<KeyMappingStruct> ControlKeysManager::_DefaultUser;
+std::hash_map<std::string, std::auto_ptr<ControlKeyDefStruct> > ControlKeysManager::_KeyDefinitions;
+std::hash_map<std::string, KeyIdStruct> ControlKeysManager::_KeyIds;
 #include "sclient.h"	// Init reads the ticket's character id (SClient +0x12E8)
 
 

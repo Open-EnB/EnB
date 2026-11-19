@@ -1,11 +1,11 @@
 // Earth & Beyond client (reconstruction): app\client\gd_inv_slider.cpp, the inventory windows' slider (the client's
 // __FILE__ 'e:\build\beta\G\app\Client\gd_inv_slider.cpp', 0x669FB0-0x66A6D0 by its asserts and its table 0xAFA3F4).
+#include "..\shared\auxdata\permstr.h"	// PermStringInit: the client's CRT stretch opens with it
 #include "ui_inv.h"
 #include "gd_inv_slider.h"
 #include "slot_data.h"
 #include "unknown_signalbase.h"
 #include "..\shared\g_assert.h"
-
 // inv_data.cpp's inventory, as this file calls it (as ui_inv.cpp declares it)
 class InvDataClass : public SlotDataClass	// NAME 3: Peek_Inv_Data, inv_data's __FILE__ 0xB90004
 {

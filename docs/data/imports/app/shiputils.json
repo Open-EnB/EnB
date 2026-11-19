@@ -1,9 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0",
-  "0x46BE90",
-  "0x474080"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "shiputils.cpp (the client's assert __FILE__): the avatar / ship colour helpers 0x80FCE0, 0x80FD10 (the '~S1' / '~S2' / '~SK' vertex-material colours, the stage-1 GridWS environment mapper) and 0x812390 (the post-detail colour function); functional NOT EXACT for the POC (D64)",
  "expected": {},
@@ -52,7 +48,11 @@
   "0x812080",
   "0x812210",
   "0x813880",
-  "0x8138B0"
+  "0x8138B0",
+  "0x8138F0",
+  "0x813920",
+  "0x813950",
+  "0x813970"
  ],
  "merged": [],
  "name": "client/shiputils.cpp",

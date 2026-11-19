@@ -262,6 +262,10 @@ Landing and bring-over (the lander does the landing; these are what you see arou
 - **After `wt.py rebase`, HEAD's ledger is the record commit that already recorded sclient.cpp's loss,** so sendpad.py's
   watch set misses the lost addresses and its printed window is wrong: read the per-value table in
   `.work/log/sendpad.log` for the values where 0x758210, 0x702240 and 0x74D990 are all exact, and set the middle of that window.
+  The watch set also misses a pad address that moved files in the branch (0x702240 went from aux_roots to sclient): `--first-window`
+  or the middle of a window then picks a value that loses it. Read `.work/log/sendpad-sets.json` (every value's whole exact set) for the window where all three are exact.
+- **A checker's logs vanish with its worktree:** tell it to keep its check logs in the main tree's `.work/log`, not under the worktree it removes.
+- **A stale `%TEMP%\enb_vc6_synccache_<ip>.json` left by an older worktree of the same name fails every compile of the new one:** delete the file (workflow.md §3.5).
 - **A worktree with uncommitted generated files (names-review.md, imports.md) makes the lander refuse at step 1:**
   discard them (`git checkout -- FILE`); the landing regenerates them.
 - **A check in a reused worktree name or a shared build dir can link another builder's objects** (a clienttest link failure and e2e crashes that the baseline did not show): use a fresh worktree name and a private lease, and compare against the baseline before calling a regression.

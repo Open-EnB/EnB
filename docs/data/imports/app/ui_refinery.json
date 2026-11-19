@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "ui_refinery.cpp per its asserts ('e:\\build\\beta\\G\\app\\Client\\ui_refinery.cpp': G_ASSERT 'State == UI_CLOSED' l.94, FAIL_IF '!font' l.390, FAIL_IFs l.691-703); the refinery window UIRefineryClass (0x5EB810-0x5EEBA0), RF1 2026-11-09",
  "expected": {},
@@ -93,6 +91,8 @@
   "0x5EE780",
   "0x5EE7F0",
   "0x5EEBA0",
+  "0x5EEC10",
+  "0x5EEC90",
   "0x5EED00",
   "0x5EED10"
  ],

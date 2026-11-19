@@ -5,7 +5,7 @@
 #include "galaxy_map_client.h"
 #include "fontdatabase.h"
 #include "local_interface_sort.h"
-#include "aux_roots.h"
+#include "aux_group.h"
 #include "..\shared\g_assert.h"
 #include "..\shared\auxdata\auxdata.h"
 #include "..\shared\auxdata\delta_template.h"

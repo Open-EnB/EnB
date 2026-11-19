@@ -24,13 +24,13 @@
   "0x4F9000",
   "0x4F9030",
   "0x4F9200",
-  "0x4F92F0",
   "0x4F9320",
   "0x4F9350",
   "0x4F9530",
   "0x4F9740",
   "0x4F98D0",
-  "0x4F9AD0"
+  "0x4F9AD0",
+  "0x4F9BC0"
  ],
  "merged": [],
  "name": "client/signal_map.cpp",

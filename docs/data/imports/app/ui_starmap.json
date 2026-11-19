@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "the PDA's star map window: __FILE__ 0xB9FDAC, FAIL_IFs at lines 211-239, 301, 311, 694-703, asserts on 581",
  "expected": {},
@@ -64,6 +62,8 @@
   "0x7C95C0",
   "0x7C9600",
   "0x7C9620",
+  "0x7C9650",
+  "0x7C9680",
   "0x7C96D0",
   "0x7C96E0"
  ],

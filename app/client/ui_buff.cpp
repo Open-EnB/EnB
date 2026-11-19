@@ -179,7 +179,7 @@ void UIBuffClass::Unknown_560FA0(int slot)
 #include <string.h>
 #include "..\shared\auxdata\auxdata.h"
 #include "..\shared\auxdata\delta_string.h"
-#include "aux_roots.h"				// (after auxdata.h, as ui_cpit.cpp)
+#include "aux_buff.h"				// (after auxdata.h, as ui_cpit.cpp)
 #include "co.h"
 #include "tooltip.h"
 void Unknown_42ECF0(float *x, float *y);				// 0x42ECF0 (the pointer's position, 0..1; as gadget.cpp declares it)  // NAME 1 [x, y]: neutral

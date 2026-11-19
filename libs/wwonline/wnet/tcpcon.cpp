@@ -8,7 +8,7 @@
 #include "tcpcon.h"
 #include "wlib/wtime.h"
 #include <time.h>
-
+#include <string>
 #define DEFAULT_TCP_DELAY 15
 
 TCPCon::TCPCon(SOCKET sock) :
@@ -494,3 +494,6 @@ int TCPCon::print(IN char *str, int len)
 //       tcpcon.cpp, written from the client: an OutputDevice over two TCPQueues, a CritSec taken when Locking_ is set,
 //       the peer's address cached, TCPMgr::CONNRESET ending reads and writes; E&B's pumpReads, peekRead / endPeekRead,
 //       setLocking and print. All 18 functions byte-exact (RenegadeGR's own matches none)
+// EnB: Line 11 (a blank line at the freeze): #include <string>: the client's object ends with <string>'s guarded
+//       std::ctype<unsigned short>::id initialiser 0x8BCA20 (CRT entry 935, `mov cl, [0xC416FC]`, atexit 0x42B320),
+//       after TCPCon's members 0x8BBA70-0x8BC980; E&B's file included it, through which header is not known

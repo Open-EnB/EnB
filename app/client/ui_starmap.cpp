@@ -1,6 +1,6 @@
 // Earth & Beyond client (reconstruction): app\client\ui_starmap.cpp, the PDA's star map window. Notes at the end of the file.
 #define __INTRFACE_MEMBERS
-#include <string.h>
+#include "aux_group.h"	// the group constructors (0x7C9650 numbers them); <string.h> through aux_roots.h
 #include <string>
 #include "sclient.h"
 #include "client.h"

@@ -219,13 +219,13 @@ PermStringEntryClass::~PermStringEntryClass()
 	String = 0;
 }
 
-// a second initialiser of this file's own (0xBE3B40, constructed by 0x4AE3B0)
-static PermStringInitClass PermStringInitInstance;  // NAME 2: describes what it does
+// no file-scope PermStringInitClass of its own: the client's object has one CRT entry (0x4ADC50,
+// the header's); 0x4AE3B0 (0xBE3B40) is policy.obj's header initialiser, past the int3 padding
 
 /*
 **	Reconstruction notes
 **
-**	client.exe 0x4ADC50-0x4AE3C5: PermString's table (Jenkins' one-at-a-time hash without the
+**	client.exe 0x4ADC50-0x4AE371: PermString's table (Jenkins' one-at-a-time hash without the
 **	final mix, chained slots). Rebuilt: PermStringInitClass's constructor 0x4AE1E0 (asserts on the
 **	client's lines 63 and 76; the prime search is an inlined helper, Is_Prime here) and destructor
 **	0x4AE2D0 (line 85), Find 0x4ADE20 (line 128; the entry's constructor, line 213, inlined),

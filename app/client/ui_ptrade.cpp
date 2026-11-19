@@ -3,7 +3,7 @@
 // Every function 0x5E1BE0-0x5E40A1 is rebuilt, the credits button 0x5E3EF0 / 0x5E3F40 and its destructors 0x5E4010 / 0x5E4040 included (PT1, PT2).
 #include <stdlib.h>
 #include <string.h>
-#include <stdio.h>
+#include "aux_item.h"	// the item family's constructors (0x5E40D0 numbers them); <stdio.h> through aux_roots.h
 #include <string>
 #include "sclient.h"
 #include "ui_manu.h"

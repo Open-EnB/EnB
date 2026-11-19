@@ -34,7 +34,7 @@
 #include <vector>
 #include <set>
 #include <algorithm>
-#include "aux_roots.h"
+#include "aux_roots_all.h"
 #include "linearbu.h"
 #include "encode.h"
 #include "policy.h"

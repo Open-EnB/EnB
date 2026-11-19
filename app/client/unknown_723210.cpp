@@ -1,5 +1,6 @@
 // Earth & Beyond client (reconstruction): app\client\unknown_723210.cpp (NAME 1: interim, D137), the client-side
 // robot of unknown_723210.h. Notes at the end.
+#include "..\shared\auxdata\permstr.h"	// PermStringInit: the client's CRT stretch opens with it
 #include <stdlib.h>
 #include "unknown_723210.h"
 #include "sclient.h"
@@ -13,7 +14,6 @@
 #include "..\packets\pkaction.h"
 #include "..\packets\pkinventorymove.h"
 #include <list>
-
 static int Unknown_BE7CF0;	// 0xBE7CF0: robots made (every fifth gets the attack action)  // NAME 1: neutral (D10)
 
 // Turn left, right or level, 4-10 s (vtable 0xB02C74, 0xC bytes)

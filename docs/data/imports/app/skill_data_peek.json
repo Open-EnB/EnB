@@ -28,7 +28,9 @@
   "0x6A59E0",
   "0x6A5A50",
   "0x6A5B10",
-  "0x6A5BD0"
+  "0x6A5BD0",
+  "0x6A5D90",
+  "0x6A5E00"
  ],
  "merged": [],
  "name": "client/skill_data_peek.cpp",

@@ -1,6 +1,7 @@
 // Earth & Beyond client (reconstruction): app\client\ui_friends.cpp (the client's __FILE__
 // 'e:\build\beta\G\app\Client\ui_friends.cpp', 0x58F090-0x5928AF by its asserts and its string order).
 // Every function from 0x58F0F0 written (FR1, FR2: the constructor, the destructor, slots +0x54 / +0x68, 0x591C30); the near misses carry NOT EXACT.
+#include "..\shared\auxdata\permstr.h"	// PermStringInit: the client's CRT stretch opens with it
 #define __INTRFACE_MEMBERS	// intrface.h's members (0x591EE0 calls InterfaceClass's 0x541930)
 #include <string.h>
 #include <wchar.h>
@@ -21,7 +22,6 @@
 #include "option.h"
 #include "..\audio\soundlib.h"
 #include "..\shared\g_assert.h"
-
 // The client at InterfaceClass +0x40, as ui_chat_panel.cpp declares it
 class LineDisplayClientClass  // NAME 1: neutral (D10)
 {
@@ -657,7 +657,7 @@ void UIFriendsClass::Unknown_591A30()
 }
 
 #include "..\shared\auxdata\auxdata.h"
-#include "aux_roots.h"				// (after auxdata.h: its Type_Name(int *) for kv_pair.h, C2665 without)
+#include "aux_group.h"				// (after auxdata.h: its Type_Name(int *) for kv_pair.h, C2665 without)
 
 // auxdata.h's find through one more inline level, as ui_group.cpp's; the dead size() reads here and in 0x591C30's loop spend the inline budget (D130, not the client's code) so the find 0x5927E0 and the name's _Eos stay out of line as in the client
 template<class C> inline C *Unknown_Friends_Find(DeltaCompoundClass *root, const NameClass &name) { root->Children.size(); return(Unknown_Find_Field<C>(root, name)); }  // NAME 1: neutral (D10)

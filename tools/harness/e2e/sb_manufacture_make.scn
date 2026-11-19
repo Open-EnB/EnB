@@ -1,0 +1,103 @@
+# Station (live server): room 1's manufacturing terminal (as sb_manufacture), this time with the components: the GM
+# command gives the Vesta 4P's three (/createitem 1381 1: BlackBox CoreCage, 1399: Evolver PowR-Prison, 1435:
+# Vortex Dielectric Micro-Plates; the net7 DB's item_base, the names the server's '(missing)' lines give), the tree
+# to the Vesta 4P, Manufacture; then the new Vesta is sold at Miyoshi Basho (room 2), so the cargo comes back as
+# it was.
+name: starbase manufacturing: make a Vesta 4P
+timeout: 300
+include _sb_home
+key 0x0D
+wait-quiet proxy 0.5 within 10
+text '/createitem 1381 1'
+key 0x0D
+expect-event antprox 'received CLIENT_CHAT$' within 10
+wait-quiet proxy 1.0 within 20
+key 0x0D
+wait-quiet proxy 0.5 within 10
+text '/createitem 1399 1'
+key 0x0D
+expect-event antprox 'received CLIENT_CHAT$' within 10
+wait-quiet proxy 1.0 within 20
+key 0x0D
+wait-quiet proxy 0.5 within 10
+text '/createitem 1435 1'
+key 0x0D
+expect-event antprox 'received CLIENT_CHAT$' within 10
+wait-quiet proxy 1.0 within 20
+walk-to -47,30
+walk-to -44,38
+face 8 tol 4
+wait-quiet proxy 1.0 within 20
+click 617,525 until antprox 'received MANUFACTURE_ITEM_CATAGORY' every 2 within 20
+wait-quiet proxy 1.0 within 20
+shot manu_open
+# the category row: the computer (the root), then the '?' slot beside it ('Choose selection')
+click 460,263
+expect-event antprox 'received MANUFACTURE_ACTION' within 10
+wait-quiet proxy 1.0 within 20
+click 598,285
+expect-event antprox 'received MANUFACTURE_ACTION' within 10
+wait-quiet proxy 1.0 within 20
+# the root's two children (Items, Components) fill the column below it: Items; then its children (a column at
+# x 684): the third (silver), then its first child (x 784), a leaf: its item list (MANUFACTURE_ITEM_CATAGORY)
+click 569,428
+wait-quiet proxy 1.0 within 20
+click 661,641
+wait-quiet proxy 1.0 within 20
+click 784,416
+expect-event antprox 'received MANUFACTURE_ITEM_CATAGORY' within 10
+wait-quiet proxy 1.0 within 20
+shot manu_list
+# the list's one item, Vesta 4P (MANUFACTURE_ITEM_ID): the server names its components '(missing)'
+click 465,409
+expect-event antprox 'received MANUFACTURE_ITEM_ID' within 10
+wait-event antprox 'sent MESSAGE_STRING' within 10
+wait-quiet proxy 1.0 within 20
+shot manu_item
+# Manufacture (325,350, left of the window; enabled now): MANUFACTURE_ACTION, then about 3 s later the server's
+# MESSAGE_STRING / PRIORITY_MESSAGE 'NAME manufactured a N% Vesta 4P', 'Attempt Succeeded' under the result, the
+# Vesta in the cargo (column 2, row 3 with this character's cargo) and the components gone
+click 325,350
+expect-event antprox 'received MANUFACTURE_ACTION' within 10
+wait-event antprox 'sent PRIORITY_MESSAGE' within 20
+wait-quiet proxy 1.0 within 20
+shot manu_made
+click 858,221
+wait-quiet proxy 1.0 within 20
+walk-to -47,30
+walk-to -48,5
+# sell the new Vesta 4P at Miyoshi Basho (room 2; the route of sb_buysell): cargo column 2, row 3, then Sell
+walk-to -44,-38
+face -90 tol 5
+hold 0x41 until msg 'Changing room from 1 to 2' within 15
+walk-to 2,52
+walk-to 23,27
+walk-to 28.2,32.0
+face 50
+wait-quiet proxy 1.0 within 20
+click 1005,400 until antprox 'sent TALK_TREE' every 2 within 20
+wait-quiet proxy 1.0 within 20
+click 438,887
+wait-event antprox 'sent ITEM_BASE' within 20
+wait-event proxy 'fa_ce02a\.ini' within 40
+wait-quiet proxy 1.0 within 20
+click 136,600
+wait-quiet proxy 0.5 within 10
+shot vesta_selected
+click 112,776
+expect-event antprox 'received INVENTORY_MOVE' within 15
+# the server's PRIORITY_MESSAGE ('You have gained N credits') and CLIENT_SOUND
+wait-event antprox 'sent PRIORITY_MESSAGE' within 15
+wait-quiet proxy 1.0 within 20
+shot vesta_sold
+click gadget trade.close
+wait-quiet proxy 1.0 within 20
+click gadget talk.done until antprox 'sent TALK_TREE_ACTION' every 2 within 20
+wait-quiet proxy 1.0 within 20
+walk-to 23,27
+walk-to 2,52
+walk-to 0,62
+face 90 tol 5
+hold 0x41 until msg 'Changing room from 2 to 1' within 15
+walk-to -44,-38
+walk-to -48,5

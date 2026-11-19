@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x4B9D80"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "the collective, client 0x4DA7F0-0x4DD110 with the tables' instances: the asserts on the client's lines 54-401 (D25), DestinationStruct's constructor / destructor 0x4DCFF0 / 0x4DD110 defined last (out of line, no caller); NOT EXACT: the destructor 0x4DBFD0, Add_Destination 0x4DC310, Add_Member 0x4DC720",
  "expected": {},
@@ -76,12 +74,14 @@
   "0x4DD630",
   "0x4DD680",
   "0x4DD6D0",
+  "0x4DD6F0",
   "0x4DD880",
   "0x4DD8C0",
   "0x4DD930",
   "0x4DD9A0",
   "0x4DD9E0",
   "0x4DDA50",
+  "0x4DDB20",
   "0x4DDCB0",
   "0x4DDCF0",
   "0x4DDD10",

@@ -27,9 +27,9 @@
 template<class T> class DeltaTemplateClass : public DeltaClass  // NAME 3: by convention (D24) from the client's file delta_template.h
 {
 public:
-	// float's is inlined in 0x4A6110 (DeltaClass, Value, the vtable, then +0x04); the time and money
-	// fields' are out of line (0x4A8150, 0x4A7080: see the extern template below)
-	DeltaTemplateClass(const char *name, const T &value = T());
+	// in class, as the client's objects show: an object numbers the types whose constructors it compiles (the
+	// guard-less initialiser of the types reached while parsing, workflow.md 3.4); float's is inlined in 0x4A6110
+	DeltaTemplateClass(const char *name, const T &value = T()) : DeltaClass(name), Value(value) { Unknown04 = UnknownGlobal; }
 
 	virtual void Unknown_00(KVEncoderClass *visitor);					// +0x00 (float: 0x4A6C90)
 	virtual bool Read(LinearBufferClass &buf, const DurationClass &base);	// +0x2C (float: 0x4A6DF0)
@@ -49,34 +49,34 @@ public:
 	static int UnknownGlobal;	// the per-class global at +0x04 (float: 0xC416F0, time: 0xBE3AA4)
 };
 
-template<class T> int DeltaTemplateClass<T>::UnknownGlobal;
+// UnknownGlobal is defined (and numbered at start-up) in delta_numbering.h, by the objects that include it
 
-template<class T> DeltaTemplateClass<T>::DeltaTemplateClass(const char *name, const T &value) :
-	DeltaClass(name),
-	Value(value)
+// The time field: a whole-class specialisation (the interpolator's constructor 0x4A6110 calls its constructor
+// 0x4A8150 out of line where it inlines the float fields'; delta_time.cpp's object holds its members and global)
+template<> class DeltaTemplateClass<DurationClass> : public DeltaClass
 {
-	Unknown04 = UnknownGlobal;
-}
+public:
+	DeltaTemplateClass(const char *name, const DurationClass &value = DurationClass());	// 0x4A8150
 
-// The interpolator's constructor 0x4A6110 calls the time field's constructor (0x4A8150) where it
-// inlines the float fields': VC6's extern template (C4231) gives that; delta_time.cpp's object
-// holds the instance.
-extern template class DeltaTemplateClass<DurationClass>;
+	virtual void Unknown_00(KVEncoderClass *visitor);					// +0x00
+	virtual bool Read(LinearBufferClass &buf, const DurationClass &base);	// +0x2C 0x4A81D0
+	virtual bool Write(LinearBufferClass &buf);				// +0x30 0x4A8270
+
+	void Set_Value(const DurationClass &value)  // NAME 2: describes what it does
+	{
+		if (Value != value) {
+			Value = value;
+			Unknown_34(this);
+		}
+	}
+
+	DurationClass Value;	// +0x88 (8-aligned)  // NAME 2: describes what it does
+
+	static int UnknownGlobal;	// 0xBE3AA4
+};
 
 // (the lines down to Write hold code of the client's header not rebuilt yet: its asserts are on
 // lines 91 and 110)
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

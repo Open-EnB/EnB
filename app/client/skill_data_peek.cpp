@@ -2,7 +2,7 @@
 // (the client's file per its asserts, 'e:\build\beta\G\app\Client\skill_data_peek.cpp' at 0xB914A4). Notes at the end.
 #include <string.h>
 #include "skill_data_peek.h"
-#include "aux_roots.h"
+#include "aux_skill.h"
 
 static const char *SkillFieldNames[7] = {	// 0xB913DC  // NAME 2: describes what it does
 	"Level", "RecycleTime", "LastActivation", "Availability", "Affiliations", "QuestOnlyLevels", "MaxSkillLevels"
@@ -263,3 +263,5 @@ void SkillDataPeekClass::Update_Fields()
 **	Object 0x6A52E0-0x6A5E9F: opened by permstr.h's PermStringInit (0x6A52E0, the instance 0xBE6658, its atexit 0x6A5310),
 **	closed by <string>'s initialiser 0x6A5E00. The thunk 0x6A52D0 before it is skill_data.cpp's.
 */
+
+#pragma auto_inline(on)	// (the end-of-file initialisers: the client merges the numbering into one function)

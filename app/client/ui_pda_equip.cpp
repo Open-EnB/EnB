@@ -37,7 +37,7 @@ public:
 	virtual ClientObjectClass *Get_Ship();				// +0x30 (client.h's)  // NAME 2: ClientClass's slot +0x30
 };
 template<class C> inline C *Unknown_Find_Valid(DeltaCompoundClass *root, const NameClass &name) { C *t = Unknown_Find_Field<C>(root, name); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10): as co.cpp's
-
+#include "..\shared\auxdata\delta_numbering.h"	// 0x5D32D0 numbers the int field's and the slot array's globals
 // @0x5D10C0
 UIPdaEquipClass::UIPdaEquipClass(SClient *client) :
 	UIInvClass(client, 11),

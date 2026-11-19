@@ -14,7 +14,7 @@ extern RandomClass Unknown_BDBB84;  // NAME 1 [Unknown_BDBB84]: neutral (D10): t
 extern FontStringFilesClass *Unknown_BE67BC;	// NAME 1 [Unknown_BE67BC]: neutral (D10); sclient.h declares it so
 #include "fontmanager.h"	// FontSys, the text objects
 #include "..\shared\auxdata\auxdata.h"	// Unknown_Find_Field: 0x5A8350's 'Missions' (its copy 0x5AA9D0 sits in this object)
-#include "aux_roots.h"				// DeltaPlayerClass, DeltaMissionClass, DeltaMissionStageClass (0x5A8350)
+#include "aux_player.h"				// DeltaPlayerClass, DeltaMissionClass, DeltaMissionStageClass (0x5A8350)
 #include "..\audio\soundlib.h"		// SoundLibraryClass::Play_2D_Sound (0x5A8350's mission sounds)
 #include "ui_missn.h"				// Unknown_Strip_Tags (0x5C69D0)
 

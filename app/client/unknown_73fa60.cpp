@@ -1,7 +1,7 @@
 // Earth & Beyond client (reconstruction): app\client\unknown_73fa60.cpp (PROVISIONAL file name, D137). Notes at the end.
 #include <stdlib.h>
 #include "..\..\wwlib\listnode.h"
-
+#include <string>	// the client object ends with <string>'s guard 0x73FE70 (CRT entry 588)
 class ClientObjectClass;
 
 class UnknownAF0DD0Class								// NAME 1: neutral (D10), vtable 0xAF0DD0

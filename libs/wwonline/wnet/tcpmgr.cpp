@@ -19,7 +19,7 @@
 #include "tcpmgr.h"
 #include "tcpcon.h"
 #include "wlib/wtime.h"
-
+#include <string>
 
 TCPMgr::TCPMgr()
 {
@@ -590,3 +590,6 @@ void TCPMgr::pumpConnections(void)
 //       = 0
 // EnB: TCPMgr::pumpConnections (line 468 at the freeze): E&B pumpConnections 0x8BE270: select (write / except sets,
 //       zero timeout) for a pending connect, state -1 on except, CONNREFUSED / TIMEDOUT / CONNRESET
+// EnB: Line 22 (a blank line at the freeze): #include <string>: the client's object ends with <string>'s guarded
+//       std::ctype<unsigned short>::id initialiser 0x8BE770 (CRT entry 936, `mov cl, [0xC416FC]`, atexit 0x42B320),
+//       after TCPMgr's members 0x8BCA50-0x8BDF80; E&B's file included it, through which header is not known

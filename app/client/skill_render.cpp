@@ -1,5 +1,6 @@
 // Earth & Beyond client (reconstruction): app\client\skill_render.cpp, what draws a skill's slot
 // (the client's file per its asserts, 'e:\build\beta\G\app\Client\skill_render.cpp' at 0xB91528). Notes at the end.
+#include "..\shared\auxdata\permstr.h"	// PermStringInit: the client's CRT stretch opens with it
 #include <string>
 #include <vector>
 #include "..\shared\g_assert.h"
@@ -8,7 +9,6 @@
 #include "assetmgr.h"
 #include "rendobj.h"
 #include "vector3.h"
-
 class ClientObjectClass;
 
 #include "sclient.h"	// (0x744FE0 Get_Target, the slot +0x28 Get_Avatar, the client clock +0x10BC)

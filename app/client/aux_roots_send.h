@@ -13,46 +13,9 @@
 
 #include "aux_roots.h"
 
-// NAME 5: the client's Get_Type_Name string 'HullPreviewStatusEnum' (KVPair vtable 0xB03A7C, 0x759B50 inline), leaf vtable 0xB03A24
-enum HullPreviewStatusEnum { UNKNOWN_B03A24_0 };	// vtable 0xB03A24, 4 bytes
-inline const char *Type_Name(HullPreviewStatusEnum *) { return "HullPreviewStatusEnum"; }
-inline char *Value_To_String(char *buf, int, const HullPreviewStatusEnum &value) { sprintf(buf, "%d", value); return buf; }
-inline bool String_To_Value(const char *text, HullPreviewStatusEnum *value) { return sscanf(text, "%d", *value) != 0; }
+#include "aux_roots_hull.h"
 
-// vtable 0xB03304, built inline in 0x7518A0
-// NAME 3: the client's root string "Hull", Westwood XxxClass (D24); structure = - (no match)
-class DeltaHullClass : public UnknownSendRootClass
-{
-public:
-	DeltaHullClass(int unknown) :
-		UnknownSendRootClass(unknown, "Hull"),
-		Name("Name", ""),
-		Owner("Owner", ""),
-		Inventory("Inventory"),
-		HullIndex("HullIndex"),
-		BaseAsset("BaseAsset"),
-		ExchangeCost("ExchangeCost"),
-		Status("Status")
-	{
-		Add(&Name);
-		Add(&Owner);
-		Add(&Inventory);
-		Add(&HullIndex);
-		Add(&BaseAsset);
-		Add(&ExchangeCost);
-		Add(&Status);
-		Unknown_48();
-	}
-
-	DeltaStringClass Name;	// +0xAC
-	DeltaStringClass Owner;	// +0x134
-	DeltaShipInvClass Inventory;	// +0x1BC
-	DeltaTemplateClass<int> HullIndex;	// +0x8BC
-	DeltaTemplateClass<int> BaseAsset;	// +0x944
-	DeltaTemplateClass<int> ExchangeCost;	// +0x9CC
-	DeltaTemplateClass<HullPreviewStatusEnum> Status;	// +0xA54
-};
-
+#if defined(AUX_ROOTS_ALL) || defined(AUX_CTORS_SKILL)
 // Player.RPGInfo (0x752E60)
 inline
 DeltaRPGInfoClass::DeltaRPGInfoClass(const char *name) :
@@ -91,7 +54,9 @@ DeltaRPGInfoClass::DeltaRPGInfoClass(const char *name) :
 	Add(&SkillPowerupEnd);
 	Add(&SkillPowerupAbilityNumber);
 }
+#endif
 
+#if defined(AUX_ROOTS_ALL) || defined(AUX_CTORS_SKILL)
 // Player.RPGInfo.Skills.N (0x753520)
 inline
 DeltaSkillClass::DeltaSkillClass(const char *name) :
@@ -112,7 +77,9 @@ DeltaSkillClass::DeltaSkillClass(const char *name) :
 	Add(&MaxSkillLevels);
 	Add(&Affiliations);
 }
+#endif
 
+#if defined(AUX_ROOTS_ALL) || defined(AUX_CTORS_SKILL)
 // Player.RPGInfo.SkillAbilities.N (0x7538B0)
 inline
 DeltaSkillAbilityClass::DeltaSkillAbilityClass(const char *name) :
@@ -133,7 +100,9 @@ DeltaSkillAbilityClass::DeltaSkillAbilityClass(const char *name) :
 	Add(&Validity);
 	Add(&CanBeUsedWhileIncapacitated);
 }
+#endif
 
+#if defined(AUX_ROOTS_ALL) || defined(AUX_CTORS_MISSION)
 // Player.Missions.N (0x753DF0)
 inline
 DeltaMissionClass::DeltaMissionClass(const char *name) :
@@ -178,51 +147,11 @@ DeltaMissionClass::DeltaMissionClass(const char *name) :
 	Add(&StageExpirationTime);
 	Add(&HasGivenNewMissionMessage);
 }
+#endif
 
-// Player.GroupInfo (0x7548D0)
-inline
-DeltaGroupInfoClass::DeltaGroupInfoClass(const char *name) :
-	DeltaCompoundClass(name),
-	IsGroupLeader("IsGroupLeader"),
-	LookingForGroup("LookingForGroup", true),
-	AllowGroupInvite("AllowGroupInvite", true),
-	ShowNonCombatActivities("ShowNonCombatActivities", true),
-	ForceAutoSplit("ForceAutoSplit", true),
-	RestrictedLootingRights("RestrictedLootingRights", true),
-	AutoReleaseLootingRestrictions("AutoReleaseLootingRestrictions", true),
-	FormationName("FormationName", ""),
-	Formation("Formation"),
-	Position("Position", -1),
-	Members("Members", 5)
-{
-	Add(&IsGroupLeader);
-	Add(&LookingForGroup);
-	Add(&AllowGroupInvite);
-	Add(&ShowNonCombatActivities);
-	Add(&ForceAutoSplit);
-	Add(&RestrictedLootingRights);
-	Add(&AutoReleaseLootingRestrictions);
-	Add(&FormationName);
-	Add(&Formation);
-	Add(&Position);
-	Add(&Members);
-}
+#include "aux_group_ctors.h"
 
-// Player.GroupInfo.Members.N (0x754DB0)
-inline
-DeltaGroupMemberClass::DeltaGroupMemberClass(const char *name) :
-	DeltaCompoundClass(name),
-	Name("Name", ""),
-	GameID("GameID"),
-	Formation("Formation"),
-	Position("Position", -1)
-{
-	Add(&Name);
-	Add(&GameID);
-	Add(&Formation);
-	Add(&Position);
-}
-
+#if defined(AUX_ROOTS_ALL) || defined(AUX_CTORS_PLAYER)
 // Player (0x752510)
 inline
 DeltaPlayerClass::DeltaPlayerClass() :
@@ -266,9 +195,10 @@ DeltaPlayerClass::DeltaPlayerClass() :
 	Add(&GroupInfo);
 	Unknown_48();
 }
+#endif
 
 // VC6 symbol pad (not the client's code): sclient.cpp's copy of 0x758210 matches only when the count of
 // the declarations it sees falls in a window (tools/re/auxroots.py SEND_SYMBOL_PAD)
-enum AuxRootsSendSymbolPadType { AUX_ROOTS_SEND_PAD_00, AUX_ROOTS_SEND_PAD_01, AUX_ROOTS_SEND_PAD_02, AUX_ROOTS_SEND_PAD_03, AUX_ROOTS_SEND_PAD_04, AUX_ROOTS_SEND_PAD_05, AUX_ROOTS_SEND_PAD_06, AUX_ROOTS_SEND_PAD_07, AUX_ROOTS_SEND_PAD_08, AUX_ROOTS_SEND_PAD_09, AUX_ROOTS_SEND_PAD_10, AUX_ROOTS_SEND_PAD_11, AUX_ROOTS_SEND_PAD_12, AUX_ROOTS_SEND_PAD_13, AUX_ROOTS_SEND_PAD_14, AUX_ROOTS_SEND_PAD_15, AUX_ROOTS_SEND_PAD_16, AUX_ROOTS_SEND_PAD_17, AUX_ROOTS_SEND_PAD_18, AUX_ROOTS_SEND_PAD_19, AUX_ROOTS_SEND_PAD_20, AUX_ROOTS_SEND_PAD_21, AUX_ROOTS_SEND_PAD_22, AUX_ROOTS_SEND_PAD_23, AUX_ROOTS_SEND_PAD_24, AUX_ROOTS_SEND_PAD_25, AUX_ROOTS_SEND_PAD_26, AUX_ROOTS_SEND_PAD_27, AUX_ROOTS_SEND_PAD_28, AUX_ROOTS_SEND_PAD_29, AUX_ROOTS_SEND_PAD_30, AUX_ROOTS_SEND_PAD_31, AUX_ROOTS_SEND_PAD_32, AUX_ROOTS_SEND_PAD_33, AUX_ROOTS_SEND_PAD_34, AUX_ROOTS_SEND_PAD_35, AUX_ROOTS_SEND_PAD_36, AUX_ROOTS_SEND_PAD_37, AUX_ROOTS_SEND_PAD_38, AUX_ROOTS_SEND_PAD_39, AUX_ROOTS_SEND_PAD_40, AUX_ROOTS_SEND_PAD_41, AUX_ROOTS_SEND_PAD_42, AUX_ROOTS_SEND_PAD_43, AUX_ROOTS_SEND_PAD_44, AUX_ROOTS_SEND_PAD_45 };	// NAME 1: a build aid (SC1)
+enum AuxRootsSendSymbolPadType { AUX_ROOTS_SEND_PAD_00, AUX_ROOTS_SEND_PAD_01, AUX_ROOTS_SEND_PAD_02, AUX_ROOTS_SEND_PAD_03, AUX_ROOTS_SEND_PAD_04, AUX_ROOTS_SEND_PAD_05, AUX_ROOTS_SEND_PAD_06, AUX_ROOTS_SEND_PAD_07, AUX_ROOTS_SEND_PAD_08, AUX_ROOTS_SEND_PAD_09, AUX_ROOTS_SEND_PAD_10, AUX_ROOTS_SEND_PAD_11, AUX_ROOTS_SEND_PAD_12, AUX_ROOTS_SEND_PAD_13, AUX_ROOTS_SEND_PAD_14, AUX_ROOTS_SEND_PAD_15, AUX_ROOTS_SEND_PAD_16, AUX_ROOTS_SEND_PAD_17, AUX_ROOTS_SEND_PAD_18, AUX_ROOTS_SEND_PAD_19, AUX_ROOTS_SEND_PAD_20, AUX_ROOTS_SEND_PAD_21, AUX_ROOTS_SEND_PAD_22 };	// NAME 1: a build aid (SC1)
 
 #endif //__AUX_ROOTS_SEND_H

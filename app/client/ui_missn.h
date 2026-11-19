@@ -7,8 +7,8 @@
 #include <vector>
 #include <algorithm>
 #include <string>
-#include "..\shared\auxdata\auxdata.h"
-#include "aux_roots.h"				// DeltaMissionClass (after auxdata.h, as ui_buff.cpp)
+class DeltaMissionClass;	// aux_roots.h's (not included: ui_cinfo.cpp's client object has no permstr.h static)
+
 class GadgetSlider;			// gd_slider.h's slider (+0xB8)
 class GadgetClass;
 class ButtonGadgetClass;

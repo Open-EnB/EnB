@@ -4,7 +4,7 @@
 #include "vector3.h"
 #include "ini.h"
 #include "..\shared\g_assert.h"
-
+#include <string>	// the client object ends with <string>'s guard 0x831E60 (CRT entry 756)
 
 
 

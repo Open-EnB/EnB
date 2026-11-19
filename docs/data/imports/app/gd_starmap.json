@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "RECONSTRUCTED from client.exe: __FILE__ e:\\build\\beta\\G\\app\\client\\gd_starmap.cpp (G_ASSERT 'StarmapPIP' l.60, FAIL_IF '!StarmapPIP' l.75/153/193); 0x7B4700-0x7B4E2C, table 0xB05F54",
  "expected": {},
@@ -24,13 +22,17 @@
   "0x50AA80",
   "0x50AAA0",
   "0x50AAC0",
+  "0x7B46B0",
+  "0x7B46E0",
   "0x7B4700",
   "0x7B4790",
   "0x7B47C0",
   "0x7B47F0",
   "0x7B4BD0",
   "0x7B4C50",
-  "0x7B4D80"
+  "0x7B4D80",
+  "0x7B4E60",
+  "0x7B4E90"
  ],
  "merged": [],
  "name": "client/gd_starmap.cpp",

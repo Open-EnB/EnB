@@ -20,7 +20,7 @@
 								// and tsk_login.cpp see the declaration; the KV headers pulled app.lib objects into kerneltest)
 #include "kv_encoder_base.h"
 #include "strconv_lib.h"
-
+#include "auxdata\delta.h"	// KVEncoderClass (the bodies only: delta.h reaches permstr.h)
 // strconv_lib.cpp's converters for the character slot's pairs (here, not in strconv_lib.h: a new
 // overload there moves aux_roots.cpp's inlining, the header canary 0x6FB1E0)
 char *Value_To_String(char *buf, int size, long value);					// 0x4A34D0 (the "long" pairs)
@@ -41,6 +41,6 @@ class Vector3;
 // delta.h's KVEncoderClass (D104; LoginKVVisitorClass until 2026-10-28)
 
 // The one-slot interface vtable 0xAEADC8 is delta.h's DeltaInterfaceClass (P-T5-2)
-#include "auxdata\delta.h"
+#include "auxdata\unknown_aeadc8.h"
 
 #endif

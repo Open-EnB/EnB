@@ -21,7 +21,9 @@
   "0x813E10",
   "0x813E80",
   "0x813F40",
-  "0x814000"
+  "0x814000",
+  "0x8141C0",
+  "0x814230"
  ],
  "merged": [],
  "name": "client/skill_ability_data_peek.cpp",

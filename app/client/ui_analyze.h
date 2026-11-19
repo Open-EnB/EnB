@@ -12,11 +12,14 @@ class SBaseViewClass;		// sbaseview.cpp's starbase view (+0xD0)
 class ButtonGadgetClass;	// unknown_675120.h's (+0xE0)
 class DeltaCompoundClass;	// the item's aux data (+0x10C)
 
+#ifndef ENB_UI_STATE_ENUM	// UI_CLOSED / UI_OPEN: also ui_manu.h / ui_analyze.h (sbaseview.cpp includes both)
+#define ENB_UI_STATE_ENUM
 enum
 {
 	UI_CLOSED = 0,										// (the destructor's G_ASSERT 'State == UI_CLOSED'; slot +0x5C sets it)  // NAME 3: the assert's
 	UI_OPEN = 2											// (slot +0x58 sets it)  // NAME 1: neutral (D10)
 };
+#endif
 
 // ui_analyze.cpp's analysis window (0x11C bytes, tables 0xAEF120 / 0xAEF114 / 0xAEF108; constructor 0x5435D0, made by
 // sbaseview.cpp's 0x69F8F0 case 6; laid out from the constructor; as far as this file's rebuilt functions use it)

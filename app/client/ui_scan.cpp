@@ -1,4 +1,5 @@
 // Earth & Beyond client (reconstruction): app\client\ui_scan.cpp, the cockpit's scanner (per the client's asserts)
+#include "..\shared\auxdata\permstr.h"	// PermStringInit: the client's CRT stretch opens with it
 #include <string.h>
 #include <string>
 #include "sclient.h"
@@ -18,7 +19,6 @@
 #include "..\shared\g_assert.h"
 #include "..\audio\soundlib.h"
 #include "ui_scan.h"
-
 class LineDisplayClientClass  // NAME 1: neutral (D10)
 {
 public:
@@ -535,7 +535,7 @@ UIScanThreatClass::~UIScanThreatClass()
 }
 
 #include "..\shared\auxdata\auxdata.h"
-#include "aux_roots.h"				// (after auxdata.h, as ui_faction.cpp)
+#include "aux_faction.h"				// (after auxdata.h, as ui_faction.cpp)
 #include "cfaction_database.h"
 #include <stdio.h>
 #include "co_player_relationship.h"

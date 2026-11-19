@@ -2,7 +2,7 @@
 #include "client_lego_impl.h"
 #include "..\..\wwlib\ini.h"
 #include "..\..\wwlib\wwstring.h"
-#include <stdio.h>
+#include "aux_lego.h"	// the lego constructors (0x731490 numbers them); <stdio.h> through aux_roots.h
 namespace std { template<> inline hashtable<pair<int const, RefCountPtr<LegoBoneMapClass> >, int, hash<int >, _Select1st<pair<int const, RefCountPtr<LegoBoneMapClass> > >, equal_to<int >, allocator<RefCountPtr<LegoBoneMapClass> > >::hashtable(size_type __n, const hasher &__hf, const key_equal &__eql); }  // Not the client's source (its sgistl form is unknown: P-L21-1, attempts row 0x71DCE0): the hashtable constructor flat gives the client's out-of-line hash_map() 0x72E560 (reserve's size() inlined: the B form)
 static const char *_Attach_Bone = "ATTACH";  // NAME 1 [_Attach_Bone]: neutral (D10), 0xB95070
 static std::hash_map<int, RefCountPtr<LegoBoneMapClass> > _Global_Bone_Maps;  // 0xBE7D28: the client's assert (a file static: the asserts name it unqualified in the bone map's constructor too)

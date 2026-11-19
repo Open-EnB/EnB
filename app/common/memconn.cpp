@@ -2,7 +2,7 @@
 #include "memconn.h"
 #include "..\packets\pk.h"
 #include "..\shared\g_assert.h"
-#include "..\shared\auxdata\unknown_root.h"
+unsigned int Unknown_Get_Ticks();	// 0x4A3B40 (delta_time.cpp; unknown_root.h's, not included: the client object has no permstr.h static)
 
 MemoryConnectionClass::MemoryConnectionClass() :
 	SendPipe(0), RecvPipe(0)

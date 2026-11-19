@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "UIBuffClass, the buff display (ui_buff.cpp's __FILE__ 0xB7C18C, asserts lines 89-205; client 0x5608D0-0x561DC0, after ui_bio's 0x5608BF and before ui_chat_panel.cpp's 0x561DD0; the main view's +0x1D4, BUFF): the constructor 0x5608D0, the destructor 0x560A10, slots +0x58 / +0x5C / +0x60 and 0x560BC0, 0x560D20, 0x560FA0, 0x561B40 exact; 0x561030 (the ship's BuffArray to the slots) and its static helper 0x5615C0 NOT EXACT (inline budget), the destructors 0x5619D0 / 0x561A60 and the vector's 0x561BD0 exact; gd_buffgadg.h's gadget and values (BF1: the local stand-ins dropped)",
  "expected": {},
@@ -52,7 +50,11 @@
   "0x561A60",
   "0x561B40",
   "0x561BD0",
+  "0x561C10",
   "0x561C40",
+  "0x561CB0",
+  "0x561D00",
+  "0x561D30",
   "0x561D60",
   "0x561D70"
  ],

@@ -31,7 +31,7 @@ typedef std::hash_map<int, RefCountPtr<GalaxyMapRenderSectorClass> > RenderSecto
 typedef std::hash_map<int, RefCountPtr<GalaxyMapRenderGateClass> > RenderGatesType;		// NAME 1: what it holds
 static GalaxyMapRenderSystemClass *New_Item(const RefCountPtr<GalaxyMapSystemClass> &data);	// 0x7A9370 (static: called without a thunk)  // NAME 1: what it does
 static GalaxyMapRenderSectorClass *New_Item(const RefCountPtr<GalaxyMapSectorClass> &data);	// 0x7A93F0 (static)
-
+static GalaxyMapRenderGateClass *New_Item(const RefCountPtr<GalaxyMapGateClass> &data) { return(new GalaxyMapRenderGateClass(data)); }	// for Create_Item 0x7B0E10 (inlined there)  // NAME 1: as the other overloads
 
 
 
@@ -119,19 +119,19 @@ template <class CONTAINER, class T>
 static bool Find_Item(RefCountPtr<T> &result, CONTAINER &container, int id)	// NAME 1: what it does
 {
 	CONTAINER::iterator it = container.find(id);
-	if (it == container.end()) { return(false); }
-	result = (*it).second;
-	FAIL_IF(!result) { return(false); }
-	return(true);
+	if (it != container.end()) {
+		result = (*it).second;
+		FAIL_IF(!result) { return(false); }
+		return(true);
+	}	return(false);
 }
-
 // 0x7B0E10: Create_Item<GalaxyMapRenderGateClass> (0x7A8B70 calls it)
 template <class CONTAINER, class T, class DATA>
 static bool Create_Item(RefCountPtr<T> &result, CONTAINER &container, const RefCountPtr<DATA> &data, const RefCountPtr<SceneClass> &scene)	// NAME 1: what it does
 {
 	int id = data->Get_Hash_ID();
 	if (!Find_Item(result, container, id)) {
-		result = Create_NEW(new T(data));
+		result = Create_NEW(New_Item(data));
 		container[id] = result;
 		if (scene) { result->Add_To_Scene(scene); }
 		return(true);
@@ -533,7 +533,7 @@ bool GalaxyMapRenderClass::Unknown_7A7560()
 	return(changed);
 }
 
-// NOT EXACT: written from the client's code (see attempts.csv)
+// NOT EXACT: order: the calls and inlining are the client's (0x7ADFC0 inlined with both 0x7AC070s); the client squares the inlined lengths' components in another x87 order (x, z, y)
 void GalaxyMapRenderClass::Unknown_7A7D70(bool changed)
 {
 	if (changed) {
@@ -820,7 +820,7 @@ bool GalaxyMapRenderClass::Unknown_7A89A0(SphereClass &sphere)
 	return(false);
 }
 
-// NOT EXACT: written from the client's code (see attempts.csv)
+// NOT EXACT: register / frame: the calls and inlining are the client's (Create_Item and the 0x7AA8C0 / 0x7ABFE0 layers); the client keeps 0 in ebp and this in ebx, frame 0x60 against ours 0x64 (see attempts.csv)
 
 
 
@@ -871,34 +871,34 @@ void GalaxyMapRenderClass::Unknown_7A8B70()
 	GalaxyMapSystemIteratorClass systems(GalaxyMap);
 	while (systems.Current) {
 		RefCountPtr<GalaxyMapRenderSystemClass> render;
-		int id = systems.Current->Get_Hash_ID();
-		if (Find_Item(render, Systems, id)) {
-			render->Sectors.clear();
-		} else {
-			render = Create_NEW(New_Item(systems.Current));
-			Systems[id] = render;
-			if (Scene) { render->Add_To_Scene(Scene); }
+		if (!Create_Item(render, Systems, systems.Current, Scene)) {
+			render->Unknown_7AA8C0();
 		}
+
+
+
+
+
 		systems.Next();
 	}
 	GalaxyMapSectorIteratorClass sectors(GalaxyMap);
 	while (sectors.Current) {
 		RefCountPtr<GalaxyMapRenderSectorClass> render;
-		int id = sectors.Current->Get_Hash_ID();
-		if (Find_Item(render, Sectors, id)) {
-			render->Gates.clear();
-		} else {
-			render = Create_NEW(New_Item(sectors.Current));
-			Sectors[id] = render;
-			if (Scene) { render->Add_To_Scene(Scene); }
+		if (!Create_Item(render, Sectors, sectors.Current, Scene)) {
+			render->Unknown_7ABFE0();
 		}
-		if (render->Unknown_7AB6D0(Systems, GalaxyMap->Unknown_7A5400(sectors.Current))) {
-			if (render->Needs_Update()) {
-				Updates.push_back(RefCountPtr<GalaxyMapRenderItemClass>(render));
-			}
-		} else {
+
+
+
+
+
+		if (!render->Unknown_7AB6D0(Systems, GalaxyMap->Unknown_7A5400(sectors.Current))) {
 			Remove_Item(Sectors, RefCountPtr<GalaxyMapRenderItemClass>(render));
+		} else if (render->Needs_Update()) {
+			Updates.push_back(RefCountPtr<GalaxyMapRenderItemClass>(render));
 		}
+
+
 		sectors.Next();
 	}
 	GalaxyMapGateIteratorClass gates(GalaxyMap);
@@ -1504,7 +1504,7 @@ void GalaxyMapRenderSectorClass::Unknown_7AC070(bool invert)
 	Set_Color(Unknown_7ABA70(color, invert));
 	Name->Set_Color(color);
 }
-// NOT EXACT: written from the client's code (see attempts.csv)
+// NOT EXACT: frame: the calls and inlining are the client's (0x7AC070 as its layer, insert(P, x)); frame 0xb0 vs 0xa4: the client shares the colour's slot with the sorted branch's position
 
 
 void GalaxyMapRenderSectorClass::Unknown_7AC130(bool visible, bool show_gates, bool show_name, bool place_name)
@@ -1515,9 +1515,9 @@ void GalaxyMapRenderSectorClass::Unknown_7AC130(bool visible, bool show_gates, b
 
 	FAIL_IF(!robj) { return; }
 	robj->Set_Hidden(!visible);
-	Vector3 color;
-	Set_Color(Unknown_7ABA70(color, place_name));
-	Name->Set_Color(color);
+	Unknown_7AC070(place_name);
+
+
 	std::vector<float> angles;
 	for (std::vector<RefCountPtr<GalaxyMapRenderGateClass> >::iterator it = Gates.begin(); it != Gates.end(); ++it) {
 		float angle = (*it)->Unknown_7AD090(visible, show_gates, place_name);
@@ -1525,31 +1525,26 @@ void GalaxyMapRenderSectorClass::Unknown_7AC130(bool visible, bool show_gates, b
 	}
 	if (place_name) {
 		Matrix3D tm(true);
-		if (angles.empty()) {
-			Vector3 pos = robj->Get_Position();
-			tm.Set_Translation(tm.Get_Y_Vector() * 2.0f + pos);
-			Name->Set_Transform(tm);
-			Name->Set_Justify(2, 0);
-		} else {
+		if (!angles.empty()) {
 			std::sort(angles.begin(), angles.end());
 			float first = angles.back() - (2.0f * WWMATH_PI);
 			float last = angles.front() + (2.0f * WWMATH_PI);
-			angles.insert(angles.begin(), 1, first);
+			angles.insert(angles.begin(), first);
 			angles.push_back(last);
 			float gap = 0.0f;
 			float start = first;
 			float prev = first;
 			for (std::vector<float>::iterator f = angles.begin(); f != angles.end(); ++f) {
-				float d = *f - prev;
+				float a = *f; float d = a - prev;
 				if (gap < d) { gap = d; start = prev; }
-				prev = *f;
+				prev = a;
 			}
-			float angle = gap * 0.5 + start;
+			Matrix3D rot(true);
+			float angle = gap * 0.5f + start;
 			if (angle >= WWMATH_PI) { angle -= (2.0f * WWMATH_PI); }
 			if (angle < -WWMATH_PI) { angle += (2.0f * WWMATH_PI); }
 			angle = WWMath::Clamp(angle, -WWMATH_PI, WWMATH_PI);
 			float dist = 2.0f;
-			Matrix3D rot(true);
 			if (fabs(angle) <= DEG_TO_RADF(90.0f)) {
 				rot.Rotate_Z(angle);
 				Name->Set_Justify(0, 3);
@@ -1561,6 +1556,11 @@ void GalaxyMapRenderSectorClass::Unknown_7AC130(bool visible, bool show_gates, b
 			Vector3 pos = robj->Get_Position();
 			rot.Set_Translation(rot.Get_X_Vector() * dist + pos);
 			Name->Set_Transform(rot);
+		} else {
+			Vector3 pos = robj->Get_Position();
+			tm.Set_Translation(tm.Get_Y_Vector() * 2.0f + pos);
+			Name->Set_Transform(tm);
+			Name->Set_Justify(2, 0);
 		}
 		Name->Unknown_6CE7D0(0);
 		if (!Name->Peek_Scene()) { Name->Add(robj->Peek_Scene()); }
@@ -1986,8 +1986,8 @@ void GalaxyMapRenderGateClass::Unknown_7ADFC0(const Vector3 &a, const Vector3 &b
 {
 	Vector3 pos;
 	To->Get_Position(pos);
-	float da = (a - pos).Length(); float db = (b - pos).Length();
-	bool flipped = da > db;
+	bool flipped = (a - pos).Length() > (b - pos).Length();
+
 	if (flipped != Flipped) {
 		Flipped = flipped;
 		To->Unknown_7AC070(!Flipped);
@@ -2021,6 +2021,11 @@ const RefCountPtr<GalaxyMapRenderSectorClass> &GalaxyMapRenderGateClass::Unknown
 **	GalaxyMapRenderGateClass's constructor 0x7AC870 sits under auto_inline(off): its one caller,
 **	Create_Item<GalaxyMapRenderGateClass> 0x7B0E10, calls it (`new T(data)`, non-null branch), where
 **	/Ob2 would inline it; Create_Item returns false after the creating branch (the client's epilogue
-**	for the found case comes last). GalaxyMapRenderMeshClass's constructor is a .cpp function: the
+**	for the found case comes last).
+**	0x7A8B70's loops: Create_Item for systems and sectors as for gates (inlined there, so Find_Item
+**	0x7B14A0 / 0x7B0D70, New_Item and operator[] stay calls, one level deeper), the found branch through
+**	the uncalled members 0x7AA8C0 / 0x7ABFE0 (their clear stays a call), the remove branch first;
+**	Create_Item calls New_Item; Find_Item tests it != end() first (the client's one return-false tail).
+**	GalaxyMapRenderMeshClass's constructor is a .cpp function: the
 **	client keeps an uncalled copy at 0x7A9B20, its derived constructors inline it.
 */

@@ -1,0 +1,31 @@
+{
+ "ambiguous": [],
+ "copy": "reconstructed",
+ "description": "RECONSTRUCTED: CordStatsClass (client 0x85BF30-0x85C5E0) out of unknown_cordmsg.cpp; its own object by the CRT initialiser table (unknown_cordmsg.cpp's object ends with <string>'s guard 0x85BF00, entry 793, this one with 0x85C5C0, entry 794); provisional name (D137)",
+ "expected": {},
+ "in_tree": [
+  "0x42B320",
+  "0x778840",
+  "0x85BF30",
+  "0x85C010",
+  "0x85C090",
+  "0x85C0D0",
+  "0x85C1C0",
+  "0x85C1E0",
+  "0x85C220",
+  "0x85C250",
+  "0x85C310",
+  "0x85C3A0",
+  "0x85C430",
+  "0x85C5C0"
+ ],
+ "merged": [],
+ "name": "wwudp/unknown_85bf30.cpp",
+ "shared": [
+  "0x42B320",
+  "0x778840"
+ ],
+ "short_known": [
+  "0x42B320"
+ ]
+}

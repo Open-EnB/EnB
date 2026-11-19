@@ -1,0 +1,77 @@
+# Station (live server): room 3's job terminal with jobs on the board (2026-11-18: the coordinator's Net7.exe sends
+# Category % 3 and the DB has job missions 422 / 425-427; Joves Fury's terminal raised to level 10; the board fills on
+# RefreshJobs' 5-minute refresh after the server starts). The client's STARBASE_REQUEST actions (ui_jobs.cpp): 6
+# opens the terminal (the server's JOB_LIST), 7 a job's description (JOB_DESCRIPTION), 8 accepts it
+# (JOB_ACCEPT_REPLY, and ITEM_BASE for the job's item), 9 closes (the server answers JOB_ACCEPT_REPLY too). The Explore tab's first job (Deploy Satellite or Survey Scan)
+# is accepted and shows as a mission in the PDA (U); its description's Forfeit, then Yes on the
+# question, sends MISSION_FORFEIT, so the character leaves with the missions it came with (the local server drops an
+# accepted job's mission at the next login anyway). A board without an Explore job fails the Explore step: run it
+# again after the next refresh (5 minutes).
+name: starbase job board: the three tabs' jobs, a description, accept, forfeit
+timeout: 360
+include _sb_home
+# room 1: the door to room 3 at -44,80
+walk-to -47,40
+walk-to -44.5,62
+face 90 tol 5
+hold 0x41 until msg 'Changing room from 1 to 3' within 15
+# room 3: from the door (0,-90) straight in clear of its frame, then round to the job terminal at -43,29
+walk-to -0.8,-68
+walk-to -6.8,-52.7
+walk-to -33.4,-39.1
+walk-to -40.9,-6.5
+walk-to -43,28
+face 93
+click 638,654 until antprox 'sent JOB_LIST' every 2 within 20
+wait-quiet proxy 1.0 within 20
+# the tabs: Combat, Trade, Explore, each with its first row clicked: a row asks for its job's description
+# (STARBASE_REQUEST 7, the server's JOB_DESCRIPTION; a tab alone sends nothing). The board is random (5-9 slots,
+# each a category at random), so a tab can be empty: only the Explore one asserts
+click 100,380
+wait-quiet proxy 0.5 within 20
+click 400,436
+wait-quiet proxy 1.0 within 20
+shot jobs_combat
+click 100,418
+wait-quiet proxy 0.5 within 20
+click 400,436
+wait-quiet proxy 1.0 within 20
+shot jobs_trade
+click 100,456
+wait-quiet proxy 0.5 within 20
+click 400,436
+expect-event antprox 'sent JOB_DESCRIPTION' within 10
+wait-quiet proxy 1.0 within 20
+shot jobs_explore
+# Accept Job on the Explore tab's first job
+click 1070,941
+expect-event antprox 'sent JOB_ACCEPT_REPLY' within 10
+wait-quiet proxy 2.0 within 20
+shot jobs_accepted
+click 1253,340
+expect-event antprox 'received STARBASE_REQUEST' within 10
+wait-quiet proxy 1.0 within 20
+# the PDA's missions (U): the accepted job is the third; its description's Forfeit, Yes
+key 0x55
+wait-quiet proxy 1.5 within 15
+click 165,700
+wait-quiet proxy 1.5 within 15
+shot mission_selected
+click 603,356
+wait-quiet proxy 1.0 within 15
+shot forfeit_ask
+click 500,405 until antprox 'received MISSION_FORFEIT' every 2 within 10
+wait-quiet proxy 1.5 within 15
+shot forfeited
+key 0x55
+wait-quiet proxy 1.0 within 15
+# back to room 3's door, then home
+walk-to -40.9,-6.5
+walk-to -33.4,-39.1
+walk-to -6.8,-52.7
+walk-to 0.5,-66
+face -90 tol 5
+hold 0x41 until msg 'Changing room from 3 to 1' within 15
+walk-to -44.5,62
+walk-to -47,40
+walk-to -48,5

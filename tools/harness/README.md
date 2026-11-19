@@ -100,7 +100,11 @@ python tools/harness/auxreplay.py run alex3 --dump [--out DIR]   # the messages 
 ```
 
 * **tests/auxreplay** links the generated roots (`app/client/aux_roots.h`, tools/re/auxroots.py)
-  and the auxdata library. Per channel it makes a root for each CREATE (0x0004: the type byte at
+  and the auxdata library. Since Player's tree compiles in sclient.cpp (4292c395e, 2026-11-08) the aux objects'
+  callees take most of app.lib into the link (aux_roots.obj -> item_effect.obj -> pk.obj -> cpacket.obj ->
+  sclient.obj), so it links as clientpoc does: wlib, wnet, WinInet, shell32 and the old iostreams, then a second
+  pass with a logging stand-in for each symbol still unresolved (build.py `gen_stubs`; the rest at address 0,
+  `force_unresolved`); `run` copies build/art's MSS32.DLL into the working directory, as clienttest.py. Per channel it makes a root for each CREATE (0x0004: the type byte at
   offset 10, through the factory 0x6F6000's cases; a repeated id replaces the object, as the reference decoder's
   `aux-census`) and one Player root (game id 0). Each AUX_DATA (0x001B) goes through the packet
   entry 0x7364C0's body: `LinearBufferClass(payload + 6, len - 6, 0x400, false)`, then
@@ -645,6 +649,20 @@ cannot patch an unknown build. The login (`_login_live.scn`) clicks the username
 swallows the first click) and clears each field (End, 14 Backspaces) before typing, since the client remembers
 the last name. Live antprox logs opcode numbers; e2e appends the names (`... = sent TALK_TREE` is the server's,
 `= received NAME` the client's), so steps match on names as in replay.
+- **Putting the character back (`--db-snapshot [AVATAR]`, 2026-11-18, D270):** the `sb_*` scenarios leave state on
+  the character (a warhead per sb_buysell, a Deploy Satellite job item per accepted job, components, credits).
+  `e2e.py --live --db-snapshot run sb_...` first dumps AVATAR's (default 6) rows of the play tables (`DB_TABLES`:
+  inventory, vault, trade, equipment, ammo, level info with the credits, missions, recipes, skills, factions,
+  exploration, position, avatar_info, ship_data / ship_info) from the `net7-mysql` container into
+  `.work/e2e/<HHMMSS>-db-snapshot/avatar<N>.sql`, a ready restore script (one transaction: `DELETE ... WHERE
+  avatar_id = N` per table, the dumped INSERTs; foreign key checks off in that session only, since avatar_data and
+  ship_* reference avatar_info). After the run, also when it fails or is interrupted, it stops Net7.exe (and
+  Net7SSL.exe), runs the script, and starts Net7.exe again in its own console, ready when UDP port 3693 is bound
+  (~100 s; the server log cannot be read while Net7.exe runs). The stop is needed: Net-7 writes each change through
+  as it happens and reads the rows at login, but a killed client stays in the server until its link-dead drop,
+  which queues hull, sector and ammo saves of its own (`PlayerManager::DropPlayerFromSector`). Nothing outside the
+  avatar's rows is touched; to undo by hand, pipe the script into `docker exec -i net7-mysql sh -c 'mysql -uroot
+  -p"$MYSQL_ROOT_PASSWORD" net7_user'` with the server stopped.
 - **Where the avatar is:** `D3D8SHOT_CAMERA=FILE` makes the proxy write the frame's first view matrices to FILE
   (every 2nd Present). The first is the room camera; the avatar is 6.4 units ahead of it. Each room has its own
   coordinates; the room changes show in messages.log (`Changing room from A to B`).
@@ -657,13 +675,63 @@ the last name. Live antprox logs opcode numbers; e2e appends the names (`... = s
   camera move. A wall stops a walk: give a waypoint. `_sb_home.scn` logs in (`_login_live.scn`) and walks from
   any pad to room 1's middle; every `sb_*` scenario starts and ends there.
 - **Recording a person's session:** `e2e.py record --live --retail --instance NAME` starts the same session with
-  the input tag off, so the user plays. It writes `recorded.txt` (time, each key and click, a back-buffer shot
-  per click, the pose, the packets both ways until the next input) and `track.txt` (the walk and the room
+  the input tag off, so the user plays. It writes `recorded.txt` (time, each key and every button message: the
+  downs (`click`, `rclick`, `mclick`, each with a back-buffer shot), the double-clicks (`dblclick`, ...) and the
+  ups (`up`, `rup`, `mup`: where a drag let go; before 2026-11-18 only the downs were kept), the pose, the
+  packets both ways until the next input) and `track.txt` (the walk and the room
   changes). A scenario is written from it by hand: poses become `walk-to` / `face`, clicks keep their
   coordinates, the packets become the events to wait for.
 - **State:** GM chat commands put back what a scenario spends (`/createcredits N`, `/createitem ID COUNT`).
 - First results: `sb_vendor` (room 2, a vendor's talk tree and trade window, back) and `sb_talk` (an NPC's
   two-page talk tree) pass on retail in one session, 224 s.
+- 2026-11-18 (H1): `sb_buysell` (room 2's Miyoshi Basho: a vendor row and Buy, a cargo slot and Sell, each an
+  INVENTORY_MOVE; selling below the price paid asks 'You will take significant losses on this sale' Yes / No first;
+  a vendor refuses to buy back what she sells, Vila Mosj and Miyoshi alike: a warhead is bought, an Iron from
+  sb_refinery sold) and `sb_jobs` (room 3's job terminal: JOB_LIST,
+  the Combat / Trade / Explore tabs, the close box). The 2010 server listed no jobs (SectorManager::RefreshJobs
+  found no mission with a job category: JOB_LIST 8 bytes); since 2026-11-18 the server and DB have them (below). The buy / sell clicks of the recordings miss their double-clicks: the
+  recorder logs only button-downs (0x201 / 0x204 / 0x207), not 0x203 or the button-ups. Results: retail and ours
+  (this tree's clientpoc.exe at run/2026-11-18 1a45b1d78) pass all four `sb_*` in one session each (ours 417 s);
+  `e2e.py compare` reads live runs too (packet names only: the live log has no sizes; the walk's
+  STARBASE_AVATAR_CHANGE count follows the pilot, so it is left out), and sb_buysell, sb_jobs (4),
+  sb_vendor (7) and sb_talk (5) send the SAME packets on both.
+- 2026-11-18 (H1, phase 2): `sb_refinery` (room 1's refinery terminal at -29.7,-7.1: 'Choose resource to create'
+  lists what the cargo's ores make; Iron, then Refine 1 takes 5 Iron Ore and 92 credits, MANUFACTURE_ACTION; the
+  Iron reaches the cargo at the next login; `/createitem 2842 5` puts the ore back: a slash command goes out as
+  CLIENT_CHAT, not CLIENT_CHAT_REQUEST, and the chat entry does not open while a terminal window is up) and
+  `sb_manufacture` (room 1's manufacturing terminal at -43.4,40.6: the category tree, each node a
+  MANUFACTURE_ACTION, to a leaf's item list, MANUFACTURE_ITEM_CATAGORY, and its item, MANUFACTURE_ITEM_ID; the
+  server names the components '(missing)' and refuses; Manufacture stays disabled) and `sb_dismantle` (room 1's
+  dismantling terminal at -52.9,34.4: a Vesta 4P dragged onto 'Place Item Here', INVENTORY_MOVE on the button-up,
+  the parts listed, '<<Inv' takes it back, MANUFACTURE_ACTION; ammunition and ore do not dismantle and send
+  nothing; the Vesta was put in cargo column 2 row 2 once with `/createitem 3246 1`). New steps for it: `down
+  X,Y` and `up X,Y` (the left button pressed / moved there held and let go: a drag; the item windows move an item
+  on the button-up). `compare` now counts each scenario's packets from its own first step (the proxy's `mark
+  NAME`), so a session's first scenario no longer includes the login.
+  Results: retail passes all seven `sb_*`; ours (wt/H1 after its ui_manu / sbaseview / ui_analyze fixes) passes
+  all seven with no stand-in hit, and every scenario sends the SAME packets as retail (sb_buysell 9, sb_jobs 4,
+  sb_manufacture 7, sb_refinery 8, sb_dismantle 5, sb_vendor 7, sb_talk 5). Before the fixes ours crashed
+  opening the dismantling terminal (0x69F8F0 case 6 built a stand-in in place of UIAnalyzeClass 0x5435D0) and hit
+  generated stand-ins for the manufacturing window's sort scope (0x541980 / 0x6E18B0).
+- 2026-11-18 (H1, phase 3; the coordinator's Net7.exe and job missions 422 / 425-427, Joves Fury's terminal at
+  level 10: the board fills on RefreshJobs' 5-minute refresh after the server starts, 5-9 random jobs): the room-3
+  terminal is the one with the jobs. `sb_jobs_accept`: each tab and its first row (a tab alone sends nothing; a row
+  sends STARBASE_REQUEST 7, the server's JOB_DESCRIPTION), Accept Job on the Explore tab's first job (action 8,
+  JOB_ACCEPT_REPLY and the job item's ITEM_BASE), the close box (action 9; the server answers JOB_ACCEPT_REPLY too),
+  then the PDA's missions (U): the new third mission, its Forfeit (603,356), Yes on 'Are you sure you want to
+  forfeit this mission?' (500,405): MISSION_FORFEIT. A board without an Explore job fails it: rerun after the next
+  refresh. Leftover: the Deploy Satellite job's item stays in the cargo (a stack, column 2 row 4) after the forfeit.
+  JOB_DELETE is never sent (the server's notes). `sb_manufacture_make`: the Vesta 4P's three components by GM
+  (`/createitem 1381 1`, `1399 1`, `1435 1`: BlackBox CoreCage, Evolver PowR-Prison, Vortex Dielectric
+  Micro-Plates; net7 item_base), the tree to the Vesta 4P, Manufacture (MANUFACTURE_ACTION; about 3 s later the
+  server's PRIORITY_MESSAGE 'NAME manufactured a 200% Vesta 4P', 'Attempt Succeeded', the Vesta in cargo column 2
+  row 3), then the Vesta sold at Miyoshi Basho (PRIORITY_MESSAGE 'You have gained N credits'), so the cargo comes
+  back as it was (a spare set of components from failed tries stays in column 3). Retail and ours (wt/H1B) pass
+  both with no stand-in hit and the SAME packets (sb_jobs_accept 9, sb_manufacture_make 23).
+- **A character saved in space** (the local server sometimes keeps the undocked place: the login ends beside
+  Jove's Fury and `_sb_home` fails at its first walk-to, pose ~116000,-224000): `e2e.py --live localhost
+  --retail --instance NAME run _sb_dock` (named only) logs in, targets the station (641,1009, SET_TARGET) and
+  docks (the target panel's right verb, 1238,672, until SERVER_HANDOFF); then run the `sb_*` set again.
 
 **Smoke set (D237):** a landing that retires a stand-in runs `e2e.py run --exe <its worktree's clientpoc.exe>
 --instance <name>` and lands only with every line as expected.

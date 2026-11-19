@@ -12,7 +12,7 @@
 #include "..\..\ww3d2\assetmgr.h"
 #include "..\..\ww3d2\ww3d.h"
 #include "..\..\wwdebug\wwprofile.h"
-
+#include <string>	// the client object ends with <string>'s guard 0x6A9F80 (CRT entry 512)
 
 
 Splash::Splash(int type) :

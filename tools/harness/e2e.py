@@ -2,6 +2,7 @@ r"""End-to-end scenarios for client builds (D237): an input script plus log-even
 
     python tools/harness/e2e.py run [NAME...] [--instance ID] [--exe PATH] [--messages] [--keep] [--separate]
     python tools/harness/e2e.py run --retail [NAME...] --instance ID    the same scenarios against the retail client
+    python tools/harness/e2e.py --live --db-snapshot run sb_...    live, the character's rows put back afterwards
     python tools/harness/e2e.py compare DIR_OURS DIR_RETAIL    the two runs' packets per scenario, side by side
     python tools/harness/e2e.py list                       the scenarios, in order, with their expected-fail notes
     python tools/harness/e2e.py check [NAME...]            parse only (no client)
@@ -32,6 +33,8 @@ The format (one step a line, '#' comments, shell-style quoting):
     expect-no SOURCE PATTERN      from here to the scenario's end no line of SOURCE may match (checked continuously)
     expect-no CRASH               short for: expect-no stubs '^CRASH:' (every scenario has it from the start)
     click gadget NAME | click X,Y   rclick ... | move ...    mouse at a gadget of e2e/gadgets.txt or client pixels
+    down X,Y / up X,Y             the left button pressed at a point / moved there held and let go: a drag (the
+                                  client's item windows move an item on the button-up, e.g. into a terminal's slot)
     click X,Y until SOURCE PATTERN [redo K] [every S] [within T]   the click again every S seconds (default 0.5)
                                   until the line is seen (default T 60 s): for input the client ignores until it is
                                   ready. redo K: each repeat first posts the K input steps before this one again
@@ -102,7 +105,7 @@ ORDER = ['world_entry', 'starmap', 'options', 'pda_pages', 'cargo', 'chat']
 LAST = []
 STANDIN_HIT = 'stand-in hit:'
 SOURCES = ('antprox', 'stubs', 'msg', 'proxy', 'files', 'any')
-ACTIONS = ('click', 'rclick', 'move', 'key', 'text', 'stray')
+ACTIONS = ('click', 'rclick', 'move', 'down', 'up', 'key', 'text', 'stray')
 WALK_KEY = 0x41         # 'A': the starbase's walk key (the user's recording of 2026-11-15)
 
 
@@ -384,7 +387,7 @@ def parse(text, name='?', gadgets=None, loader=None, _depth=0):
             if len(args) != 2 or args[0] not in SOURCES:
                 raise ScenarioError(f'{where}: expect-no SOURCE PATTERN | expect-no CRASH')
             st.update(source=_source(args[0]), pattern=_regex(args[1], where))
-        elif op in ('click', 'rclick', 'move'):
+        elif op in ('click', 'rclick', 'move', 'down', 'up'):
             until = None
             if 'until' in args:
                 k = args.index('until')
@@ -1082,14 +1085,18 @@ def live_mode(args):
     return ['/SERVER:' + args.live, '/NET7BIN:' + args.net7bin, '/OPCODES'] + list(getattr(args, 'antprox_arg', None) or [])
 
 
-_REC_INPUT = re.compile(r'input: untagged (?:mouse 0x(20[147])|key 0x([0-9A-Fa-f]+))(?: at (-?\d+), (-?\d+))?')
+_REC_INPUT = re.compile(r'input: untagged (?:mouse 0x(20[1-9])|key 0x([0-9A-Fa-f]+))(?: at (-?\d+), (-?\d+))?')
+# every button message d3d8shot logs (In_Take: all but WM_MOUSEMOVE): the downs get a shot, the double-clicks
+# (0x203 / 0x206 / 0x209) and the ups (0x202 / 0x205 / 0x208: where a drag let go) are rows of their own
+_REC_BUTTON = {'201': 'click', '202': 'up', '203': 'dblclick', '204': 'rclick', '205': 'rup', '206': 'rdblclick',
+               '207': 'mclick', '208': 'mup', '209': 'mdblclick'}
 _REC_PACKET = re.compile(r'\b(received|sent) ([A-Z][A-Z0-9_]{3,})')
 _REC_NOISE = re.compile(r'KEEP_?ALIVE|TIME_REQUEST|CLIENT_SET_TIME|DEBUG|PING|STARBASE_AVATAR_CHANGE|OP_[23]')
 
 
 def record(args):
-    """A person plays one session (--live: against a live server). Every button-down and key-down the proxy logs
-    is a row; a button-down is followed by a back-buffer shot (shot_click_NNNN_*.png). The session is written as
+    """A person plays one session (--live: against a live server). Every button message (down, up, double-click)
+    and key-down the proxy logs is a row; a left or right button-down is followed by a back-buffer shot (shot_click_NNNN_*.png). The session is written as
     recorded.txt: each input with the packets that followed it. The source for new scenarios and gadgets.txt."""
     s = Session(args, [{'name': 'record', 'messages': True, 'timeout': 86400}])
     print(f'e2e record: play in the client window; close the client (or Ctrl+C here) to end. Logs: {s.out}',
@@ -1106,7 +1113,7 @@ def record(args):
         m = _REC_INPUT.search(text) if src == 'proxy' else None
         if m:
             what = (f'key 0x{m.group(2)}' if m.group(2) else
-                    {'201': 'click', '204': 'rclick', '207': 'mclick'}[m.group(1)] + f' {m.group(3)},{m.group(4)}')
+                    _REC_BUTTON[m.group(1)] + f' {m.group(3)},{m.group(4)}')
             rows.append([t, what, {}, '', where()])
             return
         m = re.search(r'Changing room from (-?\d+) to (-?\d+)', text) if src == 'msg' else None
@@ -1208,7 +1215,7 @@ def run_all(scs, args, report):
 def _desc(st):
     if st['op'] in ('wait-event', 'expect-event', 'expect-no'):
         return f'{st["source"]} {st["pattern"].pattern!r}'
-    if st['op'] in ('click', 'rclick', 'move'):
+    if st['op'] in ('click', 'rclick', 'move', 'down', 'up'):
         return ((f'gadget {st["gadget"]} ' if st['gadget'] else '') + f'({st["x"]},{st["y"]})'
                 + (f' until {st["until"]["source"]} {st["until"]["pattern"].pattern!r}' if st.get('until') else ''))
     if st['op'] == 'wait-quiet':
@@ -1251,10 +1258,17 @@ def sent_packets(run_dir):
             if src == 'e2e' and text.startswith('scenario '):
                 cur = text.split()[1]
                 out.setdefault(cur, [])
+            elif src == 'proxy' and cur and re.search(r': mark (\S+)', text) and text.split(': mark ')[1].split()[0] == cur:
+                out[cur] = []           # the scenario's first own step: the session's first scenario drops its includes
             elif src == 'antprox' and cur:
                 p = re.search(r'connection #\d+: received (\w+) 0x[0-9a-f]+, (\d+) bytes', text)
                 if p and not p.group(1).startswith(skip):
                     out[cur].append(f'{p.group(1)} {p.group(2)}')
+                # --live: 'Sending [0x0027] via UDP = received INVENTORY_MOVE' (name_live's, no size); the walk's
+                # STARBASE_AVATAR_CHANGE count follows the pilot's closed loops, not the scenario
+                p = None if p else re.search(r'Sending \[0x([0-9a-f]+)\] via \w+ = received (\w+)$', text)
+                if p and not p.group(2).startswith(skip + ('STARBASE_AVATAR_CHANGE',)):
+                    out[cur].append(p.group(2) if p.group(2) != 'OP_' else 'OP_' + p.group(1))
     return out
 
 
@@ -1320,6 +1334,119 @@ def default_exe():
     return p if os.path.exists(p) else None
 
 
+# --db-snapshot (D270): the live station scenarios change the character (a warhead bought, a job item per accepted
+# job, credits). Net-7 writes every change through to MySQL as it happens (SaveManager's queue) and reads the avatar's
+# rows at each login (Player::ReadSavedData), but a session that ends by stopping the client leaves the player in the
+# server until its link-dead drop, which queues hull, sector and ammo saves of its own (PlayerManager::
+# DropPlayerFromSector). So the rows are put back with Net7.exe stopped, then the server is started again.
+DB_CONTAINER = 'net7-mysql'
+DB_SCHEMA = 'net7_user'
+# net7_user's tables keyed by avatar_id that play changes (identity, account, guild and social tables are left alone)
+DB_TABLES = ('avatar_ammo', 'avatar_equipment', 'avatar_exploration', 'avatar_faction_level', 'avatar_info',
+             'avatar_inventory_items', 'avatar_level_info', 'avatar_mission_progress', 'avatar_position',
+             'avatar_recipes', 'avatar_skill_levels', 'avatar_trade_items', 'avatar_vault_items', 'faction_data',
+             'missions_completed', 'ship_data', 'ship_info')
+NET7_READY_PORT = 3693          # the last sector port Net7.exe opens ("Port: 3693" in its log, UDP)
+
+
+def db_exec(sql_cmd):
+    """docker exec argv running SQL_CMD (a shell command line) in the MySQL container; @PW becomes the root
+    password from the container's own environment."""
+    return ['docker', 'exec', '-i', DB_CONTAINER, 'sh', '-c', sql_cmd.replace('@PW', '-p"$MYSQL_ROOT_PASSWORD"')]
+
+
+def db_dump_cmd(avatar, tables=DB_TABLES):
+    """The argv that prints AVATAR's rows of TABLES as INSERTs only (no CREATE / DROP, no locks)."""
+    return db_exec(f'mysqldump -uroot @PW --no-create-info --skip-triggers --complete-insert --skip-add-locks '
+                   f'--skip-comments --compact --where="avatar_id={int(avatar)}" {DB_SCHEMA} ' + ' '.join(tables))
+
+
+def db_restore_cmd():
+    return db_exec(f'mysql -uroot @PW {DB_SCHEMA}')
+
+
+def db_restore_sql(avatar, inserts, tables=DB_TABLES):
+    """One transaction: delete AVATAR's rows of TABLES, insert the dumped ones. Nothing else is touched. The
+    session's foreign key checks are off (avatar_data, ship_data and ship_info reference avatar_info, ON DELETE
+    RESTRICT): the avatar_info row goes back with the same key in the same transaction."""
+    head = ['SET FOREIGN_KEY_CHECKS=0;', 'SET autocommit=0;', 'START TRANSACTION;']
+    head += [f'DELETE FROM `{t}` WHERE `avatar_id` = {int(avatar)};' for t in tables]
+    return '\n'.join(head) + '\n' + inserts.rstrip() + '\nCOMMIT;\nSET FOREIGN_KEY_CHECKS=1;\n'
+
+
+def _db_run(argv, stdin=None):
+    r = subprocess.run(argv, input=stdin, capture_output=True, text=True, encoding='utf-8')
+    err = '\n'.join(ln for ln in r.stderr.splitlines() if 'password on the command line' not in ln)
+    if r.returncode:
+        raise RuntimeError(f'{argv[-1][:60]}...: exit {r.returncode}: {err.strip()[:300]}')
+    return r.stdout
+
+
+def db_snapshot(avatar, folder):
+    """Dumps AVATAR's rows into FOLDER/avatar<N>.sql (the restore script, ready to run). Returns its path."""
+    os.makedirs(folder, exist_ok=True)
+    path = os.path.join(folder, f'avatar{int(avatar)}.sql')
+    sql = db_restore_sql(avatar, _db_run(db_dump_cmd(avatar)))
+    with open(path, 'w', encoding='utf-8', newline='\n') as f:
+        f.write(sql)
+    return path
+
+
+def _net7_pids(net7bin, name):
+    import json
+    ps = (f"Get-CimInstance Win32_Process -Filter \"name='{name}'\" | "
+          "Select-Object ProcessId,ExecutablePath | ConvertTo-Json -Compress")
+    r = subprocess.run(['powershell', '-NoProfile', '-Command', ps], capture_output=True, text=True)
+    rows = json.loads(r.stdout) if r.stdout.strip() else []
+    rows = [rows] if isinstance(rows, dict) else rows
+    want = os.path.normcase(os.path.abspath(net7bin))
+    return [x['ProcessId'] for x in rows
+            if not x.get('ExecutablePath') or os.path.normcase(os.path.dirname(x['ExecutablePath'])) == want]
+
+
+def net7_stop(net7bin):
+    """Stops NET7BIN's Net7.exe and the Net7SSL.exe it started (it holds port 443 for the next start)."""
+    for name in ('Net7.exe', 'Net7SSL.exe'):
+        for pid in _net7_pids(net7bin, name):
+            subprocess.run(['taskkill', '/F', '/T', '/PID', str(pid)], capture_output=True)
+
+
+def _udp_bound(port):
+    r = subprocess.run(['netstat', '-ano', '-p', 'UDP'], capture_output=True, text=True)
+    return any(f':{port} ' in ln for ln in r.stdout.splitlines())
+
+
+def net7_start(net7bin, within=240):
+    """Starts Net7.exe in its own console (as start_server.bat does) and waits until its last sector port is bound
+    (its log cannot be read while it runs: it holds the file without sharing). Returns True when ready."""
+    subprocess.Popen([os.path.join(net7bin, 'Net7.exe')], cwd=net7bin,
+                     creationflags=getattr(subprocess, 'CREATE_NEW_CONSOLE', 0))
+    end = time.time() + within
+    while time.time() < end:
+        if _udp_bound(NET7_READY_PORT):
+            return True
+        time.sleep(2)
+    return False
+
+
+def db_restore(path, net7bin, log=print):
+    """Stops Net7.exe, runs the restore script PATH, starts Net7.exe again (also when the restore fails)."""
+    log(f'e2e: --db-snapshot: stopping Net7.exe to restore {path}')
+    net7_stop(net7bin)
+    end = time.time() + 30
+    while _udp_bound(NET7_READY_PORT) and time.time() < end:
+        time.sleep(1)
+    try:
+        with open(path, encoding='utf-8') as f:
+            _db_run(db_restore_cmd(), f.read())
+        log('e2e: --db-snapshot: rows restored')
+    finally:
+        t0 = time.time()
+        ok = net7_start(net7bin)
+        log('e2e: --db-snapshot: Net7.exe ' + (f'ready in {time.time() - t0:.0f} s' if ok else
+                                                 f'not ready (port {NET7_READY_PORT} not bound)'))
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__.split('\n')[0])
     ap.add_argument('command', choices=['run', 'list', 'check', 'compare', 'record'])
@@ -1336,6 +1463,9 @@ def main(argv=None):
     ap.add_argument('--net7bin', default='C:\\EnBDevelopment\\Net7\\bin_local', help="--live: antprox's /NET7BIN")
     ap.add_argument('--antprox-arg', action='append', metavar='ARG',
                     help='--live: one more antprox argument (repeatable; an ARG starting with - needs --antprox-arg=ARG)')
+    ap.add_argument('--db-snapshot', nargs='?', const=6, type=int, metavar='AVATAR',
+                    help="--live: dump the avatar's rows (default 6) before the run and put them back after it "
+                         '(Net7.exe stopped for the restore, then started again)')
     args = ap.parse_args(argv)
     args.record = args.command == 'record'
     if args.live:
@@ -1375,8 +1505,19 @@ def main(argv=None):
         args.exe = default_exe()
     os.makedirs(OUT, exist_ok=True)
     sys.path.insert(0, HERE)
+    snap = None
+    if args.db_snapshot is not None:
+        if not args.live:
+            print('e2e: --db-snapshot needs --live')
+            return 2
+        snap = db_snapshot(args.db_snapshot, os.path.join(OUT, time.strftime('%H%M%S') + '-db-snapshot'))
+        print(f'e2e: --db-snapshot: avatar {args.db_snapshot} saved to {snap}', flush=True)
     t0 = time.time()
-    results = run_all(scs, args, lambda res: print(summary_line(res), flush=True))
+    try:
+        results = run_all(scs, args, lambda res: print(summary_line(res), flush=True))
+    finally:
+        if snap:
+            db_restore(snap, args.net7bin, lambda m: print(m, flush=True))
     bad = sum(verdict(res) in ('FAIL', 'XPASS') for res in results)
     print(f'e2e: {len(scs) - bad} of {len(scs)} as expected in {time.time() - t0:.0f} s; logs under {OUT}')
     if not args.keep:

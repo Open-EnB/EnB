@@ -378,21 +378,21 @@ RegistrationInterface::RegistrationInterface(UIViewClass *view, LayerClass *laye
 	TheDX8MeshRenderer.Invalidate();
 }
 
-// @0x5F0F10
+// @0x5F0F10 (through the uncalled 0x5F1660: the client inlines it here as its layer)
 RegistrationInterface::~RegistrationInterface()
 {
-	Unknown1B8 = NULL;
-	Unknown1B4 = NULL;
-	RegistrationUnknown1ACClass::Unknown_7CF190();
-	Unknown_5C();
-	InterfaceClass::Unknown_5C();
-	Unknown_5F3600();
-	UnknownBC->Unknown_67A670();
-	UnknownBC->Unknown_67A9B0(0);
-	UnknownBC->Unknown_67A9B0(3);
-	WW3DAssetManager::Get_Instance()->Free_Assets();
-	UnknownC0->Unknown0018->Unknown_515400();
+	Unknown_5F1660();
 }
+
+
+
+
+
+
+
+
+
+
 
 // @0x5F1660
 void RegistrationInterface::Unknown_5F1660()
@@ -410,7 +410,7 @@ void RegistrationInterface::Unknown_5F1660()
 	UnknownC0->Unknown0018->Unknown_515400();
 }
 
-// @0x5F1730
+// @0x5F1730 (the uncalled 0x5F1940 and 0x5FB030 inlined as the client's layers)
 void RegistrationInterface::Unknown_60()
 {
 	Unknown_5F2280();
@@ -422,28 +422,28 @@ void RegistrationInterface::Unknown_60()
 		(*combo).second.Combo->Unknown_60();
 		combo++;
 	}
-	if (UnknownD4 == 0x16) {
-		float frames = (float)Unknown1C0->Get_Num_Frames();
-		float frame = Unknown1BC->Get_Frame(0);
-		float seconds = WW3D::Get_Frame_Time() * 0.001f;
-		frame = seconds * 30.0f + frame;
-		if (frame > frames) {
-			frame = 0.0f;
-		}
-		Unknown1BC->Set_Frame(0, frame);
-		DialogRenderObj->Update_Sub_Object_Transforms();
-	}
+	Unknown_5F1940();
+
+
+
+
+
+
+
+
+
+
 	if (Unknown1C4 != 0 && --Unknown1C4 == 0) {
-		int width;
-		int height;
-		int bits;
-		bool windowed;
-		WW3D::Get_Device_Resolution(width, height, bits, windowed);
-		RenderObjClass *label = DialogRenderObj->Get_Sub_Object_By_Name("LABEL_TEXT");
-		Unknown_7CA2D0()->Unknown_7CA5C0(4, label, NULL);
-		UnknownC0->Unknown0018->Unknown_5153B0();
-		label->Release_Ref();
+		Unknown_5FB030();
 	}
+
+
+
+
+
+
+
+
 }
 
 // @0x5F1940
@@ -3678,8 +3678,8 @@ request_failed:
 static const char *ProductBeta = "EB-BETA";  // NAME 1 [ProductBeta]: client .data 0xB85EE4 (0x600000 compares the bundle ids with it)
 static const char *RegistrationGameId = "2184";  // NAME 1 [RegistrationGameId]: client .data 0xB85EF0 (0x600000: 0x7D7E10's third argument, atoi'd against the game features' ids)
 
-// NOT EXACT: shape (explain.py's first mismatch is a relocation, the string destructor's thunk; 3453 instructions against
-// 3085, frame 0x718 against 0xB34; D89; 0x5F86F0 out of line as the client's since IB): the client calls 0x603660 out of line
+// NOT EXACT: shape (explain.py's first mismatch is a relocation, the string destructor's thunk; 3426 instructions against
+// 3085, frame 0x718 against 0xB34; D89; 0x5F86F0 out of line as the client's since IB; case 7 through the uncalled 0x5FA5F0 (LY) calls 0x603660 / 0x605010 out of line as the client)
 // @0x600000
 void RegistrationInterface::Unknown_5F00C0()
 {
@@ -3968,9 +3968,9 @@ void RegistrationInterface::Unknown_5F00C0()
 			return;
 		case 7:
 			if (Unknown390.Unknown10 == 0) {
-				Unknown588 = Unknown1AC->Unknown_7D3570();
-				std::sort(Unknown588.begin(), Unknown588.end());
-				Unknown328 = Unknown588[0];
+				Unknown_5FA5F0();
+
+
 				if (Unknown328.Unknown10 == ProductEB && (Unknown328.Unknown20 == 3 || Unknown328.Unknown20 == 4)) {
 					if (Unknown11E) {
 						Unknown11B = true;
