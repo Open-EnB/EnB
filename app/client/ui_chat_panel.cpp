@@ -1983,7 +1983,7 @@ void ChatPanelInterface::Unknown_5698F0(int id)
 	UnknownD4 = Combo[index];
 	if (id == 8) UnknownD4->Select_Text(Unknown1F4.c_str());
 }
-// NOT EXACT: shape (functional, written from the disassembly; Chat_Default_Channel through the uncalled 0x567930: 1936 instructions vs 1937, residue 47 rows: the item text's size() test is threaded into its else in ours, not in the client, as in ui_pda_cargo 0x5D0620)
+// NOT EXACT: shape (functional, written from the disassembly; Chat_Default_Channel through the uncalled 0x567930, the emote packet a temporary with the id read first: 1936 instructions vs 1937, residue 34 rows: the selected text's size test is threaded into its else here; UIComboBoxClass::Get_Selected_Text() gives the client's start (as in 0x5D0620) but moves the RefCountPtr releases' registers, 83 rows)
 // 0x569A00
 void ChatPanelInterface::Unknown_569A00()
 {
@@ -2154,8 +2154,8 @@ void ChatPanelInterface::Unknown_569A00()
 		for (i = 0; i < 33; i++) {
 			if (!strcmp(text.c_str(), Unknown_B7C398[i][gender]) && avatar) {
 				avatar->Unknown_781760(Unknown_B7C398[i][2]);
-				AvatarEmotePacketClass packet(((ClientClass *)Client)->AvatarID, avatar->Unknown_7817E0(), 1, NULL);
-				((ClientClass *)Client)->Send_Packet(&packet);
+				int id = ((ClientClass *)Client)->AvatarID;
+				((ClientClass *)Client)->Send_Packet(&AvatarEmotePacketClass(id, avatar->Unknown_7817E0(), 1, NULL));
 				return;
 			}
 		}

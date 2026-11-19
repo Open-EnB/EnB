@@ -3314,7 +3314,7 @@ bad_login:
 			}
 			int this_year = Unknown124.tm_year;
 			bool flag = selected == 0x18;
-			std::string country(Unknown108[0x19].Combo->Get_Item_Text(Unknown108[0x19].Combo->Selected));
+			std::string country(Unknown108[0x19].Combo->Get_Selected_Text());
 			if (this_year - year == -1900 || !Unknown_5F8EA0(month, day, year)) {
 				UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "Please enter a valid birth date.", 0x140, 0, 0);
 			} else if (country.size() == 0) {
@@ -3401,7 +3401,7 @@ bad_login:
 			int month = Unknown108[0x14].Combo->Selected + 1;
 			UIComboBoxClass *combo = Unknown108[0x16].Combo;
 			int year = (unsigned)combo->Selected < combo->Items.size() ? atoi(combo->Items[combo->Selected].c_str()) : 0;
-			std::string country(Unknown108[0x19].Combo->Get_Item_Text(Unknown108[0x19].Combo->Selected));
+			std::string country(Unknown108[0x19].Combo->Get_Selected_Text());
 			int type = Unknown5A8[Unknown108[0x22].Combo->Selected].Unknown00;
 			if (strlen(first_name) == 0) {
 				UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "Please enter a valid First Name.", 0x140, 0, 0);
@@ -3490,7 +3490,7 @@ bad_login:
 			int month = Unknown108[0x14].Combo->Selected + 1;
 			UIComboBoxClass *combo = Unknown108[0x16].Combo;
 			int year = (unsigned)combo->Selected < combo->Items.size() ? atoi(combo->Items[combo->Selected].c_str()) : 0;
-			std::string country(Unknown108[0x19].Combo->Get_Item_Text(Unknown108[0x19].Combo->Selected));
+			std::string country(Unknown108[0x19].Combo->Get_Selected_Text());
 			int type = Unknown5A8[Unknown108[0x22].Combo->Selected].Unknown00;
 			if (strlen(first_name) == 0) {
 				UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "Please enter a valid First Name.", 0x140, 0, 0);

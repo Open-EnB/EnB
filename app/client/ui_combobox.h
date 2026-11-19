@@ -79,6 +79,7 @@ public:
 	bool Is_Pointer_Over();								// 0x57B610 (the text field or, when down, a row)  // NAME 2: describes what it does
 
 	const char *Get_Item_Text(unsigned index) { return(index < Items.size() ? Items[index].c_str() : ""); }	// (inline: 0x57AC70, 0x57AD50)  // NAME 2: describes what it does
+	const char *Get_Selected_Text() { return(Selected < Items.size() ? Items[Selected].c_str() : ""); }	// the selected item's text: the client's inlined copies (0x569A00, 0x5D0620) test the size before reading Selected  // NAME 1 [Get_Selected_Text]: what it returns
 	void Show_Selected();	// (inline: 0x57AC70, 0x57AD50; ui_combobox.cpp defines it: it needs the text gadget)  // NAME 2: describes what it does
 
 	UIMeshClass *Mesh;									// +0x84 ('Combo00', or the style's)  // NAME 2: its type and use

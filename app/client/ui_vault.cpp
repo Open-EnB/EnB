@@ -238,7 +238,7 @@ bool UIVaultClass::Unknown_68(int key)
 			return(UIInvClass::Unknown_68(key));
 	}
 	SoundLibraryClass::Play_2D_Sound("TextClick03.wav", 2);
-	FilterName = Filter->Get_Item_Text(Filter->Selected);
+	FilterName = Filter->Get_Selected_Text();
 	if (FilterName.size() == 0) {
 		return(true);
 	}
