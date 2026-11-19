@@ -68,12 +68,14 @@ class FuncletEvidence(unittest.TestCase):
                 objmatch.USE_FUNCLET_CALLS = False
                 objmatch.USE_CONTRIB_SHORTS = False     # CR8: its contribution places it too
                 objmatch.USE_CR1_NAMED_TARGETS = False  # CR1: its named targets place it too
+                objmatch.USE_CR7_FUNCLETS = False       # CR7: a located caller's funclet stream places it too
                 try:
                     res = {r['symbol']: r for r in objmatch.match_objects(img, [path])}
                 finally:
                     objmatch.USE_FUNCLET_CALLS = True
                     objmatch.USE_CONTRIB_SHORTS = True
                     objmatch.USE_CR1_NAMED_TARGETS = True
+                    objmatch.USE_CR7_FUNCLETS = True
                 self.assertEqual(res[sym]['status'], 'short')
 
 
@@ -756,6 +758,14 @@ class Cr7Callers(unittest.TestCase):
                       ('galaxy_map_render.obj', new % ('Sector', 'Sector'), '0x7B1C80'),
                       ('galaxy_map_render.obj', find, '0x7B1AB0')],
                'USE_CR7_POOL_ALIGN', 'cr6_named', APP_REGION)
+
+    def test_funclets(self):
+        """USE_CR7_FUNCLETS: Unknown_7A8B70's EH prologue pushes its FuncInfo's stub; the object's unwind funclets
+        destroy the System, Sector and Gate iterators in state order, the client's funclets jump to 0x7A9470,
+        0x7A94A0 and 0x7A94D0 (byte-identical destructors) in the same order."""
+        _check(self, [('galaxy_map_render.obj', '??1GalaxyMap%sIteratorClass@@QAE@XZ' % k, a)
+                      for k, a in (('System', '0x7A9470'), ('Sector', '0x7A94A0'), ('Gate', '0x7A94D0'))],
+               'USE_CR7_FUNCLETS', 'cr6_named', APP_REGION)
 
 
 class NbXcuStretch(unittest.TestCase):
