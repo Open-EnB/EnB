@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1971 |
 | 2 | describes what the code does | 4991 |
-| 1 | neutral placeholder | 25164 |
+| 1 | neutral placeholder | 25165 |
 
 ## For review (score 3 and below)
 
@@ -11488,24 +11488,25 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_565D80` | `app/client/ui_chat_panel.cpp:1066` | untagged neutral name (D10) |
 | 1 | `Unknown_567540` | `app/client/ui_chat_panel.cpp:1081` | untagged neutral name (D10) |
 | 1 | `Unknown_565F30` | `app/client/ui_chat_panel.cpp:1087` | untagged neutral name (D10) |
-| 1 | `Unknown_56C7E0` | `app/client/ui_chat_panel.cpp:1144` | untagged neutral name (D10) |
-| 1 | `Unknown_695F40` | `app/client/ui_chat_panel.cpp:1152` | untagged neutral name (D10) |
-| 1 | `Unknown_5682C0` | `app/client/ui_chat_panel.cpp:1186` | untagged neutral name (D10) |
-| 1 | `Unknown_56EED0` | `app/client/ui_chat_panel.cpp:1219` | untagged neutral name (D10) |
-| 1 | `Unknown_56EFB0` | `app/client/ui_chat_panel.cpp:1234` | untagged neutral name (D10) |
-| 1 | `Unknown_744E70` | `app/client/ui_chat_panel.cpp:1247` | untagged neutral name (D10) |
-| 1 | `Unknown_567970` | `app/client/ui_chat_panel.cpp:1273` | untagged neutral name (D10) |
-| 1 | `Unknown_5679A0` | `app/client/ui_chat_panel.cpp:1281` | untagged neutral name (D10) |
-| 1 | `Unknown_5680B0` | `app/client/ui_chat_panel.cpp:1285` | untagged neutral name (D10) |
-| 1 | `Unknown_567DF0` | `app/client/ui_chat_panel.cpp:1316` | untagged neutral name (D10) |
-| 1 | `Unknown_568440` | `app/client/ui_chat_panel.cpp:1357` | untagged neutral name (D10) |
-| 1 | `Unknown_56C7B0` | `app/client/ui_chat_panel.cpp:1368` | untagged neutral name (D10) |
-| 1 | `Unknown_568690` | `app/client/ui_chat_panel.cpp:1384` | untagged neutral name (D10) |
-| 1 | `Unknown_5688E0` | `app/client/ui_chat_panel.cpp:1394` | untagged neutral name (D10) |
-| 1 | `Unknown_568910` | `app/client/ui_chat_panel.cpp:1402` | untagged neutral name (D10) |
-| 1 | `Unknown_568950` | `app/client/ui_chat_panel.cpp:1408` | untagged neutral name (D10) |
-| 1 | `Unknown_74C840` | `app/client/ui_chat_panel.cpp:1423` | untagged neutral name (D10) |
-| 1 | `Unknown_5417D0` | `app/client/ui_chat_panel.cpp:1435` | untagged neutral name (D10) |
+| 1 | `Unknown_565F60` | `app/client/ui_chat_panel.cpp:1094` | untagged neutral name (D10) |
+| 1 | `Unknown_56C7E0` | `app/client/ui_chat_panel.cpp:1150` | untagged neutral name (D10) |
+| 1 | `Unknown_695F40` | `app/client/ui_chat_panel.cpp:1158` | untagged neutral name (D10) |
+| 1 | `Unknown_5682C0` | `app/client/ui_chat_panel.cpp:1192` | untagged neutral name (D10) |
+| 1 | `Unknown_56EED0` | `app/client/ui_chat_panel.cpp:1225` | untagged neutral name (D10) |
+| 1 | `Unknown_56EFB0` | `app/client/ui_chat_panel.cpp:1240` | untagged neutral name (D10) |
+| 1 | `Unknown_744E70` | `app/client/ui_chat_panel.cpp:1253` | untagged neutral name (D10) |
+| 1 | `Unknown_567970` | `app/client/ui_chat_panel.cpp:1279` | untagged neutral name (D10) |
+| 1 | `Unknown_5679A0` | `app/client/ui_chat_panel.cpp:1287` | untagged neutral name (D10) |
+| 1 | `Unknown_5680B0` | `app/client/ui_chat_panel.cpp:1291` | untagged neutral name (D10) |
+| 1 | `Unknown_567DF0` | `app/client/ui_chat_panel.cpp:1322` | untagged neutral name (D10) |
+| 1 | `Unknown_568440` | `app/client/ui_chat_panel.cpp:1363` | untagged neutral name (D10) |
+| 1 | `Unknown_56C7B0` | `app/client/ui_chat_panel.cpp:1374` | untagged neutral name (D10) |
+| 1 | `Unknown_568690` | `app/client/ui_chat_panel.cpp:1390` | untagged neutral name (D10) |
+| 1 | `Unknown_5688E0` | `app/client/ui_chat_panel.cpp:1400` | untagged neutral name (D10) |
+| 1 | `Unknown_568910` | `app/client/ui_chat_panel.cpp:1408` | untagged neutral name (D10) |
+| 1 | `Unknown_568950` | `app/client/ui_chat_panel.cpp:1414` | untagged neutral name (D10) |
+| 1 | `Unknown_74C840` | `app/client/ui_chat_panel.cpp:1429` | untagged neutral name (D10) |
+| 1 | `Unknown_5417D0` | `app/client/ui_chat_panel.cpp:1441` | untagged neutral name (D10) |
 | 1 | `Unknown_79B600` | `app/client/ui_chat_panel.cpp:2162` | untagged neutral name (D10) |
 | 1 | `Unknown_34` | `app/client/ui_chat_panel.cpp:2165` | untagged neutral name (D10) |
 | 1 | `Unknown1138` | `app/client/ui_chat_panel.cpp:2261` | untagged neutral name (D10) |
@@ -23959,13 +23960,13 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `PxAccurateOverlapStruct` | `app/shared/px_callback_accurate.h:31` | Overlaps' value (the overlap handling 0x44E470-0x44F200) |
 | 1 | `State` | `app/shared/px_callback_accurate.h:35` | what it holds |
 | 1 | `Flag` | `app/shared/px_callback_accurate.h:36` | as above |
-| 1 | `box, enter` | `app/shared/px_callback_accurate.h:63` | what it does |
-| 1 | `Tight_Enter` | `app/shared/px_callback_accurate.h:64` | what it does |
-| 1 | `Loose_Enter` | `app/shared/px_callback_accurate.h:65` | what it does |
-| 1 | `Tight_Exit` | `app/shared/px_callback_accurate.h:66` | what it does |
-| 1 | `Loose_Exit` | `app/shared/px_callback_accurate.h:67` | what it does |
-| 1 | `object, inside` | `app/shared/px_callback_accurate.h:68` | what it does |
-| 1 | `object, inside` | `app/shared/px_callback_accurate.h:69` | what it does |
+| 1 | `box, enter` | `app/shared/px_callback_accurate.h:65` | what it does |
+| 1 | `Tight_Enter` | `app/shared/px_callback_accurate.h:66` | what it does |
+| 1 | `Loose_Enter` | `app/shared/px_callback_accurate.h:67` | what it does |
+| 1 | `Tight_Exit` | `app/shared/px_callback_accurate.h:68` | what it does |
+| 1 | `Loose_Exit` | `app/shared/px_callback_accurate.h:69` | what it does |
+| 1 | `object, inside` | `app/shared/px_callback_accurate.h:70` | what it does |
+| 1 | `object, inside` | `app/shared/px_callback_accurate.h:71` | what it does |
 | 1 | `Unknown_453300` | `app/shared/px_callback_poll.cpp:106` | untagged neutral name (D10) |
 | 1 | `px_callback_poll.h` | `app/shared/px_callback_poll.h:12` | provisional header name (px_callback_poll.cpp's) |
 | 1 | `Unknown_453300` | `app/shared/px_callback_poll.h:61` | untagged neutral name (D10) |
@@ -29520,7 +29521,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `HeightTexture` | `app/shared/landdmap.h:68` | +0x34, D3DFMT_L8, managed (D3DXCreateTexture in the ctor) |
 | 2 | `IndexCount` | `app/shared/landdmap.h:69` | +0x38, (6 size - 6)(size - 1) (0x467A50) |
 | 2 | `VertexCount` | `app/shared/landdmap.h:70` | +0x3C, size squared (0x467A50) |
-| 2 | `Planes` | `app/shared/landdmap.h:71` | +0x40, the side planes of scale * view * proj (0x468240) |
+| 2 | `Planes` | `app/shared/landdmap.h:71` | +0x40, the side planes of scale * view * proj (0x468240: D3DXVECTOR4 differences, its ctor 0x468730 out of line) |
 | 2 | `FogStart` | `app/shared/landdmap.h:72` | +0x80, D3DRS_FOGSTART read back by 0x466F60 |
 | 2 | `FogEnd` | `app/shared/landdmap.h:73` | +0x84 |
 | 2 | `FogRange` | `app/shared/landdmap.h:74` | +0x88, FogEnd - FogStart |
@@ -29721,31 +29722,31 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `mask, test` | `app/shared/px_callback.h:28` | what it does |
 | 2 | `PxAccurateActiveStruct` | `app/shared/px_callback_accurate.h:39` | Active's element (8 bytes; the FAIL_IF 'it->Object != object') |
 | 2 | `Inside` | `app/shared/px_callback_accurate.h:42` | what it holds |
-| 2 | `PxAccurateCallback` | `app/shared/px_callback_accurate.h:51` | px_callback_accurate.cpp's base class |
-| 2 | `object, callback` | `app/shared/px_callback_accurate.h:54` | what it stores |
-| 2 | `object, src` | `app/shared/px_callback_accurate.h:55` | as the boxes' |
-| 2 | `Test` | `app/shared/px_callback_accurate.h:59` | what Process asks |
-| 2 | `Enter` | `app/shared/px_callback_accurate.h:60` | what it reports |
-| 2 | `Exit` | `app/shared/px_callback_accurate.h:61` | as above |
-| 2 | `Object` | `app/shared/px_callback_accurate.h:71` | the constructor's argument |
-| 2 | `Callback` | `app/shared/px_callback_accurate.h:72` | as PxPollCallback's |
-| 2 | `PxAccurateBox` | `app/shared/px_callback_accurate.h:82` | what it is |
-| 2 | `object, callback` | `app/shared/px_callback_accurate.h:85` | what it stores |
-| 2 | `src` | `app/shared/px_callback_accurate.h:86` | the copy's |
-| 2 | `Callback` | `app/shared/px_callback_accurate.h:91` | its owner |
-| 2 | `PxAccurateBoxCallback` | `app/shared/px_callback_accurate.h:98` | the accurate callback with a box |
-| 2 | `object, callback, extent` | `app/shared/px_callback_accurate.h:101` | what it stores |
-| 2 | `object, src` | `app/shared/px_callback_accurate.h:102` | as the boxes' |
-| 2 | `Box` | `app/shared/px_callback_accurate.h:112` | what it holds |
-| 2 | `Extent` | `app/shared/px_callback_accurate.h:113` | as PxPollCallback's |
-| 2 | `PxAccurateSphereCallback` | `app/shared/px_callback_accurate.h:121` | the accurate callback with a sphere |
-| 2 | `object, callback, radius` | `app/shared/px_callback_accurate.h:124` | what it stores |
-| 2 | `object, src` | `app/shared/px_callback_accurate.h:125` | as the boxes' |
-| 2 | `mask, test` | `app/shared/px_callback_accurate.h:133` | what it does |
-| 2 | `self` | `app/shared/px_callback_accurate.h:134` | as PxBox's |
-| 2 | `InnerBox` | `app/shared/px_callback_accurate.h:137` | the radius / sqrt(3) cube |
-| 2 | `OuterBox` | `app/shared/px_callback_accurate.h:138` | the radius cube |
-| 2 | `Radius` | `app/shared/px_callback_accurate.h:139` | what it holds |
+| 2 | `PxAccurateCallback` | `app/shared/px_callback_accurate.h:53` | px_callback_accurate.cpp's base class |
+| 2 | `object, callback` | `app/shared/px_callback_accurate.h:56` | what it stores |
+| 2 | `object, src` | `app/shared/px_callback_accurate.h:57` | as the boxes' |
+| 2 | `Test` | `app/shared/px_callback_accurate.h:61` | what Process asks |
+| 2 | `Enter` | `app/shared/px_callback_accurate.h:62` | what it reports |
+| 2 | `Exit` | `app/shared/px_callback_accurate.h:63` | as above |
+| 2 | `Object` | `app/shared/px_callback_accurate.h:73` | the constructor's argument |
+| 2 | `Callback` | `app/shared/px_callback_accurate.h:74` | as PxPollCallback's |
+| 2 | `PxAccurateBox` | `app/shared/px_callback_accurate.h:84` | what it is |
+| 2 | `object, callback` | `app/shared/px_callback_accurate.h:87` | what it stores |
+| 2 | `src` | `app/shared/px_callback_accurate.h:88` | the copy's |
+| 2 | `Callback` | `app/shared/px_callback_accurate.h:93` | its owner |
+| 2 | `PxAccurateBoxCallback` | `app/shared/px_callback_accurate.h:100` | the accurate callback with a box |
+| 2 | `object, callback, extent` | `app/shared/px_callback_accurate.h:103` | what it stores |
+| 2 | `object, src` | `app/shared/px_callback_accurate.h:104` | as the boxes' |
+| 2 | `Box` | `app/shared/px_callback_accurate.h:114` | what it holds |
+| 2 | `Extent` | `app/shared/px_callback_accurate.h:115` | as PxPollCallback's |
+| 2 | `PxAccurateSphereCallback` | `app/shared/px_callback_accurate.h:123` | the accurate callback with a sphere |
+| 2 | `object, callback, radius` | `app/shared/px_callback_accurate.h:126` | what it stores |
+| 2 | `object, src` | `app/shared/px_callback_accurate.h:127` | as the boxes' |
+| 2 | `mask, test` | `app/shared/px_callback_accurate.h:135` | what it does |
+| 2 | `self` | `app/shared/px_callback_accurate.h:136` | as PxBox's |
+| 2 | `InnerBox` | `app/shared/px_callback_accurate.h:139` | the radius / sqrt(3) cube |
+| 2 | `OuterBox` | `app/shared/px_callback_accurate.h:140` | the radius cube |
+| 2 | `Radius` | `app/shared/px_callback_accurate.h:141` | what it holds |
 | 2 | `PxPollCallback` | `app/shared/px_callback_poll.h:25` | px_callback_poll.cpp's base class |
 | 2 | `object, callback, extent` | `app/shared/px_callback_poll.h:28` | what it stores |
 | 2 | `object, src` | `app/shared/px_callback_poll.h:29` | as PxBoxList's |

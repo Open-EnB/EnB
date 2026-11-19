@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-855 entries in 307 files.
+850 entries in 307 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -767,7 +767,7 @@ edit the comments in the code, not this file.
 | `app/shared/land.cpp:641` | `LandClass::Set_Color` | mention | NOT EXACT, marked); VIDTEST draws its land with this class since 2026-10-28 (D101), and its trees: Create_Decorations 0x479D00 (VIDTEST 0x415C40) and Build_Decorations 0x47A2F0 (= VIDTEST 0x416170) fill the patch records that Render draws (both functional; drawcheck frame 900 the original's draws). The zone loader (mainview 0x5137F0) reads land_%04d.dcb with Load_Decorations 0x4795D0 and builds fr... |
 | `app/shared/land.cpp:648` | `LandClass::Set_Color` | mention | NOT EXACT, marked; nothing calls either). The client builds this code as three objects (their COMDATs close each: LandClass's inline virtuals and the deque's at 0x46BEC0-0x46C6E0 after Save_Sea_Mask, the RefCountPtr<RenderObjClass> vector's at 0x474000-0x4744C0 before LandPatchClass 0x474530, the decorations' from 0x47CCE0; Load_Assets calls the patch's constructor and Init out of line): this file... |
 | `app/shared/landdmap.cpp:149` | `LandUnknown466BE0Class::Unknown_466F60` | marker | NOT EXACT: frame (0x466F60: 0x218, the client 0x220; 18 rows with registers masked, 68 without; the client copies X / Y spacing through stack temporaries before the scaling multiplies, stores the integer 1 of constant 4 twice (+0x5C and +0x4C), and swaps ecx / edx in the three GetTransform calls; docs/attempts/466F60/tryv2_forms.py, attempts.csv) |
-| `app/shared/landdmap.cpp:438` | `LandUnknown466BE0Class::Unknown_468240` | marker | NOT EXACT: functional, from the disassembly and pseudocode of 0x468240 |
+| `app/shared/landdmap.cpp:438` | `LandUnknown466BE0Class::Unknown_468240` | marker | NOT EXACT: inline budget (the client inlines the unary operator- at all four sites, ours sends its ctor 0x468730 out; attempts.py show 0x468240) |
 | `app/shared/landdmap.cpp:461` | `LandUnknown466BE0Class::Unknown_468760` | marker | NOT EXACT: functional, from the disassembly and pseudocode of 0x468760 |
 | `app/shared/landdmap.cpp:497` | `LandUnknown466BE0Class::Unknown_468920` | marker | NOT EXACT: frame (0x8C, the client 0x90: the client keeps X on the FPU and Y in a spare slot for the upper point instead of reloading them, and holds the cell counter in memory; masked residue 138 -> 45 rows, 20 with registers masked). The corner indices are 16-bit products (imul bx, di); the position is copied as a POD (integer moves) and the corner picked through an if-chain on k (an inlined acc... |
 | `app/shared/landdmap.cpp:593` | `LandUnknown466BE0Class::Unknown_468D50` | mention | NOT EXACT (Matrox only, never run): the draw 0x466F60 and its helpers 0x468240, 0x468760, 0x468920, 0x468D50. |
@@ -782,16 +782,11 @@ edit the comments in the code, not this file.
 | `app/shared/px.cpp:487` | `PxList::Set_Self` | marker | NOT EXACT: register (as 0x44C2E0; attempts.py show 0x44C520) |
 | `app/shared/px.cpp:561` | `PxList::Set_Test_Mask` | marker | NOT EXACT: register (as 0x44C2E0; attempts.py show 0x44C690) |
 | `app/shared/px.cpp:600` | `PxList::Set_Corners` | marker | NOT EXACT: inline budget (the client calls vector::insert(it, x) out of line; attempts.py show 0x44C900) |
-| `app/shared/px_callback_accurate.cpp:9` | `PxAccurateCallback::PxAccurateCallback` | marker | NOT EXACT: inline budget (the client calls __stl_next_prime, the buckets' reserve 0x451420 and insert 0x451520 out of line; ours inlines them; attempts.py show 0x44E020) |
-| `app/shared/px_callback_accurate.cpp:19` | `PxAccurateCallback::PxAccurateCallback` | marker | NOT EXACT: inline budget (as 0x44E020; attempts.py show 0x44E260) |
 | `app/shared/px_callback_accurate.cpp:34` | `PxAccurateCallback::Overlap` | marker | NOT EXACT: inline budget (the client inlines Activate / Deactivate in the exit half only and calls the hash_map's find_or_insert 0x4517C0 out of line; ours inlines Deactivate in Tight_Enter; attempts.py show 0x44E470) |
-| `app/shared/px_callback_accurate.cpp:208` | `PxAccurateBoxCallback::PxAccurateBoxCallback` | marker | NOT EXACT: inline budget (the base's hash_map constructor is called out of line, 0x450DB0) |
 | `app/shared/px_callback_accurate.cpp:221` | `PxAccurateBox::On_Enter` | marker | NOT EXACT: inline budget (the client calls Activate 0x44EF80 out of line, ours inlines it; attempts.py show 0x44F5D0) |
 | `app/shared/px_callback_accurate.cpp:228` | `PxAccurateBox::On_Exit` | marker | NOT EXACT: inline budget (as 0x44F5D0; attempts.py show 0x44F6E0) |
 | `app/shared/px_callback_accurate.cpp:235` | `PxAccurateBoxCallback::PxAccurateBoxCallback` | marker | NOT EXACT: inline budget (as 0x44F3D0) |
 | `app/shared/px_callback_accurate.cpp:246` | `PxAccurateBoxCallback::Clone` | marker | NOT EXACT: inline budget (it inlines the copy constructor 0x44F8F0) |
-| `app/shared/px_callback_accurate.cpp:298` | `PxAccurateSphereCallback::PxAccurateSphereCallback` | marker | NOT EXACT: inline budget (as 0x44F3D0) |
-| `app/shared/px_callback_accurate.cpp:315` | `PxAccurateSphereCallback::PxAccurateSphereCallback` | marker | NOT EXACT: inline budget (as 0x44F3D0) |
 | `app/shared/px_callback_accurate.cpp:328` | `PxAccurateSphereCallback::Clone` | marker | NOT EXACT: inline budget (it inlines the copy constructor 0x450350) |
 | `app/shared/px_collision.cpp:95` | `PxCollision::Unknown_453F10` | marker | NOT EXACT: register (the setup copies through eax alone where ours uses ecx / edx too: the client keeps self / other in ecx / edi from the start; moving their initialisation to the top made it worse, 151 -> 198 rows; attempts.py show 0x453F10) |
 | `app/shared/px_collision.cpp:231` | `PxCollision::Unknown_454730` | marker | NOT EXACT: order (the first inlined OBBoxClass::Transform, A's box with both reps, multiplies centre by matrix where ours loads the matrix first: 18 rows; frame and every other instruction match; attempts.py show 0x454730) |
