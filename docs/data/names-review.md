@@ -10,8 +10,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 226 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1971 |
-| 2 | describes what the code does | 4987 |
-| 1 | neutral placeholder | 25443 |
+| 2 | describes what the code does | 4991 |
+| 1 | neutral placeholder | 25425 |
 
 ## For review (score 3 and below)
 
@@ -2595,21 +2595,16 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_64D230` | `app/client/cpacket.cpp:1621` | untagged neutral name (D10) |
 | 1 | `Unknown_81F810` | `app/client/cpacket.cpp:1632` | untagged neutral name (D10) |
 | 1 | `Unknown_81F780` | `app/client/cpacket.cpp:1643` | untagged neutral name (D10) |
-| 1 | `Unknown6EF4C0Class` | `app/client/cpacket.cpp:1688` | neutral (D10) |
-| 1 | `client, id, time, duration, unknown, text, offset, velocity` | `app/client/cpacket.cpp:1691` | what the handler passes |
-| 1 | `Unknown_18` | `app/client/cpacket.cpp:1699` | untagged neutral name (D10) |
-| 1 | `Unknown_1C` | `app/client/cpacket.cpp:1700` | untagged neutral name (D10) |
-| 1 | `Unknown_20` | `app/client/cpacket.cpp:1701` | untagged neutral name (D10) |
-| 1 | `id` | `app/client/cpacket.cpp:1703` | the packet's Victim |
-| 1 | `Unknown04` | `app/client/cpacket.cpp:1705` | untagged neutral name (D10) |
 | 1 | `Unknown_583DC0` | `app/client/cpacket.cpp:1776` | untagged neutral name (D10) |
 | 1 | `Unknown_6D8780` | `app/client/cpacket.cpp:1780` | untagged neutral name (D10) |
+| 1 | `Unknown6EF4C0EffectClass` | `app/client/cpacket.cpp:1782` | untagged neutral name (D10) |
 | 1 | `Unknown_48` | `app/client/cpacket.cpp:1785` | untagged neutral name (D10) |
 | 1 | `Unknown1278` | `app/client/cpacket.cpp:1850` | untagged neutral name (D10) |
 | 1 | `Unknown_661940` | `app/client/cpacket.cpp:1850` | untagged neutral name (D10) |
 | 1 | `Unknown_8C` | `app/client/cpacket.cpp:1853` | untagged neutral name (D10) |
 | 1 | `Unknown_40` | `app/client/cpacket.cpp:1855` | untagged neutral name (D10) |
 | 1 | `Unknown_6603A0` | `app/client/cpacket.cpp:1857` | untagged neutral name (D10) |
+| 1 | `Unknown_1C` | `app/client/cpacket.cpp:1857` | untagged neutral name (D10) |
 | 1 | `Unknown_6607D0` | `app/client/cpacket.cpp:1858` | untagged neutral name (D10) |
 | 1 | `Unknown1328` | `app/client/cpacket.cpp:1891` | untagged neutral name (D10) |
 | 1 | `Unknown_581F90` | `app/client/cpacket.cpp:1929` | untagged neutral name (D10) |
@@ -2626,6 +2621,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_8B7C60` | `app/client/cpacket.cpp:2136` | untagged neutral name (D10) |
 | 1 | `Unknown_8B6FC0` | `app/client/cpacket.cpp:2137` | untagged neutral name (D10) |
 | 1 | `Unknown00` | `app/client/cpacket.cpp:2138` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `app/client/cpacket.cpp:2138` | untagged neutral name (D10) |
 | 1 | `Unknown54` | `app/client/cpacket.cpp:2152` | untagged neutral name (D10) |
 | 1 | `Unknown1E4` | `app/client/cpacket.cpp:2173` | untagged neutral name (D10) |
 | 1 | `Unknown1134` | `app/client/cpacket.cpp:2177` | untagged neutral name (D10) |
@@ -7116,10 +7112,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown0A` | `app/client/sbase_info.cpp:48` | untagged neutral name (D10) |
 | 1 | `Unknown0B` | `app/client/sbase_info.cpp:49` | untagged neutral name (D10) |
 | 1 | `Unknown0C` | `app/client/sbase_info.cpp:50` | untagged neutral name (D10) |
-| 1 | `Unknown10` | `app/client/sbase_info.cpp:51` | untagged neutral name (D10) |
-| 1 | `Unknown14` | `app/client/sbase_info.cpp:52` | untagged neutral name (D10) |
 | 1 | `Unknown18` | `app/client/sbase_info.cpp:53` | untagged neutral name (D10) |
 | 1 | `Convert_Unknown1C` | `app/client/sbase_info.cpp:301` | neutral (D10) |
+| 1 | `Unknown10` | `app/client/sbase_info.cpp:353` | untagged neutral name (D10) |
 | 1 | `UNKNOWN_8` | `app/client/sbase_info.h:46` | neutral (D10): no LOUNGE_NPC number gives it |
 | 1 | `UNKNOWN_9` | `app/client/sbase_info.h:47` | neutral (D10): LOUNGE_NPC's 9 (an ico_encyclo icon) |
 | 1 | `unknown08` | `app/client/sbase_info.h:50` | neutral |
@@ -7133,8 +7128,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown0A` | `app/client/sbase_info.h:115` | untagged neutral name (D10) |
 | 1 | `Unknown0B` | `app/client/sbase_info.h:116` | untagged neutral name (D10) |
 | 1 | `Unknown0C` | `app/client/sbase_info.h:117` | untagged neutral name (D10) |
-| 1 | `Unknown10` | `app/client/sbase_info.h:118` | untagged neutral name (D10) |
-| 1 | `Unknown14` | `app/client/sbase_info.h:119` | untagged neutral name (D10) |
 | 1 | `Unknown18` | `app/client/sbase_info.h:120` | untagged neutral name (D10) |
 | 1 | `Unknown_77B7D0, t` | `app/client/sbaseview.cpp:39` | neutral (D10) |
 | 1 | `Unknown_77B7D0` | `app/client/sbaseview.cpp:39` | untagged neutral name (D10) |
@@ -7288,6 +7281,18 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6A2500` | `app/client/sbaseview.cpp:1679` | untagged neutral name (D10) |
 | 1 | `sbaseview` | `app/client/sbaseview.h:10` | provisional, the view's file (sbaseview.cpp, D24) |
 | 1 | `Unknown78A910AvatarClass` | `app/client/sbaseview.h:32` | neutral (D10) |
+| 1 | `UIStarbaseUnknown1F8Class` | `app/client/sbaseview.h:50` | neutral (D10) |
+| 1 | `sclient` | `app/client/sbaseview.h:53` | what 0x634140 passes |
+| 1 | `Unknown_58` | `app/client/sbaseview.h:55` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/sbaseview.h:56` | untagged neutral name (D10) |
+| 1 | `key` | `app/client/sbaseview.h:57` | InterfaceClass's |
+| 1 | `Unknown_68` | `app/client/sbaseview.h:57` | untagged neutral name (D10) |
+| 1 | `Unknown_645510` | `app/client/sbaseview.h:58` | untagged neutral name (D10) |
+| 1 | `Unknown_645A60` | `app/client/sbaseview.h:59` | untagged neutral name (D10) |
+| 1 | `Unknown_645CC0` | `app/client/sbaseview.h:60` | untagged neutral name (D10) |
+| 1 | `Unknown_645CE0` | `app/client/sbaseview.h:61` | untagged neutral name (D10) |
+| 1 | `Unknown_645DC0` | `app/client/sbaseview.h:62` | untagged neutral name (D10) |
+| 1 | `Unknown84` | `app/client/sbaseview.h:63` | untagged neutral name (D10) |
 | 1 | `UIStarbaseUnknownD4Hash` | `app/client/sbaseview.h:77` | neutral (D10): the hasher |
 | 1 | `UIStarbaseUnknownD4Equal` | `app/client/sbaseview.h:78` | neutral (D10): the key test |
 | 1 | `UIStarbaseUnknownD4GetKey` | `app/client/sbaseview.h:79` | neutral (D10): the key getter (0x643C20 copies a default one's byte) |
@@ -7354,11 +7359,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_63E5C0` | `app/client/sbaseview.h:237` | untagged neutral name (D10) |
 | 1 | `Unknown_6435E0` | `app/client/sbaseview.h:238` | untagged neutral name (D10) |
 | 1 | `Unknown_54` | `app/client/sbaseview.h:240` | untagged neutral name (D10) |
-| 1 | `Unknown_58` | `app/client/sbaseview.h:240` | untagged neutral name (D10) |
-| 1 | `Unknown_5C` | `app/client/sbaseview.h:240` | untagged neutral name (D10) |
 | 1 | `Unknown_60` | `app/client/sbaseview.h:240` | untagged neutral name (D10) |
 | 1 | `key` | `app/client/sbaseview.h:241` | InterfaceClass's; NAME 3 [manager]: the FAIL_IFs' |
-| 1 | `Unknown_68` | `app/client/sbaseview.h:241` | untagged neutral name (D10) |
 | 1 | `Unknown_70` | `app/client/sbaseview.h:241` | untagged neutral name (D10) |
 | 1 | `Unknown_74` | `app/client/sbaseview.h:241` | untagged neutral name (D10) |
 | 1 | `view, arg` | `app/client/sbaseview.h:242` | InterfaceClass's |
@@ -7397,7 +7399,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown1B8` | `app/client/sbaseview.h:270` | untagged neutral name (D10) |
 | 1 | `Unknown1BC` | `app/client/sbaseview.h:271` | untagged neutral name (D10) |
 | 1 | `Unknown1EC` | `app/client/sbaseview.h:272` | untagged neutral name (D10) |
-| 1 | `Unknown1F8` | `app/client/sbaseview.h:273` | neutral (D10): the interface's class unknown |
+| 1 | `Unknown1F8` | `app/client/sbaseview.h:273` | untagged neutral name (D10) |
 | 1 | `Unknown1FC` | `app/client/sbaseview.h:274` | untagged neutral name (D10) |
 | 1 | `Unknown1FD` | `app/client/sbaseview.h:274` | untagged neutral name (D10) |
 | 1 | `Unknown1FE` | `app/client/sbaseview.h:274` | untagged neutral name (D10) |
@@ -7594,7 +7596,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown78` | `app/client/sbaseview.h:450` | untagged neutral name (D10) |
 | 1 | `Unknown7C` | `app/client/sbaseview.h:451` | untagged neutral name (D10) |
 | 1 | `Unknown80` | `app/client/sbaseview.h:452` | untagged neutral name (D10) |
-| 1 | `Unknown84` | `app/client/sbaseview.h:453` | untagged neutral name (D10) |
 | 1 | `UnknownB4` | `app/client/sbaseview.h:454` | untagged neutral name (D10) |
 | 1 | `UnknownE4` | `app/client/sbaseview.h:455` | untagged neutral name (D10) |
 | 1 | `UnknownE8` | `app/client/sbaseview.h:456` | untagged neutral name (D10) |
@@ -18897,17 +18898,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_B8A8D8` | `app/client/ui_starbase.cpp:606` | neutral (D10): the undocking sounds (0x638500) |
 | 1 | `UIStarbaseSymbolChatOptionStruct` | `app/client/ui_starbase.cpp:621` | neutral (D10): a row of the menu (0x0C bytes: 0x645510 news it) |
 | 1 | `Unknown51C800Class` | `app/client/ui_starbase.cpp:626` | untagged neutral name (D10) |
-| 1 | `UIStarbaseUnknown1F8Class` | `app/client/ui_starbase.cpp:629` | neutral (D10) |
-| 1 | `sclient` | `app/client/ui_starbase.cpp:632` | what 0x634140 passes |
-| 1 | `Unknown_58` | `app/client/ui_starbase.cpp:634` | untagged neutral name (D10) |
-| 1 | `key` | `app/client/ui_starbase.cpp:636` | InterfaceClass's |
-| 1 | `Unknown_68` | `app/client/ui_starbase.cpp:636` | untagged neutral name (D10) |
-| 1 | `Unknown_645510` | `app/client/ui_starbase.cpp:637` | untagged neutral name (D10) |
-| 1 | `Unknown_645A60` | `app/client/ui_starbase.cpp:638` | untagged neutral name (D10) |
-| 1 | `Unknown_645CC0` | `app/client/ui_starbase.cpp:639` | untagged neutral name (D10) |
-| 1 | `Unknown_645CE0` | `app/client/ui_starbase.cpp:640` | untagged neutral name (D10) |
-| 1 | `Unknown_645DC0` | `app/client/ui_starbase.cpp:641` | untagged neutral name (D10) |
-| 1 | `Unknown84` | `app/client/ui_starbase.cpp:642` | untagged neutral name (D10) |
 | 1 | `Unknown_B8AA18` | `app/client/ui_starbase.cpp:653` | neutral (D10) |
 | 1 | `Unknown_B90BF8` | `app/client/ui_starbase.cpp:654` | neutral (D10): the facilities' tooltips by type (0x639630) |
 | 1 | `Unknown_B90C2C` | `app/client/ui_starbase.cpp:655` | neutral (D10) |
@@ -18935,6 +18925,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown64` | `app/client/ui_starbase.cpp:692` | untagged neutral name (D10) |
 | 1 | `Unknown_6870E0` | `app/client/ui_starbase.cpp:692` | untagged neutral name (D10) |
 | 1 | `Unknown_5BB4F0` | `app/client/ui_starbase.cpp:693` | untagged neutral name (D10) |
+| 1 | `UIStarbaseUnknown1F8Class` | `app/client/ui_starbase.cpp:695` | untagged neutral name (D10) |
 | 1 | `Unknown_6A1880` | `app/client/ui_starbase.cpp:699` | untagged neutral name (D10) |
 | 1 | `Unknown_74C7B0` | `app/client/ui_starbase.cpp:701` | untagged neutral name (D10) |
 | 1 | `Unknown_728330` | `app/client/ui_starbase.cpp:706` | untagged neutral name (D10) |
@@ -19009,6 +19000,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_63FCB0` | `app/client/ui_starbase.cpp:1461` | untagged neutral name (D10) |
 | 1 | `UnknownB4` | `app/client/ui_starbase.cpp:1465` | untagged neutral name (D10) |
 | 1 | `Unknown_5473B0` | `app/client/ui_starbase.cpp:1466` | untagged neutral name (D10) |
+| 1 | `Unknown_68` | `app/client/ui_starbase.cpp:1475` | untagged neutral name (D10) |
 | 1 | `Unknown_69CCD0` | `app/client/ui_starbase.cpp:1477` | untagged neutral name (D10) |
 | 1 | `Unknown_63B630` | `app/client/ui_starbase.cpp:1481` | untagged neutral name (D10) |
 | 1 | `Unknown_69E6E0` | `app/client/ui_starbase.cpp:1513` | untagged neutral name (D10) |
@@ -19022,6 +19014,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown1BC` | `app/client/ui_starbase.cpp:1550` | untagged neutral name (D10) |
 | 1 | `Unknown310` | `app/client/ui_starbase.cpp:1567` | untagged neutral name (D10) |
 | 1 | `Unknown30C` | `app/client/ui_starbase.cpp:1568` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `app/client/ui_starbase.cpp:1622` | untagged neutral name (D10) |
 | 1 | `Unknown_760770` | `app/client/ui_starbase.cpp:1628` | untagged neutral name (D10) |
 | 1 | `Unknown_69DBA0` | `app/client/ui_starbase.cpp:1629` | untagged neutral name (D10) |
 | 1 | `Unknown_5B8B20` | `app/client/ui_starbase.cpp:1629` | untagged neutral name (D10) |
@@ -19062,11 +19055,13 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6FFE90` | `app/client/ui_starbase.cpp:2342` | untagged neutral name (D10) |
 | 1 | `Unknown_74D990` | `app/client/ui_starbase.cpp:2522` | untagged neutral name (D10) |
 | 1 | `Unknown_63DCD0` | `app/client/ui_starbase.cpp:2528` | untagged neutral name (D10) |
+| 1 | `Unknown_645CE0` | `app/client/ui_starbase.cpp:2545` | untagged neutral name (D10) |
 | 1 | `Unknown_7885D0` | `app/client/ui_starbase.cpp:2717` | untagged neutral name (D10) |
 | 1 | `Unknown_687150` | `app/client/ui_starbase.cpp:2720` | untagged neutral name (D10) |
 | 1 | `Unknown_63CA50` | `app/client/ui_starbase.cpp:2762` | untagged neutral name (D10) |
 | 1 | `Unknown_6FFF00` | `app/client/ui_starbase.cpp:2777` | untagged neutral name (D10) |
 | 1 | `Unknown_63D060` | `app/client/ui_starbase.cpp:2830` | untagged neutral name (D10) |
+| 1 | `Unknown_645DC0` | `app/client/ui_starbase.cpp:2983` | untagged neutral name (D10) |
 | 1 | `Unknown135C` | `app/client/ui_starbase.cpp:2991` | untagged neutral name (D10) |
 | 1 | `Unknown_5658B0` | `app/client/ui_starbase.cpp:2999` | untagged neutral name (D10) |
 | 1 | `Unknown_744E70` | `app/client/ui_starbase.cpp:3000` | untagged neutral name (D10) |
@@ -20251,26 +20246,24 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_BDBB84` | `app/client/unknown_644e50.cpp:95` | untagged neutral name (D10) |
 | 1 | `UIStarbaseSymbolChatOptionStruct` | `app/client/unknown_644e50.cpp:111` | neutral (D10): a row of the menu (0x0C bytes: 0x645510 news it) |
 | 1 | `Unknown51C800Class` | `app/client/unknown_644e50.cpp:116` | untagged neutral name (D10) |
-| 1 | `UIStarbaseUnknown1F8Class` | `app/client/unknown_644e50.cpp:119` | neutral (D10) |
-| 1 | `sclient` | `app/client/unknown_644e50.cpp:122` | what 0x634140 passes |
-| 1 | `Unknown_58` | `app/client/unknown_644e50.cpp:124` | untagged neutral name (D10) |
-| 1 | `Unknown_5C` | `app/client/unknown_644e50.cpp:125` | untagged neutral name (D10) |
-| 1 | `key` | `app/client/unknown_644e50.cpp:126` | InterfaceClass's |
-| 1 | `Unknown_68` | `app/client/unknown_644e50.cpp:126` | untagged neutral name (D10) |
-| 1 | `Unknown_645510` | `app/client/unknown_644e50.cpp:127` | untagged neutral name (D10) |
-| 1 | `Unknown_645A60` | `app/client/unknown_644e50.cpp:128` | untagged neutral name (D10) |
-| 1 | `Unknown_645CC0` | `app/client/unknown_644e50.cpp:129` | untagged neutral name (D10) |
-| 1 | `Unknown_645CE0` | `app/client/unknown_644e50.cpp:130` | untagged neutral name (D10) |
-| 1 | `Unknown_645DC0` | `app/client/unknown_644e50.cpp:131` | untagged neutral name (D10) |
-| 1 | `Unknown84` | `app/client/unknown_644e50.cpp:132` | untagged neutral name (D10) |
+| 1 | `UIStarbaseUnknown1F8Class` | `app/client/unknown_644e50.cpp:167` | untagged neutral name (D10) |
+| 1 | `Unknown84` | `app/client/unknown_644e50.cpp:169` | untagged neutral name (D10) |
 | 1 | `Unknown_BE67BC` | `app/client/unknown_644e50.cpp:176` | untagged neutral name (D10) |
 | 1 | `Unknown64` | `app/client/unknown_644e50.cpp:182` | untagged neutral name (D10) |
 | 1 | `Unknown_6870E0` | `app/client/unknown_644e50.cpp:182` | untagged neutral name (D10) |
 | 1 | `Unknown_65FFA0` | `app/client/unknown_644e50.cpp:183` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/unknown_644e50.cpp:191` | untagged neutral name (D10) |
+| 1 | `Unknown_645A60` | `app/client/unknown_644e50.cpp:194` | untagged neutral name (D10) |
 | 1 | `Unknown_687150` | `app/client/unknown_644e50.cpp:204` | untagged neutral name (D10) |
+| 1 | `Unknown_645510` | `app/client/unknown_644e50.cpp:221` | untagged neutral name (D10) |
 | 1 | `Unknown_74D690` | `app/client/unknown_644e50.cpp:243` | untagged neutral name (D10) |
 | 1 | `Unknown_74D570` | `app/client/unknown_644e50.cpp:243` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `app/client/unknown_644e50.cpp:283` | untagged neutral name (D10) |
 | 1 | `Unknown_50` | `app/client/unknown_644e50.cpp:293` | untagged neutral name (D10) |
+| 1 | `Unknown_68` | `app/client/unknown_644e50.cpp:309` | untagged neutral name (D10) |
+| 1 | `Unknown_645CC0` | `app/client/unknown_644e50.cpp:320` | untagged neutral name (D10) |
+| 1 | `Unknown_645CE0` | `app/client/unknown_644e50.cpp:326` | untagged neutral name (D10) |
+| 1 | `Unknown_645DC0` | `app/client/unknown_644e50.cpp:335` | untagged neutral name (D10) |
 | 1 | `LineDisplayClientClass` | `app/client/unknown_646170.cpp:41` | neutral (D10) |
 | 1 | `Unknown_00` | `app/client/unknown_646170.cpp:44` | untagged neutral name (D10) |
 | 1 | `Unknown_04` | `app/client/unknown_646170.cpp:44` | untagged neutral name (D10) |
@@ -20320,18 +20313,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_BDBB84` | `app/client/unknown_646170.cpp:95` | untagged neutral name (D10) |
 | 1 | `UIStarbaseSymbolChatOptionStruct` | `app/client/unknown_646170.cpp:111` | neutral (D10): a row of the menu (0x0C bytes: 0x645510 news it) |
 | 1 | `Unknown51C800Class` | `app/client/unknown_646170.cpp:116` | untagged neutral name (D10) |
-| 1 | `UIStarbaseUnknown1F8Class` | `app/client/unknown_646170.cpp:119` | neutral (D10) |
-| 1 | `sclient` | `app/client/unknown_646170.cpp:122` | what 0x634140 passes |
-| 1 | `Unknown_58` | `app/client/unknown_646170.cpp:124` | untagged neutral name (D10) |
-| 1 | `Unknown_5C` | `app/client/unknown_646170.cpp:125` | untagged neutral name (D10) |
-| 1 | `key` | `app/client/unknown_646170.cpp:126` | InterfaceClass's |
-| 1 | `Unknown_68` | `app/client/unknown_646170.cpp:126` | untagged neutral name (D10) |
-| 1 | `Unknown_645510` | `app/client/unknown_646170.cpp:127` | untagged neutral name (D10) |
-| 1 | `Unknown_645A60` | `app/client/unknown_646170.cpp:128` | untagged neutral name (D10) |
-| 1 | `Unknown_645CC0` | `app/client/unknown_646170.cpp:129` | untagged neutral name (D10) |
-| 1 | `Unknown_645CE0` | `app/client/unknown_646170.cpp:130` | untagged neutral name (D10) |
-| 1 | `Unknown_645DC0` | `app/client/unknown_646170.cpp:131` | untagged neutral name (D10) |
-| 1 | `Unknown84` | `app/client/unknown_646170.cpp:132` | untagged neutral name (D10) |
 | 1 | `Unknown_671300Class` | `app/client/unknown_646170.cpp:142` | neutral (D10) |
 | 1 | `area, a, b, c, d` | `app/client/unknown_646170.cpp:145` | neutral |
 | 1 | `x, y` | `app/client/unknown_646170.cpp:146` | GadgetClass's |
@@ -20348,8 +20329,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `UIStarbaseLightsClass` | `app/client/unknown_646170.cpp:169` | neutral, after its model's 'light02a' names |
 | 1 | `client` | `app/client/unknown_646170.cpp:172` | the base's |
 | 1 | `Unknown_54` | `app/client/unknown_646170.cpp:174` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `app/client/unknown_646170.cpp:175` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/unknown_646170.cpp:176` | untagged neutral name (D10) |
 | 1 | `Unknown_60` | `app/client/unknown_646170.cpp:177` | untagged neutral name (D10) |
 | 1 | `key` | `app/client/unknown_646170.cpp:178` | InterfaceClass's |
+| 1 | `Unknown_68` | `app/client/unknown_646170.cpp:178` | untagged neutral name (D10) |
 | 1 | `Unknown_646940` | `app/client/unknown_646170.cpp:179` | untagged neutral name (D10) |
 | 1 | `Unknown_646A00` | `app/client/unknown_646170.cpp:180` | untagged neutral name (D10) |
 | 1 | `Unknown_646E00` | `app/client/unknown_646170.cpp:181` | untagged neutral name (D10) |
@@ -22993,13 +22977,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `UnknownB4` | `app/packets/pklogin.h:42` | neutral (D10) |
 | 1 | `Packet_00BBClass` | `app/packets/pklogoff.h:64` | neutral (D10): opcode 0x00BB |
 | 1 | `pkloothulkpermission` | `app/packets/pkloothulkpermission.h:16` | provisional, pk + its first named class's name |
-| 1 | `Unknown08` | `app/packets/pkloungenpc.cpp:20` | untagged neutral name (D10) |
-| 1 | `Unknown0C` | `app/packets/pkloungenpc.cpp:21` | untagged neutral name (D10) |
 | 1 | `Unknown10` | `app/packets/pkloungenpc.cpp:22` | untagged neutral name (D10) |
+| 1 | `Unknown0C` | `app/packets/pkloungenpc.cpp:31` | untagged neutral name (D10) |
+| 1 | `Unknown08` | `app/packets/pkloungenpc.cpp:39` | untagged neutral name (D10) |
 | 1 | `Unknown_PacketDataClass` | `app/packets/pkloungenpc.cpp:49` | untagged neutral name (D10) |
 | 1 | `pkloungenpc` | `app/packets/pkloungenpc.h:15` | provisional, pk + its first named class's name |
-| 1 | `Unknown08` | `app/packets/pkloungenpc.h:29` | neutral (D10) |
-| 1 | `Unknown0C` | `app/packets/pkloungenpc.h:30` | neutral (D10) |
 | 1 | `Unknown10` | `app/packets/pkloungenpc.h:31` | neutral (D10) |
 | 1 | `Unknown0C` | `app/packets/pkloungenpc.h:40` | neutral (D10) |
 | 1 | `Unknown08` | `app/packets/pkloungenpc.h:48` | neutral (D10) |
@@ -27149,6 +27131,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Type` | `app/client/sbase_info.h:108` | the assert's 'room_type' |
 | 2 | `HasBar` | `app/client/sbase_info.h:111` | what 0x634140 adds for it |
 | 2 | `HasTables` | `app/client/sbase_info.h:112` | what 0x634140 adds for it |
+| 2 | `FogStart` | `app/client/sbase_info.h:118` | what 0x6366A0 passes it as |
+| 2 | `FogEnd` | `app/client/sbase_info.h:119` | what 0x6366A0 passes it as |
 | 2 | `std:` | `app/client/sbase_info.h:121` | the assert's 'facility' |
 | 2 | `std:` | `app/client/sbase_info.h:122` | the assert's 'npc' |
 | 2 | `Add_Room` | `app/client/sbase_info.h:131` | what it does |
@@ -28875,6 +28859,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `LoungeNPCRoomStruct` | `app/packets/pkloungenpc.h:25` | what 0x6987A0 (sbase_info.cpp) makes of an entry |
 | 2 | `RoomType` | `app/packets/pkloungenpc.h:27` | what 0x6987A0 reads it as |
 | 2 | `Flags` | `app/packets/pkloungenpc.h:28` | what 0x6987A0 reads it as |
+| 2 | `FogStart` | `app/packets/pkloungenpc.h:29` | what 0x6366A0 passes it as |
+| 2 | `FogEnd` | `app/packets/pkloungenpc.h:30` | what 0x6366A0 passes it as |
 | 2 | `LoungeNPCFacilityStruct` | `app/packets/pkloungenpc.h:35` | what 0x6987A0 (sbase_info.cpp) makes of an entry |
 | 2 | `RoomType` | `app/packets/pkloungenpc.h:37` | what 0x6987A0 reads it as |
 | 2 | `Terminal` | `app/packets/pkloungenpc.h:38` | what 0x6987A0 reads it as |
