@@ -649,6 +649,20 @@ cannot patch an unknown build. The login (`_login_live.scn`) clicks the username
 swallows the first click) and clears each field (End, 14 Backspaces) before typing, since the client remembers
 the last name. Live antprox logs opcode numbers; e2e appends the names (`... = sent TALK_TREE` is the server's,
 `= received NAME` the client's), so steps match on names as in replay.
+- **Putting the character back (`--db-snapshot [AVATAR]`, 2026-11-18, D270):** the `sb_*` scenarios leave state on
+  the character (a warhead per sb_buysell, a Deploy Satellite job item per accepted job, components, credits).
+  `e2e.py --live --db-snapshot run sb_...` first dumps AVATAR's (default 6) rows of the play tables (`DB_TABLES`:
+  inventory, vault, trade, equipment, ammo, level info with the credits, missions, recipes, skills, factions,
+  exploration, position, avatar_info, ship_data / ship_info) from the `net7-mysql` container into
+  `.work/e2e/<HHMMSS>-db-snapshot/avatar<N>.sql`, a ready restore script (one transaction: `DELETE ... WHERE
+  avatar_id = N` per table, the dumped INSERTs; foreign key checks off in that session only, since avatar_data and
+  ship_* reference avatar_info). After the run, also when it fails or is interrupted, it stops Net7.exe (and
+  Net7SSL.exe), runs the script, and starts Net7.exe again in its own console, ready when UDP port 3693 is bound
+  (~100 s; the server log cannot be read while Net7.exe runs). The stop is needed: Net-7 writes each change through
+  as it happens and reads the rows at login, but a killed client stays in the server until its link-dead drop,
+  which queues hull, sector and ammo saves of its own (`PlayerManager::DropPlayerFromSector`). Nothing outside the
+  avatar's rows is touched; to undo by hand, pipe the script into `docker exec -i net7-mysql sh -c 'mysql -uroot
+  -p"$MYSQL_ROOT_PASSWORD" net7_user'` with the server stopped.
 - **Where the avatar is:** `D3D8SHOT_CAMERA=FILE` makes the proxy write the frame's first view matrices to FILE
   (every 2nd Present). The first is the room camera; the avatar is 6.4 units ahead of it. Each room has its own
   coordinates; the room changes show in messages.log (`Changing room from A to B`).

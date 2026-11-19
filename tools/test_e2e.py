@@ -278,5 +278,35 @@ class CompareTest(unittest.TestCase):
             self.assertEqual(e2e.sent_packets(d), {'a': ['LOGIN 40'], 'b': ['INVENTORY_MOVE', 'OP_3008']})
 
 
+class DbSnapshotTest(unittest.TestCase):
+    def test_dump_command(self):
+        argv = e2e.db_dump_cmd(6, ('avatar_level_info', 'avatar_inventory_items'))
+        self.assertEqual(argv[:6], ['docker', 'exec', '-i', 'net7-mysql', 'sh', '-c'])
+        self.assertIn('-p"$MYSQL_ROOT_PASSWORD"', argv[6])
+        self.assertIn('--no-create-info', argv[6])
+        self.assertIn('--where="avatar_id=6"', argv[6])
+        self.assertTrue(argv[6].endswith('net7_user avatar_level_info avatar_inventory_items'))
+        self.assertNotIn('--add-drop-table', argv[6])
+
+    def test_restore_script_touches_only_the_avatars_rows(self):
+        sql = e2e.db_restore_sql(6, "INSERT INTO `avatar_level_info` (`avatar_id`) VALUES (6);\n",
+                                 ('avatar_level_info', 'avatar_info'))
+        lines = sql.splitlines()
+        self.assertEqual(lines[:3], ['SET FOREIGN_KEY_CHECKS=0;', 'SET autocommit=0;', 'START TRANSACTION;'])
+        self.assertEqual(lines[3:5], ['DELETE FROM `avatar_level_info` WHERE `avatar_id` = 6;',
+                                      'DELETE FROM `avatar_info` WHERE `avatar_id` = 6;'])
+        self.assertEqual(lines[-2:], ['COMMIT;', 'SET FOREIGN_KEY_CHECKS=1;'])
+        self.assertFalse(re.search(r'\b(DROP|ALTER|TRUNCATE|CREATE)\b', sql))
+
+    def test_default_tables_are_keyed_by_avatar(self):
+        self.assertIn('avatar_inventory_items', e2e.DB_TABLES)
+        self.assertIn('avatar_level_info', e2e.DB_TABLES)       # the credits
+        self.assertNotIn('avatar_data', e2e.DB_TABLES)          # identity, never restored
+        self.assertNotIn('accounts', e2e.DB_TABLES)
+
+    def test_option_needs_live(self):
+        self.assertEqual(e2e.main(['run', 'sb_buysell', '--db-snapshot']), 2)
+
+
 if __name__ == '__main__':
     unittest.main()
