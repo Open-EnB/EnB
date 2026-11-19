@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-863 entries in 307 files.
+861 entries in 307 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -485,11 +485,10 @@ edit the comments in the code, not this file.
 | `app/client/ui_manu.cpp:395` | `UIManuClass::Unknown_54` | marker | NOT EXACT: register (the frame is the client's with each loop's own name buffer, 64 and 32 bytes, sharing the key event's slot; left: the recent texture in eax where the client has ecx, and the name table's pointer loaded after the strip address) (0x5AFFC0) |
 | `app/client/ui_manu.cpp:478` | `UIManuClass::Unknown_60` | marker | NOT EXACT: inline budget (the client calls the 'ManufactureComponents' and 'Validity' Casts out of line, 0x5B7210 / 0x5468D0, and 0x5B6DB0 in the inlined 0x5B3640) (0x5B1230) |
 | `app/client/ui_manu.cpp:545` | `UIManuClass::Unknown_68` | marker | NOT EXACT: inline budget (in the inlined 0x5B1ED0 the client calls both finds out of line, 0x5B70C0) (0x5B16C0) |
-| `app/client/ui_manu.cpp:704` | `UIManuClass::Unknown_5B1ED0` | marker | NOT EXACT: inline budget (0x5B3850 inlined: the client calls rtti.h's Cast out of line, 0x5B7260, in its 'KnownFormula' find too) (0x5B1ED0) |
 | `app/client/ui_manu.cpp:785` | `UIManuClass::Unknown_5B2480` | marker | NOT EXACT: register (the 'Validity' find out of line as the client, 0x5465C0, through two inline layers; the inlined copies of 0x5B1AF0 load the mesh and the name in each other's registers) (0x5B2480) |
 | `app/client/ui_manu.cpp:889` | `UIManuClass::Unknown_5B2BD0` | marker | NOT EXACT: inline budget (the client calls the 'PrimaryCategories' find out of line, 0x5467F0, and vector<DeltaClass *>::size in the inlined tree checks) (0x5B2BD0) |
 | `app/client/ui_manu.cpp:939` | `UIManuClass::Unknown_5B2FE0` | marker | NOT EXACT: order (the find and its out-of-line Cast 0x5B72B0 as the client's through the set test; the client loads Client and its vtable while it walks to the item id) (0x5B2FE0) |
-| `app/client/ui_manu.cpp:1005` | `UIManuClass::Unknown_5B3640` | marker | NOT EXACT: inline budget (the client calls rtti.h's Cast out of line, 0x5B7260, in both finds; registers) (0x5B3640) |
+| `app/client/ui_manu.cpp:1005` | `UIManuClass::Unknown_5B3640` | marker | NOT EXACT: inline budget (the client calls rtti.h's Cast out of line, 0x5B7260, in both finds: ours calls the first find 0x5B70C0 and inlines the second Cast) (0x5B3640) |
 | `app/client/ui_manu.cpp:1115` | `UIManuClass::Unknown_5B3E00` | marker | NOT EXACT: inline budget (the find out of line as the client's, 0x5467F0, through two inline layers; the first two passes are 0x5B3B90 / 0x5B3CA0 inlined, calling 0x5B3CA0 / 0x5B3D70 as the client; left: the third pass's inlined 0x5B3D70, whose vector size the client calls out of line) (0x5B3E00) |
 | `app/client/ui_manu.cpp:1283` | `UIManuClass::Unknown_5B4850` | marker | NOT EXACT: register (as 0x5B2480) (0x5B4850) |
 | `app/client/ui_manu.cpp:1451` | `UIManuClass::Unknown_5B4B10` | marker | NOT EXACT: frame (the NegotiatedCost and ExpectedQuality finds out of line as the client, 0x5466A0 / 0x546710, through two inline layers, and the Casts as the client's; the stack slots differ) (0x5B4B10) |
@@ -823,8 +822,7 @@ edit the comments in the code, not this file.
 | `app/shared/spln_db.cpp:1539` | `SplineDatabaseClass::Resolve` | marker | NOT EXACT: inline-budget (HashListClass::Find out of line at some lookups) |
 | `app/shared/spln_db.cpp:1680` | `SplineDatabaseClass::Save_Chunks` | marker | NOT EXACT: shape / inline budget (the client inlines Save_Entry here and calls Save_Curve) @0x487B20 |
 | `app/shared/spln_db.cpp:1732` | `SplineDatabaseClass::Save_Entry` | marker | NOT EXACT: shape / inline budget (the client inlines Save_Curve's switch) |
-| `app/shared/spln_db.cpp:1759` | `SplineDatabaseClass::Save_Curve` | marker | NOT EXACT: shape (the switch layout) |
-| `app/shared/spln_db.cpp:1807` | `SplineDatabaseClass::Save_Hermite` | marker | NOT EXACT: frame (0x18 in the client: the key and tangent locals share other slots) |
+| `app/shared/spln_db.cpp:1759` | `SplineDatabaseClass::Save_Curve` | marker | NOT EXACT: shape (the client pushes ebx inside the linear case and repeats the epilogue at its first two failures) |
 | `app/shared/spln_db.cpp:1846` | `SplineDatabaseClass::Load_Chunks` | marker | NOT EXACT: shape (the client repeats the epilogue for the header's two failures and keeps &KeyNames in edi) |
 | `app/shared/spln_db.cpp:1916` | `SplineDatabaseClass::Load_Entry` | marker | NOT EXACT: shape (the switch's layout; the TYPE_BLEND strings) |
 | `app/shared/spln_db.cpp:3020` | `SplineEntryClass::Pack` | marker | NOT EXACT: register-only (the type byte through al, not cl), parked |
