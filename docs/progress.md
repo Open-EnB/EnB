@@ -4,6 +4,55 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
+### 2026-11-19 (04:45 PST, night; run 2026-11-18b, week plan session 4): the evidence-backed retypes (FontSys in cpacket, the starbase window's floats / Matrix3D / RefCountPtr, cpacket's real effect class with 0x738970 under D240, LandPatchRecordClass's buffers, control_keys_manager's guarded static), the Delta-numbering placement rule (DE, +61 at its landing with the kv_acc split), CR7's four crediting streams (+20), sclient's client include order with the send pad at 4 (0x755C60 regained), the progress card's NOT EXACT placement and D27's app call starts, finishing (LY2, U2, U3, F1, F2, F4, F5); +119 pairs over the run's baseline, 0 lost outright
+
+- **Session** Opus coordinator, unattended (D261); launcher start 19:15. How it started: clean (session 3's handoff 17:15; #216, #217, #218
+  merged before the start); `run_branch.py cleanup` deleted 19 merged branches; run/2026-11-18b from origin/master d570e1b6c, PR #219.
+- **Item 1 (retypes), state found:** AR's aux_roots retype had landed in session 0 and co.h's PositionalStateClass rename was already in co.h,
+  both stale in the plan; done tonight: cpacket's Unknown6D47C0Class as FontSys (R1, +1), the starbase window's retypes (R2: FogStart / FogEnd floats,
+  +0x1BC Matrix3D, +0x1F8 RefCountPtr<UIStarbaseUnknown1F8Class>, +2), cpacket's Unknown6EF4C0Class as eff_robj.h's real class (R3, R4: 0x738970
+  lost, D240), CR7's two source leads (R5: LandPatchRecordClass's buffers, control_keys_manager's guarded atexit stub, +4), the small §4 items (R6:
+  Add_Button's type, the pip views onto ship_pip.h, clientimage's thunk-table starts, +1). No retype was forced: every pad held or retuned.
+- **Item 2 (new files):** none left. N1 found only ~12 KB of app code without a file (every "absent" object has one); the slot went to the card
+  (P1 of N1: NOT EXACT rows placed by their own address, app functions sized to the next verified start) and D27's app direct-call starts.
+- **Landed** (run/2026-11-18b; per branch in `.work/run-2026-11-18b/plan.md`): R1 4f3528cee (+1); N1 abacd6692 / bdbd1f4fb / 13396a2e6 (14
+  unmarked NOT EXACT functions marked, progress.py, USE_APP_DIRECT_CALL_STARTS +38 starts; 0 / 0); R2 6b4c40e65 (+2); R3 323d840c1 + R4 652f8ab20
+  (0x738970 D240, 8e9692d17); CR7 6e427d2c3 (+20: USE_CR7_CALLEE_LOCATED / POOL_ALIGN / FUNCLETS / ADDR_REFS); R5 e78e1b48e (+4); LY2 0ed4cc334
+  (+4: uncalled layers in ui_chat_panel, tsk_game.h's bool getter, drag_slot_data's fmul / fadd); DE b752d3830 / d4dd404db (+61 with 24 D66 moves:
+  Delta numbering by template depth in 13 objects, kv_acc split into kv_acc / kv_acc_string / kv_acc_time, aux_decoration.h / aux_shake.h /
+  aux_roots_decoration.h, auxroots.py SPLITS / SPLITS_KEPT; 0x72D5F0 regained in one round); R6 2f2bcfb20 (+1); U1 3c064b9f3 (attempts); U2
+  ea97f8b7a (+6: ui_manu / ui_analyze, D164 instantiations); P1 cb6237edb (+2: aux_ship_player.h back to the client's order, SEND_SYMBOL_PAD 23 -> 4,
+  0x755C60 regained); U3 5df9ee901 (+2: ui_manu 0x5B1ED0, spln_db Save_Hermite 0x4883A0); F2 40cc5017c (+2: ui_chat_window 0x5719A0 / 0x570FF0, a __UI_CHAT_WINDOW_MEMBERS declaration guard); F1 4eb0785e2 (+5: scriptedmovie 0x804290, 0x8008B0, 0x80AE80, 0x80AF50, ui_talkt 0x64D400, D130 dead reads marked); F5 2ff968be1 (+2: ui_guild 0x81A420, ui_chat_panel 0x565F60); F4 ec72b98d9 / e8ee02968 (+8: px_callback_accurate's fill-value constructors, landdmap's Planes as D3DXVECTOR4[4]); F3 nothing eligible (cordcon / heightfield all parked); filing f1a1dea57, 169fc7413; doc-filer 144d898c2; decisions 14d2defcf; corrections 8e9692d17, 796853ca1.
+- **Calls (D246):** C1-C16 in the plan log. Rules: D27 amended (app direct-call starts; the thunk-table slots dropped), D267 amended (CR7's
+  streams). Losses: 0x738970 D240 (the real effect class; two rounds, 52 forms, parked). Regained and deleted: 0x755C60 (D246), 0x5CE830 (D240).
+  0x6A1180 (sbaseview, order-only flip) toggles with header changes: its D246 entry stays (C14). Interim placements: UIStarbaseUnknown1F8Class in
+  sbaseview.h, DE's five provisional files, ControlKeysInstancesClass (NAME 1). Kept, not landed, then landed: R3 (C9 revised by C10 after R4).
+  Coordinator miss: F3's two files held only parked / LIMIT / two-round functions (`open_rows.py` counts them as open, and it rewrites
+  its tsv): filter with `attempts.py show` before a finishing brief, or let the builder filter (F5 did).
+- **Pairs per point:** about +119 for 6 points of the week (21 % -> 27 %). By kind (landing figures): static initialisers / headers ~63
+  (DE 61, P1 2); crediting rules 20 (CR7); retypes 12 (R1 1, R2 2, R5 4, R6 1, R3 -1 with its D240, plus the regains they enabled); finishing 29
+  (LY2 4, U2 6, U3 2, F1 5, F2 2, F4 8, F5 2); untried functions 0 (U1: Build_Decorations parked at 8 masked rows); card / tools 0 pairs (N1: the card's unattributed share
+  2.88 % -> ~0.96 %).
+- **Builders** (Opus, subagent tokens): R1-R3 ~222k, N1 ~180k, CR7 ~310k, R4 ~134k, LY2 ~389k, R5 ~147k, DE ~398k, R6 ~150k, U1 ~414k, U2 ~441k,
+  P1 ~157k, U3 ~240k, F1 ~215k, F2 ~172k, F3 ~68k, F4 ~187k, F5 ~150k; Sonnet landers (9), checkers (7) and a doc-filer ~0.9M. No agy (the Gemini week resets 2026-11-21).
+- **Meter:** week 21 % at 19:15 -> 27 % at the handoff (floor 29, cap 31): the floor missed by 2. Observed burn about 0.65 a point an hour with 2-3 Opus builders, under the fit's projection; more builders needed eligible items, and the queue's new-file rows were spent (F3 found none in its files).
+- **PRs:** none merged or frozen at the start; **#219** ready at the handoff: it changes tools (objmatch.py's CR7 rules, clientimage.py, progress.py,
+  auxroots.py, app_inventory.py) and moves holders (D66: DE's kv_acc split 24, shared holders 0x54B540, 0x514990), so the service waits for the
+  user's `/verify-approved` and `/accept-d66` on its head, after the corrections PR (accept-corrections-run-2026-11-18b: D240 0x738970 added;
+  0x755C60, 0x5CE830 deleted) is merged; frozen from the handoff. The next session stacks on run/2026-11-18b.
+- **Verified vs not:** every landing's verify, stand-in and link checks (CR7 --no-link, tools only); checker after R1, R2, R3 / R4, R5, DE, R6 and P1
+  (the last at 796853ca1): clienttest 102/102 trace equal, udpreplay alex3 7 of 8 (baseline), handshake 54/54, auxreplay 37601/37601, clientpoc link
+  clean, e2e 25/25 (~305-309 s); at the handoff: e8ee02968: clienttest 102/102 trace equal; udpreplay alex3 7 of 8; handshake 54/54; auxreplay 37601/37601; clientpoc link clean; e2e 25/25 in 304 s.
+- **For the user:** (1) merge the corrections PR first, then post `/verify-approved SHA` and `/accept-d66 SHA` on #219 (SHA at the top of its
+  summary); (2) nothing parked past the valve; no new decision for §3.
+- **Next ten items:** (1) the 26 `$E` multiples: KVEncoderClass out of delta.h (no pairs; fewer multiples); (2) the agy batch after the Gemini reset
+  (2026-11-21 19:26 PST) on the queue's untried rows; (3) the card's P3 / P4 (Ghidra body lengths into app-functions.json; name the ~193 unplaced NOT
+  EXACT entries); (4) spln_db's four thunkless helpers (verified starts now) (U3: Save_Hermite exact; Save_Curve 0.73 shape, Save_Entry inline-budget left); (5) ui_manu 0x5B16C0 / 0x5B1ED0 / 0x5B3640 / 0x5B1230's
+  inline notch; (6) the send pad's one-value window (4): a second pad between aux_roots_hull.h and aux_roots_player.h in aux_ship_player.h;
+  (7) the symbol chat menu's own header (UIStarbaseUnknown1F8Class) once its file name is known; (8) an inline getter where the client tests a bool in
+  al (register-only cases are D89's); (9) the live set's state drift (a mysqldump snapshot / restore around a run); (10) the provisional names of
+  the day (§4 item 8).
+
 ### 2026-11-18 (17:15 PST, day; run 2026-11-18, week plan session 3): the live station set on our build (buy / sell, jobs with accept and forfeit, refinery, manufacturing with a real Vesta 4P, dismantling: retail and ours 9 / 9, same packets; three faults in ours fixed), the aux_roots.h split by family (AS, AB, DN), the static initialisers (PS PermStringInit 60 -> 80 of 82, SG `<string>` guards 41 -> 11, S2 main.cpp by its strings and ui_starbase's two objects, PH permstr.h cut from 156 objects), crediting rules (CR6, SG, NB, OB), the progress card over E&B's own code (D269), the local Net-7 server serving jobs (D270); +708 (+1,169 over the baseline e99f16fac, which predates #214's +461) pairs over the run's baseline, 0 lost outright
 
 - **Session** Opus coordinator, unattended (D261) with the user on Remote Control from 07:30; launcher start 07:15. How it started: clean (session 2's
@@ -4614,7 +4663,7 @@ below name only the work items, the blocked work, the leads and the queues.
    * **`.work/coord/open_rows.py`** to the new queue.tsv columns; **`triage.py plan --out`** (the week queue's written output).
    * **0x4A4C90** (Delta.cpp's static initialiser) as a verified function start.
    * **Tools (P3, P4):** Ghidra body lengths into app-functions.json (P3); name the about 193 unplaced NOT EXACT entries (symbols.py) so the card stops estimating them by the median (P4).
-10. **Parked leftovers** (each waits for a lever; `attempts.py show ADDR`): ui_talkt 0x64C8D0 (0.74: only the two inlined erases swapped; dead reads cut the later site first, the client the earlier: a source layer rather than a budget form); ui_chat_window 0x56FD30 (frame 0x48 against 0x50: the client keeps index in its own slot; start from the P4 + window-at-function-scope form, 155 rows); inv_data_peek 0x68A090 / 0x68A270 /
+10. **Parked leftovers** (each waits for a lever; `attempts.py show ADDR`): landdmap 0x468240 (0.41, inline budget: the client sends only the binary operator's D3DXVECTOR4 constructor out at sites 0-1, ours also the unary operator's and whole operators; find the own code that gives the client its extra budget; forms in attempts.csv); ui_chat_panel 0x5646A0 (0.79, one operand order `[ecx+eax]` vs `[eax+ecx]`, D89; stash docs/attempts/5646A0/dead-read-p_c.diff); ui_talkt 0x64C8D0 (0.74: only the two inlined erases swapped; dead reads cut the later site first, the client the earlier: a source layer rather than a budget form); ui_chat_window 0x56FD30 (frame 0x48 against 0x50: the client keeps index in its own slot; start from the P4 + window-at-function-scope form, 155 rows); inv_data_peek 0x68A090 / 0x68A270 /
    0x68A450 / 0x68A8C0 (register: the failure path's inlined string ctor `[ecx+ebx]` vs `[ebx+ecx]`, skill_data_peek
    0x6A5730's residue); fontsys 0x6CD950 (0.71, register: index edi / slot ebp swapped by every clamp form, ~120 forms; a
    copy at the top fixes the registers but hoists the mov); fontdatabase's Set_Font 0x6C38F0
