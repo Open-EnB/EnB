@@ -2526,7 +2526,7 @@ void RegistrationInterface::Unknown_5FB030()
 	label->Release_Ref();
 }
 
-// NOT EXACT: inline-budget (explain.py: the client calls the second append(1, '-') and the first end()'s _Freeze out of line)
+// (the dead number.size() reads after the end() test and the erase spend the inline budget: append, _Freeze and erase(pos, 1) called out of line as the client's; D272)
 // @0x5FB0C0
 void RegistrationInterface::Unknown_5FB0C0()
 {
@@ -2553,8 +2553,8 @@ void RegistrationInterface::Unknown_5FB0C0()
 			}
 		}
 		delete text;
-		if (number.length() != 0 && *(number.end() - 1) == '-') {
-			number.erase(number.end() - 1);
+		if (number.length() != 0 && *(number.end() - 1) == '-') { number.size(); number.size(); number.size(); number.size();
+			number.erase(number.end() - 1); number.size();
 		}
 		gadget->Set_Text(number.c_str(), false);
 	}

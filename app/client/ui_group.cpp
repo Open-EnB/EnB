@@ -307,7 +307,7 @@ void UIGroupUnknownE8Class::Unknown_593180(int index)
 			}
 		}
 		Unknown2C = index;
-		Unknown30 = 2.0f;
+		Unknown30 = 2.0f; Unknown08[index].Peek(); Unknown08[index].Peek();
 	}
 }
 
@@ -728,7 +728,7 @@ extern int Unknown_BE5F34;								// NAME 1: neutral (D10): the key modifiers (a
 
 
 // 0x5946D0
-// NOT EXACT: inline budget: ours inlines 0x593180 and Action2PacketClass's string _Tidy, which the client calls out of line
+// NOT EXACT: (0.73, attempts.py 0x5946D0): two dead Peek()s in 0x593180 and four dead Name.size() after the Action2PacketClass send call 0x593180 and the string _Tidy out of line as the client (D272); left: case 17-21's sound tail (the client cross-jumps it to case 47's), case 47's bools, registers
 bool UIGroupClass::Unknown_68(int key)
 {
 	SClient *sclient = (SClient *)((ClientClass *)Client)->As_Space_Client();
@@ -819,7 +819,7 @@ bool UIGroupClass::Unknown_68(int key)
 				if (Members[key - 35]->Unknown1C) {
 					((ClientClass *)Client)->Send_Packet(&ActionPacketClass(((ClientClass *)Client)->AvatarID, 15, Members[key - 35]->ID, 0));
 				} else {
-					((ClientClass *)Client)->Send_Packet(&Action2PacketClass(((ClientClass *)Client)->AvatarID, 15, Members[key - 35]->Name.c_str(), 0));
+					((ClientClass *)Client)->Send_Packet(&Action2PacketClass(((ClientClass *)Client)->AvatarID, 15, Members[key - 35]->Name.c_str(), 0)); Members[key - 35]->Name.size(); Members[key - 35]->Name.size(); Members[key - 35]->Name.size(); Members[key - 35]->Name.size();
 				}
 			}
 			break;

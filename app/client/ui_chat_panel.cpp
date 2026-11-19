@@ -1206,7 +1206,7 @@ void ChatPanelInterface::Unknown_566AF0()
 	UnknownFC = 0;
 }
 
-// NOT EXACT: inline-budget (the client calls string::compare and list::_Buynode out of line; 183 instructions vs 141)
+// (push_back and the sclient local, as the client: insert's _Buynode out of line, the constructor's inline; the reply failure calls As_Space_Client before its arguments)
 // 0x567540
 bool ChatPanelInterface::Unknown_567540(int arg)
 {
@@ -1218,7 +1218,7 @@ bool ChatPanelInterface::Unknown_567540(int arg)
 			std::list<std::string> names;
 			for (int i = 0; i < 5; i++) {
 				if (Unknown188[i] == "") break;
-				names.insert(names.end(), Unknown188[i]);
+				names.push_back(Unknown188[i]);
 				count++;
 			}
 			if (count) {
@@ -1226,7 +1226,7 @@ bool ChatPanelInterface::Unknown_567540(int arg)
 				Unknown1E8->Unknown_58();
 				return(true);
 			}
-			Client->As_Space_Client()->Unknown_74D990(17, "Unable to reply - no one to reply to.", 0);
+			SClient *sclient = Client->As_Space_Client(); sclient->Unknown_74D990(17, "Unable to reply - no one to reply to.", 0);
 		}
 	}
 	return(false);
