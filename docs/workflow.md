@@ -463,6 +463,10 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
   `char *const &` cast in the inner layer; a root read after the NameClass needs the helper to take it by
   reference. `?:` between two inline finds expands both branches. Where the rule did not decide it:
   `attempts.py list --blocker inline-budget` (ui_missn 0x5C4C90, lookup.cpp 0x4ACA90). An inline helper's nested `~RefCountPtr` stays out of line (O6, 2026-11-14). Wrapper layers alone (a template layer over a find, a static layer) do not move an inlined Cast out of line; the source size of the inlined test does (explicit `!=` compares). Explicit instantiation of an inline static member needs the class form `template class X<T>;` (the member form emits nothing) (2026-11-19).
+* **A member test right after a store to that member folds away:** `Flag = true; Get_List();` drops the getter's other
+  branch, so a shared getter can compile like the client's one-branch code at that site. And `inline` on a
+  forward-defined helper inlines it where /Ob2 alone does not, but then emits no out-of-line copy unless one
+  is called: it cannot reproduce a client that inlines a helper and still keeps its copy.
 * **Assignment as a spender:** `T x; x = T(...);` through a user-written inline `operator=` spends budget where
   the matching constructor does not: placed after a site, it cuts that site's deepest nested inline (a
   DurationClass assigned after a two-layer find sent Cast out of line, ui_mfd 0x5BE120). A struct with only
