@@ -185,16 +185,27 @@ def limit_reached(rows):
     and model (round one Opus at medium effort, round two Opus at high; D263: no Fable round).
     """
     tried = sorted((r for r in rows if r['status'] in ('partial', 'parked', 'blocked')), key=lambda r: r['date'])
-    best, stalled = None, []
+    # a round is one builder session: a day's rows by one model are one round, judged by its best score
+    rounds = []
     for r in tried:
-        try:
-            s = float(r['score'])
-        except (TypeError, ValueError):
-            s = None
+        key = (r['date'][:10], r['model'].strip().lower())
+        if rounds and rounds[-1][0] == key:
+            rounds[-1][1].append(r)
+        else:
+            rounds.append((key, [r]))
+    best, stalled = None, []
+    for _, rs in rounds:
+        scores = []
+        for r in rs:
+            try:
+                scores.append(float(r['score']))
+            except (TypeError, ValueError):
+                pass
+        s = max(scores) if scores else None
         if s is not None and (best is None or s > best):
             best = s          # progress: this round does not count (D271)
             continue
-        stalled.append(r)
+        stalled.append(rs[-1])
     # rounds before D271 ran without the medium / high ladder: together they count as at most one (round one)
     count = min(1, sum(1 for r in stalled if r['date'] < D271_DATE)) + sum(1 for r in stalled if r['date'] >= D271_DATE)
     if count < 2:
