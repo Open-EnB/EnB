@@ -728,7 +728,7 @@ extern int Unknown_BE5F34;								// NAME 1: neutral (D10): the key modifiers (a
 
 
 // 0x5946D0
-// NOT EXACT: (0.73, attempts.py 0x5946D0): two dead Peek()s in 0x593180 and four dead Name.size() after the Action2PacketClass send call 0x593180 and the string _Tidy out of line as the client (D272); left: case 17-21's sound tail (the client cross-jumps it to case 47's), case 47's bools, registers
+// NOT EXACT: (0.74, attempts.py 0x5946D0): two dead Peek()s in 0x593180 and four dead Name.size() after the Action2PacketClass send call 0x593180 and the string _Tidy out of line as the client (D272); left: case 2's modifier return (the client jumps to case 47's shared mov al, 1), case 47's bools, registers
 bool UIGroupClass::Unknown_68(int key)
 {
 	SClient *sclient = (SClient *)((ClientClass *)Client)->As_Space_Client();
@@ -774,11 +774,11 @@ bool UIGroupClass::Unknown_68(int key)
 				((ClientClass *)Client)->Send_Packet(&RequestTargetsTargetPacketClass(((ClientClass *)Client)->AvatarID, Members[key - 23]->ID));
 			}
 			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
-			if (SymbolChatUI) {
-				SymbolChatUI->Unknown_5C();
-				return(true);
-			}
+			if (!SymbolChatUI) return(true);
+			SymbolChatUI->Unknown_5C();
 			return(true);
+
+
 		case 41:
 		case 42:
 		case 43:
