@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-841 entries in 305 files.
+839 entries in 304 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -424,7 +424,6 @@ edit the comments in the code, not this file.
 | `app/client/ui_class.cpp:155` | `ClassSelectInterface::ClassSelectInterface` | marker | NOT EXACT: frame (0.45: the client's frame is 0x34, ours 0x38: its per-iteration RefCountPtr sits in the dead view parameter's slot) @0x574710 |
 | `app/client/ui_class.cpp:1117` | `ClassSelectInterface::Unknown_576AC0` | marker | NOT EXACT: inline-budget (0.80: ours inlines all 18 dialog names' string assigns, the client calls the last one out of line; two dead size() reads at the top gave 0.84 and the client's 17, then the register order of the 0x67B390 call and the identity matrix stores were left) @0x576AC0 |
 | `app/client/ui_combobox.cpp:72` | `UIComboBoxTextClass::Init` | marker | NOT EXACT: shape (3 rows: the client adds pos.Y onto the height left on the FPU stack, ours loads pos.Y and pops the height after) 0x578350 |
-| `app/client/ui_combobox.cpp:122` | `UIComboBoxClass::UIComboBoxClass` | marker | NOT EXACT: inline-budget (the client calls assign for the label and stops at _Grow for the style; ours expands both further) 0x5786C0 |
 | `app/client/ui_combobox.cpp:153` | `UIComboBoxClass::UIComboBoxClass` | marker | NOT EXACT: inline-budget (the client expands the label's assign and the style's _Grow; ours calls them) 0x5789E0 |
 | `app/client/ui_combobox.cpp:205` | `UIComboBoxClass::Init` | marker | NOT EXACT: register-only in the main (this in esi and the scale in ebp in the client; ours this in ebp, the scale in esi and spilled) 0x5790C0: owner NULL (the first constructor): the gadgets on Layer; else on an empty layer |
 | `app/client/ui_combobox.cpp:302` | `UIComboBoxClass::Unknown_60` | marker | NOT EXACT: inline-budget (the client calls Unknown_Clamp 0x57BA10 and the items' size() 0x47D640 in the expanded Scroll_To_Selected; ours expands them) 0x579DC0 |
@@ -521,7 +520,6 @@ edit the comments in the code, not this file.
 | `app/client/ui_ptrade.cpp:239` | `UIPTradeClass::Unknown_68` | marker | NOT EXACT: register-only (0.84, same length: key 3's request reads the client through eax, the client's; ours through edx as keys 1 / 2) |
 | `app/client/ui_radio_admin.cpp:246` | `UIRadioAdminClass::Unknown_5E5360` | marker | NOT EXACT: inline budget and stack slots (cases 5 and 6: the client destroys the channel's temporary inline and expands the selected name's assignment in case 6, its temporaries at other frame offsets) |
 | `app/client/ui_radio_join.cpp:161` | `UIRadioJoinClass::Unknown_5EB2F0` | marker | NOT EXACT: the string temporaries' inline expansions and register choices differ (inline budget) |
-| `app/client/ui_radio_list.cpp:235` | `UIRadioListClass::Unknown_5E85F0` | marker | NOT EXACT: inline budget (the client calls basic_string::erase out of line in the assignment's self-assign branch; ours expands it) |
 | `app/client/ui_refinery.cpp:435` | `UIRefineryClass::Unknown_5ECEF0` | marker | NOT EXACT: register (the 'AdditionalIterations' pointer kept in ecx and its local, the two flags' tests in another order; 0x5465C0 / 0x5B7130 out of line as the client) (0x5ECEF0) |
 | `app/client/ui_refinery.cpp:617` | `UIRefineryClass::Unknown_5EDCC0` | marker | NOT EXACT: inline budget (the client calls the 'NegotiatedCost' Cast out of line; the 'Money' find out of line as the client; dead finds before it push the 0x5ECBB0 copies out too) (0x5EDCC0) |
 | `app/client/ui_refinery.cpp:637` | `UIRefineryClass::Unknown_5EDFD0` | marker | NOT EXACT: inline budget (the client calls all three finds' Unknown_Find_Field out of line, 0x5465C0 / 0x417D82, with the name in the caller; ours calls the inline layer out of line, or inlines the find; frame 0xBC vs 0xEC) (0x5EDFD0) |

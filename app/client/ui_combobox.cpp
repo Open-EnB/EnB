@@ -119,7 +119,7 @@ void UIComboBoxTextClass::Set_Hover_Only(bool on)
 	HoverOnly = on;
 }
 
-// NOT EXACT: inline-budget (the client calls assign for the label and stops at _Grow for the style; ours expands both further)
+// (the dead Label.c_str() after the style's assign spends the inline budget: the label's assign called, the style's stopping at _Grow, as the client's; D272)
 // 0x5786C0
 UIComboBoxClass::UIComboBoxClass(InterfaceClass *owner, LayerClass *layer, RenderObjClass *model, const char *name, int select_key, int toggle_key, int width, int max_rows, const char *style) :
 	InterfaceClass(owner->Get_View(), (int)layer->Peek_Scene()),
@@ -143,7 +143,7 @@ UIComboBoxClass::UIComboBoxClass(InterfaceClass *owner, LayerClass *layer, Rende
 	ArrowHidden(false)
 {
 	if (style && *style) {
-		Style = style;
+		Style = style; Label.c_str();
 	}
 	AttachBone = Model->Get_Bone_Index(name);
 	Init(NULL);

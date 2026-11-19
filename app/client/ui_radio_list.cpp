@@ -232,7 +232,7 @@ void UIRadioListClass::Unknown_5E8580(int index)
 }
 
 // 0x5E85F0
-// NOT EXACT: inline budget (the client calls basic_string::erase out of line in the assignment's self-assign branch; ours expands it)
+// 0x5E85F0 (the two dead Names.size() after the packet's name assign spend the inline budget: its self-assign branch's erase called out of line, as the client's; D272)
 void UIRadioListClass::Unknown_5E85F0(int key)
 {
 	SClient *sclient = (SClient *)((ClientClass *)Client)->As_Space_Client();	// NAME 1: neutral (D10)
@@ -245,7 +245,7 @@ void UIRadioListClass::Unknown_5E85F0(int key)
 				if (Selection >= 0) {
 					int id = ((ClientClass *)Client)->Unknown1138;	// NAME 1: neutral (D10)
 					ClientChatRequestPacketClass packet(6, id);
-					packet.Unknown24 = Names[Selection];
+					packet.Unknown24 = Names[Selection]; Names.size(); Names.size();
 					((ClientClass *)Client)->Send_Packet(&packet);
 				}
 			} else if (key == 3) {
