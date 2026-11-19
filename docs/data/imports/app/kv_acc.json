@@ -1,14 +1,11 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
- "description": "PROVISIONAL file name (D137; no assert, no __FILE__): the accessors' object, client 0x4B0630 (permstr.h's static) - 0x4B1730: KVFixedStringAccessorClass's constructor and the time accessors' members; 0x4B0680-0x4B08D0 not rebuilt",
+ "description": "PROVISIONAL file name (D137; no assert, no __FILE__): the fixed string accessor's object, client 0x4B0A90-0x4B0C7F: KVFixedStringAccessorClass's constructor, its vtable's members and <string>'s guarded initialiser 0x4B0C60 (CRT entry 79); the string and time accessors are kv_acc_string.cpp's and kv_acc_time.cpp's (DE, 2026-11-18)",
  "expected": {},
  "in_tree": [
   "0x42B320",
   "0x4A7F00",
-  "0x4A8600",
   "0x4B0A90",
   "0x4B0B00",
   "0x4B0B20",
@@ -16,45 +13,21 @@
   "0x4B0B90",
   "0x4B0BB0",
   "0x4B0BD0",
-  "0x4B1160",
-  "0x4B1190",
-  "0x4B11C0",
-  "0x4B11E0",
-  "0x4B1270",
-  "0x4B1300",
-  "0x4B1340",
-  "0x4B1370",
-  "0x4B13A0",
-  "0x4B13C0",
-  "0x4B14B0",
-  "0x4B15A0",
-  "0x4B15E0",
-  "0x4B1610",
-  "0x4B1640",
-  "0x4B1660",
-  "0x4B16B0",
-  "0x4B1700"
+  "0x4B0C60"
  ],
  "merged": [],
  "name": "shared/kv_acc.cpp",
  "shared": [
   "0x42B320",
   "0x4A7F00",
-  "0x4A8600",
   "0x4B0B00",
   "0x4B0B90",
-  "0x4B0BB0",
-  "0x4B11C0",
-  "0x4B13A0",
-  "0x4B1640"
+  "0x4B0BB0"
  ],
  "short_known": [
   "0x42B320",
   "0x4B0B00",
   "0x4B0B90",
-  "0x4B0BB0",
-  "0x4B11C0",
-  "0x4B13A0",
-  "0x4B1640"
+  "0x4B0BB0"
  ]
 }
