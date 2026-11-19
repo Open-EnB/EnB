@@ -1,9 +1,7 @@
 {
- "ambiguous": [
-  "0x4ADD40"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
- "description": "PermString's table, client 0x4ADC50-0x4AE3C5: 8 functions, asserts on the client's lines 63-213 (D25)",
+ "description": "PermString's table, client 0x4ADC50-0x4AE371: 8 functions, asserts on the client's lines 63-213 (D25)",
  "expected": {},
  "in_tree": [
   "0x4ADC50",
