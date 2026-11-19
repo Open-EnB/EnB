@@ -3,7 +3,10 @@ r"""End-to-end scenarios for client builds (D237): an input script plus log-even
     python tools/harness/e2e.py run [NAME...] [--instance ID] [--exe PATH] [--messages] [--keep] [--separate]
     python tools/harness/e2e.py run --retail [NAME...] --instance ID    the same scenarios against the retail client
     python tools/harness/e2e.py --live --db-snapshot run sb_...    live, the character's rows put back afterwards
-    python tools/harness/e2e.py compare DIR_OURS DIR_RETAIL    the two runs' packets per scenario, side by side
+    python tools/harness/e2e.py compare OURS RETAIL    two runs (folder, folders joined by ',', or a run --manifest
+                                                       FILE): per scenario verdicts, packets and shots, SAME / DIFF
+    python tools/harness/e2e.py retail [NAME...] [--exe PATH] [--instance BASE] [--retail-run MANIFEST] [--detail]
+                                                       ours and retail at once, then compare: one line a scenario
     python tools/harness/e2e.py list                       the scenarios, in order, with their expected-fail notes
     python tools/harness/e2e.py check [NAME...]            parse only (no client)
 
@@ -1246,8 +1249,10 @@ def _alive(pid):
 def sent_packets(run_dir):
     """A run folder's events.log -> {scenario: [packet names the client sent, in order]} ('received NAME 0x..' lines
     of antprox.out between the harness's 'scenario NAME' notes). Keep-alives and time requests are left out: their
-    count follows the wall clock, not the scenario."""
-    out, cur = {}, None
+    count follows the wall clock, not the scenario. Packets the replay server logs in the same millisecond on
+    different connections are put in name order: which of the two antprox reads first is a race (2026-11-19: /stop's
+    VERB_REQUEST to the sector and MASTER_JOIN came in either order, on retail and on ours, run to run)."""
+    out, cur, stamp = {}, None, {}
     skip = ('KEEP_ALIVE', 'KEEPALIVE', 'REQUEST_TIME', 'DEBUG')
     with open(os.path.join(run_dir, 'events.log'), encoding='utf-8', errors='replace') as f:
         for line in f:
@@ -1261,9 +1266,21 @@ def sent_packets(run_dir):
             elif src == 'proxy' and cur and re.search(r': mark (\S+)', text) and text.split(': mark ')[1].split()[0] == cur:
                 out[cur] = []           # the scenario's first own step: the session's first scenario drops its includes
             elif src == 'antprox' and cur:
-                p = re.search(r'connection #\d+: received (\w+) 0x[0-9a-f]+, (\d+) bytes', text)
-                if p and not p.group(1).startswith(skip):
-                    out[cur].append(f'{p.group(1)} {p.group(2)}')
+                p = re.search(r'(?:(\d\d:\d\d:\d\d\.\d+) \w+ )?connection #(\d+): received (\w+) 0x[0-9a-f]+, '
+                              r'(\d+) bytes', text)
+                if p and not p.group(3).startswith(skip):
+                    item = f'{p.group(3)} {p.group(4)}'
+                    lst, at = out[cur], (p.group(1), p.group(2))
+                    prev = stamp.get(cur)
+                    if at[0] and prev and prev[0] == at[0] and prev[1] != at[1]:
+                        k = len(lst)            # into name order among this millisecond's packets
+                        while k > prev[2] and lst[k - 1] > item:
+                            k -= 1
+                        lst.insert(k, item)
+                        stamp[cur] = (at[0], at[1], prev[2])
+                    else:
+                        lst.append(item)
+                        stamp[cur] = (at[0], at[1], len(lst) - 1)
                 # --live: 'Sending [0x0027] via UDP = received INVENTORY_MOVE' (name_live's, no size); the walk's
                 # STARBASE_AVATAR_CHANGE count follows the pilot's closed loops, not the scenario
                 p = None if p else re.search(r'Sending \[0x([0-9a-f]+)\] via \w+ = received (\w+)$', text)
@@ -1272,26 +1289,363 @@ def sent_packets(run_dir):
     return out
 
 
-def compare(ours, retail):
-    """Prints, per scenario both runs have, whether the client sent the same packets (name and size, in order) and
-    the first difference. Exit 1 when any differs."""
+def run_dirs(arg):
+    """A run as compare reads it: one run folder, several joined by ',' (a run whose failure started a fresh
+    session wrote one folder per session), or a run manifest (`run --manifest FILE`: every folder it wrote)."""
+    if arg.endswith('.json'):
+        with open(arg, encoding='utf-8') as f:
+            m = json.load(f)
+        dirs = []
+        for r in m['scenarios']:
+            if r.get('out') and r['out'] not in dirs:
+                dirs.append(r['out'])
+        return dirs
+    return [d for d in arg.split(',') if d]
+
+
+def run_packets(dirs):
+    out = {}
+    for d in dirs:
+        if os.path.exists(os.path.join(d, 'events.log')):
+            out.update({k: v for k, v in sent_packets(d).items() if k not in out or v})
+    return out
+
+
+def run_results(dirs):
+    """{scenario: its result-NAME.json} over a run's folders (the last folder that has one wins)."""
+    out = {}
+    for d in dirs:
+        for f in sorted(os.listdir(d)) if os.path.isdir(d) else []:
+            if f.startswith('result-') and f.endswith('.json'):
+                with open(os.path.join(d, f), encoding='utf-8') as fh:
+                    out[f[7:-5]] = json.load(fh)
+    return out
+
+
+def run_shots(dirs):
+    """{scenario: [(shot name, bmp path)]} over a run's folders: e2e.log's 'scenario NAME' and '  shot X taken'
+    lines give each shot its scenario; the k-th 'shot X taken' is the k-th shot_X_NNNNN.bmp by frame number (.png
+    once the session closed: Session.close converts them, bmp2png)."""
+    out = {}
+    for d in dirs:
+        log = os.path.join(d, 'e2e.log')
+        if not os.path.exists(log):
+            continue
+        files = {}
+        for f in os.listdir(d):
+            m = re.match(r'shot_(.+)_(\d+)\.(bmp|png)$', f)
+            if m:
+                files.setdefault(m.group(1), []).append((int(m.group(2)), os.path.join(d, f)))
+        for v in files.values():
+            v.sort()
+        used, cur = {}, None
+        with open(log, encoding='utf-8', errors='replace') as fh:
+            for line in fh:
+                m = re.match(r'\S+ scenario (\S+)', line)
+                if m:
+                    cur = m.group(1)
+                    out.setdefault(cur, [])
+                    continue
+                m = re.match(r'\S+   shot (\S+) taken$', line.rstrip('\n'))
+                if m and cur:
+                    k = used.get(m.group(1), 0)
+                    used[m.group(1)] = k + 1
+                    have = files.get(m.group(1), [])
+                    if k < len(have):
+                        out[cur].append((m.group(1), have[k][1]))
+    return out
+
+
+def read_bmp(path):
+    """A d3d8shot shot (an uncompressed 24- or 32-bit BMP) -> (width, height, bytes per pixel, rows top-down)."""
+    import struct
+    with open(path, 'rb') as f:
+        data = f.read()
+    if data[:2] != b'BM':
+        raise ValueError(f'{path}: not a BMP')
+    off, = struct.unpack_from('<I', data, 10)
+    w, h, _, bpp, comp = struct.unpack_from('<iiHHI', data, 18)
+    if bpp not in (24, 32) or comp not in (0, 3):
+        raise ValueError(f'{path}: {bpp}-bit, compression {comp}')
+    n = bpp // 8
+    stride = (w * n + 3) & ~3
+    rows = [data[off + y * stride: off + y * stride + w * n] for y in range(abs(h))]
+    if h > 0:
+        rows.reverse()                  # bottom-up
+    return w, abs(h), n, rows
+
+
+def read_png(path):
+    """A shot as bmp2png.write_png writes it (8-bit RGB, not interlaced) -> (width, height, 3, rows top-down);
+    every filter type is undone (bmp2png writes filter 0 only, the fast path)."""
+    import struct
+    import zlib
+    with open(path, 'rb') as f:
+        data = f.read()
+    if data[:8] != b'\x89PNG\r\n\x1a\n':
+        raise ValueError(f'{path}: not a PNG')
+    pos, idat, w = 8, [], None
+    while pos < len(data):
+        n, tag = struct.unpack_from('>I4s', data, pos)
+        body = data[pos + 8: pos + 8 + n]
+        if tag == b'IHDR':
+            w, h, depth, ctype, _, _, inter = struct.unpack('>IIBBBBB', body)
+            if depth != 8 or ctype not in (2, 6) or inter:
+                raise ValueError(f'{path}: depth {depth}, colour type {ctype}, interlace {inter}')
+            bpp = 3 if ctype == 2 else 4
+        elif tag == b'IDAT':
+            idat.append(body)
+        elif tag == b'IEND':
+            break
+        pos += 12 + n
+    raw = zlib.decompress(b''.join(idat))
+    stride = w * bpp
+    rows, prev = [], bytes(stride)
+    for y in range(h):
+        ft, line = raw[y * (stride + 1)], raw[y * (stride + 1) + 1:(y + 1) * (stride + 1)]
+        if ft:
+            cur = bytearray(line)
+            for i in range(stride):
+                a = cur[i - bpp] if i >= bpp else 0
+                b = prev[i]
+                c = prev[i - bpp] if i >= bpp else 0
+                if ft == 1:
+                    v = a
+                elif ft == 2:
+                    v = b
+                elif ft == 3:
+                    v = (a + b) >> 1
+                else:
+                    pa, pb, pc = abs(b - c), abs(a - c), abs(a + b - 2 * c)
+                    v = a if pa <= pb and pa <= pc else (b if pb <= pc else c)
+                cur[i] = (cur[i] + v) & 0xFF
+            line = bytes(cur)
+        rows.append(line)
+        prev = line
+    return w, h, bpp, rows
+
+
+def read_shot(path):
+    """A shot (.bmp from the proxy, .png after the session) -> (width, height, bytes per pixel, RGB rows top-down)."""
+    if path.lower().endswith('.png'):
+        return read_png(path)
+    w, h, n, rows = read_bmp(path)
+    out = []
+    for row in rows:
+        rgb = bytearray(row)
+        rgb[0::n], rgb[2::n] = row[2::n], row[0::n]
+        out.append(bytes(rgb))
+    return w, h, n, out
+
+
+SHOT_GRID = 16          # the shot compare's cells: GRID x GRID
+SHOT_TOL = 16           # a cell differs when its mean |difference| per channel (0-255) is above this
+SHOT_STEP = 2           # every STEP-th pixel and row is compared
+SHOT_MASK = os.path.join(SCN, 'shot_mask.txt')
+
+
+def load_shot_mask(path=SHOT_MASK):
+    """e2e/shot_mask.txt -> [(shot-name glob, rule)], one line each ('#' comments):
+        GLOB X0,Y0-X1,Y1   a region that follows the wall clock on either client (a planet turning), left out of the
+                           cell compare (client pixels at 1280x1024); rule (x0, y0, x1, y1)
+        GLOB mean T        a shot whose content follows the wall clock all over (a recording's playback: ships and
+                           effects move): only the frame's mean brightness is compared, within T of 255; rule ('mean', T)
+        GLOB skip          not compared at all (retail differs from retail more than any tolerance); rule ('skip',)
+        GLOB cells         the plain cell compare (an exception put before a wider mean / skip line); rule ('cells',)
+    The first mean / skip / cells line that matches a shot decides; regions apply to the cell compare."""
+    out = []
+    if not os.path.exists(path):
+        return out
+    with open(path, encoding='utf-8') as f:
+        for n, line in enumerate(f, 1):
+            line = line.split('#')[0].strip()
+            if not line:
+                continue
+            m = re.match(r'(\S+)\s+(\d+),(\d+)-(\d+),(\d+)$', line)
+            if m:
+                out.append((m.group(1), tuple(int(v) for v in m.groups()[1:])))
+                continue
+            m = re.match(r'(\S+)\s+(mean\s+[\d.]+|skip|cells)$', line)
+            if not m:
+                raise ValueError(f'{path}:{n}: GLOB X0,Y0-X1,Y1 | GLOB mean T | GLOB skip | GLOB cells')
+            w = m.group(2).split()
+            out.append((m.group(1), ('mean', float(w[1])) if w[0] == 'mean' else (w[0],)))
+    return out
+
+
+def mask_for(shot, mask):
+    """-> (the regions to leave out, the shot's mean / skip rule or None: the cell compare)."""
+    import fnmatch
+    rules = [r for g, r in mask if fnmatch.fnmatchcase(shot, g)]
+    rule = next((r for r in rules if len(r) != 4), None)
+    return [r for r in rules if len(r) == 4], (None if rule == ('cells',) else rule)
+
+
+def shot_mean(path, step=4):
+    """The frame's mean brightness (0-255, every channel, every STEP-th pixel and row)."""
+    w, h, n, rows = read_shot(path)
+    tot = cnt = 0
+    for y in range(0, h, step):
+        r = rows[y]
+        for c in range(3):
+            v = r[c::n * step]
+            tot += sum(v)
+            cnt += len(v)
+    return tot / max(1, cnt)
+
+
+def shot_diff(path_a, path_b, grid=SHOT_GRID, tol=SHOT_TOL, step=SHOT_STEP, ignore=()):
+    """Two back-buffer shots -> {'cells', 'differ' (cells over tol), 'box' (the differing cells' pixel box or None),
+    'mean' (the whole image's mean |difference| per channel)}; {'size': ...} when the sizes differ. A cell that
+    overlaps a rectangle of ignore (x0, y0, x1, y1) is not counted (load_shot_mask)."""
+    wa, ha, na, ra = read_shot(path_a)
+    wb, hb, nb, rb = read_shot(path_b)
+    if (wa, ha) != (wb, hb):
+        return {'size': f'{wa}x{ha} vs {wb}x{hb}', 'cells': grid * grid, 'differ': grid * grid, 'box': None,
+                'mean': 255.0}
+    cw, ch = -(-wa // grid), -(-ha // grid)
+    sums, counts = [0] * (grid * grid), [0] * (grid * grid)
+    xs = range(0, wa, step)
+    per_cell_x = [0] * grid
+    for x in xs:
+        per_cell_x[x // cw] += 3
+    total = 0
+    for y in range(0, ha, step):
+        base = (y // ch) * grid
+        for i in range(grid):
+            counts[base + i] += per_cell_x[i]
+        la, lb = ra[y], rb[y]
+        if la == lb and na == nb:
+            continue
+        for x in xs:
+            oa, ob = x * na, x * nb
+            d = abs(la[oa] - lb[ob]) + abs(la[oa + 1] - lb[ob + 1]) + abs(la[oa + 2] - lb[ob + 2])
+            if d:
+                sums[base + x // cw] += d
+                total += d
+    def masked(i):
+        x0, y0 = (i % grid) * cw, (i // grid) * ch
+        return any(x0 < r[2] and r[0] < x0 + cw and y0 < r[3] and r[1] < y0 + ch for r in ignore)
+    bad = [i for i in range(grid * grid) if counts[i] and sums[i] / counts[i] > tol and not masked(i)]
+    box = None
+    if bad:
+        cx = [i % grid for i in bad]
+        cy = [i // grid for i in bad]
+        box = (min(cx) * cw, min(cy) * ch, min(wa, (max(cx) + 1) * cw), min(ha, (max(cy) + 1) * ch))
+    return {'cells': grid * grid, 'differ': len(bad), 'box': box, 'mean': total / max(1, sum(counts))}
+
+
+def compare_runs(ours, retail, shots=True, grid=SHOT_GRID, tol=SHOT_TOL):
+    """ours, retail: lists of run folders. -> [(name, 'SAME' | 'DIFF' | '-', one-line summary, detail lines)], one
+    per scenario our run has, in its order. A scenario differs when its verdicts differ (PASS / FAIL / XFAIL; the
+    retail run's own failure is the expected result), when the packets it sent differ (name and size, in order),
+    or when a shot both runs took differs in some cell (shot_diff)."""
     import difflib
-    a, b = sent_packets(ours), sent_packets(retail)
-    bad = 0
-    for name in a:
-        if name not in b:
-            print(f'-     {name}: not in the retail run')
+    pa, pb = run_packets(ours), run_packets(retail)
+    va, vb = run_results(ours), run_results(retail)
+    sa, sb = (run_shots(ours), run_shots(retail)) if shots else ({}, {})
+    mask = load_shot_mask() if shots else []
+    names = []                          # the run's order: events.log, then e2e.log, then any other result
+    for n in list(pa) + list(sa) + list(va):
+        if n not in names:
+            names.append(n)
+    rows = []
+    for name in names:
+        if name not in vb and name not in pb:
+            rows.append((name, '-', 'not in the retail run', []))
             continue
-        if a[name] == b[name]:
-            print(f'SAME  {name}: {len(a[name])} packets sent')
-            continue
-        bad += 1
-        d = [l for l in difflib.unified_diff(b[name], a[name], 'retail', 'ours', lineterm='', n=1)][2:]
-        print(f'DIFF  {name}: ours {len(a[name])} packets, retail {len(b[name])}; first differences (- retail, + ours):')
-        for l in d[:12]:
-            print('        ' + l)
-    print(f'compare: {len([n for n in a if n in b]) - bad} of {len([n for n in a if n in b])} scenarios send the same packets')
+        what, detail = [], []
+        ra_, rb_ = va.get(name), vb.get(name)
+        if ra_ and rb_ and verdict(ra_) != verdict(rb_):
+            def v(r):
+                return verdict(r) + (f' ({r["failure"][:70]})' if r.get('failure') else '')
+            what.append(f'ours {v(ra_)}, retail {v(rb_)}')
+        a, b = pa.get(name, []), pb.get(name, [])
+        if a != b:
+            d = [l for l in difflib.unified_diff(b, a, 'retail', 'ours', lineterm='', n=1)][2:]
+            first = next((l for l in d if l[:1] in '-+'), '')
+            what.append(f'packets ours {len(a)}, retail {len(b)} (first {first.strip()})')
+            detail += ['packets (- retail, + ours):'] + ['    ' + l for l in d[:12]]
+        alike, total = 0, 0
+        shot_bad = []
+        if shots:
+            left = list(sb.get(name, []))
+            for shot, path in sa.get(name, []):
+                j = next((i for i, (s, _) in enumerate(left) if s == shot), None)
+                if j is None:
+                    continue
+                other = left.pop(j)[1]
+                regions, rule = mask_for(shot, mask)
+                if rule and rule[0] == 'skip':
+                    continue
+                total += 1
+                if rule:                        # ('mean', T)
+                    ma, mb = shot_mean(path), shot_mean(other)
+                    if abs(ma - mb) > rule[1]:
+                        shot_bad.append(f'{shot} brightness {ma:.0f} vs {mb:.0f}')
+                        detail.append(f'shot {shot}: mean brightness ours {ma:.1f}, retail {mb:.1f} (tolerance '
+                                      f'{rule[1]:g}); {path}')
+                    else:
+                        alike += 1
+                    continue
+                r = shot_diff(path, other, grid, tol, ignore=regions)
+                if r['differ']:
+                    box = r.get('size') or (f'{r["box"][0]},{r["box"][1]}-{r["box"][2]},{r["box"][3]}')
+                    shot_bad.append(f'{shot} {r["differ"]}/{r["cells"]} cells at {box}')
+                    detail.append(f'shot {shot}: {r["differ"]} of {r["cells"]} cells differ, box {box}, '
+                                  f'mean {r["mean"]:.1f}; {path}')
+                else:
+                    alike += 1
+            if shot_bad:
+                what.append('shots ' + '; '.join(shot_bad[:3]) + (' ...' if len(shot_bad) > 3 else ''))
+        summary = f'{len(a)} packets' + (f', shots {alike} of {total} alike' if shots else '')
+        rows.append((name, 'DIFF' if what else 'SAME', ('; '.join(what) if what else summary), detail))
+    return rows
+
+
+def compare(ours, retail, shots=True, detail=True, grid=SHOT_GRID, tol=SHOT_TOL):
+    """Prints one line per scenario (SAME / DIFF: what / '-' not in the retail run) and, with detail, the first
+    packet differences and each differing shot. Exit 1 when any differs."""
+    rows = compare_runs(run_dirs(ours), run_dirs(retail), shots, grid, tol)
+    for name, st, summary, det in rows:
+        print(f'{st:5s} {name}: {summary}')
+        if detail:
+            for l in det:
+                print('        ' + l)
+    both = [r for r in rows if r[1] != '-']
+    bad = sum(r[1] == 'DIFF' for r in both)
+    print(f'compare: {len(both) - bad} of {len(both)} scenarios the same as retail'
+          + (' (packets, verdicts, shots)' if shots else ' (packets, verdicts)'))
     return 1 if bad else 0
+
+
+def retail_check(args):
+    """`retail`: our build and the retail client through the same scenarios at once (two instances), then compare;
+    --retail-run MANIFEST reuses a retail run instead of running it again."""
+    stamp = time.strftime('%H%M%S')
+    me = os.path.abspath(__file__)
+    jobs = {}
+    sides = [('ours', ['--instance', args.instance + '-ours'] + (['--exe', args.exe] if args.exe else []))]
+    if not args.retail_run:
+        sides.append(('retail', ['--retail', '--instance', args.instance + '-retail']))
+    for side, extra in sides:
+        man = os.path.join(OUT, f'retail-{stamp}-{side}.json')
+        log = os.path.join(OUT, f'retail-{stamp}-{side}.log')
+        cmd = [sys.executable, me, 'run'] + list(args.names) + extra + ['--manifest', man] + \
+              (['--messages'] if args.messages else [])
+        jobs[side] = (subprocess.Popen(cmd, stdout=open(log, 'w', encoding='utf-8'), stderr=subprocess.STDOUT,
+                                       cwd=ROOT), man, log)
+        time.sleep(2)                   # not the same second: the two session folders get distinct names anyway
+    for side, (p, man, log) in jobs.items():
+        p.wait()
+        print(f'retail: {side} run: exit {p.returncode}, log {log}', flush=True)
+    ours_man = jobs['ours'][1]
+    retail_man = args.retail_run or jobs['retail'][1]
+    for m in (ours_man, retail_man):
+        if not os.path.exists(m):
+            print(f'retail: no manifest {m} (the run stopped early: see its log)')
+            return 2
+    return compare(ours_man, retail_man, shots=not args.no_shots, detail=args.detail)
 
 
 def keeps_session(res):
@@ -1449,7 +1803,7 @@ def db_restore(path, net7bin, log=print):
 
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__.split('\n')[0])
-    ap.add_argument('command', choices=['run', 'list', 'check', 'compare', 'record'])
+    ap.add_argument('command', choices=['run', 'list', 'check', 'compare', 'record', 'retail'])
     ap.add_argument('names', nargs='*')
     ap.add_argument('--instance', default='e2e', help='clientpoc.py instance name (default e2e)')
     ap.add_argument('--exe', help='the POC exe (default: this tree\'s build/programs/clientpoc/clientpoc.exe, '
@@ -1466,6 +1820,11 @@ def main(argv=None):
     ap.add_argument('--db-snapshot', nargs='?', const=6, type=int, metavar='AVATAR',
                     help="--live: dump the avatar's rows (default 6) before the run and put them back after it "
                          '(Net7.exe stopped for the restore, then started again)')
+    ap.add_argument('--manifest', metavar='FILE', help="run: write the run (each scenario's verdict and folder) to "
+                                                      'FILE as JSON; compare and retail read it')
+    ap.add_argument('--no-shots', action='store_true', help='compare / retail: packets and verdicts only')
+    ap.add_argument('--detail', action='store_true', help='retail: the packet and shot details under each DIFF')
+    ap.add_argument('--retail-run', metavar='MANIFEST', help='retail: reuse this retail run instead of a new one')
     args = ap.parse_args(argv)
     args.record = args.command == 'record'
     if args.live:
@@ -1485,7 +1844,17 @@ def main(argv=None):
         if len(args.names) != 2:
             print('e2e: compare DIR_OURS DIR_RETAIL (two run folders under .work/e2e)')
             return 2
-        return compare(args.names[0], args.names[1])
+        return compare(args.names[0], args.names[1], shots=not args.no_shots)
+    if args.command == 'retail':
+        if args.live:
+            print('e2e: retail compares /REPLAY runs only')
+            return 2
+        if args.exe:
+            args.exe = os.path.abspath(args.exe)
+        if args.instance == 'e2e':
+            args.instance = 'cmp'
+        os.makedirs(OUT, exist_ok=True)
+        return retail_check(args)
     names = args.names or scenario_names(args.live)
     try:
         gadgets = load_gadgets()
@@ -1519,6 +1888,11 @@ def main(argv=None):
         if snap:
             db_restore(snap, args.net7bin, lambda m: print(m, flush=True))
     bad = sum(verdict(res) in ('FAIL', 'XPASS') for res in results)
+    if args.manifest:
+        with open(args.manifest, 'w', encoding='utf-8') as f:
+            json.dump({'instance': args.instance, 'retail': bool(args.retail), 'exe': args.exe,
+                       'scenarios': [{'name': r['name'], 'verdict': verdict(r), 'out': r.get('out'),
+                                      'failure': r.get('failure')} for r in results]}, f, indent=1)
     print(f'e2e: {len(scs) - bad} of {len(scs)} as expected in {time.time() - t0:.0f} s; logs under {OUT}')
     if not args.keep:
         import clientpoc

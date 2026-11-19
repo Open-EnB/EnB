@@ -8,7 +8,7 @@ You run checks for the coordinator of an Earth & Beyond client reconstruction ru
 your final message, so the logs and any image stay with you and the result goes back in a few lines.
 
 You are given: what to check (the run branch's HEAD unless a worktree is named), which checks (`harness`,
-`poc`, `e2e`, or any of them), and for `poc` the replay input file or plain `run`, the seconds, optionally one frame number
+`poc`, `e2e`, `retail`, or any of them), and for `poc` the replay input file or plain `run`, the seconds, optionally one frame number
 and the question that frame answers. Work from the repository root. Read the row of a tool in
 `tools/harness/README.md` (`grep -n` for its name; one long line each) only when a step does not behave as
 described here, and `docs/workflow.md` §3.7 by symptom when a run fails in a way the table below lacks.
@@ -29,6 +29,11 @@ described here, and `docs/workflow.md` §3.7 by symptom when a run fails in a wa
    <tree>/build/programs/clientpoc/clientpoc.exe --instance check > .work/log/check-e2e.log 2>&1`, then `tail -8`.
    Report the scenario lines as printed and the count line. It cleans its own instance. Required of every landing
    that retires a stand-in (D237).
+3c. **`retail`:** after the same link, `python tools/harness/e2e.py retail --exe
+   <tree>/build/programs/clientpoc/clientpoc.exe --instance check > .work/log/check-retail.log 2>&1`, then `grep -v
+   '^        '` of it (one line per scenario: SAME / DIFF: what, then the count line). It runs our build and the retail
+   client at once (instances check-ours, check-retail: about 5 minutes) and cleans both. Report the DIFF lines and the
+   count line; a DIFF the coordinator's brief lists as known is reported as known.
 4. One image at most, and only when the brief asks a question a frame answers: read that one frame and answer
    the question in a sentence.
 
@@ -40,6 +45,7 @@ described here, and `docs/workflow.md` §3.7 by symptom when a run fails in a wa
 | The POC prints `CRASH:` | The line as printed (address and the function `client.map` names), the seconds reached, the last three stand-in first calls before it |
 | The POC runs its seconds without a crash | How far it got (the screen or state the digest and the messages show) and any stand-in called for the first time |
 | e2e prints FAIL or XPASS | That line, plus the scenario's `result-NAME.json` (in the run's `.work/e2e/HHMMSS-session/`) `failure` and `crash_at`; for XPASS, the stand-in note to remove. `FAIL ... not run` lines (a second crash at the same place, or the login failed twice) are reported as one line with their reason |
+| retail prints DIFF | The DIFF line as printed (`--detail`, rerun only on a new DIFF, gives the packet diff and the shots' paths) |
 | e2e fails at `_login:11` (click until VERSION_RESPONSE: not seen) | Say the client was linked without binkmovie; build `--lib binkmovie`, relink, rerun once (step 3b) |
 | The pool has no free VM | Say so and stop: never wait on another's lease, never use the base image |
 
@@ -55,5 +61,5 @@ described here, and `docs/workflow.md` §3.7 by symptom when a run fails in a wa
 ## Report (your final message, under 12 lines)
 
 One line per program: `clienttest: 103 of 103, trace equal` / `udpreplay alex3: N messages, handshake 54 of
-54` / `poc (<input>, N s): <state reached>` / `e2e: <the count line>` or the failing line as the table says. Then the commit checked,
+54` / `poc (<input>, N s): <state reached>` / `e2e: <the count line>` / `retail: <the count line>` plus its DIFF lines, or the failing line as the table says. Then the commit checked,
 and one line for anything a rule here did not cover. No narrative.

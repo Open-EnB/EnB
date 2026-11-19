@@ -617,7 +617,29 @@ source are ours only and are skipped there (e2e.log says so); a retail crash sho
 `e2e.py compare DIR_OURS DIR_RETAIL` (two run folders) prints per scenario whether the two clients SENT the same
 packets (antprox.out's 'received NAME, N bytes' lines between the scenarios' marks; keep-alives, time requests
 and DEBUG left out: they follow the wall clock) and the first differences. First use, 2026-11-14: world_entry,
-options, cargo, chat, group_looking: retail 5 of 5 in 46 s, and all five SAME. Not compared yet: the shots.
+options, cargo, chat, group_looking: retail 5 of 5 in 46 s, and all five SAME.
+
+**The retail check (2026-11-19, E2):** `e2e.py retail [NAME...] [--exe PATH] [--instance BASE] [--retail-run
+MANIFEST] [--detail] [--no-shots]` runs our build (instance BASE-ours, default `cmp-ours`) and the retail client
+(BASE-retail) through the same scenarios at once, then compares them: one line per scenario, `SAME NAME: N packets,
+shots K of K alike` or `DIFF NAME: what` (the verdicts when they differ, ours vs retail's; the packets' counts and
+first difference; each differing shot with its cells and box), and a count line; exit 1 on any DIFF. `--detail`
+adds the packet diff and each shot's path under a DIFF; `--retail-run` reuses a retail run's manifest (it varies
+less than ours changes) instead of running retail again. Both runs' logs and manifests are
+`.work/e2e/retail-HHMMSS-{ours,retail}.{log,json}`. `run --manifest FILE` writes any run's manifest (each scenario's
+verdict and session folder: a run whose failure started a fresh session has several), and `compare` takes a
+manifest, a folder, or folders joined by `,` on each side, shots included (`--no-shots`: packets and verdicts).
+**Shots:** the same `shot` step's back buffer from both clients (D69), paired by name in scenario order (.bmp, or
+.png after the session's close), cut into 16x16 cells, every 2nd pixel and row; a cell differs when its mean
+|difference| per channel is over 16 of 255. `e2e/shot_mask.txt` (its header has the rules) leaves out regions
+that follow the wall clock on either client (the home sector's turning planet, the pop-up browser's live page),
+compares a playback's shots (play1, play1_windows, the `_play` sessions) by the frame's mean brightness only (ships
+and effects move: retail differs from retail in up to 207 of 256 cells) and skips w_entered. Packets the replay
+server logs in the same millisecond on two connections are put in name order (/stop's VERB_REQUEST and MASTER_JOIN
+came in either order on both clients). Calibrated 2026-11-19 at c7a92fe7f: retail vs retail and ours vs ours 25 of
+25 SAME; ours vs retail (two pairs, each ~5 minutes, 25 of 25 PASS on both) 22 of 25 SAME, the same three DIFF both
+times: pda_faction (ours draws no panel behind the six faction rows) and play1 / play1_windows (sector 4505 about 10
+of 255 darker on ours in every in-sector shot; the home sector equal).
 
 **No registry write (D249):** the client calls BrowserEngine.dll's `DllRegisterServer` at every start (the DLL's own
 COM keys, the server path being the registering copy's). Every harness run sets `D3D8SHOT_NOREGISTER=1`: the proxy
