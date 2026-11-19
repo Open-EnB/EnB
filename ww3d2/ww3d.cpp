@@ -1684,6 +1684,12 @@ void WW3D::Update_Movie_Capture( void )
 
 	RECT bounds;
 	GetWindowRect(_Hwnd,&bounds);
+	int w=bounds.right-bounds.left;
+	int h=bounds.bottom-bounds.top;
+	bounds.left=0;
+	bounds.top=0;
+	bounds.right=w;
+	bounds.bottom=h;
 
 	D3DLOCKED_RECT lrect;
 
@@ -2072,6 +2078,10 @@ void WW3D::Set_Gamma(float gamma,float bright,float contrast,bool calibrate)
 //       stack JPEGWriterClass (0x918543: ctor 0x9E3850, Write 0x9E3870, dtor 0x9E3860), plus the window rectangle moved to
 //       the origin before LockRect (0x918403). ZH's ScreenShotFormatEnum is not declared: the cases are 0, 1, 2. NOT
 //       EXACT (register-only: the rectangle block's load order and registers, 5 masked rows; attempts.py show 0x9182C0)
+// EnB: WW3D::Update_Movie_Capture (line 1570 at the freeze): E&B moves the window rectangle to the origin after
+//       GetWindowRect, as in its Make_Screen_Shot (0x918B68: the size into right / bottom, left and top zeroed before
+//       LockRect, then width / height from the moved rectangle). NOT EXACT (register-only: the same 5-row block as
+//       Make_Screen_Shot's 0x918403; attempts.py show 0x918B20)
 // EnB: Line 119 at the freeze: #include "unknown_jpeg.h" (JPEGWriterClass, Make_Screen_Shot's JPG case), on a blank line
 // EnB: Line 1688 at the freeze: Zero Hour's (0x918DA0 with _Invalidate_Textures inlined, 0x918E60), placed as the
 //       client orders them
