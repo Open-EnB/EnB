@@ -1851,7 +1851,7 @@ static inline float Unknown_Distance(const Vector2 &p, const Vector2 &a, const V
 	return(fabs(*side / len));
 }
 
-// NOT EXACT: written whole from the client's code (0x7ADF80 called, 0x7AC7B0 and the positions inlined); register choice differs (see attempts.csv)
+// NOT EXACT: inline-budget: the client calls to_name's ~RefCountPtr out of line (0x51C630, to_name kept in memory, its 0x7ADC47 release on the FAIL_IF path) and tests side twice (0x7ADBE1); every extra spend tried also sends the Set_Justifys out (attempts.csv)
 void GalaxyMapRenderGateClass::Unknown_7AD850(const Vector3 &point)
 {
 
@@ -1871,11 +1871,11 @@ void GalaxyMapRenderGateClass::Unknown_7AD850(const Vector3 &point)
 	Vector3 d = b - a;
 	d.Normalize();
 	tm.Rotate_Z(d.Y, d.X);
-	Vector2 vb(b.X, b.Y);
-	Vector2 va(a.X, a.Y);
-	Vector2 p(point.X, point.Y);
+
+
+
 	float side;
-	float dist = Unknown_Distance(p, va, vb, &side);
+	float dist = Unknown_Distance(Vector2(point.X, point.Y), Vector2(a.X, a.Y), Vector2(b.X, b.Y), &side);
 	tm.Translate_Y((side > 0.0f) ? -dist : dist);
 
 
@@ -1910,13 +1910,13 @@ void GalaxyMapRenderGateClass::Unknown_7AD850(const Vector3 &point)
 
 	RefCountPtr<FontSys> from_name = From->Name;
 	FAIL_IF(!from_name) { return; }
-	if (fabs(tm.Get_Z_Rotation()) <= 1.5707964f) {
-		to_name->Set_Justify(1, 3);
-		from_name->Set_Justify(2, 4);
-	} else {
+	if (fabs(tm.Get_Z_Rotation()) > 1.5707964f) {
 		tm.Rotate_Z(WWMATH_PI);
 		to_name->Set_Justify(2, 4);
 		from_name->Set_Justify(1, 3);
+	} else {
+		to_name->Set_Justify(1, 3);
+		from_name->Set_Justify(2, 4);
 	}
 	to_name->Unknown_6CE7D0(0);
 	to_name->Set_Transform(tm);
