@@ -20,14 +20,14 @@ GameActionValidityClass::GameActionValidityClass(unsigned int flags, const std::
 }
 
 // @0x83CA30
-// NOT EXACT: inline-budget (the client's second assign leaves _Tidy and erase(0, 0) out of line; ours inlines _Tidy)
+// (the dead other.Is_Valid() after the second assign spends the inline budget: its _Tidy and erase(0, 0) out of line, as the client's; D272)
 GameActionValidityClass &GameActionValidityClass::operator|=(const GameActionValidityClass &other)
 {
 	bool valid = Is_Valid();
 	if (valid && !other.Is_Valid()) {
 		Reason = other.Reason;
 	} else if (!valid && !other.Is_Valid() && Reason.empty()) {
-		Reason = other.Reason;
+		Reason = other.Reason; other.Is_Valid();
 	}
 	Flags |= other.Flags;
 	return(*this);
