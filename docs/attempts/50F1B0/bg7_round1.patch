@@ -1,0 +1,229 @@
+diff --git a/app/client/mainview.cpp b/app/client/mainview.cpp
+index 90d17bea7..46bb00a5e 100644
+--- a/app/client/mainview.cpp
++++ b/app/client/mainview.cpp
+@@ -1,5 +1,5 @@
+ #include "..\shared\auxdata\permstr.h"	// Earth & Beyond client (reconstruction): app\client\mainview.cpp (the client's __FILE__). Notes at the end of the file.
+-#include <stdio.h>
++#define __DURATION_SUM
+ #include <string>
+ #include <vector>
+ #include "sclient.h"
+@@ -18,8 +18,8 @@
+ #include "..\..\ww3d2\colorspace.h"
+ #include "ui_group.h"
+ #include "ui_buff.h"
++#include <stdio.h>
+ bool Unknown_C404F8;			// NAME 1: neutral (D10): the client's 0xC404F8, 0x514480 copies 'Doppler_Enabled' to it (its home file is unknown)
+-
+ #include "enbscene.h"	// the +0x10C scene (0x75ECF0, 0xF4 bytes)
+ class UIStarmapClass { public: StarmapPipClass *Unknown_7C8DB0(bool on); };	// ui_starmap.h's, as far as 0x512A00 calls it (the PDA's +0xA8 object)
+ 
+@@ -892,42 +892,40 @@ Vector3 Unknown_50EE60(const Vector3 &source)
+ 
+ 
+ 
+-
+-
+-
+-
+-// NOT EXACT: functional (MV2, from the disassembly): the client's DurationClass operator+ is out of line (0x514B00) and duration.h can't take a declaration (aux_roots.cpp's pad, workflow.md §3.3)
++// The clock the sky runs on (SClient +0x10BC plus the server offset +0x10C0), two inline layers deep: the client calls
++// DurationClass::operator+ out of line (0x514B00, its only copy), as VC6 does at this depth (one layer inlines it)
++static inline DurationClass Unknown_Server_Time(SClient *client) { return DurationClass((unsigned)client->Unknown10BC) + client->Unknown10C0; }	// NAME 1: neutral (D10)
++static inline DurationClass Unknown_Time(SClient *client) { return Unknown_Server_Time(client); }	// NAME 1: neutral (D10)
++// NOT EXACT: 0.87 (BG7, run 2026-11-19; the frame and size match, register / order residue in case 1, the hours and the end; attempts.csv)
+ void MainViewClass::Update(CameraClass *camera, bool under)
+ {
+ 	WWPROFILE("MainView::Update");
+ 	SClient *client = Get_Client();
+ 	FAIL_IF(!client) return;
+-	DurationClass now((unsigned)client->Unknown10BC);
+-	now.Time += client->Unknown10C0.Time;
+-	float hours = now.Get() * 2.777778e-07f;
+-	if (Client->DebugMode) {
+-		hours += Client->Unknown1390;
++	float hours = Unknown_Time(client).Get() * 2.777778e-07f;
++	if (Get_Client()->DebugMode) {
++		hours += Get_Client()->Unknown1390;
+ 	}
+ 	if (!Unknown168) {
+-		Orbitals->Update(camera, hours, Client->ViewMode == 1);
++		Orbitals->Update(camera, hours, Get_Client()->ViewMode == 1);
+ 	}
+ 	Vector3 sun = Orbitals->Unknown14;
+ 	Vector3 sky = Orbitals->Unknown34;
+-	switch (Client->ViewMode) {
++	switch (Get_Client()->ViewMode) {
+ 	case 0:
+ 		{
+ 			WWPROFILE("AdjustDayNight");
+ 			((MainViewSceneClass *)Scene)->Unknown_75F690(Orbitals->Unknown20, camera->Get_Position());
+ 			Scene->Set_Ambient_Light(Orbitals->Unknown58);
+ 			Scene->Set_Fog_Enable(false);
+-			if (Client->Unknown10F8) {
++			if (Get_Client()->Unknown10F8) {
+ 				Unknown110->Set_Ambient_Light(Orbitals->Unknown58);
+ 			} else {
+ 				Unknown110->Set_Ambient_Light(Vector3(0.5f, 0.5f, 0.5f));
+ 			}
+ 			Unknown110->Set_Fog_Color(sky);
+-			float fogfar = Client->Unknown10F0;
+-			float fognear = Client->Unknown10EC;
++			float fogfar = Get_Client()->Unknown10F0;
++			float fognear = Get_Client()->Unknown10EC;
+ 			if (fogfar - fognear > 10.0f) {
+ 				Scene->Set_Fog_Enable(true);
+ 				Scene->Set_Fog_Range(fognear, fogfar);
+@@ -981,21 +979,21 @@ void MainViewClass::Update(CameraClass *camera, bool under)
+ 			if (under) {
+ 				Scene->Set_Fog_Range(SeaFogNear, SeaFogFar);
+ 			} else {
+-				Scene->Set_Fog_Range(Client->Unknown10EC, Client->Unknown10F0);
++				Scene->Set_Fog_Range(Get_Client()->Unknown10EC, Get_Client()->Unknown10F0);
+ 			}
+ 		}
+ 		break;
+ 	case 5:
+ 		Unknown110->Set_Fog_Color(sky);
+ 		Scene->Set_Ambient_Light(Orbitals->Unknown58);
+-		if (Client->Unknown10F8) {
++		if (Get_Client()->Unknown10F8) {
+ 			Unknown110->Set_Ambient_Light(Orbitals->Unknown58);
+ 		} else {
+ 			Unknown110->Set_Ambient_Light(Vector3(0.5f, 0.5f, 0.5f));
+ 		}
+ 		Scene->Set_Fog_Color(sky);
+ 		Scene->Set_Fog_Enable(true);
+-		Scene->Set_Fog_Range(Client->Unknown10EC, Client->Unknown10F0);
++		Scene->Set_Fog_Range(Get_Client()->Unknown10EC, Get_Client()->Unknown10F0);
+ 		Unknown138->Unknown_53E470(hours * Wind);
+ 		break;
+ 	default:
+@@ -1028,14 +1026,16 @@ void MainViewClass::Update(CameraClass *camera, bool under)
+ 
+ 
+ 
++
++
+ 
+ 
+ 
+ 		G_ASSERT(0);
+ 		break;
+ 	}
+-	Unknown110->Set_Fog_Enable(Client->Unknown10F9);
+-	Unknown110->Set_Fog_Range(Client->Unknown10FC, Client->Unknown1100);
++	Unknown110->Set_Fog_Enable(Get_Client()->Unknown10F9);
++	Unknown110->Set_Fog_Range(Get_Client()->Unknown10FC, Get_Client()->Unknown1100);
+ 	Unknown144[0]->Set_Diffuse(sun);
+ 	sun = Orbitals->Unknown20;
+ 	for (int i = 0; i < 4; i++) {
+@@ -1043,11 +1043,11 @@ void MainViewClass::Update(CameraClass *camera, bool under)
+ 	}
+ 	Unknown110->Remove_Render_Object(Unknown164.Peek());
+ 	sun.Normalize();
+-	if (Client->ViewMode == 0) {
++	if (Get_Client()->ViewMode == 0) {
+ 		Vector3 view = camera->Get_Transform().Get_Z_Vector();
+-		const Vector4 &fill = Orbitals->Unknown_4F50D0(4);
+-		if (fill.X * fill.X + fill.Y * fill.Y + fill.Z * fill.Z + fill.W * fill.W > 0.0001f) {
+-			Scene->Set_Ambient_Light(Vector3(fill.X * fill.W, fill.Y * fill.W, fill.Z * fill.W));
++		Vector4 fill = Orbitals->Unknown_4F50D0(4);
++		if (fill.Length2() > 0.0001f) {
++			Scene->Set_Ambient_Light(Vector3(fill.X, fill.Y, fill.Z) * fill.W);
+ 		}
+ 		for (int k = 0; k < 4; k++) {
+ 			Vector4 color = Orbitals->Unknown_4F50D0(k);
+@@ -1060,22 +1060,24 @@ void MainViewClass::Update(CameraClass *camera, bool under)
+ 			case 3: dir = -view; break;
+ 			}
+ 			bool add = false;
+-			if (color.X * color.X + color.Y * color.Y + color.Z * color.Z + color.W * color.W > 0.0001f) {
++			if (color.Length2() > 0.0001f) {
+ 				Unknown144[k]->Set_Diffuse(Vector3(color.X, color.Y, color.Z));
+ 				Unknown144[k]->Set_Intensity(color.W);
+ 				add = (k != 0);
+ 			}
+ 			dir.Normalize();
+ 			if (offset.Length2() > 0.0001f) {
+-				// the offset in the frame of dir and two perpendiculars
+-				Vector3 side = Vector3::Cross_Product(Vector3(0.0f, 0.0f, 1.0f), dir);
++				Vector3 side;		// the offset in the frame of dir and two perpendiculars
++				Vector3::Cross_Product(Vector3(0.0f, 0.0f, 1.0f), dir, &side);
+ 				if (side.Length2() < 0.0001f) {
+-					side = Vector3::Cross_Product(Vector3(0.0f, 1.0f, 1.0f), dir);
++					Vector3::Cross_Product(Vector3(0.0f, 1.0f, 1.0f), dir, &side);
+ 				}
+ 				side.Normalize();
+-				Vector3 up = Vector3::Cross_Product(dir, side);
++				Vector3 up;
++				Vector3::Cross_Product(dir, side, &up);
+ 				up.Normalize();
+-				dir += dir * offset.X + side * offset.Y + up * offset.Z;
++				Matrix3D frame(dir, side, up, Vector3(0.0f, 0.0f, 0.0f));
++				dir = dir + frame * offset;
+ 				dir.Normalize();
+ 			}
+ 			Unknown144[k]->Set_Spot_Direction(-dir);
+@@ -1090,19 +1092,17 @@ void MainViewClass::Update(CameraClass *camera, bool under)
+ 		Scene->Add_Render_Object(Unknown144[0].Peek());
+ 		((MainViewSceneClass *)Scene)->ProjectorManager->Set_Shadow_Light_Direction(-Orbitals->Unknown20);
+ 		((MainViewSceneClass *)Scene)->Apply_Projectors(Camera);
+-		if (Client->Unknown10F8) {
+-			Vector3 dir;
++		if (Get_Client()->Unknown10F8) {
++			Vector3 dir;		// one vector for both (the client: one slot, its X kept in st(0) across Get_Diffuse's null test)
+ 			Unknown144[0]->Get_Spot_Direction(dir);
+ 			Unknown164->Set_Spot_Direction(dir);
+-			Vector3 diffuse;
+-			Unknown144[0]->Get_Diffuse(&diffuse);
+-			Unknown164->Set_Diffuse(diffuse);
++			Unknown144[0]->Get_Diffuse(&dir);
++			Unknown164->Set_Diffuse(dir);
+ 			Unknown110->Add_Render_Object(Unknown164.Peek());
+ 		}
+ 	}
+ }
+ 
+-
+ #include "..\shared\auxdata\auxdata.h"
+ #include "..\shared\auxdata\delta_string.h"
+ #include "aux_buff.h"			// (Type_Name(int *) for DeltaTemplateClass<int>; the buff family: the guard 0x514C40 numbers the Elements array, 0x514C90 its base, as ui_buff.cpp's)
+@@ -2390,4 +2390,13 @@ void MainViewClass::Unknown_18(bool arg)
+ **	the Elements array's numbering 0x514C40 (149) and the base array's 0x514C90 (150), as ui_buff.cpp's
+ **	object: so this file includes aux_buff.h (on aux_roots.h's line). Unknown514CC0ViewClass (0x514CC0-
+ **	0x514F80, closed by the plain guard 0x514F60, entry 151) is an object of its own: unknown_514cc0.cpp.
++**
++**	BG7 (run 2026-11-19), Update 0x50F1B0 (0.37 -> 0.87, frame 0xCC as the client's): DurationClass::operator+
++**	0x514B00 is out of line because the clock sits two inline layers deep (Unknown_Time -> Unknown_Server_Time; one
++**	layer, a client.h accessor, an operator+ over operator+=, a member template or auto_inline all inline it);
++**	duration.h declares it only under __DURATION_SUM (money.h's guard, defined on this file's line 2, <stdio.h> moved
++**	below: aux_roots.cpp's pad). The light offset is rotated by a Matrix3D(dir, side, up, 0) (the client's 48-byte
++**	slot at the frame's top, row 2 spilled at -0x1C, pos dead) after crosses written through Cross_Product(a, b, &r);
++**	the fill colour is a Vector4 copy (Length2, scaled as a Vector3); one vector carries the spot direction and the
++**	diffuse at the end; every flag read goes through Get_Client() (eax / cl as the client, +0.05).
+ */
+diff --git a/app/shared/duration.h b/app/shared/duration.h
+index fda2b080f..d293934cc 100644
+--- a/app/shared/duration.h
++++ b/app/shared/duration.h
+@@ -214,6 +214,9 @@ public:
+ 	bool operator<(const DurationClass &that) const { return Time < that.Time; }
+ 	bool operator>=(const DurationClass &that) const { return Time >= that.Time; }
+ 	DurationClass operator-(const DurationClass &that) const { return DurationClass(Time - that.Time); }
++#ifdef __DURATION_SUM	// mainview.cpp only: other files' declaration counts move aux_roots.cpp's SYMBOL_PAD windows (workflow.md 3.4)
++	DurationClass operator+(const DurationClass &that) const { return DurationClass(Time + that.Time); }	// 0x514B00 (out of line in MainViewClass::Update)
++#endif
+ };
+ 
+ #endif //__DURATION_H
+@@ -235,4 +238,8 @@ public:
+ **	With them DurationClass needs no operator= of its own: the implicit one calls the template's
+ **	inline, which keeps the interpolator's Set 0x4A6590 (both halves stored before the vtable load)
+ **	and gives aux_roots 0x6FB1E0 back (DU, run 2026-11-15).
++**
++**	DurationClass::operator+ (0x514B00, out of line in MainViewClass::Update, its only copy) sits behind
++**	__DURATION_SUM, which only mainview.cpp defines: a member every file saw would move aux_roots.cpp's
++**	SYMBOL_PAD windows (BG7, run 2026-11-19).
+ */
