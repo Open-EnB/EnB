@@ -109,8 +109,8 @@ void UnknownDistortionClass::Unknown_Render_Distortion(CameraClass & camera)
 	// The square facing the camera, to whole pixels outwards
 	Vector3 corner0;
 	Vector3 corner1;
-	Transform.Get_Translation(&corner0);
 	Transform.Get_Translation(&corner1);
+	Transform.Get_Translation(&corner0);
 	Vector3 left = -camera.Get_Transform().Get_X_Vector() * Unknown90;
 	Vector3 up = camera.Get_Transform().Get_Y_Vector() * Unknown90;
 	corner0 += left + up;
@@ -220,16 +220,15 @@ void UnknownDistortionClass::Unknown_Render_Distortion(CameraClass & camera)
 			uvs.Add(uv);
 		}
 	}
-	for (j = 0; j < ny - 1; j++) {
+	int row1 = 1;
+	for (j = 0; j < ny - 1; j++, row1 += nx) {
 		for (i = 0; i < nx - 1; i++) {
-			int i0 = j * nx + i;
-			int i1 = (j + 1) * nx + i;
-			indices.Add(i0);
-			indices.Add(i1);
-			indices.Add(i0 + 1);
-			indices.Add(i0 + 1);
-			indices.Add(i1);
-			indices.Add(i1 + 1);
+			indices.Add(j * nx + i);
+			indices.Add((j + 1) * nx + i);
+			indices.Add(row1 + i);
+			indices.Add(row1 + i);
+			indices.Add((j + 1) * nx + i);
+			indices.Add((j + 1) * nx + i + 1);
 		}
 	}
 
@@ -239,8 +238,7 @@ void UnknownDistortionClass::Unknown_Render_Distortion(CameraClass & camera)
 		Unknown8C->Unknown_Distort(uv, this);
 		float u = uv.X < uv0.X ? -1.0f : (uv.X > uv1.X ? 2.0f : (uv.X - uv0.X) * su);
 		float v = uv.Y < uv0.Y ? -1.0f : (uv.Y > uv1.Y ? 2.0f : (uv.Y - uv0.Y) * sv);
-		uvs[i].X = u;
-		uvs[i].Y = v;
+		uvs[i].Set(u, v);
 	}
 
 	{
@@ -266,12 +264,13 @@ void UnknownDistortionClass::Unknown_Render_Distortion(CameraClass & camera)
 		DX8Wrapper::Set_Vertex_Buffer(vb_access);
 		DX8Wrapper::Set_Index_Buffer(ib_access, 0);
 		DX8Wrapper::Draw_Triangles(0, index_count / 3, 0, vertex_count);
-		DX8Wrapper::Set_Transform(D3DTS_VIEW, view);
+		DX8Wrapper::Set_Transform(D3DTS_VIEW, Matrix4(view));
 		DX8Wrapper::Set_Transform(D3DTS_PROJECTION, projection);
 	}
 	REF_PTR_RELEASE(surface);
 	texture->Release_Ref();
 	back_buffer->Release_Ref();
+	int dead = indices.Count();
 }
 
 void UnknownDistortionClass::Get_Obj_Space_Bounding_Sphere(SphereClass & sphere) const
@@ -321,3 +320,6 @@ void UnknownRippleClass::Unknown_Distort(Vector2 & uv, UnknownDistortionClass * 
 // EnB: written from the client (RECONSTRUCTED): E&B's screen-distortion module (D19; client 0x995D20-0x998200, between
 //       dx8texman.cpp and boxrobj.cpp), written from the client: the per-frame list, the distortion render object and
 //       the ripple function; names neutral (D10)
+// EnB: Unknown_Render_Distortion (0x9961E0, NOT EXACT, run 2026-11-19 BG3): corner1's translation first, the index
+//       loop's running row base stepped after j, uvs[i].Set, Matrix4(view) and the end's dead indices.Count() (D272)
+//       from the client's bytes; left: the frame (0x1f4 vs 0x208, see attempts.csv) and the loop's registers

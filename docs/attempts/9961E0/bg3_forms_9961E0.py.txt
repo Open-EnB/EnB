@@ -1,0 +1,131 @@
+# ==== .work/bg3/v1.py
+import runpy
+D = runpy.run_path(r'C:\EnBDevelopment\EnB\.work\f4\vdist_d.py')
+# Form 0 (baseline reproduction): the Fable round's best, rd_c1 (P2 + C1 + RUN + RUN_INC + DEAD_END)
+V = {'rd_c1': D['V']['rd_c1']}
+
+# ==== .work/bg3/v2.py
+import runpy
+A = runpy.run_path(r'C:\EnBDevelopment\EnB\.work\f4\vdist_a.py')
+B = runpy.run_path(r'C:\EnBDevelopment\EnB\.work\f4\vdist_b.py')
+D = runpy.run_path(r'C:\EnBDevelopment\EnB\.work\f4\vdist_d.py')
+U, P2, LOOPS = A['U'], A['P2'], A['LOOPS']
+RUN_INC, DEAD_END, C1 = B['RUN_INC'], B['DEAD_END'], D['C1']
+
+
+def run(adds):
+    return (U, LOOPS, "\tint row1 = 1;\n\tfor (j = 0; j < ny - 1; j++) {\n\t\tfor (i = 0; i < nx - 1; i++) {\n"
+            + ''.join("\t\t\tindices.Add(%s);\n" % x for x in adds))
+
+
+# H1 (BG3 form 1): the client does not CSE Adds 3 and 4 (each computes lea ecx, [ebx + ebp] at its store) while
+# it does CSE Adds 2 and 5 (esi): the 3rd and 4th are different expressions of the same value. Written with
+# the operands swapped in the 4th, row1 keeps two uses in the inner loop and should win ebp (the client's).
+ADDS_H1 = ['j * nx + i', '(j + 1) * nx + i', 'row1 + i', 'i + row1', '(j + 1) * nx + i', '(j + 1) * nx + i + 1']
+V = {
+    'h1': [P2, C1, run(ADDS_H1), RUN_INC, DEAD_END],
+}
+
+# ==== .work/bg3/v3.py
+import runpy
+V2 = runpy.run_path(r'C:\EnBDevelopment\EnB\.work\wt\BG3\.work\bg3\v2.py')
+D = runpy.run_path(r'C:\EnBDevelopment\EnB\.work\f4\vdist_d.py')
+U = 'ww3d2/unknown_distortion.cpp'
+RD_C1 = D['V']['rd_c1']
+
+# H2 (BG3 form 2, diagnostic): the client gives the vertex and index buffer accessors (address-taken: their `this`
+# goes to out-of-line constructors) slots of their own between texture (0x1a8) and bits (0x1c8), shared with
+# nothing, while ours packs them into the low temporaries' area (0x24, 0x44) and the frame is 0x14 short. If VC6
+# gives an address-taken object its whole scope as its lifetime, the client's accessors sit in the function's
+# top scope. Test: the same code with the accessors' block braces removed (function scope; their destructors then
+# run after the three releases, a known local cost): the frame should grow to the client's 0x208.
+OPEN = (U, "\t{\n\t\tDynamicVBAccessClass vb_access(", "\t//{\n\t\tDynamicVBAccessClass vb_access(")
+CLOSE = (U, "\t\tDX8Wrapper::Set_Transform(D3DTS_PROJECTION, projection);\n\t}\n",
+         "\t\tDX8Wrapper::Set_Transform(D3DTS_PROJECTION, projection);\n\t//}\n")
+V = {
+    'h2': RD_C1 + [OPEN, CLOSE],
+}
+
+# ==== .work/bg3/v4.py
+import runpy
+D = runpy.run_path(r'C:\EnBDevelopment\EnB\.work\f4\vdist_d.py')
+U = 'ww3d2/unknown_distortion.cpp'
+RD_C1 = D['V']['rd_c1']
+
+# H3 (BG3 form 3): the distortion loop's end. The client loads uvs' array once and keeps one address for both
+# stores (mov ecx, [uvs.Vector]; fstp [ecx + esi*8]; lea eax, [ecx + esi*8]; inc esi; ...; fstp [eax + 4]);
+# ours evaluates uvs[i] twice (X through [ecx + esi*8 - 8] after the increment, Y through a reloaded vector):
+# one element access written once, Vector2::Set(u, v) on uvs[i].
+SET = (U, "\t\tuvs[i].X = u;\n\t\tuvs[i].Y = v;\n", "\t\tuvs[i].Set(u, v);\n\t\t\n")
+V = {
+    'h3': RD_C1 + [SET],
+}
+
+# ==== .work/bg3/v5.py
+import runpy
+A = runpy.run_path(r'C:\EnBDevelopment\EnB\.work\f4\vdist_a.py')
+B = runpy.run_path(r'C:\EnBDevelopment\EnB\.work\f4\vdist_b.py')
+D = runpy.run_path(r'C:\EnBDevelopment\EnB\.work\f4\vdist_d.py')
+V4 = runpy.run_path(r'C:\EnBDevelopment\EnB\.work\wt\BG3\.work\bg3\v4.py')
+U, P2, LOOPS = A['U'], A['P2'], A['LOOPS']
+DEAD_END, C1, ADDS6 = B['DEAD_END'], D['C1'], B['ADDS6']
+SET = V4['SET']
+
+# H4 (BG3 form 4): the outer index loop's step. The client increments j before the running row base
+# (inc edx; add ebp, ecx; cmp edx, esi), ours (row1 += nx at the end of the body) the reverse: the base is
+# stepped in the for statement after j, `for (j = 0; j < ny - 1; j++, row1 += nx)`. A loop-step variable
+# may also change its allocation weight (the client keeps it in ebp, ours spills it).
+RUN_STEP = (U, LOOPS, "\tint row1 = 1;\n\tfor (j = 0; j < ny - 1; j++, row1 += nx) {\n\t\tfor (i = 0; i < nx - 1; i++) {\n"
+            + ''.join("\t\t\tindices.Add(%s);\n" % x for x in ADDS6))
+V = {
+    'h4': [P2, C1, RUN_STEP, DEAD_END, SET],
+}
+
+# ==== .work/bg3/v6.py
+import runpy
+D = runpy.run_path(r'C:\EnBDevelopment\EnB\.work\f4\vdist_d.py')
+V4 = runpy.run_path(r'C:\EnBDevelopment\EnB\.work\wt\BG3\.work\bg3\v4.py')
+U = 'ww3d2/unknown_distortion.cpp'
+RD_C1, SET = D['V']['rd_c1'], V4['SET']
+
+# F2 (BG3 form 5): H2 showed the client's frame (0x208, the accessors at 0x1ac / 0x1b8 shared with nothing) once
+# the accessors live as long as the function, but their destructors then ran after the three releases. The
+# client runs them before (~IB, ~VB, surface, texture, back buffer): the accessors' scope is a block that ends
+# before the releases yet starts at the top, i.e. the body after the Unknown8C test is one block, the three
+# pointers released after it are declared before it, and the accessors sit in that block directly.
+TOP = (U, "\tif (!Unknown8C) return;\n",
+       "\tif (!Unknown8C) return;\n\tSurfaceClass * back_buffer;\n\tTextureClass * texture;\n\tSurfaceClass * surface;\n\t{\n")
+BB = (U, "\tSurfaceClass * back_buffer = DX8Wrapper::", "\tback_buffer = DX8Wrapper::")
+TX = (U, "\tTextureClass * texture = NEW_REF(", "\ttexture = NEW_REF(")
+SF = (U, "\tSurfaceClass * surface = texture->", "\tsurface = texture->")
+OPEN = (U, "\t{\n\t\tDynamicVBAccessClass vb_access(", "\t\tDynamicVBAccessClass vb_access(")
+V = {
+    'f2': RD_C1 + [SET, TOP, BB, TX, SF, OPEN],
+}
+
+# ==== .work/bg3/v7.py
+import runpy
+V5 = runpy.run_path(r'C:\EnBDevelopment\EnB\.work\wt\BG3\.work\bg3\v5.py')
+V6 = runpy.run_path(r'C:\EnBDevelopment\EnB\.work\wt\BG3\.work\bg3\v6.py')
+U = 'ww3d2/unknown_distortion.cpp'
+P2, C1, RUN_STEP, SET = V5['P2'], V5['C1'], V5['RUN_STEP'], V5['SET']
+TOP, BB, TX, SF, OPEN = V6['TOP'], V6['BB'], V6['TX'], V6['SF'], V6['OPEN']
+
+# F2' (BG3 form 8, the round's last): F2 (the body after the Unknown8C test as one block, the accessors directly
+# in it: H2's frame with the client's destructor order) on H4's base. F2's compile failed because the dead
+# indices.Count() read (W3's M2 lever) sat after the block, where the static is out of scope: here it stays the
+# last statement inside the block, still after both restores (the position W3's budget finding needs).
+END = (U, "\t\tDX8Wrapper::Set_Transform(D3DTS_PROJECTION, projection);\n\t}\n",
+       "\t\tDX8Wrapper::Set_Transform(D3DTS_PROJECTION, projection);\n\t\tint dead = indices.Count();\n\t}\n")
+V = {
+    'f2b': [P2, C1, RUN_STEP, SET, TOP, BB, TX, SF, OPEN, END],
+}
+
+# ==== results (explain.py masked rows / regs masked / frame / objdiff raw rows), compiled with ww3d2's flags
+# rd_c1 (repro, plus one wasted compile with appfile's /GX default): 133 / 73 / 0x1f4 / 1045
+# h1: identical object to rd_c1 (VC6 canonicalises the commutative operands)
+# h2: 141 / 81 / 0x208 (frame matched; top slots 0x1ac IB, 0x1b8 VB, 0x1c8 bits, 0x1cc desc, 0x1d8 as the client) / 1142
+# h3: 124 / 66 / 0x1f4 / 1042
+# f2: compile error (indices out of scope at the dead read)
+# h4: 124 / 65 / 0x1f4 / 1042 (kept: the client's j++ then row1 += nx order)
+# f2b: 124 / 65 / 0x208 / 1115 (frame matched, destructor order right; the rest of the slot order differs)
