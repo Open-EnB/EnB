@@ -244,7 +244,7 @@ void DebrisFieldClass::Render(RenderInfoClass &rinfo)
 	} else {
 
 	CameraClass *camera = new CameraClass(rinfo.Camera);
-	camera->Set_Position(Get_Position() + UnknownF8);
+	camera->Set_Position(camera->Get_Position() + UnknownF8);
 	float znear;
 	float zfar;
 	camera->Get_Clip_Planes(znear, zfar);
