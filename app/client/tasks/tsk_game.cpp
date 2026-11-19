@@ -8,6 +8,7 @@
 #include "tsk_login.h"
 #include "..\sclient.h"
 #include "..\..\common\connect.h"
+#include "..\..\common\network_ini.h"
 #include "..\..\packets\pk.h"
 #include "..\..\shared\g_assert.h"
 #include "..\..\..\wwlib\argv.h"
@@ -45,7 +46,6 @@ ClientTaskClass::~ClientTaskClass()
 }
 
 #include "..\..\audio\soundlib.h"	// SoundLibraryClass::Apply_Volumes 0x43FD70 (Init)
-
 
 
 

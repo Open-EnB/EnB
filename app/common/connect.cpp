@@ -33,11 +33,11 @@ static PacketHeaderClass Header;
 void Unknown_Debug_Begin_Step(const char *text);	// NAME 1 [Unknown_Debug_Begin_Step]: 0x509EF0 (dbgmgr.cpp), WinMain's step log
 void Unknown_Debug_End_Step(const char *text);		// NAME 1 [Unknown_Debug_End_Step]: 0x50A1E0 (dbgmgr.cpp)
 
+#include "network_ini.h"
 INIClass NetworkINIClass::Network_INI;	// 0xBE8EA8: network.ini (S: the assert l.395)
 static char Host_Name[256];				// 0xBE8EBC: gethostname's  // NAME 2: what it holds
 static char Local_Address[16];			// 0xBE8FBC: the local address as text  // NAME 2: what it holds
 static unsigned long Local_IP = 0xFFFFFFFF;	// 0xBA82A8 (host order; 0 when the host name doesn't resolve)  // NAME 2: what it holds
-
 
 bool Is_Local(const char *name);										// 0x821930  // NAME 2: what it does
 
