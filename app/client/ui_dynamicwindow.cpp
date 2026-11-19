@@ -366,7 +366,7 @@ void UIDynamicWindowClass::Add_Text(DynamicWindowClass *window, const char *font
 }
 
 
-// NOT EXACT: inline-budget: the client calls std::string::_Eos out of line for both strings where this inlines them (docs/attempts/58B160)
+// (the dead element.Peek() after the Create spends the inline budget: both strings' _Eos called out of line, as the client's; D272)
 // 0x58B160
 void UIDynamicWindowClass::Add_Text(const char *font_name, int row_index, unsigned int flags, const char *format, ...)
 {
@@ -379,7 +379,7 @@ void UIDynamicWindowClass::Add_Text(const char *font_name, int row_index, unsign
 		_vsnprintf(text, 511, format, args);
 		va_end(args);
 	}
-	RefCountPtr<DynamicWindowTextClass> element = DynamicWindowTextClass::Create(font_name, text, flags | 6);
+	RefCountPtr<DynamicWindowTextClass> element = DynamicWindowTextClass::Create(font_name, text, flags | 6); element.Peek();
 	MainWindow->Add_Element(element, row_index);
 }
 

@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-844 entries in 306 files.
+843 entries in 306 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -434,7 +434,6 @@ edit the comments in the code, not this file.
 | `app/client/ui_cpit.cpp:701` | `UICpitClass::Unknown_68` | marker | NOT EXACT: inline budget (the client calls Unknown_Find_Field<float> out of line, 0x546710, in the expanded 0x584000; ours expands it and calls the Cast) |
 | `app/client/ui_cpit.cpp:1278` | `UICpitClass::Unknown_5821C0` | marker | NOT EXACT: written from the client (its expanded 0x584000 calls the find out of line, ours inlines it) |
 | `app/client/ui_dynamicwindow.cpp:352` | `UIDynamicWindowClass::Add_Text` | marker | NOT EXACT: 0x58AE90, inline-budget: the client calls std::string::_Eos out of line for the font name's string where this inlines it (docs/attempts/58AE90) |
-| `app/client/ui_dynamicwindow.cpp:369` | `UIDynamicWindowClass::Add_Text` | marker | NOT EXACT: inline-budget: the client calls std::string::_Eos out of line for both strings where this inlines them (docs/attempts/58B160) 0x58B160 |
 | `app/client/ui_experience.cpp:136` | `UIExperienceClass::UIExperienceClass` | marker | NOT EXACT: functional (D64): the client calls GenericNode::GenericNode out of line (an EH state for the node) |
 | `app/client/ui_experience.cpp:189` | `UIExperienceClass::Unknown_10` | marker | NOT EXACT: functional (D64): the client calls Unknown_Find_Field out of line for CombatExp only |
 | `app/client/ui_faction.cpp:230` | `UIFactionClass::Unknown_58DC20` | marker | NOT EXACT: register (the client keeps the reputation in esi and its frame slot after the order's, +0x28; this keeps it in ebx, at +0x14; the rest is the client's, including the tail call made a jump) |
