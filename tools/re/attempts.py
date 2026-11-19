@@ -178,23 +178,32 @@ def fmt(r):
 def limit_reached(rows):
     """D89: why a function may not be retried without a new §3.1.2 lever, or '' when it may.
 
-    rows: every row of one address. A register-only or order-only residue after two rounds never gets a
-    third by anyone; an inline-budget, frame or shape residue gets two Opus rounds and one Fable round.
+    rows: every row of one address. D271 (the user, 2026-11-19): register-only and order-only residues are
+    no longer barred (D89's per-round limits stay: forms from stated hypotheses, at most 8 a round); a round
+    that raised the function's best score (cut its mismatched bytes; a first scored round counts as progress)
+    does not count toward parking. Two rounds without progress park a function, whatever the residue class
+    and model (round one Opus at medium effort, round two Opus at high; D263: no Fable round).
     """
-    tried = [r for r in rows if r['status'] in ('partial', 'parked', 'blocked')]
-    if len(tried) < 2:
+    tried = sorted((r for r in rows if r['status'] in ('partial', 'parked', 'blocked')), key=lambda r: r['date'])
+    best, stalled = None, []
+    for r in tried:
+        try:
+            s = float(r['score'])
+        except (TypeError, ValueError):
+            s = None
+        if s is not None and (best is None or s > best):
+            best = s          # progress: this round does not count (D271)
+            continue
+        stalled.append(r)
+    # rounds before D271 ran without the medium / high ladder: together they count as at most one (round one)
+    count = min(1, sum(1 for r in stalled if r['date'] < D271_DATE)) + sum(1 for r in stalled if r['date'] >= D271_DATE)
+    if count < 2:
         return ''
-    newest = max(tried, key=lambda r: r['date'])
-    opus = sum(1 for r in tried if r['model'].strip().lower() == 'opus')
-    fable = sum(1 for r in tried if r['model'].strip().lower() == 'fable')
-    blocker = newest['blocker'].strip().lower()
-    if blocker.startswith(('register', 'order')):
-        return (f"LIMIT REACHED (D89): {blocker} residue after {len(tried)} rounds; no retry by any model "
-                "without a lever proven on another function (workflow.md section 3.1)")
-    if opus >= 2 and fable >= 1:
-        return (f"LIMIT REACHED (D89): {opus} Opus rounds and {fable} Fable round(s); no retry without a new "
-                "section 3.1 lever cited with `attempts.py check --lever`")
-    return ''
+    return (f"LIMIT REACHED (D89, D271): {count} rounds without progress (best score {best}); no retry "
+            "without a new section 3.1 lever cited with `attempts.py check --lever`")
+
+
+D271_DATE = '2026-11-19 07:40'  # the user's decision, run 2026-11-19
 
 
 def cmd_show(a):
