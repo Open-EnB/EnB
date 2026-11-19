@@ -242,14 +242,6 @@
    "note": "DeltaItemArrayClass<DeltaSubCategoryClass>'s padded constructor, lost to the aux pad when aux_roots.h types its three unnamed delta value types as ProfessionType, RaceType and unsigned int (KV, run 2026-11-17c). Evidence: the client's KVAccessorClass tables are shared between the instances (0xAEC9C8 stored by both 0x4F76E0 and 0x7595F0; 0xAEC9DC likewise; 0xAEB258 slot 0 stored by 0x706D80); the retype gains 30 pairs. A full auxpad sweep 0..63 finds no value keeping all six padded constructors; pad 29 keeps 4 of 6 (0x758210 is credited in sclient). Regain: a pad window after the next header change, or the aux pad's tie-break order."
   },
   {
-   "address": "0x755C60",
-   "lib": "app",
-   "file": "sclient",
-   "moved_to": null,
-   "decision": "D246",
-   "note": "D246 valve, run 2026-11-18 (AB 16a6c02ae): sclient takes aux_ship_player.h instead of aux_roots_all.h (+4); DeltaTemplateClass<HullPreviewStatusEnum>'s constructor 0x755C60 becomes an ambiguous copy; the regain probe (ship + player + Hull families) numbers T<HullPreview> where the client does not (15 stores against 14). The landing gains 15 non-pad pairs. Lost until regained."
-  },
-  {
    "address": "0x6974F0",
    "lib": "app",
    "file": "sbase_info",
@@ -258,12 +250,12 @@
    "note": "D240, run 2026-11-18 (PH e710b2683): permstr.h cut from the objects reached through sclient.h / unknown_packetdata.h (DeltaInterfaceClass moved to unknown_aeadc8.h): the client's CRT table gives those 148 objects no PermStringInit initialiser. 0x6974F0 lost as a side effect (register-only residue); one regain round (<vector> on a blank line) changed nothing. Lost until regained."
   },
   {
-   "address": "0x5CE830",
+   "address": "0x738970",
    "lib": "app",
-   "file": "ui_option_quit",
+   "file": "cpacket",
    "moved_to": null,
    "decision": "D240",
-   "note": "D240, run 2026-11-18 (PH e710b2683): permstr.h cut from the objects reached through sclient.h / unknown_packetdata.h (DeltaInterfaceClass moved to unknown_aeadc8.h): the client's CRT table gives those 148 objects no PermStringInit initialiser. 0x5CE830 lost as a side effect (shape, mostly registers); one regain round (<vector> on a blank line) changed nothing. Lost until regained."
+   "note": "D240, run 2026-11-18b (R3 b14b5ee3a, R4 7259fc03d): cpacket's local stand-in Unknown6EF4C0Class replaced by eff_robj.h's Unknown6EF4C0EffectClass: 0x6EF4C0 is that class's byte-exact constructor, called only from this handler (0x738E2D, 0x738F07), whose operator new asks its 0xF0 bytes. DamagePacketClass::Process_Packet 0x738970 lost (inline-budget shape 1560 vs 1636: the real hierarchy's pointer conversions); two rounds, 52 forms (attempts.csv), parked. Lost until regained."
   }
  ]
 }
