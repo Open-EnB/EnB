@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-864 entries in 306 files.
+863 entries in 306 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -119,7 +119,6 @@ edit the comments in the code, not this file.
 | `app/client/decal.cpp:16` | `SClientUnknown1334Class::Load` | marker | NOT EXACT: functional (D64), from the pseudocode @0x75BE00 |
 | `app/client/drag_mouse.cpp:38` | `SMouseDragClass::SMouseDragClass` | marker | NOT EXACT: functional (D64), from the pseudocode |
 | `app/client/drag_mouse.cpp:75` | `SMouseDragClass::Update_Drag` | marker | NOT EXACT: functional (D64), from the pseudocode |
-| `app/client/drag_slot_data.cpp:95` | `DragSlotDataClass::Update` | marker | NOT EXACT: functional (D64), from the pseudocode |
 | `app/client/drag_slot_data.cpp:149` | `DragSlotDataClass::Unknown_685500` | marker | NOT EXACT: functional (D64), from the pseudocode |
 | `app/client/dynamic_window_background.cpp:407` | `DynamicWindowBackgroundClass::Fit_Size` | mention | NOT EXACT (D64): Get 0x515AB0 (marked); the data's inline destructor 0x515E20 is 6 bytes longer than the client's (its three strings' destructors). The direct calls of the base's slots are qualified calls (DynamicWindowRenderObjectClass::...). |
 | `app/client/dynamic_window_horizontal.cpp:101` | `DynamicWindowHorizontalClass::Set_Alignment` | marker | NOT EXACT: the client stores the cleared flags, reloads them and ORs in the new bits; this form folds both into one store |

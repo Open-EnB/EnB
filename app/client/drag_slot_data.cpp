@@ -92,7 +92,7 @@ DragSlotDataClass::~DragSlotDataClass()
 
 
 // 0x685380
-// NOT EXACT: functional (D64), from the pseudocode
+// functional (D64), from the pseudocode; the view Y is scaled first and the 240 added after (the client's fmul -480 / fadd 240, not 240 - y * 480)
 bool DragSlotDataClass::Update(float x, float y)
 {
 	bool moved = Update_Drag(x, y);
@@ -114,7 +114,7 @@ bool DragSlotDataClass::Update(float x, float y)
 			InterfaceSortClass sort(scene, true);
 			SlotRender->Unknown_6A8B60(scene);
 		}
-		Vector3 position(x * 640.0f - 320.0f, y * -480.0f + 240.0f, -1.0f);
+		Vector3 position(x * 640.0f - 320.0f, y * -480.0f, -1.0f); position.Y += 240.0f;
 		SlotRender->Unknown_6A8CC0(position);
 	}
 	return(moved);
