@@ -558,7 +558,7 @@ void ChatPanelInterface::Unknown_60()
 // 0x563260
 void ChatPanelInterface::Unknown_64() {}
 
-// NOT EXACT: inline-budget (in the inlined 0x5698F0 the client calls RefCountPtr's operator=(NULL) 0x56CC30 out of line and inlines the copy; ours the reverse; 249 instructions vs 240)
+// NOT EXACT: register (5698F0's NULL assignment through the uncalled 0x568910 puts RefCountPtr's operator=(NULL) 0x56CC30 out of line as the client: 242 instructions vs 240, residue 21 rows; left: case 16's browser flag tested in cl, the client's al)
 // 0x563280
 bool ChatPanelInterface::Unknown_68(int key)
 {
@@ -945,7 +945,7 @@ void ChatPanelInterface::Unknown_565120()
 	if (Unknown214.length()) Unknown228.push_back(Unknown214);
 }
 
-// NOT EXACT: inline-budget (the client keeps string::compare and assign out of line in the two searches and the label copy; 396 instructions vs 328)
+// NOT EXACT: inline-budget (Chat_Default_Channel through the uncalled 0x567930 as the client: 341 instructions vs 328; the client still calls string assign out of line for the channel copy and the label, ours expands _Grow)
 // 0x565390
 void ChatPanelInterface::Unknown_565390(bool back)
 {
@@ -994,9 +994,9 @@ found:
 		}
 		int kind = Unknown148;
 		if (kind < 6) {
-			Unknown144 = kind;
-			IntOptionStruct *option = OptionClass::Instance->Find_Int("Chat_Default_Channel");
-			if (option) option->Value = kind;
+			Unknown_567930(kind);
+
+
 			if (Unknown148 == 4) {
 				Unknown1F4 = buffer;
 			} else {
@@ -1414,7 +1414,7 @@ void ChatPanelInterface::Unknown_568950()
 	Unknown_5689D0(4);
 	UnknownD4 = NULL;
 }
-// NOT EXACT: inline-budget (functional, written from the disassembly: the client calls string::assign out of line for the early copies and expands _Grow for the label in the last branch; ours the reverse; 3196 bytes vs 3084)
+// NOT EXACT: inline-budget (functional, written from the disassembly; Chat_Default_Channel through the uncalled 0x567930: 962 instructions vs 939; the client calls string::assign out of line for Unknown1F4 = "" and the first label copy and expands _Grow in the last; ours expands both)
 // 0x5689D0
 void ChatPanelInterface::Unknown_5689D0(int index)
 {
@@ -1476,25 +1476,25 @@ void ChatPanelInterface::Unknown_5689D0(int index)
 				if (chosen) {
 					_snprintf(buffer, sizeof(buffer), "Defaulting chat channel to %s.", name.c_str());
 					sclient->Unknown_74D990(0x13, buffer, 0);
-					Unknown144 = channel;
-					IntOptionStruct *option = OptionClass::Instance->Find_Int("Chat_Default_Channel");
-					if (option) option->Value = channel;
+					Unknown_567930(channel);
+
+
 					Unknown1F4 = name;
 				} else {
 					Unknown1F4 = "";
 					sclient->Unknown_74D990(0x13, "No default destination available for chat.", 0);
-					Unknown144 = -1;
-					IntOptionStruct *option = OptionClass::Instance->Find_Int("Chat_Default_Channel");
-					if (option) option->Value = -1;
+					Unknown_567930(-1);
+
+
 				}
 				StringOptionStruct *label = OptionClass::Instance->Find_String("Channel_Label");
 				if (label) label->Value = Unknown1F4.c_str();
 			} else if (chosen && !strcmp(Unknown1F4.c_str(), "")) {
 				_snprintf(buffer, sizeof(buffer), "Defaulting chat channel to %s.", name.c_str());
 				sclient->Unknown_74D990(0x13, buffer, 0);
-				Unknown144 = channel;
-				IntOptionStruct *option = OptionClass::Instance->Find_Int("Chat_Default_Channel");
-				if (option) option->Value = channel;
+				Unknown_567930(channel);
+
+
 				Unknown1F4 = name;
 				StringOptionStruct *label = OptionClass::Instance->Find_String("Channel_Label");
 				if (label) label->Value = Unknown1F4.c_str();
@@ -1979,11 +1979,11 @@ void ChatPanelInterface::Unknown_5698F0(int id)
 	int index = id - 8;
 	FAIL_IF((index < 0) || (index >= NUM_COMBO)) return;
 	SoundLibraryClass::Play_2D_Sound("SR_scifielectronic42.wav", 2);
-	if (UnknownD4) UnknownD4 = NULL;
+	Unknown_568910();
 	UnknownD4 = Combo[index];
 	if (id == 8) UnknownD4->Select_Text(Unknown1F4.c_str());
 }
-// NOT EXACT: shape (functional, written from the disassembly: the client places the Font Size test's fall-through into the channel search and keeps two destructor forms; 5966 bytes vs 5929)
+// NOT EXACT: shape (functional, written from the disassembly; Chat_Default_Channel through the uncalled 0x567930: 1936 instructions vs 1937, residue 47 rows: the item text's size() test is threaded into its else in ours, not in the client, as in ui_pda_cargo 0x5D0620)
 // 0x569A00
 void ChatPanelInterface::Unknown_569A00()
 {
@@ -2129,9 +2129,9 @@ void ChatPanelInterface::Unknown_569A00()
 			StringOptionStruct *label = OptionClass::Instance->Find_String("Channel_Label");
 			if (label) label->Value = Unknown1F4.c_str();
 			int channel = atoi(Unknown_B7C530[i].Number);
-			Unknown144 = channel;
-			IntOptionStruct *option = OptionClass::Instance->Find_Int("Chat_Default_Channel");
-			if (option) option->Value = channel;
+			Unknown_567930(channel);
+
+
 			char buffer[64];
 			_snprintf(buffer, sizeof(buffer), "Setting chat channel to %s.", text.c_str());
 			sclient->Unknown_74D990(0x13, buffer, 0);
@@ -2145,9 +2145,9 @@ void ChatPanelInterface::Unknown_569A00()
 		_snprintf(buffer, sizeof(buffer), "Setting chat channel to %s.", text.c_str());
 		sclient->Unknown_74D990(0x13, buffer, 0);
 		Unknown1F4 = name;
-		Unknown144 = 4;
-		IntOptionStruct *option = OptionClass::Instance->Find_Int("Chat_Default_Channel");
-		if (option) option->Value = 4;
+		Unknown_567930(4);
+
+
 		return;
 	}
 	if (sclient->Unknown_744B60()) {
