@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-859 entries in 307 files.
+858 entries in 307 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -317,7 +317,6 @@ edit the comments in the code, not this file.
 | `app/client/sclient.cpp:5544` | `SClient::Unknown_34` | marker | NOT EXACT: shape (explain.py: 606 instructions, the client 640, 127 masked rows; 69 calls, the client 70): VC6 merges the two beacon sends' tails here, the client keeps both; the logoff packet a named local, '/fps' enable first and the dialog read once moved nothing; two rounds 0x74ABC0 (slot +0x34: the chat line's '/' commands; true when the line was a command) |
 | `app/client/sclient.cpp:5715` | `SClient::Unknown_750F70` | marker | NOT EXACT: shape (explain.py: 144 instructions, the client 159; 36 masked rows, 35 of them registers; 10 calls, the client 11): the client sends the empty sender, a NULL starbase view and a NULL interface to one _Tidy(true) exit and destroys the string inline elsewhere (ebx holds this); two forms (early return on empty: 58 rows) 0x750F70 (cpacket.cpp: CLIENT_CHAT_EVENT 165, the sender and 2..15 by... |
 | `app/client/sclient.cpp:5748` | `SClient::Unknown_64` | marker | NOT EXACT: order only (B97, 15 rows with registers masked): the client's copy of the camera's transform interleaves its loads and stores, ours copies row by row (as 0x7ECDC0's) 0x744690: ClientTaskClass::Render's frame: the loading view's while loading, else the current view's, then the listener |
-| `app/client/scriptedmovie.cpp:281` | `ScriptedMovieViewClass::~ScriptedMovieViewClass` | marker | NOT EXACT: inline budget (0.73): the client calls the erase copy of BoneClientObjectList, copy 0x80AF50 out of line, ours inlines it (then registers differ) 0x8008B0: the objects, lights, lines, sounds, bones' objects and cameras freed; SClient's managers kept |
 | `app/client/scriptedmovie.cpp:460` | `ScriptedMovieViewClass::Unknown_0C` | marker | NOT EXACT: shape (0.83): the client reads the background colour as three dwords and the inlined 0x801D70 copies zfar as an integer before znear |
 | `app/client/scriptedmovie.cpp:798` | `ScriptedMovieViewClass::Unknown_8020B0` | marker | NOT EXACT: shape (0.38): the client copies b's half into each region through an out-of-line 16-byte copy (0x780AC0, avatar.cpp's) three times, frame 0x40 to our 0x30 0x8020B0: the ship model's four colourization regions, each a then b, in a metal (shiputils.cpp's 0x80EFF0) |
 | `app/client/scriptedmovie.cpp:1340` | `ScriptedMovieViewClass::Unknown_803310` | marker | NOT EXACT: inline budget (0.63): the client inlines Shake_Camera and both Toggle_Engine_Trails too; ours calls them (0x7FFD30 is scriptedmovieline.cpp's, out of line as in the client) 0x803310: one script line run: its command (the line's first field, any case) to the member that takes the rest |
