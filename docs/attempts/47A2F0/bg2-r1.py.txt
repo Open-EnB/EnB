@@ -1,0 +1,97 @@
+# BG2 round 1 (run 2026-11-19, claude-opus-5-5 high), 0x47A2F0: forms as tryv2 V specs; base = U1's u1-v44 stash
+# r1.py: q_ctor, q_order
+# Round 1 (BG2, 0x47A2F0): forms from stated hypotheses; base = the U1 v44 stash in the worktree file.
+F = 'app/shared/unknown_474530.cpp'
+Q = 'wwmath/quat.h'
+
+Q_OLD = """						Quaternion q;
+						float s = WWMath::Sin(angle / 2);
+						float c = WWMath::Cos(angle / 2);
+						q.X = axis.X * s;
+						q.Y = axis.Y * s;
+						q.Z = axis.Z * s;
+						q.W = c;
+"""
+Q_INLINE_DEF = """WWINLINE Quaternion::Quaternion(const Vector3 & axis,float angle)
+{
+	float s = WWMath::Sin(angle/2);
+	float c = WWMath::Cos(angle/2);
+	X = s * axis.X;
+	Y = s * axis.Y;
+	Z = s * axis.Z;
+	W = c;
+}
+
+WWINLINE void Quaternion::Rotate_Vector(const Vector3 & v,Vector3 * result) const
+"""
+
+V = {
+    # H-Q1: the client inlines EA's Quaternion(axis, angle) constructor (its s / c are an inlined callee's locals: the
+    # client's s, c slots sit apart from the cos argument; fld axis.X; fmul s is the ctor's s * axis.X)
+    'q_ctor': [
+        (F, Q_OLD, """						Quaternion q(axis, angle);
+"""),
+        (Q, "WWINLINE void Quaternion::Rotate_Vector(const Vector3 & v,Vector3 * result) const\n", Q_INLINE_DEF),
+    ],
+    # H-Q2: only the ctor's operand order, s * axis.X, as local statements
+    'q_order': [
+        (F, Q_OLD, Q_OLD.replace('axis.X * s', 's * axis.X').replace('axis.Y * s', 's * axis.Y').replace('axis.Z * s', 's * axis.Z')),
+    ],
+}
+COMPILE = [F]
+WATCH = ['0x47A2F0']
+
+# r1b.py: mesh_once (kept)
+# Round 1 continued (BG2, 0x47A2F0)
+F = 'app/shared/unknown_474530.cpp'
+V = {
+    # H-M: the client keeps both decoration meshes in one slot (-0x3c): one MeshClass *mesh per decoration iteration,
+    # assigned in each block (ours: the tree's in the dead names slot +8, the shadow's at -0x4c)
+    'mesh_once': [
+        (F, """			LandDecorationStruct decoration;
+			float gi, gj;
+""", """			LandDecorationStruct decoration;
+			float gi, gj;
+			MeshClass *mesh;
+"""),
+        (F, """				MeshClass *mesh = trees[decoration.Proto].Peek();""", """				mesh = trees[decoration.Proto].Peek();"""),
+        (F, """				MeshClass *mesh = shadows[decoration.Proto].Peek();""", """				mesh = shadows[decoration.Proto].Peek();"""),
+    ],
+}
+
+# r1c.py: vec_outer, pos_temp (kept)
+# Round 1 continued (BG2, 0x47A2F0); base = v44 + mesh_once (the worktree file)
+F = 'app/shared/unknown_474530.cpp'
+ROT_OLD = """						Vector3 xv;
+						Vector3 yv;
+						Vector3 zv;
+"""
+V = {
+    # H-V1: the client puts yv / xv above the shadow block's own Vector3s (yv, xv, T, pos top-down; ours pos, xv, yv, T):
+    # the rotate outputs belong to the shadow block's scope, declared before the angle test
+    'vec_outer': [
+        (F, ROT_OLD, ""),
+        (F, """					Vector3 axis;
+					Vector3::Cross_Product(z, normal, &axis);
+""", """					Vector3 axis;
+					Vector3 xv;
+					Vector3 yv;
+					Vector3 zv;
+					Vector3::Cross_Product(z, normal, &axis);
+"""),
+    ],
+    # H-V2: the shadow block's World_To_Grid takes Get_Translation's temporary, not a named pos (the client keeps its
+    # pos slot below the Get_Normal temporary, where temporaries pack)
+    'pos_temp': [
+        (F, """					Vector3 pos = decoration.Transform.Get_Translation();
+					Field->World_To_Grid((const Vector2 &)pos, &gi, &gj);
+					int x = (int)floor(gi / (float)(unsigned int)GridWidth) & GridMask;
+					int y = (int)floor(gj / (float)(unsigned int)GridWidth) & GridMask;
+					int patch = GridWidth * y + x;
+					Vector3 normal;""", """					Field->World_To_Grid((const Vector2 &)decoration.Transform.Get_Translation(), &gi, &gj);
+					int x = (int)floor(gi / (float)(unsigned int)GridWidth) & GridMask;
+					int y = (int)floor(gj / (float)(unsigned int)GridWidth) & GridMask;
+					int patch = GridWidth * y + x;
+					Vector3 normal;"""),
+    ],
+}

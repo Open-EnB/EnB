@@ -615,10 +615,10 @@ static unsigned short Land_Append_Decoration_Mesh(MeshClass *mesh, std::vector<L
 	return 0;
 }
 
-// NOT EXACT: shape (similarity 0.86, 40 masked rows; attempts.csv 0x47A2F0): the client's RefCountPtr form (0x47A2F0 =
+// NOT EXACT: shape (similarity 0.87, 40 masked rows; attempts.csv 0x47A2F0): the client's RefCountPtr form (0x47A2F0 =
 // VIDTEST 0x416170). Left: every PatchRecords[i] access in the record loop forms [IV + ptr] where the client forms [ptr + IV];
-// x87 operand orders in the three inlined Rotate_Vector (the client loads the other operand before the shared negations);
-// the slots of the tree's two WriteLocks and of three Vector3s of the shadow block (pos, yv, Get_Translation's temporary).
+// x87 operand orders in the three inlined Rotate_Vector (the client loads the other operand before the shared negations)
+// and in the quaternion's axis * sin. Every frame slot is the client's.
 // The prototypes' tree and shadow meshes; the first tree's texture, shader and vertex material (+0x178 / +0x17C / +0x180)
 // and the first shadow's shader and material (+0x184 / +0x188), every other prototype's must be the same (else no
 // decorations); each decoration appended to its patch's lists (the patch from World_To_Grid over the grid width), the
@@ -752,8 +752,7 @@ void LandClass::Build_Decorations(std::vector<std::string> &names, std::vector<L
 				if (mesh != NULL) {
 					Matrix3D shadow;
 					shadow = decoration.Transform;
-					Vector3 pos = decoration.Transform.Get_Translation();
-					Field->World_To_Grid((const Vector2 &)pos, &gi, &gj);
+					Field->World_To_Grid((const Vector2 &)decoration.Transform.Get_Translation(), &gi, &gj);
 					int x = (int)floor(gi / (float)(unsigned int)GridWidth) & GridMask;
 					int y = (int)floor(gj / (float)(unsigned int)GridWidth) & GridMask;
 					int patch = GridWidth * y + x;
