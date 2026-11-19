@@ -1,5 +1,6 @@
 // Earth & Beyond client (reconstruction): app\Client\ui_chat_window.cpp. Notes at the end of the file.
 #define __INTRFACE_MEMBERS
+#define __UI_CHAT_WINDOW_MEMBERS	// ui_chat_window.h's 0x5719A0 as this file defines it (the other files keep sclient.cpp's pad window)
 #include <stdio.h>
 #include "ui_chat_window.h"
 #include "client.h"
@@ -26,7 +27,6 @@ public:
 };
 
 // The interface event dispatcher (0x540A20 returns its function-local static at 0xBE5AF0), as ui_chat_panel.cpp declares it
-
 
 
 // What InterfaceClass::Client points to, as far as this file calls it (as ui_chat_panel.cpp declares it)
@@ -171,7 +171,7 @@ bool ChatWindowInterface::Unknown_98(const char *name, const char *ini)
 void ChatWindowInterface::Unknown_A0(unsigned int count)
 {
 	FAIL_IF(!ChatWindows.empty()) return;
-	ChatWindows.reserve(count);
+	ChatWindows.reserve(count); ChatWindows.size();	// (dead, D130; not the client's: it sends reserve's size() out of line as the client's 0x571B70)
 	for (unsigned int i = 0; i < count; i++) {
 		GadgetSlider *slider = Add_Slider(i + 8, 0);
 		slider->Unknown_66E460(InterfaceMesh, false, i);
@@ -218,7 +218,7 @@ void ChatWindowInterface::Unknown_A0(unsigned int count)
 
 
 		FAIL_IF(!chat_win) continue;
-		chat_win->Unknown_0C(Unknown_5719A0(entry), entry.Text);
+		Vector3 color; chat_win->Unknown_0C(Unknown_5719A0(color, entry), entry.Text);
 	}
 	Unknown_CC();
 }
@@ -400,7 +400,7 @@ void ChatWindowInterface::Unknown_AC(bool reply)
 
 
 
-// 0x570FF0  // NOT EXACT: functional (CW2): the inlined 0x5719A0 (0.66; exact with 0x5719A0 as Vector3 &f(Vector3 &color, entry), which inlines vector::size 0x571B70 into 0x56FD30: proposal)
+// 0x570FF0
 void ChatWindowInterface::Unknown_B0()
 {
 	FAIL_IF(!ChatHistory) return;
@@ -413,7 +413,7 @@ void ChatWindowInterface::Unknown_B0()
 
 
 	FAIL_IF(!chat_win) return;
-	chat_win->Unknown_08(Unknown_5719A0(entry), entry.Text);
+	Vector3 color; chat_win->Unknown_08(Unknown_5719A0(color, entry), entry.Text);
 }
 
 
@@ -604,11 +604,11 @@ void ChatWindowInterface::Unknown_C8(int pages, unsigned int index)
 
 
 
-// 0x5719A0  // NOT EXACT: functional (CW2): defined inline so its callers inline it as the client's do; no out-of-line copy (exact as Vector3 &f(Vector3 &color, entry): proposal)
-inline Vector3 ChatWindowInterface::Unknown_5719A0(const Unknown67D430EntryStruct &entry)
+// 0x5719A0 (its callers 0x56FD30 / 0x570FF0 inline it; the colour goes into the caller's slot, as the client's)
+Vector3 &ChatWindowInterface::Unknown_5719A0(Vector3 &color, const Unknown67D430EntryStruct &entry)
 {
 	int type = entry.Get_Type();
-	Vector3 color(1.0f, 1.0f, 1.0f); LineDisplayClientClass *client = Client;
+	color.Set(1.0f, 1.0f, 1.0f); LineDisplayClientClass *client = Client;
 	FAIL_IF(!client) return(color);
 	SClient *sclient = client->As_Space_Client();
 
@@ -635,5 +635,5 @@ inline void ChatWindowInterface::Unknown_571A70(ChatViewportStruct *vp)
 **	previous object's adjustor thunks). ChatWindowInterface is the client's RTTI name; its table 0xAF0390 (with
 **	0xAF0384 / 0xAF0378 for the bases). The split window derived from it (ui_chat_window_split.cpp, 0x571F00) is what
 **	the chat panel makes. 0x571810, 0x5719A0 and 0x571A70 are out of line and uncalled: the file's callers inline
-**	them. 0x571B30-0x571E80 are the object's std::vector<ChatWinStruct *> instances.
+**	them (F2, 2026-11-19: 0x5719A0 as Vector3 &f(Vector3 &color, entry) makes it and 0x570FF0 exact). 0x571B30-0x571E80 are the object's std::vector<ChatWinStruct *> instances.
 */
