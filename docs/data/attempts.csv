@@ -3771,3 +3771,19 @@ date,address,symbol,file,library,status,score,forms,blocker,evidence,stash,model
 2026-11-19 10:14,0x6C38F0,,,,parked,,7,inline-budget,LV-IB: 1-12 dead AllFonts.size() before Get_Info: no change (0.48); the top-level Get_Info call is a layer question,,claude-opus-5-5
 2026-11-19 10:27,0x5786C0,,,,exact,1.00,6,inline-budget,LV-IB (D272): one dead Label.c_str() after 'Style = style;' calls the label's assign and stops the style's at _Grow as the client (2+: 0.78-0.59),,claude-opus-5-5
 2026-11-19 10:27,0x5E85F0,,,,exact,1.00,6,inline-budget,"LV-IB (D272): two dead Names.size() after 'packet.Unknown24 = Names[Selection];' send the self-assign branch's erase out of line as the client (1: 0.51, 3+: 0.30)",,claude-opus-5-5
+2026-11-19 10:36,0x713670,,,,partial,,18,inline-budget,"LV-IB (D272): one / three dead transform.Get_Translation() after each statement of the orbit block (scan): 0.61-0.63, the -angle Rotate_Z stays inline",,claude-opus-5-5
+2026-11-19 10:36,0x84BE60,,,,partial,0.68,6,register,LV-IB (D272): 1-5 dead list.size() after String_Split: 0.64 -> 0.68; left: value in ebx (register),,claude-opus-5-5
+2026-11-19 10:36,0x762410,,,,parked,0.78,9,inline-budget,LV-IB: dead LightEnvironments begin / bucket_count / size / empty / max_size after Remove_Light_Environment: any one sends the whole erase out (0.17-0.38),,claude-opus-5-5
+2026-11-19 10:36,0x603820,,,,partial,0.38,8,inline-budget,LV-IB: 1-8 dead text.c_str() or Unknown88.size() after the card string: 0.38-0.40,,claude-opus-5-5
+2026-11-19 10:36,0x58FBA0,,,,partial,0.57,4,inline-budget,LV-IB: 1-8 dead Unknown0B0.Peek() after the PlayersInfo erase: 0.52 -> 0.57 at 8,,claude-opus-5-5
+2026-11-19 10:36,0x5D6EE0,,,,partial,0.65,5,inline-budget,LV-IB: 1-8 dead Children.size() after the 'Name' find: no change,,claude-opus-5-5
+2026-11-19 10:36,0x547FD0,,,,partial,0.48,5,inline-budget,LV-IB: 1-8 dead aux->Children.size() after the valid XPDebt find: no change,,claude-opus-5-5
+2026-11-19 10:36,0x5DC4A0,,,,partial,0.31,5,inline-budget,LV-IB: 1-8 dead aux->Children.size() after the MaxEnergyPower find: 0.28-0.37,,claude-opus-5-5
+2026-11-19 10:36,0x58CB50,,,,partial,0.55,6,inline-budget,LV-IB: 1-12 dead aux->Children.size() after the CombatExp find: 0.42-0.50 (worse),,claude-opus-5-5
+2026-11-19 10:36,0x7C2760,,,,partial,0.78,6,inline-budget,LV-IB: one / three dead aux->Children.size() after each statement (scan): no change,,claude-opus-5-5
+2026-11-19 10:36,0x5404E0,,,,partial,0.82,9,inline-budget,"LV-IB: 1-8 dead aux->Children.size() after the SectorNum find or in its branch: 0.82, then 0.50 / 0.39",,claude-opus-5-5
+2026-11-19 10:36,0x52F010,,,,partial,0.68,8,inline-budget,"LV-IB: one / two dead aux_data->Children.size() after each statement (scan, Is_Usable 0x531080's lever): no change",,claude-opus-5-5
+2026-11-19 10:36,0x5EDCC0,,,,partial,0.77,6,inline-budget,"LV-IB: 1-12 dead Unknown0AEC->Children.size() after the NegotiatedCost find: 0.77, 0.68-0.60",,claude-opus-5-5
+2026-11-19 10:36,0x545610,,,,partial,0.58,10,inline-budget,LV-IB: 1-8 dead Unknown10C->Children.size() after the Validity or the Mode find: no change,,claude-opus-5-5
+2026-11-19 10:36,0x59BC40,,,,partial,0.63,5,inline-budget,LV-IB: 1-8 dead sclient->AuxData->Children.size() after the GroupInfo find: no change,,claude-opus-5-5
+2026-11-19 10:36,0x576AC0,,,,partial,0.84,4,register,"LV-IB: 1-2 dead model.Peek() after the last dialog name: 0.84 (the earlier rounds' best), 4+ worse and lose 0x468E70 / 0x577940",,claude-opus-5-5
