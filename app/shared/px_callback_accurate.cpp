@@ -38,11 +38,11 @@ void PxAccurateCallback::Overlap(PxBox *box, bool enter)
 		if (box->Self & 2) {
 			Tight_Enter((PxObject *)box->Owner);
 		} else {
-			Loose_Enter((PxObject *)box->Owner);
+			Loose_Enter((PxObject *)box->Owner); Overlaps.end();
 		}
 	} else {
 		if (box->Self & 2) {
-			Tight_Exit((PxObject *)box->Owner);
+			Tight_Exit((PxObject *)box->Owner); Overlaps.end();
 		} else {
 			Loose_Exit((PxObject *)box->Owner);
 		}
@@ -218,7 +218,7 @@ PxAccurateBoxCallback::PxAccurateBoxCallback(PxObject *object, PxCallbackFunctio
 }
 
 // 0x44F5D0
-// NOT EXACT: inline budget (the client calls Activate 0x44EF80 out of line, ours inlines it; attempts.py show 0x44F5D0)
+// (the dead Overlaps.end() after Overlap's Loose_Enter and Tight_Exit calls spend the inline budget: Activate 0x44EF80 called out of line, and Overlap's own copy still calls erase 0x450D60; D272)
 void PxAccurateBox::On_Enter(PxBox *box)
 {
 	Callback->Overlap(box, true);
