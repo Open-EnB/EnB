@@ -171,7 +171,9 @@ retry read `python tools/re/attempts.py show ADDR` (builders.md §2). Compiler s
 `/O1 /O2` x `/Ob0-2` x `/G3-/G6 /GB` combination on Make_Screen_Shot 0x9182C0; the library's own
 `/O2 /Ob2 /GB` was best): an allocation residue comes from the source. Count instruction rows from
 `appfile.py match --diff` or objdiff, not the similarity score (0.81 stayed while rows went 3 -> 0), and
-believe verify over `explain.py`'s class. In large x87 functions the masked residue swings: two forms that
+believe verify over `explain.py`'s class. One hypothesis batch (D273) is one `python tools/re/trybatch.py run
+VARIANTS.py [--record]`: every form compiled lock-free on pool VMs, a <= 30-line summary (masked residue, groups of
+identical code, the best form's regions; tools/re/README.md). In large x87 functions the masked residue swings: two forms that
 each helped can score worse combined; compare diffs by hand.
 
 **Two-attempt stop rule.** After two failed attempts on a register-only or order-only residue,

@@ -181,7 +181,9 @@ def limit_reached(rows):
     rows: every row of one address. D271 (the user, 2026-11-19): register-only and order-only residues are
     no longer barred (D89's per-round limits stay: forms from stated hypotheses, at most 8 a round); a round
     that raised the function's best score (cut its mismatched bytes; a first scored round counts as progress)
-    does not count toward parking. Two rounds without progress park a function, whatever the residue class
+    does not count toward parking; when the round and an earlier one both carry a masked residue (`residue N`
+    in the evidence, as trybatch.py --record writes it), fewer residue rows is the progress test instead of the
+    score (a score can miss a 315 -> 309 cut). Two rounds without progress park a function, whatever the residue class
     and model (round one Opus at medium effort, round two Opus at high; D263: no Fable round).
     """
     tried = sorted((r for r in rows if r['status'] in ('partial', 'parked', 'blocked')), key=lambda r: r['date'])
@@ -193,18 +195,31 @@ def limit_reached(rows):
             rounds[-1][1].append(r)
         else:
             rounds.append((key, [r]))
-    best, stalled = None, []
+    best, best_res, stalled = None, None, []
     for _, rs in rounds:
-        scores = []
+        scores, residues = [], []
         for r in rs:
             try:
                 scores.append(float(r['score']))
             except (TypeError, ValueError):
                 pass
+            n = residue_of(r)
+            if n is not None:
+                residues.append(n)
         s = max(scores) if scores else None
+        n = min(residues) if residues else None
+        # the masked residue (fewer mismatched rows) decides when this round and an earlier one both give it
+        # (trybatch.py --record writes `residue N`); otherwise the score
+        if n is not None and best_res is not None:
+            progress = n < best_res
+        else:
+            progress = s is not None and (best is None or s > best)
         if s is not None and (best is None or s > best):
-            best = s          # progress: this round does not count (D271)
-            continue
+            best = s
+        if n is not None and (best_res is None or n < best_res):
+            best_res = n
+        if progress:
+            continue          # progress: this round does not count (D271)
         stalled.append(rs[-1])
     # rounds before D271 ran without the medium / high ladder: together they count as at most one (round one)
     count = min(1, sum(1 for r in stalled if r['date'] < D271_DATE)) + sum(1 for r in stalled if r['date'] >= D271_DATE)
@@ -212,6 +227,16 @@ def limit_reached(rows):
         return ''
     return (f"LIMIT REACHED (D89, D271): {count} rounds without progress (best score {best}); no retry "
             "without a new section 3.1 lever cited with `attempts.py check --lever`")
+
+
+RESIDUE = re.compile(r'\bresidue (\d+)')
+
+
+def residue_of(row):
+    """The masked residue rows a row's evidence gives (`residue N`, the first such token: trybatch.py's best form),
+    else None."""
+    m = RESIDUE.search(row.get('evidence') or '')
+    return int(m.group(1)) if m else None
 
 
 D271_DATE = '2026-11-19 07:40'  # the user's decision, run 2026-11-19
