@@ -26,8 +26,8 @@ struct LoungeNPCRoomStruct  // NAME 2: what 0x6987A0 (sbase_info.cpp) makes of a
 {
 	int RoomType;	// +0x00 the room's type (0x6987A0: 0 hangar, 1 main deck, 2 merchants, 3 NPC lounge, 4 lounge)  // NAME 2: what 0x6987A0 reads it as
 	int Flags;	// +0x04 the room's flags, nine bits (0x6987A0: StarbaseRoomClass +0x04..+0x0C)  // NAME 2: what 0x6987A0 reads it as
-	int Unknown08;	// +0x08  // NAME 1: neutral (D10)
-	int Unknown0C;	// +0x0C  // NAME 1: neutral (D10)
+	float FogStart;	// +0x08 the room's fog start (StarbaseRoomClass +0x10: 0x6366A0's Set_Fog_Range start)  // NAME 2: what 0x6366A0 passes it as
+	float FogEnd;	// +0x0C the room's fog end (StarbaseRoomClass +0x14)  // NAME 2: what 0x6366A0 passes it as
 	Vector3 Unknown10;	// +0x10 (12 bytes as they are; its copy constructor makes the entry's copy member by member)  // NAME 1: neutral (D10)
 };
 

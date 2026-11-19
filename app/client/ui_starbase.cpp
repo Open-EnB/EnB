@@ -1714,7 +1714,7 @@ void UIStarbaseClass::Unknown_58()
 		InterfaceMesh->Peek_Object()->Add_Sub_Object_To_Bone(robj.Peek(), "root");
 	}
 	if (RoomInfo->Unknown0C) {
-		UnknownB0->Unknown_6A20C0(RoomInfo->Unknown18, *(float *)&RoomInfo->Unknown10, *(float *)&RoomInfo->Unknown14);
+		UnknownB0->Unknown_6A20C0(RoomInfo->Unknown18, RoomInfo->FogStart, RoomInfo->FogEnd);
 	}
 	if (OptionClass::Instance->Get_Bool("Starbase_Third_Person_Mode")) {
 		if (!UnknownC0.D->Avatar->Unknown2F5) {

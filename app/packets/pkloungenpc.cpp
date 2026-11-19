@@ -17,8 +17,8 @@ LoungeNPCPacketClass::LoungeNPCPacketClass(RawPacketClass *raw)
 		LoungeNPCRoomStruct &entry = Rooms[i];
 		raw->Get(&entry.RoomType, sizeof(entry.RoomType));
 		raw->Get(&entry.Flags, sizeof(entry.Flags));
-		raw->Get(&entry.Unknown08, sizeof(entry.Unknown08));
-		raw->Get(&entry.Unknown0C, sizeof(entry.Unknown0C));
+		raw->Get(&entry.FogStart, sizeof(entry.FogStart));
+		raw->Get(&entry.FogEnd, sizeof(entry.FogEnd));
 		raw->Get(&entry.Unknown10, sizeof(entry.Unknown10));
 	}
 	raw->Get(&count, sizeof(count));
@@ -65,8 +65,8 @@ RawPacketClass *LoungeNPCPacketClass::Build()
 		LoungeNPCRoomStruct &entry = Rooms[i];
 		raw->Add(&entry.RoomType, sizeof(entry.RoomType));
 		raw->Add(&entry.Flags, sizeof(entry.Flags));
-		raw->Add(&entry.Unknown08, sizeof(entry.Unknown08));
-		raw->Add(&entry.Unknown0C, sizeof(entry.Unknown0C));
+		raw->Add(&entry.FogStart, sizeof(entry.FogStart));
+		raw->Add(&entry.FogEnd, sizeof(entry.FogEnd));
 		raw->Add(&entry.Unknown10, sizeof(entry.Unknown10));
 	}
 	count = Facilities.size();

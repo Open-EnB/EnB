@@ -115,8 +115,8 @@ public:
 	bool Unknown0A;			// +0x0A 0x040 (0x6A2120, 0x640D80: the room's second model variant, when +0x0B is clear)
 	bool Unknown0B;			// +0x0B 0x080 (0x6A2120, 0x640D80: the room's first model variant)
 	bool Unknown0C;			// +0x0C 0x100
-	int Unknown10;				// +0x10 (LOUNGE_NPC's numbers as they are)
-	int Unknown14;				// +0x14
+	float FogStart;				// +0x10 (LOUNGE_NPC's, as it is): the view's fog start (0x6366A0 passes it raw to 0x6A20C0, Set_Fog_Range's start)  // NAME 2: what 0x6366A0 passes it as
+	float FogEnd;				// +0x14: the fog end (0x6366A0, as +0x10)  // NAME 2: what 0x6366A0 passes it as
 	Vector3 Unknown18;		// +0x18 (LOUNGE_NPC's vector)
 	std::hash_map<unsigned int, StarbaseFacilityClass *> Facilities;	// +0x24 by Terminal  // NAME 2: the assert's 'facility'
 	std::hash_map<unsigned int, StarbaseNPCClass *> NPCs;					// +0x3C by Slot  // NAME 2: the assert's 'npc'
