@@ -803,8 +803,8 @@ void LandClass::Get_Vertex_Color(unsigned int x, unsigned int y, Vector3 &color)
 	color.Set((float)rgb[2] * (1.0f / 255.0f), (float)rgb[1] * (1.0f / 255.0f), (float)rgb[0] * (1.0f / 255.0f));
 }
 
-// NOT EXACT: field-offset (0.84, 367 masked rows: the corners' register choices and set-up order; running row indices,
-// Get_Vertex_Color / Unpack_Slope16 inlined (/Ob2), Unknown1EC taken before the averages; attempts.csv 0x470F80)
+// NOT EXACT: field-offset (293 masked rows: the corners' zero-offset byte sums load j2 j0 j3 j1, the client j1 j2 j0 j3; the inner
+// rows run on the k1 set with k2 as partner (the client's registers in the row loops); attempts.csv 0x470F80)
 void LandClass::Unknown_470F80(unsigned char *a, unsigned char *b, unsigned char *c)
 {
 	// the client: three copies of 65535 / (pi / 2) = 41720.875 (float 0xAE9AD0 in the four corners'
@@ -913,68 +913,68 @@ void LandClass::Unknown_470F80(unsigned char *a, unsigned char *b, unsigned char
 	}
 	// the inner rows: the first and last columns average with each other, the rest is the cell's own
 	for (y = 1; y < size - 1; y++) {
-		k0 = y << Field->Get_Log2();
-		i0 = k0 * 2;
-		j0 = i0 + k0;
-		k1 = k0 + mask;
+		k1 = y << Field->Get_Log2();
 		i1 = k1 * 2;
 		j1 = i1 + k1;
+		k2 = k1 + mask;
+		i2 = k2 * 2;
+		j2 = i2 + k2;
 		{
 			unsigned short avg[2];
 			unsigned short *ec = Unknown1EC;
-			avg[0] = (unsigned short)(((unsigned int)hz[i1] + (unsigned int)hz[i0]) >> 1);
-			avg[1] = (unsigned short)(((unsigned int)hz[i1 + 1] + (unsigned int)hz[i0 + 1]) >> 1);
+			avg[0] = (unsigned short)(((unsigned int)hz[i2] + (unsigned int)hz[i1]) >> 1);
+			avg[1] = (unsigned short)(((unsigned int)hz[i2 + 1] + (unsigned int)hz[i1 + 1]) >> 1);
 			Unknown1E8[n] = (unsigned short)(atan(Unpack_Slope16(avg[0])) * HORIZON_SCALE_2);
 			ec[n] = (unsigned short)(atan(Unpack_Slope16(avg[1])) * HORIZON_SCALE_2);
 			h[0] = (unsigned char)(avg[0] >> 8);
 			h[1] = (unsigned char)(avg[1] >> 8);
-			h[2] = (unsigned char)(((unsigned int)a[j1 + 1] + (unsigned int)a[j0 + 1]) >> 1);
-			h[3] = (unsigned char)(((unsigned int)b[j1 + 1] + (unsigned int)b[j0 + 1]) >> 1);
-			h[4] = (unsigned char)(((unsigned int)a[j1] + (unsigned int)a[j0]) >> 1);
-			h[5] = (unsigned char)(((unsigned int)b[j1 + 2] + (unsigned int)b[j0 + 2]) >> 1);
-			h[6] = (unsigned char)(((unsigned int)b[j1] + (unsigned int)b[j0]) >> 1);
-			h[7] = (unsigned char)(((unsigned int)a[j1 + 2] + (unsigned int)a[j0 + 2]) >> 1);
+			h[2] = (unsigned char)(((unsigned int)a[j2 + 1] + (unsigned int)a[j1 + 1]) >> 1);
+			h[3] = (unsigned char)(((unsigned int)b[j2 + 1] + (unsigned int)b[j1 + 1]) >> 1);
+			h[4] = (unsigned char)(((unsigned int)a[j2] + (unsigned int)a[j1]) >> 1);
+			h[5] = (unsigned char)(((unsigned int)b[j2 + 2] + (unsigned int)b[j1 + 2]) >> 1);
+			h[6] = (unsigned char)(((unsigned int)b[j2] + (unsigned int)b[j1]) >> 1);
+			h[7] = (unsigned char)(((unsigned int)a[j2 + 2] + (unsigned int)a[j1 + 2]) >> 1);
 			Get_Vertex_Color(0, y, color);
 			Unknown_472F80(&Unknown1F0[n], &Unknown1F4[n], &Unknown1F8[n], h, Unknown1E4[n], color);
 			n++;
 		}
-		i0 += 2;
-		j0 += 3;
+		i1 += 2;
+		j1 += 3;
 		for (x = 1; x < size - 1; x++) {
-			Unknown1E8[n] = (unsigned short)(atan(Unpack_Slope16(hz[i0])) * HORIZON_SCALE_1);
-			Unknown1EC[n] = (unsigned short)(atan(Unpack_Slope16(hz[i0 + 1])) * HORIZON_SCALE_1);
-			h[0] = (unsigned char)(hz[i0] >> 8);
-			h[1] = (unsigned char)(hz[i0 + 1] >> 8);
-			h[2] = a[j0 + 1];
-			h[3] = b[j0 + 1];
-			h[4] = a[j0];
-			h[5] = b[j0 + 2];
-			h[6] = b[j0];
-			h[7] = a[j0 + 2];
+			Unknown1E8[n] = (unsigned short)(atan(Unpack_Slope16(hz[i1])) * HORIZON_SCALE_1);
+			Unknown1EC[n] = (unsigned short)(atan(Unpack_Slope16(hz[i1 + 1])) * HORIZON_SCALE_1);
+			h[0] = (unsigned char)(hz[i1] >> 8);
+			h[1] = (unsigned char)(hz[i1 + 1] >> 8);
+			h[2] = a[j1 + 1];
+			h[3] = b[j1 + 1];
+			h[4] = a[j1];
+			h[5] = b[j1 + 2];
+			h[6] = b[j1];
+			h[7] = a[j1 + 2];
 			Get_Vertex_Color(x, y, color);
 			Unknown_472F80(&Unknown1F0[n], &Unknown1F4[n], &Unknown1F8[n], h, Unknown1E4[n], color);
 			n++;
-			i0 += 2;
-			j0 += 3;
+			i1 += 2;
+			j1 += 3;
 		}
-		k1 = (y << Field->Get_Log2()) + wrap;
-		i1 = k1 * 2;
-		j1 = i1 + k1;
+		k2 = (y << Field->Get_Log2()) + wrap;
+		i2 = k2 * 2;
+		j2 = i2 + k2;
 		{
 			unsigned short avg[2];
 			unsigned short *ec = Unknown1EC;
-			avg[0] = (unsigned short)(((unsigned int)hz[i1] + (unsigned int)hz[i0]) >> 1);
-			avg[1] = (unsigned short)(((unsigned int)hz[i1 + 1] + (unsigned int)hz[i0 + 1]) >> 1);
+			avg[0] = (unsigned short)(((unsigned int)hz[i2] + (unsigned int)hz[i1]) >> 1);
+			avg[1] = (unsigned short)(((unsigned int)hz[i2 + 1] + (unsigned int)hz[i1 + 1]) >> 1);
 			Unknown1E8[n] = (unsigned short)(atan(Unpack_Slope16(avg[0])) * HORIZON_SCALE_2);
 			ec[n] = (unsigned short)(atan(Unpack_Slope16(avg[1])) * HORIZON_SCALE_2);
 			h[0] = (unsigned char)(avg[0] >> 8);
 			h[1] = (unsigned char)(avg[1] >> 8);
-			h[2] = (unsigned char)(((unsigned int)a[j1 + 1] + (unsigned int)a[j0 + 1]) >> 1);
-			h[3] = (unsigned char)(((unsigned int)b[j1 + 1] + (unsigned int)b[j0 + 1]) >> 1);
-			h[4] = (unsigned char)(((unsigned int)a[j1] + (unsigned int)a[j0]) >> 1);
-			h[5] = (unsigned char)(((unsigned int)b[j1 + 2] + (unsigned int)b[j0 + 2]) >> 1);
-			h[6] = (unsigned char)(((unsigned int)b[j1] + (unsigned int)b[j0]) >> 1);
-			h[7] = (unsigned char)(((unsigned int)a[j1 + 2] + (unsigned int)a[j0 + 2]) >> 1);
+			h[2] = (unsigned char)(((unsigned int)a[j2 + 1] + (unsigned int)a[j1 + 1]) >> 1);
+			h[3] = (unsigned char)(((unsigned int)b[j2 + 1] + (unsigned int)b[j1 + 1]) >> 1);
+			h[4] = (unsigned char)(((unsigned int)a[j2] + (unsigned int)a[j1]) >> 1);
+			h[5] = (unsigned char)(((unsigned int)b[j2 + 2] + (unsigned int)b[j1 + 2]) >> 1);
+			h[6] = (unsigned char)(((unsigned int)b[j2] + (unsigned int)b[j1]) >> 1);
+			h[7] = (unsigned char)(((unsigned int)a[j2 + 2] + (unsigned int)a[j1 + 2]) >> 1);
 			Get_Vertex_Color(size - 1, y, color);
 			Unknown_472F80(&Unknown1F0[n], &Unknown1F4[n], &Unknown1F8[n], h, Unknown1E4[n], color);
 			n++;

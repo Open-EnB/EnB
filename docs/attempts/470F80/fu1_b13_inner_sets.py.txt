@@ -1,0 +1,33 @@
+import re
+import sys
+sys.path.insert(0, r'C:\EnBDevelopment\EnB\.work\fu1')
+import gen
+
+HYPOTHESIS = ('FU1 B13 zero-offset order: B12 showed the inner rows\' choice of index sets moves the corners\' ranks '
+              '(k3 set for the first-column partner: 367 -> 293); all 36 assignments of the inner rows\' three roles '
+              '(running P, first-column partner Q, last-column partner R) to the k0..k3 sets')
+FILE = gen.FILE
+SYMBOL = 'LandClass::Unknown_470F80'
+ADDRESS = 0x470F80
+D = gen.definition('void LandClass::Unknown_470F80(unsigned char *a, unsigned char *b, unsigned char *c)\n{')
+a = D.index('\t// the inner rows')
+b = D.index('\t// the last row: averages')
+head, inner, tail = D[:a], D[a:b], D[b:]
+SPLIT = '\t\tk1 = (y << Field->Get_Log2()) + wrap;\n'
+assert inner.count(SPLIT) == 1
+s = inner.index(SPLIT)
+first, last = inner[:s], inner[s:]
+
+
+def ren(t, m):
+    return re.sub(r'\b([kij])([01])\b', lambda mm: mm.group(1) + m[mm.group(2)], t)
+
+
+F = {}
+for P in '0123':
+    for Q in '0123':
+        for R in '0123':
+            if Q == P or R == P or (P, Q, R) == ('0', '1', '1'):
+                continue
+            F['p%sq%sr%s' % (P, Q, R)] = head + ren(first, {'0': P, '1': Q}) + ren(last, {'0': P, '1': R}) + tail
+FORMS = F
