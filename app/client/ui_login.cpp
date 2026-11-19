@@ -315,7 +315,7 @@ LoginInterface::LoginInterface(UIViewClass *view, LayerClass *layer) :
 	for (int j = 0; j < 4; j++) {
 		AccountButtons[j] = NULL;
 	}
-	Unknown_7CA2D0()->Unknown60.clear();
+	Unknown_7CA2D0Class *store = Unknown_7CA2D0(); store->Unknown60.clear();	// NAME 1 [store]: neutral (D10)
 	CharacterView = (LoginViewClass *)View->Unknown_28();
 	Task = (LoginTaskClass *)Get_Character_View()->Unknown14->Unknown_08();
 	Get_Task()->Close_Global_Connection();
