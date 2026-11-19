@@ -406,7 +406,7 @@ public:
 	CharacterViewClass *Unknown08C;					// +0x8C
 	UIAvatrLoginTaskClass *Unknown090;					// +0x90 (the view's task)
 	ShipPipClass *Unknown094;					// +0x94
-	ButtonGadgetClass *Unknown098[50];					// +0x98 (UIAvatrParts' gadgets)
+	ButtonGadgetClass *Unknown098[16]; ButtonGadgetClass *Unknown0D8[19]; ButtonGadgetClass *Unknown124[15];	// +0x98 / +0xD8 / +0x124 (UIAvatrParts' gadgets, by tab)
 	UIAvatrPullClass *Unknown160;						// +0x160 (the body's pull)
 	Vector2 Unknown164;									// +0x164 (0x558060's point)
 	UIAvatrPullClass *Unknown16C;						// +0x16C (the head's pull)
@@ -469,50 +469,50 @@ class EnvironmentMapManagerClass { public: void Unknown_760770(int base_asset, b
 
 static int UIAvatrEnvMaps[3] = { 100003, 100004, 100002 };	// 0xB7B128: the environment maps' base asset by race  // NAME 1: neutral (D10)
 
-// NOT EXACT: functional (D64), from the client's 0x553AF0: the pip (+0x94, ship_pip.cpp) is ShipPipClass; the
-// AvatarDescClass at +0x1CC is constructed in place over this file's char block
+// NOT EXACT: 55 masked rows (LV-SH): the client calls ~RefCountPtr out of line for both inlined Unknown_Set_Palette models
+// and schedules +0x16C before the AvatarDescClass construction; the Peek_Model read after the mp3 sends _Grow out of line (D272)
 // 0x553AF0
 AvatarCreationInterface::AvatarCreationInterface(UIViewClass *view, LayerClass *layer, bool keep) :
-	InterfaceClass(view, (int)layer->Peek_Scene())
+	InterfaceClass(view, (int)layer->Peek_Scene()),
+	Unknown084((UIMeshClass *)layer),
+	Unknown088(3),
+	Unknown08C(NULL),
+	Unknown090(NULL),
+	Unknown094(NULL),
+	Unknown160(NULL),
+	Unknown164(0.5f, 0.5f),
+	Unknown16C(NULL),
+	Unknown170(0.5f),
+	Unknown174(0.5f),
+	Unknown178(1.0f),
+	Unknown17C(1.0f),
+	Unknown180(NULL),
+	Unknown1BC(0),
+	Unknown1C0(-1),
+	Unknown1C4(0),
+	Unknown1C5(false),
+	Unknown1C6(false),
+	Unknown1C7(false),
+	Unknown1C8(false),
+	Unknown1C9(false),
+	Unknown2D8(false),
+	Unknown2DC(NULL),
+	Unknown2E0(NULL),
+	Unknown2E4(NULL),
+	Unknown2E8(NULL),
+	Unknown2EC(NULL),
+	Unknown2F0(NULL),
+	Unknown2F4(NULL)
 {
 	int i;
-	Unknown084 = (UIMeshClass *)layer;
-	Unknown088 = 3;
-	Unknown08C = NULL;
-	Unknown090 = NULL;
-	Unknown094 = NULL;
-	Unknown160 = NULL;
-	Unknown164.X = 0.5f;
-	Unknown164.Y = 0.5f;
-	Unknown16C = NULL;
-	Unknown170 = 0.5f;
-	Unknown174 = 0.5f;
-	Unknown178 = 1.0f;
-	Unknown17C = 1.0f;
-	Unknown180 = NULL;
-	Unknown1BC = 0;
-	Unknown1C0 = -1;
-	Unknown1C4 = 0;
-	Unknown1C5 = false;
-	Unknown1C6 = false;
-	Unknown1C7 = false;
-	Unknown1C8 = false;
-	Unknown1C9 = false;
 
-	Unknown2D8 = false;
-	Unknown2DC = NULL;
-	Unknown2E0 = NULL;
-	Unknown2E4 = NULL;
-	Unknown2E8 = NULL;
-	Unknown2EC = NULL;
-	Unknown2F0 = NULL;
-	Unknown2F4 = NULL;
-	for (i = 0; i < 50; i++) {
-		Unknown098[i] = NULL;
-	}
+
+	for (i = 0; i < 16; i++) Unknown098[i] = NULL;
+	for (i = 0; i < 19; i++) Unknown0D8[i] = NULL;
+	for (i = 0; i < 15; i++) Unknown124[i] = NULL;
 	for (i = 0; i < 7; i++) {
-		Unknown184[i].X = 0.5f;
-		Unknown184[i].Y = 0.5f;
+		Unknown184[i] = Vector2(0.5f, 0.5f);
+
 	}
 	Unknown08C = (CharacterViewClass *)View->Unknown_28();
 	Unknown090 = (UIAvatrLoginTaskClass *)Unknown08C->Unknown14->Unknown_08();
@@ -538,17 +538,17 @@ AvatarCreationInterface::AvatarCreationInterface(UIViewClass *view, LayerClass *
 		Unknown098[i] = new ButtonGadgetClass(sub.Peek(), *layer, 0x55, 3);
 		Unknown64.Unknown_6870E0(Unknown098[i], i + 1, View, 1, 0);
 	}
-	for (i = 16; i < 35; i++) {
-		RefCountPtr<RenderObjClass> sub = Create_Get(model->Get_Sub_Object_By_Name(UIAvatrParts[i].Button));
+	for (i = 0; i < 19; i++) {
+		RefCountPtr<RenderObjClass> sub = Create_Get(model->Get_Sub_Object_By_Name(UIAvatrParts[i + 16].Button));
 		Unknown_496AE0(sub.Peek(), 0);
-		Unknown098[i] = new ButtonGadgetClass(sub.Peek(), *layer, 0x55, 3);
-		Unknown64.Unknown_6870E0(Unknown098[i], i + 2, View, 1, 0);
+		Unknown0D8[i] = new ButtonGadgetClass(sub.Peek(), *layer, 0x55, 3);
+		Unknown64.Unknown_6870E0(Unknown0D8[i], i + 18, View, 1, 0);
 	}
-	for (i = 35; i < 50; i++) {
-		RefCountPtr<RenderObjClass> sub = Create_Get(model->Get_Sub_Object_By_Name(UIAvatrParts[i].Button));
+	for (i = 0; i < 15; i++) {
+		RefCountPtr<RenderObjClass> sub = Create_Get(model->Get_Sub_Object_By_Name(UIAvatrParts[i + 35].Button));
 		Unknown_496AE0(sub.Peek(), 0);
-		Unknown098[i] = new ButtonGadgetClass(sub.Peek(), *layer, 0x55, 3);
-		Unknown64.Unknown_6870E0(Unknown098[i], i + 3, View, 1, 0);
+		Unknown124[i] = new ButtonGadgetClass(sub.Peek(), *layer, 0x55, 3);
+		Unknown64.Unknown_6870E0(Unknown124[i], i + 38, View, 1, 0);
 	}
 	{
 		RefCountPtr<RenderObjClass> sub = Create_Get(model->Get_Sub_Object_By_Name("turn_down"));
@@ -561,7 +561,7 @@ AvatarCreationInterface::AvatarCreationInterface(UIViewClass *view, LayerClass *
 		}
 	}
 
-	{
+
 		RefCountPtr<CharacterViewAvatarClass> desc = Create_Peek(Unknown08C->Peek_Unknown194());
 		Unknown094 = new ShipPipClass(1);
 		Unknown094->Unknown_74(desc->Desc.Race);
@@ -570,7 +570,7 @@ AvatarCreationInterface::AvatarCreationInterface(UIViewClass *view, LayerClass *
 		Unknown094->Unknown_80C540(Vector2(640.0f, 480.0f), Vector3(0.0f, 0.0f, 0.0f), 0x1C);
 		Unknown64.Unknown_6870E0((GadgetClass *)Unknown094, 0x36, View, 1, 0);
 		Unknown094->Unknown_7C(Create_Peek(Unknown08C->Peek_Unknown194()));
-	}
+
 
 	Unknown_559900();
 	((ControlKeyListClass *)&Unknown4C)->Add(KernelEventClass(0x1B), (void *)0x3A);
@@ -594,13 +594,13 @@ AvatarCreationInterface::AvatarCreationInterface(UIViewClass *view, LayerClass *
 		Unknown_557950(5, 1, 0);
 		Unknown_557950(6, 1, 0);
 	}
-	{
-		RefCountPtr<CharacterViewAvatarClass> desc = Create_Peek(Unknown08C->Peek_Unknown194());
+
+
 		Unknown08C->Unknown3A4->Unknown_760770(UIAvatrEnvMaps[desc->Desc.Race], 1);
 		Unknown08C->Peek_Unknown194()->Unknown_780810(Unknown08C->Unknown3A4);
 		Unknown08C->Peek_Unknown194()->Unknown232 = true;
 		Unknown094->Unknown_84(Create_Peek(Unknown08C->Peek_Unknown194()));
-	}
+
 	Unknown_556630(0, true);
 	if (Unknown094) {
 		Unknown094->Unknown_40(true);
@@ -609,7 +609,7 @@ AvatarCreationInterface::AvatarCreationInterface(UIViewClass *view, LayerClass *
 	Unknown_556B20(0);
 	Unknown08C->Unknown_67C7B0();
 	if (!TutorialManagerClass::Instance->Is_Completed("AvatarCreationIntro")) {
-		Unknown08C->Unknown_67C920("1492_00_347se.mp3");
+		Unknown08C->Unknown_67C920("1492_00_347se.mp3"); Unknown08C->Peek_Model();
 		TutorialManagerClass::Instance->Set_Completed("AvatarCreationIntro");
 	}
 	void (AvatarCreationInterface::*function)(FlashingGadgetEvent *, GadgetClass *) = &AvatarCreationInterface::Unknown_55C280;
@@ -929,8 +929,8 @@ void AvatarCreationInterface::Unknown_556630(int tab, bool on)
 		case 1:
 			{
 				for (i = 16; i < 35; i++) {
-					Unknown098[i]->Unknown_40(on);
-					Unknown098[i]->Unknown_8C(!on);
+					Unknown0D8[i - 16]->Unknown_40(on);
+					Unknown0D8[i - 16]->Unknown_8C(!on);
 					if (UIAvatrParts[i].Text) {
 						FontSys *text = Unknown_BE67C4->Get_Style(UIAvatrParts[i].Text, model.Peek());
 						if (text) text->Set_Hidden(!on);
@@ -948,10 +948,10 @@ void AvatarCreationInterface::Unknown_556630(int tab, bool on)
 				}
 				RefCountPtr<CharacterViewAvatarClass> desc = Create_Peek(Unknown08C->Peek_Unknown194());
 				if (desc->Desc.Gender == 1) {
-					Unknown098[18]->Unknown_40(false);
-					Unknown098[18]->Unknown_8C(true);
-					Unknown098[19]->Unknown_40(false);
-					Unknown098[19]->Unknown_8C(true);
+					Unknown0D8[2]->Unknown_40(false);
+					Unknown0D8[2]->Unknown_8C(true);
+					Unknown0D8[3]->Unknown_40(false);
+					Unknown0D8[3]->Unknown_8C(true);
 					FontSys *text = Unknown_BE67C4->Get_Style("beard_fe_avatar00", model.Peek());
 					if (text) text->Set_Hidden(true);
 				}
@@ -959,8 +959,8 @@ void AvatarCreationInterface::Unknown_556630(int tab, bool on)
 			break;
 		case 2:
 			for (i = 35; i < 50; i++) {
-				Unknown098[i]->Unknown_40(on);
-				Unknown098[i]->Unknown_8C(!on);
+				Unknown124[i - 35]->Unknown_40(on);
+				Unknown124[i - 35]->Unknown_8C(!on);
 				if (UIAvatrParts[i].Text) {
 					FontSys *text = Unknown_BE67C4->Get_Style(UIAvatrParts[i].Text, model.Peek());
 					if (text) text->Set_Hidden(!on);
@@ -1269,10 +1269,10 @@ void AvatarCreationInterface::Unknown_55B2D0()
 		if (!(Unknown17C > 1.0f)) {
 			zoom = false;
 		}
-		Unknown098[33]->Unknown_40(zoom);
-		Unknown098[33]->Unknown_8C(!zoom);
-		Unknown098[34]->Unknown_40(zoom);
-		Unknown098[34]->Unknown_8C(!zoom);
+		Unknown0D8[17]->Unknown_40(zoom);
+		Unknown0D8[17]->Unknown_8C(!zoom);
+		Unknown0D8[18]->Unknown_40(zoom);
+		Unknown0D8[18]->Unknown_8C(!zoom);
 		if (!zoom) {
 			Unknown178 = 1.0f;
 		}
@@ -1289,15 +1289,15 @@ void AvatarCreationInterface::Unknown_55B540(int zoom)
 	if (zoom == 1) {
 		Unknown178 = WWMath::Max(Unknown178 - step, 0.5f);
 		if (Unknown178 == 0.5f) {
-			Unknown098[33]->Unknown_40(false);
+			Unknown0D8[17]->Unknown_40(false);
 		}
-		Unknown098[34]->Unknown_40(true);
+		Unknown0D8[18]->Unknown_40(true);
 	} else if (zoom == 2) {
 		Unknown178 = WWMath::Min(step + Unknown178, Unknown17C);
 		if (Unknown178 == Unknown17C) {
-			Unknown098[34]->Unknown_40(false);
+			Unknown0D8[18]->Unknown_40(false);
 		}
-		Unknown098[33]->Unknown_40(true);
+		Unknown0D8[17]->Unknown_40(true);
 	}
 	Unknown_55A550(1, 0, 0, 0);
 }
@@ -1312,7 +1312,7 @@ void AvatarCreationInterface::Unknown_55BAC0()
 	float time = WW3D::Get_Frame_Time() * 0.001f;
 	float slow = time * 0.3f;
 	float fast = time + time;
-	RefCountPtr<RenderObjClass> model = Unknown_497300(Unknown098[47]->RObj);
+	RefCountPtr<RenderObjClass> model = Unknown_497300(Unknown124[12]->RObj);
 	if (model) {
 		Matrix3D tm = model->Get_Transform();
 		if (Unknown1C0 == 0) {
@@ -1321,9 +1321,9 @@ void AvatarCreationInterface::Unknown_55BAC0()
 			tm.Rotate_Y(slow);
 		}
 		model->Set_Transform(tm);
-		Unknown098[47]->Unknown_6608F0();
+		Unknown124[12]->Unknown_6608F0();
 	}
-	model = Unknown_497300(Unknown098[48]->RObj);
+	model = Unknown_497300(Unknown124[13]->RObj);
 	if (model) {
 		Matrix3D tm = model->Get_Transform();
 		float angle = slow;
@@ -1332,9 +1332,9 @@ void AvatarCreationInterface::Unknown_55BAC0()
 		}
 		tm.Rotate_Y(angle);
 		model->Set_Transform(tm);
-		Unknown098[48]->Unknown_6608F0();
+		Unknown124[13]->Unknown_6608F0();
 	}
-	model = Unknown_497300(Unknown098[49]->RObj);
+	model = Unknown_497300(Unknown124[14]->RObj);
 	if (model) {
 		Matrix3D tm = model->Get_Transform();
 		float angle = slow;
@@ -1343,7 +1343,7 @@ void AvatarCreationInterface::Unknown_55BAC0()
 		}
 		tm.Rotate_Y(angle);
 		model->Set_Transform(tm);
-		Unknown098[49]->Unknown_6608F0();
+		Unknown124[14]->Unknown_6608F0();
 	}
 }
 
