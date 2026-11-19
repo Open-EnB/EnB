@@ -48,7 +48,7 @@ class ShipCustSettingsClass : public DeltaInterfaceClass	// NAME 2: the parts' k
 {
 public:
 	ShipCustSettingsClass() : Color(1.0F, 1.0F, 1.0F), Unknown10(0.5F), Unknown14(0.5F), Is_Matte(false), Metal(METAL_NONE) {}	// 0x618500 (inline: the out-of-line copy is ui_ship_cust.cpp's, its constructor's ??_H target; 0x6191F0 inlines it)
-	ShipCustSettingsClass(float red, float green, float blue, float unknown10, float unknown14, bool matte, ShipCustomizationMetal metal);	// 0x4F61C0
+	ShipCustSettingsClass(Vector3 color, Vector2 unknown10, bool matte, ShipCustomizationMetal metal);	// 0x4F61C0
 	virtual void Unknown_00(KVEncoderClass *visitor);				// 0x4F6900 (vtable 0xAEC91C)
 
 	Vector3 Color;										// +0x04 NAME 2: its key 'Color'
