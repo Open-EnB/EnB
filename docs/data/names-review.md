@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1971 |
 | 2 | describes what the code does | 4991 |
-| 1 | neutral placeholder | 25161 |
+| 1 | neutral placeholder | 25164 |
 
 ## For review (score 3 and below)
 
@@ -10127,6 +10127,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `UnknownB0122CEnum` | `app/client/ui_analyze.cpp:662` | untagged neutral name (D10) |
 | 1 | `Unknown_5461C0` | `app/client/ui_analyze.cpp:672` | untagged neutral name (D10) |
 | 1 | `Unknown2C_06` | `app/client/ui_analyze.cpp:738` | untagged neutral name (D10) |
+| 1 | `UnknownRTTIClass` | `app/client/ui_analyze.cpp:774` | untagged neutral name (D10) |
 | 1 | `ui_analyze.h` | `app/client/ui_analyze.h:3` | provisional header name for ui_analyze.cpp |
 | 1 | `UI_OPEN` | `app/client/ui_analyze.h:20` | neutral (D10) |
 | 1 | `Unknown5BB320Class` | `app/client/ui_analyze.h:26` | untagged neutral name (D10) |
@@ -14117,9 +14118,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_58` | `app/client/ui_manu.cpp:222` | untagged neutral name (D10) |
 | 1 | `Unknown1138` | `app/client/ui_manu.cpp:225` | untagged neutral name (D10) |
 | 1 | `Unknown_695780` | `app/client/ui_manu.cpp:229` | untagged neutral name (D10) |
-| 1 | `Unknown_5B6CA0` | `app/client/ui_manu.cpp:231` | untagged neutral name (D10) |
-| 1 | `Unknown_66FA90` | `app/client/ui_manu.cpp:235` | untagged neutral name (D10) |
-| 1 | `Unknown_5B2950` | `app/client/ui_manu.cpp:236` | untagged neutral name (D10) |
+| 1 | `Unknown_5B2820` | `app/client/ui_manu.cpp:230` | untagged neutral name (D10) |
 | 1 | `Unknown_69DC40` | `app/client/ui_manu.cpp:251` | untagged neutral name (D10) |
 | 1 | `Unknown_74BF80` | `app/client/ui_manu.cpp:256` | untagged neutral name (D10) |
 | 1 | `Unknown_5B4B10` | `app/client/ui_manu.cpp:260` | untagged neutral name (D10) |
@@ -14181,8 +14180,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_62F5B0` | `app/client/ui_manu.cpp:505` | untagged neutral name (D10) |
 | 1 | `Unknown_5B3640` | `app/client/ui_manu.cpp:517` | untagged neutral name (D10) |
 | 1 | `Unknown_5B39B0` | `app/client/ui_manu.cpp:519` | untagged neutral name (D10) |
+| 1 | `Unknown_5B2950` | `app/client/ui_manu.cpp:531` | untagged neutral name (D10) |
 | 1 | `Unknown_5B7880` | `app/client/ui_manu.cpp:534` | untagged neutral name (D10) |
 | 1 | `Unknown10BC` | `app/client/ui_manu.cpp:536` | untagged neutral name (D10) |
+| 1 | `Unknown_5B6CA0` | `app/client/ui_manu.cpp:540` | untagged neutral name (D10) |
 | 1 | `Unknown_68` | `app/client/ui_manu.cpp:546` | untagged neutral name (D10) |
 | 1 | `Unknown_69F440` | `app/client/ui_manu.cpp:555` | untagged neutral name (D10) |
 | 1 | `Unknown_5B1C20` | `app/client/ui_manu.cpp:561` | untagged neutral name (D10) |
@@ -14196,8 +14197,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_5B3260` | `app/client/ui_manu.cpp:686` | untagged neutral name (D10) |
 | 1 | `Unknown_5B4850` | `app/client/ui_manu.cpp:689` | untagged neutral name (D10) |
 | 1 | `Unknown_Find_List` | `app/client/ui_manu.cpp:692` | untagged neutral name (D10) |
-| 1 | `Unknown_Find_Valid_List` | `app/client/ui_manu.cpp:693` | untagged neutral name (D10) |
-| 1 | `Unknown_Get_List` | `app/client/ui_manu.cpp:694` | untagged neutral name (D10) |
+| 1 | `Unknown_Find_Set_List` | `app/client/ui_manu.cpp:693` | neutral (D10): the set test as one conditional expression (0x5B3850's jumps go straight to the end) with the explicit compares (their cost sends the 'PreviousAttempts' Cast out of line as the client's 0x5B7260) |
+| 1 | `Unknown_Find_Valid_List` | `app/client/ui_manu.cpp:694` | untagged neutral name (D10) |
+| 1 | `Unknown_Previous_Attempts` | `app/client/ui_manu.cpp:695` | neutral (D10): the extra layer of the 'PreviousAttempts' list (0x5B3850 calls its Cast out of line, the 'KnownFormula' one inline) |
+| 1 | `Unknown_Get_List` | `app/client/ui_manu.cpp:696` | untagged neutral name (D10) |
+| 1 | `Unknown_5B3850` | `app/client/ui_manu.cpp:709` | untagged neutral name (D10) |
 | 1 | `Unknown_5B2FE0` | `app/client/ui_manu.cpp:731` | untagged neutral name (D10) |
 | 1 | `Unknown_5B21A0` | `app/client/ui_manu.cpp:741` | untagged neutral name (D10) |
 | 1 | `Unknown_6CE910` | `app/client/ui_manu.cpp:744` | untagged neutral name (D10) |
@@ -14208,7 +14212,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown2C_0B` | `app/client/ui_manu.cpp:793` | untagged neutral name (D10) |
 | 1 | `Unknown_6607D0` | `app/client/ui_manu.cpp:795` | untagged neutral name (D10) |
 | 1 | `Unknown_Set_2FC` | `app/client/ui_manu.cpp:805` | untagged neutral name (D10) |
-| 1 | `Unknown_5B2820` | `app/client/ui_manu.cpp:815` | untagged neutral name (D10) |
+| 1 | `Unknown_66FA90` | `app/client/ui_manu.cpp:825` | untagged neutral name (D10) |
 | 1 | `Unknown_5B28E0` | `app/client/ui_manu.cpp:830` | untagged neutral name (D10) |
 | 1 | `Unknown_5B2990` | `app/client/ui_manu.cpp:847` | untagged neutral name (D10) |
 | 1 | `Unknown_A4` | `app/client/ui_manu.cpp:855` | untagged neutral name (D10) |
@@ -14218,7 +14222,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown230` | `app/client/ui_manu.cpp:914` | untagged neutral name (D10) |
 | 1 | `Unknown_5B2F20` | `app/client/ui_manu.cpp:928` | untagged neutral name (D10) |
 | 1 | `Unknown_5B3580` | `app/client/ui_manu.cpp:994` | untagged neutral name (D10) |
-| 1 | `Unknown_5B3850` | `app/client/ui_manu.cpp:1030` | untagged neutral name (D10) |
 | 1 | `Unknown2F4` | `app/client/ui_manu.cpp:1065` | untagged neutral name (D10) |
 | 1 | `Unknown4C5` | `app/client/ui_manu.cpp:1066` | untagged neutral name (D10) |
 | 1 | `Unknown_5B3D70` | `app/client/ui_manu.cpp:1092` | untagged neutral name (D10) |
