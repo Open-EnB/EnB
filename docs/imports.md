@@ -1503,7 +1503,7 @@ Base copy: reconstructed. Headers: 691 from reconstructed.
 | client/aux_roots.cpp | reconstructed | 463 | 0 | - | - | - |  |
 | client/avatar.cpp | reconstructed | 255 | 0 | - | - | - |  |
 | shared/avatar_desc.cpp | reconstructed | 83 | 0 | - | - | - |  |
-| client/avatar_pip.cpp | reconstructed | 30 | 1 | - | - | - |  |
+| client/avatar_pip.cpp | reconstructed | 31 | 0 | - | - | - |  |
 | client/backint.cpp | reconstructed | 32 | 0 | - | - | - |  |
 | wwudp/bandwidthaccounting.cpp | reconstructed | 33 | 0 | - | - | - |  |
 | client/bar2d.cpp | reconstructed | 115 | 0 | - | - | - |  |
@@ -2010,7 +2010,7 @@ Base copy: reconstructed. Headers: 691 from reconstructed.
 | client/ui_attrb.cpp | reconstructed | 54 | 0 | - | - | - |  |
 | client/ui_attrb_skill_panel.cpp | reconstructed | 46 | 0 | - | - | - |  |
 | client/ui_attrb_skills.cpp | reconstructed | 67 | 0 | - | - | - |  |
-| client/ui_avatar_cust.cpp | reconstructed | 103 | 0 | - | - | - |  |
+| client/ui_avatar_cust.cpp | reconstructed | 102 | 0 | - | - | - |  |
 | client/ui_avatar_dialog.cpp | reconstructed | 57 | 0 | - | - | - |  |
 | client/ui_avatr.cpp | reconstructed | 89 | 0 | - | - | - |  |
 | client/ui_avsel.cpp | reconstructed | 62 | 0 | - | - | - |  |
