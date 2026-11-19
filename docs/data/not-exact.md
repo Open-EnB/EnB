@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-858 entries in 307 files.
+856 entries in 307 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -419,9 +419,7 @@ edit the comments in the code, not this file.
 | `app/client/ui_chat_window.cpp:351` | `ChatWindowInterface::Unknown_A4` | marker | NOT EXACT: functional (CW2): the inlined 0x571A70's RectClass stores (the client stores Bottom first and copies tl by integer moves; frame 0xC now as the client's with tl a Vector3; 0.75) |
 | `app/client/ui_chat_window.cpp:362` | `ChatWindowInterface::Unknown_CC` | marker | NOT EXACT: functional (CW2): as 0x570CD0 (0.70) |
 | `app/client/ui_chat_window.cpp:378` | `ChatWindowInterface::Unknown_AC` | marker | NOT EXACT: functional (CW2): register residue (0.78) |
-| `app/client/ui_chat_window.cpp:403` | `ChatWindowInterface::Unknown_B0` | marker | NOT EXACT: functional (CW2): the inlined 0x5719A0 (0.66; exact with 0x5719A0 as Vector3 &f(Vector3 &color, entry), which inlines vector::size 0x571B70 into 0x56FD30: proposal) |
 | `app/client/ui_chat_window.cpp:509` | `ChatWindowInterface::Unknown_5715F0` | marker | NOT EXACT: functional (CW2): register residue around Create_Peek(Peek_Scene()) (0.71) |
-| `app/client/ui_chat_window.cpp:607` | `ChatWindowInterface::Unknown_5719A0` | marker | NOT EXACT: functional (CW2): defined inline so its callers inline it as the client's do; no out-of-line copy (exact as Vector3 &f(Vector3 &color, entry): proposal) |
 | `app/client/ui_chat_window.cpp:622` | `ChatWindowInterface::Unknown_571A70` | marker | NOT EXACT: functional (CW2): defined inline so its callers inline it as the client's do; no out-of-line copy (the client has one, uncalled) |
 | `app/client/ui_chat_window_split.cpp:79` | `UIChatWindowSplitClass::~UIChatWindowSplitClass` | marker | NOT EXACT: register-only (W2, 0.76): the second Remove_Anim_Combo_Data argument is loaded before the first call (esi); the client loads it into ecx after it |
 | `app/client/ui_chat_window_split.cpp:114` | `UIChatWindowSplitClass::Unknown_54` | marker | NOT EXACT: register-only (W1): the last Release_Ref's vtable goes through edx where the client uses eax; every other byte is the client's |

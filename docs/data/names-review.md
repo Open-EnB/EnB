@@ -11694,10 +11694,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `name, ini` | `app/client/ui_chat_panel_base.h:34` | what 0x646360 passes |
 | 1 | `Unknown_98` | `app/client/ui_chat_panel_base.h:34` | untagged neutral name (D10) |
 | 1 | `Unknown_9C` | `app/client/ui_chat_panel_base.h:35` | untagged neutral name (D10) |
-| 1 | `reply` | `app/client/ui_chat_window.cpp:24` | as chatgadg.h |
-| 1 | `Unknown_65E7C0` | `app/client/ui_chat_window.cpp:24` | untagged neutral name (D10) |
-| 1 | `buffer, size, cursorpos, insert` | `app/client/ui_chat_window.cpp:25` | what 0x571470 does with them |
-| 1 | `Unknown_65EBF0` | `app/client/ui_chat_window.cpp:25` | untagged neutral name (D10) |
+| 1 | `reply` | `app/client/ui_chat_window.cpp:25` | as chatgadg.h |
+| 1 | `Unknown_65E7C0` | `app/client/ui_chat_window.cpp:25` | untagged neutral name (D10) |
+| 1 | `buffer, size, cursorpos, insert` | `app/client/ui_chat_window.cpp:26` | what 0x571470 does with them |
+| 1 | `Unknown_65EBF0` | `app/client/ui_chat_window.cpp:26` | untagged neutral name (D10) |
 | 1 | `LineDisplayClientClass` | `app/client/ui_chat_window.cpp:33` | neutral (D10) |
 | 1 | `Unknown_00` | `app/client/ui_chat_window.cpp:36` | untagged neutral name (D10) |
 | 1 | `Unknown_04` | `app/client/ui_chat_window.cpp:36` | untagged neutral name (D10) |
@@ -11814,16 +11814,16 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_5715F0` | `app/client/ui_chat_window.h:72` | untagged neutral name (D10) |
 | 1 | `index` | `app/client/ui_chat_window.h:73` | neutral |
 | 1 | `Unknown_571810` | `app/client/ui_chat_window.h:73` | untagged neutral name (D10) |
-| 1 | `entry` | `app/client/ui_chat_window.h:74` | neutral |
-| 1 | `Unknown_5719A0` | `app/client/ui_chat_window.h:74` | untagged neutral name (D10) |
-| 1 | `Unknown_571A70` | `app/client/ui_chat_window.h:75` | untagged neutral name (D10) |
-| 1 | `UnknownA4` | `app/client/ui_chat_window.h:78` | untagged neutral name (D10) |
-| 1 | `UnknownB8` | `app/client/ui_chat_window.h:80` | untagged neutral name (D10) |
-| 1 | `Viewport` | `app/client/ui_chat_window.h:81` | neutral |
-| 1 | `UnknownD4` | `app/client/ui_chat_window.h:82` | untagged neutral name (D10) |
-| 1 | `UnknownD8` | `app/client/ui_chat_window.h:83` | untagged neutral name (D10) |
-| 1 | `UnknownDC` | `app/client/ui_chat_window.h:84` | untagged neutral name (D10) |
-| 1 | `UnknownE4` | `app/client/ui_chat_window.h:86` | untagged neutral name (D10) |
+| 1 | `color, entry` | `app/client/ui_chat_window.h:75` | neutral |
+| 1 | `Unknown_5719A0` | `app/client/ui_chat_window.h:75` | untagged neutral name (D10) |
+| 1 | `Unknown_571A70` | `app/client/ui_chat_window.h:79` | untagged neutral name (D10) |
+| 1 | `UnknownA4` | `app/client/ui_chat_window.h:82` | untagged neutral name (D10) |
+| 1 | `UnknownB8` | `app/client/ui_chat_window.h:84` | untagged neutral name (D10) |
+| 1 | `Viewport` | `app/client/ui_chat_window.h:85` | neutral |
+| 1 | `UnknownD4` | `app/client/ui_chat_window.h:86` | untagged neutral name (D10) |
+| 1 | `UnknownD8` | `app/client/ui_chat_window.h:87` | untagged neutral name (D10) |
+| 1 | `UnknownDC` | `app/client/ui_chat_window.h:88` | untagged neutral name (D10) |
+| 1 | `UnknownE4` | `app/client/ui_chat_window.h:90` | untagged neutral name (D10) |
 | 1 | `Unknown_BE5F34` | `app/client/ui_chat_window_split.cpp:11` | neutral (D10) |
 | 1 | `robj, make_geometry_unique` | `app/client/ui_chat_window_split.cpp:13` | what the helpers pass |
 | 1 | `Unknown_496AE0` | `app/client/ui_chat_window_split.cpp:13` | untagged neutral name (D10) |
@@ -30873,10 +30873,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `history` | `app/client/ui_chat_window.h:45` | the asserts' ChatHistory; NAME 1 [client, edit]: neutral |
 | 3 | `manager` | `app/client/ui_chat_window.h:52` | the FAIL_IF's |
 | 3 | `manager` | `app/client/ui_chat_window.h:53` | the FAIL_IF's |
-| 3 | `vp` | `app/client/ui_chat_window.h:75` | the FAIL_IF's |
-| 3 | `ChatHistory` | `app/client/ui_chat_window.h:77` | the assert's '!ChatHistory' |
-| 3 | `std:` | `app/client/ui_chat_window.h:79` | the assert's '!ChatWindows.empty()' |
-| 3 | `DestBttnText` | `app/client/ui_chat_window.h:85` | the assert's '!DestBttnText' |
+| 3 | `vp` | `app/client/ui_chat_window.h:79` | the FAIL_IF's |
+| 3 | `ChatHistory` | `app/client/ui_chat_window.h:81` | the assert's '!ChatHistory' |
+| 3 | `std:` | `app/client/ui_chat_window.h:83` | the assert's '!ChatWindows.empty()' |
+| 3 | `DestBttnText` | `app/client/ui_chat_window.h:89` | the assert's '!DestBttnText' |
 | 3 | `UIChatWindowSplitClass` | `app/client/ui_chat_window_split.h:28` | class-from-file (D24) for app\client\ui_chat_window_split.cpp |
 | 3 | `As_Space_Client` | `app/client/ui_cinfo.cpp:25` | the FAIL_IF's in ui_manu.cpp |
 | 3 | `UICinfoClass` | `app/client/ui_cinfo.h:15` | class-from-file (D24) for app\Client\ui_cinfo.cpp |
