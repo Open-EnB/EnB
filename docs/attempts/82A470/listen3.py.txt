@@ -1,0 +1,26 @@
+HYPOTHESIS = ('listen2: a second result variable (int, long, unsigned: one code) un-merges the tails, 16 -> 2 rows, '
+              'only the second closesocket loads Socket into ecx (client eax); the bind failure written as FAIL_IF, '
+              'the listen result tested in place, or ret2 declared at the top picks eax (line count kept)')
+FILE = 'app/common/tcpconn.cpp'
+SYMBOL = 'TCPListenerClass::Listen'
+ADDRESS = 0x82A470
+
+T2_OLD = ('\tret = ioctlsocket(Socket, FIONBIO, &on);\n\n\n'
+          '\tFAIL_IF(ret == SOCKET_ERROR) {\n')
+T2_NEW = ('\tint ret2 = ioctlsocket(Socket, FIONBIO, &on);\n\n\n'
+          '\tFAIL_IF(ret2 == SOCKET_ERROR) {\n')
+BIND_OLD = '\tif (bind(Socket, (sockaddr *)&address, sizeof(address)) == SOCKET_ERROR) {\n'
+BIND_NEW = '\tFAIL_IF(bind(Socket, (sockaddr *)&address, sizeof(address)) == SOCKET_ERROR) {\n'
+ON_OLD = '\tunsigned long on = 1;\n'
+ON_NEW = '\tunsigned long on = 1; int ret2;\n'
+
+FORMS = {
+    'ret2': [(T2_OLD, T2_NEW)],
+    'ret2_failbind': [(T2_OLD, T2_NEW), (BIND_OLD, BIND_NEW)],
+    'ret2_decl_on': [(ON_OLD, ON_NEW), (T2_OLD, T2_NEW.replace('int ret2', 'ret2'))],
+    'ret2_failbind_decl': [(ON_OLD, ON_NEW), (T2_OLD, T2_NEW.replace('int ret2', 'ret2')), (BIND_OLD, BIND_NEW)],
+    'ret2_sock_local': [(T2_OLD, '\tSOCKET sock = Socket; int ret2 = ioctlsocket(sock, FIONBIO, &on);\n\n\n'
+                         '\tFAIL_IF(ret2 == SOCKET_ERROR) {\n')],
+    'ret2_bool_ret': [(T2_OLD, '\tbool ret2 = ioctlsocket(Socket, FIONBIO, &on) == SOCKET_ERROR;\n\n\n'
+                       '\tFAIL_IF(ret2) {\n')],
+}
