@@ -400,7 +400,6 @@ public:
 	void Unknown_55BFB0();								// 0x55BFB0 (the height and weight texts)
 	void Unknown_55C280(FlashingGadgetEvent *event, GadgetClass *sender);	// 0x55C280 (FAIL_IFs '!event', '!gadget': the FlashingGadgetEvent handler)  // NAME 1 [sender]: as ui_avsel.h's
 	void Unknown_Set_Palette(const char *name);		// 0x55C350 (the texture of that name onto the model's COLOR_PALETTE: ui_avatar_cust.cpp's 0x5513E0)  // NAME 1: neutral (D10); NAME 1 [name]: neutral
-	void Unknown_Palette(const char *name) { Unknown_Set_Palette(name); }	// the constructor's palette calls: one more inline layer, so its inlined Unknown_Set_Palette copies call the model's ~RefCountPtr out of line as the client's 0x5543C0 / 0x554478 (the depth lever, workflow 3.1.2)
 
 	UIMeshClass *Unknown084;							// +0x84 (the window's mesh)
 	int Unknown088;										// +0x88 (the tab, 0x556B20)
@@ -467,10 +466,11 @@ class EnvironmentMapManagerClass { public: void Unknown_760770(int base_asset, b
 
 
 
+
 static int UIAvatrEnvMaps[3] = { 100003, 100004, 100002 };	// 0xB7B128: the environment maps' base asset by race  // NAME 1: neutral (D10)
 
-// NOT EXACT: 15 masked rows (FU2): the client stores +0x16C before the AvatarDescClass construction and loads desc before the view
-// for the env maps (eax for 0x780810's this); the Peek_Model read after the mp3 sends _Grow out of line (D272)
+// NOT EXACT: 49 masked rows: the client calls ~RefCountPtr out of line for both inlined Unknown_Set_Palette models, stores +0x16C
+// before the AvatarDescClass construction, loads desc before the view for the env maps; the Peek_Model read after the mp3 sends _Grow out (D272)
 // 0x553AF0
 AvatarCreationInterface::AvatarCreationInterface(UIViewClass *view, LayerClass *layer, bool keep) :
 	InterfaceClass(view, (int)layer->Peek_Scene()),
@@ -584,9 +584,9 @@ AvatarCreationInterface::AvatarCreationInterface(UIViewClass *view, LayerClass *
 		Unknown08C->Unknown_67C340((Vector3 *)&Unknown170, Unknown08C->Peek_Unknown194()->Desc.Gender);
 	}
 	if (!keep && !back) {
-		Unknown_Palette("fa_skin_color.tga");
+		Unknown_Set_Palette("fa_skin_color.tga");
 		Unknown_557950(2, 1, 0);
-		Unknown_Palette("fa_avatar_color.tga");
+		Unknown_Set_Palette("fa_avatar_color.tga");
 		Unknown_557950(0, 1, 0);
 		Unknown_557950(1, 1, 0);
 		Unknown_557950(3, 1, 0);
