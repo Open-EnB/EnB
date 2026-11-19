@@ -936,7 +936,7 @@ void UIManuClass::Unknown_5B2F20()
 	}
 }
 
-// NOT EXACT: inline budget (the client calls rtti.h's Cast out of line, 0x5B72B0; the item id read before the client) (0x5B2FE0)
+// NOT EXACT: order (the find and its out-of-line Cast 0x5B72B0 as the client's through the set test; the client loads Client and its vtable while it walks to the item id) (0x5B2FE0)
 void UIManuClass::Unknown_5B2FE0()
 {
 	if (Unknown0B98 == 3) {
@@ -944,10 +944,10 @@ void UIManuClass::Unknown_5B2FE0()
 		int b = Unknown0B80[1];
 		int c = Unknown0B80[2];
 		NameClass name("PrimaryCategories");
-		UIManuCategoriesClass *categories = Unknown_Find_Field<UIManuCategoriesClass>((DeltaCompoundClass *)Unknown0BA0, name);
-		if (categories && categories->Unknown70) {
+		UIManuCategoriesClass *categories = Unknown_Find_Set_List<UIManuCategoriesClass>((DeltaCompoundClass *)Unknown0BA0, name);
+		if (categories) {
 			int id = ((UIManuNodeClass *)categories)->Unknown084[a]->Unknown1A8[b]->Unknown230[c]->Unknown1A8;
-			((ClientClass *)Client)->Send_Packet(&ManufactureItemCatagoryPacket_122Class(Client->As_Space_Client()->Unknown1138, id));
+			int player = Client->As_Space_Client()->Unknown1138; ((ClientClass *)Client)->Send_Packet(&ManufactureItemCatagoryPacket_122Class(player, id));
 			Unknown_5B2B40();
 			Unknown0BAD = false;
 			Unknown_5B6CA0();
@@ -995,8 +995,8 @@ void UIManuClass::Unknown_5B3580(bool force)
 {
 	if (Unknown0BAD) {
 		NameClass name("PreviousAttempts");
-		UIManuListClass *list = Unknown_Find_Field<UIManuListClass>((DeltaCompoundClass *)Unknown0BA0, name);
-		if (list && list->Unknown70 && (force || list->Unknown70 > 1)) {
+		UIManuListClass *list = Unknown_Find_Set_List<UIManuListClass>((DeltaCompoundClass *)Unknown0BA0, name);
+		if (list && (force || list->Unknown70 > 1)) {
 			Unknown_5B3260(list);
 		}
 	}
@@ -1655,10 +1655,10 @@ void UIManuClass::Unknown_5B5320()
 		}
 	}
 
-	if (Unknown0BAD) {				UIManuListClass *list = Unknown_Manu_Raw<UIManuListClass>(Unknown0BA0, "PreviousAttempts");
-		if (list && list->Unknown70 > 1) {
-			Unknown_5B3260(list);
-		}
+	if (Unknown0BAD) {				Unknown_5B3580(false);
+
+
+
 	} else if (Unknown0B98 == 3) {
 		Unknown_5B2F20();
 	} else {
@@ -1871,3 +1871,4 @@ void UIManuClass::Unknown_5B6D30()
 **	EXACT notes; most are the client's inline budget: it calls finds, casts or the tree checks out of line where this
 **	compile inlines them). The static __int64 0x5AF9D0 initialises is the filter request interval.
 */
+template UIManuListClass *Unknown_Find_Field<UIManuListClass>(DeltaCompoundClass *root, const NameClass &name);	// D164: not the client's form; emits auxdata.h's find for the lists out of line (0x5B70C0, which the client's 0x5B16C0 calls) now that 0x5B5320's 'PreviousAttempts' find is 0x5B3580's set find (0x5B6DB0)
