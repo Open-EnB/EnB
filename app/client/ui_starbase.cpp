@@ -1547,7 +1547,7 @@ bool UIStarbaseClass::Unknown_68(int key)
 			if (UnknownC0.D->Avatar && !Unknown1B1) {
 				UnknownC0.D->Avatar->Unknown2F5 = !UnknownC0.D->Avatar->Unknown2F5;
 				UnknownB0->Unknown_69E510(UnknownC0.D->Avatar->Unknown_787A90());
-				*(Matrix3D *)Unknown1BC = UnknownC0.D->Avatar->Unknown_787A90();
+				Unknown1BC = UnknownC0.D->Avatar->Unknown_787A90();
 				BoolOptionStruct *option = OptionClass::Instance->Find_Bool("Starbase_Third_Person_Mode");
 				if (option) {
 					option->Value = UnknownC0.D->Avatar->Unknown2F5;
@@ -3739,9 +3739,9 @@ Matrix3D UIStarbaseClass::Unknown_63E930(const Matrix3D &tm)
 	Matrix3D out = tm;
 	if (Unknown_Model()->Cast_OBBox(local_test)) {
 		Vector3 hit = start.Get_Translation() + move * result.Fraction;
-		out.Set_Translation((hit + ((Matrix3D *)Unknown1BC)->Get_Translation()) * 0.5f);
+		out.Set_Translation((hit + Unknown1BC.Get_Translation()) * 0.5f);
 	}
-	*(Matrix3D *)Unknown1BC = out;
+	Unknown1BC = out;
 	return(out);
 }
 

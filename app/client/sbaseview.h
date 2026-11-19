@@ -268,7 +268,7 @@ public:
 	int Unknown1AC;	// +0x1AC
 	bool Unknown1B0, Unknown1B1, Unknown1B2, Unknown1B3;	// +0x1B0
 	float Unknown1B4, Unknown1B8;	// +0x1B4 (-1, 0.5)
-	char Unknown1BC[0x1EC - 0x1BC];	// +0x1BC (not set by the constructor)
+	Matrix3D Unknown1BC;	// +0x1BC (not set by the constructor): the camera transform 0x63E930 keeps (its translation read with fld at +0x1C8 / +0x1D8 / +0x1E8, the 12 words stored back)
 	Vector3 Unknown1EC;	// +0x1EC
 	RefCountPtr<InterfaceClass> Unknown1F8;	// +0x1F8 (destructor 0x643BA0: a reference count at +0x38, an interface)  // NAME 1: neutral (D10): the interface's class unknown
 	bool Unknown1FC, Unknown1FD, Unknown1FE, Unknown1FF, Unknown200, Unknown201;	// +0x1FC
