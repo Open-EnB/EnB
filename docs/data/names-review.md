@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1971 |
 | 2 | describes what the code does | 4988 |
-| 1 | neutral placeholder | 25447 |
+| 1 | neutral placeholder | 25449 |
 
 ## For review (score 3 and below)
 
@@ -4430,18 +4430,18 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Color0` | `app/client/gauge3d.h:63` | the color at value 0 |
 | 1 | `Color1` | `app/client/gauge3d.h:64` | the color at value 1 |
 | 1 | `Color2` | `app/client/gauge3d.h:65` | stored, never read |
-| 1 | `Unknown_B0804C` | `app/client/gd_attrb_skills.cpp:16` | neutral (D10) |
-| 1 | `SkillLevelAvailabilityStruct` | `app/client/gd_attrb_skills.cpp:19` | neutral (D10), as ui_attrb.cpp's |
-| 1 | `Unknown00` | `app/client/gd_attrb_skills.cpp:19` | untagged neutral name (D10) |
-| 1 | `Unknown04` | `app/client/gd_attrb_skills.cpp:19` | untagged neutral name (D10) |
-| 1 | `SkillDataPeekClass` | `app/client/gd_attrb_skills.cpp:20` | neutral (D10), as ui_attrb_skills.cpp's |
-| 1 | `skill` | `app/client/gd_attrb_skills.cpp:23` | neutral |
-| 1 | `Unknown_6A5470` | `app/client/gd_attrb_skills.cpp:23` | untagged neutral name (D10) |
-| 1 | `Unknown6A7A00Base` | `app/client/gd_attrb_skills.cpp:26` | neutral (D10) |
-| 1 | `Unknown_00` | `app/client/gd_attrb_skills.cpp:26` | untagged neutral name (D10) |
-| 1 | `SkillDataClass` | `app/client/gd_attrb_skills.cpp:27` | neutral (D10) |
-| 1 | `Unknown20` | `app/client/gd_attrb_skills.cpp:30` | untagged neutral name (D10) |
-| 1 | `Unknown50` | `app/client/gd_attrb_skills.cpp:30` | untagged neutral name (D10) |
+| 1 | `Unknown_B0804C` | `app/client/gd_attrb_skills.cpp:17` | neutral (D10) |
+| 1 | `SkillLevelAvailabilityStruct` | `app/client/gd_attrb_skills.cpp:20` | neutral (D10), as ui_attrb.cpp's |
+| 1 | `Unknown00` | `app/client/gd_attrb_skills.cpp:20` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `app/client/gd_attrb_skills.cpp:20` | untagged neutral name (D10) |
+| 1 | `SkillDataPeekClass` | `app/client/gd_attrb_skills.cpp:21` | neutral (D10), as ui_attrb_skills.cpp's |
+| 1 | `skill` | `app/client/gd_attrb_skills.cpp:24` | neutral |
+| 1 | `Unknown_6A5470` | `app/client/gd_attrb_skills.cpp:24` | untagged neutral name (D10) |
+| 1 | `Unknown6A7A00Base` | `app/client/gd_attrb_skills.cpp:27` | neutral (D10) |
+| 1 | `Unknown_00` | `app/client/gd_attrb_skills.cpp:27` | untagged neutral name (D10) |
+| 1 | `SkillDataClass` | `app/client/gd_attrb_skills.cpp:28` | neutral (D10) |
+| 1 | `Unknown20` | `app/client/gd_attrb_skills.cpp:31` | untagged neutral name (D10) |
+| 1 | `Unknown50` | `app/client/gd_attrb_skills.cpp:31` | untagged neutral name (D10) |
 | 1 | `Unknown815320Struct` | `app/client/gd_attrb_skills.cpp:41` | neutral (D10) |
 | 1 | `Unknown10` | `app/client/gd_attrb_skills.cpp:41` | untagged neutral name (D10) |
 | 1 | `Unknown14` | `app/client/gd_attrb_skills.cpp:41` | untagged neutral name (D10) |
@@ -9731,6 +9731,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `std:` | `app/client/tasks/tsk_game.h:182` | neutral (D10) |
 | 1 | `Unknown60` | `app/client/tasks/tsk_game.h:182` | untagged neutral name (D10) |
 | 1 | `Unknown_7CA2D0` | `app/client/tasks/tsk_game.h:184` | a function-static instance |
+| 1 | `Unknown_Get_Ticks` | `app/client/tasks/tsk_login.cpp:15` | untagged neutral name (D10) |
 | 1 | `Unknown_Debug_Print` | `app/client/tasks/tsk_login.cpp:26` | 0x509E30 (dbgmgr.cpp), the log line |
 | 1 | `Unknown0C` | `app/client/tasks/tsk_login.cpp:27` | untagged neutral name (D10) |
 | 1 | `password` | `app/client/tasks/tsk_login.cpp:28` | '123456' |
@@ -9772,7 +9773,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown2C` | `app/client/tasks/tsk_login.cpp:227` | untagged neutral name (D10) |
 | 1 | `Unknown_429A20` | `app/client/tasks/tsk_login.cpp:235` | untagged neutral name (D10) |
 | 1 | `Unknown04` | `app/client/tasks/tsk_login.cpp:236` | untagged neutral name (D10) |
-| 1 | `Unknown_Get_Ticks` | `app/client/tasks/tsk_login.cpp:261` | untagged neutral name (D10) |
 | 1 | `Unknown_0C` | `app/client/tasks/tsk_login.cpp:264` | untagged neutral name (D10) |
 | 1 | `Unknown_64` | `app/client/tasks/tsk_login.cpp:279` | untagged neutral name (D10) |
 | 1 | `Unknown_67A300` | `app/client/tasks/tsk_login.cpp:282` | untagged neutral name (D10) |
@@ -10332,7 +10332,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_5494E0` | `app/client/ui_attrb_skill_panel.cpp:231` | untagged neutral name (D10) |
 | 1 | `Unknown_40` | `app/client/ui_attrb_skill_panel.cpp:242` | untagged neutral name (D10) |
 | 1 | `Unknown_8C` | `app/client/ui_attrb_skill_panel.cpp:243` | untagged neutral name (D10) |
-| 1 | `Unknown_BE67C4` | `app/client/ui_attrb_skills.cpp:12` | 0xBE67C4 |
+| 1 | `Unknown_BE67C4` | `app/client/ui_attrb_skills.cpp:13` | 0xBE67C4 |
 | 1 | `SkillDataPeekClass` | `app/client/ui_attrb_skills.cpp:27` | neutral (D10) |
 | 1 | `Unknown_6A5440` | `app/client/ui_attrb_skills.cpp:30` | untagged neutral name (D10) |
 | 1 | `index` | `app/client/ui_attrb_skills.cpp:32` | neutral |
@@ -21681,17 +21681,17 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6C` | `app/client/view.cpp:99` | untagged neutral name (D10) |
 | 1 | `Unknown_6B4940` | `app/client/view.cpp:104` | untagged neutral name (D10) |
 | 1 | `Unknown_6B4990` | `app/client/view.cpp:111` | untagged neutral name (D10) |
-| 1 | `button, arg` | `app/client/viewbttn.cpp:15` | neutral |
-| 1 | `Unknown_42EC60` | `app/client/viewbttn.cpp:15` | untagged neutral name (D10) |
-| 1 | `Unknown_Cpit_Moving` | `app/client/viewbttn.cpp:16` | neutral (D10) |
-| 1 | `Unknown144` | `app/client/viewbttn.cpp:16` | untagged neutral name (D10) |
-| 1 | `Unknown49` | `app/client/viewbttn.cpp:22` | untagged neutral name (D10) |
-| 1 | `Unknown4A` | `app/client/viewbttn.cpp:23` | untagged neutral name (D10) |
-| 1 | `Unknown4C` | `app/client/viewbttn.cpp:24` | untagged neutral name (D10) |
-| 1 | `Unknown50` | `app/client/viewbttn.cpp:25` | untagged neutral name (D10) |
-| 1 | `Unknown54` | `app/client/viewbttn.cpp:26` | untagged neutral name (D10) |
-| 1 | `Unknown58` | `app/client/viewbttn.cpp:27` | untagged neutral name (D10) |
-| 1 | `UnknownAFE0B8Class` | `app/client/viewbttn.cpp:29` | untagged neutral name (D10) |
+| 1 | `button, arg` | `app/client/viewbttn.cpp:16` | neutral |
+| 1 | `Unknown_42EC60` | `app/client/viewbttn.cpp:16` | untagged neutral name (D10) |
+| 1 | `Unknown_Cpit_Moving` | `app/client/viewbttn.cpp:17` | neutral (D10) |
+| 1 | `Unknown144` | `app/client/viewbttn.cpp:17` | untagged neutral name (D10) |
+| 1 | `Unknown49` | `app/client/viewbttn.cpp:23` | untagged neutral name (D10) |
+| 1 | `Unknown4A` | `app/client/viewbttn.cpp:24` | untagged neutral name (D10) |
+| 1 | `Unknown4C` | `app/client/viewbttn.cpp:25` | untagged neutral name (D10) |
+| 1 | `Unknown50` | `app/client/viewbttn.cpp:26` | untagged neutral name (D10) |
+| 1 | `Unknown54` | `app/client/viewbttn.cpp:27` | untagged neutral name (D10) |
+| 1 | `Unknown58` | `app/client/viewbttn.cpp:28` | untagged neutral name (D10) |
+| 1 | `UnknownAFE0B8Class` | `app/client/viewbttn.cpp:30` | untagged neutral name (D10) |
 | 1 | `Unknown_2C` | `app/client/viewbttn.cpp:161` | untagged neutral name (D10) |
 | 1 | `LoginUnknown18Class` | `app/client/viewbttn.cpp:165` | untagged neutral name (D10) |
 | 1 | `Unknown_68` | `app/client/viewbttn.cpp:171` | untagged neutral name (D10) |
@@ -21990,7 +21990,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `UnknownB01394Enum` | `app/common/manufacturing_defs.h:26` | the value type of the leaf vtable 0xB01394 (its KVPair's Get_Type_Name 0x708970 says 'int'; no name in Net-7 or C#): an attempt's validity (names 0xBAEF44) |
 | 1 | `UnknownB013ECEnum` | `app/common/manufacturing_defs.h:28` | the value type of the leaf vtable 0xB013EC (its KVPair's Get_Type_Name 0x708800 says 'int'; no name in Net-7 or C#): the lab's mode (names 0xBAEF30) |
 | 1 | `bound` | `app/common/manufacturing_defs.h:51` | by analogy with MANUFACTURING_VALIDITY_COUNT |
-| 1 | `Unknown_Get_Ticks` | `app/common/memconn.cpp:41` | untagged neutral name (D10) |
+| 1 | `Unknown_Get_Ticks` | `app/common/memconn.cpp:5` | untagged neutral name (D10) |
 | 1 | `Unknown_869790` | `app/common/memconn.cpp:53` | untagged neutral name (D10) |
 | 1 | `Unknown_30` | `app/common/memconn.cpp:184` | untagged neutral name (D10) |
 | 1 | `MemoryMessageClass` | `app/common/memconn.h:26` | describes what it is |
@@ -22982,11 +22982,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown10` | `app/packets/pkjoblist.h:29` | untagged neutral name (D10) |
 | 1 | `Unknown20` | `app/packets/pkjoblist.h:30` | untagged neutral name (D10) |
 | 1 | `Unknown30` | `app/packets/pkjoblist.h:31` | untagged neutral name (D10) |
+| 1 | `Unknown_Get_Ticks` | `app/packets/pklogin.cpp:3` | untagged neutral name (D10) |
 | 1 | `UnknownA4` | `app/packets/pklogin.cpp:9` | untagged neutral name (D10) |
 | 1 | `UnknownA8` | `app/packets/pklogin.cpp:13` | untagged neutral name (D10) |
 | 1 | `UnknownAC` | `app/packets/pklogin.cpp:14` | untagged neutral name (D10) |
 | 1 | `UnknownB0` | `app/packets/pklogin.cpp:15` | untagged neutral name (D10) |
-| 1 | `Unknown_Get_Ticks` | `app/packets/pklogin.cpp:28` | untagged neutral name (D10) |
 | 1 | `Unknown_PacketDataClass` | `app/packets/pklogin.cpp:53` | untagged neutral name (D10) |
 | 1 | `pklogin` | `app/packets/pklogin.h:15` | provisional, pk + its first named class's name |
 | 1 | `name, unknown` | `app/packets/pklogin.h:25` | neutral (D10) |
@@ -23112,7 +23112,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown10` | `app/packets/pkrequesttarget.cpp:62` | untagged neutral name (D10) |
 | 1 | `pkrequesttarget` | `app/packets/pkrequesttarget.h:16` | provisional, pk + its first named class's name |
 | 1 | `Unknown10` | `app/packets/pkrequesttarget.h:65` | untagged neutral name (D10) |
-| 1 | `Unknown_Get_Ticks` | `app/packets/pkrequesttime.cpp:15` | untagged neutral name (D10) |
+| 1 | `Unknown_Get_Ticks` | `app/packets/pkrequesttime.cpp:3` | untagged neutral name (D10) |
 | 1 | `pkrequesttime` | `app/packets/pkrequesttime.h:15` | provisional, pk + its first class's name |
 | 1 | `pkrequesttransformchange` | `app/packets/pkrequesttransformchange.h:16` | provisional, pk + its first named class's name |
 | 1 | `Unknown_PacketDataClass` | `app/packets/pkserverhandoff.cpp:18` | untagged neutral name (D10) |
@@ -23433,9 +23433,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_34` | `app/shared/auxdata/delta.cpp:69` | untagged neutral name (D10) |
 | 1 | `Unknown_48` | `app/shared/auxdata/delta.cpp:138` | untagged neutral name (D10) |
 | 1 | `Unknown98` | `app/shared/auxdata/delta.cpp:153` | untagged neutral name (D10) |
-| 1 | `Unknown_00` | `app/shared/auxdata/delta.h:79` | untagged neutral name (D10) |
 | 1 | `DeltaUnknownGlobal` | `app/shared/auxdata/delta.h:84` | neutral (D10); the counter (0xBE3B44) numbers them |
 | 1 | `DeltaUnknownCounter` | `app/shared/auxdata/delta.h:84` | untagged neutral name (D10) |
+| 1 | `Unknown_00` | `app/shared/auxdata/delta.h:91` | untagged neutral name (D10) |
 | 1 | `Unknown_0C` | `app/shared/auxdata/delta.h:94` | untagged neutral name (D10) |
 | 1 | `Unknown_10` | `app/shared/auxdata/delta.h:95` | untagged neutral name (D10) |
 | 1 | `Unknown_18` | `app/shared/auxdata/delta.h:97` | untagged neutral name (D10) |
@@ -23535,6 +23535,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `UnknownRTTIClass` | `app/shared/auxdata/rtti.h:30` | neutral (D10) |
 | 1 | `Unknown04` | `app/shared/auxdata/rtti.h:34` | untagged neutral name (D10) |
 | 1 | `UnknownGlobal` | `app/shared/auxdata/rtti.h:34` | untagged neutral name (D10) |
+| 1 | `unknown_aeadc8.h` | `app/shared/auxdata/unknown_aeadc8.h:16` | neutral file name (D10) |
+| 1 | `Unknown_00` | `app/shared/auxdata/unknown_aeadc8.h:25` | untagged neutral name (D10) |
 | 1 | `unknown_changes.cpp` | `app/shared/auxdata/unknown_changes.cpp:3` | provisional file name: the object 0x4AB580-0x4AC250 has no assert and no __FILE__ |
 | 1 | `Unknown7C` | `app/shared/auxdata/unknown_changes.cpp:78` | untagged neutral name (D10) |
 | 1 | `Unknown70` | `app/shared/auxdata/unknown_changes.cpp:85` | untagged neutral name (D10) |
@@ -29220,7 +29222,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Add_Accel_Elements` | `app/shared/auxdata/delta.h:70` | what it does |
 | 2 | `Add_Vector3_Elements_Frame` | `app/shared/auxdata/delta.h:71` | what it does |
 | 2 | `Add_Matrix3D_Elements_Frame` | `app/shared/auxdata/delta.h:72` | what it does |
-| 2 | `DeltaInterfaceClass` | `app/shared/auxdata/delta.h:76` | describes what it does |
 | 2 | `Accept` | `app/shared/auxdata/delta.h:93` | describes what it does |
 | 2 | `Set_Parent` | `app/shared/auxdata/delta.h:96` | describes what it does |
 | 2 | `As_Delta` | `app/shared/auxdata/delta.h:100` | describes what it does |
@@ -29396,6 +29397,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Bind` | `app/shared/auxdata/policy.h:151` | describes what it does |
 | 2 | `Get_Action` | `app/shared/auxdata/policy.h:152` | describes what it does |
 | 2 | `std:` | `app/shared/auxdata/policy.h:154` | describes what it does |
+| 2 | `DeltaInterfaceClass` | `app/shared/auxdata/unknown_aeadc8.h:22` | describes what it does |
 | 2 | `ChangeSentVisitorClass` | `app/shared/auxdata/unknown_changes.cpp:10` | describes what it does |
 | 2 | `Table` | `app/shared/auxdata/unknown_changes.cpp:17` | describes what it does |
 | 2 | `ChangeBuildVisitorClass` | `app/shared/auxdata/unknown_changes.cpp:21` | describes what it does |
@@ -30724,7 +30726,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `SystemZoomMinRadius` | `app/client/galaxy_map_render.h:358` | the ini's |
 | 3 | `_name_scale` | `app/client/galaxy_map_robj.cpp:26` | the FAIL_IF's |
 | 3 | `gauge3d.h` | `app/client/gauge3d.h:17` | the header of gauge3d.cpp |
-| 3 | `gd_attrb_skills.cpp` | `app/client/gd_attrb_skills.cpp:17` | the assert's; the dots' array |
+| 3 | `gd_attrb_skills.cpp` | `app/client/gd_attrb_skills.cpp:18` | the assert's; the dots' array |
 | 3 | `Abilities` | `app/client/gd_attrb_skills.cpp:43` | its assert |
 | 3 | `gd_attrb_skills.h` | `app/client/gd_attrb_skills.h:16` | header name assumed from the client's gd_attrb_skills.cpp |
 | 3 | `AttachTo` | `app/client/gd_attrb_skills.h:50` | its asserts |
