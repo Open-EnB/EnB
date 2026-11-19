@@ -1735,18 +1735,18 @@ void UIGroupClass::Unknown_597D10()
 
 
 
-// 0x597E40's GroupInfo lookups: auxdata.h's find, NULL unless set (+0x70); A's six dead size() reads (D130, not the client's code) spend
-// the inline budget so its two sites call the find out of line (0x5927E0) as the client; B and C hold none (the exact form needs 4 and 3: over D130's 6)
+// 0x597E40's GroupInfo lookups: auxdata.h's find, NULL unless set (+0x70); the dead Children.size() reads (6 / 4 / 3, D272) spend the
+// inline budget so A's two sites call the find out of line (0x5927E0) and B / C's sites rtti.h's cast (0x598D80) as the client
 template<class C> inline C *Unknown_Group_FieldA(DeltaCompoundClass *root, const NameClass &name) { root->Children.size(); root->Children.size(); root->Children.size(); root->Children.size(); root->Children.size(); root->Children.size(); C *t = Unknown_Find_Field<C>(root, name); return((t && t->Unknown70) ? t : NULL); }  // NAME 1: neutral (D10)
-template<class C> inline C *Unknown_Group_FieldB(DeltaCompoundClass *root, const NameClass &name) { C *t = Unknown_Find_Field<C>(root, name); return((t && t->Unknown70) ? t : NULL); }  // NAME 1: neutral (D10)
-template<class C> inline C *Unknown_Group_FieldC(DeltaCompoundClass *root, const NameClass &name) { C *t = Unknown_Find_Field<C>(root, name); return((t && t->Unknown70) ? t : NULL); }  // NAME 1: neutral (D10)
+template<class C> inline C *Unknown_Group_FieldB(DeltaCompoundClass *root, const NameClass &name) { root->Children.size(); root->Children.size(); root->Children.size(); root->Children.size(); C *t = Unknown_Find_Field<C>(root, name); return((t && t->Unknown70) ? t : NULL); }  // NAME 1: neutral (D10)
+template<class C> inline C *Unknown_Group_FieldC(DeltaCompoundClass *root, const NameClass &name) { root->Children.size(); root->Children.size(); root->Children.size(); C *t = Unknown_Find_Field<C>(root, name); return((t && t->Unknown70) ? t : NULL); }  // NAME 1: neutral (D10)
 
 
 
 
 
 // 0x597E40
-// NOT EXACT: inline budget (D130: needs 13 dead reads, over the limit of 6; the client calls rtti.h's cast 0x598D80 out of line at the last two lookups)
+
 void UIGroupClass::Unknown_597E40(bool value)
 {
 	ClientClass *client = (ClientClass *)Client;
@@ -1942,7 +1942,7 @@ void UIGroupClass::Unknown_74(ControlKeysManager *manager)
 **	i == 3 branch on Unknown0C0[2]; 0x5938A0 tests 'Unknown28 == NULL || strcmp' so the inner null test stays.
 **	intrface.h's slots +0x70 / +0x74 take control_keys_manager.h's ControlKeysManager (the client's RTTI;
 **	intrface.h's stand-in ControlKeysManagerClass and its casts went on 2026-11-03).
-**	0x597E40 (not exact, D130): exact only with 6 / 4 / 3 dead size() reads in its three lookup wrappers (13, over
-**	D130's limit of 6; 92a34cb8), so A keeps 6 (its find out of line as the client's 0x5927E0) and B / C none, 0.76;
+**	0x597E40: exact with 6 / 4 / 3 dead Children.size() reads in its three lookup wrappers (13; 92a34cb8's form, back
+**	under D272, which lifted D130's cap of 6): A's two sites call the find 0x5927E0 out of line, B / C's the cast 0x598D80;
 **	the stricmp's string through a named local; its argument is a bool (stored in +0xF0 by byte).
 */

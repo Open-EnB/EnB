@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x474080"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "UICpitClass (ui_cpit.cpp's __FILE__; client 0x57D6C0-0x584BE1, claims #29 / #30): every function written; exact: the constructor 0x57D830, destructor 0x57EB80, slots +0x58 / +0x5C / +0x60 / +0x7C, the hulk and harvest windows 0x581CE0-0x582190, the warp and turn buttons 0x583250 / 0x583510, the font state 0x584110 / 0x5845A0 and the watchers 0x584A80-0x584BE0 on the client's lines (D25); the set-up, keys, warp state, throttle buttons, damage texts and incapacitance details NOT EXACT (inline budget), CP1",
  "expected": {},
@@ -28,6 +26,7 @@
   "0x46BEC0",
   "0x474080",
   "0x4740B0",
+  "0x47D370",
   "0x47D3A0",
   "0x47D440",
   "0x47D640",
@@ -70,6 +69,7 @@
   "0x57D570",
   "0x57D590",
   "0x57D650",
+  "0x57D6C0",
   "0x57D830",
   "0x57DBA0",
   "0x57DBC0",
@@ -78,6 +78,7 @@
   "0x57DC50",
   "0x57DC80",
   "0x57DCD0",
+  "0x57DD20",
   "0x57EB80",
   "0x57F010",
   "0x57F080",
@@ -135,8 +136,7 @@
   "0x585040",
   "0x585090",
   "0x5850C0",
-  "0x5850D0",
-  "0x7079B0"
+  "0x5850D0"
  ],
  "merged": [],
  "name": "client/ui_cpit.cpp",
@@ -163,6 +163,7 @@
   "0x46BEC0",
   "0x474080",
   "0x4740B0",
+  "0x47D370",
   "0x47D3A0",
   "0x47D440",
   "0x47D640",
@@ -219,8 +220,7 @@
   "0x584E50",
   "0x584FF0",
   "0x5850C0",
-  "0x5850D0",
-  "0x7079B0"
+  "0x5850D0"
  ],
  "short_known": [
   "0x42B320",

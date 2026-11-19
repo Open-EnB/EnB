@@ -118,7 +118,7 @@ void Unknown_496730(RenderObjClass *robj, int a, bool b);	// 0x496730 (ro_funcs.
 
 
 // 0x57D6C0 (also the view's 0x6B58A0): the avatar's LockSpeed / LockOrient, where it has them
-// NOT EXACT: inline budget (the client calls the LockSpeed Cast out of line, 0x584FF0, and inlines the LockOrient one; ours inlines both)
+// (the five dead Children.size() reads after the LockSpeed find spend the inline budget: its Cast 0x584FF0 called out of line, LockOrient's inlined, as the client's; D272)
 void Unknown_57D6C0(SClient *sclient, bool *lock_speed, bool *lock_orient)
 {
 	if (!sclient) {
@@ -137,7 +137,7 @@ void Unknown_57D6C0(SClient *sclient, bool *lock_speed, bool *lock_orient)
 		{
 			NameClass name("LockSpeed");
 			DeltaTemplateClass<bool> *t = Unknown_Find_Set_Field<DeltaTemplateClass<bool> >((DeltaCompoundClass *)avatar->AuxData, name);
-			if (t) *lock_speed = t->Value;
+			if (t) *lock_speed = t->Value; ((DeltaCompoundClass *)avatar->AuxData)->Children.size(); ((DeltaCompoundClass *)avatar->AuxData)->Children.size(); ((DeltaCompoundClass *)avatar->AuxData)->Children.size(); ((DeltaCompoundClass *)avatar->AuxData)->Children.size(); ((DeltaCompoundClass *)avatar->AuxData)->Children.size();
 		}
 		{
 			NameClass name("LockOrient");
@@ -263,7 +263,7 @@ UICpitClass::UICpitClass(MainViewClass *view, const LayerClass &layer) :
 
 
 // 0x57DD20: the cockpit's gutter opacity, gadgets, windows and lights
-// NOT EXACT: inline budget (the client calls the name's _Tidy(true) out of line at the gutter loop's end, ours expands it)
+// (the dead Unknown0B0.Peek() after the gutter loop spends the inline budget so the name's _Tidy(true) is called out of line, as the client's; D272)
 void UICpitClass::Unknown_54()
 {
 	Unknown13C = OptionClass::Instance->Get_Bool("Cpit_ThrottleClickLocks");
@@ -281,7 +281,7 @@ void UICpitClass::Unknown_54()
 			}
 		}
 	}
-	UIViewClass *view = View->As_Main_View();
+	UIViewClass *view = View->As_Main_View(); Unknown0B0.Peek();
 
 
 
@@ -2126,7 +2126,7 @@ void UICpitHarvestWatchClass::Unknown_Watch_0C()
 **	  inline budget; 0x57F240 took nine before D165's cheaper FAIL_IF, FI1), the window close
 **	  0x581CE0, 0x581E60 / 0x581F90 / 0x582070 / 0x5820C0 / 0x582190, the warp and turn buttons 0x583250 / 0x583510,
 **	  0x583DA0, 0x583F70, the font state 0x584110 / 0x5845A0, 0x584A20 / 0x584A60 and both watchers 0x584A80-0x584BE0;
-**	  still differing (the inline budget unless noted): 0x57D6C0, the set-up 0x57DD20, the
+**	  0x57D6C0 and the set-up 0x57DD20 (dead spenders after their sites, D272); still differing (the inline budget unless noted): the
 **	  steering keys 0x5806E0, the warp state 0x5821C0, the throttle buttons 0x583790, the damage texts 0x583DC0,
 **	  0x584000 (order) and the incapacitance details 0x584690.
 **	The packets' player ids go through two inline accessors (Unknown_Avatar_ID / Unknown_Player_ID): the client

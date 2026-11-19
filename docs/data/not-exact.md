@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-850 entries in 307 files.
+847 entries in 307 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -434,8 +434,6 @@ edit the comments in the code, not this file.
 | `app/client/ui_combobox.cpp:302` | `UIComboBoxClass::Unknown_60` | marker | NOT EXACT: inline-budget (the client calls Unknown_Clamp 0x57BA10 and the items' size() 0x47D640 in the expanded Scroll_To_Selected; ours expands them) 0x579DC0 |
 | `app/client/ui_combobox.cpp:322` | `UIComboBoxClass::Unknown_68` | marker | NOT EXACT: inline-budget (the client calls Scroll_To_Selected 0x57B2F0 and the items' size(); ours expands them) 0x57A060 |
 | `app/client/ui_combobox.cpp:511` | `(whole file)` | marker | NOT EXACT: inline-budget (the client calls the items' insert; with the whole file in the object ours expands it) 0x57B000 |
-| `app/client/ui_cpit.cpp:121` | `Unknown_57D6C0` | marker | NOT EXACT: inline budget (the client calls the LockSpeed Cast out of line, 0x584FF0, and inlines the LockOrient one; ours inlines both) |
-| `app/client/ui_cpit.cpp:266` | `UICpitClass::Unknown_54` | marker | NOT EXACT: inline budget (the client calls the name's _Tidy(true) out of line at the gutter loop's end, ours expands it) |
 | `app/client/ui_cpit.cpp:701` | `UICpitClass::Unknown_68` | marker | NOT EXACT: inline budget (the client calls Unknown_Find_Field<float> out of line, 0x546710, in the expanded 0x584000; ours expands it and calls the Cast) |
 | `app/client/ui_cpit.cpp:1278` | `UICpitClass::Unknown_5821C0` | marker | NOT EXACT: written from the client (its expanded 0x584000 calls the find out of line, ours inlines it) |
 | `app/client/ui_dynamicwindow.cpp:352` | `UIDynamicWindowClass::Add_Text` | marker | NOT EXACT: 0x58AE90, inline-budget: the client calls std::string::_Eos out of line for the font name's string where this inlines it (docs/attempts/58AE90) |
@@ -454,7 +452,6 @@ edit the comments in the code, not this file.
 | `app/client/ui_group.cpp:1020` | `UIGroupClass::Unknown_595530` | marker | NOT EXACT: inline budget (the client expands 0x593790 and calls RefCountPtr's copy 0x51E950 and Create_NEW 0x598A10 out of line; 0.74) |
 | `app/client/ui_group.cpp:1256` | `UIGroupClass::Unknown_596770` | marker | NOT EXACT: inline budget (the client calls auxdata.h's find 0x5927E0 out of line in both branches yet still calls vector::size 0x598920 and the temporary string's _Tidy out of line; a find wrapper sends the find out but frees the budget, 0.45-0.60) |
 | `app/client/ui_group.cpp:1529` | `UIGroupClass::Unknown_597650` | marker | NOT EXACT: register (the client tests View->Unknown34's Active in cl and reads the pointer again for 0x5890B0; Get_Unknown34() / Is_Active() tried) |
-| `app/client/ui_group.cpp:1749` | `UIGroupClass::Unknown_597E40` | marker | NOT EXACT: inline budget (D130: needs 13 dead reads, over the limit of 6; the client calls rtti.h's cast 0x598D80 out of line at the last two lookups) |
 | `app/client/ui_groupopt.cpp:182` | `UIGroupOptClass::Unknown_60` | marker | NOT EXACT: inline budget (explain.py: relocation first, the draft's auxdata.h path, then 12 calls vs 13: the client calls rtti.h's cast 0x598D80 out of line in the GroupInfo find, as ui_group.cpp's 0x598370; attempts.py show 0x59B220) 0x59B220 |
 | `app/client/ui_groupopt.cpp:204` | `UIGroupOptClass::Unknown_68` | marker | NOT EXACT: shape (explain.py; registers / temporaries: the client loads Client earlier and passes the check buttons' Checked through a stack byte; attempts.py show 0x59B380) 0x59B380 |
 | `app/client/ui_groupopt.cpp:408` | `UIGroupOptClass::Unknown_59BC40` | marker | NOT EXACT: inline budget (explain.py as 0x59B220: the client calls rtti.h's cast 0x598D80 out of line; a file-end inline_depth(1) matched it but broke the constructor and destructor; attempts.py show 0x59BC40) 0x59BC40 |
