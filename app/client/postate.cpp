@@ -1009,14 +1009,14 @@ void Unknown717010Class::Unknown_717430(int unknown, DeltaCompoundClass *aux_dat
 	MovementID += count;
 }
 
-// NOT EXACT: inline-budget (the client calls the bool field's Cast 0x584FF0 out of line for 'AutoLevel', ours inlines it; register-only after; one form; attempts.py show 0x7179A0)
+// 0x7179A0 (the five dead aux_data->Children.size() after the AutoLevel find spend the inline budget: its Cast 0x584FF0 called out of line, as the client's; D272)
 void Unknown717010Class::Unknown_7179A0(int unknown, DeltaCompoundClass *aux_data, int time, bool level, bool auto_level)
 {
 	float zero = 0.0f;
 	float tilt_rate = 0.0f;
 	if (auto_level) {
 		NameClass name("AutoLevel");
-		DeltaTemplateClass<bool> *t = Unknown_Find_Set_Field<DeltaTemplateClass<bool> >(aux_data, name);
+		DeltaTemplateClass<bool> *t = Unknown_Find_Set_Field<DeltaTemplateClass<bool> >(aux_data, name); aux_data->Children.size(); aux_data->Children.size(); aux_data->Children.size(); aux_data->Children.size(); aux_data->Children.size();
 		if (t && t->Value) {
 			NameClass rate_name("MaxTiltRate");
 			DeltaTemplateClass<float> *r = Unknown_Find_Set_Field<DeltaTemplateClass<float> >(aux_data, rate_name);

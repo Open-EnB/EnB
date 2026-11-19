@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-843 entries in 306 files.
+842 entries in 306 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -280,7 +280,6 @@ edit the comments in the code, not this file.
 | `app/client/pdaint.cpp:208` | `PDAInterfaceClass::Unknown_68` | mention | NOT EXACT: layout and registers (0.78): the client keeps 0 in ebx only inside case 1, and places the play tail right after case 10's active branch) |
 | `app/client/pdaint.cpp:747` | `PDAInterfaceClass::Unknown_695FE0` | mention | NOT EXACT: block order (the client puts the off branch's own return first: 0.59)) |
 | `app/client/postate.cpp:920` | `Unknown717010Class::Unknown_717430` | marker | NOT EXACT: inline-budget (the client calls the float field's Cast 0x546970 out of line in the first lookups, ours inlines all; 286 vs 314 instructions; one form; attempts.py show 0x717430) |
-| `app/client/postate.cpp:1012` | `Unknown717010Class::Unknown_7179A0` | marker | NOT EXACT: inline-budget (the client calls the bool field's Cast 0x584FF0 out of line for 'AutoLevel', ours inlines it; register-only after; one form; attempts.py show 0x7179A0) |
 | `app/client/postate.cpp:1163` | `Unknown718510Class::Unknown_08` | marker | NOT EXACT: shape (17 rows: the client's first Normalize and the up-vector cross product load their operands in another order; five forms; attempts.py show 0x718830) |
 | `app/client/postate.cpp:1482` | `Unknown7192A0Class::Unknown_14` | mention | NOT EXACT) and 11 (0xB028F0), type 12 (0xB0292C), type 13 (0xB029C0, a HermiteSpline3DClass path; its transform |
 | `app/client/postate.cpp:1484` | `Unknown7192A0Class::Unknown_14` | mention | NOT EXACT), type 14 (0xB02A00), type 15 (0xB02A40). Not rebuilt: the statics 0x714820 and after 0x719620, 0x7196C0. extrap.cpp's classes are declared in postate.h only. |
