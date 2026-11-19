@@ -625,7 +625,11 @@ MANIFEST] [--detail] [--no-shots]` runs our build (instance BASE-ours, default `
 shots K of K alike` or `DIFF NAME: what` (the verdicts when they differ, ours vs retail's; the packets' counts and
 first difference; each differing shot with its cells and box), and a count line; exit 1 on any DIFF. `--detail`
 adds the packet diff and each shot's path under a DIFF; `--retail-run` reuses a retail run's manifest (it varies
-less than ours changes) instead of running retail again. Both runs' logs and manifests are
+less than ours changes) instead of running retail again, but only one of the same scenario list: a scenario's
+packets and shots depend on what ran before it in the session (play1 play1_windows alone against the 25-set's
+retail run: a CLIENT_CHAT_REQUEST and five home cells differed that the paired run has equal). `_faction_rows`
+(named only) hovers and clicks the Faction tab's first row: the probe that showed retail's rows are off too
+(no tooltip, no selection), yet drawn. Both runs' logs and manifests are
 `.work/e2e/retail-HHMMSS-{ours,retail}.{log,json}`. `run --manifest FILE` writes any run's manifest (each scenario's
 verdict and session folder: a run whose failure started a fresh session has several), and `compare` takes a
 manifest, a folder, or folders joined by `,` on each side, shots included (`--no-shots`: packets and verdicts).

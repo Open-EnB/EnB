@@ -1,0 +1,19 @@
+name: probe (named only): the Faction tab's first row hovered and clicked, to see whether a client turned its rows on (a row on has its 'Reaction : x' tooltip and, clicked, fills the panel's name and description); 2026-11-19 E2, pda_faction's shot DIFF
+timeout: 400
+include _login
+key 0x59
+expect-event proxy '^input: replayed key 0x59'
+wait-quiet proxy 1.0 within 15
+click gadget pda.char.faction
+wait-quiet proxy 0.7 within 15
+move 160,440
+alive 2
+shot faction_row_hover
+click 160,440
+wait-quiet proxy 0.7 within 15
+alive 1
+shot faction_row_clicked
+click gadget pda.char.skills
+wait-quiet proxy 0.7 within 15
+key 0x59
+wait-quiet proxy 0.7 within 15
