@@ -1,0 +1,225 @@
+void LandClass::Build_Decorations(std::vector<std::string> &names, std::vector<LandDecorationStruct> &decorations)
+{
+	int count = decorations.size();
+	if (count < 1) {
+		return;
+	}
+	int proto_count = names.size();
+	std::vector< RefCountPtr<MeshClass> > trees;
+	std::vector< RefCountPtr<MeshClass> > shadows;
+	Unknown190 = false;
+	Unknown191 = false;
+	if (Field->Is_Wrapping()) {
+		return;
+	}
+	if (Flag) {
+		WW3D::Enable_Overbright_Modify_On_Load(true);
+	}
+	int i;
+	for (i = 0; i < proto_count; i++) {
+		RefCountPtr<RenderObjClass> robj = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj(names[i].c_str()));
+		if (robj == NULL) {
+			return;
+		}
+		MeshClass *mesh = (MeshClass *)Land_Find_Decoration_Mesh(robj.Peek(), true);
+		RefCountPtr<MeshClass> tree;
+		RefCountPtr<MeshClass> shadow;
+		if (mesh != NULL) {
+			tree = Create_NEW(mesh);
+		}
+		trees.push_back(tree);
+		mesh = (MeshClass *)Land_Find_Decoration_Mesh(robj.Peek(), false);
+		if (mesh != NULL) {
+			shadow = Create_NEW(mesh);
+		}
+		shadows.push_back(shadow);
+	}
+	if (Flag) {
+		WW3D::Enable_Overbright_Modify_On_Load(false);
+	}
+	bool has_trees = false;
+	bool has_shadows = false;
+	for (int j = 0; j < proto_count; j++) {
+		MeshClass *mesh = trees[j].Peek();
+		if (mesh != NULL) {
+			RefCountPtr<MaterialInfoClass> info = Create_Get(mesh->Get_Material_Info());
+			Unknown178 = Create_Get(info->Get_Texture(0));
+			Unknown17C = mesh->Peek_Model()->Get_Shader(0, 0);
+			Unknown180 = Create_Get(info->Get_Vertex_Material(0));
+			has_trees = true;
+			break;
+		}
+	}
+	for (j = 0; j < proto_count; j++) {
+		MeshClass *mesh = shadows[j].Peek();
+		if (mesh != NULL) {
+			RefCountPtr<MaterialInfoClass> info = Create_Get(mesh->Get_Material_Info());
+			Unknown184 = mesh->Peek_Model()->Get_Shader(0, 0);
+			Unknown188 = Create_Get(info->Get_Vertex_Material(0));
+			has_shadows = true;
+			break;
+		}
+	}
+	if (!has_trees && !has_shadows) {
+		return;
+	}
+	{
+		for (i = 0; i < proto_count; i++) {
+			bool same;
+			RefCountPtr<MaterialInfoClass> info;
+			RefCountPtr<TextureClass> texture;
+			ShaderClass shader;
+			RefCountPtr<VertexMaterialClass> material;
+			MeshClass *tree;
+			if (has_trees && (tree = trees[i].Peek()) != NULL) {
+				info = Create_Get(tree->Get_Material_Info());
+				texture = Create_Get(info->Get_Texture(0));
+				shader = tree->Peek_Model()->Get_Shader(0, 0);
+				material = Create_Get(info->Get_Vertex_Material(0));
+				same = texture == Unknown178 && shader == Unknown17C && material->Get_CRC() == Unknown180->Get_CRC();
+				if (!same) {
+					return;
+				}
+			}
+			MeshClass *shadow;
+			if (has_shadows && (shadow = shadows[i].Peek()) != NULL) {
+				info = Create_Get(shadow->Get_Material_Info());
+				texture = Create_Get(info->Get_Texture(0));
+				shader = shadow->Peek_Model()->Get_Shader(0, 0);
+				material = Create_Get(info->Get_Vertex_Material(0));
+				same = texture == Unknown178 && shader == Unknown184 && material->Get_CRC() == Unknown188->Get_CRC();
+				if (!same) {
+					return;
+				}
+			}
+		}
+		Unknown190 = has_trees;
+		Unknown191 = has_shadows;
+		std::vector<LandDecorationVertexStruct> *tree_vertices = new std::vector<LandDecorationVertexStruct>[PatchCount];
+		std::vector<unsigned short> *tree_indices = new std::vector<unsigned short>[PatchCount];
+		std::vector<LandDecorationVertexStruct> *shadow_vertices = new std::vector<LandDecorationVertexStruct>[PatchCount];
+		std::vector<unsigned short> *shadow_indices = new std::vector<unsigned short>[PatchCount];
+		unsigned short *tree_counts = new unsigned short[PatchCount];
+		unsigned short *shadow_counts = new unsigned short[PatchCount];
+		memset(tree_counts, 0, PatchCount * sizeof(unsigned short));
+		memset(shadow_counts, 0, PatchCount * sizeof(unsigned short));
+		for (int d = 0; d < count; d++) {
+			LandDecorationStruct decoration;
+			float gi, gj;
+			if (Unknown190) {
+				decoration = decorations[d];
+				MeshClass *mesh = trees[decoration.Proto].Peek();
+				if (mesh != NULL) {
+					Vector3 pos = decoration.Transform.Get_Translation();
+					Field->World_To_Grid((const Vector2 &)pos, &gi, &gj);
+					int x = (int)floor(gi / (float)(unsigned int)GridWidth) & GridMask;
+					int y = (int)floor(gj / (float)(unsigned int)GridWidth) & GridMask;
+					int patch = GridWidth * y + x;
+					tree_counts[patch] += Land_Append_Decoration_Mesh(mesh, tree_vertices[patch], tree_indices[patch], tree_counts[patch],
+						decoration.Transform, decoration.Scale) + 1;
+				}
+			}
+			if (Unknown191) {
+				MeshClass *mesh = shadows[decoration.Proto].Peek();
+				if (mesh != NULL) {
+					Matrix3D shadow;
+					shadow = decoration.Transform;
+					Vector3 pos = decoration.Transform.Get_Translation();
+					Field->World_To_Grid((const Vector2 &)pos, &gi, &gj);
+					int x = (int)floor(gi / (float)(unsigned int)GridWidth) & GridMask;
+					int y = (int)floor(gj / (float)(unsigned int)GridWidth) & GridMask;
+					int patch = GridWidth * y + x;
+					Vector3 normal;
+					Field->Get_Normal(&normal, (const Vector2 &)shadow.Get_Translation());
+					shadow.Set_Translation(shadow.Get_Translation() + normal * 3.0f);
+					Vector3 z = shadow.Get_Z_Vector();
+					Vector3 axis;
+					Vector3::Cross_Product(z, normal, &axis);
+					if (axis.Length2() > 0.0001f) {
+						float cosine = Vector3::Dot_Product(z, normal);
+						float angle = (float)acos(cosine);
+						Quaternion q;
+						float s = WWMath::Sin(angle / 2);
+						float c = WWMath::Cos(angle / 2);
+						q.X = axis.X * s;
+						q.Y = axis.Y * s;
+						q.Z = axis.Z * s;
+						q.W = c;
+						Vector3 xv;
+						Vector3 yv;
+						Vector3 zv;
+						q.Rotate_Vector(shadow.Get_X_Vector(), &xv);
+						q.Rotate_Vector(shadow.Get_Y_Vector(), &yv);
+						q.Rotate_Vector(shadow.Get_Z_Vector(), &zv);
+						Vector3 translation = shadow.Get_Translation();
+						shadow.Set(xv, yv, zv, translation);
+					}
+					shadow_counts[patch] += Land_Append_Decoration_Mesh(mesh, shadow_vertices[patch], shadow_indices[patch], shadow_counts[patch],
+						shadow, decoration.Scale) + 1;
+				}
+			}
+		}
+		for (i = 0; i < PatchCount; i++) {
+			int nv = tree_vertices[i].size();
+			int ni = tree_indices[i].size();
+			if (nv > 0) {
+				PatchRecords[i].Unknown10 = nv;
+				PatchRecords[i].Unknown14 = ni;
+				PatchRecords[i].Unknown00 = Create_NEW(new DX8VertexBufferClass(0x112, (unsigned short)nv));
+				PatchRecords[i].Unknown04 = Create_NEW(new DX8IndexBufferClass((unsigned short)ni));
+				{
+					VertexBufferClass::WriteLockClass lock(PatchRecords[i].Unknown00.Peek());
+					LandDecorationVertexStruct *out = (LandDecorationVertexStruct *)lock.Get_Vertex_Array();
+					for (int v = 0; v < nv; v++) {
+						out[v] = tree_vertices[i][v];
+					}
+				}
+				{
+					IndexBufferClass::WriteLockClass lock(PatchRecords[i].Unknown04.Peek());
+					unsigned short *out = lock.Get_Index_Array();
+					for (int n = 0; n < ni; n++) {
+						out[n] = tree_indices[i][n];
+					}
+				}
+			} else {
+				PatchRecords[i].Unknown10 = 0;
+				PatchRecords[i].Unknown14 = 0;
+				PatchRecords[i].Unknown00 = NULL;
+				PatchRecords[i].Unknown04 = NULL;
+			}
+			nv = shadow_vertices[i].size();
+			ni = shadow_indices[i].size();
+			if (nv > 0) {
+				PatchRecords[i].Unknown18 = nv;
+				PatchRecords[i].Unknown1C = ni;
+				PatchRecords[i].Unknown08 = Create_NEW(new DX8VertexBufferClass(0x112, (unsigned short)nv));
+				PatchRecords[i].Unknown0C = Create_NEW(new DX8IndexBufferClass((unsigned short)ni));
+				{
+					VertexBufferClass::WriteLockClass lock(PatchRecords[i].Unknown08.Peek());
+					LandDecorationVertexStruct *out = (LandDecorationVertexStruct *)lock.Get_Vertex_Array();
+					for (int v = 0; v < nv; v++) {
+						out[v] = shadow_vertices[i][v];
+					}
+				}
+				{
+					IndexBufferClass::WriteLockClass lock(PatchRecords[i].Unknown0C.Peek());
+					unsigned short *out = lock.Get_Index_Array();
+					for (int n = 0; n < ni; n++) {
+						out[n] = shadow_indices[i][n];
+					}
+				}
+			} else {
+				PatchRecords[i].Unknown18 = 0;
+				PatchRecords[i].Unknown1C = 0;
+				PatchRecords[i].Unknown08 = NULL;
+				PatchRecords[i].Unknown0C = NULL;
+			}
+		}
+		delete [] tree_vertices;
+		delete [] tree_indices;
+		delete [] shadow_vertices;
+		delete [] shadow_indices;
+		delete [] tree_counts;
+		delete [] shadow_counts;
+	}
+}
