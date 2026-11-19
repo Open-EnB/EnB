@@ -612,11 +612,11 @@ unsigned char LandClass::Nearest_Normal(const Vector3 &n)
 	return best_index;
 }
 
-// NOT EXACT: frame (0x20C vs the client's 0x19C: the client packs its nine normalised vectors into one slot; the corner and
-// rows blocks' y - 1 forms; BG5: every block's crosses in ring order before its normalises, attempts.csv 0x46F120)
+static inline void Land_Normalize(Vector3 &v, const Vector3 &s) { v = s; float len2 = s.Length2(); if (len2 != 0.0f) { float oolen = WWMath::Inv_Sqrt(len2); v.Set(s.X * oolen, s.Y * oolen, s.Z * oolen); } }
+// NOT EXACT: frame (0x1D0 vs 0x19C), scheduling; above: all nine normals in one slot, X / Y copied before the zero test (attempts.csv 0x46F120)
 void LandClass::Unknown_46F120(void)
 {
-	int i;
+	int i; Vector3 n;
 	for (i = 0; i < 256; i++) {
 		Normals[i].Set(LandNormalTable[i][0], LandNormalTable[i][1], LandNormalTable[i][2]);
 	}
@@ -669,7 +669,7 @@ void LandClass::Unknown_46F120(void)
 			Vector3::Cross_Product(v02, v01, &c6);
 			Vector3 c7;
 			Vector3::Cross_Product(v01, v00, &c7);
-			Vector3 n = Normalize(c0 + c1 + c2 + c3 + c4 + c5 + c6 + c7);
+			Land_Normalize(n, c0 + c1 + c2 + c3 + c4 + c5 + c6 + c7);
 			Unknown1E4[index] = Nearest_Normal(n);
 			index += size - 1;
 		}
@@ -703,9 +703,9 @@ void LandClass::Unknown_46F120(void)
 			Vector3::Cross_Product(v02, v01, &c9);
 			Vector3 c8;
 			Vector3::Cross_Product(v01, v00, &c8);
-			Vector3 n = Normalize(c8 + c9);
+			Land_Normalize(n, c8 + c9);
 			Unknown1E4[index++] = Nearest_Normal(n);
-			n = Normalize(c10 + c11);
+			Land_Normalize(n, c10 + c11);
 			Unknown1E4[index++] = Nearest_Normal(n);
 		}
 		index = (size - 1) * size + 1;
@@ -739,9 +739,9 @@ void LandClass::Unknown_46F120(void)
 			Vector3::Cross_Product(v22, v12, &c15);
 			Vector3 c14;
 			Vector3::Cross_Product(v12, v02, &c14);
-			Vector3 n = Normalize(c12 + c13);
+			Land_Normalize(n, c12 + c13);
 			Unknown1E4[index] = Nearest_Normal(n);
-			n = Normalize(c14 + c15);
+			Land_Normalize(n, c14 + c15);
 			Unknown1E4[index + size] = Nearest_Normal(n);
 			index += size - 1;
 		}
@@ -783,13 +783,13 @@ void LandClass::Unknown_46F120(void)
 			Vector3::Cross_Product(v02, v01, &c20);
 			Vector3 c16;
 			Vector3::Cross_Product(v01, v00, &c16);
-			Vector3 n = Normalize(c16 + c17);
+			Land_Normalize(n, c16 + c17);
 			Unknown1E4[index] = Nearest_Normal(n);
-			n = Normalize(c18 + c19);
+			Land_Normalize(n, c18 + c19);
 			Unknown1E4[index + 1] = Nearest_Normal(n);
-			n = Normalize(c20 + c21);
+			Land_Normalize(n, c20 + c21);
 			Unknown1E4[index + size] = Nearest_Normal(n);
-			n = Normalize(c22 + c23);
+			Land_Normalize(n, c22 + c23);
 			Unknown1E4[index + size + 1] = Nearest_Normal(n);
 			index += 2;
 		}
