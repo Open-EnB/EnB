@@ -101,6 +101,7 @@ struct KeyIdStruct  // NAME 1: neutral (D10): the value of _KeyIds (0x14 bytes)
 };
 
 class SClient;
+class ControlKeysInstancesClass;  // NAME 1: neutral (D10): _Instances' type, a class over hash_map<unsigned int, ControlKeysManager> (control_keys_manager.cpp)
 
 
 
@@ -173,6 +174,7 @@ public:
 	static std::vector<KeyMappingStruct> _DefaultSIM;					// 0xBE7C30: the client's asserts
 	static std::vector<KeyMappingStruct> _DefaultUser;					// 0xBE7BF8: keymap.ini's [Default] User section (Load_Definitions), _DefaultPSW's copy without one  // NAME 2: what it holds
 	static unsigned int _NumKeyDefs;								// 0xBE7C44: the client's asserts
+	static ControlKeysInstancesClass _Instances;			// 0xBE7BE0: the client's asserts, one manager per SClient; a class static (its atexit stub 0x719880 is guarded, 0xBE7B90) of a class type (hash_map<unsigned int, ControlKeysManager> inside its own class gives C2079)
 
 	std::vector<KeyMappingStruct> UserKeys;				// +0x1C: the client's asserts
 	std::vector<KeyMappingStruct> RestoreKeys;				// +0x2C: the client's asserts

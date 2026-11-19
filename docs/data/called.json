@@ -3588,6 +3588,9 @@
 "data:?_Instance@Unknown431E30Class@@2PAV1@A": [
 "0xBDAC38"
 ],
+"data:?_Instances@ControlKeysManager@@2VControlKeysInstancesClass@@A": [
+"0xBE7BE0"
+],
 "data:?_IntersectionNormal@IntersectionClass@@1VVector3@@A": [
 "0xC07488"
 ],

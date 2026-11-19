@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B340"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "control_keys_manager.cpp, client 0x7197A0-0x720F80: the static empty string 0xBE7B80 and the definition accessors 0x71CC20-0x71CD20 (FAIL_IF lines 651-676, D25); the manager, its tables (_Instances, _KeyDefinitions on libs/sgistl, D87) and the ini loaders not yet",
  "expected": {},
@@ -28,6 +26,8 @@
   "0x7197A0",
   "0x7197E0",
   "0x719850",
+  "0x719880",
+  "0x7198B0",
   "0x719940",
   "0x719980",
   "0x7199D0",
