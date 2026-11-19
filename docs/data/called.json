@@ -2169,6 +2169,9 @@
 "_atol": [
 "0xA276D7"
 ],
+"_bind@12": [
+"0x8C1BB8"
+],
 "_ceil": [
 "0xA27827"
 ],
@@ -2268,6 +2271,9 @@
 "_itoa": [
 "0xA2ABAE"
 ],
+"_listen@8": [
+"0x8C1BB2"
+],
 "_localeconv": [
 "0xA29032"
 ],
@@ -2309,6 +2315,9 @@
 ],
 "_remove": [
 "0xA41DCE"
+],
+"_socket@12": [
+"0x8C1BBE"
 ],
 "_sprintf": [
 "0xA266DA"

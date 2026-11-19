@@ -1,0 +1,29 @@
+HYPOTHESIS = ('listen4: TB ret2_sock_local stringifies "ret2 == SOCKET_ERROR" but the client pushes "ret == SOCKET_ERROR" '
+              'at both FAIL_IFs (0xBA88D4): the second result kept as a second variable named ret in an inner block '
+              '(line count kept)')
+FILE = 'app/common/tcpconn.cpp'
+SYMBOL = 'TCPListenerClass::Listen'
+ADDRESS = 0x82A470
+
+T2_OLD = ('\tret = ioctlsocket(Socket, FIONBIO, &on);\n\n\n'
+          '\tFAIL_IF(ret == SOCKET_ERROR) {\n')
+TAIL_OLD = ('\t\treturn(false);\n\t}\n\tPortNumber = port;\n')
+TAIL_BLK = ('\t\treturn(false);\n\t} }\n\tPortNumber = port;\n')
+GAP_OLD = '\t}\n\n\tunsigned long on = 1;\n'
+GAP_BLK = '\t}\n\t{\n\tunsigned long on = 1;\n'
+L1_OLD = '\tint ret = listen(Socket, 256);\n'
+L1_BLK = '\t{ int ret = listen(Socket, 256);\n'
+F1_OLD = '\t\treturn(false);\n\t}\n\n\tunsigned long on = 1;\n'
+F1_BLK = '\t\treturn(false);\n\t} }\n\n\tunsigned long on = 1;\n'
+
+SOCK_RET = ('\tSOCKET sock = Socket; int ret = ioctlsocket(sock, FIONBIO, &on);\n\n\n'
+            '\tFAIL_IF(ret == SOCKET_ERROR) {\n')
+SOCK_RET2 = ('\tSOCKET sock = Socket; int ret2 = ioctlsocket(sock, FIONBIO, &on);\n\n\n'
+             '\tFAIL_IF(ret2 == SOCKET_ERROR) {\n')
+
+FORMS = {
+    'ret2_sock_local': [(T2_OLD, SOCK_RET2)],
+    'inner_block': [(GAP_OLD, GAP_BLK), (T2_OLD, SOCK_RET), (TAIL_OLD, TAIL_BLK)],
+    'first_block': [(L1_OLD, L1_BLK), (F1_OLD, F1_BLK), (T2_OLD, SOCK_RET)],
+    'inner_block_nosock': [(GAP_OLD, GAP_BLK), (T2_OLD, SOCK_RET.replace('SOCKET sock = Socket; ', '').replace('(sock,', '(Socket,')), (TAIL_OLD, TAIL_BLK)],
+}
