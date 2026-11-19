@@ -403,6 +403,9 @@ SPLITS = [
 # inventory's place (and the ship inventory's in the lego's): ('aux_roots_shipinv.h', 'aux_roots_lego.h'). Off: no aux
 # pad keeps aux_roots.cpp's 0x6FB1E0 with it (DN's sweep, 2026-11-18: 9-12 trade it for 0x702240 / 0x7045F0).
 SPLIT_SWAP = None
+# Splits whose classes also stay in aux_roots.h, behind the split header's guard: replaced by an include there, the
+# decoration's class costs client_lego_impl's canary 0x72D5F0 (the bone map's constructor; DE, 2026-11-18).
+SPLITS_KEPT = {'aux_roots_decoration.h'}
 GROUP_VTS = (0xB039C8, 0xB038B8)       # GroupMember, GroupInfo (adjacent in the class order)
 GROUP_CTORS = {0x7548D0, 0x754DB0}     # GroupInfo, GroupMember (in Player's tree, SEND_HEADER_ROOTS)
 FORMATION_VT = 0xB03970
@@ -1288,8 +1291,16 @@ def generate(doc, out_dir):
     h = h[:ts] + '#include "aux_roots_types.h"' + '\n' * types_block.count('\n') + h[ts + len(types_block):]
     split_files = []
     for header, first, last, what, incs in SPLITS:
-        h, block = cut(h, first, last, header)
         guard = '__' + header.upper().replace('.', '_')
+        if header in SPLITS_KEPT:
+            # the classes stay in their place too, behind the split header's guard (its includers parse them first)
+            a = h.index(g.decl[by_name[first]].split('\n', 1)[0] + '\n')
+            nxt = order[order.index(by_name[last]) + 1]
+            b = h.index('\n' + g.decl[nxt].split('\n', 1)[0] + '\n', a)
+            block = h[a:b].rstrip('\n')
+            h = h[:a] + f'#ifndef {guard}\n' + block + '\n#endif' + h[a + len(block) + 1:]
+        else:
+            h, block = cut(h, first, last, header)
         split_files.append((header, SPLIT_HEADER % {'name': header, 'guard': guard, 'what': what, 'body': block,
                                                     'includes': ''.join(f'#include "{x}"\n' for x in incs)}))
     if SPLIT_SWAP:

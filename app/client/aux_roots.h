@@ -595,18 +595,19 @@ public:
 	DeltaTemplateClass<Vector3> AttenuationFactors;	// +0x3E8
 };
 
-#include "aux_roots_decoration.h"
+#ifndef __AUX_ROOTS_DECORATION_H
+// vtable 0xB01064, constructor 0x6F9C30
+// NAME 3: the client's root string "Decoration", Westwood XxxClass (D24); structure = C# DecorationObject (C# fields = ours (same names, same order))
+class DeltaDecorationClass : public UnknownRootClass
+{
+public:
+	DeltaDecorationClass(int unknown);
 
-
-
-
-
-
-
-
-
-
-
+	DeltaStringClass Name;	// +0xA0
+	DeltaTemplateClass<bool> AppearsInRadar;	// +0x128
+	DeltaTemplateClass<float> RadarRange;	// +0x1B0
+};
+#endif
 // vtable 0xB010C0, constructor 0x6F9ED0
 // NAME 3: the client's root string "Harvestable", Westwood XxxClass (D24); structure = Net-7 AuxHarvestable / C# HarvestableObject (C# fields = ours (same names, same order); Net-7 Construct 4 children = ours)
 class DeltaHarvestableClass : public UnknownRootClass
