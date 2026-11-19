@@ -363,6 +363,8 @@ Stop times, launchers and POC checks:
   coord). `clientpoc.py clean --all` / `--older HOURS` unlinks instances' junctions into ClientPOC\Data and keeps
   an instance whose client.exe still runs. For character select in the 44 s input3-quit replay, shoot at ~290000
   frames, not 2400 (menus run ~7,000 Presents a second).
+- **A checker in a fresh worktree builds wlib and wnet (and binkmovie) before clienttest:** otherwise 87 unresolved Wstring / TCPCon / CritSec externals look like a regression.
+- **bring-over refuses "the commits record other pairs than the verify gives"** when an order-only flip toggles (a D246 entry's address) or another branch's landing regained an address: rerun as a batch of one (`--batch-name ID`).
 - **`wt.py remove NAME` leaves the `wt/NAME` branch behind** (add `--delete-branch`); `build.py link --program
   clientpoc` deploys to C:\EnBDevelopment\ClientPOC\release.
 - **agy:** `--mode auto` is not available on the account (`--dangerously-skip-permissions` suffices); under Git
