@@ -383,6 +383,15 @@ class FileCheck(unittest.TestCase):
         self.assertIn('FILE -1/+1', T.fmt_form('f', dict(result(0, 0, 'K'), file=(1, 1))))
         self.assertTrue(any('lost' in l and '0x401100' in l for l in logged))
 
+    def test_not_grouped_with_base(self):
+        spec = {'symbol': 'A::f', 'address': 0x401000, 'file': 'app/a.cpp', 'hypothesis': 'h'}
+        results = {'base': dict(result(5, 5, 'K0'), file=(0, 0)), 'same': dict(result(5, 5, 'K0'), file=(0, 0)),
+                   'breaks': dict(result(5, 5, 'K0'), file=(1, 0))}
+        T.regroup(results)
+        lines, _ = T.summary(spec, results, ['base', 'same', 'breaks'])
+        self.assertIn('identical to base: same', lines)
+        self.assertTrue(any(l.startswith('breaks') and 'FILE -1/+0' in l for l in lines))
+
 
 class Asserts(unittest.TestCase):
     """6. (AP) a form that changes the stringified text of an assert condition."""

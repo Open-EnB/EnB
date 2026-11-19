@@ -833,6 +833,13 @@ def exact_set(obj_path, img=None, mentioned=frozenset()):
     return out
 
 
+def regroup(results):
+    """Forms with the function's code identical but another whole-file or assert result are not one result."""
+    for m in results.values():
+        if 'key' in m and (any(m.get('file', ())) or m.get('asserts')):
+            m['key'] = (m['key'], ('file', m.get('file')), ('asserts', tuple(m.get('asserts', ()))))
+
+
 def file_check(objs, results, log, exact=exact_set, mentioned=frozenset()):
     """--file-check (LV2): every form's exact set of the whole file against the base's, so a lever that drops
     another function (another template instance's out-of-line copy, a neighbour's inlining) shows."""
@@ -1021,6 +1028,7 @@ def run_spec(a, spec, stem, variants):
         if hit and name in results and 'error' not in results[name]:
             results[name]['asserts'] = hit
             log(f'{name}: changes the text of an assert condition: {" | ".join(hit)}')
+    regroup(results)
     order = list(forms)
     for name in order:
         m = results.get(name, {})
