@@ -240,9 +240,6 @@
 "??0UIAvselEditClass@@QAE@PAVInterfaceClass@@HPBDPAVRenderObjClass@@HH@Z": [
 "0x6AA810"
 ],
-"??0Unknown6EF4C0Class@@QAE@PAVSClient@@HHHHPAVFontSys@@ABVVector2@@ABVVector3@@@Z": [
-"0x6EF4C0"
-],
 "??0Unknown8B5D90Class@@QAE@PBD@Z": [
 "0x8B5DB0"
 ],
@@ -1785,9 +1782,6 @@
 ],
 "?Unknown_565F60@ChatPanelInterface@@QAEXH@Z": [
 "0x565F60"
-],
-"?Unknown_583DC0@UICpitClass@@QAEXPAVUnknown6D47C0Class@@0H_N@Z": [
-"0x583DC0"
 ],
 "?Unknown_5859A0@UIAvatarCustGadgetHolderStruct@@QAEXXZ": [
 "0x5859A0"
