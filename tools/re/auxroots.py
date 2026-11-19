@@ -332,8 +332,10 @@ template<> inline const char *KVPairTemplateClass<FormationState>::Get_Type_Name
 # object numbers (the Delta templates' per-class globals, workflow.md 3.4) exactly the families it sees, as the
 # client's objects do. In-class constructors (by the class's Delta<X>Class name) get an `#else` declaration;
 # out-of-class inline definitions are wrapped whole (with their comment lines).
+# Shake also alone (aux_shake.h): cameraeffects / bridge_int number T<float> by itself before <string>'s guard (CRT
+# entries 533 / 212), the shake's four float fields.
 FAMILY_INCLASS = {
-    'Shake': 'SHIP', 'Effect': 'ITEM', 'EquipItem': 'ITEM', 'ShipInv': 'SHIPINV', 'Attachment': 'LEGO',
+    'Shake': ('SHIP', 'SHAKE'), 'Effect': 'ITEM', 'EquipItem': 'ITEM', 'ShipInv': 'SHIPINV', 'Attachment': 'LEGO',
     'Lego': 'LEGO', 'Elements': 'BUFF', 'Buff': 'BUFF', 'Buffs': 'BUFF', 'Stats': 'SHIP', 'SubCategory': 'MANU',
     'Category': 'MANU', 'MissionStage': 'MISSION', 'Faction': 'FACTION', 'Reputation': 'FACTION',
     'Hulk': 'HULK', 'Planet': 'PLANET', 'Starbase': 'STARBASE', 'Stargate': 'STARGATE', 'Hull': 'HULL',

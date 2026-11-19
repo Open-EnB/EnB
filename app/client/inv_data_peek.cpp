@@ -99,8 +99,8 @@ void InvDataPeekClass::Attach(DeltaCompoundClass *root)
 		}
 		if (HasMounts) {
 			NameClass mounts_name("Inventory.Mounts");  // NAME 1: neutral (D10)
-			DeltaArrayClass<InvSlotStruct> *t = Unknown_Find_Field<DeltaArrayClass<InvSlotStruct> >(root, mounts_name);
-			Mounts = (t && t->Unknown70) ? t : 0;
+			Mounts = Unknown_Find_Set_Field<DeltaArrayClass<InvSlotStruct> >(root,
+				mounts_name);
 			G_ASSERT(Mounts);
 		}
 	}

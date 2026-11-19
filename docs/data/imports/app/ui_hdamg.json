@@ -18,7 +18,8 @@
   "0x59C430",
   "0x59C560",
   "0x59C640",
-  "0x59C670"
+  "0x59C670",
+  "0x59C6C0"
  ],
  "merged": [],
  "name": "client/ui_hdamg.cpp",

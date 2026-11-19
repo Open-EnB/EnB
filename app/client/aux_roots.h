@@ -157,7 +157,7 @@
 class DeltaShakeClass : public DeltaCompoundClass
 {
 public:
-#if defined(AUX_ROOTS_ALL) || defined(AUX_CTORS_SHIP)
+#if defined(AUX_ROOTS_ALL) || defined(AUX_CTORS_SHIP) || defined(AUX_CTORS_SHAKE)
 	DeltaShakeClass(const char *name) :
 		DeltaCompoundClass(name),
 		Unknown9C(0),

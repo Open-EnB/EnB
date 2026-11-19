@@ -22,7 +22,7 @@
 #include "fontmanager.h"	// FontSys, FontManagerClass (0xBE67C4) and fontdatabase.h's FontStringFilesClass (0xBE67BC)
 #include "ui_power.h"		// UIPowerClass (+0xD0)
 #include "ui_cpit_inv.h"	// UICpitInvClass (+0xC8 / +0xCC)
-
+#include "..\shared\auxdata\delta_numbering.h"
 
 
 
@@ -136,13 +136,13 @@ void Unknown_57D6C0(SClient *sclient, bool *lock_speed, bool *lock_orient)
 	if (avatar && avatar->AuxData) {
 		{
 			NameClass name("LockSpeed");
-			DeltaTemplateClass<bool> *t = Unknown_Find_Field<DeltaTemplateClass<bool> >((DeltaCompoundClass *)avatar->AuxData, name);
-			if (t && t->Unknown70) *lock_speed = t->Value;
+			DeltaTemplateClass<bool> *t = Unknown_Find_Set_Field<DeltaTemplateClass<bool> >((DeltaCompoundClass *)avatar->AuxData, name);
+			if (t) *lock_speed = t->Value;
 		}
 		{
 			NameClass name("LockOrient");
-			DeltaTemplateClass<bool> *t = Unknown_Find_Field<DeltaTemplateClass<bool> >((DeltaCompoundClass *)avatar->AuxData, name);
-			if (t && t->Unknown70) *lock_orient = t->Value;
+			DeltaTemplateClass<bool> *t = Unknown_Find_Set_Field<DeltaTemplateClass<bool> >((DeltaCompoundClass *)avatar->AuxData, name);
+			if (t) *lock_orient = t->Value;
 		}
 	}
 }
@@ -1280,11 +1280,11 @@ void UICpitClass::Unknown_5821C0(ClientObjectClass *avatar)
 {
 	DeltaCompoundClass *aux = (DeltaCompoundClass *)avatar->AuxData;
 	{
-		DeltaTemplateClass<float> *max_speed = Unknown_Find_Changed<DeltaTemplateClass<float> >(aux, "MaxSpeed");
-		DeltaTemplateClass<bool> *lock_speed = Unknown_Find_Changed<DeltaTemplateClass<bool> >(aux, "LockSpeed");
+		DeltaTemplateClass<float> *max_speed = Unknown_Find_Changed_Field<DeltaTemplateClass<float> >(aux, "MaxSpeed");
+		DeltaTemplateClass<bool> *lock_speed = Unknown_Find_Changed_Field<DeltaTemplateClass<bool> >(aux, "LockSpeed");
 		if (max_speed || lock_speed) {
 			if (max_speed && !lock_speed) {
-				lock_speed = Unknown_Find_Valid<DeltaTemplateClass<bool> >(aux, "LockSpeed");
+				lock_speed = Unknown_Find_Valid_Field<DeltaTemplateClass<bool> >(aux, "LockSpeed");
 			}
 			bool engine = Unknown_584000(true);
 			bool locked = lock_speed ? lock_speed->Value : false;
@@ -1297,7 +1297,7 @@ void UICpitClass::Unknown_5821C0(ClientObjectClass *avatar)
 		}
 	}
 	{
-		DeltaTemplateClass<bool> *lock_orient = Unknown_Find_Changed<DeltaTemplateClass<bool> >(aux, "LockOrient");
+		DeltaTemplateClass<bool> *lock_orient = Unknown_Find_Changed_Field<DeltaTemplateClass<bool> >(aux, "LockOrient");
 		if (lock_orient) {
 			if (lock_orient->Value) {
 				Unknown0C0->Unknown_40(0);
@@ -1334,7 +1334,7 @@ void UICpitClass::Unknown_5821C0(ClientObjectClass *avatar)
 		Unknown_5845A0();
 	} else {
 		{
-			DeltaTemplateClass<int> *warp = Unknown13E ? Unknown_Find_Valid<DeltaTemplateClass<int> >(aux, "WarpAvailable") : Unknown_Find_Changed<DeltaTemplateClass<int> >(aux, "WarpAvailable");
+			DeltaTemplateClass<int> *warp = Unknown13E ? Unknown_Find_Valid_Field<DeltaTemplateClass<int> >(aux, "WarpAvailable") : Unknown_Find_Changed_Field<DeltaTemplateClass<int> >(aux, "WarpAvailable");
 			if (warp) {
 				const char *text;
 				if (warp->Value == 2) {
@@ -1351,7 +1351,7 @@ void UICpitClass::Unknown_5821C0(ClientObjectClass *avatar)
 			}
 		}
 		{
-			DeltaTemplateClass<int> *state = Unknown13E ? Unknown_Find_Valid<DeltaTemplateClass<int> >(aux, "PrivateWarpState") : Unknown_Find_Changed<DeltaTemplateClass<int> >(aux, "PrivateWarpState");
+			DeltaTemplateClass<int> *state = Unknown13E ? Unknown_Find_Valid_Field<DeltaTemplateClass<int> >(aux, "PrivateWarpState") : Unknown_Find_Changed_Field<DeltaTemplateClass<int> >(aux, "PrivateWarpState");
 			if (state) {
 				switch (state->Value) {
 					case 0:
@@ -1362,7 +1362,7 @@ void UICpitClass::Unknown_5821C0(ClientObjectClass *avatar)
 						} else {
 							Unknown0B4->Unknown_40(0);
 							Unknown_5845A0();
-							DeltaTemplateClass<int> *warp = Unknown_Find_Valid<DeltaTemplateClass<int> >(aux, "WarpAvailable");
+							DeltaTemplateClass<int> *warp = Unknown_Find_Valid_Field<DeltaTemplateClass<int> >(aux, "WarpAvailable");
 							if (warp && warp->Value == 1) {
 								GadgetClass::Set_Tooltip(Unknown0B4, "UI_CPIT", "NO_WARP");
 							} else {
@@ -1390,7 +1390,7 @@ void UICpitClass::Unknown_5821C0(ClientObjectClass *avatar)
 						Unknown0B4->Unknown_40(0);
 						Unknown_5845A0();
 						GadgetClass::Set_Tooltip(Unknown0B4, "UI_CPIT", "WARP_WAIT");
-						DeltaTemplateClass<DurationClass> *time = Unknown_Find_Valid<DeltaTemplateClass<DurationClass> >(aux, "WarpTriggerTime");
+						DeltaTemplateClass<DurationClass> *time = Unknown_Find_Valid_Field<DeltaTemplateClass<DurationClass> >(aux, "WarpTriggerTime");
 						if (time) Unknown0B4->Set_State(4, time->Value.Get());
 						Unknown0B4->Unknown_A4(0);
 						SClient *client = (SClient *)((ClientClass *)Client)->As_Space_Client();
@@ -1401,7 +1401,7 @@ void UICpitClass::Unknown_5821C0(ClientObjectClass *avatar)
 					case 1:
 					{
 						GadgetClass::Set_Tooltip(Unknown0B4, "UI_CPIT", "WARP_DONE");
-						DeltaTemplateClass<DurationClass> *time = Unknown_Find_Valid<DeltaTemplateClass<DurationClass> >(aux, "WarpTriggerTime");
+						DeltaTemplateClass<DurationClass> *time = Unknown_Find_Valid_Field<DeltaTemplateClass<DurationClass> >(aux, "WarpTriggerTime");
 						if (time) Unknown0B4->Set_State(1, time->Value.Get());
 						Unknown0B4->Unknown_A4(0);
 						break;
@@ -1449,7 +1449,7 @@ void UICpitClass::Unknown_5821C0(ClientObjectClass *avatar)
 	}
 	Unknown_673EE0Class *gadget;
 	if (Unknown144 == 1 || Unknown144 == 3) {
-		DeltaTemplateClass<float> *t = Unknown_Find_Valid<DeltaTemplateClass<float> >(aux, "MaxSpeed");
+		DeltaTemplateClass<float> *t = Unknown_Find_Valid_Field<DeltaTemplateClass<float> >(aux, "MaxSpeed");
 		if (!t) return;
 		if (!(t->Value * 0.99f < speed)) {
 			((FontSys *)Unknown154)->Unknown_6CE910(0);
@@ -1457,7 +1457,7 @@ void UICpitClass::Unknown_5821C0(ClientObjectClass *avatar)
 		}
 		gadget = Unknown0B8;
 	} else if (Unknown144 == 2 || Unknown144 == 4) {
-		DeltaTemplateClass<float> *t = Unknown_Find_Valid<DeltaTemplateClass<float> >(aux, "MinSpeed");
+		DeltaTemplateClass<float> *t = Unknown_Find_Valid_Field<DeltaTemplateClass<float> >(aux, "MinSpeed");
 		if (!t) return;
 		if (!(t->Value * 0.99f > speed)) {
 			((FontSys *)Unknown154)->Unknown_6CE910(0);
