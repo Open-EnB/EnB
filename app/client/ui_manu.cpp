@@ -690,27 +690,27 @@ void UIManuClass::Unknown_5B1C20(int level)
 }
 
 inline UIManuListClass *UIManuClass::Unknown_Find_List(const char *field) { NameClass name(field); return(Unknown_Find_Field<UIManuListClass>((DeltaCompoundClass *)Unknown0BA0, name)); }
-inline UIManuListClass *UIManuClass::Unknown_Find_Valid_List(const char *field) { NameClass name(field); return(Unknown_Find_Valid<UIManuListClass>((DeltaCompoundClass *)Unknown0BA0, name)); }
+template<class C> inline C *Unknown_Find_Set_List(DeltaCompoundClass *root, const NameClass &name) { C *t = Unknown_Find_Field<C>(root, name); return((t != NULL && t->Unknown70 != 0) ? t : NULL); }	// NAME 1: neutral (D10): the set test as one conditional expression (0x5B3850's jumps go straight to the end) with the explicit compares (their cost sends the 'PreviousAttempts' Cast out of line as the client's 0x5B7260)
+inline UIManuListClass *UIManuClass::Unknown_Find_Valid_List(const char *field) { NameClass name(field); return(Unknown_Find_Set_List<UIManuListClass>((DeltaCompoundClass *)Unknown0BA0, name)); }
+static inline UIManuListClass *Unknown_Previous_Attempts(UIManuClass *manu) { return(manu->Unknown_Find_Valid_List("PreviousAttempts")); }	// NAME 1: neutral (D10): the extra layer of the 'PreviousAttempts' list (0x5B3850 calls its Cast out of line, the 'KnownFormula' one inline)
 inline UIManuListClass *UIManuClass::Unknown_Get_List()
 {
 	if (Unknown0BAD) {
-		return(Unknown_Find_List("PreviousAttempts"));
+		return(Unknown_Previous_Attempts(this));
 	}
-	return(Unknown_Find_List("KnownFormula"));
+	return(Unknown_Find_Valid_List("KnownFormula"));
 }
 
-// NOT EXACT: inline budget (the client calls rtti.h's Cast out of line, 0x5B7260, in its 'PreviousAttempts' find and returns from each failed find) (0x5B1ED0)
+// NOT EXACT: inline budget (0x5B3850 inlined: the client calls rtti.h's Cast out of line, 0x5B7260, in its 'KnownFormula' find too) (0x5B1ED0)
 void UIManuClass::Unknown_5B1ED0(int row)
 {
 	if (Unknown0B94 != 0 && row < Unknown0B94 && Unknown0B98 == 3) {
-		int pick = Unknown0B90 + row;
-		Unknown0B80[3] = pick;
-		if (pick >= 0) {
-			UIManuListClass *list = Unknown_Get_List();
-			if (list && list->Unknown70) {
-				Unknown_5B39B0(((UIManuEntryClass *)list->Children[pick])->Unknown1A8);
-			}
-		}
+		Unknown0B80[Unknown0B98] = Unknown0B90 + row;
+		Unknown_5B3850();
+
+
+
+
 		Unknown_5B2230();
 		Unknown_5B2480();
 	}
@@ -1026,13 +1026,13 @@ void UIManuClass::Unknown_5B3640(bool all)
 	Unknown_5B4850();
 }
 
-// NOT EXACT: inline budget (as 0x5B1ED0) (0x5B3850)
+// 0x5B3850
 void UIManuClass::Unknown_5B3850()
 {
 	int pick = Unknown0B80[3];
 	if (pick >= 0) {
 		UIManuListClass *list = Unknown_Get_List();
-		if (list && list->Unknown70) {
+		if (list) {
 			Unknown_5B39B0(((UIManuEntryClass *)list->Children[pick])->Unknown1A8);
 		}
 	}
