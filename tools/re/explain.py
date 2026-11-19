@@ -31,7 +31,14 @@ Classes, in triage order (an earlier one masks the later ones; fix it first):
                    callee called on one side only, or the `??_H`/`??_I` vector-constructor
                    temporaries differ (workflow.md §3.1.2)
   shape            everything else
+  branch           nothing differs once masked, but an aligned jump is short on one side and near on the
+                   other, reaches another row, or the code lengths differ (the target mask hid a logic change)
   identical        nothing differs once stack offsets are masked (only slot numbers: re-run objmatch)
+
+A switch's jump table and a two-level switch's byte table (the operands of `jmp dword ptr [reg*4 + T]` and
+`mov cl, byte ptr [reg + T]`) end the code on both sides: they are compared apart (jump entries by rank, which
+cases share a body and in which order; byte entries as they are) and printed as `switch ... table` lines, never
+counted as residue rows; tables that differ under identical code make the class `shape`.
 
 register-only and order-only are exclusive (order-only needs the registers equal), so their order in
 the list doesn't matter. Read docs/workflow.md §3.1.2's table for the lever per class.
@@ -164,6 +171,147 @@ def client_side(img, addr, length):
     return out
 
 
+JUMP = re.compile(r'^jmp dword ptr \[e\w\w\*4(?: \+ (0x[0-9a-f]+|\d+))?\]$')
+BYTE_LOAD = re.compile(r'^(mov|movzx) \w+, byte ptr \[e\w\w(?: \+ (0x[0-9a-f]+|\d+))?\]$')
+
+
+def table_refs(rows, where):
+    """[(table start, 'jump' | 'byte')] a switch's rows read: `jmp dword ptr [reg*4 + TABLE]` and a two-level
+    switch's `mov cl, byte ptr [reg + TABLE]`; where(ins) gives the table's address (or None)."""
+    out = []
+    for ins, _ in rows:
+        kind = 'jump' if JUMP.match(ins.raw) else 'byte' if BYTE_LOAD.match(ins.raw) else None
+        if kind:
+            t = where(ins)
+            if t is not None and t > ins.addr:
+                out.append((t, kind))
+    return sorted(set(out))
+
+
+def split_tables(rows, refs, end, entries):
+    """(code rows, tables): the rows from the first table start on are the switch tables (VC6 puts them after the
+    function's last ret), not code. entries(start, kind, size) gives a table's entries: jump targets (addresses on
+    the rows' scale) or bytes. A jump entry becomes the index of the code row it reaches (None: no row starts there),
+    so two sides compare whatever their code addresses. tables: [{'kind', 'at', 'entries'}]."""
+    starts = [t for t, _ in refs]
+    if not starts:
+        return rows, []
+    cut = starts[0]
+    code = [r for r in rows if r[0].addr < cut]
+    index = {ins.addr: k for k, (ins, _) in enumerate(code)}
+    tables = []
+    for k, (t, kind) in enumerate(refs):
+        size = (starts[k + 1] if k + 1 < len(starts) else end) - t
+        got = entries(t, kind, size, k + 1 == len(starts))
+        if kind == 'jump':
+            got = [index.get(x) for x in got]
+        tables.append({'kind': kind, 'at': t, 'entries': got})
+    return code, tables
+
+
+def _ranks(xs):
+    order = {v: k for k, v in enumerate(sorted({x for x in xs if x is not None}))}
+    return [order.get(x) for x in xs]
+
+
+def compare_tables(tl, tr):
+    """[{'kind', 'ours', 'client', 'at', 'n', 'diff'}]: the tables paired by kind in order, entries compared one
+    to one (diff counts the differing and the unpaired entries)."""
+    out = []
+    for kind in ('jump', 'byte'):
+        a = [t for t in tl if t['kind'] == kind]
+        b = [t for t in tr if t['kind'] == kind]
+        for k in range(max(len(a), len(b))):
+            x = a[k]['entries'] if k < len(a) else []
+            y = b[k]['entries'] if k < len(b) else []
+            if kind == 'jump':      # by rank: which cases share a body and in what order the bodies come
+                x, y = _ranks(x), _ranks(y)
+            diff = sum(1 for p, q in zip(x, y) if p != q) + abs(len(x) - len(y))
+            out.append({'kind': kind, 'ours': len(x), 'client': len(y), 'n': max(len(x), len(y)), 'diff': diff,
+                        'at': b[k]['at'] if k < len(b) else None})
+    return out
+
+
+def branch_shape(L, R, sm):
+    """What the masks hide (SR2): {'bytes': (ours, client), 'size': rows, 'target': rows} where size counts the
+    aligned (equal-text) jumps that are short on one side and near on the other, and target those whose local
+    target, as a row index carried through the alignment, is another row than the client's. A logic change that
+    only stretches a short jump into a near one leaves the masked residue at 0 and shows here."""
+    il = {ins.addr: k for k, (ins, _) in enumerate(L)}
+    ir = {ins.addr: k for k, (ins, _) in enumerate(R)}
+    to_r = {}
+    for tag, i1, i2, j1, j2 in sm.get_opcodes():
+        if tag == 'equal':
+            to_r.update({i1 + k: j1 + k for k in range(i2 - i1)})
+    size = target = 0
+    for i, j in to_r.items():
+        a, b = L[i][0], R[j][0]
+        if not (a.mn.startswith('j') or a.mn in ('loop', 'jecxz')) or a.mn != b.mn:
+            continue
+        if not (a.target and a.target[0] == 'local' and b.target and b.target[0] == 'addr'):
+            continue
+        if a.size != b.size:
+            size += 1
+        ti, tj = il.get(a.target[1]), ir.get(b.target[1])
+        if (ti is None) != (tj is None) or (ti in to_r and to_r[ti] != tj):
+            target += 1
+    return {'bytes': (sum(i.size for i, _ in L), sum(i.size for i, _ in R)), 'size': size, 'target': target}
+
+
+def branch_differs(b):
+    return bool(b['size'] or b['target'] or b['bytes'][0] != b['bytes'][1])
+
+
+def obj_tables(obj, sec, s, e, L):
+    """split_tables for our side (row addresses are offsets from the function's start)."""
+    rel = {}
+    for off, n, typ, sym, add in obj.reloc_targets(sec, s, e - s):
+        if sym and sym['section'] == sec + 1 and n == 4:
+            rel[off] = sym['value'] + int.from_bytes(add, 'little') - s
+    refs = table_refs(L, lambda ins: rel.get(ins.addr + ins.disp_off) if ins.disp_off else None)
+    body = obj.data[obj.sections[sec]['raw'] + s:obj.sections[sec]['raw'] + e]
+
+    def entries(t, kind, size, last):
+        if kind == 'byte':
+            got = bytearray(body[t:t + size])
+            while last and got and got[-1] in (0xCC, 0x90):
+                got.pop()
+            return list(got)
+        out = []
+        for k in range(size // 4):
+            if t + 4 * k not in rel:
+                break
+            out.append(rel[t + 4 * k])
+        return out
+    return split_tables(L, refs, e - s, entries)
+
+
+def client_tables(img, addr, end, R):
+    """split_tables for the client's side (absolute addresses; the window ends at end)."""
+    def where(ins):
+        m = re.search(r'\+ (0x[0-9a-f]+)\]$', ins.raw)
+        v = int(m.group(1), 16) if m else None
+        return v if v is not None and addr < v < end else None
+    refs = table_refs(R, where)
+    first = refs[0][0] if refs else end
+
+    def entries(t, kind, size, last):
+        o = img.offset(t)
+        if kind == 'byte':
+            got = bytearray(img.data[o:o + size])
+            while last and got and got[-1] in (0xCC, 0x90):
+                got.pop()
+            return list(got)
+        out = []
+        for k in range(size // 4):
+            v = int.from_bytes(img.data[o + 4 * k:o + 4 * k + 4], 'little')
+            if not addr <= v < first:
+                break
+            out.append(v)
+        return out
+    return split_tables(R, refs, end, entries)
+
+
 def ebp_frame(rows):
     return any(i.mn == 'mov' and i.op == 'ebp, esp' for i, _ in rows[:6])
 
@@ -250,6 +398,10 @@ def explain(obj_path, symbol, address, n=0, window=3):
     nxt = next((x for x in starts if x > addr), addr + (e - s) + 64)
     length = max(1, min(nxt - addr, (e - s) * 2 + 64))
     L, R = obj_side(obj, sec, s, e), client_side(img, addr, length)
+    # a switch's jump / byte tables after the last ret are data: compared apart, never as residue rows
+    L, tl = obj_tables(obj, sec, s, e, L)
+    R, tr = client_tables(img, addr, addr + length, R)
+    tables = compare_tables(tl, tr)
     # trailing padding of ours (int3 / nop) is not part of the function
     while L and L[-1][0].mn in ('int3', 'nop'):
         L.pop()
@@ -265,7 +417,9 @@ def explain(obj_path, symbol, address, n=0, window=3):
     known = symbol_addresses()
 
     result = {'symbol': demangle(name), 'mangled': name, 'address': f'0x{addr:06X}', 'ours': len(L),
-              'client': len(R), 'residue': n_s, 'residue_regs': n_r}
+              'client': len(R), 'residue': n_s, 'residue_regs': n_r, 'tables': tables,
+              'branch': branch_shape(L, R, sm)}
+    branch = result['branch']
 
     def done(cls, reason, at=None):
         result.update({'class': cls, 'reason': reason})
@@ -353,6 +507,14 @@ def explain(obj_path, symbol, address, n=0, window=3):
             for k in range(min(i2 - i1, j2 - j1)):
                 paired.append((i1 + k, j1 + k))
     first_diff = next(((i1, j1) for tag, i1, i2, j1, j2 in ops if tag != 'equal'), None)
+    if n_s == 0 and branch_differs(branch):
+        return done('branch', f"nothing differs once masked, but the branches do: {branch['size']} short/near, "
+                    f"{branch['target']} to another row, code {branch['bytes'][0]}/{branch['bytes'][1]} bytes "
+                    '(a logic difference the target mask hides)', first_diff)
+    if n_s == 0 and any(t['diff'] for t in tables):
+        t = next(t for t in tables if t['diff'])
+        return done('shape', f"the code agrees but a switch {t['kind']} table differs ({t['diff']} of {t['n']} "
+                    'entries: case order or case bodies)', None)
     if n_s == 0:
         return done('identical', 'nothing differs once stack offsets are masked' +
                     (' (stack slots differ)' if BL != BR else ''), first_diff)
@@ -418,6 +580,12 @@ def show(result, ctx, window):
             print(f"{'*' if diff else ' '} {lt:46.46s} | {rt}")
     print(f"masked residue: {result['residue']} rows differ (stack offsets, targets, relocations masked); "
           f"with registers also masked: {result['residue_regs']}")
+    b = result.get('branch')
+    if b and branch_differs(b):
+        print(f"branches: {b['size']} short/near, {b['target']} to another row; code {b['bytes'][0]}/{b['bytes'][1]} bytes")
+    for t in result.get('tables', ()):
+        print(f"switch {t['kind']} table" + (f" 0x{t['at']:06X}" if t['at'] else '') +
+              f": {t['ours']}/{t['client']} entries, " + ('equal' if not t['diff'] else f"{t['diff']} differ"))
 
 
 def main():

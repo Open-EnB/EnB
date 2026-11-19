@@ -11,6 +11,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import attempts  # noqa: E402
 import trybatch as T  # noqa: E402
+import explain as X  # noqa: E402
 
 SRC = ('// head\n'
        'int A::f(int x)\n'
@@ -183,6 +184,222 @@ class Progress(unittest.TestCase):
         self.assertIn('LIMIT REACHED', attempts.limit_reached(rows))
         self.assertEqual(attempts.residue_of(arow('x', '', 'best f residue 12 regs 3; base residue 40')), 12)
         self.assertIsNone(attempts.residue_of(arow('x', '', 'no figures')))
+
+
+def xrow(addr, raw, size=2, target=None, disp_off=0):
+    """A disassembled row as explain.py builds it: (Ins-like, masked text)."""
+    mn = raw.split()[0]
+    i = types.SimpleNamespace(addr=addr, raw=raw, mn=mn, op=raw[len(mn):].strip(), size=size, target=target,
+                              refs=[], disp_off=disp_off)
+    return i, (f'{mn} T' if target else raw)
+
+
+class Tables(unittest.TestCase):
+    """1. (NX1, SR3) a switch's jump and byte tables end the code; their entries are compared apart."""
+
+    def client(self):
+        # 0x1000: code, a two-level switch, ret; the tables at 0x1010 (jump, 3 entries) and 0x101C (byte, 4)
+        R = [xrow(0x1000, 'mov cl, byte ptr [eax + 0x101c]', 6), xrow(0x1006, 'jmp dword ptr [ecx*4 + 0x1010]', 7),
+             xrow(0x100D, 'ret', 1), xrow(0x100E, 'nop', 1), xrow(0x100F, 'nop', 1),
+             xrow(0x1010, 'adc al, 0x10', 2), xrow(0x1012, 'add byte ptr [eax], al', 2),
+             xrow(0x101C, 'add byte ptr [ecx], al', 2), xrow(0x101E, 'add byte ptr [edx], al', 2)]
+        data = {0x1010: [0x100D, 0x100E, 0x100D], 0x101C: [0, 1, 1, 2]}
+
+        def entries(t, kind, size, last):
+            return data[t]
+        return R, entries
+
+    def test_refs_and_split(self):
+        R, entries = self.client()
+        where = lambda i: int(i.raw.split('+ ')[1].rstrip(']'), 16) if '+ 0x10' in i.raw else None   # noqa: E731
+        refs = X.table_refs(R, where)
+        self.assertEqual(refs, [(0x1010, 'jump'), (0x101C, 'byte')])
+        code, tables = X.split_tables(R, refs, 0x1020, entries)
+        self.assertEqual([i.addr for i, _ in code], [0x1000, 0x1006, 0x100D, 0x100E, 0x100F])
+        self.assertEqual(tables[0], {'kind': 'jump', 'at': 0x1010, 'entries': [2, 3, 2]})   # row indices
+        self.assertEqual(tables[1]['entries'], [0, 1, 1, 2])
+
+    def test_compare_by_rank(self):
+        # ours' code is longer (other row indices) but the cases share bodies the same way: equal
+        ours = [{'kind': 'jump', 'at': 0x40, 'entries': [7, 9, 7]}, {'kind': 'byte', 'at': 0x50, 'entries': [0, 1, 1, 2]}]
+        client = [{'kind': 'jump', 'at': 0x1010, 'entries': [2, 3, 2]},
+                  {'kind': 'byte', 'at': 0x101C, 'entries': [0, 1, 2, 2]}]
+        got = X.compare_tables(ours, client)
+        self.assertEqual([(t['kind'], t['n'], t['diff']) for t in got], [('jump', 3, 0), ('byte', 4, 1)])
+        self.assertEqual(got[0]['at'], 0x1010)
+        self.assertEqual(X.compare_tables([], client)[0]['diff'], 3)     # a table on one side only
+
+    def test_no_tables(self):
+        rows = [xrow(0, 'ret', 1)]
+        self.assertEqual(X.split_tables(rows, [], 1, None), (rows, []))
+
+    def test_summary_prints_tables_apart(self):
+        spec = {'symbol': 'A::f', 'address': 0x401000, 'file': 'app/a.cpp', 'hypothesis': 'h'}
+        r = result(0, 0, 'K0')
+        r['tables'] = [{'kind': 'jump', 'at': 0x401100, 'ours': 7, 'client': 7, 'n': 7, 'diff': 0},
+                       {'kind': 'byte', 'at': 0x40111C, 'ours': 19, 'client': 19, 'n': 19, 'diff': 2}]
+        lines, best = T.summary(spec, {'base': r}, ['base'])
+        self.assertIn('  switch jump table @0x401100 entries 7/7 equal', lines)
+        self.assertIn('  switch byte table @0x40111C entries 19/19 2 different', lines)
+        self.assertIn('TABLES byte 2/19', T.fmt_form('base', r))
+
+
+class Branches(unittest.TestCase):
+    """2. (SR2) a short jump made near, or a jump to another row, under masked-equal text."""
+
+    @staticmethod
+    def rows(size, to_row, base=0, client=False):
+        """test; je (size bytes) -> row to_row; inc; ret; xor; ret, at consecutive addresses from base."""
+        spec = [('test eax, eax', 2), ('je T', size), ('inc eax', 2), ('ret', 1), ('xor eax, eax', 2), ('ret', 1)]
+        addrs, at = [], base
+        for _, n in spec:
+            addrs.append(at)
+            at += n
+        out = []
+        for k, (raw, n) in enumerate(spec):
+            target = (('addr' if client else 'local'), addrs[to_row]) if raw.startswith('je') else None
+            out.append(xrow(addrs[k], raw, n, target))
+        return out
+
+    def measure(self, L, R):
+        sm = difflib.SequenceMatcher(None, [t for _, t in L], [t for _, t in R], autojunk=False)
+        return X.branch_shape(L, R, sm)
+
+    def test_short_vs_near(self):
+        b = self.measure(self.rows(6, 4), self.rows(2, 4, 0x500000, True))
+        self.assertEqual((b['size'], b['target'], b['bytes']), (1, 0, (14, 10)))
+        self.assertTrue(X.branch_differs(b))
+
+    def test_other_target_and_same(self):
+        b = self.measure(self.rows(2, 4), self.rows(2, 3, 0x500000, True))
+        self.assertEqual((b['size'], b['target']), (0, 1))
+        self.assertFalse(X.branch_differs(self.measure(self.rows(2, 4), self.rows(2, 4, 0x500000, True))))
+
+    def test_flag_in_summary(self):
+        r = result(0, 0, 'K0', 'branch')
+        r['branch'] = {'bytes': (40, 44), 'size': 1, 'target': 0}
+        self.assertIn('BRANCH(1s/0t 40/44b)', T.fmt_form('f', r))
+
+
+SRC_MARKED = ('// NOT EXACT: order-only (the shadowed vertex; attempts.csv 0x46CAE0). more text\n'
+              'void LandClass::Compute_Lighting(int a)\n{\n}\n'
+              '// 0x570CD0  // NOT EXACT: the inlined 0x571A70\'s stores\n'
+              'void ChatWindowInterface::Unknown_A4(void)\n{\n}\n'
+              '\tPacket_00B3Class(RawPacketClass *raw);\t// 0x867250\n')
+
+
+class Resolve(unittest.TestCase):
+    """3. (SCAN) a stale or annotated SYMBOL, a header FILE, a base-only run."""
+
+    NAMES = ['?Value_To_String@@YAPADPADHW4VerbEnum@@@Z', '??0UDPConnection@@QAE@PBDG_N@Z',
+             '??0UDPConnection@@QAE@PAVCordCon@@PAVCordMgr@@@Z', '_$E28', '_$E29',
+             '?Get@?$ClientObjectDataAccessClass@VRadarDataClass@@@@SAPAVRadarDataClass@@PAVClientObjectClass@@_N@Z',
+             '?Get@?$ClientObjectDataAccessClass@VGutterDataClass@@@@SAPAVGutterDataClass@@PAVClientObjectClass@@_N@Z',
+             '?Compute_Lighting@LandClass@@QAEXH@Z']
+    INDEX = {
+        '??0UDPConnection@@QAE@PBDG_N@Z': ('public: __thiscall UDPConnection::UDPConnection(char const *,unsigned short,bool)', ['udpconn']),
+        '??0UDPConnection@@QAE@PAVCordCon@@PAVCordMgr@@@Z': ('public: __thiscall UDPConnection::UDPConnection(class CordCon *,class CordMgr *)', ['udpconn']),
+        '?Get@?$ClientObjectDataAccessClass@VRadarDataClass@@@@SAPAVRadarDataClass@@PAVClientObjectClass@@_N@Z':
+            ('public: static class RadarDataClass * __cdecl ClientObjectDataAccessClass<class RadarDataClass>::Get(class ClientObjectClass *,bool)', ['co_data']),
+        '?Value_To_String@@YAPADPADHW4VerbEnum@@@Z': ('char * __cdecl Value_To_String(char *,int,enum VerbEnum)', ['unknown_verb'])}
+
+    def cands(self, symbol, texts=()):
+        return T.candidates(self.NAMES, symbol, 0x123456, texts, self.INDEX)
+
+    def test_signatures(self):
+        self.assertEqual(T.norm_sig('public: void __thiscall A<class B>::f(char *,int)'), ('A<B>::f', '(char*,int)'))
+        self.assertEqual(self.cands('Value_To_String(char *, int, VerbEnum)')[0], [self.NAMES[0]])
+        self.assertEqual(self.cands('UDPConnection::UDPConnection(CordCon *, CordMgr *)')[0], [self.NAMES[2]])
+        self.assertEqual(self.cands('ClientObjectDataAccessClass<RadarDataClass>::Get')[0], [self.NAMES[5]])
+
+    def test_annotation_and_markers(self):
+        got, how = self.cands('_$E (PermStringInit)')
+        self.assertEqual((got, how), (['_$E28', '_$E29'], 'name without its arguments'))
+        got, how = self.cands('LandClass::Old_Name', [SRC_MARKED.replace('0x46CAE0', '0x123456')])
+        self.assertEqual(got, ['?Compute_Lighting@LandClass@@QAEXH@Z'])
+        self.assertIn("source's marker", how)
+
+    def test_own_mentions(self):
+        self.assertEqual(T.own_mentions(SRC_MARKED, 0x46CAE0), ['LandClass::Compute_Lighting'])
+        self.assertEqual(T.own_mentions(SRC_MARKED, 0x571A70), [])          # mentioned, but not its own marker
+        self.assertEqual(T.own_mentions(SRC_MARKED, 0x867250), ['Packet_00B3Class'])
+
+    def test_base_needs_no_forms(self):
+        with tempfile.TemporaryDirectory() as d:
+            p = os.path.join(d, 'v.py')
+            with open(p, 'w') as f:
+                f.write("FILE = 'app/x.h'\nSYMBOL = ''\nADDRESS = 0x401000\nUNIT = 'app\\\\x.cpp'\n")
+            with self.assertRaises(SystemExit):
+                T.load_spec(p)
+            s = T.load_spec(p, need_forms=False)
+        self.assertEqual((s['forms'], s['unit']), ({}, 'app/x.cpp'))
+        self.assertEqual(T.compile_unit(s, None), 'app/x.cpp')
+        self.assertEqual(T.compile_unit(dict(s, file='app/x.cpp', unit=None), None), 'app/x.cpp')
+
+
+class Leases(unittest.TestCase):
+    """4. (D273) as many VMs as the pool gives, each yielded as soon as it is ready."""
+
+    def test_until_refused(self):
+        calls = []
+
+        def fake(cmd, **kw):
+            calls.append(cmd)
+            n = len(calls)
+            if n <= 3:
+                return types.SimpleNamespace(returncode=0, stdout=f'ENB_VC6_HOSTS=u@10.0.0.{n}\n',
+                                             stderr=f'enb-vc6-0{n}: 10.0.0.{n} ready\n')
+            return types.SimpleNamespace(returncode=3, stdout='', stderr='pool at its memory reserve\n')
+        real = T.subprocess.run
+        T.subprocess.run = fake
+        try:
+            got = list(T.lease_iter(8, 'tb', lambda s: None))
+            self.assertEqual(got, [('enb-vc6-01', 'u@10.0.0.1'), ('enb-vc6-02', 'u@10.0.0.2'), ('enb-vc6-03', 'u@10.0.0.3')])
+            self.assertEqual(len(calls), 4)            # the refusal ends it (no retry past the first VM)
+            calls.clear()
+            got = list(T.lease_iter(8, 'tb', lambda s: None, more=lambda: False))
+            self.assertEqual(len(got), 1)              # nothing left to compile: no second VM
+        finally:
+            T.subprocess.run = real
+
+
+class FileCheck(unittest.TestCase):
+    """5. (LV2) every exact function of the file per form, against the base's."""
+
+    def test_lost_and_gained(self):
+        sets = {'base.obj': {('?a@@', 0x401000), ('?b@@', 0x401100)},
+                'f.obj': {('?a@@', 0x401000), ('?c@@', 0x401200)}, 'g.obj': {('?a@@', 0x401000), ('?b@@', 0x401100)}}
+        results = {'base': {'res': 1}, 'f': {'res': 0}, 'g': {'res': 1}}
+        logged = []
+        import clientimage
+        orig = clientimage.ClientImage
+        clientimage.ClientImage = lambda: None
+        try:
+            T.file_check({'base': 'base.obj', 'f': 'f.obj', 'g': 'g.obj'}, results, logged.append,
+                         exact=lambda obj, img, said: sets[obj])
+        finally:
+            clientimage.ClientImage = orig
+        self.assertEqual((results['f']['file'], results['g']['file']), ((1, 1), (0, 0)))
+        self.assertIn('FILE -1/+1', T.fmt_form('f', dict(result(0, 0, 'K'), file=(1, 1))))
+        self.assertTrue(any('lost' in l and '0x401100' in l for l in logged))
+
+
+class Asserts(unittest.TestCase):
+    """6. (AP) a form that changes the stringified text of an assert condition."""
+
+    SRC = ('void A::f(int count)\n{\n\tFAIL_IF(count  <  0) return;\n\tG_ASSERT(Ptr != NULL);\n'
+           '#define assert(x) ((void)0)\n\tint n = count;\n}\n')
+
+    def test_conditions(self):
+        self.assertEqual(T.assert_conditions(self.SRC), {'count < 0': 1, 'Ptr != NULL': 1})
+
+    def test_renames(self):
+        read = lambda rel: self.SRC     # noqa: E731
+        self.assertEqual(T.assert_renames(read, 'a.cpp', [('int count', 'int n_items'), ('count  <', 'n_items <')]),
+                         ['count < 0'])
+        self.assertEqual(T.assert_renames(read, 'a.cpp', [('int n = count;', 'int m = count;')]), [])
+        self.assertEqual(T.assert_renames(read, 'a.cpp', []), [])
+        self.assertIn('ASSERT-TEXT count < 0', T.fmt_form('f', dict(result(0, 0, 'K'), asserts=['count < 0'])))
 
 
 if __name__ == '__main__':
