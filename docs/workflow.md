@@ -212,9 +212,9 @@ unless `--lever` cites a new row of the table in §3.1.2.
   IB2: inpkeys and the tooltip forms).
 * **Dead spenders (D130) and sweeps:** dead `size()` / `length()` / `c_str()` / accessor reads, `str == ""`, a
   dead find, an unused type test or a user `operator=` assignment spend budget without code. Per call or
-  per callee size: conflicting reports, unresolved. D130: at most 6 per function, each marked not the
-  client's and each needed; a real form that spends the same budget (the client's own helper call, a
-  qualified sibling call, an inline layer, an accessor) replaces them. The effect is not monotonic in the
+  per callee size: conflicting reports, unresolved. D272 (D130 rescinded): dead code is the client's source
+  when the client's own classes and helpers support it (their real accessors, helpers, members): no cap, no
+  "not the client's" mark; a spender no client form supports stays out. The effect is not monotonic in the
   count (4 reads 0.91, 5 0.30, 6 exact) and depends on the file's other inlines: sweep every count, don't
   bisect, re-sweep after each structural change. Counts above 6 are diagnostics only (a parked function).
 * **Later-defined same-file functions are inlined (/Ob2):** VC6 inlines a non-inline member or static free
