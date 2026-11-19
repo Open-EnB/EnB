@@ -1,0 +1,11 @@
+--- a/app/client/ui_chat_panel.cpp
++++ b/app/client/ui_chat_panel.cpp
+@@ -834,7 +834,7 @@
+ {
+ 	SClient *sclient = Client->As_Space_Client();
+ 	int old = Unknown148;
+-	Unknown148 = channel;
++	Unknown148 = channel; Unknown238.size();
+ 	if (!ChatInt) return(true);
+ 	if (channel == 9) {
+ 		Unknown248 = Unknown1D8;
