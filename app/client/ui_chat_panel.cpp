@@ -1090,6 +1090,12 @@ void ChatPanelInterface::Unknown_565F30(int arg)
 	if (arg == 1) Unknown10C = true;
 }
 
+// 0x565F60
+void ChatPanelInterface::Unknown_565F60(int window)
+{
+	UnknownFC = window;
+}
+
 // 0x565F80
 void ChatPanelInterface::Unknown_565F80()
 {
@@ -1567,12 +1573,6 @@ void ChatPanelInterface::Unknown_5689D0(int index)
 		}
 	}
 }
-
-
-
-
-
-
 
 
 
