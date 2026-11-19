@@ -470,7 +470,7 @@ def summary(spec, results, order, slots=None):
         same_as_base = [n for n in groups.get(base['key'], []) if n != 'base']
         if same_as_base:
             lines.append(f'identical to base: {", ".join(same_as_base)[:120]}')
-    best = ok[0] if ok else None
+    best = ok[0] if ok else ('base' if base and 'regions' in base else None)   # every form identical to base
     if best:
         regs = results[best]['regions']
         bad_regs = [r for r in regs if r['res']]
