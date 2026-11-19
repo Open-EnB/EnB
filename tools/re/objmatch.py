@@ -2447,6 +2447,29 @@ def _cr7_funclet_streams(img, obj, sec, s, length, a, names, thunk):
     return ours, theirs
 
 
+# ... and (CR7) a third stream: the located caller's absolute (DIR32) references to the tied functions (a function
+# pointer pushed or stored: an atexit stub, a callback, a scalar deleting destructor in a table built in code), in
+# offset order, align (per pool) with the client function's dwords that hold one of the pool's copies (or an
+# incremental-link thunk of one), in address order, up to the next verified start
+USE_CR7_ADDR_REFS = True
+
+
+def _cr7_addr_refs(img, obj, sec, s, length, a, end, names, thunk):
+    """USE_CR7_ADDR_REFS: ([tied symbol the object's function references by DIR32, offset order], [client dword at
+    A..END that is a .text address, thunks resolved, address order])."""
+    ours = [t['name'] for k, n, typ, t, _ in obj.reloc_targets(sec, s, length)
+            if t is not None and n == 4 and typ == 0x06 and t['name'] in names]
+    if not ours:
+        return [], []
+    tstart, tend, traw = img.section('.text')
+    theirs = []
+    for x in range(a, end - 3):
+        v = struct.unpack_from('<I', img.data, traw + x - tstart)[0]
+        if tstart <= v < tend:
+            theirs.append(thunk.get(v, v))
+    return ours, theirs
+
+
 def cr6_named_callers(img, results, pending, done, claimed, text, base, thunk, known, called=None, located=None,
                       vslots=None):
     """D246 (CR6): [(pending item, address)] (USE_CR6_NAMED_CALLERS above)."""
@@ -2520,14 +2543,16 @@ def cr6_named_callers(img, results, pending, done, claimed, text, base, thunk, k
                 if t is not None and n == 4 and typ == 0x14 and t['name'] in mine]
         fours, ftheirs = _cr7_funclet_streams(img, obj, sec, s, length, a, mine, thunk) if USE_CR7_FUNCLETS \
             else ([], [])
-        if not ours and not fours:
+        rours, rtheirs = _cr7_addr_refs(img, obj, sec, s, length, a, end, mine, thunk) if USE_CR7_ADDR_REFS \
+            else ([], [])
+        if not ours and not fours and not rours:
             continue
         branches = _client_branches(img, a, end, thunk) if ours else []
         if branches is None:
             continue
-        reach = set(branches) | set(ftheirs)
+        reach = set(branches) | set(ftheirs) | set(rtheirs)
         cset = {n: mine[n][1] if mine[n][1] is not None else {t for t in reach if short_at(mine[n][0], t)}
-                for n in set(ours) | set(fours)}
+                for n in set(ours) | set(fours) | set(rours)}
 
         def aligned(seq, targets):
             if not seq:
@@ -2546,16 +2571,20 @@ def cr6_named_callers(img, results, pending, done, claimed, text, base, thunk, k
                     got = None
             return got
         m = aligned(ours, branches) if ours else {}
-        if fours:
-            fm = aligned(fours, ftheirs)
+        for seq, targets in ((fours, ftheirs), (rours, rtheirs)):
+            if not seq:
+                continue
+            fm = aligned(seq, targets)
             if m is None or fm is None:
                 m = fm if m is None else m          # one stream alone, when the other does not align
             elif any(m.get(n, t) != t for n, t in fm.items()):
-                m = None                            # the two streams disagree: nothing
+                m = None                            # the streams disagree: nothing
+                break
             else:
                 m = dict(m, **fm)
             if m and len(set(m.values())) != len(m):
                 m = None
+                break
         if not m:
             continue
         for n, t in m.items():

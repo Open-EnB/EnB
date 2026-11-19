@@ -130,12 +130,14 @@ class PushedEvidence(unittest.TestCase):
                 objmatch.USE_PUSHED_CALLS = False
                 objmatch.USE_CONTRIB_SHORTS = False     # CR8: its contribution places it too
                 objmatch.USE_CR1_NAMED_TARGETS = False  # CR1: its named targets place it too
+                objmatch.USE_CR7_ADDR_REFS = False      # CR7: a located caller's references place it too
                 try:
                     res = {r['symbol']: r for r in objmatch.match_objects(img, [path], (0x401000, 0x8C1B50))}
                 finally:
                     objmatch.USE_PUSHED_CALLS = True
                     objmatch.USE_CONTRIB_SHORTS = True
                     objmatch.USE_CR1_NAMED_TARGETS = True
+                    objmatch.USE_CR7_ADDR_REFS = True
                 self.assertEqual(res[sym]['status'], 'short')
 
 PUSHED_TIES = [
@@ -766,6 +768,34 @@ class Cr7Callers(unittest.TestCase):
         _check(self, [('galaxy_map_render.obj', '??1GalaxyMap%sIteratorClass@@QAE@XZ' % k, a)
                       for k, a in (('System', '0x7A9470'), ('Sector', '0x7A94A0'), ('Gate', '0x7A94D0'))],
                'USE_CR7_FUNCLETS', 'cr6_named', APP_REGION)
+
+    def test_addr_refs(self):
+        """USE_CR7_ADDR_REFS: LandClass::Build_Decorations (unknown_474530.obj, not exact) sits at 0x47A2F0 (the full
+        run locates it by its exact callees, some in other objects, so this checks the stream itself); it pushes
+        vector<LandDecorationVertexStruct>'s and vector<unsigned short>'s default-constructor closures and
+        destructors for `eh vector constructor iterator`, the client function the thunks of 0x47CD70 / 0x47D1B0 then
+        0x47CE30 / 0x47D1F0: per pool (closures, destructors) the references align in order."""
+        path = os.path.join(OBJS, 'unknown_474530.obj')
+        if not os.path.exists(path):
+            self.skipTest(f'{path} missing')
+        img = objmatch.ClientImage(objmatch.DEFAULT_CLIENT)
+        obj = objmatch.CoffObject(path)
+        ldv = '?$vector@ULandDecorationVertexStruct@@V?$allocator@ULandDecorationVertexStruct@@@std@@@std@@QAE'
+        g = '?$vector@GV?$allocator@G@std@@@std@@QAE'
+        f_ldv, f_g, d_ldv, d_g = '??_F' + ldv + 'XXZ', '??_F' + g + 'XXZ', '??1' + ldv + '@XZ', '??1' + g + '@XZ'
+        names = {f_ldv, f_g, d_ldv, d_g}
+        fn = next((sec, s, e - s) for n, sec, s, e in obj.functions() if n.startswith('?Build_Decorations@LandClass@@'))
+        starts = objmatch._verified_starts(img)
+        end = starts[starts.index(0x47A2F0) + 1]
+        ours, theirs = objmatch._cr7_addr_refs(img, obj, *fn, 0x47A2F0, end, names, objmatch.thunks_of(img))
+        cset = {f_ldv: {0x47CD70, 0x47CE30}, f_g: {0x47CD70, 0x47CE30}, d_ldv: {0x47D1B0, 0x47D1F0},
+                d_g: {0x47D1B0, 0x47D1F0}}
+        got = {}
+        for group in objmatch._cr7_pools(cset):
+            pool = set().union(*(cset[n] for n in group))
+            got.update(objmatch._cr6_align([n for n in ours if n in group], [t for t in theirs if t in pool], cset)
+                       or {})
+        self.assertEqual(got, {f_ldv: 0x47CD70, d_ldv: 0x47D1B0, f_g: 0x47CE30, d_g: 0x47D1F0})
 
 
 class NbXcuStretch(unittest.TestCase):
