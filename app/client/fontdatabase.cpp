@@ -1272,7 +1272,7 @@ bool FontInitStruct::Save_Fonts(FontDatabaseClass *fdb)
 	return true;
 }
 
-// NOT EXACT: register-only: the client zeroes scale / spacing / value98 from ebp (the loop counter's register), ours scale as an immediate and the rest from edi
+// NOT EXACT: register-only: the client zeroes the sscanf targets and the inlined find's index from ebp (the dead loop counter's register), ours from edi (length's); the three targets as one local aggregate inline the !data exit's _Tidy as the client does (three scalars do not)
 bool FontInitStruct::Load_Font(unsigned int idx, FontDatabaseClass *fdb)
 {
 	FAIL_IF(idx >= MAXFONTS) return false;
@@ -1292,9 +1292,9 @@ bool FontInitStruct::Load_Font(unsigned int idx, FontDatabaseClass *fdb)
 		FAIL_IF(!str) return false;
 		if (strncmp(str, Name.c_str(), length) == 0) {
 			char *font_name = str + length;
-			float scale = 0;
-			int spacing = 0;
-			int value98 = 0;
+			struct { float scale; int spacing; int value98; } v;
+			v.spacing = 0; v.value98 = 0;
+			v.scale = 0;
 			char *data = strchr(font_name, ':');
 
 
@@ -1303,13 +1303,13 @@ bool FontInitStruct::Load_Font(unsigned int idx, FontDatabaseClass *fdb)
 			data++;
 
 			FAIL_IF(fdb->Find_Font_File_Index(font_name) < 0) return false;
-			int fields = sscanf(data, "%f,%d,%d", &scale, &spacing, &value98);
+			int fields = sscanf(data, "%f,%d,%d", &v.scale, &v.spacing, &v.value98);
 
 			FAIL_IF(fields != 3) return false;
 			Font[idx] = font_name;
-			Scale[idx] = scale;
-			Spacing[idx] = spacing;
-			Unknown98[idx] = value98;
+			Scale[idx] = v.scale;
+			Spacing[idx] = v.spacing;
+			Unknown98[idx] = v.value98;
 			return true;
 		}
 	}
