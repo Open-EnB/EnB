@@ -100,7 +100,7 @@ class SClientUnknown12C4Class;	// NAME 1: neutral (D10): the elements of SClient
 class SClientUnknown1334Class;	// NAME 1: neutral (D10): 0xB8 bytes, destructor 0x618A50; decal.cpp's 0x75BE00 loads the decal INIs into it
 class EnvironmentMapManagerClass;	// NAME 3: by convention (D24) from the client's env_map_manager.cpp: 0x24 bytes, an INIClass at +0x14; env_map_manager.cpp's 0x760360 loads 'envmaps.ini' into it
 class SClientUnknown12BCClass;	// NAME 1: neutral (D10): what SClient +0x12BC points to (a virtual destructor)
-class Unknown6D47C0Class;		// NAME 1: neutral (D10): the 0x4E8-byte text object CLIENT_DAMAGE 100 makes (constructor 0x6D47C0; cpacket.cpp)
+class FontSys;					// fontmanager.h: the text objects (CLIENT_DAMAGE 100 makes them, cpacket.cpp; constructor 0x6D47C0)
 class SectorSoundClass;		// audio\sectorsound.h: what SClient +0x1330 points to (0x58 bytes, destructor 0x43C560)
 class ProjDecalManagerClass;		// NAME 3: class-from-file (D24) for proj_decal_manager.cpp (0x763050 loads 'proj_dec.ini' into it; 0x10 bytes, one vector)
 class CharacterViewAvatarClass;	// avatar.h: the values of SClient +0x1394 (0x77B870's 0x384 bytes)

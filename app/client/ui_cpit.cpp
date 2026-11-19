@@ -1864,7 +1864,7 @@ void UICpitClass::Unknown_583DA0(int arg)
 
 // 0x583DC0: the player's damage texts onto the cockpit (CLIENT_DAMAGE 100), kept in Unknown158 until they finish
 // (the dead size() after the header's push_back spends its nested budget: the client calls the list's _Construct 0x584F90 out of line at both pushes)
-void UICpitClass::Unknown_583DC0(Unknown6D47C0Class *text, Unknown6D47C0Class *header, int inflicted, bool emp)
+void UICpitClass::Unknown_583DC0(FontSys *text, FontSys *header, int inflicted, bool emp)
 {
 	if (text) {
 		if (emp) {

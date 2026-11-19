@@ -1673,22 +1673,22 @@ bool VerbListPacketClass::Process_Packet(void *instance)
 
 #include "vector2.h"
 
-// The 0x4E8-byte text object (constructor 0x6D47C0, as ui_line_display.h's and fontmanager.h's), as CLIENT_DAMAGE
-// 100 makes it: a section name, 0 and the text
-class Unknown6D47C0Class : public RefCountClass	// NAME 1: neutral (D10)
-{
-public:
-	Unknown6D47C0Class(const char *name, int unknown, const char *text);	// 0x6D47C0  // NAME 1 [name, unknown, text]: what the handler passes
-	void Unknown_6D8780(float x, float y);	// 0x6D8780 (CLIENT_DAMAGE 100 passes 320, 240)  // NAME 1 [x, y]: neutral
+// CLIENT_DAMAGE 100's texts are fontmanager.h's FontSys (constructor 0x6D47C0: a string template's name, no object,
+// the text)
+// (blank lines keep the line numbers of the FAIL_IFs below)
 
-	char Unknown08[0x4E8 - 0x08];
-};
+
+
+
+
+
+
 
 // eff_robj.cpp's 0xF0-byte effect around a text object, as far as CLIENT_DAMAGE 100 makes it
 class Unknown6EF4C0Class	// NAME 1: neutral (D10)
 {
 public:
-	Unknown6EF4C0Class(SClient *client, int id, int time, int duration, int unknown, Unknown6D47C0Class *text, const Vector2 &offset, const Vector3 &velocity);	// 0x6EF4C0  // NAME 1 [client, id, time, duration, unknown, text, offset, velocity]: what the handler passes
+	Unknown6EF4C0Class(SClient *client, int id, int time, int duration, int unknown, FontSys *text, const Vector2 &offset, const Vector3 &velocity);	// 0x6EF4C0  // NAME 1 [client, id, time, duration, unknown, text, offset, velocity]: what the handler passes
 
 	virtual ~Unknown6EF4C0Class();
 	virtual void Unknown_04();
@@ -1756,19 +1756,19 @@ bool DamagePacketClass::Process_Packet(void *instance)
 			header = "VictimDamageChemical";
 			break;
 	}
-	Unknown6D47C0Class *damage_text = new Unknown6D47C0Class(header.c_str(), 0, text);
-	Unknown6D47C0Class *header_text = 0;
+	FontSys *damage_text = new FontSys(header.c_str(), 0, text);
+	FontSys *header_text = 0;
 	if (inflicted == 3) {
 		if (Victim == avatar_id) {
-			header_text = new Unknown6D47C0Class("PlayerCriticalDamageHeader", 0, "Critical!");
+			header_text = new FontSys("PlayerCriticalDamageHeader", 0, "Critical!");
 		} else {
-			header_text = new Unknown6D47C0Class("VictimCriticalDamageHeader", 0, "Critical!");
+			header_text = new FontSys("VictimCriticalDamageHeader", 0, "Critical!");
 		}
 	} else if (type == 4) {
 		if (Victim == avatar_id) {
-			header_text = new Unknown6D47C0Class("PlayerEMPHeader", 0, "EMP");
+			header_text = new FontSys("PlayerEMPHeader", 0, "EMP");
 		} else {
-			header_text = new Unknown6D47C0Class("VictimEMPHeader", 0, "EMP");
+			header_text = new FontSys("VictimEMPHeader", 0, "EMP");
 		}
 	}
 	if (Victim == avatar_id) {
