@@ -68,7 +68,7 @@ public:
 	IDirect3DTexture8 *		HeightTexture;							// NAME 2: +0x34, D3DFMT_L8, managed (D3DXCreateTexture in the ctor)
 	int							IndexCount;								// NAME 2: +0x38, (6 size - 6)(size - 1) (0x467A50)
 	int							VertexCount;							// NAME 2: +0x3C, size squared (0x467A50)
-	D3DXPLANE					Planes[4];							// NAME 2: +0x40, the side planes of scale * view * proj (0x468240)
+	D3DXVECTOR4					Planes[4];							// NAME 2: +0x40, the side planes of scale * view * proj (0x468240: D3DXVECTOR4 differences, its ctor 0x468730 out of line)
 	float							FogStart;								// NAME 2: +0x80, D3DRS_FOGSTART read back by 0x466F60
 	float							FogEnd;								// NAME 2: +0x84
 	float							FogRange;								// NAME 2: +0x88, FogEnd - FogStart

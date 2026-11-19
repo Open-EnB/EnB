@@ -435,7 +435,7 @@ void LandUnknown466BE0Class::Check_Hardware(void)
 	}
 }
 
-// NOT EXACT: functional, from the disassembly and pseudocode of 0x468240
+// NOT EXACT: inline budget (the client inlines the unary operator- at all four sites, ours sends its ctor 0x468730 out; attempts.py show 0x468240)
 void LandUnknown466BE0Class::Unknown_468240(CameraClass &camera, const D3DXMATRIX &scale)
 {
 	D3DXMATRIX proj;
@@ -452,10 +452,10 @@ void LandUnknown466BE0Class::Unknown_468240(CameraClass &camera, const D3DXMATRI
 	D3DXMATRIX m;
 	D3DXMatrixMultiply(&m, &wv, &proj);
 	D3DXMatrixTranspose(&m, &m);
-	Planes[0] = -D3DXPLANE(m._41 - m._11, m._42 - m._12, m._43 - m._13, m._44 - m._14);
-	Planes[1] = -D3DXPLANE(m._41 + m._11, m._42 + m._12, m._43 + m._13, m._44 + m._14);
-	Planes[2] = -D3DXPLANE(m._41 - m._21, m._42 - m._22, m._43 - m._23, m._44 - m._24);
-	Planes[3] = -D3DXPLANE(m._41 + m._21, m._42 + m._22, m._43 + m._23, m._44 + m._24);
+	Planes[0] = -(D3DXVECTOR4(m._41, m._42, m._43, m._44) - D3DXVECTOR4(m._11, m._12, m._13, m._14));
+	Planes[1] = -(D3DXVECTOR4(m._41, m._42, m._43, m._44) + D3DXVECTOR4(m._11, m._12, m._13, m._14));
+	Planes[2] = -(D3DXVECTOR4(m._41, m._42, m._43, m._44) - D3DXVECTOR4(m._21, m._22, m._23, m._24));
+	Planes[3] = -(D3DXVECTOR4(m._41, m._42, m._43, m._44) + D3DXVECTOR4(m._21, m._22, m._23, m._24));
 }
 
 // NOT EXACT: functional, from the disassembly and pseudocode of 0x468760
@@ -464,18 +464,18 @@ int LandUnknown466BE0Class::Unknown_468760(const Vector3 &center, const Vector3 
 	Vector3 lo = center - extent;
 	Vector3 hi = center + extent;
 	for (int i = 0; i < 4; i++) {
-		const D3DXPLANE &p = Planes[i];
+		const D3DXVECTOR4 &p = Planes[i];
 		// near: the corner with the smallest distance along the plane's normal; far: the largest
-		float nx = (p.a < 0.0f) ? hi.X : lo.X;
-		float fx = (p.a < 0.0f) ? lo.X : hi.X;
-		float ny = (p.b < 0.0f) ? hi.Y : lo.Y;
-		float fy = (p.b < 0.0f) ? lo.Y : hi.Y;
-		float nz = (p.c < 0.0f) ? hi.Z : lo.Z;
-		float fz = (p.c < 0.0f) ? lo.Z : hi.Z;
-		if (nz * p.c + nx * p.a + ny * p.b + p.d > 0.0f) {
+		float nx = (p.x < 0.0f) ? hi.X : lo.X;
+		float fx = (p.x < 0.0f) ? lo.X : hi.X;
+		float ny = (p.y < 0.0f) ? hi.Y : lo.Y;
+		float fy = (p.y < 0.0f) ? lo.Y : hi.Y;
+		float nz = (p.z < 0.0f) ? hi.Z : lo.Z;
+		float fz = (p.z < 0.0f) ? lo.Z : hi.Z;
+		if (nz * p.z + nx * p.x + ny * p.y + p.w > 0.0f) {
 			return 0;
 		}
-		if (fz * p.c + fx * p.a + fy * p.b + p.d >= 0.0f) {
+		if (fz * p.z + fx * p.x + fy * p.y + p.w >= 0.0f) {
 			return 1;
 		}
 	}
