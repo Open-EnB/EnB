@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 226 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
-| 3 | by convention from a client-named file or sibling | 1971 |
+| 3 | by convention from a client-named file or sibling | 1972 |
 | 2 | describes what the code does | 4991 |
-| 1 | neutral placeholder | 25429 |
+| 1 | neutral placeholder | 25432 |
 
 ## For review (score 3 and below)
 
@@ -84,6 +84,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_685E80Class` | `app/client/acticon.h:43` | untagged neutral name (D10) |
 | 1 | `id, ini, section` | `app/client/acticon.h:46` | the base's |
 | 1 | `aux_buff.h` | `app/client/aux_buff.h:10` | provisional file name (the client's headers are not named by any string) |
+| 1 | `aux_decoration.h` | `app/client/aux_decoration.h:11` | provisional file name (the client's headers are not named by any string) |
 | 1 | `aux_faction.h` | `app/client/aux_faction.h:9` | provisional file name (the client's headers are not named by any string) |
 | 1 | `aux_formation.h` | `app/client/aux_formation.h:4` | provisional file name (the client's headers are not named by any string) |
 | 1 | `aux_group.h` | `app/client/aux_group.h:12` | provisional file name (the client's headers are not named by any string) |
@@ -105,15 +106,17 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown2390` | `app/client/aux_roots.h:551` | neutral (D10): a member, not a field of the tree |
 | 1 | `Unknown2394` | `app/client/aux_roots.h:552` | neutral (D10): a member, not a field of the tree |
 | 1 | `Unknown2398` | `app/client/aux_roots.h:553` | neutral (D10): a member, not a field of the tree |
-| 1 | `Unknown80` | `app/client/aux_roots.h:969` | untagged neutral name (D10) |
-| 1 | `Unknown_48` | `app/client/aux_roots.h:971` | untagged neutral name (D10) |
-| 1 | `Unknown420` | `app/client/aux_roots.h:983` | neutral (D10): a member, not a field of the tree |
-| 1 | `Unknown424` | `app/client/aux_roots.h:984` | neutral (D10): a member, not a field of the tree |
-| 1 | `Unknown428` | `app/client/aux_roots.h:985` | neutral (D10): a member, not a field of the tree |
-| 1 | `UnknownB013ECEnum` | `app/client/aux_roots.h:1243` | untagged neutral name (D10) |
-| 1 | `UnknownB0133CEnum` | `app/client/aux_roots.h:1246` | untagged neutral name (D10) |
-| 1 | `UnknownB0122CEnum` | `app/client/aux_roots.h:1255` | untagged neutral name (D10) |
+| 1 | `Unknown80` | `app/client/aux_roots.h:970` | untagged neutral name (D10) |
+| 1 | `Unknown_48` | `app/client/aux_roots.h:972` | untagged neutral name (D10) |
+| 1 | `Unknown420` | `app/client/aux_roots.h:984` | neutral (D10): a member, not a field of the tree |
+| 1 | `Unknown424` | `app/client/aux_roots.h:985` | neutral (D10): a member, not a field of the tree |
+| 1 | `Unknown428` | `app/client/aux_roots.h:986` | neutral (D10): a member, not a field of the tree |
+| 1 | `UnknownB013ECEnum` | `app/client/aux_roots.h:1244` | untagged neutral name (D10) |
+| 1 | `UnknownB0133CEnum` | `app/client/aux_roots.h:1247` | untagged neutral name (D10) |
+| 1 | `UnknownB0122CEnum` | `app/client/aux_roots.h:1256` | untagged neutral name (D10) |
 | 1 | `aux_roots_all.h` | `app/client/aux_roots_all.h:9` | provisional file name (the client's headers are not named by any string) |
+| 1 | `aux_roots_decoration.h` | `app/client/aux_roots_decoration.h:6` | provisional file name (the client's headers are not named by any string) |
+| 1 | `UnknownRootClass` | `app/client/aux_roots_decoration.h:19` | untagged neutral name (D10) |
 | 1 | `aux_roots_group.h` | `app/client/aux_roots_group.h:6` | provisional file name (the client's headers are not named by any string) |
 | 1 | `aux_roots_hull.h` | `app/client/aux_roots_hull.h:6` | provisional file name (the client's headers are not named by any string) |
 | 1 | `UnknownSendRootClass` | `app/client/aux_roots_hull.h:25` | untagged neutral name (D10) |
@@ -140,6 +143,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `UnknownB0133CEnum` | `app/client/aux_roots_types.h:68` | untagged neutral name (D10) |
 | 1 | `UnknownB01394Enum` | `app/client/aux_roots_types.h:69` | untagged neutral name (D10) |
 | 1 | `UnknownB013ECEnum` | `app/client/aux_roots_types.h:70` | untagged neutral name (D10) |
+| 1 | `aux_shake.h` | `app/client/aux_shake.h:9` | provisional file name (the client's headers are not named by any string) |
 | 1 | `aux_ship.h` | `app/client/aux_ship.h:9` | provisional file name (the client's headers are not named by any string) |
 | 1 | `aux_ship_player.h` | `app/client/aux_ship_player.h:10` | provisional file name (the client's headers are not named by any string) |
 | 1 | `aux_shipinv.h` | `app/client/aux_shipinv.h:9` | provisional file name (the client's headers are not named by any string) |
@@ -5304,9 +5308,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown0BC` | `app/client/gd_uisld.h:56` | untagged neutral name (D10) |
 | 1 | `Unknown0C0` | `app/client/gd_uisld.h:57` | untagged neutral name (D10) |
 | 1 | `Unknown0C8` | `app/client/gd_uisld.h:58` | untagged neutral name (D10) |
-| 1 | `Unknown_495FD0` | `app/client/gutter_data.cpp:23` | untagged neutral name (D10) |
-| 1 | `x, y` | `app/client/gutter_data.cpp:24` | as gadget.cpp's |
-| 1 | `Unknown_42ECF0` | `app/client/gutter_data.cpp:24` | untagged neutral name (D10) |
+| 1 | `Unknown_495FD0` | `app/client/gutter_data.cpp:24` | untagged neutral name (D10) |
+| 1 | `x, y` | `app/client/gutter_data.cpp:25` | as gadget.cpp's |
+| 1 | `Unknown_42ECF0` | `app/client/gutter_data.cpp:25` | untagged neutral name (D10) |
 | 1 | `Unknown_6F5A10` | `app/client/gutter_data.cpp:91` | untagged neutral name (D10) |
 | 1 | `Unknown_6F5A40` | `app/client/gutter_data.cpp:91` | untagged neutral name (D10) |
 | 1 | `Unknown_6FF330` | `app/client/gutter_data.cpp:92` | untagged neutral name (D10) |
@@ -5652,8 +5656,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown831340Class` | `app/client/inv_data_peek.cpp:12` | neutral (D10); NAME 3 [item_template_id]: ui_manu.cpp's |
 | 1 | `Unknown_8318B0` | `app/client/inv_data_peek.cpp:12` | untagged neutral name (D10) |
 | 1 | `mounts_name` | `app/client/inv_data_peek.cpp:101` | neutral (D10) |
-| 1 | `Unknown_Find_Field` | `app/client/inv_data_peek.cpp:102` | untagged neutral name (D10) |
-| 1 | `Unknown70` | `app/client/inv_data_peek.cpp:103` | untagged neutral name (D10) |
+| 1 | `Unknown_Find_Set_Field` | `app/client/inv_data_peek.cpp:102` | untagged neutral name (D10) |
+| 1 | `Unknown70` | `app/client/inv_data_peek.cpp:116` | untagged neutral name (D10) |
 | 1 | `UnknownRTTIClass` | `app/client/inv_data_peek.cpp:159` | untagged neutral name (D10) |
 | 1 | `Unknown04` | `app/client/inv_data_peek.cpp:245` | untagged neutral name (D10) |
 | 1 | `UnknownGlobal` | `app/client/inv_data_peek.cpp:245` | untagged neutral name (D10) |
@@ -6890,8 +6894,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_717290` | `app/client/postate.cpp:550` | untagged neutral name (D10) |
 | 1 | `Unknown_717400` | `app/client/postate.cpp:579` | untagged neutral name (D10) |
 | 1 | `Unknown_717430` | `app/client/postate.cpp:921` | untagged neutral name (D10) |
-| 1 | `Unknown_Find_Field` | `app/client/postate.cpp:934` | untagged neutral name (D10) |
-| 1 | `Unknown70` | `app/client/postate.cpp:935` | untagged neutral name (D10) |
+| 1 | `Unknown_Find_Set_Field` | `app/client/postate.cpp:934` | untagged neutral name (D10) |
 | 1 | `Unknown_710260` | `app/client/postate.cpp:997` | untagged neutral name (D10) |
 | 1 | `Unknown_7179A0` | `app/client/postate.cpp:1013` | untagged neutral name (D10) |
 | 1 | `Unknown717EF0Class` | `app/client/postate.cpp:1084` | untagged neutral name (D10) |
@@ -7099,7 +7102,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_7BDD50` | `app/client/radar_system.h:59` | untagged neutral name (D10) |
 | 1 | `Unknown4C` | `app/client/radar_system.h:68` | untagged neutral name (D10) |
 | 1 | `Unknown4D` | `app/client/radar_system.h:69` | untagged neutral name (D10) |
-| 1 | `Unknown_831F90` | `app/client/radar_system_data_cache.cpp:10` | neutral (D10) |
+| 1 | `Unknown_831F90` | `app/client/radar_system_data_cache.cpp:11` | neutral (D10) |
 | 1 | `Unknown_24` | `app/client/radar_system_data_cache.cpp:30` | untagged neutral name (D10) |
 | 1 | `Unknown_30` | `app/client/radar_system_data_cache.cpp:31` | untagged neutral name (D10) |
 | 1 | `Unknown_6F5980` | `app/client/radar_system_data_cache.cpp:153` | untagged neutral name (D10) |
@@ -12457,8 +12460,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `robj, a, b` | `app/client/ui_cpit.cpp:46` | what the constructor passes |
 | 1 | `Unknown_496730` | `app/client/ui_cpit.cpp:46` | untagged neutral name (D10) |
 | 1 | `Unknown_57D6C0` | `app/client/ui_cpit.cpp:122` | untagged neutral name (D10) |
-| 1 | `Unknown_Find_Field` | `app/client/ui_cpit.cpp:139` | untagged neutral name (D10) |
-| 1 | `Unknown70` | `app/client/ui_cpit.cpp:140` | untagged neutral name (D10) |
+| 1 | `Unknown_Find_Set_Field` | `app/client/ui_cpit.cpp:139` | untagged neutral name (D10) |
 | 1 | `Unknown_30` | `app/client/ui_cpit.cpp:206` | untagged neutral name (D10) |
 | 1 | `Unknown30` | `app/client/ui_cpit.cpp:206` | untagged neutral name (D10) |
 | 1 | `robj` | `app/client/ui_cpit.cpp:208` | neutral |
@@ -12528,6 +12530,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown4C` | `app/client/ui_cpit.cpp:624` | untagged neutral name (D10) |
 | 1 | `Unknown_74` | `app/client/ui_cpit.cpp:644` | untagged neutral name (D10) |
 | 1 | `Unknown_Cpit_Find_Set_Field` | `app/client/ui_cpit.cpp:698` | neutral (D10), ui_cpit.cpp's if/return form (auxdata.h's Unknown_Find_Set_Field uses ternary and drops 0x546710 here); 0x584000: its expansions call the find (0x5806E0, two) or the Cast (0x5821C0) out of line |
+| 1 | `Unknown_Find_Field` | `app/client/ui_cpit.cpp:698` | untagged neutral name (D10) |
+| 1 | `Unknown70` | `app/client/ui_cpit.cpp:698` | untagged neutral name (D10) |
 | 1 | `Unknown_68` | `app/client/ui_cpit.cpp:702` | untagged neutral name (D10) |
 | 1 | `Unknown_2C` | `app/client/ui_cpit.cpp:711` | untagged neutral name (D10) |
 | 1 | `Unknown_584000` | `app/client/ui_cpit.cpp:723` | untagged neutral name (D10) |
@@ -12787,8 +12791,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `UnknownA4` | `app/client/ui_dynamicwindow.h:56` | neutral (D10) |
 | 1 | `UnknownA8` | `app/client/ui_dynamicwindow.h:57` | neutral (D10) |
 | 1 | `UnknownA9` | `app/client/ui_dynamicwindow.h:58` | neutral (D10) |
-| 1 | `robj, make_geometry_unique` | `app/client/ui_experience.cpp:18` | what the helpers pass |
-| 1 | `Unknown_496AE0` | `app/client/ui_experience.cpp:18` | untagged neutral name (D10) |
+| 1 | `robj, make_geometry_unique` | `app/client/ui_experience.cpp:19` | what the helpers pass |
+| 1 | `Unknown_496AE0` | `app/client/ui_experience.cpp:19` | untagged neutral name (D10) |
 | 1 | `UIExperienceGaugeClass` | `app/client/ui_experience.cpp:30` | neutral (D10) |
 | 1 | `Value` | `app/client/ui_experience.cpp:50` | neutral |
 | 1 | `Unknown_675120Class` | `app/client/ui_experience.cpp:54` | untagged neutral name (D10) |
@@ -12805,8 +12809,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_08` | `app/client/ui_experience.cpp:183` | untagged neutral name (D10) |
 | 1 | `UnknownObjectWatchClass` | `app/client/ui_experience.cpp:186` | untagged neutral name (D10) |
 | 1 | `Unknown_10` | `app/client/ui_experience.cpp:190` | untagged neutral name (D10) |
-| 1 | `Unknown_Find_Field` | `app/client/ui_experience.cpp:201` | untagged neutral name (D10) |
-| 1 | `Unknown70` | `app/client/ui_experience.cpp:202` | untagged neutral name (D10) |
+| 1 | `Unknown_Find_Set_Field` | `app/client/ui_experience.cpp:201` | untagged neutral name (D10) |
 | 1 | `Set_Unknown14` | `app/client/ui_experience.cpp:205` | untagged neutral name (D10) |
 | 1 | `Unknown_58CF60` | `app/client/ui_experience.cpp:224` | untagged neutral name (D10) |
 | 1 | `Unknown_687150` | `app/client/ui_experience.cpp:226` | untagged neutral name (D10) |
@@ -15035,8 +15038,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_5C` | `app/client/ui_mount.cpp:75` | untagged neutral name (D10) |
 | 1 | `Unknown_50` | `app/client/ui_mount.cpp:200` | untagged neutral name (D10) |
 | 1 | `model_field` | `app/client/ui_mount.cpp:275` | neutral (D10) |
-| 1 | `Unknown_Find_Field` | `app/client/ui_mount.cpp:276` | untagged neutral name (D10) |
-| 1 | `Unknown70` | `app/client/ui_mount.cpp:277` | untagged neutral name (D10) |
+| 1 | `Unknown_Find_Set_Field` | `app/client/ui_mount.cpp:276` | untagged neutral name (D10) |
 | 1 | `model_file` | `app/client/ui_mount.cpp:278` | neutral (D10) |
 | 1 | `mounts_field` | `app/client/ui_mount.cpp:279` | neutral (D10) |
 | 1 | `bones_field` | `app/client/ui_mount.cpp:282` | neutral (D10) |
@@ -16046,27 +16048,28 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Model` | `app/client/ui_popupmsg.h:43` | what it holds |
 | 1 | `Unknown0B4` | `app/client/ui_popupmsg.h:44` | untagged neutral name (D10) |
 | 1 | `Buttons` | `app/client/ui_popupmsg.h:45` | neutral (D10) |
-| 1 | `UIPowerGaugeClass` | `app/client/ui_power.cpp:18` | neutral (D10) |
-| 1 | `mesh, format, sound` | `app/client/ui_power.cpp:21` | what 0x5DBFC0 passes |
-| 1 | `value` | `app/client/ui_power.cpp:23` | the base's |
-| 1 | `Unknown_Power_Field` | `app/client/ui_power.cpp:29` | neutral (D10) |
-| 1 | `Unknown_Find_Field` | `app/client/ui_power.cpp:29` | untagged neutral name (D10) |
-| 1 | `Unknown70` | `app/client/ui_power.cpp:29` | untagged neutral name (D10) |
-| 1 | `Unknown_Power_Find` | `app/client/ui_power.cpp:30` | neutral (D10) |
-| 1 | `Unknown_28` | `app/client/ui_power.cpp:40` | untagged neutral name (D10) |
-| 1 | `Unknown_65FFA0` | `app/client/ui_power.cpp:42` | untagged neutral name (D10) |
-| 1 | `Unknown64` | `app/client/ui_power.cpp:44` | untagged neutral name (D10) |
-| 1 | `Unknown_6870E0` | `app/client/ui_power.cpp:44` | untagged neutral name (D10) |
-| 1 | `Unknown_5DC390` | `app/client/ui_power.cpp:71` | untagged neutral name (D10) |
-| 1 | `Unknown_Watch_0C` | `app/client/ui_power.cpp:88` | untagged neutral name (D10) |
-| 1 | `Unknown_08` | `app/client/ui_power.cpp:94` | untagged neutral name (D10) |
-| 1 | `UnknownObjectWatchClass` | `app/client/ui_power.cpp:97` | untagged neutral name (D10) |
-| 1 | `Unknown_10` | `app/client/ui_power.cpp:101` | untagged neutral name (D10) |
-| 1 | `Unknown10BC` | `app/client/ui_power.cpp:105` | untagged neutral name (D10) |
-| 1 | `Is_Unknown2C_08` | `app/client/ui_power.cpp:110` | untagged neutral name (D10) |
-| 1 | `Unknown_5DCAE0` | `app/client/ui_power.cpp:168` | untagged neutral name (D10) |
-| 1 | `Unknown_687150` | `app/client/ui_power.cpp:170` | untagged neutral name (D10) |
-| 1 | `Unknown5DB670InterfaceClass` | `app/client/ui_power.cpp:206` | untagged neutral name (D10) |
+| 1 | `UIPowerGaugeClass` | `app/client/ui_power.cpp:19` | neutral (D10) |
+| 1 | `mesh, format, sound` | `app/client/ui_power.cpp:22` | what 0x5DBFC0 passes |
+| 1 | `value` | `app/client/ui_power.cpp:24` | the base's |
+| 1 | `Unknown_Power_Field` | `app/client/ui_power.cpp:30` | neutral (D10) |
+| 1 | `Unknown_Find_Field` | `app/client/ui_power.cpp:30` | untagged neutral name (D10) |
+| 1 | `Unknown70` | `app/client/ui_power.cpp:30` | untagged neutral name (D10) |
+| 1 | `Unknown_Power_Find` | `app/client/ui_power.cpp:31` | neutral (D10) |
+| 1 | `Unknown_28` | `app/client/ui_power.cpp:41` | untagged neutral name (D10) |
+| 1 | `Unknown_65FFA0` | `app/client/ui_power.cpp:43` | untagged neutral name (D10) |
+| 1 | `Unknown64` | `app/client/ui_power.cpp:45` | untagged neutral name (D10) |
+| 1 | `Unknown_6870E0` | `app/client/ui_power.cpp:45` | untagged neutral name (D10) |
+| 1 | `Unknown_5DC390` | `app/client/ui_power.cpp:72` | untagged neutral name (D10) |
+| 1 | `Unknown_Watch_0C` | `app/client/ui_power.cpp:89` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `app/client/ui_power.cpp:95` | untagged neutral name (D10) |
+| 1 | `UnknownObjectWatchClass` | `app/client/ui_power.cpp:98` | untagged neutral name (D10) |
+| 1 | `Unknown_10` | `app/client/ui_power.cpp:102` | untagged neutral name (D10) |
+| 1 | `Unknown10BC` | `app/client/ui_power.cpp:106` | untagged neutral name (D10) |
+| 1 | `Is_Unknown2C_08` | `app/client/ui_power.cpp:111` | untagged neutral name (D10) |
+| 1 | `Unknown_Find_Set_Field` | `app/client/ui_power.cpp:112` | untagged neutral name (D10) |
+| 1 | `Unknown_5DCAE0` | `app/client/ui_power.cpp:167` | untagged neutral name (D10) |
+| 1 | `Unknown_687150` | `app/client/ui_power.cpp:169` | untagged neutral name (D10) |
+| 1 | `Unknown5DB670InterfaceClass` | `app/client/ui_power.cpp:205` | untagged neutral name (D10) |
 | 1 | `ui_power.h` | `app/client/ui_power.h:5` | provisional header name |
 | 1 | `UIPowerClass` | `app/client/ui_power.h:18` | neutral (D10), from the tooltips' section UI_POWER |
 | 1 | `UnknownObjectWatchClass` | `app/client/ui_power.h:18` | untagged neutral name (D10) |
@@ -23897,8 +23900,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_Percent` | `app/shared/graphics_settings.h:91` | neutral (D10) |
 | 1 | `Get_Height_2` | `app/shared/heightfield.h:52` | the same code at a second address (0x463CD0) |
 | 1 | `Set_Height_2` | `app/shared/heightfield.h:54` | the same code at a second address (0x463D90) |
-| 1 | `Unknown_Get_Ticks` | `app/shared/kv_acc.cpp:6` | untagged neutral name (D10) |
-| 1 | `KVStringEncoderClass` | `app/shared/kv_acc_string.h:95` | interim, what it adds (D10) |
+| 1 | `KVStringEncoderClass` | `app/shared/kv_acc_string.h:86` | interim, what it adds (D10) |
+| 1 | `Unknown_Get_Ticks` | `app/shared/kv_acc_time.cpp:5` | untagged neutral name (D10) |
 | 1 | `Unknown_BE350C` | `app/shared/kv_encoder.cpp:6` | neutral (D10): SClient::Do_Frame's frame toggle (sclient.cpp) |
 | 1 | `Unknown_Test` | `app/shared/kv_encoder.cpp:52` | untagged neutral name (D10) |
 | 1 | `Unknown_00` | `app/shared/kv_encoder.cpp:57` | untagged neutral name (D10) |
@@ -27899,7 +27902,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Page` | `app/client/ui_petition_player.h:29` | what it holds |
 | 2 | `Buttons` | `app/client/ui_petition_player.h:30` | what they are |
 | 2 | `ExitButton` | `app/client/ui_popup_browser.h:23` | its model's name |
-| 2 | `Sound` | `app/client/ui_power.cpp:25` | what the warning's name takes |
+| 2 | `Sound` | `app/client/ui_power.cpp:26` | what the warning's name takes |
 | 2 | `EnergyGauge` | `app/client/ui_power.h:31` | its tooltip |
 | 2 | `ShieldGauge` | `app/client/ui_power.h:32` | its tooltip |
 | 2 | `HullGauge` | `app/client/ui_power.h:33` | its tooltip |
@@ -29634,19 +29637,19 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Heights` | `app/shared/heightfield.h:89` | members after what Load and the PGM reader store |
 | 2 | `Get_INI` | `app/shared/ini_manager.h:38` | what it does |
 | 2 | `Split_Name` | `app/shared/ini_manager.h:39` | what it does |
-| 2 | `Round_Tenths` | `app/shared/kv_acc.cpp:14` | what it does |
 | 2 | `Array` | `app/shared/kv_acc_array.h:39` | what it holds |
 | 2 | `std:` | `app/shared/kv_acc_array.h:42` | what it holds |
 | 2 | `Make_Array_Accessor` | `app/shared/kv_acc_array.h:46` | what it does |
-| 2 | `KVFixedStringAccessorClass` | `app/shared/kv_acc_string.h:20` | what it does |
-| 2 | `KVBufferAccessorClass` | `app/shared/kv_acc_string.h:33` | what it does |
-| 2 | `KVNewStringAccessorClass` | `app/shared/kv_acc_string.h:46` | what it does |
-| 2 | `KVDupStringAccessorClass` | `app/shared/kv_acc_string.h:65` | what it does |
-| 2 | `KVStdStringAccessorClass` | `app/shared/kv_acc_string.h:81` | what it does |
-| 2 | `Add_New_String` | `app/shared/kv_acc_string.h:98` | what it does |
-| 2 | `Add_Dup_String` | `app/shared/kv_acc_string.h:99` | what it does |
-| 2 | `Add_Fixed_String` | `app/shared/kv_acc_string.h:100` | what it does |
-| 2 | `Add_Std_String` | `app/shared/kv_acc_string.h:101` | what it does |
+| 2 | `KVFixedStringAccessorClass` | `app/shared/kv_acc_string.h:22` | what it does |
+| 2 | `KVBufferAccessorClass` | `app/shared/kv_acc_string.h:35` | what it does |
+| 2 | `KVNewStringAccessorClass` | `app/shared/kv_acc_string.h:48` | what it does |
+| 2 | `KVDupStringAccessorClass` | `app/shared/kv_acc_string.h:60` | what it does |
+| 2 | `KVStdStringAccessorClass` | `app/shared/kv_acc_string.h:72` | what it does |
+| 2 | `Add_New_String` | `app/shared/kv_acc_string.h:89` | what it does |
+| 2 | `Add_Dup_String` | `app/shared/kv_acc_string.h:90` | what it does |
+| 2 | `Add_Fixed_String` | `app/shared/kv_acc_string.h:91` | what it does |
+| 2 | `Add_Std_String` | `app/shared/kv_acc_string.h:92` | what it does |
+| 2 | `Round_Tenths` | `app/shared/kv_acc_time.cpp:7` | what it does |
 | 2 | `KVTickSecondsAccessorClass` | `app/shared/kv_acc_time.h:13` | what it does |
 | 2 | `Value` | `app/shared/kv_acc_time.h:21` | what it holds |
 | 2 | `Seconds` | `app/shared/kv_acc_time.h:22` | what it holds |
@@ -30455,12 +30458,13 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `DeltaShipClass` | `app/client/aux_roots.h:501` | the client's root string "Ship", Westwood XxxClass (D24); structure = Net-7 AuxShipIndex / C# ShipObject (C# fields = ours (same names, same order); Net-7 Construct 58 children = ours) |
 | 3 | `DeltaComponentClass` | `app/client/aux_roots.h:573` | the client's root string "Component", Westwood XxxClass (D24); structure = C# ComponentObject (C# fields = ours (same names, same order)) |
 | 3 | `DeltaLightClass` | `app/client/aux_roots.h:583` | the client's root string "Light", Westwood XxxClass (D24); structure = C# LightObject (C# fields = ours (same names, same order)) |
-| 3 | `DeltaDecorationClass` | `app/client/aux_roots.h:599` | the client's root string "Decoration", Westwood XxxClass (D24); structure = C# DecorationObject (C# fields = ours (same names, same order)) |
-| 3 | `DeltaHarvestableClass` | `app/client/aux_roots.h:611` | the client's root string "Harvestable", Westwood XxxClass (D24); structure = Net-7 AuxHarvestable / C# HarvestableObject (C# fields = ours (same names, same order); Net-7 Construct 4 children = ours) |
-| 3 | `DeltaHulkClass` | `app/client/aux_roots.h:942` | the client's root string "Hulk", Westwood XxxClass (D24); structure = Net-7 AuxHulkIndex / C# HulkObject (C# fields = ours (same names, same order); Net-7 Construct 8 children = ours) |
-| 3 | `DeltaPlanetClass` | `app/client/aux_roots.h:991` | the client's root string "Planet", Westwood XxxClass (D24); structure = C# PlanetObject (C# fields = ours (same names, same order)) |
-| 3 | `DeltaStarbaseClass` | `app/client/aux_roots.h:1011` | the client's root string "Starbase", Westwood XxxClass (D24); structure = C# StarbaseObject (C# fields = ours (same names, same order)) |
-| 3 | `DeltaStargateClass` | `app/client/aux_roots.h:1031` | the client's root string "Stargate", Westwood XxxClass (D24); structure = C# StargateObject (C# fields = ours (same names, same order)) |
+| 3 | `DeltaDecorationClass` | `app/client/aux_roots.h:600` | the client's root string "Decoration", Westwood XxxClass (D24); structure = C# DecorationObject (C# fields = ours (same names, same order)) |
+| 3 | `DeltaHarvestableClass` | `app/client/aux_roots.h:612` | the client's root string "Harvestable", Westwood XxxClass (D24); structure = Net-7 AuxHarvestable / C# HarvestableObject (C# fields = ours (same names, same order); Net-7 Construct 4 children = ours) |
+| 3 | `DeltaHulkClass` | `app/client/aux_roots.h:943` | the client's root string "Hulk", Westwood XxxClass (D24); structure = Net-7 AuxHulkIndex / C# HulkObject (C# fields = ours (same names, same order); Net-7 Construct 8 children = ours) |
+| 3 | `DeltaPlanetClass` | `app/client/aux_roots.h:992` | the client's root string "Planet", Westwood XxxClass (D24); structure = C# PlanetObject (C# fields = ours (same names, same order)) |
+| 3 | `DeltaStarbaseClass` | `app/client/aux_roots.h:1012` | the client's root string "Starbase", Westwood XxxClass (D24); structure = C# StarbaseObject (C# fields = ours (same names, same order)) |
+| 3 | `DeltaStargateClass` | `app/client/aux_roots.h:1032` | the client's root string "Stargate", Westwood XxxClass (D24); structure = C# StargateObject (C# fields = ours (same names, same order)) |
+| 3 | `DeltaDecorationClass` | `app/client/aux_roots_decoration.h:18` | the client's root string "Decoration", Westwood XxxClass (D24); structure = C# DecorationObject (C# fields = ours (same names, same order)) |
 | 3 | `DeltaHullClass` | `app/client/aux_roots_hull.h:24` | the client's root string "Hull", Westwood XxxClass (D24); structure = - (no match) |
 | 3 | `DeltaManufacturingLabClass` | `app/client/aux_roots_manu.h:91` | the client's root string "ManufacturingLab", Westwood XxxClass (D24); structure = Net-7 AuxManufacturingIndex / C# ManufacturingLabObject (C# fields = ours (same names, same order); Net-7 Construct 21 children = ours) |
 | 3 | `DeltaPlayerClass` | `app/client/aux_roots_player.h:149` | the client's root string "Player", Westwood XxxClass (D24); structure = Net-7 AuxPlayerIndex / C# PilotData (C# fields = ours (same names, same order); Net-7 Construct 18 children = ours) |
@@ -32319,7 +32323,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `ini_manager.h` | `app/shared/ini_manager.h:17` | header name assumed from the client's ini_manager.cpp |
 | 3 | `INIManagerClass` | `app/shared/ini_manager.h:25` | by convention (D24) from the client's file ini_manager.cpp |
 | 3 | `KVArrayAccessorClass` | `app/shared/kv_acc_array.h:28` | by convention (D24) from kv_acc_array.h |
-| 3 | `kv_acc_string.h` | `app/shared/kv_acc_string.h:8` | PROVISIONAL, as kv_acc_array.h |
+| 3 | `kv_acc_string.h` | `app/shared/kv_acc_string.h:10` | PROVISIONAL, as kv_acc_array.h |
 | 3 | `kv_acc_time.h` | `app/shared/kv_acc_time.h:7` | PROVISIONAL |
 | 3 | `kv_encoder.h` | `app/shared/kv_encoder.h:6` | PROVISIONAL |
 | 3 | `kv_encoder_base.h` | `app/shared/kv_encoder_base.h:18` | header name assumed from the client's kv_encoder_base.cpp |

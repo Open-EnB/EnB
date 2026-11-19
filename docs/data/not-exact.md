@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-863 entries in 306 files.
+864 entries in 307 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -26,6 +26,7 @@ edit the comments in the code, not this file.
 | `app/client/aux_group_ctors.h:4` | `DeltaGroupInfoClass::DeltaGroupInfoClass` | mention | NOT EXACT (D42) where aux_roots.h is. NAME 1 [aux_group_ctors.h]: provisional file name (the client's headers are not named by any string) |
 | `app/client/aux_roots.cpp:2` | `ClientObjectClass::Unknown_Create_Aux_Root` | mention | NOT EXACT (D42): functional. NAME 1 [aux_roots.cpp]: provisional file name (the client's constructors are in co.cpp 0x6F6000-0x6FBEF0 and the Player object 0x751BE0) |
 | `app/client/aux_roots.h:10` | `?` | mention | NOT EXACT (D42): functional; see the generator's docstring for what differs. |
+| `app/client/aux_roots_decoration.h:5` | `?` | marker | NOT EXACT (D42) where aux_roots.h is. NAME 1 [aux_roots_decoration.h]: provisional file name (the client's headers are not named by any string) |
 | `app/client/aux_roots_group.h:4` | `?` | mention | NOT EXACT (D42) where aux_roots.h is. NAME 1 [aux_roots_group.h]: provisional file name (the client's headers are not named by any string) |
 | `app/client/aux_roots_hull.h:5` | `Type_Name` | marker | NOT EXACT (D42) where aux_roots.h is. NAME 1 [aux_roots_hull.h]: provisional file name (the client's headers are not named by any string) |
 | `app/client/aux_roots_item.h:5` | `?` | marker | NOT EXACT (D42) where aux_roots.h is. NAME 1 [aux_roots_item.h]: provisional file name (the client's headers are not named by any string) |
@@ -529,8 +530,8 @@ edit the comments in the code, not this file.
 | `app/client/ui_petition_player_entry.cpp:303` | `UIPetitionPlayerNameClass::Unknown_68` | marker | NOT EXACT: inline-budget (the client calls rtti.h's DeltaStringClass cast 0x4099A8 out of line at both lookups, ours inlines it; as co.cpp's 0x6FF4B0) 0x5D6EE0 |
 | `app/client/ui_petition_stuck.cpp:42` | `UIPetitionStuckClass::Unknown_A0` | marker | NOT EXACT: register (the client loads the client's +0x1130 into eax, ours edx) 0x5D7420 |
 | `app/client/ui_popup_browser.cpp:27` | `UIPopupBrowserClass::UIPopupBrowserClass` | marker | NOT EXACT: inline-budget (0.52, 160 instructions vs 189: the client calls Url's _Tidy(false) out of line; ours expands it) @0x5DAE90 |
-| `app/client/ui_power.cpp:32` | `UIPowerClass::UIPowerClass` | marker | NOT EXACT: functional (D64): the client calls GenericNode::GenericNode out of line (as ui_experience.cpp's 0x58C450) |
-| `app/client/ui_power.cpp:100` | `UIPowerClass::Unknown_10` | marker | NOT EXACT: functional (D64): the client calls Unknown_Find_Field out of line for MaxEnergyPower only (as ui_experience.cpp's 0x58CB50) |
+| `app/client/ui_power.cpp:33` | `UIPowerClass::UIPowerClass` | marker | NOT EXACT: functional (D64): the client calls GenericNode::GenericNode out of line (as ui_experience.cpp's 0x58C450) |
+| `app/client/ui_power.cpp:101` | `UIPowerClass::Unknown_10` | marker | NOT EXACT: functional (D64): the client calls Unknown_Find_Field out of line for MaxEnergyPower only (as ui_experience.cpp's 0x58CB50) |
 | `app/client/ui_proc.cpp:126` | `UIProc5DCD20Class::Unknown_08` | marker | NOT EXACT: 0x5DD3C0 (0.81): block order, the cycle wrap's EndFrame arm sits after the return in the client (attempts.csv) @0x5DD3C0 |
 | `app/client/ui_ptrade.cpp:239` | `UIPTradeClass::Unknown_68` | marker | NOT EXACT: register-only (0.84, same length: key 3's request reads the client through eax, the client's; ours through edx as keys 1 / 2) |
 | `app/client/ui_radio_admin.cpp:246` | `UIRadioAdminClass::Unknown_5E5360` | marker | NOT EXACT: inline budget and stack slots (cases 5 and 6: the client destroys the channel's temporary inline and expands the selected name's assignment in case 6, its temporaries at other frame offsets) |
