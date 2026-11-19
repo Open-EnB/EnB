@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-861 entries in 307 files.
+859 entries in 307 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -321,7 +321,6 @@ edit the comments in the code, not this file.
 | `app/client/scriptedmovie.cpp:460` | `ScriptedMovieViewClass::Unknown_0C` | marker | NOT EXACT: shape (0.83): the client reads the background colour as three dwords and the inlined 0x801D70 copies zfar as an integer before znear |
 | `app/client/scriptedmovie.cpp:798` | `ScriptedMovieViewClass::Unknown_8020B0` | marker | NOT EXACT: shape (0.38): the client copies b's half into each region through an out-of-line 16-byte copy (0x780AC0, avatar.cpp's) three times, frame 0x40 to our 0x30 0x8020B0: the ship model's four colourization regions, each a then b, in a metal (shiputils.cpp's 0x80EFF0) |
 | `app/client/scriptedmovie.cpp:1340` | `ScriptedMovieViewClass::Unknown_803310` | marker | NOT EXACT: inline budget (0.63): the client inlines Shake_Camera and both Toggle_Engine_Trails too; ours calls them (0x7FFD30 is scriptedmovieline.cpp's, out of line as in the client) 0x803310: one script line run: its command (the line's first field, any case) to the member that takes the rest |
-| `app/client/scriptedmovie.cpp:1430` | `ScriptedMovieViewClass::Create_Object` | marker | NOT EXACT: register / inline budget (0.58): the push_back helpers and registers differ from the client (ebx / ebp swapped, two calls fewer) 0x804290: an object of a slot: ui_mesh.cpp's mesh of that name (a ship's with the client) in the scene, shown at its lowest LOD |
 | `app/client/scriptedmovie.cpp:1819` | `ScriptedMovieViewClass::Add_Camera` | marker | NOT EXACT: frame 0x14, the client 0x18 (hfov in a local of its own; ours reuses the params slot), 2 masked rows 0x805420: a camera on a bone of the slot's model, last in CameraList (optionally its view plane, in degrees) |
 | `app/client/scriptedmovie.cpp:1918` | `ScriptedMovieViewClass::Attach_Light_To_Bone` | marker | NOT EXACT: after the loop the client knows parent is NULL (no second test before the G_ASSERT); forms: the slot and the mesh tested together, the mesh tested after the assignment (this one) |
 | `app/client/scriptedmovie.cpp:3626` | `ScriptedMovieViewClass::Unknown_8099B0` | marker | NOT EXACT: register (0.82, 2 masked rows): the client sets p (esi) before the tab loop, ours after it 0x8099B0: the script loaded: one command a line ('<frame> <command>,<parameters>', ';' a comment; FRAME_PAD and SOUNDTRACK set the view, CREATE_SFX lines also run at once), the lines sorted by frame (0x7FFEA0) |
@@ -618,7 +617,6 @@ edit the comments in the code, not this file.
 | `app/client/ui_talkt.cpp:68` | `UITalkTreeClass::UITalkTreeClass` | marker | NOT EXACT: 0x64B6E0 (the constructor: the +0x174 stores scheduled after the fill's setup) |
 | `app/client/ui_talkt.cpp:287` | `UITalkTreeClass::Unknown_5C` | marker | NOT EXACT: 0x64C8D0 (Unknown_5C: inline budget, _Eos / _Tidy out of line in the client) |
 | `app/client/ui_talkt.cpp:357` | `UITalkTreeClass::Unknown_90` | marker | NOT EXACT: 0x64CC90 (Unknown_90: the vector's _Destroy out of line in the client) |
-| `app/client/ui_talkt.cpp:535` | `UITalkTreeClass::Unknown_68` | marker | NOT EXACT: 0x64D400 (Unknown_68: the second append's _Grow out of line in the client) |
 | `app/client/ui_talkt.cpp:618` | `UITalkTreeClass::Unknown_60` | marker | NOT EXACT: 0x64D770 (Unknown_60: this in edi, one slot fewer) |
 | `app/client/ui_talkt.cpp:839` | `UITalkTreeClass::Unknown_64E7A0` | marker | NOT EXACT: 0x64E7A0 (Unknown_64E7A0: registers only: the bit test, and the 0x497300 call's return slot loaded before its argument) |
 | `app/client/ui_trade.cpp:96` | `UITradeClass::~UITradeClass` | marker | NOT EXACT: register-only (explain.py): the client loads client->PDAInterface into ebx and schedules PDA's assignment around it @0x650560 |

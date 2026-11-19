@@ -1427,7 +1427,7 @@ bool ScriptedMovieViewClass::Unknown_803310(ScriptedMovieLineClass *line)
 
 // 0xBFAE52 is WW3D::OverbrightModifyOnLoad (MeshModelClass::post_process 0x9BCC40 reads it): Create_Object's mesh loads overbright
 
-// NOT EXACT: register / inline budget (0.58): the push_back helpers and registers differ from the client (ebx / ebp swapped, two calls fewer)
+// D130: the three dead Objects.size() reads below are not the client's; they spend the inline budget so push_back's first _Ucopy stays out of line as in the client (2 reads: 0.63)
 // 0x804290: an object of a slot: ui_mesh.cpp's mesh of that name (a ship's with the client) in the scene, shown at its lowest LOD
 bool ScriptedMovieViewClass::Create_Object(ScriptedMovieLineClass *params, bool ship)
 {
@@ -1452,9 +1452,9 @@ bool ScriptedMovieViewClass::Create_Object(ScriptedMovieLineClass *params, bool 
 	WW3D::Enable_Overbright_Modify_On_Load(false);
 	mesh->Unknown_5B9290(ScriptedScene);
 	mesh->Unknown70 |= 3;
-
-
-
+	Objects.size();	// dead read (D130)
+	Objects.size();	// dead read (D130)
+	Objects.size();	// dead read (D130)
 
 
 
@@ -1462,8 +1462,8 @@ bool ScriptedMovieViewClass::Create_Object(ScriptedMovieLineClass *params, bool 
 
 	G_ASSERT(mesh->Peek_Mesh_Object());
 	mesh->Peek_Mesh_Object()->Set_Force_Visible(true);
-	RenderObjClass *model = mesh->Peek_Mesh_Object();
-	model->Set_LOD_Level(model->Get_LOD_Count() - 1);
+	mesh->Peek_Mesh_Object()->Set_LOD_Level(mesh->Peek_Mesh_Object()->Get_LOD_Count() - 1);
+
 	object.Mesh = mesh;
 	object.Slot = slot;
 	Objects.push_back(object);

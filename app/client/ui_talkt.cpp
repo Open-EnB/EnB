@@ -532,7 +532,7 @@ bool UITalkTreeClass::Unknown_64D3E0()
 	return(Quit_Talk_Tree(Unknown158));
 }
 
-// NOT EXACT: 0x64D400 (Unknown_68: the second append's _Grow out of line in the client)
+// 0x64D400; D130: the dead Responses.size() read after the second append is not the client's: it sends that append's _Grow out of line as in the client
 bool UITalkTreeClass::Unknown_68(int event_id)
 {
 	switch (event_id) {
@@ -609,7 +609,7 @@ bool UITalkTreeClass::Unknown_68(int event_id)
 	Unknown154 = Responses[event_id].Unknown00;
 	Unknown_64D100();
 	PlayerText += Responses[event_id].Text;
-	Unknown_Append(PlayerText, " ");
+	Unknown_Append(PlayerText, " "); Responses.size();	// dead read (D130)
 	SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
 	Unknown150 = true;
 	return(true);
