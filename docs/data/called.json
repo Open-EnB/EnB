@@ -228,6 +228,9 @@
 "??0TextureClass@@QAE@PBD0W4MipCountType@@W4WW3DFormat@@_N@Z": [
 "0x94B3D0"
 ],
+"??0TextureMapperClass@@QAE@I@Z": [
+"0x932150"
+],
 "??0UDP@@QAE@XZ": [
 "0x8BF990"
 ],
@@ -3179,6 +3182,9 @@
 ],
 "data:?Unknown_B704A0@@3PADA": [
 "0xB704A0"
+],
+"data:?Unknown_B70E40@@3PAPADA": [
+"0xB70E40"
 ],
 "data:?Unknown_B721A0@@3MA": [
 "0xB721A0"

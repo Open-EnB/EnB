@@ -552,7 +552,7 @@ RenderStateClass *RenderStateListClass::Unknown_45B480(INIClass &ini, const char
 
 
 // 0x45B550
-// NOT EXACT: switch (0.71): the client's SHADER jump table starts at 0 (case 0 on the default's code); ours subtracts 1
+// The pass type switch's 'case 0: break; case 1: break;' are separate labels (the client's sub eax, 0 / je / dec eax / je)
 RenderStateClass *RenderStateListClass::Unknown_45B550(const char *filename, int link_id, unsigned int flags, int id, int next_id)
 {
 	INIClass ini;
@@ -618,7 +618,7 @@ RenderStateClass *RenderStateListClass::Unknown_45B550(const char *filename, int
 			float start_v = ini.Get_Float("Effect_Pass_Description", "START_V_COORD", 0);
 			float end_v = ini.Get_Float("Effect_Pass_Description", "END_V_COORD", 1.0f);
 			switch (type) {
-				case 0:
+				case 0: break;
 				case 1:
 					break;
 				default:

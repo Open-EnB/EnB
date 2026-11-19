@@ -2964,7 +2964,7 @@ void UIStarbaseClass::Unknown_63DCD0(int facility)
 // (ACTION 20), 4 ACTION 10)
 void UIStarbaseClass::Unknown_63DFE0()
 {
-	if (Unknown1F8->Active) {
+	if (Unknown1F8->Is_Active()) {
 		if (UnknownB0->Unknown_69CCD0()) {
 			Unknown1F8->Unknown_5C();
 		}
