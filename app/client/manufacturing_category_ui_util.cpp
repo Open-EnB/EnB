@@ -65,10 +65,10 @@ std::string Unknown_7E9CB0(int category)
 
 
 
-// NOT EXACT: shape (explain.py; an inline budget: the client expands std::string assign inline at case 153, ours at 160; every other site and the length agree) (0x7EA190)
+// 0x7EA190: the named char_traits::length (no code) spends the inline budget that puts the assign at the client's sites (D272)
 std::string Unknown_7EA190(int id)
 {
-	switch (id) {
+	std::char_traits<char>::length; switch (id) {
 		case -1: return "im_default.tga";
 		case 100: return "im_000.tga";
 		case 101: return "im_001.tga";
@@ -159,10 +159,10 @@ std::string Unknown_7EAFE0(int category)
 
 
 
-// NOT EXACT: shape (explain.py; an inline budget: the client expands std::string assign inline at case 153, ours at 160, as 0x7EA190) (0x7EB4D0)
+// 0x7EB4D0: as 0x7EA190 (the named char_traits::length before the switch, D272)
 std::string Unknown_7EB4D0(int type)
 {
-	switch (type) {
+	std::char_traits<char>::length; switch (type) {
 		case -1: return "";
 		case 100: return "Beam Weapon";
 		case 101: return "Projectile Weapon";
