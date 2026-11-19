@@ -1,0 +1,80 @@
+diff --git a/app/client/mainview.cpp b/app/client/mainview.cpp
+index 46bb00a5e..71ddcd4aa 100644
+--- a/app/client/mainview.cpp
++++ b/app/client/mainview.cpp
+@@ -896,7 +896,7 @@ Vector3 Unknown_50EE60(const Vector3 &source)
+ // DurationClass::operator+ out of line (0x514B00, its only copy), as VC6 does at this depth (one layer inlines it)
+ static inline DurationClass Unknown_Server_Time(SClient *client) { return DurationClass((unsigned)client->Unknown10BC) + client->Unknown10C0; }	// NAME 1: neutral (D10)
+ static inline DurationClass Unknown_Time(SClient *client) { return Unknown_Server_Time(client); }	// NAME 1: neutral (D10)
+-// NOT EXACT: 0.87 (BG7, run 2026-11-19; the frame and size match, register / order residue in case 1, the hours and the end; attempts.csv)
++// NOT EXACT: 0.95 (BG7, run 2026-11-19; frame and size match; x87 / store scheduling left in case 1, sun.Normalize, the fill test, the offset product, the shadow call; attempts.csv)
+ void MainViewClass::Update(CameraClass *camera, bool under)
+ {
+ 	WWPROFILE("MainView::Update");
+@@ -904,7 +904,7 @@ void MainViewClass::Update(CameraClass *camera, bool under)
+ 	FAIL_IF(!client) return;
+ 	float hours = Unknown_Time(client).Get() * 2.777778e-07f;
+ 	if (Get_Client()->DebugMode) {
+-		hours += Get_Client()->Unknown1390;
++		float offset = Get_Client()->Unknown1390;	hours += offset;
+ 	}
+ 	if (!Unknown168) {
+ 		Orbitals->Update(camera, hours, Get_Client()->ViewMode == 1);
+@@ -915,7 +915,8 @@ void MainViewClass::Update(CameraClass *camera, bool under)
+ 	case 0:
+ 		{
+ 			WWPROFILE("AdjustDayNight");
+-			((MainViewSceneClass *)Scene)->Unknown_75F690(Orbitals->Unknown20, camera->Get_Position());
++			const Vector3 &sundir = Orbitals->Unknown20;		// (the client takes it before the camera position: Orbitals in edi across Get_Position)
++			((MainViewSceneClass *)Scene)->Unknown_75F690(sundir, camera->Get_Position());
+ 			Scene->Set_Ambient_Light(Orbitals->Unknown58);
+ 			Scene->Set_Fog_Enable(false);
+ 			if (Get_Client()->Unknown10F8) {
+@@ -924,8 +925,8 @@ void MainViewClass::Update(CameraClass *camera, bool under)
+ 				Unknown110->Set_Ambient_Light(Vector3(0.5f, 0.5f, 0.5f));
+ 			}
+ 			Unknown110->Set_Fog_Color(sky);
+-			float fogfar = Get_Client()->Unknown10F0;
+ 			float fognear = Get_Client()->Unknown10EC;
++			float fogfar = Get_Client()->Unknown10F0;
+ 			if (fogfar - fognear > 10.0f) {
+ 				Scene->Set_Fog_Enable(true);
+ 				Scene->Set_Fog_Range(fognear, fogfar);
+@@ -951,9 +952,7 @@ void MainViewClass::Update(CameraClass *camera, bool under)
+ 			Scene->Set_Ambient_Light(ambient);
+ 			Land->Update_Patches(*camera, LandLOD);
+ 			Unknown16C = sky;
+-			Lighting.SkyColor.X = ambient.X;
+-			Lighting.SkyColor.Y = ambient.Y;
+-			Lighting.SkyColor.Z = ambient.Z;
++			Lighting.SkyColor = ambient;
+ 			Lighting.Valid = Orbitals->Unknown4C;
+ 			Lighting.SunAngle = Orbitals->Unknown2C;
+ 			Lighting.LightColor = sun;
+@@ -1029,6 +1028,7 @@ void MainViewClass::Update(CameraClass *camera, bool under)
+ 
+ 
+ 
++
+ 
+ 
+ 		G_ASSERT(0);
+@@ -1090,7 +1090,7 @@ void MainViewClass::Update(CameraClass *camera, bool under)
+ 	}
+ 	if (Orbitals->Unknown4C) {
+ 		Scene->Add_Render_Object(Unknown144[0].Peek());
+-		((MainViewSceneClass *)Scene)->ProjectorManager->Set_Shadow_Light_Direction(-Orbitals->Unknown20);
++		ProjectorManagerClass *projectors = ((MainViewSceneClass *)Scene)->ProjectorManager;	projectors->Set_Shadow_Light_Direction(-Orbitals->Unknown20);
+ 		((MainViewSceneClass *)Scene)->Apply_Projectors(Camera);
+ 		if (Get_Client()->Unknown10F8) {
+ 			Vector3 dir;		// one vector for both (the client: one slot, its X kept in st(0) across Get_Diffuse's null test)
+@@ -2398,5 +2398,8 @@ void MainViewClass::Unknown_18(bool arg)
+ **	below: aux_roots.cpp's pad). The light offset is rotated by a Matrix3D(dir, side, up, 0) (the client's 48-byte
+ **	slot at the frame's top, row 2 spilled at -0x1C, pos dead) after crosses written through Cross_Product(a, b, &r);
+ **	the fill colour is a Vector4 copy (Length2, scaled as a Vector3); one vector carries the spot direction and the
+-**	diffuse at the end; every flag read goes through Get_Client() (eax / cl as the client, +0.05).
++**	diffuse at the end; every flag read goes through Get_Client() (eax / cl as the client, +0.05). Then 0.95: the sky
++**	colour as one Vector3 copy, the sun direction bound to a reference before the camera position (Orbitals in edi
++**	across Get_Position: the register choices of the whole function follow), fognear read first, the projector
++**	manager in a local, the debug hour offset in a local (loaded before the stored hours).
+ */
