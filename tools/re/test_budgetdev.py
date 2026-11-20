@@ -55,6 +55,9 @@ class ScanTest(unittest.TestCase):
         self.assertEqual(B.dead_kind('std::char_traits<char>::length'), 'char_traits length')
         self.assertEqual(B.dead_kind('Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(NameClass *)this)'), 'find')
         self.assertEqual(B.dead_kind('a == b'), 'compare')
+        self.assertEqual(B.dead_kind('(void)(Orphans.end() == Orphans.end())'), 'void cast')
+        self.assertEqual(B.dead_kind('Get_Client()'), 'accessor Get_Client')
+        self.assertIsNone(B.dead_kind('Get_Byte()'))                  # a stream read: not dead
         for s in ('G_ASSERT(x != 0)', 'out << Name.c_str()', 'x = List.size()',
                   'return List.size()', 'Buttons[i]->Set(i == key)', 'Find_Samples(index, lower, upper)'):
             self.assertIsNone(B.dead_kind(s), s)
@@ -90,6 +93,17 @@ class ScanTest(unittest.TestCase):
         self.assertEqual(new[7].strip(), 'G_ASSERT(x != 0);')
         self.assertEqual(new[14], '')
         self.assertIn('for (int i = 0; i < List.size(); ++i)', new[8])
+
+    def test_after_return_is_dead_but_not_after_a_label(self):
+        src = ('// 0x401000\nvoid f()\n{\n\tif (a) return; b = 1;\n\treturn; Name = x;\n}\n'
+               '// 0x401100\nvoid g()\n{\n\treturn;\nrelease:\n\tc = 2;\n}\n')
+        td = tempfile.mkdtemp(prefix='budgetdev_')
+        p = os.path.join(td, 'b.cpp')
+        with open(p, 'w', newline='\n') as f:
+            f.write(src)
+        rows = [r for r in B.scan_file(p, 'app/b.cpp', {0x401000, 0x401100}, set(), {}) if r['kind'] == 'dead-read']
+        self.assertEqual([(r['address'], r['lines'], r['found']) for r in rows],
+                         [('0x401000', [5], 'code: after return x1')])
 
     def test_address_prefers_the_marker_line(self):
         lines = ['// 0x402000 (also the view\'s 0x401000)', 'void Unknown_401000()', '{', '}']

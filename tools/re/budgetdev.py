@@ -210,7 +210,7 @@ def address_of(f, lines, known):
 
 ACC = (r'(?:size|length|c_str|data|empty|begin|end|rbegin|rend|front|back|capacity|Peek|Peek_\w+|Is_\w+|Get_\w+|'
        r'Count|Length|Length2)')
-DEAD_ACCESS = re.compile(r'^[A-Za-z_(*][\w\s.\->\[\]()*&:<>,]*?(?:\.|->)' + ACC + r'\s*\(\s*\)$')
+DEAD_ACCESS = re.compile(r'^(?:[A-Za-z_(*][\w\s.\->\[\]()*&:<>,]*?(?:\.|->))?' + ACC + r'\s*\(\s*\)$')
 DEAD_TRAITS = re.compile(r'^std\s*::\s*char_traits\s*<\s*\w+\s*>\s*::\s*length$')
 DEAD_FIND = re.compile(r'^Unknown_Find_(?:Field|Valid)\s*<.*>\s*\(.*\)$|^[\w.\->\[\]]+(?:\.|->)find\s*\(.*\)$')
 DEAD_CMP = re.compile(r'^[\w.\->\[\]()*]+\s*(?:==|!=)\s*[\w.\->\[\]()*"\' ]+$')
@@ -241,11 +241,13 @@ def dead_kind(s):
     s = ' '.join(s.split())
     if not s or STMT_KW.match(s) or s.count('(') != s.count(')'):
         return None
+    if re.match(r'^\(\s*void\s*\)\s*\(', s) and not re.search(r'(?<![=!<>])=(?!=)|\+\+|--', s):
+        return 'void cast'
     if re.search(r'(?<![=!<>])=(?!=)|\+\+|--|<<|>>|[+|^%/?]|&&', s):
         return None
     if DEAD_TRAITS.match(s):
         return 'char_traits length'
-    if DEAD_ACCESS.match(s):
+    if DEAD_ACCESS.match(s) and not re.search(r'\bGet_(?:Byte|Char|Next|Line|Token|Word)\s*\(', s):
         return 'accessor ' + re.search(r'(\w+)\s*\(\s*\)$', s).group(1)
     if DEAD_FIND.match(s):
         return 'find'
@@ -327,9 +329,13 @@ def scan_file(path, rel, known, ledger_exact, sizes, others=None):
 
     # dead reads: per function, its dead statements
     for f in funcs:
-        dead = []
+        dead, prev = [], None
         for s0, s1, s in statements(code, f['open'] + 1, f['end']):
             k = dead_kind(s)
+            if not k and prev and prev[2].strip().startswith('return') and not code[prev[1] + 1:s0].strip() \
+                    and s.strip() and not re.match(r'\s*\w+\s*:(?!:)', s):
+                k = 'after return'          # unreachable: no code, but it spends the budget (workflow.md 3.1.1)
+            prev = (s0, s1, s)
             if k:
                 st = s0 + len(s) - len(s.lstrip())
                 dead.append((line_of(code, st), k, text[st:s1 + 1], st, s1 + 1))
