@@ -1062,6 +1062,9 @@
 "?Initialize@WWAudioClass@@QAEXPBD@Z": [
 "0x9F2740"
 ],
+"?Insert@BufferStruct@UnknownB02C90Class@@QAEXABUElementStruct@12@H@Z": [
+"0x725E70"
+],
 "?Insert_Morph_Key@HMorphAnimClass@@QAEXHKK@Z": [
 "0x988610"
 ],
