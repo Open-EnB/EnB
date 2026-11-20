@@ -661,8 +661,8 @@ int HtmlViewClass::Parse(HtmlLinkStruct *link, HtmlBlockClass *block, int offset
 				HtmlItemStruct *item = new HtmlItemStruct;
 				item->X = block->Get_Cursor_X();
 				item->Y = block->Get_Cursor_Y();
-				item->Width = 0;
-				item->Height = 0;
+
+
 				item->Attributes.Add_All(tableattrs);
 				item->Attributes.Set("Type", "Table");
 				block->Items.addTail(item);
@@ -935,9 +935,9 @@ int HtmlViewClass::Parse(HtmlLinkStruct *link, HtmlBlockClass *block, int offset
 				item->Height = 4;
 				item->Width = block->Get_Width() - block->Get_HPadding() - item->X;
 				item->Attributes.Set("Type", "HR");
-				block->Items.add(item, block->Items.length());
+				block->Items.addTail(item);
 				block->New_Line();
-				block->Advance_Y(5, false); block->Items.length(); block->Items.length(); block->Items.length(); block->Items.length(); block->Items.length(); block->Items.length();
+				block->Advance_Y(5, false);
 			} else if (strcmp(name.get(), "ul") == 0) {
 				block->Set_Line_Start_X(block->Get_Line_Start_X() + 32);
 				block->Advance_X(32, false);
@@ -971,7 +971,7 @@ int HtmlViewClass::Parse(HtmlLinkStruct *link, HtmlBlockClass *block, int offset
 						HtmlImageClass *image;
 						if (!Find_Image(value.get(), &image)) {
 							image = new HtmlGifImageClass(value.get(), Surf->Bytes_Per_Pixel() << 3);
-							Images.add(image, Images.length());
+							Images.addTail(image);
 							Loader->Open(value.get());
 							HtmlLinkStruct *data;
 							if (Find_Link(value.get(), &data)) {
@@ -1008,7 +1008,7 @@ int HtmlViewClass::Parse(HtmlLinkStruct *link, HtmlBlockClass *block, int offset
 						item->Attributes.Add_All(block->Styles);
 						item->Attributes.Set("Type", "Image");
 						item->Attributes.Set("URL", value.get());
-						block->Items.add(item, block->Items.length());
+						block->Items.addTail(item);
 						block->Advance_X(width, true);
 					}
 					if (strcmp(key.get(), "alt") == 0) {
@@ -1024,13 +1024,13 @@ int HtmlViewClass::Parse(HtmlLinkStruct *link, HtmlBlockClass *block, int offset
 	}
 
 	int bottom = 0;
-	int right = 0;
 	int i;
 	for (i = 0; i < block->Items.length(); i++) {
 		HtmlItemStruct *item = block->Get_Item(i);
 		if (item->Height + item->Y > bottom)
 			bottom = item->Height + item->Y;
 	}
+	int right = 0;
 	for (i = 0; i < block->Items.length(); i++) {
 		HtmlItemStruct *item = block->Get_Item(i);
 		if (item->Width + item->X > right)
@@ -1656,11 +1656,12 @@ static int Get_Value(int offset, Wstring &tag, Wstring &value)
 **	  Parse's own end (value.get() three times per colour: 16 get calls more); the <body> / <img> lookups
 **	  are Find_Image / Find_Link inlined (no index test after the loop: the found block jumps to the
 **	  attribute loop's top). The inline budget cuts the deepest nested expansions first, then the earliest
-**	  sites: the <td> sites add with addTail (cell to Blocks / rowcells, its item: both growVectors out of
-**	  line), the block's cursor, line start and padding are read through inline accessors (New_Line,
-**	  Get_Cursor_X / Y, Get_Line_Start_X, Set_Line_Start_X, Get_HPadding) and six dead Items.length()
-**	  reads follow <hr>'s add (D272): every client add / growVector call out of line, the table's add
-**	  0x778CF0 included. Frame 0x284 as the client's: <font>'s colour sets its own end to NULL
+**	  sites: <td>, <hr> and <img> add with addTail (no pos > Entries_ clamp in the client's copies; <td>'s
+**	  growVectors both out of line), the block's cursor, line start and padding are read through inline
+**	  accessors (New_Line, Get_Cursor_X / Y, Get_Line_Start_X, Set_Line_Start_X, Get_HPadding): every
+**	  client add / growVector call out of line, the table's add 0x778CF0 included; <body>'s image add
+**	  keeps its clamp test in ours (the client's has none: open). The <table> item's zero width / height
+**	  are the constructor's; right is declared before the second end loop. Frame 0x284 as the client's: <font>'s colour sets its own end to NULL
 **	  first (mov [end], ebx), <td> has its own end; <table>'s and </table>'s alignment, </table>'s spacing,
 **	  <td> and </tr> move LineStartX with += / -= (add / sub [mem], reg), the rest with the setter. The statics 0xBE83F0 / 0xBE83F4 / 0xBE83F8 count table, row and
 **	  cell depth and are never read. Block +0x1BC (LineStartX) is the line's start x (tables and lists
