@@ -19,9 +19,9 @@
 #include "aabox.h"
 #include "random.h"
 extern RandomClass Unknown_BDBB84;					// NAME 1 [Unknown_BDBB84]: neutral (D10), as eff_o.cpp's
-
-
-
+#include "local_interface_sort.h"	// InterfaceSortScopeClass (0x54BD30)
+#include "unknown_675120.h"	// ButtonGadgetClass (0x54BD30's buttons)
+#include "control_key_list.h"	// ControlKeyListClass (0x54BD30: Escape)
 
 
 
@@ -459,6 +459,89 @@ StarbaseAvatarCreationInterface::~StarbaseAvatarCreationInterface()
 	Unknown_BE67C4->Remove(InterfaceMesh->Peek_Object());
 	Unknown_BE67BC->Unload("fa_buy_avatar00.ini");
 	GadgetClass::Get_Signal_Map().Remove((GadgetClass *)NULL, this, &StarbaseAvatarCreationInterface::Unknown_551320, FlashingGadgetEvent(NULL));
+}
+
+// The window made (slot +0x54, as ui_avatr.cpp's constructor 0x553AF0): the player's avatar, its look kept at +0xC0,
+// the tattoo offset (the client copies one Vector3 into +0x30C..+0x314, so a cast here until the members are retyped),
+// the buttons, the turn arrows hidden, the ShipPip, both palettes (eight dead Peek() after the second, D272: their
+// ~RefCountPtr out of line as the client's 0x4740B0), the callback, the title and STARBASE_REQUEST (0x551C80 inline)
+// 0x54BD30
+void StarbaseAvatarCreationInterface::Unknown_54()
+{
+	int i;
+	Unknown0B4->Unknown_69DC40();
+	InterfaceSortScopeClass sort(this);
+	SClient *client = Unknown0B4->Client;
+	AvatarDescClass *avatar = (AvatarDescClass *)client->Unknown_74C960(client->Get_Avatar_ID());
+	Unknown0BC = Create_NEW(new CharacterViewAvatarClass(avatar, 1, 1, client->Peek_Environment_Map_Manager()));
+	Unknown0BC->Unknown_77E3D0(1);
+	Unknown0BC->Unknown_Inline_231();
+	Unknown0BC->Unknown232 = true;
+	Unknown0C0 = *avatar;
+	*(Vector3 *)&Unknown30C = Unknown0BC->Desc.Tattoo_Offset;
+	Unknown310 = 1.0f - Unknown310;
+	Unknown_BE67BC->Load("fa_buy_avatar00.ini");
+	Unknown_BE67C4->Add(InterfaceMesh->Peek_Object());
+	for (i = 0; i < 14; i++) {
+		RefCountPtr<RenderObjClass> sub = Create_Get(InterfaceMesh->Peek_Object()->Get_Sub_Object_By_Name(UIAvatarCustParts[i].Button));
+		Unknown_496AE0(sub.Peek(), 0);
+		Unknown1CC[i] = (RObjGadgetClass *)new ButtonGadgetClass(sub.Peek(), *Unknown0AC, 0x55, 3);
+		Unknown64.Unknown_6870E0((GadgetClass *)Unknown1CC[i], i + 1, View, 1, 0);
+	}
+	for (i = 0; i < 15; i++) {
+		RefCountPtr<RenderObjClass> sub = Create_Get(InterfaceMesh->Peek_Object()->Get_Sub_Object_By_Name(UIAvatarCustParts[i + 14].Button));
+		Unknown_496AE0(sub.Peek(), 0);
+		Unknown204[i] = (RObjGadgetClass *)new ButtonGadgetClass(sub.Peek(), *Unknown0AC, 0x55, 3);
+		Unknown64.Unknown_6870E0((GadgetClass *)Unknown204[i], i + 0x10, View, 1, 0);
+	}
+	for (i = 0; i < 11; i++) {
+		RefCountPtr<RenderObjClass> sub = Create_Get(InterfaceMesh->Peek_Object()->Get_Sub_Object_By_Name(UIAvatarCustParts[i + 29].Button));
+		Unknown_496AE0(sub.Peek(), 0);
+		Unknown240[i] = (RObjGadgetClass *)new ButtonGadgetClass(sub.Peek(), *Unknown0AC, 0x55, 3);
+		Unknown64.Unknown_6870E0((GadgetClass *)Unknown240[i], i + 0x20, View, 1, 0);
+	}
+	{
+		RefCountPtr<RenderObjClass> sub = Create_Get(InterfaceMesh->Peek_Object()->Get_Sub_Object_By_Name("turn_down"));
+		if (sub) {
+			sub->Set_Hidden(1);
+		}
+		sub = Create_Get(InterfaceMesh->Peek_Object()->Get_Sub_Object_By_Name("turn_up"));
+		if (sub) {
+			sub->Set_Hidden(1);
+		}
+	}
+	Unknown0B8 = new ShipPipClass(1);
+	Unknown0B8->Unknown_74(Unknown0BC->Desc.Race);
+	Unknown0B8->Unknown_80C220((ViewClass *)Unknown0B4);
+	Unknown0B8->Set_Last_Sort_Group(true);
+	Unknown0B8->Unknown_80C540(Vector2(640.0f, 480.0f), Vector3(0.0f, 0.0f, 0.0f), 0x1C);
+	Unknown64.Unknown_6870E0((GadgetClass *)Unknown0B8, 0x2C, View, 1, 0);
+	Unknown0B8->Unknown_7C(Unknown0BC);
+	Unknown_54EEC0();
+	((ControlKeyListClass *)&Unknown4C)->Add(KernelEventClass(0x1B), (void *)0xE);
+	Unknown_54DA50();
+	Unknown_54D8A0();
+	Unknown_5513E0("fa_skin_color.tga");
+	Unknown_5513E0("fa_avatar_color.tga"); Unknown0BC.Peek(); Unknown0BC.Peek(); Unknown0BC.Peek(); Unknown0BC.Peek(); Unknown0BC.Peek(); Unknown0BC.Peek(); Unknown0BC.Peek(); Unknown0BC.Peek();
+	Unknown0BC->Unknown_780810(client->Peek_Environment_Map_Manager());
+	Unknown0BC->Unknown232 = true;
+	Unknown0B8->Unknown_84(Unknown0BC);
+	Unknown_54DC20(Unknown0B0, true);
+	if (Unknown0B8) {
+		Unknown0B8->Unknown_40(true);
+	}
+	Unknown_10();
+	Unknown_7C(View, true);
+	Unknown_54DFE0(2);
+	void (StarbaseAvatarCreationInterface::*function)(FlashingGadgetEvent *, GadgetClass *) = &StarbaseAvatarCreationInterface::Unknown_551320;
+	SignalMap *notifier = &GadgetClass::Get_Signal_Map();
+	notifier->connect(NULL, new UIAvatarCustCallbackClass(this, function));
+	FontSys *title = Unknown_BE67C4->Get_Style("title_buy_avatar00", InterfaceMesh->Peek_Object());
+	if (title) {
+		title->Change_Text(Unknown0BC->Desc.Get_Full_Name().c_str(), 0);
+	}
+	Unknown_551520(true);
+	Unknown_551C80();
 }
 
 // 0x54CAE0
@@ -2121,89 +2204,6 @@ void StarbaseAvatarCreationInterface::Unknown_550A10()
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // 0x551320
 void StarbaseAvatarCreationInterface::Unknown_551320(FlashingGadgetEvent *event, GadgetClass *sender)
 {
@@ -2369,8 +2369,8 @@ void StarbaseAvatarCreationInterface::Unknown_551C80()
 **	through SignalMap::Remove, its base SignalBaseClass::EventCallbackClass<FlashingGadgetEvent>'s constructor
 **	0x551EE0 out of line as the client's; 0x551EE0-0x551F70 exact with it). NOT EXACT: 0x54DFE0 (the tab
 **	switch: inline budget, as ui_avatr.cpp's 0x556B20), 0x54F390 (the head pull dragged: one byte), 0x54F6F0 (the
-**	tattoo pull: order-only), 0x54FFC0 (order-only) and 0x5502F0 (two bools' stack slots). Not rebuilt: Init
-**	0x54BD30 (slot +0x54). The key handler 0x54CBC0 (slot +0x68) functional (CS1, 2026-11-04; NOT EXACT 0.42).
+**	tattoo pull: order-only), 0x54FFC0 (order-only) and 0x5502F0 (two bools' stack slots). Init 0x54BD30
+**	(slot +0x54) exact (SA, 2026-11-20). The key handler 0x54CBC0 (slot +0x68) NOT EXACT (masked 31, SA 2026-11-20).
 **	+0xC0 is the old look (an AvatarDescClass, 0x10C bytes, up to the gadgets at +0x1CC), the avatar's +0xF8
 **	the new one; the +0xB8 gadget is ship_pip.cpp's (ship_pip.h's ShipPipClass).
 */
