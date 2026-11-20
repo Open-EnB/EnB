@@ -2976,7 +2976,7 @@ void RegistrationInterface::Unknown_5FBD30()
 
 
 	char *password;
-	char *retype; Unknown108.size(); Unknown108.size(); Unknown108.size(); Unknown108.size();   // D272: dead reads
+	char *retype; Unknown108.size();   // D272: dead reads
 	switch (UnknownD4) {
 		case 0x17:
 			Unknown_5F3770(0);
