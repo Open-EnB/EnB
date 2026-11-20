@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1971 |
 | 2 | describes what the code does | 4991 |
-| 1 | neutral placeholder | 25168 |
+| 1 | neutral placeholder | 25165 |
 
 ## For review (score 3 and below)
 
@@ -95,11 +95,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `aux_lego.h` | `app/client/aux_lego.h:9` | provisional file name (the client's headers are not named by any string) |
 | 1 | `aux_manu.h` | `app/client/aux_manu.h:9` | provisional file name (the client's headers are not named by any string) |
 | 1 | `aux_player.h` | `app/client/aux_player.h:9` | provisional file name (the client's headers are not named by any string) |
-| 1 | `aux_roots.cpp` | `app/client/aux_roots.cpp:3` | provisional file name (the client's constructors are in co.cpp 0x6F6000-0x6FBEF0 and the Player object 0x751BE0) |
-| 1 | `UnknownRootClass` | `app/client/aux_roots.cpp:8` | untagged neutral name (D10) |
-| 1 | `Unknown_Create_Aux_Root` | `app/client/aux_roots.cpp:8` | untagged neutral name (D10) |
-| 1 | `Unknown80` | `app/client/aux_roots.cpp:43` | untagged neutral name (D10) |
-| 1 | `AuxRootsSymbolPadType` | `app/client/aux_roots.cpp:68` | a build aid (HX1) |
 | 1 | `aux_roots.h` | `app/client/aux_roots.h:8` | provisional file name (the client's code is in co.cpp and an unattributed object) |
 | 1 | `Unknown9C` | `app/client/aux_roots.h:178` | neutral (D10): a member, not a field of the tree |
 | 1 | `UnknownRootClass` | `app/client/aux_roots.h:502` | untagged neutral name (D10) |
@@ -2030,6 +2025,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6F5ED0` | `app/client/co.cpp:1183` | untagged neutral name (D10) |
 | 1 | `Unknown_6F58B0` | `app/client/co.cpp:1192` | untagged neutral name (D10) |
 | 1 | `Unknown_6F5F60` | `app/client/co.cpp:1201` | untagged neutral name (D10) |
+| 1 | `Unknown80` | `app/client/co.cpp:1250` | untagged neutral name (D10) |
 | 1 | `Unknown_74D990` | `app/client/co.cpp:1484` | untagged neutral name (D10) |
 | 1 | `Unknown113C` | `app/client/co.cpp:1569` | untagged neutral name (D10) |
 | 1 | `Unknown_6E9490` | `app/client/co.cpp:1570` | untagged neutral name (D10) |
@@ -2083,6 +2079,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_700860` | `app/client/co.cpp:2587` | untagged neutral name (D10) |
 | 1 | `Unknown_7009A0` | `app/client/co.cpp:2595` | untagged neutral name (D10) |
 | 1 | `UnknownRTTIClass` | `app/client/co.cpp:2648` | untagged neutral name (D10) |
+| 1 | `CoSymbolPadType` | `app/client/co.cpp:2688` | a build aid (HX1) |
 | 1 | `UnknownRootClass` | `app/client/co.h:48` | untagged neutral name (D10) |
 | 1 | `object` | `app/client/co.h:49` | neutral |
 | 1 | `Unknown_731FA0` | `app/client/co.h:49` | untagged neutral name (D10) |
@@ -24984,15 +24981,15 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown98` | `tests/auxdata_smoke/auxdata_smoke.cpp:53` | untagged neutral name (D10) |
 | 1 | `Unknown_All` | `tests/auxdata_smoke/auxdata_smoke.cpp:54` | untagged neutral name (D10) |
 | 1 | `Unknown70` | `tests/auxdata_smoke/auxdata_smoke.cpp:94` | untagged neutral name (D10) |
-| 1 | `Unknown70` | `tests/auxreplay/auxreplay.cpp:103` | untagged neutral name (D10) |
-| 1 | `Unknown_3C` | `tests/auxreplay/auxreplay.cpp:117` | untagged neutral name (D10) |
-| 1 | `Unknown_40` | `tests/auxreplay/auxreplay.cpp:118` | untagged neutral name (D10) |
-| 1 | `Unknown_44` | `tests/auxreplay/auxreplay.cpp:119` | untagged neutral name (D10) |
-| 1 | `UnknownRootClass` | `tests/auxreplay/auxreplay.cpp:123` | untagged neutral name (D10) |
-| 1 | `Unknown7C` | `tests/auxreplay/auxreplay.cpp:225` | untagged neutral name (D10) |
-| 1 | `Unknown98` | `tests/auxreplay/auxreplay.cpp:436` | untagged neutral name (D10) |
-| 1 | `Unknown_All` | `tests/auxreplay/auxreplay.cpp:437` | untagged neutral name (D10) |
-| 1 | `UnknownSendRootClass` | `tests/auxreplay/auxreplay.cpp:466` | untagged neutral name (D10) |
+| 1 | `Unknown70` | `tests/auxreplay/auxreplay.cpp:104` | untagged neutral name (D10) |
+| 1 | `Unknown_3C` | `tests/auxreplay/auxreplay.cpp:118` | untagged neutral name (D10) |
+| 1 | `Unknown_40` | `tests/auxreplay/auxreplay.cpp:119` | untagged neutral name (D10) |
+| 1 | `Unknown_44` | `tests/auxreplay/auxreplay.cpp:120` | untagged neutral name (D10) |
+| 1 | `UnknownRootClass` | `tests/auxreplay/auxreplay.cpp:124` | untagged neutral name (D10) |
+| 1 | `Unknown7C` | `tests/auxreplay/auxreplay.cpp:226` | untagged neutral name (D10) |
+| 1 | `Unknown98` | `tests/auxreplay/auxreplay.cpp:437` | untagged neutral name (D10) |
+| 1 | `Unknown_All` | `tests/auxreplay/auxreplay.cpp:438` | untagged neutral name (D10) |
+| 1 | `UnknownSendRootClass` | `tests/auxreplay/auxreplay.cpp:467` | untagged neutral name (D10) |
 | 1 | `Unknown_563760` | `tests/clienttest/client_stubs.cpp:17` | untagged neutral name (D10) |
 | 1 | `Clienttest_Unknown_563760` | `tests/clienttest/client_stubs.cpp:17` | untagged neutral name (D10) |
 | 1 | `Unknown_75A570` | `tests/clienttest/client_stubs.cpp:33` | untagged neutral name (D10) |
