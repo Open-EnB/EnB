@@ -15,7 +15,7 @@ extern RandomClass Unknown_BDBB84;	// NAME 1 [Unknown_BDBB84]: neutral (D10), as
 
 // 0xB9D668: the talk animations' levels (the first one above the value; 5 past the last)
 static const char Unknown_B9D668[5] = { 7, 15, 30, 45, 60 };	// NAME 1 [Unknown_B9D668]: neutral (D10)
-
+#pragma auto_inline(off)
 // 0x78E190: the path of fname in dir, unless fname already holds dir
 void Unknown_78E190(char *path, const char *dir, const char *fname, const char *ext)	// NAME 1: neutral (D10)
 {
@@ -34,7 +34,7 @@ void Unknown_78E190(char *path, const char *dir, const char *fname, const char *
 	}
 	_makepath(path, NULL, dir, fname, ext);
 }
-
+#pragma auto_inline(on)
 
 // 0x78E2C0
 void Unknown_78E2C0(char *path, const char *fname)	// NAME 1: neutral (D10)
@@ -59,7 +59,7 @@ static int __cdecl Unknown_78E870(const void *a, const void *b)	// NAME 1: neutr
 }
 
 // 0x78E330
-// NOT EXACT: functional for POC (D64), inline-budget (the client calls 0x78E190 and 0x78E8F0; ours inlines them)
+// NOT EXACT: functional for POC (D64), shape (0x78E190 out of line through auto_inline(off), its only caller; the inlined 0x78E8F0 keeps &Index[c].Count in ecx, 0x78E6F1)
 NLPLexiconClass::NLPLexiconClass(const char *filename)
 {
 	Initialized = false;
