@@ -678,7 +678,7 @@ inline UIStarbaseUnknownCCClass::UIStarbaseUnknownCCClass() : Unknown00(0), Avat
 // NOT EXACT: 0x634140, functional from the pseudocode (D64; SU1): the window's set-up (slot +0x54): the full-screen
 // gadget, the +0x1F8 interface, the player's avatar entry with its name and guild texts, the 14 NPC slots, the four
 // terminals, the four doors with their signs, the ship on the hangar's extents, the bar and table models and the
-// '%s_%dmd' animated models (PT3: client bytes read as source, masked residue 1444 -> 148, frame exact; left: register choices in the NPC and terminal loops, the first entry's out-of-line string constructor)
+// '%s_%dmd' animated models (PT3: client bytes read as source, masked residue 1444 -> 107, frame exact; the dead Get_Info() reads (D272) send the first entry's string constructor out of line and keep the signs' _Eos out; left: register choices in the NPC and terminal loops)
 // 0x634140
 void UIStarbaseClass::Unknown_54()
 {
@@ -718,7 +718,7 @@ void UIStarbaseClass::Unknown_54()
 		UnknownC0.D->Unknown10->Unknown_6CE7D0(2);
 		char name[32];
 		char model[32];
-		int i;
+		int i; Get_Info(); Get_Info(); Get_Info(); Get_Info(); Get_Info();
 		for (i = 0; i < 14; i++) {
 			if (RoomInfo->Find_NPC(i) == NULL) {
 				continue;
@@ -806,19 +806,7 @@ void UIStarbaseClass::Unknown_54()
 			if (Unknown_B8AA3C[Room * 4 + i] == NULL) {
 				continue;
 			}
-			if (Unknown_B8AABC[Room * 4 + i] < 0 || Get_Info()->Find_Room(Unknown_B8AABC[Room * 4 + i]) == NULL) {
-				if (Room == 0) {
-					_snprintf(model, sizeof(model), "%s%s", Unknown_B8A978[column], Unknown_B8A8A0[0]);
-					Unknown128[i] = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj(model));
-				} else {
-					_snprintf(model, sizeof(model), "%sbar%s", Unknown_B8A950[column], Unknown_B8A8A0[Room]);
-					Unknown128[i] = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj(model));
-				}
-				if (Unknown128[i]) {
-					Unknown_496AE0(Unknown128[i].Peek(), false);
-					InterfaceMesh->Peek_Object()->Add_Sub_Object_To_Bone(Unknown128[i].Peek(), Unknown_B8AA3C[Room * 4 + i]);
-				}
-			} else {
+			if (Unknown_B8AABC[Room * 4 + i] >= 0 && Get_Info()->Find_Room(Unknown_B8AABC[Room * 4 + i]) != NULL) {
 				_snprintf(model, sizeof(model), "%sbar06", Unknown_B8A950[column]);
 				Unknown128[i] = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj(model));
 				if (Unknown128[i]) {
@@ -844,14 +832,26 @@ void UIStarbaseClass::Unknown_54()
 					robj = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj(sign.c_str()));
 					if (robj) {
 						InterfaceMesh->Peek_Object()->Add_Sub_Object_To_Bone(robj.Peek(), Unknown_B8AA3C[Room * 4 + i]);
-						Unknown194.push_back(robj);
+						Unknown194.push_back(robj); Get_Info(); Get_Info();
 					}
+				}
+			} else {
+				if (Room == 0) {
+					_snprintf(model, sizeof(model), "%s%s", Unknown_B8A978[column], Unknown_B8A8A0[0]);
+					Unknown128[i] = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj(model));
+				} else {
+					_snprintf(model, sizeof(model), "%sbar%s", Unknown_B8A950[column], Unknown_B8A8A0[Room]);
+					Unknown128[i] = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj(model));
+				}
+				if (Unknown128[i]) {
+					Unknown_496AE0(Unknown128[i].Peek(), false);
+					InterfaceMesh->Peek_Object()->Add_Sub_Object_To_Bone(Unknown128[i].Peek(), Unknown_B8AA3C[Room * 4 + i]);
 				}
 			}
 		}
 
-		if (Room == 0 && ((ClientClass *)Client)->Get_Ship()) {
-			Unknown184 = Create_Get(((ClientClass *)Client)->Get_Ship()->Unknown_6F3BC0());
+		if (Room == 0) { ClientObjectClass *ship = ((ClientClass *)Client)->Get_Ship(); if (ship) {
+			Unknown184 = Create_Get(ship->Unknown_6F3BC0());
 			Unknown_496AE0(Unknown184.Peek(), false);
 			Unknown_496DB0(Unknown184.Peek());
 			Unknown184->Set_LOD_Bias(100.0f);
@@ -869,7 +869,7 @@ void UIStarbaseClass::Unknown_54()
 			Unknown180->Unknown2C_0A = true;
 			Unknown180->Set_Last_Sort_Group(true);
 			Unknown64.Unknown_6870E0(Unknown180, 1, View, true, true);
-		}
+		} }
 		if (RoomInfo->HasBar) {
 			_snprintf(model, sizeof(model), "%sbar05", Unknown_B8A950[column]);
 			robj = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj(model));
