@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-816 entries in 298 files.
+813 entries in 298 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -339,11 +339,9 @@ edit the comments in the code, not this file.
 | `app/client/tasks/settings_store.cpp:376` | `Unknown_7CA2D0Class::Unknown_7CB8F0` | marker | NOT EXACT: order-only (the same 231 instructions: the client zeroes the count before the read's arguments are pushed and reloads a handle one instruction earlier at the end) |
 | `app/client/tasks/settings_store.cpp:545` | `Unknown_7CA2D0Class::Get_String` | mention | NOT EXACT (D64): 0x7CB8F0 (order-only: two instructions out of place). Other files still reach 0x7CB2E0 / 0x7CB240 / 0x7CA570 / 0x7CAD00 through local stand-in classes (ui_login.cpp, ui_popupmsg.cpp, ui_popup_browser.cpp, ui_registration.cpp, unknown_msgbox.cpp). |
 | `app/client/tasks/tsk_login.cpp:271` | `LoginTaskClass::Run` | marker | NOT EXACT: register-only (the final Process_Packets call loads the vtable in edx, the client eax; attempts.py show 0x767F50) |
-| `app/client/tasks/tsk_login.cpp:456` | `LoginTaskClass::Unknown_50` | marker | NOT EXACT: register-only (the slot reference and the Selected local before the last temporary are the client's (15 -> 6 rows); left: the client's first test leaves &slot.ID (lea +0x98) and Is_Registered_Character recomputes the index, ours reuses the reference; attempts.py show 0x7683F0) 0x7683F0 |
 | `app/client/tasks/tsk_login.cpp:644` | `LoginTaskClass::Go_Next_Step` | marker | NOT EXACT: register-only (the client keeps 1 in ebx from before the jump table for every flag store and step 1, as Go_Back_Step; step 1 stored before the flag and step 5 without the step check as in the client; attempts.py show 0x769500) 0x769500 |
 | `app/client/tasks/tsk_login.cpp:711` | `LoginTaskClass::Go_Back_Step` | marker | NOT EXACT: register-only (0.46; the client keeps 1 in ebx for the flag and step 1; the cases' order and step 1's stores are the client's block layout; attempts.py show 0x769680) |
 | `app/client/tasks/tsk_login.cpp:829` | `LoginTaskClass::Unknown_64` | marker | NOT EXACT: register-only (one 'return true' at the end shares the client's tails; left: the version's Major in edx (client eax) and the CANCEL box's ecx / edx; attempts.py show 0x7698E0) 0x7698E0 |
-| `app/client/tasks/tsk_login.cpp:963` | `LoginTaskClass::Start_Game` | marker | NOT EXACT: register-only (the client keeps the kernel in ebx, ours spills it; attempts.py show 0x769E70) 0x769E70 |
 | `app/client/tasks/tsk_login.cpp:1098` | `LoginTaskClass::Fetch_EA_Ticket` | marker | NOT EXACT: shape (the client merges the two message boxes' tails; attempts.py show 0x76A7B0) 0x76A7B0 |
 | `app/client/textgadg.cpp:389` | `TextGadgetClass::Unknown_6AAD10` | marker | NOT EXACT: registers and stack (0.58; 0x128 bytes of locals in the client, 0x12C here): the client keeps the text in ebx and &Text in ebp (recomputed after the width loop), here &Text in ebx and the text spilled |
 | `app/client/tooltip.cpp:93` | `UIViewUnknown30Class::Unknown_6AB5B0` | marker | NOT EXACT: register (0.80): the view's loads for the second 0x65F5F0 call and the sort object go to eax / ecx the other way round |
@@ -391,7 +389,6 @@ edit the comments in the code, not this file.
 | `app/client/ui_buff.cpp:216` | `UIBuffClass::Unknown_561030` | marker | NOT EXACT: inline-budget (the client calls ~vector 0x561B80 out of line on the new-buff path; the find 0x561C40 matches) |
 | `app/client/ui_buff.cpp:287` | `UIBuffClass::Unknown_561B40` | mention | NOT EXACT (inline budget); the static is defined first (its asserts are on lines 197 / 205, and defined after 0x561030 the BuffInfoStruct destructor 0x561A60 does not match). The COMDATs they bring: the destructors 0x561A60 / 0x5619D0 and the vector's _Destroy 0x561BD0 match; auxdata.h's find 0x561C40 and ~vector 0x561B80 are inlined in ours. After the slots: the adjustor thunks 0x561D60 (-4) / 0x... |
 | `app/client/ui_chat_panel.cpp:260` | `ChatPanelInterface::~ChatPanelInterface` | marker | NOT EXACT: inline-budget/shape: 1220B, sim 0.50 (4 dead size() reads send _Eos out of line; UnknownD4=NULL 0x56CC30, Remove 0x56CE40, ChatInt=NULL 0x56CD50, ~list erase still inline) @0x562440 0x562410 / 0x562440 |
-| `app/client/ui_chat_panel.cpp:447` | `ChatPanelInterface::Unknown_54` | marker | NOT EXACT: register: 351 vs 352 insns (2 dead size() reads send string::assign 0x562D8E out of line; ebp vs ebx zero-reg choice) @0x5629E0 0x5629E0 |
 | `app/client/ui_chat_panel.cpp:521` | `ChatPanelInterface::Unknown_60` | marker | NOT EXACT: register (the client copies the lag light's table pointer to edx for Is_Hidden, ebx in ours; then eax / edx swapped at As_Space_Client); 0x56C0C0 is out of line through auto_inline(off), as the client 0x5630B0 |
 | `app/client/ui_chat_panel.cpp:640` | `ChatPanelInterface::Unknown_563910` | marker | NOT EXACT: inline-budget (the second branch's name copy: the client inlines assign with _Grow out of line, ours expands _Grow; frame 0xC vs 8) 0x563910 |
 | `app/client/ui_chat_panel.cpp:830` | `ChatPanelInterface::Unknown_5646A0` | marker | NOT EXACT: register-only (1 row): case 3's inlined "Group" _Eos stores [ecx+eax] where the client has [eax+ecx]; attempts.py show 0x5646A0 @0x5646A0 0x5646A0: talk on channel 'channel' (0..5 channels, 6..8 +0x158 names, 9 reply); false on chat if unavailable (Guild/Group keeps channel) |

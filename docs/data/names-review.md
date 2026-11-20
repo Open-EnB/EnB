@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1971 |
 | 2 | describes what the code does | 4991 |
-| 1 | neutral placeholder | 25168 |
+| 1 | neutral placeholder | 25169 |
 
 ## For review (score 3 and below)
 
@@ -5335,8 +5335,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `LoginUnknown18Class` | `app/client/gutter_data.cpp:447` | untagged neutral name (D10) |
 | 1 | `Unknown_18` | `app/client/gutter_data.cpp:451` | untagged neutral name (D10) |
 | 1 | `Unknown04` | `app/client/gutter_data.cpp:455` | untagged neutral name (D10) |
-| 1 | `Unknown1C` | `app/client/gutter_data.cpp:466` | untagged neutral name (D10) |
-| 1 | `Unknown20` | `app/client/gutter_data.cpp:467` | untagged neutral name (D10) |
+| 1 | `Unknown20` | `app/client/gutter_data.cpp:466` | untagged neutral name (D10) |
+| 1 | `Unknown1C` | `app/client/gutter_data.cpp:467` | untagged neutral name (D10) |
 | 1 | `Unknown_6D5B10` | `app/client/gutter_data.cpp:484` | untagged neutral name (D10) |
 | 1 | `Unknown300` | `app/client/gutter_data.cpp:486` | untagged neutral name (D10) |
 | 1 | `Set_Sort_Group, unused, group` | `app/client/gutter_data.h:38` | what it does; the first is never read |
@@ -22216,8 +22216,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_20` | `app/kernel/kernel.h:65` | untagged neutral name (D10) |
 | 1 | `Unknown_24` | `app/kernel/kernel.h:66` | untagged neutral name (D10) |
 | 1 | `Pre_Run` | `app/kernel/kernel.h:71` | Run_One_Cycle's order |
-| 1 | `Cycle_Focus` | `app/kernel/kernel.h:89` | what it does |
-| 1 | `Remove_Running` | `app/kernel/kernel.h:101` | what it does |
+| 1 | `Get_Kernel` | `app/kernel/kernel.h:78` | what it returns |
+| 1 | `Cycle_Focus` | `app/kernel/kernel.h:90` | what it does |
+| 1 | `Remove_Running` | `app/kernel/kernel.h:102` | what it does |
 | 1 | `Unknown_BDBB84` | `app/main/main.cpp:4` | neutral (D10) |
 | 1 | `Unknown_BDADC8` | `app/main/main.cpp:5` | neutral (D10) |
 | 1 | `Unknown_BDB1B8` | `app/main/main.cpp:6` | neutral (D10) |
@@ -28420,21 +28421,21 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Delete_On_Remove` | `app/kernel/kernel.h:74` | Remove_Task's use |
 | 2 | `Is_Focused` | `app/kernel/kernel.h:76` | what it does |
 | 2 | `Set_Kernel` | `app/kernel/kernel.h:77` | what it does |
-| 2 | `Shutdown` | `app/kernel/kernel.h:90` | the tasks' Shutdown, all |
-| 2 | `Process_Messages` | `app/kernel/kernel.h:91` | what it does |
-| 2 | `Is_Running` | `app/kernel/kernel.h:93` | what it does |
-| 2 | `Handle_Key` | `app/kernel/kernel.h:94` | what it does |
-| 2 | `Get_Instance` | `app/kernel/kernel.h:96` | returns the instance (assert 'Instance == NULL') |
-| 2 | `Add_Task` | `app/kernel/kernel.h:97` | what it does |
-| 2 | `Remove_Task` | `app/kernel/kernel.h:99` | what it does |
-| 2 | `Get_Task` | `app/kernel/kernel.h:100` | what it does |
-| 2 | `Run` | `app/kernel/kernel.h:102` | what it does |
-| 2 | `Is_Focus` | `app/kernel/kernel.h:103` | what it does |
-| 2 | `Get_Focus` | `app/kernel/kernel.h:104` | what it does |
-| 2 | `Next_Focus` | `app/kernel/kernel.h:105` | what it does |
-| 2 | `Set_Focus` | `app/kernel/kernel.h:106` | what it does |
-| 2 | `Process_Input` | `app/kernel/kernel.h:107` | what it does |
-| 2 | `Pump_Messages` | `app/kernel/kernel.h:108` | what it does |
+| 2 | `Shutdown` | `app/kernel/kernel.h:91` | the tasks' Shutdown, all |
+| 2 | `Process_Messages` | `app/kernel/kernel.h:92` | what it does |
+| 2 | `Is_Running` | `app/kernel/kernel.h:94` | what it does |
+| 2 | `Handle_Key` | `app/kernel/kernel.h:95` | what it does |
+| 2 | `Get_Instance` | `app/kernel/kernel.h:97` | returns the instance (assert 'Instance == NULL') |
+| 2 | `Add_Task` | `app/kernel/kernel.h:98` | what it does |
+| 2 | `Remove_Task` | `app/kernel/kernel.h:100` | what it does |
+| 2 | `Get_Task` | `app/kernel/kernel.h:101` | what it does |
+| 2 | `Run` | `app/kernel/kernel.h:103` | what it does |
+| 2 | `Is_Focus` | `app/kernel/kernel.h:104` | what it does |
+| 2 | `Get_Focus` | `app/kernel/kernel.h:105` | what it does |
+| 2 | `Next_Focus` | `app/kernel/kernel.h:106` | what it does |
+| 2 | `Set_Focus` | `app/kernel/kernel.h:107` | what it does |
+| 2 | `Process_Input` | `app/kernel/kernel.h:108` | what it does |
+| 2 | `Pump_Messages` | `app/kernel/kernel.h:109` | what it does |
 | 2 | `SoundManager` | `app/main/main_client.cpp:117` | what it holds |
 | 2 | `Size` | `app/packets/gameedit/pkgeaset.h:33` | what it holds |
 | 2 | `Transform` | `app/packets/gameedit/pkgeclon.h:33` | what it holds (twelve floats, copied whole) |
