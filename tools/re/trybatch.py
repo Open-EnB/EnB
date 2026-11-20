@@ -311,6 +311,47 @@ def own_mentions(text, addr):
     return list(dict.fromkeys(out))
 
 
+def untemplate(name):
+    """name without its template arguments: 'A<B<int> >::f' -> 'A::f'."""
+    while True:
+        new = re.sub(r'<[^<>]*>', '', name)
+        if new == name:
+            return name
+        name = new
+
+
+def class_mentions(text, addr):
+    """(Class::name, hint words) for each own marker of addr on a member declared inside a class / struct body
+    (`static T *Get(...)  // 0x79E300 (radar)` in a template's body: own_mentions gives the bare `Get`, which
+    every class has); the hint is the marker comment's words after the address (which instance it is)."""
+    lines = text.splitlines()
+    out = []
+    for k, line in enumerate(lines):
+        code, _, comment = line.partition('//')
+        first = ADDR_TOKEN.search(comment)
+        if not first or int(first.group(1), 16) != addr or '(' not in code:
+            continue
+        names = DEF_NAME.findall(code.split('(')[0] + '(')[-1:]
+        if not names or '::' in names[0]:
+            continue
+        depth, cls = 0, None
+        for j in range(k - 1, -1, -1):
+            c = lines[j].partition('//')[0]
+            depth += c.count('}') - c.count('{')
+            if depth < 0:
+                for back in range(j, max(-1, j - 4), -1):
+                    m = re.search(r'\b(?:class|struct)\s+(\w+)\s*(?::[^{;]*)?\{?\s*$',
+                                  lines[back].partition('//')[0])
+                    if m:
+                        cls = m.group(1)
+                        break
+                break
+        if cls:
+            hint = [w.lower() for w in re.findall(r'[A-Za-z]{4,}', comment[first.end():])]
+            out.append((f'{cls}::{names[0]}', hint))
+    return out
+
+
 def candidates(names, symbol, addr, texts=(), index=None):
     """(names, how): which of names (an object's mangled function names) SYMBOL means, found in order by an exact
     name (mangled, demangled or bare, as explain.py's pick), by the full signature (the build's symbols.txt: an
@@ -344,7 +385,40 @@ def candidates(names, symbol, addr, texts=(), index=None):
             got = exact(name)
             if got and ('::' in name or len({X.demangle(n) for n in got}) == 1):
                 return got, f"source's marker of 0x{addr:06X} ({name})"
+    for text in texts:
+        for name, hint in class_mentions(text, addr):
+            got = [n for n in names if untemplate(norm_sig(full(n))[0]) == name]
+            narrowed = [n for n in got if any(w in full(n).lower() for w in hint)]
+            if narrowed or got:
+                return narrowed or got, f"source's marker of 0x{addr:06X} in its class ({name})"
     return [], ''
+
+
+def client_length(addr):
+    """Bytes from addr to the next verified or proven start (explain.py's window end)."""
+    from clientimage import ClientImage
+    starts = sorted(set(ClientImage().function_starts()[0]) | set(X._names_at()))
+    return next((x for x in starts if x > addr), addr + 64) - addr
+
+
+def by_code(obj_path, addr, limit=40, least=0.8):
+    """An empty SYMBOL with no symbols.json name or marker at addr (a header static's `_$E` initialiser): the
+    object's functions whose size is within half to twice the client's length (up to limit, nearest first)
+    that score at least LEAST against addr, ordered by masked residue; [] when none does (a function defined
+    inline everywhere has no copy, and a near-length neighbour is no answer)."""
+    from objmatch import CoffObject
+    want = client_length(addr)
+    funcs = [f for f in CoffObject(obj_path).functions() if want / 2 <= f[3] - f[2] <= want * 2 + 16]
+    funcs.sort(key=lambda f: abs((f[3] - f[2]) - want))
+    scored = []
+    for name, _, _, _ in funcs[:limit]:
+        try:
+            r, _ = X.explain(obj_path, name, f'0x{addr:X}')
+        except (SystemExit, Exception):
+            continue
+        if score_of(r['residue'], r.get('ours', 1), r.get('client', 1)) >= least:
+            scored.append((r['residue'], name))
+    return [n for _, n in sorted(scored)]
 
 
 def resolve_symbol(obj_path, symbol, addr, texts=(), lib='app'):
@@ -353,6 +427,11 @@ def resolve_symbol(obj_path, symbol, addr, texts=(), lib='app'):
     from objmatch import CoffObject
     names = [f[0] for f in CoffObject(obj_path).functions()]
     got, how = candidates(names, symbol, addr, texts, lib_index(lib))
+    if not got and not symbol.strip():
+        got = by_code(obj_path, addr)
+        how = "code (the lowest residue of the object's functions near the client's length, score >= 0.8)"
+        if got:
+            return got[0], how
     if not got:
         key = re.sub(r'\s*\(.*$', '', symbol).split('::')[-1].strip().lower()
         near = [X.demangle(n) for n in names if key and key in X.demangle(n).lower()][:3]

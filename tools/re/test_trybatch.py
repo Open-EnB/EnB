@@ -324,6 +324,32 @@ class Resolve(unittest.TestCase):
         self.assertEqual(T.own_mentions(SRC_MARKED, 0x571A70), [])          # mentioned, but not its own marker
         self.assertEqual(T.own_mentions(SRC_MARKED, 0x867250), ['Packet_00B3Class'])
 
+    def test_class_marker(self):
+        # TB3: a template member's marker inside its class body (co_data.h's Get, 0x79E300): the bare name is every
+        # instance's, the class qualifies it and the comment's word picks the instance
+        src = ('template <class T>\nclass ClientObjectDataAccessClass\n{\npublic:\n'
+               '\tstatic T *Get(ClientObjectClass *co, bool create)  // 0x123456 (radar) ...\n\t{\n\t}\n};\n')
+        self.assertEqual(T.untemplate('A<B<int> >::f'), 'A::f')
+        self.assertEqual(T.class_mentions(src, 0x123456), [('ClientObjectDataAccessClass::Get', ['radar'])])
+        got, how = self.cands('', [src])
+        self.assertEqual(got, [self.NAMES[5]])
+        self.assertIn('in its class', how)
+
+    def test_empty_symbol_by_code(self):
+        # TB3: SYMBOL '' with no name or marker at the address (a header static's _$E): the nearest-length
+        # functions ordered by residue
+        import objmatch
+        funcs = [('_$E28', 1, 0, 22), ('_$E29', 1, 30, 52), ('_$E30', 1, 60, 80), ('?big@@YAXXZ', 1, 90, 400)]
+        res = {'_$E28': 1, '_$E29': 0, '_$E30': 5}     # of 10 rows: 0.9, 1.0 and 0.5 (below 0.8: no answer)
+        old = (objmatch.CoffObject, T.client_length, T.X.explain)
+        try:
+            objmatch.CoffObject = lambda p: type('O', (), {'functions': lambda self: funcs})()
+            T.client_length = lambda addr: 22
+            T.X.explain = lambda o, n, a: ({'residue': res[n], 'ours': 10, 'client': 10}, None)
+            self.assertEqual(T.by_code('x.obj', 0x448BE0), ['_$E29', '_$E28'])
+        finally:
+            objmatch.CoffObject, T.client_length, T.X.explain = old
+
     def test_base_needs_no_forms(self):
         with tempfile.TemporaryDirectory() as d:
             p = os.path.join(d, 'v.py')
