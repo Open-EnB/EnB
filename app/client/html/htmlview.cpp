@@ -1328,8 +1328,8 @@ bool HtmlViewClass::Draw_Block(HtmlBlockClass *block, int x, int y, int width, i
 	return true;
 }
 
-// NOT EXACT: 0x7767A0, the client saves ebx / esi only after the Type test (its early returns pop two
-// registers); the text loop's loads are scheduled differently
+// NOT EXACT: 0x7767A0, the text loop's setup loads are scheduled differently (the client holds item
+// in esi before strlen)
 bool HtmlViewClass::Draw_Item(HtmlBlockClass *block, HtmlItemStruct *item, int offx, int offy, int clipx, int clipy, int clipw, int cliph)
 {
 	if (Surf == NULL)
@@ -1372,12 +1372,12 @@ bool HtmlViewClass::Draw_Item(HtmlBlockClass *block, HtmlItemStruct *item, int o
 		DeleteObject(region);
 
 		int length = strlen(text);
-		int y = item->Y - offy;
 		int itemh = item->Height;
 		int x = item->X - offx;
 		int right = item->Width + x;
 		int widest = 0;
 		int dy = 0;
+		int y = item->Y - offy;
 		while (length != 0) {
 			SIZE size;
 			int n = 1;
@@ -1409,14 +1409,13 @@ bool HtmlViewClass::Draw_Item(HtmlBlockClass *block, HtmlItemStruct *item, int o
 			length -= n;
 		}
 		Surf->ReleaseDC(hdc);
-		return true;
+
 	}
 
-	if (strcmp(type, "HR") == 0) {
+	else if (strcmp(type, "HR") == 0) {
 		Draw_Bevel(item->X - offx, item->Y - offy, item->Width, item->Height, clipx, clipy, clipw, cliph, 1, true);
-		return true;
-	}
-	if (strcmp(type, "LI") == 0) {
+
+	} else if (strcmp(type, "LI") == 0) {
 		HDC hdc = Surf->GetDC();
 		COLORREF color = 0;
 		char *value = item->Attributes.Get("Font.Colorref");
@@ -1431,19 +1430,20 @@ bool HtmlViewClass::Draw_Item(HtmlBlockClass *block, HtmlItemStruct *item, int o
 		FillRect(hdc, &rect, brush);
 		DeleteObject(brush);
 		Surf->ReleaseDC(hdc);
-		return true;
-	}
-	if (strcmp(type, "Table") == 0) {
+
+	} else if (strcmp(type, "Table") == 0) {
 		char *border = item->Attributes.Get("Border");
 		if (border != NULL) {
-			Draw_Bevel(item->X - offx, item->Y - offy, item->Width, item->Height, clipx, clipy, clipw, cliph, atol(border), true);
-			return true;
+			int width = atol(border);
+			Draw_Bevel(item->X - offx, item->Y - offy, item->Width, item->Height, clipx, clipy, clipw, cliph, width, true);
+
 		}
 	} else if (strcmp(type, "Cell") == 0) {
 		char *border = item->Attributes.Get("Border");
 		if (border != NULL) {
-			Draw_Bevel(item->X - offx, item->Y - offy, item->Width, item->Height, clipx, clipy, clipw, cliph, atol(border), false);
-			return true;
+			int width = atol(border);
+			Draw_Bevel(item->X - offx, item->Y - offy, item->Width, item->Height, clipx, clipy, clipw, cliph, width, false);
+
 		}
 	} else if (strcmp(type, "Image") == 0) {
 		char *url = item->Attributes.Get("URL");
@@ -1452,7 +1452,7 @@ bool HtmlViewClass::Draw_Item(HtmlBlockClass *block, HtmlItemStruct *item, int o
 			Images.get(image, i);
 			if (strcmp(image->Get_Name(), url) == 0) {
 				image->Draw(Surf, item->X - offx, item->Y - offy, clipx, clipy, clipw, cliph);
-				return true;
+				break;
 			}
 		}
 	}
