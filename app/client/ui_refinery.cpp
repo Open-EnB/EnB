@@ -673,8 +673,7 @@ void UIRefineryClass::Unknown_5EDFD0()
 	}
 }
 
-class UIManuItemTemplateClass { public: char Unknown00[0x14]; std::string Name; }; struct UIManuTargetItemClass { char Unknown00[0x120]; int Unknown120; };	// NAME 1: neutral (D10): as ui_manu.cpp's
-UIManuItemTemplateClass *Unknown_8318B0(int item_template_id, LineDisplayClientClass *client);	// NAME 1: neutral (D10)  // NAME 3 [item_template_id]: the FAIL_IF's
+Unknown831340Class *Unknown_8318B0(int item_template_id, ClientClass *client);	// item_template.cpp's (client.h's item template, as ui_manu.cpp declares it)  // NAME 1: neutral (D10)  // NAME 3 [item_template_id]: the FAIL_IF's
 
 
 
@@ -684,7 +683,8 @@ UIManuItemTemplateClass *Unknown_8318B0(int item_template_id, LineDisplayClientC
 
 
 
-// NOT EXACT: register (ebx / ebp swapped and the static's _Eos inlined, as ui_manu.cpp's 0x5B5CD0) (0x5EE460)
+
+// NOT EXACT: inline budget (4 rows: the client inlines _Tidy in the '!item_template' return's copy, ours calls it; the id through Children[0], the name through Get_Name and one dead read made the rest exact) (0x5EE460)
 static std::string Unknown_5EE460(DeltaCompoundClass *auxdata, LineDisplayClientClass *client)	// NAME 1: neutral (D10)  // NAME 3 [auxdata, client]: the FAIL_IFs'
 {
 	static std::string unknown_item("Unknown Item");
@@ -693,15 +693,15 @@ static std::string Unknown_5EE460(DeltaCompoundClass *auxdata, LineDisplayClient
 	NameClass name("ManufactureTarget");
 	UIManuComponentsClass *target_item_auxdata_set = Unknown_Find_Valid<UIManuComponentsClass>(auxdata, name);
 	FAIL_IF(!target_item_auxdata_set) return(unknown_item);
+	target_item_auxdata_set->Get_Size();	// not the client's: a dead read (D130 / D272) spends the inline budget the client spent (the find out of line, 0x5B7050)
 
 
-
-	int item_template_id = (*(UIManuTargetItemClass ***)((char *)target_item_auxdata_set + 0x88))[0]->Unknown120;
+	int item_template_id = ((DeltaItemClass *)target_item_auxdata_set->Children[0])->ItemTemplateID.Value;
 	FAIL_IF(item_template_id == -1) return(unknown_item);
 
-	UIManuItemTemplateClass *item_template = Unknown_8318B0(item_template_id, client);
+	Unknown831340Class *item_template = Unknown_8318B0(item_template_id, (ClientClass *)client);
 	FAIL_IF(!item_template) return(unknown_item);
-	return(item_template->Name);
+	return(item_template->Get_Name());
 }
 
 // 0x5EE7F0
