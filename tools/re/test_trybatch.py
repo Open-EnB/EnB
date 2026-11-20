@@ -379,7 +379,7 @@ class Leases(unittest.TestCase):
         real = T.subprocess.run
         T.subprocess.run = fake
         try:
-            got = list(T.lease_iter(8, 'tb', lambda s: None))
+            got = list(T.lease_iter(8, 'tb', lambda s: None, parallel=1))
             self.assertEqual(got, [('enb-vc6-01', 'u@10.0.0.1'), ('enb-vc6-02', 'u@10.0.0.2'), ('enb-vc6-03', 'u@10.0.0.3')])
             self.assertEqual(len(calls), 4)            # the refusal ends it (no retry past the first VM)
             calls.clear()
@@ -387,6 +387,29 @@ class Leases(unittest.TestCase):
             self.assertEqual(len(got), 1)              # nothing left to compile: no second VM
         finally:
             T.subprocess.run = real
+
+    def test_parallel_rounds(self):
+        # TB3: after the first VM, up to PARALLEL requests at once (a lease takes ~37 s); a round all refused ends it
+        import threading
+        lock, calls = threading.Lock(), []
+
+        def fake(cmd, **kw):
+            with lock:
+                calls.append(cmd)
+                n = len(calls)
+            if n <= 3:
+                return types.SimpleNamespace(returncode=0, stdout=f'ENB_VC6_HOSTS=u@10.0.0.{n}\n',
+                                             stderr=f'enb-vc6-0{n}: 10.0.0.{n} ready\n')
+            return types.SimpleNamespace(returncode=3, stdout='', stderr='pool cap\n')
+        real = T.subprocess.run
+        T.subprocess.run = fake
+        try:
+            got = list(T.lease_iter(8, 'tb', lambda s: None, parallel=4))
+        finally:
+            T.subprocess.run = real
+        self.assertEqual(sorted(n for n, _ in got), ['enb-vc6-01', 'enb-vc6-02', 'enb-vc6-03'])
+        self.assertEqual(len(calls), 9)              # 1, a round of 4 (2 served), a round of 4 refused
+        self.assertEqual([c[c.index('--wait') + 1] for c in calls].count('900'), 1)
 
     def test_poll_while_forms_wait(self):
         # TB3: with poll, a refusal after the first VM waits and retries while forms wait; a VM freed meanwhile joins
@@ -409,7 +432,8 @@ class Leases(unittest.TestCase):
         real = T.subprocess.run
         T.subprocess.run = fake
         try:
-            got = list(T.lease_iter(8, 'tb', lambda s: None, more=lambda: left[0] > 0, poll=30, sleep=sleep))
+            got = list(T.lease_iter(8, 'tb', lambda s: None, more=lambda: left[0] > 0, poll=30, sleep=sleep,
+                                    parallel=1))
         finally:
             T.subprocess.run = real
         self.assertEqual([n for n, _ in got], ['enb-vc6-01', 'enb-vc6-04'])

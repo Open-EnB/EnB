@@ -44,9 +44,10 @@ the tree file's own folder put on the include list so its relative #includes sti
 found when the draft includes them (quoted, from the draft's folder) or through <>: their overlay folders go first
 on the include list; a tree header's own quoted #include of its neighbour still finds the tree's copy (VC6 searches
 the including file's folder first). The tree, the importer lock and the ledger are never touched.
-VMs (D273: the host used fully): --vms K caps them (default: one per compile); they are leased one at a time from
+VMs (D273: the host used fully): --vms K caps them (default: one per compile); they are leased from
 pool.py under $ENB_AGENT (else trybatch-<pid>) until pool.py refuses (its cap, its memory reserve): the first waits
-up to 15 minutes (one retry), the others are taken when free (a refusal is retried every 30 s while forms wait), and
+up to 15 minutes (one retry), the others are taken when free (asked 4 at once: a lease takes ~37 s; a round all
+refused is retried every 30 s while forms wait), and
 each starts compiling as soon as it is ready; each is released as soon as the queue has no form left for it (all,
 whatever happens, by the batch's end). The summary's first line gives the VMs, the time and the forms per VM. --no-lease uses ENB_VC6_HOSTS / vc6_hosts.json as given
 (a lease you already hold). One thread per distinct host (two on one VM collide on sync.tar); forms are queued
@@ -705,35 +706,58 @@ def slot_lines(rows):
 
 # ---------------------------------------------------------------- VMs
 
-def lease_iter(k, agent, log, more=lambda: True, poll=0, sleep=time.sleep):
-    """Lease up to k VMs one at a time, yielding (name, host) as each is ready: the first waits (bounded), the
-    others only if free now (pool.py's cap and memory reserve decide how many); stops early once more() is false.
-    poll > 0: a refusal after the first VM is retried every poll seconds while more() holds (a VM another agent
-    releases mid-batch joins it; nothing is held once the queue is empty)."""
+def lease_iter(k, agent, log, more=lambda: True, poll=0, sleep=time.sleep, parallel=4):
+    """Lease up to k VMs, yielding (name, host) as each is ready: the first waits (bounded, one retry); the others
+    are asked for only if free now (pool.py's cap and memory reserve decide how many), up to PARALLEL requests at
+    once (a pool.py lease takes ~37 s on the host: one at a time, the third VM of a 15-form batch came after it
+    had finished); stops once more() is false. poll > 0: when every request of a round is refused, a new round
+    follows every poll seconds while more() holds (a VM another agent releases mid-batch joins the batch)."""
     pool = [sys.executable, os.path.join(REPO, 'tools', 'vc6', 'pool.py')]
-    n = 0
-    while n < k:
-        if n and not more():
-            return
-        for attempt in range(2):
-            p = subprocess.run(pool + ['lease', '--agent', agent, '--count', '1', '--wait', '900' if n == 0 else '0'],
-                               capture_output=True, text=True)
-            log(p.stdout + p.stderr)
-            names = re.findall(r'^(\S+): \S+ ready', p.stderr, re.M)
-            line = [l for l in p.stdout.splitlines() if l.startswith('ENB_VC6_HOSTS=')]
-            if p.returncode == 0 and line and names:
-                yield names[0], line[-1].split('=', 1)[1].split(',')[0]
+
+    def ask(wait):
+        p = subprocess.run(pool + ['lease', '--agent', agent, '--count', '1', '--wait', str(wait)],
+                           capture_output=True, text=True)
+        log(p.stdout + p.stderr)
+        names = re.findall(r'^(\S+): \S+ ready', p.stderr, re.M)
+        line = [l for l in p.stdout.splitlines() if l.startswith('ENB_VC6_HOSTS=')]
+        if p.returncode == 0 and line and names:
+            return names[0], line[-1].split('=', 1)[1].split(',')[0]
+        release(names, log)
+        return None
+
+    for attempt in range(2):
+        got = ask(900)
+        if got:
+            break
+        sleep(5)
+    else:
+        return
+    yield got
+    n = 1
+    while n < k and more():
+        want = min(parallel, k - n)
+        if want == 1:
+            got = ask(0)
+            refused = not got
+            if got:
                 n += 1
-                break
-            release([x for x in names], log)
-            if n:      # at the cap or short of memory: no more VMs now
-                if not poll:
-                    return
-                sleep(poll)
-                break
-            sleep(5)
+                yield got
         else:
-            return
+            import concurrent.futures as cf
+            with cf.ThreadPoolExecutor(want) as ex:
+                futs = [ex.submit(ask, 0) for _ in range(want)]
+                outs = cf.as_completed(futs)
+                refused = True
+                for f in outs:
+                    got = f.result()
+                    if got:
+                        refused = False
+                        n += 1
+                        yield got
+        if refused:     # at the cap or short of memory: no more VMs now
+            if not poll:
+                return
+            sleep(poll)
 
 
 def lease(k, agent, log):

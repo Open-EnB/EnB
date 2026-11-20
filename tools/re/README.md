@@ -117,7 +117,7 @@ the last build's symbols.txt finds); `--base` / `base FILE SYMBOL ADDR` measure 
 TB3 (run 2026-11-19b): SYMBOL may be `''`: ADDRESS's symbols.json name, the source's marker (a member declared
 in a class body is qualified by its class, the marker's words pick a template's instance: co_data.h's Get
 0x79E300 `(radar)`), else by code (the object's functions near the client's length scoring >= 0.8: a header
-static's `_$E`); VMs freed mid-batch join it (a refused lease retried every 30 s while forms wait) and each VM
+static's `_$E`); VMs after the first are asked for 4 at once (a pool.py lease takes ~37 s), VMs freed mid-batch join it (a refused round retried every 30 s while forms wait) and each VM
 goes back as soon as the queue has nothing left for it; the first line gives VMs, time and forms per VM.
 Promoted from BG5's batch.py / regions.py, BG2's batch.py / symmap.py, BG1's rdiff.py and BG4's regions.py
 (run 2026-11-19).
