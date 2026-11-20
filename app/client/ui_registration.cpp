@@ -3679,7 +3679,7 @@ static const char *ProductBeta = "EB-BETA";  // NAME 1 [ProductBeta]: client .da
 static const char *RegistrationGameId = "2184";  // NAME 1 [RegistrationGameId]: client .data 0xB85EF0 (0x600000: 0x7D7E10's third argument, atoi'd against the game features' ids)
 // NOT EXACT: inline-budget (functional; the server boxes through 0x5FB890 and the back-outs through 0x5F8560 as the client inlines them, one per
 // branch; its cases in jump table 0x602AE4's layout order, case 3's !+0x1CE branch first, the US picks as if / else (the client's two compares 0x6022BD / 0x602362,
-// the other sites cross-jumped into them); the client's frame 0xB18 with three dead reads after the last back-out)
+// the other sites cross-jumped into them); the client's frame 0xB18 with five dead reads in case 0x10)
 // @0x600000
 void RegistrationInterface::Unknown_5F00C0()
 {
@@ -4101,7 +4101,7 @@ void RegistrationInterface::Unknown_5F00C0()
 			return;
 		case 0x10:
 			if (Unknown390.Unknown10 == 0) {
-				Unknown5A8 = Unknown1AC->Unknown_7D4530();
+				Unknown5A8 = Unknown1AC->Unknown_7D4530(); UnknownD8.size(); UnknownD8.size();   // D272: dead reads (swept 0-3 here x 0-6 at the end and one at each case start)
 				Unknown_5F3770(0xB);
 				return;
 			}
