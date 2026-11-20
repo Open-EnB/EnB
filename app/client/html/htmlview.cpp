@@ -466,7 +466,7 @@ static int Get_Value(int offset, Wstring &tag, Wstring &value);  // 0x7784D0
 
 
 
-// NOT EXACT: 0x7710D0, register allocation (the strcmp chains, the cached link count); budget and frame as the client's
+// NOT EXACT: 0x7710D0, register allocation (item spills, the cached link count, <body>'s add clamp); budget and frame as the client's
 int HtmlViewClass::Parse(HtmlLinkStruct *link, HtmlBlockClass *block, int offset)
 {
 	char *start;
@@ -708,9 +708,9 @@ int HtmlViewClass::Parse(HtmlLinkStruct *link, HtmlBlockClass *block, int offset
 					block->LineStartX -= spacing;
 					int align = block->Get_Align();
 					if (align == 0) {
-						block->LineStartX -= (block->Get_Width() - item->Width) / 2;
+						int shift = (block->Get_Width() - item->Width) / 2; block->LineStartX -= shift;
 					} else if (align == 1) {
-						block->LineStartX -= block->Get_Width() - item->Width;
+						int shift = block->Get_Width() - item->Width; block->LineStartX -= shift;
 					}
 					block->New_Line();
 				}
@@ -1663,7 +1663,8 @@ static int Get_Value(int offset, Wstring &tag, Wstring &value)
 **	  keeps its clamp test in ours (the client's has none: open). The <table> item's zero width / height
 **	  are the constructor's; right is declared before the second end loop. Frame 0x284 as the client's: <font>'s colour sets its own end to NULL
 **	  first (mov [end], ebx), <td> has its own end; <table>'s and </table>'s alignment, </table>'s spacing,
-**	  <td> and </tr> move LineStartX with += / -= (add / sub [mem], reg), the rest with the setter. The statics 0xBE83F0 / 0xBE83F4 / 0xBE83F8 count table, row and
+**	  <td> and </tr> move LineStartX with += / -= (add / sub [mem], reg; </table>'s alignment through a
+**	  shift local: both arms end in one tail-merged sub), the rest with the setter. The statics 0xBE83F0 / 0xBE83F4 / 0xBE83F8 count table, row and
 **	  cell depth and are never read. Block +0x1BC (LineStartX) is the line's start x (tables and lists
 **	  move it), +0x1C0 / +0x1C4 the laid-out content's width / height (set at the parser's end).
 **	* Not yet: Draw_Line_16 / Draw_Line_32. The font cache 0x76EB70 (Get_Font, declared in htmlview.h) is not this file's: it and
