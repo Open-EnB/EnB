@@ -299,3 +299,36 @@ FORMS = {
     'p_with_d': [(DS, '\t\tint p; for (int d = 0; d < count; d++) {\n'), (RS, '\t\tfor (p = 0; p < PatchCount; p++) {\n')],
     'pd_for': [(DS, '\t\tfor (int d = 0, p; d < count; d++) {\n'), (RS, '\t\tfor (p = 0; p < PatchCount; p++) {\n')],
 }
+# ===== b10.py (after the commit: patch as the record counter, 40; no cut)
+HYPOTHESIS = 'FU4 b10 (LVAC, new lead from the slot map): the record loop counter is the decorations\' patch index declared once before the decoration loop (live across it, so gi cannot share its slot; the client: counter at -0x20 with i, gi at -0x14)'
+FILE = 'app/shared/unknown_474530.cpp'
+SYMBOL = ''
+ADDRESS = 0x47A2F0
+
+SRC = open(FILE, encoding='latin-1', newline='').read()
+RS = '\t\tfor (int p = 0; p < PatchCount; p++) {\n'
+a = SRC.index(RS)
+b = SRC.index('\t\tdelete [] tree_vertices;\n', a)
+REC = SRC[a:b]
+MS = '\t\tmemset(shadow_counts, 0, PatchCount * sizeof(unsigned short));\n'
+DS = '\t\tfor (int d = 0; d < count; d++) {\n'
+I = '\tint i;\n\tfor (i = 0; i < proto_count; i++) {\n'
+PD = '\t\t\t\t\tint patch = GridWidth * y + x;\n'
+assert SRC.count(PD) == 2
+d0 = SRC.index(DS)
+DEC = SRC[d0:a]
+
+
+def rec(v, decl=''):
+    t = REC.replace('for (int p = 0; p < PatchCount; p++)', 'for (%s%s = 0; %s < PatchCount; %s++)' % (decl, v, v, v), 1)
+    return [(REC, t.replace('[p]', '[%s]' % v))]
+
+
+DECP = [(DEC, DEC.replace(PD, '\t\t\t\t\tpatch = GridWidth * y + x;\n'))]
+FORMS = {
+    'patch_ms': [(MS, MS.rstrip('\n') + ' int patch;\n')] + DECP + rec('patch'),
+    'patch_dec': [(DS, '\t\tint patch; for (int d = 0; d < count; d++) {\n')] + DECP + rec('patch'),
+    'patch_fn': [(I, '\tint i; int patch;\n\tfor (i = 0; i < proto_count; i++) {\n')] + DECP + rec('patch'),
+    'patch_fn_before': [(I, '\tint patch; int i;\n\tfor (i = 0; i < proto_count; i++) {\n')] + DECP + rec('patch'),
+    'patch_ms_i': [(MS, MS.rstrip('\n') + ' int patch;\n')] + DECP,
+}
