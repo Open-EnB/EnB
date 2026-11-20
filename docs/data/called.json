@@ -15,6 +15,9 @@
 "??0Buffer@@QAE@PAXJ@Z": [
 "0x9DCF40"
 ],
+"??0CameraClass@@QAE@ABV0@@Z": [
+"0x943E00"
+],
 "??0CameraClass@@QAE@XZ": [
 "0x943B70"
 ],
@@ -969,6 +972,12 @@
 "?Get_Preset@VertexMaterialClass@@SAPAV1@W4PresetType@1@@Z": [
 "0x930F60"
 ],
+"?Get_Shader@LineGroupClass@@QAE?AVShaderClass@@XZ": [
+"0x97BAC0"
+],
+"?Get_Shader@PointGroupClass@@QAE?AVShaderClass@@XZ": [
+"0x954890"
+],
 "?Get_Specular@VertexMaterialClass@@QBEXPAVVector3@@@Z": [
 "0x92EEB0"
 ],
@@ -1043,6 +1052,9 @@
 ],
 "?Init@BINKMovie@@SAXXZ": [
 "0xA16290"
+],
+"?Init@FrustumClass@@QAEXABVMatrix3D@@ABVVector2@@1MM@Z": [
+"0x8DD7A0"
 ],
 "?Init@WW3D@@SA?AW4WW3DErrorType@@PAXPAD_N@Z": [
 "0x917660"
@@ -1350,6 +1362,9 @@
 "?Render@Line3DClass@@UAEXAAVRenderInfoClass@@@Z": [
 "0x943320"
 ],
+"?Render@LineGroupClass@@QAEXAAVRenderInfoClass@@ABVMatrix3D@@@Z": [
+"0x97BAF0"
+],
 "?Render@PointGroupClass@@QAEXAAVRenderInfoClass@@ABVMatrix3D@@@Z": [
 "0x954960"
 ],
@@ -1455,6 +1470,9 @@
 "?Set_Any_Render_Device@WW3D@@SA?AW4WW3DErrorType@@XZ": [
 "0x9177D0"
 ],
+"?Set_Arrays@LineGroupClass@@QAEXPAV?$ShareBufferClass@VVector3@@@@0PAV?$ShareBufferClass@VVector4@@@@1PAV?$ShareBufferClass@I@@PAV?$ShareBufferClass@M@@3H@Z": [
+"0x97B820"
+],
 "?Set_Arrays@PointGroupClass@@QAEXPAV?$ShareBufferClass@VVector3@@@@PAV?$ShareBufferClass@VVector4@@@@PAV?$ShareBufferClass@I@@PAV?$ShareBufferClass@M@@PAV?$ShareBufferClass@E@@4HMMMM@Z": [
 "0x954600"
 ],
@@ -1533,6 +1551,9 @@
 "?Set_Line_Mode@LineGroupClass@@QAEXW4LineModeType@1@@Z": [
 "0x97BAD0"
 ],
+"?Set_Line_Size@LineGroupClass@@QAEXM@Z": [
+"0x97B940"
+],
 "?Set_Material@MaterialPassClass@@QAEXPAVVertexMaterialClass@@@Z": [
 "0x92E860"
 ],
@@ -1565,6 +1586,9 @@
 ],
 "?Set_Point_Mode@PointGroupClass@@QAEXW4PointModeEnum@1@@Z": [
 "0x9547D0"
+],
+"?Set_Point_Size@PointGroupClass@@QAEXM@Z": [
+"0x954710"
 ],
 "?Set_Points@SegmentedLineClass@@QAEXIPAVVector3@@@Z": [
 "0x968EF0"
@@ -1628,6 +1652,9 @@
 ],
 "?Set_Subdivision_Levels@SegmentedLineClass@@QAEXI@Z": [
 "0x969380"
+],
+"?Set_Tail_Diffuse@LineGroupClass@@QAEXABVVector4@@@Z": [
+"0x97B9A0"
 ],
 "?Set_Text@UIAvselEditClass@@QAEXPBDH@Z": [
 "0x6AA570"
@@ -2789,6 +2816,7 @@
 "0xBFAE4F"
 ],
 "data:?IsSortingEnabled@WW3D@@0_NA": [
+"0xBB9644",
 "0xBFAE50"
 ],
 "data:?KeyRepeatCount@@3HA": [
@@ -3896,6 +3924,9 @@
 "0xAEA67C",
 "0xAF1560"
 ],
+"data:__real@4@3ff68000000000000000": [
+"0xAFE93C"
+],
 "data:__real@4@3ff683126f0000000000": [
 "0xAFEB70"
 ],
@@ -4193,6 +4224,9 @@
 ],
 "data:__real@4@4007fa00000000000000": [
 "0xAE7848"
+],
+"data:__real@4@40088000000000000000": [
+"0xAFE938"
 ],
 "data:__real@4@4008a000000000000000": [
 "0xAEF780"
