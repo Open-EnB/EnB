@@ -81,6 +81,9 @@
 "??0GridCullSystemClass@@QAE@XZ": [
 "0x8D6FA0"
 ],
+"??0HAnimComboClass@@QAE@H@Z": [
+"0x931660"
+],
 "??0HAnimComboClass@@QAE@XZ": [
 "0x931630"
 ],
@@ -1569,6 +1572,9 @@
 "?Set_Mip_Mapping@TextureClass@@QAEXW4FilterType@1@@Z": [
 "0x94CA20"
 ],
+"?Set_Motion@HAnimComboClass@@QAEXHPAVHAnimClass@@@Z": [
+"0x931BA0"
+],
 "?Set_Music_Volume@WWAudioClass@@QAEXM@Z": [
 "0x9F2480"
 ],
@@ -1730,6 +1736,9 @@
 ],
 "?Set_View_Plane@CameraClass@@QAEXMM@Z": [
 "0x9447A0"
+],
+"?Set_Weight@HAnimComboClass@@QAEXHM@Z": [
+"0x931C70"
 ],
 "?Set_Width@SegmentedLineClass@@QAEXM@Z": [
 "0x9692C0"
