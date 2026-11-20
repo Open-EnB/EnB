@@ -75,6 +75,7 @@ public:
 
 	bool Is_Focused();									// 0x443020  // NAME 2: what it does
 	void Set_Kernel(KernelClass *kernel);				// 0x4430C0  // NAME 2: what it does
+	KernelClass *Get_Kernel() { return(Kernel); }		// (inline: LoginTaskClass::Start_Game 0x769E70 re-reads the kernel through it for Remove_Task)  // NAME 1: what it returns
 
 	KernelClass *Kernel;								// +0x04 NAME 2: Add_Task sets it
 	unsigned int Last_Run;								// +0x08 NAME 2: Run_One_Cycle's ms clock at the last run
