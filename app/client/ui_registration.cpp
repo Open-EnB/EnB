@@ -939,7 +939,7 @@ void RegistrationInterface::Unknown_5F2F90(int id, const char *name, int a, int 
 	value.Unknown04 = id;
 	value.Unknown08 = (int)name;
 	value.Combo = new UIComboBoxClass(this, Layer, DialogRenderObj.Peek(), name, id, 0x30, a, b, 0);
-	Unknown108.insert(std::map<int, RegistrationComboStruct>::value_type(id, value));
+	Unknown108.insert(std::pair<int, RegistrationComboStruct>(id, value));
 }
 
 // @0x5F3110
@@ -1263,7 +1263,7 @@ void RegistrationInterface::Unknown_5F3600()
 
 
 
-// @0x5F3770 NOT EXACT: inline-budget (attempts.csv: functional, generated from pseudocode per case; the same frame and first 0x1400 bytes)
+// @0x5F3770 NOT EXACT: inline-budget (attempts.csv; cases in jump table 0x5F7214's layout order; the client cuts more of its later inline accessors and 0x5F2F90's converting constructor 0x6092D0)
 void RegistrationInterface::Unknown_5F3770(int state)
 {
 	Unknown_5C();
@@ -1292,159 +1292,118 @@ void RegistrationInterface::Unknown_5F3770(int state)
 	UnknownBC->Get_Unknown198()->Unknown_784E00();
 	switch (UnknownD4) {
 		case 0:
-			Unknown_5F2B20(1,"RADIO_YES",0,0,1,0);
-			Unknown_5F2B20(2,"RADIO_NO",0,0,1,0);
-			Unknown_5F2B20(5,"RADIO_FORGOT",0,0,1,0);
-			Unknown_5F3250(Unknown268);
-			Unknown_5F2B20(0x2d,"LEFT_BUTTON","LEFT_BUTTON_RG_A1",0,0,0);
-			Unknown_5F2B20(6,"RIGHT_BUTTON","RIGHT_BUTTON_RG_A1",0,0,0);
+			Unknown_5F2B20(1,"RADIO_YES",0,0,1,0); Unknown_5F2B20(2,"RADIO_NO",0,0,1,0);
+			Unknown_5F2B20(5,"RADIO_FORGOT",0,0,1,0); Unknown_5F3250(Unknown268);
+			Unknown_5F2B20(0x2d,"LEFT_BUTTON","LEFT_BUTTON_RG_A1",0,0,0); Unknown_5F2B20(6,"RIGHT_BUTTON","RIGHT_BUTTON_RG_A1",0,0,0);
 			if (!TutorialManagerClass::Instance->Is_Completed("REG1")) {
-				UnknownBC->Get_Unknown198()->Unknown_784C90("REG1", false);
-				TutorialManagerClass::Instance->Set_Completed("REG1");
+				UnknownBC->Get_Unknown198()->Unknown_784C90("REG1", false); TutorialManagerClass::Instance->Set_Completed("REG1");
+			}
+			break;
+		case 6:
+			Unknown_5F2B20(8,"RADIO_NAME",0,0,1,0); Unknown_5F2B20(9,"RADIO_PASSWORD",0,0,1,0);
+			Unknown_5F3250(Unknown26C); Unknown_5F2B20(0x2d,"LEFT_BUTTON","LEFT_BUTTON_RG_A10",0,0,0);
+			Unknown_5F2B20(6,"RIGHT_BUTTON","RIGHT_BUTTON_RG_A10",0,0,0); Unknown_5F2B20(7,"MIDDLE_BUTTON","MIDDLE_BUTTON_RG_A10",0,0,0);
+			break;
+		case 7:
+			Unknown_5F2D30(0x13,"ENTRY_EMAIL","ENTRY_EMAIL_RG_A8",0x28,Unknown258.c_str(),0,0,Unknown_BE5DDC, Unknown_B85ED0); Unknown_5F2B20(0x2d,"LEFT_BUTTON","LEFT_BUTTON_RG_A8",0,0,0);
+			Unknown_5F2B20(6,"RIGHT_BUTTON","RIGHT_BUTTON_RG_A8",0,0,0); Unknown_5F2B20(7,"MIDDLE_BUTTON","MIDDLE_BUTTON_RG_A8",0,0,0);
+			if (Unknown258.empty()) {
+				Unknown_5F8CD0(0x13, true);
+			}
+			break;
+		case 8:
+			Unknown_5F2D30(10,"ENTRY_USERNAME","ENTRY_NAME_RG_A9",0x10,Unknown248.c_str(),0,0,Unknown_BE5DE0, 0); Unknown_5F2B20(0x2d,"LEFT_BUTTON","LEFT_BUTTON_RG_A9",0,0,0);
+			Unknown_5F2B20(6,"RIGHT_BUTTON","RIGHT_BUTTON_RG_A9",0,0,0); Unknown_5F2B20(7,"MIDDLE_BUTTON","MIDDLE_BUTTON_RG_A9",0,0,0);
+			if (Unknown248.empty()) {
+				Unknown_5F8CD0(10, true);
 			}
 			break;
 		case 1:
-			Unknown_5F2D30(10,"Entry_Username","Entry_Username_RG_A2",0x10,Unknown1D8.c_str(),0xb,0, Unknown_BE5DC8,0);
-			Unknown_5F2D30(0xb,"Entry_Password","Entry_Password_RG_A2",0x10,Unknown1E8.c_str(),10,1, Unknown_BE5DC4,Unknown_B85EDC);
-			Unknown_5F2B20(0x2d,"LEFT_BUTTON","LEFT_BUTTON_RG_A2",0,0,0);
-			Unknown_5F2B20(6,"RIGHT_BUTTON","RIGHT_BUTTON_RG_A2",0,0,0);
+			Unknown_5F2D30(10,"Entry_Username","Entry_Username_RG_A2",0x10,Unknown1D8.c_str(),0xb,0, Unknown_BE5DC8,0); Unknown_5F2D30(0xb,"Entry_Password","Entry_Password_RG_A2",0x10,Unknown1E8.c_str(),10,1, Unknown_BE5DC4,Unknown_B85EDC);
+			Unknown_5F2B20(0x2d,"LEFT_BUTTON","LEFT_BUTTON_RG_A2",0,0,0); Unknown_5F2B20(6,"RIGHT_BUTTON","RIGHT_BUTTON_RG_A2",0,0,0);
 			Unknown_5F2B20(7,"MIDDLE_BUTTON","MIDDLE_BUTTON_RG_A2",0,0,0);
 			if (!TutorialManagerClass::Instance->Is_Completed("REG2")) {
-				UnknownBC->Get_Unknown198()->Unknown_784C90("REG2", false);
-				TutorialManagerClass::Instance->Set_Completed("REG2");
+				UnknownBC->Get_Unknown198()->Unknown_784C90("REG2", false); TutorialManagerClass::Instance->Set_Completed("REG2");
+			}
+			if (Unknown1D8.empty()) {
+				Unknown_5F8CD0(10, true);
+			}
+			break;
+		case 3:
+			Unknown_5F2D30(10,"Entry_Username","Entry_Username_RG_A5",0x10,Unknown1D8.c_str(),0xb,0, Unknown_BE5DC8,0); Unknown_5F2D30(0xb,"Entry_Password","Entry_Password_RG_A5",0x10,Unknown1E8.c_str(),0xc,1, Unknown_BE5DC4,0);
+			Unknown_5F2D30(0xc,"Entry_Retype","Entry_Retype_RG_A5",0x10,Unknown1F8.c_str(),10,1, Unknown_BE5DC4,0); Unknown_5F2B20(0x2d,"LEFT_BUTTON","LEFT_BUTTON_RG_A5",0,0,0);
+			Unknown_5F2B20(6,"RIGHT_BUTTON","RIGHT_BUTTON_RG_A5",0,0,0); Unknown_5F2B20(7,"MIDDLE_BUTTON","MIDDLE_BUTTON_RG_A5",0,0,0);
+			if (!TutorialManagerClass::Instance->Is_Completed("REG3")) {
+				UnknownBC->Get_Unknown198()->Unknown_784C90("REG3", false); TutorialManagerClass::Instance->Set_Completed("REG3");
 			}
 			if (Unknown1D8.empty()) {
 				Unknown_5F8CD0(10, true);
 			}
 			break;
 		case 2:
-			Unknown_5F2B20(1,"RADIO_YES",0,0,1,0);
-			Unknown_5F2B20(2,"RADIO_NO",0,0,1,0);
-			Unknown_5F3250((2 - (Unknown1C9)));
-			Unknown_5F2B20(0x2d,"LEFT_BUTTON","LEFT_BUTTON_RG_A3",0,0,0);
-			Unknown_5F2B20(6,"RIGHT_BUTTON","RIGHT_BUTTON_RG_A3",0,0,0);
-			Unknown_5F2B20(7,"MIDDLE_BUTTON","MIDDLE_BUTTON_RG_A3",0,0,0);
+			Unknown_5F2B20(1,"RADIO_YES",0,0,1,0); Unknown_5F2B20(2,"RADIO_NO",0,0,1,0);
+			Unknown_5F3250((2 - (Unknown1C9))); Unknown_5F2B20(0x2d,"LEFT_BUTTON","LEFT_BUTTON_RG_A3",0,0,0);
+			Unknown_5F2B20(6,"RIGHT_BUTTON","RIGHT_BUTTON_RG_A3",0,0,0); Unknown_5F2B20(7,"MIDDLE_BUTTON","MIDDLE_BUTTON_RG_A3",0,0,0);
 			if (!TutorialManagerClass::Instance->Is_Completed("REG4")) {
-				UnknownBC->Get_Unknown198()->Unknown_784C90("REG4", false);
-				TutorialManagerClass::Instance->Set_Completed("REG4");
-			}
-			break;
-		case 3:
-			Unknown_5F2D30(10,"Entry_Username","Entry_Username_RG_A5",0x10,Unknown1D8.c_str(),0xb,0, Unknown_BE5DC8,0);
-			Unknown_5F2D30(0xb,"Entry_Password","Entry_Password_RG_A5",0x10,Unknown1E8.c_str(),0xc,1, Unknown_BE5DC4,0);
-			Unknown_5F2D30(0xc,"Entry_Retype","Entry_Retype_RG_A5",0x10,Unknown1F8.c_str(),10,1, Unknown_BE5DC4,0);
-			Unknown_5F2B20(0x2d,"LEFT_BUTTON","LEFT_BUTTON_RG_A5",0,0,0);
-			Unknown_5F2B20(6,"RIGHT_BUTTON","RIGHT_BUTTON_RG_A5",0,0,0);
-			Unknown_5F2B20(7,"MIDDLE_BUTTON","MIDDLE_BUTTON_RG_A5",0,0,0);
-			if (!TutorialManagerClass::Instance->Is_Completed("REG3")) {
-				UnknownBC->Get_Unknown198()->Unknown_784C90("REG3", false);
-				TutorialManagerClass::Instance->Set_Completed("REG3");
-			}
-			if (Unknown1D8.empty()) {
-				Unknown_5F8CD0(10, true);
+				UnknownBC->Get_Unknown198()->Unknown_784C90("REG4", false); TutorialManagerClass::Instance->Set_Completed("REG4");
 			}
 			break;
 		case 4:
-			Unknown_5F2D30(10,"Entry_Username","ENTRY_USERNAME_RG_A6",0x10,Unknown1D8.c_str(),0xb,0, Unknown_BE5DC8,0);
-			Unknown_5F2D30(0xb,"Entry_Password","ENTRY_PASSWORD_RG_A6",0x10,Unknown208.c_str(),10,1, Unknown_BE5DC4,0);
-			Unknown_5F2B20(0x2d,"LEFT_BUTTON","LEFT_BUTTON_RG_A6",0,0,0);
-			Unknown_5F2B20(6,"RIGHT_BUTTON","RIGHT_BUTTON_RG_A6",0,0,0);
+			Unknown_5F2D30(10,"Entry_Username","ENTRY_USERNAME_RG_A6",0x10,Unknown1D8.c_str(),0xb,0, Unknown_BE5DC8,0); Unknown_5F2D30(0xb,"Entry_Password","ENTRY_PASSWORD_RG_A6",0x10,Unknown208.c_str(),10,1, Unknown_BE5DC4,0);
+			Unknown_5F2B20(0x2d,"LEFT_BUTTON","LEFT_BUTTON_RG_A6",0,0,0); Unknown_5F2B20(6,"RIGHT_BUTTON","RIGHT_BUTTON_RG_A6",0,0,0);
 			Unknown_5F2B20(7,"MIDDLE_BUTTON","MIDDLE_BUTTON_RG_A6",0,0,0);
 			if (!TutorialManagerClass::Instance->Is_Completed("REG5")) {
-				UnknownBC->Get_Unknown198()->Unknown_784C90("REG5", false);
-				TutorialManagerClass::Instance->Set_Completed("REG5");
+				UnknownBC->Get_Unknown198()->Unknown_784C90("REG5", false); TutorialManagerClass::Instance->Set_Completed("REG5");
 			}
 			if (Unknown1D8.empty()) {
 				Unknown_5F8CD0(10, true);
 			}
 			break;
 		case 5:
-			Unknown_5F2D30(0xb,"Entry_Password","ENTRY_PASSWORD_RG_A7",0x10,Unknown1E8.c_str(),0xc,1, Unknown_BE5DC4,0);
-			Unknown_5F2D30(0xc,"Entry_Retype","ENTRY_RETYPE_RG_A7",0x10,Unknown1F8.c_str(),0xb,1, Unknown_BE5DC4,0);
-			Unknown_5F2B20(0x2d,"LEFT_BUTTON","LEFT_BUTTON_RG_A7",0,0,0);
-			Unknown_5F2B20(6,"RIGHT_BUTTON","RIGHT_BUTTON_RG_A7",0,0,0);
+			Unknown_5F2D30(0xb,"Entry_Password","ENTRY_PASSWORD_RG_A7",0x10,Unknown1E8.c_str(),0xc,1, Unknown_BE5DC4,0); Unknown_5F2D30(0xc,"Entry_Retype","ENTRY_RETYPE_RG_A7",0x10,Unknown1F8.c_str(),0xb,1, Unknown_BE5DC4,0);
+			Unknown_5F2B20(0x2d,"LEFT_BUTTON","LEFT_BUTTON_RG_A7",0,0,0); Unknown_5F2B20(6,"RIGHT_BUTTON","RIGHT_BUTTON_RG_A7",0,0,0);
 			Unknown_5F2B20(7,"MIDDLE_BUTTON","MIDDLE_BUTTON_RG_A7",0,0,0);
 			if (!TutorialManagerClass::Instance->Is_Completed("REG6")) {
-				UnknownBC->Get_Unknown198()->Unknown_784C90("REG6", false);
-				TutorialManagerClass::Instance->Set_Completed("REG6");
+				UnknownBC->Get_Unknown198()->Unknown_784C90("REG6", false); TutorialManagerClass::Instance->Set_Completed("REG6");
 			}
 			if (Unknown1E8.empty()) {
 				Unknown_5F8CD0(0xb, true);
 			}
 			break;
-		case 6:
-			Unknown_5F2B20(8,"RADIO_NAME",0,0,1,0);
-			Unknown_5F2B20(9,"RADIO_PASSWORD",0,0,1,0);
-			Unknown_5F3250(Unknown26C);
-			Unknown_5F2B20(0x2d,"LEFT_BUTTON","LEFT_BUTTON_RG_A10",0,0,0);
-			Unknown_5F2B20(6,"RIGHT_BUTTON","RIGHT_BUTTON_RG_A10",0,0,0);
-			Unknown_5F2B20(7,"MIDDLE_BUTTON","MIDDLE_BUTTON_RG_A10",0,0,0);
-			break;
-		case 7:
-			Unknown_5F2D30(0x13,"ENTRY_EMAIL","ENTRY_EMAIL_RG_A8",0x28,Unknown258.c_str(),0,0,Unknown_BE5DDC, Unknown_B85ED0);
-			Unknown_5F2B20(0x2d,"LEFT_BUTTON","LEFT_BUTTON_RG_A8",0,0,0);
-			Unknown_5F2B20(6,"RIGHT_BUTTON","RIGHT_BUTTON_RG_A8",0,0,0);
-			Unknown_5F2B20(7,"MIDDLE_BUTTON","MIDDLE_BUTTON_RG_A8",0,0,0);
-			if (Unknown258.empty()) {
-				Unknown_5F8CD0(0x13, true);
-			}
-			break;
-		case 8:
-			Unknown_5F2D30(10,"ENTRY_USERNAME","ENTRY_NAME_RG_A9",0x10,Unknown248.c_str(),0,0,Unknown_BE5DE0, 0);
-			Unknown_5F2B20(0x2d,"LEFT_BUTTON","LEFT_BUTTON_RG_A9",0,0,0);
-			Unknown_5F2B20(6,"RIGHT_BUTTON","RIGHT_BUTTON_RG_A9",0,0,0);
-			Unknown_5F2B20(7,"MIDDLE_BUTTON","MIDDLE_BUTTON_RG_A9",0,0,0);
-			if (Unknown248.empty()) {
-				Unknown_5F8CD0(10, true);
-			}
-			break;
 		case 9:
-			Unknown_5F2B20(0xd,"Radio_01",0,0,1,0);
-			Unknown_5F2B20(0xe,"Radio_02",0,0,1,0);
-			Unknown_5F2B20(0xf,"Radio_03",0,0,1,0);
-			Unknown_5F2B20(0x10,"Radio_04",0,0,1,0);
-			Unknown_5F2B20(0x11,"Radio_05",0,0,1,0);
-			Unknown_5F2B20(0x12,"Radio_06",0,0,1,0);
-			Unknown_5F3250(0x12);
-			Unknown_5F2B20(0x2d,"LEFT_BUTTON","LEFT_BUTTON_RG_B1",0,0,0);
-			Unknown_5F2B20(6,"RIGHT_BUTTON","RIGHT_BUTTON_RG_B1",0,0,0);
-			Unknown_5F8520("LABEL_SUGGEST01_RG_B1", Unknown3C4.Unknown00[0].c_str());
-			Unknown_5F8520("LABEL_SUGGEST02_RG_B1", Unknown3C4.Unknown00[1].c_str());
-			Unknown_5F8520("LABEL_SUGGEST03_RG_B1", Unknown3C4.Unknown00[2].c_str());
-			Unknown_5F8520("LABEL_SUGGEST04_RG_B1", Unknown3C4.Unknown00[3].c_str());
-			Unknown_5F8520("LABEL_SUGGEST05_RG_B1", Unknown3C4.Unknown00[4].c_str());
+			Unknown_5F2B20(0xd,"Radio_01",0,0,1,0); Unknown_5F2B20(0xe,"Radio_02",0,0,1,0);
+			Unknown_5F2B20(0xf,"Radio_03",0,0,1,0); Unknown_5F2B20(0x10,"Radio_04",0,0,1,0);
+			Unknown_5F2B20(0x11,"Radio_05",0,0,1,0); Unknown_5F2B20(0x12,"Radio_06",0,0,1,0);
+			Unknown_5F3250(0x12); Unknown_5F2B20(0x2d,"LEFT_BUTTON","LEFT_BUTTON_RG_B1",0,0,0);
+			Unknown_5F2B20(6,"RIGHT_BUTTON","RIGHT_BUTTON_RG_B1",0,0,0); Unknown_5F8520("LABEL_SUGGEST01_RG_B1", Unknown3C4.Unknown00[0].c_str());
+			Unknown_5F8520("LABEL_SUGGEST02_RG_B1", Unknown3C4.Unknown00[1].c_str()); Unknown_5F8520("LABEL_SUGGEST03_RG_B1", Unknown3C4.Unknown00[2].c_str());
+			Unknown_5F8520("LABEL_SUGGEST04_RG_B1", Unknown3C4.Unknown00[3].c_str()); Unknown_5F8520("LABEL_SUGGEST05_RG_B1", Unknown3C4.Unknown00[4].c_str());
 			if (!TutorialManagerClass::Instance->Is_Completed("REG7")) {
-				UnknownBC->Get_Unknown198()->Unknown_784C90("REG7", false);
-				TutorialManagerClass::Instance->Set_Completed("REG7");
+				UnknownBC->Get_Unknown198()->Unknown_784C90("REG7", false); TutorialManagerClass::Instance->Set_Completed("REG7");
 			}
 			break;
 		case 10:
 			{
-				char buffer[6];
-				Unknown_5F2D30(0x13, "ENTRY_E-MAIL", "ENTRY_EMAILADDRESS_RG_C1", 0x28, Unknown3C4.Unknown5C.c_str(), 0, 0, Unknown_BE5DAC, Unknown_B85ED0);
-				Unknown_5F2F90(0x16, "COMBO_YEAR", 5, 5);
-				Unknown_5F98C0(1900, Unknown124.tm_year + 1900);
-				if (Unknown3C4.Unknown7E < 1) {
-					Unknown108[0x16].Combo->Select(0);
+				char buffer[6]; Unknown_5F2D30(0x13, "ENTRY_E-MAIL", "ENTRY_EMAILADDRESS_RG_C1", 0x28, Unknown3C4.Unknown5C.c_str(), 0, 0, Unknown_BE5DAC, Unknown_B85ED0);
+				Unknown_5F2F90(0x16, "COMBO_YEAR", 5, 5); Unknown_5F98C0(1900, Unknown124.tm_year + 1900);
+				if (Unknown3C4.Unknown7E > 0) {
+					_snprintf(buffer, 5, "%d", (int)Unknown3C4.Unknown7E); Unknown108[0x16].Combo->Select_Text(buffer);
 				} else {
-					_snprintf(buffer, 5, "%d", (int)Unknown3C4.Unknown7E);
-					Unknown108[0x16].Combo->Select_Text(buffer);
+					Unknown108[0x16].Combo->Select(0);
 				}
-				Unknown_5F2F90(0x14, "COMBO_MONTH", 4, 5);
-				Unknown108[0x14].Combo->Add_Items(RegistrationMonths);
-				Unknown108[0x14].Combo->Select(Unknown3C4.Unknown7D < 1 ? 0 : Unknown3C4.Unknown7D - 1);
-				Unknown_5F2F90(0x15, "COMBO_DAY", 2, 5);
+				Unknown_5F2F90(0x14, "COMBO_MONTH", 4, 5); Unknown108[0x14].Combo->Add_Items(RegistrationMonths);
+				if (Unknown3C4.Unknown7D > 0) { Unknown108[0x14].Combo->Select(Unknown3C4.Unknown7D - 1); } else { Unknown108[0x14].Combo->Select(0); } Unknown_5F2F90(0x15, "COMBO_DAY", 2, 5);
 				Unknown_5F9460();
-				Unknown108[0x15].Combo->Select(Unknown3C4.Unknown7C < 1 ? 0 : Unknown3C4.Unknown7C - 1);
+				if (Unknown3C4.Unknown7C > 0) { Unknown108[0x15].Combo->Select(Unknown3C4.Unknown7C - 1); } else { Unknown108[0x15].Combo->Select(0); }
 				Unknown_5F2B20(0x17, "RADIO_MALE", 0, 0, 1, false);
 				Unknown_5F2B20(0x18, "RADIO_FEMALE", 0, 0, 1, false);
 				Unknown_5F3250((Unknown3C4.Unknown58 != 0) + 0x17);
 				Unknown_5F2F90(0x19, "COMBO_COUNTRY", 0x2C, 7);
 				Unknown_5F9700();
-				if (Unknown3C4.Unknown80.size() == 0) {
-					Unknown108[0x19].Combo->Select_Text(UnknownA4);
-				} else {
+				if (Unknown3C4.Unknown80.size() != 0) {
 					Unknown108[0x19].Combo->Select_Text(Unknown3C4.Unknown80.c_str());
+				} else {
+					Unknown108[0x19].Combo->Select_Text(UnknownA4);
 				}
 				Unknown_5F2B20(0x2d,"LEFT_BUTTON","LEFT_BUTTON_RG_C1",0,0,0);
 				Unknown_5F2B20(6,"RIGHT_BUTTON","RIGHT_BUTTON_RG_C1",0,0,0);
@@ -1458,18 +1417,59 @@ void RegistrationInterface::Unknown_5F3770(int state)
 				}
 			}
 			break;
-		case 0xB:
-			Unknown_5F2F90(0x2A, "COMBO_OPTION", 0x14, std::_cpp_min(5, (int)Unknown598.size()));
-			Unknown_5F9EB0();
-			Unknown108[0x2A].Combo->Select(Unknown388);
-			Unknown38C = Unknown598[Unknown388];
-			Unknown_5F2B20(0x2d,"LEFT_BUTTON","LEFT_BUTTON_RG_D1",0,0,0);
-			Unknown_5F2B20(6,"RIGHT_BUTTON","RIGHT_BUTTON_RG_D1",0,0,0);
-			Unknown_5F2B20(7,"MIDDLE_BUTTON","MIDDLE_BUTTON_RG_D1",0,0,0);
-			Unknown_5F84E0("WRAP_EXPLAIN_TEXT_RG_D1", PaymentTypeTexts[Unknown38C]);
-			if (!TutorialManagerClass::Instance->Is_Completed("REG14")) {
-				UnknownBC->Get_Unknown198()->Unknown_784C90("REG14", false);
-				TutorialManagerClass::Instance->Set_Completed("REG14");
+		case 0xF:
+			Unknown_5F2B20(1, "RADIO_YES1", 0, 0, 1, false);
+			Unknown_5F2B20(2, "RADIO_NO1", 0, 0, 1, false);
+			Unknown_5F3250(2 - (Unknown3C4.Unknown90 != 0));
+			Unknown_5F2B20(3, "RADIO_YES2", 0, 0, 2, false);
+			Unknown_5F2B20(4, "RADIO_NO2", 0, 0, 2, false);
+			Unknown_5F3250(4 - (Unknown3C4.Unknown91 != 0));
+			Unknown_5F2B20(0x2d,"LEFT_BUTTON","LEFT_BUTTON_RG_C2",0,0,0);
+			Unknown_5F2B20(6,"RIGHT_BUTTON","RIGHT_BUTTON_RG_C2",0,0,0);
+			Unknown_5F2B20(7,"MIDDLE_BUTTON","MIDDLE_BUTTON_RG_C2",0,0,0);
+			if (!TutorialManagerClass::Instance->Is_Completed("REG9")) {
+				UnknownBC->Get_Unknown198()->Unknown_784C90("REG9", false);
+				TutorialManagerClass::Instance->Set_Completed("REG9");
+			}
+			break;
+		case 16:
+			Unknown_5F2D30(0x13,"ENTRY_PARENT","ENTRY_PARENT_RG_C3",0x28,Unknown3C4.Unknown6C.c_str(),0,0, Unknown_BE5DAC,Unknown_B85ED0);
+			Unknown_5F2B20(0x2d,"LEFT_BUTTON","LEFT_BUTTON_RG_C3",0,0,0);
+			Unknown_5F2B20(6,"RIGHT_BUTTON","RIGHT_BUTTON_RG_C3",0,0,0);
+			Unknown_5F2B20(7,"MIDDLE_BUTTON","MIDDLE_BUTTON_RG_C3",0,0,0);
+			if (!TutorialManagerClass::Instance->Is_Completed("REG10")) {
+				UnknownBC->Get_Unknown198()->Unknown_784C90("REG10", false);
+				TutorialManagerClass::Instance->Set_Completed("REG10");
+			}
+			if (Unknown3C4.Unknown6C.empty()) {
+				Unknown_5F8CD0(0x13, true);
+			}
+			break;
+		case 0x11:
+			Unknown_5F2D30(0x2B, "ENTRY_CODE", "ENTRY_CODE_RG_E1", 0x13, Unknown228.c_str(), 0x2B, 0, Unknown_BE5DB8, 0);
+			Unknown_5F2B20(0x2d,"LEFT_BUTTON","LEFT_BUTTON_RG_E1",0,0,0);
+			Unknown_5F2B20(6,"RIGHT_BUTTON","RIGHT_BUTTON_RG_E1",0,0,0);
+			Unknown_5F2B20(7,"MIDDLE_BUTTON","MIDDLE_BUTTON_RG_E1",0,0,0);
+			Unknown_5F3510(7, Unknown1D0);
+			if (Unknown228.size() == 0 || Unknown1D0) {
+				Unknown_5F8CD0(0x2B, true);
+			}
+			if (!TutorialManagerClass::Instance->Is_Completed("REG11")) {
+				UnknownBC->Get_Unknown198()->Unknown_784C90("REG11", false);
+				TutorialManagerClass::Instance->Set_Completed("REG11");
+			}
+			break;
+		case 0x14:
+			Unknown_5F2D30(0x2B, "ENTRY_CODE", "ENTRY_CODE_RG_K1", 0x13, Unknown238.c_str(), 0x2B, 0, Unknown_BE5DB8, 0);
+			Unknown_5F2B20(0x2d,"LEFT_BUTTON","LEFT_BUTTON_RG_K1",0,0,0);
+			Unknown_5F2B20(6,"RIGHT_BUTTON","RIGHT_BUTTON_RG_K1",0,0,0);
+			Unknown_5F2B20(7,"MIDDLE_BUTTON","MIDDLE_BUTTON_RG_K1",0,0,0);
+			if (Unknown238.size() == 0 || Unknown1D0) {
+				Unknown_5F8CD0(0x2B, true);
+			}
+			if (!TutorialManagerClass::Instance->Is_Completed("REG12")) {
+				UnknownBC->Get_Unknown198()->Unknown_784C90("REG12", false);
+				TutorialManagerClass::Instance->Set_Completed("REG12");
 			}
 			break;
 		case 0xC:
@@ -1514,16 +1514,16 @@ void RegistrationInterface::Unknown_5F3770(int state)
 				}
 				Unknown_5F2F90(0x14, "COMBO_MONTH", 4, 5);
 				Unknown108[0x14].Combo->Add_Items(RegistrationMonths);
-				Unknown108[0x14].Combo->Select(Unknown478.UnknownE8 < 1 ? 0 : Unknown478.UnknownE8 - 1);
+				if (Unknown478.UnknownE8 > 0) { Unknown108[0x14].Combo->Select(Unknown478.UnknownE8 - 1); } else { Unknown108[0x14].Combo->Select(0); }
 				Unknown_5F2F90(0x16, "COMBO_YEAR", 5, 5);
 				Unknown_5F98C0(Unknown124.tm_year + 1900, Unknown124.tm_year + 1910);
-				if (Unknown478.UnknownEC < 1) {
-					Unknown108[0x16].Combo->Select(0);
-				} else {
+				if (Unknown478.UnknownEC > 0) {
 					_snprintf(buffer, 5, "%d", Unknown478.UnknownEC);
 					Unknown108[0x16].Combo->Select_Text(buffer);
+				} else {
+					Unknown108[0x16].Combo->Select(0);
 				}
-				Unknown_5F84E0("WRAP_LABEL_TEXT_RG_D3", !Unknown1CD ? "\nPlease enter your billing information below." : "The information below is for Identification/Age verification purposes only.  YOU WILL NOT BE BILLED!");
+				if (Unknown1CD) Unknown_5F84E0("WRAP_LABEL_TEXT_RG_D3", "The information below is for Identification/Age verification purposes only.  YOU WILL NOT BE BILLED!"); else Unknown_5F84E0("WRAP_LABEL_TEXT_RG_D3", "\nPlease enter your billing information below.");
 				Unknown_5F2B20(0x2d,"LEFT_BUTTON","LEFT_BUTTON_RG_D3",0,0,0);
 				Unknown_5F2B20(6,"RIGHT_BUTTON","RIGHT_BUTTON_RG_D3",0,0,0);
 				Unknown_5F2B20(7,"MIDDLE_BUTTON","MIDDLE_BUTTON_RG_D3",0,0,0);
@@ -1688,18 +1688,18 @@ void RegistrationInterface::Unknown_5F3770(int state)
 				Unknown_5F2D30(0x24,"ENTRY_ISSUER","ENTRY_ISSUER_RG_D4",2,Unknown478.UnknownB8.c_str(),0,0,Unknown_BE5DC0, 0);
 				Unknown_5F2F90(0x19, "COMBO_COUNTRY", 0x2C, 7);
 				Unknown_5F9700();
-				if (Unknown478.Unknown64.empty()) {
-					if (Unknown3C4.Unknown80.size() == 0) {
-						G_ASSERT(0);
-						Unknown108[0x19].Combo->Select_Text(UnknownA4);
-					} else {
-						Unknown108[0x19].Combo->Select_Text(Unknown3C4.Unknown80.c_str());
-						Unknown108[0x19].Combo->Enable(0);
-					}
-				} else {
-					Unknown108[0x19].Combo->Select_Text(Unknown478.Unknown64.c_str());
-					Unknown108[0x19].Combo->Enable(0);
-				}
+				if (!Unknown478.Unknown64.empty()) { Unknown108[0x19].Combo->Select_Text(Unknown478.Unknown64.c_str()); Unknown108[0x19].Combo->Enable(0); }
+				else if (Unknown3C4.Unknown80.size() != 0) { Unknown108[0x19].Combo->Select_Text(Unknown3C4.Unknown80.c_str()); Unknown108[0x19].Combo->Enable(0); }
+				else { G_ASSERT(0);
+					Unknown108[0x19].Combo->Select_Text(UnknownA4); Unknown108[0x19].Combo->Enable(0); }
+
+
+
+
+
+
+
+
 				Unknown_5F2F90(0x22, "COMBO_CARDTYPE", 0x13, 4);
 				Unknown_5F9A90();
 				Unknown108[0x22].Combo->Select(0);
@@ -1717,16 +1717,16 @@ void RegistrationInterface::Unknown_5F3770(int state)
 				}
 				Unknown_5F2F90(0x14, "COMBO_MONTH", 4, 5);
 				Unknown108[0x14].Combo->Add_Items(RegistrationMonths);
-				Unknown108[0x14].Combo->Select(Unknown478.UnknownE8 < 1 ? 0 : Unknown478.UnknownE8 - 1);
+				if (Unknown478.UnknownE8 > 0) { Unknown108[0x14].Combo->Select(Unknown478.UnknownE8 - 1); } else { Unknown108[0x14].Combo->Select(0); }
 				Unknown_5F2F90(0x16, "COMBO_YEAR", 5, 5);
 				Unknown_5F98C0(Unknown124.tm_year + 1900, Unknown124.tm_year + 1910);
-				if (Unknown478.UnknownEC < 1) {
-					Unknown108[0x16].Combo->Select(0);
-				} else {
+				if (Unknown478.UnknownEC > 0) {
 					_snprintf(buffer, 5, "%d", Unknown478.UnknownEC);
 					Unknown108[0x16].Combo->Select_Text(buffer);
+				} else {
+					Unknown108[0x16].Combo->Select(0);
 				}
-				Unknown_5F84E0("WRAP_LABEL_TEXT_RG_D4", !Unknown1CD ? "\nPlease enter your billing information below." : "The information below is for Identification/Age verification purposes only.  YOU WILL NOT BE BILLED!");
+				if (Unknown1CD) Unknown_5F84E0("WRAP_LABEL_TEXT_RG_D4", "The information below is for Identification/Age verification purposes only.  YOU WILL NOT BE BILLED!"); else Unknown_5F84E0("WRAP_LABEL_TEXT_RG_D4", "\nPlease enter your billing information below.");
 				Unknown_5F2B20(0x2d,"LEFT_BUTTON","LEFT_BUTTON_RG_D4",0,0,0);
 				Unknown_5F2B20(6,"RIGHT_BUTTON","RIGHT_BUTTON_RG_D4",0,0,0);
 				Unknown_5F2B20(7,"MIDDLE_BUTTON","MIDDLE_BUTTON_RG_D4",0,0,0);
@@ -1742,6 +1742,20 @@ void RegistrationInterface::Unknown_5F3770(int state)
 				}
 			}
 			break;
+		case 0xB:
+			Unknown_5F2F90(0x2A, "COMBO_OPTION", 0x14, std::_cpp_min(5, (int)Unknown598.size()));
+			Unknown_5F9EB0();
+			Unknown108[0x2A].Combo->Select(Unknown388);
+			Unknown38C = Unknown598[Unknown388];
+			Unknown_5F2B20(0x2d,"LEFT_BUTTON","LEFT_BUTTON_RG_D1",0,0,0);
+			Unknown_5F2B20(6,"RIGHT_BUTTON","RIGHT_BUTTON_RG_D1",0,0,0);
+			Unknown_5F2B20(7,"MIDDLE_BUTTON","MIDDLE_BUTTON_RG_D1",0,0,0);
+			Unknown_5F84E0("WRAP_EXPLAIN_TEXT_RG_D1", PaymentTypeTexts[Unknown38C]);
+			if (!TutorialManagerClass::Instance->Is_Completed("REG14")) {
+				UnknownBC->Get_Unknown198()->Unknown_784C90("REG14", false);
+				TutorialManagerClass::Instance->Set_Completed("REG14");
+			}
+			break;
 		case 0xE:
 			Unknown_5F2F90(0x29, "COMBO_OPTION", 0x2D, std::_cpp_min(5, (int)Unknown578.size()));
 			Unknown_5F9C90();
@@ -1754,48 +1768,6 @@ void RegistrationInterface::Unknown_5F3770(int state)
 			if (!TutorialManagerClass::Instance->Is_Completed("REG15")) {
 				UnknownBC->Get_Unknown198()->Unknown_784C90("REG15", false);
 				TutorialManagerClass::Instance->Set_Completed("REG15");
-			}
-			break;
-		case 0xF:
-			Unknown_5F2B20(1, "RADIO_YES1", 0, 0, 1, false);
-			Unknown_5F2B20(2, "RADIO_NO1", 0, 0, 1, false);
-			Unknown_5F3250(2 - (Unknown3C4.Unknown90 != 0));
-			Unknown_5F2B20(3, "RADIO_YES2", 0, 0, 2, false);
-			Unknown_5F2B20(4, "RADIO_NO2", 0, 0, 2, false);
-			Unknown_5F3250(4 - (Unknown3C4.Unknown91 != 0));
-			Unknown_5F2B20(0x2d,"LEFT_BUTTON","LEFT_BUTTON_RG_C2",0,0,0);
-			Unknown_5F2B20(6,"RIGHT_BUTTON","RIGHT_BUTTON_RG_C2",0,0,0);
-			Unknown_5F2B20(7,"MIDDLE_BUTTON","MIDDLE_BUTTON_RG_C2",0,0,0);
-			if (!TutorialManagerClass::Instance->Is_Completed("REG9")) {
-				UnknownBC->Get_Unknown198()->Unknown_784C90("REG9", false);
-				TutorialManagerClass::Instance->Set_Completed("REG9");
-			}
-			break;
-		case 16:
-			Unknown_5F2D30(0x13,"ENTRY_PARENT","ENTRY_PARENT_RG_C3",0x28,Unknown3C4.Unknown6C.c_str(),0,0, Unknown_BE5DAC,Unknown_B85ED0);
-			Unknown_5F2B20(0x2d,"LEFT_BUTTON","LEFT_BUTTON_RG_C3",0,0,0);
-			Unknown_5F2B20(6,"RIGHT_BUTTON","RIGHT_BUTTON_RG_C3",0,0,0);
-			Unknown_5F2B20(7,"MIDDLE_BUTTON","MIDDLE_BUTTON_RG_C3",0,0,0);
-			if (!TutorialManagerClass::Instance->Is_Completed("REG10")) {
-				UnknownBC->Get_Unknown198()->Unknown_784C90("REG10", false);
-				TutorialManagerClass::Instance->Set_Completed("REG10");
-			}
-			if (Unknown3C4.Unknown6C.empty()) {
-				Unknown_5F8CD0(0x13, true);
-			}
-			break;
-		case 0x11:
-			Unknown_5F2D30(0x2B, "ENTRY_CODE", "ENTRY_CODE_RG_E1", 0x13, Unknown228.c_str(), 0x2B, 0, Unknown_BE5DB8, 0);
-			Unknown_5F2B20(0x2d,"LEFT_BUTTON","LEFT_BUTTON_RG_E1",0,0,0);
-			Unknown_5F2B20(6,"RIGHT_BUTTON","RIGHT_BUTTON_RG_E1",0,0,0);
-			Unknown_5F2B20(7,"MIDDLE_BUTTON","MIDDLE_BUTTON_RG_E1",0,0,0);
-			Unknown_5F3510(7, Unknown1D0);
-			if (Unknown228.size() == 0 || Unknown1D0) {
-				Unknown_5F8CD0(0x2B, true);
-			}
-			if (!TutorialManagerClass::Instance->Is_Completed("REG11")) {
-				UnknownBC->Get_Unknown198()->Unknown_784C90("REG11", false);
-				TutorialManagerClass::Instance->Set_Completed("REG11");
 			}
 			break;
 		case 0x12:
@@ -1822,25 +1794,12 @@ void RegistrationInterface::Unknown_5F3770(int state)
 				TutorialManagerClass::Instance->Set_Completed("REG17");
 			}
 			break;
-		case 0x14:
-			Unknown_5F2D30(0x2B, "ENTRY_CODE", "ENTRY_CODE_RG_K1", 0x13, Unknown238.c_str(), 0x2B, 0, Unknown_BE5DB8, 0);
-			Unknown_5F2B20(0x2d,"LEFT_BUTTON","LEFT_BUTTON_RG_K1",0,0,0);
-			Unknown_5F2B20(6,"RIGHT_BUTTON","RIGHT_BUTTON_RG_K1",0,0,0);
-			Unknown_5F2B20(7,"MIDDLE_BUTTON","MIDDLE_BUTTON_RG_K1",0,0,0);
-			if (Unknown238.size() == 0 || Unknown1D0) {
-				Unknown_5F8CD0(0x2B, true);
-			}
-			if (!TutorialManagerClass::Instance->Is_Completed("REG12")) {
-				UnknownBC->Get_Unknown198()->Unknown_784C90("REG12", false);
-				TutorialManagerClass::Instance->Set_Completed("REG12");
-			}
-			break;
 		case 0x15:
 			Unknown1C4 = 10;
 			Unknown_5F2B20(7, "MIDDLE_BUTTON", "MIDDLE_BUTTON_RG_X2", 0, 0, false);
 			break;
 		case 0x16:
-			Unknown1BC = new HAnimComboClass(1);
+			Unknown108.size(); Unknown108.size(); Unknown108.size(); Unknown108.size(); Unknown108.size(); Unknown108.size(); Unknown1BC = new HAnimComboClass(1);
 			Unknown1C0 = Create_Get(WW3DAssetManager::Get_Instance()->Get_HAnim("RG_X1.RG_X1a"));
 			Unknown1BC->Set_Motion(0, Unknown1C0.Peek());
 			Unknown1BC->Set_Weight(0, 1.0f);
@@ -1855,6 +1814,47 @@ void RegistrationInterface::Unknown_5F3770(int state)
 	Unknown_58();
 	TheDX8MeshRenderer.Invalidate();
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // @0x5F84E0
 void RegistrationInterface::Unknown_5F84E0(const char *name, const char *text)
