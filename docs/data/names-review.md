@@ -26072,7 +26072,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `std:` | `app/client/fontmanager.h:231` | what it holds |
 | 2 | `DebugFont` | `app/client/fontmanager.h:232` | what it holds |
 | 2 | `Step_Colour` | `app/client/fontsys.cpp:397` | one colour channel a step of 1 toward the target; inline only (Update_Text 0x6D64C0's unrolled per-channel code) |
-| 2 | `Set_Pass_Color` | `app/client/fontsys.cpp:404` | inline only: Update_Text's pass colour (the client cuts Convert_Color_Clamp under it) |
+| 2 | `Set_Pass_Color` | `app/client/fontsys.cpp:404` | inline only: Update_Text's pass colour (the client cuts Convert_Color_Clamp under it; the alpha's min as ?:, PT9 423 against WWMath::Min's 432) |
 | 2 | `Apply_Shader` | `app/client/fontsys.cpp:411` | inline only (Update_Text) |
 | 2 | `Refresh_Line` | `app/client/fontsys.cpp:413` | inline only: the client's Update_Text calls the copy's Get_Length out of line (one layer more than flat) |
 | 2 | `line` | `app/client/fontsys_cursor.h:35` | the FAIL_IF's '!line'  // NAME 1 [cursorpos, insert, center]: what it does with them |
