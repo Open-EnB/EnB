@@ -1,0 +1,5 @@
+HYPOTHESIS = 'PT7 round (10 batches): 0x5FBD30 1796 -> 672 through the file members the client inlines: group loops as 0x5F33E0 (client _Tree::begin out of line x7), pushes as 0x5F87D0 (case 0xC inlines its body), 0x5F8EA0 auto_inline(off) (client calls it at both sites), 5 dead map reads at case 0xC end (D272, swept 1-8 at four places, non-monotone: 2 -> 839, 5 -> 672, 7 -> 822). Left: case 0xC map::insert / assign nested cuts the client makes (16 map::insert, 9 insert(P,X)), case 0xD last combo sites, case 0x11/0x14 tail layout (r294/r300)'
+FILE = 'app/client/ui_registration.cpp'
+SYMBOL = 'RegistrationInterface::Unknown_5FBD30'
+ADDRESS = 0x5FBD30
+FORMS = {}

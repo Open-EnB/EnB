@@ -2006,7 +2006,7 @@ void RegistrationInterface::Unknown_5F8DB0(bool arg)
 	}
 	button->Release_Ref();
 }
-
+#pragma auto_inline(off)
 // @0x5F8EA0 NOT EXACT: shape (attempts.csv: the client's bl bool form not reproduced)
 bool RegistrationInterface::Unknown_5F8EA0(int month, int day, int year)
 {
@@ -2031,7 +2031,7 @@ bool RegistrationInterface::Unknown_5F8EA0(int month, int day, int year)
 	}
 	return(false);
 }
-
+#pragma auto_inline(on)
 // @0x5F8F60
 bool RegistrationInterface::Unknown_5F8F60(const char *text)
 {
@@ -2968,8 +2968,8 @@ void RegistrationInterface::Unknown_5F0100()
 
 
 
-// NOT EXACT: inline-budget (functional; the back-outs through 0x5F8560 as the client inlines it (its 0x5F86F0 / 0x5F89F0 nested calls); the
-// server boxes through 0x5FB890 (the client inlines six of eight); the client calls the radio map's begin out of line, its frame is 0x184 smaller)
+// NOT EXACT: inline-budget (functional; group loops through 0x5F33E0, pushes through 0x5F87D0, back-outs through 0x5F8560, server boxes through
+// 0x5FB890 as the client inlines them; left: case 0xC's later map::insert / assign the client cuts (nested), case 0xD's last combo sites, case layout)
 // @0x5FBD30
 void RegistrationInterface::Unknown_5FBD30()
 {
@@ -3464,7 +3464,7 @@ bad_login:
 			delete state;
 			delete zip;
 			delete phone;
-			delete number;
+			delete number; Unknown108.size(); Unknown108.size(); Unknown108.size(); Unknown108.size(); Unknown108.size();   // D272: dead reads (swept 1-8; here, after 0x5F87D0, after 0xD, at the end)
 			break;
 		}
 		case 0xD:
