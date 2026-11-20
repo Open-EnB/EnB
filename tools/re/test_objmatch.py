@@ -27,7 +27,7 @@ also holds the not-exact 0x79B4F0 (short_order's count test fails), takes the ne
 end (`gap_edge`). USE_EX_GAP_KNOWN: boolpars.obj's destructor and Set_Callbacks between the exact deleting destructor
 0x49A3C0 and the not-exact Parse, which symbols.json places at 0x49A430. USE_EX_GAP_PADDED: delta_interpolator.obj's
 Get_Change 0x4A6360 (nothing calls it, so no verified start) right after the destructor 0x4A6330's padding.
-CK_CALLSEQ (D246 / CK): co_data.obj's ClientObjectDataAccessClass<RadarDataClass>::Get, not exact, is located at 0x79E300 by
+CK_CALLSEQ (D246 / CK): unknown_79d250.obj's (co_data.obj's until the code moved there) ClientObjectDataAccessClass<RadarDataClass>::Get, not exact, is located at 0x79E300 by
 Get_Radar_Data's call; its calls in order give the tied pair<ClientObjectClass *const, RadarDataClass *>'s constructor
 0x7A0A80 (its one caller is 0x79E300) and _Hashtable_const_iterator's 0x7A0920 (`ck_callseq`). (find_or_insert
 0x7A0EC0 and its resize 0x7A3B50 were the cases until other rules came to credit them first: fresh objects of 2026-11-18.)
@@ -302,8 +302,8 @@ GAP_EDGE = [
     ('boolpars.obj', '?Set_Callbacks@BoolParserClass@@QAEXPAV?$hash_map@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@PAVBoolEvaluatorClass@@U?$hash@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@U?$equal_to@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@V?$allocator@PAVBoolEvaluatorClass@@@2@@std@@@Z', '0x49A410'),
 ]
 CK_CALLSEQ = [
-    ('co_data.obj', '??0?$pair@QAVClientObjectClass@@PAVRadarDataClass@@@std@@QAE@ABQAVClientObjectClass@@ABQAVRadarDataClass@@@Z', '0x7A0A80'),
-    ('co_data.obj', '??0?$_Hashtable_const_iterator@U?$pair@QAVClientObjectClass@@PAVRadarDataClass@@@std@@PAVClientObjectClass@@U?$hash@PAVClientObjectClass@@@2@U?$_Select1st@U?$pair@QAVClientObjectClass@@PAVRadarDataClass@@@std@@@2@U?$equal_to@PAVClientObjectClass@@@2@V?$allocator@PAVRadarDataClass@@@2@@std@@QAE@ABU?$_Hashtable_iterator@U?$pair@QAVClientObjectClass@@PAVRadarDataClass@@@std@@PAVClientObjectClass@@U?$hash@PAVClientObjectClass@@@2@U?$_Select1st@U?$pair@QAVClientObjectClass@@PAVRadarDataClass@@@std@@@2@U?$equal_to@PAVClientObjectClass@@@2@V?$allocator@PAVRadarDataClass@@@2@@1@@Z', '0x7A0920'),
+    ('unknown_79d250.obj', '??0?$pair@QAVClientObjectClass@@PAVRadarDataClass@@@std@@QAE@ABQAVClientObjectClass@@ABQAVRadarDataClass@@@Z', '0x7A0A80'),
+    ('unknown_79d250.obj', '??0?$_Hashtable_const_iterator@U?$pair@QAVClientObjectClass@@PAVRadarDataClass@@@std@@PAVClientObjectClass@@U?$hash@PAVClientObjectClass@@@2@U?$_Select1st@U?$pair@QAVClientObjectClass@@PAVRadarDataClass@@@std@@@2@U?$equal_to@PAVClientObjectClass@@@2@V?$allocator@PAVRadarDataClass@@@2@@std@@QAE@ABU?$_Hashtable_iterator@U?$pair@QAVClientObjectClass@@PAVRadarDataClass@@@std@@PAVClientObjectClass@@U?$hash@PAVClientObjectClass@@@2@U?$_Select1st@U?$pair@QAVClientObjectClass@@PAVRadarDataClass@@@std@@@2@U?$equal_to@PAVClientObjectClass@@@2@V?$allocator@PAVRadarDataClass@@@2@@1@@Z', '0x7A0920'),
 ]
 APP_REGION = (0x401000, 0x8C1B50)
 
