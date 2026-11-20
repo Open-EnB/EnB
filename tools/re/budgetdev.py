@@ -32,7 +32,10 @@ Device kinds (code: found from the code; comment: from a comment that names the 
                                                          together (the source change a builder would make). --sweep:
                                                          each holding dead-read row with n reads, only its first / last
                                                          m kept (m = 1..n-1; D272: the count matters)
-    python tools/re/budgetdev.py apply FILE... [--sweep] write a measured free set (exact functions only, a pragma pair
+    python tools/re/budgetdev.py nearmiss [FILE...]      each free device apply keeps for a near miss (a function it
+                                                         sits in or holds is not exact), compiled away with the near
+                                                         miss as the function: `identical` code or its residue a -> b
+    python tools/re/budgetdev.py apply FILE... [--sweep|--nearmiss] write a measured free set (exact functions only, a pragma pair
                                                          shared with a kept row left whole), or with --sweep the fewest
                                                          reads, into the tree (lines kept); then verify as usual
     python tools/re/budgetdev.py table                   docs/data/budget-devices.md and .json (generated)
@@ -540,6 +543,73 @@ def forms_of_text(text, rows):
     return text, out
 
 
+def near_misses(scan, meas, led):
+    """[(file, spans, rows, near)]: the devices measured free (alone) that apply keeps because a function they sit in
+    or hold is not exact; one entry per span set (a pragma pair around several functions is one), near = the not
+    exact addresses whose code it may still move."""
+    groups = {}
+    for r in scan['rows']:
+        if r['kind'] in MEASURABLE and r.get('spans'):
+            groups.setdefault((r['file'], tuple(tuple(s) for s in sorted(r['spans']))), []).append(r)
+    out = []
+    for (f, spans), rows in sorted(groups.items()):
+        if any((meas.get(row_key(r)) or {}).get('verdict') != 'free' for r in rows):
+            continue
+        exact = led.get(f) or set()
+        near = set()
+        for r in rows:
+            if r['address'] and int(r['address'], 16) not in exact:
+                near.add(r['address'])
+            near |= {h for h in r.get('held', []) if int(h, 16) not in exact}
+        if near:
+            out.append((f, spans, rows, sorted(near)))
+    return out
+
+
+def cmd_nearmiss(a):
+    """Each free device kept for a near miss, compiled away with the near miss as trybatch's function: `identical`
+    (the near miss's code does not change: the device does nothing there either) or its residue before -> after."""
+    import trybatch
+    scan, meas, led = load('scan'), load_measures(), ledger()
+    mine = load('nearmiss', {})
+    names = {r['address']: r['function'] for r in scan['rows'] if r['address']}
+    todo = [g for g in near_misses(scan, meas, led) if (not a.files or g[0] in a.files)
+            and f'{g[0]}|{g[1][0][0]}' not in mine]
+    print(f'nearmiss: {len(todo)} devices', flush=True)
+    logf = open(os.path.join(WORK, 'nearmiss.log'), 'a', encoding='utf-8')
+    for f, spans, rows, near in todo:
+        raw = open(os.path.join(ROOT, f), encoding='latin-1', newline='').read().replace('\r\n', '\n')
+        new = without(raw, [list(s) for s in spans])
+        got = {}
+        for addr in near:
+            spec = {'hypothesis': f'budget-device audit: a free device; the near miss {addr} without it', 'file': f,
+                    'symbol': names.get(addr, ''), 'address': int(addr, 16), 'forms': {'nodevice': [(raw, new)]},
+                    'flags': None, 'unit': None}
+            args = argparse.Namespace(only=None, no_lease=False, vms=a.vms, slots=False, file_check=False, record=None)
+            buf = io.StringIO()
+            try:
+                with contextlib.redirect_stdout(buf):
+                    res = trybatch.run_spec(args, spec, 'aud-nm-' + addr[2:], None)['results']
+            except SystemExit as e:
+                got[addr] = f'error: {str(e)[:80]}'
+                continue
+            finally:
+                logf.write(f'== {f} {addr}{NL}{buf.getvalue()}{NL}')
+            b, m = res.get('base', {}), res.get('nodevice', {})
+            if 'res' not in b or 'res' not in m:
+                got[addr] = 'error: ' + (m.get('error') or b.get('error') or '?')[:80]
+            elif m.get('key') is not None and m.get('key') == b.get('key'):
+                got[addr] = 'identical'
+            else:
+                got[addr] = f"residue {b['res']} -> {m['res']}"
+        mine[f'{f}|{spans[0][0]}'] = {'file': f, 'rows': [row_key(r) for r in rows], 'near': got,
+                                      'identical': all(v == 'identical' for v in got.values())}
+        json.dump(mine, open(os.path.join(WORK, 'nearmiss.json'), 'w', encoding='utf-8'), indent=0)
+        print(f'{f} ({", ".join(r["function"] for r in rows)[:60]}): ' + ', '.join(f'{k} {v}' for k, v in got.items()),
+              flush=True)
+    return 0
+
+
 def apply_sweeps(files, scan, meas):
     """Cut each exact function's holding dead reads to the fewest its count sweep measured with nothing lost (the
     front kept when both sides tie)."""
@@ -577,6 +647,19 @@ def cmd_apply(a):
     meas = load_measures()
     if a.sweep:
         return apply_sweeps(a.files, scan, meas)
+    if a.nearmiss:       # the free devices whose near misses compile to identical code without them
+        nm = load('nearmiss', {})
+        for f in a.files:
+            rel = f.replace('\\', '/')
+            keys = {k for v in nm.values() if v['file'] == rel and v['identical'] for k in v['rows']}
+            spans = {tuple(s) for r in scan['rows'] if row_key(r) in keys for s in r['spans']}
+            if spans:
+                p = os.path.join(ROOT, rel)
+                raw = open(p, encoding='latin-1', newline='').read()
+                new = without(raw.replace('\r\n', '\n'), [list(s) for s in spans])
+                open(p, 'w', encoding='latin-1', newline='').write(new.replace('\n', '\r\n') if '\r\n' in raw else new)
+                print(f'apply {rel}: {len(keys)} rows ({len(spans)} spans) removed')
+        return 0
     for f in a.files:
         rel = f.replace('\\', '/')
         fs = meas.get('_freeset|' + rel)
@@ -922,8 +1005,13 @@ def main(argv=None):
     p = sub.add_parser('apply')
     p.add_argument('files', nargs='+')
     p.add_argument('--sweep', action='store_true', help='cut holding dead reads to the fewest the count sweep kept')
+    p.add_argument('--nearmiss', action='store_true', help='remove the free devices `nearmiss` found identical')
+    n = sub.add_parser('nearmiss')
+    n.add_argument('files', nargs='*')
+    n.add_argument('--vms', type=int, default=2)
     a = ap.parse_args(argv)
-    return {'scan': cmd_scan, 'forms': cmd_forms, 'measure': cmd_measure, 'table': cmd_table, 'apply': cmd_apply}[a.cmd](a)
+    return {'scan': cmd_scan, 'forms': cmd_forms, 'measure': cmd_measure, 'table': cmd_table, 'apply': cmd_apply,
+            'nearmiss': cmd_nearmiss}[a.cmd](a)
 
 
 if __name__ == '__main__':

@@ -105,6 +105,17 @@ class ScanTest(unittest.TestCase):
         self.assertEqual([(r['address'], r['lines'], r['found']) for r in rows],
                          [('0x401000', [5], 'code: after return x1')])
 
+    def test_near_misses_group_a_pragma_pair(self):
+        rows = [{'kind': 'auto-inline', 'file': 'a.cpp', 'address': '0x401000', 'function': 'f', 'lines': [3],
+                 'spans': [[10, 30], [90, 110]], 'held': ['0x402000']},
+                {'kind': 'auto-inline', 'file': 'a.cpp', 'address': '0x401100', 'function': 'g', 'lines': [3],
+                 'spans': [[10, 30], [90, 110]], 'held': []},
+                {'kind': 'dead-read', 'file': 'a.cpp', 'address': '0x401200', 'function': 'h', 'lines': [40],
+                 'spans': [[200, 210]]}]
+        meas = {B.row_key(r): {'verdict': 'free'} for r in rows}
+        got = B.near_misses({'rows': rows}, meas, {'a.cpp': {0x401000, 0x401100, 0x401200}})
+        self.assertEqual([(f, len(rs), near) for f, _, rs, near in got], [('a.cpp', 2, ['0x402000'])])
+
     def test_address_prefers_the_marker_line(self):
         lines = ['// 0x402000 (also the view\'s 0x401000)', 'void Unknown_401000()', '{', '}']
         f = {'header_line': 2, 'body_line': 3, 'name': 'Unknown_401000'}
