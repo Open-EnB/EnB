@@ -1743,7 +1743,7 @@ void RegistrationInterface::Unknown_5F3770(int state)
 			}
 			break;
 		case 0xB:
-			Unknown_5F2F90(0x2A, "COMBO_OPTION", 0x14, std::_cpp_min(5, (int)Unknown598.size()));
+			Unknown_5F2F90(0x2A, "COMBO_OPTION", 0x14, std::_cpp_min(5, (int)Unknown578.size()));
 			Unknown_5F9EB0();
 			Unknown108[0x2A].Combo->Select(Unknown388);
 			Unknown38C = Unknown598[Unknown388];
@@ -2968,8 +2968,8 @@ void RegistrationInterface::Unknown_5F0100()
 
 
 
-// NOT EXACT: inline-budget (functional, pseudocode-faithful, D89: Unknown_5F86F0 now out of line as in the client (auto_inline(off), IB); the client
-// still calls the radio map's begin out of line at case 0 and its stack frame is 0x80 bytes smaller)
+// NOT EXACT: inline-budget (functional; the back-outs through 0x5F8560 as the client inlines it (its 0x5F86F0 / 0x5F89F0 nested calls); the
+// client also inlines 0x5FB890's server box at six sites, calls the radio map's begin out of line and has a 0x184 bytes smaller frame)
 // @0x5FBD30
 void RegistrationInterface::Unknown_5FBD30()
 {
@@ -3054,11 +3054,11 @@ void RegistrationInterface::Unknown_5FBD30()
 					_snprintf(buffer, 1024, "%s", RegistrationServerError);
 				}
 				UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, buffer, 0x140, 0, 0);
-				if ((UnknownD4 == 1 && Unknown11B) || (UnknownD4 == 0 && Unknown11D) || UnknownD4 == 0x17) {
-					Unknown_5F86F0();
-				} else {
-					Unknown_5F3770(Unknown_5F89F0());
-				}
+				Unknown_5F8560();
+
+
+
+
 				return;
 			}
 			UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "Please enter a valid E-Mail address.", 0x140, 0, 0);
@@ -3088,11 +3088,11 @@ void RegistrationInterface::Unknown_5FBD30()
 				_snprintf(buffer, 1024, "%s", RegistrationServerError);
 			}
 			UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, buffer, 0x140, 0, 0);
-			if ((UnknownD4 == 1 && Unknown11B) || (UnknownD4 == 0 && Unknown11D) || UnknownD4 == 0x17) {
-				Unknown_5F86F0();
-			} else {
-				Unknown_5F3770(Unknown_5F89F0());
-			}
+			Unknown_5F8560();
+
+
+
+
 			break;
 		}
 		case 1:
@@ -3132,15 +3132,15 @@ void RegistrationInterface::Unknown_5FBD30()
 				_snprintf(buffer, 1024, "%s", RegistrationServerError);
 			}
 			UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, buffer, 0x140, 0, 0);
-			if ((UnknownD4 == 1 && Unknown11B) || (UnknownD4 == 0 && Unknown11D) || UnknownD4 == 0x17) {
-				Unknown_5F86F0();
-				return;
-			}
-			int state = Unknown_5F8A90();
-			if (UnknownD8.size() != 0) {
-				UnknownD8.pop_back();
-			}
-			Unknown_5F3770(state);
+			Unknown_5F8560();
+
+
+
+
+
+
+
+
 			return;
 		}
 		case 3:
@@ -3175,15 +3175,15 @@ void RegistrationInterface::Unknown_5FBD30()
 				_snprintf(buffer, 1024, "%s", RegistrationServerError);
 			}
 			UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, buffer, 0x140, 0, 0);
-			if ((UnknownD4 == 1 && Unknown11B) || (UnknownD4 == 0 && Unknown11D) || UnknownD4 == 0x17) {
-				Unknown_5F86F0();
-				return;
-			}
-			int state = Unknown_5F8A90();
-			if (UnknownD8.size() != 0) {
-				UnknownD8.pop_back();
-			}
-			Unknown_5F3770(state);
+			Unknown_5F8560();
+
+
+
+
+
+
+
+
 			return;
 		}
 		case 4:
@@ -3212,15 +3212,15 @@ void RegistrationInterface::Unknown_5FBD30()
 				_snprintf(buffer, 1024, "%s", RegistrationServerError);
 			}
 			UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, buffer, 0x140, 0, 0);
-			if ((UnknownD4 == 1 && Unknown11B) || (UnknownD4 == 0 && Unknown11D) || UnknownD4 == 0x17) {
-				Unknown_5F86F0();
-				return;
-			}
-			int state = Unknown_5F8A90();
-			if (UnknownD8.size() != 0) {
-				UnknownD8.pop_back();
-			}
-			Unknown_5F3770(state);
+			Unknown_5F8560();
+
+
+
+
+
+
+
+
 			return;
 		}
 		case 5:
@@ -3286,15 +3286,15 @@ bad_login:
 				_snprintf(buffer, 1024, "%s", RegistrationServerError);
 			}
 			UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, buffer, 0x140, 0, 0);
-			if ((UnknownD4 == 1 && Unknown11B) || (UnknownD4 == 0 && Unknown11D) || UnknownD4 == 0x17) {
-				Unknown_5F86F0();
-				return;
-			}
-			int state = Unknown_5F8A90();
-			if (UnknownD8.size() != 0) {
-				UnknownD8.pop_back();
-			}
-			Unknown_5F3770(state);
+			Unknown_5F8560();
+
+
+
+
+
+
+
+
 			break;
 		}
 		case 10:
@@ -3350,15 +3350,15 @@ bad_login:
 						_snprintf(buffer, 1024, "%s", RegistrationServerError);
 					}
 					UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, buffer, 0x140, 0, 0);
-					if ((UnknownD4 == 1 && Unknown11B) || (UnknownD4 == 0 && Unknown11D) || UnknownD4 == 0x17) {
-						Unknown_5F86F0();
-					} else {
-						int state = Unknown_5F8A90();
-						if (UnknownD8.size() != 0) {
-							UnknownD8.pop_back();
-						}
-						Unknown_5F3770(state);
-					}
+					Unknown_5F8560();
+
+
+
+
+
+
+
+
 				}
 			}
 			delete email;
@@ -3445,15 +3445,15 @@ bad_login:
 						_snprintf(buffer, 1024, "%s", RegistrationServerError);
 					}
 					UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, buffer, 0x140, 0, 0);
-					if ((UnknownD4 == 1 && Unknown11B) || (UnknownD4 == 0 && Unknown11D) || UnknownD4 == 0x17) {
-						Unknown_5F86F0();
-					} else {
-						int state = Unknown_5F8A90();
-						if (UnknownD8.size() != 0) {
-							UnknownD8.pop_back();
-						}
-						Unknown_5F3770(state);
-					}
+					Unknown_5F8560();
+
+
+
+
+
+
+
+
 				}
 			}
 			delete first_name;
