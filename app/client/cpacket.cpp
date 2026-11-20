@@ -2485,13 +2485,13 @@ bool NoteListPacketClass::Process_Packet(void *instance)
 
 
 
-// NOT EXACT: inline-budget (1,638 instructions vs the client's 1,615: the client calls std::string's range constructor 0x73F680 out of line and inlines other std::string members elsewhere; frame 0x568 vs 0x558; attempts.py show 0x73B150)
+// NOT EXACT: inline-budget (masked residue 908 -> 347: the cases in the client's jump-table target order, and 11 dead Unknown14.size() reads after FAIL_IF spend the inline budget (D272; 1-10 change nothing, 14+ worse); left: the client calls the range constructor 0x73F680 out of line (a missing inline layer), assign in case 9's first string and _Tidy in case 22's copy, and the tail merges that follow; frame 0x568 vs 0x558; attempts.py show 0x73B150)
 // 0x73B150
 bool ClientChatEventPacketClass::Process_Packet(void *instance)
 {
 	WWPROFILE("ClientChatEventPacketClass::Process_Packet()");
 	SClient *sclient = (SClient *)instance;
-	FAIL_IF(!sclient) return(true);
+	FAIL_IF(!sclient) return(true); Unknown14.size(); Unknown14.size(); Unknown14.size(); Unknown14.size(); Unknown14.size(); Unknown14.size(); Unknown14.size(); Unknown14.size(); Unknown14.size(); Unknown14.size(); Unknown14.size();
 	if (Unknown0C == 3 && !strnicmp(Unknown44.c_str(), "group", 5)) {
 		const char *message = Unknown54.c_str();
 		int index;
@@ -2531,6 +2531,9 @@ bool ClientChatEventPacketClass::Process_Packet(void *instance)
 			_snprintf(buffer, sizeof(buffer), "%s logged out.", from);
 			sclient->Unknown_74D990(0, buffer, 0);
 			return(true);
+		case 11:
+			_snprintf(buffer, sizeof(buffer), "%s removed channel %s.", from, chan);
+			break;
 		case 3:
 			if (!strnicmp(chan, "Sector", 6)) {
 				sclient->Unknown_74D990(2, (char *)text, 0);
@@ -2563,6 +2566,10 @@ bool ClientChatEventPacketClass::Process_Packet(void *instance)
 				break;
 			}
 			return(true);
+		case 5:
+			sclient->Unknown_74D990(7, (char *)text, 0);
+			sclient->Unknown_750F70(name, 7);
+			return(true);
 		case 4:
 			if (name) {
 				CharacterViewAvatarClass *avatar;
@@ -2588,10 +2595,6 @@ bool ClientChatEventPacketClass::Process_Packet(void *instance)
 					sclient->ChatPanel->Unknown_565D80(name);
 				}
 			}
-			return(true);
-		case 5:
-			sclient->Unknown_74D990(7, (char *)text, 0);
-			sclient->Unknown_750F70(name, 7);
 			return(true);
 		case 6:
 			_snprintf(buffer, sizeof(buffer), "[system] %s: %s", from, text);
@@ -2626,51 +2629,6 @@ bool ClientChatEventPacketClass::Process_Packet(void *instance)
 				}
 			}
 			return(true);
-		case 9:
-			panel->Unknown_5679A0(9, std::string(chan), std::string(""), Unknown10 != 0);
-			_snprintf(buffer, sizeof(buffer), "[%s] New Channel Created.", chan);
-			if (sclient->LineDisplay) {
-				char line[128];
-				_snprintf(line, sizeof(line), "You have joined channel %s", chan);
-				sclient->LineDisplay->Add_Line_7(line, 3000, "MessageLine");
-			}
-			break;
-		case 11:
-			_snprintf(buffer, sizeof(buffer), "%s removed channel %s.", from, chan);
-			break;
-		case 12:
-			_snprintf(buffer, sizeof(buffer), "[%s] %s invited %s.", chan, from, text);
-			break;
-		case 13:
-			_snprintf(buffer, sizeof(buffer), "[%s] %s uninvited %s.", chan, from, text);
-			break;
-		case 14:
-			_snprintf(buffer, sizeof(buffer), "[%s] %s gagged %s.", chan, from, text);
-			break;
-		case 15:
-			_snprintf(buffer, sizeof(buffer), "[%s] %s ungagged %s.", chan, from, text);
-			break;
-		case 16:
-			if (e4 && e4->State == 1) {
-				e4->Unknown_5E9160(1, Get_Unknown54());
-			}
-			if (e8) {
-				e8->Unknown_5E6030(Get_Unknown54());
-			}
-			_snprintf(buffer, sizeof(buffer), "[%s] %s banned %s.", chan, from, text);
-			break;
-		case 17:
-			_snprintf(buffer, sizeof(buffer), "[%s] %s unbanned %s.", chan, from, text);
-			break;
-		case 18:
-			if (e4 && e4->State == 1) {
-				e4->Unknown_5E9160(1, Get_Unknown54());
-			}
-			if (e8) {
-				e8->Unknown_5E6030(Get_Unknown54());
-			}
-			_snprintf(buffer, sizeof(buffer), "[%s] %s kicked %s.", chan, from, target);
-			break;
 		case 19:
 			if (d8) {
 				d8->Unknown_5DA780(Get_Unknown54());
@@ -2699,6 +2657,47 @@ bool ClientChatEventPacketClass::Process_Packet(void *instance)
 			_snprintf(buffer, sizeof(buffer), "%s is no longer friends with %s.", from, text);
 			sclient->Unknown_74D990(0, buffer, 0);
 			return(true);
+		case 27:
+			_snprintf(buffer, sizeof(buffer), "%s has been gagged by GM %s.", text, name);
+			sclient->Unknown_74D990(0, buffer, 0);
+			return(true);
+		case 28:
+			_snprintf(buffer, sizeof(buffer), "GM %s has removed the gag on %s.", name, text);
+			sclient->Unknown_74D990(0, buffer, 0);
+			return(true);
+		case 12:
+			_snprintf(buffer, sizeof(buffer), "[%s] %s invited %s.", chan, from, text);
+			break;
+		case 13:
+			_snprintf(buffer, sizeof(buffer), "[%s] %s uninvited %s.", chan, from, text);
+			break;
+		case 16:
+			if (e4 && e4->State == 1) {
+				e4->Unknown_5E9160(1, Get_Unknown54());
+			}
+			if (e8) {
+				e8->Unknown_5E6030(Get_Unknown54());
+			}
+			_snprintf(buffer, sizeof(buffer), "[%s] %s banned %s.", chan, from, text);
+			break;
+		case 17:
+			_snprintf(buffer, sizeof(buffer), "[%s] %s unbanned %s.", chan, from, text);
+			break;
+		case 18:
+			if (e4 && e4->State == 1) {
+				e4->Unknown_5E9160(1, Get_Unknown54());
+			}
+			if (e8) {
+				e8->Unknown_5E6030(Get_Unknown54());
+			}
+			_snprintf(buffer, sizeof(buffer), "[%s] %s kicked %s.", chan, from, target);
+			break;
+		case 14:
+			_snprintf(buffer, sizeof(buffer), "[%s] %s gagged %s.", chan, from, text);
+			break;
+		case 15:
+			_snprintf(buffer, sizeof(buffer), "[%s] %s ungagged %s.", chan, from, text);
+			break;
 		case 23:
 			panel->Unknown_5679A0(23, std::string(chan), std::string(target), Unknown10 != 0);
 			if (*from) {
@@ -2715,6 +2714,15 @@ bool ClientChatEventPacketClass::Process_Packet(void *instance)
 				_snprintf(buffer, sizeof(buffer), "[%s] The system has removed %s from the channel owner list.", chan, target);
 			}
 			break;
+		case 9:
+			panel->Unknown_5679A0(9, std::string(chan), std::string(""), Unknown10 != 0);
+			_snprintf(buffer, sizeof(buffer), "[%s] New Channel Created.", chan);
+			if (sclient->LineDisplay) {
+				char line[128];
+				_snprintf(line, sizeof(line), "You have joined channel %s", chan);
+				sclient->LineDisplay->Add_Line_7(line, 3000, "MessageLine");
+			}
+			break;
 		case 25:
 			_snprintf(buffer, sizeof(buffer), "Only members of your Friends List may see if you are online.");
 			sclient->Unknown_74D990(19, buffer, 0);
@@ -2722,14 +2730,6 @@ bool ClientChatEventPacketClass::Process_Packet(void *instance)
 		case 26:
 			_snprintf(buffer, sizeof(buffer), "All players may see you on their Friends List.");
 			sclient->Unknown_74D990(19, buffer, 0);
-			return(true);
-		case 27:
-			_snprintf(buffer, sizeof(buffer), "%s has been gagged by GM %s.", text, name);
-			sclient->Unknown_74D990(0, buffer, 0);
-			return(true);
-		case 28:
-			_snprintf(buffer, sizeof(buffer), "GM %s has removed the gag on %s.", name, text);
-			sclient->Unknown_74D990(0, buffer, 0);
 			return(true);
 		default:
 			return(true);
