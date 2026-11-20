@@ -2757,7 +2757,7 @@ void UIStarbaseClass::Unknown_63C890()
 
 
 
-// NOT EXACT: 0x63CA50, functional (inline budget: the client calls the name string's assign out of line, ours inlines it; its client pointer in edi, the bool by a branch; O4)
+// NOT EXACT: 0x63CA50, functional (register: the client loads the view (+0xB0) into ecx before the avatar at the button's constructor, the scene's Add_Render_Object and 0x6870E0's arguments, ours into edx / eax; O4, UB)
 // 0x63CA50 ('(%s) Adding avatar %s in room %d': a known avatar's entry made, its name tags and gadget, into +0xD4)
 void UIStarbaseClass::Unknown_63CA50(int id, const Matrix3D &transform, int flags)
 {
@@ -2782,10 +2782,10 @@ void UIStarbaseClass::Unknown_63CA50(int id, const Matrix3D &transform, int flag
 		// (Set_Color: +0x494's colour, then +0x4A4 copied from it)
 		savatar->Unknown34 = object->Unknown_6FFF50();
 	} else {
-		savatar->Unknown24 = "";
+		savatar->Unknown24 = ""; savatar->Avatar->Unknown318.size(); savatar->Avatar->Unknown318.size();	// D272: two dead reads; the client calls the string's assign out of line here
 	}
 	savatar->Unknown18 = flags;
-	savatar->Avatar->Unknown_784F60((flags & 1) != 0);
+	if (flags & 1) savatar->Avatar->Unknown_784F60(true); else savatar->Avatar->Unknown_784F60(false);
 	UnknownB0->Unknown_6A1880(savatar->NameTag, 0);
 	savatar->Unknown_633180();
 	UnknownD4[id] = savatar;
