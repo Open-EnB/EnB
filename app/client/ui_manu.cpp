@@ -1508,9 +1508,9 @@ void UIManuClass::Unknown_5B4B10()
 	}
 }
 
-struct UIManuTargetItemClass { char Unknown00[0x120]; int Unknown120; };	// NAME 1: neutral (D10): 'ManufactureTarget''s first item (+0x120 its template id)
+
 Unknown831340Class *Unknown_8318B0(int item_template_id, ClientClass *client);	// item_template.cpp's (client.h's item template)  // NAME 1: neutral (D10)  // NAME 3 [item_template_id]: the FAIL_IF's
-// NOT EXACT: inline budget (the client calls std::string's _Eos out of line in the static's constructor; ours inlines it) (0x5B5CD0)
+// 0x5B5CD0
 static std::string Unknown_5B5CD0(DeltaCompoundClass *auxdata, LineDisplayClientClass *client)	// NAME 1: neutral (D10)  // NAME 3 [auxdata, client]: the FAIL_IFs'
 {
 	static std::string unknown_item("Unknown Item");
@@ -1519,15 +1519,15 @@ static std::string Unknown_5B5CD0(DeltaCompoundClass *auxdata, LineDisplayClient
 	NameClass name("ManufactureTarget");
 	UIManuComponentsClass *target_item_auxdata_set = Unknown_Find_Valid<UIManuComponentsClass>(auxdata, name);
 	FAIL_IF(!target_item_auxdata_set) return(unknown_item);
+	target_item_auxdata_set->Children.begin();	// not the client's: a dead read (D130 / D272) spends the inline budget the client spent (the find out of line, 0x5B7050; begin() costs one expansion, Get_Size two: with Get_Size the '!item_template' copy's _Tidy stays a call)
 
 
-
-	int item_template_id = (*(UIManuTargetItemClass ***)((char *)target_item_auxdata_set + 0x88))[0]->Unknown120;
+	int item_template_id = ((DeltaItemClass *)target_item_auxdata_set->Children[0])->ItemTemplateID.Value;
 	FAIL_IF(item_template_id == -1) return(unknown_item);
 
 	Unknown831340Class *item_template = Unknown_8318B0(item_template_id, (ClientClass *)client);
 	FAIL_IF(!item_template) return(unknown_item);
-	return(item_template->Name);
+	return(item_template->Get_Name());
 }
 
 // 0x5B6060
@@ -1867,7 +1867,7 @@ void UIManuClass::Unknown_5B6D30()
 **	FAIL_IFs 1517-1529, its static 'Unknown Item' string destroyed by 0x5B5FF0) and 0x5B6060 (the Validity's message)
 **	are defined before it, and the client emits them after it.
 **	The constructor, destructor, slots +0x54 / +0x58 / +0x5C / +0x60 / +0x68, 0x5B2480, 0x5B2BD0, 0x5B2FE0,
-**	0x5B3640, 0x5B3E00, 0x5B4680, 0x5B4850, 0x5B4B10, 0x5B5320, 0x5B5CD0 and 0x5B67C0 compile but are not exact (see their NOT
+**	0x5B3640, 0x5B3E00, 0x5B4680, 0x5B4850, 0x5B4B10, 0x5B5320 and 0x5B67C0 compile but are not exact (see their NOT
 **	EXACT notes; most are the client's inline budget: it calls finds, casts or the tree checks out of line where this
 **	compile inlines them). The static __int64 0x5AF9D0 initialises is the filter request interval.
 */

@@ -684,7 +684,7 @@ Unknown831340Class *Unknown_8318B0(int item_template_id, ClientClass *client);	/
 
 
 
-// NOT EXACT: inline budget (4 rows: the client inlines _Tidy in the '!item_template' return's copy, ours calls it; the id through Children[0], the name through Get_Name and one dead read made the rest exact) (0x5EE460)
+// 0x5EE460
 static std::string Unknown_5EE460(DeltaCompoundClass *auxdata, LineDisplayClientClass *client)	// NAME 1: neutral (D10)  // NAME 3 [auxdata, client]: the FAIL_IFs'
 {
 	static std::string unknown_item("Unknown Item");
@@ -693,7 +693,7 @@ static std::string Unknown_5EE460(DeltaCompoundClass *auxdata, LineDisplayClient
 	NameClass name("ManufactureTarget");
 	UIManuComponentsClass *target_item_auxdata_set = Unknown_Find_Valid<UIManuComponentsClass>(auxdata, name);
 	FAIL_IF(!target_item_auxdata_set) return(unknown_item);
-	target_item_auxdata_set->Get_Size();	// not the client's: a dead read (D130 / D272) spends the inline budget the client spent (the find out of line, 0x5B7050)
+	target_item_auxdata_set->Children.begin();	// not the client's: a dead read (D130 / D272) spends the inline budget the client spent (the find out of line, 0x5B7050; begin() costs one expansion, Get_Size two: with Get_Size the '!item_template' copy's _Tidy stays a call)
 
 
 	int item_template_id = ((DeltaItemClass *)target_item_auxdata_set->Children[0])->ItemTemplateID.Value;
