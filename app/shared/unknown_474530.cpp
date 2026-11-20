@@ -66,9 +66,9 @@ void Unknown_477E20(std::vector<Vector3> verts);
 // no Clear / Resize calls); the patch loop through a patch pointer, its strip and edge buffers by p->Level; each quad's
 // corner a Vector3 copied into the list (the macro); the sea index count from Count() / 2 and the vertex buffer written
 // through its FVF offsets (0x252, the corner copied, the normal (0, 0, 1), the grid uv a Vector2 local scaled with *=
-// and the two detail scales by Vector2's operator *); the first record pass reads PatchRecords[i] at each use (the
-// client reloads +0x18C). Left: its Set_Shader inline (the client calls it: inline budget), the second record pass's
-// reloads (the same form there inlines everything), register choices in the patch loop and the ring quads
+// and the two detail scales by Vector2's operator *); both records passes read PatchRecords[i] at each use (the
+// client reloads +0x18C; with the dead reads below, LND 2026-11-20: 257 -> 223). Left: the patch transform's load
+// order (Field's scales before p's corner), register choices in the patch loop's Adds and the records passes (ebp = 3)
 void LandClass::Render(RenderInfoClass &rinfo)
 {
 	DX8Wrapper::Set_Texture(0, LightmapTextures[FrontLightmap]);
@@ -179,8 +179,9 @@ void LandClass::Render(RenderInfoClass &rinfo)
 		Unknown_477E20(projected);
 	}
 
-	// the patch records' extra buffers (+0x00 / +0x04 and +0x08 / +0x0C), up to level 2
-	if (Unknown192) {
+	// the patch records' extra buffers (+0x00 / +0x04 and +0x08 / +0x0C), up to level 2; the dead size() reads spend the
+	// inline budget (D272: the count swept, 6 and 7 equal): the first pass's Set_Shader / Set_Material called as the client's
+	Unknown1218.size(); Unknown1218.size(); Unknown1218.size(); Unknown1218.size(); Unknown1218.size(); Unknown1218.size(); if (Unknown192) {
 		if (Unknown190) {
 			DX8Wrapper::Set_Texture(0, Unknown178.Peek());
 			DX8Wrapper::Set_Texture(1, NULL);
@@ -202,11 +203,10 @@ void LandClass::Render(RenderInfoClass &rinfo)
 			DX8Wrapper::Set_Material(Unknown188.Peek());
 			DX8Wrapper::Set_DX8_Render_State(D3DRS_ZBIAS, 1);
 			for (i = 0; i < PatchCount; i++) {
-				LandPatchRecordClass &record = PatchRecords[i];
-				if (record.Visible && record.Unknown18 > 0 && (unsigned int)record.Level < 3) {
-					DX8Wrapper::Set_Vertex_Buffer((VertexBufferClass *)record.Unknown08.Peek());
-					DX8Wrapper::Set_Index_Buffer((IndexBufferClass *)record.Unknown0C.Peek(), 0);
-					DX8Wrapper::Draw_Triangles(0, (unsigned short)(record.Unknown1C / 3), 0, (unsigned short)record.Unknown18);
+				if (PatchRecords[i].Visible && PatchRecords[i].Unknown18 > 0 && (unsigned int)PatchRecords[i].Level < 3) {
+					DX8Wrapper::Set_Vertex_Buffer((VertexBufferClass *)PatchRecords[i].Unknown08.Peek());
+					DX8Wrapper::Set_Index_Buffer((IndexBufferClass *)PatchRecords[i].Unknown0C.Peek(), 0);
+					DX8Wrapper::Draw_Triangles(0, (unsigned short)(PatchRecords[i].Unknown1C / 3), 0, (unsigned short)PatchRecords[i].Unknown18);
 				}
 			}
 			DX8Wrapper::Set_DX8_Render_State(D3DRS_ZBIAS, 0);
