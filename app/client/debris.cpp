@@ -227,7 +227,7 @@ RenderObjClass *DebrisFieldClass::Clone(void) const
 }
 
 // 0x6B9BF0
-// NOT EXACT: masked residue 192 -> 10 (frame 0xA54 as the client's; diffuse written field by field, hash a signed int, cur -= back; cur += step, the tails test non-NULL first); left: bmax / bmin built left to right, the stack slots
+// NOT EXACT: masked residue 192 -> 6 (frame 0xA54 as the client's; diffuse written field by field, hash a signed int, cur -= back; cur += step, the tails test non-NULL first, d2 the bare Length2 with the inv_max2 product in the compare and the floor); left: bmin built by fields (fixes 0x6B9FD2 but flips the blur Rotate_Vector operand order), the stack slots
 void DebrisFieldClass::Render(RenderInfoClass &rinfo)
 {
 	WWPROFILE("DebrisFieldClass::Render");
@@ -356,9 +356,9 @@ void DebrisFieldClass::Render(RenderInfoClass &rinfo)
 						int hash = z ^ xy;
 						int corner = (((hash >> 3) & 0x38) ^ (hash & 0x38)) >> 3 ^ (hash & 7);
 						locs[UnknownD4] = cur + jitter[corner];
-						float d2 = locs[UnknownD4].Length2() * inv_max2;
-						if (d2 < 1.0f) {
-							float alpha = alpha_ramp[(int)floor(d2 * 512.0f)];
+						float d2 = locs[UnknownD4].Length2();
+						if (d2 * inv_max2 < 1.0f) {
+							float alpha = alpha_ramp[(int)floor(d2 * inv_max2 * 512.0f)];
 							diffuse[UnknownD4].X = Color.X; diffuse[UnknownD4].Y = Color.Y; diffuse[UnknownD4].Z = Color.Z; diffuse[UnknownD4].W = alpha * Alpha;
 							if (frames) {
 								frames[UnknownD4] = Unknown_B92080[(((hash >> 16) & 0xFF) << 8 ^ (hash & 0xFF00)) >> 8 ^ (hash & 0xFF)];
@@ -387,9 +387,9 @@ void DebrisFieldClass::Render(RenderInfoClass &rinfo)
 						int hash = z ^ xy;
 						int corner = (((hash >> 3) & 0x38) ^ (hash & 0x38)) >> 3 ^ (hash & 7);
 						locs[UnknownD4] = cur + jitter[corner];
-						float d2 = locs[UnknownD4].Length2() * inv_max2;
-						if (d2 < 1.0f) {
-							float alpha = alpha_ramp[(int)floor(d2 * 512.0f)];
+						float d2 = locs[UnknownD4].Length2();
+						if (d2 * inv_max2 < 1.0f) {
+							float alpha = alpha_ramp[(int)floor(d2 * inv_max2 * 512.0f)];
 							diffuse[UnknownD4].X = alpha * Color.X; diffuse[UnknownD4].Y = alpha * Color.Y; diffuse[UnknownD4].Z = alpha * Color.Z; diffuse[UnknownD4].W = Alpha;
 							if (frames) {
 								frames[UnknownD4] = Unknown_B92080[(((hash >> 16) & 0xFF) << 8 ^ (hash & 0xFF00)) >> 8 ^ (hash & 0xFF)];
