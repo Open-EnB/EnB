@@ -642,6 +642,9 @@
 "?Clear_Accounting_Callback@UDP@@SAXXZ": [
 "0x8C0600"
 ],
+"?Close@RawFileClass@@UAEXXZ": [
+"0x6843D0"
+],
 "?Close_Chunk@ChunkLoadClass@@QAE_NXZ": [
 "0x9D4370"
 ],
@@ -1109,6 +1112,9 @@
 ],
 "?Is_Missing_Texture@TextureBaseClass@@QAE_NXZ": [
 "0x94BAD0"
+],
+"?Is_Open@RawFileClass@@UBE_NXZ": [
+"0x683E40"
 ],
 "?Is_Orthogonal@Matrix3D@@QBEHXZ": [
 "0x8C2FC0"
@@ -1832,6 +1838,9 @@
 ],
 "?Write@ChunkSaveClass@@QAEKPBXK@Z": [
 "0x9D4070"
+],
+"?Write@RawFileClass@@UAEHPBXH@Z": [
+"0x684540"
 ],
 "?Write@UDP@@QAEJPAEKKG@Z": [
 "0x8BFD50"
@@ -2951,6 +2960,9 @@
 "data:?TreeCodec@@3PAVTreeCodecClass@@A": [
 "0xBE3B00"
 ],
+"data:?UnknownB829E0@@3PAUUnknownB829E0Struct@@A": [
+"0xB829E0"
+],
 "data:?UnknownGlobal@?$DeltaArrayClass@M@@2HA": [
 "0xC415DC"
 ],
@@ -3837,12 +3849,21 @@
 "data:__real@4@3fe7d6bf950000000000": [
 "0xAE8718"
 ],
+"data:__real@4@3fe995217d0000000000": [
+"0xAED02C"
+],
 "data:__real@4@3feb8637bd0000000000": [
 "0xAE7928"
+],
+"data:__real@4@3feccc6cd20000000000": [
+"0xAE7924"
 ],
 "data:__real@4@3feea7c5ac0000000000": [
 "0xAEA9E0",
 "0xB0C158"
+],
+"data:__real@4@3fef8bcf650000000000": [
+"0xAFCEDC"
 ],
 "data:__real@4@3ff1d1b7170000000000": [
 "0xAE7840",
@@ -4088,6 +4109,9 @@
 "data:__real@4@4001a000000000000000": [
 "0xAED3F8",
 "0xAF8428"
+],
+"data:__real@4@4001b758b30000000000": [
+"0xAEEAA4"
 ],
 "data:__real@4@4001c000000000000000": [
 "0xB024F4"
