@@ -728,7 +728,7 @@ extern int Unknown_BE5F34;								// NAME 1: neutral (D10): the key modifiers (a
 
 
 // 0x5946D0
-// NOT EXACT: (masked 37, attempts.py 0x5946D0): the packets' avatar id through ClientClass's inline Get_Avatar_ID() (the client tests Members[k] in memory and reloads it); two dead Peek()s in 0x593180 make the client's call of it (D272); left: the packet arguments' load order (Members[k] before Client), case 2's modifier return, case 47's bools
+// NOT EXACT: (masked 29, attempts.py 0x5946D0): case 2 as if (!modifier) { .. } return(true) as case 3; the packets' avatar id through ClientClass's inline Get_Avatar_ID() (the client tests Members[k] in memory and reloads it); two dead Peek()s in 0x593180 make the client's call of it (D272); case 47's second test as else if and 0x5979A0's return as an if (the client's inlined copies branch); left: the packet arguments' load order (Members[k] before Client), registers
 bool UIGroupClass::Unknown_68(int key)
 {
 	SClient *sclient = (SClient *)((ClientClass *)Client)->As_Space_Client();
@@ -835,11 +835,11 @@ bool UIGroupClass::Unknown_68(int key)
 			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
 			return(true);
 		case 2:
-			if (modifier) return(true);
+			if (!modifier) {
 
 			((ClientClass *)Client)->Send_Packet(&CTA_Request_PacketClass(((ClientClass *)Client)->Get_Avatar_ID(), -1, 12));
 			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
-			return(true);
+			}	return(true);
 		case 3:
 			if (!modifier) {
 				if (((SClient *)((ClientClass *)Client)->As_Space_Client())->Unknown_74D690()) {
@@ -897,12 +897,12 @@ bool UIGroupClass::Unknown_68(int key)
 				Unknown_597E40(false);
 
 				((ClientClass *)Client)->Send_Packet(&CTA_Request_PacketClass(((ClientClass *)Client)->Get_Avatar_ID(), 0, 7));
-			} else {
-				if (!Unknown_597A60()) return(true);
+			} else if (Unknown_597A60()) {
+
 				Unknown_597E40(false);
 
 				((ClientClass *)Client)->Send_Packet(&CTA_Request_PacketClass(((ClientClass *)Client)->Get_Avatar_ID(), 0, 8));
-			}
+			} else return(true);
 			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
 			return(true);
 	}
@@ -1611,7 +1611,7 @@ bool UIGroupClass::Unknown_5979A0()
 	if (aux) {
 		DeltaGroupInfoClass *group = Unknown_Find_Field<DeltaGroupInfoClass>(aux, "GroupInfo");
 		if (group && group->Unknown70) {
-			return(stricmp(group->FormationName.String, "") ? true : false);
+			if (stricmp(group->FormationName.String, "")) return(true); else return(false);
 		}
 	}
 	return(false);
