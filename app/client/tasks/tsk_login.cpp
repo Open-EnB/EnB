@@ -453,12 +453,12 @@ void LoginTaskClass::Process_Packets()
 	}
 }
 
-// NOT EXACT: register-only (the client recomputes the slot index for Is_Registered_Character; the operator= / 0x7688F0 trade is settled (0x7688F0 exact); attempts.py show 0x7683F0)
+// Get_Selected() in the first test and the last assignment: the client reads the index before the temporary and recomputes it for Is_Registered_Character (attempts.py show 0x7683F0)
 // 0x7683F0
 void LoginTaskClass::Unknown_50()
 {
 	CharacterCreatorClass unknown;
-	if (Characters[Selected].ID == 0) {
+	if (Characters[Get_Selected()].ID == 0) {
 		return;
 	}
 	if (Is_Registered_Character()) {
@@ -470,7 +470,7 @@ void LoginTaskClass::Unknown_50()
 	}
 	Characters[Selected] = LoginCharacterClass();
 	Unknown0350[Selected] = AvatarDescClass();
-	Unknown088C[Selected] = ShipCustDescClass();
+	Unknown088C[Get_Selected()] = ShipCustDescClass();
 }
 
 
@@ -960,7 +960,7 @@ void LoginTaskClass::Kill_Kernel()
 
 
 #include "tsk_game.h"	// ClientTaskClass (step 16)
-// NOT EXACT: register-only (the client keeps the kernel in ebx, ours spills it; attempts.py show 0x769E70)
+// Remove_Task through Get_Kernel(): the client keeps the kernel local in ebx and spills the strings' length (attempts.py show 0x769E70)
 // 0x769E70
 void LoginTaskClass::Start_Game()
 {
@@ -977,7 +977,7 @@ void LoginTaskClass::Start_Game()
 		task->Init(kernel, &Ticket, info.Login_Key, Galaxy_Address);
 		kernel->Add_Task(task);
 		kernel->Set_Focus(task);
-		Kernel->Remove_Task(this);
+		Get_Kernel()->Remove_Task(this);
 		Splash *unknown = new Splash(1);
 		unknown->Render();
 		delete unknown;

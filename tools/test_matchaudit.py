@@ -73,8 +73,8 @@ class DeviceTest(unittest.TestCase):
         ])
         devs = ma.scan_devices(text, {'LocalView': ['app/x.h', 'app/me.cpp']}, 'app/me.cpp')
         kinds = [(k, n) for k, n, _ in devs]
-        self.assertEqual(kinds, [('guard', 1), ('class-view', 2), ('d130', 3), ('not-client', 5),
-                                 ('interim-forwarder', 7)])
+        # line 3's D130 dead reads are budget-held (D272, class 2b), no workaround, though it says "not the client's"
+        self.assertEqual(kinds, [('guard', 1), ('class-view', 2), ('not-client', 5), ('interim-forwarder', 7)])
 
     def test_class_defs_skip_declarations_and_comments(self):
         text = 'class A;\n// class B { };\nstruct C : public D\n{\n};\ntemplate<class T> class E { };\n'
@@ -83,14 +83,34 @@ class DeviceTest(unittest.TestCase):
     def test_workaround_rows_cover_every_pair_of_a_device_file(self):
         state = {'app': {'files': {'a': {'name': 'client/a.cpp', 'in_tree': ['0x1', '0x2']},
                                    'b': {'name': 'client/b.cpp', 'in_tree': ['0x3']}}}}
-        texts = {'app/client/a.cpp': 'x.size();\t// D130', 'app/client/b.cpp': 'int y;'}
+        texts = {'app/client/a.cpp': 'x.size();\t// D130\nint g;\t// not the client\'s', 'app/client/b.cpp': 'int y;'}
         orig = ma.source_path
         ma.source_path = lambda lib, e: 'app/' + e['name']
         self.addCleanup(setattr, ma, 'source_path', orig)
         rows, files = ma.workaround_rows(state, {}, texts.__getitem__)
         self.assertEqual([r['address'] for r in rows], ['0x1', '0x2'])
-        self.assertTrue(rows[0]['evidence'].startswith('unconfirmed: d130 x1'))
+        self.assertTrue(rows[0]['evidence'].startswith('unconfirmed: not-client x1'))
         self.assertEqual(files[0]['pairs'], 2)
+
+    def test_budget_rows_by_build_and_static(self):
+        state = {'app': {'files': {'a': {'name': 'client/a.cpp', 'in_tree': ['0x1', '0x2', '0x3']}}}}
+        orig = ma.source_path
+        ma.source_path = lambda lib, e: 'app/' + e['name']
+        self.addCleanup(setattr, ma, 'source_path', orig)
+        table = {'rows': [
+            {'kind': 'dead-read', 'file': 'app/client/a.cpp', 'function': 'f', 'address': '0x1', 'exact': True,
+             'lines': [5], 'status': 'budget-held, source unproven',
+             'measure': {'verdict': 'holds', 'lost_ledger': ['0x1', '0x2']}},
+            {'kind': 'dead-read', 'file': 'app/client/a.cpp', 'function': 'g', 'address': '0x3', 'exact': True,
+             'lines': [9], 'status': 'unmeasured'},
+            {'kind': 'dead-read', 'file': 'app/client/a.cpp', 'function': 'h', 'address': '0x2', 'exact': True,
+             'lines': [12], 'status': 'both exact', 'measure': {'verdict': 'free'}},
+            {'kind': 'class-view', 'file': 'app/client/a.cpp', 'function': '', 'address': None, 'exact': False,
+             'lines': [1], 'status': 'unmeasured'}]}
+        rows = ma.budget_rows(state, table)
+        self.assertEqual([(r['address'], r['evidence'].split(':')[0]) for r in rows],
+                         [('0x1', 'by build'), ('0x2', 'by build'), ('0x3', 'static (unmeasured)')])
+        self.assertTrue(all(r['class'] == 'budget-held' and 'source unproven' in r['evidence'] for r in rows))
 
     def test_exact_from_match(self):
         out = ('  EXACT    Foo::Bar                                          len   40 0x5B6060\n'
@@ -112,6 +132,15 @@ class HistoryTest(unittest.TestCase):
         self.assertEqual(t[self.P1], [('r1', '+'), ('r2', '-'), ('r3', '+')])
         rows = ma.unstable_rows(t, {self.P1, self.P2}, short=lambda r: r)
         self.assertEqual([(r['address'], r['flips']) for r in rows], [('0x1', 2)])
+
+    def test_a_mass_loss_is_a_broken_record(self):
+        f = frozenset
+        many = f(('app', 'a', f'0x{k:X}') for k in range(1, 3001))
+        changes = [('r1', [(('app', 'a'), f(), many)]),
+                   ('r2', [(('app', 'a'), many, f({self.P1}))]),          # a broken record drops 2,999 pairs
+                   ('r3', [(('app', 'a'), f({self.P1}), many)])]          # and the next commit puts them back
+        t = ma.flips(changes)
+        self.assertEqual(t[('app', 'a', '0x2')], [('r1', '+')])
 
     def test_invalid_files_are_no_loss(self):
         f = frozenset
@@ -170,6 +199,10 @@ class TableTest(unittest.TestCase):
         self.assertEqual(s['not_stable'], {'count': 3, 'share': 0.75})
         md = ma.render(rows, s, {})
         self.assertIn('| contradicted | 0 | 0.0% | not built |', md)
+        budget = {'rows': [{'lib': 'app', 'file': 'b', 'address': '0x3', 'class': 'budget-held', 'evidence': 'by build'}]}
+        rows, s = ma.combine(cur, pad, work, conf, hist, budget)
+        self.assertEqual(s['classes']['budget-held'], {'count': 1, 'share': 0.25})
+        self.assertEqual([r['class'] for r in rows].index('budget-held'), 3)    # after workaround-held
 
 
 if __name__ == '__main__':

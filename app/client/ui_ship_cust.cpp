@@ -1483,7 +1483,7 @@ void StarbaseShipCustomizeInterface::Unknown_61DBF0()
 			}
 		}
 		sub->Release_Ref();
-	} Gadgets.size(); Gadgets.size();	// dead reads (D130; not the client's): as ui_shipcust.cpp's 0x6280E0, they spend VC6's inline budget, so the inlined 0x61BAC0 keeps its map lookups as the client's (without them 0.47)
+	} Gadgets.size();	// a dead read (D272; one is enough, 2026-11-19): as ui_shipcust.cpp's 0x6280E0, it spends VC6's inline budget, so the inlined 0x61BAC0 keeps its map lookups as the client's (without them 0.47)
 }
 
 // NOT EXACT: register (0.62: the client loads the avatar id into eax, VC6 here into edx; the rest is the same)

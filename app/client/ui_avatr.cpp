@@ -410,9 +410,9 @@ public:
 	UIAvatrPullClass *Unknown160;						// +0x160 (the body's pull)
 	Vector2 Unknown164;									// +0x164 (0x558060's point)
 	UIAvatrPullClass *Unknown16C;						// +0x16C (the head's pull)
-	float Unknown170;									// +0x170 (0x558170)
-	float Unknown174;									// +0x174 (0x558170)
-	float Unknown178;									// +0x178 (the head's scale, 0.5 .. +0x17C: 0x55B540)
+	Vector3 Unknown170;									// +0x170 (0x558170: the head's point X / Y and its scale Z, 0.5 .. +0x17C: 0x55B540; 0x67C340 / 0x67C380 take it as a Vector3, the constructor and 0x5582A0 set 0.5, 0.5, 1.0)
+
+
 	float Unknown17C;									// +0x17C
 	UIAvatrPullClass *Unknown180;						// +0x180 (the colour pull, 0x5560E0)
 	Vector2 Unknown184[7];								// +0x184 (0.5, 0.5 each; 0x67C200 fills them when the ship screen sent us back)
@@ -469,8 +469,8 @@ class EnvironmentMapManagerClass { public: void Unknown_760770(int base_asset, b
 
 static int UIAvatrEnvMaps[3] = { 100003, 100004, 100002 };	// 0xB7B128: the environment maps' base asset by race  // NAME 1: neutral (D10)
 
-// NOT EXACT: 49 masked rows: the client calls ~RefCountPtr out of line for both inlined Unknown_Set_Palette models, stores +0x16C
-// before the AvatarDescClass construction, loads desc before the view for the env maps; the Peek_Model read after the mp3 sends _Grow out (D272)
+// NOT EXACT: 43 masked rows: the client calls ~RefCountPtr out of line for both inlined Unknown_Set_Palette models (39 rows with the
+// registers after them), takes the AvatarDescClass this / EH state after +0x1C0; the Peek_Model read after the mp3 sends _Grow out (D272)
 // 0x553AF0
 AvatarCreationInterface::AvatarCreationInterface(UIViewClass *view, LayerClass *layer, bool keep) :
 	InterfaceClass(view, (int)layer->Peek_Scene()),
@@ -482,9 +482,9 @@ AvatarCreationInterface::AvatarCreationInterface(UIViewClass *view, LayerClass *
 	Unknown160(NULL),
 	Unknown164(0.5f, 0.5f),
 	Unknown16C(NULL),
-	Unknown170(0.5f),
-	Unknown174(0.5f),
-	Unknown178(1.0f),
+	Unknown170(0.5f, 0.5f, 1.0f),
+
+
 	Unknown17C(1.0f),
 	Unknown180(NULL),
 	Unknown1BC(0),
@@ -581,7 +581,7 @@ AvatarCreationInterface::AvatarCreationInterface(UIViewClass *view, LayerClass *
 	if (back) {
 		Unknown08C->Unknown_67C200(Unknown184, 7, Unknown08C->Peek_Unknown194()->Desc.Gender);
 		Unknown08C->Unknown_67C2E0(&Unknown164, Unknown08C->Peek_Unknown194()->Desc.Gender);
-		Unknown08C->Unknown_67C340((Vector3 *)&Unknown170, Unknown08C->Peek_Unknown194()->Desc.Gender);
+		Unknown08C->Unknown_67C340(&Unknown170, Unknown08C->Peek_Unknown194()->Desc.Gender);
 	}
 	if (!keep && !back) {
 		Unknown_Set_Palette("fa_skin_color.tga");
@@ -596,8 +596,8 @@ AvatarCreationInterface::AvatarCreationInterface(UIViewClass *view, LayerClass *
 	}
 
 
-		Unknown08C->Unknown3A4->Unknown_760770(UIAvatrEnvMaps[desc->Desc.Race], 1);
-		Unknown08C->Peek_Unknown194()->Unknown_780810(Unknown08C->Unknown3A4);
+		Unknown08C->Peek_Unknown3A4()->Unknown_760770(UIAvatrEnvMaps[desc->Desc.Race], 1);
+		Unknown08C->Peek_Unknown194()->Unknown_780810(Unknown08C->Peek_Unknown3A4());
 		Unknown08C->Peek_Unknown194()->Unknown232 = true;
 		Unknown094->Unknown_84(Create_Peek(Unknown08C->Peek_Unknown194()));
 	Unknown_556630(0, true);
@@ -1079,15 +1079,15 @@ void AvatarCreationInterface::Unknown_558170()
 	Unknown08C->Peek_Unknown194()->Unknown_7859F0(type);
 	Unknown_55B2D0();
 	if (type == 3) {
-		Unknown170 = 0.5f;
-		Unknown174 = 0.5f;
-		Unknown178 = 1.0f;
+		Unknown170.X = 0.5f;
+		Unknown170.Y = 0.5f;
+		Unknown170.Z = 1.0f;
 		Unknown_55B540(0);
 		return;
 	}
-	Unknown170 = Unknown_BDBB84(0, 100) * 0.01f;
-	Unknown174 = Unknown_BDBB84(0, 100) * 0.01f;
-	Unknown178 = Unknown_BDBB84(5, (int)(Unknown17C * 10.0f)) * 0.1f;
+	Unknown170.X = Unknown_BDBB84(0, 100) * 0.01f;
+	Unknown170.Y = Unknown_BDBB84(0, 100) * 0.01f;
+	Unknown170.Z = Unknown_BDBB84(5, (int)(Unknown17C * 10.0f)) * 0.1f;
 	Unknown_55B540(0);
 }
 
@@ -1113,7 +1113,7 @@ void AvatarCreationInterface::Unknown_559350()
 	Unknown08C->Unknown_5594B0(*desc->Get_Desc());
 	Unknown08C->Unknown_67C270(Unknown184, 7, desc->Desc.Gender);
 	Unknown08C->Unknown_67C310(&Unknown164, desc->Desc.Gender);
-	Unknown08C->Unknown_67C380((Vector3 *)&Unknown170, desc->Desc.Gender);
+	Unknown08C->Unknown_67C380(&Unknown170, desc->Desc.Gender);
 }
 
 // NOT EXACT: functional (D64), from the client's 0x5594B0 (AvatarDescClass's assignment)
@@ -1262,8 +1262,8 @@ void AvatarCreationInterface::Unknown_55B2D0()
 		Unknown16C->Gadget->Unknown_8C(!movable);
 		Unknown16C->Pull->Set_Hidden(!movable);
 		if (!movable) {
-			Unknown170 = 0.5f;
-			Unknown174 = 0.5f;
+			Unknown170.X = 0.5f;
+			Unknown170.Y = 0.5f;
 		}
 		bool zoom = true;
 		if (!(Unknown17C > 1.0f)) {
@@ -1274,27 +1274,27 @@ void AvatarCreationInterface::Unknown_55B2D0()
 		Unknown0D8[18]->Unknown_40(zoom);
 		Unknown0D8[18]->Unknown_8C(!zoom);
 		if (!zoom) {
-			Unknown178 = 1.0f;
+			Unknown170.Z = 1.0f;
 		}
 	}
-	Unknown178 = WWMath::Min(Unknown178, Unknown17C);
-	Unknown178 = WWMath::Max(Unknown178, 0.5f);
+	Unknown170.Z = WWMath::Min(Unknown170.Z, Unknown17C);
+	Unknown170.Z = WWMath::Max(Unknown170.Z, 0.5f);
 	Unknown_55B540(0);
 }
 
 // 0x55B540
 void AvatarCreationInterface::Unknown_55B540(int zoom)
 {
-	float step = Unknown178 * 0.033333335f;
+	float step = Unknown170.Z * 0.033333335f;
 	if (zoom == 1) {
-		Unknown178 = WWMath::Max(Unknown178 - step, 0.5f);
-		if (Unknown178 == 0.5f) {
+		Unknown170.Z = WWMath::Max(Unknown170.Z - step, 0.5f);
+		if (Unknown170.Z == 0.5f) {
 			Unknown0D8[17]->Unknown_40(false);
 		}
 		Unknown0D8[18]->Unknown_40(true);
 	} else if (zoom == 2) {
-		Unknown178 = WWMath::Min(step + Unknown178, Unknown17C);
-		if (Unknown178 == Unknown17C) {
+		Unknown170.Z = WWMath::Min(step + Unknown170.Z, Unknown17C);
+		if (Unknown170.Z == Unknown17C) {
 			Unknown0D8[18]->Unknown_40(false);
 		}
 		Unknown0D8[17]->Unknown_40(true);
@@ -1555,7 +1555,7 @@ void AvatarCreationInterface::Unknown_5582A0()
 	Unknown08C->Unknown_67C270(Unknown184, 7, old.Gender);
 	Vector2 *v164 = &Unknown164;
 	Unknown08C->Unknown_67C310(v164, old.Gender);
-	Vector3 *v170 = (Vector3 *)&Unknown170;
+	Vector3 *v170 = &Unknown170;
 	Unknown08C->Unknown_67C380(v170, old.Gender);
 	desc->Desc.Gender = (desc->Desc.Gender == 0);
 	Unknown_55AFD0();
@@ -1792,8 +1792,8 @@ void AvatarCreationInterface::Unknown_55A1F0(int arg)
 		if (arg == 0) {
 			Unknown_55A060(uv);
 		} else {
-			Unknown170 = uv.X;
-			Unknown174 = uv.Y;
+			Unknown170.X = uv.X;
+			Unknown170.Y = uv.Y;
 			Unknown_55B540(0);
 		}
 	} else {
@@ -1831,8 +1831,8 @@ void AvatarCreationInterface::Unknown_55A550(int a, bool random, float c, float 
 		point.Y = Unknown164.Y;
 	} else {
 		pull = Unknown16C;
-		point.X = Unknown170;
-		point.Y = Unknown174;
+		point.X = Unknown170.X;
+		point.Y = Unknown170.Y;
 	}
 	if (c > 0.0f) {
 		point.X = WWMath::Min(point.X + c, 1.0f);
@@ -1863,9 +1863,9 @@ void AvatarCreationInterface::Unknown_55A550(int a, bool random, float c, float 
 	if (a == 0) {
 		Unknown_55A060(point);
 	} else {
-		Unknown170 = point.X;
-		Unknown174 = point.Y;
-		Unknown08C->Peek_Unknown194()->Unknown_785C00(Vector3(Unknown170, 1.0f - Unknown174, Unknown178));
+		Unknown170.X = point.X;
+		Unknown170.Y = point.Y;
+		Unknown08C->Peek_Unknown194()->Unknown_785C00(Vector3(Unknown170.X, 1.0f - Unknown170.Y, Unknown170.Z));
 	}
 }
 

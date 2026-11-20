@@ -321,7 +321,7 @@ void UIStarbaseUnknown1F8Class::Unknown_645CC0()
 {
 }
 
-#pragma auto_inline(off)
+
 // 0x645CE0
 void UIStarbaseUnknown1F8Class::Unknown_645CE0()
 {
@@ -338,7 +338,7 @@ int UIStarbaseUnknown1F8Class::Unknown_645DC0()
 	Unknown84 = 0;
 	return(option);
 }
-#pragma auto_inline(on)
+
 
 
 /*

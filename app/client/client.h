@@ -151,6 +151,7 @@ public:
 	virtual int Unknown_1C() { return(0); }				// +0x1C 0x726900
 	virtual int Unknown_20() { return(0); }				// +0x20 0x726920
 	unsigned Get_Avatar_ID() { return(AvatarID); }	// (inlined: verbmanager.cpp 0x81F560 / 0x81F610 / 0x81F6A0's eax)  // NAME 2: what it does
+	int Get_Unknown1138() { return(Unknown1138); }		// (inlined: SClient 0x74EDB0 loads it into eax after the name's c_str() in ecx)  // NAME 1: neutral (D10): the member it returns
 	virtual unsigned Set_Avatar_ID(unsigned id);		// +0x24 0x728010: returns the previous id  // NAME 2: what it does (D131: sets AvatarID, D123; sends the DEBUG packet)
 	virtual ClientObjectClass *Get_Avatar() { return(Find_Object(AvatarID)); }	// +0x28 0x726940 (D123)  // NAME 2: what it does
 	virtual unsigned Set_Ship_ID(unsigned id) { unsigned old = ShipID; ShipID = id; return(old); }	// +0x2C 0x726A00  // NAME 2: what it does (Get_Ship's id)

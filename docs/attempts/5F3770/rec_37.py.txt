@@ -1,0 +1,5 @@
+HYPOTHESIS = 'PT7 round (2 batches, no cut): 0x5F3770 residue 454 sits at combo sites C5-C8 (0x5F57C7-0x5F5DEC): the client keeps 0x5F2F90 converting ctor 0x6092D0 out of line at C1-C6 and C8 (ours C1-C4). Dead map reads anywhere (1-3) change nothing at those sites (+30); a static inline layer over 0x5F2F90 at C5/C6 cuts to 350 but sends 0x5F2F90 itself out of line there (the client inlines it): not the client form, dropped'
+FILE = 'app/client/ui_registration.cpp'
+SYMBOL = 'RegistrationInterface::Unknown_5F3770'
+ADDRESS = 0x5F3770
+FORMS = {}

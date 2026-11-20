@@ -80,12 +80,12 @@ class Base(unittest.TestCase):
         self.saved = sys.modules.get('importer')
         self.addCleanup(self.restore)
         self.h = os.path.join(self.td, 'aux_roots_send.h')
-        self.cpp = os.path.join(self.td, 'aux_roots.cpp')
+        self.cpp = os.path.join(self.td, 'co.cpp')
         for mod, name, path in ((sendpad, 'H', self.h), (auxpad, 'CPP', self.cpp)):
             self.addCleanup(setattr, mod, name, getattr(mod, name))
             setattr(mod, name, path)
         with open(self.cpp, 'wb') as f:
-            f.write(b'int x;\r\n// VC6 symbol pad (not the client\'s code)\r\nenum AuxRootsSymbolPadType { };\r\nint y;\r\n')
+            f.write(b'int x;\r\n// VC6 symbol pad (not the client\'s code): the aux-data constructors\r\nenum CoSymbolPadType { };\r\nint y;\r\n')
 
     def restore(self):
         if self.saved is None:
@@ -146,7 +146,7 @@ class Hold(Base):
             a = auxpad.parser().parse_args(['sweep', '--from', '0', '--to', '7'] + (['--hold'] if hold else []))
             with contextlib.redirect_stdout(io.StringIO()) as out:
                 self.assertEqual(auxpad.held_sweep(a), 0)
-            self.assertIn('all six exact: 2..5', out.getvalue())
+            self.assertIn('watched exact: 2..5', out.getvalue())
             self.assertEqual((imp.takes, imp.releases, imp.held, imp.leased), (takes, takes, False, False))
             self.assertEqual(open(self.cpp, 'rb').read(), cpp)
         imp = self.fake(table((2, 5)), fail_at=3, exc=KeyboardInterrupt)

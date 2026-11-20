@@ -16,13 +16,13 @@ ExprMathTreeClass::~ExprMathTreeClass()
 {
 }
 
-#pragma auto_inline(off)
+
 // @0x4D27D0
 const ExprMathTokenClass &ExprMathTreeClass::Get_Token() const
 {
 	return m_token;
 }
-#pragma auto_inline(on)
+
 
 // @0x4D27F0
 void ExprMathTreeClass::Set_Token(const ExprMathTokenClass &token)
@@ -65,20 +65,20 @@ ExprMathBinaryClass::~ExprMathBinaryClass()
 	m_right = NULL;
 }
 
-#pragma auto_inline(off)
+
 // @0x4D2CF0
 ExprMathTreeClass *ExprMathBinaryClass::Get_Left() const
 {
 	return m_left;
 }
-#pragma auto_inline(on)
-#pragma auto_inline(off)
+
+
 // @0x4D2D10
 ExprMathTreeClass *ExprMathBinaryClass::Get_Right() const
 {
 	return m_right;
 }
-#pragma auto_inline(on)
+
 
 // @0x4D2D30
 void ExprMathBinaryClass::Set_Left(ExprMathTreeClass *n)
@@ -128,13 +128,13 @@ ExprMathUnaryClass::~ExprMathUnaryClass()
 	m_child = NULL;
 }
 
-#pragma auto_inline(off)
+
 // @0x4D30D0
 ExprMathTreeClass *ExprMathUnaryClass::Get_Child() const
 {
 	return m_child;
 }
-#pragma auto_inline(on)
+
 
 // @0x4D30F0
 void ExprMathUnaryClass::Set_Child(ExprMathTreeClass *n)

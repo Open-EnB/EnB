@@ -714,7 +714,7 @@ void LoginInterface::Unknown_5AE320()
 	textptr->Unknown_6CE7D0(2);
 }
 
-#pragma auto_inline(off)	// (0x5AE390 stays out of line in its callers: gadget.h's inline bodies move the budget)
+
 // 0x5AE390
 void LoginInterface::Unknown_5AE390()
 {
@@ -733,7 +733,7 @@ void LoginInterface::Unknown_5AE390()
 		Unknown0AC = true;
 	}
 }
-#pragma auto_inline(on)
+
 
 // 0x5AE450
 void LoginInterface::Unknown_5AE450()

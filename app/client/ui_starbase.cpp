@@ -268,7 +268,7 @@ void UIStarbaseUnknownCCClass::Unknown_633040()
 		}
 	}
 }
-#pragma auto_inline(off)
+
 // 0x6330E0
 void UIStarbaseUnknownCCClass::Unknown_6330E0(const Vector3 &color)
 {
@@ -388,7 +388,7 @@ void UIStarbaseUnknownCCClass::Unknown_633180()
 
 
 
-#pragma auto_inline(on)
+
 
 // 0x640810
 void UIStarbaseClass::Unknown_640810()
@@ -447,7 +447,7 @@ void UIStarbaseClass::Unknown_640CC0()
 }
 
 // Out of line, as the client: its lights panel below calls 0x640D80-0x640F30 (auto_inline off, as co.cpp's 0x6F3ED0)
-#pragma auto_inline(off)
+
 
 // 0x640D80
 void UIStarbaseClass::Unknown_640D80(int *a, int *b, int *c)
@@ -515,7 +515,7 @@ void UIStarbaseClass::Unknown_639030(int arg)
 		}
 	}
 }
-#pragma auto_inline(on)
+
 // 0x63B5A0
 void UIStarbaseClass::Unknown_63B5A0()
 {
@@ -543,7 +543,7 @@ bool UIStarbaseClass::Unknown_63E8F0(int id)
 	}
 	return(false);
 }
-#pragma auto_inline(off)
+
 // 0x640110
 void UIStarbaseClass::Unknown_640110(int state)
 {
@@ -552,7 +552,7 @@ void UIStarbaseClass::Unknown_640110(int state)
 		Unknown_63E2B0();
 	}
 }
-#pragma auto_inline(on)
+
 // 0x641AB0
 void UIStarbaseClass::Unknown_641AB0()
 {
@@ -678,7 +678,7 @@ inline UIStarbaseUnknownCCClass::UIStarbaseUnknownCCClass() : Unknown00(0), Avat
 // NOT EXACT: 0x634140, functional from the pseudocode (D64; SU1): the window's set-up (slot +0x54): the full-screen
 // gadget, the +0x1F8 interface, the player's avatar entry with its name and guild texts, the 14 NPC slots, the four
 // terminals, the four doors with their signs, the ship on the hangar's extents, the bar and table models and the
-// '%s_%dmd' animated models
+// '%s_%dmd' animated models (PT3: client bytes read as source, masked residue 1444 -> 67, frame and slots exact; the dead Get_Info() reads (D272) send the first entry's string constructor out of line and keep the signs' _Eos out; left: register choices in the NPC loop, i in ebx and npc in edi in the client)
 // 0x634140
 void UIStarbaseClass::Unknown_54()
 {
@@ -718,7 +718,7 @@ void UIStarbaseClass::Unknown_54()
 		UnknownC0.D->Unknown10->Unknown_6CE7D0(2);
 		char name[32];
 		char model[32];
-		int i;
+		int i; Get_Info(); Get_Info(); Get_Info(); Get_Info(); Get_Info();
 		for (i = 0; i < 14; i++) {
 			if (RoomInfo->Find_NPC(i) == NULL) {
 				continue;
@@ -749,7 +749,7 @@ void UIStarbaseClass::Unknown_54()
 				AvatarDescClass desc(npc->Desc);
 				Unknown13C[i]->Avatar = Create_NEW(new CharacterViewAvatarClass(&desc, true, false, ((LineDisplayClientClass *)Client)->As_Space_Client()->EnvironmentMapManager));
 				if (Unknown13C[i]->Avatar) {
-					Unknown13C[i]->Avatar->Unknown330 = InterfaceMesh->Peek_Object()->Get_Bone_Transform(name);
+					Matrix3D tm = InterfaceMesh->Peek_Object()->Get_Bone_Transform(name); Unknown13C[i]->Avatar->Unknown330 = tm;
 					Unknown13C[i]->Avatar->Unknown_77E3D0(1);
 					Unknown13C[i]->Avatar->Unknown_785F20(true);
 					Unknown13C[i]->Unknown14 = new ButtonGadgetClass(Unknown13C[i]->Avatar->BodyObj.Peek(), *UnknownB0->Unknown80, 5, 0);
@@ -757,12 +757,12 @@ void UIStarbaseClass::Unknown_54()
 					Unknown13C[i]->Unknown14->Set_Last_Sort_Group(true);
 					Unknown64.Unknown_6870E0(Unknown13C[i]->Unknown14, i + 2, View, true, true);
 					Unknown13C[i]->Unknown24 = npc->Get_Name();
-					if (npc->Booth > 1 && npc->Booth < 10) {
+					if (npc->Booth >= 2 && npc->Booth <= 9) {
 						WW3D::Enable_Overbright_Modify_On_Load(false);
-						RefCountPtr<RenderObjClass> weapon = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj(Unknown_B8AA18[npc->Get_Booth_Index()]));
-						if (weapon) {
-							InterfaceMesh->Peek_Object()->Add_Sub_Object_To_Bone(weapon.Peek(), name);
-							Unknown194.push_back(weapon);
+						robj = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj(Unknown_B8AA18[npc->Get_Booth_Index()]));
+						if (robj) {
+							InterfaceMesh->Peek_Object()->Add_Sub_Object_To_Bone(robj.Peek(), name);
+							Unknown194.push_back(robj);
 						}
 						WW3D::Enable_Overbright_Modify_On_Load(true);
 					}
@@ -773,27 +773,27 @@ void UIStarbaseClass::Unknown_54()
 		bool wall = (Room == 0 && ExtraBones);
 		for (i = 0; i < 4; i++) {
 			int found;
-			if (!wall) {
-				_snprintf(name, sizeof(name), "terminal%02d", i);
-				found = InterfaceMesh->Peek_Object()->Get_Bone_Index(name);
-			} else {
+			if (wall) {
 				_snprintf(name, sizeof(name), "wallterm%02d", i);
 				found = ExtraBones->Get_Bone_Index(name);
+			} else {
+				_snprintf(name, sizeof(name), "terminal%02d", i);
+				found = InterfaceMesh->Peek_Object()->Get_Bone_Index(name);
 			}
-			if (!found) {
-				continue;
-			}
+			if (found) {
+
+			
 			StarbaseFacilityClass *terminal = RoomInfo->Find_Facility(i);
 			if (terminal) {
-				_snprintf(model, sizeof(model), wall ? "%s_wall_term" : "%s_monitor", Unknown_B8A950[column]);
+				if (wall) _snprintf(model, sizeof(model), "%s_wall_term", Unknown_B8A950[column]); else _snprintf(model, sizeof(model), "%s_monitor", Unknown_B8A950[column]);
 				Unknown108[i] = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj(model));
 			}
 			if (Unknown108[i]) {
 				Unknown_496AE0(Unknown108[i].Peek(), false);
-				(wall ? ExtraBones.Peek() : InterfaceMesh->Peek_Object())->Add_Sub_Object_To_Bone(Unknown108[i].Peek(), name);
+				if (wall) ExtraBones->Add_Sub_Object_To_Bone(Unknown108[i].Peek(), name); else InterfaceMesh->Peek_Object()->Add_Sub_Object_To_Bone(Unknown108[i].Peek(), name);
 				if (terminal->Type != -1) {
 					RefCountPtr<RenderObjClass> icon = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj(Unknown_B90C2C[terminal->Type]));
-					(wall ? ExtraBones.Peek() : InterfaceMesh->Peek_Object())->Add_Sub_Object_To_Bone(icon.Peek(), name);
+					if (wall) ExtraBones->Add_Sub_Object_To_Bone(icon.Peek(), name); else InterfaceMesh->Peek_Object()->Add_Sub_Object_To_Bone(icon.Peek(), name);
 					Unknown194.push_back(icon);
 				}
 				UnknownF8[i] = new ButtonGadgetClass(Unknown108[i].Peek(), Layer, 5, 3);
@@ -801,75 +801,75 @@ void UIStarbaseClass::Unknown_54()
 				UnknownF8[i]->Set_Last_Sort_Group(true);
 				Unknown64.Unknown_6870E0(UnknownF8[i], i + 0x11, View, true, false);
 			}
-		}
+		} }
 		for (i = 0; i < 4; i++) {
-			const char *bone = Unknown_B8AA3C[Room * 4 + i];
-			if (bone == NULL) {
+			if (Unknown_B8AA3C[Room * 4 + i] == NULL) {
 				continue;
 			}
-			int key = Unknown_B8AABC[Room * 4 + i];
-			if (key < 0 || Get_Info()->Find_Room(key) == NULL) {
-				if (Room == 0) {
-					_snprintf(model, sizeof(model), "%s%s", Unknown_B8A978[column], Unknown_B8A8A0[0]);
-				} else {
-					_snprintf(model, sizeof(model), "%sbar%s", Unknown_B8A950[column], Unknown_B8A8A0[Room]);
-				}
-				Unknown128[i] = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj(model));
-				if (Unknown128[i]) {
-					Unknown_496AE0(Unknown128[i].Peek(), false);
-					InterfaceMesh->Peek_Object()->Add_Sub_Object_To_Bone(Unknown128[i].Peek(), bone);
-				}
-			} else {
+			if (Unknown_B8AABC[Room * 4 + i] >= 0 && Get_Info()->Find_Room(Unknown_B8AABC[Room * 4 + i]) != NULL) {
 				_snprintf(model, sizeof(model), "%sbar06", Unknown_B8A950[column]);
 				Unknown128[i] = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj(model));
 				if (Unknown128[i]) {
 					Unknown_496AE0(Unknown128[i].Peek(), false);
-					InterfaceMesh->Peek_Object()->Add_Sub_Object_To_Bone(Unknown128[i].Peek(), bone);
+					InterfaceMesh->Peek_Object()->Add_Sub_Object_To_Bone(Unknown128[i].Peek(), Unknown_B8AA3C[Room * 4 + i]);
 					Unknown118[i] = new ButtonGadgetClass(Unknown128[i].Peek(), Layer, 5, 3);
 					Unknown118[i]->Unknown2C_0A = true;
 					Unknown118[i]->Unknown_40(false);
 					Unknown118[i]->Set_Last_Sort_Group(true);
 					Unknown64.Unknown_6870E0(Unknown118[i], i + 0x16, View, true, false);
+					int key = Unknown_B8AABC[Room * 4 + i];
 					std::string sign("");
-					if (!Get_Info()->Find_Room(key)->Unknown0B) {
-						sign = Unknown_B8A9A0[key];
-					} else if (column == 0) {
-						sign = Unknown_B8A9B8[key];
-					} else if (column == 1) {
-						sign = Unknown_B8A9D0[key];
-					} else if (column == 2) {
-						sign = Unknown_B8A9E8[key];
+					if (Get_Info()->Find_Room(key)->Unknown0B) {
+						switch (column) {
+							case 0: sign = Unknown_B8A9B8[key]; break;
+							case 1: sign = Unknown_B8A9D0[key]; break;
+							case 2: sign = Unknown_B8A9E8[key]; break;
+							default: sign = Unknown_B8AA00[key]; break;
+						}
 					} else {
-						sign = Unknown_B8AA00[key];
+						sign = Unknown_B8A9A0[key];
 					}
 					robj = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj(sign.c_str()));
 					if (robj) {
-						InterfaceMesh->Peek_Object()->Add_Sub_Object_To_Bone(robj.Peek(), bone);
-						Unknown194.push_back(robj);
+						InterfaceMesh->Peek_Object()->Add_Sub_Object_To_Bone(robj.Peek(), Unknown_B8AA3C[Room * 4 + i]);
+						Unknown194.push_back(robj); Get_Info(); Get_Info();
 					}
+				}
+			} else {
+				if (Room == 0) {
+					_snprintf(model, sizeof(model), "%s%s", Unknown_B8A978[column], Unknown_B8A8A0[0]);
+					Unknown128[i] = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj(model));
+				} else {
+					_snprintf(model, sizeof(model), "%sbar%s", Unknown_B8A950[column], Unknown_B8A8A0[Room]);
+					Unknown128[i] = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj(model));
+				}
+				if (Unknown128[i]) {
+					Unknown_496AE0(Unknown128[i].Peek(), false);
+					InterfaceMesh->Peek_Object()->Add_Sub_Object_To_Bone(Unknown128[i].Peek(), Unknown_B8AA3C[Room * 4 + i]);
 				}
 			}
 		}
-		if (Room == 0 && ((ClientClass *)Client)->Get_Ship()) {
-			Unknown184 = Create_Get(((ClientClass *)Client)->Get_Ship()->Unknown_6F3BC0());
+
+		if (Room == 0) { ClientObjectClass *ship = ((ClientClass *)Client)->Get_Ship(); if (ship) {
+			Unknown184 = Create_Get(ship->Unknown_6F3BC0());
 			Unknown_496AE0(Unknown184.Peek(), false);
 			Unknown_496DB0(Unknown184.Peek());
 			Unknown184->Set_LOD_Bias(100.0f);
 			Unknown184->Set_Hidden(false);
 			Play_State_Animation(Unknown184.Peek(), 1, 1.0f);
 			RefCountPtr<RenderObjClass> extents;
-			if (!ExtraBones) {
-				G_ASSERT(ExtraBones);
+			if (ExtraBones) { extents = Create_Get(ExtraBones->Get_Sub_Object_By_Name("ship_extents00"));
+			} else { G_ASSERT(ExtraBones);
 				extents = Unknown184;
-			} else {
-				extents = Create_Get(ExtraBones->Get_Sub_Object_By_Name("ship_extents00"));
 			}
+
+
 			extents->Scale(0.6f, 0.6f, 0.6f);
 			Unknown180 = new ButtonGadgetClass(extents.Peek(), Layer, 5, 3);
 			Unknown180->Unknown2C_0A = true;
 			Unknown180->Set_Last_Sort_Group(true);
 			Unknown64.Unknown_6870E0(Unknown180, 1, View, true, true);
-		}
+		} }
 		if (RoomInfo->HasBar) {
 			_snprintf(model, sizeof(model), "%sbar05", Unknown_B8A950[column]);
 			robj = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj(model));
@@ -879,7 +879,7 @@ void UIStarbaseClass::Unknown_54()
 			}
 		}
 		if (RoomInfo->HasTables) {
-			for (int table = 0; ; table++) {
+			int table = 0; while (true) {
 				_snprintf(name, sizeof(name), "table%02d", table);
 				if (!InterfaceMesh->Peek_Object()->Get_Bone_Index(name)) {
 					break;
@@ -890,7 +890,7 @@ void UIStarbaseClass::Unknown_54()
 					InterfaceMesh->Peek_Object()->Add_Sub_Object_To_Bone(robj.Peek(), name);
 					Unknown194.push_back(robj);
 				}
-			}
+				table++; }
 		}
 
 		const char *mesh_name = NULL;
@@ -899,14 +899,13 @@ void UIStarbaseClass::Unknown_54()
 			mesh_name = mesh->Get_Name();
 		}
 		UnknownB0->Unknown_6A24C0(Room, mesh, mesh_name);
-		for (int n = 1; ; n++) {
-			const char *prefix = Unknown_B8ABBC[Room][column];
+		int n = 1; while (true) {
 			if (RoomInfo->Unknown0B) {
-				_snprintf(model, sizeof(model), "%s3_%dmd", prefix, n);
+				_snprintf(model, sizeof(model), "%s3_%dmd", Unknown_B8ABBC[Room][column], n);
 			} else if (RoomInfo->Unknown0A) {
-				_snprintf(model, sizeof(model), "%s2_%dmd", prefix, n);
+				_snprintf(model, sizeof(model), "%s2_%dmd", Unknown_B8ABBC[Room][column], n);
 			} else {
-				_snprintf(model, sizeof(model), "%s_%dmd", prefix, n);
+				_snprintf(model, sizeof(model), "%s_%dmd", Unknown_B8ABBC[Room][column], n);
 			}
 			robj = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj(model));
 			UnknownB0->Unknown_6A2500(Room, robj.Peek(), mesh_name);
@@ -915,20 +914,21 @@ void UIStarbaseClass::Unknown_54()
 			}
 			Unknown1A0.push_back(robj);
 			if (RoomInfo->Unknown0B) {
-				_snprintf(name, sizeof(name), "%s3_%dmd.%s3_%dan", prefix, n, prefix, n);
+				_snprintf(model, sizeof(model), "%s3_%dmd.%s3_%dan", Unknown_B8ABBC[Room][column], n, Unknown_B8ABBC[Room][column], n);
 			} else if (RoomInfo->Unknown0A) {
-				_snprintf(name, sizeof(name), "%s2_%dmd.%s2_%dan", prefix, n, prefix, n);
+				_snprintf(model, sizeof(model), "%s2_%dmd.%s2_%dan", Unknown_B8ABBC[Room][column], n, Unknown_B8ABBC[Room][column], n);
 			} else {
-				_snprintf(name, sizeof(name), "%s_%dmd.%s_%dan", prefix, n, prefix, n);
+				_snprintf(model, sizeof(model), "%s_%dmd.%s_%dan", Unknown_B8ABBC[Room][column], n, Unknown_B8ABBC[Room][column], n);
 			}
-			RefCountPtr<HAnimClass> anim = Create_Get(WW3DAssetManager::Get_Instance()->Get_HAnim(name));
+			RefCountPtr<HAnimClass> anim; anim = Create_Get(WW3DAssetManager::Get_Instance()->Get_HAnim(model));
 			robj->Set_Animation(anim.Peek(), 0.0f, 1);
-		}
+		n++; }
+
 		Unknown_10();
 	}
 }
 
-#pragma auto_inline(off)
+
 
 // 0x63BDB0
 // @0x0063BDB0
@@ -1072,9 +1072,9 @@ void UIStarbaseClass::Unknown_63D2F0(int index)
 	}
 }
 
-#pragma auto_inline(on)
 
-#pragma auto_inline(off)
+
+
 #include "..\common\distance_calc.h"	// Unknown_831E90 0x831E90: the distance between two spheres
 
 // 0x63B310
@@ -1166,7 +1166,7 @@ void UIStarbaseClass::Unknown_63AAF0()
 	}
 }
 
-#pragma auto_inline(on)
+
 
 // 0x63BA70
 bool UIStarbaseClass::Unknown_63BA70(RenderObjClass *a, RenderObjClass *b, float radius)

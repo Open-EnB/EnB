@@ -2,17 +2,21 @@
 
 A pair is (library, file, address) of the ledger (docs/data/imports, a file's `in_tree` list). Classes:
 
-  (1) pad-held        the pair's match flips somewhere in a pad sweep: tools/vc6/auxpad.py (SYMBOL_PAD, aux_roots.cpp)
+  (1) pad-held        the pair's match flips somewhere in a pad sweep: tools/vc6/auxpad.py (SYMBOL_PAD, co.cpp)
                       or tools/vc6/sendpad.py (SEND_SYMBOL_PAD, sclient.cpp), 0..63. Both save every value's exact
                       address set (.work/log/auxpad-sets.json, sendpad-sets.json); a pair of the swept file exact at
                       some values and not at others is pad-held (one never exact in the lone-file compile does not
                       flip). --send-log / --aux-log add a sweep's printed table (its watched addresses only).
-  (2) workaround-held the pair's file carries a known non-client device: D130 dead reads, a `__X_MEMBERS` guard it
+  (2) workaround-held the pair's file carries a known non-client device: a `__X_MEMBERS` guard it
                       defines, other code marked "not the client's", a private class view (a class the file defines that
                       another app/ file defines too), an interim forwarder (an inline body on a line marked interim).
                       Static scan: "unconfirmed". `confirm` compiles the file and a variant without the device
                       (appfile.py match, lock-free) and labels the pairs the variant loses "confirmed"; the file's other
-                      pairs leave the class.
+                      pairs leave the class. A D130 / D272 line is no workaround (D272): its dead reads are (2b).
+  (2b) budget-held    a pair a VC6 inline-budget device holds (tools/re/budgetdev.py's table, budget-devices.json): by
+                      build, the file compiled without the device (a dead read, `#pragma auto_inline`) loses the pair;
+                      static, the exact function an unmeasured dead read sits in. Source unproven unless the row names
+                      client evidence.
   (3) contradicted    (not built here yet: a client form not yet applied drops it, D240; after the D237 harness)
   (4) unstable        gained, lost and regained along the ledger's history (the first-parent line of HEAD with each
                       merged run branch's own first-parent commits before its merge; the old docs/data/imports.json
@@ -20,6 +24,7 @@ A pair is (library, file, address) of the ledger (docs/data/imports, a file's `i
 
     python tools/re/matchaudit.py pad [--aux P] [--send P] [--send-log L] [--aux-log L]   class (1)
     python tools/re/matchaudit.py workaround                         class (2), the static scan
+    python tools/re/matchaudit.py budget                             class (2b) from budgetdev.py's table
     python tools/re/matchaudit.py confirm (LIB FILE VARIANT.cpp --device KIND | --spec JOBS.json) [--pool]
                                                                      class (2) for one file, by build
     python tools/re/matchaudit.py history [--rev REV]                class (4) from git history (~1-3 min)
@@ -45,11 +50,11 @@ OUT_MD = os.path.join(ROOT, 'docs', 'data', 'match-audit.md')
 OUT_JSON = os.path.join(ROOT, 'docs', 'data', 'match-audit.json')
 SHARDS = 'docs/data/imports'
 OLD = 'docs/data/imports.json'
-PAD_SETS = {'aux': ('app', 'aux_roots', os.path.join(ROOT, '.work', 'log', 'auxpad-sets.json'), 'SYMBOL_PAD'),
+PAD_SETS = {'aux': ('app', 'co', os.path.join(ROOT, '.work', 'log', 'auxpad-sets.json'), 'SYMBOL_PAD'),
             'send': ('app', 'sclient', os.path.join(ROOT, '.work', 'log', 'sendpad-sets.json'), 'SEND_SYMBOL_PAD')}
 # source roots per library (a ledger file's `name` is relative to it)
 SOURCE_ROOTS = {'app': 'app', 'wlib': 'libs/wwonline/wlib', 'wnet': 'libs/wwonline/wnet'}
-CLASSES = ('pad-held', 'workaround-held', 'contradicted', 'unstable')
+CLASSES = ('pad-held', 'workaround-held', 'budget-held', 'contradicted', 'unstable')
 
 
 def norm_addr(a):
@@ -183,6 +188,9 @@ def cmd_pad(a):
 # ---------------------------------------------------------------- (2) workaround-held
 
 D130 = re.compile(r'(?<![0-9A-Fa-fx_])D130\b')
+D272 = re.compile(r'(?<![0-9A-Fa-fx_])D272\b')
+MASS_LOSS = 0.3     # history: a revision losing more than this share of the running pairs at once is a broken record
+BUDGET_TABLE = os.path.join(ROOT, 'docs', 'data', 'budget-devices.json')
 NOT_CLIENT = re.compile(r"not the client'?s", re.I)
 GUARD = re.compile(r'^\s*#\s*define\s+(__[A-Z0-9_]+_MEMBERS)\b', re.M)
 CLASS_DEF = re.compile(r'^[ \t]*(?:template\s*<[^;{]*?>\s*)?(?:class|struct)\s+(?:__declspec\([^)]*\)\s+)?([A-Za-z_]\w*)'
@@ -212,8 +220,8 @@ def scan_devices(text, others=None, path=''):
     out = []
     lines = text.splitlines()
     for i, l in enumerate(lines, 1):
-        if D130.search(l):
-            out.append(('d130', i, l.strip()[:80]))
+        if D130.search(l) or D272.search(l):
+            pass        # D272: a dead read is budget-held (class 2b, budgetdev.py's measure), not a workaround
         elif NOT_CLIENT.search(l) and 'symbol pad' not in l.lower():
             out.append(('not-client', i, l.strip()[:80]))
         if re.search(r'interim', l, re.I) and INTERIM_BODY.search(l.split('//')[0]):
@@ -285,6 +293,57 @@ def cmd_workaround(a):
             kinds[d] = kinds.get(d, 0) + 1
     print(f'workaround: {len(files)} files with devices hold {len(rows)} pairs; files per device: '
           + ', '.join(f'{k} {n}' for k, n in sorted(kinds.items())))
+    return 0
+
+
+# ---------------------------------------------------------------- (2b) budget-held
+
+BUDGET_KINDS = ('dead-read', 'auto-inline')
+
+
+def budget_rows(state, table):
+    """Class (2b) budget-held from budgetdev.py's table (docs/data/budget-devices.json): a pair a measured device
+    holds (the file compiled without it loses the pair: by build), or, unmeasured, the exact function a D272 dead read
+    sits in (static). Source unproven unless the row names client evidence (D272: dead code is the client's only where
+    its classes support it; the bytes cannot show it)."""
+    keys = {}
+    for lib, block in state.items():
+        for key, entry in (block.get('files', {}) if isinstance(block, dict) else {}).items():
+            p = source_path(lib, entry)
+            if p:
+                keys[p] = (lib, key)
+    held = {norm_addr(x) for lib, block in state.items() if isinstance(block, dict)
+            for e in block.get('files', {}).values() for x in e.get('in_tree', []) or []}
+    rows, seen = [], set()
+    for r in table.get('rows', []):
+        if r['kind'] not in BUDGET_KINDS or r['file'] not in keys:
+            continue
+        lib, key = keys[r['file']]
+        m = r.get('measure') or {}
+        proven = 'client-evidenced' if 'client-evidenced' in r.get('status', '') else 'source unproven'
+        where = f"{r['kind']} at line {', '.join(map(str, r['lines'][:4]))} of {r['function'] or '?'}"
+        if m.get('verdict') == 'holds':
+            addrs = [norm_addr(x) for x in m.get('lost_ledger', [])]
+            ev = f'by build: lost without the {where}; {proven}'
+        elif not m and r['kind'] == 'dead-read' and r.get('exact') and r.get('address'):
+            addrs = [norm_addr(r['address'])]
+            ev = f'static (unmeasured): the {where}; {proven}'
+        else:
+            continue
+        for x in addrs:
+            if x in held and (lib, key, x) not in seen:
+                seen.add((lib, key, x))
+                rows.append({'lib': lib, 'file': key, 'address': x, 'class': 'budget-held', 'evidence': ev})
+    return rows
+
+
+def cmd_budget(a):
+    if not os.path.isfile(BUDGET_TABLE):
+        raise SystemExit('budget: no docs/data/budget-devices.json (run tools/re/budgetdev.py scan)')
+    rows = budget_rows(current_ledger(), json.load(open(BUDGET_TABLE, encoding='utf-8')))
+    save('budget', {'rows': rows})
+    n = sum(1 for r in rows if r['evidence'].startswith('by build'))
+    print(f'budget: {len(rows)} budget-held pairs ({n} by build, {len(rows) - n} static)')
     return 0
 
 
@@ -504,6 +563,8 @@ def flips(changes):
             before |= b
             after |= a
         gained, lost = after - before, before - after
+        if len(lost & state) > max(MASS_LOSS * len(state), 1000):
+            continue       # a broken record (758bbf41 dropped 24,643 pairs, 149ec6c2 put them back): not a state
         for p in gained - state:
             out.setdefault(p, []).append((rev, '+'))
         for p in lost & state:
@@ -544,7 +605,7 @@ def cmd_history(a):
 
 # ---------------------------------------------------------------- the table
 
-def combine(current, pad=None, work=None, confirm=None, hist=None):
+def combine(current, pad=None, work=None, confirm=None, hist=None, budget=None):
     """(rows, summary): the labelled rows of the current pairs, and per class {count, share}."""
     rows = []
     rows += [r for r in (pad or {}).get('rows', []) if (r['lib'], r['file'], r['address']) in current]
@@ -559,6 +620,7 @@ def combine(current, pad=None, work=None, confirm=None, hist=None):
         elif r['address'] in c['lost']:
             rows.append(dict(r, evidence=f"confirmed by build: lost without {c['device']}"
                                          + (f" ({c['note']})" if c.get('note') else '')))
+    rows += [r for r in (budget or {}).get('rows', []) if (r['lib'], r['file'], r['address']) in current]
     rows += [r for r in (hist or {}).get('rows', []) if (r['lib'], r['file'], r['address']) in current]
     rows.sort(key=lambda r: (CLASSES.index(r['class']), r['lib'], r['file'], r['address']))
     total = len(current)
@@ -609,10 +671,17 @@ def render(rows, summary, sources):
 
 def cmd_table(a):
     cur = pairs_of(current_ledger())
-    pad, work, conf, hist = (load_class(n) for n in ('pad', 'workaround', 'confirm', 'history'))
-    rows, summary = combine(cur, pad, work, conf, hist)
-    sources = {}
-    if pad:
+    pad, work, conf, hist, budget = (load_class(n) for n in ('pad', 'workaround', 'confirm', 'history', 'budget'))
+    carried = {}
+    if pad is None and os.path.isfile(OUT_JSON):    # a fresh tree has no sweep sets: keep the table's pad rows
+        old = json.load(open(OUT_JSON, encoding='utf-8'))
+        pad = {'rows': [r for r in old.get('rows', []) if r['class'] == 'pad-held']}
+        if old.get('sources', {}).get('pad-held'):
+            carried['pad-held'] = old['sources']['pad-held'].replace(' (carried from the previous table)', '') + \
+                ' (carried from the previous table)'
+    rows, summary = combine(cur, pad, work, conf, hist, budget)
+    sources = dict(carried)
+    if pad and 'pad-held' not in carried:
         sources['pad-held'] = '; '.join(f"{w}: {s['source']}, values {s['values']}, watched {s['watched']}"
                                         for w, ss in sorted(pad.get('sweeps', {}).items()) for s in ss) or 'no sweep sets'
     if work:
@@ -620,6 +689,10 @@ def cmd_table(a):
         of = sum(c.get('ledger', 0) for c in (conf or {}).values())
         sources['workaround-held'] = (f"static scan, {len(work['files'])} files; {len(conf or {})} confirmed by build "
                                       f"(the device holds {held} of their {of} pairs)")
+    if budget:
+        n = sum(1 for r in budget['rows'] if r['evidence'].startswith('by build'))
+        sources['budget-held'] = (f"budgetdev.py's table: {n} pairs by build (the file without the device loses them), "
+                                  f"{len(budget['rows']) - n} static (an unmeasured dead read's exact function); source unproven")
     if hist:
         sources['unstable'] = f"history to {hist['rev'][:8]}, {hist['states']} ledger states"
     md = render(rows, summary, sources)
@@ -644,6 +717,7 @@ def main(argv=None):
     p.add_argument('--aux-log', action='append', help="an auxpad sweep's printed table (watched addresses only)")
     p.add_argument('--send-log', action='append', help='a sendpad.log (watched addresses only)')
     sub.add_parser('workaround')
+    sub.add_parser('budget')
     c = sub.add_parser('confirm')
     c.add_argument('lib', nargs='?')
     c.add_argument('file', nargs='?', help="the ledger's file key (e.g. ui_starmap)")
@@ -656,7 +730,7 @@ def main(argv=None):
     h.add_argument('--rev', default='HEAD')
     sub.add_parser('table')
     a = ap.parse_args(argv)
-    return {'pad': cmd_pad, 'workaround': cmd_workaround, 'confirm': cmd_confirm, 'history': cmd_history,
+    return {'pad': cmd_pad, 'workaround': cmd_workaround, 'budget': cmd_budget, 'confirm': cmd_confirm, 'history': cmd_history,
             'table': cmd_table}[a.cmd](a)
 
 

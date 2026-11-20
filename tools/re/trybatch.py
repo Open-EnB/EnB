@@ -44,10 +44,12 @@ the tree file's own folder put on the include list so its relative #includes sti
 found when the draft includes them (quoted, from the draft's folder) or through <>: their overlay folders go first
 on the include list; a tree header's own quoted #include of its neighbour still finds the tree's copy (VC6 searches
 the including file's folder first). The tree, the importer lock and the ledger are never touched.
-VMs (D273: the host used fully): --vms K caps them (default: one per compile); they are leased one at a time from
+VMs (D273: the host used fully): --vms K caps them (default: one per compile); they are leased from
 pool.py under $ENB_AGENT (else trybatch-<pid>) until pool.py refuses (its cap, its memory reserve): the first waits
-up to 15 minutes (one retry), the others are taken only when free at once, and each starts compiling as soon as it
-is ready; all are released at the end, whatever happens. --no-lease uses ENB_VC6_HOSTS / vc6_hosts.json as given
+up to 15 minutes (one retry), the others are taken when free (asked 4 at once: a lease takes ~37 s; a round all
+refused is retried every 30 s while forms wait), and
+each starts compiling as soon as it is ready; each is released as soon as the queue has no form left for it (all,
+whatever happens, by the batch's end). The summary's first line gives the VMs, the time and the forms per VM. --no-lease uses ENB_VC6_HOSTS / vc6_hosts.json as given
 (a lease you already hold). One thread per distinct host (two on one VM collide on sync.tar); forms are queued
 over them.
 
@@ -311,6 +313,47 @@ def own_mentions(text, addr):
     return list(dict.fromkeys(out))
 
 
+def untemplate(name):
+    """name without its template arguments: 'A<B<int> >::f' -> 'A::f'."""
+    while True:
+        new = re.sub(r'<[^<>]*>', '', name)
+        if new == name:
+            return name
+        name = new
+
+
+def class_mentions(text, addr):
+    """(Class::name, hint words) for each own marker of addr on a member declared inside a class / struct body
+    (`static T *Get(...)  // 0x79E300 (radar)` in a template's body: own_mentions gives the bare `Get`, which
+    every class has); the hint is the marker comment's words after the address (which instance it is)."""
+    lines = text.splitlines()
+    out = []
+    for k, line in enumerate(lines):
+        code, _, comment = line.partition('//')
+        first = ADDR_TOKEN.search(comment)
+        if not first or int(first.group(1), 16) != addr or '(' not in code:
+            continue
+        names = DEF_NAME.findall(code.split('(')[0] + '(')[-1:]
+        if not names or '::' in names[0]:
+            continue
+        depth, cls = 0, None
+        for j in range(k - 1, -1, -1):
+            c = lines[j].partition('//')[0]
+            depth += c.count('}') - c.count('{')
+            if depth < 0:
+                for back in range(j, max(-1, j - 4), -1):
+                    m = re.search(r'\b(?:class|struct)\s+(\w+)\s*(?::[^{;]*)?\{?\s*$',
+                                  lines[back].partition('//')[0])
+                    if m:
+                        cls = m.group(1)
+                        break
+                break
+        if cls:
+            hint = [w.lower() for w in re.findall(r'[A-Za-z]{4,}', comment[first.end():])]
+            out.append((f'{cls}::{names[0]}', hint))
+    return out
+
+
 def candidates(names, symbol, addr, texts=(), index=None):
     """(names, how): which of names (an object's mangled function names) SYMBOL means, found in order by an exact
     name (mangled, demangled or bare, as explain.py's pick), by the full signature (the build's symbols.txt: an
@@ -344,7 +387,40 @@ def candidates(names, symbol, addr, texts=(), index=None):
             got = exact(name)
             if got and ('::' in name or len({X.demangle(n) for n in got}) == 1):
                 return got, f"source's marker of 0x{addr:06X} ({name})"
+    for text in texts:
+        for name, hint in class_mentions(text, addr):
+            got = [n for n in names if untemplate(norm_sig(full(n))[0]) == name]
+            narrowed = [n for n in got if any(w in full(n).lower() for w in hint)]
+            if narrowed or got:
+                return narrowed or got, f"source's marker of 0x{addr:06X} in its class ({name})"
     return [], ''
+
+
+def client_length(addr):
+    """Bytes from addr to the next verified or proven start (explain.py's window end)."""
+    from clientimage import ClientImage
+    starts = sorted(set(ClientImage().function_starts()[0]) | set(X._names_at()))
+    return next((x for x in starts if x > addr), addr + 64) - addr
+
+
+def by_code(obj_path, addr, limit=40, least=0.8):
+    """An empty SYMBOL with no symbols.json name or marker at addr (a header static's `_$E` initialiser): the
+    object's functions whose size is within half to twice the client's length (up to limit, nearest first)
+    that score at least LEAST against addr, ordered by masked residue; [] when none does (a function defined
+    inline everywhere has no copy, and a near-length neighbour is no answer)."""
+    from objmatch import CoffObject
+    want = client_length(addr)
+    funcs = [f for f in CoffObject(obj_path).functions() if want / 2 <= f[3] - f[2] <= want * 2 + 16]
+    funcs.sort(key=lambda f: abs((f[3] - f[2]) - want))
+    scored = []
+    for name, _, _, _ in funcs[:limit]:
+        try:
+            r, _ = X.explain(obj_path, name, f'0x{addr:X}')
+        except (SystemExit, Exception):
+            continue
+        if score_of(r['residue'], r.get('ours', 1), r.get('client', 1)) >= least:
+            scored.append((r['residue'], name))
+    return [n for _, n in sorted(scored)]
 
 
 def resolve_symbol(obj_path, symbol, addr, texts=(), lib='app'):
@@ -353,6 +429,11 @@ def resolve_symbol(obj_path, symbol, addr, texts=(), lib='app'):
     from objmatch import CoffObject
     names = [f[0] for f in CoffObject(obj_path).functions()]
     got, how = candidates(names, symbol, addr, texts, lib_index(lib))
+    if not got and not symbol.strip():
+        got = by_code(obj_path, addr)
+        how = "code (the lowest residue of the object's functions near the client's length, score >= 0.8)"
+        if got:
+            return got[0], how
     if not got:
         key = re.sub(r'\s*\(.*$', '', symbol).split('::')[-1].strip().lower()
         near = [X.demangle(n) for n in names if key and key in X.demangle(n).lower()][:3]
@@ -625,28 +706,58 @@ def slot_lines(rows):
 
 # ---------------------------------------------------------------- VMs
 
-def lease_iter(k, agent, log, more=lambda: True):
-    """Lease up to k VMs one at a time, yielding (name, host) as each is ready: the first waits (bounded), the
-    others only if free now (pool.py's cap and memory reserve decide how many); stops early once more() is false."""
+def lease_iter(k, agent, log, more=lambda: True, poll=0, sleep=time.sleep, parallel=4):
+    """Lease up to k VMs, yielding (name, host) as each is ready: the first waits (bounded, one retry); the others
+    are asked for only if free now (pool.py's cap and memory reserve decide how many), up to PARALLEL requests at
+    once (a pool.py lease takes ~37 s on the host: one at a time, the third VM of a 15-form batch came after it
+    had finished); stops once more() is false. poll > 0: when every request of a round is refused, a new round
+    follows every poll seconds while more() holds (a VM another agent releases mid-batch joins the batch)."""
     pool = [sys.executable, os.path.join(REPO, 'tools', 'vc6', 'pool.py')]
-    for n in range(k):
-        if n and not more():
-            return
-        for attempt in range(2):
-            p = subprocess.run(pool + ['lease', '--agent', agent, '--count', '1', '--wait', '900' if n == 0 else '0'],
-                               capture_output=True, text=True)
-            log(p.stdout + p.stderr)
-            names = re.findall(r'^(\S+): \S+ ready', p.stderr, re.M)
-            line = [l for l in p.stdout.splitlines() if l.startswith('ENB_VC6_HOSTS=')]
-            if p.returncode == 0 and line and names:
-                yield names[0], line[-1].split('=', 1)[1].split(',')[0]
-                break
-            release([x for x in names], log)
-            if n:      # at the cap or short of memory: no more VMs for this batch
-                return
-            time.sleep(5)
+
+    def ask(wait):
+        p = subprocess.run(pool + ['lease', '--agent', agent, '--count', '1', '--wait', str(wait)],
+                           capture_output=True, text=True)
+        log(p.stdout + p.stderr)
+        names = re.findall(r'^(\S+): \S+ ready', p.stderr, re.M)
+        line = [l for l in p.stdout.splitlines() if l.startswith('ENB_VC6_HOSTS=')]
+        if p.returncode == 0 and line and names:
+            return names[0], line[-1].split('=', 1)[1].split(',')[0]
+        release(names, log)
+        return None
+
+    for attempt in range(2):
+        got = ask(900)
+        if got:
+            break
+        sleep(5)
+    else:
+        return
+    yield got
+    n = 1
+    while n < k and more():
+        want = min(parallel, k - n)
+        if want == 1:
+            got = ask(0)
+            refused = not got
+            if got:
+                n += 1
+                yield got
         else:
-            return
+            import concurrent.futures as cf
+            with cf.ThreadPoolExecutor(want) as ex:
+                futs = [ex.submit(ask, 0) for _ in range(want)]
+                outs = cf.as_completed(futs)
+                refused = True
+                for f in outs:
+                    got = f.result()
+                    if got:
+                        refused = False
+                        n += 1
+                        yield got
+        if refused:     # at the cap or short of memory: no more VMs now
+            if not poll:
+                return
+            sleep(poll)
 
 
 def lease(k, agent, log):
@@ -855,15 +966,18 @@ def file_check(objs, results, log, exact=exact_set, mentioned=frozenset()):
     if base is None:
         return
     for name, got in sets.items():
-        if name == 'base' or name not in results or 'error' in results[name]:
+        if name == 'base' or name not in results:      # a compiled form whose function is gone still has its file
             continue
         lost, gained = sorted(base - got), sorted(got - base)
         results[name]['file'] = (len(lost), len(gained))
+        results[name]['file_lost'], results[name]['file_gained'] = lost, gained     # budgetdev.py reads the sets
         if lost or gained:
             log(f'file check {name}: lost {", ".join(f"{X.demangle(s)} 0x{a:06X}" for s, a in lost)}; '
                 f'gained {", ".join(f"{X.demangle(s)} 0x{a:06X}" for s, a in gained)}')
-    if 'base' in results and 'error' not in results['base']:
-        results['base']['file'] = (0, 0)
+    if 'base' in results:
+        if 'error' not in results['base']:
+            results['base']['file'] = (0, 0)
+        results['base']['file_set'] = sorted(base)
         log(f'file check base: {len(base)} exact')
 
 
@@ -947,14 +1061,27 @@ def run_spec(a, spec, stem, variants):
     agent = os.environ.get('ENB_AGENT') or f'trybatch-{os.getpid()}'
     leased, threads = [], []
     queue = collections.deque(todo)
+    t_start = time.time()
 
-    def worker(host):
+    done_on = collections.Counter()
+
+    def worker(host, vm=None):
+        try:
+            work(host)
+        finally:
+            if vm:      # its share is done: back to the pool now, not at the batch's end
+                with lock:
+                    leased.remove((vm, host))
+                release([vm], log)
+
+    def work(host):
         vc6.use_host(host)
         while True:
             with lock:
                 if not queue:
                     return
                 name = queue.popleft()
+                done_on[host] += 1
             overlay = os.path.join(batch, name)
             listing = f'{vc6.WORK}\\trybatch_{os.getpid()}_{name}.asm' if a.slots else None
             try:
@@ -971,8 +1098,8 @@ def run_spec(a, spec, stem, variants):
                 results[name] = {'error': f'{type(e).__name__}: {e}'[:110]}
                 log(f'== {name}: ' + traceback.format_exc())
 
-    def start(host):
-        t = threading.Thread(target=worker, args=(host,))
+    def start(host, vm=None):
+        t = threading.Thread(target=worker, args=(host, vm))
         t.start()
         threads.append(t)
 
@@ -984,21 +1111,28 @@ def run_spec(a, spec, stem, variants):
         else:
             # D273: as many VMs as the pool gives (its cap and memory reserve decide), one per compile at most; each
             # starts compiling as soon as it is leased, one thread per distinct host (two on one VM collide on
-            # sync.tar)
+            # sync.tar); a refused lease is retried every 30 s while forms wait (a VM another agent releases joins)
             want = a.vms or len(todo)
             hosts = []
-            for got in lease_iter(want, agent, log, lambda: bool(queue)):
-                leased.append(got)
+            for got in lease_iter(want, agent, log, lambda: bool(queue), poll=30):
+                with lock:
+                    leased.append(got)
                 if got[1] not in hosts:
                     hosts.append(got[1])
-                    start(got[1])
+                    start(got[1], got[0])
+                else:
+                    with lock:
+                        leased.remove(got)
+                    release([got[0]], log)
             if not hosts:
                 raise SystemExit('trybatch: no VM leased (pool at its cap or short of memory); see ' + logf.name)
-        print(f'{len(todo)} compiles on {len(hosts)} VM(s); log {os.path.relpath(logf.name, REPO)}', flush=True)
         for t in threads:
             t.join()
     finally:
         release([n for n, _ in leased], log)
+    spread = ', '.join(f'{h.split("@")[-1]} {k}' for h, k in done_on.items())
+    print(f'{len(todo)} compiles on {len(hosts)} VM(s) in {time.time() - t_start:.0f} s ({spread}); log '
+          f'{os.path.relpath(logf.name, REPO)}', flush=True)
     known = X.symbol_addresses()
     symbol, how = spec['symbol'], 'symbol'
     first = next((objs[n] for n in forms if n in objs), None)

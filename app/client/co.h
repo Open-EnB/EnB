@@ -9,7 +9,7 @@
 **	0xB0070C; its first argument, the client, at +0x7C: CREATE 0x733700 passes its SClient), the
 **	destructor 0x6F2FE0 (it deletes the object's data through co_data.cpp's Remove_All 0x79D390 and
 **	resets a MultiFixedPoolDecalSystemClass vtable at +0x4C), ClientClass's object list node at
-**	+0x60 and the game id at +0x90. the CREATE factory 0x6F6000 (aux_roots.cpp) is its
+**	+0x60 and the game id at +0x90. the CREATE factory 0x6F6000 (co.cpp, generated) is its
 **	member. Its bases: client.cpp's UnknownB02C90Class (declared here, moved from client.h, so
 **	that co.h stands alone) and ww3d2's MultiFixedPoolDecalSystemClass at +0x4C. Names: D10, D24, D56.
 */
@@ -268,7 +268,7 @@ public:
 	void Unknown_6FEEE0(const RelationshipClass &relationship);	// 0x6FEEE0: sets +0x12C and emits PlayerObjectRelationshipChangeEvent
 	void Unknown_6F33F0(RenderObjClass *model, int base_asset, float scale);	// 0x6F33F0 (CREATE 4: the new model, the packet's BaseAsset and Scale; a NULL Null3DObjClass, -1 and 1.0f for type 10)  // NAME 2 [model, base_asset, scale]: what CREATE passes
 	void Unknown_6FCB70();								// 0x6FCB70 (Set_Model calls it last)
-	UnknownRootClass *Unknown_Create_Aux_Root(int type, int unknown);	// 0x6F6000 (aux_roots.cpp, generated): the root for a CREATE's type, 0 when it has no aux data  // NAME 1 [Unknown_Create_Aux_Root, unknown]: neutral (D10)
+	UnknownRootClass *Unknown_Create_Aux_Root(int type, int unknown);	// 0x6F6000 (co.cpp's generated region): the root for a CREATE's type, 0 when it has no aux data  // NAME 1 [Unknown_Create_Aux_Root, unknown]: neutral (D10)
 	static RenderObjClass *Unknown_6F5140(int base_asset, ClientClass *client, float scale, float *hsv);	// 0x6F5140 (cdecl; CREATE 4 and 19 other callers: the model for a BaseAsset)  // NAME 2 [base_asset, client, scale, hsv]: what CREATE passes
 	Matrix3D Unknown_6FED80(const LegoIdentifierClass &lego);	// 0x6FED80 (G_ASSERT 'RenderObject', l.2259): +0xB4's transform of the lego or the model's  // NAME 1 [lego]: what eff_o.cpp's 0x6E8F80 passes
 

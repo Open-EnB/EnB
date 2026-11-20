@@ -7,7 +7,7 @@ appfile match: the two pad through different windows) with each pad value, print
 the pad at the middle of it.
 
   sendpad.py [--range LO..HI] [--pool K] [--lock-wait S] [--agent NAME] [--holder-pid P] [--watch-from REV] [--dry]
-             [--hold] [--first-window]
+             [--hold] [--first-window] [--lockfree]
   sendpad.py --includes [PATH ...]    the headers sclient.cpp includes (transitively, within app/);
                                       with paths: those of them among PATH (exit 1 when none)
   --hold          take the importer lock once, at the first value, and keep it to the end of the sweep (given back on
@@ -18,6 +18,9 @@ the pad at the middle of it.
                   2-wide window such as 46..47 swept all 64 values); the pad goes to its (lower) middle. That is the full sweep's pick whenever the run nearest the current pad is the longest; with
                   no such run every value is tried and the pick is the full sweep's. Per-value output covers only
                   the values tried.
+  --lockfree      skip the importer lock (PAD, 2026-11-19b): in a git worktree only, on the sweep's own leased VM; the
+                  same compile_and_match per value (verify's path and crediting), a full 0..63 sweep in ~5-10 minutes
+                  with no other builder's verify waiting on it.
 
 The window is the run of consecutive values at which every address of WATCH that HEAD's ledger records for
 sclient.cpp is exact (the longest run when there are several; HEAD's, not the working tree's: the verify that
@@ -245,6 +248,26 @@ def sweep_first_window(a, log, watch):
     return current_pad(orig), (best[0] + best[1]) // 2, runs
 
 
+def lock_free(repo=None):
+    """--lockfree (PAD, 2026-11-19b): the sweep without the importer lock. Each value is still compiled and matched by
+    verify's own compile_and_match (the same compile path, objects and crediting); only its lock is skipped, which
+    guards nothing a leased VM and a private tree share: the VM is this sweep's lease, the scratch folder the agent's
+    own, and the tree a worktree no one else compiles. Refused outside a git worktree (the main tree is shared)."""
+    import subprocess
+    import importer
+    import verify
+    git = lambda *x: subprocess.run(['git', 'rev-parse'] + list(x), cwd=repo or REPO, capture_output=True,
+                                    text=True).stdout.strip()
+    if os.path.normcase(os.path.abspath(os.path.join(repo or REPO, git('--git-dir')))) == \
+            os.path.normcase(os.path.abspath(os.path.join(repo or REPO, git('--git-common-dir')))):
+        raise SystemExit('--lockfree: not in a git worktree (wt.py new NAME); the main tree is shared, take the lock')
+
+    def noop(*_a, **_k):
+        return None
+    importer.hold_lock = importer.release_lock = noop
+    verify.hold_lock = noop
+
+
 def run_sweep(a, log, watch):
     """sweep() or sweep_first_window(); with --hold the lock the first value takes is given back here, on every exit."""
     global HOLD
@@ -273,6 +296,9 @@ def main(argv=None):
                     help="the ledger the watch set comes from (default HEAD's, or the onto commit's when HEAD is a "
                          "wt.py rebase record commit)")
     ap.add_argument('--dry', action='store_true', help='sweep and print, leave the header as it was')
+    ap.add_argument('--lockfree', action='store_true',
+                    help='no importer lock (a git worktree with its leased VM only): the same compile and match, '
+                         'about 5 s a value instead of a queue per value')
     ap.add_argument('--sets', default=os.path.join(REPO, '.work', 'log', 'sendpad-sets.json'), metavar='PATH',
                     help="every value's exact address set, as JSON (default %(default)s)")
     ap.add_argument('--includes', nargs='*', metavar='PATH', help='print the include set, or which PATHs are in it')
@@ -289,6 +315,10 @@ def main(argv=None):
     if not m or int(m.group(1)) > int(m.group(2)):
         ap.error('--range LO..HI')
     a.range = (int(m.group(1)), int(m.group(2)))
+    if a.lockfree:
+        if a.hold:
+            ap.error('--lockfree takes no lock: --hold makes no sense with it')
+        lock_free()
     t0 = time.time()
     os.makedirs(os.path.join(REPO, '.work', 'log'), exist_ok=True)
     with open(os.path.join(REPO, '.work', 'log', 'sendpad.log'), 'w', encoding='utf-8') as log:

@@ -1783,7 +1783,7 @@ void MainViewClass::Unknown_512B10(int x, int y, float *fx, float *fy)
 
 
 
-// NOT EXACT: functional (MV2, from the disassembly)
+// NOT EXACT: shape, 15 masked rows (NL1): the avatar test's register names (9), Rotate_Vector's first-row x87 operand (2), dir *= oolen's fst where the client stores and reloads (2 per block); attempts.py show 0x512BB0
 // slot +0x60: the object under the screen point (x, y in 0..1): the avatar's model first unless skip_avatar, then the
 // objects within the camera's far distance and 5 degrees of the ray (the planets and stations, types 2 / 3 / 10,
 // within their apparent size), the one nearest the ray that no nearer occluder covers
@@ -1799,9 +1799,9 @@ ClientObjectClass *MainViewClass::Unknown_60(float x, float y, bool skip_avatar,
 	}
 	Matrix3D tm = Camera->Get_Transform();
 	Vector3 eye = Camera->Get_Position();
-	Vector2 plane_min, plane_max;
-	Camera->Get_View_Plane(plane_min, plane_max);
-	const ViewportClass &viewport = Camera->Get_Viewport();
+	Vector2 plane_min, plane_max;	CameraClass *camera = Camera;
+	camera->Get_View_Plane(plane_min, plane_max);
+	const ViewportClass &viewport = camera->Get_Viewport();
 	float dx = (float)(((viewport.Min.X - x) + 0.5) * (plane_max.X - plane_min.X) * -1.0);
 	float dy = (float)(((y - 0.5) - viewport.Min.Y) * (plane_max.Y - plane_min.Y) * -1.0);
 	Vector3 ray;
@@ -1816,36 +1816,20 @@ ClientObjectClass *MainViewClass::Unknown_60(float x, float y, bool skip_avatar,
 		switch (object->Type) {
 		case 0:
 			if (skip_avatar && object->GameID == Client->AvatarID) break;
-			// fall through
-		default:
+			goto gen;
+		case 2: case 3: case 10:
 			{
 				Vector3 dir = object->Unknown_24() - eye;
-				float dist2 = dir.Length2();
+				float dist2 = dir.X * dir.X + dir.Y * dir.Y + dir.Z * dir.Z;
 				float oolen = WWMath::Inv_Sqrt(dist2);
 				dir *= oolen;
 				float cos;
-				if (dist2 <= far2 && (cos = Vector3::Dot_Product(dir, ray)) >= 0.9961947f && object->Unknown_30() * oolen >= 0.004886902454025) {
-					PickInfoStruct &info = Info[InfoCount];
-					info.Dir = dir; info.Dist2 = dist2; info.Cos = cos; info.CosSize = -1.0f; info.Object = object; info.Occluder = false;
-					if (++InfoCount == 64) goto sort;
-				}
-			}
-			break;
-		case 2:
-		case 3:
-		case 10:
-			{
-				Vector3 dir = object->Unknown_24() - eye;
-				float dist2 = dir.Length2();
-				float oolen = WWMath::Inv_Sqrt(dist2);
-				dir *= oolen;
-				float cos;
-				if (dist2 <= far2 && (cos = Vector3::Dot_Product(ray, dir)) >= 0.70710677f) {
+				if (dist2 <= far2 && (cos = Vector3::Dot_Product(ray, dir)) >= 0.7071067811865) {
 					float radius = object->Unknown_30();
 					double size = sqrt(dist2 - radius * radius) * oolen;
 					if (size > 0.9999880590209) break;
-					double limit = (size >= 0.9961946980917) ? 0.9961946980917 : size;
-					if (cos < limit) break;
+					float limit = (size < 0.9961946980917) ? size : 0.9961946980917;
+					if (limit > cos) break;
 					PickInfoStruct &info = Info[InfoCount];
 					info.CosSize = (float)size; info.Dir = dir; info.Dist2 = dist2; info.Cos = cos; info.Object = object; info.Occluder = true;
 					if (++InfoCount == 64) goto sort;
@@ -1854,7 +1838,23 @@ ClientObjectClass *MainViewClass::Unknown_60(float x, float y, bool skip_avatar,
 			break;
 		case 5: case 6: case 7: case 8: case 9:
 			break;
+		default: gen:
+			{
+				Vector3 dir = object->Unknown_24() - eye;
+				float dist2 = dir.X * dir.X + dir.Y * dir.Y + dir.Z * dir.Z;
+				float oolen = WWMath::Inv_Sqrt(dist2);
+				dir *= oolen;
+				float cos;
+				if (dist2 <= far2 && (cos = Vector3::Dot_Product(dir, ray)) >= 0.9961946980917 && object->Unknown_30() * oolen >= 0.004886902454025) {
+					PickInfoStruct &info = Info[InfoCount];
+					info.Dir = dir; info.Dist2 = dist2; info.Cos = cos; info.CosSize = -1.0f; info.Object = object; info.Occluder = false;
+					if (++InfoCount == 64) goto sort;
+				}
+			}
+			break;
 		}
+
+
 		node = node->Next();
 	}
 sort:
@@ -1874,17 +1874,17 @@ sort:
 			cam_dist_idx++;
 		}
 		bool occluded = false;
-		for (int j = cam_dist_idx + 1; j < InfoCount && !occluded; j++) {
-			PickInfoStruct &occluder = Info[by_distance[j]];
-			if (occluder.Occluder) {
-				float cos_occluder_size = occluder.CosSize;
+		for (cam_dist_idx++; cam_dist_idx < InfoCount && !occluded; cam_dist_idx++) {
+			int o = by_distance[cam_dist_idx];
+			if (Info[o].Occluder) {
+				float cos_occluder_size = Info[o].CosSize;
 				float cos_size = Info[index].CosSize;
 
 
 
 
 				G_ASSERT(cos_occluder_size > 0.0f);
-				if ((cos_size <= 0.0f || cos_occluder_size <= cos_size) && cos_occluder_size < Vector3::Dot_Product(occluder.Dir, Info[index].Dir)) {
+				if ((cos_size <= 0.0f || cos_occluder_size <= cos_size) && cos_occluder_size < Vector3::Dot_Product(Info[index].Dir, Info[o].Dir)) {
 					occluded = true;
 				}
 			}

@@ -4797,10 +4797,10 @@ void SClient::Unknown_74EB00(int type, int id)
 	Unknown120C[type].push_back(id);
 	Unknown_750210();
 }
-// NOT EXACT: shape (explain.py: 503 instructions, the client 508; 131 masked rows, 25 with registers masked): the client saves ebp with ebx in the prologue and takes each c_str() before the player id; two forms (the flag declared first gains 5 rows)
+
 // 0x74EDB0 (Do_Frame, after 0x7429B0): the guild confirmations' answers to the server
 void SClient::Unknown_74EDB0()
-{	bool changed = false;
+{
 	FAIL_IF(!CurrentView) return;
 	UIViewClass *ui_view = CurrentView->Unknown_1C();
 
@@ -4808,21 +4808,21 @@ void SClient::Unknown_74EDB0()
 	ViewUnknown34Class *dialog = ui_view->Get_Unknown34();
 
 	FAIL_IF(!dialog) return;
-
+	bool changed = false;
 	int button;
 	button = dialog->Unknown_5890B0("GUILD_LEADER_CONFIRM");
 	if (button == 1) {
 		dialog->Unknown_5C();
-		Send_Packet(&GuildLeaderAcceptClientPacketClass(Unknown1138, Unknown119C.c_str(), true));
+		Send_Packet(&GuildLeaderAcceptClientPacketClass(Get_Unknown1138(), Unknown119C.c_str(), true));
 		changed = true;
 	} else if (button > 1) {
 		dialog->Unknown_5C();
-		Send_Packet(&GuildLeaderAcceptClientPacketClass(Unknown1138, Unknown119C.c_str(), false));
+		Send_Packet(&GuildLeaderAcceptClientPacketClass(Get_Unknown1138(), Unknown119C.c_str(), false));
 	}
 	button = dialog->Unknown_5890B0("GUILD_PROMOTE_CONFIRM");
 	if (button == 1) {
 		dialog->Unknown_5C();
-		Send_Packet(&GuildSimpleClientSectorPacketClass(2, Unknown1138, Unknown119C.c_str()));
+		Send_Packet(&GuildSimpleClientSectorPacketClass(2, Get_Unknown1138(), Unknown119C.c_str()));
 		changed = true;
 	} else if (button > 0) {
 		dialog->Unknown_5C();
@@ -4830,7 +4830,7 @@ void SClient::Unknown_74EDB0()
 	button = dialog->Unknown_5890B0("GUILD_NEWLEADER_CONFIRM");
 	if (button == 1) {
 		dialog->Unknown_5C();
-		Send_Packet(&GuildSimpleClientSectorPacketClass(4, Unknown1138, Unknown119C.c_str()));
+		Send_Packet(&GuildSimpleClientSectorPacketClass(4, Get_Unknown1138(), Unknown119C.c_str()));
 		changed = true;
 	} else if (button > 0) {
 		dialog->Unknown_5C();
@@ -4838,7 +4838,7 @@ void SClient::Unknown_74EDB0()
 	button = dialog->Unknown_5890B0("GUILD_DEMOTE_CONFIRM");
 	if (button == 1) {
 		dialog->Unknown_5C();
-		Send_Packet(&GuildSimpleClientSectorPacketClass(6, Unknown1138, Unknown119C.c_str()));
+		Send_Packet(&GuildSimpleClientSectorPacketClass(6, Get_Unknown1138(), Unknown119C.c_str()));
 		changed = true;
 	} else if (button > 0) {
 		dialog->Unknown_5C();
@@ -4846,7 +4846,7 @@ void SClient::Unknown_74EDB0()
 	button = dialog->Unknown_5890B0("GUILD_REMOVE_CONFIRM");
 	if (button == 1) {
 		dialog->Unknown_5C();
-		Send_Packet(&GuildSimpleClientSectorPacketClass(8, Unknown1138, Unknown119C.c_str()));
+		Send_Packet(&GuildSimpleClientSectorPacketClass(8, Get_Unknown1138(), Unknown119C.c_str()));
 		changed = true;
 	} else if (button > 1) {
 		dialog->Unknown_5C();
@@ -4854,58 +4854,59 @@ void SClient::Unknown_74EDB0()
 	button = dialog->Unknown_5890B0("GUILD_LEAVE_CONFIRM");
 	if (button == 1) {
 		dialog->Unknown_5C();
-		Send_Packet(&GuildSimpleClientSectorPacketClass(10, Unknown1138, Unknown119C.c_str()));
+		Send_Packet(&GuildSimpleClientSectorPacketClass(10, Get_Unknown1138(), Unknown119C.c_str()));
 	} else if (button > 1) {
 		dialog->Unknown_5C();
 	}
 	button = dialog->Unknown_5890B0("GUILD_DISBAND_CONFIRM");
 	if (button == 1) {
 		dialog->Unknown_5C();
-		Send_Packet(&GuildSimpleClientSectorPacketClass(12, Unknown1138, Unknown119C.c_str()));
+		Send_Packet(&GuildSimpleClientSectorPacketClass(12, Get_Unknown1138(), Unknown119C.c_str()));
 	} else if (button > 1) {
 		dialog->Unknown_5C();
 	}
 	button = dialog->Unknown_5890B0("GUILD_RECRUIT_CONFIRM");
 	if (button == 1) {
 		dialog->Unknown_5C();
-		Send_Packet(&GuildRecruitAcceptClientPacketClass(Unknown1138, true));
+		Send_Packet(&GuildRecruitAcceptClientPacketClass(Get_Unknown1138(), true));
 		changed = true;
 	} else if (button > 1) {
 		dialog->Unknown_5C();
-		Send_Packet(&GuildRecruitAcceptClientPacketClass(Unknown1138, false));
+		Send_Packet(&GuildRecruitAcceptClientPacketClass(Get_Unknown1138(), false));
 	}
 	button = dialog->Unknown_5890B0("GUILD_GM_DISBAND_CONFIRM");
 	if (button == 1) {
 		dialog->Unknown_5C();
-		Send_Packet(&GuildSimpleClientSectorPacketClass(14, Unknown1138, Unknown119C.c_str()));
+		Send_Packet(&GuildSimpleClientSectorPacketClass(14, Get_Unknown1138(), Unknown119C.c_str()));
 	} else if (button > 1) {
 		dialog->Unknown_5C();
 	}
 	button = dialog->Unknown_5890B0("GUILD_GM_REMOVE_CONFIRM");
 	if (button == 1) {
 		dialog->Unknown_5C();
-		Send_Packet(&GuildSimpleClientSectorPacketClass(17, Unknown1138, Unknown119C.c_str()));
+		Send_Packet(&GuildSimpleClientSectorPacketClass(17, Get_Unknown1138(), Unknown119C.c_str()));
 	} else if (button > 1) {
 		dialog->Unknown_5C();
 	}
 	button = dialog->Unknown_5890B0("GUILD_GM_PROMOTE_CONFIRM");
 	if (button == 1) {
 		dialog->Unknown_5C();
-		Send_Packet(&GuildSimpleClientSectorPacketClass(19, Unknown1138, Unknown119C.c_str()));
+		Send_Packet(&GuildSimpleClientSectorPacketClass(19, Get_Unknown1138(), Unknown119C.c_str()));
 	} else if (button > 1) {
 		dialog->Unknown_5C();
 	}
 	button = dialog->Unknown_5890B0("GUILD_GM_DEMOTE_CONFIRM");
 	if (button == 1) {
 		dialog->Unknown_5C();
-		Send_Packet(&GuildSimpleClientSectorPacketClass(21, Unknown1138, Unknown119C.c_str()));
+		Send_Packet(&GuildSimpleClientSectorPacketClass(21, Get_Unknown1138(), Unknown119C.c_str()));
 	} else if (button > 1) {
 		dialog->Unknown_5C();
 	}
 	button = dialog->Unknown_5890B0("GUILD_GM_RENAME_CONFIRM");
 	if (button == 1) {
 		dialog->Unknown_5C();
-		Send_Packet(&GuildSimpleClientSectorPacketClass(15, Unknown1138, ""));
+		Send_Packet(&GuildSimpleClientSectorPacketClass(15, Get_Unknown1138(), ""));
+		changed = true;
 	} else if (button > 1) {
 		dialog->Unknown_5C();
 	}
@@ -4916,7 +4917,6 @@ void SClient::Unknown_74EDB0()
 		}
 	}
 }
-
 
 
 

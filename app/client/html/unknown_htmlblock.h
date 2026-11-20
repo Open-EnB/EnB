@@ -32,6 +32,12 @@ public:
 	int Get_Y(void) { return Y; }  // NAME 2: inline
 	int Get_Width(void) { return Width; }  // NAME 2: inline
 	int Get_Height(void) { return Height; }  // NAME 2: inline
+	int Get_HPadding(void) { return HPadding; }  // NAME 1: inline; their cost in Parse's inline budget (0x7710D0) gives the client's out-of-line copies
+	int Get_Line_Start_X(void) { return LineStartX; }  // NAME 1: inline; their cost in Parse's inline budget (0x7710D0) gives the client's out-of-line copies
+	int Get_Cursor_X(void) { return CursorX; }  // NAME 1: inline; their cost in Parse's inline budget (0x7710D0) gives the client's out-of-line copies
+	int Get_Cursor_Y(void) { return CursorY; }  // NAME 1: inline; their cost in Parse's inline budget (0x7710D0) gives the client's out-of-line copies
+	void New_Line(void) { CursorX = LineStartX; }  // NAME 1: inline; their cost in Parse's inline budget (0x7710D0) gives the client's out-of-line copies
+	void Set_Line_Start_X(int x) { LineStartX = x; }  // NAME 1: inline; their cost in Parse's inline budget (0x7710D0) gives the client's out-of-line copies
 	int Get_Abs_X(void);  // 0x76F8F0  // NAME 2: AbsX plus the parents'
 	int Get_Abs_Y(void);  // 0x76F920  // NAME 2: AbsY plus the parents'
 	void Set_X(int x);  // 0x76F950  // NAME 2: moves the children's AbsX by the difference

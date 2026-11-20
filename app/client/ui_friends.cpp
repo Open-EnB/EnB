@@ -89,7 +89,7 @@ UIFriendsClass::~UIFriendsClass()
 {
 	Unknown0B0->Unknown_5C();
 	Unknown0B0 = NULL;
-	Unknown_5C(); Unknown0B0.Peek(); Unknown0B0.Peek(); Unknown0B0.Peek(); Unknown0B0.Peek();
+	Unknown_5C(); Unknown0B0.Peek(); Unknown0B0.Peek();
 	if (Slider) {
 		Slider->Unknown_66E460(RefCountPtr<RenderObjClass>(), 0, 0);
 	}

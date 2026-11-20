@@ -105,7 +105,7 @@ RenderObjClass *RsTrackClass::Unknown_460410()
 	return(NULL);
 }
 
-#pragma auto_inline(off)
+
 
 
 
@@ -205,7 +205,7 @@ void RsTrackClass::Unknown_460440(RenderStateClass *state, int depth)
 		Unknown_460440(link, depth - 1);
 	}
 }
-#pragma auto_inline(on)
+
 
 
 

@@ -394,6 +394,36 @@ bool FontSys::Unknown_6D60C0()
 	return false;
 }
 
+static inline float Step_Colour(float value, float target)	// NAME 2: one colour channel a step of 1 toward the target; inline only (Update_Text 0x6D64C0's unrolled per-channel code)
+{
+	if (value > target) { value -= 1.0f; if (target > value) value = target; }
+	else if (value < target) { value += 1.0f; if (target < value) value = target; }
+	return value;
+}
+
+static inline void Set_Pass_Color(FontSys *f, int pass)	// NAME 2: inline only: Update_Text's pass colour (the client cuts Convert_Color_Clamp under it; the alpha's min as ?:, PT9 423 against WWMath::Min's 432)
+{
+	float *color = (float *)&f->Unknown494, *second = (float *)&f->Unknown4B4;
+	if (pass) f->Set_Vertex_Color(Vector4(second[0], second[1], second[2], (color[3] < f->Unknown2F4[2] ? color[3] : f->Unknown2F4[2])));
+	else f->Set_Vertex_Color(Vector4(color[0], color[1], color[2], (color[3] < f->Unknown2F4[2] ? color[3] : f->Unknown2F4[2])));
+}
+
+static inline void Apply_Shader(FontSys *f) { ShaderClass shader; f->Unknown_6D5F40(shader); f->Set_Shader(shader); }	// NAME 2: inline only (Update_Text)
+
+static inline void Refresh_Line(FontSys *f)	// NAME 2: inline only: the client's Update_Text calls the copy's Get_Length out of line (one layer more than flat)
+{
+	StringClass text = f->Info.Text;
+	if (f->Unknown406) text += "...";
+	text.Get_Buffer(text.Get_Length());
+	*(int *)((char *)f->Font.Peek() + 0xD28) = *(int *)((char *)f->Font.Peek() + 0xD2C);
+	f->Unknown4C4 = f->Unknown2D0.Unknown_6D8DC0(&f->Font, text, 0);
+	f->Unknown2C4 = f->Font->String_Pixel_Width(text);
+	f->Unknown2C8 = f->Font->Get_Height();
+	f->Unknown4C5 = false;
+	f->Unknown420[1] = f->Unknown2C4;
+	f->Unknown420[3] = f->Unknown2C8;
+}
+
 /*
 **	0x6D64C0 FontSys::Update_Text (the client's profile label): with unknown set (Render) it runs the delay (0x6D60C0),
 **	places the text (the transform's translation), refreshes a clipped last line with "...", steps the effects
@@ -403,7 +433,7 @@ bool FontSys::Unknown_6D60C0()
 **	text rectangle +0x420 and the screen rectangle +0x430, and the underline quad from +0x2E0's "_" (Underline).
 **	Colours +0x494 / +0x4A4 / +0x4B4 are floats r, g, b, a (0x6D5170); fontmanager.h's FontStyleColorStruct says int.
 */
-// NOT EXACT: written from the client's code (0x6D64C0) for the POC, not yet matched
+// NOT EXACT: written from the client's code (0x6D64C0) for the POC; PT5 (2026-11-20) masked residue 1404 -> 881 (file-static inline layers Refresh_Line / Set_Pass_Color / Apply_Shader, Step_Colour, WWMath::Min); PT9 881 -> 413 (two dead reads after underline site 7: Vector2() out of line through ??_H at sites 5-7; the rows clamp as ?:, 1.0f < vt, the pass alpha's min as ?:): left the inline budget (the client's first Set_Vertex_Color inlines Switch_To_Multi_Vertex_Color, ours calls it), frame 0xB0 / 0xE4
 void FontSys::Update_Text(bool unknown)
 {
 	WWPROFILE("FontSys::Update_Text");
@@ -429,14 +459,9 @@ void FontSys::Update_Text(bool unknown)
 		}
 		Vector3 at;
 		if (Unknown302) {
-			at.X = Unknown464[0] + Unknown47C.X + offset[0];
-			at.Y = Unknown464[1] + Unknown47C.Y + offset[1];
-			at.Z = Unknown464.Z + Unknown47C.Z + offset[2];
+			at = Unknown464 + Unknown47C + Unknown488;
 		} else {
-			Vector3 p = Get_Position();
-			at.X = p.X + Unknown47C.X + offset[0];
-			at.Y = p.Y + Unknown47C.Y + offset[1];
-			at.Z = p.Z + Unknown47C.Z + offset[2];
+			at = Get_Position() + Unknown47C + Unknown488;
 		}
 		pos_x = at.X;
 		pos_y = at.Y;
@@ -455,17 +480,7 @@ void FontSys::Update_Text(bool unknown)
 				refresh = true;
 			}
 			if (refresh) {
-				StringClass text = Info.Text;
-				if (Unknown406) {
-					text += "...";
-				}
-				*(int *)((char *)Font.Peek() + 0xD28) = *(int *)((char *)Font.Peek() + 0xD2C);	// Font->XSpacing = Font->MinSpacing (protected in font32bit.h)
-				Unknown4C4 = Unknown2D0.Unknown_6D8DC0(&Font, text, 0);
-				Unknown2C4 = Font->String_Pixel_Width(text);
-				Unknown2C8 = Font->Get_Height();
-				Unknown4C5 = false;
-				Unknown420[1] = Unknown2C4;
-				Unknown420[3] = Unknown2C8;
+				Refresh_Line(this);
 			}
 		}
 		for (i = 0; i < 4; i++) {
@@ -510,7 +525,6 @@ void FontSys::Update_Text(bool unknown)
 		Unknown_BE67B4->Update();
 		Unknown_6CCE60();
 	}
-
 	if (color[0] != target[0] || color[1] != target[1] || color[2] != target[2] || color[3] != target[3]) {
 		Unknown4C5 = false;
 	}
@@ -551,26 +565,12 @@ void FontSys::Update_Text(bool unknown)
 	Unknown4C5 = true;
 	Unknown4C8[0] = polys;
 	Reset_Mesh_Counters();
-	ShaderClass shader;
-	Unknown_6D5F40(shader);
-	Set_Shader(shader);
-	for (i = 0; i < 3; i++) {				// the colour steps to the target, 1 a frame
-		if (color[i] > target[i]) {
-			color[i] -= 1.0f;
-			if (color[i] < target[i]) color[i] = target[i];
-		} else if (color[i] < target[i]) {
-			color[i] += 1.0f;
-			if (color[i] > target[i]) color[i] = target[i];
-		}
-	}
-
+	Apply_Shader(this);
+	color[0] = Step_Colour(color[0], target[0]);		// the colour steps to the target, 1 a frame
+	color[1] = Step_Colour(color[1], target[1]);
+	color[2] = Step_Colour(color[2], target[2]);
 	for (int pass = Unknown444; pass >= 0; pass--) {
-		float alpha = (color[3] < Unknown2F4[2]) ? color[3] : Unknown2F4[2];
-		if (pass == 0) {
-			Set_Vertex_Color(Vector4(color[0], color[1], color[2], alpha));
-		} else {
-			Set_Vertex_Color(Vector4(second[0], second[1], second[2], alpha));
-		}
+		Set_Pass_Color(this, pass);
 		int done = 0;
 		float strip_v = (float)height * step;
 		for (int k = 0; k < strips; k++) {
@@ -632,10 +632,10 @@ void FontSys::Update_Text(bool unknown)
 				int qy = (int)(top - (float)top_limit);
 				float vt = (float)top_limit / (float)height;
 				int rows = bottom_limit - top_limit;
-				if (rows < 0) {
-					rows = 0;
-				}
-				if (vt > 1.0f) {
+				rows = rows < 0 ? 0 : rows;		// as ?: (the client's sets / dec / and at 0x6D71FE)
+
+
+				if (1.0f < vt) {		// 1.0f loaded first (0x6D7208)
 					vt = 1.0f;
 				}
 				float va = vt * strip_v + v0;
@@ -691,7 +691,7 @@ void FontSys::Update_Text(bool unknown)
 					End_Vertex();
 					Location(x, y_high - drop, 0.0f);
 					UV(u_a, 0.0f);
-					End_Vertex();
+					End_Vertex(); Peek_Model(); Peek_Model();	// two dead reads after site 7 (D272): the client's Vector2() through ??_H at underline sites 5-7, inline at 8
 					Location(x + w, y_high - drop, 0.0f);
 					UV(u_b, 0.0f);
 					End_Vertex();

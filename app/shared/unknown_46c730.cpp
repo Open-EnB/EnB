@@ -1129,7 +1129,7 @@ void LandClass::Unknown_472F80(unsigned char *red, unsigned char *green, unsigne
 	*blue = (unsigned char)(*(unsigned char *)&fb - 1);
 }
 
-// NOT EXACT: register-only (1 row: the mask test's cmp byte [ebx + eax], ours [eax + ebx]; attempts.csv 0x46E670)
+
 void LandClass::Compute_Horizons(INIClass &ini)
 {
 	int index = 0;
@@ -1174,10 +1174,10 @@ void LandClass::Compute_Horizons(INIClass &ini)
 	unsigned char *c;
 	Unknown_473290(&a, &b, &c);
 	Unknown_470F80(a, b, c);
-	for (int i = 0; i < (int)Field->Get_Count(); i++) {
-		if (mask[i] != 0) {
-			Unknown1E8[i] = 0xFFFF;
-			Unknown1EC[i] = 0xFFFF;
+	for (index = 0; index < (int)Field->Get_Count(); index++) {
+		if (mask[index] != 0) {
+			Unknown1E8[index] = 0xFFFF;
+			Unknown1EC[index] = 0xFFFF;
 		}
 	}
 	memcpy(field_heights, heights, Field->Get_Count() * 2);

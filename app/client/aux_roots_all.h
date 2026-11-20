@@ -1,6 +1,6 @@
 // Earth & Beyond client (reconstruction)
 /*
-**	Every aux-data constructor (the objects holding the roots' code: aux_roots.cpp, co.cpp, sclient.cpp).
+**	Every aux-data constructor (the objects holding the roots' code: co.cpp, sclient.cpp).
 **	The aux-data constructors are gated by family in aux_roots.h / aux_roots_send.h: an object compiles
 **	(and numbers at start-up, the Delta templates' per-class globals: workflow.md 3.4) exactly the
 **	families whose constructors it sees, as the client's objects do (their initialisers from 0xBE3B44).

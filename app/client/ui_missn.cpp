@@ -700,7 +700,7 @@ void UIMissnClass::Unknown_5C66D0()
 	Unknown_5C5DB0(-1);
 }
 
-#pragma auto_inline(off)		// (0x5C5500 calls it out of line)
+		// (0x5C5500 calls it out of line)
 // 0x5C69D0
 void Unknown_Strip_Tags(std::string &text)
 {
@@ -730,7 +730,7 @@ void Unknown_Strip_Tags(std::string &text)
 	}
 	delete [] buffer;
 }
-#pragma auto_inline(on)
+
 
 
 /*

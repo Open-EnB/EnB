@@ -41,24 +41,33 @@ const char *Type_Name(VerbEnum *)
 	return("VerbEnum");
 }
 
+// Inlined into Value_To_String (both tables): the index of code in table, false when it is missing
+inline bool Find_Code(VerbNameStruct *table, int count, int code, int &index)	// NAME 2: what it does
+{
+	for (int i = 0; i < count; i++) {
+		if (table[i].Code == code) {
+			index = i;
+			return(true);
+		}
+	}
+	return(false);
+}
+
 // 0x84C470
-// NOT EXACT: 0.65, prologue: the client saves ebx / edi only in the found path (their pushes after the search loop)
 char *Value_To_String(char *buf, int size, VerbEnum verb)
 {
-	for (int i = 0; i < (int)(sizeof(VerbNames) / sizeof(VerbNames[0])); i++) {
-		if (VerbNames[i].Code == (verb & 0xFFFF0000)) {
-			strncpy(buf, VerbNames[i].Name, size);
-			size -= strlen(buf);
-			if ((verb & 0xFFFF) != 0 && size > 0) {
-				for (int j = 0; j < (int)(sizeof(VerbReasons) / sizeof(VerbReasons[0])); j++) {
-					if (VerbReasons[j].Code == (verb & 0xFFFF)) {
-						strncpy(buf + strlen(buf), VerbReasons[j].Name, size);
-						return(buf);
-					}
-				}
+	int i;
+	int code = verb & 0xFFFF0000;
+	if (Find_Code(VerbNames, (int)(sizeof(VerbNames) / sizeof(VerbNames[0])), code, i)) {
+		strncpy(buf, VerbNames[i].Name, size);
+		size -= strlen(buf);
+		if ((verb & 0xFFFF) != 0 && size > 0) {
+			int j;
+			if (Find_Code(VerbReasons, (int)(sizeof(VerbReasons) / sizeof(VerbReasons[0])), verb & 0xFFFF, j)) {
+				strncpy(buf + strlen(buf), VerbReasons[j].Name, size);
 			}
-			return(buf);
 		}
+		return(buf);
 	}
 	strncpy(buf, "unknown", size);
 	return(buf);
@@ -83,4 +92,9 @@ bool String_To_Value(const char *text, VerbEnum *value)
 **	the verb interface), String_To_Value 0x84C560. Its data follows vendor_defs.cpp's and precedes
 **	weapontype.cpp's, so it is its own object; the link order of app\common is alphabetical, so the
 **	original name lies between vendor_defs.cpp and weapontype.cpp (verb*.cpp, perhaps).
+**
+**	Value_To_String's lookups go through an inline helper (Find_Code) with a bool result and the index
+**	through a reference: only that form gives the client's late ebx / edi pushes (saved in the found path
+**	only, after the search loop) with no test of the found value; a loop inside the function, a break or a
+**	flag pushes them at entry, a helper returning the index / name tests it. The masked verb is a local.
 */

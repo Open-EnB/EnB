@@ -460,13 +460,13 @@ static int CellDepth;  // NAME 1: 0xBE83F8, the same for <td>
 static int Get_Value(int offset, Wstring &tag, Wstring &value);  // 0x7784D0
 
 // An HTML colour (#RRGGBB) as a COLORREF (0x00BBGGRR), its digits read three times as the client does.
-static inline unsigned long Get_Colorref(char *str)
-{
-	char *end;
-	return ((strtoul(str + 1, &end, 16) & 0xFF) << 16) | (strtoul(str + 1, &end, 16) >> 16) | (strtoul(str + 1, &end, 16) & 0xFF00);
-}
+#define Get_Colorref(str) (((strtoul((str) + 1, &end, 16) & 0xFF) << 16) | (strtoul((str) + 1, &end, 16) >> 16) | (strtoul((str) + 1, &end, 16) & 0xFF00))
 
-// NOT EXACT: 0x7710D0, functional (D64), from the pseudocode: inline budget (the client keeps more template copies out of line), frame 0x27C vs 0x284
+
+
+
+
+// NOT EXACT: 0x7710D0, register allocation (item spills, the cached link count, <body>'s add clamp); budget and frame as the client's
 int HtmlViewClass::Parse(HtmlLinkStruct *link, HtmlBlockClass *block, int offset)
 {
 	char *start;
@@ -486,29 +486,29 @@ int HtmlViewClass::Parse(HtmlLinkStruct *link, HtmlBlockClass *block, int offset
 		return 0;
 
 	if (strcmp(link->MimeType, "image/gif") != 0) {
-		for (;;) {
+		while (true) {
 			char *tagend = NULL;
 			consumed = cptr - start;
 			if (*cptr == '\0')
 				break;
 			char *tagstart = strchr(cptr, '<');
 			if (tagstart != NULL) {
-				tagend = tagstart;
-				for (;;) {
-					tagend = strchr(tagend, '>');
+				char *search = tagstart;
+				while (true) {
+					tagend = strchr(search, '>');
 					if (tagend == NULL)
 						break;
 					if (strncmp(tagstart, "<!--", 4) != 0 || strncmp(tagend - 2, "-->", 3) == 0)
 						break;
-					tagend++;
+					search = tagend + 1;
 				}
 			}
 			if (tagend == NULL && strlen(cptr) != 0) {
-				Add_Text(block, cptr, strlen(cptr), block->Get_Width() - block->HPadding, -1);
+				Add_Text(block, cptr, strlen(cptr), block->Get_Width() - block->Get_HPadding(), -1);
 				break;
 			}
-			if (cptr < tagstart && strlen(cptr) != 0) {
-				Add_Text(block, cptr, tagstart - cptr, block->Get_Width() - block->HPadding, -1);
+			if (tagstart > cptr && strlen(cptr) != 0) {
+				Add_Text(block, cptr, tagstart - cptr, block->Get_Width() - block->Get_HPadding(), -1);
 				cptr = tagstart;
 				continue;
 			}
@@ -521,14 +521,14 @@ int HtmlViewClass::Parse(HtmlLinkStruct *link, HtmlBlockClass *block, int offset
 			int fontheight = block->Get_Font_Height(NULL);
 
 			if (strcmp(name.get(), "p") == 0) {
-				block->CursorX = block->LineStartX;
+				block->New_Line();
 				block->Advance_Y(20, false);
 				while (block->Pop_Style("Align", "p.left")) {}
 				while (block->Pop_Style("Align", "p.right")) {}
 				while (block->Pop_Style("Align", "p.center")) {}
 				Wstring key;
 				Wstring value;
-				while ((pos = tag.getToken(pos, " =\t\r\n", key)) != -1 && (pos = Get_Value(pos, tag, value)) != -1) {
+				while (true) { if ((pos = tag.getToken(pos, " =\t\r\n", key)) == -1) break; if ((pos = Get_Value(pos, tag, value)) == -1) break;
 					key.toLower();
 					if (strcmp(key.get(), "align") == 0) {
 						char align[64];
@@ -537,7 +537,7 @@ int HtmlViewClass::Parse(HtmlLinkStruct *link, HtmlBlockClass *block, int offset
 					}
 				}
 			} else if (strcmp(name.get(), "/p") == 0) {
-				block->CursorX = block->LineStartX;
+				block->New_Line();
 				block->Advance_Y(20, false);
 				while (block->Pop_Style("Align", "p.left")) {}
 				while (block->Pop_Style("Align", "p.right")) {}
@@ -545,14 +545,14 @@ int HtmlViewClass::Parse(HtmlLinkStruct *link, HtmlBlockClass *block, int offset
 			} else if (strcmp(name.get(), "font") == 0) {
 				Wstring key;
 				Wstring value;
-				while ((pos = tag.getToken(pos, " =\t\r\n", key)) != -1 && (pos = Get_Value(pos, tag, value)) != -1) {
+				while (true) { if ((pos = tag.getToken(pos, " =\t\r\n", key)) == -1) break; if ((pos = Get_Value(pos, tag, value)) == -1) break;
 					key.toLower();
 					if (strcmp(key.get(), "face") == 0) {
 						block->Set_Style("Font.Face", value.get());
 					} else if (strcmp(key.get(), "size") == 0) {
 						block->Set_Style("Font.BaseSize", value.get());
 					} else if (strcmp(key.get(), "color") == 0) {
-						sprintf(buffer, "%d", Get_Colorref(value.get()));
+						char *end = NULL; sprintf(buffer, "%d", Get_Colorref(value.get()));
 						block->Set_Style("Font.Colorref", buffer);
 					}
 				}
@@ -561,7 +561,7 @@ int HtmlViewClass::Parse(HtmlLinkStruct *link, HtmlBlockClass *block, int offset
 				block->Remove_Style("Font.BaseSize");
 				block->Remove_Style("Font.Colorref");
 			} else if (strcmp(name.get(), "br") == 0) {
-				block->CursorX = block->LineStartX;
+				block->New_Line();
 				block->Advance_Y(5, false);
 			} else if (strcmp(name.get(), "a") == 0) {
 				Wstring key;
@@ -587,11 +587,11 @@ int HtmlViewClass::Parse(HtmlLinkStruct *link, HtmlBlockClass *block, int offset
 			} else if (strcmp(name.get(), "/b") == 0 || strcmp(name.get(), "/strong") == 0) {
 				block->Remove_Style("Font.Bold");
 			} else if (strcmp(name.get(), "center") == 0) {
-				block->CursorX = block->LineStartX;
+				block->New_Line();
 				block->Advance_Y(0, false);
 				block->Set_Style("Align", "center");
 			} else if (strcmp(name.get(), "/center") == 0) {
-				block->CursorX = block->LineStartX;
+				block->New_Line();
 				block->Advance_Y(0, false);
 				block->Remove_Style("Align");
 			} else if (strcmp(name.get(), "table") == 0) {
@@ -603,12 +603,12 @@ int HtmlViewClass::Parse(HtmlLinkStruct *link, HtmlBlockClass *block, int offset
 				tableattrs.Remove("BackgroundColorref");
 				tableattrs.Remove("Horizontal_Padding");
 				tableattrs.Remove("Vertical_Padding");
-				block->CursorX = block->LineStartX;
+				block->New_Line();
 				block->Advance_Y(20, false);
 				int spacing = 0;
 				Wstring key;
 				Wstring value;
-				while ((pos = tag.getToken(pos, " =\t\r\n", key)) != -1 && (pos = Get_Value(pos, tag, value)) != -1) {
+				while (true) { if ((pos = tag.getToken(pos, " =\t\r\n", key)) == -1) break; if ((pos = Get_Value(pos, tag, value)) == -1) break;
 					key.toLower();
 					if (strcmp(key.get(), "bgcolor") == 0) {
 						sprintf(buffer, "%d", Get_Colorref(value.get()));
@@ -625,7 +625,7 @@ int HtmlViewClass::Parse(HtmlLinkStruct *link, HtmlBlockClass *block, int offset
 					if (strcmp(key.get(), "width") == 0) {
 						int width = atol(value.get());
 						if (value.get()[value.length() - 1] == '%')
-							width = (block->Get_Width() - block->HPadding * 2) * width / 100;
+							width = (block->Get_Width() - block->Get_HPadding() * 2) * width / 100;
 						sprintf(buffer, "%d", width);
 						tableattrs.Set("Width", buffer);
 					}
@@ -643,7 +643,7 @@ int HtmlViewClass::Parse(HtmlLinkStruct *link, HtmlBlockClass *block, int offset
 					}
 				}
 				char *str = tableattrs.Get("Width");
-				int avail = block->Get_Width() - block->HPadding * 2;
+				int avail = block->Get_Width() - block->Get_HPadding() * 2;
 				if (str == NULL || atol(str) > avail) {
 					sprintf(buffer, "%d", avail);
 					tableattrs.Set("Width", buffer);
@@ -659,10 +659,10 @@ int HtmlViewClass::Parse(HtmlLinkStruct *link, HtmlBlockClass *block, int offset
 					block->LineStartX += block->Get_Width() - width;
 				}
 				HtmlItemStruct *item = new HtmlItemStruct;
-				item->X = block->CursorX;
-				item->Y = block->CursorY;
-				item->Width = 0;
-				item->Height = 0;
+				item->X = block->Get_Cursor_X();
+				item->Y = block->Get_Cursor_Y();
+
+
 				item->Attributes.Add_All(tableattrs);
 				item->Attributes.Set("Type", "Table");
 				block->Items.addTail(item);
@@ -674,7 +674,7 @@ int HtmlViewClass::Parse(HtmlLinkStruct *link, HtmlBlockClass *block, int offset
 					int inset = spacing / 2 + border;
 					block->Advance_Y(inset, true);
 					block->Advance_X(inset, true);
-					block->LineStartX += spacing / 2 + border;
+					block->Set_Line_Start_X(block->Get_Line_Start_X() + spacing / 2 + border);
 					str = tableattrs.Get("Width");
 					if (str != NULL) {
 						sprintf(buffer, "%d", atol(str) - border * 2 - spacing / 2);
@@ -687,7 +687,7 @@ int HtmlViewClass::Parse(HtmlLinkStruct *link, HtmlBlockClass *block, int offset
 				char *str = tableattrs.Get("Border");
 				if (str != NULL) {
 					border = atol(str);
-					block->LineStartX -= border;
+					block->Set_Line_Start_X(block->Get_Line_Start_X() - border);
 					block->Advance_X(-border, true);
 					block->Advance_Y(border, true);
 				}
@@ -701,18 +701,18 @@ int HtmlViewClass::Parse(HtmlLinkStruct *link, HtmlBlockClass *block, int offset
 					sscanf(str, "%p", &item);
 					spacing /= 2;
 					item->Width = spacing + atol(tableattrs.Get("Width")) + border * 2;
-					item->Height = spacing - item->Y + block->CursorY;
+					item->Height = spacing - item->Y + block->Get_Cursor_Y();
 					tableattrs.Clear();
 					colwidths.clear();
 					block->Advance_Y(0, true);
 					block->LineStartX -= spacing;
 					int align = block->Get_Align();
 					if (align == 0) {
-						block->LineStartX -= (block->Get_Width() - item->Width) / 2;
+						int shift = (block->Get_Width() - item->Width) / 2; block->LineStartX -= shift;
 					} else if (align == 1) {
-						block->LineStartX -= block->Get_Width() - item->Width;
+						int shift = block->Get_Width() - item->Width; block->LineStartX -= shift;
 					}
-					block->CursorX = block->LineStartX;
+					block->New_Line();
 				}
 			} else if (strcmp(name.get(), "tr") == 0) {
 				RowDepth++;
@@ -751,7 +751,7 @@ int HtmlViewClass::Parse(HtmlLinkStruct *link, HtmlBlockClass *block, int offset
 					item->Height = height + border * 2;
 				}
 				block->LineStartX -= width;
-				block->CursorX = block->LineStartX;
+				block->New_Line();
 				block->Advance_Y(spacing + border * 2 + height, true);
 				rowcells.clear();
 				rowattrs.Clear();
@@ -759,8 +759,8 @@ int HtmlViewClass::Parse(HtmlLinkStruct *link, HtmlBlockClass *block, int offset
 				CellDepth++;
 				HtmlAttributeStackClass cellattrs;
 				Wstring key;
-				Wstring value;
-				while ((pos = tag.getToken(pos, " =\t\r\n", key)) != -1 && (pos = Get_Value(pos, tag, value)) != -1) {
+				Wstring value; char *end;
+				while (true) { if ((pos = tag.getToken(pos, " =\t\r\n", key)) == -1) break; if ((pos = Get_Value(pos, tag, value)) == -1) break;
 					key.toLower();
 					if (strcmp(key.get(), "bgcolor") == 0) {
 						sprintf(buffer, "%d", Get_Colorref(value.get()));
@@ -827,20 +827,20 @@ int HtmlViewClass::Parse(HtmlLinkStruct *link, HtmlBlockClass *block, int offset
 				HtmlBlockClass *cell = new HtmlBlockClass((void *)1, cellwidth - border * 2 - spacing, 100, &attributes, NULL);
 				block->Add_Child(cell);
 				int half = spacing / 2;
-				cell->AbsX = block->CursorX + border + half;
-				cell->AbsY = border + half + block->CursorY;
-				Blocks.add(cell, Blocks.length());
-				rowcells.add(cell, rowcells.length());
+				cell->AbsX = block->Get_Cursor_X() + border + half;
+				cell->AbsY = border + half + block->Get_Cursor_Y();
+				Blocks.addTail(cell);
+				rowcells.addTail(cell);
 				int length = Parse(link, cell, tagend - start + offset + 1);
 				cell->Height = cell->ContentHeight;
 				HtmlItemStruct *item = new HtmlItemStruct;
-				item->X = half + block->CursorX;
-				item->Y = half + block->CursorY;
+				item->X = half + block->Get_Cursor_X();
+				item->Y = half + block->Get_Cursor_Y();
 				item->Width = cell->Get_Width() + border * 2;
 				item->Height = cell->Get_Height() + border * 2;
 				item->Attributes.Add_All(cellattrs);
 				item->Attributes.Set("Type", "Cell");
-				block->Items.add(item, block->Items.length());
+				block->Items.addTail(item);
 				sprintf(buffer, "%p", item);
 				cell->Set_Style("ElementPointer", buffer);
 				block->LineStartX += cellwidth;
@@ -851,33 +851,33 @@ int HtmlViewClass::Parse(HtmlLinkStruct *link, HtmlBlockClass *block, int offset
 				consumed = tagend + 1 - start;
 				break;
 			} else if (strcmp(name.get(), "h1") == 0) {
-				if (block->CursorX != block->LineStartX)
+				if (block->Get_Cursor_X() != block->Get_Line_Start_X())
 					block->Advance_Y(0, false);
-				block->CursorX = block->LineStartX;
+				block->New_Line();
 				block->Push_Style("Font.HSize", "1");
 			} else if (strcmp(name.get(), "h2") == 0) {
-				if (block->CursorX != block->LineStartX)
+				if (block->Get_Cursor_X() != block->Get_Line_Start_X())
 					block->Advance_Y(0, false);
-				block->CursorX = block->LineStartX;
+				block->New_Line();
 				block->Push_Style("Font.HSize", "2");
 			} else if (strcmp(name.get(), "h3") == 0) {
-				if (block->CursorX != block->LineStartX)
+				if (block->Get_Cursor_X() != block->Get_Line_Start_X())
 					block->Advance_Y(0, false);
-				block->CursorX = block->LineStartX;
+				block->New_Line();
 				block->Push_Style("Font.HSize", "3");
 			} else if (strcmp(name.get(), "h4") == 0) {
-				if (block->CursorX != block->LineStartX)
+				if (block->Get_Cursor_X() != block->Get_Line_Start_X())
 					block->Advance_Y(0, false);
-				block->CursorX = block->LineStartX;
+				block->New_Line();
 				block->Push_Style("Font.HSize", "4");
 			} else if (strncmp(name.get(), "/h", 2) == 0 && isdigit(name.get()[2])) {
-				block->CursorX = block->LineStartX;
+				block->New_Line();
 				block->Advance_Y(20, false);
 				block->Pop_Style("Font.HSize", NULL);
 			} else if (strcmp(name.get(), "body") == 0) {
 				Wstring key;
 				Wstring value;
-				while ((pos = tag.getToken(pos, " =\t\r\n", key)) != -1 && (pos = Get_Value(pos, tag, value)) != -1) {
+				while (true) { if ((pos = tag.getToken(pos, " =\t\r\n", key)) == -1) break; if ((pos = Get_Value(pos, tag, value)) == -1) break;
 					key.toLower();
 					if (strcmp(key.get(), "bgcolor") == 0) {
 						sprintf(buffer, "%d", Get_Colorref(value.get()));
@@ -890,15 +890,8 @@ int HtmlViewClass::Parse(HtmlLinkStruct *link, HtmlBlockClass *block, int offset
 						block->Set_Attribute("LinkColorref", buffer);
 					} else if (strcmp(key.get(), "background") == 0) {
 						block->Set_Attribute("BackgroundName", value.get());
-						char *src = value.get();
 						HtmlImageClass *image;
-						int i;
-						for (i = 0; i < Images.length(); i++) {
-							Images.get(image, i);
-							if (strcmp(image->Get_Name(), src) == 0)
-								break;
-						}
-						if (i < Images.length()) {
+						if (Find_Image(value.get(), &image)) {
 							sprintf(buffer, "%p", image);
 							block->Set_Attribute("BackgroundPointer", buffer);
 							continue;
@@ -908,56 +901,63 @@ int HtmlViewClass::Parse(HtmlLinkStruct *link, HtmlBlockClass *block, int offset
 						block->Set_Attribute("BackgroundPointer", buffer);
 						Images.add(image, Images.length());
 						Loader->Open(value.get());
-						src = value.get();
-						for (i = 0; i < Links.length(); i++) {
-							HtmlLinkStruct *data;
-							Links.getPointer(&data, i);
-							if (strcmp(data->Name, src) == 0) {
-								if (data->Data.length() > 0) {
-									char *bytes;
-									data->Data.getPointer(&bytes, 0);
-									image->Set_Data(bytes, data->Data.length());
-								}
-								break;
+						HtmlLinkStruct *data;
+						if (Find_Link(value.get(), &data)) {
+							if (data->Data.length() > 0) {
+								char *bytes;
+								data->Data.getPointer(&bytes, 0);
+								image->Set_Data(bytes, data->Data.length());
 							}
-						}
-						if (i < Links.length())
 							continue;
+						}
+
+
+
+
+
+
+
+
+
+
+
+
+
 						G_ASSERT(0);
 					}
 				}
 			} else if (strcmp(name.get(), "hr") == 0) {
-				block->CursorX = block->LineStartX;
+				block->New_Line();
 				block->Advance_Y(5, false);
 				HtmlItemStruct *item = new HtmlItemStruct;
-				item->X = block->CursorX;
-				item->Y = block->CursorY;
+				item->X = block->Get_Cursor_X();
+				item->Y = block->Get_Cursor_Y();
 				item->Height = 4;
-				item->Width = block->Get_Width() - block->HPadding - item->X;
+				item->Width = block->Get_Width() - block->Get_HPadding() - item->X;
 				item->Attributes.Set("Type", "HR");
-				block->Items.add(item, block->Items.length());
-				block->CursorX = block->LineStartX;
+				block->Items.addTail(item);
+				block->New_Line();
 				block->Advance_Y(5, false);
 			} else if (strcmp(name.get(), "ul") == 0) {
-				block->LineStartX += 32;
+				block->Set_Line_Start_X(block->Get_Line_Start_X() + 32);
 				block->Advance_X(32, false);
-				if (block->LineStartX == block->HPadding + 32)
+				if (block->Get_Line_Start_X() == block->Get_HPadding() + 32)
 					block->Advance_Y(5, false);
 			} else if (strcmp(name.get(), "/ul") == 0) {
-				if (block->LineStartX >= block->HPadding + 32) {
-					block->LineStartX -= 32;
-					if (block->CursorX >= block->HPadding + 32)
+				if (block->Get_Line_Start_X() >= block->Get_HPadding() + 32) {
+					block->Set_Line_Start_X(block->Get_Line_Start_X() - 32);
+					if (block->Get_Cursor_X() >= block->Get_HPadding() + 32)
 						block->Advance_X(-32, false);
 				}
-				block->CursorX = block->LineStartX;
-				if (block->LineStartX == block->HPadding)
+				block->New_Line();
+				if (block->Get_Line_Start_X() == block->Get_HPadding())
 					block->Advance_Y(20, false);
 			} else if (strcmp(name.get(), "li") == 0) {
-				block->CursorX = block->LineStartX;
+				block->New_Line();
 				block->Advance_Y(4, false);
 				HtmlItemStruct *item = new HtmlItemStruct;
-				item->X = block->CursorX - 10;
-				item->Y = fontheight / 2 + block->CursorY;
+				item->X = block->Get_Cursor_X() - 10;
+				item->Y = fontheight / 2 + block->Get_Cursor_Y();
 				item->Width = 4;
 				item->Height = 4;
 				item->Attributes.Set("Type", "LI");
@@ -965,40 +965,40 @@ int HtmlViewClass::Parse(HtmlLinkStruct *link, HtmlBlockClass *block, int offset
 			} else if (strcmp(name.get(), "img") == 0) {
 				Wstring key;
 				Wstring value;
-				while ((pos = tag.getToken(pos, " =\t\r\n", key)) != -1 && (pos = Get_Value(pos, tag, value)) != -1) {
+				while (true) { if ((pos = tag.getToken(pos, " =\t\r\n", key)) == -1) break; if ((pos = Get_Value(pos, tag, value)) == -1) break;
 					key.toLower();
 					if (strcmp(key.get(), "src") == 0) {
-						char *src = value.get();
 						HtmlImageClass *image;
-						int i;
-						for (i = 0; i < Images.length(); i++) {
-							Images.get(image, i);
-							if (strcmp(image->Get_Name(), src) == 0)
-								break;
-						}
-						if (i >= Images.length()) {
+						if (!Find_Image(value.get(), &image)) {
 							image = new HtmlGifImageClass(value.get(), Surf->Bytes_Per_Pixel() << 3);
-							Images.add(image, Images.length());
+							Images.addTail(image);
 							Loader->Open(value.get());
-							src = value.get();
-							for (i = 0; i < Links.length(); i++) {
-								HtmlLinkStruct *data;
-								Links.getPointer(&data, i);
-								if (strcmp(data->Name, src) == 0) {
-									if (data->Data.length() > 0) {
-										char *bytes;
-										data->Data.getPointer(&bytes, 0);
-										image->Set_Data(bytes, data->Data.length());
-									}
-									break;
+							HtmlLinkStruct *data;
+							if (Find_Link(value.get(), &data)) {
+								if (data->Data.length() > 0) {
+									char *bytes;
+									data->Data.getPointer(&bytes, 0);
+									image->Set_Data(bytes, data->Data.length());
 								}
 							}
 						}
+
+
+
+
+
+
+
+
+
+
+
+
 						HtmlItemStruct *item = new HtmlItemStruct;
 						int width = 32;
 						int height = 32;
-						item->X = block->CursorX;
-						item->Y = block->CursorY;
+						item->X = block->Get_Cursor_X();
+						item->Y = block->Get_Cursor_Y();
 						if (image->Get_Surface() != NULL) {
 							width = image->Get_Surface()->Get_Width();
 							height = image->Get_Surface()->Get_Height();
@@ -1008,7 +1008,7 @@ int HtmlViewClass::Parse(HtmlLinkStruct *link, HtmlBlockClass *block, int offset
 						item->Attributes.Add_All(block->Styles);
 						item->Attributes.Set("Type", "Image");
 						item->Attributes.Set("URL", value.get());
-						block->Items.add(item, block->Items.length());
+						block->Items.addTail(item);
 						block->Advance_X(width, true);
 					}
 					if (strcmp(key.get(), "alt") == 0) {
@@ -1024,20 +1024,20 @@ int HtmlViewClass::Parse(HtmlLinkStruct *link, HtmlBlockClass *block, int offset
 	}
 
 	int bottom = 0;
-	int right = 0;
 	int i;
 	for (i = 0; i < block->Items.length(); i++) {
 		HtmlItemStruct *item = block->Get_Item(i);
 		if (item->Height + item->Y > bottom)
 			bottom = item->Height + item->Y;
 	}
+	int right = 0;
 	for (i = 0; i < block->Items.length(); i++) {
 		HtmlItemStruct *item = block->Get_Item(i);
 		if (item->Width + item->X > right)
 			right = item->Width + item->X;
 	}
 	block->ContentHeight = block->VPadding + 2 + bottom;
-	block->ContentWidth = block->HPadding + right;
+	block->ContentWidth = block->Get_HPadding() + right;
 	return consumed;
 }
 
@@ -1328,8 +1328,8 @@ bool HtmlViewClass::Draw_Block(HtmlBlockClass *block, int x, int y, int width, i
 	return true;
 }
 
-// NOT EXACT: 0x7767A0, the client saves ebx / esi only after the Type test (its early returns pop two
-// registers); the text loop's loads are scheduled differently
+// NOT EXACT: 0x7767A0, the text loop's setup loads are scheduled differently (the client holds item
+// in esi before strlen)
 bool HtmlViewClass::Draw_Item(HtmlBlockClass *block, HtmlItemStruct *item, int offx, int offy, int clipx, int clipy, int clipw, int cliph)
 {
 	if (Surf == NULL)
@@ -1372,12 +1372,12 @@ bool HtmlViewClass::Draw_Item(HtmlBlockClass *block, HtmlItemStruct *item, int o
 		DeleteObject(region);
 
 		int length = strlen(text);
-		int y = item->Y - offy;
 		int itemh = item->Height;
 		int x = item->X - offx;
 		int right = item->Width + x;
 		int widest = 0;
 		int dy = 0;
+		int y = item->Y - offy;
 		while (length != 0) {
 			SIZE size;
 			int n = 1;
@@ -1409,14 +1409,13 @@ bool HtmlViewClass::Draw_Item(HtmlBlockClass *block, HtmlItemStruct *item, int o
 			length -= n;
 		}
 		Surf->ReleaseDC(hdc);
-		return true;
+
 	}
 
-	if (strcmp(type, "HR") == 0) {
+	else if (strcmp(type, "HR") == 0) {
 		Draw_Bevel(item->X - offx, item->Y - offy, item->Width, item->Height, clipx, clipy, clipw, cliph, 1, true);
-		return true;
-	}
-	if (strcmp(type, "LI") == 0) {
+
+	} else if (strcmp(type, "LI") == 0) {
 		HDC hdc = Surf->GetDC();
 		COLORREF color = 0;
 		char *value = item->Attributes.Get("Font.Colorref");
@@ -1431,19 +1430,20 @@ bool HtmlViewClass::Draw_Item(HtmlBlockClass *block, HtmlItemStruct *item, int o
 		FillRect(hdc, &rect, brush);
 		DeleteObject(brush);
 		Surf->ReleaseDC(hdc);
-		return true;
-	}
-	if (strcmp(type, "Table") == 0) {
+
+	} else if (strcmp(type, "Table") == 0) {
 		char *border = item->Attributes.Get("Border");
 		if (border != NULL) {
-			Draw_Bevel(item->X - offx, item->Y - offy, item->Width, item->Height, clipx, clipy, clipw, cliph, atol(border), true);
-			return true;
+			int width = atol(border);
+			Draw_Bevel(item->X - offx, item->Y - offy, item->Width, item->Height, clipx, clipy, clipw, cliph, width, true);
+
 		}
 	} else if (strcmp(type, "Cell") == 0) {
 		char *border = item->Attributes.Get("Border");
 		if (border != NULL) {
-			Draw_Bevel(item->X - offx, item->Y - offy, item->Width, item->Height, clipx, clipy, clipw, cliph, atol(border), false);
-			return true;
+			int width = atol(border);
+			Draw_Bevel(item->X - offx, item->Y - offy, item->Width, item->Height, clipx, clipy, clipw, cliph, width, false);
+
 		}
 	} else if (strcmp(type, "Image") == 0) {
 		char *url = item->Attributes.Get("URL");
@@ -1452,7 +1452,7 @@ bool HtmlViewClass::Draw_Item(HtmlBlockClass *block, HtmlItemStruct *item, int o
 			Images.get(image, i);
 			if (strcmp(image->Get_Name(), url) == 0) {
 				image->Draw(Surf, item->X - offx, item->Y - offy, clipx, clipy, clipw, cliph);
-				return true;
+				break;
 			}
 		}
 	}
@@ -1642,7 +1642,7 @@ static int Get_Value(int offset, Wstring &tag, Wstring &value)
 **	* HtmlBlockClass's inline getters (Get_X / Get_Y / Get_Width / Get_Height) are why the client reads a
 **	  field before an out-of-line call in one expression (Click, Draw_Block); the RECTs are filled bottom,
 **	  top, left, right. NOT EXACT: Render (the parent bounds' stores), Hit_Test (its loop top), Add_Text
-**	  (one frame slot more than the client's), Draw_Item (the client saves ebx / esi after the Type test).
+**	  (one frame slot more than the client's), Draw_Item (its Text loop setup; one exit gives the late pushes).
 **	* HV3 (2026-11-01): the parser Parse 0x7710D0, NOT EXACT (functional, D64, from the pseudocode): an
 **	  if / else chain of tag names (p, font, br, a, title, i, b / strong, center, table, tr, td, h1-h4, /hN,
 **	  body, hr, ul, li, img); <td> lays its cell out in a child block by recursing, and </td> returns the
@@ -1650,11 +1650,21 @@ static int Get_Value(int offset, Wstring &tag, Wstring &value)
 **	  0x7784D0 exact: defined after Draw_Line_24 under auto_inline(off) (VC6 inlines it otherwise, also
 **	  when it is defined last). Not yet: the client keeps ArrayList<HtmlItemStruct *>::add 0x778CF0 (the
 **	  table's item) and growVector copies (0x778EB0 int, 0x778F80 HtmlBlockClass *, 0x779050 HtmlImageClass *,
-**	  0x779120 HtmlItemStruct *, by their callers) out of line: an inline budget (explain.py). The forms here
-**	  that move it the client's way: the table's addTail against add(x, length()) elsewhere, the lookups of
-**	  <body> / <img> written out (not Find_Image / Find_Link), Get_Colorref inline, Get_Width(); dead
-**	  length() reads at the end push more out of line from the end backwards (attempts.csv). The client's
-**	  frame is 0x284 bytes against this one's 0x27C. The statics 0xBE83F0 / 0xBE83F4 / 0xBE83F8 count table, row and
+**	  0x779120 HtmlItemStruct *, by their callers) out of line: an inline budget (explain.py).
+**	  PT2 (2026-11-19, the client's bytes): every loop is top-tested with one call (while (true) with the
+**	  tests as breaks: the six attribute loops, the '>' search, the tag loop); Get_Colorref is a macro on
+**	  Parse's own end (value.get() three times per colour: 16 get calls more); the <body> / <img> lookups
+**	  are Find_Image / Find_Link inlined (no index test after the loop: the found block jumps to the
+**	  attribute loop's top). The inline budget cuts the deepest nested expansions first, then the earliest
+**	  sites: <td>, <hr> and <img> add with addTail (no pos > Entries_ clamp in the client's copies; <td>'s
+**	  growVectors both out of line), the block's cursor, line start and padding are read through inline
+**	  accessors (New_Line, Get_Cursor_X / Y, Get_Line_Start_X, Set_Line_Start_X, Get_HPadding): every
+**	  client add / growVector call out of line, the table's add 0x778CF0 included; <body>'s image add
+**	  keeps its clamp test in ours (the client's has none: open). The <table> item's zero width / height
+**	  are the constructor's; right is declared before the second end loop. Frame 0x284 as the client's: <font>'s colour sets its own end to NULL
+**	  first (mov [end], ebx), <td> has its own end; <table>'s and </table>'s alignment, </table>'s spacing,
+**	  <td> and </tr> move LineStartX with += / -= (add / sub [mem], reg; </table>'s alignment through a
+**	  shift local: both arms end in one tail-merged sub), the rest with the setter. The statics 0xBE83F0 / 0xBE83F4 / 0xBE83F8 count table, row and
 **	  cell depth and are never read. Block +0x1BC (LineStartX) is the line's start x (tables and lists
 **	  move it), +0x1C0 / +0x1C4 the laid-out content's width / height (set at the parser's end).
 **	* Not yet: Draw_Line_16 / Draw_Line_32. The font cache 0x76EB70 (Get_Font, declared in htmlview.h) is not this file's: it and

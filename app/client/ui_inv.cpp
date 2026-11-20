@@ -575,7 +575,7 @@ bool UIInvClass::Unknown_5A02E0(bool arg)
 	if (arg) {
 		InvDataClass *inv = SlotData->Unknown_10();
 		InvDataPeekItemStruct *item = inv->Unknown_688830()->Get_Item(slot, false);
-		if (item) num = item->Unknown50; item->Name.size();	// (a dead read: the cost D165's FAIL_IF form took from this function, so that 0x5A0740 calls it out of line as the client does; workflow.md 3.1.2)
+		if (item) num = item->Unknown50;	// (budget-device audit 2026-11-19: a dead item->Name.size() here is no longer needed (the file is exact without it))
 	}
 	return(InvTransaction->Unknown_690AA0(InvType, slot, num, true, 1, -1));
 }

@@ -79,38 +79,38 @@ void ClientItemPropertyBuilderClass::Unknown_521C10(UIItemExaminationPropertyRou
 }
 
 
-// NOT EXACT: 0x522860 (functional, 0.62, masked residue 309 rows: the same calls, strings and asserts in order, byte-equal through case 25; the inline budget falls differently: the client expands case 26's three string assigns and the separator's _Eos and calls the Modes Create's three string constructors out of line (their allocator temporaries are the 0xC larger frame), ours the reverse; case 26 keeps its level in ebx, ours in esi)
+// NOT EXACT: 0x522860 (functional, masked residue 66 rows, frame 0x66C as the client's: the 27 dead Data.Peek() reads in the gap above FAIL_IF (D272) spend the level-1 inline budget, so the Modes Create's three string constructors and the separator's destructor go out of line and case 26's three assigns expand as the client's; left: the separator's constructor goes out of line one site early and the Refining push_back's _Eos inlines, and the case tail at 0x5237F0 is not merged into 0x525D60 (any bare dead statement splits it); FU3, 2026-11-19b)
 void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRouterBaseClass &router)
 {
 	Data->Unknown_688830()->Get_Quality(Slot);
 	const RefCountPtr<ItemInfoClass> &template_info = Item->Get_Template_Info();	// NAME 1 [info, count, i, ok, base, actual, level and the cases' locals]: neutral
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	Data.Peek();
+	Data.Peek();
+	Data.Peek();
+	Data.Peek();
+	Data.Peek();
+	Data.Peek();
+	Data.Peek();
+	Data.Peek();
+	Data.Peek();
+	Data.Peek();
+	Data.Peek();
+	Data.Peek();
+	Data.Peek();
+	Data.Peek();
+	Data.Peek();
+	Data.Peek();
+	Data.Peek();
+	Data.Peek();
+	Data.Peek();
+	Data.Peek();
+	Data.Peek();
+	Data.Peek();
+	Data.Peek();
+	Data.Peek();
+	Data.Peek();
+	Data.Peek();
+	Data.Peek();
 
 
 
@@ -173,13 +173,13 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 
 
 			G_ASSERT(ok);
-			RefCountPtr<ClientItemPropertyAttributeClass> property = ClientItemPropertyAttributeStringClass::Create(10, "Ammo", "", "Ammunition required for this weapon", 0, ammo);
+			RefCountPtr<ClientItemPropertyClass> property = ClientItemPropertyAttributeStringClass::Create(10, "Ammo", "", "Ammunition required for this weapon", 0, ammo);
 			router.Route(property);
 			break;
 		}
 		case ITEM_INFO_AUTO_FIRE:
 			if (Data->Unknown50 == 2) {
-				RefCountPtr<ClientItemPropertyOptionClass> property = ClientItemPropertyOptionAutoFireClass::Create(SpaceClient, Data, Slot);
+				RefCountPtr<ClientItemPropertyClass> property = ClientItemPropertyOptionAutoFireClass::Create(SpaceClient, Data, Slot);
 				router.Route(property);
 			}
 			break;
@@ -187,7 +187,7 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 			int profession = 0;
 			template_info->Get_Int(ITEM_INFO_PROFESSION, &profession);
 			if (profession != 0) {
-				RefCountPtr<ClientItemPropertySpecialClass> property = ClientItemPropertySpecialProfessionRequirementClass::Create(SpaceClient, profession);
+				RefCountPtr<ClientItemPropertyClass> property = ClientItemPropertySpecialProfessionRequirementClass::Create(SpaceClient, profession);
 				router.Route(property);
 			}
 			break;
@@ -208,7 +208,7 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 
 
 			FAIL_IF(combat_level_required <= 0) break;
-			RefCountPtr<ClientItemPropertySpecialClass> property = ClientItemPropertySpecialLevelRequirementClass::Create(SpaceClient, 0, combat_level_required);
+			RefCountPtr<ClientItemPropertyClass> property = ClientItemPropertySpecialLevelRequirementClass::Create(SpaceClient, 0, combat_level_required);
 			router.Route(property);
 			break;
 		}
@@ -230,7 +230,7 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 			} else if (actual > base) {
 				level = 2;
 			}
-			RefCountPtr<ClientItemPropertyAttributeClass> property = ClientItemPropertyAttributeIntegerClass::Create(5, "Damage", "units", "Base damage inflicted by weapon", 0, base, actual, level);
+			RefCountPtr<ClientItemPropertyClass> property = ClientItemPropertyAttributeIntegerClass::Create(5, "Damage", "units", "Base damage inflicted by weapon", 0, base, actual, level);
 			router.Route(property);
 			break;
 		}
@@ -247,7 +247,7 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 
 
 			}
-			RefCountPtr<ClientItemPropertyAttributeClass> property = ClientItemPropertyAttributeDistanceClass::Create(10, "Effect Range", "Range of effect.", 1, base, actual, level);
+			RefCountPtr<ClientItemPropertyClass> property = ClientItemPropertyAttributeDistanceClass::Create(10, "Effect Range", "Range of effect.", 1, base, actual, level);
 			router.Route(property);
 			break;
 		}
@@ -264,7 +264,7 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 
 
 			}
-			RefCountPtr<ClientItemPropertyAttributeClass> property = ClientItemPropertyAttributeDistanceClass::Create(10, "Effect Radius", "Radius of effect.", 1, base, actual, level);
+			RefCountPtr<ClientItemPropertyClass> property = ClientItemPropertyAttributeDistanceClass::Create(10, "Effect Radius", "Radius of effect.", 1, base, actual, level);
 			router.Route(property);
 			break;
 		}
@@ -298,7 +298,7 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 			} else if (actual > base) {
 				level = 0;
 			}
-			RefCountPtr<ClientItemPropertyAttributeClass> property = ClientItemPropertyAttributeFloatClass::Create(6, "Energy Use", "units", "Energy required to activate item", 0, base, actual, level);
+			RefCountPtr<ClientItemPropertyClass> property = ClientItemPropertyAttributeFloatClass::Create(6, "Energy Use", "units", "Energy required to activate item", 0, base, actual, level);
 			router.Route(property);
 			break;
 		}
@@ -321,7 +321,7 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 			} else if (actual > base) {
 				level = 0;
 			}
-			RefCountPtr<ClientItemPropertyAttributeClass> property = ClientItemPropertyAttributeFloatClass::Create(6, "Energy Drain", "units/sec", "Energy required to activate item", 0, base, actual, level);
+			RefCountPtr<ClientItemPropertyClass> property = ClientItemPropertyAttributeFloatClass::Create(6, "Energy Drain", "units/sec", "Energy required to activate item", 0, base, actual, level);
 			router.Route(property);
 			break;
 		}
@@ -329,7 +329,7 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 			std::string skill;
 			int unknown = Item->Unknown48;
 			template_info->Get_String(ITEM_INFO_EQUIP_SKILL, skill);
-			RefCountPtr<ClientItemPropertySpecialClass> property = ClientItemPropertySpecialSkillRequirementClass::Create(SpaceClient, skill, unknown, ClientItemPropertySpecialSkillRequirementClass::REQUIRED_TO_EQUIP);
+			RefCountPtr<ClientItemPropertyClass> property = ClientItemPropertySpecialSkillRequirementClass::Create(SpaceClient, skill, unknown, ClientItemPropertySpecialSkillRequirementClass::REQUIRED_TO_EQUIP);
 			router.Route(property);
 			break;
 		}
@@ -344,7 +344,7 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 
 
 			FAIL_IF(explore_level_required <= 0) break;
-			RefCountPtr<ClientItemPropertySpecialClass> property = ClientItemPropertySpecialLevelRequirementClass::Create(SpaceClient, 1, explore_level_required);
+			RefCountPtr<ClientItemPropertyClass> property = ClientItemPropertySpecialLevelRequirementClass::Create(SpaceClient, 1, explore_level_required);
 			router.Route(property);
 			break;
 		}
@@ -360,7 +360,7 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 
 
 			FAIL_IF(total_level_required <= 0) break;
-			RefCountPtr<ClientItemPropertySpecialClass> property = ClientItemPropertySpecialLevelRequirementClass::Create(SpaceClient, 3, total_level_required);
+			RefCountPtr<ClientItemPropertyClass> property = ClientItemPropertySpecialLevelRequirementClass::Create(SpaceClient, 3, total_level_required);
 			router.Route(property);
 			break;
 		}
@@ -382,7 +382,7 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 			} else if (actual > base) {
 				level = 2;
 			}
-			RefCountPtr<ClientItemPropertyAttributeClass> property = ClientItemPropertyAttributeFloatClass::Create(6, "Maneuverability", "units", "Ability to defeat anti-missile systems", 0, (float)base, (float)actual, level);
+			RefCountPtr<ClientItemPropertyClass> property = ClientItemPropertyAttributeFloatClass::Create(6, "Maneuverability", "units", "Ability to defeat anti-missile systems", 0, (float)base, (float)actual, level);
 			router.Route(property);
 			break;
 		}
@@ -405,7 +405,7 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 			} else if (actual > base) {
 				level = 2;
 			}
-			RefCountPtr<ClientItemPropertyAttributeClass> property = ClientItemPropertyAttributeFloatClass::Create(6, "Max Power", "units", "Maximum amount of power this reactor can hold", 0, (float)base, (float)actual, level);
+			RefCountPtr<ClientItemPropertyClass> property = ClientItemPropertyAttributeFloatClass::Create(6, "Max Power", "units", "Maximum amount of power this reactor can hold", 0, (float)base, (float)actual, level);
 			router.Route(property);
 			break;
 		}
@@ -415,7 +415,7 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 			template_info->Get_Int(ITEM_INFO_RACES, &unknown);
 			template_info->Get_Int(ITEM_INFO_RACE, &race);
 			if (race != 0 || unknown != 0) {
-				RefCountPtr<ClientItemPropertySpecialClass> property = ClientItemPropertySpecialRaceRequirementClass::Create(SpaceClient, unknown, race);
+				RefCountPtr<ClientItemPropertyClass> property = ClientItemPropertySpecialRaceRequirementClass::Create(SpaceClient, unknown, race);
 				router.Route(property);
 			}
 			break;
@@ -433,7 +433,7 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 
 
 			}
-			RefCountPtr<ClientItemPropertyAttributeClass> property = ClientItemPropertyAttributeDistanceClass::Create(6, "Range", "The maximum targeting range of the item.", 0, base, actual, level);
+			RefCountPtr<ClientItemPropertyClass> property = ClientItemPropertyAttributeDistanceClass::Create(6, "Range", "The maximum targeting range of the item.", 0, base, actual, level);
 			router.Route(property);
 			break;
 		}
@@ -450,7 +450,7 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 
 
 			}
-			RefCountPtr<ClientItemPropertyAttributeClass> property = ClientItemPropertyAttributeFloatClass::Create(6, "Recharge", "units/sec", "The amount of energy regenerated per second.", 0, base, actual, level);
+			RefCountPtr<ClientItemPropertyClass> property = ClientItemPropertyAttributeFloatClass::Create(6, "Recharge", "units/sec", "The amount of energy regenerated per second.", 0, base, actual, level);
 			router.Route(property);
 			break;
 		}
@@ -467,7 +467,7 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 
 
 			}
-			RefCountPtr<ClientItemPropertyAttributeClass> property = ClientItemPropertyAttributeSecondsClass::Create(6, "Reload Time", "The number of seconds that must elapse between activations.", 0, base, actual, level);
+			RefCountPtr<ClientItemPropertyClass> property = ClientItemPropertyAttributeSecondsClass::Create(6, "Reload Time", "The number of seconds that must elapse between activations.", 0, base, actual, level);
 			router.Route(property);
 			break;
 		}
@@ -484,7 +484,7 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 
 
 			}
-			RefCountPtr<ClientItemPropertyAttributeClass> property = ClientItemPropertyAttributeIntegerClass::Create(6, "Rounds Fired", "rounds", "The number of rounds fired per burst.", 1, base, actual, level);
+			RefCountPtr<ClientItemPropertyClass> property = ClientItemPropertyAttributeIntegerClass::Create(6, "Rounds Fired", "rounds", "The number of rounds fired per burst.", 1, base, actual, level);
 			router.Route(property);
 			break;
 		}
@@ -531,7 +531,7 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 			} else if (actual > base) {
 				level = 0;
 			}
-			RefCountPtr<ClientItemPropertyAttributeClass> property = ClientItemPropertyAttributeFloatClass::Create(6, "Shield Use", "units", "Shield energy required to activate item", 0, base, actual, level);
+			RefCountPtr<ClientItemPropertyClass> property = ClientItemPropertyAttributeFloatClass::Create(6, "Shield Use", "units", "Shield energy required to activate item", 0, base, actual, level);
 			router.Route(property);
 			break;
 		}
@@ -554,7 +554,7 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 			} else if (actual > base) {
 				level = 2;
 			}
-			RefCountPtr<ClientItemPropertyAttributeClass> property = ClientItemPropertyAttributeIntegerClass::Create(6, "Capacity", "units", "Maximum amount of damage this shield can absorb when fully charged.", 0, base, actual, level);
+			RefCountPtr<ClientItemPropertyClass> property = ClientItemPropertyAttributeIntegerClass::Create(6, "Capacity", "units", "Maximum amount of damage this shield can absorb when fully charged.", 0, base, actual, level);
 			router.Route(property);
 			break;
 		}
@@ -577,7 +577,7 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 			} else if (actual > base) {
 				level = 0;
 			}
-			RefCountPtr<ClientItemPropertyAttributeClass> property = ClientItemPropertyAttributeFloatClass::Create(6, "Shield Drain", "units/sec", "Shield energy required to activate item", 0, base, actual, level);
+			RefCountPtr<ClientItemPropertyClass> property = ClientItemPropertyAttributeFloatClass::Create(6, "Shield Drain", "units/sec", "Shield energy required to activate item", 0, base, actual, level);
 			router.Route(property);
 			break;
 		}
@@ -594,7 +594,7 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 
 
 			}
-			RefCountPtr<ClientItemPropertyAttributeClass> property = ClientItemPropertyAttributeFloatClass::Create(6, "Recharge", "units/sec", "The amount of shield energy regenerated per second.", 0, base, actual, level);
+			RefCountPtr<ClientItemPropertyClass> property = ClientItemPropertyAttributeFloatClass::Create(6, "Recharge", "units/sec", "The amount of shield energy regenerated per second.", 0, base, actual, level);
 			router.Route(property);
 			break;
 		}
@@ -603,7 +603,7 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 			int unknown = 1;
 			template_info->Get_String(ITEM_INFO_ACTIVATE_SKILL, skill);
 			template_info->Get_Int(ITEM_INFO_ACTIVATE_SKILL_LEVEL, &unknown);
-			RefCountPtr<ClientItemPropertySpecialClass> property = ClientItemPropertySpecialSkillRequirementClass::Create(SpaceClient, skill, unknown, ClientItemPropertySpecialSkillRequirementClass::REQUIRED_TO_ACTIVATE);
+			RefCountPtr<ClientItemPropertyClass> property = ClientItemPropertySpecialSkillRequirementClass::Create(SpaceClient, skill, unknown, ClientItemPropertySpecialSkillRequirementClass::REQUIRED_TO_ACTIVATE);
 			router.Route(property);
 			break;
 		}
@@ -638,7 +638,7 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 			} else if (actual > base) {
 				level = 0;
 			}
-			RefCountPtr<ClientItemPropertyAttributeClass> property = ClientItemPropertyAttributeDistanceClass::Create(6, "Signature", "Specifies an increased distance that an NPC will notice the player when engine is equipped.", 0, base, actual, level);
+			RefCountPtr<ClientItemPropertyClass> property = ClientItemPropertyAttributeDistanceClass::Create(6, "Signature", "Specifies an increased distance that an NPC will notice the player when engine is equipped.", 0, base, actual, level);
 			router.Route(property);
 			break;
 		}
@@ -665,7 +665,7 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 			} else if (actual > base) {
 				level = 2;
 			}
-			RefCountPtr<ClientItemPropertyAttributeClass> property = ClientItemPropertyAttributeIntegerClass::Create(6, "Thrust", "units", "Higher thrust values will increase the ship's maximum speed.", 0, base, actual, level);
+			RefCountPtr<ClientItemPropertyClass> property = ClientItemPropertyAttributeIntegerClass::Create(6, "Thrust", "units", "Higher thrust values will increase the ship's maximum speed.", 0, base, actual, level);
 			router.Route(property);
 			break;
 		}
@@ -678,7 +678,7 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 
 
 			FAIL_IF(trade_level_required <= 0) break;
-			RefCountPtr<ClientItemPropertySpecialClass> property = ClientItemPropertySpecialLevelRequirementClass::Create(SpaceClient, 2, trade_level_required);
+			RefCountPtr<ClientItemPropertyClass> property = ClientItemPropertySpecialLevelRequirementClass::Create(SpaceClient, 2, trade_level_required);
 			router.Route(property);
 			break;
 		}
@@ -700,7 +700,7 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 			} else if (actual > base) {
 				level = 2;
 			}
-			RefCountPtr<ClientItemPropertyAttributeClass> property = ClientItemPropertyAttributeIntegerClass::Create(6, "Warp", "", "Shows how fast the ship will travel while warping with this engine equipped.", 0, base, actual, level);
+			RefCountPtr<ClientItemPropertyClass> property = ClientItemPropertyAttributeIntegerClass::Create(6, "Warp", "", "Shows how fast the ship will travel while warping with this engine equipped.", 0, base, actual, level);
 			router.Route(property);
 			break;
 		}
@@ -723,7 +723,7 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 			} else if (actual > base) {
 				level = 2;
 			}
-			RefCountPtr<ClientItemPropertyAttributeClass> property = ClientItemPropertyAttributeFloatClass::Create(6, "Warp Drain", "units/sec", "How fast engine will drain reactor when in free warp (warping with no target.)", 0, base, actual, level);
+			RefCountPtr<ClientItemPropertyClass> property = ClientItemPropertyAttributeFloatClass::Create(6, "Warp Drain", "units/sec", "How fast engine will drain reactor when in free warp (warping with no target.)", 0, base, actual, level);
 			router.Route(property);
 			break;
 		}
@@ -742,7 +742,7 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 				if (mode_flags & 4) modes.push_back("Dismantle");
 				if (mode_flags & 8) modes.push_back("Refining");
 				std::string text = String_Join(modes, ", ");
-				RefCountPtr<ClientItemPropertyAttributeClass> property = ClientItemPropertyAttributeStringClass::Create(6, "Mode", "", "Which activities this Override item benefits", 0, text);
+				RefCountPtr<ClientItemPropertyClass> property = ClientItemPropertyAttributeStringClass::Create(6, "Mode", "", "Which activities this Override item benefits", 0, text);
 				router.Route(property);
 			}
 			break;
@@ -777,7 +777,7 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 			} else if (actual > base) {
 				level = 2;
 			}
-			RefCountPtr<ClientItemPropertyAttributeClass> property = ClientItemPropertyAttributeFloatClass::Create(7, "Build Value", "levels", "Improvement in Build/Refine ability when used.", 0, base, actual, level);
+			RefCountPtr<ClientItemPropertyClass> property = ClientItemPropertyAttributeFloatClass::Create(7, "Build Value", "levels", "Improvement in Build/Refine ability when used.", 0, base, actual, level);
 			router.Route(property);
 			break;
 		}
@@ -800,7 +800,7 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 			} else if (actual > base) {
 				level = 2;
 			}
-			RefCountPtr<ClientItemPropertyAttributeClass> property = ClientItemPropertyAttributePercentClass::Create(8, "Critical", "Improvement in chances for a Critical Success when used.", 0, base, actual, level);
+			RefCountPtr<ClientItemPropertyClass> property = ClientItemPropertyAttributePercentClass::Create(8, "Critical", "Improvement in chances for a Critical Success when used.", 0, base, actual, level);
 			router.Route(property);
 			break;
 		}
@@ -834,7 +834,7 @@ void ClientItemPropertyBuilderClass::Unknown_528460(UIItemExaminationPropertyRou
 {
 	unsigned int count = effects.Get_Effects().size();	// unused: an inline layer the client spends budget on (0x527F40 calls the RefCountPtr copies and both strings' _Tidy out of line)  // NAME 1 [count]: neutral
 	for (std::vector<ItemEffectClass>::const_iterator it = effects.Get_Effects().begin(); it != effects.Get_Effects().end(); ++it) {	// NAME 1 [it, special]: neutral
-		RefCountPtr<ClientItemPropertySpecialClass> special = ClientItemPropertySpecialEffectClass::Create(*it);
+		RefCountPtr<ClientItemPropertyClass> special = ClientItemPropertySpecialEffectClass::Create(*it);
 		router.Route(special);
 	}
 }
@@ -888,4 +888,11 @@ void ClientItemPropertyBuilderClass::Unknown_5285A0(UIItemExaminationPropertyRou
 **	reference (the client does not fold &Item->TemplateInfo), the maker properties through a named
 **	RefCountPtr<ClientItemPropertySpecialClass> (the client converts into a local at 0x20, overlaying the structure
 **	property: this one change put every string and RefCountPtr in the client's slots), the type branch's loads per branch.
+**	FU3, run 2026-11-19b: 0x522860 masked residue 235 -> 66. Its 32 property locals are one type, RefCountPtr<ClientItemPropertyClass>
+**	(the client's unwind table 0xAABB20-0xAAC133: 32 funclets jmp 0x529130, 32 jmp 0x529040; the Creates' results
+**	convert into it through 0x529290 / 0x5292F0 / 0x529320, and each Route temporary from it through 0x5292C0), so
+**	Route takes another instantiation: const RefCountPtr<const ClientItemPropertyClass> & (router.h). With that type
+**	the dead reads give the client's level-1 cut and case 26's nested assigns together; without it they cannot.
+**	0x528460's effect local is the same type (0x527F40 calls 0x5292C0 / 0x529040 / 0x529130 too): with it the object
+**	emits the client's RefCountPtr copies again (0x529160 / 0x529190 / 0x5291C0 credited).
 */

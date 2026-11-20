@@ -114,13 +114,13 @@ void SkillDataClass::Unknown_24()
 	SlotDataClass::Unknown_24();
 }
 
-#pragma auto_inline(off)
+
 // 0x6A4EE0
 DeltaCompoundClass *SkillDataClass::Unknown_1C()
 {
 	return((DeltaCompoundClass *)Client->AuxData);
 }
-#pragma auto_inline(on)
+
 
 // 0x6A4F00
 bool SkillDataClass::Unknown_18()

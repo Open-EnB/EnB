@@ -27,10 +27,10 @@ ScriptedMovieViewerSettingsStruct::~ScriptedMovieViewerSettingsStruct()
 }
 
 // 0x4909D0
-// NOT EXACT: stack slots only (the client's frame is 8 bytes larger: its r / g at -0x40 / -0x3C, the quaternion at -0x50); every instruction otherwise matches
 bool ScriptedMovieViewerSettingsStruct::Unknown_4909D0(const char *name, const Vector3 &position)
 {
 	INIClass ini;
+	float rgb[3];
 	if (!ini.Load(name)) {
 		return(false);
 	}
@@ -47,18 +47,18 @@ bool ScriptedMovieViewerSettingsStruct::Unknown_4909D0(const char *name, const V
 	Unknown00->Set_Position(Vector3(0.0f, 5000.0f, 3000.0f));
 
 	if (ini.Is_Present("Settings", "AmbientLightR") && ini.Is_Present("Settings", "AmbientLightG") && ini.Is_Present("Settings", "AmbientLightB")) {
-		float r = ini.Get_Float("Settings", "AmbientLightR", 0.0f);
-		float g = ini.Get_Float("Settings", "AmbientLightG", 0.0f);
-		float b = ini.Get_Float("Settings", "AmbientLightB", 0.0f);
-		Unknown10.Set(r, g, b);
+		rgb[0] = ini.Get_Float("Settings", "AmbientLightR", 0.0f);
+		rgb[1] = ini.Get_Float("Settings", "AmbientLightG", 0.0f);
+		rgb[2] = ini.Get_Float("Settings", "AmbientLightB", 0.0f);
+		Unknown10.Set(rgb[0], rgb[1], rgb[2]);
 	}
 
 	if (ini.Is_Present("Settings", "SceneLightR") && ini.Is_Present("Settings", "SceneLightG") && ini.Is_Present("Settings", "SceneLightB")) {
-		float r = ini.Get_Float("Settings", "SceneLightR", 0.0f);
-		float g = ini.Get_Float("Settings", "SceneLightG", 0.0f);
-		float b = ini.Get_Float("Settings", "SceneLightB", 0.0f);
-		Unknown00->Set_Diffuse(Vector3(r, g, b));
-		Unknown00->Set_Specular(Vector3(r, g, b));
+		rgb[0] = ini.Get_Float("Settings", "SceneLightR", 0.0f);
+		rgb[1] = ini.Get_Float("Settings", "SceneLightG", 0.0f);
+		rgb[2] = ini.Get_Float("Settings", "SceneLightB", 0.0f);
+		Unknown00->Set_Diffuse(Vector3(rgb[0], rgb[1], rgb[2]));
+		Unknown00->Set_Specular(Vector3(rgb[0], rgb[1], rgb[2]));
 	}
 
 	if (ini.Is_Present("Settings", "SceneLightX") && ini.Is_Present("Settings", "SceneLightY") && ini.Is_Present("Settings", "SceneLightZ") && ini.Is_Present("Settings", "SceneLightW")) {
@@ -87,16 +87,18 @@ bool ScriptedMovieViewerSettingsStruct::Unknown_4909D0(const char *name, const V
 		Unknown00->Set_Far_Attenuation_Range(start, end);
 		Unknown00->Set_Flag(LightClass::FAR_ATTENUATION, on == 1);
 		Vector3 pos = position;
-		Vector3 dir = Unknown00->Get_Position() - pos;
+		Vector3 light_pos = Unknown00->Get_Position();
+		Vector3 dir = light_pos - pos;
 		dir.Normalize();
-		Unknown00->Set_Position(dir * distance);
+		dir = dir * distance;
+		Unknown00->Set_Position(dir);
 	}
 
 	if (ini.Is_Present("Settings", "BackgroundR") && ini.Is_Present("Settings", "BackgroundG") && ini.Is_Present("Settings", "BackgroundB")) {
-		float r = ini.Get_Float("Settings", "BackgroundR", 0.0f);
-		float g = ini.Get_Float("Settings", "BackgroundG", 0.0f);
-		float b = ini.Get_Float("Settings", "BackgroundB", 0.0f);
-		BackgroundColor.Set(r, g, b);
+		rgb[0] = ini.Get_Float("Settings", "BackgroundR", 0.0f);
+		rgb[1] = ini.Get_Float("Settings", "BackgroundG", 0.0f);
+		rgb[2] = ini.Get_Float("Settings", "BackgroundB", 0.0f);
+		BackgroundColor.Set(rgb[0], rgb[1], rgb[2]);
 	}
 	return(true);
 }

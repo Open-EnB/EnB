@@ -227,7 +227,7 @@ RenderObjClass *DebrisFieldClass::Clone(void) const
 }
 
 // 0x6B9BF0
-// NOT EXACT: 0.53, frame (sub esp 0xA5C against 0xA54); written from the client's code, the loops and the stack slots differ
+// NOT EXACT: masked residue 192 -> 10 (frame 0xA54 as the client's; diffuse written field by field, hash a signed int, cur -= back; cur += step, the tails test non-NULL first); left: bmax / bmin built left to right, the stack slots
 void DebrisFieldClass::Render(RenderInfoClass &rinfo)
 {
 	WWPROFILE("DebrisFieldClass::Render");
@@ -353,13 +353,13 @@ void DebrisFieldClass::Render(RenderInfoClass &rinfo)
 				for (y = y0; y < y1; y++) {
 					int xy = y ^ x;
 					for (z = z0; z < z1; z++) {
-						unsigned int hash = z ^ xy;
+						int hash = z ^ xy;
 						int corner = (((hash >> 3) & 0x38) ^ (hash & 0x38)) >> 3 ^ (hash & 7);
 						locs[UnknownD4] = cur + jitter[corner];
 						float d2 = locs[UnknownD4].Length2() * inv_max2;
 						if (d2 < 1.0f) {
 							float alpha = alpha_ramp[(int)floor(d2 * 512.0f)];
-							diffuse[UnknownD4].Set(Color.X, Color.Y, Color.Z, alpha * Alpha);
+							diffuse[UnknownD4].X = Color.X; diffuse[UnknownD4].Y = Color.Y; diffuse[UnknownD4].Z = Color.Z; diffuse[UnknownD4].W = alpha * Alpha;
 							if (frames) {
 								frames[UnknownD4] = Unknown_B92080[(((hash >> 16) & 0xFF) << 8 ^ (hash & 0xFF00)) >> 8 ^ (hash & 0xFF)];
 							}
@@ -374,9 +374,9 @@ void DebrisFieldClass::Render(RenderInfoClass &rinfo)
 						}
 						cur += step_z;
 					}
-					cur += step_y - back_z;
+					cur -= back_z; cur += step_y;
 				}
-				cur += step_x - back_y;
+				cur -= back_y; cur += step_x;
 			}
 			break;
 		case 1:
@@ -384,13 +384,13 @@ void DebrisFieldClass::Render(RenderInfoClass &rinfo)
 				for (y = y0; y < y1; y++) {
 					int xy = y ^ x;
 					for (z = z0; z < z1; z++) {
-						unsigned int hash = z ^ xy;
+						int hash = z ^ xy;
 						int corner = (((hash >> 3) & 0x38) ^ (hash & 0x38)) >> 3 ^ (hash & 7);
 						locs[UnknownD4] = cur + jitter[corner];
 						float d2 = locs[UnknownD4].Length2() * inv_max2;
 						if (d2 < 1.0f) {
 							float alpha = alpha_ramp[(int)floor(d2 * 512.0f)];
-							diffuse[UnknownD4].Set(alpha * Color.X, alpha * Color.Y, alpha * Color.Z, Alpha);
+							diffuse[UnknownD4].X = alpha * Color.X; diffuse[UnknownD4].Y = alpha * Color.Y; diffuse[UnknownD4].Z = alpha * Color.Z; diffuse[UnknownD4].W = Alpha;
 							if (frames) {
 								frames[UnknownD4] = Unknown_B92080[(((hash >> 16) & 0xFF) << 8 ^ (hash & 0xFF00)) >> 8 ^ (hash & 0xFF)];
 							}
@@ -405,9 +405,9 @@ void DebrisFieldClass::Render(RenderInfoClass &rinfo)
 						}
 						cur += step_z;
 					}
-					cur += step_y - back_z;
+					cur -= back_z; cur += step_y;
 				}
-				cur += step_x - back_y;
+				cur -= back_y; cur += step_x;
 			}
 			break;
 		default:
@@ -581,10 +581,10 @@ void DebrisFieldClass::Render(RenderInfoClass &rinfo)
 	if (LineGroup) {
 		Vector3 *ends = UnknownDC->Get_Array();
 		Vector4 *tails = NULL;
-		if (UnknownE0 == NULL) {
-			LineGroup->Set_Tail_Diffuse(Vector4(0.0f, 0.0f, 0.0f, 0.0f));
-		} else {
+		if (UnknownE0 != NULL) {
 			tails = UnknownE0->Get_Array();
+		} else {
+			LineGroup->Set_Tail_Diffuse(Vector4(0.0f, 0.0f, 0.0f, 0.0f));
 		}
 		Vector3 blur;
 		Matrix3D::Rotate_Vector(view, UnknownE8, &blur);

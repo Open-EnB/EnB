@@ -107,7 +107,7 @@ public:
 
 
 
-	// NOT EXACT: register-only (explain.py), the inlined erase's terminator store addresses [edi+eax] in the client, [eax+edi] in ours (0x4EB1B0)
+	// 0x4EB1B0 (INIClass's instance, ini_manager.cpp's object; exact)
 	void Release()																									// NAME 2: what it does
 	{
 		if (Manager) {

@@ -126,7 +126,7 @@ void Unknown_846CD0(OptionControlStruct *controls, HWND dialog)	// NAME 1 [Unkno
 	}
 }
 
-#pragma auto_inline(off)
+
 // @0x846D10
 static void Unknown_846D10(OptionControlStruct *control, HWND dialog)
 {
@@ -173,7 +173,7 @@ static void Unknown_846D10(OptionControlStruct *control, HWND dialog)
 	}
 }
 
-#pragma auto_inline(on)
+
 // @0x846FC0
 // NOT EXACT: functional (D64), register 0.66: case 2 keeps the choices in edi where the client keeps the dialog and
 // copies the name pointer (lea edi, [esi]); the client's 260-byte buffers and order are reproduced

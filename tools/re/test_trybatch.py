@@ -324,6 +324,32 @@ class Resolve(unittest.TestCase):
         self.assertEqual(T.own_mentions(SRC_MARKED, 0x571A70), [])          # mentioned, but not its own marker
         self.assertEqual(T.own_mentions(SRC_MARKED, 0x867250), ['Packet_00B3Class'])
 
+    def test_class_marker(self):
+        # TB3: a template member's marker inside its class body (co_data.h's Get, 0x79E300): the bare name is every
+        # instance's, the class qualifies it and the comment's word picks the instance
+        src = ('template <class T>\nclass ClientObjectDataAccessClass\n{\npublic:\n'
+               '\tstatic T *Get(ClientObjectClass *co, bool create)  // 0x123456 (radar) ...\n\t{\n\t}\n};\n')
+        self.assertEqual(T.untemplate('A<B<int> >::f'), 'A::f')
+        self.assertEqual(T.class_mentions(src, 0x123456), [('ClientObjectDataAccessClass::Get', ['radar'])])
+        got, how = self.cands('', [src])
+        self.assertEqual(got, [self.NAMES[5]])
+        self.assertIn('in its class', how)
+
+    def test_empty_symbol_by_code(self):
+        # TB3: SYMBOL '' with no name or marker at the address (a header static's _$E): the nearest-length
+        # functions ordered by residue
+        import objmatch
+        funcs = [('_$E28', 1, 0, 22), ('_$E29', 1, 30, 52), ('_$E30', 1, 60, 80), ('?big@@YAXXZ', 1, 90, 400)]
+        res = {'_$E28': 1, '_$E29': 0, '_$E30': 5}     # of 10 rows: 0.9, 1.0 and 0.5 (below 0.8: no answer)
+        old = (objmatch.CoffObject, T.client_length, T.X.explain)
+        try:
+            objmatch.CoffObject = lambda p: type('O', (), {'functions': lambda self: funcs})()
+            T.client_length = lambda addr: 22
+            T.X.explain = lambda o, n, a: ({'residue': res[n], 'ours': 10, 'client': 10}, None)
+            self.assertEqual(T.by_code('x.obj', 0x448BE0), ['_$E29', '_$E28'])
+        finally:
+            objmatch.CoffObject, T.client_length, T.X.explain = old
+
     def test_base_needs_no_forms(self):
         with tempfile.TemporaryDirectory() as d:
             p = os.path.join(d, 'v.py')
@@ -353,7 +379,7 @@ class Leases(unittest.TestCase):
         real = T.subprocess.run
         T.subprocess.run = fake
         try:
-            got = list(T.lease_iter(8, 'tb', lambda s: None))
+            got = list(T.lease_iter(8, 'tb', lambda s: None, parallel=1))
             self.assertEqual(got, [('enb-vc6-01', 'u@10.0.0.1'), ('enb-vc6-02', 'u@10.0.0.2'), ('enb-vc6-03', 'u@10.0.0.3')])
             self.assertEqual(len(calls), 4)            # the refusal ends it (no retry past the first VM)
             calls.clear()
@@ -361,6 +387,58 @@ class Leases(unittest.TestCase):
             self.assertEqual(len(got), 1)              # nothing left to compile: no second VM
         finally:
             T.subprocess.run = real
+
+    def test_parallel_rounds(self):
+        # TB3: after the first VM, up to PARALLEL requests at once (a lease takes ~37 s); a round all refused ends it
+        import threading
+        lock, calls = threading.Lock(), []
+
+        def fake(cmd, **kw):
+            with lock:
+                calls.append(cmd)
+                n = len(calls)
+            if n <= 3:
+                return types.SimpleNamespace(returncode=0, stdout=f'ENB_VC6_HOSTS=u@10.0.0.{n}\n',
+                                             stderr=f'enb-vc6-0{n}: 10.0.0.{n} ready\n')
+            return types.SimpleNamespace(returncode=3, stdout='', stderr='pool cap\n')
+        real = T.subprocess.run
+        T.subprocess.run = fake
+        try:
+            got = list(T.lease_iter(8, 'tb', lambda s: None, parallel=4))
+        finally:
+            T.subprocess.run = real
+        self.assertEqual(sorted(n for n, _ in got), ['enb-vc6-01', 'enb-vc6-02', 'enb-vc6-03'])
+        self.assertEqual(len(calls), 9)              # 1, a round of 4 (2 served), a round of 4 refused
+        self.assertEqual([c[c.index('--wait') + 1] for c in calls].count('900'), 1)
+
+    def test_poll_while_forms_wait(self):
+        # TB3: with poll, a refusal after the first VM waits and retries while forms wait; a VM freed meanwhile joins
+        answers = [0, 3, 3, 0, 3]                    # ok, refused, refused, ok (another agent released one), refused
+        calls, slept, left = [], [], [3]
+
+        def fake(cmd, **kw):
+            calls.append(cmd)
+            rc = answers[len(calls) - 1]
+            n = len(calls)
+            if rc == 0:
+                return types.SimpleNamespace(returncode=0, stdout=f'ENB_VC6_HOSTS=u@10.0.0.{n}\n',
+                                             stderr=f'enb-vc6-0{n}: 10.0.0.{n} ready\n')
+            return types.SimpleNamespace(returncode=3, stdout='', stderr='pool cap\n')
+
+        def sleep(s):
+            slept.append(s)
+            left[0] -= 1                             # forms compile meanwhile; none left after the third wait
+
+        real = T.subprocess.run
+        T.subprocess.run = fake
+        try:
+            got = list(T.lease_iter(8, 'tb', lambda s: None, more=lambda: left[0] > 0, poll=30, sleep=sleep,
+                                    parallel=1))
+        finally:
+            T.subprocess.run = real
+        self.assertEqual([n for n, _ in got], ['enb-vc6-01', 'enb-vc6-04'])
+        self.assertEqual(slept, [30, 30, 30])        # three refusals, then the queue was empty: no more leases
+        self.assertEqual(len(calls), 5)
 
 
 class FileCheck(unittest.TestCase):

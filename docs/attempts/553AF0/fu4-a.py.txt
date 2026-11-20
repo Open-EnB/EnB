@@ -1,0 +1,236 @@
+# ===== a1.py
+HYPOTHESIS = 'FU4 a1: a no-code layer spelling at the two constructor palette sites (qualified / this->) leaves the model ~RefCountPtr out of line as the client 0x5543C0 / 0x554478; FU2 forwarder as reference'
+FILE = 'app/client/ui_avatr.cpp'
+SYMBOL = 'AvatarCreationInterface::AvatarCreationInterface'
+ADDRESS = 0x553AF0
+
+# the constructor's block (unique: 0x5582A0's copy has no 'if (!keep && !back)')
+BLK = ('\tif (!keep && !back) {\n'
+       '\t\tUnknown_Set_Palette("fa_skin_color.tga");\n'
+       '\t\tUnknown_557950(2, 1, 0);\n'
+       '\t\tUnknown_Set_Palette("fa_avatar_color.tga");\n'
+       '\t\tUnknown_557950(0, 1, 0);\n')
+L1 = '\t\tUnknown_Set_Palette("fa_skin_color.tga");\n'
+L2 = '\t\tUnknown_Set_Palette("fa_avatar_color.tga");\n'
+
+
+def sites(pre, first=True, second=True):
+    b = BLK
+    if first:
+        b = b.replace(L1, L1.replace('Unknown_Set_Palette(', pre + 'Unknown_Set_Palette('))
+    if second:
+        b = b.replace(L2, L2.replace('Unknown_Set_Palette(', pre + 'Unknown_Set_Palette('))
+    return [(BLK, b)]
+
+
+DECL = '\tvoid Unknown_Set_Palette(const char *name);'
+FW = [(DECL, DECL + ' void Unknown_Palette(const char *name) { Unknown_Set_Palette(name); }')] + sites('XX')
+FW[1] = (BLK, FW[1][1].replace('XXUnknown_Set_Palette(', 'Unknown_Palette('))
+
+Q = 'AvatarCreationInterface::'
+FORMS = {
+    'q12': sites(Q),
+    'q1': sites(Q, True, False),
+    'q2': sites(Q, False, True),
+    't12': sites('this->'),
+    'deref12': sites('(*this).'),
+    'fw': FW,
+}
+# ===== a2.py
+HYPOTHESIS = 'FU4 a2: the model through an inline member accessor (Get_Model: Unknown_497300(Unknown08C->Peek_Model()), the expression repeated in 5+ members) is one more inline layer inside the palette helper; with and without the env-map Peek_Unknown3A4 forms'
+FILE = 'app/client/ui_avatr.cpp'
+SYMBOL = 'AvatarCreationInterface::AvatarCreationInterface'
+ADDRESS = 0x553AF0
+
+DECL = '\tvoid Unknown_Set_Palette(const char *name);'
+GM = ' RefCountPtr<RenderObjClass> Get_Model() { return Unknown_497300(Unknown08C->Peek_Model()); }'
+EXPR = 'Unknown_497300(Unknown08C->Peek_Model())'
+SP = ('void AvatarCreationInterface::Unknown_Set_Palette(const char *name)\n{\n'
+      '\tRefCountPtr<RenderObjClass> model = Unknown_497300(Unknown08C->Peek_Model());\n')
+CT = ('\tRefCountPtr<RenderObjClass> model = Unknown_497300(Unknown08C->Peek_Model());\n'
+      '\tUnknown08C->Unknown068->Set_Clip_Planes(1.0f, 500.0f);\n')
+D = [(DECL, DECL + GM)]
+SPF = [(SP, SP.replace(EXPR, 'Get_Model()'))]
+CTF = [(CT, CT.replace(EXPR, 'Get_Model()'))]
+
+A = '\t\tUnknown08C->Unknown3A4->Unknown_760770(UIAvatrEnvMaps[desc->Desc.Race], 1);\n'
+B = '\t\tUnknown08C->Peek_Unknown194()->Unknown_780810(Unknown08C->Unknown3A4);\n'
+A3 = [(A, A.replace('Unknown08C->Unknown3A4->', 'Unknown08C->Peek_Unknown3A4()->'))]
+B3 = [(B, B.replace('(Unknown08C->Unknown3A4)', '(Unknown08C->Peek_Unknown3A4())'))]
+AB3 = [(A + B, A.replace('Unknown08C->Unknown3A4->', 'Unknown08C->Peek_Unknown3A4()->')
+        + B.replace('(Unknown08C->Unknown3A4)', '(Unknown08C->Peek_Unknown3A4())'))]
+
+FORMS = {
+    'gm_sp': D + SPF,
+    'gm_sp_ct': D + SPF + CTF,
+    'gm_sp_b3': D + SPF + B3,
+    'gm_sp_ab3': D + SPF + AB3,
+    'gm_sp_ct_ab3': D + SPF + CTF + AB3,
+    'gm_ct': D + CTF,
+}
+# ===== a3.py
+HYPOTHESIS = 'FU4 a3: +0x170 is a Vector3 (0.5, 0.5, 1.0) as the callees 0x67C340 / 0x67C380 take it and 0x5582A0 sets it: its inline constructor keeps the +0x16C store in member order (region r2); with and without the FU2 forwarder'
+import re
+
+FILE = 'app/client/ui_avatr.cpp'
+SYMBOL = 'AvatarCreationInterface::AvatarCreationInterface'
+ADDRESS = 0x553AF0
+
+SRC = open(FILE, encoding='latin-1', newline='').read()
+
+
+def retype(s, init='(0.5f, 0.5f, 1.0f)'):
+    n0 = s.count('\n')
+    def one(old, new):
+        assert s.count(old) == 1, old
+        return s.replace(old, new)
+    s = one('\tfloat Unknown170;\t', '\tVector3 Unknown170;\t')
+    s = re.sub(r'\n\tfloat Unknown174;[^\n]*\n', '\n\n', s, count=1)
+    s = re.sub(r'\n\tfloat Unknown178;[^\n]*\n', '\n\n', s, count=1)
+    s = one('\tUnknown170(0.5f),\n\tUnknown174(0.5f),\n\tUnknown178(1.0f),\n',
+            '\tUnknown170' + init + ',\n\n\n')
+    s = s.replace('(Vector3 *)&Unknown170', '&Unknown170')
+    s = re.sub(r'\bUnknown174\b', 'Unknown170.Y', s)
+    s = re.sub(r'\bUnknown178\b', 'Unknown170.Z', s)
+    s = re.sub(r'\bUnknown170\b(?![.(\w])', 'Unknown170.X', s)
+    s = s.replace('&Unknown170.X', '&Unknown170').replace('Vector3 Unknown170.X;', 'Vector3 Unknown170;')
+    assert s.count('\n') == n0
+    return s
+
+
+DECL = '\tvoid Unknown_Set_Palette(const char *name);'
+BLK = ('\tif (!keep && !back) {\n'
+       '\t\tUnknown_Set_Palette("fa_skin_color.tga");\n'
+       '\t\tUnknown_557950(2, 1, 0);\n'
+       '\t\tUnknown_Set_Palette("fa_avatar_color.tga");\n')
+
+
+def fw(s):
+    s = s.replace(DECL, DECL + ' void Unknown_Palette(const char *name) { Unknown_Set_Palette(name); }', 1)
+    return s.replace(BLK, BLK.replace('Unknown_Set_Palette(', 'Unknown_Palette('), 1)
+
+
+V3 = retype(SRC)
+FORMS = {
+    'v3': [(SRC, V3)],
+    'v3_fw': [(SRC, fw(V3))],
+}
+# ===== a4.py
+HYPOTHESIS = 'FU4 a4: the env-map lines (r90 / r91) through the view class inline getters as 0x559010 / 0x5591E0, on the v3 (+0x170 Vector3) form, with and without the FU2 forwarder'
+import re, os, sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)) if '__file__' in globals() else '.work/fu4')
+
+FILE = 'app/client/ui_avatr.cpp'
+SYMBOL = 'AvatarCreationInterface::AvatarCreationInterface'
+ADDRESS = 0x553AF0
+
+SRC = open(FILE, encoding='latin-1', newline='').read()
+
+
+def retype(s, init='(0.5f, 0.5f, 1.0f)'):
+    n0 = s.count('\n')
+    def one(old, new):
+        assert s.count(old) == 1, old
+        return s.replace(old, new)
+    s = one('\tfloat Unknown170;\t', '\tVector3 Unknown170;\t')
+    s = re.sub(r'\n\tfloat Unknown174;[^\n]*\n', '\n\n', s, count=1)
+    s = re.sub(r'\n\tfloat Unknown178;[^\n]*\n', '\n\n', s, count=1)
+    s = one('\tUnknown170(0.5f),\n\tUnknown174(0.5f),\n\tUnknown178(1.0f),\n',
+            '\tUnknown170' + init + ',\n\n\n')
+    s = s.replace('(Vector3 *)&Unknown170', '&Unknown170')
+    s = re.sub(r'\bUnknown174\b', 'Unknown170.Y', s)
+    s = re.sub(r'\bUnknown178\b', 'Unknown170.Z', s)
+    s = re.sub(r'\bUnknown170\b(?![.(\w])', 'Unknown170.X', s)
+    s = s.replace('&Unknown170.X', '&Unknown170').replace('Vector3 Unknown170.X;', 'Vector3 Unknown170;')
+    assert s.count('\n') == n0
+    return s
+
+
+DECL = '\tvoid Unknown_Set_Palette(const char *name);'
+BLK = ('\tif (!keep && !back) {\n'
+       '\t\tUnknown_Set_Palette("fa_skin_color.tga");\n'
+       '\t\tUnknown_557950(2, 1, 0);\n'
+       '\t\tUnknown_Set_Palette("fa_avatar_color.tga");\n')
+
+
+def fw(s):
+    s = s.replace(DECL, DECL + ' void Unknown_Palette(const char *name) { Unknown_Set_Palette(name); }', 1)
+    return s.replace(BLK, BLK.replace('Unknown_Set_Palette(', 'Unknown_Palette('), 1)
+
+
+A = '\t\tUnknown08C->Unknown3A4->Unknown_760770(UIAvatrEnvMaps[desc->Desc.Race], 1);\n'
+B = '\t\tUnknown08C->Peek_Unknown194()->Unknown_780810(Unknown08C->Unknown3A4);\n'
+ENV = {
+    'a3': A.replace('Unknown08C->Unknown3A4->', 'Unknown08C->Peek_Unknown3A4()->') + B,
+    'b3': A + B.replace('(Unknown08C->Unknown3A4)', '(Unknown08C->Peek_Unknown3A4())'),
+    'ab3': A.replace('Unknown08C->Unknown3A4->', 'Unknown08C->Peek_Unknown3A4()->') + B.replace('(Unknown08C->Unknown3A4)', '(Unknown08C->Peek_Unknown3A4())'),
+    'race': '\t\tint race = desc->Desc.Race; Unknown08C->Unknown3A4->Unknown_760770(UIAvatrEnvMaps[race], 1);\n' + B,
+}
+
+V3 = retype(SRC)
+FORMS = {}
+for tag, env in ENV.items():
+    FORMS['v3_' + tag] = [(SRC, V3.replace(A + B, env, 1))]
+    FORMS['v3fw_' + tag] = [(SRC, fw(V3).replace(A + B, env, 1))]
+# ===== a5.py
+HYPOTHESIS = 'FU4 a5 (mp3 dead-read retune after the getter expansions): the env-map lines (r90 / r91) through the view class inline getters as 0x559010 / 0x5591E0, on the v3 (+0x170 Vector3) form, with and without the FU2 forwarder'
+import re, os, sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)) if '__file__' in globals() else '.work/fu4')
+
+FILE = 'app/client/ui_avatr.cpp'
+SYMBOL = 'AvatarCreationInterface::AvatarCreationInterface'
+ADDRESS = 0x553AF0
+
+SRC = open(FILE, encoding='latin-1', newline='').read()
+
+
+def retype(s, init='(0.5f, 0.5f, 1.0f)'):
+    n0 = s.count('\n')
+    def one(old, new):
+        assert s.count(old) == 1, old
+        return s.replace(old, new)
+    s = one('\tfloat Unknown170;\t', '\tVector3 Unknown170;\t')
+    s = re.sub(r'\n\tfloat Unknown174;[^\n]*\n', '\n\n', s, count=1)
+    s = re.sub(r'\n\tfloat Unknown178;[^\n]*\n', '\n\n', s, count=1)
+    s = one('\tUnknown170(0.5f),\n\tUnknown174(0.5f),\n\tUnknown178(1.0f),\n',
+            '\tUnknown170' + init + ',\n\n\n')
+    s = s.replace('(Vector3 *)&Unknown170', '&Unknown170')
+    s = re.sub(r'\bUnknown174\b', 'Unknown170.Y', s)
+    s = re.sub(r'\bUnknown178\b', 'Unknown170.Z', s)
+    s = re.sub(r'\bUnknown170\b(?![.(\w])', 'Unknown170.X', s)
+    s = s.replace('&Unknown170.X', '&Unknown170').replace('Vector3 Unknown170.X;', 'Vector3 Unknown170;')
+    assert s.count('\n') == n0
+    return s
+
+
+DECL = '\tvoid Unknown_Set_Palette(const char *name);'
+BLK = ('\tif (!keep && !back) {\n'
+       '\t\tUnknown_Set_Palette("fa_skin_color.tga");\n'
+       '\t\tUnknown_557950(2, 1, 0);\n'
+       '\t\tUnknown_Set_Palette("fa_avatar_color.tga");\n')
+
+
+def fw(s):
+    s = s.replace(DECL, DECL + ' void Unknown_Palette(const char *name) { Unknown_Set_Palette(name); }', 1)
+    return s.replace(BLK, BLK.replace('Unknown_Set_Palette(', 'Unknown_Palette('), 1)
+
+
+A = '\t\tUnknown08C->Unknown3A4->Unknown_760770(UIAvatrEnvMaps[desc->Desc.Race], 1);\n'
+B = '\t\tUnknown08C->Peek_Unknown194()->Unknown_780810(Unknown08C->Unknown3A4);\n'
+ENV = {
+    'a3': A.replace('Unknown08C->Unknown3A4->', 'Unknown08C->Peek_Unknown3A4()->') + B,
+    'b3': A + B.replace('(Unknown08C->Unknown3A4)', '(Unknown08C->Peek_Unknown3A4())'),
+    'ab3': A.replace('Unknown08C->Unknown3A4->', 'Unknown08C->Peek_Unknown3A4()->') + B.replace('(Unknown08C->Unknown3A4)', '(Unknown08C->Peek_Unknown3A4())'),
+    'race': '\t\tint race = desc->Desc.Race; Unknown08C->Unknown3A4->Unknown_760770(UIAvatrEnvMaps[race], 1);\n' + B,
+}
+
+V3 = retype(SRC)
+MP = '"1492_00_347se.mp3"); Unknown08C->Peek_Model();'
+def mp3(t, k, r=' Unknown08C->Peek_Model();'):
+    return t.replace(MP, '"1492_00_347se.mp3");' + r * k, 1)
+FORMS = {}
+for tag in ('b3', 'ab3'):
+    base = V3.replace(A + B, ENV[tag], 1)
+    for k in (0, 2, 3, 4):
+        FORMS['v3_%s_m%d' % (tag, k)] = [(SRC, mp3(base, k))]
+    FORMS['v3_%s_d1' % tag] = [(SRC, mp3(base, 1, ' Unknown08C->Peek_Unknown194();'))]

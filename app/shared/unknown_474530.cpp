@@ -52,56 +52,63 @@ void Unknown_477E20(std::vector<Vector3> verts);
 // NAME 2: a quad's four corners at a height into the sea's vertex list. A macro: Render 0x474B30 inlines all 36 Adds and
 // calls the DX8 setters at its end out of line; through an inline function the extra level leaves the Adds out of line
 #define Add_Sea_Quad(quads, x, y, dx, dy, z) do { \
-	float qx_ = (x); float qy_ = (y); float qdx_ = (dx); float qdy_ = (dy); float qz_ = (z); \
-	(quads).Add(Vector3(qx_, qy_, qz_)); \
-	(quads).Add(Vector3(qx_ + qdx_, qy_, qz_)); \
-	(quads).Add(Vector3(qx_ + qdx_, qy_ + qdy_, qz_)); \
-	(quads).Add(Vector3(qx_, qy_ + qdy_, qz_)); \
+	Vector3 q_((x), (y), (z)); \
+	(quads).Add(q_); \
+	(quads).Add(Vector3(q_.X + (dx), q_.Y, q_.Z)); \
+	(quads).Add(Vector3(q_.X + (dx), q_.Y + (dy), q_.Z)); \
+	(quads).Add(Vector3(q_.X, q_.Y + (dy), q_.Z)); \
 } while (0)
 
 // NOT EXACT: written from the pseudocode (0x474B30); VIDTEST's land scene runs it (D101). The world transforms are the
 // client's Set_Transform(D3DTS_WORLD, identity) (its ??_H arrays and the flags' and ~WORLD_IDENTITY | WORLD_CHANGED), not
-// Set_World_Identity. Left (inline budget): the patch transform's Matrix3D rows inline (the client constructs them
-// through ??_H), the second buffer pass's textures out of line and its shader inline (the client the reverse)
+// Set_World_Identity. From the client's bytes (PT5, 2026-11-20; masked residue 2279 -> 261, frame 0x33C as the client):
+// the static sea list default-constructed (VectorClass(0, 0), GrowthStep 10) and emptied with Reset_Active (one store,
+// no Clear / Resize calls); the patch loop through a patch pointer, its strip and edge buffers by p->Level; each quad's
+// corner a Vector3 copied into the list (the macro); the sea index count from Count() / 2 and the vertex buffer written
+// through its FVF offsets (0x252, the corner copied, the normal (0, 0, 1), the grid uv a Vector2 local scaled with *=
+// and the two detail scales by Vector2's operator *); the first record pass reads PatchRecords[i] at each use (the
+// client reloads +0x18C). Left: its Set_Shader inline (the client calls it: inline budget), the second record pass's
+// reloads (the same form there inlines everything), register choices in the patch loop and the ring quads
 void LandClass::Render(RenderInfoClass &rinfo)
 {
 	DX8Wrapper::Set_Texture(0, LightmapTextures[FrontLightmap]);
 	DX8Wrapper::Set_Texture(1, DetailTexture);
 	DX8Wrapper::Set_Shader(Shader);
 	DX8Wrapper::Set_Material(Material);
-	static DynamicVectorClass<Vector3> sea_quads(10);
-	sea_quads.Delete_All();
-	bool companion = Unknown_BDC0D8->Unknown11;
+	static DynamicVectorClass<Vector3> sea_quads;
+	sea_quads.Reset_Active();
 	float extent_x = Field->Get_Spacing() * (float)(unsigned int)PatchSize;
 	float extent_y = (float)(unsigned int)PatchSize * Field->Get_YSpacing();
+	bool companion = Unknown_BDC0D8->Unknown11;
 	Unknown_BDC0D8->Unknown_466F60(rinfo);
 	int level, i;
 	for (level = 0; level < MAX_LEVELS; level++) {
 		LandPatchClass **patch = Patches;
-		for (i = PatchCount; i != 0; i--, patch++) {
-			if (!(*patch)->Visible || (*patch)->Level != level) {
+		for (i = PatchCount; i--; patch++) {
+			LandPatchClass *p = *patch;
+			if (!p->Visible || p->Level != level) {
 				continue;
 			}
 			if (!companion) {
 				Matrix3D tm(Vector3(Field->Get_Spacing(), 0.0f, 0.0f), Vector3(0.0f, Field->Get_YSpacing(), 0.0f),
-					Vector3(0.0f, 0.0f, Field->Get_VScale()), Vector3((*patch)->X, (*patch)->Y, (*patch)->Z));
+					Vector3(0.0f, 0.0f, Field->Get_VScale()), Vector3(p->X, p->Y, p->Z));
 				DX8Wrapper::Set_Transform(D3DTS_WORLD, tm);
-				Set_Strip_Buffer(level);
-				(*patch)->Draw_Strip();
-				if (level != 0 && (*patch)->Quarters != 0) {
-					Set_Edge_Buffer(level);
-					(*patch)->Draw();
+				Set_Strip_Buffer(p->Level);
+				p->Draw_Strip();
+				if (p->Level != 0 && p->Quarters != 0) {
+					Set_Edge_Buffer(p->Level);
+					p->Draw();
 				}
 			}
 			if (HasSea) {
-				Add_Sea_Quad(sea_quads, (*patch)->X, (*patch)->Y, extent_x, extent_y, SeaLevel);
+				Add_Sea_Quad(sea_quads, p->X, p->Y, extent_x, extent_y, SeaLevel);
 			}
 		}
 	}
 
 	if (HasSea) {
 		// ten rings of sea quads around the field, and the corners
-		float half = (float)(Field->Get_Size() >> 1) * Field->Get_Spacing();
+		float half = (float)((unsigned int)Field->Get_Size() >> 1) * Field->Get_Spacing();
 		int ring, c;
 		for (ring = 0; ring < 10; ring++) {
 			for (c = 0; c < GridWidth; c++) {
@@ -117,13 +124,12 @@ void LandClass::Render(RenderInfoClass &rinfo)
 				Add_Sea_Quad(sea_quads, -half - (ring + 1) * extent_x, -half - (c + 1) * extent_y, extent_x, extent_y, SeaLevel);
 			}
 		}
-		int count = sea_quads.Count();
-		int triangles = count / 2;
-		DynamicIBAccessClass ib(BUFFER_TYPE_DYNAMIC_DX8, (unsigned short)(triangles * 3));
+		int triangles = sea_quads.Count() / 2;
+		DynamicIBAccessClass ib(BUFFER_TYPE_DYNAMIC_DX8, triangles * 3);
 		{
 			DynamicIBAccessClass::WriteLockClass lock(&ib);
 			unsigned short *index = lock.Get_Index_Array();
-			for (i = 0; i < count / 4; i++) {
+			for (i = 0; i < triangles / 2; i++) {
 				unsigned short base = (unsigned short)(i * 4);
 				*index++ = base;
 				*index++ = base + 1;
@@ -136,27 +142,21 @@ void LandClass::Render(RenderInfoClass &rinfo)
 		DX8Wrapper::Set_Index_Buffer(ib, 0);
 		DX8Wrapper::Set_Transform(D3DTS_WORLD, Matrix4(true));
 		for (int sea = 0; sea < SeaCount; sea++) {
-			DynamicVBAccessClass vb(BUFFER_TYPE_DYNAMIC_DX8, dynamic_fvf_type, (unsigned short)count);
+			DynamicVBAccessClass vb(BUFFER_TYPE_DYNAMIC_DX8, 0x252, (unsigned short)sea_quads.Count());
 			{
 				DynamicVBAccessClass::WriteLockClass lock(&vb);
-				VertexFormatXYZNDUV2 *vertex = lock.Get_Formatted_Vertex_Array();
-				float scale = 1.0f / (float)Field->Get_Size();
-				for (i = 0; i < count; i++, vertex++) {
-					const Vector3 &pos = sea_quads[i];
-					vertex->x = pos.X;
-					vertex->y = pos.Y;
-					vertex->z = pos.Z;
-					vertex->nx = 0.0f;
-					vertex->ny = 0.0f;
-					vertex->nz = 1.0f;
-					float u, v;
-					Field->World_To_Grid(Vector2(pos.X, pos.Y), &u, &v);
-					u *= scale;
-					v *= scale;
-					vertex->u1 = u * SeaDetailScales[sea][0];
-					vertex->v1 = v * SeaDetailScales[sea][0];
-					vertex->u2 = SeaDetailScales[sea][1] * u;
-					vertex->v2 = SeaDetailScales[sea][1] * v;
+				unsigned char *vertex = (unsigned char *)lock.Get_Formatted_Vertex_Array();
+				const FVFInfoClass &fi = vb.FVF_Info();
+				float scale = 1.0f / (float)(unsigned int)Field->Get_Size();
+				for (i = 0; i < sea_quads.Count(); i++) {
+					*(Vector3 *)(vertex + fi.Get_Location_Offset()) = sea_quads[i];
+					*(Vector3 *)(vertex + fi.Get_Normal_Offset()) = Vector3(0.0f, 0.0f, 1.0f);
+					Vector2 uv;
+					Field->World_To_Grid((const Vector2 &)sea_quads[i], &uv.X, &uv.Y);
+					uv *= scale;
+					*(Vector2 *)(vertex + fi.Get_Tex_Offset(0)) = uv * SeaDetailScales[sea][0];
+					*(Vector2 *)(vertex + fi.Get_Tex_Offset(1)) = SeaDetailScales[sea][1] * uv;
+					vertex += fi.Get_FVF_Size();
 				}
 			}
 			DX8Wrapper::Set_Vertex_Buffer(vb);
@@ -164,7 +164,7 @@ void LandClass::Render(RenderInfoClass &rinfo)
 			DX8Wrapper::Set_Texture(1, SeaTextures[sea][1]);
 			DX8Wrapper::Set_Shader(SeaShaders[sea]);
 			DX8Wrapper::Set_Material(SeaMaterials[sea]);
-			DX8Wrapper::Draw_Triangles(0, (unsigned short)triangles, 0, (unsigned short)count);
+			DX8Wrapper::Draw_Triangles(0, (unsigned short)triangles, 0, (unsigned short)sea_quads.Count());
 		}
 	}
 
@@ -187,12 +187,12 @@ void LandClass::Render(RenderInfoClass &rinfo)
 			DX8Wrapper::Set_Shader(Unknown17C);
 			DX8Wrapper::Set_Material(Unknown180.Peek());
 			for (i = 0; i < PatchCount; i++) {
-				LandPatchRecordClass &record = PatchRecords[i];
-				if (record.Visible && record.Unknown10 > 0 && (unsigned int)record.Level < 3) {
-					DX8Wrapper::Set_Vertex_Buffer((VertexBufferClass *)record.Unknown00.Peek());
-					DX8Wrapper::Set_Index_Buffer((IndexBufferClass *)record.Unknown04.Peek(), 0);
-					DX8Wrapper::Draw_Triangles(0, (unsigned short)(record.Unknown14 / 3), 0, (unsigned short)record.Unknown10);
+				if (PatchRecords[i].Visible && PatchRecords[i].Unknown10 > 0 && (unsigned int)PatchRecords[i].Level < 3) {
+					DX8Wrapper::Set_Vertex_Buffer((VertexBufferClass *)PatchRecords[i].Unknown00.Peek());
+					DX8Wrapper::Set_Index_Buffer((IndexBufferClass *)PatchRecords[i].Unknown04.Peek(), 0);
+					DX8Wrapper::Draw_Triangles(0, (unsigned short)(PatchRecords[i].Unknown14 / 3), 0, (unsigned short)PatchRecords[i].Unknown10);
 				}
+
 			}
 		}
 		if (Unknown191) {
@@ -615,10 +615,10 @@ static unsigned short Land_Append_Decoration_Mesh(MeshClass *mesh, std::vector<L
 	return 0;
 }
 
-// NOT EXACT: shape (similarity 0.87, 40 masked rows; attempts.csv 0x47A2F0): the client's RefCountPtr form (0x47A2F0 =
-// VIDTEST 0x416170). Left: every PatchRecords[i] access in the record loop forms [IV + ptr] where the client forms [ptr + IV];
-// x87 operand orders in the three inlined Rotate_Vector (the client loads the other operand before the shared negations)
-// and in the quaternion's axis * sin. Every frame slot is the client's.
+// NOT EXACT: 5 masked rows (attempts.csv 0x47A2F0): the client's RefCountPtr form (0x47A2F0 = VIDTEST 0x416170); the record
+// loop on its own counter p gives the client's [ptr + IV] and all but 5 x87 rows (w * (-X) in the inlined Rotate_Vector); left:
+// frame slots: the client keeps the record counter in i's slot -0x20 and gi at -0x14 (ours gi -0x20, p apart, the check
+// loop's info / texture and the proto loop's tree / shadow: {info, tree} and {shadow, texture} swap -0x14 and -0x10).
 // The prototypes' tree and shadow meshes; the first tree's texture, shader and vertex material (+0x178 / +0x17C / +0x180)
 // and the first shadow's shader and material (+0x184 / +0x188), every other prototype's must be the same (else no
 // decorations); each decoration appended to its patch's lists (the patch from World_To_Grid over the grid width), the
@@ -786,60 +786,60 @@ void LandClass::Build_Decorations(std::vector<std::string> &names, std::vector<L
 				}
 			}
 		}
-		for (i = 0; i < PatchCount; i++) {
-			int nv = tree_vertices[i].size();
-			int ni = tree_indices[i].size();
+		for (int p = 0; p < PatchCount; p++) {
+			int nv = tree_vertices[p].size();
+			int ni = tree_indices[p].size();
 			if (nv > 0) {
-				PatchRecords[i].Unknown10 = nv;
-				PatchRecords[i].Unknown14 = ni;
-				PatchRecords[i].Unknown00 = Create_NEW(new DX8VertexBufferClass(0x112, (unsigned short)nv));
-				PatchRecords[i].Unknown04 = Create_NEW(new DX8IndexBufferClass((unsigned short)ni));
+				PatchRecords[p].Unknown10 = nv;
+				PatchRecords[p].Unknown14 = ni;
+				PatchRecords[p].Unknown00 = Create_NEW(new DX8VertexBufferClass(0x112, (unsigned short)nv));
+				PatchRecords[p].Unknown04 = Create_NEW(new DX8IndexBufferClass((unsigned short)ni));
 				{
-					VertexBufferClass::WriteLockClass lock(PatchRecords[i].Unknown00.Peek());
+					VertexBufferClass::WriteLockClass lock(PatchRecords[p].Unknown00.Peek());
 					LandDecorationVertexStruct *out = (LandDecorationVertexStruct *)lock.Get_Vertex_Array();
 					for (int v = 0; v < nv; v++) {
-						out[v] = tree_vertices[i][v];
+						out[v] = tree_vertices[p][v];
 					}
 				}
 				{
-					IndexBufferClass::WriteLockClass lock(PatchRecords[i].Unknown04.Peek());
+					IndexBufferClass::WriteLockClass lock(PatchRecords[p].Unknown04.Peek());
 					unsigned short *out = lock.Get_Index_Array();
 					for (int n = 0; n < ni; n++) {
-						out[n] = tree_indices[i][n];
+						out[n] = tree_indices[p][n];
 					}
 				}
 			} else {
-				PatchRecords[i].Unknown10 = 0;
-				PatchRecords[i].Unknown14 = 0;
-				PatchRecords[i].Unknown00 = NULL;
-				PatchRecords[i].Unknown04 = NULL;
+				PatchRecords[p].Unknown10 = 0;
+				PatchRecords[p].Unknown14 = 0;
+				PatchRecords[p].Unknown00 = NULL;
+				PatchRecords[p].Unknown04 = NULL;
 			}
-			nv = shadow_vertices[i].size();
-			ni = shadow_indices[i].size();
+			nv = shadow_vertices[p].size();
+			ni = shadow_indices[p].size();
 			if (nv > 0) {
-				PatchRecords[i].Unknown18 = nv;
-				PatchRecords[i].Unknown1C = ni;
-				PatchRecords[i].Unknown08 = Create_NEW(new DX8VertexBufferClass(0x112, (unsigned short)nv));
-				PatchRecords[i].Unknown0C = Create_NEW(new DX8IndexBufferClass((unsigned short)ni));
+				PatchRecords[p].Unknown18 = nv;
+				PatchRecords[p].Unknown1C = ni;
+				PatchRecords[p].Unknown08 = Create_NEW(new DX8VertexBufferClass(0x112, (unsigned short)nv));
+				PatchRecords[p].Unknown0C = Create_NEW(new DX8IndexBufferClass((unsigned short)ni));
 				{
-					VertexBufferClass::WriteLockClass lock(PatchRecords[i].Unknown08.Peek());
+					VertexBufferClass::WriteLockClass lock(PatchRecords[p].Unknown08.Peek());
 					LandDecorationVertexStruct *out = (LandDecorationVertexStruct *)lock.Get_Vertex_Array();
 					for (int v = 0; v < nv; v++) {
-						out[v] = shadow_vertices[i][v];
+						out[v] = shadow_vertices[p][v];
 					}
 				}
 				{
-					IndexBufferClass::WriteLockClass lock(PatchRecords[i].Unknown0C.Peek());
+					IndexBufferClass::WriteLockClass lock(PatchRecords[p].Unknown0C.Peek());
 					unsigned short *out = lock.Get_Index_Array();
 					for (int n = 0; n < ni; n++) {
-						out[n] = shadow_indices[i][n];
+						out[n] = shadow_indices[p][n];
 					}
 				}
 			} else {
-				PatchRecords[i].Unknown18 = 0;
-				PatchRecords[i].Unknown1C = 0;
-				PatchRecords[i].Unknown08 = NULL;
-				PatchRecords[i].Unknown0C = NULL;
+				PatchRecords[p].Unknown18 = 0;
+				PatchRecords[p].Unknown1C = 0;
+				PatchRecords[p].Unknown08 = NULL;
+				PatchRecords[p].Unknown0C = NULL;
 			}
 		}
 		delete [] tree_vertices;
@@ -907,7 +907,8 @@ void LandPatchClass::Init(int size, int x, int y, float detail_u, float detail_v
 	Build_Vertices(x, y, detail_u, detail_v);
 }
 
-// NOT EXACT: order-only (7 masked rows: the client sets xi = x after the inner loop's Size test, ours before; the slots of inv_size / v and i / xi swapped; attempts.csv 0x474790)
+// NOT EXACT: order-only (4 masked rows: the client sets xi = x after the inner loop's Size test, ours before;
+// i and xi stepped together in the for (i++, xi++: 7 -> 4 rows, SR6); attempts.csv 0x474790)
 void LandPatchClass::Build_Vertices(int x, int y, float detail_u, float detail_v)
 {
 	float lowest = 2.0f;
@@ -920,7 +921,7 @@ void LandPatchClass::Build_Vertices(int x, int y, float detail_u, float detail_v
 		LandVertexStruct *vertex = (LandVertexStruct *)lock.Get_Vertex_Array();
 		for (int j = 0; j < Size; j++) {
 			int xi = x;
-			for (int i = 0; i < Size; i++) {
+			for (int i = 0; i < Size; i++, xi++) {
 				vertex->X = (float)i;
 				vertex->Y = (float)j;
 				float height = Land->Field->Get_Height_2(xi, j + y) * height_scale;
@@ -934,7 +935,6 @@ void LandPatchClass::Build_Vertices(int x, int y, float detail_u, float detail_v
 				vertex->U1 = u;
 				vertex->U2 = u * detail_u;
 				vertex++;
-				xi++;
 			}
 		}
 	}

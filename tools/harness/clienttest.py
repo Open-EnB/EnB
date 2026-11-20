@@ -61,6 +61,26 @@ UDPREPLAY_STUBS = ['avatar_desc_stubs.cpp',
                    'shipcust_stubs.cpp']   # shipcust_desc.obj's externals (pkrecustomize.cpp, pkcreatecharacter.cpp)
 
 
+def stage_co(stage):
+    """co.cpp compiled into clienttest without its CREATE factory 0x6F6000 (auxroots.py's region there since COM,
+    2026-11-19b): clienttest.cpp's stand-in hands every object the harness's fake root, and app.lib's co.obj (which
+    defines the factory) would clash with it. The copy's quoted includes point back at app/client (relative to the
+    stage, as the other wrappers'); the factory's lines stay as blank lines (the asserts keep their lines)."""
+    src = os.path.join(REPO, 'app', 'client', 'co.cpp')
+    with open(src, encoding='latin-1', newline='') as f:
+        t = f.read().replace('\r\n', '\n')
+    t, k = re.subn(r'\n// the CREATE factory \(0x6F6000\)\nUnknownRootClass \*ClientObjectClass::Unknown_Create_Aux_Root\('
+                   r'.*?\n}\n', lambda m: '\n' * m.group(0).count('\n'), t, count=1, flags=re.S)
+    assert k == 1, "co.cpp's factory 0x6F6000 not found"
+
+    def relative(m):
+        p = os.path.normpath(os.path.join(os.path.dirname(src), m.group(1)))
+        return '#include "%s"' % os.path.relpath(p, stage) if os.path.exists(p) else m.group(0)
+    t = re.sub(r'^#include "([^"]+)"', relative, t, flags=re.M)
+    with open(os.path.join(stage, 'app_client_co.cpp'), 'w', encoding='latin-1', newline='\r\n') as f:
+        f.write('// app\\client\\co.cpp without the factory 0x6F6000 (clienttest.py stage_co)\n#line 1\n' + t)
+
+
 def build(out):
     sys.path.insert(0, os.path.join(REPO, 'tools', 'vc6'))
     import build as B
@@ -122,6 +142,7 @@ def build(out):
             if p.endswith('ui_talkt.cpp'):
                 f.write('#define Unknown_64EED0 Real_Unknown_64EED0\n')
             f.write('#include "' + os.path.relpath(os.path.join(REPO, p), stage) + '"\n')
+    stage_co(stage)
     B.PROGRAMS['clienttest'] = {'dir': os.path.relpath(stage, REPO), 'flags': B.I.LIB_FLAGS['app'],
                                 'subsystem': 'console', 'runtime': [], 'sys': ['WININET.LIB', 'SHELL32.LIB']}  # settings_store.cpp's lkey thread; shell32: its ShellExecuteExA (0x7CB3D0), as clientpoc
     # E&B's INFMSG (cordcon.cpp) writes to the old iostream's ostream, as udpreplay.py's link: LIBCIMT after LIBCPMT

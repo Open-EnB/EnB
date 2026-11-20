@@ -307,7 +307,7 @@ void UIGroupUnknownE8Class::Unknown_593180(int index)
 			}
 		}
 		Unknown2C = index;
-		Unknown30 = 2.0f; Unknown08[index].Peek(); Unknown08[index].Peek();
+		Unknown30 = 2.0f;
 	}
 }
 

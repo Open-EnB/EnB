@@ -193,7 +193,7 @@ void UIPTradeClass::Unknown_58()
 		Unknown_5E3750(true);
 		Unknown_5E2F70(false);
 		Unknown0E0 = MoneyClass();
-		Unknown0D8 = 0; font.Peek();	// a dead read (D130): with it ~RefCountPtr<FontSys> stays out of line in the inlined 0x5E2F70, as the client has it
+		Unknown0D8 = 0;	// (budget-device audit 2026-11-19: a dead font.Peek() here is no longer needed (the file is exact without it))
 	}
 }
 

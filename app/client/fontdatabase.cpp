@@ -667,35 +667,35 @@ int FontDatabaseClass::Get_Effect_Type(StringClass &name)
 }
 
 
-// NOT EXACT: order-only: the client reads the first character into bl before the parts' constructor and saves ebp only around the loop (shrink-wrapped); ours in the prologue
 void FontDatabaseClass::Parse_Directions(const char *text, int *values)
 {
+	char ch = *text;
 	StringClass parts[2];
-	StringClass *part = parts;
-	for (; *text != 0; text++) {
-		if (*text == ',') {
-			part++;
-		} else {
-			*part += *text;
-		}
+	if (ch != 0) {
+		int index = 0;
+		const char *p = text;
+		do {
+			if (ch == ',') index++; else parts[index] += ch;
+			ch = *++p;
+		} while (ch != 0);
 	}
 	for (int i = 0; i < 2; i++) {
 		values[i] = Get_Direction(parts[i]);
 	}
 }
 
-
-// NOT EXACT: order-only: as Parse_Directions
+// NOT EXACT: register (2 rows: the inlined += stores through [esi + edx], ours [edx + esi]; Parse_Directions' form, exact there, cut 28 -> 2; the copy loop, the test's sense, ch's / the index's types, the loop's spelling changed nothing)
 void FontDatabaseClass::Split_Four(const char *text, StringClass *values)
 {
+	char ch = *text;
 	StringClass parts[4];
-	StringClass *part = parts;
-	for (; *text != 0; text++) {
-		if (*text == ',') {
-			part++;
-		} else {
-			*part += *text;
-		}
+	if (ch != 0) {
+		int index = 0;
+		const char *p = text;
+		do {
+			if (ch == ',') index++; else parts[index] += ch;
+			ch = *++p;
+		} while (ch != 0);
 	}
 	for (int i = 0; i < 4; i++) {
 		values[i] = parts[i];
@@ -1272,7 +1272,7 @@ bool FontInitStruct::Save_Fonts(FontDatabaseClass *fdb)
 	return true;
 }
 
-// NOT EXACT: register-only: the client zeroes the sscanf targets and the inlined find's index from ebp (the dead loop counter's register), ours from edi (length's); the three targets as one local aggregate inline the !data exit's _Tidy as the client does (three scalars do not)
+// The three sscanf targets as one local aggregate inline the !data exit's _Tidy as the client does (three scalars do not); zeroed before font_name = str + length, the zero takes ebp (the dead loop counter's) as the client's, not edi (length's)
 bool FontInitStruct::Load_Font(unsigned int idx, FontDatabaseClass *fdb)
 {
 	FAIL_IF(idx >= MAXFONTS) return false;
@@ -1291,10 +1291,10 @@ bool FontInitStruct::Load_Font(unsigned int idx, FontDatabaseClass *fdb)
 
 		FAIL_IF(!str) return false;
 		if (strncmp(str, Name.c_str(), length) == 0) {
-			char *font_name = str + length;
 			struct { float scale; int spacing; int value98; } v;
 			v.spacing = 0; v.value98 = 0;
 			v.scale = 0;
+			char *font_name = str + length;
 			char *data = strchr(font_name, ':');
 
 
@@ -1348,7 +1348,7 @@ FontStringFilesClass::~FontStringFilesClass()
 **	0x6C3030 (NOT EXACT), Reload 0x6C1EC0 (the ini files again; the
 **	constructor's inline Load is the same plus 0x6C2080: written as one member the constructor inlines, it moved
 **	Load_Init's registers), 0x6C2080 (the eight fonts for the resolution: Font32Class through RefCountPtr's Create_NEW), Get_Blend_Type / Get_Direction / Get_Effect_Type 0x6C2340 / 0x6C2460 / 0x6C25A0 (the ini words to
-**	their values), Parse_Directions 0x6C2890 and Split_Four 0x6C2A10 (NOT EXACT), 0x6BFD00 (fontcode.ini / fontart.ini: the COLOR-n and EFFECT-n
+**	their values), Parse_Directions 0x6C2890 and Split_Four 0x6C2A10 (NOT EXACT: register), 0x6BFD00 (fontcode.ini / fontart.ini: the COLOR-n and EFFECT-n
 **	sections through Add_Color / Add_Effect, inlined with the asserts on lines 909 / 895), Clear_Infos 0x6BEE60 (with FontInitStruct's implicit destructor 0x6BEEF0), Clear_Tables
 **	0x6BEFD0 (Colors and Effects), Clear_Strings 0x6BF1F0, Find_Font 0x6C2BF0, Get_Info(width, height) 0x6C2CB0, the tables' Find_Color /
 **	Find_Effect / Find_String 0x6C2D00-0x6C2F20 and Add_String / Add_Effect / Add_Color 0x6C3380-0x6C3720
@@ -1359,7 +1359,7 @@ FontStringFilesClass::~FontStringFilesClass()
 **	resolution: the last whose ResWidth / ResHeight fit), 0x6C47B0 (line 1096), 0x6C49C0, and FontInitStruct::Find_Chat_Index
 **	0x6C5730, Save_Fonts 0x6C57B0 (lines 1235 / 1261: the chat fonts' lines into their options' text, then
 **	option.cpp's 0x7F8EF0; two dead text.size() place the budget as the client's) and Load_Font 0x6C5C60 (lines 1278-1308: the chat font's saved file through option.cpp's
-**	0x7F95E0 and split_string.h's SplitStringClass 0x4F9BF0 (the text split into lines); NOT EXACT); FontStringFilesClass (0xBE67BC: the string files in use, counted): Lower 0x6C4A80, the constructor
+**	0x7F95E0 and split_string.h's SplitStringClass 0x4F9BF0 (the text split into lines)); FontStringFilesClass (0xBE67BC: the string files in use, counted): Lower 0x6C4A80, the constructor
 **	0x6C4C80, Find 0x6C51A0, Load 0x6C52B0 (HL2: Find inlined, its find 0x6C62A0 and conversion 0x6C6370 called a level
 **	deeper; NOT EXACT: frame), Unload 0x6C55B0 and the destructor 0x6C4F50 (written after Load_Font, past the
 **	asserts; its iterator declared before the for and assigned: initialised in the for header it is begin()'s
