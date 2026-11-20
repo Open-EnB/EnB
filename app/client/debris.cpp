@@ -227,7 +227,7 @@ RenderObjClass *DebrisFieldClass::Clone(void) const
 }
 
 // 0x6B9BF0
-// NOT EXACT: masked residue 192 -> 6 (frame 0xA54 as the client's; diffuse written field by field, hash a signed int, cur -= back; cur += step, the tails test non-NULL first, d2 the bare Length2 with the inv_max2 product in the compare and the floor); left: bmin built by fields (fixes 0x6B9FD2 but flips the blur Rotate_Vector operand order), the stack slots
+// NOT EXACT: masked residue 192 -> 1 (frame 0xA54 as the client's; diffuse written field by field, hash a signed int, cur -= back; cur += step, the tails test non-NULL first, d2 the bare Length2 with the inv_max2 product in the compare and the floor, bmin built by fields, each case's own loop variables); left: one base / index order in the frustum copy's corner loop (0x6B9EEF) and slot tie-swaps (back_z.Y / .Z, x1 / back_y.Z, bmax.Z)
 void DebrisFieldClass::Render(RenderInfoClass &rinfo)
 {
 	WWPROFILE("DebrisFieldClass::Render");
@@ -270,7 +270,7 @@ void DebrisFieldClass::Render(RenderInfoClass &rinfo)
 	frustum.Init(frustum.CameraTransform, vpmin, vpmax, MinDist, MaxDist);
 
 	Vector3 bmax(frustum.BoundMax.X + Size, frustum.BoundMax.Y + Size, frustum.BoundMax.Z + Size);
-	Vector3 bmin(frustum.BoundMin.X - Size, frustum.BoundMin.Y - Size, frustum.BoundMin.Z - Size);
+	Vector3 bmin; bmin.X = frustum.BoundMin.X - Size; bmin.Y = frustum.BoundMin.Y - Size; bmin.Z = frustum.BoundMin.Z - Size;
 	float inv_spacing = 1.0 / Spacing;
 	float f = floor(inv_spacing * bmin.X);
 	int x0 = f;
@@ -344,15 +344,15 @@ void DebrisFieldClass::Render(RenderInfoClass &rinfo)
 	if (UnknownE4) {
 		ucoords = UnknownE4->Get_Array();
 	}
-	int x;
-	int y;
-	int z;
+
+
+
 	switch (Unknown_6BB440()) {
-		case 0:
-			for (x = x0; x < x1; x++) {
-				for (y = y0; y < y1; y++) {
+		case 0: {
+			for (int x = x0; x < x1; x++) {
+				for (int y = y0; y < y1; y++) {
 					int xy = y ^ x;
-					for (z = z0; z < z1; z++) {
+					for (int z = z0; z < z1; z++) {
 						int hash = z ^ xy;
 						int corner = (((hash >> 3) & 0x38) ^ (hash & 0x38)) >> 3 ^ (hash & 7);
 						locs[UnknownD4] = cur + jitter[corner];
@@ -378,12 +378,12 @@ void DebrisFieldClass::Render(RenderInfoClass &rinfo)
 				}
 				cur -= back_y; cur += step_x;
 			}
-			break;
-		case 1:
-			for (x = x0; x < x1; x++) {
-				for (y = y0; y < y1; y++) {
+			break; }
+		case 1: {
+			for (int x = x0; x < x1; x++) {
+				for (int y = y0; y < y1; y++) {
 					int xy = y ^ x;
-					for (z = z0; z < z1; z++) {
+					for (int z = z0; z < z1; z++) {
 						int hash = z ^ xy;
 						int corner = (((hash >> 3) & 0x38) ^ (hash & 0x38)) >> 3 ^ (hash & 7);
 						locs[UnknownD4] = cur + jitter[corner];
@@ -409,7 +409,7 @@ void DebrisFieldClass::Render(RenderInfoClass &rinfo)
 				}
 				cur -= back_y; cur += step_x;
 			}
-			break;
+			break; }
 		default:
 
 
