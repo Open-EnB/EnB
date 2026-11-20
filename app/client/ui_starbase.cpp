@@ -1737,7 +1737,7 @@ void UIStarbaseClass::Unknown_58()
 
 
 
-// NOT EXACT: 0x6390A0, functional (inline budget: the client destroys the two name strings through _Tidy(true) out of line, ours inlines it; O4)
+
 // 0x6390A0 (0x638390's frame: the arrival walk to a 'Spawn%02d' bone, then the facility's or NPC's interface once the
 // camera has arrived, the departure once the leaving animation ends)
 void UIStarbaseClass::Unknown_6390A0()
@@ -1773,11 +1773,11 @@ void UIStarbaseClass::Unknown_6390A0()
 			if (npc->Booth >= StarbaseNPCClass::BOOTH_NONE && npc->Booth <= StarbaseNPCClass::BOOTH_BLACKMKT) {
 				UnknownB0->Unknown_69F8F0(11, npc->Unknown04);
 				if (UnknownB0->Unknown190) {
-					UnknownB0->Unknown190->Unknown_64C7B0(npc->Desc.Get_Full_Name().c_str());
+					UnknownB0->Unknown190->Unknown_64C7B0(npc->Desc.Get_Full_Name().c_str()); UnknownC0.D->Avatar->Unknown318.size();	// D272: a dead read; the client destroys the name string through _Tidy(true) out of line
 				}
 			}
 		} else if (UnknownC0.A >= 0) {
-			UnknownB0->Unknown_69F8F0(Unknown_B90C60[RoomInfo->Find_Facility(UnknownC0.A)->Type], 0);
+			StarbaseFacilityClass *facility = RoomInfo->Find_Facility(UnknownC0.A); UnknownB0->Unknown_69F8F0(Unknown_B90C60[facility->Type], 0);
 		}
 	}
 	if (Unknown201 && UnknownC0.D->Avatar->Unknown318.empty()) {
@@ -2497,7 +2497,7 @@ void UIStarbaseClass::Unknown_63AC60()
 
 
 
-// NOT EXACT: 0x63B630, functional (register: the black market booth's RefCountPtr temporary's address taken in ecx after the model's load in the client, in edx before it here, as 0x638DA0; O4)
+
 // 0x63B630 (0x638500's keys: 2 an NPC slot, 0x11 a terminal, 100 a symbol chat option; the camera turned to it)
 void UIStarbaseClass::Unknown_63B630(int type, int index)
 {
@@ -2510,7 +2510,7 @@ void UIStarbaseClass::Unknown_63B630(int type, int index)
 			UnknownC0.D->Avatar->Unknown_786E60();
 			Unknown_63D2F0(UnknownC0.B);
 			if (RoomInfo->Find_NPC(UnknownC0.B)->Booth == StarbaseNPCClass::BOOTH_BLACKMKT) {
-				UnknownB0->Unknown_69F540(Unknown_497300(((RObjGadgetClass *)Unknown13C[UnknownC0.B]->Unknown14)->RObj), "vb_blackmkt.vb_blackmkt-1", 0, false, false);
+				UnknownB0->Unknown_69F540(Unknown_497300(((RObjGadgetClass *)Unknown13C[UnknownC0.B]->Unknown14)->Peek_Render_Obj()), "vb_blackmkt.vb_blackmkt-1", 0, false, false);
 				Unknown1B0 = true;
 			}
 			UnknownB0->Unknown_69CBE0();
