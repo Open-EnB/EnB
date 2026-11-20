@@ -39,7 +39,7 @@ bool Unknown_847D20(const char *filename)		// NAME 1 [Unknown_847D20]: the text 
 }
 
 // @0x847FE0
-// NOT EXACT: inline-budget
+
 static BOOL CALLBACK Unknown_847FE0(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	switch (uMsg) {
@@ -51,11 +51,19 @@ static BOOL CALLBACK Unknown_847FE0(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM 
 		return FALSE;
 
 	case WM_ACTIVATE:
-		break;
+		return FALSE;
 
 	case WM_INITDIALOG:
 		SendDlgItemMessageA(hDlg, 1037, WM_SETTEXT, 0, lParam);
 		return TRUE;
+
+	case WM_CTLCOLORSTATIC:
+		if (!Unknown_BF3DB4) {
+			Unknown_BF3DB4 = CreateSolidBrush(RGB(255, 255, 255));
+		}
+		SetTextColor((HDC)wParam, RGB(0, 0, 0));
+		SetBkColor((HDC)wParam, RGB(255, 255, 255));
+		return (BOOL)Unknown_BF3DB4;
 
 	case WM_COMMAND:
 		if (LOWORD(wParam) == 2) {
@@ -65,15 +73,7 @@ static BOOL CALLBACK Unknown_847FE0(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM 
 		if (LOWORD(wParam) == 1) {
 			EndDialog(hDlg, 1);
 		}
-		break;
-
-	case WM_CTLCOLORSTATIC:
-		if (!Unknown_BF3DB4) {
-			Unknown_BF3DB4 = CreateSolidBrush(RGB(255, 255, 255));
-		}
-		SetTextColor((HDC)wParam, RGB(0, 0, 0));
-		SetBkColor((HDC)wParam, RGB(255, 255, 255));
-		return (BOOL)Unknown_BF3DB4;
+		return FALSE;
 	}
 
 	return FALSE;

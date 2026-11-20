@@ -94,13 +94,12 @@ void Unknown_764480Class::Unknown_764880(int a, int b, int c, int index, LightCl
 	INI.Put_Float(section, entry, far_range);
 }
 
-// NOT EXACT: 0x764AB0, functional (register / order: the client keeps the offset's y on the FPU across the branch and copies x / z as integers; B1)
+
 // 0x764AB0
-Vector3 Unknown_764480Class::Unknown_764AB0(int a, int b, int c, int index)
-{
+Vector3 Unknown_764480Class::Unknown_764AB0(int a, int b, int c, int index) {
 	char section[64];
 	char entry[64];
-	TPoint3D<float> offset(0.5f, 0.5f, 0.0f);
+	Vector3 offset(0.5f, 0.5f, 0.0f);
 	TPoint3D<float> center(0.5f, 0.5f, 0.0f);
 	_snprintf(section, sizeof(section), "STARBASE-%d-%d-%d", a, b, c);
 	if (!INI.Find_Section(section)) {
@@ -109,9 +108,10 @@ Vector3 Unknown_764480Class::Unknown_764AB0(int a, int b, int c, int index)
 	_snprintf(entry, sizeof(entry), "Offset%d", index);
 	if (INI.Find_Entry(section, entry)) {
 		TPoint3D<float> point = INI.Get_Point(section, entry, center);
-		offset = point;
-	}
-	return(*(Vector3 *)&offset);
+		offset.X = point.X;
+		offset.Y = point.Y;
+		offset.Z = point.Z;
+	} return(offset);
 }
 
 // 0x764C30

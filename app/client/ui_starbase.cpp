@@ -1096,27 +1096,27 @@ void UIStarbaseClass::Unknown_63B310()
 	}
 }
 
-// NOT EXACT: 0x63BC30, functional (loop shape: the client keeps the test of the count at the loop's top before the first sweep, ours rotates it; while, do-while, for(;;) and goto forms tried; C3)
+
 // 0x63BC30
-void UIStarbaseClass::Unknown_63BC30(RefCountPtr<CharacterViewAvatarClass> &avatar)
-{
+void UIStarbaseClass::Unknown_63BC30(RefCountPtr<CharacterViewAvatarClass> &avatar) {
 	int tries = 0;
 	Matrix3D tm = avatar->Unknown_787DE0();
-retry:
-	if (tries < 10) {
-		tries++;
-		if (avatar->Unknown_787F40(Unknown_Model())) {
-			goto retry;
+	while (true) {
+		if (tries >= 10) {
+			break;
 		}
-	}
-	if (tries < 10) {
+		tries++;
+		if (!avatar->Unknown_787F40(Unknown_Model())) {
+			break;
+		} }
+	if (tries >= 10) {
+		tm.Set_Translation(Unknown1EC);
+		avatar->Unknown330 = tm;
+	} else {
 		Vector3 pos = tm.Get_Translation();
 		if ((pos - Unknown1EC).Length() > 1.0f) {
 			Unknown1EC = pos;
 		}
-	} else {
-		tm.Set_Translation(Unknown1EC);
-		avatar->Unknown330 = tm;
 	}
 }
 
@@ -1209,17 +1209,17 @@ void UIStarbaseClass::Unknown_88()
 	UnknownB0->Unknown_6A0E50();
 }
 
-// NOT EXACT: 0x638DA0, functional (register: the client takes the RefCountPtr temporary's address in eax after pushing the model, ours in ecx before; a named temporary is worse; C3)
+
 // 0x638DA0
-void UIStarbaseClass::Unknown_8C()
-{
+void UIStarbaseClass::Unknown_8C() {
 	if (Unknown1FD) {
 		Unknown1FD = false;
 		Unknown1FC = true;
 		Unknown1B1 = true;
 		UnknownB0->Unknown_69EB20(UnknownC0.D->Avatar->Unknown_787A90(), 1, true);
 		if (Unknown1B0 && UnknownC0.B >= 0) {
-			UnknownB0->Unknown_69F540(Unknown_497300(((RObjGadgetClass *)Unknown13C[UnknownC0.B]->Unknown14)->RObj), "vb_blackmkt.vb_blackmkt-2", 0, false, false);
+			RenderObjClass *model = ((RObjGadgetClass *)Unknown13C[UnknownC0.B]->Unknown14)->RObj;
+			UnknownB0->Unknown_69F540(Unknown_497300(model), "vb_blackmkt.vb_blackmkt-2", 0, false, false);
 			Unknown1B0 = false;
 		}
 		UnknownC0.A = -1;

@@ -299,15 +299,15 @@ void UIComboBoxClass::Unknown_5C()
 	InterfaceClass::Unknown_5C();
 }
 
-// NOT EXACT: inline-budget (the client calls Unknown_Clamp 0x57BA10 and the items' size() 0x47D640 in the expanded Scroll_To_Selected; ours expands them)
+
 // 0x579DC0
-void UIComboBoxClass::Unknown_60()
-{
+void UIComboBoxClass::Unknown_60() {
 	Update_Drop_Down();
 	if (ArrowHidden && State == 3) {
 		if (!Is_Pointer_Over()) {
 			if (Unknown_42EC60(1, 0) || Unknown_42EC60(2, 0)) {
 				Toggle_Drop_Down();
+				Items.size();
 			}
 		}
 	}

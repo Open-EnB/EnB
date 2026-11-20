@@ -363,10 +363,9 @@ float DebrisInterfaceClass::Get_Min_Dist()
 {
 	return(Fields[Mode]->MinDist);
 }
-// NOT EXACT: functional (D64), literal (the client compares the MaxDist it loads with the clamped value kept in st(1): fld [MaxDist]; fcomp st(1))
+
 // 0x53E2F0
-void DebrisInterfaceClass::Set_Min_Dist(float min_dist)
-{
+void DebrisInterfaceClass::Set_Min_Dist(float min_dist) {
 	if (min_dist < 0.0f) {
 		min_dist = 0.0f;
 	}
@@ -376,7 +375,8 @@ void DebrisInterfaceClass::Set_Min_Dist(float min_dist)
 		if (max_dist < 1.0f) {
 			max_dist = 1.0f;
 		}
-		if (max_dist <= field->MinDist) {
+		float min = field->MinDist;
+		if (max_dist <= min) {
 			max_dist = field->MinDist * 1.1f;
 		}
 		field->MaxDist = max_dist;

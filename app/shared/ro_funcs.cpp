@@ -276,8 +276,8 @@ void Unknown_496730(RenderObjClass *robj, int sort_level, bool dec_if_match)	// 
 }
 
 // 0x4967F0
-// NOT EXACT: shape
-bool Unknown_4967F0(RenderObjClass *robj, int delta, RenderObjClass *base_robj)	// NAME 1 [Unknown_4967F0, robj, delta, base_robj]: neutral (D10)
+
+bool Unknown_4967F0(RenderObjClass *robj, int delta, RenderObjClass *base_robj)
 {
 	if (robj == NULL) {
 		return false;
@@ -300,16 +300,16 @@ bool Unknown_4967F0(RenderObjClass *robj, int delta, RenderObjClass *base_robj)	
 	sort_level += delta;
 	if (sort_level <= 0) return false;
 	if (sort_level >= 32) return false;
-	robj->Set_Sort_Level(sort_level);
-	int level = sort_level;
-	if (robj->Get_Sort_Level() == sort_level) level = sort_level - 1;
-	int count = robj->Get_Num_Sub_Objects();
-	for (int i = 0; i < count; i++) {
-		RenderObjClass *sub = robj->Get_Sub_Object(i);
-		if (sub != NULL) {
-			Unknown_496730(sub, level, true);
-			sub->Release_Ref(); }
-	}
+
+
+
+
+
+	Unknown_496730(robj, sort_level, true);
+
+
+
+
 	return true;
 }
 // 0x496960

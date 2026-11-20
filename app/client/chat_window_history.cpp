@@ -213,7 +213,7 @@ const RefCountPtr<ChatLineClass> &ChatWindowHistoryClass::Unknown_682730(unsigne
 	return History[index];
 }
 
-// NOT EXACT: the walk back: the client keeps the mask 2 in al and an unrotated loop (0x6827BB); this rotates it
+
 const RefCountPtr<ChatLineClass> &ChatWindowHistoryClass::Unknown_682770(unsigned int index)
 {
 	if (History.empty()) {
@@ -410,20 +410,20 @@ const RefCountPtr<ChatLineClass> &ChatWindowHistoryClass::Unknown_682770(unsigne
 
 
 	G_ASSERT((*it)->Is_Last());
-	unsigned int count;
-	for (count = 1; !(*it)->Is_First(); --it, count++) {
-
-
-
-		FAIL_IF(it == History.begin()) break;
-	}
-	if (index >= count) {
-		return NullLine;
-	}
-	if (index != 0) {
+	{ unsigned int count = 1;
+		bool done = false;
+		while (!done) {
+			if ((*it)->Is_First()) {
+				done = true; } else {
+				FAIL_IF(it == History.begin()) break;
+				--it;
+				count++; } }
+		if (index >= count) {
+			return NullLine;
+		} }
+	if (index > 0) {
 		it += index;
-	}
-	return *it;
+	} return *it;
 }
 
 int ChatWindowHistoryClass::Unknown_682840()

@@ -108,11 +108,11 @@ const unsigned int &DurationAccessorClass::Get()
 	return Seconds;
 }
 
-// NOT EXACT: the client keeps time()'s 0 argument in ebx and adds the ticks' zero high half from
-// it; VC6 here pushes an immediate (tried: other orders, a DurationClass temporary)
+
+
 void DurationAccessorClass::Set(const unsigned int &value)
 {
-	unsigned int ticks = Unknown_Get_Ticks();
+	unsigned __int64 ticks = Unknown_Get_Ticks();
 	int now = time(NULL);
 	Duration->Time = ((__int64)value - now) * 1000 + ticks;
 }

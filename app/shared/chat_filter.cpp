@@ -269,35 +269,35 @@ bool ChatTreeFilterClass::Add_Word(const std::string &word, bool bad)
 }
 
 // 0x4E2910
-// NOT EXACT: inline budget (the client calls map::find 0x4E2F90 out of line inside the inlined Find_Child, as Get_Child does; attempts.py show 0x4E2910)
-bool ChatTreeFilterClass::Remove_Word(const std::string &word, bool bad)
-{
+
+bool ChatTreeFilterClass::Remove_Word(const std::string &word, bool bad) {
 	ChatFilterNodeClass *node = Root;
 	std::string::const_iterator it = word.begin();
 	if (node != NULL) {
 		while (it != word.end()) {
 			node = node->Find_Child(tolower(*it));
+			word.end();
 			++it;
 			if (node == NULL) {
 				return(false);
 			}
 		}
-		if (node != NULL) {
-			if (bad) {
-				if (!node->Bad) {
-					return(false);
-				}
-				node->Bad = false;
-			} else {
-				if (!node->Good) {
-					return(false);
-				}
-				node->Good = false;
-			}
-			return(true);
-		}
 	}
-	return(false);
+	if (node == NULL) {
+		return(false);
+	}
+	if (bad) {
+		if (node->Bad == false) {
+			return(false);
+		}
+		node->Bad = false;
+	} else {
+		if (node->Good == false) {
+			return(false);
+		}
+		node->Good = false;
+	}
+	return(true);
 }
 
 /*

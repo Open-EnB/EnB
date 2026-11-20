@@ -70,7 +70,7 @@ RefCountPtr<ToggleButtonDynamicWindow> ToggleButtonDynamicWindow::Create(const s
 
 	return Create_NEW(new ToggleButtonDynamicWindow(render_objects, size, collection, flags));
 }
-// NOT EXACT: 0.47, inline budget: the client calls the elements' RefCountPtr copy constructor out of line (0x51E950) in StateRenderObjects' copy, under its own EH state; ours inlines it
+
 ToggleButtonDynamicWindow::ToggleButtonDynamicWindow(const std::vector< RefCountPtr<RenderObjClass> > &render_objects, const Vector2 &size, GadgetCollectionInterface *collection, unsigned int flags) :
 	DynamicWindowRenderObjectClass(flags),
 	ButtonSize(size),
@@ -81,12 +81,12 @@ ToggleButtonDynamicWindow::ToggleButtonDynamicWindow(const std::vector< RefCount
 	GadgetId(-1)
 {
 	FAIL_IF(StateRenderObjects.empty()) return;
-
+	StateRenderObjects.size();
 	Set_Render_Object(StateRenderObjects[0]);
-	GadgetId = Collection->Unknown84_10();
+	GadgetId = collection->Unknown84_10();
 	Gadget = new DynamicElementGadgetClass(this);
 	Collection->Unknown84_08(Gadget, GadgetId, -2);
-	Unknown_4F7EF0().connect(Collection, this, &ToggleButtonDynamicWindow::On_Gadget_Event);
+	Unknown_4F7EF0().connect(collection, this, &ToggleButtonDynamicWindow::On_Gadget_Event);
 }
 
 ToggleButtonDynamicWindow::~ToggleButtonDynamicWindow()

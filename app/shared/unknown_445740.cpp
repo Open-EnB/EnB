@@ -182,10 +182,9 @@ Vector3 SteeringClass::Avoid_Collisions(const SteeringVehicleStruct &vehicle, Px
 }
 
 
-// NOT EXACT: shape (explain.py): one load order (the client loads the owner's radius and fsubr's the distance)
+
 // 0x446810
-Vector3 SteeringClass::Separation(const SteeringVehicleStruct &vehicle, PxWrapper *proxim)
-{
+Vector3 SteeringClass::Separation(const SteeringVehicleStruct &vehicle, PxWrapper *proxim) {
 	std::vector<DynObj *> &list = proxim->Unknown_4568E0();
 	int count = list.size();
 	if (count == 0) {
@@ -196,7 +195,8 @@ Vector3 SteeringClass::Separation(const SteeringVehicleStruct &vehicle, PxWrappe
 		DynObj *obj = list[i];
 		Vector3 away = vehicle.Position - obj->Unknown_Dyn48();
 		float distance = away.Length();
-		float gap = distance - proxim->Owner->Unknown04 - obj->Unknown04;
+		float radius = proxim->Owner->Unknown04;
+		float gap = distance - radius - obj->Unknown04;
 		if (gap <= SeparationRadius) {
 			float strength = (1.0f - gap * 0.01f) * MaxSpeed;
 			away *= (strength + strength) / distance;

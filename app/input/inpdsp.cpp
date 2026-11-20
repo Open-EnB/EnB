@@ -125,7 +125,7 @@ int LoginUnknown0CClass::Unknown_429E50(void *owner)
 	return count;
 }
 
-// NOT EXACT: register-only, 1 row: the client reloads rec->Next through prev (edi) in the search loop (attempts.csv)
+
 bool LoginUnknown0CClass::Unknown_429F60(InputRecordStruct *stack, unsigned int key, void *owner)
 {
 	if (stack->Owner == owner) {
@@ -136,19 +136,19 @@ bool LoginUnknown0CClass::Unknown_429F60(InputRecordStruct *stack, unsigned int 
 		}
 		return true;
 	}
-	InputRecordStruct *prev = stack;
-	for (InputRecordStruct *rec = stack->Next; rec != NULL && rec->Owner != owner; rec = rec->Next) {
-		prev = rec;
+	while (stack->Next != NULL && stack->Next->Owner != owner) {
+		stack = stack->Next;
 	}
-	InputRecordStruct *found = prev->Next;
+	InputRecordStruct *found = stack->Next;
 	if (found) {
 		InputRecordStruct *next = found->Next;
 		delete found;
-		prev->Next = next;
+		stack->Next = next;
 		return true;
 	}
 	return false;
 }
+
 
 unsigned int LoginUnknown0CClass::Unknown_42A170(KernelEventClass *event) const
 {

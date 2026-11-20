@@ -41,16 +41,16 @@ void CheckBoxGadgetClass::Unknown_7E8030(bool on)
 	Unknown_7E8050();
 }
 
-// NOT EXACT: register residue only (the last Release_Ref's vtable in edx, the client's in eax); D89
-void CheckBoxGadgetClass::Unknown_7E8050()
-{
+
+void CheckBoxGadgetClass::Unknown_7E8050() {
 	RefCountPtr<TextureClass> texture;
 	if (Checked) {
 		texture = Create_Get(WW3DAssetManager::Get_Instance()->Get_Texture("if_check_on.tga", MIP_LEVELS_ALL, WW3D_FORMAT_UNKNOWN, true));
 	} else {
 		texture = Create_Get(WW3DAssetManager::Get_Instance()->Get_Texture("if_check_off.tga", MIP_LEVELS_ALL, WW3D_FORMAT_UNKNOWN, true));
 	}
-	Unknown_495FD0(RObj, texture.Peek(), 0);
+	RenderObjClass *robj = RObj;
+	Unknown_495FD0(robj, texture.Peek(), 0);
 }
 
 /*

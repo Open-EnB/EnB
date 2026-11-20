@@ -519,16 +519,16 @@ UnknownB829E0Struct UnknownB829E0[] = {	// 0xB829E0  // NAME 1: neutral (D10)
 	{ 0, 0 }
 };
 
-// NOT EXACT: 0.58: the client sets the table pointer after the first name's null test, this before it (scheduling; 4 loop forms)
+
 // 0x5C8710
-const char *Unknown_5C8710(int bits)	// NAME 1: neutral (D10); NAME 1 [bits]: what the table holds
-{
-	const char *name = UnknownB829E0[0].Name;	// NAME 1: neutral (D10)
-	for (UnknownB829E0Struct *e = UnknownB829E0; name; name = (++e)->Name) {
+const char *Unknown_5C8710(int bits) {
+	UnknownB829E0Struct *e;
+	const char *name = UnknownB829E0[0].Name;
+	if (name == 0) return(0);
+	for (e = UnknownB829E0; name; name = (++e)->Name) {
 		if (bits == e->Bits) return(name);
 		if (!bits) break;
-	}
-	return(0);
+	} return(0);
 }
 
 /*
