@@ -29,13 +29,18 @@ Device kinds (code: found from the code; comment: from a comment that names the 
                                                          .work/budgetdev/measure-<kinds>.json (kept across runs: two
                                                          kind sets may run at once), then the table. --freeset: each
                                                          file once more with every device measured `free` removed
-                                                         together (the source change a builder would make)
+                                                         together (the source change a builder would make). --sweep:
+                                                         each holding dead-read row with n reads, only its first / last
+                                                         m kept (m = 1..n-1; D272: the count matters)
+    python tools/re/budgetdev.py apply FILE... [--sweep] write a measured free set (exact functions only, a pragma pair
+                                                         shared with a kept row left whole), or with --sweep the fewest
+                                                         reads, into the tree (lines kept); then verify as usual
     python tools/re/budgetdev.py table                   docs/data/budget-devices.md and .json (generated)
 
 Measured verdicts (per device row): `holds` (the file without the device loses exact pairs: listed), `free` (nothing
 lost: the device is not needed at this state of the file), `gains` (the file without it gains pairs), `error` (the
 form did not compile). `evidence` is the client evidence for keeping the device's form (none found -> `source
-unproven`); the tool never edits the tree. Standard library plus trybatch / matchaudit (measure needs the VMs).
+unproven`). Only `apply` edits the tree. Standard library plus trybatch / matchaudit (measure needs the VMs).
 """
 import argparse
 import contextlib
@@ -529,11 +534,43 @@ def forms_of_text(text, rows):
     return text, out
 
 
+def apply_sweeps(files, scan, meas):
+    """Cut each exact function's holding dead reads to the fewest its count sweep measured with nothing lost (the
+    front kept when both sides tie)."""
+    led = ledger()
+    for f in files:
+        rel = f.replace('\\', '/')
+        p = os.path.join(ROOT, rel)
+        raw = open(p, encoding='latin-1', newline='').read()
+        crlf = '\r\n' in raw
+        drop = []
+        for r in scan['rows']:
+            if r['file'] != rel or r['kind'] != 'dead-read' or not r['exact'] or len(r.get('spans') or []) < 2:
+                continue
+            sw = {k.rsplit('|', 1)[1]: v['verdict'] for k, v in meas.items() if k.startswith('_sweep|' + row_key(r) + '|')}
+            best = None
+            for form, v in sorted(sw.items(), key=lambda kv: (int(kv[0][1:]), kv[0][0] != 'f')):
+                if v in ('free', 'gains'):
+                    best = form
+                    break
+            if best is None or int(r['address'], 16) not in (led.get(rel) or ()):
+                continue
+            sp, m = sorted(r['spans']), int(best[1:])
+            drop += sp[m:] if best[0] == 'f' else sp[:len(sp) - m]
+            print(f'apply {rel}: {r["function"]} {r["address"]}: {len(sp)} dead reads -> {m} ({"first" if best[0] == "f" else "last"})')
+        if drop:
+            new = without(raw.replace('\r\n', '\n'), drop)
+            open(p, 'w', encoding='latin-1', newline='').write(new.replace('\n', '\r\n') if crlf else new)
+    return 0
+
+
 def cmd_apply(a):
     """Write each file's measured free set (its `_freeset` verdict free or gains) into the tree, line ends and line
     count kept; prints the comment lines that name the removed devices (reword them by hand)."""
     scan = load('scan') or {'rows': []}
     meas = load_measures()
+    if a.sweep:
+        return apply_sweeps(a.files, scan, meas)
     for f in a.files:
         rel = f.replace('\\', '/')
         fs = meas.get('_freeset|' + rel)
@@ -606,6 +643,21 @@ def freeset_form(rel, rows, meas):
     return {'freeset': ([row_key(r) for r in free], without(raw, spans))}
 
 
+def sweep_forms(rel, rows, meas):
+    """{form: ([row key], text)}: for each holding dead-read row of rel with several reads, the file with only the
+    first m (`f<m>`) or the last m (`l<m>`) of its n reads kept, m = 1..n-1 (D272: the count matters, sweep it)."""
+    raw = open(os.path.join(ROOT, rel), encoding='latin-1', newline='').read().replace('\r\n', '\n')
+    out = {}
+    for k, r in enumerate(rows):
+        sp = sorted(r.get('spans') or [])
+        if r['kind'] != 'dead-read' or len(sp) < 2 or (meas.get(row_key(r)) or {}).get('verdict') != 'holds':
+            continue
+        for m in range(1, len(sp)):
+            out[f'sweep{k}_f{m}'] = ([row_key(r)], without(raw, sp[m:]))
+            out[f'sweep{k}_l{m}'] = ([row_key(r)], without(raw, sp[:len(sp) - m]))
+    return out
+
+
 def measure_file(rel, rows, vms, logf, forms=None):
     import trybatch
     if forms is None:
@@ -665,6 +717,9 @@ def measure_file(rel, rows, vms, logf, forms=None):
             v['rows'] = keys
             out['_freeset|' + rel] = v
             continue
+        if name.startswith('sweep'):
+            out['_sweep|' + keys[0] + '|' + name.split('_', 1)[1]] = v
+            continue
         for k in keys:
             out.setdefault(k, v) if name == 'all' else out.__setitem__(k, v)
         if name == 'all':
@@ -677,7 +732,7 @@ def cmd_measure(a):
     if not scan:
         raise SystemExit('measure: run `budgetdev.py scan` first')
     kinds = set(a.kinds.split(',')) if a.kinds else set(MEASURABLE)
-    tag = ('freeset-' if a.freeset else '') + '-'.join(sorted(kinds))
+    tag = ('freeset-' if a.freeset else 'sweep-' if a.sweep else '') + '-'.join(sorted(kinds))
     meas = load_measures()
     mine = load('measure-' + tag, {})          # one file per kind set: parallel runs never overwrite each other
     files = {}
@@ -691,6 +746,11 @@ def cmd_measure(a):
         files = {f: v for f, v in files.items() if freeset_form(f, v, meas)}
         if not a.redo:
             files = {f: v for f, v in files.items() if '_freeset|' + f not in meas}
+    elif a.sweep:
+        files = {f: v for f, v in files.items() if sweep_forms(f, v, meas)}
+        if not a.redo:
+            files = {f: v for f, v in files.items()
+                     if not any(k.startswith('_sweep|') and k.split('|')[2] == f for k in meas)}
     elif not a.redo:
         files = {f: v for f, v in files.items() if not all(row_key(r) in meas for r in v)}
     order = sorted(files, key=lambda f: -max((r['size'] for r in files[f] if r['exact']), default=0))
@@ -702,14 +762,15 @@ def cmd_measure(a):
     with open(logp, 'a', encoding='utf-8') as logf:
         for k, rel in enumerate(order, 1):
             got = measure_file(rel, files[rel], a.vms, logf,
-                               freeset_form(rel, files[rel], meas) if a.freeset else None)
+                               freeset_form(rel, files[rel], meas) if a.freeset else
+                               sweep_forms(rel, files[rel], meas) if a.sweep else None)
             logf.flush()
             mine.update({(f'_all|{tag}|{rel}' if kk.startswith('_all|') else kk): v for kk, v in got.items()
                          if kk not in ('_error', '_novm')})
             if '_error' in got:
                 mine[f'_error|{tag}|{rel}'] = {'verdict': 'error', 'detail': got['_error']}
             json.dump(mine, open(os.path.join(WORK, f'measure-{tag}.json'), 'w', encoding='utf-8'), indent=0)
-            vs = [v['verdict'] for kk, v in got.items() if not kk.startswith('_') or kk.startswith('_freeset')]
+            vs = [v['verdict'] for kk, v in got.items() if not kk.startswith('_') or kk.startswith(('_freeset', '_sweep'))]
             print(f'[{k}/{len(order)}] {rel}: ' + (', '.join(f'{x} {vs.count(x)}' for x in sorted(set(vs))) or
                                                     got.get('_error', 'nothing')), flush=True)
     return cmd_table(a)
@@ -736,11 +797,22 @@ def cmd_table(a):
     scan = load('scan') or {'rows': []}
     meas = load_measures()
     rows = []
+    sweeps = {}
+    for k, v in meas.items():
+        if k.startswith('_sweep|'):
+            rk, form = k[len('_sweep|'):].rsplit('|', 1)
+            sweeps.setdefault(rk, {})[form] = v['verdict']
     for r in scan['rows']:
+        n = len(r.get('spans') or [])
         r = {k: v for k, v in r.items() if k != 'spans'}
         m = meas.get(row_key(r))
         if m:
             r['measure'] = m
+        sw = sweeps.get(row_key(r))
+        if sw:       # the fewest reads (kept from the front / the back) with which the file loses nothing
+            r['sweep'] = {'reads': n, **{side: min([int(f[1:]) for f, v in sw.items() if f[0] == side[0]
+                                                     and v in ('free', 'gains')], default=None)
+                                         for side in ('first', 'last')}}
         ev = evidence_of(r)
         if m and m['verdict'] == 'holds':
             r['status'] = 'budget-held, ' + ('client-evidenced: ' + ev if ev else 'source unproven')
@@ -798,6 +870,12 @@ def cmd_table(a):
             m = r['measure']
             md.append(f"| {r['kind']} | {r['file']} | {r['function'][:40]} | {r['address'] or '-'} | {r['size']} | "
                       f"{', '.join(map(str, r['lines'][:6]))} | {r['status']} | {' '.join(m.get('lost', [])[:8]) or '-'} |")
+    swept = [r for r in rows if r.get('sweep')]
+    if swept:
+        md += ['', '## Count sweeps (holding dead-read rows with several reads: the fewest kept with nothing lost)', '',
+               '| File | Function | Address | Reads | Fewest kept, first | Fewest kept, last |', '|---|---|---|---|---|---|']
+        md += [f"| {r['file']} | {r['function'][:40]} | {r['address'] or '-'} | {r['sweep']['reads']} | "
+               f"{r['sweep']['first'] or 'all'} | {r['sweep']['last'] or 'all'} |" for r in swept]
     if freesets:
         md += ['', '## Free sets (per file, every device measured not needed alone, removed together)', '',
                '| File | Devices | Verdict | Lost | Gained |', '|---|---|---|---|---|']
@@ -830,11 +908,14 @@ def main(argv=None):
     m.add_argument('--vms', type=int, default=2, help='VMs per file batch (trybatch --vms)')
     m.add_argument('--kinds', help='comma list of kinds to measure (default: dead-read,auto-inline)')
     m.add_argument('--redo', action='store_true', help='measure files already measured again')
+    m.add_argument('--sweep', action='store_true',
+                   help="each holding dead-read row's count swept: only its first / last m of n reads kept")
     m.add_argument('--freeset', action='store_true',
                    help='per file, every device measured free alone removed together (the source change to make)')
     sub.add_parser('table')
     p = sub.add_parser('apply')
     p.add_argument('files', nargs='+')
+    p.add_argument('--sweep', action='store_true', help='cut holding dead reads to the fewest the count sweep kept')
     a = ap.parse_args(argv)
     return {'scan': cmd_scan, 'forms': cmd_forms, 'measure': cmd_measure, 'table': cmd_table, 'apply': cmd_apply}[a.cmd](a)
 
