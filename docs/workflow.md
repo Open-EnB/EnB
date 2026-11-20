@@ -599,6 +599,9 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
   caller inline it: re-check the callers after the landing.
 * **A store VC6 schedules after a later load / push** (sunk below the next call's argument setup) moves back with a file-static helper layer: try it before calling a residue order-only (ui_shipcust 0x624270).
 * **Small edits swing a far region's inline budget:** read the regions of the diff, not the totals. A budget window can be narrower than one dead `Peek()`; an extra inline layer moves nested destructors where dead reads cannot; a real inline call after a site flips later sites' budget as a pair.
+* **Inline accessor or dead read in place of a plain member read:** `Get_View()->X` for a member read at one call site both spends the inline budget and changes register ties; try it before a D272 sweep. Dead reads of an inlined helper's own accessor (`Peek_Model`) cut that helper's nested destructors, other accessors' reads do not. A dead `RefCountPtr::Peek()` / `vector::begin()` read can raise the budget (pull a later call inline): prefer a container `size()` read. Dummy locals cost budget; an inline helper's parameters give VC6 no new allocation variables (copy-propagated); `inline_depth(1)` / `(2)` compile as the default depth.
+* **One inlined call site per inline layer:** a helper holding both branches costs more budget than a one-site helper called twice; when a layer cuts a nested callee the client inlines, go flat, then add dead reads.
+* **Cuts are not monotonic in the count of reads at the end:** when the client keeps a later site and cuts earlier ones, one read right after the earlier site is the lever; map the cuts per count with a call-target sequence (a script listing the call targets in order). When a function starts compiling the client's layout, its old dead reads stop helping: sweep again from zero.
 
 **Register-only, order-only** (two attempts, then the stop rule)
 
@@ -697,6 +700,10 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
 * **A member read loaded between a table load and its test:** needs a named local, or the register order differs.
 * **VC6 canonicalises operand order, declaration order and names:** a variant that changes none of them gives a byte-identical object. Check that a variant changed the code before counting it as an attempt. objdiff's similarity has a ceiling from relocation and branch noise: count masked rows.
 * **An extra inline accessor temporary can flip a far inlined function's x87 order;** a reference local restores it. VC6 orders the spilled-local leaves of a byte sum by the preceding statements and the loop step order, not by declarations or term order, and hoists a constant into a callee-saved register by use count after tail duplication (probe batches and a grep for `xor ebx, ebx` find what tips a zero register).
+* **Loop-init and index-derived pointers:** VC6 sets up index-derived per-loop pointers in reverse order of first use; take the other's address earlier (a reference at the loop top) to put one first. A near miss whose only residue is a swapped pointer-setup pair before a loop is this case.
+* **Register rotation by a local:** reading a member's field into a local before a call rotates eax / ecx / edx; a `next` temporary at a loop end stops VC6 merging an identical advance elsewhere into it; in a switch VC6 assigns struct-copy sequences' registers in code order, so a duplicated tail copy changes the later cases' registers.
+* **x87 operand order inside an inlined expansion** (`Rotate_Vector` rows) can follow the function's set of locals: adding or dropping a plain local flips it; declaration grouping, casts and scope moves do not. VC6 canonicalises a float dot product's term order: only parentheses change code.
+* **A local can move a far branch's ending:** removing one can move a branch's shared ending in an unrelated case (compare the whole region list); adding one can un-spend a fragile budget. In a large function a correct local form can rotate the callee-saved registers across a whole loop: check its own regions (`trybatch.py regions ... --show K`), not just the total.
 
 **Shape: returns, tails, loops, switches**
 
@@ -807,6 +814,9 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
   loop wants the count kept in a second variable; per-branch locals (own buffer each) stop cross-jumping; a separate
   `result < 0` per sort branch gives the merged tails.
 * **VC6's tail merge of identical switch-case suffixes** is done on the generated code: source-level rewrites (`operator[]`, split assignments, labels) do not stop it, and changing the order of stores inside a case can swap the frame slots of locals used elsewhere (0x463F00 Get_Downhill).
+* **Loop rotation:** VC6 rotates `for (x; ; y)` whose first statement breaks (the head is copied to the bottom); `for (x; true; y)`, or a `while` with a nested block, keeps it top-tested; `do {} while (true)` does not.
+* **Per-case tails and merged cases:** identical `sound; return` tails taken by alternate cases are one tail per case in the source (VC6 merges them; a `break` to one shared tail costs registers). A jump-table entry pointing inside another case's code plus jmps into it is duplicated tails in the source, merged by VC6; a `goto` to a shared label gives a different layout. A separate `if` instead of `else if` keeps a block apart rather than jumping into a shared tail.
+* **Branch-sense and return-site forms:** `x == "US" ? 0xC : 0xD` (constants differing by 1) compiles branch-free (setne / add): `test / jne / push / jmp` in the client is an if / else with two calls. A trailing `else { dead store; }` after an else-if chain can flip VC6's branch sense at the chain end (jne-fallthrough to je + jmp) and move the block layout. One `goto` return site instead of many `return(false)` avoids each expanding its own destructor.
 
 **Frame and stack slots**
 
@@ -858,6 +868,7 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
   virtual that inlines it as two functions, expect the frame / slot class on both (explain.py), and judge each against
   its own bytes: the helper's slots do not carry over to the inlined copy.
 * **VC6 packs stack slots by liveness:** declaration order does not set slot order (a frame sum or slot swap is not fixed by reordering locals); the lever is the block shape (see the frame rows).
+* **A function-scope variable the slot map sends to two client slots** is per-block variables (a per-case `for (int x ...)`); a struct local stored contiguously and read as `fld other; fmul field` is built by fields, not by its constructor; an int going through a register before `fild` is an int local assigned inside the expression; a pointer kept in a register across two calls is the inline call's return stored in a local.
 
 **Constructors, destructors, vtables**
 
@@ -919,6 +930,7 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
   the vtable pointer (gd_scut_proxy.cpp); a bit-field read needs a `(bool)` cast.
 * **Zero-fills:** `memset` of 0x10-0x14 bytes is unrolled stores, 0x20 bytes `rep stosd`; a `rep stosd` after the
   vtable stores is the member-array memset.
+* **A value computed between a `new`'s allocation and its constructor** is the new-expression's argument. A helper whose inlined copy differs from its own standalone exact copy: write the loop in the caller, and check forms on the helper with `--file-check`.
 
 **Field offset, layout**
 
@@ -1051,6 +1063,7 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
   x; `fabs()` on a float kept as a double local gives `fst qword`; `(e + e) * 0.95f` gives `fadd st0,st0`; an inline
   accessor for a member next to a known constant (`Get_Avatar_ID()`) gives `push 0`.
 * **`Vector3`'s member `v.Normalize()`** recomputes `Length2` after the zero test (the tree's form is right); a client site that pushes the stored len2 and writes to a new temporary is the free `Normalize(const Vector3 &)`.
+* **A float local with a dead initialiser declared ahead** is not kept in st0 after its real definition (fstp + reload instead of fst).
 
 **Reading the client**
 
@@ -1626,9 +1639,9 @@ are in 3.0.
   leased VM's IP in a runner. `clienttest.py build` has no `--pool`: set `ENB_VC6_HOSTS`; in a worktree give
   build.py `--pool 1` (without it build / link failed with FileNotFoundError on cl.log). A build on a
   just-released lease fails every file and deletes app.lib, and the POC then silently runs the old exe: check the
-  build output says 'compiled'. Without `--pool` it also compiles on a VM lacking the worktree's programs/clientpoc files (C1083, then LNK2005s; L2, 2026-11-14).
+  build output says 'compiled'. Without `--pool` it also compiles on a VM lacking the worktree's programs/clientpoc files (C1083, then LNK2005s; L2, 2026-11-14). An app build on shared leases can die partway with "no object, no error": a private `build.py --pool 1` lease compiles the whole app.
 * **A killed or stopped job keeps its pool lease:** a killed verify, auxpad sweep or `appfile.py match` stays
-  leased (under its agent, or `importer-PID`): `pool.py release --agent NAME`. TaskStop on a Git Bash loop of
+  leased (under its agent, or `importer-PID`): `pool.py release --agent NAME`. Never TaskStop a verify queued for the importer lock: its Windows python keeps its place, later dies on ssh 0xC0000142 and leaves an `importer-PID` lease whose holder pid is claude.exe (it looks alive): kill the python pid. TaskStop on a Git Bash loop of
   `appfile.py --pool` runs leaves the Windows python children re-leasing VMs as the agent: kill them by PID
   (`Get-CimInstance Win32_Process`) and release. A builder stopped mid-verify leaves its VMs leased and
   running; the verify service then
@@ -1824,7 +1837,7 @@ are in 3.0.
 * **Check objmatch's status of the STL helpers a caller should call out of line** in your variant's obj before
   working toward them: `multiple` (identical client copies, e.g. `vector<RefCountPtr<T>>::insert` 0x47D690) never
   becomes a pair, however byte-identical; only the caller itself can gain.
-* **variants.py:** use `variants.py try --fit` (it keeps the definition's line count and puts each assert on its
+* **variants.py:** workers can hang on ssh to a VM (50 minutes seen): kill the tree, remove the round's `.claim` markers that have no result file, restart (it resumes from results.d). A NOT EXACT note is often followed by an address-only `// 0xADDR` line, or holds the function's only address marker: a blanking script keeps both; `--fit` squeezing a brace onto the signature line can break exactness. Use `variants.py try --fit` (it keeps the definition's line count and puts each assert on its
   line). When applying, restore every touched line, reproduce the line counts with blank lines after the function
   (in the file's padding), not the fit's packed braces or `#line`, and re-add the `// NAME` tags and address
   comments variants drop. `try` compares one object's exact set by address: a filter, never verify or pairs_cmp;
@@ -1912,7 +1925,7 @@ are in 3.0.
 * **A vtable alignment between two candidate slot orders can look proven when both put the same kind of stub (`ret 4`) in the checked slot:** check every slot's body. symbols.json's vtable-proved slot names then carry the wrong order and lose pairs when the header is fixed, until `replaces` rows are added.
 * **Tool arguments:** `verify.py --pool` takes an integer (the VM count). `appfile.py match --diff` needs the full `Class::Method` name and a `// @0xADDR` marker on an existing blank line (a new line shifts asserts). It cannot find operators (`??_5`, `??U`): use `objdiff.py .work/<ID>/appfile/obj/X.obj MANGLED ADDR`.
 * **Unwind funclets show a function's local `RefCountPtr` types:** N funclets jumping to one destructor means N locals of one instantiation; use them before retyping locals.
-* **trybatch traps:** a variant that changes the line count shifts later `__LINE__` (put dead forms on existing lines; the tool flags the shift); a header hunk appended after a `//` comment is commented out; a draft header reached through another header needs a no-op hunk on every intermediate header (the symptom is C1083 or a compile that shows no change), and a draft-folder header copy does not shadow a quoted include from another header; hunk anchors must be unique in the whole file; two threads on one VM collide on sync.tar; `listing.asm` is written only with `--slots`; region diffs are kept only for the best form (`trybatch.py regions` on that form's object); `identical` masks branch targets; a lever's cost to another instance in the file is invisible to its single-symbol measure (sweep the file with appfile); names from attempts.csv go stale (pass an empty `SYMBOL`); wildcarded relocations make same-shape initialisers all match.
+* **trybatch traps:** a variant that changes the line count shifts later `__LINE__` (put dead forms on existing lines; the tool flags the shift); a header hunk appended after a `//` comment is commented out; a draft header reached through another header needs a no-op hunk on every intermediate header (the symptom is C1083 or a compile that shows no change), and a draft-folder header copy does not shadow a quoted include from another header; hunk anchors must be unique in the whole file; two threads on one VM collide on sync.tar; `listing.asm` is written only with `--slots`; region diffs are kept only for the best form (`trybatch.py regions` on that form's object); `identical` masks branch targets; a lever's cost to another instance in the file is invisible to its single-symbol measure (sweep the file with appfile); names from attempts.csv go stale (pass an empty `SYMBOL`); SYMBOL resolves on the base object and reuses its mangled name, so a form that changes a signature fails "no such symbol" (change the tree first, then empty SYMBOL), and a new function absent from the base object reports "not in the object" for every form (measure with `trybatch.py regions <form>/obj/X.obj MANGLED ADDR`); a header with relative includes fails to compile in the overlay (use a same-depth local copy in the .cpp); the whole-function `res` can jump while the per-region sum is small when a block moves (check the spans), and masked 0 can hide raw x87 rows (measure raw too on near-exact functions); wildcarded relocations make same-shape initialisers all match.
 * **tryv2 under a busy importer lock:** a run that times out while queued for the lock runs nothing, and tryv2 gives up behind a busy lock: use `appfile match` on mark.py drafts. A variant that adds lines shifts later `__LINE__`.
 * **appfile match on a library file** uses the app's /GX unless you pass the library's own `--flags` (ww3d2's); explain.py needs a virtual's UAE decoration to find it. Parallel appfile runs need distinct `ENB_AGENT`, and `$(... &)` drops it.
 
