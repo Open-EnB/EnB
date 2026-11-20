@@ -416,8 +416,8 @@ static inline void Append_Dots(StringClass &text, bool on) { if (on) { text += "
 **	text rectangle +0x420 and the screen rectangle +0x430, and the underline quad from +0x2E0's "_" (Underline).
 **	Colours +0x494 / +0x4A4 / +0x4B4 are floats r, g, b, a (0x6D5170); fontmanager.h's FontStyleColorStruct says int.
 */
-// NOT EXACT: written from the client's code (0x6D64C0) for the POC; PT5 (2026-11-20) masked residue 1404 -> 881 (file-static inline layers Refresh_Line / Set_Pass_Color / Apply_Shader, Step_Colour, WWMath::Min); PT9 881 -> 413 (two dead reads after underline site 7: Vector2() out of line through ??_H at sites 5-7; the rows clamp as ?:, 1.0f < vt, the pass alpha's min as ?:): FC (2026-11-20) 413 -> 336: the line refresh flat with two dead reads after the copy and the "..." += in a layer (the client's Get_Length / Store_Length / operator= calls 0x6D6731-0x6D679B), the pass colour one Set_Vertex_Color per layer (Switch_To_Multi_Vertex_Color inline at both sites), three reads after site 7: every call as the client's; left frame 0xB0 / 0xE4 and scheduling
-void FontSys::Update_Text(bool unknown)
+// NOT EXACT: written from the client's code (0x6D64C0) for the POC; PT5 (2026-11-20) masked residue 1404 -> 881 (file-static inline layers Refresh_Line / Set_Pass_Color / Apply_Shader, Step_Colour, WWMath::Min); PT9 881 -> 413 (two dead reads after underline site 7: Vector2() out of line through ??_H at sites 5-7; the rows clamp as ?:, 1.0f < vt, the pass alpha's min as ?:): FC (2026-11-20) 413 -> 193: every call as the client's (the line refresh flat with two dead reads after the copy and the "..." += in a layer; the pass colour one Set_Vertex_Color per layer with WWMath::Min for the alpha; three reads after site 7), (float)height / strip_v inside the strip loop (hoisted, 0x6D6EBD), the swap as y_high first, strips as a ?: of two ftol operands, the argument an int (cmp eax, 1): left the zero register (the client's ebx, ours esi / edi), the two early returns' merge, frame 0xB0 / 0xE4
+void FontSys::Update_Text(int unknown)
 {
 	WWPROFILE("FontSys::Update_Text");
 	float *color = (float *)&Unknown494;		// r, g, b, a now
@@ -428,7 +428,7 @@ void FontSys::Update_Text(bool unknown)
 	float pos_y = 0.0f;
 	int i;
 
-	if (unknown) {
+	if (unknown == 1) {
 		Unknown444 = 0;
 		if (Unknown_6D60C0()) {
 			return;
@@ -526,7 +526,7 @@ void FontSys::Update_Text(bool unknown)
 	int height = Unknown2C8;
 	TextureClass *texture = Unknown2D0.Texture;
 	float step = 1.0f / (float)size;
-	int strips = (int)((float)width * step + ((width & (size - 1)) != 0 ? 1.0f : 0.0f));
+	int strips = (width & (size - 1)) != 0 ? (int)((float)width * step + 1.0f) : (int)((float)width * step);
 	float origin_x;
 	if (Info.Justify[1] == 3) {
 		origin_x = 0.0f;
@@ -563,11 +563,12 @@ void FontSys::Update_Text(bool unknown)
 	color[1] = Step_Colour(color[1], target[1]);
 	color[2] = Step_Colour(color[2], target[2]);
 	for (int pass = Unknown444; pass >= 0; pass--) {
-		if (pass) Pass_Vertex_Color(this, second[0], second[1], second[2], (color[3] < Unknown2F4[2] ? color[3] : Unknown2F4[2]));
-		else Pass_Vertex_Color(this, color[0], color[1], color[2], (color[3] < Unknown2F4[2] ? color[3] : Unknown2F4[2]));
+		if (pass) Pass_Vertex_Color(this, second[0], second[1], second[2], WWMath::Min(color[3], Unknown2F4[2]));
+		else Pass_Vertex_Color(this, color[0], color[1], color[2], WWMath::Min(color[3], Unknown2F4[2]));
 		int done = 0;
-		float strip_v = (float)height * step;
 		for (int k = 0; k < strips; k++) {
+			float fheight = (float)height;
+			float strip_v = fheight * step;
 			int strip_x = k * size;
 			int strip_w = width - strip_x;
 			if (strip_w >= size) {
@@ -624,7 +625,7 @@ void FontSys::Update_Text(bool unknown)
 					u_end = (float)qw * step;
 				}
 				int qy = (int)(top - (float)top_limit);
-				float vt = (float)top_limit / (float)height;
+				float vt = (float)top_limit / fheight;
 				int rows = bottom_limit - top_limit;
 				rows = rows < 0 ? 0 : rows;		// as ?: (the client's sets / dec / and at 0x6D71FE)
 
@@ -633,7 +634,7 @@ void FontSys::Update_Text(bool unknown)
 					vt = 1.0f;
 				}
 				float va = vt * strip_v + v0;
-				float v_size = ((float)rows / (float)height) * strip_v;
+				float v_size = ((float)rows / fheight) * strip_v;
 				float xs = 640.0f / (float)Width * Scale * Unknown2F4[0];
 				float ys = 480.0f / (float)Height * Scale * Unknown2F4[0];
 				if (Unknown4DC > 1.0f) xs /= Unknown4DC;
@@ -650,8 +651,8 @@ void FontSys::Update_Text(bool unknown)
 				float y_high = y - lift;
 				float y_low = (y - h) + lift;
 				if (y_low > y_high) {
-					float t = y_low; y_low = y_high; y_high = t;
-					t = v_low; v_low = v_high; v_high = t;
+					float t = y_high; y_high = y_low; y_low = t;
+					t = v_high; v_high = v_low; v_low = t;
 				}
 				Set_Texture(texture);
 				Begin_Tri_Strip();
@@ -675,7 +676,7 @@ void FontSys::Update_Text(bool unknown)
 					float u_a = u2 * 0.2f;
 					float u_b = u2 * 0.8f;
 					Set_Texture(Unknown2E0.Texture);
-					float drop = (float)height * 0.083333336f;
+					float drop = fheight * 0.083333336f;
 					Begin_Tri_Strip();
 					Location(x, y_low - drop, 0.0f);
 					UV(u_a, v2);
@@ -696,7 +697,6 @@ void FontSys::Update_Text(bool unknown)
 		}
 	}
 }
-
 
 
 
