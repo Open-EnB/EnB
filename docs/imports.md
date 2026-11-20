@@ -2092,7 +2092,7 @@ Base copy: reconstructed. Headers: 691 from reconstructed.
 | client/ui_radio_list.cpp | reconstructed | 70 | 0 | - | - | - |  |
 | client/ui_radio_main.cpp | reconstructed | 54 | 0 | - | - | - |  |
 | client/ui_refinery.cpp | reconstructed | 93 | 0 | - | - | - |  |
-| client/ui_registration.cpp | reconstructed | 305 | 1 | - | - | - |  |
+| client/ui_registration.cpp | reconstructed | 304 | 1 | - | - | - |  |
 | client/ui_scan.cpp | reconstructed | 87 | 1 | - | - | - |  |
 | client/ui_scut.cpp | reconstructed | 86 | 0 | - | - | - |  |
 | client/ui_scut_gadgets.cpp | reconstructed | 49 | 0 | - | - | - |  |
