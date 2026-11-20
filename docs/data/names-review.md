@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1971 |
 | 2 | describes what the code does | 4996 |
-| 1 | neutral placeholder | 25167 |
+| 1 | neutral placeholder | 25168 |
 
 ## For review (score 3 and below)
 
@@ -5375,16 +5375,17 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown99` | `app/client/html/unknown_htmlblock.cpp:42` | untagged neutral name (D10) |
 | 1 | `Unknown08` | `app/client/html/unknown_htmlblock.h:10` | untagged neutral name (D10) |
 | 1 | `Unknown14` | `app/client/html/unknown_htmlblock.h:17` | untagged neutral name (D10) |
-| 1 | `Get_HPadding` | `app/client/html/unknown_htmlblock.h:35` | inline; their cost in Parse's inline budget (0x7710D0) gives the client's out-of-line copies |
-| 1 | `Get_Line_Start_X` | `app/client/html/unknown_htmlblock.h:36` | inline; their cost in Parse's inline budget (0x7710D0) gives the client's out-of-line copies |
-| 1 | `Get_Cursor_X` | `app/client/html/unknown_htmlblock.h:37` | inline; their cost in Parse's inline budget (0x7710D0) gives the client's out-of-line copies |
-| 1 | `Get_Cursor_Y` | `app/client/html/unknown_htmlblock.h:38` | inline; their cost in Parse's inline budget (0x7710D0) gives the client's out-of-line copies |
-| 1 | `New_Line` | `app/client/html/unknown_htmlblock.h:39` | inline; their cost in Parse's inline budget (0x7710D0) gives the client's out-of-line copies |
-| 1 | `Set_Line_Start_X` | `app/client/html/unknown_htmlblock.h:40` | inline; their cost in Parse's inline budget (0x7710D0) gives the client's out-of-line copies |
-| 1 | `Owner` | `app/client/html/unknown_htmlblock.h:63` | the constructor's first argument, not read here |
-| 1 | `Unknown98` | `app/client/html/unknown_htmlblock.h:69` | untagged neutral name (D10) |
-| 1 | `Unknown99` | `app/client/html/unknown_htmlblock.h:70` | untagged neutral name (D10) |
-| 1 | `Unknown9C` | `app/client/html/unknown_htmlblock.h:71` | untagged neutral name (D10) |
+| 1 | `Add_Item` | `app/client/html/unknown_htmlblock.h:31` | inline; Parse 0x7710D0 keeps the <table> item in esi and hands the out-of-line add 0x778CF0 a copy stored right before the call (0x772513) |
+| 1 | `Get_HPadding` | `app/client/html/unknown_htmlblock.h:36` | inline; their cost in Parse's inline budget (0x7710D0) gives the client's out-of-line copies |
+| 1 | `Get_Line_Start_X` | `app/client/html/unknown_htmlblock.h:37` | inline; their cost in Parse's inline budget (0x7710D0) gives the client's out-of-line copies |
+| 1 | `Get_Cursor_X` | `app/client/html/unknown_htmlblock.h:38` | inline; their cost in Parse's inline budget (0x7710D0) gives the client's out-of-line copies |
+| 1 | `Get_Cursor_Y` | `app/client/html/unknown_htmlblock.h:39` | inline; their cost in Parse's inline budget (0x7710D0) gives the client's out-of-line copies |
+| 1 | `New_Line` | `app/client/html/unknown_htmlblock.h:40` | inline; their cost in Parse's inline budget (0x7710D0) gives the client's out-of-line copies |
+| 1 | `Set_Line_Start_X` | `app/client/html/unknown_htmlblock.h:41` | inline; their cost in Parse's inline budget (0x7710D0) gives the client's out-of-line copies |
+| 1 | `Owner` | `app/client/html/unknown_htmlblock.h:64` | the constructor's first argument, not read here |
+| 1 | `Unknown98` | `app/client/html/unknown_htmlblock.h:70` | untagged neutral name (D10) |
+| 1 | `Unknown99` | `app/client/html/unknown_htmlblock.h:71` | untagged neutral name (D10) |
+| 1 | `Unknown9C` | `app/client/html/unknown_htmlblock.h:72` | untagged neutral name (D10) |
 | 1 | `Unknown86CRecordClass` | `app/client/influence.cpp:18` | untagged neutral name (D10) |
 | 1 | `Unknown_04` | `app/client/influence.cpp:26` | untagged neutral name (D10) |
 | 1 | `UnknownObjectInfluenceClass` | `app/client/influence.cpp:31` | untagged neutral name (D10) |
@@ -16828,8 +16829,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown388` | `app/client/ui_registration.cpp:334` | untagged neutral name (D10) |
 | 1 | `Unknown38C` | `app/client/ui_registration.cpp:335` | untagged neutral name (D10) |
 | 1 | `UnknownD8` | `app/client/ui_registration.cpp:339` | untagged neutral name (D10) |
-| 1 | `Unknown108` | `app/client/ui_registration.cpp:339` | untagged neutral name (D10) |
-| 1 | `Unknown11C` | `app/client/ui_registration.cpp:347` | untagged neutral name (D10) |
+| 1 | `Unknown11C` | `app/client/ui_registration.cpp:350` | untagged neutral name (D10) |
 | 1 | `Unknown_28` | `app/client/ui_registration.cpp:353` | untagged neutral name (D10) |
 | 1 | `Unknown14` | `app/client/ui_registration.cpp:354` | untagged neutral name (D10) |
 | 1 | `Unknown_08` | `app/client/ui_registration.cpp:354` | untagged neutral name (D10) |
@@ -16844,9 +16844,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown90` | `app/client/ui_registration.cpp:365` | untagged neutral name (D10) |
 | 1 | `Unknown91` | `app/client/ui_registration.cpp:366` | untagged neutral name (D10) |
 | 1 | `Unknown124` | `app/client/ui_registration.cpp:370` | untagged neutral name (D10) |
-| 1 | `Unknown7E` | `app/client/ui_registration.cpp:371` | untagged neutral name (D10) |
-| 1 | `Unknown7C` | `app/client/ui_registration.cpp:372` | untagged neutral name (D10) |
-| 1 | `Unknown7D` | `app/client/ui_registration.cpp:373` | untagged neutral name (D10) |
+| 1 | `Unknown7C` | `app/client/ui_registration.cpp:371` | untagged neutral name (D10) |
+| 1 | `Unknown7D` | `app/client/ui_registration.cpp:372` | untagged neutral name (D10) |
+| 1 | `Unknown7E` | `app/client/ui_registration.cpp:373` | untagged neutral name (D10) |
 | 1 | `Unknown_67B4F0` | `app/client/ui_registration.cpp:375` | untagged neutral name (D10) |
 | 1 | `Unknown_5F3770` | `app/client/ui_registration.cpp:377` | untagged neutral name (D10) |
 | 1 | `Unknown_5F1660` | `app/client/ui_registration.cpp:384` | untagged neutral name (D10) |
@@ -16861,6 +16861,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_5F2280` | `app/client/ui_registration.cpp:416` | untagged neutral name (D10) |
 | 1 | `UnknownF8` | `app/client/ui_registration.cpp:417` | untagged neutral name (D10) |
 | 1 | `Unknown_6AAD10` | `app/client/ui_registration.cpp:418` | untagged neutral name (D10) |
+| 1 | `Unknown108` | `app/client/ui_registration.cpp:420` | untagged neutral name (D10) |
 | 1 | `Unknown_5F1940` | `app/client/ui_registration.cpp:425` | untagged neutral name (D10) |
 | 1 | `Unknown_5FB030` | `app/client/ui_registration.cpp:437` | untagged neutral name (D10) |
 | 1 | `Unknown1C0` | `app/client/ui_registration.cpp:453` | untagged neutral name (D10) |
@@ -17647,18 +17648,17 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_61DF80` | `app/client/ui_ship_cust.cpp:237` | untagged neutral name (D10) |
 | 1 | `Unknown_61B170` | `app/client/ui_ship_cust.cpp:238` | untagged neutral name (D10) |
 | 1 | `Unknown_68` | `app/client/ui_ship_cust.cpp:245` | untagged neutral name (D10) |
-| 1 | `Unknown_61BAC0` | `app/client/ui_ship_cust.cpp:259` | untagged neutral name (D10) |
-| 1 | `Unknown_61EF60` | `app/client/ui_ship_cust.cpp:269` | untagged neutral name (D10) |
-| 1 | `Unknown_61D260` | `app/client/ui_ship_cust.cpp:287` | untagged neutral name (D10) |
-| 1 | `Unknown_61AFC0` | `app/client/ui_ship_cust.cpp:288` | untagged neutral name (D10) |
-| 1 | `Unknown_61D200` | `app/client/ui_ship_cust.cpp:321` | untagged neutral name (D10) |
-| 1 | `Unknown_6211D0` | `app/client/ui_ship_cust.cpp:323` | untagged neutral name (D10) |
-| 1 | `Unknown_621390` | `app/client/ui_ship_cust.cpp:325` | untagged neutral name (D10) |
-| 1 | `Unknown_61D230` | `app/client/ui_ship_cust.cpp:334` | untagged neutral name (D10) |
-| 1 | `Unknown_61B580` | `app/client/ui_ship_cust.cpp:345` | untagged neutral name (D10) |
-| 1 | `Unknown_61DBF0` | `app/client/ui_ship_cust.cpp:395` | untagged neutral name (D10) |
-| 1 | `Unknown_88` | `app/client/ui_ship_cust.cpp:418` | untagged neutral name (D10) |
-| 1 | `Unknown_8C` | `app/client/ui_ship_cust.cpp:423` | untagged neutral name (D10) |
+| 1 | `Unknown_61BAC0` | `app/client/ui_ship_cust.cpp:252` | untagged neutral name (D10) |
+| 1 | `Unknown_61EF60` | `app/client/ui_ship_cust.cpp:278` | untagged neutral name (D10) |
+| 1 | `Unknown_61D260` | `app/client/ui_ship_cust.cpp:289` | untagged neutral name (D10) |
+| 1 | `Unknown_61AFC0` | `app/client/ui_ship_cust.cpp:290` | untagged neutral name (D10) |
+| 1 | `Unknown_61D200` | `app/client/ui_ship_cust.cpp:312` | untagged neutral name (D10) |
+| 1 | `Unknown_6211D0` | `app/client/ui_ship_cust.cpp:314` | untagged neutral name (D10) |
+| 1 | `Unknown_621390` | `app/client/ui_ship_cust.cpp:316` | untagged neutral name (D10) |
+| 1 | `Unknown_61B580` | `app/client/ui_ship_cust.cpp:341` | untagged neutral name (D10) |
+| 1 | `Unknown_61DBF0` | `app/client/ui_ship_cust.cpp:389` | untagged neutral name (D10) |
+| 1 | `Unknown_88` | `app/client/ui_ship_cust.cpp:427` | untagged neutral name (D10) |
+| 1 | `Unknown_8C` | `app/client/ui_ship_cust.cpp:431` | untagged neutral name (D10) |
 | 1 | `Unknown_AF77B4` | `app/client/ui_ship_cust.cpp:622` | neutral (D10); three .rdata 1.0f 0xAF77B4 / 0xAF77B8 / 0xAF77BC read only by 0x61A4D0 (fld, fchs for the negatives): named statics, one per axis |
 | 1 | `Unknown_AF77B8` | `app/client/ui_ship_cust.cpp:623` | neutral (D10) |
 | 1 | `Unknown_AF77BC` | `app/client/ui_ship_cust.cpp:624` | neutral (D10) |
@@ -17708,6 +17708,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown10` | `app/client/ui_ship_cust.cpp:1346` | untagged neutral name (D10) |
 | 1 | `Unknown3C` | `app/client/ui_ship_cust.cpp:1348` | untagged neutral name (D10) |
 | 1 | `Unknown_61D1C0` | `app/client/ui_ship_cust.cpp:1352` | untagged neutral name (D10) |
+| 1 | `Unknown_61D230` | `app/client/ui_ship_cust.cpp:1367` | untagged neutral name (D10) |
 | 1 | `Unknown_61DF40` | `app/client/ui_ship_cust.cpp:1479` | untagged neutral name (D10) |
 | 1 | `Unknown_6608F0` | `app/client/ui_ship_cust.cpp:1975` | untagged neutral name (D10) |
 | 1 | `Is_Unknown2C_02` | `app/client/ui_ship_cust.cpp:2021` | untagged neutral name (D10) |
@@ -17915,17 +17916,17 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_628420` | `app/client/ui_shipcust.cpp:664` | untagged neutral name (D10) |
 | 1 | `Unknown_624E50` | `app/client/ui_shipcust.cpp:665` | untagged neutral name (D10) |
 | 1 | `Unknown_68` | `app/client/ui_shipcust.cpp:671` | untagged neutral name (D10) |
-| 1 | `Unknown_6257A0` | `app/client/ui_shipcust.cpp:682` | untagged neutral name (D10) |
-| 1 | `Unknown_6277A0` | `app/client/ui_shipcust.cpp:722` | untagged neutral name (D10) |
-| 1 | `Unknown_627200` | `app/client/ui_shipcust.cpp:733` | untagged neutral name (D10) |
-| 1 | `Unknown_6271A0` | `app/client/ui_shipcust.cpp:739` | untagged neutral name (D10) |
-| 1 | `Unknown_6271D0` | `app/client/ui_shipcust.cpp:750` | untagged neutral name (D10) |
-| 1 | `Unknown_625260` | `app/client/ui_shipcust.cpp:776` | untagged neutral name (D10) |
-| 1 | `Unknown300` | `app/client/ui_shipcust.cpp:784` | untagged neutral name (D10) |
-| 1 | `Unknown_67B270` | `app/client/ui_shipcust.cpp:797` | untagged neutral name (D10) |
-| 1 | `Unknown_6280E0` | `app/client/ui_shipcust.cpp:815` | untagged neutral name (D10) |
-| 1 | `Unknown_88` | `app/client/ui_shipcust.cpp:837` | untagged neutral name (D10) |
-| 1 | `Unknown_8C` | `app/client/ui_shipcust.cpp:842` | untagged neutral name (D10) |
+| 1 | `Unknown_6257A0` | `app/client/ui_shipcust.cpp:677` | untagged neutral name (D10) |
+| 1 | `Unknown_67B270` | `app/client/ui_shipcust.cpp:720` | untagged neutral name (D10) |
+| 1 | `Unknown_6277A0` | `app/client/ui_shipcust.cpp:726` | untagged neutral name (D10) |
+| 1 | `Unknown_6271A0` | `app/client/ui_shipcust.cpp:753` | untagged neutral name (D10) |
+| 1 | `Unknown_6271D0` | `app/client/ui_shipcust.cpp:769` | untagged neutral name (D10) |
+| 1 | `Unknown_625260` | `app/client/ui_shipcust.cpp:777` | untagged neutral name (D10) |
+| 1 | `Unknown_627200` | `app/client/ui_shipcust.cpp:817` | untagged neutral name (D10) |
+| 1 | `Unknown_6280E0` | `app/client/ui_shipcust.cpp:822` | untagged neutral name (D10) |
+| 1 | `Unknown300` | `app/client/ui_shipcust.cpp:840` | untagged neutral name (D10) |
+| 1 | `Unknown_88` | `app/client/ui_shipcust.cpp:848` | untagged neutral name (D10) |
+| 1 | `Unknown_8C` | `app/client/ui_shipcust.cpp:851` | untagged neutral name (D10) |
 | 1 | `Unknown_AF794C` | `app/client/ui_shipcust.cpp:1141` | neutral (D10); three .rdata 1.0f 0xAF794C / 0xAF7950 / 0xAF7954 read only by 0x624270 (fld, fchs for the negatives): named statics, one per axis, as ui_ship_cust.cpp's 0x61A4D0 |
 | 1 | `Unknown_AF7950` | `app/client/ui_shipcust.cpp:1142` | neutral (D10) |
 | 1 | `Unknown_AF7954` | `app/client/ui_shipcust.cpp:1143` | neutral (D10) |
@@ -20456,43 +20457,43 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown4C4` | `app/client/unknown_6ca0c0.cpp:72` | untagged neutral name (D10) |
 | 1 | `Unknown2D0` | `app/client/unknown_6ca0c0.cpp:72` | untagged neutral name (D10) |
 | 1 | `Unknown_6D8DC0` | `app/client/unknown_6ca0c0.cpp:72` | untagged neutral name (D10) |
-| 1 | `Unknown_6CA0C0` | `app/client/unknown_6ca0c0.cpp:95` | untagged neutral name (D10) |
-| 1 | `Unknown270` | `app/client/unknown_6ca0c0.cpp:106` | untagged neutral name (D10) |
-| 1 | `Unknown274` | `app/client/unknown_6ca0c0.cpp:107` | untagged neutral name (D10) |
-| 1 | `Unknown494` | `app/client/unknown_6ca0c0.cpp:108` | untagged neutral name (D10) |
-| 1 | `Unknown0C` | `app/client/unknown_6ca0c0.cpp:108` | untagged neutral name (D10) |
-| 1 | `Unknown2F4` | `app/client/unknown_6ca0c0.cpp:109` | untagged neutral name (D10) |
-| 1 | `Unknown420` | `app/client/unknown_6ca0c0.cpp:111` | untagged neutral name (D10) |
-| 1 | `Unknown254` | `app/client/unknown_6ca0c0.cpp:120` | untagged neutral name (D10) |
-| 1 | `Unknown404` | `app/client/unknown_6ca0c0.cpp:121` | untagged neutral name (D10) |
-| 1 | `Unknown4C5` | `app/client/unknown_6ca0c0.cpp:122` | untagged neutral name (D10) |
-| 1 | `Unknown414` | `app/client/unknown_6ca0c0.cpp:209` | untagged neutral name (D10) |
-| 1 | `Unknown303` | `app/client/unknown_6ca0c0.cpp:213` | untagged neutral name (D10) |
-| 1 | `Unknown406` | `app/client/unknown_6ca0c0.cpp:237` | untagged neutral name (D10) |
-| 1 | `Unknown2C4` | `app/client/unknown_6ca0c0.cpp:243` | untagged neutral name (D10) |
-| 1 | `Unknown2C8` | `app/client/unknown_6ca0c0.cpp:273` | untagged neutral name (D10) |
-| 1 | `Unknown47C` | `app/client/unknown_6ca0c0.cpp:349` | untagged neutral name (D10) |
-| 1 | `Unknown4E0` | `app/client/unknown_6ca0c0.cpp:349` | untagged neutral name (D10) |
-| 1 | `Unknown454` | `app/client/unknown_6ca0c0.cpp:353` | untagged neutral name (D10) |
-| 1 | `Unknown458` | `app/client/unknown_6ca0c0.cpp:370` | untagged neutral name (D10) |
-| 1 | `Unknown4DC` | `app/client/unknown_6ca0c0.cpp:372` | untagged neutral name (D10) |
-| 1 | `Unknown_6D5B10` | `app/client/unknown_6ca0c0.cpp:385` | untagged neutral name (D10) |
-| 1 | `Unknown302` | `app/client/unknown_6ca0c0.cpp:413` | untagged neutral name (D10) |
-| 1 | `Unknown464` | `app/client/unknown_6ca0c0.cpp:418` | untagged neutral name (D10) |
-| 1 | `Unknown44C` | `app/client/unknown_6ca0c0.cpp:450` | untagged neutral name (D10) |
-| 1 | `Unknown4A4` | `app/client/unknown_6ca0c0.cpp:451` | untagged neutral name (D10) |
-| 1 | `Unknown444` | `app/client/unknown_6ca0c0.cpp:459` | untagged neutral name (D10) |
-| 1 | `Unknown418` | `app/client/unknown_6ca0c0.cpp:460` | untagged neutral name (D10) |
-| 1 | `Unknown41C` | `app/client/unknown_6ca0c0.cpp:461` | untagged neutral name (D10) |
-| 1 | `Unknown_6D5D40` | `app/client/unknown_6ca0c0.cpp:476` | untagged neutral name (D10) |
-| 1 | `Unknown440` | `app/client/unknown_6ca0c0.cpp:487` | untagged neutral name (D10) |
-| 1 | `Unknown450` | `app/client/unknown_6ca0c0.cpp:489` | untagged neutral name (D10) |
-| 1 | `Unknown405` | `app/client/unknown_6ca0c0.cpp:499` | untagged neutral name (D10) |
-| 1 | `Unknown2F0` | `app/client/unknown_6ca0c0.cpp:501` | untagged neutral name (D10) |
-| 1 | `Unknown488` | `app/client/unknown_6ca0c0.cpp:536` | untagged neutral name (D10) |
-| 1 | `Unknown470` | `app/client/unknown_6ca0c0.cpp:573` | untagged neutral name (D10) |
-| 1 | `Unknown_6CE4E0` | `app/client/unknown_6ca0c0.cpp:585` | untagged neutral name (D10) |
-| 1 | `Unknown448` | `app/client/unknown_6ca0c0.cpp:630` | untagged neutral name (D10) |
+| 1 | `Unknown_6CA0C0` | `app/client/unknown_6ca0c0.cpp:76` | untagged neutral name (D10) |
+| 1 | `Unknown270` | `app/client/unknown_6ca0c0.cpp:87` | untagged neutral name (D10) |
+| 1 | `Unknown274` | `app/client/unknown_6ca0c0.cpp:88` | untagged neutral name (D10) |
+| 1 | `Unknown494` | `app/client/unknown_6ca0c0.cpp:89` | untagged neutral name (D10) |
+| 1 | `Unknown0C` | `app/client/unknown_6ca0c0.cpp:89` | untagged neutral name (D10) |
+| 1 | `Unknown2F4` | `app/client/unknown_6ca0c0.cpp:90` | untagged neutral name (D10) |
+| 1 | `Unknown420` | `app/client/unknown_6ca0c0.cpp:92` | untagged neutral name (D10) |
+| 1 | `Unknown254` | `app/client/unknown_6ca0c0.cpp:101` | untagged neutral name (D10) |
+| 1 | `Unknown404` | `app/client/unknown_6ca0c0.cpp:102` | untagged neutral name (D10) |
+| 1 | `Unknown4C5` | `app/client/unknown_6ca0c0.cpp:103` | untagged neutral name (D10) |
+| 1 | `Unknown414` | `app/client/unknown_6ca0c0.cpp:206` | untagged neutral name (D10) |
+| 1 | `Unknown303` | `app/client/unknown_6ca0c0.cpp:211` | untagged neutral name (D10) |
+| 1 | `Unknown406` | `app/client/unknown_6ca0c0.cpp:247` | untagged neutral name (D10) |
+| 1 | `Unknown2C4` | `app/client/unknown_6ca0c0.cpp:253` | untagged neutral name (D10) |
+| 1 | `Unknown47C` | `app/client/unknown_6ca0c0.cpp:270` | untagged neutral name (D10) |
+| 1 | `Unknown454` | `app/client/unknown_6ca0c0.cpp:271` | untagged neutral name (D10) |
+| 1 | `Unknown4E0` | `app/client/unknown_6ca0c0.cpp:275` | untagged neutral name (D10) |
+| 1 | `Unknown458` | `app/client/unknown_6ca0c0.cpp:287` | untagged neutral name (D10) |
+| 1 | `Unknown4DC` | `app/client/unknown_6ca0c0.cpp:289` | untagged neutral name (D10) |
+| 1 | `Unknown_6D5B10` | `app/client/unknown_6ca0c0.cpp:303` | untagged neutral name (D10) |
+| 1 | `Unknown302` | `app/client/unknown_6ca0c0.cpp:332` | untagged neutral name (D10) |
+| 1 | `Unknown464` | `app/client/unknown_6ca0c0.cpp:337` | untagged neutral name (D10) |
+| 1 | `Unknown2C8` | `app/client/unknown_6ca0c0.cpp:402` | untagged neutral name (D10) |
+| 1 | `Unknown44C` | `app/client/unknown_6ca0c0.cpp:476` | untagged neutral name (D10) |
+| 1 | `Unknown4A4` | `app/client/unknown_6ca0c0.cpp:477` | untagged neutral name (D10) |
+| 1 | `Unknown444` | `app/client/unknown_6ca0c0.cpp:485` | untagged neutral name (D10) |
+| 1 | `Unknown418` | `app/client/unknown_6ca0c0.cpp:486` | untagged neutral name (D10) |
+| 1 | `Unknown41C` | `app/client/unknown_6ca0c0.cpp:487` | untagged neutral name (D10) |
+| 1 | `Unknown488` | `app/client/unknown_6ca0c0.cpp:527` | untagged neutral name (D10) |
+| 1 | `Unknown470` | `app/client/unknown_6ca0c0.cpp:549` | untagged neutral name (D10) |
+| 1 | `Unknown_6CE4E0` | `app/client/unknown_6ca0c0.cpp:560` | untagged neutral name (D10) |
+| 1 | `Unknown448` | `app/client/unknown_6ca0c0.cpp:618` | untagged neutral name (D10) |
+| 1 | `Unknown_6D5D40` | `app/client/unknown_6ca0c0.cpp:646` | untagged neutral name (D10) |
+| 1 | `Unknown440` | `app/client/unknown_6ca0c0.cpp:657` | untagged neutral name (D10) |
+| 1 | `Unknown450` | `app/client/unknown_6ca0c0.cpp:659` | untagged neutral name (D10) |
+| 1 | `Unknown405` | `app/client/unknown_6ca0c0.cpp:673` | untagged neutral name (D10) |
+| 1 | `Unknown2F0` | `app/client/unknown_6ca0c0.cpp:675` | untagged neutral name (D10) |
 | 1 | `Unknown_BE67B4` | `app/client/unknown_6cce60.cpp:29` | neutral (D10): FontSys's sounds (main_client.cpp declares it so) |
 | 1 | `Unknown_6BCFB0Class` | `app/client/unknown_6cce60.cpp:29` | untagged neutral name (D10) |
 | 1 | `x, y` | `app/client/unknown_6cce60.cpp:30` | neutral |
@@ -24776,18 +24777,18 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown11` | `app/shared/unknown_474530.cpp:82` | untagged neutral name (D10) |
 | 1 | `Unknown_466F60` | `app/shared/unknown_474530.cpp:83` | untagged neutral name (D10) |
 | 1 | `Unknown1218` | `app/shared/unknown_474530.cpp:174` | untagged neutral name (D10) |
-| 1 | `Unknown192` | `app/shared/unknown_474530.cpp:183` | untagged neutral name (D10) |
-| 1 | `Unknown190` | `app/shared/unknown_474530.cpp:184` | untagged neutral name (D10) |
-| 1 | `Unknown178` | `app/shared/unknown_474530.cpp:185` | untagged neutral name (D10) |
-| 1 | `Unknown17C` | `app/shared/unknown_474530.cpp:187` | untagged neutral name (D10) |
-| 1 | `Unknown180` | `app/shared/unknown_474530.cpp:188` | untagged neutral name (D10) |
-| 1 | `Unknown10` | `app/shared/unknown_474530.cpp:190` | untagged neutral name (D10) |
-| 1 | `Unknown00` | `app/shared/unknown_474530.cpp:191` | untagged neutral name (D10) |
-| 1 | `Unknown04` | `app/shared/unknown_474530.cpp:192` | untagged neutral name (D10) |
-| 1 | `Unknown14` | `app/shared/unknown_474530.cpp:193` | untagged neutral name (D10) |
-| 1 | `Unknown191` | `app/shared/unknown_474530.cpp:198` | untagged neutral name (D10) |
-| 1 | `Unknown184` | `app/shared/unknown_474530.cpp:201` | untagged neutral name (D10) |
-| 1 | `Unknown188` | `app/shared/unknown_474530.cpp:202` | untagged neutral name (D10) |
+| 1 | `Unknown192` | `app/shared/unknown_474530.cpp:184` | untagged neutral name (D10) |
+| 1 | `Unknown190` | `app/shared/unknown_474530.cpp:185` | untagged neutral name (D10) |
+| 1 | `Unknown178` | `app/shared/unknown_474530.cpp:186` | untagged neutral name (D10) |
+| 1 | `Unknown17C` | `app/shared/unknown_474530.cpp:188` | untagged neutral name (D10) |
+| 1 | `Unknown180` | `app/shared/unknown_474530.cpp:189` | untagged neutral name (D10) |
+| 1 | `Unknown10` | `app/shared/unknown_474530.cpp:191` | untagged neutral name (D10) |
+| 1 | `Unknown00` | `app/shared/unknown_474530.cpp:192` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `app/shared/unknown_474530.cpp:193` | untagged neutral name (D10) |
+| 1 | `Unknown14` | `app/shared/unknown_474530.cpp:194` | untagged neutral name (D10) |
+| 1 | `Unknown191` | `app/shared/unknown_474530.cpp:199` | untagged neutral name (D10) |
+| 1 | `Unknown184` | `app/shared/unknown_474530.cpp:202` | untagged neutral name (D10) |
+| 1 | `Unknown188` | `app/shared/unknown_474530.cpp:203` | untagged neutral name (D10) |
 | 1 | `Unknown18` | `app/shared/unknown_474530.cpp:206` | untagged neutral name (D10) |
 | 1 | `Unknown08` | `app/shared/unknown_474530.cpp:207` | untagged neutral name (D10) |
 | 1 | `Unknown0C` | `app/shared/unknown_474530.cpp:208` | untagged neutral name (D10) |
@@ -26348,46 +26349,46 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Advance_X` | `app/client/html/unknown_htmlblock.h:28` | CursorX += width |
 | 2 | `Advance_Y` | `app/client/html/unknown_htmlblock.h:29` | ends the cursor's line (alignment, baseline) and moves down |
 | 2 | `Add_Child` | `app/client/html/unknown_htmlblock.h:30` | Children.addTail, child->Parent = this |
-| 2 | `Get_X` | `app/client/html/unknown_htmlblock.h:31` | inline (htmlview.cpp reads X before Get_Abs_X in one expression) |
-| 2 | `Get_Y` | `app/client/html/unknown_htmlblock.h:32` | inline |
-| 2 | `Get_Width` | `app/client/html/unknown_htmlblock.h:33` | inline |
-| 2 | `Get_Height` | `app/client/html/unknown_htmlblock.h:34` | inline |
-| 2 | `Get_Abs_X` | `app/client/html/unknown_htmlblock.h:41` | AbsX plus the parents' |
-| 2 | `Get_Abs_Y` | `app/client/html/unknown_htmlblock.h:42` | AbsY plus the parents' |
-| 2 | `Set_X` | `app/client/html/unknown_htmlblock.h:43` | moves the children's AbsX by the difference |
-| 2 | `Set_Y` | `app/client/html/unknown_htmlblock.h:44` | moves the children's AbsY by the difference |
-| 2 | `Get_Item` | `app/client/html/unknown_htmlblock.h:45` | Items[index] or NULL |
-| 2 | `Get_Align` | `app/client/html/unknown_htmlblock.h:46` | 'Align' style: 0 center, 1 right, -1 otherwise |
-| 2 | `Get_Font_Height` | `app/client/html/unknown_htmlblock.h:47` | 'Font.HSize' 1-4 -> 38/30/26/22, else ('Font.BaseSize' + 1) * 6, else 18 |
-| 2 | `Find_Style` | `app/client/html/unknown_htmlblock.h:48` | the item's value, else the block's (inline: Get_Font_Height pushes the key before choosing the stack) |
-| 2 | `Set_Style` | `app/client/html/unknown_htmlblock.h:50` | Styles.Set |
-| 2 | `Set_Attribute` | `app/client/html/unknown_htmlblock.h:51` | Attributes.Set |
-| 2 | `Push_Style` | `app/client/html/unknown_htmlblock.h:52` | Styles.Push |
-| 2 | `Push_Attribute` | `app/client/html/unknown_htmlblock.h:53` | Attributes.Push |
-| 2 | `Remove_Style` | `app/client/html/unknown_htmlblock.h:54` | Styles.Remove |
-| 2 | `Remove_Attribute` | `app/client/html/unknown_htmlblock.h:55` | Attributes.Remove |
-| 2 | `Pop_Style` | `app/client/html/unknown_htmlblock.h:56` | Styles.Pop |
-| 2 | `Pop_Attribute` | `app/client/html/unknown_htmlblock.h:57` | Attributes.Pop |
-| 2 | `Get_Style` | `app/client/html/unknown_htmlblock.h:58` | Styles.Get |
-| 2 | `Get_Attribute` | `app/client/html/unknown_htmlblock.h:59` | Attributes.Get |
-| 2 | `HPadding` | `app/client/html/unknown_htmlblock.h:61` | 'Horizontal_Padding' |
-| 2 | `VPadding` | `app/client/html/unknown_htmlblock.h:62` | 'Vertical_Padding' |
-| 2 | `Items` | `app/client/html/unknown_htmlblock.h:64` | owned (the destructor deletes them) |
-| 2 | `Children` | `app/client/html/unknown_htmlblock.h:65` | Add_Child; not deleted here |
-| 2 | `Parent` | `app/client/html/unknown_htmlblock.h:66` | set by the parent's Add_Child |
-| 2 | `Attributes` | `app/client/html/unknown_htmlblock.h:67` | the constructor's 4th argument copied in; holds the paddings |
-| 2 | `Styles` | `app/client/html/unknown_htmlblock.h:68` | the 5th argument copied in; 'Align', 'Font.*' |
-| 2 | `X` | `app/client/html/unknown_htmlblock.h:72` | Set_X |
-| 2 | `Y` | `app/client/html/unknown_htmlblock.h:73` | Set_Y |
-| 2 | `AbsX` | `app/client/html/unknown_htmlblock.h:74` | summed up the parents by Get_Abs_X |
-| 2 | `AbsY` | `app/client/html/unknown_htmlblock.h:75` | summed up the parents by Get_Abs_Y |
-| 2 | `Width` | `app/client/html/unknown_htmlblock.h:76` | the constructor's 2nd argument; Advance_Y aligns within it |
-| 2 | `Height` | `app/client/html/unknown_htmlblock.h:77` | the constructor's 3rd argument |
-| 2 | `CursorX` | `app/client/html/unknown_htmlblock.h:78` | Advance_X; starts at the horizontal padding |
-| 2 | `CursorY` | `app/client/html/unknown_htmlblock.h:79` | Advance_Y; starts at the vertical padding |
-| 2 | `LineStartX` | `app/client/html/unknown_htmlblock.h:80` | starts at the horizontal padding; Parse resets CursorX to it at each line break and shifts it for aligned tables and cells |
-| 2 | `ContentWidth` | `app/client/html/unknown_htmlblock.h:81` | Parse sets it to the rightmost item plus the horizontal padding |
-| 2 | `ContentHeight` | `app/client/html/unknown_htmlblock.h:82` | Parse sets it to the lowest item plus the vertical padding and 2; a table row takes its cells' largest |
+| 2 | `Get_X` | `app/client/html/unknown_htmlblock.h:32` | inline (htmlview.cpp reads X before Get_Abs_X in one expression) |
+| 2 | `Get_Y` | `app/client/html/unknown_htmlblock.h:33` | inline |
+| 2 | `Get_Width` | `app/client/html/unknown_htmlblock.h:34` | inline |
+| 2 | `Get_Height` | `app/client/html/unknown_htmlblock.h:35` | inline |
+| 2 | `Get_Abs_X` | `app/client/html/unknown_htmlblock.h:42` | AbsX plus the parents' |
+| 2 | `Get_Abs_Y` | `app/client/html/unknown_htmlblock.h:43` | AbsY plus the parents' |
+| 2 | `Set_X` | `app/client/html/unknown_htmlblock.h:44` | moves the children's AbsX by the difference |
+| 2 | `Set_Y` | `app/client/html/unknown_htmlblock.h:45` | moves the children's AbsY by the difference |
+| 2 | `Get_Item` | `app/client/html/unknown_htmlblock.h:46` | Items[index] or NULL |
+| 2 | `Get_Align` | `app/client/html/unknown_htmlblock.h:47` | 'Align' style: 0 center, 1 right, -1 otherwise |
+| 2 | `Get_Font_Height` | `app/client/html/unknown_htmlblock.h:48` | 'Font.HSize' 1-4 -> 38/30/26/22, else ('Font.BaseSize' + 1) * 6, else 18 |
+| 2 | `Find_Style` | `app/client/html/unknown_htmlblock.h:49` | the item's value, else the block's (inline: Get_Font_Height pushes the key before choosing the stack) |
+| 2 | `Set_Style` | `app/client/html/unknown_htmlblock.h:51` | Styles.Set |
+| 2 | `Set_Attribute` | `app/client/html/unknown_htmlblock.h:52` | Attributes.Set |
+| 2 | `Push_Style` | `app/client/html/unknown_htmlblock.h:53` | Styles.Push |
+| 2 | `Push_Attribute` | `app/client/html/unknown_htmlblock.h:54` | Attributes.Push |
+| 2 | `Remove_Style` | `app/client/html/unknown_htmlblock.h:55` | Styles.Remove |
+| 2 | `Remove_Attribute` | `app/client/html/unknown_htmlblock.h:56` | Attributes.Remove |
+| 2 | `Pop_Style` | `app/client/html/unknown_htmlblock.h:57` | Styles.Pop |
+| 2 | `Pop_Attribute` | `app/client/html/unknown_htmlblock.h:58` | Attributes.Pop |
+| 2 | `Get_Style` | `app/client/html/unknown_htmlblock.h:59` | Styles.Get |
+| 2 | `Get_Attribute` | `app/client/html/unknown_htmlblock.h:60` | Attributes.Get |
+| 2 | `HPadding` | `app/client/html/unknown_htmlblock.h:62` | 'Horizontal_Padding' |
+| 2 | `VPadding` | `app/client/html/unknown_htmlblock.h:63` | 'Vertical_Padding' |
+| 2 | `Items` | `app/client/html/unknown_htmlblock.h:65` | owned (the destructor deletes them) |
+| 2 | `Children` | `app/client/html/unknown_htmlblock.h:66` | Add_Child; not deleted here |
+| 2 | `Parent` | `app/client/html/unknown_htmlblock.h:67` | set by the parent's Add_Child |
+| 2 | `Attributes` | `app/client/html/unknown_htmlblock.h:68` | the constructor's 4th argument copied in; holds the paddings |
+| 2 | `Styles` | `app/client/html/unknown_htmlblock.h:69` | the 5th argument copied in; 'Align', 'Font.*' |
+| 2 | `X` | `app/client/html/unknown_htmlblock.h:73` | Set_X |
+| 2 | `Y` | `app/client/html/unknown_htmlblock.h:74` | Set_Y |
+| 2 | `AbsX` | `app/client/html/unknown_htmlblock.h:75` | summed up the parents by Get_Abs_X |
+| 2 | `AbsY` | `app/client/html/unknown_htmlblock.h:76` | summed up the parents by Get_Abs_Y |
+| 2 | `Width` | `app/client/html/unknown_htmlblock.h:77` | the constructor's 2nd argument; Advance_Y aligns within it |
+| 2 | `Height` | `app/client/html/unknown_htmlblock.h:78` | the constructor's 3rd argument |
+| 2 | `CursorX` | `app/client/html/unknown_htmlblock.h:79` | Advance_X; starts at the horizontal padding |
+| 2 | `CursorY` | `app/client/html/unknown_htmlblock.h:80` | Advance_Y; starts at the vertical padding |
+| 2 | `LineStartX` | `app/client/html/unknown_htmlblock.h:81` | starts at the horizontal padding; Parse resets CursorX to it at each line break and shifts it for aligned tables and cells |
+| 2 | `ContentWidth` | `app/client/html/unknown_htmlblock.h:82` | Parse sets it to the rightmost item plus the horizontal padding |
+| 2 | `ContentHeight` | `app/client/html/unknown_htmlblock.h:83` | Parse sets it to the lowest item plus the vertical padding and 2; a table row takes its cells' largest |
 | 2 | `RoomClass` | `app/client/influence.h:50` | influence.cpp's assert 'TempRoomPtrs[bidx]->BoundaryMesh == NULL' and 'Room%02d' |
 | 2 | `NebulaClass` | `app/client/influence.h:63` | its strings 'NEBULA_ROOT' and 'nebula.ini' |
 | 2 | `SkyBox` | `app/client/influence.h:74` | nebula.ini's 'SkyBoxColor' |
