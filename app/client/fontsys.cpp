@@ -394,6 +394,29 @@ bool FontSys::Unknown_6D60C0()
 	return false;
 }
 
+static inline float Step_Colour(float value, float target)	// NAME 2: one colour channel a step of 1 toward the target; inline only (Update_Text 0x6D64C0's unrolled per-channel code)
+{
+	if (value > target) { value -= 1.0f; if (target > value) value = target; }
+	else if (value < target) { value += 1.0f; if (target < value) value = target; }
+	return value;
+}
+
+static inline void Refresh_Line(FontSys *f)	// NAME 2: inline only: the client's Update_Text calls the copy's Get_Length out of line (one layer more than flat)
+{
+	StringClass text = f->Info.Text;
+	if (f->Unknown406) {
+		text += "...";
+	}
+	text.Get_Buffer(text.Get_Length());
+	*(int *)((char *)f->Font.Peek() + 0xD28) = *(int *)((char *)f->Font.Peek() + 0xD2C);
+	f->Unknown4C4 = f->Unknown2D0.Unknown_6D8DC0(&f->Font, text, 0);
+	f->Unknown2C4 = f->Font->String_Pixel_Width(text);
+	f->Unknown2C8 = f->Font->Get_Height();
+	f->Unknown4C5 = false;
+	f->Unknown420[1] = f->Unknown2C4;
+	f->Unknown420[3] = f->Unknown2C8;
+}
+
 /*
 **	0x6D64C0 FontSys::Update_Text (the client's profile label): with unknown set (Render) it runs the delay (0x6D60C0),
 **	places the text (the transform's translation), refreshes a clipped last line with "...", steps the effects
@@ -403,7 +426,7 @@ bool FontSys::Unknown_6D60C0()
 **	text rectangle +0x420 and the screen rectangle +0x430, and the underline quad from +0x2E0's "_" (Underline).
 **	Colours +0x494 / +0x4A4 / +0x4B4 are floats r, g, b, a (0x6D5170); fontmanager.h's FontStyleColorStruct says int.
 */
-// NOT EXACT: written from the client's code (0x6D64C0) for the POC, not yet matched
+// NOT EXACT: written from the client's code (0x6D64C0) for the POC; PT5 (2026-11-20) masked residue 1404 -> 1101 (layers, Step_Colour, WWMath::Min): left the inline budget (Convert_Color_Clamp, ShaderClass::Reset, 3 underline Vector2() the client calls out of line)
 void FontSys::Update_Text(bool unknown)
 {
 	WWPROFILE("FontSys::Update_Text");
@@ -429,14 +452,9 @@ void FontSys::Update_Text(bool unknown)
 		}
 		Vector3 at;
 		if (Unknown302) {
-			at.X = Unknown464[0] + Unknown47C.X + offset[0];
-			at.Y = Unknown464[1] + Unknown47C.Y + offset[1];
-			at.Z = Unknown464.Z + Unknown47C.Z + offset[2];
+			at = Unknown464 + Unknown47C + Unknown488;
 		} else {
-			Vector3 p = Get_Position();
-			at.X = p.X + Unknown47C.X + offset[0];
-			at.Y = p.Y + Unknown47C.Y + offset[1];
-			at.Z = p.Z + Unknown47C.Z + offset[2];
+			at = Get_Position() + Unknown47C + Unknown488;
 		}
 		pos_x = at.X;
 		pos_y = at.Y;
@@ -455,17 +473,7 @@ void FontSys::Update_Text(bool unknown)
 				refresh = true;
 			}
 			if (refresh) {
-				StringClass text = Info.Text;
-				if (Unknown406) {
-					text += "...";
-				}
-				*(int *)((char *)Font.Peek() + 0xD28) = *(int *)((char *)Font.Peek() + 0xD2C);	// Font->XSpacing = Font->MinSpacing (protected in font32bit.h)
-				Unknown4C4 = Unknown2D0.Unknown_6D8DC0(&Font, text, 0);
-				Unknown2C4 = Font->String_Pixel_Width(text);
-				Unknown2C8 = Font->Get_Height();
-				Unknown4C5 = false;
-				Unknown420[1] = Unknown2C4;
-				Unknown420[3] = Unknown2C8;
+				Refresh_Line(this);
 			}
 		}
 		for (i = 0; i < 4; i++) {
@@ -554,22 +562,14 @@ void FontSys::Update_Text(bool unknown)
 	ShaderClass shader;
 	Unknown_6D5F40(shader);
 	Set_Shader(shader);
-	for (i = 0; i < 3; i++) {				// the colour steps to the target, 1 a frame
-		if (color[i] > target[i]) {
-			color[i] -= 1.0f;
-			if (color[i] < target[i]) color[i] = target[i];
-		} else if (color[i] < target[i]) {
-			color[i] += 1.0f;
-			if (color[i] > target[i]) color[i] = target[i];
-		}
-	}
-
+	color[0] = Step_Colour(color[0], target[0]);		// the colour steps to the target, 1 a frame
+	color[1] = Step_Colour(color[1], target[1]);
+	color[2] = Step_Colour(color[2], target[2]);
 	for (int pass = Unknown444; pass >= 0; pass--) {
-		float alpha = (color[3] < Unknown2F4[2]) ? color[3] : Unknown2F4[2];
-		if (pass == 0) {
-			Set_Vertex_Color(Vector4(color[0], color[1], color[2], alpha));
+		if (pass) {
+			Set_Vertex_Color(Vector4(second[0], second[1], second[2], WWMath::Min(color[3], Unknown2F4[2])));
 		} else {
-			Set_Vertex_Color(Vector4(second[0], second[1], second[2], alpha));
+			Set_Vertex_Color(Vector4(color[0], color[1], color[2], WWMath::Min(color[3], Unknown2F4[2])));
 		}
 		int done = 0;
 		float strip_v = (float)height * step;

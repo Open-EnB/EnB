@@ -108,7 +108,7 @@ void LandClass::Render(RenderInfoClass &rinfo)
 
 	if (HasSea) {
 		// ten rings of sea quads around the field, and the corners
-		float half = (float)(Field->Get_Size() >> 1) * Field->Get_Spacing();
+		float half = (float)((unsigned int)Field->Get_Size() >> 1) * Field->Get_Spacing();
 		int ring, c;
 		for (ring = 0; ring < 10; ring++) {
 			for (c = 0; c < GridWidth; c++) {
