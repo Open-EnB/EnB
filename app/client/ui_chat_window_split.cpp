@@ -187,7 +187,7 @@ void UIChatWindowSplitClass::Unknown_54()
 	int kind = (UnknownE8 != 0) + 1; Unknown_A0(kind);	// a named local: the closing RefCountPtr Release_Ref then loads the vtable into eax as the client
 }
 
-#pragma auto_inline(off)
+
 
 // 0x572DE0
 void UIChatWindowSplitClass::Unknown_58()
@@ -353,7 +353,7 @@ void UIChatWindowSplitClass::Unknown_5732A0(unsigned int size, unsigned int spli
 	}
 }
 
-#pragma auto_inline(on)
+
 
 // 0x573430 (out of line for the destructor's unwinding; inline in 0x572040)
 inline ChatWinSplitResizeStruct::~ChatWinSplitResizeStruct()

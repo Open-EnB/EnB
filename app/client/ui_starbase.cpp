@@ -543,7 +543,7 @@ bool UIStarbaseClass::Unknown_63E8F0(int id)
 	}
 	return(false);
 }
-#pragma auto_inline(off)
+
 // 0x640110
 void UIStarbaseClass::Unknown_640110(int state)
 {
@@ -552,7 +552,7 @@ void UIStarbaseClass::Unknown_640110(int state)
 		Unknown_63E2B0();
 	}
 }
-#pragma auto_inline(on)
+
 // 0x641AB0
 void UIStarbaseClass::Unknown_641AB0()
 {

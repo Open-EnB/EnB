@@ -509,7 +509,7 @@ void Unknown620D20Class::Unknown_621790(EnvironmentMapManagerClass *environmentm
 	Set_Engine_Glow(Unknown160.Peek(), 0);
 }
 
-#pragma auto_inline(off)	// the client calls 0x621E20 from the dtor 0x6210A0 and 0x621790
+	// the client calls 0x621E20 from the dtor 0x6210A0 and 0x621790
 
 // @0x621E20
 void Unknown620D20Class::Unknown_621E20()
@@ -526,7 +526,7 @@ void Unknown620D20Class::Unknown_621E20()
 	Unknown160 = NULL;
 	Unknown170 = NULL;
 }
-#pragma auto_inline(on)
+
 
 // NOT EXACT: functional (D64)
 // @0x622180

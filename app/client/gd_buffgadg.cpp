@@ -102,7 +102,7 @@ const BuffElementStruct &BuffInfoStruct::Get_Element(unsigned int index) const
 BuffElementStruct::BuffElementStruct(const std::string &source_entity, const std::string &source_object, int magnitude, const DurationClass &expiration_time, bool is_active) :
 	SourceEntity(source_entity), SourceObject(source_object), ExpirationTime(expiration_time.Time), Magnitude(magnitude), IsActive(is_active)
 {
-	SourceEntity.size();
+
 }
 
 // The elements' order (0x667950): the active first, then the larger magnitude, the later expiry, the names

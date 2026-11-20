@@ -43,7 +43,7 @@ KVEncoderClass::KVEncoderClass(KVListClass *list, int flags, const char *prefix)
 {
 }
 
-#pragma auto_inline(off)
+
 // @0x4B1820
 void KVEncoderClass::Add_Child(int mask, const char *name, DeltaInterfaceClass *child)
 {
@@ -59,7 +59,7 @@ void KVEncoderClass::Add_Child(int mask, const char *name, DeltaInterfaceClass *
 		Pop_Prefix();
 	}
 }
-#pragma auto_inline(on)
+
 
 // @0x4B18C0
 void KVFilterEncoderClass::Add_Vector3(int mask, const char *name, Vector3 *value)
@@ -171,7 +171,7 @@ void KVEncoderClass::Add_Matrix3D_Elements_Frame(int mask, const char *name, Mat
 	}
 }
 
-#pragma auto_inline(off)
+
 // @0x4B2BB0
 void KVEncoderBaseClass::Add(int mask, const char *name, Vector3 *value)
 {
@@ -204,7 +204,7 @@ void KVEncoderBaseClass::Add(int mask, const char *name, AccelClass *value)
 		List->Add(new KVPairTemplateClass<AccelClass>(Make_Key(name), new KVPointerAccessorClass<AccelClass>(value), even, odd));
 	}
 }
-#pragma auto_inline(on)
+
 
 /*
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).

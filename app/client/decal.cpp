@@ -177,7 +177,7 @@ void SClientUnknown1334Class::Unknown_75CB10(int i, const Vector4 &color, Unknow
 		}
 	} else {
 		*mat_desc = SwatchArray[-(i + 1)];
-		TextureArray.size();	// a dead read: it spends the inline budget so the swatch's 4 material copies call 0x75D000 as in the client
+		// (budget-device audit 2026-11-19: a dead TextureArray.size() here is no longer needed (the file is exact without it))
 	}
 }
 

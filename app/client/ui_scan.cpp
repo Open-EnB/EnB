@@ -673,7 +673,7 @@ void UIScanClass::Unknown_60ED10(PlayerObjectRelationshipChangeEvent *event, Cli
 
 
 
-#pragma auto_inline(off)
+
 // @0x60ED60
 void UIScanClass::Unknown_60ED60(ClientObjectClass *target, const std::string &assessment, const std::string &sound, int level)
 {
@@ -725,7 +725,7 @@ void UIScanClass::Unknown_60EFE0(ClientObjectClass *object)
 	GutterColorStruct color = colors.Target;
 	ConFont->Set_Color(color.Color1);
 }
-#pragma auto_inline(on)
+
 TargetingClass *UIScanClass::Get_Targeting()	// @0x60F110 (out of line, no caller; inline in 0x60E300): the cockpit's targeting, through the client
 {
 
@@ -1037,7 +1037,7 @@ void UIScanThreatClass::Unknown_Clear()
 	AbilityName = "";
 	Unknown18 = false;
 }
-#pragma auto_inline(off)
+
 
 
 
@@ -1063,7 +1063,7 @@ void UIScanThreatClass::Unknown_60FEE0()
 		Unknown30 = NULL;
 	}
 }
-#pragma auto_inline(on)
+
 
 // @0x610010
 void UIScanThreatClass::Unknown_Set_Sort_Level(int sort_level)
