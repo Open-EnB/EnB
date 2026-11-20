@@ -69,13 +69,13 @@ NLPLexiconClass::NLPLexiconClass(const char *filename)
 	Unknown_78E190(path, "nlp\\", filename, NULL);
 	INIClass ini(path);
 	int lexicons = 0;
-	for (;;) {
+	for (; true;) {
 		char section[64];
 		sprintf(section, "LEXICON-%d", lexicons);
 		if (!ini.Section_Present(section)) {
 			break;
 		}
-		for (int p = 0; ; p++) {
+		for (int p = 0; true; p++) {
 			char entry[64];
 			sprintf(entry, "Phrase%d", p);
 			if (!ini.Is_Present(section, entry)) {
@@ -92,7 +92,7 @@ NLPLexiconClass::NLPLexiconClass(const char *filename)
 		char entry[64];
 		char buffer[256];
 		sprintf(section, "LEXICON-%d", l);
-		for (int p = 0; ; p++) {
+		for (int p = 0; true; p++) {
 			sprintf(entry, "Phrase%d", p);
 			if (!ini.Is_Present(section, entry)) {
 				break;

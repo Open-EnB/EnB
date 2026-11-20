@@ -260,7 +260,7 @@ static std::string Fill_Values(const std::string &text, const std::vector<float>
 {
 	std::string result = text;
 	std::vector<float>::const_iterator value_iterator = values.begin();
-	for (;;) {
+	for (; true;) {
 		std::pair<std::string, std::string> match = Find_Value_Tag(result);
 		if (match.first.empty()) {
 			G_ASSERT(value_iterator == values.end());

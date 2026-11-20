@@ -100,7 +100,7 @@ bool Unknown_78F700Class::Load(const char *filename)
 		Moods[i].MoodNumber = ini.Get_Int(section, "MoodNumber", 0);
 	}
 	int count = 0;
-	for (;;) {
+	for (; true;) {
 		char section[64];
 		sprintf(section, "BANIM-%d", count);
 		if (!ini.Section_Present(section)) {

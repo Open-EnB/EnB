@@ -201,7 +201,7 @@ void ChatWindowInterface::Unknown_A0(unsigned int count)
 	}
 	Unknown_A4();
 	ChatHistory->Unknown_67D660(count);
-	for (unsigned int index = 0; ; ) {
+	for (unsigned int index = 0; true; ) {
 		int window;
 		const Unknown67D430EntryStruct &entry = ChatHistory->Unknown_67D980(index++, &window);
 		if (entry.Text.length() == 0) break;
