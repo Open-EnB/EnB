@@ -332,8 +332,10 @@ template<> inline const char *KVPairTemplateClass<FormationState>::Get_Type_Name
 # object numbers (the Delta templates' per-class globals, workflow.md 3.4) exactly the families it sees, as the
 # client's objects do. In-class constructors (by the class's Delta<X>Class name) get an `#else` declaration;
 # out-of-class inline definitions are wrapped whole (with their comment lines).
+# Shake also alone (aux_shake.h): cameraeffects / bridge_int number T<float> by itself before <string>'s guard (CRT
+# entries 533 / 212), the shake's four float fields.
 FAMILY_INCLASS = {
-    'Shake': 'SHIP', 'Effect': 'ITEM', 'EquipItem': 'ITEM', 'ShipInv': 'SHIPINV', 'Attachment': 'LEGO',
+    'Shake': ('SHIP', 'SHAKE'), 'Effect': 'ITEM', 'EquipItem': 'ITEM', 'ShipInv': 'SHIPINV', 'Attachment': 'LEGO',
     'Lego': 'LEGO', 'Elements': 'BUFF', 'Buff': 'BUFF', 'Buffs': 'BUFF', 'Stats': 'SHIP', 'SubCategory': 'MANU',
     'Category': 'MANU', 'MissionStage': 'MISSION', 'Faction': 'FACTION', 'Reputation': 'FACTION',
     'Hulk': 'HULK', 'Planet': 'PLANET', 'Starbase': 'STARBASE', 'Stargate': 'STARGATE', 'Hull': 'HULL',
@@ -383,6 +385,10 @@ SPLITS = [
     ('aux_roots_shipinv.h', 'DeltaShipInvClass', 'DeltaShipInvClass', "The ship inventory's class.", ['aux_roots_item.h']),
     ('aux_roots_lego.h', 'DeltaAttachmentClass', 'DeltaLegoClass', 'The lego classes (Attachment, Lego).',
      ['aux_roots_types.h']),
+    # its members instantiate T<bool> before delta_interpolator.h's T<float>: radar_system_data_cache / gutter_data
+    # number T<bool>, T<float> in that order (CRT entries 656 / 639, aux_decoration.h)
+    ('aux_roots_decoration.h', 'DeltaDecorationClass', 'DeltaDecorationClass', "The decoration's class.",
+     ['aux_roots_types.h']),
     ('aux_roots_manu.h', 'DeltaSubCategoryClass', 'DeltaManufacturingLabClass',
      "The manufacturing classes (SubCategory, Category, PrimaryCategory, KnownFormula, the lab's root).",
      ['aux_roots_item.h']),
@@ -397,6 +403,9 @@ SPLITS = [
 # inventory's place (and the ship inventory's in the lego's): ('aux_roots_shipinv.h', 'aux_roots_lego.h'). Off: no aux
 # pad keeps aux_roots.cpp's 0x6FB1E0 with it (DN's sweep, 2026-11-18: 9-12 trade it for 0x702240 / 0x7045F0).
 SPLIT_SWAP = None
+# Splits whose classes also stay in aux_roots.h, behind the split header's guard: replaced by an include there, the
+# decoration's class costs client_lego_impl's canary 0x72D5F0 (the bone map's constructor; DE, 2026-11-18).
+SPLITS_KEPT = {'aux_roots_decoration.h'}
 GROUP_VTS = (0xB039C8, 0xB038B8)       # GroupMember, GroupInfo (adjacent in the class order)
 GROUP_CTORS = {0x7548D0, 0x754DB0}     # GroupInfo, GroupMember (in Player's tree, SEND_HEADER_ROOTS)
 FORMATION_VT = 0xB03970
@@ -1085,7 +1094,9 @@ enum AuxRootsSymbolPadType { %s };	// NAME 1: a build aid (HX1)
 # 46-49 (and 44; same sweep). ST1's sbaseview.h retype (AvatarUI +0x19C onto ui_avatar_cust.h's
 # StarbaseAvatarCreationInterface, the stand-in class gone): 1-7 (and 62-63; .work/st1/sendpad_imp.py).
 # TC1's ui_stringentry.h (UIPTradeCreditsClass out of sclient.h): 0x758210 and 0x702240 both only at 33 and 55-57: 56.
-SEND_SYMBOL_PAD = 23
+# P1 (run 2026-11-18b): aux_ship_player.h back to the item / ship inventory / Hull / player headers first (the
+# client's numbering, 0x755C60): only 4 keeps all six (0x758210 61-4 and 33-40, 0x702240 2-7 and 41-43).
+SEND_SYMBOL_PAD = 4
 SEND_PAD = '''// VC6 symbol pad (not the client's code): sclient.cpp's copy of 0x758210 matches only when the count of
 // the declarations it sees falls in a window (tools/re/auxroots.py SEND_SYMBOL_PAD)
 enum AuxRootsSendSymbolPadType { %s };	// NAME 1: a build aid (SC1)
@@ -1124,7 +1135,8 @@ def family_gate(text):
     """text (aux_roots.h / aux_roots_send.h) with each constructor body behind its family's gate (FAMILY_INCLASS,
     FAMILY_OUTOFCLASS; AS's .work/as/gate.py)."""
     def cond(fam):
-        return '#if defined(AUX_ROOTS_ALL) || defined(AUX_CTORS_%s)' % fam
+        return '#if defined(AUX_ROOTS_ALL)' + ''.join(' || defined(AUX_CTORS_%s)' % f
+                                                      for f in (fam if isinstance(fam, tuple) else (fam,)))
     L = text.split('\n')
     out = []
     i = 0
@@ -1281,8 +1293,16 @@ def generate(doc, out_dir):
     h = h[:ts] + '#include "aux_roots_types.h"' + '\n' * types_block.count('\n') + h[ts + len(types_block):]
     split_files = []
     for header, first, last, what, incs in SPLITS:
-        h, block = cut(h, first, last, header)
         guard = '__' + header.upper().replace('.', '_')
+        if header in SPLITS_KEPT:
+            # the classes stay in their place too, behind the split header's guard (its includers parse them first)
+            a = h.index(g.decl[by_name[first]].split('\n', 1)[0] + '\n')
+            nxt = order[order.index(by_name[last]) + 1]
+            b = h.index('\n' + g.decl[nxt].split('\n', 1)[0] + '\n', a)
+            block = h[a:b].rstrip('\n')
+            h = h[:a] + f'#ifndef {guard}\n' + block + '\n#endif' + h[a + len(block) + 1:]
+        else:
+            h, block = cut(h, first, last, header)
         split_files.append((header, SPLIT_HEADER % {'name': header, 'guard': guard, 'what': what, 'body': block,
                                                     'includes': ''.join(f'#include "{x}"\n' for x in incs)}))
     if SPLIT_SWAP:

@@ -48,8 +48,8 @@ StarbaseRoomClass::StarbaseRoomClass(int type) :
 	Unknown0A(false),
 	Unknown0B(false),
 	Unknown0C(false),
-	Unknown10(0),
-	Unknown14(0),
+	FogStart(0),
+	FogEnd(0),
 	Unknown18(0.0f, 0.0f, 0.0f),
 	Facilities(0),
 	NPCs(0)
@@ -348,8 +348,8 @@ StarbaseInfoClass *StarbaseInfoClass::Create(LoungeNPCPacketClass *packet)
 		int flags = room_entry->Flags;
 		Set_Room_Flags(room, flags);
 		if (flags & 0x100) room->Unknown0C = true;
-		room->Unknown10 = room_entry->Unknown08;
-		room->Unknown14 = room_entry->Unknown0C;
+		room->FogStart = room_entry->FogStart;
+		room->FogEnd = room_entry->FogEnd;
 		room->Unknown18 = room_entry->Unknown10;
 		rooms[room_type] = room;
 	}

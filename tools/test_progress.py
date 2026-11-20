@@ -79,6 +79,21 @@ class ProgressTests(unittest.TestCase):
         self.assertEqual(tab.size(0x1100), 0x800 if 0x2000 - 0x1100 > 0x800 else 0x2000 - 0x1100)
         self.assertEqual(tab.size(0x2000, 0x20), 0x20)
 
+    def test_app_function_without_length_runs_to_next_start(self):
+        tab = progress.Tables.__new__(progress.Tables)
+        tab.starts, tab.lengths, tab.text_end, tab.estimated_sizes = [0x500000, 0x504000], {}, 0x900000, 0
+        self.assertEqual(tab.size(0x500000), 0x4000)        # app region: no 2 KB cap
+        tab.starts = [0x8E0000, 0x8E4000]
+        self.assertEqual(tab.size(0x8E0000), 0x800)         # a library: still capped
+
+    def test_not_exact_entry_names_its_own_address(self):
+        row = '| `a.cpp:1` | `%s` | marker | %s |'
+        self.assertEqual(progress.own_address('C::Unknown_5F3770', row % ('x', 'NOT EXACT: calls 0x604280')), 0x5F3770)
+        self.assertEqual(progress.own_address('C::Get', row % ('C::Get', 'NOT EXACT: 0x522860 (0.62)')), 0x522860)
+        self.assertEqual(progress.own_address('C::Get', row % ('C::Get', 'NOT EXACT (D64): 0x7CB8F0 x')), 0x7CB8F0)
+        self.assertIsNone(progress.own_address('C::Get', row % ('C::Get', 'NOT EXACT: shape (calls 0x604280)')))
+        self.assertIsNone(progress.own_address('Unknown_7CA2D0Class::Get', row % ('x', 'NOT EXACT: shape')))
+
     def test_fill_is_charged_to_the_function_before(self):
         tab = progress.Tables.__new__(progress.Tables)
         tab.text_va, tab.text_end, tab.estimated_sizes = 0x1000, 0x1100, 0

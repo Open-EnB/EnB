@@ -2287,6 +2287,189 @@ def cr6_string_located(img, items, starts, claimed):
     return out
 
 
+# ... and (CR7) a not-exact caller located by its exact callees: each symbol its REL32 relocations call that is exact at
+# one address (its own object's row, else every exact row of that external name agreeing) gives the set of client
+# functions (verified starts) holding a call / jmp rel32 to that address or to an incremental-link thunk of it; the
+# caller is at the one function every such set contains, given at least CR7_CALLEE_MIN such callees and the address
+# unclaimed (the string rule's intersection with calls for strings; cr6_named_callers' call alignment then confirms it)
+USE_CR7_CALLEE_LOCATED = True
+CR7_CALLEE_MIN = 2
+
+
+def cr7_callee_located(img, results, items, starts, claimed, thunk):
+    """CR7: {symbol: address} by USE_CR7_CALLEE_LOCATED (above) for ITEMS [(r, obj, sec, s, length)]."""
+    sites, _ = call_sites(img)
+    alias = collections.defaultdict(set)
+    for th, dst in thunk.items():
+        alias[dst].add(th)
+    own_at, ext_at = {}, collections.defaultdict(set)
+    for r, obj, *_ in results:
+        if r['status'] == 'exact':
+            a = int(r['addresses'][0], 16)
+            own_at[(id(obj), r['symbol'])] = a
+            ext_at[r['symbol']].add(a)
+    fn_cache = {}
+
+    def fns(a):
+        if a not in fn_cache:
+            out = set()
+            for n in {a} | alias.get(a, set()):
+                for x in sites.get(n, ()):
+                    if x in thunk:
+                        continue
+                    j = bisect.bisect_right(starts, x) - 1
+                    if j >= 0:
+                        out.add(starts[j])
+            fn_cache[a] = out
+        return fn_cache[a]
+
+    out = {}
+    for r, obj, sec, s, length in items:
+        cand, used = None, set()
+        for k, n, typ, t, _ in obj.reloc_targets(sec, s, length):
+            if t is None or n != 4 or typ != 0x14:
+                continue
+            a = own_at.get((id(obj), t['name']))
+            if a is None:
+                at = ext_at.get(t['name'], set())
+                a = next(iter(at)) if len(at) == 1 else None
+            if a is None or a in used:
+                continue
+            f = fns(a)
+            if not f:
+                continue
+            used.add(a)
+            cand = set(f) if cand is None else cand & f
+        if cand and len(cand) == 1 and len(used) >= CR7_CALLEE_MIN:
+            a = next(iter(cand))
+            if not claimed[a] - {r['symbol']}:
+                out[r['symbol']] = a
+    return out
+
+
+# ... and (CR7) when the caller's calls into the tied copies do not align as a whole (it is not exact: one helper's
+# calls may be inlined, repeated or missing), they are aligned per pool instead: the tied symbols whose candidate copies
+# overlap form one pool (union of overlapping survivor sets), and each pool's calls (object order) are aligned with
+# the client function's branches into that pool's copies by the same rule (one symbol and one copy reached, or equal
+# counts mapping one to one); a pool that does not align gives nothing, the others still do. Distinct symbols still
+# get distinct addresses, and every caller must agree (the checks below). GalaxyMapRenderClass::Unknown_7A8B70 (its
+# self name) calls its Create_NEW<System> / <Sector> at 0x7B1A50 / 0x7B1C80 and hash_map::find at 0x7B1AB0, while
+# its two RefCountPtr<GalaxyMapRenderItemClass> conversions reach one client copy (not aligned, left tied).
+USE_CR7_POOL_ALIGN = True
+
+
+def _cr6_align(ours, theirs, cset):
+    """{symbol: address} aligning OURS (call order) with THEIRS (client branch order), None when they do not align:
+    one symbol and one copy reached (counts may differ), or equal counts mapping one to one; each address one of
+    the symbol's candidates (CSET)."""
+    m = {}
+    if not ours:
+        return None
+    if len(set(ours)) == 1 and len(set(theirs)) == 1:
+        m = {ours[0]: theirs[0]}          # one tied symbol, one copy reached: the call counts may differ
+    elif len(theirs) != len(ours) or any(m.setdefault(n, t) != t for n, t in zip(ours, theirs)) or \
+            len(set(m.values())) != len(m):
+        return None
+    if not m or any(t not in cset[n] for n, t in m.items()):
+        return None
+    return m
+
+
+def _cr7_pools(cset):
+    """USE_CR7_POOL_ALIGN: the symbols of CSET grouped by overlapping candidate sets (connected components)."""
+    syms = sorted(cset)
+    parent = {n: n for n in syms}
+
+    def root(n):
+        while parent[n] != n:
+            parent[n] = parent[parent[n]]
+            n = parent[n]
+        return n
+    owner = {}
+    for n in syms:
+        for t in cset[n]:
+            if t in owner:
+                parent[root(n)] = root(owner[t])
+            else:
+                owner[t] = n
+    groups = collections.defaultdict(set)
+    for n in syms:
+        groups[root(n)].add(n)
+    return list(groups.values())
+
+
+# ... and (CR7) the located caller's C++ EH unwind funclets are a second stream beside its calls: the client FuncInfo
+# is the one its EH prologue (`push -1; push offset stub; mov eax, fs:[0]`, within 0x18 bytes of the located address)
+# pushes; the object's funclets' rel32 targets among the tied symbols, in state order, align (per pool, as above) with
+# the rel32 targets inside the client's funclets of that FuncInfo, in state order (each funclet up to the next one,
+# at most FUNCLET_MAX bytes); the state counts may differ (the caller is not exact). Both streams must agree.
+# GalaxyMapRenderClass::Unknown_7A8B70's funclets destroy its System / Sector / Gate iterators: ~GalaxyMap{System,
+# Sector,Gate}IteratorClass at 0x7A9470 / 0x7A94A0 / 0x7A94D0, each next to the RefCountPtr<GalaxyMapRender{System,
+# Sector,Gate}Class> destructors of its loop
+USE_CR7_FUNCLETS = True
+
+
+def _cr7_funclet_streams(img, obj, sec, s, length, a, names, thunk):
+    """USE_CR7_FUNCLETS: ([tied symbol a funclet of the object's function targets, state order], [client funclet
+    rel32 target, state order]) for the function located at A, ([], []) without an EH frame on both sides."""
+    ou = object_unwind(obj, sec, s, length)
+    if ou is None:
+        return [], []
+    k, xsec, states = ou
+    text, base = _whole_text(img)
+    o = a - base
+    m = EH_PROLOGUE.search(text, o, o + 0x18) if 0 <= o < len(text) else None
+    if not m:
+        return [], []
+    stub = struct.unpack_from('<I', text, m.start() + 3)[0]
+    maps, _ = client_funcinfos(img)
+    if stub not in maps:
+        return [], []
+    ours = [sym['name'] for st in states if st is not None
+            for j, n, typ, sym, add in obj.reloc_targets(xsec, st[0], st[1] - st[0])
+            if typ == 0x14 and n == 4 and sym is not None and sym['name'] in names]
+    fl = maps[stub]
+    bounds = sorted(set(fl))
+    theirs = []
+    for cf in fl:
+        i = bisect.bisect_right(bounds, cf)
+        end = min(bounds[i] if i < len(bounds) else cf + FUNCLET_MAX, cf + FUNCLET_MAX) - base
+        x = cf - base
+        if 0 <= x and x + 2 < len(text) and text[x] in (0x8B, 0x8D) and text[x + 1] in (0x4D, 0x8D):
+            x += 3 if text[x + 1] == 0x4D else 6     # mov / lea ecx, [ebp+disp]: skip its displacement
+        while 0 <= x and x + 5 <= min(end, len(text)):
+            if text[x] in (0xE8, 0xE9):
+                t = (base + x + 5 + struct.unpack_from('<i', text, x + 1)[0]) & 0xFFFFFFFF
+                theirs.append(thunk.get(t, t))
+                if text[x] == 0xE9:
+                    break
+            x += 1
+    return ours, theirs
+
+
+# ... and (CR7) a third stream: the located caller's absolute (DIR32) references to the tied functions (a function
+# pointer pushed or stored: an atexit stub, a callback, a scalar deleting destructor in a table built in code), in
+# offset order, align (per pool) with the client function's dwords that hold one of the pool's copies (or an
+# incremental-link thunk of one), in address order, up to the next verified start
+USE_CR7_ADDR_REFS = True
+
+
+def _cr7_addr_refs(img, obj, sec, s, length, a, end, names, thunk):
+    """USE_CR7_ADDR_REFS: ([tied symbol the object's function references by DIR32, offset order], [client dword at
+    A..END that is a .text address, thunks resolved, address order])."""
+    ours = [t['name'] for k, n, typ, t, _ in obj.reloc_targets(sec, s, length)
+            if t is not None and n == 4 and typ == 0x06 and t['name'] in names]
+    if not ours:
+        return [], []
+    tstart, tend, traw = img.section('.text')
+    theirs = []
+    for x in range(a, end - 3):
+        v = struct.unpack_from('<I', img.data, traw + x - tstart)[0]
+        if tstart <= v < tend:
+            theirs.append(thunk.get(v, v))
+    return ours, theirs
+
+
 def cr6_named_callers(img, results, pending, done, claimed, text, base, thunk, known, called=None, located=None,
                       vslots=None):
     """D246 (CR6): [(pending item, address)] (USE_CR6_NAMED_CALLERS above)."""
@@ -2346,6 +2529,10 @@ def cr6_named_callers(img, results, pending, done, claimed, text, base, thunk, k
     if USE_CR6_STRING_LOCATED and unplaced:
         found = cr6_string_located(img, unplaced, starts, claimed)
         callers += [(it, found[it[0]['symbol']]) for it in unplaced if it[0]['symbol'] in found]
+        unplaced = [it for it in unplaced if it[0]['symbol'] not in found]
+    if USE_CR7_CALLEE_LOCATED and unplaced:
+        found = cr7_callee_located(img, results, unplaced, starts, claimed, thunk)
+        callers += [(it, found[it[0]['symbol']]) for it in unplaced if it[0]['symbol'] in found]
     for (r, obj, sec, s, length), a in callers:
         mine = tied[id(obj)]
         if a not in startset or claimed[a] - {r['symbol']}:
@@ -2354,22 +2541,51 @@ def cr6_named_callers(img, results, pending, done, claimed, text, base, thunk, k
         end = starts[i] if i < len(starts) else base + len(text)
         ours = [t['name'] for k, n, typ, t, _ in obj.reloc_targets(sec, s, length)
                 if t is not None and n == 4 and typ == 0x14 and t['name'] in mine]
-        if not ours:
+        fours, ftheirs = _cr7_funclet_streams(img, obj, sec, s, length, a, mine, thunk) if USE_CR7_FUNCLETS \
+            else ([], [])
+        rours, rtheirs = _cr7_addr_refs(img, obj, sec, s, length, a, end, mine, thunk) if USE_CR7_ADDR_REFS \
+            else ([], [])
+        if not ours and not fours and not rours:
             continue
-        branches = _client_branches(img, a, end, thunk)
+        branches = _client_branches(img, a, end, thunk) if ours else []
         if branches is None:
             continue
-        cset = {n: mine[n][1] if mine[n][1] is not None else {t for t in set(branches) if short_at(mine[n][0], t)}
-                for n in set(ours)}
-        pool = set().union(*cset.values())
-        theirs = [t for t in branches if t in pool]
-        m = {}
-        if len(set(ours)) == 1 and len(set(theirs)) == 1:
-            m = {ours[0]: theirs[0]}          # one tied symbol, one copy reached: the call counts may differ
-        elif len(theirs) != len(ours) or any(m.setdefault(n, t) != t for n, t in zip(ours, theirs)) or \
-                len(set(m.values())) != len(m):
-            continue
-        if not m or any(t not in cset[n] for n, t in m.items()):
+        reach = set(branches) | set(ftheirs) | set(rtheirs)
+        cset = {n: mine[n][1] if mine[n][1] is not None else {t for t in reach if short_at(mine[n][0], t)}
+                for n in set(ours) | set(fours) | set(rours)}
+
+        def aligned(seq, targets):
+            if not seq:
+                return {}
+            pool = set().union(*(cset[n] for n in set(seq)))
+            got = _cr6_align(seq, [t for t in targets if t in pool], cset)
+            if got is None and USE_CR7_POOL_ALIGN:
+                got = {}
+                sub = {n: cset[n] for n in set(seq)}
+                for group in _cr7_pools(sub):
+                    pool_p = set().union(*(cset[n] for n in group))
+                    g = _cr6_align([n for n in seq if n in group], [t for t in targets if t in pool_p], cset)
+                    if g:
+                        got.update(g)
+                if got and len(set(got.values())) != len(got):
+                    got = None
+            return got
+        m = aligned(ours, branches) if ours else {}
+        for seq, targets in ((fours, ftheirs), (rours, rtheirs)):
+            if not seq:
+                continue
+            fm = aligned(seq, targets)
+            if m is None or fm is None:
+                m = fm if m is None else m          # one stream alone, when the other does not align
+            elif any(m.get(n, t) != t for n, t in fm.items()):
+                m = None                            # the streams disagree: nothing
+                break
+            else:
+                m = dict(m, **fm)
+            if m and len(set(m.values())) != len(m):
+                m = None
+                break
+        if not m:
             continue
         for n, t in m.items():
             it = mine[n][0]

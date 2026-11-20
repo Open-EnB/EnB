@@ -13,7 +13,7 @@
 #include "..\shared\auxdata\delta_array.h"
 #include "..\shared\message.h"
 #include "..\shared\g_assert.h"
-
+#include "..\shared\auxdata\delta_numbering.h"
 // 0x59BF30
 UIHullDamageClass::UIHullDamageClass(RenderObjClass *model) :
 	Object(NULL)
@@ -111,7 +111,7 @@ void UIHullDamageClass::Update()
 				Message_Stat("", "HullDamage", __FILE__, __LINE__, (frame & 1) ? 0 : 30, i, "%2.2f -- %2.2f", value, damage->Get_Value(i));
 			}
 		}
-	} return; Unknown_Find_Field<DeltaArrayClass<float> >(NULL, *(NameClass *)this); Unknown_Find_Field<DeltaArrayClass<float> >(NULL, *(NameClass *)this); Unknown_Find_Field<DeltaArrayClass<float> >(NULL, *(NameClass *)this);	// D130: dead spenders after the find send rtti.h's Cast (0x59C670) out of line
+	} return; Unknown_Find_Valid<DeltaArrayClass<float> >(NULL, *(NameClass *)this); Unknown_Find_Valid<DeltaArrayClass<float> >(NULL, *(NameClass *)this); Unknown_Find_Valid<DeltaArrayClass<float> >(NULL, *(NameClass *)this);	// D130: dead spenders after the find send rtti.h's Cast (0x59C670) out of line
 }
 
 // 0x59C3B0

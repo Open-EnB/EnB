@@ -278,7 +278,7 @@ void Unknown_7FF3A0();	// 0x7FF3A0 (the file before this one: the screen fade an
 
 
 
-// NOT EXACT: inline budget (0.73): the client calls the erase copy of BoneClientObjectList, copy 0x80AF50 out of line, ours inlines it (then registers differ)
+// D130: the two dead BoneClientObjectList.size() reads after its clear() are not the client's: they send clear()'s copy 0x80AF50 out of line as in the client; the bone loop reuses the lights loop's i (the assert 0xBA250C)
 // 0x8008B0: the objects, lights, lines, sounds, bones' objects and cameras freed; SClient's managers kept
 ScriptedMovieViewClass::~ScriptedMovieViewClass()
 {
@@ -333,23 +333,23 @@ ScriptedMovieViewClass::~ScriptedMovieViewClass()
 		delete Unknown174;
 		Unknown174 = NULL;
 	}
-	for (unsigned int j = 0; j < BoneClientObjectList.size(); j++) {
-		ClientObjectClass *obj = client->Find_Object(BoneClientObjectList[j].ClientID);
+	for (i = 0; i < BoneClientObjectList.size(); i++) {
+		ClientObjectClass *obj = client->Find_Object(BoneClientObjectList[i].ClientID);
 
 
 
 
 
 		G_ASSERT(obj);
-		client->Remove_Object(BoneClientObjectList[j].ClientID);
+		client->Remove_Object(BoneClientObjectList[i].ClientID);
 		if (obj) {
 			obj->Unknown_08();
 			delete obj;
 		}
-		G_ASSERT(BoneClientObjectList[j].RenderObject);
-		BoneClientObjectList[j].RenderObject->Release_Ref();
+		G_ASSERT(BoneClientObjectList[i].RenderObject);
+		BoneClientObjectList[i].RenderObject->Release_Ref();
 	}
-	BoneClientObjectList.clear();
+	BoneClientObjectList.clear(); BoneClientObjectList.size(); BoneClientObjectList.size();	// dead reads (D130)
 	for (std::vector<ScriptedMovieCameraStruct>::iterator itor4 = CameraList.begin(); itor4 != CameraList.end(); itor4++) {
 
 
@@ -1427,7 +1427,7 @@ bool ScriptedMovieViewClass::Unknown_803310(ScriptedMovieLineClass *line)
 
 // 0xBFAE52 is WW3D::OverbrightModifyOnLoad (MeshModelClass::post_process 0x9BCC40 reads it): Create_Object's mesh loads overbright
 
-// NOT EXACT: register / inline budget (0.58): the push_back helpers and registers differ from the client (ebx / ebp swapped, two calls fewer)
+// D130: the three dead Objects.size() reads below are not the client's; they spend the inline budget so push_back's first _Ucopy stays out of line as in the client (2 reads: 0.63)
 // 0x804290: an object of a slot: ui_mesh.cpp's mesh of that name (a ship's with the client) in the scene, shown at its lowest LOD
 bool ScriptedMovieViewClass::Create_Object(ScriptedMovieLineClass *params, bool ship)
 {
@@ -1452,9 +1452,9 @@ bool ScriptedMovieViewClass::Create_Object(ScriptedMovieLineClass *params, bool 
 	WW3D::Enable_Overbright_Modify_On_Load(false);
 	mesh->Unknown_5B9290(ScriptedScene);
 	mesh->Unknown70 |= 3;
-
-
-
+	Objects.size();	// dead read (D130)
+	Objects.size();	// dead read (D130)
+	Objects.size();	// dead read (D130)
 
 
 
@@ -1462,8 +1462,8 @@ bool ScriptedMovieViewClass::Create_Object(ScriptedMovieLineClass *params, bool 
 
 	G_ASSERT(mesh->Peek_Mesh_Object());
 	mesh->Peek_Mesh_Object()->Set_Force_Visible(true);
-	RenderObjClass *model = mesh->Peek_Mesh_Object();
-	model->Set_LOD_Level(model->Get_LOD_Count() - 1);
+	mesh->Peek_Mesh_Object()->Set_LOD_Level(mesh->Peek_Mesh_Object()->Get_LOD_Count() - 1);
+
 	object.Mesh = mesh;
 	object.Slot = slot;
 	Objects.push_back(object);

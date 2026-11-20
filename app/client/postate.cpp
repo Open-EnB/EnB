@@ -9,7 +9,7 @@
 #include "rendobj.h"
 #include "hermitespline.h"
 #include <stdlib.h>
-
+#include "..\shared\auxdata\delta_numbering.h"
 bool Unknown_B9489C = true;		// (0x716400 tests it)  // NAME 1: neutral (D10)
 bool Unknown_B9489D = true;		// NAME 1: neutral (D10)
 bool Unknown_B9489E = true;		// (the type 4 and 8 updates test it)  // NAME 1: neutral (D10)
@@ -931,8 +931,8 @@ void Unknown717010Class::Unknown_717430(int unknown, DeltaCompoundClass *aux_dat
 	float *acceleration = 0;
 	if (turn) {
 		NameClass name("MaxTurnRate");
-		DeltaTemplateClass<float> *t = Unknown_Find_Field<DeltaTemplateClass<float> >(aux_data, name);
-		if (t && t->Unknown70) {
+		DeltaTemplateClass<float> *t = Unknown_Find_Set_Field<DeltaTemplateClass<float> >(aux_data, name);
+		if (t) {
 			turn_rate_value = -(t->Value * *turn) * 0.001f;
 			turn_rate = &turn_rate_value;
 			count = 1;
@@ -940,8 +940,8 @@ void Unknown717010Class::Unknown_717430(int unknown, DeltaCompoundClass *aux_dat
 	}
 	if (tilt) {
 		NameClass name("MaxTiltRate");
-		DeltaTemplateClass<float> *t = Unknown_Find_Field<DeltaTemplateClass<float> >(aux_data, name);
-		if (t && t->Unknown70) {
+		DeltaTemplateClass<float> *t = Unknown_Find_Set_Field<DeltaTemplateClass<float> >(aux_data, name);
+		if (t) {
 			tilt_rate_value = -(t->Value * *tilt) * 0.001f;
 			tilt_rate = &tilt_rate_value;
 			count++;
@@ -952,8 +952,8 @@ void Unknown717010Class::Unknown_717430(int unknown, DeltaCompoundClass *aux_dat
 		if (*move_direction == 1) {
 			if (!fixed_speed) {
 				NameClass name("MaxSpeed");
-				DeltaTemplateClass<float> *t = Unknown_Find_Field<DeltaTemplateClass<float> >(aux_data, name);
-				if (t && t->Unknown70) {
+				DeltaTemplateClass<float> *t = Unknown_Find_Set_Field<DeltaTemplateClass<float> >(aux_data, name);
+				if (t) {
 					speed_value = t->Value * 0.001f;
 				} else {
 					known = false;
@@ -964,8 +964,8 @@ void Unknown717010Class::Unknown_717430(int unknown, DeltaCompoundClass *aux_dat
 		} else if (*move_direction == -1) {
 			if (!fixed_speed) {
 				NameClass name("MinSpeed");
-				DeltaTemplateClass<float> *t = Unknown_Find_Field<DeltaTemplateClass<float> >(aux_data, name);
-				if (t && t->Unknown70) {
+				DeltaTemplateClass<float> *t = Unknown_Find_Set_Field<DeltaTemplateClass<float> >(aux_data, name);
+				if (t) {
 					speed_value = t->Value * 0.001f;
 				} else {
 					known = false;
@@ -980,8 +980,8 @@ void Unknown717010Class::Unknown_717430(int unknown, DeltaCompoundClass *aux_dat
 		if (known) {
 			speed = &speed_value;
 			NameClass name("Acceleration");
-			DeltaTemplateClass<float> *t = Unknown_Find_Field<DeltaTemplateClass<float> >(aux_data, name);
-			if (t && t->Unknown70) {
+			DeltaTemplateClass<float> *t = Unknown_Find_Set_Field<DeltaTemplateClass<float> >(aux_data, name);
+			if (t) {
 				acceleration_value = t->Value * 0.000001f;
 				acceleration = &acceleration_value;
 			}
@@ -1016,11 +1016,11 @@ void Unknown717010Class::Unknown_7179A0(int unknown, DeltaCompoundClass *aux_dat
 	float tilt_rate = 0.0f;
 	if (auto_level) {
 		NameClass name("AutoLevel");
-		DeltaTemplateClass<bool> *t = Unknown_Find_Field<DeltaTemplateClass<bool> >(aux_data, name);
-		if (t && t->Unknown70 && t->Value) {
+		DeltaTemplateClass<bool> *t = Unknown_Find_Set_Field<DeltaTemplateClass<bool> >(aux_data, name);
+		if (t && t->Value) {
 			NameClass rate_name("MaxTiltRate");
-			DeltaTemplateClass<float> *r = Unknown_Find_Field<DeltaTemplateClass<float> >(aux_data, rate_name);
-			if (r && r->Unknown70) {
+			DeltaTemplateClass<float> *r = Unknown_Find_Set_Field<DeltaTemplateClass<float> >(aux_data, rate_name);
+			if (r) {
 				tilt_rate = r->Value * 0.001f;
 			}
 		}

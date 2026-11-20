@@ -83,5 +83,5 @@ int Action2PacketClass::Print(char *buffer, int)
 **	  pkemit.py): members from the raw message's Get / Build's Add (sizes) and Print (types,
 **	  names: 'Name=%d'), the constructors' stores in the initialiser list.
 **	* The file name is provisional (provisional, pk + its first named class's name).
-**	* Not rebuilt yet: opcode 45 (declared in pk_classes.h).
+**	* Opcode 45 (ACTION2, Action2PacketClass, declared in pkaction.h) is rebuilt here with opcode 44's class.
 */

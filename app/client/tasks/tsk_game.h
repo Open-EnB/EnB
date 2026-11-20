@@ -172,6 +172,7 @@ public:
 	Unknown_7CD500Class Unknown14;						// +0x14: the browsers' game dispatch  // NAME 1: neutral (D10)
 	std::string Unknown24;								// +0x24: the URL 0x7CB3D0 opens at exit (its length at +0x2C: LoginTaskClass::Unknown_6C tests it)  // NAME 1: neutral (D10)
 	bool Unknown34;										// +0x34 (the chat panel's slot +0x68 0x563280: set, no Online Manual): a browser is open
+	bool Get_Unknown34() { return(Unknown34); }			// the chat panel's tests read it through an inline getter (0x563280, 0x569A00: the flag in al)  // NAME 1 [Get_Unknown34]: neutral (D10)
 	unsigned int Unknown38;								// +0x38: a GetTickCount deadline (mode 1)
 	unsigned int Unknown3C;								// +0x3C: a deadline (mode 3; zero: none)
 	unsigned int Unknown40;								// +0x40: a deadline (mode 2)

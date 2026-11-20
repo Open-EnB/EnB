@@ -1,0 +1,40 @@
+{
+ "ambiguous": [],
+ "copy": "reconstructed",
+ "description": "RECONSTRUCTED: the time accessors' object (client 0x4B1160-0x4B1723): KVTickSecondsAccessorClass, KVTenthsSecondsAccessorClass, KVTenthsSpanAccessorClass; no initialiser of its own in the CRT table (kv_encoder.cpp's entry 81 follows the string accessors' guard 0x4B1130), so no <string>; split from kv_acc.cpp (DE, 2026-11-18); name PROVISIONAL (D137), after kv_acc_time.h",
+ "expected": {},
+ "in_tree": [
+  "0x4A8600",
+  "0x4B1160",
+  "0x4B1190",
+  "0x4B11C0",
+  "0x4B11E0",
+  "0x4B1270",
+  "0x4B1300",
+  "0x4B1340",
+  "0x4B1370",
+  "0x4B13A0",
+  "0x4B13C0",
+  "0x4B14B0",
+  "0x4B15A0",
+  "0x4B15E0",
+  "0x4B1610",
+  "0x4B1640",
+  "0x4B1660",
+  "0x4B16B0",
+  "0x4B1700"
+ ],
+ "merged": [],
+ "name": "shared/kv_acc_time.cpp",
+ "shared": [
+  "0x4A8600",
+  "0x4B11C0",
+  "0x4B13A0",
+  "0x4B1640"
+ ],
+ "short_known": [
+  "0x4B11C0",
+  "0x4B13A0",
+  "0x4B1640"
+ ]
+}

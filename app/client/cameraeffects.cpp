@@ -14,7 +14,7 @@
 
 // The file's own generator (0x6E2BA0 constructs it at 0xBE67E8, seeded with rand(); only this file's effects call it)
 static Random2Class CameraEffectsRandom(rand());	// NAME 1: neutral (D10)
-
+#include "aux_shake.h"	// the shake's fields: T<float> numbered after CameraEffectsRandom (CRT entry 533)
 // The effects' base (table 0xAFFE6C, one slot: the shared return-false copy 0x9CCD10); each effect
 // registers itself with the camera effects object it gets (that object's slot +0x10)
 class UnknownAFFE6CClass	// NAME 1: neutral (D10)

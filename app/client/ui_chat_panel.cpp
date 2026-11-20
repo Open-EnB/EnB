@@ -467,7 +467,7 @@ void ChatPanelInterface::Unknown_54()
 		Unknown258->Set_Hidden(1);
 	}
 	for (int i = 0; i < 6; i++) {
-		UnknownA4[i + 1] = (ButtonGadgetClass *)Add_Button(i + 1, buttons[i], texts[i]);
+		UnknownA4[i + 1] = Add_Button(i + 1, buttons[i], texts[i]);
 		if (tips[i]) {
 			GadgetClass::Set_Tooltip(UnknownA4[i + 1], "UI_CHAT_PANEL", tips[i]);
 		}
@@ -558,7 +558,7 @@ void ChatPanelInterface::Unknown_60()
 // 0x563260
 void ChatPanelInterface::Unknown_64() {}
 
-// NOT EXACT: inline-budget (in the inlined 0x5698F0 the client calls RefCountPtr's operator=(NULL) 0x56CC30 out of line and inlines the copy; ours the reverse; 249 instructions vs 240)
+// 0x5698F0's NULL assignment goes through the uncalled 0x568910 (RefCountPtr's operator=(NULL) 0x56CC30 out of line as the client's) and case 16 reads the browser flag through Get_Unknown34() (al, as the client)
 // 0x563280
 bool ChatPanelInterface::Unknown_68(int key)
 {
@@ -590,7 +590,7 @@ bool ChatPanelInterface::Unknown_68(int key)
 			Unknown_56BEF0();
 			return(true);
 		case 16:
-			if (!Unknown_7CA2D0()->Unknown34) {
+			if (!Unknown_7CA2D0()->Get_Unknown34()) {
 				Unknown_5685C0();
 				UnknownF8 = Create_Get((ChatPanelUIBase *)new UIPopupBrowserClass(Client->As_Space_Client(), 6, "Online Manual", 0));
 				UnknownF8->Unknown_54();
@@ -945,7 +945,7 @@ void ChatPanelInterface::Unknown_565120()
 	if (Unknown214.length()) Unknown228.push_back(Unknown214);
 }
 
-// NOT EXACT: inline-budget (the client keeps string::compare and assign out of line in the two searches and the label copy; 396 instructions vs 328)
+// NOT EXACT: inline-budget (Chat_Default_Channel through the uncalled 0x567930 as the client: 341 instructions vs 328; the client still calls string assign out of line for the channel copy and the label, ours expands _Grow)
 // 0x565390
 void ChatPanelInterface::Unknown_565390(bool back)
 {
@@ -994,9 +994,9 @@ found:
 		}
 		int kind = Unknown148;
 		if (kind < 6) {
-			Unknown144 = kind;
-			IntOptionStruct *option = OptionClass::Instance->Find_Int("Chat_Default_Channel");
-			if (option) option->Value = kind;
+			Unknown_567930(kind);
+
+
 			if (Unknown148 == 4) {
 				Unknown1F4 = buffer;
 			} else {
@@ -1090,6 +1090,12 @@ void ChatPanelInterface::Unknown_565F30(int arg)
 	if (arg == 1) Unknown10C = true;
 }
 
+// 0x565F60
+void ChatPanelInterface::Unknown_565F60(int window)
+{
+	UnknownFC = window;
+}
+
 // 0x565F80
 void ChatPanelInterface::Unknown_565F80()
 {
@@ -1135,7 +1141,7 @@ void ChatPanelInterface::Unknown_565F80()
 			Unknown104 = Create_Get((ChatPanelUIBase *)new UIOptionAccountClass(Client->As_Space_Client(), 1));
 			break;
 		case 11:
-			if (!Unknown_7CA2D0()->Unknown34) {
+			if (!Unknown_7CA2D0()->Get_Unknown34()) {
 				Unknown104 = Create_Get((ChatPanelUIBase *)new UIPopupBrowserClass(Client->As_Space_Client(), 5, "Credits", 0));
 				UnknownEC = Unknown104.Peek();
 			}
@@ -1414,7 +1420,7 @@ void ChatPanelInterface::Unknown_568950()
 	Unknown_5689D0(4);
 	UnknownD4 = NULL;
 }
-// NOT EXACT: inline-budget (functional, written from the disassembly: the client calls string::assign out of line for the early copies and expands _Grow for the label in the last branch; ours the reverse; 3196 bytes vs 3084)
+// NOT EXACT: inline-budget (functional, written from the disassembly; Chat_Default_Channel through the uncalled 0x567930: 962 instructions vs 939; the client calls string::assign out of line for Unknown1F4 = "" and the first label copy and expands _Grow in the last; ours expands both)
 // 0x5689D0
 void ChatPanelInterface::Unknown_5689D0(int index)
 {
@@ -1476,25 +1482,25 @@ void ChatPanelInterface::Unknown_5689D0(int index)
 				if (chosen) {
 					_snprintf(buffer, sizeof(buffer), "Defaulting chat channel to %s.", name.c_str());
 					sclient->Unknown_74D990(0x13, buffer, 0);
-					Unknown144 = channel;
-					IntOptionStruct *option = OptionClass::Instance->Find_Int("Chat_Default_Channel");
-					if (option) option->Value = channel;
+					Unknown_567930(channel);
+
+
 					Unknown1F4 = name;
 				} else {
 					Unknown1F4 = "";
 					sclient->Unknown_74D990(0x13, "No default destination available for chat.", 0);
-					Unknown144 = -1;
-					IntOptionStruct *option = OptionClass::Instance->Find_Int("Chat_Default_Channel");
-					if (option) option->Value = -1;
+					Unknown_567930(-1);
+
+
 				}
 				StringOptionStruct *label = OptionClass::Instance->Find_String("Channel_Label");
 				if (label) label->Value = Unknown1F4.c_str();
 			} else if (chosen && !strcmp(Unknown1F4.c_str(), "")) {
 				_snprintf(buffer, sizeof(buffer), "Defaulting chat channel to %s.", name.c_str());
 				sclient->Unknown_74D990(0x13, buffer, 0);
-				Unknown144 = channel;
-				IntOptionStruct *option = OptionClass::Instance->Find_Int("Chat_Default_Channel");
-				if (option) option->Value = channel;
+				Unknown_567930(channel);
+
+
 				Unknown1F4 = name;
 				StringOptionStruct *label = OptionClass::Instance->Find_String("Channel_Label");
 				if (label) label->Value = Unknown1F4.c_str();
@@ -1967,23 +1973,17 @@ void ChatPanelInterface::Unknown_5689D0(int index)
 
 
 
-
-
-
-
-
-
 // 0x5698F0
 void ChatPanelInterface::Unknown_5698F0(int id)
 {
 	int index = id - 8;
 	FAIL_IF((index < 0) || (index >= NUM_COMBO)) return;
 	SoundLibraryClass::Play_2D_Sound("SR_scifielectronic42.wav", 2);
-	if (UnknownD4) UnknownD4 = NULL;
+	Unknown_568910();
 	UnknownD4 = Combo[index];
 	if (id == 8) UnknownD4->Select_Text(Unknown1F4.c_str());
 }
-// NOT EXACT: shape (functional, written from the disassembly: the client places the Font Size test's fall-through into the channel search and keeps two destructor forms; 5966 bytes vs 5929)
+// NOT EXACT: shape (functional, written from the disassembly; Chat_Default_Channel through the uncalled 0x567930, the emote packet a temporary with the id read first: 1936 instructions vs 1937, residue 34 rows: the selected text's size test is threaded into its else here; UIComboBoxClass::Get_Selected_Text() gives the client's start (as in 0x5D0620) but moves the RefCountPtr releases' registers, 83 rows)
 // 0x569A00
 void ChatPanelInterface::Unknown_569A00()
 {
@@ -2086,7 +2086,7 @@ void ChatPanelInterface::Unknown_569A00()
 		Unknown_56C7E0();
 		return;
 	} else if (!strcmp(text.c_str(), "Credits")) {
-		if (!Unknown_7CA2D0()->Unknown34) {
+		if (!Unknown_7CA2D0()->Get_Unknown34()) {
 			Unknown_5685C0();
 			UnknownF8 = Create_Get((ChatPanelUIBase *)new UIPopupBrowserClass(Client->As_Space_Client(), 5, "Credits", 0));
 			UnknownF8->Unknown_54();
@@ -2095,7 +2095,7 @@ void ChatPanelInterface::Unknown_569A00()
 		}
 		return;
 	} else if (!strcmp(text.c_str(), "Self Help")) {
-		if (!Unknown_7CA2D0()->Unknown34) {
+		if (!Unknown_7CA2D0()->Get_Unknown34()) {
 			Unknown_5685C0();
 			UnknownF8 = Create_Get((ChatPanelUIBase *)new UIPopupBrowserClass(Client->As_Space_Client(), 0, "Knowledgebase", 0));
 			UnknownF8->Unknown_54();
@@ -2129,9 +2129,9 @@ void ChatPanelInterface::Unknown_569A00()
 			StringOptionStruct *label = OptionClass::Instance->Find_String("Channel_Label");
 			if (label) label->Value = Unknown1F4.c_str();
 			int channel = atoi(Unknown_B7C530[i].Number);
-			Unknown144 = channel;
-			IntOptionStruct *option = OptionClass::Instance->Find_Int("Chat_Default_Channel");
-			if (option) option->Value = channel;
+			Unknown_567930(channel);
+
+
 			char buffer[64];
 			_snprintf(buffer, sizeof(buffer), "Setting chat channel to %s.", text.c_str());
 			sclient->Unknown_74D990(0x13, buffer, 0);
@@ -2145,17 +2145,17 @@ void ChatPanelInterface::Unknown_569A00()
 		_snprintf(buffer, sizeof(buffer), "Setting chat channel to %s.", text.c_str());
 		sclient->Unknown_74D990(0x13, buffer, 0);
 		Unknown1F4 = name;
-		Unknown144 = 4;
-		IntOptionStruct *option = OptionClass::Instance->Find_Int("Chat_Default_Channel");
-		if (option) option->Value = 4;
+		Unknown_567930(4);
+
+
 		return;
 	}
 	if (sclient->Unknown_744B60()) {
 		for (i = 0; i < 33; i++) {
 			if (!strcmp(text.c_str(), Unknown_B7C398[i][gender]) && avatar) {
 				avatar->Unknown_781760(Unknown_B7C398[i][2]);
-				AvatarEmotePacketClass packet(((ClientClass *)Client)->AvatarID, avatar->Unknown_7817E0(), 1, NULL);
-				((ClientClass *)Client)->Send_Packet(&packet);
+				int id = ((ClientClass *)Client)->AvatarID;
+				((ClientClass *)Client)->Send_Packet(&AvatarEmotePacketClass(id, avatar->Unknown_7817E0(), 1, NULL));
 				return;
 			}
 		}

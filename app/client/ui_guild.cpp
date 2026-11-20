@@ -252,7 +252,7 @@ void UIGuildClass::Unknown_60()
 	}
 }
 
-// NOT EXACT: inline budget (the inlined row click 0x81B3F0 expands the name's _Eos, the client calls it) (0x81A420)
+// D130: the dead Unknown0CC.size() read after the row click is not the client's: it spends the inline budget so the inlined 0x81B3F0's name assign calls _Eos / _Tidy / _Grow out of line as in the client
 // 0x81A420
 bool UIGuildClass::Unknown_68(int key)
 {
@@ -325,7 +325,7 @@ bool UIGuildClass::Unknown_68(int key)
 		case 20:
 		case 21:
 			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
-			Unknown_81B3F0(key - 15);
+			Unknown_81B3F0(key - 15); Unknown0CC.size();	// dead read (D130)
 			return(true);
 	}
 	return(false);

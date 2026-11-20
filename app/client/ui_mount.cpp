@@ -14,7 +14,7 @@
 #include "..\shared\auxdata\auxdata.h"
 #include "..\shared\message.h"
 #include "..\shared\enbassetmgr.h"
-
+#include "..\shared\auxdata\delta_numbering.h"
 void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);	// 0x496AE0 (avatar.cpp's declaration)
 #include "..\common\itemtype.h"	// Unknown_843440 (0x843440): a mount's type as text
 
@@ -273,15 +273,15 @@ void UIMountClass::Build()
 	DeltaCompoundClass *auxdata = (DeltaCompoundClass *)cobj->AuxData;
 	FAIL_IF(!auxdata) return;
 	NameClass model_field("Inventory.EquipMountModel");  // NAME 1: neutral (D10)
-	DeltaStringClass *model_name = Unknown_Find_Field<DeltaStringClass>(auxdata, model_field);
-	if (!model_name || !model_name->Unknown70) return;
+	DeltaStringClass *model_name = Unknown_Find_Set_Field<DeltaStringClass>(auxdata, model_field);
+	if (!model_name) return;
 	const char *model_file = model_name->Get();  // NAME 1: neutral (D10)
 	NameClass mounts_field("Inventory.Mounts");  // NAME 1: neutral (D10)
-	DeltaArrayClass<InvSlotStruct> *mounts = Unknown_Find_Field<DeltaArrayClass<InvSlotStruct> >(auxdata, mounts_field);
-	if (!mounts || !mounts->Unknown70) return;
+	DeltaArrayClass<InvSlotStruct> *mounts = Unknown_Find_Set_Field<DeltaArrayClass<InvSlotStruct> >(auxdata, mounts_field);
+	if (!mounts) return;
 	NameClass bones_field("Inventory.MountBoneNames");  // NAME 1: neutral (D10)
-	DeltaItemArrayClass<DeltaStringClass> *bone_names = Unknown_Find_Field<DeltaItemArrayClass<DeltaStringClass> >(auxdata, bones_field);
-	if (!bone_names || !bone_names->Unknown70) return;
+	DeltaItemArrayClass<DeltaStringClass> *bone_names = Unknown_Find_Set_Field<DeltaItemArrayClass<DeltaStringClass> >(auxdata, bones_field);
+	if (!bone_names) return;
 
 	Model = AssetManager->Create_Render_Obj(model_file);
 	if (!Model) {

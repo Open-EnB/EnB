@@ -282,7 +282,7 @@ static inline RegistrationUnknown1ACClass *Get_Unknown1AC()  // NAME 1 [Get_Unkn
 
 
 
-// @0x5EF0B0
+// @0x5EF0B0 NOT EXACT: inline-budget (attempts.csv: the first string of +0x2CC / +0x328 inline here, out of line in the client; +0x328's id vector the reverse)
 RegistrationInterface::RegistrationInterface(UIViewClass *view, LayerClass *layer, int mode) :
 	InterfaceClass(view, (int)layer->Peek_Scene()),
 	Unknown98(""),
@@ -462,7 +462,7 @@ void RegistrationInterface::Unknown_5F1940()
 	}
 }
 
-// @0x5F1A10
+// @0x5F1A10 NOT EXACT: inline-budget (attempts.csv: functional, map operator[] inline; the client calls 0x604280 / 0x604650 / 0x6047D0 / 0x604BA0)
 bool RegistrationInterface::Unknown_68(int key)
 {
 	UIComboBoxClass *open = Unknown_BE5BC4;
@@ -627,7 +627,7 @@ bool RegistrationInterface::Unknown_68(int key)
 	return false;
 }
 
-// @0x5F2280
+// @0x5F2280 NOT EXACT: inline-budget (attempts.csv: functional)
 void RegistrationInterface::Unknown_5F2280()
 {
 	Unknown_5FB0C0();
@@ -885,7 +885,7 @@ void RegistrationInterface::Unknown_5F2A80(bool on, UIComboBoxClass *except)
 
 
 
-// @0x5F2B20
+// @0x5F2B20 NOT EXACT: order-only around the button struct's stores (attempts.csv)
 void RegistrationInterface::Unknown_5F2B20(int id, const char *name, const char *style, unsigned short key, unsigned short group, bool in_frame)
 {
 	RenderObjClass *robj = !in_frame ? DialogRenderObj->Get_Sub_Object_By_Name(name) : UnknownBC->Peek_Model()->Get_Sub_Object_By_Name(name);
@@ -965,7 +965,7 @@ void RegistrationInterface::Unknown_5F3110()
 	Unknown148 = 0;
 }
 
-// @0x5F3250
+// @0x5F3250 NOT EXACT: frame (attempts.csv: sub esp 0x30 vs the client's 0x28; the client calls begin 0x605970, _Min 0x608450)
 void RegistrationInterface::Unknown_5F3250(int id)
 {
 	unsigned short group = UnknownE8[id].Group;
@@ -1263,7 +1263,7 @@ void RegistrationInterface::Unknown_5F3600()
 
 
 
-// @0x5F3770
+// @0x5F3770 NOT EXACT: inline-budget (attempts.csv: functional, generated from pseudocode per case; the same frame and first 0x1400 bytes)
 void RegistrationInterface::Unknown_5F3770(int state)
 {
 	Unknown_5C();
@@ -1874,7 +1874,7 @@ void RegistrationInterface::Unknown_5F8520(const char *name, const char *text)
 	}
 }
 
-// @0x5F8560
+// @0x5F8560 NOT EXACT: inline-budget (attempts.csv: the client calls begin 0x606960, iterator++ 0x607120)
 void RegistrationInterface::Unknown_5F8560()
 {
 	if ((UnknownD4 == 1 && Unknown11B) || (UnknownD4 == 0 && Unknown11D) || UnknownD4 == 0x17) {
@@ -1944,7 +1944,7 @@ int RegistrationInterface::Unknown_5F8A90()
 	return(0);
 }
 
-// @0x5F8AD0
+// @0x5F8AD0 NOT EXACT: inline-budget (attempts.csv: the client calls 0x606150 / 0x6047D0 / 0x6074B0)
 void RegistrationInterface::Unknown_5F8AD0()
 {
 	if (UnknownF8[Unknown148].Unknown10 != 0) {
@@ -1967,7 +1967,7 @@ void RegistrationInterface::Unknown_5F8AD0()
 	}
 }
 
-// @0x5F8CD0
+// @0x5F8CD0 NOT EXACT: register choice (attempts.csv)
 void RegistrationInterface::Unknown_5F8CD0(int id, bool on)
 {
 	if (Unknown148 != id && Unknown148 != 0) {
@@ -2007,7 +2007,7 @@ void RegistrationInterface::Unknown_5F8DB0(bool arg)
 	button->Release_Ref();
 }
 
-// @0x5F8EA0
+// @0x5F8EA0 NOT EXACT: shape (attempts.csv: the client's bl bool form not reproduced)
 bool RegistrationInterface::Unknown_5F8EA0(int month, int day, int year)
 {
 	if (year < 1900) {
@@ -3314,7 +3314,7 @@ bad_login:
 			}
 			int this_year = Unknown124.tm_year;
 			bool flag = selected == 0x18;
-			std::string country(Unknown108[0x19].Combo->Get_Item_Text(Unknown108[0x19].Combo->Selected));
+			std::string country(Unknown108[0x19].Combo->Get_Selected_Text());
 			if (this_year - year == -1900 || !Unknown_5F8EA0(month, day, year)) {
 				UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "Please enter a valid birth date.", 0x140, 0, 0);
 			} else if (country.size() == 0) {
@@ -3401,7 +3401,7 @@ bad_login:
 			int month = Unknown108[0x14].Combo->Selected + 1;
 			UIComboBoxClass *combo = Unknown108[0x16].Combo;
 			int year = (unsigned)combo->Selected < combo->Items.size() ? atoi(combo->Items[combo->Selected].c_str()) : 0;
-			std::string country(Unknown108[0x19].Combo->Get_Item_Text(Unknown108[0x19].Combo->Selected));
+			std::string country(Unknown108[0x19].Combo->Get_Selected_Text());
 			int type = Unknown5A8[Unknown108[0x22].Combo->Selected].Unknown00;
 			if (strlen(first_name) == 0) {
 				UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "Please enter a valid First Name.", 0x140, 0, 0);
@@ -3490,7 +3490,7 @@ bad_login:
 			int month = Unknown108[0x14].Combo->Selected + 1;
 			UIComboBoxClass *combo = Unknown108[0x16].Combo;
 			int year = (unsigned)combo->Selected < combo->Items.size() ? atoi(combo->Items[combo->Selected].c_str()) : 0;
-			std::string country(Unknown108[0x19].Combo->Get_Item_Text(Unknown108[0x19].Combo->Selected));
+			std::string country(Unknown108[0x19].Combo->Get_Selected_Text());
 			int type = Unknown5A8[Unknown108[0x22].Combo->Selected].Unknown00;
 			if (strlen(first_name) == 0) {
 				UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "Please enter a valid First Name.", 0x140, 0, 0);
@@ -4322,7 +4322,7 @@ void RegistrationInterface::Unknown_5F00C0()
 	}
 }
 
-// @0x603820
+// @0x603820 NOT EXACT: inline-budget (attempts.csv: _Eos out of line in the client)
 bool RegistrationInterface::Unknown_603820(const char *number)
 {
 	std::string text(number);
@@ -4342,7 +4342,7 @@ bool RegistrationInterface::Unknown_603820(const char *number)
 	return(sum % 10 == 0);
 }
 
-// @0x6039E0
+// @0x6039E0 NOT EXACT: order-only (attempts.csv: this in ebp, end in edi)
 int RegistrationInterface::Unknown_6039E0(const char *number)
 {
 	std::vector<RegistrationCardPrefixStruct>::iterator prefix = Unknown88.begin();
@@ -4356,7 +4356,7 @@ int RegistrationInterface::Unknown_6039E0(const char *number)
 	return(0);
 }
 
-// @0x603A60
+// @0x603A60 NOT EXACT: shape (attempts.csv: the gmtime copy's registers popped before the compare)
 bool RegistrationInterface::Unknown_603A60(int month, int day, int year, int age)
 {
 	time_t now = time(NULL);

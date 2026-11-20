@@ -16,7 +16,7 @@ class Unknown_673EE0Class;
 class Unknown_671300Class;
 class IncapacitanceDetailsPacket;
 class AvatarDescClass;
-class Unknown6D47C0Class;
+class FontSys;
 class UICpitClass;
 
 // UnknownAF0DD0Class, the object watcher's base: client.h (through sclient.h) or eff_o.h declares it
@@ -131,7 +131,7 @@ public:
 	void Unknown_584A20();								// 0x584A20
 	void Unknown_584A60();								// 0x584A60 (SClient 0x745160)
 	void Unknown_584690(IncapacitanceDetailsPacket *packet);	// 0x584690 (cpacket.cpp: INCAPACITANCE_DETAILS 144)  // NAME 1 [packet]: the handler's packet
-	void Unknown_583DC0(Unknown6D47C0Class *text, Unknown6D47C0Class *header, int inflicted, bool emp);	// 0x583DC0 (cpacket.cpp: CLIENT_DAMAGE 100 for the player's own damage)  // NAME 1 [text, header, inflicted, emp]: what the handler passes
+	void Unknown_583DC0(FontSys *text, FontSys *header, int inflicted, bool emp);	// 0x583DC0 (cpacket.cpp: CLIENT_DAMAGE 100 for the player's own damage)  // NAME 1 [text, header, inflicted, emp]: what the handler passes
 
 	GadgetClass *Unknown0AC;							// +0xAC (0x57DD20 news it, 0x5C bytes, 0x6B56A0; the destructor deletes it through 0x65EED0)
 	RefCountPtr<RenderObjClass> Unknown0B0;				// +0xB0 'tsi01_gutter' (the constructor)

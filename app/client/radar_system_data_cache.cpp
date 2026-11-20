@@ -1,4 +1,5 @@
 // radar_system_data_cache.cpp: one object's cached view for a radar pass (0x7BDFC0-0x7BE590); notes at the end
+#include "aux_decoration.h"	// RadarRange (0x7BE6xx reads it; T<bool>, T<float> numbered: CRT entry 656)
 #include <string>
 #include <float.h>
 #include "radar_system_data_cache.h"
@@ -8,7 +9,6 @@
 #include "navigation_data.h"
 #include "..\shared\g_assert.h"
 extern "C" bool Unknown_831F90(const Vector3 &a, float a_radius, const Vector3 &b, float b_radius, float range);	// 0x831F90 (distance_calc.h, C linkage): the two spheres within range; the client reads al, the definition returns an int  // NAME 1: neutral (D10)
-
 // @0x7BDFC0
 RadarSystemDataCacheClass::RadarSystemDataCacheClass(ClientObjectClass *player, float extra_range) :
 	Player(player),
@@ -167,7 +167,7 @@ bool RadarSystemDataCacheClass::Get_Is_In_Range()
 		FAIL_IF(!Player) return(false);
 		float range;
 		if ((ClientObject->Type == 37) && ClientObject->AuxData) {
-			range = *(float *)(ClientObject->AuxData + 0x234);
+			range = ((DeltaDecorationClass *)ClientObject->AuxData)->RadarRange.Value;
 		} else {
 			NavigationDataClass *nav = Get_Navigation_Data();
 			if (!nav || nav->Unknown14) {

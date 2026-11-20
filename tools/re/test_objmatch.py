@@ -68,12 +68,14 @@ class FuncletEvidence(unittest.TestCase):
                 objmatch.USE_FUNCLET_CALLS = False
                 objmatch.USE_CONTRIB_SHORTS = False     # CR8: its contribution places it too
                 objmatch.USE_CR1_NAMED_TARGETS = False  # CR1: its named targets place it too
+                objmatch.USE_CR7_FUNCLETS = False       # CR7: a located caller's funclet stream places it too
                 try:
                     res = {r['symbol']: r for r in objmatch.match_objects(img, [path])}
                 finally:
                     objmatch.USE_FUNCLET_CALLS = True
                     objmatch.USE_CONTRIB_SHORTS = True
                     objmatch.USE_CR1_NAMED_TARGETS = True
+                    objmatch.USE_CR7_FUNCLETS = True
                 self.assertEqual(res[sym]['status'], 'short')
 
 
@@ -128,12 +130,14 @@ class PushedEvidence(unittest.TestCase):
                 objmatch.USE_PUSHED_CALLS = False
                 objmatch.USE_CONTRIB_SHORTS = False     # CR8: its contribution places it too
                 objmatch.USE_CR1_NAMED_TARGETS = False  # CR1: its named targets place it too
+                objmatch.USE_CR7_ADDR_REFS = False      # CR7: a located caller's references place it too
                 try:
                     res = {r['symbol']: r for r in objmatch.match_objects(img, [path], (0x401000, 0x8C1B50))}
                 finally:
                     objmatch.USE_PUSHED_CALLS = True
                     objmatch.USE_CONTRIB_SHORTS = True
                     objmatch.USE_CR1_NAMED_TARGETS = True
+                    objmatch.USE_CR7_ADDR_REFS = True
                 self.assertEqual(res[sym]['status'], 'short')
 
 PUSHED_TIES = [
@@ -344,7 +348,8 @@ class XcuSubrun(unittest.TestCase):
 
 class ContribTies(unittest.TestCase):
     def test_cases(self):
-        _check(self, CONTRIB_TIES, 'USE_CONTRIB_TIES', 'contrib', APP_REGION)
+        # CR7's per-pool alignment reaches _Lower_bound's 0x44D6D0 from its caller too: off as well
+        _check(self, CONTRIB_TIES, 'USE_CONTRIB_TIES', 'contrib', APP_REGION, also_off=('USE_CR7_POOL_ALIGN',))
 
 
 class ContribShorts(unittest.TestCase):
@@ -714,7 +719,8 @@ class Cr6NamedCallers(unittest.TestCase):
                        '0x4DDB20'),
                       ('attrib_dir_collective.obj', p + 'M@std@@QAE@ABV?$basic_string@DU?$char_traits@D@std@@V?$allocator'
                        '@D@2@@1@ABM@Z', '0x4DD6F0')],
-               'USE_CR6_STRING_LOCATED', 'cr6_named', APP_REGION)
+               'USE_CR6_STRING_LOCATED', 'cr6_named', APP_REGION,
+               also_off=('USE_CR7_CALLEE_LOCATED',))    # CR7: its exact callees locate it as well
 
     def test_short(self):
         """USE_CR6_SHORTS: shiputils.obj's RefCountPtr<MeshModelClass>::operator-> (`mov eax, [ecx]; ret`, too short to
@@ -722,6 +728,74 @@ class Cr6NamedCallers(unittest.TestCase):
         that holds its bytes, 0x813950."""
         _check(self, [('shiputils.obj', '??C?$RefCountPtr@VMeshModelClass@@@@QBEPAVMeshModelClass@@XZ', '0x813950')],
                'USE_CR6_SHORTS', 'cr6_named', APP_REGION, off_status='short')
+
+
+_GMR_ITER = ('QAE?AU?$_Hashtable_iterator@U?$pair@$$CBHV?$RefCountPtr@VGalaxyMapRenderXClass@@@@@std@@HU?$hash@H@2@U?$'
+             '_Select1st@U?$pair@$$CBHV?$RefCountPtr@VGalaxyMapRenderXClass@@@@@std@@@2@U?$equal_to@H@2@V?$allocator@V?$'
+             'RefCountPtr@VGalaxyMapRenderXClass@@@@@2@@2@ABH@Z')
+_GMR_TABLE_FIND = ('?find@?$hashtable@U?$pair@$$CBHV?$RefCountPtr@VGalaxyMapRenderXClass@@@@@std@@HU?$hash@H@2@U?$_Select1st'
+                   '@U?$pair@$$CBHV?$RefCountPtr@VGalaxyMapRenderXClass@@@@@std@@@2@U?$equal_to@H@2@V?$allocator@V?$RefCount'
+                   'Ptr@VGalaxyMapRenderXClass@@@@@2@@std@@' + _GMR_ITER)
+_GMR_MAP_FIND = ('?find@?$hash_map@HV?$RefCountPtr@VGalaxyMapRenderXClass@@@@U?$hash@H@std@@U?$equal_to@H@3@V?$allocator@V?$'
+                 'RefCountPtr@VGalaxyMapRenderXClass@@@@@3@@std@@' + _GMR_ITER)
+
+
+class Cr7Callers(unittest.TestCase):
+    """D246 (CR7): galaxy_map_render.obj's not-exact callers of its tied copies."""
+    def test_callee_located(self):
+        """USE_CR7_CALLEE_LOCATED: GalaxyMapRenderSectorClass::Unknown_7AB6D0 (not exact, no client name) is the one
+        client function calling all its exact callees, 0x7AB6D0; its one call to hashtable<System>::find reaches the
+        copy 0x7B1DE0 (of 0x7B1AB0 / 0x7B1DE0 left)."""
+        sym = _GMR_TABLE_FIND.replace('X', 'System')
+        _check(self, [('galaxy_map_render.obj', sym, '0x7B1DE0')], 'USE_CR7_CALLEE_LOCATED', 'cr6_named', APP_REGION)
+
+    def test_pool_align(self):
+        """USE_CR7_POOL_ALIGN: GalaxyMapRenderClass::Unknown_7A8B70 (its self name) calls Create_NEW<System>,
+        Create_NEW<Sector>, hash_map<Sector>::find and two RefCountPtr<GalaxyMapRenderItemClass> conversions; the client
+        function reaches one conversion copy only, so the whole alignment fails, but the Create_NEW pool aligns
+        (0x7B1A50, 0x7B1C80, call order) and the find pool too (0x7B1AB0)."""
+        new = '?Create_NEW@@YA?AV?$RefCountPtr@VGalaxyMapRender%sClass@@@@PAVGalaxyMapRender%sClass@@@Z'
+        find = _GMR_MAP_FIND.replace('X', 'Sector')
+        _check(self, [('galaxy_map_render.obj', new % ('System', 'System'), '0x7B1A50'),
+                      ('galaxy_map_render.obj', new % ('Sector', 'Sector'), '0x7B1C80'),
+                      ('galaxy_map_render.obj', find, '0x7B1AB0')],
+               'USE_CR7_POOL_ALIGN', 'cr6_named', APP_REGION)
+
+    def test_funclets(self):
+        """USE_CR7_FUNCLETS: Unknown_7A8B70's EH prologue pushes its FuncInfo's stub; the object's unwind funclets
+        destroy the System, Sector and Gate iterators in state order, the client's funclets jump to 0x7A9470,
+        0x7A94A0 and 0x7A94D0 (byte-identical destructors) in the same order."""
+        _check(self, [('galaxy_map_render.obj', '??1GalaxyMap%sIteratorClass@@QAE@XZ' % k, a)
+                      for k, a in (('System', '0x7A9470'), ('Sector', '0x7A94A0'), ('Gate', '0x7A94D0'))],
+               'USE_CR7_FUNCLETS', 'cr6_named', APP_REGION)
+
+    def test_addr_refs(self):
+        """USE_CR7_ADDR_REFS: LandClass::Build_Decorations (unknown_474530.obj, not exact) sits at 0x47A2F0 (the full
+        run locates it by its exact callees, some in other objects, so this checks the stream itself); it pushes
+        vector<LandDecorationVertexStruct>'s and vector<unsigned short>'s default-constructor closures and
+        destructors for `eh vector constructor iterator`, the client function the thunks of 0x47CD70 / 0x47D1B0 then
+        0x47CE30 / 0x47D1F0: per pool (closures, destructors) the references align in order."""
+        path = os.path.join(OBJS, 'unknown_474530.obj')
+        if not os.path.exists(path):
+            self.skipTest(f'{path} missing')
+        img = objmatch.ClientImage(objmatch.DEFAULT_CLIENT)
+        obj = objmatch.CoffObject(path)
+        ldv = '?$vector@ULandDecorationVertexStruct@@V?$allocator@ULandDecorationVertexStruct@@@std@@@std@@QAE'
+        g = '?$vector@GV?$allocator@G@std@@@std@@QAE'
+        f_ldv, f_g, d_ldv, d_g = '??_F' + ldv + 'XXZ', '??_F' + g + 'XXZ', '??1' + ldv + '@XZ', '??1' + g + '@XZ'
+        names = {f_ldv, f_g, d_ldv, d_g}
+        fn = next((sec, s, e - s) for n, sec, s, e in obj.functions() if n.startswith('?Build_Decorations@LandClass@@'))
+        starts = objmatch._verified_starts(img)
+        end = starts[starts.index(0x47A2F0) + 1]
+        ours, theirs = objmatch._cr7_addr_refs(img, obj, *fn, 0x47A2F0, end, names, objmatch.thunks_of(img))
+        cset = {f_ldv: {0x47CD70, 0x47CE30}, f_g: {0x47CD70, 0x47CE30}, d_ldv: {0x47D1B0, 0x47D1F0},
+                d_g: {0x47D1B0, 0x47D1F0}}
+        got = {}
+        for group in objmatch._cr7_pools(cset):
+            pool = set().union(*(cset[n] for n in group))
+            got.update(objmatch._cr6_align([n for n in ours if n in group], [t for t in theirs if t in pool], cset)
+                       or {})
+        self.assertEqual(got, {f_ldv: 0x47CD70, d_ldv: 0x47D1B0, f_g: 0x47CE30, d_g: 0x47D1F0})
 
 
 class NbXcuStretch(unittest.TestCase):

@@ -202,64 +202,64 @@ bool Unknown_495FD0(RenderObjClass *robj, TextureClass *texture, int unknown);	/
 
 
 
-// The +0x94 object's +0x54, as far as 0x556B20 writes it
-class UIAvatrUnknown094Unknown054Struct	// NAME 1: neutral (D10)
-{
-public:
-	virtual void Unknown_000(); virtual void Unknown_004(); virtual void Unknown_008(); virtual void Unknown_00C(); virtual void Unknown_010(); virtual void Unknown_014(); virtual void Unknown_018(); virtual void Unknown_01C();
-	virtual void Unknown_020(); virtual void Unknown_024(); virtual void Unknown_028(); virtual void Unknown_02C(); virtual void Unknown_030(); virtual void Unknown_034(); virtual void Unknown_038(); virtual void Unknown_03C();
-	virtual void Unknown_040(); virtual void Unknown_044(); virtual void Unknown_048(); virtual void Unknown_04C(); virtual void Unknown_050(); virtual void Unknown_054(); virtual void Unknown_058(); virtual void Unknown_05C();
-	virtual void Unknown_060(); virtual void Unknown_064(); virtual void Unknown_068(); virtual void Unknown_06C(); virtual void Unknown_070(); virtual void Unknown_074(); virtual void Unknown_078(); virtual void Unknown_07C();
-	virtual void Unknown_080(); virtual void Unknown_084(); virtual void Unknown_088(); virtual void Unknown_08C(); virtual void Unknown_090(); virtual void Unknown_094(); virtual void Unknown_098(); virtual void Unknown_09C();
-	virtual void Unknown_0A0(); virtual void Unknown_0A4(); virtual void Unknown_0A8(); virtual void Unknown_0AC(); virtual void Unknown_0B0(); virtual void Unknown_0B4(); virtual void Unknown_0B8(); virtual void Unknown_0BC();
-	virtual void Unknown_0C0(); virtual void Unknown_0C4(); virtual void Unknown_0C8(); virtual void Unknown_0CC(); virtual void Unknown_0D0(); virtual void Unknown_0D4(); virtual void Unknown_0D8(); virtual void Unknown_0DC();
-	virtual void Unknown_0E0(); virtual void Unknown_0E4(); virtual void Unknown_0E8(); virtual void Unknown_0EC(); virtual void Unknown_0F0(); virtual void Unknown_0F4(); virtual void Unknown_0F8(); virtual void Unknown_0FC();
-	virtual void Unknown_100(); virtual void Unknown_104(); virtual void Unknown_108(); virtual void Unknown_10C(); virtual void Unknown_110(); virtual void Unknown_114(); virtual void Unknown_118(); virtual void Unknown_11C();
-	virtual void Unknown_120(); virtual void Unknown_124(); virtual void Unknown_128(); virtual void Unknown_12C(); virtual void Unknown_130(); virtual void Unknown_134(); virtual void Unknown_138(); virtual void Unknown_13C();
-	virtual void Unknown_140(); virtual void Unknown_144(); virtual void Unknown_148(); virtual void Unknown_14C(); virtual void Unknown_150(); virtual void Unknown_154(); virtual void Unknown_158(); virtual void Unknown_15C();
-	virtual void Unknown_160(); virtual void Unknown_164(); virtual void Unknown_168(); virtual void Unknown_16C(); virtual void Unknown_170(); virtual void Unknown_174(); virtual void Unknown_178(); virtual void Unknown_17C();
-	virtual void Unknown_180(); virtual void Unknown_184(); virtual void Unknown_188(); virtual void Unknown_18C(); virtual void Unknown_190(); virtual void Unknown_194(); virtual void Unknown_198(); virtual void Unknown_19C();
-	virtual void Unknown_1A0(); virtual void Unknown_1A4(); virtual void Unknown_1A8(); virtual void Unknown_1AC(); virtual void Unknown_1B0(); virtual void Unknown_1B4(); virtual void Unknown_1B8(); virtual void Unknown_1BC();
-	virtual void Unknown_1C0();
-	virtual void Unknown_1C4();							// +0x1C4 (0x554D60, last)
 
-	char Unknown004[0x214 - 0x004];						// +0x004
-	bool Unknown214;									// +0x214 (0x556B20 sets it)
-	char Unknown215[0x231 - 0x215];						// +0x215
-	bool Unknown231;									// +0x231 (set on the head tab)
-};
 
-// The window's +0x94: ship_pip.cpp's gadget (0xF4 bytes, vtable 0xB07DF4), as far as this file calls it
-class ShipPipClass	// NAME 3: class-from-file (D24) for app\client\ship_pip.cpp
-{
-public:
-	ShipPipClass(int type);								// 0x80B2E0 (the constructor passes 1)  // NAME 1 [type]: neutral
-	bool Unknown_80C220(ViewClass *view);		// 0x80C220 (FAIL_IF '!PIPView': its scene, camera and FloatParent)  // NAME 1 [view]: neutral
-	void Unknown_80C540(const Vector2 &size, const Vector3 &offset, unsigned int sort_level);	// 0x80C540 (the constructor: (640, 480), (0, 0, 0), 0x1C)  // NAME 1 [size, offset, a]: neutral
-	virtual void Unknown_00(); virtual void Unknown_04(); virtual void As_RObjGadget(); virtual void As_RObjProxyGadget();
-	virtual void As_SlotDataGadget(); virtual void As_UIScutProxyGadget(); virtual void Unknown_18(); virtual void Unknown_1C();
-	virtual void Unknown_20(); virtual void Unknown_24(); virtual void Unknown_28(); virtual void Unknown_2C();
-	virtual void Unknown_30(); virtual void Unknown_34(); virtual void Unknown_38(); virtual void Unknown_3C();
-	virtual void Unknown_40(bool on);					// +0x40 (0x554D60)  // NAME 1 [on]: neutral
-	virtual void Unknown_44(); virtual void Unknown_48(); virtual void Unknown_4C();
-	virtual void Unknown_50(); virtual void Unknown_54(); virtual void Unknown_58(); virtual void Unknown_5C();
-	virtual void Is_Enabled(); virtual void Unknown_64(); virtual void Unknown_68(); virtual void Unknown_6C();
-	virtual void Unknown_70();
-	virtual void Unknown_74(int race);					// +0x74 0x80BAB0 (the lights by race)  // NAME 1 [race]: neutral
-	virtual void Unknown_78();							// +0x78 (0x554D60)
-	virtual void Unknown_7C(const RefCountPtr<CharacterViewAvatarClass> &avatar);	// +0x7C 0x80C640 (the avatar into +0x54)  // NAME 1 [avatar]: neutral
-	virtual void Unknown_80();
-	virtual void Unknown_84(const RefCountPtr<RenderObjClass> &model);	// +0x84 0x80CA30 (ship_pip.h's: the model replaced; the avatar goes through a converted temporary)  // NAME 1 [model]: ship_pip.h's
-	virtual void Unknown_88();							// +0x88 (0x556B20, after +0xDC)
-	void Unknown_80C180();								// 0x80C180 (the window's destructor, after +0x80)
-	virtual void Unknown_8C();							// +0x8C
 
-	char Unknown04[0x54 - 0x04];						// +0x04
-	UIAvatrUnknown094Unknown054Struct *Unknown054;	UIAvatrUnknown094Unknown054Struct *Get_Avatar() { return(Unknown054); }	// +0x54 (0x556B20 reads it through the inline getter)  // NAME 1 [Get_Avatar]: neutral (D10)
-	char Unknown58[0xB8 - 0x58]; float Unknown0B8; float Unknown0BC; float Unknown0C0; float Unknown0C4; float Unknown0C8; char Unknown0CC[0xDC - 0xCC];	// +0x58; +0xB8 .. +0xC8 the turn, pan and zoom rates (0x556F80; ship_pip.cpp's 0x80CE10 reads them)
-	bool Unknown0DC;	void Set_Unknown0DC(bool on) { Unknown0DC = on; }	// +0xDC (set on the head tab, through the inline setter: 0x556B20's eax for the store)  // NAME 1 [Set_Unknown0DC]: neutral (D10)
-	char Unknown0DD[0xF4 - 0xDD];						// +0xDD (ship_pip.h's: 0xF4 bytes; the constructor writes +0xEC / +0xF0)
-};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// The window's +0x94: ship_pip.cpp's gadget (0xF4 bytes, vtable 0xB07DF4); its +0x54 is avatar.h's CharacterViewAvatarClass
+#include "ship_pip.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 #include "fontmanager.h"	// FontSys, FontManagerClass (0xBE67C4) and fontdatabase.h's FontStringFilesClass (0xBE67BC)
 
@@ -566,7 +566,7 @@ AvatarCreationInterface::AvatarCreationInterface(UIViewClass *view, LayerClass *
 		Unknown094 = new ShipPipClass(1);
 		Unknown094->Unknown_74(desc->Desc.Race);
 		Unknown094->Unknown_80C220((ViewClass *)Unknown08C);
-		((GadgetClass *)Unknown094)->Unknown_65FFC0(1, NULL);
+		Unknown094->Unknown_65FFC0(1, NULL);
 		Unknown094->Unknown_80C540(Vector2(640.0f, 480.0f), Vector3(0.0f, 0.0f, 0.0f), 0x1C);
 		Unknown64.Unknown_6870E0((GadgetClass *)Unknown094, 0x36, View, 1, 0);
 		Unknown094->Unknown_7C(Create_Peek(Unknown08C->Peek_Unknown194()));
@@ -670,7 +670,7 @@ void AvatarCreationInterface::Unknown_60()
 	Unknown_55A960();
 	Unknown_55BAC0();
 	Unknown094->Unknown_78();
-	Unknown094->Unknown054->Unknown_1C4();
+	((CharacterViewAvatarClass *)Unknown094->Unknown054.Peek())->Unknown_1C4();
 }
 
 // NOT EXACT: inline budget (0.27, 3742 bytes against about 0xC50): the client has its own case per key for 0x16-0x1F
@@ -1005,7 +1005,7 @@ void AvatarCreationInterface::Unknown_556B20(int tab)
 			Unknown094->Set_Unknown0DC(false);
 			Unknown094->Unknown_88();
 			Unknown094->Unknown_8C();
-			{ UIAvatrUnknown094Unknown054Struct *avatar = Unknown094->Get_Avatar(); avatar->Unknown231 = false;
+			{ CharacterViewAvatarClass *avatar = (CharacterViewAvatarClass *)Unknown094->Peek_Unknown054(); avatar->Unknown231 = false;
 			avatar->Unknown214 = true; }
 			break;
 		case 1:
@@ -1020,7 +1020,7 @@ void AvatarCreationInterface::Unknown_556B20(int tab)
 			Unknown094->Set_Unknown0DC(true);
 			Unknown094->Unknown_88();
 			Unknown094->Unknown_8C();
-			{ UIAvatrUnknown094Unknown054Struct *avatar = Unknown094->Get_Avatar(); avatar->Unknown231 = true;
+			{ CharacterViewAvatarClass *avatar = (CharacterViewAvatarClass *)Unknown094->Peek_Unknown054(); avatar->Unknown231 = true;
 			avatar->Unknown214 = true; }
 			break;
 		case 2:
@@ -1034,7 +1034,7 @@ void AvatarCreationInterface::Unknown_556B20(int tab)
 			Unknown094->Set_Unknown0DC(false);
 			Unknown094->Unknown_88();
 			Unknown094->Unknown_8C();
-			{ UIAvatrUnknown094Unknown054Struct *avatar = Unknown094->Get_Avatar(); avatar->Unknown231 = false;
+			{ CharacterViewAvatarClass *avatar = (CharacterViewAvatarClass *)Unknown094->Peek_Unknown054(); avatar->Unknown231 = false;
 			avatar->Unknown214 = true; } frame.Peek(); frame.Peek(); frame.Peek(); frame.Peek(); frame.Peek(); frame.Peek();	// dead Peek()s (D130; not the client's): they spend VC6's inline budget, so the palette helper's copies call their ~RefCountPtr out of line (5 too few)
 			break;
 	}

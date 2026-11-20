@@ -1,4 +1,5 @@
 // gutter_data.cpp: a client object's gutter icon and its two labels (0x7B4F30-0x7B6AB0); notes at the end
+#include "aux_decoration.h"	// T<bool>, T<float> numbered before <string>'s guard (CRT entry 639)
 #include "..\shared\auxdata\permstr.h"	// PermStringInit: the client's CRT stretch opens with it
 #include <string>
 #include <string.h>
@@ -22,7 +23,6 @@
 #include "..\shared\g_assert.h"
 bool Unknown_495FD0(RenderObjClass *robj, TextureClass *tex, int index);	// 0x495FD0 (ro_funcs.cpp): the texture onto the mesh's stage index
 void Unknown_42ECF0(float *x, float *y);							// 0x42ECF0 (cdecl): the pointer's position, 0..1  // NAME 1 [x, y]: as gadget.cpp's
-
 const char *Get_Icon_Name(ClientObjectClass *co);		// 0x7B6A00
 
 inline void GutterDataClass::Remove_Labels_From_Scene()

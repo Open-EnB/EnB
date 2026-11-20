@@ -42,30 +42,30 @@ class StarbaseFacilityClass;
 class StarbaseNPCClass;
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// ui_starbase.cpp's symbol chat menu (the starbase interface's +0x1F8; described there, interim placement D137): here
+// so that UIStarbaseClass can hold it as RefCountPtr<UIStarbaseUnknown1F8Class>
+struct UIStarbaseSymbolChatOptionStruct;
+class DynamicWindowClass;
+class GadgetClass;
+class UIStarbaseUnknown1F8Class : public InterfaceClass	// NAME 1: neutral (D10)
+{
+public:
+	UIStarbaseUnknown1F8Class(SClient *sclient);		// 0x644F80  // NAME 1 [sclient]: what 0x634140 passes
+	virtual ~UIStarbaseUnknown1F8Class();				// +0x00 0x6452C0 (deleting 0x645290)
+	virtual void Unknown_58();							// +0x58 0x645B20 (opened at the pointer, 'fontclick.wav')
+	virtual void Unknown_5C();							// +0x5C 0x645C50
+	virtual bool Unknown_68(int key);					// +0x68 0x645C80 (an option chosen: kept in +0x84)  // NAME 1 [key]: InterfaceClass's
+	void Unknown_645510();								// 0x645510 (the four options made, those the player cannot use greyed)
+	void Unknown_645A60();								// 0x645A60 (the options removed)
+	void Unknown_645CC0();								// 0x645CC0 (empty; no caller)
+	void Unknown_645CE0();								// 0x645CE0 (the options rebuilt unless open; the starbase interface's 0x63B630)
+	int Unknown_645DC0();								// 0x645DC0 (the chosen option, cleared; the starbase interface's 0x63DFE0)
+	int Unknown84;										// +0x84 (the chosen option: 0x645C80)
+	RefCountPtr<DynamicWindowClass> Window;				// +0x88 (SYMBOL_CHAT_WINDOW)
+	RefCountPtr<DynamicWindowClass> Section;			// +0x8C (SYMBOL_CHAT_SECTION)
+	GadgetClass *Gadget;								// +0x90 (a DynamicWindowGadgetClass over Window)
+	std::vector<UIStarbaseSymbolChatOptionStruct *> Options;	// +0x94
+};
 
 
 
@@ -268,9 +268,9 @@ public:
 	int Unknown1AC;	// +0x1AC
 	bool Unknown1B0, Unknown1B1, Unknown1B2, Unknown1B3;	// +0x1B0
 	float Unknown1B4, Unknown1B8;	// +0x1B4 (-1, 0.5)
-	char Unknown1BC[0x1EC - 0x1BC];	// +0x1BC (not set by the constructor)
+	Matrix3D Unknown1BC;	// +0x1BC (not set by the constructor): the camera transform 0x63E930 keeps (its translation read with fld at +0x1C8 / +0x1D8 / +0x1E8, the 12 words stored back)
 	Vector3 Unknown1EC;	// +0x1EC
-	RefCountPtr<InterfaceClass> Unknown1F8;	// +0x1F8 (destructor 0x643BA0: a reference count at +0x38, an interface)  // NAME 1: neutral (D10): the interface's class unknown
+	RefCountPtr<UIStarbaseUnknown1F8Class> Unknown1F8;	// +0x1F8: the symbol chat menu 0x634140 news (0xA4 bytes, constructor 0x644F80; destructor 0x643BA0 releases it, its reference count at +0x38)
 	bool Unknown1FC, Unknown1FD, Unknown1FE, Unknown1FF, Unknown200, Unknown201;	// +0x1FC
 	std::vector<LightClass *> Lights;	// +0x204 (0x640CC0 removes and releases them; 0x640DF0 hands a copy to the lights panel; destructor 0x643BE0)  // NAME 1: neutral
 	bool Unknown214, Unknown215, Unknown216, Unknown217, Unknown218, Unknown219, Unknown21A, Unknown21B, Unknown21C;	// +0x214

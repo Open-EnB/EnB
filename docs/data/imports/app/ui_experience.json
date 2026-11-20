@@ -50,7 +50,8 @@
   "0x58C8E0",
   "0x58CA10",
   "0x58CF60",
-  "0x58CFD0"
+  "0x58CFD0",
+  "0x58D000"
  ],
  "merged": [],
  "name": "client/ui_experience.cpp",

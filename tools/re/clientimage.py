@@ -95,8 +95,14 @@ class ClientImage:
     # is a function's entry (incremental linking reaches many through no thunk and no call): +1,275 (1,167 in the
     # application range), 28 of them also found by the first kind. Together +4,080, none inside an exact function
     # (symbols.json lengths) or reached by a branch of the function before it; verify's pairs unchanged.
+    # USE_APP_DIRECT_CALL_STARTS (N1, run 2026-11-18b, call C3's phase 2): in the app region a `call rel32` of the
+    # verified sweep that reaches its target directly, not through the thunk table, calls a function the linker
+    # gave no thunk (internal linkage: spln_db.cpp's 0x487F00 / 0x4881F0 / 0x4883A0 / 0x488870, called from
+    # Save 0x484D00, Save_Header and Load). +38 starts, every one 16-aligned after int3 padding and none inside a
+    # symbols.json function.
     USE_JMP_PAD_STARTS = True
     USE_CRT_REGISTERED_STARTS = True
+    USE_APP_DIRECT_CALL_STARTS = True
     XCU_TABLE = (0xB6C000, 0xB6D700)
     ATEXIT = 0xA25F00
 
@@ -112,7 +118,11 @@ class ClientImage:
         return out
 
     def crt_registered_starts(self):
-        """The CRT initialiser table's entries and the `push imm32; call atexit` operands that lie in .text."""
+        """The CRT initialiser table's entries and the `push imm32; call atexit` operands that lie in .text.
+
+        An entry that is an incremental-thunk table slot (8 of them: 0x4046BF, 0x4046C4, 0x406384, ...; the CRT
+        reaches those initialisers through their thunk) is not a function start: it is dropped here (the thunk's
+        target is a start already, from the table)."""
         ts, te, raw = self.section('.text')
         body = self.data[raw:raw + te - ts]
         out = set(self.crt_initialisers())
@@ -120,7 +130,8 @@ class ClientImage:
             o = m.start() + 5
             if ts + o + 5 + struct.unpack_from('<i', body, o + 1)[0] == self.ATEXIT:
                 out.add(struct.unpack('<I', m.group(1))[0])
-        return {a for a in out if ts <= a < te}
+        thunks = self.incremental_thunks()
+        return {a for a in out if ts <= a < te and a not in thunks}
 
     def function_starts(self, verified=True):
         """Function entry points, and the incremental thunk table.
@@ -142,7 +153,8 @@ class ClientImage:
         decodes one byte at a time, so the sweep resynchronises at the same seeds).
 
         USE_JMP_PAD_STARTS and USE_CRT_REGISTERED_STARTS (above) add the padding boundary after a
-        `jmp rel32` and the CRT-registered entries (initialiser table, atexit operands).
+        `jmp rel32` and the CRT-registered entries (initialiser table, atexit operands);
+        USE_APP_DIRECT_CALL_STARTS the app region's direct (thunkless) call targets.
         """
         start, end, raw = self.section('.text')
         thunks = self.incremental_thunks()
@@ -174,6 +186,9 @@ class ClientImage:
                     break
                 calls.add(start + o + 5 + unpack('<i', body, o + 1)[0])
         starts |= {c for c in calls if lib_start <= c < end}
+        if verified and self.USE_APP_DIRECT_CALL_STARTS:
+            first_app = min(thunks.values())
+            starts |= {c for c in calls if first_app <= c < lib_start}
         return sorted(starts), thunks
 
     def _swept_calls(self, seeds, start, end, body):

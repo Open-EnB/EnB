@@ -770,3 +770,5 @@ void UIAnalyzeClass::Unknown_5461C0(int level, int a, int b, int c)
 // vector reads out of line too).
 // JD (2026-11-15): the destructor clears the three icon columns only when set (`if (Unknown0FC[i]) Unknown0FC[i] =
 // NULL;`: the client's je at +0x6B skips the store), the three strips unconditionally; 0x5437C0 exact.
+template DeltaTemplateClass<UnknownB013ECEnum> *Unknown_Find_Field<DeltaTemplateClass<UnknownB013ECEnum> >(DeltaCompoundClass *root, const NameClass &name);	// D164: not the client's form; emits auxdata.h's 'Mode' find out of line (0x546630, which the client's 0x5458B0 calls)
+template class UnknownRTTIClass<DeltaTemplateClass<UnknownB013ECEnum> >;	// D164: not the client's form; emits rtti.h's 'Mode' Cast out of line (0x546920, which the client's 0x5443F0 / 0x545610 call)

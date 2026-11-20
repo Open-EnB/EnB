@@ -71,7 +71,11 @@ public:
 	void Unknown_571470(bool force);					// 0x571470: the entry's text into the line  // NAME 1 [force]: neutral
 	void Unknown_5715F0(bool on, bool force);			// 0x5715F0: the entry line shown or hidden  // NAME 1 [on, force]: neutral
 	ChatWindowClass *Unknown_571810(unsigned int index);	// 0x571810 (out of line, uncalled: the file's callers inline it)  // NAME 1 [index]: neutral
-	Vector3 Unknown_5719A0(const Unknown67D430EntryStruct &entry);	// 0x5719A0 (FAIL_IFs '!client', '!sclient' ll.612 / 615: the line type's colour)  // NAME 1 [entry]: neutral
+#ifdef __UI_CHAT_WINDOW_MEMBERS	// ui_chat_window.cpp only: the other files see the old declaration, which keeps sclient.cpp's pad window (0x701D70 / 0x758210)
+	Vector3 &Unknown_5719A0(Vector3 &color, const Unknown67D430EntryStruct &entry);	// 0x5719A0 (FAIL_IFs '!client', '!sclient' ll.612 / 615: the line type's colour, written into the caller's slot: (1, 1, 1) before the tests)  // NAME 1 [color, entry]: neutral
+#else
+	Vector3 Unknown_5719A0(const Unknown67D430EntryStruct &entry);	// (as the other files see it; not called outside ui_chat_window.cpp)
+#endif
 	void Unknown_571A70(ChatViewportStruct *vp);		// 0x571A70 (FAIL_IF '!vp' l.625: the rectangle from the bones)  // NAME 3 [vp]: the FAIL_IF's
 
 	Unknown67D430Class *ChatHistory;					// +0xA0  // NAME 3: the assert's '!ChatHistory'

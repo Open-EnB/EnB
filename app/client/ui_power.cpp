@@ -11,6 +11,7 @@
 #include "..\audio\soundlib.h"
 #include "..\shared\auxdata\permstr.h"	// (its PermStringInitClass static: 0x5DBF70)
 #include "..\shared\auxdata\auxdata.h"
+#include "..\shared\auxdata\delta_numbering.h"
 #include "..\shared\auxdata\delta_interpolator.h"
 #include "..\shared\g_assert.h"
 
@@ -108,8 +109,8 @@ void UIPowerClass::Unknown_10()
 		float value = percent ? percent->Get_Value(time) : 0.0f;
 		EnergyGauge->Set_Value(value);
 		if (EnergyGauge->Is_Unknown2C_08()) {
-			DeltaTemplateClass<float> *field = Unknown_Find_Field<DeltaTemplateClass<float> >(aux, NameClass("MaxEnergyPower"));
-			float max = (field && field->Unknown70) ? field->Value : 0.0;
+			DeltaTemplateClass<float> *field = Unknown_Find_Set_Field<DeltaTemplateClass<float> >(aux, NameClass("MaxEnergyPower"));
+			float max = field ? field->Value : 0.0;
 			float cur = max * value;
 			if (cur < 0.0f) {
 				cur = 0.0f;
@@ -124,8 +125,8 @@ void UIPowerClass::Unknown_10()
 		float value = percent ? percent->Get_Value(time) : 0.0f;
 		ShieldGauge->Set_Value(value);
 		if (ShieldGauge->Is_Unknown2C_08()) {
-			DeltaTemplateClass<float> *field = Unknown_Find_Field<DeltaTemplateClass<float> >(aux, NameClass("MaxShieldPower"));
-			if (field && field->Unknown70 && field->Value > 0.0f) {
+			DeltaTemplateClass<float> *field = Unknown_Find_Set_Field<DeltaTemplateClass<float> >(aux, NameClass("MaxShieldPower"));
+			if (field && field->Value > 0.0f) {
 				float max = field->Value;
 				float cur = max * value;
 				if (cur < 0.0f) {
@@ -140,10 +141,8 @@ void UIPowerClass::Unknown_10()
 		}
 	}
 	if (HullGauge->Exists) {
-		DeltaTemplateClass<float> *max_field = Unknown_Find_Field<DeltaTemplateClass<float> >(aux, NameClass("MaxHullPoints"));
-		if (max_field && !max_field->Unknown70) max_field = NULL;
-		DeltaTemplateClass<float> *field = Unknown_Find_Field<DeltaTemplateClass<float> >(aux, NameClass("HullPoints"));
-		if (field && !field->Unknown70) field = NULL;
+		DeltaTemplateClass<float> *max_field = Unknown_Find_Set_Field<DeltaTemplateClass<float> >(aux, NameClass("MaxHullPoints"));
+		DeltaTemplateClass<float> *field = Unknown_Find_Set_Field<DeltaTemplateClass<float> >(aux, NameClass("HullPoints"));
 		float max = max_field ? max_field->Value : 0.0f;
 		float cur = field ? field->Value : 0.0f;
 		if (max < 1.0f) {

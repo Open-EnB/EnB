@@ -47,7 +47,7 @@ static BridgeTransitionStruct Transitions[BridgeInterface::NUM_VIEWS * BridgeInt
 static float HitScale = 4.0f;	// 0xB78D68: a hit's direction to the camera's offset  // NAME 1: what it is
 
 static Matrix3D BridgeTransform(true);	// 0xBE5AA8: the bridge model's orientation in its scene (the identity: the initialiser 0x53AFA0; the constructor sets it)  // NAME 1: what it is
-
+#include "aux_shake.h"	// T<float> numbered after BridgeTransform, before <string>'s guard (CRT entry 212)
 
 
 // 0x53B040
