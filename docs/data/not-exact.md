@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-746 entries in 282 files.
+740 entries in 281 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -102,8 +102,6 @@ edit the comments in the code, not this file.
 | `app/client/cpacket.cpp:2845` | `ClientChatListPacketClass::Process_Packet` | marker | NOT EXACT: shape (the cases' early returns: the client jumps from each to the one exit, ours repeats the profile tail per case; the profile flag in al, sclient in ebx; attempts.py show 0x73CC90) 0x73CC90 |
 | `app/client/ctrngadg.cpp:118` | `CtrnGadgetClass::Unknown_2C` | marker | NOT EXACT: shape, 0.69 (explain.py): the release block is laid out after the Ctrl test, the wheel's default gets its own epilogue, 0 for +0x12B4 from ebx (see attempts.csv) @0x50ABC0 |
 | `app/client/ctrngadg.cpp:226` | `CtrnGadgetClass::Unknown_2C` | mention | NOT EXACT): with the window focused (input.cpp 0x42EE90) and the task focused (SClient 0x74B5E0), a pointer move (+0x48 / +0x4C its last x, y) turns the camera (camera_manager.cpp's 0x79B370-0x79B410, the pitch clamped to +-1.4835 = 85 degrees, scaled by the frame time and 0.1) or the bridge's view (bridge_int.cpp 0x53CA00 / 0x53C980) while Shift or Ctrl is down; the wheel (0x101 / 0x102) zooms by... |
-| `app/client/debris.cpp:230` | `DebrisFieldClass::Render` | marker | NOT EXACT: masked residue 192 -> 10 (frame 0xA54 as the client's; diffuse written field by field, hash a signed int, cur -= back; cur += step, the tails test non-NULL first); left: bmax / bmin built left to right, the stack slots |
-| `app/client/debris.cpp:681` | `DebrisFieldClass::Unknown_6BB640` | mention | NOT EXACT. Unknown_B92080 is the object's first data (after bar3d.cpp's __FILE__ string), 256 hash bytes. |
 | `app/client/debris.h:39` | `?` | mention | NOT EXACT) |
 | `app/client/debrsint.cpp:9` | `DebrisInterfaceClass::DebrisInterfaceClass` | marker | NOT EXACT: functional (D64), register-only (ebx / edi / ebp swapped; two rounds: the fade clamps' temporaries) 0x53D250 |
 | `app/client/debrsint.cpp:150` | `DebrisInterfaceClass::Unknown_68` | marker | NOT EXACT: functional (D64), order-only (key 10's colour: the red's spill after the blue's multiply) 0x53D9F0 |
@@ -477,15 +475,12 @@ edit the comments in the code, not this file.
 | `app/client/ui_refinery.cpp:617` | `UIRefineryClass::Unknown_5EDCC0` | marker | NOT EXACT: inline budget (the client calls the 'NegotiatedCost' Cast out of line; the 'Money' find out of line as the client; dead finds before it push the 0x5ECBB0 copies out too) (0x5EDCC0) |
 | `app/client/ui_refinery.cpp:637` | `UIRefineryClass::Unknown_5EDFD0` | marker | NOT EXACT: inline budget (the client calls all three finds' Unknown_Find_Field out of line, 0x5465C0 / 0x417D82, with the name in the caller; ours calls the inline layer out of line, or inlines the find; frame 0xBC vs 0xEC) (0x5EDFD0) |
 | `app/client/ui_registration.cpp:285` | `RegistrationInterface::RegistrationInterface` | mention | NOT EXACT: register (attempts.csv: the mode switch as the client lays it out (cmp 3 / je to the end block), the tm stores mday / mon / year, six dead UnknownD8 size() reads (D272); left: the init list's Layer / mode loads scheduled apart, r10) |
-| `app/client/ui_registration.cpp:888` | `RegistrationInterface::Unknown_5F2B20` | mention | NOT EXACT: order-only around the button struct's stores (attempts.csv) |
 | `app/client/ui_registration.cpp:1266` | `RegistrationInterface::Unknown_5F3770` | mention | NOT EXACT: inline-budget (attempts.csv; cases in jump table 0x5F7214's layout order; the client cuts more of its later inline accessors and 0x5F2F90's converting constructor 0x6092D0) |
-| `app/client/ui_registration.cpp:2010` | `RegistrationInterface::Unknown_5F8EA0` | mention | NOT EXACT: shape (attempts.csv: the client's bl bool form not reproduced) |
 | `app/client/ui_registration.cpp:2080` | `RegistrationInterface::Unknown_5F9460` | marker | NOT EXACT: shape (explain.py: 14 calls in ours, 13 in the client; the value_type temporaries' stack slots differ) @0x5F9460 |
 | `app/client/ui_registration.cpp:2347` | `RegistrationInterface::Unknown_5FA0B0` | marker | NOT EXACT: field-offset (explain.py; 340 instructions each: register choice in the inlined operator= into +0x2CC and the 'EB' compare) @0x5FA0B0 |
 | `app/client/ui_registration.cpp:2971` | `RegistrationInterface::Unknown_5FBD30` | marker | NOT EXACT: inline-budget (functional; group loops through 0x5F33E0, pushes through 0x5F87D0, back-outs through 0x5F8560, server boxes through 0x5FB890 as the client inlines them; cases 0x11 / 0x14 / 0x12 written out (the client cross-jumps them into 0x14's copy); left: the client's nested map::insert cuts) @0x5FBD30 |
 | `app/client/ui_registration.cpp:3680` | `RegistrationInterface::Unknown_5F00C0` | marker | NOT EXACT: inline-budget (functional; the server boxes through 0x5FB890 and the back-outs through 0x5F8560 as the client inlines them, one per branch; its cases in jump table 0x602AE4's layout order, case 3's !+0x1CE branch first, the US picks as if / else (the client's two compares 0x6022BD / 0x602362, the other sites cross-jumped into them); the client's frame 0xB18 with five dead reads in case ... |
 | `app/client/ui_registration.cpp:4325` | `RegistrationInterface::Unknown_603820` | mention | NOT EXACT: inline-budget (attempts.csv: _Eos out of line in the client) |
-| `app/client/ui_registration.cpp:4345` | `RegistrationInterface::Unknown_6039E0` | mention | NOT EXACT: order-only (attempts.csv: this in ebp, end in edi) |
 | `app/client/ui_registration.cpp:4359` | `RegistrationInterface::Unknown_603A60` | mention | NOT EXACT: shape (attempts.csv: the gmtime copy's registers popped before the compare) |
 | `app/client/ui_scan.cpp:68` | `UIScanClass::Unknown_54` | marker | NOT EXACT: functional (WE9; similarity 0.59): the verb window's and the fonts' set-up order and registers @0x60D8D0 |
 | `app/client/ui_scan.cpp:305` | `UIScanClass::Unknown_68` | marker | NOT EXACT: register (TL1; similarity 0.54, WE9's 0.51): the client keeps the key's slot for next and this in ecx, tests the key as -5 then dec, dec @0x60E300 |
@@ -504,7 +499,6 @@ edit the comments in the code, not this file.
 | `app/client/ui_ship_cust.cpp:1169` | `StarbaseShipCustomizeInterface::Unknown_61BD80` | marker | NOT EXACT: inline budget (0.86: case 0's pair constructor inline in the client; case 3's iterator++ and fourth lookup inlined there) @0x61BD80 |
 | `app/client/ui_ship_cust.cpp:1489` | `StarbaseShipCustomizeInterface::Unknown_61DBF0` | marker | NOT EXACT: register (0.62: the client loads the avatar id into eax, VC6 here into edx; the rest is the same) |
 | `app/client/ui_ship_cust.cpp:1954` | `StarbaseShipCustomizeInterface::Unknown_61DF80` | marker | NOT EXACT: inline budget (0.47, 1705 bytes against 0x611: as ui_avatar_cust.cpp's 0x550A10; the client copies only the first model's translation, builds the second's Matrix3D through ??_H, and calls the third Rotate_Y out of line) @0x61DF80 |
-| `app/client/ui_ship_cust.cpp:2034` | `StarbaseShipCustomizeInterface::Unknown_61E8B0` | mention | NOT EXACT: register (attempts.csv, parked at 0.62: the avatar id loads into edx, the client's eax, in every form) |
 | `app/client/ui_ship_cust.cpp:2041` | `StarbaseShipCustomizeInterface::Unknown_61E8E0` | marker | NOT EXACT: inline budget (0.42: the client calls the credits line's append out of line but inlines the cost line's, and keeps this in a frame slot; ui_avatar_cust.cpp's twin 0x551520 is exact in this form) @0x61E8E0 |
 | `app/client/ui_ship_cust.cpp:2143` | `StarbaseShipCustomizeInterface::Unknown_61F250` | marker | NOT EXACT: functional (D64) @0x61F250 |
 | `app/client/ui_shipcust.cpp:232` | `Unknown620D20Class::Unknown_621390` | marker | NOT EXACT: functional (D64) @0x621390 |
