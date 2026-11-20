@@ -3,7 +3,7 @@
 #include "wwmath.h"
 #include <math.h>
 #include "..\shared\g_assert.h"
-
+#include "auxdata\permstr.h"	// its PermStringInitClass static opens the object (0x448BE0, atexit 0x448C10)
 extern int Unknown_BE350C;	// NAME 1: neutral (D10): SClient::Do_Frame's frame toggle (sclient.cpp)
 
 // 0x448C30
@@ -173,10 +173,12 @@ int FpItaClass::Unknown_08(const Vector3 &target, Matrix3D *transforms, float di
 }
 
 /*
-**	Reconstruction notes (fp_ita.cpp, client 0x448C30-0x44934F; __FILE__ 0xB705B4, G_ASSERT 'y_axis.Z < 0.0001f' on the
+**	Reconstruction notes (fp_ita.cpp, client 0x448BE0-0x44934F; __FILE__ 0xB705B4, G_ASSERT 'y_axis.Z < 0.0001f' on the
 **	client's line 151 in 0x448D00, G_ASSERT '0' on line 171 in 0x449330).
 **
-**	- The object follows unknown_445740.cpp (its ctype initialiser 0x448BB0) and precedes fp_tt.cpp (0x449360); it holds
+**	- The object follows unknown_445740.cpp (its ctype initialiser 0x448BB0, which ends that object) and precedes fp_tt.cpp
+**	  (0x449360); permstr.h's PermStringInitClass static opens it (0x448BE0, its atexit destructor 0x448C10: TB3, run
+**	  2026-11-19b; the include replaces a blank line so G_ASSERT's __LINE__ stays 151 / 171); it holds
 **	  the fp_*.cpp base's deleting destructor 0x4492D0 (fp_tt.h's FpBaseClass, the first object to need it).
 **	- FpItaClass's table 0xAE78FC: the deleting destructor 0x448CB0, 0x448D00, 0x449330, 0x449300; its destructor
 **	  0x448CE0 is the base's inline one (the table 0xAE7910 stored).
