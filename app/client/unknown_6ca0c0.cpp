@@ -179,7 +179,7 @@ void FontSys::Unknown_6CA0C0(FontEffectStruct *effect)
 		// The letters revealed so far (Speed per 200 ms), the rest random characters (or spaces with Initial <= 0).
 		const StringClass &source = style->Info.Text;
 		int length = source.Get_Length();
-		int target = (int)((float)now * effect->Speed) / 200;
+		int target = (int)((float)style->Unknown270 * effect->Speed) / 200;
 		int shown = (target <= length) ? target : length;
 		StringClass text;
 
@@ -382,11 +382,11 @@ void FontSys::Unknown_6CA0C0(FontEffectStruct *effect)
 		style->Unknown404 = false;
 		int amount;
 		if (effect->EffectType == FONT_EFFECT_WIPE) {
-			amount = (int)((float)now * effect->Speed * 0.01f);
+			amount = (int)((float)style->Unknown270 * effect->Speed * 0.01f);
 			if (amount < 1) amount = 1;
 		} else {
 			int length = style->Info.Text.Get_Length();
-			int target = (int)((float)now * effect->Speed) / 200;
+			int target = (int)((float)style->Unknown270 * effect->Speed) / 200;
 			int shown = (target <= length) ? target : length;
 			StringClass text(style->Info.Text.Get_Buffer(length));
 			if (effect->Direction == FONT_DIRECTION_RIGHT) {
@@ -694,9 +694,12 @@ void FontSys::Unknown_6CA0C0(FontEffectStruct *effect)
 			rect[3] = style->Unknown2C8;
 			style->Unknown414 = 0;
 			memset(style->Unknown303, 0, sizeof(style->Unknown303));
-			for (int i = 0; i < 6; i++) {
-				style->Unknown254[i] = 0;
-			}
+			style->Unknown254[0] = 0;
+			style->Unknown254[1] = 0;
+			style->Unknown254[2] = 0;
+			style->Unknown254[3] = 0;
+			style->Unknown254[4] = 0;
+			style->Unknown254[5] = 0;
 		} else {
 			style->Unknown274[11] += delta;
 		}
