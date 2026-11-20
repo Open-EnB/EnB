@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-823 entries in 301 files.
+819 entries in 300 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -81,7 +81,6 @@ edit the comments in the code, not this file.
 | `app/client/chatgadg.cpp:671` | `ChatGadgetClass::Unknown_65E5E0` | marker | NOT EXACT: functional (D64) |
 | `app/client/chatgadg.cpp:725` | `ChatGadgetClass::Unknown_65E840` | marker | NOT EXACT: functional (D64) |
 | `app/client/client.cpp:19` | `ClientClass::ClientClass` | marker | NOT EXACT: inline budget (the client calls the 'Null Item' string's assign out of line, ours inlines all three strings and swaps two temporaries' slots; the member stores and the prologue scheduled differently; six forms; 'Null Item' passed as a plain literal brings out the client's three string COMDATs 0x729260..0x7292D0; attempts.py show 0x726100) 0x726100 |
-| `app/client/client.cpp:307` | `ClientClass::Set_Avatar_ID` | marker | NOT EXACT: register-only (the flag in dl, the id in eax; two forms; attempts.py show 0x728010) 0x728010 |
 | `app/client/client_lego_root.cpp:102` | `ClientLegoRootClass::Update_Attachment` | marker | NOT EXACT: shape (similarity 0.86, every row equal but one: the client's null test of lego at the end jumps past its release to the epilogue, ours to the release; attempts.py show 0x732880) |
 | `app/client/co.cpp:483` | `ClientObjectClass::Unknown_28` | marker | NOT EXACT: register (eax / edx swapped for the vtable loads from the thrust sound on), the one-case switch 0x6F5A40 at done (movsx / dec where the client compares the byte) and 'x \|\| y' (the client ORs the bools); the find is out of line as the client's since Unknown_Find_Aux (IB1) 0x6F4610 |
 | `app/client/co.cpp:1472` | `ClientObjectClass::Unknown_6FBEF0` | marker | NOT EXACT: inline budget (the client calls the four finds' Casts 0x531590 / 0x7099F0 out of line, ours inlines them; 74 calls vs 70; frame 0x270 since F8; attempts.py show 0x6FBEF0) 0x6FBEF0 (the warp state: PrivateWarpState's messages, then GlobalWarpState's sounds, effects and camera modes) |
@@ -617,7 +616,6 @@ edit the comments in the code, not this file.
 | `app/client/unknown_6cce60.cpp:36` | `FontSys::Unknown_6CCE60` | marker | NOT EXACT: functional (D64), not yet worked toward the client's bytes (0x6CCE60) |
 | `app/client/unknown_6cce60.cpp:183` | `FontSys::Unknown_6CD950` | marker | NOT EXACT: registers (D64; attempts.csv): the cases in the client's body order, the clamp in its shape; VC6 gives the clamped slot edi and index ebp, the client the reverse (0x6CD950) |
 | `app/client/unknown_6cce60.cpp:276` | `FontSys::Change_Text` | marker | NOT EXACT: shape (D64; attempts.csv): the client calls Store_Length out of line in the first " " assignment and hoists three member loads above stores (27 masked rows) |
-| `app/client/unknown_725050.cpp:133` | `UnknownB02C90Class::Unknown_04` | marker | NOT EXACT: order-only (the fallback element: the client stores +0x3C, +0x40, Bone, the flag and +0x38 before the matrix; 5 forms) |
 | `app/client/unknown_75b7b0.cpp:29` | `Unknown_75B8F0` | marker | NOT EXACT: functional (D64), 0.83: the x87 order of the cross product's length and the dot product (WE5) @0x75B8F0 |
 | `app/client/unknown_75b7b0.cpp:57` | `Unknown_75BB50` | marker | NOT EXACT: functional (D64), 0.37: ours calls StringClass::operator= where the client inlines it, so the registers differ (WE5) @0x75BB50 |
 | `app/client/unknown_761c80.cpp:65` | `Unknown761C80Class::Remove_Render_Object` | marker | NOT EXACT: inline budget: the client calls the bucket vector's size() (0x762C30) in the inlined erase, this inlines it (9 bytes longer; the rest is the client's) |
@@ -652,8 +650,6 @@ edit the comments in the code, not this file.
 | `app/common/galaxy_map.cpp:506` | `GalaxyMapGateIteratorClass::Next` | mention | NOT EXACT: the client recomputes &(*It).second after the end test, edi (VC6 keeps the node in edi; attempts.py show 0x839740) |
 | `app/common/galaxy_map.cpp:540` | `GalaxyMapStarbaseIteratorClass::Next` | mention | NOT EXACT: the client recomputes &(*It).second after the end test, edi (VC6 keeps the node in edi; attempts.py show 0x8399D0) |
 | `app/common/galaxy_map.cpp:609` | `GalaxyMapStarbaseIteratorClass::First` | mention | NOT EXACT (the client recomputes the value's address after the end test). |
-| `app/common/item_info.cpp:111` | `ItemInfoClass::ItemInfoClass` | marker | NOT EXACT: 0x83F490 (0.86, order-only: the same 39 instructions; the client takes EnumMapping's address before the count and fill of the memset, ours after) |
-| `app/common/item_info.cpp:123` | `ItemInfoClass::ItemInfoClass` | marker | NOT EXACT: 0x83F710 (0.88, order-only: the same 44 instructions, as 0x83F490) |
 | `app/common/item_info.cpp:530` | `ItemInfoClass::Apply_Delta` | marker | NOT EXACT: 0x8417B0 (0.78, the same 287 instructions but 4: the client keeps field_separator and takes field_separator + 1 into another register for the second substr) Replaces the fields by those of a delta string ('id:value' pieces between DeltaSeparator) |
 | `app/common/item_state.cpp:81` | `Item_State_Message` | marker | NOT EXACT: the client keeps result (0x11) in esi and [esp+0x10] where ours folds the constant (case 0 and the default's returns); the rest, the case order included, is the client's @0x842A60 |
 | `app/common/lego_identifier.cpp:83` | `LegoIdentifierClass::LegoIdentifierClass` | marker | NOT EXACT: 0x843970, the client inlines Set_Name here (inline-budget; attempts.py show 0x843970) |
