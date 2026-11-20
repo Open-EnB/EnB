@@ -2983,13 +2983,13 @@ void RegistrationInterface::Unknown_5FBD30()
 			break;
 		case 0:
 		{
-			int selected = 0;
-			for (std::map<int, RegistrationButtonStruct>::iterator button = UnknownE8.begin(); button != UnknownE8.end(); button++) {
-				if ((*button).second.Group == 1 && (*button).second.Selected) {
-					selected = (*button).second.Id;
-					break;
-				}
-			}
+			int selected = Unknown_5F33E0(1);
+
+
+
+
+
+
 			Unknown268 = selected;
 			Unknown1D1 = false;
 			Unknown1CF = false;
@@ -3016,19 +3016,19 @@ void RegistrationInterface::Unknown_5FBD30()
 		}
 		case 6:
 		{
-			int selected = 0;
-			for (std::map<int, RegistrationButtonStruct>::iterator button = UnknownE8.begin(); button != UnknownE8.end(); button++) {
-				if ((*button).second.Group == 1 && (*button).second.Selected) {
-					selected = (*button).second.Id;
-					break;
-				}
-			}
+			int selected = Unknown_5F33E0(1);
+
+
+
+
+
+
 			Unknown26C = selected;
 			if (selected == 8) {
-				UnknownD8.push_back(UnknownD4);
+				Unknown_5F87D0();
 				Unknown_5F3770(7);
 			} else if (selected == 9) {
-				UnknownD8.push_back(UnknownD4);
+				Unknown_5F87D0();
 				Unknown_5F3770(8);
 			}
 			break;
@@ -3112,7 +3112,7 @@ void RegistrationInterface::Unknown_5FBD30()
 				UnknownBC->Get_Unknown34()->Unknown_588A70("YES_NO", 0, "EA.COM Accounts may no longer have commas within them.  If your password contains a comma, clicking 'Yes' will take you to the EA.COM Account page where you can change your password.  If you entered a comma by mistake, Clicking 'No' will let you reenter your password.\n\nDoes your password contain a comma?", 0x140, 0, 0);
 				return;
 			}
-			UnknownD8.push_back(UnknownD4);
+			Unknown_5F87D0();
 			Unknown1CF = false;
 			Unknown1CD = false;
 			Unknown1CB = false;
@@ -3162,7 +3162,7 @@ void RegistrationInterface::Unknown_5FBD30()
 				Unknown_5FB7A0(this, "The Passwords you entered do not match.");
 				return;
 			}
-			UnknownD8.push_back(UnknownD4);
+			Unknown_5F87D0();
 			if (!Unknown1D0) {
 				goto next_page;
 			}
@@ -3200,7 +3200,7 @@ void RegistrationInterface::Unknown_5FBD30()
 			}
 			StatusIndex = 0xC;
 			if (Unknown1AC->Unknown_7D7920(Unknown1D8.c_str(), Unknown208.c_str(), Unknown_BE8AD4)) {
-				UnknownD8.push_back(UnknownD4);
+				Unknown_5F87D0();
 				Unknown_5F8DB0(false);
 				Unknown_5F3770(0x16);
 				Unknown_5FAE90(this, "Validating AOL Login Information...");
@@ -3245,17 +3245,17 @@ bad_login:
 			break;
 		case 2:
 		{
-			UnknownD8.push_back(UnknownD4);
-			for (std::map<int, RegistrationButtonStruct>::iterator button = UnknownE8.begin(); button != UnknownE8.end(); button++) {
-				if ((*button).second.Group == 1 && (*button).second.Selected) {
-					if ((*button).second.Id == 1) {
-						Unknown1C9 = true;
-						Unknown_5F3770(4);
-						return;
-					}
-					break;
-				}
+			Unknown_5F87D0();
+			if (Unknown_5F33E0(1) == 1) {
+				Unknown1C9 = true;
+				Unknown_5F3770(4);
+				return;
 			}
+
+
+
+
+
 			Unknown1C9 = false;
 			Unknown_5F3770(3);
 			break;
@@ -3263,18 +3263,18 @@ bad_login:
 		case 9:
 		{
 			Unknown1C9 = false;
-			int selected = 0;
-			for (std::map<int, RegistrationButtonStruct>::iterator button = UnknownE8.begin(); button != UnknownE8.end(); button++) {
-				if ((*button).second.Group == 1 && (*button).second.Selected) {
-					selected = (*button).second.Id;
-					if (selected == 0x12) {
-						UnknownD8.push_back(UnknownD4);
-						Unknown_5F3770(3);
-						return;
-					}
-					break;
-				}
+			int selected = Unknown_5F33E0(1);
+			if (selected == 0x12) {
+				Unknown_5F87D0();
+				Unknown_5F3770(3);
+				return;
 			}
+
+
+
+
+
+
 			Unknown1D8 = Unknown3C4.Unknown00[selected - 0xD];
 			Unknown1D8 = Unknown_5FB540(Unknown1D8);
 			if (Unknown_5FA900()) {
@@ -3305,13 +3305,13 @@ bad_login:
 			int day = (unsigned)combo->Selected < combo->Items.size() ? atoi(combo->Items[combo->Selected].c_str()) : 0;
 			combo = Unknown108[0x16].Combo;
 			int year = (unsigned)combo->Selected < combo->Items.size() ? atoi(combo->Items[combo->Selected].c_str()) : 0;
-			int selected = 0;
-			for (std::map<int, RegistrationButtonStruct>::iterator button = UnknownE8.begin(); button != UnknownE8.end(); button++) {
-				if ((*button).second.Group == 1 && (*button).second.Selected) {
-					selected = (*button).second.Id;
-					break;
-				}
-			}
+			int selected = Unknown_5F33E0(1);
+
+
+
+
+
+
 			int this_year = Unknown124.tm_year;
 			bool flag = selected == 0x18;
 			std::string country(Unknown108[0x19].Combo->Get_Selected_Text());
@@ -3328,7 +3328,7 @@ bad_login:
 				Unknown3C4.Unknown80 = country.substr(0, 2);
 				Unknown3C4.Unknown5C = email;
 				Unknown3C4.Unknown58 = flag;
-				UnknownD8.push_back(UnknownD4);
+				Unknown_5F87D0();
 				if (!Unknown1D0) {
 					if (Unknown_603A60(month, day, year, 0x12)) {
 						Unknown_5F3770(0xF);
@@ -3366,24 +3366,24 @@ bad_login:
 		}
 		case 0xF:
 		{
-			int selected = 0;
-			std::map<int, RegistrationButtonStruct>::iterator button;
-			for (button = UnknownE8.begin(); button != UnknownE8.end(); button++) {
-				if ((*button).second.Group == 1 && (*button).second.Selected) {
-					selected = (*button).second.Id;
-					break;
-				}
-			}
+			int selected = Unknown_5F33E0(1);
+
+
+
+
+
+
+
 			Unknown3C4.Unknown90 = selected == 1;
-			selected = 0;
-			for (button = UnknownE8.begin(); button != UnknownE8.end(); button++) {
-				if ((*button).second.Group == 2 && (*button).second.Selected) {
-					selected = (*button).second.Id;
-					break;
-				}
-			}
+			selected = Unknown_5F33E0(2);
+
+
+
+
+
+
 			Unknown3C4.Unknown91 = selected == 3;
-			UnknownD8.push_back(UnknownD4);
+			Unknown_5F87D0();
 			Unknown_5F3770(0x11);
 			break;
 		}
@@ -3435,7 +3435,7 @@ bad_login:
 				Unknown478.UnknownEC = year;
 				Unknown478.Unknown64 = country.substr(0, 2);
 				Unknown478.Unknown94.Unknown00 = type;
-				UnknownD8.insert(UnknownD8.end(), 1, UnknownD4);
+				Unknown_5F87D0();
 				if (!Unknown1D0) {
 					Unknown_5F3770(0x12);
 				} else if (!Unknown_5FA900()) {
