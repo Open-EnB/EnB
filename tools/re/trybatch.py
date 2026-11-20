@@ -966,7 +966,7 @@ def file_check(objs, results, log, exact=exact_set, mentioned=frozenset()):
     if base is None:
         return
     for name, got in sets.items():
-        if name == 'base' or name not in results or 'error' in results[name]:
+        if name == 'base' or name not in results:      # a compiled form whose function is gone still has its file
             continue
         lost, gained = sorted(base - got), sorted(got - base)
         results[name]['file'] = (len(lost), len(gained))
@@ -974,8 +974,9 @@ def file_check(objs, results, log, exact=exact_set, mentioned=frozenset()):
         if lost or gained:
             log(f'file check {name}: lost {", ".join(f"{X.demangle(s)} 0x{a:06X}" for s, a in lost)}; '
                 f'gained {", ".join(f"{X.demangle(s)} 0x{a:06X}" for s, a in gained)}')
-    if 'base' in results and 'error' not in results['base']:
-        results['base']['file'] = (0, 0)
+    if 'base' in results:
+        if 'error' not in results['base']:
+            results['base']['file'] = (0, 0)
         results['base']['file_set'] = sorted(base)
         log(f'file check base: {len(base)} exact')
 

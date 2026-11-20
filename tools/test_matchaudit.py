@@ -190,6 +190,10 @@ class TableTest(unittest.TestCase):
         self.assertEqual(s['not_stable'], {'count': 3, 'share': 0.75})
         md = ma.render(rows, s, {})
         self.assertIn('| contradicted | 0 | 0.0% | not built |', md)
+        budget = {'rows': [{'lib': 'app', 'file': 'b', 'address': '0x3', 'class': 'budget-held', 'evidence': 'by build'}]}
+        rows, s = ma.combine(cur, pad, work, conf, hist, budget)
+        self.assertEqual(s['classes']['budget-held'], {'count': 1, 'share': 0.25})
+        self.assertEqual([r['class'] for r in rows].index('budget-held'), 3)    # after workaround-held
 
 
 if __name__ == '__main__':

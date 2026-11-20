@@ -488,13 +488,18 @@ def row_key(r):
 
 def without(text, spans):
     """text with each span blanked on its own lines (line count kept: __LINE__ unchanged)."""
-    out, i = [], 0
+    out, i, touched = [], 0, set()
     for s0, s1 in sorted(spans):
         out.append(text[i:s0])
         out.append(re.sub(r'[^\n]', '', text[s0:s1]))
+        touched.add(text.count('\n', 0, s0))
         i = s1
     out.append(text[i:])
-    return ''.join(out)
+    lines = ''.join(out).split('\n')
+    for n in touched:               # a line the removal left blank or with a stray space: tidy it
+        lines[n] = lines[n].rstrip() if lines[n].strip() else ''
+        lines[n] = re.sub(r'^(\t+) +', r'\1', lines[n])         # leading whitespace only (never inside a literal)
+    return '\n'.join(lines)
 
 
 def forms_of(rel, rows):
@@ -522,6 +527,46 @@ def forms_of_text(text, rows):
     if len(out) > 1:
         out['all'] = ([k for v in out.values() for k in v[0]], without(text, list({tuple(s) for s in every})))
     return text, out
+
+
+def cmd_apply(a):
+    """Write each file's measured free set (its `_freeset` verdict free or gains) into the tree, line ends and line
+    count kept; prints the comment lines that name the removed devices (reword them by hand)."""
+    scan = load('scan') or {'rows': []}
+    meas = load_measures()
+    for f in a.files:
+        rel = f.replace('\\', '/')
+        fs = meas.get('_freeset|' + rel)
+        if not fs or fs['verdict'] not in ('free', 'gains'):
+            print(f'apply {rel}: no free set measured free ({fs["verdict"] if fs else "none"}); skipped')
+            continue
+        keys = set(fs['rows'])
+        rows = [r for r in scan['rows'] if row_key(r) in keys]
+        if len(rows) != len(keys):
+            print(f'apply {rel}: the scan no longer has every row of the free set (rescan, re-measure); skipped')
+            continue
+        # only devices of exact functions whose same-file callers it holds are exact too: a free device in a near
+        # miss may still be that function's lever (the file check sees exact pairs, not a residue)
+        exact = ledger().get(rel) or set()
+        keep = [r for r in rows if r['exact'] and all(int(h, 16) in exact for h in r.get('held', []))]
+        for r in rows:
+            if r not in keep:
+                print(f'apply {rel}: kept {r["kind"]} at line {r["lines"][0]} ({r["function"]}: not exact, or a '
+                      f'caller it holds is not)')
+        held_back = {tuple(s) for r in rows if r not in keep for s in r['spans']}   # one pragma pair, several rows
+        rows = [r for r in keep if not held_back & {tuple(s) for s in r['spans']}]
+        if not rows:
+            continue
+        p = os.path.join(ROOT, rel)
+        raw = open(p, encoding='latin-1', newline='').read()
+        crlf = '\r\n' in raw
+        new = without(raw.replace('\r\n', '\n'), list({tuple(s) for r in rows for s in r['spans']}))
+        open(p, 'w', encoding='latin-1', newline='').write(new.replace('\n', '\r\n') if crlf else new)
+        print(f'apply {rel}: {len(rows)} devices removed ({", ".join(sorted({r["kind"] for r in rows}))})')
+        for r in rows:
+            if r.get('comment'):
+                print(f'   comment to reword ({r["function"]}): {r["comment"][:110]}')
+    return 0
 
 
 def cmd_forms(a):
@@ -605,7 +650,7 @@ def measure_file(rel, rows, vms, logf, forms=None):
     led = ledger().get(rel) or set()
     for name, (keys, _) in forms.items():
         m = results.get(name, {})
-        if 'error' in m or 'base' not in results or 'error' in base:
+        if 'file_lost' not in m or 'file_set' not in base:     # no whole-file result (a compile error)
             v = {'verdict': 'error', 'detail': (m.get('error') or base.get('error') or '')[:160]}
         else:
             lost = [a for s, a in m.get('file_lost', [])]
@@ -788,8 +833,10 @@ def main(argv=None):
     m.add_argument('--freeset', action='store_true',
                    help='per file, every device measured free alone removed together (the source change to make)')
     sub.add_parser('table')
+    p = sub.add_parser('apply')
+    p.add_argument('files', nargs='+')
     a = ap.parse_args(argv)
-    return {'scan': cmd_scan, 'forms': cmd_forms, 'measure': cmd_measure, 'table': cmd_table}[a.cmd](a)
+    return {'scan': cmd_scan, 'forms': cmd_forms, 'measure': cmd_measure, 'table': cmd_table, 'apply': cmd_apply}[a.cmd](a)
 
 
 if __name__ == '__main__':
