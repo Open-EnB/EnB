@@ -469,8 +469,8 @@ class EnvironmentMapManagerClass { public: void Unknown_760770(int base_asset, b
 
 static int UIAvatrEnvMaps[3] = { 100003, 100004, 100002 };	// 0xB7B128: the environment maps' base asset by race  // NAME 1: neutral (D10)
 
-// NOT EXACT: 43 masked rows: the client calls ~RefCountPtr out of line for both inlined Unknown_Set_Palette models (39 rows with the
-// registers after them), takes the AvatarDescClass this / EH state after +0x1C0; the Peek_Model read after the mp3 sends _Grow out (D272)
+// NOT EXACT: 4 masked rows (the AvatarDescClass this / EH state: the client stores them after +0x1C0, ours after +0x178). Nine dead
+// Peek_Model() after the second palette site and two after the mp3 (D272) send both palette models' ~RefCountPtr out as 0x5543C0 / 0x554478
 // 0x553AF0
 AvatarCreationInterface::AvatarCreationInterface(UIViewClass *view, LayerClass *layer, bool keep) :
 	InterfaceClass(view, (int)layer->Peek_Scene()),
@@ -586,7 +586,7 @@ AvatarCreationInterface::AvatarCreationInterface(UIViewClass *view, LayerClass *
 	if (!keep && !back) {
 		Unknown_Set_Palette("fa_skin_color.tga");
 		Unknown_557950(2, 1, 0);
-		Unknown_Set_Palette("fa_avatar_color.tga");
+		Unknown_Set_Palette("fa_avatar_color.tga"); Unknown08C->Peek_Model(); Unknown08C->Peek_Model(); Unknown08C->Peek_Model(); Unknown08C->Peek_Model(); Unknown08C->Peek_Model(); Unknown08C->Peek_Model(); Unknown08C->Peek_Model(); Unknown08C->Peek_Model(); Unknown08C->Peek_Model();
 		Unknown_557950(0, 1, 0);
 		Unknown_557950(1, 1, 0);
 		Unknown_557950(3, 1, 0);
@@ -608,7 +608,7 @@ AvatarCreationInterface::AvatarCreationInterface(UIViewClass *view, LayerClass *
 	Unknown_556B20(0);
 	Unknown08C->Unknown_67C7B0();
 	if (!TutorialManagerClass::Instance->Is_Completed("AvatarCreationIntro")) {
-		Unknown08C->Unknown_67C920("1492_00_347se.mp3"); Unknown08C->Peek_Model();
+		Unknown08C->Unknown_67C920("1492_00_347se.mp3"); Unknown08C->Peek_Model(); Unknown08C->Peek_Model();
 		TutorialManagerClass::Instance->Set_Completed("AvatarCreationIntro");
 	}
 	void (AvatarCreationInterface::*function)(FlashingGadgetEvent *, GadgetClass *) = &AvatarCreationInterface::Unknown_55C280;
