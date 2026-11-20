@@ -1642,7 +1642,7 @@ Base copy: reconstructed. Headers: 691 from reconstructed.
 | client/font32bit.cpp | reconstructed | 30 | 0 | - | - | - |  |
 | client/fontdatabase.cpp | reconstructed | 162 | 0 | - | - | - |  |
 | client/fontmanager.cpp | reconstructed | 109 | 0 | - | - | - |  |
-| client/fontsys.cpp | reconstructed | 135 | 0 | - | - | - |  |
+| client/fontsys.cpp | reconstructed | 137 | 0 | - | - | - |  |
 | client/fontsys_cursor.cpp | reconstructed | 109 | 0 | - | - | - |  |
 | client/fonttexture.cpp | reconstructed | 7 | 1 | - | - | - |  |
 | shared/fp_ita.cpp | reconstructed | 10 | 0 | - | - | - |  |

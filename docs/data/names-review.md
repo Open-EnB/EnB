@@ -10,7 +10,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 226 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1971 |
-| 2 | describes what the code does | 4992 |
+| 2 | describes what the code does | 4996 |
 | 1 | neutral placeholder | 25167 |
 
 ## For review (score 3 and below)
@@ -3801,11 +3801,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6BCFB0Class` | `app/client/fontsys.cpp:311` | untagged neutral name (D10) |
 | 1 | `Unknown_6D5F40` | `app/client/fontsys.cpp:314` | untagged neutral name (D10) |
 | 1 | `Unknown_6D60C0` | `app/client/fontsys.cpp:354` | untagged neutral name (D10) |
-| 1 | `Unknown464` | `app/client/fontsys.cpp:432` | untagged neutral name (D10) |
-| 1 | `Unknown_6CD180` | `app/client/fontsys.cpp:472` | untagged neutral name (D10) |
-| 1 | `Unknown_6CA0C0` | `app/client/fontsys.cpp:473` | untagged neutral name (D10) |
-| 1 | `Unknown_6CD6F0` | `app/client/fontsys.cpp:475` | untagged neutral name (D10) |
-| 1 | `Unknown_6CCE60` | `app/client/fontsys.cpp:511` | untagged neutral name (D10) |
+| 1 | `Unknown464` | `app/client/fontsys.cpp:462` | untagged neutral name (D10) |
+| 1 | `Unknown_6CD180` | `app/client/fontsys.cpp:487` | untagged neutral name (D10) |
+| 1 | `Unknown_6CA0C0` | `app/client/fontsys.cpp:488` | untagged neutral name (D10) |
+| 1 | `Unknown_6CD6F0` | `app/client/fontsys.cpp:490` | untagged neutral name (D10) |
+| 1 | `Unknown_6CCE60` | `app/client/fontsys.cpp:526` | untagged neutral name (D10) |
 | 1 | `Unknown_6D8650` | `app/client/fontsys.cpp:948` | untagged neutral name (D10) |
 | 1 | `Unknown_6D8780` | `app/client/fontsys.cpp:959` | untagged neutral name (D10) |
 | 1 | `Unknown_6D87D0` | `app/client/fontsys.cpp:966` | untagged neutral name (D10) |
@@ -24773,18 +24773,18 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `LandUnknown466BE0Class` | `app/shared/unknown_474530.cpp:45` | untagged neutral name (D10) |
 | 1 | `Unknown_477E20` | `app/shared/unknown_474530.cpp:46` | unknown; deletes a global object (0xBDC0D8) and clears it; called by the land's dtor only |
 | 1 | `Unknown_477E20` | `app/shared/unknown_474530.cpp:49` | unknown; draws triangles of the land under a projector (0x477E20, its vector by value) |
-| 1 | `Unknown11` | `app/shared/unknown_474530.cpp:74` | untagged neutral name (D10) |
-| 1 | `Unknown_466F60` | `app/shared/unknown_474530.cpp:77` | untagged neutral name (D10) |
+| 1 | `Unknown11` | `app/shared/unknown_474530.cpp:82` | untagged neutral name (D10) |
+| 1 | `Unknown_466F60` | `app/shared/unknown_474530.cpp:83` | untagged neutral name (D10) |
 | 1 | `Unknown1218` | `app/shared/unknown_474530.cpp:174` | untagged neutral name (D10) |
 | 1 | `Unknown192` | `app/shared/unknown_474530.cpp:183` | untagged neutral name (D10) |
 | 1 | `Unknown190` | `app/shared/unknown_474530.cpp:184` | untagged neutral name (D10) |
 | 1 | `Unknown178` | `app/shared/unknown_474530.cpp:185` | untagged neutral name (D10) |
 | 1 | `Unknown17C` | `app/shared/unknown_474530.cpp:187` | untagged neutral name (D10) |
 | 1 | `Unknown180` | `app/shared/unknown_474530.cpp:188` | untagged neutral name (D10) |
-| 1 | `Unknown10` | `app/shared/unknown_474530.cpp:191` | untagged neutral name (D10) |
-| 1 | `Unknown00` | `app/shared/unknown_474530.cpp:192` | untagged neutral name (D10) |
-| 1 | `Unknown04` | `app/shared/unknown_474530.cpp:193` | untagged neutral name (D10) |
-| 1 | `Unknown14` | `app/shared/unknown_474530.cpp:194` | untagged neutral name (D10) |
+| 1 | `Unknown10` | `app/shared/unknown_474530.cpp:190` | untagged neutral name (D10) |
+| 1 | `Unknown00` | `app/shared/unknown_474530.cpp:191` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `app/shared/unknown_474530.cpp:192` | untagged neutral name (D10) |
+| 1 | `Unknown14` | `app/shared/unknown_474530.cpp:193` | untagged neutral name (D10) |
 | 1 | `Unknown191` | `app/shared/unknown_474530.cpp:198` | untagged neutral name (D10) |
 | 1 | `Unknown184` | `app/shared/unknown_474530.cpp:201` | untagged neutral name (D10) |
 | 1 | `Unknown188` | `app/shared/unknown_474530.cpp:202` | untagged neutral name (D10) |
@@ -26071,6 +26071,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Find` | `app/client/fontmanager.h:228` | describes what it does |
 | 2 | `std:` | `app/client/fontmanager.h:231` | what it holds |
 | 2 | `DebugFont` | `app/client/fontmanager.h:232` | what it holds |
+| 2 | `Step_Colour` | `app/client/fontsys.cpp:397` | one colour channel a step of 1 toward the target; inline only (Update_Text 0x6D64C0's unrolled per-channel code) |
+| 2 | `Set_Pass_Color` | `app/client/fontsys.cpp:404` | inline only: Update_Text's pass colour (the client cuts Convert_Color_Clamp under it) |
+| 2 | `Apply_Shader` | `app/client/fontsys.cpp:411` | inline only (Update_Text) |
+| 2 | `Refresh_Line` | `app/client/fontsys.cpp:413` | inline only: the client's Update_Text calls the copy's Get_Length out of line (one layer more than flat) |
 | 2 | `line` | `app/client/fontsys_cursor.h:35` | the FAIL_IF's '!line'  // NAME 1 [cursorpos, insert, center]: what it does with them |
 | 2 | `Scene` | `app/client/fontsys_cursor.h:38` | what it holds |
 | 2 | `Iface` | `app/client/fontsys_cursor.h:39` | what it holds |
