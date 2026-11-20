@@ -2553,7 +2553,7 @@ void RegistrationInterface::Unknown_5FB0C0()
 			}
 		}
 		delete text;
-		if (number.length() != 0 && *(number.end() - 1) == '-') { number.size(); number.size(); number.size(); number.size();
+		if (number.length() != 0 && *(number.end() - 1) == '-') { number.size(); number.size();
 			number.erase(number.end() - 1); number.size();
 		}
 		gadget->Set_Text(number.c_str(), false);

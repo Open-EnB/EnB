@@ -191,7 +191,7 @@ CharacterViewClass::CharacterViewClass(LoginTaskClass *task, int mode) :
 		Unknown4A0[i].Set(0.5f, 0.5f);
 		Unknown4B0[i].Set(0.5f, 0.5f, 1.0f);
 	}
-	Unknown_04(); Unknown4E0.size(); Unknown4E0.size(); Unknown4E0.size(); Unknown4E0.size(); Unknown4E0.size(); Unknown4E0.size(); Unknown4E0.size();	// dead: VC6's inline budget (the client calls 0x6191F0 and 0x67D300 out of line)
+	Unknown_04(); Unknown4E0.size(); Unknown4E0.size(); Unknown4E0.size(); Unknown4E0.size(); Unknown4E0.size();	// dead: VC6's inline budget (the client calls 0x6191F0 and 0x67D300 out of line)
 }
 
 // 0x678970: the implicit destructor (charview.h)

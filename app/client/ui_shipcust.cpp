@@ -1249,7 +1249,7 @@ void ShipCustomizeInterface::Unknown_624270()
 	}
 
 
-	Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); }	// dead reads (D130; not the client's): with the while loop and the file-static inlines they spend VC6's inline budget as the client does: map::insert out of line at the first four lookups, the step's _Inc 0x6296C0 out of line with the group-0 lookup through the inlined 0x625930 (its extra inline layer puts _Tree::begin 0x628F00 out of line too); 13-15 reads, 10-12 leave three lookups deep
+	Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); }	// dead reads (D130; not the client's): with the while loop and the file-static inlines they spend VC6's inline budget as the client does: map::insert out of line at the first four lookups, the step's _Inc 0x6296C0 out of line with the group-0 lookup through the inlined 0x625930 (its extra inline layer puts _Tree::begin 0x628F00 out of line too); 13-15 reads, 10-12 leave three lookups deep
 
 
 // @0x6249D0
@@ -2123,7 +2123,7 @@ void ShipCustomizeInterface::Unknown_6280E0()
 			}
 		}
 		sub->Release_Ref();
-	} Gadgets.size(); Gadgets.size();	// dead reads (D130; not the client's): they spend VC6's inline budget, so the inlined 0x6257A0 keeps its second Gadgets[] inline and calls the rest out of line as the client's (with one, not exact)
+	} Gadgets.size();	// a dead read (D272; one is enough, 2026-11-19): it spends VC6's inline budget, so the inlined 0x6257A0 keeps its second Gadgets[] inline and calls the rest out of line as the client's (with one, not exact)
 }
 
 

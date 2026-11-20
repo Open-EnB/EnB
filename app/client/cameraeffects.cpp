@@ -154,7 +154,7 @@ void CameraEffectsClass::Unknown_34()
 			bridge->Get_Hit(hit);
 		}
 	}
-	Unknown_Find_Field<DeltaTemplateClass<float> >(NULL, *(NameClass *)this); Unknown_Find_Field<DeltaTemplateClass<float> >(NULL, *(NameClass *)this);	// dead finds (D130; not the client's): they spend VC6's inline budget, so the four finds stay out of line as the client's
+	// (budget-device audit 2026-11-19: two dead finds here changed nothing, the residue the same without them)
 }
 
 

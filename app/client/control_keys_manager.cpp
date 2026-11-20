@@ -388,7 +388,7 @@ void ControlKeysManager::Load_Definitions()
 	INIClass ini("control_keys.ini");
 	List<INISection *> &list = ini.Get_Section_List();
 	INISection *section = list.First_Valid();
-	int count = ini.Get_Section_List().Get_Valid_Count(); _DefaultPSW.size(); _DefaultPSW.size(); _DefaultPSW.size();	// three dead reads (D130; not the client's): they spend VC6's inline budget, so the last two contexts[] pair constructors 0x71ED90 and Get_Valid_Count's First_Valid 0x71BCC0 stay out of line
+	int count = ini.Get_Section_List().Get_Valid_Count(); _DefaultPSW.size();	// a dead read (D272; the count sweep, 2026-11-19: one is enough): it spends VC6's inline budget, so the last two contexts[] pair constructors 0x71ED90 and Get_Valid_Count's First_Valid 0x71BCC0 stay out of line
 	_DefaultPSW.resize(count);
 	_DefaultSIM.resize(count);
 

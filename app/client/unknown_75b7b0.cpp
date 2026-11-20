@@ -48,7 +48,7 @@ void Unknown_75B8F0(RenderObjClass *obj, const Vector3 &sun, const Vector3 &came
 				angle += (2.0f * WWMATH_PI);
 			}
 			float phase = 1.0f - angle * (1.0f / (2.0f * WWMATH_PI));
-			cross.Length2();	// a dead read: the client's inline budget (operator= out of line)
+			// (budget-device audit 2026-11-19: a dead cross.Length2() here changed nothing, the residue the same without it)
 			Unknown_75BB50(obj, phase);
 		}
 	}

@@ -1555,7 +1555,7 @@ std::string SBaseViewClass::Unknown_6A2120(int index)
 	}
 	RefCountPtr<RenderObjClass> obj = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj(name.c_str()));
 	if (obj) {
-		return(name); name.size(); name.size();
+		return(name);
 	}
 	return(std::string(Unknown_B90F4C[index][column])); name.size(); name.size();
 }
