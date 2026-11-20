@@ -1665,7 +1665,7 @@ void ShipCustomizeInterface::Unknown_6259C0(short group)
 	}
 }
 
-// NOT EXACT: functional (D64)
+// NOT EXACT: inline budget (0.82: case 0's inlined 0x6257A0 calls 0x6259C0 out of line in the client; cases 2 / 3 inline more there (Create_Get, the third Gadgets[], the string's _Eos); frame 0x3C against 0x38)
 // @0x625A60
 void ShipCustomizeInterface::Unknown_625A60(int page)
 {
@@ -1709,7 +1709,7 @@ void ShipCustomizeInterface::Unknown_625A60(int page)
 	Unknown_624B50(2, "INSIGNIA_TAB", "insignia_tab_fa_ship", 0, 0);
 	Unknown_624B50(3, "NAME_TAB", "name_tab_fa_ship", 0, 0);
 	Unknown_624B50(4, "PAINT_TAB", "paint_tab_fa_ship", 0, 0);
-	const char *tutorial = NULL;
+
 	switch (Page) {
 		case 0:
 			Unknown_624B50(5, "CONFIRM", "confirm_fa_ship01", 0x0D, 0);
@@ -1732,7 +1732,7 @@ void ShipCustomizeInterface::Unknown_625A60(int page)
 			Unknown_624B50(0x31, "PAN", NULL, 0, 0);
 			Unknown_624B50(0x32, "TURN", NULL, 0, 0);
 			Unknown_6257A0(1);
-			Gadgets[1].Selected = true;
+
 			Unknown_6277A0();
 			break;
 
@@ -1777,7 +1777,7 @@ void ShipCustomizeInterface::Unknown_625A60(int page)
 			CharacterView->Unknown_67C920(std::string("1492_00_306se.mp3"));
 			CharacterView->Unknown_67C920(std::string("1492_00_307se.mp3"));
 			CharacterView->Unknown_67C920(std::string("1492_00_308se.mp3"));
-			tutorial = "ShipCreationColor";
+			TutorialManagerClass::Instance->Set_Completed("ShipCreationColor");
 			break;
 
 		case 2:
@@ -1817,7 +1817,7 @@ void ShipCustomizeInterface::Unknown_625A60(int page)
 				break;
 			}
 			CharacterView->Unknown_67C920(std::string("1492_00_311se.mp3"));
-			tutorial = "ShipCreationDecal";
+			TutorialManagerClass::Instance->Set_Completed("ShipCreationDecal");
 			break;
 
 		case 3:
@@ -1855,15 +1855,15 @@ void ShipCustomizeInterface::Unknown_625A60(int page)
 				break;
 			}
 			CharacterView->Unknown_67C920(std::string("1492_00_312se.mp3"));
-			tutorial = "ShipCreationName";
+			TutorialManagerClass::Instance->Set_Completed("ShipCreationName");
 			break;
 	}
-	if (tutorial != NULL) {
-		TutorialManagerClass::Instance->Set_Completed(tutorial);
-	}
+
+
+
 	InterfaceClass::Unknown_58();
 	Unknown_58();
-	TheDX8MeshRenderer.Invalidate();
+	TheDX8MeshRenderer.Invalidate(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size();	// dead reads (D130; not the client's): 10 spend VC6's inline budget so the page cases' inlined 0x6257A0 copies call operator[] out of line and 0x624D00's loop test calls begin() as the client's (8: 0.78, 12: 0.79)
 }
 
 
