@@ -133,6 +133,15 @@ class HistoryTest(unittest.TestCase):
         rows = ma.unstable_rows(t, {self.P1, self.P2}, short=lambda r: r)
         self.assertEqual([(r['address'], r['flips']) for r in rows], [('0x1', 2)])
 
+    def test_a_mass_loss_is_a_broken_record(self):
+        f = frozenset
+        many = f(('app', 'a', f'0x{k:X}') for k in range(1, 3001))
+        changes = [('r1', [(('app', 'a'), f(), many)]),
+                   ('r2', [(('app', 'a'), many, f({self.P1}))]),          # a broken record drops 2,999 pairs
+                   ('r3', [(('app', 'a'), f({self.P1}), many)])]          # and the next commit puts them back
+        t = ma.flips(changes)
+        self.assertEqual(t[('app', 'a', '0x2')], [('r1', '+')])
+
     def test_invalid_files_are_no_loss(self):
         f = frozenset
         changes = [('r1', [(None, f(), f({self.P1}))]),

@@ -189,6 +189,7 @@ def cmd_pad(a):
 
 D130 = re.compile(r'(?<![0-9A-Fa-fx_])D130\b')
 D272 = re.compile(r'(?<![0-9A-Fa-fx_])D272\b')
+MASS_LOSS = 0.3     # history: a revision losing more than this share of the running pairs at once is a broken record
 BUDGET_TABLE = os.path.join(ROOT, 'docs', 'data', 'budget-devices.json')
 NOT_CLIENT = re.compile(r"not the client'?s", re.I)
 GUARD = re.compile(r'^\s*#\s*define\s+(__[A-Z0-9_]+_MEMBERS)\b', re.M)
@@ -562,6 +563,8 @@ def flips(changes):
             before |= b
             after |= a
         gained, lost = after - before, before - after
+        if len(lost & state) > max(MASS_LOSS * len(state), 1000):
+            continue       # a broken record (758bbf41 dropped 24,643 pairs, 149ec6c2 put them back): not a state
         for p in gained - state:
             out.setdefault(p, []).append((rev, '+'))
         for p in lost & state:
@@ -669,9 +672,16 @@ def render(rows, summary, sources):
 def cmd_table(a):
     cur = pairs_of(current_ledger())
     pad, work, conf, hist, budget = (load_class(n) for n in ('pad', 'workaround', 'confirm', 'history', 'budget'))
+    carried = {}
+    if pad is None and os.path.isfile(OUT_JSON):    # a fresh tree has no sweep sets: keep the table's pad rows
+        old = json.load(open(OUT_JSON, encoding='utf-8'))
+        pad = {'rows': [r for r in old.get('rows', []) if r['class'] == 'pad-held']}
+        if old.get('sources', {}).get('pad-held'):
+            carried['pad-held'] = old['sources']['pad-held'].replace(' (carried from the previous table)', '') + \
+                ' (carried from the previous table)'
     rows, summary = combine(cur, pad, work, conf, hist, budget)
-    sources = {}
-    if pad:
+    sources = dict(carried)
+    if pad and 'pad-held' not in carried:
         sources['pad-held'] = '; '.join(f"{w}: {s['source']}, values {s['values']}, watched {s['watched']}"
                                         for w, ss in sorted(pad.get('sweeps', {}).items()) for s in ss) or 'no sweep sets'
     if work:
