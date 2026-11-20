@@ -209,7 +209,8 @@ unless `--lever` cites a new row of the table in §3.1.2.
   count). Reads at the end do nothing when no site before them has a nested expansion left to cut. So a
   callee the client calls out of line at the top level means a missing source layer, not a budget form.
   Freed-budget trap: removing a spender or adding a layer pulls *later* code inline: judge the whole file.
-  (Conflicting reports, unresolved: in some long functions the early sites lost inlining first.)
+  VC6 cuts inline expansions deepest-nested first, then, among equal depths, the earliest site first: a long
+  function whose early sites lose inlining first is that tie rule, not a conflict.
   A dead `std::string::size()` spends nothing, a dead container `size()` (vector / list / map) does (2026-11-16,
   IB2: inpkeys and the tooltip forms).
 * **Dead spenders (D130) and sweeps:** dead `size()` / `length()` / `c_str()` / accessor reads, `str == ""`, a
@@ -219,6 +220,9 @@ unless `--lever` cites a new row of the table in §3.1.2.
   "not the client's" mark; a spender no client form supports stays out. The effect is not monotonic in the
   count (4 reads 0.91, 5 0.30, 6 exact) and depends on the file's other inlines: sweep every count, don't
   bisect, re-sweep after each structural change. Counts above 6 are diagnostics only (a parked function).
+* **A dead read costs its expansion depth:** a vector's `begin()` is one level, `Get_Size()` (a layer over `size()`) two. Choose the
+  read whose depth cuts the one nested expansion the client lacks: `Children.begin()` gave the client's inlined `_Tidy` in a
+  not-found return where a two-deep `Get_Size()` cut a different one.
 * **Later-defined same-file functions are inlined (/Ob2):** VC6 inlines a non-inline member or static free
   function defined *after* its caller in the same .cpp (a non-static one also keeps its out-of-line copy), and
   a new member added near an exact caller. Where the client calls it out of line, put `#pragma
@@ -301,6 +305,7 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
 | **register-only, order-only** (two attempts, then the stop rule) | | |
 | A constant loaded before a variable, or the reverse | Operand order: `elapsed * 0.05F * K` loads the constant first, `step = elapsed * 0.05F; step *= K;` loads `elapsed`; `a == b` vs `b == a`, `Pos > size` vs `size < Pos` differ (D18/D28) | |
 | Registers differ around a call or an argument | A temporary, a local copy of an argument, or a member / id read into a local before the call (`int id = Client->X; Packet p(N, id);`); one shared variable reusing a dead argument slot. `tools/vc6/trydiff.py` keeps a variant's object for `objdiff.py` / `explain.py` | Accept 0x82A6C0 |
+| A member read twice, or read before a temporary, where the client's register order is the other one | Read it through the class's own inline accessor (`Get_Selected()`, `Get_Unknown3C()`, a neutral `Get_*` in the class header, NAME 1): the client inlined that accessor, so its load order is the client's; an out-of-line copy of the accessor in the client is the sign | 0x74EDB0, 0x7683F0, 0x7B2B30 |
 | The client keeps a single-exit function's `int n` length local in a register, ours folds it away | VC6 folds the local away where an early `return(literal)` exists: keep one exit (small letter-rule helpers) | |
 | Register-only: the client loads the called object after the arguments | A named local for that object (`RsTrackClass *track = ...; track->X(a, b);`) | cpacket 0x737610 |
 | The client loads packet fields, ids or a member chain before the argument pushes; a member pushed before `mov ecx,eax` after `new` | Read them through (file-static) inline accessors (`Get_Avatar_ID()`, `Unknown_Player_ID(Client)`); `View_Of(this)->f(args)` loads ecx before the arguments | cpacket handlers 32-35 |
@@ -334,6 +339,9 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
 | **shape: returns, tails, loops, switches** | | |
 | test/setne against neg/sbb; shared or separate `return false` tails | `if (g()) return true; return false;` gives test/setne, `return g();` neg/sbb; a shared `return false` tail is `if (p) {...; return true;} return false;`; an eax-wide 0/1 is `return(!a() && !b());` | |
 | A plain `sete al` | `if (f() == 0) return(true); return(false);`; `return(f() == 0)` doesn't | |
+| The client addresses records as `[ptr + IV]` or keeps extra induction variables; ours has one counter | Reuse a counter declared earlier in the function (a shadow of an outer local) as the loop index, or write `for (i = 1; i < 7; i++)` over `[i - 1]` tables for three induction variables | 0x46E670, 0x47A2F0, 0x5629E0 |
+| A loop's registers differ and its last block is the loop's tail | `continue` on a miss against the body nested under `if (found)` allocate differently: try the nested form, with `while (true)` loops | 0x634140 |
+| A switch whose `default` sits after `case 0` in the client's layout and tables | `case 0: ...; goto gen;` and `default: gen:` with the shared body under the default label | 0x512BB0 |
 | `setne` / `test` on a compare result | `bool changed = a != b; if (changed)` | ui_manu 0x5B67C0 |
 | The client repeats a success tail (`Handle = 0; return true` three times) | A return inside each success block (one tail, an `ok` flag or `&&` chains merge it) | `Try_Connect` 0x8290A0 |
 | Ours merges two failure tails the client keeps | Nest the first case's success path (`if (x != 0) { ...; break; } return(false);`); early `return false` when `find()` returns `end()`. Still open: `Listen` 0x82A470 (`attempts.py list --blocker shape`) | 0x826D00 |
@@ -372,9 +380,11 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
 | A flag the client builds with `sete` / `je` where ours branches | `bool rebuild = !newer; if (newer) rebuild = !Load_PLD(...)` | candidate (one function): 0x4691D0 |
 | One late constant-address load (`lea`) and a `mov al,cl` in a block where the client has them one block earlier | The jump-threading signature: VC6 threads the jump unless a statement that emits no code sits between the two loops; the client's source has one (a probe store proved it) | candidate (one function): 0x8099B0 |
 | explain.py class `branch`: code identical once masked, a jump target or jump length differs | A logic difference, not a layout one (a short `je` where ours is near: a search done in a case the client skips). Compare the jump lengths or run objmatch; trybatch's identical groups mask branch targets | 0x7A7560 |
-| Switch case blocks in another order than the client's | Dead end: VC6 orders the blocks itself; moving the cases in the source does not move them | |
+| Switch case blocks in another order than the client's | Dead end: VC6 orders the blocks itself; moving the cases in the source does not move them (only default's place moves: the `goto gen` row) | |
 | **frame** | | |
 | Each inlined copy has its own buffer slot | A function-scope buffer gives each inlined copy its own frame slot | 0x752E60 |
+| The client's frame has one slot nobody stores to | One function-scope array (`float rgb[3]`) shared by sibling blocks' colour groups: slots only some groups write stay unwritten | 0x4909D0 |
+| An `int[2]` (small array) local the client keeps in registers | Index it only by constants: it stays in registers and takes no frame slot | |
 | The frame size differs | The frame counts every local: a difference names a local too many or too few (a second RECT: +0x10; `char name[MAX_PATH + 1]`: +4) | 0x9182C0 |
 | A temporary for an `Add()` argument grows the frame | A cast temporary instead of a named local | opcode 128 |
 | Locals share dead parameters' stack slots in the client | Declare the locals at the top of the function, not in a later block | udpconn.cpp |
@@ -393,6 +403,7 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
 | Frame short by 0x30 | A `Matrix3D` temporary (a light offset built as a matrix) | candidate (one function): 0x50F1B0 |
 | A `Vector2` call temporary the client packs into a dead local's slot | Build the call temporaries right to left (each argument in its own `Vector2`) | candidate (one function): 0x7AD850 |
 | Locals the /FAs listing puts in one client slot | Map the listing onto the client's frame (`trybatch.py --slots`): locals that share a client slot are one variable or a temporary | candidate (one function): 0x47A2F0 |
+| A form cuts the masked residue while raw rows rise | A slot moved, not the code: run `trybatch.py --slots` on the kept form before keeping it; judge by the slots as well as the masked count | 0x47A2F0 |
 | **constructors, destructors, vtables** | | |
 | A destructor that is a lone `jmp` to the base's, or one that stores the vtables first | The compiler-generated destructor stores no vtable; a user-declared `virtual ~X() {}` stores them first (and adds an EH state to its owner's destructor): declare one exactly where the client stores | 0x4AA210 |
 | Members stored before or after the vtable | An init list stores members before the vtable (in declaration order), body assignments after it; the base's vtable store comes first and is dropped | 0x4A8370 |
@@ -1173,7 +1184,7 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
   with the 32-byte guarded `std::ctype<unsigned short>::id` initialiser (guard 0xC416FC; scan raw bytes for
   `8A 0D FC 16 C4 00 B0 01 84 C8 75 08`, it is not always a verified start; pairing questions: 3.4), so code
   placed after a file's guarded `<string>` static lands in the next object. A PermStringInitClass static opens
-  an object, it does not end the previous one; a file's own guarded static initialiser can also sit at the START of its object (proj_man.cpp's cos initialiser 0x491660), and a queue row's range can run past a guard: scan for the guard bytes before trusting a row's end. A static function stored by address with no incremental thunk
+  an object, it does not end the previous one (a header static's `$E` that is exact in the previous object can belong to the next); a file's own guarded static initialiser can also sit at the START of its object (proj_man.cpp's cos initialiser 0x491660), and a queue row's range can run past a guard: scan for the guard bytes before trusting a row's end. A static function stored by address with no incremental thunk
   marks a file-local function and a boundary.
 * **What is not placement evidence:** out-of-line copies of inlines (VC6 puts them among the file's own
   functions), a static's place in .text, shared string or float literals (merged across objects; the object
@@ -1216,7 +1227,7 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
 * **Check Renegade's Commando / wwphys for E&B debug code before rebuilding it by hand:** a profile display
   matched console.cpp byte for byte (0x510440); the sea tint is phys.cpp's `#if 0` quad (0x510D40).
 * **The symbol pads (SYMBOL_PAD, SEND_SYMBOL_PAD) are in 3.4:** source comments and tools that cite
-  "workflow.md 3.3" for the pad rule mean 3.4's two pad bullets (`auxpad.py`, `sendpad.py`).
+  "workflow.md 3.3" for the pad rule mean 3.4's two pad bullets (co.cpp's aux pad: `auxpad.py`; the send pad: `sendpad.py`).
 
 #### 3.3.2 Look up
 
@@ -1396,7 +1407,7 @@ are in 3.0.
   also take no lock), and run the full verify once per batch of gains. A queued verify compiles the
   tree as it is when it starts, not when it was launched. Never wrap verify or an `auxpad.py` sweep in a shell
   `timeout`: it kills the job while it waits, orphans a lease named importer-PID (3.5) and can leave a pad
-  variant in aux_roots.cpp. A verify started with `&` inside a foreground call is the same orphan. A pad sweep takes
+  variant in co.cpp. A verify started with `&` inside a foreground call is the same orphan. A pad sweep takes
   the lock once per value unless `--hold` (once for the sweep, released in a finally); `sendpad.py --first-window`
   tests the current pad first and stops at a run of three full values (it saves no per-value sets).
 * **Verify scratch is private only with an agent:** with `--agent NAME`, `ENB_AGENT`, or inside a wt.py worktree
@@ -1544,29 +1555,27 @@ are in 3.0.
   shown as `lost outright` by pairs_cmp / wt.py; a duplicated guarded initialiser): land its correction alone in a
   small PR to master (no library: it passes at once, and master's move reruns the run PR), cherry-pick it onto the
   run branch before the landing, and name it in the commit. Precedent: 0x5495A0, 0x604150.
-* **aux_roots.cpp's SYMBOL_PAD (`tools/re/auxroots.py`, `tools/vc6/auxpad.py`):** the six padded constructors at
-  aux_roots.cpp's end (0x6FB1E0, 0x702240, 0x7045F0, 0x7014B0, 0x701D70, 0x758210) move with the number of
-  declarations the file sees (a header member, an enumerator, an `extern`, a removed member; even one added to
-  strconv_lib.h) along a 64-step cycle of tie-breaks, each exact only in a window. The lever is auxroots.py's
-  SYMBOL_PAD (with DEF_ORDER and USER_DTOR there; never copy its value elsewhere). After any change to a header
-  aux_roots.cpp includes, a rename with the same count, or a rebase touching its inputs (even when the generated
-  output is unchanged), re-sweep all of 0..63 with `auxpad.py sweep` (a window can be narrow, with identical
-  totals elsewhere, and can split). Test such header edits against an unchanged aux_roots.cpp, and declare locally
-  in the .cpp when that is enough. No pad window exists when: a separate `operator==` sits among aux_roots.h's
-  value types (a single negated `!=` expression keeps one); a template declaration such as DeltaArrayClass's
-  bounds accessor is visible (keep such helpers local); a root's classes built inline in another file go into
-  aux_roots.h instead of aux_roots_send.h (extract them with auxextract's `run(start, this, regs0={'esi': this},
-  stop=addr)`). Explicit `template class` instantiations and padding between definitions move all six alike.
-  auxpad.py: `sweep` leases its own VM (`--pool` says the same); a sweep killed mid-run
-  leaves its VM leased under `importer-PID` and a pad variant in aux_roots.cpp (`pool.py release VM --agent
-  importer-PID`, then check out aux_roots.*); its results reach the log only once the importer lock frees. An
-  `appfile.py match` on untracked `aux_roots_pN.cpp` copies with your own VM sweeps without the lock, but appfile
-  pads through a different window than verify: use it to narrow candidates, decide with `auxpad.py sweep`.
-  aux_roots.h is no longer what `auxroots.py generate` writes (2026-11-16, AR: ~146 hand-edited lines, padding includes,
-  Vector3 / InvSlotStruct): regenerating would undo them. `auxpad.py set N` regenerated until 2026-11-17 (AR2): a
-  sendpad.py sweep run after it failed at every value on kv_pair.h's Type_Name / Value_To_String / String_To_Value
-  (C2665, `Vector3`) while verify of the committed tree had none; it now writes the pad in place. A pad sweep whose
-  every value fails to compile is a tree problem, not a pad one: `git status` / `git diff` the tree first.
+* **co.cpp's aux pad (`CoSymbolPadType`, `tools/re/auxroots.py`, `tools/vc6/auxpad.py`):** the aux-data constructors are generated by
+  auxroots.py into co.cpp's region (between its GENERATED marker lines after 0x6F5F60, in the client's order; never hand-edit it:
+  `generate` writes the committed aux_roots.h, the region and aux_roots_send.h byte for byte, tools/test_auxroots_gen.py checks
+  it). aux_roots.cpp is retired: the client compiled them inside co.cpp's object. The padded ones (0x6FB1E0, 0x702240, 0x7045F0,
+  0x7014B0, 0x701D70) are exact only in a window of the 64-step cycle of tie-breaks, and the pad is co.cpp's `CoSymbolPadType`
+  enum (auxroots.py's SYMBOL_PAD enumerators; never copy its value elsewhere). **What the pad counts** (measured): an enumerator,
+  a typedef, an `extern`, a forward declaration, a local variable: 1 each; a prototype 1 + its parameters; an inline definition
+  2 + its parameters; a class 8 + its members; a `#define` 0. So any header co.cpp includes that gains or loses a declaration,
+  a rename with the same count, or a rebase touching its inputs (even when the generated output is unchanged) can leave the
+  window: re-sweep 0..63 with `python tools/vc6/auxpad.py sweep --lockfree` (own VM in a worktree, no importer lock, same
+  results as the locked sweep; the window can be narrow or split; every value's exact set goes to `.work/log/auxpad-sets.json`)
+  and `auxpad.py set N` at the window's middle. A landing that touches co.cpp's headers moves it: a window found on one base
+  can be lost after a rebase (rebase, then sweep again). Declare locally in the .cpp when that is enough. No window exists when:
+  a separate `operator==` sits among the value types (a single negated `!=` expression keeps one); a template declaration such
+  as DeltaArrayClass's bounds accessor is visible (keep such helpers local); a root's classes built inline in another file go
+  into aux_roots.h instead of aux_roots_send.h (extract them with auxextract's `run(start, this, regs0={'esi': this},
+  stop=addr)`). Explicit `template class` instantiations and padding between definitions move all of them alike. A sweep
+  killed mid-run leaves its VM leased under `importer-PID` and a pad variant in co.cpp (`pool.py release VM --agent
+  importer-PID`, then check out co.cpp); a sweep whose every value fails to compile is a tree problem (`git status`), not a pad
+  one. `appfile.py match` pads through a different window than verify: use it to narrow candidates, decide with the sweep.
+  clienttest compiles co.cpp itself without the factory 0x6F6000 (its `stage_co`): no aux_roots stand-ins.
 * **SEND_SYMBOL_PAD (`tools/vc6/sendpad.py`):** aux_roots_send.h's SEND_SYMBOL_PAD keeps sclient.cpp's padded
   constructors 0x758210 and 0x702240 exact (different instances, not twins), and 0x74D990, which sclient.cpp
   defines after `#include "aux_roots.h"`. The window moves with any declaration or definition-order change
@@ -1574,15 +1583,15 @@ are in 3.0.
   headers: `python tools/vc6/sendpad.py --includes`), cycles mod 64, can split, and is unaffected by .cpp files
   sclient.cpp does not include. Never store or copy a pad value and never sweep only a neighbourhood: after any
   landing that touches such a header, rebase, then run `python tools/vc6/sendpad.py --pool 1 --lock-wait 6000`
-  (the 0..63 sweep through verify's path; it sets the pad to the window's middle); `wt.py bring-over NAME`
+  (the 0..63 sweep through verify's path, or `--lockfree` on its own VM without the importer lock; it sets the pad to the window's middle); `wt.py bring-over NAME`
   runs it (unless `--no-sendpad`) when the verify loses sclient.cpp pairs and the diff touches such a header. One sweep base
   at a time: a second landing needs a rebase and a new sweep (bring-over refuses a branch losing 0x74D990 or
   0x758210 outright). The sweep's watch set comes from HEAD's ledger (a verify that
-  already lost 0x758210 no longer drops it from the set): check 0x758210 / 0x702240 in `.work/log/sendpad.log`. `appfile.py match`, its draft compiles and single-file compiles pad and break ties through a
+  already lost 0x758210 no longer drops it from the set; after a rebase with watched addresses lost the sweep's summary window is wrong: read its per-value rows and the sets file for the values where all three are exact): check 0x758210 / 0x702240 in `.work/log/sendpad.log`. `appfile.py match`, its draft compiles and single-file compiles pad and break ties through a
   different window than verify (a constant set of false losses, tie-break pairs it cannot see): decide with sendpad.py / the full verify only.
-  A member added to a header that sclient.cpp or aux_roots.cpp includes flips pad-sensitive pairs beyond the
+  A member added to a header that sclient.cpp or co.cpp includes flips pad-sensitive pairs beyond the
   watch list (client_item_property_builder.cpp in §3.9 has the case).
-* **More pad-sensitive headers:** declarations added to a header reached through sbaseview.h move sclient's send pad 0x758210 (a declaration stays local in the .cpp that needs it); replacing aux_roots.h's views with an include of a new header lost the six padded constructors (0x702240, 0x7045F0): keep aux_roots.cpp's declaration count, with money.h's guard pattern. Out-of-class definitions of member templates compile in VC6 (only explicit specialisations hit C1001): a way to add a member without changing a pad-sensitive header (a plain overload in kv_encoder_base.h cost the send pad and 0x597080).
+* **More pad-sensitive headers:** declarations added to a header reached through sbaseview.h move sclient's send pad 0x758210 (a declaration stays local in the .cpp that needs it); replacing aux_roots.h's views with an include of a new header lost the six padded constructors (0x702240, 0x7045F0): keep co.cpp's declaration count, with money.h's guard pattern. Out-of-class definitions of member templates compile in VC6 (only explicit specialisations hit C1001): a way to add a member without changing a pad-sensitive header (a plain overload in kv_encoder_base.h cost the send pad and 0x597080).
 * **Names inside a header guard macro** (money.h's `__X_ALL` pattern) cannot be enumerators of a type declared outside the guard: use anonymous enums, with casts where an enum value is returned or passed (C2440 / C2665).
 * **Keeping both pads still:** put members only one file needs behind a guard macro defined only by its users
   (money.h's pattern; a declaration added to delta_array.h reaches aux_roots and sclient: `#ifdef
@@ -1661,7 +1670,7 @@ are in 3.0.
 * **The IDE build (`dsp.py` / `msdev.py`, D248, 2026-11-16):** (a) give cl the include directories as build.py does,
   absolute real paths: relative ones (`..\..\wwlib`, reached through the E: alias) changed the code of 10 app
   objects (aux_roots.obj's register choice and frame offsets; its tie-breaks follow cl's internal state, see
-  "aux_roots.cpp's SYMBOL_PAD"). (b) `msdev /MAKE` does not build a project whose dependency failed: `main`'s link
+  "co.cpp's aux pad"). (b) `msdev /MAKE` does not build a project whose dependency failed: `main`'s link
   fails until the reconstruction is whole, so `clientpoc` depends on the libraries only and compiles app\main's
   two files itself. (c) Compare objects with `objcmp.py`, not bytes: the symbol table holds the source path (the
   `.file` record) and compiler label numbers (`$L`, `$T`) that differ between any two builds, and moves every
@@ -1894,7 +1903,7 @@ are in 3.0.
 * **A vtable alignment between two candidate slot orders can look proven when both put the same kind of stub (`ret 4`) in the checked slot:** check every slot's body. symbols.json's vtable-proved slot names then carry the wrong order and lose pairs when the header is fixed, until `replaces` rows are added.
 * **Tool arguments:** `verify.py --pool` takes an integer (the VM count). `appfile.py match --diff` needs the full `Class::Method` name and a `// @0xADDR` marker on an existing blank line (a new line shifts asserts). It cannot find operators (`??_5`, `??U`): use `objdiff.py .work/<ID>/appfile/obj/X.obj MANGLED ADDR`.
 * **Unwind funclets show a function's local `RefCountPtr` types:** N funclets jumping to one destructor means N locals of one instantiation; use them before retyping locals.
-* **trybatch traps:** a variant that changes the line count shifts later `__LINE__` (put dead forms on existing lines; the tool flags the shift); a header hunk appended after a `//` comment is commented out; a draft header needs the whole quoted include chain as no-op hunks, and a draft-folder header copy does not shadow a quoted include from another header; hunk anchors must be unique in the whole file; two threads on one VM collide on sync.tar; `listing.asm` is written only with `--slots`; region diffs are kept only for the best form (`trybatch.py regions` on that form's object); `identical` masks branch targets; a lever's cost to another instance in the file is invisible to its single-symbol measure (sweep the file with appfile); names from attempts.csv go stale (pass an empty `SYMBOL`); wildcarded relocations make same-shape initialisers all match.
+* **trybatch traps:** a variant that changes the line count shifts later `__LINE__` (put dead forms on existing lines; the tool flags the shift); a header hunk appended after a `//` comment is commented out; a draft header reached through another header needs a no-op hunk on every intermediate header (the symptom is C1083 or a compile that shows no change), and a draft-folder header copy does not shadow a quoted include from another header; hunk anchors must be unique in the whole file; two threads on one VM collide on sync.tar; `listing.asm` is written only with `--slots`; region diffs are kept only for the best form (`trybatch.py regions` on that form's object); `identical` masks branch targets; a lever's cost to another instance in the file is invisible to its single-symbol measure (sweep the file with appfile); names from attempts.csv go stale (pass an empty `SYMBOL`); wildcarded relocations make same-shape initialisers all match.
 * **tryv2 under a busy importer lock:** a run that times out while queued for the lock runs nothing, and tryv2 gives up behind a busy lock: use `appfile match` on mark.py drafts. A variant that adds lines shifts later `__LINE__`.
 * **appfile match on a library file** uses the app's /GX unless you pass the library's own `--flags` (ww3d2's); explain.py needs a virtual's UAE decoration to find it. Parallel appfile runs need distinct `ENB_AGENT`, and `$(... &)` drops it.
 
@@ -2030,9 +2039,7 @@ Stand-ins and gen_stubs (clienttest, udpreplay, kerneltest, the POC):
   in clienttest.py and define the renamed method in client_stubs.cpp. Hand stand-ins are deleted in the commit
   that rebuilds the function (grep tests/ for each signature, udpreplay included); a faked app function made
   real: rename the fake, then link. A rebuilt callee or gen-stubbed constructor can pull its whole object in
-  (hand stand-ins for its by-value-return callees; control_keys_manager.obj needed one); co.obj drags in
-  aux_roots.obj once sclient.cpp news DeltaPlayerClass or the Hull root: stand in each symbol only
-  aux_roots.obj defines (the old tests/clienttest/aux_roots_stubs.cpp is gone: sclient.obj now compiles those constructors). ui_registration.h pulls in many UI headers.
+  (hand stand-ins for its by-value-return callees; control_keys_manager.obj needed one); co.obj holds the aux constructors itself (clienttest's `stage_co` compiles co.cpp without the factory 0x6F6000; aux_roots.cpp is retired and its stubs are gone). ui_registration.h pulls in many UI headers.
   clienttest.py strips udpreplay's staged stub of a function that became real. A constant defined only in
   programs/clientpoc/ (poc_data.cpp) needs its twin in clienttest's stand-ins.
 
@@ -2108,6 +2115,7 @@ The POC client (instances and your own build: builders.md §2 "POC instances"):
   inventory, 87,928 is the character button (`.work/hc2/in2b.txt`). A typed letter that hits hotkeys means
   control_keys.ini was not read. A replay that never selects a target can't show target lines (ui_scan
   0x60F1A0); antprox does not answer CLIENT_CHAT_REQUEST 0x00A3 (antprox's work, not the client's).
+* **A CLIENT_CHAT_REQUEST 0x00A3 at a sector connection's hand-off (play1 / play1_windows, first sector, ~4 s) is a race:** retail misses it in some playbacks and our build in others, so a +-1 in the e2e packet compare is not a regression: never bisect it from single runs (repeat both sides several times first).
 * **POC shot timing is not one number.** `--shots 1` is needed for any shot, and shots count presented frames,
   not ms: login runs ~5,000-15,000 frames/s, the world ~670, in-world shots around frame 330000-420000, retail
   ~4x slower late; the rate varies ~10 % between runs. Use `D3D8SHOT_EVERY=20000 D3D8SHOT_MAX=60` for the POC
@@ -2261,6 +2269,8 @@ are alphabetical; add a note under its file's heading (merge with what is there)
 
 #### aux_roots.cpp (auxextract)
 
+* aux_roots.cpp is retired (the constructors are generated into co.cpp's region, see 3.4's aux pad bullet); the notes below are for aux_roots.h and the family headers.
+
 * A `*BF` enum redeclared in app/common breaks every file that includes aux_roots.h (EffectGeneratorUsageBF).
 
 * auxextract misses defaults via a register (`or reg,-1`, byte stores, masks) or a stack temporary (1.0f
@@ -2326,6 +2336,8 @@ are alphabetical; add a note under its file's heading (merge with what is there)
   through co.h).
 
 #### co.cpp
+
+* **The aux constructors and the CREATE factory (0x6F6000-0x6FBEF0) sit in a generated region** between GENERATED marker lines near co.cpp's end: change auxroots.py, never the region. The enum `CoSymbolPadType` after it is the aux pad (3.4).
 
 * The inline budget cuts the bigger callee first and same-size callees in source order, so earlier finds go
   out of line first. auxdata.h's find is the client's early-return form (rtti.h's test inverted: `!= global ->
