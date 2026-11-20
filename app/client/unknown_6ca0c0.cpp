@@ -97,7 +97,7 @@ void FontSys::Unknown_6CA0C0(FontEffectStruct *effect)
 		if (style->Unknown274[7] == 1) {
 			style->Unknown274[3] = 0;
 		}
-		scale = (float)(sin((float)style->Unknown274[3] * effect->Speed * 0.0062831f) * effect->Intensity + 1.0f);
+		scale = (float)sin((float)style->Unknown274[3] * effect->Speed * 0.0062831f) * effect->Intensity + 1.0f;
 		style->Unknown254[4] = 2;
 		style->Unknown404 = true;
 		style->Unknown4C5 = false;
@@ -203,8 +203,9 @@ void FontSys::Unknown_6CA0C0(FontEffectStruct *effect)
 			text += tail;
 		} else {
 			// in random order: Unknown303[i] marks letter i revealed, Unknown414 counts them
-			while (style->Unknown414 != shown) {
-				int pick = rand() / (0x8000 / (length - style->Unknown414));
+			while (shown != style->Unknown414) {
+				int span = 0x8000 / (length - style->Unknown414);
+				int pick = rand() / span;
 				int hidden = 0;
 				for (int i = 0; i < length; i++) {
 					if (style->Unknown303[i] == 0) {
@@ -497,8 +498,8 @@ void FontSys::Unknown_6CA0C0(FontEffectStruct *effect)
 		const FontColorStruct *second = style->Colors[1];
 		const FontColorStruct *current = style->Colors[style->Unknown44C];
 		float wave = sin((float)style->Unknown274[3] * effect->Speed * 0.0062831f);
-		TPoint3D<int> half((second->RGB.X - current->RGB.X) / 2, (second->RGB.Y - current->RGB.Y) / 2, (second->RGB.Z - current->RGB.Z) / 2);
-		TPoint3D<int> mid((second->RGB.X + current->RGB.X) / 2, (current->RGB.Y + second->RGB.Y) / 2, (current->RGB.Z + second->RGB.Z) / 2);
+		TPoint3D<int> half = (second->RGB - current->RGB) / 2;
+		TPoint3D<int> mid = (second->RGB + current->RGB) / 2;
 		style->Unknown4A4.Color.X = (half.X * wave + mid.X) * 0.00392156f;
 		style->Unknown4A4.Color.Y = (half.Y * wave + mid.Y) * 0.00392156f;
 		style->Unknown4A4.Color.Z = (half.Z * wave + mid.Z) * 0.00392156f;
@@ -640,7 +641,7 @@ void FontSys::Unknown_6CA0C0(FontEffectStruct *effect)
 		if (!timed_out && !all_done) {
 			break;
 		}
-		if (style->Info.TimeSpacing * 1000.0f * (float)(style->LineCount - style->LineNumber) <= (float)(style->Unknown274[11] + delta)
+		if (style->Unknown274[11] + delta >= (style->LineCount - style->LineNumber) * (style->Info.TimeSpacing * 1000.0f)
 			|| style->Info.Spacing >= 0.0f) {
 			style->Unknown_6D5D40();
 			style->Unknown274[2] = 0;
@@ -655,12 +656,16 @@ void FontSys::Unknown_6CA0C0(FontEffectStruct *effect)
 				style->Unknown274[0] = 0;
 				if (style->Unknown440 == 2) {
 					// the last stage: Unknown450 says what then (0 again, 1 hide, 2 remove)
-					if (style->Unknown450 == 0) {
+					switch (style->Unknown450) {
+					case 0:
 						style->Unknown440 = 0;
-					} else if (style->Unknown450 == 1) {
+						break;
+					case 1:
 						style->Set_Hidden(1);
-					} else if (style->Unknown450 == 2) {
+						break;
+					case 2:
 						style->Remove();
+						break;
 					}
 				} else {
 					style->Unknown440 = (style->Unknown440 + 1) % 3;
