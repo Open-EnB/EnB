@@ -466,7 +466,7 @@ static int Get_Value(int offset, Wstring &tag, Wstring &value);  // 0x7784D0
 
 
 
-// NOT EXACT: 0x7710D0, frame 0x280 vs 0x284; the client's out-of-line add / growVector copies all reproduced
+// NOT EXACT: 0x7710D0, register allocation (the strcmp chains, the cached link count); budget and frame as the client's
 int HtmlViewClass::Parse(HtmlLinkStruct *link, HtmlBlockClass *block, int offset)
 {
 	char *start;
@@ -552,7 +552,7 @@ int HtmlViewClass::Parse(HtmlLinkStruct *link, HtmlBlockClass *block, int offset
 					} else if (strcmp(key.get(), "size") == 0) {
 						block->Set_Style("Font.BaseSize", value.get());
 					} else if (strcmp(key.get(), "color") == 0) {
-						sprintf(buffer, "%d", Get_Colorref(value.get()));
+						char *end = NULL; sprintf(buffer, "%d", Get_Colorref(value.get()));
 						block->Set_Style("Font.Colorref", buffer);
 					}
 				}
@@ -653,10 +653,10 @@ int HtmlViewClass::Parse(HtmlLinkStruct *link, HtmlBlockClass *block, int offset
 				int align = block->Get_Align();
 				if (align == 0) {
 					block->Advance_X((block->Get_Width() - width) / 2, true);
-					block->Set_Line_Start_X(block->Get_Line_Start_X() + (block->Get_Width() - width) / 2);
+					block->LineStartX += (block->Get_Width() - width) / 2;
 				} else if (align == 1) {
 					block->Advance_X(block->Get_Width() - width, true);
-					block->Set_Line_Start_X(block->Get_Line_Start_X() + block->Get_Width() - width);
+					block->LineStartX += block->Get_Width() - width;
 				}
 				HtmlItemStruct *item = new HtmlItemStruct;
 				item->X = block->Get_Cursor_X();
@@ -705,12 +705,12 @@ int HtmlViewClass::Parse(HtmlLinkStruct *link, HtmlBlockClass *block, int offset
 					tableattrs.Clear();
 					colwidths.clear();
 					block->Advance_Y(0, true);
-					block->Set_Line_Start_X(block->Get_Line_Start_X() - spacing);
+					block->LineStartX -= spacing;
 					int align = block->Get_Align();
 					if (align == 0) {
-						block->Set_Line_Start_X(block->Get_Line_Start_X() - (block->Get_Width() - item->Width) / 2);
+						block->LineStartX -= (block->Get_Width() - item->Width) / 2;
 					} else if (align == 1) {
-						block->Set_Line_Start_X(block->Get_Line_Start_X() - (block->Get_Width() - item->Width));
+						block->LineStartX -= block->Get_Width() - item->Width;
 					}
 					block->New_Line();
 				}
@@ -750,7 +750,7 @@ int HtmlViewClass::Parse(HtmlLinkStruct *link, HtmlBlockClass *block, int offset
 					sscanf(cell->Get_Style("ElementPointer"), "%p", &item);
 					item->Height = height + border * 2;
 				}
-				block->Set_Line_Start_X(block->Get_Line_Start_X() - width);
+				block->LineStartX -= width;
 				block->New_Line();
 				block->Advance_Y(spacing + border * 2 + height, true);
 				rowcells.clear();
@@ -759,7 +759,7 @@ int HtmlViewClass::Parse(HtmlLinkStruct *link, HtmlBlockClass *block, int offset
 				CellDepth++;
 				HtmlAttributeStackClass cellattrs;
 				Wstring key;
-				Wstring value;
+				Wstring value; char *end;
 				while (true) { if ((pos = tag.getToken(pos, " =\t\r\n", key)) == -1) break; if ((pos = Get_Value(pos, tag, value)) == -1) break;
 					key.toLower();
 					if (strcmp(key.get(), "bgcolor") == 0) {
@@ -843,7 +843,7 @@ int HtmlViewClass::Parse(HtmlLinkStruct *link, HtmlBlockClass *block, int offset
 				block->Items.addTail(item);
 				sprintf(buffer, "%p", item);
 				cell->Set_Style("ElementPointer", buffer);
-				block->Set_Line_Start_X(block->Get_Line_Start_X() + cellwidth);
+				block->LineStartX += cellwidth;
 				block->Advance_X(cellwidth, false);
 				tagend += length;
 			} else if (strcmp(name.get(), "/td") == 0) {
@@ -1660,7 +1660,9 @@ static int Get_Value(int offset, Wstring &tag, Wstring &value)
 **	  line), the block's cursor, line start and padding are read through inline accessors (New_Line,
 **	  Get_Cursor_X / Y, Get_Line_Start_X, Set_Line_Start_X, Get_HPadding) and six dead Items.length()
 **	  reads follow <hr>'s add (D272): every client add / growVector call out of line, the table's add
-**	  0x778CF0 included. The client's frame is 0x284 bytes against this one's 0x280. The statics 0xBE83F0 / 0xBE83F4 / 0xBE83F8 count table, row and
+**	  0x778CF0 included. Frame 0x284 as the client's: <font>'s colour sets its own end to NULL
+**	  first (mov [end], ebx), <td> has its own end; <table>'s and </table>'s alignment, </table>'s spacing,
+**	  <td> and </tr> move LineStartX with += / -= (add / sub [mem], reg), the rest with the setter. The statics 0xBE83F0 / 0xBE83F4 / 0xBE83F8 count table, row and
 **	  cell depth and are never read. Block +0x1BC (LineStartX) is the line's start x (tables and lists
 **	  move it), +0x1C0 / +0x1C4 the laid-out content's width / height (set at the parser's end).
 **	* Not yet: Draw_Line_16 / Draw_Line_32. The font cache 0x76EB70 (Get_Font, declared in htmlview.h) is not this file's: it and
