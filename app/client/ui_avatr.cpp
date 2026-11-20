@@ -673,13 +673,13 @@ void AvatarCreationInterface::Unknown_60()
 	((CharacterViewAvatarClass *)Unknown094->Unknown054.Peek())->Unknown_1C4();
 }
 
-// NOT EXACT: inline budget (0.27, 3742 bytes against about 0xC50): the client has its own case per key for 0x16-0x1F
-// (585CC0 / 585C90, no `key ==` test) and shares its sound tails; it calls basic_string's assign out of line for the
-// six tutorial names (Unknown_67C920 takes a std::string by value: _Tidy(false) + assign(s, len), both out of line)
-// where VC6 here inlines assign. Dead desc.Peek()s after the switch show the budget: 12 nothing, 18-24 give 0.64
-// (assign out of line), 30+ 0.61; far over D130's six, so the client spent it in forms not found yet (the strings,
-// the tutorial manager or the conversions to RefCountPtr<RenderObjClass>). attempts.py show 0x554E80
-// (the cases' tails shared as the client's)
+// NOT EXACT: register (masked 475): the cases in the client's body order (jump table 0x555B20 by address: 4, 1, 2, 3,
+// 0xF, 0x10, 0x3A, 5, 0xA, ...); the choices and envmaps through the class's inline getters Get_Unknown18() /
+// Peek_Unknown3A4() as 0x559010 / 0x5591E0 (they spend the budget: the six tutorial names' basic_string assign
+// goes out of line as the client's). Left: the client keeps zero in ebx from the entry (cmp byte [esi+0x1C4], bl),
+// ours in edi after Create_Peek (pushed as 0 at the scasb sites) and one push fewer, so our returns copy the
+// epilogue where the client cross-jumps its sound tails; the palette helper's model ~RefCountPtr stays inline here
+// (the client calls 0x4740B0 at both palette cases, as in the constructor). attempts.py show 0x554E80
 // 0x554E80
 bool AvatarCreationInterface::Unknown_68(int key)
 {
@@ -688,6 +688,11 @@ bool AvatarCreationInterface::Unknown_68(int key)
 	}
 	RefCountPtr<CharacterViewAvatarClass> desc = Create_Peek(Unknown08C->Peek_Unknown194());
 	switch (key) {
+		case 4:
+			Unknown_557290();
+			Unknown094->Unknown_84(desc);
+			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
+			return(true);
 		case 1:
 			Unknown_5582A0();
 			Unknown_556B20(0);
@@ -717,17 +722,6 @@ bool AvatarCreationInterface::Unknown_68(int key)
 				TutorialManagerClass::Instance->Set_Completed("AvatarCreationBody");
 			}
 			return(true);
-		case 4:
-			Unknown_557290();
-			Unknown094->Unknown_84(desc);
-			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
-			return(true);
-		case 5:
-			Unknown094->Unknown_8C();
-			break;
-		case 0xA:
-			Unknown094->Unknown_88();
-			break;
 		case 0xF:
 			Unknown_559350();
 			Unknown08C->Unknown_67A3F0();
@@ -747,6 +741,18 @@ bool AvatarCreationInterface::Unknown_68(int key)
 			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
 			Unknown08C->Unknown_67C7B0();
 			return(true);
+		case 0x3A:
+			Unknown08C->Unknown_67B270();
+			Unknown1C5 = true;
+			Unknown08C->Unknown_67C7B0();
+			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
+			return(true);
+		case 5:
+			Unknown094->Unknown_8C();
+			break;
+		case 0xA:
+			Unknown094->Unknown_88();
+			break;
 		case 0x12:
 			Unknown_559010(1);
 			break;
@@ -760,35 +766,35 @@ bool AvatarCreationInterface::Unknown_68(int key)
 			Unknown_5591E0(2);
 			break;
 		case 0x16:
-			Unknown2DC->Unknown_585CC0(); desc->Unknown_77F000(Unknown2DC->Unknown18); desc->Unknown_780810(Unknown08C->Unknown3A4);
+			Unknown2DC->Unknown_585CC0(); desc->Unknown_77F000(Unknown2DC->Get_Unknown18()); desc->Unknown_780810(Unknown08C->Peek_Unknown3A4());
 			Unknown094->Unknown_84(desc); break;
 		case 0x17:
-			Unknown2DC->Unknown_585C90(); desc->Unknown_77F000(Unknown2DC->Unknown18); desc->Unknown_780810(Unknown08C->Unknown3A4);
+			Unknown2DC->Unknown_585C90(); desc->Unknown_77F000(Unknown2DC->Get_Unknown18()); desc->Unknown_780810(Unknown08C->Peek_Unknown3A4());
 			Unknown094->Unknown_84(desc); break;
 		case 0x18:
-			Unknown2E8->Unknown_585CC0(); desc->Unknown_7857D0(Unknown2E8->Unknown18);
+			Unknown2E8->Unknown_585CC0(); desc->Unknown_7857D0(Unknown2E8->Get_Unknown18());
 			Unknown094->Unknown_84(desc); break;
 		case 0x19:
-			Unknown2E8->Unknown_585C90(); desc->Unknown_7857D0(Unknown2E8->Unknown18);
+			Unknown2E8->Unknown_585C90(); desc->Unknown_7857D0(Unknown2E8->Get_Unknown18());
 			Unknown094->Unknown_84(desc); break;
 		case 0x1A:
-			Unknown2EC->Unknown_585CC0(); desc->Unknown_7859F0(Unknown2EC->Unknown18); Unknown_55B2D0();
+			Unknown2EC->Unknown_585CC0(); desc->Unknown_7859F0(Unknown2EC->Get_Unknown18()); Unknown_55B2D0();
 			Unknown094->Unknown_84(desc); break;
 		case 0x1B:
-			Unknown2EC->Unknown_585C90(); desc->Unknown_7859F0(Unknown2EC->Unknown18); Unknown_55B2D0();
+			Unknown2EC->Unknown_585C90(); desc->Unknown_7859F0(Unknown2EC->Get_Unknown18()); Unknown_55B2D0();
 			Unknown094->Unknown_84(desc); break;
 		case 0x1C:
-			Unknown2F0->Unknown_585CC0(); desc->Unknown_77FCE0(Unknown2F0->Unknown18, 1); TheDX8MeshRenderer.Invalidate();
-			desc->Unknown_780810(Unknown08C->Unknown3A4); Unknown094->Unknown_84(desc); break;
+			Unknown2F0->Unknown_585CC0(); desc->Unknown_77FCE0(Unknown2F0->Get_Unknown18(), 1); TheDX8MeshRenderer.Invalidate();
+			desc->Unknown_780810(Unknown08C->Peek_Unknown3A4()); Unknown094->Unknown_84(desc); break;
 		case 0x1D:
-			Unknown2F0->Unknown_585C90(); desc->Unknown_77FCE0(Unknown2F0->Unknown18, 1); TheDX8MeshRenderer.Invalidate();
-			desc->Unknown_780810(Unknown08C->Unknown3A4); Unknown094->Unknown_84(desc); break;
+			Unknown2F0->Unknown_585C90(); desc->Unknown_77FCE0(Unknown2F0->Get_Unknown18(), 1); TheDX8MeshRenderer.Invalidate();
+			desc->Unknown_780810(Unknown08C->Peek_Unknown3A4()); Unknown094->Unknown_84(desc); break;
 		case 0x1E:
-			Unknown2F4->Unknown_585CC0(); desc->Unknown_77FC90(Unknown2F4->Unknown18, 1); TheDX8MeshRenderer.Invalidate();
-			desc->Unknown_780810(Unknown08C->Unknown3A4); Unknown094->Unknown_84(desc); break;
+			Unknown2F4->Unknown_585CC0(); desc->Unknown_77FC90(Unknown2F4->Get_Unknown18(), 1); TheDX8MeshRenderer.Invalidate();
+			desc->Unknown_780810(Unknown08C->Peek_Unknown3A4()); Unknown094->Unknown_84(desc); break;
 		case 0x1F:
-			Unknown2F4->Unknown_585C90(); desc->Unknown_77FC90(Unknown2F4->Unknown18, 1); TheDX8MeshRenderer.Invalidate();
-			desc->Unknown_780810(Unknown08C->Unknown3A4); Unknown094->Unknown_84(desc); break;
+			Unknown2F4->Unknown_585C90(); desc->Unknown_77FC90(Unknown2F4->Get_Unknown18(), 1); TheDX8MeshRenderer.Invalidate();
+			desc->Unknown_780810(Unknown08C->Peek_Unknown3A4()); Unknown094->Unknown_84(desc); break;
 		case 0x20:
 		case 0x21:
 			Unknown_Set_Palette("fa_avatar_color.tga");
@@ -838,12 +844,6 @@ bool AvatarCreationInterface::Unknown_68(int key)
 		case 0x34:
 			Unknown_55B9A0(2);
 			break;
-		case 0x3A:
-			Unknown08C->Unknown_67B270();
-			Unknown1C5 = true;
-			Unknown08C->Unknown_67C7B0();
-			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
-			return(true);
 		default:
 			return(false);
 	}
