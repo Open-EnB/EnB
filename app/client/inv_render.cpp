@@ -61,7 +61,7 @@ class Unknown68C5A0Class : public UIItemExaminationPropertyRouterBaseClass, publ
 public:
 	Unknown68C5A0Class();																	// 0x68C5A0
 	virtual void Clear();																	// 0x68C5F0
-	virtual void Route(const RefCountPtr<ClientItemPropertyClass> &property);				// 0x68C610
+	virtual void Route(const RefCountPtr<const ClientItemPropertyClass> &property);				// 0x68C610
 	virtual void Unknown_04(ClientItemPropertySpecialClass *property);						// 0x68C680
 
 	bool Usable;																			// +0x08  // NAME 1: what 0x68C6B0 does with it
@@ -162,10 +162,10 @@ void Unknown68C5A0Class::Clear()
 
 
 // 0x68C610
-void Unknown68C5A0Class::Route(const RefCountPtr<ClientItemPropertyClass> &property)
+void Unknown68C5A0Class::Route(const RefCountPtr<const ClientItemPropertyClass> &property)
 {
 	FAIL_IF(!property) return;
-	property->Accept((ClientItemPropertyVisitorClass *)(Unknown68C5D0Class *)this);
+	const_cast<ClientItemPropertyClass *>(property.Peek())->Accept((ClientItemPropertyVisitorClass *)(Unknown68C5D0Class *)this);
 }
 
 // 0x68C680

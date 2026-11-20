@@ -51,10 +51,10 @@ void UIItemExaminationPropertyRouterClass::Clear()
 
 
 
-void UIItemExaminationPropertyRouterClass::Route(const RefCountPtr<ClientItemPropertyClass> &property)
+void UIItemExaminationPropertyRouterClass::Route(const RefCountPtr<const ClientItemPropertyClass> &property)
 {
 	FAIL_IF(!property) return;
-	property->Accept(this);
+	const_cast<ClientItemPropertyClass *>(property.Peek())->Accept(this);
 }
 
 

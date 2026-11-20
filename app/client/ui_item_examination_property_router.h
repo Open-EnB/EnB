@@ -55,7 +55,7 @@ class UIItemExaminationPropertyRouterBaseClass  // NAME 1: neutral (D10)
 {
 public:
 	virtual void Clear() = 0;																// +0x00  // NAME 1 [Clear]: what it does
-	virtual void Route(const RefCountPtr<ClientItemPropertyClass> &property) = 0;			// +0x04 (FAIL_IF '!property')  // NAME 3 [property]: the FAIL_IF's; NAME 1 [Route]: the file's
+	virtual void Route(const RefCountPtr<const ClientItemPropertyClass> &property) = 0;			// +0x04 (FAIL_IF '!property'; the parameter's type: the builder 0x522860 converts each RefCountPtr<ClientItemPropertyClass> local into a temporary of another instantiation, 0x5292C0, dtor 0x529040)  // NAME 3 [property]: the FAIL_IF's; NAME 1 [Route]: the file's
 };
 
 class UIItemExaminationPropertyRouterClass : public UIItemExaminationPropertyRouterBaseClass, public ClientItemPropertyVisitorClass  // NAME 3: class-from-file (D24) for ui_item_examination_property_router.cpp
@@ -64,7 +64,7 @@ public:
 	UIItemExaminationPropertyRouterClass(UIItemExaminationTitleClass &title, UIItemExaminationAttributesClass &attributes, UIItemExaminationSpecialsClass &specials, UIItemExaminationOptionsClass &options, UIItemExaminationDescriptionClass &description);	// 0x537830  // NAME 1 [title, attributes, specials, options, description]: the panels
 	virtual ~UIItemExaminationPropertyRouterClass();										// +0x08 0x5378C0 (deleting 0x537880)
 	virtual void Clear();																	// 0x5378E0 (the title and description cleared)
-	virtual void Route(const RefCountPtr<ClientItemPropertyClass> &property);				// 0x537910
+	virtual void Route(const RefCountPtr<const ClientItemPropertyClass> &property);				// 0x537910
 	virtual void Unknown_00(ClientItemPropertyOptionClass *property);						// 0x537A80 (the options panel)  // NAME 1: neutral (D10)
 	virtual void Unknown_04(ClientItemPropertySpecialClass *property);				// 0x537A60 (the specials panel)  // NAME 1: neutral (D10)
 	virtual void Unknown_08(ClientItemPropertyAttributeClass *property);					// 0x537A40 (the attributes panel)  // NAME 1: neutral (D10)
