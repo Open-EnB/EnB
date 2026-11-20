@@ -416,7 +416,7 @@ static inline void Append_Dots(StringClass &text, bool on) { if (on) { text += "
 **	text rectangle +0x420 and the screen rectangle +0x430, and the underline quad from +0x2E0's "_" (Underline).
 **	Colours +0x494 / +0x4A4 / +0x4B4 are floats r, g, b, a (0x6D5170); fontmanager.h's FontStyleColorStruct says int.
 */
-// NOT EXACT: written from the client's code (0x6D64C0) for the POC; PT5 (2026-11-20) masked residue 1404 -> 881 (file-static inline layers Refresh_Line / Set_Pass_Color / Apply_Shader, Step_Colour, WWMath::Min); PT9 881 -> 413 (two dead reads after underline site 7: Vector2() out of line through ??_H at sites 5-7; the rows clamp as ?:, 1.0f < vt, the pass alpha's min as ?:): FC (2026-11-20) 413 -> 193: every call as the client's (the line refresh flat with two dead reads after the copy and the "..." += in a layer; the pass colour one Set_Vertex_Color per layer with WWMath::Min for the alpha; three reads after site 7), (float)height / strip_v inside the strip loop (hoisted, 0x6D6EBD), the swap as y_high first, strips as a ?: of two ftol operands, the argument an int (cmp eax, 1): left the zero register (the client's ebx, ours esi / edi), the two early returns' merge, frame 0xB0 / 0xE4
+// NOT EXACT: written from the client's code (0x6D64C0) for the POC; PT5 (2026-11-20) masked residue 1404 -> 881 (file-static inline layers Refresh_Line / Set_Pass_Color / Apply_Shader, Step_Colour, WWMath::Min); PT9 881 -> 413 (two dead reads after underline site 7: Vector2() out of line through ??_H at sites 5-7; the rows clamp as ?:, 1.0f < vt, the pass alpha's min as ?:): FC (2026-11-20) 413 -> 177: every call as the client's (the line refresh flat with two dead reads after the copy and the "..." += in a layer; the pass colour one Set_Vertex_Color per layer with WWMath::Min for the alpha; three reads after site 7), (float)height / strip_v inside the strip loop (hoisted, 0x6D6EBD), the swap as y_high first, strips as a ?: of two ftol operands, the argument an int (cmp eax, 1), quads as a branch, the timer clamp on the difference, xs / ys with Scale first: left the zero register (the client's ebx, ours esi / edi), the two early returns' merge, frame 0xB0 / 0xE4
 void FontSys::Update_Text(int unknown)
 {
 	WWPROFILE("FontSys::Update_Text");
@@ -504,12 +504,12 @@ void FontSys::Update_Text(int unknown)
 		}
 		int elapsed = Unknown270 - Unknown274[0];
 		if (Unknown274[8] > 0) {
-			int left = Unknown274[8] - elapsed;
 			if (Unknown404) {
-				Unknown274[8] = left < 0 ? 0 : left;
+				Unknown274[8] = Unknown274[8] - elapsed < 0 ? 0 : Unknown274[8] - elapsed;
 			} else {
-				Unknown274[8] = left < 1 ? 1 : left;
+				Unknown274[8] = Unknown274[8] - elapsed < 1 ? 1 : Unknown274[8] - elapsed;
 			}
+
 		}
 		for (i = 0; i < 4; i++) {
 			int left = Unknown274[12 + i] - elapsed;
@@ -543,7 +543,7 @@ void FontSys::Update_Text(int unknown)
 	} else {
 		origin_y = (float)(height / 2);
 	}
-	int quads = (Unknown444 != 0) ? 2 : 1;
+	int quads = 1; if (Unknown444 != 0) quads = 2;
 	if (Underline && !Unknown408) {
 		quads *= 2;
 	}
@@ -635,8 +635,8 @@ void FontSys::Update_Text(int unknown)
 				}
 				float va = vt * strip_v + v0;
 				float v_size = ((float)rows / fheight) * strip_v;
-				float xs = 640.0f / (float)Width * Scale * Unknown2F4[0];
-				float ys = 480.0f / (float)Height * Scale * Unknown2F4[0];
+				float xs = (640.0f / (float)Width * Scale) * Unknown2F4[0];
+				float ys = (480.0f / (float)Height * Scale) * Unknown2F4[0];
 				if (Unknown4DC > 1.0f) xs /= Unknown4DC;
 				if (Unknown4E0 > 1.0f) ys /= Unknown4E0;
 				float x = (float)qx * xs;
