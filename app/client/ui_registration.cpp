@@ -1295,8 +1295,8 @@ void RegistrationInterface::Unknown_5F3770(int state)
 			Unknown_5F2B20(1,"RADIO_YES",0,0,1,0); Unknown_5F2B20(2,"RADIO_NO",0,0,1,0);
 			Unknown_5F2B20(5,"RADIO_FORGOT",0,0,1,0); Unknown_5F3250(Unknown268);
 			Unknown_5F2B20(0x2d,"LEFT_BUTTON","LEFT_BUTTON_RG_A1",0,0,0); Unknown_5F2B20(6,"RIGHT_BUTTON","RIGHT_BUTTON_RG_A1",0,0,0);
-			if (!TutorialManagerClass::Instance->Is_Completed("REG1")) {
-				UnknownBC->Get_Unknown198()->Unknown_784C90("REG1", false); TutorialManagerClass::Instance->Set_Completed("REG1");
+			if (!TutorialManagerClass::Get_Instance()->Is_Completed("REG1")) {
+				UnknownBC->Get_Unknown198()->Unknown_784C90("REG1", false); TutorialManagerClass::Get_Instance()->Set_Completed("REG1");
 			}
 			break;
 		case 6:
@@ -1322,8 +1322,8 @@ void RegistrationInterface::Unknown_5F3770(int state)
 			Unknown_5F2D30(10,"Entry_Username","Entry_Username_RG_A2",0x10,Unknown1D8.c_str(),0xb,0, Unknown_BE5DC8,0); Unknown_5F2D30(0xb,"Entry_Password","Entry_Password_RG_A2",0x10,Unknown1E8.c_str(),10,1, Unknown_BE5DC4,Unknown_B85EDC);
 			Unknown_5F2B20(0x2d,"LEFT_BUTTON","LEFT_BUTTON_RG_A2",0,0,0); Unknown_5F2B20(6,"RIGHT_BUTTON","RIGHT_BUTTON_RG_A2",0,0,0);
 			Unknown_5F2B20(7,"MIDDLE_BUTTON","MIDDLE_BUTTON_RG_A2",0,0,0);
-			if (!TutorialManagerClass::Instance->Is_Completed("REG2")) {
-				UnknownBC->Get_Unknown198()->Unknown_784C90("REG2", false); TutorialManagerClass::Instance->Set_Completed("REG2");
+			if (!TutorialManagerClass::Get_Instance()->Is_Completed("REG2")) {
+				UnknownBC->Get_Unknown198()->Unknown_784C90("REG2", false); TutorialManagerClass::Get_Instance()->Set_Completed("REG2");
 			}
 			if (Unknown1D8.empty()) {
 				Unknown_5F8CD0(10, true);
@@ -1333,8 +1333,8 @@ void RegistrationInterface::Unknown_5F3770(int state)
 			Unknown_5F2D30(10,"Entry_Username","Entry_Username_RG_A5",0x10,Unknown1D8.c_str(),0xb,0, Unknown_BE5DC8,0); Unknown_5F2D30(0xb,"Entry_Password","Entry_Password_RG_A5",0x10,Unknown1E8.c_str(),0xc,1, Unknown_BE5DC4,0);
 			Unknown_5F2D30(0xc,"Entry_Retype","Entry_Retype_RG_A5",0x10,Unknown1F8.c_str(),10,1, Unknown_BE5DC4,0); Unknown_5F2B20(0x2d,"LEFT_BUTTON","LEFT_BUTTON_RG_A5",0,0,0);
 			Unknown_5F2B20(6,"RIGHT_BUTTON","RIGHT_BUTTON_RG_A5",0,0,0); Unknown_5F2B20(7,"MIDDLE_BUTTON","MIDDLE_BUTTON_RG_A5",0,0,0);
-			if (!TutorialManagerClass::Instance->Is_Completed("REG3")) {
-				UnknownBC->Get_Unknown198()->Unknown_784C90("REG3", false); TutorialManagerClass::Instance->Set_Completed("REG3");
+			if (!TutorialManagerClass::Get_Instance()->Is_Completed("REG3")) {
+				UnknownBC->Get_Unknown198()->Unknown_784C90("REG3", false); TutorialManagerClass::Get_Instance()->Set_Completed("REG3");
 			}
 			if (Unknown1D8.empty()) {
 				Unknown_5F8CD0(10, true);
@@ -1344,16 +1344,16 @@ void RegistrationInterface::Unknown_5F3770(int state)
 			Unknown_5F2B20(1,"RADIO_YES",0,0,1,0); Unknown_5F2B20(2,"RADIO_NO",0,0,1,0);
 			Unknown_5F3250(Unknown1C9 ? 1 : 2); Unknown_5F2B20(0x2d,"LEFT_BUTTON","LEFT_BUTTON_RG_A3",0,0,0);
 			Unknown_5F2B20(6,"RIGHT_BUTTON","RIGHT_BUTTON_RG_A3",0,0,0); Unknown_5F2B20(7,"MIDDLE_BUTTON","MIDDLE_BUTTON_RG_A3",0,0,0);
-			if (!TutorialManagerClass::Instance->Is_Completed("REG4")) {
-				UnknownBC->Get_Unknown198()->Unknown_784C90("REG4", false); TutorialManagerClass::Instance->Set_Completed("REG4");
+			if (!TutorialManagerClass::Get_Instance()->Is_Completed("REG4")) {
+				UnknownBC->Get_Unknown198()->Unknown_784C90("REG4", false); TutorialManagerClass::Get_Instance()->Set_Completed("REG4");
 			}
 			break;
 		case 4:
 			Unknown_5F2D30(10,"Entry_Username","ENTRY_USERNAME_RG_A6",0x10,Unknown1D8.c_str(),0xb,0, Unknown_BE5DC8,0); Unknown_5F2D30(0xb,"Entry_Password","ENTRY_PASSWORD_RG_A6",0x10,Unknown208.c_str(),10,1, Unknown_BE5DC4,0);
 			Unknown_5F2B20(0x2d,"LEFT_BUTTON","LEFT_BUTTON_RG_A6",0,0,0); Unknown_5F2B20(6,"RIGHT_BUTTON","RIGHT_BUTTON_RG_A6",0,0,0);
 			Unknown_5F2B20(7,"MIDDLE_BUTTON","MIDDLE_BUTTON_RG_A6",0,0,0);
-			if (!TutorialManagerClass::Instance->Is_Completed("REG5")) {
-				UnknownBC->Get_Unknown198()->Unknown_784C90("REG5", false); TutorialManagerClass::Instance->Set_Completed("REG5");
+			if (!TutorialManagerClass::Get_Instance()->Is_Completed("REG5")) {
+				UnknownBC->Get_Unknown198()->Unknown_784C90("REG5", false); TutorialManagerClass::Get_Instance()->Set_Completed("REG5");
 			}
 			if (Unknown1D8.empty()) {
 				Unknown_5F8CD0(10, true);
@@ -1363,8 +1363,8 @@ void RegistrationInterface::Unknown_5F3770(int state)
 			Unknown_5F2D30(0xb,"Entry_Password","ENTRY_PASSWORD_RG_A7",0x10,Unknown1E8.c_str(),0xc,1, Unknown_BE5DC4,0); Unknown_5F2D30(0xc,"Entry_Retype","ENTRY_RETYPE_RG_A7",0x10,Unknown1F8.c_str(),0xb,1, Unknown_BE5DC4,0);
 			Unknown_5F2B20(0x2d,"LEFT_BUTTON","LEFT_BUTTON_RG_A7",0,0,0); Unknown_5F2B20(6,"RIGHT_BUTTON","RIGHT_BUTTON_RG_A7",0,0,0);
 			Unknown_5F2B20(7,"MIDDLE_BUTTON","MIDDLE_BUTTON_RG_A7",0,0,0);
-			if (!TutorialManagerClass::Instance->Is_Completed("REG6")) {
-				UnknownBC->Get_Unknown198()->Unknown_784C90("REG6", false); TutorialManagerClass::Instance->Set_Completed("REG6");
+			if (!TutorialManagerClass::Get_Instance()->Is_Completed("REG6")) {
+				UnknownBC->Get_Unknown198()->Unknown_784C90("REG6", false); TutorialManagerClass::Get_Instance()->Set_Completed("REG6");
 			}
 			if (Unknown1E8.empty()) {
 				Unknown_5F8CD0(0xb, true);
@@ -1378,8 +1378,8 @@ void RegistrationInterface::Unknown_5F3770(int state)
 			Unknown_5F2B20(6,"RIGHT_BUTTON","RIGHT_BUTTON_RG_B1",0,0,0); Unknown_5F8520("LABEL_SUGGEST01_RG_B1", Unknown3C4.Unknown00[0].c_str());
 			Unknown_5F8520("LABEL_SUGGEST02_RG_B1", Unknown3C4.Unknown00[1].c_str()); Unknown_5F8520("LABEL_SUGGEST03_RG_B1", Unknown3C4.Unknown00[2].c_str());
 			Unknown_5F8520("LABEL_SUGGEST04_RG_B1", Unknown3C4.Unknown00[3].c_str()); Unknown_5F8520("LABEL_SUGGEST05_RG_B1", Unknown3C4.Unknown00[4].c_str());
-			if (!TutorialManagerClass::Instance->Is_Completed("REG7")) {
-				UnknownBC->Get_Unknown198()->Unknown_784C90("REG7", false); TutorialManagerClass::Instance->Set_Completed("REG7");
+			if (!TutorialManagerClass::Get_Instance()->Is_Completed("REG7")) {
+				UnknownBC->Get_Unknown198()->Unknown_784C90("REG7", false); TutorialManagerClass::Get_Instance()->Set_Completed("REG7");
 			}
 			break;
 		case 10:
@@ -1408,9 +1408,9 @@ void RegistrationInterface::Unknown_5F3770(int state)
 				Unknown_5F2B20(0x2d,"LEFT_BUTTON","LEFT_BUTTON_RG_C1",0,0,0);
 				Unknown_5F2B20(6,"RIGHT_BUTTON","RIGHT_BUTTON_RG_C1",0,0,0);
 				Unknown_5F2B20(7,"MIDDLE_BUTTON","MIDDLE_BUTTON_RG_C1",0,0,0);
-				if (!TutorialManagerClass::Instance->Is_Completed("REG8")) {
+				if (!TutorialManagerClass::Get_Instance()->Is_Completed("REG8")) {
 					UnknownBC->Get_Unknown198()->Unknown_784C90("REG8", false);
-					TutorialManagerClass::Instance->Set_Completed("REG8");
+					TutorialManagerClass::Get_Instance()->Set_Completed("REG8");
 				}
 				if (Unknown3C4.Unknown5C.empty()) {
 					Unknown_5F8CD0(0x13, true);
@@ -1427,9 +1427,9 @@ void RegistrationInterface::Unknown_5F3770(int state)
 			Unknown_5F2B20(0x2d,"LEFT_BUTTON","LEFT_BUTTON_RG_C2",0,0,0);
 			Unknown_5F2B20(6,"RIGHT_BUTTON","RIGHT_BUTTON_RG_C2",0,0,0);
 			Unknown_5F2B20(7,"MIDDLE_BUTTON","MIDDLE_BUTTON_RG_C2",0,0,0);
-			if (!TutorialManagerClass::Instance->Is_Completed("REG9")) {
+			if (!TutorialManagerClass::Get_Instance()->Is_Completed("REG9")) {
 				UnknownBC->Get_Unknown198()->Unknown_784C90("REG9", false);
-				TutorialManagerClass::Instance->Set_Completed("REG9");
+				TutorialManagerClass::Get_Instance()->Set_Completed("REG9");
 			}
 			break;
 		case 16:
@@ -1437,9 +1437,9 @@ void RegistrationInterface::Unknown_5F3770(int state)
 			Unknown_5F2B20(0x2d,"LEFT_BUTTON","LEFT_BUTTON_RG_C3",0,0,0);
 			Unknown_5F2B20(6,"RIGHT_BUTTON","RIGHT_BUTTON_RG_C3",0,0,0);
 			Unknown_5F2B20(7,"MIDDLE_BUTTON","MIDDLE_BUTTON_RG_C3",0,0,0);
-			if (!TutorialManagerClass::Instance->Is_Completed("REG10")) {
+			if (!TutorialManagerClass::Get_Instance()->Is_Completed("REG10")) {
 				UnknownBC->Get_Unknown198()->Unknown_784C90("REG10", false);
-				TutorialManagerClass::Instance->Set_Completed("REG10");
+				TutorialManagerClass::Get_Instance()->Set_Completed("REG10");
 			}
 			if (Unknown3C4.Unknown6C.empty()) {
 				Unknown_5F8CD0(0x13, true);
@@ -1454,9 +1454,9 @@ void RegistrationInterface::Unknown_5F3770(int state)
 			if (Unknown228.size() == 0 || Unknown1D0) {
 				Unknown_5F8CD0(0x2B, true);
 			}
-			if (!TutorialManagerClass::Instance->Is_Completed("REG11")) {
+			if (!TutorialManagerClass::Get_Instance()->Is_Completed("REG11")) {
 				UnknownBC->Get_Unknown198()->Unknown_784C90("REG11", false);
-				TutorialManagerClass::Instance->Set_Completed("REG11");
+				TutorialManagerClass::Get_Instance()->Set_Completed("REG11");
 			}
 			break;
 		case 0x14:
@@ -1467,9 +1467,9 @@ void RegistrationInterface::Unknown_5F3770(int state)
 			if (Unknown238.size() == 0 || Unknown1D0) {
 				Unknown_5F8CD0(0x2B, true);
 			}
-			if (!TutorialManagerClass::Instance->Is_Completed("REG12")) {
+			if (!TutorialManagerClass::Get_Instance()->Is_Completed("REG12")) {
 				UnknownBC->Get_Unknown198()->Unknown_784C90("REG12", false);
-				TutorialManagerClass::Instance->Set_Completed("REG12");
+				TutorialManagerClass::Get_Instance()->Set_Completed("REG12");
 			}
 			break;
 		case 0xC:
@@ -1529,9 +1529,9 @@ void RegistrationInterface::Unknown_5F3770(int state)
 				Unknown_5F2B20(7,"MIDDLE_BUTTON","MIDDLE_BUTTON_RG_D3",0,0,0);
 				Unknown_5F3510(7, Unknown1D0);
 				if (!Unknown1CD) {
-					if (!TutorialManagerClass::Instance->Is_Completed("REG13")) {
+					if (!TutorialManagerClass::Get_Instance()->Is_Completed("REG13")) {
 						UnknownBC->Get_Unknown198()->Unknown_784C90("REG13", false);
-						TutorialManagerClass::Instance->Set_Completed("REG13");
+						TutorialManagerClass::Get_Instance()->Set_Completed("REG13");
 					}
 				}
 				if (Unknown478.Unknown04.empty()) {
@@ -1732,9 +1732,9 @@ void RegistrationInterface::Unknown_5F3770(int state)
 				Unknown_5F2B20(7,"MIDDLE_BUTTON","MIDDLE_BUTTON_RG_D4",0,0,0);
 				Unknown_5F3510(7, Unknown1D0);
 				if (!Unknown1CD) {
-					if (!TutorialManagerClass::Instance->Is_Completed("REG13")) {
+					if (!TutorialManagerClass::Get_Instance()->Is_Completed("REG13")) {
 						UnknownBC->Get_Unknown198()->Unknown_784C90("REG13", false);
-						TutorialManagerClass::Instance->Set_Completed("REG13");
+						TutorialManagerClass::Get_Instance()->Set_Completed("REG13");
 					}
 				}
 				if (Unknown478.Unknown04.empty()) {
@@ -1751,9 +1751,9 @@ void RegistrationInterface::Unknown_5F3770(int state)
 			Unknown_5F2B20(6,"RIGHT_BUTTON","RIGHT_BUTTON_RG_D1",0,0,0);
 			Unknown_5F2B20(7,"MIDDLE_BUTTON","MIDDLE_BUTTON_RG_D1",0,0,0);
 			Unknown_5F84E0("WRAP_EXPLAIN_TEXT_RG_D1", PaymentTypeTexts[Unknown38C]);
-			if (!TutorialManagerClass::Instance->Is_Completed("REG14")) {
+			if (!TutorialManagerClass::Get_Instance()->Is_Completed("REG14")) {
 				UnknownBC->Get_Unknown198()->Unknown_784C90("REG14", false);
-				TutorialManagerClass::Instance->Set_Completed("REG14");
+				TutorialManagerClass::Get_Instance()->Set_Completed("REG14");
 			}
 			break;
 		case 0xE:
@@ -1765,9 +1765,9 @@ void RegistrationInterface::Unknown_5F3770(int state)
 			Unknown_5F2B20(0x2d,"LEFT_BUTTON","LEFT_BUTTON_RG_F1",0,0,0);
 			Unknown_5F2B20(6,"RIGHT_BUTTON","RIGHT_BUTTON_RG_F1",0,0,0);
 			Unknown_5F2B20(7,"MIDDLE_BUTTON","MIDDLE_BUTTON_RG_F1",0,0,0);
-			if (!TutorialManagerClass::Instance->Is_Completed("REG15")) {
+			if (!TutorialManagerClass::Get_Instance()->Is_Completed("REG15")) {
 				UnknownBC->Get_Unknown198()->Unknown_784C90("REG15", false);
-				TutorialManagerClass::Instance->Set_Completed("REG15");
+				TutorialManagerClass::Get_Instance()->Set_Completed("REG15");
 			}
 			break;
 		case 0x12:
@@ -1775,9 +1775,9 @@ void RegistrationInterface::Unknown_5F3770(int state)
 			Unknown_5F2B20(6,"RIGHT_BUTTON","RIGHT_BUTTON_RG_G1",0,0,0);
 			Unknown_5F2B20(7,"MIDDLE_BUTTON","MIDDLE_BUTTON_RG_G1",0,0,0);
 			if (!Unknown1CD) {
-				if (!TutorialManagerClass::Instance->Is_Completed("REG16")) {
+				if (!TutorialManagerClass::Get_Instance()->Is_Completed("REG16")) {
 					UnknownBC->Get_Unknown198()->Unknown_784C90("REG16", false);
-					TutorialManagerClass::Instance->Set_Completed("REG16");
+					TutorialManagerClass::Get_Instance()->Set_Completed("REG16");
 				}
 			} else {
 				Unknown_5F84E0("WRAP_LABEL_RG_G1", "We are ready to activate your Trial Subscription.\n\nClick the NEXT button to proceed.");
@@ -1789,9 +1789,9 @@ void RegistrationInterface::Unknown_5F3770(int state)
 				Unknown_5F84E0("WRAP_LABEL_TEXT_RG_I1", "Your GameTime Code has been applied to your Account.\n\nClick \"Go Play!\" to log into Earth & Beyond!");
 			}
 			Unknown_5F2B20(6, "MIDDLE_BUTTON", "MIDDLE_BUTTON_RG_I1", 0, 0, false);
-			if (!TutorialManagerClass::Instance->Is_Completed("REG17")) {
+			if (!TutorialManagerClass::Get_Instance()->Is_Completed("REG17")) {
 				UnknownBC->Get_Unknown198()->Unknown_784C90("REG17", false);
-				TutorialManagerClass::Instance->Set_Completed("REG17");
+				TutorialManagerClass::Get_Instance()->Set_Completed("REG17");
 			}
 			break;
 		case 0x15:
@@ -1799,7 +1799,7 @@ void RegistrationInterface::Unknown_5F3770(int state)
 			Unknown_5F2B20(7, "MIDDLE_BUTTON", "MIDDLE_BUTTON_RG_X2", 0, 0, false);
 			break;
 		case 0x16:
-			Unknown108.size(); Unknown108.size(); Unknown108.size(); Unknown108.size(); Unknown108.size(); Unknown108.size(); Unknown1BC = new HAnimComboClass(1);
+			Unknown1BC = new HAnimComboClass(1);
 			Unknown1C0 = Create_Get(WW3DAssetManager::Get_Instance()->Get_HAnim("RG_X1.RG_X1a"));
 			Unknown1BC->Set_Motion(0, Unknown1C0.Peek());
 			Unknown1BC->Set_Weight(0, 1.0f);
@@ -3337,9 +3337,9 @@ bad_login:
 					} else {
 						Unknown119 = true;
 						UnknownBC->Get_Unknown198()->Unknown_784E00();
-						if (!TutorialManagerClass::Instance->Is_Completed("REG18")) {
+						if (!TutorialManagerClass::Get_Instance()->Is_Completed("REG18")) {
 							UnknownBC->Get_Unknown198()->Unknown_784C90("REG18", false);
-							TutorialManagerClass::Instance->Set_Completed("REG18");
+							TutorialManagerClass::Get_Instance()->Set_Completed("REG18");
 						}
 						UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "This registration is not intended for your age group.", 0x140, 0, 0);
 					}
@@ -3626,9 +3626,9 @@ request_failed:
 					break;
 				case 5:
 					UnknownBC->Get_Unknown198()->Unknown_784E00();
-					if (!TutorialManagerClass::Instance->Is_Completed("REG19")) {
+					if (!TutorialManagerClass::Get_Instance()->Is_Completed("REG19")) {
 						UnknownBC->Get_Unknown198()->Unknown_784C90("REG19", false);
-						TutorialManagerClass::Instance->Set_Completed("REG19");
+						TutorialManagerClass::Get_Instance()->Set_Completed("REG19");
 					}
 					char message[1024]; _snprintf(message, 1024, "To use your checking account for\npayment please call %s\nand speak to a Customer Service Representative.", (const char *)UnknownA8);
 					UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, message, 0x140, 0, 0);

@@ -65,6 +65,7 @@ public:
 	bool Read_Completed_File(bool ignore);											// 0x6AD4B0: reads tutorial.dat  // NAME 2: describes what it does
 	void Reload();																			// 0x6AD7B0 (no caller)  // NAME 2: describes what it does
 
+	static TutorialManagerClass *Get_Instance() { return Instance; }				// 0x5F8130 (ui_registration's copy, called at the last tutorial sites of 0x5F3770 / 0x5FBD30)  // NAME 2: pairs with Set_Instance
 	static TutorialManagerClass *Instance;											// 0xBE66C8  // NAME 2: describes what it holds
 
 private:
