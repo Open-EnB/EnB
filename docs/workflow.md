@@ -174,7 +174,8 @@ retry read `python tools/re/attempts.py show ADDR` (builders.md §2). Compiler s
 believe verify over `explain.py`'s class. One hypothesis batch (D273) is one `python tools/re/trybatch.py run
 VARIANTS.py [--record]`: every form compiled lock-free on pool VMs, a <= 30-line summary (masked residue, groups of
 identical code, the best form's regions; tools/re/README.md). In large x87 functions the masked residue swings: two forms that
-each helped can score worse combined; compare diffs by hand.
+each helped can score worse combined; compare diffs by hand. The whole-function res can jump into the thousands while the per-region
+sums improve: read the region list, not the total (0x474B30).
 
 **Two-attempt stop rule.** After two failed attempts on a register-only or order-only residue,
 record it (`attempts.py record ADDR ... --status parked --blocker register|order --forms N
@@ -222,7 +223,9 @@ unless `--lever` cites a new row of the table in §3.1.2.
   bisect, re-sweep after each structural change. Counts above 6 are diagnostics only (a parked function).
 * **A dead read costs its expansion depth:** a vector's `begin()` is one level, `Get_Size()` (a layer over `size()`) two. Choose the
   read whose depth cuts the one nested expansion the client lacks: `Children.begin()` gave the client's inlined `_Tidy` in a
-  not-found return where a two-deep `Get_Size()` cut a different one.
+  not-found return where a two-deep `Get_Size()` cut a different one. The kind matters as well as the depth: a vector's `size()`
+  spends more than a map's (ui_registration), and one dead read can flip which of two equal-depth nested expansions
+  is cut (0x73B150). A `goto` that removes a duplicated block is not budget-neutral: re-sweep the reads after it.
 * **Later-defined same-file functions are inlined (/Ob2):** VC6 inlines a non-inline member or static free
   function defined *after* its caller in the same .cpp (a non-static one also keeps its out-of-line copy), and
   a new member added near an exact caller. Where the client calls it out of line, put `#pragma
@@ -293,7 +296,11 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
 | The client calls a `hash_map()` constructor out of line with the hashtable constructor inlined in it, ours inlines it | A missing inline layer, not budget: a struct that derives from (or holds) the hash_map and has an implicit constructor sends `hash_map()` out of line (gives the client's frame too) | LookupTableSetClass::Load 0x4EC7D0 |
 | One `hash_map()` is flat where the client calls it out of line, but calls `_M_initialize_buckets` out of line where it is inlined into a large owner constructor | Two inline layers of the same source: no header form gives both (a flat `hashtable(n)` gains the first and loses the second; `m(100)` initializers spend the owner's budget). Leave sgistl as it is; attempts row 0x71DCE0 | ckm 0x71DCE0 vs OptionClass 0x7F0F60 |
 | Temporaries' stack slots or flags differ, and they follow the inline decisions; arguments built from `const char *` | VC6 builds an implicit-conversion temporary before the explicit ones in one argument list: write the string arguments as implicit conversions (only that form gave the client's order, slots and flags) | ClientClass constructor 0x726100 |
-| Dead reads change later sites' inlining in narrow steps, and a position change does nothing | They act by their total and the callee they inline, not by position (before the function's last branch): sweep every count (7 exact, 8 over); an inline accessor costs about two thirds of a `size()` | client_lego_impl Add 0x72B7F0 |
+| Dead reads change later sites' inlining in narrow steps, and a position change does nothing | They act by their total and the callee they inline, not by position (before the function's last branch): sweep every count (7 exact, 8 over), thresholds are exact and erratic (0x73B150, 0x5FBD30: do not step); an inline accessor costs about two thirds of a `size()` | client_lego_impl Add 0x72B7F0 |
+| A file written from pseudocode with its own members flattened: nested std helpers (insert, begin, string ctors) inlined where the client calls them out of line; sign: an inlined member's parameter stored back into the caller's argument slot | The client calls the file's own members and /Ob2 inlines them: write them as members and call them, so the nested helpers go out of line inside the inlined copies. Route a loop or a push through the member the client calls (0x5FBD30: `_Tree::begin` x7, the push through Unknown_5F87D0) | ui_registration 0x5F1A10, 0x600000, 0x5FBD30 |
+| Dead reads at a function's end compile to calls once the budget is spent | Check the row count (a dead read there can add call rows instead of spending budget): compare rows before and after | 0x600000 |
+| A block holds a `std::string` range ctor the client calls out of line (0x73F680) | A missing layer: wrap the block in an inline file-static helper and put the dead reads after the helper's call | cpacket 0x73B150 |
+| One change loses a COMDAT instance outright | Look for its real caller among the file's flattened functions | ui_registration |
 | `if (a && b)` against two nested `if`s: the same bytes, but callers inline differently | The cost is in the source's structure: try both forms when a caller's inlining is off | unknown_6af220.cpp |
 | A wrapper template calling through a second template | Costs one inline level (§3.1.1): count it | signal_list.cpp |
 | A static helper defined later in the file is inlined into earlier callers; the client calls it | `#pragma auto_inline(off)` around the helper. The client's callers are the evidence (`client.py callers`: a function with no callers in the client is always inlined there, keep it outside the bracket); definition order is not an inline barrier in VC6 | steering `Predict` / `Avoid_Obstacles`; damtype's section reader; sclient 0x7555B0 (/Ob2 inlined it into Shutdown 0x741BB0; the pragma sat on its existing blank lines, every `__LINE__` kept; B96, 2026-11-15) |
@@ -301,7 +308,7 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
 | The client inlines `std::string` assign at the later call sites of a long function, not the earlier ones | The budget ran out inside the function: classify inline-budget, park | ui_starbase 0x637130 |
 | A callee taking a by-value `Vector2` stays out of line as in the client | Keep the by-value parameter (a const reference inlines it) | 0x543200 |
 | A float max the client compiles as `fld X; fld Y; fcompp` | A double compare: `(double)X > Y`, or an inline float-returning getter on both sides; plain float compares give `fld X; fcomp Y` in every order | mv3dsnd |
-| The client calls a callee out of line that ours inlines, at a site whose nested callee the client also calls out | Dead reads of the client's own accessors (D272) on the same line right after the site, swept 1-16: the count matters, not the kind, and cliffs are common (one count wins, its neighbours lose). For a direct callee the client calls out of line, the reads go inside the callee's body. Sweep the whole file: the lever can cost another instance elsewhere | 0x57DD20, 0x597E40, 0x593180 |
+| The client calls a callee out of line that ours inlines, at a site whose nested callee the client also calls out | Dead reads of the client's own accessors (D272) on the same line right after the site, swept 1-16: the count matters (and the kind, see §3.1.1), and cliffs are common (one count wins, its neighbours lose). For a direct callee the client calls out of line, the reads go inside the callee's body. Sweep the whole file: the lever can cost another instance elsewhere | 0x57DD20, 0x597E40, 0x593180 |
 | **register-only, order-only** (two attempts, then the stop rule) | | |
 | A constant loaded before a variable, or the reverse | Operand order: `elapsed * 0.05F * K` loads the constant first, `step = elapsed * 0.05F; step *= K;` loads `elapsed`; `a == b` vs `b == a`, `Pos > size` vs `size < Pos` differ (D18/D28) | |
 | Registers differ around a call or an argument | A temporary, a local copy of an argument, or a member / id read into a local before the call (`int id = Client->X; Packet p(N, id);`); one shared variable reusing a dead argument slot. `tools/vc6/trydiff.py` keeps a variant's object for `objdiff.py` / `explain.py` | Accept 0x82A6C0 |
@@ -473,7 +480,8 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
   out of line, two left two. Try it before declaring a residue final; with 8+ dead reads after it the layer
   itself goes out: use the shallowest one. A layer acts on the callee one level below it, not the deepest.
   Where a wrapper around an STL call fails, try the other level. A helper the client inlines whose own
-  callees it calls: route the call through the helper. Levers can work only together: try pairs.
+  callees it calls: route the call through the helper. Levers can work only together: try pairs. A layer declared as a member in a widely
+  included header can cost pairs in other files (fontmanager.h's cost 0x5CE830): a file-static inline helper gives the same codegen.
 * **A top-level callee the client calls out of line is a source layer:** spenders cut the deepest
   expansions, never a top-level callee: write the helper the client had (a file-local inline `Clip_Text`;
   about 20 budget forms failed first). `clear()` is one inline layer over `erase(begin(), end())` (vector
@@ -599,7 +607,8 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
   before several `raw->Add` calls). `float t = a; t += b;` gives a load order `a + b` and `b + a` both miss.
   Dead definitions fix operand order too: lea order follows the first definition (`nbytes = ebytes = 0`).
   Which operand of a commutative add loads first can flip when an unrelated expression changes: re-check
-  every compare after each edit; an AABox reference bound from an if / else (not a `?:`) loaded in the
+  every compare after each edit; the x87 operand order of an inlined commutative product follows the operand's symbol kind (a
+  named local against a temporary), not the source order; an AABox reference bound from an if / else (not a `?:`) loaded in the
   client's order.
 * **Argument types and by-value structs:** `Add(..., char, char)` with `movsx` arguments takes `char`, not
   `bool`; a flag tested then flipped with `test ecx,ecx; sete` is an `int`. A client `sub esp, N; mov eax, esp`
@@ -748,7 +757,7 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
   computes `lea edi` after `mov ecx` / `xor eax`; `lea edi` first is a byte (element) loop that VC6 turns into
   the same `rep stos`.
 * **Switches:** case bodies are laid out in source order: write the cases in the order the jump table's
-  targets, or the EH state numbers the cases set, show (a switch's EH order beats its layout order); where
+  targets (the table is numbered by case value, not by source order: sort its targets by address for the source order), or the EH state numbers the cases set, show (a switch's EH order beats its layout order); where
   reordering gives identical bytes VC6 normalised it: the residue is elsewhere. A one-case switch on 1..3
   is `lea eax,[x-1]; sub eax,0`; a `sub eax,0 / dec eax` chain with a shared tail is a `switch`; cases 1 and
   5 sharing one `return` give `dec / sub 4`. `default: G_ASSERT(false); case 0:` reproduces EH states. Paired
