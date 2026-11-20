@@ -1983,14 +1983,14 @@ void ChatPanelInterface::Unknown_5698F0(int id)
 	UnknownD4 = Combo[index];
 	if (id == 8) UnknownD4->Select_Text(Unknown1F4.c_str());
 }
-// NOT EXACT: shape (functional, written from the disassembly; Chat_Default_Channel through the uncalled 0x567930, the emote packet a temporary with the id read first: 1936 instructions vs 1937, residue 34 rows: the selected text's size test is threaded into its else here; UIComboBoxClass::Get_Selected_Text() gives the client's start (as in 0x5D0620) but moves the RefCountPtr releases' registers, 83 rows)
+// Chat_Default_Channel through the uncalled 0x567930, the emote packet a temporary with the id read first; the avatar id read into its own local, the selected text through Get_Selected_Text, the emote and command tables compared as strcmp(table, text), the Private channel test in its own block (name shares the channel loop buffer's slot), PT3
 // 0x569A00
 void ChatPanelInterface::Unknown_569A00()
 {
 	if (!UnknownD4) return;
-	SClient *sclient = Client->As_Space_Client();
-	CharacterViewAvatarClass *avatar = sclient->Unknown_74C840(((ClientClass *)Client)->AvatarID);
-	std::string text(UnknownD4->Get_Item_Text(UnknownD4->Selected));
+	SClient *sclient = Client->As_Space_Client(); int id = ((ClientClass *)Client)->AvatarID;
+	CharacterViewAvatarClass *avatar = sclient->Unknown_74C840(id);
+	std::string text(UnknownD4->Get_Selected_Text());
 	int gender = 0;
 	if (avatar) gender = avatar->Get_UnknownF8()->Gender;
 	if (!strcmp(text.c_str(), "Set Channels")) {
@@ -2138,7 +2138,7 @@ void ChatPanelInterface::Unknown_569A00()
 			return;
 		}
 	}
-	char name[64];
+	{ char name[64];
 	_snprintf(name, sizeof(name), "Private %s", Unknown214.c_str());
 	if (!strcmp(text.c_str(), name)) {
 		char buffer[64];
@@ -2149,10 +2149,10 @@ void ChatPanelInterface::Unknown_569A00()
 
 
 		return;
-	}
+	} }
 	if (sclient->Unknown_744B60()) {
 		for (i = 0; i < 33; i++) {
-			if (!strcmp(text.c_str(), Unknown_B7C398[i][gender]) && avatar) {
+			if (!strcmp(Unknown_B7C398[i][gender], text.c_str()) && avatar) {
 				avatar->Unknown_781760(Unknown_B7C398[i][2]);
 				int id = ((ClientClass *)Client)->AvatarID;
 				((ClientClass *)Client)->Send_Packet(&AvatarEmotePacketClass(id, avatar->Unknown_7817E0(), 1, NULL));
@@ -2161,7 +2161,7 @@ void ChatPanelInterface::Unknown_569A00()
 		}
 	} else if (sclient->CameraManager && !sclient->CameraManager->Unknown_79B600()) {
 		for (i = 0; i < 7; i++) {
-			if (!strcmp(text.c_str(), Unknown_B7C358[i][0])) {
+			if (!strcmp(Unknown_B7C358[i][0], text.c_str())) {
 				((ClientClass *)Client)->Unknown_34(Unknown_B7C358[i][1]);
 				return;
 			}
