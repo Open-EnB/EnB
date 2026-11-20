@@ -970,11 +970,13 @@ def file_check(objs, results, log, exact=exact_set, mentioned=frozenset()):
             continue
         lost, gained = sorted(base - got), sorted(got - base)
         results[name]['file'] = (len(lost), len(gained))
+        results[name]['file_lost'], results[name]['file_gained'] = lost, gained     # budgetdev.py reads the sets
         if lost or gained:
             log(f'file check {name}: lost {", ".join(f"{X.demangle(s)} 0x{a:06X}" for s, a in lost)}; '
                 f'gained {", ".join(f"{X.demangle(s)} 0x{a:06X}" for s, a in gained)}')
     if 'base' in results and 'error' not in results['base']:
         results['base']['file'] = (0, 0)
+        results['base']['file_set'] = sorted(base)
         log(f'file check base: {len(base)} exact')
 
 
