@@ -2879,7 +2879,7 @@ bool SClient::Unknown_747C70(const char *text)
 
 
 #include "..\shared\unknown_4a1590.h"			// Bounded_Strcpy (0x4A1590): the chat commands' copies (0x747FA0, 0x749020)
-// NOT EXACT: shape (explain.py: 119 calls vs 121): '/seecolor' with no type: VC6 cross-jumps its two usage lines into the invalid type's identical tail, the client keeps them (its copy pushes the 0s from eax / edi); 11 forms (attempts.py show 0x747FA0)
+
 // 0x747FA0 (0x74ABC0): '/resetcolor', '/setcolor <type> <red> <green> <blue>', '/seecolor <type>' over the chat
 // line colours (+0x13CC)
 bool SClient::Unknown_747FA0(const char *text)
@@ -2990,7 +2990,9 @@ bool SClient::Unknown_747FA0(const char *text)
 		if (type == NULL) {
 			Unknown_74D990(6, "Usage: /seecolor <type>", 0);
 			Unknown_74D990(6, "type = context, ooc, broadcast, tell, group, npc, tip, local, guild, general, ooc_channel, new_player, market, private, race, class, echo, error_context, error_ooc, error_system, combat, warning.", 0);
-		} else if (stricmp(type, "context") == 0) {
+			return(true);
+		}
+		if (stricmp(type, "context") == 0) {
 			Unknown_74D990(0, "This is the current (In Context) color.", 1);
 		} else if (stricmp(type, "ooc") == 0) {
 			Unknown_74D990(1, "This is the current (Out of Context) color.", 1);
@@ -3043,8 +3045,6 @@ bool SClient::Unknown_747FA0(const char *text)
 	}
 	return(false);
 }
-
-
 
 // 0x749020 (0x74ABC0): '/resethud', '/sethud <type> <value>' over the gutter icons' options
 bool SClient::Unknown_749020(const char *text)
