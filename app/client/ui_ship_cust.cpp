@@ -1165,14 +1165,14 @@ void StarbaseShipCustomizeInterface::Unknown_61BCE0(short group)
 		it++;
 	}
 }
-
-// NOT EXACT: inline budget (0.79: the client calls the pair constructor out of line at case 3's second lookup but inlines it at case 0's; ours the reverse; case 2's inlined 0x61DAB0)
+static inline void Empty_Wrap(StarbaseShipCustomizeInterface *ui) { ui->Unknown_61AF50(); }	// not the client's (a budget device, D137 / D130): one inline layer deeper, 0x61AF50's loop-test begin() goes out of line before case 0's pair constructor, as the client's
+// NOT EXACT: inline budget (0.86: case 0's pair constructor inline in the client; case 3's iterator++ and fourth lookup inlined there)
 // @0x61BD80
 void StarbaseShipCustomizeInterface::Unknown_61BD80(int page)
 {
 	InterfaceSortScopeClass sort(this);
 	Unknown_5C();
-	Unknown_61AF50();
+	Empty_Wrap(this);
 	if (Unknown2FC) {
 		Unknown_BE67C4->Remove(InterfaceMesh->Peek_Object());
 		Unknown_BE67BC->Unload(Unknown_B894A0[Page][1]);
@@ -1264,7 +1264,7 @@ void StarbaseShipCustomizeInterface::Unknown_61BD80(int page)
 			Unknown_61ADA0(0x31, "TURN", NULL, 0, 0);
 			Unknown_61B760();
 			Unknown_58();
-			Unknown_61BAC0(4);
+			Unknown_61BAC0(4); Gadgets.size();	// dead read (D130; not the client's): with case 2's and the three at the end, the client's lookup mix
 			Unknown_61B580();
 			Unknown_61D260();
 			break;
@@ -1288,7 +1288,7 @@ void StarbaseShipCustomizeInterface::Unknown_61BD80(int page)
 			Unknown_61ADA0(0x31, "TURN", NULL, 0, 0);
 			Unknown_61DAB0();
 			Unknown_58();
-			Unknown_61BAC0(2);
+			Unknown_61BAC0(2); Gadgets.size();	// dead read (D130; not the client's): as case 1's
 			{
 				int last = Unknown330->TextureArray.size() - 8;
 				int first = Unknown318;
@@ -1336,7 +1336,7 @@ void StarbaseShipCustomizeInterface::Unknown_61BD80(int page)
 			break;
 	}
 	TheDX8MeshRenderer.Invalidate();
-	Unknown_61E8E0(true); Gadgets.size(); Gadgets.size(); Gadgets.size();	// dead reads (D130; not the client's): they spend VC6's inline budget toward the client's mix (the client's frame 0x3C and every lookup's out-of-line split but case 0's / case 3's pair constructor; 2: 0.00, 4: 0.77, 9: 0.79 with frame 0x38)
+	Unknown_61E8E0(true); Gadgets.size(); Gadgets.size(); Gadgets.size();	// dead reads (D130; not the client's): they spend VC6's inline budget toward the client's mix (the client's frame 0x3C and every lookup's out-of-line split but case 0's / case 3's pair constructor; with the 0x61AF50 wrapper and one read after the case 1 and case 2 sites: 0.86; 2: 0.73, 4: 0.76)
 }
 
 // @0x61D180
