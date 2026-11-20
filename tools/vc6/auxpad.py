@@ -5,10 +5,11 @@ Every declaration aux_roots.cpp sees moves its six end-of-file template construc
 enumerators) puts the file inside the windows; retune it when a header aux_roots.cpp includes gains or
 loses declarations.
 
-  auxpad.py sweep [--from 0 --to 63] [--agent NAME] [--host IP | --pool [1]] [--hold]
+  auxpad.py sweep [--from 0 --to 63] [--agent NAME] [--host IP | --pool [1]] [--hold | --lockfree]
       compile aux_roots.cpp alone with each pad value (~5 s a variant), print pad -> which of the six
       constructors are exact, and the windows where all six are; --hold takes the importer lock once, at the
-      first value, and keeps it to the end (given back on every exit, Ctrl-C included): one wait in the queue
+      first value, and keeps it to the end (given back on every exit, Ctrl-C included): one wait in the queue;
+      --lockfree takes no lock at all (a git worktree on its own leased VM: sendpad.py's lock_free, PAD 2026-11-19b)
   auxpad.py set N
       write SYMBOL_PAD = N in tools/re/auxroots.py and the pad block of aux_roots.cpp in place (as sweep does);
       aux_roots.h is not touched (a regeneration is not needed: since 2026-11-18, AB, `auxroots.py generate`
@@ -87,12 +88,19 @@ def sweep(a):
     import importer
     if a.agent:
         importer.set_agent(a.agent)
+    if a.lockfree:
+        if a.hold:
+            raise SystemExit('auxpad: --lockfree takes no lock: --hold makes no sense with it')
+        from sendpad import lock_free
+        lock_free(REPO)
     if a.host:
         os.environ['ENB_VC6_HOSTS'] = a.host if '@' in a.host else vc6config.CFG['user'] + '@' + a.host
         lease = contextlib.nullcontext()
     else:
         lease = importer.pool_lease(1, a.holder_pid)
     from sendpad import save_sets
+    watch = watch_list()
+    print(f"watch set from HEAD's ledger (aux_roots.cpp's of the six): {' '.join(watch)}", flush=True)
     rows, ok, sets, errors = [], [], {}, {}
     with lease:
         for n in range(a.lo, a.hi + 1):
@@ -100,15 +108,27 @@ def sweep(a):
             got, errs = measure(importer, n, orig)
             sets[n], errors[n] = got, errs
             save_sets(a.sets, 'app/client/aux_roots.cpp', sets, errors, REPO)
-            exact = [w for w in WATCH if w in got]
-            line = f'{n:3d}  {len(exact)}/6  ' + ' '.join(w + ('+' if w in got else '-') for w in WATCH) + \
+            exact = [w for w in watch if w in got]
+            line = f'{n:3d}  {len(exact)}/{len(watch)}  ' + ' '.join(w + ('+' if w in got else '-') for w in WATCH) + \
                    f'  total {len(got)}' + (f'  ERRORS {errs}' if errs else '')
             print(line, flush=True)
             rows.append(line)
-            if len(exact) == len(WATCH):
+            if len(exact) == len(watch):
                 ok.append(n)
-    print('\nall six exact:', ', '.join(f'{x}..{y}' if x != y else str(x) for x, y in windows(ok)) or 'none')
+    print(f'\nall {len(watch)} watched exact:', ', '.join(f'{x}..{y}' if x != y else str(x) for x, y in windows(ok))
+          or 'none')
     return 0 if ok else 1
+
+
+def watch_list(src='HEAD'):
+    """The six that HEAD's ledger credits to aux_roots.cpp (since SC1 / SI sclient.cpp holds 0x758210 and 0x701D70: a
+    sweep watching all six found no window at any value, PAD 2026-11-19b); all six when the ledger has no entry."""
+    try:
+        import ledger
+        held = {str(x) for x in ledger.load(src, repo=REPO)['app']['files']['aux_roots']['in_tree']}
+    except Exception:
+        return list(WATCH)
+    return [w for w in WATCH if w in held] or list(WATCH)
 
 
 def set_pad(a):
@@ -141,6 +161,9 @@ def parser():
     s.add_argument('--to', dest='hi', type=int, default=63)
     s.add_argument('--agent', metavar='NAME', help='importer agent: lock owner, scratch under .work/NAME/tmp')
     s.add_argument('--hold', action='store_true', help='take the importer lock once and hold it for the whole sweep')
+    s.add_argument('--lockfree', action='store_true',
+                   help="no importer lock (a git worktree with its leased VM only; sendpad.py's lock_free): the same "
+                        'compile and match, ~3 s a value')
     vm = s.add_mutually_exclusive_group()
     vm.add_argument('--host', metavar='IP', help='use this build VM instead of leasing one')
     vm.add_argument('--pool', nargs='?', const=1, type=int, choices=[1], metavar='1',

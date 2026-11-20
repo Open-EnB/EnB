@@ -146,7 +146,7 @@ class Hold(Base):
             a = auxpad.parser().parse_args(['sweep', '--from', '0', '--to', '7'] + (['--hold'] if hold else []))
             with contextlib.redirect_stdout(io.StringIO()) as out:
                 self.assertEqual(auxpad.held_sweep(a), 0)
-            self.assertIn('all six exact: 2..5', out.getvalue())
+            self.assertIn('watched exact: 2..5', out.getvalue())
             self.assertEqual((imp.takes, imp.releases, imp.held, imp.leased), (takes, takes, False, False))
             self.assertEqual(open(self.cpp, 'rb').read(), cpp)
         imp = self.fake(table((2, 5)), fail_at=3, exc=KeyboardInterrupt)

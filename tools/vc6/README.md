@@ -121,6 +121,11 @@ pool lease is released as before). `sendpad.py --first-window` tries the current
 (cur, cur+1, cur-1, ...), and stops once a run of 2 or more full values (P-L18-4; 3 before) has both neighbours known; the pad goes
 to its middle (the full sweep's pick whenever that nearest run is the longest; with no such run it tries every
 value). `wt.py bring-over`'s retune passes `--hold --first-window` when the scratch tree's sendpad.py has them.
+`--lockfree` (both; PAD, 2026-11-19b) takes no lock at all: the same `compile_and_match` per value (verify's compile
+path and crediting) on the sweep's own leased VM, refused outside a git worktree. Measured on run/2026-11-19b
+044f20953: auxpad 0..63 in ~4 min (window 42, as verify), sendpad 0..63 in 568 s (22..28, 50..56, as SI's locked
+sweep), with no other builder's verify waiting. Never run a second tool that edits the same worktree's headers
+in place meanwhile (the sweep compiles whatever the tree holds).
 
 | Script | Does |
 |---|---|
