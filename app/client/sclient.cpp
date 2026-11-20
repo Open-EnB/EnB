@@ -4970,7 +4970,7 @@ void SClient::Unknown_74EDB0()
 
 #include "..\packets\pkconfirmedaction.h"
 #include <algorithm>
-// NOT EXACT: shape (explain.py: 272 instructions, the client 270, 10 masked rows): the client loads AvatarID before testing button == 1 and keeps this in esi; three forms (one 0x750210 per branch and the named queues gained the rest)
+
 // 0x74F5C0 (Do_Frame, after 0x751660): the answer to the confirmed-action dialog (0x74E710's type 0) goes to the
 // server and the offer leaves both queues
 void SClient::Unknown_74F5C0()
@@ -5007,9 +5007,9 @@ void SClient::Unknown_74F5C0()
 					timedlist.erase(it);
 				}
 				if (button == 1) {
-					Send_Packet(&ConfirmedActionResponsePacketClass(AvatarID, id, true));
+					unsigned avatar_id = AvatarID; Send_Packet(&ConfirmedActionResponsePacketClass(avatar_id, id, true));
 				} else {
-					Send_Packet(&ConfirmedActionResponsePacketClass(AvatarID, id, false));
+					unsigned avatar_id = AvatarID; Send_Packet(&ConfirmedActionResponsePacketClass(avatar_id, id, false));
 				}
 			}
 			Unknown_750210();
