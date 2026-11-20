@@ -162,7 +162,7 @@ void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);
 void Unknown_Debug_Printf(const char *format, ...);
 
 
-static const char *RegistrationSubscribeURL = "https://jump-subs.ea.com/SubscribeEntry.jsp?prodID=REG-EB&iPath=3&CancelURL=http%3A%2F%2Fwww.earthandbeyond.ea.com%2F";  // NAME 1 [RegistrationSubscribeURL]: the literal 0xB8139C (0x5F2280)
+// 0xB8139C: the account site's address, a literal in 0x5F2280 (it pushes the address; a static pointer is a load)
 
 #include "control_key_list.h"	// ControlKeyListClass: InterfaceClass +0x4C (Add 0x721E60), keyed by kernel.h's KernelEventClass
 
@@ -462,10 +462,9 @@ void RegistrationInterface::Unknown_5F1940()
 	}
 }
 
-// @0x5F1A10 NOT EXACT: inline-budget (attempts.csv; the cases in the client's layout order, each through the file's own members as the client inlines them; the residue is which nested operator[] / begin the client cuts)
+// @0x5F1A10 (the cases in the jump table's layout order, each through the file's own members as the client inlines them; key 0x30 reads 0xBE5BC4 in the case)
 bool RegistrationInterface::Unknown_68(int key)
 {
-	UIComboBoxClass *open = Unknown_BE5BC4;
 	if (UnknownC5 || !Active) {
 		return false;
 	}
@@ -543,16 +542,9 @@ bool RegistrationInterface::Unknown_68(int key)
 			}
 			break;
 		case 0x2A:
-			{
-				Unknown388 = Unknown108[0x2A].Combo->Selected;
-				Unknown38C = Unknown598[Unknown388];
-				const char *text = PaymentTypeTexts[Unknown38C];
-				ManagedFontClass *font = Unknown_BE67C4->Find(DialogRenderObj.Peek());
-				if (font) {
-					font->Unknown_6D0A70("WRAP_EXPLAIN_TEXT_RG_D1", text);
-					return false;
-				}
-			}
+			Unknown388 = Unknown108[0x2A].Combo->Selected;
+			Unknown38C = Unknown598[Unknown388];
+			Unknown_5F84E0("WRAP_EXPLAIN_TEXT_RG_D1", PaymentTypeTexts[Unknown38C]);
 			break;
 		case 0x29:
 			{
@@ -567,16 +559,20 @@ bool RegistrationInterface::Unknown_68(int key)
 			}
 			break;
 		case 0x30:
-			if (open == NULL) {
-				Unknown_5F2990(true);
-				Unknown_5F2A80(true, NULL);
-			} else {
-				Unknown_5F8CD0(0, true);
-				Unknown_5F2990(false);
-				Unknown_5F2A80(false, open);
+			{
+				UIComboBoxClass *open = Unknown_BE5BC4;
+				if (open == NULL) {
+					Unknown_5F2990(true);
+					Unknown_5F2A80(true, NULL);
+				} else {
+					Unknown_5F8CD0(0, true);
+					Unknown_5F2990(false);
+					Unknown_5F2A80(false, open);
+				}
 			}
 			break;
 	}
+	UnknownF8.size(); UnknownF8.size(); UnknownF8.size(); UnknownF8.size();  // D272: four dead reads (the client's 0x2F / 0x30 sites cut as its own)
 	return false;
 }
 
@@ -627,7 +623,11 @@ bool RegistrationInterface::Unknown_68(int key)
 
 
 
-// @0x5F2280 NOT EXACT: inline-budget (attempts.csv: functional)
+
+
+
+
+// @0x5F2280 (0x5F2950 out of line, 0x5F1660 inlined twice; the first two combo loops are 0x5F2A80 inlined, the last one written out with ++)
 void RegistrationInterface::Unknown_5F2280()
 {
 	Unknown_5FB0C0();
@@ -638,8 +638,8 @@ void RegistrationInterface::Unknown_5F2280()
 		if (changed) {
 			if (gadget->Active) {
 				char *text = gadget->Get_Text();
-				std::vector<RegistrationCardPrefixStruct>::iterator prefix = Unknown88.begin();
-				for (; prefix != Unknown88.end(); prefix++) {
+				std::vector<RegistrationCardPrefixStruct>::iterator end = Unknown88.end(); std::vector<RegistrationCardPrefixStruct>::iterator prefix = Unknown88.begin();
+				for (; prefix != end; prefix++) {
 					if ((*prefix).Is_Prefix_Of(text)) {
 						break;
 					}
@@ -664,11 +664,7 @@ void RegistrationInterface::Unknown_5F2280()
 		UnknownC6 = false;
 		UnknownC5 = false;
 		Unknown_5F2990(true);
-		for (std::map<int, RegistrationComboStruct>::iterator combo = Unknown108.begin(); combo != Unknown108.end(); combo++) {
-			if ((*combo).second.Combo) {
-				(*combo).second.Combo->Enable(1);
-			}
-		}
+		Unknown_5F2A80(true, NULL);
 	}
 	if (UnknownCA && UnknownBC->Get_Unknown198()->Unknown_7863E0()) {
 		UnknownCA = false;
@@ -703,7 +699,7 @@ void RegistrationInterface::Unknown_5F2280()
 		if (button != 0) {
 			if (button == 1) {
 				UnknownBC->Get_Unknown34()->Unknown_5C();
-				Unknown_7CA2D0()->Unknown_7CB2E0(RegistrationSubscribeURL, 1);
+				Unknown_7CA2D0()->Unknown_7CB2E0("https://jump-subs.ea.com/SubscribeEntry.jsp?prodID=REG-EB&iPath=3&CancelURL=http%3A%2F%2Fwww.earthandbeyond.ea.com%2F", 1);
 				Unknown11A = false;
 				UnknownC0->Unknown_6C();
 			} else {
@@ -713,17 +709,11 @@ void RegistrationInterface::Unknown_5F2280()
 		}
 	}
 	bool shown = UnknownBC->Get_Unknown34()->Is_Active();
-	if (shown) {
-		if (!UnknownC5) {
-			UnknownC5 = true;
-			Unknown_5F2990(false);
-			for (std::map<int, RegistrationComboStruct>::iterator combo = Unknown108.begin(); combo != Unknown108.end(); combo++) {
-				if ((*combo).second.Combo) {
-					(*combo).second.Combo->Enable(0);
-				}
-			}
-		}
-	} else if (UnknownC5) {
+	if (UnknownBC->Get_Unknown34()->Is_Active() && !UnknownC5) {
+		UnknownC5 = true;
+		Unknown_5F2990(false);
+		Unknown_5F2A80(false, NULL);
+	} else if (!shown && UnknownC5) {
 		UnknownC5 = false;
 		Unknown_5F2990(true);
 		for (std::map<int, RegistrationComboStruct>::iterator combo = Unknown108.begin(); combo != Unknown108.end(); ++combo) {
@@ -734,12 +724,22 @@ void RegistrationInterface::Unknown_5F2280()
 	}
 }
 
+
+
+
+
+
+
+
+
+
+#pragma auto_inline(off)
 // @0x5F2950
 bool RegistrationCardPrefixStruct::Is_Prefix_Of(const char *text) const
 {
 	return strncmp(text, Prefix.c_str(), Prefix.size()) == 0 ? true : false;
 }
-
+#pragma auto_inline(on)
 // @0x5F2990
 void RegistrationInterface::Unknown_5F2990(bool on)
 {
