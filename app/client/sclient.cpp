@@ -3334,7 +3334,7 @@ bool SClient::Unknown_749A70(const char *text)
 
 
 
-// NOT EXACT: inline budget (explain.py): 800 against 818 instructions, 69 calls against 71: the client inlines the "" channel's assign(const char *, n) and shares the channels' copy tail; ours calls it
+// NOT EXACT: shape (explain.py): 818 against 818 instructions: the client keeps /enf's channel copy (the others jump into it) and the join's length check after it, ours keeps /gen's
 // 0x749ED0 (0x74ABC0): the channel lines '/gen /ooc /mkt /new /jen /ter /pro /exp /tra /war /sen /def /enf <message>'
 // (each when its 'Channel_*' option is on) and '/rad' (the chat panel's private channel)
 bool SClient::Unknown_749ED0(const char *text)
@@ -3342,46 +3342,50 @@ bool SClient::Unknown_749ED0(const char *text)
 	OptionClass *options = OptionClass::Instance;
 	std::string channel = "";
 	if (strncmp(text, "/gen", 4) == 0) {
-		if (text[4] != '\0' && text[4] != ' ') return(false);
-		if (options->Get_Bool("Channel_General")) channel = "General";
+		if (text[4] != '\0' && text[4] != ' ') goto invalid;
+		if (options->Get_Bool("Channel_General")) channel.assign("General");
 	} else if (strncmp(text, "/ooc", 4) == 0) {
-		if (text[4] != '\0' && text[4] != ' ') return(false);
-		if (options->Get_Bool("Channel_OOC")) channel = "OOC";
+		if (text[4] != '\0' && text[4] != ' ') goto invalid;
+		if (options->Get_Bool("Channel_OOC")) channel.assign("OOC");
 	} else if (strncmp(text, "/mkt", 4) == 0) {
-		if (text[4] != '\0' && text[4] != ' ') return(false);
-		if (options->Get_Bool("Channel_Market")) channel = "Market";
+		if (text[4] != '\0' && text[4] != ' ') goto invalid;
+		if (options->Get_Bool("Channel_Market")) channel.assign("Market");
 	} else if (strncmp(text, "/new", 4) == 0) {
-		if (text[4] != '\0' && text[4] != ' ') return(false);
-		if (options->Get_Bool("Channel_Newbie")) channel = "New Players";
+		if (text[4] != '\0' && text[4] != ' ') goto invalid;
+		if (options->Get_Bool("Channel_Newbie")) channel.assign("New Players");
 	} else if (strncmp(text, "/jen", 4) == 0) {
-		if (text[4] != '\0' && text[4] != ' ') return(false);
-		if (options->Get_Bool("Channel_Jenquai")) channel = "Jenquai";
+		if (text[4] != '\0' && text[4] != ' ') goto invalid;
+		if (options->Get_Bool("Channel_Jenquai")) channel.assign("Jenquai");
 	} else if (strncmp(text, "/ter", 4) == 0) {
-		if (text[4] != '\0' && text[4] != ' ') return(false);
-		if (options->Get_Bool("Channel_Terran")) channel = "Terran";
+		if (text[4] != '\0' && text[4] != ' ') goto invalid;
+		if (options->Get_Bool("Channel_Terran")) channel.assign("Terran");
 	} else if (strncmp(text, "/pro", 4) == 0) {
-		if (text[4] != '\0' && text[4] != ' ') return(false);
-		if (options->Get_Bool("Channel_Progen")) channel = "Progen";
+		if (text[4] != '\0' && text[4] != ' ') goto invalid;
+		if (options->Get_Bool("Channel_Progen")) channel.assign("Progen");
 	} else if (strncmp(text, "/exp", 4) == 0) {
-		if (text[4] != '\0' && text[4] != ' ') return(false);
-		if (options->Get_Bool("Channel_Explorers")) channel = "Explorers";
+		if (text[4] != '\0' && text[4] != ' ') goto invalid;
+		if (options->Get_Bool("Channel_Explorers")) channel.assign("Explorers");
 	} else if (strncmp(text, "/tra", 4) == 0) {
-		if (text[4] != '\0' && text[4] != ' ') return(false);
-		if (options->Get_Bool("Channel_Traders")) channel = "Tradesmen";
+		if (text[4] != '\0' && text[4] != ' ') goto invalid;
+		if (options->Get_Bool("Channel_Traders")) channel.assign("Tradesmen");
 	} else if (strncmp(text, "/war", 4) == 0) {
-		if (text[4] != '\0' && text[4] != ' ') return(false);
-		if (options->Get_Bool("Channel_Warriors")) channel = "Warriors";
+		if (text[4] != '\0' && text[4] != ' ') goto invalid;
+		if (options->Get_Bool("Channel_Warriors")) channel.assign("Warriors");
 	} else if (strncmp(text, "/sen", 4) == 0) {
-		if (text[4] != '\0' && text[4] != ' ') return(false);
-		if (options->Get_Bool("Channel_Sentinels")) channel = "Sentinels";
+		if (text[4] != '\0' && text[4] != ' ') goto invalid;
+		if (options->Get_Bool("Channel_Sentinels")) channel.assign("Sentinels");
 	} else if (strncmp(text, "/def", 4) == 0) {
-		if (text[4] != '\0' && text[4] != ' ') return(false);
-		if (options->Get_Bool("Channel_Defenders")) channel = "Defenders";
+		if (text[4] != '\0' && text[4] != ' ') goto invalid;
+		if (options->Get_Bool("Channel_Defenders")) channel.assign("Defenders");
 	} else if (strncmp(text, "/enf", 4) == 0) {
-		if (text[4] != '\0' && text[4] != ' ') return(false);
-		if (options->Get_Bool("Channel_Enforcers")) channel = "Enforcers";
+		if (text[4] != '\0' && text[4] != ' ') goto invalid;
+		if (options->Get_Bool("Channel_Enforcers")) channel.assign("Enforcers");
 	} else {
-		if (strncmp(text, "/rad", 4) != 0 || (text[4] != '\0' && text[4] != ' ')) return(false);
+		if (strncmp(text, "/rad", 4) != 0) goto invalid;
+		if (text[4] != '\0' && text[4] != ' ') {
+invalid:
+			return(false);
+		}
 		channel = ChatPanel->Unknown_5682C0();
 		if (channel.length() == 0) {
 			Unknown_74D990(0x11, "Not monitoring a private channel.", 0);
@@ -3411,10 +3415,6 @@ bool SClient::Unknown_749ED0(const char *text)
 	Send_Packet(&packet);
 	return(true);
 }
-
-
-
-
 
 
 
