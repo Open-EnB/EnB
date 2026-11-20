@@ -13,7 +13,7 @@
 #include "..\..\ww3d2\meshmdl.h"
 #include "..\..\ww3d2\texture.h"
 #include "..\..\ww3d2\vertmaterial.h"
-// NOT EXACT: functional (D64), from the pseudocode
+// From the pseudocode; the client's frame 0x39C (section[256]), top-tested section loops (for (;true;)), the pass loop's bound read from swatch.Unknown00
 // @0x75BE00
 void SClientUnknown1334Class::Load(const char *decal_texture_ini_filename, const char *decal_swatch_ini_filename, const char *secret_texture_ini_filename)
 {
@@ -39,12 +39,12 @@ void SClientUnknown1334Class::Load(const char *decal_texture_ini_filename, const
 	INIClass texture_ini(decal_texture_ini_filename);
 	INIClass swatch_ini(decal_swatch_ini_filename);
 	INIClass secret_ini(secret_texture_ini_filename);
-	char section[252];
+	char section[256];
 	int i;
 
 	TextureArray.clear();
 	TextureArray.reserve(texture_ini.Section_Count());
-	for (i = 0; ; i++) {
+	for (i = 0; true; i++) {
 		sprintf(section, "Decal%04d", i);
 		if (!texture_ini.Find_Section(section)) {
 			break;
@@ -57,7 +57,7 @@ void SClientUnknown1334Class::Load(const char *decal_texture_ini_filename, const
 
 	SecretTextureArray.clear();
 	SecretTextureArray.reserve(secret_ini.Section_Count());
-	for (i = 0; ; i++) {
+	for (i = 0; true; i++) {
 		sprintf(section, "Decal%04d", i);
 		if (!secret_ini.Find_Section(section)) {
 			break;
@@ -70,7 +70,7 @@ void SClientUnknown1334Class::Load(const char *decal_texture_ini_filename, const
 
 	SwatchArray.clear();
 	SwatchArray.reserve(swatch_ini.Section_Count());
-	for (i = 0; ; i++) {
+	for (i = 0; true; i++) {
 		sprintf(section, "Decal%02d", i);
 		if (!swatch_ini.Find_Section(section)) {
 			break;
@@ -89,9 +89,9 @@ void SClientUnknown1334Class::Load(const char *decal_texture_ini_filename, const
 			if (robj != NULL) {
 				if (robj->Class_ID() == RenderObjClass::CLASSID_MESH) {
 					MeshModelClass *model = ((MeshClass *)robj)->Peek_Model();
-					unsigned int passes = model->Get_Pass_Count();
-					swatch.Unknown00 = passes;
-					for (unsigned int pass = 0; pass < passes; pass++) {
+
+					swatch.Unknown00 = model->Get_Pass_Count();
+					for (unsigned int pass = 0; pass < swatch.Unknown00; pass++) {
 						for (int stage = 0; stage < 2; stage++) {
 							swatch.Unknown04[pass][stage] = Create_Peek(model->Peek_Single_Texture(pass, stage));
 						}
