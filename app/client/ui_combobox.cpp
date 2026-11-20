@@ -202,7 +202,7 @@ UIComboBoxClass::~UIComboBoxClass()
 	Unknown_BE67BC->Unload("fc_combobox.ini");
 }
 
-// NOT EXACT: register ties at the TEXTFIELD00 / 02 transforms and the Arrow registration (masked 35); the dead Style.size() spends the budget so Style == "Combo01" calls compare(II PBD I) out of line as the client (D272)
+// the Arrow registration reads the view through Get_View(): its inline expansion spends the budget so Style == "Combo01" calls compare(II PBD I) out of line as the client (&Style in ebx, the scale in ebp)
 // 0x5790C0: owner NULL (the first constructor): the gadgets on Layer; else on an empty layer
 void UIComboBoxClass::Init(InterfaceClass *owner)
 {
@@ -264,7 +264,7 @@ void UIComboBoxClass::Init(InterfaceClass *owner)
 	}
 	Arrow->Unknown_65FFA0(-2);
 	Unknown_496AE0(Arrow->RObj, false);
-	Unknown64.Unknown_6870E0(Arrow, 1, View, true, false);
+	Unknown64.Unknown_6870E0(Arrow, 1, Get_View(), true, false);
 	Matrix3D left_tm = Mesh->Unknown_5B9210("TEXTFIELD00");
 	int left = (int)left_tm.Get_X_Translation();
 	tm = Mesh->Unknown_5B9210("TEXTFIELD02");
@@ -284,7 +284,7 @@ void UIComboBoxClass::Init(InterfaceClass *owner)
 	}
 	Slider->Unknown_65FFA0(-2);
 	Unknown64.Unknown_6870E0(Slider, 2, View, true, false);
-	Selected = 0; Style.size();
+	Selected = 0;
 }
 
 // 0x579D80
