@@ -2031,11 +2031,11 @@ void StarbaseShipCustomizeInterface::Unknown_61E730(FlashingGadgetEvent *event, 
 	}
 }
 
-// @0x61E8B0 NOT EXACT: register (attempts.csv, parked at 0.62: the avatar id loads into edx, the client's eax, in every form)
-void StarbaseShipCustomizeInterface::Unknown_61E8B0()
-{
+// @0x61E8B0
+void StarbaseShipCustomizeInterface::Unknown_61E8B0() {
 	SClient *client = SBaseView->Client;
-	client->Unknown_74C960(client->AvatarID);
+	const int &id = client->AvatarID;
+	client->Unknown_74C960(id);
 }
 
 // NOT EXACT: inline budget (0.42: the client calls the credits line's append out of line but inlines the cost line's,

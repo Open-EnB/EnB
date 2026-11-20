@@ -885,7 +885,7 @@ void RegistrationInterface::Unknown_5F2A80(bool on, UIComboBoxClass *except)
 
 
 
-// @0x5F2B20 NOT EXACT: order-only around the button struct's stores (attempts.csv)
+// @0x5F2B20
 void RegistrationInterface::Unknown_5F2B20(int id, const char *name, const char *style, unsigned short key, unsigned short group, bool in_frame)
 {
 	RenderObjClass *robj = !in_frame ? DialogRenderObj->Get_Sub_Object_By_Name(name) : UnknownBC->Peek_Model()->Get_Sub_Object_By_Name(name);
@@ -894,9 +894,9 @@ void RegistrationInterface::Unknown_5F2B20(int id, const char *name, const char 
 	ButtonGadgetClass *gadget = new ButtonGadgetClass(robj, *Layer, 5, 3);
 	RegistrationButtonStruct button;
 	button.Gadget = gadget;
-	button.Id = id;
 	button.Name = name;
 	button.Style = style;
+	button.Id = id;
 	button.Key = key;
 	button.Group = group;
 	button.Selected = false;
@@ -2007,7 +2007,7 @@ void RegistrationInterface::Unknown_5F8DB0(bool arg)
 	button->Release_Ref();
 }
 #pragma auto_inline(off)
-// @0x5F8EA0 NOT EXACT: shape (attempts.csv: the client's bl bool form not reproduced)
+// @0x5F8EA0
 bool RegistrationInterface::Unknown_5F8EA0(int month, int day, int year)
 {
 	if (year < 1900) {
@@ -2017,20 +2017,20 @@ bool RegistrationInterface::Unknown_5F8EA0(int month, int day, int year)
 		return(false);
 	}
 	int days = DaysInMonth[month - 1];
-	bool leap = true;
-	if (year % 4 != 0 || (year % 400 != 0 && year % 100 == 0)) {
-		leap = false;
-	}
-	if (leap && month == 2) {
+	bool valid = true;
+	if (year % 4 == 0 && (year % 400 == 0 || year % 100 != 0) && month == 2) {
 		days = 29;
 	} else if (month < 1 || month > 12) {
-		return(false);
+		valid = false;
 	}
-	if (day >= 1 && day <= days) {
-		return(true);
+	if (valid) {
+		if (day < 1 || day > days) {
+			valid = false;
+		}
 	}
-	return(false);
+	return(valid);
 }
+
 #pragma auto_inline(on)
 // @0x5F8F60
 bool RegistrationInterface::Unknown_5F8F60(const char *text)
@@ -4342,12 +4342,12 @@ bool RegistrationInterface::Unknown_603820(const char *number)
 	return(sum % 10 == 0);
 }
 
-// @0x6039E0 NOT EXACT: order-only (attempts.csv: this in ebp, end in edi)
+// @0x6039E0
 int RegistrationInterface::Unknown_6039E0(const char *number)
 {
-	std::vector<RegistrationCardPrefixStruct>::iterator prefix = Unknown88.begin();
 	std::vector<RegistrationCardPrefixStruct>::iterator last = Unknown88.end();
-	while (prefix != last && !(*prefix).Is_Prefix_Of(number)) {
+	std::vector<RegistrationCardPrefixStruct>::iterator prefix = Unknown88.begin();
+	while (prefix != last && strncmp(number, (*prefix).Prefix.c_str(), (*prefix).Prefix.length()) != 0) {
 		prefix++;
 	}
 	if (prefix != Unknown88.end()) {
