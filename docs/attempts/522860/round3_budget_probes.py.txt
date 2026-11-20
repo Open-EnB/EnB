@@ -1,0 +1,78 @@
+# Round 3 (claude-opus-5-5 high, BG1, 2026-11-19): 8 forms. Batch 1 (tryv2; its new lines shifted later asserts, so
+# read only the string-site profiles from it), batch 2 (appfile.py match drafts, lines kept). B1 landed.
+# Results: A1-A3 cut only the Modes Create's 'Mode' nested copy/assign; A4 sent 'Mode''s ctor out of line;
+# A5 cut 'Mode''s assign; none expanded case 26. B1: residue 315 -> 309 (kept). C1: no change. D1: no change.
+
+# Round (claude-opus-5-5 high), batch 1. Hypothesis: the client's level-1 (top-level) inline budget runs out
+# three string-constructor sites earlier than ours (the Modes Create's three temporaries are called out of line in
+# the client, inlined in ours); the level-2 assign expansions (19 on both sides) are taken from the end among the
+# inlined constructors, so moving the level-1 cutoff back by three sites moves the level-2 window back to case 26.
+# A dead top-level spender of about three constructors' cost before the Modes Create should do both, and with the
+# three allocator temporaries of the out-of-line calls give the client's frame (0x66C).
+F = 'app/client/item/client_item_property_builder.cpp'
+J = '\t\t\t\tstd::string text = String_Join(modes, ", ");\n'
+C26 = '\t\t\tfloat base;\n\t\t\ttemplate_info->Get_Float(ITEM_INFO_SHIELD_RECHARGE, &base);\n'
+
+
+def modes(n):
+    return [(F, J, J + '\t\t\t\tmodes.size();\n' * n)]
+
+
+V = {
+    'A1_modes_size_x1': modes(1),
+    'A2_modes_size_x2': modes(2),
+    'A3_modes_size_x3': modes(3),
+    'A4_modes_size_x4': modes(4),
+    'A5_case26_peek_x3': [(F, C26, '\t\t\ttemplate_info.Peek();\n' * 3 + C26)],
+}
+COMPILE = [F]
+WATCH = ['0x522860']
+
+# Batch 2 (claude-opus-5-5 high): local statement forms read off the client's bytes.
+# B1: case 32 initialises trade_level_required to 0 (client 0x525C86 `mov [esp+0x24], ebp`, ebp = 0, after the
+#     pushes of Get_Int); case 28 declares its level after the string (client stores the 1 into a frame slot
+#     0x1A8 after the string's construction, just before Get_String; ours at slot 0x20 before it); case 37 sets
+#     level before actual (client 0x526B65: `mov esi, 1` before the actual = base store).
+F = 'app/client/item/client_item_property_builder.cpp'
+T_OLD = '\t\t\tint trade_level_required;\n'
+T_NEW = '\t\t\tint trade_level_required = 0;\n'
+S_OLD = '\t\t\tint unknown = 1;\n\t\t\tstd::string skill;\n'
+S_NEW = '\t\t\tstd::string skill;\n\t\t\tint unknown = 1;\n'
+C_OLD = ('\t\t\tG_ASSERT(ok);\n\t\t\tfloat actual = base;\n\t\t\tint level = 1;\n'
+         '\t\t\tif (info->Has_Field(ITEM_INFO_CRITICAL)) {\n')
+C_NEW = ('\t\t\tG_ASSERT(ok);\n\t\t\tint level = 1;\n\t\t\tfloat actual = base;\n'
+         '\t\t\tif (info->Has_Field(ITEM_INFO_CRITICAL)) {\n')
+V = {
+    'B1_init_and_order': [(F, T_OLD, T_NEW), (F, S_OLD, S_NEW), (F, C_OLD, C_NEW)],
+}
+COMPILE = [F]
+WATCH = ['0x522860']
+
+# C1: the Modes case's four push_back names and the separator as explicit std::string temporaries (ui_cpit:
+#     explicit and implicit constructions spend the inline budget differently). If an explicit temporary costs
+#     more top-level budget, the level-1 cutoff moves back before the Create's three names (the client calls
+#     them out of line) and the level-2 assign window (19 expansions taken from the last inlined constructor
+#     backward) moves back to case 26.
+M_OLD = ('\t\t\t\tif (mode_flags & 1) modes.push_back("Manufacturing");\n'
+         '\t\t\t\tif (mode_flags & 2) modes.push_back("Analyze");\n'
+         '\t\t\t\tif (mode_flags & 4) modes.push_back("Dismantle");\n'
+         '\t\t\t\tif (mode_flags & 8) modes.push_back("Refining");\n'
+         '\t\t\t\tstd::string text = String_Join(modes, ", ");\n')
+M_NEW = ('\t\t\t\tif (mode_flags & 1) modes.push_back(std::string("Manufacturing"));\n'
+         '\t\t\t\tif (mode_flags & 2) modes.push_back(std::string("Analyze"));\n'
+         '\t\t\t\tif (mode_flags & 4) modes.push_back(std::string("Dismantle"));\n'
+         '\t\t\t\tif (mode_flags & 8) modes.push_back(std::string("Refining"));\n'
+         '\t\t\t\tstd::string text = String_Join(modes, std::string(", "));\n')
+V['C1_modes_explicit'] = [(F, M_OLD, M_NEW)]
+
+# D1 (form 8): running-budget probe. Round 2's added own code (SkillRequirement conversions, compare forms) moved
+#     ours's assign-expansion window from Modes to case 29, so the budget at a site grows with the caller's own code
+#     before it. Case 26 is the only float case that drops Get_Float's result: `bool ok =` on both calls (dead
+#     stores, no bytes; the client's sibling cases all keep ok) adds own code just before case 26's three sites,
+#     so their assigns should expand, and the three extra expansions leave too little for the Modes Create's three
+#     constructors (the client's out-of-line calls and its 0xC larger frame). On top of B1.
+D_OLD1 = '\t\t\ttemplate_info->Get_Float(ITEM_INFO_SHIELD_RECHARGE, &base);\n'
+D_NEW1 = '\t\t\tbool ok = template_info->Get_Float(ITEM_INFO_SHIELD_RECHARGE, &base);\n'
+D_OLD2 = '\t\t\t\tinfo->Get_Float(ITEM_INFO_SHIELD_RECHARGE, &actual);\n'
+D_NEW2 = '\t\t\t\tok = info->Get_Float(ITEM_INFO_SHIELD_RECHARGE, &actual);\n'
+V['D1_case26_dead_ok'] = V['B1_init_and_order'] + [(F, D_OLD1, D_NEW1), (F, D_OLD2, D_NEW2)]

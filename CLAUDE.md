@@ -54,7 +54,9 @@ reverse engineer the rest. Windows; shell is Git Bash (`/c/...` paths) or PowerS
   `Calls` in the log entry. The user decides only: inputs from outside the original app tree (SDKs,
   DLLs, data, VMs, credits, models), safety (D69), what reaches `master`, changes to these hard rules,
   and what the valve stops; only those go to progress.md §3. Never block on a question: park the item
-  and continue. A function not exact after two builder rounds is parked until new evidence turns up.
+  and continue. A function not exact after two rounds without progress (round one Opus at medium effort,
+  round two Opus at high) is parked until new evidence turns up; a round that cuts its mismatched bytes
+  does not count (D271).
 
 ## Reverse-engineering tools: pick in this order
 1. Existing project data: `docs/data/symbols.json`, `class-methods.txt`, `rtti.txt`, bytematch reports.

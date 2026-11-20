@@ -560,7 +560,7 @@ done:
 	}
 	return(tm);
 }
-// NOT EXACT: inline budget (0x6F3ED0 is out of line through auto_inline(off) at its definition, as the client; the client still calls 0x6F45E0 out of line in one branch of the inlined 0x6F4590 and auxdata.h's find 0x7079B0; attempts.py show 0x6F3FA0)
+// 0x6F3ED0 is out of line through auto_inline(off) at its definition, as the client; one Set_Target call per branch (the client pushes each argument and loads &Unknown134 per path), Current read through AccelClass::Get_Current (rate stored at once, the turn +0x140 first, 0x6F45E0 out of line in the inlined 0x6F4590 as the client) and Rotate_X through a Matrix3D reference (its x87 operand order)
 // 0x6F3FA0 (slot +0x28's tilt: the turn +0x144 steered toward 0x6F3ED0's angle through +0x134, then the roll)
 void ClientObjectClass::Unknown_6F3FA0(Matrix3D &tm)
 {
@@ -572,27 +572,27 @@ void ClientObjectClass::Unknown_6F3FA0(Matrix3D &tm)
 	}
 	double target = Unknown_6F3ED0();
 	double current = Unknown144;
-	double rate = Unknown134.Current;
+	double rate = Unknown134.Get_Current();
 	double stop = (rate * rate) / (Unknown_6F4590() * 2.0f);
 	double diff = fabs(target - current);
 	double limit = Unknown_6F45E0();
 	if (stop > limit) {
 		limit = stop;
 	}
-	float accel = 0.0f;
 	if (diff > limit) {
 		if (target > current) {
-			accel = Unknown_6F45E0();
+			Unknown134.Set_Target(Unknown_6F45E0());
 		} else if (target < current) {
-			accel = -Unknown_6F45E0();
-		}
+			Unknown134.Set_Target(-Unknown_6F45E0());
+		} else Unknown134.Set_Target(0.0f);
+	} else {
+		Unknown134.Set_Target(0.0f);
 	}
-	Unknown134.Set_Target(accel);
 	if (Unknown134.IsActive) {
 		Unknown134.Update((float)WW3D::Get_Frame_Time());
 	}
-	Unknown144 = Unknown134.Current + Unknown144;
-	tm.Rotate_X(Unknown144);
+	Unknown144 = Unknown134.Get_Current() + Unknown144;
+	Matrix3D &m = tm; m.Rotate_X(Unknown144);
 }
 
 

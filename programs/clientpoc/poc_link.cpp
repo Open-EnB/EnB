@@ -14,6 +14,3 @@ class INIClass;
 // ---------------------------------------------------------------- the UI kit's SignalMap (intrface.cpp's view)
 // Replaced by real SignalMap in app/client/signal_map.cpp (0x4F7E00-0x4F9D00).
 
-// ---------------------------------------------------------------- shipcust_desc.cpp's defaults
-
-ShipCustSettingsClass Unknown_BE56D8[3][2];		// 0xBE56D8: each race's two default settings (three races assumed)

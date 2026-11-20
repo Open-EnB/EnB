@@ -297,7 +297,7 @@ void Unknown_6E6A90(EffectObjectClass *effect);			// 0x6E6A90 (eff_o.cpp): Shutd
 
 static std::string Unknown_BE81B0("megan_wlc.wav");	// 0xBE81B0: not used (its initialiser 0x740400 and atexit destructor 0x7404C0 sit between 0x740050 and the constructor)  // NAME 1 [Unknown_BE81B0]: neutral (D10)
 static int INIUsers;									// 0xBE81C0: Load_INIs / Unload_INIs  // NAME 2: what it counts
-
+struct TestEffectStruct; static std::vector<TestEffectStruct> Unknown_BE7D80;	// 0xBE7D80: testeffects.ini's records (0x74CA90; initialiser 0x740530, atexit 0x740570)  // NAME 1: neutral (D10)
 // 0x7405E0
 SClient::SClient(ClientTaskClass *task) :
 	Unknown1198(true),
@@ -4367,7 +4367,7 @@ struct TestEffectStruct	// NAME 2: testeffects.ini's record
 	unsigned Count; int Interval; bool Target; float Scale; Vector3 HSVShift; float Speedup; int Delay;	// +0x20 the volley, +0x24 its spacing, +0x28 the avatar is the target, +0x2C .. +0x3C the factory's, +0x40 subtracted from the start  // NAME 1 [Count, Interval, Target, Scale, HSVShift, Speedup, Delay]: what 0x750C20 does with them
 	char Name[0x20];	// +0x44 the message's %s  // NAME 1: what 0x750C20 prints
 };
-extern std::vector<TestEffectStruct> Unknown_BE7D80;	// 0xBE7D80: testeffects.ini's records (0x74CA90)  // NAME 1: neutral (D10)
+// Unknown_BE7D80 (0xBE7D80) holds them: defined above with INIUsers, where the client's CRT table puts its initialiser
 #include "..\shared\unknown_4a1590.h"
 
 // NOT EXACT: inline budget (B97, 0.47): the record goes in through insert(end(), 1, record), whose body the client inlines (push_back calls it out of line); the client still calls size() and assign out of line and inlines _Tidy

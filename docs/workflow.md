@@ -171,7 +171,9 @@ retry read `python tools/re/attempts.py show ADDR` (builders.md §2). Compiler s
 `/O1 /O2` x `/Ob0-2` x `/G3-/G6 /GB` combination on Make_Screen_Shot 0x9182C0; the library's own
 `/O2 /Ob2 /GB` was best): an allocation residue comes from the source. Count instruction rows from
 `appfile.py match --diff` or objdiff, not the similarity score (0.81 stayed while rows went 3 -> 0), and
-believe verify over `explain.py`'s class. In large x87 functions the masked residue swings: two forms that
+believe verify over `explain.py`'s class. One hypothesis batch (D273) is one `python tools/re/trybatch.py run
+VARIANTS.py [--record]`: every form compiled lock-free on pool VMs, a <= 30-line summary (masked residue, groups of
+identical code, the best form's regions; tools/re/README.md). In large x87 functions the masked residue swings: two forms that
 each helped can score worse combined; compare diffs by hand.
 
 **Two-attempt stop rule.** After two failed attempts on a register-only or order-only residue,
@@ -212,9 +214,9 @@ unless `--lever` cites a new row of the table in §3.1.2.
   IB2: inpkeys and the tooltip forms).
 * **Dead spenders (D130) and sweeps:** dead `size()` / `length()` / `c_str()` / accessor reads, `str == ""`, a
   dead find, an unused type test or a user `operator=` assignment spend budget without code. Per call or
-  per callee size: conflicting reports, unresolved. D130: at most 6 per function, each marked not the
-  client's and each needed; a real form that spends the same budget (the client's own helper call, a
-  qualified sibling call, an inline layer, an accessor) replaces them. The effect is not monotonic in the
+  per callee size: conflicting reports, unresolved. D272 (D130 rescinded): dead code is the client's source
+  when the client's own classes and helpers support it (their real accessors, helpers, members): no cap, no
+  "not the client's" mark; a spender no client form supports stays out. The effect is not monotonic in the
   count (4 reads 0.91, 5 0.30, 6 exact) and depends on the file's other inlines: sweep every count, don't
   bisect, re-sweep after each structural change. Counts above 6 are diagnostics only (a parked function).
 * **Later-defined same-file functions are inlined (/Ob2):** VC6 inlines a non-inline member or static free
@@ -295,6 +297,7 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
 | The client inlines `std::string` assign at the later call sites of a long function, not the earlier ones | The budget ran out inside the function: classify inline-budget, park | ui_starbase 0x637130 |
 | A callee taking a by-value `Vector2` stays out of line as in the client | Keep the by-value parameter (a const reference inlines it) | 0x543200 |
 | A float max the client compiles as `fld X; fld Y; fcompp` | A double compare: `(double)X > Y`, or an inline float-returning getter on both sides; plain float compares give `fld X; fcomp Y` in every order | mv3dsnd |
+| The client calls a callee out of line that ours inlines, at a site whose nested callee the client also calls out | Dead reads of the client's own accessors (D272) on the same line right after the site, swept 1-16: the count matters, not the kind, and cliffs are common (one count wins, its neighbours lose). For a direct callee the client calls out of line, the reads go inside the callee's body. Sweep the whole file: the lever can cost another instance elsewhere | 0x57DD20, 0x597E40, 0x593180 |
 | **register-only, order-only** (two attempts, then the stop rule) | | |
 | A constant loaded before a variable, or the reverse | Operand order: `elapsed * 0.05F * K` loads the constant first, `step = elapsed * 0.05F; step *= K;` loads `elapsed`; `a == b` vs `b == a`, `Pos > size` vs `size < Pos` differ (D18/D28) | |
 | Registers differ around a call or an argument | A temporary, a local copy of an argument, or a member / id read into a local before the call (`int id = Client->X; Packet p(N, id);`); one shared variable reusing a dead argument slot. `tools/vc6/trydiff.py` keeps a variant's object for `objdiff.py` / `explain.py` | Accept 0x82A6C0 |
@@ -324,6 +327,10 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
 | A float read through an inline getter goes through the FPU, a direct member read uses integer moves; an x87 `fst` / `fstp` double store | The product written twice in the temporaries' constructor arguments gives the `fst` / `fstp`; use the getter or the member read the client's bytes show | eff_seek 0x6F1C40, debrsint.cpp |
 | An order-only `fild` residue next to two float locals | An unsigned frame time converted once into a named float, after the other float local | user_click_indicator.cpp |
 | Inlined file-static helpers get the client's registers only with the new value as the first argument (old value in ecx / esi) | Argument order of an inline helper moves registers: try both | recustomization_cost.cpp |
+| FP work the client fetches early (all heights before the differences) that ours schedules after a call | VC6 schedules independent FP work above only the last call of a group: fetch it up with the others | candidate (one function): 0x46F120 |
+| x87 operand order of a sum or ray end reversed | Copy first, then the compound assignment (`p = a; p += b`) flips the order against the one-expression form. Unrelated slot differences shift it too: fix the slots first | 0x7A7560 |
+| A parked register / order function whose region has a different row count in ours and the client's | A source difference, not a register choice: read the client's bytes in that region first (one store per branch cross-jumped, a turn through another accessor, a reference local) | 0x6F3FA0 |
+| Same-liveness slots swap (two locals, two scalars, an index and a count) | Dead end: names, declaration order, scopes and earlier file content give byte-identical objects. Leave it parked | 0x4691D0 |
 | **shape: returns, tails, loops, switches** | | |
 | test/setne against neg/sbb; shared or separate `return false` tails | `if (g()) return true; return false;` gives test/setne, `return g();` neg/sbb; a shared `return false` tail is `if (p) {...; return true;} return false;`; an eax-wide 0/1 is `return(!a() && !b());` | |
 | A plain `sete al` | `if (f() == 0) return(true); return(false);`; `return(f() == 0)` doesn't | |
@@ -360,6 +367,12 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
 | A `box.Extent` read the client does through one pointer (`add eax, 0xC`) | `const Vector3 &extent = robj->Get_Bounding_Box().Extent;` | eff_pass.cpp |
 | A callee returns int in eax but a caller reads `al` as bool, and declaration and definition will not link | C linkage (`extern "C"`) on both | distance_calc.h 0x831F90 |
 | A small value class (a few scalars, a `_Tidy(false)`-style call) is copied through bitwise inline code where the client's bytes show a user-written inline copy (constants as immediates, the call out of line) | Write the inline copy constructor + `operator=` the bytes show (the value-class copy). NOT for a class with a member that already has a user `operator=` (`Vector3`: the implicit copy is already a non-trivial inline call; avatar 0x780810 and radar_data 0x7BBC00 showed no change) | |
+| A loop's induction values or array bases differ | The client's running indices (`rows index++`, `yp - 2`), `j = i + k` for a `k * 3` index, a per-block array declaration, the exit value of an index used after the loop; a same-file helper inlines under /Ob2 only where the client's bytes show it | candidate (one function): 0x470F80 |
+| Zero stores in the order a, b, g, r | The chained zeroing written in reverse: `r = g = b = a = 0` | candidate (one function): 0x4691D0 |
+| A flag the client builds with `sete` / `je` where ours branches | `bool rebuild = !newer; if (newer) rebuild = !Load_PLD(...)` | candidate (one function): 0x4691D0 |
+| One late constant-address load (`lea`) and a `mov al,cl` in a block where the client has them one block earlier | The jump-threading signature: VC6 threads the jump unless a statement that emits no code sits between the two loops; the client's source has one (a probe store proved it) | candidate (one function): 0x8099B0 |
+| explain.py class `branch`: code identical once masked, a jump target or jump length differs | A logic difference, not a layout one (a short `je` where ours is near: a search done in a case the client skips). Compare the jump lengths or run objmatch; trybatch's identical groups mask branch targets | 0x7A7560 |
+| Switch case blocks in another order than the client's | Dead end: VC6 orders the blocks itself; moving the cases in the source does not move them | |
 | **frame** | | |
 | Each inlined copy has its own buffer slot | A function-scope buffer gives each inlined copy its own frame slot | 0x752E60 |
 | The frame size differs | The frame counts every local: a difference names a local too many or too few (a second RECT: +0x10; `char name[MAX_PATH + 1]`: +4) | 0x9182C0 |
@@ -376,6 +389,10 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
 | A float member initialised before the next unwind state | It belongs to the inline member whose constructor initialises it, not to the caller's frame | ui_power.cpp |
 | The client's frame counts by-value `Matrix3D` / `Vector3` copies whose dead stores VC6 removed, and lacks the temporaries where the source used in-place operators | Sign: frame slots written by integer `mov`s from `[reg+N]` at 0x10 strides and read back with `fld` (the scanner `lv2_intcopy.py`): copy by value where the slots are, operate in place where the client has none; slot order follows operand order in a product; when the client keeps a vector's components on the x87 across a `Length` / `Length2`, look for a second copy of the same subtraction (a temporary or `Distance`) that VC6 merged with the named one | |
 | Frame class, code identical once masked; the client's frame differs by whole objects (temporaries or inlined locals that share, or do not share, slots with later locals) | Change the block shape, not the declaration order: a temporary -> a named local (its own slot); `if (!p) return;` -> `if (p) { ... }` (inlined locals share, later locals pack into dead argument slots); if-return with function-scope locals instead of if / else; an inline callee's `?:` -> if / return (its temporaries are reused by the caller). Does not fix chatgadg 0x65E250's buffer order | ui_option_font 0x5CC9D0, ui_attrb_skills 0x54A640, client_item_property_special_level_requirement 0x530AA0, fontdatabase 0x6C52B0 |
+| Frame short by the size of an address-taken object (a `DynamicVB` access class) in a late block; its client slot is shared with nothing | Widen its scope so it lives from the top of the function | candidate (one function): 0x9961E0 |
+| Frame short by 0x30 | A `Matrix3D` temporary (a light offset built as a matrix) | candidate (one function): 0x50F1B0 |
+| A `Vector2` call temporary the client packs into a dead local's slot | Build the call temporaries right to left (each argument in its own `Vector2`) | candidate (one function): 0x7AD850 |
+| Locals the /FAs listing puts in one client slot | Map the listing onto the client's frame (`trybatch.py --slots`): locals that share a client slot are one variable or a temporary | candidate (one function): 0x47A2F0 |
 | **constructors, destructors, vtables** | | |
 | A destructor that is a lone `jmp` to the base's, or one that stores the vtables first | The compiler-generated destructor stores no vtable; a user-declared `virtual ~X() {}` stores them first (and adds an EH state to its owner's destructor): declare one exactly where the client stores | 0x4AA210 |
 | Members stored before or after the vtable | An init list stores members before the vtable (in declaration order), body assignments after it; the base's vtable store comes first and is dropped | 0x4A8370 |
@@ -402,6 +419,7 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
 | `fmul dword` where ours has `fmul qword` | `float * literal` folds to the double: `DEG_TO_RADF(x)` or `(float)atof(p) * k` | 0x806AF0 |
 | A static `__int64` initialised at load time | `static __int64 x = 5;` gets a dynamic initialiser in VC6 | ui_manu 0x5AF9D0 |
 | A `static const int` read from memory where ours folds it | A class static defined after its uses | boolpars |
+| A FAIL_IF / assert string the client pushes names a variable ours lacks (`ret == SOCKET_ERROR`) | Renaming the variable inside the macro changes the string (relocation masking hides it): a nested block that re-declares the same name as a local copy | 0x82A470 |
 | **reading the client** | | |
 | `ret 8` / `ret N` with ecx set, or never read | Still a member function, even if it ignores `this` | |
 | A body equal to two later functions | Both are inlined into it | Process_Messages |
@@ -561,6 +579,7 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
   inline layer, a file-static helper holding the find and its test. Landing a member body can make a same-file
   caller inline it: re-check the callers after the landing.
 * **A store VC6 schedules after a later load / push** (sunk below the next call's argument setup) moves back with a file-static helper layer: try it before calling a residue order-only (ui_shipcust 0x624270).
+* **Small edits swing a far region's inline budget:** read the regions of the diff, not the totals. A budget window can be narrower than one dead `Peek()`; an extra inline layer moves nested destructors where dead reads cannot; a real inline call after a site flips later sites' budget as a pair.
 
 **Register-only, order-only** (two attempts, then the stop rule)
 
@@ -656,6 +675,8 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
   Play_Audio 0x806BD0), against the table row "declare locals at first use": prove a lever on a test
   function first.
 * **A member read loaded between a table load and its test:** needs a named local, or the register order differs.
+* **VC6 canonicalises operand order, declaration order and names:** a variant that changes none of them gives a byte-identical object. Check that a variant changed the code before counting it as an attempt. objdiff's similarity has a ceiling from relocation and branch noise: count masked rows.
+* **An extra inline accessor temporary can flip a far inlined function's x87 order;** a reference local restores it. VC6 orders the spilled-local leaves of a byte sum by the preceding statements and the loop step order, not by declarations or term order, and hoists a constant into a callee-saved register by use count after tail duplication (probe batches and a grep for `xor ebx, ebx` find what tips a zero register).
 
 **Shape: returns, tails, loops, switches**
 
@@ -1570,6 +1591,7 @@ are in 3.0.
 * **A COMDAT whose kept client copy came from an app object (app flags, first in link order) can byte-match another library's function:** that false credit then blocks its callers in D80. Before changing source, check the client caller's call target (`client.py dis`) to see which copy it reaches.
 * **`objmatch.py` on a single .obj does not apply USE_NAMED_AWAY unless a competitor is in the same run:** a standalone check can show a credit the full verify drops. Confirm in the verify's own output.
 * **Offline objmatch measurements must read the same `docs/data/called.json` on both sides, and a new tie rule placed before `callseq_ties` hides the functions it credits as aligned callers:** put tie phases after callseq. An offline measurement without the extern_called data of `called.json` overstates gains (shorts placed by cross-library calls show as gained): check against the before-ledger.
+* **CR2's XCU_KNOWN cannot confirm an initialiser that only a file-static uses** (it has no call tie): such an initialiser needs the object's own data / linked rule (objmatch `USE_..._XCU_OWN_DATA` / `_LINKED`).
 
 ### 3.5 Build VMs and vc6.py
 
@@ -1872,6 +1894,9 @@ are in 3.0.
 * **A vtable alignment between two candidate slot orders can look proven when both put the same kind of stub (`ret 4`) in the checked slot:** check every slot's body. symbols.json's vtable-proved slot names then carry the wrong order and lose pairs when the header is fixed, until `replaces` rows are added.
 * **Tool arguments:** `verify.py --pool` takes an integer (the VM count). `appfile.py match --diff` needs the full `Class::Method` name and a `// @0xADDR` marker on an existing blank line (a new line shifts asserts). It cannot find operators (`??_5`, `??U`): use `objdiff.py .work/<ID>/appfile/obj/X.obj MANGLED ADDR`.
 * **Unwind funclets show a function's local `RefCountPtr` types:** N funclets jumping to one destructor means N locals of one instantiation; use them before retyping locals.
+* **trybatch traps:** a variant that changes the line count shifts later `__LINE__` (put dead forms on existing lines; the tool flags the shift); a header hunk appended after a `//` comment is commented out; a draft header needs the whole quoted include chain as no-op hunks, and a draft-folder header copy does not shadow a quoted include from another header; hunk anchors must be unique in the whole file; two threads on one VM collide on sync.tar; `listing.asm` is written only with `--slots`; region diffs are kept only for the best form (`trybatch.py regions` on that form's object); `identical` masks branch targets; a lever's cost to another instance in the file is invisible to its single-symbol measure (sweep the file with appfile); names from attempts.csv go stale (pass an empty `SYMBOL`); wildcarded relocations make same-shape initialisers all match.
+* **tryv2 under a busy importer lock:** a run that times out while queued for the lock runs nothing, and tryv2 gives up behind a busy lock: use `appfile match` on mark.py drafts. A variant that adds lines shifts later `__LINE__`.
+* **appfile match on a library file** uses the app's /GX unless you pass the library's own `--flags` (ww3d2's); explain.py needs a virtual's UAE decoration to find it. Parallel appfile runs need distinct `ENB_AGENT`, and `$(... &)` drops it.
 
 ### 3.7 Harnesses, programs, unattended runs
 

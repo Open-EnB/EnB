@@ -58,9 +58,9 @@ KVTripleListClass::KVTripleListClass(const KVTripleListClass &src)
 {
 	*this = src;
 }
-// NOT EXACT: frame (0x38 vs 0x3C) and inline budget, the client calls the bucket vector's constructor 0x4BA530 out of line and keeps match in ebx
+// 0x4B8DC0: the dead V.size() after the members' construction sends the bucket vector's constructor 0x4BA530 out of line (D272)
 KVTripleListClass::KVTripleListClass(const KVTripleListClass &src, const char *prefix)
-{
+{ V.size();
 	char *match = new char[strlen(prefix) + 2];
 	strcpy(match, prefix);
 	strcat(match, ".");

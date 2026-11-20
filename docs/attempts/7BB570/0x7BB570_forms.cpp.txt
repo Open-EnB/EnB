@@ -1,0 +1,71 @@
+// 0x7BB570 SR1 round (2026-11-19): best forms, replacing the switch + tail of RadarDataClass::Unknown_7BB570.
+// W5ss (masked residue 47, 214/198 rows: client layout, case 1 falls into its own tail copy, copies not merged):
+	GutterColorStruct color;
+	switch (Unknown08) {
+		case 2: {
+			color = Colors.Target;
+			float t = (float)fabs((float)(int)(Unknown_Get_Ticks() % 1000) * 0.001f - 0.5f) * 2.0f;
+			Color.X = (color.Color2.X - color.Color1.X) * t + color.Color1.X;
+			Color.Y = (color.Color2.Y - color.Color1.Y) * t + color.Color1.Y;
+			Color.Z = (color.Color2.Z - color.Color1.Z) * t + color.Color1.Z;
+			return;
+		}
+		case 1: {
+			GutterColorStruct c = Colors.Mouse;
+			color = c;
+		}
+			if ((int)(Unknown_Get_Ticks() % 2000) > 1000) Color = color.Color1;
+			else Color = color.Color2;
+			return;
+		case 0:
+			if (Peek_Client_Object() && Peek_Client_Object()->Unknown_700860()) {
+				GutterColorStruct c = Colors.JumpStart;
+				color = c;
+			} else {
+				GutterColorStruct c = Colors.NotTarget;
+				color = c;
+			}
+			break;
+	}
+	if ((int)(Unknown_Get_Ticks() % 2000) > 1000) Color = color.Color1;
+	else Color = color.Color2;
+}
+
+
+
+
+// W1s_ret (masked residue 53, 198/198 rows: tail merged, but case 1 cross-jumps into case 0 where the client does the reverse):
+	GutterColorStruct color;
+	switch (Unknown08) {
+		case 2:
+		{
+			color = Colors.Target;
+			float t = (float)fabs((float)(int)(Unknown_Get_Ticks() % 1000) * 0.001f - 0.5f) * 2.0f;
+			Color.X = (color.Color2.X - color.Color1.X) * t + color.Color1.X;
+			Color.Y = (color.Color2.Y - color.Color1.Y) * t + color.Color1.Y;
+			Color.Z = (color.Color2.Z - color.Color1.Z) * t + color.Color1.Z;
+			return;
+		}
+		case 1:
+		{
+			GutterColorStruct c = Colors.Mouse;
+			color = c;
+		}
+		default:
+			if ((int)(Unknown_Get_Ticks() % 2000) > 1000) Color = color.Color1;
+			else Color = color.Color2;
+			return;
+		case 0:
+			if (Peek_Client_Object() && Peek_Client_Object()->Unknown_700860()) {
+				GutterColorStruct c = Colors.JumpStart;
+				color = c;
+			} else {
+				GutterColorStruct c = Colors.NotTarget;
+				color = c;
+			}
+			if ((int)(Unknown_Get_Ticks() % 2000) > 1000) Color = color.Color1;
+			else Color = color.Color2;
+			break;
+	}
+}
+

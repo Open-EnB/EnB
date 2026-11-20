@@ -220,20 +220,20 @@ static void Find_Nearest(RefCountPtr<T> &result, CONTAINER &container, const Lin
 	}
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+template <class T, class CONTAINER>
+static void Find_Nearest_Second(RefCountPtr<T> &result, CONTAINER &container, const LineSegClass &ray, const Vector3 &pos)	// NAME 1: what it does
+{
+	float best = FLT_MAX;
+	result = NULL;
+	for (CONTAINER::iterator it = container.begin(); it != container.end(); ++it) {
+		RefCountPtr<T> item = (*it).second;
+		Vector3 contact;
+		if (item->Intersect(ray, &contact)) {
+			float d = (contact - pos).Length2();
+			if (best > d) { best = d; result = item; }
+		}
+	}
+}
 
 
 
@@ -464,7 +464,7 @@ void GalaxyMapRenderClass::Unknown_7A7450()
 	Unknown_7A7D70(Unknown_7A9840());
 }
 
-// NOT EXACT: written from the client's code (see attempts.csv)
+
 bool GalaxyMapRenderClass::Unknown_7A7560()
 {
 	bool changed = false;
@@ -473,29 +473,12 @@ bool GalaxyMapRenderClass::Unknown_7A7560()
 		tm.Translate_Z(25.0f);
 	}
 	Vector3 from = tm.Get_Translation();
-	Vector3 to = from + (Point - from) * 2.0f;
+	Vector3 to = from; to += (Point - from) * 2.0f;
 	LineSegClass ray(from, to);
 	RefCountPtr<GalaxyMapRenderSystemClass> system;
-	float best = FLT_MAX;
-	system = NULL;
-	for (RenderSystemsType::iterator it = Systems.begin(); it != Systems.end(); ++it) {
-		RefCountPtr<GalaxyMapRenderSystemClass> s = (*it).second;
-		Vector3 contact;
-		if (s->Intersect(ray, &contact)) {
-			float d = (contact - Point).Length2();
-			if (d < best) {
-				best = d;
-				system = s;
-			}
-		}
-	}
+	Find_Nearest_Second(system, Systems, ray, Point);
 	if (system != PickedSystem) {
-		if (PickedSystem) {
-			PickedSystem->Unknown_7AAE90();
-			PickedSystem = NULL;
-		}
-		if (PickedSector) { PickedSector = NULL; }
-		if (PickedGate) { PickedGate = NULL; }
+		Unknown_7A9840();
 		PickedSystem = system;
 		changed = true;
 	}
@@ -509,29 +492,46 @@ bool GalaxyMapRenderClass::Unknown_7A7560()
 	}
 	if (PickedSystem) {
 		PickedGate = NULL;
-	} else if (PickedGate) {
-		float d = PickedGate->Unknown_7AD5B0(Point);
-		if (d <= 0.0f || d >= Unknown_B9E93C) {
+	} else {
+		bool search = true;
+		if (PickedGate) {
+			float d = PickedGate->Unknown_7AD5B0(Point);
+			search = (d <= 0.0f || d >= Unknown_B9E93C);
+		}
+		if (search) {
 			RefCountPtr<GalaxyMapRenderGateClass> gate;
 			float nearest = Unknown_B9E93C;
 			for (RenderGatesType::iterator g = Gates.begin(); g != Gates.end(); ++g) {
-				if (!(*g).second->Intra) {
-					float dist = (*g).second->Unknown_7AD5B0(Point);
+				const RefCountPtr<GalaxyMapRenderGateClass> &item = (*g).second;
+				if (!item->Intra) {
+					float dist = item->Unknown_7AD5B0(Point);
 					if (dist > 0.0f && dist < nearest) {
 						nearest = dist;
-						gate = (*g).second;
+						gate = item;
 					}
 				}
 			}
 			if (PickedGate != gate) {
 				PickedGate = gate;
-				PickedGatePoint = Point;
 				changed = true;
+				PickedGatePoint = Point;
 			}
 		}
 	}
 	return(changed);
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
 // NOT EXACT: order: the calls and inlining are the client's (0x7ADFC0 inlined with both 0x7AC070s); the client squares the inlined lengths' components in another x87 order (x, z, y)
 void GalaxyMapRenderClass::Unknown_7A7D70(bool changed)
@@ -1851,7 +1851,7 @@ static inline float Unknown_Distance(const Vector2 &p, const Vector2 &a, const V
 	return(fabs(*side / len));
 }
 
-// NOT EXACT: written whole from the client's code (0x7ADF80 called, 0x7AC7B0 and the positions inlined); register choice differs (see attempts.csv)
+// NOT EXACT: inline-budget: the client calls to_name's ~RefCountPtr out of line (0x51C630, to_name kept in memory, its 0x7ADC47 release on the FAIL_IF path) and tests side twice (0x7ADBE1); every extra spend tried also sends the Set_Justifys out (attempts.csv)
 void GalaxyMapRenderGateClass::Unknown_7AD850(const Vector3 &point)
 {
 
@@ -1871,11 +1871,11 @@ void GalaxyMapRenderGateClass::Unknown_7AD850(const Vector3 &point)
 	Vector3 d = b - a;
 	d.Normalize();
 	tm.Rotate_Z(d.Y, d.X);
-	Vector2 vb(b.X, b.Y);
-	Vector2 va(a.X, a.Y);
-	Vector2 p(point.X, point.Y);
+
+
+
 	float side;
-	float dist = Unknown_Distance(p, va, vb, &side);
+	float dist = Unknown_Distance(Vector2(point.X, point.Y), Vector2(a.X, a.Y), Vector2(b.X, b.Y), &side);
 	tm.Translate_Y((side > 0.0f) ? -dist : dist);
 
 
@@ -1910,13 +1910,13 @@ void GalaxyMapRenderGateClass::Unknown_7AD850(const Vector3 &point)
 
 	RefCountPtr<FontSys> from_name = From->Name;
 	FAIL_IF(!from_name) { return; }
-	if (fabs(tm.Get_Z_Rotation()) <= 1.5707964f) {
-		to_name->Set_Justify(1, 3);
-		from_name->Set_Justify(2, 4);
-	} else {
+	if (fabs(tm.Get_Z_Rotation()) > 1.5707964f) {
 		tm.Rotate_Z(WWMATH_PI);
 		to_name->Set_Justify(2, 4);
 		from_name->Set_Justify(1, 3);
+	} else {
+		to_name->Set_Justify(1, 3);
+		from_name->Set_Justify(2, 4);
 	}
 	to_name->Unknown_6CE7D0(0);
 	to_name->Set_Transform(tm);

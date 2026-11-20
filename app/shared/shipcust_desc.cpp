@@ -12,7 +12,7 @@
 #include <string.h>
 #include "g_assert.h"
 
-extern ShipCustSettingsClass Unknown_BE56D8[][2];		// NAME 1 [Unknown_BE56D8]: 0xBE56D8, each race's two default settings (filled at run time)
+ShipCustSettingsClass Unknown_BE56D8[3][2] = { { ShipCustSettingsClass(Vector3(0.0F, 0.0F, 0.0F), Vector2(0.5F, 0.5F), false, METAL_CHROME), ShipCustSettingsClass(Vector3(0.055F, 0.192F, 0.471F), Vector2(0.44F, 0.554F), false, METAL_NONE) }, { ShipCustSettingsClass(Vector3(0.0F, 0.26F, 0.086F), Vector2(0.154F, 0.242F), false, METAL_NONE), ShipCustSettingsClass(Vector3(0.0F, 0.0F, 0.0F), Vector2(0.5F, 0.5F), false, METAL_CHROME) }, { ShipCustSettingsClass(Vector3(0.47F, 0.025F, 0.025F), Vector2(0.577F, 0.526F), false, METAL_NONE), ShipCustSettingsClass(Vector3(0.0F, 0.0F, 0.0F), Vector2(0.5F, 0.5F), false, METAL_CHROME) } };	// NAME 1 [Unknown_BE56D8]: 0xBE56D8, each race's two default settings (filled at run time)
 
 static int Unknown_B75D28[3][3] = { { 1, 0, 2 }, { 1, 0, 2 }, { 1, 0, 2 } };	// NAME 1 [Unknown_B75D28]: 0xB75D28, the hull style per race and profession
 static int Unknown_B75D4C[3][3] = { { 1, 0, 2 }, { 1, 0, 2 }, { 1, 0, 2 } };	// NAME 1 [Unknown_B75D4C]: 0xB75D4C, the wing style per race and profession
@@ -24,8 +24,8 @@ static int Unknown_B75D4C[3][3] = { { 1, 0, 2 }, { 1, 0, 2 }, { 1, 0, 2 } };	// 
 
 
 // 0x4F61C0
-ShipCustSettingsClass::ShipCustSettingsClass(float red, float green, float blue, float unknown10, float unknown14, bool matte, ShipCustomizationMetal metal) :
-	Color(red, green, blue), Unknown10(unknown10), Unknown14(unknown14), Is_Matte(matte), Metal(metal)
+ShipCustSettingsClass::ShipCustSettingsClass(Vector3 color, Vector2 unknown10, bool matte, ShipCustomizationMetal metal) :
+	Color(color), Unknown10(unknown10.X), Unknown14(unknown10.Y), Is_Matte(matte), Metal(metal)
 {
 }
 

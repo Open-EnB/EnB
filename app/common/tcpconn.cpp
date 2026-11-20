@@ -658,7 +658,7 @@ TCPListenerClass::~TCPListenerClass()
 
 
 
-// NOT EXACT: ours merges the two `ret == SOCKET_ERROR` failure tails (lines 706 / 716); the client keeps both.
+// The ioctlsocket result is a second `ret` in an inner block, read through a local SOCKET copy: the client's two failure tails stay apart and both FAIL_IFs push "ret == SOCKET_ERROR" (0xBA88D4).
 bool TCPListenerClass::Listen(unsigned short port)
 {
 	FAIL_IF(port == 0) return(false);
@@ -708,16 +708,16 @@ bool TCPListenerClass::Listen(unsigned short port)
 		Socket = INVALID_SOCKET;
 		return(false);
 	}
-
+	{
 	unsigned long on = 1;
-	ret = ioctlsocket(Socket, FIONBIO, &on);
+	SOCKET sock = Socket; int ret = ioctlsocket(sock, FIONBIO, &on);
 
 
 	FAIL_IF(ret == SOCKET_ERROR) {
 		closesocket(Socket);
 		Socket = INVALID_SOCKET;
 		return(false);
-	}
+	} }
 	PortNumber = port;
 	return(true);
 }

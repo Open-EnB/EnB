@@ -1559,6 +1559,20 @@ def match_objects(img, paths, region=None, callers=False, extern_called=None, ca
             r.pop('count', None), r.pop('identical', None)
             claimed[a].add(r['symbol'])
             learn(r, obj, sec, s, length, a)
+    if USE_SI_XCU_OWN_DATA or USE_SI_XCU_LINKED:
+        for item, a, kind in si_xcu_own(img, results, claimed, text, start, thunk):
+            r, obj, sec, s, length = item
+            if r['status'] == 'multiple':
+                r['tiebreak'] = True
+                done.add(id(r))
+            else:
+                r['short_known'] = 'xcu'
+            r['status'] = 'exact'
+            r['addresses'] = [f'0x{a:06X}']
+            r['si_xcu'] = kind
+            r.pop('count', None), r.pop('identical', None)
+            claimed[a].add(r['symbol'])
+            learn(r, obj, sec, s, length, a)
     if USE_CR2_LATE_ORDER and USE_SHORT_ORDER:     # the shortorder phase's switch gates its late round too
         for _ in range(CR2_LATE_ROUNDS):
             if not late_order_round() and not (USE_CR1_NAMED_TARGETS and named_round()):
@@ -1884,6 +1898,102 @@ def cr2_data_agree(img, results, pending, done, claimed, text, base, known):
 CR2_DATA_PREFIX = 'data:'
 USE_CR2_EXTERN_DATA = True
 USE_CR2_XCU_KNOWN = True
+
+
+# D246 (SI, run 2026-11-19): two rules on an object's own CRT stretch, after CR2's XCU_KNOWN.
+# USE_SI_XCU_OWN_DATA: CR2's XCU_KNOWN confirms by externals only (D80's known); a file static has no name across
+# objects. An object's short or tied `_$E` initialiser (its .CRT$XCU lists it) is credited at the one CRT table entry
+# where its bytes fullmatch, unclaimed, inside the object's stretch (xcu_in_stretch), where a static of the same
+# object it references sits at the one address the object's own exact functions' DIR32 fields give (and none of its
+# statics elsewhere); then the `_$E` functions it reaches (its atexit stub) as xcu_position's walk. shiputils.obj's
+# `_MetalDatabase` initialiser 0x80E870 (CRT entry 722: the object's exact 0x80E8C0 reads the INI at 0xBE8D30), its
+# stub 0x80E8A0; ours emits the initialiser after 0x80F020 in object order, so xcu_position's window misses it.
+# USE_SI_XCU_LINKED: an object's `_$E` initialiser exact at a CRT table entry reaches its short atexit stub (the
+# walk above; xcu_position walks only the objects whose sub-run it places): g_assert.obj's $E6 0x4E9490 (entry
+# 117) pushes its stub 0x4E94D0.
+USE_SI_XCU_OWN_DATA = True
+USE_SI_XCU_LINKED = True
+
+
+def _si_own_statics(obj, defs, text, base):
+    """{static key: address} of OBJ's file statics (tuple data keys) its exact own functions' DIR32 fields place,
+    the statics placed at two addresses left out."""
+    seen = collections.defaultdict(set)
+    for r, _, sec, s, length in defs.values():
+        if r['status'] != 'exact' or length <= 0 or not obj.own(sec):
+            continue
+        imp = _data_implied(obj, sec, s, length, text, base, int(r['addresses'][0], 16))
+        for key, v in (imp or {}).items():
+            if isinstance(key, tuple):
+                seen[key].add(v)
+    return {k: next(iter(v)) for k, v in seen.items() if len(v) == 1}
+
+
+def si_xcu_own(img, results, claimed, text, base, thunk):
+    """D246 (SI): [(item, address, kind)] (USE_SI_XCU_OWN_DATA / USE_SI_XCU_LINKED above)."""
+    table = [t for t in xcu_table(img) if base <= t < base + len(text)]
+    tset = set(table)
+    by_obj = collections.defaultdict(dict)
+    for item in results:
+        by_obj[id(item[1])][item[0]['symbol']] = item
+    out = []
+    listed = {}
+    for key, defs in by_obj.items():
+        obj = next(iter(defs.values()))[1]
+        inits = [n for n in xcu_initialisers(obj) if n in defs and generated(n)]
+        if not inits:
+            continue
+        got, walk = {}, []
+        if USE_SI_XCU_OWN_DATA:
+            own = None
+            for n in inits:
+                r, _, sec, s, length = defs[n]
+                if r['status'] not in ('short', 'multiple') or length <= 0:
+                    continue
+                if own is None:
+                    own = _si_own_statics(obj, defs, text, base)
+                conf = []
+                for t in table:
+                    if claimed[t] - {n} or not _fullmatch_at(obj, sec, s, length, text, base, t):
+                        continue
+                    imp = _data_implied(obj, sec, s, length, text, base, t)
+                    if not imp:
+                        continue
+                    statics = {k: v for k, v in imp.items() if isinstance(k, tuple) and k in own}
+                    if statics and all(own[k] == v for k, v in statics.items()) \
+                            and xcu_in_stretch(img, results, obj, listed, t):
+                        conf.append(t)
+                if len(conf) == 1:
+                    got[n] = conf[0]
+                    walk.append((n, conf[0]))
+        if USE_SI_XCU_LINKED:
+            for n in inits:
+                r = defs[n][0]
+                if r['status'] == 'exact' and int(r['addresses'][0], 16) in tset:
+                    walk.append((n, int(r['addresses'][0], 16)))
+        while walk:         # the `_$E` functions the initialiser's bytes reach (xcu_position's walk)
+            n, a = walk.pop()
+            r, _, sec, s, length = defs[n]
+            o = a - base
+            for k, sz, typ, sym, addend in obj.reloc_targets(sec, s, length):
+                if sz != 4 or sym is None or sym['name'] not in defs or not generated(sym['name']) \
+                        or sym['name'] in got or typ not in (0x06, 0x14) or o + k + 4 > len(text):
+                    continue
+                v = struct.unpack('<I', text[o + k:o + k + 4])[0]
+                v = (v - struct.unpack('<I', addend)[0]) & 0xFFFFFFFF if typ == 0x06 \
+                    else (a + k + 4 + struct.unpack('<i', text[o + k:o + k + 4])[0]) & 0xFFFFFFFF
+                v = thunk.get(v, v)
+                tr, _, tsec, ts, tlen = defs[sym['name']]
+                if claimed[v] - {sym['name']} or tr['status'] == 'exact' or tlen <= 0 or \
+                        not _fullmatch_at(obj, tsec, ts, tlen, text, base, v):
+                    continue
+                got[sym['name']] = v
+                walk.append((sym['name'], v))
+        for n, a in got.items():
+            if defs[n][0]['status'] != 'exact':
+                out.append((defs[n], a, 'own_data' if n in inits else 'linked'))
+    held = collections.Counter(a for _, a, _ in out)
+    return [x for x in out if held[x[1]] == 1]
 
 
 def _in_image(img, va):

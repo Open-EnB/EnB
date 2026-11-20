@@ -1,0 +1,43 @@
+HYPOTHESIS = 'B31 (round 3): the fill copy as const / direct-initialised (0x50F956 copies Y, Z, W before any product), the offset product order (0x50FD95 fxch), on the committed 0.95 base'
+FILE = 'app/client/mainview.cpp'
+SYMBOL = 'MainViewClass::Update'
+ADDRESS = 0x50F1B0
+
+FILL = '\t\tVector4 fill = Orbitals->Unknown_4F50D0(4);\n'
+PROD = '\t\t\t\tdir = dir + frame * offset;\n'
+FORMS = {
+    'T1_fill_const': [(FILL, '\t\tconst Vector4 fill = Orbitals->Unknown_4F50D0(4);\n')],
+    'T2_fill_direct': [(FILL, '\t\tVector4 fill(Orbitals->Unknown_4F50D0(4));\n')],
+    'T3_prod_first': [(PROD, '\t\t\t\tdir = frame * offset + dir;\n')],
+    'T4_prod_named': [(PROD, '\t\t\t\tVector3 rotated = frame * offset;\tdir = dir + rotated;\n')],
+}
+HYPOTHESIS = 'B33 (round 3): the clock layers decide where the operator+ temporaries pack (client: this -0x4C, result -0x44, right under the Matrix3D; ours -0x64 / -0x74 sharing with case 0): layer shapes, raw rows'
+FILE = 'app/client/mainview.cpp'
+SYMBOL = 'MainViewClass::Update'
+ADDRESS = 0x50F1B0
+
+HIN = 'static inline DurationClass Unknown_Server_Time(SClient *client) { return DurationClass((unsigned)client->Unknown10BC) + client->Unknown10C0; }'
+HOUT = 'static inline DurationClass Unknown_Time(SClient *client) { return Unknown_Server_Time(client); }'
+HRS = '\tfloat hours = Unknown_Time(client).Get() * 2.777778e-07f;\n'
+
+FORMS = {
+    'c1_offset_param': [(HIN, 'static inline DurationClass Unknown_Server_Time(const DurationClass &now, const DurationClass &offset) { return now + offset; }'),
+                        (HOUT, 'static inline DurationClass Unknown_Time(SClient *client) { return Unknown_Server_Time(DurationClass((unsigned)client->Unknown10BC), client->Unknown10C0); }')],
+    'c2_no_cast': [(HIN, HIN.replace('(unsigned)client', 'client'))],
+    'c4_hours_layer': [(HOUT, HOUT + ' static inline float Unknown_Hours(SClient *client) { return Unknown_Time(client).Get() * 2.777778e-07f; }'),
+                       (HRS, '\tfloat hours = Unknown_Hours(client);\n')],
+    'c5_get_client_inside': [(HIN, 'static inline DurationClass Unknown_Server_Time(MainViewClass *view) { return DurationClass((unsigned)view->Get_Client()->Unknown10BC) + view->Get_Client()->Unknown10C0; }'),
+                             (HOUT, 'static inline DurationClass Unknown_Time(MainViewClass *view) { return Unknown_Server_Time(view); }'),
+                             (HRS, '\tfloat hours = Unknown_Time(this).Get() * 2.777778e-07f;\n')],
+}
+HYPOTHESIS = 'B34 (round 3): the clock result lives as a named local (client: the result slot -0x44 is shared with nothing; ours shares it with case 0 profile sample)'
+FILE = 'app/client/mainview.cpp'
+SYMBOL = 'MainViewClass::Update'
+ADDRESS = 0x50F1B0
+
+HRS = '\tfloat hours = Unknown_Time(client).Get() * 2.777778e-07f;\n'
+FORMS = {
+    'n1_named_now': [(HRS, '\tDurationClass now = Unknown_Time(client);\tfloat hours = now.Get() * 2.777778e-07f;\n')],
+    'n2_named_now_ref': [(HRS, '\tconst DurationClass &now = Unknown_Time(client);\tfloat hours = now.Get() * 2.777778e-07f;\n')],
+    'n3_named_ms': [(HRS, '\tint ms = Unknown_Time(client).Get();\tfloat hours = ms * 2.777778e-07f;\n')],
+}

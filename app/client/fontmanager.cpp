@@ -551,10 +551,10 @@ RefCountPtr<FontSys> FontManagerClass::Unknown_6D2700(const char *name, const Re
 	return DebugFont;
 }
 
-// NOT EXACT: inline budget, 75 rows: the client calls the styles table's begin and bucket helpers out of line, ours inlines them (attempts.csv)
+// (one dead Fonts.end() after the call spends the inline budget: the styles table's begin and bucket helpers called out of line, as the client's; D272)
 void FontManagerClass::Unknown_6D28C0(int value, RenderObjClass *object)
 {
-	Peek_Font(object)->Unknown_Set_Styles(value);
+	Peek_Font(object)->Unknown_Set_Styles(value); Fonts.end();
 }
 
 void FontManagerClass::Add(ManagedFontClass *font)

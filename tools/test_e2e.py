@@ -277,6 +277,146 @@ class CompareTest(unittest.TestCase):
                 f.write('\n'.join(lines) + '\n')
             self.assertEqual(e2e.sent_packets(d), {'a': ['LOGIN 40'], 'b': ['INVENTORY_MOVE', 'OP_3008']})
 
+    def test_same_millisecond_on_two_connections_is_name_ordered(self):
+        pre = '    5.00 antprox 19/11/26 07:26:51.629 [   10] antreplay: '
+        for first, second in (('Master connection #1: received MASTER_JOIN 0x0035, 64 bytes',
+                               'Sector connection #3: received VERB_REQUEST 0x005a, 12 bytes'),
+                              ('Sector connection #3: received VERB_REQUEST 0x005a, 12 bytes',
+                               'Master connection #1: received MASTER_JOIN 0x0035, 64 bytes')):
+            lines = ['    1.00 e2e     scenario a',
+                     '    1.10 antprox [ 4] antreplay: 07:26:50.000 Sector connection #3: received LOGIN 0x0002, 137 bytes',
+                     pre + '07:26:51.629 ' + first, pre + '07:26:51.629 ' + second,
+                     '    1.30 antprox [ 4] antreplay: 07:26:51.844 Sector connection #4: received LOGIN 0x0002, 137 bytes',
+                     '    1.40 antprox [ 4] antreplay: 07:26:51.844 Sector connection #4: received ZZ 0x0003, 1 bytes',
+                     '    1.50 antprox [ 4] antreplay: 07:26:51.844 Sector connection #4: received AA 0x0004, 1 bytes']
+            with tempfile.TemporaryDirectory() as d:
+                with open(os.path.join(d, 'events.log'), 'w', encoding='utf-8') as f:
+                    f.write('\n'.join(lines) + '\n')
+                self.assertEqual(e2e.sent_packets(d)['a'], ['LOGIN 137', 'MASTER_JOIN 64', 'VERB_REQUEST 12',
+                                                            'LOGIN 137', 'ZZ 1', 'AA 1'])   # one connection: as sent
+
+
+def write_bmp(path, w, h, pixel, top_down=False):
+    """A 24-bit BMP whose pixel(x, y) -> (b, g, r), y counted from the top."""
+    import struct
+    stride = (w * 3 + 3) & ~3
+    rows = []
+    for y in range(h):
+        row = b''.join(bytes(pixel(x, y)) for x in range(w))
+        rows.append(row + b'\0' * (stride - len(row)))
+    if not top_down:
+        rows.reverse()
+    body = b''.join(rows)
+    hdr = struct.pack('<2sIHHI', b'BM', 54 + len(body), 0, 0, 54)
+    info = struct.pack('<IiiHHIIiiII', 40, w, -h if top_down else h, 1, 24, 0, len(body), 0, 0, 0, 0)
+    with open(path, 'wb') as f:
+        f.write(hdr + info + body)
+
+
+def write_run(d, name, verdict_passed, packets, shots, failure=None):
+    """A run folder as e2e writes it: events.log, e2e.log, result-NAME.json, shot_*.bmp."""
+    import json
+    os.makedirs(d, exist_ok=True)
+    with open(os.path.join(d, 'events.log'), 'w', encoding='utf-8') as f:
+        f.write(f'    1.00 e2e     scenario {name}\n')
+        for i, p in enumerate(packets):
+            f.write(f'    1.{i + 10} antprox [ 4] connection #2: received {p} 0x0002, 40 bytes\n')
+    with open(os.path.join(d, 'e2e.log'), 'w', encoding='utf-8') as f:
+        f.write(f'07:00:00 scenario {name}\n')
+        for i, (shot, pixel) in enumerate(shots):
+            f.write(f'07:00:01 step {name}:{i}: shot {shot}\n07:00:01   shot {shot} taken\n')
+            write_bmp(os.path.join(d, f'shot_{shot}_{100 + i:05d}.bmp'), 32, 32, pixel)
+    with open(os.path.join(d, f'result-{name}.json'), 'w', encoding='utf-8') as f:
+        json.dump({'name': name, 'passed': verdict_passed, 'expected_fail': None, 'failure': failure,
+                   'out': d}, f)
+
+
+class ShotCompareTest(unittest.TestCase):
+    def test_bmp_bottom_up_and_top_down(self):
+        with tempfile.TemporaryDirectory() as d:
+            for td in (False, True):
+                p = os.path.join(d, f'a{td}.bmp')
+                write_bmp(p, 5, 3, lambda x, y: (x, y, 7), top_down=td)
+                w, h, n, rows = e2e.read_bmp(p)
+                self.assertEqual((w, h, n), (5, 3, 3))
+                self.assertEqual(rows[2][3 * 4:3 * 4 + 3], bytes((4, 2, 7)))
+
+    def test_png_as_session_close_writes_it(self):
+        import bmp2png
+        with tempfile.TemporaryDirectory() as d:
+            b = os.path.join(d, 's.bmp')
+            write_bmp(b, 6, 4, lambda x, y: (x, y, 9))                   # (b, g, r)
+            w, h, rows = bmp2png.read_bmp(b)
+            bmp2png.write_png(os.path.join(d, 's.png'), w, h, rows)
+            pw = e2e.read_shot(os.path.join(d, 's.png'))
+            self.assertEqual(pw, e2e.read_shot(b))                       # both RGB
+            self.assertEqual(pw[3][3][5 * 3:5 * 3 + 3], bytes((9, 3, 5)))
+            self.assertEqual(e2e.shot_diff(b, os.path.join(d, 's.png'), grid=2, step=1)['differ'], 0)
+
+    def test_shot_diff_cells_and_tolerance(self):
+        with tempfile.TemporaryDirectory() as d:
+            a, b, c = (os.path.join(d, n) for n in ('a.bmp', 'b.bmp', 'c.bmp'))
+            write_bmp(a, 32, 32, lambda x, y: (10, 10, 10))
+            write_bmp(b, 32, 32, lambda x, y: (200, 10, 10) if x >= 24 and y < 8 else (12, 10, 10))
+            write_bmp(c, 16, 32, lambda x, y: (10, 10, 10))
+            self.assertEqual(e2e.shot_diff(a, a, grid=4, step=1)['differ'], 0)
+            r = e2e.shot_diff(a, b, grid=4, tol=16, step=1)
+            self.assertEqual((r['differ'], r['box']), (1, (24, 0, 32, 8)))   # the +2 elsewhere is under tol
+            self.assertIn('size', e2e.shot_diff(a, c, grid=4))
+
+    def test_compare_runs_same_and_diff(self):
+        grey = lambda x, y: (50, 50, 50)
+        red = lambda x, y: (50, 50, 250) if x < 16 else (50, 50, 50)
+        with tempfile.TemporaryDirectory() as d:
+            ours, ret = os.path.join(d, 'o'), os.path.join(d, 'r')
+            write_run(ours, 'a', True, ['LOGIN', 'TALK'], [('x', grey)])
+            write_run(ret, 'a', True, ['LOGIN', 'TALK'], [('x', grey)])
+            write_run(ours + '2', 'b', False, ['LOGIN'], [('y', red)], failure='expect-event: not seen')
+            write_run(ret + '2', 'b', True, ['LOGIN', 'TALK'], [('y', grey)])
+            rows = e2e.compare_runs([ours, ours + '2'], [ret, ret + '2'])
+            self.assertEqual([(r[0], r[1]) for r in rows], [('a', 'SAME'), ('b', 'DIFF')])
+            self.assertEqual(rows[0][2], '2 packets, shots 1 of 1 alike')
+            self.assertIn('ours FAIL (expect-event: not seen), retail PASS', rows[1][2])
+            self.assertIn('packets ours 1, retail 2 (first -TALK 40)', rows[1][2])
+            self.assertIn('shots y ', rows[1][2])
+
+    def test_mask_rules(self):
+        with tempfile.TemporaryDirectory() as d:
+            m = os.path.join(d, 'mask.txt')
+            with open(m, 'w') as f:
+                f.write('# x\n* 1,2-3,4  # planet\nw_entered skip\nw_stopped cells\nw_* mean 8\n')
+            mask = e2e.load_shot_mask(m)
+            self.assertEqual(e2e.mask_for('w_entered', mask), ([(1, 2, 3, 4)], ('skip',)))
+            self.assertEqual(e2e.mask_for('w_stopped', mask), ([(1, 2, 3, 4)], None))
+            self.assertEqual(e2e.mask_for('w_cargo', mask), ([(1, 2, 3, 4)], ('mean', 8.0)))
+            self.assertEqual(e2e.mask_for('hot_keys', mask), ([(1, 2, 3, 4)], None))
+            with open(m, 'w') as f:
+                f.write('w_* bright\n')
+            self.assertRaises(ValueError, e2e.load_shot_mask, m)
+            self.assertEqual(len(e2e.load_shot_mask()), len([1 for l in open(e2e.SHOT_MASK)
+                                                             if l.split('#')[0].strip()]))   # the shipped mask parses
+
+    def test_mean_rule_in_compare(self):
+        dark = lambda x, y: (40, 40, 40)
+        bright = lambda x, y: (52, 52, 52)
+        with tempfile.TemporaryDirectory() as d:
+            ours, ret = os.path.join(d, 'o'), os.path.join(d, 'r')
+            write_run(ours, 'play1', True, [], [('play1_20s', dark), ('play1_stopped', dark), ('w_entered', dark)])
+            write_run(ret, 'play1', True, [], [('play1_20s', bright), ('play1_stopped', dark), ('w_entered', bright)])
+            rows = e2e.compare_runs([ours], [ret])
+            self.assertEqual(rows[0][1], 'DIFF')
+            self.assertEqual(rows[0][2], 'shots play1_20s brightness 40 vs 52')
+
+    def test_run_dirs_manifest(self):
+        import json
+        with tempfile.TemporaryDirectory() as d:
+            m = os.path.join(d, 'm.json')
+            with open(m, 'w') as f:
+                json.dump({'scenarios': [{'name': 'a', 'out': 'X'}, {'name': 'b', 'out': 'X'},
+                                         {'name': 'c', 'out': 'Y'}, {'name': 'd', 'out': None}]}, f)
+            self.assertEqual(e2e.run_dirs(m), ['X', 'Y'])
+            self.assertEqual(e2e.run_dirs('P,Q'), ['P', 'Q'])
+
 
 class DbSnapshotTest(unittest.TestCase):
     def test_dump_command(self):

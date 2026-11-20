@@ -93,6 +93,30 @@ trimmed), `build --count-all` counts every request's input tokens (free) and wri
 band, round 2 from the pilot's near-miss rate), `submit --budget N` keeps the cheapest requests that fit, and
 `try --pool K` runs unattended on K VMs and resumes from `results.d/` (`try --status` shows progress).
 
+`trybatch.py` (D273): one hypothesis batch of a stuck function in one command. `run VARIANTS.py` compiles the
+unmodified file (`base`) and every form (edit hunks on the file or on headers, tryv2's `V` format accepted, or whole
+definitions replaced by signature) from overlay copies under `.work/trybatch/`, as verify compiles the file (the
+library's own flags from libdefs.py, so a library file never gets the app's /GX; the app's defines and __FILE__
+alias), lock-free and in parallel on as many leased pool VMs as the pool gives (one per compile, one thread per
+distinct host, D273; `--vms K` caps them; `--no-lease` uses ENB_VC6_HOSTS), and
+prints at most ~30 lines: per form the masked residue rows (the progress measure), register-masked rows, raw rows,
+frame, score (`1 - res / max(rows)`), explain.py's class and a line-count change (a shifted `__LINE__`); forms
+whose code is identical are grouped (VC6 canonicalises declaration / operand order and names); the best form's
+regions with a residue (both sides cut at aligned calls). `--slots` adds the /FAs frame-symbol -> client-slot map
+(`*` where a symbol sits elsewhere), `--record [STATUS]` writes the attempts.csv row with `residue N` in the
+evidence, which attempts.py's D271 progress test prefers to the score. Everything else (compiler output, every
+form's regions, the best form's region diffs) is in the batch's `trybatch.log`. `regions OBJ SYMBOL ADDR [--show K]`
+and `slots OBJ LISTING SYMBOL ADDR` run the two measures on an object you have. Tests: `test_trybatch.py` (no VM).
+TB2's fixes (run 2026-11-19): a switch's jump / byte tables end the code on both sides (explain.py) and print apart
+(`switch ... table`, equal or different; `TABLES` on a form whose tables differ), never as residue; `BRANCH` flags a
+form whose masked residue is 0 but whose jumps differ (short vs near, another target row, code length); `ASSERT-TEXT`
+a form that changes an assert / FAIL_IF condition's text; `--file-check` the form's exact functions of the whole
+object against the base's (`FILE -L/+G`); SYMBOL is resolved on the compiled base (arguments, template members,
+annotations, symbols.json's name of ADDRESS, the source's own marker; a header FILE compiles its UNIT or a source
+the last build's symbols.txt finds); `--base` / `base FILE SYMBOL ADDR` measure the unmodified file alone.
+Promoted from BG5's batch.py / regions.py, BG2's batch.py / symmap.py, BG1's rdiff.py and BG4's regions.py
+(run 2026-11-19).
+
 `tools/stl/stl_corpus.cpp`: explicit VC6 standard-library instantiations, compiled and matched
 to measure the template code in E&B's app region (docs/app-plan.md).
 

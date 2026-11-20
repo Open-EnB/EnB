@@ -116,7 +116,7 @@
 #include "animatedsoundmgr.h"
 #include "static_sort_list.h"
 #include "shdlib.h"
-
+#include "unknown_jpeg.h"
 
 #ifndef _UNIX
 #include "framgrab.h"
@@ -1268,18 +1268,35 @@ void WW3D::Normalize_Coordinates(int x, int y, float &fx, float &fy)
  *   5/19/99    GTH : Created.                                                                 *
  *   2/26/2001  hy : Updated to DX8                                                            *
  *=============================================================================================*/
-void WW3D::Make_Screen_Shot( const char * filename_base, float unknown, int format )
+void WW3D::Make_Screen_Shot( const char * filename_base, float gamma, int format )
 {
 
 	WWASSERT(!IsRendering);
 
 	char filename[80];
 
+	char ext[4];
+	switch (format) {
+		case 0:
+			sprintf(ext,"tga");
+			break;
+		case 1:
+			sprintf(ext,"bmp");
+			break;
+		case 2:
+			sprintf(ext,"jpg");
+			break;
+		default:
+			WWASSERT(0);
+			return;
+			break;
+	}
+
 	static int frame_number = 1;
 
 	bool done = false;
 	while (!done) {
-		sprintf( filename, "%s%.2d.tga", filename_base, frame_number++);
+		sprintf( filename, "%s%.2d.%s", filename_base, frame_number++, ext);
 		FileClass*file=_TheFileFactory->Get_File( filename );
 		if ( file ) {
 			file->Open();
@@ -1292,6 +1309,17 @@ void WW3D::Make_Screen_Shot( const char * filename_base, float unknown, int form
 
 	WWDEBUG_SAY(( "Creating Screen Shot %s\n", filename ));
 
+	// make the gamma look up table
+	int i;
+	unsigned char gamma_lut[256];
+	float recip = 1.0f;
+	if (gamma > WWMATH_EPSILON) {
+		recip = 1.0f / gamma;
+	}
+	for (i = 0; i < 256; i++) {
+		gamma_lut[i] = (unsigned char) (256.0f * powf(i / 256.0f, recip));
+	}
+
 	// Lock front buffer and copy
 
 	IDirect3DSurface8 *fb;
@@ -1301,6 +1329,12 @@ void WW3D::Make_Screen_Shot( const char * filename_base, float unknown, int form
 
 	RECT bounds;
 	GetWindowRect(_Hwnd,&bounds);
+	int w=bounds.right-bounds.left;
+	int h=bounds.bottom-bounds.top;
+	bounds.left=0;
+	bounds.top=0;
+	bounds.right=w;
+	bounds.bottom=h;
 
 	D3DLOCKED_RECT lrect;
 
@@ -1311,7 +1345,7 @@ void WW3D::Make_Screen_Shot( const char * filename_base, float unknown, int form
 	width=bounds.right-bounds.left;
 	height=bounds.bottom-bounds.top;
 
-	char *image=new char[3*width*height];
+	unsigned char *image=W3DNEWARRAY unsigned char[3*width*height];
 
 	for (y=0; y<height; y++)
 	{
@@ -1322,34 +1356,101 @@ void WW3D::Make_Screen_Shot( const char * filename_base, float unknown, int form
 			// index for fb
 			index2=y*lrect.Pitch+4*x;
 
-			image[index]=*((char *) lrect.pBits + index2+2);
-			image[index+1]=*((char *) lrect.pBits + index2+1);
-			image[index+2]=*((char *) lrect.pBits + index2+0);
+			image[index]   = gamma_lut[*((unsigned char *) lrect.pBits + index2+2)];
+			image[index+1] = gamma_lut[*((unsigned char *) lrect.pBits + index2+1)];
+			image[index+2] = gamma_lut[*((unsigned char *) lrect.pBits + index2+0)];
 		}
 	}
 
 	fb->Release();
 
-	Targa targ;
-	memset(&targ.Header,0,sizeof(targ.Header));
-	targ.Header.Width=width;
-	targ.Header.Height=height;
-	targ.Header.PixelDepth=24;
-	targ.Header.ImageType=TGA_TRUECOLOR;
-	targ.SetImage(image);
-	targ.YFlip();
+	switch (format) {
+		case 0:
+			{
+				Targa targ;
+				memset(&targ.Header,0,sizeof(targ.Header));
+				targ.Header.Width=width;
+				targ.Header.Height=height;
+				targ.Header.PixelDepth=24;
+				targ.Header.ImageType=TGA_TRUECOLOR;
+				targ.SetImage((char *) image);
+				targ.YFlip();
 
-	FileClass*file=_TheWritingFileFactory->Get_File( filename );
-	if ( file ) {
-		file->Create();
-		file->Close();
-		_TheWritingFileFactory->Return_File( file );
+				FileClass*file=_TheWritingFileFactory->Get_File( filename );
+				if ( file ) {
+					file->Create();
+					file->Close();
+					_TheWritingFileFactory->Return_File( file );
+				}
+
+				targ.Save(filename,TGAF_IMAGE,false);
+			}
+		break;
+		case 1:
+			{
+				BITMAPFILEHEADER fileheader;
+				BITMAPINFOHEADER header;
+				memset(&header, 0, sizeof(BITMAPINFOHEADER));
+				header.biSize = sizeof(BITMAPINFOHEADER);
+				header.biWidth = width;
+				header.biHeight = height;
+				header.biPlanes = 1;
+				header.biBitCount = 24;
+				header.biCompression = BI_RGB;
+				header.biXPelsPerMeter = 0xB12;
+				header.biYPelsPerMeter = 0xB12;
+				int len = ((width * 24 +31) & ~31) /8;
+
+				memset(&fileheader, 0, sizeof(BITMAPFILEHEADER));
+				fileheader.bfType = 19778; // BM
+				fileheader.bfOffBits = sizeof(BITMAPFILEHEADER) + sizeof(BITMAPINFOHEADER);
+				fileheader.bfSize = sizeof(BITMAPFILEHEADER) + sizeof(BITMAPINFOHEADER) + 3 * len * height * sizeof(char);
+
+				FileClass *file = _TheWritingFileFactory->Get_File( filename );
+				if ( file ) {
+					file->Create();
+					file->Open(FileClass::WRITE);
+					int num;
+					num = file->Write(&fileheader, sizeof(BITMAPFILEHEADER));
+					WWASSERT(num == sizeof(BITMAPFILEHEADER));
+					num = file->Write(&header, sizeof(BITMAPINFOHEADER));
+					WWASSERT(num == sizeof(BITMAPINFOHEADER));
+					char *temp = new char [3 * len];
+					memset(temp, 0, 3 * len * sizeof(char));
+					// invert image, pad and swap R and B
+					for (y = 0; y < (int) height; y++) {
+						memcpy(&temp[0], &image[ 3 * width * (height - y - 1)], 3 * width * sizeof(char));
+						for (x = 0; x < width; x++) {
+							char t2 = temp[3 * x];
+							temp[3 * x] = temp[3 * x + 2];
+							temp[3 * x + 2] = t2;
+						}
+						num = file->Write(&temp[0], len * sizeof(char));
+						WWASSERT(num == len * (int)sizeof(char));
+					}
+					delete [] temp;
+					file->Close();
+					_TheWritingFileFactory->Return_File( file );
+				}
+			}
+			break;
+		case 2:
+			{
+				JPEGWriterClass jpg;
+
+				FileClass*file=_TheWritingFileFactory->Get_File( filename );
+				if ( file ) {
+					file->Create();
+					file->Close();
+					_TheWritingFileFactory->Return_File( file );
+				}
+
+				jpg.Write(filename,image,width,height,3*width);
+			}
+			break;
 	}
 
-	targ.Save(filename,TGAF_IMAGE,false);
-
 	delete [] image;
-
 }
 
 
@@ -1583,6 +1684,12 @@ void WW3D::Update_Movie_Capture( void )
 
 	RECT bounds;
 	GetWindowRect(_Hwnd,&bounds);
+	int w=bounds.right-bounds.left;
+	int h=bounds.bottom-bounds.top;
+	bounds.left=0;
+	bounds.top=0;
+	bounds.right=w;
+	bounds.bottom=h;
 
 	D3DLOCKED_RECT lrect;
 
@@ -1965,9 +2072,17 @@ void WW3D::Set_Gamma(float gamma,float bright,float contrast,bool calibrate)
 // EnB: WW3D::Flush (line 1046 at the freeze): E&B's WW3D::Flush calls SHD_FLUSH after the mesh renderer flush (Zero
 //       Hour's): Render 0x917C80 calls SHD_Flush 0xA07D20 at 0x917F15
 // EnB: WW3D::Make_Screen_Shot (line 1271 at the freeze): E&B's WW3D::Make_Screen_Shot takes three arguments: the app
-//       calls 0x9182C0 with a name, 1.3f and 0/1/2 (0x767E65, 0x743A85, 0x7ECBCB; cdecl, add esp 0xC), and the client
-//       switches on the third for 'tga'/'bmp'/'jpg' (0x9182C0-0x918300). The body stays Renegade's (NOT EXACT, parked:
-//       attempts.py show 0x9182C0)
+//       calls 0x9182C0 with a name, 1.3f and 0/1/2 (0x767E65, 0x743A85, 0x7ECBCB; cdecl, add esp 0xC). The body is Zero
+//       Hour's (the 'tga'/'bmp' extension switch, the gamma table from 1/gamma: 0.00390625, 256.0f and WWMATH_EPSILON at
+//       0x9183A7, the TGA and BMP writers) with E&B's third format: 'jpg' (0x9182DB) and a JPG case that saves through a
+//       stack JPEGWriterClass (0x918543: ctor 0x9E3850, Write 0x9E3870, dtor 0x9E3860), plus the window rectangle moved to
+//       the origin before LockRect (0x918403). ZH's ScreenShotFormatEnum is not declared: the cases are 0, 1, 2. NOT
+//       EXACT (register-only: the rectangle block's load order and registers, 5 masked rows; attempts.py show 0x9182C0)
+// EnB: WW3D::Update_Movie_Capture (line 1570 at the freeze): E&B moves the window rectangle to the origin after
+//       GetWindowRect, as in its Make_Screen_Shot (0x918B68: the size into right / bottom, left and top zeroed before
+//       LockRect, then width / height from the moved rectangle). NOT EXACT (register-only: the same 5-row block as
+//       Make_Screen_Shot's 0x918403; attempts.py show 0x918B20)
+// EnB: Line 119 at the freeze: #include "unknown_jpeg.h" (JPEGWriterClass, Make_Screen_Shot's JPG case), on a blank line
 // EnB: Line 1688 at the freeze: Zero Hour's (0x918DA0 with _Invalidate_Textures inlined, 0x918E60), placed as the
 //       client orders them
 // EnB: WW3D::On_Deactivate_App (line 1807 at the freeze): WW3D::On_Deactivate_App is Zero Hour's: 0x918EC0 invalidates

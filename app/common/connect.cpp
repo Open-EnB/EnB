@@ -33,12 +33,12 @@ static PacketHeaderClass Header;
 void Unknown_Debug_Begin_Step(const char *text);	// NAME 1 [Unknown_Debug_Begin_Step]: 0x509EF0 (dbgmgr.cpp), WinMain's step log
 void Unknown_Debug_End_Step(const char *text);		// NAME 1 [Unknown_Debug_End_Step]: 0x50A1E0 (dbgmgr.cpp)
 
-static INIClass Network_INI;			// 0xBE8EA8: network.ini (S: the assert l.395)
+#include "network_ini.h"
+INIClass NetworkINIClass::Network_INI;	// 0xBE8EA8: network.ini (S: the assert l.395)
 static char Host_Name[256];				// 0xBE8EBC: gethostname's  // NAME 2: what it holds
 static char Local_Address[16];			// 0xBE8FBC: the local address as text  // NAME 2: what it holds
 static unsigned long Local_IP = 0xFFFFFFFF;	// 0xBA82A8 (host order; 0 when the host name doesn't resolve)  // NAME 2: what it holds
 
-INIClass &Get_Network_INI();												// 0x821B40  // NAME 2: what it does
 bool Is_Local(const char *name);										// 0x821930  // NAME 2: what it does
 
 static unsigned short Next_Port = 3500;	// 0xBA82AC: the next port the manager factory probes  // NAME 2: what it holds
@@ -78,7 +78,7 @@ void Unknown_Debug_Print(const char *text);			// NAME 1 [Unknown_Debug_Print]: 0
 ConnectionClass *Create_Connection(const char *server_type, bool connect)	// NAME 2: what it does
 {
 	G_ASSERT(server_type);
-	INIClass &ini = Get_Network_INI();
+	INIClass &ini = NetworkINIClass::Get_Network_INI();
 	char address[32];
 	const char *server_addr = ArgvClass().Find_Value("-SERVER_ADDR");
 	if (stricmp(server_type, "MasterServer") == 0 && server_addr != 0) {
@@ -388,7 +388,7 @@ bool Is_Local(const char *name)
 
 
 // network.ini, loaded on first use
-INIClass &Get_Network_INI()
+INIClass &NetworkINIClass::Get_Network_INI()
 {
 	if (!Network_INI.Is_Loaded()) {
 		Network_INI.Load("network.ini");
@@ -865,7 +865,7 @@ bool ConnectionManagerClass::Add_Connection(ConnectionClass *connection)
 // Next_Port (3500-3754)
 ConnectionManagerClass *Create_Connection_Manager(const char *server_type)
 {
-	INIClass &ini = Get_Network_INI();
+	INIClass &ini = NetworkINIClass::Get_Network_INI();
 	ConnectionListenerClass *listener = new CompositeListenerClass;
 	unsigned short port;
 	if (server_type != 0 && (port = ini.Get_Int(server_type, "Port", 0)) != 0) {

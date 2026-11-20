@@ -7,6 +7,7 @@
   "0x4E9410",
   "0x4E9450",
   "0x4E9490",
+  "0x4E94D0",
   "0x4E94F0",
   "0x4E9620",
   "0x4E9700",
@@ -15,5 +16,8 @@
   "0x4E9C40"
  ],
  "merged": [],
- "name": "shared/g_assert.cpp"
+ "name": "shared/g_assert.cpp",
+ "short_known": [
+  "0x4E94D0"
+ ]
 }

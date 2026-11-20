@@ -130,7 +130,7 @@ void UnknownB02C90Class::Unknown_08()
 
 void Unknown_831950(Matrix3D &transform, const char *text);	// 0x831950 (cdecl; a Matrix3D from a Mount line's text)  // NAME 1 [transform, text]: what 0x7251C0 passes
 
-// 0x7251C0  // NOT EXACT: order-only (the fallback element: the client stores +0x3C, +0x40, Bone, the flag and +0x38 before the matrix; 5 forms)
+// 0x7251C0 (the fallback element's fields set again after its constructor, the matrix last: the client's store order)
 void UnknownB02C90Class::Unknown_04(int base_asset)
 {
 	static INIClass ini;
@@ -177,7 +177,7 @@ void UnknownB02C90Class::Unknown_04(int base_asset)
 		}
 		if (Buffer.Count == 0) {
 			BufferStruct::ElementStruct element;
-			element.Unknown34 = false;
+			element.Unknown3C = NULL; element.Child = NULL; element.Bone = 0; element.Unknown34 = false; element.Unknown38 = 0; element.Transform.Make_Identity();
 			Buffer.Add(element);
 		}
 	}

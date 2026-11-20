@@ -108,10 +108,10 @@ static ItemFieldClass _ItemField;	// 0xBF34E0
 
 static const char *DeltaSeparator = "^";	// 0xBAE1FC (between the fields of a delta string)  // NAME 1: what it is
 
-// NOT EXACT: 0x83F490 (0.86, order-only: the same 39 instructions; the client takes EnumMapping's address before the count and fill of the memset, ours after)
+// 0x83F490 (the fill a loop: a memset sets edi after ecx / eax)
 ItemInfoClass::ItemInfoClass()
 {
-	memset(EnumMapping, 0xFF, sizeof(EnumMapping));
+	for (int lp = 0; lp < NUM_ITEM_INFO; lp++) EnumMapping[lp] = 0xFF;
 }
 
 // 0x83F580 (the scalar deleting destructor 0x83F550)
@@ -120,10 +120,10 @@ ItemInfoClass::~ItemInfoClass()
 	Reset();
 }
 
-// NOT EXACT: 0x83F710 (0.88, order-only: the same 44 instructions, as 0x83F490)
+// 0x83F710
 ItemInfoClass::ItemInfoClass(const ItemInfoClass &that)
 {
-	memset(EnumMapping, 0xFF, sizeof(EnumMapping));
+	for (int lp = 0; lp < NUM_ITEM_INFO; lp++) EnumMapping[lp] = 0xFF;
 	Merge(that);
 }
 

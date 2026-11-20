@@ -409,7 +409,6 @@ bool GalaxyMapLineRObjClass::Unknown_7B3F00(INIClass &ini, const char *name, con
 	return(true);
 }
 
-// NOT EXACT: x87 operand order (the client multiplies Color's members by the clamped Fade held in st(1), ours keeps a copy with fld st(0))
 // @0x7B43F0
 void GalaxyMapLineRObjClass::Render(RenderInfoClass &rinfo)
 {
@@ -419,10 +418,10 @@ void GalaxyMapLineRObjClass::Render(RenderInfoClass &rinfo)
 			return;
 		}
 		Fade = WWMath::Clamp(Fade - time, 0.0f, 1.0f);
-		Set_Color(Color * Fade);
+		Set_Color(Lerp(Vector3(0, 0, 0), Color, Fade));
 	} else if (Fade < 1.0f) {
 		Fade = WWMath::Clamp(time + Fade, 0.0f, 1.0f);
-		Set_Color(Color * Fade);
+		Set_Color(Lerp(Vector3(0, 0, 0), Color, Fade));
 	}
 	SegmentedLineClass::Render(rinfo);
 }

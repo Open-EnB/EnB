@@ -1,0 +1,271 @@
+# ===== batch b1 =====
+HYPOTHESIS = 'PLD rebuild flag: client computes test bl; sete al (= !newer) then sete after Load_PLD: a bool holding the negation, not loaded=false'
+FILE = 'app/shared/land.cpp'
+SYMBOL = 'LandClass::Load_Assets'
+ADDRESS = 0x4691D0
+
+OLD = ('\t\tbool loaded = false;\n'
+       '\t\tif (newer) {\n'
+       '\t\t\tloaded = Load_PLD(pld->File_Name());\n'
+       '\t\t}\n'
+       '\t\tif (!loaded) {\n')
+
+def f(new):
+    return [(OLD, new)]
+
+FORMS = {
+    'p1_neg_then_if': f('\t\tbool rebuild = !newer;\n'
+                        '\t\tif (newer) {\n'
+                        '\t\t\trebuild = !Load_PLD(pld->File_Name());\n'
+                        '\t\t}\n'
+                        '\t\tif (rebuild) {\n'),
+    'p2_or': f('\n\n\n\n'
+               '\t\tif (!newer || !Load_PLD(pld->File_Name())) {\n'),
+    'p3_ternary': f('\t\tbool rebuild = newer ? !Load_PLD(pld->File_Name()) : true;\n'
+                    '\n\n\n'
+                    '\t\tif (rebuild) {\n'),
+    'p4_and_value': f('\t\tbool loaded = newer && Load_PLD(pld->File_Name());\n'
+                      '\n\n\n'
+                      '\t\tif (!loaded) {\n'),
+    'p5_neg_test_self': f('\t\tbool rebuild = !newer;\n'
+                          '\t\tif (!rebuild) {\n'
+                          '\t\t\trebuild = !Load_PLD(pld->File_Name());\n'
+                          '\t\t}\n'
+                          '\t\tif (rebuild) {\n'),
+    'p6_not_and': f('\n\n\n\n'
+                    '\t\tif (!(newer && Load_PLD(pld->File_Name()))) {\n'),
+    'p7_loaded_eq_newer': f('\t\tbool loaded = newer;\n'
+                            '\t\tif (newer) {\n'
+                            '\t\t\tloaded = Load_PLD(pld->File_Name());\n'
+                            '\t\t}\n'
+                            '\t\tif (!loaded) {\n'),
+    'p8_ternary_neg': f('\t\tbool rebuild = newer ? !Load_PLD(pld->File_Name()) : !newer;\n'
+                        '\n\n\n'
+                        '\t\tif (rebuild) {\n'),
+}
+# ===== batch b2 =====
+HYPOTHESIS = 'colour-average index: operand order of n picks the register holding j*step+y (client: ecx = [j*step] + y, imul ecx, Width)'
+FILE = 'app/shared/land.cpp'
+SYMBOL = 'LandClass::Load_Assets'
+ADDRESS = 0x4691D0
+
+OLD = '\t\t\t\t\t\tint n = (j * step + y) * targa.Header.Width + i * step + x;\n'
+
+def f(expr):
+    return [(OLD, '\t\t\t\t\t\t' + expr + '\n')]
+
+FORMS = {
+    'q1_y_first': f('int n = (y + j * step) * targa.Header.Width + i * step + x;'),
+    'q2_width_first': f('int n = targa.Header.Width * (j * step + y) + i * step + x;'),
+    'q3_paren_col': f('int n = (j * step + y) * targa.Header.Width + (i * step + x);'),
+    'q4_col_first': f('int n = i * step + x + (j * step + y) * targa.Header.Width;'),
+    'q5_y_first_x_mid': f('int n = (y + j * step) * targa.Header.Width + x + i * step;'),
+    'q6_unsigned': f('unsigned int n = (j * step + y) * targa.Header.Width + i * step + x;'),
+    'q7_row_local': f('int row = j * step + y; int n = row * targa.Header.Width + i * step + x;'),
+    'q8_width_y_first': f('int n = targa.Header.Width * (y + j * step) + i * step + x;'),
+}
+# ===== batch b3 =====
+HYPOTHESIS = 'colour-average index: the loop variables types / a row base outside the x loop change the n tree (client accumulates in the j*step IV register, ours in y)'
+FILE = 'app/shared/land.cpp'
+SYMBOL = 'LandClass::Load_Assets'
+ADDRESS = 0x4691D0
+
+J = '\t\tfor (unsigned int j = 0; j < max_size; j++) {\n'
+I = '\t\t\tfor (unsigned int i = 0; i < max_size; i++) {\n'
+Y = '\t\t\t\tfor (unsigned int y = 0; y < step; y++) {\n'
+X = '\t\t\t\t\tfor (unsigned int x = 0; x < step; x++) {\n'
+N = '\t\t\t\t\t\tint n = (j * step + y) * targa.Header.Width + i * step + x;\n'
+
+FORMS = {
+    'r1_y_int': [(Y, Y.replace('unsigned int y', 'int y'))],
+    'r2_xy_int': [(Y, Y.replace('unsigned int y', 'int y')), (X, X.replace('unsigned int x', 'int x'))],
+    'r3_all_int': [(Y, Y.replace('unsigned int y', 'int y')), (X, X.replace('unsigned int x', 'int x')),
+                   (I, I.replace('unsigned int i', 'int i')), (J, J.replace('unsigned int j', 'int j'))],
+    'r4_ij_int': [(I, I.replace('unsigned int i', 'int i')), (J, J.replace('unsigned int j', 'int j'))],
+    'r5_row_base': [(X, '\t\t\t\t\tint row = (j * step + y) * targa.Header.Width + i * step; for (unsigned int x = 0; x < step; x++) {\n'),
+                    (N, '\t\t\t\t\t\tint n = row + x;\n')],
+    'r6_row_y': [(X, '\t\t\t\t\tint row = j * step + y; for (unsigned int x = 0; x < step; x++) {\n'),
+                 (N, '\t\t\t\t\t\tint n = row * targa.Header.Width + i * step + x;\n')],
+    'r7_x_int': [(X, X.replace('unsigned int x', 'int x'))],
+    'r8_j_int': [(J, J.replace('unsigned int j', 'int j'))],
+}
+# ===== batch b4 =====
+HYPOTHESIS = 'frame slots: the client zeroes a, b, g, r in that order (r = g = b = a = 0 chained) with r..a contiguous ascending; scope blocks for the horizon / resolution locals'
+FILE = 'app/shared/land.cpp'
+SYMBOL = 'LandClass::Load_Assets'
+ADDRESS = 0x4691D0
+
+RGBA = ('\t\t\t\tunsigned int r = 0;\n'
+        '\t\t\t\tunsigned int g = 0;\n'
+        '\t\t\t\tunsigned int b = 0;\n'
+        '\t\t\t\tunsigned int a = 0;\n')
+CHAIN_IN = [(RGBA, '\t\t\t\tunsigned int r, g, b, a;\n'
+                   '\t\t\t\tr = g = b = a = 0;\n'
+                   '\n\n')]
+CHAIN_SEP = [(RGBA, '\t\t\t\tunsigned int r;\n'
+                    '\t\t\t\tunsigned int g;\n'
+                    '\t\t\t\tunsigned int b;\n'
+                    '\t\t\t\tunsigned int a; r = g = b = a = 0;\n')]
+HOR_OPEN = ('\t// the horizons: from the height map\'s .pld when it is newer than the map, the colour map and the ini\n',
+            '\t{ // the horizons: from the height map\'s .pld when it is newer than the map, the colour map and the ini\n')
+HOR_CLOSE = ('\n\tif (HasSea) {\n', '\n\t} if (HasSea) {\n')
+RES = ('\tint width, height, bits;\n', '\tint height, width, bits;\n')
+RESBLK = [('\tint width, height, bits;\n', '\tWW3DFormat format; { int width, height, bits;\n'),
+          ('\tIs16Bit = bits <= 16;\n', '\tIs16Bit = bits <= 16; }\n'),
+          ('\tWW3DFormat format = Is16Bit', '\tformat = Is16Bit')]
+NAME_TOP = [('\tchar color_map[100];\n', '\tchar name[100]; char color_map[100];\n'),
+            ('\tchar name[100];\n\tstrcpy', '\n\tstrcpy')]
+
+FORMS = {
+    's1_chain': CHAIN_IN,
+    's2_chain_sep': CHAIN_SEP,
+    's3_horizon_block': [HOR_OPEN, HOR_CLOSE],
+    's4_res_order': [RES],
+    's5_res_block': RESBLK,
+    's6_name_top': NAME_TOP,
+    's7_chain_horizon_block': CHAIN_IN + [HOR_OPEN, HOR_CLOSE],
+    's8_chain_res_name': CHAIN_IN + [RES] + NAME_TOP,
+}
+# ===== batch b5 =====
+HYPOTHESIS = 'frame slot order among same-scope locals follows their names (symbol-table order), not declaration order: renames swap color_map/name, width/height, detail_v/i'
+FILE = 'app/shared/land.cpp'
+SYMBOL = 'LandClass::Load_Assets'
+ADDRESS = 0x4691D0
+import re
+
+SRC = open(FILE, 'rb').read().decode('latin-1').replace('\r\n', '\n')
+start = SRC.index('bool LandClass::Load_Assets(')
+end = SRC.index('\n}\n', start) + 3
+BODY = SRC[start:end]
+
+def ren(**m):
+    b = BODY
+    for old, new in m.items():
+        b = re.sub(r'\b%s\b' % old, new, b)
+    return b
+
+FORMS = {
+    'u1_name_path': ren(name='path'),
+    'u2_name_file_name': ren(name='file_name'),
+    'u3_color_map_cname': ren(color_map='color_name'),
+    'u4_wh_short': ren(width='w', height='h'),
+    'u5_wh_xyres': ren(width='x_res', height='y_res'),
+    'u6_rgba_long': ren(r='red', g='green', b='blue', a='alpha'),
+    'u7_detail_v_dv': ren(detail_u='du', detail_v='dv'),
+    'u8_step_scale': ren(step='scale'),
+}
+# ===== batch b6 =====
+HYPOTHESIS = 'frame slots follow the scope structure (where block locals / loop variables live, C-style reuse), not names or declaration order: one structural change per form, measured by raw rows'
+FILE = 'app/shared/land.cpp'
+SYMBOL = 'LandClass::Load_Assets'
+ADDRESS = 0x4691D0
+
+RGBA_DECL = '\t\t\t\tunsigned int r, g, b, a;\n'
+JFOR = '\t\tfor (unsigned int j = 0; j < max_size; j++) {\n'
+IFOR = '\t\t\tfor (unsigned int i = 0; i < max_size; i++) {\n'
+YFOR = '\t\t\t\tfor (unsigned int y = 0; y < step; y++) {\n'
+XFOR = '\t\t\t\t\tfor (unsigned int x = 0; x < step; x++) {\n'
+IFTOP = '\tif (max_size < (unsigned int)targa.Header.Width) {\n'
+STEP = '\t\tunsigned int step = (unsigned int)targa.Header.Width / max_size;\n'
+AREA = '\t\tunsigned int area = step * step;\n'
+CMAP = '\tchar color_map[100];\n'
+NDECL = '\t\t\t\t\t\tint n = (j * step + y)'
+KDECL = '\t\t\t\tint k = j * max_size + i;\n'
+HOR = '\t// the horizons: from the height map\'s .pld when it is newer than the map, the colour map and the ini\n'
+SEA = '\t\tSeaShaders[1].Set_Cull_Mode(ShaderClass::CULL_MODE_DISABLE);\n\t}\n\tUnknown_466E70'
+C32Y = '\t\t\tfor (int y = 0; y < targa.Header.Height; y++) {\n'
+C32X = '\t\t\t\tfor (int x = 0; x < targa.Header.Width; x++) {\n'
+TIME = '\t\t\tunsigned long time = pld->Get_Date_Time();\n'
+
+FORMS = {
+    'w01_rgba_jscope': [(RGBA_DECL, '\n'), (IFOR, '\t\t\tunsigned int r, g, b, a; for (unsigned int i = 0; i < max_size; i++) {\n')],
+    'w02_rgba_ifscope': [(RGBA_DECL, '\n'), (IFTOP, IFTOP + '\t\tunsigned int r, g, b, a;\n')],
+    'w03_rgba_fn': [(RGBA_DECL, '\n'), (CMAP, '\tunsigned int r, g, b, a; ' + CMAP[1:])],
+    'w04_avg_i_fn': [(IFOR, '\t\t\tfor (i = 0; i < (int)max_size; i++) {\n')],
+    'w05_avg_xy_if': [(IFTOP, IFTOP + '\t\tunsigned int x, y;\n'), (YFOR, '\t\t\t\tfor (y = 0; y < step; y++) {\n'),
+                      (XFOR, '\t\t\t\t\tfor (x = 0; x < step; x++) {\n')],
+    'w06_step_area_fn': [(STEP, '\t\tstep = (unsigned int)targa.Header.Width / max_size;\n'), (AREA, '\t\tarea = step * step;\n'),
+                         (CMAP, '\tunsigned int step, area; ' + CMAP[1:])],
+    'w07_avg_ij_if': [(IFTOP, IFTOP + '\t\tunsigned int i, j;\n'), (JFOR, '\t\tfor (j = 0; j < max_size; j++) {\n'),
+                      (IFOR, '\t\t\tfor (i = 0; i < max_size; i++) {\n')],
+    'w08_n_yscope': [(NDECL, '\t\t\t\t\t\tn = (j * step + y)'), (YFOR, YFOR + '\t\t\t\t\tint n;\n')],
+    'w09_k_iscope': [(KDECL, '\t\t\t\tk = j * max_size + i;\n'), (RGBA_DECL, '\t\t\t\tunsigned int r, g, b, a; int k;\n')],
+    'w10_horizon_block': [(HOR, '\t{ ' + HOR[1:]), (SEA, '\t\tSeaShaders[1].Set_Cull_Mode(ShaderClass::CULL_MODE_DISABLE);\n\t}\n\t}\n\tUnknown_466E70')],
+    'w11_c32_xy_fn': [(C32Y, '\t\t\tfor (y = 0; y < targa.Header.Height; y++) {\n'), (C32X, '\t\t\t\tfor (x = 0; x < targa.Header.Width; x++) {\n'),
+                      (CMAP, '\tint x, y; ' + CMAP[1:])],
+    'w12_time_ext_scope': [(TIME, '\t\t\ttime = pld->Get_Date_Time();\n'),
+                           ('\t\tbool newer = false;\n', '\t\tbool newer = false; unsigned long time;\n')],
+    'w13_rgba_and_xy_if': [(RGBA_DECL, '\n'), (IFTOP, IFTOP + '\t\tunsigned int r, g, b, a, x, y;\n'),
+                           (YFOR, '\t\t\t\tfor (y = 0; y < step; y++) {\n'), (XFOR, '\t\t\t\t\tfor (x = 0; x < step; x++) {\n')],
+    'w14_all_avg_if': [(RGBA_DECL, '\n'), (IFTOP, IFTOP + '\t\tunsigned int i, j, x, y, r, g, b, a;\n'),
+                       (JFOR, '\t\tfor (j = 0; j < max_size; j++) {\n'), (IFOR, '\t\t\tfor (i = 0; i < max_size; i++) {\n'),
+                       (YFOR, '\t\t\t\tfor (y = 0; y < step; y++) {\n'), (XFOR, '\t\t\t\t\tfor (x = 0; x < step; x++) {\n')],
+    'w15_detail_ints_top': [(CMAP, '\tfloat detail_u, detail_v; ' + CMAP[1:]),
+                            ('\tfloat detail_u = ini', '\tdetail_u = ini'), ('\tfloat detail_v = ini', '\tdetail_v = ini')],
+}
+# ===== batch b7 =====
+HYPOTHESIS = 'slot tie-breaks (width/height, color_map/name, i/detail_v swapped, code identical) depend on the translation unit before the function (compiler-internal order), not on the function: unrelated edits above it'
+FILE = 'app/shared/land.cpp'
+SYMBOL = 'LandClass::Load_Assets'
+ADDRESS = 0x4691D0
+
+ANCHOR = 'extern LandUnknown466BE0Class *Unknown_BDC0D8;'
+LA = '// NOT EXACT: inline-budget (ours inlines LandPatchClass'
+
+FORMS = {
+    'h1_unused_static_inline': [(ANCHOR, 'static inline int Probe_Unused(int v) { return v * 3 + 1; }\n' + ANCHOR)],
+    'h2_unused_global': [(ANCHOR, 'static int ProbeGlobal;\n' + ANCHOR)],
+    'h3_fwd_class': [(ANCHOR, 'class ProbeForward;\n' + ANCHOR)],
+    'h4_typedef': [(ANCHOR, 'typedef int ProbeInt;\n' + ANCHOR)],
+    'h5_extra_include': [('#include <string.h>\n', '#include <string.h>\n#include <ctype.h>\n')],
+    'h6_real_fn_before': [(LA, 'int Probe_Real(int v) { return v * 3 + 1; }\n' + LA)],
+    'h7_unused_inline_before': [(LA, 'inline int Probe_Inline(int v) { return v * 3 + 1; }\n' + LA)],
+    'h8_string_literal_fn': [(LA, 'const char *Probe_Name(void) { return "probe-name-string"; }\n' + LA)],
+}
+# ===== batch b8 =====
+HYPOTHESIS = 'slot ties follow the function\'s symbol set (names, decl order, scalar scopes and TU history do not move them): drop or add a named local where the code stays the same'
+FILE = 'app/shared/land.cpp'
+SYMBOL = 'LandClass::Load_Assets'
+ADDRESS = 0x4691D0
+
+AREA = '\t\tunsigned int area = step * step;\n'
+DIVS = ('\t\t\t\tr /= area;\n\t\t\t\tg /= area;\n\t\t\t\tb /= area;\n\t\t\t\ta /= area;\n')
+PIX = '\tint pixels = targa.Header.Width * targa.Header.Height;\n'
+IMG = '\tunsigned char *image = (unsigned char *)targa.GetImage();\n'
+FMT = '\tWW3DFormat format = Is16Bit ? WW3D_FORMAT_A4R4G4B4 : WW3D_FORMAT_A8R8G8B8;\n'
+KDECL = '\t\t\t\tint k = j * max_size + i;\n'
+KUSE = ('\t\t\t\tcolors[k * 3] = (unsigned char)r;\n'
+        '\t\t\t\tcolors[k * 3 + 1] = (unsigned char)g;\n'
+        '\t\t\t\tcolors[k * 3 + 2] = (unsigned char)b;\n'
+        '\t\t\t\tif (Unknown1214 != NULL) {\n'
+        '\t\t\t\t\textra[k] = (unsigned char)a;\n')
+N32 = ('\t\t\t\t\tint n = y * targa.Header.Width + x;\n'
+       '\t\t\t\t\tColors[n * 3] = image[n * 4];\n'
+       '\t\t\t\t\tColors[n * 3 + 1] = image[n * 4 + 1];\n'
+       '\t\t\t\t\tColors[n * 3 + 2] = image[n * 4 + 2];\n'
+       '\t\t\t\t\tUnknown1214[n] = image[n * 4 + 3];\n')
+WHILE = '\ti = PatchCount;\n\twhile (i--) {\n'
+EXTRA = ('\t\tunsigned char *extra = NULL;\n'
+         '\t\tif (Unknown1214 != NULL) {\n'
+         '\t\t\textra = new unsigned char[max_size * max_size];\n'
+         '\t\t}\n')
+
+FORMS = {
+    'e01_no_area': [(AREA, '\n'), (DIVS, DIVS.replace('area', '(step * step)'))],
+    'e02_no_pixels': [(PIX, '\n'), ('new unsigned char[pixels * 3]', 'new unsigned char[targa.Header.Width * targa.Header.Height * 3]'),
+                      ('memcpy(Colors, image, pixels * 3)', 'memcpy(Colors, image, targa.Header.Width * targa.Header.Height * 3)'),
+                      ('new unsigned char[pixels];', 'new unsigned char[targa.Header.Width * targa.Header.Height];')],
+    'e03_no_image': [(IMG, '\n'), ('memcpy(Colors, image,', 'memcpy(Colors, targa.GetImage(),'),
+                     (N32, N32.replace('image[', '((unsigned char *)targa.GetImage())['))],
+    'e04_no_format': [(FMT, '\n'), ('format, MIP_LEVELS_1, TextureClass::POOL_SYSTEMMEM', '(Is16Bit ? WW3D_FORMAT_A4R4G4B4 : WW3D_FORMAT_A8R8G8B8), MIP_LEVELS_1, TextureClass::POOL_SYSTEMMEM'),
+                      ('format, MIP_LEVELS_1, TextureClass::POOL_DEFAULT', '(Is16Bit ? WW3D_FORMAT_A4R4G4B4 : WW3D_FORMAT_A8R8G8B8), MIP_LEVELS_1, TextureClass::POOL_DEFAULT')],
+    'e05_no_k': [(KDECL, '\n'), (KUSE, KUSE.replace('[k', '[(j * max_size + i)'))],
+    'e06_no_n32': [(N32, N32.replace('\t\t\t\t\tint n = y * targa.Header.Width + x;\n', '\n').replace('[n', '[(y * targa.Header.Width + x)'))],
+    'e07_while_count': [(WHILE, '\tint count = PatchCount;\n\twhile (count--) {\n'), ('\t\tPatches[i] = new LandPatchClass(this);\n', '\t\tPatches[count] = new LandPatchClass(this);\n')],
+    'e08_extra_ternary': [(EXTRA, '\t\tunsigned char *extra = Unknown1214 != NULL ? new unsigned char[max_size * max_size] : NULL;\n\n\n\n')],
+    'e09_k_ptr': [(KDECL, '\t\t\t\tunsigned char *dst = &colors[(j * max_size + i) * 3];\n'),
+                  (KUSE, '\t\t\t\tdst[0] = (unsigned char)r;\n\t\t\t\tdst[1] = (unsigned char)g;\n\t\t\t\tdst[2] = (unsigned char)b;\n'
+                         '\t\t\t\tif (Unknown1214 != NULL) {\n\t\t\t\t\textra[j * max_size + i] = (unsigned char)a;\n')],
+    'e10_no_area_no_k': [(AREA, '\n'), (DIVS, DIVS.replace('area', '(step * step)')),
+                         (KDECL, '\n'), (KUSE, KUSE.replace('[k', '[(j * max_size + i)'))],
+}

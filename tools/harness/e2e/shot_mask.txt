@@ -1,0 +1,40 @@
+# What e2e.py's shot compare (compare, retail) leaves out or compares otherwise, one rule a line (2026-11-19, E2):
+#   GLOB X0,Y0-X1,Y1   a region that follows the wall clock on either client: not in the cell compare (client
+#                      pixels at 1280x1024)
+#   GLOB mean T        a playback shot: only the frame's mean brightness, within T (0-255)
+#   GLOB skip          never comparable;   GLOB cells   the cell compare (an exception before a wider rule)
+# The first mean / skip / cells line matching a shot decides; every matching region applies. Each rule says why.
+
+# The home sector's planet turns: retail and ours differ there in every in-world shot (hot_keys: the surface
+# texture rotated between the two shots, same planet, same place).
+* 150,295-345,480
+# After /stop (play1_stopped, w_stopped) the camera puts the same planet here.
+*_stopped 360,295-520,480
+
+# The pop-up browser's page is a live web page (client.exe's URLs): whether it has loaded when the shot is
+# taken follows the network (browser_petition_billing 2026-11-19: retail's page drawn, ours still white). The
+# window's title stays compared; the scenarios assert the window, never the page. The page's sides vary too (run to
+# run on ours alone), so the box is the window's whole body.
+browser_credits 80,256-1200,896
+browser_manual 80,256-1200,896
+browser_petition_billing 80,256-1200,896
+browser_petition_bug 80,256-1200,896
+browser_petition_faq 80,256-1200,896
+browser_selfhelp 80,256-1200,896
+
+# A recording's playback (play1, play1_windows: sector 4505): ships, effects and chat move with the wall clock, so
+# cells differ between two retail runs (retail vs retail 2026-11-19: w_entered 207 of 256 cells, w_faction 76,
+# play1_20s 9). Only the frame's mean brightness is compared: retail vs retail within 1.5 except w_faction (7.4) and
+# w_missions (4.5); ours vs retail 8-11 darker in every in-sector shot (the finding of 2026-11-19).
+# w_entered is taken as the sector comes in: 39 to 73 on retail alone, never comparable. The *_stopped shots are
+# back home after /stop: equal on both, compared by cells.
+w_entered skip
+play1_stopped cells
+w_stopped cells
+play1_* mean 8
+w_* mean 8
+
+# The recorded sessions run to their end (_play8, _play9, _play10): each sector session's shot is playback, the
+# home shot is back home (compared by cells, the planet's places above).
+play*_home cells
+play*_s* mean 8

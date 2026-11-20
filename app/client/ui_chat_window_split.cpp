@@ -111,7 +111,7 @@ UIChatWindowSplitClass::~UIChatWindowSplitClass()
 
 
 
-// 0x5723B0  // NOT EXACT: register-only (W1): the last Release_Ref's vtable goes through edx where the client uses eax; every other byte is the client's
+// 0x5723B0
 void UIChatWindowSplitClass::Unknown_54()
 {
 	if (!Unknown_98(Unknown_B7D938[UnknownE8], NULL)) return;
@@ -184,7 +184,7 @@ void UIChatWindowSplitClass::Unknown_54()
 	option = Unknown11C;
 	option += "Split";
 	Unknown_5732A0(size, OptionClass::Instance->Get_Int(option.c_str()));
-	Unknown_A0((UnknownE8 != 0) + 1);
+	int kind = (UnknownE8 != 0) + 1; Unknown_A0(kind);	// a named local: the closing RefCountPtr Release_Ref then loads the vtable into eax as the client
 }
 
 #pragma auto_inline(off)

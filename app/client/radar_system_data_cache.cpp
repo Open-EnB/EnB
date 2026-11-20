@@ -154,39 +154,39 @@ bool RadarSystemDataCacheClass::Get_Is_Targetable()
 	IsTargetableValid = true;
 	return(IsTargetable);
 }
-// NOT EXACT: order (the client's always-in-range path returns on its own, before the distance test; ours shares the tail)
+
 // @0x7BE3A0
 bool RadarSystemDataCacheClass::Get_Is_In_Range()
 {
-	if (!IsInRangeValid) {
+	if (IsInRangeValid) return(IsInRange);
 
 
 
-		FAIL_IF(!IsTargetable) return(false);
-		FAIL_IF(!ClientObject) return(false);
-		FAIL_IF(!Player) return(false);
-		float range;
-		if ((ClientObject->Type == 37) && ClientObject->AuxData) {
-			range = ((DeltaDecorationClass *)ClientObject->AuxData)->RadarRange.Value;
+	FAIL_IF(!IsTargetable) return(false);
+	FAIL_IF(!ClientObject) return(false);
+	FAIL_IF(!Player) return(false);
+	float range;
+	if ((ClientObject->Type == 37) && ClientObject->AuxData) {
+		range = ((DeltaDecorationClass *)ClientObject->AuxData)->RadarRange.Value;
+	} else {
+		NavigationDataClass *nav = Get_Navigation_Data();
+		if (!nav || nav->Unknown14) {
+			range = FLT_MAX;
 		} else {
-			NavigationDataClass *nav = Get_Navigation_Data();
-			if (!nav || nav->Unknown14) {
-				goto always;
-			}
 			range = nav->Unknown08 + ExtraRange;
 		}
-		if (range == FLT_MAX) {
-always:
-			IsInRange = true;
-		} else {
-			Vector3 pos = ClientObject->Unknown_24();
-			float radius = ClientObject->Unknown_30();
-			IsInRange = Unknown_831F90(PlayerPosition, PlayerRadius, pos, radius, range);
-		}
-		IsInRangeValid = true;
 	}
+	if (range == FLT_MAX) {
+		IsInRange = true;
+	} else {
+		Vector3 pos = ClientObject->Unknown_24();
+		float radius = ClientObject->Unknown_30();
+		IsInRange = Unknown_831F90(PlayerPosition, PlayerRadius, pos, radius, range);
+	}
+	IsInRangeValid = true;
 	return(IsInRange);
 }
+
 
 // @0x7BE520
 const Vector3 &RadarSystemDataCacheClass::Get_Player_Position()

@@ -173,7 +173,7 @@ public:
 	** Screen/Movie capturing
 	** These functions allow you to create screenshots and movies.
 	*/
-	static void					Make_Screen_Shot( const char * filename = "ScreenShot", float unknown = 1.3f, int format = 0);	// NAME 2: unknown (1.3f at every call) and format (0 tga, 1 bmp, 2 jpg: the switch at 0x9182C0)
+	static void					Make_Screen_Shot( const char * filename = "ScreenShot", float gamma = 1.3f, int format = 0);
 	static void					Start_Movie_Capture( const char * filename_base = "Movie", float frame_rate = 15);
 	static void					Stop_Movie_Capture( void);
 	static void					Toggle_Movie_Capture( const char * filename_base = "Movie", float frame_rate = 15);
@@ -455,8 +455,8 @@ struct RenderStatistics
 //       Override_Current_Static_Sort_Lists 0x919070 takes one pointer and ignores NULL
 // EnB: class WW3D (line 176 at the freeze): E&B's WW3D::Make_Screen_Shot takes three arguments: the app calls 0x9182C0
 //       with a name, 1.3f and 0/1/2 (0x767E65, 0x743A85, 0x7ECBCB; cdecl, add esp 0xC), and the client switches on the
-//       third for 'tga'/'bmp'/'jpg' (0x9182C0-0x918300). The body stays Renegade's (NOT EXACT, parked: attempts.py show
-//       0x9182C0)
+//       third for 'tga'/'bmp'/'jpg' (0x9182C0-0x918300): Zero Hour's gamma and format (ww3d.cpp's Make_Screen_Shot note),
+//       the format kept an int (0 tga, 1 bmp, 2 jpg)
 // EnB: class WW3D (line 204 at the freeze): Zero Hour's: Enable_Large_Texture_Extra_Reduction 0x918DA0 and
 //       Is_Large_Texture_Extra_Reduction_Enabled 0x918E60 follow Get_Texture_Reduction 0x918D90 (no
 //       Get_Texture_Min_Dimension); Get_Reduction 0x94BC20 calls it

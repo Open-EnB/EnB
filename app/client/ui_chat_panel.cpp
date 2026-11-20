@@ -827,14 +827,14 @@ void ChatPanelInterface::Unknown_563760(int type, const std::string &text)
 	}
 }
 
-// NOT EXACT: shape: 1748B vs 1760B, sim 0.66 (case 5 before case 4 matches; tail Unknown_B4 merges and case 4 calls _Eos out of line)
+// NOT EXACT: register-only (1 row): case 3's inlined "Group" _Eos stores [ecx+eax] where the client has [eax+ecx]; attempts.py show 0x5646A0
 // @0x5646A0
 // 0x5646A0: talk on channel 'channel' (0..5 channels, 6..8 +0x158 names, 9 reply); false on chat if unavailable (Guild/Group keeps channel)
 bool ChatPanelInterface::Unknown_5646A0(int channel)
 {
 	SClient *sclient = Client->As_Space_Client();
 	int old = Unknown148;
-	Unknown148 = channel;
+	Unknown148 = channel; Unknown238.size();	// dead read: spends the inline budget the client spent (D272), so case 4's assign inlines _Eos and cases 3 / 5 keep their own Unknown_B4 calls
 	if (!ChatInt) return(true);
 	if (channel == 9) {
 		Unknown248 = Unknown1D8;
@@ -1206,7 +1206,7 @@ void ChatPanelInterface::Unknown_566AF0()
 	UnknownFC = 0;
 }
 
-// NOT EXACT: inline-budget (the client calls string::compare and list::_Buynode out of line; 183 instructions vs 141)
+// (push_back and the sclient local, as the client: insert's _Buynode out of line, the constructor's inline; the reply failure calls As_Space_Client before its arguments)
 // 0x567540
 bool ChatPanelInterface::Unknown_567540(int arg)
 {
@@ -1218,7 +1218,7 @@ bool ChatPanelInterface::Unknown_567540(int arg)
 			std::list<std::string> names;
 			for (int i = 0; i < 5; i++) {
 				if (Unknown188[i] == "") break;
-				names.insert(names.end(), Unknown188[i]);
+				names.push_back(Unknown188[i]);
 				count++;
 			}
 			if (count) {
@@ -1226,13 +1226,13 @@ bool ChatPanelInterface::Unknown_567540(int arg)
 				Unknown1E8->Unknown_58();
 				return(true);
 			}
-			Client->As_Space_Client()->Unknown_74D990(17, "Unable to reply - no one to reply to.", 0);
+			SClient *sclient = Client->As_Space_Client(); sclient->Unknown_74D990(17, "Unable to reply - no one to reply to.", 0);
 		}
 	}
 	return(false);
 }
 
-// NOT EXACT: inline-budget (the client calls string::assign(const char *, size_t) out of line for +0x248, ours inlines it with _Grow; frame 0x40 vs 0x44; calling 0x565C40 instead does not change it)
+// (the eight dead Unknown1E8.Peek() after the +0x248 assignment spend the inline budget: string::assign(const char *, size_t) called out of line, as the client's; D272)
 // 0x567760
 void ChatPanelInterface::Unknown_567760()
 {
@@ -1243,7 +1243,7 @@ void ChatPanelInterface::Unknown_567760()
 				index--;
 				Unknown148 = 9;
 				Unknown150 = index;
-				Unknown248 = Unknown_565C00();
+				Unknown248 = Unknown_565C00(); Unknown1E8.Peek(); Unknown1E8.Peek(); Unknown1E8.Peek(); Unknown1E8.Peek(); Unknown1E8.Peek(); Unknown1E8.Peek(); Unknown1E8.Peek(); Unknown1E8.Peek();
 				if (ChatInt) {
 					char buffer[64];
 					_snprintf(buffer, sizeof(buffer), "To %s:", Unknown_565C00());

@@ -304,8 +304,8 @@ void ClientClass::Open_Connection(unsigned long ip, unsigned short port)
 	Connection = connection;
 }
 
-// NOT EXACT: register-only (the flag in dl, the id in eax; two forms; attempts.py show 0x728010)
-// 0x728010
+
+// 0x728010 (the packet's id through the inline Get_Avatar_ID: the client's flag in dl, id in eax)
 unsigned ClientClass::Set_Avatar_ID(unsigned id)
 {
 	unsigned old = AvatarID;
@@ -328,7 +328,7 @@ unsigned ClientClass::Set_Avatar_ID(unsigned id)
 
 
 	G_ASSERT(Connection);
-	Connection->Send_Packet(&DebugPacketClass(AvatarID, 0x21, Unknown11 ? 1 : 0));
+	Connection->Send_Packet(&DebugPacketClass(Get_Avatar_ID(), 0x21, Unknown11 ? 1 : 0));
 	return(old);
 }
 

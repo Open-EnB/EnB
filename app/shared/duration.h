@@ -214,6 +214,9 @@ public:
 	bool operator<(const DurationClass &that) const { return Time < that.Time; }
 	bool operator>=(const DurationClass &that) const { return Time >= that.Time; }
 	DurationClass operator-(const DurationClass &that) const { return DurationClass(Time - that.Time); }
+#ifdef __DURATION_SUM	// mainview.cpp only: other files' declaration counts move aux_roots.cpp's SYMBOL_PAD windows (workflow.md 3.4)
+	DurationClass operator+(const DurationClass &that) const { return DurationClass(Time + that.Time); }	// 0x514B00 (out of line in MainViewClass::Update)
+#endif
 };
 
 #endif //__DURATION_H
@@ -235,4 +238,8 @@ public:
 **	With them DurationClass needs no operator= of its own: the implicit one calls the template's
 **	inline, which keeps the interpolator's Set 0x4A6590 (both halves stored before the vtable load)
 **	and gives aux_roots 0x6FB1E0 back (DU, run 2026-11-15).
+**
+**	DurationClass::operator+ (0x514B00, out of line in MainViewClass::Update, its only copy) sits behind
+**	__DURATION_SUM, which only mainview.cpp defines: a member every file saw would move aux_roots.cpp's
+**	SYMBOL_PAD windows (BG7, run 2026-11-19).
 */

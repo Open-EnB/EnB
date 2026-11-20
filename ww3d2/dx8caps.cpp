@@ -621,7 +621,6 @@ void DX8Caps::Compute_Caps(WW3DFormat display_format, const D3DADAPTER_IDENTIFIE
 		adapter_id.DeviceIdentifier.Data4[7]));
 
 
-	SupportPointSprites = (Caps.MaxPointSize > 1.0f);
 	SupportNPatches = ((Caps.DevCaps&D3DDEVCAPS_NPATCHES)==D3DDEVCAPS_NPATCHES);
 	SupportZBias = ((Caps.RasterCaps&D3DPRASTERCAPS_ZBIAS)==D3DPRASTERCAPS_ZBIAS);
 	supportGamma=((Caps.Caps2&D3DCAPS2_FULLSCREENGAMMA)==D3DCAPS2_FULLSCREENGAMMA);
@@ -630,6 +629,11 @@ void DX8Caps::Compute_Caps(WW3DFormat display_format, const D3DADAPTER_IDENTIFIE
 	SupportCubemaps=(Caps.TextureCaps & D3DPTEXTURECAPS_CUBEMAP) == D3DPTEXTURECAPS_CUBEMAP;
 	SupportAnisotropicFiltering=
 		(Caps.TextureFilterCaps&D3DPTFILTERCAPS_MAGFANISOTROPIC) && (Caps.TextureFilterCaps&D3DPTFILTERCAPS_MINFANISOTROPIC);
+	SupportDistortion=false;
+	if (Caps.MaxTextureWidth>=2048 && Caps.MaxTextureHeight>=2048 &&
+		(Caps.TextureFilterCaps&D3DPTFILTERCAPS_MINFPOINT) && (Caps.DevCaps&D3DDEVCAPS_TEXTUREVIDEOMEMORY)) {
+		SupportDistortion=true;
+	}
 
 	DXLOG(("Hardware T&L support: %s\r\n",SupportTnL ? "Yes" : "No"));
 	DXLOG(("NPatch support: %s\r\n",SupportNPatches ? "Yes" : "No"));
@@ -1111,9 +1115,8 @@ void DX8Caps::Vendor_Specific_Hacks(const D3DADAPTER_IDENTIFIER8& adapter_id)
 		MaxDisplayWidth=1280;
 		MaxDisplayHeight=1024;
 
-		// E&B: distortion effects off on PowerVR (the flag at +0x121, SupportCubemaps here)
 		DXLOG(("Disabling distortion effects on PowerVR Kyro cards\r\n"));
-		SupportCubemaps=false;
+		SupportDistortion=false;
 
 		// No fog on scene capture cards! (They don't like fog color changes in mid-frame)
 		IsFogAllowed=false;
@@ -1144,10 +1147,13 @@ void DX8Caps::Vendor_Specific_Hacks(const D3DADAPTER_IDENTIFIER8& adapter_id)
 //       client's Matrox name table (0xBC4BE0) ends with 'Parhelia AGP 8X' (0xBC4C94), and Get_Matrox_Device 0x9AFDC0
 //       maps 0x0527/0x0528
 // EnB: DX8Caps::Compute_Caps (lines 624, 628, 638, 644 at the freeze): E&B's Compute_Caps has Zero Hour's
-//       point-sprite, ModAlphaAddClr, Dot3 and cubemap flags with their logs ('ModAlphaAddClr support: %s' 0xBC5294,
+//       ModAlphaAddClr, Dot3 and cubemap flags with their logs (no point-sprite test: no MaxPointSize read, the
+//       cubemap flag is +0x120; then +0x121, SupportDistortion, false unless MaxTextureWidth and MaxTextureHeight
+//       >= 2048, TextureFilterCaps & D3DPTFILTERCAPS_MINFPOINT and DevCaps & D3DDEVCAPS_TEXTUREVIDEOMEMORY:
+//       0x9B11B8..0x9B128A) ('ModAlphaAddClr support: %s' 0xBC5294,
 //       'Dot3 support: %s' 0xBC5280) and calls Check_Depth_Stencil_Support 0x9B1C20 ('Supports depth stencil format:
 //       %s' 0xBC54FC) after Check_Render_To_Texture_Support; there is no Check_Maximum_Texture_Support call (0x9B0160)
-// EnB: Line 674 at the freeze: E&B's Compute_Caps has Zero Hour's point-sprite, ModAlphaAddClr, Dot3 and cubemap flags
+// EnB: Line 674 at the freeze: E&B's Compute_Caps has Zero Hour's ModAlphaAddClr, Dot3 and cubemap flags
 //       with their logs ('ModAlphaAddClr support: %s' 0xBC5294, 'Dot3 support: %s' 0xBC5280) and calls
 //       Check_Depth_Stencil_Support 0x9B1C20 ('Supports depth stencil format: %s' 0xBC54FC) after
 //       Check_Render_To_Texture_Support; there is no Check_Maximum_Texture_Support call (0x9B0160)
@@ -1156,4 +1162,4 @@ void DX8Caps::Vendor_Specific_Hacks(const D3DADAPTER_IDENTIFIER8& adapter_id)
 //       no 'Disabling multitexturing on ATI Rage 128 Pro GL' (Zero Hour's 'E&B requires multitexturing' change) and no
 //       GeForce2 MX limit
 // EnB: DX8Caps::Vendor_Specific_Hacks (line 1114 at the freeze): E&B logs 'Disabling distortion effects on PowerVR
-//       Kyro cards' and clears +0x121 (SupportCubemaps) before IsFogAllowed (0x9B2DA0..0x9B2DD3)
+//       Kyro cards' and clears +0x121 (SupportDistortion) before IsFogAllowed (0x9B2DA0..0x9B2DD3)

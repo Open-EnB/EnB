@@ -1,0 +1,35 @@
+import sys
+sys.path.insert(0, r'C:\EnBDevelopment\EnB\.work\fu1')
+import gen
+
+HYPOTHESIS = ('FU1 A6 on A5 ref (333): the client scales X as fld [s.X]; fmul st(1) but Y as fld st(0); fmul [s.Y] '
+              '(ref: both the first way): scale forms of the copy-then-scale normalise (*=, Set, pointer, operator *)')
+FILE = gen.FILE
+SYMBOL = 'LandClass::Unknown_46F120'
+ADDRESS = 0x46F120
+D = gen.definition('void LandClass::Unknown_46F120(void)\n{')
+C2 = ('// NOT EXACT: frame (0x20C vs the client\'s 0x19C: the client packs its nine normalised vectors into one slot; the corner and\n'
+      '// rows blocks\' y - 1 forms; BG5: every block\'s crosses in ring order before its normalises, attempts.csv 0x46F120)\n')
+C1 = '// NOT EXACT: frame (the nine normalised vectors in one slot), y - 1 forms; attempts.csv 0x46F120\n'
+PAIR = r'(\t+)(?:Vector3 n = |n = )Normalize\((.*)\);\n(\t+)(Unknown1E4\[[^\]]*\] = Nearest_Normal\(n\);)\n'
+
+
+def helper(scale, args='Vector3 &v, const Vector3 &s', pre='v = s; '):
+    return ('static inline void Land_Normalize(%s) { %sfloat len2 = s.Length2(); if (len2 != 0.0f) '
+            '{ float oolen = WWMath::Inv_Sqrt(len2); %s } }\n' % (args, pre, scale))
+
+
+H = {
+    'mulassign': helper('v.X *= oolen; v.Y *= oolen; v.Z *= oolen;'),
+    'set': helper('v.Set(s.X * oolen, s.Y * oolen, s.Z * oolen);'),
+    'opmul': helper('v = s * oolen;'),
+    'x_eq_yz_mul': helper('v.X = s.X * oolen; v.Y *= oolen; v.Z *= oolen;'),
+    'x_mul_yz_eq': helper('v.X *= oolen; v.Y = s.Y * oolen; v.Z = s.Z * oolen;'),
+    'ptr': helper('v->X = s.X * oolen; v->Y = s.Y * oolen; v->Z = s.Z * oolen;', 'Vector3 *v, const Vector3 &s', '*v = s; '),
+    'v_eq_v': helper('v.X = v.X * oolen; v.Y = v.Y * oolen; v.Z = v.Z * oolen;'),
+}
+CALL = gen.resub(D, PAIR, r'\1Land_Normalize(n, \2);\n\3\4\n', 9)
+FS = gen.edit(CALL, [('\tint i;\n', '\tint i; Vector3 n;\n')])
+F = {k: [(C2, h + C1), (D, FS)] for k, h in H.items()}
+F['ptr'] = [(C2, H['ptr'] + C1), (D, gen.resub(FS, r'Land_Normalize\(n, ', 'Land_Normalize(&n, ', 9))]
+FORMS = F

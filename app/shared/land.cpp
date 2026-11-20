@@ -107,7 +107,7 @@ LandClass::LandClass(void) :
 	}
 }
 
-// NOT EXACT: inline-budget (ours inlines LandPatchClass's ctor and Init, the client calls 0x474530 / 0x4746C0; without them the frame slots differ); 7 forms (attempts.csv 0x4691D0)
+// NOT EXACT: frame (code identical once stack offsets are masked; the slots of same-liveness locals differ: color_map / name, width / height, the colour average's i / detail_v and scalars; not moved by names, declaration order, scalar scopes or the file above; attempts.csv 0x4691D0)
 bool LandClass::Load_Assets(const char *ini_name, bool flag)
 {
 	Set_Force_Visible(true);
@@ -205,10 +205,8 @@ bool LandClass::Load_Assets(const char *ini_name, bool flag)
 		unsigned int area = step * step;
 		for (unsigned int j = 0; j < max_size; j++) {
 			for (unsigned int i = 0; i < max_size; i++) {
-				unsigned int r = 0;
-				unsigned int g = 0;
-				unsigned int b = 0;
-				unsigned int a = 0;
+				unsigned int r, g, b, a;
+				r = g = b = a = 0;
 				for (unsigned int y = 0; y < step; y++) {
 					for (unsigned int x = 0; x < step; x++) {
 						int n = (j * step + y) * targa.Header.Width + i * step + x;
@@ -292,11 +290,11 @@ bool LandClass::Load_Assets(const char *ini_name, bool flag)
 				newer = false;
 			}
 		}
-		bool loaded = false;
+		bool rebuild = !newer;
 		if (newer) {
-			loaded = Load_PLD(pld->File_Name());
+			rebuild = !Load_PLD(pld->File_Name());
 		}
-		if (!loaded) {
+		if (rebuild) {
 			Compute_Horizons(ini);
 			Save_PLD(pld->File_Name());
 		}

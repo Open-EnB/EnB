@@ -308,6 +308,13 @@ class Lock:
                 os.write(fd, json.dumps({'pid': os.getpid(), 'time': time.time()}).encode())
                 os.close(fd)
                 return self
+            except PermissionError:
+                # Windows: the lock file is being deleted by its holder while a reader has it open
+                # (delete pending): creating it fails with EACCES, not EEXIST; it is gone in a moment
+                if time.time() > deadline:
+                    raise SystemExit(f'could not take {LOCK}')
+                time.sleep(random.uniform(0.02, 0.1))
+                continue
             except FileExistsError:
                 try:
                     with open(LOCK) as fh:
