@@ -282,7 +282,7 @@ static inline RegistrationUnknown1ACClass *Get_Unknown1AC()  // NAME 1 [Get_Unkn
 
 
 
-// @0x5EF0B0 NOT EXACT: inline-budget (attempts.csv: the first string of +0x2CC / +0x328 inline here, out of line in the client; +0x328's id vector the reverse)
+// @0x5EF0B0 NOT EXACT: inline-budget (attempts.csv: six dead size() reads (D272) send the members' string() / vector() constructors out of line as the client's 0x603BB0 / 0x603E90; the first radio texture's RefCountPtr operator= stays inline, the client calls 0x604ED0)
 RegistrationInterface::RegistrationInterface(UIViewClass *view, LayerClass *layer, int mode) :
 	InterfaceClass(view, (int)layer->Peek_Scene()),
 	Unknown98(""),
@@ -336,19 +336,19 @@ RegistrationInterface::RegistrationInterface(UIViewClass *view, LayerClass *laye
 	// +0x560 / +0x564 are Unknown478.UnknownE8 / UnknownEC: its constructor zeroes them
 
 {
-	if (mode == 3) {
+	UnknownD8.size(); UnknownD8.size(); UnknownD8.size(); UnknownD8.size(); UnknownD8.size(); Unknown108.size(); if (mode == 3) {  // D272: dead reads
 		UnknownD4 = 0x17;
 		Unknown11D = true;
 		Unknown1C8 = false;
 		Unknown1C9 = false;
-	} else if (mode == 0x14) {
-		UnknownD4 = 1;
-		Unknown11B = true;
-	} else {
+	} else if (mode != 0x14) {
 		UnknownD4 = 0x17;
 		Unknown11B = false;
 		Unknown11C = false;
 		Unknown11D = false;
+	} else {
+		UnknownD4 = 1;
+		Unknown11B = true;
 	}
 	UnknownBC = (CharacterViewClass *)View->Unknown_28();
 	UnknownC0 = (LoginTaskClass *)UnknownBC->Unknown14->Unknown_08();
@@ -1342,7 +1342,7 @@ void RegistrationInterface::Unknown_5F3770(int state)
 			break;
 		case 2:
 			Unknown_5F2B20(1,"RADIO_YES",0,0,1,0); Unknown_5F2B20(2,"RADIO_NO",0,0,1,0);
-			Unknown_5F3250((2 - (Unknown1C9))); Unknown_5F2B20(0x2d,"LEFT_BUTTON","LEFT_BUTTON_RG_A3",0,0,0);
+			Unknown_5F3250(Unknown1C9 ? 1 : 2); Unknown_5F2B20(0x2d,"LEFT_BUTTON","LEFT_BUTTON_RG_A3",0,0,0);
 			Unknown_5F2B20(6,"RIGHT_BUTTON","RIGHT_BUTTON_RG_A3",0,0,0); Unknown_5F2B20(7,"MIDDLE_BUTTON","MIDDLE_BUTTON_RG_A3",0,0,0);
 			if (!TutorialManagerClass::Instance->Is_Completed("REG4")) {
 				UnknownBC->Get_Unknown198()->Unknown_784C90("REG4", false); TutorialManagerClass::Instance->Set_Completed("REG4");
@@ -1420,10 +1420,10 @@ void RegistrationInterface::Unknown_5F3770(int state)
 		case 0xF:
 			Unknown_5F2B20(1, "RADIO_YES1", 0, 0, 1, false);
 			Unknown_5F2B20(2, "RADIO_NO1", 0, 0, 1, false);
-			Unknown_5F3250(2 - (Unknown3C4.Unknown90 != 0));
+			Unknown_5F3250(Unknown3C4.Unknown90 ? 1 : 2);
 			Unknown_5F2B20(3, "RADIO_YES2", 0, 0, 2, false);
 			Unknown_5F2B20(4, "RADIO_NO2", 0, 0, 2, false);
-			Unknown_5F3250(4 - (Unknown3C4.Unknown91 != 0));
+			Unknown_5F3250(Unknown3C4.Unknown91 ? 3 : 4);
 			Unknown_5F2B20(0x2d,"LEFT_BUTTON","LEFT_BUTTON_RG_C2",0,0,0);
 			Unknown_5F2B20(6,"RIGHT_BUTTON","RIGHT_BUTTON_RG_C2",0,0,0);
 			Unknown_5F2B20(7,"MIDDLE_BUTTON","MIDDLE_BUTTON_RG_C2",0,0,0);
