@@ -59,13 +59,13 @@ static int __cdecl Unknown_78E870(const void *a, const void *b)	// NAME 1: neutr
 }
 
 // 0x78E330
-// (0x78E190 out of line through auto_inline(off), its only caller; the index loop is the constructor's own, &Count in ecx, 0x78E6F1, where 0x78E8F0 indexes through the entry; Find_Entry called directly, 0x78E3EA)
+// (0x78E190 out of line through auto_inline(off), its only caller; the index loop is the constructor's own, &Count in ecx, 0x78E6F1, where 0x78E8F0 indexes through the entry; Find_Entry called directly, 0x78E3EA; the counting loop's entry and the filling loop's section at function scope: their own slots, frame 0x2E4)
 NLPLexiconClass::NLPLexiconClass(const char *filename)
 {
 	Initialized = false;
 	Phrases = NULL;
 	PhraseCount = 0;
-	char path[260]; char entry[64];
+	char path[260]; char entry[64]; char section[64];
 	Unknown_78E190(path, "nlp\\", filename, NULL);
 	INIClass ini(path);
 	int lexicons = 0;
@@ -88,7 +88,7 @@ NLPLexiconClass::NLPLexiconClass(const char *filename)
 	Unknown_NLPPhraseStruct *phrase = new Unknown_NLPPhraseStruct[PhraseCount];
 	Phrases = phrase;
 	for (int l = 0; l < lexicons; l++) {
-		char section[64];
+
 		char entry[64];
 		char buffer[256];
 		int p = 0; sprintf(section, "LEXICON-%d", l);
