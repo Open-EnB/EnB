@@ -477,12 +477,12 @@ void StarbaseAvatarCreationInterface::Unknown_60()
 	Unknown5BB320Class::Unknown_60();
 }
 
-// NOT EXACT: register (0.62, 2402 bytes against 0x86D + the table): the client's own case per key (0x54EAD0 inlined
-// for 0x12 / 0x13, the palette helper 0x5513E0 for 0x1A-0x1C, 0x551BF0 in the 0x14-0x19 tail VC6 cross-jumps), the
-// view's Client read once at the top (edi) for 0x16-0x19, and the choosers' value through an inline getter there (the
-// client's ecx); left: its converted temporary in the 0x54EAD0 copies through the out-of-line 0x551D40 with the
-// destructor inline (ours the reverse), ebp / ebx roles in the palette copies, and eax where VC6 here takes edx
-// (attempts.py show 0x54CBC0)
+// NOT EXACT: shape (masked 31, 617 rows): the cases in the client's body order (jump table 0x54D430 by address: 1,
+// 2, 0xD, 0xE, 3, 8, 0x10 .. 0x1B, 0x24-0x27, 0x1C, 0x20 ..), 0x54EAD0 inlined for 0x12 / 0x13, the palette helper
+// 0x5513E0 for 0x1A-0x1C, the view's Client read once at the top (edi) and the env maps through SClient's inline
+// Peek_Environment_Map_Manager() in 0x16-0x19 (the client reuses edi for the value: the six 0x551BF0 tails then
+// cross-jump into 0x19's). Left: the client cross-jumps 2 / 0xD / 0xE back into case 1's Login_Mouse_Click tail
+// (ours copies the sound + epilogue there) and sets al after the pops at 0x54D401 (attempts.py show 0x54CBC0)
 // 0x54CBC0
 bool StarbaseAvatarCreationInterface::Unknown_68(int key)
 {
@@ -504,12 +504,6 @@ bool StarbaseAvatarCreationInterface::Unknown_68(int key)
 			Unknown_550670();
 			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
 			return(true);
-		case 3:
-			Unknown0B8->Unknown_8C();
-			break;
-		case 8:
-			Unknown0B8->Unknown_88();
-			break;
 		case 0xD:
 			Unknown_551900();
 			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
@@ -518,6 +512,12 @@ bool StarbaseAvatarCreationInterface::Unknown_68(int key)
 			Unknown0B4->Unknown_69F440();
 			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
 			return(true);
+		case 3:
+			Unknown0B8->Unknown_8C();
+			break;
+		case 8:
+			Unknown0B8->Unknown_88();
+			break;
 		case 0x10:
 			Unknown_54E950(1);
 			break;
@@ -540,23 +540,29 @@ bool StarbaseAvatarCreationInterface::Unknown_68(int key)
 			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2); Unknown_551BF0(); return(true);
 		case 0x16:
 			Unknown374->Unknown_585CC0(); Unknown0BC->Unknown_77FCE0(Unknown374->Get_Unknown18(), true); TheDX8MeshRenderer.Invalidate();
-			Unknown0BC->Unknown_780810(client->EnvironmentMapManager); Unknown0B8->Unknown_84(Unknown0BC);
+			Unknown0BC->Unknown_780810(client->Peek_Environment_Map_Manager()); Unknown0B8->Unknown_84(Unknown0BC);
 			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2); Unknown_551BF0(); return(true);
 		case 0x17:
 			Unknown374->Unknown_585C90(); Unknown0BC->Unknown_77FCE0(Unknown374->Get_Unknown18(), true); TheDX8MeshRenderer.Invalidate();
-			Unknown0BC->Unknown_780810(client->EnvironmentMapManager); Unknown0B8->Unknown_84(Unknown0BC);
+			Unknown0BC->Unknown_780810(client->Peek_Environment_Map_Manager()); Unknown0B8->Unknown_84(Unknown0BC);
 			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2); Unknown_551BF0(); return(true);
 		case 0x18:
 			Unknown378->Unknown_585CC0(); Unknown0BC->Unknown_77FC90(Unknown378->Get_Unknown18(), true); TheDX8MeshRenderer.Invalidate();
-			Unknown0BC->Unknown_780810(client->EnvironmentMapManager); Unknown0B8->Unknown_84(Unknown0BC);
+			Unknown0BC->Unknown_780810(client->Peek_Environment_Map_Manager()); Unknown0B8->Unknown_84(Unknown0BC);
 			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2); Unknown_551BF0(); return(true);
 		case 0x19:
 			Unknown378->Unknown_585C90(); Unknown0BC->Unknown_77FC90(Unknown378->Get_Unknown18(), true); TheDX8MeshRenderer.Invalidate();
-			Unknown0BC->Unknown_780810(client->EnvironmentMapManager); Unknown0B8->Unknown_84(Unknown0BC);
+			Unknown0BC->Unknown_780810(client->Peek_Environment_Map_Manager()); Unknown0B8->Unknown_84(Unknown0BC);
 			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2); Unknown_551BF0(); return(true);
 		case 0x1A:
 		case 0x1B:
 			Unknown_5513E0("fa_avatar_color.tga");
+			Unknown_550140(key);
+			break;
+		case 0x24:
+		case 0x25:
+		case 0x26:
+		case 0x27:
 			Unknown_550140(key);
 			break;
 		case 0x1C:
@@ -574,12 +580,6 @@ bool StarbaseAvatarCreationInterface::Unknown_68(int key)
 			break;
 		case 0x23:
 			Unknown_54E7F0(2);
-			break;
-		case 0x24:
-		case 0x25:
-		case 0x26:
-		case 0x27:
-			Unknown_550140(key);
 			break;
 		case 0x28:
 			Unknown_550970(0);
