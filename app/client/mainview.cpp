@@ -1783,7 +1783,7 @@ void MainViewClass::Unknown_512B10(int x, int y, float *fx, float *fy)
 
 
 
-// NOT EXACT: shape, 15 masked rows (NL1): the avatar test's register names (9), Rotate_Vector's first-row x87 operand (2), dir *= oolen's fst where the client stores and reloads (2 per block); attempts.py show 0x512BB0
+// NOT EXACT: shape, 4 masked rows (HS): dir *= oolen's fst where the client stores and reloads (2 per block; const, volatile, helper, scaled copy, reference, hand forms: null); attempts.py show 0x512BB0
 // slot +0x60: the object under the screen point (x, y in 0..1): the avatar's model first unless skip_avatar, then the
 // objects within the camera's far distance and 5 degrees of the ray (the planets and stations, types 2 / 3 / 10,
 // within their apparent size), the one nearest the ray that no nearer occluder covers
@@ -1792,8 +1792,8 @@ ClientObjectClass *MainViewClass::Unknown_60(float x, float y, bool skip_avatar,
 	if (!skip_avatar) {
 		LayerClass layer(Scene, Camera, false, false, Vector3(0.0f, 0.0f, 0.0f));
 		ClientObjectClass *avatar = Client->Get_Avatar();
-		if (avatar && Intersection.Intersect_Screen_Point_RenderObject(x, y, layer, avatar->RenderObject, NULL)) {
-			return(avatar);
+		if (avatar) { RenderObjClass *model = avatar->RenderObject;
+			if (Intersection.Intersect_Screen_Point_RenderObject(x, y, layer, model, NULL)) return(avatar);
 		}
 		skip_avatar = true;
 	}
@@ -1802,10 +1802,10 @@ ClientObjectClass *MainViewClass::Unknown_60(float x, float y, bool skip_avatar,
 	Vector2 plane_min, plane_max;	CameraClass *camera = Camera;
 	camera->Get_View_Plane(plane_min, plane_max);
 	const ViewportClass &viewport = camera->Get_Viewport();
-	float dx = (float)(((viewport.Min.X - x) + 0.5) * (plane_max.X - plane_min.X) * -1.0);
-	float dy = (float)(((y - 0.5) - viewport.Min.Y) * (plane_max.Y - plane_min.Y) * -1.0);
+	Vector3 v; v.X = (float)(((viewport.Min.X - x) + 0.5) * (plane_max.X - plane_min.X) * -1.0);
+	v.Y = (float)(((y - 0.5) - viewport.Min.Y) * (plane_max.Y - plane_min.Y) * -1.0); v.Z = -1.0f;
 	Vector3 ray;
-	Matrix3D::Rotate_Vector(tm, Vector3(dx, dy, -1.0f), &ray);
+	Matrix3D::Rotate_Vector(tm, v, &ray);
 	ray.Normalize();
 	float far2 = Camera->Get_Depth();
 	far2 = far2 * far2;
