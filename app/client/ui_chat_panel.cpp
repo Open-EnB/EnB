@@ -444,7 +444,7 @@ ChatPanelInterface::~ChatPanelInterface()
 
 
 
-// NOT EXACT: register: 351 vs 352 insns (2 dead size() reads send string::assign 0x562D8E out of line; ebp vs ebx zero-reg choice)
+// The loop runs i = 1..6 over the tables at [i - 1] (the client's three induction variables); the two dead Unknown1F4.size() reads send string::assign 0x562D8E out of line (D272)
 // @0x5629E0
 // 0x5629E0
 void ChatPanelInterface::Unknown_54()
@@ -466,13 +466,13 @@ void ChatPanelInterface::Unknown_54()
 	if (Unknown258) {
 		Unknown258->Set_Hidden(1);
 	}
-	for (int i = 0; i < 6; i++) {
-		UnknownA4[i + 1] = Add_Button(i + 1, buttons[i], texts[i]);
-		if (tips[i]) {
-			GadgetClass::Set_Tooltip(UnknownA4[i + 1], "UI_CHAT_PANEL", tips[i]);
+	for (int i = 1; i < 7; i++) {
+		UnknownA4[i] = Add_Button(i, buttons[i - 1], texts[i - 1]);
+		if (tips[i - 1]) {
+			GadgetClass::Set_Tooltip(UnknownA4[i], "UI_CHAT_PANEL", tips[i - 1]);
 		}
-		if (UnknownA4[i + 1]->Unknown34) {
-			UnknownA4[i + 1]->Unknown34->Get_Sort_Level();
+		if (UnknownA4[i]->Unknown34) {
+			UnknownA4[i]->Unknown34->Get_Sort_Level();
 		}
 	}
 	if (UnknownA4[6] && UnknownA4[5]) {
