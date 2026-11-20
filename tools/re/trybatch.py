@@ -46,8 +46,9 @@ on the include list; a tree header's own quoted #include of its neighbour still 
 the including file's folder first). The tree, the importer lock and the ledger are never touched.
 VMs (D273: the host used fully): --vms K caps them (default: one per compile); they are leased one at a time from
 pool.py under $ENB_AGENT (else trybatch-<pid>) until pool.py refuses (its cap, its memory reserve): the first waits
-up to 15 minutes (one retry), the others are taken only when free at once, and each starts compiling as soon as it
-is ready; all are released at the end, whatever happens. --no-lease uses ENB_VC6_HOSTS / vc6_hosts.json as given
+up to 15 minutes (one retry), the others are taken when free (a refusal is retried every 30 s while forms wait), and
+each starts compiling as soon as it is ready; each is released as soon as the queue has no form left for it (all,
+whatever happens, by the batch's end). The summary's first line gives the VMs, the time and the forms per VM. --no-lease uses ENB_VC6_HOSTS / vc6_hosts.json as given
 (a lease you already hold). One thread per distinct host (two on one VM collide on sync.tar); forms are queued
 over them.
 
@@ -704,11 +705,14 @@ def slot_lines(rows):
 
 # ---------------------------------------------------------------- VMs
 
-def lease_iter(k, agent, log, more=lambda: True):
+def lease_iter(k, agent, log, more=lambda: True, poll=0, sleep=time.sleep):
     """Lease up to k VMs one at a time, yielding (name, host) as each is ready: the first waits (bounded), the
-    others only if free now (pool.py's cap and memory reserve decide how many); stops early once more() is false."""
+    others only if free now (pool.py's cap and memory reserve decide how many); stops early once more() is false.
+    poll > 0: a refusal after the first VM is retried every poll seconds while more() holds (a VM another agent
+    releases mid-batch joins it; nothing is held once the queue is empty)."""
     pool = [sys.executable, os.path.join(REPO, 'tools', 'vc6', 'pool.py')]
-    for n in range(k):
+    n = 0
+    while n < k:
         if n and not more():
             return
         for attempt in range(2):
@@ -719,11 +723,15 @@ def lease_iter(k, agent, log, more=lambda: True):
             line = [l for l in p.stdout.splitlines() if l.startswith('ENB_VC6_HOSTS=')]
             if p.returncode == 0 and line and names:
                 yield names[0], line[-1].split('=', 1)[1].split(',')[0]
+                n += 1
                 break
             release([x for x in names], log)
-            if n:      # at the cap or short of memory: no more VMs for this batch
-                return
-            time.sleep(5)
+            if n:      # at the cap or short of memory: no more VMs now
+                if not poll:
+                    return
+                sleep(poll)
+                break
+            sleep(5)
         else:
             return
 
@@ -1026,14 +1034,27 @@ def run_spec(a, spec, stem, variants):
     agent = os.environ.get('ENB_AGENT') or f'trybatch-{os.getpid()}'
     leased, threads = [], []
     queue = collections.deque(todo)
+    t_start = time.time()
 
-    def worker(host):
+    done_on = collections.Counter()
+
+    def worker(host, vm=None):
+        try:
+            work(host)
+        finally:
+            if vm:      # its share is done: back to the pool now, not at the batch's end
+                with lock:
+                    leased.remove((vm, host))
+                release([vm], log)
+
+    def work(host):
         vc6.use_host(host)
         while True:
             with lock:
                 if not queue:
                     return
                 name = queue.popleft()
+                done_on[host] += 1
             overlay = os.path.join(batch, name)
             listing = f'{vc6.WORK}\\trybatch_{os.getpid()}_{name}.asm' if a.slots else None
             try:
@@ -1050,8 +1071,8 @@ def run_spec(a, spec, stem, variants):
                 results[name] = {'error': f'{type(e).__name__}: {e}'[:110]}
                 log(f'== {name}: ' + traceback.format_exc())
 
-    def start(host):
-        t = threading.Thread(target=worker, args=(host,))
+    def start(host, vm=None):
+        t = threading.Thread(target=worker, args=(host, vm))
         t.start()
         threads.append(t)
 
@@ -1063,21 +1084,28 @@ def run_spec(a, spec, stem, variants):
         else:
             # D273: as many VMs as the pool gives (its cap and memory reserve decide), one per compile at most; each
             # starts compiling as soon as it is leased, one thread per distinct host (two on one VM collide on
-            # sync.tar)
+            # sync.tar); a refused lease is retried every 30 s while forms wait (a VM another agent releases joins)
             want = a.vms or len(todo)
             hosts = []
-            for got in lease_iter(want, agent, log, lambda: bool(queue)):
-                leased.append(got)
+            for got in lease_iter(want, agent, log, lambda: bool(queue), poll=30):
+                with lock:
+                    leased.append(got)
                 if got[1] not in hosts:
                     hosts.append(got[1])
-                    start(got[1])
+                    start(got[1], got[0])
+                else:
+                    with lock:
+                        leased.remove(got)
+                    release([got[0]], log)
             if not hosts:
                 raise SystemExit('trybatch: no VM leased (pool at its cap or short of memory); see ' + logf.name)
-        print(f'{len(todo)} compiles on {len(hosts)} VM(s); log {os.path.relpath(logf.name, REPO)}', flush=True)
         for t in threads:
             t.join()
     finally:
         release([n for n, _ in leased], log)
+    spread = ', '.join(f'{h.split("@")[-1]} {k}' for h, k in done_on.items())
+    print(f'{len(todo)} compiles on {len(hosts)} VM(s) in {time.time() - t_start:.0f} s ({spread}); log '
+          f'{os.path.relpath(logf.name, REPO)}', flush=True)
     known = X.symbol_addresses()
     symbol, how = spec['symbol'], 'symbol'
     first = next((objs[n] for n in forms if n in objs), None)

@@ -388,6 +388,34 @@ class Leases(unittest.TestCase):
         finally:
             T.subprocess.run = real
 
+    def test_poll_while_forms_wait(self):
+        # TB3: with poll, a refusal after the first VM waits and retries while forms wait; a VM freed meanwhile joins
+        answers = [0, 3, 3, 0, 3]                    # ok, refused, refused, ok (another agent released one), refused
+        calls, slept, left = [], [], [3]
+
+        def fake(cmd, **kw):
+            calls.append(cmd)
+            rc = answers[len(calls) - 1]
+            n = len(calls)
+            if rc == 0:
+                return types.SimpleNamespace(returncode=0, stdout=f'ENB_VC6_HOSTS=u@10.0.0.{n}\n',
+                                             stderr=f'enb-vc6-0{n}: 10.0.0.{n} ready\n')
+            return types.SimpleNamespace(returncode=3, stdout='', stderr='pool cap\n')
+
+        def sleep(s):
+            slept.append(s)
+            left[0] -= 1                             # forms compile meanwhile; none left after the third wait
+
+        real = T.subprocess.run
+        T.subprocess.run = fake
+        try:
+            got = list(T.lease_iter(8, 'tb', lambda s: None, more=lambda: left[0] > 0, poll=30, sleep=sleep))
+        finally:
+            T.subprocess.run = real
+        self.assertEqual([n for n, _ in got], ['enb-vc6-01', 'enb-vc6-04'])
+        self.assertEqual(slept, [30, 30, 30])        # three refusals, then the queue was empty: no more leases
+        self.assertEqual(len(calls), 5)
+
 
 class FileCheck(unittest.TestCase):
     """5. (LV2) every exact function of the file per form, against the base's."""
