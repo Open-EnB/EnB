@@ -462,7 +462,7 @@ void RegistrationInterface::Unknown_5F1940()
 	}
 }
 
-// @0x5F1A10 NOT EXACT: inline-budget (attempts.csv: functional, map operator[] inline; the client calls 0x604280 / 0x604650 / 0x6047D0 / 0x604BA0)
+// @0x5F1A10 NOT EXACT: inline-budget (attempts.csv; the cases in the client's layout order, each through the file's own members as the client inlines them; the residue is which nested operator[] / begin the client cuts)
 bool RegistrationInterface::Unknown_68(int key)
 {
 	UIComboBoxClass *open = Unknown_BE5BC4;
@@ -470,40 +470,16 @@ bool RegistrationInterface::Unknown_68(int key)
 		return false;
 	}
 	switch (key) {
-		case 1:
-		case 2:
-		case 3:
-		case 4:
-		case 5:
-		case 8:
-		case 9:
-		case 0xD:
-		case 0xE:
-		case 0xF:
-		case 0x10:
-		case 0x11:
-		case 0x12:
-		case 0x17:
-		case 0x18:
-			Unknown_5F3470(UnknownE8[key].Group);
-			UnknownE8[key].Gadget->Unknown_90(Unknown1B4.Peek());
-			UnknownE8[key].Selected = true;
+		case 0x2E:
+			Unknown_5F87D0();
+			Unknown_5F3770(0x15);
 			return false;
 		case 6:
 			Unknown_5FBD30();
 			return true;
 		case 7:
-			if ((UnknownD4 == 1 && Unknown11B) || (UnknownD4 == 0 && Unknown11D) || UnknownD4 == 0x17) {
-				Unknown_5F86F0();
-				return true;
-			} else {
-				int state = Unknown_5F8A90();
-				if (UnknownD8.size() != 0) {
-					UnknownD8.pop_back();
-				}
-				Unknown_5F3770(state);
-				return true;
-			}
+			Unknown_5F8560();
+			return true;
 		case 10:
 		case 0xB:
 		case 0xC:
@@ -521,39 +497,49 @@ bool RegistrationInterface::Unknown_68(int key)
 		case 0x25:
 		case 0x26:
 		case 0x2B:
-			if (Unknown148 != key && Unknown148 != 0) {
-				UnknownF8[Unknown148].Gadget->Unknown_74(false);
+			Unknown_5F8CD0(key, true);
+			return true;
+		case 1:
+		case 2:
+		case 3:
+		case 4:
+		case 5:
+		case 8:
+		case 9:
+		case 0xD:
+		case 0xE:
+		case 0xF:
+		case 0x10:
+		case 0x11:
+		case 0x12:
+		case 0x17:
+		case 0x18:
+			Unknown_5F3250(key);
+			return false;
+		case 0x2F:
+			if (!UnknownF8[Unknown148].Gadget->Active) {
+				TextBaseGadgetClass *gadget = UnknownF8[Unknown148].Gadget;
+				if (gadget->Unknown39) {
+					gadget->Unknown39 = false;
+					Unknown_5F8AD0();
+				}
 			}
-			if (key != 0) {
-				UnknownF8[key].Gadget->Unknown_74(true);
+			return true;
+		case 0x2D:
+			if (Unknown11B || Unknown11D) {
+				Unknown_5F86F0();
+			} else if (UnknownD4 != 0x16 && UnknownD4 != 0x15 && !UnknownC6 && !UnknownC7) {
+				UnknownC5 = false;
+				Unknown119 = true;
+				UnknownBC->Get_Unknown34()->Unknown_588A70("YES_NO", 0, "You will not be able to play\nEarth & Beyond\nuntil you complete the\nregistration process.\n\nAre you sure you want to quit the registration process?", 0x140, 0, 0);
+				return true;
 			}
-			Unknown148 = key;
 			return true;
 		case 0x14:
 		case 0x16:
 			if (UnknownD4 == 10) {
 				Unknown_5F9460();
 				return false;
-			}
-			break;
-		case 0x29:
-			{
-				Unknown384 = Unknown108[0x29].Combo->Selected;
-				RegistrationUnknown578Struct &entry = Unknown578[Unknown384];
-				Unknown270.Unknown00 = entry.Unknown00;
-				Unknown270.Unknown10 = entry.Unknown10;
-				Unknown270.Unknown20 = entry.Unknown20;
-				Unknown270.Unknown24 = entry.Unknown24;
-				Unknown270.Unknown34 = entry.Unknown34;
-				Unknown270.Unknown44 = entry.Unknown44;
-				Unknown270.Unknown48 = entry.Unknown48;
-				Unknown270.Unknown4C = entry.Unknown4C;
-				const char *text = Unknown578[Unknown384].Unknown34.c_str();
-				ManagedFontClass *font = Unknown_BE67C4->Find(DialogRenderObj.Peek());
-				if (font) {
-					font->Unknown_6D0A70("WRAP_LABEL_DESC_RG_F1", text);
-					return false;
-				}
 			}
 			break;
 		case 0x2A:
@@ -568,64 +554,78 @@ bool RegistrationInterface::Unknown_68(int key)
 				}
 			}
 			break;
-		case 0x2D:
-			if (Unknown11B || Unknown11D) {
-				Unknown_5F2990(false);
-				Unknown_5F2A80(false, NULL);
-				UnknownCA = true;
-				UnknownC7 = true;
-				UnknownBC->Get_Unknown198()->Unknown_784E00();
-				UnknownBC->Unknown_67A8D0(true);
-				UnknownC0->Go_Next_Step();
-			} else if (UnknownD4 != 0x16 && UnknownD4 != 0x15 && !UnknownC6 && !UnknownC7) {
-				UnknownC5 = false;
-				Unknown119 = true;
-				UnknownBC->Get_Unknown34()->Unknown_588A70("YES_NO", 0, "You will not be able to play\nEarth & Beyond\nuntil you complete the\nregistration process.\n\nAre you sure you want to quit the registration process?", 0x140, 0, 0);
-				return true;
-			}
-			return true;
-		case 0x2E:
-			UnknownD8.push_back(UnknownD4);
-			Unknown_5F3770(0x15);
-			return false;
-		case 0x2F:
-			if (!UnknownF8[Unknown148].Gadget->Active) {
-				TextBaseGadgetClass *gadget = UnknownF8[Unknown148].Gadget;
-				if (gadget->Unknown39) {
-					gadget->Unknown39 = false;
-					if (UnknownF8[Unknown148].Unknown10 != 0) {
-						UnknownF8[Unknown148].Gadget->Unknown_74(false);
-						Unknown_5F8CD0(UnknownF8[Unknown148].Unknown10, true);
-						return true;
-					}
-					Unknown_5F8CD0(Unknown148, false);
+		case 0x29:
+			{
+				Unknown384 = Unknown108[0x29].Combo->Selected;
+				Unknown270 = Unknown578[Unknown384];
+				const char *text = Unknown578[Unknown384].Unknown34.c_str();
+				ManagedFontClass *font = Unknown_BE67C4->Find(DialogRenderObj.Peek());
+				if (font) {
+					font->Unknown_6D0A70("WRAP_LABEL_DESC_RG_F1", text);
+					return false;
 				}
 			}
-			return true;
+			break;
 		case 0x30:
 			if (open == NULL) {
 				Unknown_5F2990(true);
-				for (std::map<int, RegistrationComboStruct>::iterator combo = Unknown108.begin(); combo != Unknown108.end(); combo++) {
-					if ((*combo).second.Combo) {
-						(*combo).second.Combo->Enable(1);
-					}
-				}
+				Unknown_5F2A80(true, NULL);
 			} else {
-				if (Unknown148 != 0) {
-					UnknownF8[Unknown148].Gadget->Unknown_74(false);
-				}
-				Unknown148 = 0;
+				Unknown_5F8CD0(0, true);
 				Unknown_5F2990(false);
-				for (std::map<int, RegistrationComboStruct>::iterator combo = Unknown108.begin(); combo != Unknown108.end(); combo++) {
-					if ((*combo).second.Combo != open) {
-						(*combo).second.Combo->Enable(0);
-					}
-				}
+				Unknown_5F2A80(false, open);
 			}
 			break;
 	}
 	return false;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // @0x5F2280 NOT EXACT: inline-budget (attempts.csv: functional)
 void RegistrationInterface::Unknown_5F2280()
@@ -965,20 +965,20 @@ void RegistrationInterface::Unknown_5F3110()
 	Unknown148 = 0;
 }
 
-// @0x5F3250 NOT EXACT: frame (attempts.csv: sub esp 0x30 vs the client's 0x28; the client calls begin 0x605970, _Min 0x608450)
+// @0x5F3250 (0x5F3470 inlined: the client calls its begin 0x605970 and _Min 0x608450; 0x5F1A10 / 0x5F3770 inline this)
 void RegistrationInterface::Unknown_5F3250(int id)
 {
-	unsigned short group = UnknownE8[id].Group;
-	for (std::map<int, RegistrationButtonStruct>::iterator button = UnknownE8.begin(); button != UnknownE8.end(); button++) {
-		if ((*button).second.Group == group) {
-			(*button).second.Gadget->Unknown_90(Unknown1B8.Peek());
-			(*button).second.Selected = false;
-		}
-	}
-	TextureClass *on = Unknown1B4.Peek();
-	UnknownE8[id].Gadget->Unknown_90(on);
+	Unknown_5F3470(UnknownE8[id].Group);
+	UnknownE8[id].Gadget->Unknown_90(Unknown1B4.Peek());
 	UnknownE8[id].Selected = true;
 }
+
+
+
+
+
+
+
 
 // @0x5F33E0
 int RegistrationInterface::Unknown_5F33E0(unsigned short group)
@@ -1874,51 +1874,51 @@ void RegistrationInterface::Unknown_5F8520(const char *name, const char *text)
 	}
 }
 
-// @0x5F8560 NOT EXACT: inline-budget (attempts.csv: the client calls begin 0x606960, iterator++ 0x607120)
+// @0x5F8560 (0x5F86F0, 0x5F89F0 inlined; 0x5F1A10's case 7 inlines this)
 void RegistrationInterface::Unknown_5F8560()
 {
 	if ((UnknownD4 == 1 && Unknown11B) || (UnknownD4 == 0 && Unknown11D) || UnknownD4 == 0x17) {
-		Unknown_5F2990(false);
-		for (std::map<int, RegistrationComboStruct>::iterator it = Unknown108.begin(); it != Unknown108.end(); it++) {
-			if ((*it).second.Combo) {
-				(*it).second.Combo->Enable(0);
-			}
-		}
-		UnknownCA = true;
-		UnknownC7 = true;
-		UnknownBC->Get_Unknown198()->Unknown_784E00();
-		UnknownBC->Unknown_67A8D0(true);
-		UnknownC0->Go_Next_Step();
+		Unknown_5F86F0();
 	} else {
-		int state = 0;
-		if (UnknownD8.size() != 0) {
-			state = UnknownD8.back();
-		}
-		if (UnknownD8.size() != 0) {
-			UnknownD8.pop_back();
-		}
-		Unknown_5F3770(state);
+		Unknown_5F3770(Unknown_5F89F0());
 	}
 }
-#pragma auto_inline(off)
-// @0x5F86F0 (out of line: all 19 client callers, 0x5F1A10 / 0x5FBD30 / 0x600000, call it)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// @0x5F86F0 (0x5F8560 and 0x5F1A10's key 0x2D inline it; its 0x5F2A80 inlined here, a call there)
 void RegistrationInterface::Unknown_5F86F0()
 {
 	Unknown_5F2990(false);
-	std::map<int, RegistrationComboStruct>::iterator it = Unknown108.begin();
-	while (it != Unknown108.end()) {
-		if ((*it).second.Combo) {
-			(*it).second.Combo->Enable(0);
-		}
-		it++;
-	}
+	Unknown_5F2A80(false, NULL);
 	UnknownCA = true;
 	UnknownC7 = true;
 	UnknownBC->Get_Unknown198()->Unknown_784E00();
 	UnknownBC->Unknown_67A8D0(true);
 	UnknownC0->Go_Next_Step();
 }
-#pragma auto_inline(on)
+
+
+
+
+
+
+
 // @0x5F87D0
 void RegistrationInterface::Unknown_5F87D0()
 {
@@ -1944,42 +1944,42 @@ int RegistrationInterface::Unknown_5F8A90()
 	return(0);
 }
 
-// @0x5F8AD0 NOT EXACT: inline-budget (attempts.csv: the client calls 0x606150 / 0x6047D0 / 0x6074B0)
+// @0x5F8AD0 (0x5F8CD0 inlined twice: six operator[]; 0x5F1A10's key 0x2F inlines this)
 void RegistrationInterface::Unknown_5F8AD0()
 {
 	if (UnknownF8[Unknown148].Unknown10 != 0) {
 		UnknownF8[Unknown148].Gadget->Unknown_74(false);
-		int next = UnknownF8[Unknown148].Unknown10;
-		if (Unknown148 != next && Unknown148 != 0) {
-			UnknownF8[Unknown148].Gadget->Unknown_74(false);
-		}
-		int focus = 0;
-		if (next != 0) {
-			UnknownF8[next].Gadget->Unknown_74(true);
-			focus = next;
-		}
-		Unknown148 = focus;
+		Unknown_5F8CD0(UnknownF8[Unknown148].Unknown10, true);
 	} else {
-		if (Unknown148 != 0) {
-			UnknownF8[Unknown148].Gadget->Unknown_74(false);
-		}
-		Unknown148 = 0;
+		Unknown_5F8CD0(Unknown148, false);
 	}
 }
 
-// @0x5F8CD0 NOT EXACT: register choice (attempts.csv)
+
+
+
+
+
+
+
+
+
+
+
+
+// @0x5F8CD0 (0x5F1A10's focus keys and key 0x30 inline it with on = true)
 void RegistrationInterface::Unknown_5F8CD0(int id, bool on)
 {
 	if (Unknown148 != id && Unknown148 != 0) {
 		UnknownF8[Unknown148].Gadget->Unknown_74(false);
 	}
-	int focus = 0;
 	if (id != 0) {
 		UnknownF8[id].Gadget->Unknown_74(on);
-		focus = id;
 	}
-	Unknown148 = on ? focus : 0;
+	Unknown148 = on ? id : 0;
 }
+
+
 
 // @0x5F8DB0
 void RegistrationInterface::Unknown_5F8DB0(bool arg)
