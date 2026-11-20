@@ -152,7 +152,7 @@ static int Unknown_5746C0(int index, bool forward)
 #pragma auto_inline(on)
 static inline CameraClass *Camera_Of(CharacterViewClass *v) { return v->Unknown068; }
 
-// NOT EXACT: register, 28 masked rows (HS): Slider / SliderValue stored after the EH state 3 (the client before), the dialog strings' inline _Eos adds _Ptr + n where the client adds n + _Ptr (4 sites); the 37 size reads spend the inline budget the client's source spent (D272: _Grow out of line, _Tidy / _Copy / _Eos inline); attempts.py show 0x574710
+// NOT EXACT: register, 24 masked rows (HS): Slider / SliderValue stored after the EH state 3 (the client before), the dialog strings' inline _Eos adds _Ptr + n where the client adds n + _Ptr (4 sites); the 37 size reads spend the inline budget the client's source spent (D272: _Grow out of line, _Tidy / _Copy / _Eos inline); attempts.py show 0x574710
 // @0x574710
 ClassSelectInterface::ClassSelectInterface(UIViewClass *view, LayerClass *layer) :
 	InterfaceClass(view, (int)layer->Peek_Scene()),
@@ -266,7 +266,7 @@ ClassSelectInterface::ClassSelectInterface(UIViewClass *view, LayerClass *layer)
 	SignalMap *notifier = &GadgetClass::Get_Signal_Map();
 	notifier->connect(NULL, new UIClassCallbackClass(this, function));
 
-	CharacterView->Unknown30->Unknown0F = true;
+	CharacterViewClass *cv = CharacterView; cv->Unknown30->Unknown0F = true;
 }
 
 
