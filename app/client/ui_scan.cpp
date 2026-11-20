@@ -547,7 +547,7 @@ template<class C> inline C *Unknown_Find_Changed_Field(DeltaCompoundClass *root,
 #include "..\..\ww3d2\assetmgr.h"
 void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);	// 0x496AE0 (ro_funcs.cpp, cdecl: avatar.cpp's)
 void Unknown_496730(RenderObjClass *robj, int sort_level, bool dec_if_match);	// 0x496730 (ro_funcs.cpp, cdecl)  // NAME 1 [robj, sort_level, dec_if_match]: ui_cpit.cpp's
-#pragma auto_inline(off)
+
 template DeltaTemplateClass<DurationClass> *Unknown_Find_Field<DeltaTemplateClass<DurationClass> >(DeltaCompoundClass *root, const NameClass &name);	// (instantiated here, under auto_inline(off): the client calls it out of line, 0x610290)
 template DeltaStringClass *Unknown_Find_Field<DeltaStringClass>(DeltaCompoundClass *root, const NameClass &name);	// (instantiated here, under auto_inline(off): the client calls it out of line, 0x514BD0)
 // The interrupt display: the 'tsi08c' model on the scanner's 'BONE_INTER' bone, its progress display (+0x2C) and
@@ -638,7 +638,7 @@ void Unknown59E2C0Class::Unknown_60ECA0(DurationClass time)
 {
 	ActivationTime = time;
 }
-#pragma auto_inline(on)
+
 
 // @0x60ECF0
 SClient *UIScanClass::Get_Space_Client()
@@ -739,7 +739,7 @@ TargetingClass *UIScanClass::Get_Targeting()	// @0x60F110 (out of line, no calle
 	FAIL_IF(!ts) return(NULL);
 	return(ts);
 }
-#pragma auto_inline(off)
+
 
 
 
@@ -997,7 +997,7 @@ void UIScanClass::Unknown_60F1A0(bool arg)
 
 
 
-#pragma auto_inline(on)
+
 // @0x60FBA0
 UIScanThreatClass::UIScanThreatClass(UIScanClass *owner) : Owner(owner), AbilityName(""), Unknown18(false), Unknown20(0), Unknown28(0), Unknown2C(NULL)
 {

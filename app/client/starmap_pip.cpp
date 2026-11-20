@@ -854,7 +854,7 @@ void StarmapPipClass::Unknown_7C1280(const Vector3 &position, float radius)
 
 
 
-#pragma auto_inline(off)
+
 // @0x7C1350
 bool StarmapPipClass::Unknown_7C1350()
 {
@@ -891,7 +891,7 @@ bool StarmapPipClass::Unknown_7C1350()
 	}
 	return(true);
 }
-#pragma auto_inline(on)
+
 
 
 
@@ -967,7 +967,7 @@ void StarmapPipClass::Unknown_7C1510(bool arg)
 
 
 
-#pragma auto_inline(off)
+
 // @0x7C1770
 void StarmapPipClass::Unknown_7C1770(float x, float y)
 {
@@ -1012,7 +1012,7 @@ void StarmapPipClass::Unknown_7C1770(float x, float y)
 		Unknown4C->Unknown_7C3CA0(range.Y, min.Y, diff.Y * t.Y, false);
 	}
 }
-#pragma auto_inline(on)
+
 
 
 

@@ -1400,7 +1400,7 @@ void ShipCustomizeInterface::Unknown_624E50()
 }
 
 
-#pragma auto_inline(off)	// every client caller calls 0x6251F0 out of line
+	// every client caller calls 0x6251F0 out of line
 // @0x6251F0
 void ShipCustomizeInterface::Unknown_6251F0(Vector2 uv)
 {
@@ -1408,7 +1408,7 @@ void ShipCustomizeInterface::Unknown_6251F0(Vector2 uv)
 	position[0] = uv.X;
 	position[1] = uv.Y;
 }
-#pragma auto_inline(on)
+
 
 
 // @0x625260
@@ -1993,7 +1993,7 @@ void ShipCustomizeInterface::Unknown_627200()
 }
 
 
-#pragma auto_inline(off)	// every client caller calls 0x627730 out of line
+	// every client caller calls 0x627730 out of line
 // @0x627730
 void ShipCustomizeInterface::Unknown_627730(Vector3 color)
 {
@@ -2002,7 +2002,7 @@ void ShipCustomizeInterface::Unknown_627730(Vector3 color)
 	setting->Y = color.Y;
 	setting->Z = color.Z;
 }
-#pragma auto_inline(on)
+
 
 
 // @0x6277A0

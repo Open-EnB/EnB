@@ -87,7 +87,7 @@ Vector3 SteeringClass::Evade(const SteeringVehicleStruct &vehicle, const Steerin
 	return Seek(vehicle, predicted);
 }
 
-#pragma auto_inline(off)
+
 // NOT EXACT: frame (explain.py): the client keeps the avoidance vector's X (0.0f) on the FPU and its frame is 4 bytes smaller; the inverse rotation's terms load in another order
 // 0x446000
 Vector3 SteeringClass::Avoid_Obstacles(const SteeringVehicleStruct &vehicle, PxWrapper *proxim)
@@ -181,7 +181,7 @@ Vector3 SteeringClass::Avoid_Collisions(const SteeringVehicleStruct &vehicle, Px
 	return Flee(vehicle, nearest_point);
 }
 
-#pragma auto_inline(on)
+
 // NOT EXACT: shape (explain.py): one load order (the client loads the owner's radius and fsubr's the distance)
 // 0x446810
 Vector3 SteeringClass::Separation(const SteeringVehicleStruct &vehicle, PxWrapper *proxim)

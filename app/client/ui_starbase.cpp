@@ -268,7 +268,7 @@ void UIStarbaseUnknownCCClass::Unknown_633040()
 		}
 	}
 }
-#pragma auto_inline(off)
+
 // 0x6330E0
 void UIStarbaseUnknownCCClass::Unknown_6330E0(const Vector3 &color)
 {
@@ -388,7 +388,7 @@ void UIStarbaseUnknownCCClass::Unknown_633180()
 
 
 
-#pragma auto_inline(on)
+
 
 // 0x640810
 void UIStarbaseClass::Unknown_640810()
@@ -447,7 +447,7 @@ void UIStarbaseClass::Unknown_640CC0()
 }
 
 // Out of line, as the client: its lights panel below calls 0x640D80-0x640F30 (auto_inline off, as co.cpp's 0x6F3ED0)
-#pragma auto_inline(off)
+
 
 // 0x640D80
 void UIStarbaseClass::Unknown_640D80(int *a, int *b, int *c)
@@ -515,7 +515,7 @@ void UIStarbaseClass::Unknown_639030(int arg)
 		}
 	}
 }
-#pragma auto_inline(on)
+
 // 0x63B5A0
 void UIStarbaseClass::Unknown_63B5A0()
 {
@@ -928,7 +928,7 @@ void UIStarbaseClass::Unknown_54()
 	}
 }
 
-#pragma auto_inline(off)
+
 
 // 0x63BDB0
 // @0x0063BDB0
@@ -1072,9 +1072,9 @@ void UIStarbaseClass::Unknown_63D2F0(int index)
 	}
 }
 
-#pragma auto_inline(on)
 
-#pragma auto_inline(off)
+
+
 #include "..\common\distance_calc.h"	// Unknown_831E90 0x831E90: the distance between two spheres
 
 // 0x63B310
@@ -1166,7 +1166,7 @@ void UIStarbaseClass::Unknown_63AAF0()
 	}
 }
 
-#pragma auto_inline(on)
+
 
 // 0x63BA70
 bool UIStarbaseClass::Unknown_63BA70(RenderObjClass *a, RenderObjClass *b, float radius)
