@@ -666,7 +666,7 @@ void ShipCustomizeInterface::Unknown_60()
 }
 
 
-// NOT EXACT: inline budget (0.85: the cases in the client's jump-table order; case 0x18's inlined 0x6257A0 calls its second Gadgets[] out of line where the client inlines it, as 0x17's; no dead-read count or placement keeps both, attempts.csv)
+
 // @0x623080
 bool ShipCustomizeInterface::Unknown_68(int key)
 {
@@ -759,7 +759,7 @@ bool ShipCustomizeInterface::Unknown_68(int key)
 		case 0x10:
 			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
 			*Unknown_6271A0() = true;
-			Unknown_6257A0(key);
+			Unknown_6257A0(key); Gadgets.size(); 
 			Unknown_6211D0(CharacterView->Unknown3A4);
 			Unknown_621390(Unknown264, Unknown268);
 			Unknown_6277A0();
@@ -850,7 +850,7 @@ bool ShipCustomizeInterface::Unknown_68(int key)
 			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
 			Unknown22C->Unknown_8C(); return(false);
 	}
-	return(false); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size();	// dead reads (D130; not the client's): 19 spend VC6's inline budget so most inlined 0x6257A0 copies call operator[] / map::insert out of line as the client's (17: 0.66, 20: 0.76)
+	return(false); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size();	// dead reads (D130; not the client's): 18 here and one after case 0x10's 0x6257A0 spend VC6's inline budget so the inlined 0x6257A0 copies keep the client's mix (the second Gadgets[] inline only at 0x17 / 0x18)
 }
 
 
@@ -1665,7 +1665,7 @@ void ShipCustomizeInterface::Unknown_6259C0(short group)
 	}
 }
 
-// NOT EXACT: inline budget (0.84: case 0's inlined 0x6257A0 calls 0x6259C0 out of line in the client; cases 2 / 3 inline more there (Create_Get, the third Gadgets[], the string's _Eos); frame 0x3C against 0x38)
+// NOT EXACT: inline budget (0.88: case 0's inlined 0x6257A0 calls 0x6259C0 out of line in the client and inlines the next two Gadgets[]; case 3's tutorial string inlines its assign (the client calls _Tidy / _Copy, ours _Grow))
 // @0x625A60
 void ShipCustomizeInterface::Unknown_625A60(int page)
 {
@@ -1798,7 +1798,7 @@ void ShipCustomizeInterface::Unknown_625A60(int page)
 			Unknown_624B50(0x30, "ZOOM_OUT", NULL, 0, 0);
 			Unknown_624B50(0x31, "PAN", NULL, 0, 0);
 			Unknown_624B50(0x32, "TURN", NULL, 0, 0);
-			Unknown_6257A0(2);
+			Unknown_6257A0(2); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size();	// dead reads (D130; not the client's): with the six at the end they keep the client's frame 0x38 and its lookup mix (D272)
 			Unknown_627FA0();
 			{
 				int count = Unknown268->TextureArray.size();
@@ -1863,7 +1863,7 @@ void ShipCustomizeInterface::Unknown_625A60(int page)
 
 	InterfaceClass::Unknown_58();
 	Unknown_58();
-	TheDX8MeshRenderer.Invalidate(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size();	// dead reads (D130; not the client's): 10 spend VC6's inline budget so the page cases' inlined 0x6257A0 copies call operator[] out of line and 0x624D00's loop test calls begin() as the client's (8: 0.82, 11: 0.83, 12: 0.77)
+	TheDX8MeshRenderer.Invalidate(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size();	// dead reads (D130; not the client's): with the four after case 2's 0x6257A0 they put the page cases' operator[] and 0x624D00's loop-test begin() out of line as the client's (4 / 8 here: 0.86)
 }
 
 
