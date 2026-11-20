@@ -3677,9 +3677,9 @@ bad_login:
 
 static const char *ProductBeta = "EB-BETA";  // NAME 1 [ProductBeta]: client .data 0xB85EE4 (0x600000 compares the bundle ids with it)
 static const char *RegistrationGameId = "2184";  // NAME 1 [RegistrationGameId]: client .data 0xB85EF0 (0x600000: 0x7D7E10's third argument, atoi'd against the game features' ids)
-
 // NOT EXACT: inline-budget (functional; the server boxes through 0x5FB890 and the back-outs through 0x5F8560 as the client inlines them, one per
-// branch; its cases in jump table 0x602AE4's layout order, case 3's !+0x1CE branch first; the client's frame 0xB18 with five dead reads after the last back-out and case 5's 0x5FA900 one)
+// branch; its cases in jump table 0x602AE4's layout order, case 3's !+0x1CE branch first, the US picks as if / else (the client's two compares 0x6022BD / 0x602362,
+// the other sites cross-jumped into them); the client's frame 0xB18 with three dead reads after the last back-out)
 // @0x600000
 void RegistrationInterface::Unknown_5F00C0()
 {
@@ -3789,7 +3789,7 @@ void RegistrationInterface::Unknown_5F00C0()
 			} else if (Unknown1CF) {
 				Unknown_5F3770(0x13);
 			} else {
-				Unknown_5F3770(Unknown3C4.Unknown80 == "US" ? 0xC : 0xD);
+				if (Unknown3C4.Unknown80 == "US") { Unknown_5F3770(0xC); } else { Unknown_5F3770(0xD); }
 			}
 			return;
 		case 4:
@@ -3883,7 +3883,7 @@ void RegistrationInterface::Unknown_5F00C0()
 					return;
 				}
 				Unknown_5FB890();
-				Unknown_5F8560(); Unknown108.size(); Unknown108.size(); Unknown108.size(); Unknown108.size(); Unknown108.size();   // D272: dead reads (the client calls 0x5F89F0 at this back-out, 0x60158F)
+				Unknown_5F8560();   // the client calls 0x5F89F0 at this back-out (0x60158F)
 				return;
 			}
 			UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "The code you entered was not valid.  Please try again.", 0x140, 0, 0);
@@ -3897,7 +3897,7 @@ void RegistrationInterface::Unknown_5F00C0()
 				} else if (!Unknown1D1) {
 					Unknown_5F3770(0xA);
 				} else {
-					Unknown_5F3770(Unknown3C4.Unknown80 == "US" ? 0xC : 0xD);
+					if (Unknown3C4.Unknown80 == "US") { Unknown_5F3770(0xC); } else { Unknown_5F3770(0xD); }
 				}
 				return;
 			}
@@ -3951,7 +3951,7 @@ void RegistrationInterface::Unknown_5F00C0()
 						return;
 					}
 					Unknown_5FB890();
-					Unknown_5F3770(Unknown3C4.Unknown80 == "US" ? 0xC : 0xD);
+					if (Unknown3C4.Unknown80 == "US") { Unknown_5F3770(0xC); } else { Unknown_5F3770(0xD); }
 					return;
 				}
 				if (Unknown3C4.Unknown80.size() == 0) {
@@ -4008,7 +4008,7 @@ void RegistrationInterface::Unknown_5F00C0()
 						return;
 					}
 					Unknown_5FB890();
-					Unknown_5F3770(Unknown3C4.Unknown80 == "US" ? 0xC : 0xD);
+					if (Unknown3C4.Unknown80 == "US") { Unknown_5F3770(0xC); } else { Unknown_5F3770(0xD); }
 					return;
 				case 10:
 					Unknown1D4 = false;
@@ -4027,7 +4027,7 @@ void RegistrationInterface::Unknown_5F00C0()
 					UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, Unknown390.Unknown14.c_str(), 0x140, 0, 0);
 					break;
 			}
-			Unknown_5F3770(Unknown3C4.Unknown80 == "US" ? 0xC : 0xD);
+			if (Unknown3C4.Unknown80 == "US") { Unknown_5F3770(0xC); } else { Unknown_5F3770(0xD); }
 			return;
 		case 10:
 			switch (Unknown390.Unknown10) {
@@ -4106,7 +4106,7 @@ void RegistrationInterface::Unknown_5F00C0()
 				return;
 			}
 			UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "An Internal Error has occured.  Please try again.", 0x140, 0, 0);
-			Unknown_5F8560(); UnknownD8.size(); UnknownD8.size(); UnknownD8.size(); UnknownD8.size(); UnknownD8.size();   // D272: dead reads
+			Unknown_5F8560(); UnknownD8.size(); UnknownD8.size(); UnknownD8.size();   // D272: dead reads (swept 0-7, with case 5's back-out 0-7)
 			return;
 	}
 }
