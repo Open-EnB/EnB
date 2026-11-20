@@ -2373,7 +2373,7 @@ struct LogoffCommandStruct { const char *Name; bool Quit; };	// NAME 2: what 0x7
 static const LogoffCommandStruct LogoffCommands[] = { { "/logoff", false }, { "/log", false }, { "/quit", true }, { "", false } };	// NAME 2: what 0x74ABC0 sends for them
 static const char *CampCommands[] = { "/camp", NULL };	// NAME 2: the command 0x74ABC0 refuses
 
-// NOT EXACT: shape (explain.py: 51 masked rows, 1362 instructions against 1363): every block matches but the help lines' block, which VC6 places right after the 'help' test where the client keeps it after the request (je to it, jmp to the end); goto, a flag tested apart or first, the flag at the top: no better (attempts.py show 0x745FF0)
+
 // 0x745FF0 (0x74ABC0: '/chat ...'): the chat panel's own commands first, else one CLIENT_CHAT_REQUEST 163 (the
 // request type, the person, the channel and the text), or the help lines
 bool SClient::Unknown_745FF0(const char *text)
@@ -2517,6 +2517,8 @@ bool SClient::Unknown_745FF0(const char *text)
 				}
 			} else if (strcmp(token, "help") == 0) {
 				help = true;
+			} else {
+				help = false;
 			}
 			if (ok) {
 				int id = Unknown1138; ClientChatRequestPacketClass packet(type, id);
@@ -2541,8 +2543,6 @@ bool SClient::Unknown_745FF0(const char *text)
 	delete [] copy;
 	return(ok);
 }
-
-
 
 
 
