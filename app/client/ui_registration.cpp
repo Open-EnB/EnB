@@ -3679,7 +3679,7 @@ static const char *ProductBeta = "EB-BETA";  // NAME 1 [ProductBeta]: client .da
 static const char *RegistrationGameId = "2184";  // NAME 1 [RegistrationGameId]: client .data 0xB85EF0 (0x600000: 0x7D7E10's third argument, atoi'd against the game features' ids)
 
 // NOT EXACT: inline-budget (functional; the server boxes through 0x5FB890 and the back-outs through 0x5F8560 as the client inlines them, one per
-// branch; its cases in jump table 0x602AE4's layout order; the client's frame 0xB18 with three dead reads after the last back-out)
+// branch; its cases in jump table 0x602AE4's layout order; the client's frame 0xB18 with five dead reads after the last back-out and case 5's 0x5FA900 one)
 // @0x600000
 void RegistrationInterface::Unknown_5F00C0()
 {
@@ -3883,7 +3883,7 @@ void RegistrationInterface::Unknown_5F00C0()
 					return;
 				}
 				Unknown_5FB890();
-				Unknown_5F8560();
+				Unknown_5F8560(); Unknown108.size(); Unknown108.size(); Unknown108.size(); Unknown108.size(); Unknown108.size();   // D272: dead reads (the client calls 0x5F89F0 at this back-out, 0x60158F)
 				return;
 			}
 			UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "The code you entered was not valid.  Please try again.", 0x140, 0, 0);
@@ -4106,7 +4106,7 @@ void RegistrationInterface::Unknown_5F00C0()
 				return;
 			}
 			UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "An Internal Error has occured.  Please try again.", 0x140, 0, 0);
-			Unknown_5F8560(); Unknown108.size(); Unknown108.size(); Unknown108.size();   // D272: dead reads
+			Unknown_5F8560(); UnknownD8.size(); UnknownD8.size(); UnknownD8.size(); UnknownD8.size(); UnknownD8.size();   // D272: dead reads
 			return;
 	}
 }
