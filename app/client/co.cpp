@@ -2685,4 +2685,4 @@ template class UnknownRTTIClass<DeltaStatsClass>;	// the CurrentStats find's Cas
 */
 // VC6 symbol pad (not the client's code): the aux-data constructors (auxroots.py's region above) match only when the
 // count of the declarations this file sees falls in a window of a cycle of 64 (tools/re/auxroots.py SYMBOL_PAD)
-enum CoSymbolPadType { CO_PAD_00, CO_PAD_01, CO_PAD_02, CO_PAD_03, CO_PAD_04, CO_PAD_05, CO_PAD_06, CO_PAD_07, CO_PAD_08, CO_PAD_09, CO_PAD_10, CO_PAD_11, CO_PAD_12, CO_PAD_13, CO_PAD_14, CO_PAD_15, CO_PAD_16 };	// NAME 1: a build aid (HX1)
+enum CoSymbolPadType { CO_PAD_00, CO_PAD_01, CO_PAD_02, CO_PAD_03, CO_PAD_04, CO_PAD_05, CO_PAD_06, CO_PAD_07, CO_PAD_08, CO_PAD_09, CO_PAD_10 };	// NAME 1: a build aid (HX1)

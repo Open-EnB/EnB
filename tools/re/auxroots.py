@@ -1083,7 +1083,7 @@ inline char *Unknown_Hex_String(char *buf, int size, const unsigned char *data, 
 # defined last, not the client's order); in co.cpp, the client's object (its constructors 0x6F6000-0x6FBEF0, the
 # template instances 0x7014B0..0x7045F0 and the numbering initialisers 0x7057D0 / 0x707A20 / 0x709B80 in its tail),
 # the client's address order holds them over a window several values wide (.work/pad/measure.tsv; COM's sweep).
-SYMBOL_PAD = 17
+SYMBOL_PAD = 11
 PAD = '''
 // VC6 symbol pad (not the client's code): the aux-data constructors (auxroots.py's region above) match only when the
 // count of the declarations this file sees falls in a window of a cycle of 64 (tools/re/auxroots.py SYMBOL_PAD)
