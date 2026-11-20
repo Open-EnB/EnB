@@ -393,9 +393,9 @@ StarbaseAvatarCreationInterface::StarbaseAvatarCreationInterface(UIViewClass *vi
 	Unknown2FC(NULL),
 	Unknown300(0.5f, 0.5f),
 	Unknown308(NULL),
-	Unknown30C(0.5f),
-	Unknown310(0.5f),
-	Unknown314(1.0f, 1.0f),
+	Unknown30C(0.5f, 0.5f, 1.0f),
+	Unknown318(1.0f),
+
 	Unknown31C(NULL),
 	Unknown358(0),
 	Unknown35C(-1),
@@ -462,7 +462,7 @@ StarbaseAvatarCreationInterface::~StarbaseAvatarCreationInterface()
 }
 
 // The window made (slot +0x54, as ui_avatr.cpp's constructor 0x553AF0): the player's avatar, its look kept at +0xC0,
-// the tattoo offset (the client copies one Vector3 into +0x30C..+0x314, so a cast here until the members are retyped),
+// the tattoo offset (the client copies one Vector3 into +0x30C..+0x314: u, v and the zoom, one member since),
 // the buttons, the turn arrows hidden, the ShipPip, both palettes (eight dead Peek() after the second, D272: their
 // ~RefCountPtr out of line as the client's 0x4740B0), the callback, the title and STARBASE_REQUEST (0x551C80 inline)
 // 0x54BD30
@@ -478,8 +478,8 @@ void StarbaseAvatarCreationInterface::Unknown_54()
 	Unknown0BC->Unknown_Inline_231();
 	Unknown0BC->Unknown232 = true;
 	Unknown0C0 = *avatar;
-	*(Vector3 *)&Unknown30C = Unknown0BC->Desc.Tattoo_Offset;
-	Unknown310 = 1.0f - Unknown310;
+	Unknown30C = Unknown0BC->Desc.Tattoo_Offset;
+	Unknown30C.Y = 1.0f - Unknown30C.Y;
 	Unknown_BE67BC->Load("fa_buy_avatar00.ini");
 	Unknown_BE67C4->Add(InterfaceMesh->Peek_Object());
 	for (i = 0; i < 14; i++) {
@@ -1092,8 +1092,8 @@ void StarbaseAvatarCreationInterface::Unknown_54F6F0(int unused, bool random, fl
 {
 	UIAvatarCustGadgetHolderStruct *pull = Unknown308;
 	Vector2 point;
-	point.X = Unknown30C;
-	point.Y = Unknown310;
+	point.X = Unknown30C.X;
+	point.Y = Unknown30C.Y;
 	if (du > 0.0f) {
 		point.X = WWMath::Min(point.X + du, 1.0f);
 	} else {
@@ -1123,9 +1123,9 @@ void StarbaseAvatarCreationInterface::Unknown_54F6F0(int unused, bool random, fl
 	tm.Set_Y_Translation((height * point.Y) + top - box.Center.Y);
 	tm[2][3] = 0.0f;
 	model->Control_Bone(bone, tm, false);
-	Unknown30C = point.X;
-	Unknown310 = point.Y;
-	Unknown0BC->Unknown_785C00(Vector3(Unknown30C, 1.0f - Unknown310, Unknown314.X));
+	Unknown30C.X = point.X;
+	Unknown30C.Y = point.Y;
+	Unknown0BC->Unknown_785C00(Vector3(Unknown30C.X, 1.0f - Unknown30C.Y, Unknown30C.Z));
 }
 
 // 0x54FAA0
@@ -1275,42 +1275,42 @@ void StarbaseAvatarCreationInterface::Unknown_5502F0()
 	bool movable;
 	int scale;
 	desc.Get_Facial_Feature(movable, scale);
-	Unknown314.Y = (float)scale;
+	Unknown318 = (float)scale;
 	if (Unknown0B0 == 1) {
 		Unknown308->Unknown00->Unknown_40(movable);
 		Unknown308->Unknown00->Unknown_8C(!movable);
 		Unknown308->Unknown04->Set_Hidden(!movable);
 		if (!movable) {
-			Unknown30C = 0.5f;
-			Unknown310 = 0.5f;
+			Unknown30C.X = 0.5f;
+			Unknown30C.Y = 0.5f;
 		}
-		bool zoom = Unknown314.Y > 1.0f;
+		bool zoom = Unknown318 > 1.0f;
 		Unknown204[13]->Unknown_40(zoom);
 		Unknown204[13]->Unknown_8C(!zoom);
 		Unknown204[14]->Unknown_40(zoom);
 		Unknown204[14]->Unknown_8C(!zoom);
 		if (!zoom) {
-			Unknown314.X = 1.0f;
+			Unknown30C.Z = 1.0f;
 		}
 	}
-	Unknown314.X = WWMath::Min(Unknown314.X, Unknown314.Y);
-	Unknown314.X = WWMath::Max(Unknown314.X, 0.5f);
+	Unknown30C.Z = WWMath::Min(Unknown30C.Z, Unknown318);
+	Unknown30C.Z = WWMath::Max(Unknown30C.Z, 0.5f);
 	Unknown_550550(0);
 }
 
 // 0x550550
 void StarbaseAvatarCreationInterface::Unknown_550550(int dir)
 {
-	float step = Unknown314.X * 0.033333335f;
+	float step = Unknown30C.Z * 0.033333335f;
 	if (dir == 1) {
-		Unknown314.X = WWMath::Max(Unknown314.X - step, 0.5f);
-		if (Unknown314.X == 0.5f) {
+		Unknown30C.Z = WWMath::Max(Unknown30C.Z - step, 0.5f);
+		if (Unknown30C.Z == 0.5f) {
 			Unknown204[13]->Unknown_40(false);
 		}
 		Unknown204[14]->Unknown_40(true);
 	} else if (dir == 2) {
-		Unknown314.X = WWMath::Min(step + Unknown314.X, Unknown314.Y);
-		if (Unknown314.X == Unknown314.Y) {
+		Unknown30C.Z = WWMath::Min(step + Unknown30C.Z, Unknown318);
+		if (Unknown30C.Z == Unknown318) {
 			Unknown204[14]->Unknown_40(false);
 		}
 		Unknown204[13]->Unknown_40(true);
