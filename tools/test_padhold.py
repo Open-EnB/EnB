@@ -80,12 +80,12 @@ class Base(unittest.TestCase):
         self.saved = sys.modules.get('importer')
         self.addCleanup(self.restore)
         self.h = os.path.join(self.td, 'aux_roots_send.h')
-        self.cpp = os.path.join(self.td, 'aux_roots.cpp')
+        self.cpp = os.path.join(self.td, 'co.cpp')
         for mod, name, path in ((sendpad, 'H', self.h), (auxpad, 'CPP', self.cpp)):
             self.addCleanup(setattr, mod, name, getattr(mod, name))
             setattr(mod, name, path)
         with open(self.cpp, 'wb') as f:
-            f.write(b'int x;\r\n// VC6 symbol pad (not the client\'s code)\r\nenum AuxRootsSymbolPadType { };\r\nint y;\r\n')
+            f.write(b'int x;\r\n// VC6 symbol pad (not the client\'s code): the aux-data constructors\r\nenum CoSymbolPadType { };\r\nint y;\r\n')
 
     def restore(self):
         if self.saved is None:

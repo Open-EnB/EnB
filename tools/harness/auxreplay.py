@@ -10,8 +10,8 @@ CREATE 0x0004 (game id, type byte at 10) and AUX_DATA 0x001B. --dump (alex3, ale
 messages from the EA dump instead, rebuilt from its blocks by convert.py (the datagram files'
 content, with the 28 / 12 messages the reference decoder's import lost: D52's 4,289 / 366 AUX_DATA).
 build: links auxreplay against build/'s libraries (tools/vc6/build.py link, as auxdata_smoke.py)
-into DIR/programs/auxreplay/. --app-sources compiles app/client/aux_roots.cpp and
-app/shared/auxdata/unknown_root.cpp into the program (for an app.lib built before they existed).
+into DIR/programs/auxreplay/. --app-sources compiles app/shared/auxdata/unknown_root.cpp and the other aux
+files into the program (for an app.lib built before they existed; the roots' constructors are aux_roots.h's).
 run: NAME is a trace in TRACES (or --trace, or --dump); writes .work/harness/auxreplay/NAME.{in,out}.txt,
 prints the census (gate (b)) and compares the field values with the reference decoder's aux-log --first
 (roots.EA_REF's NAME.aux-log-first.txt, the frozen reference D154, gate (c)).
@@ -82,7 +82,7 @@ def prepare(src, out, dgram=False):
 
 # ------------------------------------------------------------------------- build
 
-APP_SOURCES = (r'app\client\aux_roots.cpp', r'app\shared\auxdata\unknown_root.cpp',
+APP_SOURCES = (r'app\shared\auxdata\unknown_root.cpp',
                r'app\shared\auxdata\encode.cpp', r'app\shared\auxdata\policy.cpp',
                r'app\shared\auxdata\unknown_changes.cpp', r'app\shared\auxdata\delta_money.cpp')
 
@@ -102,7 +102,7 @@ def build(out, app_sources):
             with open(os.path.join(stage, 'app_sources_%d.cpp' % k), 'w', newline='\r\n') as f:
                 f.write('// app file newer than build/app/app.lib (auxreplay.py --app-sources)\n')
                 f.write('#include "' + os.path.relpath(os.path.join(REPO, p), stage) + '"\n')
-    # app.lib's aux objects reach the rest of the client through their callees (aux_roots.obj -> item_effect.obj
+    # app.lib's aux objects reach the rest of the client through their callees (co.obj -> item_effect.obj
     # -> pk.obj -> cpacket.obj -> sclient.obj, ...), as clientpoc's link: wlib / wnet and the system libraries
     # its files import (WinInet, shell32, the old iostreams), then build.py's second pass with a logging
     # stand-in (stubs/stub_log.h) for each symbol still unresolved; what gen_stubs can't write stays at

@@ -1051,7 +1051,7 @@ public:
 // ------------------------------------------------------------------------- the factory
 
 // The factory 0x6F6000 is ClientObjectClass's member (co.h; `ret 8`, called with the object in ecx)
-// though it uses nothing of the object; aux_roots.cpp defines it.
+// though it uses nothing of the object; co.cpp defines it (auxroots.py's region there).
 
 #if defined(AUX_ROOTS_ALL) || defined(AUX_CTORS_SHIP)
 // Ship (0x6F66E0)

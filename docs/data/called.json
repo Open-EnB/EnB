@@ -2982,8 +2982,7 @@
 "0xC415A4"
 ],
 "data:?UnknownGlobal@?$DeltaItemArrayClass@VDeltaFactionClass@@@@2HA": [
-"0xC415F8",
-"0xC41628"
+"0xC415F8"
 ],
 "data:?UnknownGlobal@?$DeltaItemArrayClass@VDeltaGroupMemberClass@@@@2HA": [
 "0xC41644"
@@ -2992,8 +2991,7 @@
 "0xC41624"
 ],
 "data:?UnknownGlobal@?$DeltaItemArrayClass@VDeltaKnownFormulaClass@@@@2HA": [
-"0xC41628",
-"0xC4162C"
+"0xC41628"
 ],
 "data:?UnknownGlobal@?$DeltaItemArrayClass@VDeltaMissionClass@@@@2HA": [
 "0xC415FC"
@@ -3003,7 +3001,6 @@
 "0xC41668"
 ],
 "data:?UnknownGlobal@?$DeltaItemArrayClass@VDeltaPrimaryCategoryClass@@@@2HA": [
-"0xC41620",
 "0xC4162C"
 ],
 "data:?UnknownGlobal@?$DeltaItemArrayClass@VDeltaSkillAbilityClass@@@@2HA": [

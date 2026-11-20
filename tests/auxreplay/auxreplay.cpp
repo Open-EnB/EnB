@@ -34,6 +34,7 @@
 #include <vector>
 #include <set>
 #include <algorithm>
+#define AUX_CTORS_FACTION	// Player's Reputation.Faction: AUX_ROOTS_ALL (co.cpp's) leaves the Faction family out
 #include "aux_roots_all.h"
 #include "linearbu.h"
 #include "encode.h"
@@ -119,7 +120,7 @@ public:
 	virtual void Unknown_44(DeltaClass *delta) { R::Unknown_44(delta); Touched.Note(2, delta); }
 };
 
-// The factory 0x6F6000's cases (aux_roots.cpp's Unknown_Create_Aux_Root) with tracked roots
+// The factory 0x6F6000's cases (co.cpp's Unknown_Create_Aux_Root) with tracked roots
 static UnknownRootClass *Create(int type, const char **name)
 {
 	switch (type) {

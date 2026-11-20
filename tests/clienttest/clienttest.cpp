@@ -336,8 +336,8 @@ const char *Aux_Root_Name(const void *root)
 {
 	return(root == Fake_Player_Root ? "player" : root == Fake_Player_Var_Root ? "player var 0" : root == Fake_Aux ? "object" : "unknown");
 }
-// co.cpp's constructor asks aux_roots.cpp's factory 0x6F6000 for the object's root (aux_roots.obj and the roots'
-// code stay out): the types the factory gives a root (packet-flow.md 2.4) get the harness's, the others none
+// co.cpp's constructor asks co.cpp's factory 0x6F6000 for the object's root (clienttest.py's stage_co compiles
+// co.cpp without it): the types the factory gives a root (packet-flow.md 2.4) get the harness's, the others none
 UnknownRootClass *ClientObjectClass::Unknown_Create_Aux_Root(int type, int)
 {
 	switch (type) {

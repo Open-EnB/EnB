@@ -2,7 +2,7 @@
 
 A pair is (library, file, address) of the ledger (docs/data/imports, a file's `in_tree` list). Classes:
 
-  (1) pad-held        the pair's match flips somewhere in a pad sweep: tools/vc6/auxpad.py (SYMBOL_PAD, aux_roots.cpp)
+  (1) pad-held        the pair's match flips somewhere in a pad sweep: tools/vc6/auxpad.py (SYMBOL_PAD, co.cpp)
                       or tools/vc6/sendpad.py (SEND_SYMBOL_PAD, sclient.cpp), 0..63. Both save every value's exact
                       address set (.work/log/auxpad-sets.json, sendpad-sets.json); a pair of the swept file exact at
                       some values and not at others is pad-held (one never exact in the lone-file compile does not
@@ -45,7 +45,7 @@ OUT_MD = os.path.join(ROOT, 'docs', 'data', 'match-audit.md')
 OUT_JSON = os.path.join(ROOT, 'docs', 'data', 'match-audit.json')
 SHARDS = 'docs/data/imports'
 OLD = 'docs/data/imports.json'
-PAD_SETS = {'aux': ('app', 'aux_roots', os.path.join(ROOT, '.work', 'log', 'auxpad-sets.json'), 'SYMBOL_PAD'),
+PAD_SETS = {'aux': ('app', 'co', os.path.join(ROOT, '.work', 'log', 'auxpad-sets.json'), 'SYMBOL_PAD'),
             'send': ('app', 'sclient', os.path.join(ROOT, '.work', 'log', 'sendpad-sets.json'), 'SEND_SYMBOL_PAD')}
 # source roots per library (a ledger file's `name` is relative to it)
 SOURCE_ROOTS = {'app': 'app', 'wlib': 'libs/wwonline/wlib', 'wnet': 'libs/wwonline/wnet'}

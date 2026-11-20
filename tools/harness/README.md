@@ -93,7 +93,7 @@ three Net-7 sessions); its datagram counts equaled compare.py's for both datagra
 ## AuxData round trip and values (M1.3, gates (b) and (c))
 
 ```
-python tools/vc6/build.py --lib app [--out DIR]                   # app.lib with app/client/aux_roots.cpp
+python tools/vc6/build.py --lib app [--out DIR]                   # app.lib with app/client/co.cpp's aux constructors
 ENB_VC6_HOSTS=<user>@<ip> python tools/harness/auxreplay.py build [--out DIR] [--app-sources]
 python tools/harness/auxreplay.py run capture_1 [--out DIR]      # also capture_2, capture_3, alex3, alex7
 python tools/harness/auxreplay.py run alex3 --dump [--out DIR]   # the messages rebuilt from the EA dump (D52)
@@ -101,7 +101,7 @@ python tools/harness/auxreplay.py run alex3 --dump [--out DIR]   # the messages 
 
 * **tests/auxreplay** links the generated roots (`app/client/aux_roots.h`, tools/re/auxroots.py)
   and the auxdata library. Since Player's tree compiles in sclient.cpp (4292c395e, 2026-11-08) the aux objects'
-  callees take most of app.lib into the link (aux_roots.obj -> item_effect.obj -> pk.obj -> cpacket.obj ->
+  callees take most of app.lib into the link (co.obj -> item_effect.obj -> pk.obj -> cpacket.obj ->
   sclient.obj), so it links as clientpoc does: wlib, wnet, WinInet, shell32 and the old iostreams, then a second
   pass with a logging stand-in for each symbol still unresolved (build.py `gen_stubs`; the rest at address 0,
   `force_unresolved`); `run` copies build/art's MSS32.DLL into the working directory, as clienttest.py. Per channel it makes a root for each CREATE (0x0004: the type byte at

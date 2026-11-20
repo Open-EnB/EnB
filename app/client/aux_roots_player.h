@@ -70,7 +70,7 @@ public:
 class DeltaFactionClass : public DeltaCompoundClass
 {
 public:
-#if defined(AUX_ROOTS_ALL) || defined(AUX_CTORS_FACTION)
+#if defined(AUX_CTORS_FACTION)
 	DeltaFactionClass(const char *name) :
 		DeltaCompoundClass(name),
 		Name("Name", ""),
@@ -95,7 +95,7 @@ public:
 class DeltaReputationClass : public DeltaCompoundClass
 {
 public:
-#if defined(AUX_ROOTS_ALL) || defined(AUX_CTORS_FACTION)
+#if defined(AUX_CTORS_FACTION)
 	DeltaReputationClass(const char *name) :
 		DeltaCompoundClass(name),
 		Faction("Faction", 32),
