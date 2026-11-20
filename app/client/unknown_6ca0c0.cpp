@@ -187,6 +187,7 @@ void FontSys::Unknown_6CA0C0(FontEffectStruct *effect)
 			// left to right: the first letters, then random ones
 			StringClass head(source);
 			head.Erase(shown, length - shown);
+			head.Get_Length();
 			text = head;
 			for (int i = length - shown; i > 0; i--) {
 				text += Random_Letter();
@@ -198,6 +199,7 @@ void FontSys::Unknown_6CA0C0(FontEffectStruct *effect)
 				text += Random_Letter();
 			}
 			tail.Erase(0, length - shown);
+			tail.Get_Length();
 			text += tail;
 		} else {
 			// in random order: Unknown303[i] marks letter i revealed, Unknown414 counts them
@@ -402,64 +404,64 @@ void FontSys::Unknown_6CA0C0(FontEffectStruct *effect)
 			// wiping in
 			switch (effect->Direction) {
 			case FONT_DIRECTION_LEFT:
-				old = rect[0];
-				rect[0] = (width - amount < 2) ? 1 : width - amount;
-				rect[1] = width;
-				if (rect[0] == 1) style->Unknown404 = true;
-				if (old != rect[0]) style->Unknown4C5 = false;
+				old = style->Unknown420[0];
+				style->Unknown420[0] = (style->Unknown2C4 - amount > 1) ? style->Unknown2C4 - amount : 1;
+				style->Unknown420[1] = style->Unknown2C4;
+				if (style->Unknown420[0] == 1) style->Unknown404 = true;
+				if (old != style->Unknown420[0]) style->Unknown4C5 = false;
 				break;
 			case FONT_DIRECTION_RIGHT:
-				old = rect[1];
-				rect[0] = 0;
-				rect[1] = (amount < width) ? amount : width;
-				if (rect[1] == width) style->Unknown404 = true;
-				if (old != rect[1]) style->Unknown4C5 = false;
+				old = style->Unknown420[1];
+				style->Unknown420[0] = 0;
+				style->Unknown420[1] = (amount < style->Unknown2C4) ? amount : style->Unknown2C4;
+				if (style->Unknown420[1] == style->Unknown2C4) style->Unknown404 = true;
+				if (old != style->Unknown420[1]) style->Unknown4C5 = false;
 				break;
 			case FONT_DIRECTION_UP:
-				old = rect[2];
-				rect[2] = (height - amount < 1) ? 0 : height - amount;
-				rect[3] = height;
-				if (rect[2] == 0) style->Unknown404 = true;
-				if (old != rect[2]) style->Unknown4C5 = false;
+				old = style->Unknown420[2];
+				style->Unknown420[2] = (style->Unknown2C8 - amount > 0) ? style->Unknown2C8 - amount : 0;
+				style->Unknown420[3] = style->Unknown2C8;
+				if (style->Unknown420[2] == 0) style->Unknown404 = true;
+				if (old != style->Unknown420[2]) style->Unknown4C5 = false;
 				break;
 			case FONT_DIRECTION_DOWN:
-				old = rect[3];
-				rect[2] = 0;
-				rect[3] = (amount < height) ? amount : height;
-				if (rect[3] == height) style->Unknown404 = true;
-				if (old != rect[3]) style->Unknown4C5 = false;
+				old = style->Unknown420[3];
+				style->Unknown420[2] = 0;
+				style->Unknown420[3] = (amount < style->Unknown2C8) ? amount : style->Unknown2C8;
+				if (style->Unknown420[3] == style->Unknown2C8) style->Unknown404 = true;
+				if (old != style->Unknown420[3]) style->Unknown4C5 = false;
 				break;
 			}
 		} else {
 			// wiping out
 			switch (effect->Direction) {
 			case FONT_DIRECTION_LEFT:
-				old = rect[1];
-				rect[0] = 0;
-				rect[1] = (width - amount < 2) ? 1 : width - amount;
-				if (rect[1] == 1) style->Unknown404 = true;
-				if (old != rect[1]) style->Unknown4C5 = false;
+				old = style->Unknown420[1];
+				style->Unknown420[0] = 0;
+				style->Unknown420[1] = (style->Unknown2C4 - amount > 1) ? style->Unknown2C4 - amount : 1;
+				if (style->Unknown420[1] == 1) style->Unknown404 = true;
+				if (old != style->Unknown420[1]) style->Unknown4C5 = false;
 				break;
 			case FONT_DIRECTION_RIGHT:
-				old = rect[0];
-				rect[0] = (amount < width) ? amount : width;
-				rect[1] = width;
-				if (rect[0] == width) style->Unknown404 = true;
-				if (old != rect[0]) style->Unknown4C5 = false;
+				old = style->Unknown420[0];
+				style->Unknown420[0] = (amount < style->Unknown2C4) ? amount : style->Unknown2C4;
+				style->Unknown420[1] = style->Unknown2C4;
+				if (style->Unknown420[0] == style->Unknown2C4) style->Unknown404 = true;
+				if (old != style->Unknown420[0]) style->Unknown4C5 = false;
 				break;
 			case FONT_DIRECTION_UP:
-				old = rect[3];
-				rect[2] = 0;
-				rect[3] = (height - amount < 2) ? 1 : height - amount;
-				if (rect[3] == 1) style->Unknown404 = true;
-				if (old != rect[3]) style->Unknown4C5 = false;
+				old = style->Unknown420[3];
+				style->Unknown420[2] = 0;
+				style->Unknown420[3] = (style->Unknown2C8 - amount > 1) ? style->Unknown2C8 - amount : 1;
+				if (style->Unknown420[3] == 1) style->Unknown404 = true;
+				if (old != style->Unknown420[3]) style->Unknown4C5 = false;
 				break;
 			case FONT_DIRECTION_DOWN:
-				old = rect[2];
-				rect[2] = (amount < height) ? amount : height;
-				rect[3] = height;
-				if (rect[2] == height) style->Unknown404 = true;
-				if (old != rect[2]) style->Unknown4C5 = false;
+				old = style->Unknown420[2];
+				style->Unknown420[2] = (amount < style->Unknown2C8) ? amount : style->Unknown2C8;
+				style->Unknown420[3] = style->Unknown2C8;
+				if (style->Unknown420[2] == style->Unknown2C8) style->Unknown404 = true;
+				if (old != style->Unknown420[2]) style->Unknown4C5 = false;
 				break;
 			}
 		}
@@ -494,10 +496,12 @@ void FontSys::Unknown_6CA0C0(FontEffectStruct *effect)
 		}
 		const FontColorStruct *second = style->Colors[1];
 		const FontColorStruct *current = style->Colors[style->Unknown44C];
-		double wave = sin((float)style->Unknown274[3] * effect->Speed * 0.0062831f);
-		style->Unknown4A4.Color.X = ((second->RGB.X - current->RGB.X) / 2 * wave + (second->RGB.X + current->RGB.X) / 2) * 0.00392156f;
-		style->Unknown4A4.Color.Y = ((second->RGB.Y - current->RGB.Y) / 2 * wave + (current->RGB.Y + second->RGB.Y) / 2) * 0.00392156f;
-		style->Unknown4A4.Color.Z = ((second->RGB.Z - current->RGB.Z) / 2 * wave + (current->RGB.Z + second->RGB.Z) / 2) * 0.00392156f;
+		float wave = sin((float)style->Unknown274[3] * effect->Speed * 0.0062831f);
+		TPoint3D<int> half((second->RGB.X - current->RGB.X) / 2, (second->RGB.Y - current->RGB.Y) / 2, (second->RGB.Z - current->RGB.Z) / 2);
+		TPoint3D<int> mid((second->RGB.X + current->RGB.X) / 2, (current->RGB.Y + second->RGB.Y) / 2, (current->RGB.Z + second->RGB.Z) / 2);
+		style->Unknown4A4.Color.X = (half.X * wave + mid.X) * 0.00392156f;
+		style->Unknown4A4.Color.Y = (half.Y * wave + mid.Y) * 0.00392156f;
+		style->Unknown4A4.Color.Z = (half.Z * wave + mid.Z) * 0.00392156f;
 		style->Unknown254[1] = 2;
 		break;
 	}
