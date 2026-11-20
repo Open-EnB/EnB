@@ -3627,7 +3627,7 @@ Unknown78A910AvatarClass *UIStarbaseClass::Unknown_642740(StarbaseNPCClass *npc)
 		return(NULL);
 	}
 	char file_name[64];
-	_snprintf(file_name, sizeof(file_name), "%sstarbase_ambient.ini", Unknown_B8A950[UnknownB0->Info->Style]);
+	int style = UnknownB0->Info->Style; const char *race = Unknown_B8A950[style]; _snprintf(file_name, sizeof(file_name), "%sstarbase_ambient.ini", race);
 	INIClass ini(file_name);
 	if (!ini.Is_Loaded()) {
 		return(NULL);
