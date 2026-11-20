@@ -907,8 +907,7 @@ void LandPatchClass::Init(int size, int x, int y, float detail_u, float detail_v
 	Build_Vertices(x, y, detail_u, detail_v);
 }
 
-// NOT EXACT: order-only (4 masked rows: the client sets xi = x after the inner loop's Size test, ours before;
-// i and xi stepped together in the for (i++, xi++: 7 -> 4 rows, SR6); attempts.csv 0x474790)
+// NOT EXACT: order-only (7 masked rows: the client sets xi = x after the inner loop's Size test, ours before; the slots of inv_size / v and i / xi swapped; attempts.csv 0x474790)
 void LandPatchClass::Build_Vertices(int x, int y, float detail_u, float detail_v)
 {
 	float lowest = 2.0f;
@@ -921,7 +920,7 @@ void LandPatchClass::Build_Vertices(int x, int y, float detail_u, float detail_v
 		LandVertexStruct *vertex = (LandVertexStruct *)lock.Get_Vertex_Array();
 		for (int j = 0; j < Size; j++) {
 			int xi = x;
-			for (int i = 0; i < Size; i++, xi++) {
+			for (int i = 0; i < Size; i++) {
 				vertex->X = (float)i;
 				vertex->Y = (float)j;
 				float height = Land->Field->Get_Height_2(xi, j + y) * height_scale;
@@ -935,6 +934,7 @@ void LandPatchClass::Build_Vertices(int x, int y, float detail_u, float detail_v
 				vertex->U1 = u;
 				vertex->U2 = u * detail_u;
 				vertex++;
+				xi++;
 			}
 		}
 	}
