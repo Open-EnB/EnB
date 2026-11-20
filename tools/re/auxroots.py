@@ -400,9 +400,14 @@ SPLITS = [
 ]
 # Every object's G initialiser numbers I<Attachment> (0xC41580) before the ship inventory's arrays (co 0x707A20,
 # ship_stats_display 0x6A3CA0, radar_system 0x7BDEA0): aux_roots.h includes the lego header first, in the ship
-# inventory's place (and the ship inventory's in the lego's): ('aux_roots_shipinv.h', 'aux_roots_lego.h'). Off: no aux
-# pad keeps aux_roots.cpp's 0x6FB1E0 with it (DN's sweep, 2026-11-18: 9-12 trade it for 0x702240 / 0x7045F0).
-SPLIT_SWAP = None
+# inventory's place (and the ship inventory's in the lego's): ('aux_roots_shipinv.h', 'aux_roots_lego.h'). Off until
+# 2026-11-19b (DN's sweep, 2026-11-18: 9-12 traded aux_roots.cpp's 0x6FB1E0 for 0x702240 / 0x7045F0); PAD's sweep on
+# run/2026-11-19b found 8 holding all four, and tools/re/relaudit.py reads each store of those initialisers back
+# against the global the class's own constructors read: with the swap ship_stats_display 0x6A3CA0 and radar_system
+# 0x7BDEA0 store every class's own global (6 wrong before), co 0x707A20 all but its last three (9 wrong before: those
+# three are the manufacturing classes and Faction, which co.cpp's view of the families decides). Byte-identical
+# objects otherwise; sclient.cpp (aux_ship_player.h parses the ship inventory first) is unchanged.
+SPLIT_SWAP = ('aux_roots_shipinv.h', 'aux_roots_lego.h')
 # Splits whose classes also stay in aux_roots.h, behind the split header's guard: replaced by an include there, the
 # decoration's class costs client_lego_impl's canary 0x72D5F0 (the bone map's constructor; DE, 2026-11-18).
 SPLITS_KEPT = {'aux_roots_decoration.h'}
@@ -1066,7 +1071,12 @@ inline char *Unknown_Hex_String(char *buf, int size, const unsigned char *data, 
 # 0x7045F0, 0x7014B0, 0x701D70, 0x758210) by one step of a cycle of 64: each matches only in a window of
 # it. The pad's enumerators put the file inside the windows; retune SYMBOL_PAD when a header aux_roots.cpp
 # includes gains or loses declarations (.work/hx1/exp.py sweeps it by compiling aux_roots.cpp alone).
-SYMBOL_PAD = 42
+# What counts (PAD, 2026-11-19b, verify's compile path): an enumerator, the enum type, a typedef, an extern, a forward
+# class declaration, a local variable (in any function body before the end) 1 each; a prototype 1 + 1 per named
+# parameter; an inline function definition 2 + 1 per parameter; a class 8 + 1 per member; a #define and the
+# length of a name nothing. aux_roots.cpp's window is one value wide (42 before SPLIT_SWAP, 8 with it); the same
+# body in co.cpp, the client's object, holds them over 25..29 (.work/pad/measure.tsv).
+SYMBOL_PAD = 8
 # Definition order in aux_roots.cpp, a second lever (SC2, 2026-11-08d): with DeltaItemArrayClass<DeltaStringClass>
 # (MountBoneNames) instantiated, no pad holds the six with the client's address order (0x7014B0 and 0x7045F0
 # share only 57..59, where 0x6FB1E0 fails); PrimaryCategory's inline constructor (0x6FB1E0) defined last moves
