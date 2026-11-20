@@ -398,7 +398,7 @@ void GutterDataClass::Set_Scale(float scale)
 	}
 }
 
-// NOT EXACT: register and slots (ours spills rdata and holds old_horizontal in ebp; the client the reverse)
+// NOT EXACT: register (ours spills rdata and holds old_horizontal in ebp; the client the reverse: 11 rows); attempts.py show 0x7B63C0
 // @0x7B63C0
 void GutterDataClass::Update_Labels()
 {
@@ -463,8 +463,8 @@ void GutterDataClass::Update_Labels()
 	float offset_y;
 	if (cursor) {
 		Unknown_42ECF0(&label_pos.X, &label_pos.Y);
-		label_pos.X -= mouse->Unknown1C * 0.5f;
-		label_pos.Y += mouse->Unknown20 * 0.5f;
+		float mouse_height = mouse->Unknown20;
+		label_pos.X -= mouse->Unknown1C * 0.5f; label_pos.Y += mouse_height * 0.5f;
 		horizontal = 3;
 		if (old_horizontal == horizontal) {
 			if (label_pos.X > 0.6) {
@@ -474,7 +474,7 @@ void GutterDataClass::Update_Labels()
 			horizontal = 4;
 		}
 		vertical = 1;
-		const Vector3 &extent = cursor->Get_Bounding_Box().Extent;
+		Vector3 extent = cursor->Get_Bounding_Box().Extent;
 		offset_x = (horizontal == 4) ? -0.001f : extent.X;
 		label_pos.X = label_pos.X * 640.0f - 320.0f;
 		offset_y = 0.0f;
@@ -513,15 +513,15 @@ void GutterDataClass::Update_Labels()
 		}
 		offset_y = (vertical == 1) ? -0.011f : 0.011f;
 	}
-	float screen_x = offset_x * 640.0f;
-	float screen_y = offset_y * 480.0f;
-	NameLabel->Set_Offset(screen_x, screen_y);
+
+
+	NameLabel->Set_Offset(offset_x * 640.0f, offset_y * 480.0f);
 	NameLabel->Set_Justify(vertical, horizontal);
 	NameLabel->Set_Position(label_pos);
 	float name_width, name_height;
 	GuildLabel->Unknown_6D5B10(name_width, name_height);
 	label_pos.Y -= name_height;
-	GuildLabel->Set_Offset(screen_x, screen_y);
+	GuildLabel->Set_Offset(offset_x * 640.0f, offset_y * 480.0f);
 	GuildLabel->Set_Justify(vertical, horizontal);
 	GuildLabel->Set_Position(label_pos);
 }

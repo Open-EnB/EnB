@@ -209,7 +209,7 @@ edit the comments in the code, not this file.
 | `app/client/gd_uisld.cpp:87` | `UISliderGadget::Unknown_6755E0` | marker | NOT EXACT: 0x6755E0 order: the client works out pull_box.Extent * 2 * extra before (bar - pull) * 2 (every form tried factors or swaps them) |
 | `app/client/gd_uisld.cpp:354` | `UISliderGadget::Unknown_675F00` | marker | NOT EXACT: 0x675F00 order: the client loads Length * 0.5f before IsHorizontal |
 | `app/client/gutter_data.cpp:119` | `GutterDataClass::Update_Guild_Label` | marker | NOT EXACT: tail merge and register (the client keeps the first Set_Color's first stores and jumps to the third; this in esi, ours edi) @0x7B54E0 |
-| `app/client/gutter_data.cpp:401` | `GutterDataClass::Update_Labels` | marker | NOT EXACT: register and slots (ours spills rdata and holds old_horizontal in ebp; the client the reverse) @0x7B63C0 |
+| `app/client/gutter_data.cpp:401` | `GutterDataClass::Update_Labels` | marker | NOT EXACT: register (ours spills rdata and holds old_horizontal in ebp; the client the reverse: 11 rows); attempts.py show 0x7B63C0 @0x7B63C0 |
 | `app/client/gutter_radar.cpp:230` | `GutterRadarClass::Get_Icon_Scale` | marker | NOT EXACT: tail merge (the client keeps the first return(1.0f)'s own epilogue; ours jumps to the last one) |
 | `app/client/html/htmlview.cpp:469` | `HtmlViewClass::Parse` | marker | NOT EXACT: 0x7710D0, functional (D64), from the pseudocode: inline budget (the client keeps more template copies out of line), frame 0x27C vs 0x284 |
 | `app/client/html/htmlview.cpp:1331` | `HtmlViewClass::Draw_Item` | marker | NOT EXACT: 0x7767A0, the text loop's setup loads are scheduled differently (the client holds item in esi before strlen) |
