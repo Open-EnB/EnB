@@ -1868,8 +1868,8 @@ void UIStarbaseClass::Unknown_6390A0()
 
 
 
-static inline bool Unknown_Is_Shown(GadgetClass *gadget) { return(gadget->Is_Unknown2C_02() ? gadget->Unknown2C_04 : false); }	// (inline: 0x63A100, 0x639630: bit 2 tested, bit 4 returned as the value, and eax, 1; test al, al)  // NAME 1: neutral (D10)
-// NOT EXACT: 0x639630, functional (shape: the client inlines the table's begin() in the second loop, ours calls 0x643DF0; frame 0x28 against 0x38; O4)
+static inline UIStarbaseUnknownD4TableClass::iterator Unknown_Begin(UIStarbaseUnknownD4TableClass &t) { for (unsigned int n = 0; n < t.Buckets.size(); ++n) { if (t.Buckets[n]) { return(UIStarbaseUnknownD4TableClass::iterator(t.Buckets[n], &t)); } } return(t.end()); } static inline bool Unknown_Is_Shown(GadgetClass *gadget) { return(gadget->Is_Unknown2C_02() ? gadget->Unknown2C_04 : false); }	// (Unknown_Begin: 0x643DF0 (begin()) written inline for 0x639630's lit loop, which inlines it where the unlit loop calls it; Unknown_Is_Shown: inline in 0x63A100 and 0x639630, bit 2 tested, bit 4 returned as the value: and eax, 1; test al, al)  // NAME 1: neutral (D10)
+// NOT EXACT: 0x639630, functional (register: the inlined Unknown_63BA70 copies at the Unknown118, exit and facility sites hold a and b in esi / edi where the client holds them in edi / esi; frame 0x28 as the client; O4, UB)
 // 0x639630 (0x638390's frame: the doors', exit's, terminals', NPCs' and avatars' gadgets lit and their tooltips and
 // cursors while the own avatar stands within reach of them; all unlit while it cannot act)
 void UIStarbaseClass::Unknown_639630()
@@ -1880,9 +1880,9 @@ void UIStarbaseClass::Unknown_639630()
 	bool busy = false;
 	ChatPanelInterface *panel = sclient->ChatPanel.Peek();
 	if (panel) {
-		if (Unknown_7CA2D0()->Unknown34 || panel->UnknownEC) {
-			busy = true;
-		}
+		busy = Unknown_7CA2D0()->Unknown34 || panel->UnknownEC;
+
+
 	}
 	if (!UnknownC0.D->Avatar || UnknownC0.D->Avatar->Unknown380 || Unknown1FC || Unknown1FD || Unknown1FE || Unknown1FF || Unknown200 || Unknown201 || !UnknownC0.D->Avatar->Unknown318.empty() || UnknownB0->Unknown_69CCD0() || Unknown1F8->Active || !sclient->Unknown_74B5E0()) {
 		if (Unknown180) {
@@ -1899,7 +1899,7 @@ void UIStarbaseClass::Unknown_639630()
 			}
 		}
 		UIStarbaseUnknownD4TableClass::iterator it;
-		for (it = UnknownD4.begin(); it != UnknownD4.end(); it++) {
+		for (it = UnknownD4.begin(); it != UnknownD4.end(); ++it) {
 			UIStarbaseUnknownCCClass *savatar = it.Cur->Value;
 			FAIL_IF(!savatar) continue;
 			if (savatar->Unknown14) {
@@ -1911,10 +1911,10 @@ void UIStarbaseClass::Unknown_639630()
 	if (Unknown21A) {
 		return;
 	}
-	CharacterViewAvatarClass *avatar = UnknownC0.D->Avatar.Peek();
+
 	for (i = 0; i < 4; i++) {
 		GadgetClass *gadget = Unknown118[i];
-		if (gadget && gadget->Is_Unknown2C_02() && gadget->Is_Unknown2C_04() && Unknown_63BA70(avatar, ((RObjGadgetClass *)gadget)->RObj, 10.0f)) {
+		if (gadget && Unknown_Is_Shown(gadget) && Unknown_63BA70(UnknownC0.D->Avatar.Peek(), ((RObjGadgetClass *)gadget)->RObj, 10.0f)) {
 			if (!busy) {
 				sclient->Mouse->Unknown_515120(7);
 			}
@@ -1922,7 +1922,7 @@ void UIStarbaseClass::Unknown_639630()
 		}
 	}
 	if (!Room && Unknown180) {
-		if (Unknown180->Is_Unknown2C_02() && Unknown180->Is_Unknown2C_04() && Unknown_63BA70(avatar, ((RObjGadgetClass *)Unknown180)->RObj, 100.0f)) {
+		if (Unknown_Is_Shown(Unknown180) && Unknown_63BA70(UnknownC0.D->Avatar.Peek(), ((RObjGadgetClass *)Unknown180)->RObj, 100.0f)) {
 			Unknown_63BA70(UnknownC0.D->Avatar.Peek(), ((RObjGadgetClass *)Unknown180)->RObj, 100.0f);
 			Unknown180->Unknown_40(true);
 			if (!busy) {
@@ -1934,39 +1934,39 @@ void UIStarbaseClass::Unknown_639630()
 		}
 	}
 	for (i = 0; i < 4; i++) {
-		GadgetClass *gadget = UnknownF8[i];
-		if (gadget) {
-			if (gadget->Is_Unknown2C_02() && gadget->Is_Unknown2C_04() && Unknown_63BA70(avatar, ((RObjGadgetClass *)gadget)->RObj, 5.0f)) {
+
+		if (UnknownF8[i]) {
+			if (Unknown_Is_Shown(UnknownF8[i]) && Unknown_63BA70(UnknownC0.D->Avatar.Peek(), ((RObjGadgetClass *)UnknownF8[i])->RObj, 5.0f)) {
 
 				StarbaseFacilityClass *facility = RoomInfo->Find_Facility(i);
 				FAIL_IF(!facility) {
-					gadget->Unknown_40(false);
+					UnknownF8[i]->Unknown_40(false);
 					continue;
 				}
-				gadget->Unknown_40(true);
+				UnknownF8[i]->Unknown_40(true);
 				UnknownB0->Unknown_6A0E80(Unknown_B90BF8[facility->Type]);
 				if (!busy) sclient->Mouse->Unknown_515120(6);
 			} else {
-				gadget->Unknown_40(false);
+				UnknownF8[i]->Unknown_40(false);
 			}
 		}
 	}
 	for (i = 0; i < 14; i++) {
-		UIStarbaseUnknownCCClass *slot = Unknown13C[i];
-		if (slot && slot->Unknown14) {
-			GadgetClass *gadget = slot->Unknown14;
+
+		if (Unknown13C[i] && Unknown13C[i]->Unknown14) {
+			GadgetClass *gadget = Unknown13C[i]->Unknown14;
 			RenderObjClass *obj = NULL;
-			if (slot->Avatar) {
-				obj = slot->Avatar.Peek();
-			} else if (slot->AmbientAvatar) {
-				obj = slot->AmbientAvatar.Peek();
+			if (Unknown13C[i]->Avatar) {
+				obj = Unknown13C[i]->Avatar.Peek();
+			} else if (Unknown13C[i]->AmbientAvatar) {
+				obj = Unknown13C[i]->AmbientAvatar.Peek();
 			}
-			if (gadget->Is_Unknown2C_02() && gadget->Is_Unknown2C_04() && !((RObjGadgetClass *)gadget)->RObj->Is_Hidden() && Unknown_63BA70(UnknownC0.D->Avatar.Peek(), obj, 6.0f)) {
-				slot->Unknown14->Unknown_40(true);
+			if (Unknown_Is_Shown(gadget) && !((RObjGadgetClass *)gadget)->RObj->Is_Hidden() && Unknown_63BA70(UnknownC0.D->Avatar.Peek(), obj, 6.0f)) {
+				Unknown13C[i]->Unknown14->Unknown_40(true);
 				if (!obj) UnknownB0->Unknown_6A0E80("Black Market");
 				if (!busy) sclient->Mouse->Unknown_515120(5);
 			} else {
-				slot->Unknown14->Unknown_40(false);
+				Unknown13C[i]->Unknown14->Unknown_40(false);
 			}
 		}
 	}
@@ -1974,11 +1974,11 @@ void UIStarbaseClass::Unknown_639630()
 
 
 
-	for (it = UnknownD4.begin(); it != UnknownD4.end(); it++) {
+	for (it = Unknown_Begin(UnknownD4.Table); it != UnknownD4.end(); it++) {
 		UIStarbaseUnknownCCClass *savatar = it.Cur->Value;
 		FAIL_IF(!savatar) continue;
 		if (savatar->Unknown14) {
-			if (savatar->Unknown14->Is_Unknown2C_02() && savatar->Unknown14->Is_Unknown2C_04() && Unknown_63BA70(UnknownC0.D->Avatar.Peek(), savatar->Avatar.Peek(), 6.0f)) {
+			if (Unknown_Is_Shown(savatar->Unknown14) && Unknown_63BA70(UnknownC0.D->Avatar.Peek(), savatar->Avatar.Peek(), 6.0f)) {
 				if (!busy) {
 					sclient->Mouse->Unknown_515120(5);
 				}
