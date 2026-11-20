@@ -1665,7 +1665,7 @@ void ShipCustomizeInterface::Unknown_6259C0(short group)
 	}
 }
 
-// NOT EXACT: inline budget (0.82: case 0's inlined 0x6257A0 calls 0x6259C0 out of line in the client; cases 2 / 3 inline more there (Create_Get, the third Gadgets[], the string's _Eos); frame 0x3C against 0x38)
+// NOT EXACT: inline budget (0.84: case 0's inlined 0x6257A0 calls 0x6259C0 out of line in the client; cases 2 / 3 inline more there (Create_Get, the third Gadgets[], the string's _Eos); frame 0x3C against 0x38)
 // @0x625A60
 void ShipCustomizeInterface::Unknown_625A60(int page)
 {
@@ -1678,26 +1678,26 @@ void ShipCustomizeInterface::Unknown_625A60(int page)
 		Unknown_BE67BC->Unload(Unknown_B89C60[Page][1]);
 		Unknown248 = false;
 	}
-	if (Page == 1) {
-		Unknown220[0] = NULL;
-		Unknown220[1] = NULL;
-		Unknown220[2] = NULL;
-		Unknown64.Unknown_687150(Unknown24C->Gadget);
-		if (Unknown24C) {
-			delete Unknown24C;
-		}
-		Unknown24C = NULL;
-	} else if (Page == 2) {
-		Unknown21C = NULL;
-	} else if (Page == 3) {
-		Unknown64.Unknown_687150(NameGadget);
-		NameGadget = NULL;
-		Unknown64.Unknown_687150(Unknown24C->Gadget);
-		if (Unknown24C) {
-			delete Unknown24C;
-		}
-		Unknown24C = NULL;
+	switch (Page) {
+		case 1:
+			Unknown220[0] = NULL; Unknown220[1] = NULL; Unknown220[2] = NULL;
+			Unknown64.Unknown_687150(Unknown24C->Gadget);
+			if (Unknown24C) { delete Unknown24C; }
+			Unknown24C = NULL;
+			break;
+		case 2:
+			Unknown21C = NULL;
+			break;
+		case 3:
+			Unknown64.Unknown_687150(NameGadget);
+			NameGadget = NULL;
+			Unknown64.Unknown_687150(Unknown24C->Gadget);
+			if (Unknown24C) { delete Unknown24C; }
+			Unknown24C = NULL;
+			break;
 	}
+
+
 	CharacterView->Unknown_67A9B0(0);
 	CharacterView->Unknown_67AB20(0, Unknown_B89C60[page][0]);
 	RenderObjClass *model = CharacterView->ViewRObjs[0];
@@ -1863,7 +1863,7 @@ void ShipCustomizeInterface::Unknown_625A60(int page)
 
 	InterfaceClass::Unknown_58();
 	Unknown_58();
-	TheDX8MeshRenderer.Invalidate(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size();	// dead reads (D130; not the client's): 10 spend VC6's inline budget so the page cases' inlined 0x6257A0 copies call operator[] out of line and 0x624D00's loop test calls begin() as the client's (8: 0.78, 12: 0.79)
+	TheDX8MeshRenderer.Invalidate(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size();	// dead reads (D130; not the client's): 10 spend VC6's inline budget so the page cases' inlined 0x6257A0 copies call operator[] out of line and 0x624D00's loop test calls begin() as the client's (8: 0.82, 11: 0.83, 12: 0.77)
 }
 
 

@@ -1166,7 +1166,7 @@ void StarbaseShipCustomizeInterface::Unknown_61BCE0(short group)
 	}
 }
 
-// NOT EXACT: functional (D64)
+// NOT EXACT: inline budget (0.79: the client calls the pair constructor out of line at case 3's second lookup but inlines it at case 0's; ours the reverse; case 2's inlined 0x61DAB0)
 // @0x61BD80
 void StarbaseShipCustomizeInterface::Unknown_61BD80(int page)
 {
@@ -1178,26 +1178,26 @@ void StarbaseShipCustomizeInterface::Unknown_61BD80(int page)
 		Unknown_BE67BC->Unload(Unknown_B894A0[Page][1]);
 		Unknown2FC = false;
 	}
-	if (Page == 1) {
-		Unknown2D4 = NULL;
-		Unknown2D8 = NULL;
-		Unknown2DC = NULL;
-		Unknown64.Unknown_687150(Unknown300->Gadget);
-		if (Unknown300) {
-			delete Unknown300;
-		}
-		Unknown300 = NULL;
-	} else if (Page == 2) {
-		Unknown240 = NULL;
-	} else if (Page == 3) {
-		Unknown64.Unknown_687150(NameGadget);
-		NameGadget = NULL;
-		Unknown64.Unknown_687150(Unknown300->Gadget);
-		if (Unknown300) {
-			delete Unknown300;
-		}
-		Unknown300 = NULL;
+	switch (Page) {
+		case 1:
+			Unknown2D4 = NULL; Unknown2D8 = NULL; Unknown2DC = NULL;
+			Unknown64.Unknown_687150(Unknown300->Gadget);
+			if (Unknown300) { delete Unknown300; }
+			Unknown300 = NULL;
+			break;
+		case 2:
+			Unknown240 = NULL;
+			break;
+		case 3:
+			Unknown64.Unknown_687150(NameGadget);
+			NameGadget = NULL;
+			Unknown64.Unknown_687150(Unknown300->Gadget);
+			if (Unknown300) { delete Unknown300; }
+			Unknown300 = NULL;
+			break;
 	}
+
+
 	InterfaceMesh->Unknown_5B8850(Unknown_B894A0[page][0], true);
 	RenderObjClass *model = InterfaceMesh->Peek_Object();
 	Unknown_BE67BC->Load(Unknown_B894A0[page][1]);
@@ -1336,7 +1336,7 @@ void StarbaseShipCustomizeInterface::Unknown_61BD80(int page)
 			break;
 	}
 	TheDX8MeshRenderer.Invalidate();
-	Unknown_61E8E0(true); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size();	// dead reads (D130; not the client's): they spend VC6's inline budget toward the client's mix (six begin and four iterator++ out of line; 0.54 -> 0.64; 5-7 and 10+ score lower)
+	Unknown_61E8E0(true); Gadgets.size(); Gadgets.size(); Gadgets.size();	// dead reads (D130; not the client's): they spend VC6's inline budget toward the client's mix (the client's frame 0x3C and every lookup's out-of-line split but case 0's / case 3's pair constructor; 2: 0.00, 4: 0.77, 9: 0.79 with frame 0x38)
 }
 
 // @0x61D180
