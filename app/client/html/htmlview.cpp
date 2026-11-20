@@ -661,11 +661,11 @@ int HtmlViewClass::Parse(HtmlLinkStruct *link, HtmlBlockClass *block, int offset
 				HtmlItemStruct *item = new HtmlItemStruct;
 				item->X = block->Get_Cursor_X();
 				item->Y = block->Get_Cursor_Y();
-
-
+				item->Width = 0;
+				item->Height = 0;
 				item->Attributes.Add_All(tableattrs);
 				item->Attributes.Set("Type", "Table");
-				block->Items.addTail(item);
+				block->Add_Item(item);
 				sprintf(buffer, "%p", item);
 				tableattrs.Set("ElementPointer", buffer);
 				str = tableattrs.Get("Border");
@@ -932,8 +932,8 @@ int HtmlViewClass::Parse(HtmlLinkStruct *link, HtmlBlockClass *block, int offset
 				HtmlItemStruct *item = new HtmlItemStruct;
 				item->X = block->Get_Cursor_X();
 				item->Y = block->Get_Cursor_Y();
-				item->Height = 4;
 				item->Width = block->Get_Width() - block->Get_HPadding() - item->X;
+				item->Height = 4;
 				item->Attributes.Set("Type", "HR");
 				block->Items.addTail(item);
 				block->New_Line();
