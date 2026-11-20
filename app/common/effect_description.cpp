@@ -254,7 +254,7 @@ static std::pair<std::string, std::string> Find_Value_Tag(const std::string &tex
 
 
 
-// NOT EXACT: 0x8335D0 (0.57, inline budget: the client keeps ebx / edi for the loop and does not rotate it; Replace_Tag gives its out-of-line find and replace)
+// 0x8335D0 (top-tested loop as the client; find out of line through the dead read below)
 // Text with each value tag replaced by the next of values
 static std::string Fill_Values(const std::string &text, const std::vector<float> &values)  // NAME 1: what it does
 {
@@ -273,7 +273,7 @@ static std::string Fill_Values(const std::string &text, const std::vector<float>
 		char buffer[32];
 		sprintf(buffer, match.second.c_str(), value);
 		std::string value_text = buffer;
-		Replace_Tag(result, match.first, value_text);
+		Replace_Tag(result, match.first, value_text); result.length();	// (dead, D272: keeps find 0x8348B0 out of line inside the inlined Replace_Tag, 0x8336EB)
 	}
 }
 
