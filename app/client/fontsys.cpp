@@ -416,7 +416,7 @@ static inline void Append_Dots(StringClass &text, bool on) { if (on) { text += "
 **	text rectangle +0x420 and the screen rectangle +0x430, and the underline quad from +0x2E0's "_" (Underline).
 **	Colours +0x494 / +0x4A4 / +0x4B4 are floats r, g, b, a (0x6D5170); fontmanager.h's FontStyleColorStruct says int.
 */
-// NOT EXACT: written from the client's code (0x6D64C0) for the POC; PT5 (2026-11-20) masked residue 1404 -> 881 (file-static inline layers Refresh_Line / Set_Pass_Color / Apply_Shader, Step_Colour, WWMath::Min); PT9 881 -> 413 (two dead reads after underline site 7: Vector2() out of line through ??_H at sites 5-7; the rows clamp as ?:, 1.0f < vt, the pass alpha's min as ?:): FC (2026-11-20) 413 -> 177: every call as the client's (the line refresh flat with two dead reads after the copy and the "..." += in a layer; the pass colour one Set_Vertex_Color per layer with WWMath::Min for the alpha; three reads after site 7), (float)height / strip_v inside the strip loop (hoisted, 0x6D6EBD), the swap as y_high first, strips as a ?: of two ftol operands, the argument an int (cmp eax, 1), quads as a branch, the timer clamp on the difference, xs / ys with Scale first: left the zero register (the client's ebx, ours esi / edi), the two early returns' merge, frame 0xB0 / 0xE4
+// NOT EXACT: written from the client's code (0x6D64C0) for the POC; PT5 (2026-11-20) masked residue 1404 -> 881 (file-static inline layers Refresh_Line / Set_Pass_Color / Apply_Shader, Step_Colour, WWMath::Min); PT9 881 -> 413 (two dead reads after underline site 7: Vector2() out of line through ??_H at sites 5-7; the rows clamp as ?:, 1.0f < vt, the pass alpha's min as ?:): FC (2026-11-20) 413 -> 158: every call as the client's (the line refresh flat with two dead reads after the copy and the "..." += in a layer; the pass colour one Set_Vertex_Color per layer with WWMath::Min for the alpha; three reads after site 7), (float)height / strip_v inside the strip loop (hoisted, 0x6D6EBD), the swap as y_high first, strips as a ?: of two ftol operands, the argument an int (cmp eax, 1), quads as a branch, the timer clamp on the difference, xs / ys with Scale first, the underline cell size through an int and a kept float (0x6D7639), Get_Buffer's result kept for both calls (0x6D67F2): left the zero register (the client's ebx, ours esi / edi), the two early returns' merge, frame 0xB0 / 0xE4
 void FontSys::Update_Text(int unknown)
 {
 	WWPROFILE("FontSys::Update_Text");
@@ -466,10 +466,10 @@ void FontSys::Update_Text(int unknown)
 				StringClass text = Info.Text;		// flat: the client inlines the copy's first Get_Length (0x6D6719) and calls operator=
 				text.Peek_Buffer(); text.Peek_Buffer();	// two dead reads (D272): operator= out of line as the client's (0x6D6753)
 				Append_Dots(text, Unknown406);
-				text.Get_Buffer(text.Get_Length());
+				char *buffer = text.Get_Buffer(text.Get_Length());
 				*(int *)((char *)Font.Peek() + 0xD28) = *(int *)((char *)Font.Peek() + 0xD2C);
-				Unknown4C4 = Unknown2D0.Unknown_6D8DC0(&Font, text, 0);
-				Unknown2C4 = Font->String_Pixel_Width(text);
+				Unknown4C4 = Unknown2D0.Unknown_6D8DC0(&Font, buffer, 0);
+				Unknown2C4 = Font->String_Pixel_Width(buffer);
 				Unknown2C8 = Font->Get_Height();
 				Unknown4C5 = false;
 				Unknown420[1] = Unknown2C4;
@@ -669,8 +669,9 @@ void FontSys::Update_Text(int unknown)
 				UV(u_end, v_high);
 				End_Vertex();
 				End_Tri_Strip();
-				if (Underline && !Unknown408 && (float)Unknown2E0.Size > 0.0f) {	// the underline: +0x2E0's "_" cell, stretched
-					float size2 = (float)Unknown2E0.Size;
+				int cell; float size2;
+				if (Underline && !Unknown408 && (size2 = (float)(cell = Unknown2E0.Size)) > 0.0f) {	// the underline: +0x2E0's "_" cell, stretched
+
 					float u2 = (float)Font->String_Pixel_Width("_") / size2;
 					float v2 = (float)Font->Get_Height() / size2;
 					float u_a = u2 * 0.2f;
@@ -697,7 +698,6 @@ void FontSys::Update_Text(int unknown)
 		}
 	}
 }
-
 
 
 
