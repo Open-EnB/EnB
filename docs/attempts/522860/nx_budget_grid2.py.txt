@@ -1,0 +1,115 @@
+# NX batch 5 (0x522860). An evidence-backed lead from batches 1-2: T23_R1_J2 reaches the client's whole Modes profile
+# and overshoots the nested cut by case 26's three assign(ptr, n). Data.Peek() is a coarse unit; hypothesis: a
+# cheaper or differently nested spender after the join (template_info.Peek(), info.Peek(), Item->Get_Template_Info(),
+# modes.empty(), text.size()) or in place of the Refining read cuts the Modes L4 / L5 and stops before case 26.
+HYPOTHESIS = 'T23 with finer after-site spenders (other accessor kinds) to cut Modes nested only'
+F = FILE = 'app/client/item/client_item_property_builder.cpp'
+SYMBOL = ''
+ADDRESS = 0x522860
+P = '\tData.Peek();\n'
+TOP = P * 27
+REF = '\t\t\t\tif (mode_flags & 8) modes.push_back("Refining");\n'
+JOIN = '\t\t\t\tstd::string text = String_Join(modes, ", ");\n'
+
+
+def form(r, j, n=23):
+    h = [(F, TOP, P * n + '\n' * (27 - n))]
+    if r:
+        h.append((F, REF, REF[:-1] + r + '\n'))
+    if j:
+        h.append((F, JOIN, JOIN[:-1] + j + '\n'))
+    return h
+
+
+KINDS = {
+    'tp': ' template_info.Peek();',
+    'ip': ' info.Peek();',
+    'gt': ' Item->Get_Template_Info();',
+    'me': ' modes.empty();',
+    'ts': ' text.size();',
+}
+DP = ' Data.Peek();'
+V = {}
+for k, t in KINDS.items():
+    V['T23_R1_J1_%s1' % k] = form(DP, DP + t)
+    V['T23_R1_%s2' % k] = form(DP, t * 2)
+    V['T23_R%s_J2' % k] = form(t, DP * 2)
+V['T23_R1_J1_tp2'] = form(DP, DP + KINDS['tp'] * 2)
+V['T23_R1_J1_gt2'] = form(DP, DP + KINDS['gt'] * 2)
+COMPILE = [F]
+WATCH = ['0x522860']
+# NX batch 6 (0x522860). Batch 5: Item->Get_Template_Info() (gt) after the join is a finer nested spender than
+# Data.Peek(): T23_R1_gt2 keeps the Modes profile and brings case 26's first assign (the description) back inline,
+# the units/sec one still called. Hypothesis: a gt/Peek mix in the neighbourhood (top 22-24, R as Peek or gt, J as
+# 0-3 gt with 0-1 Peek) reaches the client's case 26 with the Modes profile.
+HYPOTHESIS = 'gt / Peek mixes after Refining and the join around T23 for case 26 plus Modes'
+F = FILE = 'app/client/item/client_item_property_builder.cpp'
+SYMBOL = ''
+ADDRESS = 0x522860
+P = '\tData.Peek();\n'
+TOP = P * 27
+REF = '\t\t\t\tif (mode_flags & 8) modes.push_back("Refining");\n'
+JOIN = '\t\t\t\tstd::string text = String_Join(modes, ", ");\n'
+DP = ' Data.Peek();'
+GT = ' Item->Get_Template_Info();'
+
+
+def form(n, r, j):
+    h = []
+    if n != 27:
+        h.append((F, TOP, P * n + '\n' * (27 - n)))
+    if r:
+        h.append((F, REF, REF[:-1] + r + '\n'))
+    if j:
+        h.append((F, JOIN, JOIN[:-1] + j + '\n'))
+    return h
+
+
+V = {}
+for n in (22, 23, 24):
+    for rn, r in (('P', DP), ('G', GT), ('PG', DP + GT)):
+        for jn, j in (('g1', GT), ('g3', GT * 3), ('pg', DP + GT), ('', '')):
+            name = 'T%d_R%s_J%s' % (n, rn, jn)
+            if (n, rn, jn) in ((23, 'P', 'g1'),):
+                continue
+            V[name] = form(n, r, j)
+COMPILE = [F]
+WATCH = ['0x522860']
+# NX batch 7 (0x522860). FU3: any bare dead statement in the top gap splits the 0x5237F0 -> 0x525D60 tail merge (the
+# Energy Use case's property release comes out CSE'd: ours `mov edx, edi` / `dec eax; mov [esi+4], eax`, the client
+# reloads NumRefs and cross-jumps to the shared release). FU3 also measured that level-1 spend counts, not positions,
+# up to the Signature case. Hypothesis: the split follows where the reads sit relative to the Energy Use case (the
+# optimiser's per-region work), not their count: the same 27 reads after FAIL_IF, at the first case, or at / after
+# the Energy Use case keep the budget profile and may restore the merge.
+HYPOTHESIS = 'the 27 dead Peeks moved (after FAIL_IF, AMMO, Energy Use start/end, Energy Drain) for the 0x5237F0 merge'
+F = FILE = 'app/client/item/client_item_property_builder.cpp'
+SYMBOL = ''
+ADDRESS = 0x522860
+P = '\tData.Peek();\n'
+TOP = P * 27
+R27 = ' Data.Peek();' * 27
+FAIL = '\tFAIL_IF(!template_info) return;\n'
+AMMO = '\t\tcase ITEM_INFO_AMMO: {\n'
+EU = '\t\tcase ITEM_INFO_ENERGY_USE: {\n'
+ED = '\t\tcase ITEM_INFO_ENERGY_DRAIN: {\n'
+EUE = '\t\t\trouter.Route(property);\n\t\t\tbreak;\n\t\t}\n' + ED
+
+
+def move(anchor, n=27, top=0):
+    h = [(F, TOP, P * top + '\n' * (27 - top))]
+    first, rest = anchor.split('\n', 1)
+    h.append((F, anchor, first + ' Data.Peek();' * n + '\n' + rest))
+    return h
+
+
+V = {
+    'M_fail': move(FAIL),
+    'M_ammo': move(AMMO),
+    'M_eu': move(EU),
+    'M_eu_end': move(EUE),
+    'M_ed': move(ED),
+    'M_eu_13': move(EU, 14, 13),
+    'M_ed_13': move(ED, 14, 13),
+}
+COMPILE = [F]
+WATCH = ['0x522860']
