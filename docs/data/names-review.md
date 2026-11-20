@@ -7834,8 +7834,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_514010` | `app/client/sclient.cpp:2358` | untagged neutral name (D10) |
 | 1 | `Unknown_745FF0` | `app/client/sclient.cpp:2379` | untagged neutral name (D10) |
 | 1 | `Unknown_5638E0` | `app/client/sclient.cpp:2381` | untagged neutral name (D10) |
-| 1 | `Unknown1138` | `app/client/sclient.cpp:2522` | untagged neutral name (D10) |
-| 1 | `Unknown14` | `app/client/sclient.cpp:2524` | untagged neutral name (D10) |
+| 1 | `Unknown1138` | `app/client/sclient.cpp:2524` | untagged neutral name (D10) |
+| 1 | `Unknown14` | `app/client/sclient.cpp:2526` | untagged neutral name (D10) |
 | 1 | `Unknown_BE71D4` | `app/client/sclient.cpp:2683` | untagged neutral name (D10) |
 | 1 | `Unknown_7472A0` | `app/client/sclient.cpp:2686` | untagged neutral name (D10) |
 | 1 | `Unknown_30` | `app/client/sclient.cpp:2692` | untagged neutral name (D10) |
@@ -7860,7 +7860,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown1D8` | `app/client/sclient.cpp:3310` | untagged neutral name (D10) |
 | 1 | `Unknown_567540` | `app/client/sclient.cpp:3326` | untagged neutral name (D10) |
 | 1 | `Unknown_749ED0` | `app/client/sclient.cpp:3340` | untagged neutral name (D10) |
-| 1 | `Unknown_5682C0` | `app/client/sclient.cpp:3385` | untagged neutral name (D10) |
+| 1 | `Unknown_5682C0` | `app/client/sclient.cpp:3386` | untagged neutral name (D10) |
 | 1 | `Unknown_74BB50` | `app/client/sclient.cpp:4059` | untagged neutral name (D10) |
 | 1 | `Unknown_74BC20` | `app/client/sclient.cpp:4087` | untagged neutral name (D10) |
 | 1 | `Unknown_74BD90` | `app/client/sclient.cpp:4112` | untagged neutral name (D10) |
