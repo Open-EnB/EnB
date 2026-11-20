@@ -392,7 +392,7 @@ bool Is_Validity_Attempt(UnknownB01394Enum validity);				// 0x846210 (manufactur
 static const char *Unknown_B81880[] = { "Manufacturing Target", "Attempt Succeeded", "N/A", " " };	// NAME 1: neutral (D10)
 template<class C> inline C *Unknown_Find_Valid(DeltaCompoundClass *root, const NameClass &name) { C *t = Unknown_Find_Field<C>(root, name); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10): as co.cpp's
 template<class C> inline C *Unknown_Find_Valid_Field(DeltaCompoundClass *const &root, const char *name) { NameClass n(name); DeltaCompoundClass *r = root; C *t = Unknown_Find_Field<C>(r, n); if (t && t->Unknown70) return(t); return(NULL); } template<class C> inline C *Unknown_Find_Valid(DeltaCompoundClass *const &root, const char *name) { return(Unknown_Find_Valid_Field<C>(root, name)); }	// NAME 1: neutral (D10): as ui_analyze.cpp's (two inline layers: the client's finds 0x546780 / 0x5467F0 out of line in 0x5B4680)
-// NOT EXACT: register (the frame is the client's with each loop's own name buffer, 64 and 32 bytes, sharing the key event's slot; left: the recent texture in eax where the client has ecx, and the name table's pointer loaded after the strip address) (0x5AFFC0)
+// NOT EXACT: register (the frame is the client's with each loop's own name buffer, 64 and 32 bytes, sharing the key event's slot; the button's mesh read into a local before the call gives the client's registers for the recent texture; left: the first loop's name table pointer (ebx) initialised after the button slot pointer (edi), where the client has it first) (0x5AFFC0)
 void UIManuClass::Unknown_54()
 {
 	for (int id = 1; id < 7; id++) {
@@ -405,8 +405,8 @@ void UIManuClass::Unknown_54()
 		}
 	}
 	RefCountPtr<TextureClass> recent = Create_Get(WW3DAssetManager::Get_Instance()->Get_Texture("IM_recent.tga", MIP_LEVELS_ALL, WW3D_FORMAT_UNKNOWN, true));
-	if (recent) {
-		Unknown_495FD0(Unknown0CC[5]->RObj, recent.Peek(), 0);
+	if (recent) { RenderObjClass *mesh = Unknown0CC[5]->RObj;
+		Unknown_495FD0(mesh, recent.Peek(), 0);
 		Unknown0CC[5]->Unknown2C_06 = 0;
 		GadgetClass::Set_Tooltip(Unknown0CC[5], "UI_MANUFACTURE", "ICON_RECENT");
 	}
