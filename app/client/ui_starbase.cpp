@@ -678,7 +678,7 @@ inline UIStarbaseUnknownCCClass::UIStarbaseUnknownCCClass() : Unknown00(0), Avat
 // NOT EXACT: 0x634140, functional from the pseudocode (D64; SU1): the window's set-up (slot +0x54): the full-screen
 // gadget, the +0x1F8 interface, the player's avatar entry with its name and guild texts, the 14 NPC slots, the four
 // terminals, the four doors with their signs, the ship on the hangar's extents, the bar and table models and the
-// '%s_%dmd' animated models (PT3: client bytes read as source, masked residue 1444 -> 107, frame exact; the dead Get_Info() reads (D272) send the first entry's string constructor out of line and keep the signs' _Eos out; left: register choices in the NPC and terminal loops)
+// '%s_%dmd' animated models (PT3: client bytes read as source, masked residue 1444 -> 67, frame and slots exact; the dead Get_Info() reads (D272) send the first entry's string constructor out of line and keep the signs' _Eos out; left: register choices in the NPC loop, i in ebx and npc in edi in the client)
 // 0x634140
 void UIStarbaseClass::Unknown_54()
 {
@@ -780,9 +780,9 @@ void UIStarbaseClass::Unknown_54()
 				_snprintf(name, sizeof(name), "terminal%02d", i);
 				found = InterfaceMesh->Peek_Object()->Get_Bone_Index(name);
 			}
-			if (!found) {
-				continue;
-			}
+			if (found) {
+
+			
 			StarbaseFacilityClass *terminal = RoomInfo->Find_Facility(i);
 			if (terminal) {
 				if (wall) _snprintf(model, sizeof(model), "%s_wall_term", Unknown_B8A950[column]); else _snprintf(model, sizeof(model), "%s_monitor", Unknown_B8A950[column]);
@@ -801,7 +801,7 @@ void UIStarbaseClass::Unknown_54()
 				UnknownF8[i]->Set_Last_Sort_Group(true);
 				Unknown64.Unknown_6870E0(UnknownF8[i], i + 0x11, View, true, false);
 			}
-		}
+		} }
 		for (i = 0; i < 4; i++) {
 			if (Unknown_B8AA3C[Room * 4 + i] == NULL) {
 				continue;
