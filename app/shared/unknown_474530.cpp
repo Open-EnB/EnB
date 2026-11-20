@@ -52,49 +52,56 @@ void Unknown_477E20(std::vector<Vector3> verts);
 // NAME 2: a quad's four corners at a height into the sea's vertex list. A macro: Render 0x474B30 inlines all 36 Adds and
 // calls the DX8 setters at its end out of line; through an inline function the extra level leaves the Adds out of line
 #define Add_Sea_Quad(quads, x, y, dx, dy, z) do { \
-	float qx_ = (x); float qy_ = (y); float qdx_ = (dx); float qdy_ = (dy); float qz_ = (z); \
-	(quads).Add(Vector3(qx_, qy_, qz_)); \
-	(quads).Add(Vector3(qx_ + qdx_, qy_, qz_)); \
-	(quads).Add(Vector3(qx_ + qdx_, qy_ + qdy_, qz_)); \
-	(quads).Add(Vector3(qx_, qy_ + qdy_, qz_)); \
+	Vector3 q_((x), (y), (z)); \
+	(quads).Add(q_); \
+	(quads).Add(Vector3(q_.X + (dx), q_.Y, q_.Z)); \
+	(quads).Add(Vector3(q_.X + (dx), q_.Y + (dy), q_.Z)); \
+	(quads).Add(Vector3(q_.X, q_.Y + (dy), q_.Z)); \
 } while (0)
 
 // NOT EXACT: written from the pseudocode (0x474B30); VIDTEST's land scene runs it (D101). The world transforms are the
 // client's Set_Transform(D3DTS_WORLD, identity) (its ??_H arrays and the flags' and ~WORLD_IDENTITY | WORLD_CHANGED), not
-// Set_World_Identity. Left (inline budget): the patch transform's Matrix3D rows inline (the client constructs them
-// through ??_H), the second buffer pass's textures out of line and its shader inline (the client the reverse)
+// Set_World_Identity. From the client's bytes (PT5, 2026-11-20; masked residue 2279 -> 261, frame 0x33C as the client):
+// the static sea list default-constructed (VectorClass(0, 0), GrowthStep 10) and emptied with Reset_Active (one store,
+// no Clear / Resize calls); the patch loop through a patch pointer, its strip and edge buffers by p->Level; each quad's
+// corner a Vector3 copied into the list (the macro); the sea index count from Count() / 2 and the vertex buffer written
+// through its FVF offsets (0x252, the corner copied, the normal (0, 0, 1), the grid uv a Vector2 local scaled with *=
+// and the two detail scales by Vector2's operator *); the first record pass reads PatchRecords[i] at each use (the
+// client reloads +0x18C). Left: its Set_Shader inline (the client calls it: inline budget), the second record pass's
+// reloads (the same form there inlines everything), register choices in the patch loop and the ring quads
 void LandClass::Render(RenderInfoClass &rinfo)
 {
 	DX8Wrapper::Set_Texture(0, LightmapTextures[FrontLightmap]);
 	DX8Wrapper::Set_Texture(1, DetailTexture);
 	DX8Wrapper::Set_Shader(Shader);
 	DX8Wrapper::Set_Material(Material);
-	static DynamicVectorClass<Vector3> sea_quads(10);
-	sea_quads.Delete_All();
-	bool companion = Unknown_BDC0D8->Unknown11;
+	static DynamicVectorClass<Vector3> sea_quads;
+	sea_quads.Reset_Active();
 	float extent_x = Field->Get_Spacing() * (float)(unsigned int)PatchSize;
 	float extent_y = (float)(unsigned int)PatchSize * Field->Get_YSpacing();
+	bool companion = Unknown_BDC0D8->Unknown11;
 	Unknown_BDC0D8->Unknown_466F60(rinfo);
 	int level, i;
 	for (level = 0; level < MAX_LEVELS; level++) {
 		LandPatchClass **patch = Patches;
-		for (i = PatchCount; i != 0; i--, patch++) {
-			if (!(*patch)->Visible || (*patch)->Level != level) {
+		for (i = PatchCount; i--; patch++) {
+			LandPatchClass *p = *patch;
+			if (!p->Visible || p->Level != level) {
 				continue;
 			}
 			if (!companion) {
 				Matrix3D tm(Vector3(Field->Get_Spacing(), 0.0f, 0.0f), Vector3(0.0f, Field->Get_YSpacing(), 0.0f),
-					Vector3(0.0f, 0.0f, Field->Get_VScale()), Vector3((*patch)->X, (*patch)->Y, (*patch)->Z));
+					Vector3(0.0f, 0.0f, Field->Get_VScale()), Vector3(p->X, p->Y, p->Z));
 				DX8Wrapper::Set_Transform(D3DTS_WORLD, tm);
-				Set_Strip_Buffer(level);
-				(*patch)->Draw_Strip();
-				if (level != 0 && (*patch)->Quarters != 0) {
-					Set_Edge_Buffer(level);
-					(*patch)->Draw();
+				Set_Strip_Buffer(p->Level);
+				p->Draw_Strip();
+				if (p->Level != 0 && p->Quarters != 0) {
+					Set_Edge_Buffer(p->Level);
+					p->Draw();
 				}
 			}
 			if (HasSea) {
-				Add_Sea_Quad(sea_quads, (*patch)->X, (*patch)->Y, extent_x, extent_y, SeaLevel);
+				Add_Sea_Quad(sea_quads, p->X, p->Y, extent_x, extent_y, SeaLevel);
 			}
 		}
 	}
@@ -117,13 +124,12 @@ void LandClass::Render(RenderInfoClass &rinfo)
 				Add_Sea_Quad(sea_quads, -half - (ring + 1) * extent_x, -half - (c + 1) * extent_y, extent_x, extent_y, SeaLevel);
 			}
 		}
-		int count = sea_quads.Count();
-		int triangles = count / 2;
-		DynamicIBAccessClass ib(BUFFER_TYPE_DYNAMIC_DX8, (unsigned short)(triangles * 3));
+		int triangles = sea_quads.Count() / 2;
+		DynamicIBAccessClass ib(BUFFER_TYPE_DYNAMIC_DX8, triangles * 3);
 		{
 			DynamicIBAccessClass::WriteLockClass lock(&ib);
 			unsigned short *index = lock.Get_Index_Array();
-			for (i = 0; i < count / 4; i++) {
+			for (i = 0; i < triangles / 2; i++) {
 				unsigned short base = (unsigned short)(i * 4);
 				*index++ = base;
 				*index++ = base + 1;
@@ -136,27 +142,21 @@ void LandClass::Render(RenderInfoClass &rinfo)
 		DX8Wrapper::Set_Index_Buffer(ib, 0);
 		DX8Wrapper::Set_Transform(D3DTS_WORLD, Matrix4(true));
 		for (int sea = 0; sea < SeaCount; sea++) {
-			DynamicVBAccessClass vb(BUFFER_TYPE_DYNAMIC_DX8, dynamic_fvf_type, (unsigned short)count);
+			DynamicVBAccessClass vb(BUFFER_TYPE_DYNAMIC_DX8, 0x252, (unsigned short)sea_quads.Count());
 			{
 				DynamicVBAccessClass::WriteLockClass lock(&vb);
-				VertexFormatXYZNDUV2 *vertex = lock.Get_Formatted_Vertex_Array();
-				float scale = 1.0f / (float)Field->Get_Size();
-				for (i = 0; i < count; i++, vertex++) {
-					const Vector3 &pos = sea_quads[i];
-					vertex->x = pos.X;
-					vertex->y = pos.Y;
-					vertex->z = pos.Z;
-					vertex->nx = 0.0f;
-					vertex->ny = 0.0f;
-					vertex->nz = 1.0f;
-					float u, v;
-					Field->World_To_Grid(Vector2(pos.X, pos.Y), &u, &v);
-					u *= scale;
-					v *= scale;
-					vertex->u1 = u * SeaDetailScales[sea][0];
-					vertex->v1 = v * SeaDetailScales[sea][0];
-					vertex->u2 = SeaDetailScales[sea][1] * u;
-					vertex->v2 = SeaDetailScales[sea][1] * v;
+				unsigned char *vertex = (unsigned char *)lock.Get_Formatted_Vertex_Array();
+				const FVFInfoClass &fi = vb.FVF_Info();
+				float scale = 1.0f / (float)(unsigned int)Field->Get_Size();
+				for (i = 0; i < sea_quads.Count(); i++) {
+					*(Vector3 *)(vertex + fi.Get_Location_Offset()) = sea_quads[i];
+					*(Vector3 *)(vertex + fi.Get_Normal_Offset()) = Vector3(0.0f, 0.0f, 1.0f);
+					Vector2 uv;
+					Field->World_To_Grid((const Vector2 &)sea_quads[i], &uv.X, &uv.Y);
+					uv *= scale;
+					*(Vector2 *)(vertex + fi.Get_Tex_Offset(0)) = uv * SeaDetailScales[sea][0];
+					*(Vector2 *)(vertex + fi.Get_Tex_Offset(1)) = SeaDetailScales[sea][1] * uv;
+					vertex += fi.Get_FVF_Size();
 				}
 			}
 			DX8Wrapper::Set_Vertex_Buffer(vb);
@@ -164,7 +164,7 @@ void LandClass::Render(RenderInfoClass &rinfo)
 			DX8Wrapper::Set_Texture(1, SeaTextures[sea][1]);
 			DX8Wrapper::Set_Shader(SeaShaders[sea]);
 			DX8Wrapper::Set_Material(SeaMaterials[sea]);
-			DX8Wrapper::Draw_Triangles(0, (unsigned short)triangles, 0, (unsigned short)count);
+			DX8Wrapper::Draw_Triangles(0, (unsigned short)triangles, 0, (unsigned short)sea_quads.Count());
 		}
 	}
 
@@ -187,12 +187,12 @@ void LandClass::Render(RenderInfoClass &rinfo)
 			DX8Wrapper::Set_Shader(Unknown17C);
 			DX8Wrapper::Set_Material(Unknown180.Peek());
 			for (i = 0; i < PatchCount; i++) {
-				LandPatchRecordClass &record = PatchRecords[i];
-				if (record.Visible && record.Unknown10 > 0 && (unsigned int)record.Level < 3) {
-					DX8Wrapper::Set_Vertex_Buffer((VertexBufferClass *)record.Unknown00.Peek());
-					DX8Wrapper::Set_Index_Buffer((IndexBufferClass *)record.Unknown04.Peek(), 0);
-					DX8Wrapper::Draw_Triangles(0, (unsigned short)(record.Unknown14 / 3), 0, (unsigned short)record.Unknown10);
+				if (PatchRecords[i].Visible && PatchRecords[i].Unknown10 > 0 && (unsigned int)PatchRecords[i].Level < 3) {
+					DX8Wrapper::Set_Vertex_Buffer((VertexBufferClass *)PatchRecords[i].Unknown00.Peek());
+					DX8Wrapper::Set_Index_Buffer((IndexBufferClass *)PatchRecords[i].Unknown04.Peek(), 0);
+					DX8Wrapper::Draw_Triangles(0, (unsigned short)(PatchRecords[i].Unknown14 / 3), 0, (unsigned short)PatchRecords[i].Unknown10);
 				}
+
 			}
 		}
 		if (Unknown191) {
