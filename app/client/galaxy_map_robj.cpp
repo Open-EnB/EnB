@@ -49,14 +49,14 @@ static float _max_tile = 0.0f;		// 0xBE8720: the line's tile factor at 256  // N
 
 
 
-// NOT EXACT: registers only (Placement read through ecx, the client's eax; the Name temporary's address in edx, the client's ecx)
+
 // @0x7B2B30
 GalaxyMapRObjClass::GalaxyMapRObjClass(const RefCountPtr<GalaxyMapSystemClass> &system) :
 	DynamicMeshClass(_max_polys, _max_verts), UVFlags(system->HashID),
 	Color(system->Unknown20),
 	NameOffset(0, 0),
 	Blink(0),
-	Placement(system->Unknown3C)
+	Placement(system->Get_Unknown3C())
 {
 
 	if (_name_scale < 0.0f) {

@@ -195,6 +195,7 @@ public:
 	virtual void Write(LinearBufferClass *buffer);								// +0x10 0x838320
 	virtual GalaxyMapSystemClass *As_System() { return(this); }				// +0x14 0x837EE0
 	virtual int Get_Hash_ID() { return(HashID); }								// +0x24 0x837EA0
+	int Get_Unknown3C() { return(Unknown3C); }									// inline: GalaxyMapRObjClass's constructor 0x7B2B30 reads the name's placement through it (the client's eax)  // NAME 1: neutral (D10)
 
 	void Set(int hash_id, const std::string &name, const Vector3 &unknown20, const Vector3 &unknown2c, float unknown38, int unknown3c);	// 0x838050 (no caller)  // NAME 1 [Set, hash_id, name]: stores the members Read carries
 	static RefCountPtr<GalaxyMapSystemClass> Create();						// 0x837C70 (galaxy_map_client.cpp's 0x7A4FC0)  // NAME 2: what it does
