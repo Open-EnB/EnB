@@ -4322,22 +4322,22 @@ void RegistrationInterface::Unknown_5F00C0()
 
 
 
-// @0x603820 NOT EXACT: inline-budget (attempts.csv: _Eos out of line in the client)
+// @0x603820
 bool RegistrationInterface::Unknown_603820(const char *number)
 {
 	std::string text(number);
 	if (text.size() > 0x10 || text.size() < 0xF) {
 		return(false);
 	}
+	std::string::reverse_iterator it = text.rbegin();
 	int sum = 0;
-	std::string::iterator it = text.end();
-	for (int i = 0; i < (int)text.size(); i++) {
-		it--;
+	for (int i = 0; i < (int)text.size(); ++i, ++it) {
 		int digit = *it - '0';
-		if (i % 2 != 0) {
-			digit = CardDoubled[digit];
+		if (i % 2 == 0) {
+			sum += digit;
+		} else {
+			sum += CardDoubled[digit];
 		}
-		sum += digit;
 	}
 	return(sum % 10 == 0);
 }

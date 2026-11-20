@@ -124,12 +124,11 @@ void Unknown_764480Class::Unknown_764C30(int a, int b, int c, int index, const V
 	INI.Put_Point(section, entry, TPoint3D<float>(point.X, point.Y, point.Z));
 }
 
-// NOT EXACT: 0x764CF0, functional (register / order: the client keeps the colour's y on the FPU across the branch and copies x / z as integers; B1)
+
 // 0x764CF0
-Vector3 Unknown_764480Class::Unknown_764CF0(int a, int b, int c)
-{
+Vector3 Unknown_764480Class::Unknown_764CF0(int a, int b, int c) {
 	char section[64];
-	TPoint3D<float> color(0.0f, 0.0f, 0.0f);
+	Vector3 color(0.0f, 0.0f, 0.0f);
 	TPoint3D<float> black(0.0f, 0.0f, 0.0f);
 	_snprintf(section, sizeof(section), "STARBASE-%d-%d-%d", a, b, c);
 	if (!INI.Find_Section(section)) {
@@ -137,9 +136,10 @@ Vector3 Unknown_764480Class::Unknown_764CF0(int a, int b, int c)
 	}
 	if (INI.Find_Entry(section, "Ambient")) {
 		TPoint3D<float> point = INI.Get_Point(section, "Ambient", black);
-		color = point;
-	}
-	return(*(Vector3 *)&color);
+		color.X = point.X;
+		color.Y = point.Y;
+		color.Z = point.Z;
+	} return(color);
 }
 
 // 0x764E20

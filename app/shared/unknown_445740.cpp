@@ -206,10 +206,9 @@ Vector3 SteeringClass::Separation(const SteeringVehicleStruct &vehicle, PxWrappe
 	return sum;
 }
 
-// NOT EXACT: register-only: the inlined Inverse_Transform_Vector's terms in another FPU order (fld st(1) / fld st(0))
+
 // 0x4469A0
-Vector3 SteeringClass::Cohesion(const SteeringVehicleStruct &vehicle, PxWrapper *proxim)
-{
+Vector3 SteeringClass::Cohesion(const SteeringVehicleStruct &vehicle, PxWrapper *proxim) {
 	std::vector<DynObj *> &list = proxim->Unknown_4568E0();
 	int count = list.size();
 	if (count == 0) {
@@ -218,13 +217,14 @@ Vector3 SteeringClass::Cohesion(const SteeringVehicleStruct &vehicle, PxWrapper 
 	int n = 0;
 	Vector3 sum(0.0f, 0.0f, 0.0f);
 	for (int i = 0; i < count; i++) {
+		DynObj *obj = list[i];
 		Vector3 local;
-		Matrix3D::Inverse_Transform_Vector(vehicle.Transform, list[i]->Unknown_Dyn48(), &local);
-		if (local.Length() <= 300.0f) {
+		Matrix3D::Inverse_Transform_Vector(vehicle.Transform, obj->Unknown_Dyn48(), &local);
+		float dist = local.Length();
+		if (dist <= 300.0f) {
 			sum += local;
 			n++;
-		}
-	}
+		} }
 	if (n == 0) {
 		return Vector3(0.0f, 0.0f, 0.0f);
 	}

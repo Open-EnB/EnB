@@ -1740,13 +1740,13 @@ CheckBoxGadgetClass *UIManuClass::Unknown_5B6410(int id, const char *bttn_name, 
 
 
 
-// NOT EXACT: register (tech_level and this in edi / esi the other way round; the client saves ebx before the FAIL_IF exit) (0x5B67C0)
+
 void UIManuClass::Unknown_5B67C0(int tech_level, bool on, int source)
 {
 	FAIL_IF(tech_level < 1 || tech_level >= NUM_TECH_LEVEL_FILTER_CHECK_BUTTONS) return;
-	bool changed = Unknown11C[tech_level - 1].Gadget->Checked != on;
+	bool checked = Unknown11C[tech_level - 1].Gadget->Checked;
+	bool changed = checked != on;
 	if (changed) {
-
 
 
 
@@ -1754,18 +1754,18 @@ void UIManuClass::Unknown_5B67C0(int tech_level, bool on, int source)
 
 		G_ASSERT(source != USER_INPUT);
 		Unknown11C[tech_level - 1].Gadget->Unknown_7E8030(on);
-	}
-	if (source == USER_INPUT) {
+	} if (source == USER_INPUT) {
 		unsigned int bit = 1 << (tech_level - 1);
-		ManufactureTechLevelFilterPacketClass packet(((ClientClass *)Client)->Unknown1138, on, bit);
+		ClientClass *client = (ClientClass *)Client;
+		ManufactureTechLevelFilterPacketClass packet(client->Unknown1138, on, bit);
 		((ClientClass *)Client)->Send_Packet(&packet);
-		Unknown0BC0++;
-		if (Unknown0BC0 > Unknown_B8183C) {
+		Unknown0BC0++; if (Unknown0BC0 > Unknown_B8183C) {
 			Unknown_5B6D30();
-			Unknown_5B6CA0();
-		}
+			Unknown_5B6CA0(); } } if (!on) {
+		Unknown11C[NUM_TECH_LEVEL_FILTER_CHECK_BUTTONS - 1].Gadget->Unknown_7E8030(false);
+	} else {
+		Unknown11C[NUM_TECH_LEVEL_FILTER_CHECK_BUTTONS - 1].Gadget->Unknown_7E8030(Unknown_All_Levels_Checked());
 	}
-	Unknown11C[NUM_TECH_LEVEL_FILTER_CHECK_BUTTONS - 1].Gadget->Unknown_7E8030(on ? Unknown_All_Levels_Checked() : false);
 }
 
 

@@ -841,17 +841,17 @@ void StarbaseAvatarCreationInterface::Unknown_54E7F0(int dir)
 	Unknown_551BF0();
 }
 
-// NOT EXACT: register (0.73 with the value through Get_Unknown18(): dir in ebp where the client keeps edi, then as 0x54E690's; attempts.py show 0x54E950)
+
 // 0x54E950
-void StarbaseAvatarCreationInterface::Unknown_54E950(int dir)
-{
-	do {
-		if (dir == 1) {
+void StarbaseAvatarCreationInterface::Unknown_54E950(int dir) {
+	for (;;) { if (dir == 1) {
 			Unknown368->Unknown_585CC0();
 		} else {
 			Unknown368->Unknown_585C90();
 		}
-	} while (Unknown0BC->Get_Desc()->Gender == 1 && Unknown368->Unknown18 == 0);
+		int gender = Unknown0BC->Get_Desc()->Gender;
+		if (gender != 1 || Unknown368->Unknown18) {
+			break; } }
 	Unknown0BC->Unknown_77FC20(Unknown368->Get_Unknown18(), true);
 	Unknown0BC->Unknown_780810(Unknown0B4->Get_Client()->Peek_Environment_Map_Manager());
 	Unknown0B8->Unknown_84(Unknown0BC);

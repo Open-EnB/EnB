@@ -249,11 +249,11 @@ void UILogClass::Previous_Page()
 	}
 }
 
-// NOT EXACT: registers only (the client keeps this in ebp, the length in ebx) (0x5ABB10)
+
 // 0x5ABB10
-void UILogClass::Insert_Date()
-{
-	if (PageEntry->Active) {
+void UILogClass::Insert_Date() {
+	bool active = PageEntry->Active;
+	if (active) {
 		PageEntry->Unknown_74(false);
 		return;
 	}

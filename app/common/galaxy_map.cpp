@@ -503,19 +503,19 @@ GalaxyMapGateIteratorClass::GalaxyMapGateIteratorClass(GalaxyMapClass *map) :
 	Reset();
 }
 
-// 0x839740  NOT EXACT: the client recomputes &(*It).second after the end test, edi (VC6 keeps the node in edi; attempts.py show 0x839740)
+// 0x839740
 bool GalaxyMapGateIteratorClass::Next()
 {
 	const std::hash_map<int, RefCountPtr<GalaxyMapGateClass> > &table = Map->Gates;
 	if (It == table.end()) {
 		return(false);
 	}
-	++It;
-	if (It == table.end()) {
+	if (++It == table.end()) {
 		Current = NULL;
 		return(false);
 	}
-	Current = (*It).second;
+	const RefCountPtr<GalaxyMapGateClass> *value = &(*It).second;
+	Current = *value;
 	return(true);
 }
 
@@ -537,19 +537,19 @@ GalaxyMapStarbaseIteratorClass::GalaxyMapStarbaseIteratorClass(GalaxyMapClass *m
 	Reset();
 }
 
-// 0x8399D0  NOT EXACT: the client recomputes &(*It).second after the end test, edi (VC6 keeps the node in edi; attempts.py show 0x8399D0)
+// 0x8399D0
 bool GalaxyMapStarbaseIteratorClass::Next()
 {
 	const std::hash_map<int, RefCountPtr<GalaxyMapStarbaseClass> > &table = Map->Starbases;
 	if (It == table.end()) {
 		return(false);
 	}
-	++It;
-	if (It == table.end()) {
+	if (++It == table.end()) {
 		Current = NULL;
 		return(false);
 	}
-	Current = (*It).second;
+	const RefCountPtr<GalaxyMapStarbaseClass> *value = &(*It).second;
+	Current = *value;
 	return(true);
 }
 
