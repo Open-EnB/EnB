@@ -3334,7 +3334,7 @@ bool SClient::Unknown_749A70(const char *text)
 
 
 
-// NOT EXACT: shape (explain.py): 818 against 818 instructions: the client keeps /enf's channel copy (the others jump into it) and the join's length check after it, ours keeps /gen's
+// NOT EXACT: shape (explain.py): 830 against 818 instructions: VC6 places the invalid return right after the /rad text test (the client after the /rad message), inlines the words-fail path's ~basic_string the client calls (??_G, 0x74A667) and keeps this in ebx for the /rad message
 // 0x749ED0 (0x74ABC0): the channel lines '/gen /ooc /mkt /new /jen /ter /pro /exp /tra /war /sen /def /enf <message>'
 // (each when its 'Channel_*' option is on) and '/rad' (the chat panel's private channel)
 bool SClient::Unknown_749ED0(const char *text)
@@ -3382,20 +3382,22 @@ bool SClient::Unknown_749ED0(const char *text)
 		if (options->Get_Bool("Channel_Enforcers")) channel.assign("Enforcers");
 	} else {
 		if (strncmp(text, "/rad", 4) != 0) goto invalid;
-		if (text[4] != '\0' && text[4] != ' ') {
-invalid:
-			return(false);
-		}
-		channel = ChatPanel->Unknown_5682C0();
+		if (text[4] != '\0' && text[4] != ' ') goto invalid;
+		channel.assign(ChatPanel->Unknown_5682C0());
 		if (channel.length() == 0) {
 			Unknown_74D990(0x11, "Not monitoring a private channel.", 0);
 			return(true);
 		}
+		goto send;
 	}
 	if (channel.length() == 0) {
 		Unknown_74D990(0x11, "Not monitoring that channel.", 0);
 		return(true);
 	}
+	goto send;
+invalid:
+	return(false);
+send:
 	char buffer[512];
 	Bounded_Strcpy(buffer, 512, text);
 	std::vector<std::string> words;
@@ -3415,8 +3417,6 @@ invalid:
 	Send_Packet(&packet);
 	return(true);
 }
-
-
 
 
 
