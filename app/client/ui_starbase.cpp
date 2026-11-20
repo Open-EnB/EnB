@@ -1300,50 +1300,50 @@ void UIStarbaseClass::Unknown_63C590()
 		}
 	}
 }
-// NOT EXACT: 0x637130, functional (inline budget: the client inlines the string's assign (_Grow, the copy) at the last eight keys, ours calls it at all sixteen; O4)
+// 0x637130
 void UIStarbaseClass::Unknown_70(ControlKeysManager *manager)
 {
 	FAIL_IF(!manager) return;
-	manager->Add_Keys(&Unknown4C, std::string("Move Forward Toggle"), (void *)0x1D, 0);
-	manager->Add_Keys(&Unknown4C, std::string("First Person"), (void *)0x1B, 0);
-	manager->Add_Keys(&Unknown4C, std::string("Avatar Run"), (void *)0x1C, 0);
-	manager->Add_Keys(&Unknown4C, std::string("Move Backward"), (void *)0x1F, 0);
-	manager->Add_Keys(&Unknown4C, std::string("Move Backward"), (void *)0x20, 0x1000);
-	manager->Add_Keys(&Unknown4C, std::string("Move Forward"), (void *)0x21, 0);
-	manager->Add_Keys(&Unknown4C, std::string("Move Forward"), (void *)0x22, 0x1000);
-	manager->Add_Keys(&Unknown4C, std::string("Tilt Down"), (void *)0x27, 0);
-	manager->Add_Keys(&Unknown4C, std::string("Tilt Down"), (void *)0x28, 0x1000);
-	manager->Add_Keys(&Unknown4C, std::string("Tilt Up"), (void *)0x29, 0);
-	manager->Add_Keys(&Unknown4C, std::string("Tilt Up"), (void *)0x2A, 0x1000);
-	manager->Add_Keys(&Unknown4C, std::string("Turn Left"), (void *)0x23, 0);
-	manager->Add_Keys(&Unknown4C, std::string("Turn Left"), (void *)0x24, 0x1000);
-	manager->Add_Keys(&Unknown4C, std::string("Turn Right"), (void *)0x25, 0);
-	manager->Add_Keys(&Unknown4C, std::string("Turn Right"), (void *)0x26, 0x1000);
-	manager->Add_Keys(&Unknown4C, std::string("Restore Camera"), (void *)0x1E, 0);
+	manager->Add_Keys(&Unknown4C, "Move Forward Toggle", (void *)0x1D, 0);
+	manager->Add_Keys(&Unknown4C, "First Person", (void *)0x1B, 0);
+	manager->Add_Keys(&Unknown4C, "Avatar Run", (void *)0x1C, 0);
+	manager->Add_Keys(&Unknown4C, "Move Backward", (void *)0x1F, 0);
+	manager->Add_Keys(&Unknown4C, "Move Backward", (void *)0x20, 0x1000);
+	manager->Add_Keys(&Unknown4C, "Move Forward", (void *)0x21, 0);
+	manager->Add_Keys(&Unknown4C, "Move Forward", (void *)0x22, 0x1000);
+	manager->Add_Keys(&Unknown4C, "Tilt Down", (void *)0x27, 0);
+	manager->Add_Keys(&Unknown4C, "Tilt Down", (void *)0x28, 0x1000);
+	manager->Add_Keys(&Unknown4C, "Tilt Up", (void *)0x29, 0);
+	manager->Add_Keys(&Unknown4C, "Tilt Up", (void *)0x2A, 0x1000);
+	manager->Add_Keys(&Unknown4C, "Turn Left", (void *)0x23, 0);
+	manager->Add_Keys(&Unknown4C, "Turn Left", (void *)0x24, 0x1000);
+	manager->Add_Keys(&Unknown4C, "Turn Right", (void *)0x25, 0);
+	manager->Add_Keys(&Unknown4C, "Turn Right", (void *)0x26, 0x1000);
+	manager->Add_Keys(&Unknown4C, "Restore Camera", (void *)0x1E, 0);
 }
 
 
 
-// NOT EXACT: 0x637A90, functional (inline budget: the client inlines the string's assign (_Grow, the copy) at the last eight keys, ours calls it at all sixteen; O4)
+// 0x637A90
 void UIStarbaseClass::Unknown_74(ControlKeysManager *manager)
 {
 	FAIL_IF(!manager) return;
-	manager->Remove_Keys(&Unknown4C, std::string("Move Forward Toggle"), 0);
-	manager->Remove_Keys(&Unknown4C, std::string("First Person"), 0);
-	manager->Remove_Keys(&Unknown4C, std::string("Avatar Run"), 0);
-	manager->Remove_Keys(&Unknown4C, std::string("Move Backward"), 0);
-	manager->Remove_Keys(&Unknown4C, std::string("Move Backward"), 0x1000);
-	manager->Remove_Keys(&Unknown4C, std::string("Move Forward"), 0);
-	manager->Remove_Keys(&Unknown4C, std::string("Move Forward"), 0x1000);
-	manager->Remove_Keys(&Unknown4C, std::string("Tilt Down"), 0);
-	manager->Remove_Keys(&Unknown4C, std::string("Tilt Down"), 0x1000);
-	manager->Remove_Keys(&Unknown4C, std::string("Tilt Up"), 0);
-	manager->Remove_Keys(&Unknown4C, std::string("Tilt Up"), 0x1000);
-	manager->Remove_Keys(&Unknown4C, std::string("Turn Left"), 0);
-	manager->Remove_Keys(&Unknown4C, std::string("Turn Left"), 0x1000);
-	manager->Remove_Keys(&Unknown4C, std::string("Turn Right"), 0);
-	manager->Remove_Keys(&Unknown4C, std::string("Turn Right"), 0x1000);
-	manager->Remove_Keys(&Unknown4C, std::string("Restore Camera"), 0);
+	manager->Remove_Keys(&Unknown4C, "Move Forward Toggle", 0);
+	manager->Remove_Keys(&Unknown4C, "First Person", 0);
+	manager->Remove_Keys(&Unknown4C, "Avatar Run", 0);
+	manager->Remove_Keys(&Unknown4C, "Move Backward", 0);
+	manager->Remove_Keys(&Unknown4C, "Move Backward", 0x1000);
+	manager->Remove_Keys(&Unknown4C, "Move Forward", 0);
+	manager->Remove_Keys(&Unknown4C, "Move Forward", 0x1000);
+	manager->Remove_Keys(&Unknown4C, "Tilt Down", 0);
+	manager->Remove_Keys(&Unknown4C, "Tilt Down", 0x1000);
+	manager->Remove_Keys(&Unknown4C, "Tilt Up", 0);
+	manager->Remove_Keys(&Unknown4C, "Tilt Up", 0x1000);
+	manager->Remove_Keys(&Unknown4C, "Turn Left", 0);
+	manager->Remove_Keys(&Unknown4C, "Turn Left", 0x1000);
+	manager->Remove_Keys(&Unknown4C, "Turn Right", 0);
+	manager->Remove_Keys(&Unknown4C, "Turn Right", 0x1000);
+	manager->Remove_Keys(&Unknown4C, "Restore Camera", 0);
 }
 
 
@@ -1868,7 +1868,7 @@ void UIStarbaseClass::Unknown_6390A0()
 
 
 
-
+static inline bool Unknown_Is_Shown(GadgetClass *gadget) { return(gadget->Is_Unknown2C_02() ? gadget->Unknown2C_04 : false); }	// (inline: 0x63A100, 0x639630: bit 2 tested, bit 4 returned as the value, and eax, 1; test al, al)  // NAME 1: neutral (D10)
 // NOT EXACT: 0x639630, functional (shape: the client inlines the table's begin() in the second loop, ours calls 0x643DF0; frame 0x28 against 0x38; O4)
 // 0x639630 (0x638390's frame: the doors', exit's, terminals', NPCs' and avatars' gadgets lit and their tooltips and
 // cursors while the own avatar stands within reach of them; all unlit while it cannot act)
@@ -1996,7 +1996,7 @@ void UIStarbaseClass::Unknown_639630()
 	}
 }
 
-// NOT EXACT: 0x63A100, functional (the busy flag in memory and the Q key in bl in the client, swapped here; branch order otherwise as the client's; SB1)
+
 // 0x63A100
 void UIStarbaseClass::Unknown_63A100()
 {
@@ -2005,9 +2005,9 @@ void UIStarbaseClass::Unknown_63A100()
 	ChatPanelInterface *panel = sclient->ChatPanel.Peek();
 	bool busy = false;
 	if (panel) {
-		if (Unknown_7CA2D0()->Unknown34 || panel->UnknownEC) {
-			busy = true;
-		}
+		busy = Unknown_7CA2D0()->Unknown34 || panel->UnknownEC;
+
+
 	}
 	if (!Unknown_42EC60(2, 0)) {
 		Unknown21A = false;
@@ -2065,10 +2065,10 @@ void UIStarbaseClass::Unknown_63A100()
 			if (middle && sclient->Mouse->Unknown_515320() != 0x12 && !busy) {
 				sclient->Mouse->Unknown_515120(0x12);
 			}
-			if (!(UnknownC0.D->Avatar->Unknown2F8 & 2)) {
-				UnknownC0.D->Avatar->Unknown_786B60(true);
-			} else {
+			if ((bool)(((unsigned int)UnknownC0.D->Avatar->Unknown2F8 >> 1) & 1)) {
 				UnknownC0.D->Avatar->Unknown_786B60(false);
+			} else {
+				UnknownC0.D->Avatar->Unknown_786B60(true);
 			}
 		}
 		if (y < 0.5f) {
@@ -2077,12 +2077,12 @@ void UIStarbaseClass::Unknown_63A100()
 			UnknownC0.D->Avatar->Unknown_786D70(y - 0.5f);
 		}
 		if (x < 0.5f) {
-			if (!key) {
-				UnknownC0.D->Avatar->Unknown_786E40();
-				UnknownC0.D->Avatar->Unknown_786CF0(0.5f - x);
-			} else {
+			if (key) {
 				UnknownC0.D->Avatar->Unknown_786D20();
 				UnknownC0.D->Avatar->Unknown_786DC0(0.5f - x);
+			} else {
+				UnknownC0.D->Avatar->Unknown_786E40();
+				UnknownC0.D->Avatar->Unknown_786CF0(0.5f - x);
 			}
 			if (middle) {
 				return;
@@ -2099,12 +2099,12 @@ void UIStarbaseClass::Unknown_63A100()
 			return;
 		}
 		if (x > 0.5f) {
-			if (!key) {
-				UnknownC0.D->Avatar->Unknown_786E40();
-				UnknownC0.D->Avatar->Unknown_786CC0(x - 0.5f);
-			} else {
+			if (key) {
 				UnknownC0.D->Avatar->Unknown_786D20();
 				UnknownC0.D->Avatar->Unknown_786E00(x - 0.5f);
+			} else {
+				UnknownC0.D->Avatar->Unknown_786E40();
+				UnknownC0.D->Avatar->Unknown_786CC0(x - 0.5f);
 			}
 			if (middle) {
 				return;
@@ -2121,39 +2121,39 @@ void UIStarbaseClass::Unknown_63A100()
 		}
 		return;
 	}
-	if (sclient->Mouse->Unknown_515320() != 2 && ((UnknownB8->Unknown2C_02 && UnknownB8->Unknown2C_04) || sclient->Mouse->Unknown_515320() < 0x16) && !busy) {
+	if (sclient->Mouse->Unknown_515320() != 2 && (Unknown_Is_Shown(UnknownB8) || sclient->Mouse->Unknown_515320() < 0x16) && !busy) {
 		sclient->Mouse->Unknown_515120(2);
 	}
 	if (Unknown214) {
-		if (!(UnknownC0.D->Avatar->Unknown2F8 & 2)) {
-			UnknownC0.D->Avatar->Unknown_786B60(true);
-		} else {
+		if ((bool)(((unsigned int)UnknownC0.D->Avatar->Unknown2F8 >> 1) & 1)) {
 			UnknownC0.D->Avatar->Unknown_786B60(false);
+		} else {
+			UnknownC0.D->Avatar->Unknown_786B60(true);
 		}
 	} else if (Unknown215) {
-		if (!(UnknownC0.D->Avatar->Unknown2F8 & 1)) {
-			UnknownC0.D->Avatar->Unknown_786BF0(true);
-		} else {
+		if (UnknownC0.D->Avatar->Unknown2F8 & 1) {
 			UnknownC0.D->Avatar->Unknown_786BF0(false);
+		} else {
+			UnknownC0.D->Avatar->Unknown_786BF0(true);
 		}
 	} else if (!Unknown1B3) {
 		UnknownC0.D->Avatar->Unknown_786C70();
 	}
 	if (Unknown217) {
-		if (!key) {
-			UnknownC0.D->Avatar->Unknown_786E40();
-			UnknownC0.D->Avatar->Unknown_786CC0(1.0f);
-		} else {
+		if (key) {
 			UnknownC0.D->Avatar->Unknown_786D20();
 			UnknownC0.D->Avatar->Unknown_786E00(1.0f);
+		} else {
+			UnknownC0.D->Avatar->Unknown_786E40();
+			UnknownC0.D->Avatar->Unknown_786CC0(1.0f);
 		}
 	} else if (Unknown216) {
-		if (!key) {
-			UnknownC0.D->Avatar->Unknown_786E40();
-			UnknownC0.D->Avatar->Unknown_786CF0(1.0f);
-		} else {
+		if (key) {
 			UnknownC0.D->Avatar->Unknown_786D20();
 			UnknownC0.D->Avatar->Unknown_786DC0(1.0f);
+		} else {
+			UnknownC0.D->Avatar->Unknown_786E40();
+			UnknownC0.D->Avatar->Unknown_786CF0(1.0f);
 		}
 	} else if (x > 0.99f && key) {
 		UnknownC0.D->Avatar->Unknown_786D20();
