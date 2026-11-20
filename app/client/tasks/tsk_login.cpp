@@ -453,12 +453,12 @@ void LoginTaskClass::Process_Packets()
 	}
 }
 
-// NOT EXACT: register-only (the client recomputes the slot index for Is_Registered_Character; the operator= / 0x7688F0 trade is settled (0x7688F0 exact); attempts.py show 0x7683F0)
+// NOT EXACT: register-only (the slot reference and the Selected local before the last temporary are the client's (15 -> 6 rows); left: the client's first test leaves &slot.ID (lea +0x98) and Is_Registered_Character recomputes the index, ours reuses the reference; attempts.py show 0x7683F0)
 // 0x7683F0
 void LoginTaskClass::Unknown_50()
 {
 	CharacterCreatorClass unknown;
-	if (Characters[Selected].ID == 0) {
+	LoginCharacterClass &c = Characters[Selected]; if (c.ID == 0) {
 		return;
 	}
 	if (Is_Registered_Character()) {
@@ -470,7 +470,7 @@ void LoginTaskClass::Unknown_50()
 	}
 	Characters[Selected] = LoginCharacterClass();
 	Unknown0350[Selected] = AvatarDescClass();
-	Unknown088C[Selected] = ShipCustDescClass();
+	int sel = Selected; Unknown088C[sel] = ShipCustDescClass();
 }
 
 
