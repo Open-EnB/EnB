@@ -2969,14 +2969,14 @@ void RegistrationInterface::Unknown_5F0100()
 
 
 // NOT EXACT: inline-budget (functional; the back-outs through 0x5F8560 as the client inlines it (its 0x5F86F0 / 0x5F89F0 nested calls); the
-// client also inlines 0x5FB890's server box at six sites, calls the radio map's begin out of line and has a 0x184 bytes smaller frame)
+// server boxes through 0x5FB890 (the client inlines six of eight); the client calls the radio map's begin out of line, its frame is 0x184 smaller)
 // @0x5FBD30
 void RegistrationInterface::Unknown_5FBD30()
 {
-	char buffer[1024];
-	char message[1024];
+
+
 	char *password;
-	char *retype;
+	char *retype; Unknown108.size(); Unknown108.size(); Unknown108.size(); Unknown108.size();   // D272: dead reads
 	switch (UnknownD4) {
 		case 0x17:
 			Unknown_5F3770(0);
@@ -3048,12 +3048,12 @@ void RegistrationInterface::Unknown_5FBD30()
 				if (Unknown1AC->Unknown_7D7480(Unknown258.c_str(), Unknown_BE8AD4)) {
 					return;
 				}
-				if (Unknown390.Unknown10 != -1) {
-					_snprintf(buffer, 1024, "%s\n(%d)", RegistrationServerError, Unknown390.Unknown10);
-				} else {
-					_snprintf(buffer, 1024, "%s", RegistrationServerError);
-				}
-				UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, buffer, 0x140, 0, 0);
+				Unknown_5FB890();
+
+
+
+
+
 				Unknown_5F8560();
 
 
@@ -3082,12 +3082,12 @@ void RegistrationInterface::Unknown_5FBD30()
 			if (Unknown1AC->Unknown_7D6FE0(Unknown248.c_str(), Unknown_BE8AD4)) {
 				return;
 			}
-			if (Unknown390.Unknown10 != -1) {
-				_snprintf(buffer, 1024, "%s\n(%d)", RegistrationServerError, Unknown390.Unknown10);
-			} else {
-				_snprintf(buffer, 1024, "%s", RegistrationServerError);
-			}
-			UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, buffer, 0x140, 0, 0);
+			Unknown_5FB890();
+
+
+
+
+
 			Unknown_5F8560();
 
 
@@ -3126,12 +3126,12 @@ void RegistrationInterface::Unknown_5FBD30()
 			if (Unknown1AC->Unknown_7D47F0(Unknown1D8.c_str(), Unknown1E8.c_str(), NULL, Unknown_BE8AD4)) {
 				return;
 			}
-			if (Unknown390.Unknown10 != -1) {
-				_snprintf(buffer, 1024, "%s\n(%d)", RegistrationServerError, Unknown390.Unknown10);
-			} else {
-				_snprintf(buffer, 1024, "%s", RegistrationServerError);
-			}
-			UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, buffer, 0x140, 0, 0);
+			Unknown_5FB890();
+
+
+
+
+
 			Unknown_5F8560();
 
 
@@ -3169,12 +3169,12 @@ void RegistrationInterface::Unknown_5FBD30()
 			if (Unknown_5FA900()) {
 				return;
 			}
-			if (Unknown390.Unknown10 != -1) {
-				_snprintf(buffer, 1024, "%s\n(%d)", RegistrationServerError, Unknown390.Unknown10);
-			} else {
-				_snprintf(buffer, 1024, "%s", RegistrationServerError);
-			}
-			UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, buffer, 0x140, 0, 0);
+			Unknown_5FB890();
+
+
+
+
+
 			Unknown_5F8560();
 
 
@@ -3206,12 +3206,12 @@ void RegistrationInterface::Unknown_5FBD30()
 				Unknown_5FAE90(this, "Validating AOL Login Information...");
 				return;
 			}
-			if (Unknown390.Unknown10 != -1) {
-				_snprintf(buffer, 1024, "%s\n(%d)", RegistrationServerError, Unknown390.Unknown10);
-			} else {
-				_snprintf(buffer, 1024, "%s", RegistrationServerError);
-			}
-			UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, buffer, 0x140, 0, 0);
+			Unknown_5FB890();
+
+
+
+
+
 			Unknown_5F8560();
 
 
@@ -3280,12 +3280,12 @@ bad_login:
 			if (Unknown_5FA900()) {
 				return;
 			}
-			if (Unknown390.Unknown10 != -1) {
-				_snprintf(buffer, 1024, "%s\n(%d)", RegistrationServerError, Unknown390.Unknown10);
-			} else {
-				_snprintf(buffer, 1024, "%s", RegistrationServerError);
-			}
-			UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, buffer, 0x140, 0, 0);
+			Unknown_5FB890();
+
+
+
+
+
 			Unknown_5F8560();
 
 
@@ -3344,12 +3344,12 @@ bad_login:
 						UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "This registration is not intended for your age group.", 0x140, 0, 0);
 					}
 				} else if (!Unknown_5FA900()) {
-					if (Unknown390.Unknown10 != -1) {
-						_snprintf(buffer, 1024, "%s\n(%d)", RegistrationServerError, Unknown390.Unknown10);
-					} else {
-						_snprintf(buffer, 1024, "%s", RegistrationServerError);
-					}
-					UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, buffer, 0x140, 0, 0);
+					Unknown_5FB890();
+
+
+
+
+
 					Unknown_5F8560();
 
 
@@ -3439,12 +3439,12 @@ bad_login:
 				if (!Unknown1D0) {
 					Unknown_5F3770(0x12);
 				} else if (!Unknown_5FA900()) {
-					if (Unknown390.Unknown10 != -1) {
-						_snprintf(buffer, 1024, "%s\n(%d)", RegistrationServerError, Unknown390.Unknown10);
-					} else {
-						_snprintf(buffer, 1024, "%s", RegistrationServerError);
-					}
-					UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, buffer, 0x140, 0, 0);
+					Unknown_5FB890();
+
+
+
+
+
 					Unknown_5F8560();
 
 
@@ -3630,7 +3630,7 @@ request_failed:
 						UnknownBC->Get_Unknown198()->Unknown_784C90("REG19", false);
 						TutorialManagerClass::Instance->Set_Completed("REG19");
 					}
-					_snprintf(message, 1024, "To use your checking account for\npayment please call %s\nand speak to a Customer Service Representative.", (const char *)UnknownA8);
+					char message[1024]; _snprintf(message, 1024, "To use your checking account for\npayment please call %s\nand speak to a Customer Service Representative.", (const char *)UnknownA8);
 					UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, message, 0x140, 0, 0);
 					break;
 				default:
