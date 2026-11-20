@@ -2913,8 +2913,8 @@ void RegistrationInterface::Unknown_5F00E0()
 	}
 }
 
-// NOT EXACT: field-offset (explain.py's first mismatch; the shape is inline-budget: the client calls the map's begin 0x606960, the iterator's
-// operator++(int) 0x604DF0 and pop_back's copy 0x60A060 / _Destroy 0x605950 out of line, and destroys the reply under one EH state)
+
+// 0x5F8560 inlined as the client (its nested map begin 0x606960, operator++(int) 0x604DF0, copy 0x60A060 and _Destroy 0x605950 out of line)
 // @0x5FB9F0
 void RegistrationInterface::Unknown_5F0100()
 {
@@ -2924,29 +2924,29 @@ void RegistrationInterface::Unknown_5F0100()
 	} else {
 		UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, Unknown390.Unknown14.c_str(), 0x140, 0, 0);
 	}
-	if ((UnknownD4 == 1 && Unknown11B) || (UnknownD4 == 0 && Unknown11D) || UnknownD4 == 0x17) {
-		Unknown_5F2990(0);
-		for (std::map<int, RegistrationComboStruct>::iterator it = Unknown108.begin(); it != Unknown108.end(); it++) {
-			if ((*it).second.Combo) {
-				(*it).second.Combo->Enable(0);
-			}
-		}
-		UnknownCA = true;
-		UnknownC7 = true;
-		UnknownBC->Get_Unknown198()->Unknown_784E00();
-		UnknownBC->Unknown_67A8D0(true);
-		UnknownC0->Go_Next_Step();
-	} else {
-		int state = 0;
-		if (UnknownD8.size() != 0) {
-			state = UnknownD8.back();
-		}
-		if (UnknownD8.size() != 0) {
-			UnknownD8.pop_back();
-		}
-		Unknown_5F3770(state);
-	}
+	Unknown_5F8560();
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -3678,33 +3678,63 @@ request_failed:
 static const char *ProductBeta = "EB-BETA";  // NAME 1 [ProductBeta]: client .data 0xB85EE4 (0x600000 compares the bundle ids with it)
 static const char *RegistrationGameId = "2184";  // NAME 1 [RegistrationGameId]: client .data 0xB85EF0 (0x600000: 0x7D7E10's third argument, atoi'd against the game features' ids)
 
-// NOT EXACT: shape (explain.py's first mismatch is a relocation, the string destructor's thunk; 3426 instructions against
-// 3085, frame 0x718 against 0xB34; D89; 0x5F86F0 out of line as the client's since IB; case 7 through the uncalled 0x5FA5F0 (LY) calls 0x603660 / 0x605010 out of line as the client)
+// NOT EXACT: inline-budget (functional; the server boxes through 0x5FB890 and the back-outs through 0x5F8560 as the client inlines them, one per
+// branch; its cases in jump table 0x602AE4's layout order; the client's frame 0xB18 with three dead reads after the last back-out)
 // @0x600000
 void RegistrationInterface::Unknown_5F00C0()
 {
-	char buffer[1024];
 	int state;
 	Unknown390 = Unknown1AC->Unknown_7D1AC0();
 	if (Unknown390.Unknown10 == 99) {
-		if (Unknown390.Unknown10 != -1) {
-			_snprintf(buffer, 1024, "%s\n(%d)", RegistrationServerError, Unknown390.Unknown10);
-		} else {
-			_snprintf(buffer, 1024, "%s", RegistrationServerError);
-		}
-		UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, buffer, 0x140, 0, 0);
-		if ((UnknownD4 == 1 && Unknown11B) || (UnknownD4 == 0 && Unknown11D) || UnknownD4 == 0x17) {
-			Unknown_5F86F0();
-			return;
-		}
-		state = Unknown_5F8A90();
-		if (UnknownD8.size() != 0) {
-			UnknownD8.pop_back();
-		}
-		Unknown_5F3770(state);
+		Unknown_5FB890();
+		Unknown_5F8560();
 		return;
 	}
 	switch (StatusIndex) {
+		case 0xD:
+			switch (Unknown390.Unknown10) {
+				case 0:
+					Unknown_5F3770(0x18);
+					Unknown119 = true;
+					UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "Your Member Names and Passwords have been sent.  Earth & Beyond will now exit to allow you to check your E-Mail.", 0x140, 0, 0);
+					return;
+				case 0x6B:
+					UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "Sorry, you have tried too many times.  Please try again later.", 0x140, 0, 0);
+					Unknown_5F8560();
+					return;
+				case 0x6C:
+					UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "Sorry, no Member Names were found for the E-Mail address.  Please double-check the E-Mail address you entered.", 0x140, 0, 0);
+					Unknown_5F8560();
+					return;
+				default:
+					Unknown_5FB890();
+					Unknown_5F8560();
+					return;
+			}
+		case 0xE:
+			switch (Unknown390.Unknown10) {
+				case 0:
+					Unknown_5F3770(0x18);
+					Unknown119 = true;
+					UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "Your Passwords have been sent.\nEarth & Beyond will now exit to allow you to check your E-Mail.", 0x140, 0, 0);
+					return;
+				case 0x67:
+					UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "Sorry, that Member Name was not found.  Please double-check the Member Name you entered.", 0x140, 0, 0);
+					Unknown_5F8560();
+					return;
+				case 0x6A:
+					UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "Sorry, you have tried too many times.  Please try again later.", 0x140, 0, 0);
+					Unknown_5F8560();
+					return;
+				case 0x6D:
+					Unknown_5FB890();
+					Unknown_5F8560();
+					return;
+				default:
+					Unknown_5FB890();
+					Unknown_5F8560();
+					return;
+			}
 		case 1:
 			if (Unknown390.Unknown10 == 0) {
 				Unknown3C4 = Unknown1AC->Unknown_7D21C0();
@@ -3718,26 +3748,14 @@ void RegistrationInterface::Unknown_5F00C0()
 				if (Unknown1AC->Unknown_7D7E10(Unknown1D8.c_str(), Unknown1E8.c_str(), RegistrationGameId, Unknown_BE8AD4)) {
 					return;
 				}
-				if (Unknown390.Unknown10 != -1) {
-					_snprintf(buffer, 1024, "%s\n(%d)", RegistrationServerError, Unknown390.Unknown10);
-				} else {
-					_snprintf(buffer, 1024, "%s", RegistrationServerError);
-				}
-				UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, buffer, 0x140, 0, 0);
-			} else {
-				Unknown1D1 = false;
-				UnknownBC->Get_Unknown198()->Unknown_784C90("REG20", false);
-				UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "Sorry, that Username/Password\ncombination is not valid.", 0x140, 0, 0);
-			}
-			if ((UnknownD4 == 1 && Unknown11B) || (UnknownD4 == 0 && Unknown11D) || UnknownD4 == 0x17) {
-				Unknown_5F86F0();
+				Unknown_5FB890();
+				Unknown_5F8560();
 				return;
 			}
-			state = Unknown_5F8A90();
-			if (UnknownD8.size() != 0) {
-				UnknownD8.pop_back();
-			}
-			Unknown_5F3770(state);
+			Unknown1D1 = false;
+			UnknownBC->Get_Unknown198()->Unknown_784C90("REG20", false);
+			UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "Sorry, that Username/Password\ncombination is not valid.", 0x140, 0, 0);
+			Unknown_5F8560();
 			return;
 		case 2:
 			if (Unknown390.Unknown10 == 0) {
@@ -3751,21 +3769,8 @@ void RegistrationInterface::Unknown_5F00C0()
 			if (Unknown1AC->Unknown_7DA760(Unknown1D8.c_str(), Unknown1E8.c_str(), NULL, NULL, Unknown_BE8AD4)) {
 				return;
 			}
-			if (Unknown390.Unknown10 != -1) {
-				_snprintf(buffer, 1024, "%s\n(%d)", RegistrationServerError, Unknown390.Unknown10);
-			} else {
-				_snprintf(buffer, 1024, "%s", RegistrationServerError);
-			}
-			UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, buffer, 0x140, 0, 0);
-			if ((UnknownD4 == 1 && Unknown11B) || (UnknownD4 == 0 && Unknown11D) || UnknownD4 == 0x17) {
-				Unknown_5F86F0();
-				return;
-			}
-			state = Unknown_5F8A90();
-			if (UnknownD8.size() != 0) {
-				UnknownD8.pop_back();
-			}
-			Unknown_5F3770(state);
+			Unknown_5FB890();
+			Unknown_5F8560();
 			return;
 		case 3:
 			if (Unknown390.Unknown10 == 0) {
@@ -3810,21 +3815,8 @@ void RegistrationInterface::Unknown_5F00C0()
 								if (Unknown1AC->Unknown_7D8D60(Unknown1D8.c_str(), Unknown1E8.c_str(), ProductEB, Unknown_BE8AD4)) {
 									return;
 								}
-								if (Unknown390.Unknown10 != -1) {
-									_snprintf(buffer, 1024, "%s\n(%d)", RegistrationServerError, Unknown390.Unknown10);
-								} else {
-									_snprintf(buffer, 1024, "%s", RegistrationServerError);
-								}
-								UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, buffer, 0x140, 0, 0);
-								if ((UnknownD4 == 1 && Unknown11B) || (UnknownD4 == 0 && Unknown11D) || UnknownD4 == 0x17) {
-									Unknown_5F86F0();
-									return;
-								}
-								state = Unknown_5F8A90();
-								if (UnknownD8.size() != 0) {
-									UnknownD8.pop_back();
-								}
-								Unknown_5F3770(state);
+								Unknown_5FB890();
+								Unknown_5F8560();
 								return;
 							}
 							Unknown1CB = true;
@@ -3852,15 +3844,7 @@ void RegistrationInterface::Unknown_5F00C0()
 				}
 				if (Unknown1CB) {
 					Unknown_5FB7A0(this, "Your account has been suspended.\nPlease call a Customer Service Representative at %s.", (const char *)UnknownA8);
-					if ((UnknownD4 == 1 && Unknown11B) || (UnknownD4 == 0 && Unknown11D) || UnknownD4 == 0x17) {
-						Unknown_5F86F0();
-						return;
-					}
-					state = Unknown_5F8A90();
-					if (UnknownD8.size() != 0) {
-						UnknownD8.pop_back();
-					}
-					Unknown_5F3770(state);
+					Unknown_5F8560();
 					return;
 				}
 			}
@@ -3869,21 +3853,8 @@ void RegistrationInterface::Unknown_5F00C0()
 			if (Unknown1AC->Unknown_7D5CE0(Unknown1D8.c_str(), Unknown1E8.c_str(), Unknown_BE8AD4)) {
 				return;
 			}
-			if (Unknown390.Unknown10 != -1) {
-				_snprintf(buffer, 1024, "%s\n(%d)", RegistrationServerError, Unknown390.Unknown10);
-			} else {
-				_snprintf(buffer, 1024, "%s", RegistrationServerError);
-			}
-			UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, buffer, 0x140, 0, 0);
-			if ((UnknownD4 == 1 && Unknown11B) || (UnknownD4 == 0 && Unknown11D) || UnknownD4 == 0x17) {
-				Unknown_5F86F0();
-				return;
-			}
-			state = Unknown_5F8A90();
-			if (UnknownD8.size() != 0) {
-				UnknownD8.pop_back();
-			}
-			Unknown_5F3770(state);
+			Unknown_5FB890();
+			Unknown_5F8560();
 			return;
 		case 5:
 			if (Unknown390.Unknown10 == 0) {
@@ -3891,15 +3862,7 @@ void RegistrationInterface::Unknown_5F00C0()
 				if (Unknown598.size() == 0) {
 					if (!Unknown1CD) {
 						UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "The code you entered was not valid.  Please try again.", 0x140, 0, 0);
-						if ((UnknownD4 == 1 && Unknown11B) || (UnknownD4 == 0 && Unknown11D) || UnknownD4 == 0x17) {
-							Unknown_5F86F0();
-							return;
-						}
-						state = Unknown_5F8A90();
-						if (UnknownD8.size() != 0) {
-							UnknownD8.pop_back();
-						}
-						Unknown_5F3770(state);
+						Unknown_5F8560();
 						return;
 					}
 				} else if (!Unknown1CD) {
@@ -3908,21 +3871,8 @@ void RegistrationInterface::Unknown_5F00C0()
 					if (Unknown1AC->Unknown_7DB850(Unknown1C8 ? NULL : Unknown1D8.c_str(), Unknown1C8 ? NULL : Unknown1E8.c_str(), Unknown3C4.Unknown80.c_str(), Unknown_BE8AD4)) {
 						return;
 					}
-					if (Unknown390.Unknown10 != -1) {
-						_snprintf(buffer, 1024, "%s\n(%d)", RegistrationServerError, Unknown390.Unknown10);
-					} else {
-						_snprintf(buffer, 1024, "%s", RegistrationServerError);
-					}
-					UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, buffer, 0x140, 0, 0);
-					if ((UnknownD4 == 1 && Unknown11B) || (UnknownD4 == 0 && Unknown11D) || UnknownD4 == 0x17) {
-						Unknown_5F86F0();
-						return;
-					}
-					state = Unknown_5F8A90();
-					if (UnknownD8.size() != 0) {
-						UnknownD8.pop_back();
-					}
-					Unknown_5F3770(state);
+					Unknown_5FB890();
+					Unknown_5F8560();
 					return;
 				}
 				if (Unknown1D1) {
@@ -3932,20 +3882,12 @@ void RegistrationInterface::Unknown_5F00C0()
 				if (Unknown_5FA900()) {
 					return;
 				}
-				if (Unknown390.Unknown10 != -1) {
-					_snprintf(buffer, 1024, "%s\n(%d)", RegistrationServerError, Unknown390.Unknown10);
-				} else {
-					_snprintf(buffer, 1024, "%s", RegistrationServerError);
-				}
-				UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, buffer, 0x140, 0, 0);
-			} else {
-				UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "The code you entered was not valid.  Please try again.", 0x140, 0, 0);
-			}
-			if ((UnknownD4 == 1 && Unknown11B) || (UnknownD4 == 0 && Unknown11D) || UnknownD4 == 0x17) {
-				Unknown_5F86F0();
+				Unknown_5FB890();
+				Unknown_5F8560();
 				return;
 			}
-			Unknown_5F3770(Unknown_5F89F0());
+			UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "The code you entered was not valid.  Please try again.", 0x140, 0, 0);
+			Unknown_5F8560();
 			return;
 		case 6:
 			if (Unknown390.Unknown10 == 0) {
@@ -3960,17 +3902,11 @@ void RegistrationInterface::Unknown_5F00C0()
 				return;
 			}
 			UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "The code you entered was not valid.  Please try again.", 0x140, 0, 0);
-			if ((UnknownD4 == 1 && Unknown11B) || (UnknownD4 == 0 && Unknown11D) || UnknownD4 == 0x17) {
-				Unknown_5F86F0();
-				return;
-			}
-			Unknown_5F3770(Unknown_5F89F0());
+			Unknown_5F8560();
 			return;
 		case 7:
 			if (Unknown390.Unknown10 == 0) {
 				Unknown_5FA5F0();
-
-
 				if (Unknown328.Unknown10 == ProductEB && (Unknown328.Unknown20 == 3 || Unknown328.Unknown20 == 4)) {
 					if (Unknown11E) {
 						Unknown11B = true;
@@ -3982,26 +3918,30 @@ void RegistrationInterface::Unknown_5F00C0()
 					if (Unknown_5FA900()) {
 						return;
 					}
-					if (Unknown390.Unknown10 != -1) {
-						_snprintf(buffer, 1024, "%s\n(%d)", RegistrationServerError, Unknown390.Unknown10);
-					} else {
-						_snprintf(buffer, 1024, "%s", RegistrationServerError);
-					}
-					UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, buffer, 0x140, 0, 0);
-				} else {
-					UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "The code you entered was not valid.  Please try again.", 0x140, 0, 0);
+					Unknown_5FB890();
+					Unknown_5F8560();
+					return;
 				}
-			} else {
 				UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "The code you entered was not valid.  Please try again.", 0x140, 0, 0);
-			}
-			if ((UnknownD4 == 1 && Unknown11B) || (UnknownD4 == 0 && Unknown11D) || UnknownD4 == 0x17) {
-				Unknown_5F86F0();
+				Unknown_5F8560();
 				return;
 			}
-			Unknown_5F3770(Unknown_5F89F0());
+			UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "The code you entered was not valid.  Please try again.", 0x140, 0, 0);
+			Unknown_5F8560();
+			return;
+		case 0xC:
+			if (Unknown390.Unknown10 == 0) {
+				Unknown_5F3770(5);
+				return;
+			}
+			UnknownBC->Get_Unknown198()->Unknown_784E00();
+			UnknownBC->Get_Unknown198()->Unknown_784C90("REG20", false);
+			UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "Sorry, that username/password combination is incorrect.\nPlease try again.", 0x140, 0, 0);
+			Unknown_5F8560();
 			return;
 		case 8:
-			if (Unknown390.Unknown10 == 0) {
+			switch (Unknown390.Unknown10) {
+			case 0:
 				Unknown1D3 = true;
 				if (Unknown38C == 3) {
 					StatusIndex = 0xA;
@@ -4010,12 +3950,7 @@ void RegistrationInterface::Unknown_5F00C0()
 						Unknown_5FB330(Unknown228).c_str(), Unknown328.Unknown00.c_str(), Unknown_5FB330(Unknown238).c_str(), true, Unknown_BE8AD4)) {
 						return;
 					}
-					if (Unknown390.Unknown10 != -1) {
-						_snprintf(buffer, 1024, "%s\n(%d)", RegistrationServerError, Unknown390.Unknown10);
-					} else {
-						_snprintf(buffer, 1024, "%s", RegistrationServerError);
-					}
-					UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, buffer, 0x140, 0, 0);
+					Unknown_5FB890();
 					Unknown_5F3770(Unknown3C4.Unknown80 == "US" ? 0xC : 0xD);
 					return;
 				}
@@ -4028,22 +3963,21 @@ void RegistrationInterface::Unknown_5F00C0()
 					if (Unknown1AC->Unknown_7D6180(Unknown1D8.c_str(), Unknown1E8.c_str(), &Unknown478, false, Unknown_BE8AD4)) {
 						return;
 					}
-				} else {
-					Unknown1D4 = true;
-					StatusIndex = 0xA;
-					Unknown_5FAE90(this, NULL);
-					if (Unknown1AC->Unknown_7D9790(Unknown1D8.c_str(), Unknown1E8.c_str(), Unknown270.Unknown00.c_str(), Unknown38C,
-						Unknown_5FB330(Unknown228).c_str(), NULL, NULL, true, Unknown_BE8AD4)) {
-						return;
-					}
+					Unknown_5FB890();
+					Unknown_5F8560();
+					return;
 				}
-				if (Unknown390.Unknown10 != -1) {
-					_snprintf(buffer, 1024, "%s\n(%d)", RegistrationServerError, Unknown390.Unknown10);
-				} else {
-					_snprintf(buffer, 1024, "%s", RegistrationServerError);
+				Unknown1D4 = true;
+				StatusIndex = 0xA;
+				Unknown_5FAE90(this, NULL);
+				if (Unknown1AC->Unknown_7D9790(Unknown1D8.c_str(), Unknown1E8.c_str(), Unknown270.Unknown00.c_str(), Unknown38C,
+					Unknown_5FB330(Unknown228).c_str(), NULL, NULL, true, Unknown_BE8AD4)) {
+					return;
 				}
-				UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, buffer, 0x140, 0, 0);
-			} else if (Unknown390.Unknown10 == 0x65) {
+				Unknown_5FB890();
+				Unknown_5F8560();
+				return;
+			case 0x65: {
 				Unknown1D3 = false;
 				RegistrationUnknown3C4Struct info = Unknown1AC->Unknown_7D21C0();
 				Unknown3C4.Unknown00[0] = info.Unknown00[0];
@@ -4053,19 +3987,12 @@ void RegistrationInterface::Unknown_5F00C0()
 				Unknown3C4.Unknown00[4] = info.Unknown00[4];
 				Unknown_5F3770(9);
 				return;
-			} else {
-				UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, Unknown390.Unknown14.c_str(), 0x140, 0, 0);
 			}
-			if ((UnknownD4 == 1 && Unknown11B) || (UnknownD4 == 0 && Unknown11D) || UnknownD4 == 0x17) {
-				Unknown_5F86F0();
+			default:
+				UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, Unknown390.Unknown14.c_str(), 0x140, 0, 0);
+				Unknown_5F8560();
 				return;
 			}
-			state = Unknown_5F8A90();
-			if (UnknownD8.size() != 0) {
-				UnknownD8.pop_back();
-			}
-			Unknown_5F3770(state);
-			return;
 		case 9:
 			switch (Unknown390.Unknown10) {
 				case 0:
@@ -4080,13 +4007,9 @@ void RegistrationInterface::Unknown_5F00C0()
 						Unknown_5FB330(Unknown228).c_str(), NULL, NULL, true, Unknown_BE8AD4)) {
 						return;
 					}
-					if (Unknown390.Unknown10 != -1) {
-						_snprintf(buffer, 1024, "%s\n(%d)", RegistrationServerError, Unknown390.Unknown10);
-					} else {
-						_snprintf(buffer, 1024, "%s", RegistrationServerError);
-					}
-					UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, buffer, 0x140, 0, 0);
-					break;
+					Unknown_5FB890();
+					Unknown_5F3770(Unknown3C4.Unknown80 == "US" ? 0xC : 0xD);
+					return;
 				case 10:
 					Unknown1D4 = false;
 					UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "Billing Information was invalid.\nPlease check your information and try again.", 0x140, 0, 0);
@@ -4152,17 +4075,7 @@ void RegistrationInterface::Unknown_5F00C0()
 				case 0x13E:
 					Unknown1D5 = false;
 					UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "A GameTime card can only be applied to a fully registered account.  Please upgrade your demo account to the full version.", 0x140, 0, 0);
-					if ((UnknownD4 == 1 && Unknown11B) || (UnknownD4 == 0 && Unknown11D) || UnknownD4 == 0x17) {
-						Unknown_5F2990(false);
-						Unknown_5F2A80(false, NULL);
-						UnknownCA = true;
-						UnknownC7 = true;
-						UnknownBC->Get_Unknown198()->Unknown_784E00();
-						UnknownBC->Unknown_67A8D0(true);
-						UnknownC0->Go_Next_Step();
-						return;
-					}
-					Unknown_5F3770(Unknown_5F89F0());
+					Unknown_5F8560();
 					break;
 				default:
 					Unknown1D5 = false;
@@ -4170,92 +4083,6 @@ void RegistrationInterface::Unknown_5F00C0()
 					Unknown_5F3770(0x14);
 					break;
 			}
-			return;
-		case 0xC:
-			if (Unknown390.Unknown10 == 0) {
-				Unknown_5F3770(5);
-				return;
-			}
-			UnknownBC->Get_Unknown198()->Unknown_784E00();
-			UnknownBC->Get_Unknown198()->Unknown_784C90("REG20", false);
-			UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "Sorry, that username/password combination is incorrect.\nPlease try again.", 0x140, 0, 0);
-			if ((UnknownD4 == 1 && Unknown11B) || (UnknownD4 == 0 && Unknown11D) || UnknownD4 == 0x17) {
-				Unknown_5F86F0();
-				return;
-			}
-			Unknown_5F3770(Unknown_5F89F0());
-			return;
-		case 0xD:
-			switch (Unknown390.Unknown10) {
-				case 0:
-					Unknown_5F3770(0x18);
-					Unknown119 = true;
-					UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "Your Member Names and Passwords have been sent.  Earth & Beyond will now exit to allow you to check your E-Mail.", 0x140, 0, 0);
-					return;
-				case 0x6B:
-					UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "Sorry, you have tried too many times.  Please try again later.", 0x140, 0, 0);
-					break;
-				case 0x6C:
-					UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "Sorry, no Member Names were found for the E-Mail address.  Please double-check the E-Mail address you entered.", 0x140, 0, 0);
-					break;
-				default:
-					if (Unknown390.Unknown10 != -1) {
-						_snprintf(buffer, 1024, "%s\n(%d)", RegistrationServerError, Unknown390.Unknown10);
-					} else {
-						_snprintf(buffer, 1024, "%s", RegistrationServerError);
-					}
-					UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, buffer, 0x140, 0, 0);
-					break;
-			}
-			if ((UnknownD4 == 1 && Unknown11B) || (UnknownD4 == 0 && Unknown11D) || UnknownD4 == 0x17) {
-				Unknown_5F86F0();
-				return;
-			}
-			state = Unknown_5F8A90();
-			if (UnknownD8.size() != 0) {
-				UnknownD8.pop_back();
-			}
-			Unknown_5F3770(state);
-			return;
-		case 0xE:
-			switch (Unknown390.Unknown10) {
-				case 0:
-					Unknown_5F3770(0x18);
-					Unknown119 = true;
-					UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "Your Passwords have been sent.\nEarth & Beyond will now exit to allow you to check your E-Mail.", 0x140, 0, 0);
-					return;
-				case 0x67:
-					UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "Sorry, that Member Name was not found.  Please double-check the Member Name you entered.", 0x140, 0, 0);
-					break;
-				case 0x6A:
-					UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "Sorry, you have tried too many times.  Please try again later.", 0x140, 0, 0);
-					break;
-				case 0x6D:
-					if (Unknown390.Unknown10 != -1) {
-						_snprintf(buffer, 1024, "%s\n(%d)", RegistrationServerError, Unknown390.Unknown10);
-					} else {
-						_snprintf(buffer, 1024, "%s", RegistrationServerError);
-					}
-					UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, buffer, 0x140, 0, 0);
-					break;
-				default:
-					if (Unknown390.Unknown10 != -1) {
-						_snprintf(buffer, 1024, "%s\n(%d)", RegistrationServerError, Unknown390.Unknown10);
-					} else {
-						_snprintf(buffer, 1024, "%s", RegistrationServerError);
-					}
-					UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, buffer, 0x140, 0, 0);
-					break;
-			}
-			if ((UnknownD4 == 1 && Unknown11B) || (UnknownD4 == 0 && Unknown11D) || UnknownD4 == 0x17) {
-				Unknown_5F86F0();
-				return;
-			}
-			state = Unknown_5F8A90();
-			if (UnknownD8.size() != 0) {
-				UnknownD8.pop_back();
-			}
-			Unknown_5F3770(state);
 			return;
 		case 0xF:
 			if (Unknown390.Unknown10 == 0) {
@@ -4265,33 +4092,12 @@ void RegistrationInterface::Unknown_5F00C0()
 				if (Unknown1AC->Unknown_7DB850(Unknown1D8.c_str(), Unknown1E8.c_str(), Unknown3C4.Unknown80.c_str(), Unknown_BE8AD4)) {
 					return;
 				}
-				if (Unknown390.Unknown10 != -1) {
-					_snprintf(buffer, 1024, "%s\n(%d)", RegistrationServerError, Unknown390.Unknown10);
-				} else {
-					_snprintf(buffer, 1024, "%s", RegistrationServerError);
-				}
-				UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, buffer, 0x140, 0, 0);
-			} else {
-				UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "An Internal Error has occured.  Please try again.", 0x140, 0, 0);
-			}
-			if ((UnknownD4 == 1 && Unknown11B) || (UnknownD4 == 0 && Unknown11D) || UnknownD4 == 0x17) {
-				Unknown_5F2990(false);
-				Unknown_5F2A80(false, NULL);
-				UnknownCA = true;
-				UnknownC7 = true;
-				UnknownBC->Get_Unknown198()->Unknown_784E00();
-				UnknownBC->Unknown_67A8D0(true);
-				UnknownC0->Go_Next_Step();
+				Unknown_5FB890();
+				Unknown_5F8560();
 				return;
 			}
-			state = 0;
-			if (UnknownD8.size() != 0) {
-				state = UnknownD8.back();
-			}
-			if (UnknownD8.size() != 0) {
-				UnknownD8.pop_back();
-			}
-			Unknown_5F3770(state);
+			UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "An Internal Error has occured.  Please try again.", 0x140, 0, 0);
+			Unknown_5F8560();
 			return;
 		case 0x10:
 			if (Unknown390.Unknown10 == 0) {
@@ -4300,27 +4106,221 @@ void RegistrationInterface::Unknown_5F00C0()
 				return;
 			}
 			UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "An Internal Error has occured.  Please try again.", 0x140, 0, 0);
-			if ((UnknownD4 == 1 && Unknown11B) || (UnknownD4 == 0 && Unknown11D) || UnknownD4 == 0x17) {
-				Unknown_5F2990(false);
-				Unknown_5F2A80(false, NULL);
-				UnknownCA = true;
-				UnknownC7 = true;
-				UnknownBC->Get_Unknown198()->Unknown_784E00();
-				UnknownBC->Unknown_67A8D0(true);
-				UnknownC0->Go_Next_Step();
-				return;
-			}
-			state = 0;
-			if (UnknownD8.size() != 0) {
-				state = UnknownD8.back();
-			}
-			if (UnknownD8.size() != 0) {
-				UnknownD8.pop_back();
-			}
-			Unknown_5F3770(state);
+			Unknown_5F8560(); Unknown108.size(); Unknown108.size(); Unknown108.size();   // D272: dead reads
 			return;
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // @0x603820 NOT EXACT: inline-budget (attempts.csv: _Eos out of line in the client)
 bool RegistrationInterface::Unknown_603820(const char *number)
