@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1970 |
 | 2 | describes what the code does | 4996 |
-| 1 | neutral placeholder | 25168 |
+| 1 | neutral placeholder | 25169 |
 
 ## For review (score 3 and below)
 
@@ -18777,22 +18777,23 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown380` | `app/client/ui_starbase.cpp:1788` | untagged neutral name (D10) |
 | 1 | `Unknown_7863E0` | `app/client/ui_starbase.cpp:1788` | untagged neutral name (D10) |
 | 1 | `Unknown_786370` | `app/client/ui_starbase.cpp:1791` | untagged neutral name (D10) |
+| 1 | `UIStarbaseUnknownD4TableClass:` | `app/client/ui_starbase.cpp:1871` | neutral (D10) |
+| 1 | `Unknown_Begin` | `app/client/ui_starbase.cpp:1871` | untagged neutral name (D10) |
+| 1 | `Unknown_Is_Shown` | `app/client/ui_starbase.cpp:1871` | untagged neutral name (D10) |
+| 1 | `Is_Unknown2C_02` | `app/client/ui_starbase.cpp:1871` | untagged neutral name (D10) |
+| 1 | `Unknown2C_04` | `app/client/ui_starbase.cpp:1871` | untagged neutral name (D10) |
 | 1 | `Unknown_74B5E0` | `app/client/ui_starbase.cpp:1887` | untagged neutral name (D10) |
-| 1 | `Is_Unknown2C_02` | `app/client/ui_starbase.cpp:1917` | untagged neutral name (D10) |
-| 1 | `Is_Unknown2C_04` | `app/client/ui_starbase.cpp:1917` | untagged neutral name (D10) |
 | 1 | `Unknown_6A0E80` | `app/client/ui_starbase.cpp:1921` | untagged neutral name (D10) |
 | 1 | `Unknown_570F20` | `app/client/ui_starbase.cpp:2035` | untagged neutral name (D10) |
 | 1 | `Unknown_784F60` | `app/client/ui_starbase.cpp:2048` | untagged neutral name (D10) |
 | 1 | `Unknown_786D40` | `app/client/ui_starbase.cpp:2075` | untagged neutral name (D10) |
 | 1 | `Unknown_786D70` | `app/client/ui_starbase.cpp:2077` | untagged neutral name (D10) |
-| 1 | `Unknown_786E40` | `app/client/ui_starbase.cpp:2081` | untagged neutral name (D10) |
-| 1 | `Unknown_786CF0` | `app/client/ui_starbase.cpp:2082` | untagged neutral name (D10) |
-| 1 | `Unknown_786D20` | `app/client/ui_starbase.cpp:2084` | untagged neutral name (D10) |
-| 1 | `Unknown_786DC0` | `app/client/ui_starbase.cpp:2085` | untagged neutral name (D10) |
-| 1 | `Unknown_786CC0` | `app/client/ui_starbase.cpp:2104` | untagged neutral name (D10) |
-| 1 | `Unknown_786E00` | `app/client/ui_starbase.cpp:2107` | untagged neutral name (D10) |
-| 1 | `Unknown2C_02` | `app/client/ui_starbase.cpp:2124` | untagged neutral name (D10) |
-| 1 | `Unknown2C_04` | `app/client/ui_starbase.cpp:2124` | untagged neutral name (D10) |
+| 1 | `Unknown_786D20` | `app/client/ui_starbase.cpp:2081` | untagged neutral name (D10) |
+| 1 | `Unknown_786DC0` | `app/client/ui_starbase.cpp:2082` | untagged neutral name (D10) |
+| 1 | `Unknown_786E40` | `app/client/ui_starbase.cpp:2084` | untagged neutral name (D10) |
+| 1 | `Unknown_786CF0` | `app/client/ui_starbase.cpp:2085` | untagged neutral name (D10) |
+| 1 | `Unknown_786E00` | `app/client/ui_starbase.cpp:2104` | untagged neutral name (D10) |
+| 1 | `Unknown_786CC0` | `app/client/ui_starbase.cpp:2107` | untagged neutral name (D10) |
 | 1 | `Unknown_786BF0` | `app/client/ui_starbase.cpp:2135` | untagged neutral name (D10) |
 | 1 | `Unknown_786DA0` | `app/client/ui_starbase.cpp:2177` | untagged neutral name (D10) |
 | 1 | `Unknown_63F490` | `app/client/ui_starbase.cpp:2293` | untagged neutral name (D10) |
