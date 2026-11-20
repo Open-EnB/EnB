@@ -615,10 +615,10 @@ static unsigned short Land_Append_Decoration_Mesh(MeshClass *mesh, std::vector<L
 	return 0;
 }
 
-// NOT EXACT: shape (similarity 0.87, 40 masked rows; attempts.csv 0x47A2F0): the client's RefCountPtr form (0x47A2F0 =
-// VIDTEST 0x416170). Left: every PatchRecords[i] access in the record loop forms [IV + ptr] where the client forms [ptr + IV];
-// x87 operand orders in the three inlined Rotate_Vector (the client loads the other operand before the shared negations)
-// and in the quaternion's axis * sin. Every frame slot is the client's.
+// NOT EXACT: 5 masked rows (attempts.csv 0x47A2F0): the client's RefCountPtr form (0x47A2F0 = VIDTEST 0x416170); the record
+// loop on its own counter p gives the client's [ptr + IV] and all but 5 x87 rows (w * (-X) in the inlined Rotate_Vector); left:
+// frame slots: the client keeps the record counter in i's slot -0x20 and gi at -0x14 (ours gi -0x20, p apart, the check
+// loop's info / texture and the proto loop's tree / shadow: {info, tree} and {shadow, texture} swap -0x14 and -0x10).
 // The prototypes' tree and shadow meshes; the first tree's texture, shader and vertex material (+0x178 / +0x17C / +0x180)
 // and the first shadow's shader and material (+0x184 / +0x188), every other prototype's must be the same (else no
 // decorations); each decoration appended to its patch's lists (the patch from World_To_Grid over the grid width), the
@@ -786,60 +786,60 @@ void LandClass::Build_Decorations(std::vector<std::string> &names, std::vector<L
 				}
 			}
 		}
-		for (i = 0; i < PatchCount; i++) {
-			int nv = tree_vertices[i].size();
-			int ni = tree_indices[i].size();
+		for (int p = 0; p < PatchCount; p++) {
+			int nv = tree_vertices[p].size();
+			int ni = tree_indices[p].size();
 			if (nv > 0) {
-				PatchRecords[i].Unknown10 = nv;
-				PatchRecords[i].Unknown14 = ni;
-				PatchRecords[i].Unknown00 = Create_NEW(new DX8VertexBufferClass(0x112, (unsigned short)nv));
-				PatchRecords[i].Unknown04 = Create_NEW(new DX8IndexBufferClass((unsigned short)ni));
+				PatchRecords[p].Unknown10 = nv;
+				PatchRecords[p].Unknown14 = ni;
+				PatchRecords[p].Unknown00 = Create_NEW(new DX8VertexBufferClass(0x112, (unsigned short)nv));
+				PatchRecords[p].Unknown04 = Create_NEW(new DX8IndexBufferClass((unsigned short)ni));
 				{
-					VertexBufferClass::WriteLockClass lock(PatchRecords[i].Unknown00.Peek());
+					VertexBufferClass::WriteLockClass lock(PatchRecords[p].Unknown00.Peek());
 					LandDecorationVertexStruct *out = (LandDecorationVertexStruct *)lock.Get_Vertex_Array();
 					for (int v = 0; v < nv; v++) {
-						out[v] = tree_vertices[i][v];
+						out[v] = tree_vertices[p][v];
 					}
 				}
 				{
-					IndexBufferClass::WriteLockClass lock(PatchRecords[i].Unknown04.Peek());
+					IndexBufferClass::WriteLockClass lock(PatchRecords[p].Unknown04.Peek());
 					unsigned short *out = lock.Get_Index_Array();
 					for (int n = 0; n < ni; n++) {
-						out[n] = tree_indices[i][n];
+						out[n] = tree_indices[p][n];
 					}
 				}
 			} else {
-				PatchRecords[i].Unknown10 = 0;
-				PatchRecords[i].Unknown14 = 0;
-				PatchRecords[i].Unknown00 = NULL;
-				PatchRecords[i].Unknown04 = NULL;
+				PatchRecords[p].Unknown10 = 0;
+				PatchRecords[p].Unknown14 = 0;
+				PatchRecords[p].Unknown00 = NULL;
+				PatchRecords[p].Unknown04 = NULL;
 			}
-			nv = shadow_vertices[i].size();
-			ni = shadow_indices[i].size();
+			nv = shadow_vertices[p].size();
+			ni = shadow_indices[p].size();
 			if (nv > 0) {
-				PatchRecords[i].Unknown18 = nv;
-				PatchRecords[i].Unknown1C = ni;
-				PatchRecords[i].Unknown08 = Create_NEW(new DX8VertexBufferClass(0x112, (unsigned short)nv));
-				PatchRecords[i].Unknown0C = Create_NEW(new DX8IndexBufferClass((unsigned short)ni));
+				PatchRecords[p].Unknown18 = nv;
+				PatchRecords[p].Unknown1C = ni;
+				PatchRecords[p].Unknown08 = Create_NEW(new DX8VertexBufferClass(0x112, (unsigned short)nv));
+				PatchRecords[p].Unknown0C = Create_NEW(new DX8IndexBufferClass((unsigned short)ni));
 				{
-					VertexBufferClass::WriteLockClass lock(PatchRecords[i].Unknown08.Peek());
+					VertexBufferClass::WriteLockClass lock(PatchRecords[p].Unknown08.Peek());
 					LandDecorationVertexStruct *out = (LandDecorationVertexStruct *)lock.Get_Vertex_Array();
 					for (int v = 0; v < nv; v++) {
-						out[v] = shadow_vertices[i][v];
+						out[v] = shadow_vertices[p][v];
 					}
 				}
 				{
-					IndexBufferClass::WriteLockClass lock(PatchRecords[i].Unknown0C.Peek());
+					IndexBufferClass::WriteLockClass lock(PatchRecords[p].Unknown0C.Peek());
 					unsigned short *out = lock.Get_Index_Array();
 					for (int n = 0; n < ni; n++) {
-						out[n] = shadow_indices[i][n];
+						out[n] = shadow_indices[p][n];
 					}
 				}
 			} else {
-				PatchRecords[i].Unknown18 = 0;
-				PatchRecords[i].Unknown1C = 0;
-				PatchRecords[i].Unknown08 = NULL;
-				PatchRecords[i].Unknown0C = NULL;
+				PatchRecords[p].Unknown18 = 0;
+				PatchRecords[p].Unknown1C = 0;
+				PatchRecords[p].Unknown08 = NULL;
+				PatchRecords[p].Unknown0C = NULL;
 			}
 		}
 		delete [] tree_vertices;

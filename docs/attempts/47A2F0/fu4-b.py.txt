@@ -1,0 +1,301 @@
+# ===== b1.py
+HYPOTHESIS = 'FU4 b1 (LVAC lever): the record loop / decoration loop on another counter declared earlier (j, d, i) changes which induction variable the PatchRecords accesses take, so [ptr + IV] as the client'
+FILE = 'app/shared/unknown_474530.cpp'
+SYMBOL = ''
+ADDRESS = 0x47A2F0
+
+SRC = open(FILE, encoding='latin-1', newline='').read()
+RS = '\t\tfor (i = 0; i < PatchCount; i++) {\n\t\t\tint nv = tree_vertices[i].size();\n'
+RE = '\t\tdelete [] tree_vertices;\n'
+a = SRC.index(RS)
+b = SRC.index(RE, a)
+REC = SRC[a:b]
+assert SRC.count(RS) == 1
+
+
+def rec(v):
+    t = REC.replace('for (i = 0; i < PatchCount; i++)', 'for (%s = 0; %s < PatchCount; %s++)' % (v, v, v), 1)
+    return [(REC, t.replace('[i]', '[%s]' % v))]
+
+
+DS = '\t\tfor (int d = 0; d < count; d++) {\n'
+DD = '\t\t\t\tdecoration = decorations[d];\n'
+
+
+def dec(v, decl=''):
+    return [(DS, '\t\tfor (%s%s = 0; %s < count; %s++) {\n' % (decl, v, v, v)),
+            (DD, DD.replace('[d]', '[%s]' % v))]
+
+
+FORMS = {
+    'rec_j': rec('j'),
+    'rec_d': rec('d'),
+    'dec_i': dec('i'),
+    'dec_j': dec('j'),
+    'deci_recj': dec('i') + rec('j'),
+    'decj_recj': dec('j') + rec('j'),
+}
+# ===== b2.py
+HYPOTHESIS = 'FU4 b2: the quaternion block (r105 x87 order): the field set order / the 4-float constructor or Set, named column copies (an early fld), the value Rotate_Vector form'
+FILE = 'app/shared/unknown_474530.cpp'
+SYMBOL = ''
+ADDRESS = 0x47A2F0
+
+Q = ('\t\t\t\t\t\tQuaternion q;\n'
+     '\t\t\t\t\t\tfloat s = WWMath::Sin(angle / 2);\n'
+     '\t\t\t\t\t\tfloat c = WWMath::Cos(angle / 2);\n'
+     '\t\t\t\t\t\tq.X = axis.X * s;\n'
+     '\t\t\t\t\t\tq.Y = axis.Y * s;\n'
+     '\t\t\t\t\t\tq.Z = axis.Z * s;\n'
+     '\t\t\t\t\t\tq.W = c;\n')
+R = ('\t\t\t\t\t\tVector3 xv;\n'
+     '\t\t\t\t\t\tVector3 yv;\n'
+     '\t\t\t\t\t\tVector3 zv;\n'
+     '\t\t\t\t\t\tq.Rotate_Vector(shadow.Get_X_Vector(), &xv);\n'
+     '\t\t\t\t\t\tq.Rotate_Vector(shadow.Get_Y_Vector(), &yv);\n'
+     '\t\t\t\t\t\tq.Rotate_Vector(shadow.Get_Z_Vector(), &zv);\n')
+T6 = '\t\t\t\t\t\t'
+
+
+def q_lines(*body):
+    # keep 7 lines
+    lines = list(body)
+    while len(lines) < 7:
+        lines.append('')
+    return ''.join(T6 + l + '\n' if l else '\n' for l in lines)
+
+
+S = 'float s = WWMath::Sin(angle / 2);'
+C = 'float c = WWMath::Cos(angle / 2);'
+FORMS = {
+    'q_w_first': [(Q, q_lines('Quaternion q;', S, C, 'q.W = c;', 'q.X = axis.X * s;', 'q.Y = axis.Y * s;', 'q.Z = axis.Z * s;'))],
+    'q_zyx': [(Q, q_lines('Quaternion q;', S, C, 'q.Z = axis.Z * s;', 'q.Y = axis.Y * s;', 'q.X = axis.X * s;', 'q.W = c;'))],
+    'q_ctor4': [(Q, q_lines(S, C, 'Quaternion q(axis.X * s, axis.Y * s, axis.Z * s, c);'))],
+    'q_set': [(Q, q_lines('Quaternion q;', S, C, 'q.Set(axis.X * s, axis.Y * s, axis.Z * s, c);'))],
+    'q_after': [(Q, q_lines(S, C, 'Quaternion q;', 'q.X = axis.X * s;', 'q.Y = axis.Y * s;', 'q.Z = axis.Z * s;', 'q.W = c;'))],
+    'cols': [(R, ''.join(T6 + l + '\n' for l in (
+        'Vector3 xv, yv, zv;',
+        'Vector3 col = shadow.Get_X_Vector(); q.Rotate_Vector(col, &xv);',
+        'col = shadow.Get_Y_Vector(); q.Rotate_Vector(col, &yv);',
+        'col = shadow.Get_Z_Vector(); q.Rotate_Vector(col, &zv);', '', '')))],
+    'value': [(R, ''.join(T6 + l + '\n' for l in (
+        'Vector3 xv = q.Rotate_Vector(shadow.Get_X_Vector());',
+        'Vector3 yv = q.Rotate_Vector(shadow.Get_Y_Vector());',
+        'Vector3 zv = q.Rotate_Vector(shadow.Get_Z_Vector());', '', '', '')))],
+    'xcol': [(R, ''.join(T6 + l + '\n' for l in (
+        'Vector3 xv;', 'Vector3 yv;', 'Vector3 zv;',
+        'Vector3 xcol = shadow.Get_X_Vector(); q.Rotate_Vector(xcol, &xv);',
+        'q.Rotate_Vector(shadow.Get_Y_Vector(), &yv);',
+        'q.Rotate_Vector(shadow.Get_Z_Vector(), &zv);')))],
+}
+# ===== b3.py
+HYPOTHESIS = 'FU4 b3: the record loop counter that gives [ptr + IV] (rec_d) but keeps the client slots (counter at -0x20, gi at -0x14): where d / the counter is declared'
+FILE = 'app/shared/unknown_474530.cpp'
+SYMBOL = ''
+ADDRESS = 0x47A2F0
+
+SRC = open(FILE, encoding='latin-1', newline='').read()
+RS = '\t\tfor (d = 0; d < PatchCount; d++) {\n'
+a = SRC.index(RS)
+b = SRC.index('\t\tdelete [] tree_vertices;\n', a)
+REC = SRC[a:b]
+DS = '\t\tfor (int d = 0; d < count; d++) {\n'
+I = '\tint i;\n'
+
+
+def rec(v, decl=''):
+    t = REC.replace('for (d = 0; d < PatchCount; d++)', 'for (%s%s = 0; %s < PatchCount; %s++)' % (decl, v, v, v), 1)
+    return [(REC, t.replace('[d]', '[%s]' % v))]
+
+
+FORMS = {
+    'p_for': rec('p', 'int '),
+    'p_top': [(I, '\tint i; int p;\n')] + rec('p'),
+    'p_top_before': [(I, '\tint p; int i;\n')] + rec('p'),
+    'd_top': [(I, '\tint i; int d;\n'), (DS, DS.replace('int d', 'd'))],
+    'd_top_before': [(I, '\tint d; int i;\n'), (DS, DS.replace('int d', 'd'))],
+    'p_blk': [(RS, '\t\tint p;\n' + RS)] + rec('p'),
+    'i_dec_d_top': [(I, '\tint i; int d;\n'), (DS, DS.replace('int d', 'd'))] + rec('i'),
+}
+# p_blk adds a line: drop one of the two blank lines? keep simple: mark it (line shift only after Build_Decorations)
+# ===== b4.py
+HYPOTHESIS = 'FU4 b4: the record loop on its own counter (p_for: 13 -> 5): its declaration point and type, which keeps the client slots; the rest of r105 x87'
+FILE = 'app/shared/unknown_474530.cpp'
+SYMBOL = ''
+ADDRESS = 0x47A2F0
+
+SRC = open(FILE, encoding='latin-1', newline='').read()
+RS = '\t\tfor (d = 0; d < PatchCount; d++) {\n'
+a = SRC.index(RS)
+b = SRC.index('\t\tdelete [] tree_vertices;\n', a)
+REC = SRC[a:b]
+DS = '\t\tfor (int d = 0; d < count; d++) {\n'
+I = '\tint i;\n\tfor (i = 0; i < proto_count; i++) {\n'
+
+
+def rec(v, decl=''):
+    t = REC.replace('for (d = 0; d < PatchCount; d++)', 'for (%s%s = 0; %s < PatchCount; %s++)' % (decl, v, v, v), 1)
+    return [(REC, t.replace('[d]', '[%s]' % v))]
+
+
+def top(decl):
+    return [(I, I.replace('\tint i;\n', decl, 1))]
+
+
+FORMS = {
+    'p_for': rec('p', 'int '),
+    'p_top': top('\tint i; int p;\n') + rec('p'),
+    'p_top_before': top('\tint p; int i;\n') + rec('p'),
+    'd_top': top('\tint i; int d;\n') + [(DS, DS.replace('int d', 'd'))],
+    'd_top_before': top('\tint d; int i;\n') + [(DS, DS.replace('int d', 'd'))],
+    'i_dec_d_top': top('\tint i; int d;\n') + [(DS, DS.replace('int d', 'd'))] + rec('i'),
+    'p_for_u': rec('p', 'unsigned int ') if False else rec('p', 'int '),
+}
+del FORMS['p_for_u']
+# ===== b5.py
+HYPOTHESIS = 'FU4 b5 (LVAC): the record loop on the counter of the check loop declared in the block (for (int i ...) shadows the function i): the client slot -0x20 (shared with the function i), gi kept at -0x14, and [ptr + IV]'
+FILE = 'app/shared/unknown_474530.cpp'
+SYMBOL = ''
+ADDRESS = 0x47A2F0
+
+SRC = open(FILE, encoding='latin-1', newline='').read()
+RS = '\t\tfor (d = 0; d < PatchCount; d++) {\n'
+a = SRC.index(RS)
+b = SRC.index('\t\tdelete [] tree_vertices;\n', a)
+REC = SRC[a:b]
+CK = '\t{\n\t\tfor (i = 0; i < proto_count; i++) {\n\t\t\tbool same;\n'
+I = '\tint i;\n\tfor (i = 0; i < proto_count; i++) {\n'
+assert SRC.count(CK) == 1 and SRC.count(I) == 1
+
+
+def rec(v, decl=''):
+    t = REC.replace('for (d = 0; d < PatchCount; d++)', 'for (%s%s = 0; %s < PatchCount; %s++)' % (decl, v, v, v), 1)
+    return [(REC, t.replace('[d]', '[%s]' % v))]
+
+
+c0 = SRC.index(CK)
+c1 = SRC.index('\t\tUnknown190 = has_trees;\n', c0)
+CKB = SRC[c0:c1]
+FORMS = {
+    'ck_int_i': [(CK, CK.replace('for (i = 0', 'for (int i = 0'))] + rec('i'),
+    'ck_int_k': [(CKB, CKB.replace('for (i = 0; i < proto_count; i++)', 'for (int k = 0; k < proto_count; k++)').replace('[i]', '[k]'))] + rec('k'),
+    'blk_int_i': [(CK, CK.replace('\t{\n', '\t{ int i;\n'))] + rec('i'),
+    'proto_for_i': [(I, '\n\tfor (int i = 0; i < proto_count; i++) {\n')] + rec('i'),
+    'top_i': [(I, '\n\tfor (i = 0; i < proto_count; i++) {\n'),
+              ('\tint count = decorations.size();\n', '\tint i; int count = decorations.size();\n')] + rec('i'),
+}
+# ===== b6.py
+HYPOTHESIS = 'FU4 b6: on p_for (5 rows), the slots: gi / gj where the client has them (-0x14 with the check loop locals), the record counter in the function i slot -0x20; and the last x87 rows'
+FILE = 'app/shared/unknown_474530.cpp'
+SYMBOL = ''
+ADDRESS = 0x47A2F0
+
+SRC = open(FILE, encoding='latin-1', newline='').read()
+DL = ('\t\tfor (int d = 0; d < count; d++) {\n'
+      '\t\t\tLandDecorationStruct decoration;\n'
+      '\t\t\tfloat gi, gj;\n'
+      '\t\t\tMeshClass *mesh;\n')
+assert SRC.count(DL) == 1
+MS = '\t\tmemset(shadow_counts, 0, PatchCount * sizeof(unsigned short));\n'
+assert SRC.count(MS) == 1
+TOP = '\tint count = decorations.size();\n'
+I = '\tint i;\n\tfor (i = 0; i < proto_count; i++) {\n'
+
+FORMS = {
+    'g_blk': [(DL, DL.replace('\t\t\tfloat gi, gj;\n', '')), (MS, MS.rstrip('\n') + ' float gi, gj;\n')],
+    'g_fn': [(DL, DL.replace('\t\t\tfloat gi, gj;\n', '')), (TOP, '\tfloat gi, gj; int count = decorations.size();\n')],
+    'g_first': [(DL, DL.replace('\t\t\tLandDecorationStruct decoration;\n\t\t\tfloat gi, gj;\n', '\t\t\tfloat gi, gj;\n\t\t\tLandDecorationStruct decoration;\n'))],
+    'g_last': [(DL, DL.replace('\t\t\tfloat gi, gj;\n\t\t\tMeshClass *mesh;\n', '\t\t\tMeshClass *mesh;\n\t\t\tfloat gi, gj;\n'))],
+    'p_fn': [(I, '\tint i; int p;\n\tfor (i = 0; i < proto_count; i++) {\n'),
+             ('\t\tfor (int p = 0; p < PatchCount; p++) {\n', '\t\tfor (p = 0; p < PatchCount; p++) {\n')],
+    'g_blk_p_fn': [(DL, DL.replace('\t\t\tfloat gi, gj;\n', '')), (MS, MS.rstrip('\n') + ' float gi, gj;\n'),
+                   (I, '\tint i; int p;\n\tfor (i = 0; i < proto_count; i++) {\n'),
+                   ('\t\tfor (int p = 0; p < PatchCount; p++) {\n', '\t\tfor (p = 0; p < PatchCount; p++) {\n')],
+}
+# ===== b7.py
+HYPOTHESIS = 'FU4 b7: which loops share the function counter: proto loop on its own for-init counter, the check and record loops on i (range check -> record), and variants; the client has 7 + 3 refs in one slot -0x20, gi at -0x14'
+FILE = 'app/shared/unknown_474530.cpp'
+SYMBOL = ''
+ADDRESS = 0x47A2F0
+
+SRC = open(FILE, encoding='latin-1', newline='').read()
+RS = '\t\tfor (int p = 0; p < PatchCount; p++) {\n'
+a = SRC.index(RS)
+b = SRC.index('\t\tdelete [] tree_vertices;\n', a)
+REC = SRC[a:b]
+I = '\tint i;\n\tfor (i = 0; i < proto_count; i++) {\n'
+pa = SRC.index(I)
+pb = SRC.index('\tif (Flag) {\n', pa)
+PROTO = SRC[pa:pb]
+CK = '\t{\n\t\tfor (i = 0; i < proto_count; i++) {\n\t\t\tbool same;\n'
+c0 = SRC.index(CK)
+c1 = SRC.index('\t\tUnknown190 = has_trees;\n', c0)
+CKB = SRC[c0:c1]
+
+
+def rec(v, decl=''):
+    t = REC.replace('for (int p = 0; p < PatchCount; p++)', 'for (%s%s = 0; %s < PatchCount; %s++)' % (decl, v, v, v), 1)
+    return [(REC, t.replace('[p]', '[%s]' % v))]
+
+
+def proto(v, decl):
+    t = PROTO.replace('\tint i;\n\tfor (i = 0; i < proto_count; i++)', decl + '%s = 0; %s < proto_count; %s++)' % (v, v, v), 1)
+    return [(PROTO, t.replace('[i]', '[%s]' % v))]
+
+
+def ck(v, decl=''):
+    t = CKB.replace('for (i = 0; i < proto_count; i++)', 'for (%s%s = 0; %s < proto_count; %s++)' % (decl, v, v, v), 1)
+    return [(CKB, t.replace('[i]', '[%s]' % v))]
+
+
+FORMS = {
+    # proto on k (function-scope for-init), i declared on its own line kept
+    'pk_ck_i_rec_i': proto('k', '\tint i;\n\tfor (int ') + rec('i'),
+    'pk_ck_i_rec_p': proto('k', '\tint i;\n\tfor (int '),
+    # check loop on k (block for-init), record on i, proto on i
+    'pi_ck_k_rec_i': ck('k', 'int ') + rec('i'),
+    # check on i, proto on k; i declared just before the check block
+    'pk_i_blk': proto('k', '\n\tfor (int ') + [(CK, CK.replace('\t{\n', '\tint i; {\n', 1))] + rec('i'),
+}
+# ===== b8.py
+HYPOTHESIS = 'FU4 b8 (slot order probe): VC6 packs slots in first-reference order; a record counter referenced before the decoration loop takes the -0x20 slot before gi (address-taken, live to the end) so gi goes to -0x14 with the check-loop locals'
+FILE = 'app/shared/unknown_474530.cpp'
+SYMBOL = ''
+ADDRESS = 0x47A2F0
+
+SRC = open(FILE, encoding='latin-1', newline='').read()
+RS = '\t\tfor (int p = 0; p < PatchCount; p++) {\n'
+MS = '\t\tmemset(shadow_counts, 0, PatchCount * sizeof(unsigned short));\n'
+DS = '\t\tfor (int d = 0; d < count; d++) {\n'
+CK = '\t{\n\t\tfor (i = 0; i < proto_count; i++) {\n\t\t\tbool same;\n'
+for x in (RS, MS, DS, CK):
+    assert SRC.count(x) == 1, x
+
+FORMS = {
+    'p0_ms_for0': [(MS, MS.rstrip('\n') + ' int p = 0;\n'), (RS, '\t\tfor (p = 0; p < PatchCount; p++) {\n')],
+    'p0_ms_fornone': [(MS, MS.rstrip('\n') + ' int p = 0;\n'), (RS, '\t\tfor (; p < PatchCount; p++) {\n')],
+    'p0_blk_for0': [(CK, '\t{ int p = 0;\n\t\tfor (i = 0; i < proto_count; i++) {\n\t\t\tbool same;\n'), (RS, '\t\tfor (p = 0; p < PatchCount; p++) {\n')],
+    'p0_dec': [(DS, '\t\tint p = 0; for (int d = 0; d < count; d++) {\n'), (RS, '\t\tfor (p = 0; p < PatchCount; p++) {\n')],
+}
+# ===== b9.py
+HYPOTHESIS = 'FU4 b9: on p_for, gi / gj packing (the client keeps gi with the check-loop locals at -0x14, the counter at -0x20): per-block gi / gj, declaration order, and the record counter declared with the decoration locals'
+FILE = 'app/shared/unknown_474530.cpp'
+SYMBOL = ''
+ADDRESS = 0x47A2F0
+
+SRC = open(FILE, encoding='latin-1', newline='').read()
+G = '\t\t\tfloat gi, gj;\n'
+W1 = '\t\t\t\t\tVector3 pos = decoration.Transform.Get_Translation();\n'
+W2 = '\t\t\t\t\tshadow = decoration.Transform;\n'
+RS = '\t\tfor (int p = 0; p < PatchCount; p++) {\n'
+DS = '\t\tfor (int d = 0; d < count; d++) {\n'
+for x in (G, W1, W2, RS, DS):
+    assert SRC.count(x) == 1, x
+
+FORMS = {
+    'g_per_block': [(G, '\n'), (W1, W1.rstrip('\n') + ' float gi, gj;\n'), (W2, W2.rstrip('\n') + ' float gi, gj;\n')],
+    'g_swap': [(G, '\t\t\tfloat gj, gi;\n')],
+    'g_two': [(G, '\t\t\tfloat gi; float gj;\n')],
+    'p_with_d': [(DS, '\t\tint p; for (int d = 0; d < count; d++) {\n'), (RS, '\t\tfor (p = 0; p < PatchCount; p++) {\n')],
+    'pd_for': [(DS, '\t\tfor (int d = 0, p; d < count; d++) {\n'), (RS, '\t\tfor (p = 0; p < PatchCount; p++) {\n')],
+}
