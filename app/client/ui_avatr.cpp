@@ -182,7 +182,7 @@ public:
 	RenderObjClass *Unknown1B8;							// +0x1B8 (ViewRObjs[0], the model: its texts by name)
 	RenderObjClass *Unknown1BC;							// +0x1BC (ViewRObjs[1])
 	char Unknown1C0[0x1CD - 0x1C0];						// +0x1C0
-	bool Unknown1CD;									// +0x1CD (Unknown1CC[1])
+	bool Unknown1CD;	void Set_Unknown1CD(bool on) { Unknown1CD = on; }	// +0x1CD (Unknown1CC[1]; 0x554E80 sets it through the inline setter: the client's eax)  // NAME 1 [Set_Unknown1CD]: neutral (D10)
 	char Unknown1CE[0x3A4 - 0x1CE];						// +0x1CE
 	EnvironmentMapManagerClass *Unknown3A4;	EnvironmentMapManagerClass *Peek_Unknown3A4() { return(Unknown3A4); }	// +0x3A4 'envmaps.ini' (0x559010 / 0x5591E0 read it through the inline getter)  // NAME 1 [Peek_Unknown3A4]: neutral (D10)
 };
@@ -673,13 +673,13 @@ void AvatarCreationInterface::Unknown_60()
 	((CharacterViewAvatarClass *)Unknown094->Unknown054.Peek())->Unknown_1C4();
 }
 
-// NOT EXACT: register (masked 475): the cases in the client's body order (jump table 0x555B20 by address: 4, 1, 2, 3,
-// 0xF, 0x10, 0x3A, 5, 0xA, ...); the choices and envmaps through the class's inline getters Get_Unknown18() /
-// Peek_Unknown3A4() as 0x559010 / 0x5591E0 (they spend the budget: the six tutorial names' basic_string assign
-// goes out of line as the client's). Left: the client keeps zero in ebx from the entry (cmp byte [esi+0x1C4], bl),
-// ours in edi after Create_Peek (pushed as 0 at the scasb sites) and one push fewer, so our returns copy the
-// epilogue where the client cross-jumps its sound tails; the palette helper's model ~RefCountPtr stays inline here
-// (the client calls 0x4740B0 at both palette cases, as in the constructor). attempts.py show 0x554E80
+// The cases in the client's body order (jump table 0x555B20 by address: 4, 1, 2, 3, 0xF, 0x10, 0x3A, 5, 0xA, ...),
+// each ending in its own sound + return (the client's two cross-jumped ButtonClick02 tails 0x555A1B / 0x555AAB,
+// taken by alternate cases); the choices, envmaps and the +0x1CD flag through the view's / chooser's inline
+// accessors (as 0x559010 / 0x5591E0: the six tutorial names' basic_string assign goes out of line as the client's);
+// 0x55A550's bool as false; two dead Peek_Model() reads after the case 0x22 palette site (D272) send the palette
+// helper's model ~RefCountPtr out of line at both palette cases as the client's 0x4740B0 (its palette's stays
+// inline). attempts.py show 0x554E80
 // 0x554E80
 bool AvatarCreationInterface::Unknown_68(int key)
 {
@@ -726,7 +726,7 @@ bool AvatarCreationInterface::Unknown_68(int key)
 			Unknown_559350();
 			Unknown08C->Unknown_67A3F0();
 			Unknown08C->Unknown_67ACE0(1);
-			Unknown08C->Unknown1CD = true;
+			Unknown08C->Set_Unknown1CD(true);
 			Unknown090->Go_Next_Step();
 			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
 			Unknown08C->Unknown_67C7B0();
@@ -736,7 +736,7 @@ bool AvatarCreationInterface::Unknown_68(int key)
 			Unknown08C->Unknown_67ACE0(1);
 			Unknown08C->Unknown_67ACE0(4);
 			Unknown08C->Unknown_67A670();
-			Unknown08C->Unknown1CD = true;
+			Unknown08C->Set_Unknown1CD(true);
 			Unknown090->Go_Back_Step();
 			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
 			Unknown08C->Unknown_67C7B0();
@@ -749,101 +749,101 @@ bool AvatarCreationInterface::Unknown_68(int key)
 			return(true);
 		case 5:
 			Unknown094->Unknown_8C();
-			break;
+			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2); return(true);
 		case 0xA:
 			Unknown094->Unknown_88();
-			break;
+			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2); return(true);
 		case 0x12:
 			Unknown_559010(1);
-			break;
+			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2); return(true);
 		case 0x13:
 			Unknown_559010(2);
-			break;
+			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2); return(true);
 		case 0x14:
 			Unknown_5591E0(1);
-			break;
+			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2); return(true);
 		case 0x15:
 			Unknown_5591E0(2);
-			break;
+			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2); return(true);
 		case 0x16:
 			Unknown2DC->Unknown_585CC0(); desc->Unknown_77F000(Unknown2DC->Get_Unknown18()); desc->Unknown_780810(Unknown08C->Peek_Unknown3A4());
-			Unknown094->Unknown_84(desc); break;
+			Unknown094->Unknown_84(desc); SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2); return(true);
 		case 0x17:
 			Unknown2DC->Unknown_585C90(); desc->Unknown_77F000(Unknown2DC->Get_Unknown18()); desc->Unknown_780810(Unknown08C->Peek_Unknown3A4());
-			Unknown094->Unknown_84(desc); break;
+			Unknown094->Unknown_84(desc); SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2); return(true);
 		case 0x18:
 			Unknown2E8->Unknown_585CC0(); desc->Unknown_7857D0(Unknown2E8->Get_Unknown18());
-			Unknown094->Unknown_84(desc); break;
+			Unknown094->Unknown_84(desc); SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2); return(true);
 		case 0x19:
 			Unknown2E8->Unknown_585C90(); desc->Unknown_7857D0(Unknown2E8->Get_Unknown18());
-			Unknown094->Unknown_84(desc); break;
+			Unknown094->Unknown_84(desc); SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2); return(true);
 		case 0x1A:
 			Unknown2EC->Unknown_585CC0(); desc->Unknown_7859F0(Unknown2EC->Get_Unknown18()); Unknown_55B2D0();
-			Unknown094->Unknown_84(desc); break;
+			Unknown094->Unknown_84(desc); SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2); return(true);
 		case 0x1B:
 			Unknown2EC->Unknown_585C90(); desc->Unknown_7859F0(Unknown2EC->Get_Unknown18()); Unknown_55B2D0();
-			Unknown094->Unknown_84(desc); break;
+			Unknown094->Unknown_84(desc); SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2); return(true);
 		case 0x1C:
 			Unknown2F0->Unknown_585CC0(); desc->Unknown_77FCE0(Unknown2F0->Get_Unknown18(), 1); TheDX8MeshRenderer.Invalidate();
-			desc->Unknown_780810(Unknown08C->Peek_Unknown3A4()); Unknown094->Unknown_84(desc); break;
+			desc->Unknown_780810(Unknown08C->Peek_Unknown3A4()); Unknown094->Unknown_84(desc); SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2); return(true);
 		case 0x1D:
 			Unknown2F0->Unknown_585C90(); desc->Unknown_77FCE0(Unknown2F0->Get_Unknown18(), 1); TheDX8MeshRenderer.Invalidate();
-			desc->Unknown_780810(Unknown08C->Peek_Unknown3A4()); Unknown094->Unknown_84(desc); break;
+			desc->Unknown_780810(Unknown08C->Peek_Unknown3A4()); Unknown094->Unknown_84(desc); SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2); return(true);
 		case 0x1E:
 			Unknown2F4->Unknown_585CC0(); desc->Unknown_77FC90(Unknown2F4->Get_Unknown18(), 1); TheDX8MeshRenderer.Invalidate();
-			desc->Unknown_780810(Unknown08C->Peek_Unknown3A4()); Unknown094->Unknown_84(desc); break;
+			desc->Unknown_780810(Unknown08C->Peek_Unknown3A4()); Unknown094->Unknown_84(desc); SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2); return(true);
 		case 0x1F:
 			Unknown2F4->Unknown_585C90(); desc->Unknown_77FC90(Unknown2F4->Get_Unknown18(), 1); TheDX8MeshRenderer.Invalidate();
-			desc->Unknown_780810(Unknown08C->Peek_Unknown3A4()); Unknown094->Unknown_84(desc); break;
+			desc->Unknown_780810(Unknown08C->Peek_Unknown3A4()); Unknown094->Unknown_84(desc); SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2); return(true);
 		case 0x20:
 		case 0x21:
 			Unknown_Set_Palette("fa_avatar_color.tga");
 			Unknown_55B110(key);
-			break;
+			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2); return(true);
 		case 0x22:
-			Unknown_Set_Palette("fa_skin_color.tga");
+			Unknown_Set_Palette("fa_skin_color.tga"); Unknown08C->Peek_Model(); Unknown08C->Peek_Model();
 			Unknown_55B110(key);
-			break;
+			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2); return(true);
 		case 0x26:
 			Unknown_558D30(1);
-			break;
+			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2); return(true);
 		case 0x27:
 			Unknown_558D30(2);
-			break;
+			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2); return(true);
 		case 0x28:
 			Unknown_558EA0(1);
-			break;
+			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2); return(true);
 		case 0x29:
 			Unknown_558EA0(2);
-			break;
+			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2); return(true);
 		case 0x2A:
 		case 0x2B:
 		case 0x2C:
 		case 0x2D:
 			Unknown_55B110(key);
-			break;
+			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2); return(true);
 		case 0x2E:
-			Unknown_55A550(0, 0.0f, 0.0f, 0.05f);
-			break;
+			Unknown_55A550(0, false, 0.0f, 0.05f);
+			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2); return(true);
 		case 0x2F:
-			Unknown_55A550(0, 0.0f, 0.0f, -0.05f);
-			break;
+			Unknown_55A550(0, false, 0.0f, -0.05f);
+			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2); return(true);
 		case 0x30:
-			Unknown_55A550(0, 0.0f, -0.05f, 0.0f);
-			break;
+			Unknown_55A550(0, false, -0.05f, 0.0f);
+			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2); return(true);
 		case 0x31:
-			Unknown_55A550(0, 0.0f, 0.05f, 0.0f);
-			break;
+			Unknown_55A550(0, false, 0.05f, 0.0f);
+			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2); return(true);
 		case 0x32:
 			Unknown_55B9A0(0);
-			break;
+			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2); return(true);
 		case 0x33:
 			Unknown_55B9A0(1);
 			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
 			return(true);
 		case 0x34:
 			Unknown_55B9A0(2);
-			break;
+			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2); return(true);
 		default:
 			return(false);
 	}
