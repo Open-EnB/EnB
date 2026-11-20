@@ -2485,7 +2485,7 @@ bool NoteListPacketClass::Process_Packet(void *instance)
 
 static inline void Group_Status(SClient *sclient, const char *first, const char *last, int index) { std::string name(first, last); if (sclient->MainView->Group) { sclient->MainView->Group->Unknown_597080(last + 1, name.c_str(), index); } }
 
-// NOT EXACT: inline-budget (masked residue 908 -> 319: the cases in the client's jump-table target order; the group status block in an inline helper (the client calls the range constructor 0x73F680 out of line at the top level: a missing source layer, workflow 3.1.1) and 16 dead Unknown54.size() reads after its call take its nested budget (D272; 15 nothing, 17+ worse), frame 0x558 as the client's; left: assign in case 9's temporaries and _Tidy in case 22's copy called by the client, and the tail merges that follow; attempts.py show 0x73B150)
+// NOT EXACT: inline-budget (masked residue 908 -> 272: the cases in the client's jump-table target order; the group status block in an inline helper (the client calls the range constructor 0x73F680 out of line at the top level: a missing source layer, workflow 3.1.1) and 16 dead Unknown54.size() reads after its call take its nested budget (D272; 15 nothing, 17+ worse), frame 0x558 as the client's; case 7 jumps into case 8's guild block as the client does (goto), d8 and friends read from the panel at their sites (interim: the client keeps them in stack slots; with the slots the goto form spends a frame slot more, 319 -> 272); left: assign in case 9's temporaries and _Tidy in case 22's copy called by the client, case 4's two snprintf, cases 21 / 22 / 27 merged into 1; attempts.py show 0x73B150)
 // 0x73B150
 bool ClientChatEventPacketClass::Process_Packet(void *instance)
 {
@@ -2508,8 +2508,8 @@ bool ClientChatEventPacketClass::Process_Packet(void *instance)
 	}
 	ChatPanelInterface *panel = sclient->ChatPanel.Peek();
 	if (!panel) return(true);
-	UIPlayerOptClass *d8 = panel->UnknownD8;
-	UIFriendsClass *friends = panel->UnknownDC;
+
+
 	UIRadioListClass *e4 = panel->UnknownE4;
 	UIRadioAdminClass *e8 = panel->UnknownE8;
 	std::string channel(Unknown44);
@@ -2600,59 +2600,59 @@ bool ClientChatEventPacketClass::Process_Packet(void *instance)
 			_snprintf(buffer, sizeof(buffer), "[system] %s: %s", from, text);
 			break;
 		case 7:
-			if (strnicmp(chan, "Sector", 6)) {
-				panel->Unknown_5679A0(7, std::string(chan), std::string(name), Unknown10 != 0);
-				if (e8) {
-					e8->Unknown_5E5EF0(Get_Unknown14());
-				} else if (e4) {
-					e4->Unknown_5E8FF0(1, Get_Unknown14());
-				}
-				if (!stricmp(chan, "guild")) {
-					if (sclient->Unknown_728300() && sclient->ChatPanel && sclient->ChatPanel->UnknownE0 && sclient->ChatPanel->UnknownE0->Active) {
-						sclient->ChatPanel->UnknownE0->Unknown_81BF40();
-					}
-				}
+			if (!strnicmp(chan, "Sector", 6)) return(true);
+			panel->Unknown_5679A0(7, std::string(chan), std::string(name), Unknown10 != 0);
+			if (e8) {
+				e8->Unknown_5E5EF0(Get_Unknown14());
+			} else if (e4) {
+				e4->Unknown_5E8FF0(1, Get_Unknown14());
 			}
-			return(true);
+			goto guild;
 		case 8:
-			if (strnicmp(chan, "Sector", 6)) {
-				panel->Unknown_5679A0(8, std::string(chan), std::string(name), Unknown10 != 0);
-				if (e8) {
-					e8->Unknown_5E6030(Get_Unknown14());
-				} else if (e4) {
-					e4->Unknown_5E9160(1, Get_Unknown14());
-				}
-				if (!stricmp(chan, "guild")) {
-					if (sclient->Unknown_728300() && sclient->ChatPanel && sclient->ChatPanel->UnknownE0 && sclient->ChatPanel->UnknownE0->Active) {
-						sclient->ChatPanel->UnknownE0->Unknown_81BF40();
-					}
+			if (!strnicmp(chan, "Sector", 6)) return(true);
+			panel->Unknown_5679A0(8, std::string(chan), std::string(name), Unknown10 != 0);
+			if (e8) {
+				e8->Unknown_5E6030(Get_Unknown14());
+			} else if (e4) {
+				e4->Unknown_5E9160(1, Get_Unknown14());
+			}
+		guild:
+			if (!stricmp(chan, "guild")) {
+				if (sclient->Unknown_728300() && sclient->ChatPanel && sclient->ChatPanel->UnknownE0 && sclient->ChatPanel->UnknownE0->Active) {
+					sclient->ChatPanel->UnknownE0->Unknown_81BF40();
 				}
 			}
 			return(true);
+
+
+
+
+
+
 		case 19:
-			if (d8) {
-				d8->Unknown_5DA780(Get_Unknown54());
+			if (panel->UnknownD8) {
+				panel->UnknownD8->Unknown_5DA780(Get_Unknown54());
 			}
 			_snprintf(buffer, sizeof(buffer), "%s is now ignoring %s.", from, text);
 			sclient->Unknown_74D990(0, buffer, 0);
 			return(true);
 		case 20:
-			if (d8) {
-				d8->Unknown_5DA8C0(Get_Unknown54());
+			if (panel->UnknownD8) {
+				panel->UnknownD8->Unknown_5DA8C0(Get_Unknown54());
 			}
 			_snprintf(buffer, sizeof(buffer), "%s is no longer ignoring %s.", from, text);
 			sclient->Unknown_74D990(0, buffer, 0);
 			return(true);
 		case 21:
-			if (friends) {
-				friends->Unknown_5916B0(Get_Unknown54(), Get_Unknown64());
+			if (panel->UnknownDC) {
+				panel->UnknownDC->Unknown_5916B0(Get_Unknown54(), Get_Unknown64());
 			}
 			_snprintf(buffer, sizeof(buffer), "%s is now friends with %s.", from, text);
 			sclient->Unknown_74D990(0, buffer, 0);
 			return(true);
 		case 22:
-			if (friends) {
-				friends->Unknown_591880(Get_Unknown54());
+			if (panel->UnknownDC) {
+				panel->UnknownDC->Unknown_591880(Get_Unknown54());
 			}
 			_snprintf(buffer, sizeof(buffer), "%s is no longer friends with %s.", from, text);
 			sclient->Unknown_74D990(0, buffer, 0);
