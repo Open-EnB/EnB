@@ -3617,7 +3617,7 @@ void UIStarbaseClass::Unknown_63BB10(GadgetClass *gadget)
 
 
 
-// NOT EXACT: 0x642740, functional (B1): a lounge NPC's wandering avatar from '<race>starbase_ambient.ini', its section the
+// NOT EXACT: 0x642740, registers left (the client spills this, ebp = 0; the dead length() read at the end: the client cuts dest_bone's assign(ptr, n)): a lounge NPC's wandering avatar from '<race>starbase_ambient.ini', its section the
 // NPC's first name: the walk points Location%02d (OffsetBoneName / DestBoneName bones of ExtraBones), the idle actions
 // Action%02d with their Chance%02d, ExtraName%02d and ExtraAnim%02d
 // 0x642740
@@ -3635,8 +3635,8 @@ Unknown78A910AvatarClass *UIStarbaseClass::Unknown_642740(StarbaseNPCClass *npc)
 	char section[32];
 	_snprintf(section, sizeof(section), "%s", npc->Desc.First_Name);
 	std::string offset_bone("");
-	std::string dest_bone;
-	dest_bone = "";
+	std::string dest_bone = "";
+
 	StringClass str;
 	ini.Get_String(str, section, "OffsetBoneName", "");
 	if (!str.Is_Empty()) {
@@ -3647,15 +3647,15 @@ Unknown78A910AvatarClass *UIStarbaseClass::Unknown_642740(StarbaseNPCClass *npc)
 		dest_bone = str;
 	}
 	Unknown78A910AvatarClass *avatar = new Unknown78A910AvatarClass(npc->Unknown1C, &npc->Desc, ((LineDisplayClientClass *)Client)->As_Space_Client()->EnvironmentMapManager);
-	avatar->Unknown3B9 = ini.Find_Entry(section, "Sequential") ? ini.Get_Bool(section, "Sequential", false) : false;
-	avatar->Unknown_78B530(ini.Get_Int(section, "MinWait", 5), ini.Get_Int(section, "MaxWait", 15), ini.Get_Int(section, "RelocateChance", 33), ini.Get_Int(section, "ActionChance", 67));
+	bool sequential = false; if (ini.Find_Entry(section, "Sequential")) sequential = ini.Get_Bool(section, "Sequential", false); avatar->Unknown3B9 = sequential;
+	int min_wait = ini.Get_Int(section, "MinWait", 5); int max_wait = ini.Get_Int(section, "MaxWait", 15); int relocate = ini.Get_Int(section, "RelocateChance", 33); int action = ini.Get_Int(section, "ActionChance", 67); avatar->Unknown_78B530(min_wait, max_wait, relocate, action);
 	Matrix3D tm(true);
 	Matrix3D start(true);
-	char entry[32];
+
 	char bone[32];
 	int i;
-	for (i = 0; ; i++) {
-		_snprintf(entry, sizeof(entry), "Location%02d", i);
+	for (i = 0; true; i++) {
+		char entry[32]; _snprintf(entry, sizeof(entry), "Location%02d", i);
 		if (!ini.Find_Entry(section, entry)) {
 			break;
 		}
@@ -3674,7 +3674,7 @@ Unknown78A910AvatarClass *UIStarbaseClass::Unknown_642740(StarbaseNPCClass *npc)
 	}
 	int top = -1;
 	int bottom = 0;
-	for (i = 0; ; i++) {
+	for (i = 0; true; i++) {
 		_snprintf(bone, sizeof(bone), "Action%02d", i);
 		if (!ini.Find_Entry(section, bone)) {
 			break;
@@ -3703,7 +3703,7 @@ Unknown78A910AvatarClass *UIStarbaseClass::Unknown_642740(StarbaseNPCClass *npc)
 	avatar->Unknown_77E3D0(1);
 	avatar->BodyObj->Set_LOD_Bias(1.0f);
 	avatar->Unknown_784F60(false);
-	return(avatar);
+	offset_bone.length(); offset_bone.length(); return(avatar);
 }
 
 
