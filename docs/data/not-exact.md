@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-804 entries in 295 files.
+803 entries in 295 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -206,7 +206,7 @@ edit the comments in the code, not this file.
 | `app/client/gutter_data.cpp:119` | `GutterDataClass::Update_Guild_Label` | marker | NOT EXACT: tail merge and register (the client keeps the first Set_Color's first stores and jumps to the third; this in esi, ours edi) @0x7B54E0 |
 | `app/client/gutter_data.cpp:401` | `GutterDataClass::Update_Labels` | marker | NOT EXACT: register (ours spills rdata and holds old_horizontal in ebp; the client the reverse: 11 rows); attempts.py show 0x7B63C0 @0x7B63C0 |
 | `app/client/gutter_radar.cpp:230` | `GutterRadarClass::Get_Icon_Scale` | marker | NOT EXACT: tail merge (the client keeps the first return(1.0f)'s own epilogue; ours jumps to the last one) |
-| `app/client/html/htmlview.cpp:469` | `HtmlViewClass::Parse` | marker | NOT EXACT: 0x7710D0, functional (D64), from the pseudocode: inline budget (the client keeps more template copies out of line), frame 0x27C vs 0x284 |
+| `app/client/html/htmlview.cpp:469` | `HtmlViewClass::Parse` | marker | NOT EXACT: 0x7710D0, register allocation (item spills, the cached link count, <body>'s add clamp); budget and frame as the client's |
 | `app/client/html/htmlview.cpp:1331` | `HtmlViewClass::Draw_Item` | marker | NOT EXACT: 0x7767A0, the text loop's setup loads are scheduled differently (the client holds item in esi before strlen) |
 | `app/client/html/htmlview.cpp:1486` | `HtmlViewClass::Hit_Test` | marker | NOT EXACT: 0x7772C0, the loop top reloads this before i (the client i first); Click's twin |
 | `app/client/html/htmlview.cpp:1644` | `Get_Value` | mention | NOT EXACT: Render (the parent bounds' stores), Hit_Test (its loop top), Add_Text (one frame slot more than the client's), Draw_Item (its Text loop setup; one exit gives the late pushes). |
@@ -390,7 +390,6 @@ edit the comments in the code, not this file.
 | `app/client/ui_chat_panel.cpp:948` | `ChatPanelInterface::Unknown_565390` | marker | NOT EXACT: inline-budget (Chat_Default_Channel through the uncalled 0x567930 as the client: 341 instructions vs 328; the client still calls string assign out of line for the channel copy and the label, ours expands _Grow) 0x565390 |
 | `app/client/ui_chat_panel.cpp:1320` | `ChatPanelInterface::Unknown_567DF0` | marker | NOT EXACT: inline-budget (the client builds the two empty strings differently: case 2 expands the constructor with _Grow / _Eos, case 10 calls assign; 185 instructions vs 169) 0x567DF0 |
 | `app/client/ui_chat_panel.cpp:1423` | `ChatPanelInterface::Unknown_5689D0` | marker | NOT EXACT: inline-budget (functional, written from the disassembly; Chat_Default_Channel through the uncalled 0x567930: 962 instructions vs 939; the client calls string::assign out of line for Unknown1F4 = "" and the first label copy and expands _Grow in the last; ours expands both) 0x5689D0 |
-| `app/client/ui_chat_panel.cpp:1986` | `ChatPanelInterface::Unknown_569A00` | marker | NOT EXACT: shape (functional, written from the disassembly; Chat_Default_Channel through the uncalled 0x567930, the emote packet a temporary with the id read first: 1936 instructions vs 1937, residue 34 rows: the selected text's size test is threaded into its else here; UIComboBoxClass::Get_Selected_Text() gives the client's start (as in 0x5D0620) but moves the RefCountPtr releases' registers, 83 ... |
 | `app/client/ui_chat_panel.cpp:2253` | `ChatPanelInterface::Unknown_56B700` | marker | NOT EXACT: inline-budget (the client expands the channel-name temporary's constructor with _Grow and calls _Tidy, and keeps the options pointer and this on the stack; 173 instructions vs 178) 0x56B700 |
 | `app/client/ui_chat_panel.cpp:2382` | `ChatPanelInterface::Unknown_56C180` | marker | NOT EXACT: frame (0x18 vs the client's 0x1C: the client keeps &ChatInt in edi and calls RefCountPtr's operator=(NULL) 0x56CD50 out of line; 349 instructions vs 346) 0x56C180 |
 | `app/client/ui_chat_window.cpp:170` | `ChatWindowInterface::Unknown_A0` | marker | NOT EXACT: functional (CW2): frame 0x54 vs the client's 0x50 and the history loop (0.40) |
@@ -553,7 +552,7 @@ edit the comments in the code, not this file.
 | `app/client/ui_slot_data.cpp:110` | `SlotDataInterface::SlotDataInterface` | marker | NOT EXACT: functional (D64), from the pseudocode |
 | `app/client/ui_slot_info.cpp:135` | `UISlotInfoClass::Unknown_630070` | marker | NOT EXACT: functional (D64), from the pseudocode |
 | `app/client/ui_slot_scut.cpp:90` | `SlotDataShortcutInterface::Update` | marker | NOT EXACT: one out-of-line begin() more than the client in the last set's destructor (attempts.py show 0x6309F0) @0x6309F0 |
-| `app/client/ui_starbase.cpp:678` | `UIStarbaseClass::Unknown_54` | marker | NOT EXACT: 0x634140, functional from the pseudocode (D64; SU1): the window's set-up (slot +0x54): the full-screen gadget, the +0x1F8 interface, the player's avatar entry with its name and guild texts, the 14 NPC slots, the four terminals, the four doors with their signs, the ship on the hangar's extents, the bar and table models and the '%s_%dmd' animated models 0x634140 |
+| `app/client/ui_starbase.cpp:678` | `UIStarbaseClass::Unknown_54` | marker | NOT EXACT: 0x634140, functional from the pseudocode (D64; SU1): the window's set-up (slot +0x54): the full-screen gadget, the +0x1F8 interface, the player's avatar entry with its name and guild texts, the 14 NPC slots, the four terminals, the four doors with their signs, the ship on the hangar's extents, the bar and table models and the '%s_%dmd' animated models (PT3: client bytes read as source, ... |
 | `app/client/ui_starbase.cpp:1099` | `UIStarbaseClass::Unknown_63BC30` | marker | NOT EXACT: 0x63BC30, functional (loop shape: the client keeps the test of the count at the loop's top before the first sweep, ours rotates it; while, do-while, for(;;) and goto forms tried; C3) 0x63BC30 |
 | `app/client/ui_starbase.cpp:1132` | `UIStarbaseClass::Unknown_63D280` | marker | NOT EXACT: 0x63D280, functional (inline budget: the client inlines SGI's find with the vector's size 0x644470 out of line; ours calls the out-of-line find 0x643E60; C3) 0x63D280 |
 | `app/client/ui_starbase.cpp:1140` | `UIStarbaseClass::Unknown_63AAF0` | marker | NOT EXACT: 0x63AAF0, functional (inline budget: the client inlines SGI's begin with the vector's size 0x644470 out of line; ours calls begin 0x643DF0; C3) 0x63AAF0 |

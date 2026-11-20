@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1971 |
 | 2 | describes what the code does | 4991 |
-| 1 | neutral placeholder | 25163 |
+| 1 | neutral placeholder | 25169 |
 
 ## For review (score 3 and below)
 
@@ -5375,10 +5375,16 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown99` | `app/client/html/unknown_htmlblock.cpp:42` | untagged neutral name (D10) |
 | 1 | `Unknown08` | `app/client/html/unknown_htmlblock.h:10` | untagged neutral name (D10) |
 | 1 | `Unknown14` | `app/client/html/unknown_htmlblock.h:17` | untagged neutral name (D10) |
-| 1 | `Owner` | `app/client/html/unknown_htmlblock.h:57` | the constructor's first argument, not read here |
-| 1 | `Unknown98` | `app/client/html/unknown_htmlblock.h:63` | untagged neutral name (D10) |
-| 1 | `Unknown99` | `app/client/html/unknown_htmlblock.h:64` | untagged neutral name (D10) |
-| 1 | `Unknown9C` | `app/client/html/unknown_htmlblock.h:65` | untagged neutral name (D10) |
+| 1 | `Get_HPadding` | `app/client/html/unknown_htmlblock.h:35` | inline; their cost in Parse's inline budget (0x7710D0) gives the client's out-of-line copies |
+| 1 | `Get_Line_Start_X` | `app/client/html/unknown_htmlblock.h:36` | inline; their cost in Parse's inline budget (0x7710D0) gives the client's out-of-line copies |
+| 1 | `Get_Cursor_X` | `app/client/html/unknown_htmlblock.h:37` | inline; their cost in Parse's inline budget (0x7710D0) gives the client's out-of-line copies |
+| 1 | `Get_Cursor_Y` | `app/client/html/unknown_htmlblock.h:38` | inline; their cost in Parse's inline budget (0x7710D0) gives the client's out-of-line copies |
+| 1 | `New_Line` | `app/client/html/unknown_htmlblock.h:39` | inline; their cost in Parse's inline budget (0x7710D0) gives the client's out-of-line copies |
+| 1 | `Set_Line_Start_X` | `app/client/html/unknown_htmlblock.h:40` | inline; their cost in Parse's inline budget (0x7710D0) gives the client's out-of-line copies |
+| 1 | `Owner` | `app/client/html/unknown_htmlblock.h:63` | the constructor's first argument, not read here |
+| 1 | `Unknown98` | `app/client/html/unknown_htmlblock.h:69` | untagged neutral name (D10) |
+| 1 | `Unknown99` | `app/client/html/unknown_htmlblock.h:70` | untagged neutral name (D10) |
+| 1 | `Unknown9C` | `app/client/html/unknown_htmlblock.h:71` | untagged neutral name (D10) |
 | 1 | `Unknown86CRecordClass` | `app/client/influence.cpp:18` | untagged neutral name (D10) |
 | 1 | `Unknown_04` | `app/client/influence.cpp:26` | untagged neutral name (D10) |
 | 1 | `UnknownObjectInfluenceClass` | `app/client/influence.cpp:31` | untagged neutral name (D10) |
@@ -18681,7 +18687,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_785F20` | `app/client/ui_starbase.cpp:754` | untagged neutral name (D10) |
 | 1 | `Unknown_6F3BC0` | `app/client/ui_starbase.cpp:854` | untagged neutral name (D10) |
 | 1 | `Unknown_6A24C0` | `app/client/ui_starbase.cpp:901` | untagged neutral name (D10) |
-| 1 | `Unknown_6A2500` | `app/client/ui_starbase.cpp:912` | untagged neutral name (D10) |
+| 1 | `Unknown_6A2500` | `app/client/ui_starbase.cpp:911` | untagged neutral name (D10) |
 | 1 | `Unknown_63BDB0` | `app/client/ui_starbase.cpp:935` | untagged neutral name (D10) |
 | 1 | `Unknown_69DFC0` | `app/client/ui_starbase.cpp:944` | untagged neutral name (D10) |
 | 1 | `Unknown_69EB20` | `app/client/ui_starbase.cpp:945` | untagged neutral name (D10) |
@@ -26344,42 +26350,42 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Get_Y` | `app/client/html/unknown_htmlblock.h:32` | inline |
 | 2 | `Get_Width` | `app/client/html/unknown_htmlblock.h:33` | inline |
 | 2 | `Get_Height` | `app/client/html/unknown_htmlblock.h:34` | inline |
-| 2 | `Get_Abs_X` | `app/client/html/unknown_htmlblock.h:35` | AbsX plus the parents' |
-| 2 | `Get_Abs_Y` | `app/client/html/unknown_htmlblock.h:36` | AbsY plus the parents' |
-| 2 | `Set_X` | `app/client/html/unknown_htmlblock.h:37` | moves the children's AbsX by the difference |
-| 2 | `Set_Y` | `app/client/html/unknown_htmlblock.h:38` | moves the children's AbsY by the difference |
-| 2 | `Get_Item` | `app/client/html/unknown_htmlblock.h:39` | Items[index] or NULL |
-| 2 | `Get_Align` | `app/client/html/unknown_htmlblock.h:40` | 'Align' style: 0 center, 1 right, -1 otherwise |
-| 2 | `Get_Font_Height` | `app/client/html/unknown_htmlblock.h:41` | 'Font.HSize' 1-4 -> 38/30/26/22, else ('Font.BaseSize' + 1) * 6, else 18 |
-| 2 | `Find_Style` | `app/client/html/unknown_htmlblock.h:42` | the item's value, else the block's (inline: Get_Font_Height pushes the key before choosing the stack) |
-| 2 | `Set_Style` | `app/client/html/unknown_htmlblock.h:44` | Styles.Set |
-| 2 | `Set_Attribute` | `app/client/html/unknown_htmlblock.h:45` | Attributes.Set |
-| 2 | `Push_Style` | `app/client/html/unknown_htmlblock.h:46` | Styles.Push |
-| 2 | `Push_Attribute` | `app/client/html/unknown_htmlblock.h:47` | Attributes.Push |
-| 2 | `Remove_Style` | `app/client/html/unknown_htmlblock.h:48` | Styles.Remove |
-| 2 | `Remove_Attribute` | `app/client/html/unknown_htmlblock.h:49` | Attributes.Remove |
-| 2 | `Pop_Style` | `app/client/html/unknown_htmlblock.h:50` | Styles.Pop |
-| 2 | `Pop_Attribute` | `app/client/html/unknown_htmlblock.h:51` | Attributes.Pop |
-| 2 | `Get_Style` | `app/client/html/unknown_htmlblock.h:52` | Styles.Get |
-| 2 | `Get_Attribute` | `app/client/html/unknown_htmlblock.h:53` | Attributes.Get |
-| 2 | `HPadding` | `app/client/html/unknown_htmlblock.h:55` | 'Horizontal_Padding' |
-| 2 | `VPadding` | `app/client/html/unknown_htmlblock.h:56` | 'Vertical_Padding' |
-| 2 | `Items` | `app/client/html/unknown_htmlblock.h:58` | owned (the destructor deletes them) |
-| 2 | `Children` | `app/client/html/unknown_htmlblock.h:59` | Add_Child; not deleted here |
-| 2 | `Parent` | `app/client/html/unknown_htmlblock.h:60` | set by the parent's Add_Child |
-| 2 | `Attributes` | `app/client/html/unknown_htmlblock.h:61` | the constructor's 4th argument copied in; holds the paddings |
-| 2 | `Styles` | `app/client/html/unknown_htmlblock.h:62` | the 5th argument copied in; 'Align', 'Font.*' |
-| 2 | `X` | `app/client/html/unknown_htmlblock.h:66` | Set_X |
-| 2 | `Y` | `app/client/html/unknown_htmlblock.h:67` | Set_Y |
-| 2 | `AbsX` | `app/client/html/unknown_htmlblock.h:68` | summed up the parents by Get_Abs_X |
-| 2 | `AbsY` | `app/client/html/unknown_htmlblock.h:69` | summed up the parents by Get_Abs_Y |
-| 2 | `Width` | `app/client/html/unknown_htmlblock.h:70` | the constructor's 2nd argument; Advance_Y aligns within it |
-| 2 | `Height` | `app/client/html/unknown_htmlblock.h:71` | the constructor's 3rd argument |
-| 2 | `CursorX` | `app/client/html/unknown_htmlblock.h:72` | Advance_X; starts at the horizontal padding |
-| 2 | `CursorY` | `app/client/html/unknown_htmlblock.h:73` | Advance_Y; starts at the vertical padding |
-| 2 | `LineStartX` | `app/client/html/unknown_htmlblock.h:74` | starts at the horizontal padding; Parse resets CursorX to it at each line break and shifts it for aligned tables and cells |
-| 2 | `ContentWidth` | `app/client/html/unknown_htmlblock.h:75` | Parse sets it to the rightmost item plus the horizontal padding |
-| 2 | `ContentHeight` | `app/client/html/unknown_htmlblock.h:76` | Parse sets it to the lowest item plus the vertical padding and 2; a table row takes its cells' largest |
+| 2 | `Get_Abs_X` | `app/client/html/unknown_htmlblock.h:41` | AbsX plus the parents' |
+| 2 | `Get_Abs_Y` | `app/client/html/unknown_htmlblock.h:42` | AbsY plus the parents' |
+| 2 | `Set_X` | `app/client/html/unknown_htmlblock.h:43` | moves the children's AbsX by the difference |
+| 2 | `Set_Y` | `app/client/html/unknown_htmlblock.h:44` | moves the children's AbsY by the difference |
+| 2 | `Get_Item` | `app/client/html/unknown_htmlblock.h:45` | Items[index] or NULL |
+| 2 | `Get_Align` | `app/client/html/unknown_htmlblock.h:46` | 'Align' style: 0 center, 1 right, -1 otherwise |
+| 2 | `Get_Font_Height` | `app/client/html/unknown_htmlblock.h:47` | 'Font.HSize' 1-4 -> 38/30/26/22, else ('Font.BaseSize' + 1) * 6, else 18 |
+| 2 | `Find_Style` | `app/client/html/unknown_htmlblock.h:48` | the item's value, else the block's (inline: Get_Font_Height pushes the key before choosing the stack) |
+| 2 | `Set_Style` | `app/client/html/unknown_htmlblock.h:50` | Styles.Set |
+| 2 | `Set_Attribute` | `app/client/html/unknown_htmlblock.h:51` | Attributes.Set |
+| 2 | `Push_Style` | `app/client/html/unknown_htmlblock.h:52` | Styles.Push |
+| 2 | `Push_Attribute` | `app/client/html/unknown_htmlblock.h:53` | Attributes.Push |
+| 2 | `Remove_Style` | `app/client/html/unknown_htmlblock.h:54` | Styles.Remove |
+| 2 | `Remove_Attribute` | `app/client/html/unknown_htmlblock.h:55` | Attributes.Remove |
+| 2 | `Pop_Style` | `app/client/html/unknown_htmlblock.h:56` | Styles.Pop |
+| 2 | `Pop_Attribute` | `app/client/html/unknown_htmlblock.h:57` | Attributes.Pop |
+| 2 | `Get_Style` | `app/client/html/unknown_htmlblock.h:58` | Styles.Get |
+| 2 | `Get_Attribute` | `app/client/html/unknown_htmlblock.h:59` | Attributes.Get |
+| 2 | `HPadding` | `app/client/html/unknown_htmlblock.h:61` | 'Horizontal_Padding' |
+| 2 | `VPadding` | `app/client/html/unknown_htmlblock.h:62` | 'Vertical_Padding' |
+| 2 | `Items` | `app/client/html/unknown_htmlblock.h:64` | owned (the destructor deletes them) |
+| 2 | `Children` | `app/client/html/unknown_htmlblock.h:65` | Add_Child; not deleted here |
+| 2 | `Parent` | `app/client/html/unknown_htmlblock.h:66` | set by the parent's Add_Child |
+| 2 | `Attributes` | `app/client/html/unknown_htmlblock.h:67` | the constructor's 4th argument copied in; holds the paddings |
+| 2 | `Styles` | `app/client/html/unknown_htmlblock.h:68` | the 5th argument copied in; 'Align', 'Font.*' |
+| 2 | `X` | `app/client/html/unknown_htmlblock.h:72` | Set_X |
+| 2 | `Y` | `app/client/html/unknown_htmlblock.h:73` | Set_Y |
+| 2 | `AbsX` | `app/client/html/unknown_htmlblock.h:74` | summed up the parents by Get_Abs_X |
+| 2 | `AbsY` | `app/client/html/unknown_htmlblock.h:75` | summed up the parents by Get_Abs_Y |
+| 2 | `Width` | `app/client/html/unknown_htmlblock.h:76` | the constructor's 2nd argument; Advance_Y aligns within it |
+| 2 | `Height` | `app/client/html/unknown_htmlblock.h:77` | the constructor's 3rd argument |
+| 2 | `CursorX` | `app/client/html/unknown_htmlblock.h:78` | Advance_X; starts at the horizontal padding |
+| 2 | `CursorY` | `app/client/html/unknown_htmlblock.h:79` | Advance_Y; starts at the vertical padding |
+| 2 | `LineStartX` | `app/client/html/unknown_htmlblock.h:80` | starts at the horizontal padding; Parse resets CursorX to it at each line break and shifts it for aligned tables and cells |
+| 2 | `ContentWidth` | `app/client/html/unknown_htmlblock.h:81` | Parse sets it to the rightmost item plus the horizontal padding |
+| 2 | `ContentHeight` | `app/client/html/unknown_htmlblock.h:82` | Parse sets it to the lowest item plus the vertical padding and 2; a table row takes its cells' largest |
 | 2 | `RoomClass` | `app/client/influence.h:50` | influence.cpp's assert 'TempRoomPtrs[bidx]->BoundaryMesh == NULL' and 'Room%02d' |
 | 2 | `NebulaClass` | `app/client/influence.h:63` | its strings 'NEBULA_ROOT' and 'nebula.ini' |
 | 2 | `SkyBox` | `app/client/influence.h:74` | nebula.ini's 'SkyBoxColor' |
