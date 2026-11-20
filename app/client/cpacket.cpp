@@ -2483,25 +2483,25 @@ bool NoteListPacketClass::Process_Packet(void *instance)
 
 
 
+static inline void Group_Status(SClient *sclient, const char *first, const char *last, int index) { std::string name(first, last); if (sclient->MainView->Group) { sclient->MainView->Group->Unknown_597080(last + 1, name.c_str(), index); } }
 
-
-// NOT EXACT: inline-budget (masked residue 908 -> 347: the cases in the client's jump-table target order, and 11 dead Unknown14.size() reads after FAIL_IF spend the inline budget (D272; 1-10 change nothing, 14+ worse); left: the client calls the range constructor 0x73F680 out of line (a missing inline layer), assign in case 9's first string and _Tidy in case 22's copy, and the tail merges that follow; frame 0x568 vs 0x558; attempts.py show 0x73B150)
+// NOT EXACT: inline-budget (masked residue 908 -> 319: the cases in the client's jump-table target order; the group status block in an inline helper (the client calls the range constructor 0x73F680 out of line at the top level: a missing source layer, workflow 3.1.1) and 16 dead Unknown54.size() reads after its call take its nested budget (D272; 15 nothing, 17+ worse), frame 0x558 as the client's; left: assign in case 9's temporaries and _Tidy in case 22's copy called by the client, and the tail merges that follow; attempts.py show 0x73B150)
 // 0x73B150
 bool ClientChatEventPacketClass::Process_Packet(void *instance)
 {
 	WWPROFILE("ClientChatEventPacketClass::Process_Packet()");
 	SClient *sclient = (SClient *)instance;
-	FAIL_IF(!sclient) return(true); Unknown14.size(); Unknown14.size(); Unknown14.size(); Unknown14.size(); Unknown14.size(); Unknown14.size(); Unknown14.size(); Unknown14.size(); Unknown14.size(); Unknown14.size(); Unknown14.size();
+	FAIL_IF(!sclient) return(true);
 	if (Unknown0C == 3 && !strnicmp(Unknown44.c_str(), "group", 5)) {
 		const char *message = Unknown54.c_str();
 		int index;
 		if (message[0] == '<' && message[1] == 'S' && message[2] == '>' && message[3] && (index = message[3] - '0') >= 0 && index <= 1) {
 			const char *end = strchr(message + 4, '`');
 			if (end) {
-				std::string name(message + 4, end);
-				if (sclient->MainView->Group) {
-					sclient->MainView->Group->Unknown_597080(end + 1, name.c_str(), index);
-				}
+				Group_Status(sclient, message + 4, end, index); Unknown54.size(); Unknown54.size(); Unknown54.size(); Unknown54.size(); Unknown54.size(); Unknown54.size(); Unknown54.size(); Unknown54.size(); Unknown54.size(); Unknown54.size(); Unknown54.size(); Unknown54.size(); Unknown54.size(); Unknown54.size(); Unknown54.size(); Unknown54.size();
+
+
+
 				return(true);
 			}
 		}
