@@ -202,7 +202,7 @@ UIComboBoxClass::~UIComboBoxClass()
 	Unknown_BE67BC->Unload("fc_combobox.ini");
 }
 
-// NOT EXACT: register-only in the main (this in esi and the scale in ebp in the client; ours this in ebp, the scale in esi and spilled)
+// NOT EXACT: register ties at the TEXTFIELD00 / 02 transforms and the Arrow registration (masked 35); the dead Style.size() spends the budget so Style == "Combo01" calls compare(II PBD I) out of line as the client (D272)
 // 0x5790C0: owner NULL (the first constructor): the gadgets on Layer; else on an empty layer
 void UIComboBoxClass::Init(InterfaceClass *owner)
 {
@@ -284,7 +284,7 @@ void UIComboBoxClass::Init(InterfaceClass *owner)
 	}
 	Slider->Unknown_65FFA0(-2);
 	Unknown64.Unknown_6870E0(Slider, 2, View, true, false);
-	Selected = 0;
+	Selected = 0; Style.size();
 }
 
 // 0x579D80
