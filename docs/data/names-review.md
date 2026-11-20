@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 226 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
-| 3 | by convention from a client-named file or sibling | 1971 |
+| 3 | by convention from a client-named file or sibling | 1970 |
 | 2 | describes what the code does | 4996 |
-| 1 | neutral placeholder | 25157 |
+| 1 | neutral placeholder | 25158 |
 
 ## For review (score 3 and below)
 
@@ -3801,11 +3801,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6BCFB0Class` | `app/client/fontsys.cpp:311` | untagged neutral name (D10) |
 | 1 | `Unknown_6D5F40` | `app/client/fontsys.cpp:314` | untagged neutral name (D10) |
 | 1 | `Unknown_6D60C0` | `app/client/fontsys.cpp:354` | untagged neutral name (D10) |
-| 1 | `Unknown464` | `app/client/fontsys.cpp:462` | untagged neutral name (D10) |
-| 1 | `Unknown_6CD180` | `app/client/fontsys.cpp:487` | untagged neutral name (D10) |
-| 1 | `Unknown_6CA0C0` | `app/client/fontsys.cpp:488` | untagged neutral name (D10) |
-| 1 | `Unknown_6CD6F0` | `app/client/fontsys.cpp:490` | untagged neutral name (D10) |
-| 1 | `Unknown_6CCE60` | `app/client/fontsys.cpp:526` | untagged neutral name (D10) |
+| 1 | `Unknown464` | `app/client/fontsys.cpp:445` | untagged neutral name (D10) |
+| 1 | `Unknown_6CD180` | `app/client/fontsys.cpp:480` | untagged neutral name (D10) |
+| 1 | `Unknown_6CA0C0` | `app/client/fontsys.cpp:481` | untagged neutral name (D10) |
+| 1 | `Unknown_6CD6F0` | `app/client/fontsys.cpp:483` | untagged neutral name (D10) |
+| 1 | `Unknown_6CCE60` | `app/client/fontsys.cpp:519` | untagged neutral name (D10) |
 | 1 | `Unknown_6D8650` | `app/client/fontsys.cpp:948` | untagged neutral name (D10) |
 | 1 | `Unknown_6D8780` | `app/client/fontsys.cpp:959` | untagged neutral name (D10) |
 | 1 | `Unknown_6D87D0` | `app/client/fontsys.cpp:966` | untagged neutral name (D10) |
@@ -12269,17 +12269,18 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_70` | `app/client/ui_cpit.cpp:473` | untagged neutral name (D10) |
 | 1 | `Unknown4C` | `app/client/ui_cpit.cpp:624` | untagged neutral name (D10) |
 | 1 | `Unknown_74` | `app/client/ui_cpit.cpp:644` | untagged neutral name (D10) |
-| 1 | `Unknown_Cpit_Find_Set_Field` | `app/client/ui_cpit.cpp:698` | neutral (D10), ui_cpit.cpp's if/return form (auxdata.h's Unknown_Find_Set_Field uses ternary and drops 0x546710 here); 0x584000: its expansions call the find (0x5806E0, two) or the Cast (0x5821C0) out of line |
+| 1 | `Unknown_Cpit_Find_Set_Field2` | `app/client/ui_cpit.cpp:698` | neutral (D10), ui_cpit.cpp's if/return form through one more layer (auxdata.h's ternary Unknown_Find_Set_Field in 0x584000: 0x5806E0's copies inline the find); 0x584000: its expansions call the find (0x5806E0) or the set-field layer (0x5821C0) out of line |
 | 1 | `Unknown_Find_Field` | `app/client/ui_cpit.cpp:698` | untagged neutral name (D10) |
 | 1 | `Unknown70` | `app/client/ui_cpit.cpp:698` | untagged neutral name (D10) |
+| 1 | `Unknown_Cpit_Find_Set_Field` | `app/client/ui_cpit.cpp:698` | untagged neutral name (D10) |
 | 1 | `Unknown_68` | `app/client/ui_cpit.cpp:702` | untagged neutral name (D10) |
 | 1 | `Unknown_2C` | `app/client/ui_cpit.cpp:711` | untagged neutral name (D10) |
 | 1 | `Unknown_584000` | `app/client/ui_cpit.cpp:723` | untagged neutral name (D10) |
 | 1 | `Unknown_745E40` | `app/client/ui_cpit.cpp:725` | untagged neutral name (D10) |
 | 1 | `Unknown_674160` | `app/client/ui_cpit.cpp:727` | untagged neutral name (D10) |
 | 1 | `Unknown_671740` | `app/client/ui_cpit.cpp:729` | untagged neutral name (D10) |
-| 1 | `Unknown_A4` | `app/client/ui_cpit.cpp:762` | untagged neutral name (D10) |
-| 1 | `Unknown_66C360` | `app/client/ui_cpit.cpp:763` | untagged neutral name (D10) |
+| 1 | `Unknown_A4` | `app/client/ui_cpit.cpp:773` | untagged neutral name (D10) |
+| 1 | `Unknown_66C360` | `app/client/ui_cpit.cpp:774` | untagged neutral name (D10) |
 | 1 | `Unknown_745B90` | `app/client/ui_cpit.cpp:837` | untagged neutral name (D10) |
 | 1 | `Unknown_745C70` | `app/client/ui_cpit.cpp:864` | untagged neutral name (D10) |
 | 1 | `Unknown_60` | `app/client/ui_cpit.cpp:1051` | untagged neutral name (D10) |
@@ -12303,6 +12304,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_581F90` | `app/client/ui_cpit.cpp:1192` | untagged neutral name (D10) |
 | 1 | `Unknown_744560` | `app/client/ui_cpit.cpp:1209` | untagged neutral name (D10) |
 | 1 | `Unknown_5820C0` | `app/client/ui_cpit.cpp:1224` | untagged neutral name (D10) |
+| 1 | `Unknown_Cpit_Engine` | `app/client/ui_cpit.cpp:1251` | neutral (D10) |
 | 1 | `Unknown_Find_Valid_Field` | `app/client/ui_cpit.cpp:1254` | neutral (D10) |
 | 1 | `Unknown_Find_Valid` | `app/client/ui_cpit.cpp:1261` | neutral (D10), as ui_attrb.cpp's |
 | 1 | `Unknown_Find_Changed_Field` | `app/client/ui_cpit.cpp:1265` | neutral (D10) |
@@ -12310,9 +12312,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_79B600` | `app/client/ui_cpit.cpp:1312` | untagged neutral name (D10) |
 | 1 | `Unknown_6E32E0` | `app/client/ui_cpit.cpp:1415` | untagged neutral name (D10) |
 | 1 | `Unknown49` | `app/client/ui_cpit.cpp:1428` | untagged neutral name (D10) |
+| 1 | `Unknown80` | `app/client/ui_cpit.cpp:1454` | untagged neutral name (D10) |
+| 1 | `Unknown_674120` | `app/client/ui_cpit.cpp:1454` | untagged neutral name (D10) |
 | 1 | `Unknown_6CE910` | `app/client/ui_cpit.cpp:1455` | untagged neutral name (D10) |
-| 1 | `Unknown80` | `app/client/ui_cpit.cpp:1471` | untagged neutral name (D10) |
-| 1 | `Unknown_674120` | `app/client/ui_cpit.cpp:1471` | untagged neutral name (D10) |
 | 1 | `Unknown_7BD980` | `app/client/ui_cpit.cpp:1616` | untagged neutral name (D10) |
 | 1 | `Unknown_7BD960` | `app/client/ui_cpit.cpp:1617` | untagged neutral name (D10) |
 | 1 | `Unknown_79B2B0` | `app/client/ui_cpit.cpp:1630` | untagged neutral name (D10) |
@@ -14247,7 +14249,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `std:` | `app/client/ui_manu.cpp:1534` | neutral (D10)  // NAME 1 [validity]: the 'Validity' value |
 | 1 | `Unknown_5B6060` | `app/client/ui_manu.cpp:1534` | untagged neutral name (D10) |
 | 1 | `Unknown_74D990` | `app/client/ui_manu.cpp:1570` | untagged neutral name (D10) |
-| 1 | `Unknown_5B6D30` | `app/client/ui_manu.cpp:1764` | untagged neutral name (D10) |
+| 1 | `Unknown_5B6D30` | `app/client/ui_manu.cpp:1763` | untagged neutral name (D10) |
 | 1 | `Unknown_Find_Aux` | `app/client/ui_manu.cpp:1861` | untagged neutral name (D10) |
 | 1 | `ui_manu.h` | `app/client/ui_manu.h:4` | provisional header name for ui_manu.cpp |
 | 1 | `UIManuRowStruct` | `app/client/ui_manu.h:24` | neutral (D10) |
@@ -15292,9 +15294,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_7BB110` | `app/client/ui_pda_equip.cpp:261` | untagged neutral name (D10) |
 | 1 | `Unknown_60` | `app/client/ui_pda_equip.cpp:266` | untagged neutral name (D10) |
 | 1 | `Unknown_5D2B90` | `app/client/ui_pda_equip.cpp:270` | untagged neutral name (D10) |
+| 1 | `Unknown_695A00` | `app/client/ui_pda_equip.cpp:275` | untagged neutral name (D10) |
 | 1 | `Unknown_68` | `app/client/ui_pda_equip.cpp:275` | untagged neutral name (D10) |
 | 1 | `Unknown_6A3C10` | `app/client/ui_pda_equip.cpp:279` | untagged neutral name (D10) |
-| 1 | `Unknown_695A00` | `app/client/ui_pda_equip.cpp:281` | untagged neutral name (D10) |
 | 1 | `Unknown_B0` | `app/client/ui_pda_equip.cpp:296` | untagged neutral name (D10) |
 | 1 | `Unknown_5D2C50` | `app/client/ui_pda_equip.cpp:299` | untagged neutral name (D10) |
 | 1 | `Unknown_B4` | `app/client/ui_pda_equip.cpp:302` | untagged neutral name (D10) |
@@ -15412,9 +15414,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_672AD0` | `app/client/ui_petition_entry.cpp:157` | untagged neutral name (D10) |
 | 1 | `Unknown_6AAD10` | `app/client/ui_petition_entry.cpp:158` | untagged neutral name (D10) |
 | 1 | `Unknown39` | `app/client/ui_petition_entry.cpp:159` | untagged neutral name (D10) |
-| 1 | `Unknown_5890B0` | `app/client/ui_petition_entry.cpp:164` | untagged neutral name (D10) |
-| 1 | `Unknown_74D990` | `app/client/ui_petition_entry.cpp:173` | untagged neutral name (D10) |
-| 1 | `closed` | `app/client/ui_petition_entry.cpp:174` | neutral (D10) |
+| 1 | `Unknown_5890B0` | `app/client/ui_petition_entry.cpp:165` | untagged neutral name (D10) |
+| 1 | `Unknown_74D990` | `app/client/ui_petition_entry.cpp:172` | untagged neutral name (D10) |
 | 1 | `Unknown_64` | `app/client/ui_petition_entry.cpp:195` | untagged neutral name (D10) |
 | 1 | `Unknown_68` | `app/client/ui_petition_entry.cpp:200` | untagged neutral name (D10) |
 | 1 | `Unknown_74` | `app/client/ui_petition_entry.cpp:205` | untagged neutral name (D10) |
@@ -26062,9 +26063,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `std:` | `app/client/fontmanager.h:231` | what it holds |
 | 2 | `DebugFont` | `app/client/fontmanager.h:232` | what it holds |
 | 2 | `Step_Colour` | `app/client/fontsys.cpp:397` | one colour channel a step of 1 toward the target; inline only (Update_Text 0x6D64C0's unrolled per-channel code) |
-| 2 | `Set_Pass_Color` | `app/client/fontsys.cpp:404` | inline only: Update_Text's pass colour (the client cuts Convert_Color_Clamp under it; the alpha's min as ?:, PT9 423 against WWMath::Min's 432) |
-| 2 | `Apply_Shader` | `app/client/fontsys.cpp:411` | inline only (Update_Text) |
-| 2 | `Refresh_Line` | `app/client/fontsys.cpp:413` | inline only: the client's Update_Text calls the copy's Get_Length out of line (one layer more than flat) |
+| 2 | `Pass_Vertex_Color` | `app/client/fontsys.cpp:404` | inline only: Update_Text's pass colour, one Set_Vertex_Color per layer (the client inlines Switch_To_Multi_Vertex_Color at both sites 0x6D6D55 / 0x6D6E24 and calls Convert_Color_Clamp); the dead read is the layer's budget (D272) |
+| 2 | `Apply_Shader` | `app/client/fontsys.cpp:406` | inline only (Update_Text) |
+| 2 | `Append_Dots` | `app/client/fontsys.cpp:408` | inline only: Update_Text's "..." (the client calls the += copy's Get_Length and Store_Length, 0x6D676E / 0x6D679B); the dead read is the layer's budget (D272) |
 | 2 | `line` | `app/client/fontsys_cursor.h:35` | the FAIL_IF's '!line'  // NAME 1 [cursorpos, insert, center]: what it does with them |
 | 2 | `Scene` | `app/client/fontsys_cursor.h:38` | what it holds |
 | 2 | `Iface` | `app/client/fontsys_cursor.h:39` | what it holds |
@@ -31030,7 +31031,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `Get_Client` | `app/client/ui_pda_equip.h:57` | the FAIL_IF's |
 | 3 | `InterfaceMesh` | `app/client/ui_pda_equip.h:59` | the FAIL_IF's |
 | 3 | `UIPetitionAvatarPipClass` | `app/client/ui_petition_avatar_pip.h:15` | class-from-file (D24) for ui_petition_avatar_pip.cpp |
-| 3 | `choice` | `app/client/ui_petition_entry.cpp:164` | the assert's |
 | 3 | `USER_SELECT_NO, USER_SELECT_OK` | `app/client/ui_petition_entry.h:17` | the asserts'; NAME 1 [USER_SELECT_YES]: neutral |
 | 3 | `Get_Client` | `app/client/ui_petition_entry.h:42` | the FAIL_IFs' |
 | 3 | `SubjectEditor` | `app/client/ui_petition_entry.h:45` | the FAIL_IF '!SubjectEditor' |

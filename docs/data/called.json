@@ -519,6 +519,9 @@
 "??8type_info@@QBEHABV0@@Z": [
 "0xA281AE"
 ],
+"??9Wstring@@QBEDABV0@@Z": [
+"0x8B6070"
+],
 "??HXtime@@QAE?AV0@AAV0@@Z": [
 "0x8BB6A0"
 ],
@@ -1986,6 +1989,9 @@
 "?remove@Wstring@@QAEDJJ@Z": [
 "0x8B6CC0"
 ],
+"?removeSpaces@Wstring@@QAEXXZ": [
+"0x8B6DD0"
+],
 "?replace@Wstring@@QAEDDD@Z": [
 "0x8B7520"
 ],
@@ -2009,6 +2015,9 @@
 ],
 "?strtok_r@@YAPADPADPBDPAPAD@Z": [
 "0x9DEBF0"
+],
+"?truncate@Wstring@@QAEDK@Z": [
+"0x8B7AC0"
 ],
 "?uncaught_exception@std@@YA_NXZ": [
 "0xA1C081"
@@ -3059,12 +3068,14 @@
 ],
 "data:?UnknownGlobal@?$DeltaTemplateClass@H@@2HA": [
 "0xC416A8",
-"0xC416AC"
+"0xC416AC",
+"0xC416F0"
 ],
 "data:?UnknownGlobal@?$DeltaTemplateClass@I@@2HA": [
 "0xC4163C"
 ],
 "data:?UnknownGlobal@?$DeltaTemplateClass@M@@2HA": [
+"0xC416A8",
 "0xC416F0"
 ],
 "data:?UnknownGlobal@?$DeltaTemplateClass@UInvSlotStruct@@@@2HA": [
@@ -4121,6 +4132,9 @@
 "data:__real@4@40008000000000000000": [
 "0xAE7964"
 ],
+"data:__real@4@4000a000000000000000": [
+"0xB04740"
+],
 "data:__real@4@4000c000000000000000": [
 "0xAE7960",
 "0xAF7AE4"
@@ -4133,6 +4147,9 @@
 ],
 "data:__real@4@4000c90fdb0000000000": [
 "0xAE78F8"
+],
+"data:__real@4@4000e000000000000000": [
+"0xB04750"
 ],
 "data:__real@4@40018000000000000000": [
 "0xAEA664"
@@ -4150,11 +4167,17 @@
 "data:__real@4@4001c90fdb0000000000": [
 "0xAE9B28"
 ],
+"data:__real@4@4001e000000000000000": [
+"0xAFE150"
+],
 "data:__real@4@4001e9999a0000000000": [
 "0xB07EB8"
 ],
 "data:__real@4@40028000000000000000": [
 "0xAED080"
+],
+"data:__real@4@40028800000000000000": [
+"0xB0474C"
 ],
 "data:__real@4@40029000000000000000": [
 "0xAEEEC4"
@@ -4212,6 +4235,9 @@
 ],
 "data:__real@4@40078000000000000000": [
 "0xAFE98C"
+],
+"data:__real@4@40079600000000000000": [
+"0xAE7844"
 ],
 "data:__real@4@4007a000000000000000": [
 "0xAEF77C"
@@ -4284,6 +4310,9 @@
 ],
 "data:__real@4@bff9cccccd0000000000": [
 "0xAEEEC8"
+],
+"data:__real@4@bffbcccccd0000000000": [
+"0xB04744"
 ],
 "data:__real@4@bffccccccd0000000000": [
 "0xAEEAA0"
