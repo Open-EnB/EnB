@@ -1642,7 +1642,7 @@ static int Get_Value(int offset, Wstring &tag, Wstring &value)
 **	* HtmlBlockClass's inline getters (Get_X / Get_Y / Get_Width / Get_Height) are why the client reads a
 **	  field before an out-of-line call in one expression (Click, Draw_Block); the RECTs are filled bottom,
 **	  top, left, right. NOT EXACT: Render (the parent bounds' stores), Hit_Test (its loop top), Add_Text
-**	  (one frame slot more than the client's), Draw_Item (the client saves ebx / esi after the Type test).
+**	  (one frame slot more than the client's), Draw_Item (its Text loop setup; one exit gives the late pushes).
 **	* HV3 (2026-11-01): the parser Parse 0x7710D0, NOT EXACT (functional, D64, from the pseudocode): an
 **	  if / else chain of tag names (p, font, br, a, title, i, b / strong, center, table, tr, td, h1-h4, /hN,
 **	  body, hr, ul, li, img); <td> lays its cell out in a child block by recursing, and </td> returns the
