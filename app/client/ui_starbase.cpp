@@ -75,7 +75,7 @@ public:
 	void Unknown_78B570(bool b);						// 0x78B570  // NAME 1 [b]: neutral
 
 	Unknown78A910AvatarClass(int a, AvatarDescClass *desc, EnvironmentMapManagerClass *env_maps);	// 0x78A910 (0x642740: the NPC's +0x1C and description)  // NAME 1 [a]: neutral
-	void Unknown_78AD20(int anim, int min, int max, const char *model, const char *motion);	// 0x78AD20 (0x642740: an Action%02d, its roll range, ExtraAnim%02d and ExtraName%02d)  // NAME 1 [anim, min, max, model, motion]: as unknown_78a910.cpp's
+	void Unknown_78AD20(int anim, int min, int max, const char *model, const char *motion);	// 0x78AD20 (0x642740: an Action%02d, its roll range, ExtraName%02d and ExtraAnim%02d)  // NAME 1 [anim, min, max, model, motion]: as unknown_78a910.cpp's
 	void Unknown_78B010(const Matrix3D &tm); void Unknown_78B290(const Matrix3D &tm);	// 0x78B010 / 0x78B290 (0x642740: a Location%02d's OffsetBoneName / DestBoneName bone)  // NAME 1 [tm]: neutral
 	void Unknown_78B530(int a, int b, int c, int d);	// 0x78B530 (0x642740: MinWait, MaxWait, RelocateChance, ActionChance)  // NAME 1 [a, b, c, d]: neutral
 	char Unknown384[0x3B9 - 0x384];					// +0x384
@@ -3617,9 +3617,9 @@ void UIStarbaseClass::Unknown_63BB10(GadgetClass *gadget)
 
 
 
-// NOT EXACT: 0x642740, registers left (the client spills this, ebp = 0; the dead length() read at the end: the client cuts dest_bone's assign(ptr, n)): a lounge NPC's wandering avatar from '<race>starbase_ambient.ini', its section the
-// NPC's first name: the walk points Location%02d (OffsetBoneName / DestBoneName bones of ExtraBones), the idle actions
-// Action%02d with their Chance%02d, ExtraName%02d and ExtraAnim%02d
+static inline EnvironmentMapManagerClass *Unknown_Env_Maps(LineDisplayClientClass *client) { return(client->As_Space_Client()->EnvironmentMapManager); }	// (0x642740 reads the avatar's environment maps through this: read in place its arguments' registers and later temporaries are one step off the client's)  // NAME 1: neutral (D10)
+// (0x642740) a lounge NPC's wandering avatar from '<race>starbase_ambient.ini', its section the NPC's first name: the walk points
+// Location%02d (OffsetBoneName / DestBoneName bones of ExtraBones), the idle actions Action%02d with their Chance%02d, ExtraName%02d and ExtraAnim%02d
 // 0x642740
 Unknown78A910AvatarClass *UIStarbaseClass::Unknown_642740(StarbaseNPCClass *npc)
 {
@@ -3627,7 +3627,7 @@ Unknown78A910AvatarClass *UIStarbaseClass::Unknown_642740(StarbaseNPCClass *npc)
 		return(NULL);
 	}
 	char file_name[64];
-	int style = UnknownB0->Info->Style; const char *race = Unknown_B8A950[style]; _snprintf(file_name, sizeof(file_name), "%sstarbase_ambient.ini", race);
+	int style = Get_Info()->Style; _snprintf(file_name, sizeof(file_name), "%sstarbase_ambient.ini", Unknown_B8A950[style]);
 	INIClass ini(file_name);
 	if (!ini.Is_Loaded()) {
 		return(NULL);
@@ -3646,7 +3646,7 @@ Unknown78A910AvatarClass *UIStarbaseClass::Unknown_642740(StarbaseNPCClass *npc)
 	if (!str.Is_Empty()) {
 		dest_bone = str;
 	}
-	Unknown78A910AvatarClass *avatar = new Unknown78A910AvatarClass(npc->Unknown1C, &npc->Desc, ((LineDisplayClientClass *)Client)->As_Space_Client()->EnvironmentMapManager);
+	Unknown78A910AvatarClass *avatar = new Unknown78A910AvatarClass(npc->Unknown1C, &npc->Desc, Unknown_Env_Maps(Client));
 	bool sequential = false; if (ini.Find_Entry(section, "Sequential")) sequential = ini.Get_Bool(section, "Sequential", false); avatar->Unknown3B9 = sequential;
 	int min_wait = ini.Get_Int(section, "MinWait", 5); int max_wait = ini.Get_Int(section, "MaxWait", 15); int relocate = ini.Get_Int(section, "RelocateChance", 33); int action = ini.Get_Int(section, "ActionChance", 67); avatar->Unknown_78B530(min_wait, max_wait, relocate, action);
 	Matrix3D tm(true);
@@ -3694,7 +3694,7 @@ Unknown78A910AvatarClass *UIStarbaseClass::Unknown_642740(StarbaseNPCClass *npc)
 		if (!str.Is_Empty()) {
 			extra_anim = str;
 		}
-		avatar->Unknown_78AD20(anim, bottom, top, extra_anim.c_str(), extra_name.c_str());
+		avatar->Unknown_78AD20(anim, bottom, top, extra_name.c_str(), extra_anim.c_str());
 		bottom = top + 1;
 	}
 	avatar->Set_Transform(start);
@@ -3703,7 +3703,7 @@ Unknown78A910AvatarClass *UIStarbaseClass::Unknown_642740(StarbaseNPCClass *npc)
 	avatar->Unknown_77E3D0(1);
 	avatar->BodyObj->Set_LOD_Bias(1.0f);
 	avatar->Unknown_784F60(false);
-	offset_bone.length(); offset_bone.length(); return(avatar);
+	return(avatar);
 }
 
 
