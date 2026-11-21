@@ -3914,7 +3914,7 @@ void UIStarbaseClass::Unknown_63FF80()
 	}
 }
 
-// NOT EXACT: 0x63E2B0, functional (the flag test's own load of the avatar, the position's y / z through the matrix copy, the id's load order; SB1)
+// NOT EXACT: 0x63E2B0, functional (left: the position's y / z as int copies through tm's dead Row[1][3] / Row[2][3] slots, the id's load order; the matrix in its own block gives the flag test's own load of the avatar; SB1, SB)
 // 0x63E2B0
 void UIStarbaseClass::Unknown_63E2B0()
 {
@@ -3923,8 +3923,8 @@ void UIStarbaseClass::Unknown_63E2B0()
 		if (UnknownC0.D->Avatar->Unknown2F4) {
 			flags |= 1;
 		}
-		Matrix3D tm = UnknownC0.D->Avatar->Unknown330;
-		float orient = tm.Get_Z_Rotation();
+		float orient; { Matrix3D tm = UnknownC0.D->Avatar->Unknown330;
+		orient = tm.Get_Z_Rotation(); }
 		Vector3 position = UnknownC0.D->Avatar->Unknown330.Get_Translation();
 		SClient *client = ((LineDisplayClientClass *)Client)->As_Space_Client();
 		int room = -1;
