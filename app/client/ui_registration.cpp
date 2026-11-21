@@ -282,7 +282,7 @@ static inline RegistrationUnknown1ACClass *Get_Unknown1AC()  // NAME 1 [Get_Unkn
 
 
 
-// @0x5EF0B0 NOT EXACT: register (attempts.csv: the mode switch as the client lays it out (cmp 3 / je to the end block), the tm stores mday / mon / year, six dead UnknownD8 size() reads (D272); left: the init list's Layer / mode loads scheduled apart, r10)
+// @0x5EF0B0 (the mode switch as the client lays it out (cmp 3 / je to the end block); the flags +0xC4..+0xCA a member struct with its own constructor (the client loads +0xD0 / +0xD4 / +0xD8's values before the +0xBC store); two dead UnknownD8 reads, D272)
 RegistrationInterface::RegistrationInterface(UIViewClass *view, LayerClass *layer, int mode) :
 	InterfaceClass(view, (int)layer->Peek_Scene()),
 	Unknown98(""),
@@ -290,13 +290,13 @@ RegistrationInterface::RegistrationInterface(UIViewClass *view, LayerClass *laye
 	UnknownA0(""),
 	UnknownBC(NULL),
 	UnknownC0(NULL),
-	UnknownC4(false),
-	UnknownC5(false),
-	UnknownC6(false),
-	UnknownC7(false),
-	UnknownC8(false),
-	UnknownC9(false),
-	UnknownCA(false),
+	Flags(),
+
+
+
+
+
+
 	UnknownCC(0),
 	Layer(layer),
 	UnknownD4(mode),
@@ -336,7 +336,7 @@ RegistrationInterface::RegistrationInterface(UIViewClass *view, LayerClass *laye
 	// +0x560 / +0x564 are Unknown478.UnknownE8 / UnknownEC: its constructor zeroes them
 
 {
-	UnknownD8.size(); UnknownD8.size(); UnknownD8.size(); UnknownD8.size(); UnknownD8.size(); UnknownD8.size(); switch (mode) {  // D272: dead reads
+	UnknownD8.size(); UnknownD8.size(); switch (mode) {  // D272: dead reads
 		case 3: UnknownD4 = 0x17;
 		Unknown11D = true;
 		Unknown1C8 = false;
@@ -465,7 +465,7 @@ void RegistrationInterface::Unknown_5F1940()
 // @0x5F1A10 (the cases in the jump table's layout order, each through the file's own members as the client inlines them; key 0x30 reads 0xBE5BC4 in the case)
 bool RegistrationInterface::Unknown_68(int key)
 {
-	if (UnknownC5 || !Active) {
+	if (Flags.UnknownC5 || !Active) {
 		return false;
 	}
 	switch (key) {
@@ -527,8 +527,8 @@ bool RegistrationInterface::Unknown_68(int key)
 		case 0x2D:
 			if (Unknown11B || Unknown11D) {
 				Unknown_5F86F0();
-			} else if (UnknownD4 != 0x16 && UnknownD4 != 0x15 && !UnknownC6 && !UnknownC7) {
-				UnknownC5 = false;
+			} else if (UnknownD4 != 0x16 && UnknownD4 != 0x15 && !Flags.UnknownC6 && !Flags.UnknownC7) {
+				Flags.UnknownC5 = false;
 				Unknown119 = true;
 				UnknownBC->Get_Unknown34()->Unknown_588A70("YES_NO", 0, "You will not be able to play\nEarth & Beyond\nuntil you complete the\nregistration process.\n\nAre you sure you want to quit the registration process?", 0x140, 0, 0);
 				return true;
@@ -660,16 +660,16 @@ void RegistrationInterface::Unknown_5F2280()
 			gadget->Changed = true;
 		}
 	}
-	if (UnknownBC->Get_Unknown198()->Is_Unknown220() && UnknownC6) {
-		UnknownC6 = false;
-		UnknownC5 = false;
+	if (UnknownBC->Get_Unknown198()->Is_Unknown220() && Flags.UnknownC6) {
+		Flags.UnknownC6 = false;
+		Flags.UnknownC5 = false;
 		Unknown_5F2990(true);
 		Unknown_5F2A80(true, NULL);
 	}
-	if (UnknownCA && UnknownBC->Get_Unknown198()->Unknown_7863E0()) {
-		UnknownCA = false;
-		if (UnknownC7) {
-			UnknownC7 = false;
+	if (Flags.UnknownCA && UnknownBC->Get_Unknown198()->Unknown_7863E0()) {
+		Flags.UnknownCA = false;
+		if (Flags.UnknownC7) {
+			Flags.UnknownC7 = false;
 			UnknownC0->Go_Next_Step();
 		}
 	}
@@ -709,12 +709,12 @@ void RegistrationInterface::Unknown_5F2280()
 		}
 	}
 	bool shown = UnknownBC->Get_Unknown34()->Is_Active();
-	if (UnknownBC->Get_Unknown34()->Is_Active() && !UnknownC5) {
-		UnknownC5 = true;
+	if (UnknownBC->Get_Unknown34()->Is_Active() && !Flags.UnknownC5) {
+		Flags.UnknownC5 = true;
 		Unknown_5F2990(false);
 		Unknown_5F2A80(false, NULL);
-	} else if (!shown && UnknownC5) {
-		UnknownC5 = false;
+	} else if (!shown && Flags.UnknownC5) {
+		Flags.UnknownC5 = false;
 		Unknown_5F2990(true);
 		for (std::map<int, RegistrationComboStruct>::iterator combo = Unknown108.begin(); combo != Unknown108.end(); ++combo) {
 			if ((*combo).second.Combo) {
@@ -1906,8 +1906,8 @@ void RegistrationInterface::Unknown_5F86F0()
 {
 	Unknown_5F2990(false);
 	Unknown_5F2A80(false, NULL);
-	UnknownCA = true;
-	UnknownC7 = true;
+	Flags.UnknownCA = true;
+	Flags.UnknownC7 = true;
 	UnknownBC->Get_Unknown198()->Unknown_784E00();
 	UnknownBC->Unknown_67A8D0(true);
 	UnknownC0->Go_Next_Step();
@@ -3667,8 +3667,8 @@ bad_login:
 		case 0x13:
 			Unknown_5F2990(false);
 			Unknown_5F2A80(false, NULL);
-			UnknownCA = true;
-			UnknownC7 = true;
+			Flags.UnknownCA = true;
+			Flags.UnknownC7 = true;
 			UnknownBC->Get_Unknown198()->Unknown_784E00();
 			UnknownBC->Unknown_67A8D0(true);
 			break;
@@ -3679,7 +3679,7 @@ static const char *ProductBeta = "EB-BETA";  // NAME 1 [ProductBeta]: client .da
 static const char *RegistrationGameId = "2184";  // NAME 1 [RegistrationGameId]: client .data 0xB85EF0 (0x600000: 0x7D7E10's third argument, atoi'd against the game features' ids)
 // NOT EXACT: inline-budget (functional; the server boxes through 0x5FB890 and the back-outs through 0x5F8560 as the client inlines them, one per
 // branch; its cases in jump table 0x602AE4's layout order, case 3's !+0x1CE branch first, the US picks through the file member 0x603B20, inlined (its this a
-// variable: the client's add esi, -0x84 at 0x602341; two compare copies 0x6022BD / 0x602362, the other sites cross-jumped); frame 0xB18, two dead reads in case 0x10)
+// variable: the client's add esi, -0x84 at 0x602341; two compare copies 0x6022BD / 0x602362, the other sites cross-jumped); frame 0xB18, three dead reads in case 0x10)
 // @0x600000
 void RegistrationInterface::Unknown_5F00C0()
 {
@@ -4101,7 +4101,7 @@ void RegistrationInterface::Unknown_5F00C0()
 			return;
 		case 0x10:
 			if (Unknown390.Unknown10 == 0) {
-				Unknown5A8 = Unknown1AC->Unknown_7D4530(); UnknownD8.size();   // D272: dead reads (swept 0-3 here x 0-6 at the end x 0-3 at case 5's back-out; one more at any line: worse)
+				Unknown5A8 = Unknown1AC->Unknown_7D4530(); UnknownD8.size(); UnknownD8.size();   // D272: dead reads (swept 0-4 here x 0-5 at the end x 0-2 at case 5's back-out, vector / map kinds; one more at any line: worse)
 				Unknown_5F3770(0xB);
 				return;
 			}
