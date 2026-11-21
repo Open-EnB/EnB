@@ -1,0 +1,64 @@
+# Claim 240 Terra ultra; frozen source baseline 43ff4e7b.
+# All successful candidate objects received full native objmatch.
+# No candidate became exact; these source forms were not integrated.
+# Source-form counts exclude repeated verification runs.
+# Ultra: residue 14 in baseline and four actual-cleanup-helper variants. Twelve predicate/setup-layer combinations collapse to two groups; inline setup folds retest, reference/pointer helper stays out of line. Four more forms replace actual duplicate owner cleanup with real virtual78F9F0, qualified/unqualified and nested null retest; same loader group as baseline. All16 objects fully matched and retain all24 personality pairs, including78F850/78F700. No target exact or pair changes. Need original boolean/source-layer evidence; stop exhausted families.
+
+# Source specification: speech/loader/probe.py
+from pathlib import Path
+import concurrent.futures, os, subprocess, sys
+root=Path('/home/dev/Projects/EnB'); out=root/'.work/claim-240/round3/speech/loader'; tree=root/'.work/claim-240/round3/baseline-tree/app/client'
+sys.path.insert(0,str(root/'.work/claim-234')); from fastbuild import compile_file
+src=(tree/'unknown_personality.cpp').read_text(); hdr=(tree/'unknown_personality.h').read_text()
+start=src.index('Unknown_78F700Class *Unknown_790260Class::Unknown_790360()'); end=src.index('\n/*',start)
+base=src[start:end]
+# The client implements a bool test, a later repeated null check, and a virtual reset.
+predicates={
+ 'direct':'Data == NULL',
+ 'inline_eq':'IsNull(Data)',
+ 'inline_cond':'IsNull2(Data)',
+ 'inline_neg':'!HasData(Data)',
+}
+preps={
+ 'local':'if (Data) Data->Unknown_78F9F0(); else Data = new Unknown_78F700Class;',
+ 'inline_ref':'Prepare(Data);',
+ 'inline_ptr':'PreparePtr(&Data);',
+}
+helpers='''static inline bool IsNull(Unknown_78F700Class *p) { return p == NULL; }
+static inline bool IsNull2(Unknown_78F700Class *p) { if (p) return false; return true; }
+static inline bool HasData(Unknown_78F700Class *p) { return p != NULL; }
+static inline void Prepare(Unknown_78F700Class *&p) { if (p) p->Unknown_78F9F0(); else p = new Unknown_78F700Class; }
+static inline void PreparePtr(Unknown_78F700Class **p) { if (*p) (*p)->Unknown_78F9F0(); else *p = new Unknown_78F700Class; }
+'''
+env=os.environ.copy(); env['ENB_RETAIL_INSTALL']='/home/dev/Games/earth-and-beyond/prefix/drive_c/Program Files (x86)/EA GAMES/Earth & Beyond'
+def run(pair):
+ p,q=pair; name=p+'_'+q; w=out/name; w.mkdir(parents=True,exist_ok=True); (w/'unknown_personality.h').write_text(hdr)
+ fn=base.replace('if (Data == NULL)', 'if ('+predicates[p]+')').replace('Data = new Unknown_78F700Class;',preps[q]); (w/'unknown_personality.cpp').write_text(src[:start]+helpers+fn+src[end:]); obj=compile_file(w/'unknown_personality.cpp',w)
+ with (w/'match.log').open('w') as log: subprocess.run(['/home/dev/Toolchains/enb-vc6-sp4/venv/bin/python',str(root/'tools/re/objmatch.py'),str(obj),'-q','--json',str(w/'match.json')],env=env,stdout=log,stderr=log,check=True)
+ with (w/'diff.txt').open('w') as log: subprocess.run(['/home/dev/Toolchains/enb-vc6-sp4/venv/bin/python',str(root/'tools/re/objdiff.py'),str(obj),'?Unknown_790360@Unknown_790260Class@@QAEPAVUnknown_78F700Class@@XZ','0x790360'],env=env,stdout=log,stderr=log,check=True)
+ print(name,flush=True)
+if __name__=='__main__':
+ with concurrent.futures.ThreadPoolExecutor(max_workers=3) as pool: list(pool.map(run,[(p,q) for p in predicates for q in preps]))
+
+# Source specification: speech/helper/probe.py
+from pathlib import Path
+import concurrent.futures, os, subprocess, sys
+root=Path('/home/dev/Projects/EnB'); out=root/'.work/claim-240/round3/speech/helper'; tree=root/'.work/claim-240/round3/baseline-tree/app/client'
+sys.path.insert(0,str(root/'.work/claim-234')); from fastbuild import compile_file
+src=(tree/'unknown_personality.cpp').read_text(); hdr=(tree/'unknown_personality.h').read_text()
+start=src.index('Unknown_78F700Class::~Unknown_78F700Class()'); end=src.index('\n// 0x78F9F0',start)
+old=src[start:end]; assert old.count('delete []')==3
+pred='if (Data == NULL) { Data = new Unknown_78F700Class; } else { Data->Unknown_78F9F0(); }'
+env=os.environ.copy(); env['ENB_RETAIL_INSTALL']='/home/dev/Games/earth-and-beyond/prefix/drive_c/Program Files (x86)/EA GAMES/Earth & Beyond'
+def run(form):
+ call,retest=form; name=call+('_retest' if retest else '_baseline'); w=out/name; w.mkdir(parents=True,exist_ok=True); (w/'unknown_personality.h').write_text(hdr)
+ fn='Unknown_78F700Class::~Unknown_78F700Class()\n{\n\t'+('Unknown_78F700Class::' if call=='qualified' else '')+'Unknown_78F9F0();\n}\n'
+ s=src[:start]+fn+src[end:]
+ if retest: s=s.replace('Data = new Unknown_78F700Class;',pred)
+ (w/'unknown_personality.cpp').write_text(s); obj=compile_file(w/'unknown_personality.cpp',w)
+ with (w/'match.log').open('w') as log: subprocess.run(['/home/dev/Toolchains/enb-vc6-sp4/venv/bin/python',str(root/'tools/re/objmatch.py'),str(obj),'-q','--json',str(w/'match.json')],env=env,stdout=log,stderr=log,check=True)
+ for addr,sym in [('790360','?Unknown_790360@Unknown_790260Class@@QAEPAVUnknown_78F700Class@@XZ'),('78F850','??1Unknown_78F700Class@@QAE@XZ')]:
+  with (w/(addr+'.diff.txt')).open('w') as log: subprocess.run(['/home/dev/Toolchains/enb-vc6-sp4/venv/bin/python',str(root/'tools/re/objdiff.py'),str(obj),sym,'0x'+addr],env=env,stdout=log,stderr=log,check=True)
+ print(name,flush=True)
+if __name__=='__main__':
+ with concurrent.futures.ThreadPoolExecutor(max_workers=3) as pool: list(pool.map(run,[(c,r) for c in ('direct','qualified') for r in (False,True)]))

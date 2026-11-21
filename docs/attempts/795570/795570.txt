@@ -1,0 +1,265 @@
+FORM scaled_vector
+--- camctrl_rescue.cpp
++++ scaled_vector.cpp
+@@ -82,7 +82,7 @@
+ 	Vector3 x = tm.Get_X_Vector();
+ 	Vector3 pos;
+ 	tm.Get_Translation(&pos);
+-	Vector3 from = (x * Unknown_B04F40 + y * Unknown_B04F3C * (float)(Unknown_BDB1C0(0, 1) ? -1 : 1)) * distance + pos;
++	Vector3 from = pos + (x * Unknown_B04F40 + y * Unknown_B04F3C * (float)(Unknown_BDB1C0(0, 1) ? -1 : 1)) * distance;
+ 	cam.Look_At(from, pos, 0.0f);
+ 	Unknown0C->Unknown08 = cam;
+ 	static float Unknown_B04F80 = -0.000005f;	// NAME 1: neutral (D10)
+
+FORM xmul_reverse
+--- camctrl_rescue.cpp
++++ xmul_reverse.cpp
+@@ -82,7 +82,7 @@
+ 	Vector3 x = tm.Get_X_Vector();
+ 	Vector3 pos;
+ 	tm.Get_Translation(&pos);
+-	Vector3 from = (x * Unknown_B04F40 + y * Unknown_B04F3C * (float)(Unknown_BDB1C0(0, 1) ? -1 : 1)) * distance + pos;
++	Vector3 from = (Unknown_B04F40 * x + y * Unknown_B04F3C * (float)(Unknown_BDB1C0(0, 1) ? -1 : 1)) * distance + pos;
+ 	cam.Look_At(from, pos, 0.0f);
+ 	Unknown0C->Unknown08 = cam;
+ 	static float Unknown_B04F80 = -0.000005f;	// NAME 1: neutral (D10)
+
+FORM other_out_expr
+
+FORM other_out_reverse
+--- camctrl_rescue.cpp
++++ other_out_reverse.cpp
+@@ -82,7 +82,7 @@
+ 	Vector3 x = tm.Get_X_Vector();
+ 	Vector3 pos;
+ 	tm.Get_Translation(&pos);
+-	Vector3 from = (x * Unknown_B04F40 + y * Unknown_B04F3C * (float)(Unknown_BDB1C0(0, 1) ? -1 : 1)) * distance + pos;
++	Vector3 from = pos + (x * Unknown_B04F40 + y * Unknown_B04F3C * (float)(Unknown_BDB1C0(0, 1) ? -1 : 1)) * distance;
+ 	cam.Look_At(from, pos, 0.0f);
+ 	Unknown0C->Unknown08 = cam;
+ 	static float Unknown_B04F80 = -0.000005f;	// NAME 1: neutral (D10)
+
+FORM other_out_assign
+--- camctrl_rescue.cpp
++++ other_out_assign.cpp
+@@ -82,7 +82,7 @@
+ 	Vector3 x = tm.Get_X_Vector();
+ 	Vector3 pos;
+ 	tm.Get_Translation(&pos);
+-	Vector3 from = (x * Unknown_B04F40 + y * Unknown_B04F3C * (float)(Unknown_BDB1C0(0, 1) ? -1 : 1)) * distance + pos;
++	Vector3 from; from = (x * Unknown_B04F40 + y * Unknown_B04F3C * (float)(Unknown_BDB1C0(0, 1) ? -1 : 1)) * distance + pos;
+ 	cam.Look_At(from, pos, 0.0f);
+ 	Unknown0C->Unknown08 = cam;
+ 	static float Unknown_B04F80 = -0.000005f;	// NAME 1: neutral (D10)
+
+FORM other_out_compound
+--- camctrl_rescue.cpp
++++ other_out_compound.cpp
+@@ -82,7 +82,7 @@
+ 	Vector3 x = tm.Get_X_Vector();
+ 	Vector3 pos;
+ 	tm.Get_Translation(&pos);
+-	Vector3 from = (x * Unknown_B04F40 + y * Unknown_B04F3C * (float)(Unknown_BDB1C0(0, 1) ? -1 : 1)) * distance + pos;
++	Vector3 from = (x * Unknown_B04F40 + y * Unknown_B04F3C * (float)(Unknown_BDB1C0(0, 1) ? -1 : 1)) * distance; from += pos;
+ 	cam.Look_At(from, pos, 0.0f);
+ 	Unknown0C->Unknown08 = cam;
+ 	static float Unknown_B04F80 = -0.000005f;	// NAME 1: neutral (D10)
+
+FORM other_return_expr
+--- camctrl_rescue.cpp
++++ other_return_expr.cpp
+@@ -80,8 +80,8 @@
+ 	float distance = CameraManagerClass::Unknown_79B6B0();
+ 	Vector3 y = tm.Get_Y_Vector();
+ 	Vector3 x = tm.Get_X_Vector();
+-	Vector3 pos;
+-	tm.Get_Translation(&pos);
++	Vector3 pos = tm.Get_Translation();
++	
+ 	Vector3 from = (x * Unknown_B04F40 + y * Unknown_B04F3C * (float)(Unknown_BDB1C0(0, 1) ? -1 : 1)) * distance + pos;
+ 	cam.Look_At(from, pos, 0.0f);
+ 	Unknown0C->Unknown08 = cam;
+
+FORM other_return_reverse
+--- camctrl_rescue.cpp
++++ other_return_reverse.cpp
+@@ -80,9 +80,9 @@
+ 	float distance = CameraManagerClass::Unknown_79B6B0();
+ 	Vector3 y = tm.Get_Y_Vector();
+ 	Vector3 x = tm.Get_X_Vector();
+-	Vector3 pos;
+-	tm.Get_Translation(&pos);
+-	Vector3 from = (x * Unknown_B04F40 + y * Unknown_B04F3C * (float)(Unknown_BDB1C0(0, 1) ? -1 : 1)) * distance + pos;
++	Vector3 pos = tm.Get_Translation();
++	
++	Vector3 from = pos + (x * Unknown_B04F40 + y * Unknown_B04F3C * (float)(Unknown_BDB1C0(0, 1) ? -1 : 1)) * distance;
+ 	cam.Look_At(from, pos, 0.0f);
+ 	Unknown0C->Unknown08 = cam;
+ 	static float Unknown_B04F80 = -0.000005f;	// NAME 1: neutral (D10)
+
+FORM other_return_assign
+--- camctrl_rescue.cpp
++++ other_return_assign.cpp
+@@ -80,9 +80,9 @@
+ 	float distance = CameraManagerClass::Unknown_79B6B0();
+ 	Vector3 y = tm.Get_Y_Vector();
+ 	Vector3 x = tm.Get_X_Vector();
+-	Vector3 pos;
+-	tm.Get_Translation(&pos);
+-	Vector3 from = (x * Unknown_B04F40 + y * Unknown_B04F3C * (float)(Unknown_BDB1C0(0, 1) ? -1 : 1)) * distance + pos;
++	Vector3 pos = tm.Get_Translation();
++	
++	Vector3 from; from = (x * Unknown_B04F40 + y * Unknown_B04F3C * (float)(Unknown_BDB1C0(0, 1) ? -1 : 1)) * distance + pos;
+ 	cam.Look_At(from, pos, 0.0f);
+ 	Unknown0C->Unknown08 = cam;
+ 	static float Unknown_B04F80 = -0.000005f;	// NAME 1: neutral (D10)
+
+FORM other_return_compound
+--- camctrl_rescue.cpp
++++ other_return_compound.cpp
+@@ -80,9 +80,9 @@
+ 	float distance = CameraManagerClass::Unknown_79B6B0();
+ 	Vector3 y = tm.Get_Y_Vector();
+ 	Vector3 x = tm.Get_X_Vector();
+-	Vector3 pos;
+-	tm.Get_Translation(&pos);
+-	Vector3 from = (x * Unknown_B04F40 + y * Unknown_B04F3C * (float)(Unknown_BDB1C0(0, 1) ? -1 : 1)) * distance + pos;
++	Vector3 pos = tm.Get_Translation();
++	
++	Vector3 from = (x * Unknown_B04F40 + y * Unknown_B04F3C * (float)(Unknown_BDB1C0(0, 1) ? -1 : 1)) * distance; from += pos;
+ 	cam.Look_At(from, pos, 0.0f);
+ 	Unknown0C->Unknown08 = cam;
+ 	static float Unknown_B04F80 = -0.000005f;	// NAME 1: neutral (D10)
+
+FORM other_ctor_expr
+--- camctrl_rescue.cpp
++++ other_ctor_expr.cpp
+@@ -80,8 +80,8 @@
+ 	float distance = CameraManagerClass::Unknown_79B6B0();
+ 	Vector3 y = tm.Get_Y_Vector();
+ 	Vector3 x = tm.Get_X_Vector();
+-	Vector3 pos;
+-	tm.Get_Translation(&pos);
++	Vector3 pos(tm.Get_Translation());
++	
+ 	Vector3 from = (x * Unknown_B04F40 + y * Unknown_B04F3C * (float)(Unknown_BDB1C0(0, 1) ? -1 : 1)) * distance + pos;
+ 	cam.Look_At(from, pos, 0.0f);
+ 	Unknown0C->Unknown08 = cam;
+
+FORM other_ctor_reverse
+--- camctrl_rescue.cpp
++++ other_ctor_reverse.cpp
+@@ -80,9 +80,9 @@
+ 	float distance = CameraManagerClass::Unknown_79B6B0();
+ 	Vector3 y = tm.Get_Y_Vector();
+ 	Vector3 x = tm.Get_X_Vector();
+-	Vector3 pos;
+-	tm.Get_Translation(&pos);
+-	Vector3 from = (x * Unknown_B04F40 + y * Unknown_B04F3C * (float)(Unknown_BDB1C0(0, 1) ? -1 : 1)) * distance + pos;
++	Vector3 pos(tm.Get_Translation());
++	
++	Vector3 from = pos + (x * Unknown_B04F40 + y * Unknown_B04F3C * (float)(Unknown_BDB1C0(0, 1) ? -1 : 1)) * distance;
+ 	cam.Look_At(from, pos, 0.0f);
+ 	Unknown0C->Unknown08 = cam;
+ 	static float Unknown_B04F80 = -0.000005f;	// NAME 1: neutral (D10)
+
+FORM other_ctor_assign
+--- camctrl_rescue.cpp
++++ other_ctor_assign.cpp
+@@ -80,9 +80,9 @@
+ 	float distance = CameraManagerClass::Unknown_79B6B0();
+ 	Vector3 y = tm.Get_Y_Vector();
+ 	Vector3 x = tm.Get_X_Vector();
+-	Vector3 pos;
+-	tm.Get_Translation(&pos);
+-	Vector3 from = (x * Unknown_B04F40 + y * Unknown_B04F3C * (float)(Unknown_BDB1C0(0, 1) ? -1 : 1)) * distance + pos;
++	Vector3 pos(tm.Get_Translation());
++	
++	Vector3 from; from = (x * Unknown_B04F40 + y * Unknown_B04F3C * (float)(Unknown_BDB1C0(0, 1) ? -1 : 1)) * distance + pos;
+ 	cam.Look_At(from, pos, 0.0f);
+ 	Unknown0C->Unknown08 = cam;
+ 	static float Unknown_B04F80 = -0.000005f;	// NAME 1: neutral (D10)
+
+FORM other_ctor_compound
+--- camctrl_rescue.cpp
++++ other_ctor_compound.cpp
+@@ -80,9 +80,9 @@
+ 	float distance = CameraManagerClass::Unknown_79B6B0();
+ 	Vector3 y = tm.Get_Y_Vector();
+ 	Vector3 x = tm.Get_X_Vector();
+-	Vector3 pos;
+-	tm.Get_Translation(&pos);
+-	Vector3 from = (x * Unknown_B04F40 + y * Unknown_B04F3C * (float)(Unknown_BDB1C0(0, 1) ? -1 : 1)) * distance + pos;
++	Vector3 pos(tm.Get_Translation());
++	
++	Vector3 from = (x * Unknown_B04F40 + y * Unknown_B04F3C * (float)(Unknown_BDB1C0(0, 1) ? -1 : 1)) * distance; from += pos;
+ 	cam.Look_At(from, pos, 0.0f);
+ 	Unknown0C->Unknown08 = cam;
+ 	static float Unknown_B04F80 = -0.000005f;	// NAME 1: neutral (D10)
+
+FORM other_assign_expr
+--- camctrl_rescue.cpp
++++ other_assign_expr.cpp
+@@ -80,8 +80,8 @@
+ 	float distance = CameraManagerClass::Unknown_79B6B0();
+ 	Vector3 y = tm.Get_Y_Vector();
+ 	Vector3 x = tm.Get_X_Vector();
+-	Vector3 pos;
+-	tm.Get_Translation(&pos);
++	Vector3 pos; pos = tm.Get_Translation();
++	
+ 	Vector3 from = (x * Unknown_B04F40 + y * Unknown_B04F3C * (float)(Unknown_BDB1C0(0, 1) ? -1 : 1)) * distance + pos;
+ 	cam.Look_At(from, pos, 0.0f);
+ 	Unknown0C->Unknown08 = cam;
+
+FORM other_assign_reverse
+--- camctrl_rescue.cpp
++++ other_assign_reverse.cpp
+@@ -80,9 +80,9 @@
+ 	float distance = CameraManagerClass::Unknown_79B6B0();
+ 	Vector3 y = tm.Get_Y_Vector();
+ 	Vector3 x = tm.Get_X_Vector();
+-	Vector3 pos;
+-	tm.Get_Translation(&pos);
+-	Vector3 from = (x * Unknown_B04F40 + y * Unknown_B04F3C * (float)(Unknown_BDB1C0(0, 1) ? -1 : 1)) * distance + pos;
++	Vector3 pos; pos = tm.Get_Translation();
++	
++	Vector3 from = pos + (x * Unknown_B04F40 + y * Unknown_B04F3C * (float)(Unknown_BDB1C0(0, 1) ? -1 : 1)) * distance;
+ 	cam.Look_At(from, pos, 0.0f);
+ 	Unknown0C->Unknown08 = cam;
+ 	static float Unknown_B04F80 = -0.000005f;	// NAME 1: neutral (D10)
+
+FORM other_assign_assign
+--- camctrl_rescue.cpp
++++ other_assign_assign.cpp
+@@ -80,9 +80,9 @@
+ 	float distance = CameraManagerClass::Unknown_79B6B0();
+ 	Vector3 y = tm.Get_Y_Vector();
+ 	Vector3 x = tm.Get_X_Vector();
+-	Vector3 pos;
+-	tm.Get_Translation(&pos);
+-	Vector3 from = (x * Unknown_B04F40 + y * Unknown_B04F3C * (float)(Unknown_BDB1C0(0, 1) ? -1 : 1)) * distance + pos;
++	Vector3 pos; pos = tm.Get_Translation();
++	
++	Vector3 from; from = (x * Unknown_B04F40 + y * Unknown_B04F3C * (float)(Unknown_BDB1C0(0, 1) ? -1 : 1)) * distance + pos;
+ 	cam.Look_At(from, pos, 0.0f);
+ 	Unknown0C->Unknown08 = cam;
+ 	static float Unknown_B04F80 = -0.000005f;	// NAME 1: neutral (D10)
+
+FORM other_assign_compound
+--- camctrl_rescue.cpp
++++ other_assign_compound.cpp
+@@ -80,9 +80,9 @@
+ 	float distance = CameraManagerClass::Unknown_79B6B0();
+ 	Vector3 y = tm.Get_Y_Vector();
+ 	Vector3 x = tm.Get_X_Vector();
+-	Vector3 pos;
+-	tm.Get_Translation(&pos);
+-	Vector3 from = (x * Unknown_B04F40 + y * Unknown_B04F3C * (float)(Unknown_BDB1C0(0, 1) ? -1 : 1)) * distance + pos;
++	Vector3 pos; pos = tm.Get_Translation();
++	
++	Vector3 from = (x * Unknown_B04F40 + y * Unknown_B04F3C * (float)(Unknown_BDB1C0(0, 1) ? -1 : 1)) * distance; from += pos;
+ 	cam.Look_At(from, pos, 0.0f);
+ 	Unknown0C->Unknown08 = cam;
+ 	static float Unknown_B04F80 = -0.000005f;	// NAME 1: neutral (D10)
+

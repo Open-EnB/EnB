@@ -1,0 +1,498 @@
+FORM factor_left
+--- camctrl_tractor.cpp
++++ factor_left.cpp
+@@ -185,7 +185,7 @@
+ 	float distance = CameraManagerClass::Unknown_79B6B0();
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 offset(Unknown_B0519C * distance, c * Unknown_B051A0 * distance, s * Unknown_B051A0 * distance);
++	Vector3 offset(distance * Unknown_B0519C, distance * Unknown_B051A0 * c, distance * Unknown_B051A0 * s);
+ 	Vector3 target_pos = target->Unknown_24();
+ 	Matrix3D tm;
+ 	tm.Obj_Look_At(ship->Unknown_24(), target_pos, 0.0f);
+
+FORM factor_right
+--- camctrl_tractor.cpp
++++ factor_right.cpp
+@@ -185,7 +185,7 @@
+ 	float distance = CameraManagerClass::Unknown_79B6B0();
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 offset(Unknown_B0519C * distance, c * Unknown_B051A0 * distance, s * Unknown_B051A0 * distance);
++	Vector3 offset(Unknown_B0519C * distance, c * (Unknown_B051A0 * distance), s * (Unknown_B051A0 * distance));
+ 	Vector3 target_pos = target->Unknown_24();
+ 	Matrix3D tm;
+ 	tm.Obj_Look_At(ship->Unknown_24(), target_pos, 0.0f);
+
+FORM factor_first
+--- camctrl_tractor.cpp
++++ factor_first.cpp
+@@ -185,7 +185,7 @@
+ 	float distance = CameraManagerClass::Unknown_79B6B0();
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 offset(Unknown_B0519C * distance, c * Unknown_B051A0 * distance, s * Unknown_B051A0 * distance);
++	Vector3 offset(Unknown_B0519C * distance, Unknown_B051A0 * c * distance, Unknown_B051A0 * s * distance);
+ 	Vector3 target_pos = target->Unknown_24();
+ 	Matrix3D tm;
+ 	tm.Obj_Look_At(ship->Unknown_24(), target_pos, 0.0f);
+
+FORM assign_xyz
+--- camctrl_tractor.cpp
++++ assign_xyz.cpp
+@@ -185,7 +185,7 @@
+ 	float distance = CameraManagerClass::Unknown_79B6B0();
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 offset(Unknown_B0519C * distance, c * Unknown_B051A0 * distance, s * Unknown_B051A0 * distance);
++	Vector3 offset; offset.X = Unknown_B0519C * distance; offset.Y = c * Unknown_B051A0 * distance; offset.Z = s * Unknown_B051A0 * distance;
+ 	Vector3 target_pos = target->Unknown_24();
+ 	Matrix3D tm;
+ 	tm.Obj_Look_At(ship->Unknown_24(), target_pos, 0.0f);
+
+FORM assign_zyx
+--- camctrl_tractor.cpp
++++ assign_zyx.cpp
+@@ -185,7 +185,7 @@
+ 	float distance = CameraManagerClass::Unknown_79B6B0();
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 offset(Unknown_B0519C * distance, c * Unknown_B051A0 * distance, s * Unknown_B051A0 * distance);
++	Vector3 offset; offset.Z = s * Unknown_B051A0 * distance; offset.Y = c * Unknown_B051A0 * distance; offset.X = Unknown_B0519C * distance;
+ 	Vector3 target_pos = target->Unknown_24();
+ 	Matrix3D tm;
+ 	tm.Obj_Look_At(ship->Unknown_24(), target_pos, 0.0f);
+
+FORM local_manager
+--- camctrl_tractor.cpp
++++ local_manager.cpp
+@@ -118,7 +118,7 @@
+ {
+ 	ClientObjectClass *target = Client->Find_Object(Client->Unknown13B4);
+ 	if (!target) {
+-		Client->CameraManager->Unknown_79B2B0(0x10);
++		CameraManagerClass *manager = Client->CameraManager; manager->Unknown_79B2B0(0x10);
+ 		return;
+ 	}
+ 	ClientObjectClass *ship = Client->Get_Avatar();
+
+FORM manager_ref
+--- camctrl_tractor.cpp
++++ manager_ref.cpp
+@@ -118,7 +118,7 @@
+ {
+ 	ClientObjectClass *target = Client->Find_Object(Client->Unknown13B4);
+ 	if (!target) {
+-		Client->CameraManager->Unknown_79B2B0(0x10);
++		CameraManagerClass &manager = *Client->CameraManager; manager.Unknown_79B2B0(0x10);
+ 		return;
+ 	}
+ 	ClientObjectClass *ship = Client->Get_Avatar();
+
+FORM client_alias
+--- camctrl_tractor.cpp
++++ client_alias.cpp
+@@ -118,7 +118,7 @@
+ {
+ 	ClientObjectClass *target = Client->Find_Object(Client->Unknown13B4);
+ 	if (!target) {
+-		Client->CameraManager->Unknown_79B2B0(0x10);
++		SClient *client = Client; client->CameraManager->Unknown_79B2B0(0x10);
+ 		return;
+ 	}
+ 	ClientObjectClass *ship = Client->Get_Avatar();
+
+FORM client_ref
+--- camctrl_tractor.cpp
++++ client_ref.cpp
+@@ -118,7 +118,7 @@
+ {
+ 	ClientObjectClass *target = Client->Find_Object(Client->Unknown13B4);
+ 	if (!target) {
+-		Client->CameraManager->Unknown_79B2B0(0x10);
++		SClient &client = *Client; client.CameraManager->Unknown_79B2B0(0x10);
+ 		return;
+ 	}
+ 	ClientObjectClass *ship = Client->Get_Avatar();
+
+FORM bulk_direct_local
+
+FORM bulk_direct_copy
+--- camctrl_tractor.cpp
++++ bulk_direct_copy.cpp
+@@ -186,7 +186,7 @@
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+ 	Vector3 offset(Unknown_B0519C * distance, c * Unknown_B051A0 * distance, s * Unknown_B051A0 * distance);
+-	Vector3 target_pos = target->Unknown_24();
++	Vector3 target_pos(target->Unknown_24());
+ 	Matrix3D tm;
+ 	tm.Obj_Look_At(ship->Unknown_24(), target_pos, 0.0f);
+ 	Unknown0C->Position = tm * offset;
+
+FORM bulk_direct_assign
+--- camctrl_tractor.cpp
++++ bulk_direct_assign.cpp
+@@ -186,7 +186,7 @@
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+ 	Vector3 offset(Unknown_B0519C * distance, c * Unknown_B051A0 * distance, s * Unknown_B051A0 * distance);
+-	Vector3 target_pos = target->Unknown_24();
++	Vector3 target_pos; target_pos = target->Unknown_24();
+ 	Matrix3D tm;
+ 	tm.Obj_Look_At(ship->Unknown_24(), target_pos, 0.0f);
+ 	Unknown0C->Position = tm * offset;
+
+FORM bulk_direct_ship_local
+--- camctrl_tractor.cpp
++++ bulk_direct_ship_local.cpp
+@@ -186,9 +186,9 @@
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+ 	Vector3 offset(Unknown_B0519C * distance, c * Unknown_B051A0 * distance, s * Unknown_B051A0 * distance);
+-	Vector3 target_pos = target->Unknown_24();
++	Vector3 target_pos = target->Unknown_24(); Vector3 ship_pos = ship->Unknown_24();
+ 	Matrix3D tm;
+-	tm.Obj_Look_At(ship->Unknown_24(), target_pos, 0.0f);
++	tm.Obj_Look_At(ship_pos, target_pos, 0.0f);
+ 	Unknown0C->Position = tm * offset;
+ 	Unknown0C->Unknown14 = true;
+ 	Unknown0C->Unknown18 = Client->Unknown13B4;
+
+FORM bulk_direct_direct
+--- camctrl_tractor.cpp
++++ bulk_direct_direct.cpp
+@@ -186,9 +186,9 @@
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+ 	Vector3 offset(Unknown_B0519C * distance, c * Unknown_B051A0 * distance, s * Unknown_B051A0 * distance);
+-	Vector3 target_pos = target->Unknown_24();
+ 	Matrix3D tm;
+-	tm.Obj_Look_At(ship->Unknown_24(), target_pos, 0.0f);
++	tm.Obj_Look_At(ship->Unknown_24(), target->Unknown_24(), 0.0f);
++	
+ 	Unknown0C->Position = tm * offset;
+ 	Unknown0C->Unknown14 = true;
+ 	Unknown0C->Unknown18 = Client->Unknown13B4;
+
+FORM bulk_manager_local
+--- camctrl_tractor.cpp
++++ bulk_manager_local.cpp
+@@ -118,7 +118,7 @@
+ {
+ 	ClientObjectClass *target = Client->Find_Object(Client->Unknown13B4);
+ 	if (!target) {
+-		Client->CameraManager->Unknown_79B2B0(0x10);
++		CameraManagerClass *manager = Client->CameraManager; manager->Unknown_79B2B0(0x10);
+ 		return;
+ 	}
+ 	ClientObjectClass *ship = Client->Get_Avatar();
+
+FORM bulk_manager_assign
+--- camctrl_tractor.cpp
++++ bulk_manager_assign.cpp
+@@ -118,7 +118,7 @@
+ {
+ 	ClientObjectClass *target = Client->Find_Object(Client->Unknown13B4);
+ 	if (!target) {
+-		Client->CameraManager->Unknown_79B2B0(0x10);
++		CameraManagerClass *manager = Client->CameraManager; manager->Unknown_79B2B0(0x10);
+ 		return;
+ 	}
+ 	ClientObjectClass *ship = Client->Get_Avatar();
+@@ -186,7 +186,7 @@
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+ 	Vector3 offset(Unknown_B0519C * distance, c * Unknown_B051A0 * distance, s * Unknown_B051A0 * distance);
+-	Vector3 target_pos = target->Unknown_24();
++	Vector3 target_pos; target_pos = target->Unknown_24();
+ 	Matrix3D tm;
+ 	tm.Obj_Look_At(ship->Unknown_24(), target_pos, 0.0f);
+ 	Unknown0C->Position = tm * offset;
+
+FORM bulk_manager_copy
+--- camctrl_tractor.cpp
++++ bulk_manager_copy.cpp
+@@ -118,7 +118,7 @@
+ {
+ 	ClientObjectClass *target = Client->Find_Object(Client->Unknown13B4);
+ 	if (!target) {
+-		Client->CameraManager->Unknown_79B2B0(0x10);
++		CameraManagerClass *manager = Client->CameraManager; manager->Unknown_79B2B0(0x10);
+ 		return;
+ 	}
+ 	ClientObjectClass *ship = Client->Get_Avatar();
+@@ -186,7 +186,7 @@
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+ 	Vector3 offset(Unknown_B0519C * distance, c * Unknown_B051A0 * distance, s * Unknown_B051A0 * distance);
+-	Vector3 target_pos = target->Unknown_24();
++	Vector3 target_pos(target->Unknown_24());
+ 	Matrix3D tm;
+ 	tm.Obj_Look_At(ship->Unknown_24(), target_pos, 0.0f);
+ 	Unknown0C->Position = tm * offset;
+
+FORM bulk_manager_ship_local
+--- camctrl_tractor.cpp
++++ bulk_manager_ship_local.cpp
+@@ -118,7 +118,7 @@
+ {
+ 	ClientObjectClass *target = Client->Find_Object(Client->Unknown13B4);
+ 	if (!target) {
+-		Client->CameraManager->Unknown_79B2B0(0x10);
++		CameraManagerClass *manager = Client->CameraManager; manager->Unknown_79B2B0(0x10);
+ 		return;
+ 	}
+ 	ClientObjectClass *ship = Client->Get_Avatar();
+@@ -186,9 +186,9 @@
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+ 	Vector3 offset(Unknown_B0519C * distance, c * Unknown_B051A0 * distance, s * Unknown_B051A0 * distance);
+-	Vector3 target_pos = target->Unknown_24();
++	Vector3 target_pos = target->Unknown_24(); Vector3 ship_pos = ship->Unknown_24();
+ 	Matrix3D tm;
+-	tm.Obj_Look_At(ship->Unknown_24(), target_pos, 0.0f);
++	tm.Obj_Look_At(ship_pos, target_pos, 0.0f);
+ 	Unknown0C->Position = tm * offset;
+ 	Unknown0C->Unknown14 = true;
+ 	Unknown0C->Unknown18 = Client->Unknown13B4;
+
+FORM bulk_manager_direct
+--- camctrl_tractor.cpp
++++ bulk_manager_direct.cpp
+@@ -118,7 +118,7 @@
+ {
+ 	ClientObjectClass *target = Client->Find_Object(Client->Unknown13B4);
+ 	if (!target) {
+-		Client->CameraManager->Unknown_79B2B0(0x10);
++		CameraManagerClass *manager = Client->CameraManager; manager->Unknown_79B2B0(0x10);
+ 		return;
+ 	}
+ 	ClientObjectClass *ship = Client->Get_Avatar();
+@@ -186,9 +186,9 @@
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+ 	Vector3 offset(Unknown_B0519C * distance, c * Unknown_B051A0 * distance, s * Unknown_B051A0 * distance);
+-	Vector3 target_pos = target->Unknown_24();
+ 	Matrix3D tm;
+-	tm.Obj_Look_At(ship->Unknown_24(), target_pos, 0.0f);
++	tm.Obj_Look_At(ship->Unknown_24(), target->Unknown_24(), 0.0f);
++	
+ 	Unknown0C->Position = tm * offset;
+ 	Unknown0C->Unknown14 = true;
+ 	Unknown0C->Unknown18 = Client->Unknown13B4;
+
+FORM bulk_client_local
+--- camctrl_tractor.cpp
++++ bulk_client_local.cpp
+@@ -118,7 +118,7 @@
+ {
+ 	ClientObjectClass *target = Client->Find_Object(Client->Unknown13B4);
+ 	if (!target) {
+-		Client->CameraManager->Unknown_79B2B0(0x10);
++		SClient *client = Client; client->CameraManager->Unknown_79B2B0(0x10);
+ 		return;
+ 	}
+ 	ClientObjectClass *ship = Client->Get_Avatar();
+
+FORM bulk_client_copy
+--- camctrl_tractor.cpp
++++ bulk_client_copy.cpp
+@@ -118,7 +118,7 @@
+ {
+ 	ClientObjectClass *target = Client->Find_Object(Client->Unknown13B4);
+ 	if (!target) {
+-		Client->CameraManager->Unknown_79B2B0(0x10);
++		SClient *client = Client; client->CameraManager->Unknown_79B2B0(0x10);
+ 		return;
+ 	}
+ 	ClientObjectClass *ship = Client->Get_Avatar();
+@@ -186,7 +186,7 @@
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+ 	Vector3 offset(Unknown_B0519C * distance, c * Unknown_B051A0 * distance, s * Unknown_B051A0 * distance);
+-	Vector3 target_pos = target->Unknown_24();
++	Vector3 target_pos(target->Unknown_24());
+ 	Matrix3D tm;
+ 	tm.Obj_Look_At(ship->Unknown_24(), target_pos, 0.0f);
+ 	Unknown0C->Position = tm * offset;
+
+FORM bulk_client_assign
+--- camctrl_tractor.cpp
++++ bulk_client_assign.cpp
+@@ -118,7 +118,7 @@
+ {
+ 	ClientObjectClass *target = Client->Find_Object(Client->Unknown13B4);
+ 	if (!target) {
+-		Client->CameraManager->Unknown_79B2B0(0x10);
++		SClient *client = Client; client->CameraManager->Unknown_79B2B0(0x10);
+ 		return;
+ 	}
+ 	ClientObjectClass *ship = Client->Get_Avatar();
+@@ -186,7 +186,7 @@
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+ 	Vector3 offset(Unknown_B0519C * distance, c * Unknown_B051A0 * distance, s * Unknown_B051A0 * distance);
+-	Vector3 target_pos = target->Unknown_24();
++	Vector3 target_pos; target_pos = target->Unknown_24();
+ 	Matrix3D tm;
+ 	tm.Obj_Look_At(ship->Unknown_24(), target_pos, 0.0f);
+ 	Unknown0C->Position = tm * offset;
+
+FORM bulk_client_ship_local
+--- camctrl_tractor.cpp
++++ bulk_client_ship_local.cpp
+@@ -118,7 +118,7 @@
+ {
+ 	ClientObjectClass *target = Client->Find_Object(Client->Unknown13B4);
+ 	if (!target) {
+-		Client->CameraManager->Unknown_79B2B0(0x10);
++		SClient *client = Client; client->CameraManager->Unknown_79B2B0(0x10);
+ 		return;
+ 	}
+ 	ClientObjectClass *ship = Client->Get_Avatar();
+@@ -186,9 +186,9 @@
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+ 	Vector3 offset(Unknown_B0519C * distance, c * Unknown_B051A0 * distance, s * Unknown_B051A0 * distance);
+-	Vector3 target_pos = target->Unknown_24();
++	Vector3 target_pos = target->Unknown_24(); Vector3 ship_pos = ship->Unknown_24();
+ 	Matrix3D tm;
+-	tm.Obj_Look_At(ship->Unknown_24(), target_pos, 0.0f);
++	tm.Obj_Look_At(ship_pos, target_pos, 0.0f);
+ 	Unknown0C->Position = tm * offset;
+ 	Unknown0C->Unknown14 = true;
+ 	Unknown0C->Unknown18 = Client->Unknown13B4;
+
+FORM bulk_client_direct
+--- camctrl_tractor.cpp
++++ bulk_client_direct.cpp
+@@ -118,7 +118,7 @@
+ {
+ 	ClientObjectClass *target = Client->Find_Object(Client->Unknown13B4);
+ 	if (!target) {
+-		Client->CameraManager->Unknown_79B2B0(0x10);
++		SClient *client = Client; client->CameraManager->Unknown_79B2B0(0x10);
+ 		return;
+ 	}
+ 	ClientObjectClass *ship = Client->Get_Avatar();
+@@ -186,9 +186,9 @@
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+ 	Vector3 offset(Unknown_B0519C * distance, c * Unknown_B051A0 * distance, s * Unknown_B051A0 * distance);
+-	Vector3 target_pos = target->Unknown_24();
+ 	Matrix3D tm;
+-	tm.Obj_Look_At(ship->Unknown_24(), target_pos, 0.0f);
++	tm.Obj_Look_At(ship->Unknown_24(), target->Unknown_24(), 0.0f);
++	
+ 	Unknown0C->Position = tm * offset;
+ 	Unknown0C->Unknown14 = true;
+ 	Unknown0C->Unknown18 = Client->Unknown13B4;
+
+FORM bulk_ref_copy
+--- camctrl_tractor.cpp
++++ bulk_ref_copy.cpp
+@@ -118,7 +118,7 @@
+ {
+ 	ClientObjectClass *target = Client->Find_Object(Client->Unknown13B4);
+ 	if (!target) {
+-		Client->CameraManager->Unknown_79B2B0(0x10);
++		SClient &client = *Client; client.CameraManager->Unknown_79B2B0(0x10);
+ 		return;
+ 	}
+ 	ClientObjectClass *ship = Client->Get_Avatar();
+@@ -186,7 +186,7 @@
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+ 	Vector3 offset(Unknown_B0519C * distance, c * Unknown_B051A0 * distance, s * Unknown_B051A0 * distance);
+-	Vector3 target_pos = target->Unknown_24();
++	Vector3 target_pos(target->Unknown_24());
+ 	Matrix3D tm;
+ 	tm.Obj_Look_At(ship->Unknown_24(), target_pos, 0.0f);
+ 	Unknown0C->Position = tm * offset;
+
+FORM bulk_ref_local
+--- camctrl_tractor.cpp
++++ bulk_ref_local.cpp
+@@ -118,7 +118,7 @@
+ {
+ 	ClientObjectClass *target = Client->Find_Object(Client->Unknown13B4);
+ 	if (!target) {
+-		Client->CameraManager->Unknown_79B2B0(0x10);
++		SClient &client = *Client; client.CameraManager->Unknown_79B2B0(0x10);
+ 		return;
+ 	}
+ 	ClientObjectClass *ship = Client->Get_Avatar();
+
+FORM bulk_ref_assign
+--- camctrl_tractor.cpp
++++ bulk_ref_assign.cpp
+@@ -118,7 +118,7 @@
+ {
+ 	ClientObjectClass *target = Client->Find_Object(Client->Unknown13B4);
+ 	if (!target) {
+-		Client->CameraManager->Unknown_79B2B0(0x10);
++		SClient &client = *Client; client.CameraManager->Unknown_79B2B0(0x10);
+ 		return;
+ 	}
+ 	ClientObjectClass *ship = Client->Get_Avatar();
+@@ -186,7 +186,7 @@
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+ 	Vector3 offset(Unknown_B0519C * distance, c * Unknown_B051A0 * distance, s * Unknown_B051A0 * distance);
+-	Vector3 target_pos = target->Unknown_24();
++	Vector3 target_pos; target_pos = target->Unknown_24();
+ 	Matrix3D tm;
+ 	tm.Obj_Look_At(ship->Unknown_24(), target_pos, 0.0f);
+ 	Unknown0C->Position = tm * offset;
+
+FORM bulk_ref_direct
+--- camctrl_tractor.cpp
++++ bulk_ref_direct.cpp
+@@ -118,7 +118,7 @@
+ {
+ 	ClientObjectClass *target = Client->Find_Object(Client->Unknown13B4);
+ 	if (!target) {
+-		Client->CameraManager->Unknown_79B2B0(0x10);
++		SClient &client = *Client; client.CameraManager->Unknown_79B2B0(0x10);
+ 		return;
+ 	}
+ 	ClientObjectClass *ship = Client->Get_Avatar();
+@@ -186,9 +186,9 @@
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+ 	Vector3 offset(Unknown_B0519C * distance, c * Unknown_B051A0 * distance, s * Unknown_B051A0 * distance);
+-	Vector3 target_pos = target->Unknown_24();
+ 	Matrix3D tm;
+-	tm.Obj_Look_At(ship->Unknown_24(), target_pos, 0.0f);
++	tm.Obj_Look_At(ship->Unknown_24(), target->Unknown_24(), 0.0f);
++	
+ 	Unknown0C->Position = tm * offset;
+ 	Unknown0C->Unknown14 = true;
+ 	Unknown0C->Unknown18 = Client->Unknown13B4;
+
+FORM bulk_ref_ship_local
+--- camctrl_tractor.cpp
++++ bulk_ref_ship_local.cpp
+@@ -118,7 +118,7 @@
+ {
+ 	ClientObjectClass *target = Client->Find_Object(Client->Unknown13B4);
+ 	if (!target) {
+-		Client->CameraManager->Unknown_79B2B0(0x10);
++		SClient &client = *Client; client.CameraManager->Unknown_79B2B0(0x10);
+ 		return;
+ 	}
+ 	ClientObjectClass *ship = Client->Get_Avatar();
+@@ -186,9 +186,9 @@
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+ 	Vector3 offset(Unknown_B0519C * distance, c * Unknown_B051A0 * distance, s * Unknown_B051A0 * distance);
+-	Vector3 target_pos = target->Unknown_24();
++	Vector3 target_pos = target->Unknown_24(); Vector3 ship_pos = ship->Unknown_24();
+ 	Matrix3D tm;
+-	tm.Obj_Look_At(ship->Unknown_24(), target_pos, 0.0f);
++	tm.Obj_Look_At(ship_pos, target_pos, 0.0f);
+ 	Unknown0C->Position = tm * offset;
+ 	Unknown0C->Unknown14 = true;
+ 	Unknown0C->Unknown18 = Client->Unknown13B4;
+

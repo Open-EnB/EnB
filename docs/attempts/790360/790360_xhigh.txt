@@ -1,0 +1,52 @@
+# Claim 240 Terra xhigh, baseline 3fb263fd. Source forms and evidence only.
+# Every successful experimental compile received full native objmatch.
+# Diagnostic lifetime/behavior changes are not accepted candidates.
+# Claim 240 second pass: Same 4 client-evidenced member lifetime forms as 78F850, 1 loader instruction group; full objmatch each, no target exact, candidate changed TU gains 78F850/78F9B0 and loses 0. Client inline EH dtor recovered; objdiff starred rows 64 to 46, not masked residue. Client materializes boolean and repeats null check; explicit nested check folds away.
+
+# Source specification: probe_lifetime.py
+from pathlib import Path
+import concurrent.futures, os, subprocess, sys
+root = Path('/home/dev/Projects/EnB')
+tree = root / '.work/claim-240/round2/baseline-tree/app/client'
+out = root / '.work/claim-240/round2/speech'
+sys.path.insert(0, str(root / '.work/claim-234'))
+from fastbuild import compile_file
+env = os.environ.copy()
+env['ENB_RETAIL_INSTALL'] = '/home/dev/Games/earth-and-beyond/prefix/drive_c/Program Files (x86)/EA GAMES/Earth & Beyond'
+src = (tree/'unknown_personality.cpp').read_text()
+hdr = (tree/'unknown_personality.h').read_text()
+old = '''\tif (Label) {
+\t\tdelete [] Label;
+\t}
+\tif (Desc) {
+\t\tdelete [] Desc;
+\t}
+'''
+assert src.count(old) == 1
+src = src.replace(old, '\n'*6)
+src = src.replace('\tLabel = nstrdup(buffer);','\tText.Label = nstrdup(buffer);').replace('\tDesc = nstrdup(buffer);','\tText.Desc = nstrdup(buffer);')
+hdr = hdr.replace('return(Label);','return(Text.Label);').replace('return(Desc);','return(Text.Desc);')
+lines = hdr.splitlines(keepends=True)
+for i,line in enumerate(lines):
+    if line.startswith('\tchar *Label;'):
+        lines[i] = '\tstruct TextFields { char *Label; char *Desc; ~TextFields() { if (Label) delete [] Label; if (Desc) delete [] Desc; } } Text; // +0x1008 and +0x100C\n'
+    if line.startswith('\tchar *Desc;'): lines[i] = '\n'
+hdr = ''.join(lines)
+assert 'TextFields' in hdr and 'char *Desc;' not in ''.join(l for l in lines if l.startswith('\tchar *Desc;'))
+def run(name):
+    source_text = src
+    if name in ('lifetime_inline', 'lifetime_reload'):
+        source_text = source_text.replace('Unknown_78F700Class::~Unknown_78F700Class()', 'inline Unknown_78F700Class::~Unknown_78F700Class()', 1)
+    if name == 'lifetime_reload':
+        source_text = source_text.replace('Data = new Unknown_78F700Class;', 'if (Data == NULL) { Data = new Unknown_78F700Class; } else { Data->Unknown_78F9F0(); }')
+    work = out/name
+    work.mkdir(parents=True,exist_ok=True)
+    (work/'unknown_personality.h').write_text(hdr)
+    source = work/'unknown_personality.cpp'
+    source.write_text(source_text)
+    obj = compile_file(source,work)
+    with (work/'match.log').open('w') as log:
+        subprocess.run(['/home/dev/Toolchains/enb-vc6-sp4/venv/bin/python', str(root/'tools/re/objmatch.py'), str(obj), '-q', '--json', str(work/'match.json')], env=env, stdout=log, stderr=log, check=True)
+    return name
+with concurrent.futures.ThreadPoolExecutor(max_workers=3) as pool:
+    for name in pool.map(run, ['lifetime_base','lifetime_inline','lifetime_reload']): print(name,flush=True)

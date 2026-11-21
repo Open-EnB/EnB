@@ -8,8 +8,10 @@
 #include <stdlib.h>
 #include <ctype.h>
 
+Unknown_78F700Class::Unknown_78F700Class() { Moods = NULL; Name = NULL; BAnims = NULL; }
+
 // 0x78F850
-// NOT EXACT: functional for POC (D64), frame (the client's has an EH frame: a member or base with a destructor not known yet)
+// The Text member is destroyed after this body (the client inlines its destructor).
 Unknown_78F700Class::~Unknown_78F700Class()
 {
 	if (Name) {
@@ -23,12 +25,6 @@ Unknown_78F700Class::~Unknown_78F700Class()
 	if (BAnims) {
 		delete [] BAnims;
 		BAnims = NULL;
-	}
-	if (Label) {
-		delete [] Label;
-	}
-	if (Desc) {
-		delete [] Desc;
 	}
 }
 
@@ -82,9 +78,9 @@ bool Unknown_78F700Class::Load(const char *filename)
 	char buffer[256];
 	sprintf(header, "HEADER");
 	ini.Get_String(header, "Label", "", buffer, 0x3F);
-	Label = nstrdup(buffer);
+	Text.Label = nstrdup(buffer);
 	ini.Get_String(header, "Desc", "", buffer, 0xFF);
-	Desc = nstrdup(buffer);
+	Text.Desc = nstrdup(buffer);
 	Gender = ini.Get_Bool(header, "Gender", false);
 	FidgetDelay = ini.Get_Int(header, "FidgetDelay", 45);
 	SpeechDelay = ini.Get_Int(header, "SpeechDelay", 3);
@@ -179,7 +175,7 @@ Unknown_790260Class::~Unknown_790260Class()
 }
 
 // 0x790360
-// NOT EXACT: functional for POC (D64), field-offset (the client inlines the delete of a failed load: the destructor)
+// NOT EXACT: shape (the client materializes a boolean and repeats the Data null check before cleanup)
 Unknown_78F700Class *Unknown_790260Class::Unknown_790360()
 {
 	if (Data == NULL) {
@@ -196,6 +192,11 @@ Unknown_78F700Class *Unknown_790260Class::Unknown_790360()
 /*
 **	Reconstruction notes
 **
+**	0x78F850 and 0x790360 unwind through 0xACF1A0 and 0xACF1E0 respectively:
+**	both pass this + 0x1008 through thunk 0x41269D to the two-pointer destructor 0x78F9B0.
+**	Those pointers are Label and Desc, so they form the destructible Text member.
+**	0x78F700 is defined out of line before its caller so VC6 emits its exact standalone
+**	constructor and still inlines its initialization into 0x790360.
 **	The client reads HEADER's 'FidgetDelay' (default 45); the shipped PersonalityNN.ini files spell it
 **	'FigetDelay', so the client's avatars use 45. avatar.cpp's stand-in read 'FigetDelay' (50).
 */

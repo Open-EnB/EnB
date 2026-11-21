@@ -1,0 +1,476 @@
+FORM z_assign
+--- camctrl_entersector.cpp
++++ z_assign.cpp
+@@ -82,7 +82,7 @@
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+ 	Vector3 offset(distance, c * distance, s * distance);
+-	offset.Scale(Unknown_BE8688);
++	offset.X *= Unknown_BE8688.X; offset.Y *= Unknown_BE8688.Y; offset.Z = offset.Z * Unknown_BE8688.Z;
+ 	Unknown0C->Position = tm * offset;
+ 	Unknown0C->Unknown14 = true;
+ 	Unknown0C->Unknown18 = Client->AvatarID;
+
+FORM components_assign
+--- camctrl_entersector.cpp
++++ components_assign.cpp
+@@ -82,7 +82,7 @@
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+ 	Vector3 offset(distance, c * distance, s * distance);
+-	offset.Scale(Unknown_BE8688);
++	offset.X = offset.X * Unknown_BE8688.X; offset.Y = offset.Y * Unknown_BE8688.Y; offset.Z = offset.Z * Unknown_BE8688.Z;
+ 	Unknown0C->Position = tm * offset;
+ 	Unknown0C->Unknown14 = true;
+ 	Unknown0C->Unknown18 = Client->AvatarID;
+
+FORM components_reverse
+--- camctrl_entersector.cpp
++++ components_reverse.cpp
+@@ -82,7 +82,7 @@
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+ 	Vector3 offset(distance, c * distance, s * distance);
+-	offset.Scale(Unknown_BE8688);
++	offset.X = Unknown_BE8688.X * offset.X; offset.Y = Unknown_BE8688.Y * offset.Y; offset.Z = Unknown_BE8688.Z * offset.Z;
+ 	Unknown0C->Position = tm * offset;
+ 	Unknown0C->Unknown14 = true;
+ 	Unknown0C->Unknown18 = Client->AvatarID;
+
+FORM z_before
+--- camctrl_entersector.cpp
++++ z_before.cpp
+@@ -82,7 +82,7 @@
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+ 	Vector3 offset(distance, c * distance, s * distance);
+-	offset.Scale(Unknown_BE8688);
++	offset.Z *= Unknown_BE8688.Z; offset.X *= Unknown_BE8688.X; offset.Y *= Unknown_BE8688.Y;
+ 	Unknown0C->Position = tm * offset;
+ 	Unknown0C->Unknown14 = true;
+ 	Unknown0C->Unknown18 = Client->AvatarID;
+
+FORM z_middle
+--- camctrl_entersector.cpp
++++ z_middle.cpp
+@@ -82,7 +82,7 @@
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+ 	Vector3 offset(distance, c * distance, s * distance);
+-	offset.Scale(Unknown_BE8688);
++	offset.X *= Unknown_BE8688.X; offset.Z *= Unknown_BE8688.Z; offset.Y *= Unknown_BE8688.Y;
+ 	Unknown0C->Position = tm * offset;
+ 	Unknown0C->Unknown14 = true;
+ 	Unknown0C->Unknown18 = Client->AvatarID;
+
+FORM z_reverse
+--- camctrl_entersector.cpp
++++ z_reverse.cpp
+@@ -82,7 +82,7 @@
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+ 	Vector3 offset(distance, c * distance, s * distance);
+-	offset.Scale(Unknown_BE8688);
++	offset.X *= Unknown_BE8688.X; offset.Y *= Unknown_BE8688.Y; offset.Z = Unknown_BE8688.Z * offset.Z;
+ 	Unknown0C->Position = tm * offset;
+ 	Unknown0C->Unknown14 = true;
+ 	Unknown0C->Unknown18 = Client->AvatarID;
+
+FORM scale_ref
+--- camctrl_entersector.cpp
++++ scale_ref.cpp
+@@ -82,7 +82,7 @@
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+ 	Vector3 offset(distance, c * distance, s * distance);
+-	offset.Scale(Unknown_BE8688);
++	const Vector3 &scale = Unknown_BE8688; offset.Scale(scale);
+ 	Unknown0C->Position = tm * offset;
+ 	Unknown0C->Unknown14 = true;
+ 	Unknown0C->Unknown18 = Client->AvatarID;
+
+FORM scale_ptr
+--- camctrl_entersector.cpp
++++ scale_ptr.cpp
+@@ -82,7 +82,7 @@
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+ 	Vector3 offset(distance, c * distance, s * distance);
+-	offset.Scale(Unknown_BE8688);
++	Vector3 *scale = &Unknown_BE8688; offset.Scale(*scale);
+ 	Unknown0C->Position = tm * offset;
+ 	Unknown0C->Unknown14 = true;
+ 	Unknown0C->Unknown18 = Client->AvatarID;
+
+FORM vector_product
+--- camctrl_entersector.cpp
++++ vector_product.cpp
+@@ -82,7 +82,7 @@
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+ 	Vector3 offset(distance, c * distance, s * distance);
+-	offset.Scale(Unknown_BE8688);
++	offset = Vector3(offset.X * Unknown_BE8688.X, offset.Y * Unknown_BE8688.Y, offset.Z * Unknown_BE8688.Z);
+ 	Unknown0C->Position = tm * offset;
+ 	Unknown0C->Unknown14 = true;
+ 	Unknown0C->Unknown18 = Client->AvatarID;
+
+FORM vector_product_rev
+--- camctrl_entersector.cpp
++++ vector_product_rev.cpp
+@@ -82,7 +82,7 @@
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+ 	Vector3 offset(distance, c * distance, s * distance);
+-	offset.Scale(Unknown_BE8688);
++	offset = Vector3(Unknown_BE8688.X * offset.X, Unknown_BE8688.Y * offset.Y, Unknown_BE8688.Z * offset.Z);
+ 	Unknown0C->Position = tm * offset;
+ 	Unknown0C->Unknown14 = true;
+ 	Unknown0C->Unknown18 = Client->AvatarID;
+
+FORM bulk_ctor_xyz
+--- camctrl_entersector.cpp
++++ bulk_ctor_xyz.cpp
+@@ -82,7 +82,7 @@
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+ 	Vector3 offset(distance, c * distance, s * distance);
+-	offset.Scale(Unknown_BE8688);
++	offset.X *= Unknown_BE8688.X; offset.Y *= Unknown_BE8688.Y; offset.Z *= Unknown_BE8688.Z;
+ 	Unknown0C->Position = tm * offset;
+ 	Unknown0C->Unknown14 = true;
+ 	Unknown0C->Unknown18 = Client->AvatarID;
+
+FORM bulk_ctor_zyx
+--- camctrl_entersector.cpp
++++ bulk_ctor_zyx.cpp
+@@ -82,7 +82,7 @@
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+ 	Vector3 offset(distance, c * distance, s * distance);
+-	offset.Scale(Unknown_BE8688);
++	offset.Z *= Unknown_BE8688.Z; offset.Y *= Unknown_BE8688.Y; offset.X *= Unknown_BE8688.X;
+ 	Unknown0C->Position = tm * offset;
+ 	Unknown0C->Unknown14 = true;
+ 	Unknown0C->Unknown18 = Client->AvatarID;
+
+FORM bulk_ctor_scale
+
+FORM bulk_ctor_direct
+--- camctrl_entersector.cpp
++++ bulk_ctor_direct.cpp
+@@ -82,7 +82,7 @@
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+ 	Vector3 offset(distance, c * distance, s * distance);
+-	offset.Scale(Unknown_BE8688);
++	offset = Vector3(offset.X * Unknown_BE8688.X, offset.Y * Unknown_BE8688.Y, offset.Z * Unknown_BE8688.Z);
+ 	Unknown0C->Position = tm * offset;
+ 	Unknown0C->Unknown14 = true;
+ 	Unknown0C->Unknown18 = Client->AvatarID;
+
+FORM bulk_ctor_copy_scale
+--- camctrl_entersector.cpp
++++ bulk_ctor_copy_scale.cpp
+@@ -82,7 +82,7 @@
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+ 	Vector3 offset(distance, c * distance, s * distance);
+-	offset.Scale(Unknown_BE8688);
++	Vector3 scale(Unknown_BE8688); offset.Scale(scale);
+ 	Unknown0C->Position = tm * offset;
+ 	Unknown0C->Unknown14 = true;
+ 	Unknown0C->Unknown18 = Client->AvatarID;
+
+FORM bulk_copy_scale
+--- camctrl_entersector.cpp
++++ bulk_copy_scale.cpp
+@@ -81,7 +81,7 @@
+ 	float distance = CameraManagerClass::Unknown_79B6B0();
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 offset(distance, c * distance, s * distance);
++	Vector3 offset = Vector3(distance, c * distance, s * distance);
+ 	offset.Scale(Unknown_BE8688);
+ 	Unknown0C->Position = tm * offset;
+ 	Unknown0C->Unknown14 = true;
+
+FORM bulk_copy_xyz
+--- camctrl_entersector.cpp
++++ bulk_copy_xyz.cpp
+@@ -81,8 +81,8 @@
+ 	float distance = CameraManagerClass::Unknown_79B6B0();
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 offset(distance, c * distance, s * distance);
+-	offset.Scale(Unknown_BE8688);
++	Vector3 offset = Vector3(distance, c * distance, s * distance);
++	offset.X *= Unknown_BE8688.X; offset.Y *= Unknown_BE8688.Y; offset.Z *= Unknown_BE8688.Z;
+ 	Unknown0C->Position = tm * offset;
+ 	Unknown0C->Unknown14 = true;
+ 	Unknown0C->Unknown18 = Client->AvatarID;
+
+FORM bulk_copy_direct
+--- camctrl_entersector.cpp
++++ bulk_copy_direct.cpp
+@@ -81,8 +81,8 @@
+ 	float distance = CameraManagerClass::Unknown_79B6B0();
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 offset(distance, c * distance, s * distance);
+-	offset.Scale(Unknown_BE8688);
++	Vector3 offset = Vector3(distance, c * distance, s * distance);
++	offset = Vector3(offset.X * Unknown_BE8688.X, offset.Y * Unknown_BE8688.Y, offset.Z * Unknown_BE8688.Z);
+ 	Unknown0C->Position = tm * offset;
+ 	Unknown0C->Unknown14 = true;
+ 	Unknown0C->Unknown18 = Client->AvatarID;
+
+FORM bulk_copy_zyx
+--- camctrl_entersector.cpp
++++ bulk_copy_zyx.cpp
+@@ -81,8 +81,8 @@
+ 	float distance = CameraManagerClass::Unknown_79B6B0();
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 offset(distance, c * distance, s * distance);
+-	offset.Scale(Unknown_BE8688);
++	Vector3 offset = Vector3(distance, c * distance, s * distance);
++	offset.Z *= Unknown_BE8688.Z; offset.Y *= Unknown_BE8688.Y; offset.X *= Unknown_BE8688.X;
+ 	Unknown0C->Position = tm * offset;
+ 	Unknown0C->Unknown14 = true;
+ 	Unknown0C->Unknown18 = Client->AvatarID;
+
+FORM bulk_assign_scale
+--- camctrl_entersector.cpp
++++ bulk_assign_scale.cpp
+@@ -81,7 +81,7 @@
+ 	float distance = CameraManagerClass::Unknown_79B6B0();
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 offset(distance, c * distance, s * distance);
++	Vector3 offset; offset.X = distance; offset.Y = c * distance; offset.Z = s * distance;
+ 	offset.Scale(Unknown_BE8688);
+ 	Unknown0C->Position = tm * offset;
+ 	Unknown0C->Unknown14 = true;
+
+FORM bulk_copy_copy_scale
+--- camctrl_entersector.cpp
++++ bulk_copy_copy_scale.cpp
+@@ -81,8 +81,8 @@
+ 	float distance = CameraManagerClass::Unknown_79B6B0();
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 offset(distance, c * distance, s * distance);
+-	offset.Scale(Unknown_BE8688);
++	Vector3 offset = Vector3(distance, c * distance, s * distance);
++	Vector3 scale(Unknown_BE8688); offset.Scale(scale);
+ 	Unknown0C->Position = tm * offset;
+ 	Unknown0C->Unknown14 = true;
+ 	Unknown0C->Unknown18 = Client->AvatarID;
+
+FORM bulk_assign_xyz
+--- camctrl_entersector.cpp
++++ bulk_assign_xyz.cpp
+@@ -81,8 +81,8 @@
+ 	float distance = CameraManagerClass::Unknown_79B6B0();
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 offset(distance, c * distance, s * distance);
+-	offset.Scale(Unknown_BE8688);
++	Vector3 offset; offset.X = distance; offset.Y = c * distance; offset.Z = s * distance;
++	offset.X *= Unknown_BE8688.X; offset.Y *= Unknown_BE8688.Y; offset.Z *= Unknown_BE8688.Z;
+ 	Unknown0C->Position = tm * offset;
+ 	Unknown0C->Unknown14 = true;
+ 	Unknown0C->Unknown18 = Client->AvatarID;
+
+FORM bulk_assign_zyx
+--- camctrl_entersector.cpp
++++ bulk_assign_zyx.cpp
+@@ -81,8 +81,8 @@
+ 	float distance = CameraManagerClass::Unknown_79B6B0();
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 offset(distance, c * distance, s * distance);
+-	offset.Scale(Unknown_BE8688);
++	Vector3 offset; offset.X = distance; offset.Y = c * distance; offset.Z = s * distance;
++	offset.Z *= Unknown_BE8688.Z; offset.Y *= Unknown_BE8688.Y; offset.X *= Unknown_BE8688.X;
+ 	Unknown0C->Position = tm * offset;
+ 	Unknown0C->Unknown14 = true;
+ 	Unknown0C->Unknown18 = Client->AvatarID;
+
+FORM bulk_assign_copy_scale
+--- camctrl_entersector.cpp
++++ bulk_assign_copy_scale.cpp
+@@ -81,8 +81,8 @@
+ 	float distance = CameraManagerClass::Unknown_79B6B0();
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 offset(distance, c * distance, s * distance);
+-	offset.Scale(Unknown_BE8688);
++	Vector3 offset; offset.X = distance; offset.Y = c * distance; offset.Z = s * distance;
++	Vector3 scale(Unknown_BE8688); offset.Scale(scale);
+ 	Unknown0C->Position = tm * offset;
+ 	Unknown0C->Unknown14 = true;
+ 	Unknown0C->Unknown18 = Client->AvatarID;
+
+FORM bulk_assign_direct
+--- camctrl_entersector.cpp
++++ bulk_assign_direct.cpp
+@@ -81,8 +81,8 @@
+ 	float distance = CameraManagerClass::Unknown_79B6B0();
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 offset(distance, c * distance, s * distance);
+-	offset.Scale(Unknown_BE8688);
++	Vector3 offset; offset.X = distance; offset.Y = c * distance; offset.Z = s * distance;
++	offset = Vector3(offset.X * Unknown_BE8688.X, offset.Y * Unknown_BE8688.Y, offset.Z * Unknown_BE8688.Z);
+ 	Unknown0C->Position = tm * offset;
+ 	Unknown0C->Unknown14 = true;
+ 	Unknown0C->Unknown18 = Client->AvatarID;
+
+FORM bulk_reverse_scale
+--- camctrl_entersector.cpp
++++ bulk_reverse_scale.cpp
+@@ -81,7 +81,7 @@
+ 	float distance = CameraManagerClass::Unknown_79B6B0();
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 offset(distance, c * distance, s * distance);
++	Vector3 offset; offset.Z = s * distance; offset.Y = c * distance; offset.X = distance;
+ 	offset.Scale(Unknown_BE8688);
+ 	Unknown0C->Position = tm * offset;
+ 	Unknown0C->Unknown14 = true;
+
+FORM bulk_reverse_xyz
+--- camctrl_entersector.cpp
++++ bulk_reverse_xyz.cpp
+@@ -81,8 +81,8 @@
+ 	float distance = CameraManagerClass::Unknown_79B6B0();
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 offset(distance, c * distance, s * distance);
+-	offset.Scale(Unknown_BE8688);
++	Vector3 offset; offset.Z = s * distance; offset.Y = c * distance; offset.X = distance;
++	offset.X *= Unknown_BE8688.X; offset.Y *= Unknown_BE8688.Y; offset.Z *= Unknown_BE8688.Z;
+ 	Unknown0C->Position = tm * offset;
+ 	Unknown0C->Unknown14 = true;
+ 	Unknown0C->Unknown18 = Client->AvatarID;
+
+FORM bulk_reverse_zyx
+--- camctrl_entersector.cpp
++++ bulk_reverse_zyx.cpp
+@@ -81,8 +81,8 @@
+ 	float distance = CameraManagerClass::Unknown_79B6B0();
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 offset(distance, c * distance, s * distance);
+-	offset.Scale(Unknown_BE8688);
++	Vector3 offset; offset.Z = s * distance; offset.Y = c * distance; offset.X = distance;
++	offset.Z *= Unknown_BE8688.Z; offset.Y *= Unknown_BE8688.Y; offset.X *= Unknown_BE8688.X;
+ 	Unknown0C->Position = tm * offset;
+ 	Unknown0C->Unknown14 = true;
+ 	Unknown0C->Unknown18 = Client->AvatarID;
+
+FORM bulk_reverse_direct
+--- camctrl_entersector.cpp
++++ bulk_reverse_direct.cpp
+@@ -81,8 +81,8 @@
+ 	float distance = CameraManagerClass::Unknown_79B6B0();
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 offset(distance, c * distance, s * distance);
+-	offset.Scale(Unknown_BE8688);
++	Vector3 offset; offset.Z = s * distance; offset.Y = c * distance; offset.X = distance;
++	offset = Vector3(offset.X * Unknown_BE8688.X, offset.Y * Unknown_BE8688.Y, offset.Z * Unknown_BE8688.Z);
+ 	Unknown0C->Position = tm * offset;
+ 	Unknown0C->Unknown14 = true;
+ 	Unknown0C->Unknown18 = Client->AvatarID;
+
+FORM bulk_reverse_copy_scale
+--- camctrl_entersector.cpp
++++ bulk_reverse_copy_scale.cpp
+@@ -81,8 +81,8 @@
+ 	float distance = CameraManagerClass::Unknown_79B6B0();
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 offset(distance, c * distance, s * distance);
+-	offset.Scale(Unknown_BE8688);
++	Vector3 offset; offset.Z = s * distance; offset.Y = c * distance; offset.X = distance;
++	Vector3 scale(Unknown_BE8688); offset.Scale(scale);
+ 	Unknown0C->Position = tm * offset;
+ 	Unknown0C->Unknown14 = true;
+ 	Unknown0C->Unknown18 = Client->AvatarID;
+
+FORM bulk_products_scale
+--- camctrl_entersector.cpp
++++ bulk_products_scale.cpp
+@@ -81,7 +81,7 @@
+ 	float distance = CameraManagerClass::Unknown_79B6B0();
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 offset(distance, c * distance, s * distance);
++	Vector3 offset(distance, distance * c, distance * s);
+ 	offset.Scale(Unknown_BE8688);
+ 	Unknown0C->Position = tm * offset;
+ 	Unknown0C->Unknown14 = true;
+
+FORM bulk_products_xyz
+--- camctrl_entersector.cpp
++++ bulk_products_xyz.cpp
+@@ -81,8 +81,8 @@
+ 	float distance = CameraManagerClass::Unknown_79B6B0();
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 offset(distance, c * distance, s * distance);
+-	offset.Scale(Unknown_BE8688);
++	Vector3 offset(distance, distance * c, distance * s);
++	offset.X *= Unknown_BE8688.X; offset.Y *= Unknown_BE8688.Y; offset.Z *= Unknown_BE8688.Z;
+ 	Unknown0C->Position = tm * offset;
+ 	Unknown0C->Unknown14 = true;
+ 	Unknown0C->Unknown18 = Client->AvatarID;
+
+FORM bulk_products_zyx
+--- camctrl_entersector.cpp
++++ bulk_products_zyx.cpp
+@@ -81,8 +81,8 @@
+ 	float distance = CameraManagerClass::Unknown_79B6B0();
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 offset(distance, c * distance, s * distance);
+-	offset.Scale(Unknown_BE8688);
++	Vector3 offset(distance, distance * c, distance * s);
++	offset.Z *= Unknown_BE8688.Z; offset.Y *= Unknown_BE8688.Y; offset.X *= Unknown_BE8688.X;
+ 	Unknown0C->Position = tm * offset;
+ 	Unknown0C->Unknown14 = true;
+ 	Unknown0C->Unknown18 = Client->AvatarID;
+
+FORM bulk_products_direct
+--- camctrl_entersector.cpp
++++ bulk_products_direct.cpp
+@@ -81,8 +81,8 @@
+ 	float distance = CameraManagerClass::Unknown_79B6B0();
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 offset(distance, c * distance, s * distance);
+-	offset.Scale(Unknown_BE8688);
++	Vector3 offset(distance, distance * c, distance * s);
++	offset = Vector3(offset.X * Unknown_BE8688.X, offset.Y * Unknown_BE8688.Y, offset.Z * Unknown_BE8688.Z);
+ 	Unknown0C->Position = tm * offset;
+ 	Unknown0C->Unknown14 = true;
+ 	Unknown0C->Unknown18 = Client->AvatarID;
+
+FORM bulk_products_copy_scale
+--- camctrl_entersector.cpp
++++ bulk_products_copy_scale.cpp
+@@ -81,8 +81,8 @@
+ 	float distance = CameraManagerClass::Unknown_79B6B0();
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 offset(distance, c * distance, s * distance);
+-	offset.Scale(Unknown_BE8688);
++	Vector3 offset(distance, distance * c, distance * s);
++	Vector3 scale(Unknown_BE8688); offset.Scale(scale);
+ 	Unknown0C->Position = tm * offset;
+ 	Unknown0C->Unknown14 = true;
+ 	Unknown0C->Unknown18 = Client->AvatarID;
+

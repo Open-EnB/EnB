@@ -1,0 +1,451 @@
+FORM sweep_inline_trig
+--- camctrl_takeoff.cpp
++++ sweep_inline_trig.cpp
+@@ -234,10 +234,10 @@
+ 		float yaw = (Unknown_BDB1C0.Get_Float() * 315.0f + 45.0f) * (WWMATH_PI / 180.0f);
+ 		Matrix3D ship_tm = ship->Unknown_28(true);
+ 		float zrot = ship_tm.Get_Z_Rotation();
+-		float c_p = cos(pitch);
+-		float s_p = sin(pitch);
+-		float c_y = cos(zrot + yaw);
+-		float s_y = sin(zrot + yaw);
++		float c_p = WWMath::Cos(pitch);
++		float s_p = WWMath::Sin(pitch);
++		float c_y = WWMath::Cos(zrot + yaw);
++		float s_y = WWMath::Sin(zrot + yaw);
+ 		Vector3 dir(c_y * c_p, s_y * c_p, s_p);
+ 		Vector3 offset = dir * 5000.0f;
+ 		Unknown18 = Unknown30 + offset;
+
+FORM final_inline_trig
+--- camctrl_takeoff.cpp
++++ final_inline_trig.cpp
+@@ -266,8 +266,8 @@
+ 	Vector3 mid = (Unknown24 + Unknown30) * 0.5f;
+ 	Matrix3D mid_lookat;
+ 	mid_lookat.Obj_Look_At(mid, Unknown30, 0.0f);
+-	float s = sin(angle);
+-	float c = cos(angle);
++	float s = WWMath::Sin(angle);
++	float c = WWMath::Cos(angle);
+ 	Unknown0C->Position = mid_lookat * Vector3(0.0f, c * 1.5f * distance, s * 1.5f * distance);
+ 	Unknown0C->Unknown14 = true;
+ 	Unknown0C->Unknown18 = Client->AvatarID;
+
+FORM other_expr_expr
+
+FORM other_expr_copy
+--- camctrl_takeoff.cpp
++++ other_expr_copy.cpp
+@@ -245,7 +245,7 @@
+ 		CameraClass *cam = (CameraClass *)Client->MainView->Unknown_7C();
+ 		OBBoxClass box = cam->Get_Near_Clip_Bounding_Box();
+ 		OBBoxClass moved;
+-		Vector3 delta = Unknown18 - Unknown30;
++		Vector3 delta(Unknown18 - Unknown30);
+ 		Matrix3D shift(true);
+ 		shift.Set_Translation(delta);
+ 		OBBoxClass::Transform(shift, box, &moved);
+
+FORM other_expr_assign
+--- camctrl_takeoff.cpp
++++ other_expr_assign.cpp
+@@ -245,7 +245,7 @@
+ 		CameraClass *cam = (CameraClass *)Client->MainView->Unknown_7C();
+ 		OBBoxClass box = cam->Get_Near_Clip_Bounding_Box();
+ 		OBBoxClass moved;
+-		Vector3 delta = Unknown18 - Unknown30;
++		Vector3 delta; delta = Unknown18 - Unknown30;
+ 		Matrix3D shift(true);
+ 		shift.Set_Translation(delta);
+ 		OBBoxClass::Transform(shift, box, &moved);
+
+FORM other_expr_compound
+--- camctrl_takeoff.cpp
++++ other_expr_compound.cpp
+@@ -245,7 +245,7 @@
+ 		CameraClass *cam = (CameraClass *)Client->MainView->Unknown_7C();
+ 		OBBoxClass box = cam->Get_Near_Clip_Bounding_Box();
+ 		OBBoxClass moved;
+-		Vector3 delta = Unknown18 - Unknown30;
++		Vector3 delta(Unknown18); delta -= Unknown30;
+ 		Matrix3D shift(true);
+ 		shift.Set_Translation(delta);
+ 		OBBoxClass::Transform(shift, box, &moved);
+
+FORM other_copy_expr
+--- camctrl_takeoff.cpp
++++ other_copy_expr.cpp
+@@ -239,7 +239,7 @@
+ 		float c_y = cos(zrot + yaw);
+ 		float s_y = sin(zrot + yaw);
+ 		Vector3 dir(c_y * c_p, s_y * c_p, s_p);
+-		Vector3 offset = dir * 5000.0f;
++		Vector3 offset(dir * 5000.0f);
+ 		Unknown18 = Unknown30 + offset;
+ 
+ 		CameraClass *cam = (CameraClass *)Client->MainView->Unknown_7C();
+
+FORM other_copy_copy
+--- camctrl_takeoff.cpp
++++ other_copy_copy.cpp
+@@ -239,13 +239,13 @@
+ 		float c_y = cos(zrot + yaw);
+ 		float s_y = sin(zrot + yaw);
+ 		Vector3 dir(c_y * c_p, s_y * c_p, s_p);
+-		Vector3 offset = dir * 5000.0f;
++		Vector3 offset(dir * 5000.0f);
+ 		Unknown18 = Unknown30 + offset;
+ 
+ 		CameraClass *cam = (CameraClass *)Client->MainView->Unknown_7C();
+ 		OBBoxClass box = cam->Get_Near_Clip_Bounding_Box();
+ 		OBBoxClass moved;
+-		Vector3 delta = Unknown18 - Unknown30;
++		Vector3 delta(Unknown18 - Unknown30);
+ 		Matrix3D shift(true);
+ 		shift.Set_Translation(delta);
+ 		OBBoxClass::Transform(shift, box, &moved);
+
+FORM other_copy_assign
+--- camctrl_takeoff.cpp
++++ other_copy_assign.cpp
+@@ -239,13 +239,13 @@
+ 		float c_y = cos(zrot + yaw);
+ 		float s_y = sin(zrot + yaw);
+ 		Vector3 dir(c_y * c_p, s_y * c_p, s_p);
+-		Vector3 offset = dir * 5000.0f;
++		Vector3 offset(dir * 5000.0f);
+ 		Unknown18 = Unknown30 + offset;
+ 
+ 		CameraClass *cam = (CameraClass *)Client->MainView->Unknown_7C();
+ 		OBBoxClass box = cam->Get_Near_Clip_Bounding_Box();
+ 		OBBoxClass moved;
+-		Vector3 delta = Unknown18 - Unknown30;
++		Vector3 delta; delta = Unknown18 - Unknown30;
+ 		Matrix3D shift(true);
+ 		shift.Set_Translation(delta);
+ 		OBBoxClass::Transform(shift, box, &moved);
+
+FORM other_copy_compound
+--- camctrl_takeoff.cpp
++++ other_copy_compound.cpp
+@@ -239,13 +239,13 @@
+ 		float c_y = cos(zrot + yaw);
+ 		float s_y = sin(zrot + yaw);
+ 		Vector3 dir(c_y * c_p, s_y * c_p, s_p);
+-		Vector3 offset = dir * 5000.0f;
++		Vector3 offset(dir * 5000.0f);
+ 		Unknown18 = Unknown30 + offset;
+ 
+ 		CameraClass *cam = (CameraClass *)Client->MainView->Unknown_7C();
+ 		OBBoxClass box = cam->Get_Near_Clip_Bounding_Box();
+ 		OBBoxClass moved;
+-		Vector3 delta = Unknown18 - Unknown30;
++		Vector3 delta(Unknown18); delta -= Unknown30;
+ 		Matrix3D shift(true);
+ 		shift.Set_Translation(delta);
+ 		OBBoxClass::Transform(shift, box, &moved);
+
+FORM other_assign_expr
+--- camctrl_takeoff.cpp
++++ other_assign_expr.cpp
+@@ -239,7 +239,7 @@
+ 		float c_y = cos(zrot + yaw);
+ 		float s_y = sin(zrot + yaw);
+ 		Vector3 dir(c_y * c_p, s_y * c_p, s_p);
+-		Vector3 offset = dir * 5000.0f;
++		Vector3 offset; offset = dir * 5000.0f;
+ 		Unknown18 = Unknown30 + offset;
+ 
+ 		CameraClass *cam = (CameraClass *)Client->MainView->Unknown_7C();
+
+FORM other_assign_copy
+--- camctrl_takeoff.cpp
++++ other_assign_copy.cpp
+@@ -239,13 +239,13 @@
+ 		float c_y = cos(zrot + yaw);
+ 		float s_y = sin(zrot + yaw);
+ 		Vector3 dir(c_y * c_p, s_y * c_p, s_p);
+-		Vector3 offset = dir * 5000.0f;
++		Vector3 offset; offset = dir * 5000.0f;
+ 		Unknown18 = Unknown30 + offset;
+ 
+ 		CameraClass *cam = (CameraClass *)Client->MainView->Unknown_7C();
+ 		OBBoxClass box = cam->Get_Near_Clip_Bounding_Box();
+ 		OBBoxClass moved;
+-		Vector3 delta = Unknown18 - Unknown30;
++		Vector3 delta(Unknown18 - Unknown30);
+ 		Matrix3D shift(true);
+ 		shift.Set_Translation(delta);
+ 		OBBoxClass::Transform(shift, box, &moved);
+
+FORM other_assign_assign
+--- camctrl_takeoff.cpp
++++ other_assign_assign.cpp
+@@ -239,13 +239,13 @@
+ 		float c_y = cos(zrot + yaw);
+ 		float s_y = sin(zrot + yaw);
+ 		Vector3 dir(c_y * c_p, s_y * c_p, s_p);
+-		Vector3 offset = dir * 5000.0f;
++		Vector3 offset; offset = dir * 5000.0f;
+ 		Unknown18 = Unknown30 + offset;
+ 
+ 		CameraClass *cam = (CameraClass *)Client->MainView->Unknown_7C();
+ 		OBBoxClass box = cam->Get_Near_Clip_Bounding_Box();
+ 		OBBoxClass moved;
+-		Vector3 delta = Unknown18 - Unknown30;
++		Vector3 delta; delta = Unknown18 - Unknown30;
+ 		Matrix3D shift(true);
+ 		shift.Set_Translation(delta);
+ 		OBBoxClass::Transform(shift, box, &moved);
+
+FORM other_assign_compound
+--- camctrl_takeoff.cpp
++++ other_assign_compound.cpp
+@@ -239,13 +239,13 @@
+ 		float c_y = cos(zrot + yaw);
+ 		float s_y = sin(zrot + yaw);
+ 		Vector3 dir(c_y * c_p, s_y * c_p, s_p);
+-		Vector3 offset = dir * 5000.0f;
++		Vector3 offset; offset = dir * 5000.0f;
+ 		Unknown18 = Unknown30 + offset;
+ 
+ 		CameraClass *cam = (CameraClass *)Client->MainView->Unknown_7C();
+ 		OBBoxClass box = cam->Get_Near_Clip_Bounding_Box();
+ 		OBBoxClass moved;
+-		Vector3 delta = Unknown18 - Unknown30;
++		Vector3 delta(Unknown18); delta -= Unknown30;
+ 		Matrix3D shift(true);
+ 		shift.Set_Translation(delta);
+ 		OBBoxClass::Transform(shift, box, &moved);
+
+FORM other_compound_expr
+--- camctrl_takeoff.cpp
++++ other_compound_expr.cpp
+@@ -239,7 +239,7 @@
+ 		float c_y = cos(zrot + yaw);
+ 		float s_y = sin(zrot + yaw);
+ 		Vector3 dir(c_y * c_p, s_y * c_p, s_p);
+-		Vector3 offset = dir * 5000.0f;
++		Vector3 offset(dir); offset *= 5000.0f;
+ 		Unknown18 = Unknown30 + offset;
+ 
+ 		CameraClass *cam = (CameraClass *)Client->MainView->Unknown_7C();
+
+FORM other_compound_copy
+--- camctrl_takeoff.cpp
++++ other_compound_copy.cpp
+@@ -239,13 +239,13 @@
+ 		float c_y = cos(zrot + yaw);
+ 		float s_y = sin(zrot + yaw);
+ 		Vector3 dir(c_y * c_p, s_y * c_p, s_p);
+-		Vector3 offset = dir * 5000.0f;
++		Vector3 offset(dir); offset *= 5000.0f;
+ 		Unknown18 = Unknown30 + offset;
+ 
+ 		CameraClass *cam = (CameraClass *)Client->MainView->Unknown_7C();
+ 		OBBoxClass box = cam->Get_Near_Clip_Bounding_Box();
+ 		OBBoxClass moved;
+-		Vector3 delta = Unknown18 - Unknown30;
++		Vector3 delta(Unknown18 - Unknown30);
+ 		Matrix3D shift(true);
+ 		shift.Set_Translation(delta);
+ 		OBBoxClass::Transform(shift, box, &moved);
+
+FORM other_compound_assign
+--- camctrl_takeoff.cpp
++++ other_compound_assign.cpp
+@@ -239,13 +239,13 @@
+ 		float c_y = cos(zrot + yaw);
+ 		float s_y = sin(zrot + yaw);
+ 		Vector3 dir(c_y * c_p, s_y * c_p, s_p);
+-		Vector3 offset = dir * 5000.0f;
++		Vector3 offset(dir); offset *= 5000.0f;
+ 		Unknown18 = Unknown30 + offset;
+ 
+ 		CameraClass *cam = (CameraClass *)Client->MainView->Unknown_7C();
+ 		OBBoxClass box = cam->Get_Near_Clip_Bounding_Box();
+ 		OBBoxClass moved;
+-		Vector3 delta = Unknown18 - Unknown30;
++		Vector3 delta; delta = Unknown18 - Unknown30;
+ 		Matrix3D shift(true);
+ 		shift.Set_Translation(delta);
+ 		OBBoxClass::Transform(shift, box, &moved);
+
+FORM other_compound_compound
+--- camctrl_takeoff.cpp
++++ other_compound_compound.cpp
+@@ -239,13 +239,13 @@
+ 		float c_y = cos(zrot + yaw);
+ 		float s_y = sin(zrot + yaw);
+ 		Vector3 dir(c_y * c_p, s_y * c_p, s_p);
+-		Vector3 offset = dir * 5000.0f;
++		Vector3 offset(dir); offset *= 5000.0f;
+ 		Unknown18 = Unknown30 + offset;
+ 
+ 		CameraClass *cam = (CameraClass *)Client->MainView->Unknown_7C();
+ 		OBBoxClass box = cam->Get_Near_Clip_Bounding_Box();
+ 		OBBoxClass moved;
+-		Vector3 delta = Unknown18 - Unknown30;
++		Vector3 delta(Unknown18); delta -= Unknown30;
+ 		Matrix3D shift(true);
+ 		shift.Set_Translation(delta);
+ 		OBBoxClass::Transform(shift, box, &moved);
+
+FORM deep_ctor_expr
+
+FORM deep_ctor_ctor
+--- camctrl_takeoff.cpp
++++ deep_ctor_ctor.cpp
+@@ -239,7 +239,7 @@
+ 		float c_y = cos(zrot + yaw);
+ 		float s_y = sin(zrot + yaw);
+ 		Vector3 dir(c_y * c_p, s_y * c_p, s_p);
+-		Vector3 offset = dir * 5000.0f;
++		Vector3 offset(dir * 5000.0f);
+ 		Unknown18 = Unknown30 + offset;
+ 
+ 		CameraClass *cam = (CameraClass *)Client->MainView->Unknown_7C();
+
+FORM deep_ctor_assign
+--- camctrl_takeoff.cpp
++++ deep_ctor_assign.cpp
+@@ -239,7 +239,7 @@
+ 		float c_y = cos(zrot + yaw);
+ 		float s_y = sin(zrot + yaw);
+ 		Vector3 dir(c_y * c_p, s_y * c_p, s_p);
+-		Vector3 offset = dir * 5000.0f;
++		Vector3 offset; offset = dir * 5000.0f;
+ 		Unknown18 = Unknown30 + offset;
+ 
+ 		CameraClass *cam = (CameraClass *)Client->MainView->Unknown_7C();
+
+FORM deep_ctor_compound
+--- camctrl_takeoff.cpp
++++ deep_ctor_compound.cpp
+@@ -239,7 +239,7 @@
+ 		float c_y = cos(zrot + yaw);
+ 		float s_y = sin(zrot + yaw);
+ 		Vector3 dir(c_y * c_p, s_y * c_p, s_p);
+-		Vector3 offset = dir * 5000.0f;
++		Vector3 offset(dir); offset *= 5000.0f;
+ 		Unknown18 = Unknown30 + offset;
+ 
+ 		CameraClass *cam = (CameraClass *)Client->MainView->Unknown_7C();
+
+FORM deep_copy_expr
+--- camctrl_takeoff.cpp
++++ deep_copy_expr.cpp
+@@ -238,7 +238,7 @@
+ 		float s_p = sin(pitch);
+ 		float c_y = cos(zrot + yaw);
+ 		float s_y = sin(zrot + yaw);
+-		Vector3 dir(c_y * c_p, s_y * c_p, s_p);
++		Vector3 dir = Vector3(c_y * c_p, s_y * c_p, s_p);
+ 		Vector3 offset = dir * 5000.0f;
+ 		Unknown18 = Unknown30 + offset;
+ 
+
+FORM deep_copy_ctor
+--- camctrl_takeoff.cpp
++++ deep_copy_ctor.cpp
+@@ -238,8 +238,8 @@
+ 		float s_p = sin(pitch);
+ 		float c_y = cos(zrot + yaw);
+ 		float s_y = sin(zrot + yaw);
+-		Vector3 dir(c_y * c_p, s_y * c_p, s_p);
+-		Vector3 offset = dir * 5000.0f;
++		Vector3 dir = Vector3(c_y * c_p, s_y * c_p, s_p);
++		Vector3 offset(dir * 5000.0f);
+ 		Unknown18 = Unknown30 + offset;
+ 
+ 		CameraClass *cam = (CameraClass *)Client->MainView->Unknown_7C();
+
+FORM deep_copy_assign
+--- camctrl_takeoff.cpp
++++ deep_copy_assign.cpp
+@@ -238,8 +238,8 @@
+ 		float s_p = sin(pitch);
+ 		float c_y = cos(zrot + yaw);
+ 		float s_y = sin(zrot + yaw);
+-		Vector3 dir(c_y * c_p, s_y * c_p, s_p);
+-		Vector3 offset = dir * 5000.0f;
++		Vector3 dir = Vector3(c_y * c_p, s_y * c_p, s_p);
++		Vector3 offset; offset = dir * 5000.0f;
+ 		Unknown18 = Unknown30 + offset;
+ 
+ 		CameraClass *cam = (CameraClass *)Client->MainView->Unknown_7C();
+
+FORM deep_copy_compound
+--- camctrl_takeoff.cpp
++++ deep_copy_compound.cpp
+@@ -238,8 +238,8 @@
+ 		float s_p = sin(pitch);
+ 		float c_y = cos(zrot + yaw);
+ 		float s_y = sin(zrot + yaw);
+-		Vector3 dir(c_y * c_p, s_y * c_p, s_p);
+-		Vector3 offset = dir * 5000.0f;
++		Vector3 dir = Vector3(c_y * c_p, s_y * c_p, s_p);
++		Vector3 offset(dir); offset *= 5000.0f;
+ 		Unknown18 = Unknown30 + offset;
+ 
+ 		CameraClass *cam = (CameraClass *)Client->MainView->Unknown_7C();
+
+FORM deep_assign_expr
+--- camctrl_takeoff.cpp
++++ deep_assign_expr.cpp
+@@ -238,7 +238,7 @@
+ 		float s_p = sin(pitch);
+ 		float c_y = cos(zrot + yaw);
+ 		float s_y = sin(zrot + yaw);
+-		Vector3 dir(c_y * c_p, s_y * c_p, s_p);
++		Vector3 dir; dir.X = c_y * c_p; dir.Y = s_y * c_p; dir.Z = s_p;
+ 		Vector3 offset = dir * 5000.0f;
+ 		Unknown18 = Unknown30 + offset;
+ 
+
+FORM deep_assign_ctor
+--- camctrl_takeoff.cpp
++++ deep_assign_ctor.cpp
+@@ -238,8 +238,8 @@
+ 		float s_p = sin(pitch);
+ 		float c_y = cos(zrot + yaw);
+ 		float s_y = sin(zrot + yaw);
+-		Vector3 dir(c_y * c_p, s_y * c_p, s_p);
+-		Vector3 offset = dir * 5000.0f;
++		Vector3 dir; dir.X = c_y * c_p; dir.Y = s_y * c_p; dir.Z = s_p;
++		Vector3 offset(dir * 5000.0f);
+ 		Unknown18 = Unknown30 + offset;
+ 
+ 		CameraClass *cam = (CameraClass *)Client->MainView->Unknown_7C();
+
+FORM deep_assign_assign
+--- camctrl_takeoff.cpp
++++ deep_assign_assign.cpp
+@@ -238,8 +238,8 @@
+ 		float s_p = sin(pitch);
+ 		float c_y = cos(zrot + yaw);
+ 		float s_y = sin(zrot + yaw);
+-		Vector3 dir(c_y * c_p, s_y * c_p, s_p);
+-		Vector3 offset = dir * 5000.0f;
++		Vector3 dir; dir.X = c_y * c_p; dir.Y = s_y * c_p; dir.Z = s_p;
++		Vector3 offset; offset = dir * 5000.0f;
+ 		Unknown18 = Unknown30 + offset;
+ 
+ 		CameraClass *cam = (CameraClass *)Client->MainView->Unknown_7C();
+
+FORM deep_assign_compound
+--- camctrl_takeoff.cpp
++++ deep_assign_compound.cpp
+@@ -238,8 +238,8 @@
+ 		float s_p = sin(pitch);
+ 		float c_y = cos(zrot + yaw);
+ 		float s_y = sin(zrot + yaw);
+-		Vector3 dir(c_y * c_p, s_y * c_p, s_p);
+-		Vector3 offset = dir * 5000.0f;
++		Vector3 dir; dir.X = c_y * c_p; dir.Y = s_y * c_p; dir.Z = s_p;
++		Vector3 offset(dir); offset *= 5000.0f;
+ 		Unknown18 = Unknown30 + offset;
+ 
+ 		CameraClass *cam = (CameraClass *)Client->MainView->Unknown_7C();
+
