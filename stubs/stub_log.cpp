@@ -12,12 +12,24 @@
 static void Write_Line(const char *line)
 {
 	OutputDebugStringA(line);
-	fputs(line, stderr);
-	const char *path = getenv("ENB_STUB_LOG");
-	FILE *fp = fopen(path && *path ? path : "stubs.log", "a");
+	// One WriteFile per line to stderr, so a line is not split into pieces another process's output can land between
+	// (antprox.out carries the client's stderr beside its own lines; e2e.py reads the G_ASSERT / FAIL_IF tee there).
+	HANDLE err = GetStdHandle(STD_ERROR_HANDLE);
+	if (err && err != INVALID_HANDLE_VALUE) {
+		DWORD written;
+		WriteFile(err, line, (DWORD)strlen(line), &written, NULL);
+	}
+	// stubs.log is opened once and flushed per line: readable while the client runs, complete after a crash.
+	static FILE *fp = NULL;
+	static bool tried = false;
+	if (!tried) {
+		tried = true;
+		const char *path = getenv("ENB_STUB_LOG");
+		fp = fopen(path && *path ? path : "stubs.log", "a");
+	}
 	if (fp) {
 		fputs(line, fp);
-		fclose(fp);
+		fflush(fp);
 	}
 }
 
