@@ -2967,9 +2967,9 @@ void RegistrationInterface::Unknown_5F0100()
 
 
 
-
 // NOT EXACT: inline-budget (functional; group loops through 0x5F33E0, pushes through 0x5F87D0, back-outs through 0x5F8560, server boxes through 0x5FB890
-// as the client inlines them; cases 0x11 / 0x14 / 0x12 written out (the client cross-jumps them into 0x14's copy); left: the client's nested map::insert cuts)
+// as the client inlines them; cases 0x11 / 0x14 / 0x12 written out (the client cross-jumps them into 0x14's copy); the combo boxes' Selected through UIComboBoxClass::Get_Selected
+// (0x5FFFE0, out of line at cases 0xB / 0xE, 0x5FEF96 / 0x5FF0E3) there and at the two type picks (best of the site subsets); left: the client's nested map::insert cuts)
 // @0x5FBD30
 void RegistrationInterface::Unknown_5FBD30()
 {
@@ -3118,7 +3118,7 @@ void RegistrationInterface::Unknown_5FBD30()
 			Unknown1CB = false;
 			Unknown1D5 = false;
 			Unknown1CC = false;
-			StatusIndex = 1; Unknown108.size(); Unknown108.size(); Unknown108.size();   // D272: dead reads (swept 1-8, here and at six other places)
+			StatusIndex = 1;   // D272: no dead reads here with Get_Selected (swept 0-6 x case 6's 0-8: four in all is best)
 			Unknown_5F8DB0(false);
 			Unknown_5F3770(0x16);
 			Unknown_5FAE90(this, "Validating login information...");
@@ -3402,7 +3402,7 @@ bad_login:
 			UIComboBoxClass *combo = Unknown108[0x16].Combo;
 			int year = (unsigned)combo->Selected < combo->Items.size() ? atoi(combo->Items[combo->Selected].c_str()) : 0;
 			std::string country(Unknown108[0x19].Combo->Get_Selected_Text());
-			int type = Unknown5A8[Unknown108[0x22].Combo->Selected].Unknown00;
+			int type = Unknown5A8[Unknown108[0x22].Combo->Get_Selected()].Unknown00;
 			if (strlen(first_name) == 0) {
 				UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "Please enter a valid First Name.", 0x140, 0, 0);
 			} else if (strlen(last_name) == 0) {
@@ -3491,7 +3491,7 @@ bad_login:
 			UIComboBoxClass *combo = Unknown108[0x16].Combo;
 			int year = (unsigned)combo->Selected < combo->Items.size() ? atoi(combo->Items[combo->Selected].c_str()) : 0;
 			std::string country(Unknown108[0x19].Combo->Get_Selected_Text());
-			int type = Unknown5A8[Unknown108[0x22].Combo->Selected].Unknown00;
+			int type = Unknown5A8[Unknown108[0x22].Combo->Get_Selected()].Unknown00;
 			if (strlen(first_name) == 0) {
 				UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "Please enter a valid First Name.", 0x140, 0, 0);
 			} else if (strlen(last_name) == 0) {
@@ -3612,7 +3612,7 @@ bad_login:
 			return;
 		case 0xB:
 		{
-			Unknown388 = Unknown108[0x2A].Combo->Selected;
+			Unknown388 = Unknown108[0x2A].Combo->Get_Selected();
 			Unknown38C = Unknown598[Unknown388];
 			switch (Unknown38C) {
 				case 2:
@@ -3640,7 +3640,7 @@ bad_login:
 			break;
 		}
 		case 0xE:
-			Unknown384 = Unknown108[0x29].Combo->Selected;
+			Unknown384 = Unknown108[0x29].Combo->Get_Selected();
 			Unknown270 = Unknown578[Unknown384];
 			Unknown_5F87D0();
 			Unknown_603B20();
@@ -3678,8 +3678,8 @@ bad_login:
 static const char *ProductBeta = "EB-BETA";  // NAME 1 [ProductBeta]: client .data 0xB85EE4 (0x600000 compares the bundle ids with it)
 static const char *RegistrationGameId = "2184";  // NAME 1 [RegistrationGameId]: client .data 0xB85EF0 (0x600000: 0x7D7E10's third argument, atoi'd against the game features' ids)
 // NOT EXACT: inline-budget (functional; the server boxes through 0x5FB890 and the back-outs through 0x5F8560 as the client inlines them, one per
-// branch; its cases in jump table 0x602AE4's layout order, case 3's !+0x1CE branch first, the US picks as if / else (the client's two compares 0x6022BD / 0x602362,
-// the other sites cross-jumped into them); the client's frame 0xB18 with five dead reads in case 0x10)
+// branch; its cases in jump table 0x602AE4's layout order, case 3's !+0x1CE branch first, the US picks through the file member 0x603B20, inlined (its this a
+// variable: the client's add esi, -0x84 at 0x602341; two compare copies 0x6022BD / 0x602362, the other sites cross-jumped); frame 0xB18, two dead reads in case 0x10)
 // @0x600000
 void RegistrationInterface::Unknown_5F00C0()
 {
@@ -3789,7 +3789,7 @@ void RegistrationInterface::Unknown_5F00C0()
 			} else if (Unknown1CF) {
 				Unknown_5F3770(0x13);
 			} else {
-				if (Unknown3C4.Unknown80 == "US") { Unknown_5F3770(0xC); } else { Unknown_5F3770(0xD); }
+				Unknown_603B20();
 			}
 			return;
 		case 4:
@@ -3897,7 +3897,7 @@ void RegistrationInterface::Unknown_5F00C0()
 				} else if (!Unknown1D1) {
 					Unknown_5F3770(0xA);
 				} else {
-					if (Unknown3C4.Unknown80 == "US") { Unknown_5F3770(0xC); } else { Unknown_5F3770(0xD); }
+					Unknown_603B20();
 				}
 				return;
 			}
@@ -3951,7 +3951,7 @@ void RegistrationInterface::Unknown_5F00C0()
 						return;
 					}
 					Unknown_5FB890();
-					if (Unknown3C4.Unknown80 == "US") { Unknown_5F3770(0xC); } else { Unknown_5F3770(0xD); }
+					Unknown_603B20();
 					return;
 				}
 				if (Unknown3C4.Unknown80.size() == 0) {
@@ -4008,7 +4008,7 @@ void RegistrationInterface::Unknown_5F00C0()
 						return;
 					}
 					Unknown_5FB890();
-					if (Unknown3C4.Unknown80 == "US") { Unknown_5F3770(0xC); } else { Unknown_5F3770(0xD); }
+					Unknown_603B20();
 					return;
 				case 10:
 					Unknown1D4 = false;
@@ -4027,7 +4027,7 @@ void RegistrationInterface::Unknown_5F00C0()
 					UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, Unknown390.Unknown14.c_str(), 0x140, 0, 0);
 					break;
 			}
-			if (Unknown3C4.Unknown80 == "US") { Unknown_5F3770(0xC); } else { Unknown_5F3770(0xD); }
+			Unknown_603B20();
 			return;
 		case 10:
 			switch (Unknown390.Unknown10) {
@@ -4101,12 +4101,12 @@ void RegistrationInterface::Unknown_5F00C0()
 			return;
 		case 0x10:
 			if (Unknown390.Unknown10 == 0) {
-				Unknown5A8 = Unknown1AC->Unknown_7D4530(); UnknownD8.size(); UnknownD8.size();   // D272: dead reads (swept 0-3 here x 0-6 at the end and one at each case start)
+				Unknown5A8 = Unknown1AC->Unknown_7D4530(); UnknownD8.size();   // D272: dead reads (swept 0-3 here x 0-6 at the end x 0-3 at case 5's back-out; one more at any line: worse)
 				Unknown_5F3770(0xB);
 				return;
 			}
 			UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "An Internal Error has occured.  Please try again.", 0x140, 0, 0);
-			Unknown_5F8560(); UnknownD8.size(); UnknownD8.size(); UnknownD8.size();   // D272: dead reads (swept 0-7, with case 5's back-out 0-7)
+			Unknown_5F8560(); UnknownD8.size();   // D272: dead reads (swept 0-7, with case 5's back-out 0-7)
 			return;
 	}
 }
