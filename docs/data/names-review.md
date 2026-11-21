@@ -10,7 +10,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 226 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1970 |
-| 2 | describes what the code does | 5001 |
+| 2 | describes what the code does | 5002 |
 | 1 | neutral placeholder | 25179 |
 
 ## For review (score 3 and below)
@@ -27670,6 +27670,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Refinery_Player_Id` | `app/client/ui_refinery.cpp:150` | the player id read as an inline accessor (as ui_manu.cpp's Manu_Player_Id) |
 | 2 | `Value` | `app/client/ui_refinery.cpp:229` | what it holds |
 | 2 | `item_id` | `app/client/ui_refinery.h:42` | the packet's ItemID |
+| 2 | `Selected_Year` | `app/client/ui_registration.cpp:2080` | what it returns |
 | 2 | `UIScanButtonNames` | `app/client/ui_scan.cpp:34` | what it holds |
 | 2 | `owner` | `app/client/ui_scan.h:27` | what it holds |
 | 2 | `Owner` | `app/client/ui_scan.h:36` | what it holds |
