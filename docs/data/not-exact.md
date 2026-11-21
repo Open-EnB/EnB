@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-683 entries in 267 files.
+680 entries in 266 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -110,11 +110,8 @@ edit the comments in the code, not this file.
 | `app/client/dynamic_window_multi_line_text.cpp:428` | `DynamicWindowMultiLineTextClass::Position_Lines` | mention | NOT EXACT (D64): the functions marked, written from the pseudocode, functional. |
 | `app/client/dynamic_window_render_object.cpp:51` | `DynamicWindowRenderObjectClass::Set_Alignment` | marker | NOT EXACT: the client stores the cleared flags, reloads them and ORs in the new bits; this form folds both into one store |
 | `app/client/dynamic_window_vertical.cpp:101` | `DynamicWindowVerticalClass::Set_Alignment` | marker | NOT EXACT: the client stores the cleared flags, reloads them and ORs in the new bits; this form folds both into one store |
-| `app/client/eff_line.cpp:258` | `LineEffectClass::Unknown_6E6030` | marker | NOT EXACT: x87 order and frame (the client orders the two Vector2 normalisations' loads and stores differently; the calls and the branches are the client's) |
-| `app/client/eff_robj.cpp:156` | `Unknown6EF4C0EffectClass::Unknown_1C` | marker | NOT EXACT: order-only (the frame and the 96 instructions are the client's; two of the identity matrix's zero stores and pos.Y's store sit a few instructions later); attempts.py show 0x6EF740 0x6EF740 |
+| `app/client/eff_line.cpp:258` | `LineEffectClass::Unknown_6E6030` | marker | NOT EXACT: order-only (the frame, the slots and the 414 instructions are the client's; the camera offset's rows 2 and 3 load the X term first in the client, 0x6E649A, the Y term here); attempts.py show 0x6E6030 |
 | `app/client/eff_seek.cpp:110` | `SpiralSeekEffectClass::Unknown_1C` | marker | NOT EXACT: shape (the frame 0xB0, the sine's slot and the kept product radius * s are the client's; the client has point above rate above direction where this has rate, direction, point, and it stores point.X before rate.X from the FPU stack, 0x6F0E3D); attempts.py show 0x6F0D40 0x6F0D40 |
-| `app/client/eff_seek.cpp:218` | `SplineRandomSeekEffectClass::Unknown_1C` | marker | NOT EXACT: order-only (the frame and the 141 instructions are the client's; the facing vector's first two products load the matrix element first where this loads the rate's, 0x6F1496); attempts.py show 0x6F1390 0x6F1390 |
-| `app/client/eff_seek.cpp:330` | `LinearRandomSeekEffectClass::Unknown_1C` | marker | NOT EXACT: order-only (the frame and the 96 instructions are the client's; the squared length adds z, x, y where Length2 adds z, y, x, and two rows' products load the matrix element first); attempts.py show 0x6F1AD0 0x6F1AD0 |
 | `app/client/emote_data.cpp:91` | `EmoteDataClass::Unknown_7E6860` | marker | NOT EXACT: control flow (the switch's default reaches the stop block placed after the compare in the client, before the active block in this build) |
 | `app/client/emote_data.cpp:156` | `EmoteDataClass::Unknown_7E70A0` | marker | NOT EXACT: frame (the client's frame has 4 more bytes of locals; the cases' x87 code follows from it) |
 | `app/client/enbdazzle.cpp:90` | `MainViewDazzleHandlerClass::Compute_Dazzle_Visibility` | marker | NOT EXACT: the shape and the slots match; the early return is not tail-merged in the client, std::sort's _Unguarded_insert is inlined there, register and schedule residues |

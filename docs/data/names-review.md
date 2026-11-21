@@ -3005,9 +3005,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_20` | `app/client/eff_line.cpp:178` | untagged neutral name (D10) |
 | 1 | `Unknown_30` | `app/client/eff_line.cpp:193` | untagged neutral name (D10) |
 | 1 | `Unknown10BC` | `app/client/eff_line.cpp:216` | untagged neutral name (D10) |
-| 1 | `Unknown_10` | `app/client/eff_line.cpp:333` | untagged neutral name (D10) |
-| 1 | `Unknown_14` | `app/client/eff_line.cpp:334` | untagged neutral name (D10) |
-| 1 | `Unknown_38` | `app/client/eff_line.cpp:334` | untagged neutral name (D10) |
+| 1 | `Unknown_10` | `app/client/eff_line.cpp:341` | untagged neutral name (D10) |
+| 1 | `Unknown_14` | `app/client/eff_line.cpp:342` | untagged neutral name (D10) |
+| 1 | `Unknown_38` | `app/client/eff_line.cpp:342` | untagged neutral name (D10) |
 | 1 | `UnknownB0009CEffectClass` | `app/client/eff_line.h:25` | untagged neutral name (D10) |
 | 1 | `position` | `app/client/eff_line.h:30` | the base's |
 | 1 | `Unknown_08` | `app/client/eff_line.h:30` | untagged neutral name (D10) |
@@ -3260,8 +3260,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown6EF4C0EffectClass` | `app/client/eff_robj.cpp:125` | untagged neutral name (D10) |
 | 1 | `UnknownDC` | `app/client/eff_robj.cpp:127` | untagged neutral name (D10) |
 | 1 | `UnknownE4` | `app/client/eff_robj.cpp:128` | untagged neutral name (D10) |
-| 1 | `Unknown6EF910EffectClass` | `app/client/eff_robj.cpp:177` | untagged neutral name (D10) |
-| 1 | `UnknownB0009CEffectClass` | `app/client/eff_robj.cpp:178` | untagged neutral name (D10) |
+| 1 | `Unknown6EF910EffectClass` | `app/client/eff_robj.cpp:180` | untagged neutral name (D10) |
+| 1 | `UnknownB0009CEffectClass` | `app/client/eff_robj.cpp:181` | untagged neutral name (D10) |
 | 1 | `Unknown_3C` | `app/client/eff_robj.cpp:229` | untagged neutral name (D10) |
 | 1 | `Unknown_2C` | `app/client/eff_robj.cpp:232` | untagged neutral name (D10) |
 | 1 | `Unknown_24` | `app/client/eff_robj.cpp:287` | untagged neutral name (D10) |

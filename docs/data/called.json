@@ -3727,6 +3727,9 @@
 "data:?_PresetATestSpriteShader@ShaderClass@@2V1@A": [
 "0xC0117C"
 ],
+"data:?_PresetAdditive2DShader@ShaderClass@@2V1@A": [
+"0xC01180"
+],
 "data:?_PresetAdditiveSpriteShader@ShaderClass@@2V1@A": [
 "0xC010F8"
 ],
