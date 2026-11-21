@@ -3,7 +3,7 @@
 # own) puts the mob 200 ahead and 300 to the side; E (control_keys.ini [Target Near Enemy]) targets it. Rally
 # (hotbar slot 4) and Repair Equipment (slot 5), SKILL_ABILITY each (the recording dragged Hacking from the PDA's
 # skill list to slot 3; a replayed drag found the list scrolled elsewhere, so the scenario uses the hotbar as is). F (Fire all weapons: ACTION) fights until the mob
-# explodes (POINT_EFFECT) and its hulk appears (CREATE). N (Next Target) targets the hulk (its ITEM_BASEs), the
+# explodes (POINT_EFFECT) and its hulk appears (CREATE). N (Next Target, until its Loot verb) targets the hulk, the
 # target window's loot button asks for it (SKILL_STRING_RQ, LOOT_HULK_PERMISSION), and the loot window's first row is
 # taken until the hulk is empty (INVENTORY_MOVE each; OPEN_INTERFACE when the last item is gone). The loot is random:
 # how many items, and so how many takes, differs from run to run. Elanor's rows are
@@ -43,9 +43,12 @@ wait-event antprox 'sent POINT_EFFECT$' within 180
 wait-event antprox 'sent CREATE$' within 15
 wait-quiet proxy 1.0 within 30
 shot mob_destroyed
-key 0x4E
-expect-event antprox 'received REQUEST_TARGET$' within 10
-wait-event antprox 'sent ITEM_BASE$' within 10
+# N until the hulk is the target: its verb list holds Loot (VERB_UPDATE 0x18 bytes, one verb; our own ship's has
+# none, 0x10). Next Target walks the client's list by sphere distance (target_find.cpp), and the hulk and our ship
+# are both at 0 (inside their radii): which comes first follows the object list's order, so the hulk's game id
+# (run 011235: hulk first; runs 004450 / 005412: our ship first). The ITEM_BASEs come only for loot bases the
+# client has not seen yet: no event to wait on.
+key 0x4E until antprox '005c \[0018\] = sent VERB_UPDATE$' every 2 within 20
 shot hulk_targeted
 click 1229,685 until antprox 'sent LOOT_HULK_PERMISSION$' every 2 within 20
 wait-quiet proxy 1.0 within 20

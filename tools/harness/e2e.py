@@ -503,6 +503,11 @@ _MSG_TS_RE = re.compile(r'^(?:\d\d:\d\d:\d\d\.\d+|\d+\.\d+)\s+')
 _ASSERT_RE = re.compile(r'^(?:ERROR\s+(?:\S*,)?)?(?:G_ASSERT|FAIL_IF):\s')
 _POLL_CHUNK = 1 << 20
 _ASSERT_CAP = 2000
+# d3d8shot.log's lines for the stub log's own opens (stubs/stub_log.cpp opens it once a line): not the game's
+# loading, so they are not 'proxy' lines. Our client tees every assert there and retail has no stub log: in space
+# effect_description.cpp asserts hundreds of times a second on both clients (the data), and these opens kept
+# 'wait-quiet proxy' from ever seeing quiet on ours (sp_combat, 2026-11-21; README, Quirks)
+_OWN_OPEN = re.compile(r'^CreateFileA\("[^"]*stubs\.log"', re.I)
 
 
 def _assert_key(src, text):
@@ -637,14 +642,18 @@ class Events:
                         text = self.part[src] + data.decode('latin1')
                         *done, self.part[src] = text.split('\n')
                         now = self.clock() - self.t0
+                        kept = False
                         for l in done:
                             l = l.rstrip('\r')
                             if src == 'proxy':      # d3d8shot.log: '%10lu ' (GetTickCount) before each line
                                 l = re.sub(r'^\s*\d+ ', '', l, count=1)
+                                if _OWN_OPEN.match(l):
+                                    continue
                             elif src == 'antprox':
                                 l = name_live(l)
                             self._emit(now, src, l)
-                        if done:
+                            kept = True
+                        if kept:
                             self.last[src] = now
                         if len(data) < _POLL_CHUNK:
                             break
