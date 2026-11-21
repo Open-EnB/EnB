@@ -48,11 +48,11 @@ char Random_Letter()	// NAME 2: random ASCII alphanumeric for FONT_EFFECT_RANDLE
 {
 	int c = rand() / 442 + '0';
 	if (c > '9' && c < 'A') {
-		return c + 7;
-	}
-	if (c > 'Z' && c < 'a') {
+		c += 7;
+	} else if (c > 'Z' && c < 'a') {
 		c += 6;
 	}
+
 	return c;
 }
 
@@ -71,7 +71,7 @@ static void Rebuild_Texture(FontSys *style, char *buffer, bool reset_spacing)
 	}
 	style->Unknown4C4 = style->Unknown2D0.Unknown_6D8DC0(&style->Font, buffer, 0);
 }
-
+static inline void Set_Complete(FontSys *style, bool done) { style->Unknown404 = done; }  // NAME 2: Is_Complete's setter (0x67EEE0 reads +0x404); an inline layer, as the client spends inline budget here
 // NOT EXACT: worked toward the client's bytes (FX1, run 2026-11-20): case order, branch senses, inline layers
 void FontSys::Unknown_6CA0C0(FontEffectStruct *effect)
 {
@@ -99,7 +99,7 @@ void FontSys::Unknown_6CA0C0(FontEffectStruct *effect)
 		}
 		scale = (float)sin((float)style->Unknown274[3] * effect->Speed * 0.0062831f) * effect->Intensity + 1.0f;
 		style->Unknown254[4] = 2;
-		style->Unknown404 = true;
+		Set_Complete(style, true);
 		style->Unknown4C5 = false;
 		break;
 	}
@@ -117,7 +117,7 @@ void FontSys::Unknown_6CA0C0(FontEffectStruct *effect)
 			alpha = ((float)period - phase) / half;
 		}
 		style->Unknown254[3] = 2;
-		style->Unknown404 = true;
+		Set_Complete(style, true);
 		style->Unknown4C5 = false;
 		break;
 	}
@@ -130,11 +130,11 @@ void FontSys::Unknown_6CA0C0(FontEffectStruct *effect)
 		float angle = (float)style->Unknown274[2] * effect->Speed * 0.0062831f;
 		if (effect->Initial == effect->Intensity) {
 			rotation = (float)-cos(angle);
-			style->Unknown404 = true;
+			Set_Complete(style, true);
 		} else {
 			if (angle > 1.5707963f) {
 				angle = 1.5707963f;
-				style->Unknown404 = true;
+				Set_Complete(style, true);
 			}
 			if (effect->Initial < effect->Intensity) {
 				rotation = (float)-sin(angle);
@@ -168,7 +168,7 @@ void FontSys::Unknown_6CA0C0(FontEffectStruct *effect)
 			style->Unknown274[4] += delta;
 		}
 		if (alpha == effect->Intensity) {
-			style->Unknown404 = true;
+			Set_Complete(style, true);
 		}
 		style->Unknown254[3] = 2;
 		style->Unknown4C5 = false;
@@ -252,9 +252,9 @@ void FontSys::Unknown_6CA0C0(FontEffectStruct *effect)
 		rect[0] = 0;
 		style->Unknown2C4 = rect[1] = style->Font->String_Pixel_Width(text);
 		if (length < target) {
-			style->Unknown404 = true;
+			Set_Complete(style, true);
 		} else {
-			style->Unknown404 = false;
+			Set_Complete(style, false);
 		}
 		style->Unknown4C5 = false;
 		break;
@@ -340,12 +340,12 @@ void FontSys::Unknown_6CA0C0(FontEffectStruct *effect)
 		x = style->Info.Target[0] * 640.0f - x;
 		y = style->Info.Target[1] * 480.0f - y;
 		if (style->Unknown47C.X == x && style->Unknown47C.Y == y) {
-			style->Unknown404 = true;
+			Set_Complete(style, true);
 			return;
 		}
 		style->Unknown47C.X = Approach(style->Unknown47C.X, x, step / style->Unknown4DC);
 		style->Unknown47C.Y = Approach(style->Unknown47C.Y, y, step / style->Unknown4E0);
-		style->Unknown404 = false;
+		Set_Complete(style, false);
 		break;
 	}
 
@@ -368,7 +368,7 @@ void FontSys::Unknown_6CA0C0(FontEffectStruct *effect)
 			style->Unknown274[5] += delta;
 		}
 		if (scale == effect->Intensity) {
-			style->Unknown404 = true;
+			Set_Complete(style, true);
 		}
 		style->Unknown254[4] = 2;
 		style->Unknown4C5 = false;
@@ -379,11 +379,11 @@ void FontSys::Unknown_6CA0C0(FontEffectStruct *effect)
 	case FONT_EFFECT_WIPE: {
 		// A clip of the texture rectangle growing (Intensity > 0) or shrinking from one side: WIPE by time,
 		// LETTER by the width of the letters shown so far.
-		style->Unknown404 = false;
+		Set_Complete(style, false);
 		int amount;
 		if (effect->EffectType == FONT_EFFECT_WIPE) {
-			amount = (int)((float)style->Unknown270 * effect->Speed * 0.01f);
-			if (amount < 1) amount = 1;
+			int value = (int)((float)style->Unknown270 * effect->Speed * 0.01f);
+			if (value < 1) amount = 1; else amount = value;
 		} else {
 			int length = style->Info.Text.Get_Length();
 			int target = (int)((float)style->Unknown270 * effect->Speed) / 200;
@@ -406,31 +406,31 @@ void FontSys::Unknown_6CA0C0(FontEffectStruct *effect)
 			switch (effect->Direction) {
 			case FONT_DIRECTION_LEFT:
 				old = style->Unknown420[0];
-				style->Unknown420[0] = (style->Unknown2C4 - amount > 1) ? style->Unknown2C4 - amount : 1;
-				style->Unknown420[1] = style->Unknown2C4;
-				if (style->Unknown420[0] == 1) style->Unknown404 = true;
-				if (old != style->Unknown420[0]) style->Unknown4C5 = false;
+				rect[0] = (style->Unknown2C4 - amount > 1) ? style->Unknown2C4 - amount : 1;
+				rect[1] = style->Unknown2C4;
+				if (rect[0] == 1) Set_Complete(style, true);
+				if (old != rect[0]) style->Unknown4C5 = false;
 				break;
 			case FONT_DIRECTION_RIGHT:
 				old = style->Unknown420[1];
-				style->Unknown420[0] = 0;
-				style->Unknown420[1] = (amount < style->Unknown2C4) ? amount : style->Unknown2C4;
-				if (style->Unknown420[1] == style->Unknown2C4) style->Unknown404 = true;
-				if (old != style->Unknown420[1]) style->Unknown4C5 = false;
+				rect[0] = 0;
+				rect[1] = (amount < style->Unknown2C4) ? amount : style->Unknown2C4;
+				if (rect[1] == style->Unknown2C4) Set_Complete(style, true);
+				if (old != rect[1]) style->Unknown4C5 = false;
 				break;
 			case FONT_DIRECTION_UP:
 				old = style->Unknown420[2];
-				style->Unknown420[2] = (style->Unknown2C8 - amount > 0) ? style->Unknown2C8 - amount : 0;
-				style->Unknown420[3] = style->Unknown2C8;
-				if (style->Unknown420[2] == 0) style->Unknown404 = true;
-				if (old != style->Unknown420[2]) style->Unknown4C5 = false;
+				rect[2] = (style->Unknown2C8 - amount > 0) ? style->Unknown2C8 - amount : 0;
+				rect[3] = style->Unknown2C8;
+				if (rect[2] == 0) Set_Complete(style, true);
+				if (old != rect[2]) style->Unknown4C5 = false;
 				break;
 			case FONT_DIRECTION_DOWN:
 				old = style->Unknown420[3];
-				style->Unknown420[2] = 0;
-				style->Unknown420[3] = (amount < style->Unknown2C8) ? amount : style->Unknown2C8;
-				if (style->Unknown420[3] == style->Unknown2C8) style->Unknown404 = true;
-				if (old != style->Unknown420[3]) style->Unknown4C5 = false;
+				rect[2] = 0;
+				rect[3] = (amount < style->Unknown2C8) ? amount : style->Unknown2C8;
+				if (rect[3] == style->Unknown2C8) Set_Complete(style, true);
+				if (old != rect[3]) style->Unknown4C5 = false;
 				break;
 			}
 		} else {
@@ -438,31 +438,31 @@ void FontSys::Unknown_6CA0C0(FontEffectStruct *effect)
 			switch (effect->Direction) {
 			case FONT_DIRECTION_LEFT:
 				old = style->Unknown420[1];
-				style->Unknown420[0] = 0;
-				style->Unknown420[1] = (style->Unknown2C4 - amount > 1) ? style->Unknown2C4 - amount : 1;
-				if (style->Unknown420[1] == 1) style->Unknown404 = true;
-				if (old != style->Unknown420[1]) style->Unknown4C5 = false;
+				rect[0] = 0;
+				rect[1] = (style->Unknown2C4 - amount > 1) ? style->Unknown2C4 - amount : 1;
+				if (rect[1] == 1) Set_Complete(style, true);
+				if (old != rect[1]) style->Unknown4C5 = false;
 				break;
 			case FONT_DIRECTION_RIGHT:
 				old = style->Unknown420[0];
-				style->Unknown420[0] = (amount < style->Unknown2C4) ? amount : style->Unknown2C4;
-				style->Unknown420[1] = style->Unknown2C4;
-				if (style->Unknown420[0] == style->Unknown2C4) style->Unknown404 = true;
-				if (old != style->Unknown420[0]) style->Unknown4C5 = false;
+				rect[0] = (amount < style->Unknown2C4) ? amount : style->Unknown2C4;
+				rect[1] = style->Unknown2C4;
+				if (rect[0] == style->Unknown2C4) Set_Complete(style, true);
+				if (old != rect[0]) style->Unknown4C5 = false;
 				break;
 			case FONT_DIRECTION_UP:
 				old = style->Unknown420[3];
-				style->Unknown420[2] = 0;
-				style->Unknown420[3] = (style->Unknown2C8 - amount > 1) ? style->Unknown2C8 - amount : 1;
-				if (style->Unknown420[3] == 1) style->Unknown404 = true;
-				if (old != style->Unknown420[3]) style->Unknown4C5 = false;
+				rect[2] = 0;
+				rect[3] = (style->Unknown2C8 - amount > 1) ? style->Unknown2C8 - amount : 1;
+				if (rect[3] == 1) Set_Complete(style, true);
+				if (old != rect[3]) style->Unknown4C5 = false;
 				break;
 			case FONT_DIRECTION_DOWN:
 				old = style->Unknown420[2];
-				style->Unknown420[2] = (amount < style->Unknown2C8) ? amount : style->Unknown2C8;
-				style->Unknown420[3] = style->Unknown2C8;
-				if (style->Unknown420[2] == style->Unknown2C8) style->Unknown404 = true;
-				if (old != style->Unknown420[2]) style->Unknown4C5 = false;
+				rect[2] = (amount < style->Unknown2C8) ? amount : style->Unknown2C8;
+				rect[3] = style->Unknown2C8;
+				if (rect[2] == style->Unknown2C8) Set_Complete(style, true);
+				if (old != rect[2]) style->Unknown4C5 = false;
 				break;
 			}
 		}
@@ -472,11 +472,11 @@ void FontSys::Unknown_6CA0C0(FontEffectStruct *effect)
 	case FONT_EFFECT_GLOW: {
 		// the brighter of the two colors, channel by channel
 		style->Unknown4C5 = false;
-		const FontColorStruct *second = style->Colors[1];
-		const FontColorStruct *current = style->Colors[style->Unknown44C];
-		style->Unknown4A4.Color.X = (float)(second->RGB.X <= current->RGB.X ? current->RGB.X : second->RGB.X) * 0.00392156f;
-		style->Unknown4A4.Color.Y = (float)(second->RGB.Y <= current->RGB.Y ? current->RGB.Y : second->RGB.Y) * 0.00392156f;
-		style->Unknown4A4.Color.Z = (float)(second->RGB.Z <= current->RGB.Z ? current->RGB.Z : second->RGB.Z) * 0.00392156f;
+
+
+		style->Unknown4A4.Color.X = (float)(style->Colors[style->Unknown44C]->RGB.X < style->Colors[1]->RGB.X ? style->Colors[1]->RGB.X : style->Colors[style->Unknown44C]->RGB.X) * 0.00392156f;
+		style->Unknown4A4.Color.Y = (float)(style->Colors[style->Unknown44C]->RGB.Y < style->Colors[1]->RGB.Y ? style->Colors[1]->RGB.Y : style->Colors[style->Unknown44C]->RGB.Y) * 0.00392156f;
+		style->Unknown4A4.Color.Z = (float)(style->Colors[style->Unknown44C]->RGB.Z < style->Colors[1]->RGB.Z ? style->Colors[1]->RGB.Z : style->Colors[style->Unknown44C]->RGB.Z) * 0.00392156f;
 		style->Unknown254[1] = 2;
 		break;
 	}
@@ -485,7 +485,7 @@ void FontSys::Unknown_6CA0C0(FontEffectStruct *effect)
 		style->Unknown444 = 1;
 		style->Unknown418 = (int)effect->Offset.X;
 		style->Unknown41C = (int)effect->Offset.Y;
-		style->Unknown404 = true;
+		Set_Complete(style, true);
 		break;
 	}
 
@@ -499,7 +499,7 @@ void FontSys::Unknown_6CA0C0(FontEffectStruct *effect)
 		const FontColorStruct *current = style->Colors[style->Unknown44C];
 		float wave = sin((float)style->Unknown274[3] * effect->Speed * 0.0062831f);
 		TPoint3D<int> half = (second->RGB - current->RGB) / 2;
-		TPoint3D<int> mid = (second->RGB + current->RGB) / 2;
+		TPoint3D<int> mid(second->RGB.X + current->RGB.X, second->RGB.Y + current->RGB.Y, second->RGB.Z + current->RGB.Z); mid = mid / 2;
 		style->Unknown4A4.Color.X = (half.X * wave + mid.X) * 0.00392156f;
 		style->Unknown4A4.Color.Y = (half.Y * wave + mid.Y) * 0.00392156f;
 		style->Unknown4A4.Color.Z = (half.Z * wave + mid.Z) * 0.00392156f;
@@ -516,7 +516,7 @@ void FontSys::Unknown_6CA0C0(FontEffectStruct *effect)
 		style->Unknown4A4.Color.Y = Approach(style->Unknown4A4.Color.Y, (float)second->RGB.Y * 0.00392156f, step);
 		style->Unknown4A4.Color.Z = Approach(style->Unknown4A4.Color.Z, (float)second->RGB.Z * 0.00392156f, step);
 		style->Unknown254[1] = 2;
-		style->Unknown404 = true;
+		Set_Complete(style, true);
 		break;
 	}
 
@@ -526,7 +526,7 @@ void FontSys::Unknown_6CA0C0(FontEffectStruct *effect)
 		float dy = (float)rand() * effect->Intensity * (1.0f / 32768.0f);
 		style->Unknown488[0] = effect->Intensity * 0.5f - dx;
 		style->Unknown254[0] = 2;
-		style->Unknown404 = true;
+		Set_Complete(style, true);
 		style->Unknown488[1] = effect->Intensity * 0.5f - dy;
 		break;
 	}
@@ -596,7 +596,7 @@ void FontSys::Unknown_6CA0C0(FontEffectStruct *effect)
 			style->FontIndex = 1 - style->FontIndex;
 			style->Unknown_6CE4E0(style->FontIndex);
 		}
-		style->Unknown404 = true;
+		Set_Complete(style, true);
 		style->Unknown4C5 = false;
 		style->Unknown274[9]++;
 		break;
@@ -626,7 +626,7 @@ void FontSys::Unknown_6CA0C0(FontEffectStruct *effect)
 		style->Unknown2C8 = rect[3] = style->Font->Get_Height();
 		style->Unknown274[10] += delta;
 		if ((float)style->Unknown448 == effect->Intensity) {
-			style->Unknown404 = true;
+			Set_Complete(style, true);
 		}
 		style->Unknown254[5] = 2;
 		style->Unknown4C5 = false;
@@ -690,7 +690,7 @@ void FontSys::Unknown_6CA0C0(FontEffectStruct *effect)
 			rect[0] = 0;
 			rect[1] = style->Unknown2C4;
 			rect[2] = 0;
-			style->Unknown404 = false;
+			Set_Complete(style, false);
 			rect[3] = style->Unknown2C8;
 			style->Unknown414 = 0;
 			memset(style->Unknown303, 0, sizeof(style->Unknown303));
