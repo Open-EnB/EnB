@@ -1,0 +1,160 @@
+# Claim 240 Terra xhigh, baseline 3fb263fd. Source forms and evidence only.
+# Every successful experimental compile received full native objmatch.
+# Diagnostic lifetime/behavior changes are not accepted candidates.
+# Claim 240 second pass: four client-evidenced collision forms, four masked instruction groups, full native matching each; no target exact or pair changes. Client ship render object Get_Obj_Space_Bounding_Box at 796B98 supplies an AABox; two transformed boxes use Unknown30/Unknown18 at 796DA1/796E42 before cast 796F07. Baseline incorrectly uses camera near-clip geometry. Partial reconstruction frame 21C vs client220; identity assignment/recomputed movement combination grows to258. Evidence and partial source preserved for next work; not integrated.
+
+# Source specification: 796920.txt
+--- camctrl_takeoff.cpp
++++ collision_client_box.cpp
+@@ -10,7 +10,7 @@
+ #include "obbox.h"
+ #include "castres.h"
+ #include "scene.h"
+-#include "camera.h"
++#include "aabox.h"
+ #include "matrix3d.h"
+ #include "wwmath.h"
+ #include "..\shared\g_assert.h"
+@@ -242,16 +242,17 @@
+ 		Vector3 offset = dir * 5000.0f;
+ 		Unknown18 = Unknown30 + offset;
+ 
+-		CameraClass *cam = (CameraClass *)Client->MainView->Unknown_7C();
+-		OBBoxClass box = cam->Get_Near_Clip_Bounding_Box();
+-		OBBoxClass moved;
+-		Vector3 delta = Unknown18 - Unknown30;
+-		Matrix3D shift(true);
+-		shift.Set_Translation(delta);
+-		OBBoxClass::Transform(shift, box, &moved);
++		AABoxClass model_box; ship_ro->Get_Obj_Space_Bounding_Box(model_box); // NAME 2: 0x796b98
++		OBBoxClass local_box(model_box.Center, model_box.Extent); // NAME 2: identity basis and model box, 0x796bd8
++		OBBoxClass start_box, end_box; // NAME 2: 0x796da1 and 0x796e42
++		Matrix3D box_tm = ship->Unknown_28(true); // NAME 2: 0x796cc2
++		box_tm.Set_Translation(Unknown30);
++		OBBoxClass::Transform(box_tm, local_box, &start_box);
++		box_tm.Set_Translation(Unknown18);
++		OBBoxClass::Transform(box_tm, local_box, &end_box);
+ 		CastResultStruct result;
+ 		MainViewSceneClass *scene = (MainViewSceneClass *)Client->MainView->Unknown_64();
+-		scene->Unknown_75FB00(moved, box, delta, &result, ship_ro, false);
++		scene->Unknown_75FB00(start_box, end_box, offset, &result, ship_ro, false);
+ 		if (result.Fraction >= 1.0f) {
+ 			break;
+ 		}
+
+FORM collision_identity
+--- camctrl_takeoff.cpp
++++ collision_identity.cpp
+@@ -10,7 +10,7 @@
+ #include "obbox.h"
+ #include "castres.h"
+ #include "scene.h"
+-#include "camera.h"
++#include "aabox.h"
+ #include "matrix3d.h"
+ #include "wwmath.h"
+ #include "..\shared\g_assert.h"
+@@ -242,16 +242,17 @@
+ 		Vector3 offset = dir * 5000.0f;
+ 		Unknown18 = Unknown30 + offset;
+ 
+-		CameraClass *cam = (CameraClass *)Client->MainView->Unknown_7C();
+-		OBBoxClass box = cam->Get_Near_Clip_Bounding_Box();
+-		OBBoxClass moved;
+-		Vector3 delta = Unknown18 - Unknown30;
+-		Matrix3D shift(true);
+-		shift.Set_Translation(delta);
+-		OBBoxClass::Transform(shift, box, &moved);
++		AABoxClass model_box; ship_ro->Get_Obj_Space_Bounding_Box(model_box); // NAME 2: 0x796b98
++		OBBoxClass local_box(model_box.Center, model_box.Extent); // NAME 2: identity basis and model box, 0x796bd8
++		OBBoxClass start_box, end_box; // NAME 2: 0x796da1 and 0x796e42
++		Matrix3D box_tm(true); box_tm = ship->Unknown_28(true); // NAME 2: 0x796cc2
++		box_tm.Set_Translation(Unknown30);
++		OBBoxClass::Transform(box_tm, local_box, &start_box);
++		box_tm.Set_Translation(Unknown18);
++		OBBoxClass::Transform(box_tm, local_box, &end_box);
+ 		CastResultStruct result;
+ 		MainViewSceneClass *scene = (MainViewSceneClass *)Client->MainView->Unknown_64();
+-		scene->Unknown_75FB00(moved, box, delta, &result, ship_ro, false);
++		scene->Unknown_75FB00(start_box, end_box, offset, &result, ship_ro, false);
+ 		if (result.Fraction >= 1.0f) {
+ 			break;
+ 		}
+
+FORM collision_move_expr
+--- camctrl_takeoff.cpp
++++ collision_move_expr.cpp
+@@ -10,7 +10,7 @@
+ #include "obbox.h"
+ #include "castres.h"
+ #include "scene.h"
+-#include "camera.h"
++#include "aabox.h"
+ #include "matrix3d.h"
+ #include "wwmath.h"
+ #include "..\shared\g_assert.h"
+@@ -242,16 +242,17 @@
+ 		Vector3 offset = dir * 5000.0f;
+ 		Unknown18 = Unknown30 + offset;
+ 
+-		CameraClass *cam = (CameraClass *)Client->MainView->Unknown_7C();
+-		OBBoxClass box = cam->Get_Near_Clip_Bounding_Box();
+-		OBBoxClass moved;
+-		Vector3 delta = Unknown18 - Unknown30;
+-		Matrix3D shift(true);
+-		shift.Set_Translation(delta);
+-		OBBoxClass::Transform(shift, box, &moved);
++		AABoxClass model_box; ship_ro->Get_Obj_Space_Bounding_Box(model_box); // NAME 2: 0x796b98
++		OBBoxClass local_box(model_box.Center, model_box.Extent); // NAME 2: identity basis and model box, 0x796bd8
++		OBBoxClass start_box, end_box; // NAME 2: 0x796da1 and 0x796e42
++		Matrix3D box_tm = ship->Unknown_28(true); // NAME 2: 0x796cc2
++		box_tm.Set_Translation(Unknown30);
++		OBBoxClass::Transform(box_tm, local_box, &start_box);
++		box_tm.Set_Translation(Unknown18);
++		OBBoxClass::Transform(box_tm, local_box, &end_box);
+ 		CastResultStruct result;
+ 		MainViewSceneClass *scene = (MainViewSceneClass *)Client->MainView->Unknown_64();
+-		scene->Unknown_75FB00(moved, box, delta, &result, ship_ro, false);
++		scene->Unknown_75FB00(start_box, end_box, dir * 5000.0f, &result, ship_ro, false);
+ 		if (result.Fraction >= 1.0f) {
+ 			break;
+ 		}
+
+FORM collision_identity_move
+--- camctrl_takeoff.cpp
++++ collision_identity_move.cpp
+@@ -10,7 +10,7 @@
+ #include "obbox.h"
+ #include "castres.h"
+ #include "scene.h"
+-#include "camera.h"
++#include "aabox.h"
+ #include "matrix3d.h"
+ #include "wwmath.h"
+ #include "..\shared\g_assert.h"
+@@ -242,16 +242,17 @@
+ 		Vector3 offset = dir * 5000.0f;
+ 		Unknown18 = Unknown30 + offset;
+ 
+-		CameraClass *cam = (CameraClass *)Client->MainView->Unknown_7C();
+-		OBBoxClass box = cam->Get_Near_Clip_Bounding_Box();
+-		OBBoxClass moved;
+-		Vector3 delta = Unknown18 - Unknown30;
+-		Matrix3D shift(true);
+-		shift.Set_Translation(delta);
+-		OBBoxClass::Transform(shift, box, &moved);
++		AABoxClass model_box; ship_ro->Get_Obj_Space_Bounding_Box(model_box); // NAME 2: 0x796b98
++		OBBoxClass local_box(model_box.Center, model_box.Extent); // NAME 2: identity basis and model box, 0x796bd8
++		OBBoxClass start_box, end_box; // NAME 2: 0x796da1 and 0x796e42
++		Matrix3D box_tm(true); box_tm = ship->Unknown_28(true); // NAME 2: 0x796cc2
++		box_tm.Set_Translation(Unknown30);
++		OBBoxClass::Transform(box_tm, local_box, &start_box);
++		box_tm.Set_Translation(Unknown18);
++		OBBoxClass::Transform(box_tm, local_box, &end_box);
+ 		CastResultStruct result;
+ 		MainViewSceneClass *scene = (MainViewSceneClass *)Client->MainView->Unknown_64();
+-		scene->Unknown_75FB00(moved, box, delta, &result, ship_ro, false);
++		scene->Unknown_75FB00(start_box, end_box, dir * 5000.0f, &result, ship_ro, false);
+ 		if (result.Fraction >= 1.0f) {
+ 			break;
+ 		}

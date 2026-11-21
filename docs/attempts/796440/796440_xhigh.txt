@@ -1,0 +1,187 @@
+# Claim 240 Terra xhigh, baseline 3fb263fd. Source forms and evidence only.
+# Every successful experimental compile received full native objmatch.
+# Diagnostic lifetime/behavior changes are not accepted candidates.
+# Claim 240 second pass: five client-supported shared-local/guard-removed forms and two additional single-guard diagnostics compiled and fully matched, five masked code groups, no target exact or pair changes. Client 796521/527 and 796725/72B directly dereference positional state; client 79654B/554 and 79674B/754 duplicate call/mode-store tails. Corrected source still merges tails and uses ESP rather than client EBP. No partial reconstruction integrated.
+
+# Source specification: 796440.txt
+FORM shared_tm
+--- camctrl_takeoff.cpp
++++ shared_tm.cpp
+@@ -125,12 +125,12 @@
+ 		return;
+ 	}
+ 	Unknown0C->Unknown_08(pos, rot);
+-	unsigned int elapsed = Client->Unknown10BC - Unknown10;
++	unsigned int elapsed = Client->Unknown10BC - Unknown10; Matrix3D tm;
+ 	if (elapsed < 2000) {
+ 		float t = (float)elapsed * 0.0005f;
+ 		Quaternion q;
+ 		Slerp(q, Unknown3C, Unknown4C, t * t);
+-		Matrix3D tm = Build_Matrix3D(q);
++		tm = Build_Matrix3D(q);
+ 		Vector3 p = (Unknown30 - Unknown24) * t + Unknown24;
+ 		tm.Set_Translation(p);
+ 		if (ship->PositionalState && ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
+@@ -154,7 +154,7 @@
+ 			Unknown0C->Unknown_04();
+ 		}
+ 		float t = (float)(elapsed - 2000) * 0.00033333333f;
+-		Matrix3D tm = Build_Matrix3D(Unknown4C);
++		tm = Build_Matrix3D(Unknown4C);
+ 		Vector3 p = (Unknown18 - Unknown30) * t + Unknown30;
+ 		tm.Set_Translation(p);
+ 		if (ship->PositionalState && ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
+
+FORM shared_tm_p
+--- camctrl_takeoff.cpp
++++ shared_tm_p.cpp
+@@ -125,13 +125,13 @@
+ 		return;
+ 	}
+ 	Unknown0C->Unknown_08(pos, rot);
+-	unsigned int elapsed = Client->Unknown10BC - Unknown10;
++	unsigned int elapsed = Client->Unknown10BC - Unknown10; Matrix3D tm; Vector3 p;
+ 	if (elapsed < 2000) {
+ 		float t = (float)elapsed * 0.0005f;
+ 		Quaternion q;
+ 		Slerp(q, Unknown3C, Unknown4C, t * t);
+-		Matrix3D tm = Build_Matrix3D(q);
+-		Vector3 p = (Unknown30 - Unknown24) * t + Unknown24;
++		tm = Build_Matrix3D(q);
++		p = (Unknown30 - Unknown24) * t + Unknown24;
+ 		tm.Set_Translation(p);
+ 		if (ship->PositionalState && ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
+ 			((Unknown718D70Class *)ship->PositionalState)->Unknown_30(Client->Unknown10BC, tm);
+@@ -154,8 +154,8 @@
+ 			Unknown0C->Unknown_04();
+ 		}
+ 		float t = (float)(elapsed - 2000) * 0.00033333333f;
+-		Matrix3D tm = Build_Matrix3D(Unknown4C);
+-		Vector3 p = (Unknown18 - Unknown30) * t + Unknown30;
++		tm = Build_Matrix3D(Unknown4C);
++		p = (Unknown18 - Unknown30) * t + Unknown30;
+ 		tm.Set_Translation(p);
+ 		if (ship->PositionalState && ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
+ 			((Unknown718D70Class *)ship->PositionalState)->Unknown_30(Client->Unknown10BC, tm);
+
+FORM client_guard_first
+--- camctrl_takeoff.cpp
++++ client_guard_first.cpp
+@@ -133,7 +133,7 @@
+ 		Matrix3D tm = Build_Matrix3D(q);
+ 		Vector3 p = (Unknown30 - Unknown24) * t + Unknown24;
+ 		tm.Set_Translation(p);
+-		if (ship->PositionalState && ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
++		if (ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
+ 			((Unknown718D70Class *)ship->PositionalState)->Unknown_30(Client->Unknown10BC, tm);
+ 			*mode = 2;
+ 			return;
+
+FORM client_guard_second
+--- camctrl_takeoff.cpp
++++ client_guard_second.cpp
+@@ -157,7 +157,7 @@
+ 		Matrix3D tm = Build_Matrix3D(Unknown4C);
+ 		Vector3 p = (Unknown18 - Unknown30) * t + Unknown30;
+ 		tm.Set_Translation(p);
+-		if (ship->PositionalState && ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
++		if (ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
+ 			((Unknown718D70Class *)ship->PositionalState)->Unknown_30(Client->Unknown10BC, tm);
+ 			*mode = 2;
+ 			return;
+
+FORM client_guards_both
+--- camctrl_takeoff.cpp
++++ client_guards_both.cpp
+@@ -133,7 +133,7 @@
+ 		Matrix3D tm = Build_Matrix3D(q);
+ 		Vector3 p = (Unknown30 - Unknown24) * t + Unknown24;
+ 		tm.Set_Translation(p);
+-		if (ship->PositionalState && ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
++		if (ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
+ 			((Unknown718D70Class *)ship->PositionalState)->Unknown_30(Client->Unknown10BC, tm);
+ 			*mode = 2;
+ 			return;
+@@ -157,7 +157,7 @@
+ 		Matrix3D tm = Build_Matrix3D(Unknown4C);
+ 		Vector3 p = (Unknown18 - Unknown30) * t + Unknown30;
+ 		tm.Set_Translation(p);
+-		if (ship->PositionalState && ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
++		if (ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
+ 			((Unknown718D70Class *)ship->PositionalState)->Unknown_30(Client->Unknown10BC, tm);
+ 			*mode = 2;
+ 			return;
+
+FORM client_guards_shared_tm
+--- camctrl_takeoff.cpp
++++ client_guards_shared_tm.cpp
+@@ -125,15 +125,15 @@
+ 		return;
+ 	}
+ 	Unknown0C->Unknown_08(pos, rot);
+-	unsigned int elapsed = Client->Unknown10BC - Unknown10;
++	unsigned int elapsed = Client->Unknown10BC - Unknown10; Matrix3D tm;
+ 	if (elapsed < 2000) {
+ 		float t = (float)elapsed * 0.0005f;
+ 		Quaternion q;
+ 		Slerp(q, Unknown3C, Unknown4C, t * t);
+-		Matrix3D tm = Build_Matrix3D(q);
++		tm = Build_Matrix3D(q);
+ 		Vector3 p = (Unknown30 - Unknown24) * t + Unknown24;
+ 		tm.Set_Translation(p);
+-		if (ship->PositionalState && ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
++		if (ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
+ 			((Unknown718D70Class *)ship->PositionalState)->Unknown_30(Client->Unknown10BC, tm);
+ 			*mode = 2;
+ 			return;
+@@ -154,10 +154,10 @@
+ 			Unknown0C->Unknown_04();
+ 		}
+ 		float t = (float)(elapsed - 2000) * 0.00033333333f;
+-		Matrix3D tm = Build_Matrix3D(Unknown4C);
++		tm = Build_Matrix3D(Unknown4C);
+ 		Vector3 p = (Unknown18 - Unknown30) * t + Unknown30;
+ 		tm.Set_Translation(p);
+-		if (ship->PositionalState && ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
++		if (ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
+ 			((Unknown718D70Class *)ship->PositionalState)->Unknown_30(Client->Unknown10BC, tm);
+ 			*mode = 2;
+ 			return;
+
+FORM client_guards_shared_tm_p
+--- camctrl_takeoff.cpp
++++ client_guards_shared_tm_p.cpp
+@@ -125,15 +125,15 @@
+ 		return;
+ 	}
+ 	Unknown0C->Unknown_08(pos, rot);
+-	unsigned int elapsed = Client->Unknown10BC - Unknown10;
++	unsigned int elapsed = Client->Unknown10BC - Unknown10; Matrix3D tm; Vector3 p;
+ 	if (elapsed < 2000) {
+ 		float t = (float)elapsed * 0.0005f;
+ 		Quaternion q;
+ 		Slerp(q, Unknown3C, Unknown4C, t * t);
+-		Matrix3D tm = Build_Matrix3D(q);
+-		Vector3 p = (Unknown30 - Unknown24) * t + Unknown24;
++		tm = Build_Matrix3D(q);
++		p = (Unknown30 - Unknown24) * t + Unknown24;
+ 		tm.Set_Translation(p);
+-		if (ship->PositionalState && ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
++		if (ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
+ 			((Unknown718D70Class *)ship->PositionalState)->Unknown_30(Client->Unknown10BC, tm);
+ 			*mode = 2;
+ 			return;
+@@ -154,10 +154,10 @@
+ 			Unknown0C->Unknown_04();
+ 		}
+ 		float t = (float)(elapsed - 2000) * 0.00033333333f;
+-		Matrix3D tm = Build_Matrix3D(Unknown4C);
+-		Vector3 p = (Unknown18 - Unknown30) * t + Unknown30;
++		tm = Build_Matrix3D(Unknown4C);
++		p = (Unknown18 - Unknown30) * t + Unknown30;
+ 		tm.Set_Translation(p);
+-		if (ship->PositionalState && ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
++		if (ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
+ 			((Unknown718D70Class *)ship->PositionalState)->Unknown_30(Client->Unknown10BC, tm);
+ 			*mode = 2;
+ 			return;

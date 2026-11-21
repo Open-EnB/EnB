@@ -39,8 +39,8 @@ public:
 	virtual bool Load(const char *filename);		// +0x04 0x78FCB0  // NAME 2: what it does
 	virtual int Get_Gender() { return(Gender); }				// +0x08 0x78F730  // NAME 2: what it returns
 	virtual const char *Get_Name() { return(Name); }			// +0x0C 0x78F750  // NAME 2: what it returns
-	virtual const char *Get_Label() { return(Label); }			// +0x10 0x78F770  // NAME 2: what it returns
-	virtual const char *Get_Desc() { return(Desc); }			// +0x14 0x78F790  // NAME 2: what it returns
+	virtual const char *Get_Label() { return(Text.Label); }			// +0x10 0x78F770  // NAME 2: what it returns
+	virtual const char *Get_Desc() { return(Text.Desc); }			// +0x14 0x78F790  // NAME 2: what it returns
 	virtual int Get_Speech_Delay() { return(SpeechDelay); }	// +0x18 0x78F7B0  // NAME 2: what it returns
 	virtual int Get_Blink_Delay() { return(BlinkDelay); }		// +0x1C 0x78F7D0  // NAME 2: what it returns
 	virtual int Get_Fidget_Delay() { return(FidgetDelay); }	// +0x20 0x78F7F0  // NAME 2: what it returns
@@ -54,8 +54,17 @@ public:
 	struct IndexStruct { int First; int Count; };	// NAME 2: what it holds
 	IndexStruct Index[256];	// +0x804 the body animations by tolower(first letter)  // NAME 2: what it holds
 	char *Name;										// +0x1004 the file's name  // NAME 2: what it holds
-	char *Label;									// +0x1008  // NAME 2: the INI key
-	char *Desc;										// +0x100C  // NAME 2: the INI key
+	struct TextFields // NAME 1: neutral name for the destructible pair at +0x1008
+	{
+		char *Label; // +0x00  // NAME 2: the INI key
+		char *Desc;  // +0x04  // NAME 2: the INI key
+		~TextFields()
+		{
+			if (Label) delete [] Label;
+			if (Desc) delete [] Desc;
+		}
+	} Text; // +0x1008  // NAME 1: neutral name for the label/description pair
+
 	int Gender;										// +0x1010  // NAME 2: the INI key
 	int FidgetDelay;								// +0x1014  // NAME 2: the INI key
 	int SpeechDelay;								// +0x1018  // NAME 2: the INI key
