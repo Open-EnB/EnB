@@ -199,7 +199,8 @@ Landing and bring-over (the lander does the landing; these are what you see arou
 - **The pads are tuned once, at the handoff (D279):** pairs_cmp prints the nine pairs of `docs/data/pad-held.json` as
   `pad-held`, never lost; no landing retunes (`wt.py bring-over --sendpad` is off), no builder sweeps, no
   accepted-corrections entry during the run. When draining, with no builder running: `auxpad.py sweep --lockfree`,
-  `auxpad.py set N`, `sendpad.py --lockfree`, one verify, commit. The pad bullets below predate D279 and apply only
+  `auxpad.py set N`, `sendpad.py --lockfree`, one verify, commit (`--lockfree` refuses outside a git worktree: from
+  the main tree use `--hold --pool 1`). The pad bullets below predate D279 and apply only
   to that one sweep or to a landing run with `--sendpad`.
 - **A branch that commits its own SEND_SYMBOL_PAD cannot land once that value does not hold on the run head:** the
   landing's retune leaves tools/re/auxroots.py dirty and wt.py's regen_and_commit refuses ("regenerating changed other
