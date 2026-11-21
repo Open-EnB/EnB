@@ -256,7 +256,7 @@ class AuxpadPool(unittest.TestCase):
 
 
 class BringOverDefaults(unittest.TestCase):
-    """2: no --target is the main tree's run branch, never master; 3: the pad retune is on unless --no-sendpad."""
+    """2: no --target is the main tree's run branch, never master; 3: the pad retune is off unless --sendpad (D279)."""
 
     def on(self, branch):
         old = wt.current_branch
@@ -283,7 +283,7 @@ class BringOverDefaults(unittest.TestCase):
         p = wt.parser()
         a = p.parse_args(['bring-over', 'A'])
         self.assertIsNone(a.target)
-        self.assertTrue(a.sendpad)
+        self.assertFalse(a.sendpad)
         self.assertTrue(p.parse_args(['bring-over', 'A', '--sendpad']).sendpad)
         self.assertFalse(p.parse_args(['bring-over', 'A', '--no-sendpad', '--target', 'run/x']).sendpad)
 

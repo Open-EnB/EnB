@@ -1,52 +1,8 @@
 # Shared by the station scenarios (sb_*): the login against a live server (e2e.py run --live: the local Net-7
 # server, account admin / admin), character select, the starbase the character is docked in. Not run on its own.
 # Events are the live antprox's lines, named by e2e.py (name_live): 'received NAME' the client's, 'sent NAME' the
-# server's.
-messages: on
-wait-event msg 'Server initialized & ready to go' within 60
-click 640,512 until antprox 'Global connection #1' every 0.5 within 120
-wait-quiet proxy 0.5 within 20
-click gadget login.username
-wait-quiet proxy 0.5 within 20
-click gadget login.username
-wait-quiet proxy 0.5 within 20
-key 0x23
-key 0x08
-key 0x08
-key 0x08
-key 0x08
-key 0x08
-key 0x08
-key 0x08
-key 0x08
-key 0x08
-key 0x08
-key 0x08
-key 0x08
-key 0x08
-key 0x08
-text admin
-click gadget login.password
-key 0x23
-key 0x08
-key 0x08
-key 0x08
-key 0x08
-key 0x08
-key 0x08
-key 0x08
-key 0x08
-key 0x08
-key 0x08
-key 0x08
-key 0x08
-key 0x08
-key 0x08
-text admin
-shot login_typed
-click gadget login.ok
-wait-event antprox 'GLOBAL_AVATAR_LIST' within 30
-wait-quiet proxy 1.0 within 40
+# server's. The account part is _login_live_account's; slot 0 is Zanor (avatar 6, docked).
+include _login_live_account
 click gadget select.slot0
 click gadget select.enter until antprox 'received LOGIN' redo 1 every 1 within 60
 wait-event antprox 'received START_ACK' within 120

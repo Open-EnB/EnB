@@ -103,6 +103,7 @@ public:
 	GadgetSlider *Slider;								// +0xD8 (the list's scroll bar: key 2)  // NAME 2: its type
 	unsigned int TopItem;								// +0xDC (the item in the first row)  // NAME 2: what Update_Rows reads
 	int Selected;										// +0xE0  // NAME 2: what Select / Select_Text set
+	int Get_Selected() { return(Selected); }			// 0x5FFFE0 (out of line in ui_registration 0x5FBD30: mov eax, [ecx + 0xE0])  // NAME 2: what it returns
 	std::vector<std::string> Items;						// +0xE4  // NAME 2: what the rows show
 	std::vector<UIComboBoxTextClass *> Rows;			// +0xF4 (MaxRows of them, 'TBONE_%02d': keys 3..)  // NAME 2: what they are
 	std::string Label;									// +0x104 (Set_Label; not empty: the text field is left alone)  // NAME 2: what Set_Label shows

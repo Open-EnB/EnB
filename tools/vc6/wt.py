@@ -57,7 +57,7 @@ bring-over: puts wt/NAME's commits on TARGET only when the loss rule below holds
      item 3; a coordinator's commit): when those commits touch none of the paths the landing's commits touch and no
      generated file, the landing's commits are replayed onto TARGET's tip (plumbing on a temporary index; no verify:
      nothing it verified changed) and the compare-and-swap retried; otherwise it refuses naming the overlapping paths.
-  The pad (on by default; --no-sendpad turns it off): when the verify loses sclient.cpp pairs outright and the changes
+  The pad (off since D279: pad-held pairs are no loss and the handoff sweeps; --sendpad turns it on): when the verify loses sclient.cpp pairs outright and the changes
   touch a header sclient.cpp includes, tools/vc6/sendpad.py re-sweeps SEND_SYMBOL_PAD, both its outputs
   (app/client/aux_roots_send.h and tools/re/auxroots.py, D227) are committed and the verify runs once more
   (workflow.md 3.4). sendpad always watches the target's ledger (--watch-from, D228; since P-L18-3 not only after a
@@ -1624,10 +1624,10 @@ def parser():
     p.add_argument('--keep', action='store_true', help='keep the scratch worktree NAME.bo')
     p.add_argument('--no-link', action='store_true',
                    help='skip the link check (item 6b; doc-only or tools-only landings), with a warning')
-    p.add_argument('--sendpad', action=argparse.BooleanOptionalAction, default=True,
+    p.add_argument('--sendpad', action=argparse.BooleanOptionalAction, default=False,
                    help='when the verify loses sclient.cpp pairs and the changes touch a header sclient.cpp '
                         'includes, re-sweep SEND_SYMBOL_PAD (sendpad.py), commit it and verify once more '
-                        '(default on; --no-sendpad to skip)')
+                        '(default off, D279: the handoff sweeps once)')
     p = sub.add_parser('rebase')
     p.add_argument('name')
     p.add_argument('--onto', help='the branch to rebase onto (default the run branch wt/NAME was based on)')

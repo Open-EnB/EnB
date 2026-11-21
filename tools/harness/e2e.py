@@ -38,7 +38,7 @@ The format (one step a line, '#' comments, shell-style quoting):
     click gadget NAME | click X,Y   rclick ... | move ...    mouse at a gadget of e2e/gadgets.txt or client pixels
     down X,Y / up X,Y             the left button pressed at a point / moved there held and let go: a drag (the
                                   client's item windows move an item on the button-up, e.g. into a terminal's slot)
-    click X,Y until SOURCE PATTERN [redo K] [every S] [within T]   the click again every S seconds (default 0.5)
+    click X,Y until SOURCE PATTERN [redo K] [every S] [within T]   the click (or key VK) again every S seconds (default 0.5)
                                   until the line is seen (default T 60 s): for input the client ignores until it is
                                   ready. redo K: each repeat first posts the K input steps before this one again
                                   (select a slot, then Enter: both are ignored while the screen's opening plays)
@@ -391,17 +391,7 @@ def parse(text, name='?', gadgets=None, loader=None, _depth=0):
                 raise ScenarioError(f'{where}: expect-no SOURCE PATTERN | expect-no CRASH')
             st.update(source=_source(args[0]), pattern=_regex(args[1], where))
         elif op in ('click', 'rclick', 'move', 'down', 'up'):
-            until = None
-            if 'until' in args:
-                k = args.index('until')
-                rest, within = _within(args[k + 1:], 60.0, where)
-                rest, every = _within(rest, 0.5, where, 'every')
-                rest, redo = _within(rest, 0, where, 'redo')
-                if len(rest) != 2 or rest[0] not in SOURCES:
-                    raise ScenarioError(f'{where}: {op} ... until SOURCE PATTERN [every S] [within S]')
-                until = {'source': _source(rest[0]), 'pattern': _regex(rest[1], where), 'every': every,
-                         'within': within, 'redo': int(redo)}
-                args = args[:k]
+            args, until = _until(op, args, where)
             x, y, g = _point(args, gadgets, where)
             st.update(x=x, y=y, gadget=g, until=until)
         elif op == 'stray':
@@ -416,8 +406,9 @@ def parse(text, name='?', gadgets=None, loader=None, _depth=0):
                 except (IndexError, ValueError):
                     raise ScenarioError(f'{where}: stray key VK')
         elif op == 'key':
+            args, st['until'] = _until(op, args, where)
             if len(args) != 1:
-                raise ScenarioError(f'{where}: key VK')
+                raise ScenarioError(f'{where}: key VK [until SOURCE PATTERN ...]')
             try:
                 st['vk'] = int(args[0], 0)
             except ValueError:
@@ -464,6 +455,20 @@ def parse(text, name='?', gadgets=None, loader=None, _depth=0):
     return sc
 
 
+def _until(op, args, where):
+    """Splits `... until SOURCE PATTERN [redo K] [every S] [within T]` off an input step's words (click, key)."""
+    if 'until' not in args:
+        return args, None
+    k = args.index('until')
+    rest, within = _within(args[k + 1:], 60.0, where)
+    rest, every = _within(rest, 0.5, where, 'every')
+    rest, redo = _within(rest, 0, where, 'redo')
+    if len(rest) != 2 or rest[0] not in SOURCES:
+        raise ScenarioError(f'{where}: {op} ... until SOURCE PATTERN [every S] [within S]')
+    return args[:k], {'source': _source(rest[0]), 'pattern': _regex(rest[1], where), 'every': every,
+                      'within': within, 'redo': int(redo)}
+
+
 def _regex(p, where):
     try:
         return re.compile(p)
@@ -484,9 +489,9 @@ def load(name, gadgets=None):
 
 
 def scenario_names(live=False):
-    """The default set: under /REPLAY every scenario but the station ones (sb_*: they need a live server); with
-    --live only those."""
-    have = sorted(f[:-4] for f in os.listdir(SCN) if f.endswith('.scn') and not f.startswith('_')
+    """The default set: under /REPLAY every scenario but the live ones; with --live the station ones (sb_*).
+    The space ones (sp_*: live, another character in space, avatar 7) run only when named."""
+    have = sorted(f[:-4] for f in os.listdir(SCN) if f.endswith('.scn') and not f.startswith(('_', 'sp_'))
                   and f.startswith('sb_') == bool(live))
     return ([n for n in ORDER if n in have] + [n for n in have if n not in ORDER and n not in LAST]
             + [n for n in LAST if n in have])
@@ -498,6 +503,11 @@ _MSG_TS_RE = re.compile(r'^(?:\d\d:\d\d:\d\d\.\d+|\d+\.\d+)\s+')
 _ASSERT_RE = re.compile(r'^(?:ERROR\s+(?:\S*,)?)?(?:G_ASSERT|FAIL_IF):\s')
 _POLL_CHUNK = 1 << 20
 _ASSERT_CAP = 2000
+# d3d8shot.log's lines for the stub log's own opens (stubs/stub_log.cpp opens it once a line): not the game's
+# loading, so they are not 'proxy' lines. Our client tees every assert there and retail has no stub log: in space
+# effect_description.cpp asserts hundreds of times a second on both clients (the data), and these opens kept
+# 'wait-quiet proxy' from ever seeing quiet on ours (sp_combat, 2026-11-21; README, Quirks)
+_OWN_OPEN = re.compile(r'^CreateFileA\("[^"]*stubs\.log"', re.I)
 
 
 def _assert_key(src, text):
@@ -632,14 +642,18 @@ class Events:
                         text = self.part[src] + data.decode('latin1')
                         *done, self.part[src] = text.split('\n')
                         now = self.clock() - self.t0
+                        kept = False
                         for l in done:
                             l = l.rstrip('\r')
                             if src == 'proxy':      # d3d8shot.log: '%10lu ' (GetTickCount) before each line
                                 l = re.sub(r'^\s*\d+ ', '', l, count=1)
+                                if _OWN_OPEN.match(l):
+                                    continue
                             elif src == 'antprox':
                                 l = name_live(l)
                             self._emit(now, src, l)
-                        if done:
+                            kept = True
+                        if kept:
                             self.last[src] = now
                         if len(data) < _POLL_CHUNK:
                             break
@@ -1227,6 +1241,8 @@ def _desc(st):
         return ','.join(f'{v:g}' for v in st['to']) + f' tol {st["tol"]:g}'
     if st['op'] == 'hold':
         return f'0x{st["vk"]:X} until {st["source"]} {st["pattern"].pattern!r}'
+    if st['op'] == 'key' and st.get('until'):
+        return f'0x{st["vk"]:X} until {st["until"]["source"]} {st["until"]["pattern"].pattern!r}'
     return str(st.get('vk', st.get('text', st.get('seconds', st.get('shot', '')))))
 
 

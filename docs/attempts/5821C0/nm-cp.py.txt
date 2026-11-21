@@ -1,0 +1,92 @@
+HYPOTHESIS = 'NM cp1: 0x584000 through auxdata.h\'s one-layer Unknown_Find_Set_Field (the depth at which 0x5821C0\'s engine copy cuts the find, not the set-field layer), with 0x5806E0\'s dead Unknown16C.Peek() counts re-swept after its case 10 / 11 (a) and case 12 (b) engine tests (file-check)'
+FILE = 'app/client/ui_cpit.cpp'
+SYMBOL = 'UICpitClass::Unknown_5821C0'
+ADDRESS = 0x5821C0
+
+F0 = '\tDeltaTemplateClass<float> *t = Unknown_Cpit_Find_Set_Field<DeltaTemplateClass<float> >((DeltaCompoundClass *)avatar->AuxData, name);\n\tbool ok'
+F1 = '\tDeltaTemplateClass<float> *t = Unknown_Find_Set_Field<DeltaTemplateClass<float> >((DeltaCompoundClass *)avatar->AuxData, name);\n\tbool ok'
+P = ' Unknown16C.Peek();'
+A0 = '\t\t\tif (!Unknown_584000(true)) break;' + P + '\n\t\t\tswitch (Unknown144) {\n\t\t\t\tcase 3:\n\t\t\t\t\tif (key == 11) break;'
+B0 = '\t\t\tif (!Unknown_584000(true)) break;' + P * 7 + '\n'
+
+
+def form(a, b, tern=True):
+    f = []
+    if tern:
+        f.append((F0, F1))
+    f.append((A0, A0.replace('break;' + P + '\n', 'break;' + P * a + '\n', 1)))
+    f.append((B0, '\t\t\tif (!Unknown_584000(true)) break;' + P * b + '\n'))
+    return f
+
+
+FORMS = {'tern_1_7': [(F0, F1)]}
+for a in (0, 1, 2, 3):
+    for b in range(0, 11):
+        if (a, b) != (1, 7):
+            FORMS['t_%d_%d' % (a, b)] = form(a, b)
+HYPOTHESIS = 'NM cp2: one layer fewer in 0x584000 (ternary Unknown_Find_Set_Field, or Unknown_Cpit_Find_Set_Field2 direct) so 0x5821C0\'s engine copy cuts the find as the client, with 0x5806E0\'s four sites given the layer back through a forwarder, its dead Peek counts re-swept (file-check)'
+FILE = 'app/client/ui_cpit.cpp'
+SYMBOL = 'UICpitClass::Unknown_5821C0'
+ADDRESS = 0x5821C0
+
+F0 = '\tDeltaTemplateClass<float> *t = Unknown_Cpit_Find_Set_Field<DeltaTemplateClass<float> >((DeltaCompoundClass *)avatar->AuxData, name);\n\tbool ok'
+TERN = (F0, F0.replace('Unknown_Cpit_Find_Set_Field<', 'Unknown_Find_Set_Field<'))
+DIR2 = (F0, F0.replace('Unknown_Cpit_Find_Set_Field<', 'Unknown_Cpit_Find_Set_Field2<'))
+H = 'template<class C> inline C *Unknown_Cpit_Find_Set_Field2(DeltaCompoundClass *root, const NameClass &name)'
+FWD = (H, 'inline bool Unknown_Cpit_Engine0(UICpitClass *cpit) { return(cpit->Unknown_584000(true)); } ' + H)
+P = ' Unknown16C.Peek();'
+S8 = '\t\t\tif (lock_speed) break;\n\t\t\tif (!Unknown_584000(true)) break;\n\t\t\t((ClientClass *)Client)->Send_Packet(&MovePacketClass(Unknown_Avatar_ID(Client), 0));'
+S9 = '\t\t\tif (lock_speed) break;\n\t\t\tif (!Unknown_584000(true)) break;\n\t\t\t((ClientClass *)Client)->Send_Packet(&MovePacketClass(Unknown_Avatar_ID(Client), 1));'
+A0 = '\t\t\tif (!Unknown_584000(true)) break;' + P + '\n\t\t\tswitch (Unknown144) {\n\t\t\t\tcase 3:\n\t\t\t\t\tif (key == 11) break;'
+B0 = '\t\t\tif (!Unknown_584000(true)) break;' + P * 7 + '\n'
+E = 'Unknown_Cpit_Engine0(this)'
+
+
+def form(layer, a, b):
+    f = [layer, FWD]
+    f.append((S8, S8.replace('Unknown_584000(true)', E)))
+    f.append((S9, S9.replace('Unknown_584000(true)', E)))
+    f.append((A0, A0.replace('if (!Unknown_584000(true)) break;' + P + '\n', 'if (!' + E + ') break;' + P * a + '\n', 1)))
+    f.append((B0, '\t\t\tif (!' + E + ') break;' + P * b + '\n'))
+    return f
+
+
+FORMS = {}
+for lk, layer in (('tern', TERN), ('dir2', DIR2)):
+    for a in (0, 1, 2):
+        for b in (0, 1, 3, 5, 7, 9):
+            FORMS['%s_%d_%d' % (lk, a, b)] = form(layer, a, b)
+FORMS['dir2_only'] = [DIR2]
+HYPOTHESIS = 'NM cp3: 0x5821C0\'s engine test as its own inline copy of 0x584000\'s body (flattened, so 0x5806E0\'s Unknown_584000 keeps its layering), the find through each helper depth (Cpit two-layer, auxdata ternary, Find_Set_Field2 direct, Find_Field + test)'
+FILE = 'app/client/ui_cpit.cpp'
+SYMBOL = 'UICpitClass::Unknown_5821C0'
+ADDRESS = 0x5821C0
+
+FW = 'inline bool Unknown_Cpit_Engine(UICpitClass *cpit) { return(cpit->Unknown_584000(true)); }'
+
+
+def body(find):
+    return ('inline bool Unknown_Cpit_Engine(UICpitClass *cpit) { SClient *sclient = (SClient *)cpit->Client; ClientObjectClass *avatar = sclient->Get_Avatar(); '
+            'if (!avatar) return(false); if (!avatar->AuxData) return(false); NameClass name("MaxSpeed"); '
+            'DeltaTemplateClass<float> *t = ' + find + '; '
+            'bool ok = (t && t->Value != 0.0f); if (!ok) { sclient->Unknown_74D990(17, "Engine unavailable. Please wait.", 0); return(false); } return(true); }')
+
+
+R = '(DeltaCompoundClass *)avatar->AuxData, name)'
+FORMS = {
+    'cpit2': [(FW, body('Unknown_Cpit_Find_Set_Field<DeltaTemplateClass<float> >(' + R))],
+    'tern': [(FW, body('Unknown_Find_Set_Field<DeltaTemplateClass<float> >(' + R))],
+    'fsf2': [(FW, body('Unknown_Cpit_Find_Set_Field2<DeltaTemplateClass<float> >(' + R))],
+    'find_test': [(FW, body('Unknown_Find_Field<DeltaTemplateClass<float> >(' + R).replace('bool ok = (t && t->Value', 'if (t && !t->Unknown70) t = NULL; bool ok = (t && t->Value'))],
+}
+HYPOTHESIS = 'NM cp4: no forwarder (0x584000 at the same depth as in 0x5806E0) and dead reads right after the engine line swept 0-16 (the engine site is the earliest: its deepest nested expansions, the Cast then the find, go out first by the tie rule)'
+FILE = 'app/client/ui_cpit.cpp'
+SYMBOL = 'UICpitClass::Unknown_5821C0'
+ADDRESS = 0x5821C0
+
+E = '\t\t\tbool engine = Unknown_Cpit_Engine(this);\n'
+FORMS = {}
+for n in range(0, 17):
+    FORMS['cs%02d' % n] = [(E, '\t\t\tbool engine = Unknown_584000(true);' + ' aux->Children.size();' * n + '\n')]
+for n in (2, 4, 6, 8, 10, 12, 14, 16):
+    FORMS['pk%02d' % n] = [(E, '\t\t\tbool engine = Unknown_584000(true);' + ' Unknown16C.Peek();' * n + '\n')]

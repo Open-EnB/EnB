@@ -282,7 +282,7 @@ static inline RegistrationUnknown1ACClass *Get_Unknown1AC()  // NAME 1 [Get_Unkn
 
 
 
-// @0x5EF0B0 NOT EXACT: register (attempts.csv: the mode switch as the client lays it out (cmp 3 / je to the end block), the tm stores mday / mon / year, six dead UnknownD8 size() reads (D272); left: the init list's Layer / mode loads scheduled apart, r10)
+// @0x5EF0B0 (the mode switch as the client lays it out (cmp 3 / je to the end block); the flags +0xC4..+0xCA a member struct with its own constructor (the client loads +0xD0 / +0xD4 / +0xD8's values before the +0xBC store); two dead UnknownD8 reads, D272)
 RegistrationInterface::RegistrationInterface(UIViewClass *view, LayerClass *layer, int mode) :
 	InterfaceClass(view, (int)layer->Peek_Scene()),
 	Unknown98(""),
@@ -290,13 +290,13 @@ RegistrationInterface::RegistrationInterface(UIViewClass *view, LayerClass *laye
 	UnknownA0(""),
 	UnknownBC(NULL),
 	UnknownC0(NULL),
-	UnknownC4(false),
-	UnknownC5(false),
-	UnknownC6(false),
-	UnknownC7(false),
-	UnknownC8(false),
-	UnknownC9(false),
-	UnknownCA(false),
+	Flags(),
+
+
+
+
+
+
 	UnknownCC(0),
 	Layer(layer),
 	UnknownD4(mode),
@@ -336,7 +336,7 @@ RegistrationInterface::RegistrationInterface(UIViewClass *view, LayerClass *laye
 	// +0x560 / +0x564 are Unknown478.UnknownE8 / UnknownEC: its constructor zeroes them
 
 {
-	UnknownD8.size(); UnknownD8.size(); UnknownD8.size(); UnknownD8.size(); UnknownD8.size(); UnknownD8.size(); switch (mode) {  // D272: dead reads
+	UnknownD8.size(); UnknownD8.size(); switch (mode) {  // D272: dead reads
 		case 3: UnknownD4 = 0x17;
 		Unknown11D = true;
 		Unknown1C8 = false;
@@ -465,7 +465,7 @@ void RegistrationInterface::Unknown_5F1940()
 // @0x5F1A10 (the cases in the jump table's layout order, each through the file's own members as the client inlines them; key 0x30 reads 0xBE5BC4 in the case)
 bool RegistrationInterface::Unknown_68(int key)
 {
-	if (UnknownC5 || !Active) {
+	if (Flags.UnknownC5 || !Active) {
 		return false;
 	}
 	switch (key) {
@@ -527,8 +527,8 @@ bool RegistrationInterface::Unknown_68(int key)
 		case 0x2D:
 			if (Unknown11B || Unknown11D) {
 				Unknown_5F86F0();
-			} else if (UnknownD4 != 0x16 && UnknownD4 != 0x15 && !UnknownC6 && !UnknownC7) {
-				UnknownC5 = false;
+			} else if (UnknownD4 != 0x16 && UnknownD4 != 0x15 && !Flags.UnknownC6 && !Flags.UnknownC7) {
+				Flags.UnknownC5 = false;
 				Unknown119 = true;
 				UnknownBC->Get_Unknown34()->Unknown_588A70("YES_NO", 0, "You will not be able to play\nEarth & Beyond\nuntil you complete the\nregistration process.\n\nAre you sure you want to quit the registration process?", 0x140, 0, 0);
 				return true;
@@ -660,16 +660,16 @@ void RegistrationInterface::Unknown_5F2280()
 			gadget->Changed = true;
 		}
 	}
-	if (UnknownBC->Get_Unknown198()->Is_Unknown220() && UnknownC6) {
-		UnknownC6 = false;
-		UnknownC5 = false;
+	if (UnknownBC->Get_Unknown198()->Is_Unknown220() && Flags.UnknownC6) {
+		Flags.UnknownC6 = false;
+		Flags.UnknownC5 = false;
 		Unknown_5F2990(true);
 		Unknown_5F2A80(true, NULL);
 	}
-	if (UnknownCA && UnknownBC->Get_Unknown198()->Unknown_7863E0()) {
-		UnknownCA = false;
-		if (UnknownC7) {
-			UnknownC7 = false;
+	if (Flags.UnknownCA && UnknownBC->Get_Unknown198()->Unknown_7863E0()) {
+		Flags.UnknownCA = false;
+		if (Flags.UnknownC7) {
+			Flags.UnknownC7 = false;
 			UnknownC0->Go_Next_Step();
 		}
 	}
@@ -709,12 +709,12 @@ void RegistrationInterface::Unknown_5F2280()
 		}
 	}
 	bool shown = UnknownBC->Get_Unknown34()->Is_Active();
-	if (UnknownBC->Get_Unknown34()->Is_Active() && !UnknownC5) {
-		UnknownC5 = true;
+	if (UnknownBC->Get_Unknown34()->Is_Active() && !Flags.UnknownC5) {
+		Flags.UnknownC5 = true;
 		Unknown_5F2990(false);
 		Unknown_5F2A80(false, NULL);
-	} else if (!shown && UnknownC5) {
-		UnknownC5 = false;
+	} else if (!shown && Flags.UnknownC5) {
+		Flags.UnknownC5 = false;
 		Unknown_5F2990(true);
 		for (std::map<int, RegistrationComboStruct>::iterator combo = Unknown108.begin(); combo != Unknown108.end(); ++combo) {
 			if ((*combo).second.Combo) {
@@ -1743,7 +1743,7 @@ void RegistrationInterface::Unknown_5F3770(int state)
 			}
 			break;
 		case 0xB:
-			Unknown_5F2F90(0x2A, "COMBO_OPTION", 0x14, std::_cpp_min(5, (int)Unknown578.size()));
+			Unknown_5F2F90(0x2A, "COMBO_OPTION", 0x14, min(5, (int)Unknown578.size()));
 			Unknown_5F9EB0();
 			Unknown108[0x2A].Combo->Select(Unknown388);
 			Unknown38C = Unknown598[Unknown388];
@@ -1757,7 +1757,7 @@ void RegistrationInterface::Unknown_5F3770(int state)
 			}
 			break;
 		case 0xE:
-			Unknown_5F2F90(0x29, "COMBO_OPTION", 0x2D, std::_cpp_min(5, (int)Unknown578.size()));
+			Unknown_5F2F90(0x29, "COMBO_OPTION", 0x2D, min(5, (int)Unknown578.size()));
 			Unknown_5F9C90();
 			Unknown108[0x29].Combo->Select(Unknown384);
 			Unknown270 = Unknown578[Unknown384];
@@ -1906,8 +1906,8 @@ void RegistrationInterface::Unknown_5F86F0()
 {
 	Unknown_5F2990(false);
 	Unknown_5F2A80(false, NULL);
-	UnknownCA = true;
-	UnknownC7 = true;
+	Flags.UnknownCA = true;
+	Flags.UnknownC7 = true;
 	UnknownBC->Get_Unknown198()->Unknown_784E00();
 	UnknownBC->Unknown_67A8D0(true);
 	UnknownC0->Go_Next_Step();
@@ -2077,7 +2077,7 @@ void RegistrationInterface::Unknown_5F8FD0()
 	}
 }
 
-// NOT EXACT: shape (explain.py: 14 calls in ours, 13 in the client; the value_type temporaries' stack slots differ)
+static inline int Selected_Year(UIComboBoxClass *box) { return((box->Selected < box->Items.size()) ? atoi(box->Items[box->Selected].c_str()) : 0); }	// (inline: 0x5F9460, a layer the budget needs)  // NAME 2: what it returns
 // @0x5F9460
 void RegistrationInterface::Unknown_5F9460()
 {
@@ -2085,14 +2085,14 @@ void RegistrationInterface::Unknown_5F9460()
 	int day = Unknown108[0x15].Combo->Selected;
 	int days = DaysInMonth[month];
 	UIComboBoxClass *years = Unknown108[0x16].Combo;
-	int year = (years->Selected < years->Items.size()) ? atoi(years->Items[years->Selected].c_str()) : 0;
+	int year = Selected_Year(years); years->Items.size();	// a dead read: the budget that leaves the first two operator[]'s pair ctor out of line
 	if (month == 1 && Unknown_5F8EA0(2, 29, year)) {
 		days = 29;
 	}
 	UIComboBoxClass *days_box = Unknown108[0x15].Combo;
 	days_box->Clear_Items();
+	char text[5];
 	for (int i = 1; i <= days; i++) {
-		char text[5];
 		_snprintf(text, sizeof(text), "%02d", i);
 		days_box->Add_Item(text);
 	}
@@ -2967,9 +2967,9 @@ void RegistrationInterface::Unknown_5F0100()
 
 
 
-
 // NOT EXACT: inline-budget (functional; group loops through 0x5F33E0, pushes through 0x5F87D0, back-outs through 0x5F8560, server boxes through 0x5FB890
-// as the client inlines them; cases 0x11 / 0x14 / 0x12 written out (the client cross-jumps them into 0x14's copy); left: the client's nested map::insert cuts)
+// as the client inlines them; cases 0x11 / 0x14 / 0x12 written out (the client cross-jumps them into 0x14's copy); the combo boxes' Selected through UIComboBoxClass::Get_Selected
+// (0x5FFFE0, out of line at cases 0xB / 0xE, 0x5FEF96 / 0x5FF0E3) there and at the two type picks (best of the site subsets); left: the client's nested map::insert cuts)
 // @0x5FBD30
 void RegistrationInterface::Unknown_5FBD30()
 {
@@ -3118,7 +3118,7 @@ void RegistrationInterface::Unknown_5FBD30()
 			Unknown1CB = false;
 			Unknown1D5 = false;
 			Unknown1CC = false;
-			StatusIndex = 1; Unknown108.size(); Unknown108.size(); Unknown108.size();   // D272: dead reads (swept 1-8, here and at six other places)
+			StatusIndex = 1; Unknown108.size();   // D272: dead read (swept 0-2 x case 6's 0-7 with 0x603A60's age variable; four + one best)
 			Unknown_5F8DB0(false);
 			Unknown_5F3770(0x16);
 			Unknown_5FAE90(this, "Validating login information...");
@@ -3402,7 +3402,7 @@ bad_login:
 			UIComboBoxClass *combo = Unknown108[0x16].Combo;
 			int year = (unsigned)combo->Selected < combo->Items.size() ? atoi(combo->Items[combo->Selected].c_str()) : 0;
 			std::string country(Unknown108[0x19].Combo->Get_Selected_Text());
-			int type = Unknown5A8[Unknown108[0x22].Combo->Selected].Unknown00;
+			int type = Unknown5A8[Unknown108[0x22].Combo->Get_Selected()].Unknown00;
 			if (strlen(first_name) == 0) {
 				UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "Please enter a valid First Name.", 0x140, 0, 0);
 			} else if (strlen(last_name) == 0) {
@@ -3491,7 +3491,7 @@ bad_login:
 			UIComboBoxClass *combo = Unknown108[0x16].Combo;
 			int year = (unsigned)combo->Selected < combo->Items.size() ? atoi(combo->Items[combo->Selected].c_str()) : 0;
 			std::string country(Unknown108[0x19].Combo->Get_Selected_Text());
-			int type = Unknown5A8[Unknown108[0x22].Combo->Selected].Unknown00;
+			int type = Unknown5A8[Unknown108[0x22].Combo->Get_Selected()].Unknown00;
 			if (strlen(first_name) == 0) {
 				UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "Please enter a valid First Name.", 0x140, 0, 0);
 			} else if (strlen(last_name) == 0) {
@@ -3612,7 +3612,7 @@ bad_login:
 			return;
 		case 0xB:
 		{
-			Unknown388 = Unknown108[0x2A].Combo->Selected;
+			Unknown388 = Unknown108[0x2A].Combo->Get_Selected();
 			Unknown38C = Unknown598[Unknown388];
 			switch (Unknown38C) {
 				case 2:
@@ -3640,7 +3640,7 @@ bad_login:
 			break;
 		}
 		case 0xE:
-			Unknown384 = Unknown108[0x29].Combo->Selected;
+			Unknown384 = Unknown108[0x29].Combo->Get_Selected();
 			Unknown270 = Unknown578[Unknown384];
 			Unknown_5F87D0();
 			Unknown_603B20();
@@ -3667,8 +3667,8 @@ bad_login:
 		case 0x13:
 			Unknown_5F2990(false);
 			Unknown_5F2A80(false, NULL);
-			UnknownCA = true;
-			UnknownC7 = true;
+			Flags.UnknownCA = true;
+			Flags.UnknownC7 = true;
 			UnknownBC->Get_Unknown198()->Unknown_784E00();
 			UnknownBC->Unknown_67A8D0(true);
 			break;
@@ -3678,8 +3678,8 @@ bad_login:
 static const char *ProductBeta = "EB-BETA";  // NAME 1 [ProductBeta]: client .data 0xB85EE4 (0x600000 compares the bundle ids with it)
 static const char *RegistrationGameId = "2184";  // NAME 1 [RegistrationGameId]: client .data 0xB85EF0 (0x600000: 0x7D7E10's third argument, atoi'd against the game features' ids)
 // NOT EXACT: inline-budget (functional; the server boxes through 0x5FB890 and the back-outs through 0x5F8560 as the client inlines them, one per
-// branch; its cases in jump table 0x602AE4's layout order, case 3's !+0x1CE branch first, the US picks as if / else (the client's two compares 0x6022BD / 0x602362,
-// the other sites cross-jumped into them); the client's frame 0xB18 with five dead reads in case 0x10)
+// branch; its cases in jump table 0x602AE4's layout order, case 3's !+0x1CE branch first, the US picks through the file member 0x603B20, inlined (its this a
+// variable: the client's add esi, -0x84 at 0x602341; two compare copies 0x6022BD / 0x602362, the other sites cross-jumped); frame 0xB18, three dead reads in case 0x10)
 // @0x600000
 void RegistrationInterface::Unknown_5F00C0()
 {
@@ -3789,7 +3789,7 @@ void RegistrationInterface::Unknown_5F00C0()
 			} else if (Unknown1CF) {
 				Unknown_5F3770(0x13);
 			} else {
-				if (Unknown3C4.Unknown80 == "US") { Unknown_5F3770(0xC); } else { Unknown_5F3770(0xD); }
+				Unknown_603B20();
 			}
 			return;
 		case 4:
@@ -3897,7 +3897,7 @@ void RegistrationInterface::Unknown_5F00C0()
 				} else if (!Unknown1D1) {
 					Unknown_5F3770(0xA);
 				} else {
-					if (Unknown3C4.Unknown80 == "US") { Unknown_5F3770(0xC); } else { Unknown_5F3770(0xD); }
+					Unknown_603B20();
 				}
 				return;
 			}
@@ -3951,7 +3951,7 @@ void RegistrationInterface::Unknown_5F00C0()
 						return;
 					}
 					Unknown_5FB890();
-					if (Unknown3C4.Unknown80 == "US") { Unknown_5F3770(0xC); } else { Unknown_5F3770(0xD); }
+					Unknown_603B20();
 					return;
 				}
 				if (Unknown3C4.Unknown80.size() == 0) {
@@ -4008,7 +4008,7 @@ void RegistrationInterface::Unknown_5F00C0()
 						return;
 					}
 					Unknown_5FB890();
-					if (Unknown3C4.Unknown80 == "US") { Unknown_5F3770(0xC); } else { Unknown_5F3770(0xD); }
+					Unknown_603B20();
 					return;
 				case 10:
 					Unknown1D4 = false;
@@ -4027,7 +4027,7 @@ void RegistrationInterface::Unknown_5F00C0()
 					UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, Unknown390.Unknown14.c_str(), 0x140, 0, 0);
 					break;
 			}
-			if (Unknown3C4.Unknown80 == "US") { Unknown_5F3770(0xC); } else { Unknown_5F3770(0xD); }
+			Unknown_603B20();
 			return;
 		case 10:
 			switch (Unknown390.Unknown10) {
@@ -4101,12 +4101,12 @@ void RegistrationInterface::Unknown_5F00C0()
 			return;
 		case 0x10:
 			if (Unknown390.Unknown10 == 0) {
-				Unknown5A8 = Unknown1AC->Unknown_7D4530(); UnknownD8.size(); UnknownD8.size();   // D272: dead reads (swept 0-3 here x 0-6 at the end and one at each case start)
+				Unknown5A8 = Unknown1AC->Unknown_7D4530(); UnknownD8.size(); UnknownD8.size();   // D272: dead reads (swept 0-4 here x 0-5 at the end x 0-2 at case 5's back-out, vector / map kinds; one more at any line: worse)
 				Unknown_5F3770(0xB);
 				return;
 			}
 			UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "An Internal Error has occured.  Please try again.", 0x140, 0, 0);
-			Unknown_5F8560(); UnknownD8.size(); UnknownD8.size(); UnknownD8.size();   // D272: dead reads (swept 0-7, with case 5's back-out 0-7)
+			Unknown_5F8560(); UnknownD8.size();   // D272: dead reads (swept 0-7, with case 5's back-out 0-7)
 			return;
 	}
 }
@@ -4356,15 +4356,15 @@ int RegistrationInterface::Unknown_6039E0(const char *number)
 	return(0);
 }
 
-// @0x603A60 NOT EXACT: shape (attempts.csv: the gmtime copy's registers popped before the compare)
+// @0x603A60 (one age set in two branches and one bool compare: 0x5FBD30's inlined copies join at cmp eax, 0x12 / 0xD)
 bool RegistrationInterface::Unknown_603A60(int month, int day, int year, int age)
 {
 	time_t now = time(NULL);
 	struct tm today = *gmtime(&now);
-	if (today.tm_mon < month - 1 || (today.tm_mon == month - 1 && today.tm_mday < day)) {
-		return((today.tm_year - year) + 1899 >= age);
-	}
-	return((today.tm_year - year) + 1900 >= age);
+	int years;
+	if (today.tm_mon < month - 1 || (today.tm_mon == month - 1 && today.tm_mday < day)) { years = (today.tm_year - year) + 1899; } else { years = (today.tm_year - year) + 1900; }
+	bool ok = years >= age;
+	return(ok);
 }
 
 // @0x603B20
@@ -4420,8 +4420,8 @@ void RegistrationInterface::Unknown_603B20()
 **	  line 2342). Unknown108[id] is the map's operator[]: its insert inlined with begin, --, _Insert and pair's
 **	  constructor out of line, as the client has them. The status table ends at 0xB86048, where the payment type
 **	  names and descriptions follow (two 7-entry tables).
-**	- 0x5F9460 (functional): the day box refilled for the month (DaysInMonth 0xAF6F58; 29 when 0x5F8EA0 accepts
-**	  29 February of the year box's year). 0x5FB0C0 (functional): the card number field (map +0xF8, id 0x2B)
+**	- 0x5F9460 (byte-exact): the day box refilled for the month (DaysInMonth 0xAF6F58; 29 when 0x5F8EA0 accepts
+**	  29 February of the year box's year; the year through an inline layer plus one dead size(): the budget). 0x5FB0C0 (functional): the card number field (map +0xF8, id 0x2B)
 **	  regrouped in fours with '-', at most 19 characters, in states 0x11 / 0x14.
 **
 **	Builder reg2, 2026-11-04:

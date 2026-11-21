@@ -303,7 +303,7 @@ bool ChatGadgetClass::Unknown_2C(KernelEventClass *event, float x, float y, unsi
 
 
 
-// 0x65CCD0  // NOT EXACT: functional (D64)
+// 0x65CCD0  // NOT EXACT: registers (masked 85, attempts.py show 0x65CCD0): client.h's inline Get_Unknown1138() / Get_Avatar_ID() at the request packets, the lookups, the emote packets and case 3 / 2's chat packets (the client loads AvatarID before the Unknown_7817E0 call and keeps chatpanel in [esp+0x18] only), the shared delete text after the store block (client 0x65DA81), dead ChatPanel.Peek() reads (D272) 3 after case 6-9 and 1 after case 4's Unknown24; left: the client keeps -1 in ebx (Get_String's push, the EH resets) and text in edi, case 4 / 5's string temporaries one slot apart
 void ChatGadgetClass::Unknown_65CCD0()
 {
 	SClient *sclient = (SClient *)Client->As_Space_Client();
@@ -315,9 +315,9 @@ void ChatGadgetClass::Unknown_65CCD0()
 	}
 	char *text = Edit->Get_String();
 	if (text != NULL) {
-		if (*text == 0) {
-			del: delete text;
-		} else {
+		if (*text != 0) {
+
+
 			if (*text != '/' || !Client->Unknown_34(text)) {
 				switch (channel) {
 					case 6:
@@ -325,16 +325,16 @@ void ChatGadgetClass::Unknown_65CCD0()
 					case 8:
 					case 9:
 						{
-							CharacterViewAvatarClass *avatar = (CharacterViewAvatarClass *)sclient->Unknown_74C840(Client->AvatarID);
+							CharacterViewAvatarClass *avatar = (CharacterViewAvatarClass *)sclient->Unknown_74C840(Client->Get_Avatar_ID());
 							if (avatar != NULL) {
 								avatar->Unknown_781760(text);
-								ClientChatRequestPacketClass packet(1, Client->Unknown1138);
+								ClientChatRequestPacketClass packet(1, Client->Get_Unknown1138());
 								packet.Unknown14 = std::string(chatpanel->Unknown_565BA0());
 								packet.Unknown_878D90((Unknown_ChatStreamClass *)avatar->Unknown_7817E0());
 								packet.Unknown34 = std::string(text);
 								Client->Send_Packet(&packet);
 							} else {
-								ClientChatRequestPacketClass packet(1, Client->Unknown1138);
+								ClientChatRequestPacketClass packet(1, Client->Get_Unknown1138());
 								packet.Unknown14 = std::string(chatpanel->Unknown_565BA0());
 								packet.Unknown34 = std::string(text);
 								Client->Send_Packet(&packet);
@@ -342,15 +342,15 @@ void ChatGadgetClass::Unknown_65CCD0()
 							if (*text != '/') {
 								((SClient *)Client->As_Space_Client())->Print(0x10, "To %s: %s", chatpanel->Unknown_565BA0(), text);
 							}
-						}
+						} sclient->ChatPanel.Peek(); sclient->ChatPanel.Peek(); sclient->ChatPanel.Peek();
 						break;
 					case 1:
 						if (sclient->Unknown_744B60()) {
-							CharacterViewAvatarClass *avatar = sclient->Unknown_74C840(Client->AvatarID);
+							CharacterViewAvatarClass *avatar = sclient->Unknown_74C840(Client->Get_Avatar_ID());
 							if (avatar != NULL) {
 								((CharacterViewAvatarClass *)avatar)->Unknown_781760(text);
 								
-								Client->Send_Packet(&AvatarEmotePacketClass(Client->AvatarID, (Unknown_ChatStreamClass *)avatar->Unknown_7817E0(), 1, NULL));
+								Client->Send_Packet(&AvatarEmotePacketClass(Client->Get_Avatar_ID(), (Unknown_ChatStreamClass *)avatar->Unknown_7817E0(), 1, NULL));
 								if (avatar->Unknown_7817E0()->Unknown_4C4940()) {
 									char line[512] = "";
 									avatar->Unknown_7817E0()->Unknown_4C48C0(line);
@@ -365,11 +365,11 @@ void ChatGadgetClass::Unknown_65CCD0()
 						break;
 					case 0:
 						if (sclient->Unknown_744B60()) {
-							CharacterViewAvatarClass *avatar = sclient->Unknown_74C840(Client->AvatarID);
+							CharacterViewAvatarClass *avatar = sclient->Unknown_74C840(Client->Get_Avatar_ID());
 							if (avatar != NULL) {
 								((CharacterViewAvatarClass *)avatar)->Unknown_781760(text);
 								
-								Client->Send_Packet(&AvatarEmotePacketClass(Client->AvatarID, (Unknown_ChatStreamClass *)avatar->Unknown_7817E0(), 1, NULL));
+								Client->Send_Packet(&AvatarEmotePacketClass(Client->Get_Avatar_ID(), (Unknown_ChatStreamClass *)avatar->Unknown_7817E0(), 1, NULL));
 								if (avatar->Unknown_7817E0()->Unknown_4C4940()) {
 									char line[512] = "";
 									avatar->Unknown_7817E0()->Unknown_4C48C0(line);
@@ -386,8 +386,8 @@ void ChatGadgetClass::Unknown_65CCD0()
 						if (!strcmp(chatpanel->Unknown_5682C0().c_str(), "")) {
 							sclient->Unknown_74D990(0x11, "Not subscribed to any channels.", 0);
 						} else {
-							ClientChatRequestPacketClass packet(0, Client->Unknown1138);
-							packet.Unknown24 = chatpanel->Unknown_5682C0();
+							ClientChatRequestPacketClass packet(0, Client->Get_Unknown1138());
+							packet.Unknown24 = chatpanel->Unknown_5682C0(); sclient->ChatPanel.Peek();
 							packet.Unknown34 = std::string(text);
 							Client->Send_Packet(&packet);
 						}
@@ -396,7 +396,7 @@ void ChatGadgetClass::Unknown_65CCD0()
 						if (!strcmp(chatpanel->Unknown_568440().c_str(), "")) {
 							sclient->Unknown_74D990(0x11, "Not monitoring any public channels.", 0);
 						} else {
-							ClientChatRequestPacketClass packet(0, Client->Unknown1138);
+							ClientChatRequestPacketClass packet(0, Client->Get_Unknown1138());
 							packet.Unknown24 = chatpanel->Unknown_568440();
 							packet.Unknown34 = std::string(text);
 							Client->Send_Packet(&packet);
@@ -405,7 +405,7 @@ void ChatGadgetClass::Unknown_65CCD0()
 					case 3:
 						if (((SClient *)Client->As_Space_Client())->Unknown_74D570()) {
 							
-							Client->Send_Packet(&ClientChatPacketClass(Client->AvatarID, text, 1, NULL));
+							Client->Send_Packet(&ClientChatPacketClass(Client->Get_Avatar_ID(), text, 1, NULL));
 						} else {
 							((SClient *)Client->As_Space_Client())->Unknown_74D990(0x11, "Not in a group.", 0);
 						}
@@ -413,7 +413,7 @@ void ChatGadgetClass::Unknown_65CCD0()
 					case 2:
 						if (((SClient *)Client->As_Space_Client())->Unknown_728300()) {
 							
-							Client->Send_Packet(&ClientChatPacketClass(Client->AvatarID, text, 2, NULL));
+							Client->Send_Packet(&ClientChatPacketClass(Client->Get_Avatar_ID(), text, 2, NULL));
 						} else {
 							((SClient *)Client->As_Space_Client())->Unknown_74D990(0x11, "Not in a guild.", 0);
 						}
@@ -429,12 +429,12 @@ void ChatGadgetClass::Unknown_65CCD0()
 				if (++HistoryNext == 10) {
 					HistoryNext = 0;
 				}
-			} else {
-				goto del;
+				goto done;
 			}
 		}
+		delete text;
 	}
-	Unknown7C = false;
+	done: Unknown7C = false;
 	Unknown_74(false);
 	Edit->Clear();
 }

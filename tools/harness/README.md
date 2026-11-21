@@ -708,6 +708,22 @@ the last name. Live antprox logs opcode numbers; e2e appends the names (`... = s
   changes). A scenario is written from it by hand: poses become `walk-to` / `face`, clicks keep their
   coordinates, the packets become the events to wait for.
 - **State:** GM chat commands put back what a scenario spends (`/createcredits N`, `/createitem ID COUNT`).
+- **Space (`sp_*`, 2026-11-20):** a second character, Elanor (avatar 7, slot 1: Terran Enforcer, 50/50/50, hull
+  upgrade 6, every Enforcer skill at its cap; set in the DB by hand, `.work/elanor_max.sql`), who logs in in space in
+  Jupiter more than 5,000 units from Jove's Fury, so `/createmob ID` (GM: `mob_base.mob_id`; the server uses the
+  mob's own level and refuses within 5,000 of a station) works where she appears. `_login_space.scn` is
+  `_login_live_account.scn` (the account part of `_login_live`, split out) and `select.slot1`. The `sp_*` scenarios
+  are in neither default set: name them, and pass the avatar to the snapshot, `e2e.py --live --retail
+  --db-snapshot 7 --instance space run sp_combat`. `sp_combat` (from `.work/e2e/223904-record`): `/createmob 1993`
+  (Renegade Progen Tribuni, level 45), E ([Target Near Enemy]; repeated with `key VK until ...`, since right after the
+  CREATE the client may not know the mob yet), the hotbar's slots 4 (Rally) and 5 (Repair Equipment) clicked
+  (SKILL_ABILITY each; the number keys sent nothing), F (ACTION) until POINT_EFFECT and the hulk's CREATE, N until the
+  hulk is the target (a one-verb VERB_UPDATE, its Loot: Next Target's list is by sphere distance, the hulk and our
+  ship tie at 0 and the object list's order, so the hulk's game id, picks the first; ITEM_BASE comes only for loot
+  bases the client has not seen), its loot button (LOOT_HULK_PERMISSION) and the loot window's first row until OPEN_INTERFACE (the hulk empty;
+  the loot is random, so the number of takes varies). Retail passes, 65 s (149 s with the restore). The recording
+  dragged a skill from the PDA's list to the hotbar; a replayed drag found the list scrolled elsewhere (the list
+  keeps no fixed start), so the scenario uses the hotbar the rows have.
 - First results: `sb_vendor` (room 2, a vendor's talk tree and trade window, back) and `sb_talk` (an NPC's
   two-page talk tree) pass on retail in one session, 224 s.
 - 2026-11-18 (H1): `sb_buysell` (room 2's Miyoshi Basho: a vendor row and Buy, a cargo slot and Sell, each an
@@ -781,6 +797,14 @@ many cases by posting window messages; they share no code worth extracting.
 * **Capturing an original program.** A d3d8.dll proxy in a copy of its folder (d3d8.dll is not a
   KnownDLL) reads its back buffer and logs its file opens (`tools/harness/run_reference.py`).
   Put its options before the subcommand: `run_reference.py --frames 1,30 run -- -resx 800`.
+
+* **The stub log's own opens are not the game's (e2e `wait-quiet proxy`).** Our client tees each
+  `G_ASSERT` / `FAIL_IF` into stubs.log, and `Stub_Log_Line` opens the file once a line, so d3d8shot.log
+  logs a `CreateFileA("stubs.log", W, ...)` per assert; retail has no stub log. In space both clients
+  assert effect_description.cpp 266 / 318 / 348 every frame on Net-7's item data (retail run 232121's
+  messages.log: about 300 a second at 60 fps; ours about 900 at its higher frame rate), so these opens
+  kept `wait-quiet proxy` from ever seeing quiet on ours (sp_combat, run 232902). e2e.py leaves them out
+  of the `proxy` source (`_OWN_OPEN`); they stay in d3d8shot.log.
 
 * **VIDTEST's look depends on library switches.** Without `Enable_Overbright_Modify_On_Load` the
   models are dim (62.5% of frame 300 differs; about 3% with it). Ships appear only with the

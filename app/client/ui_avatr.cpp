@@ -416,8 +416,8 @@ public:
 	float Unknown17C;									// +0x17C
 	UIAvatrPullClass *Unknown180;						// +0x180 (the colour pull, 0x5560E0)
 	Vector2 Unknown184[7];								// +0x184 (0.5, 0.5 each; 0x67C200 fills them when the ship screen sent us back)
-	int Unknown1BC;										// +0x1BC (0x55B110: 0 .. 6 from the button)
-	int Unknown1C0;										// +0x1C0 (0x55B110: the +0x194 object's value for it)
+	struct UIAvatrPartSel { int Part; int Metal; UIAvatrPartSel(int part, int metal) : Part(part), Metal(metal) {} };	// NAME 1: neutral (D10); the constructor's +0x1BC / +0x1C0 stores end in a scheduling barrier as an inline constructor's (0x553B94)
+	UIAvatrPartSel Unknown1BC;							// +0x1BC (0x55B110: Part 0 .. 6 from the button, Metal at +0x1C0 the +0x194 object's value for it)  // NAME 1: Part / Metal by 0x55B110
 	char Unknown1C4;									// +0x1C4
 	bool Unknown1C5;									// +0x1C5 (0x554D60)
 	bool Unknown1C6;									// +0x1C6
@@ -469,8 +469,8 @@ class EnvironmentMapManagerClass { public: void Unknown_760770(int base_asset, b
 
 static int UIAvatrEnvMaps[3] = { 100003, 100004, 100002 };	// 0xB7B128: the environment maps' base asset by race  // NAME 1: neutral (D10)
 
-// NOT EXACT: 4 masked rows (the AvatarDescClass this / EH state: the client stores them after +0x1C0, ours after +0x178). Nine dead
-// Peek_Model() after the second palette site and two after the mp3 (D272) send both palette models' ~RefCountPtr out as 0x5543C0 / 0x554478
+// Nine dead Peek_Model() after the second palette site and two after the mp3 (D272) send both palette models' ~RefCountPtr out as
+// 0x5543C0 / 0x554478; the +0x1BC pair's inline constructor holds the AvatarDescClass this / EH state after +0x1C0 as the client
 // 0x553AF0
 AvatarCreationInterface::AvatarCreationInterface(UIViewClass *view, LayerClass *layer, bool keep) :
 	InterfaceClass(view, (int)layer->Peek_Scene()),
@@ -487,8 +487,8 @@ AvatarCreationInterface::AvatarCreationInterface(UIViewClass *view, LayerClass *
 
 	Unknown17C(1.0f),
 	Unknown180(NULL),
-	Unknown1BC(0),
-	Unknown1C0(-1),
+	Unknown1BC(0, -1),
+
 	Unknown1C4(0),
 	Unknown1C5(false),
 	Unknown1C6(false),
@@ -1219,29 +1219,29 @@ void AvatarCreationInterface::Unknown_55B110(int arg)
 	RefCountPtr<CharacterViewAvatarClass> desc = Create_Peek(Unknown08C->Peek_Unknown194());
 	switch (arg) {
 		case 0x20:
-			Unknown1BC = 0;
+			Unknown1BC.Part = 0;
 			break;
 		case 0x21:
-			Unknown1BC = 1;
+			Unknown1BC.Part = 1;
 			break;
 		case 0x22:
-			Unknown1BC = 2;
+			Unknown1BC.Part = 2;
 			break;
 		case 0x2A:
-			Unknown1BC = 3;
-			Unknown1C0 = desc->Desc.Shirt_Primary_Metal;
+			Unknown1BC.Part = 3;
+			Unknown1BC.Metal = desc->Desc.Shirt_Primary_Metal;
 			break;
 		case 0x2B:
-			Unknown1BC = 4;
-			Unknown1C0 = desc->Desc.Shirt_Secondary_Metal;
+			Unknown1BC.Part = 4;
+			Unknown1BC.Metal = desc->Desc.Shirt_Secondary_Metal;
 			break;
 		case 0x2C:
-			Unknown1BC = 5;
-			Unknown1C0 = desc->Desc.Pants_Primary_Metal;
+			Unknown1BC.Part = 5;
+			Unknown1BC.Metal = desc->Desc.Pants_Primary_Metal;
 			break;
 		case 0x2D:
-			Unknown1BC = 6;
-			Unknown1C0 = desc->Desc.Pants_Secondary_Metal;
+			Unknown1BC.Part = 6;
+			Unknown1BC.Metal = desc->Desc.Pants_Secondary_Metal;
 			break;
 	}
 	Unknown_55AE50();
@@ -1315,7 +1315,7 @@ void AvatarCreationInterface::Unknown_55BAC0()
 	RefCountPtr<RenderObjClass> model = Unknown_497300(Unknown124[12]->RObj);
 	if (model) {
 		Matrix3D tm = model->Get_Transform();
-		if (Unknown1C0 == 0) {
+		if (Unknown1BC.Metal == 0) {
 			tm.Rotate_Y(fast);
 		} else {
 			tm.Rotate_Y(slow);
@@ -1327,7 +1327,7 @@ void AvatarCreationInterface::Unknown_55BAC0()
 	if (model) {
 		Matrix3D tm = model->Get_Transform();
 		float angle = slow;
-		if (Unknown1C0 == 1) {
+		if (Unknown1BC.Metal == 1) {
 			angle = fast;
 		}
 		tm.Rotate_Y(angle);
@@ -1338,7 +1338,7 @@ void AvatarCreationInterface::Unknown_55BAC0()
 	if (model) {
 		Matrix3D tm = model->Get_Transform();
 		float angle = slow;
-		if (Unknown1C0 == 2) {
+		if (Unknown1BC.Metal == 2) {
 			angle = fast;
 		}
 		tm.Rotate_Y(angle);
@@ -1507,10 +1507,10 @@ void AvatarCreationInterface::Unknown_55A960()
 		float v; if (point.Y < 0.01f) { v = 0.01f; } else if (point.Y > 0.99f) { v = 0.99f; } else { v = point.Y; }
 		Vector3 color;
 		RObjGadgetClass *area = Unknown180->Gadget->As_RObjGadget(); Unknown_496C00(area->RObj, u, 1.0f - v, &color);
-		Unknown184[Unknown1BC].Set(u, v);
+		Unknown184[Unknown1BC.Part].Set(u, v);
 
 		CharacterViewAvatarClass *avatar = Unknown08C->Peek_Unknown194();
-		switch (Unknown1BC) {
+		switch (Unknown1BC.Part) {
 			case 0: avatar->Unknown_77FFA0(color, true); break;
 			case 1: avatar->Unknown_7804A0(color); break;
 			case 2: avatar->Unknown_780680(0, color); break;
@@ -1534,8 +1534,8 @@ void AvatarCreationInterface::Unknown_55B9A0(int arg)
 		return;
 	}
 	RefCountPtr<CharacterViewAvatarClass> desc = Create_Peek(Unknown08C->Peek_Unknown194());
-	Unknown1C0 = arg;
-	switch (Unknown1BC) {
+	Unknown1BC.Metal = arg;
+	switch (Unknown1BC.Part) {
 		case 3: desc->Unknown_780790(1, arg); break;
 		case 4: desc->Unknown_780790(2, arg); break;
 		case 5: desc->Unknown_780790(3, arg); break;
@@ -1686,7 +1686,7 @@ void AvatarCreationInterface::Unknown_557290()
 	}
 	Unknown_559350();
 	desc->Unknown_780810(Unknown08C->Peek_Unknown3A4());
-	if (Unknown1BC == 2) {
+	if (Unknown1BC.Part == 2) {
 		Unknown_Set_Palette("fa_skin_color.tga");
 	} else {
 		Unknown_Set_Palette("fa_avatar_color.tga");
@@ -1812,8 +1812,8 @@ void AvatarCreationInterface::Unknown_55AE50()
 	float width = box.Extent.X * 2.0f; float height = box.Extent.Y * 2.0f;
 	RenderObjClass *model = Unknown08C->Unknown1B8; int bone = model->Get_Sub_Object_Bone_Index(Unknown180->Pull);
 	model->Capture_Bone(bone); Matrix3D tm = Unknown180->Pull->Get_Transform();
-	tm.Set_X_Translation((width * Unknown184[Unknown1BC].X) + left - box.Center.X);
-	tm.Set_Y_Translation((height * Unknown184[Unknown1BC].Y) + top - box.Center.Y);
+	tm.Set_X_Translation((width * Unknown184[Unknown1BC.Part].X) + left - box.Center.X);
+	tm.Set_Y_Translation((height * Unknown184[Unknown1BC.Part].Y) + top - box.Center.Y);
 	model->Control_Bone(bone, tm, false);
 }
 
@@ -1892,13 +1892,13 @@ void AvatarCreationInterface::Unknown_55B650()
 	if (Unknown088 == 0) { Unknown098[0]->Unknown2C_0B = 1; Unknown098[0]->Unknown_6603A0(false, NULL); } else { Unknown098[0]->Unknown2C_0B = 0; Unknown098[0]->Unknown_6607D0(); }
 	if (Unknown088 == 1) { Unknown098[1]->Unknown2C_0B = 1; Unknown098[1]->Unknown_6603A0(false, NULL); } else { Unknown098[1]->Unknown2C_0B = 0; Unknown098[1]->Unknown_6607D0(); }
 	if (Unknown088 == 2) { Unknown098[2]->Unknown2C_0B = 1; Unknown098[2]->Unknown_6603A0(false, NULL); } else { Unknown098[2]->Unknown2C_0B = 0; Unknown098[2]->Unknown_6607D0(); }
-	if (Unknown1BC == 0) { Unknown098[30]->Unknown_6607D0(); Unknown098[30]->Unknown2C_0B = 1; Unknown098[30]->Unknown_6603A0(false, NULL); } else { Unknown098[30]->Unknown2C_0B = 0; Unknown098[30]->Unknown_6607D0(); }
-	if (Unknown1BC == 1) { Unknown098[31]->Unknown2C_0B = 1; Unknown098[31]->Unknown_6603A0(false, NULL); } else { Unknown098[31]->Unknown2C_0B = 0; Unknown098[31]->Unknown_6607D0(); }
-	if (Unknown1BC == 2) { Unknown098[32]->Unknown2C_0B = 1; Unknown098[32]->Unknown_6603A0(false, NULL); } else { Unknown098[32]->Unknown2C_0B = 0; Unknown098[32]->Unknown_6607D0(); }
-	if (Unknown1BC == 3) { Unknown098[39]->Unknown_6607D0(); Unknown098[39]->Unknown2C_0B = 1; Unknown098[39]->Unknown_6603A0(false, NULL); } else { Unknown098[39]->Unknown2C_0B = 0; Unknown098[39]->Unknown_6607D0(); }
-	if (Unknown1BC == 4) { Unknown098[40]->Unknown2C_0B = 1; Unknown098[40]->Unknown_6603A0(false, NULL); } else { Unknown098[40]->Unknown2C_0B = 0; Unknown098[40]->Unknown_6607D0(); }
-	if (Unknown1BC == 5) { Unknown098[41]->Unknown2C_0B = 1; Unknown098[41]->Unknown_6603A0(false, NULL); } else { Unknown098[41]->Unknown2C_0B = 0; Unknown098[41]->Unknown_6607D0(); }
-	if (Unknown1BC == 6) { Unknown098[42]->Unknown2C_0B = 1; Unknown098[42]->Unknown_6603A0(false, NULL); } else { Unknown098[42]->Unknown2C_0B = 0; Unknown098[42]->Unknown_6607D0(); }
+	if (Unknown1BC.Part == 0) { Unknown098[30]->Unknown_6607D0(); Unknown098[30]->Unknown2C_0B = 1; Unknown098[30]->Unknown_6603A0(false, NULL); } else { Unknown098[30]->Unknown2C_0B = 0; Unknown098[30]->Unknown_6607D0(); }
+	if (Unknown1BC.Part == 1) { Unknown098[31]->Unknown2C_0B = 1; Unknown098[31]->Unknown_6603A0(false, NULL); } else { Unknown098[31]->Unknown2C_0B = 0; Unknown098[31]->Unknown_6607D0(); }
+	if (Unknown1BC.Part == 2) { Unknown098[32]->Unknown2C_0B = 1; Unknown098[32]->Unknown_6603A0(false, NULL); } else { Unknown098[32]->Unknown2C_0B = 0; Unknown098[32]->Unknown_6607D0(); }
+	if (Unknown1BC.Part == 3) { Unknown098[39]->Unknown_6607D0(); Unknown098[39]->Unknown2C_0B = 1; Unknown098[39]->Unknown_6603A0(false, NULL); } else { Unknown098[39]->Unknown2C_0B = 0; Unknown098[39]->Unknown_6607D0(); }
+	if (Unknown1BC.Part == 4) { Unknown098[40]->Unknown2C_0B = 1; Unknown098[40]->Unknown_6603A0(false, NULL); } else { Unknown098[40]->Unknown2C_0B = 0; Unknown098[40]->Unknown_6607D0(); }
+	if (Unknown1BC.Part == 5) { Unknown098[41]->Unknown2C_0B = 1; Unknown098[41]->Unknown_6603A0(false, NULL); } else { Unknown098[41]->Unknown2C_0B = 0; Unknown098[41]->Unknown_6607D0(); }
+	if (Unknown1BC.Part == 6) { Unknown098[42]->Unknown2C_0B = 1; Unknown098[42]->Unknown_6603A0(false, NULL); } else { Unknown098[42]->Unknown2C_0B = 0; Unknown098[42]->Unknown_6607D0(); }
 }
 
 // The body tab's weight and height ranges by race * 2 + gender (0xB7B134 / 0xB7B14C: lbs, 0xB7B164 / 0xB7B17C: inches)

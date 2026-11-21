@@ -5,7 +5,8 @@ login.username     300 249   # .work/WE1/input.txt, the login screen's account f
 login.password     300 317   # the same, the password field
 login.ok           1060 950  # the same, the login button
 select.slot0       250 70    # the same, character select's first slot (Karen in the replay)
-select.enter       1060 950  # the same, "Enter" on character select
+select.slot1       641 619   # .work/e2e/223904-record (the user's live recording, 2026-11-20): Elanor, the account's second character
+select.enter       1060 950  # .work/WE1/input.txt, "Enter" on character select
 hud.navmap         140 946   # progress.md 2026-11-11 (P2, "the starmap button"); e2e starmap shot: tooltip 'Open Navigation Map'
 hud.options        176 933   # progress.md 2026-11-11 (P2): the options button (the chat panel's request 1)
 # The chat panel's tabs (ui_chat_panel.cpp's combos b00..b03 and the emotes; 0x5689D0): e2e shot options_open (the

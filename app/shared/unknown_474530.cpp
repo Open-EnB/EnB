@@ -67,7 +67,7 @@ void Unknown_477E20(std::vector<Vector3> verts);
 // corner a Vector3 copied into the list (the macro); the sea index count from Count() / 2 and the vertex buffer written
 // through its FVF offsets (0x252, the corner copied, the normal (0, 0, 1), the grid uv a Vector2 local scaled with *=
 // and the two detail scales by Vector2's operator *); both records passes read PatchRecords[i] at each use (the
-// client reloads +0x18C; with the dead reads below, LND 2026-11-20: 257 -> 223). Left: the patch transform's load
+// client reloads +0x18C; with the dead reads below, LND 2026-11-20: 257 -> 223; YSpacing a local, its fstp st(0): 221). Left: the patch transform's load
 // order (Field's scales before p's corner), register choices in the patch loop's Adds and the records passes (ebp = 3)
 void LandClass::Render(RenderInfoClass &rinfo)
 {
@@ -78,7 +78,7 @@ void LandClass::Render(RenderInfoClass &rinfo)
 	static DynamicVectorClass<Vector3> sea_quads;
 	sea_quads.Reset_Active();
 	float extent_x = Field->Get_Spacing() * (float)(unsigned int)PatchSize;
-	float extent_y = (float)(unsigned int)PatchSize * Field->Get_YSpacing();
+	float ys = Field->Get_YSpacing(); float extent_y = (float)(unsigned int)PatchSize * ys;
 	bool companion = Unknown_BDC0D8->Unknown11;
 	Unknown_BDC0D8->Unknown_466F60(rinfo);
 	int level, i;

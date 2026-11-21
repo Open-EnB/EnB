@@ -75,7 +75,7 @@ public:
 	void Unknown_78B570(bool b);						// 0x78B570  // NAME 1 [b]: neutral
 
 	Unknown78A910AvatarClass(int a, AvatarDescClass *desc, EnvironmentMapManagerClass *env_maps);	// 0x78A910 (0x642740: the NPC's +0x1C and description)  // NAME 1 [a]: neutral
-	void Unknown_78AD20(int anim, int min, int max, const char *model, const char *motion);	// 0x78AD20 (0x642740: an Action%02d, its roll range, ExtraAnim%02d and ExtraName%02d)  // NAME 1 [anim, min, max, model, motion]: as unknown_78a910.cpp's
+	void Unknown_78AD20(int anim, int min, int max, const char *model, const char *motion);	// 0x78AD20 (0x642740: an Action%02d, its roll range, ExtraName%02d and ExtraAnim%02d)  // NAME 1 [anim, min, max, model, motion]: as unknown_78a910.cpp's
 	void Unknown_78B010(const Matrix3D &tm); void Unknown_78B290(const Matrix3D &tm);	// 0x78B010 / 0x78B290 (0x642740: a Location%02d's OffsetBoneName / DestBoneName bone)  // NAME 1 [tm]: neutral
 	void Unknown_78B530(int a, int b, int c, int d);	// 0x78B530 (0x642740: MinWait, MaxWait, RelocateChance, ActionChance)  // NAME 1 [a, b, c, d]: neutral
 	char Unknown384[0x3B9 - 0x384];					// +0x384
@@ -1129,15 +1129,15 @@ void UIStarbaseClass::Unknown_63C4B0(RenderObjClass *obj, const char *bone)
 	obj->Set_Transform(tm);
 }
 
-// NOT EXACT: 0x63D280, functional (inline budget: the client inlines SGI's find with the vector's size 0x644470 out of line; ours calls the out-of-line find 0x643E60; C3)
+static inline unsigned int Unknown_Bucket_Count(UIStarbaseUnknownD4TableClass &t) { return(t.Buckets.size()); } static inline unsigned int Unknown_Bkt_Num(UIStarbaseUnknownD4TableClass &t, unsigned int key) { return(t.Bucket_Of_Key(key, Unknown_Bucket_Count(t))); } static inline UIStarbaseUnknownD4TableClass::iterator Unknown_Find(UIStarbaseUnknownD4TableClass &t, const unsigned int &key) { const unsigned int n = Unknown_Bkt_Num(t, key); UIStarbaseUnknownD4TableClass::NodeStruct *first; for (first = t.Buckets[n]; first && !(first->Key == key); first = first->Next) {} return(UIStarbaseUnknownD4TableClass::iterator(first, &t)); }	// (SGI's bucket_count(), _M_bkt_num_key and find (0x643E60) written inline: 0x63D280 inlines find with the buckets size() 0x644470 out of line, one layer deeper)  // NAME 1: neutral (D10)
 // 0x63D280
 UIStarbaseUnknownCCClass *UIStarbaseClass::Unknown_63D280(unsigned int id)
 {
-	UIStarbaseUnknownD4TableClass::iterator found = UnknownD4.find(id);
-	return(found.Cur ? found.Cur->Value : NULL);
+	UIStarbaseUnknownD4TableClass::iterator found = Unknown_Find(UnknownD4.Table, id);
+	UnknownD4.end(); UnknownD4.end(); UnknownD4.end(); return(found.Cur ? found.Cur->Value : NULL);	// D272: 3 dead end() reads (the client's map accessor) send find's size() out of line
 }
 
-// NOT EXACT: 0x63AAF0, functional (inline budget: the client inlines SGI's begin with the vector's size 0x644470 out of line; ours calls begin 0x643DF0; C3)
+static inline UIStarbaseUnknownD4TableClass::iterator Unknown_Begin_Counted(UIStarbaseUnknownD4TableClass &t) { for (unsigned int n = 0; n < Unknown_Bucket_Count(t); ++n) { if (t.Buckets[n]) { return(UIStarbaseUnknownD4TableClass::iterator(t.Buckets[n], &t)); } } return(t.end()); }	// (0x643DF0 (begin()) written inline over the bucket count: 0x63AAF0 inlines begin with the buckets size() 0x644470 out of line)  // NAME 1: neutral (D10)
 // 0x63AAF0
 void UIStarbaseClass::Unknown_63AAF0()
 {
@@ -1159,7 +1159,7 @@ void UIStarbaseClass::Unknown_63AAF0()
 		}
 	}
 	UIStarbaseUnknownD4TableClass::iterator it;
-	for (it = UnknownD4.begin(); it != UnknownD4.end(); ++it) {
+	for (it = Unknown_Begin_Counted(UnknownD4.Table); it != UnknownD4.end(); ++it) {
 		UIStarbaseUnknownCCClass *savatar = it.Cur->Value;
 		savatar->Avatar->Unknown_1C4();
 		Unknown_640F50(savatar->Avatar.Peek());
@@ -1615,8 +1615,8 @@ bool UIStarbaseClass::Unknown_68(int key)
 }
 
 
-
-// NOT EXACT: 0x6366A0, functional (inline budget: the client builds the ship transform through ??_H (the Vector4 constructor 0x468E70 out of line, as 0x640360) and calls the avatar RefCountPtr's operator-> out of line; the column in ebx, ours in ebp; O4)
+static inline void Unknown_Show_Ship(UIStarbaseClass *ui, RenderObjClass *ship) { Matrix3D tm = ui->InterfaceMesh->Peek_Object()->Get_Bone_Transform("ship"); ((SceneClass *)ui->UnknownB0->Unknown70.Peek())->Add_Render_Object(ship); ui->UnknownB0->Unknown70.Peek()->Add_Light_Environment(ship); ship->Set_Transform(tm); }	// the 'ship' block of 0x6366A0, 0x640360 and 0x6415B0 (its Matrix3D local one level deep: the client's ??_H, Row[3]'s Vector4() 0x468E70 cut out of line, in 0x6366A0 / 0x640360)  // NAME 1: neutral (D10)
+// NOT EXACT: 0x6366A0, functional (register / order: the ship block through Unknown_Show_Ship gives the client's ??_H; left: Unknown_7C's View / vtable registers swapped, UnknownB0 loaded before the flag stores, Room in edx (client edi); Get_Info() for the column, the map manager through a local, Unknown138 as one dword and the third-person test as one condition give the client's loads, its zero register ebp and its single toggle; O4, SB2)
 // 0x6366A0 (slot +0x58, the interface opened: the room's model in the view, the camera at the door the avatar came
 // through (or 'camera_3rd' on arrival), the ship and its animation in the hangar, the NPC slots, the parts, the fog)
 void UIStarbaseClass::Unknown_58()
@@ -1624,8 +1624,8 @@ void UIStarbaseClass::Unknown_58()
 	InterfaceSortScopeClass scope(this);
 	Unknown5BB320Class::Unknown_58();
 	Unknown1F8->Unknown_7C(View, false);
-	int column = UnknownB0->Info->Style;
-	((LineDisplayClientClass *)Client)->As_Space_Client()->EnvironmentMapManager->Unknown_760770(100000, true);
+	int column = Get_Info()->Style;
+	EnvironmentMapManagerClass *env = ((LineDisplayClientClass *)Client)->As_Space_Client()->EnvironmentMapManager; env->Unknown_760770(100000, true);
 	UnknownB0->Unknown_69DBA0(1, Create_Get(InterfaceMesh->Unknown_5B8B20()));
 	Unknown21C = false;
 	Unknown1B3 = false;
@@ -1633,7 +1633,7 @@ void UIStarbaseClass::Unknown_58()
 	UnknownC0.A = -1;
 	UnknownC0.B = -1;
 	UnknownC0.C = -1;
-	memset(Unknown138, 0, sizeof(Unknown138));
+	*(int *)Unknown138 = 0;	// the four flags as one dword store (the client: mov [esi+0x138], ebp)
 	int i;
 	if (UnknownB0->Unknown58 == -1) {
 		UnknownB0->Unknown_69E260("camera_3rd");
@@ -1654,11 +1654,11 @@ void UIStarbaseClass::Unknown_58()
 	if (!Room) {
 		RenderObjClass *ship = Unknown184.Peek();
 		if (ship && !Unknown1AC) {
-			Matrix3D tm;
-			tm = InterfaceMesh->Peek_Object()->Get_Bone_Transform("ship");
-			((SceneClass *)UnknownB0->Unknown70.Peek())->Add_Render_Object(ship);
-			UnknownB0->Unknown70.Peek()->Add_Light_Environment(ship);
-			ship->Set_Transform(tm);
+			Unknown_Show_Ship(this, ship);
+
+
+
+
 		}
 		char anim[32];
 		if (RoomInfo->Unknown0A) {
@@ -1716,13 +1716,13 @@ void UIStarbaseClass::Unknown_58()
 	if (RoomInfo->Unknown0C) {
 		UnknownB0->Unknown_6A20C0(RoomInfo->Unknown18, RoomInfo->FogStart, RoomInfo->FogEnd);
 	}
-	if (OptionClass::Instance->Get_Bool("Starbase_Third_Person_Mode")) {
-		if (!UnknownC0.D->Avatar->Unknown2F5) {
-			UnknownC0.D->Avatar->Unknown2F5 = !UnknownC0.D->Avatar->Unknown2F5;
-		}
-	} else if (UnknownC0.D->Avatar->Unknown2F5) {
+	bool third = OptionClass::Instance->Get_Bool("Starbase_Third_Person_Mode");
+	if ((third && !UnknownC0.D->Avatar->Unknown2F5) || (!third && UnknownC0.D->Avatar->Unknown2F5)) {
 		UnknownC0.D->Avatar->Unknown2F5 = !UnknownC0.D->Avatar->Unknown2F5;
 	}
+
+
+
 	((LineDisplayClientClass *)Client)->As_Space_Client()->Mouse->Unknown_515120(2);
 	((LineDisplayClientClass *)Client)->As_Space_Client()->Mouse->Unknown_515400();
 }
@@ -2281,7 +2281,7 @@ void UIStarbaseClass::Unknown_63A100()
 
 
 
-// NOT EXACT: 0x63AC60, functional (the name tag's two colours: the client's stores go through the tag with 0.66 / 0.33 in ecx, ours through &Color with immediates; Set_Color(Vector3) there gives the client's stores but moves this / the zero register; FontSys::Set_Color at the guild texts gives the client's zero register in the loop; ++it its frame 0x2C)
+// NOT EXACT: 0x63AC60, functional (register: the loop's inlined Unknown24 = "" stores _Eos through [eax + ecx], the client [ecx + eax]; FontSys::Set_Color per colour with four dead Peek() reads after it gives the client's stores through the tag; FontSys::Set_Color at the guild texts the client's zero register in the loop; ++it its frame 0x2C)
 // 0x63AC60 (0x638390's frame: the name tags shown or hidden, their guild texts and colours kept up to date)
 void UIStarbaseClass::Unknown_63AC60()
 {
@@ -2330,11 +2330,11 @@ void UIStarbaseClass::Unknown_63AC60()
 		savatar->Unknown_633040();
 		if (savatar->Unknown20 <= 0.0f) {
 			if (Unknown_641EB0(savatar)) {
-				savatar->NameTag->Unknown494.Color = Vector3(0.66f, 0.0f, 0.66f);
+				savatar->NameTag->Set_Color(Vector3(0.66f, 0.0f, 0.66f));
 			} else {
-				savatar->NameTag->Unknown494.Color = Vector3(0.33f, 0.33f, 0.99f);
-			}
-			savatar->NameTag->Unknown4A4 = savatar->NameTag->Unknown494;
+				savatar->NameTag->Set_Color(Vector3(0.33f, 0.33f, 0.99f));
+			} savatar->NameTag.Peek(); savatar->NameTag.Peek(); savatar->NameTag.Peek(); savatar->NameTag.Peek();	// D272: four dead reads (the client calls the first Unknown24 = "" assign out of line)
+
 		}
 
 		ClientObjectClass *object = ((LineDisplayClientClass *)Client)->As_Space_Client()->Find_Object(savatar->Unknown00);
@@ -2757,7 +2757,7 @@ void UIStarbaseClass::Unknown_63C890()
 
 
 
-// NOT EXACT: 0x63CA50, functional (register: the client loads the view (+0xB0) into ecx before the avatar at the button's constructor, the scene's Add_Render_Object and 0x6870E0's arguments, ours into edx / eax; O4, UB)
+static inline LayerClass &Unknown_Layer(SBaseViewClass *view) { return(*view->Unknown80); }	// (the view's +0x80 layer: 0x63CA50 reads it through this for the button: read directly the view and the avatar swap ecx / edx)  // NAME 1: neutral (D10)
 // 0x63CA50 ('(%s) Adding avatar %s in room %d': a known avatar's entry made, its name tags and gadget, into +0xD4)
 void UIStarbaseClass::Unknown_63CA50(int id, const Matrix3D &transform, int flags)
 {
@@ -2789,7 +2789,7 @@ void UIStarbaseClass::Unknown_63CA50(int id, const Matrix3D &transform, int flag
 	UnknownB0->Unknown_6A1880(savatar->NameTag, 0);
 	savatar->Unknown_633180();
 	UnknownD4[id] = savatar;
-	savatar->Unknown14 = new ButtonGadgetClass(savatar->Avatar->BodyObj.Peek(), *UnknownB0->Unknown80, 5, 0);
+	savatar->Unknown14 = new ButtonGadgetClass(savatar->Avatar->BodyObj.Peek(), Unknown_Layer(UnknownB0), 5, 0);
 	savatar->Unknown14->Unknown2C_0A = true;
 	savatar->Unknown14->Set_Last_Sort_Group(true);
 	Unknown64.Unknown_6870E0(savatar->Unknown14, id + 100, View, true, true);
@@ -3161,10 +3161,10 @@ void UIStarbaseClass::Unknown_6415B0()
 	RenderObjClass *ship = Unknown184.Peek();
 	int column = UnknownB0->Info->Style;
 	if (ship) {
-		Matrix3D tm = InterfaceMesh->Peek_Object()->Get_Bone_Transform("ship");
-		((SceneClass *)UnknownB0->Unknown70.Peek())->Add_Render_Object(ship);
-		UnknownB0->Unknown70.Peek()->Add_Light_Environment(ship);
-		ship->Set_Transform(tm);
+		Unknown_Show_Ship(this, ship);
+
+
+
 	}
 	char anim[64];
 	if (client->Unknown13C1) {
@@ -3466,7 +3466,7 @@ void UIStarbaseClass::Unknown_63FCB0()
 
 
 
-// NOT EXACT: 0x640360, functional (inline budget: the client copies the 'ship' bone transform through ??_H, the out-of-line Vector4 constructor 0x468E70; ours inlines it; B1)
+// (0x640360: the ship block through Unknown_Show_Ship gives the client's ??_H, the out-of-line Vector4 constructor 0x468E70, at its first copy only)
 // 0x640360
 void UIStarbaseClass::Unknown_640360()
 {
@@ -3487,10 +3487,10 @@ void UIStarbaseClass::Unknown_640360()
 			Unknown_496DB0(Unknown184.Peek());
 			Unknown184->Set_LOD_Bias(100.0f);
 			RenderObjClass *ship = Unknown184.Peek();
-			Matrix3D tm = InterfaceMesh->Peek_Object()->Get_Bone_Transform("ship");
-			((SceneClass *)UnknownB0->Unknown70.Peek())->Add_Render_Object(ship);
-			UnknownB0->Unknown70.Peek()->Add_Light_Environment(ship);
-			ship->Set_Transform(tm);
+			Unknown_Show_Ship(this, ship);
+
+
+
 			Play_State_Animation(Unknown184.Peek(), 1, 1.0f);
 			RefCountPtr<RenderObjClass> extents;
 			if (ExtraBones) {
@@ -3617,9 +3617,9 @@ void UIStarbaseClass::Unknown_63BB10(GadgetClass *gadget)
 
 
 
-// NOT EXACT: 0x642740, registers left (the client spills this, ebp = 0; the dead length() read at the end: the client cuts dest_bone's assign(ptr, n)): a lounge NPC's wandering avatar from '<race>starbase_ambient.ini', its section the
-// NPC's first name: the walk points Location%02d (OffsetBoneName / DestBoneName bones of ExtraBones), the idle actions
-// Action%02d with their Chance%02d, ExtraName%02d and ExtraAnim%02d
+static inline EnvironmentMapManagerClass *Unknown_Env_Maps(LineDisplayClientClass *client) { return(client->As_Space_Client()->EnvironmentMapManager); }	// (0x642740 reads the avatar's environment maps through this: read in place its arguments' registers and later temporaries are one step off the client's)  // NAME 1: neutral (D10)
+// (0x642740) a lounge NPC's wandering avatar from '<race>starbase_ambient.ini', its section the NPC's first name: the walk points
+// Location%02d (OffsetBoneName / DestBoneName bones of ExtraBones), the idle actions Action%02d with their Chance%02d, ExtraName%02d and ExtraAnim%02d
 // 0x642740
 Unknown78A910AvatarClass *UIStarbaseClass::Unknown_642740(StarbaseNPCClass *npc)
 {
@@ -3627,7 +3627,7 @@ Unknown78A910AvatarClass *UIStarbaseClass::Unknown_642740(StarbaseNPCClass *npc)
 		return(NULL);
 	}
 	char file_name[64];
-	int style = UnknownB0->Info->Style; const char *race = Unknown_B8A950[style]; _snprintf(file_name, sizeof(file_name), "%sstarbase_ambient.ini", race);
+	int style = Get_Info()->Style; _snprintf(file_name, sizeof(file_name), "%sstarbase_ambient.ini", Unknown_B8A950[style]);
 	INIClass ini(file_name);
 	if (!ini.Is_Loaded()) {
 		return(NULL);
@@ -3646,7 +3646,7 @@ Unknown78A910AvatarClass *UIStarbaseClass::Unknown_642740(StarbaseNPCClass *npc)
 	if (!str.Is_Empty()) {
 		dest_bone = str;
 	}
-	Unknown78A910AvatarClass *avatar = new Unknown78A910AvatarClass(npc->Unknown1C, &npc->Desc, ((LineDisplayClientClass *)Client)->As_Space_Client()->EnvironmentMapManager);
+	Unknown78A910AvatarClass *avatar = new Unknown78A910AvatarClass(npc->Unknown1C, &npc->Desc, Unknown_Env_Maps(Client));
 	bool sequential = false; if (ini.Find_Entry(section, "Sequential")) sequential = ini.Get_Bool(section, "Sequential", false); avatar->Unknown3B9 = sequential;
 	int min_wait = ini.Get_Int(section, "MinWait", 5); int max_wait = ini.Get_Int(section, "MaxWait", 15); int relocate = ini.Get_Int(section, "RelocateChance", 33); int action = ini.Get_Int(section, "ActionChance", 67); avatar->Unknown_78B530(min_wait, max_wait, relocate, action);
 	Matrix3D tm(true);
@@ -3694,7 +3694,7 @@ Unknown78A910AvatarClass *UIStarbaseClass::Unknown_642740(StarbaseNPCClass *npc)
 		if (!str.Is_Empty()) {
 			extra_anim = str;
 		}
-		avatar->Unknown_78AD20(anim, bottom, top, extra_anim.c_str(), extra_name.c_str());
+		avatar->Unknown_78AD20(anim, bottom, top, extra_name.c_str(), extra_anim.c_str());
 		bottom = top + 1;
 	}
 	avatar->Set_Transform(start);
@@ -3703,7 +3703,7 @@ Unknown78A910AvatarClass *UIStarbaseClass::Unknown_642740(StarbaseNPCClass *npc)
 	avatar->Unknown_77E3D0(1);
 	avatar->BodyObj->Set_LOD_Bias(1.0f);
 	avatar->Unknown_784F60(false);
-	offset_bone.length(); offset_bone.length(); return(avatar);
+	return(avatar);
 }
 
 
@@ -3914,7 +3914,7 @@ void UIStarbaseClass::Unknown_63FF80()
 	}
 }
 
-// NOT EXACT: 0x63E2B0, functional (the flag test's own load of the avatar, the position's y / z through the matrix copy, the id's load order; SB1)
+// (0x63E2B0: the matrix in its own block gives the flag test's own load of the avatar; the position through a Matrix3D copy gives the client's y / z int copies into its Row[1][3] / Row[2][3])
 // 0x63E2B0
 void UIStarbaseClass::Unknown_63E2B0()
 {
@@ -3923,9 +3923,9 @@ void UIStarbaseClass::Unknown_63E2B0()
 		if (UnknownC0.D->Avatar->Unknown2F4) {
 			flags |= 1;
 		}
-		Matrix3D tm = UnknownC0.D->Avatar->Unknown330;
-		float orient = tm.Get_Z_Rotation();
-		Vector3 position = UnknownC0.D->Avatar->Unknown330.Get_Translation();
+		float orient; { Matrix3D tm = UnknownC0.D->Avatar->Unknown330;
+		orient = tm.Get_Z_Rotation(); }
+		Vector3 position = Matrix3D(UnknownC0.D->Avatar->Unknown330).Get_Translation();
 		SClient *client = ((LineDisplayClientClass *)Client)->As_Space_Client();
 		int room = -1;
 		if (Room >= 0) {
