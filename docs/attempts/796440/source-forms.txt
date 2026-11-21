@@ -1,0 +1,494 @@
+FORM coherent_trig_scoped
+--- camctrl_takeoff.cpp
++++ coherent_trig_scoped/camctrl_takeoff.cpp
+@@ -131,9 +131,9 @@
+ 		Quaternion q;
+ 		Slerp(q, Unknown3C, Unknown4C, t * t);
+ 		Matrix3D tm = Build_Matrix3D(q);
+-		Vector3 p = (Unknown30 - Unknown24) * t + Unknown24;
++		Vector3 p = Lerp(Unknown24, Unknown30, t);
+ 		tm.Set_Translation(p);
+-		if (ship->PositionalState && ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
++		if (ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
+ 			((Unknown718D70Class *)ship->PositionalState)->Unknown_30(Client->Unknown10BC, tm);
+ 			*mode = 2;
+ 			return;
+@@ -148,16 +148,16 @@
+ 				angle = WWMATH_PI - angle;
+ 			}
+ 			float dist = (Unknown_BDB1C0.Get_Float() * 7.0f + 10.0f) * distance;
+-			float s = sin(angle);
+-			float c = cos(angle);
++			float s = WWMath::Sin(angle);
++			float c = WWMath::Cos(angle);
+ 			Unknown0C->Position = lookat * Vector3(dist, c * 1.5f * distance, s * 1.5f * distance);
+ 			Unknown0C->Unknown_04();
+ 		}
+ 		float t = (float)(elapsed - 2000) * 0.00033333333f;
+-		Matrix3D tm = Build_Matrix3D(Unknown4C);
+-		Vector3 p = (Unknown18 - Unknown30) * t + Unknown30;
++		Matrix3D tm; tm = Build_Matrix3D(Unknown4C);
++		Vector3 p = Lerp(Unknown30, Unknown18, t);
+ 		tm.Set_Translation(p);
+-		if (ship->PositionalState && ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
++		if (ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
+ 			((Unknown718D70Class *)ship->PositionalState)->Unknown_30(Client->Unknown10BC, tm);
+ 			*mode = 2;
+ 			return;
+
+FORM shared_tm_scoped
+--- camctrl_takeoff.cpp
++++ shared_tm_scoped/camctrl_takeoff.cpp
+@@ -125,15 +125,15 @@
+ 		return;
+ 	}
+ 	Unknown0C->Unknown_08(pos, rot);
+-	unsigned int elapsed = Client->Unknown10BC - Unknown10;
++	unsigned int elapsed = Client->Unknown10BC - Unknown10; Matrix3D tm;
+ 	if (elapsed < 2000) {
+ 		float t = (float)elapsed * 0.0005f;
+ 		Quaternion q;
+ 		Slerp(q, Unknown3C, Unknown4C, t * t);
+-		Matrix3D tm = Build_Matrix3D(q);
+-		Vector3 p = (Unknown30 - Unknown24) * t + Unknown24;
++		tm = Build_Matrix3D(q);
++		Vector3 p = Lerp(Unknown24, Unknown30, t);
+ 		tm.Set_Translation(p);
+-		if (ship->PositionalState && ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
++		if (ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
+ 			((Unknown718D70Class *)ship->PositionalState)->Unknown_30(Client->Unknown10BC, tm);
+ 			*mode = 2;
+ 			return;
+@@ -148,16 +148,16 @@
+ 				angle = WWMATH_PI - angle;
+ 			}
+ 			float dist = (Unknown_BDB1C0.Get_Float() * 7.0f + 10.0f) * distance;
+-			float s = sin(angle);
+-			float c = cos(angle);
++			float s = WWMath::Sin(angle);
++			float c = WWMath::Cos(angle);
+ 			Unknown0C->Position = lookat * Vector3(dist, c * 1.5f * distance, s * 1.5f * distance);
+ 			Unknown0C->Unknown_04();
+ 		}
+ 		float t = (float)(elapsed - 2000) * 0.00033333333f;
+-		Matrix3D tm = Build_Matrix3D(Unknown4C);
+-		Vector3 p = (Unknown18 - Unknown30) * t + Unknown30;
++		tm = Build_Matrix3D(Unknown4C);
++		Vector3 p = Lerp(Unknown30, Unknown18, t);
+ 		tm.Set_Translation(p);
+-		if (ship->PositionalState && ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
++		if (ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
+ 			((Unknown718D70Class *)ship->PositionalState)->Unknown_30(Client->Unknown10BC, tm);
+ 			*mode = 2;
+ 			return;
+
+FORM phase1_matrix_scoped
+--- camctrl_takeoff.cpp
++++ phase1_matrix_scoped/camctrl_takeoff.cpp
+@@ -131,33 +131,33 @@
+ 		Quaternion q;
+ 		Slerp(q, Unknown3C, Unknown4C, t * t);
+ 		Matrix3D tm = Build_Matrix3D(q);
+-		Vector3 p = (Unknown30 - Unknown24) * t + Unknown24;
++		Vector3 p = Lerp(Unknown24, Unknown30, t);
+ 		tm.Set_Translation(p);
+-		if (ship->PositionalState && ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
++		if (ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
+ 			((Unknown718D70Class *)ship->PositionalState)->Unknown_30(Client->Unknown10BC, tm);
+ 			*mode = 2;
+ 			return;
+ 		}
+-	} else if (elapsed < 5000) {
++	} else if (elapsed < 5000) { Matrix3D tm;
+ 		if (!Unknown5C) {
+ 			Unknown5C = true;
+-			Matrix3D lookat;
+-			lookat.Obj_Look_At(Unknown30, Unknown18, 0.0f);
++			
++			tm.Obj_Look_At(Unknown30, Unknown18, 0.0f);
+ 			float angle = (Unknown_BDB1C0.Get_Float() - 0.5f) * 30.0f * (WWMATH_PI / 180.0f);
+ 			if (Unknown_BDB1C0(0, 1) == 1) {
+ 				angle = WWMATH_PI - angle;
+ 			}
+ 			float dist = (Unknown_BDB1C0.Get_Float() * 7.0f + 10.0f) * distance;
+-			float s = sin(angle);
+-			float c = cos(angle);
+-			Unknown0C->Position = lookat * Vector3(dist, c * 1.5f * distance, s * 1.5f * distance);
++			float s = WWMath::Sin(angle);
++			float c = WWMath::Cos(angle);
++			Unknown0C->Position = tm * Vector3(dist, c * 1.5f * distance, s * 1.5f * distance);
+ 			Unknown0C->Unknown_04();
+ 		}
+ 		float t = (float)(elapsed - 2000) * 0.00033333333f;
+-		Matrix3D tm = Build_Matrix3D(Unknown4C);
+-		Vector3 p = (Unknown18 - Unknown30) * t + Unknown30;
++		tm = Build_Matrix3D(Unknown4C);
++		Vector3 p = Lerp(Unknown30, Unknown18, t);
+ 		tm.Set_Translation(p);
+-		if (ship->PositionalState && ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
++		if (ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
+ 			((Unknown718D70Class *)ship->PositionalState)->Unknown_30(Client->Unknown10BC, tm);
+ 			*mode = 2;
+ 			return;
+
+FORM shared_lookat_fixed_scoped
+--- camctrl_takeoff.cpp
++++ shared_lookat_fixed_scoped/camctrl_takeoff.cpp
+@@ -125,15 +125,15 @@
+ 		return;
+ 	}
+ 	Unknown0C->Unknown_08(pos, rot);
+-	unsigned int elapsed = Client->Unknown10BC - Unknown10;
++	unsigned int elapsed = Client->Unknown10BC - Unknown10; Matrix3D tm;
+ 	if (elapsed < 2000) {
+ 		float t = (float)elapsed * 0.0005f;
+ 		Quaternion q;
+ 		Slerp(q, Unknown3C, Unknown4C, t * t);
+-		Matrix3D tm = Build_Matrix3D(q);
+-		Vector3 p = (Unknown30 - Unknown24) * t + Unknown24;
++		tm = Build_Matrix3D(q);
++		Vector3 p = Lerp(Unknown24, Unknown30, t);
+ 		tm.Set_Translation(p);
+-		if (ship->PositionalState && ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
++		if (ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
+ 			((Unknown718D70Class *)ship->PositionalState)->Unknown_30(Client->Unknown10BC, tm);
+ 			*mode = 2;
+ 			return;
+@@ -141,23 +141,23 @@
+ 	} else if (elapsed < 5000) {
+ 		if (!Unknown5C) {
+ 			Unknown5C = true;
+-			Matrix3D lookat;
+-			lookat.Obj_Look_At(Unknown30, Unknown18, 0.0f);
++			
++			tm.Obj_Look_At(Unknown30, Unknown18, 0.0f);
+ 			float angle = (Unknown_BDB1C0.Get_Float() - 0.5f) * 30.0f * (WWMATH_PI / 180.0f);
+ 			if (Unknown_BDB1C0(0, 1) == 1) {
+ 				angle = WWMATH_PI - angle;
+ 			}
+ 			float dist = (Unknown_BDB1C0.Get_Float() * 7.0f + 10.0f) * distance;
+-			float s = sin(angle);
+-			float c = cos(angle);
+-			Unknown0C->Position = lookat * Vector3(dist, c * 1.5f * distance, s * 1.5f * distance);
++			float s = WWMath::Sin(angle);
++			float c = WWMath::Cos(angle);
++			Unknown0C->Position = tm * Vector3(dist, c * 1.5f * distance, s * 1.5f * distance);
+ 			Unknown0C->Unknown_04();
+ 		}
+ 		float t = (float)(elapsed - 2000) * 0.00033333333f;
+-		Matrix3D tm = Build_Matrix3D(Unknown4C);
+-		Vector3 p = (Unknown18 - Unknown30) * t + Unknown30;
++		tm = Build_Matrix3D(Unknown4C);
++		Vector3 p = Lerp(Unknown30, Unknown18, t);
+ 		tm.Set_Translation(p);
+-		if (ship->PositionalState && ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
++		if (ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
+ 			((Unknown718D70Class *)ship->PositionalState)->Unknown_30(Client->Unknown10BC, tm);
+ 			*mode = 2;
+ 			return;
+
+FORM angle_staged
+--- camctrl_takeoff.cpp
++++ angle_staged/camctrl_takeoff.cpp
+@@ -131,33 +131,33 @@
+ 		Quaternion q;
+ 		Slerp(q, Unknown3C, Unknown4C, t * t);
+ 		Matrix3D tm = Build_Matrix3D(q);
+-		Vector3 p = (Unknown30 - Unknown24) * t + Unknown24;
++		Vector3 p = Lerp(Unknown24, Unknown30, t);
+ 		tm.Set_Translation(p);
+-		if (ship->PositionalState && ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
++		if (ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
+ 			((Unknown718D70Class *)ship->PositionalState)->Unknown_30(Client->Unknown10BC, tm);
+ 			*mode = 2;
+ 			return;
+ 		}
+-	} else if (elapsed < 5000) {
++	} else if (elapsed < 5000) { Matrix3D tm;
+ 		if (!Unknown5C) {
+ 			Unknown5C = true;
+-			Matrix3D lookat;
+-			lookat.Obj_Look_At(Unknown30, Unknown18, 0.0f);
+-			float angle = (Unknown_BDB1C0.Get_Float() - 0.5f) * 30.0f * (WWMATH_PI / 180.0f);
++			
++			tm.Obj_Look_At(Unknown30, Unknown18, 0.0f);
++			float angle = (Unknown_BDB1C0.Get_Float() - 0.5f) * 30.0f; angle *= (WWMATH_PI / 180.0f);
+ 			if (Unknown_BDB1C0(0, 1) == 1) {
+ 				angle = WWMATH_PI - angle;
+ 			}
+ 			float dist = (Unknown_BDB1C0.Get_Float() * 7.0f + 10.0f) * distance;
+-			float s = sin(angle);
+-			float c = cos(angle);
+-			Unknown0C->Position = lookat * Vector3(dist, c * 1.5f * distance, s * 1.5f * distance);
++			float s = WWMath::Sin(angle);
++			float c = WWMath::Cos(angle);
++			Unknown0C->Position = tm * Vector3(dist, c * 1.5f * distance, s * 1.5f * distance);
+ 			Unknown0C->Unknown_04();
+ 		}
+ 		float t = (float)(elapsed - 2000) * 0.00033333333f;
+-		Matrix3D tm = Build_Matrix3D(Unknown4C);
+-		Vector3 p = (Unknown18 - Unknown30) * t + Unknown30;
++		tm = Build_Matrix3D(Unknown4C);
++		Vector3 p = Lerp(Unknown30, Unknown18, t);
+ 		tm.Set_Translation(p);
+-		if (ship->PositionalState && ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
++		if (ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
+ 			((Unknown718D70Class *)ship->PositionalState)->Unknown_30(Client->Unknown10BC, tm);
+ 			*mode = 2;
+ 			return;
+
+FORM scaled_trig
+--- camctrl_takeoff.cpp
++++ scaled_trig/camctrl_takeoff.cpp
+@@ -131,33 +131,33 @@
+ 		Quaternion q;
+ 		Slerp(q, Unknown3C, Unknown4C, t * t);
+ 		Matrix3D tm = Build_Matrix3D(q);
+-		Vector3 p = (Unknown30 - Unknown24) * t + Unknown24;
++		Vector3 p = Lerp(Unknown24, Unknown30, t);
+ 		tm.Set_Translation(p);
+-		if (ship->PositionalState && ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
++		if (ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
+ 			((Unknown718D70Class *)ship->PositionalState)->Unknown_30(Client->Unknown10BC, tm);
+ 			*mode = 2;
+ 			return;
+ 		}
+-	} else if (elapsed < 5000) {
++	} else if (elapsed < 5000) { Matrix3D tm;
+ 		if (!Unknown5C) {
+ 			Unknown5C = true;
+-			Matrix3D lookat;
+-			lookat.Obj_Look_At(Unknown30, Unknown18, 0.0f);
+-			float angle = (Unknown_BDB1C0.Get_Float() - 0.5f) * 30.0f * (WWMATH_PI / 180.0f);
++			
++			tm.Obj_Look_At(Unknown30, Unknown18, 0.0f);
++			float angle = (Unknown_BDB1C0.Get_Float() - 0.5f) * 30.0f; angle *= (WWMATH_PI / 180.0f);
+ 			if (Unknown_BDB1C0(0, 1) == 1) {
+ 				angle = WWMATH_PI - angle;
+ 			}
+ 			float dist = (Unknown_BDB1C0.Get_Float() * 7.0f + 10.0f) * distance;
+-			float s = sin(angle);
+-			float c = cos(angle);
+-			Unknown0C->Position = lookat * Vector3(dist, c * 1.5f * distance, s * 1.5f * distance);
++			float s = WWMath::Sin(angle);
++			float c = WWMath::Cos(angle); c *= 1.5f; c *= distance; s *= 1.5f; s *= distance;
++			Unknown0C->Position = tm * Vector3(dist, c, s);
+ 			Unknown0C->Unknown_04();
+ 		}
+ 		float t = (float)(elapsed - 2000) * 0.00033333333f;
+-		Matrix3D tm = Build_Matrix3D(Unknown4C);
+-		Vector3 p = (Unknown18 - Unknown30) * t + Unknown30;
++		tm = Build_Matrix3D(Unknown4C);
++		Vector3 p = Lerp(Unknown30, Unknown18, t);
+ 		tm.Set_Translation(p);
+-		if (ship->PositionalState && ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
++		if (ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
+ 			((Unknown718D70Class *)ship->PositionalState)->Unknown_30(Client->Unknown10BC, tm);
+ 			*mode = 2;
+ 			return;
+
+FORM selector_switch
+--- camctrl_takeoff.cpp
++++ selector_switch/camctrl_takeoff.cpp
+@@ -131,33 +131,33 @@
+ 		Quaternion q;
+ 		Slerp(q, Unknown3C, Unknown4C, t * t);
+ 		Matrix3D tm = Build_Matrix3D(q);
+-		Vector3 p = (Unknown30 - Unknown24) * t + Unknown24;
++		Vector3 p = Lerp(Unknown24, Unknown30, t);
+ 		tm.Set_Translation(p);
+-		if (ship->PositionalState && ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
++		if (ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
+ 			((Unknown718D70Class *)ship->PositionalState)->Unknown_30(Client->Unknown10BC, tm);
+ 			*mode = 2;
+ 			return;
+ 		}
+-	} else if (elapsed < 5000) {
++	} else if (elapsed < 5000) { Matrix3D tm;
+ 		if (!Unknown5C) {
+ 			Unknown5C = true;
+-			Matrix3D lookat;
+-			lookat.Obj_Look_At(Unknown30, Unknown18, 0.0f);
+-			float angle = (Unknown_BDB1C0.Get_Float() - 0.5f) * 30.0f * (WWMATH_PI / 180.0f);
+-			if (Unknown_BDB1C0(0, 1) == 1) {
++			
++			tm.Obj_Look_At(Unknown30, Unknown18, 0.0f);
++			float angle = (Unknown_BDB1C0.Get_Float() - 0.5f) * 30.0f; angle *= (WWMATH_PI / 180.0f);
++			switch (Unknown_BDB1C0(0, 1)) { case 1:
+ 				angle = WWMATH_PI - angle;
+ 			}
+ 			float dist = (Unknown_BDB1C0.Get_Float() * 7.0f + 10.0f) * distance;
+-			float s = sin(angle);
+-			float c = cos(angle);
+-			Unknown0C->Position = lookat * Vector3(dist, c * 1.5f * distance, s * 1.5f * distance);
++			float s = WWMath::Sin(angle);
++			float c = WWMath::Cos(angle); c *= 1.5f; c *= distance; s *= 1.5f; s *= distance;
++			Unknown0C->Position = tm * Vector3(dist, c, s);
+ 			Unknown0C->Unknown_04();
+ 		}
+ 		float t = (float)(elapsed - 2000) * 0.00033333333f;
+-		Matrix3D tm = Build_Matrix3D(Unknown4C);
+-		Vector3 p = (Unknown18 - Unknown30) * t + Unknown30;
++		tm = Build_Matrix3D(Unknown4C);
++		Vector3 p = Lerp(Unknown30, Unknown18, t);
+ 		tm.Set_Translation(p);
+-		if (ship->PositionalState && ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
++		if (ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
+ 			((Unknown718D70Class *)ship->PositionalState)->Unknown_30(Client->Unknown10BC, tm);
+ 			*mode = 2;
+ 			return;
+
+FORM named_offset
+--- camctrl_takeoff.cpp
++++ named_offset/camctrl_takeoff.cpp
+@@ -131,33 +131,33 @@
+ 		Quaternion q;
+ 		Slerp(q, Unknown3C, Unknown4C, t * t);
+ 		Matrix3D tm = Build_Matrix3D(q);
+-		Vector3 p = (Unknown30 - Unknown24) * t + Unknown24;
++		Vector3 p = Lerp(Unknown24, Unknown30, t);
+ 		tm.Set_Translation(p);
+-		if (ship->PositionalState && ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
++		if (ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
+ 			((Unknown718D70Class *)ship->PositionalState)->Unknown_30(Client->Unknown10BC, tm);
+ 			*mode = 2;
+ 			return;
+ 		}
+-	} else if (elapsed < 5000) {
++	} else if (elapsed < 5000) { Matrix3D tm;
+ 		if (!Unknown5C) {
+ 			Unknown5C = true;
+-			Matrix3D lookat;
+-			lookat.Obj_Look_At(Unknown30, Unknown18, 0.0f);
+-			float angle = (Unknown_BDB1C0.Get_Float() - 0.5f) * 30.0f * (WWMATH_PI / 180.0f);
+-			if (Unknown_BDB1C0(0, 1) == 1) {
++			
++			tm.Obj_Look_At(Unknown30, Unknown18, 0.0f);
++			float angle = (Unknown_BDB1C0.Get_Float() - 0.5f) * 30.0f; angle *= (WWMATH_PI / 180.0f);
++			switch (Unknown_BDB1C0(0, 1)) { case 1:
+ 				angle = WWMATH_PI - angle;
+ 			}
+ 			float dist = (Unknown_BDB1C0.Get_Float() * 7.0f + 10.0f) * distance;
+-			float s = sin(angle);
+-			float c = cos(angle);
+-			Unknown0C->Position = lookat * Vector3(dist, c * 1.5f * distance, s * 1.5f * distance);
++			float s = WWMath::Sin(angle);
++			float c = WWMath::Cos(angle); c *= 1.5f; c *= distance; s *= 1.5f; s *= distance;
++			Vector3 offset(dist, c, s); Unknown0C->Position = tm * offset;
+ 			Unknown0C->Unknown_04();
+ 		}
+ 		float t = (float)(elapsed - 2000) * 0.00033333333f;
+-		Matrix3D tm = Build_Matrix3D(Unknown4C);
+-		Vector3 p = (Unknown18 - Unknown30) * t + Unknown30;
++		tm = Build_Matrix3D(Unknown4C);
++		Vector3 p = Lerp(Unknown30, Unknown18, t);
+ 		tm.Set_Translation(p);
+-		if (ship->PositionalState && ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
++		if (ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
+ 			((Unknown718D70Class *)ship->PositionalState)->Unknown_30(Client->Unknown10BC, tm);
+ 			*mode = 2;
+ 			return;
+
+FORM phase1_lerp_output
+--- camctrl_takeoff.cpp
++++ phase1_lerp_output/camctrl_takeoff.cpp
+@@ -131,33 +131,33 @@
+ 		Quaternion q;
+ 		Slerp(q, Unknown3C, Unknown4C, t * t);
+ 		Matrix3D tm = Build_Matrix3D(q);
+-		Vector3 p = (Unknown30 - Unknown24) * t + Unknown24;
++		Vector3 p = Lerp(Unknown24, Unknown30, t);
+ 		tm.Set_Translation(p);
+-		if (ship->PositionalState && ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
++		if (ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
+ 			((Unknown718D70Class *)ship->PositionalState)->Unknown_30(Client->Unknown10BC, tm);
+ 			*mode = 2;
+ 			return;
+ 		}
+-	} else if (elapsed < 5000) {
++	} else if (elapsed < 5000) { Matrix3D tm;
+ 		if (!Unknown5C) {
+ 			Unknown5C = true;
+-			Matrix3D lookat;
+-			lookat.Obj_Look_At(Unknown30, Unknown18, 0.0f);
+-			float angle = (Unknown_BDB1C0.Get_Float() - 0.5f) * 30.0f * (WWMATH_PI / 180.0f);
+-			if (Unknown_BDB1C0(0, 1) == 1) {
++			
++			tm.Obj_Look_At(Unknown30, Unknown18, 0.0f);
++			float angle = (Unknown_BDB1C0.Get_Float() - 0.5f) * 30.0f; angle *= (WWMATH_PI / 180.0f);
++			switch (Unknown_BDB1C0(0, 1)) { case 1:
+ 				angle = WWMATH_PI - angle;
+ 			}
+ 			float dist = (Unknown_BDB1C0.Get_Float() * 7.0f + 10.0f) * distance;
+-			float s = sin(angle);
+-			float c = cos(angle);
+-			Unknown0C->Position = lookat * Vector3(dist, c * 1.5f * distance, s * 1.5f * distance);
++			float s = WWMath::Sin(angle);
++			float c = WWMath::Cos(angle); c *= 1.5f; c *= distance; s *= 1.5f; s *= distance;
++			Vector3 offset(dist, c, s); Unknown0C->Position = tm * offset;
+ 			Unknown0C->Unknown_04();
+ 		}
+ 		float t = (float)(elapsed - 2000) * 0.00033333333f;
+-		Matrix3D tm = Build_Matrix3D(Unknown4C);
+-		Vector3 p = (Unknown18 - Unknown30) * t + Unknown30;
++		tm = Build_Matrix3D(Unknown4C);
++		Vector3 p; Lerp(Unknown30, Unknown18, t, &p);
+ 		tm.Set_Translation(p);
+-		if (ship->PositionalState && ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
++		if (ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
+ 			((Unknown718D70Class *)ship->PositionalState)->Unknown_30(Client->Unknown10BC, tm);
+ 			*mode = 2;
+ 			return;
+
+FORM phase1_lerp_direct
+--- camctrl_takeoff.cpp
++++ phase1_lerp_direct/camctrl_takeoff.cpp
+@@ -131,33 +131,33 @@
+ 		Quaternion q;
+ 		Slerp(q, Unknown3C, Unknown4C, t * t);
+ 		Matrix3D tm = Build_Matrix3D(q);
+-		Vector3 p = (Unknown30 - Unknown24) * t + Unknown24;
++		Vector3 p = Lerp(Unknown24, Unknown30, t);
+ 		tm.Set_Translation(p);
+-		if (ship->PositionalState && ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
++		if (ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
+ 			((Unknown718D70Class *)ship->PositionalState)->Unknown_30(Client->Unknown10BC, tm);
+ 			*mode = 2;
+ 			return;
+ 		}
+-	} else if (elapsed < 5000) {
++	} else if (elapsed < 5000) { Matrix3D tm;
+ 		if (!Unknown5C) {
+ 			Unknown5C = true;
+-			Matrix3D lookat;
+-			lookat.Obj_Look_At(Unknown30, Unknown18, 0.0f);
+-			float angle = (Unknown_BDB1C0.Get_Float() - 0.5f) * 30.0f * (WWMATH_PI / 180.0f);
+-			if (Unknown_BDB1C0(0, 1) == 1) {
++			
++			tm.Obj_Look_At(Unknown30, Unknown18, 0.0f);
++			float angle = (Unknown_BDB1C0.Get_Float() - 0.5f) * 30.0f; angle *= (WWMATH_PI / 180.0f);
++			switch (Unknown_BDB1C0(0, 1)) { case 1:
+ 				angle = WWMATH_PI - angle;
+ 			}
+ 			float dist = (Unknown_BDB1C0.Get_Float() * 7.0f + 10.0f) * distance;
+-			float s = sin(angle);
+-			float c = cos(angle);
+-			Unknown0C->Position = lookat * Vector3(dist, c * 1.5f * distance, s * 1.5f * distance);
++			float s = WWMath::Sin(angle);
++			float c = WWMath::Cos(angle); c *= 1.5f; c *= distance; s *= 1.5f; s *= distance;
++			Vector3 offset(dist, c, s); Unknown0C->Position = tm * offset;
+ 			Unknown0C->Unknown_04();
+ 		}
+ 		float t = (float)(elapsed - 2000) * 0.00033333333f;
+-		Matrix3D tm = Build_Matrix3D(Unknown4C);
+-		Vector3 p = (Unknown18 - Unknown30) * t + Unknown30;
+-		tm.Set_Translation(p);
+-		if (ship->PositionalState && ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
++		tm = Build_Matrix3D(Unknown4C);
++		tm.Set_Translation(Lerp(Unknown30, Unknown18, t));
++
++		if (ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
+ 			((Unknown718D70Class *)ship->PositionalState)->Unknown_30(Client->Unknown10BC, tm);
+ 			*mode = 2;
+ 			return;
+
