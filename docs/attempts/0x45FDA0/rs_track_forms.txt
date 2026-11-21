@@ -411,3 +411,83 @@ for fi,(fn,fragment) in enumerate(flags):
   except Exception as e: row['error']=str(e)
   rows.append(row); (area/'manifest.json').write_text(json.dumps(rows,indent=2)); print(label,row.get('scores'),row.get('groups'),row.get('error',''),flush=True)
 (area/'groups.json').write_text(json.dumps(groups,indent=2))
+
+User-requested gpt-6.1-terra high-thinking bulk batch for 0x45FDA0
+
+Claim 234, gpt-6.1-terra high, requested bounded exploratory batch.
+Target 0x45FDA0; current source and header frozen as baseline.cpp/baseline.h.
+30 source forms, 30 successful VC6 SP4 compiles, zero compile errors.
+Five bounds forms: box center and/or extent initialized from the already
+initialized sphere center, or initialized field by field in each order.
+Each combined with six flag-transfer forms: direct assignment, destination
+byte reference, list reference, this pointer, memcpy, or memmove.
+Only first constructor was changed; scaled constructor and all other source
+were frozen. memcpy optimized like assignment; memmove changed code markedly.
+
+13 normalized byte/relocation-identity groups; 12 keys were absent from the
+previous terra-bulk/groups-normalized.json; this is not a comparison against
+all historical outputs. One group (174af474dad6) matches prior box_init.
+screen.json: baseline 12 fixed-byte mismatches in 353 fixed bytes; best trial
+38 mismatches. No pattern hit. Mismatch counts are positional, so output size
+and instruction movement can magnify them; instruction similarity was also
+no better than previous 0.842553. No genuine new-best or exact candidate and
+therefore no full matcher run warranted. The baseline matches.json has 190
+exact and retains scaled constructor and animation method; preservation by
+trials has not been verified because no candidate was selected.
+run.py, screen.py, manifest.json, groups.json and each source, object, log,
+and relocation list provide reproducible details. Wine server stopped.
+No tracked edits, ledger edits, commits, pushes or external posts.
+
+Reproducible source transformations
+
+from pathlib import Path
+import sys, os, json, hashlib, difflib, subprocess
+area=Path(__file__).resolve().parent; root=area.parents[2]
+sys.path[:0]=[str(area.parent),str(root/'tools/re')]
+from fastbuild import compile_file
+from objmatch import CoffObject, RELOC_SIZE
+from objdiff import obj_lines, client_lines, norm
+from clientimage import ClientImage
+base=(area/'baseline.cpp').read_text(); header=(area/'baseline.h').read_text()
+retail='/home/dev/Games/earth-and-beyond/prefix/drive_c/Program Files (x86)/EA GAMES/Earth & Beyond/release/client.exe'
+os.environ['ENB_RETAIL_INSTALL']=str(Path(retail).parents[1])
+z='Vector3(0.0f, 0.0f, 0.0f)'; s='UnknownD8('+z+', 0.0f)'; box='UnknownE8('+z+', '+z+')'; old=s+',\n\t'+box+'\n{'
+bounds=[
+ ('box_both_sphere_center',s+',\n\tUnknownE8(UnknownD8.Center, UnknownD8.Center)\n{'),
+ ('box_center_sphere_center',s+',\n\tUnknownE8(UnknownD8.Center, '+z+')\n{'),
+ ('box_extent_sphere_center',s+',\n\tUnknownE8('+z+', UnknownD8.Center)\n{'),
+ ('box_fields_center_first',s+',\n\tUnknownE8()\n{ UnknownE8.Center.Set(0.0f, 0.0f, 0.0f); UnknownE8.Extent.Set(0.0f, 0.0f, 0.0f);'),
+ ('box_fields_extent_first',s+',\n\tUnknownE8()\n{ UnknownE8.Extent.Set(0.0f, 0.0f, 0.0f); UnknownE8.Center.Set(0.0f, 0.0f, 0.0f);')]
+flags=[
+ ('direct','Unknown8C = RenderStateList.Unknown2C;'),
+ ('destination_ref','unsigned char &flags = Unknown8C; flags = RenderStateList.Unknown2C;'),
+ ('list_ref','RenderStateListClass &states = RenderStateList; Unknown8C = states.Unknown2C;'),
+ ('self_pointer','RsTrackClass *track = this; track->Unknown8C = track->RenderStateList.Unknown2C;'),
+ ('memcpy','memcpy(&Unknown8C, &RenderStateList.Unknown2C, sizeof Unknown8C);'),
+ ('memmove','memmove(&Unknown8C, &RenderStateList.Unknown2C, sizeof Unknown8C);')]
+img=ClientImage(retail); rows=[]; groups={}
+assert base.count(old)==2
+for bi,(bn,init) in enumerate(bounds):
+ for fi,(fn,frag) in enumerate(flags):
+  label=f'{bi}{fi}_{bn}_{fn}'; out=area/label; out.mkdir(exist_ok=True)
+  code=base.replace(old,init,1).replace('Unknown8C = RenderStateList.Unknown2C;',frag,1)
+  assert code.count('\n')==base.count('\n')
+  src=out/'rs_track.cpp'; src.write_text(code); (out/'rs_track.h').write_text(header)
+  row={'label':label,'bounds':bn,'flags':fn}
+  try:
+   objpath=compile_file(src,out); obj=CoffObject(str(objpath)); name,sec,start,end=[f for f in obj.functions() if '??0RsTrackClass' in f[0]][0]
+   info=obj.sections[sec]; body=bytearray(obj.data[info['raw']+start:info['raw']+end]); symbols={s['index']:s for s in obj.symbols}; rel=[]
+   for va,si,typ in info['relocs']:
+    if start<=va<end:
+     sym=symbols[si]; n=sym['name']; value=sym['value']
+     if n.startswith('$L'): n='$L'
+     if n.startswith('??_C@') and '?2home?2dev?2Projects?2EnB?2?4work?2c@' in n: n='__FILE__'; value=0
+     rel.append((va-start,typ,n,value))
+     for k in range(RELOC_SIZE.get(typ,4)):
+      if va-start+k<len(body): body[va-start+k]=0
+   key=hashlib.sha256(json.dumps([body.hex(),rel]).encode()).hexdigest()[:12]; groups.setdefault(key,[]).append(label)
+   l=obj_lines(obj,sec,start,end); r=client_lines(img,0x45fda0,end-start)
+   row.update(group=key,score=round(difflib.SequenceMatcher(None,[norm(t) for _,_,t in l],[norm(t) for _,_,t in r],autojunk=False).ratio(),6))
+   (out/'reloc.json').write_text(json.dumps(rel,indent=2))
+  except Exception as e: row['error']=str(e)
+  rows.append(row); (area/'manifest.json').write_text(json.dumps(rows,indent=2)); (area/'groups.json').write_text(json.dumps(groups,indent=2)); print(label,row.get('score'),row.get('group'),row.get('error',''),flush=True)
