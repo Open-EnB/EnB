@@ -1,0 +1,50 @@
+HYPOTHESIS = "0x521C10's quality / structure / maker locals as RefCountPtr<ClientItemPropertyClass> (client unwind 0xAAB9B0-0xAABAC8: their funclets jmp 0x529130 at ebp-0x20 / -0x88, as 0x522860's 32 locals)"
+FILE = 'app/client/item/client_item_property_builder.cpp'
+SYMBOL = 'ClientItemPropertyBuilderClass::Unknown_521C10'
+ADDRESS = 0x521C10
+
+C1 = [("RefCountPtr<ClientItemPropertyAttributeClass> quality_property", "RefCountPtr<ClientItemPropertyClass> quality_property"),
+      ("RefCountPtr<ClientItemPropertyAttributeClass> structure_property", "RefCountPtr<ClientItemPropertyClass> structure_property"),
+      ("RefCountPtr<ClientItemPropertySpecialClass> special = ClientItemPropertySpecialMakerClass::Create(maker,", "RefCountPtr<ClientItemPropertyClass> special = ClientItemPropertySpecialMakerClass::Create(maker,"),
+      ("RefCountPtr<ClientItemPropertySpecialClass> special = ClientItemPropertySpecialMakerClass::Create(maker2,", "RefCountPtr<ClientItemPropertyClass> special = ClientItemPropertySpecialMakerClass::Create(maker2,")]
+
+FORMS = {
+    'B_all': C1,
+    'B_attr': C1[:2],
+    'B_maker': C1[2:],
+}
+exec(open('.work/cb/retype_521c10.py', encoding='utf-8').read().split('FORMS = {')[0])
+HYPOTHESIS = "0x521C10 under the RefCountPtr<ClientItemPropertyClass> retype (funclets 0x529130): explicit RefCountPtr<const ClientItemPropertyClass> Route temporaries as the spender that put 0x5285A0 back (grid: retype attr/all x temps on quality / structure / maker)"
+import itertools
+TQ = ("router.Route(quality_property);", "router.Route(RefCountPtr<const ClientItemPropertyClass>(quality_property));")
+TS = ("router.Route(structure_property);", "router.Route(RefCountPtr<const ClientItemPropertyClass>(structure_property));")
+TM1 = ("MAKER_PLAYER); router.Route(special);", "MAKER_PLAYER); router.Route(RefCountPtr<const ClientItemPropertyClass>(special));")
+TM2 = ("MAKER_CORPORATION); router.Route(special);", "MAKER_CORPORATION); router.Route(RefCountPtr<const ClientItemPropertyClass>(special));")
+FORMS = {}
+for rname, R in (('attr', C1[:2]), ('all', C1)):
+    for q, s_, m in itertools.product((0, 1), repeat=3):
+        h = list(R)
+        if q: h.append(TQ)
+        if s_: h.append(TS)
+        if m: h += [TM1, TM2]
+        FORMS['%s_q%d_s%d_m%d' % (rname, q, s_, m)] = h
+# temps alone, no retype
+FORMS['none_q1_s1_m1'] = [TQ, TS, TM1, TM2]
+HYPOTHESIS = "0x521C10's register residue at the Unknown529810 Create / Route (client edx / eax): explicit RefCountPtr<const ClientItemPropertyClass> temporaries on the direct Create Routes (funclets: a Create temp + a 0x529040 Route temp each)"
+FILE = 'app/client/item/client_item_property_builder.cpp'
+SYMBOL = 'ClientItemPropertyBuilderClass::Unknown_521C10'
+ADDRESS = 0x521C10
+T = 'RefCountPtr<const ClientItemPropertyClass>'
+SITES = {
+ 'nm': ("router.Route(ClientItemPropertyNameClass::Create(name));", "router.Route(%s(ClientItemPropertyNameClass::Create(name)));" % T),
+ 'uk': ("router.Route(ClientItemPropertyUnknown529810Class::Create(Item->Unknown08));", "router.Route(%s(ClientItemPropertyUnknown529810Class::Create(Item->Unknown08)));" % T),
+ 'ic': ("router.Route(ClientItemPropertyIconClass::Create(Create_Get(((Unknown831340Class *)Item)->Unknown_831840())));", "router.Route(%s(ClientItemPropertyIconClass::Create(Create_Get(((Unknown831340Class *)Item)->Unknown_831840()))));" % T),
+ 't1': ("router.Route(ClientItemPropertyTypeClass::Create(type, value, id));", "router.Route(%s(ClientItemPropertyTypeClass::Create(type, value, id)));" % T),
+ 't2': ("router.Route(ClientItemPropertyTypeClass::Create(type, id));", "router.Route(%s(ClientItemPropertyTypeClass::Create(type, id)));" % T),
+ 'ds': ("router.Route(ClientItemPropertyDescriptionClass::Create(Item->Description));", "router.Route(%s(ClientItemPropertyDescriptionClass::Create(Item->Description)));" % T),
+}
+FORMS = {k: [v] for k, v in SITES.items()}
+FORMS['all6'] = list(SITES.values())
+FORMS['nm_uk'] = [SITES['nm'], SITES['uk']]
+FORMS['nm_uk_ic'] = [SITES['nm'], SITES['uk'], SITES['ic']]
+FORMS['uk_ic'] = [SITES['uk'], SITES['ic']]
