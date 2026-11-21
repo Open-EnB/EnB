@@ -2757,7 +2757,7 @@ void UIStarbaseClass::Unknown_63C890()
 
 
 
-// NOT EXACT: 0x63CA50, functional (register: the client loads the view (+0xB0) into ecx before the avatar at the button's constructor, the scene's Add_Render_Object and 0x6870E0's arguments, ours into edx / eax; O4, UB)
+static inline LayerClass &Unknown_Layer(SBaseViewClass *view) { return(*view->Unknown80); }	// (the view's +0x80 layer: 0x63CA50 reads it through this for the button: read directly the view and the avatar swap ecx / edx)  // NAME 1: neutral (D10)
 // 0x63CA50 ('(%s) Adding avatar %s in room %d': a known avatar's entry made, its name tags and gadget, into +0xD4)
 void UIStarbaseClass::Unknown_63CA50(int id, const Matrix3D &transform, int flags)
 {
@@ -2789,7 +2789,7 @@ void UIStarbaseClass::Unknown_63CA50(int id, const Matrix3D &transform, int flag
 	UnknownB0->Unknown_6A1880(savatar->NameTag, 0);
 	savatar->Unknown_633180();
 	UnknownD4[id] = savatar;
-	savatar->Unknown14 = new ButtonGadgetClass(savatar->Avatar->BodyObj.Peek(), *UnknownB0->Unknown80, 5, 0);
+	savatar->Unknown14 = new ButtonGadgetClass(savatar->Avatar->BodyObj.Peek(), Unknown_Layer(UnknownB0), 5, 0);
 	savatar->Unknown14->Unknown2C_0A = true;
 	savatar->Unknown14->Set_Last_Sort_Group(true);
 	Unknown64.Unknown_6870E0(savatar->Unknown14, id + 100, View, true, true);
