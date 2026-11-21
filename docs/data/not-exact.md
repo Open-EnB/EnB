@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-684 entries in 268 files.
+683 entries in 267 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -20,7 +20,6 @@ edit the comments in the code, not this file.
 | `app/audio/musicmanager.cpp:708` | `EXACT` | mention | NOT EXACT (shape: a merged tail, attempts.csv) and stands last in |
 | `app/audio/musicmanager.cpp:710` | `EXACT` | mention | NOT EXACT (inline budget: |
 | `app/audio/sectorsound.cpp:56` | `SectorSoundClass::Load_INI` | marker | NOT EXACT: register-only (explain.py, same length, 0.76): the frame is the client's since num_channels == 0 returns (D252); the client loads 'this' for Load_Section before the pushes and &ini into eax |
-| `app/audio/soundlib.cpp:157` | `SoundDefClass::SoundDefClass` | marker | NOT EXACT: inline budget (explain.py: 66 calls vs 67), reserve inlines size() and calls _Destroy where the client calls size() and inlines _Destroy; one more string destructor called |
 | `app/audio/unknown_431e30.cpp:128` | `Unknown431E30Class::Update` | marker | NOT EXACT: inline budget (explain.py: 10 calls, the client 11; 421 bytes, 0.59): the client calls the end() iterator copy 0x432C00 out of line in the inlined Get_Sector_Music, here it is inline; dead reads inside Get_Sector_Music, a const_iterator and an inline wrapper changed nothing |
 | `app/client/aux_group_ctors.h:4` | `DeltaGroupInfoClass::DeltaGroupInfoClass` | mention | NOT EXACT (D42) where aux_roots.h is. NAME 1 [aux_group_ctors.h]: provisional file name (the client's headers are not named by any string) |
 | `app/client/aux_roots.h:10` | `?` | mention | NOT EXACT (D42): functional; see the generator's docstring for what differs. |

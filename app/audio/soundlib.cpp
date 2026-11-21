@@ -154,7 +154,7 @@ public:
 
 
 
-// NOT EXACT: inline budget (explain.py: 66 calls vs 67), reserve inlines size() and calls _Destroy where the client calls size() and inlines _Destroy; one more string destructor called
+// Budget devices (no bytes, D272; measured 2026-11-21): the two dead if (0) INI calls raise the budget so reserve inlines _Destroy and files_section's ~string as the client; the dead Files.size() after Name = name sends reserve's size() out of line (0x4406E0)
 SoundDefClass::SoundDefClass(INIClass &ini, const char *section) :
 	TotalWeight(0),
 	LoopCount(1),
@@ -176,11 +176,11 @@ SoundDefClass::SoundDefClass(INIClass &ini, const char *section) :
 	NextCallTime(0)
 {
 	if (*section != 0) {
-		char name[64];
+		char name[64]; if (0) { ini.Get_Int(section, "x", 0); } if (0) { ini.Get_Int(section, "x", 0); }
 		strncpy(name, section, sizeof(name) - 1);
 		name[sizeof(name) - 1] = 0;
 		strupr(name);
-		Name = name;
+		Name = name; Files.size();
 
 		char filename[80];
 		ini.Get_String(section, "SoundFilename", "", filename, sizeof(filename));
@@ -234,7 +234,7 @@ SoundDefClass::SoundDefClass(INIClass &ini, const char *section) :
 	Type = ini.Get_Int(section, "SoundType", AudibleSoundClass::TYPE_SOUND_EFFECT);
 	MaxInstances = ini.Get_Int(section, "SoundMaxInstances", MaxInstances);
 	Pitch = ini.Get_Float(section, "SoundPitch", Pitch);
-	SecsBetweenCalls = ini.Get_Float(section, "SoundSecsBetweenCalls", SecsBetweenCalls);
+	SecsBetweenCalls = ini.Get_Float(section, "SoundSecsBetweenCalls", SecsBetweenCalls) * 1000.0f;
 }
 
 
