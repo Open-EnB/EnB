@@ -1,0 +1,126 @@
+HYPOTHESIS = 'NM mv1 (diagnostic): which positions of an inline Vector3 construction flip which x87 operand-order site (Normalize, occluder dot, generic dot X); then natural forms with the same construction count'
+FILE = 'app/client/mainview.cpp'
+SYMBOL = 'MainViewClass::Unknown_60'
+ADDRESS = 0x512BB0
+
+D = ' Vector3 dz(0.0f, 0.0f, 0.0f);'
+TOP = '\tMatrix3D tm = Camera->Get_Transform();\n'
+NRM = '\tray.Normalize();\n'
+FAR = '\tfloat far2 = Camera->Get_Depth();\n'
+OCC = '\t\t\t\tVector3 dir = object->Unknown_24() - eye;\n\t\t\t\tfloat dist2 = dir.X * dir.X + dir.Y * dir.Y + dir.Z * dir.Z;\n\t\t\t\toolen_o'
+GEN = '\t\t\t\tVector3 dir = object->Unknown_24() - eye;\n\t\t\t\tfloat dist2 = dir.X * dir.X + dir.Y * dir.Y + dir.Z * dir.Z;\n\t\t\t\toolen_g'
+SORT = 'sort:\n\tint by_distance[64];\n'
+
+
+def at(anchor, n):
+    # n dead constructions at the start of the anchor's first line (same line count)
+    body = anchor.lstrip('\t')
+    tabs = anchor[:len(anchor) - len(body)]
+    names = ''.join(' Vector3 dz%d(0.0f, 0.0f, 0.0f);' % i for i in range(n))
+    return (anchor, tabs + names.strip() + ' ' + body)
+
+
+FORMS = {}
+for n in (1, 2, 3):
+    FORMS['top%d' % n] = [at(TOP, n)]
+    FORMS['nrm%d' % n] = [at(NRM, n)]        # before ray.Normalize()
+    FORMS['far%d' % n] = [at(FAR, n)]        # after ray.Normalize()
+    FORMS['occ%d' % n] = [at(OCC, n)]
+    FORMS['gen%d' % n] = [at(GEN, n)]
+# natural forms
+FORMS['pos_occ'] = [(OCC, OCC.replace('Vector3 dir = object->Unknown_24() - eye;', 'Vector3 pos = object->Unknown_24(); Vector3 dir = pos - eye;'))]
+FORMS['pos_gen'] = [(GEN, GEN.replace('Vector3 dir = object->Unknown_24() - eye;', 'Vector3 pos = object->Unknown_24(); Vector3 dir = pos - eye;'))]
+FORMS['pos_both'] = FORMS['pos_occ'] + FORMS['pos_gen']
+FORMS['eye_assign'] = [('\tVector3 eye = Camera->Get_Position();', '\tVector3 eye; eye = Camera->Get_Position();')]
+FORMS['ray_ctor'] = [('\tVector3 ray;\n', '\tVector3 ray(0.0f, 0.0f, 0.0f);\n')]
+FORMS['tm_assign'] = [(TOP, '\tMatrix3D tm; tm = Camera->Get_Transform();\n')]
+HYPOTHESIS = 'NM mv3: natural sources of the one extra inline expansion that fixes Normalize (v built through a constructor / Set, dir through -=, an extra eye / ray copy), and the occluder / generic dot order'
+FILE = 'app/client/mainview.cpp'
+SYMBOL = 'MainViewClass::Unknown_60'
+ADDRESS = 0x512BB0
+
+VX = '\tVector3 v; v.X = '
+VZ = ' v.Z = -1.0f;\n'
+OCC = '\t\t\t\tVector3 dir = object->Unknown_24() - eye;\n\t\t\t\tfloat dist2 = dir.X * dir.X + dir.Y * dir.Y + dir.Z * dir.Z;\n\t\t\t\toolen_o'
+GEN = '\t\t\t\tVector3 dir = object->Unknown_24() - eye;\n\t\t\t\tfloat dist2 = dir.X * dir.X + dir.Y * dir.Y + dir.Z * dir.Z;\n\t\t\t\toolen_g'
+DIRL = 'Vector3 dir = object->Unknown_24() - eye;'
+SUBO = [(OCC, OCC.replace(DIRL, 'Vector3 dir = object->Unknown_24(); dir -= eye;'))]
+SUBG = [(GEN, GEN.replace(DIRL, 'Vector3 dir = object->Unknown_24(); dir -= eye;'))]
+COSO = [('\t\t\t\tdir *= oolen_o;\n\t\t\t\tfloat cos;\n', '\t\t\t\tdir *= oolen_o;\n\t\t\t\tfloat cos = 0.0f;\n')]
+COSG = [('\t\t\t\tdir *= oolen_g;\n\t\t\t\tfloat cos;\n', '\t\t\t\tdir *= oolen_g;\n\t\t\t\tfloat cos = 0.0f;\n')]
+
+FORMS = {
+    'vz_ctor': [(VX, '\tVector3 v(0.0f, 0.0f, -1.0f); v.X = '), (VZ, '\n')],
+    'vz_ctor_keepz': [(VX, '\tVector3 v(0.0f, 0.0f, -1.0f); v.X = ')],
+    'v_set_z': [(VZ, ' v.Set(v.X, v.Y, -1.0f);\n')],
+    'ray_copy': [('\tray.Normalize();\n', '\tray = Normalize(ray);\n')],
+    'subO': SUBO, 'subG': SUBG, 'subOG': SUBO + SUBG,
+    'cosO': COSO, 'cosG': COSG, 'cosOG': COSO + COSG,
+    'eye_ref': [('\tVector3 eye = Camera->Get_Position();', '\tconst Vector3 eye = Camera->Get_Position();')],
+    'plane_ctor': [('\tVector2 plane_min, plane_max;', '\tVector2 plane_min(0.0f, 0.0f), plane_max(0.0f, 0.0f);')],
+}
+DZ = ('\tMatrix3D tm = Camera->Get_Transform();\n', '\tVector3 dz0(0.0f, 0.0f, 0.0f); Matrix3D tm = Camera->Get_Transform();\n')
+for k in ('subO', 'subG', 'subOG', 'cosO', 'cosG', 'cosOG', 'eye_ref'):
+    FORMS['dz_' + k] = [DZ] + FORMS[k]
+HYPOTHESIS = 'NM mv4: the camera-space vector through Vector3::Set (one inline expansion: v_set_z fixed Normalize), whole and partial, with the dir / dot forms that moved the occluder and generic dots in mv3'
+FILE = 'app/client/mainview.cpp'
+SYMBOL = 'MainViewClass::Unknown_60'
+ADDRESS = 0x512BB0
+
+L1 = '\tVector3 v; v.X = (float)(((viewport.Min.X - x) + 0.5) * (plane_max.X - plane_min.X) * -1.0);\n'
+L2 = '\tv.Y = (float)(((y - 0.5) - viewport.Min.Y) * (plane_max.Y - plane_min.Y) * -1.0); v.Z = -1.0f;\n'
+XE = '(float)(((viewport.Min.X - x) + 0.5) * (plane_max.X - plane_min.X) * -1.0)'
+YE = '(float)(((y - 0.5) - viewport.Min.Y) * (plane_max.Y - plane_min.Y) * -1.0)'
+SET_ALL = [(L1 + L2, '\tVector3 v; v.Set(' + XE + ',\n\t\t' + YE + ', -1.0f);\n')]
+SET_Z = [(L2, L2.replace(' v.Z = -1.0f;', ' v.Set(v.X, v.Y, -1.0f);'))]
+XY_LOC = [(L1 + L2, '\tfloat vx = ' + XE + ';\n\tfloat vy = ' + YE + '; Vector3 v(vx, vy, -1.0f);\n')]
+XY_SET = [(L1 + L2, '\tfloat vx = ' + XE + ';\n\tfloat vy = ' + YE + '; Vector3 v; v.Set(vx, vy, -1.0f);\n')]
+Z_FIRST_SET = [(L1 + L2, '\tVector3 v; v.Z = -1.0f; v.X = ' + XE + ';\n\tv.Y = ' + YE + ';\n')]
+ZS = [(L2, L2.replace(' v.Z = -1.0f;', ' v[2] = -1.0f;'))]
+
+OCC = '\t\t\t\tVector3 dir = object->Unknown_24() - eye;\n\t\t\t\tfloat dist2 = dir.X * dir.X + dir.Y * dir.Y + dir.Z * dir.Z;\n\t\t\t\toolen_o'
+GEN = '\t\t\t\tVector3 dir = object->Unknown_24() - eye;\n\t\t\t\tfloat dist2 = dir.X * dir.X + dir.Y * dir.Y + dir.Z * dir.Z;\n\t\t\t\toolen_g'
+DO = '(cos = Vector3::Dot_Product(ray, dir))'
+DG = '(cos = Vector3::Dot_Product(dir, ray))'
+DOT_O_HAND = [(DO, '(cos = dir.X * ray.X + dir.Y * ray.Y + dir.Z * ray.Z)')]
+DOT_G_HAND = [(DG, '(cos = dir.X * ray.X + dir.Y * ray.Y + dir.Z * ray.Z)')]
+DOT_O_HAND2 = [(DO, '(cos = ray.X * dir.X + ray.Y * dir.Y + ray.Z * dir.Z)')]
+DOT_G_HAND2 = [(DG, '(cos = ray.X * dir.X + ray.Y * dir.Y + ray.Z * dir.Z)')]
+
+FORMS = {
+    'set_all': SET_ALL, 'set_z': SET_Z, 'xy_loc': XY_LOC, 'xy_set': XY_SET, 'zfirst': Z_FIRST_SET, 'zidx': ZS,
+}
+for k, f in [('oh', DOT_O_HAND), ('gh', DOT_G_HAND), ('oh2', DOT_O_HAND2), ('gh2', DOT_G_HAND2), ('ohgh', DOT_O_HAND + DOT_G_HAND)]:
+    FORMS['setz_' + k] = SET_Z + f
+    FORMS['setall_' + k] = SET_ALL + f
+HYPOTHESIS = 'NM mv5: combine the Normalize fixes (xy locals into the Vector3 constructor, Set, dead Vector3 diag) with the occluder dot by hand (O fixed in mv4), and generic dot spellings by hand (association, term order)'
+FILE = 'app/client/mainview.cpp'
+SYMBOL = 'MainViewClass::Unknown_60'
+ADDRESS = 0x512BB0
+
+L1 = '\tVector3 v; v.X = (float)(((viewport.Min.X - x) + 0.5) * (plane_max.X - plane_min.X) * -1.0);\n'
+L2 = '\tv.Y = (float)(((y - 0.5) - viewport.Min.Y) * (plane_max.Y - plane_min.Y) * -1.0); v.Z = -1.0f;\n'
+XE = '(float)(((viewport.Min.X - x) + 0.5) * (plane_max.X - plane_min.X) * -1.0)'
+YE = '(float)(((y - 0.5) - viewport.Min.Y) * (plane_max.Y - plane_min.Y) * -1.0)'
+XY_LOC = [(L1 + L2, '\tfloat vx = ' + XE + ';\n\tfloat vy = ' + YE + '; Vector3 v(vx, vy, -1.0f);\n')]
+SET_Z = [(L2, L2.replace(' v.Z = -1.0f;', ' v.Set(v.X, v.Y, -1.0f);'))]
+TOP = '\tMatrix3D tm = Camera->Get_Transform();\n'
+DZ = [(TOP, '\tVector3 dz0(0.0f, 0.0f, 0.0f); Matrix3D tm = Camera->Get_Transform();\n')]
+DO = '(cos = Vector3::Dot_Product(ray, dir))'
+DG = '(cos = Vector3::Dot_Product(dir, ray))'
+OH = [(DO, '(cos = dir.X * ray.X + dir.Y * ray.Y + dir.Z * ray.Z)')]
+G_FORMS = {
+    'g0': [],
+    'gA': [(DG, '(cos = dir.X * ray.X + (dir.Y * ray.Y + dir.Z * ray.Z))')],
+    'gB': [(DG, '(cos = dir.Z * ray.Z + dir.Y * ray.Y + dir.X * ray.X)')],
+    'gC': [(DG, '(cos = Vector3::Dot_Product(ray, dir))')],
+    'gD': [(DG, '(cos = dir.X * ray.X + dir.Y * ray.Y + dir.Z * ray.Z)')],
+}
+N_FORMS = {'xy': XY_LOC, 'sz': SET_Z, 'dz': DZ, 'n0': []}
+FORMS = {}
+for nk, nf in N_FORMS.items():
+    for gk, gf in G_FORMS.items():
+        if nk == 'n0' and gk == 'g0':
+            FORMS['n0_oh'] = OH
+            continue
+        FORMS['%s_oh_%s' % (nk, gk)] = nf + OH + gf

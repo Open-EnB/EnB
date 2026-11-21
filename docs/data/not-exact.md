@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-696 entries in 268 files.
+695 entries in 268 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -331,7 +331,6 @@ edit the comments in the code, not this file.
 | `app/client/ui_avatar_cust.cpp:2373` | `StarbaseAvatarCreationInterface::Unknown_551C80` | mention | NOT EXACT (masked 31, SA 2026-11-20). +0xC0 is the old look (an AvatarDescClass, 0x10C bytes, up to the gadgets at +0x1CC), the avatar's +0xF8 the new one; the +0xB8 gadget is ship_pip.cpp's (ship_pip.h's ShipPipClass). |
 | `app/client/ui_avatar_dialog.cpp:140` | `UIAvatarDialogClass::Unknown_58` | marker | NOT EXACT: register (the client keeps this in edi and the button pointer / the space client in esi, ours the other way round; tried: an early return, a 5-based loop, a button pointer, the space client declared first) 0x552980 |
 | `app/client/ui_avatar_dialog.cpp:299` | `UIAvatarDialogClass::Unknown_552FC0` | marker | NOT EXACT: register (one load: the client reads the new avatar into ecx for the store to AvatarRObj, ours reuses edi; the template operator= and the inline env-map read fixed the rest) 0x552FC0 |
-| `app/client/ui_avatr.cpp:472` | `AvatarCreationInterface::AvatarCreationInterface` | marker | NOT EXACT: 4 masked rows (the AvatarDescClass this / EH state: the client stores them after +0x1C0, ours after +0x178). Nine dead Peek_Model() after the second palette site and two after the mp3 (D272) send both palette models' ~RefCountPtr out as 0x5543C0 / 0x554478 0x553AF0 |
 | `app/client/ui_avatr.cpp:1119` | `CharacterViewClass::Unknown_5594B0` | marker | NOT EXACT: functional (D64), from the client's 0x5594B0 (AvatarDescClass's assignment) 0x5594B0 |
 | `app/client/ui_avatr.cpp:1305` | `AvatarCreationInterface::Unknown_55BAC0` | marker | NOT EXACT: inline-budget (as ui_avatar_cust.cpp's 0x550A10: the client calls the third temporary's ~RefCountPtr 0x4740B0 out of line and holds 0 in ebx) 0x55BAC0 |
 | `app/client/ui_avatr.cpp:1379` | `AvatarCreationInterface::Unknown_558D30` | mention | NOT EXACT) and the palette helper 0x55C350 it inlines (exact; defined at the end here for now, it belongs after the FAIL_IFs of line 2207). The gadgets at +0x98 follow UIAvatrParts (0xB7AF84, 50 entries: 16 shared, 19 for the head tab, 15 for the body tab). The rest of the file is not rebuilt; the class is declared only as far as these use it. TK14 (claim #118): 0x554D60 (the per-frame update: the... |
