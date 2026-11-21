@@ -96,7 +96,7 @@ class Unknown_791310Class	// NAME 1: neutral (D10)
 public:
 	Unknown_791310Class();							// 0x791310: sorts and indexes the table 0xB9DAB8
 	int Unknown_791400(const char *text, int *phonemes, int max);	// 0x791400: the shapes, at most max (no repeats)  // NAME 1: neutral (D10)
-	int Unknown_7917B0(const char *text, char prev, int *shapes);	// 0x7917B0: a table group (its length; 0 none)  // NAME 1: neutral (D10)
+	int Unknown_7917B0(const char *text, const char *original, int *shapes);	// 0x7917B0: a table group (its length; 0 none)  // NAME 1: neutral (D10); original is unused, pointer type inferred from client 0x791486
 	int Unknown_791880(const char *text, char prev, int *shapes);	// 0x791880: 'a'  // NAME 1: neutral (D10)
 	int Unknown_791970(const char *text, char prev, int *shapes);	// 0x791970: 'e'  // NAME 1: neutral (D10)
 	int Unknown_791B00(const char *text, char prev, int *shapes);	// 0x791B00: 'i'  // NAME 1: neutral (D10)

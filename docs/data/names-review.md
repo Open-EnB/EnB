@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1970 |
 | 2 | describes what the code does | 5004 |
-| 1 | neutral placeholder | 25182 |
+| 1 | neutral placeholder | 25183 |
 
 ## For review (score 3 and below)
 
@@ -21265,7 +21265,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown140` | `app/client/unknown_personality.h:88` | neutral (D10) |
 | 1 | `Unknown_791310Class` | `app/client/unknown_personality.h:94` | neutral (D10) |
 | 1 | `Unknown_791400` | `app/client/unknown_personality.h:98` | neutral (D10) |
-| 1 | `Unknown_7917B0` | `app/client/unknown_personality.h:99` | neutral (D10) |
+| 1 | `Unknown_7917B0` | `app/client/unknown_personality.h:99` | neutral (D10); original is unused, pointer type inferred from client 0x791486 |
 | 1 | `Unknown_791880` | `app/client/unknown_personality.h:100` | neutral (D10) |
 | 1 | `Unknown_791970` | `app/client/unknown_personality.h:101` | neutral (D10) |
 | 1 | `Unknown_791B00` | `app/client/unknown_personality.h:102` | neutral (D10) |
@@ -21308,16 +21308,17 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_791310Class` | `app/client/unknown_phoneme.cpp:66` | untagged neutral name (D10) |
 | 1 | `group` | `app/client/unknown_phoneme.cpp:70` | neutral |
 | 1 | `count` | `app/client/unknown_phoneme.cpp:74` | neutral |
-| 1 | `Unknown_791400` | `app/client/unknown_phoneme.cpp:85` | untagged neutral name (D10) |
-| 1 | `Unknown_7917B0` | `app/client/unknown_phoneme.cpp:101` | untagged neutral name (D10) |
-| 1 | `Unknown_791880` | `app/client/unknown_phoneme.cpp:108` | untagged neutral name (D10) |
-| 1 | `Unknown_791970` | `app/client/unknown_phoneme.cpp:114` | untagged neutral name (D10) |
-| 1 | `Unknown_791B00` | `app/client/unknown_phoneme.cpp:117` | untagged neutral name (D10) |
-| 1 | `Unknown_791BF0` | `app/client/unknown_phoneme.cpp:129` | untagged neutral name (D10) |
-| 1 | `Unknown_791E50` | `app/client/unknown_phoneme.cpp:146` | untagged neutral name (D10) |
-| 1 | `Unknown_791F80` | `app/client/unknown_phoneme.cpp:162` | untagged neutral name (D10) |
-| 1 | `next` | `app/client/unknown_phoneme.cpp:390` | neutral |
-| 1 | `Unknown_791F10` | `app/client/unknown_phoneme.cpp:428` | untagged neutral name (D10) |
+| 1 | `Unknown_791400` | `app/client/unknown_phoneme.cpp:84` | untagged neutral name (D10) |
+| 1 | `Unknown_7917B0` | `app/client/unknown_phoneme.cpp:100` | untagged neutral name (D10) |
+| 1 | `Unknown_791880` | `app/client/unknown_phoneme.cpp:107` | untagged neutral name (D10) |
+| 1 | `Unknown_791970` | `app/client/unknown_phoneme.cpp:113` | untagged neutral name (D10) |
+| 1 | `Unknown_791B00` | `app/client/unknown_phoneme.cpp:116` | untagged neutral name (D10) |
+| 1 | `Unknown_791BF0` | `app/client/unknown_phoneme.cpp:128` | untagged neutral name (D10) |
+| 1 | `Unknown_791E50` | `app/client/unknown_phoneme.cpp:151` | untagged neutral name (D10) |
+| 1 | `Unknown_791F80` | `app/client/unknown_phoneme.cpp:167` | untagged neutral name (D10) |
+| 1 | `original` | `app/client/unknown_phoneme.cpp:202` | neutral; unused formal, pointer type inferred from client 0x791486 argument |
+| 1 | `next` | `app/client/unknown_phoneme.cpp:395` | neutral |
+| 1 | `Unknown_791F10` | `app/client/unknown_phoneme.cpp:433` | untagged neutral name (D10) |
 | 1 | `unknown_robj_hash.h` | `app/client/unknown_robj_hash.h:4` | ours (D137 interim): no client file holds it alone |
 | 1 | `ScreenFadeValueClass` | `app/client/unknown_screenfade.cpp:7` | neutral (D10) |
 | 1 | `Unknown0C` | `app/client/unknown_screenfade.cpp:17` | untagged neutral name (D10) |
