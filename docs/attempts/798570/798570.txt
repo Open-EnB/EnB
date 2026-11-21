@@ -1,0 +1,573 @@
+FORM component_assign
+--- unknown_7979a0.cpp
++++ component_assign.cpp
+@@ -234,7 +234,7 @@
+ 	}
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 offset(dist * 0.75f, c * range, s * range);
++	Vector3 offset; offset.X = dist * 0.75f; offset.Y = c * range; offset.Z = s * range;
+ 	offset.Y *= 2.0f;
+ 	offset.Z *= 2.0f;
+ 	Matrix3D frame = Unknown_82ECB0(tm.Get_X_Vector(), tm.Get_Translation());
+
+FORM component_reverse
+--- unknown_7979a0.cpp
++++ component_reverse.cpp
+@@ -234,7 +234,7 @@
+ 	}
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 offset(dist * 0.75f, c * range, s * range);
++	Vector3 offset; offset.Z = s * range; offset.Y = c * range; offset.X = dist * 0.75f;
+ 	offset.Y *= 2.0f;
+ 	offset.Z *= 2.0f;
+ 	Matrix3D frame = Unknown_82ECB0(tm.Get_X_Vector(), tm.Get_Translation());
+
+FORM component_mixed
+--- unknown_7979a0.cpp
++++ component_mixed.cpp
+@@ -234,7 +234,7 @@
+ 	}
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 offset(dist * 0.75f, c * range, s * range);
++	Vector3 offset; offset.Y = c * range; offset.Z = s * range; offset.X = dist * 0.75f;
+ 	offset.Y *= 2.0f;
+ 	offset.Z *= 2.0f;
+ 	Matrix3D frame = Unknown_82ECB0(tm.Get_X_Vector(), tm.Get_Translation());
+
+FORM reversed_products
+--- unknown_7979a0.cpp
++++ reversed_products.cpp
+@@ -234,7 +234,7 @@
+ 	}
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 offset(dist * 0.75f, c * range, s * range);
++	Vector3 offset(dist * 0.75f, range * c, range * s);
+ 	offset.Y *= 2.0f;
+ 	offset.Z *= 2.0f;
+ 	Matrix3D frame = Unknown_82ECB0(tm.Get_X_Vector(), tm.Get_Translation());
+
+FORM offset_copy
+--- unknown_7979a0.cpp
++++ offset_copy.cpp
+@@ -234,7 +234,7 @@
+ 	}
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 offset(dist * 0.75f, c * range, s * range);
++	Vector3 offset = Vector3(dist * 0.75f, c * range, s * range);
+ 	offset.Y *= 2.0f;
+ 	offset.Z *= 2.0f;
+ 	Matrix3D frame = Unknown_82ECB0(tm.Get_X_Vector(), tm.Get_Translation());
+
+FORM bulk_ctor_product
+
+FORM bulk_ctor_local
+--- unknown_7979a0.cpp
++++ bulk_ctor_local.cpp
+@@ -238,7 +238,7 @@
+ 	offset.Y *= 2.0f;
+ 	offset.Z *= 2.0f;
+ 	Matrix3D frame = Unknown_82ECB0(tm.Get_X_Vector(), tm.Get_Translation());
+-	((CameraModule79C8E0Class *)Unknown0C)->Position = frame * offset;
++	Vector3 result = frame * offset; ((CameraModule79C8E0Class *)Unknown0C)->Position = result;
+ 	((CameraModule79C8E0Class *)Unknown0C)->Unknown14 = true;
+ 	((CameraModule79C8E0Class *)Unknown0C)->Unknown18 = Client->AvatarID;
+ 	Unknown0C->Unknown_04();
+
+FORM bulk_ctor_transform
+--- unknown_7979a0.cpp
++++ bulk_ctor_transform.cpp
+@@ -238,7 +238,7 @@
+ 	offset.Y *= 2.0f;
+ 	offset.Z *= 2.0f;
+ 	Matrix3D frame = Unknown_82ECB0(tm.Get_X_Vector(), tm.Get_Translation());
+-	((CameraModule79C8E0Class *)Unknown0C)->Position = frame * offset;
++	Matrix3D::Transform_Vector(frame, offset, &((CameraModule79C8E0Class *)Unknown0C)->Position);
+ 	((CameraModule79C8E0Class *)Unknown0C)->Unknown14 = true;
+ 	((CameraModule79C8E0Class *)Unknown0C)->Unknown18 = Client->AvatarID;
+ 	Unknown0C->Unknown_04();
+
+FORM bulk_copy_product
+--- unknown_7979a0.cpp
++++ bulk_copy_product.cpp
+@@ -234,7 +234,7 @@
+ 	}
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 offset(dist * 0.75f, c * range, s * range);
++	Vector3 offset = Vector3(dist * 0.75f, c * range, s * range);
+ 	offset.Y *= 2.0f;
+ 	offset.Z *= 2.0f;
+ 	Matrix3D frame = Unknown_82ECB0(tm.Get_X_Vector(), tm.Get_Translation());
+
+FORM bulk_ctor_alias
+--- unknown_7979a0.cpp
++++ bulk_ctor_alias.cpp
+@@ -238,7 +238,7 @@
+ 	offset.Y *= 2.0f;
+ 	offset.Z *= 2.0f;
+ 	Matrix3D frame = Unknown_82ECB0(tm.Get_X_Vector(), tm.Get_Translation());
+-	((CameraModule79C8E0Class *)Unknown0C)->Position = frame * offset;
++	CameraModule79C8E0Class *module = (CameraModule79C8E0Class *)Unknown0C; module->Position = frame * offset;
+ 	((CameraModule79C8E0Class *)Unknown0C)->Unknown14 = true;
+ 	((CameraModule79C8E0Class *)Unknown0C)->Unknown18 = Client->AvatarID;
+ 	Unknown0C->Unknown_04();
+
+FORM bulk_copy_local
+--- unknown_7979a0.cpp
++++ bulk_copy_local.cpp
+@@ -234,11 +234,11 @@
+ 	}
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 offset(dist * 0.75f, c * range, s * range);
++	Vector3 offset = Vector3(dist * 0.75f, c * range, s * range);
+ 	offset.Y *= 2.0f;
+ 	offset.Z *= 2.0f;
+ 	Matrix3D frame = Unknown_82ECB0(tm.Get_X_Vector(), tm.Get_Translation());
+-	((CameraModule79C8E0Class *)Unknown0C)->Position = frame * offset;
++	Vector3 result = frame * offset; ((CameraModule79C8E0Class *)Unknown0C)->Position = result;
+ 	((CameraModule79C8E0Class *)Unknown0C)->Unknown14 = true;
+ 	((CameraModule79C8E0Class *)Unknown0C)->Unknown18 = Client->AvatarID;
+ 	Unknown0C->Unknown_04();
+
+FORM bulk_copy_transform
+--- unknown_7979a0.cpp
++++ bulk_copy_transform.cpp
+@@ -234,11 +234,11 @@
+ 	}
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 offset(dist * 0.75f, c * range, s * range);
++	Vector3 offset = Vector3(dist * 0.75f, c * range, s * range);
+ 	offset.Y *= 2.0f;
+ 	offset.Z *= 2.0f;
+ 	Matrix3D frame = Unknown_82ECB0(tm.Get_X_Vector(), tm.Get_Translation());
+-	((CameraModule79C8E0Class *)Unknown0C)->Position = frame * offset;
++	Matrix3D::Transform_Vector(frame, offset, &((CameraModule79C8E0Class *)Unknown0C)->Position);
+ 	((CameraModule79C8E0Class *)Unknown0C)->Unknown14 = true;
+ 	((CameraModule79C8E0Class *)Unknown0C)->Unknown18 = Client->AvatarID;
+ 	Unknown0C->Unknown_04();
+
+FORM bulk_copy_alias
+--- unknown_7979a0.cpp
++++ bulk_copy_alias.cpp
+@@ -234,11 +234,11 @@
+ 	}
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 offset(dist * 0.75f, c * range, s * range);
++	Vector3 offset = Vector3(dist * 0.75f, c * range, s * range);
+ 	offset.Y *= 2.0f;
+ 	offset.Z *= 2.0f;
+ 	Matrix3D frame = Unknown_82ECB0(tm.Get_X_Vector(), tm.Get_Translation());
+-	((CameraModule79C8E0Class *)Unknown0C)->Position = frame * offset;
++	CameraModule79C8E0Class *module = (CameraModule79C8E0Class *)Unknown0C; module->Position = frame * offset;
+ 	((CameraModule79C8E0Class *)Unknown0C)->Unknown14 = true;
+ 	((CameraModule79C8E0Class *)Unknown0C)->Unknown18 = Client->AvatarID;
+ 	Unknown0C->Unknown_04();
+
+FORM bulk_xyz_product
+--- unknown_7979a0.cpp
++++ bulk_xyz_product.cpp
+@@ -234,7 +234,7 @@
+ 	}
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 offset(dist * 0.75f, c * range, s * range);
++	Vector3 offset; offset.X = dist * 0.75f; offset.Y = c * range; offset.Z = s * range;
+ 	offset.Y *= 2.0f;
+ 	offset.Z *= 2.0f;
+ 	Matrix3D frame = Unknown_82ECB0(tm.Get_X_Vector(), tm.Get_Translation());
+
+FORM bulk_xyz_local
+--- unknown_7979a0.cpp
++++ bulk_xyz_local.cpp
+@@ -234,11 +234,11 @@
+ 	}
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 offset(dist * 0.75f, c * range, s * range);
++	Vector3 offset; offset.X = dist * 0.75f; offset.Y = c * range; offset.Z = s * range;
+ 	offset.Y *= 2.0f;
+ 	offset.Z *= 2.0f;
+ 	Matrix3D frame = Unknown_82ECB0(tm.Get_X_Vector(), tm.Get_Translation());
+-	((CameraModule79C8E0Class *)Unknown0C)->Position = frame * offset;
++	Vector3 result = frame * offset; ((CameraModule79C8E0Class *)Unknown0C)->Position = result;
+ 	((CameraModule79C8E0Class *)Unknown0C)->Unknown14 = true;
+ 	((CameraModule79C8E0Class *)Unknown0C)->Unknown18 = Client->AvatarID;
+ 	Unknown0C->Unknown_04();
+
+FORM bulk_xyz_transform
+--- unknown_7979a0.cpp
++++ bulk_xyz_transform.cpp
+@@ -234,11 +234,11 @@
+ 	}
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 offset(dist * 0.75f, c * range, s * range);
++	Vector3 offset; offset.X = dist * 0.75f; offset.Y = c * range; offset.Z = s * range;
+ 	offset.Y *= 2.0f;
+ 	offset.Z *= 2.0f;
+ 	Matrix3D frame = Unknown_82ECB0(tm.Get_X_Vector(), tm.Get_Translation());
+-	((CameraModule79C8E0Class *)Unknown0C)->Position = frame * offset;
++	Matrix3D::Transform_Vector(frame, offset, &((CameraModule79C8E0Class *)Unknown0C)->Position);
+ 	((CameraModule79C8E0Class *)Unknown0C)->Unknown14 = true;
+ 	((CameraModule79C8E0Class *)Unknown0C)->Unknown18 = Client->AvatarID;
+ 	Unknown0C->Unknown_04();
+
+FORM bulk_xyz_alias
+--- unknown_7979a0.cpp
++++ bulk_xyz_alias.cpp
+@@ -234,11 +234,11 @@
+ 	}
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 offset(dist * 0.75f, c * range, s * range);
++	Vector3 offset; offset.X = dist * 0.75f; offset.Y = c * range; offset.Z = s * range;
+ 	offset.Y *= 2.0f;
+ 	offset.Z *= 2.0f;
+ 	Matrix3D frame = Unknown_82ECB0(tm.Get_X_Vector(), tm.Get_Translation());
+-	((CameraModule79C8E0Class *)Unknown0C)->Position = frame * offset;
++	CameraModule79C8E0Class *module = (CameraModule79C8E0Class *)Unknown0C; module->Position = frame * offset;
+ 	((CameraModule79C8E0Class *)Unknown0C)->Unknown14 = true;
+ 	((CameraModule79C8E0Class *)Unknown0C)->Unknown18 = Client->AvatarID;
+ 	Unknown0C->Unknown_04();
+
+FORM bulk_zyx_product
+--- unknown_7979a0.cpp
++++ bulk_zyx_product.cpp
+@@ -234,7 +234,7 @@
+ 	}
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 offset(dist * 0.75f, c * range, s * range);
++	Vector3 offset; offset.Z = s * range; offset.Y = c * range; offset.X = dist * 0.75f;
+ 	offset.Y *= 2.0f;
+ 	offset.Z *= 2.0f;
+ 	Matrix3D frame = Unknown_82ECB0(tm.Get_X_Vector(), tm.Get_Translation());
+
+FORM bulk_zyx_local
+--- unknown_7979a0.cpp
++++ bulk_zyx_local.cpp
+@@ -234,11 +234,11 @@
+ 	}
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 offset(dist * 0.75f, c * range, s * range);
++	Vector3 offset; offset.Z = s * range; offset.Y = c * range; offset.X = dist * 0.75f;
+ 	offset.Y *= 2.0f;
+ 	offset.Z *= 2.0f;
+ 	Matrix3D frame = Unknown_82ECB0(tm.Get_X_Vector(), tm.Get_Translation());
+-	((CameraModule79C8E0Class *)Unknown0C)->Position = frame * offset;
++	Vector3 result = frame * offset; ((CameraModule79C8E0Class *)Unknown0C)->Position = result;
+ 	((CameraModule79C8E0Class *)Unknown0C)->Unknown14 = true;
+ 	((CameraModule79C8E0Class *)Unknown0C)->Unknown18 = Client->AvatarID;
+ 	Unknown0C->Unknown_04();
+
+FORM bulk_zyx_transform
+--- unknown_7979a0.cpp
++++ bulk_zyx_transform.cpp
+@@ -234,11 +234,11 @@
+ 	}
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 offset(dist * 0.75f, c * range, s * range);
++	Vector3 offset; offset.Z = s * range; offset.Y = c * range; offset.X = dist * 0.75f;
+ 	offset.Y *= 2.0f;
+ 	offset.Z *= 2.0f;
+ 	Matrix3D frame = Unknown_82ECB0(tm.Get_X_Vector(), tm.Get_Translation());
+-	((CameraModule79C8E0Class *)Unknown0C)->Position = frame * offset;
++	Matrix3D::Transform_Vector(frame, offset, &((CameraModule79C8E0Class *)Unknown0C)->Position);
+ 	((CameraModule79C8E0Class *)Unknown0C)->Unknown14 = true;
+ 	((CameraModule79C8E0Class *)Unknown0C)->Unknown18 = Client->AvatarID;
+ 	Unknown0C->Unknown_04();
+
+FORM bulk_zyx_alias
+--- unknown_7979a0.cpp
++++ bulk_zyx_alias.cpp
+@@ -234,11 +234,11 @@
+ 	}
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 offset(dist * 0.75f, c * range, s * range);
++	Vector3 offset; offset.Z = s * range; offset.Y = c * range; offset.X = dist * 0.75f;
+ 	offset.Y *= 2.0f;
+ 	offset.Z *= 2.0f;
+ 	Matrix3D frame = Unknown_82ECB0(tm.Get_X_Vector(), tm.Get_Translation());
+-	((CameraModule79C8E0Class *)Unknown0C)->Position = frame * offset;
++	CameraModule79C8E0Class *module = (CameraModule79C8E0Class *)Unknown0C; module->Position = frame * offset;
+ 	((CameraModule79C8E0Class *)Unknown0C)->Unknown14 = true;
+ 	((CameraModule79C8E0Class *)Unknown0C)->Unknown18 = Client->AvatarID;
+ 	Unknown0C->Unknown_04();
+
+FORM bulk_products_product
+--- unknown_7979a0.cpp
++++ bulk_products_product.cpp
+@@ -234,7 +234,7 @@
+ 	}
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 offset(dist * 0.75f, c * range, s * range);
++	Vector3 offset(0.75f * dist, range * c, range * s);
+ 	offset.Y *= 2.0f;
+ 	offset.Z *= 2.0f;
+ 	Matrix3D frame = Unknown_82ECB0(tm.Get_X_Vector(), tm.Get_Translation());
+
+FORM bulk_products_local
+--- unknown_7979a0.cpp
++++ bulk_products_local.cpp
+@@ -234,11 +234,11 @@
+ 	}
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 offset(dist * 0.75f, c * range, s * range);
++	Vector3 offset(0.75f * dist, range * c, range * s);
+ 	offset.Y *= 2.0f;
+ 	offset.Z *= 2.0f;
+ 	Matrix3D frame = Unknown_82ECB0(tm.Get_X_Vector(), tm.Get_Translation());
+-	((CameraModule79C8E0Class *)Unknown0C)->Position = frame * offset;
++	Vector3 result = frame * offset; ((CameraModule79C8E0Class *)Unknown0C)->Position = result;
+ 	((CameraModule79C8E0Class *)Unknown0C)->Unknown14 = true;
+ 	((CameraModule79C8E0Class *)Unknown0C)->Unknown18 = Client->AvatarID;
+ 	Unknown0C->Unknown_04();
+
+FORM bulk_products_transform
+--- unknown_7979a0.cpp
++++ bulk_products_transform.cpp
+@@ -234,11 +234,11 @@
+ 	}
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 offset(dist * 0.75f, c * range, s * range);
++	Vector3 offset(0.75f * dist, range * c, range * s);
+ 	offset.Y *= 2.0f;
+ 	offset.Z *= 2.0f;
+ 	Matrix3D frame = Unknown_82ECB0(tm.Get_X_Vector(), tm.Get_Translation());
+-	((CameraModule79C8E0Class *)Unknown0C)->Position = frame * offset;
++	Matrix3D::Transform_Vector(frame, offset, &((CameraModule79C8E0Class *)Unknown0C)->Position);
+ 	((CameraModule79C8E0Class *)Unknown0C)->Unknown14 = true;
+ 	((CameraModule79C8E0Class *)Unknown0C)->Unknown18 = Client->AvatarID;
+ 	Unknown0C->Unknown_04();
+
+FORM bulk_products_alias
+--- unknown_7979a0.cpp
++++ bulk_products_alias.cpp
+@@ -234,11 +234,11 @@
+ 	}
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 offset(dist * 0.75f, c * range, s * range);
++	Vector3 offset(0.75f * dist, range * c, range * s);
+ 	offset.Y *= 2.0f;
+ 	offset.Z *= 2.0f;
+ 	Matrix3D frame = Unknown_82ECB0(tm.Get_X_Vector(), tm.Get_Translation());
+-	((CameraModule79C8E0Class *)Unknown0C)->Position = frame * offset;
++	CameraModule79C8E0Class *module = (CameraModule79C8E0Class *)Unknown0C; module->Position = frame * offset;
+ 	((CameraModule79C8E0Class *)Unknown0C)->Unknown14 = true;
+ 	((CameraModule79C8E0Class *)Unknown0C)->Unknown18 = Client->AvatarID;
+ 	Unknown0C->Unknown_04();
+
+FORM deep_copy_ctor
+
+FORM deep_copy_copy
+--- unknown_7979a0.cpp
++++ deep_copy_copy.cpp
+@@ -234,7 +234,7 @@
+ 	}
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 offset(dist * 0.75f, c * range, s * range);
++	Vector3 offset = Vector3(dist * 0.75f, c * range, s * range);
+ 	offset.Y *= 2.0f;
+ 	offset.Z *= 2.0f;
+ 	Matrix3D frame = Unknown_82ECB0(tm.Get_X_Vector(), tm.Get_Translation());
+
+FORM deep_copy_assign
+--- unknown_7979a0.cpp
++++ deep_copy_assign.cpp
+@@ -234,7 +234,7 @@
+ 	}
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 offset(dist * 0.75f, c * range, s * range);
++	Vector3 offset; offset.X = dist * 0.75f; offset.Y = c * range; offset.Z = s * range;
+ 	offset.Y *= 2.0f;
+ 	offset.Z *= 2.0f;
+ 	Matrix3D frame = Unknown_82ECB0(tm.Get_X_Vector(), tm.Get_Translation());
+
+FORM deep_copy_reverse
+--- unknown_7979a0.cpp
++++ deep_copy_reverse.cpp
+@@ -234,7 +234,7 @@
+ 	}
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 offset(dist * 0.75f, c * range, s * range);
++	Vector3 offset; offset.Z = s * range; offset.Y = c * range; offset.X = dist * 0.75f;
+ 	offset.Y *= 2.0f;
+ 	offset.Z *= 2.0f;
+ 	Matrix3D frame = Unknown_82ECB0(tm.Get_X_Vector(), tm.Get_Translation());
+
+FORM deep_ctor_ctor
+--- unknown_7979a0.cpp
++++ deep_ctor_ctor.cpp
+@@ -225,7 +225,7 @@
+ 	float dist = 1000.0f;
+ 	float angle;
+ 	if (dest) {
+-		Vector3 pos = tm.Get_Translation();
++		Vector3 pos(tm.Get_Translation());
+ 		dist = (dest->Unknown_24() - pos).Length();
+ 	}
+ 	angle = (Unknown_BDB1C0.Get_Float() - 0.5f) * 0.62831855f;
+
+FORM deep_ctor_copy
+--- unknown_7979a0.cpp
++++ deep_ctor_copy.cpp
+@@ -225,7 +225,7 @@
+ 	float dist = 1000.0f;
+ 	float angle;
+ 	if (dest) {
+-		Vector3 pos = tm.Get_Translation();
++		Vector3 pos(tm.Get_Translation());
+ 		dist = (dest->Unknown_24() - pos).Length();
+ 	}
+ 	angle = (Unknown_BDB1C0.Get_Float() - 0.5f) * 0.62831855f;
+@@ -234,7 +234,7 @@
+ 	}
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 offset(dist * 0.75f, c * range, s * range);
++	Vector3 offset = Vector3(dist * 0.75f, c * range, s * range);
+ 	offset.Y *= 2.0f;
+ 	offset.Z *= 2.0f;
+ 	Matrix3D frame = Unknown_82ECB0(tm.Get_X_Vector(), tm.Get_Translation());
+
+FORM deep_ctor_assign
+--- unknown_7979a0.cpp
++++ deep_ctor_assign.cpp
+@@ -225,7 +225,7 @@
+ 	float dist = 1000.0f;
+ 	float angle;
+ 	if (dest) {
+-		Vector3 pos = tm.Get_Translation();
++		Vector3 pos(tm.Get_Translation());
+ 		dist = (dest->Unknown_24() - pos).Length();
+ 	}
+ 	angle = (Unknown_BDB1C0.Get_Float() - 0.5f) * 0.62831855f;
+@@ -234,7 +234,7 @@
+ 	}
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 offset(dist * 0.75f, c * range, s * range);
++	Vector3 offset; offset.X = dist * 0.75f; offset.Y = c * range; offset.Z = s * range;
+ 	offset.Y *= 2.0f;
+ 	offset.Z *= 2.0f;
+ 	Matrix3D frame = Unknown_82ECB0(tm.Get_X_Vector(), tm.Get_Translation());
+
+FORM deep_ctor_reverse
+--- unknown_7979a0.cpp
++++ deep_ctor_reverse.cpp
+@@ -225,7 +225,7 @@
+ 	float dist = 1000.0f;
+ 	float angle;
+ 	if (dest) {
+-		Vector3 pos = tm.Get_Translation();
++		Vector3 pos(tm.Get_Translation());
+ 		dist = (dest->Unknown_24() - pos).Length();
+ 	}
+ 	angle = (Unknown_BDB1C0.Get_Float() - 0.5f) * 0.62831855f;
+@@ -234,7 +234,7 @@
+ 	}
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 offset(dist * 0.75f, c * range, s * range);
++	Vector3 offset; offset.Z = s * range; offset.Y = c * range; offset.X = dist * 0.75f;
+ 	offset.Y *= 2.0f;
+ 	offset.Z *= 2.0f;
+ 	Matrix3D frame = Unknown_82ECB0(tm.Get_X_Vector(), tm.Get_Translation());
+
+FORM deep_out_ctor
+--- unknown_7979a0.cpp
++++ deep_out_ctor.cpp
+@@ -225,7 +225,7 @@
+ 	float dist = 1000.0f;
+ 	float angle;
+ 	if (dest) {
+-		Vector3 pos = tm.Get_Translation();
++		Vector3 pos; tm.Get_Translation(&pos);
+ 		dist = (dest->Unknown_24() - pos).Length();
+ 	}
+ 	angle = (Unknown_BDB1C0.Get_Float() - 0.5f) * 0.62831855f;
+
+FORM deep_out_copy
+--- unknown_7979a0.cpp
++++ deep_out_copy.cpp
+@@ -225,7 +225,7 @@
+ 	float dist = 1000.0f;
+ 	float angle;
+ 	if (dest) {
+-		Vector3 pos = tm.Get_Translation();
++		Vector3 pos; tm.Get_Translation(&pos);
+ 		dist = (dest->Unknown_24() - pos).Length();
+ 	}
+ 	angle = (Unknown_BDB1C0.Get_Float() - 0.5f) * 0.62831855f;
+@@ -234,7 +234,7 @@
+ 	}
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 offset(dist * 0.75f, c * range, s * range);
++	Vector3 offset = Vector3(dist * 0.75f, c * range, s * range);
+ 	offset.Y *= 2.0f;
+ 	offset.Z *= 2.0f;
+ 	Matrix3D frame = Unknown_82ECB0(tm.Get_X_Vector(), tm.Get_Translation());
+
+FORM deep_out_assign
+--- unknown_7979a0.cpp
++++ deep_out_assign.cpp
+@@ -225,7 +225,7 @@
+ 	float dist = 1000.0f;
+ 	float angle;
+ 	if (dest) {
+-		Vector3 pos = tm.Get_Translation();
++		Vector3 pos; tm.Get_Translation(&pos);
+ 		dist = (dest->Unknown_24() - pos).Length();
+ 	}
+ 	angle = (Unknown_BDB1C0.Get_Float() - 0.5f) * 0.62831855f;
+@@ -234,7 +234,7 @@
+ 	}
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 offset(dist * 0.75f, c * range, s * range);
++	Vector3 offset; offset.X = dist * 0.75f; offset.Y = c * range; offset.Z = s * range;
+ 	offset.Y *= 2.0f;
+ 	offset.Z *= 2.0f;
+ 	Matrix3D frame = Unknown_82ECB0(tm.Get_X_Vector(), tm.Get_Translation());
+
+FORM deep_out_reverse
+--- unknown_7979a0.cpp
++++ deep_out_reverse.cpp
+@@ -225,7 +225,7 @@
+ 	float dist = 1000.0f;
+ 	float angle;
+ 	if (dest) {
+-		Vector3 pos = tm.Get_Translation();
++		Vector3 pos; tm.Get_Translation(&pos);
+ 		dist = (dest->Unknown_24() - pos).Length();
+ 	}
+ 	angle = (Unknown_BDB1C0.Get_Float() - 0.5f) * 0.62831855f;
+@@ -234,7 +234,7 @@
+ 	}
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 offset(dist * 0.75f, c * range, s * range);
++	Vector3 offset; offset.Z = s * range; offset.Y = c * range; offset.X = dist * 0.75f;
+ 	offset.Y *= 2.0f;
+ 	offset.Z *= 2.0f;
+ 	Matrix3D frame = Unknown_82ECB0(tm.Get_X_Vector(), tm.Get_Translation());
+

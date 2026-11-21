@@ -8,6 +8,8 @@
 #include <stdlib.h>
 #include <ctype.h>
 
+Unknown_78F700Class::Unknown_78F700Class() { Moods = NULL; Name = NULL; BAnims = NULL; }
+
 // 0x78F850
 // NOT EXACT: functional for POC (D64), frame (the client's has an EH frame: a member or base with a destructor not known yet)
 Unknown_78F700Class::~Unknown_78F700Class()
@@ -196,6 +198,8 @@ Unknown_78F700Class *Unknown_790260Class::Unknown_790360()
 /*
 **	Reconstruction notes
 **
+**	0x78F700 is defined out of line before its caller so VC6 emits its exact standalone
+**	constructor and still inlines its initialization into 0x790360.
 **	The client reads HEADER's 'FidgetDelay' (default 45); the shipped PersonalityNN.ini files spell it
 **	'FigetDelay', so the client's avatars use 45. avatar.cpp's stand-in read 'FigetDelay' (50).
 */

@@ -1,0 +1,56 @@
+# 0x781EA0
+Condition syntax, locals, reversed breathe branch, and store placement. No gains/losses; client writes constant 1 separately, while baseline merges the assignments and uses a different zero register.
+
+
+### sweep_ea0.py
+from pathlib import Path
+import os,sys,subprocess,json
+root=Path('/home/dev/Projects/EnB'); work=root/'.work/claim-240/avatar'
+sys.path.insert(0,str(root/'.work/claim-234'))
+import fastbuild,appfile
+dirs=appfile.candidate_dirs; appfile.candidate_dirs=lambda:[root/'app/client']+dirs()
+src=(work/'avatar.cpp').read_text(); start=src.index('void CharacterViewAvatarClass::Unknown_781EA0()'); end=src.index('\n}',start)+2; fn=src[start:end]
+old='''} else if (Unknown314 != 1) {
+		_snprintf(name, 0x20, "breathe1");
+		Unknown314 = 1;
+	} else {
+		int n = Unknown_77B760(1, 4);
+		_snprintf(name, 0x20, "breathe%d", n);
+		Unknown314 = n;
+	}'''
+forms=[
+ ('} else if (Unknown314 != 1)', '} else if (1 != Unknown314)'),
+ ('Unknown314 = 1;', 'Unknown314 = (int)true;'),
+ ('Unknown314 = n;', 'Unknown314 = (int)n;'),
+ ('int n = Unknown_77B760(1, 4);', 'const int n = Unknown_77B760(1, 4);'),
+ ('int delay = PlayerNLP->Personality->Get_Fidget_Delay();','const int delay = PlayerNLP->Personality->Get_Fidget_Delay();'),
+ ('if (Unknown210 != 0)', 'if (Unknown210)'),
+ ('if (SpeechSound)', 'if (SpeechSound != NULL)'),
+ (old, '''} else if (Unknown314 == 1) {
+		int n = Unknown_77B760(1, 4);
+		_snprintf(name, 0x20, "breathe%d", n);
+		Unknown314 = n;
+	} else {
+		_snprintf(name, 0x20, "breathe1");
+		Unknown314 = 1;
+	}'''),
+ (old, old.replace('_snprintf(name, 0x20, "breathe1");\n\t\tUnknown314 = 1;', 'Unknown314 = 1;\n\t\t_snprintf(name, 0x20, "breathe1");')),
+ ('_snprintf(name, 0x20, "breathe%d", n);\n\t\tUnknown314 = n;', 'Unknown314 = n;\n\t\t_snprintf(name, 0x20, "breathe%d", n);'),
+]
+env=os.environ.copy(); env['ENB_RETAIL_INSTALL']='/home/dev/Games/earth-and-beyond/prefix/drive_c/Program Files (x86)/EA GAMES/Earth & Beyond'
+exact=lambda rows:{a for r in rows if r['status']=='exact' for a in r['addresses']}
+baseline=exact(json.loads((work/'baseline_matches/000_baseline_avatar.json').read_text())); summary=[]
+for i,(a,b) in enumerate(forms):
+ d=work/('ea0_%02d'%i); d.mkdir(exist_ok=True); p=d/'avatar.cpp'; assert fn.count(a)==1
+ p.write_text(src[:start]+fn.replace(a,b)+src[end:]); row={'old':a,'new':b,'source':str(p)}
+ try:
+  obj=fastbuild.compile_file(p,d); out=d/'match.json'
+  with (d/'match.log').open('w') as log:
+   r=subprocess.run(['/home/dev/Toolchains/enb-vc6-sp4/venv/bin/python',str(root/'tools/re/objmatch.py'),str(obj),'-q','--json',str(out)],stdout=log,stderr=log,env=env)
+  row['matcher_rc']=r.returncode
+  if not r.returncode:
+   found=exact(json.loads(out.read_text())); row.update(gains=sorted(found-baseline),losses=sorted(baseline-found),match=str(out))
+ except Exception as e: row['error']=str(e)
+ summary.append(row); (work/'ea0_manifest.json').write_text(json.dumps(summary,indent=2)+'\n')
+ print(i,row.get('gains'),row.get('losses'),row.get('error'),flush=True)
+

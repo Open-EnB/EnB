@@ -58,14 +58,17 @@ CharacterCreatorClass::CharacterCreatorClass()
 // 0x78D450
 int __stdcall Unknown_78D450(const unsigned char *data, unsigned int size)
 {
-	int sum = 0;
-	for (unsigned int i = 0; i < size; i++) {
-		sum += *data + i;
+	unsigned int sum = 0;
+	if (size > 0U) {
+		unsigned int value = *data; // NAME 2 [value]: checksum addend, first byte plus iteration
+		unsigned int count = size; // NAME 2 [count]: checksum loop countdown
+		do {
+			sum += value++;
+		} while (--count);
 	}
-	return(sum);
+	return sum;
 }
 
-// NOT EXACT: shape (through Get_File_Name, inlined, the appends come out of line as in the client; the inlined byte sum's loop still differs, nine forms: attempts.py show 0x78D480)
 // 0x78D480
 void CharacterCreatorClass::Unknown_78D480(int slot, LoginCharacterClass *character, AvatarDescClass *avatar, ShipCustDescClass *ship, LoginNameDataClass *name)
 {
@@ -123,7 +126,7 @@ void CharacterCreatorClass::Unknown_78D8A0(int slot, AvatarDescClass *avatar, Sh
 	}
 }
 
-// NOT EXACT: shape (through Get_File_Name; the inlined byte sum as in 0x78D480)
+// NOT EXACT: shape (temporary initialization order and out-of-line string appends still differ)
 // 0x78DAF0
 void CharacterCreatorClass::Unknown_78DAF0(int slot)
 {
@@ -203,8 +206,9 @@ int LoginNameDataClass::Get_Size()
 /*
 **	Reconstruction notes
 **
-**	Not rebuilt yet: the avatar files' functions 0x78D480 (reads 'Avatar<slot>.dat' through
-**	RawFileClass into a LinearBufferClass and checks it), 0x78D8A0 (writes one), 0x78DAF0,
-**	0x78DE40; 0x78D810 is WWLib's StringClass::operator+= (char) emitted here out of line.
+**	0x78D480 reads 'Avatar<slot>.dat' through RawFileClass into a LinearBufferClass and
+**	checks it. The unsigned countdown in Unknown_78D450 preserves its standalone bytes and
+**	matches the checksum loop inlined into 0x78D480. 0x78DAF0 remains NOT EXACT.
+**	0x78D810 is WWLib's StringClass::operator+= (char) emitted here out of line.
 **	0x78D450 and 0x78E060 have no callers: kept out of line, inlined where used.
 */

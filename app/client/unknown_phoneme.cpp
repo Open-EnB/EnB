@@ -336,7 +336,7 @@ int Unknown_791310Class::Unknown_791B00(const char *text, char prev, int *shapes
 }
 
 // 0x791BF0
-// NOT EXACT: functional for POC (D64), register (the text pointer in ecx, not eax) and the second-letter test the client keeps
+
 int Unknown_791310Class::Unknown_791BF0(const char *text, char prev, int *shapes)
 {
 	int n = 1;
@@ -386,7 +386,7 @@ int Unknown_791310Class::Unknown_791BF0(const char *text, char prev, int *shapes
 				}
 				break;
 		}
-	} else if (c != '\0') {
+	} else if (text[1] != '\0') {
 		char next = text[2];	// NAME 1 [next]: neutral
 		if (next != '\0' && IS_VOWEL(next)) {
 			shapes[0] = 4;
@@ -466,6 +466,8 @@ int Unknown_791310Class::Unknown_791F80(const char *text, char prev, int *shapes
 /*
 **	Reconstruction notes
 **
+**	0x791BF0 re-tests text[1] directly in the non-vowel branch, preserving the client's
+**	redundant comparison and register allocation.
 **	0x791400's 't' is inline in the client (0x791F10's code, which nothing calls). The 'o' rules read
 **	text[-2] and text[-1] before the buffer's start, as the client does. 0x792040 on is another file's.
 **	The letter rules 0x7917B0-0x791F80 are members, not static: each ends 'ret 0xc' with three

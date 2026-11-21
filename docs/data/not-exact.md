@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-696 entries in 268 files.
+694 entries in 267 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -53,7 +53,6 @@ edit the comments in the code, not this file.
 | `app/client/camctrl_entersector.cpp:61` | `CameraController04Class::Unknown_793740` | marker | NOT EXACT: one operand order (offset.Z *= scale.Z: ours loads scale.Z first); functional |
 | `app/client/camctrl_land.cpp:112` | `CameraController05Class::Unknown_793CE0` | marker | NOT EXACT: written from the client's code and Ghidra's (0x830 bytes; the temporaries' order and slots differ), functional |
 | `app/client/camctrl_pland.cpp:115` | `CameraController07Class::Unknown_794A90` | marker | NOT EXACT: field-offset: a [reg + N] displacement differs; functional |
-| `app/client/camctrl_rescue.cpp:52` | `CameraController11Class::Unknown_795570` | marker | NOT EXACT: the offset's temporaries and slots differ (the expression right to left, as the client's); functional |
 | `app/client/camctrl_stargate.cpp:103` | `CameraController03Class::Unknown_795C80` | marker | NOT EXACT: field-offset: a [reg + N] displacement differs; functional |
 | `app/client/camctrl_takeoff.cpp:119` | `CameraController09Class::Unknown_08` | marker | NOT EXACT: shape: the same callees, 16 calls in ours and 17 in the client; functional |
 | `app/client/camctrl_takeoff.cpp:210` | `CameraController09Class::Unknown_796920` | marker | NOT EXACT: field-offset: a [reg + N] displacement differs; functional |
@@ -539,16 +538,15 @@ edit the comments in the code, not this file.
 | `app/client/unknown_79c8e0.cpp:20` | `CameraModule79C8E0Class::Unknown_08` | marker | NOT EXACT: shape (18 masked rows, was 184: the first product after each Inv_Sqrt comes out fld st(0); fmul mem where the client has fld mem; fmul st(1), and two stores schedule apart; attempts.csv) |
 | `app/client/unknown_7cef30.cpp:382` | `RegistrationUnknown1ACClass::Unknown_7D4E30` | marker | NOT EXACT: inline budget (0.71: the client inlines Add_Param(int) for bdateyear too, ours calls it from there on; the rest is the client's) |
 | `app/client/unknown_7e1e40.cpp:24` | `Sub14CUnknown18Class::~Sub14CUnknown18Class` | marker | NOT EXACT: the client's has an EH frame (states 1, 0 around the _bstr_t members' destruction); /GX gives none here (/EHa gives it, and an EH frame in the constructor the client lacks) |
-| `app/client/unknown_creator.cpp:68` | `CharacterCreatorClass::Unknown_78D480` | marker | NOT EXACT: shape (through Get_File_Name, inlined, the appends come out of line as in the client; the inlined byte sum's loop still differs, nine forms: attempts.py show 0x78D480) 0x78D480 |
-| `app/client/unknown_creator.cpp:126` | `CharacterCreatorClass::Unknown_78DAF0` | marker | NOT EXACT: shape (through Get_File_Name; the inlined byte sum as in 0x78D480) 0x78DAF0 |
+| `app/client/unknown_creator.cpp:129` | `CharacterCreatorClass::Unknown_78DAF0` | marker | NOT EXACT: shape (temporary initialization order and out-of-line string appends still differ) 0x78DAF0 |
+| `app/client/unknown_creator.cpp:211` | `LoginNameDataClass::Get_Size` | mention | NOT EXACT. 0x78D810 is WWLib's StringClass::operator+= (char) emitted here out of line. 0x78D450 and 0x78E060 have no callers: kept out of line, inlined where used. |
 | `app/client/unknown_fontsound.cpp:10` | `Unknown_6BCFB0Class::Unknown_6BCFB0Class` | marker | NOT EXACT: (D64) the client's has an EH frame with no state stores around the same seven stores |
 | `app/client/unknown_fontsound.cpp:15` | `Unknown_6BCFB0Class::~Unknown_6BCFB0Class` | marker | NOT EXACT: (D64) Clear's loop as `while (--index >= 0)` (dec / js, 0.80); the client has no state -1 store before the member's destructor |
-| `app/client/unknown_personality.cpp:12` | `Unknown_78F700Class::~Unknown_78F700Class` | marker | NOT EXACT: functional for POC (D64), frame (the client's has an EH frame: a member or base with a destructor not known yet) |
-| `app/client/unknown_personality.cpp:182` | `Unknown_790260Class::Unknown_790360` | marker | NOT EXACT: functional for POC (D64), field-offset (the client inlines the delete of a failed load: the destructor) |
+| `app/client/unknown_personality.cpp:14` | `Unknown_78F700Class::~Unknown_78F700Class` | marker | NOT EXACT: functional for POC (D64), frame (the client's has an EH frame: a member or base with a destructor not known yet) |
+| `app/client/unknown_personality.cpp:184` | `Unknown_790260Class::Unknown_790360` | marker | NOT EXACT: functional for POC (D64), field-offset (the client inlines the delete of a failed load: the destructor) |
 | `app/client/unknown_phoneme.cpp:84` | `Unknown_791310Class::Unknown_791400` | marker | NOT EXACT: functional for POC (D64), register (prev and last kept in memory, 12 in ebx; the case bodies in the client's order, from its jump table, and 't' written out as the client inlines it) |
 | `app/client/unknown_phoneme.cpp:196` | `Unknown_791310Class::Unknown_7917B0` | marker | NOT EXACT: functional for POC (D64), register (First and Count loaded into the other registers; 6 index forms tried) |
 | `app/client/unknown_phoneme.cpp:216` | `Unknown_791310Class::Unknown_791880` | marker | NOT EXACT: functional for POC (D64), shape (the client merges the 'g' case's tail with the second-letter vowel's; switch and if-chain forms tried) |
-| `app/client/unknown_phoneme.cpp:339` | `Unknown_791310Class::Unknown_791BF0` | marker | NOT EXACT: functional for POC (D64), register (the text pointer in ecx, not eax) and the second-letter test the client keeps |
 | `app/client/viewbttn.cpp:18` | `ViewButtonClass::ViewButtonClass` | marker | NOT EXACT: the client keeps an EH state around the new UnknownAFE0B8Class (a byte state store before Get_Bool, attempts.csv); ours has none |
 | `app/client/viewbttn.cpp:160` | `ViewButtonClass::Unknown_2C` | marker | NOT EXACT: register allocation only (explain.py; attempts.csv) |
 | `app/client/viewbttn.cpp:404` | `Unknown_6B5FD0` | marker | NOT EXACT: the client's EH frame around the new (attempts.csv); ours has none |

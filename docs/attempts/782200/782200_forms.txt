@@ -1,0 +1,51 @@
+# Claim 240, baseline e6b2e355. Diagnostic semantic changes are never candidates.
+# Each successful compilation received the full exact matcher.
+from pathlib import Path
+import os, sys, subprocess, json, hashlib
+root=Path('/home/dev/Projects/EnB'); work=root/'.work/claim-240/avatar_more'
+sys.path.insert(0,str(root/'.work/claim-234'))
+import fastbuild, appfile
+dirs=appfile.candidate_dirs; appfile.candidate_dirs=lambda: [root/'app/client']+dirs()
+src=(root/'.work/claim-240/baseline-tree/app/client/avatar.cpp').read_text()
+env=os.environ.copy(); env['ENB_RETAIL_INSTALL']='/home/dev/Games/earth-and-beyond/prefix/drive_c/Program Files (x86)/EA GAMES/Earth & Beyond'
+exact=lambda rows:{a for r in rows if r['status']=='exact' for a in r['addresses']}
+baseline=exact(json.loads((work/'baseline/match.json').read_text()))
+forms={
+'782200':[
+('clamp','int frames;\n\t\tif (Unknown0C0[1]) {\n\t\t\tframes = Unknown0C0[1]->Get_Num_Frames();\n\t\t} else {\n\t\t\tframes = Unknown0C0[0]->Get_Num_Frames();\n\t\t}\n\t\tint left = Unknown248 - frames;\n\t\tUnknown248 = (left < 0) ? 0 : left;', 'if (Unknown0C0[1]) { int left = Unknown248 - Unknown0C0[1]->Get_Num_Frames(); Unknown248 = left < 0 ? 0 : left; } else { int left = Unknown248 - Unknown0C0[0]->Get_Num_Frames(); Unknown248 = left < 0 ? 0 : left; }'),
+('clamp','int frames;\n\t\tif (Unknown0C0[1]) {\n\t\t\tframes = Unknown0C0[1]->Get_Num_Frames();\n\t\t} else {\n\t\t\tframes = Unknown0C0[0]->Get_Num_Frames();\n\t\t}\n\t\tint left = Unknown248 - frames;\n\t\tUnknown248 = (left < 0) ? 0 : left;', 'if (Unknown0C0[1]) { Unknown248 -= Unknown0C0[1]->Get_Num_Frames(); if (Unknown248 < 0) Unknown248 = 0; } else { Unknown248 -= Unknown0C0[0]->Get_Num_Frames(); if (Unknown248 < 0) Unknown248 = 0; }'),
+('register','name = Unknown_781D10(PlayerNLP->Unknown_78EE00(Unknown248, Unknown210 != 0));','int state = Unknown210; name = Unknown_781D10(PlayerNLP->Unknown_78EE00(Unknown248, state));'),
+('register','name = Unknown_781D10(PlayerNLP->Unknown_78EE00(Unknown248, Unknown210 != 0));','int state = Unknown210; name = Unknown_781D10(PlayerNLP->Unknown_78EE00(Unknown248, state > 0));'),
+('queue','Unknown_AvatarQueueStruct *entry = Unknown_781B20();','Unknown_AvatarQueueStruct *const entry = Unknown_781B20();'),
+('queue','Unknown_781B50(entry);','for (unsigned int i = 0; i < Unknown2A0.size(); ++i) { if (Unknown2A0[i] == entry) { Unknown2A0.erase(Unknown2A0.begin() + i); delete entry; break; } }'),
+('queue','Unknown_781B50(entry);','Unknown_781B50(Unknown_781B20());'),
+('register','int anim;\n\t\tif (Unknown210 != 0)', 'int anim = entry->Anim;\n\t\tif (Unknown210 != 0)'),
+],
+'783B50':[
+('accel','float accel = accel_rate * time;','double accel = accel_rate * time;'),
+('accel','float accel = accel_rate * time;','float accel = time * accel_rate;'),
+('accel','accel = (run_max / walk_max) * accel;','accel *= run_max / walk_max;'),
+('accel','accel = (run_max / walk_max) * accel;','accel = accel * run_max / walk_max;'),
+('motion','Unknown360 = (Unknown330.Get_X_Vector() * Unknown308) * time;','Unknown360 = Unknown330.Get_X_Vector() * (Unknown308 * time);'),
+('motion','Unknown360 = (Unknown330.Get_X_Vector() * Unknown308) * time;','Unknown360 = time * (Unknown330.Get_X_Vector() * Unknown308);'),
+('motion','float speed = accel + Unknown308;','float speed = Unknown308 + accel;'),
+('motion','float speed = Unknown308 - accel;','float speed = -accel + Unknown308;'),
+('clamp','bool clamped = false;','int clamped = 0;'),
+('clamp','if (time > 0.25f) {','if (0.25f < time) {'),
+('clamp','if (clamped) {\n\t\t\tturn = 0.0f;\n\t\t}','turn = clamped ? 0.0f : turn;'),
+('clamp','float turn = turn_rate * time;','float turn = time * turn_rate;'),
+]}
+summary={};
+for target, variants in forms.items():
+ start=src.index('void CharacterViewAvatarClass::'+('Unknown_782200' if target=='782200' else 'Unknown_1C4')+'()'); end=src.index('\n}',start)+2; fn=src[start:end]; rows=[]
+ for i,(family,old,new) in enumerate(variants):
+  d=work/(target+'_%02d'%i); d.mkdir(exist_ok=True); p=d/'avatar.cpp'; assert old in fn
+  changed=fn.replace(old,new); changed += '\n'*(fn.count('\n')-changed.count('\n')); p.write_text(src[:start]+changed+src[end:]); row={'family':family,'old':old,'new':new,'source':str(p)}
+  try:
+   obj=fastbuild.compile_file(p,d); out=d/'match.json'
+   with (d/'match.log').open('w') as log: r=subprocess.run(['/home/dev/Toolchains/enb-vc6-sp4/venv/bin/python',str(root/'tools/re/objmatch.py'),str(obj),'-q','--json',str(out)],stdout=log,stderr=log,env=env)
+   row['matcher_rc']=r.returncode
+   if not r.returncode:
+    found=exact(json.loads(out.read_text())); row.update(gains=sorted(found-baseline),losses=sorted(baseline-found),match=str(out),object_sha256=hashlib.sha256(obj.read_bytes()).hexdigest())
+  except Exception as e: row['error']=str(e)
+  rows.append(row); summary[target]=rows; (work/'manifest.json').write_text(json.dumps(summary,indent=2)+'\n'); print(target,i,row.get('gains'),row.get('losses'),row.get('error'),flush=True)

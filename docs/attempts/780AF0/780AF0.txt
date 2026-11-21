@@ -1,0 +1,88 @@
+# 0x780AF0
+Loop bounds, local const/order, direct morph reload, scale and tree_scale construction vs assignment, morph source references. Baseline similarity .56, registers this/loop remain exchanged. One additional diagnostic removed a source line and lost 15 downstream assert pairs; it is excluded from form count.
+
+
+### sweep_af0.py
+from pathlib import Path
+import os, sys, subprocess, json
+root=Path('/home/dev/Projects/EnB'); work=root/'.work/claim-240/avatar'
+sys.path.insert(0,str(root/'.work/claim-234'))
+import fastbuild, appfile
+dirs=appfile.candidate_dirs
+appfile.candidate_dirs=lambda: [root/'app/client']+dirs()
+src=(work/'avatar.cpp').read_text()
+start=src.index('void CharacterViewAvatarClass::Unknown_780AF0()'); end=src.index('\n}',start)+2
+fn=src[start:end]
+forms=[
+ ('for (i = 0; i < 5; i++)', 'for (i = 0; i != 5; ++i)'),
+ ('for (i = 0; i < 5; i++)', 'for (i = 0; i <= 4; i++)'),
+ ('for (i = 0; i < 5; i++)', 'for (i = 0; 5 > i; i++)'),
+ ('for (i = 0; i < 5; i++)', 'for (i = 0; i < 5; ++i)'),
+ ('float w = Unknown274[i];', 'const float w = Unknown274[i];'),
+ ('float w = Unknown274[i];\n\t\tscale += Desc.Get_Body_Morph(i) * w;', 'scale += Desc.Get_Body_Morph(i) * Unknown274[i];'),
+ ('float w = Unknown274[i];\n\t\tscale += Desc.Get_Body_Morph(i) * w;', 'float w = Unknown274[i];\n\t\tVector3 morph = Desc.Get_Body_Morph(i); scale += morph * w;'),
+ ('Vector3 scale(0.0f, 0.0f, 0.0f); int i;', 'int i; Vector3 scale(0.0f, 0.0f, 0.0f);'),
+ ('Vector3 scale(0.0f, 0.0f, 0.0f); int i;', 'int i = 0; Vector3 scale(0.0f, 0.0f, 0.0f);'),
+ ('for (i = 0; names[i] != NULL; i++)', 'for (i = 0; names[i]; ++i)'),
+ ('for (i = 0; names[i] != NULL; i++)', 'for (i = 0; NULL != names[i]; i++)'),
+]
+env=os.environ.copy(); env['ENB_RETAIL_INSTALL']='/home/dev/Games/earth-and-beyond/prefix/drive_c/Program Files (x86)/EA GAMES/Earth & Beyond'
+exact=lambda rows:{a for r in rows if r['status']=='exact' for a in r['addresses']}
+baseline=exact(json.loads((work/'baseline_matches/000_baseline_avatar.json').read_text())); summary=[]
+for i,(old,new) in enumerate(forms):
+ d=work/('af0_%02d'%i); d.mkdir(exist_ok=True); p=d/'avatar.cpp'
+ assert fn.count(old)==1
+ p.write_text(src[:start]+fn.replace(old,new)+src[end:]); row={'old':old,'new':new,'source':str(p)}
+ try:
+  obj=fastbuild.compile_file(p,d); out=d/'match.json'
+  with (d/'match.log').open('w') as log:
+   r=subprocess.run(['/home/dev/Toolchains/enb-vc6-sp4/venv/bin/python',str(root/'tools/re/objmatch.py'),str(obj),'-q','--json',str(out)],stdout=log,stderr=log,env=env)
+  row['matcher_rc']=r.returncode
+  if not r.returncode:
+   found=exact(json.loads(out.read_text())); row.update(gains=sorted(found-baseline),losses=sorted(baseline-found),match=str(out))
+ except Exception as e: row['error']=str(e)
+ summary.append(row); (work/'af0_manifest.json').write_text(json.dumps(summary,indent=2)+'\n')
+ print(i,row.get('gains'),row.get('losses'),row.get('error'),flush=True)
+
+
+### sweep_af0b.py
+from pathlib import Path
+import os, sys, subprocess, json
+root=Path('/home/dev/Projects/EnB'); work=root/'.work/claim-240/avatar'
+sys.path.insert(0,str(root/'.work/claim-234'))
+import fastbuild, appfile
+dirs=appfile.candidate_dirs
+appfile.candidate_dirs=lambda: [root/'app/client']+dirs()
+src=(work/'avatar.cpp').read_text()
+start=src.index('void CharacterViewAvatarClass::Unknown_780AF0()'); end=src.index('\n}',start)+2
+fn=src[start:end]
+forms=[
+ ('Vector3 scale(0.0f, 0.0f, 0.0f); int i;', 'Vector3 scale; scale.Set(0.0f, 0.0f, 0.0f); int i;'),
+ ('Vector3 scale(0.0f, 0.0f, 0.0f); int i;', 'Vector3 scale; scale = Vector3(0.0f, 0.0f, 0.0f); int i;'),
+ ('Vector3 scale(0.0f, 0.0f, 0.0f); int i;', 'Vector3 scale = Vector3(0.0f, 0.0f, 0.0f); int i;'),
+ ('Vector3 tree_scale(scale.Z, scale.X, scale.Y);', 'Vector3 tree_scale; tree_scale.Set(scale.Z, scale.X, scale.Y);'),
+ ('Vector3 tree_scale(scale.Z, scale.X, scale.Y);', 'Vector3 tree_scale; tree_scale = Vector3(scale.Z, scale.X, scale.Y);'),
+ ('Vector3 tree_scale(scale.Z, scale.X, scale.Y);', 'Vector3 tree_scale = Vector3(scale.Z, scale.X, scale.Y);'),
+ ('scale += Desc.Get_Body_Morph(i) * w;', 'Vector3 morph; morph = Desc.Get_Body_Morph(i); scale += morph * w;'),
+ ('scale += Desc.Get_Body_Morph(i) * w;', 'const Vector3 &morph = Desc.Get_Body_Morph(i); scale += morph * w;'),
+ ('scale += Desc.Get_Body_Morph(i) * w;', 'Vector3 morph(Desc.Get_Body_Morph(i)); scale += morph * w;'),
+ ('scale += Desc.Get_Body_Morph(i) * w;', 'Vector3 morph = Desc.Get_Body_Morph(i); scale += morph * w;'),
+]
+env=os.environ.copy(); env['ENB_RETAIL_INSTALL']='/home/dev/Games/earth-and-beyond/prefix/drive_c/Program Files (x86)/EA GAMES/Earth & Beyond'
+exact=lambda rows:{a for r in rows if r['status']=='exact' for a in r['addresses']}
+baseline=exact(json.loads((work/'baseline_matches/000_baseline_avatar.json').read_text())); summary=[]
+for i,(old,new) in enumerate(forms):
+ d=work/('af0b_%02d'%i); d.mkdir(exist_ok=True); p=d/'avatar.cpp'
+ assert fn.count(old)==1
+ p.write_text(src[:start]+fn.replace(old,new)+src[end:]); row={'old':old,'new':new,'source':str(p)}
+ try:
+  obj=fastbuild.compile_file(p,d); out=d/'match.json'
+  with (d/'match.log').open('w') as log:
+   r=subprocess.run(['/home/dev/Toolchains/enb-vc6-sp4/venv/bin/python',str(root/'tools/re/objmatch.py'),str(obj),'-q','--json',str(out)],stdout=log,stderr=log,env=env)
+  row['matcher_rc']=r.returncode
+  if not r.returncode:
+   found=exact(json.loads(out.read_text())); row.update(gains=sorted(found-baseline),losses=sorted(baseline-found),match=str(out))
+ except Exception as e: row['error']=str(e)
+ summary.append(row); (work/'af0b_manifest.json').write_text(json.dumps(summary,indent=2)+'\n')
+ print(i,row.get('gains'),row.get('losses'),row.get('error'),flush=True)
+

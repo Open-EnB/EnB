@@ -10,7 +10,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 226 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1970 |
-| 2 | describes what the code does | 4999 |
+| 2 | describes what the code does | 5001 |
 | 1 | neutral placeholder | 25170 |
 
 ## For review (score 3 and below)
@@ -982,11 +982,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_0C` | `app/client/camctrl_rescue.cpp:46` | untagged neutral name (D10) |
 | 1 | `Unknown_28` | `app/client/camctrl_rescue.cpp:79` | untagged neutral name (D10) |
 | 1 | `Unknown_79B6B0` | `app/client/camctrl_rescue.cpp:80` | untagged neutral name (D10) |
-| 1 | `Unknown08` | `app/client/camctrl_rescue.cpp:87` | untagged neutral name (D10) |
-| 1 | `Unknown_B04F80` | `app/client/camctrl_rescue.cpp:88` | neutral (D10) |
-| 1 | `Unknown_B04F84` | `app/client/camctrl_rescue.cpp:89` | neutral (D10) |
-| 1 | `Unknown38` | `app/client/camctrl_rescue.cpp:90` | untagged neutral name (D10) |
-| 1 | `Unknown3C` | `app/client/camctrl_rescue.cpp:91` | untagged neutral name (D10) |
+| 1 | `Unknown08` | `app/client/camctrl_rescue.cpp:88` | untagged neutral name (D10) |
+| 1 | `Unknown_B04F80` | `app/client/camctrl_rescue.cpp:89` | neutral (D10) |
+| 1 | `Unknown_B04F84` | `app/client/camctrl_rescue.cpp:90` | neutral (D10) |
+| 1 | `Unknown38` | `app/client/camctrl_rescue.cpp:91` | untagged neutral name (D10) |
+| 1 | `Unknown3C` | `app/client/camctrl_rescue.cpp:92` | untagged neutral name (D10) |
 | 1 | `CameraController11Class` | `app/client/camctrl_rescue.h:11` | neutral (D10) |
 | 1 | `Unknown_04` | `app/client/camctrl_rescue.h:16` | untagged neutral name (D10) |
 | 1 | `Unknown_08` | `app/client/camctrl_rescue.h:17` | untagged neutral name (D10) |
@@ -21184,9 +21184,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Get_Message` | `app/client/unknown_authlogin.h:86` | what it returns |
 | 1 | `Unknown28` | `app/client/unknown_authlogin.h:92` | untagged neutral name (D10) |
 | 1 | `Unknown_78D450` | `app/client/unknown_creator.cpp:59` | untagged neutral name (D10) |
-| 1 | `Unknown_78D480` | `app/client/unknown_creator.cpp:70` | untagged neutral name (D10) |
-| 1 | `Unknown_78D8A0` | `app/client/unknown_creator.cpp:105` | untagged neutral name (D10) |
-| 1 | `Unknown_78DAF0` | `app/client/unknown_creator.cpp:128` | untagged neutral name (D10) |
+| 1 | `Unknown_78D480` | `app/client/unknown_creator.cpp:73` | untagged neutral name (D10) |
+| 1 | `Unknown_78D8A0` | `app/client/unknown_creator.cpp:108` | untagged neutral name (D10) |
+| 1 | `Unknown_78DAF0` | `app/client/unknown_creator.cpp:131` | untagged neutral name (D10) |
 | 1 | `unknown_creator.h` | `app/client/unknown_creator.h:17` | neutral file name (D10) |
 | 1 | `LoginNameDataClass` | `app/client/unknown_creator.h:28` | neutral (D10) |
 | 1 | `Unknown_PacketDataClass` | `app/client/unknown_creator.h:28` | untagged neutral name (D10) |
@@ -21236,12 +21236,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_5896C0` | `app/client/unknown_msgbox.cpp:413` | untagged neutral name (D10) |
 | 1 | `Unknown_5898F0` | `app/client/unknown_msgbox.cpp:440` | untagged neutral name (D10) |
 | 1 | `Unknown_30` | `app/client/unknown_msgbox.cpp:444` | untagged neutral name (D10) |
-| 1 | `Unknown_78F700Class` | `app/client/unknown_personality.cpp:13` | untagged neutral name (D10) |
-| 1 | `Unknown_78F9F0` | `app/client/unknown_personality.cpp:36` | untagged neutral name (D10) |
-| 1 | `Unknown_790190` | `app/client/unknown_personality.cpp:139` | neutral (D10) |
-| 1 | `Unknown_7901C0` | `app/client/unknown_personality.cpp:145` | untagged neutral name (D10) |
-| 1 | `Unknown_790260Class` | `app/client/unknown_personality.cpp:160` | untagged neutral name (D10) |
-| 1 | `Unknown_790360` | `app/client/unknown_personality.cpp:183` | untagged neutral name (D10) |
+| 1 | `Unknown_78F700Class` | `app/client/unknown_personality.cpp:11` | untagged neutral name (D10) |
+| 1 | `Unknown_78F9F0` | `app/client/unknown_personality.cpp:38` | untagged neutral name (D10) |
+| 1 | `Unknown_790190` | `app/client/unknown_personality.cpp:141` | neutral (D10) |
+| 1 | `Unknown_7901C0` | `app/client/unknown_personality.cpp:147` | untagged neutral name (D10) |
+| 1 | `Unknown_790260Class` | `app/client/unknown_personality.cpp:162` | untagged neutral name (D10) |
+| 1 | `Unknown_790360` | `app/client/unknown_personality.cpp:185` | untagged neutral name (D10) |
 | 1 | `unknown_personality.h` | `app/client/unknown_personality.h:13` | provisional (D10) |
 | 1 | `Unknown_78F700Class` | `app/client/unknown_personality.h:20` | neutral (D10) |
 | 1 | `Unknown_78F9F0` | `app/client/unknown_personality.h:38` | neutral (D10) |
@@ -27848,6 +27848,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `crc64_made` | `app/client/unknown_8b3e70.cpp:11` | CRC-64 init flag at 0xBF50B8 |
 | 2 | `Result` | `app/client/unknown_authlogin.h:27` | the assert's kr; tested >= 0 |
 | 2 | `IComponentFactoryClass` | `app/client/unknown_authlogin.h:38` | authFactory (the assert) |
+| 2 | `value` | `app/client/unknown_creator.cpp:63` | checksum addend, first byte plus iteration |
+| 2 | `count` | `app/client/unknown_creator.cpp:64` | checksum loop countdown |
 | 2 | `Set_Name` | `app/client/unknown_creator.h:35` | what it does |
 | 2 | `CharacterCreatorClass` | `app/client/unknown_creator.h:41` | its folder and registry key, 'Character and Starship Creator' |
 | 2 | `Get_File_Name` | `app/client/unknown_creator.h:49` | what it does |

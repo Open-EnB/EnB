@@ -1,0 +1,571 @@
+FORM offset_components
+--- unknown_7979a0.cpp
++++ offset_components.cpp
+@@ -193,7 +193,7 @@
+ 	float range = CameraManagerClass::Unknown_79B6B0();
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 one(range + range, c * range, s * range);
++	Vector3 one; one.X = range + range; one.Y = c * range; one.Z = s * range;
+ 	s = WWMath::Sin(back);
+ 	c = WWMath::Cos(back);
+ 	Vector3 two(range + range, c * range, s * range);
+
+FORM diff_named
+--- unknown_7979a0.cpp
++++ diff_named.cpp
+@@ -205,7 +205,8 @@
+ 	Vector3 first = frame * one;
+ 	Vector3 second = frame * two;
+ 	Vector3 camera = Client->CameraManager->Position;
+-	if ((first - camera).Length2() < (second - camera).Length2()) {
++	Vector3 delta_first = first - camera; Vector3 delta_second = second - camera;
++	if (delta_first.Length2() < delta_second.Length2()) {
+ 		((CameraModule79C8E0Class *)Unknown0C)->Position = first;
+ 	} else {
+ 		((CameraModule79C8E0Class *)Unknown0C)->Position = second;
+
+FORM bulk_ctor_copy
+
+FORM bulk_ctor_ctor
+--- unknown_7979a0.cpp
++++ bulk_ctor_ctor.cpp
+@@ -204,7 +204,7 @@
+ 	Matrix3D frame = Unknown_82ECB0(dir, tm.Get_Translation());
+ 	Vector3 first = frame * one;
+ 	Vector3 second = frame * two;
+-	Vector3 camera = Client->CameraManager->Position;
++	Vector3 camera(Client->CameraManager->Position);
+ 	if ((first - camera).Length2() < (second - camera).Length2()) {
+ 		((CameraModule79C8E0Class *)Unknown0C)->Position = first;
+ 	} else {
+
+FORM bulk_ctor_assign
+--- unknown_7979a0.cpp
++++ bulk_ctor_assign.cpp
+@@ -204,7 +204,7 @@
+ 	Matrix3D frame = Unknown_82ECB0(dir, tm.Get_Translation());
+ 	Vector3 first = frame * one;
+ 	Vector3 second = frame * two;
+-	Vector3 camera = Client->CameraManager->Position;
++	Vector3 camera; camera = Client->CameraManager->Position;
+ 	if ((first - camera).Length2() < (second - camera).Length2()) {
+ 		((CameraModule79C8E0Class *)Unknown0C)->Position = first;
+ 	} else {
+
+FORM bulk_ctor_ref
+--- unknown_7979a0.cpp
++++ bulk_ctor_ref.cpp
+@@ -204,7 +204,7 @@
+ 	Matrix3D frame = Unknown_82ECB0(dir, tm.Get_Translation());
+ 	Vector3 first = frame * one;
+ 	Vector3 second = frame * two;
+-	Vector3 camera = Client->CameraManager->Position;
++	const Vector3 &camera = Client->CameraManager->Position;
+ 	if ((first - camera).Length2() < (second - camera).Length2()) {
+ 		((CameraModule79C8E0Class *)Unknown0C)->Position = first;
+ 	} else {
+
+FORM bulk_copy_copy
+--- unknown_7979a0.cpp
++++ bulk_copy_copy.cpp
+@@ -193,7 +193,7 @@
+ 	float range = CameraManagerClass::Unknown_79B6B0();
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 one(range + range, c * range, s * range);
++	Vector3 one = Vector3(range + range, c * range, s * range);
+ 	s = WWMath::Sin(back);
+ 	c = WWMath::Cos(back);
+ 	Vector3 two(range + range, c * range, s * range);
+
+FORM bulk_copy_ctor
+--- unknown_7979a0.cpp
++++ bulk_copy_ctor.cpp
+@@ -193,7 +193,7 @@
+ 	float range = CameraManagerClass::Unknown_79B6B0();
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 one(range + range, c * range, s * range);
++	Vector3 one = Vector3(range + range, c * range, s * range);
+ 	s = WWMath::Sin(back);
+ 	c = WWMath::Cos(back);
+ 	Vector3 two(range + range, c * range, s * range);
+@@ -204,7 +204,7 @@
+ 	Matrix3D frame = Unknown_82ECB0(dir, tm.Get_Translation());
+ 	Vector3 first = frame * one;
+ 	Vector3 second = frame * two;
+-	Vector3 camera = Client->CameraManager->Position;
++	Vector3 camera(Client->CameraManager->Position);
+ 	if ((first - camera).Length2() < (second - camera).Length2()) {
+ 		((CameraModule79C8E0Class *)Unknown0C)->Position = first;
+ 	} else {
+
+FORM bulk_copy_assign
+--- unknown_7979a0.cpp
++++ bulk_copy_assign.cpp
+@@ -193,7 +193,7 @@
+ 	float range = CameraManagerClass::Unknown_79B6B0();
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 one(range + range, c * range, s * range);
++	Vector3 one = Vector3(range + range, c * range, s * range);
+ 	s = WWMath::Sin(back);
+ 	c = WWMath::Cos(back);
+ 	Vector3 two(range + range, c * range, s * range);
+@@ -204,7 +204,7 @@
+ 	Matrix3D frame = Unknown_82ECB0(dir, tm.Get_Translation());
+ 	Vector3 first = frame * one;
+ 	Vector3 second = frame * two;
+-	Vector3 camera = Client->CameraManager->Position;
++	Vector3 camera; camera = Client->CameraManager->Position;
+ 	if ((first - camera).Length2() < (second - camera).Length2()) {
+ 		((CameraModule79C8E0Class *)Unknown0C)->Position = first;
+ 	} else {
+
+FORM bulk_xyz_copy
+--- unknown_7979a0.cpp
++++ bulk_xyz_copy.cpp
+@@ -193,7 +193,7 @@
+ 	float range = CameraManagerClass::Unknown_79B6B0();
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 one(range + range, c * range, s * range);
++	Vector3 one; one.X = range + range; one.Y = c * range; one.Z = s * range;
+ 	s = WWMath::Sin(back);
+ 	c = WWMath::Cos(back);
+ 	Vector3 two(range + range, c * range, s * range);
+
+FORM bulk_copy_ref
+--- unknown_7979a0.cpp
++++ bulk_copy_ref.cpp
+@@ -193,7 +193,7 @@
+ 	float range = CameraManagerClass::Unknown_79B6B0();
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 one(range + range, c * range, s * range);
++	Vector3 one = Vector3(range + range, c * range, s * range);
+ 	s = WWMath::Sin(back);
+ 	c = WWMath::Cos(back);
+ 	Vector3 two(range + range, c * range, s * range);
+@@ -204,7 +204,7 @@
+ 	Matrix3D frame = Unknown_82ECB0(dir, tm.Get_Translation());
+ 	Vector3 first = frame * one;
+ 	Vector3 second = frame * two;
+-	Vector3 camera = Client->CameraManager->Position;
++	const Vector3 &camera = Client->CameraManager->Position;
+ 	if ((first - camera).Length2() < (second - camera).Length2()) {
+ 		((CameraModule79C8E0Class *)Unknown0C)->Position = first;
+ 	} else {
+
+FORM bulk_xyz_ctor
+--- unknown_7979a0.cpp
++++ bulk_xyz_ctor.cpp
+@@ -193,7 +193,7 @@
+ 	float range = CameraManagerClass::Unknown_79B6B0();
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 one(range + range, c * range, s * range);
++	Vector3 one; one.X = range + range; one.Y = c * range; one.Z = s * range;
+ 	s = WWMath::Sin(back);
+ 	c = WWMath::Cos(back);
+ 	Vector3 two(range + range, c * range, s * range);
+@@ -204,7 +204,7 @@
+ 	Matrix3D frame = Unknown_82ECB0(dir, tm.Get_Translation());
+ 	Vector3 first = frame * one;
+ 	Vector3 second = frame * two;
+-	Vector3 camera = Client->CameraManager->Position;
++	Vector3 camera(Client->CameraManager->Position);
+ 	if ((first - camera).Length2() < (second - camera).Length2()) {
+ 		((CameraModule79C8E0Class *)Unknown0C)->Position = first;
+ 	} else {
+
+FORM bulk_xyz_assign
+--- unknown_7979a0.cpp
++++ bulk_xyz_assign.cpp
+@@ -193,7 +193,7 @@
+ 	float range = CameraManagerClass::Unknown_79B6B0();
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 one(range + range, c * range, s * range);
++	Vector3 one; one.X = range + range; one.Y = c * range; one.Z = s * range;
+ 	s = WWMath::Sin(back);
+ 	c = WWMath::Cos(back);
+ 	Vector3 two(range + range, c * range, s * range);
+@@ -204,7 +204,7 @@
+ 	Matrix3D frame = Unknown_82ECB0(dir, tm.Get_Translation());
+ 	Vector3 first = frame * one;
+ 	Vector3 second = frame * two;
+-	Vector3 camera = Client->CameraManager->Position;
++	Vector3 camera; camera = Client->CameraManager->Position;
+ 	if ((first - camera).Length2() < (second - camera).Length2()) {
+ 		((CameraModule79C8E0Class *)Unknown0C)->Position = first;
+ 	} else {
+
+FORM bulk_xyz_ref
+--- unknown_7979a0.cpp
++++ bulk_xyz_ref.cpp
+@@ -193,7 +193,7 @@
+ 	float range = CameraManagerClass::Unknown_79B6B0();
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 one(range + range, c * range, s * range);
++	Vector3 one; one.X = range + range; one.Y = c * range; one.Z = s * range;
+ 	s = WWMath::Sin(back);
+ 	c = WWMath::Cos(back);
+ 	Vector3 two(range + range, c * range, s * range);
+@@ -204,7 +204,7 @@
+ 	Matrix3D frame = Unknown_82ECB0(dir, tm.Get_Translation());
+ 	Vector3 first = frame * one;
+ 	Vector3 second = frame * two;
+-	Vector3 camera = Client->CameraManager->Position;
++	const Vector3 &camera = Client->CameraManager->Position;
+ 	if ((first - camera).Length2() < (second - camera).Length2()) {
+ 		((CameraModule79C8E0Class *)Unknown0C)->Position = first;
+ 	} else {
+
+FORM bulk_zyx_copy
+--- unknown_7979a0.cpp
++++ bulk_zyx_copy.cpp
+@@ -193,7 +193,7 @@
+ 	float range = CameraManagerClass::Unknown_79B6B0();
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 one(range + range, c * range, s * range);
++	Vector3 one; one.Z = s * range; one.Y = c * range; one.X = range + range;
+ 	s = WWMath::Sin(back);
+ 	c = WWMath::Cos(back);
+ 	Vector3 two(range + range, c * range, s * range);
+
+FORM bulk_zyx_ctor
+--- unknown_7979a0.cpp
++++ bulk_zyx_ctor.cpp
+@@ -193,7 +193,7 @@
+ 	float range = CameraManagerClass::Unknown_79B6B0();
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 one(range + range, c * range, s * range);
++	Vector3 one; one.Z = s * range; one.Y = c * range; one.X = range + range;
+ 	s = WWMath::Sin(back);
+ 	c = WWMath::Cos(back);
+ 	Vector3 two(range + range, c * range, s * range);
+@@ -204,7 +204,7 @@
+ 	Matrix3D frame = Unknown_82ECB0(dir, tm.Get_Translation());
+ 	Vector3 first = frame * one;
+ 	Vector3 second = frame * two;
+-	Vector3 camera = Client->CameraManager->Position;
++	Vector3 camera(Client->CameraManager->Position);
+ 	if ((first - camera).Length2() < (second - camera).Length2()) {
+ 		((CameraModule79C8E0Class *)Unknown0C)->Position = first;
+ 	} else {
+
+FORM bulk_zyx_assign
+--- unknown_7979a0.cpp
++++ bulk_zyx_assign.cpp
+@@ -193,7 +193,7 @@
+ 	float range = CameraManagerClass::Unknown_79B6B0();
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 one(range + range, c * range, s * range);
++	Vector3 one; one.Z = s * range; one.Y = c * range; one.X = range + range;
+ 	s = WWMath::Sin(back);
+ 	c = WWMath::Cos(back);
+ 	Vector3 two(range + range, c * range, s * range);
+@@ -204,7 +204,7 @@
+ 	Matrix3D frame = Unknown_82ECB0(dir, tm.Get_Translation());
+ 	Vector3 first = frame * one;
+ 	Vector3 second = frame * two;
+-	Vector3 camera = Client->CameraManager->Position;
++	Vector3 camera; camera = Client->CameraManager->Position;
+ 	if ((first - camera).Length2() < (second - camera).Length2()) {
+ 		((CameraModule79C8E0Class *)Unknown0C)->Position = first;
+ 	} else {
+
+FORM bulk_zyx_ref
+--- unknown_7979a0.cpp
++++ bulk_zyx_ref.cpp
+@@ -193,7 +193,7 @@
+ 	float range = CameraManagerClass::Unknown_79B6B0();
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 one(range + range, c * range, s * range);
++	Vector3 one; one.Z = s * range; one.Y = c * range; one.X = range + range;
+ 	s = WWMath::Sin(back);
+ 	c = WWMath::Cos(back);
+ 	Vector3 two(range + range, c * range, s * range);
+@@ -204,7 +204,7 @@
+ 	Matrix3D frame = Unknown_82ECB0(dir, tm.Get_Translation());
+ 	Vector3 first = frame * one;
+ 	Vector3 second = frame * two;
+-	Vector3 camera = Client->CameraManager->Position;
++	const Vector3 &camera = Client->CameraManager->Position;
+ 	if ((first - camera).Length2() < (second - camera).Length2()) {
+ 		((CameraModule79C8E0Class *)Unknown0C)->Position = first;
+ 	} else {
+
+FORM bulk_products_copy
+--- unknown_7979a0.cpp
++++ bulk_products_copy.cpp
+@@ -193,7 +193,7 @@
+ 	float range = CameraManagerClass::Unknown_79B6B0();
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 one(range + range, c * range, s * range);
++	Vector3 one(range + range, range * c, range * s);
+ 	s = WWMath::Sin(back);
+ 	c = WWMath::Cos(back);
+ 	Vector3 two(range + range, c * range, s * range);
+
+FORM bulk_products_ctor
+--- unknown_7979a0.cpp
++++ bulk_products_ctor.cpp
+@@ -193,7 +193,7 @@
+ 	float range = CameraManagerClass::Unknown_79B6B0();
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 one(range + range, c * range, s * range);
++	Vector3 one(range + range, range * c, range * s);
+ 	s = WWMath::Sin(back);
+ 	c = WWMath::Cos(back);
+ 	Vector3 two(range + range, c * range, s * range);
+@@ -204,7 +204,7 @@
+ 	Matrix3D frame = Unknown_82ECB0(dir, tm.Get_Translation());
+ 	Vector3 first = frame * one;
+ 	Vector3 second = frame * two;
+-	Vector3 camera = Client->CameraManager->Position;
++	Vector3 camera(Client->CameraManager->Position);
+ 	if ((first - camera).Length2() < (second - camera).Length2()) {
+ 		((CameraModule79C8E0Class *)Unknown0C)->Position = first;
+ 	} else {
+
+FORM bulk_products_assign
+--- unknown_7979a0.cpp
++++ bulk_products_assign.cpp
+@@ -193,7 +193,7 @@
+ 	float range = CameraManagerClass::Unknown_79B6B0();
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 one(range + range, c * range, s * range);
++	Vector3 one(range + range, range * c, range * s);
+ 	s = WWMath::Sin(back);
+ 	c = WWMath::Cos(back);
+ 	Vector3 two(range + range, c * range, s * range);
+@@ -204,7 +204,7 @@
+ 	Matrix3D frame = Unknown_82ECB0(dir, tm.Get_Translation());
+ 	Vector3 first = frame * one;
+ 	Vector3 second = frame * two;
+-	Vector3 camera = Client->CameraManager->Position;
++	Vector3 camera; camera = Client->CameraManager->Position;
+ 	if ((first - camera).Length2() < (second - camera).Length2()) {
+ 		((CameraModule79C8E0Class *)Unknown0C)->Position = first;
+ 	} else {
+
+FORM bulk_products_ref
+--- unknown_7979a0.cpp
++++ bulk_products_ref.cpp
+@@ -193,7 +193,7 @@
+ 	float range = CameraManagerClass::Unknown_79B6B0();
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 one(range + range, c * range, s * range);
++	Vector3 one(range + range, range * c, range * s);
+ 	s = WWMath::Sin(back);
+ 	c = WWMath::Cos(back);
+ 	Vector3 two(range + range, c * range, s * range);
+@@ -204,7 +204,7 @@
+ 	Matrix3D frame = Unknown_82ECB0(dir, tm.Get_Translation());
+ 	Vector3 first = frame * one;
+ 	Vector3 second = frame * two;
+-	Vector3 camera = Client->CameraManager->Position;
++	const Vector3 &camera = Client->CameraManager->Position;
+ 	if ((first - camera).Length2() < (second - camera).Length2()) {
+ 		((CameraModule79C8E0Class *)Unknown0C)->Position = first;
+ 	} else {
+
+FORM deep_ctor_expr
+
+FORM deep_ctor_ctor
+--- unknown_7979a0.cpp
++++ deep_ctor_ctor.cpp
+@@ -202,7 +202,7 @@
+ 	two.Y *= 1.25f;
+ 	two.Z *= 1.25f;
+ 	Matrix3D frame = Unknown_82ECB0(dir, tm.Get_Translation());
+-	Vector3 first = frame * one;
++	Vector3 first(frame * one);
+ 	Vector3 second = frame * two;
+ 	Vector3 camera = Client->CameraManager->Position;
+ 	if ((first - camera).Length2() < (second - camera).Length2()) {
+
+FORM deep_ctor_assign
+--- unknown_7979a0.cpp
++++ deep_ctor_assign.cpp
+@@ -202,7 +202,7 @@
+ 	two.Y *= 1.25f;
+ 	two.Z *= 1.25f;
+ 	Matrix3D frame = Unknown_82ECB0(dir, tm.Get_Translation());
+-	Vector3 first = frame * one;
++	Vector3 first; first = frame * one;
+ 	Vector3 second = frame * two;
+ 	Vector3 camera = Client->CameraManager->Position;
+ 	if ((first - camera).Length2() < (second - camera).Length2()) {
+
+FORM deep_ctor_transform
+--- unknown_7979a0.cpp
++++ deep_ctor_transform.cpp
+@@ -202,7 +202,7 @@
+ 	two.Y *= 1.25f;
+ 	two.Z *= 1.25f;
+ 	Matrix3D frame = Unknown_82ECB0(dir, tm.Get_Translation());
+-	Vector3 first = frame * one;
++	Vector3 first; Matrix3D::Transform_Vector(frame, one, &first);
+ 	Vector3 second = frame * two;
+ 	Vector3 camera = Client->CameraManager->Position;
+ 	if ((first - camera).Length2() < (second - camera).Length2()) {
+
+FORM deep_copy_expr
+--- unknown_7979a0.cpp
++++ deep_copy_expr.cpp
+@@ -196,7 +196,7 @@
+ 	Vector3 one(range + range, c * range, s * range);
+ 	s = WWMath::Sin(back);
+ 	c = WWMath::Cos(back);
+-	Vector3 two(range + range, c * range, s * range);
++	Vector3 two = Vector3(range + range, c * range, s * range);
+ 	one.Y *= 1.25f;
+ 	one.Z *= 1.25f;
+ 	two.Y *= 1.25f;
+
+FORM deep_copy_ctor
+--- unknown_7979a0.cpp
++++ deep_copy_ctor.cpp
+@@ -196,13 +196,13 @@
+ 	Vector3 one(range + range, c * range, s * range);
+ 	s = WWMath::Sin(back);
+ 	c = WWMath::Cos(back);
+-	Vector3 two(range + range, c * range, s * range);
++	Vector3 two = Vector3(range + range, c * range, s * range);
+ 	one.Y *= 1.25f;
+ 	one.Z *= 1.25f;
+ 	two.Y *= 1.25f;
+ 	two.Z *= 1.25f;
+ 	Matrix3D frame = Unknown_82ECB0(dir, tm.Get_Translation());
+-	Vector3 first = frame * one;
++	Vector3 first(frame * one);
+ 	Vector3 second = frame * two;
+ 	Vector3 camera = Client->CameraManager->Position;
+ 	if ((first - camera).Length2() < (second - camera).Length2()) {
+
+FORM deep_copy_assign
+--- unknown_7979a0.cpp
++++ deep_copy_assign.cpp
+@@ -196,13 +196,13 @@
+ 	Vector3 one(range + range, c * range, s * range);
+ 	s = WWMath::Sin(back);
+ 	c = WWMath::Cos(back);
+-	Vector3 two(range + range, c * range, s * range);
++	Vector3 two = Vector3(range + range, c * range, s * range);
+ 	one.Y *= 1.25f;
+ 	one.Z *= 1.25f;
+ 	two.Y *= 1.25f;
+ 	two.Z *= 1.25f;
+ 	Matrix3D frame = Unknown_82ECB0(dir, tm.Get_Translation());
+-	Vector3 first = frame * one;
++	Vector3 first; first = frame * one;
+ 	Vector3 second = frame * two;
+ 	Vector3 camera = Client->CameraManager->Position;
+ 	if ((first - camera).Length2() < (second - camera).Length2()) {
+
+FORM deep_copy_transform
+--- unknown_7979a0.cpp
++++ deep_copy_transform.cpp
+@@ -196,13 +196,13 @@
+ 	Vector3 one(range + range, c * range, s * range);
+ 	s = WWMath::Sin(back);
+ 	c = WWMath::Cos(back);
+-	Vector3 two(range + range, c * range, s * range);
++	Vector3 two = Vector3(range + range, c * range, s * range);
+ 	one.Y *= 1.25f;
+ 	one.Z *= 1.25f;
+ 	two.Y *= 1.25f;
+ 	two.Z *= 1.25f;
+ 	Matrix3D frame = Unknown_82ECB0(dir, tm.Get_Translation());
+-	Vector3 first = frame * one;
++	Vector3 first; Matrix3D::Transform_Vector(frame, one, &first);
+ 	Vector3 second = frame * two;
+ 	Vector3 camera = Client->CameraManager->Position;
+ 	if ((first - camera).Length2() < (second - camera).Length2()) {
+
+FORM deep_assign_expr
+--- unknown_7979a0.cpp
++++ deep_assign_expr.cpp
+@@ -196,7 +196,7 @@
+ 	Vector3 one(range + range, c * range, s * range);
+ 	s = WWMath::Sin(back);
+ 	c = WWMath::Cos(back);
+-	Vector3 two(range + range, c * range, s * range);
++	Vector3 two; two.X = range + range; two.Y = c * range; two.Z = s * range;
+ 	one.Y *= 1.25f;
+ 	one.Z *= 1.25f;
+ 	two.Y *= 1.25f;
+
+FORM deep_assign_ctor
+--- unknown_7979a0.cpp
++++ deep_assign_ctor.cpp
+@@ -196,13 +196,13 @@
+ 	Vector3 one(range + range, c * range, s * range);
+ 	s = WWMath::Sin(back);
+ 	c = WWMath::Cos(back);
+-	Vector3 two(range + range, c * range, s * range);
++	Vector3 two; two.X = range + range; two.Y = c * range; two.Z = s * range;
+ 	one.Y *= 1.25f;
+ 	one.Z *= 1.25f;
+ 	two.Y *= 1.25f;
+ 	two.Z *= 1.25f;
+ 	Matrix3D frame = Unknown_82ECB0(dir, tm.Get_Translation());
+-	Vector3 first = frame * one;
++	Vector3 first(frame * one);
+ 	Vector3 second = frame * two;
+ 	Vector3 camera = Client->CameraManager->Position;
+ 	if ((first - camera).Length2() < (second - camera).Length2()) {
+
+FORM deep_assign_assign
+--- unknown_7979a0.cpp
++++ deep_assign_assign.cpp
+@@ -196,13 +196,13 @@
+ 	Vector3 one(range + range, c * range, s * range);
+ 	s = WWMath::Sin(back);
+ 	c = WWMath::Cos(back);
+-	Vector3 two(range + range, c * range, s * range);
++	Vector3 two; two.X = range + range; two.Y = c * range; two.Z = s * range;
+ 	one.Y *= 1.25f;
+ 	one.Z *= 1.25f;
+ 	two.Y *= 1.25f;
+ 	two.Z *= 1.25f;
+ 	Matrix3D frame = Unknown_82ECB0(dir, tm.Get_Translation());
+-	Vector3 first = frame * one;
++	Vector3 first; first = frame * one;
+ 	Vector3 second = frame * two;
+ 	Vector3 camera = Client->CameraManager->Position;
+ 	if ((first - camera).Length2() < (second - camera).Length2()) {
+
+FORM deep_assign_transform
+--- unknown_7979a0.cpp
++++ deep_assign_transform.cpp
+@@ -196,13 +196,13 @@
+ 	Vector3 one(range + range, c * range, s * range);
+ 	s = WWMath::Sin(back);
+ 	c = WWMath::Cos(back);
+-	Vector3 two(range + range, c * range, s * range);
++	Vector3 two; two.X = range + range; two.Y = c * range; two.Z = s * range;
+ 	one.Y *= 1.25f;
+ 	one.Z *= 1.25f;
+ 	two.Y *= 1.25f;
+ 	two.Z *= 1.25f;
+ 	Matrix3D frame = Unknown_82ECB0(dir, tm.Get_Translation());
+-	Vector3 first = frame * one;
++	Vector3 first; Matrix3D::Transform_Vector(frame, one, &first);
+ 	Vector3 second = frame * two;
+ 	Vector3 camera = Client->CameraManager->Position;
+ 	if ((first - camera).Length2() < (second - camera).Length2()) {
+

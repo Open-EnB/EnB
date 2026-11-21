@@ -1,0 +1,60 @@
+from pathlib import Path
+import sys,subprocess,os,concurrent.futures
+sys.path.insert(0,'/home/dev/Projects/EnB/.work/claim-234')
+from fastbuild import compile_file
+root=Path('/home/dev/Projects/EnB'); out=root/'.work/claim-240/speech/nlp'
+base=(root/'app/client/nlp.cpp').read_text()
+env=os.environ.copy(); env['ENB_RETAIL_INSTALL']='/home/dev/Games/earth-and-beyond/prefix/drive_c/Program Files (x86)/EA GAMES/Earth & Beyond'
+scan='''\t\t\t\tfor (int i = 0; i < count; i++) {
+\t\t\t\t\tif (start[i] != '\\0' && start[i] != ' ') {
+\t\t\t\t\t\tstream->Unknown_4C45B0(1, (unsigned char)Unknown_78EEF0(start, count), start, count);
+\t\t\t\t\t\tbreak;
+\t\t\t\t\t}
+\t\t\t\t}
+'''
+assert base.count(scan)==2
+variants={}
+for mode in range(1,9):
+    x=base
+    if mode & 1:
+        x=x.replace('''\t\t\tif (count == 0) {
+\t\t\t\tstream->Unknown_4C45B0(1, 0, phrase, 1);
+\t\t\t} else {
+\t\t\t\tstream->Unknown_4C45B0(1, (unsigned char)Unknown_78EEF0(start, count), phrase, count + 1);
+\t\t\t}''','''\t\t\tunsigned char animation = count ? (unsigned char)Unknown_78EEF0(start, count) : 0;
+\t\t\tstream->Unknown_4C45B0(1, animation, phrase, count + 1);''')
+    if mode & 2:
+        x=x.replace('''\t\t\tif (gesture == NULL) {
+\t\t\t\tint number = Personality->Get_Mood_Number(name);''','''\t\t\tint number = gesture == NULL ? Personality->Get_Mood_Number(name) : -1;
+\t\t\tif (gesture == NULL) {''')
+        x=x.replace(scan,'',2)
+        marker='''\t\t\t\t*mood = number;'''
+        x=x.replace(marker,scan+marker,1)
+        # Move duplicate scan before the branch while preserving invalid mood handling.
+        x=x.replace(scan,'',1)
+        marker='''\t\t\tif (gesture == NULL) {
+\t\t\t\tif (number < 0)'''
+        x=x.replace(marker,'''\t\t\tif (gesture != NULL || number >= 0) {
+'''+scan+'''\t\t\t}
+'''+marker,1)
+    if mode & 4:
+        x=x.replace('''if ((int)strlen(text) <= len) {
+\t\tlen = strlen(text);
+\t}''','''int textlen = strlen(text);
+\tif (textlen <= len) {
+\t\tlen = textlen;
+\t}''',1)
+    if mode & 8:
+        x=x.replace('''const char *end = text + len;
+\tconst char *start = text;
+\tconst char *p = text;''','''const char *start = text;
+\tconst char *p = text;
+\tconst char *end = text + len;''',1)
+    variants['flow_'+str(mode)]=x
+def run(item):
+    name,src=item; work=out/name; work.mkdir(parents=True,exist_ok=True); source=work/'nlp.cpp'; source.write_text(src)
+    try: obj=compile_file(source,work)
+    except Exception as e: (work/'error.txt').write_text(str(e)); return
+    with (work/'match.log').open('w') as log:
+        subprocess.run(['/home/dev/Toolchains/enb-vc6-sp4/venv/bin/python',str(root/'tools/re/objmatch.py'),str(obj),'-q','--json',str(work/'match.json')],env=env,stdout=log,stderr=log,check=True)
+with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool: list(pool.map(run,variants.items()))

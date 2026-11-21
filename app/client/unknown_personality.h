@@ -33,7 +33,7 @@ public:
 		int AnimNumber;		// +0x04 (at most 255)  // NAME 2: the INI key
 	};
 
-	Unknown_78F700Class() { Moods = NULL; Name = NULL; BAnims = NULL; }	// 0x78F700
+	Unknown_78F700Class();	// 0x78F700
 	~Unknown_78F700Class();							// 0x78F850
 	virtual void Unknown_78F9F0();					// +0x00 0x78F9F0: frees the name, moods and body animations  // NAME 1: neutral (D10)
 	virtual bool Load(const char *filename);		// +0x04 0x78FCB0  // NAME 2: what it does

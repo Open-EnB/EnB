@@ -1,0 +1,120 @@
+# 0x78D480
+Safe guarded countdown checksum with unsigned accumulator/value in existing 0x78D450 makes target exact, preserves all baseline pairs. Matcher winner_readable/matches/000_winner_readable.json. Baseline baseline_matches/001_baseline_creator.json.
+
+
+### sweep_creator.py
+from pathlib import Path
+import json, subprocess, os, sys
+root = Path('/home/dev/Projects/EnB')
+scratch = root / '.work/claim-240/avatar'
+sys.path.insert(0, str(root / '.work/claim-234'))
+import fastbuild, appfile
+origdirs = appfile.candidate_dirs
+appfile.candidate_dirs = lambda: [root / 'app/client'] + origdirs()
+original = (scratch / 'unknown_creator.cpp').read_text()
+forms = [
+ 'int sum = 0; if (size) { int value = *data; for (unsigned int i = 0; i < size; ++i) sum += value++; } return sum;',
+ 'int sum = 0; if (size) { int value = *data; unsigned int count = size; do { sum += value++; } while (--count); } return sum;',
+ 'int sum = 0; if (size != 0) { int value = *data; for (unsigned int count = size; count; --count) sum += value++; } return sum;',
+ 'int sum = 0; if (size > 0) { int value = *data; while (size--) sum += value++; } return sum;',
+ 'int sum = 0; if (size) { unsigned int value = *data; unsigned int count = size; do { sum += value; value++; } while (--count); } return sum;',
+ 'int sum = 0; if (size) { int value = *data; unsigned int count = size; do { sum += value; ++value; } while (--count); } return sum;',
+ 'int sum = 0; if (size) { int value = *data; do { sum += value++; } while (--size); } return sum;',
+ 'int sum = 0; unsigned int count = size; if (count) { int value = *data; do { sum += value++; } while (--count); } return sum;',
+ 'int sum = 0; if (size) { int value = *data; for (unsigned int count = size; count > 0; count--) { sum += value; value += 1; } } return sum;',
+ 'int sum = 0; if (size) { int value = *data; unsigned int count = size; while (count != 0) { sum = sum + value; value = value + 1; count--; } } return sum;',
+]
+forms = [
+ 'int sum = 0; int value = size ? *data : 0; for (unsigned int i = 0; i < size; i++) sum += value++; return sum;',
+ 'int sum = 0; int value = 0; if (size) value = *data; for (unsigned int i = 0; i < size; i++) sum += value++; return sum;',
+ 'int sum = 0; if (size > 0) { int value = *data; for (unsigned int i = 0; i < size; i++) sum += value++; } return sum;',
+ 'int sum = 0; if (0 < size) { int value = *data; for (unsigned int i = size; i > 0; --i) sum += value++; } return sum;',
+ 'int sum = 0; if (0U < size) { int value = *data; for (unsigned int i = size; i != 0; i--) sum += value++; } return sum;',
+ 'int sum = 0; if (size >= 1U) { int value = *data; unsigned int i = size; do { sum += value++; } while (--i); } return sum;',
+ 'int sum = 0; if (size > 0U) { int value = *data; unsigned int i = size; do { sum += value++; } while (--i); } return sum;',
+ 'int sum = 0; if (size - 1U < size) { int value = *data; unsigned int i = size; do { sum += value++; } while (--i); } return sum;',
+]
+env = os.environ.copy()
+env['ENB_RETAIL_INSTALL'] = '/home/dev/Games/earth-and-beyond/prefix/drive_c/Program Files (x86)/EA GAMES/Earth & Beyond'
+baseline = json.loads((scratch/'baseline_matches/001_baseline_creator.json').read_text())
+exact = lambda rows: {a for r in rows if r['status']=='exact' for a in r['addresses']}
+base = exact(baseline)
+summary = []
+for i, form in enumerate(forms):
+    folder = scratch / ('creator_b%02d' % i); folder.mkdir(exist_ok=True)
+    helper = 'static inline int Creator_Sum(const unsigned char *data, unsigned int size) { ' + form + ' }\n'
+    source = original.replace('// NOT EXACT: shape (through Get_File_Name, inlined', helper+'// NOT EXACT: shape (through Get_File_Name, inlined', 1)
+    source = source.replace('Unknown_78D450(data, size)', 'Creator_Sum(data, size)')
+    sourcepath = folder/'unknown_creator.cpp'; sourcepath.write_text(source)
+    entry = {'form': form, 'source': str(sourcepath)}
+    try:
+        obj = fastbuild.compile_file(sourcepath, folder)
+        match = folder/'match.json'
+        with (folder/'match.log').open('w') as log:
+            proc = subprocess.run(['/home/dev/Toolchains/enb-vc6-sp4/venv/bin/python', str(root/'tools/re/objmatch.py'), str(obj), '-q', '--json', str(match)], env=env, stdout=log, stderr=log)
+        entry['matcher_rc'] = proc.returncode
+        if proc.returncode == 0:
+            found = exact(json.loads(match.read_text()))
+            entry.update(gains=sorted(found-base), losses=sorted(base-found), match=str(match))
+    except Exception as e:
+        entry['error'] = str(e)
+    summary.append(entry)
+    (scratch/'creator_b_manifest.json').write_text(json.dumps(summary, indent=2)+'\n')
+    print(i, entry.get('gains'), entry.get('losses'), entry.get('error'), flush=True)
+
+
+### sweep_safety.py
+from pathlib import Path
+import os, sys, subprocess, json
+root=Path('/home/dev/Projects/EnB'); work=root/'.work/claim-240/avatar'
+sys.path.insert(0,str(root/'.work/claim-234'))
+import fastbuild, appfile
+dirs=appfile.candidate_dirs
+appfile.candidate_dirs=lambda: [root/'app/client']+dirs()
+src=(work/'winner_single/unknown_creator.cpp').read_text()
+helper='static inline int Creator_Sum(const unsigned char *data, unsigned int size) { int sum = 0; if (size > 0U) { int value = *data; unsigned int i = size; do { sum += value++; } while (--i); } return sum; }'
+forms=[
+ helper.replace('int value = *data','unsigned int value = *data'),
+ helper.replace('int sum = 0','unsigned int sum = 0').replace('int value = *data','unsigned int value = *data'),
+ helper.replace('int sum = 0','unsigned int sum = 0'),
+]
+env=os.environ.copy(); env['ENB_RETAIL_INSTALL']='/home/dev/Games/earth-and-beyond/prefix/drive_c/Program Files (x86)/EA GAMES/Earth & Beyond'
+exact=lambda rows:{a for r in rows if r['status']=='exact' for a in r['addresses']}
+baseline=exact(json.loads((work/'baseline_matches/001_baseline_creator.json').read_text())); summary=[]
+old='int sum = 0;\n\tfor (unsigned int i = 0; i < size; i++) {\n\t\tsum += *data + i;\n\t}\n\treturn(sum);'
+for i in range(6):
+ d=work/('safety_%02d'%i); d.mkdir(exist_ok=True); p=d/'unknown_creator.cpp'
+ if i<3: s=src.replace(helper,forms[i])
+ else:
+  s=src.replace(helper+'\n','').replace('Creator_Sum(data, size)','Unknown_78D450(data, size)')
+  body=forms[i-3].split('{ ',1)[1].rsplit(' }',1)[0]
+  assert s.count(old)==1
+  s=s.replace(old,body)
+ p.write_text(s); row={'variant':i,'source':str(p)}
+ try:
+  obj=fastbuild.compile_file(p,d); out=d/'match.json'
+  with (d/'match.log').open('w') as log:
+   r=subprocess.run(['/home/dev/Toolchains/enb-vc6-sp4/venv/bin/python',str(root/'tools/re/objmatch.py'),str(obj),'-q','--json',str(out)],stdout=log,stderr=log,env=env)
+  row['matcher_rc']=r.returncode
+  if not r.returncode:
+   found=exact(json.loads(out.read_text())); row.update(gains=sorted(found-baseline),losses=sorted(baseline-found),match=str(out))
+ except Exception as e: row['error']=str(e)
+ summary.append(row); (work/'safety_manifest.json').write_text(json.dumps(summary,indent=2)+'\n')
+ print(i,row.get('gains'),row.get('losses'),row.get('error'),flush=True)
+
+
+### readable_prepare.py
+from pathlib import Path
+import difflib
+root=Path('/home/dev/Projects/EnB')
+base=root/'app/client/unknown_creator.cpp'
+scratch=root/'.work/claim-240/avatar'
+s=(scratch/'safety_04/unknown_creator.cpp').read_text()
+old='unsigned int sum = 0; if (size > 0U) { unsigned int value = *data; unsigned int i = size; do { sum += value++; } while (--i); } return sum;'
+new='unsigned int sum = 0;\n\tif (size > 0U) {\n\t\tunsigned int value = *data;\n\t\tunsigned int count = size;\n\t\tdo {\n\t\t\tsum += value++;\n\t\t} while (--count);\n\t}\n\treturn sum;'
+assert s.count(old)==1
+s=s.replace(old,new)
+out=scratch/'winner_readable'; out.mkdir(exist_ok=True)
+(out/'unknown_creator.cpp').write_text(s)
+(out/'candidate.patch').write_text(''.join(difflib.unified_diff(base.read_text().splitlines(True),s.splitlines(True),fromfile='a/app/client/unknown_creator.cpp',tofile='b/app/client/unknown_creator.cpp')))
+

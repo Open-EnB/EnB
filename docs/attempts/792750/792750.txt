@@ -1,0 +1,416 @@
+FORM offset_assign
+--- camctrl_dock.cpp
++++ offset_assign.cpp
+@@ -265,7 +265,7 @@
+ 	}
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 offset(lead, c * radius * scale, s * radius * scale);
++	Vector3 offset; offset.X = lead; offset.Y = c * radius * scale; offset.Z = s * radius * scale;
+ 	Matrix3D tm;
+ 	tm.Obj_Look_At(start, end, 0.0f);
+ 	Unknown0C->Position = tm * offset;
+
+FORM offset_parenthesized
+--- camctrl_dock.cpp
++++ offset_parenthesized.cpp
+@@ -265,7 +265,7 @@
+ 	}
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 offset(lead, c * radius * scale, s * radius * scale);
++	Vector3 offset(lead, c * (radius * scale), s * (radius * scale));
+ 	Matrix3D tm;
+ 	tm.Obj_Look_At(start, end, 0.0f);
+ 	Unknown0C->Position = tm * offset;
+
+FORM other_ctor_product
+
+FORM other_ctor_transform
+--- camctrl_dock.cpp
++++ other_ctor_transform.cpp
+@@ -268,7 +268,7 @@
+ 	Vector3 offset(lead, c * radius * scale, s * radius * scale);
+ 	Matrix3D tm;
+ 	tm.Obj_Look_At(start, end, 0.0f);
+-	Unknown0C->Position = tm * offset;
++	Matrix3D::Transform_Vector(tm, offset, &Unknown0C->Position);
+ 	Unknown0C->Unknown14 = true;
+ 	Unknown0C->Unknown18 = Client->AvatarID;
+ 	Unknown0C->Unknown_04();
+
+FORM other_ctor_local
+--- camctrl_dock.cpp
++++ other_ctor_local.cpp
+@@ -268,7 +268,7 @@
+ 	Vector3 offset(lead, c * radius * scale, s * radius * scale);
+ 	Matrix3D tm;
+ 	tm.Obj_Look_At(start, end, 0.0f);
+-	Unknown0C->Position = tm * offset;
++	Vector3 position = tm * offset; Unknown0C->Position = position;
+ 	Unknown0C->Unknown14 = true;
+ 	Unknown0C->Unknown18 = Client->AvatarID;
+ 	Unknown0C->Unknown_04();
+
+FORM other_ctor_alias
+--- camctrl_dock.cpp
++++ other_ctor_alias.cpp
+@@ -268,7 +268,7 @@
+ 	Vector3 offset(lead, c * radius * scale, s * radius * scale);
+ 	Matrix3D tm;
+ 	tm.Obj_Look_At(start, end, 0.0f);
+-	Unknown0C->Position = tm * offset;
++	CameraModule79C8E0Class *module = (CameraModule79C8E0Class *)Unknown0C; module->Position = tm * offset;
+ 	Unknown0C->Unknown14 = true;
+ 	Unknown0C->Unknown18 = Client->AvatarID;
+ 	Unknown0C->Unknown_04();
+
+FORM other_copy_local
+--- camctrl_dock.cpp
++++ other_copy_local.cpp
+@@ -265,10 +265,10 @@
+ 	}
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 offset(lead, c * radius * scale, s * radius * scale);
++	Vector3 offset = Vector3(lead, c * radius * scale, s * radius * scale);
+ 	Matrix3D tm;
+ 	tm.Obj_Look_At(start, end, 0.0f);
+-	Unknown0C->Position = tm * offset;
++	Vector3 position = tm * offset; Unknown0C->Position = position;
+ 	Unknown0C->Unknown14 = true;
+ 	Unknown0C->Unknown18 = Client->AvatarID;
+ 	Unknown0C->Unknown_04();
+
+FORM other_copy_product
+--- camctrl_dock.cpp
++++ other_copy_product.cpp
+@@ -265,7 +265,7 @@
+ 	}
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 offset(lead, c * radius * scale, s * radius * scale);
++	Vector3 offset = Vector3(lead, c * radius * scale, s * radius * scale);
+ 	Matrix3D tm;
+ 	tm.Obj_Look_At(start, end, 0.0f);
+ 	Unknown0C->Position = tm * offset;
+
+FORM other_copy_transform
+--- camctrl_dock.cpp
++++ other_copy_transform.cpp
+@@ -265,10 +265,10 @@
+ 	}
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 offset(lead, c * radius * scale, s * radius * scale);
++	Vector3 offset = Vector3(lead, c * radius * scale, s * radius * scale);
+ 	Matrix3D tm;
+ 	tm.Obj_Look_At(start, end, 0.0f);
+-	Unknown0C->Position = tm * offset;
++	Matrix3D::Transform_Vector(tm, offset, &Unknown0C->Position);
+ 	Unknown0C->Unknown14 = true;
+ 	Unknown0C->Unknown18 = Client->AvatarID;
+ 	Unknown0C->Unknown_04();
+
+FORM other_copy_alias
+--- camctrl_dock.cpp
++++ other_copy_alias.cpp
+@@ -265,10 +265,10 @@
+ 	}
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 offset(lead, c * radius * scale, s * radius * scale);
++	Vector3 offset = Vector3(lead, c * radius * scale, s * radius * scale);
+ 	Matrix3D tm;
+ 	tm.Obj_Look_At(start, end, 0.0f);
+-	Unknown0C->Position = tm * offset;
++	CameraModule79C8E0Class *module = (CameraModule79C8E0Class *)Unknown0C; module->Position = tm * offset;
+ 	Unknown0C->Unknown14 = true;
+ 	Unknown0C->Unknown18 = Client->AvatarID;
+ 	Unknown0C->Unknown_04();
+
+FORM other_xyz_product
+--- camctrl_dock.cpp
++++ other_xyz_product.cpp
+@@ -265,7 +265,7 @@
+ 	}
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 offset(lead, c * radius * scale, s * radius * scale);
++	Vector3 offset; offset.X = lead; offset.Y = c * radius * scale; offset.Z = s * radius * scale;
+ 	Matrix3D tm;
+ 	tm.Obj_Look_At(start, end, 0.0f);
+ 	Unknown0C->Position = tm * offset;
+
+FORM other_xyz_local
+--- camctrl_dock.cpp
++++ other_xyz_local.cpp
+@@ -265,10 +265,10 @@
+ 	}
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 offset(lead, c * radius * scale, s * radius * scale);
++	Vector3 offset; offset.X = lead; offset.Y = c * radius * scale; offset.Z = s * radius * scale;
+ 	Matrix3D tm;
+ 	tm.Obj_Look_At(start, end, 0.0f);
+-	Unknown0C->Position = tm * offset;
++	Vector3 position = tm * offset; Unknown0C->Position = position;
+ 	Unknown0C->Unknown14 = true;
+ 	Unknown0C->Unknown18 = Client->AvatarID;
+ 	Unknown0C->Unknown_04();
+
+FORM other_xyz_transform
+--- camctrl_dock.cpp
++++ other_xyz_transform.cpp
+@@ -265,10 +265,10 @@
+ 	}
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 offset(lead, c * radius * scale, s * radius * scale);
++	Vector3 offset; offset.X = lead; offset.Y = c * radius * scale; offset.Z = s * radius * scale;
+ 	Matrix3D tm;
+ 	tm.Obj_Look_At(start, end, 0.0f);
+-	Unknown0C->Position = tm * offset;
++	Matrix3D::Transform_Vector(tm, offset, &Unknown0C->Position);
+ 	Unknown0C->Unknown14 = true;
+ 	Unknown0C->Unknown18 = Client->AvatarID;
+ 	Unknown0C->Unknown_04();
+
+FORM other_xyz_alias
+--- camctrl_dock.cpp
++++ other_xyz_alias.cpp
+@@ -265,10 +265,10 @@
+ 	}
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 offset(lead, c * radius * scale, s * radius * scale);
++	Vector3 offset; offset.X = lead; offset.Y = c * radius * scale; offset.Z = s * radius * scale;
+ 	Matrix3D tm;
+ 	tm.Obj_Look_At(start, end, 0.0f);
+-	Unknown0C->Position = tm * offset;
++	CameraModule79C8E0Class *module = (CameraModule79C8E0Class *)Unknown0C; module->Position = tm * offset;
+ 	Unknown0C->Unknown14 = true;
+ 	Unknown0C->Unknown18 = Client->AvatarID;
+ 	Unknown0C->Unknown_04();
+
+FORM other_zyx_product
+--- camctrl_dock.cpp
++++ other_zyx_product.cpp
+@@ -265,7 +265,7 @@
+ 	}
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 offset(lead, c * radius * scale, s * radius * scale);
++	Vector3 offset; offset.Z = s * radius * scale; offset.Y = c * radius * scale; offset.X = lead;
+ 	Matrix3D tm;
+ 	tm.Obj_Look_At(start, end, 0.0f);
+ 	Unknown0C->Position = tm * offset;
+
+FORM other_zyx_local
+--- camctrl_dock.cpp
++++ other_zyx_local.cpp
+@@ -265,10 +265,10 @@
+ 	}
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 offset(lead, c * radius * scale, s * radius * scale);
++	Vector3 offset; offset.Z = s * radius * scale; offset.Y = c * radius * scale; offset.X = lead;
+ 	Matrix3D tm;
+ 	tm.Obj_Look_At(start, end, 0.0f);
+-	Unknown0C->Position = tm * offset;
++	Vector3 position = tm * offset; Unknown0C->Position = position;
+ 	Unknown0C->Unknown14 = true;
+ 	Unknown0C->Unknown18 = Client->AvatarID;
+ 	Unknown0C->Unknown_04();
+
+FORM other_zyx_transform
+--- camctrl_dock.cpp
++++ other_zyx_transform.cpp
+@@ -265,10 +265,10 @@
+ 	}
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 offset(lead, c * radius * scale, s * radius * scale);
++	Vector3 offset; offset.Z = s * radius * scale; offset.Y = c * radius * scale; offset.X = lead;
+ 	Matrix3D tm;
+ 	tm.Obj_Look_At(start, end, 0.0f);
+-	Unknown0C->Position = tm * offset;
++	Matrix3D::Transform_Vector(tm, offset, &Unknown0C->Position);
+ 	Unknown0C->Unknown14 = true;
+ 	Unknown0C->Unknown18 = Client->AvatarID;
+ 	Unknown0C->Unknown_04();
+
+FORM other_zyx_alias
+--- camctrl_dock.cpp
++++ other_zyx_alias.cpp
+@@ -265,10 +265,10 @@
+ 	}
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 offset(lead, c * radius * scale, s * radius * scale);
++	Vector3 offset; offset.Z = s * radius * scale; offset.Y = c * radius * scale; offset.X = lead;
+ 	Matrix3D tm;
+ 	tm.Obj_Look_At(start, end, 0.0f);
+-	Unknown0C->Position = tm * offset;
++	CameraModule79C8E0Class *module = (CameraModule79C8E0Class *)Unknown0C; module->Position = tm * offset;
+ 	Unknown0C->Unknown14 = true;
+ 	Unknown0C->Unknown18 = Client->AvatarID;
+ 	Unknown0C->Unknown_04();
+
+FORM deep_copy_copy
+
+FORM deep_copy_assign
+--- camctrl_dock.cpp
++++ deep_copy_assign.cpp
+@@ -156,7 +156,7 @@
+ 	}
+ 
+ 	Vector3 end = target->Unknown_24();
+-	Vector3 start = ship->Unknown_24();
++	Vector3 start; start = ship->Unknown_24();
+ 	float speed = Unknown_B04AF0;
+ 	float scale = CameraManagerClass::Unknown_79B6B0();
+ 	float lead = scale * 3.0f;
+
+FORM deep_copy_ctor
+--- camctrl_dock.cpp
++++ deep_copy_ctor.cpp
+@@ -156,7 +156,7 @@
+ 	}
+ 
+ 	Vector3 end = target->Unknown_24();
+-	Vector3 start = ship->Unknown_24();
++	Vector3 start(ship->Unknown_24());
+ 	float speed = Unknown_B04AF0;
+ 	float scale = CameraManagerClass::Unknown_79B6B0();
+ 	float lead = scale * 3.0f;
+
+FORM deep_copy_ref
+--- camctrl_dock.cpp
++++ deep_copy_ref.cpp
+@@ -156,7 +156,7 @@
+ 	}
+ 
+ 	Vector3 end = target->Unknown_24();
+-	Vector3 start = ship->Unknown_24();
++	const Vector3 &start_ref = ship->Unknown_24(); Vector3 start(start_ref);
+ 	float speed = Unknown_B04AF0;
+ 	float scale = CameraManagerClass::Unknown_79B6B0();
+ 	float lead = scale * 3.0f;
+
+FORM deep_ctor_copy
+--- camctrl_dock.cpp
++++ deep_ctor_copy.cpp
+@@ -155,7 +155,7 @@
+ 		ship->Unknown_7009A0(true, true);
+ 	}
+ 
+-	Vector3 end = target->Unknown_24();
++	Vector3 end(target->Unknown_24());
+ 	Vector3 start = ship->Unknown_24();
+ 	float speed = Unknown_B04AF0;
+ 	float scale = CameraManagerClass::Unknown_79B6B0();
+
+FORM deep_ctor_ctor
+--- camctrl_dock.cpp
++++ deep_ctor_ctor.cpp
+@@ -155,8 +155,8 @@
+ 		ship->Unknown_7009A0(true, true);
+ 	}
+ 
+-	Vector3 end = target->Unknown_24();
+-	Vector3 start = ship->Unknown_24();
++	Vector3 end(target->Unknown_24());
++	Vector3 start(ship->Unknown_24());
+ 	float speed = Unknown_B04AF0;
+ 	float scale = CameraManagerClass::Unknown_79B6B0();
+ 	float lead = scale * 3.0f;
+
+FORM deep_ctor_assign
+--- camctrl_dock.cpp
++++ deep_ctor_assign.cpp
+@@ -155,8 +155,8 @@
+ 		ship->Unknown_7009A0(true, true);
+ 	}
+ 
+-	Vector3 end = target->Unknown_24();
+-	Vector3 start = ship->Unknown_24();
++	Vector3 end(target->Unknown_24());
++	Vector3 start; start = ship->Unknown_24();
+ 	float speed = Unknown_B04AF0;
+ 	float scale = CameraManagerClass::Unknown_79B6B0();
+ 	float lead = scale * 3.0f;
+
+FORM deep_assign_copy
+--- camctrl_dock.cpp
++++ deep_assign_copy.cpp
+@@ -155,7 +155,7 @@
+ 		ship->Unknown_7009A0(true, true);
+ 	}
+ 
+-	Vector3 end = target->Unknown_24();
++	Vector3 end; end = target->Unknown_24();
+ 	Vector3 start = ship->Unknown_24();
+ 	float speed = Unknown_B04AF0;
+ 	float scale = CameraManagerClass::Unknown_79B6B0();
+
+FORM deep_ctor_ref
+--- camctrl_dock.cpp
++++ deep_ctor_ref.cpp
+@@ -155,8 +155,8 @@
+ 		ship->Unknown_7009A0(true, true);
+ 	}
+ 
+-	Vector3 end = target->Unknown_24();
+-	Vector3 start = ship->Unknown_24();
++	Vector3 end(target->Unknown_24());
++	const Vector3 &start_ref = ship->Unknown_24(); Vector3 start(start_ref);
+ 	float speed = Unknown_B04AF0;
+ 	float scale = CameraManagerClass::Unknown_79B6B0();
+ 	float lead = scale * 3.0f;
+
+FORM deep_assign_ctor
+--- camctrl_dock.cpp
++++ deep_assign_ctor.cpp
+@@ -155,8 +155,8 @@
+ 		ship->Unknown_7009A0(true, true);
+ 	}
+ 
+-	Vector3 end = target->Unknown_24();
+-	Vector3 start = ship->Unknown_24();
++	Vector3 end; end = target->Unknown_24();
++	Vector3 start(ship->Unknown_24());
+ 	float speed = Unknown_B04AF0;
+ 	float scale = CameraManagerClass::Unknown_79B6B0();
+ 	float lead = scale * 3.0f;
+
+FORM deep_assign_assign
+--- camctrl_dock.cpp
++++ deep_assign_assign.cpp
+@@ -155,8 +155,8 @@
+ 		ship->Unknown_7009A0(true, true);
+ 	}
+ 
+-	Vector3 end = target->Unknown_24();
+-	Vector3 start = ship->Unknown_24();
++	Vector3 end; end = target->Unknown_24();
++	Vector3 start; start = ship->Unknown_24();
+ 	float speed = Unknown_B04AF0;
+ 	float scale = CameraManagerClass::Unknown_79B6B0();
+ 	float lead = scale * 3.0f;
+
+FORM deep_assign_ref
+--- camctrl_dock.cpp
++++ deep_assign_ref.cpp
+@@ -155,8 +155,8 @@
+ 		ship->Unknown_7009A0(true, true);
+ 	}
+ 
+-	Vector3 end = target->Unknown_24();
+-	Vector3 start = ship->Unknown_24();
++	Vector3 end; end = target->Unknown_24();
++	const Vector3 &start_ref = ship->Unknown_24(); Vector3 start(start_ref);
+ 	float speed = Unknown_B04AF0;
+ 	float scale = CameraManagerClass::Unknown_79B6B0();
+ 	float lead = scale * 3.0f;
+
