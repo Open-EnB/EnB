@@ -255,7 +255,7 @@ void LineEffectClass::Unknown_6E5E00(Vector3 *start, Vector3 *end)
 
 
 
-// NOT EXACT: x87 order and frame (the client orders the two Vector2 normalisations' loads and stores differently; the calls and the branches are the client's)
+// NOT EXACT: order-only (the frame, the slots and the 414 instructions are the client's; the camera offset's rows 2 and 3 load the X term first in the client, 0x6E649A, the Y term here); attempts.py show 0x6E6030
 void LineEffectClass::Unknown_6E6030(Vector3 *start, Vector3 *end)
 {
 	FAIL_IF(!start || !end) return;
@@ -274,8 +274,7 @@ void LineEffectClass::Unknown_6E6030(Vector3 *start, Vector3 *end)
 			Vector2 vmin;
 			Vector2 vmax;
 			Camera->Get_View_Plane(vmin, vmax);
-			float half_width = vmax.X * znear;
-			float half_height = vmax.Y * znear;
+			Vector2 half(vmax.X * znear, vmax.Y * znear);
 			float margin = SegLineRObj->Get_Noise_Amplitude();
 			margin += SegLineRObj->Get_Width();
 			Vector3 delta = view_end - view_start;
@@ -283,38 +282,47 @@ void LineEffectClass::Unknown_6E6030(Vector3 *start, Vector3 *end)
 			xz.Normalize();
 			Vector2 yz(delta.Y, delta.Z);
 			yz.Normalize();
-			half_width += margin / (float)fabs(xz.Y);
-			half_height += margin / (float)fabs(yz.Y);
-			float inv_width = 1.0f / half_width;
-			float inv_height = 1.0f / half_height;
-			float sx = view_start.X * inv_width;
-			float sy = view_start.Y * inv_height;
+			half.X += margin / fabs(xz.Y);
+			half.Y += margin / fabs(yz.Y);
+			Vector2 inv(1.0f / half.X, 1.0f / half.Y);
+			view_start.X *= inv.X;
+			view_start.Y *= inv.Y;
+			view_end.X *= inv.X;
+			view_end.Y *= inv.Y;
 			float depth = view_start.Z - view_end.Z;
+			Vector2 p;
 			if (fabs(depth) >= 0.001f) {
 				float k = (1.0f / depth) * view_start.Z;
-				sx = (view_end.X * inv_width - sx) * k + sx;
-				sy = (view_end.Y * inv_height - sy) * k + sy;
+				p.X = view_start.X + (view_end.X - view_start.X) * k;
+				p.Y = view_start.Y + (view_end.Y - view_start.Y) * k;
+			} else {
+				p.X = view_start.X;
+				p.Y = view_start.Y;
 			}
-			float ax = (float)fabs(sx);
-			float ay = (float)fabs(sy);
+			float ax = (float)fabs(p.X);
+			float ay = (float)fabs(p.Y);
 			if (ax < 1.0f && ay < 1.0f) {
-				float big = (ax < ay) ? ay : ax;
-				sy = (1.0f / big) * sy - sy;
-				sx = (1.0f / big) * sx - sx;
+				if (ax < ay) {
+					p = p * (1.0f / ay) - p;
+				} else {
+					p = p * (1.0f / ax) - p;
+				}
 				if (Get_Flag(16)) {
 					float s = (float)fabs(depth / view_end.Z);
-					sy = s * sy;
-					float ox = s * sx * half_width;
-					float oy = sy * half_height;
+					p *= s;
+					Vector3 o;
+					o.X = p.X * half.X;
+					o.Y = p.Y * half.Y;
 					const Matrix3D &tm = Camera->Get_Transform();
-					*start += tm.Get_X_Vector() * ox + tm.Get_Y_Vector() * oy;
+					*start += Vector3(tm[0][0] * o.X + tm[0][1] * o.Y, tm[1][1] * o.Y + tm[1][0] * o.X, tm[2][1] * o.Y + tm[2][0] * o.X);
 				} else {
 					float s = (float)fabs(depth / view_start.Z);
-					sy = s * sy;
-					float ox = s * sx * half_width;
-					float oy = sy * half_height;
+					p *= s;
+					Vector3 o;
+					o.X = p.X * half.X;
+					o.Y = p.Y * half.Y;
 					const Matrix3D &tm = Camera->Get_Transform();
-					*end += tm.Get_X_Vector() * ox + tm.Get_Y_Vector() * oy;
+					*end += Vector3(tm[0][0] * o.X + tm[0][1] * o.Y, tm[1][1] * o.Y + tm[1][0] * o.X, tm[2][1] * o.Y + tm[2][0] * o.X);
 				}
 			}
 		}

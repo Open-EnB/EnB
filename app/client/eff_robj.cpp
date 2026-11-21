@@ -153,7 +153,7 @@ void Unknown6EF4C0EffectClass::Unknown_18()
 
 
 
-// NOT EXACT: order-only (the frame and the 96 instructions are the client's; two of the identity matrix's zero stores and pos.Y's store sit a few instructions later); attempts.py show 0x6EF740
+
 // 0x6EF740
 void Unknown6EF4C0EffectClass::Unknown_1C()
 {
@@ -164,7 +164,10 @@ void Unknown6EF4C0EffectClass::Unknown_1C()
 	}
 	Vector3 screen;
 	if (Camera->Project(screen, Transform.Get_Translation()) == CameraClass::INSIDE_FRUSTUM) {
-		Vector3 pos(screen.X + UnknownDC.X, screen.Y + UnknownDC.Y, 0);
+		Vector3 pos;
+		pos.X = screen.X + UnknownDC.X;
+		pos.Y = screen.Y + UnknownDC.Y;
+		pos.Z = 0;
 		RObj->Set_Transform(Matrix3D(1));
 		RObj->Set_Position(pos);
 		RObj->Set_Hidden(false);
@@ -181,9 +184,6 @@ Unknown6EF910EffectClass::Unknown6EF910EffectClass(ClientClass *client, unsigned
 	RObj->Add_Ref();
 	RObj->Set_Transform(Matrix3D(1));
 }
-
-
-
 
 
 

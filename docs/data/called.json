@@ -1275,6 +1275,9 @@
 "?Printf_Indented@FileClass@@QAAHIPADZZ": [
 "0x9D4680"
 ],
+"?Project@CameraClass@@QBE?AW4ProjectionResType@1@AAVVector3@@ABV3@@Z": [
+"0x944890"
+],
 "?Push_Material_Pass@RenderInfoClass@@QAEXPAVMaterialPassClass@@@Z": [
 "0x930FD0"
 ],

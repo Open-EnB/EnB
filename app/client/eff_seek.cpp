@@ -215,7 +215,6 @@ void SplineRandomSeekEffectClass::Unknown_0C(unsigned duration)
 	Unknown_6F1590();
 }
 
-// NOT EXACT: order-only (the frame and the 141 instructions are the client's; the facing vector's first two products load the matrix element first where this loads the rate's, 0x6F1496); attempts.py show 0x6F1390
 // 0x6F1390
 void SplineRandomSeekEffectClass::Unknown_1C()
 {
@@ -230,7 +229,8 @@ void SplineRandomSeekEffectClass::Unknown_1C()
 	point.X *= length;
 	rate.X *= length;
 	Matrix3D tm = Unknown_82ECB0(direction, SourcePosition);
-	Vector3 position = tm * point;
+	Vector3 position;
+	Matrix3D::Transform_Vector(tm, point, &position);
 	Vector3 facing;
 	Matrix3D::Rotate_Vector(tm, rate, &facing);
 	RObj->Set_Transform(Unknown_82ECB0(facing, position));
@@ -327,7 +327,6 @@ void LinearRandomSeekEffectClass::Unknown_0C(unsigned duration)
 	Unknown_6F1C40();
 }
 
-// NOT EXACT: order-only (the frame and the 96 instructions are the client's; the squared length adds z, x, y where Length2 adds z, y, x, and two rows' products load the matrix element first); attempts.py show 0x6F1AD0
 // 0x6F1AD0
 void LinearRandomSeekEffectClass::Unknown_1C()
 {
@@ -336,9 +335,12 @@ void LinearRandomSeekEffectClass::Unknown_1C()
 	Vector3 point;
 	((Curve3DClass &)Curve).Evaluate(time, &point);
 	Vector3 direction = TargetPosition - SourcePosition;
-	point.X *= direction.Length();
+	float length = direction.Length();
+	point.X *= length;
 	Matrix3D tm = Unknown_82ECB0(direction, SourcePosition);
-	tm.Set_Translation(tm * point);
+	Vector3 position;
+	Matrix3D::Transform_Vector(tm, point, &position);
+	tm.Set_Translation(position);
 	RObj->Set_Transform(tm);
 }
 
