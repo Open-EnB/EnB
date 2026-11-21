@@ -72,7 +72,7 @@ static void Rebuild_Texture(FontSys *style, char *buffer, bool reset_spacing)
 	style->Unknown4C4 = style->Unknown2D0.Unknown_6D8DC0(&style->Font, buffer, 0);
 }
 static inline void Set_Complete(FontSys *style, bool done) { style->Unknown404 = done; }  // NAME 2: Is_Complete's setter (0x67EEE0 reads +0x404); an inline layer, as the client spends inline budget here
-// NOT EXACT: worked toward the client's bytes (FX1, run 2026-11-20): case order, branch senses, inline layers
+// NOT EXACT: worked toward the client's bytes (FX1 / FX, runs 2026-11-20 and -21): case order, branch senses, inline layers, budget
 void FontSys::Unknown_6CA0C0(FontEffectStruct *effect)
 {
 	FontSys *style = this;
@@ -739,4 +739,8 @@ void FontSys::Unknown_6D5B10(float &width, float &height)
 **
 **	fontmanager.h types as floats what this function reads and writes so: Unknown494.Unknown0C (alpha), Unknown4A4.Color
 **	(0..1), Unknown458 (SCROLL's distance), Unknown488 (SHAKE's offset). 0x6CE4E0 (the font switch) is in unknown_6cce60.cpp.
+**
+**	Inline budget (FX, run 2026-11-21): Set_Complete is a file-local layer over the +0x404 stores; with it the client's
+**	out-of-line Store_Length in LETTER (0x6CB343, 0x6CB425) follows. The Peek_Buffer reads after STRETCH's "..." and
+**	STAY's copy are dead budget reads (D272); their counts are swept (11 / 2 give the client's zero register in edi).
 */
