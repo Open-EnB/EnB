@@ -303,7 +303,7 @@ bool ChatGadgetClass::Unknown_2C(KernelEventClass *event, float x, float y, unsi
 
 
 
-// 0x65CCD0  // NOT EXACT: registers (masked 90, attempts.py show 0x65CCD0): client.h's inline Get_Unknown1138() / Get_Avatar_ID() at the request packets, the lookups and the emote packets (the client loads AvatarID before the Unknown_7817E0 call and keeps chatpanel in [esp+0x18] only), the shared delete text after the store block (client 0x65DA81), dead ChatPanel.Peek() reads (D272) 3 after case 6-9 and 2 at the end; left: the client keeps -1 in ebx (Get_String's push, the EH resets) and text in edi, case 4 / 5's string temporaries one slot apart, case 3 / 2 Client hoisted before the test
+// 0x65CCD0  // NOT EXACT: registers (masked 85, attempts.py show 0x65CCD0): client.h's inline Get_Unknown1138() / Get_Avatar_ID() at the request packets, the lookups, the emote packets and case 3 / 2's chat packets (the client loads AvatarID before the Unknown_7817E0 call and keeps chatpanel in [esp+0x18] only), the shared delete text after the store block (client 0x65DA81), dead ChatPanel.Peek() reads (D272) 3 after case 6-9 and 1 after case 4's Unknown24; left: the client keeps -1 in ebx (Get_String's push, the EH resets) and text in edi, case 4 / 5's string temporaries one slot apart
 void ChatGadgetClass::Unknown_65CCD0()
 {
 	SClient *sclient = (SClient *)Client->As_Space_Client();
@@ -387,7 +387,7 @@ void ChatGadgetClass::Unknown_65CCD0()
 							sclient->Unknown_74D990(0x11, "Not subscribed to any channels.", 0);
 						} else {
 							ClientChatRequestPacketClass packet(0, Client->Get_Unknown1138());
-							packet.Unknown24 = chatpanel->Unknown_5682C0();
+							packet.Unknown24 = chatpanel->Unknown_5682C0(); sclient->ChatPanel.Peek();
 							packet.Unknown34 = std::string(text);
 							Client->Send_Packet(&packet);
 						}
@@ -405,7 +405,7 @@ void ChatGadgetClass::Unknown_65CCD0()
 					case 3:
 						if (((SClient *)Client->As_Space_Client())->Unknown_74D570()) {
 							
-							Client->Send_Packet(&ClientChatPacketClass(Client->AvatarID, text, 1, NULL));
+							Client->Send_Packet(&ClientChatPacketClass(Client->Get_Avatar_ID(), text, 1, NULL));
 						} else {
 							((SClient *)Client->As_Space_Client())->Unknown_74D990(0x11, "Not in a group.", 0);
 						}
@@ -413,7 +413,7 @@ void ChatGadgetClass::Unknown_65CCD0()
 					case 2:
 						if (((SClient *)Client->As_Space_Client())->Unknown_728300()) {
 							
-							Client->Send_Packet(&ClientChatPacketClass(Client->AvatarID, text, 2, NULL));
+							Client->Send_Packet(&ClientChatPacketClass(Client->Get_Avatar_ID(), text, 2, NULL));
 						} else {
 							((SClient *)Client->As_Space_Client())->Unknown_74D990(0x11, "Not in a guild.", 0);
 						}
@@ -434,7 +434,7 @@ void ChatGadgetClass::Unknown_65CCD0()
 		}
 		delete text;
 	}
-	done: Unknown7C = false; sclient->ChatPanel.Peek(); sclient->ChatPanel.Peek();
+	done: Unknown7C = false;
 	Unknown_74(false);
 	Edit->Clear();
 }
