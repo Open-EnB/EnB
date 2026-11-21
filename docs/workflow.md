@@ -468,7 +468,7 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
   near miss's inline layer: call it there instead of the written-out body (found by statement copies; it closed members of
   galaxy_map_render, the ui_group / ui_registration destructors and a registration case switch; Set_Corners 0x44C900 has no
   candidate). A written-out copy of a same-file function called instead, with no gain, leaves the object unchanged or worse: log it in attempts. A try script that
-  runs `git checkout` on the file resets it: commit before running one.
+  runs `git checkout` on the file resets it: commit before running one. An out-of-line thiscall getter COMDAT in the client (`mov eax,[ecx+N]; ret`) means the class had an inline accessor; for a function with no caller, read its inlined copies in the caller for the source shape (a join point means one variable) (0x603A60).
 * **Levers that closed inline-budget and order near misses elsewhere:** step with `Next_Valid()`; an unused argument
   for a `ret N` mismatch; increments inside conditions; the object read into a local before the call; `clear()` for
   `erase(begin(), end())`; the member passed instead of the local; the client's own member as the missing inline
@@ -518,7 +518,7 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
   byte-exact, where the client calls them, and keeps an inlined member ctor out of line; inline_depth(1..3),
   auto_inline(off), an out-of-class or virtual dtor or a member operator delete do not make VC6 call ??_G.
   inline_depth around a function did not reproduce out-of-line Casts (dead finds did). An explicit template
-  instantiation inside an auto_inline(off) region keeps that template out of line for some types only.
+  instantiation inside an auto_inline(off) region keeps that template out of line for some types only. inline_depth(1..3) compiles as the default and only 0 changes anything (it beats `__forceinline`); explicit specializations defined later in the TU are still inlined.
 * **Clearing forms inline differently:** `Set_Contents(NULL)` vs a `RefCountPtr<>()` temporary, and `clear()`
   vs `erase(begin, end)` (`??_G(0)` calls vs inlined destroy loops): try both. Top-level code empties a VC6
   vector with `clear()`; `vector::insert(end(), 1, x)` written out is inlined while push_back keeps the
@@ -602,6 +602,11 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
 * **Inline accessor or dead read in place of a plain member read:** `Get_View()->X` for a member read at one call site both spends the inline budget and changes register ties; try it before a D272 sweep. Dead reads of an inlined helper's own accessor (`Peek_Model`) cut that helper's nested destructors, other accessors' reads do not. A dead `RefCountPtr::Peek()` / `vector::begin()` read can raise the budget (pull a later call inline): prefer a container `size()` read. Dummy locals cost budget; an inline helper's parameters give VC6 no new allocation variables (copy-propagated); `inline_depth(1)` / `(2)` compile as the default depth.
 * **One inlined call site per inline layer:** a helper holding both branches costs more budget than a one-site helper called twice; when a layer cuts a nested callee the client inlines, go flat, then add dead reads.
 * **Cuts are not monotonic in the count of reads at the end:** when the client keeps a later site and cuts earlier ones, one read right after the earlier site is the lever; map the cuts per count with a call-target sequence (a script listing the call targets in order). When a function starts compiling the client's layout, its old dead reads stop helping: sweep again from zero.
+* **An inline layer around a nested call the client keeps out of line:** when the client inlines a helper but calls its nested std call, add one inline layer around that call (an SGI `begin` / `find` written inline over a one-line `bucket_count()` layer: 0x63AAF0, 0x63D280). VC6 cuts the deepest nesting first.
+* **Dead reads move the budget in discrete steps:** `size()`, `Get_View()`, `max_size()` and a `std::pair` temporary are one step; `value_comp` / `key_comp` / `get_allocator` / `begin` / `end` another. Map each site's call mix (map::insert, _Tree::insert, pair ctor, operator[] called or not) against the client before a sweep: a client state between two adjacent steps is unreachable by dead reads. Reads after the last inline site of a case act like reads at the end, and the cut depends on both their count and their distribution.
+* **Inline accessors combine non-additively:** `Peek_Model` alone made a function worse and was decisive once `Peek_Render_Obj` was in. Re-sweep the dead reads after each accessor added (0x625A60).
+* **A hand-expanded macro** (no `do { } while(0)`) at one site can swing a far function's budget by over a thousand masked rows (LandClass::Render): test macro-site changes alone.
+
 
 **Register-only, order-only** (two attempts, then the stop rule)
 
@@ -704,6 +709,10 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
 * **Register rotation by a local:** reading a member's field into a local before a call rotates eax / ecx / edx; a `next` temporary at a loop end stops VC6 merging an identical advance elsewhere into it; in a switch VC6 assigns struct-copy sequences' registers in code order, so a duplicated tail copy changes the later cases' registers.
 * **x87 operand order inside an inlined expansion** (`Rotate_Vector` rows) can follow the function's set of locals: adding or dropping a plain local flips it; declaration grouping, casts and scope moves do not. VC6 canonicalises a float dot product's term order: only parentheses change code.
 * **A local can move a far branch's ending:** removing one can move a branch's shared ending in an unrelated case (compare the whole region list); adding one can un-spend a fragile budget. In a large function a correct local form can rotate the callee-saved registers across a whole loop: check its own regions (`trybatch.py regions ... --show K`), not just the total.
+* **Off-by-one register rotation** (each temporary one step off the client's eax / ecx / edx) is one inline layer more or less at an earlier site: a file inline accessor, or the class's own (`Get_Info()` at 0x63CA50 / 0x642740, `Get_Unknown1138()` at a packet constructor), at the first differing site.
+* **An index variable for `key - N`** used only as an array index is folded into a displacement; VC6 materialises it (`add reg,-N`) only when the value is used, and that one variable moves register choices in unrelated cases.
+* **A large switch function scores per case:** a dead read or extra inline layer moves far-away sites, and the function-wide zero register flips with one site's inline state: compare region sums, not only the total. VC6 orders frame slots by first use, not declaration order.
+
 
 **Shape: returns, tails, loops, switches**
 
@@ -817,6 +826,8 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
 * **Loop rotation:** VC6 rotates `for (x; ; y)` whose first statement breaks (the head is copied to the bottom); `for (x; true; y)`, or a `while` with a nested block, keeps it top-tested; `do {} while (true)` does not.
 * **Per-case tails and merged cases:** identical `sound; return` tails taken by alternate cases are one tail per case in the source (VC6 merges them; a `break` to one shared tail costs registers). A jump-table entry pointing inside another case's code plus jmps into it is duplicated tails in the source, merged by VC6; a `goto` to a shared label gives a different layout. A separate `if` instead of `else if` keeps a block apart rather than jumping into a shared tail.
 * **Branch-sense and return-site forms:** `x == "US" ? 0xC : 0xD` (constants differing by 1) compiles branch-free (setne / add): `test / jne / push / jmp` in the client is an if / else with two calls. A trailing `else { dead store; }` after an else-if chain can flip VC6's branch sense at the chain end (jne-fallthrough to je + jmp) and move the block layout. One `goto` return site instead of many `return(false)` avoids each expanding its own destructor.
+* **One `done: return(true);` site with gotos** gives the client's cross-jumps into a shared tail (0x749ED0).
+
 
 **Frame and stack slots**
 
@@ -931,6 +942,8 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
 * **Zero-fills:** `memset` of 0x10-0x14 bytes is unrolled stores, 0x20 bytes `rep stosd`; a `rep stosd` after the
   vtable stores is the member-array memset.
 * **A value computed between a `new`'s allocation and its constructor** is the new-expression's argument. A helper whose inlined copy differs from its own standalone exact copy: write the loop in the caller, and check forms on the helper with `--file-check`.
+* **An inline constructor in a mem-initializer list is a scheduling barrier:** a later member's construction (its `this` and EH state store) is hoisted up to the last one, and an init-list load schedule can be off by one store per load. Build the members as a small struct with its own inline constructor (ui_avatr +0x1BC's pair 0x553AF0; 0x5EF0B0's seven bools as one Flags struct).
+
 
 **Field offset, layout**
 
@@ -1459,7 +1472,7 @@ are in 3.0.
 * **Byte-exact matching does not check which global a relocation names, and pairs cannot see wrong initialised
   data:** a function can match while calling the wrong factory, and a hand-copied table reached through a
   relocation can be wrong while every function using it stays exact (a class-select table sent Next from
-  Enforcer to Scout). Compare hand-copied tables with the client's bytes and run the program.
+  Enforcer to Scout). Compare hand-copied tables with the client's bytes and run the program. An exact function can still read two globals swapped (`A | B` against the client's load order): check the relocation names when called.json gains a cross entry.
 * **A "none" for a callee proves nothing** (targets are masked): follow the client's call first.
 * **A dropped COMDAT copy is a move, not a loss (D20, D66(i)):** a rewrite that stops emitting an inline COMDAT
   copy, or a struct change that moves an identical COMDAT onto another type's copy, drops a (file, address) pair
@@ -1939,7 +1952,7 @@ are in 3.0.
 * **A vtable alignment between two candidate slot orders can look proven when both put the same kind of stub (`ret 4`) in the checked slot:** check every slot's body. symbols.json's vtable-proved slot names then carry the wrong order and lose pairs when the header is fixed, until `replaces` rows are added.
 * **Tool arguments:** `verify.py --pool` takes an integer (the VM count). `appfile.py match --diff` needs the full `Class::Method` name and a `// @0xADDR` marker on an existing blank line (a new line shifts asserts). It cannot find operators (`??_5`, `??U`): use `objdiff.py .work/<ID>/appfile/obj/X.obj MANGLED ADDR`.
 * **Unwind funclets show a function's local `RefCountPtr` types:** N funclets jumping to one destructor means N locals of one instantiation; use them before retyping locals.
-* **trybatch traps:** a variant that changes the line count shifts later `__LINE__` (put dead forms on existing lines; the tool flags the shift); a header hunk appended after a `//` comment is commented out; a draft header reached through another header needs a no-op hunk on every intermediate header (the symptom is C1083 or a compile that shows no change), and a draft-folder header copy does not shadow a quoted include from another header; hunk anchors must be unique in the whole file; two threads on one VM collide on sync.tar; `listing.asm` is written only with `--slots`; region diffs are kept only for the best form (`trybatch.py regions` on that form's object); `identical` masks branch targets; a lever's cost to another instance in the file is invisible to its single-symbol measure (sweep the file with appfile); names from attempts.csv go stale (pass an empty `SYMBOL`); SYMBOL resolves on the base object and reuses its mangled name, so a form that changes a signature fails "no such symbol" (change the tree first, then empty SYMBOL), and a new function absent from the base object reports "not in the object" for every form (measure with `trybatch.py regions <form>/obj/X.obj MANGLED ADDR`); a header with relative includes fails to compile in the overlay (use a same-depth local copy in the .cpp); the whole-function `res` can jump while the per-region sum is small when a block moves (check the spans), and masked 0 can hide raw x87 rows (measure raw too on near-exact functions); wildcarded relocations make same-shape initialisers all match.
+* **trybatch traps:** a variant that changes the line count shifts later `__LINE__` (put dead forms on existing lines; the tool flags the shift); a header hunk appended after a `//` comment is commented out; a draft header reached through another header needs a no-op hunk on every intermediate header (the symptom is C1083 or a compile that shows no change), and a draft-folder header copy does not shadow a quoted include from another header; hunk anchors must be unique in the whole file; two threads on one VM collide on sync.tar; `listing.asm` is written only with `--slots`; region diffs are kept only for the best form (`trybatch.py regions` on that form's object); `identical` masks branch targets; a lever's cost to another instance in the file is invisible to its single-symbol measure (sweep the file with appfile); names from attempts.csv go stale (pass an empty `SYMBOL`); SYMBOL resolves on the base object and reuses its mangled name, so a form that changes a signature fails "no such symbol" (change the tree first, then empty SYMBOL), and a new function absent from the base object reports "not in the object" for every form (measure with `trybatch.py regions <form>/obj/X.obj MANGLED ADDR`); a header with relative includes fails to compile in the overlay (use a same-depth local copy in the .cpp); the whole-function `res` can jump while the per-region sum is small when a block moves (check the spans), and masked 0 can hide raw x87 rows (measure raw too on near-exact functions); wildcarded relocations make same-shape initialisers all match. Header forms for app / shared / auxdata headers fail on their sibling relative includes: edit the header in your own worktree with no other batch running, `trybatch base`, restore. A header member added to a widely included class can flip another file only under verify (`--file-check` cannot see it). A variants helper module named `grp` shadows the stdlib; two runs of one variants file started in the same second collide on the batch directory.
 * **tryv2 under a busy importer lock:** a run that times out while queued for the lock runs nothing, and tryv2 gives up behind a busy lock: use `appfile match` on mark.py drafts. A variant that adds lines shifts later `__LINE__`.
 * **appfile match on a library file** uses the app's /GX unless you pass the library's own `--flags` (ww3d2's); explain.py needs a virtual's UAE decoration to find it. Parallel appfile runs need distinct `ENB_AGENT`, and `$(... &)` drops it.
 
@@ -2195,7 +2208,9 @@ Programs and tests (VIDTEST, kerneltest, drawcheck):
   hosts entry for sunrise fails with INV-300.
 * **An assert flood keeps `wait-quiet proxy` from ever passing:** each G_ASSERT / FAIL_IF reopens stubs.log and the
   d3d8 proxy logs every CreateFileA, so a client asserting each frame looks busy (sp_combat on our build,
-  2026-11-20: `not quiet within 60 s`). Read stubs.log's counts before suspecting the scenario.
+  2026-11-20: `not quiet within 60 s`). Read stubs.log's counts before suspecting the scenario. The stub log's own CreateFileA opens also landed in d3d8shot.log (e2e.py now filters them, stub_log.cpp opens once). Per-frame counts (asserts, effects) differ by frame rate (ours ran about 3x retail's in space): normalise by frames.
+* **E&B's Next Target can pick your own ship** when an object is within the sum of the radii; for a hulk use `press until` (sp_combat does).
+* **A failed compile in a `--allow-dirty` app build still links:** the broken file's functions become generated stand-ins (`gen_stubs --link: N unresolved`). Check FAILED in build_app.log before running.
 * **Live space (`sp_*`):** the hotbar travels with the character's rows (a drag in one run is gone after
   `--db-snapshot`'s restore); the PDA's skill list does not open at a fixed scroll, so replayed drags from it miss;
   the number keys (Fire/Activate slot N) sent nothing on retail where a click on the slot works; E right after
