@@ -1,0 +1,164 @@
+Claim #227, Codex gpt-6.1-sol, VC6 SP4 12.00.8804 under Wine.
+App flags and defines from tools/vc6/libdefs.py.
+Baseline has four differing non-relocated bytes at function offsets 0x1A, 0x1C, 0x1E, 0x20.
+Client squares the x delta first; our baseline squares the y delta first.
+All instruction offsets otherwise agree. The first two batches did not match; a successful retry follows below.
+
+Scalar-member baseline (X, Y), distance expression compared with Threshold():
+
+compound
+  float dx = x - X; float dy = y - Y; dx *= dx; dy *= dy; float distance = dx + dy;
+  distance
+  {"size": 96, "different_bytes": 4, "first": [26, 28, 30, 32]}
+
+compound_reverse
+  float dx = x - X; float dy = y - Y; dy *= dy; dx *= dx; float distance = dx + dy;
+  distance
+  {"size": 96, "different_bytes": 4, "first": [26, 28, 30, 32]}
+
+sum_compound
+  float dx = x - X; float dy = y - Y;
+  (dx *= dx) + (dy *= dy)
+  {"size": 96, "different_bytes": 4, "first": [26, 28, 30, 32]}
+
+sum_compound_reverse
+  float dx = x - X; float dy = y - Y;
+  (dy *= dy) + (dx *= dx)
+  {"size": 96, "different_bytes": 4, "first": [26, 28, 30, 32]}
+
+vector
+  Vector2 delta(x - X, y - Y);
+  delta.Length2()
+  {"size": 96, "different_bytes": 10, "first": [23, 24, 25, 26, 27, 28, 29, 30]}
+
+vector_reverse
+  Vector2 delta(y - Y, x - X);
+  delta.Length2()
+  {"size": 96, "different_bytes": 16, "first": [12, 15, 19, 22, 23, 24, 25, 26]}
+
+accumulate
+  float dx = x - X; float dy = y - Y; float distance = dx * dx; distance += dy * dy;
+  distance
+  {"size": 96, "different_bytes": 10, "first": [23, 24, 25, 26, 27, 28, 29, 30]}
+
+accumulate_reverse
+  float dx = x - X; float dy = y - Y; float distance = dy * dy; distance += dx * dx;
+  distance
+  {"size": 96, "different_bytes": 4, "first": [26, 28, 30, 32]}
+
+double_dx
+  double dx = x - X; float dy = y - Y;
+  dx * dx + dy * dy
+  {"size": 112, "different_bytes": 106, "first": [0, 1, 2, 3, 4, 5, 6, 7]}
+
+double_dy
+  float dx = x - X; double dy = y - Y;
+  dx * dx + dy * dy
+  {"size": 112, "different_bytes": 106, "first": [0, 1, 2, 3, 4, 5, 6, 7]}
+
+double_both
+  double dx = x - X; double dy = y - Y;
+  dx * dx + dy * dy
+  {"size": 112, "different_bytes": 106, "first": [0, 1, 2, 3, 4, 5, 6, 7]}
+
+Vector2 Position member (constructor exact), distance expression compared with Threshold():
+Names ending in threshold_left use Threshold() < expression.
+
+temporary_vector
+
+  (Vector2(x, y) - Position).Length2()
+  {"size": 96, "different_bytes": 10, "first": [23, 24, 25, 26, 27, 28, 29, 30]}
+
+named_vector
+  Vector2 delta = Vector2(x, y) - Position;
+  delta.Length2()
+  {"size": 96, "different_bytes": 10, "first": [23, 24, 25, 26, 27, 28, 29, 30]}
+
+dot
+  Vector2 delta = Vector2(x, y) - Position;
+  delta * delta
+  {"size": 96, "different_bytes": 10, "first": [23, 24, 25, 26, 27, 28, 29, 30]}
+
+named_current
+  Vector2 current(x, y); Vector2 delta = current - Position;
+  delta.Length2()
+  {"size": 96, "different_bytes": 10, "first": [23, 24, 25, 26, 27, 28, 29, 30]}
+
+update_parameters
+  x -= Position.X; y -= Position.Y;
+  x * x + y * y
+  {"size": 96, "different_bytes": 10, "first": [23, 24, 25, 26, 27, 28, 29, 30]}
+
+only_dx
+  float dx = x - Position.X;
+  dx * dx + (y - Position.Y) * (y - Position.Y)
+  {"size": 96, "different_bytes": 4, "first": [26, 28, 30, 32]}
+
+only_dy
+  float dy = y - Position.Y;
+  (x - Position.X) * (x - Position.X) + dy * dy
+  {"size": 96, "different_bytes": 10, "first": [12, 15, 19, 22, 26, 28, 30, 32]}
+
+squared_locals
+  float dx = x - Position.X; float dy = y - Position.Y; float xx = dx * dx; float yy = dy * dy;
+  xx + yy
+  {"size": 96, "different_bytes": 4, "first": [26, 28, 30, 32]}
+
+threshold_left
+  float dx = x - Position.X; float dy = y - Position.Y;
+  dx * dx + dy * dy
+  {"size": 112, "different_bytes": 106, "first": [0, 1, 2, 3, 4, 5, 6, 7]}
+
+vector_threshold_left
+  Vector2 delta = Vector2(x, y) - Position;
+  delta.Length2()
+  {"size": 112, "different_bytes": 107, "first": [0, 1, 2, 3, 4, 5, 6, 7]}
+
+dot_threshold_left
+  Vector2 delta = Vector2(x, y) - Position;
+  delta * delta
+  {"size": 112, "different_bytes": 107, "first": [0, 1, 2, 3, 4, 5, 6, 7]}
+
+Follow-up batch after independent review by a Codex gpt-6.1-sol subagent.
+workflow.md section 3.1.2 documents copy then compound assignment and symbol-kind effects on x87 order.
+Eight forms compiled; compound_vector matched. No second retry batch ran.
+
+const_ref_deltas
+  const float &dx = x - Position.X; const float &dy = y - Position.Y;
+  dx * dx + dy * dy
+  {"size": 96, "different_bytes": 4, "first": [26, 28, 30, 32]}
+
+const_ref_dx
+  const float &dx = x - Position.X; float dy = y - Position.Y;
+  dx * dx + dy * dy
+  {"size": 96, "different_bytes": 4, "first": [26, 28, 30, 32]}
+
+const_ref_dy
+  float dx = x - Position.X; const float &dy = y - Position.Y;
+  dx * dx + dy * dy
+  {"size": 96, "different_bytes": 4, "first": [26, 28, 30, 32]}
+
+const_ref_vector
+  const Vector2 &delta = Vector2(x, y) - Position;
+  delta.Length2()
+  {"size": 96, "different_bytes": 10, "first": [23, 24, 25, 26, 27, 28, 29, 30]}
+
+distinct_vector_temps
+
+  (Vector2(x, y) - Position) * (Vector2(x, y) - Position)
+  {"size": 112, "different_bytes": 85, "first": [8, 23, 24, 25, 26, 28, 29, 30]}
+
+distinct_static_dot
+
+  Vector2::Dot_Product(Vector2(x, y) - Position, Vector2(x, y) - Position)
+  {"size": 112, "different_bytes": 85, "first": [8, 23, 24, 25, 26, 28, 29, 30]}
+
+assign_vector
+  Vector2 delta; delta = Vector2(x, y) - Position;
+  delta.Length2()
+  {"size": 96, "different_bytes": 10, "first": [23, 24, 25, 26, 27, 28, 29, 30]}
+
+compound_vector
+  Vector2 delta(x, y); delta -= Position;
+  delta.Length2()
+  {"size": 96, "different_bytes": 0, "first": []}
