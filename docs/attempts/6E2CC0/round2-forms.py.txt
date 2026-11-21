@@ -1,0 +1,179 @@
+HYPOTHESIS = 'b2: Y as Adjust_Y_Translation(U.Y) on the copy (inline float param -> stack temp), X / Z from the camera reference, U.X a float local on the FPU'
+FILE = 'app/client/cameraeffects.cpp'
+SYMBOL = '?Unknown_34@CameraEffectsClass@@UAEXXZ'
+ADDRESS = 0x6E2CC0
+
+OLD = ('\t\t\tMatrix3D tm = camera->Get_Transform();\n'
+       '\t\t\ttm.Set_Translation(Vector3(tm.Get_X_Translation() + Unknown18.X, tm.Get_Y_Translation() + Unknown18.Y, tm.Get_Z_Translation()));\n'
+       '\t\t\tcamera->Set_Transform(tm);\n')
+REF = '\t\t\tconst Matrix3D &cur = camera->Get_Transform(); Matrix3D tm = cur;\n'
+SET = '\t\t\tcamera->Set_Transform(tm);\n'
+
+def f(l1, l2, l3=SET):
+    return [(OLD, l1 + l2 + l3)]
+
+FORMS = {
+    'locals': f('\t\t\tfloat x = Unknown18.X; float y = Unknown18.Y; const Matrix3D &cur = camera->Get_Transform(); Matrix3D tm = cur;\n',
+                '\t\t\ttm.Set_Translation(Vector3(cur.Get_X_Translation() + x, tm.Get_Y_Translation() + y, cur.Get_Z_Translation()));\n'),
+    'setx_adjy_setz': f(REF, '\t\t\ttm.Set_X_Translation(cur.Get_X_Translation() + Unknown18.X); tm.Adjust_Y_Translation(Unknown18.Y); tm.Set_Z_Translation(cur.Get_Z_Translation());\n'),
+    'setx_adjy': f('\t\t\tMatrix3D tm = camera->Get_Transform();\n',
+                   '\t\t\ttm.Set_X_Translation(tm.Get_X_Translation() + Unknown18.X); tm.Adjust_Y_Translation(Unknown18.Y);\n'),
+    'set_adjy': f(REF, '\t\t\ttm.Set_Translation(Vector3(cur.Get_X_Translation() + Unknown18.X, cur.Get_Y_Translation(), cur.Get_Z_Translation())); tm.Adjust_Y_Translation(Unknown18.Y);\n'),
+    'pos_adjy': f(REF, '\t\t\tVector3 pos = cur.Get_Translation(); pos.X += Unknown18.X; tm.Set_Translation(pos); tm.Adjust_Y_Translation(Unknown18.Y);\n'),
+    'ref_uf': f(REF, '\t\t\ttm.Set_Translation(Vector3(Unknown18.X + cur.Get_X_Translation(), Unknown18.Y + tm.Get_Y_Translation(), cur.Get_Z_Translation()));\n'),
+    'ref_xlocal': f('\t\t\tfloat x = Unknown18.X; const Matrix3D &cur = camera->Get_Transform(); Matrix3D tm = cur;\n',
+                    '\t\t\ttm.Set_Translation(Vector3(cur.Get_X_Translation() + x, tm.Get_Y_Translation() + Unknown18.Y, cur.Get_Z_Translation()));\n'),
+    'ref_vec': f('\t\t\tVector3 move = Unknown18; const Matrix3D &cur = camera->Get_Transform(); Matrix3D tm = cur;\n',
+                 '\t\t\ttm.Set_Translation(Vector3(cur.Get_X_Translation() + move.X, tm.Get_Y_Translation() + move.Y, cur.Get_Z_Translation()));\n'),
+}
+# ---- v1.py
+HYPOTHESIS = 'b1: the camera-move statement: X / Z read from the camera matrix (a reference), Y from the copy, U.Y through an inline float param (stack temp)'
+FILE = 'app/client/cameraeffects.cpp'
+SYMBOL = '?Unknown_34@CameraEffectsClass@@UAEXXZ'
+ADDRESS = 0x6E2CC0
+
+OLD = ('\t\t\tMatrix3D tm = camera->Get_Transform();\n'
+       '\t\t\ttm.Set_Translation(Vector3(tm.Get_X_Translation() + Unknown18.X, tm.Get_Y_Translation() + Unknown18.Y, tm.Get_Z_Translation()));\n'
+       '\t\t\tcamera->Set_Transform(tm);\n')
+
+def f(l1, l2, l3='\t\t\tcamera->Set_Transform(tm);\n'):
+    return [(OLD, l1 + l2 + l3)]
+
+FORMS = {
+    'adjxy': f('\t\t\tMatrix3D tm = camera->Get_Transform();\n',
+               '\t\t\ttm.Adjust_X_Translation(Unknown18.X); tm.Adjust_Y_Translation(Unknown18.Y);\n'),
+    'adjv': f('\t\t\tMatrix3D tm = camera->Get_Transform();\n',
+              '\t\t\ttm.Adjust_Translation(Vector3(Unknown18.X, Unknown18.Y, 0.0f));\n'),
+    'getset': f('\t\t\tMatrix3D tm = camera->Get_Transform(); Vector3 pos = tm.Get_Translation();\n',
+                '\t\t\tpos.X += Unknown18.X; pos.Y += Unknown18.Y; tm.Set_Translation(pos);\n'),
+    'getptr': f('\t\t\tMatrix3D tm = camera->Get_Transform(); Vector3 pos; tm.Get_Translation(&pos);\n',
+                '\t\t\tpos.X += Unknown18.X; pos.Y += Unknown18.Y; tm.Set_Translation(pos);\n'),
+    'setxy': f('\t\t\tMatrix3D tm = camera->Get_Transform();\n',
+               '\t\t\ttm.Set_X_Translation(tm.Get_X_Translation() + Unknown18.X); tm.Set_Y_Translation(tm.Get_Y_Translation() + Unknown18.Y);\n'),
+    'ref': f('\t\t\tconst Matrix3D &cur = camera->Get_Transform(); Matrix3D tm = cur;\n',
+             '\t\t\ttm.Set_Translation(Vector3(cur.Get_X_Translation() + Unknown18.X, tm.Get_Y_Translation() + Unknown18.Y, cur.Get_Z_Translation()));\n'),
+    'refpos': f('\t\t\tconst Matrix3D &cur = camera->Get_Transform(); Matrix3D tm = cur;\n',
+                '\t\t\tVector3 pos(cur.Get_X_Translation() + Unknown18.X, cur.Get_Y_Translation() + Unknown18.Y, cur.Get_Z_Translation()); tm.Set_Translation(pos);\n'),
+    'addv': f('\t\t\tMatrix3D tm = camera->Get_Transform();\n',
+              '\t\t\ttm.Set_Translation(tm.Get_Translation() + Vector3(Unknown18.X, Unknown18.Y, 0.0f));\n'),
+}
+# ---- v3.py
+HYPOTHESIS = 'b3: float locals x / y for U.X / U.Y, Set_Translation keeping the copy Y (self) then Adjust_Y_Translation(y)'
+FILE = 'app/client/cameraeffects.cpp'
+SYMBOL = '?Unknown_34@CameraEffectsClass@@UAEXXZ'
+ADDRESS = 0x6E2CC0
+
+OLD = ('\t\t\tMatrix3D tm = camera->Get_Transform();\n'
+       '\t\t\ttm.Set_Translation(Vector3(tm.Get_X_Translation() + Unknown18.X, tm.Get_Y_Translation() + Unknown18.Y, tm.Get_Z_Translation()));\n'
+       '\t\t\tcamera->Set_Transform(tm);\n')
+REF = '\t\t\tconst Matrix3D &cur = camera->Get_Transform(); Matrix3D tm = cur;\n'
+LREF = '\t\t\tfloat x = Unknown18.X; float y = Unknown18.Y; const Matrix3D &cur = camera->Get_Transform(); Matrix3D tm = cur;\n'
+REFL = '\t\t\tconst Matrix3D &cur = camera->Get_Transform(); Matrix3D tm = cur; float x = Unknown18.X; float y = Unknown18.Y;\n'
+SET = '\t\t\tcamera->Set_Transform(tm);\n'
+
+def f(l1, l2, l3=SET):
+    return [(OLD, l1 + l2 + l3)]
+
+FORMS = {
+    'l_cury': f(LREF, '\t\t\ttm.Set_Translation(Vector3(cur.Get_X_Translation() + x, cur.Get_Y_Translation(), cur.Get_Z_Translation())); tm.Adjust_Y_Translation(y);\n'),
+    'l_tmy': f(LREF, '\t\t\ttm.Set_Translation(Vector3(cur.Get_X_Translation() + x, tm.Get_Y_Translation(), cur.Get_Z_Translation())); tm.Adjust_Y_Translation(y);\n'),
+    'u_tmy': f(REF, '\t\t\ttm.Set_Translation(Vector3(cur.Get_X_Translation() + Unknown18.X, tm.Get_Y_Translation(), cur.Get_Z_Translation())); tm.Adjust_Y_Translation(Unknown18.Y);\n'),
+    'rl_cury': f(REFL, '\t\t\ttm.Set_Translation(Vector3(cur.Get_X_Translation() + x, cur.Get_Y_Translation(), cur.Get_Z_Translation())); tm.Adjust_Y_Translation(y);\n'),
+    'l_setxz': f(LREF, '\t\t\ttm.Set_X_Translation(cur.Get_X_Translation() + x); tm.Adjust_Y_Translation(y); tm.Set_Z_Translation(cur.Get_Z_Translation());\n'),
+    'l_idx': f(LREF, '\t\t\ttm.Set_Translation(Vector3(cur.Get_X_Translation() + x, tm[1][3], cur.Get_Z_Translation())); tm[1][3] += y;\n'),
+    'yx_cury': f('\t\t\tfloat y = Unknown18.Y; float x = Unknown18.X; const Matrix3D &cur = camera->Get_Transform(); Matrix3D tm = cur;\n',
+                 '\t\t\ttm.Set_Translation(Vector3(cur.Get_X_Translation() + x, cur.Get_Y_Translation(), cur.Get_Z_Translation())); tm.Adjust_Y_Translation(y);\n'),
+    'ly_cury': f('\t\t\tfloat y = Unknown18.Y; const Matrix3D &cur = camera->Get_Transform(); Matrix3D tm = cur;\n',
+                 '\t\t\ttm.Set_Translation(Vector3(cur.Get_X_Translation() + Unknown18.X, cur.Get_Y_Translation(), cur.Get_Z_Translation())); tm.Adjust_Y_Translation(y);\n'),
+}
+# ---- v4.py
+HYPOTHESIS = 'b4: float locals after the Get_Transform reference (the client loads U.Y after the call), copy Y kept, Adjust_Y_Translation(y); X / Z via Set_Translation or Set_X / Set_Z'
+FILE = 'app/client/cameraeffects.cpp'
+SYMBOL = '?Unknown_34@CameraEffectsClass@@UAEXXZ'
+ADDRESS = 0x6E2CC0
+
+OLD = ('\t\t\tMatrix3D tm = camera->Get_Transform();\n'
+       '\t\t\ttm.Set_Translation(Vector3(tm.Get_X_Translation() + Unknown18.X, tm.Get_Y_Translation() + Unknown18.Y, tm.Get_Z_Translation()));\n'
+       '\t\t\tcamera->Set_Transform(tm);\n')
+REF = '\t\t\tconst Matrix3D &cur = camera->Get_Transform(); Matrix3D tm = cur;'
+SET = '\t\t\tcamera->Set_Transform(tm);\n'
+
+def f(l1, l2, l3=SET):
+    return [(OLD, l1 + '\n' + l2 + '\n' + l3)]
+
+XY = ' float x = Unknown18.X; float y = Unknown18.Y;'
+Y = ' float y = Unknown18.Y;'
+
+FORMS = {
+    'rl_tmy': f(REF + XY, '\t\t\ttm.Set_Translation(Vector3(cur.Get_X_Translation() + x, tm.Get_Y_Translation(), cur.Get_Z_Translation())); tm.Adjust_Y_Translation(y);'),
+    'rly_tmy': f(REF + Y, '\t\t\ttm.Set_Translation(Vector3(cur.Get_X_Translation() + Unknown18.X, tm.Get_Y_Translation(), cur.Get_Z_Translation())); tm.Adjust_Y_Translation(y);'),
+    'rly_setxz': f(REF + Y, '\t\t\ttm.Set_X_Translation(cur.Get_X_Translation() + Unknown18.X); tm.Adjust_Y_Translation(y); tm.Set_Z_Translation(cur.Get_Z_Translation());'),
+    'rl_setxz': f(REF + XY, '\t\t\ttm.Set_X_Translation(cur.Get_X_Translation() + x); tm.Adjust_Y_Translation(y); tm.Set_Z_Translation(cur.Get_Z_Translation());'),
+    'rl_pos_tmy': f(REF + XY, '\t\t\tVector3 pos(cur.Get_X_Translation() + x, tm.Get_Y_Translation(), cur.Get_Z_Translation()); tm.Set_Translation(pos); tm.Adjust_Y_Translation(y);'),
+    'rl_adj_first': f(REF + XY, '\t\t\ttm.Adjust_Y_Translation(y); tm.Set_Translation(Vector3(cur.Get_X_Translation() + x, tm.Get_Y_Translation(), cur.Get_Z_Translation()));'),
+    'rl_tmy_swap': f(REF + XY, '\t\t\ttm.Set_Translation(Vector3(x + cur.Get_X_Translation(), tm.Get_Y_Translation(), cur.Get_Z_Translation())); tm.Adjust_Y_Translation(y);'),
+    'rl_move': f(REF + ' Vector3 move(Unknown18.X, Unknown18.Y, 0.0f);', '\t\t\ttm.Set_Translation(Vector3(cur.Get_X_Translation() + move.X, tm.Get_Y_Translation(), cur.Get_Z_Translation())); tm.Adjust_Y_Translation(move.Y);'),
+}
+# ---- v5.py
+HYPOTHESIS = 'b5: the snap call addresses both floats off &Unknown18 (lea eax,[ebx+4]; ebx kept through the X loops): operator[] / a Vector3 reference / pointer, on set_adjy'
+FILE = 'app/client/cameraeffects.cpp'
+SYMBOL = '?Unknown_34@CameraEffectsClass@@UAEXXZ'
+ADDRESS = 0x6E2CC0
+
+OLD = ('\t\t\tMatrix3D tm = camera->Get_Transform();\n'
+       '\t\t\ttm.Set_Translation(Vector3(tm.Get_X_Translation() + Unknown18.X, tm.Get_Y_Translation() + Unknown18.Y, tm.Get_Z_Translation()));\n'
+       '\t\t\tcamera->Set_Transform(tm);\n')
+NEW = ('\t\t\tconst Matrix3D &cur = camera->Get_Transform(); Matrix3D tm = cur;\n'
+       '\t\t\ttm.Set_Translation(Vector3(cur.Get_X_Translation() + Unknown18.X, cur.Get_Y_Translation(), cur.Get_Z_Translation())); tm.Adjust_Y_Translation(Unknown18.Y);\n'
+       '\t\t\tcamera->Set_Transform(tm);\n')
+CALL = '\t\t\tUnknown_491550(&Unknown18.X, &Unknown18.Y);\n'
+
+def f(call, tr=True):
+    h = [(CALL, call)]
+    if tr:
+        h.append((OLD, NEW))
+    return h
+
+FORMS = {
+    'sa': f(CALL),
+    'idx': f('\t\t\tUnknown_491550(&Unknown18[0], &Unknown18[1]);\n'),
+    'idx_base': f('\t\t\tUnknown_491550(&Unknown18[0], &Unknown18[1]);\n', False),
+    'ptr': f('\t\t\tVector3 *move = &Unknown18; Unknown_491550(&move->X, &move->Y);\n'),
+    'ref': f('\t\t\tVector3 &move = Unknown18; Unknown_491550(&move.X, &move.Y);\n'),
+    'cast': f('\t\t\tUnknown_491550((float *)&Unknown18, &Unknown18.Y);\n'),
+    'ptr1': f('\t\t\tfloat *move = &Unknown18.X; Unknown_491550(move, move + 1);\n'),
+    'ptr1_base': f('\t\t\tfloat *move = &Unknown18.X; Unknown_491550(move, move + 1);\n', False),
+}
+# ---- v6.py
+HYPOTHESIS = 'b6: the translation reads U.X / U.Y through the snap pointer (client: temp from [ebx+4], U.X fld [ebx]), on the ptr1 call'
+FILE = 'app/client/cameraeffects.cpp'
+SYMBOL = '?Unknown_34@CameraEffectsClass@@UAEXXZ'
+ADDRESS = 0x6E2CC0
+
+OLD = ('\t\t\tMatrix3D tm = camera->Get_Transform();\n'
+       '\t\t\ttm.Set_Translation(Vector3(tm.Get_X_Translation() + Unknown18.X, tm.Get_Y_Translation() + Unknown18.Y, tm.Get_Z_Translation()));\n'
+       '\t\t\tcamera->Set_Transform(tm);\n')
+CALL = '\t\t\tUnknown_491550(&Unknown18.X, &Unknown18.Y);\n'
+PCALL = '\t\t\tfloat *move = &Unknown18.X; Unknown_491550(move, move + 1);\n'
+TM = '\t\t\tMatrix3D tm = camera->Get_Transform();\n'
+REF = '\t\t\tconst Matrix3D &cur = camera->Get_Transform(); Matrix3D tm = cur;\n'
+SET = '\t\t\tcamera->Set_Transform(tm);\n'
+
+def f(l1, l2, call=PCALL, extra=None):
+    h = [(CALL, call), (OLD, l1 + l2 + SET)]
+    if extra:
+        h.append(extra)
+    return h
+
+FORMS = {
+    'p_base': f(TM, '\t\t\ttm.Set_Translation(Vector3(tm.Get_X_Translation() + move[0], tm.Get_Y_Translation() + move[1], tm.Get_Z_Translation()));\n'),
+    'p_star': f(TM, '\t\t\ttm.Set_Translation(Vector3(tm.Get_X_Translation() + *move, tm.Get_Y_Translation() + *(move + 1), tm.Get_Z_Translation()));\n'),
+    'p_sadj': f(REF, '\t\t\ttm.Set_Translation(Vector3(cur.Get_X_Translation() + move[0], cur.Get_Y_Translation(), cur.Get_Z_Translation())); tm.Adjust_Y_Translation(move[1]);\n'),
+    'p_tmy': f(REF, '\t\t\ttm.Set_Translation(Vector3(cur.Get_X_Translation() + move[0], tm.Get_Y_Translation(), cur.Get_Z_Translation())); tm.Adjust_Y_Translation(move[1]);\n'),
+    'p_ref': f(REF, '\t\t\ttm.Set_Translation(Vector3(cur.Get_X_Translation() + move[0], tm.Get_Y_Translation() + move[1], cur.Get_Z_Translation()));\n'),
+    'p_setxz': f(REF, '\t\t\ttm.Set_X_Translation(cur.Get_X_Translation() + move[0]); tm.Adjust_Y_Translation(move[1]); tm.Set_Z_Translation(cur.Get_Z_Translation());\n'),
+    'p_adjxy': f(TM, '\t\t\ttm.Adjust_X_Translation(move[0]); tm.Adjust_Y_Translation(move[1]);\n'),
+    'p_early': f(TM, '\t\t\ttm.Set_Translation(Vector3(tm.Get_X_Translation() + move[0], tm.Get_Y_Translation() + move[1], tm.Get_Z_Translation()));\n',
+                 call='\t\t\tUnknown_491550(move, move + 1);\n',
+                 extra=('\t\tif (Unknown24) {\n\t\t\twhile', '\t\tif (Unknown24) { float *move = &Unknown18.X;\n\t\t\twhile')),
+}
