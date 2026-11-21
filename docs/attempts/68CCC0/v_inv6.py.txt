@@ -1,0 +1,45 @@
+HYPOTHESIS = 'U2 b6: as b5 with Price, the newline or the Structure append also in the strlen form; strlen-form nine sites (3-form, [ebx+eax] as the client) + dead Get_Slot() reads placed before / inside the Price block or after the avg-cost append, to cut the Price append without inlining every _Eos'
+FILE = 'app/client/inv_render.cpp'
+SYMBOL = ''
+ADDRESS = 0x68CCC0
+
+src = open(FILE).read().replace('\r\n', '\n')
+start = src.index('const char *InvRenderClass::Unknown_28(std::string *string)\n{')
+end = src.index('\treturn("NORMAL_SLOT");\n}\n', start) + len('\treturn("NORMAL_SLOT");\n}\n')
+F = src[start:end]
+
+LITS = ['"Unused Slot\\n"', '"Shields Slot\\n"', '"Engine Slot\\n"', '"Reactor Slot\\n"', '"Empty Slot\\n"', '"Weapon Slot\\n"', '"Device Slot\\n"']
+
+def sites(f, fmt):
+    for s in LITS:
+        f = f.replace('*string += %s;' % s, fmt.replace('@', s))
+    cost_old = '"Avg. Cost %1.1f\\n", cost);\n\t\t\t\t*string += buffer;'
+    assert cost_old in f
+    return f.replace(cost_old, '"Avg. Cost %1.1f\\n", cost);\n\t\t\t\t' + fmt.replace('@', 'buffer'))
+
+S = sites(F, 'string->append(@, strlen(@));')
+
+def dead(n):
+    return ' '.join(['Get_Slot();'] * n)
+
+def at(f, anchor, n, after=True):
+    assert f.count(anchor) == 1, anchor
+    if after:
+        return f.replace(anchor, anchor + ' ' + dead(n))
+    return f.replace(anchor, dead(n) + ' ' + anchor)
+
+PRE_PRICE = '\t\tMoneyClass price = data->Get_Price(slot);'
+IN_PRICE = '"Price %s\\n", price.Amount_As_Text(true).c_str());'
+AFTER_COST = 'string->append(buffer, strlen(buffer));'
+PRE_SWITCH = '\t\tint type = data->Get_Mount_I00(slot);'
+
+PRICE_APP = '"Price %s\\n", price.Amount_As_Text(true).c_str());\n\t\t\t*string += buffer;'
+assert PRICE_APP in S
+SP = S.replace(PRICE_APP, PRICE_APP.replace('*string += buffer;', 'string->append(buffer, strlen(buffer));'))
+SE = S.replace('\t\t*string += "\\n";', '\t\tstring->append("\\n", strlen("\\n"));')
+SQ = S.replace('\t\t\t*string += buffer;\n\t\t}\n\t\tfloat quality', '\t\t\tstring->append(buffer, strlen(buffer));\n\t\t}\n\t\tfloat quality')
+assert SE != S and SQ != S
+FORMS = {}
+for n in (0, 1, 2, 3):
+    for nm, base in (('p', SP), ('e', SE), ('q', SQ)):
+        FORMS['%s%d' % (nm, n)] = at(base, PRE_SWITCH, n) if n else base
