@@ -1,0 +1,37 @@
+# Station (live server): an avatar emote from the chat panel's Emote tab at room 1's home spot. In a starbase the
+# tab lists the avatar's emotes (ui_chat_panel.cpp's 0xB7C398); an item (0x569A00) runs its command through the
+# avatar's NLP into the chat stream and sends it as AVATAR_EMOTE; the avatar bows. Shot while the animation plays.
+name: starbase avatar emote: Emote tab, Bow
+timeout: 200
+include _sb_home
+click gadget chat.tab.emote
+alive 0.5
+shot emote_list
+# the third item, 'Bow' (items from y 68, about 23.4 px apart)
+click gadget emote.bow
+expect-event antprox 'received AVATAR_EMOTE$' within 10
+# the server's AVATAR_EMOTE_RESPONSE (opcode 95, cpacket.cpp's MESSAGE_CHATSTREAM 0x736F10) plays the stream on the
+# avatar: retail loads the bow's animation (avatar 6, male: ABANIM00-46) right after it
+expect-event antprox 'sent AVATAR_EMOTE_RESPONSE' within 10
+expect-event proxy 'AMDEFAULTSKEL\.ABANIM00-46' within 5
+alive 1
+shot emote_bow
+alive 5
+# 'Wave' (/handwave), item 23
+click gadget chat.tab.emote
+alive 0.5
+click 720,583
+expect-event antprox 'received AVATAR_EMOTE$' within 10
+expect-event antprox 'sent AVATAR_EMOTE_RESPONSE' within 10
+alive 1
+shot emote_wave
+alive 5
+# 'Salute', item 30
+click gadget chat.tab.emote
+alive 0.5
+click 720,747
+expect-event antprox 'received AVATAR_EMOTE$' within 10
+expect-event antprox 'sent AVATAR_EMOTE_RESPONSE' within 10
+alive 1
+shot emote_salute
+alive 5

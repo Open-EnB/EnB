@@ -15,6 +15,7 @@ chat.tab.chat      267 38    # 'Chat' (0xB7C2F4's items)
 chat.tab.group     387 38    # 'Group' (0xB7C314's items)
 chat.tab.options   508 38    # 'Options' (0xB7C324's items)
 chat.tab.help      601 38    # 'Help' (0xB7C344's items)
+chat.tab.emote     720 38    # 'Emote' (the ship's 0xB7C358 or, docked, the avatar's 0xB7C398; sb_emote's shot)
 # A tab's drop-down lists its items from y 68 down, about 23.4 px apart (P1's probe shot of the Options tab's list:
 # Camera 68, Control 91, Interface 115, Graphics 139, Sound 162, Chat Font 185, Credits 208); selected on mouse-down
 chat.channels      267 68    # Chat: 'Set Channels' (UIOptionChannelClass, fa_opt06a.ini)
@@ -24,6 +25,7 @@ chat.private       267 162   # Chat: 'Private Channel' (UIRadioMainClass, cht01.
 group.findleave    387 68    # Group: 'Find / Leave' (UIGroupOptClass, fa_tsi25a.ini)
 group.friends      387 91    # Group: 'Friends List' (UIFriendsClass, fa_tsi28a.ini)
 group.guild        387 115   # Group: 'Guild Info' (UIGuildClass, fa_tsi36a.ini)
+emote.bow          720 115   # Emote, docked: 'Bow' (0xB7C398's third item: /bow, AVATAR_EMOTE; sb_emote)
 options.control    508 91    # Options: 'Control' (UIOptionControlKeysClass mode 1)
 options.interface  508 115   # Options: 'Interface' (UIOptionSliderClass 2, 1: fa_opt04a-interface.ini)
 options.graphics   508 139   # Options: 'Graphics' (UIOptionSliderClass 0, 1)
