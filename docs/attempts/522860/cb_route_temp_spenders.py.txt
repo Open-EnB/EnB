@@ -1,0 +1,217 @@
+HYPOTHESIS = "0x522860: explicit RefCountPtr<const ClientItemPropertyClass>(property) Route temporaries (the spender that restored 0x5285A0 / 0x521C10 under the same retype) in place of / beside the 27 dead Data.Peek() reads; spend spread over the cases instead of the top gap"
+FILE = 'app/client/item/client_item_property_builder.cpp'
+SYMBOL = 'ClientItemPropertyBuilderClass::Unknown_522860'
+ADDRESS = 0x522860
+
+SRC = open(FILE, encoding='utf-8', newline='').read()
+PEEK = '\tData.Peek();\n'
+i0 = SRC.index(PEEK)
+PEEKS = SRC[i0:i0 + 27 * len(PEEK)]
+assert PEEKS == PEEK * 27
+R = 'router.Route(property);'
+RT = 'router.Route(RefCountPtr<const ClientItemPropertyClass>(property));'
+NR = SRC.count(R)
+
+def temps(which):
+    # one hunk over the whole function body region holding the Routes: rewrite occurrences by index
+    start = SRC.index('void ClientItemPropertyBuilderClass::Unknown_522860')
+    end = SRC.index('void ClientItemPropertyBuilderClass::Unknown_527F40')
+    body = SRC[start:end]
+    parts = body.split(R)
+    out = parts[0]
+    for k in range(1, len(parts)):
+        out += (RT if (k - 1) in which else R) + parts[k]
+    return (body, out)
+
+def peeks(n):
+    return PEEK * n + '\n' * (27 - n)
+
+def form(which, n):
+    h = []
+    if n != 27:
+        h.append((PEEKS, peeks(n)))
+    if which:
+        # temps hunk must be computed on the body after the peeks change: do the body edit on the original text, then
+        # apply the peek edit inside it
+        body, out = temps(which)
+        if n != 27:
+            out = out.replace(PEEKS, peeks(n), 1)
+            h = []
+        h.append((body, out))
+    return h
+
+ALL = set(range(NR))
+FORMS = {}
+for n in (0, 5, 10, 15, 20, 27):
+    FORMS['all_p%d' % n] = form(ALL, n)
+for first in (8, 16, 24):
+    for n in (0, 27):
+        FORMS['first%d_p%d' % (first, n)] = form(set(range(first)), n)
+FORMS['last8_p27'] = form(set(range(NR - 8, NR)), 27)
+FORMS['last8_p0'] = form(set(range(NR - 8, NR)), 0)
+HYPOTHESIS = "0x522860: a deeper-nested dead read (vector back/front + string member, c_str's _Nullstr layer, end/capacity) between the Refining push_back and the separator, 26/27 top Peeks: cut only the Refining _Eos / separator ctor frontier (L4), not case 26's L3"
+FILE = 'app/client/item/client_item_property_builder.cpp'
+SYMBOL = 'ClientItemPropertyBuilderClass::Unknown_522860'
+ADDRESS = 0x522860
+
+SRC = open(FILE, encoding='utf-8', newline='').read()
+PEEK = '\tData.Peek();\n'
+i0 = SRC.index(PEEK)
+PEEKS = SRC[i0:i0 + 27 * len(PEEK)]
+REF = 'if (mode_flags & 8) modes.push_back("Refining");'
+assert SRC.count(REF) == 1
+
+READS = {
+    'back': 'modes.back();',
+    'backsz': 'modes.back().size();',
+    'backcs': 'modes.back().c_str();',
+    'frontcs': 'modes.front().c_str();',
+    'end': 'modes.end();',
+    'cap': 'modes.capacity();',
+    'begincs': 'modes.begin()->c_str();',
+    'backdata': 'modes.back().data();',
+}
+
+FORMS = {}
+for name, rd in READS.items():
+    for n in (26, 27):
+        for where in ('after', 'inside'):
+            if where == 'after':
+                new = REF + ' ' + rd
+            else:
+                new = 'if (mode_flags & 8) { modes.push_back("Refining"); ' + rd + ' }'
+            h = [(REF, new)]
+            if n != 27:
+                h.append((PEEKS, PEEK * n + '\n'))
+            FORMS['%s_%s_p%d' % (name, where, n)] = h
+HYPOTHESIS = "0x522860: spend placed after the separator (VC6 cuts deepest-nested first): an explicit Route temporary at the Mode Route only, or dead reads after the Mode Route / in the later cases, with 25-27 top Peeks"
+FILE = 'app/client/item/client_item_property_builder.cpp'
+SYMBOL = 'ClientItemPropertyBuilderClass::Unknown_522860'
+ADDRESS = 0x522860
+
+SRC = open(FILE, encoding='utf-8', newline='').read()
+PEEK = '\tData.Peek();\n'
+i0 = SRC.index(PEEK)
+PEEKS = SRC[i0:i0 + 27 * len(PEEK)]
+MODE = 'ClientItemPropertyAttributeStringClass::Create(6, "Mode", "", "Which activities this Override item benefits", 0, text);\n\t\t\t\trouter.Route(property);'
+assert SRC.count(MODE) == 1
+MODE_T = MODE.replace('router.Route(property);', 'router.Route(RefCountPtr<const ClientItemPropertyClass>(property));')
+BV = 'ClientItemPropertyAttributeFloatClass::Create(7, "Build Value"'
+assert SRC.count(BV) == 1
+
+def peeks(n):
+    return PEEK * n + '\n' * (27 - n)
+
+FORMS = {}
+for n in (25, 26, 27):
+    def h(extra):
+        x = list(extra)
+        if n != 27:
+            x.append((PEEKS, peeks(n)))
+        return x
+    FORMS['modeT_p%d' % n] = h([(MODE, MODE_T)])
+    FORMS['modeTP1_p%d' % n] = h([(MODE, MODE_T + ' property.Peek();')])
+    FORMS['modeP1_p%d' % n] = h([(MODE, MODE + ' property.Peek();')])
+    FORMS['modeTS1_p%d' % n] = h([(MODE, MODE + ' text.size();')])
+    FORMS['modeMB_p%d' % n] = h([(MODE, MODE + ' modes.back().size();')])
+HYPOTHESIS = "0x522860: around modeT_p25 (explicit Route temporary at the Mode Route + 25 top Peeks, residue 58): top Peeks 18-25, explicit temporaries also at the Build Value / Critical Routes (the sites after Modes)"
+FILE = 'app/client/item/client_item_property_builder.cpp'
+SYMBOL = 'ClientItemPropertyBuilderClass::Unknown_522860'
+ADDRESS = 0x522860
+
+SRC = open(FILE, encoding='utf-8', newline='').read()
+PEEK = '\tData.Peek();\n'
+i0 = SRC.index(PEEK)
+PEEKS = SRC[i0:i0 + 27 * len(PEEK)]
+R = '\n\t\t\trouter.Route(property);'
+RT = '\n\t\t\trouter.Route(RefCountPtr<const ClientItemPropertyClass>(property));'
+MODE = 'ClientItemPropertyAttributeStringClass::Create(6, "Mode", "", "Which activities this Override item benefits", 0, text);\n\t\t\t\trouter.Route(property);'
+MODE_T = MODE.replace('router.Route(property);', 'router.Route(RefCountPtr<const ClientItemPropertyClass>(property));')
+BV = 'ClientItemPropertyAttributeFloatClass::Create(7, "Build Value", "levels", "Improvement in Build/Refine ability when used.", 0, base, actual, level);'
+CR = 'ClientItemPropertyAttributePercentClass::Create(8, "Critical", "Improvement in chances for a Critical Success when used.", 0, base, actual, level);'
+assert SRC.count(BV + R) == 1 and SRC.count(CR + R) == 1 and SRC.count(MODE) == 1
+
+def peeks(n):
+    return PEEK * n + '\n' * (27 - n)
+
+def f(n, mode=True, bv=False, cr=False):
+    h = []
+    if mode: h.append((MODE, MODE_T))
+    if bv: h.append((BV + R, BV + RT))
+    if cr: h.append((CR + R, CR + RT))
+    if n != 27: h.append((PEEKS, peeks(n)))
+    return h
+
+FORMS = {}
+for n in (18, 19, 20, 21, 22, 23, 24):
+    FORMS['mT_p%d' % n] = f(n)
+for n in (23, 24, 25, 26, 27):
+    FORMS['mT_bv_p%d' % n] = f(n, bv=True)
+    FORMS['mT_bv_cr_p%d' % n] = f(n, bv=True, cr=True)
+    FORMS['bv_p%d' % n] = f(n, mode=False, bv=True)
+HYPOTHESIS = "0x522860: modeT_p25 (res 58) plus one more explicit Route temporary at one other case's Route (index k of 32) with 23-25 top Peeks: does a temp trade for Peeks site by site"
+FILE = 'app/client/item/client_item_property_builder.cpp'
+SYMBOL = 'ClientItemPropertyBuilderClass::Unknown_522860'
+ADDRESS = 0x522860
+
+SRC = open(FILE, encoding='utf-8', newline='').read()
+PEEK = '\tData.Peek();\n'
+i0 = SRC.index(PEEK)
+PEEKS = SRC[i0:i0 + 27 * len(PEEK)]
+R = 'router.Route(property);'
+RT = 'router.Route(RefCountPtr<const ClientItemPropertyClass>(property));'
+start = SRC.index('void ClientItemPropertyBuilderClass::Unknown_522860')
+end = SRC.index('void ClientItemPropertyBuilderClass::Unknown_527F40')
+BODY = SRC[start:end]
+NR = BODY.count(R)
+MODE_IDX = None
+parts = BODY.split(R)
+acc = 0
+for k in range(NR):
+    if 'Which activities this Override item benefits' in parts[k]:
+        MODE_IDX = k
+assert MODE_IDX is not None
+
+def body(which, n):
+    out = parts[0]
+    for k in range(1, len(parts)):
+        out += (RT if (k - 1) in which else R) + parts[k]
+    if n != 27:
+        out = out.replace(PEEKS, PEEK * n + '\n' * (27 - n), 1)
+    return out
+
+FORMS = {}
+for k in (0, 4, 8, 12, 16, 20, 24, 28, NR - 1):
+    if k == MODE_IDX:
+        continue
+    for n in (23, 24, 25):
+        FORMS['k%d_p%d' % (k, n)] = [(BODY, body({MODE_IDX, k}, n))]
+FORMS['modeonly_p25'] = [(BODY, body({MODE_IDX}, 25))]
+HYPOTHESIS = "0x522860 from modeT_p25 (res 58): the client inlines the separator's ctor (_Tidy/_Grow out, _Eos in) and the strings' dtors one level (_Tidy(true) out) in the Modes case; trade top Peeks for spend placed inside / after the Modes case (Peeks 21-25 x local dead Peeks at the case start / after the Route, a property temp on the Mode Create)"
+FILE = 'app/client/item/client_item_property_builder.cpp'
+SYMBOL = 'ClientItemPropertyBuilderClass::Unknown_522860'
+ADDRESS = 0x522860
+
+SRC = open(FILE, encoding='utf-8', newline='').read()
+PEEK = '\tData.Peek();\n'
+i0 = SRC.index(PEEK)
+PEEKS = SRC[i0:i0 + 25 * len(PEEK)]
+assert SRC[i0 + 25 * len(PEEK):].startswith('\n\n')
+CASE = 'int mode_flags = 0;'
+assert SRC.count(CASE) == 1
+ROUTE = 'router.Route(RefCountPtr<const ClientItemPropertyClass>(property));\n\t\t\t}\n\t\t\tbreak;'
+assert SRC.count(ROUTE) == 1
+JOIN = 'std::string text = String_Join(modes, ", ");'
+
+def peeks(n):
+    return PEEK * n + '\n' * (25 - n)
+
+FORMS = {}
+for n in (21, 22, 23, 24):
+    d = 25 - n
+    FORMS['start_p%d' % n] = [(PEEKS, peeks(n)), (CASE, CASE + ' ' + 'Data.Peek(); ' * d)]
+    FORMS['end_p%d' % n] = [(PEEKS, peeks(n)), (ROUTE, ROUTE.replace('}\n\t\t\tbreak;', '}\n\t\t\t' + 'Data.Peek(); ' * d + 'break;'))]
+    FORMS['inner_p%d' % n] = [(PEEKS, peeks(n)), (ROUTE, ROUTE.replace('));\n', ')); ' + 'Data.Peek(); ' * d + '\n', 1))]
+FORMS['joinT'] = [(JOIN, 'std::string text = String_Join(modes, std::string(", "));')]
+FORMS['joinT_p24'] = [(JOIN, 'std::string text = String_Join(modes, std::string(", "));'), (PEEKS, peeks(24))]
+FORMS['joinT_p26'] = [(JOIN, 'std::string text = String_Join(modes, std::string(", "));'), (PEEKS + '\n', PEEKS + PEEK)]
