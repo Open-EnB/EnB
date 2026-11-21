@@ -64,7 +64,10 @@ do not rebuild the same code. Then work on a branch of your fork and open a pull
   code written from pseudocode instead of bytes carries `// NOT EXACT:` (D64).
 * Inline assembly stays wherever the client has it, with a C-equivalent comment (D70).
 * Run `python tools/re/names.py` and commit the regenerated `docs/data/names-review.md` and
-  `docs/data/not-exact.md` with the change.
+  `docs/data/not-exact.md` with the change. Every landing on `master` rewrites those two, so GitHub
+  may show your pull request as conflicting in them after `master` moves: leave it. The verify
+  service merges and regenerates them itself and says so in its comment; only a conflict in another
+  file needs your rebase.
 * Run `python tools/docs_check.py` and `python tools/prepush_check.py` before opening a pull
   request. CI runs the same two.
 

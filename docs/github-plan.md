@@ -414,6 +414,16 @@ Every PR is verified before it reaches master, the maintainer's run PRs included
   PR's C++ reaches only a build VM's compiler. A self-hosted runner was rejected: on a public repository a fork's
   PR can bring its own workflow file to it. A runner in a VM or a container was rejected too: the verify needs the
   host's Hyper-V pool, the shared lease records, the client and the SDKs. While the host is off, PRs wait.
+* **Conflicts confined to the generated documents (D278, 2026-11-20, after #226 and #228):** contributors commit
+  `docs/data/names-review.md` and `docs/data/not-exact.md` (the hosted `checks` compare them), and every landing on
+  master rewrites both, so a contributor's PR conflicts in them as soon as master moves. GitHub then keeps the last
+  test merge (on the old master) or has none. For a contributor's PR that GitHub calls conflicting, `verify_pr.py`
+  builds its own merge (`git merge-tree`, in the object store, never a checkout); when the conflicts are only in
+  those two files it verifies that merge, and after every contributor verify it rewrites the two files in the
+  verify worktree with `tools/re/names.py`, so they are among the files the landing carries. The comment says no
+  rebase is needed. A conflict in any other file, or in a maintainer's PR (merged as it is), fails with "rebase".
+  An attempt's stash (`docs/attempts/**.txt|diff|patch`, attempts.csv's column) is read-only for the gate; a
+  `.py` there stays gated.
 * **Guards:** a PR that changes anything a verify would run on the host (Python, scripts, workflows,
   `importer.py`'s tables, `.def` files: verify_pr.py's gate) is held at `vc6-verify: pending` until a maintainer
   has read it and comments `/verify-approved SHA` naming its head commit; a new push needs a new approval. A
@@ -496,6 +506,12 @@ draft PR at the first push. Automerge is **off**.
    5. `/hold` stops a landing, `/unhold` releases it;
    6. a claim left without a PR expires after 8 hours (a real clock: the tests cover the arithmetic only);
    7. then `python tools/vc6/verify_watch.py automerge on`, if the user agrees.
+   **2026-11-20, the first outside contributor (#225 / #226, #227 / #228):** sub-steps 1 and 2 passed (claim granted
+   in 20 s; `vc6-verify` 8 minutes after the PR opened). Found: the hosted `checks` of a first-time contributor's
+   fork PR wait for a maintainer's approval (GitHub's setting, `action_required`); a run PR merged between the
+   verify and the landing made both PRs conflict in the generated documents (D278 above; resolved that once by a
+   maintainer's merge commit on the contributor's branches); the stale test merge was verified again on every pass;
+   an attempt's stash `.txt` tripped the gate. Sub-step 3 (`/land`) is still to do.
    Not yet exercised outside the tests: pushing and merging a landing, a landing rebuilt after master moved, two
    claims arriving at once, a fork PR's head fetched through `pull/N/head`.
 2. ~~**The public switch**~~ (done 2026-10-30). Before it: ~~a final read of what becomes public~~ (done

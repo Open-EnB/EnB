@@ -195,7 +195,9 @@ def landing_commit(n, rec, title, master):
     co = [a.split('\0') for a in authors[:-1]]
     commits = wt.git('log', '--reverse', '--format=* %h %s', f'{master}..{head}').strip()
     rewritten = files_said(rec)
-    msg = (f'{title} (#{n})\n\n{rec["summary"]}. Landed from #{n} by the verify service: GitHub\'s test merge '
+    which = ('the service\'s own merge (conflicts only in generated documents, regenerated)'
+             if rec.get('own_merge') is not None else 'GitHub\'s test merge')
+    msg = (f'{title} (#{n})\n\n{rec["summary"]}. Landed from #{n} by the verify service: {which} '
            f'{merge[:9]} verified on master {master[:9]} (tools/vc6/verify_pr.py), with the files the verify '
            f'rewrote: {rewritten}.\n\nThe pull request\'s commits:\n{commits}\n')
     if co:
