@@ -121,6 +121,17 @@ def sweep(a):
     return 0 if ok else 1
 
 
+def pad_held(stems):
+    """D279's addresses of the ledger files STEMS (docs/data/pad-held.json): watched whatever the ledger says, since
+    no landing tunes the pad and a recorded verify may have dropped them."""
+    try:
+        import pairs_cmp
+        return {'0x%X' % a for _, f, a in pairs_cmp.load_pad_held(os.path.join(REPO, 'docs', 'data', 'pad-held.json'))
+                if f in stems}
+    except Exception:
+        return set()
+
+
 def watch_list(src='HEAD'):
     """The six that HEAD's ledger credits to co.cpp or aux_roots.cpp (since SC1 / SI sclient.cpp holds 0x758210 and 0x701D70: a
     sweep watching all six found no window at any value, PAD 2026-11-19b); all six when the ledger has no entry."""
@@ -130,6 +141,7 @@ def watch_list(src='HEAD'):
         held = {str(x) for k in FILES if k in files for x in files[k]['in_tree']}
     except Exception:
         return list(WATCH)
+    held |= pad_held(('co',))
     return [w for w in WATCH if w in held] or list(WATCH)
 
 

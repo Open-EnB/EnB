@@ -1,0 +1,14 @@
+{
+  "note": "D279 (hand-maintained): pairs exact only inside a window of their file's VC6 symbol pad (co.cpp's CoSymbolPadType, sclient.cpp's SEND_SYMBOL_PAD; workflow.md 3.4). pairs_cmp.py reports their loss as 'pad-held', not as a loss: no landing sweeps or sets a pad. The coordinator sweeps both pads once at the handoff (auxpad.py sweep --lockfree, sendpad.py --lockfree); a pair still out of every window then gets an accepted-corrections.json entry.",
+  "pairs": [
+    {"lib": "app", "file": "co", "address": "0x6FB1E0"},
+    {"lib": "app", "file": "co", "address": "0x7014B0"},
+    {"lib": "app", "file": "co", "address": "0x701D70"},
+    {"lib": "app", "file": "co", "address": "0x702240"},
+    {"lib": "app", "file": "co", "address": "0x7045F0"},
+    {"lib": "app", "file": "sclient", "address": "0x701D70"},
+    {"lib": "app", "file": "sclient", "address": "0x702240"},
+    {"lib": "app", "file": "sclient", "address": "0x74D990"},
+    {"lib": "app", "file": "sclient", "address": "0x758210"}
+  ]
+}
