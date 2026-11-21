@@ -4,6 +4,26 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
+### 2026-11-20 (19:45 PST, evening; review session): the first outside contribution (#226, #228 by vessellaj, Codex / gpt-6.1-sol) reviewed, their conflicts with master resolved, and the verify service taught to solve such conflicts itself (D278); no reconstruction change of ours
+
+- **Reviewed:** #226 (`Opposed_Roll_Odds` 0x4F25D0 exact through a separate accumulator; `vc6-verify` +1 pair, 0 lost) and #228
+  (drag_mouse.cpp's 0x684F20 and 0x685060 through a `Vector2 Position` member at +0x08; not yet verified). Both follow
+  the conventions (NAME tags, attempts.csv rows, notes, model and accountable person). The contributor builds with
+  VC6 under Wine, which D146's documents do not cover.
+- **The process against github-plan.md §4.5.7:** claim and verify worked as planned; see the note added there for
+  what did not (first-time contributors' `checks` wait for approval; #224 merged between verify and landing, so
+  both PRs conflicted in names-review.md / not-exact.md; the stale test merge verified on every pass; #228's stash
+  `.txt` gated).
+- **Done:** master merged into both contributor branches with the two documents regenerated (62e52d91e on #226,
+  5d1555c2a on #228; "Allow edits by maintainers"), a comment on each. Tools PR: verify_pr.py's own merge for
+  conflicts confined to the generated documents, regeneration in the verify worktree, the gate's stash rule,
+  tests (tools/test_verify_pr.py), CONTRIBUTING.md, github-plan.md §4.5.5 / §4.5.7, workflow.md §3.
+- **Calls (D246):** D278 (above). Not changed: verify_watch.py's `BOT_FILES` (a PR with a stash file still needs
+  `/land`), since what lands by itself is the user's.
+- **For the user:** `/land` on #226 and #228 once verified at their new heads (the rehearsal's sub-step 3; #228 needs
+  `/verify-approved 5d1555c` until the tools PR is on master); whether first-time contributors' `checks` should
+  need approval (repository setting); Wine as a documented VC6 route (D146).
+
 ### 2026-11-20 (17:50 PST, day; run 2026-11-20, week plan session 7): stuck and partial functions by bytes plus a $42.98 Batch API variant run (the user's $45 to 2026-12-01): the card's NOT EXACT 933,056 -> 844,368 (-88,688 bytes), byte-exact 5,103,504 -> 5,201,824 (+98,320), exact functions 25,998 -> 26,095 (+97: 21 by builders, 71 by Batch API variants, the rest companions); +111 pairs over the run's baseline (the card 42,619 -> 42,726), 0 lost outright; the week's review below
 
 - **Session** Opus coordinator, launcher start 07:15. How it started: clean (session 6's handoff present). #223 (S6's corrections PR, green by itself) merged by the coordinator (D261); #222 frozen, so run/2026-11-20 was stacked on run/2026-11-19b (baseline .work/imports.21177f4e1.json); the user merged #222 at 07:43 and joined by Remote Control from about 07:40 (questions on the Batch API, the $45 budget, `max_size`'s 146 holders).
@@ -4049,6 +4069,7 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 | D275 | 2026-11-20 | Stuck work is chosen and reported by the progress card's NOT EXACT bytes, not by the parked list alone (session 6, after the user's question): the card's NOT EXACT figure holds parked functions (attempts status parked), partial ones (rows, rounds left, often never worked as stuck) and NOT EXACT comments it cannot place; a session reports the card's byte-exact and NOT EXACT figures before and after beside the parked list, and takes the largest partial functions as well as the parked ones (`.work/coord/ne_breakdown.py` breaks the figure down). | coordinator (D246) |
 | D276 | 2026-11-20 | The pacing memory allowance counts VM startups: when every pool VM already runs, a builder launch adds no VM (its leases wait on the pool's own memory reserve), so a memory allowance of 0 with the whole pool running does not stop a launch the usage allowance permits (session 6, C7). | coordinator (D246) |
 | D277 | 2026-11-20 | Budget devices (D272 dead reads, `#pragma auto_inline`, invented inline layers) are removed only where the file stays exact without them, or a near miss compiles to identical code; a device that still holds pairs stays, listed in docs/data/budget-devices.json as budget-held, source unproven; a holding `#pragma auto_inline` is read as a missing source layer or file split, not as budget (session 6, AUD; C45, C49). An invented inline layer or forwarder lands only with client evidence of its own (the client's out-of-line COMDATs it makes the object emit, a single-caller out-of-line call, its slot or copy-in bytes) and is listed there as interim (D137). | coordinator (D246) |
+| D278 | 2026-11-20 | A contributor's PR that conflicts with master only in the generated documents (`docs/data/names-review.md`, `docs/data/not-exact.md`) is merged by the verify service itself (`verify_pr.py`: `git merge-tree`, then `names.py` in the verify worktree) and lands with the regenerated files; no rebase is asked for. Any other conflict, and a maintainer's PR, still fails with "rebase". Attempt stashes (`docs/attempts/**.txt\|diff\|patch`) pass verify_pr.py's gate ([github-plan.md](github-plan.md) §4.5.5) | coordinator (D246), at the user's request |
 
 ## 3. Open decisions
 

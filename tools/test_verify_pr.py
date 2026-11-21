@@ -21,12 +21,13 @@ class Gate(unittest.TestCase):
     def test_sources_docs_and_data_pass(self):
         self.assertEqual(verify_pr.needs_approval([
             'app/client/co.cpp', 'app/client/co.h', 'wwlib/vector.inl', 'libs/wwonline/wlib/wstring.cpp',
-            'docs/workflow.md', 'README.md', 'docs/data/imports/app/co.json', 'tests/clienttest/data/basset.ini']), [])
+            'docs/workflow.md', 'README.md', 'docs/data/imports/app/co.json', 'tests/clienttest/data/basset.ini',
+            'docs/attempts/0x685060/drag_distance_forms.txt', 'docs/attempts/0x53B040/a.diff']), [])
 
     def test_anything_that_runs_on_the_host_is_gated(self):
         paths = ['tools/vc6/importer.py', 'tools/re/helper.cpp', '.github/workflows/checks.yml',
                  'tools/vc6/setup/New-BuildVM.ps1', 'tools/vc6/mss32.def', '.gitattributes', 'tests/x/gen.py',
-                 'tools/hooks/pre-push', 'Makefile']
+                 'tools/hooks/pre-push', 'Makefile', 'docs/attempts/0x53B040/forms.py']
         self.assertEqual(verify_pr.needs_approval(paths), paths)
 
 
@@ -121,6 +122,33 @@ class Corrections(unittest.TestCase):
                'base': 'b' * 9, 'when': 'now', 'corrected': rec['corrected']}
         text = verify_pr.report({'head': 'h' * 9}, res)
         self.assertIn('app aux_roots 0x723AB0 -> 0x4B2AA0 (accepted: D173)', text)
+
+
+class GeneratedConflicts(unittest.TestCase):
+    """A conflict confined to names.py's two documents is the service's to solve (PR #226)."""
+
+    def test_split(self):
+        gen, beyond = verify_pr.conflict_split(['docs/data/not-exact.md', '', 'docs/data/names-review.md'])
+        self.assertEqual(gen, ['docs/data/names-review.md', 'docs/data/not-exact.md'])
+        self.assertEqual(beyond, [])
+        gen, beyond = verify_pr.conflict_split(['docs/data/not-exact.md', 'app/client/co.cpp',
+                                                'docs/data/attempts.csv'])
+        self.assertEqual(gen, ['docs/data/not-exact.md'])
+        self.assertEqual(beyond, ['app/client/co.cpp', 'docs/data/attempts.csv'])
+        self.assertEqual(verify_pr.conflict_split([]), ([], []))
+
+    def test_report_says_no_rebase(self):
+        pr = {'number': 1, 'head': 'h' * 40, 'author': 'x'}
+        res = {'verdict': 'success', 'summary': '+1 pairs, 0 lost', 'merge': 'm' * 40, 'base': 'b' * 40,
+               'when': 'now', 'reasons': [], 'own_merge': ['docs/data/not-exact.md']}
+        text = verify_pr.report(pr, res)
+        self.assertIn('own merge', text)
+        self.assertIn('No rebase is needed', text)
+        self.assertNotIn('own merge', verify_pr.report(pr, dict(res, own_merge=None)))
+        failed = verify_pr.report(pr, dict(res, own_merge=None, merge='-', verdict='failure',
+                                           reasons=['the PR conflicts with master in `app/client/co.cpp`; rebase it']))
+        self.assertIn('Not verified', failed)
+        self.assertIn('rebase it', failed)
 
 
 class Landing(unittest.TestCase):
