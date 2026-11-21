@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-702 entries in 271 files.
+700 entries in 270 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -103,8 +103,6 @@ edit the comments in the code, not this file.
 | `app/client/debris.h:39` | `?` | mention | NOT EXACT) |
 | `app/client/debrsint.cpp:9` | `DebrisInterfaceClass::DebrisInterfaceClass` | marker | NOT EXACT: functional (D64), register-only (ebx / edi / ebp swapped; two rounds: the fade clamps' temporaries) 0x53D250 |
 | `app/client/debrsint.cpp:150` | `DebrisInterfaceClass::Unknown_68` | marker | NOT EXACT: functional (D64), order-only (key 10's colour: the red's spill after the blue's multiply) 0x53D9F0 |
-| `app/client/drag_mouse.cpp:38` | `SMouseDragClass::SMouseDragClass` | marker | NOT EXACT: functional (D64), from the pseudocode |
-| `app/client/drag_mouse.cpp:75` | `SMouseDragClass::Update_Drag` | marker | NOT EXACT: functional (D64), from the pseudocode |
 | `app/client/dynamic_window_background.cpp:407` | `DynamicWindowBackgroundClass::Fit_Size` | mention | NOT EXACT (D64): Get 0x515AB0 (marked); the data's inline destructor 0x515E20 is 6 bytes longer than the client's (its three strings' destructors). The direct calls of the base's slots are qualified calls (DynamicWindowRenderObjectClass::...). |
 | `app/client/dynamic_window_horizontal.cpp:101` | `DynamicWindowHorizontalClass::Set_Alignment` | marker | NOT EXACT: the client stores the cleared flags, reloads them and ORs in the new bits; this form folds both into one store |
 | `app/client/dynamic_window_multi_line_text.cpp:91` | `DynamicWindowMultiLineTextClass::Set_Flags` | marker | NOT EXACT: the client keeps the new flags in a second register (esi, then edx) for the compare |

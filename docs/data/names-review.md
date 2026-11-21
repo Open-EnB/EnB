@@ -2856,13 +2856,13 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_7E6200` | `app/client/distance_calc_client.h:22` | neutral (D10); NAME 3 [obj_a, obj_b]: its FAIL_IFs; NAME 2 [range]: 0x831F90's |
 | 1 | `LoginUnknown18Class` | `app/client/drag_mouse.cpp:39` | untagged neutral name (D10) |
 | 1 | `Unknown_515510` | `app/client/drag_mouse.cpp:61` | untagged neutral name (D10) |
-| 1 | `Unknown_5153B0` | `app/client/drag_mouse.cpp:85` | untagged neutral name (D10) |
+| 1 | `Unknown_5153B0` | `app/client/drag_mouse.cpp:86` | untagged neutral name (D10) |
 | 1 | `Unknown_515400` | `app/client/drag_mouse.cpp:97` | untagged neutral name (D10) |
 | 1 | `Unknown_5155A0` | `app/client/drag_mouse.cpp:111` | untagged neutral name (D10) |
 | 1 | `Unknown_685190` | `app/client/drag_mouse.cpp:120` | untagged neutral name (D10) |
 | 1 | `drag_mouse.h` | `app/client/drag_mouse.h:4` | provisional header name for drag_mouse.cpp |
-| 1 | `LoginUnknown18Class` | `app/client/drag_mouse.h:7` | untagged neutral name (D10) |
-| 1 | `Unknown_685190` | `app/client/drag_mouse.h:22` | untagged neutral name (D10) |
+| 1 | `LoginUnknown18Class` | `app/client/drag_mouse.h:9` | untagged neutral name (D10) |
+| 1 | `Unknown_685190` | `app/client/drag_mouse.h:24` | untagged neutral name (D10) |
 | 1 | `Unknown1C` | `app/client/drag_slot_data.cpp:60` | untagged neutral name (D10) |
 | 1 | `Unknown20` | `app/client/drag_slot_data.cpp:61` | untagged neutral name (D10) |
 | 1 | `Unknown_30` | `app/client/drag_slot_data.cpp:65` | untagged neutral name (D10) |
@@ -25767,15 +25767,15 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `FontNames` | `app/client/deffont.cpp:391` | FontData's file names |
 | 2 | `DefaultFont` | `app/client/deffont.cpp:404` | 0xBE6098 over DefaultFontData |
 | 2 | `Load_Alloc_Data` | `app/client/deffont.h:27` | Westwood's name for the whole-file load (wwlib's Load_Alloc_Data(FileClass &)) |
-| 2 | `SMouseDragClass` | `app/client/drag_mouse.h:10` | smouse.cpp's name for what LoginUnknown18Class +0x2C holds |
-| 2 | `Begin` | `app/client/drag_mouse.h:16` | what it does |
-| 2 | `Drop` | `app/client/drag_mouse.h:17` | what it does |
-| 2 | `Cancel` | `app/client/drag_mouse.h:18` | what it does |
-| 2 | `Update` | `app/client/drag_mouse.h:19` | what it does; NAME 1 [x, y]: the pointer's (0..1) |
-| 2 | `Threshold` | `app/client/drag_mouse.h:20` | what it returns |
-| 2 | `Update_Drag` | `app/client/drag_mouse.h:21` | what it does; NAME 1 [x, y]: as Update's |
-| 2 | `X` | `app/client/drag_mouse.h:25` | what it holds |
-| 2 | `Y` | `app/client/drag_mouse.h:26` | what it holds |
+| 2 | `delta` | `app/client/drag_mouse.cpp:78` | displacement from the drag origin |
+| 2 | `SMouseDragClass` | `app/client/drag_mouse.h:12` | smouse.cpp's name for what LoginUnknown18Class +0x2C holds |
+| 2 | `Begin` | `app/client/drag_mouse.h:18` | what it does |
+| 2 | `Drop` | `app/client/drag_mouse.h:19` | what it does |
+| 2 | `Cancel` | `app/client/drag_mouse.h:20` | what it does |
+| 2 | `Update` | `app/client/drag_mouse.h:21` | what it does; NAME 1 [x, y]: the pointer's (0..1) |
+| 2 | `Threshold` | `app/client/drag_mouse.h:22` | what it returns |
+| 2 | `Update_Drag` | `app/client/drag_mouse.h:23` | what it does; NAME 1 [x, y]: as Update's |
+| 2 | `Position` | `app/client/drag_mouse.h:27` | what it holds |
 | 2 | `DynamicWindowBackgroundClass` | `app/client/dynamic_window_background.h:54` | class from file (D24) |
 | 2 | `Or_Flags` | `app/client/dynamic_window_horizontal.cpp:82` | what it does (D185 variant: the returned copy keeps the client's second register) |
 | 2 | `DynamicWindowHorizontalClass` | `app/client/dynamic_window_horizontal.h:21` | class from file (D24), dynamic_window_horizontal.cpp |
@@ -30311,10 +30311,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `decal.cpp` | `app/client/decal.cpp:151` | the FAIL_IF's 'i - SECRET_DECALS' |
 | 3 | `i, mat_desc` | `app/client/decal.h:38` | the FAIL_IFs'; NAME 1 [color]: neutral |
 | 3 | `distance_calc_client.h` | `app/client/distance_calc_client.h:15` | header name assumed from the client's distance_calc_client.cpp |
-| 3 | `STATE_INACTIVE` | `app/client/drag_mouse.h:13` | the asserts 'State == STATE_INACTIVE', 'State != STATE_INACTIVE' |
-| 3 | `mouse` | `app/client/drag_mouse.h:14` | the assert's |
-| 3 | `Mouse` | `app/client/drag_mouse.h:24` | the G_ASSERT's |
-| 3 | `State` | `app/client/drag_mouse.h:27` | the asserts' |
+| 3 | `STATE_INACTIVE` | `app/client/drag_mouse.h:15` | the asserts 'State == STATE_INACTIVE', 'State != STATE_INACTIVE' |
+| 3 | `mouse` | `app/client/drag_mouse.h:16` | the assert's |
+| 3 | `Mouse` | `app/client/drag_mouse.h:26` | the G_ASSERT's |
+| 3 | `State` | `app/client/drag_mouse.h:28` | the asserts' |
 | 3 | `drag_slot_data.h` | `app/client/drag_slot_data.h:5` | the G_ASSERT's __FILE__ |
 | 3 | `DragSlotDataClass` | `app/client/drag_slot_data.h:16` | class-from-file (D24) for app\Client\drag_slot_data.cpp |
 | 3 | `Get_Slot` | `app/client/drag_slot_data.h:25` | ui_skills.cpp's assert 'from_slot != SlotDrag->Get_Slot()' |

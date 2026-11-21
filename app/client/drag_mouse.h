@@ -4,6 +4,8 @@
 #ifndef DRAG_MOUSE_H  // NAME 1 [drag_mouse.h]: provisional header name for drag_mouse.cpp
 #define DRAG_MOUSE_H
 
+#include "vector2.h"
+
 class LoginUnknown18Class;	// tsk_login.h's software mouse (smouse.cpp)
 
 // drag_mouse.cpp's drag (0x14 bytes): the mouse holds it while a button is down (smouse.cpp's 0x515510 / 0x5155A0)
@@ -22,8 +24,7 @@ public:
 	void Unknown_685190();								// 0x685190 (smouse.cpp: let go, +0x0C while State is set)
 
 	LoginUnknown18Class *Mouse;							// +0x04  // NAME 3: the G_ASSERT's
-	float X;											// +0x08 (the mouse's position at Begin)  // NAME 2: what it holds
-	float Y;											// +0x0C  // NAME 2: what it holds
+	Vector2 Position;									// +0x08 (the mouse's position at Begin; constructor 0x684F20)  // NAME 2: what it holds
 	int State;											// +0x10 (0 inactive, 1 pressed, 2 dragging, 3 dropped)  // NAME 3: the asserts'
 };
 
