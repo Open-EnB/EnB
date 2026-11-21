@@ -11,7 +11,8 @@ r"""End-to-end scenarios for client builds (D237): an input script plus log-even
     python tools/harness/e2e.py check [NAME...]            parse only (no client)
 
 Each scenario is tools/harness/e2e/NAME.scn. A run is ONE client session for all its scenarios: antprox /REPLAY
-starts the client (tools/harness/clientpoc.py's instance and antprox code), the first scenario's steps run from
+starts the client (tools/harness/clientrun.py's instance and antprox code; ours is the tree's one client build,
+build/programs/client/client.exe, unless --exe), the first scenario's steps run from
 its `include`s (the login), and every later scenario runs only its own steps in the same world; a scenario leaves
 the world as it found it (it closes what it opens). After a scenario that fails, the client is stopped and the
 rest run in a fresh session (a crash or a window left open must not fail the others); so do they after an XFAIL,
@@ -23,7 +24,7 @@ scenario its own client, as before 2026-11-14. Exit 0 only if every scenario pas
 that fails as expected counts as passed and is printed XFAIL; one that passes is printed XPASS and fails the
 run, so the note gets removed). One line per scenario on stdout; everything else in .work/e2e/<HHMMSS>-<NAME or
 'session'>/ (e2e.log, events.log, antprox.out, d3d8shot.log, a copy of stubs.log, result-NAME.json, shots). The
-instance is removed at the end (clientpoc.py clean) unless --keep.
+instance is removed at the end (clientrun.py clean) unless --keep.
 
 The format (one step a line, '#' comments, shell-style quoting):
     name: TEXT / expected-fail: REASON / timeout: SECONDS     headers (before the steps)
@@ -81,7 +82,7 @@ is posted with the harness's tag (IN_TAG in wParam's high word) and the proxy ru
 untagged input, a person's click or keystroke in the test window, is dropped and logged 'input: NOT REPLAYED';
 the result line counts such lines.
 
---retail (D190, D248): the scenarios drive a COPY of the retail client (clientpoc.py's Inst(retail=True): the copy
+--retail (D190, D248): the scenarios drive a COPY of the retail client (clientrun.py's Inst(retail=True): the copy
 in the instance folder, never the install), through the same proxy and the same tagged input; the terms box's
 "I Agree" is clicked for it. The retail client writes no stubs.log, so a step on the `stubs` source is ours only:
 wait-event / expect-event / expect-no / stand-in steps on it are skipped (noted in e2e.log), and a crash shows as
@@ -126,8 +127,8 @@ def _wrap(deg):
 
 
 def _key_lparam(vk, up=False):
-    import clientpoc
-    return clientpoc.key_lparam(vk, up)
+    import clientrun
+    return clientrun.key_lparam(vk, up)
 
 
 class Pilot:
@@ -450,7 +451,7 @@ def parse(text, name='?', gadgets=None, loader=None, _depth=0):
                 raise ScenarioError(f'{where}: wait-quiet SOURCE SECONDS [within S]')
         elif op == 'stand-in':
             if len(args) != 1:
-                raise ScenarioError(f'{where}: stand-in PATTERN (a stubs.log line, e.g. the first call of a POC stand-in)')
+                raise ScenarioError(f'{where}: stand-in PATTERN (a stubs.log line, e.g. the first call of a stand-in)')
             st.update(source='stubs', pattern=_regex(args[0], where))
         elif op == 'expect-no':
             if args == ['CRASH']:
@@ -839,8 +840,8 @@ class Session:
     """One client under antprox /REPLAY, for one scenario or several in a row."""
 
     def __init__(self, args, scs):
-        import clientpoc
-        self.cp = clientpoc
+        import clientrun
+        self.cp = clientrun
         self.args = args
         tag = scs[0]['name'] if len(scs) == 1 else 'session'
         # Two runs started in the same second (another instance) must not share a folder: their antprox.out and
@@ -856,10 +857,9 @@ class Session:
                 self.out = f'{base}-{n}'
         self.elog = open(os.path.join(self.out, 'e2e.log'), 'w', encoding='utf-8', newline='\n')
         self.retail = bool(getattr(args, 'retail', False))
-        self.inst = clientpoc.Inst(args.instance, None if self.retail else args.exe, self.retail)
+        self.inst = clientrun.Inst(args.instance, None if self.retail else args.exe, self.retail)
         self.inst.prepare()
         env = dict(os.environ)
-        env.update(ENB_POC_WINDOWED='1')
         # record: a person plays, so untagged input passes (the proxy logs it 'input: untagged ...')
         self.record = bool(getattr(args, 'record', False))
         self.proxy = self.inst.use_proxy(env, self.out, input=True, tag=not self.record)
@@ -875,17 +875,17 @@ class Session:
             files['msg'] = os.path.join(self.out, 'messages.log')
         self.note(f'session of {len(scs)}: {", ".join(sc["name"] for sc in scs)}; exe {self.inst.src_exe}, '
                   f'instance {self.inst.name}, out {self.out}')
-        self.a, self.pid, _ = clientpoc.start_antprox(self.inst, self.out, env,
+        self.a, self.pid, _ = clientrun.start_antprox(self.inst, self.out, env,
                                                       ['-ENABLE_MESSAGES'] if self.messages else [],
                                                       mode=live_mode(args))
         self.ev = Events(files, log=os.path.join(self.out, 'events.log'))
         self.note(f'antprox pid {self.a.pid}, client pid {self.pid}' + (' (the retail client)' if self.retail else ''))
         if self.retail and self.pid:
             import threading
-            threading.Thread(target=clientpoc.click_agree, args=(self.pid, 60), daemon=True).start()
+            threading.Thread(target=clientrun.click_agree, args=(self.pid, 60), daemon=True).start()
         self.listener = None
         if self.messages and self.pid:
-            self.listener = clientpoc.start_listener(self.pid, self.out, sum(sc['timeout'] for sc in scs) + 10)
+            self.listener = clientrun.start_listener(self.pid, self.out, sum(sc['timeout'] for sc in scs) + 10)
         self.hwnd = None
         self.mark = 0               # ev.total index of the last input step
         self.mark_time = 0.0
@@ -1213,13 +1213,13 @@ class Session:
             gens = gen_lines(stub_text)
             own_text = seen['stubs'][own_from:]
             own = [g for g in gen_lines(own_text) if g not in self.gen_before]
-            poc_own = [t[len('STUB first call: POC '):][:80] for t in own_text
-                       if t.startswith('STUB first call: POC ') and 'watchdog' not in t]
+            hand_own = [t[len('STUB first call: POC '):][:80] for t in own_text     # an older stand-in exe's hand ones
+                        if t.startswith('STUB first call: POC ') and 'watchdog' not in t]
             crash = [t for t in stub_text if t.startswith('CRASH:')]
             if crash:
                 self.dead = self.dead or 'CRASH'
             res = {'name': sc['name'], 'passed': fail is None, 'failure': fail, 'expected_fail': sc['expected_fail'],
-                   'gen': gens, 'gen_own': own, 'poc_own': poc_own, 'human_dropped': seen['human'], 'crash': crash[:1],
+                   'gen': gens, 'gen_own': own, 'hand_own': hand_own, 'human_dropped': seen['human'], 'crash': crash[:1],
                    'out': self.out, 'seconds': round(ev.now() - t_start, 1),
                    'login_failed': fail is not None and first and not reached_own}
             if crash and self.inst.map and os.path.exists(self.inst.map):
@@ -1372,7 +1372,7 @@ def run_all(scs, args, report):
         if stop:
             for sc in pending:
                 res = {'name': sc['name'], 'passed': False, 'expected_fail': sc['expected_fail'], 'gen': [],
-                       'gen_own': [], 'poc_own': [], 'human_dropped': 0, 'crash': [], 'out': results[-1]['out'],
+                       'gen_own': [], 'hand_own': [], 'human_dropped': 0, 'crash': [], 'out': results[-1]['out'],
                        'seconds': 0, 'failure': 'not run: ' + stop}
                 results.append(res)
                 report(res)
@@ -1877,8 +1877,8 @@ def summary_line(res):
 
 
 def default_exe():
-    p = os.path.join(ROOT, 'build', 'programs', 'clientpoc', 'clientpoc.exe')
-    return p if os.path.exists(p) else None
+    """This tree's one client build (a worktree's own build/ in a worktree); clientrun.py refuses a missing one."""
+    return os.path.join(ROOT, 'build', 'programs', 'client', 'client.exe')
 
 
 # --db-snapshot (D270): the live station scenarios change the character (a warhead bought, a job item per accepted
@@ -1998,11 +1998,10 @@ def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__.split('\n')[0])
     ap.add_argument('command', choices=['run', 'list', 'check', 'compare', 'record', 'retail'])
     ap.add_argument('names', nargs='*')
-    ap.add_argument('--instance', default='e2e', help='clientpoc.py instance name (default e2e)')
-    ap.add_argument('--exe', help='the POC exe (default: this tree\'s build/programs/clientpoc/clientpoc.exe, '
-                                  'else ClientPOC\\release\'s)')
+    ap.add_argument('--instance', default='e2e', help='clientrun.py instance name (default e2e)')
+    ap.add_argument('--exe', help='our exe, its .map beside it (default: this tree\'s build/programs/client/client.exe)')
     ap.add_argument('--messages', action='store_true', help='-ENABLE_MESSAGES and msglisten (source msg)')
-    ap.add_argument('--keep', action='store_true', help='keep the instance (default: clientpoc.py clean it at the end)')
+    ap.add_argument('--keep', action='store_true', help='keep the instance (default: clientrun.py cleans it at the end)')
     ap.add_argument('--separate', action='store_true', help='a client of its own for every scenario (default: one session)')
     ap.add_argument('--retail', action='store_true', help='run a copy of the retail client (needs --instance; D190)')
     ap.add_argument('--live', nargs='?', const='localhost', metavar='SERVER',
@@ -2088,8 +2087,8 @@ def main(argv=None):
                                       'failure': r.get('failure')} for r in results]}, f, indent=1)
     print(f'e2e: {len(scs) - bad} of {len(scs)} as expected in {time.time() - t0:.0f} s; logs under {OUT}')
     if not args.keep:
-        import clientpoc
-        clientpoc.clean(args.instance)
+        import clientrun
+        clientrun.clean(args.instance)
     return 1 if bad else 0
 
 

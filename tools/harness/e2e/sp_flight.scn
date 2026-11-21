@@ -6,7 +6,7 @@
 #   Click again to stop.' (its tooltip), its lower half reverse thrust, a click again stops.
 # - A held (Move Forward) and Z held (Move Backward): thrust while held, the ship coasts to a stop after.
 # - The arrow keys (Turn Left / Right, Tilt Up / Down): yaw and pitch while held. A keyboard sends them with
-#   lParam's extended bit; without it the client reads the numpad's keys, which nothing binds (clientpoc.key_lparam).
+#   lParam's extended bit; without it the client reads the numpad's keys, which nothing binds (clientrun.key_lparam).
 # - The right button held: the nose follows the pointer (rdrag: pressed at the middle, the pointer held left,
 #   right, above, below). Left raises yaw, up raises pitch (e2e.py's pose).
 # - W (Target Near Navigation) targets the nearest nav point, Jupiter Path the First, about 1.35k from where the
@@ -16,7 +16,7 @@
 # Calibrated on retail 2026-11-21 (run 093925: gadget forward 1041 in 3 s, A 1425 in 3 s, Z back 566 in 4 s,
 # right-button turns 133-172 degrees and pitch 70 / 78 in 2 s; run 095049 with the arrow keys and the gadget's
 # reverse: arrows yaw 80 / 145 and pitch 70 / 99 degrees in 1.5 s, the gadget's reverse 743 back, the warp 49928).
-# Ours (ClientPOC\release of 2026-11-21 06:14) passes too, and `compare` finds the SAME 201 packets (each down of
+# Ours (the stand-in build of 2026-11-21 06:14) passes too, and `compare` finds the SAME 201 packets (each down of
 # A / Z sends a MOVE: hold VK for S posts a fixed count of downs). The shots after the turns are never comparable
 # (shot_mask.txt); those at the start pose are: ours is 5-8 of 255 darker in Jupiter (space_entered 49.8 against
 # retail's 55.9 / 57.5), the sector brightness fault E2 found in sector 4505.

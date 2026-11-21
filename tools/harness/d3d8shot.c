@@ -941,7 +941,7 @@ typedef BOOL (WINAPI *PeekMessageType)(LPMSG, HWND, UINT, UINT, UINT);
 static GetMessageType Real_GetMessageA = NULL;
 static PeekMessageType Real_PeekMessageA = NULL;
 static void In_Screen(POINT *p) { *p = In_Cursor; if (In_Window) ClientToScreen(In_Window, p); }
-/* The harness's tag (tools/harness/clientpoc.py post_step(tag=True), e2e.py): IN_TAG in the high word of a mouse
+/* The harness's tag (tools/harness/clientrun.py post_step(tag=True), e2e.py): IN_TAG in the high word of a mouse
    or key message's wParam (MK_ flags and virtual keys fit the low word), stripped here before the program sees
    the message. With D3D8SHOT_INPUT_TAG=1 an untagged mouse or key message (a person's click or keystroke in the
    test window, or the real cursor crossing it) is logged and dropped, so only replayed input reaches the program. */

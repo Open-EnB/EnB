@@ -103,7 +103,7 @@ def build(out, app_sources):
                 f.write('// app file newer than build/app/app.lib (auxreplay.py --app-sources)\n')
                 f.write('#include "' + os.path.relpath(os.path.join(REPO, p), stage) + '"\n')
     # app.lib's aux objects reach the rest of the client through their callees (co.obj -> item_effect.obj
-    # -> pk.obj -> cpacket.obj -> sclient.obj, ...), as clientpoc's link: wlib / wnet and the system libraries
+    # -> pk.obj -> cpacket.obj -> sclient.obj, ...), as the client's link: wlib / wnet and the system libraries
     # its files import (WinInet, shell32, the old iostreams), then build.py's second pass with a logging
     # stand-in (stubs/stub_log.h) for each symbol still unresolved; what gen_stubs can't write stays at
     # address 0 (/force:unresolved). The decode / encode path calls none of them (a run that did would stop there).
