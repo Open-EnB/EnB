@@ -1743,7 +1743,7 @@ void RegistrationInterface::Unknown_5F3770(int state)
 			}
 			break;
 		case 0xB:
-			Unknown_5F2F90(0x2A, "COMBO_OPTION", 0x14, std::_cpp_min(5, (int)Unknown578.size()));
+			Unknown_5F2F90(0x2A, "COMBO_OPTION", 0x14, min(5, (int)Unknown578.size()));
 			Unknown_5F9EB0();
 			Unknown108[0x2A].Combo->Select(Unknown388);
 			Unknown38C = Unknown598[Unknown388];
@@ -1757,7 +1757,7 @@ void RegistrationInterface::Unknown_5F3770(int state)
 			}
 			break;
 		case 0xE:
-			Unknown_5F2F90(0x29, "COMBO_OPTION", 0x2D, std::_cpp_min(5, (int)Unknown578.size()));
+			Unknown_5F2F90(0x29, "COMBO_OPTION", 0x2D, min(5, (int)Unknown578.size()));
 			Unknown_5F9C90();
 			Unknown108[0x29].Combo->Select(Unknown384);
 			Unknown270 = Unknown578[Unknown384];
