@@ -320,3 +320,48 @@ for label,init in forms:
     delta={'gained':sorted(result-pairs(baseline)),'lost':sorted(pairs(baseline)-result)}
     (out/'pairs.json').write_text(json.dumps(delta,indent=2))
     print(delta,flush=True)
+
+User-requested gpt-6-astra byte-type batch
+
+Hypothesis: plain or signed char flag fields might change VC6 alias/scheduling choices. Visible field uses are byte copies and bit masks, leaving signedness ambiguous.
+Six shared builds tested source field Unknown2C, destination Unknown8C, and both together, first as plain char and then signed char. All use the prior best explicit null guard.
+Every full matcher run retained 189 exact matches, with zero gained/lost. Both constructor diffs are identical to prior peek1. No type or header change retained.
+
+Reproducible source transformations
+
+from pathlib import Path
+import sys, subprocess, json, os
+area=Path(__file__).resolve().parent
+root=area.parents[2]
+sys.path.insert(0,str(area.parent))
+from fastbuild import compile_file
+python='/home/dev/Toolchains/enb-vc6-sp4/venv/bin/python'
+retail='/home/dev/Games/earth-and-beyond/prefix/drive_c/Program Files (x86)/EA GAMES/Earth & Beyond/release/client.exe'
+base=(root/'app/shared/rs_track.cpp').read_text()
+header=(root/'app/shared/rs_track.h').read_text().replace('return(RenderStateList.Current == NULL ? NULL : RenderStateList.Current->Peek_Render_Object());','if (!RenderStateList.Current) return NULL; return RenderStateList.Current->Peek_Render_Object();')
+def pairs(rows):
+    return {(r['symbol'],a) for r in rows if r['status']=='exact' for a in r['addresses']}
+baseline=pairs(json.loads((area.parent/'final/matches.json').read_text()))
+for kind in ['char', 'signed char']:
+    for fields in [('Unknown2C',),('Unknown8C',),('Unknown2C','Unknown8C')]:
+        label=kind.replace(' ','_')+'_'+'_'.join(fields)
+        out=area/label
+        out.mkdir(exist_ok=True)
+        h=header
+        for field in fields:
+            old='unsigned char '+field+';'
+            assert h.count(old)==1
+            h=h.replace(old,kind+' '+field+';')
+        (out/'rs_track.h').write_text(h)
+        src=out/'rs_track.cpp'
+        src.write_text(base)
+        obj=compile_file(src,out)
+        for i,addr in enumerate(['0x45FDA0','0x45FFB0']):
+            r=subprocess.run([python,'tools/re/objdiff.py',str(obj),'??0RsTrackClass',addr,'--n',str(i)],cwd=root,text=True,capture_output=True,check=True,env=dict(os.environ,ENB_RETAIL_INSTALL=str(Path(retail).parents[1])))
+            (out/(addr+'.txt')).write_text(r.stdout)
+        subprocess.run([python,'tools/re/objmatch.py',str(obj),'--client',retail,'--json',str(out/'matches.json'),'-q'],cwd=root,check=True)
+        rows=json.loads((out/'matches.json').read_text())
+        result=pairs(rows)
+        delta={'gained':sorted(result-baseline),'lost':sorted(baseline-result)}
+        (out/'pairs.json').write_text(json.dumps(delta,indent=2))
+        print(label, {s:sum(r['status']==s for r in rows) for s in ['exact','none','short']},delta,flush=True)
