@@ -1,0 +1,191 @@
+Claim #231. Codex gpt-6.1-sol. VC6 SP4 cl 12.00.8804 under Wine.
+Source and flags from master 18b7a9fb. App flags/defines and include candidates from libdefs.py/appfile.py.
+Current resolver lists only 0x845AA0; Value_To_String at 0x845D40 is already exact and was preserved.
+Baseline full matcher: 31 exact, 1 none. Byte pattern excluding relocation fields differs only at +0x170:
+ours pushes 1 and calls basic_string::_Tidy; client pushes 0 and calls the deleting destructor.
+Earlier empty-return and later success-return cleanup sites already match.
+No source change was kept. Two bounded batches, 18 forms total, made no improvement.
+
+batch1.py
+forms=[
+('size_lt_one',ORIGINAL.replace('list.size() == 0','list.size() < 1')),
+('empty',ORIGINAL.replace('list.size() == 0','list.empty()')),
+('const_iterator',ORIGINAL.replace('std::vector<std::string>::iterator','std::vector<std::string>::const_iterator')),
+('preincrement',ORIGINAL.replace('it++)','++it)')),
+('named_token',ORIGINAL.replace('bool ok = String_To_Value(it->c_str(), &mode);','const char *token = it->c_str();\n\t\tbool ok = String_To_Value(token, &mode);')),
+('cached_end',ORIGINAL.replace('for (std::vector','std::vector<std::string>::iterator last = list.end();\n\tfor (std::vector').replace('it != list.end()','it != last')),
+('flags_after_tokenize',ORIGINAL.replace('\tunsigned int flags = 0;\n','').replace('String_Tokenize(text, "|", list);','String_Tokenize(text, "|", list);\n\tunsigned int flags = 0;')),
+('failure_scope',ORIGINAL.replace('FAIL_IF(!ok) return(false);','FAIL_IF(!ok) { return(false); }')),
+]
+
+batch2.py
+forms=[
+('clear_failure',ORIGINAL.replace('FAIL_IF(!ok) return(false);','FAIL_IF(!ok) { list.clear(); return(false); }')),
+('erase_failure',ORIGINAL.replace('FAIL_IF(!ok) return(false);','FAIL_IF(!ok) { list.erase(list.begin(), list.end()); return(false); }')),
+('failure_else',ORIGINAL.replace('FAIL_IF(!ok) return(false);\n\t\tflags |= Mode_To_Bit_Flag(mode);','FAIL_IF(!ok) { return(false); } else { flags |= Mode_To_Bit_Flag(mode); }')),
+('success_else',ORIGINAL.replace('FAIL_IF(!ok) return(false);\n\t\tflags |= Mode_To_Bit_Flag(mode);','if (ok) { flags |= Mode_To_Bit_Flag(mode); } else {\n\t\tFAIL_IF(!ok) return(false);\n\t\t}')),
+('success_continue',ORIGINAL.replace('FAIL_IF(!ok) return(false);\n\t\tflags |= Mode_To_Bit_Flag(mode);','if (ok) { flags |= Mode_To_Bit_Flag(mode); continue; }\n\t\tFAIL_IF(!ok) return(false);')),
+('failure_label_after_success',ORIGINAL.replace('FAIL_IF(!ok) return(false);','FAIL_IF(!ok) goto failed;').replace('\treturn(true);','\treturn(true);\nfailed:\n\treturn(false);')),
+('failure_break',ORIGINAL.replace('std::vector<std::string>::iterator it = list.begin();','std::vector<std::string>::iterator it = list.begin();').replace('for (std::vector<std::string>::iterator it = list.begin(); it != list.end(); it++) {','std::vector<std::string>::iterator it;\n\tfor (it = list.begin(); it != list.end(); it++) {').replace('FAIL_IF(!ok) return(false);','FAIL_IF(!ok) break;').replace('\t*value =','\tif (it != list.end()) return(false);\n\t*value =')),
+('lookup_assign',ORIGINAL.replace('bool ok = String_To_Value(it->c_str(), &mode);','bool ok;\n\t\tok = String_To_Value(it->c_str(), &mode);')),
+('data_accessor',ORIGINAL.replace('it->c_str()','it->data()')),
+('dereference_iterator',ORIGINAL.replace('it->c_str()','(*it).c_str()')),
+]
+
+size_lt_one
+{"size": 528, "different_bytes": 8, "first": [97, 98, 99, 100, 101, 102, 103, 368]}
+
+empty
+{"size": 528, "different_bytes": 1, "first": [368]}
+
+const_iterator
+{"size": 528, "different_bytes": 1, "first": [368]}
+
+preincrement
+{"size": 528, "different_bytes": 1, "first": [368]}
+
+named_token
+{"size": 528, "different_bytes": 1, "first": [368]}
+
+cached_end
+{"size": 528, "different_bytes": 252, "first": [172, 173, 174, 175, 176, 177, 178, 179, 180, 181, 182, 183]}
+
+flags_after_tokenize
+{"size": 528, "different_bytes": 55, "first": [23, 27, 34, 35, 38, 39, 50, 51, 53, 54, 55, 57]}
+
+failure_scope
+{"size": 528, "different_bytes": 1, "first": [368]}
+
+clear_failure
+{"size": 544, "different_bytes": 138, "first": [176, 177, 316, 345, 349, 355, 356, 357, 358, 360, 361, 366]}
+
+erase_failure
+{"size": 560, "different_bytes": 180, "first": [176, 177, 228, 315, 316, 317, 318, 319, 320, 321, 322, 323]}
+
+failure_else
+{"size": 528, "different_bytes": 1, "first": [368]}
+
+success_else
+{"size": 528, "different_bytes": 1, "first": [368]}
+
+success_continue
+{"size": 528, "different_bytes": 1, "first": [368]}
+
+failure_label_after_success
+{"size": 528, "different_bytes": 1, "first": [368]}
+
+failure_break
+{"size": 528, "different_bytes": 154, "first": [79, 83, 90, 94, 96, 106, 116, 118, 137, 140, 171, 173]}
+
+lookup_assign
+{"size": 528, "different_bytes": 1, "first": [368]}
+
+data_accessor
+{"size": 528, "different_bytes": 1, "first": [368]}
+
+dereference_iterator
+{"size": 528, "different_bytes": 1, "first": [368]}
+
+Relocation confirmation: object operand +0x174 targets basic_string::_Tidy(bool); retail call 0x845C13 targets thunk 0x403F67 -> deleting destructor 0x433A10.
+
+Follow-up attempt requested with gpt-6-astra.
+gpt-6-astra fresh attempt, claim #231, 0x845AA0, 2026-11-20
+Outcome: no exact or improved candidate. No tracked files edited; no ledger write, commit, push, or external post.
+
+Hypothesis: natural STL construction/access layers and used-variable lifetimes could change the nested inline cleanup budget without invented wrappers or dead reads. One bounded batch of 12 forms used VC6 12.00.8804 with the repository app flags under Wine. See batch1.py and batch1-hypothesis.txt.
+
+Eight forms reproduce the baseline masked function bytes exactly (528-byte COFF extent), including the wrong immediate at +0x170:
+- explicit std::allocator local passed to vector constructor
+- return(ok) on failed lookup
+- mode declared at function scope
+- ok declared at function scope
+- while iterator loop instead of for loop
+- const std::string reference used for token lookup
+- named ManufacturingModeBitFlag local used for accumulation
+- ManufacturingModeBitFlag accumulator with explicit OR cast
+
+Four worsen the masked comparison:
+- vector(0): 398 differing bytes, 560-byte extent
+- index loop using operator[]: 299 differing bytes, 560-byte extent
+- index loop using at(): 370 differing bytes, 560-byte extent
+- used size local for the initial empty check: 300 differing bytes, 528-byte extent
+These byte counts are screening metrics, not full matching proof.
+
+Additional relocation check (compare.py / relocation-comparison.json): every tied form still calls basic_string::_Tidy(bool) at operand +0x174, whereas retail calls thunk 0x403F67 -> basic_string deleting destructor 0x433A10. Thus none is an exact candidate. Raw relocation names differ for scratch __FILE__ strings and some compiler-local labels, so the report does not claim total relocation equivalence. Full objmatch was not run because every candidate already has a proven code mismatch.
+
+No new concrete evidence emerged to justify a second batch. Recommendation: retain the existing source and parked status. The remaining lead is still an independently evidenced source/helper or container lifetime boundary; these local forms add no support for one. Existing baseline remains 31 exact / 1 unmatched; no new pair claim is made.
+
+All artifacts are under .work/claim-231/astra (each form has source, object, response file, compile log and result.json). Existing prior attempt records remain untouched. No build VMs leased.
+
+Exact source transformations from astra/batch1.py
+forms=[
+('zero_size_constructor',ORIGINAL.replace('std::vector<std::string> list;','std::vector<std::string> list(0);')),
+('explicit_allocator',ORIGINAL.replace('std::vector<std::string> list;','std::allocator<std::string> alloc;\n\tstd::vector<std::string> list(alloc);')),
+('return_ok',ORIGINAL.replace('FAIL_IF(!ok) return(false);','FAIL_IF(!ok) return(ok);')),
+('mode_function_scope',ORIGINAL.replace('\tfor (std::vector','\tUnknownB013ECEnum mode;\n\tfor (std::vector').replace('\t\tUnknownB013ECEnum mode;\n','')),
+('ok_function_scope',ORIGINAL.replace('\tfor (std::vector','\tbool ok;\n\tfor (std::vector').replace('bool ok = String_To_Value','ok = String_To_Value')),
+('while_iterator',ORIGINAL.replace('for (std::vector<std::string>::iterator it = list.begin(); it != list.end(); it++) {','std::vector<std::string>::iterator it = list.begin();\n\twhile (it != list.end()) {').replace('flags |= Mode_To_Bit_Flag(mode);','flags |= Mode_To_Bit_Flag(mode);\n\t\tit++;')),
+('index_subscript',ORIGINAL.replace('for (std::vector<std::string>::iterator it = list.begin(); it != list.end(); it++) {','for (unsigned i = 0; i < list.size(); i++) {').replace('it->c_str()','list[i].c_str()')),
+('index_at',ORIGINAL.replace('for (std::vector<std::string>::iterator it = list.begin(); it != list.end(); it++) {','for (unsigned i = 0; i < list.size(); i++) {').replace('it->c_str()','list.at(i).c_str()')),
+('referenced_string',ORIGINAL.replace('bool ok = String_To_Value(it->c_str(), &mode);','const std::string &token = *it;\n\t\tbool ok = String_To_Value(token.c_str(), &mode);')),
+('named_bit',ORIGINAL.replace('flags |= Mode_To_Bit_Flag(mode);','ManufacturingModeBitFlag bit = Mode_To_Bit_Flag(mode);\n\t\tflags |= bit;')),
+('enum_accumulator',ORIGINAL.replace('unsigned int flags = 0;','ManufacturingModeBitFlag flags = MODE_FLAG_NONE;').replace('flags |= Mode_To_Bit_Flag(mode);','flags = (ManufacturingModeBitFlag)(flags | Mode_To_Bit_Flag(mode));')),
+('size_local',ORIGINAL.replace('if (list.size() == 0)','unsigned count = list.size();\n\tif (count == 0)')),
+]
+
+Successful gpt-6.2-astra follow-up
+
+Claim #231, 0x845AA0, GPT-6.2-astra. VC6 SP4 installed Wine toolchain.
+
+Recommended source: compound_unsigned/manufacturing_defs.cpp. Use an inline
+ManufacturingModeBitFlag &operator|=(ManufacturingModeBitFlag &value, unsigned int bits)
+in the translation unit. Cast value | bits back to the enumeration, assign to
+value, and return value by reference. Initialize the converter's accumulator
+as ManufacturingModeBitFlag flags = MODE_FLAG_NONE and assign flags directly
+to *value at success. File-local placement follows the three converter
+implementations in game_action_validity.cpp, unknown_835040.cpp and
+unknown_4f5570.cpp. The scratch #line directives preserve release assertions.
+
+Iterator hypotheses and generated forms in pass.py. std::advance(it,1)
+retained the one-byte residue. std::distance, ordered_end and difference_end
+differed at 323, 3 and 277 fixed bytes. The initial advance probe needed
+<iterator> to compile. The full four-variant batch includes that header where
+necessary.
+
+Second hypothesis: a genuine operator layer after lookup could account for the
+earlier nested destructor's inline budget. operators.py generated four forms,
+compound_unsigned, compound_enum, binary_enum and composed_enum. Each full
+objmatch produced 32 exact out of 32. Signatures alone cannot be recovered
+from the bytes. Three matching neighboring converters support compound_unsigned.
+Each form folder contains its source, object, compile log, result and matches.
+
+Recommended candidate versus baseline: all 31 original symbol/address pairs
+retained, plus String_To_Value at 0x845AA0. The cleanup immediate is zero;
+the operand at +0x174 relocates to the basic_string scalar deleting destructor.
+Retail e84fe3bbff at 0x845C13 targets 0x403F67, where e9a4fa0200 targets
+0x433A10. No further source forms necessary. Full app importer verification
+and integration belong to the parent. No tracked file edited by this agent.
+
+Operator source transformations
+
+from importlib import import_module
+
+trial = import_module("pass")
+T = "ManufacturingModeBitFlag"
+body = trial.ORIGINAL.replace("unsigned int flags = 0;", T + " flags = MODE_FLAG_NONE;").replace("(" + T + ")flags;", "flags;")
+def compound(rhs, expr):
+    return f"inline {T} &operator|=({T} &value, {rhs} bits)\n{{\n\tvalue = {expr};\n\treturn(value);\n}}\n"
+binary = f"inline {T} operator|({T} value, {T} bits)\n{{\n\treturn(({T})((unsigned int)value | (unsigned int)bits));\n}}\n"
+def source(decls, code):
+    return trial.source_with(code).replace(code.splitlines()[0], decls + "\n" + code.splitlines()[0], 1)
+candidates = {
+    "compound_unsigned": source(compound("unsigned int", f"({T})(value | bits)"), body),
+    "compound_enum": source(compound(T, f"({T})(value | bits)"), body),
+    "binary_enum": source(binary, body.replace("flags |=", "flags = flags |")),
+    "composed_enum": source(binary + compound(T, "value | bits"), body),
+}
+trial.run(candidates)
+
+Parent integrated the source-local unsigned-RHS overload and typed accumulator.
+The final source preserves FAIL_IF line 425 without #line directives.
+Full objmatch: 32 exact, including all 31 baseline matches.
