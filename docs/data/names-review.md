@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1970 |
 | 2 | describes what the code does | 4999 |
-| 1 | neutral placeholder | 25170 |
+| 1 | neutral placeholder | 25171 |
 
 ## For review (score 3 and below)
 
@@ -10900,7 +10900,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown198` | `app/client/ui_avatr.cpp:180` | untagged neutral name (D10) |
 | 1 | `Peek_Model` | `app/client/ui_avatr.cpp:181` | neutral (D10) |
 | 1 | `Unknown1B8` | `app/client/ui_avatr.cpp:181` | untagged neutral name (D10) |
-| 1 | `Unknown1BC` | `app/client/ui_avatr.cpp:183` | untagged neutral name (D10) |
 | 1 | `Unknown1C0` | `app/client/ui_avatr.cpp:184` | untagged neutral name (D10) |
 | 1 | `Set_Unknown1CD` | `app/client/ui_avatr.cpp:185` | neutral (D10) |
 | 1 | `Unknown1CD` | `app/client/ui_avatr.cpp:185` | untagged neutral name (D10) |
@@ -10997,6 +10996,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown17C` | `app/client/ui_avatr.cpp:416` | untagged neutral name (D10) |
 | 1 | `Unknown180` | `app/client/ui_avatr.cpp:417` | untagged neutral name (D10) |
 | 1 | `Unknown184` | `app/client/ui_avatr.cpp:418` | untagged neutral name (D10) |
+| 1 | `UIAvatrPartSel` | `app/client/ui_avatr.cpp:419` | neutral (D10); the constructor's +0x1BC / +0x1C0 stores end in a scheduling barrier as an inline constructor's (0x553B94) |
+| 1 | `Unknown1BC` | `app/client/ui_avatr.cpp:420` | Part / Metal by 0x55B110 |
 | 1 | `Unknown1C4` | `app/client/ui_avatr.cpp:421` | untagged neutral name (D10) |
 | 1 | `Unknown1C5` | `app/client/ui_avatr.cpp:422` | untagged neutral name (D10) |
 | 1 | `Unknown1C6` | `app/client/ui_avatr.cpp:423` | untagged neutral name (D10) |
