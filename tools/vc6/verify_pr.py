@@ -393,8 +393,9 @@ def main():
         res['removed'] = removed
         gained, lost = sorted(verified - before), sorted(before - verified)
         corrected, lost = pairs_cmp.split_corrections(lost, gained, pairs_cmp.load_corrections())
+        pad_held, lost = pairs_cmp.split_pad_held(lost)       # D279
         moves, outright = moves_and_outright(lost, verified)
-        res.update(gained=gained, lost=lost, moves=moves, outright=outright,
+        res.update(gained=gained, lost=lost, moves=moves, outright=outright, pad_held=pad_held,
                    corrected=[(lib, f, a, e['moved_to'], e['decision']) for e, (lib, f, a) in corrected])
         ne_before, ne_after = not_exact_count(old), not_exact_count(merge)
         if lost and not outright:

@@ -38,8 +38,8 @@ direct edit plus its entry in the file's end-of-file `// EnB:` block, never a co
 (D211; conventions.md, "E&B changes to an EA-derived file"). D66 names the
 seven kinds of non-loss, (i)-(vii) (say which in the commit). **D240:** a form backed by client.exe's own evidence
 (assert / FAIL_IF text, RTTI, a symbol, a byte pattern) is kept even when it loses pairs: never revert it for its
-losses. Commit it naming the evidence, try to regain the lost pairs (the pad sweeps first for sclient / aux_roots
-headers), and list each address still lost in your report as a D240 row (address, file, the form, the evidence); the
+losses. Commit it naming the evidence, try to regain the lost pairs (never by a pad sweep: a `pad-held` line in pairs_cmp's output is no loss and
+needs no row, D279), and list each address still lost in your report as a D240 row (address, file, the form, the evidence); the
 coordinator commits those rows to `docs/data/accepted-corrections.json` on the run branch before the landing. Any
 other loss: try one regain round, then either drop the change or, when it gains more than it loses, commit it on
 your branch and report both sides (addresses gained and lost); the coordinator decides under D246's valve.

@@ -42,6 +42,7 @@ import sys
 
 ROOT = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))
 CORRECTIONS = os.path.join(ROOT, 'docs', 'data', 'accepted-corrections.json')
+PAD_HELD = os.path.join(ROOT, 'docs', 'data', 'pad-held.json')      # D279
 
 
 def load(src):
@@ -85,6 +86,23 @@ def load_corrections(path=CORRECTIONS):
         return []
 
 
+def load_pad_held(path=PAD_HELD):
+    """D279's pairs as a set of (lib, file stem, address int); empty when the file is missing."""
+    try:
+        with open(path, encoding='utf-8') as f:
+            return {(e['lib'], e['file'], int(e['address'], 16)) for e in json.load(f)['pairs']}
+    except FileNotFoundError:
+        return set()
+
+
+def split_pad_held(lost, pad_held=None):
+    """(held, rest): the LOST pairs D279 lists (exact only inside a window of their file's symbol pad, which no
+    landing tunes: the handoff's sweep brings them back) and the other lost pairs."""
+    ph = load_pad_held() if pad_held is None else pad_held
+    held = [x for x in sorted(lost) if (x[0], os.path.splitext(x[1])[0], int(x[2], 16)) in ph]
+    return held, [x for x in sorted(lost) if x not in set(held)]
+
+
 def split_corrections(lost, gained, corrections):
     """([(entry, pair)], rest): the LOST pairs an accepted correction explains (its lib, file and address lost,
     its moved_to gained by the same lib and file in GAINED, or moved_to null: a decided loss, D175), and the other
@@ -101,7 +119,7 @@ def split_corrections(lost, gained, corrections):
     return corrected, rest
 
 
-def compare(da, db, corrections=None):
+def compare(da, db, corrections=None, pad_held=None):
     """Every list main prints, from two loaded ledgers, as a dict. `lost` is lost_outright's pairs, the
     moves and the shared holders together; corrections: the accepted list to judge by (default the file's)."""
     ta, tb = pairs(da, 'tiebreak'), pairs(db, 'tiebreak')
@@ -116,6 +134,7 @@ def compare(da, db, corrections=None):
     lost |= lost_t - with_caller
     corrected, rest = split_corrections(lost, pairs(db) - pairs(da),
                                         load_corrections() if corrections is None else corrections)
+    pad, rest = split_pad_held(rest, pad_held)
     lost = set(rest)
     allb = pairs(db)
     holders = {}
@@ -127,6 +146,7 @@ def compare(da, db, corrections=None):
         'gained': sorted(b - a - (pairs(da))),
         'gained_tiebreak': sorted(gained_t),
         'corrected': corrected,
+        'pad_held': pad,
         'lost': sorted(lost),
         'lost_tiebreak': sorted((lost_t - with_caller) & lost),
         'with_caller': sorted(with_caller),
@@ -147,6 +167,7 @@ def main(argv):
     for dec in sorted({e['decision'] for e, _ in r['corrected']}):
         print(f'corrected (accepted: {dec})',
               sorted((lib, f, a, e['moved_to']) for e, (lib, f, a) in r['corrected'] if e['decision'] == dec))
+    print('pad-held (D279: not a loss, the handoff sweep retunes)', r['pad_held'])
     print('lost', r['lost'])
     print('lost tie-break (counted in lost)', r['lost_tiebreak'])
     print('lost tie-break with its caller (D66 vii, not a loss)', r['with_caller'])

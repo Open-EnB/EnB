@@ -29,6 +29,8 @@ reverse engineer the rest. Windows; shell is Git Bash (`/c/...` paths) or PowerS
   other loss is the coordinator's call inside D246's valve (the landing gains more than it loses, at
   most 5 such addresses per landing and 40 open, one regain round tried, an entry each with
   `"decision": "D246"`); past the valve the branch is parked for the user and the run goes on.
+  The pairs in `docs/data/pad-held.json` are no loss (`pairs_cmp.py` prints them as `pad-held`): nobody
+  sweeps or sets a symbol pad during a run; the coordinator sweeps both once at the handoff (D279).
 - Edit the source; describe each E&B change to an EA-derived file in its end-of-file `// EnB:`
   block (conventions.md), never inline above code. A new reconstructed file gets its description
   (`RECONSTRUCTED`) in its ledger shard: `tools/vc6/ledger.py describe`. Scripted edits go in a script saved in `.work/`, not an inline heredoc

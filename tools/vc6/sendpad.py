@@ -125,6 +125,17 @@ def watch_source(repo=None):
     return m.group(2) if m else 'HEAD'
 
 
+def pad_held(stems):
+    """D279's addresses of the ledger files STEMS (docs/data/pad-held.json): watched whatever the ledger says, since
+    no landing tunes the pad and a recorded verify may have dropped them."""
+    try:
+        import pairs_cmp
+        return {'0x%X' % a for _, f, a in pairs_cmp.load_pad_held(os.path.join(REPO, 'docs', 'data', 'pad-held.json'))
+                if f in stems}
+    except Exception:
+        return set()
+
+
 def watch_list(src='HEAD'):
     """WATCH addresses that HEAD's ledger records for sclient.cpp (an address not matched yet constrains nothing;
     the working ledger is the wrong source: a verify that just lost them has rewritten it);
@@ -134,6 +145,7 @@ def watch_list(src='HEAD'):
         held = {str(x) for x in ledger.load(src, repo=REPO)['app']['files']['sclient']['in_tree']}
     except Exception:
         return list(WATCH)
+    held |= pad_held(('sclient',))
     return [w for w in WATCH if w in held] or list(WATCH)
 
 
