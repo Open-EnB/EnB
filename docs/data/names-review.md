@@ -10,8 +10,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 226 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1970 |
-| 2 | describes what the code does | 4999 |
-| 1 | neutral placeholder | 25171 |
+| 2 | describes what the code does | 5000 |
+| 1 | neutral placeholder | 25178 |
 
 ## For review (score 3 and below)
 
@@ -17703,8 +17703,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_5B8850` | `app/client/ui_ship_cust.cpp:1201` | untagged neutral name (D10) |
 | 1 | `Unknown_58` | `app/client/ui_ship_cust.cpp:1231` | untagged neutral name (D10) |
 | 1 | `Unknown_61DAB0` | `app/client/ui_ship_cust.cpp:1289` | untagged neutral name (D10) |
-| 1 | `Unknown_B08CB8` | `app/client/ui_ship_cust.cpp:1323` | untagged neutral name (D10) |
 | 1 | `Unknown_B08CC4` | `app/client/ui_ship_cust.cpp:1323` | untagged neutral name (D10) |
+| 1 | `Unknown_B08CB8` | `app/client/ui_ship_cust.cpp:1323` | untagged neutral name (D10) |
 | 1 | `Unknown78` | `app/client/ui_ship_cust.cpp:1324` | untagged neutral name (D10) |
 | 1 | `Unknown_28` | `app/client/ui_ship_cust.cpp:1325` | untagged neutral name (D10) |
 | 1 | `Unknown10` | `app/client/ui_ship_cust.cpp:1346` | untagged neutral name (D10) |
@@ -17967,8 +17967,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6607D0` | `app/client/ui_shipcust.cpp:1660` | untagged neutral name (D10) |
 | 1 | `Unknown_67AB20` | `app/client/ui_shipcust.cpp:1702` | untagged neutral name (D10) |
 | 1 | `Unknown_627FA0` | `app/client/ui_shipcust.cpp:1802` | untagged neutral name (D10) |
-| 1 | `Unknown_B08CB8` | `app/client/ui_shipcust.cpp:1841` | untagged neutral name (D10) |
 | 1 | `Unknown_B08CC4` | `app/client/ui_shipcust.cpp:1841` | untagged neutral name (D10) |
+| 1 | `Unknown_B08CB8` | `app/client/ui_shipcust.cpp:1841` | untagged neutral name (D10) |
 | 1 | `Unknown78` | `app/client/ui_shipcust.cpp:1842` | untagged neutral name (D10) |
 | 1 | `Unknown_58` | `app/client/ui_shipcust.cpp:1864` | untagged neutral name (D10) |
 | 1 | `Unknown3C` | `app/client/ui_shipcust.cpp:1877` | untagged neutral name (D10) |
@@ -18711,8 +18711,13 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_787DE0` | `app/client/ui_starbase.cpp:1103` | untagged neutral name (D10) |
 | 1 | `Unknown_787F40` | `app/client/ui_starbase.cpp:1109` | untagged neutral name (D10) |
 | 1 | `Unknown_63C4B0` | `app/client/ui_starbase.cpp:1124` | untagged neutral name (D10) |
+| 1 | `Unknown_Bucket_Count` | `app/client/ui_starbase.cpp:1132` | neutral (D10) |
+| 1 | `UIStarbaseUnknownD4TableClass` | `app/client/ui_starbase.cpp:1132` | untagged neutral name (D10) |
+| 1 | `Unknown_Bkt_Num` | `app/client/ui_starbase.cpp:1132` | untagged neutral name (D10) |
+| 1 | `Unknown_Find` | `app/client/ui_starbase.cpp:1132` | untagged neutral name (D10) |
 | 1 | `Unknown_63D280` | `app/client/ui_starbase.cpp:1134` | untagged neutral name (D10) |
-| 1 | `UIStarbaseUnknownD4TableClass` | `app/client/ui_starbase.cpp:1136` | untagged neutral name (D10) |
+| 1 | `UIStarbaseUnknownD4TableClass:` | `app/client/ui_starbase.cpp:1140` | neutral (D10) |
+| 1 | `Unknown_Begin_Counted` | `app/client/ui_starbase.cpp:1140` | untagged neutral name (D10) |
 | 1 | `Unknown_63AAF0` | `app/client/ui_starbase.cpp:1142` | untagged neutral name (D10) |
 | 1 | `Unknown_1C4` | `app/client/ui_starbase.cpp:1145` | untagged neutral name (D10) |
 | 1 | `Unknown_63BA70` | `app/client/ui_starbase.cpp:1172` | untagged neutral name (D10) |
@@ -18807,6 +18812,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_645CE0` | `app/client/ui_starbase.cpp:2545` | untagged neutral name (D10) |
 | 1 | `Unknown_7885D0` | `app/client/ui_starbase.cpp:2717` | untagged neutral name (D10) |
 | 1 | `Unknown_687150` | `app/client/ui_starbase.cpp:2720` | untagged neutral name (D10) |
+| 1 | `Unknown_Layer` | `app/client/ui_starbase.cpp:2760` | neutral (D10) |
 | 1 | `Unknown_63CA50` | `app/client/ui_starbase.cpp:2762` | untagged neutral name (D10) |
 | 1 | `Unknown_6FFF00` | `app/client/ui_starbase.cpp:2777` | untagged neutral name (D10) |
 | 1 | `Unknown_63D060` | `app/client/ui_starbase.cpp:2830` | untagged neutral name (D10) |
@@ -18835,6 +18841,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_63E5C0` | `app/client/ui_starbase.cpp:3573` | untagged neutral name (D10) |
 | 1 | `Unknown_74C960` | `app/client/ui_starbase.cpp:3588` | untagged neutral name (D10) |
 | 1 | `Unknown_63BB10` | `app/client/ui_starbase.cpp:3598` | untagged neutral name (D10) |
+| 1 | `Unknown_Env_Maps` | `app/client/ui_starbase.cpp:3620` | neutral (D10) |
 | 1 | `Unknown_63F0D0` | `app/client/ui_starbase.cpp:3757` | untagged neutral name (D10) |
 | 1 | `Unknown_6E9490` | `app/client/ui_starbase.cpp:3820` | untagged neutral name (D10) |
 | 1 | `Unknown10BC` | `app/client/ui_starbase.cpp:3820` | untagged neutral name (D10) |
@@ -20460,6 +20467,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown4C4` | `app/client/unknown_6ca0c0.cpp:72` | untagged neutral name (D10) |
 | 1 | `Unknown2D0` | `app/client/unknown_6ca0c0.cpp:72` | untagged neutral name (D10) |
 | 1 | `Unknown_6D8DC0` | `app/client/unknown_6ca0c0.cpp:72` | untagged neutral name (D10) |
+| 1 | `Unknown404` | `app/client/unknown_6ca0c0.cpp:74` | untagged neutral name (D10) |
 | 1 | `Unknown_6CA0C0` | `app/client/unknown_6ca0c0.cpp:76` | untagged neutral name (D10) |
 | 1 | `Unknown270` | `app/client/unknown_6ca0c0.cpp:87` | untagged neutral name (D10) |
 | 1 | `Unknown274` | `app/client/unknown_6ca0c0.cpp:88` | untagged neutral name (D10) |
@@ -20468,7 +20476,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown2F4` | `app/client/unknown_6ca0c0.cpp:90` | untagged neutral name (D10) |
 | 1 | `Unknown420` | `app/client/unknown_6ca0c0.cpp:92` | untagged neutral name (D10) |
 | 1 | `Unknown254` | `app/client/unknown_6ca0c0.cpp:101` | untagged neutral name (D10) |
-| 1 | `Unknown404` | `app/client/unknown_6ca0c0.cpp:102` | untagged neutral name (D10) |
 | 1 | `Unknown4C5` | `app/client/unknown_6ca0c0.cpp:103` | untagged neutral name (D10) |
 | 1 | `Unknown414` | `app/client/unknown_6ca0c0.cpp:206` | untagged neutral name (D10) |
 | 1 | `Unknown303` | `app/client/unknown_6ca0c0.cpp:211` | untagged neutral name (D10) |
@@ -20482,9 +20489,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6D5B10` | `app/client/unknown_6ca0c0.cpp:303` | untagged neutral name (D10) |
 | 1 | `Unknown302` | `app/client/unknown_6ca0c0.cpp:332` | untagged neutral name (D10) |
 | 1 | `Unknown464` | `app/client/unknown_6ca0c0.cpp:337` | untagged neutral name (D10) |
-| 1 | `Unknown2C8` | `app/client/unknown_6ca0c0.cpp:402` | untagged neutral name (D10) |
-| 1 | `Unknown44C` | `app/client/unknown_6ca0c0.cpp:476` | untagged neutral name (D10) |
+| 1 | `Unknown2C8` | `app/client/unknown_6ca0c0.cpp:423` | untagged neutral name (D10) |
 | 1 | `Unknown4A4` | `app/client/unknown_6ca0c0.cpp:477` | untagged neutral name (D10) |
+| 1 | `Unknown44C` | `app/client/unknown_6ca0c0.cpp:477` | untagged neutral name (D10) |
 | 1 | `Unknown444` | `app/client/unknown_6ca0c0.cpp:485` | untagged neutral name (D10) |
 | 1 | `Unknown418` | `app/client/unknown_6ca0c0.cpp:486` | untagged neutral name (D10) |
 | 1 | `Unknown41C` | `app/client/unknown_6ca0c0.cpp:487` | untagged neutral name (D10) |
@@ -27818,6 +27825,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Pass` | `app/client/unknown_6bb7e0.h:20` | what it holds |
 | 2 | `std:` | `app/client/unknown_6bb7e0.h:33` | what it holds |
 | 2 | `Random_Letter` | `app/client/unknown_6ca0c0.cpp:47` | random ASCII alphanumeric for FONT_EFFECT_RANDLETTER (0x6CA070) |
+| 2 | `Set_Complete` | `app/client/unknown_6ca0c0.cpp:74` | Is_Complete's setter (0x67EEE0 reads +0x404); an inline layer, as the client spends inline budget here |
 | 2 | `FontEffectStruct::EffectType` | `app/client/unknown_6ca0c0.h:7` | the client's ini words |
 | 2 | `FontEffectStruct::Direction` | `app/client/unknown_6ca0c0.h:33` | the client's ini words |
 | 2 | `Class_ID` | `app/client/unknown_6e1ab0.h:32` | E&B's class id |
