@@ -539,6 +539,17 @@ def parse(text, name='?', gadgets=None, loader=None, _depth=0):
             if len(args) != 1 or not re.fullmatch(r'[A-Za-z0-9_-]{1,40}', args[0]):
                 raise ScenarioError(f'{where}: shot NAME (letters, digits, - and _)')
             st['shot'] = args[0]
+        elif op == 'expect-ink':
+            try:
+                if len(args) != 3 or not re.fullmatch(r'[A-Za-z0-9_-]{1,40}', args[0]):
+                    raise ValueError
+                box = [int(v) for v in args[1].split(',')]
+                if len(box) != 4 or box[2] <= 0 or box[3] <= 0:
+                    raise ValueError
+                st.update(shot=args[0], box=box, min=int(args[2]))
+            except ValueError:
+                raise ScenarioError(f'{where}: expect-ink SHOT X,Y,W,H MIN (MIN bright pixels in the box of the '
+                                    f'shot taken last under that name)')
         else:
             raise ScenarioError(f'{where}: unknown step {op!r}')
         sc['steps'].append(st)
@@ -853,6 +864,7 @@ class Session:
         self.record = bool(getattr(args, 'record', False))
         self.proxy = self.inst.use_proxy(env, self.out, input=True, tag=not self.record)
         self.trigger = os.path.join(self.out, 'trigger.txt')
+        self.shot_frames = {}           # shot NAME -> the newest frame before its step (expect-ink reads a newer one)
         self.camera = os.path.join(self.out, 'camera.txt')
         env.update(D3D8SHOT_CAMERA=self.camera)
         env.update(D3D8SHOT_TRIGGER=self.trigger, D3D8SHOT_MAX=str(3000 if self.record else 20 * len(scs)))
@@ -888,6 +900,42 @@ class Session:
 
     def alive(self):
         return self.a.poll() is None and bool(self.pid) and _alive(self.pid)
+
+    def _shots(self, name):
+        """[(frame, file)] of the session's shot_NAME_<frame>.bmp|png, by frame."""
+        return sorted((int(m.group(1)), f) for f in os.listdir(self.out)
+                      for m in [re.match(re.escape(f'shot_{name}_') + r'(\d+)\.(?:bmp|png)$', f)] if m)
+
+    def _ink(self, name, box, seconds=5.0):
+        """(bright pixels, path) in BOX (x, y, w, h) of the newest shot_NAME_*.bmp: a pixel counts when its
+        brightest channel is at least INK_LEVEL (the UI's text is near white on the dark blue panels)."""
+        end = time.time() + seconds          # the proxy saves the shot just after it takes the trigger: wait for
+        size = -1                             # the file, and for its size to hold still
+        while True:
+            shots = [x for x in self._shots(name) if x[0] > self.shot_frames.get(name, -1)]   # this step's shot
+            path = os.path.join(self.out, shots[-1][1]) if shots else None
+            rows = None
+            if path:
+                try:
+                    now = os.path.getsize(path)
+                    if now == size:
+                        w, h, n, rows = read_shot(path)
+                    size = now
+                except (OSError, ValueError):
+                    rows = None
+            if rows is not None:
+                break
+            if time.time() >= end:
+                return 0, path
+            time.sleep(0.2)
+        x0, y0, bw, bh = box
+        count = 0
+        for y in range(max(0, y0), min(h, y0 + bh)):
+            row = rows[y]
+            for x in range(max(0, x0), min(w, x0 + bw)):
+                if max(row[x * n], row[x * n + 1], row[x * n + 2]) >= INK_LEVEL:
+                    count += 1
+        return count, path
 
     def _trigger(self, line, seconds):
         """Writes the proxy's trigger file; True once the proxy took it (deleted it at a Present)."""
@@ -1141,10 +1189,17 @@ class Session:
                 elif op == 'shot':
                     fail = tick()
                     if not fail:
+                        self.shot_frames[st['shot']] = max(self._shots(st['shot']) or [(-1, '')])[0]
                         if self._trigger(st['shot'], 5):
                             note(f'  shot {st["shot"]} taken')
                         else:
                             note('  shot not taken in 5 s (a proxy without D3D8SHOT_TRIGGER? run_reference.py build)')
+                elif op == 'expect-ink':
+                    n, path = self._ink(st['shot'], st['box'])
+                    note(f'  ink {st["shot"]} {",".join(map(str, st["box"]))}: {n} bright pixels (min {st["min"]})')
+                    if n < st['min']:
+                        fail = (f'{sc["name"]}:{st["line"]}: expect-ink {st["shot"]}: {n} bright pixels in the box, '
+                                f'fewer than {st["min"]} ({path})')
             if not fail:
                 fail = tick()
             if not fail:
@@ -1575,6 +1630,7 @@ def read_shot(path):
     return w, h, n, out
 
 
+INK_LEVEL = 200        # expect-ink: a pixel is ink when its brightest channel reaches this (0-255)
 SHOT_GRID = 16          # the shot compare's cells: GRID x GRID
 SHOT_TOL = 16           # a cell differs when its mean |difference| per channel (0-255) is above this
 SHOT_STEP = 2           # every STEP-th pixel and row is compared

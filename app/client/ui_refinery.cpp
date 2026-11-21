@@ -203,7 +203,7 @@ void UIRefineryClass::Unknown_5C()
 	sclient->Unknown_744560(0x1E);
 }
 
-// ui_manu.cpp's aux data classes, as this file reads them (the same classes: their globals are defined there)
+#include "aux_manu.h"				// (after auxdata.h, as ui_manu.cpp): 'Validity' is DeltaTemplateClass<UnknownB01394Enum>
 class UIManuEntryClass : public DeltaCompoundClass	// NAME 1: neutral (D10): as ui_manu.cpp's
 {
 public:
@@ -212,23 +212,23 @@ public:
 	char Unknown124[0x1A8 - 0x124];						// +0x124
 	int Unknown1A8;										// +0x1A8: the item id (0x5ED530's)
 };
-class UIManuListClass : public DeltaCompoundClass	// NAME 1: neutral (D10): as ui_manu.cpp's ('KnownFormula')
+class UIManuListClass : public DeltaItemArrayClass<DeltaKnownFormulaClass>	// NAME 1: neutral (D10): as ui_manu.cpp's ('KnownFormula')
 {
 public:
-	static int UnknownGlobal;							// the per-class global at +0x04 (0xC41628)
+	// UnknownGlobal: the base's (0xC41628)
 };
-class UIManuComponentsClass : public DeltaCompoundClass	// NAME 1: neutral (D10): as ui_manu.cpp's ('ManufactureComponents', 'ManufactureTarget')
+class UIManuComponentsClass : public DeltaItemArrayClass<DeltaItemClass>	// NAME 1: neutral (D10): as ui_manu.cpp's ('ManufactureComponents', 'ManufactureTarget')
 {
 public:
-	static int UnknownGlobal;							// the per-class global at +0x04
+	// UnknownGlobal: the base's (0xC41624)
 };
-class UIManuTechLevelFilterClass : public DeltaClass	// NAME 1: neutral (D10): as ui_manu.cpp's (here 'AdditionalIterations')
+class UIManuTechLevelFilterClass : public DeltaTemplateClass<unsigned int>	// NAME 1: neutral (D10): as ui_manu.cpp's (here 'AdditionalIterations')
 {
 public:
-	static int UnknownGlobal;							// the per-class global at +0x04 (0xC4163C)
-	int Value;											// +0x84  // NAME 2: what it holds
+	// UnknownGlobal: the base's (0xC4163C); Value: the base's (+0x84)
+
 };
-#include "aux_manu.h"				// (after auxdata.h, as ui_manu.cpp): 'Validity' is DeltaTemplateClass<UnknownB01394Enum>
+// (ui_manu.cpp's aux data classes, as this file reads them: each per-class global is its aux data type's)
 bool Is_Validity_Attempt(UnknownB01394Enum validity);				// 0x846210 (manufacturing_defs.h keeps it from aux_roots.cpp's declaration count)
 template<class C> inline C *Unknown_Find_Valid(DeltaCompoundClass *root, const NameClass &name) { C *t = Unknown_Find_Field<C>(root, name); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10): as ui_manu.cpp's
 template<class C> inline C *Unknown_Manu_Raw_Field(DeltaCompoundClass *const &root, const char *name) { NameClass n(name); DeltaCompoundClass *r = root; return(Unknown_Find_Field<C>(r, n)); } template<class C> inline C *Unknown_Manu_Raw(DeltaCompoundClass *const &root, const char *name) { return(Unknown_Manu_Raw_Field<C>(root, name)); }	// NAME 1: neutral (D10): as ui_manu.cpp's

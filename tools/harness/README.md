@@ -661,6 +661,9 @@ without the export still runs (`no stand-in marker` in e2e.log; later scenarios 
 8th Present); the next frame is saved as `shot_NAME_NNNNN.png` from the client's own back buffer (D69). The proxy
 in `build/d3d8shot/` must be current: `python tools/harness/run_reference.py build` after any change to
 d3d8shot.c (a proxy of 2026-11-04 ignored the trigger, and every shot step waited out its 15 s).
+`expect-ink SHOT X,Y,W,H MIN` (2026-11-21) asserts on that shot: at least MIN pixels in the box whose brightest
+channel reaches 200 (`INK_LEVEL`; the UI's text is near white on the dark blue panels), so a scenario checks that a list
+was filled, not only that its packets went (sb_refinery's ore rows, sb_manufacture's second category level).
 
 **Station operations on a live server (2026-11-15):** `e2e.py --live [SERVER] [--retail] --instance NAME run
 sb_vendor sb_talk` (options before `run`: `--live` takes an optional SERVER, so `--live run` would read `run` as

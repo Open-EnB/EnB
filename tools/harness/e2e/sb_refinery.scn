@@ -15,6 +15,8 @@ face -90
 click 667,608 until antprox 'received MANUFACTURE_ITEM_CATAGORY' every 2 within 20
 wait-quiet proxy 1.0 within 20
 shot refinery_open
+# the ore list: what the cargo's ores make, a name in the first row (retail: Copper, Steel, Iron)
+expect-ink refinery_open 465,335,150,30 100
 click 489,348
 expect-event antprox 'received REFINERY_ITEM_ID' within 10
 wait-quiet proxy 1.0 within 20
