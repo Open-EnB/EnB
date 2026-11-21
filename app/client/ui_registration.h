@@ -95,13 +95,18 @@ public:
 	std::vector<StringClass> UnknownAC;	// +0xAC: the countries (0x5F8FD0 reads them from RG_REGDATA.INI; 0x5F9700 fills the combo box 0x19)
 	CharacterViewClass *UnknownBC;	// +0xBC: the constructor's +0x48 slot +0x28 (0x5FB9F0 calls CharacterViewClass::Unknown_67A8D0 on it); the message box +0x34
 	LoginTaskClass *UnknownC0;	// +0xC0: the constructor's view +0xBC's task +0x14, slot +0x08 (LoginTaskClass's returns this)
-	bool UnknownC4;				// +0xC4
-	bool UnknownC5;				// +0xC5: a message box is up: the keys and gadgets are off (0x5F2280)
-	bool UnknownC6;				// +0xC6
-	bool UnknownC7;				// +0xC7 (0x5FB9F0 sets it)
-	bool UnknownC8;				// +0xC8
-	bool UnknownC9;				// +0xC9
-	bool UnknownCA;				// +0xCA (0x5FB9F0 sets it)
+	struct RegistrationFlagsStruct {	// +0xC4: the seven flags, a member with its own inline constructor: 0x5EF0B0 loads +0xD0 / +0xD4 / +0xD8's values before
+		// +0xBC's store and stores these after +0xC0 (the inlined constructor's stores follow the plain ones, as sbaseview.h's UnknownC0Struct)  // NAME 1 [RegistrationFlagsStruct, Flags]: neutral (D10)
+		RegistrationFlagsStruct() : UnknownC4(false), UnknownC5(false), UnknownC6(false), UnknownC7(false), UnknownC8(false), UnknownC9(false), UnknownCA(false) {}
+		// the fields keep the interface's offsets as their names
+		bool UnknownC4;				// +0xC4
+		bool UnknownC5;				// +0xC5: a message box is up: the keys and gadgets are off (0x5F2280)
+		bool UnknownC6;				// +0xC6
+		bool UnknownC7;				// +0xC7 (0x5FB9F0 sets it)
+		bool UnknownC8;				// +0xC8
+		bool UnknownC9;				// +0xC9
+		bool UnknownCA;				// +0xCA (0x5FB9F0 sets it)
+	} Flags;
 	int UnknownCC;				// +0xCC
 	LayerClass *Layer;			// +0xD0: the constructor's layer
 	long UnknownD4;				// +0xD4: the screen's state (0x5FAFF0's 0x5F3770(0x16); 0x5FB950 tests 0x16)  // NAME 1 [long]: UnknownD8's element type (0x5F87D0 pushes it with no conversion)
