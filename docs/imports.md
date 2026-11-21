@@ -1943,7 +1943,7 @@ Base copy: reconstructed. Headers: 691 from reconstructed.
 | shared/safe_ptr.cpp | reconstructed | 5 | 0 | - | - | - |  |
 | client/sbase_info.cpp | reconstructed | 65 | 0 | - | - | - |  |
 | client/sbaseview.cpp | reconstructed | 158 | 0 | - | - | - |  |
-| client/sclient.cpp | reconstructed | 598 | 0 | - | - | - |  |
+| client/sclient.cpp | reconstructed | 595 | 0 | - | - | - |  |
 | client/scriptedmovie.cpp | reconstructed | 159 | 0 | - | - | - |  |
 | client/scriptedmovieline.cpp | reconstructed | 5 | 0 | - | - | - |  |
 | common/sector_types.cpp | reconstructed | 7 | 0 | - | - | - |  |
@@ -2065,7 +2065,7 @@ Base copy: reconstructed. Headers: 691 from reconstructed.
 | client/ui_option_control_keys.cpp | reconstructed | 55 | 0 | - | - | - |  |
 | client/ui_option_font.cpp | reconstructed | 52 | 0 | - | - | - |  |
 | client/ui_option_main.cpp | reconstructed | 33 | 0 | - | - | - |  |
-| client/ui_option_quit.cpp | reconstructed | 37 | 0 | - | - | - |  |
+| client/ui_option_quit.cpp | reconstructed | 36 | 0 | - | - | - |  |
 | client/ui_option_slider.cpp | reconstructed | 41 | 0 | - | - | - |  |
 | client/ui_pda_cargo.cpp | reconstructed | 60 | 0 | - | - | - |  |
 | client/ui_pda_equip.cpp | reconstructed | 60 | 1 | - | - | - |  |
@@ -2092,7 +2092,7 @@ Base copy: reconstructed. Headers: 691 from reconstructed.
 | client/ui_radio_list.cpp | reconstructed | 70 | 0 | - | - | - |  |
 | client/ui_radio_main.cpp | reconstructed | 54 | 0 | - | - | - |  |
 | client/ui_refinery.cpp | reconstructed | 93 | 0 | - | - | - |  |
-| client/ui_registration.cpp | reconstructed | 308 | 1 | - | - | - |  |
+| client/ui_registration.cpp | reconstructed | 312 | 0 | - | - | - |  |
 | client/ui_scan.cpp | reconstructed | 87 | 1 | - | - | - |  |
 | client/ui_scut.cpp | reconstructed | 86 | 0 | - | - | - |  |
 | client/ui_scut_gadgets.cpp | reconstructed | 49 | 0 | - | - | - |  |
