@@ -274,7 +274,14 @@ Landing and bring-over (the lander does the landing; these are what you see arou
 - **A worktree with uncommitted generated files (names-review.md, imports.md) makes the lander refuse at step 1:**
   discard them (`git checkout -- FILE`); the landing regenerates them.
 - **A check in a reused worktree name or a shared build dir can link another builder's objects** (a clienttest link failure and e2e crashes that the baseline did not show): use a fresh worktree name and a private lease, and compare against the baseline before calling a regression.
-- **A finished subagent (lander, checker) can keep re-sending its report:** stop it; the landing is intact.
+- **A finished subagent (lander, checker) can keep re-sending its report:** stop it; the landing is intact. But a lander
+  you queued more branches on by SendMessage is still landing them: `TaskStop` kills its bring-over mid-verify (nothing
+  lands, an `importer-<pid>` lease stays, a `batch-*.bo` worktree is left). Check `.work/log/land-*.log` for a running
+  verify before stopping one; give a new batch to a new lander instead of queuing it on a finished one.
+- **One live server, several builders:** live e2e runs (`--live`) share one Net-7 server and one character, so they
+  run one at a time under a host lock (`.work/coord/live.py ID --wait M -- CMD`). It has no queue: with six or more
+  builders a waiter lost the lock for 10-20 minutes at a time, and a 45-minute wait gave up. Briefs say: batch the
+  scenarios into one `e2e.py run A B C` per lock hold, retail and ours from one script under one hold.
 - **Tell a lander which refusals to retry:** "retry once" makes it re-run a real link refusal (a compile error in a
   branch's file) as a flake, holding the lock for a verify that fails the same way. Name the flake signs (stubs.rsp,
   sync.tar, unresolved symbols the branches do not touch) and say "any other refusal: skip that branch, go on". A
