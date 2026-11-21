@@ -215,7 +215,7 @@ void CameraController02Class::Unknown_7981B0()
 	Unknown0C->Unknown_04();
 }
 
-// NOT EXACT: 0x798570 (the frame's size is the client's; the angle and the offset swap frame slots (the client: the offset at ebp-0xC, the angle at ebp-0x10), the products' operand order follows them, and the client stores Y and Z before doubling them)
+
 // 0x798570
 void CameraController02Class::Unknown_798570()
 {
@@ -235,8 +235,8 @@ void CameraController02Class::Unknown_798570()
 	float s = WWMath::Sin(angle);
 	float c = WWMath::Cos(angle);
 	Vector3 offset(dist * 0.75f, c * range, s * range);
-	offset.Y *= 2.0f;
-	offset.Z *= 2.0f;
+	offset.Scale(Vector3(1.0f, 2.0f, 2.0f));
+
 	Matrix3D frame = Unknown_82ECB0(tm.Get_X_Vector(), tm.Get_Translation());
 	((CameraModule79C8E0Class *)Unknown0C)->Position = frame * offset;
 	((CameraModule79C8E0Class *)Unknown0C)->Unknown14 = true;
@@ -282,6 +282,6 @@ void CameraController02Class::Unknown_7987F0()
 ** The object 0x7979A0-0x798ACF: after camctrl_tractor.cpp's (its <string> initialiser 0x797970), ending with its own at
 ** 0x798AB0. No __FILE__ or assert: the name is PROVISIONAL (D137). In the slot +0x08 0x797B50 phase 1 has its own copy
 ** of phase 3's body (the client keeps one copy, after phase 2's: its jump table sends 1 and 3 to 0x797BDC / 0x797BEB). The module's
-** placements 0x7981B0 / 0x798570 / 0x7987F0 (Random4Class 0xBDB1C0 and 0x82ECB0) NOT EXACT: WWMath::Sin / Cos (their retval slots
-** are in the client's frames), the matrix * vector operator and the module's members through Unknown0C are the client's (P2).
+** placements 0x7981B0 / 0x7987F0 remain NOT EXACT; WWMath::Sin / Cos, matrix * vector and member reloads follow the client (P2).
+** 0x798570 exact: Vector3::Scale(Vector3(1,2,2)) preserves Y/Z product stores, angle/offset slots and the matrix load order.
 */

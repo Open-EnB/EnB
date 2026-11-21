@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-677 entries in 265 files.
+676 entries in 265 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -520,9 +520,8 @@ edit the comments in the code, not this file.
 | `app/client/unknown_75b7b0.cpp:29` | `Unknown_75B8F0` | marker | NOT EXACT: functional (D64), 0.83: the x87 order of the cross product's length and the dot product (WE5) @0x75B8F0 |
 | `app/client/unknown_75b7b0.cpp:57` | `Unknown_75BB50` | marker | NOT EXACT: functional (D64), 0.37: ours calls StringClass::operator= where the client inlines it, so the registers differ (WE5) @0x75BB50 |
 | `app/client/unknown_7979a0.cpp:178` | `CameraController02Class::Unknown_7981B0` | marker | NOT EXACT: 0x7981B0 (the frame's size and the statements' order are the client's; the two offsets, the two results and the camera's copy sit in other frame slots, and the products' operand order follows the slots) 0x7981B0 |
-| `app/client/unknown_7979a0.cpp:218` | `CameraController02Class::Unknown_798570` | marker | NOT EXACT: 0x798570 (the frame's size is the client's; the angle and the offset swap frame slots (the client: the offset at ebp-0xC, the angle at ebp-0x10), the products' operand order follows them, and the client stores Y and Z before doubling them) 0x798570 |
 | `app/client/unknown_7979a0.cpp:247` | `CameraController02Class::Unknown_7987F0` | marker | NOT EXACT: 0x7987F0 (the frame's size is the client's; the destination's position and the offset sit in other frame slots (the client: both at ebp-0xC), and the speed's square root keeps a slot of its own in the client) 0x7987F0 |
-| `app/client/unknown_7979a0.cpp:285` | `CameraController02Class::Unknown_7987F0` | mention | NOT EXACT: WWMath::Sin / Cos (their retval slots are in the client's frames), the matrix * vector operator and the module's members through Unknown0C are the client's (P2). |
+| `app/client/unknown_7979a0.cpp:285` | `CameraController02Class::Unknown_7987F0` | mention | NOT EXACT; WWMath::Sin / Cos, matrix * vector and member reloads follow the client (P2). 0x798570 exact: Vector3::Scale(Vector3(1,2,2)) preserves Y/Z product stores, angle/offset slots and the matrix load order. |
 | `app/client/unknown_79c8e0.cpp:20` | `CameraModule79C8E0Class::Unknown_08` | marker | NOT EXACT: shape (18 masked rows, was 184: the first product after each Inv_Sqrt comes out fld st(0); fmul mem where the client has fld mem; fmul st(1), and two stores schedule apart; attempts.csv) |
 | `app/client/unknown_7cef30.cpp:382` | `RegistrationUnknown1ACClass::Unknown_7D4E30` | marker | NOT EXACT: inline budget (0.71: the client inlines Add_Param(int) for bdateyear too, ours calls it from there on; the rest is the client's) |
 | `app/client/unknown_7e1e40.cpp:24` | `Sub14CUnknown18Class::~Sub14CUnknown18Class` | marker | NOT EXACT: the client's has an EH frame (states 1, 0 around the _bstr_t members' destruction); /GX gives none here (/EHa gives it, and an EH frame in the constructor the client lacks) |
