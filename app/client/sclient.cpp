@@ -3332,9 +3332,7 @@ bool SClient::Unknown_749A70(const char *text)
 
 
 
-
-
-// NOT EXACT: shape (explain.py): 830 against 818 instructions: VC6 places the invalid return right after the /rad text test (the client after the /rad message), inlines the words-fail path's ~basic_string the client calls (??_G, 0x74A667) and keeps this in ebx for the /rad message
+// NOT EXACT: shape (explain.py): 824 against 818 instructions: VC6 places the invalid return right after the /rad text test (the client after the /rad message; every source order of the test, body and labels gives the same layout), schedules the words-fail path's ~basic_string between the vector's stores so it cannot cross-jump into the /rad tail as the client's (0x74A68C), and keeps this in ebx for the /rad message
 // 0x749ED0 (0x74ABC0): the channel lines '/gen /ooc /mkt /new /jen /ter /pro /exp /tra /war /sen /def /enf <message>'
 // (each when its 'Channel_*' option is on) and '/rad' (the chat panel's private channel)
 bool SClient::Unknown_749ED0(const char *text)
@@ -3386,17 +3384,19 @@ bool SClient::Unknown_749ED0(const char *text)
 		channel.assign(ChatPanel->Unknown_5682C0());
 		if (channel.length() == 0) {
 			Unknown_74D990(0x11, "Not monitoring a private channel.", 0);
-			return(true);
+			goto done;
 		}
 		goto send;
 	}
 	if (channel.length() == 0) {
 		Unknown_74D990(0x11, "Not monitoring that channel.", 0);
-		return(true);
+		goto done;
 	}
 	goto send;
 invalid:
 	return(false);
+done:
+	return(true);
 send:
 	char buffer[512];
 	Bounded_Strcpy(buffer, 512, text);
@@ -3411,7 +3411,7 @@ send:
 		Unknown_74D990(0x11, "No message to send.", 0);
 		return(true);
 	}
-	ClientChatRequestPacketClass packet(0, Unknown1138);
+	ClientChatRequestPacketClass packet(0, Get_Unknown1138());
 	packet.Unknown14 = channel;
 	packet.Unknown34 = message;
 	Send_Packet(&packet);
