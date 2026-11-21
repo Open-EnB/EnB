@@ -3118,7 +3118,7 @@ void RegistrationInterface::Unknown_5FBD30()
 			Unknown1CB = false;
 			Unknown1D5 = false;
 			Unknown1CC = false;
-			StatusIndex = 1;   // D272: no dead reads here with Get_Selected (swept 0-6 x case 6's 0-8: four in all is best)
+			StatusIndex = 1; Unknown108.size();   // D272: dead read (swept 0-2 x case 6's 0-7 with 0x603A60's age variable; four + one best)
 			Unknown_5F8DB0(false);
 			Unknown_5F3770(0x16);
 			Unknown_5FAE90(this, "Validating login information...");
@@ -4356,15 +4356,15 @@ int RegistrationInterface::Unknown_6039E0(const char *number)
 	return(0);
 }
 
-// @0x603A60 NOT EXACT: shape (attempts.csv: the gmtime copy's registers popped before the compare)
+// @0x603A60 (one age set in two branches and one bool compare: 0x5FBD30's inlined copies join at cmp eax, 0x12 / 0xD)
 bool RegistrationInterface::Unknown_603A60(int month, int day, int year, int age)
 {
 	time_t now = time(NULL);
 	struct tm today = *gmtime(&now);
-	if (today.tm_mon < month - 1 || (today.tm_mon == month - 1 && today.tm_mday < day)) {
-		return((today.tm_year - year) + 1899 >= age);
-	}
-	return((today.tm_year - year) + 1900 >= age);
+	int years;
+	if (today.tm_mon < month - 1 || (today.tm_mon == month - 1 && today.tm_mday < day)) { years = (today.tm_year - year) + 1899; } else { years = (today.tm_year - year) + 1900; }
+	bool ok = years >= age;
+	return(ok);
 }
 
 // @0x603B20
