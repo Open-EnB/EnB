@@ -366,7 +366,7 @@ public:
 	virtual RenderObjClass *Unknown_78(const char *name, float scale, float *hsv);	// +0x78
 };
 RenderObjClass *ENBAssetManager::Unknown_78(const char *, float, float *) { return(0); }	// (the fake's overrides it)
-ENBAssetManager *AssetManager = 0;	// 0xBDADC0 (main sets it)
+extern ENBAssetManager *AssetManager;	// 0xBDADC0 (kernel.cpp's, app.lib; main sets it)
 
 static int Models_Made = 0;
 static int Models_Alive = 0;
@@ -1708,35 +1708,26 @@ static std::vector<unsigned char> Trade_Message(int partner, unsigned char type)
 	return(Message_Bytes(31, p));
 }
 
-// cpacket.cpp's string class (0x8B5D90..: its file is not rebuilt), as a plain tokenizer
-class Unknown8B5D90Class
+// cpacket.cpp's string class, wlib's Wstring (0x8B5D90 ..; wlib.lib is not linked here), as a plain tokenizer
+#include "wlib/wstring.h"
+Wstring::Wstring() : str(0), strsize(0) {}
+Wstring::Wstring(const char *text) : str(0), strsize(0) { if (text) { str = strdup(text); strsize = strlen(text) + 1; } }
+Wstring::~Wstring() { free(str); }
+sint32 Wstring::getToken(int pos, char *delimiters, Wstring &token) const
 {
-public:
-	Unknown8B5D90Class();
-	Unknown8B5D90Class(const char *text);
-	~Unknown8B5D90Class();
-	int Unknown_8B7C60(int pos, const char *delimiters, Unknown8B5D90Class &token);
-	const char *Unknown_8B6FC0() const;
-	char *Unknown00; int Unknown04;
-};
-Unknown8B5D90Class::Unknown8B5D90Class() : Unknown00(0), Unknown04(0) {}
-Unknown8B5D90Class::Unknown8B5D90Class(const char *text) : Unknown00(0), Unknown04(0) { if (text) { Unknown00 = strdup(text); Unknown04 = strlen(text); } }
-Unknown8B5D90Class::~Unknown8B5D90Class() { free(Unknown00); }
-int Unknown8B5D90Class::Unknown_8B7C60(int pos, const char *delimiters, Unknown8B5D90Class &token)
-{
-	int len = Unknown00 ? (int)strlen(Unknown00) : 0;
-	while (pos < len && strchr(delimiters, Unknown00[pos])) pos++;
+	int len = str ? (int)strlen(str) : 0;
+	while (pos < len && strchr(delimiters, str[pos])) pos++;
 	if (pos >= len) return(-1);
 	int end = pos;
-	while (end < len && !strchr(delimiters, Unknown00[end])) end++;
-	free(token.Unknown00);
-	token.Unknown00 = (char *)malloc(end - pos + 1);
-	memcpy(token.Unknown00, Unknown00 + pos, end - pos);
-	token.Unknown00[end - pos] = 0;
-	token.Unknown04 = end - pos;
+	while (end < len && !strchr(delimiters, str[end])) end++;
+	free(token.str);
+	token.str = (char *)malloc(end - pos + 1);
+	memcpy(token.str, str + pos, end - pos);
+	token.str[end - pos] = 0;
+	token.strsize = end - pos + 1;
 	return(end);
 }
-const char *Unknown8B5D90Class::Unknown_8B6FC0() const { return(Unknown00 ? Unknown00 : ""); }
+char *Wstring::get(void) const { static char empty[1]; return(str ? str : empty); }
 
 class FindMemberPacketClass;
 // (UIGroupFindClass::Unknown_59A400 is ui_groupfind.cpp's, linked for real since cpacket.cpp reaches it through UIGroupOptClass::FindUI: the

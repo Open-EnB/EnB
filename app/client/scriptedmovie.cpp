@@ -149,9 +149,9 @@ class SClientUnknown1334Class { public: ~SClientUnknown1334Class(); void Load(co
 #include "..\shared\unknown_490900.h"
 
 void Unknown_7FF230();	// 0x7FF230 (the file before this one: the screen fade and the letterbox), the constructor calls it
-extern bool Unknown_BB9654;	// NAME 1 [Unknown_BB9654]: neutral (D10) (tsk_login.cpp's); the constructor clears it, the destructor sets it
-extern int Unknown_C01290;	// NAME 1: neutral (D10): 300000 while the scripted movie view is up (the constructor), else 0 (the destructor)
-extern RectClass Unknown_C07550;	// NAME 1: neutral (D10) (sclient.cpp's): the text's coordinate range
+#include "ww3d.h"	// 0xBB9654 is WW3D::ThumbnailEnabled (ww3d.cpp, initial true): WW3D::Set_Thumbnail_Enabled (the constructor clears it, the destructor sets it)
+#include "textureloader.h"	// 0xC01290 is TextureLoader::_UnknownInvalidationTime: 300000 while the scripted movie view is up (the constructor), else 0 (the destructor)
+#include "render2d.h"	// 0xC07550 is Render2DClass::ScreenResolution: the text's coordinate range
 // (sclient.h names SClient's +0x1338 as the asserts do: EnvironmentMapManager, the constructor's l.231)
 
 // 0x8000C0: the view: its scene, camera, environment maps and decals (SClient's, or its own without one), the script
@@ -237,8 +237,8 @@ ScriptedMovieViewClass::ScriptedMovieViewClass(ClientTaskClass *task, int arg, S
 		DecalMaterialManager = new SClientUnknown1334Class;
 		DecalMaterialManager->Load("decal_textures.ini", "decal_swatches.ini", "secret_decal_textures.ini");
 	}
-	Unknown_BB9654 = false;
-	Unknown_C01290 = 300000;
+	WW3D::Set_Thumbnail_Enabled(false);
+	TextureLoader::_UnknownInvalidationTime = 300000;
 	Unknown_8099B0((const char *)arg);
 	if (Unknown16C != 0) {
 		Unknown_7FFA30(0.0f, 0.0f, 0.0f, 0.0f);
@@ -246,7 +246,7 @@ ScriptedMovieViewClass::ScriptedMovieViewClass(ClientTaskClass *task, int arg, S
 	}
 	Unknown160 = Create_NEW(new Font3DInstanceClass("font12x16.tga"));
 	Unknown15C = new Render2DTextClass(Unknown160.Peek());
-	Unknown15C->Set_Coordinate_Range(Unknown_C07550);
+	Unknown15C->Set_Coordinate_Range(Render2DClass::Get_Screen_Resolution());
 	Unknown15C->Enable_Alpha(true);
 	Unknown15C->Reset();
 	SoundLibraryClass::_PlayUndefined = true;
@@ -380,8 +380,8 @@ ScriptedMovieViewClass::~ScriptedMovieViewClass()
 		Unknown15C = NULL;
 	}
 	Unknown_802D30();
-	Unknown_BB9654 = true;
-	Unknown_C01290 = 0;
+	WW3D::Set_Thumbnail_Enabled(true);
+	TextureLoader::_UnknownInvalidationTime = 0;
 	SoundLibraryClass::_PlayUndefined = false;
 }
 

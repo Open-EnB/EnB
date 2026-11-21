@@ -2126,17 +2126,17 @@ bool JobAcceptReplyPacketClass::Process_Packet(void *instance)
 	return(true);
 }
 
-// The 8-byte string class NoteContent 184 splits the note's text with (its file unknown; not rebuilt)
-class Unknown8B5D90Class	// NAME 1: neutral (D10)
-{
-public:
-	Unknown8B5D90Class();	// 0x8B5D90 (both members 0)
-	Unknown8B5D90Class(const char *text);	// 0x8B5DB0  // NAME 1 [text]: neutral
-	~Unknown8B5D90Class();	// 0x8B5EC0
-	int Unknown_8B7C60(int pos, const char *delimiters, Unknown8B5D90Class &token);	// 0x8B7C60 (the next token from pos into token; -1 at the end)  // NAME 1 [pos, delimiters, token]: what the body does with them
-	const char *Unknown_8B6FC0() const;	// 0x8B6FC0 (the text, or the pooled empty string 0xBDA908)
-	char *Unknown00; int Unknown04;	// +0x00, +0x04
-};
+// The 8-byte string class NoteContent 184 splits the note's text with: wlib's Wstring (0x8B5D90 ..)
+#include "..\..\libs\wwonline\wlib\wstring.h"
+
+
+
+
+
+
+
+
+
 
 // 0x73AF80 (placed here, out of address order: it has no assert)
 bool NoteContentPacketClass::Process_Packet(void *instance)
@@ -2148,12 +2148,12 @@ bool NoteContentPacketClass::Process_Packet(void *instance)
 	_snprintf(sent, sizeof(sent), "Sent: %s", ctime((time_t *)&Unknown0C));
 	sent[strlen(sent) - 1] = 0;
 	sclient->Unknown_74D990(6, sent, 0);
-	Unknown8B5D90Class line;
-	Unknown8B5D90Class text(Unknown54);
-	int pos = text.Unknown_8B7C60(0, "\r\n", line);
+	Wstring line;
+	Wstring text(Unknown54);
+	int pos = text.getToken(0, "\r\n", line);
 	while (pos != -1) {
-		sclient->Unknown_74D990(6, (char *)line.Unknown_8B6FC0(), 0);
-		pos = text.Unknown_8B7C60(pos, "\r\n", line);
+		sclient->Unknown_74D990(6, line.get(), 0);
+		pos = text.getToken(pos, "\r\n", line);
 	}
 	return(true);
 }

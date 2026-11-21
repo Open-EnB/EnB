@@ -14,4 +14,5 @@ static FontManagerClass *Empty_Font_Manager()
 	new (&manager->Fonts) std::hash_map<RenderObjClass *, ManagedFontClass *>;
 	return manager;
 }
-FontManagerClass *Unknown_BE67C4 = Empty_Font_Manager();	// 0xBE67C4
+extern FontManagerClass *Unknown_BE67C4;	// 0xBE67C4 (fontmanager.cpp's, app.lib), set at start-up
+static struct Clienttest_Font_Manager { Clienttest_Font_Manager() { Unknown_BE67C4 = Empty_Font_Manager(); } } Clienttest_Font_Manager_Set;

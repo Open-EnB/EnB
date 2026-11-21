@@ -123,3 +123,6 @@ void SoundManagerClass::Unknown_75B320()
 **	The object starts with the queued entry's constructor 0x75AAB0 and destructor 0x75AAE0: out of line and
 **	uncalled (soptions.cpp ends at 0x75AAB0), inlined in 0x75AE30 and 0x75AC50 / 0x75AB70.
 */
+
+// The sound manager WinMain makes (.bss 0xBE82A4, before enbdazzle.cpp's 0xBE82A8)
+SoundManagerClass *SoundManager;  // NAME 2: what it holds

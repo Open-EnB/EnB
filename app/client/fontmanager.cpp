@@ -606,3 +606,6 @@ ManagedFontClass *FontManagerClass::Unknown_6D2AE0(const RefCountPtr<RenderObjCl
 **	0x6D2AE0 (no caller in the client) is Find's body over a reference key, read once: Peek_Font(id); the
 **	table's find on the reference reads the key twice.
 */
+
+// The font manager WinMain makes (.bss 0xBE67C4, before fonttexture.cpp's 0xBE67C8)
+FontManagerClass *Unknown_BE67C4;  // NAME 1 [Unknown_BE67C4]: neutral (D10)

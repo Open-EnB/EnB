@@ -14,7 +14,7 @@ class RenderObjClass;
 class FlashingGadgetEvent;
 class CharacterViewClass;
 class CharacterViewAvatarClass;
-class UIAvselEditClass;
+class TextGadgetClass;
 
 // The character select window (ui_avsel.cpp's __FILE__; the client's RTTI: the type name of its FlashingGadgetEvent
 // callback, 0xB7C068), 0x124 bytes, tables 0xAEFB20 / 0xAEFB14 / 0xAEFB08
@@ -68,7 +68,7 @@ public:
 	LayerClass *Layer;									// +0x104 (the constructor's)  // NAME 2: what it holds
 	RefCountPtr<RenderObjClass> BuddyReferralUI;		// +0x108 (G_ASSERT 'BuddyReferralUI')  // NAME 3: the assert's
 	GadgetClass *Unknown10C[2];							// +0x10C (Unknown_B7B960's buttons)
-	UIAvselEditClass *Unknown114;						// +0x114
+	TextGadgetClass *Unknown114;						// +0x114
 	GadgetClass *Unknown118;							// +0x118 ('click_me')
 	StringClass Unknown11C;								// +0x11C
 	bool Unknown120;									// +0x120

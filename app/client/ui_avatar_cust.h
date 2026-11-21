@@ -18,8 +18,8 @@ class RObjGadgetClass;		// gd_robj.h's (the buttons at +0x1CC / +0x204 / +0x240:
 class FlashingGadgetEvent;
 class ShipPipClass;	// ship_pip.h
 class CharacterViewAvatarClass;	// avatar.h
-class UIAvatarCustUnknown368Class;
-struct UIAvatarCustGadgetHolderStruct;
+class UIAvatrUnknown2ECStruct;
+class UIAvatrPullClass;
 
 // Two floats the window keeps seven of (+0x320, 0.5 each: the constructor's loop)
 struct UIAvatarCustPairStruct	// NAME 1: neutral (D10)
@@ -85,13 +85,13 @@ public:
 	RObjGadgetClass *Unknown204[15];					// +0x204 ([10]-[12]: parts 0-2)
 	RObjGadgetClass *Unknown240[11];					// +0x240 ([4]-[7]: parts 3-6; [8]-[10] the metal models' gadgets)
 	Matrix3D Unknown26C[3];								// +0x26C (the models' turning frames; the constructor's loop)
-	UIAvatarCustGadgetHolderStruct *Unknown2FC;			// +0x2FC
+	UIAvatrPullClass *Unknown2FC;			// +0x2FC
 	Vector2 Unknown300;									// +0x300 (0.5, 0.5)
-	UIAvatarCustGadgetHolderStruct *Unknown308;			// +0x308
+	UIAvatrPullClass *Unknown308;			// +0x308
 	Vector3 Unknown30C;									// +0x30C (the tattoo offset u, v and the zoom +0x314 (0x550550): 0x54BD30 copies the avatar's Tattoo_Offset in)
 	float Unknown318;									// +0x318 (the zoom's largest)
 
-	UIAvatarCustGadgetHolderStruct *Unknown31C;			// +0x31C
+	UIAvatrPullClass *Unknown31C;			// +0x31C
 	UIAvatarCustPairStruct Unknown320[7];	// +0x320 (0.5, 0.5 each: the constructor's loop)
 	int Unknown358;										// +0x358 (the part, 0-6)
 	int Unknown35C;										// +0x35C
@@ -102,11 +102,11 @@ public:
 	bool Unknown364;									// +0x364
 	bool Unknown365;									// +0x365
 	char Unknown366[0x368 - 0x366];						// +0x366
-	UIAvatarCustUnknown368Class *Unknown368;			// +0x368
-	UIAvatarCustUnknown368Class *Unknown36C;			// +0x36C
-	UIAvatarCustUnknown368Class *Unknown370;			// +0x370
-	UIAvatarCustUnknown368Class *Unknown374;			// +0x374
-	UIAvatarCustUnknown368Class *Unknown378;			// +0x378
+	UIAvatrUnknown2ECStruct *Unknown368;			// +0x368
+	UIAvatrUnknown2ECStruct *Unknown36C;			// +0x36C
+	UIAvatrUnknown2ECStruct *Unknown370;			// +0x370
+	UIAvatrUnknown2ECStruct *Unknown374;			// +0x374
+	UIAvatrUnknown2ECStruct *Unknown378;			// +0x378
 	char Unknown37C[0x380 - 0x37C];						// +0x37C
 	MoneyClass Unknown380;								// +0x380 (the credits: the AuxData's Money)
 	MoneyClass Unknown388;								// +0x388 (the changes' cost)

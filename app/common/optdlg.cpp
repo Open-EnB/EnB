@@ -638,8 +638,8 @@ OptionControlStruct *Unknown_847CD0(int id, OptionControlStruct *controls)	// NA
 **
 **	* The file: the client's assert strings name e:\build\beta\G\app\Common\optdlg.cpp (0x8476C0's 'ini.Is_Loaded()'
 **	  line 498 and 'server_count < 256' line 514); its functions run from the folder browser's callback 0x846B80
-**	  and WinMain's -MENU dialog 0x846C90 to the pages 0x847BB0 / 0x847C40 and 0x847CD0. 0x846C90 stays a POC
-**	  stand-in (D69: it opens a modal dialog); 0x846CD0 (a page's controls set, 0x846D10 over the table) is inlined
+**	  and WinMain's -MENU dialog 0x846C90 to the pages 0x847BB0 / 0x847C40 and 0x847CD0. 0x846C90 is at the end of the file
+**	  (a test run never shows it: the d3d8shot proxy answers its dialog, D69); 0x846CD0 (a page's controls set, 0x846D10 over the table) is inlined
 **	  by the page procedures (0x847630). 0x8476C0's asserts keep lines 498 / 514 (the blank lines above it).
 **	* 0x846D10 sits inside '#pragma auto_inline(off)': without it the large 0x8476C0 inlines it into the inlined
 **	  0x846CD0 (len 1510 against the client's 1002); the small page procedures call it out of line either way.
@@ -656,3 +656,13 @@ OptionControlStruct *Unknown_847CD0(int id, OptionControlStruct *controls)	// NA
 **	  or a condition in the loop head rotate it.
 **	* 0x7E8 is the private message that makes a page write its controls (0x8472E0's IDOK, lParam the open file).
 */
+
+// @0x846C90 (placed after the notes: the asserts above keep their lines)
+bool Unknown_846C90()	// NAME 1 [Unknown_846C90]: the -MENU dialog; false ends the program
+{
+	InitCommonControls();
+	if (DialogBoxParamA(ProgramInstance, MAKEINTRESOURCE(0x6A), NULL, Unknown_8472E0, 0) == 2) {
+		return(false);
+	}
+	return(true);
+}

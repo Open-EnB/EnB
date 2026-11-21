@@ -40,7 +40,7 @@ void Unknown_70A7E0(const std::string &ini);			// 0x70A7E0: 'gutter_color.ini'
 void Unknown_70AD70();									// 0x70AD70
 #include "client_lego_impl.h"							// the bone maps of cbasset.ini: Init_Bone_Maps 0x729BF0, Shutdown_Bone_Maps 0x729D60
 #include "mv3dview.h"									// Movie3DViewClass: view mode 3
-extern HWND Unknown_Main_Window;						// 0xBDAA7C (input.cpp's neighbourhood)  // NAME 2: what Pump_Messages redraws
+extern HWND Unknown_BDAA7C;							// 0xBDAA7C (input.cpp's: the window Init was given): what Pump_Messages redraws
 
 // The object at 0xC404D8 is WWAudioClass::_theInstance (WWAudioClass's ctor and dtor set it): the constructor
 // sets its +0x19A5, which queues sounds started during the load
@@ -289,8 +289,8 @@ static void Unknown_740050(const char *text, const char *delimiters, unsigned ma
 
 
 
-extern bool Unknown_BBB084;								// NAME 1: neutral (D10): Init clears it
-extern RectClass Unknown_C07550;						// NAME 1: neutral (D10): the text's coordinate range
+#include "mesh.h"										// 0xBBB084 is MeshClass::Legacy_Meshes_Fogged (mesh.cpp's .data, true): Init clears it
+// 0xC07550 is Render2DClass::ScreenResolution (render2d.h, included above): the text's coordinate range
 // (Init, Shutdown and Do_Frame push PxProcess on px_process.h's PxProcessClass::Push 0x455D10 and pop it with
 // PxProcessClass::Pop 0x455F60)
 void Unknown_6E6A90(EffectObjectClass *effect);			// 0x6E6A90 (eff_o.cpp): Shutdown, per effect left
@@ -410,7 +410,7 @@ void SClient::Init()
 	Unknown_BE67BC->Load(0);
 	VerbManager = new VerbManagerClass(this);
 	PxProcessClass::Push(PxProcess);
-	Unknown_BBB084 = false;
+	MeshClass::Legacy_Meshes_Fogged = false;
 	Unknown_745350();
 	Unknown13CC.Unknown_765010();
 	INIClass metals;
@@ -491,7 +491,7 @@ void SClient::Init()
 
 	Font = Create_NEW(new Font3DInstanceClass("font_med10.tga"));
 	Text = new Render2DTextClass(Font.Peek());
-	Text->Set_Coordinate_Range(Unknown_C07550);
+	Text->Set_Coordinate_Range(Render2DClass::Get_Screen_Resolution());
 	Text->Enable_Alpha(true);
 	Text->Reset();
 }
@@ -690,7 +690,7 @@ void SClient::Unknown_10()
 		if (GetMessage(&msg, NULL, 0, 0)) {
 			TranslateMessage(&msg);
 			if (msg.message == WM_PAINT) {
-				RedrawWindow(Unknown_Main_Window, NULL, NULL, RDW_INVALIDATE | RDW_ERASE);
+				RedrawWindow(Unknown_BDAA7C, NULL, NULL, RDW_INVALIDATE | RDW_ERASE);
 			}
 			DispatchMessage(&msg);
 		}
@@ -778,7 +778,7 @@ public:
 };
 extern SoundManagerClass *SoundManager;					// 0xBE82A4  // NAME 2: what it holds
 extern int Unknown_BE350C;								// NAME 1: neutral (D10): Do_Frame sets it to the base's toggled +0x1128 for the frame
-extern int Unknown_BE5F34;								// NAME 1: neutral (D10): Do_Frame takes up to 20 more events while it has 0x1100
+extern unsigned int Unknown_BE5F34;						// gadget.cpp's: Do_Frame takes up to 20 more events while it has 0x1100
 unsigned int Unknown_Get_Ticks();						// 0x4A3B40, the aux-data clock (unknown_root.h)
 
 void Unknown_42EDB0();									// NAME 1 [Unknown_42EDB0]: neutral (D10) (input.cpp's neighbourhood), as tsk_login.cpp
@@ -5890,3 +5890,11 @@ void SClient::Unknown_74BA30(bool request, int starbase_id, int mode)
 **	the zero in ebp, as the client (FI1, 2026-10-31; two or three such calls, or one dead
 **	Get_2D_Sample_Count(), work too).
 */
+
+// @0x744240 (ret 0x10: the event by value, nothing done; placed here, after the file's notes). Do_Frame calls it:
+// auto_inline(off), as the client keeps the call (defined in this file it is inlined away, Do_Frame loses its match)
+#pragma auto_inline(off)
+void SClient::Unknown_744240(KernelEventClass event)
+{
+}
+#pragma auto_inline(on)

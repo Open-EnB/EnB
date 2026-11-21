@@ -1382,3 +1382,7 @@ FontStringFilesClass::~FontStringFilesClass()
 **	destructor, and the client then calls find out of line and inlines the key: an iterator and two returns inline
 **	find instead); the Add functions call them plainly (no dead reads).
 */
+
+// The font database and the string files in use WinMain makes (.bss 0xBE67B8 / 0xBE67BC, after unknown_fontsound.cpp's 0xBE67B4)
+FontDatabaseClass *fontDatabase;  // NAME 5: the client's FAIL_IF '!::fontDatabase' (ui_option_font.cpp 0x5CD780)
+FontStringFilesClass *Unknown_BE67BC;  // NAME 1 [Unknown_BE67BC]: neutral (D10)

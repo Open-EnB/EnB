@@ -6,7 +6,7 @@
 #include <string.h>
 #include "..\..\..\app\client\fontdatabase.h"
 
-FontDatabaseClass *fontDatabase = 0;			// 0xBE67B8
+// (0xBE67B8, fontDatabase, is fontdatabase.cpp's, app.lib: null)
 
 static FontStringFilesClass *Empty_String_Files()
 {
@@ -16,4 +16,5 @@ static FontStringFilesClass *Empty_String_Files()
 	new (&files->Files) std::hash_map<std::string, FontStringFileStruct *>;
 	return files;
 }
-FontStringFilesClass *Unknown_BE67BC = Empty_String_Files();	// 0xBE67BC
+extern FontStringFilesClass *Unknown_BE67BC;	// 0xBE67BC (fontdatabase.cpp's, app.lib), set at start-up
+static struct Clienttest_String_Files { Clienttest_String_Files() { Unknown_BE67BC = Empty_String_Files(); } } Clienttest_String_Files_Set;

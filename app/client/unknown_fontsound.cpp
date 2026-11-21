@@ -98,3 +98,6 @@ void Unknown_6BCFB0Class::Remove(PlayingSoundStruct * sound)
 **	members, then DynamicVectorClass<PlayingSoundStruct *> / VectorClass<PlayingSoundStruct *>'s instances
 **	0x6BD5F0-0x6BD9E0 (vtables 0xAFEA18 / 0xAFEA34) and the <string> guard 0x6BDA10.
 */
+
+// FontSys's sounds WinMain makes (.bss 0xBE67B4, before fontdatabase.cpp's 0xBE67B8)
+Unknown_6BCFB0Class *Unknown_BE67B4;  // NAME 1 [Unknown_BE67B4]: neutral (D10)
