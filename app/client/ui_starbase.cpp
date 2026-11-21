@@ -1129,15 +1129,15 @@ void UIStarbaseClass::Unknown_63C4B0(RenderObjClass *obj, const char *bone)
 	obj->Set_Transform(tm);
 }
 
-// NOT EXACT: 0x63D280, functional (inline budget: the client inlines SGI's find with the vector's size 0x644470 out of line; ours calls the out-of-line find 0x643E60; C3)
+static inline unsigned int Unknown_Bucket_Count(UIStarbaseUnknownD4TableClass &t) { return(t.Buckets.size()); } static inline unsigned int Unknown_Bkt_Num(UIStarbaseUnknownD4TableClass &t, unsigned int key) { return(t.Bucket_Of_Key(key, Unknown_Bucket_Count(t))); } static inline UIStarbaseUnknownD4TableClass::iterator Unknown_Find(UIStarbaseUnknownD4TableClass &t, const unsigned int &key) { const unsigned int n = Unknown_Bkt_Num(t, key); UIStarbaseUnknownD4TableClass::NodeStruct *first; for (first = t.Buckets[n]; first && !(first->Key == key); first = first->Next) {} return(UIStarbaseUnknownD4TableClass::iterator(first, &t)); }	// (SGI's bucket_count(), _M_bkt_num_key and find (0x643E60) written inline: 0x63D280 inlines find with the buckets size() 0x644470 out of line, one layer deeper)  // NAME 1: neutral (D10)
 // 0x63D280
 UIStarbaseUnknownCCClass *UIStarbaseClass::Unknown_63D280(unsigned int id)
 {
-	UIStarbaseUnknownD4TableClass::iterator found = UnknownD4.find(id);
-	return(found.Cur ? found.Cur->Value : NULL);
+	UIStarbaseUnknownD4TableClass::iterator found = Unknown_Find(UnknownD4.Table, id);
+	UnknownD4.end(); UnknownD4.end(); UnknownD4.end(); return(found.Cur ? found.Cur->Value : NULL);	// D272: 3 dead end() reads (the client's map accessor) send find's size() out of line
 }
 
-// NOT EXACT: 0x63AAF0, functional (inline budget: the client inlines SGI's begin with the vector's size 0x644470 out of line; ours calls begin 0x643DF0; C3)
+static inline UIStarbaseUnknownD4TableClass::iterator Unknown_Begin_Counted(UIStarbaseUnknownD4TableClass &t) { for (unsigned int n = 0; n < Unknown_Bucket_Count(t); ++n) { if (t.Buckets[n]) { return(UIStarbaseUnknownD4TableClass::iterator(t.Buckets[n], &t)); } } return(t.end()); }	// (0x643DF0 (begin()) written inline over the bucket count: 0x63AAF0 inlines begin with the buckets size() 0x644470 out of line)  // NAME 1: neutral (D10)
 // 0x63AAF0
 void UIStarbaseClass::Unknown_63AAF0()
 {
@@ -1159,7 +1159,7 @@ void UIStarbaseClass::Unknown_63AAF0()
 		}
 	}
 	UIStarbaseUnknownD4TableClass::iterator it;
-	for (it = UnknownD4.begin(); it != UnknownD4.end(); ++it) {
+	for (it = Unknown_Begin_Counted(UnknownD4.Table); it != UnknownD4.end(); ++it) {
 		UIStarbaseUnknownCCClass *savatar = it.Cur->Value;
 		savatar->Avatar->Unknown_1C4();
 		Unknown_640F50(savatar->Avatar.Peek());
