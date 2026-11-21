@@ -6,6 +6,6 @@ shot world
 # (the d3d8shot proxy logs it) and must not open the map
 stray click gadget hud.navmap
 expect-event proxy '^input: NOT REPLAYED \(dropped\) 0x201'
-expect-no stubs 'UIStarmapPipViewClass'
+# (until 2026-11-21 also: no stand-in of UIStarmapPipViewClass hit; the one client build has no stand-in)
 # alone this is the whole check of the world staying up; in a session the other scenarios follow in the same client
 alive 5

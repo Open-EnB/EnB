@@ -35,7 +35,9 @@ The format (one step a line, '#' comments, shell-style quoting):
                                   its last line and the last input step (default T 30 s): "the loading this step
                                   started is over" where the client logs no "ready" line (the proxy's file opens)
     expect-no SOURCE PATTERN      from here to the scenario's end no line of SOURCE may match (checked continuously)
-    expect-no CRASH               short for: expect-no stubs '^CRASH:' (every scenario has it from the start)
+    expect-no CRASH               short for: expect-no any '^CRASH:' (the d3d8shot proxy's first-chance CRASH: line in
+                                  d3d8shot.log, or an older stand-in exe's in stubs.log; every scenario has it from
+                                  the start)
     click gadget NAME | click X,Y   rclick ... | move ...    mouse at a gadget of e2e/gadgets.txt or client pixels
     down X,Y / up X,Y             the left button pressed at a point / moved there held and let go: a drag (the
                                   client's item windows move an item on the button-up, e.g. into a terminal's slot)
@@ -84,9 +86,10 @@ the result line counts such lines.
 
 --retail (D190, D248): the scenarios drive a COPY of the retail client (clientrun.py's Inst(retail=True): the copy
 in the instance folder, never the install), through the same proxy and the same tagged input; the terms box's
-"I Agree" is clicked for it. The retail client writes no stubs.log, so a step on the `stubs` source is ours only:
-wait-event / expect-event / expect-no / stand-in steps on it are skipped (noted in e2e.log), and a crash shows as
-'the client exited'. `compare` then reads two runs' events.log (ours, retail's) and prints, per scenario, the
+"I Agree" is clicked for it. No client writes stubs.log now (the one client build has no stand-in; older stand-in exes did), so
+a step on the `stubs` source is skipped on retail (noted in e2e.log) and never seen on ours. A crash on either shows
+as the d3d8shot proxy's first-chance `CRASH:` line in d3d8shot.log (source `proxy`; a fault the client handles
+itself shows too) and 'the client exited'. `compare` then reads two runs' events.log (ours, retail's) and prints, per scenario, the
 packets the client sent (antprox.out's 'received NAME' lines between the scenario's marks) where the two differ:
 the retail run is the expected result.
 
@@ -455,7 +458,7 @@ def parse(text, name='?', gadgets=None, loader=None, _depth=0):
             st.update(source='stubs', pattern=_regex(args[0], where))
         elif op == 'expect-no':
             if args == ['CRASH']:
-                args = ['stubs', '^CRASH:']
+                args = ['any', '^CRASH:']
             if len(args) != 2 or args[0] not in SOURCES:
                 raise ScenarioError(f'{where}: expect-no SOURCE PATTERN | expect-no CRASH')
             st.update(source=_source(args[0]), pattern=_regex(args[1], where))
@@ -970,6 +973,8 @@ class Session:
                     seen['stubs'].append(text)
             elif src == 'proxy' and text.startswith('input: NOT REPLAYED'):
                 seen['human'] += 1
+            elif src == 'proxy' and text.startswith('CRASH:'):        # d3d8shot.c Safe_Crash_Log, first chance
+                seen['stubs'].append(text)
 
         ev.flush_repeats()
         ev.mark_epoch()
@@ -978,8 +983,9 @@ class Session:
             first = not self.logged_in
             t_start = ev.now()
             deadline = time.time() + sc['timeout']
-            standing.append({'source': 'stubs', 'pattern': re.compile('^CRASH:'), 'line': '(always)',
-                             'watch': ev.watch('stubs', re.compile('^CRASH:'), start_line)})
+            for src in ('stubs', 'proxy'):        # an older stand-in exe's handler; the d3d8shot proxy's (any exe)
+                standing.append({'source': src, 'pattern': re.compile('^CRASH:'), 'line': '(always)',
+                                 'watch': ev.watch(src, re.compile('^CRASH:'), start_line)})
             note(f'scenario {sc["name"]}' + ('' if first else ' (own steps only: the session is in the world)'))
             ev.add('e2e', f'scenario {sc["name"]}')
 
@@ -1225,9 +1231,7 @@ class Session:
             if crash and self.inst.map and os.path.exists(self.inst.map):
                 import symbolize
                 syms = symbolize.load(self.inst.map)
-                a0 = re.findall(r'\b([0-9A-F]{8})\b', crash[0])
-                res['crash_at'] = [f'{int(x, 16):08X} {symbolize.name_of(syms, int(x, 16))}' for x in a0[1:2] + a0[3:7]
-                                   if 0x401000 <= int(x, 16) < 0x1000000]
+                res['crash_at'] = [f'{v:08X} {symbolize.name_of(syms, v)}' for v in symbolize.crash_addrs(crash[0])[:5]]
             note(f'result: {json.dumps(res)}')
             with open(os.path.join(self.out, f'result-{sc["name"]}.json'), 'w', encoding='utf-8') as f:
                 json.dump(res, f, indent=1)

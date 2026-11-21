@@ -64,7 +64,8 @@ never a screen grab, D69) through the d3d8shot proxy (build/d3d8shot/d3d8.dll, b
 runs load the system's d3d8.dll. The frames go to .work/poc/shots/<HHMMSS>/frame_NNNNN.png (converted
 by bmp2png.py, the .bmp deleted) with the proxy's d3d8shot.log (the Present count, the files opened).
 
-The digest: the first lines of _except.txt; and when the exe wrote a stubs.log (the stand-in builds before the one
+The digest: the d3d8shot proxy's first-chance CRASH: / CRASH regs: lines (the shot folder's d3d8shot.log; the first
+CRASH: line's addresses named from client.map), the first lines of _except.txt; and when the exe wrote a stubs.log (the stand-in builds before the one
 client build did; the client writes none), its lines in order, repeats folded ("x12"), each CRASH: line with its
 addresses named from client.map (tools/harness/symbolize.py). Nothing is run against a server (antprox stays off: it writes the registry).
 
@@ -322,13 +323,16 @@ def descendants(pid):
     return found
 
 
-def digest(inst=None):
+def digest(inst=None, out=None):
+    """stubs.log (an older stand-in exe's), the d3d8shot proxy's CRASH: lines (OUT/d3d8shot.log: first chance,
+    the first named from the map) and _except.txt."""
     inst = inst or Inst()
     LOG, MAP, EXCEPT = inst.log, inst.map, inst.exc
+    syms = symbolize.load(MAP) if os.path.exists(MAP) else []
+    proxy_crashes(os.path.join(out, 'd3d8shot.log') if out else None, syms)
     if not os.path.exists(LOG):
         print_except(EXCEPT)
         return
-    syms = symbolize.load(MAP) if os.path.exists(MAP) else []
     lines = [l.rstrip('\n') for l in open(LOG, encoding='latin1')]
     out, last, count = [], None, 0
     for line in lines + [None]:
@@ -343,12 +347,26 @@ def digest(inst=None):
         print(line)
         if line.startswith('CRASH:') and syms and not named:     # the first: later ones come from the report's own probing
             named = True
-            addrs = re.findall(r'\b([0-9A-F]{8})\b', line)
-            for a in addrs[1:2] + addrs[3:13]:
-                v = int(a, 16)
-                if 0x401000 <= v < 0x1000000:
-                    print(f'    {v:08X} {symbolize.name_of(syms, v)}')
+            for v in symbolize.crash_addrs(line)[:11]:
+                print(f'    {v:08X} {symbolize.name_of(syms, v)}')
     print_except(EXCEPT)
+
+
+def proxy_crashes(log, syms):
+    """The d3d8shot proxy's CRASH: / CRASH regs: lines (d3d8shot.c Safe_Crash_Log, first chance: a fault the client
+    then handles itself shows too); the first CRASH: line's addresses named from the map."""
+    if not log or not os.path.exists(log):
+        return
+    named = False
+    for line in open(log, encoding='latin1'):
+        text = symbolize.crash_line(line) or (line.split(None, 1)[1].rstrip() if ' CRASH regs:' in line else None)
+        if not text:
+            continue
+        print('d3d8shot.log:', text[:300])
+        if text.startswith('CRASH:') and syms and not named:
+            named = True
+            for v in symbolize.crash_addrs(text)[:11]:
+                print(f'    {v:08X} {symbolize.name_of(syms, v)}')
 
 
 def print_except(path):
@@ -547,7 +565,7 @@ def run(seconds, fullscreen, args, shots=None, steps=None, inst=None, messages=F
         if proxy and os.path.exists(proxy):
             os.remove(proxy)
         stop_listener(listener, inst, out if messages else None)
-    digest(inst)
+    digest(inst, out)
     if shots:
         convert_shots(out)
 
@@ -662,7 +680,7 @@ def replay(seconds, shots, steps, inst, messages=False, args=()):
         if os.path.exists(proxy):
             os.remove(proxy)
         stop_listener(listener, inst, out if messages else None)
-    digest(inst)
+    digest(inst, out)
     if shots:
         convert_shots(out)
     exit_report(os.path.join(out, 'antprox.out'), last_input, killed)

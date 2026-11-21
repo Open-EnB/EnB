@@ -9,7 +9,7 @@ path (vc6._alias_setup: E:\\build\\beta\\G is the repository, so __FILE__ is the
 runs `msdev main.dsw /MAKE "<project> - Win32 client_release"`, which builds the project's
 dependencies first. Its output (the .plg build logs and msdev's console) lands in DIR/<project>/.
 --project main (the default, dsp.CLIENT_PROJECT) is the client: the IDE's build of the one client build
-(build.py's `link --program client`), one link, no stand-in; its client.exe and main.map are fetched into
+(build.py's `link --program client`), one link, no stand-in; its client.exe and client.map are fetched into
 DIR/main/.
 
 The outputs stay in the VM's tree (each project's client_release\\ folder) until fetched: the exe
@@ -148,7 +148,7 @@ def make(project, rebuild=False, out=DEFAULT_OUT):
     rc, text = run_make(project, rebuild, out)
     if project == dsp.CLIENT_PROJECT:
         fetch([f'{dsp.MAIN_DIR}/{dsp.CONFIG}/client.exe'.replace(BS, '/'),
-               f'{dsp.MAIN_DIR}/{dsp.CONFIG}/main.map'.replace(BS, '/')], os.path.join(out, dsp.CLIENT_PROJECT))
+               f'{dsp.MAIN_DIR}/{dsp.CONFIG}/client.map'.replace(BS, '/')], os.path.join(out, dsp.CLIENT_PROJECT))
     return rc, text
 
 

@@ -13,14 +13,14 @@ key 0x59
 wait-quiet proxy 0.7 within 15
 # U: [Missions]
 key 0x55
-expect-event stubs 'ui_missn\.cpp'
+expect-event msg 'ui_missn\.cpp'
 wait-quiet proxy 1.0 within 15
 shot pda_missions
 key 0x55
 wait-quiet proxy 0.7 within 15
 # I: [Equipment]
 key 0x49
-expect-event stubs 'ui_pda_equip\.cpp'
+expect-event msg 'ui_pda_equip\.cpp'
 wait-quiet proxy 1.0 within 15
 shot pda_equipment
 key 0x49
