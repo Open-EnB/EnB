@@ -405,11 +405,16 @@ UnknownB013ECEnum Bit_Flag_To_Mode(ManufacturingModeBitFlag flag)
 	return((UnknownB013ECEnum)MODE_NONE);
 }
 
-// NOT EXACT: the failed lookup's path destroys the list's strings through the inlined _Tidy(true), the client's through ??_G(0) (inline budget, D89)
+inline ManufacturingModeBitFlag &operator|=(ManufacturingModeBitFlag &value, unsigned int bits) // NAME 2 [value, bits]: accumulated flag bits
+{
+	value = (ManufacturingModeBitFlag)(value | bits);
+	return(value);
+}
+
 // 0x845AA0
 bool String_To_Value(const char *text, ManufacturingModeBitFlag *value)
 {
-	unsigned int flags = 0;
+	ManufacturingModeBitFlag flags = MODE_FLAG_NONE;
 	std::vector<std::string> list;
 	String_Tokenize(text, "|", list);
 	if (list.size() == 0) return(false);
@@ -417,15 +422,10 @@ bool String_To_Value(const char *text, ManufacturingModeBitFlag *value)
 		UnknownB013ECEnum mode;
 		bool ok = String_To_Value(it->c_str(), &mode);
 
-
-
-
-
-
 		FAIL_IF(!ok) return(false);
 		flags |= Mode_To_Bit_Flag(mode);
 	}
-	*value = (ManufacturingModeBitFlag)flags;
+	*value = flags;
 	return(true);
 }
 
@@ -573,4 +573,8 @@ bool Is_Validity_Success(UnknownB01394Enum validity)
 **	  converters' mangled names are what aux_roots.h's KVPair views call.
 **	* Value_To_String(ManufacturingModeBitFlag) starts its bit loop at 8, as the client does (bits
 **	  1, 2 and 4 are never printed).
+**	* String_To_Value(ManufacturingModeBitFlag) matches with a typed accumulator and an inline operator|=,
+**	  as game_action_validity.cpp's converter uses. That inline layer produces the client's deleting-destructor
+**	  call on failed lookup. The unsigned operand follows the neighboring
+**	  converters; signed and enum operand forms also match, so the bytes alone do not settle the signature.
 */

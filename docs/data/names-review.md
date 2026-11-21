@@ -10,7 +10,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 226 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1970 |
-| 2 | describes what the code does | 4996 |
+| 2 | describes what the code does | 4997 |
 | 1 | neutral placeholder | 25170 |
 
 ## For review (score 3 and below)
@@ -28248,6 +28248,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Set_Name` | `app/common/lego_identifier.h:47` | what it does |
 | 2 | `std:` | `app/common/lego_identifier.h:61` | what it holds |
 | 2 | `Rest` | `app/common/lego_identifier.h:62` | what it holds |
+| 2 | `value, bits` | `app/common/manufacturing_defs.cpp:408` | accumulated flag bits |
 | 2 | `MODE_MANUFACTURE` | `app/common/manufacturing_defs.h:47` | the name table |
 | 2 | `MODE_ANALYZE` | `app/common/manufacturing_defs.h:48` | the name table |
 | 2 | `MODE_REFINE` | `app/common/manufacturing_defs.h:50` | the name table |
