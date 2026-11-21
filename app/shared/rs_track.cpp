@@ -504,7 +504,6 @@ RsTrackClass::~RsTrackClass()
 }
 
 // 0x460E80
-// NOT EXACT: shape (0.75): the client saves edi after the early returns; the last call loads UnknownC4 into ecx
 bool RsTrackClass::Unknown_1C8()
 {
 	RenderObjClass *robj = Peek_Render_Object();
@@ -524,12 +523,13 @@ bool RsTrackClass::Unknown_1C8()
 		if (UnknownC4 != NULL && UnknownC4->Get_Num_Anims() == 0 && (Unknown8C & 4) == 0) {
 			delete UnknownC4;
 			UnknownC4 = NULL;
+			robj->Set_Animation();
 		} else if (UnknownC4 != NULL && UnknownC4->Get_Num_Anims() > 0) {
 			UnknownC4->Normalize_Weights();
 			robj->Set_Animation(UnknownC4);
-			return(true);
+		} else {
+			robj->Set_Animation();
 		}
-		robj->Set_Animation();
 	}
 	return(true);
 }
@@ -1339,4 +1339,6 @@ void RsTrackClass::Unknown_462690()
 **	adjustor thunks).
 **	The asserts sit on the client's lines 191, 236, 290, 429, 876 (FAIL_IF), 1077, 1286 through the
 **	blank lines; 0x4604D0's body (line 236) is inlined in both constructors and in 0x4605E0.
+**	0x460E80 matches with separate default Set_Animation calls in the deletion and fallback branches,
+**	and a single final true return. This form gives the client's deferred edi save and virtual-call registers.
 */

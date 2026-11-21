@@ -1,0 +1,237 @@
+Claim #234. VC6 SP4 12.00.8804 under Wine.
+
+Baseline 188 exact, 3 unmatched, 1 short. Final 189 exact, 2 unmatched, 1 short.
+
+Successful form at 0x460E80 explicitly calls default Set_Animation in deletion and fallback branches, then returns true after the outer block.
+
+Both constructors remain unmatched. No header trial was retained.
+
+Initial gpt-6.1-sol pass, 32 physical forms
+
+Claim 234: gpt-6.1-sol bounded first pass, 2026-11-20
+
+Result: no exact gain. Tracked C++ and headers unchanged. Only tracked change is three
+appended attempts.csv records. No commit, push, PR, external post, SDK install or subagent.
+
+Toolchain: installed VC6 12.00.8804 SP4 under Wine compiled rs_track.cpp successfully.
+Existing headers suffice. Initial sandbox Wine bind failed; approved escalation succeeded.
+Baseline source: rs_track.baseline.cpp; baseline object: baseline/rs_track.obj.
+Full baseline/final selected trial matches: baseline-match.json/final-trial-match.json.
+Both: exact=188, none=3, short=1, total=192. Final selected unchanged-code trial n03.
+pairs-cmp.log: gained [], lost [], lost outright []. Snapshots are private snapshots
+of matcher exact-address sets, not authoritative importer/ledger records or full-app proof.
+
+Physical trial compiles: 32 (16 method first batch, eight constructor batch, eight method
+second batch), plus two baseline/speed-check compiles = 34 compiler invocations.
+Some are intentional controls or canonical duplicates; these are not 32 distinct outputs.
+
+0x460E80 first batch (sweep.py; m00-m15): unsigned elapsed, float seconds/elapsed,
+double elapsed, member-list pointer, multiplication orientation, implicit float conversion,
+each with/without final named combo pointer. All similarity 0.77; same residue as baseline.
+Second batch (method2.py; n00-n07): flat/combined/nested/else-if early returns, crossed
+with cached-bit early return rather than enclosing block. Best 0.77; others 0.64-0.68.
+Residual: client saves edi after early returns and frame-time stack stores, before fild;
+ours saves it in prologue. Client final Set_Animation loads combo into ecx, vtable into eax;
+ours loads combo into eax and vtable into edx. No code wins retained.
+
+0x45FDA0/0x45FFB0 constructor batch (ctor_sweep.py; c00-c07): while, nested
+conditions, continue filters, guarded do/while, explicit increment, flags local, ID local,
+and flags |= rather than assignment. Seven loop forms same 0.83; |= worsens 0.74/0.75.
+Residual ctor1: three vtable stores precede member +0xBC flag load in client; ours loads
+flag before them; client inlined assert compares eax with zero ebx, ours tests eax.
+Ctor2 likewise retains flag-store/Current ordering residue. No fresh lead justified a
+second constructor batch. Previous pointer/statement-order/flags-local attempts reviewed.
+
+Fastbuild: scratch fastbuild.py preserves app flags/defines/includes from project helpers,
+redirects compiler output to compile.log directly (no inherited pipes), uses timeout=45.
+The isolated toolchain Wine server was started with stdout/stderr DEVNULL and -p; compile
+returned in 0.6 seconds. Prefix /home/dev/Toolchains/enb-vc6-sp4/prefix was STOPPED with
+wineserver -k after batches. Installed wrapper unchanged.
+
+Untested leads for fresh review: evidence for missing genuine inline accessor/type layer
+around flags or time conversion; structural member initializer forms backed by class/source
+evidence. No new helper was invented, no shared header retype tried, no compiler flag sweep,
+no arbitrary dead read or volatile/asm/no-op padding. Source-neutral register local changes
+already canonicalize, so more scalar spellings alone are unlikely to help.
+
+
+sweep.py
+
+from pathlib import Path
+import sys, subprocess, json, os
+sys.path.insert(0, '/home/dev/Projects/EnB/.work/claim-231')
+from build import compile_file
+root=Path('/home/dev/Projects/EnB')
+work=root/'.work/claim-234'
+base=(work/'rs_track.baseline.cpp').read_text()
+start=base.index('bool RsTrackClass::Unknown_1C8()')
+end=base.index('// 0x460FF0',start)
+original=base[start:end]
+frame='RenderStateList.Unknown_45A870(this, (float)WW3D::Get_Frame_Time() * 0.001f);'
+frameforms=[frame,
+'unsigned int elapsed = WW3D::Get_Frame_Time(); RenderStateList.Unknown_45A870(this, (float)elapsed * 0.001f);',
+'float seconds = (float)WW3D::Get_Frame_Time() * 0.001f; RenderStateList.Unknown_45A870(this, seconds);',
+'RenderStateListClass *states = &RenderStateList; states->Unknown_45A870(this, (float)WW3D::Get_Frame_Time() * 0.001f);',
+'float elapsed = (float)WW3D::Get_Frame_Time(); RenderStateList.Unknown_45A870(this, elapsed * 0.001f);',
+'RenderStateList.Unknown_45A870(this, 0.001f * (float)WW3D::Get_Frame_Time());',
+'double elapsed = WW3D::Get_Frame_Time(); RenderStateList.Unknown_45A870(this, (float)elapsed * 0.001f);',
+'const float seconds = WW3D::Get_Frame_Time() * 0.001f; RenderStateList.Unknown_45A870(this, seconds);']
+for i in range(16):
+    body=original.replace(frame,frameforms[i%8])
+    if i>=8:
+        body=body.replace('robj->Set_Animation(UnknownC4);','HAnimComboClass *combo = UnknownC4; robj->Set_Animation(combo);')
+    # Keep every later assertion on its original line.
+    text=base[:start]+body+base[end:]
+    target=work/f'm{i:02}'
+    target.mkdir(exist_ok=True)
+    src=target/'rs_track.cpp'
+    src.write_text(text)
+    obj=compile_file(src,target)
+    env=dict(os.environ,ENB_RETAIL_INSTALL='/home/dev/Games/earth-and-beyond/prefix/drive_c/Program Files (x86)/EA GAMES/Earth & Beyond')
+    result=subprocess.run(['/home/dev/Toolchains/enb-vc6-sp4/venv/bin/python','tools/re/objdiff.py',str(obj),'Unknown_1C8','0x460E80'],cwd=root,env=env,capture_output=True,text=True)
+    (target/'diff.txt').write_text(result.stdout+result.stderr)
+    print(i,result.stdout.splitlines()[-1],flush=True)
+
+
+method2.py
+
+from pathlib import Path
+import subprocess,os
+from fastbuild import compile_file
+root=Path('/home/dev/Projects/EnB'); work=root/'.work/claim-234'
+base=(work/'rs_track.baseline.cpp').read_text(); start=base.index('bool RsTrackClass::Unknown_1C8()'); end=base.index('// 0x460FF0',start); original=base[start:end]
+old='''if (robj == NULL) {
+		return(false);
+	}
+	if (robj->Is_Hidden()) {
+		return(false);
+	}'''
+early=[old,
+'if (robj == NULL || robj->Is_Hidden()) { return(false); }',
+'if (robj != NULL) { if (robj->Is_Hidden()) return(false); } else { return(false); }',
+'if (robj == NULL) return(false); else if (robj->Is_Hidden()) return(false);']
+for i in range(8):
+    body=original.replace(old,early[i%4])
+    if i>=4:
+        body=body.replace('if ((Unknown8C & 2) == 0) {','if ((Unknown8C & 2) != 0) return(true); {')
+    body += '\n'*(original.count('\n')-body.count('\n'))
+    target=work/f'n{i:02}'; target.mkdir(exist_ok=True); src=target/'rs_track.cpp'; src.write_text(base[:start]+body+base[end:]); obj=compile_file(src,target)
+    env=dict(os.environ,ENB_RETAIL_INSTALL='/home/dev/Games/earth-and-beyond/prefix/drive_c/Program Files (x86)/EA GAMES/Earth & Beyond')
+    r=subprocess.run(['/home/dev/Toolchains/enb-vc6-sp4/venv/bin/python','tools/re/objdiff.py',str(obj),'Unknown_1C8','0x460E80'],cwd=root,env=env,capture_output=True,text=True)
+    (target/'diff.txt').write_text(r.stdout+r.stderr); print(i,r.stdout.splitlines()[-1],flush=True)
+
+
+ctor_sweep.py
+
+from pathlib import Path
+import sys, subprocess, os
+sys.path.insert(0, '/home/dev/Projects/EnB/.work/claim-231')
+from fastbuild import compile_file
+root=Path('/home/dev/Projects/EnB'); work=root/'.work/claim-234'
+base=(work/'rs_track.baseline.cpp').read_text()
+loop='''for (RenderStateClass *state = list->Head; state != NULL; state = state->Next) {
+		if (state->Unknown_Flag16() && state->ID != -1) {
+			Unknown_4604D0(state->ID);
+		}
+	}'''
+forms=[
+'''RenderStateClass *state = list->Head; while (state != NULL) { if (state->Unknown_Flag16() && state->ID != -1) { Unknown_4604D0(state->ID); } state = state->Next; }''',
+'''for (RenderStateClass *state = list->Head; state; state = state->Next) { if (state->Unknown_Flag16()) { if (state->ID != -1) { Unknown_4604D0(state->ID); } } }''',
+'''for (RenderStateClass *state = list->Head; state; state = state->Next) { if (!state->Unknown_Flag16()) continue; if (state->ID == -1) continue; Unknown_4604D0(state->ID); }''',
+'''RenderStateClass *state = list->Head; if (state != NULL) { do { if (state->Unknown_Flag16() && state->ID != -1) { Unknown_4604D0(state->ID); } state = state->Next; } while (state != NULL); }''',
+'''for (RenderStateClass *state = list->Head; state != NULL; ) { if (state->Unknown_Flag16() && state->ID != -1) { Unknown_4604D0(state->ID); } state = state->Next; }''',
+'''for (RenderStateClass *state = list->Head; state != NULL; state = state->Next) { unsigned int flags = state->Unknown_Flag16(); if (flags && state->ID != -1) { Unknown_4604D0(state->ID); } }''',
+'''for (RenderStateClass *state = list->Head; state != NULL; state = state->Next) { if (state->Unknown_Flag16()) { int id = state->ID; if (id != -1) { Unknown_4604D0(id); } } }''',
+loop]
+for i,form in enumerate(forms):
+    form += '\n'*(loop.count('\n')-form.count('\n'))
+    text=base.replace(loop,form)
+    if i==7: text=text.replace('Unknown8C = RenderStateList.Unknown2C;', 'Unknown8C |= RenderStateList.Unknown2C;')
+    target=work/f'c{i:02}'; target.mkdir(exist_ok=True)
+    src=target/'rs_track.cpp'; src.write_text(text)
+    obj=compile_file(src,target)
+    env=dict(os.environ,ENB_RETAIL_INSTALL='/home/dev/Games/earth-and-beyond/prefix/drive_c/Program Files (x86)/EA GAMES/Earth & Beyond')
+    results=[]
+    for n,addr in enumerate(['0x45FDA0','0x45FFB0']):
+        r=subprocess.run(['/home/dev/Toolchains/enb-vc6-sp4/venv/bin/python','tools/re/objdiff.py',str(obj),'??0RsTrackClass',addr,'--n',str(n)],cwd=root,env=env,capture_output=True,text=True)
+        (target/f'diff{n}.txt').write_text(r.stdout+r.stderr)
+        results.append(r.stdout.splitlines()[-1] if r.stdout else r.stderr[-120:])
+    print(i,results,flush=True)
+
+
+gpt-6.2-astra follow-up, 10 physical forms
+
+Three repeated-initialization factoring forms leave constructors unchanged. Four Peek_Render_Object forms test null guards and locals. The explicit null guard reproduces cmp eax,ebx but does not resolve store order.
+
+Three animation branch forms were tested. anim0 matches at 0x460E80. anim1 and anim2 do not.
+
+
+astra62/trials.py
+
+from pathlib import Path
+import os, subprocess, sys
+area = Path(__file__).resolve().parent
+sys.path.insert(0,str(area.parent))
+from fastbuild import compile_file
+root=area.parents[2]
+base=(area.parent/'rs_track.baseline.cpp').read_text()
+hdr=(root/'app/shared/rs_track.h').read_text()
+env=dict(os.environ, ENB_RETAIL_INSTALL='/home/dev/Games/earth-and-beyond/prefix/drive_c/Program Files (x86)/EA GAMES/Earth & Beyond')
+def run(label,code,header,targets):
+    out=area/label
+    out.mkdir(exist_ok=True)
+    (out/'rs_track.h').write_text(header)
+    src=out/'rs_track.cpp'
+    src.write_text(code)
+    obj=compile_file(src,out)
+    for key,symbol,addr,extra in targets:
+        cmd=['/home/dev/Toolchains/enb-vc6-sp4/venv/bin/python','tools/re/objdiff.py',str(obj),symbol,addr]+extra
+        result=subprocess.run(cmd,cwd=root,env=env,text=True,capture_output=True,check=True)
+        (out/(key+'.txt')).write_text(result.stdout)
+        print(label,key,result.stdout.splitlines()[-1],flush=True)
+ctors=[(str(i),'??0RsTrackClass',a,['--n',str(i)]) for i,a in enumerate(['0x45FDA0','0x45FFB0'])]
+method=[('diff','Unknown_1C8','0x460E80',[])]
+begin=base.index('Unknown8C = RenderStateList.Unknown2C;')
+end=base.index('\n}',begin)
+block=base[begin:end]
+loop=block[block.index('for ('):]
+for label,fragment,params,args in [('all',block,'RenderStateListClass *list','list'),('loop',loop,'RenderStateListClass *list','list'),('fields',block[:block.index('for (')].strip(),'','')]:
+    header=hdr.replace('RsTrackClass(RenderStateListClass *list);','void Init_States('+params+'); RsTrackClass(RenderStateListClass *list);')
+    helper='inline void RsTrackClass::Init_States('+params+') { '+fragment+' }'
+    code=base.replace(fragment,'Init_States('+args+');'+'\n'*fragment.count('\n')).replace('// 0x45FDA0',helper+'\n#line 10\n// 0x45FDA0',1)
+    run(label,code,header,ctors)
+a=base.index('if (UnknownC4 != NULL && UnknownC4->Get_Num_Anims() == 0')
+b=base.index('\n\t}',a)
+orig=base[a:b]
+delete,after=orig.split(' else if ')
+pos=after[:after.index('\n\t\t\treturn(true);')]
+for i,(separate,early) in enumerate([(False,False),(True,True),(True,False)]):
+    if separate:
+        # Deletion clears the pointer, so the positive-count branch remains exclusive.
+        start=delete+'\n\t\tif '
+    else:
+        start=delete+' else if '
+    if early:
+        form=start+after
+    else:
+        form=start+pos+'\n\t\t} else { robj->Set_Animation(); }'
+        if not separate:
+            form=form.replace('UnknownC4 = NULL;', 'UnknownC4 = NULL; robj->Set_Animation();')
+    code=base[:a]+form+'\n#line '+str(base[:b].count('\n')+1)+'\n'+base[b:]
+    run('anim'+str(i),code,hdr,method)
+
+
+astra62/accessor.py
+
+from pathlib import Path
+src=Path(__file__).with_name('trials.py')
+exec(src.read_text().split('begin=base.index')[0])
+old='return(RenderStateList.Current == NULL ? NULL : RenderStateList.Current->Peek_Render_Object());'
+forms=[
+    'if (RenderStateList.Current) return RenderStateList.Current->Peek_Render_Object(); return NULL;',
+    'if (!RenderStateList.Current) return NULL; return RenderStateList.Current->Peek_Render_Object();',
+    'RenderObjClass *obj = NULL; if (RenderStateList.Current) obj = RenderStateList.Current->Peek_Render_Object(); return obj;',
+    'RenderStateClass *current = RenderStateList.Current; return current ? current->Peek_Render_Object() : NULL;'
+]
+for i,form in enumerate(forms):
+    run('peek'+str(i),base,hdr.replace(old,form),ctors)

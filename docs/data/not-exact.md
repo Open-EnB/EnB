@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-700 entries in 270 files.
+699 entries in 270 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -658,7 +658,6 @@ edit the comments in the code, not this file.
 | `app/shared/rs_list.cpp:866` | `RenderStateListClass::Unknown_04` | mention | NOT EXACT (functional, D64): 0x45AB20 (the float DURATION's store is scheduled before the next push in the client), 0x45AD90 (register allocation: the client keeps 0 in ebp from the start, one more local), 0x45B550 (the SHADER switch: the client's jump table starts at 0 with case 0 on the default's code; ours subtracts 1). |
 | `app/shared/rs_track.cpp:11` | `RsTrackClass::RsTrackClass` | marker | NOT EXACT: shape (0.82): the client stores the vtables before loading RenderStateList's +0x2C byte and compares the inlined assert's pointer with ebx |
 | `app/shared/rs_track.cpp:34` | `RsTrackClass::RsTrackClass` | marker | NOT EXACT: shape (0.83): as 0x45FDA0 |
-| `app/shared/rs_track.cpp:507` | `RsTrackClass::Unknown_1C8` | marker | NOT EXACT: shape (0.75): the client saves edi after the early returns; the last call loads UnknownC4 into ecx |
 | `app/shared/split_string.cpp:28` | `SplitStringClass::Split` | marker | NOT EXACT: inline-budget: the client calls the pad lines' std::string("") assign(const char *, n) out of line, ours inlines it; then stack slots (3 forms) |
 | `app/shared/spln_db.cpp:95` | `SplineDatabaseClass::Save` | marker | NOT EXACT: shape (the filename copy and the save chunks: the client inlines Save_Chunks with Write_String and Save_Entry out of line) @0x484D00 |
 | `app/shared/spln_db.cpp:487` | `SplineDatabaseClass::Get_Color_Curves` | marker | NOT EXACT: inline-budget (the client calls HashListClass::Find out of line for _G only) |
