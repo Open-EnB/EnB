@@ -103,7 +103,7 @@ public:
 	void Unknown_6CCE60();													// 0x6CCE60: Update_Text's step after the timers  // NAME 1 [Unknown_6CCE60]: neutral (D10)
 	void Unknown_6CDAB0(FontEffectStruct *effect);						// 0x6CDAB0: an EffectOn effect's starting state (ROTATE, FADE, RANDLETTER, SCROLL, SCALE; Change_Text)  // NAME 1 [Unknown_6CDAB0]: neutral (D10)
 	void Unknown_6CA0C0(FontEffectStruct *effect);						// 0x6CA0C0 (unknown_6ca0c0.cpp): one step of one effect (Update_Text's only callee for them)  // NAME 1 [Unknown_6CA0C0]: neutral (D10)
-	void Unknown_6D5B10(float &width, float &height);					// 0x6D5B10 (unknown_6ca0c0.cpp): the text rectangle (+0x420) in 640 x 480 screen units  // NAME 1 [Unknown_6D5B10]: neutral (D10)
+	void Unknown_6D5B10(float &width, float &height);					// 0x6D5B10: the text rectangle (+0x420) in 640 x 480 screen units  // NAME 1 [Unknown_6D5B10]: neutral (D10)
 	void Unknown_6CE4E0(int font_index);								// 0x6CE4E0: the font set to Info.FontType[font_index] (clamped to 0..1) and the text rebuilt (SWITCH / REVERT; not yet reconstructed)  // NAME 1 [Unknown_6CE4E0, font_index]: neutral (D10)
 	void __cdecl Unknown_6CE420(int unknown, const char *format, ...);	// 0x6CE420: the text from a format (ui_missn.cpp's 0x5C5AC0 passes 0, ui_line_display.cpp's slot +0x60 2)  // NAME 1 [Unknown_6CE420, unknown, format]: neutral (D10)
 

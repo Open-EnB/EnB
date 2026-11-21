@@ -227,6 +227,13 @@ void FontSys::Unknown_6D5A80(float &width, float &height)
 	height *= Scale;
 }
 
+// 0x6D5B10: the text rectangle in 640 x 480 units (0x6D5A80 without Scale)
+void FontSys::Unknown_6D5B10(float &width, float &height)
+{
+	width = (640.0f / (float)Width) * (float)(Unknown420[1] - Unknown420[0]);
+	height = (480.0f / (float)Height) * (float)(Unknown420[3] - Unknown420[2]);
+}
+
 // 0x6D5B90
 void FontSys::Get_Obj_Space_Bounding_Sphere(SphereClass &sphere) const
 {
@@ -698,13 +705,6 @@ void FontSys::Update_Text(int unknown)
 		}
 	}
 }
-
-
-
-
-
-
-
 
 
 
