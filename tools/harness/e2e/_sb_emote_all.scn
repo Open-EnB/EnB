@@ -1,0 +1,237 @@
+# Live, named only: every item of the chat panel's Emote tab in a starbase (the avatar's 33, ui_chat_panel.cpp's
+# 0xB7C398 for a male avatar), each an AVATAR_EMOTE and the server's AVATAR_EMOTE_RESPONSE; compare the animations
+# each loads (d3d8shot.log's ABANIM lines) between retail and ours.
+name: starbase: every avatar emote from the Emote tab
+timeout: 600
+include _sb_home
+# Agree
+click gadget chat.tab.emote
+alive 0.5
+click 720,68
+expect-event antprox 'received AVATAR_EMOTE$' within 10
+expect-event antprox 'sent AVATAR_EMOTE_RESPONSE' within 10
+alive 4
+# Bored
+click gadget chat.tab.emote
+alive 0.5
+click 720,91
+expect-event antprox 'received AVATAR_EMOTE$' within 10
+expect-event antprox 'sent AVATAR_EMOTE_RESPONSE' within 10
+alive 4
+# Bow
+click gadget chat.tab.emote
+alive 0.5
+click 720,115
+expect-event antprox 'received AVATAR_EMOTE$' within 10
+expect-event antprox 'sent AVATAR_EMOTE_RESPONSE' within 10
+alive 4
+# Celebrate
+click gadget chat.tab.emote
+alive 0.5
+click 720,138
+expect-event antprox 'received AVATAR_EMOTE$' within 10
+expect-event antprox 'sent AVATAR_EMOTE_RESPONSE' within 10
+alive 4
+# Chuckle
+click gadget chat.tab.emote
+alive 0.5
+click 720,162
+expect-event antprox 'received AVATAR_EMOTE$' within 10
+expect-event antprox 'sent AVATAR_EMOTE_RESPONSE' within 10
+alive 4
+# Clap
+click gadget chat.tab.emote
+alive 0.5
+click 720,185
+expect-event antprox 'received AVATAR_EMOTE$' within 10
+expect-event antprox 'sent AVATAR_EMOTE_RESPONSE' within 10
+alive 4
+# Crash
+click gadget chat.tab.emote
+alive 0.5
+click 720,208
+expect-event antprox 'received AVATAR_EMOTE$' within 10
+expect-event antprox 'sent AVATAR_EMOTE_RESPONSE' within 10
+alive 4
+# Crazy
+click gadget chat.tab.emote
+alive 0.5
+click 720,232
+expect-event antprox 'received AVATAR_EMOTE$' within 10
+expect-event antprox 'sent AVATAR_EMOTE_RESPONSE' within 10
+alive 4
+# Give
+click gadget chat.tab.emote
+alive 0.5
+click 720,255
+expect-event antprox 'received AVATAR_EMOTE$' within 10
+expect-event antprox 'sent AVATAR_EMOTE_RESPONSE' within 10
+alive 4
+# No
+click gadget chat.tab.emote
+alive 0.5
+click 720,279
+expect-event antprox 'received AVATAR_EMOTE$' within 10
+expect-event antprox 'sent AVATAR_EMOTE_RESPONSE' within 10
+alive 4
+# No Way!
+click gadget chat.tab.emote
+alive 0.5
+click 720,302
+expect-event antprox 'received AVATAR_EMOTE$' within 10
+expect-event antprox 'sent AVATAR_EMOTE_RESPONSE' within 10
+alive 4
+# Point
+click gadget chat.tab.emote
+alive 0.5
+click 720,325
+expect-event antprox 'received AVATAR_EMOTE$' within 10
+expect-event antprox 'sent AVATAR_EMOTE_RESPONSE' within 10
+alive 4
+# Rude
+click gadget chat.tab.emote
+alive 0.5
+click 720,349
+expect-event antprox 'received AVATAR_EMOTE$' within 10
+expect-event antprox 'sent AVATAR_EMOTE_RESPONSE' within 10
+alive 4
+# Shocked
+click gadget chat.tab.emote
+alive 0.5
+click 720,372
+expect-event antprox 'received AVATAR_EMOTE$' within 10
+expect-event antprox 'sent AVATAR_EMOTE_RESPONSE' within 10
+alive 4
+# Shoot
+click gadget chat.tab.emote
+alive 0.5
+click 720,396
+expect-event antprox 'received AVATAR_EMOTE$' within 10
+expect-event antprox 'sent AVATAR_EMOTE_RESPONSE' within 10
+alive 4
+# Shrug
+click gadget chat.tab.emote
+alive 0.5
+click 720,419
+expect-event antprox 'received AVATAR_EMOTE$' within 10
+expect-event antprox 'sent AVATAR_EMOTE_RESPONSE' within 10
+alive 4
+# Sick
+click gadget chat.tab.emote
+alive 0.5
+click 720,442
+expect-event antprox 'received AVATAR_EMOTE$' within 10
+expect-event antprox 'sent AVATAR_EMOTE_RESPONSE' within 10
+alive 4
+# Sleep
+click gadget chat.tab.emote
+alive 0.5
+click 720,466
+expect-event antprox 'received AVATAR_EMOTE$' within 10
+expect-event antprox 'sent AVATAR_EMOTE_RESPONSE' within 10
+alive 4
+# Smash
+click gadget chat.tab.emote
+alive 0.5
+click 720,489
+expect-event antprox 'received AVATAR_EMOTE$' within 10
+expect-event antprox 'sent AVATAR_EMOTE_RESPONSE' within 10
+alive 4
+# Take
+click gadget chat.tab.emote
+alive 0.5
+click 720,513
+expect-event antprox 'received AVATAR_EMOTE$' within 10
+expect-event antprox 'sent AVATAR_EMOTE_RESPONSE' within 10
+alive 4
+# Threaten
+click gadget chat.tab.emote
+alive 0.5
+click 720,536
+expect-event antprox 'received AVATAR_EMOTE$' within 10
+expect-event antprox 'sent AVATAR_EMOTE_RESPONSE' within 10
+alive 4
+# Thumbs
+click gadget chat.tab.emote
+alive 0.5
+click 720,559
+expect-event antprox 'received AVATAR_EMOTE$' within 10
+expect-event antprox 'sent AVATAR_EMOTE_RESPONSE' within 10
+alive 4
+# Wave
+click gadget chat.tab.emote
+alive 0.5
+click 720,583
+expect-event antprox 'received AVATAR_EMOTE$' within 10
+expect-event antprox 'sent AVATAR_EMOTE_RESPONSE' within 10
+alive 4
+# Mime
+click gadget chat.tab.emote
+alive 0.5
+click 720,606
+expect-event antprox 'received AVATAR_EMOTE$' within 10
+expect-event antprox 'sent AVATAR_EMOTE_RESPONSE' within 10
+alive 4
+# Disco
+click gadget chat.tab.emote
+alive 0.5
+click 720,630
+expect-event antprox 'received AVATAR_EMOTE$' within 10
+expect-event antprox 'sent AVATAR_EMOTE_RESPONSE' within 10
+alive 4
+# Robot
+click gadget chat.tab.emote
+alive 0.5
+click 720,653
+expect-event antprox 'received AVATAR_EMOTE$' within 10
+expect-event antprox 'sent AVATAR_EMOTE_RESPONSE' within 10
+alive 4
+# Drunk
+click gadget chat.tab.emote
+alive 0.5
+click 720,676
+expect-event antprox 'received AVATAR_EMOTE$' within 10
+expect-event antprox 'sent AVATAR_EMOTE_RESPONSE' within 10
+alive 4
+# Drink
+click gadget chat.tab.emote
+alive 0.5
+click 720,700
+expect-event antprox 'received AVATAR_EMOTE$' within 10
+expect-event antprox 'sent AVATAR_EMOTE_RESPONSE' within 10
+alive 4
+# Sneak
+click gadget chat.tab.emote
+alive 0.5
+click 720,723
+expect-event antprox 'received AVATAR_EMOTE$' within 10
+expect-event antprox 'sent AVATAR_EMOTE_RESPONSE' within 10
+alive 4
+# Salute
+click gadget chat.tab.emote
+alive 0.5
+click 720,747
+expect-event antprox 'received AVATAR_EMOTE$' within 10
+expect-event antprox 'sent AVATAR_EMOTE_RESPONSE' within 10
+alive 4
+# Doh
+click gadget chat.tab.emote
+alive 0.5
+click 720,770
+expect-event antprox 'received AVATAR_EMOTE$' within 10
+expect-event antprox 'sent AVATAR_EMOTE_RESPONSE' within 10
+alive 4
+# Judo
+click gadget chat.tab.emote
+alive 0.5
+click 720,793
+expect-event antprox 'received AVATAR_EMOTE$' within 10
+expect-event antprox 'sent AVATAR_EMOTE_RESPONSE' within 10
+alive 4
+# Moonwalk
+click gadget chat.tab.emote
+alive 0.5
+click 720,817
+expect-event antprox 'received AVATAR_EMOTE$' within 10
+expect-event antprox 'sent AVATAR_EMOTE_RESPONSE' within 10
+alive 4
