@@ -1,0 +1,31 @@
+from pathlib import Path
+import sys,subprocess,os,json,shutil
+sys.path.insert(0,'/home/dev/Projects/EnB/.work/claim-234')
+from fastbuild import compile_file
+root=Path('/home/dev/Projects/EnB'); out=root/'.work/claim-240/speech/personality'
+base=(root/'app/client/unknown_personality.cpp').read_text(); hdr=(root/'app/client/unknown_personality.h').read_text()
+env=os.environ.copy(); env['ENB_RETAIL_INSTALL']='/home/dev/Games/earth-and-beyond/prefix/drive_c/Program Files (x86)/EA GAMES/Earth & Beyond'
+variants={
+'ctor_out':(True,False),
+'reload_else':(False,True),
+'both':(True,True),
+'ctor_after':(True,False),
+'inline_dtor':(False,False),
+'inline_reload':(False,True),
+}
+for name,(ctor,reload) in variants.items():
+    work=out/name; work.mkdir(parents=True,exist_ok=True); src=base; h=hdr
+    if ctor:
+        h=h.replace('Unknown_78F700Class() { Moods = NULL; Name = NULL; BAnims = NULL; }','Unknown_78F700Class();')
+        definition='Unknown_78F700Class::Unknown_78F700Class() { Moods = NULL; Name = NULL; BAnims = NULL; }\n\n'
+        if name == 'ctor_after': src += '\n'+definition
+        else: src=src.replace('// 0x78F850',definition+'// 0x78F850',1)
+    if reload:
+        src=src.replace('Data = new Unknown_78F700Class;','if (Data == NULL) { Data = new Unknown_78F700Class; } else { Data->Unknown_78F9F0(); }')
+    if name.startswith('inline_'):
+        src=src.replace('Unknown_78F700Class::~Unknown_78F700Class()','inline Unknown_78F700Class::~Unknown_78F700Class()',1)
+    (work/'unknown_personality.h').write_text(h); source=work/'unknown_personality.cpp'; source.write_text(src)
+    try: obj=compile_file(source,work)
+    except Exception as e: (work/'error.txt').write_text(str(e)); continue
+    with (work/'match.log').open('w') as log:
+        subprocess.run(['/home/dev/Toolchains/enb-vc6-sp4/venv/bin/python',str(root/'tools/re/objmatch.py'),str(obj),'-q','--json',str(work/'match.json')],env=env,stdout=log,stderr=log,check=True)

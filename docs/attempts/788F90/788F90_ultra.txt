@@ -1,0 +1,87 @@
+# Claim 240 Terra ultra; frozen source baseline 43ff4e7b.
+# All successful candidate objects received full native objmatch.
+# No candidate became exact; these source forms were not integrated.
+# Source-form counts exclude repeated verification runs.
+# Ultra: residue 55 (baseline182); raw objdiff similarity0.70. Actual 788EF0 cleanup layer makes initial RefCountPtr calls and matrix sequence agree; all five source forms fully matched, each preserves257 exact pairs, no gains/losses. Create_NEW at four object factories changes relocation, not target bytes. Remaining case4 assignments inline in ours, called in client. Three common-loader parameter shapes stay out of line at outer sites and worsen residue to436/436/439. No new target exact; best source stashed for focused review, no further supported layer.
+
+# Source specification: avatar/run.py
+from pathlib import Path
+import os, sys, subprocess, json, hashlib
+root=Path('/home/dev/Projects/EnB'); snap=root/'.work/claim-240/round3/baseline-tree'; work=root/'.work/claim-240/round3/avatar'
+sys.path.insert(0,str(root/'.work/claim-234')); import fastbuild,appfile
+dirs=appfile.candidate_dirs
+appfile.candidate_dirs=lambda:[snap/'app/client']+[snap/Path(p).relative_to(root) if str(p).startswith(str(root)+'/') else p for p in dirs()]
+src=(snap/'app/client/avatar.cpp').read_text()
+start=src.index('void CharacterViewAvatarClass::Unknown_788F90(int mode)'); stop=src.index('\n}',start)+2
+fn=src[start:stop]
+a=fn.index('\tif (Unknown370) {'); b=fn.index('\tUnknown380 = mode;',a)
+old=fn[a:b]; replacement='\tUnknown_788EF0();\n'+'\n'*(old.count('\n')-1)
+assert old.count('\n')==replacement.count('\n')
+variant=src[:start]+fn[:a]+replacement+fn[b:]+src[stop:]
+env=os.environ.copy(); env['ENB_RETAIL_INSTALL']='/home/dev/Games/earth-and-beyond/prefix/drive_c/Program Files (x86)/EA GAMES/Earth & Beyond'
+for label,body in [('baseline',src),('helper',variant)]:
+ d=work/label; d.mkdir(exist_ok=True); path=d/'avatar.cpp'; path.write_text(body)
+ obj=fastbuild.compile_file(path,d)
+ with (d/'match.log').open('w') as log: subprocess.run(['/home/dev/Toolchains/enb-vc6-sp4/venv/bin/python',str(root/'tools/re/objmatch.py'),str(obj),'-q','--json',str(d/'match.json')],env=env,stdout=log,stderr=log,check=True)
+ print(label,'matched',flush=True)
+def pairs(p): return {(r['symbol'],a) for r in json.loads(p.read_text()) if r['status']=='exact' for a in r['addresses']}
+a=pairs(work/'baseline/match.json'); b=pairs(work/'helper/match.json')
+print('gains',sorted(b-a),'losses',sorted(a-b),flush=True)
+
+# Source specification: avatar/try_tele_new.py
+from pathlib import Path
+import os,sys,subprocess,json
+root=Path('/home/dev/Projects/EnB'); snap=root/'.work/claim-240/round3/baseline-tree'; work=root/'.work/claim-240/round3/avatar'
+sys.path.insert(0,str(root/'.work/claim-234')); import fastbuild,appfile
+dirs=appfile.candidate_dirs
+appfile.candidate_dirs=lambda:[snap/'app/client']+[snap/Path(p).relative_to(root) if str(p).startswith(str(root)+'/') else p for p in dirs()]
+src=(work/'helper/avatar.cpp').read_text(); start=src.index('void CharacterViewAvatarClass::Unknown_788F90(int mode)'); stop=src.index('\n}',start)+2
+old=src[start:stop]; needle='Unknown370 = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj('
+assert old.count(needle)==4
+new=old.replace(needle,'Unknown370 = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj(')
+src=src[:start]+new+src[stop:]
+d=work/'tele_new'; d.mkdir(exist_ok=True); p=d/'avatar.cpp'; p.write_text(src)
+obj=fastbuild.compile_file(p,d)
+env=os.environ.copy(); env['ENB_RETAIL_INSTALL']='/home/dev/Games/earth-and-beyond/prefix/drive_c/Program Files (x86)/EA GAMES/Earth & Beyond'
+with (d/'match.log').open('w') as log: subprocess.run(['/home/dev/Toolchains/enb-vc6-sp4/venv/bin/python',str(root/'tools/re/objmatch.py'),str(obj),'-q','--json',str(d/'match.json')],env=env,stdout=log,stderr=log,check=True)
+def pairs(p):return {(r['symbol'],a) for r in json.loads(p.read_text()) if r['status']=='exact' for a in r['addresses']}
+a=pairs(work/'baseline/match.json'); b=pairs(d/'match.json')
+print('gains',sorted(b-a),'losses',sorted(a-b),flush=True)
+
+# Source specification: avatar/try_tele_shared.py
+from pathlib import Path
+import os,sys,subprocess,json,difflib
+root=Path('/home/dev/Projects/EnB'); snap=root/'.work/claim-240/round3/baseline-tree'; work=root/'.work/claim-240/round3/avatar'
+sys.path.insert(0,str(root/'.work/claim-234')); import fastbuild,appfile
+dirs=appfile.candidate_dirs
+appfile.candidate_dirs=lambda:[snap/'app/client']+[snap/Path(p).relative_to(root) if str(p).startswith(str(root)+'/') else p for p in dirs()]
+src=(work/'tele_new/avatar.cpp').read_text(); base=(work/'baseline/avatar.cpp').read_text().splitlines(True)
+configs=[
+ ('refs','static void Load_Teleport_Assets(RefCountPtr<RenderObjClass> &object, RefCountPtr<HAnimClass> &anim, const char *object_name, const char *anim_name) { object = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj(object_name)); anim = Create_Get(WW3DAssetManager::Get_Instance()->Get_HAnim(anim_name)); }','Load_Teleport_Assets(Unknown370, Unknown374, "%s", "%s");'),
+ ('ptrs','static void Load_Teleport_Assets(RefCountPtr<RenderObjClass> *object, RefCountPtr<HAnimClass> *anim, const char *object_name, const char *anim_name) { *object = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj(object_name)); *anim = Create_Get(WW3DAssetManager::Get_Instance()->Get_HAnim(anim_name)); }','Load_Teleport_Assets(&Unknown370, &Unknown374, "%s", "%s");'),
+ ('names_first','static void Load_Teleport_Assets(const char *object_name, const char *anim_name, RefCountPtr<RenderObjClass> &object, RefCountPtr<HAnimClass> &anim) { object = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj(object_name)); anim = Create_Get(WW3DAssetManager::Get_Instance()->Get_HAnim(anim_name)); }','Load_Teleport_Assets("%s", "%s", Unknown370, Unknown374);'),
+]
+assets=[('av_tele01','av_tele01a.Av_tele01a-1'),('av_tele03','av_tele03a.Av_tele03a-1'),('av_tele02','av_tele02a.Av_tele02a-1'),('av_tele04','av_tele04a.Av_tele04a-1')]
+env=os.environ.copy(); env['ENB_RETAIL_INSTALL']='/home/dev/Games/earth-and-beyond/prefix/drive_c/Program Files (x86)/EA GAMES/Earth & Beyond'
+def pairs(p):return {(r['symbol'],a) for r in json.loads(p.read_text()) if r['status']=='exact' for a in r['addresses']}
+baseline=pairs(work/'baseline/match.json'); records=[]
+for name,helper,call in configs:
+ assert src.count('\n\n// 0x788F90')==1
+ variant=src.replace('\n\n// 0x788F90','\n'+helper+'\n// 0x788F90',1)
+ for obj,anim in assets:
+  original='Unknown370 = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("%s"));\n\t\t\tUnknown374 = Create_Get(WW3DAssetManager::Get_Instance()->Get_HAnim("%s"));'%(obj,anim)
+  assert variant.count(original)==1
+  variant=variant.replace(original,call%(obj,anim)+'\n',1)
+ origlines=[(i,l) for i,l in enumerate(src.splitlines(),1) if 'G_ASSERT' in l or 'FAIL_IF' in l]
+ newlines=[(i,l) for i,l in enumerate(variant.splitlines(),1) if 'G_ASSERT' in l or 'FAIL_IF' in l]
+ assert origlines==newlines
+ d=work/('tele_shared_'+name); d.mkdir(exist_ok=True); path=d/'avatar.cpp'; path.write_text(variant)
+ patch=work/('tele_shared_'+name+'.patch'); patch.write_text(''.join(difflib.unified_diff(base,variant.splitlines(True),fromfile='a/app/client/avatar.cpp',tofile='b/app/client/avatar.cpp')))
+ row={'name':name,'source':str(path),'stash':str(patch)}
+ if '--prepare-only' not in sys.argv:
+  try:
+   obj=fastbuild.compile_file(path,d); row['object']=str(obj)
+   with (d/'match.log').open('w') as log: subprocess.run(['/home/dev/Toolchains/enb-vc6-sp4/venv/bin/python',str(root/'tools/re/objmatch.py'),str(obj),'-q','--json',str(d/'match.json')],env=env,stdout=log,stderr=log,check=True)
+   found=pairs(d/'match.json'); row.update(match=str(d/'match.json'),gains=sorted(found-baseline),losses=sorted(baseline-found))
+  except Exception as e: row['error']=str(e)
+ records.append(row); (work/'tele_shared_results.json').write_text(json.dumps(records,indent=2)+'\n'); print(name,row.get('gains'),row.get('losses'),row.get('error'),flush=True)

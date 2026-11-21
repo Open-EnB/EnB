@@ -1,0 +1,77 @@
+# 0x788F90
+Matrix3D copy construction vs assignment, direct source, source/destination references and null checks. Baseline similarity .39; out-of-line RefCountPtr calls and matrix copy scheduling remain. No gains/losses.
+
+
+### sweep_8f90.py
+from pathlib import Path
+import os,sys,subprocess,json
+root=Path('/home/dev/Projects/EnB'); work=root/'.work/claim-240/avatar'
+sys.path.insert(0,str(root/'.work/claim-234'))
+import fastbuild,appfile
+dirs=appfile.candidate_dirs; appfile.candidate_dirs=lambda:[root/'app/client']+dirs()
+src=(work/'avatar.cpp').read_text(); start=src.index('void CharacterViewAvatarClass::Unknown_788F90(int mode)'); end=src.index('\n}',start)+2; fn=src[start:end]
+forms=[
+ ('if (Unknown370)', 'if (Unknown370 != NULL)'),
+ ('if (Unknown374)', 'if (Unknown374 != NULL)'),
+ ('if (mode == 0)', 'if (!mode)'),
+ ('if (!Unknown36C)', 'if (Unknown36C == 0)'),
+ ('if (!Unknown36C)', 'if (Unknown36C != 1)'),
+ ('Matrix3D m;\n\t\tm = Unknown330;', 'Matrix3D m(Unknown330);\n\t\t'),
+ ('Matrix3D m;\n\t\tm = Unknown330;', 'Matrix3D m = Unknown330;\n\t\t'),
+ ('Unknown370->Set_Transform(m);', 'Unknown370->Set_Transform(Unknown330);'),
+]
+env=os.environ.copy(); env['ENB_RETAIL_INSTALL']='/home/dev/Games/earth-and-beyond/prefix/drive_c/Program Files (x86)/EA GAMES/Earth & Beyond'
+exact=lambda rows:{a for r in rows if r['status']=='exact' for a in r['addresses']}
+baseline=exact(json.loads((work/'baseline_matches/000_baseline_avatar.json').read_text())); summary=[]
+for i,(a,b) in enumerate(forms):
+ d=work/('8f90_%02d'%i); d.mkdir(exist_ok=True); p=d/'avatar.cpp'; assert fn.count(a)==1
+ p.write_text(src[:start]+fn.replace(a,b)+src[end:]); row={'old':a,'new':b,'source':str(p)}
+ try:
+  obj=fastbuild.compile_file(p,d); out=d/'match.json'
+  with (d/'match.log').open('w') as log:
+   r=subprocess.run(['/home/dev/Toolchains/enb-vc6-sp4/venv/bin/python',str(root/'tools/re/objmatch.py'),str(obj),'-q','--json',str(out)],stdout=log,stderr=log,env=env)
+  row['matcher_rc']=r.returncode
+  if not r.returncode:
+   found=exact(json.loads(out.read_text())); row.update(gains=sorted(found-baseline),losses=sorted(baseline-found),match=str(out))
+ except Exception as e: row['error']=str(e)
+ summary.append(row); (work/'8f90_manifest.json').write_text(json.dumps(summary,indent=2)+'\n')
+ print(i,row.get('gains'),row.get('losses'),row.get('error'),flush=True)
+
+
+### sweep_8f90b.py
+from pathlib import Path
+import os,sys,subprocess,json
+root=Path('/home/dev/Projects/EnB'); work=root/'.work/claim-240/avatar'
+sys.path.insert(0,str(root/'.work/claim-234'))
+import fastbuild,appfile
+dirs=appfile.candidate_dirs; appfile.candidate_dirs=lambda:[root/'app/client']+dirs()
+src=(work/'avatar.cpp').read_text(); start=src.index('void CharacterViewAvatarClass::Unknown_788F90(int mode)'); end=src.index('\n}',start)+2; fn=src[start:end]
+forms=[
+ ('Matrix3D m;\n\t\tm = Unknown330;', 'const Matrix3D &m = Unknown330;\n\t\t'),
+ ('Matrix3D m;\n\t\tm = Unknown330;', 'const Matrix3D *m = &Unknown330;\n\t\t'),
+ ('m = Unknown330;', 'const Matrix3D &source = Unknown330; m = source;'),
+ ('m = Unknown330;', 'const Matrix3D *source = &Unknown330; m = *source;'),
+ ('m = Unknown330;', 'Matrix3D &destination = m; destination = Unknown330;'),
+ ('m = Unknown330;', 'Matrix3D *destination = &m; *destination = Unknown330;'),
+ ('Unknown370->Set_Transform(m);', 'RenderObjClass *effect = Unknown370.Peek(); effect->Set_Transform(m);'),
+ ('Unknown370->Set_Transform(m);', 'Matrix3D &transform = m; Unknown370->Set_Transform(transform);'),
+]
+env=os.environ.copy(); env['ENB_RETAIL_INSTALL']='/home/dev/Games/earth-and-beyond/prefix/drive_c/Program Files (x86)/EA GAMES/Earth & Beyond'
+exact=lambda rows:{a for r in rows if r['status']=='exact' for a in r['addresses']}
+baseline=exact(json.loads((work/'baseline_matches/000_baseline_avatar.json').read_text())); summary=[]
+for i,(a,b) in enumerate(forms):
+ d=work/('8f90b_%02d'%i); d.mkdir(exist_ok=True); p=d/'avatar.cpp'; assert fn.count(a)==1
+ modified=fn.replace(a,b)
+ if i==1: modified=modified.replace('Set_Transform(m);', 'Set_Transform(*m);')
+ p.write_text(src[:start]+modified+src[end:]); row={'old':a,'new':b,'source':str(p)}
+ try:
+  obj=fastbuild.compile_file(p,d); out=d/'match.json'
+  with (d/'match.log').open('w') as log:
+   r=subprocess.run(['/home/dev/Toolchains/enb-vc6-sp4/venv/bin/python',str(root/'tools/re/objmatch.py'),str(obj),'-q','--json',str(out)],stdout=log,stderr=log,env=env)
+  row['matcher_rc']=r.returncode
+  if not r.returncode:
+   found=exact(json.loads(out.read_text())); row.update(gains=sorted(found-baseline),losses=sorted(baseline-found),match=str(out))
+ except Exception as e: row['error']=str(e)
+ summary.append(row); (work/'8f90b_manifest.json').write_text(json.dumps(summary,indent=2)+'\n')
+ print(i,row.get('gains'),row.get('losses'),row.get('error'),flush=True)
+

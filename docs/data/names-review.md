@@ -10,8 +10,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 226 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1970 |
-| 2 | describes what the code does | 5002 |
-| 1 | neutral placeholder | 25179 |
+| 2 | describes what the code does | 5004 |
+| 1 | neutral placeholder | 25181 |
 
 ## For review (score 3 and below)
 
@@ -982,11 +982,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_0C` | `app/client/camctrl_rescue.cpp:46` | untagged neutral name (D10) |
 | 1 | `Unknown_28` | `app/client/camctrl_rescue.cpp:79` | untagged neutral name (D10) |
 | 1 | `Unknown_79B6B0` | `app/client/camctrl_rescue.cpp:80` | untagged neutral name (D10) |
-| 1 | `Unknown08` | `app/client/camctrl_rescue.cpp:87` | untagged neutral name (D10) |
-| 1 | `Unknown_B04F80` | `app/client/camctrl_rescue.cpp:88` | neutral (D10) |
-| 1 | `Unknown_B04F84` | `app/client/camctrl_rescue.cpp:89` | neutral (D10) |
-| 1 | `Unknown38` | `app/client/camctrl_rescue.cpp:90` | untagged neutral name (D10) |
-| 1 | `Unknown3C` | `app/client/camctrl_rescue.cpp:91` | untagged neutral name (D10) |
+| 1 | `Unknown08` | `app/client/camctrl_rescue.cpp:88` | untagged neutral name (D10) |
+| 1 | `Unknown_B04F80` | `app/client/camctrl_rescue.cpp:89` | neutral (D10) |
+| 1 | `Unknown_B04F84` | `app/client/camctrl_rescue.cpp:90` | neutral (D10) |
+| 1 | `Unknown38` | `app/client/camctrl_rescue.cpp:91` | untagged neutral name (D10) |
+| 1 | `Unknown3C` | `app/client/camctrl_rescue.cpp:92` | untagged neutral name (D10) |
 | 1 | `CameraController11Class` | `app/client/camctrl_rescue.h:11` | neutral (D10) |
 | 1 | `Unknown_04` | `app/client/camctrl_rescue.h:16` | untagged neutral name (D10) |
 | 1 | `Unknown_08` | `app/client/camctrl_rescue.h:17` | untagged neutral name (D10) |
@@ -21193,9 +21193,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Get_Message` | `app/client/unknown_authlogin.h:86` | what it returns |
 | 1 | `Unknown28` | `app/client/unknown_authlogin.h:92` | untagged neutral name (D10) |
 | 1 | `Unknown_78D450` | `app/client/unknown_creator.cpp:59` | untagged neutral name (D10) |
-| 1 | `Unknown_78D480` | `app/client/unknown_creator.cpp:70` | untagged neutral name (D10) |
-| 1 | `Unknown_78D8A0` | `app/client/unknown_creator.cpp:105` | untagged neutral name (D10) |
-| 1 | `Unknown_78DAF0` | `app/client/unknown_creator.cpp:128` | untagged neutral name (D10) |
+| 1 | `Unknown_78D480` | `app/client/unknown_creator.cpp:73` | untagged neutral name (D10) |
+| 1 | `Unknown_78D8A0` | `app/client/unknown_creator.cpp:108` | untagged neutral name (D10) |
+| 1 | `Unknown_78DAF0` | `app/client/unknown_creator.cpp:131` | untagged neutral name (D10) |
 | 1 | `unknown_creator.h` | `app/client/unknown_creator.h:17` | neutral file name (D10) |
 | 1 | `LoginNameDataClass` | `app/client/unknown_creator.h:28` | neutral (D10) |
 | 1 | `Unknown_PacketDataClass` | `app/client/unknown_creator.h:28` | untagged neutral name (D10) |
@@ -21245,43 +21245,45 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_5896C0` | `app/client/unknown_msgbox.cpp:413` | untagged neutral name (D10) |
 | 1 | `Unknown_5898F0` | `app/client/unknown_msgbox.cpp:440` | untagged neutral name (D10) |
 | 1 | `Unknown_30` | `app/client/unknown_msgbox.cpp:444` | untagged neutral name (D10) |
-| 1 | `Unknown_78F700Class` | `app/client/unknown_personality.cpp:13` | untagged neutral name (D10) |
-| 1 | `Unknown_78F9F0` | `app/client/unknown_personality.cpp:36` | untagged neutral name (D10) |
-| 1 | `Unknown_790190` | `app/client/unknown_personality.cpp:139` | neutral (D10) |
-| 1 | `Unknown_7901C0` | `app/client/unknown_personality.cpp:145` | untagged neutral name (D10) |
-| 1 | `Unknown_790260Class` | `app/client/unknown_personality.cpp:160` | untagged neutral name (D10) |
-| 1 | `Unknown_790360` | `app/client/unknown_personality.cpp:183` | untagged neutral name (D10) |
+| 1 | `Unknown_78F700Class` | `app/client/unknown_personality.cpp:11` | untagged neutral name (D10) |
+| 1 | `Unknown_78F9F0` | `app/client/unknown_personality.cpp:32` | untagged neutral name (D10) |
+| 1 | `Unknown_790190` | `app/client/unknown_personality.cpp:135` | neutral (D10) |
+| 1 | `Unknown_7901C0` | `app/client/unknown_personality.cpp:141` | untagged neutral name (D10) |
+| 1 | `Unknown_790260Class` | `app/client/unknown_personality.cpp:156` | untagged neutral name (D10) |
+| 1 | `Unknown_790360` | `app/client/unknown_personality.cpp:179` | untagged neutral name (D10) |
 | 1 | `unknown_personality.h` | `app/client/unknown_personality.h:13` | provisional (D10) |
 | 1 | `Unknown_78F700Class` | `app/client/unknown_personality.h:20` | neutral (D10) |
 | 1 | `Unknown_78F9F0` | `app/client/unknown_personality.h:38` | neutral (D10) |
 | 1 | `Unknown_7901C0` | `app/client/unknown_personality.h:51` | neutral (D10) |
 | 1 | `Unknown004` | `app/client/unknown_personality.h:53` | neutral (D10) |
-| 1 | `Unknown1020` | `app/client/unknown_personality.h:63` | neutral (D10) |
-| 1 | `Unknown_790260Class` | `app/client/unknown_personality.h:70` | neutral (D10) |
-| 1 | `Unknown_790360` | `app/client/unknown_personality.h:75` | neutral (D10) |
-| 1 | `Unknown140` | `app/client/unknown_personality.h:79` | neutral (D10) |
-| 1 | `Unknown_791310Class` | `app/client/unknown_personality.h:85` | neutral (D10) |
-| 1 | `Unknown_791400` | `app/client/unknown_personality.h:89` | neutral (D10) |
-| 1 | `Unknown_7917B0` | `app/client/unknown_personality.h:90` | neutral (D10) |
-| 1 | `Unknown_791880` | `app/client/unknown_personality.h:91` | neutral (D10) |
-| 1 | `Unknown_791970` | `app/client/unknown_personality.h:92` | neutral (D10) |
-| 1 | `Unknown_791B00` | `app/client/unknown_personality.h:93` | neutral (D10) |
-| 1 | `Unknown_791BF0` | `app/client/unknown_personality.h:94` | neutral (D10) |
-| 1 | `Unknown_791E50` | `app/client/unknown_personality.h:95` | neutral (D10) |
-| 1 | `Unknown_791F10` | `app/client/unknown_personality.h:96` | neutral (D10) |
-| 1 | `Unknown_791F80` | `app/client/unknown_personality.h:97` | neutral (D10) |
-| 1 | `Unknown_790560Class` | `app/client/unknown_personality.h:101` | neutral (D10) |
-| 1 | `Unknown_790960` | `app/client/unknown_personality.h:106` | neutral (D10) |
-| 1 | `Unknown_790C70` | `app/client/unknown_personality.h:107` | neutral (D10) |
-| 1 | `Unknown_790D00` | `app/client/unknown_personality.h:108` | neutral (D10) |
-| 1 | `Unknown_790D40` | `app/client/unknown_personality.h:109` | neutral (D10) |
-| 1 | `Unknown_790D90` | `app/client/unknown_personality.h:110` | neutral (D10) |
-| 1 | `Unknown_790DE0` | `app/client/unknown_personality.h:111` | neutral (D10) |
-| 1 | `Unknown_790E20` | `app/client/unknown_personality.h:112` | neutral (D10) |
-| 1 | `Unknown_790E70` | `app/client/unknown_personality.h:113` | neutral (D10) |
-| 1 | `Unknown_790EE0` | `app/client/unknown_personality.h:114` | neutral (D10) |
-| 1 | `Unknown_790940` | `app/client/unknown_personality.h:120` | neutral (D10) |
-| 1 | `Unknown_BE856C` | `app/client/unknown_personality.h:121` | neutral (D10) |
+| 1 | `TextFields` | `app/client/unknown_personality.h:57` | neutral name for the destructible pair at +0x1008 |
+| 1 | `Text` | `app/client/unknown_personality.h:66` | neutral name for the label/description pair |
+| 1 | `Unknown1020` | `app/client/unknown_personality.h:72` | neutral (D10) |
+| 1 | `Unknown_790260Class` | `app/client/unknown_personality.h:79` | neutral (D10) |
+| 1 | `Unknown_790360` | `app/client/unknown_personality.h:84` | neutral (D10) |
+| 1 | `Unknown140` | `app/client/unknown_personality.h:88` | neutral (D10) |
+| 1 | `Unknown_791310Class` | `app/client/unknown_personality.h:94` | neutral (D10) |
+| 1 | `Unknown_791400` | `app/client/unknown_personality.h:98` | neutral (D10) |
+| 1 | `Unknown_7917B0` | `app/client/unknown_personality.h:99` | neutral (D10) |
+| 1 | `Unknown_791880` | `app/client/unknown_personality.h:100` | neutral (D10) |
+| 1 | `Unknown_791970` | `app/client/unknown_personality.h:101` | neutral (D10) |
+| 1 | `Unknown_791B00` | `app/client/unknown_personality.h:102` | neutral (D10) |
+| 1 | `Unknown_791BF0` | `app/client/unknown_personality.h:103` | neutral (D10) |
+| 1 | `Unknown_791E50` | `app/client/unknown_personality.h:104` | neutral (D10) |
+| 1 | `Unknown_791F10` | `app/client/unknown_personality.h:105` | neutral (D10) |
+| 1 | `Unknown_791F80` | `app/client/unknown_personality.h:106` | neutral (D10) |
+| 1 | `Unknown_790560Class` | `app/client/unknown_personality.h:110` | neutral (D10) |
+| 1 | `Unknown_790960` | `app/client/unknown_personality.h:115` | neutral (D10) |
+| 1 | `Unknown_790C70` | `app/client/unknown_personality.h:116` | neutral (D10) |
+| 1 | `Unknown_790D00` | `app/client/unknown_personality.h:117` | neutral (D10) |
+| 1 | `Unknown_790D40` | `app/client/unknown_personality.h:118` | neutral (D10) |
+| 1 | `Unknown_790D90` | `app/client/unknown_personality.h:119` | neutral (D10) |
+| 1 | `Unknown_790DE0` | `app/client/unknown_personality.h:120` | neutral (D10) |
+| 1 | `Unknown_790E20` | `app/client/unknown_personality.h:121` | neutral (D10) |
+| 1 | `Unknown_790E70` | `app/client/unknown_personality.h:122` | neutral (D10) |
+| 1 | `Unknown_790EE0` | `app/client/unknown_personality.h:123` | neutral (D10) |
+| 1 | `Unknown_790940` | `app/client/unknown_personality.h:129` | neutral (D10) |
+| 1 | `Unknown_BE856C` | `app/client/unknown_personality.h:130` | neutral (D10) |
 | 1 | `Unknown_790560Class` | `app/client/unknown_personality_manager.cpp:11` | untagged neutral name (D10) |
 | 1 | `Unknown_BE856C` | `app/client/unknown_personality_manager.cpp:11` | untagged neutral name (D10) |
 | 1 | `Unknown_790960` | `app/client/unknown_personality_manager.cpp:16` | untagged neutral name (D10) |
@@ -27860,6 +27862,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `crc64_made` | `app/client/unknown_8b3e70.cpp:11` | CRC-64 init flag at 0xBF50B8 |
 | 2 | `Result` | `app/client/unknown_authlogin.h:27` | the assert's kr; tested >= 0 |
 | 2 | `IComponentFactoryClass` | `app/client/unknown_authlogin.h:38` | authFactory (the assert) |
+| 2 | `value` | `app/client/unknown_creator.cpp:63` | checksum addend, first byte plus iteration |
+| 2 | `count` | `app/client/unknown_creator.cpp:64` | checksum loop countdown |
 | 2 | `Set_Name` | `app/client/unknown_creator.h:35` | what it does |
 | 2 | `CharacterCreatorClass` | `app/client/unknown_creator.h:41` | its folder and registry key, 'Character and Starship Creator' |
 | 2 | `Get_File_Name` | `app/client/unknown_creator.h:49` | what it does |
@@ -27893,20 +27897,20 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `IndexStruct` | `app/client/unknown_personality.h:54` | what it holds |
 | 2 | `Index` | `app/client/unknown_personality.h:55` | what it holds |
 | 2 | `Name` | `app/client/unknown_personality.h:56` | what it holds |
-| 2 | `Label` | `app/client/unknown_personality.h:57` | the INI key |
-| 2 | `Desc` | `app/client/unknown_personality.h:58` | the INI key |
-| 2 | `Gender` | `app/client/unknown_personality.h:59` | the INI key |
-| 2 | `FidgetDelay` | `app/client/unknown_personality.h:60` | the INI key |
-| 2 | `SpeechDelay` | `app/client/unknown_personality.h:61` | the INI key |
-| 2 | `BlinkDelay` | `app/client/unknown_personality.h:62` | the INI key |
-| 2 | `BAnimCount` | `app/client/unknown_personality.h:64` | what it holds |
-| 2 | `Moods` | `app/client/unknown_personality.h:65` | what it holds |
-| 2 | `BAnims` | `app/client/unknown_personality.h:66` | what it holds |
-| 2 | `Filename` | `app/client/unknown_personality.h:77` | what it holds |
-| 2 | `Name` | `app/client/unknown_personality.h:78` | what it holds |
-| 2 | `Data` | `app/client/unknown_personality.h:80` | what it holds |
-| 2 | `std:` | `app/client/unknown_personality.h:116` | what it holds |
-| 2 | `Phonemes` | `app/client/unknown_personality.h:117` | what it does |
+| 2 | `Label` | `app/client/unknown_personality.h:59` | the INI key |
+| 2 | `Desc` | `app/client/unknown_personality.h:60` | the INI key |
+| 2 | `Gender` | `app/client/unknown_personality.h:68` | the INI key |
+| 2 | `FidgetDelay` | `app/client/unknown_personality.h:69` | the INI key |
+| 2 | `SpeechDelay` | `app/client/unknown_personality.h:70` | the INI key |
+| 2 | `BlinkDelay` | `app/client/unknown_personality.h:71` | the INI key |
+| 2 | `BAnimCount` | `app/client/unknown_personality.h:73` | what it holds |
+| 2 | `Moods` | `app/client/unknown_personality.h:74` | what it holds |
+| 2 | `BAnims` | `app/client/unknown_personality.h:75` | what it holds |
+| 2 | `Filename` | `app/client/unknown_personality.h:86` | what it holds |
+| 2 | `Name` | `app/client/unknown_personality.h:87` | what it holds |
+| 2 | `Data` | `app/client/unknown_personality.h:89` | what it holds |
+| 2 | `std:` | `app/client/unknown_personality.h:125` | what it holds |
+| 2 | `Phonemes` | `app/client/unknown_personality.h:126` | what it does |
 | 2 | `Set` | `app/client/unknown_screenfade.cpp:11` | what it does |
 | 2 | `Update` | `app/client/unknown_screenfade.cpp:12` | what it does |
 | 2 | `Value` | `app/client/unknown_screenfade.cpp:14` | what it holds |

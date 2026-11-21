@@ -49,7 +49,7 @@ void CameraController11Class::Unknown_0C()
 }
 
 // @0x795570
-// NOT EXACT: the offset's temporaries and slots differ (the expression right to left, as the client's); functional
+
 void CameraController11Class::Unknown_795570()
 {
 	ClientObjectClass *ship = Client->Get_Avatar();
@@ -82,7 +82,8 @@ void CameraController11Class::Unknown_795570()
 	Vector3 x = tm.Get_X_Vector();
 	Vector3 pos;
 	tm.Get_Translation(&pos);
-	Vector3 from = (x * Unknown_B04F40 + y * Unknown_B04F3C * (float)(Unknown_BDB1C0(0, 1) ? -1 : 1)) * distance + pos;
+	Vector3 from;
+	from = (x * Unknown_B04F40 + y * Unknown_B04F3C * (float)(Unknown_BDB1C0(0, 1) ? -1 : 1)) * distance + pos;
 	cam.Look_At(from, pos, 0.0f);
 	Unknown0C->Unknown08 = cam;
 	static float Unknown_B04F80 = -0.000005f;	// NAME 1: neutral (D10)
@@ -99,5 +100,6 @@ void CameraController11Class::Unknown_795570()
 ** (before the state-3 controller 0x795900). Its own __FILE__ 0xB9E440 (e:\build\beta\G\app\Client\camctrl_rescue.cpp,
 ** FAIL_IF l.75). The statics 0xB04F3C / 0xB04F40 (1.75, 0.5) come before the vtable, 0xB04F80 / 0xB04F84 (-+5e-6)
 ** after it: function-local here. 0x795570 puts the camera at (X 0.5 +- Y 1.75) distances from the avatar, looking
-** at it.
+** at it. Declaring from before assigning the expression preserves the client's
+** temporary lifetimes and reproduces 0x795570 exactly.
 */

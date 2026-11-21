@@ -1,0 +1,105 @@
+from pathlib import Path
+import sys,subprocess,os,concurrent.futures,json
+sys.path.insert(0,'/home/dev/Projects/EnB/.work/claim-234')
+from fastbuild import compile_file
+root=Path('/home/dev/Projects/EnB'); out=root/'.work/claim-240/speech/phoneme'
+base=(root/'app/client/unknown_phoneme.cpp').read_text()
+env=os.environ.copy(); env['ENB_RETAIL_INSTALL']='/home/dev/Games/earth-and-beyond/prefix/drive_c/Program Files (x86)/EA GAMES/Earth & Beyond'
+def section(a,b): return base[base.index('// '+a):base.index('// '+b)]
+variants={}
+s=section('0x791880','0x791970')
+for mode in range(8):
+    x=s
+    if mode & 1: x=x.replace("if (prev == 'g') {\n\t\t\t\t\tshapes[1] = 1;", "if (prev == 'g') {\n\t\t\t\t\tgoto second_vowel;")
+    if mode & 2: x=x.replace("case 'o':\n\t\t\t\tshapes[1] = 1;\n\t\t\t\tbreak;", "case 'o':\n\t\t\t\tgoto second_vowel;")
+    if mode & 4: x=x.replace("if (c != '\\0' && IS_VOWEL(c)) {\n\t\t\tshapes[1] = 1;", "if (c != '\\0' && IS_VOWEL(c)) {\n\t\t\tgoto second_vowel;")
+    x=x.replace('\treturn(n);\n}', '\treturn(n);\nsecond_vowel:\n\tshapes[1] = 1;\n\treturn(n);\n}')
+    variants['a_tail_'+str(mode)]=base.replace(s,x)
+s=section('0x7917B0','0x791880')
+for mode in range(6):
+    x=s
+    forms=['int i = 0; i < Unknown_BE8570[letter].Count; i++, group--','int i = count; i > 0; i--, group--','int i = count; i != 0; --i, --group','int i = 0; i < count; ++i, --group','int i = count; i--; group--','int i = 0; i != count; i++, group--']
+    x=x.replace('int i = 0; i < Unknown_BE8570[letter].Count; i++, group--',forms[mode])
+    variants['group_loop_'+str(mode)]=base.replace(s,x)
+s=section('0x791BF0','0x791E50')
+for mode in range(6):
+    x=s
+    if mode & 1: x=x.replace('char c = text[1];','const char *p = text + 1;\n\tchar c = *p;').replace('switch (text[1])','switch (*p)')
+    if mode & 2: x=x.replace("} else if (c != '\\0') {", "} else {\n\t\tif (text[1] == '\\0') return n;")
+    if mode & 4: x=x.replace('char next = text[2];','char next = *(text + 2);')
+    variants['o_flow_'+str(mode)]=base.replace(s,x)
+s=section('0x791400','0x7917B0')
+for mode in range(6):
+    x=s
+    if mode & 1: x=x.replace('char prev =', 'int prev =')
+    if mode & 2: x=x.replace('int last = -1;', 'int last = -1;\n\tint *lastp = &last;').replace('shapes[i] != last','shapes[i] != *lastp').replace('last = shapes[i];','*lastp = shapes[i];')
+    if mode & 4: x=x.replace('prev = p[n - 1];\n\t\tp += n;', 'p += n;\n\t\tprev = p[-1];')
+    variants['main_state_'+str(mode)]=base.replace(s,x)
+s=section('0x7917B0','0x791880')
+for mode in range(8):
+    x=s
+    if mode & 1:
+        x=x.replace('int count = Unknown_BE8570[letter].Count;', 'int first = Unknown_BE8570[letter].First;\n\t\tint count = Unknown_BE8570[letter].Count;').replace('Unknown_BE8570[letter].First + count - 1','first + count - 1')
+    if mode & 2:
+        x=x.replace('for (int i = 0; i < Unknown_BE8570[letter].Count; i++, group--) {','while (count > 0) {\n\t\t\t--count;').replace('\t\t}\n\t}\n\treturn(0);','\t\t\t--group;\n\t\t}\n\t}\n\treturn(0);')
+    if mode & 4:
+        x=x.replace('int len = strlen(group->Text);','const char *word = group->Text;\n\t\t\tint len = strlen(word);').replace('_strnicmp(text, group->Text, len)','_strnicmp(text, word, len)')
+    variants['group_access_'+str(mode)]=base.replace(s,x)
+s=section('0x791BF0','0x791E50')
+for mode in range(8):
+    x=s
+    if mode & 1: x=x.replace('char c = text[1];', 'char c = *(text + 1);').replace('switch (text[1])','switch (c)')
+    if mode & 2: x=x.replace("} else if (c != '\\0') {", "} else if (text[1] != '\\0') {")
+    if mode & 4: x=x.replace("char next = text[2];", "const char *nextp = text + 2; char next = *nextp;")
+    variants['o_access_'+str(mode)]=base.replace(s,x)
+s=section('0x791880','0x791970')
+for mode in range(8):
+    x=s
+    old="""\t\tswitch (c) {
+\t\t\tcase 'u':
+\t\t\t\tif (prev == 'g') {
+\t\t\t\t\tshapes[1] = 1;
+\t\t\t\t} else if (prev == 'l') {"""
+    new="""\t\tif (c == 'o' || (c == 'u' && prev == 'g')) {
+\t\t\tshapes[1] = 1;
+\t\t} else switch (c) {
+\t\t\tcase 'u':
+\t\t\t\tif (prev == 'l') {"""
+    x=x.replace(old,new).replace("\t\t\tcase 'o':\n\t\t\t\tshapes[1] = 1;\n\t\t\t\tbreak;\n",'')
+    if mode & 1: x=x.replace("c == 'o' || (c == 'u' && prev == 'g')", "(c == 'u' && prev == 'g') || c == 'o'")
+    if mode & 2: x=x.replace('char c = text[1];', 'char c = text[1];\n\tint isvowel = c != 0 && IS_VOWEL(c);').replace("if (c != '\\0' && IS_VOWEL(c)) {\n\t\tn = 2;", "if (isvowel) {\n\t\tn = 2;")
+    if mode & 4: x=x.replace('shapes[0] = 11;\n\tshapes[1] = -1;', 'shapes[1] = -1;\n\tshapes[0] = 11;')
+    variants['a_factor_'+str(mode)]=base.replace(s,x)
+s=section('0x791400','0x7917B0')
+for mode in range(8):
+    x=s
+    if mode & 1: x=x.replace("char prev = '\\0';", "char prev_value = '\\0'; char &prev = prev_value;")
+    if mode & 2: x=x.replace('int last = -1;', 'int last_value = -1; int &last = last_value;')
+    if mode & 4: x=x.replace('const char *p = buffer;', 'const char *source = buffer; const char *&p = source;')
+    variants['main_refs_'+str(mode)]=base.replace(s,x)
+s=section('0x7917B0','0x791880')
+for mode in range(8):
+    x=s
+    if mode & 1:
+        x=x.replace('int count = Unknown_BE8570[letter].Count;', 'int &count = Unknown_BE8570[letter].Count;')
+    if mode & 2:
+        x=x.replace('Unknown_PhonemeGroupStruct *group = &Unknown_B9DAB8[Unknown_BE8570[letter].First + count - 1];','int &first = Unknown_BE8570[letter].First;\n\t\tUnknown_PhonemeGroupStruct *group = &Unknown_B9DAB8[first + count - 1];')
+    if mode & 4:
+        x=x.replace('Unknown_PhonemeGroupStruct *group = &Unknown_B9DAB8[', 'Unknown_PhonemeGroupStruct *group_value = &Unknown_B9DAB8[').replace('count - 1];\n\t\tfor', 'count - 1];\n\t\tUnknown_PhonemeGroupStruct *&group = group_value;\n\t\tfor')
+    variants['group_refs_'+str(mode)]=base.replace(s,x)
+s=section('0x791880','0x791970')
+for mode in range(8):
+    x=s
+    if mode & 1: x=x.replace("char c = text[1];", "const char *p = text + 1; char c = *p;").replace('c = text[2];','c = p[1];')
+    if mode & 2: x=x.replace("switch (c) {", "switch (text[1]) {")
+    if mode & 4: x=x.replace("if (c != '\\0' && IS_VOWEL(c)) {", "if (IS_VOWEL(c) && c != '\\0') {")
+    variants['a_access_'+str(mode)]=base.replace(s,x)
+s=section('0x791400','0x7917B0')
+def run(item):
+    name,src=item; work=out/name; work.mkdir(parents=True,exist_ok=True); source=work/'unknown_phoneme.cpp'; source.write_text(src)
+    if (work/'match.json').exists(): return
+    try: obj=compile_file(source,work)
+    except Exception as e: (work/'error.txt').write_text(str(e)); return
+    with (work/'match.log').open('w') as log:
+        subprocess.run(['/home/dev/Toolchains/enb-vc6-sp4/venv/bin/python',str(root/'tools/re/objmatch.py'),str(obj),'-q','--json',str(work/'match.json')],env=env,stdout=log,stderr=log,check=True)
+with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool: list(pool.map(run,variants.items()))

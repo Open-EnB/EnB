@@ -1,0 +1,51 @@
+# Claim 240 Terra ultra; frozen source baseline 43ff4e7b.
+# All successful candidate objects received full native objmatch.
+# No candidate became exact; these source forms were not integrated.
+# Source-form counts exclude repeated verification runs.
+# Ultra: client79147A passes original input pointer as unused7917B0 argument where source passes prev. Eight pointer/caller reconstruction forms fully native-matched, one new caller group, no gains/losses; all8 existing pairs incl791BF0 retained. Reconstruction puts prev/last at client stack offsets but leaves text in EBX instead of12 and different case order. Starred objdiff rows127->201 (not masked residue). Pointer formal type remains provisional; this is diagnostic source, not an exact correction or adopted signature.
+
+# Source specification: speech/phoneme/probe.py
+from pathlib import Path
+import sys,os,subprocess,concurrent.futures
+root=Path('/home/dev/Projects/EnB')
+out=root/'.work/claim-240/round3/speech/phoneme'
+tree=root/'.work/claim-240/round3/baseline-tree/app/client'
+sys.path.insert(0,str(root/'.work/claim-234'))
+from fastbuild import compile_file
+env=os.environ.copy(); env['ENB_RETAIL_INSTALL']='/home/dev/Games/earth-and-beyond/prefix/drive_c/Program Files (x86)/EA GAMES/Earth & Beyond'
+src=(tree/'unknown_phoneme.cpp').read_text(); hdr=(tree/'unknown_personality.h').read_text()
+def run(mode):
+ w=out/mode; w.mkdir(exist_ok=True)
+ s,h=src,hdr
+ if mode=='pointer':
+  s=s.replace('Unknown_7917B0(p, prev, shapes)', 'Unknown_7917B0(p, text, shapes)').replace('Unknown_7917B0(const char *text, char prev, int *shapes)', 'Unknown_7917B0(const char *text, const char *original, int *shapes)')
+  h=h.replace('Unknown_7917B0(const char *text, char prev, int *shapes)', 'Unknown_7917B0(const char *text, const char *original, int *shapes)')
+ (w/'unknown_phoneme.cpp').write_text(s); (w/'unknown_personality.h').write_text(h)
+ obj=compile_file(w/'unknown_phoneme.cpp',w)
+ with (w/'match.log').open('w') as log:
+  subprocess.run(['/home/dev/Toolchains/enb-vc6-sp4/venv/bin/python',str(root/'tools/re/objmatch.py'),str(obj),'-q','--json',str(w/'match.json')],env=env,stdout=log,stderr=log,check=True)
+ return mode
+with concurrent.futures.ThreadPoolExecutor(max_workers=2) as pool:
+ for m in pool.map(run,['baseline','pointer']): print(m,flush=True)
+
+# Source specification: speech/phoneme/followup.py
+from pathlib import Path
+import sys,os,subprocess,concurrent.futures
+root=Path('/home/dev/Projects/EnB'); out=root/'.work/claim-240/round3/speech/phoneme'
+sys.path.insert(0,str(root/'.work/claim-234')); from fastbuild import compile_file
+env=os.environ.copy(); env['ENB_RETAIL_INSTALL']='/home/dev/Games/earth-and-beyond/prefix/drive_c/Program Files (x86)/EA GAMES/Earth & Beyond'
+src=(out/'pointer/unknown_phoneme.cpp').read_text(); hdr=(out/'pointer/unknown_personality.h').read_text()
+a=src.index('// 0x791400'); b=src.index('// 0x7917B0'); section=src[a:b]
+def run(mask):
+ s=section
+ if mask&1:
+  s=s.replace('const char *p = buffer;', 'const char *p = buffer;\n\tint shape12 = 12;').replace('shapes[0] = 12;', 'shapes[0] = shape12;')
+ if mask&2:
+  s=s.replace('int n = Unknown_7917B0(p, text, shapes);', 'const char *original = text;\n\t\tint n = Unknown_7917B0(p, original, shapes);')
+ if mask&4:
+  s=s.replace('const char *p = buffer;', 'const char *p = buffer;\n\tint shapes[2];').replace('\t\tint shapes[2];\n','')
+ w=out/('follow_'+str(mask)); w.mkdir(exist_ok=True); (w/'unknown_personality.h').write_text(hdr); (w/'unknown_phoneme.cpp').write_text(src[:a]+s+src[b:]); obj=compile_file(w/'unknown_phoneme.cpp',w)
+ with (w/'match.log').open('w') as log: subprocess.run(['/home/dev/Toolchains/enb-vc6-sp4/venv/bin/python',str(root/'tools/re/objmatch.py'),str(obj),'-q','--json',str(w/'match.json')],env=env,stdout=log,stderr=log,check=True)
+ return mask
+with concurrent.futures.ThreadPoolExecutor(max_workers=3) as pool:
+ for m in pool.map(run,range(1,8)): print(m,flush=True)

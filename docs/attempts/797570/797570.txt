@@ -1,0 +1,434 @@
+FORM delta_assign
+--- camctrl_tractor.cpp
++++ delta_assign.cpp
+@@ -90,7 +90,7 @@
+ 	ClientObjectClass *ship = Client->Get_Avatar();
+ 	if (target) {
+ 		Vector3 target_pos = target->Unknown_24();
+-		Vector3 delta = target_pos - ship->Unknown_24();
++		Vector3 delta(target_pos); delta -= ship->Unknown_24();
+ 		float radius = target->Unknown_30();
+ 		float distance = CameraManagerClass::Unknown_79B6B0();
+ 		if (!(delta.Length2() < radius * radius + distance * distance)) {
+
+FORM positive_comparison
+--- camctrl_tractor.cpp
++++ positive_comparison.cpp
+@@ -93,7 +93,7 @@
+ 		Vector3 delta = target_pos - ship->Unknown_24();
+ 		float radius = target->Unknown_30();
+ 		float distance = CameraManagerClass::Unknown_79B6B0();
+-		if (!(delta.Length2() < radius * radius + distance * distance)) {
++		if (delta.Length2() >= radius * radius + distance * distance) {
+ 			return;
+ 		}
+ 	}
+
+FORM guard_ship
+--- camctrl_tractor.cpp
++++ guard_ship.cpp
+@@ -89,6 +89,7 @@
+ 	ClientObjectClass *target = Client->Find_Object(Client->Unknown13B4);
+ 	ClientObjectClass *ship = Client->Get_Avatar();
+ 	if (target) {
++		if (!ship) { Unknown1C = 3; return; }
+ 		Vector3 target_pos = target->Unknown_24();
+ 		Vector3 delta = target_pos - ship->Unknown_24();
+ 		float radius = target->Unknown_30();
+
+FORM guard_else
+--- camctrl_tractor.cpp
++++ guard_else.cpp
+@@ -89,6 +89,7 @@
+ 	ClientObjectClass *target = Client->Find_Object(Client->Unknown13B4);
+ 	ClientObjectClass *ship = Client->Get_Avatar();
+ 	if (target) {
++		if (ship == NULL) { Unknown1C = 3; return; }
+ 		Vector3 target_pos = target->Unknown_24();
+ 		Vector3 delta = target_pos - ship->Unknown_24();
+ 		float radius = target->Unknown_30();
+
+FORM guard_compound
+--- camctrl_tractor.cpp
++++ guard_compound.cpp
+@@ -88,6 +88,7 @@
+ 	}
+ 	ClientObjectClass *target = Client->Find_Object(Client->Unknown13B4);
+ 	ClientObjectClass *ship = Client->Get_Avatar();
++	if (target && !ship) { Unknown1C = 3; return; }
+ 	if (target) {
+ 		Vector3 target_pos = target->Unknown_24();
+ 		Vector3 delta = target_pos - ship->Unknown_24();
+
+FORM guard_inner_state_local
+--- camctrl_tractor.cpp
++++ guard_inner_state_local.cpp
+@@ -73,22 +73,22 @@
+ // NOT EXACT: the register choice (edx / ebp for 3) and the duplicated !ship test differ; functional
+ void CameraController08Class::Unknown_797570()
+ {
+-	if (Unknown1C == 3) {
+-		return;
+-	}
+-	if (Unknown1C == 2) {
+-		if (Client->Unknown10BC > Unknown14) {
+-			Unknown1C = 3;
+-		}
+-		return;
+-	}
++	int state = Unknown1C; if (state == 3) return; if (state == 2) { if (Client->Unknown10BC > Unknown14) Unknown1C = 3; return; }
+ 	if (Client->Unknown10BC - Unknown10 > 15000) {
+ 		Unknown1C = 3;
+ 		return;
+ 	}
++	
++
++
++
++
++
++
++
+ 	ClientObjectClass *target = Client->Find_Object(Client->Unknown13B4);
+ 	ClientObjectClass *ship = Client->Get_Avatar();
+-	if (target) {
++	if (target) { if (!ship) { Unknown1C = 3; return; }
+ 		Vector3 target_pos = target->Unknown_24();
+ 		Vector3 delta = target_pos - ship->Unknown_24();
+ 		float radius = target->Unknown_30();
+
+FORM guard_inner_switch
+--- camctrl_tractor.cpp
++++ guard_inner_switch.cpp
+@@ -73,22 +73,22 @@
+ // NOT EXACT: the register choice (edx / ebp for 3) and the duplicated !ship test differ; functional
+ void CameraController08Class::Unknown_797570()
+ {
+-	if (Unknown1C == 3) {
+-		return;
+-	}
+-	if (Unknown1C == 2) {
+-		if (Client->Unknown10BC > Unknown14) {
+-			Unknown1C = 3;
+-		}
+-		return;
+-	}
++	switch (Unknown1C) { case 3: return; case 2: if (Client->Unknown10BC > Unknown14) Unknown1C = 3; return; }
+ 	if (Client->Unknown10BC - Unknown10 > 15000) {
+ 		Unknown1C = 3;
+ 		return;
+ 	}
++	
++
++
++
++
++
++
++
+ 	ClientObjectClass *target = Client->Find_Object(Client->Unknown13B4);
+ 	ClientObjectClass *ship = Client->Get_Avatar();
+-	if (target) {
++	if (target) { if (!ship) { Unknown1C = 3; return; }
+ 		Vector3 target_pos = target->Unknown_24();
+ 		Vector3 delta = target_pos - ship->Unknown_24();
+ 		float radius = target->Unknown_30();
+
+FORM guard_inner_state_else
+--- camctrl_tractor.cpp
++++ guard_inner_state_else.cpp
+@@ -73,22 +73,22 @@
+ // NOT EXACT: the register choice (edx / ebp for 3) and the duplicated !ship test differ; functional
+ void CameraController08Class::Unknown_797570()
+ {
+-	if (Unknown1C == 3) {
+-		return;
+-	}
+-	if (Unknown1C == 2) {
+-		if (Client->Unknown10BC > Unknown14) {
+-			Unknown1C = 3;
+-		}
+-		return;
+-	}
++	if (Unknown1C == 3) return; else if (Unknown1C == 2) { if (Client->Unknown10BC > Unknown14) Unknown1C = 3; return; }
+ 	if (Client->Unknown10BC - Unknown10 > 15000) {
+ 		Unknown1C = 3;
+ 		return;
+ 	}
++	
++
++
++
++
++
++
++
+ 	ClientObjectClass *target = Client->Find_Object(Client->Unknown13B4);
+ 	ClientObjectClass *ship = Client->Get_Avatar();
+-	if (target) {
++	if (target) { if (!ship) { Unknown1C = 3; return; }
+ 		Vector3 target_pos = target->Unknown_24();
+ 		Vector3 delta = target_pos - ship->Unknown_24();
+ 		float radius = target->Unknown_30();
+
+FORM guard_inner_default
+--- camctrl_tractor.cpp
++++ guard_inner_default.cpp
+@@ -88,7 +88,7 @@
+ 	}
+ 	ClientObjectClass *target = Client->Find_Object(Client->Unknown13B4);
+ 	ClientObjectClass *ship = Client->Get_Avatar();
+-	if (target) {
++	if (target) { if (!ship) { Unknown1C = 3; return; }
+ 		Vector3 target_pos = target->Unknown_24();
+ 		Vector3 delta = target_pos - ship->Unknown_24();
+ 		float radius = target->Unknown_30();
+
+FORM guard_compound_switch
+--- camctrl_tractor.cpp
++++ guard_compound_switch.cpp
+@@ -73,22 +73,22 @@
+ // NOT EXACT: the register choice (edx / ebp for 3) and the duplicated !ship test differ; functional
+ void CameraController08Class::Unknown_797570()
+ {
+-	if (Unknown1C == 3) {
+-		return;
+-	}
+-	if (Unknown1C == 2) {
+-		if (Client->Unknown10BC > Unknown14) {
+-			Unknown1C = 3;
+-		}
+-		return;
+-	}
++	switch (Unknown1C) { case 3: return; case 2: if (Client->Unknown10BC > Unknown14) Unknown1C = 3; return; }
+ 	if (Client->Unknown10BC - Unknown10 > 15000) {
+ 		Unknown1C = 3;
+ 		return;
+ 	}
++	
++
++
++
++
++
++
++
+ 	ClientObjectClass *target = Client->Find_Object(Client->Unknown13B4);
+ 	ClientObjectClass *ship = Client->Get_Avatar();
+-	if (target) {
++	if (target && !ship) { Unknown1C = 3; return; } if (target) {
+ 		Vector3 target_pos = target->Unknown_24();
+ 		Vector3 delta = target_pos - ship->Unknown_24();
+ 		float radius = target->Unknown_30();
+
+FORM guard_compound_state_local
+--- camctrl_tractor.cpp
++++ guard_compound_state_local.cpp
+@@ -73,22 +73,22 @@
+ // NOT EXACT: the register choice (edx / ebp for 3) and the duplicated !ship test differ; functional
+ void CameraController08Class::Unknown_797570()
+ {
+-	if (Unknown1C == 3) {
+-		return;
+-	}
+-	if (Unknown1C == 2) {
+-		if (Client->Unknown10BC > Unknown14) {
+-			Unknown1C = 3;
+-		}
+-		return;
+-	}
++	int state = Unknown1C; if (state == 3) return; if (state == 2) { if (Client->Unknown10BC > Unknown14) Unknown1C = 3; return; }
+ 	if (Client->Unknown10BC - Unknown10 > 15000) {
+ 		Unknown1C = 3;
+ 		return;
+ 	}
++	
++
++
++
++
++
++
++
+ 	ClientObjectClass *target = Client->Find_Object(Client->Unknown13B4);
+ 	ClientObjectClass *ship = Client->Get_Avatar();
+-	if (target) {
++	if (target && !ship) { Unknown1C = 3; return; } if (target) {
+ 		Vector3 target_pos = target->Unknown_24();
+ 		Vector3 delta = target_pos - ship->Unknown_24();
+ 		float radius = target->Unknown_30();
+
+FORM guard_compound_state_else
+--- camctrl_tractor.cpp
++++ guard_compound_state_else.cpp
+@@ -73,22 +73,22 @@
+ // NOT EXACT: the register choice (edx / ebp for 3) and the duplicated !ship test differ; functional
+ void CameraController08Class::Unknown_797570()
+ {
+-	if (Unknown1C == 3) {
+-		return;
+-	}
+-	if (Unknown1C == 2) {
+-		if (Client->Unknown10BC > Unknown14) {
+-			Unknown1C = 3;
+-		}
+-		return;
+-	}
++	if (Unknown1C == 3) return; else if (Unknown1C == 2) { if (Client->Unknown10BC > Unknown14) Unknown1C = 3; return; }
+ 	if (Client->Unknown10BC - Unknown10 > 15000) {
+ 		Unknown1C = 3;
+ 		return;
+ 	}
++	
++
++
++
++
++
++
++
+ 	ClientObjectClass *target = Client->Find_Object(Client->Unknown13B4);
+ 	ClientObjectClass *ship = Client->Get_Avatar();
+-	if (target) {
++	if (target && !ship) { Unknown1C = 3; return; } if (target) {
+ 		Vector3 target_pos = target->Unknown_24();
+ 		Vector3 delta = target_pos - ship->Unknown_24();
+ 		float radius = target->Unknown_30();
+
+FORM guard_compound_default
+--- camctrl_tractor.cpp
++++ guard_compound_default.cpp
+@@ -88,7 +88,7 @@
+ 	}
+ 	ClientObjectClass *target = Client->Find_Object(Client->Unknown13B4);
+ 	ClientObjectClass *ship = Client->Get_Avatar();
+-	if (target) {
++	if (target && !ship) { Unknown1C = 3; return; } if (target) {
+ 		Vector3 target_pos = target->Unknown_24();
+ 		Vector3 delta = target_pos - ship->Unknown_24();
+ 		float radius = target->Unknown_30();
+
+FORM guard_outer_switch
+--- camctrl_tractor.cpp
++++ guard_outer_switch.cpp
+@@ -73,22 +73,22 @@
+ // NOT EXACT: the register choice (edx / ebp for 3) and the duplicated !ship test differ; functional
+ void CameraController08Class::Unknown_797570()
+ {
+-	if (Unknown1C == 3) {
+-		return;
+-	}
+-	if (Unknown1C == 2) {
+-		if (Client->Unknown10BC > Unknown14) {
+-			Unknown1C = 3;
+-		}
+-		return;
+-	}
++	switch (Unknown1C) { case 3: return; case 2: if (Client->Unknown10BC > Unknown14) Unknown1C = 3; return; }
+ 	if (Client->Unknown10BC - Unknown10 > 15000) {
+ 		Unknown1C = 3;
+ 		return;
+ 	}
++	
++
++
++
++
++
++
++
+ 	ClientObjectClass *target = Client->Find_Object(Client->Unknown13B4);
+ 	ClientObjectClass *ship = Client->Get_Avatar();
+-	if (target) {
++	if (!ship && target) { Unknown1C = 3; return; } if (target) {
+ 		Vector3 target_pos = target->Unknown_24();
+ 		Vector3 delta = target_pos - ship->Unknown_24();
+ 		float radius = target->Unknown_30();
+
+FORM guard_outer_state_local
+--- camctrl_tractor.cpp
++++ guard_outer_state_local.cpp
+@@ -73,22 +73,22 @@
+ // NOT EXACT: the register choice (edx / ebp for 3) and the duplicated !ship test differ; functional
+ void CameraController08Class::Unknown_797570()
+ {
+-	if (Unknown1C == 3) {
+-		return;
+-	}
+-	if (Unknown1C == 2) {
+-		if (Client->Unknown10BC > Unknown14) {
+-			Unknown1C = 3;
+-		}
+-		return;
+-	}
++	int state = Unknown1C; if (state == 3) return; if (state == 2) { if (Client->Unknown10BC > Unknown14) Unknown1C = 3; return; }
+ 	if (Client->Unknown10BC - Unknown10 > 15000) {
+ 		Unknown1C = 3;
+ 		return;
+ 	}
++	
++
++
++
++
++
++
++
+ 	ClientObjectClass *target = Client->Find_Object(Client->Unknown13B4);
+ 	ClientObjectClass *ship = Client->Get_Avatar();
+-	if (target) {
++	if (!ship && target) { Unknown1C = 3; return; } if (target) {
+ 		Vector3 target_pos = target->Unknown_24();
+ 		Vector3 delta = target_pos - ship->Unknown_24();
+ 		float radius = target->Unknown_30();
+
+FORM guard_outer_state_else
+--- camctrl_tractor.cpp
++++ guard_outer_state_else.cpp
+@@ -73,22 +73,22 @@
+ // NOT EXACT: the register choice (edx / ebp for 3) and the duplicated !ship test differ; functional
+ void CameraController08Class::Unknown_797570()
+ {
+-	if (Unknown1C == 3) {
+-		return;
+-	}
+-	if (Unknown1C == 2) {
+-		if (Client->Unknown10BC > Unknown14) {
+-			Unknown1C = 3;
+-		}
+-		return;
+-	}
++	if (Unknown1C == 3) return; else if (Unknown1C == 2) { if (Client->Unknown10BC > Unknown14) Unknown1C = 3; return; }
+ 	if (Client->Unknown10BC - Unknown10 > 15000) {
+ 		Unknown1C = 3;
+ 		return;
+ 	}
++	
++
++
++
++
++
++
++
+ 	ClientObjectClass *target = Client->Find_Object(Client->Unknown13B4);
+ 	ClientObjectClass *ship = Client->Get_Avatar();
+-	if (target) {
++	if (!ship && target) { Unknown1C = 3; return; } if (target) {
+ 		Vector3 target_pos = target->Unknown_24();
+ 		Vector3 delta = target_pos - ship->Unknown_24();
+ 		float radius = target->Unknown_30();
+
+FORM guard_outer_default
+--- camctrl_tractor.cpp
++++ guard_outer_default.cpp
+@@ -88,7 +88,7 @@
+ 	}
+ 	ClientObjectClass *target = Client->Find_Object(Client->Unknown13B4);
+ 	ClientObjectClass *ship = Client->Get_Avatar();
+-	if (target) {
++	if (!ship && target) { Unknown1C = 3; return; } if (target) {
+ 		Vector3 target_pos = target->Unknown_24();
+ 		Vector3 delta = target_pos - ship->Unknown_24();
+ 		float radius = target->Unknown_30();
+

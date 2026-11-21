@@ -1,0 +1,694 @@
+FORM translation_out
+--- camctrl_pland.cpp
++++ translation_out.cpp
+@@ -146,7 +146,7 @@
+ 	up_dir.Normalize();
+ 
+ 	Vector3 tangent0(speed_fwd, 0.0f, -speed_down);
+-	Vector3 cam_pos = ship_tm.Get_Translation();
++	Vector3 cam_pos; ship_tm.Get_Translation(&cam_pos);
+ 	cam_pos.X += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+ 	cam_pos.Y += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+ 	cam_pos.Z += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+
+FORM tangent_assignment
+--- camctrl_pland.cpp
++++ tangent_assignment.cpp
+@@ -145,7 +145,7 @@
+ 	Vector3 up_dir = ship_tm.Rotate_Vector(Vector3(ux, uy, uz));
+ 	up_dir.Normalize();
+ 
+-	Vector3 tangent0(speed_fwd, 0.0f, -speed_down);
++	Vector3 tangent0; tangent0.X = speed_fwd; tangent0.Y = 0.0f; tangent0.Z = -speed_down;
+ 	Vector3 cam_pos = ship_tm.Get_Translation();
+ 	cam_pos.X += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+ 	cam_pos.Y += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+
+FORM bulk_return_ctor
+
+FORM bulk_return_copy
+--- camctrl_pland.cpp
++++ bulk_return_copy.cpp
+@@ -145,7 +145,7 @@
+ 	Vector3 up_dir = ship_tm.Rotate_Vector(Vector3(ux, uy, uz));
+ 	up_dir.Normalize();
+ 
+-	Vector3 tangent0(speed_fwd, 0.0f, -speed_down);
++	Vector3 tangent0 = Vector3(speed_fwd, 0.0f, -speed_down);
+ 	Vector3 cam_pos = ship_tm.Get_Translation();
+ 	cam_pos.X += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+ 	cam_pos.Y += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+
+FORM bulk_return_xyz
+--- camctrl_pland.cpp
++++ bulk_return_xyz.cpp
+@@ -145,7 +145,7 @@
+ 	Vector3 up_dir = ship_tm.Rotate_Vector(Vector3(ux, uy, uz));
+ 	up_dir.Normalize();
+ 
+-	Vector3 tangent0(speed_fwd, 0.0f, -speed_down);
++	Vector3 tangent0; tangent0.X = speed_fwd; tangent0.Y = 0.0f; tangent0.Z = -speed_down;
+ 	Vector3 cam_pos = ship_tm.Get_Translation();
+ 	cam_pos.X += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+ 	cam_pos.Y += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+
+FORM bulk_return_zyx
+--- camctrl_pland.cpp
++++ bulk_return_zyx.cpp
+@@ -145,7 +145,7 @@
+ 	Vector3 up_dir = ship_tm.Rotate_Vector(Vector3(ux, uy, uz));
+ 	up_dir.Normalize();
+ 
+-	Vector3 tangent0(speed_fwd, 0.0f, -speed_down);
++	Vector3 tangent0; tangent0.Z = -speed_down; tangent0.Y = 0.0f; tangent0.X = speed_fwd;
+ 	Vector3 cam_pos = ship_tm.Get_Translation();
+ 	cam_pos.X += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+ 	cam_pos.Y += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+
+FORM bulk_out_ctor
+--- camctrl_pland.cpp
++++ bulk_out_ctor.cpp
+@@ -146,7 +146,7 @@
+ 	up_dir.Normalize();
+ 
+ 	Vector3 tangent0(speed_fwd, 0.0f, -speed_down);
+-	Vector3 cam_pos = ship_tm.Get_Translation();
++	Vector3 cam_pos; ship_tm.Get_Translation(&cam_pos);
+ 	cam_pos.X += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+ 	cam_pos.Y += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+ 	cam_pos.Z += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+
+FORM bulk_out_copy
+--- camctrl_pland.cpp
++++ bulk_out_copy.cpp
+@@ -145,8 +145,8 @@
+ 	Vector3 up_dir = ship_tm.Rotate_Vector(Vector3(ux, uy, uz));
+ 	up_dir.Normalize();
+ 
+-	Vector3 tangent0(speed_fwd, 0.0f, -speed_down);
+-	Vector3 cam_pos = ship_tm.Get_Translation();
++	Vector3 tangent0 = Vector3(speed_fwd, 0.0f, -speed_down);
++	Vector3 cam_pos; ship_tm.Get_Translation(&cam_pos);
+ 	cam_pos.X += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+ 	cam_pos.Y += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+ 	cam_pos.Z += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+
+FORM bulk_out_xyz
+--- camctrl_pland.cpp
++++ bulk_out_xyz.cpp
+@@ -145,8 +145,8 @@
+ 	Vector3 up_dir = ship_tm.Rotate_Vector(Vector3(ux, uy, uz));
+ 	up_dir.Normalize();
+ 
+-	Vector3 tangent0(speed_fwd, 0.0f, -speed_down);
+-	Vector3 cam_pos = ship_tm.Get_Translation();
++	Vector3 tangent0; tangent0.X = speed_fwd; tangent0.Y = 0.0f; tangent0.Z = -speed_down;
++	Vector3 cam_pos; ship_tm.Get_Translation(&cam_pos);
+ 	cam_pos.X += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+ 	cam_pos.Y += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+ 	cam_pos.Z += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+
+FORM bulk_out_zyx
+--- camctrl_pland.cpp
++++ bulk_out_zyx.cpp
+@@ -145,8 +145,8 @@
+ 	Vector3 up_dir = ship_tm.Rotate_Vector(Vector3(ux, uy, uz));
+ 	up_dir.Normalize();
+ 
+-	Vector3 tangent0(speed_fwd, 0.0f, -speed_down);
+-	Vector3 cam_pos = ship_tm.Get_Translation();
++	Vector3 tangent0; tangent0.Z = -speed_down; tangent0.Y = 0.0f; tangent0.X = speed_fwd;
++	Vector3 cam_pos; ship_tm.Get_Translation(&cam_pos);
+ 	cam_pos.X += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+ 	cam_pos.Y += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+ 	cam_pos.Z += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+
+FORM bulk_ctor_ctor
+--- camctrl_pland.cpp
++++ bulk_ctor_ctor.cpp
+@@ -146,7 +146,7 @@
+ 	up_dir.Normalize();
+ 
+ 	Vector3 tangent0(speed_fwd, 0.0f, -speed_down);
+-	Vector3 cam_pos = ship_tm.Get_Translation();
++	Vector3 cam_pos(ship_tm.Get_Translation());
+ 	cam_pos.X += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+ 	cam_pos.Y += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+ 	cam_pos.Z += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+
+FORM bulk_ctor_copy
+--- camctrl_pland.cpp
++++ bulk_ctor_copy.cpp
+@@ -145,8 +145,8 @@
+ 	Vector3 up_dir = ship_tm.Rotate_Vector(Vector3(ux, uy, uz));
+ 	up_dir.Normalize();
+ 
+-	Vector3 tangent0(speed_fwd, 0.0f, -speed_down);
+-	Vector3 cam_pos = ship_tm.Get_Translation();
++	Vector3 tangent0 = Vector3(speed_fwd, 0.0f, -speed_down);
++	Vector3 cam_pos(ship_tm.Get_Translation());
+ 	cam_pos.X += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+ 	cam_pos.Y += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+ 	cam_pos.Z += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+
+FORM bulk_ctor_xyz
+--- camctrl_pland.cpp
++++ bulk_ctor_xyz.cpp
+@@ -145,8 +145,8 @@
+ 	Vector3 up_dir = ship_tm.Rotate_Vector(Vector3(ux, uy, uz));
+ 	up_dir.Normalize();
+ 
+-	Vector3 tangent0(speed_fwd, 0.0f, -speed_down);
+-	Vector3 cam_pos = ship_tm.Get_Translation();
++	Vector3 tangent0; tangent0.X = speed_fwd; tangent0.Y = 0.0f; tangent0.Z = -speed_down;
++	Vector3 cam_pos(ship_tm.Get_Translation());
+ 	cam_pos.X += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+ 	cam_pos.Y += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+ 	cam_pos.Z += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+
+FORM bulk_ctor_zyx
+--- camctrl_pland.cpp
++++ bulk_ctor_zyx.cpp
+@@ -145,8 +145,8 @@
+ 	Vector3 up_dir = ship_tm.Rotate_Vector(Vector3(ux, uy, uz));
+ 	up_dir.Normalize();
+ 
+-	Vector3 tangent0(speed_fwd, 0.0f, -speed_down);
+-	Vector3 cam_pos = ship_tm.Get_Translation();
++	Vector3 tangent0; tangent0.Z = -speed_down; tangent0.Y = 0.0f; tangent0.X = speed_fwd;
++	Vector3 cam_pos(ship_tm.Get_Translation());
+ 	cam_pos.X += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+ 	cam_pos.Y += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+ 	cam_pos.Z += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+
+FORM bulk_assign_ctor
+--- camctrl_pland.cpp
++++ bulk_assign_ctor.cpp
+@@ -146,7 +146,7 @@
+ 	up_dir.Normalize();
+ 
+ 	Vector3 tangent0(speed_fwd, 0.0f, -speed_down);
+-	Vector3 cam_pos = ship_tm.Get_Translation();
++	Vector3 cam_pos; cam_pos = ship_tm.Get_Translation();
+ 	cam_pos.X += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+ 	cam_pos.Y += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+ 	cam_pos.Z += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+
+FORM bulk_assign_copy
+--- camctrl_pland.cpp
++++ bulk_assign_copy.cpp
+@@ -145,8 +145,8 @@
+ 	Vector3 up_dir = ship_tm.Rotate_Vector(Vector3(ux, uy, uz));
+ 	up_dir.Normalize();
+ 
+-	Vector3 tangent0(speed_fwd, 0.0f, -speed_down);
+-	Vector3 cam_pos = ship_tm.Get_Translation();
++	Vector3 tangent0 = Vector3(speed_fwd, 0.0f, -speed_down);
++	Vector3 cam_pos; cam_pos = ship_tm.Get_Translation();
+ 	cam_pos.X += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+ 	cam_pos.Y += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+ 	cam_pos.Z += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+
+FORM bulk_assign_zyx
+--- camctrl_pland.cpp
++++ bulk_assign_zyx.cpp
+@@ -145,8 +145,8 @@
+ 	Vector3 up_dir = ship_tm.Rotate_Vector(Vector3(ux, uy, uz));
+ 	up_dir.Normalize();
+ 
+-	Vector3 tangent0(speed_fwd, 0.0f, -speed_down);
+-	Vector3 cam_pos = ship_tm.Get_Translation();
++	Vector3 tangent0; tangent0.Z = -speed_down; tangent0.Y = 0.0f; tangent0.X = speed_fwd;
++	Vector3 cam_pos; cam_pos = ship_tm.Get_Translation();
+ 	cam_pos.X += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+ 	cam_pos.Y += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+ 	cam_pos.Z += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+
+FORM bulk_assign_xyz
+--- camctrl_pland.cpp
++++ bulk_assign_xyz.cpp
+@@ -145,8 +145,8 @@
+ 	Vector3 up_dir = ship_tm.Rotate_Vector(Vector3(ux, uy, uz));
+ 	up_dir.Normalize();
+ 
+-	Vector3 tangent0(speed_fwd, 0.0f, -speed_down);
+-	Vector3 cam_pos = ship_tm.Get_Translation();
++	Vector3 tangent0; tangent0.X = speed_fwd; tangent0.Y = 0.0f; tangent0.Z = -speed_down;
++	Vector3 cam_pos; cam_pos = ship_tm.Get_Translation();
+ 	cam_pos.X += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+ 	cam_pos.Y += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+ 	cam_pos.Z += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+
+FORM bulk_components_ctor
+--- camctrl_pland.cpp
++++ bulk_components_ctor.cpp
+@@ -146,7 +146,7 @@
+ 	up_dir.Normalize();
+ 
+ 	Vector3 tangent0(speed_fwd, 0.0f, -speed_down);
+-	Vector3 cam_pos = ship_tm.Get_Translation();
++	Vector3 cam_pos(ship_tm[0][3], ship_tm[1][3], ship_tm[2][3]);
+ 	cam_pos.X += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+ 	cam_pos.Y += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+ 	cam_pos.Z += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+
+FORM bulk_components_xyz
+--- camctrl_pland.cpp
++++ bulk_components_xyz.cpp
+@@ -145,8 +145,8 @@
+ 	Vector3 up_dir = ship_tm.Rotate_Vector(Vector3(ux, uy, uz));
+ 	up_dir.Normalize();
+ 
+-	Vector3 tangent0(speed_fwd, 0.0f, -speed_down);
+-	Vector3 cam_pos = ship_tm.Get_Translation();
++	Vector3 tangent0; tangent0.X = speed_fwd; tangent0.Y = 0.0f; tangent0.Z = -speed_down;
++	Vector3 cam_pos(ship_tm[0][3], ship_tm[1][3], ship_tm[2][3]);
+ 	cam_pos.X += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+ 	cam_pos.Y += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+ 	cam_pos.Z += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+
+FORM bulk_components_copy
+--- camctrl_pland.cpp
++++ bulk_components_copy.cpp
+@@ -145,8 +145,8 @@
+ 	Vector3 up_dir = ship_tm.Rotate_Vector(Vector3(ux, uy, uz));
+ 	up_dir.Normalize();
+ 
+-	Vector3 tangent0(speed_fwd, 0.0f, -speed_down);
+-	Vector3 cam_pos = ship_tm.Get_Translation();
++	Vector3 tangent0 = Vector3(speed_fwd, 0.0f, -speed_down);
++	Vector3 cam_pos(ship_tm[0][3], ship_tm[1][3], ship_tm[2][3]);
+ 	cam_pos.X += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+ 	cam_pos.Y += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+ 	cam_pos.Z += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+
+FORM bulk_components_zyx
+--- camctrl_pland.cpp
++++ bulk_components_zyx.cpp
+@@ -145,8 +145,8 @@
+ 	Vector3 up_dir = ship_tm.Rotate_Vector(Vector3(ux, uy, uz));
+ 	up_dir.Normalize();
+ 
+-	Vector3 tangent0(speed_fwd, 0.0f, -speed_down);
+-	Vector3 cam_pos = ship_tm.Get_Translation();
++	Vector3 tangent0; tangent0.Z = -speed_down; tangent0.Y = 0.0f; tangent0.X = speed_fwd;
++	Vector3 cam_pos(ship_tm[0][3], ship_tm[1][3], ship_tm[2][3]);
+ 	cam_pos.X += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+ 	cam_pos.Y += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+ 	cam_pos.Z += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+
+FORM frame_section24_ctor
+--- camctrl_pland.cpp
++++ frame_section24_ctor.cpp
+@@ -126,7 +126,7 @@
+ 
+ 	INIClass ini;
+ 	ini.Load("landingpattern.ini");
+-	char section[64];
++	char section[24];
+ 	sprintf(section, "%d", Unknown_B9E3B0);
+ 	if (!ini.Find_Section(section)) {
+ 		sprintf(section, "Default");
+@@ -146,7 +146,7 @@
+ 	up_dir.Normalize();
+ 
+ 	Vector3 tangent0(speed_fwd, 0.0f, -speed_down);
+-	Vector3 cam_pos = ship_tm.Get_Translation();
++	Vector3 cam_pos(ship_tm.Get_Translation());
+ 	cam_pos.X += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+ 	cam_pos.Y += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+ 	cam_pos.Z += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+
+FORM frame_section24_out
+--- camctrl_pland.cpp
++++ frame_section24_out.cpp
+@@ -126,7 +126,7 @@
+ 
+ 	INIClass ini;
+ 	ini.Load("landingpattern.ini");
+-	char section[64];
++	char section[24];
+ 	sprintf(section, "%d", Unknown_B9E3B0);
+ 	if (!ini.Find_Section(section)) {
+ 		sprintf(section, "Default");
+@@ -146,7 +146,7 @@
+ 	up_dir.Normalize();
+ 
+ 	Vector3 tangent0(speed_fwd, 0.0f, -speed_down);
+-	Vector3 cam_pos = ship_tm.Get_Translation();
++	Vector3 cam_pos; ship_tm.Get_Translation(&cam_pos);
+ 	cam_pos.X += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+ 	cam_pos.Y += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+ 	cam_pos.Z += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+
+FORM frame_section24_return
+--- camctrl_pland.cpp
++++ frame_section24_return.cpp
+@@ -126,7 +126,7 @@
+ 
+ 	INIClass ini;
+ 	ini.Load("landingpattern.ini");
+-	char section[64];
++	char section[24];
+ 	sprintf(section, "%d", Unknown_B9E3B0);
+ 	if (!ini.Find_Section(section)) {
+ 		sprintf(section, "Default");
+
+FORM frame_section24_assign
+--- camctrl_pland.cpp
++++ frame_section24_assign.cpp
+@@ -126,7 +126,7 @@
+ 
+ 	INIClass ini;
+ 	ini.Load("landingpattern.ini");
+-	char section[64];
++	char section[24];
+ 	sprintf(section, "%d", Unknown_B9E3B0);
+ 	if (!ini.Find_Section(section)) {
+ 		sprintf(section, "Default");
+@@ -146,7 +146,7 @@
+ 	up_dir.Normalize();
+ 
+ 	Vector3 tangent0(speed_fwd, 0.0f, -speed_down);
+-	Vector3 cam_pos = ship_tm.Get_Translation();
++	Vector3 cam_pos; cam_pos = ship_tm.Get_Translation();
+ 	cam_pos.X += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+ 	cam_pos.Y += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+ 	cam_pos.Z += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+
+FORM frame_section32_return
+--- camctrl_pland.cpp
++++ frame_section32_return.cpp
+@@ -126,7 +126,7 @@
+ 
+ 	INIClass ini;
+ 	ini.Load("landingpattern.ini");
+-	char section[64];
++	char section[32];
+ 	sprintf(section, "%d", Unknown_B9E3B0);
+ 	if (!ini.Find_Section(section)) {
+ 		sprintf(section, "Default");
+
+FORM frame_section32_out
+--- camctrl_pland.cpp
++++ frame_section32_out.cpp
+@@ -126,7 +126,7 @@
+ 
+ 	INIClass ini;
+ 	ini.Load("landingpattern.ini");
+-	char section[64];
++	char section[32];
+ 	sprintf(section, "%d", Unknown_B9E3B0);
+ 	if (!ini.Find_Section(section)) {
+ 		sprintf(section, "Default");
+@@ -146,7 +146,7 @@
+ 	up_dir.Normalize();
+ 
+ 	Vector3 tangent0(speed_fwd, 0.0f, -speed_down);
+-	Vector3 cam_pos = ship_tm.Get_Translation();
++	Vector3 cam_pos; ship_tm.Get_Translation(&cam_pos);
+ 	cam_pos.X += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+ 	cam_pos.Y += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+ 	cam_pos.Z += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+
+FORM frame_section32_assign
+--- camctrl_pland.cpp
++++ frame_section32_assign.cpp
+@@ -126,7 +126,7 @@
+ 
+ 	INIClass ini;
+ 	ini.Load("landingpattern.ini");
+-	char section[64];
++	char section[32];
+ 	sprintf(section, "%d", Unknown_B9E3B0);
+ 	if (!ini.Find_Section(section)) {
+ 		sprintf(section, "Default");
+@@ -146,7 +146,7 @@
+ 	up_dir.Normalize();
+ 
+ 	Vector3 tangent0(speed_fwd, 0.0f, -speed_down);
+-	Vector3 cam_pos = ship_tm.Get_Translation();
++	Vector3 cam_pos; cam_pos = ship_tm.Get_Translation();
+ 	cam_pos.X += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+ 	cam_pos.Y += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+ 	cam_pos.Z += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+
+FORM frame_section32_ctor
+--- camctrl_pland.cpp
++++ frame_section32_ctor.cpp
+@@ -126,7 +126,7 @@
+ 
+ 	INIClass ini;
+ 	ini.Load("landingpattern.ini");
+-	char section[64];
++	char section[32];
+ 	sprintf(section, "%d", Unknown_B9E3B0);
+ 	if (!ini.Find_Section(section)) {
+ 		sprintf(section, "Default");
+@@ -146,7 +146,7 @@
+ 	up_dir.Normalize();
+ 
+ 	Vector3 tangent0(speed_fwd, 0.0f, -speed_down);
+-	Vector3 cam_pos = ship_tm.Get_Translation();
++	Vector3 cam_pos(ship_tm.Get_Translation());
+ 	cam_pos.X += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+ 	cam_pos.Y += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+ 	cam_pos.Z += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+
+FORM frame_section40_return
+--- camctrl_pland.cpp
++++ frame_section40_return.cpp
+@@ -126,7 +126,7 @@
+ 
+ 	INIClass ini;
+ 	ini.Load("landingpattern.ini");
+-	char section[64];
++	char section[40];
+ 	sprintf(section, "%d", Unknown_B9E3B0);
+ 	if (!ini.Find_Section(section)) {
+ 		sprintf(section, "Default");
+
+FORM frame_section40_ctor
+--- camctrl_pland.cpp
++++ frame_section40_ctor.cpp
+@@ -126,7 +126,7 @@
+ 
+ 	INIClass ini;
+ 	ini.Load("landingpattern.ini");
+-	char section[64];
++	char section[40];
+ 	sprintf(section, "%d", Unknown_B9E3B0);
+ 	if (!ini.Find_Section(section)) {
+ 		sprintf(section, "Default");
+@@ -146,7 +146,7 @@
+ 	up_dir.Normalize();
+ 
+ 	Vector3 tangent0(speed_fwd, 0.0f, -speed_down);
+-	Vector3 cam_pos = ship_tm.Get_Translation();
++	Vector3 cam_pos(ship_tm.Get_Translation());
+ 	cam_pos.X += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+ 	cam_pos.Y += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+ 	cam_pos.Z += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+
+FORM frame_section40_out
+--- camctrl_pland.cpp
++++ frame_section40_out.cpp
+@@ -126,7 +126,7 @@
+ 
+ 	INIClass ini;
+ 	ini.Load("landingpattern.ini");
+-	char section[64];
++	char section[40];
+ 	sprintf(section, "%d", Unknown_B9E3B0);
+ 	if (!ini.Find_Section(section)) {
+ 		sprintf(section, "Default");
+@@ -146,7 +146,7 @@
+ 	up_dir.Normalize();
+ 
+ 	Vector3 tangent0(speed_fwd, 0.0f, -speed_down);
+-	Vector3 cam_pos = ship_tm.Get_Translation();
++	Vector3 cam_pos; ship_tm.Get_Translation(&cam_pos);
+ 	cam_pos.X += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+ 	cam_pos.Y += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+ 	cam_pos.Z += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+
+FORM frame_section40_assign
+--- camctrl_pland.cpp
++++ frame_section40_assign.cpp
+@@ -126,7 +126,7 @@
+ 
+ 	INIClass ini;
+ 	ini.Load("landingpattern.ini");
+-	char section[64];
++	char section[40];
+ 	sprintf(section, "%d", Unknown_B9E3B0);
+ 	if (!ini.Find_Section(section)) {
+ 		sprintf(section, "Default");
+@@ -146,7 +146,7 @@
+ 	up_dir.Normalize();
+ 
+ 	Vector3 tangent0(speed_fwd, 0.0f, -speed_down);
+-	Vector3 cam_pos = ship_tm.Get_Translation();
++	Vector3 cam_pos; cam_pos = ship_tm.Get_Translation();
+ 	cam_pos.X += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+ 	cam_pos.Y += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+ 	cam_pos.Z += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+
+FORM frame_section48_return
+--- camctrl_pland.cpp
++++ frame_section48_return.cpp
+@@ -126,7 +126,7 @@
+ 
+ 	INIClass ini;
+ 	ini.Load("landingpattern.ini");
+-	char section[64];
++	char section[48];
+ 	sprintf(section, "%d", Unknown_B9E3B0);
+ 	if (!ini.Find_Section(section)) {
+ 		sprintf(section, "Default");
+
+FORM frame_section48_out
+--- camctrl_pland.cpp
++++ frame_section48_out.cpp
+@@ -126,7 +126,7 @@
+ 
+ 	INIClass ini;
+ 	ini.Load("landingpattern.ini");
+-	char section[64];
++	char section[48];
+ 	sprintf(section, "%d", Unknown_B9E3B0);
+ 	if (!ini.Find_Section(section)) {
+ 		sprintf(section, "Default");
+@@ -146,7 +146,7 @@
+ 	up_dir.Normalize();
+ 
+ 	Vector3 tangent0(speed_fwd, 0.0f, -speed_down);
+-	Vector3 cam_pos = ship_tm.Get_Translation();
++	Vector3 cam_pos; ship_tm.Get_Translation(&cam_pos);
+ 	cam_pos.X += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+ 	cam_pos.Y += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+ 	cam_pos.Z += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+
+FORM frame_section48_ctor
+--- camctrl_pland.cpp
++++ frame_section48_ctor.cpp
+@@ -126,7 +126,7 @@
+ 
+ 	INIClass ini;
+ 	ini.Load("landingpattern.ini");
+-	char section[64];
++	char section[48];
+ 	sprintf(section, "%d", Unknown_B9E3B0);
+ 	if (!ini.Find_Section(section)) {
+ 		sprintf(section, "Default");
+@@ -146,7 +146,7 @@
+ 	up_dir.Normalize();
+ 
+ 	Vector3 tangent0(speed_fwd, 0.0f, -speed_down);
+-	Vector3 cam_pos = ship_tm.Get_Translation();
++	Vector3 cam_pos(ship_tm.Get_Translation());
+ 	cam_pos.X += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+ 	cam_pos.Y += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+ 	cam_pos.Z += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+
+FORM frame_section48_assign
+--- camctrl_pland.cpp
++++ frame_section48_assign.cpp
+@@ -126,7 +126,7 @@
+ 
+ 	INIClass ini;
+ 	ini.Load("landingpattern.ini");
+-	char section[64];
++	char section[48];
+ 	sprintf(section, "%d", Unknown_B9E3B0);
+ 	if (!ini.Find_Section(section)) {
+ 		sprintf(section, "Default");
+@@ -146,7 +146,7 @@
+ 	up_dir.Normalize();
+ 
+ 	Vector3 tangent0(speed_fwd, 0.0f, -speed_down);
+-	Vector3 cam_pos = ship_tm.Get_Translation();
++	Vector3 cam_pos; cam_pos = ship_tm.Get_Translation();
+ 	cam_pos.X += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+ 	cam_pos.Y += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+ 	cam_pos.Z += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+
+FORM frame_section56_return
+--- camctrl_pland.cpp
++++ frame_section56_return.cpp
+@@ -126,7 +126,7 @@
+ 
+ 	INIClass ini;
+ 	ini.Load("landingpattern.ini");
+-	char section[64];
++	char section[56];
+ 	sprintf(section, "%d", Unknown_B9E3B0);
+ 	if (!ini.Find_Section(section)) {
+ 		sprintf(section, "Default");
+
+FORM frame_section56_out
+--- camctrl_pland.cpp
++++ frame_section56_out.cpp
+@@ -126,7 +126,7 @@
+ 
+ 	INIClass ini;
+ 	ini.Load("landingpattern.ini");
+-	char section[64];
++	char section[56];
+ 	sprintf(section, "%d", Unknown_B9E3B0);
+ 	if (!ini.Find_Section(section)) {
+ 		sprintf(section, "Default");
+@@ -146,7 +146,7 @@
+ 	up_dir.Normalize();
+ 
+ 	Vector3 tangent0(speed_fwd, 0.0f, -speed_down);
+-	Vector3 cam_pos = ship_tm.Get_Translation();
++	Vector3 cam_pos; ship_tm.Get_Translation(&cam_pos);
+ 	cam_pos.X += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+ 	cam_pos.Y += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+ 	cam_pos.Z += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+
+FORM frame_section56_ctor
+--- camctrl_pland.cpp
++++ frame_section56_ctor.cpp
+@@ -126,7 +126,7 @@
+ 
+ 	INIClass ini;
+ 	ini.Load("landingpattern.ini");
+-	char section[64];
++	char section[56];
+ 	sprintf(section, "%d", Unknown_B9E3B0);
+ 	if (!ini.Find_Section(section)) {
+ 		sprintf(section, "Default");
+@@ -146,7 +146,7 @@
+ 	up_dir.Normalize();
+ 
+ 	Vector3 tangent0(speed_fwd, 0.0f, -speed_down);
+-	Vector3 cam_pos = ship_tm.Get_Translation();
++	Vector3 cam_pos(ship_tm.Get_Translation());
+ 	cam_pos.X += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+ 	cam_pos.Y += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+ 	cam_pos.Z += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+
+FORM frame_section56_assign
+--- camctrl_pland.cpp
++++ frame_section56_assign.cpp
+@@ -126,7 +126,7 @@
+ 
+ 	INIClass ini;
+ 	ini.Load("landingpattern.ini");
+-	char section[64];
++	char section[56];
+ 	sprintf(section, "%d", Unknown_B9E3B0);
+ 	if (!ini.Find_Section(section)) {
+ 		sprintf(section, "Default");
+@@ -146,7 +146,7 @@
+ 	up_dir.Normalize();
+ 
+ 	Vector3 tangent0(speed_fwd, 0.0f, -speed_down);
+-	Vector3 cam_pos = ship_tm.Get_Translation();
++	Vector3 cam_pos; cam_pos = ship_tm.Get_Translation();
+ 	cam_pos.X += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+ 	cam_pos.Y += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+ 	cam_pos.Z += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+

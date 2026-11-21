@@ -1,0 +1,91 @@
+# Claim 240 Terra xhigh, baseline 3fb263fd. Source forms and evidence only.
+# Every successful experimental compile received full native objmatch.
+# Diagnostic lifetime/behavior changes are not accepted candidates.
+# Claim 240 second pass: residue 0 (baseline residue 4, explain.py masked). Client constructs Avatar, Ship, LoginName temporaries in that order. Eleven candidate expression forms plus four excluded lifetime/dispatch diagnostics; candidate forms make eight target groups. Sum Avatar+Ship+LoginName is exact, creator object 23->24, no lost pairs and 78D480 retained. Parent independently verified integrated source.
+
+# Source specification: try_creator.py
+from pathlib import Path
+import os, sys, subprocess, json, hashlib
+root = Path('/home/dev/Projects/EnB')
+snapshot = root / '.work/claim-240/round2/baseline-tree'
+work = root / '.work/claim-240/round2/avatar'
+sys.path.insert(0, str(root / '.work/claim-234'))
+import fastbuild, appfile
+dirs = appfile.candidate_dirs
+appfile.candidate_dirs = lambda: [snapshot / 'app/client'] + [snapshot / Path(p).relative_to(root) if str(p).startswith(str(root) + '/') else p for p in dirs()]
+src = (snapshot / 'app/client/unknown_creator.cpp').read_text()
+old = 'int size = AvatarDescClass().Get_Short_Size() + LoginNameDataClass().Get_Size() + ShipCustDescClass().Get_Short_Size();'
+forms = [
+    'int size = AvatarDescClass().Get_Short_Size() + (LoginNameDataClass().Get_Size() + ShipCustDescClass().Get_Short_Size());',
+    'int size; { AvatarDescClass avatar; ShipCustDescClass ship; LoginNameDataClass name; size = avatar.Get_Short_Size() + name.Get_Size() + ship.Get_Short_Size(); }',
+    'int size; { AvatarDescClass avatar; ShipCustDescClass ship; size = avatar.Get_Short_Size() + LoginNameDataClass().Get_Size() + ship.Get_Short_Size(); }',
+    'int size; { ShipCustDescClass ship; size = AvatarDescClass().Get_Short_Size() + LoginNameDataClass().Get_Size() + ship.Get_Short_Size(); }',
+    'int size; { AvatarDescClass avatar; size = avatar.Get_Short_Size() + LoginNameDataClass().Get_Size() + ShipCustDescClass().Get_Short_Size(); }',
+]
+env = os.environ.copy()
+env['ENB_RETAIL_INSTALL'] = '/home/dev/Games/earth-and-beyond/prefix/drive_c/Program Files (x86)/EA GAMES/Earth & Beyond'
+def pairs(path):
+    return {(r['symbol'], a) for r in json.loads(path.read_text()) if r['status'] == 'exact' for a in r['addresses']}
+base = pairs(work / 'baseline_unknown_creator/match.json')
+rows = []
+for i, form in enumerate(forms):
+    folder = work / ('creator_%02d' % i)
+    folder.mkdir(exist_ok=True)
+    source = folder / 'unknown_creator.cpp'
+    assert src.count(old) == 1
+    source.write_text(src.replace(old, form))
+    row = {'form': form, 'family': 'temporary lifetime/grouping', 'source': str(source)}
+    try:
+        obj = fastbuild.compile_file(source, folder)
+        match = folder / 'match.json'
+        with (folder / 'match.log').open('w') as log:
+            subprocess.run(['/home/dev/Toolchains/enb-vc6-sp4/venv/bin/python', str(root / 'tools/re/objmatch.py'), str(obj), '-q', '--json', str(match)], env=env, stdout=log, stderr=log, check=True)
+        exact = pairs(match)
+        row.update(match=str(match), gains=sorted(exact-base), losses=sorted(base-exact), object_sha256=hashlib.sha256(obj.read_bytes()).hexdigest())
+    except Exception as e:
+        row['error'] = str(e)
+    rows.append(row)
+    (work / 'creator_trials.json').write_text(json.dumps(rows, indent=2) + '\n')
+    print(i, row.get('gains'), row.get('losses'), row.get('error'), flush=True)
+
+# Source specification: try_permutations.py
+from pathlib import Path
+import os, sys, subprocess, json, itertools
+root = Path('/home/dev/Projects/EnB')
+snapshot = root / '.work/claim-240/round2/baseline-tree'
+work = root / '.work/claim-240/round2/avatar'
+sys.path.insert(0, str(root / '.work/claim-234'))
+import fastbuild, appfile
+dirs = appfile.candidate_dirs
+appfile.candidate_dirs = lambda: [snapshot / 'app/client'] + [snapshot / Path(p).relative_to(root) if str(p).startswith(str(root) + '/') else p for p in dirs()]
+src = (snapshot / 'app/client/unknown_creator.cpp').read_text()
+old = 'int size = AvatarDescClass().Get_Short_Size() + LoginNameDataClass().Get_Size() + ShipCustDescClass().Get_Short_Size();'
+terms = ['AvatarDescClass().Get_Short_Size()', 'LoginNameDataClass().Get_Size()', 'ShipCustDescClass().Get_Short_Size()']
+forms = []
+for a, b, c in itertools.permutations(terms):
+    for expression in (a + ' + ' + b + ' + ' + c, a + ' + (' + b + ' + ' + c + ')'):
+        form = 'int size = ' + expression + ';'
+        if (a, b, c) != tuple(terms): forms.append(form)
+env = os.environ.copy()
+env['ENB_RETAIL_INSTALL'] = '/home/dev/Games/earth-and-beyond/prefix/drive_c/Program Files (x86)/EA GAMES/Earth & Beyond'
+def pairs(path): return {(r['symbol'], a) for r in json.loads(path.read_text()) if r['status'] == 'exact' for a in r['addresses']}
+base = pairs(work / 'baseline_unknown_creator/match.json')
+rows = []
+for i, form in enumerate(forms):
+    folder = work / ('permutation_%02d' % i)
+    folder.mkdir(exist_ok=True)
+    source = folder / 'unknown_creator.cpp'
+    assert src.count(old) == 1
+    source.write_text(src.replace(old, form))
+    row = {'form': form, 'family': 'temporary term order', 'source': str(source)}
+    try:
+        obj = fastbuild.compile_file(source, folder)
+        match = folder / 'match.json'
+        with (folder / 'match.log').open('w') as log:
+            subprocess.run(['/home/dev/Toolchains/enb-vc6-sp4/venv/bin/python', str(root / 'tools/re/objmatch.py'), str(obj), '-q', '--json', str(match)], env=env, stdout=log, stderr=log, check=True)
+        exact = pairs(match)
+        row.update(match=str(match), gains=sorted(exact-base), losses=sorted(base-exact))
+    except Exception as e: row['error'] = str(e)
+    rows.append(row)
+    (work / 'permutation_trials.json').write_text(json.dumps(rows, indent=2) + '\n')
+    print(i, row.get('gains'), row.get('losses'), row.get('error'), flush=True)
