@@ -1,0 +1,265 @@
+# 0x780AF0 focused source forms
+Baseline64644f39. Candidate is NOT adopted; native pair474080 loss.
+
+
+## control_cached_name — prior-form control
+Source: /home/dev/Projects/EnB/.work/claim-240/focused/780AF0/control_cached_name/avatar.cpp
+SHA256: 9648882ba63f63974ae0089d6ffcec155723376654dbcbc2b2fc2e7ff8fdf80e
+void CharacterViewAvatarClass::Unknown_780AF0()
+{
+	FAIL_IF(!BodyObj || !BodySource) { return; }
+	Vector3 scale(0.0f, 0.0f, 0.0f); int i;
+	for (i = 0; i < 5; i++) {
+		float w = Unknown274[i];
+		scale += Desc.Get_Body_Morph(i) * w;
+
+
+	}
+	if (scale.X <= 0.0f || scale.Y <= 0.0f || scale.Z <= 0.0f) {
+		Message_Error("Avatar Morphing", "", __FILE__, __LINE__, "Encountered bad scale values");
+		return;
+	}
+	const char *names[] = { "ARM0", "ARM1", "ARM2", "ARM3", "ARM4", "SHIRT0", "SHIRT1", "SHIRT2", "SHIRT3", "SHIRT4",
+		"PANT0", "PANT1", "PANT2", "PANT3", "PANT4", NULL };
+	for (i = 0; names[i] != NULL; i++) { const char *name = names[i];
+		RefCountPtr<RenderObjClass> obj = Create_Get(BodySource->Get_Sub_Object_By_Name(name));
+		if (obj != NULL && obj->Class_ID() == RenderObjClass::CLASSID_MESH) {
+			RefCountPtr<MeshClass> source = Create_Get((MeshClass *)BodySource->Get_Sub_Object_By_Name(name));
+			RefCountPtr<MeshClass> dest = Create_Get((MeshClass *)BodyObj->Get_Sub_Object_By_Name(name));
+			Unknown_7812A0(source.Peek(), dest.Peek());
+			dest->Scale(scale.Y, scale.Z, scale.X);
+		}
+	}
+	Vector3 tree_scale(scale.Z, scale.X, scale.Y);
+	HTreeClass *tree = HTreeClass::Alter_Avatar_HTree(BodySource->Get_HTree(), tree_scale);
+	((HLodClass *)BodyObj.Peek())->Set_HTree(tree);
+	if (tree) {
+		delete tree;
+	}
+}
+
+
+## control_pointer_walk — prior-form control
+Source: /home/dev/Projects/EnB/.work/claim-240/focused/780AF0/control_pointer_walk/avatar.cpp
+SHA256: 2a4eca73e71b2bd828b716ed0dbe9d3b11877b2f0436e9cb3e3ca54e9b654aa6
+void CharacterViewAvatarClass::Unknown_780AF0()
+{
+	FAIL_IF(!BodyObj || !BodySource) { return; }
+	Vector3 scale(0.0f, 0.0f, 0.0f); int i;
+	for (i = 0; i < 5; i++) {
+		float w = Unknown274[i];
+		scale += Desc.Get_Body_Morph(i) * w;
+
+
+	}
+	if (scale.X <= 0.0f || scale.Y <= 0.0f || scale.Z <= 0.0f) {
+		Message_Error("Avatar Morphing", "", __FILE__, __LINE__, "Encountered bad scale values");
+		return;
+	}
+	const char *names[] = { "ARM0", "ARM1", "ARM2", "ARM3", "ARM4", "SHIRT0", "SHIRT1", "SHIRT2", "SHIRT3", "SHIRT4",
+		"PANT0", "PANT1", "PANT2", "PANT3", "PANT4", NULL };
+	for (const char **name_ptr = names; *name_ptr != NULL; ++name_ptr) { const char *name = *name_ptr;
+		RefCountPtr<RenderObjClass> obj = Create_Get(BodySource->Get_Sub_Object_By_Name(name));
+		if (obj != NULL && obj->Class_ID() == RenderObjClass::CLASSID_MESH) {
+			RefCountPtr<MeshClass> source = Create_Get((MeshClass *)BodySource->Get_Sub_Object_By_Name(name));
+			RefCountPtr<MeshClass> dest = Create_Get((MeshClass *)BodyObj->Get_Sub_Object_By_Name(name));
+			Unknown_7812A0(source.Peek(), dest.Peek());
+			dest->Scale(scale.Y, scale.Z, scale.X);
+		}
+	}
+	Vector3 tree_scale(scale.Z, scale.X, scale.Y);
+	HTreeClass *tree = HTreeClass::Alter_Avatar_HTree(BodySource->Get_HTree(), tree_scale);
+	((HLodClass *)BodyObj.Peek())->Set_HTree(tree);
+	if (tree) {
+		delete tree;
+	}
+}
+
+
+## index_advance_in_scope — new candidate, target exact but pair loss
+Source: /home/dev/Projects/EnB/.work/claim-240/focused/780AF0/index_advance_in_scope/avatar.cpp
+SHA256: 76595f5bbec5a07bb1aff3f3667b4c1589048937d7e92d855c04c534e5146eb7
+void CharacterViewAvatarClass::Unknown_780AF0()
+{
+	FAIL_IF(!BodyObj || !BodySource) { return; }
+	Vector3 scale(0.0f, 0.0f, 0.0f); int i;
+	for (i = 0; i < 5; i++) {
+		float w = Unknown274[i];
+		scale += Desc.Get_Body_Morph(i) * w;
+
+
+	}
+	if (scale.X <= 0.0f || scale.Y <= 0.0f || scale.Z <= 0.0f) {
+		Message_Error("Avatar Morphing", "", __FILE__, __LINE__, "Encountered bad scale values");
+		return;
+	}
+	const char *names[] = { "ARM0", "ARM1", "ARM2", "ARM3", "ARM4", "SHIRT0", "SHIRT1", "SHIRT2", "SHIRT3", "SHIRT4",
+		"PANT0", "PANT1", "PANT2", "PANT3", "PANT4", NULL };
+	for (i = 0; names[i] != NULL;) { const char *name = names[i];
+		RefCountPtr<RenderObjClass> obj = Create_Get(BodySource->Get_Sub_Object_By_Name(name));
+		if (obj != NULL && obj->Class_ID() == RenderObjClass::CLASSID_MESH) {
+			RefCountPtr<MeshClass> source = Create_Get((MeshClass *)BodySource->Get_Sub_Object_By_Name(name));
+			RefCountPtr<MeshClass> dest = Create_Get((MeshClass *)BodyObj->Get_Sub_Object_By_Name(name));
+			Unknown_7812A0(source.Peek(), dest.Peek());
+			dest->Scale(scale.Y, scale.Z, scale.X);
+		}
+		++i; }
+	Vector3 tree_scale(scale.Z, scale.X, scale.Y);
+	HTreeClass *tree = HTreeClass::Alter_Avatar_HTree(BodySource->Get_HTree(), tree_scale);
+	((HLodClass *)BodyObj.Peek())->Set_HTree(tree);
+	if (tree) {
+		delete tree;
+	}
+}
+
+
+## pointer_advance_in_scope — new candidate, non-exact
+Source: /home/dev/Projects/EnB/.work/claim-240/focused/780AF0/pointer_advance_in_scope/avatar.cpp
+SHA256: f7f5aff52b527464259d6f058f4cacdd0fc308dda587a2ccfc0f9b5630fa498b
+void CharacterViewAvatarClass::Unknown_780AF0()
+{
+	FAIL_IF(!BodyObj || !BodySource) { return; }
+	Vector3 scale(0.0f, 0.0f, 0.0f); int i;
+	for (i = 0; i < 5; i++) {
+		float w = Unknown274[i];
+		scale += Desc.Get_Body_Morph(i) * w;
+
+
+	}
+	if (scale.X <= 0.0f || scale.Y <= 0.0f || scale.Z <= 0.0f) {
+		Message_Error("Avatar Morphing", "", __FILE__, __LINE__, "Encountered bad scale values");
+		return;
+	}
+	const char *names[] = { "ARM0", "ARM1", "ARM2", "ARM3", "ARM4", "SHIRT0", "SHIRT1", "SHIRT2", "SHIRT3", "SHIRT4",
+		"PANT0", "PANT1", "PANT2", "PANT3", "PANT4", NULL };
+	for (const char **name_ptr = names; *name_ptr != NULL;) { const char *name = *name_ptr;
+		RefCountPtr<RenderObjClass> obj = Create_Get(BodySource->Get_Sub_Object_By_Name(name));
+		if (obj != NULL && obj->Class_ID() == RenderObjClass::CLASSID_MESH) {
+			RefCountPtr<MeshClass> source = Create_Get((MeshClass *)BodySource->Get_Sub_Object_By_Name(name));
+			RefCountPtr<MeshClass> dest = Create_Get((MeshClass *)BodyObj->Get_Sub_Object_By_Name(name));
+			Unknown_7812A0(source.Peek(), dest.Peek());
+			dest->Scale(scale.Y, scale.Z, scale.X);
+		}
+		++name_ptr; }
+	Vector3 tree_scale(scale.Z, scale.X, scale.Y);
+	HTreeClass *tree = HTreeClass::Alter_Avatar_HTree(BodySource->Get_HTree(), tree_scale);
+	((HLodClass *)BodyObj.Peek())->Set_HTree(tree);
+	if (tree) {
+		delete tree;
+	}
+}
+
+
+## winner_readable — readable confirmation of original-Get candidate
+Source: /home/dev/Projects/EnB/.work/claim-240/focused/780AF0/winner_readable/avatar.cpp
+SHA256: 408ed756927f5921042aa51adac94f86e9150d8e3c7d9e020812190909494ebf
+void CharacterViewAvatarClass::Unknown_780AF0()
+{
+	FAIL_IF(!BodyObj || !BodySource) { return; }
+	Vector3 scale(0.0f, 0.0f, 0.0f); int i;
+	for (i = 0; i < 5; i++) {
+		float w = Unknown274[i];
+		scale += Desc.Get_Body_Morph(i) * w;
+
+
+	}
+	if (scale.X <= 0.0f || scale.Y <= 0.0f || scale.Z <= 0.0f) {
+		Message_Error("Avatar Morphing", "", __FILE__, __LINE__, "Encountered bad scale values");
+		return;
+	}
+	const char *names[] = { "ARM0", "ARM1", "ARM2", "ARM3", "ARM4", "SHIRT0", "SHIRT1", "SHIRT2", "SHIRT3", "SHIRT4",
+		"PANT0", "PANT1", "PANT2", "PANT3", "PANT4", NULL };
+	for (i = 0; names[i] != NULL;) {
+		const char *name = names[i];
+		RefCountPtr<RenderObjClass> obj = Create_Get(BodySource->Get_Sub_Object_By_Name(name));
+		if (obj != NULL && obj->Class_ID() == RenderObjClass::CLASSID_MESH) {
+			RefCountPtr<MeshClass> source = Create_Get((MeshClass *)BodySource->Get_Sub_Object_By_Name(name));
+			RefCountPtr<MeshClass> dest = Create_Get((MeshClass *)BodyObj->Get_Sub_Object_By_Name(name));
+			Unknown_7812A0(source.Peek(), dest.Peek());
+			dest->Scale(scale.Y, scale.Z, scale.X);
+		}
+		++i;
+	}
+	Vector3 tree_scale(scale.Z, scale.X, scale.Y);
+	HTreeClass *tree = HTreeClass::Alter_Avatar_HTree(BodySource->Get_HTree(), tree_scale);
+	((HLodClass *)BodyObj.Peek())->Set_HTree(tree);
+	if (tree) {
+		delete tree;
+	}
+}
+
+
+## baseline — baseline control
+Source: /home/dev/Projects/EnB/.work/claim-240/focused/snapshots/64644f39/app/client/avatar.cpp
+SHA256: 70b18f4e2a21f7aa417c4440bf7435ae42411ecfee9aa3e99cf0495b021264ff
+void CharacterViewAvatarClass::Unknown_780AF0()
+{
+	FAIL_IF(!BodyObj || !BodySource) { return; }
+	Vector3 scale(0.0f, 0.0f, 0.0f); int i;
+	for (i = 0; i < 5; i++) {
+		float w = Unknown274[i];
+		scale += Desc.Get_Body_Morph(i) * w;
+
+
+	}
+	if (scale.X <= 0.0f || scale.Y <= 0.0f || scale.Z <= 0.0f) {
+		Message_Error("Avatar Morphing", "", __FILE__, __LINE__, "Encountered bad scale values");
+		return;
+	}
+	const char *names[] = { "ARM0", "ARM1", "ARM2", "ARM3", "ARM4", "SHIRT0", "SHIRT1", "SHIRT2", "SHIRT3", "SHIRT4",
+		"PANT0", "PANT1", "PANT2", "PANT3", "PANT4", NULL };
+	for (i = 0; names[i] != NULL; i++) {
+		RefCountPtr<RenderObjClass> obj = Create_Get(BodySource->Get_Sub_Object_By_Name(names[i]));
+		if (obj != NULL && obj->Class_ID() == RenderObjClass::CLASSID_MESH) {
+			RefCountPtr<MeshClass> source = Create_Get((MeshClass *)BodySource->Get_Sub_Object_By_Name(names[i]));
+			RefCountPtr<MeshClass> dest = Create_Get((MeshClass *)BodyObj->Get_Sub_Object_By_Name(names[i]));
+			Unknown_7812A0(source.Peek(), dest.Peek());
+			dest->Scale(scale.Y, scale.Z, scale.X);
+		}
+	}
+	Vector3 tree_scale(scale.Z, scale.X, scale.Y);
+	HTreeClass *tree = HTreeClass::Alter_Avatar_HTree(BodySource->Get_HTree(), tree_scale);
+	((HLodClass *)BodyObj.Peek())->Set_HTree(tree);
+	if (tree) {
+		delete tree;
+	}
+}
+
+
+## winner_actual_adopt — new invalid diagnostic, reject wrong helper identity
+Source: /home/dev/Projects/EnB/.work/claim-240/focused/780AF0/winner_actual_adopt/avatar.cpp
+SHA256: a919c8f43bd73bfbd8d0563c33638cbc13cc30987e0dadf2acdd422198df8a76
+void CharacterViewAvatarClass::Unknown_780AF0()
+{
+	FAIL_IF(!BodyObj || !BodySource) { return; }
+	Vector3 scale(0.0f, 0.0f, 0.0f); int i;
+	for (i = 0; i < 5; i++) {
+		float w = Unknown274[i];
+		scale += Desc.Get_Body_Morph(i) * w;
+
+
+	}
+	if (scale.X <= 0.0f || scale.Y <= 0.0f || scale.Z <= 0.0f) {
+		Message_Error("Avatar Morphing", "", __FILE__, __LINE__, "Encountered bad scale values");
+		return;
+	}
+	const char *names[] = { "ARM0", "ARM1", "ARM2", "ARM3", "ARM4", "SHIRT0", "SHIRT1", "SHIRT2", "SHIRT3", "SHIRT4",
+		"PANT0", "PANT1", "PANT2", "PANT3", "PANT4", NULL };
+	for (i = 0; names[i] != NULL;) {
+		const char *name = names[i];
+		RefCountPtr<RenderObjClass> obj = Create_NEW(BodySource->Get_Sub_Object_By_Name(name));
+		if (obj != NULL && obj->Class_ID() == RenderObjClass::CLASSID_MESH) {
+			RefCountPtr<MeshClass> source = Create_Get((MeshClass *)BodySource->Get_Sub_Object_By_Name(name));
+			RefCountPtr<MeshClass> dest = Create_Get((MeshClass *)BodyObj->Get_Sub_Object_By_Name(name));
+			Unknown_7812A0(source.Peek(), dest.Peek());
+			dest->Scale(scale.Y, scale.Z, scale.X);
+		}
+		++i;
+	}
+	Vector3 tree_scale(scale.Z, scale.X, scale.Y);
+	HTreeClass *tree = HTreeClass::Alter_Avatar_HTree(BodySource->Get_HTree(), tree_scale);
+	((HLodClass *)BodyObj.Peek())->Set_HTree(tree);
+	if (tree) {
+		delete tree;
+	}
+}
