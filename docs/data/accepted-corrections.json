@@ -240,6 +240,14 @@
    "moved_to": null,
    "decision": "D240",
    "note": "D240, run 2026-11-20-night (RG 8ba38f1d5): UIComboBoxClass::Get_Selected declared inline in ui_combobox.h: the client's out-of-line thiscall COMDAT 0x5FFFE0 (mov eax,[ecx+0xE0]; ret), called from 0x5FEF96 / 0x5FF0E3 with ecx = the combo box. ui_option_quit's 0x5CE830 lost under verify only (a loop register flip esi / eax; its single-file compile is exact); two regain forms tried (declaration-only, getter next to Selected). Lost until regained."
+  },
+  {
+   "address": "0x5E9410",
+   "lib": "app",
+   "file": "ui_radio_main",
+   "moved_to": null,
+   "decision": "D246",
+   "note": "run 2026-11-21 (coordinator, D246 valve): ui_radio_main 0x5E9410 drops in WARP's landing (unknown_725050.cpp's four functions exact, +4, and the 0x725AD0 stand-in retired, which fixed the warp, area-effect and ability-sound gaps) together with the pad-held 0x6FB1E0 / 0x701D70 / 0x758210: send-pad correlated, as in runs 2026-11-12 and 2026-11-14; appfile compiles it exact with WARP's headers. The regain round is the handoff's pad sweep (D279). Lost until regained."
   }
  ]
 }
