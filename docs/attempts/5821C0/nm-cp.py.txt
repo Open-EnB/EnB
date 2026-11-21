@@ -79,3 +79,14 @@ FORMS = {
     'fsf2': [(FW, body('Unknown_Cpit_Find_Set_Field2<DeltaTemplateClass<float> >(' + R))],
     'find_test': [(FW, body('Unknown_Find_Field<DeltaTemplateClass<float> >(' + R).replace('bool ok = (t && t->Value', 'if (t && !t->Unknown70) t = NULL; bool ok = (t && t->Value'))],
 }
+HYPOTHESIS = 'NM cp4: no forwarder (0x584000 at the same depth as in 0x5806E0) and dead reads right after the engine line swept 0-16 (the engine site is the earliest: its deepest nested expansions, the Cast then the find, go out first by the tie rule)'
+FILE = 'app/client/ui_cpit.cpp'
+SYMBOL = 'UICpitClass::Unknown_5821C0'
+ADDRESS = 0x5821C0
+
+E = '\t\t\tbool engine = Unknown_Cpit_Engine(this);\n'
+FORMS = {}
+for n in range(0, 17):
+    FORMS['cs%02d' % n] = [(E, '\t\t\tbool engine = Unknown_584000(true);' + ' aux->Children.size();' * n + '\n')]
+for n in (2, 4, 6, 8, 10, 12, 14, 16):
+    FORMS['pk%02d' % n] = [(E, '\t\t\tbool engine = Unknown_584000(true);' + ' Unknown16C.Peek();' * n + '\n')]
