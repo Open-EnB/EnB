@@ -2,19 +2,19 @@
 #include "opposed_roll_odds.h"
 #include <math.h>
 #include "g_assert.h"
-// 0x4F25D0  // NOT EXACT (0.75, attempts.py 0x4F25D0): order: the client subtracts N before it forms M + 1, ours after
+// 0x4F25D0
 float Opposed_Roll_Odds(int M, int N)
 {
 	FAIL_IF(M < 0) M = 0;
 	FAIL_IF(N < 0) N = 0;
 	if (M >= N) {
-		return((2.0f * M - N + 2.0f) / (2.0f * (M + 1)));
+		float result = 2.0f * M; // NAME 1 [result]: local accumulator for the opposed-roll probability
+		result -= N;
+		result += 2.0f;
+		return(result / (2.0f * (M + 1)));
 	}
 	return((M + 2.0f) / (2.0f * (N + 1)));
 }
-
-
-
 // 0x4F2670
 float Opposed_Roll_Odds(int M, int N, int C)
 {
@@ -63,5 +63,5 @@ float Opposed_Roll_Odds(int M, int N, float scale)
 **
 **	- Three overloads, no client caller. 0x4F25D0: M against N; 0x4F2670: with C (clamped to M); 0x4F27B0: with a float
 **	  divisor of M (1 when it is not positive). Each FAIL_IF clamps its argument (M, N to 0; C to M).
-**	- 0x4F25D0 is NOT EXACT (order: the client subtracts N before it forms M + 1, ours after).
+**	- 0x4F25D0: separate arithmetic statements preserve the client's subtraction before M + 1.
 */

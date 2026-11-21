@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-704 entries in 272 files.
+702 entries in 271 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -637,8 +637,6 @@ edit the comments in the code, not this file.
 | `app/shared/landdmap.cpp:497` | `LandUnknown466BE0Class::Unknown_468920` | marker | NOT EXACT: frame (0x8C, the client 0x90: the client keeps X on the FPU and Y in a spare slot for the upper point instead of reloading them, and holds the cell counter in memory; masked residue 138 -> 45 rows, 20 with registers masked). The corner indices are 16-bit products (imul bx, di); the position is copied as a POD (integer moves) and the corner picked through an if-chain on k (an inlined acc... |
 | `app/shared/landdmap.cpp:593` | `LandUnknown466BE0Class::Unknown_468D50` | mention | NOT EXACT (Matrox only, never run): the draw 0x466F60 and its helpers 0x468240, 0x468760, 0x468920, 0x468D50. |
 | `app/shared/lookup_table.cpp:204` | `SampledLookupTableClass::SampledLookupTableClass` | marker | NOT EXACT: order-only, the client stores the sample's Value (atof) after pushing push_back's arguments, ours before; everything else equal |
-| `app/shared/opposed_roll_odds.cpp:5` | `Opposed_Roll_Odds` | marker | NOT EXACT (0.75, attempts.py 0x4F25D0): order: the client subtracts N before it forms M + 1, ours after |
-| `app/shared/opposed_roll_odds.cpp:66` | `Opposed_Roll_Odds` | mention | NOT EXACT (order: the client subtracts N before it forms M + 1, ours after). |
 | `app/shared/orbitalmanager.cpp:164` | `OrbitalObject::Update` | marker | NOT EXACT: the products' order and the temporaries' stack slots differ (similarity 0.53 before the rotations took the client's axes, Z then X) |
 | `app/shared/orbitalmanager.cpp:514` | `OrbitalManager::Update` | marker | NOT EXACT: the locals' slots differ (the client's sphere centre sits below the cast result; similarity 0.57) |
 | `app/shared/proj_man.cpp:627` | `ProjectorManagerClass::Setup_Static_Directional_Shadow` | marker | NOT EXACT: 0x493620, 1 register row in the inlined Get_Static_Shadow_Tex_Mgr (mov eax,esi / test eax,eax) |
