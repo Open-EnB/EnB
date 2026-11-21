@@ -365,3 +365,49 @@ for kind in ['char', 'signed char']:
         delta={'gained':sorted(result-baseline),'lost':sorted(baseline-result)}
         (out/'pairs.json').write_text(json.dumps(delta,indent=2))
         print(label, {s:sum(r['status']==s for r in rows) for s in ['exact','none','short']},delta,flush=True)
+
+User-requested gpt-6.1-terra bulk batch
+
+30 shared builds evaluated 30 forms per constructor with zero compile failures. Five flag-transfer families (source/destination references, source/destination pointers, conditional expression) were combined with six bounds initialization forms. Screening grouped normalized code and relocation targets into 9 groups for 0x45FDA0 and 12 for 0x45FFB0. These groups were not exhaustively compared to all historical outputs.
+Winning form 10_dest_ref_direct uses a reference to the destination flags byte and the explicit null guard in Peek_Render_Object. Minimal integration changes only constructor 0x45FFB0, plus the shared header guard. Full rs_track object gives190 exact,1none,1short, gains0x45FFB0 and retains0x460E80 and all189 prior matches. Original header with destination reference alone leaves the constructor unmatched. Local expansion of Unknown_4604D0 also matched but was excluded because it duplicates logic and assertion metadata.
+Header validation compiled all18 affected app units before/after. Four baseline and candidate failures require unavailable mss.h (co.cpp,unknown_45f390.cpp) or d3d8.h(cpacket.cpp,rs_robj.cpp). All14 buildable units received full before/after object matching:705 to706 exact(source,symbol,address) pairs, sole gain0x45FFB0, zero lost. These results leave the four unavailable units for maintainer verification.
+
+Reproducible bulk source transformations
+
+from pathlib import Path
+import sys, os, json, hashlib, difflib, subprocess, re
+area=Path(__file__).resolve().parent; root=area.parents[2]
+sys.path[:0]=[str(area.parent),str(root/'tools/re')]
+from fastbuild import compile_file
+from objmatch import CoffObject, RELOC_SIZE
+from objdiff import obj_lines, client_lines, norm
+from clientimage import ClientImage
+base=(root/'app/shared/rs_track.cpp').read_text(); header=(root/'app/shared/rs_track.h').read_text().replace('return(RenderStateList.Current == NULL ? NULL : RenderStateList.Current->Peek_Render_Object());','if (!RenderStateList.Current) return NULL; return RenderStateList.Current->Peek_Render_Object();')
+os.environ['ENB_RETAIL_INSTALL']='/home/dev/Games/earth-and-beyond/prefix/drive_c/Program Files (x86)/EA GAMES/Earth & Beyond'
+z='Vector3(0.0f, 0.0f, 0.0f)'; s='UnknownD8('+z+', 0.0f)'; b='UnknownE8('+z+', '+z+')'; old=s+',\n\t'+b+'\n{'
+bounds=[('direct',old),('box_init',s+',\n\tUnknownE8()\n{ UnknownE8.Init('+z+', '+z+');'),('sphere_init','UnknownD8(),\n\t'+b+'\n{ UnknownD8.Init('+z+', 0.0f);'),('both_init','UnknownD8(),\n\tUnknownE8()\n{ UnknownD8.Init('+z+', 0.0f); UnknownE8.Init('+z+', '+z+');'),('assign','UnknownD8(),\n\tUnknownE8()\n{ UnknownD8 = SphereClass('+z+', 0.0f); UnknownE8 = AABoxClass('+z+', '+z+');'),('origin','UnknownD8(),\n\tUnknownE8()\n{ const Vector3 origin(0.0f, 0.0f, 0.0f); UnknownD8.Init(origin, 0.0f); UnknownE8.Init(origin, origin);')]
+flags=[('source_ref','const unsigned char &flags = RenderStateList.Unknown2C; Unknown8C = flags;'),('dest_ref','unsigned char &flags = Unknown8C; flags = RenderStateList.Unknown2C;'),('source_ptr','const unsigned char *flags = &RenderStateList.Unknown2C; Unknown8C = *flags;'),('dest_ptr','unsigned char *flags = &Unknown8C; *flags = RenderStateList.Unknown2C;'),('ternary','Unknown8C = RenderStateList.Unknown2C ? RenderStateList.Unknown2C : 0;')]
+img=ClientImage(os.environ['ENB_RETAIL_INSTALL']+'/release/client.exe'); rows=[]; groups=[{},{}]
+for fi,(fn,fragment) in enumerate(flags):
+ for bi,(bn,binit) in enumerate(bounds):
+  label=f'{fi}{bi}_{fn}_{bn}'; out=area/label; out.mkdir(exist_ok=True)
+  code=base.replace(old,binit).replace('Unknown8C = RenderStateList.Unknown2C;',fragment)
+  assert code.count('\n')==base.count('\n') and base.count(old)==2
+  src=out/'rs_track.cpp'; src.write_text(code); (out/'rs_track.h').write_text(header)
+  row={'label':label,'flag':fn,'bounds':bn,'guard':'explicit-null','scores':[],'groups':[]}
+  try:
+   objpath=compile_file(src,out); obj=CoffObject(str(objpath)); funcs=[f for f in obj.functions() if '??0RsTrackClass' in f[0]]
+   for i,addr in enumerate((0x45fda0,0x45ffb0)):
+    name,sec,start,end=funcs[i]; info=obj.sections[sec]; body=bytearray(obj.data[info['raw']+start:info['raw']+end]); rel=[]; byidx={x['index']:x for x in obj.symbols}
+    for va,si,typ in info['relocs']:
+     if start<=va<end:
+      sym=byidx[si]; rel.append((va-start,typ,sym['name'],sym['value'],sym['section']))
+      for k in range(RELOC_SIZE.get(typ,4)):
+       if va-start+k<len(body): body[va-start+k]=0
+    identity=json.dumps([body.hex(),rel],sort_keys=True); key=hashlib.sha256(identity.encode()).hexdigest()[:12]; groups[i].setdefault(key,[]).append(label)
+    (out/f'reloc{i}.json').write_text(json.dumps(rel,indent=2))
+    l=obj_lines(obj,sec,start,end); r=client_lines(img,addr,end-start); sm=difflib.SequenceMatcher(None,[norm(t) for _,_,t in l],[norm(t) for _,_,t in r],autojunk=False)
+    row['scores'].append(round(sm.ratio(),6)); row['groups'].append(key)
+  except Exception as e: row['error']=str(e)
+  rows.append(row); (area/'manifest.json').write_text(json.dumps(rows,indent=2)); print(label,row.get('scores'),row.get('groups'),row.get('error',''),flush=True)
+(area/'groups.json').write_text(json.dumps(groups,indent=2))

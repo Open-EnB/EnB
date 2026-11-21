@@ -8,7 +8,7 @@
 #include "..\shared\g_assert.h"
 
 // 0x45FDA0
-// NOT EXACT: shape (0.82): the client stores the vtables before loading RenderStateList's +0x2C byte and compares the inlined assert's pointer with ebx
+// NOT EXACT: the RenderStateList +0x2C flags-byte load is hoisted before the client's three vtable stores.
 RsTrackClass::RsTrackClass(RenderStateListClass *list) :
 	Unknown8C(0),
 	RenderStateList(list),
@@ -31,7 +31,6 @@ RsTrackClass::RsTrackClass(RenderStateListClass *list) :
 }
 
 // 0x45FFB0
-// NOT EXACT: shape (0.83): as 0x45FDA0
 RsTrackClass::RsTrackClass(RenderStateListClass *list, float scale, float *hsv) :
 	Unknown8C(0),
 	RenderStateList(list),
@@ -45,7 +44,8 @@ RsTrackClass::RsTrackClass(RenderStateListClass *list, float scale, float *hsv) 
 	UnknownE8(Vector3(0.0f, 0.0f, 0.0f), Vector3(0.0f, 0.0f, 0.0f))
 {
 	RenderStateList.Unknown_04(scale, hsv);
-	Unknown8C = RenderStateList.Unknown2C;
+	unsigned char &flags = Unknown8C; // NAME 2 [flags]: destination state flags
+	flags = RenderStateList.Unknown2C;
 	RenderStateList.Current = NULL;
 	for (RenderStateClass *state = list->Head; state != NULL; state = state->Next) {
 		if (state->Unknown_Flag16() && state->ID != -1) {
@@ -1341,4 +1341,6 @@ void RsTrackClass::Unknown_462690()
 **	blank lines; 0x4604D0's body (line 236) is inlined in both constructors and in 0x4605E0.
 **	0x460E80 matches with separate default Set_Animation calls in the deletion and fallback branches,
 **	and a single final true return. This form gives the client's deferred edi save and virtual-call registers.
+**	0x45FFB0 matches with the explicit null guard in Peek_Render_Object and a reference to the destination
+**	flags byte. Together these reproduce the pointer comparison and flags/Current store order.
 */
