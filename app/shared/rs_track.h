@@ -298,7 +298,11 @@ public:
 	void Unknown_462650();											// 0x462650  // NAME 1: neutral (D10)
 	void Unknown_462690();											// 0x462690  // NAME 1: neutral (D10)
 
-	RenderObjClass *Peek_Render_Object() const { return(RenderStateList.Current == NULL ? NULL : RenderStateList.Current->Peek_Render_Object()); }
+	RenderObjClass *Peek_Render_Object() const
+	{
+		if (!RenderStateList.Current) return NULL;
+		return RenderStateList.Current->Peek_Render_Object();
+	}
 
 	unsigned char Unknown8C;										// +0x8C  // NAME 1: neutral (D10)
 	RenderStateListClass RenderStateList;							// +0x90 (the assert's)

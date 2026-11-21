@@ -1,0 +1,700 @@
+Claim #234. VC6 SP4 12.00.8804 under Wine.
+
+Baseline 188 exact, 3 unmatched, 1 short. Final 189 exact, 2 unmatched, 1 short.
+
+Successful form at 0x460E80 explicitly calls default Set_Animation in deletion and fallback branches, then returns true after the outer block.
+
+Both constructors remain unmatched. No header trial was retained.
+
+Initial gpt-6.1-sol pass, 32 physical forms
+
+Claim 234: gpt-6.1-sol bounded first pass, 2026-11-20
+
+Result: no exact gain. Tracked C++ and headers unchanged. Only tracked change is three
+appended attempts.csv records. No commit, push, PR, external post, SDK install or subagent.
+
+Toolchain: installed VC6 12.00.8804 SP4 under Wine compiled rs_track.cpp successfully.
+Existing headers suffice. Initial sandbox Wine bind failed; approved escalation succeeded.
+Baseline source: rs_track.baseline.cpp; baseline object: baseline/rs_track.obj.
+Full baseline/final selected trial matches: baseline-match.json/final-trial-match.json.
+Both: exact=188, none=3, short=1, total=192. Final selected unchanged-code trial n03.
+pairs-cmp.log: gained [], lost [], lost outright []. Snapshots are private snapshots
+of matcher exact-address sets, not authoritative importer/ledger records or full-app proof.
+
+Physical trial compiles: 32 (16 method first batch, eight constructor batch, eight method
+second batch), plus two baseline/speed-check compiles = 34 compiler invocations.
+Some are intentional controls or canonical duplicates; these are not 32 distinct outputs.
+
+0x460E80 first batch (sweep.py; m00-m15): unsigned elapsed, float seconds/elapsed,
+double elapsed, member-list pointer, multiplication orientation, implicit float conversion,
+each with/without final named combo pointer. All similarity 0.77; same residue as baseline.
+Second batch (method2.py; n00-n07): flat/combined/nested/else-if early returns, crossed
+with cached-bit early return rather than enclosing block. Best 0.77; others 0.64-0.68.
+Residual: client saves edi after early returns and frame-time stack stores, before fild;
+ours saves it in prologue. Client final Set_Animation loads combo into ecx, vtable into eax;
+ours loads combo into eax and vtable into edx. No code wins retained.
+
+0x45FDA0/0x45FFB0 constructor batch (ctor_sweep.py; c00-c07): while, nested
+conditions, continue filters, guarded do/while, explicit increment, flags local, ID local,
+and flags |= rather than assignment. Seven loop forms same 0.83; |= worsens 0.74/0.75.
+Residual ctor1: three vtable stores precede member +0xBC flag load in client; ours loads
+flag before them; client inlined assert compares eax with zero ebx, ours tests eax.
+Ctor2 likewise retains flag-store/Current ordering residue. No fresh lead justified a
+second constructor batch. Previous pointer/statement-order/flags-local attempts reviewed.
+
+Fastbuild: scratch fastbuild.py preserves app flags/defines/includes from project helpers,
+redirects compiler output to compile.log directly (no inherited pipes), uses timeout=45.
+The isolated toolchain Wine server was started with stdout/stderr DEVNULL and -p; compile
+returned in 0.6 seconds. Prefix /home/dev/Toolchains/enb-vc6-sp4/prefix was STOPPED with
+wineserver -k after batches. Installed wrapper unchanged.
+
+Untested leads for fresh review: evidence for missing genuine inline accessor/type layer
+around flags or time conversion; structural member initializer forms backed by class/source
+evidence. No new helper was invented, no shared header retype tried, no compiler flag sweep,
+no arbitrary dead read or volatile/asm/no-op padding. Source-neutral register local changes
+already canonicalize, so more scalar spellings alone are unlikely to help.
+
+
+sweep.py
+
+from pathlib import Path
+import sys, subprocess, json, os
+sys.path.insert(0, '/home/dev/Projects/EnB/.work/claim-231')
+from build import compile_file
+root=Path('/home/dev/Projects/EnB')
+work=root/'.work/claim-234'
+base=(work/'rs_track.baseline.cpp').read_text()
+start=base.index('bool RsTrackClass::Unknown_1C8()')
+end=base.index('// 0x460FF0',start)
+original=base[start:end]
+frame='RenderStateList.Unknown_45A870(this, (float)WW3D::Get_Frame_Time() * 0.001f);'
+frameforms=[frame,
+'unsigned int elapsed = WW3D::Get_Frame_Time(); RenderStateList.Unknown_45A870(this, (float)elapsed * 0.001f);',
+'float seconds = (float)WW3D::Get_Frame_Time() * 0.001f; RenderStateList.Unknown_45A870(this, seconds);',
+'RenderStateListClass *states = &RenderStateList; states->Unknown_45A870(this, (float)WW3D::Get_Frame_Time() * 0.001f);',
+'float elapsed = (float)WW3D::Get_Frame_Time(); RenderStateList.Unknown_45A870(this, elapsed * 0.001f);',
+'RenderStateList.Unknown_45A870(this, 0.001f * (float)WW3D::Get_Frame_Time());',
+'double elapsed = WW3D::Get_Frame_Time(); RenderStateList.Unknown_45A870(this, (float)elapsed * 0.001f);',
+'const float seconds = WW3D::Get_Frame_Time() * 0.001f; RenderStateList.Unknown_45A870(this, seconds);']
+for i in range(16):
+    body=original.replace(frame,frameforms[i%8])
+    if i>=8:
+        body=body.replace('robj->Set_Animation(UnknownC4);','HAnimComboClass *combo = UnknownC4; robj->Set_Animation(combo);')
+    # Keep every later assertion on its original line.
+    text=base[:start]+body+base[end:]
+    target=work/f'm{i:02}'
+    target.mkdir(exist_ok=True)
+    src=target/'rs_track.cpp'
+    src.write_text(text)
+    obj=compile_file(src,target)
+    env=dict(os.environ,ENB_RETAIL_INSTALL='/home/dev/Games/earth-and-beyond/prefix/drive_c/Program Files (x86)/EA GAMES/Earth & Beyond')
+    result=subprocess.run(['/home/dev/Toolchains/enb-vc6-sp4/venv/bin/python','tools/re/objdiff.py',str(obj),'Unknown_1C8','0x460E80'],cwd=root,env=env,capture_output=True,text=True)
+    (target/'diff.txt').write_text(result.stdout+result.stderr)
+    print(i,result.stdout.splitlines()[-1],flush=True)
+
+
+method2.py
+
+from pathlib import Path
+import subprocess,os
+from fastbuild import compile_file
+root=Path('/home/dev/Projects/EnB'); work=root/'.work/claim-234'
+base=(work/'rs_track.baseline.cpp').read_text(); start=base.index('bool RsTrackClass::Unknown_1C8()'); end=base.index('// 0x460FF0',start); original=base[start:end]
+old='''if (robj == NULL) {
+		return(false);
+	}
+	if (robj->Is_Hidden()) {
+		return(false);
+	}'''
+early=[old,
+'if (robj == NULL || robj->Is_Hidden()) { return(false); }',
+'if (robj != NULL) { if (robj->Is_Hidden()) return(false); } else { return(false); }',
+'if (robj == NULL) return(false); else if (robj->Is_Hidden()) return(false);']
+for i in range(8):
+    body=original.replace(old,early[i%4])
+    if i>=4:
+        body=body.replace('if ((Unknown8C & 2) == 0) {','if ((Unknown8C & 2) != 0) return(true); {')
+    body += '\n'*(original.count('\n')-body.count('\n'))
+    target=work/f'n{i:02}'; target.mkdir(exist_ok=True); src=target/'rs_track.cpp'; src.write_text(base[:start]+body+base[end:]); obj=compile_file(src,target)
+    env=dict(os.environ,ENB_RETAIL_INSTALL='/home/dev/Games/earth-and-beyond/prefix/drive_c/Program Files (x86)/EA GAMES/Earth & Beyond')
+    r=subprocess.run(['/home/dev/Toolchains/enb-vc6-sp4/venv/bin/python','tools/re/objdiff.py',str(obj),'Unknown_1C8','0x460E80'],cwd=root,env=env,capture_output=True,text=True)
+    (target/'diff.txt').write_text(r.stdout+r.stderr); print(i,r.stdout.splitlines()[-1],flush=True)
+
+
+ctor_sweep.py
+
+from pathlib import Path
+import sys, subprocess, os
+sys.path.insert(0, '/home/dev/Projects/EnB/.work/claim-231')
+from fastbuild import compile_file
+root=Path('/home/dev/Projects/EnB'); work=root/'.work/claim-234'
+base=(work/'rs_track.baseline.cpp').read_text()
+loop='''for (RenderStateClass *state = list->Head; state != NULL; state = state->Next) {
+		if (state->Unknown_Flag16() && state->ID != -1) {
+			Unknown_4604D0(state->ID);
+		}
+	}'''
+forms=[
+'''RenderStateClass *state = list->Head; while (state != NULL) { if (state->Unknown_Flag16() && state->ID != -1) { Unknown_4604D0(state->ID); } state = state->Next; }''',
+'''for (RenderStateClass *state = list->Head; state; state = state->Next) { if (state->Unknown_Flag16()) { if (state->ID != -1) { Unknown_4604D0(state->ID); } } }''',
+'''for (RenderStateClass *state = list->Head; state; state = state->Next) { if (!state->Unknown_Flag16()) continue; if (state->ID == -1) continue; Unknown_4604D0(state->ID); }''',
+'''RenderStateClass *state = list->Head; if (state != NULL) { do { if (state->Unknown_Flag16() && state->ID != -1) { Unknown_4604D0(state->ID); } state = state->Next; } while (state != NULL); }''',
+'''for (RenderStateClass *state = list->Head; state != NULL; ) { if (state->Unknown_Flag16() && state->ID != -1) { Unknown_4604D0(state->ID); } state = state->Next; }''',
+'''for (RenderStateClass *state = list->Head; state != NULL; state = state->Next) { unsigned int flags = state->Unknown_Flag16(); if (flags && state->ID != -1) { Unknown_4604D0(state->ID); } }''',
+'''for (RenderStateClass *state = list->Head; state != NULL; state = state->Next) { if (state->Unknown_Flag16()) { int id = state->ID; if (id != -1) { Unknown_4604D0(id); } } }''',
+loop]
+for i,form in enumerate(forms):
+    form += '\n'*(loop.count('\n')-form.count('\n'))
+    text=base.replace(loop,form)
+    if i==7: text=text.replace('Unknown8C = RenderStateList.Unknown2C;', 'Unknown8C |= RenderStateList.Unknown2C;')
+    target=work/f'c{i:02}'; target.mkdir(exist_ok=True)
+    src=target/'rs_track.cpp'; src.write_text(text)
+    obj=compile_file(src,target)
+    env=dict(os.environ,ENB_RETAIL_INSTALL='/home/dev/Games/earth-and-beyond/prefix/drive_c/Program Files (x86)/EA GAMES/Earth & Beyond')
+    results=[]
+    for n,addr in enumerate(['0x45FDA0','0x45FFB0']):
+        r=subprocess.run(['/home/dev/Toolchains/enb-vc6-sp4/venv/bin/python','tools/re/objdiff.py',str(obj),'??0RsTrackClass',addr,'--n',str(n)],cwd=root,env=env,capture_output=True,text=True)
+        (target/f'diff{n}.txt').write_text(r.stdout+r.stderr)
+        results.append(r.stdout.splitlines()[-1] if r.stdout else r.stderr[-120:])
+    print(i,results,flush=True)
+
+
+gpt-6.2-astra follow-up, 10 physical forms
+
+Three repeated-initialization factoring forms leave constructors unchanged. Four Peek_Render_Object forms test null guards and locals. The explicit null guard reproduces cmp eax,ebx but does not resolve store order.
+
+Three animation branch forms were tested. anim0 matches at 0x460E80. anim1 and anim2 do not.
+
+
+astra62/trials.py
+
+from pathlib import Path
+import os, subprocess, sys
+area = Path(__file__).resolve().parent
+sys.path.insert(0,str(area.parent))
+from fastbuild import compile_file
+root=area.parents[2]
+base=(area.parent/'rs_track.baseline.cpp').read_text()
+hdr=(root/'app/shared/rs_track.h').read_text()
+env=dict(os.environ, ENB_RETAIL_INSTALL='/home/dev/Games/earth-and-beyond/prefix/drive_c/Program Files (x86)/EA GAMES/Earth & Beyond')
+def run(label,code,header,targets):
+    out=area/label
+    out.mkdir(exist_ok=True)
+    (out/'rs_track.h').write_text(header)
+    src=out/'rs_track.cpp'
+    src.write_text(code)
+    obj=compile_file(src,out)
+    for key,symbol,addr,extra in targets:
+        cmd=['/home/dev/Toolchains/enb-vc6-sp4/venv/bin/python','tools/re/objdiff.py',str(obj),symbol,addr]+extra
+        result=subprocess.run(cmd,cwd=root,env=env,text=True,capture_output=True,check=True)
+        (out/(key+'.txt')).write_text(result.stdout)
+        print(label,key,result.stdout.splitlines()[-1],flush=True)
+ctors=[(str(i),'??0RsTrackClass',a,['--n',str(i)]) for i,a in enumerate(['0x45FDA0','0x45FFB0'])]
+method=[('diff','Unknown_1C8','0x460E80',[])]
+begin=base.index('Unknown8C = RenderStateList.Unknown2C;')
+end=base.index('\n}',begin)
+block=base[begin:end]
+loop=block[block.index('for ('):]
+for label,fragment,params,args in [('all',block,'RenderStateListClass *list','list'),('loop',loop,'RenderStateListClass *list','list'),('fields',block[:block.index('for (')].strip(),'','')]:
+    header=hdr.replace('RsTrackClass(RenderStateListClass *list);','void Init_States('+params+'); RsTrackClass(RenderStateListClass *list);')
+    helper='inline void RsTrackClass::Init_States('+params+') { '+fragment+' }'
+    code=base.replace(fragment,'Init_States('+args+');'+'\n'*fragment.count('\n')).replace('// 0x45FDA0',helper+'\n#line 10\n// 0x45FDA0',1)
+    run(label,code,header,ctors)
+a=base.index('if (UnknownC4 != NULL && UnknownC4->Get_Num_Anims() == 0')
+b=base.index('\n\t}',a)
+orig=base[a:b]
+delete,after=orig.split(' else if ')
+pos=after[:after.index('\n\t\t\treturn(true);')]
+for i,(separate,early) in enumerate([(False,False),(True,True),(True,False)]):
+    if separate:
+        # Deletion clears the pointer, so the positive-count branch remains exclusive.
+        start=delete+'\n\t\tif '
+    else:
+        start=delete+' else if '
+    if early:
+        form=start+after
+    else:
+        form=start+pos+'\n\t\t} else { robj->Set_Animation(); }'
+        if not separate:
+            form=form.replace('UnknownC4 = NULL;', 'UnknownC4 = NULL; robj->Set_Animation();')
+    code=base[:a]+form+'\n#line '+str(base[:b].count('\n')+1)+'\n'+base[b:]
+    run('anim'+str(i),code,hdr,method)
+
+
+astra62/accessor.py
+
+from pathlib import Path
+src=Path(__file__).with_name('trials.py')
+exec(src.read_text().split('begin=base.index')[0])
+old='return(RenderStateList.Current == NULL ? NULL : RenderStateList.Current->Peek_Render_Object());'
+forms=[
+    'if (RenderStateList.Current) return RenderStateList.Current->Peek_Render_Object(); return NULL;',
+    'if (!RenderStateList.Current) return NULL; return RenderStateList.Current->Peek_Render_Object();',
+    'RenderObjClass *obj = NULL; if (RenderStateList.Current) obj = RenderStateList.Current->Peek_Render_Object(); return obj;',
+    'RenderStateClass *current = RenderStateList.Current; return current ? current->Peek_Render_Object() : NULL;'
+]
+for i,form in enumerate(forms):
+    run('peek'+str(i),base,hdr.replace(old,form),ctors)
+
+Additional user-requested gpt-6.2-astra constructor batch
+
+Claim 234, constructor batch on b1d45e56, gpt-6.2-astra.
+Prior reports, constructor trial sources/diffs and attempt ledger reviewed.
+One batch per constructor, six shared physical compiles total. No exact gains.
+
+New hypothesis: member vs body lifetime of the two final bounds affects the
+compiler-generated vtable writes adjacent to the flags operations. Scratch
+header uses the earlier verified guard in Peek_Render_Object to eliminate the
+independent assertion compare residue. The source changes only bound creation.
+The library provides both empty default constructors and the inline Init
+operations. ro_proxy.cpp and ww3d2 use these same bounds APIs. All six forms
+establish identical bounds before the scale/HSV virtual call and preserve all
+later assertion line numbers. No changes made to the working tree.
+
+Directory        form                                  first/second objdiff
+box_init         sphere ctor; box Init in body           0.84 / 0.84
+sphere_init      box ctor; sphere Init in body           0.81 / 0.81
+both_init        both Init in body                       0.84 / 0.84
+assign           assign constructed bound temporaries   0.84 / 0.84
+copy             copy temporaries in initializer list   0.84 / 0.84
+origin           both Init from shared local origin     0.84 / 0.84
+
+Diff groups identical for each target: copy = previous peek1; both_init =
+assign = origin; box_init and sphere_init each unique. The body forms place
+the vtable writes ahead of one or both bounds' stores. At 0x45FDA0 this can
+place the flags load after all three vtable writes but moves those writes away
+from their retail position (after the last bound store). At 0x45FFB0 the
+store-order mismatch after the virtual call persists. Copy preserves the
+prior best residual exactly. No candidate improves on that result overall.
+
+Each directory contains source/header, object, assembler comparisons, full
+matcher matches.json and pairs.json. For every physical compile: 189 exact,
+2 none, 1 short, 192 total; compared exact (mangled symbol,address) sets to
+the current final/matches.json, zero gained, zero lost including 0x460E80.
+No tracked source, header, ledger or docs changed. No persistent Wine server
+was started. No second round performed.
+
+Reproducible source transformations
+
+from pathlib import Path
+import sys, subprocess, json, os
+area=Path(__file__).resolve().parent
+root=area.parents[2]
+sys.path.insert(0,str(area.parent))
+from fastbuild import compile_file
+python='/home/dev/Toolchains/enb-vc6-sp4/venv/bin/python'
+retail='/home/dev/Games/earth-and-beyond/prefix/drive_c/Program Files (x86)/EA GAMES/Earth & Beyond/release/client.exe'
+base=(root/'app/shared/rs_track.cpp').read_text()
+header=(root/'app/shared/rs_track.h').read_text().replace('return(RenderStateList.Current == NULL ? NULL : RenderStateList.Current->Peek_Render_Object());','if (!RenderStateList.Current) return NULL; return RenderStateList.Current->Peek_Render_Object();')
+z='Vector3(0.0f, 0.0f, 0.0f)'
+s='UnknownD8('+z+', 0.0f)'
+b='UnknownE8('+z+', '+z+')'
+inits=s+',\n\t'+b+'\n{'
+forms=[
+ ('box_init',s+',\n\tUnknownE8()\n{ UnknownE8.Init('+z+', '+z+');'),
+ ('sphere_init','UnknownD8(),\n\t'+b+'\n{ UnknownD8.Init('+z+', 0.0f);'),
+ ('both_init','UnknownD8(),\n\tUnknownE8()\n{ UnknownD8.Init('+z+', 0.0f); UnknownE8.Init('+z+', '+z+');'),
+ ('assign','UnknownD8(),\n\tUnknownE8()\n{ UnknownD8 = SphereClass('+z+', 0.0f); UnknownE8 = AABoxClass('+z+', '+z+');'),
+ ('copy','UnknownD8(SphereClass('+z+', 0.0f)),\n\tUnknownE8(AABoxClass('+z+', '+z+'))\n{'),
+ ('origin','UnknownD8(),\n\tUnknownE8()\n{ const Vector3 origin(0.0f, 0.0f, 0.0f); UnknownD8.Init(origin, 0.0f); UnknownE8.Init(origin, origin);')
+]
+def pairs(rows):
+    return {(r['symbol'],a) for r in rows if r['status']=='exact' for a in r['addresses']}
+baseline=json.loads((area.parent/'final/matches.json').read_text())
+for label,init in forms:
+    assert base.count(inits)==2 and init.count('\n')==inits.count('\n')
+    out=area/label
+    out.mkdir(exist_ok=True)
+    src=out/'rs_track.cpp'
+    src.write_text(base.replace(inits,init))
+    (out/'rs_track.h').write_text(header)
+    obj=compile_file(src,out)
+    for i,addr in enumerate(['0x45FDA0','0x45FFB0']):
+        cmd=[python,'tools/re/objdiff.py',str(obj),'??0RsTrackClass',addr,'--n',str(i)]
+        env=dict(os.environ,ENB_RETAIL_INSTALL=str(Path(retail).parents[1]))
+        r=subprocess.run(cmd,cwd=root,text=True,capture_output=True,check=True,env=env)
+        (out/(addr+'.txt')).write_text(r.stdout)
+        print(label,addr,r.stdout.splitlines()[-1],flush=True)
+    subprocess.run([python,'tools/re/objmatch.py',str(obj),'--client',retail,'--json',str(out/'matches.json'),'-q'],cwd=root,check=True)
+    result=pairs(json.loads((out/'matches.json').read_text()))
+    delta={'gained':sorted(result-pairs(baseline)),'lost':sorted(pairs(baseline)-result)}
+    (out/'pairs.json').write_text(json.dumps(delta,indent=2))
+    print(delta,flush=True)
+
+User-requested gpt-6-astra byte-type batch
+
+Hypothesis: plain or signed char flag fields might change VC6 alias/scheduling choices. Visible field uses are byte copies and bit masks, leaving signedness ambiguous.
+Six shared builds tested source field Unknown2C, destination Unknown8C, and both together, first as plain char and then signed char. All use the prior best explicit null guard.
+Every full matcher run retained 189 exact matches, with zero gained/lost. Both constructor diffs are identical to prior peek1. No type or header change retained.
+
+Reproducible source transformations
+
+from pathlib import Path
+import sys, subprocess, json, os
+area=Path(__file__).resolve().parent
+root=area.parents[2]
+sys.path.insert(0,str(area.parent))
+from fastbuild import compile_file
+python='/home/dev/Toolchains/enb-vc6-sp4/venv/bin/python'
+retail='/home/dev/Games/earth-and-beyond/prefix/drive_c/Program Files (x86)/EA GAMES/Earth & Beyond/release/client.exe'
+base=(root/'app/shared/rs_track.cpp').read_text()
+header=(root/'app/shared/rs_track.h').read_text().replace('return(RenderStateList.Current == NULL ? NULL : RenderStateList.Current->Peek_Render_Object());','if (!RenderStateList.Current) return NULL; return RenderStateList.Current->Peek_Render_Object();')
+def pairs(rows):
+    return {(r['symbol'],a) for r in rows if r['status']=='exact' for a in r['addresses']}
+baseline=pairs(json.loads((area.parent/'final/matches.json').read_text()))
+for kind in ['char', 'signed char']:
+    for fields in [('Unknown2C',),('Unknown8C',),('Unknown2C','Unknown8C')]:
+        label=kind.replace(' ','_')+'_'+'_'.join(fields)
+        out=area/label
+        out.mkdir(exist_ok=True)
+        h=header
+        for field in fields:
+            old='unsigned char '+field+';'
+            assert h.count(old)==1
+            h=h.replace(old,kind+' '+field+';')
+        (out/'rs_track.h').write_text(h)
+        src=out/'rs_track.cpp'
+        src.write_text(base)
+        obj=compile_file(src,out)
+        for i,addr in enumerate(['0x45FDA0','0x45FFB0']):
+            r=subprocess.run([python,'tools/re/objdiff.py',str(obj),'??0RsTrackClass',addr,'--n',str(i)],cwd=root,text=True,capture_output=True,check=True,env=dict(os.environ,ENB_RETAIL_INSTALL=str(Path(retail).parents[1])))
+            (out/(addr+'.txt')).write_text(r.stdout)
+        subprocess.run([python,'tools/re/objmatch.py',str(obj),'--client',retail,'--json',str(out/'matches.json'),'-q'],cwd=root,check=True)
+        rows=json.loads((out/'matches.json').read_text())
+        result=pairs(rows)
+        delta={'gained':sorted(result-baseline),'lost':sorted(baseline-result)}
+        (out/'pairs.json').write_text(json.dumps(delta,indent=2))
+        print(label, {s:sum(r['status']==s for r in rows) for s in ['exact','none','short']},delta,flush=True)
+
+User-requested gpt-6.1-terra bulk batch
+
+30 shared builds evaluated 30 forms per constructor with zero compile failures. Five flag-transfer families (source/destination references, source/destination pointers, conditional expression) were combined with six bounds initialization forms. Screening grouped normalized code and relocation targets into 9 groups for 0x45FDA0 and 12 for 0x45FFB0. These groups were not exhaustively compared to all historical outputs.
+Winning form 10_dest_ref_direct uses a reference to the destination flags byte and the explicit null guard in Peek_Render_Object. Minimal integration changes only constructor 0x45FFB0, plus the shared header guard. Full rs_track object gives190 exact,1none,1short, gains0x45FFB0 and retains0x460E80 and all189 prior matches. Original header with destination reference alone leaves the constructor unmatched. Local expansion of Unknown_4604D0 also matched but was excluded because it duplicates logic and assertion metadata.
+Header validation compiled all18 affected app units before/after. Four baseline and candidate failures require unavailable mss.h (co.cpp,unknown_45f390.cpp) or d3d8.h(cpacket.cpp,rs_robj.cpp). All14 buildable units received full before/after object matching:705 to706 exact(source,symbol,address) pairs, sole gain0x45FFB0, zero lost. These results leave the four unavailable units for maintainer verification.
+
+Reproducible bulk source transformations
+
+from pathlib import Path
+import sys, os, json, hashlib, difflib, subprocess, re
+area=Path(__file__).resolve().parent; root=area.parents[2]
+sys.path[:0]=[str(area.parent),str(root/'tools/re')]
+from fastbuild import compile_file
+from objmatch import CoffObject, RELOC_SIZE
+from objdiff import obj_lines, client_lines, norm
+from clientimage import ClientImage
+base=(root/'app/shared/rs_track.cpp').read_text(); header=(root/'app/shared/rs_track.h').read_text().replace('return(RenderStateList.Current == NULL ? NULL : RenderStateList.Current->Peek_Render_Object());','if (!RenderStateList.Current) return NULL; return RenderStateList.Current->Peek_Render_Object();')
+os.environ['ENB_RETAIL_INSTALL']='/home/dev/Games/earth-and-beyond/prefix/drive_c/Program Files (x86)/EA GAMES/Earth & Beyond'
+z='Vector3(0.0f, 0.0f, 0.0f)'; s='UnknownD8('+z+', 0.0f)'; b='UnknownE8('+z+', '+z+')'; old=s+',\n\t'+b+'\n{'
+bounds=[('direct',old),('box_init',s+',\n\tUnknownE8()\n{ UnknownE8.Init('+z+', '+z+');'),('sphere_init','UnknownD8(),\n\t'+b+'\n{ UnknownD8.Init('+z+', 0.0f);'),('both_init','UnknownD8(),\n\tUnknownE8()\n{ UnknownD8.Init('+z+', 0.0f); UnknownE8.Init('+z+', '+z+');'),('assign','UnknownD8(),\n\tUnknownE8()\n{ UnknownD8 = SphereClass('+z+', 0.0f); UnknownE8 = AABoxClass('+z+', '+z+');'),('origin','UnknownD8(),\n\tUnknownE8()\n{ const Vector3 origin(0.0f, 0.0f, 0.0f); UnknownD8.Init(origin, 0.0f); UnknownE8.Init(origin, origin);')]
+flags=[('source_ref','const unsigned char &flags = RenderStateList.Unknown2C; Unknown8C = flags;'),('dest_ref','unsigned char &flags = Unknown8C; flags = RenderStateList.Unknown2C;'),('source_ptr','const unsigned char *flags = &RenderStateList.Unknown2C; Unknown8C = *flags;'),('dest_ptr','unsigned char *flags = &Unknown8C; *flags = RenderStateList.Unknown2C;'),('ternary','Unknown8C = RenderStateList.Unknown2C ? RenderStateList.Unknown2C : 0;')]
+img=ClientImage(os.environ['ENB_RETAIL_INSTALL']+'/release/client.exe'); rows=[]; groups=[{},{}]
+for fi,(fn,fragment) in enumerate(flags):
+ for bi,(bn,binit) in enumerate(bounds):
+  label=f'{fi}{bi}_{fn}_{bn}'; out=area/label; out.mkdir(exist_ok=True)
+  code=base.replace(old,binit).replace('Unknown8C = RenderStateList.Unknown2C;',fragment)
+  assert code.count('\n')==base.count('\n') and base.count(old)==2
+  src=out/'rs_track.cpp'; src.write_text(code); (out/'rs_track.h').write_text(header)
+  row={'label':label,'flag':fn,'bounds':bn,'guard':'explicit-null','scores':[],'groups':[]}
+  try:
+   objpath=compile_file(src,out); obj=CoffObject(str(objpath)); funcs=[f for f in obj.functions() if '??0RsTrackClass' in f[0]]
+   for i,addr in enumerate((0x45fda0,0x45ffb0)):
+    name,sec,start,end=funcs[i]; info=obj.sections[sec]; body=bytearray(obj.data[info['raw']+start:info['raw']+end]); rel=[]; byidx={x['index']:x for x in obj.symbols}
+    for va,si,typ in info['relocs']:
+     if start<=va<end:
+      sym=byidx[si]; rel.append((va-start,typ,sym['name'],sym['value'],sym['section']))
+      for k in range(RELOC_SIZE.get(typ,4)):
+       if va-start+k<len(body): body[va-start+k]=0
+    identity=json.dumps([body.hex(),rel],sort_keys=True); key=hashlib.sha256(identity.encode()).hexdigest()[:12]; groups[i].setdefault(key,[]).append(label)
+    (out/f'reloc{i}.json').write_text(json.dumps(rel,indent=2))
+    l=obj_lines(obj,sec,start,end); r=client_lines(img,addr,end-start); sm=difflib.SequenceMatcher(None,[norm(t) for _,_,t in l],[norm(t) for _,_,t in r],autojunk=False)
+    row['scores'].append(round(sm.ratio(),6)); row['groups'].append(key)
+  except Exception as e: row['error']=str(e)
+  rows.append(row); (area/'manifest.json').write_text(json.dumps(rows,indent=2)); print(label,row.get('scores'),row.get('groups'),row.get('error',''),flush=True)
+(area/'groups.json').write_text(json.dumps(groups,indent=2))
+
+User-requested gpt-6.1-terra high-thinking bulk batch for 0x45FDA0
+
+Claim 234, gpt-6.1-terra high, requested bounded exploratory batch.
+Target 0x45FDA0; current source and header frozen as baseline.cpp/baseline.h.
+30 source forms, 30 successful VC6 SP4 compiles, zero compile errors.
+Five bounds forms: box center and/or extent initialized from the already
+initialized sphere center, or initialized field by field in each order.
+Each combined with six flag-transfer forms: direct assignment, destination
+byte reference, list reference, this pointer, memcpy, or memmove.
+Only first constructor was changed; scaled constructor and all other source
+were frozen. memcpy optimized like assignment; memmove changed code markedly.
+
+13 normalized byte/relocation-identity groups; 12 keys were absent from the
+previous terra-bulk/groups-normalized.json; this is not a comparison against
+all historical outputs. One group (174af474dad6) matches prior box_init.
+screen.json: baseline 12 fixed-byte mismatches in 353 fixed bytes; best trial
+38 mismatches. No pattern hit. Mismatch counts are positional, so output size
+and instruction movement can magnify them; instruction similarity was also
+no better than previous 0.842553. No genuine new-best or exact candidate and
+therefore no full matcher run warranted. The baseline matches.json has 190
+exact and retains scaled constructor and animation method; preservation by
+trials has not been verified because no candidate was selected.
+run.py, screen.py, manifest.json, groups.json and each source, object, log,
+and relocation list provide reproducible details. Wine server stopped.
+No tracked edits, ledger edits, commits, pushes or external posts.
+
+Reproducible source transformations
+
+from pathlib import Path
+import sys, os, json, hashlib, difflib, subprocess
+area=Path(__file__).resolve().parent; root=area.parents[2]
+sys.path[:0]=[str(area.parent),str(root/'tools/re')]
+from fastbuild import compile_file
+from objmatch import CoffObject, RELOC_SIZE
+from objdiff import obj_lines, client_lines, norm
+from clientimage import ClientImage
+base=(area/'baseline.cpp').read_text(); header=(area/'baseline.h').read_text()
+retail='/home/dev/Games/earth-and-beyond/prefix/drive_c/Program Files (x86)/EA GAMES/Earth & Beyond/release/client.exe'
+os.environ['ENB_RETAIL_INSTALL']=str(Path(retail).parents[1])
+z='Vector3(0.0f, 0.0f, 0.0f)'; s='UnknownD8('+z+', 0.0f)'; box='UnknownE8('+z+', '+z+')'; old=s+',\n\t'+box+'\n{'
+bounds=[
+ ('box_both_sphere_center',s+',\n\tUnknownE8(UnknownD8.Center, UnknownD8.Center)\n{'),
+ ('box_center_sphere_center',s+',\n\tUnknownE8(UnknownD8.Center, '+z+')\n{'),
+ ('box_extent_sphere_center',s+',\n\tUnknownE8('+z+', UnknownD8.Center)\n{'),
+ ('box_fields_center_first',s+',\n\tUnknownE8()\n{ UnknownE8.Center.Set(0.0f, 0.0f, 0.0f); UnknownE8.Extent.Set(0.0f, 0.0f, 0.0f);'),
+ ('box_fields_extent_first',s+',\n\tUnknownE8()\n{ UnknownE8.Extent.Set(0.0f, 0.0f, 0.0f); UnknownE8.Center.Set(0.0f, 0.0f, 0.0f);')]
+flags=[
+ ('direct','Unknown8C = RenderStateList.Unknown2C;'),
+ ('destination_ref','unsigned char &flags = Unknown8C; flags = RenderStateList.Unknown2C;'),
+ ('list_ref','RenderStateListClass &states = RenderStateList; Unknown8C = states.Unknown2C;'),
+ ('self_pointer','RsTrackClass *track = this; track->Unknown8C = track->RenderStateList.Unknown2C;'),
+ ('memcpy','memcpy(&Unknown8C, &RenderStateList.Unknown2C, sizeof Unknown8C);'),
+ ('memmove','memmove(&Unknown8C, &RenderStateList.Unknown2C, sizeof Unknown8C);')]
+img=ClientImage(retail); rows=[]; groups={}
+assert base.count(old)==2
+for bi,(bn,init) in enumerate(bounds):
+ for fi,(fn,frag) in enumerate(flags):
+  label=f'{bi}{fi}_{bn}_{fn}'; out=area/label; out.mkdir(exist_ok=True)
+  code=base.replace(old,init,1).replace('Unknown8C = RenderStateList.Unknown2C;',frag,1)
+  assert code.count('\n')==base.count('\n')
+  src=out/'rs_track.cpp'; src.write_text(code); (out/'rs_track.h').write_text(header)
+  row={'label':label,'bounds':bn,'flags':fn}
+  try:
+   objpath=compile_file(src,out); obj=CoffObject(str(objpath)); name,sec,start,end=[f for f in obj.functions() if '??0RsTrackClass' in f[0]][0]
+   info=obj.sections[sec]; body=bytearray(obj.data[info['raw']+start:info['raw']+end]); symbols={s['index']:s for s in obj.symbols}; rel=[]
+   for va,si,typ in info['relocs']:
+    if start<=va<end:
+     sym=symbols[si]; n=sym['name']; value=sym['value']
+     if n.startswith('$L'): n='$L'
+     if n.startswith('??_C@') and '?2home?2dev?2Projects?2EnB?2?4work?2c@' in n: n='__FILE__'; value=0
+     rel.append((va-start,typ,n,value))
+     for k in range(RELOC_SIZE.get(typ,4)):
+      if va-start+k<len(body): body[va-start+k]=0
+   key=hashlib.sha256(json.dumps([body.hex(),rel]).encode()).hexdigest()[:12]; groups.setdefault(key,[]).append(label)
+   l=obj_lines(obj,sec,start,end); r=client_lines(img,0x45fda0,end-start)
+   row.update(group=key,score=round(difflib.SequenceMatcher(None,[norm(t) for _,_,t in l],[norm(t) for _,_,t in r],autojunk=False).ratio(),6))
+   (out/'reloc.json').write_text(json.dumps(rel,indent=2))
+  except Exception as e: row['error']=str(e)
+  rows.append(row); (area/'manifest.json').write_text(json.dumps(rows,indent=2)); (area/'groups.json').write_text(json.dumps(groups,indent=2)); print(label,row.get('score'),row.get('group'),row.get('error',''),flush=True)
+
+Correction from user-requested gpt-6-astra xhigh exactness audit
+
+The earlier Terra bulk report incorrectly classified the first constructor as unmatched. The saved source-reference form already matches at0x45FDA0. objdiff text similarity around0.84 does not prove a mismatch: relocated zero operands, branch rendering and padding reduce the score even for exact code. The previous bulk used similarity without an authoritative pattern/matcher check for every candidate. Treat its no-exact conclusion as superseded by this audit.
+Claim 234: GPT-6-Astra, XHIGH diagnostic review, 2026-11-21
+
+RESULT
+The first constructor was already solved by two saved Terra bulk forms, but
+the earlier screening did not recognize it. No new permutation batch is needed.
+One minimal combined-current-baseline compile verifies 191 exact, 1 short,
+0 unmatched: sole gain 0x45FDA0, all 190 prior symbol/address pairs retained.
+
+Candidate: combined/rs_track.cpp, generated by combined.py from the current
+tracked source and header. Only the first constructor's assignment changes:
+
+    const unsigned char &flags = RenderStateList.Unknown2C; Unknown8C = flags;
+
+Keep current initializers, current explicit-null Peek_Render_Object guard,
+and the scaled constructor's destination-byte reference unchanged.
+The scratch change occupies the same line and preserves all assertion lines.
+The stale NOT EXACT comment remains in this scratch file to preserve text
+positions; the integrating parent should update it while preserving lines.
+
+Proof: combined/matches.json, combined/delta.json. Baseline for pair comparison:
+.work/sdk-install/refreshed-14/rs_track/matches.json. The old bulk source-ref
+object also received a fresh complete matcher run: source-ref-matches.json
+reports 0x45FDA0 exact; its scaled constructor remains none, as expected.
+One compiler invocation in this review, using installed VC6 SP4 via fastbuild.
+No compiler flags changed; no persistent Wine server was started.
+No tracked edits, commits, ledger writes, claims, or external posts by this agent.
+
+OBSERVED EVIDENCE
+1. Current first constructor: function length 409 bytes excluding alignment,
+   353 fixed bytes, 12 positional fixed-byte mismatches. Offsets:
+     0x068..0x09e: all ten bounds dword stores, in the client's order;
+     0x0a4: mov al,byte ptr [esi+0xbc];
+     0x0aa / 0x0b0 / 0x0b7: three derived vptr stores;
+     0x0be: flags byte store; 0x0c4: Current NULL store.
+   A read-only sequence comparison that moves the six-byte load past those
+   three stores leaves zero fixed-byte mismatches. No object was patched.
+   baseline.json and baseline-first.txt retain these measurements.
+
+2. Retail and source-reference form instead have vptr stores at offsets
+   0x0a4 / 0x0aa / 0x0b1, load at 0x0b8, then the same flags/Current stores.
+   The vptr targets are RsTrackClass's RefCountClass, PersistClass and
+   MultiListObjectClass tables. They are not bounds or temporary vtables.
+   The exact scaled constructor independently confirms these base identities.
+
+3. Existing terra-bulk/00_source_ref_direct and 20_source_ptr_direct both
+   match the first constructor's full fixed-byte pattern. They normalize to
+   the same first-constructor output. The old normalized group was
+   ba70ef4db60f; this review's different hash schema names it 7ddade3cfcb49670.
+   Source pointer and source reference are alternative spellings of the
+   already measured lever. Neither requires changing bounds construction.
+
+4. A read-only audit covered 123 existing rs_track objects under claim-234
+   plus the refreshed baseline, yielding 26 analysis groups for the first
+   constructor. These are artifact counts, including controls and unrelated
+   method trials; they are not 123 distinct constructor forms. Hash groups
+   are analysis aids, not equivalence proofs. history.json/history-groups.json
+   enumerate the artifacts and group listings retain raw disassembly.
+   The two old ledger-only rounds (16 + 5 forms) have only their recorded
+   descriptions in the reviewed history; their distinct outputs cannot be
+   reconstructed from the form counts.
+
+CAUSAL INTERPRETATION
+Observed: taking the source byte's address through a reference or pointer
+keeps its load after the vptr stores. Taking the destination byte's address
+fixes the scaled constructor's flags-store versus Current-store ordering.
+These are complementary levers, not one transfer form that must serve both
+constructors. In the scaled constructor the intervening virtual call already
+prevents its flags load from moving before the vptr setup.
+
+Best explanation (inference): the reference/pointer forms change VC6's memory
+dependency representation, probably its treatment of an address-taken byte
+lvalue and aliasing, so the scheduler retains different edges. Direct member
+access retains enough disjoint-field knowledge to move the first load early;
+an addressed byte lvalue constrains that motion. Exact matches establish the
+code-generating source forms, not the internal compiler phase or the original
+author's syntax. No compiler internals or alias-flag probe was needed to
+resolve the task, and that lower-level mechanism remains unproven.
+
+There is no remaining need to hypothesize a missing base/member, a new bounds
+wrapper, or a nontrivial temporary. Existing structure generates all required
+initialization and unwind code. The bounds-body batches moved the derived
+vptr boundary before body initialization, explaining their superficially
+improved load order and incorrect bounds order. Changing flag signedness
+does not take an address, so its identical outputs are unsurprising. The
+old initialization helper factoring also did not expose this byte through a
+reference parameter/local. The newest sphere-center dependency trials added
+actual bounds data flow and disturbed an already correct region.
+
+Relevant project analogues reviewed: workflow.md lines 600 (file-static helper
+layer repairs store scheduling), 679-684 (subobject/inline method affects
+memory ordering), 879-882 (init-list/body boundary versus vptr stores), and
+app/client/ui_shipcust.cpp's Set_Decal helper near line 1146. They support
+looking for representation/alias boundaries rather than more loop synonyms.
+The exact reference experiment is more direct evidence than those analogues.
+
+WHY THE WIN WAS MISSED
+terra-bulk/run.py computes SequenceMatcher similarity over objdiff's textual
+listings; it did not do a fixed-byte pattern check or full objmatch for every
+form. groups.py normalizes code groups and compares only the selected
+10_dest_ref_direct matcher output. A separate match of 00_source_ref_direct
+is absent from that old batch, despite it being a different output group.
+
+The exact source-reference constructor and the non-exact box_init form both
+have recorded similarity 0.842553. Rerunning objdiff on the now matcher-proven
+exact source-ref object still prints similarity 0.84. Its displayed false
+differences are preserved in source-ref-objdiff.txt:
+* Relocated zero immediates remain '0' in object text, while retail addresses
+  become 'REL'. HEX only matches 0x... literals, so zero is not normalized.
+* For the third vptr store, any relocation in the instruction makes obj_lines
+  replace the unrelated +0x10 displacement with REL, while retaining its
+  relocated immediate as 0: '[esi + REL], 0' versus '[esi + 0x10], REL'.
+* Client absolute jump targets become REL before norm can turn them into
+  <branch>; object's small relative-offset targets become <branch>.
+* objdiff includes alignment NOPs (416-byte section slice versus the matcher's
+  409-byte function) and one extra client instruction (the next int3).
+These are display/score limitations; they do not invalidate objmatch's
+relocation-aware result. Similarity therefore cannot gate exactness.
+
+NEXT ACTION / PRECISE TERRA BRIEF
+There is one concrete direction, already validated: integrate the source
+reference in the first constructor while retaining the second constructor's
+destination reference. Smallest diagnostic was one current-baseline combined
+compile; it succeeded, so allocate zero further permutation forms. Expected
+assembly is precisely the six-byte-load movement listed above. Reject if
+0x45FDA0 is not exact or any of the current 190 pairs is lost. The parent is
+handling final formatting, integration, validation and attempt-record repair.
+No flags sweep or accessor-family sweep is justified after this result.
+
+SCREENING CORRECTION
+Run complete objmatch for EVERY successfully compiled trial object. It is
+native CPU work and is the authoritative affordable check. Record status and
+exact pair-set deltas per named constructor; use scores and groups only to
+compress subsequent diagnosis. Do not skip full matches because similarity
+did not rise. Do not use one representative for exactness unless the grouping
+hash has independently proven equivalence of code AND referenced data/targets.
+
+Optional cheap precheck: screen.py uses CoffObject.pattern, its actual trimmed
+length, the corresponding client slice, and relocation offsets. It names the
+overloaded constructors explicitly by mangled symbol. A hit still requires
+full objmatch; it is not a substitute. Regression inputs: refreshed baseline
+(first misses, scaled hits), old 00_source_ref_direct (first hits, scaled
+misses), combined candidate (both hit). The parent is adding the full-match
+batch runner; no repository tool changes were made in this review.
+
+The historical 'first constructor still unmatched' statement in the bulk
+record should receive a correction explicitly naming the missed source-ref
+and source-ptr artifacts and this fresh verification. The last 30-form batch
+truly had no first-constructor hit, but it was launched from an incompletely
+screened earlier batch. Later failure counts should not imply that the missed
+reference form had failed byte matching.
+
+Parent integration uses source reference only in first constructor, retaining destination reference in scaled constructor and the shared guard. Formatted tracked source full match191exact,0none,1short; all190 prior exact pairs retained. All actual assertion lines preserved. No new permutation batch was required.
+Future batch policy: run full objmatch for every compiled object. Grouping and similarity organize analysis only. The scratch runner verify_batch.py has no similarity gate; regression fixtures identify the previous unmatched baseline as false and saved exact form/final combination as true.
+
+Corrected scratch batch verifier
+
+"""Run authoritative object matching for every compiled form, without a similarity gate."""
+import argparse
+import collections
+import json
+from pathlib import Path
+import subprocess
+import sys
+
+REPO = Path('/home/dev/Projects/EnB')
+PYTHON = Path('/home/dev/Toolchains/enb-vc6-sp4/venv/bin/python')
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('objects', type=Path, nargs='+')
+    parser.add_argument('--out', type=Path, required=True)
+    parser.add_argument('--target', type=lambda value: int(value, 0))
+    arguments = parser.parse_args()
+    arguments.out.mkdir(parents=True, exist_ok=True)
+    summary = []
+    failures = False
+    for index, obj in enumerate(arguments.objects):
+        label = f'{index:03d}_{obj.parent.name}'
+        output = arguments.out / (label + '.json')
+        command = [str(PYTHON), str(REPO / 'tools/re/objmatch.py'),
+                   str(obj.resolve()), '-q', '--json', str(output.resolve())]
+        process = subprocess.run(command, text=True, capture_output=True)
+        (arguments.out / (label + '.log')).write_text(process.stdout + process.stderr)
+        entry = {'object': str(obj), 'returncode': process.returncode}
+        if process.returncode:
+            failures = True
+            entry['error'] = process.stderr.strip()
+        else:
+            rows = json.loads(output.read_text())
+            entry['counts'] = dict(collections.Counter(row['status'] for row in rows))
+            if arguments.target is not None:
+                entry['target_exact'] = any(
+                    row['status'] == 'exact' and
+                    arguments.target in {int(address, 16) for address in row['addresses']}
+                    for row in rows
+                )
+        summary.append(entry)
+        print(json.dumps(entry), flush=True)
+    (arguments.out / 'summary.json').write_text(json.dumps(summary, indent=2) + '\n')
+    return int(failures)
+
+if __name__ == '__main__':
+    sys.exit(main())

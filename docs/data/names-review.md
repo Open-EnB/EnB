@@ -10,7 +10,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 226 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1970 |
-| 2 | describes what the code does | 4997 |
+| 2 | describes what the code does | 4999 |
 | 1 | neutral placeholder | 25170 |
 
 ## For review (score 3 and below)
@@ -24366,17 +24366,17 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_0C` | `app/shared/rs_robj.cpp:318` | untagged neutral name (D10) |
 | 1 | `Unknown_4583C0` | `app/shared/rs_robj.cpp:359` | untagged neutral name (D10) |
 | 1 | `Unknown_40` | `app/shared/rs_robj.cpp:413` | untagged neutral name (D10) |
-| 1 | `Unknown8C` | `app/shared/rs_track.cpp:13` | untagged neutral name (D10) |
-| 1 | `UnknownC0` | `app/shared/rs_track.cpp:15` | untagged neutral name (D10) |
-| 1 | `UnknownC4` | `app/shared/rs_track.cpp:16` | untagged neutral name (D10) |
-| 1 | `UnknownC8` | `app/shared/rs_track.cpp:17` | untagged neutral name (D10) |
-| 1 | `UnknownCC` | `app/shared/rs_track.cpp:18` | untagged neutral name (D10) |
-| 1 | `UnknownD4` | `app/shared/rs_track.cpp:20` | untagged neutral name (D10) |
-| 1 | `UnknownD8` | `app/shared/rs_track.cpp:21` | untagged neutral name (D10) |
-| 1 | `UnknownE8` | `app/shared/rs_track.cpp:22` | untagged neutral name (D10) |
+| 1 | `Unknown8C` | `app/shared/rs_track.cpp:12` | untagged neutral name (D10) |
+| 1 | `UnknownC0` | `app/shared/rs_track.cpp:14` | untagged neutral name (D10) |
+| 1 | `UnknownC4` | `app/shared/rs_track.cpp:15` | untagged neutral name (D10) |
+| 1 | `UnknownC8` | `app/shared/rs_track.cpp:16` | untagged neutral name (D10) |
+| 1 | `UnknownCC` | `app/shared/rs_track.cpp:17` | untagged neutral name (D10) |
+| 1 | `UnknownD4` | `app/shared/rs_track.cpp:19` | untagged neutral name (D10) |
+| 1 | `UnknownD8` | `app/shared/rs_track.cpp:20` | untagged neutral name (D10) |
+| 1 | `UnknownE8` | `app/shared/rs_track.cpp:21` | untagged neutral name (D10) |
 | 1 | `Unknown_Flag16` | `app/shared/rs_track.cpp:27` | untagged neutral name (D10) |
 | 1 | `Unknown_4604D0` | `app/shared/rs_track.cpp:28` | untagged neutral name (D10) |
-| 1 | `Unknown_04` | `app/shared/rs_track.cpp:47` | untagged neutral name (D10) |
+| 1 | `Unknown_04` | `app/shared/rs_track.cpp:46` | untagged neutral name (D10) |
 | 1 | `Unknown_460260` | `app/shared/rs_track.cpp:64` | untagged neutral name (D10) |
 | 1 | `Unknown_460410` | `app/shared/rs_track.cpp:99` | untagged neutral name (D10) |
 | 1 | `Unknown_460440` | `app/shared/rs_track.cpp:186` | untagged neutral name (D10) |
@@ -24402,9 +24402,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_1D8` | `app/shared/rs_track.cpp:446` | untagged neutral name (D10) |
 | 1 | `Unknown_460BC0` | `app/shared/rs_track.cpp:451` | untagged neutral name (D10) |
 | 1 | `Unknown_Flag10` | `app/shared/rs_track.cpp:461` | untagged neutral name (D10) |
-| 1 | `Unknown_1C8` | `app/shared/rs_track.cpp:508` | untagged neutral name (D10) |
-| 1 | `Unknown_45A870` | `app/shared/rs_track.cpp:517` | untagged neutral name (D10) |
-| 1 | `Unknown_45A9F0` | `app/shared/rs_track.cpp:522` | untagged neutral name (D10) |
+| 1 | `Unknown_1C8` | `app/shared/rs_track.cpp:507` | untagged neutral name (D10) |
+| 1 | `Unknown_45A870` | `app/shared/rs_track.cpp:516` | untagged neutral name (D10) |
+| 1 | `Unknown_45A9F0` | `app/shared/rs_track.cpp:521` | untagged neutral name (D10) |
 | 1 | `Unknown_45A8F0` | `app/shared/rs_track.cpp:543` | untagged neutral name (D10) |
 | 1 | `Unknown_45DFC0` | `app/shared/rs_track.cpp:545` | untagged neutral name (D10) |
 | 1 | `Unknown_45E030` | `app/shared/rs_track.cpp:549` | untagged neutral name (D10) |
@@ -24567,16 +24567,16 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_462610` | `app/shared/rs_track.h:297` | neutral (D10) |
 | 1 | `Unknown_462650` | `app/shared/rs_track.h:298` | neutral (D10) |
 | 1 | `Unknown_462690` | `app/shared/rs_track.h:299` | neutral (D10) |
-| 1 | `Unknown8C` | `app/shared/rs_track.h:303` | neutral (D10) |
-| 1 | `UnknownC0` | `app/shared/rs_track.h:305` | neutral (D10) |
-| 1 | `UnknownC4` | `app/shared/rs_track.h:306` | neutral (D10) |
-| 1 | `UnknownC8` | `app/shared/rs_track.h:307` | neutral (D10) |
-| 1 | `Unknown45D9E0Class` | `app/shared/rs_track.h:307` | untagged neutral name (D10) |
-| 1 | `UnknownCC` | `app/shared/rs_track.h:308` | neutral (D10) |
-| 1 | `Unknown45DC80Class` | `app/shared/rs_track.h:308` | untagged neutral name (D10) |
-| 1 | `UnknownD4` | `app/shared/rs_track.h:310` | neutral (D10) |
-| 1 | `UnknownD8` | `app/shared/rs_track.h:311` | neutral (D10) |
-| 1 | `UnknownE8` | `app/shared/rs_track.h:312` | neutral (D10) |
+| 1 | `Unknown8C` | `app/shared/rs_track.h:307` | neutral (D10) |
+| 1 | `UnknownC0` | `app/shared/rs_track.h:309` | neutral (D10) |
+| 1 | `UnknownC4` | `app/shared/rs_track.h:310` | neutral (D10) |
+| 1 | `UnknownC8` | `app/shared/rs_track.h:311` | neutral (D10) |
+| 1 | `Unknown45D9E0Class` | `app/shared/rs_track.h:311` | untagged neutral name (D10) |
+| 1 | `UnknownCC` | `app/shared/rs_track.h:312` | neutral (D10) |
+| 1 | `Unknown45DC80Class` | `app/shared/rs_track.h:312` | untagged neutral name (D10) |
+| 1 | `UnknownD4` | `app/shared/rs_track.h:314` | neutral (D10) |
+| 1 | `UnknownD8` | `app/shared/rs_track.h:315` | neutral (D10) |
+| 1 | `UnknownE8` | `app/shared/rs_track.h:316` | neutral (D10) |
 | 1 | `SafePtrBaseClass` | `app/shared/safe_ptr.h:15` | file safe_ptr.cpp, assert 'm_prev' in 0x4F5ED0; the base of the pointer |
 | 1 | `Set` | `app/shared/safe_ptr.h:21` | 0x4F5ED0 unlinks the old target, links the new one |
 | 1 | `m_next` | `app/shared/safe_ptr.h:25` | beside the client's m_prev |
@@ -29831,6 +29831,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `ProjectorList` | `app/shared/rs_proj_sup.h:49` | what it holds |
 | 2 | `Owner` | `app/shared/rs_proj_sup.h:50` | what it points at |
 | 2 | `rs_robj.cpp` | `app/shared/rs_robj.cpp:19` | RsTrackClass::Class_ID |
+| 2 | `flags` | `app/shared/rs_track.cpp:23` | source state flags |
+| 2 | `flags` | `app/shared/rs_track.cpp:47` | destination state flags |
 | 2 | `RenderStateListClass` | `app/shared/rs_track.h:25` | the member RenderStateList of rs_track.cpp's assert |
 | 2 | `Head` | `app/shared/rs_track.h:75` | the list walk |
 | 2 | `Current` | `app/shared/rs_track.h:77` | Peek_Render_Object's state |
