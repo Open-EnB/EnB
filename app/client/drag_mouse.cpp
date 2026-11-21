@@ -35,13 +35,13 @@
 
 
 // 0x684F20
-// NOT EXACT: functional (D64), from the pseudocode
+
 SMouseDragClass::SMouseDragClass(LoginUnknown18Class *mouse) :
 	Mouse(mouse),
-	X(0.0f),
-	Y(0.0f),
+	Position(0.0f, 0.0f),
 	State(STATE_INACTIVE)
 {
+
 	G_ASSERT(Mouse);
 }
 
@@ -60,8 +60,8 @@ void SMouseDragClass::Begin()
 	if (Mouse) {
 		Mouse->Unknown_515510(this);
 		float y = Mouse->Get_Y();
-		X = Mouse->Get_X();
-		Y = y;
+		Position.X = Mouse->Get_X();
+		Position.Y = y;
 	}
 }
 
@@ -72,11 +72,11 @@ float SMouseDragClass::Threshold()
 }
 
 // 0x685060
-// NOT EXACT: functional (D64), from the pseudocode
+// NOT EXACT: x87 square order: the client squares the x delta first; this form squares the y delta first.
 bool SMouseDragClass::Update_Drag(float x, float y)
 {
 	if (State == 1) {
-		if ((x - X) * (x - X) + (y - Y) * (y - Y) > Threshold()) {
+		if ((x - Position.X) * (x - Position.X) + (y - Position.Y) * (y - Position.Y) > Threshold()) {
 			State = 2;
 			return(true);
 		}
@@ -130,4 +130,6 @@ void SMouseDragClass::Unknown_685190()
 **	The object runs from 0x684F20 to 0x6851A0 (0x684D10-0x684E00 before it are rawfile.cpp's and a palette loader's).
 **	SMouseDragClass is smouse.cpp's name for the object (its local declaration, 0x515510's parameter type). Written
 **	from the pseudocode, the asserts on the client's lines; the functions so marked (D64) are functional only.
+**	Representing the coordinates at +0x08 and +0x0C as a Vector2 reproduces 0x684F20's zeroing register,
+**	Mouse reload and store order exactly through its inline constructor. Separate scalar initializers differ.
 */
