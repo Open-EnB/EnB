@@ -49,8 +49,8 @@ void ClientItemPropertyBuilderClass::Unknown_521C10(UIItemExaminationPropertyRou
 		} else {
 			level = 1;
 		}
-		RefCountPtr<ClientItemPropertyAttributeClass> quality_property = ClientItemPropertyAttributePercentClass::Create(0, "Quality", "Quality of this item compared to others of its kind", 0.0f, 1.0f, quality, level);	// NAME 1 [quality_property, structure_property]: neutral
-		router.Route(quality_property);
+		RefCountPtr<ClientItemPropertyClass> quality_property = ClientItemPropertyAttributePercentClass::Create(0, "Quality", "Quality of this item compared to others of its kind", 0.0f, 1.0f, quality, level);	// NAME 1 [quality_property, structure_property]: neutral
+		router.Route(RefCountPtr<const ClientItemPropertyClass>(quality_property));
 		float structure = Data->Unknown_688830()->Get_Structure(Slot);
 		if (structure != -1.0f) {
 			std::string tooltip;
@@ -67,14 +67,14 @@ void ClientItemPropertyBuilderClass::Unknown_521C10(UIItemExaminationPropertyRou
 				level = 0;
 				tooltip = "This item is no longer operational and must be repaired.";
 			}
-			RefCountPtr<ClientItemPropertyAttributeClass> structure_property = ClientItemPropertyAttributePercentClass::Create(6, "Structure", tooltip, 0.0f, 1.0f, structure, level);
-			router.Route(structure_property);
+			RefCountPtr<ClientItemPropertyClass> structure_property = ClientItemPropertyAttributePercentClass::Create(6, "Structure", tooltip, 0.0f, 1.0f, structure, level);
+			router.Route(RefCountPtr<const ClientItemPropertyClass>(structure_property));
 		}
 	}
 	if (!maker.empty()) {
-		RefCountPtr<ClientItemPropertySpecialClass> special = ClientItemPropertySpecialMakerClass::Create(maker, ClientItemPropertySpecialMakerClass::MAKER_PLAYER); router.Route(special);	// NAME 1 [special]: neutral
+		RefCountPtr<ClientItemPropertyClass> special = ClientItemPropertySpecialMakerClass::Create(maker, ClientItemPropertySpecialMakerClass::MAKER_PLAYER); router.Route(RefCountPtr<const ClientItemPropertyClass>(special));	// NAME 1 [special]: neutral
 	} else if (!maker2.empty()) {
-		RefCountPtr<ClientItemPropertySpecialClass> special = ClientItemPropertySpecialMakerClass::Create(maker2, ClientItemPropertySpecialMakerClass::MAKER_CORPORATION); router.Route(special);
+		RefCountPtr<ClientItemPropertyClass> special = ClientItemPropertySpecialMakerClass::Create(maker2, ClientItemPropertySpecialMakerClass::MAKER_CORPORATION); router.Route(RefCountPtr<const ClientItemPropertyClass>(special));
 	}
 }
 
@@ -844,27 +844,27 @@ void ClientItemPropertyBuilderClass::Unknown_5285A0(UIItemExaminationPropertyRou
 {
 	ItemFlagsStruct flags = Item->Flags;	// NAME 1 [flags, special]: neutral
 	if (flags.Is_NotTradable()) {
-		RefCountPtr<ClientItemPropertySpecialClass> special = ClientItemPropertySpecialFlagClass::Create(3, "Not Tradable", "This item cannot be traded or sold.", 0, true);
-		router.Route(special);
+		RefCountPtr<ClientItemPropertyClass> special = ClientItemPropertySpecialFlagClass::Create(3, "Not Tradable", "This item cannot be traded or sold.", 0, true);
+		router.Route(RefCountPtr<const ClientItemPropertyClass>(special));
 	}
 	if (flags.Is_Temporary()) {
-		RefCountPtr<ClientItemPropertySpecialClass> special = ClientItemPropertySpecialFlagClass::Create(3, "Temporary", "This item will disappear when player logs out.", 0, true);
-		router.Route(special);
+		RefCountPtr<ClientItemPropertyClass> special = ClientItemPropertySpecialFlagClass::Create(3, "Temporary", "This item will disappear when player logs out.", 0, true);
+		router.Route(RefCountPtr<const ClientItemPropertyClass>(special));
 	}
 	if (flags.Is_Unique()) {
-		RefCountPtr<ClientItemPropertySpecialClass> special = ClientItemPropertySpecialFlagClass::Create(3, "Unique", "Player cannot have more than one of this item.", 0, true);
-		router.Route(special);
+		RefCountPtr<ClientItemPropertyClass> special = ClientItemPropertySpecialFlagClass::Create(3, "Unique", "Player cannot have more than one of this item.", 0, true);
+		router.Route(RefCountPtr<const ClientItemPropertyClass>(special));
 	}
 	if (flags.Is_NotStorable()) {
-		RefCountPtr<ClientItemPropertySpecialClass> special = ClientItemPropertySpecialFlagClass::Create(3, "Not Storable", "This item cannot be placed in storage.", 0, true);
-		router.Route(special);
+		RefCountPtr<ClientItemPropertyClass> special = ClientItemPropertySpecialFlagClass::Create(3, "Not Storable", "This item cannot be placed in storage.", 0, true);
+		router.Route(RefCountPtr<const ClientItemPropertyClass>(special));
 	}
 	if (flags.Is_NotDestroyable()) {
-		RefCountPtr<ClientItemPropertySpecialClass> special = ClientItemPropertySpecialFlagClass::Create(3, "Not Destroyable", "This item cannot be destroyed.", 0, true);
-		router.Route(special);
+		RefCountPtr<ClientItemPropertyClass> special = ClientItemPropertySpecialFlagClass::Create(3, "Not Destroyable", "This item cannot be destroyed.", 0, true);
+		router.Route(RefCountPtr<const ClientItemPropertyClass>(special));
 	}
 	if (flags.Is_NotManufacturable()) {
-		RefCountPtr<ClientItemPropertySpecialClass> special = ClientItemPropertySpecialFlagClass::Create(3, "Not Manufacturable", "This item cannot be analyzed or manufactured.", 0, true);
+		RefCountPtr<ClientItemPropertyClass> special = ClientItemPropertySpecialFlagClass::Create(3, "Not Manufacturable", "This item cannot be analyzed or manufactured.", 0, true);
 		router.Route(special);
 	}
 }
@@ -895,4 +895,12 @@ void ClientItemPropertyBuilderClass::Unknown_5285A0(UIItemExaminationPropertyRou
 **	the dead reads give the client's level-1 cut and case 26's nested assigns together; without it they cannot.
 **	0x528460's effect local is the same type (0x527F40 calls 0x5292C0 / 0x529040 / 0x529130 too): with it the object
 **	emits the client's RefCountPtr copies again (0x529160 / 0x529190 / 0x5291C0 credited).
+**	CB, run 2026-11-20-night: 0x5285A0's and 0x521C10's property locals are the same RefCountPtr<ClientItemPropertyClass>
+**	(the client's unwind funclets: 0x5285A0's 0xAAC3C0-0xAAC483 and 0x521C10's 0xAAB9B0-0xAABAC8 release them through
+**	0x529130, their Route temporaries through 0x529040; the flags' Creates convert through 0x529380). The retype alone
+**	frees inline budget (0x5285A0: the last Create temporary's destructor 0x529220 inlines, residue 20; 0x521C10: the
+**	makers' string _Tidy inlines, 8 -> 31); explicit RefCountPtr<const ClientItemPropertyClass>(property) Route
+**	temporaries spend it back: 0x5285A0 exact with them on its first five Routes (an explicit one on the sixth pushes the
+**	out-of-line converter's eax where the client re-takes the temporary's address), 0x521C10 back at 8 with them on the
+**	quality / structure / maker Routes (the direct Create Routes take none: no effect).
 */
