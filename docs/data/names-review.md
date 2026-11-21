@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1971 |
 | 2 | describes what the code does | 4996 |
-| 1 | neutral placeholder | 25167 |
+| 1 | neutral placeholder | 25168 |
 
 ## For review (score 3 and below)
 
@@ -23855,6 +23855,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_49EA60` | `app/shared/observer.h:27` | untagged neutral name (D10) |
 | 1 | `event` | `app/shared/observer.h:28` | neutral |
 | 1 | `Unknown_49EAB0` | `app/shared/observer.h:28` | untagged neutral name (D10) |
+| 1 | `result` | `app/shared/opposed_roll_odds.cpp:11` | local accumulator for the opposed-roll probability |
 | 1 | `Unknown_496AE0` | `app/shared/orbitalmanager.cpp:24` | untagged neutral name (D10) |
 | 1 | `robj, phase` | `app/shared/orbitalmanager.cpp:25` | neutral |
 | 1 | `Unknown_75B7B0` | `app/shared/orbitalmanager.cpp:25` | untagged neutral name (D10) |
