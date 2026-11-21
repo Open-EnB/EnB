@@ -2077,7 +2077,7 @@ void RegistrationInterface::Unknown_5F8FD0()
 	}
 }
 
-// NOT EXACT: shape (explain.py: 14 calls in ours, 13 in the client; the value_type temporaries' stack slots differ)
+static inline int Selected_Year(UIComboBoxClass *box) { return((box->Selected < box->Items.size()) ? atoi(box->Items[box->Selected].c_str()) : 0); }	// (inline: 0x5F9460, a layer the budget needs)  // NAME 2: what it returns
 // @0x5F9460
 void RegistrationInterface::Unknown_5F9460()
 {
@@ -2085,14 +2085,14 @@ void RegistrationInterface::Unknown_5F9460()
 	int day = Unknown108[0x15].Combo->Selected;
 	int days = DaysInMonth[month];
 	UIComboBoxClass *years = Unknown108[0x16].Combo;
-	int year = (years->Selected < years->Items.size()) ? atoi(years->Items[years->Selected].c_str()) : 0;
+	int year = Selected_Year(years); years->Items.size();	// a dead read: the budget that leaves the first two operator[]'s pair ctor out of line
 	if (month == 1 && Unknown_5F8EA0(2, 29, year)) {
 		days = 29;
 	}
 	UIComboBoxClass *days_box = Unknown108[0x15].Combo;
 	days_box->Clear_Items();
+	char text[5];
 	for (int i = 1; i <= days; i++) {
-		char text[5];
 		_snprintf(text, sizeof(text), "%02d", i);
 		days_box->Add_Item(text);
 	}
@@ -4420,8 +4420,8 @@ void RegistrationInterface::Unknown_603B20()
 **	  line 2342). Unknown108[id] is the map's operator[]: its insert inlined with begin, --, _Insert and pair's
 **	  constructor out of line, as the client has them. The status table ends at 0xB86048, where the payment type
 **	  names and descriptions follow (two 7-entry tables).
-**	- 0x5F9460 (functional): the day box refilled for the month (DaysInMonth 0xAF6F58; 29 when 0x5F8EA0 accepts
-**	  29 February of the year box's year). 0x5FB0C0 (functional): the card number field (map +0xF8, id 0x2B)
+**	- 0x5F9460 (byte-exact): the day box refilled for the month (DaysInMonth 0xAF6F58; 29 when 0x5F8EA0 accepts
+**	  29 February of the year box's year; the year through an inline layer plus one dead size(): the budget). 0x5FB0C0 (functional): the card number field (map +0xF8, id 0x2B)
 **	  regrouped in fours with '-', at most 19 characters, in states 0x11 / 0x14.
 **
 **	Builder reg2, 2026-11-04:
