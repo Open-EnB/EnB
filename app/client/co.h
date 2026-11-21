@@ -129,7 +129,8 @@ public:
 	virtual void Unknown_14(UnknownB02C90Class *parent, int slot, int child_slot) {}	// +0x14 0x6F2C50 (empty; 0x725610 calls the child's)  // NAME 1 [parent, slot, child_slot]: what 0x725610 passes
 	float Unknown_725C60(const Vector3 &center, float radius);	// 0x725C60 the radius around center that holds the attached objects of type 29, recursively  // NAME 1 [center, radius]: what it computes
 	Matrix3D Unknown_725AD0();							// 0x725AD0 the owner's slot +0x28 transform (thrust) times Unknown1C (eff_o.cpp's 0x6E7AA0 / 0x6E82A0 call it on their objects)
-	int Unknown_725A90(int slot);						// 0x725A90 the bone of element slot of Buffer (-1 when there is none; co_subtypes.cpp's type 28 captures it; not rebuilt)  // NAME 1 [slot]: what type 28 passes
+	int Unknown_725A90(int slot);						// 0x725A90 the bone of element slot of Buffer (-1 when there is none; co_subtypes.cpp's type 28 captures it)  // NAME 1 [slot]: what type 28 passes
+	void Unknown_725BF0();								// 0x725BF0 the owner's radius (slot +0x34) from 0x725C60 unless it is of type 29, as 0x7257F0 does inline (no callers)
 	virtual void Unknown_18(UnknownB02C90Class *parent, int slot, int child_slot) {}	// +0x18 0x6F2C70 (empty; 0x7257F0 calls the child's)  // NAME 1 [parent, slot, child_slot]: what 0x7257F0 passes
 
 	void *Unknown04;									// +0x04 the constructor's argument
@@ -148,7 +149,7 @@ public:
 		};
 		BufferStruct() : Count(0), Unknown04(0), Data(0), Radius(0) {}
 		void Add(const ElementStruct &element) { Insert(element, Count); }	// NAME 2: what it does
-		void Insert(const ElementStruct &element, int index);	// 0x725E70 (grows by twice the count, at least 10; not rebuilt)  // NAME 2 [element, index]: what it does
+		bool Insert(const ElementStruct &element, int index);	// 0x725E70 (grows by twice the count, at least 10)  // NAME 2 [element, index]: what it does
 		~BufferStruct() { Count = 0; delete Data; }
 		ElementStruct *Get(int index) { if (index < 0 || index >= Count) return(NULL); return(&Data[index]); }  // NAME 1: neutral
 		int Count;										// +0x0C (+0x00) cleared by the destructor  // NAME 1: neutral

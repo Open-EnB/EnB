@@ -168,10 +168,7 @@ template<> int DeltaTemplateClass<bool>::UnknownGlobal = 0;
 
 // postate.cpp and extrap.cpp are in app.lib and define every state node: nothing stands in here
 #include "..\..\..\app\client\postate.h"
-// client.cpp's mount buffer insert 0x725E70 (not rebuilt; Add reaches it since f384d62, a nested struct gen_stubs.py cannot write)
-void UnknownB02C90Class::BufferStruct::Insert(const ElementStruct &, int index) { Trace("stub UnknownB02C90Class::BufferStruct::Insert %d", index); }
-// eff_o.cpp (real code, in the link since the testeffects.ini loader) calls it; co.cpp is not in the harness
-Matrix3D UnknownB02C90Class::Unknown_725AD0() { Trace("stub UnknownB02C90Class::Unknown_725AD0"); return(Matrix3D(1)); }
+// UnknownB02C90Class::BufferStruct::Insert (0x725E70) and Unknown_725AD0 (0x725AD0) are unknown_725050.cpp's real ones (run 2026-11-21)
 
 // ------------------------------------------------------------------------- the aux-data roots' decode (AUX_DATA 27 / 28)
 

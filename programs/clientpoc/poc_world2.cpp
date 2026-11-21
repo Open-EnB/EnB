@@ -10,42 +10,8 @@
 #include "..\..\app\client\sclient.h"
 #include "..\..\app\client\co.h"
 
-// ---------------------------------------------------------------- 0x725E70: UnknownB02C90Class's buffer (client.cpp's Mount lines)
-void UnknownB02C90Class::BufferStruct::Insert(const ElementStruct &element, int index)
-{
-	STUB_CALLED("POC BufferStruct::Insert (0x725E70)");
-	static bool watchdog = false;	// the watchdog starts at world entry: first here since A1 made Unknown8CClass real (its stand-in held it after QE; enbdazzle.cpp's before)
-	if (!watchdog) {
-		watchdog = true;
-		void Poc_Start_Watchdog();
-		Poc_Start_Watchdog();
-	}
-	if (Count >= Unknown04) {
-		int size = Count * 2;
-		if (size < 10) {
-			size = 10;
-		}
-		ElementStruct *data = new ElementStruct[size];
-		for (int i = 0; i < Count; i++) {
-			data[i] = Data[i];
-		}
-		delete [] Data;
-		Data = data;
-		Unknown04 = size;
-	}
-	for (int i = Count; i > index; i--) {
-		Data[i] = Data[i - 1];
-	}
-	Data[index] = element;
-	Count++;
-}
-
-// 0x725AD0: the owner's thrust transform times Unknown1C: the transform alone here
-Matrix3D UnknownB02C90Class::Unknown_725AD0()
-{
-	STUB_CALLED("POC UnknownB02C90Class::Unknown_725AD0");
-	return(Unknown1C);
-}
+// UnknownB02C90Class::BufferStruct::Insert (0x725E70) and Unknown_725AD0 (0x725AD0) are real app code in
+// app/client/unknown_725050.cpp since run 2026-11-21 (WARP); the watchdog they started now starts with the process.
 
 // ---------------------------------------------------------------- the client's view of keys no gadget took: nothing
 void SClient::Unknown_744240(KernelEventClass event)
@@ -60,7 +26,7 @@ void SClient::Unknown_744240(KernelEventClass event)
 static HANDLE Poc_Main_Thread;
 static DWORD WINAPI Poc_Watchdog(void *)
 {
-	for (int n = 0; n < 60; n++) {
+	for (int n = 0; n < 120; n++) {
 		Sleep(5000);
 		SuspendThread(Poc_Main_Thread);
 		CONTEXT c;
@@ -94,5 +60,8 @@ void Poc_Start_Watchdog()
 	DWORD id;
 	CreateThread(NULL, 0, Poc_Watchdog, NULL, 0, &id);
 }
+// started with the process (a static initialiser: the main thread) since the mount buffer's insert, which started it
+// at world entry, is real code: 120 x 5 s covers the login and the first minutes in the world
+static struct Poc_Watchdog_Starter { Poc_Watchdog_Starter() { Poc_Start_Watchdog(); } } Poc_Watchdog_Starter_Instance;
 
 // co.cpp's render hook 0x6BB7E0 / 0x6BB8B0 is real app code since WE5 (app/client/unknown_6bb7e0.cpp).

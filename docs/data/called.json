@@ -1083,9 +1083,6 @@
 "?Initialize@WWAudioClass@@QAEXPBD@Z": [
 "0x9F2740"
 ],
-"?Insert@BufferStruct@UnknownB02C90Class@@QAEXABUElementStruct@12@H@Z": [
-"0x725E70"
-],
 "?Insert_Morph_Key@HMorphAnimClass@@QAEXHKK@Z": [
 "0x988610"
 ],
@@ -1829,12 +1826,6 @@
 ],
 "?Unknown_6E2A20@UIAvselEditUnknown4CClass@@QAEXABVVector4@@@Z": [
 "0x6E2A20"
-],
-"?Unknown_725A90@UnknownB02C90Class@@QAEHH@Z": [
-"0x725A90"
-],
-"?Unknown_725AD0@UnknownB02C90Class@@QAE?AVMatrix3D@@XZ": [
-"0x725AD0"
 ],
 "?Unknown_744240@SClient@@QAEXUKernelEventClass@@@Z": [
 "0x744240"
