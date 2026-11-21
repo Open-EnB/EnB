@@ -66,7 +66,7 @@ edit the comments in the code, not this file.
 | `app/client/cammod_chase.h:30` | `?` | mention | NOT EXACT) // NAME 2 [des_quat, des_pos, obj]: its FAIL_IFs |
 | `app/client/chat_window.cpp:299` | `ChatWindowClass::Unknown_67F7F0` | marker | NOT EXACT: registers only (max_lines, old_size and the old font rotate; the client divides by the stack copy) |
 | `app/client/chatgadg.cpp:30` | `ChatGadgetClass::ChatGadgetClass` | marker | NOT EXACT: functional (D64) |
-| `app/client/chatgadg.cpp:306` | `ChatGadgetClass::Unknown_65CCD0` | marker | NOT EXACT: inline budget (masked 226, attempts.py show 0x65CCD0): the client calls the string sites' _Tidy / _Eos / assign(str, 0, npos) out of line in cases 6-9 and 4, and inlines case 4's text assign(s, n) and case 5's assign(str, 0, npos): dead ChatPanel.Peek() reads (D272) after case 6-9 (6), after case 4's Unknown24 (1) and at the end (2) give it and the client's frame 0x45C (9 in all; other ... |
+| `app/client/chatgadg.cpp:306` | `ChatGadgetClass::Unknown_65CCD0` | marker | NOT EXACT: registers (masked 85, attempts.py show 0x65CCD0): client.h's inline Get_Unknown1138() / Get_Avatar_ID() at the request packets, the lookups, the emote packets and case 3 / 2's chat packets (the client loads AvatarID before the Unknown_7817E0 call and keeps chatpanel in [esp+0x18] only), the shared delete text after the store block (client 0x65DA81), dead ChatPanel.Peek() reads (D272) 3 ... |
 | `app/client/chatgadg.cpp:470` | `ChatGadgetClass::Unknown_65DE90` | marker | NOT EXACT: functional (D64) |
 | `app/client/chatgadg.cpp:610` | `ChatGadgetClass::Unknown_65E250` | marker | NOT EXACT: functional (D64) |
 | `app/client/chatgadg.cpp:671` | `ChatGadgetClass::Unknown_65E5E0` | marker | NOT EXACT: functional (D64) |
