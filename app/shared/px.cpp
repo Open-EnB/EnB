@@ -594,95 +594,107 @@ void PxList::Set_Test_Mask(PxBox *box, int test, int mask)
 	Updating = false;
 }
 
+static bool Overlap(const Vector3 &alow, const Vector3 &ahigh, const Vector3 &blow, const Vector3 &bhigh)  // NAME 2: Overlap(a, b) over corners
+{
+	for (int i = 0; i < 3; i++) {
+		if (bhigh[i] < alow[i] || ahigh[i] < blow[i]) {
+			return(false);
+		}
+	}
+	return(true);
+}
+
+static void Move(PxEnd *e, PxEnd *next, int i)  // NAME 2: unlinks e on axis i and links it before next
+{
+	e->Prev[i]->Next[i] = e->Next[i];
+	e->Next[i]->Prev[i] = e->Prev[i];
+	e->Prev[i] = next->Prev[i];
+	e->Next[i] = next;
+	next->Prev[i]->Next[i] = e;
+	next->Prev[i] = e;
+}
+
+static void Enter(PxBox *box, PxBox *other, bool box_wants, bool other_wants)  // NAME 2: the On_Enter pair
+{
+	if (box_wants) box->On_Enter(other);
+	if (other_wants) other->On_Enter(box);
+}
+
+static void Exit(PxBox *box, PxBox *other, bool box_wants, bool other_wants)  // NAME 2: the On_Exit pair
+{
+	if (box_wants) box->On_Exit(other);
+	if (other_wants) other->On_Exit(box);
+}
+
 static struct PxBoxVector : public std::vector<PxBox *> {} Notified;  // NAME 2: the boxes a corner change has already reported; the wrapper's name too (notes)
 
+static bool Notify_Once(PxBox *b)  // NAME 2: what it does (the five lower_bound + insert sites)
+{
+	std::vector<PxBox *>::iterator it = std::lower_bound(Notified.begin(), Notified.end(), b);
+	if (it == Notified.end() || *it != b) {
+		Notified.insert(it, b);
+		return(true);
+	}
+	return(false);
+}
+
 // 0x44C900
-// NOT EXACT: inline budget (the client calls vector::insert(it, x) out of line; attempts.py show 0x44C900)
+// NOT EXACT: inline budget and shape (insert(it, x) still inline at sites 4-5, erase and ~WWProfileSampleClass inline; attempts.py show 0x44C900)
 void PxList::Set_Corners(PxBox *box, const Vector3 &low, const Vector3 &high)
 {
 	WWPROFILE("PxList::Set_Corners");
 	Updating = true;
 	Vector3 old_low = box->Low->Pos;
 	Vector3 old_high = box->High->Pos;
-	std::vector<PxBox *>::iterator it = std::lower_bound(Notified.begin(), Notified.end(), box);
-	if (it == Notified.end() || *it != box) {
-		Notified.insert(it, box);
-	}
+	Notify_Once(box);
 
 	for (int i = 0; i < 3; i++) {
 		PxEnd *end;
 		PxEnd *low_end = box->Low;
 		if (low[i] < old_low[i]) {
-			end = low_end->Prev[i];
-			if (end == this || end->Pos[i] < low[i]) {
-				low_end->Pos[i] = low[i];
-			} else {
-				for (; end != this && low[i] <= end->Pos[i]; end = end->Prev[i]) {
+			PxEnd *prev = low_end->Prev[i];
+			if (!(prev == this || prev->Pos[i] < low[i])) {
+				for (end = prev; end != this && end->Pos[i] >= low[i]; end = end->Prev[i]) {
 					if (end->Type == HIGH) {
 						PxBox *other = end->Box;
 						bool other_wants = other->Wants(box);
 						bool box_wants = box->Wants(other);
 						if (other_wants || box_wants) {
-							int j;
-							for (j = 0; j < 3; j++) {
-								if (high[j] < other->Low->Pos[j] || other->High->Pos[j] < low[j]) break;
-							}
-							if (j == 3) {
-								it = std::lower_bound(Notified.begin(), Notified.end(), other);
-								if (it == Notified.end() || *it != other) {
-									Notified.insert(it, other);
-									if (box_wants) box->On_Enter(other);
-									if (other_wants) other->On_Enter(box);
+							if (Overlap(other->Low->Pos, other->High->Pos, low, high)) {
+								if (Notify_Once(other)) {
+									Enter(box, other, box_wants, other_wants);
 								}
 							}
 						}
 					}
 				}
-				low_end = box->Low;
-				PxEnd *next = end->Next[i];
-				low_end->Prev[i]->Next[i] = low_end->Next[i];
-				low_end->Next[i]->Prev[i] = low_end->Prev[i];
-				low_end->Prev[i] = next->Prev[i];
-				low_end->Next[i] = next;
-				next->Prev[i]->Next[i] = low_end;
-				next->Prev[i] = low_end;
+				Move(box->Low, end->Next[i], i);
 				box->Low->Pos[i] = low[i];
+			} else {
+				low_end->Pos[i] = low[i];
 			}
 		} else {
-			end = low_end->Next[i];
-			if (end == this || low[i] <= end->Pos[i]) {
-				low_end->Pos[i] = low[i];
-			} else {
+			PxEnd *prev = low_end->Next[i];
+			if (!(prev == this || prev->Pos[i] >= low[i])) {
 				float value = low[i];
-				for (; end != this && end->Pos[i] < value; end = end->Next[i]) {
+				for (end = prev; end != this && end->Pos[i] < value; end = end->Next[i]) {
 					if (end->Type == HIGH) {
 						PxBox *other = end->Box;
 						bool other_wants = other->Wants(box);
 						bool box_wants = box->Wants(other);
 						if (other_wants || box_wants) {
-							int j;
-							for (j = 0; j < 3; j++) {
-								if (other->High->Pos[j] < old_low[j] || old_high[j] < other->Low->Pos[j]) break;
-							}
-							if (j == 3) {
-								it = std::lower_bound(Notified.begin(), Notified.end(), other);
-								if (it == Notified.end() || *it != other) {
-									Notified.insert(it, other);
-									if (box_wants) box->On_Exit(other);
-									if (other_wants) other->On_Exit(box);
+							if (Overlap(old_low, old_high, other->Low->Pos, other->High->Pos)) {
+								if (Notify_Once(other)) {
+									Exit(box, other, box_wants, other_wants);
 								}
 							}
 						}
 					}
 				}
-				low_end = box->Low;
-				low_end->Prev[i]->Next[i] = low_end->Next[i];
-				low_end->Next[i]->Prev[i] = low_end->Prev[i];
-				low_end->Prev[i] = end->Prev[i];
-				low_end->Next[i] = end;
-				end->Prev[i]->Next[i] = low_end;
-				end->Prev[i] = low_end;
+				Move(box->Low, end, i);
 				box->Low->Pos[i] = value;
+			} else {
+				low_end->Pos[i] = low[i];
 			}
 		}
 
@@ -692,40 +704,26 @@ void PxList::Set_Corners(PxBox *box, const Vector3 &low, const Vector3 &high)
 				box->High->Pos[i] = high[i];
 			} else {
 				float value = high[i];
-				for (; end != this && value < end->Pos[i]; end = end->Prev[i]) {
+				for (; end != this && end->Pos[i] > value; end = end->Prev[i]) {
 					if (end->Type == LOW) {
 						PxBox *other = end->Box;
 						bool other_wants = other->Wants(box);
 						bool box_wants = box->Wants(other);
 						if (other_wants || box_wants) {
-							int j;
-							for (j = 0; j < 3; j++) {
-								if (other->High->Pos[j] < old_low[j] || old_high[j] < other->Low->Pos[j]) break;
-							}
-							if (j == 3) {
-								it = std::lower_bound(Notified.begin(), Notified.end(), other);
-								if (it == Notified.end() || *it != other) {
-									Notified.insert(it, other);
-									if (box_wants) box->On_Exit(other);
-									if (other_wants) other->On_Exit(box);
+							if (Overlap(old_low, old_high, other->Low->Pos, other->High->Pos)) {
+								if (Notify_Once(other)) {
+									Exit(box, other, box_wants, other_wants);
 								}
 							}
 						}
 					}
 				}
-				PxEnd *high_end = box->High;
-				PxEnd *next = end->Next[i];
-				high_end->Prev[i]->Next[i] = high_end->Next[i];
-				high_end->Next[i]->Prev[i] = high_end->Prev[i];
-				high_end->Prev[i] = next->Prev[i];
-				high_end->Next[i] = next;
-				next->Prev[i]->Next[i] = high_end;
-				next->Prev[i] = high_end;
+				Move(box->High, end->Next[i], i);
 				box->High->Pos[i] = value;
 			}
 		} else {
 			end = box->High->Next[i];
-			if (end == this || high[i] < end->Pos[i]) {
+			if (end == this || end->Pos[i] > high[i]) {
 				box->High->Pos[i] = high[i];
 			} else {
 				for (; end != this && end->Pos[i] <= high[i]; end = end->Next[i]) {
@@ -734,28 +732,15 @@ void PxList::Set_Corners(PxBox *box, const Vector3 &low, const Vector3 &high)
 						bool other_wants = other->Wants(box);
 						bool box_wants = box->Wants(other);
 						if (other_wants || box_wants) {
-							int j;
-							for (j = 0; j < 3; j++) {
-								if (high[j] < other->Low->Pos[j] || other->High->Pos[j] < low[j]) break;
-							}
-							if (j == 3) {
-								it = std::lower_bound(Notified.begin(), Notified.end(), other);
-								if (it == Notified.end() || *it != other) {
-									Notified.insert(it, other);
-									if (box_wants) box->On_Enter(other);
-									if (other_wants) other->On_Enter(box);
+							if (Overlap(other->Low->Pos, other->High->Pos, low, high)) {
+								if (Notify_Once(other)) {
+									Enter(box, other, box_wants, other_wants);
 								}
 							}
 						}
 					}
 				}
-				PxEnd *high_end = box->High;
-				high_end->Prev[i]->Next[i] = high_end->Next[i];
-				high_end->Next[i]->Prev[i] = high_end->Prev[i];
-				high_end->Prev[i] = end->Prev[i];
-				high_end->Next[i] = end;
-				end->Prev[i]->Next[i] = high_end;
-				end->Prev[i] = high_end;
+				Move(box->High, end, i);
 				box->High->Pos[i] = high[i];
 			}
 		}
