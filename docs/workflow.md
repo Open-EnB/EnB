@@ -315,7 +315,7 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
 | A member read twice, or read before a temporary, where the client's register order is the other one | Read it through the class's own inline accessor (`Get_Selected()`, `Get_Unknown3C()`, a neutral `Get_*` in the class header, NAME 1): the client inlined that accessor, so its load order is the client's; an out-of-line copy of the accessor in the client is the sign | 0x74EDB0, 0x7683F0, 0x7B2B30 |
 | The client keeps a single-exit function's `int n` length local in a register, ours folds it away | VC6 folds the local away where an early `return(literal)` exists: keep one exit (small letter-rule helpers) | |
 | Register-only: the client loads the called object after the arguments | A named local for that object (`RsTrackClass *track = ...; track->X(a, b);`) | cpacket 0x737610 |
-| The client loads packet fields, ids or a member chain before the argument pushes; a member pushed before `mov ecx,eax` after `new` | Read them through (file-static) inline accessors (`Get_Avatar_ID()`, `Unknown_Player_ID(Client)`); `View_Of(this)->f(args)` loads ecx before the arguments | cpacket handlers 32-35 |
+| The client loads packet fields, ids or a member chain before the argument pushes; a member pushed before `mov ecx,eax` after `new` | Read them through (file-static) inline accessors (`Get_Avatar_ID()`, `Unknown_Player_ID(Client)`); `View_Of(this)->f(args)` loads ecx before the arguments; a bare spilled `this` the client reloads before the pushes resists `X_Of(this)` (2026-11, 0x43C780) | cpacket handlers 32-35 |
 | A different frame slot for a helper object | A temporary (`X().Unregister(p)`) gets another slot than a named local | memconn.cpp |
 | Registers of an inlined `DynamicVectorClass::Add` on a global | The global's linkage (file-static or not) orders them; or a `DynamicVectorClass &` local | |
 | A register mismatch on a converted argument (`ntohl(*(int *)p)`) | Assign twice: `len = *(int *)data; len = ntohl(len);` | tcpconn.cpp |
@@ -341,6 +341,7 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
 | Inlined file-static helpers get the client's registers only with the new value as the first argument (old value in ecx / esi) | Argument order of an inline helper moves registers: try both | recustomization_cost.cpp |
 | FP work the client fetches early (all heights before the differences) that ours schedules after a call | VC6 schedules independent FP work above only the last call of a group: fetch it up with the others | candidate (one function): 0x46F120 |
 | x87 operand order of a sum or ray end reversed | Copy first, then the compound assignment (`p = a; p += b`) flips the order against the one-expression form. Unrelated slot differences shift it too: fix the slots first | 0x7A7560 |
+| x87 operand order of a vector product: the two arms of one function load rows in opposite orders | The order follows how the vector was made: constructor-built (`Vector3 o(a, b, c)`) loads X first, member stores (`o.X = ..; o.Y = ..`) load Y first; copy the client's arm by arm (2026-11) | eff_line 0x6E6030 |
 | A parked register / order function whose region has a different row count in ours and the client's | A source difference, not a register choice: read the client's bytes in that region first (one store per branch cross-jumped, a turn through another accessor, a reference local) | 0x6F3FA0 |
 | Same-liveness slots swap (two locals, two scalars, an index and a count) | Dead end: names, declaration order, scopes and earlier file content give byte-identical objects. Leave it parked | 0x4691D0 |
 | **shape: returns, tails, loops, switches** | | |
@@ -353,6 +354,7 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
 | The client repeats a success tail (`Handle = 0; return true` three times) | A return inside each success block (one tail, an `ok` flag or `&&` chains merge it) | `Try_Connect` 0x8290A0 |
 | Ours merges two failure tails the client keeps | Nest the first case's success path (`if (x != 0) { ...; break; } return(false);`); early `return false` when `find()` returns `end()`. Still open: `Listen` 0x82A470 (`attempts.py list --blocker shape`) | 0x826D00 |
 | An early `if (x == NULL) return(false);` keeps its own epilogue where the client shares the FAIL_IF exit | Wrap the rest in `if (x != NULL) { ... } return(false);` | scriptedmovie 0x807600 |
+| A sibling function exact with a nested success path, ours (copied from it) differs | Read how the client's early exit leaves before copying the sibling's nesting: a `jne` past the stores to a `jmp` of its own is a separate return, a `je` into the shared ending is the nested form (2026-11, 0x43C780 against bridgesounds 0x436BF0) | 0x43C780 |
 | Two FAIL_IFs sharing one exit | Nest them as `{} else {}` | attrib_dir |
 | A duplicated WWPROFILE destructor test at a branch's end | An early `return` in that branch; a guarded reporter matches only as `if(!cond) return` | land |
 | The client leaves a loop by a jump to the single return | A `goto` to the single return | `Get_Log_Directory` |
@@ -546,6 +548,7 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
   (unexplained against the model). A dead `size()` in a function inlined elsewhere spends at every inlined
   copy; a set-never-read local bool spends only where it stands. The budget is not a plain source-order
   budget for string ops: one client function inlined later string ops and called earlier ones (0x5615C0).
+* **A dead call in its own `if (0) { f(); }` raises the inline budget** with no code of its own (2026-11, soundlib 0x43D3E0, residue 73 -> 0): where the client inlines the earlier helpers and keeps the later out of line, it moves the split. Needs client bytes for the split; `budgetdev.py` has no kind for it yet (progress.md §4).
 * **A function inlined into a not-exact neighbour:** a client function with no code callers whose bytes match
   part of a not-exact neighbour was inlined there: call it from the neighbour. An unreferenced .cpp member
   (`python tools/re/unref.py FILE`, D195) that VC6 auto-inlines is often the layer that leaves nested
@@ -1009,6 +1012,7 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
   frame slot. `Matrix3D m = obj->Get_Bone_Transform(...)` emits ??_H after the call; writing `tm[i][j]` by hand
   pulls in the Row array's eh vector constructor. `Set_Transform(D3DTS_WORLD, Matrix4(true))`, not
   `Set_World_Identity`, gives the render-state flag ops. Rotate_Y in both if arms differs from one on a ternary.
+* **`Transform_Vector` into a named position:** the third row of `tm * point` loaded the point first; a named position for the result gives the client's order, and a named length gives z, x, y in the squared sum (2026-11, eff_seek 0x6F1390 / 0x6F1AD0).
 * **Integer forms:** `int i < sizeof(a)/sizeof(a[0])` compiles to `jb`: cast the count to int for `jl`. A
   16-bit `imul` in an index is `(unsigned short)a * (unsigned short)b + x`; unsigned sums show as `shr`. A
   local index (`int i = a*2+b; T1[i]; T2[i]`) gives `[reg*4+disp]`, the expression written out in each
@@ -1415,6 +1419,7 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
 Shared-tree effects on verify and commits (other builders' uncommitted work, the working ledger, commit_mine)
 are in 3.0.
 
+* **Exact with the wrong object: objmatch masks every relocated field** (2026-11): the matcher checks no target outside D80's ties, so an exact function can use another preset, string, global or vtable of the same shape (a galaxy map picture drawn with `_PresetAlpha2DShader` where the client's 0xC01180 is Additive2D: exact, wrong blend). When a visual or behaviour is wrong in an exact function, compare its relocation targets with the client's bytes; `python tools/re/relocaudit.py` lists the exact functions whose targets differ. It is a report, not a crediting rule: stale symbols.json duplicates and fold / deleting-destructor rows give false hits.
 * **`verify.py --lib`** takes `--lib a --lib b` or `--lib a,b`; a name the ledger does not hold exits non-zero.
 * **A new app file is not compiled until it is `git add -N`'d and has a ledger shard** (`ledger.py describe`):
   before that the verify builds nothing new and reports no change. A file added while a verify waits for the
@@ -1754,6 +1759,9 @@ are in 3.0.
   directory, so give each run its own `--agent`; `-D V=1` breaks `<utility>`; the markers over blank lines count the
   blank lines; a static generated stand-in is reported "defined but not compiled"; `explain.py` wants appfile's own
   object path (`.work/<agent>/appfile/obj/X.obj`). `match --pool` reads stdin: inside a `while read` loop it eats the loop's input (add `< /dev/null`).
+* **appfile.py's `match` keys nested-struct methods by full name, objmatch demangles without the outer class** (2026-11): appfile.py's match key for a nested-struct method is its full name, the demangled object name lacks the outer class: a missing match for such a method may be the key, not the code.
+* **`attempts.py check` matches by bare member name** (2026-11): a row for one class's member can refuse or allow another class's same-named one. A `trybatch.py` variant with an empty SYMBOL can resolve to a function whose comment names the address.
+* **`tools/re/siblings.py`** ranks the parked and blocked functions by an exact sibling in the tree; its 'untried' column is a keyword match of attempts rows, so read the rows before treating a lead as new.
 * **appfile.py, `match` and `show` limits:** `match` wipes the agent's `appfile/obj` on every run, so two runs of same-named drafts under one `--agent` overwrite each other's object (FileNotFoundError or another variant's result): run variants in series or one `ENB_AGENT` each. `match` refuses "the object lacks void" for a parenthesised definition `static void (Name)(...)` unless `--allow-missing`. Operator members (`??_5`, `??U`) and nested-class members (the demangled name drops the outer class) show as no marker: `--allow-missing` too. `show` refuses a file app-functions.json does not attribute (a new file): a throwaway wrapper that sets the range's `file` in memory gives show and draft (Tools item: a `--range` option). A `#line` in a draft is easy to lose when the file goes into the tree: count the padding from the draft without it.
 * **`attempts.py record --forms` takes a count; `--blocker` one class from a fixed list (2026-11-16, QE / F1):** `short`
   and `type` are refused; free text goes in `--evidence`.
@@ -2017,7 +2025,7 @@ Stand-ins and gen_stubs (clienttest, udpreplay, kerneltest, the POC):
   two logins collide (no START_ACK, the character starts in space): check tasklist for client.exe / antprox.exe
   before each live run. Net7.exe holds `logs\Net7_server_YYYY_MM_DD.log` without sharing: it cannot be read while the
   server runs; the server is ready when UDP port 3693 is bound (netstat).
-* **Live station scenarios (sb_buysell, sb_jobs, sb_manufacture ...):** a job board tab click sends nothing, a row click sends STARBASE_REQUEST for JOB_DESCRIPTION; the board is random (assert one tab, not a row) and Net-7 refreshes it every 5 minutes, empty after a server start; a crafted item's sale answers PRIORITY_MESSAGE; slash commands (/createitem) go out as CLIENT_CHAT; the chat entry does not open while a terminal window is up; vendors refuse their own goods (sell something they do not make). Components, warheads and credits drift between runs: assert deltas, not totals.
+* **Live station scenarios (sb_buysell, sb_jobs, sb_manufacture ...):** a job board tab click sends nothing, a row click sends STARBASE_REQUEST for JOB_DESCRIPTION; the board is random (assert one tab, not a row) and Net-7 refreshes it every 5 minutes, empty after a server start; a crafted item's sale answers PRIORITY_MESSAGE; slash commands (/createitem) go out as CLIENT_CHAT; the chat entry does not open while a terminal window is up; vendors refuse their own goods (sell something they do not make). Components, warheads and credits drift between runs: assert deltas, not totals. Run one sb_* scenario per session.
 * **Retiring a test program's stand-in must not take its neighbours with it** (deleting a hand stand-in from
   stubs/app_stubs.cpp also removed the CRT wrappers beside it): gen_stubs' generated stand-ins return null, so the
   test program's trace shows it, not its link. The client has no stand-in (one client build, `build.py link
@@ -2182,7 +2190,7 @@ The client (the one client build; instances and your own build: builders.md §2 
   d3d8shot.log logs every CreateFileA. A black model with AMBIENT=0 in a dump is a missing light, not a
   texture (`drawdump.py`).
 * **Retail reference runs.** `clientrun.py replay --retail` needs the d3d8shot proxy rebuilt with the input
-  hooks (`python tools/harness/run_reference.py build --pool 1`, copy build/d3d8shot into a worktree); the
+  hooks (`python tools/harness/run_reference.py build --pool 1`, copy build/d3d8shot into a worktree; `wt.py new` copies a build/d3d8shot that can predate the dialog / CRASH hooks, so rebuild it before the first run of a new client); the
   retail exe is `<install>\release\client.exe`. `find_window` takes the terms dialog (#32770) as the input
   window; with `--retail` the kill ends antprox before it logs "Client exited", so the exit line says "still
   running when killed". Retail character select presents only a few thousand frames in ~50 s: shots at 300 /
@@ -2485,6 +2493,8 @@ are alphabetical; add a note under its file's heading (merge with what is there)
   (chat lines, inventory counts): poc_world.cpp's stand-in fills them.
 
 #### gadget.h / ui_manu.cpp / ui_manu.h
+
+* **A UI class with its own zero `UnknownGlobal` statics breaks the numbered `Cast`** (2026-11, refinery / manufacturing terminals showed no list): once the template globals are numbered, every Cast against a local stand-in type fails and logs `auxdata.h(155)` asserts (thousands per session). Derive the UI classes from the real Delta / aux types (0x6FA6F0's stores, 0x707A20 / 0x5B71A0 numbering); grep a live log for `auxdata.h(155)` when a list stays empty.
 
 * gadget.h's GadgetClass is 0x30 bytes; ui_manu.cpp's local one is 0x34 and pads UIManuCheckButtonClass from
   +0x34, so a copy over gadget.h puts Checked at +0x60, not +0x64: pad from 0x30. ui_manu.h's UIManuClass had
