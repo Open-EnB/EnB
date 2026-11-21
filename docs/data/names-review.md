@@ -1673,7 +1673,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_34` | `app/client/chatgadg.cpp:321` | untagged neutral name (D10) |
 | 1 | `Unknown_74C840` | `app/client/chatgadg.cpp:328` | untagged neutral name (D10) |
 | 1 | `Unknown_781760` | `app/client/chatgadg.cpp:330` | untagged neutral name (D10) |
-| 1 | `Unknown1138` | `app/client/chatgadg.cpp:331` | untagged neutral name (D10) |
+| 1 | `Get_Unknown1138` | `app/client/chatgadg.cpp:331` | untagged neutral name (D10) |
 | 1 | `Unknown14` | `app/client/chatgadg.cpp:332` | untagged neutral name (D10) |
 | 1 | `Unknown_565BA0` | `app/client/chatgadg.cpp:332` | untagged neutral name (D10) |
 | 1 | `Unknown_878D90` | `app/client/chatgadg.cpp:333` | untagged neutral name (D10) |
