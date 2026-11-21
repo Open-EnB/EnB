@@ -5,7 +5,9 @@
  "expected": {},
  "in_tree": [
   "0x42F250",
-  "0x6912A0"
+  "0x691170",
+  "0x6912A0",
+  "0x691320"
  ],
  "merged": [],
  "name": "client/item_timer_gauge.cpp",

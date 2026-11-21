@@ -392,21 +392,21 @@ bool Is_Validity_Attempt(UnknownB01394Enum validity);				// 0x846210 (manufactur
 static const char *Unknown_B81880[] = { "Manufacturing Target", "Attempt Succeeded", "N/A", " " };	// NAME 1: neutral (D10)
 template<class C> inline C *Unknown_Find_Valid(DeltaCompoundClass *root, const NameClass &name) { C *t = Unknown_Find_Field<C>(root, name); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10): as co.cpp's
 template<class C> inline C *Unknown_Find_Valid_Field(DeltaCompoundClass *const &root, const char *name) { NameClass n(name); DeltaCompoundClass *r = root; C *t = Unknown_Find_Field<C>(r, n); if (t && t->Unknown70) return(t); return(NULL); } template<class C> inline C *Unknown_Find_Valid(DeltaCompoundClass *const &root, const char *name) { return(Unknown_Find_Valid_Field<C>(root, name)); }	// NAME 1: neutral (D10): as ui_analyze.cpp's (two inline layers: the client's finds 0x546780 / 0x5467F0 out of line in 0x5B4680)
-// NOT EXACT: register (the frame is the client's with each loop's own name buffer, 64 and 32 bytes, sharing the key event's slot; left: the recent texture in eax where the client has ecx, and the name table's pointer loaded after the strip address) (0x5AFFC0)
+// 0x5AFFC0
 void UIManuClass::Unknown_54()
 {
-	for (int id = 1; id < 7; id++) {
+	for (int id = 1; id < 7; id++) { ButtonGadgetClass *&button = Unknown0CC[id];
 		RefCountPtr<RenderObjClass> robj = Create_Get(InterfaceMesh->Peek_Object()->Get_Sub_Object_By_Name(Unknown_B81850[id - 1]));
 		if (robj) {
 			Unknown_496AE0(robj.Peek(), 0);
-			Unknown0CC[id] = new ButtonGadgetClass(robj.Peek(), Layer, 0x55, 3);
-			Unknown64.Unknown_6870E0(Unknown0CC[id], id, View, 1, 0);
-			Unknown_5BB4F0(Unknown0CC[id]);
+			button = new ButtonGadgetClass(robj.Peek(), Layer, 0x55, 3);
+			Unknown64.Unknown_6870E0(button, id, View, 1, 0);
+			Unknown_5BB4F0(button);
 		}
 	}
 	RefCountPtr<TextureClass> recent = Create_Get(WW3DAssetManager::Get_Instance()->Get_Texture("IM_recent.tga", MIP_LEVELS_ALL, WW3D_FORMAT_UNKNOWN, true));
-	if (recent) {
-		Unknown_495FD0(Unknown0CC[5]->RObj, recent.Peek(), 0);
+	if (recent) { RenderObjClass *mesh = Unknown0CC[5]->RObj;
+		Unknown_495FD0(mesh, recent.Peek(), 0);
 		Unknown0CC[5]->Unknown2C_06 = 0;
 		GadgetClass::Set_Tooltip(Unknown0CC[5], "UI_MANUFACTURE", "ICON_RECENT");
 	}
@@ -1740,13 +1740,13 @@ CheckBoxGadgetClass *UIManuClass::Unknown_5B6410(int id, const char *bttn_name, 
 
 
 
-// NOT EXACT: register (tech_level and this in edi / esi the other way round; the client saves ebx before the FAIL_IF exit) (0x5B67C0)
+
 void UIManuClass::Unknown_5B67C0(int tech_level, bool on, int source)
 {
 	FAIL_IF(tech_level < 1 || tech_level >= NUM_TECH_LEVEL_FILTER_CHECK_BUTTONS) return;
-	bool changed = Unknown11C[tech_level - 1].Gadget->Checked != on;
+	bool checked = Unknown11C[tech_level - 1].Gadget->Checked;
+	bool changed = checked != on;
 	if (changed) {
-
 
 
 
@@ -1754,18 +1754,18 @@ void UIManuClass::Unknown_5B67C0(int tech_level, bool on, int source)
 
 		G_ASSERT(source != USER_INPUT);
 		Unknown11C[tech_level - 1].Gadget->Unknown_7E8030(on);
-	}
-	if (source == USER_INPUT) {
+	} if (source == USER_INPUT) {
 		unsigned int bit = 1 << (tech_level - 1);
-		ManufactureTechLevelFilterPacketClass packet(((ClientClass *)Client)->Unknown1138, on, bit);
+		ClientClass *client = (ClientClass *)Client;
+		ManufactureTechLevelFilterPacketClass packet(client->Unknown1138, on, bit);
 		((ClientClass *)Client)->Send_Packet(&packet);
-		Unknown0BC0++;
-		if (Unknown0BC0 > Unknown_B8183C) {
+		Unknown0BC0++; if (Unknown0BC0 > Unknown_B8183C) {
 			Unknown_5B6D30();
-			Unknown_5B6CA0();
-		}
+			Unknown_5B6CA0(); } } if (!on) {
+		Unknown11C[NUM_TECH_LEVEL_FILTER_CHECK_BUTTONS - 1].Gadget->Unknown_7E8030(false);
+	} else {
+		Unknown11C[NUM_TECH_LEVEL_FILTER_CHECK_BUTTONS - 1].Gadget->Unknown_7E8030(Unknown_All_Levels_Checked());
 	}
-	Unknown11C[NUM_TECH_LEVEL_FILTER_CHECK_BUTTONS - 1].Gadget->Unknown_7E8030(on ? Unknown_All_Levels_Checked() : false);
 }
 
 

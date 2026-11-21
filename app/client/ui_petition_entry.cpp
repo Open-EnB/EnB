@@ -149,7 +149,7 @@ void UIPetitionEntryClass::Unknown_5C()
 
 
 
-// NOT EXACT: shape (case 0 tests the second answer with sete / test, ours jne; the closed value's store scheduled before pop edi in the client)
+
 // 0x5D4C60
 void UIPetitionEntryClass::Unknown_60()
 {
@@ -161,20 +161,19 @@ void UIPetitionEntryClass::Unknown_60()
 		DetailsEditor->Take_Focus();
 	}
 	if (Confirm) {
-		int choice = Confirm->Unknown_5890B0("PETITION_ENTRY_CANCEL");	// NAME 3: the assert's
+		bool close = false;
+		int choice = Confirm->Unknown_5890B0("PETITION_ENTRY_CANCEL");
 		switch (choice) {
 			case 0:
-				if (Confirm->Unknown_5890B0("PETITION_ENTRY_NO_DATA") == USER_SELECT_YES) {
-					Close_Dialog();
-				}
+				close = (Confirm->Unknown_5890B0("PETITION_ENTRY_NO_DATA") == USER_SELECT_YES);
 				break;
 			case USER_SELECT_YES:
 				{
 					((SClient *)((ClientClass *)Client)->As_Space_Client())->Unknown_74D990(0x13, "Petition canceled.", 0);
-					int closed = Pending;	// NAME 1: neutral (D10)
+					int closed = Pending;
 					Unknown_5C();
 					Closed = closed;
-					Close_Dialog();
+					close = true;
 				}
 				break;
 			default:
@@ -184,11 +183,12 @@ void UIPetitionEntryClass::Unknown_60()
 
 
 
+
 				G_ASSERT(choice == USER_SELECT_NO);
-				Close_Dialog();
-				break;
-		}
-	}
+				close = true;
+				break; }
+		if (close) {
+			Close_Dialog(); } }
 }
 
 // 0x5D4DC0

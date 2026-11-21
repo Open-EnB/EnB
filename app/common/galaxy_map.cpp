@@ -435,21 +435,21 @@ GalaxyMapSystemIteratorClass::GalaxyMapSystemIteratorClass(GalaxyMapClass *map) 
 	Reset();
 }
 
-// 0x839220  NOT EXACT: the client recomputes &(*It).second after the end test, edi (VC6 keeps the node in edi; attempts.py show 0x839220)
+// 0x839220
 bool GalaxyMapSystemIteratorClass::Next()
 {
-	const std::hash_map<int, RefCountPtr<GalaxyMapSystemClass> > &table = Map->Systems;
-	if (It == table.end()) {
+	if (It == Map->Systems.end()) {
 		return(false);
 	}
-	++It;
-	if (It == table.end()) {
+	if (++It == Map->Systems.end()) {
 		Current = NULL;
 		return(false);
 	}
 	Current = (*It).second;
 	return(true);
 }
+
+
 
 // 0x839310
 void GalaxyMapSystemIteratorClass::First()
@@ -469,21 +469,21 @@ GalaxyMapSectorIteratorClass::GalaxyMapSectorIteratorClass(GalaxyMapClass *map) 
 	Reset();
 }
 
-// 0x8394B0  NOT EXACT: the client recomputes &(*It).second after the end test, edi (VC6 keeps the node in edi; attempts.py show 0x8394B0)
+// 0x8394B0
 bool GalaxyMapSectorIteratorClass::Next()
 {
 	const std::hash_map<int, RefCountPtr<GalaxyMapSectorClass> > &table = Map->Sectors;
 	if (It == table.end()) {
 		return(false);
 	}
-	++It;
-	if (It == table.end()) {
+	if (++It == table.end()) {
 		Current = NULL;
 		return(false);
 	}
 	Current = (*It).second;
 	return(true);
 }
+
 
 // 0x8395A0
 void GalaxyMapSectorIteratorClass::First()
@@ -503,19 +503,19 @@ GalaxyMapGateIteratorClass::GalaxyMapGateIteratorClass(GalaxyMapClass *map) :
 	Reset();
 }
 
-// 0x839740  NOT EXACT: the client recomputes &(*It).second after the end test, edi (VC6 keeps the node in edi; attempts.py show 0x839740)
+// 0x839740
 bool GalaxyMapGateIteratorClass::Next()
 {
 	const std::hash_map<int, RefCountPtr<GalaxyMapGateClass> > &table = Map->Gates;
 	if (It == table.end()) {
 		return(false);
 	}
-	++It;
-	if (It == table.end()) {
+	if (++It == table.end()) {
 		Current = NULL;
 		return(false);
 	}
-	Current = (*It).second;
+	const RefCountPtr<GalaxyMapGateClass> *value = &(*It).second;
+	Current = *value;
 	return(true);
 }
 
@@ -537,19 +537,19 @@ GalaxyMapStarbaseIteratorClass::GalaxyMapStarbaseIteratorClass(GalaxyMapClass *m
 	Reset();
 }
 
-// 0x8399D0  NOT EXACT: the client recomputes &(*It).second after the end test, edi (VC6 keeps the node in edi; attempts.py show 0x8399D0)
+// 0x8399D0
 bool GalaxyMapStarbaseIteratorClass::Next()
 {
 	const std::hash_map<int, RefCountPtr<GalaxyMapStarbaseClass> > &table = Map->Starbases;
 	if (It == table.end()) {
 		return(false);
 	}
-	++It;
-	if (It == table.end()) {
+	if (++It == table.end()) {
 		Current = NULL;
 		return(false);
 	}
-	Current = (*It).second;
+	const RefCountPtr<GalaxyMapStarbaseClass> *value = &(*It).second;
+	Current = *value;
 	return(true);
 }
 

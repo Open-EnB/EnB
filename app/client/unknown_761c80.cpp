@@ -62,12 +62,12 @@ void Unknown761C80Class::Add_Render_Object(RenderObjClass *obj)
 }
 
 // @0x762410
-// NOT EXACT: inline budget: the client calls the bucket vector's size() (0x762C30) in the inlined erase, this
-// inlines it (9 bytes longer; the rest is the client's)
-void Unknown761C80Class::Remove_Render_Object(RenderObjClass *obj)
-{
+
+
+void Unknown761C80Class::Remove_Render_Object(RenderObjClass *obj) {
 	SimpleSceneClass::Remove_Render_Object(obj);
-	Remove_Light_Environment(obj);
+	LightEnvironmentClass *env = Peek_Light_Environment(obj); if (env != NULL) { delete env;
+		LightEnvironments.erase(obj); LightEnvironments.size(); }
 }
 
 // @0x762520

@@ -150,9 +150,9 @@ static int Unknown_5746C0(int index, bool forward)
 	}
 }
 #pragma auto_inline(on)
+static inline CameraClass *Camera_Of(CharacterViewClass *v) { return v->Unknown068; }
 
-
-// NOT EXACT: frame (0.45: the client's frame is 0x34, ours 0x38: its per-iteration RefCountPtr sits in the dead view parameter's slot)
+// NOT EXACT: register, 24 masked rows (HS): Slider / SliderValue stored after the EH state 3 (the client before), the dialog strings' inline _Eos adds _Ptr + n where the client adds n + _Ptr (4 sites); the 37 size reads spend the inline budget the client's source spent (D272: _Grow out of line, _Tidy / _Copy / _Eos inline); attempts.py show 0x574710
 // @0x574710
 ClassSelectInterface::ClassSelectInterface(UIViewClass *view, LayerClass *layer) :
 	InterfaceClass(view, (int)layer->Peek_Scene()),
@@ -172,7 +172,7 @@ ClassSelectInterface::ClassSelectInterface(UIViewClass *view, LayerClass *layer)
 	Unknown140(false),
 	Unknown141(false)
 {
-	InterfaceSortScopeClass sort(this);
+	InterfaceSortScopeClass sort(this); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size(); Descriptions.size();
 	int i;
 	for (i = 0; i < 14; i++) {
 		Buttons[i] = NULL;
@@ -190,7 +190,7 @@ ClassSelectInterface::ClassSelectInterface(UIViewClass *view, LayerClass *layer)
 	CharacterView->Unknown_67ACE0(1);
 	CharacterView->Unknown_67AB20(0, "fe_class00");
 	RenderObjClass *model = CharacterView->ViewRObjs[0];
-	CharacterView->Unknown068->Set_Clip_Planes(10.0f, 10000.0f);
+	Camera_Of(CharacterView)->Set_Clip_Planes(10.0f, 10000.0f);
 	if (CharacterView->ViewRObjs[1] == NULL) {
 		CharacterView->Unknown_67AB20(1, "fe_class01");
 		CharacterView->Unknown_67A290(Vector3(0.0f, 0.0f, 0.0f), Vector3(0.0f, -90.0f, -90.0f), 90.0f);
@@ -222,7 +222,7 @@ ClassSelectInterface::ClassSelectInterface(UIViewClass *view, LayerClass *layer)
 			SkillGadgets[i] = new ButtonGadgetClass(sub.Peek(), *layer, 0x55, 3);
 			Unknown64.Unknown_6870E0(SkillGadgets[i], i + 0x11, View, 1, 0);
 			if (Unknown_B7DC44[i].SubObject != NULL) {
-				((RObjGadgetClass *)SkillGadgets[i])->Unknown_98(Unknown_BE67C4->Get_Style(Unknown_B7DC44[i].SubObject, model));
+				FontSys *style = Unknown_BE67C4->Get_Style(Unknown_B7DC44[i].SubObject, model); ((RObjGadgetClass *)SkillGadgets[i])->Unknown_98(style);
 			}
 		}
 	}
@@ -237,8 +237,8 @@ ClassSelectInterface::ClassSelectInterface(UIViewClass *view, LayerClass *layer)
 	Unknown_5760C0(true);
 
 	for (i = 0; i < 9; i++) {
-		if (CharacterView->Unknown088.Race == Unknown_B7DB60[i].Race &&
-		    CharacterView->Unknown088.Profession == Unknown_B7DB60[i].Profession) {
+		if (Unknown_B7DB60[i].Race == CharacterView->Unknown088.Race &&
+		    Unknown_B7DB60[i].Profession == CharacterView->Unknown088.Profession) {
 			Unknown8C = i;
 			break;
 		}
@@ -256,7 +256,7 @@ ClassSelectInterface::ClassSelectInterface(UIViewClass *view, LayerClass *layer)
 		TutorialManagerClass::Instance->Set_Completed("ClassSelectionIntro");
 	}
 
-	if (!(LoginTask->Previous_Step == 4) && Unknown8C == 0) {
+	bool back = LoginTask->Previous_Step == 4; if (!back && Unknown8C == 0) {
 		CharacterView->Unknown_67C920("1492_00_344se.mp3");
 		CharacterView->Unknown_67C920("1492_00_345se.mp3");
 		CharacterView->Unknown_67C920("1492_00_346se.mp3");
@@ -266,7 +266,7 @@ ClassSelectInterface::ClassSelectInterface(UIViewClass *view, LayerClass *layer)
 	SignalMap *notifier = &GadgetClass::Get_Signal_Map();
 	notifier->connect(NULL, new UIClassCallbackClass(this, function));
 
-	CharacterView->Unknown30->Unknown0F = true;
+	CharacterViewClass *cv = CharacterView; cv->Unknown30->Unknown0F = true;
 }
 
 

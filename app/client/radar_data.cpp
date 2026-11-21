@@ -85,7 +85,7 @@ RadarDataClass::~RadarDataClass()
 	Unknown_4F7EF0().Remove(ClientObject, this, &RadarDataClass::Unknown_7BBC00, ClientGroupEvent());
 }
 
-// NOT EXACT: block layout and registers (the client's case 0 sits after the common tail, sharing case 1's last two stores)
+// NOT EXACT: block layout (case 1 owns a copy of the blink tail: generated between case 1 and case 0 it gives case 0's copies the client's registers and the client's layout, case 2, case 1, tail, case 0; the client has one tail, case 0's JumpStart cross-jumping into case 1's last store, where VC6 keeps our two copies apart)
 // @0x7BB570
 void RadarDataClass::Unknown_7BB570()
 {
@@ -97,21 +97,6 @@ void RadarDataClass::Unknown_7BB570()
 
 	GutterColorStruct color;
 	switch (Unknown08) {
-		case 0:
-			if (Peek_Client_Object() && Peek_Client_Object()->Unknown_700860()) {
-				GutterColorStruct c = Colors.JumpStart;
-				color = c;
-			} else {
-				GutterColorStruct c = Colors.NotTarget;
-				color = c;
-			}
-			break;
-		case 1:
-		{
-			GutterColorStruct c = Colors.Mouse;
-			color = c;
-		}
-			break;
 		case 2:
 		{
 			color = Colors.Target;
@@ -121,12 +106,27 @@ void RadarDataClass::Unknown_7BB570()
 			Color.Z = (color.Color2.Z - color.Color1.Z) * t + color.Color1.Z;
 			return;
 		}
+		case 1:
+		{
+			GutterColorStruct c = Colors.Mouse;
+			color = c;
+		}
+			if ((int)(Unknown_Get_Ticks() % 2000) > 1000) Color = color.Color1;
+			else Color = color.Color2;
+			return;
+		case 0:
+			if (Peek_Client_Object() && Peek_Client_Object()->Unknown_700860()) {
+				GutterColorStruct c = Colors.JumpStart;
+				color = c;
+			} else {
+				GutterColorStruct c = Colors.NotTarget;
+				color = c;
+			}
+			break;
 	}
-	if (Unknown_Get_Ticks() % 2000 > 1000) {
-		Color = color.Color1;
-	} else {
-		Color = color.Color2;
-	}
+	if ((int)(Unknown_Get_Ticks() % 2000) > 1000) Color = color.Color1;
+	else Color = color.Color2;
+
 }
 
 // @0x7BB8C0

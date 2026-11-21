@@ -114,52 +114,52 @@ FpItaClass::~FpItaClass()
 
 
 
-// NOT EXACT (0.93, attempts.py 0x448D00): order: the client multiplies inv * dir.X (the factor loaded first) and pushes edx after Inv_Sqrt
+
 // 0x448D00
-int FpItaClass::Unknown_04(const Vector3 &target, Matrix3D *transforms, float dist, float &yaw, float &pitch)
-{
+int FpItaClass::Unknown_04(const Vector3 &target, Matrix3D *transforms, float dist, float &yaw, float &pitch) {
 	Vector3 pos;
 	transforms[Unknown_BE350C ^ 1].Get_Translation(&pos);
 	Vector3 dir = target - pos;
 	float len2 = dir.Length2();
-	if (len2 >= 0.000001f) {
-		dir *= WWMath::Inv_Sqrt(len2);
-		Vector3 x_axis = transforms[Unknown_BE350C ^ 1].Get_X_Vector();
-		Vector3 axis;
-		Vector3::Cross_Product(x_axis, dir, &axis);
-		float sin2 = axis.Length2();
-		if (sin2 < 3.046171e-06f) {
-			transforms[Unknown_BE350C] = transforms[Unknown_BE350C ^ 1];
-			transforms[Unknown_BE350C].Translate_X(dist);
-			return(2);
-		}
-		Vector3 x;
-		if (sin2 < MaxTurnSin * MaxTurnSin) {
-			x = dir;
-		} else {
-			axis *= WWMath::Inv_Sqrt(sin2);
-			Vector3 perp;
-			Vector3::Cross_Product(axis, x_axis, &perp);
-			x = x_axis * MaxTurnCos + perp * MaxTurnSin;
-		}
-		Vector3 y_axis;
-		if (fabs(x.X) > 0.0001f || fabs(x.Y) > 0.0001f) {
-			y_axis.X = -x.Y; y_axis.Y = x.X; y_axis.Z = 0.0f;
-			y_axis.Normalize();
-		} else {
-			y_axis = transforms[Unknown_BE350C ^ 1].Get_Y_Vector();
-			G_ASSERT(y_axis.Z < 0.0001f);
-		}
-		Vector3 z_axis;
-		Vector3::Cross_Product(x, y_axis, &z_axis);
-		pos += x * dist;
-		transforms[Unknown_BE350C].Set(x, y_axis, z_axis, pos);
+	if (len2 < 0.000001f) {
+		transforms[Unknown_BE350C] = transforms[Unknown_BE350C ^ 1];
+		transforms[Unknown_BE350C].Translate_X(dist);
+		return(2); }
+	dir *= WWMath::Inv_Sqrt(len2);
+	Vector3 x_axis = transforms[Unknown_BE350C ^ 1].Get_X_Vector();
+	Vector3 axis;
+	Vector3::Cross_Product(x_axis, dir, &axis);
+	float sin2 = axis.Length2();
+	if (sin2 < 3.046171e-06f) {
+		transforms[Unknown_BE350C] = transforms[Unknown_BE350C ^ 1];
+		transforms[Unknown_BE350C].Translate_X(dist);
 		return(2);
+	} Vector3 x;
+	if (sin2 < MaxTurnSin * MaxTurnSin) {
+		x = dir;
+	} else {
+		axis *= WWMath::Inv_Sqrt(sin2);
+		Vector3 perp;
+		Vector3::Cross_Product(axis, x_axis, &perp);
+		x = x_axis * MaxTurnCos + perp * MaxTurnSin;
+	} Vector3 y_axis;
+	if (fabs(x.X) > 0.0001f || fabs(x.Y) > 0.0001f) {
+		y_axis.X = -x.Y; y_axis.Y = x.X; y_axis.Z = 0.0f;
+		y_axis.Normalize();
+	} else {
+		y_axis = transforms[Unknown_BE350C ^ 1].Get_Y_Vector();
+		G_ASSERT(y_axis.Z < 0.0001f);
 	}
-	transforms[Unknown_BE350C] = transforms[Unknown_BE350C ^ 1];
-	transforms[Unknown_BE350C].Translate_X(dist);
+	Vector3 z_axis;
+	Vector3::Cross_Product(x, y_axis, &z_axis);
+	pos += x * dist;
+	transforms[Unknown_BE350C].Set(x, y_axis, z_axis, pos);
 	return(2);
 }
+
+
+
+
 
 
 

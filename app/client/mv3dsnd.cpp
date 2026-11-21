@@ -146,7 +146,7 @@ Movie3DSoundClass::Movie3DSoundClass(INIClass &ini, const char *section)
 {
 	int index = 0;
 	float fps = ini.Get_Float(section, "FPS", 15.0f);
-	for (;;) {
+	for (; true;) {
 		char entry[256];
 		sprintf(entry, "%d", index++);
 		if (!ini.Get_String(section, entry, "", entry, 255)) {

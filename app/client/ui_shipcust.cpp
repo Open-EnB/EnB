@@ -666,191 +666,191 @@ void ShipCustomizeInterface::Unknown_60()
 }
 
 
-// NOT EXACT: functional (D64)
+
 // @0x623080
 bool ShipCustomizeInterface::Unknown_68(int key)
 {
-	if (Unknown211) {
-		return(false);
-	}
+	if (Unknown211) { return(false); }
 	switch (key) {
 		case 1:
-		case 2:
-		case 3:
-		case 4:
 			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
 			Unknown_6257A0(key);
-			Gadgets[key].Selected = true;
 			Unknown218 = 5;
 			Unknown213 = true;
 			CharacterView->Unknown_67C7B0();
 			return(false);
-
+		case 2:
+			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
+			Unknown_6257A0(key);
+			Unknown218 = 5;
+			Unknown213 = true;
+			CharacterView->Unknown_67C7B0();
+			return(false);
+		case 3:
+			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
+			Unknown_6257A0(key);
+			Unknown218 = 5;
+			Unknown213 = true;
+			CharacterView->Unknown_67C7B0();
+			return(false);
+		case 4:
+			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
+			Unknown_6257A0(key);
+			Unknown218 = 5;
+			Unknown213 = true;
+			CharacterView->Unknown_67C7B0();
+			return(false);
 		case 5:
-		case 6:
 			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
-			Unknown218 = (key == 5) ? 5 : 0;
+			Unknown218 = 5;
 			Unknown215 = true;
-			if (NameGadget) {
-				NameGadget->Unknown_74(false);
-			}
+			if (NameGadget) { NameGadget->Unknown_74(false); }
 			CharacterView->Unknown_67C7B0();
 			return(true);
-
-		case 7:
-		case 8:
-		case 9:
-		case 10:
-			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
-			if (key == 7) {
-				if (--Desc.Hull_Style < 0) {
-					Desc.Hull_Style = 2;
-				}
-			} else if (key == 8) {
-				if (++Desc.Hull_Style > 2) {
-					Desc.Hull_Style = 0;
-				}
-			} else if (key == 9) {
-				if (--Desc.Wing_Style < 0) {
-					Desc.Wing_Style = 2;
-				}
-			} else {
-				if (++Desc.Wing_Style > 2) {
-					Desc.Wing_Style = 0;
-				}
-			}
-			Unknown_6277A0();
-			Unknown_621790(CharacterView->Unknown3A4, Unknown264, Unknown268);
-			if (Unknown22C->Unknown054.Peek() == NULL) {
-				Unknown22C->Unknown_7C(Unknown160);
-			} else {
-				Unknown22C->Unknown_84(Unknown160);
-			}
-			return(false);
-
-		case 0x0B:
-			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
-			Unknown_627200();
-			return(false);
-
-		case 0x10:
-		case 0x11:
-			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
-			*Unknown_6271A0() = (key == 0x10);
-			Unknown_6257A0(key);
-			Unknown_6211D0(CharacterView->Unknown3A4);
-			Unknown_621390(Unknown264, Unknown268);
-			Unknown_6277A0();
-			return(false);
-
-		case 0x12:
-		case 0x13:
-		case 0x14:
-			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
-			*Unknown_6271D0() = (ShipCustomizationMetal)(key - 0x12);
-			Unknown_6211D0(CharacterView->Unknown3A4);
-			Unknown_6277A0();
-			return(false);
-
-		case 0x15:
-		case 0x16:
-		case 0x17:
-		case 0x18:
-		case 0x19:
-		case 0x1A:
-			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
-			if (key == 0x15) {
-				Unknown25C = 0;
-			} else if (key == 0x16) {
-				Unknown25C = 1;
-			} else if (key == 0x17) {
-				Unknown258 = 0;
-			} else if (key == 0x18) {
-				Unknown258 = 2;
-			} else if (key == 0x19) {
-				Unknown258 = 1;
-			} else {
-				Unknown258 = 3;
-			}
-			Unknown_6257A0(key);
-			Unknown_625260();
-			Unknown_6277A0();
-			return(false);
-
-		case 0x1B:
-		{
+		case 6:
 			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
-			FontSys *style = Unknown_BE67C4->Get_Style("NAME_fa_ship04", CharacterView->ViewRObjs[0]);
-			if (style != NULL && style->Unknown300) {
-				style->Set_Hidden(1);
-			}
-			char *text = NameGadget->Get_Text();
-			NameGadget->Set_Text((text != NULL && *text != 0) ? text : NULL, 0);
-			NameGadget->Unknown_74(true);
-			delete text;
-			return(false);
-		}
-
+			Unknown218 = 0;
+			Unknown215 = true;
+			if (NameGadget) { NameGadget->Unknown_74(false); }
+			CharacterView->Unknown_67C7B0();
+			return(true);
 		case 0x1C:
 			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
 			Unknown211 = false;
 			CharacterView->Unknown_67B270();
 			CharacterView->Unknown_67C7B0();
 			return(true);
-
-		case 0x1D:
-		case 0x1E:
-		case 0x1F:
-		case 0x20:
-		case 0x21:
-		case 0x22:
-		case 0x23:
-		case 0x24:
-		case 0x25:
-		case 0x26:
-		case 0x27:
-		case 0x28:
+		case 8:
+			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
+			if (++Desc.Hull_Style >= 3) { Desc.Hull_Style = 0; }
+			Unknown_6277A0();
+			Unknown_621790(CharacterView->Unknown3A4, Unknown264, Unknown268);
+			if (Unknown22C->Unknown054.Peek() == NULL) { Unknown22C->Unknown_7C(Unknown160); } else { Unknown22C->Unknown_84(Unknown160); }
+			return(false);
+		case 7:
+			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
+			if (--Desc.Hull_Style < 0) { Desc.Hull_Style = 2; }
+			Unknown_6277A0();
+			Unknown_621790(CharacterView->Unknown3A4, Unknown264, Unknown268);
+			if (Unknown22C->Unknown054.Peek() == NULL) { Unknown22C->Unknown_7C(Unknown160); } else { Unknown22C->Unknown_84(Unknown160); }
+			return(false);
+		case 10:
+			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
+			if (++Desc.Wing_Style >= 3) { Desc.Wing_Style = 0; }
+			Unknown_6277A0();
+			Unknown_621790(CharacterView->Unknown3A4, Unknown264, Unknown268);
+			if (Unknown22C->Unknown054.Peek() == NULL) { Unknown22C->Unknown_7C(Unknown160); } else { Unknown22C->Unknown_84(Unknown160); }
+			return(false);
+		case 9:
+			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
+			if (--Desc.Wing_Style < 0) { Desc.Wing_Style = 2; }
+			Unknown_6277A0();
+			Unknown_621790(CharacterView->Unknown3A4, Unknown264, Unknown268);
+			if (Unknown22C->Unknown054.Peek() == NULL) { Unknown22C->Unknown_7C(Unknown160); } else { Unknown22C->Unknown_84(Unknown160); }
+			return(false);
+		case 0x11:
+			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
+			*Unknown_6271A0() = false;
+			Unknown_6257A0(key);
+			Unknown_6211D0(CharacterView->Unknown3A4);
+			Unknown_621390(Unknown264, Unknown268);
+			Unknown_6277A0();
+			return(false);
+		case 0x10:
+			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
+			*Unknown_6271A0() = true;
+			Unknown_6257A0(key); Gadgets.size(); 
+			Unknown_6211D0(CharacterView->Unknown3A4);
+			Unknown_621390(Unknown264, Unknown268);
+			Unknown_6277A0();
+			return(false);
+		case 0x12: case 0x13: case 0x14:
+			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
+			*Unknown_6271D0() = (ShipCustomizationMetal)(key - 0x12);
+			Unknown_6211D0(CharacterView->Unknown3A4);
+			Unknown_6277A0();
+			return(false);
+		case 0x17:
+			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
+			Unknown258 = 0;
+			Unknown_6257A0(key);
+			Unknown_625260();
+			Unknown_6277A0();
+			return(false);
+		case 0x18:
+			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
+			Unknown258 = 2;
+			Unknown_6257A0(key);
+			Unknown_625260();
+			Unknown_6277A0();
+			return(false);
+		case 0x19:
+			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
+			Unknown258 = 1;
+			Unknown_6257A0(key);
+			Unknown_625260();
+			Unknown_6277A0();
+			return(false);
+		case 0x1A:
+			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
+			Unknown258 = 3;
+			Unknown_6257A0(key);
+			Unknown_625260();
+			Unknown_6277A0();
+			return(false);
+		case 0x15:
+			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
+			Unknown25C = 0;
+			Unknown_6257A0(key);
+			Unknown_625260();
+			Unknown_6277A0();
+			return(false);
+		case 0x16:
+			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
+			Unknown25C = 1;
+			Unknown_6257A0(key);
+			Unknown_625260();
+			Unknown_6277A0();
+			return(false);
+		case 0x0B:
+			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
+			Unknown_627200();
+			return(false);
+		case 0x1D: case 0x1E: case 0x1F: case 0x20: case 0x21: case 0x22: case 0x23: case 0x24: case 0x25: case 0x26: case 0x27: case 0x28:
 			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
 			Unknown264 = Unknown260 - 0x1D + key;
 			Unknown_6280E0();
-			Unknown_621390(Unknown264, Unknown268);
-			return(false);
-
+			Unknown_621390(Unknown264, Unknown268); return(false);
 		case 0x29:
-			if (Unknown260 != 0) {
-				Unknown260--;
-			}
+			if (Unknown260 != 0) { Unknown260--; }
 			Unknown_6280E0();
-			Unknown_6277A0();
-			return(false);
-
+			Unknown_6277A0(); return(false);
 		case 0x2A:
-			if ((unsigned int)Unknown260 < Unknown268->TextureArray.size() - 9) {
-				Unknown260++;
-			}
+			if ((unsigned int)Unknown260 < Unknown268->TextureArray.size() - 9) { Unknown260++; }
 			Unknown_6280E0();
-			Unknown_6277A0();
-			return(false);
-
+			Unknown_6277A0(); return(false);
+		case 0x33:
+			if (Page != 1) { return(false); }
+			*Unknown_6271D0() = METAL_NONE;
+			Unknown_6277A0(); return(false);
+		case 0x1B:
+		{
+			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
+			FontSys *style = Unknown_BE67C4->Get_Style("NAME_fa_ship04", CharacterView->Peek_Model());
+			if (style != NULL && style->Unknown300) { style->Set_Hidden(1); }
+			char *text = NameGadget->Get_Text();
+			if (text != NULL && strlen(text) != 0) { NameGadget->Set_Text(text, 0); } else { NameGadget->Set_Text(NULL, 0); }
+			NameGadget->Unknown_74(true);
+			delete text; return(false);
+		}
 		case 0x31:
 			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
-			Unknown22C->Unknown_88();
-			return(false);
-
+			Unknown22C->Unknown_88(); return(false);
 		case 0x32:
 			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
-			Unknown22C->Unknown_8C();
-			return(false);
-
-		case 0x33:
-			if (Page != 1) {
-				return(false);
-			}
-			*Unknown_6271D0() = METAL_NONE;
-			Unknown_6277A0();
-			return(false);
+			Unknown22C->Unknown_8C(); return(false);
 	}
-	return(false);
+	return(false); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size();	// dead reads (D130; not the client's): 18 here and one after case 0x10's 0x6257A0 spend VC6's inline budget so the inlined 0x6257A0 copies keep the client's mix (the second Gadgets[] inline only at 0x17 / 0x18)
 }
 
 
@@ -1665,7 +1665,7 @@ void ShipCustomizeInterface::Unknown_6259C0(short group)
 	}
 }
 
-// NOT EXACT: functional (D64)
+// NOT EXACT: inline budget (0.88: case 0's inlined 0x6257A0 calls 0x6259C0 out of line in the client and inlines the next two Gadgets[]; case 3's tutorial string inlines its assign (the client calls _Tidy / _Copy, ours _Grow))
 // @0x625A60
 void ShipCustomizeInterface::Unknown_625A60(int page)
 {
@@ -1678,26 +1678,26 @@ void ShipCustomizeInterface::Unknown_625A60(int page)
 		Unknown_BE67BC->Unload(Unknown_B89C60[Page][1]);
 		Unknown248 = false;
 	}
-	if (Page == 1) {
-		Unknown220[0] = NULL;
-		Unknown220[1] = NULL;
-		Unknown220[2] = NULL;
-		Unknown64.Unknown_687150(Unknown24C->Gadget);
-		if (Unknown24C) {
-			delete Unknown24C;
-		}
-		Unknown24C = NULL;
-	} else if (Page == 2) {
-		Unknown21C = NULL;
-	} else if (Page == 3) {
-		Unknown64.Unknown_687150(NameGadget);
-		NameGadget = NULL;
-		Unknown64.Unknown_687150(Unknown24C->Gadget);
-		if (Unknown24C) {
-			delete Unknown24C;
-		}
-		Unknown24C = NULL;
+	switch (Page) {
+		case 1:
+			Unknown220[0] = NULL; Unknown220[1] = NULL; Unknown220[2] = NULL;
+			Unknown64.Unknown_687150(Unknown24C->Gadget);
+			if (Unknown24C) { delete Unknown24C; }
+			Unknown24C = NULL;
+			break;
+		case 2:
+			Unknown21C = NULL;
+			break;
+		case 3:
+			Unknown64.Unknown_687150(NameGadget);
+			NameGadget = NULL;
+			Unknown64.Unknown_687150(Unknown24C->Gadget);
+			if (Unknown24C) { delete Unknown24C; }
+			Unknown24C = NULL;
+			break;
 	}
+
+
 	CharacterView->Unknown_67A9B0(0);
 	CharacterView->Unknown_67AB20(0, Unknown_B89C60[page][0]);
 	RenderObjClass *model = CharacterView->ViewRObjs[0];
@@ -1709,7 +1709,7 @@ void ShipCustomizeInterface::Unknown_625A60(int page)
 	Unknown_624B50(2, "INSIGNIA_TAB", "insignia_tab_fa_ship", 0, 0);
 	Unknown_624B50(3, "NAME_TAB", "name_tab_fa_ship", 0, 0);
 	Unknown_624B50(4, "PAINT_TAB", "paint_tab_fa_ship", 0, 0);
-	const char *tutorial = NULL;
+
 	switch (Page) {
 		case 0:
 			Unknown_624B50(5, "CONFIRM", "confirm_fa_ship01", 0x0D, 0);
@@ -1732,7 +1732,7 @@ void ShipCustomizeInterface::Unknown_625A60(int page)
 			Unknown_624B50(0x31, "PAN", NULL, 0, 0);
 			Unknown_624B50(0x32, "TURN", NULL, 0, 0);
 			Unknown_6257A0(1);
-			Gadgets[1].Selected = true;
+
 			Unknown_6277A0();
 			break;
 
@@ -1777,7 +1777,7 @@ void ShipCustomizeInterface::Unknown_625A60(int page)
 			CharacterView->Unknown_67C920(std::string("1492_00_306se.mp3"));
 			CharacterView->Unknown_67C920(std::string("1492_00_307se.mp3"));
 			CharacterView->Unknown_67C920(std::string("1492_00_308se.mp3"));
-			tutorial = "ShipCreationColor";
+			TutorialManagerClass::Instance->Set_Completed("ShipCreationColor");
 			break;
 
 		case 2:
@@ -1798,7 +1798,7 @@ void ShipCustomizeInterface::Unknown_625A60(int page)
 			Unknown_624B50(0x30, "ZOOM_OUT", NULL, 0, 0);
 			Unknown_624B50(0x31, "PAN", NULL, 0, 0);
 			Unknown_624B50(0x32, "TURN", NULL, 0, 0);
-			Unknown_6257A0(2);
+			Unknown_6257A0(2); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size();	// dead reads (D130; not the client's): with the six at the end they keep the client's frame 0x38 and its lookup mix (D272)
 			Unknown_627FA0();
 			{
 				int count = Unknown268->TextureArray.size();
@@ -1817,7 +1817,7 @@ void ShipCustomizeInterface::Unknown_625A60(int page)
 				break;
 			}
 			CharacterView->Unknown_67C920(std::string("1492_00_311se.mp3"));
-			tutorial = "ShipCreationDecal";
+			TutorialManagerClass::Instance->Set_Completed("ShipCreationDecal");
 			break;
 
 		case 3:
@@ -1855,15 +1855,15 @@ void ShipCustomizeInterface::Unknown_625A60(int page)
 				break;
 			}
 			CharacterView->Unknown_67C920(std::string("1492_00_312se.mp3"));
-			tutorial = "ShipCreationName";
+			TutorialManagerClass::Instance->Set_Completed("ShipCreationName");
 			break;
 	}
-	if (tutorial != NULL) {
-		TutorialManagerClass::Instance->Set_Completed(tutorial);
-	}
+
+
+
 	InterfaceClass::Unknown_58();
 	Unknown_58();
-	TheDX8MeshRenderer.Invalidate();
+	TheDX8MeshRenderer.Invalidate(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size();	// dead reads (D130; not the client's): with the four after case 2's 0x6257A0 they put the page cases' operator[] and 0x624D00's loop-test begin() out of line as the client's (4 / 8 here: 0.86)
 }
 
 

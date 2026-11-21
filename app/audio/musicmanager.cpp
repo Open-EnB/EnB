@@ -345,13 +345,13 @@ void MusicManagerClass::Set_Sector(unsigned sector)
 }
 
 // @0x43B7D0
-// NOT EXACT: order-only (explain.py: same length, 0.84): the client stores Sector = -1 before it saves CurrentMusicType to the stack, here after
+
 void MusicManagerClass::Queue_Sector_Themes()
 {
 	bool found = false;
-	int type = CurrentMusicType;
 	int sector = Sector;
 	Sector = -1;
+	int type = CurrentMusicType;
 	for (int index = 0; index < NUM_MUSIC_THEME_TYPES; index++) {
 		CurrentMusicType = index;
 		if (Queue_Sector_Theme(sector)) {

@@ -76,7 +76,7 @@ bool SelectGadgetClass::Unknown_30(float x, float y)
 	return(Unknown2C_05 && !Finished);
 }
 
-// NOT EXACT (0.73, attempts.py 0x66D1E0): the client pushes edi with ebp after the first test and loads the event after them; the rest matches
+// 0x66D1E0
 bool SelectGadgetClass::Unknown_2C(KernelEventClass *event, float x, float y, unsigned int mask)
 {
 	if (!Unknown2C_05 || Finished) {
@@ -140,26 +140,26 @@ bool SelectGadgetClass::Unknown_2C(KernelEventClass *event, float x, float y, un
 		if (Finished) {
 			Unknown_40(false);
 		}
-		return(true);
-	}
-	float width;
-	char *text = Edit->Get_String();
-	if (text && *text) {
-		Value = atoi(text);
-		width = ((float)Value / (float)Max) * Width;
 	} else {
-		width = Unknown_42EC90() * 640.0f - 320.0f - X;
-		if (width < 0.0f) {
-			width = 0.0f;
-		} else if (width > Width) {
-			width = Width;
+		float width;
+		char *text = Edit->Get_String();
+		if (text && *text) {
+			Value = atoi(text);
+			width = ((float)Value / (float)Max) * Width;
+		} else {
+			width = Unknown_42EC90() * 640.0f - 320.0f - X;
+			if (width < 0.0f) {
+				width = 0.0f;
+			} else if (width > Width) {
+				width = Width;
+			}
+			Value = (int)(width / Width * Max);
 		}
-		Value = (int)(width / Width * Max);
+		delete [] text;
+		Bar->Set_Rect(Vector4(X, Y, width, Height));
+		Text->Unknown_6CE420(0, "%d", Value);
+		Text->Set_Position(Vector3(TextX, Y, 0.0f));
 	}
-	delete [] text;
-	Bar->Set_Rect(Vector4(X, Y, width, Height));
-	Text->Unknown_6CE420(0, "%d", Value);
-	Text->Set_Position(Vector3(TextX, Y, 0.0f));
 	return(true);
 }
 

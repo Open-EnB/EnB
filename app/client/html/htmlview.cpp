@@ -466,7 +466,7 @@ static int Get_Value(int offset, Wstring &tag, Wstring &value);  // 0x7784D0
 
 
 
-// NOT EXACT: 0x7710D0, register allocation (item spills, the cached link count, <body>'s add clamp); budget and frame as the client's
+// NOT EXACT: 0x7710D0, register allocation (<li> / <body> add clamps, the <img> link count, the end loops, the <table> inset: each client form alone rotates block / fontheight / tagend from ebp / ebx / edi); budget and frame as the client's
 int HtmlViewClass::Parse(HtmlLinkStruct *link, HtmlBlockClass *block, int offset)
 {
 	char *start;
@@ -480,7 +480,7 @@ int HtmlViewClass::Parse(HtmlLinkStruct *link, HtmlBlockClass *block, int offset
 	HtmlAttributeStackClass tableattrs;
 	HtmlAttributeStackClass rowattrs;
 	char buffer[128];
-	char *end;
+
 
 	if (block == NULL)
 		return 0;
@@ -607,7 +607,7 @@ int HtmlViewClass::Parse(HtmlLinkStruct *link, HtmlBlockClass *block, int offset
 				block->Advance_Y(20, false);
 				int spacing = 0;
 				Wstring key;
-				Wstring value;
+				Wstring value; char *end;
 				while (true) { if ((pos = tag.getToken(pos, " =\t\r\n", key)) == -1) break; if ((pos = Get_Value(pos, tag, value)) == -1) break;
 					key.toLower();
 					if (strcmp(key.get(), "bgcolor") == 0) {
@@ -661,11 +661,11 @@ int HtmlViewClass::Parse(HtmlLinkStruct *link, HtmlBlockClass *block, int offset
 				HtmlItemStruct *item = new HtmlItemStruct;
 				item->X = block->Get_Cursor_X();
 				item->Y = block->Get_Cursor_Y();
-
-
+				item->Width = 0;
+				item->Height = 0;
 				item->Attributes.Add_All(tableattrs);
 				item->Attributes.Set("Type", "Table");
-				block->Items.addTail(item);
+				block->Add_Item(item);
 				sprintf(buffer, "%p", item);
 				tableattrs.Set("ElementPointer", buffer);
 				str = tableattrs.Get("Border");
@@ -876,7 +876,7 @@ int HtmlViewClass::Parse(HtmlLinkStruct *link, HtmlBlockClass *block, int offset
 				block->Pop_Style("Font.HSize", NULL);
 			} else if (strcmp(name.get(), "body") == 0) {
 				Wstring key;
-				Wstring value;
+				Wstring value; char *end;
 				while (true) { if ((pos = tag.getToken(pos, " =\t\r\n", key)) == -1) break; if ((pos = Get_Value(pos, tag, value)) == -1) break;
 					key.toLower();
 					if (strcmp(key.get(), "bgcolor") == 0) {
@@ -932,8 +932,8 @@ int HtmlViewClass::Parse(HtmlLinkStruct *link, HtmlBlockClass *block, int offset
 				HtmlItemStruct *item = new HtmlItemStruct;
 				item->X = block->Get_Cursor_X();
 				item->Y = block->Get_Cursor_Y();
-				item->Height = 4;
 				item->Width = block->Get_Width() - block->Get_HPadding() - item->X;
+				item->Height = 4;
 				item->Attributes.Set("Type", "HR");
 				block->Items.addTail(item);
 				block->New_Line();

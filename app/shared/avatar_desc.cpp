@@ -136,10 +136,9 @@ bool AvatarDescClass::Write(LinearBufferClass *buffer)
 	return(true);
 }
 
-// NOT EXACT: inline budget (the client calls the string assignment's max_size, _Tidy and _Eos out of line, ours inlines them; six forms tried: dead size()/length() after it, assign(), assign(s, strlen), the Read_String call hoisted; attempts.py show 0x4BF550)
+
 // 0x4BF550
-bool AvatarDescClass::Read(LinearBufferClass *buffer)
-{
+bool AvatarDescClass::Read(LinearBufferClass *buffer) {
 	buffer->Read(First_Name, sizeof(First_Name));
 	buffer->Read(Last_Name, sizeof(Last_Name));
 	buffer->Read(&Avatar_Type, 4);
@@ -179,14 +178,15 @@ bool AvatarDescClass::Read(LinearBufferClass *buffer)
 	char *text = buffer->Read_String();
 	Skeleton = text;
 	delete text;
-	int i;
+	Skeleton.c_str(); int i;
 	for (i = 0; i < 5; i++) {
 		buffer->Read(&Body_Weight[i], 4);
 	}
 	for (i = 0; i < 5; i++) {
 		buffer->Read(&Head_Weight[i], 4);
-	}
-	return(true);
+	} return(true);
+	Skeleton.size();
+	Skeleton.size();
 }
 
 // 0x4BF910

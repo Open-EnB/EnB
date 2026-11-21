@@ -364,7 +364,7 @@ void OptionFontInterface::Unknown_9C()
 
 
 
-// NOT EXACT: layout (similarity 0.77): the code aligns instruction for instruction; the difference is in the switch's jump table
+
 // 0x5CD780
 void OptionFontInterface::Update_Slider(int index, bool init)
 {
@@ -372,7 +372,7 @@ void OptionFontInterface::Update_Slider(int index, bool init)
 
 	GadgetSlider *slider = Sliders[index];
 	FAIL_IF(!slider) return;
-	RefCountPtr<FontSys> text = SliderText[index];		// NAME 1: neutral (D10)
+	RefCountPtr<FontSys> text = SliderText[index];
 	switch (index) {
 		case 0:
 			if (init) {
@@ -398,13 +398,13 @@ void OptionFontInterface::Update_Slider(int index, bool init)
 			if (init) {
 				slider->Unknown_66FA90((float)fontDatabase->AllFonts.size(), 1.0f, true);
 			}
-			int file_index = fontDatabase->Get_Font_File_Index(FontNames[Selected].c_str());	// NAME 1: neutral (D10)
+			int file_index = fontDatabase->Get_Font_File_Index(FontNames[Selected].c_str());
 			slider->Unknown_A4((float)file_index, false);
 			if (text) {
-				int length = strlen("font_");			// NAME 1: neutral (D10)
-				char *file_name = (char *)fontDatabase->Get_Font_File_Name(file_index);	// NAME 1: neutral (D10)
-				if (strnicmp(file_name, "font_", length) == 0) file_name += length;
-				char *dot = strchr(file_name, '.');		// NAME 1: neutral (D10)
+				int length = strlen("font_");
+				char *file_name = (char *)fontDatabase->Get_Font_File_Name(file_index);
+				if (_strnicmp(file_name, "font_", length) == 0) file_name += length;
+				char *dot = strchr(file_name, '.');
 				if (dot) {
 					*dot = '\0';
 				}
@@ -416,14 +416,15 @@ void OptionFontInterface::Update_Slider(int index, bool init)
 			break;
 		}
 		case 2: {
+			static const float step = 0.1f;
 			if (init) {
 				slider->Unknown_66FA90(16.0f, 1.0f, true);
 			}
-			float scale = fontDatabase->Get_Scale(FontNames[Selected].c_str());	// NAME 1: neutral (D10)
+			float scale = fontDatabase->Get_Scale(FontNames[Selected].c_str());
 			if (text) {
 				text->Unknown_6CE420(0, "Scale Font (%1.1f)", scale);
 			}
-			float position = (scale - 0.5f) / 0.1f;		// NAME 1: neutral (D10)
+			float position = (scale - 0.5f) / step;
 			slider->Unknown_A4(position, false);
 			break;
 		}
@@ -431,7 +432,7 @@ void OptionFontInterface::Update_Slider(int index, bool init)
 			if (init) {
 				slider->Unknown_66FA90(8.0f, 1.0f, true);
 			}
-			int spacing = fontDatabase->Get_Spacing(FontNames[Selected].c_str());	// NAME 1: neutral (D10)
+			int spacing = fontDatabase->Get_Spacing(FontNames[Selected].c_str());
 			if (text) {
 				text->Unknown_6CE420(0, "Letter Spacing (%1d)", spacing);
 			}
@@ -442,14 +443,13 @@ void OptionFontInterface::Update_Slider(int index, bool init)
 			if (init) {
 				slider->Unknown_66FA90(18.0f, 1.0f, true);
 			}
-			int value = fontDatabase->Get_Unknown98(FontNames[Selected].c_str());	// NAME 1: neutral (D10)
+			int value = fontDatabase->Get_Unknown98(FontNames[Selected].c_str());
 			if (text) {
 				text->Unknown_6CE420(0, "Line Spacing (%1d)", value);
 			}
 			slider->Unknown_A4((float)(value + 12), false);
 			break;
-		}
-	}
+		} }
 }
 
 // 0x5CDCC0

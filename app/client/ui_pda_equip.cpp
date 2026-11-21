@@ -270,15 +270,15 @@ void UIPdaEquipClass::Unknown_60()
 	Unknown_5D2B90();
 }
 
-// NOT EXACT: functional from the pseudocode (D64)
+
 // @0x5D2180
-bool UIPdaEquipClass::Unknown_68(int key)
+template <class T> static inline void Close_PDA_Of(T *space) { space->PDAInterface->Unknown_695A00(1, true); } bool UIPdaEquipClass::Unknown_68(int key)
 {
 	FAIL_IF(!InterfaceMesh) return(false);
 	switch (key) {
 		case 0x10: Stats->Unknown_6A3C10(); break;
 		case 0x11:
-			Client->As_Space_Client()->PDAInterface->Unknown_695A00(1, true);
+			Close_PDA_Of(Get_Client()->As_Space_Client());
 			return(true);
 		case 0xFFF: break;
 		default: return(UIInvClass::Unknown_68(key));

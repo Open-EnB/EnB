@@ -53,7 +53,7 @@ bool Unknown_496110(RenderObjClass *robj, float a, float b, float c);
 
 
 
-// NOT EXACT (0.63, attempts.py 0x691170): register: the client stores the three zeros as immediates, ours keeps 0 in ebp
+
 // 0x691170
 ItemTimerGaugeClass::ItemTimerGaugeClass(RenderObjClass *attach) :
 	RObj(NULL),
@@ -69,13 +69,13 @@ ItemTimerGaugeClass::ItemTimerGaugeClass(RenderObjClass *attach) :
 	}
 	TimerRObj = RObj->Get_Sub_Object_By_Name("timer");
 	FAIL_IF(!TimerRObj) {
-		return;
-	}
-	TimerBone = RObj->Get_Bone_Index("timer");
+		return; } TimerBone = RObj->Get_Bone_Index("timer");
 	RObj->Capture_Bone(TimerBone);
-	RenderObjClass *container = attach->Get_Container();
-	if (!container) container = attach;
-	container->Add_Sub_Object_To_Bone(RObj, container->Get_Sub_Object_Bone_Index(attach));
+	RenderObjClass *container;
+	if ((container = attach->Get_Container()) == NULL) {
+		container = attach; }
+	int bone = container->Get_Sub_Object_Bone_Index(attach);
+	container->Add_Sub_Object_To_Bone(RObj, bone);
 }
 
 // 0x6912A0
@@ -88,7 +88,7 @@ ItemTimerGaugeClass::~ItemTimerGaugeClass()
 	}
 	REF_PTR_RELEASE(TimerRObj);
 }
-// NOT EXACT (0.84, attempts.py 0x691320): order: the client stores the angle and reloads it before fcos, ours keeps it (fst)
+
 // 0x691320
 void ItemTimerGaugeClass::Update(unsigned int time)
 {
@@ -107,8 +107,8 @@ void ItemTimerGaugeClass::Update(unsigned int time)
 		turns = time * (1.0f / 60000.0f);
 		color.Set(0.12f, 0.924f, 0.012f);
 	}
-	Matrix3D tm(true);
 	float angle = -(turns * 6.2831855f);
+	Matrix3D tm(true);
 	tm.Rotate_Z(angle);
 	RObj->Control_Bone(TimerBone, tm, false);
 	if (Last != color) {

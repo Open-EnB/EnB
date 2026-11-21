@@ -93,16 +93,16 @@ inline void UITradeClass::Close_Box() { if (View && View->Unknown34) View->Unkno
 
 
 
-// NOT EXACT: register-only (explain.py): the client loads client->PDAInterface into ebx and schedules PDA's assignment around it
+
 // @0x650560
 UITradeClass::UITradeClass(SClient *client) : UIInvClass(client, 7), Unknown11C(0), Unknown138(0), Unknown13C(-2), Unknown140(-1),
-	Slider(NULL), Unknown170(-1), Unknown174(0), Unknown178(0)
-{
+	Slider(NULL), Unknown170(-1), Unknown174(0), Unknown178(0) {
 	memset(Unknown0D4, 0, sizeof(Unknown0D4));
 	memset(Unknown108, 0, sizeof(Unknown108));
 	memset(Unknown120, 0, sizeof(Unknown120));
 	Unknown_BE67BC->Load("fa_ce02a.ini");
-	PDA = Create_Peek(client->PDAInterface);
+	PDAInterfaceClass *pda = client->PDAInterface;
+	PDA = Create_Peek(pda);
 	G_ASSERT(PDA);
 }
 
@@ -400,7 +400,7 @@ void UITradeClass::Unknown_60()
 
 
 
-// NOT EXACT: inline budget (explain.py): ours inlines 0x653A80 inside the inlined 0x6539A0 (case 17); the client calls it out of line
+
 // @0x651830
 bool UITradeClass::Unknown_68(int key)
 {
@@ -413,7 +413,6 @@ bool UITradeClass::Unknown_68(int key)
 				SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
 				Close_Box();
 				Unknown_5A02E0(false);
-				return(true);
 			}
 			return(true);
 		case 13:
@@ -421,7 +420,6 @@ bool UITradeClass::Unknown_68(int key)
 				SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
 				Close_Box();
 				Unknown_652890();
-				return(true);
 			}
 			return(true);
 		case 14:
@@ -429,7 +427,6 @@ bool UITradeClass::Unknown_68(int key)
 				SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
 				Close_Box();
 				Unknown_6531F0(false);
-				return(true);
 			}
 			return(true);
 		case 15:
@@ -437,19 +434,19 @@ bool UITradeClass::Unknown_68(int key)
 				SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
 				Close_Box();
 				Unknown_652C60();
-				return(true);
 			}
 			return(true);
 		case 16:
 			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
 			Unknown_652030();
-
-			break;
+			Close_Box();
+			return(true);
 		case 17:
 			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
 			Unknown_6539A0();
-
-			break;
+			Unknown17C.size();
+			Close_Box();
+			return(true);
 		case 18:
 			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Close_Box();
@@ -461,14 +458,17 @@ bool UITradeClass::Unknown_68(int key)
 				Unknown_651F60(key - 6);
 				SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
 				return(true);
-			}
-			if (key >= 20 && key <= 24) {
+			} else if (key >= 20 && key <= 24) {
+
+
+
+
 				G_ASSERT(false);
-				return(true);
+			} else {
+				return(UIInvClass::Unknown_68(key));
 			}
-			return(UIInvClass::Unknown_68(key));
-	}
-	Close_Box(); return(true);
+			break; }
+	return(true);
 }
 
 // @0x651C30

@@ -167,13 +167,13 @@ std::string LegoIdentifierClass::Get_Name() const
 	return(name);
 }
 
-// NOT EXACT: 0x844CD0, registers (attempts.py show 0x844CD0)
+
 void LegoIdentifierClass::Set_Name(const std::string &name)
 {
 
-	FAIL_IF(!BoneNameChain.empty()) {
-		BoneNameChain.clear();
-	}
+	FAIL_IF(
+		!BoneNameChain.empty()) {
+		BoneNameChain.clear(); }
 	if (name != EmptyName) {
 		String_Split(BoneNameChain, name, std::string(Separator));
 	}

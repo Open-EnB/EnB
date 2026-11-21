@@ -209,14 +209,13 @@ void LineEffectClass::Unknown_6E5BB0(Vector3 *start, Vector3 *end)
 
 
 
-// NOT EXACT: register-only and order (the client keeps Duration - ShrinkTime in a register before its tests; the calls and the arithmetic are the client's)
+
 void LineEffectClass::Unknown_6E5E00(Vector3 *start, Vector3 *end)
 {
 	FAIL_IF(!start || !end) return;
 	unsigned now = Client->Unknown10BC;
 	if (now < StartTime) {
-		return;
-	}
+		return; }
 	unsigned elapsed = now - StartTime;
 	if (GrowTime != -1 && elapsed < GrowTime) {
 		float f = (elapsed * GrowA + GrowB) * elapsed;
@@ -225,17 +224,18 @@ void LineEffectClass::Unknown_6E5E00(Vector3 *start, Vector3 *end)
 		} else {
 			Vector3::Lerp(*start, *end, f, end);
 		}
-		return;
-	}
-	if (ShrinkTime < Duration && Duration != -1 && ShrinkTime != -1 && elapsed > Duration - ShrinkTime) {
-		float t = (float)(elapsed - (Duration - ShrinkTime));
+		return; }
+	if (Duration <= ShrinkTime) {
+		return; }
+	unsigned shrink_start = Duration - ShrinkTime;
+	if (Duration != -1 && ShrinkTime != -1 && elapsed > shrink_start) {
+		unsigned t = elapsed - shrink_start;
 		float f = (t * ShrinkA + ShrinkB) * t;
 		if (Get_Flag(15)) {
 			Vector3::Lerp(*end, *start, f, end);
 		} else {
 			Vector3::Lerp(*start, *end, f, start);
-		}
-	}
+		} }
 }
 
 

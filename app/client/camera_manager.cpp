@@ -650,33 +650,33 @@ float CameraManagerClass::Get_Elevation_Offset() { return(Module->ElevationOffse
 void CameraManagerClass::Unknown_79B4B0(bool first_mode) { Module->Unknown_79BEF0(first_mode); }	// 0x79B4B0
 bool CameraManagerClass::Unknown_79B4D0() { return(Module->Unknown1C); }							// 0x79B4D0
 #pragma auto_inline(off)
-// NOT EXACT: 0x79B4F0 (the default arm: the client keeps true in bl across the assert, so its return is not merged with case 0's mov al,1)
+
 bool CameraManagerClass::Unknown_79B4F0(int state)
 {
+	bool result;
 	switch (state) {
 		case 2:
-			return(OptionClass::Instance->Get_Bool("Camera_Warp"));
+			result = OptionClass::Instance->Get_Bool("Camera_Warp");
+			break;
 		case 3:
-			return(OptionClass::Instance->Get_Bool("Camera_Gate"));
-		case 5:
-		case 7:
-		case 9:
-			return(OptionClass::Instance->Get_Bool("Camera_Land"));
+			result = OptionClass::Instance->Get_Bool("Camera_Gate");
+			break;
+		case 5: case 7: case 9:
+			result = OptionClass::Instance->Get_Bool("Camera_Land");
+			break;
 		case 8:
-			return(OptionClass::Instance->Get_Bool("Camera_Loot"));
+			result = OptionClass::Instance->Get_Bool("Camera_Loot");
+			break;
 		case 6:
-			return(OptionClass::Instance->Get_Bool("Camera_Dock"));
-		case 0:
-		case 1:
-		case 10:
-		case 11:
-			return(true);
-		case 4:
-			return(false);
-		default:
-			G_ASSERT(0);
-			return(true);
+			result = OptionClass::Instance->Get_Bool("Camera_Dock");
+			break;
+		case 0: case 1: case 10: case 11:
+			result = true;
+			break;
+		case 4: result = false; break;
+		default: result = true; G_ASSERT(0); break;
 	}
+	return(result);
 }
 #pragma auto_inline(on)
 // 0x79B600

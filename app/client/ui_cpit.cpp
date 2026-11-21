@@ -695,10 +695,10 @@ void UICpitClass::Unknown_74(ControlKeysManager *manager)
 
 
 
-template<class C> inline C *Unknown_Cpit_Find_Set_Field(DeltaCompoundClass *root, const NameClass &name) { C *t = Unknown_Find_Field<C>(root, name); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10), ui_cpit.cpp's if/return form (auxdata.h's Unknown_Find_Set_Field uses ternary and drops 0x546710 here); 0x584000: its expansions call the find (0x5806E0, two) or the Cast (0x5821C0) out of line
+template<class C> inline C *Unknown_Cpit_Find_Set_Field2(DeltaCompoundClass *root, const NameClass &name) { C *t = Unknown_Find_Field<C>(root, name); if (t && t->Unknown70) return(t); return(NULL); } template<class C> inline C *Unknown_Cpit_Find_Set_Field(DeltaCompoundClass *root, const NameClass &name) { return(Unknown_Cpit_Find_Set_Field2<C>(root, name)); }	// NAME 1: neutral (D10), ui_cpit.cpp's if/return form through one more layer (auxdata.h's ternary Unknown_Find_Set_Field in 0x584000: 0x5806E0's copies inline the find); 0x584000: its expansions call the find (0x5806E0) or the set-field layer (0x5821C0) out of line
 
 // 0x5806E0: the steering keys (the client's key ids 2 .. 21; 0x48, 0x4B .. 0x4E taken, others not)
-// NOT EXACT: inline budget (the client calls Unknown_Find_Field<float> out of line, 0x546710, in the expanded 0x584000; ours expands it and calls the Cast)
+// (the cases break to one return(true), the client's single 0x58123F; the inner switches list case 3 first, the client's EH state order; the dead Peeks after the case 10 / 11 and case 12 engine tests spend the inline budget so their 0x584000 copies call the find out of line, 0x546710, as the client's: D272)
 bool UICpitClass::Unknown_68(int key)
 {
 	SClient *sclient = (SClient *)Client;
@@ -709,18 +709,18 @@ bool UICpitClass::Unknown_68(int key)
 		case 2:
 			if (Unknown0B4->Is_Enabled()) {
 				Unknown0B4->Unknown_2C(&KernelEventClass(), 0, 0, 1);
-				return(true);
+				break;
 			}
-			return(true);
+			break;
 		case 3:
 			if (Unknown0B4->Is_Enabled()) {
 				Unknown0B4->Unknown_2C(&KernelEventClass(), 0, 0, 4);
-				return(true);
+				break;
 			}
-			return(true);
+			break;
 		case 8:
-			if (lock_speed) return(true);
-			if (!Unknown_584000(true)) return(true);
+			if (lock_speed) break;
+			if (!Unknown_584000(true)) break;
 			((ClientClass *)Client)->Send_Packet(&MovePacketClass(Unknown_Avatar_ID(Client), 0));
 			sclient->Unknown_745E40(1, false);
 			Unknown144 = 1;
@@ -728,10 +728,10 @@ bool UICpitClass::Unknown_68(int key)
 			Unknown0BC->Unknown_674160(0);
 			Unknown0B8->Unknown_671740(true, 1.0f);
 			Unknown0BC->Unknown_671740(false, 0);
-			return(true);
+			break;
 		case 9:
-			if (lock_speed) return(true);
-			if (!Unknown_584000(true)) return(true);
+			if (lock_speed) break;
+			if (!Unknown_584000(true)) break;
 			((ClientClass *)Client)->Send_Packet(&MovePacketClass(Unknown_Avatar_ID(Client), 1));
 			sclient->Unknown_745E40(-1, false);
 			Unknown144 = 2;
@@ -739,9 +739,9 @@ bool UICpitClass::Unknown_68(int key)
 			Unknown0BC->Unknown_674160(0);
 			Unknown0B8->Unknown_671740(false, 0);
 			Unknown0BC->Unknown_671740(true, 1.0f);
-			return(true);
+			break;
 		case 13:
-			if (lock_speed) return(true);
+			if (lock_speed) break;
 			((ClientClass *)Client)->Send_Packet(&MovePacketClass(Unknown_Avatar_ID(Client), 4));
 			sclient->Unknown_745E40(0, false);
 			Unknown144 = 0;
@@ -749,12 +749,23 @@ bool UICpitClass::Unknown_68(int key)
 			Unknown0BC->Unknown_674160(0);
 			Unknown0B8->Unknown_671740(false, 0);
 			Unknown0BC->Unknown_671740(false, 0);
-			return(true);
+			break;
 		case 10:
 		case 11:
-			if (lock_speed) return(true);
-			if (!Unknown_584000(true)) return(true);
+			if (lock_speed) break;
+			if (!Unknown_584000(true)) break; Unknown16C.Peek();
 			switch (Unknown144) {
+				case 3:
+					if (key == 11) break;
+				case 4:
+					((ClientClass *)Client)->Send_Packet(&MovePacketClass(Unknown_Avatar_ID(Client), 4));
+					sclient->Unknown_745E40(0, false);
+					Unknown0B8->Unknown_674160(0);
+					Unknown0B8->Unknown_671740(false, 0);
+					Unknown0BC->Unknown_674160(0);
+					Unknown0BC->Unknown_671740(false, 0);
+					Unknown144 = 0;
+					break;
 				default:
 					((ClientClass *)Client)->Send_Packet(&MovePacketClass(Unknown_Avatar_ID(Client), 2));
 					sclient->Unknown_745E40(1, false);
@@ -764,10 +775,19 @@ bool UICpitClass::Unknown_68(int key)
 					Unknown0BC->Unknown_674160(0);
 					Unknown0BC->Unknown_671740(false, 0);
 					Unknown144 = 3;
-					return(true);
+					break;
+				case 1:
+					Unknown0B8->Unknown_674160(1);
+					Unknown0B8->Unknown_A4(2.0f);
+					Unknown0B8->Unknown_66C360();
+					Unknown144 = 3;
+					break;
+			} break;
+		case 12:
+			if (lock_speed) break;
+			if (!Unknown_584000(true)) break; Unknown16C.Peek(); Unknown16C.Peek(); Unknown16C.Peek(); Unknown16C.Peek(); Unknown16C.Peek(); Unknown16C.Peek(); Unknown16C.Peek();
+			switch (Unknown144) {
 				case 3:
-					if (key == 11) return(true);
-				case 4:
 					((ClientClass *)Client)->Send_Packet(&MovePacketClass(Unknown_Avatar_ID(Client), 4));
 					sclient->Unknown_745E40(0, false);
 					Unknown0B8->Unknown_674160(0);
@@ -775,18 +795,7 @@ bool UICpitClass::Unknown_68(int key)
 					Unknown0BC->Unknown_674160(0);
 					Unknown0BC->Unknown_671740(false, 0);
 					Unknown144 = 0;
-					return(true);
-				case 1:
-					Unknown0B8->Unknown_674160(1);
-					Unknown0B8->Unknown_A4(2.0f);
-					Unknown0B8->Unknown_66C360();
-					Unknown144 = 3;
-					return(true);
-			}
-		case 12:
-			if (lock_speed) return(true);
-			if (!Unknown_584000(true)) return(true);
-			switch (Unknown144) {
+					break;
 				default:
 					((ClientClass *)Client)->Send_Packet(&MovePacketClass(Unknown_Avatar_ID(Client), 3));
 					sclient->Unknown_745E40(-1, false);
@@ -796,95 +805,86 @@ bool UICpitClass::Unknown_68(int key)
 					Unknown0B8->Unknown_674160(0);
 					Unknown0B8->Unknown_671740(false, 0);
 					Unknown144 = 4;
-					return(true);
-				case 3:
-					((ClientClass *)Client)->Send_Packet(&MovePacketClass(Unknown_Avatar_ID(Client), 4));
-					sclient->Unknown_745E40(0, false);
-					Unknown0B8->Unknown_674160(0);
-					Unknown0B8->Unknown_671740(false, 0);
-					Unknown0BC->Unknown_674160(0);
-					Unknown0BC->Unknown_671740(false, 0);
-					Unknown144 = 0;
-					return(true);
+					break;
 				case 2:
 					Unknown0BC->Unknown_674160(1);
 					Unknown0BC->Unknown_A4(2.0f);
 					Unknown0BC->Unknown_66C360();
 					Unknown144 = 4;
-					return(true);
+					break;
 				case 4:
-					return(true);
-			}
+					break;
+			} break;
 		case 14:
-			if (!((ClientClass *)Client)->DebugMode) return(true);
-			if (lock_speed) return(true);
+			if (!((ClientClass *)Client)->DebugMode) break;
+			if (lock_speed) break;
 			((ClientClass *)Client)->Send_Packet(&MovePacketClass(Unknown_Avatar_ID(Client), 5));
 			sclient->Unknown_745E40(1, true);
 			Unknown144 = 5;
-			return(true);
+			break;
 		case 15:
-			if (!((ClientClass *)Client)->DebugMode) return(true);
-			if (lock_speed) return(true);
+			if (!((ClientClass *)Client)->DebugMode) break;
+			if (lock_speed) break;
 			((ClientClass *)Client)->Send_Packet(&MovePacketClass(Unknown_Avatar_ID(Client), 6));
 			sclient->Unknown_745E40(-1, true);
 			Unknown144 = 6;
-			return(true);
+			break;
 		case 16:
-			if (lock_orient) return(true);
-			if (Unknown134 == -1) return(true);
+			if (lock_orient) break;
+			if (Unknown134 == -1) break;
 			Unknown134 = -1;
 			((ClientClass *)Client)->Send_Packet(&TurnPacketClass(Unknown_Avatar_ID(Client), -1.0f));
 			sclient->Unknown_745B90(-1.0f);
 			Unknown0C0->Unknown_671740(true, 1.0f);
 			Unknown0C4->Unknown_671740(false, 0);
-			return(true);
+			break;
 		case 17:
-			if (lock_orient) return(true);
-			if (Unknown134 == 1) return(true);
+			if (lock_orient) break;
+			if (Unknown134 == 1) break;
 			Unknown134 = 1;
 			((ClientClass *)Client)->Send_Packet(&TurnPacketClass(Unknown_Avatar_ID(Client), 1.0f));
 			sclient->Unknown_745B90(1.0f);
 			Unknown0C4->Unknown_671740(true, 1.0f);
 			Unknown0C0->Unknown_671740(false, 0);
-			return(true);
+			break;
 		case 18:
-			if (lock_orient) return(true);
-			if (Unknown134 == 0) return(true);
+			if (lock_orient) break;
+			if (Unknown134 == 0) break;
 			Unknown134 = 0;
 			((ClientClass *)Client)->Send_Packet(&TurnPacketClass(Unknown_Avatar_ID(Client), 0));
 			sclient->Unknown_745B90(0);
 			Unknown0C0->Unknown_671740(false, 0);
 			Unknown0C4->Unknown_671740(false, 0);
-			return(true);
+			break;
 		case 19:
-			if (lock_orient) return(true);
-			if (Unknown138 == 1) return(true);
+			if (lock_orient) break;
+			if (Unknown138 == 1) break;
 			Unknown138 = 1;
 			((ClientClass *)Client)->Send_Packet(&TiltPacketClass(Unknown_Avatar_ID(Client), 1.0f));
 			sclient->Unknown_745C70(1.0f);
-			return(true);
+			break;
 		case 20:
-			if (lock_orient) return(true);
-			if (Unknown138 == -1) return(true);
+			if (lock_orient) break;
+			if (Unknown138 == -1) break;
 			Unknown138 = -1;
 			((ClientClass *)Client)->Send_Packet(&TiltPacketClass(Unknown_Avatar_ID(Client), -1.0f));
 			sclient->Unknown_745C70(-1.0f);
-			return(true);
+			break;
 		case 21:
-			if (lock_orient) return(true);
-			if (Unknown138 == 0) return(true);
+			if (lock_orient) break;
+			if (Unknown138 == 0) break;
 			Unknown138 = 0;
 			((ClientClass *)Client)->Send_Packet(&TiltPacketClass(Unknown_Avatar_ID(Client), 0));
 			sclient->Unknown_745C70(0);
-			return(true);
+			break;
 		case 0x48:
 		case 0x4B:
 		case 0x4C:
 		case 0x4D:
-		case 0x4E:
-			return(true);
+		case 0x4E: break;
+		default: return(false);
 	}
-	return(false);
+	return(true);
 }
 
 
@@ -1247,16 +1247,16 @@ void UICpitClass::Unknown_582190(ClientObjectClass *object, int arg)
 
 
 
-
-
+// 0x5821C0's 0x584000 through one more inline layer: its expansion calls the find out of line as the client's (0x546710)
+inline bool Unknown_Cpit_Engine(UICpitClass *cpit) { return(cpit->Unknown_584000(true)); }	// NAME 1: neutral (D10)
 // auxdata.h's find through two inline layers, the NameClass built in the inner one: set (+0x70), or changed since (+0x70
 // above 1), else NULL. 0x5821C0's copies call the Casts out of line as the client's (0x546970, 0x584FF0, 0x531590, 0x585040)
 template<class C> inline C *Unknown_Find_Valid_Field(DeltaCompoundClass *root, const char *name)	// NAME 1: neutral (D10)
 {
 	NameClass n(name);
 	C *t = Unknown_Find_Field<C>(root, n);
-	if (t && t->Unknown70) return(t);
-	return(NULL);
+	return((t && t->Unknown70) ? t : NULL);
+
 }
 template<class C> inline C *Unknown_Find_Valid(DeltaCompoundClass *root, const char *name)	// NAME 1: neutral (D10), as ui_attrb.cpp's
 {
@@ -1266,8 +1266,8 @@ template<class C> inline C *Unknown_Find_Changed_Field(DeltaCompoundClass *root,
 {
 	NameClass n(name);
 	C *t = Unknown_Find_Field<C>(root, n);
-	if (t && t->Unknown70 > 1) return(t);
-	return(NULL);
+	return((t && t->Unknown70 > 1) ? t : NULL);
+
 }
 template<class C> inline C *Unknown_Find_Changed(DeltaCompoundClass *root, const char *name)	// NAME 1: neutral (D10), as ui_attrb.cpp's
 {
@@ -1275,18 +1275,18 @@ template<class C> inline C *Unknown_Find_Changed(DeltaCompoundClass *root, const
 }
 
 // 0x5821C0: the warp button's state from the avatar's aux data, the throttle lights and the speed display (slot +0x60)
-// NOT EXACT: written from the client (its expanded 0x584000 calls the find out of line, ours inlines it)
+// NOT EXACT: the expanded 0x584000 calls its set-field layer out of line (the client the find, 0x546710, with the +0x70 test inline) and cases 3 / 1 put their NameClass in the shared slot (the client's -0xB8 / -0x84); the dead Children.size() reads after case 0's WarpAvailable find and before case 1's time test spend the inline budget so every Cast but the last two goes out of line as the client's (D272)
 void UICpitClass::Unknown_5821C0(ClientObjectClass *avatar)
 {
 	DeltaCompoundClass *aux = (DeltaCompoundClass *)avatar->AuxData;
 	{
-		DeltaTemplateClass<float> *max_speed = Unknown_Find_Changed_Field<DeltaTemplateClass<float> >(aux, "MaxSpeed");
-		DeltaTemplateClass<bool> *lock_speed = Unknown_Find_Changed_Field<DeltaTemplateClass<bool> >(aux, "LockSpeed");
+		DeltaTemplateClass<float> *max_speed = Unknown_Find_Changed<DeltaTemplateClass<float> >(aux, "MaxSpeed");
+		DeltaTemplateClass<bool> *lock_speed = Unknown_Find_Changed<DeltaTemplateClass<bool> >(aux, "LockSpeed");
 		if (max_speed || lock_speed) {
 			if (max_speed && !lock_speed) {
-				lock_speed = Unknown_Find_Valid_Field<DeltaTemplateClass<bool> >(aux, "LockSpeed");
+				lock_speed = Unknown_Find_Valid<DeltaTemplateClass<bool> >(aux, "LockSpeed");
 			}
-			bool engine = Unknown_584000(true);
+			bool engine = Unknown_Cpit_Engine(this);
 			bool locked = lock_speed ? lock_speed->Value : false;
 			bool on = engine && !locked;
 			Unknown0B8->Unknown_40(on);
@@ -1297,7 +1297,7 @@ void UICpitClass::Unknown_5821C0(ClientObjectClass *avatar)
 		}
 	}
 	{
-		DeltaTemplateClass<bool> *lock_orient = Unknown_Find_Changed_Field<DeltaTemplateClass<bool> >(aux, "LockOrient");
+		DeltaTemplateClass<bool> *lock_orient = Unknown_Find_Changed<DeltaTemplateClass<bool> >(aux, "LockOrient");
 		if (lock_orient) {
 			if (lock_orient->Value) {
 				Unknown0C0->Unknown_40(0);
@@ -1334,24 +1334,24 @@ void UICpitClass::Unknown_5821C0(ClientObjectClass *avatar)
 		Unknown_5845A0();
 	} else {
 		{
-			DeltaTemplateClass<int> *warp = Unknown13E ? Unknown_Find_Valid_Field<DeltaTemplateClass<int> >(aux, "WarpAvailable") : Unknown_Find_Changed_Field<DeltaTemplateClass<int> >(aux, "WarpAvailable");
+			DeltaTemplateClass<int> *warp = Unknown13E ? Unknown_Find_Valid<DeltaTemplateClass<int> >(aux, "WarpAvailable") : Unknown_Find_Changed<DeltaTemplateClass<int> >(aux, "WarpAvailable");
 			if (warp) {
-				const char *text;
 				if (warp->Value == 2) {
 					Unknown150 = true;
 					Unknown0B4->Unknown_40(1);
-					text = "WARP";
+					GadgetClass::Set_Tooltip(Unknown0B4, "UI_CPIT", "WARP");
 				} else {
 					Unknown150 = false;
 					Unknown0B4->Unknown_40(0);
-					text = (warp->Value == 1) ? "NO_WARP" : "CANNOT_WARP";
+					if (warp->Value == 1) GadgetClass::Set_Tooltip(Unknown0B4, "UI_CPIT", "NO_WARP");
+					else GadgetClass::Set_Tooltip(Unknown0B4, "UI_CPIT", "CANNOT_WARP");
 				}
-				GadgetClass::Set_Tooltip(Unknown0B4, "UI_CPIT", text);
+
 				Unknown_5845A0();
 			}
 		}
 		{
-			DeltaTemplateClass<int> *state = Unknown13E ? Unknown_Find_Valid_Field<DeltaTemplateClass<int> >(aux, "PrivateWarpState") : Unknown_Find_Changed_Field<DeltaTemplateClass<int> >(aux, "PrivateWarpState");
+			DeltaTemplateClass<int> *state = Unknown13E ? Unknown_Find_Valid<DeltaTemplateClass<int> >(aux, "PrivateWarpState") : Unknown_Find_Changed<DeltaTemplateClass<int> >(aux, "PrivateWarpState");
 			if (state) {
 				switch (state->Value) {
 					case 0:
@@ -1362,7 +1362,7 @@ void UICpitClass::Unknown_5821C0(ClientObjectClass *avatar)
 						} else {
 							Unknown0B4->Unknown_40(0);
 							Unknown_5845A0();
-							DeltaTemplateClass<int> *warp = Unknown_Find_Valid_Field<DeltaTemplateClass<int> >(aux, "WarpAvailable");
+							DeltaTemplateClass<int> *warp = Unknown_Find_Valid_Field<DeltaTemplateClass<int> >(aux, "WarpAvailable"); aux->Children.size(); aux->Children.size();
 							if (warp && warp->Value == 1) {
 								GadgetClass::Set_Tooltip(Unknown0B4, "UI_CPIT", "NO_WARP");
 							} else {
@@ -1390,7 +1390,7 @@ void UICpitClass::Unknown_5821C0(ClientObjectClass *avatar)
 						Unknown0B4->Unknown_40(0);
 						Unknown_5845A0();
 						GadgetClass::Set_Tooltip(Unknown0B4, "UI_CPIT", "WARP_WAIT");
-						DeltaTemplateClass<DurationClass> *time = Unknown_Find_Valid_Field<DeltaTemplateClass<DurationClass> >(aux, "WarpTriggerTime");
+						DeltaTemplateClass<DurationClass> *time = Unknown_Find_Valid<DeltaTemplateClass<DurationClass> >(aux, "WarpTriggerTime");
 						if (time) Unknown0B4->Set_State(4, time->Value.Get());
 						Unknown0B4->Unknown_A4(0);
 						SClient *client = (SClient *)((ClientClass *)Client)->As_Space_Client();
@@ -1401,8 +1401,8 @@ void UICpitClass::Unknown_5821C0(ClientObjectClass *avatar)
 					case 1:
 					{
 						GadgetClass::Set_Tooltip(Unknown0B4, "UI_CPIT", "WARP_DONE");
-						DeltaTemplateClass<DurationClass> *time = Unknown_Find_Valid_Field<DeltaTemplateClass<DurationClass> >(aux, "WarpTriggerTime");
-						if (time) Unknown0B4->Set_State(1, time->Value.Get());
+						DeltaTemplateClass<DurationClass> *time = Unknown_Find_Valid<DeltaTemplateClass<DurationClass> >(aux, "WarpTriggerTime");
+						aux->Children.size(); aux->Children.size(); aux->Children.size(); if (time) Unknown0B4->Set_State(1, time->Value.Get());
 						Unknown0B4->Unknown_A4(0);
 						break;
 					}
@@ -1412,7 +1412,7 @@ void UICpitClass::Unknown_5821C0(ClientObjectClass *avatar)
 						Unknown174->Set_Hidden(false);
 						Unknown0B4->Set_State(2, 0);
 						Unknown0B4->Unknown_A4(1.0f);
-						((MainViewClass *)View->As_Main_View())->CameraEffects->Unknown_6E32E0(2, 1.0f, 0);
+						MainViewClass *view = (MainViewClass *)View->As_Main_View(); view->CameraEffects->Unknown_6E32E0(2, 1.0f, 0);
 						SClient *client = (SClient *)((ClientClass *)Client)->As_Space_Client();
 						if (client && client->Bridge) client->Bridge->Start_Warp();
 						break;
@@ -1422,7 +1422,7 @@ void UICpitClass::Unknown_5821C0(ClientObjectClass *avatar)
 		}
 		if (Unknown13E) Unknown13E = false;
 	}
-	Vector3 velocity = avatar->Unknown_2C();
+	Vector3 velocity = avatar->Unknown_2C(); char text[8];
 	float speed = velocity.Length() * 1000.0f;
 	if (Vector3::Dot_Product(velocity, avatar->Unknown_28(true).Get_X_Vector()) < 0.0f) speed = -speed;
 	if (Unknown144 == 1 || Unknown144 == 3 || ((ViewButtonClass *)Unknown0AC)->Unknown49) {
@@ -1442,34 +1442,34 @@ void UICpitClass::Unknown_5821C0(ClientObjectClass *avatar)
 		int shown = (int)speed;
 		if (Unknown130 != shown) {
 			Unknown130 = shown;
-			char text[8];
+
 			sprintf(text, "%03d", shown);
 			((FontSys *)Unknown154)->Change_Text(text, 0);
 		}
 	}
-	Unknown_673EE0Class *gadget;
 	if (Unknown144 == 1 || Unknown144 == 3) {
 		DeltaTemplateClass<float> *t = Unknown_Find_Valid_Field<DeltaTemplateClass<float> >(aux, "MaxSpeed");
 		if (!t) return;
-		if (!(t->Value * 0.99f < speed)) {
-			((FontSys *)Unknown154)->Unknown_6CE910(0);
+		if (t->Value * 0.99f < speed) {
+			if (Unknown0B8->Unknown80 == 0) Unknown0B8->Unknown_674120(1);
+			((FontSys *)Unknown154)->Unknown_6CE910(1);
 			return;
 		}
-		gadget = Unknown0B8;
 	} else if (Unknown144 == 2 || Unknown144 == 4) {
 		DeltaTemplateClass<float> *t = Unknown_Find_Valid_Field<DeltaTemplateClass<float> >(aux, "MinSpeed");
 		if (!t) return;
-		if (!(t->Value * 0.99f > speed)) {
-			((FontSys *)Unknown154)->Unknown_6CE910(0);
+		if (t->Value * 0.99f > speed) {
+			if (Unknown0BC->Unknown80 == 0) Unknown0BC->Unknown_674120(1);
+			((FontSys *)Unknown154)->Unknown_6CE910(1);
 			return;
 		}
-		gadget = Unknown0BC;
-	} else {
-		((FontSys *)Unknown154)->Unknown_6CE910(0);
-		return;
 	}
-	if (gadget->Unknown80 == 0) gadget->Unknown_674120(1);
-	((FontSys *)Unknown154)->Unknown_6CE910(1);
+	((FontSys *)Unknown154)->Unknown_6CE910(0);
+
+
+
+
+
 }
 
 
@@ -2126,8 +2126,8 @@ void UICpitHarvestWatchClass::Unknown_Watch_0C()
 **	  inline budget; 0x57F240 took nine before D165's cheaper FAIL_IF, FI1), the window close
 **	  0x581CE0, 0x581E60 / 0x581F90 / 0x582070 / 0x5820C0 / 0x582190, the warp and turn buttons 0x583250 / 0x583510,
 **	  0x583DA0, 0x583F70, the font state 0x584110 / 0x5845A0, 0x584A20 / 0x584A60 and both watchers 0x584A80-0x584BE0;
-**	  0x57D6C0 and the set-up 0x57DD20 (dead spenders after their sites, D272); still differing (the inline budget unless noted): the
-**	  steering keys 0x5806E0, the warp state 0x5821C0, the throttle buttons 0x583790, the damage texts 0x583DC0,
+**	  0x57D6C0, the set-up 0x57DD20 and the steering keys 0x5806E0 (dead spenders after their sites, D272); still differing
+**	  (the inline budget unless noted): the warp state 0x5821C0, the throttle buttons 0x583790, the damage texts 0x583DC0,
 **	  0x584000 (order) and the incapacitance details 0x584690.
 **	The packets' player ids go through two inline accessors (Unknown_Avatar_ID / Unknown_Player_ID): the client
 **	reads them before the constructors' other arguments, which a member read does not reproduce. The PacketClass

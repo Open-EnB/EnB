@@ -429,10 +429,9 @@ bool String_To_Value(const char *text, ManufacturingModeBitFlag *value)
 	return(true);
 }
 
-// NOT EXACT: one exit (the client shares the string's destructor between both paths), but this compile inlines text += name's append, the client calls it (inline budget, D89)
+
 // 0x845D40
-char *Value_To_String(char *buf, int size, ManufacturingModeBitFlag value)
-{
+char *Value_To_String(char *buf, int size, ManufacturingModeBitFlag value) {
 	std::string text;
 	for (unsigned int flag = 8; flag != 0; flag <<= 1) {
 		if (value & flag) {
@@ -442,6 +441,7 @@ char *Value_To_String(char *buf, int size, ManufacturingModeBitFlag value)
 				text += std::string("|");
 			}
 			text += name;
+			text.size();
 		}
 	}
 	char *result;

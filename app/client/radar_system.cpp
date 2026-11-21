@@ -83,7 +83,7 @@ void RadarSystemClass::Unknown_7BCA40(bool arg)
 	TargetPath->Clear();
 }
 
-// NOT EXACT: register (73 masked rows: ours keeps a zero register in ebx where the client keeps gutter, so loop 1's tests and loop 2's node advances differ)
+// NOT EXACT: register (66 masked rows: ours keeps a zero register in ebx where the client keeps gutter, so loop 1's tests differ; loop 2's node is in esi before the loop and reloaded at its head where the client keeps it in edi on every back edge, so the continue path's advance merges into the loop end's; the loop end's next temporary keeps the FAIL_IF(!rdata) advance apart as the client's, at the cost of an unthreaded NULL path)
 // @0x7BCA70
 void RadarSystemClass::Unknown_7BCA70(GutterRadarClass *gutter, StarmapPipClass *starmap, const RefCountPtr<RefCountClass> &scene)
 {
@@ -225,7 +225,7 @@ void RadarSystemClass::Unknown_7BCA70(GutterRadarClass *gutter, StarmapPipClass 
 		} else if (sdata) {
 			sdata->Remove_From_Scene();
 		}
-		node = node->Next_Valid();
+		HashNodeClass<ClientObjectClass *> *next = node->Next_Valid(); node = next;
 	}
 
 

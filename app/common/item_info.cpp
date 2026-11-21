@@ -527,7 +527,7 @@ std::string ItemInfoClass::Get_Delta()
 	return(delta);
 }
 
-// NOT EXACT: 0x8417B0 (0.78, the same 287 instructions but 4: the client keeps field_separator and takes field_separator + 1 into another register for the second substr)
+// 0x8417B0
 // Replaces the fields by those of a delta string ('id:value' pieces between DeltaSeparator)
 void ItemInfoClass::Apply_Delta(const std::string &delta)
 {
@@ -559,7 +559,8 @@ void ItemInfoClass::Apply_Delta(const std::string &delta)
 		FAIL_IF(item_info >= NUM_ITEM_INFO) {
 			continue;
 		}
-		std::string value = it->substr(field_separator + 1);
+		int value_start = field_separator + 1;
+		std::string value = it->substr(value_start);
 		if (_ItemField.Is_String(item_info)) {
 			Set_String((ItemInfoEnum)item_info, value.c_str());
 			continue;
@@ -570,8 +571,7 @@ void ItemInfoClass::Apply_Delta(const std::string &delta)
 		}
 		if (_ItemField.Is_Int(item_info)) {
 			Set_Int((ItemInfoEnum)item_info, atoi(value.c_str()), false);
-		}
-	}
+		} }
 }
 
 /*

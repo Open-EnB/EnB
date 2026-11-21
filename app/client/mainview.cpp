@@ -1783,7 +1783,7 @@ void MainViewClass::Unknown_512B10(int x, int y, float *fx, float *fy)
 
 
 
-// NOT EXACT: shape, 15 masked rows (NL1): the avatar test's register names (9), Rotate_Vector's first-row x87 operand (2), dir *= oolen's fst where the client stores and reloads (2 per block); attempts.py show 0x512BB0
+// NOT EXACT: x87 operand order, 0 masked rows, 14 raw (HS): ray.Normalize()'s Y / Z loads and the dir / ray dot products load ray first where the client loads dir; attempts.py show 0x512BB0
 // slot +0x60: the object under the screen point (x, y in 0..1): the avatar's model first unless skip_avatar, then the
 // objects within the camera's far distance and 5 degrees of the ray (the planets and stations, types 2 / 3 / 10,
 // within their apparent size), the one nearest the ray that no nearer occluder covers
@@ -1792,8 +1792,8 @@ ClientObjectClass *MainViewClass::Unknown_60(float x, float y, bool skip_avatar,
 	if (!skip_avatar) {
 		LayerClass layer(Scene, Camera, false, false, Vector3(0.0f, 0.0f, 0.0f));
 		ClientObjectClass *avatar = Client->Get_Avatar();
-		if (avatar && Intersection.Intersect_Screen_Point_RenderObject(x, y, layer, avatar->RenderObject, NULL)) {
-			return(avatar);
+		if (avatar) { RenderObjClass *model = avatar->RenderObject;
+			if (Intersection.Intersect_Screen_Point_RenderObject(x, y, layer, model, NULL)) return(avatar);
 		}
 		skip_avatar = true;
 	}
@@ -1802,14 +1802,14 @@ ClientObjectClass *MainViewClass::Unknown_60(float x, float y, bool skip_avatar,
 	Vector2 plane_min, plane_max;	CameraClass *camera = Camera;
 	camera->Get_View_Plane(plane_min, plane_max);
 	const ViewportClass &viewport = camera->Get_Viewport();
-	float dx = (float)(((viewport.Min.X - x) + 0.5) * (plane_max.X - plane_min.X) * -1.0);
-	float dy = (float)(((y - 0.5) - viewport.Min.Y) * (plane_max.Y - plane_min.Y) * -1.0);
+	Vector3 v; v.X = (float)(((viewport.Min.X - x) + 0.5) * (plane_max.X - plane_min.X) * -1.0);
+	v.Y = (float)(((y - 0.5) - viewport.Min.Y) * (plane_max.Y - plane_min.Y) * -1.0); v.Z = -1.0f;
 	Vector3 ray;
-	Matrix3D::Rotate_Vector(tm, Vector3(dx, dy, -1.0f), &ray);
+	Matrix3D::Rotate_Vector(tm, v, &ray);
 	ray.Normalize();
 	float far2 = Camera->Get_Depth();
 	far2 = far2 * far2;
-	InfoCount = 0;
+	float oolen_o = 0.0f, oolen_g = 0.0f; InfoCount = 0;
 	HashNodeClass<ClientObjectClass *> *node = Client->ObjectList.First_Valid();
 	while (node && node->Next()) {
 		ClientObjectClass *object = node->Get_Record();
@@ -1821,12 +1821,12 @@ ClientObjectClass *MainViewClass::Unknown_60(float x, float y, bool skip_avatar,
 			{
 				Vector3 dir = object->Unknown_24() - eye;
 				float dist2 = dir.X * dir.X + dir.Y * dir.Y + dir.Z * dir.Z;
-				float oolen = WWMath::Inv_Sqrt(dist2);
-				dir *= oolen;
+				oolen_o = WWMath::Inv_Sqrt(dist2);
+				dir *= oolen_o;
 				float cos;
 				if (dist2 <= far2 && (cos = Vector3::Dot_Product(ray, dir)) >= 0.7071067811865) {
 					float radius = object->Unknown_30();
-					double size = sqrt(dist2 - radius * radius) * oolen;
+					double size = sqrt(dist2 - radius * radius) * oolen_o;
 					if (size > 0.9999880590209) break;
 					float limit = (size < 0.9961946980917) ? size : 0.9961946980917;
 					if (limit > cos) break;
@@ -1842,10 +1842,10 @@ ClientObjectClass *MainViewClass::Unknown_60(float x, float y, bool skip_avatar,
 			{
 				Vector3 dir = object->Unknown_24() - eye;
 				float dist2 = dir.X * dir.X + dir.Y * dir.Y + dir.Z * dir.Z;
-				float oolen = WWMath::Inv_Sqrt(dist2);
-				dir *= oolen;
+				oolen_g = WWMath::Inv_Sqrt(dist2);
+				dir *= oolen_g;
 				float cos;
-				if (dist2 <= far2 && (cos = Vector3::Dot_Product(dir, ray)) >= 0.9961946980917 && object->Unknown_30() * oolen >= 0.004886902454025) {
+				if (dist2 <= far2 && (cos = Vector3::Dot_Product(dir, ray)) >= 0.9961946980917 && object->Unknown_30() * oolen_g >= 0.004886902454025) {
 					PickInfoStruct &info = Info[InfoCount];
 					info.Dir = dir; info.Dist2 = dist2; info.Cos = cos; info.CosSize = -1.0f; info.Object = object; info.Occluder = false;
 					if (++InfoCount == 64) goto sort;
