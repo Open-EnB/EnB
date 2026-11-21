@@ -44,8 +44,8 @@ TextBaseGadgetClass *TextBaseGadgetClass::_ActiveUI = NULL;
 **	(fontsys_cursor.cpp's TextCursorClass, 0x685680). 0x6AAD10 runs every frame: on Changed the text redrawn
 **	(clipped to the box around the cursor, 0x6AB190; with flag 0x400 scrolled to fit the screen-scaled box), the
 **	cursor moved; while active the cursor blinks at GetCaretBlinkTime (flag 0x1000).
-**	The flags are extern constants in .rdata 0xB08C90-0xB08CC4 (1 ... 0x1000, 0x2C0): their file is not known; the POC
-**	defines them (programs/clientpoc/poc_data.cpp).
+**	The flags are extern constants in .rdata 0xB08C90-0xB08CC4 (1 ... 0x1000, 0x2C0): their file is not known; the tree
+**	defines them in gadget.cpp (an interim place, since the stand-in build went, 2026-11-21).
 **	0x6AB320- after this file ('TOOLTIPS', 'Interface_Tooltip_Delay') are tooltip.cpp's (its EH handlers follow this
 **	file's at 0xAC14A9; tooltip.cpp in this tree).
 */

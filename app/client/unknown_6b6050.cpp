@@ -50,5 +50,5 @@ bool UIStarbaseGadget6B6050Class::Unknown_34(KernelEventClass *event, float x, f
 **	stores the table and jumps to GadgetClass's); slot +0x2C tests the mask against GadgetClass's +0x10; slot +0x34
 **	passes bits 0x44 the base declined to slot +0x2C and answers false. The object ends with <string>'s guarded
 **	static 0x6B6180 (guard 0xC416FC, atexit 0x42B320), as every file including it. Moved here from ui_starbase.cpp
-**	(declared) and programs/clientpoc/poc_world2.cpp (defined), its interim places.
+**	(declared) and the stand-in build's poc_world2.cpp (defined, until 2026-11-21), its interim places.
 */

@@ -25,7 +25,7 @@ class UISlotInfoClass;			// ui_slot_info.h's (+0x9C)
 class SlotDataInterface : public InterfaceClass	// NAME 5: the client's RTTI (MemberCallback<SlotDataClass, SlotDataInterface, ...>)
 {
 public:
-// (the POC's empty-window constructor went with programs/clientpoc)
+// (the stand-in build's empty-window constructor went with it, 2026-11-21)
 
 
 

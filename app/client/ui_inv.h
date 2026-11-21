@@ -22,7 +22,7 @@ class UIInvClass : public SlotDataInterface	// NAME 3: class-from-file (D24) for
 {
 public:
 	enum { INV_NONE = 0, INV_VENDOR = 4 };				// InvType's (G_ASSERTs 'InvType != INV_NONE' l.306, 'InvType == INV_VENDOR' l.543 / 570)  // NAME 3: the asserts'
-// (the POC's empty-window constructor went with programs/clientpoc)
+// (the stand-in build's empty-window constructor went with it, 2026-11-21)
 
 
 	UIInvClass(SClient *client, int kind);				// 0x59F3D0 (the kind into +0xBC: the trade window passes 7)  // NAME 1 [client]: neutral; NAME 2 [kind]: what it chooses
@@ -62,7 +62,7 @@ public:
 class UIInvStripClass : public UIInvClass	// NAME 2: what it is (the week's map calls it the inventory strip)
 {
 public:
-// (the POC's empty-window constructor went with programs/clientpoc)
+// (the stand-in build's empty-window constructor went with it, 2026-11-21)
 
 
 	UIInvStripClass(SClient *client, int kind) : UIInvClass(client, kind) {}	// (inline: 0x59EA30, 0x59EDC0)  // NAME 1 [client]: neutral; NAME 2 [kind]: UIInvClass's
