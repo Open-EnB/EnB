@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1970 |
 | 2 | describes what the code does | 5001 |
-| 1 | neutral placeholder | 25177 |
+| 1 | neutral placeholder | 25178 |
 
 ## For review (score 3 and below)
 
@@ -18766,6 +18766,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown1BC` | `app/client/ui_starbase.cpp:1550` | untagged neutral name (D10) |
 | 1 | `Unknown310` | `app/client/ui_starbase.cpp:1567` | untagged neutral name (D10) |
 | 1 | `Unknown30C` | `app/client/ui_starbase.cpp:1568` | untagged neutral name (D10) |
+| 1 | `Unknown_Show_Ship` | `app/client/ui_starbase.cpp:1618` | neutral (D10) |
 | 1 | `Unknown_58` | `app/client/ui_starbase.cpp:1622` | untagged neutral name (D10) |
 | 1 | `Unknown_760770` | `app/client/ui_starbase.cpp:1628` | untagged neutral name (D10) |
 | 1 | `Unknown_69DBA0` | `app/client/ui_starbase.cpp:1629` | untagged neutral name (D10) |
