@@ -410,7 +410,7 @@ void SimpleSceneClass::Register(RenderObjClass * obj,RegType for_what)
 			UpdateList.Add(obj);			
 			break;
 		case LIGHT:	
-			LightList.Add(obj);	
+			LightList.Add_Tail(obj);	
 			break;
 		case RELEASE:				
 			ReleaseList.Add(obj);		
@@ -682,3 +682,5 @@ RenderObjClass * SimpleSceneIterator::Current_Item(void)
 // EnB: SimpleSceneClass::Customized_Render (line 579 at the freeze): E&B's SimpleSceneClass::Customized_Render goes
 //       through the object's render hook (Zero Hour's; not its light-environment change): 0x9661C0 tests RenderHook
 //       (+0x88), calls Pre_Render (slot 1), Render only if it returns true, then Post_Render (slot 2)
+// EnB: SimpleSceneClass::Register: E&B's SimpleSceneClass::Register adds a LIGHT at LightList's tail: 0x965E51
+//       calls GenericMultiListClass::Internal_Add_Tail (0x9D1160) (relocaudit.py, run 2026-11-21 PRESET)

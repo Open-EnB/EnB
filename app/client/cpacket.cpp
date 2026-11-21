@@ -1626,7 +1626,7 @@ bool TalkTreeActionPacketClass::Process_Packet(void *instance)
 // 0x7388B0
 bool VerbUpdatePacketClass::Process_Packet(void *instance)
 {
-	WWPROFILE("VerbUpdatePacketClass::Process_Packet(void * instance)");
+	WWPROFILE("VerbUpdatePacketClass::Process_Packet()");
 	SClient *sclient = (SClient *)instance;
 	if (sclient->VerbManager) {
 		sclient->VerbManager->Unknown_81F810(GameID, &Adds, &Drops);
@@ -1637,7 +1637,7 @@ bool VerbUpdatePacketClass::Process_Packet(void *instance)
 // 0x7387F0
 bool VerbListPacketClass::Process_Packet(void *instance)
 {
-	WWPROFILE("VerbListPacketClass::Process_Packet(void * instance)");
+	WWPROFILE("VerbListPacketClass::Process_Packet()");
 	SClient *sclient = (SClient *)instance;
 	if (sclient->VerbManager) {
 		sclient->VerbManager->Unknown_81F780(GameID, &Verbs);
@@ -2352,7 +2352,7 @@ bool StarbaseAvatarRoomUpdatePacketClass::Process_Packet(void *instance)
 // 0x73AC60
 bool GalaxyMapPacketClass::Process_Packet(void *instance)
 {
-	WWPROFILE("GalaxyMapPacketClass::Process_Packet()");
+	WWPROFILE("GalaxyMapPacketClass::Process_Packet(void * instance)");
 	SClient *sclient = (SClient *)instance;
 	GalaxyMapClientClass *map = sclient->GalaxyMap;
 	FAIL_IF(!map) return(true);
@@ -3466,4 +3466,6 @@ bool RecustomizeAvatarUpdatePacketClass::Process_Packet(void *instance)
 **	the pushes, the source reads it through an inline accessor (the line display's fields, the views'
 **	+0x34, the main view's +0x13C).
 **	Some handlers reach SClient through ClientClass slot +0x18 (SClient's returns this).
+**	The profile names of VerbUpdate / VerbList (0x7388B0, 0x7387F0: '...::Process_Packet()') and GalaxyMap
+**	(0x73AC60: '...::Process_Packet(void * instance)') are the client's strings (relocaudit.py, run 2026-11-21 PRESET).
 */
