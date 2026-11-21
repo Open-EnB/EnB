@@ -708,21 +708,12 @@ void FontSys::Unknown_6CA0C0(FontEffectStruct *effect)
 	}
 }
 
-#pragma auto_inline(off)
-// 0x6D5B10
-void FontSys::Unknown_6D5B10(float &width, float &height)
-{
-	width = (640.0f / (float)Width) * (float)(Unknown420[1] - Unknown420[0]);
-	height = (480.0f / (float)Height) * (float)(Unknown420[3] - Unknown420[2]);
-}
-#pragma auto_inline(on)
-
 /*
 **	Reconstruction notes
 **
 **	0x6CA070 (56 bytes, Random_Letter, exact) sits right before 0x6CA0C0 in this object (inlined at its three
 **	RANDLETTER call sites in 0x6CA0C0, out-of-line copy with thunk 0x40F2D6).
-**	0x6CA0C0 (11,680 bytes) and 0x6D5B10 (0x80): FNT4 of the POC queue (.work/poc/ledger.md), builder TXT2, run 2026-11-02.
+**	0x6CA0C0 (11,680 bytes) and 0x6D5B10 (0x80, now in fontsys.cpp): FNT4 of the POC queue (.work/poc/ledger.md), builder TXT2, run 2026-11-02.
 **	Interim file (D137): the function before 0x6CA0C0 is fontdatabase.cpp's, the next one unknown_creator's; no known file
 **	fits. Both are FontSys members, as in the client (__thiscall over the style; PF, run 2026-11-02-night; 0x6D5B10
 **	sits just before fontsys.cpp's Get_Obj_Space_Bounding_Sphere 0x6D5B90, so its file is probably fontsys.cpp).
