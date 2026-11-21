@@ -246,7 +246,7 @@ void GalaxyMapRObjClass::Unknown_7B3770(const Vector2 &min, const Vector2 &max, 
 	if (resize) {
 		Resize(_max_polys, _max_verts);
 	}
-	ShaderClass shader = ShaderClass::_PresetAlpha2DShader;
+	ShaderClass shader = ShaderClass::_PresetAdditive2DShader;
 	shader.Set_Cull_Mode(ShaderClass::CULL_MODE_DISABLE);
 	shader.Set_Primary_Gradient(ShaderClass::GRADIENT_MODULATE);
 	Set_Shader(shader);
@@ -435,4 +435,5 @@ void GalaxyMapLineRObjClass::Render(RenderInfoClass &rinfo)
 **	initialiser 0x7B46B0. Out-of-line templates here: Create_Peek 0x7B45A0, DynamicVectorClass<
 **	VertexMaterialClass *>::Add 0x7B45D0; the classes' inline Class_ID 0x7B30B0 (DynamicMeshClass's)
 **	and 0x7B3E80 (SegmentedLineClass's).
+**	0x7B3770 copies _PresetAdditive2DShader (0x7B3794 reads 0xC01180, set to 0x94037 = SC_ADD_2D by 0x93B2B0).
 */

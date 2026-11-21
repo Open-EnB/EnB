@@ -193,7 +193,7 @@ void StarmapDataClass::Update_Transform(const Vector3 &pos, const Vector2 &posit
 				float half = size * Radius;
 				Mesh->Resize(Unknown_B9F38C, Unknown_B9F390);
 				Mesh->Set_Texture(Texture.Peek());
-				Mesh->Set_Shader(ShaderClass::_PresetAlpha2DShader);
+				Mesh->Set_Shader(ShaderClass::_PresetAdditive2DShader);
 				float neg = -half;
 				Mesh->Begin_Tri_Strip();
 				Mesh->Vertex(neg, neg, 0, 0.0f, 1.0f);
@@ -367,4 +367,8 @@ const int Unknown_B9F390 = 4;
 **	0x7BE620; 0x7BE5A0, before them, closes radar_system_data_cache.cpp (it numbers two locale facets from 0xBE3B44).
 **	Create_Mesh wraps the new mesh with Create_NEW (no Add_Ref: the client's out-of-line copy 0x7BF770 stores the
 **	pointer alone and the caller's operator= adds the one reference).
+**	Update_Transform's shader is _PresetAdditive2DShader: 0x7BEC81 copies the preset at 0xC01180, whose bits
+**	ShaderClass's initialiser 0x93B2B0 sets to 0x94037 (source and destination blend ONE: SC_ADD_2D; retail's draw
+**	dump shows SRCBLEND=DESTBLEND=ONE). The picture is RObj2Texture's R5G6B5 texture, which has no alpha: drawn
+**	additively its black background vanishes, with Alpha2D it was an opaque black square (gap 8).
 */

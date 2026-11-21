@@ -15,7 +15,9 @@
 **   D3D8SHOT_EVERY  save every Nth presented frame (default 0: none)
 **   D3D8SHOT_FRAMES also save these frames, comma-separated (1 = the first frame presented)
 **   D3D8SHOT_MAX    at most this many screenshots (default 200)
-**   D3D8SHOT_DUMP   dump every draw call of these frames, comma-separated (M2.4: the land's geometry)
+**   D3D8SHOT_DUMP   dump every draw call of these frames, comma-separated (M2.4: the land's geometry). With it set
+**                   (0: no frame, only the buffers shadowed from the start), a trigger shot named dump_* also dumps
+**                   the frame after the shot (an e2e 'shot dump_NAME' step: a dump on an event, not a frame number)
 **   D3D8SHOT_TRIGGER a file path: when it exists at a Present (looked at every 8th), that frame is saved as
 **                   shot_<the file's first line>_NNNNN.bmp and the file deleted (tools/harness/e2e.py's 'shot' step:
 **                   a shot on an event, not at a frame number). A first line 'mark NAME' is a marker instead:
@@ -834,6 +836,10 @@ static HRESULT STDMETHODCALLTYPE Hook_Present(void *dev, const RECT *src, const 
 		if (!TriggerName[0]) strcpy(TriggerName, "shot");
 		DeleteFileA(Trigger);
 		Log("frame %d: trigger %s\n", Presented, TriggerName);
+		if (DumpCount > 0 && DumpCount < 64 && !strncmp(TriggerName, "dump_", 5)) {
+			Dumps[DumpCount++] = Presented + 1;		/* the next frame's draws */
+			Log("frame %d: dumping frame %d\n", Presented, Presented + 1);
+		}
 		Save_Back_Buffer(dev, Presented);
 		TriggerName[0] = 0;
 	}
