@@ -1616,7 +1616,7 @@ bool UIStarbaseClass::Unknown_68(int key)
 
 
 static inline void Unknown_Show_Ship(UIStarbaseClass *ui, RenderObjClass *ship) { Matrix3D tm = ui->InterfaceMesh->Peek_Object()->Get_Bone_Transform("ship"); ((SceneClass *)ui->UnknownB0->Unknown70.Peek())->Add_Render_Object(ship); ui->UnknownB0->Unknown70.Peek()->Add_Light_Environment(ship); ship->Set_Transform(tm); }	// the 'ship' block of 0x6366A0, 0x640360 and 0x6415B0 (its Matrix3D local one level deep: the client's ??_H, Row[3]'s Vector4() 0x468E70 cut out of line, in 0x6366A0 / 0x640360)  // NAME 1: neutral (D10)
-// NOT EXACT: 0x6366A0, functional (order / register: the ship block through Unknown_Show_Ship gives the client's ??_H; left: the client's zero register ebp (ours immediates, the column in ebp), the column's +0x1B4 load after the space client's; the map manager through a local gives its load before the pushes; O4, SB2)
+// NOT EXACT: 0x6366A0, functional (register / order: the ship block through Unknown_Show_Ship gives the client's ??_H; left: Unknown_7C's View / vtable registers swapped, UnknownB0 loaded before the flag stores, Room in edx (client edi); Get_Info() for the column, the map manager through a local, Unknown138 as one dword and the third-person test as one condition give the client's loads, its zero register ebp and its single toggle; O4, SB2)
 // 0x6366A0 (slot +0x58, the interface opened: the room's model in the view, the camera at the door the avatar came
 // through (or 'camera_3rd' on arrival), the ship and its animation in the hangar, the NPC slots, the parts, the fog)
 void UIStarbaseClass::Unknown_58()
@@ -1624,7 +1624,7 @@ void UIStarbaseClass::Unknown_58()
 	InterfaceSortScopeClass scope(this);
 	Unknown5BB320Class::Unknown_58();
 	Unknown1F8->Unknown_7C(View, false);
-	int column = UnknownB0->Info->Style;
+	int column = Get_Info()->Style;
 	EnvironmentMapManagerClass *env = ((LineDisplayClientClass *)Client)->As_Space_Client()->EnvironmentMapManager; env->Unknown_760770(100000, true);
 	UnknownB0->Unknown_69DBA0(1, Create_Get(InterfaceMesh->Unknown_5B8B20()));
 	Unknown21C = false;
@@ -1633,7 +1633,7 @@ void UIStarbaseClass::Unknown_58()
 	UnknownC0.A = -1;
 	UnknownC0.B = -1;
 	UnknownC0.C = -1;
-	memset(Unknown138, 0, sizeof(Unknown138));
+	*(int *)Unknown138 = 0;	// the four flags as one dword store (the client: mov [esi+0x138], ebp)
 	int i;
 	if (UnknownB0->Unknown58 == -1) {
 		UnknownB0->Unknown_69E260("camera_3rd");
@@ -1716,13 +1716,13 @@ void UIStarbaseClass::Unknown_58()
 	if (RoomInfo->Unknown0C) {
 		UnknownB0->Unknown_6A20C0(RoomInfo->Unknown18, RoomInfo->FogStart, RoomInfo->FogEnd);
 	}
-	if (OptionClass::Instance->Get_Bool("Starbase_Third_Person_Mode")) {
-		if (!UnknownC0.D->Avatar->Unknown2F5) {
-			UnknownC0.D->Avatar->Unknown2F5 = !UnknownC0.D->Avatar->Unknown2F5;
-		}
-	} else if (UnknownC0.D->Avatar->Unknown2F5) {
+	bool third = OptionClass::Instance->Get_Bool("Starbase_Third_Person_Mode");
+	if ((third && !UnknownC0.D->Avatar->Unknown2F5) || (!third && UnknownC0.D->Avatar->Unknown2F5)) {
 		UnknownC0.D->Avatar->Unknown2F5 = !UnknownC0.D->Avatar->Unknown2F5;
 	}
+
+
+
 	((LineDisplayClientClass *)Client)->As_Space_Client()->Mouse->Unknown_515120(2);
 	((LineDisplayClientClass *)Client)->As_Space_Client()->Mouse->Unknown_515400();
 }
