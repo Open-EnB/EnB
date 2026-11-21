@@ -737,6 +737,11 @@ the last name. Live antprox logs opcode numbers; e2e appends the names (`... = s
   docstring): `hold VK for S` (a down every 50 ms, a fixed count: each thrust down sends a MOVE), `rdrag`,
   `pose-mark`, `expect-pose forward|back|left|right|up|down|moved MIN` (the best of the poses sampled during the
   input, since the chase camera lags and the ship coasts). Left raises the pose's yaw, up its pitch.
+- **Private channels (`sp_chat_private`, 2026-11-21):** Chat -> Private Channel -> Join -> New sends
+  CLIENT_CHAT_REQUEST type 4 and the local server answers nothing (its CCE_INSERT_CHANNEL branch is empty), so no
+  window follows and the chat panel's request flag stays set; Join -> Existing's box takes digits only (edit flags
+  0xC4, stredit's 4: 'ab12' shows '12'), and its Confirm then prints 'Another request is pending' and sends nothing.
+  Retail and ours alike (the scenario's header has the coordinates and the client's functions).
 - **Extended keys (2026-11-21):** the client's keyboard code (w32kbd.cpp) reads lParam's scan code and extended
   bit; an arrow key posted with lParam 1 is the numpad's and nothing happens. `clientpoc.key_lparam` gives every
   posted key its scan code and, for the arrows, Insert / Delete / Home / End / PgUp / PgDn, the extended bit, as a
