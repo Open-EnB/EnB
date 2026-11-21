@@ -472,9 +472,9 @@ void Unknown664500Class::Unknown_664C60()
 	if (Unknown88 == -1) {
 		char buffer[256];
 		if (Unknown104 > 0) {
-			_snprintf(buffer, 256, "Level %d %s", Unknown104, Unknown110 ? "Activated Skill" : "Passive Skill");
+			_snprintf(buffer, 256, "Level %d %s\n\n", Unknown104, Unknown110 ? "Activated Skill" : "Passive Skill");
 		} else {
-			_snprintf(buffer, 256, "Unavailable %s", Unknown110 ? "Activated Skill" : "Passive Skill");
+			_snprintf(buffer, 256, "Unavailable %s\n\n", Unknown110 ? "Activated Skill" : "Passive Skill");
 		}
 		text = buffer;
 		SplitStringClass split(SkillNamesDatabase::Unknown_818250(Unknown6C), (float)Unknown_B0804C, 0);
@@ -482,7 +482,7 @@ void Unknown664500Class::Unknown_664C60()
 			text += split.Get(lp);
 			text += "\n";
 		}
-		text += "Click for description";
+		text += "\nClick for description";
 	} else {
 		text = SkillNamesDatabase::Unknown_8182A0(Unknown6C, Unknown88 + 1);
 	}
@@ -507,4 +507,6 @@ extern const int Unknown_B0804C = 40;
 **	in a reference across 0x6A5640's own operator *. 0x6645A0 / 0x6647F0 walk the icon boxes by an index (post-increment
 **	inside the subscript: `mov eax, ebx; add ebx, 4`), a pointer starts it outside the empty test; ability->Get_18() and
 **	skill_render->Get_34() are inline accessors because they choose the registers.
+**	Unknown_664C60's tooltip strings are the client's: 'Level %d %s\n\n' (0xB8CE90), 'Unavailable %s\n\n'
+**	(0xB8CE7C), '\nClick for description' (0xB8CE60) (relocaudit.py, run 2026-11-21 PRESET).
 */

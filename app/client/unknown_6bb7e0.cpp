@@ -12,7 +12,7 @@ bool UnknownB007A4Class::Pre_Render(RenderObjClass *robj, RenderInfoClass &rinfo
 		int flags = Passes.front().Unknown04 ? 4 : 0;
 		rinfo.Push_Override_Flags((RenderInfoClass::RINFO_OVERRIDE_FLAGS)(rinfo.Current_Override_Flags() | flags));
 	}
-	if (Passes.size() != 0 && Passes.front().Unknown04 && Passes.front().Pass->Peek_Shader().Get_Dst_Blend_Func() != ShaderClass::DSTBLEND_ZERO && WW3D::Is_Sorting_Enabled()) {
+	if (Passes.size() != 0 && Passes.front().Unknown04 && Passes.front().Pass->Peek_Shader().Get_Dst_Blend_Func() != ShaderClass::DSTBLEND_ZERO && WW3D::Are_Static_Sort_Lists_Enabled()) {
 		WW3D::Add_To_Static_Sort_List(robj, Passes.front().Pass->Peek_Shader().Guess_Sort_Level());
 		return(false);
 	}
@@ -58,4 +58,6 @@ void UnknownB007A4Class::Unknown_6BBA20(const RefCountPtr<MaterialPassClass> &pa
 ** The pair holds a RefCountPtr: its copy 0x6BBA90 and destructor 0x6BB9F0 (out of line here; co.cpp's list erase
 ** 0x701240 calls the destructor) add and release the reference. 0x6BB8E0 pushes onto the list's front, 0x6BBA20
 ** erases the first entry whose pass is the one given.
+**	Pre_Render's sort test reads WW3D::AreStaticSortListsEnabled (0x6BB844 reads 0xBFAE50, the address
+**	ww3d.obj's own functions read it at), not IsSortingEnabled (0xBB9644) (relocaudit.py, run 2026-11-21 PRESET).
 */

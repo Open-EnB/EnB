@@ -128,7 +128,7 @@ RefCountPtr<RenderObjClass> ToggleButtonDynamicWindow::Create_Render_Object(cons
 	}
 	RefCountPtr<DynamicMeshClass> mesh = Create_NEW(new DynamicMeshClass(2, 4));
 	mesh->Set_Texture(texture.Peek());
-	mesh->Set_Shader(ShaderClass::_PresetAlpha2DShader);
+	mesh->Set_Shader(ShaderClass::_PresetAdditive2DShader);
 
 	int width = size.X * 0.5f;
 	int height = size.Y * 0.5f;
@@ -180,4 +180,6 @@ ToggleButtonStateEvent::ToggleButtonStateEvent(int state) :
 **	examination option row calls it) and its state constructor 0x51E810 (U3: a .cpp definition, inline in the gadget event;
 **	the out-of-line copy is uncalled) and the template helpers after it (RefCountPtr, the vector's, the MemberCallback's slots
 **	0x51E980-0x51EAB0). The class name is the client's RTTI (ToggleButtonDynamicWindow, ToggleButtonStateEvent).
+**	The mesh's shader is _PresetAdditive2DShader (0x51E3D0 pushes 0xC01180: its initialiser 0x93B2B0 writes 0x94037),
+**	not Alpha2D (0xC01138), which the client reads only in Bitmap2DObjClass's constructors (run 2026-11-21 PRESET).
 */

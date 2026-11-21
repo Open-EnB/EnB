@@ -1232,7 +1232,7 @@ void MainViewClass::Unknown_510D40(Vector3 &arg)
 	Matrix4 identity(true);
 	DX8Wrapper::Get_Transform(D3DTS_VIEW, view);
 	DX8Wrapper::Get_Transform(D3DTS_PROJECTION, proj);
-	ShaderClass shader = ShaderClass::_PresetOpaqueShader;
+	ShaderClass shader = ShaderClass::_PresetAdditiveSolidShader;
 	shader.Set_Depth_Compare(ShaderClass::PASS_ALWAYS);
 	DX8Wrapper::Set_Shader(shader);
 	VertexMaterialClass *vmtl = VertexMaterialClass::Get_Preset(VertexMaterialClass::PRELIT_DIFFUSE);
@@ -2402,4 +2402,6 @@ void MainViewClass::Unknown_18(bool arg)
 **	colour as one Vector3 copy, the sun direction bound to a reference before the camera position (Orbitals in edi
 **	across Get_Position: the register choices of the whole function follow), fognear read first, the projector
 **	manager in a local, the debug hour offset in a local (loaded before the stored hours).
+**	Unknown_510D40's shader is _PresetAdditiveSolidShader (0x511256 reads 0xC01134: its initialiser 0x93B300 writes
+**	0x84433), so the sea's tint adds to the scene instead of covering it (run 2026-11-21 PRESET).
 */

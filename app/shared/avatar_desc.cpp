@@ -847,7 +847,7 @@ void AvatarDescClass::Get_Facial_Feature(bool &movable, int &scale)
 	movable = false;
 	scale = 1;
 	if (AvatarDefinitions.Is_Loaded()) {
-		_snprintf(section, sizeof(section), "FacialFeature%02d", Tattoo_Texture_Num);
+		_snprintf(section, sizeof(section), "FacialFeature-%02d", Tattoo_Texture_Num);
 		if (AvatarDefinitions.Find_Section(section) != NULL) {
 			movable = AvatarDefinitions.Get_Bool(section, "Movable", false);
 			scale = AvatarDefinitions.Get_Int(section, "Scale", 1);
@@ -1144,4 +1144,5 @@ void KVEncoderBaseClass::Add(int mask, const char *name, char *value)
 **	declares them; 0x4F6750 calls the int one too); their pair and accessor template
 **	instances follow (0x4C3C50-0x4C4330). The array accessor's Get 0x4C32D0 / Set 0x4C34D0 differ by
 **	the assert's relative __FILE__ (D41) and, in Set, npos (attempts.csv).
+**	Get_Facial_Feature's section is 'FacialFeature-%02d' (0x4C1AEC pushes 0xB742BC) (relocaudit.py, run 2026-11-21 PRESET).
 */

@@ -592,18 +592,18 @@ const char *Get_Icon_Name(ClientObjectClass *co)
 		case 1: return("g_pc.tga");
 		case 2: return("g_cap.tga");
 		case 3: return("g_planet.tga");
-		case 4: return("g_item.tga");
 		case 9: return("g_misile.tga");
+		case 4: return("g_item.tga");
 		case 10: return("g_nebula.tga");
-		case 11: return("g_gate.tga");
-		case 12: return("g_sbase.tga");
-		case 24: return("g_build.tga");
-		case 25: return("g_dead.tga");
-		case 27: return("g_mine.tga");
 		case 34:
 		case 38: return("g_resrce.tga");
+		case 11: return("g_gate.tga");
+		case 12: return("g_sbase.tga");
+		case 25: return("g_dead.tga");
+		case 27: return("g_mine.tga");
 		case 35: return("g_drone.tga");
 		case 37: return("g_deco.tga");
+		case 24: return("g_build.tga");
 		default:
 
 
@@ -622,4 +622,6 @@ const char *Get_Icon_Name(ClientObjectClass *co)
 **
 **	The object: 0x7B4F30 (the constructor; __FILE__ 0xB9EC38, FAIL_IFs from line 76) to the <string> initialiser after
 **	0x7B6A00. The hint's 0x7B5BF0 / 0x7B6170 are this class's Update and Update_Indicator (gutter_radar.cpp's 0x7B7040).
+**	Get_Icon_Name's cases are in the client's body order (misile before item, resrce after nebula, build
+**	last: the bodies 0x7B6A40..0x7B6A8E); the mapping is the jump table's (relocaudit.py, run 2026-11-21 PRESET).
 */
