@@ -255,7 +255,7 @@ void LineEffectClass::Unknown_6E5E00(Vector3 *start, Vector3 *end)
 
 
 
-// NOT EXACT: order-only (the frame, the slots and the 414 instructions are the client's; the camera offset's rows 2 and 3 load the X term first in the client, 0x6E649A, the Y term here); attempts.py show 0x6E6030
+// NOT EXACT: stack slots only (every instruction is the client's once stack offsets are masked; the ax < ay result temporary stores at 0x20 where the client coalesces it into p at 0x2c, 0x6E6406 / 0x6E6434); attempts.py show 0x6E6030
 void LineEffectClass::Unknown_6E6030(Vector3 *start, Vector3 *end)
 {
 	FAIL_IF(!start || !end) return;
@@ -303,16 +303,14 @@ void LineEffectClass::Unknown_6E6030(Vector3 *start, Vector3 *end)
 			float ay = (float)fabs(p.Y);
 			if (ax < 1.0f && ay < 1.0f) {
 				if (ax < ay) {
-					p = p * (1.0f / ay) - p;
+					p = p / ay - p;
 				} else {
-					p = p * (1.0f / ax) - p;
+					p = p / ax - p;
 				}
 				if (Get_Flag(16)) {
 					float s = (float)fabs(depth / view_end.Z);
 					p *= s;
-					Vector3 o;
-					o.X = p.X * half.X;
-					o.Y = p.Y * half.Y;
+					Vector3 o(p.X * half.X, p.Y * half.Y, 0.0f);
 					const Matrix3D &tm = Camera->Get_Transform();
 					*start += Vector3(tm[0][0] * o.X + tm[0][1] * o.Y, tm[1][1] * o.Y + tm[1][0] * o.X, tm[2][1] * o.Y + tm[2][0] * o.X);
 				} else {
@@ -347,4 +345,8 @@ void LineEffectClass::Unknown_6E6030(Vector3 *start, Vector3 *end)
 **	called as Get_Noise_Amplitude and Get_Width: their order in segline.cpp (0x9692B0 after Set_Shader
 **	0x969290) and their reads (+0xC4, +0xAC); the call bytes match either way. 0x9691D0 (+0x8C, an int)
 **	is Get_Subdivision_Levels: Unknown_1C gives the value back through Set_Subdivision_Levels.
+**
+**	Unknown_6E6030's two camera-offset arms differ in the client: the Get_Flag(16) arm loads rows 2 and 3 X term
+**	first (0x6E649A), the other arm Y term first (0x6E6529). VC6 orders those products by how o was made: by
+**	Vector3's constructor (the Z store is dead) in the first arm, by member stores in the second.
 */
