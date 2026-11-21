@@ -1,0 +1,12 @@
+# Shared by the space scenarios (sp_*): the live login (_login_live_account), character select's second slot:
+# Elanor (avatar 7, Terran Enforcer, 50/50/50, hull upgrade 6, every Enforcer skill at its cap), who logs in where
+# she last logged off: in space in Jupiter (sector 1070, about 177000,-207000), over 5,000 units from Jove's Fury,
+# so /createmob works without flying anywhere. Run with --db-snapshot 7 so each run starts from the same rows.
+# Not run on its own.
+include _login_live_account
+click gadget select.slot1
+click gadget select.enter until antprox 'received LOGIN' redo 1 every 1 within 60
+wait-event antprox 'received START_ACK' within 120
+# the sector's objects arrive (CREATE, AUX_DATA, SUBPARTS) and then the link goes quiet while nothing moves
+wait-quiet proxy 1.5 within 60
+shot space_entered
