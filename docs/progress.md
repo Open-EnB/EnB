@@ -4,6 +4,32 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
+### 2026-11-20 (23:45 PST, night; e2e session on run/2026-11-20-night, PR #237): the first live space scenario, `sp_combat`, from the user's recording; retail passes, ours stops in an effect_description.cpp assert loop on entering space; no reconstruction change
+
+**Done.** The local Net-7 server restarted after the host's reboot (Docker Desktop, `net7-mysql`, Net7.exe; a launch
+through start_server.bat died while MySQL warmed up, Net7.exe launched directly works). A test character, Elanor
+(avatar 7, slot 1, Terran Enforcer), set in the DB by hand at the user's request: 50/50/50, hull upgrade 6 (72,000
+hull, 5 / 4 slots, assets per Player::ShipUpgrade case 6), every Enforcer skill at its net7.skills cap (19), docked
+at Jove's Fury (starbase 44, station sector 10701); script `.work/elanor_max.sql`, the rows before it
+`.work/elanor_backup_20261120.sql`. The user recorded a space session (`.work/e2e/223904-record`: /createmob 1993,
+skills, fire all, loot, warp, a second fight). a0368c85d: `sp_combat.scn` (spawn, E, hotbar slots 4 / 5, F to the
+kill, N, loot until the hulk is empty), `_login_space.scn` (`_login_live_account.scn` split out of `_login_live`,
+plus `select.slot1`), e2e.py `key VK until ...` and `sp_*` scenarios only when named; README section "Space".
+
+**Verified.** Retail: sp_combat PASS (run 232121: 2 SKILL_ABILITY, 1 kill, 6 INVENTORY_MOVE; 65 s, 149 s with
+`--db-snapshot 7`'s restore). Ours (ClientPOC\release\client.exe of 11:00): FAIL at `_login_space:11` (run 232902):
+the assert flood in §4's new item. Parse check: sp_combat, sb_refinery, hot_keys unchanged in their step counts.
+Not done: the recording's warp and second fight as a scenario (`sp_warp`).
+
+**Calls.** `sp_*` names the live space scenarios, outside both default sets (a second character; the `sb_*` set
+plays Zanor docked). The PDA drag from the recording dropped for the hotbar the rows hold (a replayed drag missed).
+Net7Proxy comparison for the user's steering-lock report: the user found it does not recur under antprox and
+dropped it; the login host trap (auth.ini, VirtualStore) is in workflow.md §3.7.
+
+**State outside git.** Net7.exe / Net7SSL.exe running (local server), `net7-mysql` up; the user edited the install's
+`Data\common\network.ini` to localhost (backup `network.ini.sunrise-bak`); untracked `antprox_2026-11-20_*` logs in
+the repo root (antprox runs with the repo as working folder).
+
 ### 2026-11-20 (19:45 PST, evening; review session): the first outside contribution (#226, #228 by vessellaj, Codex / gpt-6.1-sol) reviewed, their conflicts with master resolved, and the verify service taught to solve such conflicts itself (D278); no reconstruction change of ours
 
 - **Reviewed:** #226 (`Opposed_Roll_Odds` 0x4F25D0 exact through a separate accumulator; `vc6-verify` +1 pair, 0 lost) and #228
@@ -4099,6 +4125,17 @@ below name only the work items, the blocked work, the leads and the queues.
    * **client_item_property_builder:** retype 0x521C10 and 0x5285A0's property locals as RefCountPtr<ClientItemPropertyClass> (the client's unwind funclets, as 0x522860 / 0x528460): 0x5285A0 goes to residue 20, 0x521C10 drops five COMDAT credits (needs a regain round).
    * **Names:** 0x57B6B0 is Create_Get<HAnimClass> (symbols.json); nav_list_builder 0x7B7EF0's 'NOT EXACT: order only' comment is stale (exact).
    * **D237 / D248 (the end-to-end harness):** left after the one-session, event-driven e2e.py (48 s for the six scenarios) and the hooks' move into the d3d8shot proxy: (a) the retail comparison: `e2e.py run --retail` and `e2e.py compare` exist (packets sent per scenario; five scenarios SAME on first use); left: run the whole set and the recorded sessions (`/play N`) against retail, compare the shots per step (the same step's back buffer: a tolerance or a per-region diff), and give the checker a `retail` check; (b) poc_window.cpp's `CRASH:` line and read-only registry are still compiled into the exe (the proxy loads only at Direct3DCreate8, after WinMain's start: an earlier loader, or antprox, would be needed to move them); (c) gadget names come from a hand-kept table (tools/harness/e2e/gadgets.txt; the client does not log gadget names or rectangles: a proxy-side lookup); (d) the in-world `wait-quiet proxy` steps pass on their minimum when a window opens no file: a draw-count-stable event from the proxy would be a real "drawn" signal; (e) e2e.py refuses nothing when the exe was linked from stale libraries (a main-tree build of 11-11 crashed at world entry on 60 unresolved symbols: check the link's summary.json `unresolved` before the run); (f) the checker's definition (P-T1-1), the smoke-set rule in builders.md.
+   * **effect_description.cpp's assert loop in space (sp_combat on our build, 2026-11-20):** entering space as
+     Elanor (avatar 7), ours asserts lines 266 / 318 / 348 about 54,000 times each from 32.8 s (an effect
+     description whose value tags and values differ in count, evaluated per frame), and the POC watchdog fires;
+     retail passes the same scenario. effect_description.cpp's 14 functions are all byte-exact, so the file is
+     not the fault: either the client asserts the same on Net-7's data (retail's release build logs no asserts;
+     then the cost is only our assert logging) or rebuilt code upstream hands it mismatched text / values. Find
+     the effect (likely one of her items: Black Power VIII 6132, Black Speed IX 6130, Invincible / Impenetrable
+     Bastion 3793 / 3764, the launchers 2820 / 2822 / 6122) and who evaluates it each frame. Logs:
+     `.work/e2e/232902-sp_combat` (stubs.log). Rerun: `python tools/harness/e2e.py --live --db-snapshot 7
+     --instance spours --exe C:\EnBDevelopment\ClientPOC\release\client.exe run sp_combat`. Also there, smaller:
+     `skill_ability_names.cpp(114) NULL == item` x23, `inv_data_peek.cpp(290)` x42, `combo_ffactory.cpp(101)` x29.
    * **From the 2026-11-19 day run (work items):** (a) two app faults found by the retail e2e comparison (ours against retail 22 of 25 SAME; the checker lists them as known): `pda_faction` shows no blue HIGHLIGHTnn panel (ours hides it through RObjGadgetClass::Unknown_8C -> Set_Hidden; leads: rs_track Unknown_1C8 / rs_list NOT EXACT, or a duplicate HIGHLIGHTnn across LODs) and sector 4505 (`play1` / `play1_windows`) renders darker (36-42 against 44-52; leads: DebrisFieldClass::Render's rest, the constructors 0x6B8F20 / 0x6BB470, ww3d2's additive point sprites); the recordings with a shot lead and no retail baseline are 8 of 10; (c) ShipCustSettingsClass Unknown10 / Unknown14 retyped as one Vector2 (by-value Vector2 evidence in the client); (d) the stale NOT EXACT note for 0x563910 in ui_chat_panel.cpp (it is exact); (e) SI's initialisers: co.cpp 0x6F5830 (a local static's atexit, not in the CRT table) and land 0x46C710 (an empty initialiser);.
    * **D239:** left after R1's landing: P-L12-4 (the private GadgetClass views per file).
    * **sclient.h** (at the next pad sweep): LoadingViewClass +0x64 as RefCountPtr<GalaxyMapLineRObjClass> (loadingview.cpp's file-local Unknown7B3E30Class derives from it today) and the file-static Release_Screen layer as an inline member.

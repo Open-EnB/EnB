@@ -2178,6 +2178,19 @@ Programs and tests (VIDTEST, kerneltest, drawcheck):
   loading it fails: always pass `-art` / `--art` with a copy of EBCONFIG made with `cp -rp` (without -p the
   .pld's date changes and Save_PLD rewrites it). drawcheck, vidtest_sbs and run_vidtest default to `build/art`
   when it exists (D120, `tools/harness/artdir.py`) and warn when it doesn't.
+* **The client's login host is `Data\client\ini\auth.ini`'s `AAIUrl`** (and `rg_regdata.ini`'s `regserverurl`), not
+  network.ini (2026-11-20). An unelevated client reads the VirtualStore copies
+  (`%LOCALAPPDATA%\VirtualStore\Program Files (x86)\EA GAMES\Earth & Beyond\Data\...`, set to localhost), an elevated
+  one the install's (sunrise.net-7.org): Net7Proxy's `launch_client_local.bat` run as administrator logs in to the
+  live Net-7 servers while antprox (unelevated) reaches the local one. Net7SSL's certificate names `localhost`, so a
+  hosts entry for sunrise fails with INV-300.
+* **An assert flood keeps `wait-quiet proxy` from ever passing:** each G_ASSERT / FAIL_IF reopens stubs.log and the
+  d3d8 proxy logs every CreateFileA, so a client asserting each frame looks busy (sp_combat on our build,
+  2026-11-20: `not quiet within 60 s`). Read stubs.log's counts before suspecting the scenario.
+* **Live space (`sp_*`):** the hotbar travels with the character's rows (a drag in one run is gone after
+  `--db-snapshot`'s restore); the PDA's skill list does not open at a fixed scroll, so replayed drags from it miss;
+  the number keys (Fire/Activate slot N) sent nothing on retail where a click on the slot works; E right after
+  `/createmob`'s CREATE can come too early (`key 0x45 until ... REQUEST_TARGET`).
 
 ### 3.8 Git, docs and scripting hygiene
 
