@@ -708,6 +708,20 @@ the last name. Live antprox logs opcode numbers; e2e appends the names (`... = s
   changes). A scenario is written from it by hand: poses become `walk-to` / `face`, clicks keep their
   coordinates, the packets become the events to wait for.
 - **State:** GM chat commands put back what a scenario spends (`/createcredits N`, `/createitem ID COUNT`).
+- **Space (`sp_*`, 2026-11-20):** a second character, Elanor (avatar 7, slot 1: Terran Enforcer, 50/50/50, hull
+  upgrade 6, every Enforcer skill at its cap; set in the DB by hand, `.work/elanor_max.sql`), who logs in in space in
+  Jupiter more than 5,000 units from Jove's Fury, so `/createmob ID` (GM: `mob_base.mob_id`; the server uses the
+  mob's own level and refuses within 5,000 of a station) works where she appears. `_login_space.scn` is
+  `_login_live_account.scn` (the account part of `_login_live`, split out) and `select.slot1`. The `sp_*` scenarios
+  are in neither default set: name them, and pass the avatar to the snapshot, `e2e.py --live --retail
+  --db-snapshot 7 --instance space run sp_combat`. `sp_combat` (from `.work/e2e/223904-record`): `/createmob 1993`
+  (Renegade Progen Tribuni, level 45), E ([Target Near Enemy]; repeated with `key VK until ...`, since right after the
+  CREATE the client may not know the mob yet), the hotbar's slots 4 (Rally) and 5 (Repair Equipment) clicked
+  (SKILL_ABILITY each; the number keys sent nothing), F (ACTION) until POINT_EFFECT and the hulk's CREATE, N for the
+  hulk, its loot button (LOOT_HULK_PERMISSION) and the loot window's first row until OPEN_INTERFACE (the hulk empty;
+  the loot is random, so the number of takes varies). Retail passes, 65 s (149 s with the restore). The recording
+  dragged a skill from the PDA's list to the hotbar; a replayed drag found the list scrolled elsewhere (the list
+  keeps no fixed start), so the scenario uses the hotbar the rows have.
 - First results: `sb_vendor` (room 2, a vendor's talk tree and trade window, back) and `sb_talk` (an NPC's
   two-page talk tree) pass on retail in one session, 224 s.
 - 2026-11-18 (H1): `sb_buysell` (room 2's Miyoshi Basho: a vendor row and Buy, a cargo slot and Sell, each an
