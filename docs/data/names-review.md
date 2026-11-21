@@ -3006,9 +3006,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_20` | `app/client/eff_line.cpp:178` | untagged neutral name (D10) |
 | 1 | `Unknown_30` | `app/client/eff_line.cpp:193` | untagged neutral name (D10) |
 | 1 | `Unknown10BC` | `app/client/eff_line.cpp:216` | untagged neutral name (D10) |
-| 1 | `Unknown_10` | `app/client/eff_line.cpp:341` | untagged neutral name (D10) |
-| 1 | `Unknown_14` | `app/client/eff_line.cpp:342` | untagged neutral name (D10) |
-| 1 | `Unknown_38` | `app/client/eff_line.cpp:342` | untagged neutral name (D10) |
+| 1 | `Unknown_10` | `app/client/eff_line.cpp:339` | untagged neutral name (D10) |
+| 1 | `Unknown_14` | `app/client/eff_line.cpp:340` | untagged neutral name (D10) |
+| 1 | `Unknown_38` | `app/client/eff_line.cpp:340` | untagged neutral name (D10) |
 | 1 | `UnknownB0009CEffectClass` | `app/client/eff_line.h:25` | untagged neutral name (D10) |
 | 1 | `position` | `app/client/eff_line.h:30` | the base's |
 | 1 | `Unknown_08` | `app/client/eff_line.h:30` | untagged neutral name (D10) |
