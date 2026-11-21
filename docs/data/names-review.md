@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1970 |
 | 2 | describes what the code does | 5001 |
-| 1 | neutral placeholder | 25178 |
+| 1 | neutral placeholder | 25179 |
 
 ## For review (score 3 and below)
 
@@ -3794,18 +3794,19 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown4E4` | `app/client/fontsys.cpp:178` | untagged neutral name (D10) |
 | 1 | `Unknown4E6` | `app/client/fontsys.cpp:179` | untagged neutral name (D10) |
 | 1 | `Unknown_6D5A80` | `app/client/fontsys.cpp:222` | untagged neutral name (D10) |
-| 1 | `Unknown_6D5EF0` | `app/client/fontsys.cpp:288` | untagged neutral name (D10) |
-| 1 | `Unknown4C4` | `app/client/fontsys.cpp:300` | untagged neutral name (D10) |
-| 1 | `Unknown2D0` | `app/client/fontsys.cpp:300` | untagged neutral name (D10) |
-| 1 | `Unknown_BE67B4` | `app/client/fontsys.cpp:311` | neutral (D10): FontSys's sounds (main_client.cpp declares it so) |
-| 1 | `Unknown_6BCFB0Class` | `app/client/fontsys.cpp:311` | untagged neutral name (D10) |
-| 1 | `Unknown_6D5F40` | `app/client/fontsys.cpp:314` | untagged neutral name (D10) |
-| 1 | `Unknown_6D60C0` | `app/client/fontsys.cpp:354` | untagged neutral name (D10) |
-| 1 | `Unknown464` | `app/client/fontsys.cpp:445` | untagged neutral name (D10) |
-| 1 | `Unknown_6CD180` | `app/client/fontsys.cpp:480` | untagged neutral name (D10) |
-| 1 | `Unknown_6CA0C0` | `app/client/fontsys.cpp:481` | untagged neutral name (D10) |
-| 1 | `Unknown_6CD6F0` | `app/client/fontsys.cpp:483` | untagged neutral name (D10) |
-| 1 | `Unknown_6CCE60` | `app/client/fontsys.cpp:519` | untagged neutral name (D10) |
+| 1 | `Unknown_6D5B10` | `app/client/fontsys.cpp:231` | untagged neutral name (D10) |
+| 1 | `Unknown_6D5EF0` | `app/client/fontsys.cpp:295` | untagged neutral name (D10) |
+| 1 | `Unknown4C4` | `app/client/fontsys.cpp:307` | untagged neutral name (D10) |
+| 1 | `Unknown2D0` | `app/client/fontsys.cpp:307` | untagged neutral name (D10) |
+| 1 | `Unknown_BE67B4` | `app/client/fontsys.cpp:318` | neutral (D10): FontSys's sounds (main_client.cpp declares it so) |
+| 1 | `Unknown_6BCFB0Class` | `app/client/fontsys.cpp:318` | untagged neutral name (D10) |
+| 1 | `Unknown_6D5F40` | `app/client/fontsys.cpp:321` | untagged neutral name (D10) |
+| 1 | `Unknown_6D60C0` | `app/client/fontsys.cpp:361` | untagged neutral name (D10) |
+| 1 | `Unknown464` | `app/client/fontsys.cpp:452` | untagged neutral name (D10) |
+| 1 | `Unknown_6CD180` | `app/client/fontsys.cpp:487` | untagged neutral name (D10) |
+| 1 | `Unknown_6CA0C0` | `app/client/fontsys.cpp:488` | untagged neutral name (D10) |
+| 1 | `Unknown_6CD6F0` | `app/client/fontsys.cpp:490` | untagged neutral name (D10) |
+| 1 | `Unknown_6CCE60` | `app/client/fontsys.cpp:526` | untagged neutral name (D10) |
 | 1 | `Unknown_6D8650` | `app/client/fontsys.cpp:948` | untagged neutral name (D10) |
 | 1 | `Unknown_6D8780` | `app/client/fontsys.cpp:959` | untagged neutral name (D10) |
 | 1 | `Unknown_6D87D0` | `app/client/fontsys.cpp:966` | untagged neutral name (D10) |
@@ -26082,10 +26083,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Find` | `app/client/fontmanager.h:228` | describes what it does |
 | 2 | `std:` | `app/client/fontmanager.h:231` | what it holds |
 | 2 | `DebugFont` | `app/client/fontmanager.h:232` | what it holds |
-| 2 | `Step_Colour` | `app/client/fontsys.cpp:397` | one colour channel a step of 1 toward the target; inline only (Update_Text 0x6D64C0's unrolled per-channel code) |
-| 2 | `Pass_Vertex_Color` | `app/client/fontsys.cpp:404` | inline only: Update_Text's pass colour, one Set_Vertex_Color per layer (the client inlines Switch_To_Multi_Vertex_Color at both sites 0x6D6D55 / 0x6D6E24 and calls Convert_Color_Clamp); the dead read is the layer's budget (D272) |
-| 2 | `Apply_Shader` | `app/client/fontsys.cpp:406` | inline only (Update_Text) |
-| 2 | `Append_Dots` | `app/client/fontsys.cpp:408` | inline only: Update_Text's "..." (the client calls the += copy's Get_Length and Store_Length, 0x6D676E / 0x6D679B); the dead read is the layer's budget (D272) |
+| 2 | `Step_Colour` | `app/client/fontsys.cpp:404` | one colour channel a step of 1 toward the target; inline only (Update_Text 0x6D64C0's unrolled per-channel code) |
+| 2 | `Pass_Vertex_Color` | `app/client/fontsys.cpp:411` | inline only: Update_Text's pass colour, one Set_Vertex_Color per layer (the client inlines Switch_To_Multi_Vertex_Color at both sites 0x6D6D55 / 0x6D6E24 and calls Convert_Color_Clamp); the dead read is the layer's budget (D272) |
+| 2 | `Apply_Shader` | `app/client/fontsys.cpp:413` | inline only (Update_Text) |
+| 2 | `Append_Dots` | `app/client/fontsys.cpp:415` | inline only: Update_Text's "..." (the client calls the += copy's Get_Length and Store_Length, 0x6D676E / 0x6D679B); the dead read is the layer's budget (D272) |
 | 2 | `line` | `app/client/fontsys_cursor.h:35` | the FAIL_IF's '!line'  // NAME 1 [cursorpos, insert, center]: what it does with them |
 | 2 | `Scene` | `app/client/fontsys_cursor.h:38` | what it holds |
 | 2 | `Iface` | `app/client/fontsys_cursor.h:39` | what it holds |
