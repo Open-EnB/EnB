@@ -235,3 +235,88 @@ forms=[
 ]
 for i,form in enumerate(forms):
     run('peek'+str(i),base,hdr.replace(old,form),ctors)
+
+Additional user-requested gpt-6.2-astra constructor batch
+
+Claim 234, constructor batch on b1d45e56, gpt-6.2-astra.
+Prior reports, constructor trial sources/diffs and attempt ledger reviewed.
+One batch per constructor, six shared physical compiles total. No exact gains.
+
+New hypothesis: member vs body lifetime of the two final bounds affects the
+compiler-generated vtable writes adjacent to the flags operations. Scratch
+header uses the earlier verified guard in Peek_Render_Object to eliminate the
+independent assertion compare residue. The source changes only bound creation.
+The library provides both empty default constructors and the inline Init
+operations. ro_proxy.cpp and ww3d2 use these same bounds APIs. All six forms
+establish identical bounds before the scale/HSV virtual call and preserve all
+later assertion line numbers. No changes made to the working tree.
+
+Directory        form                                  first/second objdiff
+box_init         sphere ctor; box Init in body           0.84 / 0.84
+sphere_init      box ctor; sphere Init in body           0.81 / 0.81
+both_init        both Init in body                       0.84 / 0.84
+assign           assign constructed bound temporaries   0.84 / 0.84
+copy             copy temporaries in initializer list   0.84 / 0.84
+origin           both Init from shared local origin     0.84 / 0.84
+
+Diff groups identical for each target: copy = previous peek1; both_init =
+assign = origin; box_init and sphere_init each unique. The body forms place
+the vtable writes ahead of one or both bounds' stores. At 0x45FDA0 this can
+place the flags load after all three vtable writes but moves those writes away
+from their retail position (after the last bound store). At 0x45FFB0 the
+store-order mismatch after the virtual call persists. Copy preserves the
+prior best residual exactly. No candidate improves on that result overall.
+
+Each directory contains source/header, object, assembler comparisons, full
+matcher matches.json and pairs.json. For every physical compile: 189 exact,
+2 none, 1 short, 192 total; compared exact (mangled symbol,address) sets to
+the current final/matches.json, zero gained, zero lost including 0x460E80.
+No tracked source, header, ledger or docs changed. No persistent Wine server
+was started. No second round performed.
+
+Reproducible source transformations
+
+from pathlib import Path
+import sys, subprocess, json, os
+area=Path(__file__).resolve().parent
+root=area.parents[2]
+sys.path.insert(0,str(area.parent))
+from fastbuild import compile_file
+python='/home/dev/Toolchains/enb-vc6-sp4/venv/bin/python'
+retail='/home/dev/Games/earth-and-beyond/prefix/drive_c/Program Files (x86)/EA GAMES/Earth & Beyond/release/client.exe'
+base=(root/'app/shared/rs_track.cpp').read_text()
+header=(root/'app/shared/rs_track.h').read_text().replace('return(RenderStateList.Current == NULL ? NULL : RenderStateList.Current->Peek_Render_Object());','if (!RenderStateList.Current) return NULL; return RenderStateList.Current->Peek_Render_Object();')
+z='Vector3(0.0f, 0.0f, 0.0f)'
+s='UnknownD8('+z+', 0.0f)'
+b='UnknownE8('+z+', '+z+')'
+inits=s+',\n\t'+b+'\n{'
+forms=[
+ ('box_init',s+',\n\tUnknownE8()\n{ UnknownE8.Init('+z+', '+z+');'),
+ ('sphere_init','UnknownD8(),\n\t'+b+'\n{ UnknownD8.Init('+z+', 0.0f);'),
+ ('both_init','UnknownD8(),\n\tUnknownE8()\n{ UnknownD8.Init('+z+', 0.0f); UnknownE8.Init('+z+', '+z+');'),
+ ('assign','UnknownD8(),\n\tUnknownE8()\n{ UnknownD8 = SphereClass('+z+', 0.0f); UnknownE8 = AABoxClass('+z+', '+z+');'),
+ ('copy','UnknownD8(SphereClass('+z+', 0.0f)),\n\tUnknownE8(AABoxClass('+z+', '+z+'))\n{'),
+ ('origin','UnknownD8(),\n\tUnknownE8()\n{ const Vector3 origin(0.0f, 0.0f, 0.0f); UnknownD8.Init(origin, 0.0f); UnknownE8.Init(origin, origin);')
+]
+def pairs(rows):
+    return {(r['symbol'],a) for r in rows if r['status']=='exact' for a in r['addresses']}
+baseline=json.loads((area.parent/'final/matches.json').read_text())
+for label,init in forms:
+    assert base.count(inits)==2 and init.count('\n')==inits.count('\n')
+    out=area/label
+    out.mkdir(exist_ok=True)
+    src=out/'rs_track.cpp'
+    src.write_text(base.replace(inits,init))
+    (out/'rs_track.h').write_text(header)
+    obj=compile_file(src,out)
+    for i,addr in enumerate(['0x45FDA0','0x45FFB0']):
+        cmd=[python,'tools/re/objdiff.py',str(obj),'??0RsTrackClass',addr,'--n',str(i)]
+        env=dict(os.environ,ENB_RETAIL_INSTALL=str(Path(retail).parents[1]))
+        r=subprocess.run(cmd,cwd=root,text=True,capture_output=True,check=True,env=env)
+        (out/(addr+'.txt')).write_text(r.stdout)
+        print(label,addr,r.stdout.splitlines()[-1],flush=True)
+    subprocess.run([python,'tools/re/objmatch.py',str(obj),'--client',retail,'--json',str(out/'matches.json'),'-q'],cwd=root,check=True)
+    result=pairs(json.loads((out/'matches.json').read_text()))
+    delta={'gained':sorted(result-pairs(baseline)),'lost':sorted(pairs(baseline)-result)}
+    (out/'pairs.json').write_text(json.dumps(delta,indent=2))
+    print(delta,flush=True)
