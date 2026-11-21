@@ -10,7 +10,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 226 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1970 |
-| 2 | describes what the code does | 4997 |
+| 2 | describes what the code does | 4998 |
 | 1 | neutral placeholder | 25170 |
 
 ## For review (score 3 and below)
@@ -24366,14 +24366,14 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_0C` | `app/shared/rs_robj.cpp:318` | untagged neutral name (D10) |
 | 1 | `Unknown_4583C0` | `app/shared/rs_robj.cpp:359` | untagged neutral name (D10) |
 | 1 | `Unknown_40` | `app/shared/rs_robj.cpp:413` | untagged neutral name (D10) |
-| 1 | `Unknown8C` | `app/shared/rs_track.cpp:13` | untagged neutral name (D10) |
-| 1 | `UnknownC0` | `app/shared/rs_track.cpp:15` | untagged neutral name (D10) |
-| 1 | `UnknownC4` | `app/shared/rs_track.cpp:16` | untagged neutral name (D10) |
-| 1 | `UnknownC8` | `app/shared/rs_track.cpp:17` | untagged neutral name (D10) |
-| 1 | `UnknownCC` | `app/shared/rs_track.cpp:18` | untagged neutral name (D10) |
-| 1 | `UnknownD4` | `app/shared/rs_track.cpp:20` | untagged neutral name (D10) |
-| 1 | `UnknownD8` | `app/shared/rs_track.cpp:21` | untagged neutral name (D10) |
-| 1 | `UnknownE8` | `app/shared/rs_track.cpp:22` | untagged neutral name (D10) |
+| 1 | `Unknown8C` | `app/shared/rs_track.cpp:12` | untagged neutral name (D10) |
+| 1 | `UnknownC0` | `app/shared/rs_track.cpp:14` | untagged neutral name (D10) |
+| 1 | `UnknownC4` | `app/shared/rs_track.cpp:15` | untagged neutral name (D10) |
+| 1 | `UnknownC8` | `app/shared/rs_track.cpp:16` | untagged neutral name (D10) |
+| 1 | `UnknownCC` | `app/shared/rs_track.cpp:17` | untagged neutral name (D10) |
+| 1 | `UnknownD4` | `app/shared/rs_track.cpp:19` | untagged neutral name (D10) |
+| 1 | `UnknownD8` | `app/shared/rs_track.cpp:20` | untagged neutral name (D10) |
+| 1 | `UnknownE8` | `app/shared/rs_track.cpp:21` | untagged neutral name (D10) |
 | 1 | `Unknown_Flag16` | `app/shared/rs_track.cpp:27` | untagged neutral name (D10) |
 | 1 | `Unknown_4604D0` | `app/shared/rs_track.cpp:28` | untagged neutral name (D10) |
 | 1 | `Unknown_04` | `app/shared/rs_track.cpp:46` | untagged neutral name (D10) |
@@ -29830,6 +29830,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `ProjectorList` | `app/shared/rs_proj_sup.h:49` | what it holds |
 | 2 | `Owner` | `app/shared/rs_proj_sup.h:50` | what it points at |
 | 2 | `rs_robj.cpp` | `app/shared/rs_robj.cpp:19` | RsTrackClass::Class_ID |
+| 2 | `flags` | `app/shared/rs_track.cpp:23` | source state flags |
 | 2 | `flags` | `app/shared/rs_track.cpp:47` | destination state flags |
 | 2 | `RenderStateListClass` | `app/shared/rs_track.h:25` | the member RenderStateList of rs_track.cpp's assert |
 | 2 | `Head` | `app/shared/rs_track.h:75` | the list walk |

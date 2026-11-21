@@ -8,7 +8,6 @@
 #include "..\shared\g_assert.h"
 
 // 0x45FDA0
-// NOT EXACT: the RenderStateList +0x2C flags-byte load is hoisted before the client's three vtable stores.
 RsTrackClass::RsTrackClass(RenderStateListClass *list) :
 	Unknown8C(0),
 	RenderStateList(list),
@@ -21,7 +20,8 @@ RsTrackClass::RsTrackClass(RenderStateListClass *list) :
 	UnknownD8(Vector3(0.0f, 0.0f, 0.0f), 0.0f),
 	UnknownE8(Vector3(0.0f, 0.0f, 0.0f), Vector3(0.0f, 0.0f, 0.0f))
 {
-	Unknown8C = RenderStateList.Unknown2C;
+	const unsigned char &flags = RenderStateList.Unknown2C; // NAME 2 [flags]: source state flags
+	Unknown8C = flags;
 	RenderStateList.Current = NULL;
 	for (RenderStateClass *state = list->Head; state != NULL; state = state->Next) {
 		if (state->Unknown_Flag16() && state->ID != -1) {
@@ -1343,4 +1343,5 @@ void RsTrackClass::Unknown_462690()
 **	and a single final true return. This form gives the client's deferred edi save and virtual-call registers.
 **	0x45FFB0 matches with the explicit null guard in Peek_Render_Object and a reference to the destination
 **	flags byte. Together these reproduce the pointer comparison and flags/Current store order.
+**	0x45FDA0 matches with a reference to the source flags byte, which keeps its load after the vtable stores.
 */
