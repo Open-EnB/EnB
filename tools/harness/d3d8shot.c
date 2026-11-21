@@ -39,6 +39,9 @@
 **                   (HKCR CLSID {2B2CC8B0-2DC0-48c6-B6FD-C07820A6477E} InprocServer32 = the registering copy's
 **                   path, BrowserEngine.FEBrowserEngine2, its type library), and a test run must not write the
 **                   registry (D69, D249): the class the install registered stays as it is
+**   D3D8SHOT_DIALOGS 1: the program's DialogBoxParamA and MessageBoxA are its own. Without it (always, from
+**                   DLL_PROCESS_ATTACH, before WinMain) neither opens anything: logged, IDOK returned (D69).
+**                   Always: a first-chance 'CRASH:' / 'CRASH regs:' pair of lines in this log (Hook_Safety)
 ** Output: d3d8shot.log, frame_NNNNN.bmp (24-bit), draws_NNNNN.bin.
 **
 ** The draw dump (D3D8SHOT_DUMP): every vertex and index buffer the program locks is shadowed (the
@@ -1102,6 +1105,94 @@ static void Init(void)
 	Hook_Input();
 }
 
+/* Safety (D69), installed at DLL_PROCESS_ATTACH (the program imports d3d8.dll, so before its WinMain): the
+   program's DialogBoxParamA and MessageBoxA imports open nothing (a dialog answers IDOK, logged: the client's
+   EULA / ROC text 0x847D20 and -MENU 0x846C90 dialogs go on; a message box's text is logged), unless
+   D3D8SHOT_DIALOGS=1. And a first-chance vectored handler writes one 'CRASH:' line (the code, the faulting
+   address, the exe's code addresses on the stack) and one 'CRASH regs:' line to d3d8shot.log before the
+   program's own filter runs: tools/harness/symbolize.py names them with the exe's map. It only logs. */
+typedef int (WINAPI *DialogBoxParamType)(HINSTANCE, LPCSTR, HWND, DLGPROC, LPARAM);
+static int WINAPI Safe_DialogBoxParamA(HINSTANCE inst, LPCSTR tmpl, HWND parent, DLGPROC proc, LPARAM param)
+{
+	if (!Real) Init();
+	if (((DWORD)tmpl >> 16) == 0) Log("DialogBoxParamA(resource %lu): not shown (D69), IDOK returned\n", (DWORD)tmpl);
+	else Log("DialogBoxParamA(%s): not shown (D69), IDOK returned\n", tmpl);
+	return IDOK;
+}
+static int WINAPI Safe_MessageBoxA(HWND wnd, LPCSTR text, LPCSTR caption, UINT type)
+{
+	if (!Real) Init();
+	Log("MessageBoxA(\"%s\", \"%s\"): not shown (D69), IDOK returned\n", caption ? caption : "", text ? text : "");
+	return IDOK;
+}
+
+static DWORD Exe_Lo = 0, Exe_Hi = 0;
+static LONG CALLBACK Safe_Crash_Log(EXCEPTION_POINTERS *info)
+{
+	static int count = 0;
+	DWORD code = info->ExceptionRecord->ExceptionCode;
+	CONTEXT *c = info->ContextRecord;
+	char line[1024];
+	int n, i, found = 0, r;
+	unsigned *sp;
+	const char *names[7] = { "eax", "ebx", "ecx", "edx", "esi", "edi", "ebp" };
+	DWORD regs[7];
+	if ((code != EXCEPTION_ACCESS_VIOLATION && code != EXCEPTION_ILLEGAL_INSTRUCTION && code != EXCEPTION_INT_DIVIDE_BY_ZERO
+			&& code != EXCEPTION_STACK_OVERFLOW && code != EXCEPTION_PRIV_INSTRUCTION) || count >= 4 || !LogFile) {
+		return EXCEPTION_CONTINUE_SEARCH;
+	}
+	count++;
+	n = sprintf(line, "CRASH: code %08lX at %08lX (address %08lX) stack:", code, (DWORD)c->Eip,
+		code == EXCEPTION_ACCESS_VIOLATION ? (DWORD)info->ExceptionRecord->ExceptionInformation[1] : 0);
+	sp = (unsigned *)c->Esp;
+	for (i = 0; i < 2048 && found < 24 && n < (int)sizeof(line) - 12; i++) {
+		if (IsBadReadPtr(sp + i, 4)) break;
+		if (sp[i] >= Exe_Lo && sp[i] < Exe_Hi) { n += sprintf(line + n, " %08X", sp[i]); found++; }
+	}
+	Log("%s\n", line);
+	regs[0] = c->Eax; regs[1] = c->Ebx; regs[2] = c->Ecx; regs[3] = c->Edx; regs[4] = c->Esi; regs[5] = c->Edi; regs[6] = c->Ebp;
+	n = sprintf(line, "CRASH regs:");
+	for (r = 0; r < 7; r++) {
+		unsigned *p = (unsigned *)regs[r];
+		n += sprintf(line + n, " %s=%08lX", names[r], regs[r]);
+		if (regs[r] >= 0x10000 && !IsBadReadPtr(p, 16)) n += sprintf(line + n, "[%08X %08X %08X %08X]", p[0], p[1], p[2], p[3]);
+	}
+	Log("%s\n", line);
+	fflush(LogFile);
+	return EXCEPTION_CONTINUE_SEARCH;
+}
+
+typedef PVOID (WINAPI *AddVectoredHandlerType)(ULONG, LONG (CALLBACK *)(EXCEPTION_POINTERS *));
+static void Hook_Safety(void)
+{
+	char v[8];
+	unsigned char *base = (unsigned char *)GetModuleHandleA(NULL);
+	IMAGE_NT_HEADERS *nt = (IMAGE_NT_HEADERS *)(base + ((IMAGE_DOS_HEADER *)base)->e_lfanew);
+	IMAGE_DATA_DIRECTORY *dir = &nt->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_IMPORT];
+	IMAGE_IMPORT_DESCRIPTOR *imp;
+	AddVectoredHandlerType add;
+	Exe_Lo = (DWORD)base + nt->OptionalHeader.BaseOfCode;
+	Exe_Hi = Exe_Lo + nt->OptionalHeader.SizeOfCode;
+	add = (AddVectoredHandlerType)GetProcAddress(GetModuleHandleA("kernel32.dll"), "AddVectoredExceptionHandler");
+	if (add) add(1, Safe_Crash_Log);
+	if (GetEnvironmentVariableA("D3D8SHOT_DIALOGS", v, sizeof(v)) && v[0] == '1') return;
+	if (!dir->VirtualAddress) return;
+	for (imp = (IMAGE_IMPORT_DESCRIPTOR *)(base + dir->VirtualAddress); imp->Name; imp++) {
+		IMAGE_THUNK_DATA *names, *funcs;
+		if (stricmp((const char *)(base + imp->Name), "user32.dll") != 0) continue;
+		if (!imp->OriginalFirstThunk) continue;
+		names = (IMAGE_THUNK_DATA *)(base + imp->OriginalFirstThunk);
+		funcs = (IMAGE_THUNK_DATA *)(base + imp->FirstThunk);
+		for (; names->u1.AddressOfData; names++, funcs++) {
+			const char *n;
+			if (names->u1.Ordinal & IMAGE_ORDINAL_FLAG) continue;
+			n = (const char *)((IMAGE_IMPORT_BY_NAME *)(base + (DWORD)names->u1.AddressOfData))->Name;
+			if (!strcmp(n, "DialogBoxParamA")) Patch((void **)&funcs->u1.Function, (void *)Safe_DialogBoxParamA);
+			else if (!strcmp(n, "MessageBoxA")) Patch((void **)&funcs->u1.Function, (void *)Safe_MessageBoxA);
+		}
+	}
+}
+
 void * WINAPI Direct3DCreate8(UINT version)
 {
 	void *d3d;
@@ -1126,6 +1217,7 @@ BOOL WINAPI DllMain(HINSTANCE inst, DWORD reason, LPVOID reserved)
 		   (WW3D::Shutdown) while D3D objects are still used */
 		char self[MAX_PATH];
 		if (GetModuleFileNameA(inst, self, sizeof(self))) LoadLibraryA(self);
+		Hook_Safety();
 	}
 	if (reason == DLL_PROCESS_DETACH && LogFile) {
 		Close_Dump();

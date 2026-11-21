@@ -1,4 +1,4 @@
-"""Builds the reconstructed client: the import libraries, the workspace, main and the stand-in build.
+"""Builds the reconstructed client: the import libraries, the workspace, every library and the client.
 
     python tools/build_client.py --local                 inside a build VM (tools/Build-Client.ps1 runs it there)
     python tools/build_client.py [--pool K]              on the host, against pool VMs (the maintainer's set-up)
@@ -11,12 +11,11 @@ this script there with --local (docs/build-your-own.md). This script downloads n
    C:\\EnBDevelopment\\SDK already); then tools/vc6/sdk_patch.py's include_enb;
 2. the import libraries: Miles' (mkmss32.py lib, from the committed mss32.def) and EA.Com's login
    component's (mkauthlogin.py);
-3. the workspace (tools/vc6/dsp.py) built by VC6's IDE (tools/vc6/msdev.py): every library, then
-   `main`, the faithful exe. Its link lists the functions not rebuilt yet as unresolved: that list is
-   the reconstruction's open work, and main writes no exe until it is empty;
-4. the stand-in build (`clientpoc`, unless --no-standin): the same libraries with a stand-in for each
-   unresolved function, a runnable exe;
-5. the results in build/client/: client.exe (the stand-in build), its map, the logs, summary.json.
+3. the workspace (tools/vc6/dsp.py) built by VC6's IDE (tools/vc6/msdev.py): every library, then the
+   client project (dsp.CLIENT_PROJECT: WinMain and every library, no stand-ins, as build.py's
+   `link --program client`). Its link lists the functions not rebuilt yet as unresolved: that list is
+   the reconstruction's open work, and the client writes no exe until it is empty;
+4. the results in build/client/: client.exe, its map, the logs, summary.json.
 """
 import argparse
 import hashlib
@@ -114,7 +113,6 @@ def unresolved_count(text):
 def main():
     ap = argparse.ArgumentParser(description=__doc__.split('\n')[0])
     ap.add_argument('--local', action='store_true', help='run inside the build VM (vc6.py local mode)')
-    ap.add_argument('--no-standin', action='store_true', help='build the libraries and main only')
     ap.add_argument('--rebuild', action='store_true', help='compile everything again')
     ap.add_argument('--pool', type=int, default=1, metavar='K', help='host mode: pool VMs to lease (default 1)')
     a = ap.parse_args()
@@ -133,33 +131,21 @@ def main():
     ensure_import_libs(logs)
 
     import msdev
-    step(3, 'the workspace, built by VC6 (every library, then main)')
-    rc, text = msdev.make('main', a.rebuild, out=os.path.join(OUT, 'msdev'))
+    step(3, 'the workspace, built by VC6 (every library, then the client)')
+    project = msdev.dsp.CLIENT_PROJECT
+    rc, text = msdev.make(project, a.rebuild, out=os.path.join(OUT, 'msdev'))
     if 'error C' in text:
-        fail('a compile error (build/client/msdev/main/msdev.log)')
+        fail(f'a compile error (build/client/msdev/{project}/msdev.log)')
     n = unresolved_count(text)
-    if rc != 0 and not n:
-        fail('main neither linked nor listed unresolved symbols (build/client/msdev/main/msdev.log)')
-    if rc == 0 and os.path.exists(os.path.join(OUT, 'msdev', 'main', 'client.exe')):
-        print('   main linked: client.exe is the reconstruction alone')
-    else:
-        print(f'   main compiled; its link leaves {n} symbols unresolved (not rebuilt yet: the open work)')
+    exe = os.path.join(OUT, 'msdev', project, 'client.exe')
     summary = {'unresolved': n}
-    if not a.no_standin:
-        step(4, 'the stand-in build (clientpoc)')
-        rc, text = msdev.make(msdev.dsp.STANDIN, out=os.path.join(OUT, 'msdev'))
-        src = os.path.join(OUT, 'msdev', msdev.dsp.STANDIN)
-        exe = os.path.join(src, msdev.dsp.STANDIN + '.exe')
-        if not os.path.exists(exe):
-            fail('the stand-in build did not link (build/client/msdev/clientpoc/msdev.log)')
-        step(5, 'results')
-        shutil.copy2(exe, os.path.join(OUT, 'client.exe'))
-        shutil.copy2(exe[:-4] + '.map', os.path.join(OUT, 'client.map'))
-        pass1 = os.path.join(src, 'link_pass1.log')
-        gen = unresolved_count(open(pass1, encoding='latin1').read()) if os.path.exists(pass1) else 0
-        summary['generated_standins'] = gen
-        print(f'   {os.path.join(OUT, "client.exe")} (stand-in build: {gen} generated stand-ins, '
-              f'the rest of main\'s {n} by hand in programs\\clientpoc and stubs\\)')
+    if rc != 0 or not os.path.exists(exe):
+        json.dump(summary, open(os.path.join(OUT, 'summary.json'), 'w'), indent=1)
+        fail(f'the client did not link: {n} symbols unresolved (not rebuilt yet: build/client/msdev/{project}/msdev.log)')
+    step(4, 'results')
+    shutil.copy2(exe, os.path.join(OUT, 'client.exe'))
+    shutil.copy2(exe[:-4] + '.map', os.path.join(OUT, 'client.map'))
+    print(f'   {os.path.join(OUT, "client.exe")}: the reconstruction alone')
     json.dump(summary, open(os.path.join(OUT, 'summary.json'), 'w'), indent=1)
     if not a.local:     # Build-Client.ps1 says it after copying the results back
         print('\ndone. Running it: docs/build-your-own.md "Running what you built"')

@@ -2,7 +2,7 @@
 
     python tools/vc6/build.py [--pool K] [--lib X]... [--out DIR] [--allow-dirty]
     python tools/vc6/build.py unresolved [--out DIR] [--report FILE]
-    python tools/vc6/build.py link [--program vidtest|clientpoc] [--pool K] [--out DIR] [--no-deploy]
+    python tools/vc6/build.py link [--program vidtest|client] [--pool K] [--out DIR]
 
 `build` (the default command) compiles every committed source file of each library (git
 ls-files; NOT_LINKED files stay out), not only the ones that match, with the flags, defines,
@@ -25,12 +25,11 @@ libraries and none of the system libraries define, grouped by library and by lik
 into stubs.lib, D44) in the VM and links them against DIR/<lib>/<lib>.lib, DIR/mss32/mss32.lib
 (tools/vc6/mkmss32.py, D51) and the system libraries (LINK_SYS: the CRT, Win32, DirectX 8,
 vfw32, comsupp, ddraw: D50), into DIR/programs/<name>/ (exe, map, cl.log, link.log, summary.json).
-`link --program clientpoc` is the proof-of-concept client (D179; PROGRAMS has the details): every
-library, a gen_stubs.py --link stand-in for each symbol still unresolved, client.exe and client.map
-copied into C:\\EnBDevelopment\\ClientPOC\\release when DIR is the running tree's own build/ (a worktree's
-included; another --out does not deploy). The exe stays DIR/programs/clientpoc/clientpoc.exe: run a worktree's
-with `clientpoc.py replay --instance NAME --exe` that path (needs mkauthlogin.py's authlogin.lib; build every
-library first, wlib / wnet / binkmovie included).
+`link --program client` is the client (PROGRAMS has the details): every library and nothing else (no
+program sources, no stubs.lib, no stand-ins; WinMain is app/main/main_client.cpp's), into
+DIR/programs/client/client.exe and client.map; any unresolved symbol fails the link (exit 1). Needs
+mkauthlogin.py's authlogin.lib and mkmss32.py's mss32.lib; build every library first, wlib / wnet / binkmovie
+included.
 
 Checked build (M2 gate (d)): ENB_CHECKED=1 python tools/vc6/build.py --out build/chk, then link
 with the same variable and --out, compiles everything with tools/vc6/checked/enb_checked.h forced
@@ -519,23 +518,20 @@ def unresolved(out, report):
 # vc6.DEFAULT_DEFINES. stubs/*.cpp (D44) go into stubs.lib, so a stub is linked only when
 # something references it; the map file shows which were.
 #
-# clientpoc (the proof-of-concept client, D179): WinMain (app\main\main_client.cpp) from app.lib, every
-# library (all their files, as `build` makes them), programs/clientpoc's hand stand-ins, authlogin.lib
-# (mkauthlogin.py) and RAD's binkw32.lib; a first link lists the unresolved symbols, gen_stubs.py --link
-# writes a logging stand-in for each (DIR/programs/clientpoc/gen/poc_gen_stubs.cpp, STUB_CALLED: one line
-# per stand-in in stubs.log on its first call) and a second link uses them. The exe is copied, as
-# client.exe with its map, into `deploy` (run it from there: the game's install is never touched).
+# client: the client alone. WinMain (app\main\main_client.cpp) from app.lib, every library (all their
+# files, as `build` makes them), authlogin.lib (mkauthlogin.py) and RAD's binkw32.lib; no program sources
+# ('dir' None), no stubs.lib ('stubs' False). The link fails on any unresolved symbol (link_program).
 BINKW32_LIB = r'C:\EnBDevelopment\SDK\radtools\lib\binkw32.lib'
 PROGRAMS = {
     'vidtest': {'dir': os.path.join('programs', 'vidtest'), 'flags': I.LIB_FLAGS['ww3d2'],
                 'subsystem': 'windows', 'runtime': []},
-    'clientpoc': {'dir': os.path.join('programs', 'clientpoc'), 'flags': I.LIB_FLAGS['app'],
-                  'defines': I.APP_LIBS['app']['defines'], 'subsystem': 'windows', 'runtime': [],
-                  'libs': ['app', 'wnet', 'wlib', 'binkmovie', 'wwshade', 'ww3d2', 'wwaudio', 'wwsaveload',
-                           'wwmath', 'wwlib', 'wwdebug'],
-                  'need': [os.path.join('authlogin', 'authlogin.lib')], 'extra_libs': [BINKW32_LIB],
-                  'sys': ['LIBCIMT.LIB', 'WININET.LIB', 'SHELL32.LIB'],      # WinInet: settings_store.cpp's lkey thread; shell32: its ShellExecuteExA (0x7CB3D0); the old iostreams (ostream, streambuf) some app files use
-                  'gen_stubs': True, 'force_unresolved': True, 'deploy': r'C:\EnBDevelopment\ClientPOC\release', 'deploy_name': 'client'},
+    'client': {'dir': None, 'flags': I.LIB_FLAGS['app'],
+               'defines': I.APP_LIBS['app']['defines'], 'subsystem': 'windows', 'runtime': [],
+               'libs': ['app', 'wnet', 'wlib', 'binkmovie', 'wwshade', 'ww3d2', 'wwaudio', 'wwsaveload',
+                        'wwmath', 'wwlib', 'wwdebug'],
+               'need': [os.path.join('authlogin', 'authlogin.lib')], 'extra_libs': [BINKW32_LIB],
+               'sys': ['LIBCIMT.LIB', 'WININET.LIB', 'SHELL32.LIB', 'COMCTL32.LIB'],   # comctl32: InitCommonControls (0x847D20, 0x846C90);      # WinInet: settings_store.cpp's lkey thread; shell32: its ShellExecuteExA (0x7CB3D0); the old iostreams (ostream, streambuf) some app files use
+               'stubs': False, 'strict': True},
 }
 STUBS_DIR = 'stubs'
 LINK_LIBS = ['app', 'wwshade', 'ww3d2', 'wwaudio', 'wwsaveload', 'wwmath', 'wwlib', 'wwdebug']
@@ -551,50 +547,17 @@ UNRES = re.compile(r'error LNK20(?:01|19): unresolved external symbol (?:"([^"]*
 
 
 def link_program(name, out, deploy=True):
-    """link_one; for a program with gen_stubs (clientpoc), a second link with a generated stand-in for
-    every symbol the first left unresolved; then the copy into its deploy directory (not with deploy=False:
-    wt.py's link check, linkgate.py)."""
-    prog = PROGRAMS[name]
-    if not prog.get('gen_stubs'):
-        return link_one(name, out)
-    dst = os.path.join(out, 'programs', name)
-    gen_dir = os.path.join(dst, 'gen')
-    os.makedirs(gen_dir, exist_ok=True)
-    gen = os.path.join(gen_dir, 'poc_gen_stubs.cpp')
-    if os.path.exists(gen):
-        os.remove(gen)
+    """link_one; for a strict program (client) a compile error, an unresolved symbol or no exe fails (exit 1);
+    the harness programs (clienttest, udpreplay, ...) get the summary back and run their own gen_stubs pass.
+    deploy is kept for the callers' signature: no program deploys anywhere."""
     summary = link_one(name, out)
+    if not PROGRAMS[name].get('strict'):
+        return summary
+    dst = os.path.join(out, 'programs', name)
     if summary['cl_errors']:
-        raise SystemExit(f'{name}: the program does not compile (see {dst}\\cl.log); nothing deployed')
+        raise SystemExit(f'{name}: the program does not compile (see {dst}\\cl.log)')
     if summary['unresolved'] or not summary['exe']:
-        sys.path.insert(0, os.path.join(REPO, 'tests', 'clienttest'))
-        import gen_stubs
-        import shutil
-        shutil.copy(os.path.join(dst, 'link.log'), os.path.join(gen_dir, 'link_pass1.log'))
-        gen_stubs.link_stubs(os.path.join(dst, 'link.log'), gen_dir, poc=True)
-        os.replace(os.path.join(gen_dir, 'link_stubs.cpp'), gen)
-        # one global two app files declare by different types: the second name a weak alias of the first
-        import coff_alias
-        pairs = [l.strip().split('=', 1) for l in open(os.path.join(gen_dir, 'link_aliases.txt')) if '=' in l]
-        objs = []
-        if pairs:
-            objs.append(os.path.join(gen_dir, 'poc_aliases.obj'))
-            coff_alias.write(objs[0], pairs)
-        summary = link_one(name, out, extra_srcs=[gen], extra_objs=objs)
-        if summary['cl_errors']:
-            raise SystemExit(f'{name}: the generated stand-ins do not compile ({gen}, {dst}\\cl.log); nothing deployed')
-        if not summary['exe'] and prog.get('force_unresolved'):
-            # what gen_stubs could not write (a class by value, a template, two types for one global):
-            # /force:unresolved leaves those calls and reads at address 0, so a run stops there (the
-            # summary lists them); write them by hand in the program's directory
-            summary = link_one(name, out, extra_srcs=[gen], extra_objs=objs, force=True)
-    exe = os.path.join(dst, name + '.exe')
-    if deploy and prog.get('deploy') and summary['exe'] and os.path.normcase(os.path.abspath(out)) == os.path.normcase(os.path.abspath(os.path.join(REPO, 'build'))):
-        import shutil
-        base = os.path.join(prog['deploy'], prog.get('deploy_name', name))
-        shutil.copy2(exe, base + '.exe')
-        shutil.copy2(os.path.join(dst, name + '.map'), base + '.map')
-        print('deployed', base + '.exe')
+        raise SystemExit(f'{name}: the link failed, {len(summary["unresolved"])} unresolved (see {dst}\\link.log)')
     return summary
 
 
@@ -603,12 +566,12 @@ def link_one(name, out, extra_srcs=(), force=False, extra_objs=()):
     out/mss32/mss32.lib and the system libraries. Writes out/programs/<name>/: <name>.exe,
     <name>.map, cl.log, link.log, summary.json (unresolved symbols, stubs linked)."""
     prog = PROGRAMS[name]
-    pdir = os.path.join(REPO, prog['dir'])
-    srcs = sorted(os.path.join(pdir, f) for f in os.listdir(pdir) if f.lower().endswith(('.cpp', '.c')))
+    pdir = os.path.join(REPO, prog['dir']) if prog.get('dir') else None
+    srcs = sorted(os.path.join(pdir, f) for f in os.listdir(pdir) if f.lower().endswith(('.cpp', '.c'))) if pdir else []
     srcs += list(extra_srcs)
     sdir = os.path.join(REPO, STUBS_DIR)
     stubs = sorted(os.path.join(sdir, f) for f in os.listdir(sdir) if f.lower().endswith(('.cpp', '.c'))) \
-        if os.path.isdir(sdir) else []
+        if os.path.isdir(sdir) and prog.get('stubs', True) else []
     libs = [os.path.join(out, l, l + '.lib') for l in prog.get('libs', LINK_LIBS)]
     libs.append(os.path.join(out, MSS32))
     libs += [os.path.join(out, l) for l in prog.get('need', [])] + list(prog.get('extra_libs', []))
@@ -619,9 +582,9 @@ def link_one(name, out, extra_srcs=(), force=False, extra_objs=()):
         raise SystemExit('build the libraries first (build.py; mkmss32.py lib; mkauthlogin.py): missing '
                          + ', '.join(missing))
     app_dirs = [d for d, _, _ in os.walk(I.dest('app'))]
-    incs = [vc6.under_root(i) for i in I.tree_includes() + app_dirs + [pdir, sdir]]
+    incs = [vc6.under_root(i) for i in I.tree_includes() + app_dirs + [d for d in (pdir, sdir) if d]]
     extra_dirs = sorted({os.path.dirname(f) for f in extra_srcs})
-    vc6.sync([pdir, sdir] + extra_dirs + [f for f, _ in incs] + checked_flags()[0] + I.late_sync())
+    vc6.sync([d for d in (pdir, sdir) if d] + extra_dirs + [f for f, _ in incs] + checked_flags()[0] + I.late_sync())
     work = f'{vc6.WORK}\\link_{name}'
     vc6.run_bat([f'if exist "{work}" rmdir /s /q "{work}"', f'mkdir "{work}\\obj"', f'mkdir "{work}\\stubobj"',
                  f'mkdir "{work}\\libs"'])
@@ -658,7 +621,7 @@ def link_one(name, out, extra_srcs=(), force=False, extra_objs=()):
                   'dumpbin /nologo /symbols stubobj\\*.obj > stubsyms.txt 2>&1']
     sys_names = [n.split(':')[-1] for n in LINK_SYS] + prog.get('sys', [])
     link = ['/nologo', f'/subsystem:{prog["subsystem"]}', '/machine:ix86', '/incremental:no', '/nodefaultlib',
-            f'/out:{name}.exe', f'/map:{name}.map', f'/libpath:"{work}\\libs"', 'obj\\*.obj']
+            f'/out:{name}.exe', f'/map:{name}.map', f'/libpath:"{work}\\libs"'] + (['obj\\*.obj'] if srcs else [])
     if force:
         link.append('/force:unresolved')
     link += ['libs\\' + os.path.basename(o) for o in extra_objs]
@@ -737,7 +700,7 @@ def main():
     ap.add_argument('--report', default=os.path.join(REPO, '.work', 'milestones', 'l1', 'unresolved.txt'))
     ap.add_argument('--pool', type=int, metavar='K', help='lease K VMs from pool.py, release after')
     ap.add_argument('--holder-pid', type=int)
-    ap.add_argument('--no-deploy', action='store_true', help='link: leave the deploy directory (the POC\'s release folder) alone')
+    ap.add_argument('--no-deploy', action='store_true', help='link: no effect (no program deploys); kept for old callers')
     ap.add_argument('--allow-dirty', action='store_true',
                     help='build even if a library has uncommitted changes')
     ap.add_argument('--root', help=rootguard.HELP)
