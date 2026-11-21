@@ -481,7 +481,6 @@ edit the comments in the code, not this file.
 | `app/client/ui_shipcust.cpp:264` | `Unknown620D20Class::Unknown_621530` | marker | NOT EXACT: functional (D64) @0x621530 |
 | `app/client/ui_shipcust.cpp:531` | `ShipCustomizeInterface::ShipCustomizeInterface` | marker | NOT EXACT: functional (D64) @0x622180 |
 | `app/client/ui_shipcust.cpp:1349` | `ShipCustomizeInterface::Unknown_624E50` | marker | NOT EXACT: functional (D64) @0x624E50 |
-| `app/client/ui_shipcust.cpp:1668` | `ShipCustomizeInterface::Unknown_625A60` | marker | NOT EXACT: inline budget (0.88: case 0's inlined 0x6257A0 calls 0x6259C0 out of line in the client and inlines the next two Gadgets[]; case 3's tutorial string inlines its assign (the client calls _Tidy / _Copy, ours _Grow)) @0x625A60 |
 | `app/client/ui_shipcust.cpp:1908` | `ShipCustomizeInterface::Unknown_627200` | marker | NOT EXACT: functional (D64) @0x627200 |
 | `app/client/ui_skills.cpp:187` | `UISkillsClass::Unknown_62D730` | marker | NOT EXACT: functional (D64), from the pseudocode |
 | `app/client/ui_slot_data.cpp:110` | `SlotDataInterface::SlotDataInterface` | marker | NOT EXACT: functional (D64), from the pseudocode |
