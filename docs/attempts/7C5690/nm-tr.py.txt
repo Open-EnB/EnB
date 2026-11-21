@@ -26,3 +26,30 @@ try:
         print(k, '|', ' / '.join(line)[:220], flush=True)
 finally:
     open(H, 'w', encoding='utf-8', newline='\n').write(orig)
+"""In-tree trials of delta_interpolator.h member / test spellings for 0x7C5690 (as tr_drive.py): Unknown24C's type and test."""
+import subprocess, sys, os
+H = 'app/shared/auxdata/delta_interpolator.h'
+orig = open(H, encoding='utf-8').read()
+DECL = '\tbool Unknown24C;'
+TEST = '\t\tif (Unknown24C || time == LastTime) {\n'
+assert orig.count(DECL) == 1 and orig.count(TEST) == 1
+FORMS = {
+    'uchar': [(DECL, '\tunsigned char Unknown24C;')],
+    'char': [(DECL, '\tchar Unknown24C;')],
+    'ne0': [(TEST, '\t\tif (Unknown24C != 0 || time == LastTime) {\n')],
+    'eqtrue': [(TEST, '\t\tif (Unknown24C == true || time == LastTime) {\n')],
+}
+only = sys.argv[1:] or list(FORMS)
+env = dict(os.environ, ENB_AGENT='NM')
+try:
+    for k in only:
+        s = orig
+        for a, b in FORMS[k]:
+            s = s.replace(a, b, 1)
+        open(H, 'w', encoding='utf-8', newline='\n').write(s)
+        out = subprocess.run([sys.executable, 'tools/re/trybatch.py', 'base', 'app/client/target_reticle.cpp', '', '0x7C5690'],
+                             capture_output=True, text=True, env=env).stdout
+        line = [l for l in out.splitlines() if l.startswith('base ') or 'COMPILE' in l or 'error' in l]
+        print(k, '|', ' / '.join(line)[:220], flush=True)
+finally:
+    open(H, 'w', encoding='utf-8', newline='\n').write(orig)

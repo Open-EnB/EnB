@@ -124,3 +124,123 @@ for nk, nf in N_FORMS.items():
             FORMS['n0_oh'] = OH
             continue
         FORMS['%s_oh_%s' % (nk, gk)] = nf + OH + gf
+HYPOTHESIS = 'NM mv6: the x87 operand order of ray x dir follows declaration (symbol) order: the two dirs as function-scope variables declared before ray (or before eye / tm), assigned in the cases'
+FILE = 'app/client/mainview.cpp'
+SYMBOL = 'MainViewClass::Unknown_60'
+ADDRESS = 0x512BB0
+
+OCC = '\t\t\t\tVector3 dir = object->Unknown_24() - eye;\n\t\t\t\tfloat dist2 = dir.X * dir.X + dir.Y * dir.Y + dir.Z * dir.Z;\n\t\t\t\toolen_o'
+GEN = '\t\t\t\tVector3 dir = object->Unknown_24() - eye;\n\t\t\t\tfloat dist2 = dir.X * dir.X + dir.Y * dir.Y + dir.Z * dir.Z;\n\t\t\t\toolen_g'
+OCC_A = [(OCC, OCC.replace('Vector3 dir = ', 'dir = '))]
+GEN_A = [(GEN, GEN.replace('Vector3 dir = ', 'dir = '))]
+RAY = '\tVector3 ray;\n'
+TM = '\tMatrix3D tm = Camera->Get_Transform();\n'
+EYE = '\tVector3 eye = Camera->Get_Position();'
+FAR = '\tfloat far2 = Camera->Get_Depth();\n'
+
+
+def occ_name(n):
+    # rename the occluder block's dir (its Info copy and dot too) by replacing inside the block text
+    return n
+
+
+FORMS = {
+    'both_before_ray': [(RAY, '\tVector3 dir; Vector3 ray;\n')] + OCC_A + GEN_A,
+    'both_top': [(TM, '\tVector3 dir; Matrix3D tm = Camera->Get_Transform();\n')] + OCC_A + GEN_A,
+    'both_after_ray': [(RAY, '\tVector3 ray; Vector3 dir;\n')] + OCC_A + GEN_A,
+    'both_after_far': [(FAR, '\tVector3 dir; float far2 = Camera->Get_Depth();\n')] + OCC_A + GEN_A,
+    'ray_late': [(RAY, '\n'), ('\tMatrix3D::Rotate_Vector(tm, v, &ray);', '\tVector3 ray; Matrix3D::Rotate_Vector(tm, v, &ray);')],
+    'ray_top': [(RAY, '\n'), (TM, '\tVector3 ray; Matrix3D tm = Camera->Get_Transform();\n')],
+}
+import re
+HYPOTHESIS = 'NM mv7: each case\'s dir as its own function-scope Vector3 (mv6: one shared function-scope dir fixed the occluder dot, G to 1, but merged the slots), declared at several points'
+FILE = 'app/client/mainview.cpp'
+SYMBOL = 'MainViewClass::Unknown_60'
+ADDRESS = 0x512BB0
+
+src = open(FILE, encoding='utf-8').read()
+fs = src.index('ClientObjectClass *MainViewClass::Unknown_60(')
+fe = src.index('\nsort:\n', fs)
+func = src[fs:fe]
+o0 = func.index('\t\tcase 2: case 3: case 10:')
+o1 = func.index('\t\tcase 5: case 6:')
+g0 = func.index('\t\tdefault: gen:')
+g1 = len(func)
+
+
+def rename(block, new, decl):
+    b = re.sub(r'\bdir\b', new, block)
+    if decl:
+        b = b.replace('Vector3 ' + new + ' = ', new + ' = ', 1)
+    return b
+
+
+def form(o, g, where, order='og'):
+    f = func[:o0] + rename(func[o0:o1], 'odir', o) + func[o1:g0] + rename(func[g0:g1], 'gdir', g)
+    names = [n for n, on in (('odir', o), ('gdir', g)) if on]
+    if order == 'go':
+        names.reverse()
+    d = 'Vector3 ' + ', '.join(names) + '; '
+    anchors = {
+        'ray': ('\tVector3 ray;\n', '\t' + d + 'Vector3 ray;\n'),
+        'aray': ('\tVector3 ray;\n', '\tVector3 ray; ' + d + '\n'),
+        'top': ('\tMatrix3D tm = Camera->Get_Transform();\n', '\t' + d + 'Matrix3D tm = Camera->Get_Transform();\n'),
+        'far': ('\tfloat far2 = Camera->Get_Depth();\n', '\t' + d + 'float far2 = Camera->Get_Depth();\n'),
+    }
+    a, b = anchors[where]
+    assert f.count(a) == 1, where
+    f = f.replace(a, b, 1)
+    return [(func, f)]
+
+
+FORMS = {}
+for where in ('ray', 'aray', 'top', 'far'):
+    FORMS['o_' + where] = form(True, False, where)
+    FORMS['g_' + where] = form(False, True, where)
+    FORMS['og_' + where] = form(True, True, where)
+    FORMS['go_' + where] = form(True, True, where, 'go')
+import re
+HYPOTHESIS = 'NM mv8: the dirs declared in the while body (loop scope: block-like slots, unlike mv7 function scope), each case its own or one, before / after the object local'
+FILE = 'app/client/mainview.cpp'
+SYMBOL = 'MainViewClass::Unknown_60'
+ADDRESS = 0x512BB0
+
+src = open(FILE, encoding='utf-8').read()
+fs = src.index('ClientObjectClass *MainViewClass::Unknown_60(')
+fe = src.index('\nsort:\n', fs)
+func = src[fs:fe]
+o0 = func.index('\t\tcase 2: case 3: case 10:')
+o1 = func.index('\t\tcase 5: case 6:')
+g0 = func.index('\t\tdefault: gen:')
+g1 = len(func)
+
+
+def rename(block, new, decl):
+    b = re.sub(r'\bdir\b', new, block)
+    if decl:
+        b = b.replace('Vector3 ' + new + ' = ', new + ' = ', 1)
+    return b
+
+
+def form(o, g, where, order='og'):
+    f = func[:o0] + rename(func[o0:o1], 'odir', o) + func[o1:g0] + rename(func[g0:g1], 'gdir', g)
+    names = [n for n, on in (('odir', o), ('gdir', g)) if on]
+    if order == 'go':
+        names.reverse()
+    d = 'Vector3 ' + ', '.join(names) + '; '
+    anchors = {
+        'lb': ('\t\tClientObjectClass *object = node->Get_Record();\n', '\t\t' + d + 'ClientObjectClass *object = node->Get_Record();\n'),
+        'la': ('\t\tClientObjectClass *object = node->Get_Record();\n', '\t\tClientObjectClass *object = node->Get_Record(); ' + d + '\n'),
+    }
+    a, b = anchors[where]
+    assert f.count(a) == 1, where
+    f = f.replace(a, b, 1)
+    return [(func, f)]
+
+
+FORMS = {}
+for where in ('lb', 'la'):
+    FORMS['o_' + where] = form(True, False, where)
+    FORMS['g_' + where] = form(False, True, where)
+    FORMS['og_' + where] = form(True, True, where)
+    FORMS['go_' + where] = form(True, True, where, 'go')
