@@ -29,10 +29,9 @@ void SlotDataClass::Unknown_Watch_0C()
 	Unknown_6A7AB0().emit(this, SlotDataEventDataChange(2));
 }
 
-// NOT EXACT: shape (0.59: the client lays out the second emit before the shared failure exit; this form makes the copy 0x6A7860 inlines exact)
+
 // 0x6A7730
-bool SlotDataClass::Unknown_6A7730()
-{
+bool SlotDataClass::Unknown_6A7730() {
 	bool result = false;
 	if (AuxData) {
 		result = Unknown_18();
@@ -45,11 +44,12 @@ bool SlotDataClass::Unknown_6A7730()
 	if (result) {
 		if (Unknown_20()) {
 			Unknown_6A7AB0().emit(this, SlotDataEventDataChange(2));
-		} else {
-			Unknown_6A7AB0().emit(this, SlotDataEventDataChange(1));
+			return(true);
 		}
+		Unknown_6A7AB0().emit(this, SlotDataEventDataChange(1));
+		return(true);
 	}
-	return(result);
+	return(false);
 }
 
 

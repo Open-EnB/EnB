@@ -53,31 +53,31 @@ enum { SCENE_ID_INTERFACE = SceneClass::SCENE_ID_LAST + 1 };	// InterfaceSceneCl
 
 
 
-// NOT EXACT: inline-budget (0.48; the client's case 2 calls RefCountPtr's assignment out of line, 0x6B55D0, EH state 5)
+
 // 0x6E0E80
-InterfaceSortClass::InterfaceSortClass(InterfaceClass *ui) :
-	SortList(NULL)
-{
+static void Peek_Back(RefCountPtr<InterfaceClass> &dest, InterfaceStaticSortListClass *list) { dest = Create_Peek(list->Set_Current_Back()); }
+static void Peek_End(RefCountPtr<InterfaceClass> &dest, InterfaceStaticSortListClass *list, bool front) {
+	if (front) { dest = Create_Peek(list->Set_Current_Front()); } else { Peek_Back(dest, list); } } InterfaceSortClass::InterfaceSortClass(InterfaceClass *ui) : SortList(NULL) {
 	FAIL_IF(!ui) return;
 	ui = ui->Unknown78;
 	FAIL_IF(!ui) return;
 	SortList = ui->Unknown_541800();
 	if (!SortList) return;
 	switch (ui->Unknown74) {
-
-
-
-
 		default:
+
+
+
+
 			G_ASSERT(false);
 		case 0:
 			Previous = Create_Peek(SortList->Set_Current_Interface(ui));
 			break;
 		case 1:
-			Previous = Create_Peek(SortList->Set_Current_Front());
+			Peek_End(Previous, SortList, true);
 			break;
 		case 2:
-			Previous = Create_Peek(SortList->Set_Current_Back());
+			Peek_End(Previous, SortList, false);
 			break;
 	}
 }

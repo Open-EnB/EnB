@@ -90,24 +90,24 @@ UIViewUnknown30Class::~UIViewUnknown30Class()
 	Window = NULL;
 }
 
-// NOT EXACT: register (0.80): the view's loads for the second 0x65F5F0 call and the sort object go to eax / ecx the other way round
 
-void UIViewUnknown30Class::Unknown_6AB5B0()
-{
+
+void UIViewUnknown30Class::Unknown_6AB5B0() {
 	if (Hides != 0 || View == NULL || View->Unknown2C == NULL) {
-		return;
-	}
+		return; }
 	GadgetClass *gadget = GadgetClass::Unknown_65F5F0(View->Unknown2C, false, true);
-	if (gadget || (gadget = GadgetClass::Unknown_65F5F0(View->Unknown2C, false, false)) != NULL) {
+	if (gadget == NULL) {
+		UIViewClass *view = View;
+		gadget = GadgetClass::Unknown_65F5F0(view->Unknown2C, false, false);
+	}
+	if (gadget != NULL) {
 		const char *text = Unknown0E ? gadget->Unknown24 : gadget->Get_Unknown14();
 		if (text == NULL) {
 			gadget = NULL;
-		}
-	}
+		} }
 	if (gadget != CurGadget) {
 		Unknown_6AB930(gadget);
-		return;
-	}
+		return; }
 	if (CurGadget == NULL) {
 		return;
 	}

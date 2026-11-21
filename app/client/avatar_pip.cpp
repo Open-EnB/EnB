@@ -291,19 +291,19 @@ void AvatarPipClass::Unknown_7E43E0(const RefCountPtr<CharacterViewAvatarClass> 
 }
 
 // @0x7E4520
-// NOT EXACT: scheduling (the client converts budget * 0.1f to int before the vp's Get_Sort_Level call; ours after; 0.79)
-void AvatarPipClass::Unknown_7E4520(const RefCountPtr<RenderObjClass> &model)
-{
-	Unknown_7E4350();
-	if (model) {
-		Unknown030 = model;
+
+void AvatarPipClass::Unknown_7E4520(const RefCountPtr<RenderObjClass> &model) {
+	Unknown_7E4350(); if (model) { Unknown030 = model;
 		Unknown034->Unknown_47FF70(Unknown030.Peek());
 		Unknown034->Set_Transform(Matrix3D(true));
-		Unknown034->Add(Scene.Peek());
-		float budget = OptionClass::Instance->Get_Bool("Graphics_Default") ? (float)((SClient *)Client->As_Space_Client())->PolyBudget : (float)(int)(8000.0f + (OptionClass::Instance->Get_Float("Graphics_Space_Poly") * 0.01f) * (40000.0f - 8000.0f));
-		PIPView->Unknown_65B7A0(Scene, Camera, (int)(budget * 0.1f), Unknown010->Get_Sort_Level() + 1);
-		Unknown028->Add(Scene.Peek());
-	}
+		Unknown034->Add(Scene.Peek()); int polys;
+		if (OptionClass::Instance->Get_Bool("Graphics_Default")) {
+			polys = (int)((float)((SClient *)Client->As_Space_Client())->PolyBudget * 0.1f);
+		} else {
+			int space = (int)(8000.0f + (OptionClass::Instance->Get_Float("Graphics_Space_Poly") * 0.01f) * (40000.0f - 8000.0f));
+			polys = (int)((float)space * 0.1f); }
+		PIPView->Unknown_65B7A0(Scene, Camera, polys, Unknown010->Get_Sort_Level() + 1);
+		Unknown028->Add(Scene.Peek()); }
 }
 
 // @0x7E4740

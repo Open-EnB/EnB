@@ -1756,37 +1756,37 @@ bool SplineDatabaseClass::Save_Entry(ChunkSaveClass &csave, SplineEntryClass *en
 	return csave.End_Chunk();
 }
 
-// NOT EXACT: shape (the client pushes ebx inside the linear case and repeats the epilogue at its first two failures)
-bool SplineDatabaseClass::Save_Curve(ChunkSaveClass &csave, SplineEntryClass *entry)
+
+static inline bool Save_Linear_Keys(ChunkSaveClass &csave, Curve1DClass *curve)
 {
+	bool looping = curve->Is_Looping();
+	if (!csave.Write(&looping, 1)) {
+		return false;
+	}
+	int count = curve->Key_Count();
+	if (!csave.Write(&count, 4)) {
+		return false;
+	}
+	float point; float t;
+	unsigned int extra;
+	for (int i = 0; i < count; i++) {
+		curve->Get_Key(i, &point, &t, &extra);
+		if (!csave.Write(&point, 4)) {
+			return false;
+		}
+		if (!csave.Write(&t, 4)) {
+			return false;
+		}
+		if (!csave.Write(&extra, 4)) {
+			return false;
+		}
+	}
+	return true;
+}
+bool SplineDatabaseClass::Save_Curve(ChunkSaveClass &csave, SplineEntryClass *entry) {
 	switch (entry->Type) {
 		case TYPE_LINEAR:
-		{
-			Curve1DClass *curve = entry->Curve;
-			bool looping = curve->Is_Looping();
-			float point; float t;
-			unsigned int extra;
-			if (!csave.Write(&looping, 1)) {
-				return false;
-			}
-			int count = curve->Key_Count();
-			if (!csave.Write(&count, 4)) {
-				return false;
-			}
-			for (int i = 0; i < count; i++) {
-				curve->Get_Key(i, &point, &t, &extra);
-				if (!csave.Write(&point, 4)) {
-					return false;
-				}
-				if (!csave.Write(&t, 4)) {
-					return false;
-				}
-				if (!csave.Write(&extra, 4)) {
-					return false;
-				}
-			}
-			return true;
-		}
+			return Save_Linear_Keys(csave, entry->Curve);
 		case TYPE_HERMITE:
 			return Save_Hermite(csave, entry);
 		case TYPE_COLOR:
@@ -1798,8 +1798,8 @@ bool SplineDatabaseClass::Save_Curve(ChunkSaveClass &csave, SplineEntryClass *en
 			if (!csave.Write(&entry->AlphaKey, 4)) {
 				return false;
 			}
-			{ bool ok = csave.Write(&entry->BetaKey, 4) != 0; return ok; }	// the client's setne
-		case 0: return false;		// the client's jump table starts at type 0 (to the false return), in this case order
+			{ bool ok = csave.Write(&entry->BetaKey, 4) != 0; return ok; }
+		case 0: return false;
 	}
 	return false;
 }
@@ -3017,15 +3017,16 @@ int SplineEntryClass::Get_Packed_Size(void)
 
 
 
-// NOT EXACT: register-only (the type byte through al, not cl), parked
+
 char *SplineEntryClass::Pack(char *buffer)
 {
 	char *p = buffer;
 	*(unsigned int *)p = CRC_String(Name);
 	int size = 5;
-	p += 4;
-	*p = Type;
-	p++;
+	p += sizeof(unsigned int);
+	const char &type = (const char &)Type;
+	*p = type;
+	p += sizeof(char);
 	switch (Type) {
 		case SplineDatabaseClass::TYPE_LINEAR:
 		case SplineDatabaseClass::TYPE_HERMITE:
@@ -3057,8 +3058,7 @@ char *SplineEntryClass::Pack(char *buffer)
 			p += 4;
 			size += 12;
 			break;
-		case SplineDatabaseClass::TYPE_BLEND:
-		{
+		case SplineDatabaseClass::TYPE_BLEND: {
 			float value;
 			Curve->Get_Key(0, &value, NULL, NULL);
 			*(float *)p = value;

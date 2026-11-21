@@ -373,8 +373,8 @@ bool Unknown_7CA2D0Class::Unknown_7CB8A0(int which)
 }
 
 // @0x7CB8F0
-// NOT EXACT: order-only (the same 231 instructions: the client zeroes the count before the read's arguments are pushed
-// and reloads a handle one instruction earlier at the end)
+
+
 unsigned long __stdcall Unknown_7CA2D0Class::Unknown_7CB8F0(void *store)
 {
 	Unknown_7CA2D0Class *self = (Unknown_7CA2D0Class *)store;
@@ -390,9 +390,9 @@ unsigned long __stdcall Unknown_7CA2D0Class::Unknown_7CB8F0(void *store)
 			HINTERNET request = InternetOpenUrlA(internet, url, NULL, 0, 0x84003100, 0);
 			if (request != NULL) {
 				char buffer[100];
+				DWORD read = 0;
 				bool more = true;
 				while (more) {
-					DWORD read = 0;
 					if (InternetReadFile(request, buffer, sizeof(buffer), &read) && read != 0) {
 						reply.append(buffer);
 						buffer[0] = '\0';

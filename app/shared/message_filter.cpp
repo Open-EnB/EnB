@@ -57,63 +57,63 @@ bit8 MessageFilterClass::Unknown_4BE1E0(ConfigFile &config, char *section)
 }
 
 // 0x4BE2C0
-// NOT EXACT: shape (explain.py: 14 masked rows; 0.80): register allocation only: the client keeps pass in bl
-// (with its stack home) after the module test, ours reloads it from the stack; every call and branch is
-// the client's (25 forms tried: helpers, loop and test forms, bool, early returns)
+
+
+
 bit8 MessageFilterClass::Unknown_4BE2C0(MessageRecordClass *message)
 {
 	bit8 pass = TRUE;
 
 	if ((message->Level & Type) == 0) {
-		return FALSE;
-	}
-
-	if (Modules.length() != 0) {
-		Wstring module;
-		Wstring sender;
-		for (int offset = Modules.getToken(0, ",;", module); offset != -1; offset = Modules.getToken(offset, ",;", module)) {
-			module.removeSpaces();
-			if (module.length() == 0) {
-				continue;
-			}
-			sender.set("");
-			for (int pos = message->Sender.getToken(0, ",;", sender); pos != -1; pos = message->Sender.getToken(pos, ",;", sender)) {
-				sender.removeSpaces();
-				if (sender.length() != 0 && module == sender) {
+		pass = FALSE;
+	} else {
+		if (Modules.length() != 0) {
+			Wstring module;
+			Wstring sender;
+			for (int offset = Modules.getToken(0, ",;", module); offset != -1; offset = Modules.getToken(offset, ",;", module)) {
+				module.removeSpaces();
+				if (module.length() == 0) {
+					continue;
+				}
+				sender.set("");
+				for (int pos = message->Sender.getToken(0, ",;", sender); pos != -1; pos = message->Sender.getToken(pos, ",;", sender)) {
+					sender.removeSpaces();
+					if (sender.length() != 0 && module == sender) {
+						break;
+					}
+				}
+				if (module == sender) {
 					break;
 				}
 			}
-			if (module == sender) {
-				break;
+			if (module.length() != 0 && module != sender) {
+				pass = FALSE;
 			}
 		}
-		if (module.length() != 0 && module != sender) {
-			pass = FALSE;
-		}
-	}
 
-	if (pass && Files.length() != 0) {
-		Wstring file;
-		for (int pos = Files.getToken(0, ",;", file); pos != -1; pos = Files.getToken(pos, ",;", file)) {
-			file.removeSpaces();
-			if (file.length() != 0 && file == message->File) {
-				break;
+		if (pass && Files.length() != 0) {
+			Wstring file;
+			for (int pos = Files.getToken(0, ",;", file); pos != -1; pos = Files.getToken(pos, ",;", file)) {
+				file.removeSpaces();
+				if (file.length() != 0 && file == message->File) {
+					break;
+				}
+			}
+			if (file.length() != 0 && file != message->File) {
+				pass = FALSE;
 			}
 		}
-		if (file.length() != 0 && file != message->File) {
-			pass = FALSE;
-		}
-	}
 
-	if (pass && Prefix.length() != 0) {
-		while (Prefix.length() != 0) {
-			if (Prefix.get()[Prefix.length() - 1] != ' ') {
-				break;
+		if (pass && Prefix.length() != 0) {
+			while (Prefix.length() != 0) {
+				if (Prefix.get()[Prefix.length() - 1] != ' ') {
+					break;
+				}
+				Prefix.truncate(Prefix.length() - 1);
 			}
-			Prefix.truncate(Prefix.length() - 1);
-		}
-		if (strncmp(Prefix.get(), message->Text.get(), Prefix.length()) != 0) {
-			return FALSE;
+			if (strncmp(Prefix.get(), message->Text.get(), Prefix.length()) != 0) {
+				pass = FALSE;
+			}
 		}
 	}
 

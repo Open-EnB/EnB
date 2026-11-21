@@ -316,7 +316,7 @@ void ChatGadgetClass::Unknown_65CCD0()
 	char *text = Edit->Get_String();
 	if (text != NULL) {
 		if (*text == 0) {
-			delete text;
+			del: delete text;
 		} else {
 			if (*text != '/' || !Client->Unknown_34(text)) {
 				switch (channel) {
@@ -349,18 +349,18 @@ void ChatGadgetClass::Unknown_65CCD0()
 							CharacterViewAvatarClass *avatar = sclient->Unknown_74C840(Client->AvatarID);
 							if (avatar != NULL) {
 								((CharacterViewAvatarClass *)avatar)->Unknown_781760(text);
-								AvatarEmotePacketClass emote(Client->AvatarID, (Unknown_ChatStreamClass *)avatar->Unknown_7817E0(), 1, NULL);
-								Client->Send_Packet(&emote);
+								
+								Client->Send_Packet(&AvatarEmotePacketClass(Client->AvatarID, (Unknown_ChatStreamClass *)avatar->Unknown_7817E0(), 1, NULL));
 								if (avatar->Unknown_7817E0()->Unknown_4C4940()) {
 									char line[512] = "";
 									avatar->Unknown_7817E0()->Unknown_4C48C0(line);
-									ClientChatPacketClass chat(Client->AvatarID, line, 3, NULL);
-									Client->Send_Packet(&chat);
+									
+									Client->Send_Packet(&ClientChatPacketClass(Client->AvatarID, line, 3, NULL));
 								}
 							}
 						} else {
-							ClientChatPacketClass chat(Client->AvatarID, text, 3, NULL);
-							Client->Send_Packet(&chat);
+							
+							Client->Send_Packet(&ClientChatPacketClass(Client->AvatarID, text, 3, NULL));
 						}
 						break;
 					case 0:
@@ -368,18 +368,18 @@ void ChatGadgetClass::Unknown_65CCD0()
 							CharacterViewAvatarClass *avatar = sclient->Unknown_74C840(Client->AvatarID);
 							if (avatar != NULL) {
 								((CharacterViewAvatarClass *)avatar)->Unknown_781760(text);
-								AvatarEmotePacketClass emote(Client->AvatarID, (Unknown_ChatStreamClass *)avatar->Unknown_7817E0(), 1, NULL);
-								Client->Send_Packet(&emote);
+								
+								Client->Send_Packet(&AvatarEmotePacketClass(Client->AvatarID, (Unknown_ChatStreamClass *)avatar->Unknown_7817E0(), 1, NULL));
 								if (avatar->Unknown_7817E0()->Unknown_4C4940()) {
 									char line[512] = "";
 									avatar->Unknown_7817E0()->Unknown_4C48C0(line);
-									ClientChatPacketClass chat(Client->AvatarID, line, 4, NULL);
-									Client->Send_Packet(&chat);
+									
+									Client->Send_Packet(&ClientChatPacketClass(Client->AvatarID, line, 4, NULL));
 								}
 							}
 						} else {
-							ClientChatPacketClass chat(Client->AvatarID, text, 4, NULL);
-							Client->Send_Packet(&chat);
+							
+							Client->Send_Packet(&ClientChatPacketClass(Client->AvatarID, text, 4, NULL));
 						}
 						break;
 					case 4:
@@ -404,16 +404,16 @@ void ChatGadgetClass::Unknown_65CCD0()
 						break;
 					case 3:
 						if (((SClient *)Client->As_Space_Client())->Unknown_74D570()) {
-							ClientChatPacketClass chat(Client->AvatarID, text, 1, NULL);
-							Client->Send_Packet(&chat);
+							
+							Client->Send_Packet(&ClientChatPacketClass(Client->AvatarID, text, 1, NULL));
 						} else {
 							((SClient *)Client->As_Space_Client())->Unknown_74D990(0x11, "Not in a group.", 0);
 						}
 						break;
 					case 2:
 						if (((SClient *)Client->As_Space_Client())->Unknown_728300()) {
-							ClientChatPacketClass chat(Client->AvatarID, text, 2, NULL);
-							Client->Send_Packet(&chat);
+							
+							Client->Send_Packet(&ClientChatPacketClass(Client->AvatarID, text, 2, NULL));
 						} else {
 							((SClient *)Client->As_Space_Client())->Unknown_74D990(0x11, "Not in a guild.", 0);
 						}
@@ -430,7 +430,7 @@ void ChatGadgetClass::Unknown_65CCD0()
 					HistoryNext = 0;
 				}
 			} else {
-				delete text;
+				goto del;
 			}
 		}
 	}

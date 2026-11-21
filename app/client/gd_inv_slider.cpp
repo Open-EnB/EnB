@@ -17,7 +17,7 @@ public:
 };
 
 
-// NOT EXACT: register-only (the client loads the argument into ecx and the member back into eax, ours the reverse: 6 rows)
+
 // 0x669FB0
 Unknown669FB0Class::Unknown669FB0Class(UIInvClass *inventory, LayerClass *layer) :
 	GadgetSlider(false, layer),
@@ -32,7 +32,7 @@ Unknown669FB0Class::Unknown669FB0Class(UIInvClass *inventory, LayerClass *layer)
 
 
 	FAIL_IF(!Inventory) return;
-	SlotData = Create_Peek(inventory->SlotData);
+	SlotDataClass *slot_data = Inventory->SlotData; SlotData = Create_Peek(slot_data);
 
 	FAIL_IF(!SlotData) return;
 	SlotDataClass::Unknown_6A7AB0().connect(SlotData.Peek(), this, &Unknown669FB0Class::Unknown_66A4E0);

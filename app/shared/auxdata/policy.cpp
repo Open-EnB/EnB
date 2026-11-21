@@ -100,7 +100,7 @@ void PolicyRuleSetClass::Add_Rule(const NameClass &pattern, int action, int valu
 	}
 	Rules.push_back(new PolicyRuleClass(pattern, action, value, &Enabled, this));
 }
-// NOT EXACT: register-only, eax / edx swapped in the rule set loop (D89: not chased)
+
 CompiledPolicyClass::CompiledPolicyClass(PolicyClass *policy, DeltaCompoundClass *c, CompiledPolicyClass *next) :
 	Root(0),
 	Next(next),
@@ -190,7 +190,7 @@ CompiledPolicyClass::CompiledPolicyClass(PolicyClass *policy, DeltaCompoundClass
 		Table[i] = 0;
 	}
 	for (PolicyRuleSetClass **rule_set = policy->Sets.begin(); rule_set != policy->Sets.end(); rule_set++) {
-		PolicyRuleClass **rules = Compile_Rules((*rule_set)->Rules, c);
+		PolicyRuleSetClass *set = *rule_set; PolicyRuleClass **rules = Compile_Rules(set->Rules, c);
 		Insert(rules);
 		delete [] rules;
 	}

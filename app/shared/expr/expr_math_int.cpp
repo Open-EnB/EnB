@@ -93,43 +93,43 @@ ExprMathIntFactoryClass::PtrType ExprMathIntFactoryClass::Create_Binary(const st
 }
 
 
-// NOT EXACT: 0x4CC120 similarity 0.78: the client inlines more of the five groups' assignments (float's form, 0x4C8370, is exact)
+
 // @0x4CC120
 ExprMathIntFactoryClass::PtrType ExprMathIntFactoryClass::Create_Unary(const std::string &name, const PtrType &child)
 {
 	PtrType result;
-	if (m_flags & 1) {
-		if (result = ExprMathArithmeticOpsClass<int>::Create_Unary(name, child)) {
-			return result;
-		}
-
-	}
-	if (m_flags & 4) {
-		if (result = ExprMathBitwiseOpsClass<int>::Create_Unary(name, child)) {
-			return result;
-		}
-
-	}
-	if (m_flags & 0x10) {
-		if (result = ExprMathFunctionOpsClass<int>::Create_Unary(name, child)) {
-			return result;
-		}
-
-	}
-	if (m_flags & 2) {
-		if (result = ExprMathCompareOpsClass<int>::Create_Unary(name, child)) {
-			return result;
-		}
-
-	}
-	if (m_flags & 8) {
-		if (result = ExprMathLogicOpsClass<int>::Create_Unary(name, child)) {
-			return result;
-		}
-
-	}
+	if ((m_flags & 1) && (result = ExprMathArithmeticOpsClass<int>::Create_Unary(name, child)))
+		return result;
+	if ((m_flags & 4) && (result = ExprMathBitwiseOpsClass<int>::Create_Unary(name, child)))
+		return result;
+	if ((m_flags & 0x10) && (result = ExprMathFunctionOpsClass<int>::Create_Unary(name, child)))
+		return result;
+	if ((m_flags & 2) && (result = ExprMathCompareOpsClass<int>::Create_Unary(name, child)))
+		return result;
+	if ((m_flags & 8) && (result = ExprMathLogicOpsClass<int>::Create_Unary(name, child)))
+		return result;
 	return NULL;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // @0x4CC500

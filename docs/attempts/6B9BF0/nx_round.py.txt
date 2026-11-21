@@ -1,0 +1,312 @@
+# NX Debris batch 1 (0x6B9BF0). Hypotheses, each from client bytes:
+#  B: bmin built field by field (client 0x6B9FD2 keeps bmin.X - Size on the x87 stack, never stored: the store is
+#     dead because floor's result overwrites bmin.X; PT6's lead, raw 1503 -> 1473).
+#  M*: the client pops Length2's operands before multiplying by inv_max2 (0x6BA640-0x6BA646): the product is a
+#     separate expression from the Length2 return: (M1) d2 is the length and the product is CSE'd in the compare and
+#     the floor; (M2) Dot_Product(loc, loc) instead of Length2; (M3) a reference local for locs[UnknownD4].
+HYPOTHESIS = 'bmin by fields; Length2 product as a separate expression (CSE in compare and floor), Dot_Product, ref'
+FILE = 'app/client/debris.cpp'
+SYMBOL = 'DebrisFieldClass::Render'
+ADDRESS = 0x6B9BF0
+T6 = '\t' * 6
+T7 = '\t' * 7
+D2 = T6 + 'float d2 = locs[UnknownD4].Length2() * inv_max2;\n'
+IF = T6 + 'if (d2 < 1.0f) {\n'
+AL = T7 + 'float alpha = alpha_ramp[(int)floor(d2 * 512.0f)];\n'
+K0 = T7 + 'diffuse[UnknownD4].X = Color.X'
+K1 = T7 + 'diffuse[UnknownD4].X = alpha * Color.X'
+
+BOLD = '\tVector3 bmin(frustum.BoundMin.X - Size, frustum.BoundMin.Y - Size, frustum.BoundMin.Z - Size);\n'
+BNEW = ('\tVector3 bmin; bmin.X = frustum.BoundMin.X - Size; bmin.Y = frustum.BoundMin.Y - Size;'
+        ' bmin.Z = frustum.BoundMin.Z - Size;\n')
+B = [(BOLD, BNEW)]
+
+
+def both(d2, if_, al):
+    return [(D2 + IF + AL + K0, d2 + if_ + al + K0), (D2 + IF + AL + K1, d2 + if_ + al + K1)]
+
+
+M1 = both(T6 + 'float d2 = locs[UnknownD4].Length2();\n', T6 + 'if (d2 * inv_max2 < 1.0f) {\n',
+          T7 + 'float alpha = alpha_ramp[(int)floor(d2 * inv_max2 * 512.0f)];\n')
+M2 = both(T6 + 'float d2 = Vector3::Dot_Product(locs[UnknownD4], locs[UnknownD4]) * inv_max2;\n', IF, AL)
+M3 = both(T6 + 'Vector3 &loc = locs[UnknownD4]; float d2 = loc.Length2() * inv_max2;\n', IF, AL)
+M4 = both(T6 + 'float d2 = locs[UnknownD4].Length2(); d2 = d2 * inv_max2;\n', IF, AL)
+FORMS = {
+    'B': B,
+    'M1': M1, 'M2': M2, 'M3': M3, 'M4': M4,
+    'B_M1': B + M1, 'B_M2': B + M2, 'B_M3': B + M3,
+}
+# NX Debris batch 2 (0x6B9BF0), on top of batch 1's M1 (residue 10 -> 6: the Length2 product as its own
+# expression, CSE'd in the compare and the floor). Hypotheses:
+#  B*: bmin by fields fixes r15/r17 (client 0x6B9FD2 keeps bmin.X - Size unstored) but its temp numbering flips the
+#      blur Rotate_Vector operand order (r42, 9 rows): variants of the same statement (bmax too by fields, bmin
+#      declared before bmax, Set(), blur through the member Rotate_Vector) may keep r17 and the operand order.
+#  S*: the client's slots zfar 0xEC between vpmax 0xF0 and vpmin 0xE4 (ours zfar, vpmin, vpmax): scope blocks
+#      around the clip planes and the view plane change the packing order.
+HYPOTHESIS = 'M1 plus bmin-by-fields variants (keep r42 operand order) and scope blocks for the clip / view plane slots'
+FILE = 'app/client/debris.cpp'
+SYMBOL = 'DebrisFieldClass::Render'
+ADDRESS = 0x6B9BF0
+T6 = '\t' * 6
+T7 = '\t' * 7
+D2 = T6 + 'float d2 = locs[UnknownD4].Length2() * inv_max2;\n'
+IF = T6 + 'if (d2 < 1.0f) {\n'
+AL = T7 + 'float alpha = alpha_ramp[(int)floor(d2 * 512.0f)];\n'
+K0 = T7 + 'diffuse[UnknownD4].X = Color.X'
+K1 = T7 + 'diffuse[UnknownD4].X = alpha * Color.X'
+
+
+def both(d2, if_, al):
+    return [(D2 + IF + AL + K0, d2 + if_ + al + K0), (D2 + IF + AL + K1, d2 + if_ + al + K1)]
+
+
+M1 = both(T6 + 'float d2 = locs[UnknownD4].Length2();\n', T6 + 'if (d2 * inv_max2 < 1.0f) {\n',
+          T7 + 'float alpha = alpha_ramp[(int)floor(d2 * inv_max2 * 512.0f)];\n')
+
+BXO = '\tVector3 bmax(frustum.BoundMax.X + Size, frustum.BoundMax.Y + Size, frustum.BoundMax.Z + Size);\n'
+BNO = '\tVector3 bmin(frustum.BoundMin.X - Size, frustum.BoundMin.Y - Size, frustum.BoundMin.Z - Size);\n'
+BXF = ('\tVector3 bmax; bmax.X = frustum.BoundMax.X + Size; bmax.Y = frustum.BoundMax.Y + Size;'
+       ' bmax.Z = frustum.BoundMax.Z + Size;\n')
+BNF = ('\tVector3 bmin; bmin.X = frustum.BoundMin.X - Size; bmin.Y = frustum.BoundMin.Y - Size;'
+       ' bmin.Z = frustum.BoundMin.Z - Size;\n')
+B = [(BNO, BNF)]
+BB = [(BXO + BNO, BXF + BNF)]
+BD = [(BXO + BNO, '\tVector3 bmin; ' + BXO[1:] + BNF.replace('\tVector3 bmin; ', '\t'))]
+BS = [(BNO, '\tVector3 bmin; bmin.Set(frustum.BoundMin.X - Size, frustum.BoundMin.Y - Size,'
+             ' frustum.BoundMin.Z - Size);\n')]
+RO = '\t\tMatrix3D::Rotate_Vector(view, UnknownE8, &blur);\n'
+BR = [(RO, '\t\tblur = view.Rotate_Vector(UnknownE8);\n')]
+
+ZO = '\tfloat znear;\n\tfloat zfar;\n\tcamera->Get_Clip_Planes(znear, zfar);\n\tfloat size = Size;\n'
+ZO2 = '\tfloat min_dist = znear / cos(camera->Get_Vertical_FOV() * 0.5f) + size;\n'
+S1 = [(ZO + ZO2, '\tfloat size; float min_dist; { float znear;\n\tfloat zfar;\n\tcamera->Get_Clip_Planes(znear, zfar);\n'
+                 '\tsize = Size;\n\tmin_dist = znear / cos(camera->Get_Vertical_FOV() * 0.5f) + size; }\n')]
+VO = ('\tVector2 vpmin;\n\tVector2 vpmax;\n\tcamera->Get_View_Plane(vpmin, vpmax);\n'
+      '\tframustum'.replace('framustum', 'frustum') + '.Init(frustum.CameraTransform, vpmin, vpmax, MinDist, MaxDist);\n')
+S2 = [(VO, '\t{ ' + VO[1:-1] + ' }\n')]
+FORMS = {
+    'M1_B': M1 + B, 'M1_BB': M1 + BB, 'M1_BD': M1 + BD, 'M1_BS': M1 + BS, 'M1_B_BR': M1 + B + BR,
+    'M1_BR': M1 + BR,
+    'M1_S1': M1 + S1, 'M1_S2': M1 + S2, 'M1_S12': M1 + S1 + S2, 'M1_B_S12': M1 + B + S1 + S2,
+}
+# NX Debris batch 3 (0x6B9BF0), the tree has M1 (residue 6: r17 5 rows, r15 1 row). bmin by fields (B) fixes r15 and
+# r17 (client 0x6B9FD2 keeps bmin.X - Size unstored; 0x6B9EEF's [eax+edx] follows) and puts step_y / step_z in
+# the client's slots, but flips the blur Rotate_Vector operand order (r42, 9 rows; our `view` refs map to the
+# client's -2500 / -2512). Hypothesis: the flip is a symbol-numbering tie (B drops the bmin constructor's
+# temporaries); a B form that keeps or adds a numbered symbol (X through a float, X computed in the floor, view or
+# blur declared elsewhere) keeps r17's fix and the operand order.
+HYPOTHESIS = 'bmin by fields variants that keep the blur Rotate_Vector operand order'
+FILE = 'app/client/debris.cpp'
+SYMBOL = 'DebrisFieldClass::Render'
+ADDRESS = 0x6B9BF0
+BNO = '\tVector3 bmin(frustum.BoundMin.X - Size, frustum.BoundMin.Y - Size, frustum.BoundMin.Z - Size);\n'
+BNF = ('\tVector3 bmin; bmin.X = frustum.BoundMin.X - Size; bmin.Y = frustum.BoundMin.Y - Size;'
+       ' bmin.Z = frustum.BoundMin.Z - Size;\n')
+FX = '\tfloat f = floor(inv_spacing * bmin.X);\n'
+B = [(BNO, BNF)]
+BX1 = [(BNO, '\tVector3 bmin; float bx = frustum.BoundMin.X - Size; bmin.Y = frustum.BoundMin.Y - Size;'
+             ' bmin.Z = frustum.BoundMin.Z - Size;\n'), (FX, '\tfloat f = floor(inv_spacing * bx);\n')]
+BX2 = [(BNO, '\tVector3 bmin; bmin.Y = frustum.BoundMin.Y - Size; bmin.Z = frustum.BoundMin.Z - Size;\n'),
+       (FX, '\tfloat f = floor(inv_spacing * (frustum.BoundMin.X - Size));\n')]
+BX3 = [(BNO, '\tVector3 bmin; float bx = frustum.BoundMin.X - Size; bmin.Y = frustum.BoundMin.Y - Size;'
+             ' bmin.Z = frustum.BoundMin.Z - Size; bmin.X = bx;\n')]
+VW = '\tMatrix3D view;\n'
+VWT = '\tcamera->Get_Transform().Get_Inverse(view);\n'
+BLO = '\t\tVector3 blur;\n'
+BLR = '\t\tMatrix3D::Rotate_Vector(view, UnknownE8, &blur);\n'
+# blur declared at the top of the LineGroup block
+BL1 = [(BLO, '\n'), ('\tif (LineGroup) {\n\t\tVector3 *ends', '\tif (LineGroup) { Vector3 blur;\n\t\tVector3 *ends')]
+# view declared with bmin
+VW1 = [(VW, '\n'), (BNF, BNF[:-1] + ' Matrix3D view;\n')]
+FORMS = {
+    'B': B, 'BX1': BX1, 'BX2': BX2, 'BX3': BX3,
+    'B_BL1': B + BL1,
+    'B_VW1': [(BNO, BNF[:-1] + ' Matrix3D view;\n'), (VW, '\n')],
+}
+# NX Debris batch 4 (0x6B9BF0, tree has M1). Slot map evidence: our function-scope x and z each map to two client
+# slots (x -> -2640:5 and -2596:5, z -> -2640:5 and -2596:4), xy to -2632 / -2596: the client has separate loop
+# variables per switch case (case 0's x where case 1's z sits). Hypothesis: each case is a braced block with its
+# own `for (int x ...)` loop variables (or its own x, y, z declared at the case's top); with B (bmin by fields)
+# the renumbered symbols may also restore the blur Rotate_Vector operand order (r42).
+HYPOTHESIS = 'per-case loop variables (braced cases) as the client slot map shows; with and without bmin by fields'
+FILE = 'app/client/debris.cpp'
+SYMBOL = 'DebrisFieldClass::Render'
+ADDRESS = 0x6B9BF0
+DECL = '\tint x;\n\tint y;\n\tint z;\n\tswitch (Unknown_6BB440()) {\n'
+LOOPS = ('\t\t\tfor (x = x0; x < x1; x++) {\n\t\t\t\tfor (y = y0; y < y1; y++) {\n\t\t\t\t\tint xy = y ^ x;\n'
+         '\t\t\t\t\tfor (z = z0; z < z1; z++) {\n')
+LOOPS_INT = ('\t\t\tfor (int x = x0; x < x1; x++) {\n\t\t\t\tfor (int y = y0; y < y1; y++) {\n\t\t\t\t\tint xy = y ^ x;\n'
+             '\t\t\t\t\tfor (int z = z0; z < z1; z++) {\n')
+C0 = '\t\tcase 0:\n'
+C1 = '\t\t\tbreak;\n\t\tcase 1:\n'
+CD = '\t\t\t}\n\t\t\tbreak;\n\t\tdefault:\n'
+
+
+def per_case(loop_int, decl_in_case=False, order='xyz'):
+    pre = ''
+    if decl_in_case:
+        pre = ' ' + ' '.join('int %s;' % v for v in order)
+    lp = LOOPS_INT if loop_int else LOOPS
+    return [
+        (DECL, '\n\n\n\tswitch (Unknown_6BB440()) {\n'),
+        (C0 + LOOPS, '\t\tcase 0: {' + pre + '\n' + lp),
+        (C1 + LOOPS, '\t\t\tbreak; }\n\t\tcase 1: {' + pre + '\n' + lp),
+        (CD, '\t\t\t}\n\t\t\tbreak; }\n\t\tdefault:\n'),
+    ]
+
+
+BNO = '\tVector3 bmin(frustum.BoundMin.X - Size, frustum.BoundMin.Y - Size, frustum.BoundMin.Z - Size);\n'
+BNF = ('\tVector3 bmin; bmin.X = frustum.BoundMin.X - Size; bmin.Y = frustum.BoundMin.Y - Size;'
+       ' bmin.Z = frustum.BoundMin.Z - Size;\n')
+B = [(BNO, BNF)]
+FORMS = {
+    'P1_for_int': per_case(True),
+    'P2_case_decl': per_case(False, True),
+    'P2_case_decl_zyx': per_case(False, True, 'zyx'),
+    'B_P1': B + per_case(True),
+    'B_P2': B + per_case(False, True),
+    'B_P2_zyx': B + per_case(False, True, 'zyx'),
+}
+# NX Debris batch 5 (0x6B9BF0, tree: M1 + B_P1, masked residue 1). Client 0x6BA48D-0x6BA509: (y1 - y0) goes to its own
+# conversion slot (esp+0x38) and back_y.Z is then stored into that same slot; (z1 - z0) to esp+0x64 and back_z.Z into
+# it. Ours puts both conversions in one compiler temp (-2568) and the .Z components elsewhere (the x1 / back_y.Z and
+# back_z.Y / .Z slot swaps). Hypothesis: the conversion is a separate expression the client writes differently (the
+# friend operator*(float, Vector3), an implicit int conversion, a named count), which changes the temps' slots.
+# r15 (0x6B9EEF, [eax+edx] vs ours [edx+eax] in the frustum copy's corner loop): the copy's form (direct init).
+HYPOTHESIS = 'the back_y / back_z conversion forms (temps sharing the .Z slot) and the frustum copy form'
+FILE = 'app/client/debris.cpp'
+SYMBOL = 'DebrisFieldClass::Render'
+ADDRESS = 0x6B9BF0
+BY = '\tVector3 back_y = step_y * (float)(y1 - y0);\n'
+BZ = '\tVector3 back_z = step_z * (float)(z1 - z0);\n'
+FR = '\tFrustumClass frustum = camera->Get_Frustum();\n'
+
+
+def k(fy, fz):
+    return [(BY + BZ, '\tVector3 back_y = %s;\n\tVector3 back_z = %s;\n' % (fy, fz))]
+
+
+FORMS = {
+    'K1_float_first': k('(float)(y1 - y0) * step_y', '(float)(z1 - z0) * step_z'),
+    'K2_implicit': k('step_y * (y1 - y0)', 'step_z * (z1 - z0)'),
+    'K3_implicit_first': k('(y1 - y0) * step_y', '(z1 - z0) * step_z'),
+    'K4_named': [(BY + BZ, '\tfloat ny = y1 - y0; Vector3 back_y = step_y * ny;\n'
+                           '\tfloat nz = z1 - z0; Vector3 back_z = step_z * nz;\n')],
+    'K5_named_int': [(BY + BZ, '\tint ny = y1 - y0; Vector3 back_y = step_y * (float)ny;\n'
+                               '\tint nz = z1 - z0; Vector3 back_z = step_z * (float)nz;\n')],
+    'F1_direct': [(FR, '\tFrustumClass frustum(camera->Get_Frustum());\n')],
+    'F2_ref': [(FR, '\tconst FrustumClass &cf = camera->Get_Frustum(); FrustumClass frustum = cf;\n')],
+}
+# NX Debris batch 6 (0x6B9BF0, tree: M1 + B_P1, masked residue 1). Client 0x6B9FAC-0x6B9FCE / 0x6BA07A-0x6BA0AC:
+# bmax is three contiguous stores (esp+0x2C/0x30/0x34) read back as `fld inv_spacing; fmul bmax.c`; ours
+# scalar-replaces bmax into separate temps and loads `fld bmax.c; fmul inv_spacing` (the slot map's bmax.Z ->
+# -2632/-2636 and inv_spacing's split are this operand order). Hypothesis: the client's bmax is a real Vector3
+# (an operator+ result or a field-wise build), which keeps it in memory and gives the client's operand order.
+HYPOTHESIS = 'bmax not scalar-replaced (operator+ result, by fields, a named size vector) for the ceil operand order'
+FILE = 'app/client/debris.cpp'
+SYMBOL = 'DebrisFieldClass::Render'
+ADDRESS = 0x6B9BF0
+BX = '\tVector3 bmax(frustum.BoundMax.X + Size, frustum.BoundMax.Y + Size, frustum.BoundMax.Z + Size);\n'
+BN = ('\tVector3 bmin; bmin.X = frustum.BoundMin.X - Size; bmin.Y = frustum.BoundMin.Y - Size;'
+      ' bmin.Z = frustum.BoundMin.Z - Size;\n')
+C = ('\tint x1 = ceil(inv_spacing * bmax.X);\n\tint y1 = ceil(inv_spacing * bmax.Y);\n'
+     '\tint z1 = ceil(inv_spacing * bmax.Z);\n')
+FORMS = {
+    'G1_swap': [(C, C.replace('inv_spacing * bmax.X', 'bmax.X * inv_spacing')
+                  .replace('inv_spacing * bmax.Y', 'bmax.Y * inv_spacing')
+                  .replace('inv_spacing * bmax.Z', 'bmax.Z * inv_spacing'))],
+    'G2_plus': [(BX, '\tVector3 bmax = frustum.BoundMax + Vector3(Size, Size, Size);\n')],
+    'G3_fields': [(BX, '\tVector3 bmax; bmax.X = frustum.BoundMax.X + Size; bmax.Y = frustum.BoundMax.Y + Size;'
+                       ' bmax.Z = frustum.BoundMax.Z + Size;\n')],
+    'G4_named': [(BX, '\tVector3 sz(Size, Size, Size); Vector3 bmax = frustum.BoundMax + sz;\n')],
+    'G5_plus_minus': [(BX + BN, '\tVector3 bmax = frustum.BoundMax + Vector3(Size, Size, Size);\n'
+                                '\tVector3 bmin = frustum.BoundMin - Vector3(Size, Size, Size);\n')],
+    'G6_set': [(BX, '\tVector3 bmax; bmax.Set(frustum.BoundMax.X + Size, frustum.BoundMax.Y + Size,'
+                    ' frustum.BoundMax.Z + Size);\n')],
+    'G7_copy_add': [(BX, '\tVector3 bmax = frustum.BoundMax; bmax += Vector3(Size, Size, Size);\n')],
+}
+# NX Debris batch 7 (0x6B9BF0, tree: M1 + B_P1). Batch 6: bmax built by fields (G3) puts every frame slot where the
+# client has it (raw 1411 -> 1286, of which 1278 the int3 fill: the client's contiguous bmax at esp+0x2C..0x34 and its
+# `fld inv_spacing; fmul bmax.c` order) and fixes r15, but flips the blur Rotate_Vector's commutative order again
+# (r42, 9 rows: rows 1-2 X,Z,Y where the client has Z,Y,X), as bmin by fields did before the per-case loop variables
+# restored it. Hypothesis: the order is a value-numbering tie; a code-neutral source change elsewhere (declaration
+# grouping, an explicit conversion, a separate alpha-ramp index, blur's declaration) restores it.
+HYPOTHESIS = 'G3 (bmax by fields) plus code-neutral numbering changes to restore the blur Rotate_Vector order'
+FILE = 'app/client/debris.cpp'
+SYMBOL = 'DebrisFieldClass::Render'
+ADDRESS = 0x6B9BF0
+BX = '\tVector3 bmax(frustum.BoundMax.X + Size, frustum.BoundMax.Y + Size, frustum.BoundMax.Z + Size);\n'
+BXF = ('\tVector3 bmax; bmax.X = frustum.BoundMax.X + Size; bmax.Y = frustum.BoundMax.Y + Size;'
+       ' bmax.Z = frustum.BoundMax.Z + Size;\n')
+BN = ('\tVector3 bmin; bmin.X = frustum.BoundMin.X - Size; bmin.Y = frustum.BoundMin.Y - Size;'
+      ' bmin.Z = frustum.BoundMin.Z - Size;\n')
+G3 = [(BX, BXF)]
+DECL2 = [(BX + BN, '\tVector3 bmax; Vector3 bmin; bmax.X = frustum.BoundMax.X + Size; bmax.Y = frustum.BoundMax.Y + Size;'
+                   ' bmax.Z = frustum.BoundMax.Z + Size;\n'
+                   '\tbmin.X = frustum.BoundMin.X - Size; bmin.Y = frustum.BoundMin.Y - Size;'
+                   ' bmin.Z = frustum.BoundMin.Z - Size;\n')]
+DECL3 = [(BX + BN, '\tVector3 bmin; Vector3 bmax; bmax.X = frustum.BoundMax.X + Size; bmax.Y = frustum.BoundMax.Y + Size;'
+                   ' bmax.Z = frustum.BoundMax.Z + Size;\n'
+                   '\tbmin.X = frustum.BoundMin.X - Size; bmin.Y = frustum.BoundMin.Y - Size;'
+                   ' bmin.Z = frustum.BoundMin.Z - Size;\n')]
+CASTS = [('\tint x0 = f;\n', '\tint x0 = (int)f;\n'), ('\tint y0 = f;\n', '\tint y0 = (int)f;\n'),
+         ('\tint z0 = f;\n', '\tint z0 = (int)f;\n')]
+CEILC = [('\tint x1 = ceil(', '\tint x1 = (int)ceil('), ('\tint y1 = ceil(', '\tint y1 = (int)ceil('),
+         ('\tint z1 = ceil(', '\tint z1 = (int)ceil(')]
+FSEP = [('\tfloat f = floor(inv_spacing * bmin.X);\n', '\tfloat f; f = floor(inv_spacing * bmin.X);\n')]
+J = [('\tfor (i = 0; i < 512; i++) {\n', '\tfor (int j = 0; j < 512; j++) {\n')] + [
+    ('\t\t\talpha_ramp[i] = 0.0f;\n', '\t\t\talpha_ramp[j] = 0.0f;\n'),
+    ('\t\t\talpha_ramp[i] = (r - near_r)', '\t\t\talpha_ramp[j] = (r - near_r)'),
+    ('\t\t\talpha_ramp[i] = UnknownC8;\n', '\t\t\talpha_ramp[j] = UnknownC8;\n'),
+    ('\t\t\talpha_ramp[i] = (1.0f - (r', '\t\t\talpha_ramp[j] = (1.0f - (r')]
+BL = [('\t\tVector3 blur;\n', '\n'), ('\tif (LineGroup) {\n\t\tVector3 *ends', '\tif (LineGroup) { Vector3 blur;\n\t\tVector3 *ends')]
+BL2 = [('\t\tVector3 blur;\n\t\tMatrix3D::Rotate_Vector(view, UnknownE8, &blur);\n',
+        '\t\tVector3 blur; Matrix3D::Rotate_Vector(view, UnknownE8, &blur);\n\n')]
+FORMS = {
+    'G3': G3,
+    'G3_decl2': DECL2, 'G3_decl3': DECL3,
+    'G3_casts': G3 + CASTS, 'G3_ceilc': G3 + CEILC, 'G3_fsep': G3 + FSEP,
+    'G3_j': G3 + J, 'G3_bl': G3 + BL,
+}
+# NX Debris batch 8 (0x6B9BF0, tree: M1 + B_P1). Batch 7: with bmax by fields (G3: every slot the client's), the blur
+# Rotate_Vector's three rows come out XZY,XZY,XZY (G3) or ZYX,ZYX,ZYX (G3 + a separate alpha-ramp index j), the client
+# XZY,ZYX,ZYX; only forms that add or drop a symbol move it (declaration grouping, casts, blur's scope do not).
+# Hypothesis: the per-row order follows symbol numbering; another symbol-changing form of the client's plausible
+# source (no corner local, named counts, the jitter index, the alpha local) lands on the client's mix.
+HYPOTHESIS = 'G3 plus symbol-changing neutral forms for the blur Rotate_Vector row order'
+FILE = 'app/client/debris.cpp'
+SYMBOL = 'DebrisFieldClass::Render'
+ADDRESS = 0x6B9BF0
+BX = '\tVector3 bmax(frustum.BoundMax.X + Size, frustum.BoundMax.Y + Size, frustum.BoundMax.Z + Size);\n'
+BXF = ('\tVector3 bmax; bmax.X = frustum.BoundMax.X + Size; bmax.Y = frustum.BoundMax.Y + Size;'
+       ' bmax.Z = frustum.BoundMax.Z + Size;\n')
+G3 = [(BX, BXF)]
+J = [('\tfor (i = 0; i < 512; i++) {\n', '\tfor (int j = 0; j < 512; j++) {\n'),
+     ('\t\t\talpha_ramp[i] = 0.0f;\n', '\t\t\talpha_ramp[j] = 0.0f;\n'),
+     ('\t\t\talpha_ramp[i] = (r - near_r)', '\t\t\talpha_ramp[j] = (r - near_r)'),
+     ('\t\t\talpha_ramp[i] = UnknownC8;\n', '\t\t\talpha_ramp[j] = UnknownC8;\n'),
+     ('\t\t\talpha_ramp[i] = (1.0f - (r', '\t\t\talpha_ramp[j] = (1.0f - (r')]
+T6 = '\t' * 6
+CO = (T6 + 'int corner = (((hash >> 3) & 0x38) ^ (hash & 0x38)) >> 3 ^ (hash & 7);\n'
+      + T6 + 'locs[UnknownD4] = cur + jitter[corner];\n')
+CN = ('\n' + T6 + 'locs[UnknownD4] = cur + jitter[(((hash >> 3) & 0x38) ^ (hash & 0x38)) >> 3 ^ (hash & 7)];\n')
+K0 = T6 + 'float d2 = locs[UnknownD4].Length2();\n' + T6 + 'if (d2 * inv_max2 < 1.0f) {\n'
+# corner dropped in both cases: the two copies are identical text, so anchor each on its case's following lines
+NOC = [(CO + K0 + '\t' * 7 + 'float alpha = alpha_ramp[(int)floor(d2 * inv_max2 * 512.0f)];\n' + '\t' * 7 + 'diffuse[UnknownD4].X = Color.X',
+        CN + K0 + '\t' * 7 + 'float alpha = alpha_ramp[(int)floor(d2 * inv_max2 * 512.0f)];\n' + '\t' * 7 + 'diffuse[UnknownD4].X = Color.X'),
+       (CO + K0 + '\t' * 7 + 'float alpha = alpha_ramp[(int)floor(d2 * inv_max2 * 512.0f)];\n' + '\t' * 7 + 'diffuse[UnknownD4].X = alpha',
+        CN + K0 + '\t' * 7 + 'float alpha = alpha_ramp[(int)floor(d2 * inv_max2 * 512.0f)];\n' + '\t' * 7 + 'diffuse[UnknownD4].X = alpha')]
+BY = '\tVector3 back_y = step_y * (float)(y1 - y0);\n'
+BZ = '\tVector3 back_z = step_z * (float)(z1 - z0);\n'
+K4 = [(BY + BZ, '\tfloat ny = y1 - y0; Vector3 back_y = step_y * ny;\n'
+                '\tfloat nz = z1 - z0; Vector3 back_z = step_z * nz;\n')]
+JIT = [('\tfor (int i = 0; i < 8; i++) {\n\t\tjitter[i] = view.Rotate_Vector(Spacing * offsets[i]);\n',
+        '\tint i; for (i = 0; i < 8; i++) {\n\t\tjitter[i] = view.Rotate_Vector(Spacing * offsets[i]);\n')]
+D1 = [('\tfloat r2 = 0.0f;\n', '\tfloat r2 = 0.0f; int unused1;\n')]
+D2 = [('\tfloat r2 = 0.0f;\n', '\tfloat r2 = 0.0f; int unused1; int unused2;\n')]
+FORMS = {
+    'G3_noc': G3 + NOC, 'G3_j_noc': G3 + J + NOC,
+    'G3_k4': G3 + K4, 'G3_j_k4': G3 + J + K4,
+    'G3_jit': G3 + JIT, 'G3_j_jit': G3 + J + JIT,
+    'G3_d1': G3 + D1, 'G3_d2': G3 + D2, 'G3_j_d1': G3 + J + D1,
+}

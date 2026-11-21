@@ -39,7 +39,7 @@ public:
 	virtual void Unknown_54();							// +0x54 0x54BD30 (InterfaceClass's: Init calls it after construction)
 	virtual void Unknown_60();							// +0x60 0x54CAE0 (every frame)
 	virtual bool Unknown_68(int key);					// +0x68 0x54CBC0 (the events: the gadgets' ids)  // NAME 1 [key]: InterfaceClass's
-	void Set_Unknown30C(float u, float v) { Unknown30C = u; Unknown310 = v; }	// NAME 1: neutral (D10): inline (0x54F390 computes v first)  // NAME 1 [u, v]: neutral
+	void Set_Unknown30C(float u, float v) { Unknown30C.X = u; Unknown30C.Y = v; }	// NAME 1: neutral (D10): inline (0x54F390 computes v first)  // NAME 1 [u, v]: neutral
 	void Unknown_54F390(int arg);						// 0x54F390 (0x54CAE0 in mode 1: 1; the head pull dragged: its point +0x30C)  // NAME 1 [arg]: neutral
 	void Unknown_54FAA0();								// 0x54FAA0 (0x54CAE0: the colour pull dragged, the part's colour from the palette)
 	void Unknown_54D720(int text);						// 0x54D720 (the palette's texture: 'text1' .. 'text7', as ui_avatr.cpp's 0x555F60)  // NAME 1 [text]: neutral
@@ -88,9 +88,9 @@ public:
 	UIAvatarCustGadgetHolderStruct *Unknown2FC;			// +0x2FC
 	Vector2 Unknown300;									// +0x300 (0.5, 0.5)
 	UIAvatarCustGadgetHolderStruct *Unknown308;			// +0x308
-	float Unknown30C;									// +0x30C (0.5)
-	float Unknown310;									// +0x310 (0.5)
-	Vector2 Unknown314;									// +0x314 (X the zoom: 0x550550; Y its largest)
+	Vector3 Unknown30C;									// +0x30C (the tattoo offset u, v and the zoom +0x314 (0x550550): 0x54BD30 copies the avatar's Tattoo_Offset in)
+	float Unknown318;									// +0x318 (the zoom's largest)
+
 	UIAvatarCustGadgetHolderStruct *Unknown31C;			// +0x31C
 	UIAvatarCustPairStruct Unknown320[7];	// +0x320 (0.5, 0.5 each: the constructor's loop)
 	int Unknown358;										// +0x358 (the part, 0-6)

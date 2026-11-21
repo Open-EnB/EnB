@@ -28,6 +28,7 @@ public:
 	int Advance_X(int width, bool unused);  // 0x76F3A0  // NAME 2: CursorX += width
 	int Advance_Y(int height, bool absolute);  // 0x76F3D0  // NAME 2: ends the cursor's line (alignment, baseline) and moves down
 	void Add_Child(HtmlBlockClass *child);  // 0x76F710  // NAME 2: Children.addTail, child->Parent = this
+	void Add_Item(HtmlItemStruct *item) { Items.addTail(item); }  // NAME 1: inline; Parse 0x7710D0 keeps the <table> item in esi and hands the out-of-line add 0x778CF0 a copy stored right before the call (0x772513)
 	int Get_X(void) { return X; }  // NAME 2: inline (htmlview.cpp reads X before Get_Abs_X in one expression)
 	int Get_Y(void) { return Y; }  // NAME 2: inline
 	int Get_Width(void) { return Width; }  // NAME 2: inline

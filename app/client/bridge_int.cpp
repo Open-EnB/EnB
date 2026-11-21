@@ -473,8 +473,8 @@ void BridgeInterface::Update_Camera_Bone()
 
 // The avatar's frame: a finished animation is forgotten; while the ship rolls the avatar leans into the turn, the
 // animation's frame following the turn's strength, and straightens when it stops.
-// NOT EXACT: shape (explain.py): the same instructions in another block order (the client puts the compare with
-// Animation right after the left turn's assignment and the right turn's test after it, the frame code last)
+
+
 // 0x53CB40
 void BridgeInterface::Update_Avatar()
 {
@@ -482,27 +482,27 @@ void BridgeInterface::Update_Avatar()
 	if (Animation != ANIM_NONE && !Avatar->Unknown_789D40()) {
 		Animation = ANIM_NONE;
 	}
-	int anim;
+	int anim = ANIM_NONE;
 	if (Turn.Z > 0.0001f) {
 		anim = ANIM_LEFT_TURN_SMALL;
 	} else if (Turn.Z < -0.0001f) {
 		anim = ANIM_RIGHT_TURN_SMALL;
-	} else {
+	}
+	if (anim == ANIM_NONE) {
 		if (Animation == ANIM_LEFT_TURN_SMALL || Animation == ANIM_RIGHT_TURN_SMALL) {
 			Avatar->Unknown_789C10(0.0f, 0);
 		}
-		return;
-	}
-	if (anim != Animation) {
+	} else if (anim != Animation) {
 		Play_Animation(anim, 0.0f, 2, -1);
-		return;
-	}
-	if (Animation == ANIM_LEFT_TURN_SMALL || Animation == ANIM_RIGHT_TURN_SMALL) {
+	} else if (Animation == ANIM_LEFT_TURN_SMALL || Animation == ANIM_RIGHT_TURN_SMALL) {
 		float frame = (float)fabs(Turn.Z) + Turn.Y * 0.5f;
 		if (0.0f > frame) frame = 0.0f;
 		Avatar->Unknown_789C10(WWMath::Clamp(frame * 5.7295775f, 0.0f, 1.0f), 2);
 	}
 }
+
+
+
 
 
 
