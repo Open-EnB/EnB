@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-676 entries in 265 files.
+675 entries in 265 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -36,7 +36,6 @@ edit the comments in the code, not this file.
 | `app/client/aux_roots_skill.h:5` | `?` | marker | NOT EXACT (D42) where aux_roots.h is. NAME 1 [aux_roots_skill.h]: provisional file name (the client's headers are not named by any string) |
 | `app/client/aux_roots_types.h:5` | `Unknown_Hex_String` | marker | NOT EXACT (D42) where aux_roots.h is. NAME 1 [aux_roots_types.h]: provisional file name (the client's headers are not named by any string) |
 | `app/client/avatar.cpp:1196` | `CharacterViewAvatarClass::Unknown_780810` | marker | NOT EXACT: inline-budget (the client keeps vector::insert out of line and emits 0x780AC0 ColorizationHalfStruct::operator= out of line at Shirt, inline at Pants) |
-| `app/client/avatar.cpp:1310` | `CharacterViewAvatarClass::Unknown_780AF0` | marker | NOT EXACT: functional for POC (D64), literal (__LINE__) |
 | `app/client/avatar.cpp:1615` | `CharacterViewAvatarClass::Unknown_781EA0` | marker | NOT EXACT: functional for POC (D64), register (ebx for the zero where the client has ebp; the client keeps Unknown314 = 1 apart from = n) |
 | `app/client/avatar.cpp:1669` | `CharacterViewAvatarClass::Unknown_782200` | marker | NOT EXACT: functional for POC (D64) |
 | `app/client/avatar.cpp:2380` | `CharacterViewAvatarClass::Unknown_1C4` | marker | NOT EXACT: register-allocation / inline-budget (the client keeps accel in FPU ST(0) without spilling; also some NLP/blink/face callees not inlined) |

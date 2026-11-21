@@ -553,7 +553,7 @@ float CharacterViewAvatarClass::Unknown_77D9F0(bool a)
 void CharacterViewAvatarClass::Unknown_77DA20()
 {
 	Unknown_77E9D0(Desc.Body_Type, Desc.Pants_Type, false);
-	CollisionObj = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("avcollision"));
+	CollisionObj = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("avcollision"));
 	if (CollisionObj) {
 		Unknown_496AE0(CollisionObj.Peek(), true);
 		BodyObj->Add_Sub_Object_To_Bone(CollisionObj.Peek(), "skel_reference");
@@ -562,7 +562,7 @@ void CharacterViewAvatarClass::Unknown_77DA20()
 	if (!Unknown233 && !Desc.Unknown0C) {
 		const char *masks[3] = { "hmask_01", "hmask_02", "hmask_03" };
 		int mask = Desc.Head_Type % 3;
-		MaskObj = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj(masks[mask]));
+		MaskObj = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj(masks[mask]));
 		if (MaskObj) {
 			Unknown_496AE0(MaskObj.Peek(), true);
 			BodyObj->Add_Sub_Object_To_Bone(MaskObj.Peek(), "K_HEAD");
@@ -608,7 +608,7 @@ void CharacterViewAvatarClass::Unknown_77DA20()
 
 // 0x77E0E0: the weapon model made into *slot and put on the body's bone; kind 0 '<gender><race><part><num>',
 // 1 'a<race><part><num>', 2 'a<part><num>'
-// (the slot a RefCountPtr: operator =(0), then Create_Get 0x47D2E0 through its operator =)
+// (the slot a RefCountPtr: operator =(0), then Create_NEW 0x47D2E0 through its operator =)
 void CharacterViewAvatarClass::Unknown_77E0E0(int kind, const char *part, int num, const char *bone, RefCountPtr<RenderObjClass> *slot)
 {
 	if (*slot) {
@@ -628,7 +628,7 @@ void CharacterViewAvatarClass::Unknown_77E0E0(int kind, const char *part, int nu
 	if (!making) {
 		WW3D::Enable_Overbright_Modify_On_Load(true);
 	}
-	*slot = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj(name));
+	*slot = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj(name));
 	if (!making) {
 		WW3D::Enable_Overbright_Modify_On_Load(false);
 	}
@@ -791,17 +791,17 @@ void CharacterViewAvatarClass::Unknown_77E9D0(int body, int pants, bool morph)
 	if (Desc.Avatar_Type == 0) {
 		if (!making) WW3D::Enable_Overbright_Modify_On_Load(true);
 		_snprintf(body_name, 0x20, "%s%sBODY%02d%02d", Unknown_B9CD30[Desc.Gender], Unknown_B9CD38[Desc.Race], (int)Desc.Body_Type, (int)Desc.Pants_Type);
-		BodySource = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj(body_name));
+		BodySource = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj(body_name));
 		if (!making) WW3D::Enable_Overbright_Modify_On_Load(false);
 	} else {
 		if (!making) WW3D::Enable_Overbright_Modify_On_Load(true);
 		_snprintf(body_name, 0x20, "ANPCBODY%03d", (int)Desc.Body_Type);
-		BodySource = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj(body_name));
+		BodySource = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj(body_name));
 		if (!making) WW3D::Enable_Overbright_Modify_On_Load(false);
 	}
 	if (BodySource) {
 	Unknown_496AE0(BodySource.Peek(), true);
-	BodyObj = Create_Get(BodySource->Clone());
+	BodyObj = Create_NEW(BodySource->Clone());
 	Unknown_496AE0(BodyObj.Peek(), true);
 	Unknown_496DB0(BodyObj.Peek());
 	Set_Name(BodyObj->Get_Name());
@@ -892,12 +892,12 @@ void CharacterViewAvatarClass::Unknown_77F000(int num)
 	if (Desc.Avatar_Type == 0) {
 		if (!making) WW3D::Enable_Overbright_Modify_On_Load(true);
 		_snprintf(head_name, 0x20, "%s%sHEAD%02d", Unknown_B9CD30[Desc.Gender], Unknown_B9CD38[Desc.Race], (int)Desc.Head_Type);
-		HeadSource = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj(head_name));
+		HeadSource = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj(head_name));
 		if (!making) WW3D::Enable_Overbright_Modify_On_Load(false);
 	} else {
 		if (!making) WW3D::Enable_Overbright_Modify_On_Load(true);
 		_snprintf(head_name, 0x20, "ANPCHEAD%03d", (int)Desc.Head_Type);
-		HeadSource = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj(head_name));
+		HeadSource = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj(head_name));
 		if (!making) WW3D::Enable_Overbright_Modify_On_Load(false);
 	}
 
@@ -962,7 +962,7 @@ void CharacterViewAvatarClass::Unknown_77F750()
 		HeadObj = NULL;
 
 	}
-	HeadObj = Create_Get(HeadSource->Clone());
+	HeadObj = Create_NEW(HeadSource->Clone());
 	Unknown_496AE0(HeadObj.Peek(), true);
 	Unknown_496DB0(HeadObj.Peek());
 	if (Desc.Avatar_Type == 0) {
@@ -983,7 +983,7 @@ void CharacterViewAvatarClass::Unknown_77F750()
 
 // 0x77F960: the accessory '<gender><race><part><num>' (AFTHAIR03) made into *slot; the meshes
 // '<part>0'..'<part>4' of the head prototype are removed first, the new ones added by 0x789D80
-// (the slot a RefCountPtr: Create_Get, then its operator =; the prototype a RefCountPtr local)
+// (the slot a RefCountPtr: Create_NEW, then its operator =; the prototype a RefCountPtr local)
 void CharacterViewAvatarClass::Unknown_77F960(const char *part, int num, RefCountPtr<RenderObjClass> *slot)
 {
 	FAIL_IF(!HeadSource) {
@@ -1000,12 +1000,12 @@ void CharacterViewAvatarClass::Unknown_77F960(const char *part, int num, RefCoun
 	}
 	char model[32];
 	_snprintf(model, 0x20, "%s%s%s%02d", Unknown_B9CD30[Desc.Gender], Unknown_B9CD38[Desc.Race], part, num);
-	RefCountPtr<RenderObjClass> proto = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj(model));
+	RefCountPtr<RenderObjClass> proto = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj(model));
 	if (!making) {
 		WW3D::Enable_Overbright_Modify_On_Load(false);
 	}
 	if (proto) {
-		*slot = Create_Get(proto->Clone());
+		*slot = Create_NEW(proto->Clone());
 		Unknown_496AE0(slot->Peek(), true);
 		Unknown_789D80(slot, part);
 
@@ -1307,7 +1307,7 @@ void CharacterViewAvatarClass::Unknown_780810(EnvironmentMapManagerClass *env_ma
 
 
 // 0x780AF0
-// NOT EXACT: functional for POC (D64), literal (__LINE__)
+// (cache the name through the lookups; advance before obj is destroyed)
 void CharacterViewAvatarClass::Unknown_780AF0()
 {
 	FAIL_IF(!BodyObj || !BodySource) { return; }
@@ -1324,14 +1324,16 @@ void CharacterViewAvatarClass::Unknown_780AF0()
 	}
 	const char *names[] = { "ARM0", "ARM1", "ARM2", "ARM3", "ARM4", "SHIRT0", "SHIRT1", "SHIRT2", "SHIRT3", "SHIRT4",
 		"PANT0", "PANT1", "PANT2", "PANT3", "PANT4", NULL };
-	for (i = 0; names[i] != NULL; i++) {
-		RefCountPtr<RenderObjClass> obj = Create_Get(BodySource->Get_Sub_Object_By_Name(names[i]));
+	for (i = 0; names[i] != NULL;) {
+		const char *name = names[i];	// NAME 1 [name]: cached subobject name (client 0x780C84)
+		RefCountPtr<RenderObjClass> obj = Create_Get(BodySource->Get_Sub_Object_By_Name(name));
 		if (obj != NULL && obj->Class_ID() == RenderObjClass::CLASSID_MESH) {
-			RefCountPtr<MeshClass> source = Create_Get((MeshClass *)BodySource->Get_Sub_Object_By_Name(names[i]));
-			RefCountPtr<MeshClass> dest = Create_Get((MeshClass *)BodyObj->Get_Sub_Object_By_Name(names[i]));
+			RefCountPtr<MeshClass> source = Create_Get((MeshClass *)BodySource->Get_Sub_Object_By_Name(name));
+			RefCountPtr<MeshClass> dest = Create_Get((MeshClass *)BodyObj->Get_Sub_Object_By_Name(name));
 			Unknown_7812A0(source.Peek(), dest.Peek());
 			dest->Scale(scale.Y, scale.Z, scale.X);
 		}
+		++i;
 	}
 	Vector3 tree_scale(scale.Z, scale.X, scale.Y);
 	HTreeClass *tree = HTreeClass::Alter_Avatar_HTree(BodySource->Get_HTree(), tree_scale);
@@ -1340,8 +1342,6 @@ void CharacterViewAvatarClass::Unknown_780AF0()
 		delete tree;
 	}
 }
-
-
 
 
 
@@ -3104,7 +3104,7 @@ void CharacterViewAvatarClass::Unknown_785F20(bool on)
 		Unknown2C4 = NULL;
 	}
 	if (on) {
-		Unknown2C4 = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("avatar_shadow"));
+		Unknown2C4 = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("avatar_shadow"));
 		if (Unknown2C4) {
 			Unknown_496AE0(Unknown2C4.Peek(), true);
 			BodyObj->Add_Sub_Object_To_Bone(Unknown2C4.Peek(), "skel_reference");
@@ -4039,3 +4039,10 @@ void CharacterViewAvatarClass::Unknown_78A200()
 
 // Layout (CS12, 2026-11-05): the functions stand in the client's address order, and blank lines put each assert and
 // __LINE__ user on the client's line (D25): 0x77E830 725, 0x77E900 748, 0x7812A0 1415, 0x784C90 2728 ...
+
+// Factory identity (claim #244): the twelve creation/clone call sites whose retail helper is
+// 0x47D2E0 use EA's Create_NEW; getter/adopt sites at 0x474080 keep Create_Get. Both factories
+// construct GET mode. These helper identities are inferred from distinct retail thunks and
+// producer contracts; the original factory spellings are not recovered client symbols.
+// The clone at 0x789E3F explicitly keeps Create_Get. No blanket creation/clone rename is intended.
+// 0x780AF0 caches each name and advances the index between inner mesh cleanup and outer obj cleanup.
