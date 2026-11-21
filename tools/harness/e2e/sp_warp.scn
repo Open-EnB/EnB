@@ -1,0 +1,50 @@
+# Space (live server): the positioned effects. Elanor (Terran Enforcer, _login_space) uses the skill of hotbar slot 5
+# (Enrage Group) on a mob of /createmob, then warps to a nav
+# point as sp_flight does (W, the target panel's >> twice, Q): effect 443's chain (effect.ini) puts the emissions
+# warp01p1-3, the tunnels warp_tun01a-c (BaseAsset 1767-1769) and WarpEffect 23 (wrp01) about the ship. All are
+# source-based effects that eff_o.cpp's 0x6E7AA0 places with the ship's 0x725AD0. The warp camera
+# (CameraController02Class, 0x7979A0) holds a fixed place while the ship flies off. Retail first (2026-11-21): its
+# shots are the expected result.
+# Run: e2e.py --live [--retail] --db-snapshot 7 --instance warp run sp_warp (it moves Elanor and spawns a mob; the
+# snapshot puts her back).
+name: space effects: a skill's area effect and sound, then the warp's slipstream
+timeout: 360
+include _login_space
+# first the skill of hotbar slot 5 (its tooltip on Elanor's rows of 2026-11-21: Enrage Group, energy 600, "enrages all
+# members of a target group") on a mob of /createmob 1993 (E): without a target the server answers "No target
+# chosen!" (a PRIORITY_MESSAGE, run 125448); slot 4 (Biocessation, organic targets) drew one on the mob (125158).
+# The effect it starts (OBJECT_EFFECT / OBJECT_TO_OBJECT_EFFECT) is read from the events: no wait for it here
+key 0x0D
+wait-quiet proxy 0.5 within 10
+text '/createmob 1993'
+key 0x0D
+expect-event antprox 'received CLIENT_CHAT$' within 10
+wait-event antprox 'sent CREATE$' within 15
+wait-event antprox 'sent RELATIONSHIP$' within 15
+key 0x45 until antprox 'received REQUEST_TARGET$' every 1.5 within 20
+wait-event antprox 'sent SET_TARGET$' within 10
+click 865,960
+expect-event antprox 'received SKILL_ABILITY$' within 10
+alive 1
+shot skill_1s
+alive 2
+shot skill_3s
+# the nearest nav point, the next one twice (Nav Group Shrine, about 55k), then the warp
+key 0x57 until antprox 'sent SET_TARGET$' every 1.5 within 15
+wait-quiet proxy 0.5 within 10
+click 1248,987 until antprox 'sent SET_TARGET$' every 1.5 within 15
+wait-quiet proxy 0.5 within 10
+click 1248,987 until antprox 'sent SET_TARGET$' every 1.5 within 15
+wait-quiet proxy 0.5 within 10
+shot nav_target
+pose-mark
+key 0x51
+expect-event antprox 'received WARP$' within 10
+alive 3
+shot warping_3s
+alive 5
+shot warping_8s
+wait-event antprox 'sent WARP_INDEX$' within 90
+expect-pose moved 20000
+shot warped
+expect-no CRASH
