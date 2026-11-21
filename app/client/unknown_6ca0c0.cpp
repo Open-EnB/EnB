@@ -247,11 +247,11 @@ void FontSys::Unknown_6CA0C0(FontEffectStruct *effect)
 		if (style->Unknown406) {
 			text += "...";
 		}
-		Rebuild_Texture(style, text.Get_Buffer(text.Get_Length()), true);
+		char *buffer = text.Get_Buffer(text.Get_Length()); Rebuild_Texture(style, buffer, true);
 		style->Unknown4C5 = false;
 		rect[0] = 0;
-		style->Unknown2C4 = rect[1] = style->Font->String_Pixel_Width(text);
-		if (length < target) {
+		rect[1] = style->Unknown2C4 = style->Font->String_Pixel_Width(buffer);
+		if (target > length) {
 			Set_Complete(style, true);
 		} else {
 			Set_Complete(style, false);
@@ -408,8 +408,8 @@ void FontSys::Unknown_6CA0C0(FontEffectStruct *effect)
 				old = style->Unknown420[0];
 				rect[0] = (style->Unknown2C4 - amount > 1) ? style->Unknown2C4 - amount : 1;
 				rect[1] = style->Unknown2C4;
-				if (rect[0] == 1) Set_Complete(style, true);
-				if (old != rect[0]) style->Unknown4C5 = false;
+				if (style->Unknown420[0] == 1) Set_Complete(style, true);
+				if (old != style->Unknown420[0]) style->Unknown4C5 = false;
 				break;
 			case FONT_DIRECTION_RIGHT:
 				old = style->Unknown420[1];
@@ -447,7 +447,7 @@ void FontSys::Unknown_6CA0C0(FontEffectStruct *effect)
 				old = style->Unknown420[0];
 				rect[0] = (amount < style->Unknown2C4) ? amount : style->Unknown2C4;
 				rect[1] = style->Unknown2C4;
-				if (rect[0] == style->Unknown2C4) Set_Complete(style, true);
+				if (style->Unknown420[0] == style->Unknown2C4) Set_Complete(style, true);
 				if (old != rect[0]) style->Unknown4C5 = false;
 				break;
 			case FONT_DIRECTION_UP:
@@ -461,7 +461,7 @@ void FontSys::Unknown_6CA0C0(FontEffectStruct *effect)
 				old = style->Unknown420[2];
 				rect[2] = (amount < style->Unknown2C8) ? amount : style->Unknown2C8;
 				rect[3] = style->Unknown2C8;
-				if (rect[2] == style->Unknown2C8) Set_Complete(style, true);
+				if (style->Unknown420[2] == style->Unknown2C8) Set_Complete(style, true);
 				if (old != rect[2]) style->Unknown4C5 = false;
 				break;
 			}
@@ -619,11 +619,11 @@ void FontSys::Unknown_6CA0C0(FontEffectStruct *effect)
 		style->Font->Set_XSpacing(style->Unknown448);
 		StringClass text(style->Info.Text);
 		if (style->Unknown406) {
-			text += "...";
+			text += "..."; text.Peek_Buffer(); text.Peek_Buffer(); text.Peek_Buffer(); text.Peek_Buffer(); text.Peek_Buffer(); text.Peek_Buffer(); text.Peek_Buffer(); text.Peek_Buffer();
 		}
-		Rebuild_Texture(style, text.Get_Buffer(text.Get_Length()), false);
-		style->Unknown2C4 = rect[1] = style->Font->String_Pixel_Width(text);
-		style->Unknown2C8 = rect[3] = style->Font->Get_Height();
+		char *buffer = text.Get_Buffer(text.Get_Length()); Rebuild_Texture(style, buffer, false);
+		rect[1] = style->Unknown2C4 = style->Font->String_Pixel_Width(buffer);
+		rect[3] = style->Unknown2C8 = style->Font->Get_Height();
 		style->Unknown274[10] += delta;
 		if ((float)style->Unknown448 == effect->Intensity) {
 			Set_Complete(style, true);
@@ -673,13 +673,13 @@ void FontSys::Unknown_6CA0C0(FontEffectStruct *effect)
 				if (style->Unknown405) {
 					// the text saved in Unknown2F0 back
 					style->Info.Text = style->Unknown2F0;
-					StringClass text(style->Info.Text);
+					StringClass text(style->Info.Text); text.Peek_Buffer();
 					if (style->Unknown406) {
 						text += "...";
 					}
 					Rebuild_Texture(style, text.Get_Buffer(text.Get_Length()), true);
-					style->Unknown2C4 = rect[1] = style->Font->String_Pixel_Width(text);
-					style->Unknown2C8 = rect[3] = style->Font->Get_Height();
+					rect[1] = style->Unknown2C4 = style->Font->String_Pixel_Width(text);
+					rect[3] = style->Unknown2C8 = style->Font->Get_Height();
 				}
 			} else {
 				rotation = -1.0f;
@@ -708,14 +708,14 @@ void FontSys::Unknown_6CA0C0(FontEffectStruct *effect)
 	}
 }
 
-
+#pragma auto_inline(off)
 // 0x6D5B10
 void FontSys::Unknown_6D5B10(float &width, float &height)
 {
 	width = (640.0f / (float)Width) * (float)(Unknown420[1] - Unknown420[0]);
 	height = (480.0f / (float)Height) * (float)(Unknown420[3] - Unknown420[2]);
 }
-
+#pragma auto_inline(on)
 
 /*
 **	Reconstruction notes
