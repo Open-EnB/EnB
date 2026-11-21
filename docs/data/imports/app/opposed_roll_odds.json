@@ -4,6 +4,7 @@
  "description": "opposed_roll_odds.cpp: three Opposed_Roll_Odds overloads (client 0x4F25D0-0x4F2866; __FILE__ 0xB75884, FAIL_IF 'M < 0' / 'N < 0' / 'C > M' lines 8-9, 21-23, 50-51)",
  "expected": {},
  "in_tree": [
+  "0x4F25D0",
   "0x4F2670",
   "0x4F27B0"
  ],
