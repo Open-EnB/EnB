@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-679 entries in 266 files.
+678 entries in 265 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -528,7 +528,6 @@ edit the comments in the code, not this file.
 | `app/client/unknown_7e1e40.cpp:24` | `Sub14CUnknown18Class::~Sub14CUnknown18Class` | marker | NOT EXACT: the client's has an EH frame (states 1, 0 around the _bstr_t members' destruction); /GX gives none here (/EHa gives it, and an EH frame in the constructor the client lacks) |
 | `app/client/unknown_fontsound.cpp:10` | `Unknown_6BCFB0Class::Unknown_6BCFB0Class` | marker | NOT EXACT: (D64) the client's has an EH frame with no state stores around the same seven stores |
 | `app/client/unknown_fontsound.cpp:15` | `Unknown_6BCFB0Class::~Unknown_6BCFB0Class` | marker | NOT EXACT: (D64) Clear's loop as `while (--index >= 0)` (dec / js, 0.80); the client has no state -1 store before the member's destructor |
-| `app/client/unknown_personality.cpp:178` | `Unknown_790260Class::Unknown_790360` | marker | NOT EXACT: shape (the client materializes a boolean and repeats the Data null check before cleanup) |
 | `app/client/unknown_phoneme.cpp:84` | `Unknown_791310Class::Unknown_791400` | marker | NOT EXACT: functional for POC (D64), register (prev and last kept in memory, 12 in ebx; the case bodies in the client's order, from its jump table, and 't' written out as the client inlines it) |
 | `app/client/unknown_phoneme.cpp:196` | `Unknown_791310Class::Unknown_7917B0` | marker | NOT EXACT: functional for POC (D64), register (First and Count loaded into the other registers; 6 index forms tried) |
 | `app/client/unknown_phoneme.cpp:216` | `Unknown_791310Class::Unknown_791880` | marker | NOT EXACT: functional for POC (D64), shape (the client merges the 'g' case's tail with the second-letter vowel's; switch and if-chain forms tried) |

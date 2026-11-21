@@ -1,0 +1,335 @@
+# Source artifact: prepare.py
+from pathlib import Path
+import json
+
+area = Path('/home/dev/Projects/EnB/.work/claim-240/focused/790360')
+tree = area.parent / 'baseline-tree'
+source = (tree/'app/client/unknown_personality.cpp').read_text()
+start = source.index('Unknown_78F700Class *Unknown_790260Class::Unknown_790360()')
+end = source.index('\n/*', start)
+old = source[start:end]
+setup = 'if (Data == NULL) { Data = new Unknown_78F700Class; } else { Data->Unknown_78F9F0(); }'
+forms = {
+    'compare_true': ('', '(Data == NULL) == true'),
+    'compare_false': ('', '(Data != NULL) == false'),
+    'local_true': ('\tbool needs_load = Data == NULL; // NAME 1: boolean materialized at client790384\n', 'needs_load == true'),
+    'local_false': ('\tbool has_data = Data != NULL; // NAME 1: inverse of client790384 null predicate\n', 'has_data == false'),
+    'local_direct': ('\tbool needs_load = Data == NULL; // NAME 1: boolean materialized at client790384\n', 'needs_load'),
+    'conditional_bool': ('', '(Data == NULL ? true : false) == true'),
+}
+variants = [{'name':'baseline', 'source':str(tree/'app/client/unknown_personality.cpp')}]
+for name, (decl, cond) in forms.items():
+    fn = old.replace('\n{\n', '\n{\n'+decl, 1)
+    fn = fn.replace('if (Data == NULL)', 'if ('+cond+')', 1)
+    fn = fn.replace('Data = new Unknown_78F700Class;', setup, 1)
+    dest = area/'family1'/name/'unknown_personality.cpp'
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    dest.write_text(source[:start]+fn+source[end:])
+    variants.append({'name':name,'source':str(dest)})
+packet = {'unit':'app/client/unknown_personality.cpp','target':'0x790360','tree':str(tree),'variants':variants}
+(area/'family1.json').write_text(json.dumps(packet, indent=2)+'\n')
+
+# Source artifact: prepare_return.py
+from pathlib import Path
+import json
+
+area=Path('/home/dev/Projects/EnB/.work/claim-240/focused/790360')
+tree=area.parent/'baseline-tree'
+source=(area/'family1/local_direct/unknown_personality.cpp').read_text()
+old='\t\t\tData = NULL;\n\t\t\treturn(NULL);'
+assert source.count(old)==1
+forms={
+    'return_data':'\t\t\tData = NULL;\n\t\t\treturn(Data);',
+    'return_assignment':'\t\t\treturn(Data = NULL);',
+}
+variants=[]
+for name, replacement in forms.items():
+    dest=area/'family2'/name/'unknown_personality.cpp'
+    dest.parent.mkdir(parents=True,exist_ok=True)
+    dest.write_text(source.replace(old,replacement))
+    variants.append(dict(name=name,source=str(dest)))
+packet=dict(unit='app/client/unknown_personality.cpp',target='0x790360',tree=str(tree),baseline_matches=str(area/'runs/family1-4t8300hz/baseline/matches.json'),variants=variants)
+(area/'family2.json').write_text(json.dumps(packet,indent=2)+'\n')
+
+# Source artifact: prepare_tail.py
+from pathlib import Path
+import json
+
+area=Path('/home/dev/Projects/EnB/.work/claim-240/focused/790360')
+tree=area.parent/'baseline-tree'
+source=(area/'family1/local_direct/unknown_personality.cpp').read_text()
+start=source.index('\t\tif (!Data->Load(Filename)')
+end=source.index('\n\t}\n\treturn(Data);',start)
+old=source[start:end]
+cleanup='\t\t\t\tdelete Data;\n\t\t\t\tData = NULL;\n'
+forms={
+    'common_tail':old.replace('\n\t\t\treturn(NULL);',''),
+    'nested_common_tail':'\t\tif (!Data->Load(Filename)) {\n\t\t\tif (!Data->Load("personalities\\\\Personality00.ini")) {\n'+cleanup+'\t\t\t}\n\t\t}',
+    'nested_early_tail':'\t\tif (!Data->Load(Filename)) {\n\t\t\tif (!Data->Load("personalities\\\\Personality00.ini")) {\n'+cleanup+'\t\t\t\treturn(NULL);\n\t\t\t}\n\t\t}',
+    'break_common_tail':'\t\tdo {\n\t\t\tif (Data->Load(Filename)) break;\n\t\t\tif (Data->Load("personalities\\\\Personality00.ini")) break;\n\t\t\tdelete Data;\n\t\t\tData = NULL;\n\t\t} while (false);',
+}
+variants=[]
+for name,replacement in forms.items():
+    dest=area/'family3'/name/'unknown_personality.cpp'
+    dest.parent.mkdir(parents=True,exist_ok=True)
+    dest.write_text(source[:start]+replacement+source[end:])
+    variants.append(dict(name=name,source=str(dest)))
+packet=dict(unit='app/client/unknown_personality.cpp',target='0x790360',tree=str(tree),baseline_matches=str(area/'runs/family1-4t8300hz/baseline/matches.json'),variants=variants)
+(area/'family3.json').write_text(json.dumps(packet,indent=2)+'\n')
+
+# Source artifact: prepare_winner.py
+from pathlib import Path
+import difflib
+import json
+
+area=Path('/home/dev/Projects/EnB/.work/claim-240/focused/790360')
+tree=area.parent/'baseline-tree'
+source=(area/'family3/common_tail/unknown_personality.cpp').read_text()
+source=source.replace('// NOT EXACT: shape (the client materializes a boolean and repeats the Data null check before cleanup)\n','\n',1)
+source=source.replace('bool needs_load = Data == NULL; // NAME 1: boolean materialized at client790384','bool needs_load = Data == NULL; // NAME 1: the null predicate materialized at 0x790384',1)
+source=source.replace('\t\tif (Data == NULL) { Data = new Unknown_78F700Class; } else { Data->Unknown_78F9F0(); }','\t\tif (Data == NULL) {\n\t\t\tData = new Unknown_78F700Class;\n\t\t} else {\n\t\t\tData->Unknown_78F9F0();\n\t\t}',1)
+dest=area/'winner/unknown_personality.cpp'
+dest.parent.mkdir(exist_ok=True)
+dest.write_text(source)
+original=(tree/'app/client/unknown_personality.cpp').read_text()
+patch=''.join(difflib.unified_diff(original.splitlines(keepends=True),source.splitlines(keepends=True),fromfile='a/app/client/unknown_personality.cpp',tofile='b/app/client/unknown_personality.cpp'))
+(area/'winner.patch').write_text(patch)
+packet=dict(unit='app/client/unknown_personality.cpp',target='0x790360',tree=str(tree),baseline_matches=str(area/'runs/family1-4t8300hz/baseline/matches.json'),variants=[dict(name='winner',source=str(dest))])
+(area/'winner.json').write_text(json.dumps(packet,indent=2)+'\n')
+
+# Source artifact: winner/unknown_personality.cpp
+// Earth & Beyond client (reconstruction)
+// PROVISIONAL file name (D10): a personality's data and the personality files, client 0x78F700-0x790560
+// (unknown_personality.h). Notes at the end of the file.
+#include "unknown_personality.h"
+#include "ini.h"
+#include "nstrdup.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <ctype.h>
+
+Unknown_78F700Class::Unknown_78F700Class() { Moods = NULL; Name = NULL; BAnims = NULL; }
+
+// 0x78F850
+// The Text member is destroyed after this body (the client inlines its destructor).
+Unknown_78F700Class::~Unknown_78F700Class()
+{
+	if (Name) {
+		delete [] Name;
+		Name = NULL;
+	}
+	if (Moods) {
+		delete [] Moods;
+		Moods = NULL;
+	}
+	if (BAnims) {
+		delete [] BAnims;
+		BAnims = NULL;
+	}
+}
+
+// 0x78F9F0
+void Unknown_78F700Class::Unknown_78F9F0()
+{
+	if (Name) {
+		delete [] Name;
+		Name = NULL;
+	}
+	if (Moods) {
+		delete [] Moods;
+		Moods = NULL;
+	}
+	if (BAnims) {
+		delete [] BAnims;
+		BAnims = NULL;
+	}
+}
+
+// 0x78FBB0
+int Unknown_78F700Class::Get_Mood_Number(const char *name)
+{
+	for (int i = 0; i < 4; i++) {
+		if (_stricmp(name, Moods[i].MoodName) == 0) {
+			return(Moods[i].MoodNumber);
+		}
+	}
+	return(-1);
+}
+
+// 0x78FC20
+Unknown_78F700Class::BAnimStruct *Unknown_78F700Class::Find_BAnim(const char *tag)
+{
+	IndexStruct *index = &Index[(char)tolower(*tag)];
+	BAnimStruct *banim = &BAnims[index->First + index->Count - 1];
+	for (int i = 0; i < index->Count; i++, banim--) {
+		if (_stricmp(tag, banim->Tag) == 0) {
+			return(banim);
+		}
+	}
+	return(NULL);
+}
+
+static int __cdecl Unknown_790190(const void *a, const void *b);
+// 0x78FCB0 (the index loop is Load's own: its count kept in edx and &Count in ecx across the First store, 0x78FFD2, where 0x7901C0 indexes through the entry, 0x79020E)
+bool Unknown_78F700Class::Load(const char *filename)
+{
+	INIClass ini(filename);
+	char header[64];
+	char buffer[256];
+	sprintf(header, "HEADER");
+	ini.Get_String(header, "Label", "", buffer, 0x3F);
+	Text.Label = nstrdup(buffer);
+	ini.Get_String(header, "Desc", "", buffer, 0xFF);
+	Text.Desc = nstrdup(buffer);
+	Gender = ini.Get_Bool(header, "Gender", false);
+	FidgetDelay = ini.Get_Int(header, "FidgetDelay", 45);
+	SpeechDelay = ini.Get_Int(header, "SpeechDelay", 3);
+	BlinkDelay = ini.Get_Int(header, "BlinkDelay", 60);
+	Moods = new MoodStruct[4];
+	int i;
+	for (i = 0; i < 4; i++) {
+		char section[64];
+		char name[64];
+		sprintf(section, "MOOD-%d", i);
+		ini.Get_String(section, "MoodName", "", name, 0x3F);
+		Moods[i].MoodName = nstrdup(name);
+		Moods[i].MoodNumber = ini.Get_Int(section, "MoodNumber", 0);
+	}
+	int count = 0;
+	for (; true;) {
+		char section[64];
+		sprintf(section, "BANIM-%d", count);
+		if (!ini.Section_Present(section)) {
+			break;
+		}
+		count++;
+	}
+	BAnimCount = count;
+	BAnims = new BAnimStruct[BAnimCount];
+	for (i = 0; i < BAnimCount; i++) {
+		char section[64];
+		char tag[64];
+		sprintf(section, "BANIM-%d", i);
+		ini.Get_String(section, "Tag", "", tag, 0x3F);
+		BAnims[i].Tag = nstrdup(tag);
+		BAnims[i].AnimNumber = (ini.Get_Int(section, "AnimNumber", 0) < 0xFF) ? ini.Get_Int(section, "AnimNumber", 0) : 0xFF;
+	}
+	qsort(BAnims, Get_BAnim_Count(), sizeof(BAnimStruct), Unknown_790190);
+	memset(Index, 0, sizeof(Index));
+	BAnimStruct *banim = BAnims;
+	for (int j = 0; j < Get_BAnim_Count(); j++, banim++) {
+		int c = tolower(*banim->Tag); IndexStruct *index = &Index[c]; int n = index->Count;
+		if (n == 0) {
+			Index[c].First = j;
+		}
+		index->Count = n + 1;
+	}
+	char fname[256];
+	_splitpath(filename, NULL, NULL, fname, NULL);
+	Name = new char[strlen(fname) + 1];
+	strcpy(Name, fname);
+	return(true);
+}
+
+// 0x790190
+static int __cdecl Unknown_790190(const void *a, const void *b)	// NAME 1: neutral (D10)
+{
+	return(_stricmp(*(const char * const *)a, *(const char * const *)b));
+}
+
+// 0x7901C0
+void Unknown_78F700Class::Unknown_7901C0()
+{
+	qsort(BAnims, Get_BAnim_Count(), sizeof(BAnimStruct), Unknown_790190);
+	memset(Index, 0, sizeof(Index));
+	BAnimStruct *banim = BAnims;
+	for (int i = 0; i < Get_BAnim_Count(); i++, banim++) {
+		IndexStruct *index = &Index[tolower(*banim->Tag)];
+		if (index->Count == 0) {
+			index->First = i;
+		}
+		index->Count++;
+	}
+}
+
+// 0x790260
+Unknown_790260Class::Unknown_790260Class(const char *filename)
+{
+	strcpy(Filename, filename);
+	_strlwr(Filename);
+	_splitpath(Filename, NULL, NULL, Name, NULL);
+	_strlwr(Name);
+	char fname[256];
+	_splitpath(Filename, NULL, NULL, fname, NULL);
+	strchr(fname, '_');	// the client drops the result
+	Data = NULL;
+}
+
+// 0x790320
+Unknown_790260Class::~Unknown_790260Class()
+{
+	if (Data) {
+		delete Data;
+		Data = NULL;
+	}
+}
+
+// 0x790360
+
+Unknown_78F700Class *Unknown_790260Class::Unknown_790360()
+{
+	bool needs_load = Data == NULL; // NAME 1: the null predicate materialized at 0x790384
+	if (needs_load) {
+		if (Data == NULL) {
+			Data = new Unknown_78F700Class;
+		} else {
+			Data->Unknown_78F9F0();
+		}
+		if (!Data->Load(Filename) && !Data->Load("personalities\\Personality00.ini")) {
+			delete Data;
+			Data = NULL;
+		}
+	}
+	return(Data);
+}
+
+/*
+**	Reconstruction notes
+**
+**	0x78F850 and 0x790360 unwind through 0xACF1A0 and 0xACF1E0 respectively:
+**	both pass this + 0x1008 through thunk 0x41269D to the two-pointer destructor 0x78F9B0.
+**	Those pointers are Label and Desc, so they form the destructible Text member.
+**	0x78F700 is defined out of line before its caller so VC6 emits its exact standalone
+**	constructor and still inlines its initialization into 0x790360.
+**	The client reads HEADER's 'FidgetDelay' (default 45); the shipped PersonalityNN.ini files spell it
+**	'FigetDelay', so the client's avatars use 45. avatar.cpp's stand-in read 'FigetDelay' (50).
+*/
+
+# Source artifact: winner.patch
+--- a/app/client/unknown_personality.cpp
++++ b/app/client/unknown_personality.cpp
+@@ -175,15 +175,19 @@
+ }
+ 
+ // 0x790360
+-// NOT EXACT: shape (the client materializes a boolean and repeats the Data null check before cleanup)
++
+ Unknown_78F700Class *Unknown_790260Class::Unknown_790360()
+ {
+-	if (Data == NULL) {
+-		Data = new Unknown_78F700Class;
++	bool needs_load = Data == NULL; // NAME 1: the null predicate materialized at 0x790384
++	if (needs_load) {
++		if (Data == NULL) {
++			Data = new Unknown_78F700Class;
++		} else {
++			Data->Unknown_78F9F0();
++		}
+ 		if (!Data->Load(Filename) && !Data->Load("personalities\\Personality00.ini")) {
+ 			delete Data;
+ 			Data = NULL;
+-			return(NULL);
+ 		}
+ 	}
+ 	return(Data);
+

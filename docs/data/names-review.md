@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1970 |
 | 2 | describes what the code does | 5004 |
-| 1 | neutral placeholder | 25181 |
+| 1 | neutral placeholder | 25182 |
 
 ## For review (score 3 and below)
 
@@ -21251,6 +21251,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_7901C0` | `app/client/unknown_personality.cpp:141` | untagged neutral name (D10) |
 | 1 | `Unknown_790260Class` | `app/client/unknown_personality.cpp:156` | untagged neutral name (D10) |
 | 1 | `Unknown_790360` | `app/client/unknown_personality.cpp:179` | untagged neutral name (D10) |
+| 1 | `needs_load` | `app/client/unknown_personality.cpp:181` | the null predicate materialized at 0x790384 |
 | 1 | `unknown_personality.h` | `app/client/unknown_personality.h:13` | provisional (D10) |
 | 1 | `Unknown_78F700Class` | `app/client/unknown_personality.h:20` | neutral (D10) |
 | 1 | `Unknown_78F9F0` | `app/client/unknown_personality.h:38` | neutral (D10) |

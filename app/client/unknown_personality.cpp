@@ -175,15 +175,19 @@ Unknown_790260Class::~Unknown_790260Class()
 }
 
 // 0x790360
-// NOT EXACT: shape (the client materializes a boolean and repeats the Data null check before cleanup)
+
 Unknown_78F700Class *Unknown_790260Class::Unknown_790360()
 {
-	if (Data == NULL) {
-		Data = new Unknown_78F700Class;
+	bool needs_load = Data == NULL; // NAME 1: the null predicate materialized at 0x790384
+	if (needs_load) {
+		if (Data == NULL) {
+			Data = new Unknown_78F700Class;
+		} else {
+			Data->Unknown_78F9F0();
+		}
 		if (!Data->Load(Filename) && !Data->Load("personalities\\Personality00.ini")) {
 			delete Data;
 			Data = NULL;
-			return(NULL);
 		}
 	}
 	return(Data);
@@ -192,6 +196,8 @@ Unknown_78F700Class *Unknown_790260Class::Unknown_790360()
 /*
 **	Reconstruction notes
 **
+**	0x790360 uses a named null predicate before generic new/clear setup; its common return
+**	reproduces the client failure epilogue, including the retained second Data test.
 **	0x78F850 and 0x790360 unwind through 0xACF1A0 and 0xACF1E0 respectively:
 **	both pass this + 0x1008 through thunk 0x41269D to the two-pointer destructor 0x78F9B0.
 **	Those pointers are Label and Desc, so they form the destructible Text member.
