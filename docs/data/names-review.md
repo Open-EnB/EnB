@@ -10,7 +10,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 227 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1970 |
-| 2 | describes what the code does | 4998 |
+| 2 | describes what the code does | 5003 |
 | 1 | neutral placeholder | 25125 |
 
 ## For review (score 3 and below)
@@ -29654,7 +29654,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `ProjectorManager` | `app/shared/projscen.h:44` | what it holds |
 | 2 | `ProjectionDef` | `app/shared/projscen.h:45` | as ProjectorCasterClass's |
 | 2 | `Overlap` | `app/shared/px.cpp:267` | what it tests |
-| 2 | `PxBoxVector` | `app/shared/px.cpp:597` | the boxes a corner change has already reported; the wrapper's name too (notes) |
+| 2 | `Overlap` | `app/shared/px.cpp:597` | Overlap(a, b) over corners |
+| 2 | `Move` | `app/shared/px.cpp:607` | unlinks e on axis i and links it before next |
+| 2 | `Enter` | `app/shared/px.cpp:617` | the On_Enter pair |
+| 2 | `Exit` | `app/shared/px.cpp:623` | the On_Exit pair |
+| 2 | `PxBoxVector` | `app/shared/px.cpp:629` | the boxes a corner change has already reported; the wrapper's name too (notes) |
+| 2 | `Notify_Once` | `app/shared/px.cpp:631` | what it does (the five lower_bound + insert sites) |
 | 2 | `px.h` | `app/shared/px.h:14` | provisional header name (px.cpp's) |
 | 2 | `PxEnd` | `app/shared/px.h:25` | a box's low or high end in the sorted lists |
 | 2 | `box, type` | `app/shared/px.h:33` | what it stores |
