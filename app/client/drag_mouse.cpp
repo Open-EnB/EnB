@@ -72,11 +72,12 @@ float SMouseDragClass::Threshold()
 }
 
 // 0x685060
-// NOT EXACT: x87 square order: the client squares the x delta first; this form squares the y delta first.
 bool SMouseDragClass::Update_Drag(float x, float y)
 {
 	if (State == 1) {
-		if ((x - Position.X) * (x - Position.X) + (y - Position.Y) * (y - Position.Y) > Threshold()) {
+		Vector2 delta(x, y); // NAME 2 [delta]: displacement from the drag origin
+		delta -= Position;
+		if (delta.Length2() > Threshold()) {
 			State = 2;
 			return(true);
 		}
@@ -86,7 +87,6 @@ bool SMouseDragClass::Update_Drag(float x, float y)
 	}
 	return(false);
 }
-
 // 0x6850E0
 bool SMouseDragClass::Drop()
 {
@@ -128,8 +128,10 @@ void SMouseDragClass::Unknown_685190()
 /*
 **	Notes (SK1, 2026-11-09).
 **	The object runs from 0x684F20 to 0x6851A0 (0x684D10-0x684E00 before it are rawfile.cpp's and a palette loader's).
-**	SMouseDragClass is smouse.cpp's name for the object (its local declaration, 0x515510's parameter type). Written
-**	from the pseudocode, the asserts on the client's lines; the functions so marked (D64) are functional only.
+**	SMouseDragClass is smouse.cpp's name for the object (its local declaration, 0x515510's parameter type).
+**	Reconstructed from the pseudocode, with the asserts on the client's lines; all functions now match.
 **	Representing the coordinates at +0x08 and +0x0C as a Vector2 reproduces 0x684F20's zeroing register,
 **	Mouse reload and store order exactly through its inline constructor. Separate scalar initializers differ.
+**	0x685060 matches with an in-place Vector2 subtraction followed by Length2; direct scalar expressions
+**	square the deltas in the other x87 order.
 */

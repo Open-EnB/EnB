@@ -2,7 +2,7 @@ Claim #227, Codex gpt-6.1-sol, VC6 SP4 12.00.8804 under Wine.
 App flags and defines from tools/vc6/libdefs.py.
 Baseline has four differing non-relocated bytes at function offsets 0x1A, 0x1C, 0x1E, 0x20.
 Client squares the x delta first; our baseline squares the y delta first.
-All instruction offsets otherwise agree. No form below matched.
+All instruction offsets otherwise agree. The first two batches did not match; a successful retry follows below.
 
 Scalar-member baseline (X, Y), distance expression compared with Threshold():
 
@@ -118,3 +118,47 @@ dot_threshold_left
   Vector2 delta = Vector2(x, y) - Position;
   delta * delta
   {"size": 112, "different_bytes": 107, "first": [0, 1, 2, 3, 4, 5, 6, 7]}
+
+Follow-up batch after independent review by a Codex gpt-6.1-sol subagent.
+workflow.md section 3.1.2 documents copy then compound assignment and symbol-kind effects on x87 order.
+Eight forms compiled; compound_vector matched. No second retry batch ran.
+
+const_ref_deltas
+  const float &dx = x - Position.X; const float &dy = y - Position.Y;
+  dx * dx + dy * dy
+  {"size": 96, "different_bytes": 4, "first": [26, 28, 30, 32]}
+
+const_ref_dx
+  const float &dx = x - Position.X; float dy = y - Position.Y;
+  dx * dx + dy * dy
+  {"size": 96, "different_bytes": 4, "first": [26, 28, 30, 32]}
+
+const_ref_dy
+  float dx = x - Position.X; const float &dy = y - Position.Y;
+  dx * dx + dy * dy
+  {"size": 96, "different_bytes": 4, "first": [26, 28, 30, 32]}
+
+const_ref_vector
+  const Vector2 &delta = Vector2(x, y) - Position;
+  delta.Length2()
+  {"size": 96, "different_bytes": 10, "first": [23, 24, 25, 26, 27, 28, 29, 30]}
+
+distinct_vector_temps
+
+  (Vector2(x, y) - Position) * (Vector2(x, y) - Position)
+  {"size": 112, "different_bytes": 85, "first": [8, 23, 24, 25, 26, 28, 29, 30]}
+
+distinct_static_dot
+
+  Vector2::Dot_Product(Vector2(x, y) - Position, Vector2(x, y) - Position)
+  {"size": 112, "different_bytes": 85, "first": [8, 23, 24, 25, 26, 28, 29, 30]}
+
+assign_vector
+  Vector2 delta; delta = Vector2(x, y) - Position;
+  delta.Length2()
+  {"size": 96, "different_bytes": 10, "first": [23, 24, 25, 26, 27, 28, 29, 30]}
+
+compound_vector
+  Vector2 delta(x, y); delta -= Position;
+  delta.Length2()
+  {"size": 96, "different_bytes": 0, "first": []}

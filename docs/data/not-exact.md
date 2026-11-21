@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-795 entries in 295 files.
+794 entries in 294 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -115,7 +115,6 @@ edit the comments in the code, not this file.
 | `app/client/debrsint.cpp:150` | `DebrisInterfaceClass::Unknown_68` | marker | NOT EXACT: functional (D64), order-only (key 10's colour: the red's spill after the blue's multiply) 0x53D9F0 |
 | `app/client/debrsint.cpp:366` | `DebrisInterfaceClass::Set_Min_Dist` | marker | NOT EXACT: functional (D64), literal (the client compares the MaxDist it loads with the clamped value kept in st(1): fld [MaxDist]; fcomp st(1)) 0x53E2F0 |
 | `app/client/decal.cpp:16` | `SClientUnknown1334Class::Load` | marker | NOT EXACT: functional (D64), from the pseudocode @0x75BE00 |
-| `app/client/drag_mouse.cpp:75` | `SMouseDragClass::Update_Drag` | marker | NOT EXACT: x87 square order: the client squares the x delta first; this form squares the y delta first. |
 | `app/client/drag_slot_data.cpp:149` | `DragSlotDataClass::Unknown_685500` | marker | NOT EXACT: functional (D64), from the pseudocode |
 | `app/client/dynamic_window_background.cpp:407` | `DynamicWindowBackgroundClass::Fit_Size` | mention | NOT EXACT (D64): Get 0x515AB0 (marked); the data's inline destructor 0x515E20 is 6 bytes longer than the client's (its three strings' destructors). The direct calls of the base's slots are qualified calls (DynamicWindowRenderObjectClass::...). |
 | `app/client/dynamic_window_horizontal.cpp:101` | `DynamicWindowHorizontalClass::Set_Alignment` | marker | NOT EXACT: the client stores the cleared flags, reloads them and ORs in the new bits; this form folds both into one store |

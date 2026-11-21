@@ -10,7 +10,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 226 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1971 |
-| 2 | describes what the code does | 4995 |
+| 2 | describes what the code does | 4996 |
 | 1 | neutral placeholder | 25167 |
 
 ## For review (score 3 and below)
@@ -2856,7 +2856,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_7E6200` | `app/client/distance_calc_client.h:22` | neutral (D10); NAME 3 [obj_a, obj_b]: its FAIL_IFs; NAME 2 [range]: 0x831F90's |
 | 1 | `LoginUnknown18Class` | `app/client/drag_mouse.cpp:39` | untagged neutral name (D10) |
 | 1 | `Unknown_515510` | `app/client/drag_mouse.cpp:61` | untagged neutral name (D10) |
-| 1 | `Unknown_5153B0` | `app/client/drag_mouse.cpp:85` | untagged neutral name (D10) |
+| 1 | `Unknown_5153B0` | `app/client/drag_mouse.cpp:86` | untagged neutral name (D10) |
 | 1 | `Unknown_515400` | `app/client/drag_mouse.cpp:97` | untagged neutral name (D10) |
 | 1 | `Unknown_5155A0` | `app/client/drag_mouse.cpp:111` | untagged neutral name (D10) |
 | 1 | `Unknown_685190` | `app/client/drag_mouse.cpp:120` | untagged neutral name (D10) |
@@ -25764,6 +25764,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `FontNames` | `app/client/deffont.cpp:391` | FontData's file names |
 | 2 | `DefaultFont` | `app/client/deffont.cpp:404` | 0xBE6098 over DefaultFontData |
 | 2 | `Load_Alloc_Data` | `app/client/deffont.h:27` | Westwood's name for the whole-file load (wwlib's Load_Alloc_Data(FileClass &)) |
+| 2 | `delta` | `app/client/drag_mouse.cpp:78` | displacement from the drag origin |
 | 2 | `SMouseDragClass` | `app/client/drag_mouse.h:12` | smouse.cpp's name for what LoginUnknown18Class +0x2C holds |
 | 2 | `Begin` | `app/client/drag_mouse.h:18` | what it does |
 | 2 | `Drop` | `app/client/drag_mouse.h:19` | what it does |
