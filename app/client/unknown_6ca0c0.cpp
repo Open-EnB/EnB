@@ -185,20 +185,20 @@ void FontSys::Unknown_6CA0C0(FontEffectStruct *effect)
 
 		if (effect->Direction == FONT_DIRECTION_RIGHT) {
 			// left to right: the first letters, then random ones
-			StringClass head(source);
-			head.Erase(shown, length - shown);
+			StringClass head(source); int count = length - shown;
+			head.Erase(shown, count);
 			head.Get_Length();
 			text = head;
-			for (int i = length - shown; i > 0; i--) {
+			for (int i = count; i > 0; i--) {
 				text += Random_Letter();
 			}
 		} else if (effect->Direction == FONT_DIRECTION_LEFT) {
 			// right to left: random letters, then the last ones
-			StringClass tail(source);
-			for (int i = length - shown; i > 0; i--) {
+			StringClass tail(source); int count = length - shown;
+			for (int i = count; i > 0; i--) {
 				text += Random_Letter();
 			}
-			tail.Erase(0, length - shown);
+			tail.Erase(0, count);
 			tail.Get_Length();
 			text += tail;
 		} else {
@@ -394,12 +394,12 @@ void FontSys::Unknown_6CA0C0(FontEffectStruct *effect)
 			} else {
 				text.Erase(0, length - shown);
 			}
-			amount = style->Font->String_Pixel_Width(text.Get_Buffer(text.Get_Length()));
-			if (amount < 1) amount = 1;
+			int value = style->Font->String_Pixel_Width(text.Get_Buffer(text.Get_Length()));
+			amount = (value < 1) ? 1 : value;
 		}
 
-		int width = style->Unknown2C4;
-		int height = style->Unknown2C8;
+
+
 		int old;
 		if (effect->Intensity > 0.0f) {
 			// wiping in
@@ -407,7 +407,7 @@ void FontSys::Unknown_6CA0C0(FontEffectStruct *effect)
 			case FONT_DIRECTION_LEFT:
 				old = style->Unknown420[0];
 				rect[0] = (style->Unknown2C4 - amount > 1) ? style->Unknown2C4 - amount : 1;
-				rect[1] = style->Unknown2C4;
+				style->Unknown420[1] = style->Unknown2C4;
 				if (style->Unknown420[0] == 1) Set_Complete(style, true);
 				if (old != style->Unknown420[0]) style->Unknown4C5 = false;
 				break;
@@ -427,10 +427,10 @@ void FontSys::Unknown_6CA0C0(FontEffectStruct *effect)
 				break;
 			case FONT_DIRECTION_DOWN:
 				old = style->Unknown420[3];
-				rect[2] = 0;
-				rect[3] = (amount < style->Unknown2C8) ? amount : style->Unknown2C8;
-				if (rect[3] == style->Unknown2C8) Set_Complete(style, true);
-				if (old != rect[3]) style->Unknown4C5 = false;
+				rect[2] = 0; if (amount >= style->Unknown2C8) amount = style->Unknown2C8;
+				rect[3] = amount;
+				if (amount == style->Unknown2C8) Set_Complete(style, true);
+				if (old != amount) style->Unknown4C5 = false;
 				break;
 			}
 		} else {
@@ -458,8 +458,8 @@ void FontSys::Unknown_6CA0C0(FontEffectStruct *effect)
 				if (old != rect[3]) style->Unknown4C5 = false;
 				break;
 			case FONT_DIRECTION_DOWN:
-				old = style->Unknown420[2];
-				rect[2] = (amount < style->Unknown2C8) ? amount : style->Unknown2C8;
+				old = style->Unknown420[2]; if (amount >= style->Unknown2C8) amount = style->Unknown2C8;
+				style->Unknown420[2] = amount;
 				rect[3] = style->Unknown2C8;
 				if (style->Unknown420[2] == style->Unknown2C8) Set_Complete(style, true);
 				if (old != rect[2]) style->Unknown4C5 = false;
@@ -619,7 +619,7 @@ void FontSys::Unknown_6CA0C0(FontEffectStruct *effect)
 		style->Font->Set_XSpacing(style->Unknown448);
 		StringClass text(style->Info.Text);
 		if (style->Unknown406) {
-			text += "..."; text.Peek_Buffer(); text.Peek_Buffer(); text.Peek_Buffer(); text.Peek_Buffer(); text.Peek_Buffer(); text.Peek_Buffer(); text.Peek_Buffer(); text.Peek_Buffer();
+			text += "..."; text.Peek_Buffer(); text.Peek_Buffer(); text.Peek_Buffer(); text.Peek_Buffer(); text.Peek_Buffer(); text.Peek_Buffer(); text.Peek_Buffer(); text.Peek_Buffer(); text.Peek_Buffer(); text.Peek_Buffer(); text.Peek_Buffer();
 		}
 		char *buffer = text.Get_Buffer(text.Get_Length()); Rebuild_Texture(style, buffer, false);
 		rect[1] = style->Unknown2C4 = style->Font->String_Pixel_Width(buffer);
@@ -673,7 +673,7 @@ void FontSys::Unknown_6CA0C0(FontEffectStruct *effect)
 				if (style->Unknown405) {
 					// the text saved in Unknown2F0 back
 					style->Info.Text = style->Unknown2F0;
-					StringClass text(style->Info.Text); text.Peek_Buffer();
+					StringClass text(style->Info.Text); text.Peek_Buffer(); text.Peek_Buffer();
 					if (style->Unknown406) {
 						text += "...";
 					}
