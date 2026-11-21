@@ -58,6 +58,15 @@ The format (one step a line, '#' comments, shell-style quoting):
                                   click on something in the room needs before it (the click is a screen point)
     hold VK until SOURCE PATTERN [within S]   the key held down until the line is seen (walk on through a door
                                   until the room changes)
+    hold VK for S                 the key held down S seconds (flight: thrust, the arrow keys' turn and tilt)
+    rdrag X,Y for S               the right button pressed at the window's middle, the pointer held at X,Y for S
+                                  seconds, let go back at the middle (flight: the ship's nose follows the pointer)
+    pose-mark                     the pose now (camera at rest, at most 3 s) is what expect-pose measures from
+    expect-pose KIND MIN          since the pose-mark, the pose went MIN in the KIND direction: forward / back
+                                  (units along the marked heading), left / right (yaw degrees), up / down (pitch
+                                  degrees), moved (units, any direction); the best of the poses sampled during the
+                                  hold / rdrag steps since the mark and the pose now, so a chase camera's lag or an
+                                  auto-level after the input does not hide it
     pose                          the avatar's place and heading, written to e2e.log (for writing walk-to steps)
     shot NAME                     the client's own back buffer at the next Present (d3d8shot's D3D8SHOT_TRIGGER)
 SOURCE: antprox (antprox.out: antprox, the replay server and the client's stderr), stubs (stubs.log), msg
@@ -116,6 +125,11 @@ def _wrap(deg):
     return (deg + 180.0) % 360.0 - 180.0
 
 
+def _key_lparam(vk, up=False):
+    import clientpoc
+    return clientpoc.key_lparam(vk, up)
+
+
 class Pilot:
     """The avatar's pose in a starbase from the proxy's camera file (d3d8shot.c D3D8SHOT_CAMERA: the frame's first
     view matrix is the room's camera, which trails the avatar), and the closed loops that steer by it. Measured on
@@ -129,6 +143,7 @@ class Pilot:
     REACH = 560         # the largest offset used (pixels from the window's middle)
     COAST = 4.5         # units the avatar still walks after the button or key is let go
     CX, CY = 640, 512
+    REPEAT = 0.05       # hold VK for S: a key-down every 50 ms
 
     def __init__(self, hwnd, camera, tick, note):
         import ctypes
@@ -217,7 +232,60 @@ class Pilot:
             self._rup()
 
     def key(self, vk, down):
-        self._post(0x100 if down else 0x101, vk, 1 if down else 0xC0000001)
+        self._post(0x100 if down else 0x101, vk, _key_lparam(vk, up=not down))
+
+    def hold_for(self, vk, secs, sample):
+        """The key held secs seconds: a down every REPEAT seconds, as the keyboard's auto-repeat, a fixed count of
+        them (the client sends a MOVE per down of the thrust keys, so a run's packets compare with another's), the
+        pose sampled between them."""
+        t0 = time.time()
+        try:
+            for i in range(max(1, round(secs / self.REPEAT))):
+                while time.time() < t0 + i * self.REPEAT:
+                    sample(self.pose(5))
+                    time.sleep(0.01)
+                self.key(vk, True)
+                fail = self.tick()
+                if fail:
+                    return fail
+            while time.time() < t0 + secs:
+                sample(self.pose(5))
+                time.sleep(0.01)
+        finally:
+            self.key(vk, False)
+        return None
+
+    def rdrag(self, x, y, secs, sample):
+        """The right button down at the window's middle, the pointer held at x,y for secs seconds (the move posted
+        again every frame or so, with MK_RBUTTON), then back to the middle and let go; the pose sampled meanwhile."""
+        self._rdown()
+        end = time.time() + secs
+        try:
+            while time.time() < end:
+                self._mouse(0x200, 2, x, y)
+                sample(self.pose(5))
+                fail = self.tick()
+                if fail:
+                    return fail
+                time.sleep(0.03)
+        finally:
+            self._rup()
+        return None
+
+    @staticmethod
+    def change(mark, poses, kind):
+        """The best change in KIND's direction from mark over poses (see expect-pose), with the pose it came from."""
+        ry, rp = math.radians(mark['yaw']), math.radians(mark['pitch'])
+        look = (math.cos(rp) * math.cos(ry), math.cos(rp) * math.sin(ry), math.sin(rp))
+        best = None
+        for p in poses:
+            d = (p['x'] - mark['x'], p['y'] - mark['y'], p['z'] - mark['z'])
+            v = {'forward': sum(a * b for a, b in zip(d, look)), 'moved': math.sqrt(sum(a * a for a in d)),
+                 'left': _wrap(p['yaw'] - mark['yaw']), 'up': p['pitch'] - mark['pitch']}
+            v['back'], v['right'], v['down'] = -v['forward'], -v['left'], -v['up']
+            if best is None or v[kind] > best[0]:
+                best = (v[kind], p)
+        return best
 
     def walk_to(self, x, y, tol=2.0, within=30.0):
         """Walks with the right button held, steering by the cursor's offset; lets go a coast's length before the
@@ -434,12 +502,36 @@ def parse(text, name='?', gadgets=None, loader=None, _depth=0):
                     raise ValueError
             except ValueError:
                 raise ScenarioError(f'{where}: walk-to X,Y [tol T] [within S] / face YAW [tol D] [within S]')
+        elif op == 'hold' and len(args) == 3 and args[1] == 'for':
+            try:
+                st['vk'], st['secs'] = int(args[0], 0), float(args[2])
+            except ValueError:
+                raise ScenarioError(f'{where}: hold VK for SECONDS')
         elif op == 'hold':
             args, st['within'] = _within(args, 30.0, where)
             if len(args) != 4 or args[1] != 'until':
-                raise ScenarioError(f'{where}: hold VK until SOURCE PATTERN [within S]')
+                raise ScenarioError(f'{where}: hold VK until SOURCE PATTERN [within S] / hold VK for SECONDS')
             st['vk'] = int(args[0], 0)
             st['source'], st['pattern'] = _source(args[2]), _regex(args[3], where)
+        elif op == 'rdrag':
+            if len(args) < 3 or args[-2] != 'for':
+                raise ScenarioError(f'{where}: rdrag X,Y|gadget NAME for SECONDS')
+            x, y, g = _point(args[:-2], gadgets, where)
+            try:
+                st.update(x=x, y=y, gadget=g, secs=float(args[-1]))
+            except ValueError:
+                raise ScenarioError(f'{where}: rdrag X,Y|gadget NAME for SECONDS')
+        elif op == 'pose-mark':
+            if args:
+                raise ScenarioError(f'{where}: pose-mark takes nothing')
+        elif op == 'expect-pose':
+            kinds = ('forward', 'back', 'left', 'right', 'up', 'down', 'moved')
+            try:
+                if len(args) != 2 or args[0] not in kinds:
+                    raise ValueError
+                st.update(kind=args[0], min=float(args[1]))
+            except ValueError:
+                raise ScenarioError(f'{where}: expect-pose {"|".join(kinds)} MIN')
         elif op == 'pose':
             if args:
                 raise ScenarioError(f'{where}: pose takes nothing')
@@ -989,14 +1081,37 @@ class Session:
                             ev.unwatch(w_until)
                     else:
                         post(op, st)
-                elif op in ('walk-to', 'face', 'hold', 'pose'):
+                elif op in ('pose-mark', 'expect-pose'):
+                    pilot = Pilot(self.hwnd, self.camera, tick, note)
+                    p = pilot.still(3.0)
+                    if p is None:
+                        fail = f'{st["line"]}: {op}: no camera file from the proxy (run_reference.py build)'
+                    elif op == 'pose-mark':
+                        self.pose_mark, self.pose_samples = p, []
+                        note(f'  marked at {pilot.say(p)} z {p["z"]:.1f}')
+                    elif getattr(self, 'pose_mark', None) is None:
+                        fail = f'{st["line"]}: expect-pose before any pose-mark'
+                    else:
+                        v, at = Pilot.change(self.pose_mark, self.pose_samples + [p], st['kind'])
+                        note(f'  {st["kind"]} {v:.1f} (min {st["min"]:g}; best at {pilot.say(at)} z {at["z"]:.1f}; '
+                             f'now {pilot.say(p)} z {p["z"]:.1f})')
+                        if v < st['min']:
+                            fail = (f'{st["line"]}: expect-pose {st["kind"]} {st["min"]:g}: {v:.1f} '
+                                    f'(from {pilot.say(self.pose_mark)} to {pilot.say(p)})')
+                elif op in ('walk-to', 'face', 'hold', 'pose', 'rdrag'):
                     ev.poll()
                     self.mark = ev.total
                     ev.mark_epoch()
                     pilot = Pilot(self.hwnd, self.camera, tick, note)
-                    if op != 'hold':
+                    samples = getattr(self, 'pose_samples', None)
+                    sample = (lambda p: p is not None and samples is not None and samples.append(p))
+                    if op not in ('hold', 'rdrag'):
                         pilot.still()
-                    if op == 'walk-to':
+                    if op == 'rdrag':
+                        fail = pilot.rdrag(st['x'], st['y'], st['secs'], sample)
+                    elif op == 'hold' and 'secs' in st:
+                        fail = pilot.hold_for(st['vk'], st['secs'], sample)
+                    elif op == 'walk-to':
                         fail = pilot.walk_to(st['to'][0], st['to'][1], st['tol'], st['within'])
                     elif op == 'face':
                         fail = pilot.face(st['to'][0], st['tol'], st['within'])
@@ -1239,6 +1354,12 @@ def _desc(st):
         return f'{st["source"]} {st["quiet"]:g}'
     if st['op'] in ('walk-to', 'face'):
         return ','.join(f'{v:g}' for v in st['to']) + f' tol {st["tol"]:g}'
+    if st['op'] == 'hold' and 'secs' in st:
+        return f'0x{st["vk"]:X} for {st["secs"]:g} s'
+    if st['op'] == 'rdrag':
+        return (f'gadget {st["gadget"]} ' if st['gadget'] else '') + f'({st["x"]},{st["y"]}) for {st["secs"]:g} s'
+    if st['op'] == 'expect-pose':
+        return f'{st["kind"]} {st["min"]:g}'
     if st['op'] == 'hold':
         return f'0x{st["vk"]:X} until {st["source"]} {st["pattern"].pattern!r}'
     if st['op'] == 'key' and st.get('until'):

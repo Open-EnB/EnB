@@ -368,6 +368,17 @@ def find_window(pid, skip_dialogs=False):
     return found[0] if found else None
 
 
+# keys a keyboard sends with lParam's extended bit (24): the client's w32kbd.cpp reads the scan code and that bit,
+# and an arrow without it is the numpad's (sp_flight 2026-11-21: Left with lParam 1 turned nothing)
+EXTENDED_VKS = {0x21, 0x22, 0x23, 0x24, 0x25, 0x26, 0x27, 0x28, 0x2D, 0x2E, 0x6F, 0x90, 0xA3, 0xA5}
+
+
+def key_lparam(vk, up=False):
+    """A key message's lParam as the keyboard gives it: repeat 1, the scan code, the extended bit, up's bits 30-31."""
+    lp = 1 | (ctypes.windll.user32.MapVirtualKeyW(vk, 0) << 16) | ((1 << 24) if vk in EXTENDED_VKS else 0)
+    return lp | (3 << 30) if up else lp
+
+
 TAG = 0x5043 << 16      # tools/harness/d3d8shot.c's IN_TAG: the high word of a replayed message's wParam
 
 
@@ -395,10 +406,9 @@ def post_step(hwnd, op, rest, tag=False):
         post(WM['ldown'] if op == 'down' else WM['lup'], 1 if op == 'down' else 0, lp)
     elif op == 'key':
         vk = int(rest.split()[0], 0)
-        scan = user32.MapVirtualKeyW(vk, 0)
-        post(WM['keydown'], vk, 1 | (scan << 16))
+        post(WM['keydown'], vk, key_lparam(vk))
         time.sleep(0.05)
-        post(WM['keyup'], vk, 1 | (scan << 16) | (3 << 30))
+        post(WM['keyup'], vk, key_lparam(vk, up=True))
     elif op == 'text':
         for ch in rest:
             vs = user32.VkKeyScanW(ord(ch))

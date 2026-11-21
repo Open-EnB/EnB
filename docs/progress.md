@@ -4,6 +4,26 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
+### 2026-11-21 (10:20 PST, day; e2e session on run/2026-11-20-night): `sp_flight`, every flight input and a warp to a distant nav point; retail and ours pass with the same packets; arrow keys now posted as a keyboard does; no reconstruction change
+
+**Done.** `tools/harness/e2e/sp_flight.scn` (named only, `--live --db-snapshot 7`): the thrust gadget's upper half
+(forward, again stops) and lower half (reverse, again stops), A / Z held, the four arrow keys, the right button held
+with the pointer left / right / above / below, then W, the target panel's >> twice (Nav Group Shrine, 54.95k) and Q;
+each manoeuvre asserts its packet (MOVE / TURN / TILT; WARP, then WARP_INDEX) and the pose change on the camera.
+e2e.py: `hold VK for S` (a fixed count of downs, 50 ms apart), `rdrag X,Y for S`, `pose-mark`, `expect-pose KIND
+MIN`. clientpoc.py: `key_lparam` gives posted keys their scan code and the extended bit (the arrows had none, so
+the client read numpad keys and nothing turned). shot_mask.txt: the shots after the turns are `skip` (heading and
+brightness vary between two retail runs). README "Space" has the details.
+
+**Calls.** W's nearest nav point is ~1.35k off where the manoeuvres end, and the server refuses Q (a
+MESSAGE_STRING, no warp; run 094456), so the scenario steps to a distant one with the target panel's >>.
+
+**Verified.** Retail PASS (runs 095049, 100027); ours (ClientPOC\release\client.exe of 06:14) PASS (100439), no
+gen stand-ins hit, `compare`: SAME 201 packets. The default replay set on ours with the new key lParams: 25 / 25
+(100944-session). Found: in Jupiter ours is 5-8 of 255 darker than retail at the fixed start pose (space_entered
+49.8 against 55.9 / 57.5), the sector brightness fault E2 filed for sector 4505 (§4), so not a new item.
+Not run: `e2e.py retail` (the paired runner) on sp_flight; the run's retail check of the other scenarios.
+
 ### 2026-11-21 (07:00 PST, night; run 2026-11-20-night, PR #237): progress.md §4.1 pruned to open work, sp_combat passing on our build (the asserts are the client's own; the stops were the harness), and the near-miss functions by bytes: 12 functions made exact by builders (+2 out-of-line companions), +21 pairs over the run's baseline, 0 lost outright beyond one D240
 
 - **Session** Opus coordinator, 00:29 -> ~07:00, the user's three goals: reach 70 % of the week by 07:00 (61 % at the start, 67 % at the end); prune §4.1 of completed items; continue the stuck / not-exact functions; resolve sp_combat's failure on our build. run/2026-11-20-night (PR #237) brought up to origin/master e6b2e3555 (baseline .work/imports.e6b2e3555.json). Plan log `.work/run-2026-11-20-night/plan.md`.

@@ -724,6 +724,20 @@ the last name. Live antprox logs opcode numbers; e2e appends the names (`... = s
   the loot is random, so the number of takes varies). Retail passes, 65 s (149 s with the restore). The recording
   dragged a skill from the PDA's list to the hotbar; a replayed drag found the list scrolled elsewhere (the list
   keeps no fixed start), so the scenario uses the hotbar the rows have.
+- **Flight (`sp_flight`, 2026-11-21):** every flight input, each a `pose-mark`, the input, its packet (MOVE: thrust;
+  TURN: yaw; TILT: pitch) and `expect-pose` on the camera: the thrust gadget's upper half (640,878: forward, again
+  stops) and lower half (640,968: reverse, again stops), A and Z held (`hold VK for S`), the four arrow keys, the
+  right button held with the pointer left / right / above / below (`rdrag X,Y for S`: the nose follows it), then W
+  (the nearest nav point, Jupiter Path the First, too close: the server answers Q with a MESSAGE_STRING), the
+  target panel's >> twice (1248,987: Nav Group Shrine, 54.95k) and Q: WARP, WARP_INDEX about 19 s later, about
+  50k on. Retail and ours pass (~250 s with the restore) with the SAME 201 packets. New steps for it (e2e.py's
+  docstring): `hold VK for S` (a down every 50 ms, a fixed count: each thrust down sends a MOVE), `rdrag`,
+  `pose-mark`, `expect-pose forward|back|left|right|up|down|moved MIN` (the best of the poses sampled during the
+  input, since the chase camera lags and the ship coasts). Left raises the pose's yaw, up its pitch.
+- **Extended keys (2026-11-21):** the client's keyboard code (w32kbd.cpp) reads lParam's scan code and extended
+  bit; an arrow key posted with lParam 1 is the numpad's and nothing happens. `clientpoc.key_lparam` gives every
+  posted key its scan code and, for the arrows, Insert / Delete / Home / End / PgUp / PgDn, the extended bit, as a
+  keyboard does (the user's recording: Left 0x014B0001). The default set still passes 25 / 25 with it.
 - First results: `sb_vendor` (room 2, a vendor's talk tree and trade window, back) and `sb_talk` (an NPC's
   two-page talk tree) pass on retail in one session, 224 s.
 - 2026-11-18 (H1): `sb_buysell` (room 2's Miyoshi Basho: a vendor row and Buy, a cargo slot and Sell, each an
