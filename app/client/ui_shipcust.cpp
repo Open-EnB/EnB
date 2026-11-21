@@ -1838,7 +1838,7 @@ void ShipCustomizeInterface::Unknown_625A60(int page)
 			Unknown_624B50(0x31, "PAN", NULL, 0, 0);
 			Unknown_624B50(0x32, "TURN", NULL, 0, 0);
 			Unknown_6257A0(3); Gadgets.size(); Gadgets.size(); Gadgets.size();	// dead reads (D272): with case 2's four and the one at the end, the client's mix (case 0's 0x6259C0 out of line, case 3's _Grow inline)
-			NameGadget = new TextGadgetClass(this, 0x19, "NAME_fa_ship04", CharacterView->Peek_Model(), Unknown_B08CB8 | Unknown_B08CC4, 0);
+			NameGadget = new TextGadgetClass(this, 0x19, "NAME_fa_ship04", CharacterView->Peek_Model(), Unknown_B08CC4 | Unknown_B08CB8, 0);
 			NameGadget->Unknown78 = 10.0f;
 			NameGadget->Unknown_28(Layer);
 			if (strlen(Desc.Ship_Name) != 0) {

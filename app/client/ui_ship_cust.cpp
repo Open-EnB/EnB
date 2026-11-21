@@ -1165,14 +1165,14 @@ void StarbaseShipCustomizeInterface::Unknown_61BCE0(short group)
 		it++;
 	}
 }
-static inline void Empty_Wrap(StarbaseShipCustomizeInterface *ui) { ui->Unknown_61AF50(); }	// not the client's (a budget device, D137 / D130): one inline layer deeper, 0x61AF50's loop-test begin() goes out of line before case 0's pair constructor, as the client's
-// NOT EXACT: inline budget (0.86: case 0's pair constructor inline in the client; case 3's iterator++ and fourth lookup inlined there)
+
+// NOT EXACT: inline budget (0.96, residue 49: case 0's second lookup inline in the client (ours calls operator[]), case 1's first pair constructor out of line there; register ties)
 // @0x61BD80
 void StarbaseShipCustomizeInterface::Unknown_61BD80(int page)
 {
 	InterfaceSortScopeClass sort(this);
 	Unknown_5C();
-	Empty_Wrap(this);
+	Unknown_61AF50();
 	if (Unknown2FC) {
 		Unknown_BE67C4->Remove(InterfaceMesh->Peek_Object());
 		Unknown_BE67BC->Unload(Unknown_B894A0[Page][1]);
@@ -1241,9 +1241,9 @@ void StarbaseShipCustomizeInterface::Unknown_61BD80(int page)
 			Unknown_61ADA0(0x11, "METAL00", NULL, 0, 0);
 			Unknown_61ADA0(0x12, "METAL01", NULL, 0, 0);
 			Unknown_61ADA0(0x13, "METAL02", NULL, 0, 0);
-			Unknown2D4 = ((RObjGadgetClass *)Gadgets[0x11].Gadget)->RObj;
-			Unknown2D8 = ((RObjGadgetClass *)Gadgets[0x12].Gadget)->RObj;
-			Unknown2DC = ((RObjGadgetClass *)Gadgets[0x13].Gadget)->RObj;
+			Unknown2D4 = ((RObjGadgetClass *)Gadgets[0x11].Gadget)->Peek_Render_Obj();
+			Unknown2D8 = ((RObjGadgetClass *)Gadgets[0x12].Gadget)->Peek_Render_Obj();
+			Unknown2DC = ((RObjGadgetClass *)Gadgets[0x13].Gadget)->Peek_Render_Obj();
 			Unknown_61ADA0(0x14, "PRIMARY", "primary_buy_ship02", 0, 3);
 			Unknown_61ADA0(0x15, "SECONDARY", "secondary_buy_ship02", 0, 3);
 			Unknown_61ADA0(0x16, "HULL", "hull_buy_ship02", 0, 1);
@@ -1264,7 +1264,7 @@ void StarbaseShipCustomizeInterface::Unknown_61BD80(int page)
 			Unknown_61ADA0(0x31, "TURN", NULL, 0, 0);
 			Unknown_61B760();
 			Unknown_58();
-			Unknown_61BAC0(4); Gadgets.size();	// dead read (D130; not the client's): with case 2's and the three at the end, the client's lookup mix
+			Unknown_61BAC0(4); Gadgets.size(); Gadgets.size();	// dead reads (D272): with the three at the end, the client's lookup mix
 			Unknown_61B580();
 			Unknown_61D260();
 			break;
@@ -1288,7 +1288,7 @@ void StarbaseShipCustomizeInterface::Unknown_61BD80(int page)
 			Unknown_61ADA0(0x31, "TURN", NULL, 0, 0);
 			Unknown_61DAB0();
 			Unknown_58();
-			Unknown_61BAC0(2); Gadgets.size();	// dead read (D130; not the client's): as case 1's
+			Unknown_61BAC0(2);
 			{
 				int last = Unknown330->TextureArray.size() - 8;
 				int first = Unknown318;
@@ -1320,10 +1320,10 @@ void StarbaseShipCustomizeInterface::Unknown_61BD80(int page)
 			Unknown_61ADA0(0x30, "PAN", NULL, 0, 0);
 			Unknown_61ADA0(0x31, "TURN", NULL, 0, 0);
 			Unknown_61B760();
-			NameGadget = new TextGadgetClass(this, 0x19, "NAME_buy_ship04", InterfaceMesh->Peek_Object(), Unknown_B08CB8 | Unknown_B08CC4, 0);
+			NameGadget = new TextGadgetClass(this, 0x19, "NAME_buy_ship04", InterfaceMesh->Peek_Object(), Unknown_B08CC4 | Unknown_B08CB8, 0);
 			NameGadget->Unknown78 = 10.0f;
 			NameGadget->Unknown_28(Layer);
-			Unknown64.Unknown_6870E0(NameGadget, 0x35, View, 1, 0);
+			Unknown64.Unknown_6870E0(NameGadget, 0x35, Get_View(), 1, 0);
 			Unknown_58();
 			Unknown_61BAC0(3);
 			if (strlen(Desc.Ship_Name) != 0) {
@@ -1336,7 +1336,7 @@ void StarbaseShipCustomizeInterface::Unknown_61BD80(int page)
 			break;
 	}
 	TheDX8MeshRenderer.Invalidate();
-	Unknown_61E8E0(true); Gadgets.size(); Gadgets.size(); Gadgets.size();	// dead reads (D130; not the client's): they spend VC6's inline budget toward the client's mix (the client's frame 0x3C and every lookup's out-of-line split but case 0's / case 3's pair constructor; with the 0x61AF50 wrapper and one read after the case 1 and case 2 sites: 0.86; 2: 0.73, 4: 0.76)
+	Unknown_61E8E0(true); Gadgets.size(); Gadgets.size(); Gadgets.size();	// dead reads (D272): with the two after case 1's site, the client's frame 0x3C and lookup mix (SC b13-b22: Peek_Render_Obj / Get_View, 0.96)
 }
 
 // @0x61D180
