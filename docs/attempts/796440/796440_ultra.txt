@@ -1,0 +1,184 @@
+# Claim 240 Terra ultra; frozen source baseline 43ff4e7b.
+# All successful candidate objects received full native objmatch.
+# No candidate became exact; these source forms were not integrated.
+# Source-form counts exclude repeated verification runs.
+# Ultra: six line-neutral local/direct/output Lerp x second-matrix construction forms, three masked groups, all native-matched, no gains/losses and all15 takeoff pairs retained. Client uses componentwise a+(b-a)*t and separate second return temporary. Two initial direct forms shifted source lines and lost796850; fixed line-neutral recompiles restore it, diagnostics excluded from count. EBP/ESP frame and tail merging unresolved; stop after nonimproving families.
+
+# Source specification: camera/run3.py
+from pathlib import Path
+import sys, subprocess, os, json, hashlib, difflib
+root=Path('/home/dev/Projects/EnB'); work=root/'.work/claim-240/round3/camera'; tree=root/'.work/claim-240/round3/baseline-tree'
+sys.path[:0]=[str(root/'tools/re'),str(root/'tools/vc6')]
+import appfile,libdefs
+from objmatch import CoffObject
+
+def win(p): return 'Z:'+str(p).replace('/',chr(92))
+def build(src,d):
+    dirs=[]
+    for p in appfile.candidate_dirs():
+        p=Path(p)
+        try: p=tree/p.relative_to(root)
+        except ValueError: pass
+        if p.is_dir(): dirs.append(p)
+    args=libdefs.LIB_FLAGS['app'].split()+['/D'+x for x in libdefs.APP_LIBS['app']['defines']]
+    args+=['/I"'+win(p)+'"' for p in dirs]+['"'+win(src)+'"']
+    rsp=d/'compile.rsp';rsp.write_text('\n'.join(args))
+    with (d/'compile.log').open('w') as f:
+        p=subprocess.run(['/home/dev/Toolchains/enb-vc6-sp4/bin/vc6-cl','@'+win(rsp)],cwd=d,stdout=f,stderr=f,timeout=45)
+    if p.returncode: raise RuntimeError((d/'compile.log').read_text())
+    return d/(src.stem+'.obj')
+
+def exact(p): return {(r['symbol'],a.lower()) for r in json.loads(p.read_text()) if r['status']=='exact' for a in r.get('addresses',[])}
+original=(tree/'app/client/camctrl_takeoff.cpp').read_text()
+forms={}
+base=original.replace('ship->PositionalState && ship->PositionalState->Get_Type()', 'ship->PositionalState->Get_Type()')
+assert base!=original
+for kind in ['local','direct','out']:
+ for assign in [False,True]:
+  s=base
+  for a,b in [('Unknown24','Unknown30'),('Unknown30','Unknown18')]:
+   old='Vector3 p = ('+b+' - '+a+') * t + '+a+';\n\t\ttm.Set_Translation(p);'
+   if kind=='local': new='Vector3 p = Lerp('+a+', '+b+', t);\n\t\ttm.Set_Translation(p);'
+   elif kind=='direct': new='tm.Set_Translation(Lerp('+a+', '+b+', t));'
+   else: new='Vector3 p; Lerp('+a+', '+b+', t, &p);\n\t\ttm.Set_Translation(p);'
+   assert s.count(old)==1
+   s=s.replace(old,new)
+  if assign: s=s.replace('Matrix3D tm = Build_Matrix3D(Unknown4C);','Matrix3D tm; tm = Build_Matrix3D(Unknown4C);')
+  forms['takeoff_lerp_'+kind+'_'+str(int(assign))]=s
+env=os.environ.copy(); env['ENB_RETAIL_INSTALL']='/home/dev/Games/earth-and-beyond/prefix/drive_c/Program Files (x86)/EA GAMES/Earth & Beyond'
+rows=[]; stash=[]; before=exact(work/'baseline/match.json')
+for name,s in forms.items():
+ d=work/name;d.mkdir(exist_ok=True);src=d/'camctrl_takeoff.cpp';src.write_text(s); row={'form':name,'source':str(src)}
+ try:
+  obj=build(src,d);row['compiled']=True;row['object']=str(obj)
+  with (d/'match.log').open('w') as f:p=subprocess.run(['/home/dev/Toolchains/enb-vc6-sp4/venv/bin/python',str(root/'tools/re/objmatch.py'),str(obj),'-q','--json',str(d/'match.json')],env=env,stdout=f,stderr=f)
+  assert p.returncode==0; result=exact(d/'match.json')
+  if name=='baseline': before=result
+  row.update(match=str(d/'match.json'),gains=sorted(result-before),losses=sorted(before-result),target_exact=any(a=='0x796440' for _,a in result))
+  coff=CoffObject(str(obj)); m=[x for x in coff.functions() if '?Unknown_08@CameraController09Class' in x[0]]; assert len(m)==1
+  _,sec,start,end=m[0];pattern,_,_=coff.pattern(sec,start,end);row['masked_code_sha256']=hashlib.sha256(pattern).hexdigest()
+  if name!='baseline': stash.append('FORM '+name+'\n'+''.join(difflib.unified_diff(original.splitlines(True),s.splitlines(True),fromfile='baseline',tofile=name)))
+ except Exception as e: row['error']=str(e)
+ rows.append(row);(work/'takeoff-results.json').write_text(json.dumps(rows,indent=2)+'\n');print(json.dumps(row),flush=True)
+(work/'796440-round3.txt').write_text('\n'.join(stash))
+
+# Source specification: camera/run4.py
+from pathlib import Path
+import sys, subprocess, os, json, hashlib, difflib
+root=Path('/home/dev/Projects/EnB'); work=root/'.work/claim-240/round3/camera'; tree=root/'.work/claim-240/round3/baseline-tree'
+sys.path[:0]=[str(root/'tools/re'),str(root/'tools/vc6')]
+import appfile,libdefs
+from objmatch import CoffObject
+
+def win(p): return 'Z:'+str(p).replace('/',chr(92))
+def build(src,d):
+    dirs=[]
+    for p in appfile.candidate_dirs():
+        p=Path(p)
+        try: p=tree/p.relative_to(root)
+        except ValueError: pass
+        if p.is_dir(): dirs.append(p)
+    args=libdefs.LIB_FLAGS['app'].split()+['/D'+x for x in libdefs.APP_LIBS['app']['defines']]
+    args+=['/I"'+win(p)+'"' for p in dirs]+['"'+win(src)+'"']
+    rsp=d/'compile.rsp';rsp.write_text('\n'.join(args))
+    with (d/'compile.log').open('w') as f:
+        p=subprocess.run(['/home/dev/Toolchains/enb-vc6-sp4/bin/vc6-cl','@'+win(rsp)],cwd=d,stdout=f,stderr=f,timeout=45)
+    if p.returncode: raise RuntimeError((d/'compile.log').read_text())
+    return d/(src.stem+'.obj')
+
+def exact(p): return {(r['symbol'],a.lower()) for r in json.loads(p.read_text()) if r['status']=='exact' for a in r.get('addresses',[])}
+original=(tree/'app/client/camctrl_takeoff.cpp').read_text()
+forms={}
+base=original.replace('ship->PositionalState && ship->PositionalState->Get_Type()', 'ship->PositionalState->Get_Type()')
+assert base!=original
+for kind in ['direct']:
+ for assign in [False,True]:
+  s=base
+  for a,b in [('Unknown24','Unknown30'),('Unknown30','Unknown18')]:
+   old='Vector3 p = ('+b+' - '+a+') * t + '+a+';\n\t\ttm.Set_Translation(p);'
+   if kind=='local': new='Vector3 p = Lerp('+a+', '+b+', t);\n\t\ttm.Set_Translation(p);'
+   elif kind=='direct': new='tm.Set_Translation(Lerp('+a+', '+b+', t));\n'
+   else: new='Vector3 p; Lerp('+a+', '+b+', t, &p);\n\t\ttm.Set_Translation(p);'
+   assert s.count(old)==1
+   s=s.replace(old,new)
+  if assign: s=s.replace('Matrix3D tm = Build_Matrix3D(Unknown4C);','Matrix3D tm; tm = Build_Matrix3D(Unknown4C);')
+  forms['takeoff_fixed_'+kind+'_'+str(int(assign))]=s
+env=os.environ.copy(); env['ENB_RETAIL_INSTALL']='/home/dev/Games/earth-and-beyond/prefix/drive_c/Program Files (x86)/EA GAMES/Earth & Beyond'
+rows=[]; stash=[]; before=exact(work/'baseline/match.json')
+for name,s in forms.items():
+ d=work/name;d.mkdir(exist_ok=True);src=d/'camctrl_takeoff.cpp';src.write_text(s); row={'form':name,'source':str(src)}
+ try:
+  obj=build(src,d);row['compiled']=True;row['object']=str(obj)
+  with (d/'match.log').open('w') as f:p=subprocess.run(['/home/dev/Toolchains/enb-vc6-sp4/venv/bin/python',str(root/'tools/re/objmatch.py'),str(obj),'-q','--json',str(d/'match.json')],env=env,stdout=f,stderr=f)
+  assert p.returncode==0; result=exact(d/'match.json')
+  if name=='baseline': before=result
+  row.update(match=str(d/'match.json'),gains=sorted(result-before),losses=sorted(before-result),target_exact=any(a=='0x796440' for _,a in result))
+  coff=CoffObject(str(obj)); m=[x for x in coff.functions() if '?Unknown_08@CameraController09Class' in x[0]]; assert len(m)==1
+  _,sec,start,end=m[0];pattern,_,_=coff.pattern(sec,start,end);row['masked_code_sha256']=hashlib.sha256(pattern).hexdigest()
+  if name!='baseline': stash.append('FORM '+name+'\n'+''.join(difflib.unified_diff(original.splitlines(True),s.splitlines(True),fromfile='baseline',tofile=name)))
+ except Exception as e: row['error']=str(e)
+ rows.append(row);(work/'takeoff-fixed-results.json').write_text(json.dumps(rows,indent=2)+'\n');print(json.dumps(row),flush=True)
+(work/'796440-fixed.txt').write_text('\n'.join(stash))
+
+# Source specification: camera/796440-fixed.txt
+FORM takeoff_fixed_direct_0
+--- baseline
++++ takeoff_fixed_direct_0
+@@ -131,9 +131,9 @@
+ 		Quaternion q;
+ 		Slerp(q, Unknown3C, Unknown4C, t * t);
+ 		Matrix3D tm = Build_Matrix3D(q);
+-		Vector3 p = (Unknown30 - Unknown24) * t + Unknown24;
+-		tm.Set_Translation(p);
+-		if (ship->PositionalState && ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
++		tm.Set_Translation(Lerp(Unknown24, Unknown30, t));
++
++		if (ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
+ 			((Unknown718D70Class *)ship->PositionalState)->Unknown_30(Client->Unknown10BC, tm);
+ 			*mode = 2;
+ 			return;
+@@ -155,9 +155,9 @@
+ 		}
+ 		float t = (float)(elapsed - 2000) * 0.00033333333f;
+ 		Matrix3D tm = Build_Matrix3D(Unknown4C);
+-		Vector3 p = (Unknown18 - Unknown30) * t + Unknown30;
+-		tm.Set_Translation(p);
+-		if (ship->PositionalState && ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
++		tm.Set_Translation(Lerp(Unknown30, Unknown18, t));
++
++		if (ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
+ 			((Unknown718D70Class *)ship->PositionalState)->Unknown_30(Client->Unknown10BC, tm);
+ 			*mode = 2;
+ 			return;
+
+FORM takeoff_fixed_direct_1
+--- baseline
++++ takeoff_fixed_direct_1
+@@ -131,9 +131,9 @@
+ 		Quaternion q;
+ 		Slerp(q, Unknown3C, Unknown4C, t * t);
+ 		Matrix3D tm = Build_Matrix3D(q);
+-		Vector3 p = (Unknown30 - Unknown24) * t + Unknown24;
+-		tm.Set_Translation(p);
+-		if (ship->PositionalState && ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
++		tm.Set_Translation(Lerp(Unknown24, Unknown30, t));
++
++		if (ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
+ 			((Unknown718D70Class *)ship->PositionalState)->Unknown_30(Client->Unknown10BC, tm);
+ 			*mode = 2;
+ 			return;
+@@ -154,10 +154,10 @@
+ 			Unknown0C->Unknown_04();
+ 		}
+ 		float t = (float)(elapsed - 2000) * 0.00033333333f;
+-		Matrix3D tm = Build_Matrix3D(Unknown4C);
+-		Vector3 p = (Unknown18 - Unknown30) * t + Unknown30;
+-		tm.Set_Translation(p);
+-		if (ship->PositionalState && ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
++		Matrix3D tm; tm = Build_Matrix3D(Unknown4C);
++		tm.Set_Translation(Lerp(Unknown30, Unknown18, t));
++
++		if (ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
+ 			((Unknown718D70Class *)ship->PositionalState)->Unknown_30(Client->Unknown10BC, tm);
+ 			*mode = 2;
+ 			return;

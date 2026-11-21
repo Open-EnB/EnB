@@ -1,0 +1,68 @@
+# Claim 240 Terra ultra; frozen source baseline 43ff4e7b.
+# All successful candidate objects received full native objmatch.
+# No candidate became exact; these source forms were not integrated.
+# Source-form counts exclude repeated verification runs.
+# Ultra: residue 20 (baseline35); raw objdiff similarity0.86. Existing786C70 stop helper rebuilt through784F20 restores client out-of-line call; all six source forms fully matched, each preserves257 exact pairs including786C70, no gains/losses. Dot-order forms identical to best target group; real786B60 helper variants worsen residue to148. Three groups including baseline. Remaining x87 component lifetime and masked flag-value allocation unresolved. Dot permutations have NaN-payload caveats; none adopted. Best helper source stashed for focused review.
+
+# Source specification: avatar/try_stop.py
+from pathlib import Path
+import os,sys,subprocess,json
+root=Path('/home/dev/Projects/EnB'); snap=root/'.work/claim-240/round3/baseline-tree'; work=root/'.work/claim-240/round3/avatar'
+sys.path.insert(0,str(root/'.work/claim-234')); import fastbuild,appfile
+dirs=appfile.candidate_dirs
+appfile.candidate_dirs=lambda:[snap/'app/client']+[snap/Path(p).relative_to(root) if str(p).startswith(str(root)+'/') else p for p in dirs()]
+src=(snap/'app/client/avatar.cpp').read_text()
+start=src.index('void CharacterViewAvatarClass::Unknown_786C70()'); stop=src.index('\n}',start)+2
+old=src[start:stop]; new=old.replace('''if (Unknown20C != 2) {
+		Unknown208 = 0;
+		Unknown20C = 2;
+		Unknown214 = true;
+	}''','''Unknown_784F20();
+
+
+
+''')
+assert old!=new and old.count('\n')==new.count('\n')
+src=src[:start]+new+src[stop:]
+start=src.index('void CharacterViewAvatarClass::Unknown_788900()'); stop=src.index('\n}',start)+2
+old=src[start:stop]; new=old.replace('Unknown_784F20();\n\t\t\tUnknown2F8 &= 0xFFFC;', 'Unknown_786C70();\n')
+assert old!=new and old.count('\n')==new.count('\n')
+src=src[:start]+new+src[stop:]
+d=work/'stop_helper'; d.mkdir(exist_ok=True); p=d/'avatar.cpp'; p.write_text(src)
+obj=fastbuild.compile_file(p,d)
+env=os.environ.copy(); env['ENB_RETAIL_INSTALL']='/home/dev/Games/earth-and-beyond/prefix/drive_c/Program Files (x86)/EA GAMES/Earth & Beyond'
+with (d/'match.log').open('w') as log: subprocess.run(['/home/dev/Toolchains/enb-vc6-sp4/venv/bin/python',str(root/'tools/re/objmatch.py'),str(obj),'-q','--json',str(d/'match.json')],env=env,stdout=log,stderr=log,check=True)
+def pairs(p):return {(r['symbol'],a) for r in json.loads(p.read_text()) if r['status']=='exact' for a in r['addresses']}
+a=pairs(work/'baseline/match.json'); b=pairs(d/'match.json')
+print('gains',sorted(b-a),'losses',sorted(a-b),flush=True)
+
+# Source specification: avatar/try_walk.py
+from pathlib import Path
+import os,sys,subprocess,json
+root=Path('/home/dev/Projects/EnB'); snap=root/'.work/claim-240/round3/baseline-tree'; work=root/'.work/claim-240/round3/avatar'
+sys.path.insert(0,str(root/'.work/claim-234')); import fastbuild,appfile
+dirs=appfile.candidate_dirs
+appfile.candidate_dirs=lambda:[snap/'app/client']+[snap/Path(p).relative_to(root) if str(p).startswith(str(root)+'/') else p for p in dirs()]
+src=(work/'stop_helper/avatar.cpp').read_text(); start=src.index('void CharacterViewAvatarClass::Unknown_788900()'); stop=src.index('\n}',start)+2
+fn=src[start:stop]
+side=('Vector3::Dot_Product(Unknown330.Get_Y_Vector(), dir)','Vector3::Dot_Product(dir, Unknown330.Get_Y_Vector())')
+front=('Vector3::Dot_Product(Unknown330.Get_X_Vector(), dir)','Vector3::Dot_Product(dir, Unknown330.Get_X_Vector())')
+move=('''if (Unknown2F8 & 2) {
+				Unknown_Inline_786C70();
+			}
+			Unknown2F8 |= 1;''','''Unknown_786B60((Unknown2F8 & 2) == 0);
+
+
+''')
+assert all(fn.count(a)==1 and a.count('\n')==b.count('\n') for a,b in [side,front,move])
+forms=[('side',[side]),('front',[front]),('side_front',[side,front]),('forward_helper',[move]),('side_forward',[side,move])]
+env=os.environ.copy(); env['ENB_RETAIL_INSTALL']='/home/dev/Games/earth-and-beyond/prefix/drive_c/Program Files (x86)/EA GAMES/Earth & Beyond'
+def pairs(p):return {(r['symbol'],a) for r in json.loads(p.read_text()) if r['status']=='exact' for a in r['addresses']}
+base=pairs(work/'baseline/match.json'); records=[]
+for name,edits in forms:
+ d=work/('walk_'+name); d.mkdir(exist_ok=True); current=fn
+ for a,b in edits: current=current.replace(a,b)
+ p=d/'avatar.cpp'; p.write_text(src[:start]+current+src[stop:]); obj=fastbuild.compile_file(p,d)
+ with (d/'match.log').open('w') as log: subprocess.run(['/home/dev/Toolchains/enb-vc6-sp4/venv/bin/python',str(root/'tools/re/objmatch.py'),str(obj),'-q','--json',str(d/'match.json')],env=env,stdout=log,stderr=log,check=True)
+ found=pairs(d/'match.json'); record={'name':name,'gains':sorted(found-base),'losses':sorted(base-found),'source':str(p),'object':str(obj),'match':str(d/'match.json')}; records.append(record)
+ (work/'walk_results.json').write_text(json.dumps(records,indent=2)+'\n'); print(name,record['gains'],record['losses'],flush=True)
