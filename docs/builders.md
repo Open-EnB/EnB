@@ -80,12 +80,13 @@ LIMIT REACHED, its second round includes a tryv2 sweep of loop forms in the inli
 `verify.py --pool K`); release everything you leased before you finish. Never use the
 base image. VMs are addressed by IP (clones share a computer name).
 
-**POC instances.** Run the POC client only through `clientpoc.py run|replay --instance NAME` (your builder id),
-never by copying builds into `C:\EnBDevelopment\ClientPOC` yourself. Your own build: `build.py link --program clientpoc` in your worktree (its default build/ deploys into ClientPOC\release: fine, the
-release exe is shared and any build may sit there), then `clientpoc.py replay --instance <your id> --exe
-<worktree>\build\programs\clientpoc\clientpoc.exe --input FILE`: the instance runs that exe, whatever release holds.
-Before you report, delete yours:
-`python tools/harness/clientpoc.py clean --instance NAME` (your shots stay in .work/poc/shots).
+**Client instances.** There is one client build, used for all testing: `build.py link --program client` in your
+worktree writes `build\programs\client\client.exe` and `client.map` (every library, no stand-in: an unresolved
+symbol fails the link). Run it only through `clientrun.py run|replay --instance NAME` (your builder id) or `e2e.py`
+(`--instance NAME`), never by copying builds into `C:\EnBDevelopment\ClientPOC` (the client's runtime data,
+CLIENT_DATA_ROOT) yourself. Run from your worktree, both take that tree's `build\programs\client\client.exe` by
+default (`--exe PATH` another). Before you report, delete yours:
+`python tools/harness/clientrun.py clean --instance NAME` (your shots stay in .work/poc/shots).
 
 **Git.** Never push (the coordinator pushes the run branch, D148); never `git reset --hard`, `git checkout -- .`
 or `git clean` on anything you didn't create. `git add` only your files, by name (never `-A` or
@@ -98,8 +99,9 @@ goes through `python tools/vc6/commit_mine.py MSGFILE SPEC.json` (your whole fil
 included) and your rows of attempts.csv / not-exact.md / names-review.md; it lands by compare-and-swap). Never `git reset`,
 `commit --amend` or `commit-tree` to repair a sweep: report it.
 Before reporting a branch finished, `python tools/vc6/standins.py check` in your worktree (seconds): a function you
-rebuilt that a hand stand-in still defines refuses the landing; delete the stand-in in your branch (workflow.md §3,
-"A landed app definition collides with stand-ins").
+rebuilt that a test program's hand stand-in (clienttest's) still defines refuses the landing; delete the stand-in in
+your branch (workflow.md §3, "A landed app definition collides with stand-ins"). The client has none: the landing's
+link check refuses any unresolved symbol in `build.py link --program client`.
 Commit each finished, working piece right away: one imperative subject stating the evidence or
 gain (see `git log`), counts before -> after; end the message with the `Co-Authored-By` line your
 harness gives you (D71).
@@ -143,7 +145,7 @@ before placing (`docs/data/triage.md`).
 | A stuck function (any residue class: D271 lifts D89's register / order bar), largest first: round one at medium effort, round two at high, each under D89's per-round limit as D273 / D274 count it (8 hypothesis batches a round as a checkpoint: go on while recent batches cut the residue or an evidence-backed lead remains, stop after three batches in a row that cut nothing; each hypothesis written first; a batch may compile any number of variants locally through a batch tool that returns a filtered summary); a round that raises the best score does not count; two rounds without progress park it with its attempts row | Opus (D263, D271; the effort level set on the Agent call) | Fable builders gave about a third of Opus's pairs a point (week of 2026-11-10); the user's effort ladder replaces a repeat of the same builder |
 | Read-only audits, cross-referencing, doc moves, log digging, generator reruns: anything a tool checks afterwards (verify, names.py, a diff); Explore agents | Sonnet | cheap, and the check catches mistakes |
 | Landing finished branches for the coordinator (`.claude/agents/lander.md`: `wt.py bring-over`, one line back per branch) | Sonnet (D223) | the tools decide; it never edits source, and the logs stay out of the coordinator's context |
-| The harness check (D182) and a POC run or replay for the coordinator (`.claude/agents/checker.md`: one line back per program) | Sonnet (D226) | the programs decide; it never edits source, and the logs and the frame stay out of the coordinator's context |
+| The harness check (D182) and a client run or replay for the coordinator (`.claude/agents/checker.md`: one line back per program) | Sonnet (D226) | the programs decide; it never edits source, and the logs and the frame stay out of the coordinator's context |
 | Filing builders' traps and leftovers into workflow.md §3 and progress.md §4, and returning their calls and proposals to the coordinator (`.claude/agents/doc-filer.md`) | Sonnet (D226, D246) | it quotes the reports and docs_check checks it; the log entry, the decisions and §3 stay the coordinator's |
 | Grep-level searches, log triage | Haiku | never edits tree code |
 | Known-pattern new-file rows, files' untried functions, bounded POC and triage items (30-60 min each), when the user's agy window has room (down to its floor) | Gemini 4 Hydrogen (high) through agy (D187, D263; `tools/agy/README.md`) | the user's Google subscription, outside the Claude windows (about 255 pairs in one session at no Claude cost); the coordinator verifies each landing and runs the POC itself |

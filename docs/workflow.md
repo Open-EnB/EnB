@@ -1666,7 +1666,7 @@ are in 3.0.
   leased VM's IP in a runner. `clienttest.py build` has no `--pool`: set `ENB_VC6_HOSTS`; in a worktree give
   build.py `--pool 1` (without it build / link failed with FileNotFoundError on cl.log). A build on a
   just-released lease fails every file and deletes app.lib, and the POC then silently runs the old exe: check the
-  build output says 'compiled'. Without `--pool` it also compiles on a VM lacking the worktree's programs/clientpoc files (C1083, then LNK2005s; L2, 2026-11-14). An app build on shared leases can die partway with "no object, no error": a private `build.py --pool 1` lease compiles the whole app.
+  build output says 'compiled'. Without `--pool` it also compiles on a VM lacking the worktree's programs/ files (C1083, then LNK2005s; L2, 2026-11-14). An app build on shared leases can die partway with "no object, no error": a private `build.py --pool 1` lease compiles the whole app.
 * **A killed or stopped job keeps its pool lease:** a killed verify, auxpad sweep or `appfile.py match` stays
   leased (under its agent, or `importer-PID`): `pool.py release --agent NAME`. Never TaskStop a verify queued for the importer lock: its Windows python keeps its place, later dies on ssh 0xC0000142 and leaves an `importer-PID` lease whose holder pid is claude.exe (it looks alive): kill the python pid. TaskStop on a Git Bash loop of
   `appfile.py --pool` runs leaves the Windows python children re-leasing VMs as the agent: kill them by PID
@@ -1719,15 +1719,14 @@ are in 3.0.
 * **The IDE build (`dsp.py` / `msdev.py`, D248, 2026-11-16):** (a) give cl the include directories as build.py does,
   absolute real paths: relative ones (`..\..\wwlib`, reached through the E: alias) changed the code of 10 app
   objects (aux_roots.obj's register choice and frame offsets; its tie-breaks follow cl's internal state, see
-  "co.cpp's aux pad"). (b) `msdev /MAKE` does not build a project whose dependency failed: `main`'s link
-  fails until the reconstruction is whole, so `clientpoc` depends on the libraries only and compiles app\main's
-  two files itself. (c) Compare objects with `objcmp.py`, not bytes: the symbol table holds the source path (the
+  "co.cpp's aux pad"). (b) `msdev /MAKE` does not build a project whose dependency failed: `main` (the
+  client) depends on every library, so one library's compile error stops the exe. (c) Compare objects with `objcmp.py`, not bytes: the symbol table holds the source path (the
   `.file` record) and compiler label numbers (`$L`, `$T`) that differ between any two builds, and moves every
   relocation's symbol index; COMDAT order can differ with the same code. (d) Over SSH, `cmd /c cd /d X && tool`
   runs `tool` in the outer shell's folder (the `cd` was a subshell's): give the tool its folder (`tar -C X`).
   Windows' `tar -T LIST` keeps a CR in each name: write the list with LF. (e) `msdev /MAKE` keeps the last exe when no
-  input is newer, a source dropped from the project included: msdev.py deletes clientpoc.exe before the stand-in
-  build's first pass, or that pass "links" with the last run's stand-ins and generates none. (f) The SDK header hashes
+  input is newer, a source dropped from the project included (the stand-in build's two passes needed the old exe
+  deleted first; the one client build links once). (f) The SDK header hashes
   (toolchain.md §2) are of CRLF files (this host's `core.autocrlf=true` checkout); GitHub's archives and an
   `autocrlf=false` clone have LF: hash headers through `Get-SdkSha` / build_client.py's `sha256`, never raw. (g)
   Python's embeddable package confines `sys.path` with its `python312._pth`: Build-Client.ps1 deletes it in the VM, so
@@ -1960,12 +1959,12 @@ are in 3.0.
 
 Builds and links (every program: clienttest, udpreplay, kerneltest, VIDTEST, the POC):
 
-* **Build app.lib before linking.** `build.py link`, `clienttest.py build`, `udpreplay.py build` and the POC
+* **Build app.lib before linking.** `build.py link`, `clienttest.py build`, `udpreplay.py build` and the client's
   link take `build/<lib>/<lib>.lib` as they are, and `importer.py verify` does not rewrite app.lib: run
   `build.py build --lib app` (`--allow-dirty` for your uncommitted files) first. A stale lib hides LNK2005s
   and unresolved symbols, shows other builders' committed work as differences from expected.txt, or ships old
   code with no warning (a library fixed in source but not rebuilt: check the function in the exe at its
-  client.map address). `build.py link --program clientpoc` gives the exe a fresh date with old code inside. A
+  client.map address). `build.py link --program client` gives the exe a fresh date with old code inside. A
   dirty tree makes `build.py --lib app` refuse unless `--allow-dirty`, leaving app.lib stale: a renamed
   function then passes the harness build as a gen stand-in ("gen Message_Error") with only an expected.txt
   mismatch. After a file rename delete its stale `build/app/obj/<old file>.obj` (it can still link in). Never
@@ -1975,26 +1974,26 @@ Builds and links (every program: clienttest, udpreplay, kerneltest, VIDTEST, the
   `--allow-dirty`; even then a new untracked file is silently left out and a gen stand-in (of its constructor,
   say) takes its place: `git add -N FILE` (or commit it, a detached WIP commit inside the worktree will do)
   before building. A tracked app file you delete breaks build.py's definitions scan (FileNotFoundError) until
-  the deletion is staged (`git rm --cached`) (not re-verified since the report). POC-only edits under
-  programs/clientpoc count only once linked: `build.py build --lib app` does not compile them.
+  the deletion is staged (`git rm --cached`) (not re-verified since the report). Edits under programs/
+  count only once linked: `build.py build --lib app` does not compile them.
 * **A worktree has no build/app.lib.** `wt.py new` copies the other libraries, the .dgram captures, build/art
   (MSS32.DLL in it) and build/d3d8shot as the main tree has them at that moment. In a fresh worktree run
   `build.py build --lib app --allow-dirty` (before `udpreplay build` or any link). A worktree made before
   2026-11-10, or before the main tree had the folders, lacks them: clienttest "wrote no trace (exit 3221225781)"
-  (0xC0000135, STATUS_DLL_NOT_FOUND); a POC replay without d3d8.dll; copy them in. kerneltest in a worktree: pass
+  (0xC0000135, STATUS_DLL_NOT_FOUND); a client replay without d3d8.dll; copy them in. kerneltest in a worktree: pass
   the main tree's build/ as `--out`.
 * **Link the programs after adding a function to a library file or touching stubs/ or pk.h** (`python
   tools/vc6/build.py link`): a stub in stubs/app_stubs.cpp that calls RawPacketClass pulled pk.obj and ~280
   externals into VIDTEST, so packet stand-ins go in tests/udpreplay/, never stubs/app_stubs.cpp. A commit
   subject must not claim a program links unless that command ran at that commit. New Win32 imports in app code
-  (WinInet) need the library in clienttest.py's and build.py clientpoc's `sys` lists; any harness linking
+  (WinInet) need the library in clienttest.py's and build.py client's `sys` lists; any harness linking
   CordCon needs the old iostream (LIBCIMT); a file-local `Stub_Log_Line` declaration needs `extern "C"` (else
   LNK2005: the generated stand-in collides). Scratch `Stub_Log_Line` calls are never committed. Any program that constructs an SClient needs a stub for the registry read 0x75A280 (D69). A first-call flag in a stand-in's logging must be `static`: a stack flag crashed `Stub_Log_Mark` after 300 s (E1, 2026-11-14).
-* **A link with unresolved symbols still writes and deploys the exe.** `build.py link` prints "clientpoc: exe
-  NOT written; N unresolved" and deploys anyway: read the 'deployed' line and the link log's `unresolved:`
-  lines. A call to an unresolved symbol (/force:unresolved) jumps into the PE header: EIP 0x400003 with no
-  caller (the header's bytes pop the return address). Match the unresolved list to its objects
-  (`.work/WE1/coffsyms.py`) and hand-write the stand-in.
+* **A link with unresolved symbols (the test programs' /force:unresolved) still writes the exe.** A call to an
+  unresolved symbol jumps into the PE header: EIP 0x400003 with no caller (the header's bytes pop the return
+  address). The client links without /force:unresolved: an unresolved symbol is "client: exe NOT written; N
+  unresolved", and the fix is the function itself (rebuilt, or the caller's change undone), never a stand-in. Match
+  the unresolved list to its objects (`.work/WE1/coffsyms.py`).
 * **Reading a link failure.** One compile error (often C2027 once a stand-in class became real) gives hundreds
   of unresolved and LNK2005 lines, all fallout: read the `cl:` lines first (`grep -v unresolved`). Fixing one
   LNK2005 layer exposes the next. Which symbol pulled an object: `set LINK=/VERBOSE` in the link batch (`Found
@@ -2006,9 +2005,10 @@ Builds and links (every program: clienttest, udpreplay, kerneltest, VIDTEST, the
 
 Stand-ins and gen_stubs (clienttest, udpreplay, kerneltest, the POC):
 
-* **e2e.py (D237, tools/harness/README.md):** every POC check builds `--lib binkmovie` before the link, else `Play`
-  is a generated stand-in and the start-up movie runs to its end; `build.py` has no `--lock-wait`; a trigger file
-  must be renamed into place; input is tagged 0x5043 and `ENB_POC_INPUT_TAG=1` drops untagged input. Counting asserts in messages.log (stubs.log's copy is appended to it): count timestamped lines only and normalise by frames; retail fires effect_description.cpp's asserts 266 / 318 / 348 in the same 4:3:3 ratio, so a flood there is the client's own (F1, 2026-11-14). A recording that starts docked logs no 'Render: Frame Rate' on either
+* **e2e.py (D237, tools/harness/README.md):** every client check builds `--lib binkmovie` before the link, else a stale
+  binkmovie lib leaves `Play` unresolved (the stand-in builds made it a generated stand-in and the start-up movie ran
+  to its end); `build.py` has no `--lock-wait`; a trigger file
+  must be renamed into place; input is tagged 0x5043 and `D3D8SHOT_INPUT_TAG=1` drops untagged input. Counting asserts in messages.log (stubs.log's copy is appended to it): count timestamped lines only and normalise by frames; retail fires effect_description.cpp's asserts 266 / 318 / 348 in the same 4:3:3 ratio, so a flood there is the client's own (F1, 2026-11-14). A recording that starts docked logs no 'Render: Frame Rate' on either
   client (tools/harness/README.md); a ~5700 s session (/play 7's session 5) grew messages.log to 2 GB and e2e.py's in-memory
   Events list until the host ran low on memory (E2, 2026-11-15; progress.md §4 Tools).
   Live runs (2026-11-16, checker, LV): the login screen swallows the first click on the username field (the remembered
@@ -2018,20 +2018,22 @@ Stand-ins and gen_stubs (clienttest, udpreplay, kerneltest, the POC):
   before each live run. Net7.exe holds `logs\Net7_server_YYYY_MM_DD.log` without sharing: it cannot be read while the
   server runs; the server is ready when UDP port 3693 is bound (netstat).
 * **Live station scenarios (sb_buysell, sb_jobs, sb_manufacture ...):** a job board tab click sends nothing, a row click sends STARBASE_REQUEST for JOB_DESCRIPTION; the board is random (assert one tab, not a row) and Net-7 refreshes it every 5 minutes, empty after a server start; a crafted item's sale answers PRIORITY_MESSAGE; slash commands (/createitem) go out as CLIENT_CHAT; the chat entry does not open while a terminal window is up; vendors refuse their own goods (sell something they do not make). Components, warheads and credits drift between runs: assert deltas, not totals.
-* **Retiring a stand-in must not take its neighbours with it** (deleting a hand stand-in from stubs/app_stubs.cpp
-  also removed the CRT wrappers beside it): gen_stubs' generated stand-ins return null, `standins.py check` and the
-  link gate pass, and only a POC run shows it (a crash on a null inside the real function that copies it). Run
-  the e2e set after every landing that retires a stand-in (D237). The reverse: a stand-in for a function written
-  later becomes LNK2005; delete it in the commit that adds the function. A hand stand-in of an app constructor in programs/clientpoc emits the old vtable: LNK2005 when the real class is rebuilt, and standins.py misses it (S1, 2026-11-14).
-* **A landed app definition collides with stand-ins** in three places: programs/clientpoc/poc_standins.cpp /
-  poc_world*.cpp, stubs/app_stubs.cpp and tests/clienttest/client_stubs.cpp. `python tools/vc6/standins.py
+* **Retiring a test program's stand-in must not take its neighbours with it** (deleting a hand stand-in from
+  stubs/app_stubs.cpp also removed the CRT wrappers beside it): gen_stubs' generated stand-ins return null, so the
+  test program's trace shows it, not its link. The client has no stand-in (one client build, `build.py link
+  --program client`): run the e2e set after every landing that changes its behaviour (D237). The reverse: a test
+  stand-in for a function written later becomes LNK2005; delete it in the commit that adds the function. A hand
+  stand-in of an app constructor emits the old vtable: LNK2005 when the real class is rebuilt, and standins.py
+  misses it (S1, 2026-11-14).
+* **A landed app definition collides with stand-ins** in the test programs' files: stubs/app_stubs.cpp,
+  tests/clienttest/client_stubs.cpp and ui_stubs.cpp (the client has none). `python tools/vc6/standins.py
   check` finds them (wt.py bring-over refuses on it); a stand-in that must stay gets `// standins: keep (why)`
   on or just above its line. New callers can also make app.lib pull an object clienttest compiles itself
   (LNK2005 with a clean verify): `python tools/vc6/linkgate.py check` (bring-over runs it). A new app file
   that defines a stubbed function deletes its stub and joins udpreplay.py's source list. A `// standins: keep`
   marker does not help when clienttest links the object itself (it links ui_chat_panel.obj and sclient.obj): a
   real function there that clienttest stubs gives LNK2005, which linkgate catches.
-* **A harness linking app.lib can pull in most of the client through one inline constructor:** auxreplay's reference to the DeltaPlayerClass constructor resolved from sclient.obj and dragged in almost all of app.lib (171 unresolved). Link it as clientpoc does: logging stand-ins, wlib / wnet and the system libraries, gen_stubs, force_unresolved, MSS32.DLL beside the exe.
+* **A harness linking app.lib can pull in most of the client through one inline constructor:** auxreplay's reference to the DeltaPlayerClass constructor resolved from sclient.obj and dragged in almost all of app.lib (171 unresolved). Link it as the stand-in builds did (auxreplay's build.py entry): logging stand-ins, wlib / wnet and the system libraries, gen_stubs, force_unresolved, MSS32.DLL beside the exe; the client itself links whole.
 * **Generated stand-ins answer 0.** A gen stand-in of a bool hook answers false (Pre_Render hides every hooked
   model), of a data pointer is NULL (newly real code that dereferences it crashes: use the tree's symbol, e.g.
   DX8Wrapper::CurrentCaps), of a data global `Unknown_XXXXXX` may really be a library's static or a global the
@@ -2089,8 +2091,8 @@ Stand-ins and gen_stubs (clienttest, udpreplay, kerneltest, the POC):
   that rebuilds the function (grep tests/ for each signature, udpreplay included); a faked app function made
   real: rename the fake, then link. A rebuilt callee or gen-stubbed constructor can pull its whole object in
   (hand stand-ins for its by-value-return callees; control_keys_manager.obj needed one); co.obj holds the aux constructors itself (clienttest's `stage_co` compiles co.cpp without the factory 0x6F6000; aux_roots.cpp is retired and its stubs are gone). ui_registration.h pulls in many UI headers.
-  clienttest.py strips udpreplay's staged stub of a function that became real. A constant defined only in
-  programs/clientpoc/ (poc_data.cpp) needs its twin in clienttest's stand-ins.
+  clienttest.py strips udpreplay's staged stub of a function that became real. A constant the client's link takes from an
+  app file clienttest does not link needs its twin in clienttest's stand-ins.
 
 clienttest (`python tools/harness/clienttest.py build|run`):
 
@@ -2145,29 +2147,30 @@ udpreplay:
   declaration (2026-11-16, QB); and no app member may be named like a windows.h macro (`RGB`: `RGB(rgb)`
   expanded, QD, renamed ColorRGB).
 
-The POC client (instances and your own build: builders.md §2 "POC instances"):
+The client (the one client build; instances and your own build: builders.md §2 "Client instances"):
 
-* **Running it.** Run clientpoc.py from the main tree with `--exe`; instances keep their saved options (a
-  stale option changes the run). Name crash stacks from the run's own clientpoc.map, never retail's
+* **Running it.** Run clientrun.py from your tree (it takes that tree's build\programs\client\client.exe) or with
+  `--exe`; instances keep their saved options (a stale option changes the run). Name crash stacks from the run's own
+  client.map (copied beside the exe it ran), never retail's
   (`__validdrive+0x...` is the map's CRT tail). Read the run's `client exit:` line: "still running when this
   run killed it" also appears when antprox logged `Client exited` right after the quit: compare antprox's time
   before calling it a hang. Check the host's free memory before trusting a stalled replay (a 7 GB game
-  collapsed the frame rate). The POC writes *.th6 thumbnails into ClientPOC\Data\client\mixfiles, as retail
+  collapsed the frame rate). The client writes *.th6 thumbnails into ClientPOC\Data\client\mixfiles (CLIENT_DATA_ROOT), as retail
   does; the real 0x442AC0 reads the registry (read-only). The client's message server (-ENABLE_MESSAGES) sends
   only while a listener is connected, at most once a second: start-up reports before its first run are lost
-  (the POC tees them into stubs.log). WinMain stand-ins that open dialogs (0x847D20 shows the ROC text in
-  retail too) stay (D69). `.work/poc/runs.md` row numbers collide: read the last row before appending.
+  (the stand-in builds teed them into stubs.log; the one client build has no tee). WinMain's dialogs (0x847D20
+  shows the ROC text in retail too) stay (D69). `.work/poc/runs.md` row numbers collide: read the last row before appending.
 * **Input.** The client reads the cursor through GetCursorPos / GetMessagePos, moves it with SetCursorPos and
-  takes input only while it is the foreground window (input.cpp 0x42EE90): drive it with `clientpoc.py --input
-  FILE` (poc_input.cpp's virtual cursor), never the real desktop. Input times are ms from the window's start
+  takes input only while it is the foreground window (input.cpp 0x42EE90): drive it with `clientrun.py --input
+  FILE` (the d3d8shot proxy's virtual cursor), never the real desktop. Input times are ms from the window's start
   (the full creation flow needs `--seconds 150`); `T down X Y` / `T up X Y` drag; a click at 43,928 opens the
   inventory, 87,928 is the character button (`.work/hc2/in2b.txt`). A typed letter that hits hotkeys means
   control_keys.ini was not read. A replay that never selects a target can't show target lines (ui_scan
   0x60F1A0); antprox does not answer CLIENT_CHAT_REQUEST 0x00A3 (antprox's work, not the client's).
 * **A CLIENT_CHAT_REQUEST 0x00A3 at a sector connection's hand-off (play1 / play1_windows, first sector, ~4 s) is a race:** retail misses it in some playbacks and our build in others, so a +-1 in the e2e packet compare is not a regression: never bisect it from single runs (repeat both sides several times first).
-* **POC shot timing is not one number.** `--shots 1` is needed for any shot, and shots count presented frames,
+* **Client shot timing is not one number.** `--shots 1` is needed for any shot, and shots count presented frames,
   not ms: login runs ~5,000-15,000 frames/s, the world ~670, in-world shots around frame 330000-420000, retail
-  ~4x slower late; the rate varies ~10 % between runs. Use `D3D8SHOT_EVERY=20000 D3D8SHOT_MAX=60` for the POC
+  ~4x slower late; the rate varies ~10 % between runs. Use `D3D8SHOT_EVERY=20000 D3D8SHOT_MAX=60` for ours
   (`EVERY=2000 MAX=400` also works; `EVERY=10000` with `--retail`), map a frame to time with d3d8shot.log's
   ticks, dump a dense spread and keep the last frame with ship draws (fvf 0112). A 0.5 s effect needs a sweep
   of up to 64 shots around its time, picked by time / pixel stats (`.work/cs12/pick.py DIR`) before opening
@@ -2178,7 +2181,7 @@ The POC client (instances and your own build: builders.md §2 "POC instances"):
   build/d3d8shot/d3d8.dll may predate d3d8shot.c (no `draw N: material` lines): rebuild before diffing.
   d3d8shot.log logs every CreateFileA. A black model with AMBIENT=0 in a dump is a missing light, not a
   texture (`drawdump.py`).
-* **Retail reference runs.** `clientpoc.py replay --retail` needs the d3d8shot proxy rebuilt with the input
+* **Retail reference runs.** `clientrun.py replay --retail` needs the d3d8shot proxy rebuilt with the input
   hooks (`python tools/harness/run_reference.py build --pool 1`, copy build/d3d8shot into a worktree); the
   retail exe is `<install>\release\client.exe`. `find_window` takes the terms dialog (#32770) as the input
   window; with `--retail` the kill ends antprox before it logs "Client exited", so the exit line says "still
