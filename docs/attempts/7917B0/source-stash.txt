@@ -1,0 +1,101 @@
+# 7917B0 gpt-6.1-sol high focused pass; ac63f849 frozen baseline.
+# Source patches only, no binaries. Every prepared form compiled/native-matched.
+
+# pointer_first_offset; sha256=2257b218df458f79720919d2eda9b59c23dc4ca3c314da617dea21fd3f218ac2
+--- ac63f849/app/client/unknown_phoneme.cpp
++++ pointer_first_offset/unknown_phoneme.cpp
+@@ -199,7 +199,7 @@
+ 	int letter = (char)tolower(*text) - 'a';
+ 	if (letter >= 0 && letter < 26) {
+ 		int count = Unknown_BE8570[letter].Count;
+-		Unknown_PhonemeGroupStruct *group = &Unknown_B9DAB8[Unknown_BE8570[letter].First + count - 1];
++		Unknown_PhonemeGroupStruct *group = &Unknown_B9DAB8[Unknown_BE8570[letter].First]; group += count - 1;
+ 		for (int i = 0; i < Unknown_BE8570[letter].Count; i++, group--) {
+ 			int len = strlen(group->Text);
+ 			if (_strnicmp(text, group->Text, len) == 0) {
+
+# pointer_first_end; sha256=c91b30e58df07a233d0b2e25142766c96a8943fb431756034c244eba1b46e018
+--- ac63f849/app/client/unknown_phoneme.cpp
++++ pointer_first_end/unknown_phoneme.cpp
+@@ -199,7 +199,7 @@
+ 	int letter = (char)tolower(*text) - 'a';
+ 	if (letter >= 0 && letter < 26) {
+ 		int count = Unknown_BE8570[letter].Count;
+-		Unknown_PhonemeGroupStruct *group = &Unknown_B9DAB8[Unknown_BE8570[letter].First + count - 1];
++		Unknown_PhonemeGroupStruct *group = &Unknown_B9DAB8[Unknown_BE8570[letter].First]; group += count; --group;
+ 		for (int i = 0; i < Unknown_BE8570[letter].Count; i++, group--) {
+ 			int len = strlen(group->Text);
+ 			if (_strnicmp(text, group->Text, len) == 0) {
+
+# reuse_first_index; sha256=398850fd785e87b308e120f8a910473423880a9bb4542b82300ae597f031c501
+--- ac63f849/app/client/unknown_phoneme.cpp
++++ reuse_first_index/unknown_phoneme.cpp
+@@ -199,8 +199,8 @@
+ 	int letter = (char)tolower(*text) - 'a';
+ 	if (letter >= 0 && letter < 26) {
+ 		int count = Unknown_BE8570[letter].Count;
+-		Unknown_PhonemeGroupStruct *group = &Unknown_B9DAB8[Unknown_BE8570[letter].First + count - 1];
+-		for (int i = 0; i < Unknown_BE8570[letter].Count; i++, group--) {
++		int i = Unknown_BE8570[letter].First; Unknown_PhonemeGroupStruct *group = &Unknown_B9DAB8[i + count - 1];
++		for (i = 0; i < Unknown_BE8570[letter].Count; i++, group--) {
+ 			int len = strlen(group->Text);
+ 			if (_strnicmp(text, group->Text, len) == 0) {
+ 				shapes[0] = group->Shapes[0];
+
+# reuse_count_index; sha256=d803bf3865f7eb7875da268584caf021aa6d4de11eb4582c45f340dc12f131cf
+--- ac63f849/app/client/unknown_phoneme.cpp
++++ reuse_count_index/unknown_phoneme.cpp
+@@ -198,9 +198,9 @@
+ {
+ 	int letter = (char)tolower(*text) - 'a';
+ 	if (letter >= 0 && letter < 26) {
+-		int count = Unknown_BE8570[letter].Count;
+-		Unknown_PhonemeGroupStruct *group = &Unknown_B9DAB8[Unknown_BE8570[letter].First + count - 1];
+-		for (int i = 0; i < Unknown_BE8570[letter].Count; i++, group--) {
++		int i = Unknown_BE8570[letter].Count;
++		Unknown_PhonemeGroupStruct *group = &Unknown_B9DAB8[Unknown_BE8570[letter].First + i - 1];
++		for (i = 0; i < Unknown_BE8570[letter].Count; i++, group--) {
+ 			int len = strlen(group->Text);
+ 			if (_strnicmp(text, group->Text, len) == 0) {
+ 				shapes[0] = group->Shapes[0];
+
+# paired_int_array; sha256=65478310c4cf49ae2e64b54ea2a6f3bb70fd0e3a2366661bb9bdbbaa2e32dcbf
+--- ac63f849/app/client/unknown_phoneme.cpp
++++ paired_int_array/unknown_phoneme.cpp
+@@ -54,7 +54,7 @@
+ };
+ 
+ // 0xBE8570: the groups by first letter a-z
+-static struct { int First; int Count; } Unknown_BE8570[26];	// NAME 1 [Unknown_BE8570]: neutral (D10)
++static int Unknown_BE8570[26][2];	// NAME 1 [Unknown_BE8570]: neutral (D10)
+ 
+ // 0x7913B0
+ static int __cdecl Unknown_7913B0(const void *a, const void *b)	// NAME 1: neutral (D10)
+@@ -71,11 +71,11 @@
+ 	for (int i = 0; i < 0x23; i++, group++) {
+ 		int letter = tolower(*group->Text) - 'a';
+ 		if (letter >= 0 && letter < 26) {
+-			int count = Unknown_BE8570[letter].Count;	// NAME 1 [count]: neutral
++			int count = Unknown_BE8570[letter][1];	// NAME 1 [count]: neutral
+ 			if (count == 0) {
+-				Unknown_BE8570[letter].First = i;
++				Unknown_BE8570[letter][0] = i;
+ 			}
+-			Unknown_BE8570[letter].Count = count + 1;
++			Unknown_BE8570[letter][1] = count + 1;
+ 		}
+ 	}
+ }
+@@ -198,9 +198,9 @@
+ {
+ 	int letter = (char)tolower(*text) - 'a';
+ 	if (letter >= 0 && letter < 26) {
+-		int count = Unknown_BE8570[letter].Count;
+-		Unknown_PhonemeGroupStruct *group = &Unknown_B9DAB8[Unknown_BE8570[letter].First + count - 1];
+-		for (int i = 0; i < Unknown_BE8570[letter].Count; i++, group--) {
++		int count = Unknown_BE8570[letter][1];
++		Unknown_PhonemeGroupStruct *group = &Unknown_B9DAB8[Unknown_BE8570[letter][0] + count - 1];
++		for (int i = 0; i < Unknown_BE8570[letter][1]; i++, group--) {
+ 			int len = strlen(group->Text);
+ 			if (_strnicmp(text, group->Text, len) == 0) {
+ 				shapes[0] = group->Shapes[0];
