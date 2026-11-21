@@ -1,0 +1,146 @@
+Frozen baseline /home/dev/Projects/EnB/.work/claim-240/focused/snapshots/64644f39/app/client/camctrl_tractor.cpp
+SHA256 aeda6a4e86ee996fb4a474673143db54329eff96872085aec9c783a995f60cec
+Valid new forms, compile rejections separated. No source adopted. All successful objects native-matched.
+
+VALID_NEW_FORM explicit_else
+--- app/client/camctrl_tractor.cpp
++++ explicit_else/camctrl_tractor.cpp
+@@ -120,7 +120,7 @@
+ 	if (!target) {
+ 		Client->CameraManager->Unknown_79B2B0(0x10);
+ 		return;
+-	}
++	} else {
+ 	ClientObjectClass *ship = Client->Get_Avatar();
+ 
+ 
+@@ -193,6 +193,7 @@
+ 	Unknown0C->Unknown14 = true;
+ 	Unknown0C->Unknown18 = Client->Unknown13B4;
+ 	Unknown0C->Unknown_04();
++	}
+ }
+ 
+ /*
+
+VALID_NEW_FORM success_first
+--- app/client/camctrl_tractor.cpp
++++ success_first/camctrl_tractor.cpp
+@@ -117,11 +117,11 @@
+ void CameraController08Class::Unknown_797770()
+ {
+ 	ClientObjectClass *target = Client->Find_Object(Client->Unknown13B4);
+-	if (!target) {
+-		Client->CameraManager->Unknown_79B2B0(0x10);
+-		return;
+-	}
++	if (target) {
+ 	ClientObjectClass *ship = Client->Get_Avatar();
++
++
++
+ 
+ 
+ 
+@@ -193,6 +193,9 @@
+ 	Unknown0C->Unknown14 = true;
+ 	Unknown0C->Unknown18 = Client->Unknown13B4;
+ 	Unknown0C->Unknown_04();
++	} else {
++		Client->CameraManager->Unknown_79B2B0(0x10);
++	}
+ }
+ 
+ /*
+
+COMPILE_REJECTION terminal_void_missing
+--- app/client/camctrl_tractor.cpp
++++ terminal_void_missing/camctrl_tractor.cpp
+@@ -118,8 +118,8 @@
+ {
+ 	ClientObjectClass *target = Client->Find_Object(Client->Unknown13B4);
+ 	if (!target) {
+-		Client->CameraManager->Unknown_79B2B0(0x10);
+-		return;
++		return Client->CameraManager->Unknown_79B2B0(0x10);
++
+ 	}
+ 	ClientObjectClass *ship = Client->Get_Avatar();
+ 
+
+COMPILE_REJECTION terminal_void_both
+--- app/client/camctrl_tractor.cpp
++++ terminal_void_both/camctrl_tractor.cpp
+@@ -118,8 +118,8 @@
+ {
+ 	ClientObjectClass *target = Client->Find_Object(Client->Unknown13B4);
+ 	if (!target) {
+-		Client->CameraManager->Unknown_79B2B0(0x10);
+-		return;
++		return Client->CameraManager->Unknown_79B2B0(0x10);
++
+ 	}
+ 	ClientObjectClass *ship = Client->Get_Avatar();
+ 
+@@ -192,7 +192,7 @@
+ 	Unknown0C->Position = tm * offset;
+ 	Unknown0C->Unknown14 = true;
+ 	Unknown0C->Unknown18 = Client->Unknown13B4;
+-	Unknown0C->Unknown_04();
++	return Unknown0C->Unknown_04();
+ }
+ 
+ /*
+
+VALID_NEW_FORM shared_exit
+--- app/client/camctrl_tractor.cpp
++++ shared_exit/camctrl_tractor.cpp
+@@ -119,8 +119,8 @@
+ 	ClientObjectClass *target = Client->Find_Object(Client->Unknown13B4);
+ 	if (!target) {
+ 		Client->CameraManager->Unknown_79B2B0(0x10);
+-		return;
+-	}
++		goto done;
++	} {
+ 	ClientObjectClass *ship = Client->Get_Avatar();
+ 
+ 
+@@ -193,6 +193,9 @@
+ 	Unknown0C->Unknown14 = true;
+ 	Unknown0C->Unknown18 = Client->Unknown13B4;
+ 	Unknown0C->Unknown_04();
++	}
++done:
++	return;
+ }
+ 
+ /*
+
+VALID_NEW_FORM named_product
+--- app/client/camctrl_tractor.cpp
++++ named_product/camctrl_tractor.cpp
+@@ -189,7 +189,8 @@
+ 	Vector3 target_pos = target->Unknown_24();
+ 	Matrix3D tm;
+ 	tm.Obj_Look_At(ship->Unknown_24(), target_pos, 0.0f);
+-	Unknown0C->Position = tm * offset;
++	Vector3 transformed = tm * offset;
++	Unknown0C->Position = transformed;
+ 	Unknown0C->Unknown14 = true;
+ 	Unknown0C->Unknown18 = Client->Unknown13B4;
+ 	Unknown0C->Unknown_04();
+
+VALID_NEW_FORM reuse_target_result
+--- app/client/camctrl_tractor.cpp
++++ reuse_target_result/camctrl_tractor.cpp
+@@ -189,7 +189,8 @@
+ 	Vector3 target_pos = target->Unknown_24();
+ 	Matrix3D tm;
+ 	tm.Obj_Look_At(ship->Unknown_24(), target_pos, 0.0f);
+-	Unknown0C->Position = tm * offset;
++	target_pos = tm * offset;
++	Unknown0C->Position = target_pos;
+ 	Unknown0C->Unknown14 = true;
+ 	Unknown0C->Unknown18 = Client->Unknown13B4;
+ 	Unknown0C->Unknown_04();
