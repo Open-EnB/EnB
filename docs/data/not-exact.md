@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-685 entries in 268 files.
+684 entries in 268 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -451,7 +451,6 @@ edit the comments in the code, not this file.
 | `app/client/ui_refinery.cpp:617` | `UIRefineryClass::Unknown_5EDCC0` | marker | NOT EXACT: inline budget (the client calls the 'NegotiatedCost' Cast out of line; the 'Money' find out of line as the client; dead finds before it push the 0x5ECBB0 copies out too) (0x5EDCC0) |
 | `app/client/ui_refinery.cpp:637` | `UIRefineryClass::Unknown_5EDFD0` | marker | NOT EXACT: inline budget (the client calls all three finds' Unknown_Find_Field out of line, 0x5465C0 / 0x417D82, with the name in the caller; ours calls the inline layer out of line, or inlines the find; frame 0xBC vs 0xEC) (0x5EDFD0) |
 | `app/client/ui_registration.cpp:1266` | `RegistrationInterface::Unknown_5F3770` | mention | NOT EXACT: inline-budget (attempts.csv; cases in jump table 0x5F7214's layout order; the client cuts more of its later inline accessors and 0x5F2F90's converting constructor 0x6092D0) |
-| `app/client/ui_registration.cpp:2080` | `RegistrationInterface::Unknown_5F9460` | marker | NOT EXACT: shape (explain.py: 14 calls in ours, 13 in the client; the value_type temporaries' stack slots differ) @0x5F9460 |
 | `app/client/ui_registration.cpp:2347` | `RegistrationInterface::Unknown_5FA0B0` | marker | NOT EXACT: field-offset (explain.py; 340 instructions each: register choice in the inlined operator= into +0x2CC and the 'EB' compare) @0x5FA0B0 |
 | `app/client/ui_registration.cpp:2970` | `RegistrationInterface::Unknown_5FBD30` | marker | NOT EXACT: inline-budget (functional; group loops through 0x5F33E0, pushes through 0x5F87D0, back-outs through 0x5F8560, server boxes through 0x5FB890 as the client inlines them; cases 0x11 / 0x14 / 0x12 written out (the client cross-jumps them into 0x14's copy); the combo boxes' Selected through UIComboBoxClass::Get_Selected (0x5FFFE0, out of line at cases 0xB / 0xE, 0x5FEF96 / 0x5FF0E3) there an... |
 | `app/client/ui_registration.cpp:3680` | `RegistrationInterface::Unknown_5F00C0` | marker | NOT EXACT: inline-budget (functional; the server boxes through 0x5FB890 and the back-outs through 0x5F8560 as the client inlines them, one per branch; its cases in jump table 0x602AE4's layout order, case 3's !+0x1CE branch first, the US picks through the file member 0x603B20, inlined (its this a variable: the client's add esi, -0x84 at 0x602341; two compare copies 0x6022BD / 0x602362, the other s... |
