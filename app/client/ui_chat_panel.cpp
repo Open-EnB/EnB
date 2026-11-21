@@ -518,7 +518,7 @@ void ChatPanelInterface::Unknown_5C()
 	InterfaceClass::Unknown_5C();
 }
 
-// NOT EXACT: register (the client copies the lag light's table pointer to edx for Is_Hidden, ebx in ours; then eax / edx swapped at As_Space_Client); 0x56C0C0 is out of line through auto_inline(off), as the client
+
 // 0x5630B0
 void ChatPanelInterface::Unknown_60()
 {
@@ -538,8 +538,7 @@ void ChatPanelInterface::Unknown_60()
 		Unknown260 += (float)(WW3D::Get_Frame_Time()) * 0.001f;
 		if (Unknown260 > 0.5f) {
 			Unknown260 -= 0.5f;
-			RenderObjClass *light = Unknown258.Peek();
-			if (light) light->Set_Hidden(!light->Is_Hidden());
+			if (Unknown258) Unknown258->Set_Hidden(!Unknown258->Is_Hidden());
 		}
 	}
 	bool changed = false;
@@ -554,6 +553,7 @@ void ChatPanelInterface::Unknown_60()
 	}
 	if (changed) Unknown_5689D0(0);
 }
+
 
 // 0x563260
 void ChatPanelInterface::Unknown_64() {}

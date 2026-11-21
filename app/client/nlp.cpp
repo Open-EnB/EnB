@@ -15,7 +15,7 @@ extern RandomClass Unknown_BDBB84;	// NAME 1 [Unknown_BDBB84]: neutral (D10), as
 
 // 0xB9D668: the talk animations' levels (the first one above the value; 5 past the last)
 static const char Unknown_B9D668[5] = { 7, 15, 30, 45, 60 };	// NAME 1 [Unknown_B9D668]: neutral (D10)
-
+#pragma auto_inline(off)
 // 0x78E190: the path of fname in dir, unless fname already holds dir
 void Unknown_78E190(char *path, const char *dir, const char *fname, const char *ext)	// NAME 1: neutral (D10)
 {
@@ -34,7 +34,7 @@ void Unknown_78E190(char *path, const char *dir, const char *fname, const char *
 	}
 	_makepath(path, NULL, dir, fname, ext);
 }
-
+#pragma auto_inline(on)
 
 // 0x78E2C0
 void Unknown_78E2C0(char *path, const char *fname)	// NAME 1: neutral (D10)
@@ -59,26 +59,26 @@ static int __cdecl Unknown_78E870(const void *a, const void *b)	// NAME 1: neutr
 }
 
 // 0x78E330
-// NOT EXACT: functional for POC (D64), inline-budget (the client calls 0x78E190 and 0x78E8F0; ours inlines them)
+// (0x78E190 out of line through auto_inline(off), its only caller; the index loop is the constructor's own, &Count in ecx, 0x78E6F1, where 0x78E8F0 indexes through the entry; Find_Entry called directly, 0x78E3EA; the counting loop's entry and the filling loop's section at function scope: their own slots, frame 0x2E4)
 NLPLexiconClass::NLPLexiconClass(const char *filename)
 {
 	Initialized = false;
 	Phrases = NULL;
 	PhraseCount = 0;
-	char path[260];
+	char path[260]; char entry[64]; char section[64];
 	Unknown_78E190(path, "nlp\\", filename, NULL);
 	INIClass ini(path);
 	int lexicons = 0;
-	for (;;) {
+	for (; true;) {
 		char section[64];
 		sprintf(section, "LEXICON-%d", lexicons);
 		if (!ini.Section_Present(section)) {
 			break;
 		}
-		for (int p = 0; ; p++) {
-			char entry[64];
+		for (int p = 0; true; p++) {
+
 			sprintf(entry, "Phrase%d", p);
-			if (!ini.Is_Present(section, entry)) {
+			if (ini.Find_Entry(section, entry) == NULL) {
 				break;
 			}
 			PhraseCount++;
@@ -88,13 +88,13 @@ NLPLexiconClass::NLPLexiconClass(const char *filename)
 	Unknown_NLPPhraseStruct *phrase = new Unknown_NLPPhraseStruct[PhraseCount];
 	Phrases = phrase;
 	for (int l = 0; l < lexicons; l++) {
-		char section[64];
+
 		char entry[64];
 		char buffer[256];
-		sprintf(section, "LEXICON-%d", l);
-		for (int p = 0; ; p++) {
+		int p = 0; sprintf(section, "LEXICON-%d", l);
+		for (; true; p++) {
 			sprintf(entry, "Phrase%d", p);
-			if (!ini.Is_Present(section, entry)) {
+			if (ini.Find_Entry(section, entry) == NULL) {
 				break;
 			}
 			ini.Get_String(section, entry, "", buffer, 0xFF);
@@ -112,7 +112,7 @@ NLPLexiconClass::NLPLexiconClass(const char *filename)
 			phrase++;
 		}
 	}
-	Unknown_78E8F0();
+	qsort(Phrases, PhraseCount, sizeof(Unknown_NLPPhraseStruct), Unknown_78E870); memset(Index, 0, sizeof(Index)); Unknown_NLPPhraseStruct *ph = Phrases; for (int i = 0; i < PhraseCount; i++, ph++) { int c = tolower(ph->Phrase[0]); IndexStruct *index = &Index[c]; int n = index->Count; if (n == 0) { Index[c].First = i; } index->Count = n + 1; }
 	Initialized = true;
 	Unknown_78E2F0("------------------------------------------------------\n");
 	Unknown_78E2F0("INITNLP: lexicon loaded:\n");

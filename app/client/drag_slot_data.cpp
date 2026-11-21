@@ -146,12 +146,12 @@ bool DragSlotDataClass::Update(float x, float y)
 
 
 // 0x685500
-// NOT EXACT: functional (D64), from the pseudocode
+
 void DragSlotDataClass::Unknown_685500(int slot, int mode, bool arg)
 {
 	SMouseDragClass::Begin();
-	Unknown20 = arg;
 	Unknown1C = mode;
+	Unknown20 = arg;
 	FAIL_IF(!SlotRender) return;
 	SlotRender->Unknown_40(slot);
 }

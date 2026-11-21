@@ -282,7 +282,7 @@ static inline RegistrationUnknown1ACClass *Get_Unknown1AC()  // NAME 1 [Get_Unkn
 
 
 
-// @0x5EF0B0 NOT EXACT: inline-budget (attempts.csv: six dead size() reads (D272) send the members' string() / vector() constructors out of line as the client's 0x603BB0 / 0x603E90; the first radio texture's RefCountPtr operator= stays inline, the client calls 0x604ED0)
+// @0x5EF0B0 NOT EXACT: register (attempts.csv: the mode switch as the client lays it out (cmp 3 / je to the end block), the tm stores mday / mon / year, six dead UnknownD8 size() reads (D272); left: the init list's Layer / mode loads scheduled apart, r10)
 RegistrationInterface::RegistrationInterface(UIViewClass *view, LayerClass *layer, int mode) :
 	InterfaceClass(view, (int)layer->Peek_Scene()),
 	Unknown98(""),
@@ -336,19 +336,19 @@ RegistrationInterface::RegistrationInterface(UIViewClass *view, LayerClass *laye
 	// +0x560 / +0x564 are Unknown478.UnknownE8 / UnknownEC: its constructor zeroes them
 
 {
-	UnknownD8.size(); UnknownD8.size(); UnknownD8.size(); UnknownD8.size(); UnknownD8.size(); Unknown108.size(); if (mode == 3) {  // D272: dead reads
-		UnknownD4 = 0x17;
+	UnknownD8.size(); UnknownD8.size(); UnknownD8.size(); UnknownD8.size(); UnknownD8.size(); UnknownD8.size(); switch (mode) {  // D272: dead reads
+		case 3: UnknownD4 = 0x17;
 		Unknown11D = true;
 		Unknown1C8 = false;
 		Unknown1C9 = false;
-	} else if (mode != 0x14) {
-		UnknownD4 = 0x17;
+		break;
+		case 0x14: UnknownD4 = 1;
+		Unknown11B = true;
+		break;
+		default: UnknownD4 = 0x17;
 		Unknown11B = false;
 		Unknown11C = false;
 		Unknown11D = false;
-	} else {
-		UnknownD4 = 1;
-		Unknown11B = true;
 	}
 	UnknownBC = (CharacterViewClass *)View->Unknown_28();
 	UnknownC0 = (LoginTaskClass *)UnknownBC->Unknown14->Unknown_08();
@@ -368,9 +368,9 @@ RegistrationInterface::RegistrationInterface(UIViewClass *view, LayerClass *laye
 	struct tm *today = gmtime(&now);
 	G_ASSERT(today);
 	Unknown124 = *today;
-	Unknown3C4.Unknown7E = (short)(Unknown124.tm_year + 1900);
 	Unknown3C4.Unknown7C = (char)Unknown124.tm_mday;
 	Unknown3C4.Unknown7D = (char)(Unknown124.tm_mon + 1);
+	Unknown3C4.Unknown7E = (short)(Unknown124.tm_year + 1900);
 	UnknownBC->Unknown_67AB20(0, "RG_FRAME");
 	UnknownBC->Unknown_67B4F0(0);
 	UnknownD8.push_back(UnknownD4);
@@ -885,7 +885,7 @@ void RegistrationInterface::Unknown_5F2A80(bool on, UIComboBoxClass *except)
 
 
 
-// @0x5F2B20 NOT EXACT: order-only around the button struct's stores (attempts.csv)
+// @0x5F2B20
 void RegistrationInterface::Unknown_5F2B20(int id, const char *name, const char *style, unsigned short key, unsigned short group, bool in_frame)
 {
 	RenderObjClass *robj = !in_frame ? DialogRenderObj->Get_Sub_Object_By_Name(name) : UnknownBC->Peek_Model()->Get_Sub_Object_By_Name(name);
@@ -894,9 +894,9 @@ void RegistrationInterface::Unknown_5F2B20(int id, const char *name, const char 
 	ButtonGadgetClass *gadget = new ButtonGadgetClass(robj, *Layer, 5, 3);
 	RegistrationButtonStruct button;
 	button.Gadget = gadget;
-	button.Id = id;
 	button.Name = name;
 	button.Style = style;
+	button.Id = id;
 	button.Key = key;
 	button.Group = group;
 	button.Selected = false;
@@ -2007,7 +2007,7 @@ void RegistrationInterface::Unknown_5F8DB0(bool arg)
 	button->Release_Ref();
 }
 #pragma auto_inline(off)
-// @0x5F8EA0 NOT EXACT: shape (attempts.csv: the client's bl bool form not reproduced)
+// @0x5F8EA0
 bool RegistrationInterface::Unknown_5F8EA0(int month, int day, int year)
 {
 	if (year < 1900) {
@@ -2017,20 +2017,20 @@ bool RegistrationInterface::Unknown_5F8EA0(int month, int day, int year)
 		return(false);
 	}
 	int days = DaysInMonth[month - 1];
-	bool leap = true;
-	if (year % 4 != 0 || (year % 400 != 0 && year % 100 == 0)) {
-		leap = false;
-	}
-	if (leap && month == 2) {
+	bool valid = true;
+	if (year % 4 == 0 && (year % 400 == 0 || year % 100 != 0) && month == 2) {
 		days = 29;
 	} else if (month < 1 || month > 12) {
-		return(false);
+		valid = false;
 	}
-	if (day >= 1 && day <= days) {
-		return(true);
+	if (valid) {
+		if (day < 1 || day > days) {
+			valid = false;
+		}
 	}
-	return(false);
+	return(valid);
 }
+
 #pragma auto_inline(on)
 // @0x5F8F60
 bool RegistrationInterface::Unknown_5F8F60(const char *text)
@@ -2968,15 +2968,15 @@ void RegistrationInterface::Unknown_5F0100()
 
 
 
-// NOT EXACT: inline-budget (functional; group loops through 0x5F33E0, pushes through 0x5F87D0, back-outs through 0x5F8560, server boxes through
-// 0x5FB890 as the client inlines them; left: case 0xC's later map::insert / assign the client cuts (nested), case 0xD's last combo sites, case layout)
+// NOT EXACT: inline-budget (functional; group loops through 0x5F33E0, pushes through 0x5F87D0, back-outs through 0x5F8560, server boxes through 0x5FB890
+// as the client inlines them; cases 0x11 / 0x14 / 0x12 written out (the client cross-jumps them into 0x14's copy); left: the client's nested map::insert cuts)
 // @0x5FBD30
 void RegistrationInterface::Unknown_5FBD30()
 {
 
 
 	char *password;
-	char *retype; Unknown108.size();   // D272: dead reads
+	char *retype;
 	switch (UnknownD4) {
 		case 0x17:
 			Unknown_5F3770(0);
@@ -3023,7 +3023,7 @@ void RegistrationInterface::Unknown_5FBD30()
 
 
 
-			Unknown26C = selected;
+			Unknown26C = selected; UnknownD8.size(); UnknownD8.size(); UnknownD8.size(); UnknownD8.size();   // D272: dead reads (swept 1-8)
 			if (selected == 8) {
 				Unknown_5F87D0();
 				Unknown_5F3770(7);
@@ -3118,7 +3118,7 @@ void RegistrationInterface::Unknown_5FBD30()
 			Unknown1CB = false;
 			Unknown1D5 = false;
 			Unknown1CC = false;
-			StatusIndex = 1;
+			StatusIndex = 1; Unknown108.size(); Unknown108.size(); Unknown108.size();   // D272: dead reads (swept 1-8, here and at six other places)
 			Unknown_5F8DB0(false);
 			Unknown_5F3770(0x16);
 			Unknown_5FAE90(this, "Validating login information...");
@@ -3464,7 +3464,7 @@ bad_login:
 			delete state;
 			delete zip;
 			delete phone;
-			delete number; Unknown108.size(); Unknown108.size(); Unknown108.size(); Unknown108.size(); Unknown108.size();   // D272: dead reads (swept 1-8; here, after 0x5F87D0, after 0xD, at the end)
+			delete number;
 			break;
 		}
 		case 0xD:
@@ -3568,10 +3568,10 @@ bad_login:
 					Unknown_5FAFF0("Retrieving Pricing Options...");
 					return;
 				}
-				goto request_failed;
+				Unknown_5FB890(); Unknown_5F8560(); return;
 			}
 			Unknown_5F87D0();
-			goto request;
+			if (Unknown_5FA900()) { return; } Unknown_5FB890(); Unknown_5F8560(); return;
 		}
 		case 0x14:
 		{
@@ -3592,21 +3592,21 @@ bad_login:
 					Unknown_5FAFF0("Validating GameTime Code...");
 					return;
 				}
-				goto request_failed;
+				Unknown_5FB890(); Unknown_5F8560(); return;
 			}
 			Unknown_5F87D0();
-			if (Unknown1D1) {
-				Unknown_5F3770(0x12);
-				return;
+			if (!Unknown1D1) {
+				if (Unknown_5FA900()) { return; } Unknown_5FB890(); Unknown_5F8560(); return;
 			}
-			goto request;
+			Unknown_5F3770(0x12);
+			return;
 		}
 		case 0x12:
-request:
+
 			if (Unknown_5FA900()) {
 				return;
 			}
-request_failed:
+
 			Unknown_5FB890();
 			Unknown_5F8560();
 			return;
@@ -3677,9 +3677,9 @@ request_failed:
 
 static const char *ProductBeta = "EB-BETA";  // NAME 1 [ProductBeta]: client .data 0xB85EE4 (0x600000 compares the bundle ids with it)
 static const char *RegistrationGameId = "2184";  // NAME 1 [RegistrationGameId]: client .data 0xB85EF0 (0x600000: 0x7D7E10's third argument, atoi'd against the game features' ids)
-
 // NOT EXACT: inline-budget (functional; the server boxes through 0x5FB890 and the back-outs through 0x5F8560 as the client inlines them, one per
-// branch; its cases in jump table 0x602AE4's layout order; the client's frame 0xB18 with five dead reads after the last back-out and case 5's 0x5FA900 one)
+// branch; its cases in jump table 0x602AE4's layout order, case 3's !+0x1CE branch first, the US picks as if / else (the client's two compares 0x6022BD / 0x602362,
+// the other sites cross-jumped into them); the client's frame 0xB18 with five dead reads in case 0x10)
 // @0x600000
 void RegistrationInterface::Unknown_5F00C0()
 {
@@ -3780,16 +3780,16 @@ void RegistrationInterface::Unknown_5F00C0()
 				Unknown478.UnknownEC = 0;
 				Unknown1D2 = true;
 			}
-			if (Unknown1CE) {
-				if (Unknown1CF) {
+			if (!Unknown1CE) {
+				if (Unknown1CD && !Unknown11D && Unknown1CF) {
 					Unknown_5F3770(0x13);
 				} else {
-					Unknown_5F3770(Unknown3C4.Unknown80 == "US" ? 0xC : 0xD);
+					Unknown_5F3770(0x11);
 				}
-			} else if (Unknown1CD && !Unknown11D && Unknown1CF) {
+			} else if (Unknown1CF) {
 				Unknown_5F3770(0x13);
 			} else {
-				Unknown_5F3770(0x11);
+				if (Unknown3C4.Unknown80 == "US") { Unknown_5F3770(0xC); } else { Unknown_5F3770(0xD); }
 			}
 			return;
 		case 4:
@@ -3883,7 +3883,7 @@ void RegistrationInterface::Unknown_5F00C0()
 					return;
 				}
 				Unknown_5FB890();
-				Unknown_5F8560(); Unknown108.size(); Unknown108.size(); Unknown108.size(); Unknown108.size(); Unknown108.size();   // D272: dead reads (the client calls 0x5F89F0 at this back-out, 0x60158F)
+				Unknown_5F8560();   // the client calls 0x5F89F0 at this back-out (0x60158F)
 				return;
 			}
 			UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "The code you entered was not valid.  Please try again.", 0x140, 0, 0);
@@ -3897,7 +3897,7 @@ void RegistrationInterface::Unknown_5F00C0()
 				} else if (!Unknown1D1) {
 					Unknown_5F3770(0xA);
 				} else {
-					Unknown_5F3770(Unknown3C4.Unknown80 == "US" ? 0xC : 0xD);
+					if (Unknown3C4.Unknown80 == "US") { Unknown_5F3770(0xC); } else { Unknown_5F3770(0xD); }
 				}
 				return;
 			}
@@ -3951,7 +3951,7 @@ void RegistrationInterface::Unknown_5F00C0()
 						return;
 					}
 					Unknown_5FB890();
-					Unknown_5F3770(Unknown3C4.Unknown80 == "US" ? 0xC : 0xD);
+					if (Unknown3C4.Unknown80 == "US") { Unknown_5F3770(0xC); } else { Unknown_5F3770(0xD); }
 					return;
 				}
 				if (Unknown3C4.Unknown80.size() == 0) {
@@ -4008,7 +4008,7 @@ void RegistrationInterface::Unknown_5F00C0()
 						return;
 					}
 					Unknown_5FB890();
-					Unknown_5F3770(Unknown3C4.Unknown80 == "US" ? 0xC : 0xD);
+					if (Unknown3C4.Unknown80 == "US") { Unknown_5F3770(0xC); } else { Unknown_5F3770(0xD); }
 					return;
 				case 10:
 					Unknown1D4 = false;
@@ -4027,7 +4027,7 @@ void RegistrationInterface::Unknown_5F00C0()
 					UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, Unknown390.Unknown14.c_str(), 0x140, 0, 0);
 					break;
 			}
-			Unknown_5F3770(Unknown3C4.Unknown80 == "US" ? 0xC : 0xD);
+			if (Unknown3C4.Unknown80 == "US") { Unknown_5F3770(0xC); } else { Unknown_5F3770(0xD); }
 			return;
 		case 10:
 			switch (Unknown390.Unknown10) {
@@ -4101,12 +4101,12 @@ void RegistrationInterface::Unknown_5F00C0()
 			return;
 		case 0x10:
 			if (Unknown390.Unknown10 == 0) {
-				Unknown5A8 = Unknown1AC->Unknown_7D4530();
+				Unknown5A8 = Unknown1AC->Unknown_7D4530(); UnknownD8.size(); UnknownD8.size();   // D272: dead reads (swept 0-3 here x 0-6 at the end and one at each case start)
 				Unknown_5F3770(0xB);
 				return;
 			}
 			UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "An Internal Error has occured.  Please try again.", 0x140, 0, 0);
-			Unknown_5F8560(); UnknownD8.size(); UnknownD8.size(); UnknownD8.size(); UnknownD8.size(); UnknownD8.size();   // D272: dead reads
+			Unknown_5F8560(); UnknownD8.size(); UnknownD8.size(); UnknownD8.size();   // D272: dead reads (swept 0-7, with case 5's back-out 0-7)
 			return;
 	}
 }
@@ -4322,32 +4322,32 @@ void RegistrationInterface::Unknown_5F00C0()
 
 
 
-// @0x603820 NOT EXACT: inline-budget (attempts.csv: _Eos out of line in the client)
+// @0x603820
 bool RegistrationInterface::Unknown_603820(const char *number)
 {
 	std::string text(number);
 	if (text.size() > 0x10 || text.size() < 0xF) {
 		return(false);
 	}
+	std::string::reverse_iterator it = text.rbegin();
 	int sum = 0;
-	std::string::iterator it = text.end();
-	for (int i = 0; i < (int)text.size(); i++) {
-		it--;
+	for (int i = 0; i < (int)text.size(); ++i, ++it) {
 		int digit = *it - '0';
-		if (i % 2 != 0) {
-			digit = CardDoubled[digit];
+		if (i % 2 == 0) {
+			sum += digit;
+		} else {
+			sum += CardDoubled[digit];
 		}
-		sum += digit;
 	}
 	return(sum % 10 == 0);
 }
 
-// @0x6039E0 NOT EXACT: order-only (attempts.csv: this in ebp, end in edi)
+// @0x6039E0
 int RegistrationInterface::Unknown_6039E0(const char *number)
 {
-	std::vector<RegistrationCardPrefixStruct>::iterator prefix = Unknown88.begin();
 	std::vector<RegistrationCardPrefixStruct>::iterator last = Unknown88.end();
-	while (prefix != last && !(*prefix).Is_Prefix_Of(number)) {
+	std::vector<RegistrationCardPrefixStruct>::iterator prefix = Unknown88.begin();
+	while (prefix != last && strncmp(number, (*prefix).Prefix.c_str(), (*prefix).Prefix.length()) != 0) {
 		prefix++;
 	}
 	if (prefix != Unknown88.end()) {

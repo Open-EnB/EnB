@@ -99,7 +99,7 @@ std::vector<ClientItemPropertySpecialLineStruct> ClientItemPropertySpecialProfes
 
 
 
-// NOT EXACT: 0x52D900 (register-only: the client tests and casts the found field in eax, ours copies it to ecx first; the same code, asserts and lines)
+// 0x52D900
 bool ClientItemPropertySpecialProfessionRequirementClass::Is_Usable()
 {
 	DeltaCompoundClass *aux_data = (DeltaCompoundClass *)SpaceClient->AuxData;
@@ -107,7 +107,7 @@ bool ClientItemPropertySpecialProfessionRequirementClass::Is_Usable()
 	NameClass name("RPGInfo.Profession");
 	DeltaTemplateClass<ProfessionType> *profession_aux_data = Unknown_Find_Valid<DeltaTemplateClass<ProfessionType> >(aux_data, name);
 	FAIL_IF(!profession_aux_data) return(false);
-	return((Professions & (1 << profession_aux_data->Value)) == 0);
+	if (Professions & (1 << profession_aux_data->Value)) { return(false); } return(true);
 }
 
 /*

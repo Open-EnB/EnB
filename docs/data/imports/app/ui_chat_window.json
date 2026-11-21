@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x436420"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "RECONSTRUCTED: the chat window ChatWindowInterface (client RTTI), __FILE__ 0xB7D76C, 0x56F420-0x571EAF (constructor 0x56F420, table 0xAF0390); CW2 2026-11-08",
  "expected": {},
@@ -43,6 +41,7 @@
   "0x56F560",
   "0x56F780",
   "0x56F9F0",
+  "0x56FD30",
   "0x5701C0",
   "0x570210",
   "0x570340",
@@ -65,8 +64,11 @@
   "0x571B30",
   "0x571B70",
   "0x571BA0",
+  "0x571BD0",
   "0x571DE0",
   "0x571E00",
+  "0x571E40",
+  "0x571E80",
   "0x571EB0",
   "0x571EE0",
   "0x571EF0",

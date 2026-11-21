@@ -100,16 +100,16 @@ void CharacterCreatorClass::Unknown_78D480(int slot, LoginCharacterClass *charac
 	}
 }
 
-// NOT EXACT: inline budget (through Get_File_Name one append still inlines in ours)
+
 // 0x78D8A0
-void CharacterCreatorClass::Unknown_78D8A0(int slot, AvatarDescClass *avatar, ShipCustDescClass *ship, LoginNameDataClass *name)
-{
+void CharacterCreatorClass::Unknown_78D8A0(int slot, AvatarDescClass *avatar, ShipCustDescClass *ship, LoginNameDataClass *name) {
 	StringClass path;
 	int size = avatar->Get_Short_Size() + ship->Get_Short_Size() + name->Get_Size();
 	LinearBufferClass buffer(size, 0x400);
 	RawFileClass file;
-
-	if (Get_File_Name(slot, path)) {
+	bool ok = Get_File_Name(slot, path);
+	path.Peek_Buffer();
+	if (ok) {
 		file.Open(path, RawFileClass::WRITE);
 		if (file.Is_Open()) {
 			avatar->Write_Short(&buffer);

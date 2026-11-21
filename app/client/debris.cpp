@@ -227,7 +227,7 @@ RenderObjClass *DebrisFieldClass::Clone(void) const
 }
 
 // 0x6B9BF0
-// NOT EXACT: masked residue 192 -> 10 (frame 0xA54 as the client's; diffuse written field by field, hash a signed int, cur -= back; cur += step, the tails test non-NULL first); left: bmax / bmin built left to right, the stack slots
+
 void DebrisFieldClass::Render(RenderInfoClass &rinfo)
 {
 	WWPROFILE("DebrisFieldClass::Render");
@@ -269,8 +269,8 @@ void DebrisFieldClass::Render(RenderInfoClass &rinfo)
 	camera->Get_View_Plane(vpmin, vpmax);
 	frustum.Init(frustum.CameraTransform, vpmin, vpmax, MinDist, MaxDist);
 
-	Vector3 bmax(frustum.BoundMax.X + Size, frustum.BoundMax.Y + Size, frustum.BoundMax.Z + Size);
-	Vector3 bmin(frustum.BoundMin.X - Size, frustum.BoundMin.Y - Size, frustum.BoundMin.Z - Size);
+	Vector3 bmax; bmax.X = frustum.BoundMax.X + Size; bmax.Y = frustum.BoundMax.Y + Size; bmax.Z = frustum.BoundMax.Z + Size;
+	Vector3 bmin; bmin.X = frustum.BoundMin.X - Size; bmin.Y = frustum.BoundMin.Y - Size; bmin.Z = frustum.BoundMin.Z - Size;
 	float inv_spacing = 1.0 / Spacing;
 	float f = floor(inv_spacing * bmin.X);
 	int x0 = f;
@@ -318,16 +318,16 @@ void DebrisFieldClass::Render(RenderInfoClass &rinfo)
 	float inv_fade_in = 1.0f / fade_in;
 	float inv_fade_out = 1.0f / fade_out;
 	float r2 = 0.0f;
-	for (i = 0; i < 512; i++) {
+	for (int j = 0; j < 512; j++) {
 		float r = sqrt(r2);
 		if (r < near_r) {
-			alpha_ramp[i] = 0.0f;
+			alpha_ramp[j] = 0.0f;
 		} else if (r < full_r) {
-			alpha_ramp[i] = (r - near_r) * UnknownC8 * inv_fade_in;
+			alpha_ramp[j] = (r - near_r) * UnknownC8 * inv_fade_in;
 		} else if (r < far_r) {
-			alpha_ramp[i] = UnknownC8;
+			alpha_ramp[j] = UnknownC8;
 		} else {
-			alpha_ramp[i] = (1.0f - (r - far_r) * inv_fade_out) * UnknownC8;
+			alpha_ramp[j] = (1.0f - (r - far_r) * inv_fade_out) * UnknownC8;
 		}
 		r2 += 1.0f / 512.0f;
 	}
@@ -344,21 +344,21 @@ void DebrisFieldClass::Render(RenderInfoClass &rinfo)
 	if (UnknownE4) {
 		ucoords = UnknownE4->Get_Array();
 	}
-	int x;
-	int y;
-	int z;
+
+
+
 	switch (Unknown_6BB440()) {
-		case 0:
-			for (x = x0; x < x1; x++) {
-				for (y = y0; y < y1; y++) {
+		case 0: {
+			for (int x = x0; x < x1; x++) {
+				for (int y = y0; y < y1; y++) {
 					int xy = y ^ x;
-					for (z = z0; z < z1; z++) {
+					for (int z = z0; z < z1; z++) {
 						int hash = z ^ xy;
-						int corner = (((hash >> 3) & 0x38) ^ (hash & 0x38)) >> 3 ^ (hash & 7);
-						locs[UnknownD4] = cur + jitter[corner];
-						float d2 = locs[UnknownD4].Length2() * inv_max2;
-						if (d2 < 1.0f) {
-							float alpha = alpha_ramp[(int)floor(d2 * 512.0f)];
+
+						locs[UnknownD4] = cur + jitter[(((hash >> 3) & 0x38) ^ (hash & 0x38)) >> 3 ^ (hash & 7)];
+						float d2 = locs[UnknownD4].Length2();
+						if (d2 * inv_max2 < 1.0f) {
+							float alpha = alpha_ramp[(int)floor(d2 * inv_max2 * 512.0f)];
 							diffuse[UnknownD4].X = Color.X; diffuse[UnknownD4].Y = Color.Y; diffuse[UnknownD4].Z = Color.Z; diffuse[UnknownD4].W = alpha * Alpha;
 							if (frames) {
 								frames[UnknownD4] = Unknown_B92080[(((hash >> 16) & 0xFF) << 8 ^ (hash & 0xFF00)) >> 8 ^ (hash & 0xFF)];
@@ -378,18 +378,18 @@ void DebrisFieldClass::Render(RenderInfoClass &rinfo)
 				}
 				cur -= back_y; cur += step_x;
 			}
-			break;
-		case 1:
-			for (x = x0; x < x1; x++) {
-				for (y = y0; y < y1; y++) {
+			break; }
+		case 1: {
+			for (int x = x0; x < x1; x++) {
+				for (int y = y0; y < y1; y++) {
 					int xy = y ^ x;
-					for (z = z0; z < z1; z++) {
+					for (int z = z0; z < z1; z++) {
 						int hash = z ^ xy;
-						int corner = (((hash >> 3) & 0x38) ^ (hash & 0x38)) >> 3 ^ (hash & 7);
-						locs[UnknownD4] = cur + jitter[corner];
-						float d2 = locs[UnknownD4].Length2() * inv_max2;
-						if (d2 < 1.0f) {
-							float alpha = alpha_ramp[(int)floor(d2 * 512.0f)];
+
+						locs[UnknownD4] = cur + jitter[(((hash >> 3) & 0x38) ^ (hash & 0x38)) >> 3 ^ (hash & 7)];
+						float d2 = locs[UnknownD4].Length2();
+						if (d2 * inv_max2 < 1.0f) {
+							float alpha = alpha_ramp[(int)floor(d2 * inv_max2 * 512.0f)];
 							diffuse[UnknownD4].X = alpha * Color.X; diffuse[UnknownD4].Y = alpha * Color.Y; diffuse[UnknownD4].Z = alpha * Color.Z; diffuse[UnknownD4].W = Alpha;
 							if (frames) {
 								frames[UnknownD4] = Unknown_B92080[(((hash >> 16) & 0xFF) << 8 ^ (hash & 0xFF00)) >> 8 ^ (hash & 0xFF)];
@@ -409,7 +409,7 @@ void DebrisFieldClass::Render(RenderInfoClass &rinfo)
 				}
 				cur -= back_y; cur += step_x;
 			}
-			break;
+			break; }
 		default:
 
 
@@ -678,6 +678,7 @@ void DebrisFieldClass::Unknown_6BB640(const Vector3 &offset)
 **	- Render 0x6B9BF0 (6 KB: a CameraClass copy of the frame's camera, its frustum, a function-static table of eight
 **	  Vector3 offsets at 0xBE66F8 (guard 0xBE66F0, atexit 0x6BB420), a 512-entry alpha ramp, a hashed lattice walk
 **	  filling the share buffers, then the point or line group's Set_Arrays / Render with a static identity 0xBE6758)
-**	  is written from the client's code, NOT EXACT. Unknown_B92080 is the object's first data (after bar3d.cpp's
+**	  is written from the client's code, exact (bmax / bmin by fields, each case's own loop variables, its own
+**	  alpha-ramp index, d2 the bare Length2: NX 2026-11-20). Unknown_B92080 is the object's first data (after bar3d.cpp's
 **	  __FILE__ string), 256 hash bytes.
 */

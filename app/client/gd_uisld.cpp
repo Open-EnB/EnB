@@ -84,7 +84,7 @@ UISliderGadget::UISliderGadget(RenderObjClass *screen, const char *pull, const c
 
 
 
-// NOT EXACT: 0x6755E0 order: the client works out pull_box.Extent * 2 * extra before (bar - pull) * 2 (every form tried factors or swaps them)
+
 void UISliderGadget::Unknown_6755E0(const char *pull, const char *bar, bool horizontal, float extra)
 {
 	RObj->Release_Ref();
@@ -94,18 +94,18 @@ void UISliderGadget::Unknown_6755E0(const char *pull, const char *bar, bool hori
 	PullBone = screen->Get_Bone_Index(pull);
 	PullTransform = screen->Get_Bone_Transform(PullBone);
 	screen->Capture_Bone(PullBone);
-
 	Vector3 bar_pos = RObj->Get_Position();
 	AABoxClass bar_box = RObj->Get_Bounding_Box();
 	Vector3 pull_pos = Pull->Get_Position();
 	AABoxClass pull_box = Pull->Get_Bounding_Box();
-
 	Unknown068.Set(0, 0, 0);
 	if (horizontal) {
-		Length = (pull_box.Extent.X + pull_box.Extent.X) * extra + (bar_box.Extent.X - pull_box.Extent.X) * 2.0f;
+		float size = (pull_box.Extent.X + pull_box.Extent.X) * extra;
+		Length = size + (bar_box.Extent.X - pull_box.Extent.X) * 2.0f;
 		Unknown068.X = (bar_pos.X - pull_pos.X) - Length * 0.5f;
 	} else {
-		Length = (pull_box.Extent.Y + pull_box.Extent.Y) * extra + (bar_box.Extent.Y - pull_box.Extent.Y) * 2.0f;
+		float size = (pull_box.Extent.Y + pull_box.Extent.Y) * extra;
+		Length = size + (bar_box.Extent.Y - pull_box.Extent.Y) * 2.0f;
 		Unknown068.Y = (bar_pos.Y - pull_pos.Y) - Length * 0.5f;
 	}
 	Unknown0B0 = (int)Length;

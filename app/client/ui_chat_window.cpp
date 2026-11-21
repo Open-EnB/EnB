@@ -44,7 +44,7 @@ public:
 inline ChatWinStruct::ChatWinStruct(GadgetSlider *slider, unsigned int index) :
 	ChatWindow(NULL)
 {
-	ChatWindow = new ChatWindowClass(slider, 100, (index < 1) ? index : 1);
+	ChatWindow = new ChatWindowClass(slider, 100, index);
 }
 
 // (inline in 0x56F560)
@@ -167,16 +167,16 @@ bool ChatWindowInterface::Unknown_98(const char *name, const char *ini)
 
 
 
-// 0x56FD30  // NOT EXACT: functional (CW2): frame 0x54 vs the client's 0x50 and the history loop (0.40)
+// 0x56FD30 (window at function scope: its own slot at the frame bottom, frame 0x50; min(i, 1) as new's argument, evaluated after the allocation, 0x56FE5D)
 void ChatWindowInterface::Unknown_A0(unsigned int count)
 {
-	FAIL_IF(!ChatWindows.empty()) return;
+	int window; FAIL_IF(!ChatWindows.empty()) return;
 	ChatWindows.reserve(count); ChatWindows.size();	// (dead, D130; not the client's: it sends reserve's size() out of line as the client's 0x571B70)
 	for (unsigned int i = 0; i < count; i++) {
 		GadgetSlider *slider = Add_Slider(i + 8, 0);
 		slider->Unknown_66E460(InterfaceMesh, false, i);
-		ChatWinStruct *chat_win = new ChatWinStruct(slider, i);
-		ChatWindows.push_back(chat_win);
+		ChatWinStruct *chat_win = new ChatWinStruct(slider, (i < 1) ? i : 1);
+		ChatWindows.push_back(chat_win); ChatWindows.size(); ChatWindows.size(); ChatWindows.size();	// (dead, D272: insert(P, X) 0x571BD0 out of line as the client, 0x56FEC5)
 		char name[32];
 		sprintf(name, "vp%d_tl", i);
 		chat_win->TLBone = InterfaceMesh->Get_Bone_Index(name);
@@ -201,8 +201,8 @@ void ChatWindowInterface::Unknown_A0(unsigned int count)
 	}
 	Unknown_A4();
 	ChatHistory->Unknown_67D660(count);
-	for (unsigned int index = 0; ; ) {
-		int window;
+	for (unsigned int index = 0; true; ) {
+
 		const Unknown67D430EntryStruct &entry = ChatHistory->Unknown_67D980(index++, &window);
 		if (entry.Text.length() == 0) break;
 		if (window < 0) continue;

@@ -39,7 +39,7 @@ void CameraController03Class::Unknown_04()
 }
 
 // @0x795A80
-// NOT EXACT: register-only (explain.py: same length, 4 rows): the client loads Unknown13BC through eax and the avatar's vtable through edx, here edx / eax; Vector3::Distance (its temporaries) gives the client's two Vector3 slots, the inline (a - b).Length() swapped them
+
 void CameraController03Class::Unknown_08(Vector3 *pos, Quaternion *rot, int *mode, int *target)
 {
 	float distance = CameraManagerClass::Unknown_79B6B0();
@@ -69,14 +69,14 @@ void CameraController03Class::Unknown_08(Vector3 *pos, Quaternion *rot, int *mod
 		case 0: {
 			Unknown0C->Unknown_08(pos, rot);
 			bool close = false;
-			ClientObjectClass *gate = Client->Find_Object(Client->Unknown13BC);
+			unsigned int id = Client->Unknown13BC;
+			ClientObjectClass *gate = Client->Find_Object(id);
 			if (gate && gate->Unknown_6F5B70()) {
 				float dist = Vector3::Distance(gate->Unknown_24(), Client->Get_Avatar()->Unknown_24());
 				if (dist < (gate->Unknown_30() + distance) * 0.5f) {
 					close = true;
-				}
-			}
-			static float Unknown_B05038 = 7000.0f;	// NAME 1: neutral (D10): the phase's length (ms)
+				} }
+			static float Unknown_B05038 = 7000.0f;
 			if ((float)(Client->Unknown10BC - Unknown10) > Unknown_B05038 || close) {
 				Unknown14 = 1;
 				Unknown0C->Unknown_0C();

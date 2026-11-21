@@ -73,8 +73,8 @@ Unknown_78F700Class::BAnimStruct *Unknown_78F700Class::Find_BAnim(const char *ta
 	return(NULL);
 }
 
-// 0x78FCB0
-// NOT EXACT: functional for POC (D64), inline-budget (ours inlines 0x7901C0 differently)
+static int __cdecl Unknown_790190(const void *a, const void *b);
+// 0x78FCB0 (the index loop is Load's own: its count kept in edx and &Count in ecx across the First store, 0x78FFD2, where 0x7901C0 indexes through the entry, 0x79020E)
 bool Unknown_78F700Class::Load(const char *filename)
 {
 	INIClass ini(filename);
@@ -100,7 +100,7 @@ bool Unknown_78F700Class::Load(const char *filename)
 		Moods[i].MoodNumber = ini.Get_Int(section, "MoodNumber", 0);
 	}
 	int count = 0;
-	for (;;) {
+	for (; true;) {
 		char section[64];
 		sprintf(section, "BANIM-%d", count);
 		if (!ini.Section_Present(section)) {
@@ -118,7 +118,16 @@ bool Unknown_78F700Class::Load(const char *filename)
 		BAnims[i].Tag = nstrdup(tag);
 		BAnims[i].AnimNumber = (ini.Get_Int(section, "AnimNumber", 0) < 0xFF) ? ini.Get_Int(section, "AnimNumber", 0) : 0xFF;
 	}
-	Unknown_7901C0();
+	qsort(BAnims, Get_BAnim_Count(), sizeof(BAnimStruct), Unknown_790190);
+	memset(Index, 0, sizeof(Index));
+	BAnimStruct *banim = BAnims;
+	for (int j = 0; j < Get_BAnim_Count(); j++, banim++) {
+		int c = tolower(*banim->Tag); IndexStruct *index = &Index[c]; int n = index->Count;
+		if (n == 0) {
+			Index[c].First = j;
+		}
+		index->Count = n + 1;
+	}
 	char fname[256];
 	_splitpath(filename, NULL, NULL, fname, NULL);
 	Name = new char[strlen(fname) + 1];

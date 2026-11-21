@@ -253,7 +253,7 @@ RenderStateClass *RenderStateListClass::Unknown_45AA80(int id, int link_id, unsi
 }
 
 // 0x45AB20
-// NOT EXACT: schedule (0.86): the client stores the float DURATION before the next push
+
 RenderStateClass *RenderStateListClass::Unknown_45AB20(INIClass &ini, const char *section, int id)
 {
 	char name[MAX_PATH];
@@ -267,7 +267,7 @@ RenderStateClass *RenderStateListClass::Unknown_45AB20(INIClass &ini, const char
 		int next_id = Unknown_45A470(ini, section);
 		int link_id = Unknown_45A4A0(ini, section);
 		char *initstr = Unknown_45A6F0(ini, section);
-		float duration = Unknown_45A500(ini, section);
+		float duration = ini.Get_Float(section, "DURATION", 0);
 		RenderStateClass *state = Unknown_45AA80(id, link_id, flags, name, next_id, duration);
 		if (filename != NULL) {
 			state->Unknown_457EE0(filename);

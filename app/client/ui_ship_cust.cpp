@@ -240,85 +240,76 @@ void StarbaseShipCustomizeInterface::Unknown_60()
 	Unknown5BB320Class::Unknown_60();
 }
 
-// NOT EXACT: functional (D64)
+
 // @0x619470
 bool StarbaseShipCustomizeInterface::Unknown_68(int key)
 {
-	if (Unknown235) {
-		return(false);
-	}
-	if (!Unknown334) {
-		return(true);
-	}
+	if (Unknown235) { return(false); }
+	if (!Unknown334) { return(true); }
 	switch (key) {
 		case 1:
-		case 2:
-		case 3:
-		case 4:
 			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
 			Unknown_61BAC0(key);
 			Unknown23C = 5;
 			Unknown237 = true;
 			return(false);
 
+		case 2:
+			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
+			Unknown_61BAC0(key);
+			Unknown23C = 5;
+			Unknown237 = true;
+			return(false);
+		case 3:
+			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
+			Unknown_61BAC0(key);
+			Unknown23C = 5;
+			Unknown237 = true;
+			return(false);
+		case 4:
+			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
+			Unknown_61BAC0(key);
+			Unknown23C = 5;
+			Unknown237 = true;
+			return(false);
 		case 5:
 			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
-			if (NameGadget) {
-				NameGadget->Unknown_74(false);
-			}
+			if (NameGadget) { NameGadget->Unknown_74(false); }
 			Unknown_61EF60();
 			return(true);
-
-		case 6:
-		case 0x1B:
+		case 6: case 0x1B:
 			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
 			Unknown23C = 0;
 			Unknown239 = true;
-			if (NameGadget) {
-				NameGadget->Unknown_74(false);
-			}
+			if (NameGadget) { NameGadget->Unknown_74(false); }
 			return(true);
-
-		case 7:
-			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
-			if (--Desc.Hull_Style < 0) {
-				Desc.Hull_Style = 2;
-			}
-			Unknown_61D260();
-			Unknown_61AFC0();
-			return(false);
-
 		case 8:
 			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
-			if (++Desc.Hull_Style > 2) {
-				Desc.Hull_Style = 0;
-			}
+			if (++Desc.Hull_Style >= 3) { Desc.Hull_Style = 0; }
 			Unknown_61D260();
 			Unknown_61AFC0();
 			return(false);
-
-		case 9:
+		case 7:
 			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
-			if (--Desc.Wing_Style < 0) {
-				Desc.Wing_Style = 2;
-			}
+			if (--Desc.Hull_Style < 0) { Desc.Hull_Style = 2; }
 			Unknown_61D260();
 			Unknown_61AFC0();
 			return(false);
-
 		case 10:
 			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
-			if (++Desc.Wing_Style > 2) {
-				Desc.Wing_Style = 0;
-			}
+			if (++Desc.Wing_Style >= 3) { Desc.Wing_Style = 0; }
 			Unknown_61D260();
 			Unknown_61AFC0();
 			return(false);
-
-		case 0x0F:
+		case 9:
+			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
+			if (--Desc.Wing_Style < 0) { Desc.Wing_Style = 2; }
+			Unknown_61D260();
+			Unknown_61AFC0();
+			return(false);
 		case 0x10:
 			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
-			*Unknown_61D200() = (key == 0x0F);
+			*Unknown_61D200() = false;
 			Unknown_61BAC0(key);
 			Unknown_6211D0(SBaseView->Client->Peek_Environment_Map_Manager());
 			Unknown_61F180();
@@ -326,66 +317,69 @@ bool StarbaseShipCustomizeInterface::Unknown_68(int key)
 			Unknown_61F180();
 			Unknown_61D260();
 			return(false);
-
-		case 0x11:
-		case 0x12:
-		case 0x13:
+		case 0x0F:
 			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
-			*Unknown_61D230() = (ShipCustomizationMetal)(key - 0x11);
+			*Unknown_61D200() = true;
+			Unknown_61BAC0(key);
+			Unknown_6211D0(SBaseView->Client->Peek_Environment_Map_Manager());
+			Unknown_61F180();
+			Unknown_621390(Unknown318, Unknown330);
+			Unknown_61F180();
+			Unknown_61D260();
+			return(false);
+		case 0x11: case 0x12: case 0x13:
+			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
+			Desc.Parts[Unknown30C].Settings[Unknown310].Metal = (ShipCustomizationMetal)(key - 0x11);
 			Unknown_6211D0(SBaseView->Client->Peek_Environment_Map_Manager());
 			Unknown_61F180();
 			Unknown_61D260();
 			return(false);
-
-		case 0x14:
-		case 0x15:
+		case 0x16:
 			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
-			Unknown310 = key - 0x14;
+			Unknown30C = 0;
 			Unknown_61BAC0(key);
 			Unknown_61B580();
 			Unknown_61D260();
 			return(false);
-
-		case 0x16:
 		case 0x17:
+			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
+			Unknown30C = 2;
+			Unknown_61BAC0(key);
+			Unknown_61B580();
+			Unknown_61D260();
+			return(false);
 		case 0x18:
+			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
+			Unknown30C = 1;
+			Unknown_61BAC0(key);
+			Unknown_61B580();
+			Unknown_61D260();
+			return(false);
 		case 0x19:
 			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
-			Unknown30C = (key == 0x16) ? 0 : (key == 0x17) ? 2 : (key == 0x18) ? 1 : 3;
+			Unknown30C = 3;
 			Unknown_61BAC0(key);
 			Unknown_61B580();
 			Unknown_61D260();
 			return(false);
-
-		case 0x1A:
-		{
-			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
-			FontSys *style = Unknown_BE67C4->Get_Style("NAME_buy_ship04", InterfaceMesh->Peek_Object());
-			if (style != NULL && style->Unknown300) {
-				style->Set_Hidden(1);
-			}
-			char *text = NameGadget->Get_Text();
-			NameGadget->Set_Text((text != NULL && *text != 0) ? text : NULL, 0);
-			NameGadget->Unknown_74(true);
-			delete text;
+		case 0x14:
+			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
+			Unknown310 = 0;
+			Unknown_61BAC0(key);
+			Unknown_61B580();
+			Unknown_61D260();
 			return(false);
-		}
-
-		case 0x1C:
-		case 0x1D:
-		case 0x1E:
-		case 0x1F:
-		case 0x20:
-		case 0x21:
-		case 0x22:
-		case 0x23:
-		case 0x24:
-		case 0x25:
-		case 0x26:
-		case 0x27:
+		case 0x15:
+			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
+			Unknown310 = 1;
+			Unknown_61BAC0(key);
+			Unknown_61B580();
+			Unknown_61D260();
+			return(false);
+		case 0x1C: case 0x1D: case 0x1E: case 0x1F: case 0x20: case 0x21: case 0x22: case 0x23: case 0x24: case 0x25: case 0x26: case 0x27:
 			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
 			Unknown318 = Unknown314 - 0x1C + key;
-			if (Unknown318 >= 1) {
+			if (Unknown318 > 0) {
 				Desc.Selected_Decal = Unknown318 - 1;
 			} else if (Unknown318 < 0) {
 				Desc.Selected_Decal = Unknown318;
@@ -396,42 +390,48 @@ bool StarbaseShipCustomizeInterface::Unknown_68(int key)
 			Unknown_621390(Unknown318, Unknown330);
 			Unknown_61F180();
 			return(false);
-
 		case 0x28:
-			if (Unknown314 != 0) {
-				Unknown314--;
-			}
+			if (Unknown314 != 0) { Unknown314--; }
 			Unknown_61DBF0();
 			Unknown_61D260();
 			return(false);
-
 		case 0x29:
-			if ((unsigned int)Unknown314 < Unknown330->TextureArray.size() - 8) {
-				Unknown314++;
-			}
+			if ((unsigned int)Unknown314 < Unknown330->TextureArray.size() - 8) { Unknown314++; }
 			Unknown_61DBF0();
 			Unknown_61D260();
 			return(false);
-
-		case 0x30:
-			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
-			Unknown2E0->Unknown_88();
-			return(false);
-
-		case 0x31:
-			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
-			Unknown2E0->Unknown_8C();
-			return(false);
-
 		case 0x32:
 			if (Page == 1) {
-				*Unknown_61D230() = METAL_NONE;
+				Desc.Parts[Unknown30C].Settings[Unknown310].Metal = METAL_NONE;
 				Unknown_61D260();
 			}
 			Unknown_61F180();
 			return(false);
+		case 0x1A:
+		{
+			SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
+			FontSys *style = Unknown_BE67C4->Get_Style("NAME_buy_ship04", InterfaceMesh->Peek_Object());
+			if (style != NULL && style->Unknown300) { style->Set_Hidden(1); }
+			char *text = NameGadget->Get_Text();
+			if (text != NULL && strlen(text) != 0) {
+				NameGadget->Set_Text(text, 0);
+			} else {
+				NameGadget->Set_Text(NULL, 0);
+			}
+			NameGadget->Unknown_74(true);
+			delete text;
+			return(false);
+		}
+		case 0x30:
+			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
+			Unknown2E0->Unknown_88();
+			return(false);
+		case 0x31:
+			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
+			Unknown2E0->Unknown_8C();
+			return(false);
 	}
-	return(false); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size();	// dead reads after the return (D130; not the client's): they spend VC6's inline budget so 0x61BAC0's inlined copies call 0x61BCE0 out of line, as the client's (0.34 -> 0.49; 8: 0.46, 12-16 the same)
+	return(false); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size();	// dead reads (D130; not the client's): 13 spend VC6's inline budget so the cases' inlined 0x61BAC0 copies call 0x61BCE0 / operator[] / map::insert out of line as the client does (12: 0.92, 14: 0.89)
 }
 
 
@@ -1165,39 +1165,39 @@ void StarbaseShipCustomizeInterface::Unknown_61BCE0(short group)
 		it++;
 	}
 }
-
-// NOT EXACT: functional (D64)
+static inline void Empty_Wrap(StarbaseShipCustomizeInterface *ui) { ui->Unknown_61AF50(); }	// not the client's (a budget device, D137 / D130): one inline layer deeper, 0x61AF50's loop-test begin() goes out of line before case 0's pair constructor, as the client's
+// NOT EXACT: inline budget (0.86: case 0's pair constructor inline in the client; case 3's iterator++ and fourth lookup inlined there)
 // @0x61BD80
 void StarbaseShipCustomizeInterface::Unknown_61BD80(int page)
 {
 	InterfaceSortScopeClass sort(this);
 	Unknown_5C();
-	Unknown_61AF50();
+	Empty_Wrap(this);
 	if (Unknown2FC) {
 		Unknown_BE67C4->Remove(InterfaceMesh->Peek_Object());
 		Unknown_BE67BC->Unload(Unknown_B894A0[Page][1]);
 		Unknown2FC = false;
 	}
-	if (Page == 1) {
-		Unknown2D4 = NULL;
-		Unknown2D8 = NULL;
-		Unknown2DC = NULL;
-		Unknown64.Unknown_687150(Unknown300->Gadget);
-		if (Unknown300) {
-			delete Unknown300;
-		}
-		Unknown300 = NULL;
-	} else if (Page == 2) {
-		Unknown240 = NULL;
-	} else if (Page == 3) {
-		Unknown64.Unknown_687150(NameGadget);
-		NameGadget = NULL;
-		Unknown64.Unknown_687150(Unknown300->Gadget);
-		if (Unknown300) {
-			delete Unknown300;
-		}
-		Unknown300 = NULL;
+	switch (Page) {
+		case 1:
+			Unknown2D4 = NULL; Unknown2D8 = NULL; Unknown2DC = NULL;
+			Unknown64.Unknown_687150(Unknown300->Gadget);
+			if (Unknown300) { delete Unknown300; }
+			Unknown300 = NULL;
+			break;
+		case 2:
+			Unknown240 = NULL;
+			break;
+		case 3:
+			Unknown64.Unknown_687150(NameGadget);
+			NameGadget = NULL;
+			Unknown64.Unknown_687150(Unknown300->Gadget);
+			if (Unknown300) { delete Unknown300; }
+			Unknown300 = NULL;
+			break;
 	}
+
+
 	InterfaceMesh->Unknown_5B8850(Unknown_B894A0[page][0], true);
 	RenderObjClass *model = InterfaceMesh->Peek_Object();
 	Unknown_BE67BC->Load(Unknown_B894A0[page][1]);
@@ -1264,7 +1264,7 @@ void StarbaseShipCustomizeInterface::Unknown_61BD80(int page)
 			Unknown_61ADA0(0x31, "TURN", NULL, 0, 0);
 			Unknown_61B760();
 			Unknown_58();
-			Unknown_61BAC0(4);
+			Unknown_61BAC0(4); Gadgets.size();	// dead read (D130; not the client's): with case 2's and the three at the end, the client's lookup mix
 			Unknown_61B580();
 			Unknown_61D260();
 			break;
@@ -1288,7 +1288,7 @@ void StarbaseShipCustomizeInterface::Unknown_61BD80(int page)
 			Unknown_61ADA0(0x31, "TURN", NULL, 0, 0);
 			Unknown_61DAB0();
 			Unknown_58();
-			Unknown_61BAC0(2);
+			Unknown_61BAC0(2); Gadgets.size();	// dead read (D130; not the client's): as case 1's
 			{
 				int last = Unknown330->TextureArray.size() - 8;
 				int first = Unknown318;
@@ -1336,7 +1336,7 @@ void StarbaseShipCustomizeInterface::Unknown_61BD80(int page)
 			break;
 	}
 	TheDX8MeshRenderer.Invalidate();
-	Unknown_61E8E0(true); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size();	// dead reads (D130; not the client's): they spend VC6's inline budget toward the client's mix (six begin and four iterator++ out of line; 0.54 -> 0.64; 5-7 and 10+ score lower)
+	Unknown_61E8E0(true); Gadgets.size(); Gadgets.size(); Gadgets.size();	// dead reads (D130; not the client's): they spend VC6's inline budget toward the client's mix (the client's frame 0x3C and every lookup's out-of-line split but case 0's / case 3's pair constructor; with the 0x61AF50 wrapper and one read after the case 1 and case 2 sites: 0.86; 2: 0.73, 4: 0.76)
 }
 
 // @0x61D180
@@ -2031,11 +2031,11 @@ void StarbaseShipCustomizeInterface::Unknown_61E730(FlashingGadgetEvent *event, 
 	}
 }
 
-// @0x61E8B0 NOT EXACT: register (attempts.csv, parked at 0.62: the avatar id loads into edx, the client's eax, in every form)
-void StarbaseShipCustomizeInterface::Unknown_61E8B0()
-{
+// @0x61E8B0
+void StarbaseShipCustomizeInterface::Unknown_61E8B0() {
 	SClient *client = SBaseView->Client;
-	client->Unknown_74C960(client->AvatarID);
+	const int &id = client->AvatarID;
+	client->Unknown_74C960(id);
 }
 
 // NOT EXACT: inline budget (0.42: the client calls the credits line's append out of line but inlines the cost line's,

@@ -2373,7 +2373,7 @@ struct LogoffCommandStruct { const char *Name; bool Quit; };	// NAME 2: what 0x7
 static const LogoffCommandStruct LogoffCommands[] = { { "/logoff", false }, { "/log", false }, { "/quit", true }, { "", false } };	// NAME 2: what 0x74ABC0 sends for them
 static const char *CampCommands[] = { "/camp", NULL };	// NAME 2: the command 0x74ABC0 refuses
 
-// NOT EXACT: shape (explain.py: 51 masked rows, 1362 instructions against 1363): every block matches but the help lines' block, which VC6 places right after the 'help' test where the client keeps it after the request (je to it, jmp to the end); goto, a flag tested apart or first, the flag at the top: no better (attempts.py show 0x745FF0)
+
 // 0x745FF0 (0x74ABC0: '/chat ...'): the chat panel's own commands first, else one CLIENT_CHAT_REQUEST 163 (the
 // request type, the person, the channel and the text), or the help lines
 bool SClient::Unknown_745FF0(const char *text)
@@ -2517,6 +2517,8 @@ bool SClient::Unknown_745FF0(const char *text)
 				}
 			} else if (strcmp(token, "help") == 0) {
 				help = true;
+			} else {
+				help = false;
 			}
 			if (ok) {
 				int id = Unknown1138; ClientChatRequestPacketClass packet(type, id);
@@ -2541,8 +2543,6 @@ bool SClient::Unknown_745FF0(const char *text)
 	delete [] copy;
 	return(ok);
 }
-
-
 
 
 
@@ -2879,7 +2879,7 @@ bool SClient::Unknown_747C70(const char *text)
 
 
 #include "..\shared\unknown_4a1590.h"			// Bounded_Strcpy (0x4A1590): the chat commands' copies (0x747FA0, 0x749020)
-// NOT EXACT: shape (explain.py: 119 calls vs 121): '/seecolor' with no type: VC6 cross-jumps its two usage lines into the invalid type's identical tail, the client keeps them (its copy pushes the 0s from eax / edi); 11 forms (attempts.py show 0x747FA0)
+
 // 0x747FA0 (0x74ABC0): '/resetcolor', '/setcolor <type> <red> <green> <blue>', '/seecolor <type>' over the chat
 // line colours (+0x13CC)
 bool SClient::Unknown_747FA0(const char *text)
@@ -2990,7 +2990,9 @@ bool SClient::Unknown_747FA0(const char *text)
 		if (type == NULL) {
 			Unknown_74D990(6, "Usage: /seecolor <type>", 0);
 			Unknown_74D990(6, "type = context, ooc, broadcast, tell, group, npc, tip, local, guild, general, ooc_channel, new_player, market, private, race, class, echo, error_context, error_ooc, error_system, combat, warning.", 0);
-		} else if (stricmp(type, "context") == 0) {
+			return(true);
+		}
+		if (stricmp(type, "context") == 0) {
 			Unknown_74D990(0, "This is the current (In Context) color.", 1);
 		} else if (stricmp(type, "ooc") == 0) {
 			Unknown_74D990(1, "This is the current (Out of Context) color.", 1);
@@ -3043,8 +3045,6 @@ bool SClient::Unknown_747FA0(const char *text)
 	}
 	return(false);
 }
-
-
 
 // 0x749020 (0x74ABC0): '/resethud', '/sethud <type> <value>' over the gutter icons' options
 bool SClient::Unknown_749020(const char *text)
@@ -3334,7 +3334,7 @@ bool SClient::Unknown_749A70(const char *text)
 
 
 
-// NOT EXACT: inline budget (explain.py): 800 against 818 instructions, 69 calls against 71: the client inlines the "" channel's assign(const char *, n) and shares the channels' copy tail; ours calls it
+// NOT EXACT: shape (explain.py): 830 against 818 instructions: VC6 places the invalid return right after the /rad text test (the client after the /rad message), inlines the words-fail path's ~basic_string the client calls (??_G, 0x74A667) and keeps this in ebx for the /rad message
 // 0x749ED0 (0x74ABC0): the channel lines '/gen /ooc /mkt /new /jen /ter /pro /exp /tra /war /sen /def /enf <message>'
 // (each when its 'Channel_*' option is on) and '/rad' (the chat panel's private channel)
 bool SClient::Unknown_749ED0(const char *text)
@@ -3342,56 +3342,62 @@ bool SClient::Unknown_749ED0(const char *text)
 	OptionClass *options = OptionClass::Instance;
 	std::string channel = "";
 	if (strncmp(text, "/gen", 4) == 0) {
-		if (text[4] != '\0' && text[4] != ' ') return(false);
-		if (options->Get_Bool("Channel_General")) channel = "General";
+		if (text[4] != '\0' && text[4] != ' ') goto invalid;
+		if (options->Get_Bool("Channel_General")) channel.assign("General");
 	} else if (strncmp(text, "/ooc", 4) == 0) {
-		if (text[4] != '\0' && text[4] != ' ') return(false);
-		if (options->Get_Bool("Channel_OOC")) channel = "OOC";
+		if (text[4] != '\0' && text[4] != ' ') goto invalid;
+		if (options->Get_Bool("Channel_OOC")) channel.assign("OOC");
 	} else if (strncmp(text, "/mkt", 4) == 0) {
-		if (text[4] != '\0' && text[4] != ' ') return(false);
-		if (options->Get_Bool("Channel_Market")) channel = "Market";
+		if (text[4] != '\0' && text[4] != ' ') goto invalid;
+		if (options->Get_Bool("Channel_Market")) channel.assign("Market");
 	} else if (strncmp(text, "/new", 4) == 0) {
-		if (text[4] != '\0' && text[4] != ' ') return(false);
-		if (options->Get_Bool("Channel_Newbie")) channel = "New Players";
+		if (text[4] != '\0' && text[4] != ' ') goto invalid;
+		if (options->Get_Bool("Channel_Newbie")) channel.assign("New Players");
 	} else if (strncmp(text, "/jen", 4) == 0) {
-		if (text[4] != '\0' && text[4] != ' ') return(false);
-		if (options->Get_Bool("Channel_Jenquai")) channel = "Jenquai";
+		if (text[4] != '\0' && text[4] != ' ') goto invalid;
+		if (options->Get_Bool("Channel_Jenquai")) channel.assign("Jenquai");
 	} else if (strncmp(text, "/ter", 4) == 0) {
-		if (text[4] != '\0' && text[4] != ' ') return(false);
-		if (options->Get_Bool("Channel_Terran")) channel = "Terran";
+		if (text[4] != '\0' && text[4] != ' ') goto invalid;
+		if (options->Get_Bool("Channel_Terran")) channel.assign("Terran");
 	} else if (strncmp(text, "/pro", 4) == 0) {
-		if (text[4] != '\0' && text[4] != ' ') return(false);
-		if (options->Get_Bool("Channel_Progen")) channel = "Progen";
+		if (text[4] != '\0' && text[4] != ' ') goto invalid;
+		if (options->Get_Bool("Channel_Progen")) channel.assign("Progen");
 	} else if (strncmp(text, "/exp", 4) == 0) {
-		if (text[4] != '\0' && text[4] != ' ') return(false);
-		if (options->Get_Bool("Channel_Explorers")) channel = "Explorers";
+		if (text[4] != '\0' && text[4] != ' ') goto invalid;
+		if (options->Get_Bool("Channel_Explorers")) channel.assign("Explorers");
 	} else if (strncmp(text, "/tra", 4) == 0) {
-		if (text[4] != '\0' && text[4] != ' ') return(false);
-		if (options->Get_Bool("Channel_Traders")) channel = "Tradesmen";
+		if (text[4] != '\0' && text[4] != ' ') goto invalid;
+		if (options->Get_Bool("Channel_Traders")) channel.assign("Tradesmen");
 	} else if (strncmp(text, "/war", 4) == 0) {
-		if (text[4] != '\0' && text[4] != ' ') return(false);
-		if (options->Get_Bool("Channel_Warriors")) channel = "Warriors";
+		if (text[4] != '\0' && text[4] != ' ') goto invalid;
+		if (options->Get_Bool("Channel_Warriors")) channel.assign("Warriors");
 	} else if (strncmp(text, "/sen", 4) == 0) {
-		if (text[4] != '\0' && text[4] != ' ') return(false);
-		if (options->Get_Bool("Channel_Sentinels")) channel = "Sentinels";
+		if (text[4] != '\0' && text[4] != ' ') goto invalid;
+		if (options->Get_Bool("Channel_Sentinels")) channel.assign("Sentinels");
 	} else if (strncmp(text, "/def", 4) == 0) {
-		if (text[4] != '\0' && text[4] != ' ') return(false);
-		if (options->Get_Bool("Channel_Defenders")) channel = "Defenders";
+		if (text[4] != '\0' && text[4] != ' ') goto invalid;
+		if (options->Get_Bool("Channel_Defenders")) channel.assign("Defenders");
 	} else if (strncmp(text, "/enf", 4) == 0) {
-		if (text[4] != '\0' && text[4] != ' ') return(false);
-		if (options->Get_Bool("Channel_Enforcers")) channel = "Enforcers";
+		if (text[4] != '\0' && text[4] != ' ') goto invalid;
+		if (options->Get_Bool("Channel_Enforcers")) channel.assign("Enforcers");
 	} else {
-		if (strncmp(text, "/rad", 4) != 0 || (text[4] != '\0' && text[4] != ' ')) return(false);
-		channel = ChatPanel->Unknown_5682C0();
+		if (strncmp(text, "/rad", 4) != 0) goto invalid;
+		if (text[4] != '\0' && text[4] != ' ') goto invalid;
+		channel.assign(ChatPanel->Unknown_5682C0());
 		if (channel.length() == 0) {
 			Unknown_74D990(0x11, "Not monitoring a private channel.", 0);
 			return(true);
 		}
+		goto send;
 	}
 	if (channel.length() == 0) {
 		Unknown_74D990(0x11, "Not monitoring that channel.", 0);
 		return(true);
 	}
+	goto send;
+invalid:
+	return(false);
+send:
 	char buffer[512];
 	Bounded_Strcpy(buffer, 512, text);
 	std::vector<std::string> words;
@@ -3411,12 +3417,6 @@ bool SClient::Unknown_749ED0(const char *text)
 	Send_Packet(&packet);
 	return(true);
 }
-
-
-
-
-
-
 
 
 
@@ -4970,7 +4970,7 @@ void SClient::Unknown_74EDB0()
 
 #include "..\packets\pkconfirmedaction.h"
 #include <algorithm>
-// NOT EXACT: shape (explain.py: 272 instructions, the client 270, 10 masked rows): the client loads AvatarID before testing button == 1 and keeps this in esi; three forms (one 0x750210 per branch and the named queues gained the rest)
+
 // 0x74F5C0 (Do_Frame, after 0x751660): the answer to the confirmed-action dialog (0x74E710's type 0) goes to the
 // server and the offer leaves both queues
 void SClient::Unknown_74F5C0()
@@ -5007,9 +5007,9 @@ void SClient::Unknown_74F5C0()
 					timedlist.erase(it);
 				}
 				if (button == 1) {
-					Send_Packet(&ConfirmedActionResponsePacketClass(AvatarID, id, true));
+					unsigned avatar_id = AvatarID; Send_Packet(&ConfirmedActionResponsePacketClass(avatar_id, id, true));
 				} else {
-					Send_Packet(&ConfirmedActionResponsePacketClass(AvatarID, id, false));
+					unsigned avatar_id = AvatarID; Send_Packet(&ConfirmedActionResponsePacketClass(avatar_id, id, false));
 				}
 			}
 			Unknown_750210();

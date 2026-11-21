@@ -105,7 +105,7 @@ std::vector<ClientItemPropertySpecialLineStruct> ClientItemPropertySpecialRaceRe
 
 
 
-// NOT EXACT: 0x52E500 (register-only: the client tests and casts the found field in eax, ours copies it to ecx first; the same code, asserts and lines)
+// 0x52E500
 bool ClientItemPropertySpecialRaceRequirementClass::Is_Usable()
 {
 	DeltaCompoundClass *aux_data = (DeltaCompoundClass *)SpaceClient->AuxData;
@@ -113,7 +113,7 @@ bool ClientItemPropertySpecialRaceRequirementClass::Is_Usable()
 	NameClass name("RPGInfo.Race");
 	DeltaTemplateClass<RaceType> *race_aux_data = Unknown_Find_Valid<DeltaTemplateClass<RaceType> >(aux_data, name);
 	FAIL_IF(!race_aux_data) return(false);
-	return((Races & (1 << race_aux_data->Value)) == 0);
+	if (Races & (1 << race_aux_data->Value)) { return(false); } return(true);
 }
 
 /*

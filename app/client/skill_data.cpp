@@ -141,7 +141,7 @@ bool SkillDataClass::Unknown_18()
 
 
 
-// NOT EXACT: inline-budget, the client inlines only the -1 push_back and calls 0x4A0880 for the other two
+
 // 0x6A4F40
 bool SkillDataClass::Unknown_20()
 {
@@ -153,9 +153,9 @@ bool SkillDataClass::Unknown_20()
 
 
 	G_ASSERT(num_skills = SkillNamesDatabase::Max_Skill());
-	for (int skill = 0; skill < num_skills; skill++) {
+	for (unsigned long skill = 0; (int)skill < num_skills; skill++) {
 		SkillLevelAvailabilityStruct &available = Skills.Get_Availability(skill);
-		int index;
+		unsigned long index;
 		if (available.I00 != 0 && available.I00 != 1) {
 			index = Unknown40.size();
 			Unknown30.push_back(index);

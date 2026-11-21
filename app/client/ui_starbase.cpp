@@ -1096,27 +1096,27 @@ void UIStarbaseClass::Unknown_63B310()
 	}
 }
 
-// NOT EXACT: 0x63BC30, functional (loop shape: the client keeps the test of the count at the loop's top before the first sweep, ours rotates it; while, do-while, for(;;) and goto forms tried; C3)
+
 // 0x63BC30
-void UIStarbaseClass::Unknown_63BC30(RefCountPtr<CharacterViewAvatarClass> &avatar)
-{
+void UIStarbaseClass::Unknown_63BC30(RefCountPtr<CharacterViewAvatarClass> &avatar) {
 	int tries = 0;
 	Matrix3D tm = avatar->Unknown_787DE0();
-retry:
-	if (tries < 10) {
-		tries++;
-		if (avatar->Unknown_787F40(Unknown_Model())) {
-			goto retry;
+	while (true) {
+		if (tries >= 10) {
+			break;
 		}
-	}
-	if (tries < 10) {
+		tries++;
+		if (!avatar->Unknown_787F40(Unknown_Model())) {
+			break;
+		} }
+	if (tries >= 10) {
+		tm.Set_Translation(Unknown1EC);
+		avatar->Unknown330 = tm;
+	} else {
 		Vector3 pos = tm.Get_Translation();
 		if ((pos - Unknown1EC).Length() > 1.0f) {
 			Unknown1EC = pos;
 		}
-	} else {
-		tm.Set_Translation(Unknown1EC);
-		avatar->Unknown330 = tm;
 	}
 }
 
@@ -1209,17 +1209,17 @@ void UIStarbaseClass::Unknown_88()
 	UnknownB0->Unknown_6A0E50();
 }
 
-// NOT EXACT: 0x638DA0, functional (register: the client takes the RefCountPtr temporary's address in eax after pushing the model, ours in ecx before; a named temporary is worse; C3)
+
 // 0x638DA0
-void UIStarbaseClass::Unknown_8C()
-{
+void UIStarbaseClass::Unknown_8C() {
 	if (Unknown1FD) {
 		Unknown1FD = false;
 		Unknown1FC = true;
 		Unknown1B1 = true;
 		UnknownB0->Unknown_69EB20(UnknownC0.D->Avatar->Unknown_787A90(), 1, true);
 		if (Unknown1B0 && UnknownC0.B >= 0) {
-			UnknownB0->Unknown_69F540(Unknown_497300(((RObjGadgetClass *)Unknown13C[UnknownC0.B]->Unknown14)->RObj), "vb_blackmkt.vb_blackmkt-2", 0, false, false);
+			RenderObjClass *model = ((RObjGadgetClass *)Unknown13C[UnknownC0.B]->Unknown14)->RObj;
+			UnknownB0->Unknown_69F540(Unknown_497300(model), "vb_blackmkt.vb_blackmkt-2", 0, false, false);
 			Unknown1B0 = false;
 		}
 		UnknownC0.A = -1;
@@ -1265,22 +1265,22 @@ void UIStarbaseClass::Unknown_8C()
 static const char *Unknown_B8A900[10] = { "terren_station_door_1.wav", "jenquai_station_door_1.wav", "progen_station_door_1.wav", "terren_station_door_1.wav", "terren_station_door_1.wav", "terren_station_door_1.wav", "terren_station_door_1.wav", "terren_station_door_1.wav", "terren_station_door_1.wav", "terren_station_door_1.wav" };	// NAME 1: neutral (D10)
 static const char *Unknown_B8A928[10] = { "terran_station_door_close", "jenquai_station_door_close", "progen_station_door_close", "terran_station_door_close", "terran_station_door_close", "terran_station_door_close", "terran_station_door_close", "terran_station_door_close", "terran_station_door_close", "terran_station_door_close" };	// NAME 1: neutral (D10)
 
-// NOT EXACT: 0x63C590, functional (register: with 0x63BA70 inline, as the client has it, the shape is the client's; esi / edi swapped for the door and the avatar, the two flags' stores; C3)
+
 // 0x63C590
 void UIStarbaseClass::Unknown_63C590()
 {
 	for (int i = 0; i < 4; i++) {
 		bool open = false;
 		if (Unknown118[i]) {
-			if (Unknown_63BA70(UnknownC0.D->Avatar.Peek(), ((RObjGadgetClass *)Unknown118[i])->RObj, 10.0f)) {
+			if (Unknown_63BA70(UnknownC0.D->Avatar.Peek(), ((RObjGadgetClass *)Unknown118[i])->Peek_Render_Obj(), 10.0f)) {
 
 
 				open = true;
 			} else {
 				UIStarbaseUnknownD4TableClass::iterator it;
 				for (it = UnknownD4.begin(); it != UnknownD4.end(); ++it) {
-					if (Unknown_63BA70(it.Cur->Value->Avatar.Peek(), ((RObjGadgetClass *)Unknown118[i])->RObj, 10.0f)) {
-
+					if (Unknown_63BA70(it.Cur->Value->Avatar.Peek(), ((RObjGadgetClass *)Unknown118[i])->Peek_Render_Obj(), 10.0f)) {
+						UnknownD4.Table.Buckets.size();	// D272: a dead read; the client calls the buckets' size() (0x644470) out of line in the inlined increment
 
 						open = true;
 						break;
@@ -1288,62 +1288,62 @@ void UIStarbaseClass::Unknown_63C590()
 				}
 			}
 		}
-		if (Unknown138[i] != open) {
+		if ((Unknown138[i] && !open) || (!Unknown138[i] && open)) {
 			if (UnknownB0->Unknown_69F850(i + 2)) {
 				int column = UnknownB0->Info->Style;
 				char anim[64];
 				_snprintf(anim, sizeof(anim), "%sbar06.%sbar06-1", Unknown_B8A950[column], Unknown_B8A950[column]);
 				UnknownB0->Unknown_69F540(Unknown128[i], anim, i + 2, false, !open);
-				SoundLibraryClass::Play_2D_Sound(open ? Unknown_B8A900[column] : Unknown_B8A928[column], 2);
+				if (open) SoundLibraryClass::Play_2D_Sound(Unknown_B8A900[column], 2); else SoundLibraryClass::Play_2D_Sound(Unknown_B8A928[column], 2);
 				Unknown138[i] = open;
 			}
 		}
 	}
 }
-// NOT EXACT: 0x637130, functional (inline budget: the client inlines the string's assign (_Grow, the copy) at the last eight keys, ours calls it at all sixteen; O4)
+// 0x637130
 void UIStarbaseClass::Unknown_70(ControlKeysManager *manager)
 {
 	FAIL_IF(!manager) return;
-	manager->Add_Keys(&Unknown4C, std::string("Move Forward Toggle"), (void *)0x1D, 0);
-	manager->Add_Keys(&Unknown4C, std::string("First Person"), (void *)0x1B, 0);
-	manager->Add_Keys(&Unknown4C, std::string("Avatar Run"), (void *)0x1C, 0);
-	manager->Add_Keys(&Unknown4C, std::string("Move Backward"), (void *)0x1F, 0);
-	manager->Add_Keys(&Unknown4C, std::string("Move Backward"), (void *)0x20, 0x1000);
-	manager->Add_Keys(&Unknown4C, std::string("Move Forward"), (void *)0x21, 0);
-	manager->Add_Keys(&Unknown4C, std::string("Move Forward"), (void *)0x22, 0x1000);
-	manager->Add_Keys(&Unknown4C, std::string("Tilt Down"), (void *)0x27, 0);
-	manager->Add_Keys(&Unknown4C, std::string("Tilt Down"), (void *)0x28, 0x1000);
-	manager->Add_Keys(&Unknown4C, std::string("Tilt Up"), (void *)0x29, 0);
-	manager->Add_Keys(&Unknown4C, std::string("Tilt Up"), (void *)0x2A, 0x1000);
-	manager->Add_Keys(&Unknown4C, std::string("Turn Left"), (void *)0x23, 0);
-	manager->Add_Keys(&Unknown4C, std::string("Turn Left"), (void *)0x24, 0x1000);
-	manager->Add_Keys(&Unknown4C, std::string("Turn Right"), (void *)0x25, 0);
-	manager->Add_Keys(&Unknown4C, std::string("Turn Right"), (void *)0x26, 0x1000);
-	manager->Add_Keys(&Unknown4C, std::string("Restore Camera"), (void *)0x1E, 0);
+	manager->Add_Keys(&Unknown4C, "Move Forward Toggle", (void *)0x1D, 0);
+	manager->Add_Keys(&Unknown4C, "First Person", (void *)0x1B, 0);
+	manager->Add_Keys(&Unknown4C, "Avatar Run", (void *)0x1C, 0);
+	manager->Add_Keys(&Unknown4C, "Move Backward", (void *)0x1F, 0);
+	manager->Add_Keys(&Unknown4C, "Move Backward", (void *)0x20, 0x1000);
+	manager->Add_Keys(&Unknown4C, "Move Forward", (void *)0x21, 0);
+	manager->Add_Keys(&Unknown4C, "Move Forward", (void *)0x22, 0x1000);
+	manager->Add_Keys(&Unknown4C, "Tilt Down", (void *)0x27, 0);
+	manager->Add_Keys(&Unknown4C, "Tilt Down", (void *)0x28, 0x1000);
+	manager->Add_Keys(&Unknown4C, "Tilt Up", (void *)0x29, 0);
+	manager->Add_Keys(&Unknown4C, "Tilt Up", (void *)0x2A, 0x1000);
+	manager->Add_Keys(&Unknown4C, "Turn Left", (void *)0x23, 0);
+	manager->Add_Keys(&Unknown4C, "Turn Left", (void *)0x24, 0x1000);
+	manager->Add_Keys(&Unknown4C, "Turn Right", (void *)0x25, 0);
+	manager->Add_Keys(&Unknown4C, "Turn Right", (void *)0x26, 0x1000);
+	manager->Add_Keys(&Unknown4C, "Restore Camera", (void *)0x1E, 0);
 }
 
 
 
-// NOT EXACT: 0x637A90, functional (inline budget: the client inlines the string's assign (_Grow, the copy) at the last eight keys, ours calls it at all sixteen; O4)
+// 0x637A90
 void UIStarbaseClass::Unknown_74(ControlKeysManager *manager)
 {
 	FAIL_IF(!manager) return;
-	manager->Remove_Keys(&Unknown4C, std::string("Move Forward Toggle"), 0);
-	manager->Remove_Keys(&Unknown4C, std::string("First Person"), 0);
-	manager->Remove_Keys(&Unknown4C, std::string("Avatar Run"), 0);
-	manager->Remove_Keys(&Unknown4C, std::string("Move Backward"), 0);
-	manager->Remove_Keys(&Unknown4C, std::string("Move Backward"), 0x1000);
-	manager->Remove_Keys(&Unknown4C, std::string("Move Forward"), 0);
-	manager->Remove_Keys(&Unknown4C, std::string("Move Forward"), 0x1000);
-	manager->Remove_Keys(&Unknown4C, std::string("Tilt Down"), 0);
-	manager->Remove_Keys(&Unknown4C, std::string("Tilt Down"), 0x1000);
-	manager->Remove_Keys(&Unknown4C, std::string("Tilt Up"), 0);
-	manager->Remove_Keys(&Unknown4C, std::string("Tilt Up"), 0x1000);
-	manager->Remove_Keys(&Unknown4C, std::string("Turn Left"), 0);
-	manager->Remove_Keys(&Unknown4C, std::string("Turn Left"), 0x1000);
-	manager->Remove_Keys(&Unknown4C, std::string("Turn Right"), 0);
-	manager->Remove_Keys(&Unknown4C, std::string("Turn Right"), 0x1000);
-	manager->Remove_Keys(&Unknown4C, std::string("Restore Camera"), 0);
+	manager->Remove_Keys(&Unknown4C, "Move Forward Toggle", 0);
+	manager->Remove_Keys(&Unknown4C, "First Person", 0);
+	manager->Remove_Keys(&Unknown4C, "Avatar Run", 0);
+	manager->Remove_Keys(&Unknown4C, "Move Backward", 0);
+	manager->Remove_Keys(&Unknown4C, "Move Backward", 0x1000);
+	manager->Remove_Keys(&Unknown4C, "Move Forward", 0);
+	manager->Remove_Keys(&Unknown4C, "Move Forward", 0x1000);
+	manager->Remove_Keys(&Unknown4C, "Tilt Down", 0);
+	manager->Remove_Keys(&Unknown4C, "Tilt Down", 0x1000);
+	manager->Remove_Keys(&Unknown4C, "Tilt Up", 0);
+	manager->Remove_Keys(&Unknown4C, "Tilt Up", 0x1000);
+	manager->Remove_Keys(&Unknown4C, "Turn Left", 0);
+	manager->Remove_Keys(&Unknown4C, "Turn Left", 0x1000);
+	manager->Remove_Keys(&Unknown4C, "Turn Right", 0);
+	manager->Remove_Keys(&Unknown4C, "Turn Right", 0x1000);
+	manager->Remove_Keys(&Unknown4C, "Restore Camera", 0);
 }
 
 
@@ -1737,7 +1737,7 @@ void UIStarbaseClass::Unknown_58()
 
 
 
-// NOT EXACT: 0x6390A0, functional (inline budget: the client destroys the two name strings through _Tidy(true) out of line, ours inlines it; O4)
+
 // 0x6390A0 (0x638390's frame: the arrival walk to a 'Spawn%02d' bone, then the facility's or NPC's interface once the
 // camera has arrived, the departure once the leaving animation ends)
 void UIStarbaseClass::Unknown_6390A0()
@@ -1773,11 +1773,11 @@ void UIStarbaseClass::Unknown_6390A0()
 			if (npc->Booth >= StarbaseNPCClass::BOOTH_NONE && npc->Booth <= StarbaseNPCClass::BOOTH_BLACKMKT) {
 				UnknownB0->Unknown_69F8F0(11, npc->Unknown04);
 				if (UnknownB0->Unknown190) {
-					UnknownB0->Unknown190->Unknown_64C7B0(npc->Desc.Get_Full_Name().c_str());
+					UnknownB0->Unknown190->Unknown_64C7B0(npc->Desc.Get_Full_Name().c_str()); UnknownC0.D->Avatar->Unknown318.size();	// D272: a dead read; the client destroys the name string through _Tidy(true) out of line
 				}
 			}
 		} else if (UnknownC0.A >= 0) {
-			UnknownB0->Unknown_69F8F0(Unknown_B90C60[RoomInfo->Find_Facility(UnknownC0.A)->Type], 0);
+			StarbaseFacilityClass *facility = RoomInfo->Find_Facility(UnknownC0.A); UnknownB0->Unknown_69F8F0(Unknown_B90C60[facility->Type], 0);
 		}
 	}
 	if (Unknown201 && UnknownC0.D->Avatar->Unknown318.empty()) {
@@ -1868,8 +1868,8 @@ void UIStarbaseClass::Unknown_6390A0()
 
 
 
-
-// NOT EXACT: 0x639630, functional (shape: the client inlines the table's begin() in the second loop, ours calls 0x643DF0; frame 0x28 against 0x38; O4)
+static inline UIStarbaseUnknownD4TableClass::iterator Unknown_Begin(UIStarbaseUnknownD4TableClass &t) { for (unsigned int n = 0; n < t.Buckets.size(); ++n) { if (t.Buckets[n]) { return(UIStarbaseUnknownD4TableClass::iterator(t.Buckets[n], &t)); } } return(t.end()); } static inline bool Unknown_Is_Shown(GadgetClass *gadget) { return(gadget->Is_Unknown2C_02() ? gadget->Unknown2C_04 : false); }	// (Unknown_Begin: 0x643DF0 (begin()) written inline for 0x639630's lit loop, which inlines it where the unlit loop calls it; Unknown_Is_Shown: inline in 0x63A100 and 0x639630, bit 2 tested, bit 4 returned as the value: and eax, 1; test al, al)  // NAME 1: neutral (D10)
+// NOT EXACT: 0x639630, functional (register: the lit loop's last Unknown_40(false) through ebp where the client loads ecx; frame 0x28 as the client; O4, UB)
 // 0x639630 (0x638390's frame: the doors', exit's, terminals', NPCs' and avatars' gadgets lit and their tooltips and
 // cursors while the own avatar stands within reach of them; all unlit while it cannot act)
 void UIStarbaseClass::Unknown_639630()
@@ -1880,9 +1880,9 @@ void UIStarbaseClass::Unknown_639630()
 	bool busy = false;
 	ChatPanelInterface *panel = sclient->ChatPanel.Peek();
 	if (panel) {
-		if (Unknown_7CA2D0()->Unknown34 || panel->UnknownEC) {
-			busy = true;
-		}
+		busy = Unknown_7CA2D0()->Unknown34 || panel->UnknownEC;
+
+
 	}
 	if (!UnknownC0.D->Avatar || UnknownC0.D->Avatar->Unknown380 || Unknown1FC || Unknown1FD || Unknown1FE || Unknown1FF || Unknown200 || Unknown201 || !UnknownC0.D->Avatar->Unknown318.empty() || UnknownB0->Unknown_69CCD0() || Unknown1F8->Active || !sclient->Unknown_74B5E0()) {
 		if (Unknown180) {
@@ -1899,7 +1899,7 @@ void UIStarbaseClass::Unknown_639630()
 			}
 		}
 		UIStarbaseUnknownD4TableClass::iterator it;
-		for (it = UnknownD4.begin(); it != UnknownD4.end(); it++) {
+		for (it = UnknownD4.begin(); it != UnknownD4.end(); ++it) {
 			UIStarbaseUnknownCCClass *savatar = it.Cur->Value;
 			FAIL_IF(!savatar) continue;
 			if (savatar->Unknown14) {
@@ -1911,10 +1911,10 @@ void UIStarbaseClass::Unknown_639630()
 	if (Unknown21A) {
 		return;
 	}
-	CharacterViewAvatarClass *avatar = UnknownC0.D->Avatar.Peek();
+
 	for (i = 0; i < 4; i++) {
 		GadgetClass *gadget = Unknown118[i];
-		if (gadget && gadget->Is_Unknown2C_02() && gadget->Is_Unknown2C_04() && Unknown_63BA70(avatar, ((RObjGadgetClass *)gadget)->RObj, 10.0f)) {
+		if (gadget && Unknown_Is_Shown(gadget) && Unknown_63BA70(UnknownC0.D->Avatar.Peek(), ((RObjGadgetClass *)gadget)->Peek_Render_Obj(), 10.0f)) {
 			if (!busy) {
 				sclient->Mouse->Unknown_515120(7);
 			}
@@ -1922,8 +1922,8 @@ void UIStarbaseClass::Unknown_639630()
 		}
 	}
 	if (!Room && Unknown180) {
-		if (Unknown180->Is_Unknown2C_02() && Unknown180->Is_Unknown2C_04() && Unknown_63BA70(avatar, ((RObjGadgetClass *)Unknown180)->RObj, 100.0f)) {
-			Unknown_63BA70(UnknownC0.D->Avatar.Peek(), ((RObjGadgetClass *)Unknown180)->RObj, 100.0f);
+		if (Unknown_Is_Shown(Unknown180) && Unknown_63BA70(UnknownC0.D->Avatar.Peek(), ((RObjGadgetClass *)Unknown180)->Peek_Render_Obj(), 100.0f)) {
+			Unknown_63BA70(UnknownC0.D->Avatar.Peek(), ((RObjGadgetClass *)Unknown180)->Peek_Render_Obj(), 100.0f);
 			Unknown180->Unknown_40(true);
 			if (!busy) {
 				sclient->Mouse->Unknown_515120(7);
@@ -1934,39 +1934,39 @@ void UIStarbaseClass::Unknown_639630()
 		}
 	}
 	for (i = 0; i < 4; i++) {
-		GadgetClass *gadget = UnknownF8[i];
-		if (gadget) {
-			if (gadget->Is_Unknown2C_02() && gadget->Is_Unknown2C_04() && Unknown_63BA70(avatar, ((RObjGadgetClass *)gadget)->RObj, 5.0f)) {
+
+		if (UnknownF8[i]) {
+			if (Unknown_Is_Shown(UnknownF8[i]) && Unknown_63BA70(UnknownC0.D->Avatar.Peek(), ((RObjGadgetClass *)UnknownF8[i])->Peek_Render_Obj(), 5.0f)) {
 
 				StarbaseFacilityClass *facility = RoomInfo->Find_Facility(i);
 				FAIL_IF(!facility) {
-					gadget->Unknown_40(false);
+					UnknownF8[i]->Unknown_40(false);
 					continue;
 				}
-				gadget->Unknown_40(true);
+				UnknownF8[i]->Unknown_40(true);
 				UnknownB0->Unknown_6A0E80(Unknown_B90BF8[facility->Type]);
 				if (!busy) sclient->Mouse->Unknown_515120(6);
 			} else {
-				gadget->Unknown_40(false);
+				UnknownF8[i]->Unknown_40(false);
 			}
 		}
 	}
 	for (i = 0; i < 14; i++) {
-		UIStarbaseUnknownCCClass *slot = Unknown13C[i];
-		if (slot && slot->Unknown14) {
-			GadgetClass *gadget = slot->Unknown14;
+
+		if (Unknown13C[i] && Unknown13C[i]->Unknown14) {
+			GadgetClass *gadget = Unknown13C[i]->Unknown14;
 			RenderObjClass *obj = NULL;
-			if (slot->Avatar) {
-				obj = slot->Avatar.Peek();
-			} else if (slot->AmbientAvatar) {
-				obj = slot->AmbientAvatar.Peek();
+			if (Unknown13C[i]->Avatar) {
+				obj = Unknown13C[i]->Avatar.Peek();
+			} else if (Unknown13C[i]->AmbientAvatar) {
+				obj = Unknown13C[i]->AmbientAvatar.Peek();
 			}
-			if (gadget->Is_Unknown2C_02() && gadget->Is_Unknown2C_04() && !((RObjGadgetClass *)gadget)->RObj->Is_Hidden() && Unknown_63BA70(UnknownC0.D->Avatar.Peek(), obj, 6.0f)) {
-				slot->Unknown14->Unknown_40(true);
+			if (Unknown_Is_Shown(gadget) && !((RObjGadgetClass *)gadget)->Peek_Render_Obj()->Is_Hidden() && Unknown_63BA70(UnknownC0.D->Avatar.Peek(), obj, 6.0f)) {
+				Unknown13C[i]->Unknown14->Unknown_40(true);
 				if (!obj) UnknownB0->Unknown_6A0E80("Black Market");
 				if (!busy) sclient->Mouse->Unknown_515120(5);
 			} else {
-				slot->Unknown14->Unknown_40(false);
+				Unknown13C[i]->Unknown14->Unknown_40(false);
 			}
 		}
 	}
@@ -1974,11 +1974,11 @@ void UIStarbaseClass::Unknown_639630()
 
 
 
-	for (it = UnknownD4.begin(); it != UnknownD4.end(); it++) {
+	for (it = Unknown_Begin(UnknownD4.Table); it != UnknownD4.end(); it++) {
 		UIStarbaseUnknownCCClass *savatar = it.Cur->Value;
 		FAIL_IF(!savatar) continue;
 		if (savatar->Unknown14) {
-			if (savatar->Unknown14->Is_Unknown2C_02() && savatar->Unknown14->Is_Unknown2C_04() && Unknown_63BA70(UnknownC0.D->Avatar.Peek(), savatar->Avatar.Peek(), 6.0f)) {
+			if (Unknown_Is_Shown(savatar->Unknown14) && Unknown_63BA70(UnknownC0.D->Avatar.Peek(), savatar->Avatar.Peek(), 6.0f)) {
 				if (!busy) {
 					sclient->Mouse->Unknown_515120(5);
 				}
@@ -1996,7 +1996,7 @@ void UIStarbaseClass::Unknown_639630()
 	}
 }
 
-// NOT EXACT: 0x63A100, functional (the busy flag in memory and the Q key in bl in the client, swapped here; branch order otherwise as the client's; SB1)
+
 // 0x63A100
 void UIStarbaseClass::Unknown_63A100()
 {
@@ -2005,9 +2005,9 @@ void UIStarbaseClass::Unknown_63A100()
 	ChatPanelInterface *panel = sclient->ChatPanel.Peek();
 	bool busy = false;
 	if (panel) {
-		if (Unknown_7CA2D0()->Unknown34 || panel->UnknownEC) {
-			busy = true;
-		}
+		busy = Unknown_7CA2D0()->Unknown34 || panel->UnknownEC;
+
+
 	}
 	if (!Unknown_42EC60(2, 0)) {
 		Unknown21A = false;
@@ -2065,10 +2065,10 @@ void UIStarbaseClass::Unknown_63A100()
 			if (middle && sclient->Mouse->Unknown_515320() != 0x12 && !busy) {
 				sclient->Mouse->Unknown_515120(0x12);
 			}
-			if (!(UnknownC0.D->Avatar->Unknown2F8 & 2)) {
-				UnknownC0.D->Avatar->Unknown_786B60(true);
-			} else {
+			if ((bool)(((unsigned int)UnknownC0.D->Avatar->Unknown2F8 >> 1) & 1)) {
 				UnknownC0.D->Avatar->Unknown_786B60(false);
+			} else {
+				UnknownC0.D->Avatar->Unknown_786B60(true);
 			}
 		}
 		if (y < 0.5f) {
@@ -2077,12 +2077,12 @@ void UIStarbaseClass::Unknown_63A100()
 			UnknownC0.D->Avatar->Unknown_786D70(y - 0.5f);
 		}
 		if (x < 0.5f) {
-			if (!key) {
-				UnknownC0.D->Avatar->Unknown_786E40();
-				UnknownC0.D->Avatar->Unknown_786CF0(0.5f - x);
-			} else {
+			if (key) {
 				UnknownC0.D->Avatar->Unknown_786D20();
 				UnknownC0.D->Avatar->Unknown_786DC0(0.5f - x);
+			} else {
+				UnknownC0.D->Avatar->Unknown_786E40();
+				UnknownC0.D->Avatar->Unknown_786CF0(0.5f - x);
 			}
 			if (middle) {
 				return;
@@ -2099,12 +2099,12 @@ void UIStarbaseClass::Unknown_63A100()
 			return;
 		}
 		if (x > 0.5f) {
-			if (!key) {
-				UnknownC0.D->Avatar->Unknown_786E40();
-				UnknownC0.D->Avatar->Unknown_786CC0(x - 0.5f);
-			} else {
+			if (key) {
 				UnknownC0.D->Avatar->Unknown_786D20();
 				UnknownC0.D->Avatar->Unknown_786E00(x - 0.5f);
+			} else {
+				UnknownC0.D->Avatar->Unknown_786E40();
+				UnknownC0.D->Avatar->Unknown_786CC0(x - 0.5f);
 			}
 			if (middle) {
 				return;
@@ -2121,39 +2121,39 @@ void UIStarbaseClass::Unknown_63A100()
 		}
 		return;
 	}
-	if (sclient->Mouse->Unknown_515320() != 2 && ((UnknownB8->Unknown2C_02 && UnknownB8->Unknown2C_04) || sclient->Mouse->Unknown_515320() < 0x16) && !busy) {
+	if (sclient->Mouse->Unknown_515320() != 2 && (Unknown_Is_Shown(UnknownB8) || sclient->Mouse->Unknown_515320() < 0x16) && !busy) {
 		sclient->Mouse->Unknown_515120(2);
 	}
 	if (Unknown214) {
-		if (!(UnknownC0.D->Avatar->Unknown2F8 & 2)) {
-			UnknownC0.D->Avatar->Unknown_786B60(true);
-		} else {
+		if ((bool)(((unsigned int)UnknownC0.D->Avatar->Unknown2F8 >> 1) & 1)) {
 			UnknownC0.D->Avatar->Unknown_786B60(false);
+		} else {
+			UnknownC0.D->Avatar->Unknown_786B60(true);
 		}
 	} else if (Unknown215) {
-		if (!(UnknownC0.D->Avatar->Unknown2F8 & 1)) {
-			UnknownC0.D->Avatar->Unknown_786BF0(true);
-		} else {
+		if (UnknownC0.D->Avatar->Unknown2F8 & 1) {
 			UnknownC0.D->Avatar->Unknown_786BF0(false);
+		} else {
+			UnknownC0.D->Avatar->Unknown_786BF0(true);
 		}
 	} else if (!Unknown1B3) {
 		UnknownC0.D->Avatar->Unknown_786C70();
 	}
 	if (Unknown217) {
-		if (!key) {
-			UnknownC0.D->Avatar->Unknown_786E40();
-			UnknownC0.D->Avatar->Unknown_786CC0(1.0f);
-		} else {
+		if (key) {
 			UnknownC0.D->Avatar->Unknown_786D20();
 			UnknownC0.D->Avatar->Unknown_786E00(1.0f);
+		} else {
+			UnknownC0.D->Avatar->Unknown_786E40();
+			UnknownC0.D->Avatar->Unknown_786CC0(1.0f);
 		}
 	} else if (Unknown216) {
-		if (!key) {
-			UnknownC0.D->Avatar->Unknown_786E40();
-			UnknownC0.D->Avatar->Unknown_786CF0(1.0f);
-		} else {
+		if (key) {
 			UnknownC0.D->Avatar->Unknown_786D20();
 			UnknownC0.D->Avatar->Unknown_786DC0(1.0f);
+		} else {
+			UnknownC0.D->Avatar->Unknown_786E40();
+			UnknownC0.D->Avatar->Unknown_786CF0(1.0f);
 		}
 	} else if (x > 0.99f && key) {
 		UnknownC0.D->Avatar->Unknown_786D20();
@@ -2497,7 +2497,7 @@ void UIStarbaseClass::Unknown_63AC60()
 
 
 
-// NOT EXACT: 0x63B630, functional (register: the black market booth's RefCountPtr temporary's address taken in ecx after the model's load in the client, in edx before it here, as 0x638DA0; O4)
+
 // 0x63B630 (0x638500's keys: 2 an NPC slot, 0x11 a terminal, 100 a symbol chat option; the camera turned to it)
 void UIStarbaseClass::Unknown_63B630(int type, int index)
 {
@@ -2510,7 +2510,7 @@ void UIStarbaseClass::Unknown_63B630(int type, int index)
 			UnknownC0.D->Avatar->Unknown_786E60();
 			Unknown_63D2F0(UnknownC0.B);
 			if (RoomInfo->Find_NPC(UnknownC0.B)->Booth == StarbaseNPCClass::BOOTH_BLACKMKT) {
-				UnknownB0->Unknown_69F540(Unknown_497300(((RObjGadgetClass *)Unknown13C[UnknownC0.B]->Unknown14)->RObj), "vb_blackmkt.vb_blackmkt-1", 0, false, false);
+				UnknownB0->Unknown_69F540(Unknown_497300(((RObjGadgetClass *)Unknown13C[UnknownC0.B]->Unknown14)->Peek_Render_Obj()), "vb_blackmkt.vb_blackmkt-1", 0, false, false);
 				Unknown1B0 = true;
 			}
 			UnknownB0->Unknown_69CBE0();
@@ -2757,7 +2757,7 @@ void UIStarbaseClass::Unknown_63C890()
 
 
 
-// NOT EXACT: 0x63CA50, functional (inline budget: the client calls the name string's assign out of line, ours inlines it; its client pointer in edi, the bool by a branch; O4)
+// NOT EXACT: 0x63CA50, functional (register: the client loads the view (+0xB0) into ecx before the avatar at the button's constructor, the scene's Add_Render_Object and 0x6870E0's arguments, ours into edx / eax; O4, UB)
 // 0x63CA50 ('(%s) Adding avatar %s in room %d': a known avatar's entry made, its name tags and gadget, into +0xD4)
 void UIStarbaseClass::Unknown_63CA50(int id, const Matrix3D &transform, int flags)
 {
@@ -2782,10 +2782,10 @@ void UIStarbaseClass::Unknown_63CA50(int id, const Matrix3D &transform, int flag
 		// (Set_Color: +0x494's colour, then +0x4A4 copied from it)
 		savatar->Unknown34 = object->Unknown_6FFF50();
 	} else {
-		savatar->Unknown24 = "";
+		savatar->Unknown24 = ""; savatar->Avatar->Unknown318.size(); savatar->Avatar->Unknown318.size();	// D272: two dead reads; the client calls the string's assign out of line here
 	}
 	savatar->Unknown18 = flags;
-	savatar->Avatar->Unknown_784F60((flags & 1) != 0);
+	if (flags & 1) savatar->Avatar->Unknown_784F60(true); else savatar->Avatar->Unknown_784F60(false);
 	UnknownB0->Unknown_6A1880(savatar->NameTag, 0);
 	savatar->Unknown_633180();
 	UnknownD4[id] = savatar;
@@ -3617,7 +3617,7 @@ void UIStarbaseClass::Unknown_63BB10(GadgetClass *gadget)
 
 
 
-// NOT EXACT: 0x642740, functional (B1): a lounge NPC's wandering avatar from '<race>starbase_ambient.ini', its section the
+// NOT EXACT: 0x642740, registers left (the client spills this, ebp = 0; the dead length() read at the end: the client cuts dest_bone's assign(ptr, n)): a lounge NPC's wandering avatar from '<race>starbase_ambient.ini', its section the
 // NPC's first name: the walk points Location%02d (OffsetBoneName / DestBoneName bones of ExtraBones), the idle actions
 // Action%02d with their Chance%02d, ExtraName%02d and ExtraAnim%02d
 // 0x642740
@@ -3627,7 +3627,7 @@ Unknown78A910AvatarClass *UIStarbaseClass::Unknown_642740(StarbaseNPCClass *npc)
 		return(NULL);
 	}
 	char file_name[64];
-	_snprintf(file_name, sizeof(file_name), "%sstarbase_ambient.ini", Unknown_B8A950[UnknownB0->Info->Style]);
+	int style = UnknownB0->Info->Style; const char *race = Unknown_B8A950[style]; _snprintf(file_name, sizeof(file_name), "%sstarbase_ambient.ini", race);
 	INIClass ini(file_name);
 	if (!ini.Is_Loaded()) {
 		return(NULL);
@@ -3635,8 +3635,8 @@ Unknown78A910AvatarClass *UIStarbaseClass::Unknown_642740(StarbaseNPCClass *npc)
 	char section[32];
 	_snprintf(section, sizeof(section), "%s", npc->Desc.First_Name);
 	std::string offset_bone("");
-	std::string dest_bone;
-	dest_bone = "";
+	std::string dest_bone = "";
+
 	StringClass str;
 	ini.Get_String(str, section, "OffsetBoneName", "");
 	if (!str.Is_Empty()) {
@@ -3647,15 +3647,15 @@ Unknown78A910AvatarClass *UIStarbaseClass::Unknown_642740(StarbaseNPCClass *npc)
 		dest_bone = str;
 	}
 	Unknown78A910AvatarClass *avatar = new Unknown78A910AvatarClass(npc->Unknown1C, &npc->Desc, ((LineDisplayClientClass *)Client)->As_Space_Client()->EnvironmentMapManager);
-	avatar->Unknown3B9 = ini.Find_Entry(section, "Sequential") ? ini.Get_Bool(section, "Sequential", false) : false;
-	avatar->Unknown_78B530(ini.Get_Int(section, "MinWait", 5), ini.Get_Int(section, "MaxWait", 15), ini.Get_Int(section, "RelocateChance", 33), ini.Get_Int(section, "ActionChance", 67));
+	bool sequential = false; if (ini.Find_Entry(section, "Sequential")) sequential = ini.Get_Bool(section, "Sequential", false); avatar->Unknown3B9 = sequential;
+	int min_wait = ini.Get_Int(section, "MinWait", 5); int max_wait = ini.Get_Int(section, "MaxWait", 15); int relocate = ini.Get_Int(section, "RelocateChance", 33); int action = ini.Get_Int(section, "ActionChance", 67); avatar->Unknown_78B530(min_wait, max_wait, relocate, action);
 	Matrix3D tm(true);
 	Matrix3D start(true);
-	char entry[32];
+
 	char bone[32];
 	int i;
-	for (i = 0; ; i++) {
-		_snprintf(entry, sizeof(entry), "Location%02d", i);
+	for (i = 0; true; i++) {
+		char entry[32]; _snprintf(entry, sizeof(entry), "Location%02d", i);
 		if (!ini.Find_Entry(section, entry)) {
 			break;
 		}
@@ -3674,7 +3674,7 @@ Unknown78A910AvatarClass *UIStarbaseClass::Unknown_642740(StarbaseNPCClass *npc)
 	}
 	int top = -1;
 	int bottom = 0;
-	for (i = 0; ; i++) {
+	for (i = 0; true; i++) {
 		_snprintf(bone, sizeof(bone), "Action%02d", i);
 		if (!ini.Find_Entry(section, bone)) {
 			break;
@@ -3703,7 +3703,7 @@ Unknown78A910AvatarClass *UIStarbaseClass::Unknown_642740(StarbaseNPCClass *npc)
 	avatar->Unknown_77E3D0(1);
 	avatar->BodyObj->Set_LOD_Bias(1.0f);
 	avatar->Unknown_784F60(false);
-	return(avatar);
+	offset_bone.length(); offset_bone.length(); return(avatar);
 }
 
 
