@@ -106,6 +106,11 @@ shot nav_target
 pose-mark
 key 0x51
 expect-event antprox 'received WARP$' within 10
+# in the warp: the ship's distortion and the slipstream around it (warp_tun01a-c.w3d, pwarp01-04.w3d, sw_warp*.dds)
+alive 3
+shot warping_3s
+alive 5
+shot warping_8s
 wait-event antprox 'sent WARP_INDEX$' within 90
 expect-pose moved 20000
 shot warped
