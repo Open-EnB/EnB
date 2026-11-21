@@ -560,18 +560,18 @@ void StarbaseAvatarCreationInterface::Unknown_60()
 	Unknown5BB320Class::Unknown_60();
 }
 
-// NOT EXACT: shape (masked 31, 617 rows): the cases in the client's body order (jump table 0x54D430 by address: 1,
+// NOT EXACT: shape (masked 29, 617 rows): the cases in the client's body order (jump table 0x54D430 by address: 1,
 // 2, 0xD, 0xE, 3, 8, 0x10 .. 0x1B, 0x24-0x27, 0x1C, 0x20 ..), 0x54EAD0 inlined for 0x12 / 0x13, the palette helper
 // 0x5513E0 for 0x1A-0x1C, the view's Client read once at the top (edi) and the env maps through SClient's inline
 // Peek_Environment_Map_Manager() in 0x16-0x19 (the client reuses edi for the value: the six 0x551BF0 tails then
 // cross-jump into 0x19's). Left: the client cross-jumps 2 / 0xD / 0xE back into case 1's Login_Mouse_Click tail
-// (ours copies the sound + epilogue there) and sets al after the pops at 0x54D401 (attempts.py show 0x54CBC0)
+// (ours copies the sound + epilogue there); !Unknown3CC jumps to the end's return (je 0x54D401: goto done) (attempts.py show 0x54CBC0)
 // 0x54CBC0
 bool StarbaseAvatarCreationInterface::Unknown_68(int key)
 {
 	SClient *client = Unknown0B4->Client;
 	if (!Unknown3CC) {
-		return(true);
+		goto done;
 	}
 	if (Unknown360 || Unknown361 || Unknown362 || Unknown363 || Unknown364 || Unknown365) {
 		return(false);
@@ -677,7 +677,7 @@ bool StarbaseAvatarCreationInterface::Unknown_68(int key)
 			return(false);
 	}
 	SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
-	return(true);
+done:	return(true);
 }
 
 // 0x54D720

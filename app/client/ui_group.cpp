@@ -728,7 +728,7 @@ extern int Unknown_BE5F34;								// NAME 1: neutral (D10): the key modifiers (a
 
 
 // 0x5946D0
-// NOT EXACT: (masked 29, attempts.py 0x5946D0): case 2 as if (!modifier) { .. } return(true) as case 3; the packets' avatar id through ClientClass's inline Get_Avatar_ID() (the client tests Members[k] in memory and reloads it); two dead Peek()s in 0x593180 make the client's call of it (D272); case 47's second test as else if and 0x5979A0's return as an if (the client's inlined copies branch); left: the packet arguments' load order (Members[k] before Client), registers
+// NOT EXACT: (masked 18, attempts.py 0x5946D0): case 2 as if (!modifier) { .. } return(true) as case 3; the packets' avatar id through ClientClass's inline Get_Avatar_ID() (the client tests Members[k] in memory and reloads it); two dead Peek()s in 0x593180 make the client's call of it (D272); case 47's second test as else if, 0x5979A0's and 0x597A60's returns as ifs (the client's inlined copies branch); case 11-15 through Members[key - 11] with key unmodified (cases 23-27 / 41-45 then load as the client); left: the client materialises key - 11 in edi (add edi,-0xb; any index variable or key -= 11 moves cases 23-27 / 41-45 back: 24), the packet arguments' load order in 29-33 and 47, registers
 bool UIGroupClass::Unknown_68(int key)
 {
 	SClient *sclient = (SClient *)((ClientClass *)Client)->As_Space_Client();
@@ -742,15 +742,15 @@ bool UIGroupClass::Unknown_68(int key)
 		case 13:
 		case 14:
 		case 15:
-			key -= 11;
-			if (Members[key]) {
+
+			if (Members[key - 11]) {
 				TargetFindClass *targeting = (TargetFindClass *)sclient->Targeting;
 
 
 
 				FAIL_IF(!targeting) return(false);
-				targeting->Select_Group_Member(key);
-				Unknown0E8->Unknown_593180(Members[key]->Unknown18);
+				targeting->Select_Group_Member(key - 11);
+				Unknown0E8->Unknown_593180(Members[key - 11]->Unknown18);
 			}
 			break;
 		default:
@@ -1629,7 +1629,7 @@ bool UIGroupClass::Unknown_597A60()
 	if (aux) {
 		DeltaGroupInfoClass *group = Unknown_Find_Field<DeltaGroupInfoClass>(aux, "GroupInfo");
 		if (group && group->Unknown70) {
-			return(group->Formation.Value ? true : false);
+			if (group->Formation.Value) return(true); else return(false);
 		}
 	}
 	return(false);
