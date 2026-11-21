@@ -1615,8 +1615,8 @@ bool UIStarbaseClass::Unknown_68(int key)
 }
 
 
-
-// NOT EXACT: 0x6366A0, functional (inline budget: the client builds the ship transform through ??_H (the Vector4 constructor 0x468E70 out of line, as 0x640360) and calls the avatar RefCountPtr's operator-> out of line; the column in ebx, ours in ebp; O4)
+static inline void Unknown_Show_Ship(UIStarbaseClass *ui, RenderObjClass *ship) { Matrix3D tm = ui->InterfaceMesh->Peek_Object()->Get_Bone_Transform("ship"); ((SceneClass *)ui->UnknownB0->Unknown70.Peek())->Add_Render_Object(ship); ui->UnknownB0->Unknown70.Peek()->Add_Light_Environment(ship); ship->Set_Transform(tm); }	// the 'ship' block of 0x6366A0, 0x640360 and 0x6415B0 (its Matrix3D local one level deep: the client's ??_H, Row[3]'s Vector4() 0x468E70 cut out of line, in 0x6366A0 / 0x640360)  // NAME 1: neutral (D10)
+// NOT EXACT: 0x6366A0, functional (order / register: the ship block through Unknown_Show_Ship gives the client's ??_H; left: the client's zero register ebp (ours immediates, the column in ebp), the column's +0x1B4 load after the space client's; the map manager through a local gives its load before the pushes; O4, SB2)
 // 0x6366A0 (slot +0x58, the interface opened: the room's model in the view, the camera at the door the avatar came
 // through (or 'camera_3rd' on arrival), the ship and its animation in the hangar, the NPC slots, the parts, the fog)
 void UIStarbaseClass::Unknown_58()
@@ -1625,7 +1625,7 @@ void UIStarbaseClass::Unknown_58()
 	Unknown5BB320Class::Unknown_58();
 	Unknown1F8->Unknown_7C(View, false);
 	int column = UnknownB0->Info->Style;
-	((LineDisplayClientClass *)Client)->As_Space_Client()->EnvironmentMapManager->Unknown_760770(100000, true);
+	EnvironmentMapManagerClass *env = ((LineDisplayClientClass *)Client)->As_Space_Client()->EnvironmentMapManager; env->Unknown_760770(100000, true);
 	UnknownB0->Unknown_69DBA0(1, Create_Get(InterfaceMesh->Unknown_5B8B20()));
 	Unknown21C = false;
 	Unknown1B3 = false;
@@ -1654,11 +1654,11 @@ void UIStarbaseClass::Unknown_58()
 	if (!Room) {
 		RenderObjClass *ship = Unknown184.Peek();
 		if (ship && !Unknown1AC) {
-			Matrix3D tm;
-			tm = InterfaceMesh->Peek_Object()->Get_Bone_Transform("ship");
-			((SceneClass *)UnknownB0->Unknown70.Peek())->Add_Render_Object(ship);
-			UnknownB0->Unknown70.Peek()->Add_Light_Environment(ship);
-			ship->Set_Transform(tm);
+			Unknown_Show_Ship(this, ship);
+
+
+
+
 		}
 		char anim[32];
 		if (RoomInfo->Unknown0A) {
@@ -2281,7 +2281,7 @@ void UIStarbaseClass::Unknown_63A100()
 
 
 
-// NOT EXACT: 0x63AC60, functional (the name tag's two colours: the client's stores go through the tag with 0.66 / 0.33 in ecx, ours through &Color with immediates; Set_Color(Vector3) there gives the client's stores but moves this / the zero register; FontSys::Set_Color at the guild texts gives the client's zero register in the loop; ++it its frame 0x2C)
+// NOT EXACT: 0x63AC60, functional (register: the loop's inlined Unknown24 = "" stores _Eos through [eax + ecx], the client [ecx + eax]; FontSys::Set_Color per colour with four dead Peek() reads after it gives the client's stores through the tag; FontSys::Set_Color at the guild texts the client's zero register in the loop; ++it its frame 0x2C)
 // 0x63AC60 (0x638390's frame: the name tags shown or hidden, their guild texts and colours kept up to date)
 void UIStarbaseClass::Unknown_63AC60()
 {
@@ -2330,11 +2330,11 @@ void UIStarbaseClass::Unknown_63AC60()
 		savatar->Unknown_633040();
 		if (savatar->Unknown20 <= 0.0f) {
 			if (Unknown_641EB0(savatar)) {
-				savatar->NameTag->Unknown494.Color = Vector3(0.66f, 0.0f, 0.66f);
+				savatar->NameTag->Set_Color(Vector3(0.66f, 0.0f, 0.66f));
 			} else {
-				savatar->NameTag->Unknown494.Color = Vector3(0.33f, 0.33f, 0.99f);
-			}
-			savatar->NameTag->Unknown4A4 = savatar->NameTag->Unknown494;
+				savatar->NameTag->Set_Color(Vector3(0.33f, 0.33f, 0.99f));
+			} savatar->NameTag.Peek(); savatar->NameTag.Peek(); savatar->NameTag.Peek(); savatar->NameTag.Peek();	// D272: four dead reads (the client calls the first Unknown24 = "" assign out of line)
+
 		}
 
 		ClientObjectClass *object = ((LineDisplayClientClass *)Client)->As_Space_Client()->Find_Object(savatar->Unknown00);
@@ -3161,10 +3161,10 @@ void UIStarbaseClass::Unknown_6415B0()
 	RenderObjClass *ship = Unknown184.Peek();
 	int column = UnknownB0->Info->Style;
 	if (ship) {
-		Matrix3D tm = InterfaceMesh->Peek_Object()->Get_Bone_Transform("ship");
-		((SceneClass *)UnknownB0->Unknown70.Peek())->Add_Render_Object(ship);
-		UnknownB0->Unknown70.Peek()->Add_Light_Environment(ship);
-		ship->Set_Transform(tm);
+		Unknown_Show_Ship(this, ship);
+
+
+
 	}
 	char anim[64];
 	if (client->Unknown13C1) {
@@ -3466,7 +3466,7 @@ void UIStarbaseClass::Unknown_63FCB0()
 
 
 
-// NOT EXACT: 0x640360, functional (inline budget: the client copies the 'ship' bone transform through ??_H, the out-of-line Vector4 constructor 0x468E70; ours inlines it; B1)
+// (0x640360: the ship block through Unknown_Show_Ship gives the client's ??_H, the out-of-line Vector4 constructor 0x468E70, at its first copy only)
 // 0x640360
 void UIStarbaseClass::Unknown_640360()
 {
@@ -3487,10 +3487,10 @@ void UIStarbaseClass::Unknown_640360()
 			Unknown_496DB0(Unknown184.Peek());
 			Unknown184->Set_LOD_Bias(100.0f);
 			RenderObjClass *ship = Unknown184.Peek();
-			Matrix3D tm = InterfaceMesh->Peek_Object()->Get_Bone_Transform("ship");
-			((SceneClass *)UnknownB0->Unknown70.Peek())->Add_Render_Object(ship);
-			UnknownB0->Unknown70.Peek()->Add_Light_Environment(ship);
-			ship->Set_Transform(tm);
+			Unknown_Show_Ship(this, ship);
+
+
+
 			Play_State_Animation(Unknown184.Peek(), 1, 1.0f);
 			RefCountPtr<RenderObjClass> extents;
 			if (ExtraBones) {
