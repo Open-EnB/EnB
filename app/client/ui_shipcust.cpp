@@ -1665,7 +1665,7 @@ void ShipCustomizeInterface::Unknown_6259C0(short group)
 	}
 }
 
-// NOT EXACT: inline budget (0.88: case 0's inlined 0x6257A0 calls 0x6259C0 out of line in the client and inlines the next two Gadgets[]; case 3's tutorial string inlines its assign (the client calls _Tidy / _Copy, ours _Grow))
+
 // @0x625A60
 void ShipCustomizeInterface::Unknown_625A60(int page)
 {
@@ -1674,7 +1674,7 @@ void ShipCustomizeInterface::Unknown_625A60(int page)
 	InterfaceClass::Unknown_5C();
 	Unknown_624D00();
 	if (Unknown248) {
-		Unknown_BE67C4->Remove(CharacterView->ViewRObjs[0]);
+		Unknown_BE67C4->Remove(CharacterView->Peek_Model());
 		Unknown_BE67BC->Unload(Unknown_B89C60[Page][1]);
 		Unknown248 = false;
 	}
@@ -1700,7 +1700,7 @@ void ShipCustomizeInterface::Unknown_625A60(int page)
 
 	CharacterView->Unknown_67A9B0(0);
 	CharacterView->Unknown_67AB20(0, Unknown_B89C60[page][0]);
-	RenderObjClass *model = CharacterView->ViewRObjs[0];
+	RenderObjClass *model = CharacterView->Peek_Model();
 	Unknown_BE67BC->Load(Unknown_B89C60[page][1]);
 	Unknown_BE67C4->Add(model);
 	Page = page;
@@ -1745,9 +1745,9 @@ void ShipCustomizeInterface::Unknown_625A60(int page)
 			Unknown_624B50(0x12, "METAL00", NULL, 0, 0);
 			Unknown_624B50(0x13, "METAL01", NULL, 0, 0);
 			Unknown_624B50(0x14, "METAL02", NULL, 0, 0);
-			Unknown220[0] = ((RObjGadgetClass *)Gadgets[0x12].Gadget)->RObj;
-			Unknown220[1] = ((RObjGadgetClass *)Gadgets[0x13].Gadget)->RObj;
-			Unknown220[2] = ((RObjGadgetClass *)Gadgets[0x14].Gadget)->RObj;
+			Unknown220[0] = ((RObjGadgetClass *)Gadgets[0x12].Gadget)->Peek_Render_Obj();
+			Unknown220[1] = ((RObjGadgetClass *)Gadgets[0x13].Gadget)->Peek_Render_Obj();
+			Unknown220[2] = ((RObjGadgetClass *)Gadgets[0x14].Gadget)->Peek_Render_Obj();
 			Unknown_624B50(0x15, "PRIMARY", "primary_fa_ship02", 0, 3);
 			Unknown_624B50(0x16, "SECONDARY", "secondary_fa_ship02", 0, 3);
 			Unknown_624B50(0x17, "HULL", "hull_fa_ship02", 0, 1);
@@ -1771,13 +1771,13 @@ void ShipCustomizeInterface::Unknown_625A60(int page)
 			Unknown_625260();
 			Unknown_6277A0();
 			CharacterView->Unknown_67C7B0();
-			if (TutorialManagerClass::Instance->Is_Completed("ShipCreationColor")) {
+			if (TutorialManagerClass::Get_Instance()->Is_Completed("ShipCreationColor")) {
 				break;
 			}
 			CharacterView->Unknown_67C920(std::string("1492_00_306se.mp3"));
 			CharacterView->Unknown_67C920(std::string("1492_00_307se.mp3"));
 			CharacterView->Unknown_67C920(std::string("1492_00_308se.mp3"));
-			TutorialManagerClass::Instance->Set_Completed("ShipCreationColor");
+			TutorialManagerClass::Get_Instance()->Set_Completed("ShipCreationColor");
 			break;
 
 		case 2:
@@ -1798,15 +1798,15 @@ void ShipCustomizeInterface::Unknown_625A60(int page)
 			Unknown_624B50(0x30, "ZOOM_OUT", NULL, 0, 0);
 			Unknown_624B50(0x31, "PAN", NULL, 0, 0);
 			Unknown_624B50(0x32, "TURN", NULL, 0, 0);
-			Unknown_6257A0(2); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size();	// dead reads (D130; not the client's): with the six at the end they keep the client's frame 0x38 and its lookup mix (D272)
+			Unknown_6257A0(2); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size();	// dead reads (D272): with case 3's three and the one at the end
 			Unknown_627FA0();
 			{
-				int count = Unknown268->TextureArray.size();
+				int last = Unknown268->TextureArray.size() - 9;
 				int first = Unknown264;
 				if (first < 0) {
 					first = 0;
-				} else if (first > count - 9) {
-					first = count - 9;
+				} else if (first > last) {
+					first = last;
 				}
 				Unknown260 = first;
 			}
@@ -1837,12 +1837,12 @@ void ShipCustomizeInterface::Unknown_625A60(int page)
 			Unknown_624B50(0x30, "ZOOM_OUT", NULL, 0, 0);
 			Unknown_624B50(0x31, "PAN", NULL, 0, 0);
 			Unknown_624B50(0x32, "TURN", NULL, 0, 0);
-			Unknown_6257A0(3);
-			NameGadget = new TextGadgetClass(this, 0x19, "NAME_fa_ship04", CharacterView->ViewRObjs[0], Unknown_B08CB8 | Unknown_B08CC4, 0);
+			Unknown_6257A0(3); Gadgets.size(); Gadgets.size(); Gadgets.size();	// dead reads (D272): with case 2's four and the one at the end, the client's mix (case 0's 0x6259C0 out of line, case 3's _Grow inline)
+			NameGadget = new TextGadgetClass(this, 0x19, "NAME_fa_ship04", CharacterView->Peek_Model(), Unknown_B08CB8 | Unknown_B08CC4, 0);
 			NameGadget->Unknown78 = 10.0f;
 			NameGadget->Unknown_28(Layer);
 			if (strlen(Desc.Ship_Name) != 0) {
-				FontSys *style = Unknown_BE67C4->Get_Style("NAME_fa_ship04", CharacterView->ViewRObjs[0]);
+				FontSys *style = Unknown_BE67C4->Get_Style("NAME_fa_ship04", CharacterView->Peek_Model());
 				if (style != NULL && style->Unknown300) {
 					style->Set_Hidden(1);
 				}
@@ -1863,7 +1863,7 @@ void ShipCustomizeInterface::Unknown_625A60(int page)
 
 	InterfaceClass::Unknown_58();
 	Unknown_58();
-	TheDX8MeshRenderer.Invalidate(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size();	// dead reads (D130; not the client's): with the four after case 2's 0x6257A0 they put the page cases' operator[] and 0x624D00's loop-test begin() out of line as the client's (4 / 8 here: 0.86)
+	TheDX8MeshRenderer.Invalidate(); Gadgets.size();	// dead read (D272): with case 2's four and case 3's three (0x624D00's loop-test begin() out of line as the client's)
 }
 
 
