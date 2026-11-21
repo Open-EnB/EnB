@@ -2,7 +2,7 @@
 
     python tests/clienttest/gen_stubs.py OUTDIR
     python tests/clienttest/gen_stubs.py --link LINK.LOG OUTDIR    (link_stubs.cpp, below)
-    python tests/clienttest/gen_stubs.py --link LINK.LOG OUTDIR --poc   (the same for clientpoc: stub_log.h)
+    python tests/clienttest/gen_stubs.py --link LINK.LOG OUTDIR --poc   (the same for build.py's test-program links: stub_log.h)
 
 Writes, from the tree (nothing under tools/re is changed: pkclasses.py stays P6's):
   pk_stubs.cpp        udpreplay's pk_ctor_stubs.cpp (pkclasses.py's output) without the
@@ -164,7 +164,7 @@ def link_stubs(log, out, poc=False):
     members (each class declared here with only those members, so no vtable is emitted unless a
     constructor or destructor of a class with virtuals is among them) and data (zero). What can't be
     written from the demangled name (a class by value, an enum, a nested or template class) is listed
-    as skipped for client_stubs.cpp. poc: for the clientpoc program (build.py link): the stand-ins log
+    as skipped for client_stubs.cpp. poc: for a test program build.py links (gen_stubs, e.g. auxreplay): the stand-ins log
     through stubs/stub_log.h (STUB_CALLED, once each) instead of clienttest's Trace."""
     syms = {}
     for m in UNRES.finditer(open(log, encoding='latin1').read()):

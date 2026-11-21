@@ -4,7 +4,7 @@
 
 Each ALIAS becomes a weak external (IMAGE_SYM_CLASS_WEAK_EXTERNAL, IMAGE_WEAK_EXTERN_SEARCH_ALIAS)
 whose default is TARGET: a reference to ALIAS that nothing else defines resolves to TARGET's address.
-The POC client (build.py link --program clientpoc) uses it for one client global that two app files
+build.py's program links (link_program's aliases) use it for one client global that two app files
 declare with different types (two mangled names, one variable: 0xBE67C4's FontManagerClass * and
 LoadingViewFontManagerClass *). The object has no sections.
 """

@@ -1,12 +1,14 @@
-"""Stand-in collisions (pipeline-plan §4 item 6a): functions a change defines anew in app/ that a hand stand-in
-still defines.
+"""Stand-in collisions (pipeline-plan §4 item 6a): functions a change defines anew in app/ that a test program's
+hand stand-in still defines.
 
     python tools/vc6/standins.py check [--rev A..B] [--repo DIR]
 
-The stand-ins: programs/clientpoc/poc_standins.cpp, poc_world*.cpp, poc_gadget_*.cpp, stubs/app_stubs.cpp,
-tests/clienttest/client_stubs.cpp (STANDINS). A landing that rebuilds a function one of them stands in for
-links twice (LNK2005 in the POC or clienttest, HF1, HF2) or silently keeps the stand-in: the landing deletes the
-stand-in in the same change.
+The client has no stand-in: the one client build (`build.py link --program client`) links every library with no
+stand-in object and no unresolved symbol, and linkgate.py refuses a landing that breaks that. The stand-ins left are
+the test programs' own (clienttest, udpreplay: test programs, not the client): stubs/app_stubs.cpp,
+tests/clienttest/client_stubs.cpp and ui_stubs.cpp (STANDINS; a file the tree no longer has is skipped). A landing
+that rebuilds a function one of them stands in for links twice (LNK2005 in clienttest, HF1, HF2) or silently keeps
+the stand-in: the landing deletes the stand-in in the same change.
 
 New in A..B: (1) definitions (easource.function_spans: brace depth plus the head before each `{`, comments and
 preprocessor lines blanked) in app/ files (.cpp .c .h .hpp .inl) that B has more of than A; (2) with ledgers given
@@ -19,7 +21,7 @@ MoneyClass &)` differ (another mangled name, no LNK2005). A pair from (2) has no
 Not refused (printed as notes):
   * a collision that A already had: the same name and parameters defined in app/ and by the same stand-in file at A
     (an established coexistence that links: the app object is not pulled, e.g. client_stubs.cpp's soptions.cpp
-    members, the POC's G_Assert_Report);
+    members);
   * a stand-in the change adds itself (a deliberate one, e.g. clienttest's renamed Unknown_7BCA70);
   * a stand-in whose definition line, or the line just above it, says `standins: keep` (say why there).
 The link check (wt.py bring-over (b)) catches what names cannot: an app object newly pulled by a new caller.
@@ -41,8 +43,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(os.path.dirname(HERE), 're'))
 import easource  # noqa: E402
 
-STANDINS = ('programs/clientpoc/poc_standins.cpp', 'programs/clientpoc/poc_world*.cpp',
-            'programs/clientpoc/poc_gadget_*.cpp', 'stubs/app_stubs.cpp', 'tests/clienttest/client_stubs.cpp')
+STANDINS = ('stubs/app_stubs.cpp', 'tests/clienttest/client_stubs.cpp', 'tests/clienttest/ui_stubs.cpp')
 STANDIN_DIRS = sorted({p.rsplit('/', 1)[0] for p in STANDINS})
 APP_EXT = ('.cpp', '.c', '.h', '.hpp', '.inl')
 SYMBOLS = 'docs/data/symbols.json'

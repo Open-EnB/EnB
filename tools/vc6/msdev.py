@@ -1,6 +1,6 @@
 """Builds the generated VC6 workspace (dsp.py) in a build VM with the IDE's own build: msdev /MAKE (D248).
 
-    python tools/vc6/msdev.py make [--project main|clientpoc|LIB] [--rebuild] [--pool K] [--out DIR] [--deploy]
+    python tools/vc6/msdev.py make [--project main|LIB] [--rebuild] [--pool K] [--out DIR]
     python tools/vc6/msdev.py fetch-objs --out DIR       every project's objects, for objcmp.py
 
 `make` generates the workspace (dsp.py), sends the tree to the VM (vc6.sync: every source directory
@@ -8,16 +8,15 @@ of every project, the SDK headers, the prebuilt import libraries), opens it thro
 path (vc6._alias_setup: E:\\build\\beta\\G is the repository, so __FILE__ is the client's string) and
 runs `msdev main.dsw /MAKE "<project> - Win32 client_release"`, which builds the project's
 dependencies first. Its output (the .plg build logs and msdev's console) lands in DIR/<project>/.
---project clientpoc is the stand-in build in two passes, as build.py's link_program: a first link,
-gen_stubs.py's stand-ins for what it leaves unresolved, a second link with them (/force:unresolved
-for the rest).
+--project main (the default, dsp.CLIENT_PROJECT) is the client: the IDE's build of the one client build
+(build.py's `link --program client`), one link, no stand-in; its client.exe and main.map are fetched into
+DIR/main/.
 
 The outputs stay in the VM's tree (each project's client_release\\ folder) until fetched: the exe
 and map into DIR (default build/msdev), the objects with fetch-objs.
 """
 import argparse
 import os
-import shutil
 import subprocess
 import sys
 import tarfile
@@ -132,12 +131,10 @@ def fetch(paths, dst):
 
 
 def fetch_objs(projs, out):
-    """Every project's objects but the stand-in build's into out/<lib>/obj/, build.py's layout (the app's
-    folder libraries and main together in out/app/obj), for objcmp.py."""
+    """Every project's objects into out/<lib>/obj/, build.py's layout (the app's folder libraries and main
+    together in out/app/obj), for objcmp.py."""
     res = {}
     for p in projs:
-        if p.name == dsp.STANDIN:
-            continue
         lib = 'app' if p.dir.replace(BS, '/').startswith('app/') else p.name
         objs = [os.path.join(p.dir, dsp.CONFIG, os.path.splitext(os.path.basename(s))[0] + '.obj') for s in p.sources]
         res.setdefault(lib, []).extend(fetch([o.replace(BS, '/') for o in objs], os.path.join(out, lib, 'obj')))
@@ -148,74 +145,26 @@ def make(project, rebuild=False, out=DEFAULT_OUT):
     projs = dsp.projects()
     dsp.write(projs)
     sync_tree(projs)
-    if project != dsp.STANDIN:
-        rc, text = run_make(project, rebuild, out)
-        if project == 'main':
-            fetch([f'{dsp.MAIN_DIR}/{dsp.CONFIG}/client.exe'.replace(BS, '/'),
-                   f'{dsp.MAIN_DIR}/{dsp.CONFIG}/main.map'.replace(BS, '/')], os.path.join(out, 'main'))
-        return rc, text
-    # the stand-in build: build.py link_program's two passes
-    dst = os.path.join(out, dsp.STANDIN)
-    gen_dir = os.path.join(REPO, 'programs', dsp.STANDIN, 'gen')
-    gen = os.path.join(gen_dir, 'poc_gen_stubs.cpp')
-    if os.path.exists(gen):
-        os.remove(gen)
-    exe_rel = f'programs/{dsp.STANDIN}/{dsp.CONFIG}/{dsp.STANDIN}.exe'
-    # the first pass must link: msdev keeps the last exe when no input is newer (the stand-ins' file
-    # dropped from the project does not count), and that exe already has the last run's stand-ins
-    vm_exe = vc6.ROOT + BS + os.path.relpath(REPO, vc6.ROOT) + BS + exe_rel.replace('/', BS)
-    vc6.ssh(f'cmd /c if exist "{vm_exe}" del "{vm_exe}"', check=False)
-    rc, text = run_make(dsp.STANDIN, rebuild, out)
-    if ' error(s)' in text and ' 0 error(s)' not in text:
-        if 'error C' in text:
-            return rc, text                       # a compile error: no stand-ins can help
-        sys.path.insert(0, os.path.join(REPO, 'tests', 'clienttest'))
-        import gen_stubs
-        import coff_alias
-        os.makedirs(gen_dir, exist_ok=True)
-        pass1 = os.path.join(dst, 'link_pass1.log')
-        shutil.copy(os.path.join(dst, 'msdev.log'), pass1)
-        gen_stubs.link_stubs(pass1, gen_dir, poc=True)
-        os.replace(os.path.join(gen_dir, 'link_stubs.cpp'), gen)
-        objs = []
-        pairs = [l.strip().split('=', 1) for l in open(os.path.join(gen_dir, 'link_aliases.txt')) if '=' in l]
-        if pairs:
-            objs.append(os.path.join(gen_dir, 'poc_aliases.obj'))
-            coff_alias.write(objs[0], pairs)
-        projs = dsp.projects(standin_gen=gen, force_unresolved=True, extra_objs=objs)
-        dsp.write(projs)
-        sync_tree(projs)
-        rc, text = run_make(dsp.STANDIN, False, out)
-    fetch([exe_rel, exe_rel[:-4] + '.map'], dst)
+    rc, text = run_make(project, rebuild, out)
+    if project == dsp.CLIENT_PROJECT:
+        fetch([f'{dsp.MAIN_DIR}/{dsp.CONFIG}/client.exe'.replace(BS, '/'),
+               f'{dsp.MAIN_DIR}/{dsp.CONFIG}/main.map'.replace(BS, '/')], os.path.join(out, dsp.CLIENT_PROJECT))
     return rc, text
 
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__.split('\n')[0])
     ap.add_argument('command', choices=['make', 'fetch-objs'])
-    ap.add_argument('--project', default='main')
+    ap.add_argument('--project', default=dsp.CLIENT_PROJECT)
     ap.add_argument('--rebuild', action='store_true', help='/REBUILD: compile everything again')
     ap.add_argument('--out', default=DEFAULT_OUT)
     ap.add_argument('--pool', type=int, metavar='K', help='lease a VM from pool.py, release after')
-    ap.add_argument('--deploy', action='store_true',
-                    help='--project clientpoc: copy the exe into ClientPOC\\release as client.exe (build.py link\'s deploy)')
     a = ap.parse_args()
     if a.pool:
         import importer as I
         with I.pool_lease(a.pool, None):
             return run(a)
     return run(a)
-
-
-def deploy(out=DEFAULT_OUT):
-    """Copy the stand-in build's exe and map into its deploy folder (build.py PROGRAMS['clientpoc']'s:
-    C:\\EnBDevelopment\\ClientPOC\\release as client.exe), as `build.py link` does for its own link."""
-    prog = B.PROGRAMS[dsp.STANDIN]
-    src = os.path.join(out, dsp.STANDIN, dsp.STANDIN)
-    base = os.path.join(prog['deploy'], prog.get('deploy_name', dsp.STANDIN))
-    shutil.copy2(src + '.exe', base + '.exe')
-    shutil.copy2(src + '.map', base + '.map')
-    print('deployed', base + '.exe')
 
 
 def run(a):
@@ -227,8 +176,6 @@ def run(a):
     tail = [l for l in text.splitlines() if ' error(s)' in l or l.startswith('---')]
     print('\n'.join(tail[-25:]))
     print(f'msdev rc={rc}; log {os.path.join(a.out, a.project, "msdev.log")}')
-    if a.deploy and rc == 0 and a.project == dsp.STANDIN:
-        deploy(a.out)
     sys.exit(0 if rc == 0 else 1)
 
 

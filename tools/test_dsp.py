@@ -30,7 +30,7 @@ class WorkspaceTest(unittest.TestCase):
         want = []
         for lib in L.LIBS + list(L.APP_LIBS):
             want += [dsp.repo_rel(p) for p in B.sources(lib)]
-        got = [s for p in self.projs.values() if p.name != dsp.STANDIN for s in p.sources]
+        got = [s for p in self.projs.values() for s in p.sources]
         self.assertEqual(sorted(got), sorted(want))
 
     def test_library_lines_are_build_py(self):
@@ -59,14 +59,15 @@ class WorkspaceTest(unittest.TestCase):
         p = self.projs['client']
         self.assertIn('/D "ENABLE_WWPROFILE"', p.cpp_line(p.flags, p.defines))
 
-    def test_main_and_standin(self):
-        main = self.projs['main']
+    def test_main_is_the_client(self):
+        main = self.projs[dsp.CLIENT_PROJECT]
         self.assertEqual(main.kind, 'exe')
         self.assertTrue(all(s.startswith('app/main/') for s in main.sources))
         self.assertIn(f'# Name "main - Win32 {dsp.CONFIG}"', main.text())
-        poc = self.projs[dsp.STANDIN]
-        self.assertNotIn('main', poc.deps)          # main's link fails until the reconstruction is whole
-        self.assertTrue(set(main.sources) <= set(poc.sources))
+        self.assertEqual([p.name for p in self.projs.values() if p.kind == 'exe'], ['main'])   # one exe, no stand-in build
+        text = main.text()
+        self.assertNotIn('/force:unresolved', text)
+        self.assertNotIn('stubs', text.lower())
 
     def test_workspace(self):
         text = dsp.dsw_text(list(self.projs.values()))
