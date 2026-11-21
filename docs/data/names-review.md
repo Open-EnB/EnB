@@ -10,8 +10,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 226 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1970 |
-| 2 | describes what the code does | 5002 |
-| 1 | neutral placeholder | 25179 |
+| 2 | describes what the code does | 4999 |
+| 1 | neutral placeholder | 25178 |
 
 ## For review (score 3 and below)
 
@@ -14172,10 +14172,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown120` | `app/client/ui_manu.cpp:355` | untagged neutral name (D10) |
 | 1 | `Unknown124` | `app/client/ui_manu.cpp:356` | untagged neutral name (D10) |
 | 1 | `Unknown1A8` | `app/client/ui_manu.cpp:357` | untagged neutral name (D10) |
-| 1 | `UIManuListClass` | `app/client/ui_manu.cpp:359` | neutral (D10) |
-| 1 | `UnknownGlobal` | `app/client/ui_manu.cpp:362` | untagged neutral name (D10) |
-| 1 | `UIManuCategoriesClass` | `app/client/ui_manu.cpp:365` | neutral (D10): 'PrimaryCategories' (the tree UIManuNodeClass reads) |
+| 1 | `UIManuListClass` | `app/client/ui_manu.cpp:360` | neutral (D10) |
+| 1 | `UIManuCategoriesClass` | `app/client/ui_manu.cpp:366` | neutral (D10): 'PrimaryCategories' (the tree UIManuNodeClass reads) |
 | 1 | `UIManuCurrentCategoryClass` | `app/client/ui_manu.cpp:378` | neutral (D10): 'CurrentItemCategory' (an item id) |
+| 1 | `UnknownB0122CEnum` | `app/client/ui_manu.cpp:378` | untagged neutral name (D10) |
 | 1 | `UIManuComponentsClass` | `app/client/ui_manu.cpp:385` | neutral (D10): 'ManufactureComponents' (its global is the item arrays', 0xC41624) |
 | 1 | `UnknownB01394Enum` | `app/client/ui_manu.cpp:391` | untagged neutral name (D10) |
 | 1 | `Unknown_B81880` | `app/client/ui_manu.cpp:392` | neutral (D10) |
@@ -16636,7 +16636,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown124` | `app/client/ui_refinery.cpp:212` | untagged neutral name (D10) |
 | 1 | `Unknown1A8` | `app/client/ui_refinery.cpp:213` | untagged neutral name (D10) |
 | 1 | `UIManuListClass` | `app/client/ui_refinery.cpp:215` | neutral (D10): as ui_manu.cpp's ('KnownFormula') |
-| 1 | `UnknownGlobal` | `app/client/ui_refinery.cpp:218` | untagged neutral name (D10) |
 | 1 | `UIManuComponentsClass` | `app/client/ui_refinery.cpp:220` | neutral (D10): as ui_manu.cpp's ('ManufactureComponents', 'ManufactureTarget') |
 | 1 | `UIManuTechLevelFilterClass` | `app/client/ui_refinery.cpp:225` | neutral (D10): as ui_manu.cpp's (here 'AdditionalIterations') |
 | 1 | `UnknownB01394Enum` | `app/client/ui_refinery.cpp:232` | untagged neutral name (D10) |
@@ -27501,8 +27500,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Manu_Player_Id` | `app/client/ui_manu.cpp:269` | the player id read as the client's inline accessor |
 | 2 | `Owner` | `app/client/ui_manu.cpp:326` | what it holds |
 | 2 | `Owner` | `app/client/ui_manu.cpp:342` | what it holds |
-| 2 | `Value` | `app/client/ui_manu.cpp:382` | what it holds |
-| 2 | `Value` | `app/client/ui_manu.cpp:1447` | what it holds |
 | 2 | `Gadget` | `app/client/ui_manu.h:26` | what it holds |
 | 2 | `item_id` | `app/client/ui_manu.h:117` | the packet's ItemID |
 | 2 | `Gadgets` | `app/client/ui_manu_util.h:22` | what it holds |
@@ -27668,7 +27665,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Buttons` | `app/client/ui_radio_list.h:48` | what they are |
 | 2 | `Buttons` | `app/client/ui_radio_main.h:31` | what they are |
 | 2 | `Refinery_Player_Id` | `app/client/ui_refinery.cpp:150` | the player id read as an inline accessor (as ui_manu.cpp's Manu_Player_Id) |
-| 2 | `Value` | `app/client/ui_refinery.cpp:229` | what it holds |
 | 2 | `item_id` | `app/client/ui_refinery.h:42` | the packet's ItemID |
 | 2 | `Selected_Year` | `app/client/ui_registration.cpp:2080` | what it returns |
 | 2 | `UIScanButtonNames` | `app/client/ui_scan.cpp:34` | what it holds |

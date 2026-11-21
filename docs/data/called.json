@@ -3718,9 +3718,6 @@
 "data:?_PresetAdditiveSpriteShader@ShaderClass@@2V1@A": [
 "0xC010F8"
 ],
-"data:?_PresetAlpha2DShader@ShaderClass@@2V1@A": [
-"0xC01180"
-],
 "data:?_PresetAlphaShader@ShaderClass@@2V1@A": [
 "0xC01190"
 ],
