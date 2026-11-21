@@ -303,7 +303,7 @@ bool ChatGadgetClass::Unknown_2C(KernelEventClass *event, float x, float y, unsi
 
 
 
-// 0x65CCD0  // NOT EXACT: functional (D64)
+// 0x65CCD0  // NOT EXACT: inline budget (masked 226, attempts.py show 0x65CCD0): the client calls the string sites' _Tidy / _Eos / assign(str, 0, npos) out of line in cases 6-9 and 4, and inlines case 4's text assign(s, n) and case 5's assign(str, 0, npos): dead ChatPanel.Peek() reads (D272) after case 6-9 (6), after case 4's Unknown24 (1) and at the end (2) give it and the client's frame 0x45C (9 in all; other counts and places 237-1135); left: the history test (the client keeps text in edi, strcmp through bl; the shared delete after the store block), the top (Fail_If / ChatPanel), registers
 void ChatGadgetClass::Unknown_65CCD0()
 {
 	SClient *sclient = (SClient *)Client->As_Space_Client();
@@ -342,7 +342,7 @@ void ChatGadgetClass::Unknown_65CCD0()
 							if (*text != '/') {
 								((SClient *)Client->As_Space_Client())->Print(0x10, "To %s: %s", chatpanel->Unknown_565BA0(), text);
 							}
-						}
+						} sclient->ChatPanel.Peek(); sclient->ChatPanel.Peek(); sclient->ChatPanel.Peek(); sclient->ChatPanel.Peek(); sclient->ChatPanel.Peek(); sclient->ChatPanel.Peek();
 						break;
 					case 1:
 						if (sclient->Unknown_744B60()) {
@@ -387,7 +387,7 @@ void ChatGadgetClass::Unknown_65CCD0()
 							sclient->Unknown_74D990(0x11, "Not subscribed to any channels.", 0);
 						} else {
 							ClientChatRequestPacketClass packet(0, Client->Unknown1138);
-							packet.Unknown24 = chatpanel->Unknown_5682C0();
+							packet.Unknown24 = chatpanel->Unknown_5682C0(); sclient->ChatPanel.Peek();
 							packet.Unknown34 = std::string(text);
 							Client->Send_Packet(&packet);
 						}
@@ -434,7 +434,7 @@ void ChatGadgetClass::Unknown_65CCD0()
 			}
 		}
 	}
-	Unknown7C = false;
+	Unknown7C = false; sclient->ChatPanel.Peek(); sclient->ChatPanel.Peek();
 	Unknown_74(false);
 	Edit->Clear();
 }
