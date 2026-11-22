@@ -673,12 +673,12 @@ static const char *Unknown_B8ABBC[4][10] = {	// NAME 1: neutral (D10)
 	{ "tbar01_v", "jbar01_v", "pbar01_v", "nbar01_v", "nbar01_v", "nbar01_v", "nbar01_v", "nbar01_v", "nbar01_v", "nbar01_v" },
 	{ "tbar01", "jbar01", "pbar01", "nbar01", "nbar01", "nbar01", "nbar01", "nbar01", "nbar01", "nbar01" },
 };
-void Unknown_496DB0(RenderObjClass *robj);	// 0x496DB0 (ro_funcs.cpp, cdecl), as avatar.cpp's  // NAME 1 [robj]: avatar.cpp's
+static inline LayerClass &Unknown_View_Layer(SBaseViewClass *view) { return(*view->Unknown80); } void Unknown_496DB0(RenderObjClass *robj);	// 0x496DB0 (ro_funcs.cpp, cdecl), as avatar.cpp's; Unknown_View_Layer: the starbase view's +0x80 layer through an inline (0x634140's three NPC buttons take the client's registers so)  // NAME 1 [robj]: avatar.cpp's  // NAME 1 [Unknown_View_Layer, view]: neutral (D10)
 inline UIStarbaseUnknownCCClass::UIStarbaseUnknownCCClass() : Unknown00(0), Avatar(NULL), AmbientAvatar(NULL), NameTag(NULL), Unknown10(NULL), Unknown14(0), Unknown18(0), Unknown1C(0), Unknown20(0), Unknown24(""), Unknown34(-1) {}
 // NOT EXACT: 0x634140, functional from the pseudocode (D64; SU1): the window's set-up (slot +0x54): the full-screen
 // gadget, the +0x1F8 interface, the player's avatar entry with its name and guild texts, the 14 NPC slots, the four
 // terminals, the four doors with their signs, the ship on the hangar's extents, the bar and table models and the
-// '%s_%dmd' animated models (PT3: client bytes read as source, masked residue 1444 -> 61, frame and slots exact; the booth-9 gadget's flag and the ambient avatar stored through slot locals and the booth-9 Get_View() give the client's registers there; the dead Get_Info() reads (D272) send the first entry's string constructor out of line and keep the signs' _Eos out; left: register choices in the NPC loop, i in ebx and npc in edi in the client)
+// '%s_%dmd' animated models (PT3: client bytes read as source, masked residue 1444 -> 30, frame and slots exact; the three NPC buttons' layer through the inline Unknown_View_Layer and the ambient avatar stored through a slot local give the client's registers there; the dead Get_Info() reads (D272) send the first entry's string constructor out of line and keep the signs' _Eos out; left: register choices in the NPC loop, i in ebx and npc in edi in the client)
 // 0x634140
 void UIStarbaseClass::Unknown_54()
 {
@@ -727,7 +727,7 @@ void UIStarbaseClass::Unknown_54()
 			if (npc->Unknown1C) {
 				Unknown13C[i] = new UIStarbaseUnknownCCClass;
 				UIStarbaseUnknownCCClass *slot = Unknown13C[i]; slot->AmbientAvatar = Create_NEW(Unknown_642740(npc));
-				Unknown13C[i]->Unknown14 = new ButtonGadgetClass(Unknown13C[i]->AmbientAvatar->BodyObj.Peek(), *UnknownB0->Unknown80, 5, 0);
+				Unknown13C[i]->Unknown14 = new ButtonGadgetClass(Unknown13C[i]->AmbientAvatar->BodyObj.Peek(), Unknown_View_Layer(UnknownB0), 5, 0);
 				Unknown13C[i]->Unknown14->Unknown2C_0A = true;
 				Unknown13C[i]->Unknown14->Set_Last_Sort_Group(true);
 				Unknown64.Unknown_6870E0(Unknown13C[i]->Unknown14, i + 2, View, true, true);
@@ -742,9 +742,9 @@ void UIStarbaseClass::Unknown_54()
 				robj = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj(Unknown_B8AA18[npc->Get_Booth_Index()]));
 				Unknown_496AE0(robj.Peek(), false);
 				InterfaceMesh->Peek_Object()->Add_Sub_Object_To_Bone(robj.Peek(), name);
-				Unknown13C[i]->Unknown14 = new ButtonGadgetClass(robj.Peek(), *UnknownB0->Unknown80, 5, 0);
-				UIStarbaseUnknownCCClass *cc = Unknown13C[i]; cc->Unknown14->Unknown2C_0A = true;
-				Unknown64.Unknown_6870E0(Unknown13C[i]->Unknown14, i + 2, Get_View(), true, false);
+				Unknown13C[i]->Unknown14 = new ButtonGadgetClass(robj.Peek(), Unknown_View_Layer(UnknownB0), 5, 0);
+				Unknown13C[i]->Unknown14->Unknown2C_0A = true;
+				Unknown64.Unknown_6870E0(Unknown13C[i]->Unknown14, i + 2, View, true, false);
 			} else {
 				AvatarDescClass desc(npc->Desc);
 				Unknown13C[i]->Avatar = Create_NEW(new CharacterViewAvatarClass(&desc, true, false, ((LineDisplayClientClass *)Client)->As_Space_Client()->EnvironmentMapManager));
@@ -752,7 +752,7 @@ void UIStarbaseClass::Unknown_54()
 					Matrix3D tm = InterfaceMesh->Peek_Object()->Get_Bone_Transform(name); Unknown13C[i]->Avatar->Unknown330 = tm;
 					Unknown13C[i]->Avatar->Unknown_77E3D0(1);
 					Unknown13C[i]->Avatar->Unknown_785F20(true);
-					Unknown13C[i]->Unknown14 = new ButtonGadgetClass(Unknown13C[i]->Avatar->BodyObj.Peek(), *UnknownB0->Unknown80, 5, 0);
+					Unknown13C[i]->Unknown14 = new ButtonGadgetClass(Unknown13C[i]->Avatar->BodyObj.Peek(), Unknown_View_Layer(UnknownB0), 5, 0);
 					Unknown13C[i]->Unknown14->Unknown2C_0A = true;
 					Unknown13C[i]->Unknown14->Set_Last_Sort_Group(true);
 					Unknown64.Unknown_6870E0(Unknown13C[i]->Unknown14, i + 2, View, true, true);
