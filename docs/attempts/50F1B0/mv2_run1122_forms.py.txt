@@ -1,0 +1,100 @@
+HYPOTHESIS = 'MV2 b1: r49 row-1 x87 add order (ours X+Z+Y, client Z+Y+X) follows the product expression: in-place static Rotate/Transform_Vector into offset, product assigned back to offset, constructor-built (const) frame, offset bound as const ref'
+FILE = 'app/client/mainview.cpp'
+SYMBOL = 'MainViewClass::Update'
+ADDRESS = 0x50F1B0
+
+PROD = '\t\t\t\tdir = dir + frame * offset;\n'
+SET = '\t\t\t\tMatrix3D frame;\tframe.Set(dir, side, up, Vector3(0.0f, 0.0f, 0.0f));\n'
+OFF = '\t\t\tVector3 offset = Orbitals->Unknown_4F5140(k);\n'
+FORMS = {
+    'a_rot_inplace': [(PROD, '\t\t\t\tMatrix3D::Rotate_Vector(frame, offset, &offset);\tdir = dir + offset;\n')],
+    'b_xform_inplace': [(PROD, '\t\t\t\tMatrix3D::Transform_Vector(frame, offset, &offset);\tdir = dir + offset;\n')],
+    'c_assign_offset': [(PROD, '\t\t\t\toffset = frame * offset;\tdir = dir + offset;\n')],
+    'd_ctor_frame': [(SET, '\t\t\t\tMatrix3D frame(dir, side, up, Vector3(0.0f, 0.0f, 0.0f));\n')],
+    'e_ctor_const_frame': [(SET, '\t\t\t\tconst Matrix3D frame(dir, side, up, Vector3(0.0f, 0.0f, 0.0f));\n')],
+    'f_offset_cref': [(OFF, '\t\t\tconst Vector3 &offset = Orbitals->Unknown_4F5140(k);\n')],
+    'g_xform_into_dir_pos': [(SET, '\t\t\t\tMatrix3D frame;\tframe.Set(dir, side, up, dir);\n'), (PROD, '\t\t\t\tdir = frame * offset;\n')],
+}
+HYPOTHESIS = 'MV2 b2 (probe): which source order of operator*(Matrix3D, Vector3) gives row 1 as Z+Y+X with rows 0 and 2 as now; the #if 0 A[i][j] form is the EA alternative in the header itself'
+FILE = 'wwmath/matrix3d.h'
+UNIT = 'app/client/mainview.cpp'
+SYMBOL = 'MainViewClass::Update'
+ADDRESS = 0x50F1B0
+
+R0 = '\t\t(A.Row[0].X*a.X + A.Row[0].Y*a.Y + A.Row[0].Z*a.Z + A.Row[0].W),\n'
+R1 = '\t\t(A.Row[1].X*a.X + A.Row[1].Y*a.Y + A.Row[1].Z*a.Z + A.Row[1].W),\n'
+R2 = '\t\t(A.Row[2].X*a.X + A.Row[2].Y*a.Y + A.Row[2].Z*a.Z + A.Row[2].W)\n\t);\n#endif'
+IF0 = '#if 0\n\treturn Vector3\n\t(\n\t\t(A[0][0]*a[0]'
+FORMS = {
+    'p1_r1_zyx': [(R1, '\t\t(A.Row[1].Z*a.Z + A.Row[1].Y*a.Y + A.Row[1].X*a.X + A.Row[1].W),\n')],
+    'p2_if0_form': [(IF0, '#if 1\n\treturn Vector3\n\t(\n\t\t(A[0][0]*a[0]')],
+    'p3_all_zyx': [(R0, '\t\t(A.Row[0].Z*a.Z + A.Row[0].Y*a.Y + A.Row[0].X*a.X + A.Row[0].W),\n'),
+                   (R1, '\t\t(A.Row[1].Z*a.Z + A.Row[1].Y*a.Y + A.Row[1].X*a.X + A.Row[1].W),\n'),
+                   (R2, '\t\t(A.Row[2].Z*a.Z + A.Row[2].Y*a.Y + A.Row[2].X*a.X + A.Row[2].W)\n\t);\n#endif')],
+    'p4_r1_xzy': [(R1, '\t\t(A.Row[1].X*a.X + A.Row[1].Z*a.Z + A.Row[1].Y*a.Y + A.Row[1].W),\n')],
+    'p5_r1_yzx': [(R1, '\t\t(A.Row[1].Y*a.Y + A.Row[1].Z*a.Z + A.Row[1].X*a.X + A.Row[1].W),\n')],
+    'p6_r1_zxy': [(R1, '\t\t(A.Row[1].Z*a.Z + A.Row[1].X*a.X + A.Row[1].Y*a.Y + A.Row[1].W),\n')],
+    'p7_r1_yxz': [(R1, '\t\t(A.Row[1].Y*a.Y + A.Row[1].X*a.X + A.Row[1].Z*a.Z + A.Row[1].W),\n')],
+    'p8_w_first': [(R1, '\t\t(A.Row[1].W + A.Row[1].X*a.X + A.Row[1].Y*a.Y + A.Row[1].Z*a.Z),\n')],
+}
+HYPOTHESIS = 'MV2 b3 (probe): row order of evaluation inside operator*(Matrix3D, Vector3) (named row results in different orders) decides which row gets the stack-ordered Z,Y,X schedule (client: row 1)'
+FILE = 'wwmath/matrix3d.h'
+UNIT = 'app/client/mainview.cpp'
+SYMBOL = 'MainViewClass::Update'
+ADDRESS = 0x50F1B0
+
+OLD = '''	return Vector3
+	(
+		(A.Row[0].X*a.X + A.Row[0].Y*a.Y + A.Row[0].Z*a.Z + A.Row[0].W),
+		(A.Row[1].X*a.X + A.Row[1].Y*a.Y + A.Row[1].Z*a.Z + A.Row[1].W),
+		(A.Row[2].X*a.X + A.Row[2].Y*a.Y + A.Row[2].Z*a.Z + A.Row[2].W)
+	);
+#endif'''
+X = '\tfloat x = A.Row[0].X*a.X + A.Row[0].Y*a.Y + A.Row[0].Z*a.Z + A.Row[0].W;\n'
+Y = '\tfloat y = A.Row[1].X*a.X + A.Row[1].Y*a.Y + A.Row[1].Z*a.Z + A.Row[1].W;\n'
+Z = '\tfloat z = A.Row[2].X*a.X + A.Row[2].Y*a.Y + A.Row[2].Z*a.Z + A.Row[2].W;\n'
+R = '\treturn Vector3(x, y, z);\n#endif'
+def f(*rows):
+    return [(OLD, ''.join(rows) + R)]
+FORMS = {
+    'q1_xyz': f(X, Y, Z),
+    'q2_yxz': f(Y, X, Z),
+    'q3_zyx': f(Z, Y, X),
+    'q4_xzy': f(X, Z, Y),
+    'q5_yzx': f(Y, Z, X),
+    'q6_zxy': f(Z, X, Y),
+    'q7_out_param': [(OLD, '\tVector3 r;\n\tr.X = A.Row[0].X*a.X + A.Row[0].Y*a.Y + A.Row[0].Z*a.Z + A.Row[0].W;\n\tr.Y = A.Row[1].X*a.X + A.Row[1].Y*a.Y + A.Row[1].Z*a.Z + A.Row[1].W;\n\tr.Z = A.Row[2].X*a.X + A.Row[2].Y*a.Y + A.Row[2].Z*a.Z + A.Row[2].W;\n\treturn r;\n#endif')],
+}
+HYPOTHESIS = 'MV2 b4: the product operands as temporaries / const copies (the row-1 schedule follows the value numbering of the operands): copied offset, saved dir, direct-initialised rotated with +=, const offset value'
+FILE = 'app/client/mainview.cpp'
+SYMBOL = 'MainViewClass::Update'
+ADDRESS = 0x50F1B0
+
+PROD = '\t\t\t\tdir = dir + frame * offset;\n'
+OFF = '\t\t\tVector3 offset = Orbitals->Unknown_4F5140(k);\n'
+FORMS = {
+    'h_copy_offset': [(PROD, '\t\t\t\tdir = dir + frame * Vector3(offset);\n')],
+    'i_saved_dir': [(PROD, '\t\t\t\tVector3 base = dir;\tdir = base + frame * offset;\n')],
+    'j_rotated_pluseq': [(PROD, '\t\t\t\tVector3 rotated(frame * offset);\tdir += rotated;\n')],
+    'k_const_offset': [(OFF, '\t\t\tconst Vector3 offset = Orbitals->Unknown_4F5140(k);\n')],
+    'l_copy_dir': [(PROD, '\t\t\t\tdir = Vector3(dir) + frame * offset;\n')],
+    'm_offset_parts': [(PROD, '\t\t\t\tdir = dir + frame * Vector3(offset.X, offset.Y, offset.Z);\n')],
+    'n_copy_sum': [(PROD, '\t\t\t\tdir = Vector3(dir + frame * offset);\n')],
+}
+HYPOTHESIS = 'MV2 b5: where the Matrix3D frame is declared (symbol order / scope vs side, up, dir) decides the row-1 operand order of the product (no inline call added)'
+FILE = 'app/client/mainview.cpp'
+SYMBOL = 'MainViewClass::Update'
+ADDRESS = 0x50F1B0
+
+SET = '\t\t\t\tMatrix3D frame;\tframe.Set(dir, side, up, Vector3(0.0f, 0.0f, 0.0f));\n'
+SETN = '\t\t\t\tframe.Set(dir, side, up, Vector3(0.0f, 0.0f, 0.0f));\n'
+SIDE = '\t\t\t\tVector3 side;\t\t// the offset in the frame of dir and two perpendiculars\n'
+DIR = '\t\t\tVector3 dir;\n\t\t\tswitch (k) {\n'
+LOOP = '\t\tfor (int k = 0; k < 4; k++) {\n\t\t\tVector4 color = Orbitals->Unknown_4F50D0(k);\n'
+FORMS = {
+    'p_frame_before_side': [(SET, SETN), (SIDE, '\t\t\t\tMatrix3D frame;\n' + SIDE)],
+    'q_frame_loop_top': [(SET, SETN), (LOOP, '\t\tfor (int k = 0; k < 4; k++) {\n\t\t\tMatrix3D frame;\n\t\t\tVector4 color = Orbitals->Unknown_4F50D0(k);\n')],
+    'r_frame_before_loop': [(SET, SETN), (LOOP, '\t\tMatrix3D frame;\n' + LOOP)],
+    's_frame_after_dir': [(SET, SETN), (DIR, '\t\t\tVector3 dir;\n\t\t\tMatrix3D frame;\n\t\t\tswitch (k) {\n')],
+    't_frame_before_up': [(SET, SETN), ('\t\t\t\tVector3 up;\n', '\t\t\t\tMatrix3D frame;\n\t\t\t\tVector3 up;\n')],
+}
