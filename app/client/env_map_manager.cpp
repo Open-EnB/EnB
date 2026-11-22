@@ -144,18 +144,18 @@ void EnvironmentMapManagerClass::Unknown_760770(int base_asset, bool a)
 		int pitch = base_desc.Width * 3;
 		int half_height = base_desc.Height >> 1;
 		int half_pitch = (base_desc.Width >> 1) * 3;
+		unsigned char *src = reflection;
 		for (int y = 0; y < half_height; y++) {
 			unsigned char *dst = pixels + (half_height + y) * pitch + half_pitch;
-			unsigned char *src = reflection + y * half_pitch;
 			for (int x = 0; x < half_pitch; x++) {
 				int s = *src; int value = s * scale + *dst;
 				if (value > 0xFF) {
 					value = 0xFF;
 				}
-				*dst = (unsigned char)value; dst++; src++;
+				*dst = (unsigned char)value; src++; dst++;
 			}
+			src = reflection + (y + 1) * half_pitch;
 		}
-
 
 
 
@@ -213,4 +213,6 @@ void EnvironmentMapManagerClass::Unknown_760770(int base_asset, bool a)
 **	the result applied to the asset manager's texture of that name as a new D3D texture (IsProcedural set).
 **	The asset manager through WW3DAssetManager::Get_Instance (the client reads 0xBFAEE0, the other app files'
 **	Unknown_BFAEE0, which nothing defines yet). Functional NOT EXACT (D64).
+**	Block 1's src is carried around the y loop (reset at the row end from y): a src set per row before the
+**	inner loop is folded by VC6 into dst + (src - dst) ([esi+ecx]), where the client steps both (inc esi; inc ecx).
 */
