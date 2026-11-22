@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1970 |
 | 2 | describes what the code does | 5005 |
-| 1 | neutral placeholder | 25128 |
+| 1 | neutral placeholder | 25126 |
 
 ## For review (score 3 and below)
 
@@ -1211,7 +1211,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_34` | `app/client/cameraeffects.cpp:89` | untagged neutral name (D10) |
 | 1 | `Unknown_40` | `app/client/cameraeffects.cpp:92` | untagged neutral name (D10) |
 | 1 | `Unknown18` | `app/client/cameraeffects.cpp:122` | untagged neutral name (D10) |
-| 1 | `Unknown_54` | `app/client/cameraeffects.cpp:133` | untagged neutral name (D10) |
+| 1 | `Unknown_54` | `app/client/cameraeffects.cpp:134` | untagged neutral name (D10) |
 | 1 | `Unknown_6E32E0` | `app/client/cameraeffects.cpp:237` | untagged neutral name (D10) |
 | 1 | `Unknown_6E34F0` | `app/client/cameraeffects.cpp:256` | neutral (D10) |
 | 1 | `Unknown_1C` | `app/client/cameraeffects.cpp:260` | untagged neutral name (D10) |
@@ -3016,8 +3016,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6E5E00` | `app/client/eff_line.h:38` | untagged neutral name (D10) |
 | 1 | `Unknown_6E6030` | `app/client/eff_line.h:39` | untagged neutral name (D10) |
 | 1 | `Unknown_B92E30` | `app/client/eff_o.cpp:30` | neutral (D10) |
-| 1 | `direction, position` | `app/client/eff_o.cpp:31` | what 0x6E8DD0 passes |
-| 1 | `Unknown_82ECB0` | `app/client/eff_o.cpp:31` | untagged neutral name (D10) |
 | 1 | `robj, make_geometry_unique` | `app/client/eff_o.cpp:49` | what the helpers pass |
 | 1 | `Unknown_496AE0` | `app/client/eff_o.cpp:49` | untagged neutral name (D10) |
 | 1 | `Unknown_BDBB84` | `app/client/eff_o.cpp:50` | neutral (D10), as ui_line_display.cpp's |
@@ -3075,6 +3073,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_14` | `app/client/eff_o.cpp:791` | untagged neutral name (D10) |
 | 1 | `Unknown_38` | `app/client/eff_o.cpp:805` | untagged neutral name (D10) |
 | 1 | `Unknown_3C` | `app/client/eff_o.cpp:812` | untagged neutral name (D10) |
+| 1 | `Unknown_82ECB0` | `app/client/eff_o.cpp:829` | untagged neutral name (D10) |
 | 1 | `Unknown_6E9190` | `app/client/eff_o.cpp:871` | untagged neutral name (D10) |
 | 1 | `UnknownB000F0EffectClass` | `app/client/eff_o.cpp:878` | untagged neutral name (D10) |
 | 1 | `Unknown_6EA550` | `app/client/eff_o.cpp:952` | untagged neutral name (D10) |
@@ -3298,13 +3297,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `position` | `app/client/eff_rs.h:25` | the base's |
 | 1 | `Unknown_08` | `app/client/eff_rs.h:25` | untagged neutral name (D10) |
 | 1 | `Unknown_18` | `app/client/eff_rs.h:26` | untagged neutral name (D10) |
-| 1 | `direction, position` | `app/client/eff_seek.cpp:16` | what the callers pass |
-| 1 | `Unknown_82ECB0` | `app/client/eff_seek.cpp:16` | untagged neutral name (D10) |
 | 1 | `Unknown6F0580EffectClass` | `app/client/eff_seek.cpp:36` | untagged neutral name (D10) |
 | 1 | `Unknown6EF910EffectClass` | `app/client/eff_seek.cpp:37` | untagged neutral name (D10) |
 | 1 | `Unknown_08` | `app/client/eff_seek.cpp:46` | untagged neutral name (D10) |
 | 1 | `Unknown_0C` | `app/client/eff_seek.cpp:54` | untagged neutral name (D10) |
 | 1 | `Unknown_18` | `app/client/eff_seek.cpp:63` | untagged neutral name (D10) |
+| 1 | `Unknown_82ECB0` | `app/client/eff_seek.cpp:66` | untagged neutral name (D10) |
 | 1 | `Unknown_1C` | `app/client/eff_seek.cpp:85` | untagged neutral name (D10) |
 | 1 | `Unknown10BC` | `app/client/eff_seek.cpp:88` | untagged neutral name (D10) |
 | 1 | `Unknown_BE6CC8` | `app/client/eff_seek.cpp:137` | neutral (D10) |
