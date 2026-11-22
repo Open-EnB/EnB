@@ -1,0 +1,27 @@
+FORM mulvector_outputs
+--- a/app/client/unknown_7979a0.cpp
++++ b/app/client/unknown_7979a0.cpp
+@@ -193,17 +193,17 @@
+ 	float range = CameraManagerClass::Unknown_79B6B0();
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 one(range + range, c * range, s * range);
++	Vector3 one; one.Y = c * range; one.Z = s * range;
+ 	s = WWMath::Sin(back);
+ 	c = WWMath::Cos(back);
+-	Vector3 two(range + range, c * range, s * range);
++	Vector3 two; two.Y = c * range; two.Z = s * range; one.X = two.X = range + range;
+ 	one.Y *= 1.25f;
+ 	one.Z *= 1.25f;
+-	two.Y *= 1.25f;
+-	two.Z *= 1.25f;
++	two.Scale(Vector3(1.0f, 1.25f, 1.25f));
++
+ 	Matrix3D frame = Unknown_82ECB0(dir, tm.Get_Translation());
+-	Vector3 first = frame * one;
+-	Vector3 second = frame * two;
++	Vector3 first; frame.mulVector3(one, first);
++	Vector3 second; frame.mulVector3(two, second);
+ 	Vector3 camera = Client->CameraManager->Position;
+ 	if ((first - camera).Length2() < (second - camera).Length2()) {
+ 		((CameraModule79C8E0Class *)Unknown0C)->Position = first;
