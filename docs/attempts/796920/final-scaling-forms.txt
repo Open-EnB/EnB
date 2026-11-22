@@ -1,0 +1,534 @@
+# Takeoff796920: final sine/cosine scaling statements
+
+Two ordinary scalar-lifetime forms, two successful VC6 SP4 objects, every object
+fully native matched. All15 existing(file,address)pairs retained,+0/-0; target
+nonexact, no source adoption. Reused product_assignment baseline, no fresh controls,
+compile failures, invalid, pending, untested or confirmation inputs. No third
+form justified. Root owns recording/checks/commit.
+
+| Form | Raw / GPR masked | Normalized / GPR masked | Instructions/calls | Bytes | Frame |
+| --- | --- | --- | --- | --- | --- |
+| previous product_assignment |214/208|38/26|536/29|2012|220|
+| scale_existing_scalars |46/39|38/26|536/29|1997|220|
+| named_scaled_scalars |59/52|40/28|536/29|1997|220|
+| retail |0|0|537/29|2000|220|
+
+Full comparison covers796920..7970F0 including returns796976,7969AA,7970EF.
+Metrics are diagnostic; the large improvement comes chiefly from actual recovered
+homes that normalized comparison masks. New partial best is scale_existing_scalars,
+groupa779e525a0b4abc9; named_scaled_scalars group5d5dae1dc93eb203.
+
+Both forms retain the two original float trig assignments first. The stronger
+form then writes s=s*distance*1.5f; c=c*distance*1.5f; before the unchanged actual
+matrix/vector operation consumes Vector3(0,c,s). The other form names consumed
+scaled_s/scaled_c instead of overwriting s/c. Multiplication grouping remains
+(trig*distance)*1.5; no assignment inserted between products, no moved trig call,
+no new helper or precision barrier.67 previous fullsources and7durable stashes
+read; old named_camera_offset named only the whole input Vector3, leaving its
+scaling expressions as constructor arguments. Neither new scalar form repeated it.
+
+Final trig/scaling region now raw0 in both forms. Exact actual operations/homes:
+FLD angle-5c; FSIN; FSTP-20; FLD angle-5c; FCOS; FSTP-54;
+FLD sine-20; FMUL distance-1c; FMUL dword1.5; FSTP product-10;
+FLD cosine-54; FMUL distance-1c; FMUL dword1.5; FSTP product-14.
+Each trig result is stored before either scaling expression. There are no extra
+rounding stores between either pair of multiplications. All seven final-camera
+constant references equal retail;1.5 has bytes0000c03f and dword width. Correct
+pitch FMUL dword30/FADD dword30/FMUL dwordrad is preserved, now including retail
+pitch home-58;rad35fa8e3c. All float constant references aligned to retail match
+bytes/widths, except fallback's commuted operand alignment: it still adds5000,
+bytes00409c45, but retail loads5000 then adds position rather than vice versa.
+No claim that fallback instruction operands already match.
+
+Actual recovered storage is substantially wider than final scalar homes:
+- Initial region, pitch angles, postloop and stateconstructor regions are raw0.
+- Initial position/cast movement/midpoint share retail temp-a8..a0; quaternion
+  temp-ac..a0 overlaps as before, now at exact retail addresses.
+- Looprotation/initial matrix is-50; yaw matrix hiddenreturn-1fc, assignedship
+  matrix-22c, stateconstructor matrix-1cc: all now match retail identities/homes.
+- local_box-9c, modelAABox-124, start_box-160, end_box-19c, CastResult-10c and
+  lookat-e4 are correct. Final modulecopy remains raw0 with cached actualmodule
+  pointer and three unadjusted XYZ stores. Previous midpoint/pitch improvements
+  and all actual collision/stateconstructor consumers remain intact.
+
+Remaining46 raw edit rows are not all cosmetic. Region counts:
+initial0,loopsetup3,angles0,direction2,endpoint8,boxconstruction4,boxtransforms6,
+castretry11,fallback3,postloop0,finaltrig0,finaltransform4,modulecopy0,
+modulefollowup5,stateconstructor0. Relevant role map:
+
+| Role | Newpartial EBP home | Retail EBP home |
+| --- | --- | --- |
+| loop counter | -20 | -b4 |
+| direction pitch sine | -b4 | -b0 |
+| endpoint Y product | -b0 | -54 |
+| endpoint X product | -54 | -20 |
+
+These form a real lifetime/control-flow constraint for later work. Current loop
+loads its counter near the tail and branches to test; retail branches to a reload
+at loop header, with an initial jump past that reload. Prior do_while_retry and
+loop forms were already tested, so these residuals do not justify a blind repeat.
+Other residuals are argument/copy scheduling, fallback FP/load operands and five
+tail GPR rows. The second-box region6 is scheduling, not new multiplicand order.
+
+Final matrix transform now computes Y-before-Z for all three output components.
+X/Y therefore match retail, but Z no longer does: ours FLD[-c0]*[-14] then
+FLD[-bc]*[-10]; retail FLD[-bc]*[-10] then FLD[-c0]*[-14]. These four operand
+substitutions are actual FP product evaluation order, not renamed stack slots.
+Do not force an operand swap or assert all FP is exact. Translation addition,
+other final output component operations and modulecopy match.
+
+Named scaled locals produce the same corrected final scalar sequence/homes, but
+also reverse load-versus-multiply operand order for each of six box-center
+Z*matrix terms: e.g. FLD matrix[-48];FMUL center[-70] instead of retail FLD
+center[-70];FMUL matrix[-48]. Twelve substitutions plus one scheduling change
+explain boxtransforms19 versus6, and total59 versus46. This nonlocal compiler
+regression is observed despite the only source changes being final scaling lines;
+it is not a harmless stack-only tie or a separately tested hypothesis.
+
+New best scratch source: scale_existing_scalars/camctrl_takeoff.cpp. Current full
+source rebased into immutable half-copy-identity/final-tree; inherited camera.h
+->aabox.h prefix substitution only. All other functions including796440 unchanged.
+Two existing physical lines changed, source basename/assertions/linecount guarded.
+No flags, volatile, asm, extra unused objects, helper/API/header changes or arbitrary
+permutations. Reproducible baseline best patch plus both incremental patches and
+source hashes are in final-scaling-forms.txt. Rawtargetdiff/explain, literals,
+preparation/freshness,manifest/native proof paths retained. HEAD99c8a108,
+appsource277cb346,claim244,modelgpt-6-astra(high). No source adoption/pending tests.
+
+BEFORE-TEST HYPOTHESES
+# Before batch1: separately consumed final sine/cosine products
+
+Claim244 target796920, HEAD99c8a108/appsource277cb346, gpt-6-astra(high).
+Root owns all compilation/native matching. Reuse product_assignment's15pair
+baseline and same immutable half-copy-identity/final-tree, no fresh controls.
+Freshness:67 retained fullsources and7durable stashes read. Prior named_camera_offset
+only names the consumed Vector3 and leaves both scaling expressions as constructor
+arguments. No previous separately scaled sine/cosine scalar statement found.
+
+Retail:796FF2 FLD angle,FSIN,FSTP -20;796FFA FLD angle,FCOS,FSTP -54;
+797002 FLD sine,FMUL distance,FMUL dword1.5,FSTP -10;
+797011 FLD cosine,FMUL distance,FMUL dword1.5,FSTP -14.
+Thus both trig results are rounded/stored before scaling either. Priorbest has
+both trig stores but scales cosine before sine inside Vector3(0,c*distance*1.5f,
+s*distance*1.5f). Constructor argument evaluation and scalar statement sequencing
+are different ordinary source boundaries; no math helper/header change is needed.
+
+Exactly two forms, keeping both WWMath trig assignments first:
+1. scale_existing_scalars: s=s*distance*1.5f; c=c*distance*1.5f; then same actual
+   matrix/vector operation consuming Vector3(0,c,s). This mutates existing trig
+   locals into their scaled values, with no separately named input vector.
+2. named_scaled_scalars: float scaled_s=s*distance*1.5f; float scaled_c=c*distance*
+   1.5f; then Vector3(0,scaled_c,scaled_s). Tests separately named consumed products
+   versus reassignment. Original s/c have no later users. No unused extra objects.
+
+Prediction: FLD sine/FMUL distance/FMUL1.5/FSTP product before the corresponding
+cosine sequence, retaining individual trig-result stores. Do not insert separate
+assignment between multiplications, change grouping, move scaling before cosine,
+or assume compiler must honor a source variable with physical storage. Inspect
+actual products, widths, precision and homes, not only diagnostic residue.
+
+Separate constraint: retail final transformed Z computes matrixZ*scaled_s then
+matrixY*scaled_c, whereas final Y/X compute matrixY*scaled_c then matrixZ*scaled_s.
+Currentbest uses Z-before-Y in all three. Existing matrix3d operator source is
+unchanged. Scalar lifetime may or may not influence this; no operand permutation
+is authorized to imitate it. All literals, previous correct pitch and midpoint
+improvements, randomcall order, collision consumers and other methods preserved.
+
+All changes occupy two existing physical lines. Basename/assertions/counts fixed;
+only inherited camera.h->aabox.h include outside target. No volatile, precision
+barriers, asm, flags, new helpers/APIs, sharedheader edits or generic permutation.
+Every object fully native matched; targetexact gain and0loss required adoption.
+
+FORM scale_existing_scalars relative to product_assignment best
+--- incremental/app/client/camctrl_takeoff.cpp
++++ scale_existing_scalars/app/client/camctrl_takeoff.cpp
+@@ -263,8 +263,8 @@
+ 
+ 	lookat.Obj_Look_At((Unknown24 + Unknown30) * 0.5f, Unknown30, 0.0f);
+ 	float s = WWMath::Sin(angle);
+-	float c = WWMath::Cos(angle);
+-	Vector3 camera_position = lookat * Vector3(0.0f, c * distance * 1.5f, s * distance * 1.5f); { CameraModule79C8E0Class *module = Unknown0C; module->Position.X = camera_position.X; module->Position.Y = camera_position.Y; module->Position.Z = camera_position.Z; }
++	float c = WWMath::Cos(angle); s = s * distance * 1.5f; c = c * distance * 1.5f;
++	Vector3 camera_position = lookat * Vector3(0.0f, c, s); { CameraModule79C8E0Class *module = Unknown0C; module->Position.X = camera_position.X; module->Position.Y = camera_position.Y; module->Position.Z = camera_position.Z; }
+ 	Unknown0C->Unknown14 = true;
+ 	Unknown0C->Unknown18 = Client->AvatarID;
+ 	Unknown0C->Unknown_04();
+SOURCE SHA256 b263b0c2a1776752bde7edaa6b655b651a249d63ab2a2af50582e1069a737b02
+
+FORM named_scaled_scalars relative to product_assignment best
+--- incremental/app/client/camctrl_takeoff.cpp
++++ named_scaled_scalars/app/client/camctrl_takeoff.cpp
+@@ -263,8 +263,8 @@
+ 
+ 	lookat.Obj_Look_At((Unknown24 + Unknown30) * 0.5f, Unknown30, 0.0f);
+ 	float s = WWMath::Sin(angle);
+-	float c = WWMath::Cos(angle);
+-	Vector3 camera_position = lookat * Vector3(0.0f, c * distance * 1.5f, s * distance * 1.5f); { CameraModule79C8E0Class *module = Unknown0C; module->Position.X = camera_position.X; module->Position.Y = camera_position.Y; module->Position.Z = camera_position.Z; }
++	float c = WWMath::Cos(angle); float scaled_s = s * distance * 1.5f; float scaled_c = c * distance * 1.5f;
++	Vector3 camera_position = lookat * Vector3(0.0f, scaled_c, scaled_s); { CameraModule79C8E0Class *module = Unknown0C; module->Position.X = camera_position.X; module->Position.Y = camera_position.Y; module->Position.Z = camera_position.Z; }
+ 	Unknown0C->Unknown14 = true;
+ 	Unknown0C->Unknown18 = Client->AvatarID;
+ 	Unknown0C->Unknown_04();
+SOURCE SHA256 1bb583e69a64b0d797d9bd0464e316f5c8585485eb47a72be596ad1d3f1d83df
+
+BEST REPRODUCIBLE PATCH FROM CURRENT APP SOURCE277cb346
+--- source/app/client/camctrl_takeoff.cpp
++++ scale_existing_scalars/app/client/camctrl_takeoff.cpp
+@@ -10,7 +10,7 @@
+ #include "obbox.h"
+ #include "castres.h"
+ #include "scene.h"
+-#include "camera.h"
++#include "aabox.h"
+ #include "matrix3d.h"
+ #include "wwmath.h"
+ #include "..\shared\g_assert.h"
+@@ -220,38 +220,34 @@
+ 	}
+ 
+ 	Unknown24 = ship->Unknown_24();
+-	Unknown30 = Unknown24;
+-	Unknown30.Z += Unknown_BDB1C0.Get_Float() * 500.0f + 100.0f;
++	Unknown30 = Vector3(Unknown24.X, Unknown24.Y, (Unknown_BDB1C0.Get_Float() * 500.0f + 100.0f) + Unknown24.Z);
+ 	Unknown3C = Build_Quaternion(ship->Unknown_28(true));
+ 
+-	for (int i = 0; i <= 10; ++i) {
++	int i = 0; while (true) {
+ 		if (i >= 10) {
+-			Unknown18 = Unknown30;
+-			Unknown18.Z += 5000.0f;
++			Unknown18 = Vector3(Unknown30.X, Unknown30.Y, Unknown30.Z + 5000.0f);
+ 			break;
+ 		}
+-		float pitch = (Unknown_BDB1C0.Get_Float() * 30.0f + 30.0f) * (WWMATH_PI / 180.0f);
++		++i; float pitch = Unknown_BDB1C0.Get_Float() * 30.0f; pitch += 30.0f; pitch *= (WWMATH_PI / 180.0f);
+ 		float yaw = (Unknown_BDB1C0.Get_Float() * 315.0f + 45.0f) * (WWMATH_PI / 180.0f);
+-		Matrix3D ship_tm = ship->Unknown_28(true);
+-		float zrot = ship_tm.Get_Z_Rotation();
+-		float c_p = cos(pitch);
+-		float s_p = sin(pitch);
+-		float c_y = cos(zrot + yaw);
+-		float s_y = sin(zrot + yaw);
+-		Vector3 dir(c_y * c_p, s_y * c_p, s_p);
++		yaw += ship->Unknown_28(true).Get_Z_Rotation();
++		float c_p = WWMath::Cos(pitch);
++		float s_p = WWMath::Sin(pitch);
++		Matrix3D rotation(true); rotation.Rotate_Z(yaw);
++		Vector3 dir = rotation * Vector3(c_p, 0.0f, s_p);
+ 		Vector3 offset = dir * 5000.0f;
+ 		Unknown18 = Unknown30 + offset;
+ 
+-		CameraClass *cam = (CameraClass *)Client->MainView->Unknown_7C();
+-		OBBoxClass box = cam->Get_Near_Clip_Bounding_Box();
+-		OBBoxClass moved;
+-		Vector3 delta = Unknown18 - Unknown30;
+-		Matrix3D shift(true);
+-		shift.Set_Translation(delta);
+-		OBBoxClass::Transform(shift, box, &moved);
++		AABoxClass model_box; ship_ro->Get_Obj_Space_Bounding_Box(model_box); // NAME 2: 0x796b98
++		OBBoxClass local_box(Vector3(0.0f, 0.0f, 0.0f), model_box.Extent); // NAME 2: identity basis and model box, 0x796bd8
++		OBBoxClass start_box, end_box; // NAME 2: 0x796da1 and 0x796e42
++		rotation.Make_Identity(); rotation = ship->Unknown_28(true); // NAME 2: 0x796cc2
++		rotation.Set_Translation(Unknown30);
++		OBBoxClass::Transform(rotation, local_box, &start_box);
++		rotation.Set_Translation(Unknown18);
++		OBBoxClass::Transform(rotation, local_box, &end_box);
+ 		CastResultStruct result;
+-		MainViewSceneClass *scene = (MainViewSceneClass *)Client->MainView->Unknown_64();
+-		scene->Unknown_75FB00(moved, box, delta, &result, ship_ro, false);
++		((MainViewSceneClass *)Client->MainView->Unknown_64())->Unknown_75FB00(start_box, end_box, dir * 1000000.0f, &result, ship_ro, false);
+ 		if (result.Fraction >= 1.0f) {
+ 			break;
+ 		}
+@@ -262,13 +258,13 @@
+ 	Unknown4C = Build_Quaternion(lookat);
+ 
+ 	float distance = CameraManagerClass::Unknown_79B6B0();
+-	float angle = Unknown_BDB1C0.Get_Float() * 360.0f * (WWMATH_PI / 180.0f);
+-	Vector3 mid = (Unknown24 + Unknown30) * 0.5f;
+-	Matrix3D mid_lookat;
+-	mid_lookat.Obj_Look_At(mid, Unknown30, 0.0f);
+-	float s = sin(angle);
+-	float c = cos(angle);
+-	Unknown0C->Position = mid_lookat * Vector3(0.0f, c * 1.5f * distance, s * 1.5f * distance);
++	float angle = Unknown_BDB1C0.Get_Float() * 360.0f; angle *= (WWMATH_PI / 180.0f);
++
++
++	lookat.Obj_Look_At((Unknown24 + Unknown30) * 0.5f, Unknown30, 0.0f);
++	float s = WWMath::Sin(angle);
++	float c = WWMath::Cos(angle); s = s * distance * 1.5f; c = c * distance * 1.5f;
++	Vector3 camera_position = lookat * Vector3(0.0f, c, s); { CameraModule79C8E0Class *module = Unknown0C; module->Position.X = camera_position.X; module->Position.Y = camera_position.Y; module->Position.Z = camera_position.Z; }
+ 	Unknown0C->Unknown14 = true;
+ 	Unknown0C->Unknown18 = Client->AvatarID;
+ 	Unknown0C->Unknown_04();
+
+BEST REMAINING RAW EDIT ROWS
+[
+  {
+    "ours": null,
+    "retail": "jmp 0x796a33",
+    "retail_address": "0x796a2b"
+  },
+  {
+    "ours": null,
+    "retail": "mov eax, dword ptr [ebp - 0xb4]",
+    "retail_address": "0x796a2d"
+  },
+  {
+    "ours": "mov dword ptr [ebp - 0x20], eax",
+    "retail": "mov dword ptr [ebp - 0xb4], eax",
+    "retail_address": "0x796a42"
+  },
+  {
+    "ours": "fstp dword ptr [ebp - 0xb4]",
+    "retail": "fstp dword ptr [ebp - 0xb0]",
+    "retail_address": "0x796aab"
+  },
+  {
+    "ours": "fadd dword ptr [ebp - 0xb4]",
+    "retail": "fadd dword ptr [ebp - 0xb0]",
+    "retail_address": "0x796b2d"
+  },
+  {
+    "ours": "fstp dword ptr [ebp - 0x1c]",
+    "retail": null,
+    "retail_address": null
+  },
+  {
+    "ours": null,
+    "retail": "push eax",
+    "retail_address": "0x796b58"
+  },
+  {
+    "ours": null,
+    "retail": "fstp dword ptr [ebp - 0x1c]",
+    "retail_address": "0x796b59"
+  },
+  {
+    "ours": "push eax",
+    "retail": null,
+    "retail_address": null
+  },
+  {
+    "ours": "fstp dword ptr [ebp - 0xb0]",
+    "retail": "fstp dword ptr [ebp - 0x54]",
+    "retail_address": "0x796b70"
+  },
+  {
+    "ours": "fstp dword ptr [ebp - 0x54]",
+    "retail": "fstp dword ptr [ebp - 0x20]",
+    "retail_address": "0x796b7c"
+  },
+  {
+    "ours": "fld dword ptr [ebp - 0xb0]",
+    "retail": "fld dword ptr [ebp - 0x54]",
+    "retail_address": "0x796b82"
+  },
+  {
+    "ours": "fld dword ptr [ebp - 0x54]",
+    "retail": "fld dword ptr [ebp - 0x20]",
+    "retail_address": "0x796b88"
+  },
+  {
+    "ours": "push eax",
+    "retail": null,
+    "retail_address": null
+  },
+  {
+    "ours": "mov ecx, ebx",
+    "retail": null,
+    "retail_address": null
+  },
+  {
+    "ours": null,
+    "retail": "push eax",
+    "retail_address": "0x796cbf"
+  },
+  {
+    "ours": null,
+    "retail": "mov ecx, ebx",
+    "retail_address": "0x796cc0"
+  },
+  {
+    "ours": "mov ecx, dword ptr [ebp - 0x6c]",
+    "retail": null,
+    "retail_address": null
+  },
+  {
+    "ours": null,
+    "retail": "mov ecx, dword ptr [ebp - 0x6c]",
+    "retail_address": "0x796dc4"
+  },
+  {
+    "ours": "mov dword ptr [ebp - 0x168], edx",
+    "retail": null,
+    "retail_address": null
+  },
+  {
+    "ours": null,
+    "retail": "mov dword ptr [ebp - 0x168], edx",
+    "retail_address": "0x796ddb"
+  },
+  {
+    "ours": "push ecx",
+    "retail": "faddp st(1)",
+    "retail_address": "0x796df3"
+  },
+  {
+    "ours": "faddp st(1)",
+    "retail": "push ecx",
+    "retail_address": "0x796df5"
+  },
+  {
+    "ours": null,
+    "retail": "fstp dword ptr [ebp - 0xa4]",
+    "retail_address": "0x796e77"
+  },
+  {
+    "ours": "fstp dword ptr [ebp - 0xa4]",
+    "retail": null,
+    "retail_address": null
+  },
+  {
+    "ours": "lea edx, [ebp - 0xa8]",
+    "retail": null,
+    "retail_address": null
+  },
+  {
+    "ours": "push edx",
+    "retail": null,
+    "retail_address": null
+  },
+  {
+    "ours": "lea eax, [ebp - 0x19c]",
+    "retail": "lea edx, [ebp - 0xa8]",
+    "retail_address": "0x796e81"
+  },
+  {
+    "ours": "lea edx, [ebp - 0x160]",
+    "retail": "lea eax, [ebp - 0x19c]",
+    "retail_address": "0x796e8d"
+  },
+  {
+    "ours": null,
+    "retail": "push edx",
+    "retail_address": "0x796ef7"
+  },
+  {
+    "ours": "push edx",
+    "retail": "lea edx, [ebp - 0x160]",
+    "retail_address": "0x796ef9"
+  },
+  {
+    "ours": null,
+    "retail": "push edx",
+    "retail_address": "0x796f01"
+  },
+  {
+    "ours": "je 0x619",
+    "retail": null,
+    "retail_address": null
+  },
+  {
+    "ours": "mov eax, dword ptr [ebp - 0x20]",
+    "retail": "jne 0x796a2d",
+    "retail_address": "0x796f1d"
+  },
+  {
+    "ours": "fld dword ptr [esi + 0x38]",
+    "retail": "fld dword ptr [0xb050b0]",
+    "retail_address": "0x796f25"
+  },
+  {
+    "ours": "fadd dword ptr [0]",
+    "retail": "fadd dword ptr [edi + 8]",
+    "retail_address": "0x796f2b"
+  },
+  {
+    "ours": "fld dword ptr [esi + 0x34]",
+    "retail": "fld dword ptr [edi + 4]",
+    "retail_address": "0x796f2e"
+  },
+  {
+    "ours": "fld dword ptr [ebp - 0xc0]",
+    "retail": "fld dword ptr [ebp - 0xbc]",
+    "retail_address": "0x797020"
+  },
+  {
+    "ours": "fmul dword ptr [ebp - 0x14]",
+    "retail": "fmul dword ptr [ebp - 0x10]",
+    "retail_address": "0x797026"
+  },
+  {
+    "ours": "fld dword ptr [ebp - 0xbc]",
+    "retail": "fld dword ptr [ebp - 0xc0]",
+    "retail_address": "0x797029"
+  },
+  {
+    "ours": "fmul dword ptr [ebp - 0x10]",
+    "retail": "fmul dword ptr [ebp - 0x14]",
+    "retail_address": "0x79702f"
+  },
+  {
+    "ours": "mov edx, dword ptr [esi + 0xc]",
+    "retail": "mov eax, dword ptr [esi + 0xc]",
+    "retail_address": "0x79707a"
+  },
+  {
+    "ours": "mov byte ptr [edx + 0x14], 1",
+    "retail": "mov byte ptr [eax + 0x14], 1",
+    "retail_address": "0x79707d"
+  },
+  {
+    "ours": "mov eax, dword ptr [esi + 4]",
+    "retail": "mov edx, dword ptr [esi + 4]",
+    "retail_address": "0x797081"
+  },
+  {
+    "ours": "mov edx, dword ptr [eax + 0x112c]",
+    "retail": "mov eax, dword ptr [edx + 0x112c]",
+    "retail_address": "0x797087"
+  },
+  {
+    "ours": "mov dword ptr [ecx + 0x18], edx",
+    "retail": "mov dword ptr [ecx + 0x18], eax",
+    "retail_address": "0x79708d"
+  }
+]
+EXACT FINAL TRIG/SCALE REGION
+{
+  "distance": 0,
+  "fp_distance": 0,
+  "ours": [
+    "fld dword ptr [ebp - 0x5c]",
+    "fsin",
+    "fstp dword ptr [ebp - 0x20]",
+    "fld dword ptr [ebp - 0x5c]",
+    "fcos",
+    "fstp dword ptr [ebp - 0x54]",
+    "fld dword ptr [ebp - 0x20]",
+    "fmul dword ptr [ebp - 0x1c]",
+    "fmul dword ptr [0]",
+    "fstp dword ptr [ebp - 0x10]",
+    "fld dword ptr [ebp - 0x54]",
+    "fmul dword ptr [ebp - 0x1c]",
+    "fmul dword ptr [0]",
+    "fstp dword ptr [ebp - 0x14]"
+  ],
+  "retail": [
+    "fld dword ptr [ebp - 0x5c]",
+    "fsin",
+    "fstp dword ptr [ebp - 0x20]",
+    "fld dword ptr [ebp - 0x5c]",
+    "fcos",
+    "fstp dword ptr [ebp - 0x54]",
+    "fld dword ptr [ebp - 0x20]",
+    "fmul dword ptr [ebp - 0x1c]",
+    "fmul dword ptr [0xb050cc]",
+    "fstp dword ptr [ebp - 0x10]",
+    "fld dword ptr [ebp - 0x54]",
+    "fmul dword ptr [ebp - 0x1c]",
+    "fmul dword ptr [0xb050cc]",
+    "fstp dword ptr [ebp - 0x14]"
+  ]
+}
