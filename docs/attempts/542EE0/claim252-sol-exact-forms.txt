@@ -1,0 +1,50 @@
+{
+  "base_commit": "a6aee2de",
+  "source": "app/client/ship_equip_pip.cpp",
+  "base_source_sha256": "7cad5dc16221d00fe4419625f7f431bfc6f02536c63af41aace07886ee014fa4",
+  "instructions": "Each patch is independent. Obtain source from base_commit, save as ship_equip_pip.cpp in a fresh scratch directory, apply patch -p0 (empty baseline patch), and verify source_sha256.",
+  "variants": [
+    {
+      "name": "baseline",
+      "control": true,
+      "source_sha256": "7cad5dc16221d00fe4419625f7f431bfc6f02536c63af41aace07886ee014fa4",
+      "patch": ""
+    },
+    {
+      "name": "input_reference",
+      "control": false,
+      "source_sha256": "3ee2c5a53869262eb31d2174859bb7e37288bac4068791550a2c4e4fb91832ba",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -281,5 +281,5 @@\n \tCameraClass *camera = Camera.Peek();\n \tFAIL_IF(!camera) return;\n-\tMatrix3D tm = camera->Get_Transform();\n+\tconst Matrix3D &transform = camera->Get_Transform(); Matrix3D tm = transform;\n \tfloat unit = CameraManagerClass::Unknown_79B6B0();\n \tfloat distance = WWMath::Clamp(unit * zoom + Distance, unit * 0.5f, unit * 2);\n"
+    },
+    {
+      "name": "temporary_reference",
+      "control": false,
+      "source_sha256": "3d3c992229e3f655f2532beae0f13516912a760253b98380c93551fcdea31ea7",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -281,5 +281,5 @@\n \tCameraClass *camera = Camera.Peek();\n \tFAIL_IF(!camera) return;\n-\tMatrix3D tm = camera->Get_Transform();\n+\tMatrix3D &tm = Matrix3D(camera->Get_Transform());\n \tfloat unit = CameraManagerClass::Unknown_79B6B0();\n \tfloat distance = WWMath::Clamp(unit * zoom + Distance, unit * 0.5f, unit * 2);\n"
+    },
+    {
+      "name": "local_reference",
+      "control": false,
+      "source_sha256": "2be954e0c2848d7b18dad05b1118b8d775e2060f293e59d85b164f09840ad113",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -281,5 +281,5 @@\n \tCameraClass *camera = Camera.Peek();\n \tFAIL_IF(!camera) return;\n-\tMatrix3D tm = camera->Get_Transform();\n+\tMatrix3D transform = camera->Get_Transform(); Matrix3D &tm = transform;\n \tfloat unit = CameraManagerClass::Unknown_79B6B0();\n \tfloat distance = WWMath::Clamp(unit * zoom + Distance, unit * 0.5f, unit * 2);\n"
+    },
+    {
+      "name": "local_pointer",
+      "control": false,
+      "source_sha256": "334946b30782f0dbbb06a1c75844f0352ca7cd49f51b1f44a745452e9e10afa3",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -281,8 +281,8 @@\n \tCameraClass *camera = Camera.Peek();\n \tFAIL_IF(!camera) return;\n-\tMatrix3D tm = camera->Get_Transform();\n+\tMatrix3D tm = camera->Get_Transform(); Matrix3D *transform = &tm;\n \tfloat unit = CameraManagerClass::Unknown_79B6B0();\n \tfloat distance = WWMath::Clamp(unit * zoom + Distance, unit * 0.5f, unit * 2);\n-\ttm.Translate_Z(distance - Distance);\n+\ttransform->Translate_Z(distance - Distance);\n \tDistance = distance;\n \tUnknown_543270(tm);\n"
+    },
+    {
+      "name": "distance_reference",
+      "control": false,
+      "source_sha256": "63f856f363df75645f79994de91d766c806cdeb898f58387d4543e8cb2def6bb",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -283,7 +283,7 @@\n \tMatrix3D tm = camera->Get_Transform();\n \tfloat unit = CameraManagerClass::Unknown_79B6B0();\n-\tfloat distance = WWMath::Clamp(unit * zoom + Distance, unit * 0.5f, unit * 2);\n-\ttm.Translate_Z(distance - Distance);\n-\tDistance = distance;\n+\tfloat &current_distance = Distance; float distance = WWMath::Clamp(unit * zoom + current_distance, unit * 0.5f, unit * 2);\n+\ttm.Translate_Z(distance - current_distance);\n+\tcurrent_distance = distance;\n \tUnknown_543270(tm);\n }\n"
+    },
+    {
+      "name": "matrix_distance_reference",
+      "control": false,
+      "source_sha256": "630bacefad332424842e798333e5ce2631d3aa25275cda20b3f60e0ed0493fe1",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -281,9 +281,9 @@\n \tCameraClass *camera = Camera.Peek();\n \tFAIL_IF(!camera) return;\n-\tMatrix3D tm = camera->Get_Transform();\n+\tMatrix3D transform = camera->Get_Transform(); Matrix3D &tm = transform;\n \tfloat unit = CameraManagerClass::Unknown_79B6B0();\n-\tfloat distance = WWMath::Clamp(unit * zoom + Distance, unit * 0.5f, unit * 2);\n-\ttm.Translate_Z(distance - Distance);\n-\tDistance = distance;\n+\tfloat &current_distance = Distance; float distance = WWMath::Clamp(unit * zoom + current_distance, unit * 0.5f, unit * 2);\n+\ttm.Translate_Z(distance - current_distance);\n+\tcurrent_distance = distance;\n \tUnknown_543270(tm);\n }\n"
+    }
+  ]
+}

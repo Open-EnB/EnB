@@ -274,17 +274,17 @@ void ShipEquipPipClass::Unknown_542A10(const Vector2 &point, bool on)
 
 
 #pragma auto_inline(off)
-// NOT EXACT: functional from the pseudocode (D64); the inlined Unknown_543270 reads Camera earlier (scheduling)
+
 // 0x542EE0 (out of line in all three callers, 0x542250's included)
 void ShipEquipPipClass::Unknown_542EE0(float zoom)
 {
 	CameraClass *camera = Camera.Peek();
 	FAIL_IF(!camera) return;
-	Matrix3D tm = camera->Get_Transform();
+	Matrix3D transform = camera->Get_Transform(); Matrix3D &tm = transform;
 	float unit = CameraManagerClass::Unknown_79B6B0();
-	float distance = WWMath::Clamp(unit * zoom + Distance, unit * 0.5f, unit * 2);
-	tm.Translate_Z(distance - Distance);
-	Distance = distance;
+	float &current_distance = Distance; float distance = WWMath::Clamp(unit * zoom + current_distance, unit * 0.5f, unit * 2);
+	tm.Translate_Z(distance - current_distance);
+	current_distance = distance;
 	Unknown_543270(tm);
 }
 
@@ -359,6 +359,7 @@ void ShipEquipPipClass::Unknown_543270(const Matrix3D &tm)
 **	0x542EE0 inline it. Unknown_543200 takes the point by value (the client copies it onto the stack).
 **	Not exact (one round each, attempts.csv): 0x542250's locals sit in other frame slots (the client keeps the unit in
 **	the frame and orders the target, the proxy's position and the camera's position differently); 0x542A10 sums each
-**	translation's products in another order; 0x542EE0 loads Camera for the inlined Unknown_543270 before the
-**	translation (the client after).
+**	translation's products in another order.
+**	0x542EE0 is exact: an owned matrix accessed through a mutable reference restores the lighting operand
+**	order; a reference to Distance preserves the client's Camera load after the translation and distance store.
 */
