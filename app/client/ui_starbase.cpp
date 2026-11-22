@@ -678,7 +678,7 @@ inline UIStarbaseUnknownCCClass::UIStarbaseUnknownCCClass() : Unknown00(0), Avat
 // NOT EXACT: 0x634140, functional from the pseudocode (D64; SU1): the window's set-up (slot +0x54): the full-screen
 // gadget, the +0x1F8 interface, the player's avatar entry with its name and guild texts, the 14 NPC slots, the four
 // terminals, the four doors with their signs, the ship on the hangar's extents, the bar and table models and the
-// '%s_%dmd' animated models (PT3: client bytes read as source, masked residue 1444 -> 64, frame and slots exact; the booth-9 gadget's flag stored through a slot local gives the client's registers there; the dead Get_Info() reads (D272) send the first entry's string constructor out of line and keep the signs' _Eos out; left: register choices in the NPC loop, i in ebx and npc in edi in the client)
+// '%s_%dmd' animated models (PT3: client bytes read as source, masked residue 1444 -> 61, frame and slots exact; the booth-9 gadget's flag and the ambient avatar stored through slot locals and the booth-9 Get_View() give the client's registers there; the dead Get_Info() reads (D272) send the first entry's string constructor out of line and keep the signs' _Eos out; left: register choices in the NPC loop, i in ebx and npc in edi in the client)
 // 0x634140
 void UIStarbaseClass::Unknown_54()
 {
@@ -726,7 +726,7 @@ void UIStarbaseClass::Unknown_54()
 			StarbaseNPCClass *npc = RoomInfo->Find_NPC(i);
 			if (npc->Unknown1C) {
 				Unknown13C[i] = new UIStarbaseUnknownCCClass;
-				Unknown13C[i]->AmbientAvatar = Create_NEW(Unknown_642740(npc));
+				UIStarbaseUnknownCCClass *slot = Unknown13C[i]; slot->AmbientAvatar = Create_NEW(Unknown_642740(npc));
 				Unknown13C[i]->Unknown14 = new ButtonGadgetClass(Unknown13C[i]->AmbientAvatar->BodyObj.Peek(), *UnknownB0->Unknown80, 5, 0);
 				Unknown13C[i]->Unknown14->Unknown2C_0A = true;
 				Unknown13C[i]->Unknown14->Set_Last_Sort_Group(true);
@@ -744,7 +744,7 @@ void UIStarbaseClass::Unknown_54()
 				InterfaceMesh->Peek_Object()->Add_Sub_Object_To_Bone(robj.Peek(), name);
 				Unknown13C[i]->Unknown14 = new ButtonGadgetClass(robj.Peek(), *UnknownB0->Unknown80, 5, 0);
 				UIStarbaseUnknownCCClass *cc = Unknown13C[i]; cc->Unknown14->Unknown2C_0A = true;
-				Unknown64.Unknown_6870E0(Unknown13C[i]->Unknown14, i + 2, View, true, false);
+				Unknown64.Unknown_6870E0(Unknown13C[i]->Unknown14, i + 2, Get_View(), true, false);
 			} else {
 				AvatarDescClass desc(npc->Desc);
 				Unknown13C[i]->Avatar = Create_NEW(new CharacterViewAvatarClass(&desc, true, false, ((LineDisplayClientClass *)Client)->As_Space_Client()->EnvironmentMapManager));
