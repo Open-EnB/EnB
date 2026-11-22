@@ -195,8 +195,8 @@ bool AvatarPipClass::Unknown_7E36B0(SClient *sclient, const RefCountPtr<RenderOb
 
 
 // @0x7E3A20
-// NOT EXACT: shape (the client copies target into the light's translation first, then folds Translate's products: two
-// zeroed floats per axis where ours multiplies; a release tail-merge and Rotate_Y's operand order; 0.83)
+// NOT EXACT: order (4 masked rows): the client pushes the light's Set_Transform argument before the last translation
+// store; pos is a dead copy here (without it the distance's squares sum in another order)
 bool AvatarPipClass::Unknown_7E3A20(const char *name, unsigned id, CharacterViewAvatarClass *avatar)
 {
 	bool changed = false;
@@ -228,7 +228,7 @@ bool AvatarPipClass::Unknown_7E3A20(const char *name, unsigned id, CharacterView
 			} else if (!Unknown030) {
 				ClientObjectClass *co = Client->Find_Object(avatar_id);
 				if (co) {
-					Unknown_7E4520(Unknown_497300(co->RenderObject));
+					RenderObjClass *robj = co->RenderObject; Unknown_7E4520(Unknown_497300(robj));
 				}
 			}
 		}
@@ -253,17 +253,17 @@ bool AvatarPipClass::Unknown_7E3A20(const char *name, unsigned id, CharacterView
 			Unknown034->Set_Transform(tm);
 			float radius = Unknown030->Get_Bounding_Sphere().Radius;
 			cam = tm;
-			cam.Rotate_X(DEG_TO_RADF(90.0f));
-			cam.Rotate_Y(DEG_TO_RADF(90.0f));
+			float angle = DEG_TO_RADF(90.0f); cam.Rotate_X(angle);
+			cam.Rotate_Y(angle);
 			cam.Translate_Z(radius * 1.8f);
 		}
 		Camera->Set_Transform(cam);
 		Vector3 pos = cam.Get_Translation();
-		float dist = (pos - target).Length();
+		Vector3 delta = cam.Get_Translation() - target; float dist = delta.Length();
 		Camera->Set_Clip_Planes(0.1f, dist + dist);
-		float d = dist * 1.5f;
 		Matrix3D lm(target);
-		lm.Translate(Vector3(0.0f, d, d));
+		lm.Translate(0.0f, dist * 1.5f, dist * 1.5f);
+
 		Unknown028->Set_Transform(lm);
 	}
 	return(changed);
