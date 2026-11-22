@@ -2111,9 +2111,9 @@ void ClientObjectClass::Unknown_6FDBD0()
 int Update_Damage_Particles(RenderObjClass *model, int *levels, int hull_level, ClientClass *client, unsigned id, int unknown);	// 0x810CF0  // NAME 1 [model, levels, hull_level, client, id, unknown]: what 0x6FE1E0 passes
 int Update_Blood_Particles(RenderObjClass *model, int hull_level, int number, unsigned id, bool organic, bool view, ClientClass *client, int unknown);	// 0x8117D0  // NAME 1 [model, hull_level, number, id, organic, view, client, unknown]: what 0x6FE1E0 passes
 // a damage fraction's level: 4 from one half, 3 from a quarter, 2 above 0, else 1 (inline in 0x6FE1E0)
-static inline int Unknown_Damage_Level(float damage) { if (damage >= 0.5f) return(4); if (damage >= 0.25f) return(3); if (damage > 0.0f) return(2); return(1); }	// NAME 1 [damage]: what it is
+static inline int Unknown_Damage_Level(const float &damage) { if (damage >= 0.5f) return(4); if (damage >= 0.25f) return(3); if (damage > 0.0f) return(2); return(1); }	// NAME 1 [damage]: what it is
 
-// NOT EXACT: inline budget (the client calls IsOrganic's find 0x7079B0 out of line inside the inlined 0x6F5E40, ours its find-if-set 0x705450; 40 register-masked rows; attempts.py show 0x6FE1E0)
+
 // 0x6FE1E0 (the damage state: the damage sounds of a type-1 object, then the shield or hull and the four quadrants' levels into the model)
 void ClientObjectClass::Unknown_6FE1E0()
 {	Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(NameClass *)this); Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(NameClass *)this); Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(NameClass *)this); Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(NameClass *)this); 	// dead finds (root NULL: no code) spend the inline budget (P-IB1-1): the float field's Cast 0x546970 then goes out of line as the client's; with Unknown_Find_Valid on ShieldPercent and the quadrants 96 -> 73 rows
@@ -2145,11 +2145,11 @@ void ClientObjectClass::Unknown_6FE1E0()
 		hull = WWMath::Clamp(1.0f - shield, 0.0f, 1.0f);
 	} else {
 
-		DeltaTemplateClass<float> *points = Unknown_Find_Aux((DeltaTemplateClass<float> *)NULL, this, "HullPoints");
-		if (points && !points->Unknown70) points = NULL;
+		NameClass hp_name("HullPoints");
+		DeltaTemplateClass<float> *points = Unknown_Find_Valid<DeltaTemplateClass<float> >((DeltaCompoundClass *)AuxData, hp_name);
+		NameClass max_name("MaxHullPoints");
+		DeltaTemplateClass<float> *max = Unknown_Find_Valid<DeltaTemplateClass<float> >((DeltaCompoundClass *)AuxData, max_name);
 
-		DeltaTemplateClass<float> *max = Unknown_Find_Aux((DeltaTemplateClass<float> *)NULL, this, "MaxHullPoints");
-		if (max && !max->Unknown70) max = NULL;
 		if (points && max && max->Value != 0.0f) {
 			hull = 1.0f - WWMath::Clamp(points->Value / max->Value, 0.0f, 1.0f);
 		}
@@ -2164,10 +2164,10 @@ void ClientObjectClass::Unknown_6FE1E0()
 				quadrant[i] = 1.0f - WWMath::Clamp(Unknown_Get_Item(t, i)->Value, 0.0f, 1.0f);
 			}
 		} else {
-			quadrant[0] = 0.0f;
-			quadrant[1] = 0.0f;
-			quadrant[2] = 0.0f;
-			quadrant[3] = 0.0f;
+			for (int i = 0; i < 4; i++) quadrant[i] = 0.0f;
+
+
+
 		}
 	}
 	int level[4];
