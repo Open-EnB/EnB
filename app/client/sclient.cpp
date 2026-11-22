@@ -2815,14 +2815,14 @@ bool Unknown_747990(const char *text, std::string &reason, bool *quit)	// NAME 1
 	}
 	return(false);
 }
-// NOT EXACT: shape (explain.py: 2 rows): the client sets the packet's unwind state after pushing its address (lea eax), ours before (lea ecx); the temporary, copy-init, a block scope and a base reference: no better; 0x74ABC0's inlined copy shows the same
+
 // 0x747AF0 (0x74ABC0 inlines it: no call left): LOGOFF_REQUEST sent with Unknown138C = 1, then 0x743290's answer
 // when the command quits
 bool SClient::Unknown_747AF0(const std::string &reason, bool quit)
 {
+	int id = Unknown1138;
 	Unknown138C = 1;
-	LogoffRequestPacketClass packet(Unknown1138);
-	Send_Packet(&packet);
+	LogoffRequestPacketClass packet(id); Send_Packet(&packet);
 	if (quit) {
 		Unknown_743290();
 	}
@@ -5541,7 +5541,7 @@ void SClient::Unknown_755600()
 
 SClient *Unknown_BE5F20;	// NAME 1: neutral (D10)
 
-// NOT EXACT: relocation (explain.py: 620 instructions, the client 640, residue 80): the client inlines ~reason at the returns from /self tag on down (0x74B077, 0x74B166), ours shares the out-of-line _Tidy tail there; the returns in each /deco and /self tag branch, the camp packet as a temporary, a ?: dialog read: no better
+// NOT EXACT: shape (explain.py: 637 instructions, the client 640, residue 48): the client inlines ~reason at /self tag on's return (0x74B077) and jumps /deco into the logoff tail (0x74AD7D), ours shares the out-of-line _Tidy tail there; the returns in each /deco and /self tag branch, the camp packet as a temporary, an options local, a ?: dialog read: no better
 // 0x74ABC0 (slot +0x34: the chat line's '/' commands; true when the line was a command)
 bool SClient::Unknown_34(const char *text)
 {
@@ -5614,7 +5614,7 @@ bool SClient::Unknown_34(const char *text)
 		return(true);
 	}
 	if (stricmp(text, "/beacon off") == 0) {
-		Connection->Send_Packet(&IncapacitanceDistressBeaconPacketClass(AvatarID, false));
+		int id = AvatarID; Connection->Send_Packet(&IncapacitanceDistressBeaconPacketClass(id, false));
 		return(true);
 	}
 	if (stricmp(text, "/rescue") == 0) {
@@ -5659,7 +5659,7 @@ bool SClient::Unknown_34(const char *text)
 	if (Unknown_749020(text)) return(true);
 	if (Unknown_749590(text)) return(true); if (Unknown_749A70(text)) return(true); if (Unknown_749ED0(text)) return(true);
 	if (text[0] == '/' && text[1] == 'g' && text[2] == ' ') {
-		Connection->Send_Packet(&ClientChatPacketClass(AvatarID, (char *)text + 3, 1, NULL));
+		int id = AvatarID; Connection->Send_Packet(&ClientChatPacketClass(id, (char *)text + 3, 1, NULL));
 		return(true);
 	}
 	if (strnicmp(text, "/gu ", 4) == 0) {
