@@ -896,13 +896,13 @@ Vector3 Unknown_50EE60(const Vector3 &source)
 // DurationClass::operator+ out of line (0x514B00, its only copy), as VC6 does at this depth (one layer inlines it)
 static inline DurationClass Unknown_Server_Time(SClient *client) { return DurationClass((unsigned)client->Unknown10BC) + client->Unknown10C0; }	// NAME 1: neutral (D10)
 static inline DurationClass Unknown_Time(SClient *client) { return Unknown_Server_Time(client); }	// NAME 1: neutral (D10)
-// NOT EXACT: 0.95 (BG7, run 2026-11-19; frame and size match; x87 / store scheduling left in case 1, sun.Normalize, the fill test, the offset product, the shadow call; attempts.csv)
+// NOT EXACT: 0.99 (masked 39 -> 10, raw 256 -> 207, frame 0xCC = client; x87 left in sun.Normalize and frame*offset; attempts.csv 0x50F1B0)
 void MainViewClass::Update(CameraClass *camera, bool under)
 {
 	WWPROFILE("MainView::Update");
 	SClient *client = Get_Client();
 	FAIL_IF(!client) return;
-	float hours = Unknown_Time(client).Get() * 2.777778e-07f;
+	float hours = (float)Unknown_Time(client).Get();	hours *= 2.777778e-07f;
 	if (Get_Client()->DebugMode) {
 		float offset = Get_Client()->Unknown1390;	hours += offset;
 	}
@@ -953,7 +953,7 @@ void MainViewClass::Update(CameraClass *camera, bool under)
 			Land->Update_Patches(*camera, LandLOD);
 			Unknown16C = sky;
 			Lighting.SkyColor = ambient;
-			Lighting.Valid = Orbitals->Unknown4C;
+			bool valid = Orbitals->Unknown4C;	Lighting.Valid = valid;
 			Lighting.SunAngle = Orbitals->Unknown2C;
 			Lighting.LightColor = sun;
 			Lighting.SunDirection = Orbitals->Unknown20;
@@ -1047,7 +1047,7 @@ void MainViewClass::Update(CameraClass *camera, bool under)
 		Vector3 view = camera->Get_Transform().Get_Z_Vector();
 		Vector4 fill = Orbitals->Unknown_4F50D0(4);
 		if (fill.Length2() > 0.0001f) {
-			Scene->Set_Ambient_Light(Vector3(fill.X, fill.Y, fill.Z) * fill.W);
+			Vector3 ambient_fill(fill.X, fill.Y, fill.Z);	Scene->Set_Ambient_Light(ambient_fill * fill.W);
 		}
 		for (int k = 0; k < 4; k++) {
 			Vector4 color = Orbitals->Unknown_4F50D0(k);
@@ -1076,7 +1076,7 @@ void MainViewClass::Update(CameraClass *camera, bool under)
 				Vector3 up;
 				Vector3::Cross_Product(dir, side, &up);
 				up.Normalize();
-				Matrix3D frame(dir, side, up, Vector3(0.0f, 0.0f, 0.0f));
+				Matrix3D frame;	frame.Set(dir, side, up, Vector3(0.0f, 0.0f, 0.0f));
 				dir = dir + frame * offset;
 				dir.Normalize();
 			}
@@ -1090,7 +1090,7 @@ void MainViewClass::Update(CameraClass *camera, bool under)
 	}
 	if (Orbitals->Unknown4C) {
 		Scene->Add_Render_Object(Unknown144[0].Peek());
-		ProjectorManagerClass *projectors = ((MainViewSceneClass *)Scene)->ProjectorManager;	projectors->Set_Shadow_Light_Direction(-Orbitals->Unknown20);
+		Vector3 shadow_dir = -Orbitals->Unknown20;	ProjectorManagerClass *projectors = ((MainViewSceneClass *)Scene)->ProjectorManager;	projectors->Set_Shadow_Light_Direction(shadow_dir);
 		((MainViewSceneClass *)Scene)->Apply_Projectors(Camera);
 		if (Get_Client()->Unknown10F8) {
 			Vector3 dir;		// one vector for both (the client: one slot, its X kept in st(0) across Get_Diffuse's null test)
