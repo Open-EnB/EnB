@@ -1,5 +1,7 @@
 # Claim 254 petition pair source forms
 
+Correction from the continuation audit: both ordinary packet destructor calls target 0x89F930; 0x89F830 is the scalar deleting destructor.
+
 Independent patches against a6aee2de. Each section applies separately. Best source remains the unchanged baseline. This file preserves unsuccessful forms, not a recommended change.
 
 ## 0x5D6550 direct_client
