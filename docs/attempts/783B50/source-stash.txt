@@ -1,0 +1,984 @@
+// FORM baseline
+// SOURCE /home/dev/Projects/EnB/.work/claim-240/focused/snapshots/64644f39/app/client/avatar.cpp
+void CharacterViewAvatarClass::Unknown_1C4()
+{
+	if (Unknown204 == 0) {
+		return;
+	}
+	if (Unknown0E4 == (int)WW3D::Get_Frame_Count()) {
+		return;
+	}
+	Unknown0E4 = WW3D::Get_Frame_Count();
+	if (BodyObj == NULL || HeadObj == NULL || PlayerNLP == NULL) {
+		Message_Error("Avatar Animation", "", __FILE__, __LINE__, "Invalid avatar objects (%x %x %x)", BodyObj.Peek(), HeadObj.Peek(), PlayerNLP);
+		return;
+	}
+	Unknown_788900();
+	Unknown_7897D0();
+	float time = (float)WW3D::Get_Frame_Time() * 0.001f;
+	bool clamped = false;
+	if (time > 0.25f) {
+		time = 0.25f;
+		clamped = true;
+	}
+	if (Unknown2F8 != 0 || Unknown308 != 0.0f) {
+		static const float run_max = 25.0f;
+		static const float walk_max = 10.0f;
+		static const float turn_rate = 2.0f;
+		static const float pitch_rate = 1.0f;
+		static const float accel_rate = 30.0f;
+		float accel = accel_rate * time;
+		Unknown360.Set(0.0f, 0.0f, 0.0f);
+		if (Unknown308 > 0.0f && Unknown2F4) {
+			accel = (run_max / walk_max) * accel;
+		}
+		float turn = turn_rate * time;
+		if (clamped) {
+			turn = 0.0f;
+		}
+		if (Unknown318.size() != 0 && Unknown20C != 2) {
+			turn *= 3.0f;
+		}
+		if (Unknown2FC < 0.25) {
+			float scale = Unknown2FC * 4.0f;
+			turn *= scale;
+		}
+		if (Unknown2F8 & 4) {
+			Unknown330.Rotate_Z(turn);
+		} else if (Unknown2F8 & 8) {
+			Unknown330.Rotate_Z(-turn);
+		}
+		float pitch = pitch_rate * Unknown300 * time;
+		if (clamped) {
+			pitch = 0.0f;
+		}
+		int flags = Unknown2F8;
+		if (flags & 0x10) {
+			pitch = Unknown30C - pitch;
+			if (pitch <= -0.8f) {
+				pitch = -0.8f;
+			}
+			Unknown30C = pitch;
+		} else if (flags & 0x20) {
+			pitch = pitch + Unknown30C;
+			if (pitch >= 0.4f) {
+				pitch = 0.4f;
+			}
+			Unknown30C = pitch;
+		}
+		float yaw = turn_rate * Unknown304 * time;
+		if (flags & 0x40) {
+			Unknown310 = Unknown310 - yaw;
+		} else if (flags & 0x80) {
+			Unknown310 = yaw + Unknown310;
+		}
+		if (flags & 1) {
+			if (Unknown20C == 2 && Unknown210 == 0) {
+				Unknown20C = 0;
+				Unknown214 = true;
+				Unknown208 = 2;
+			}
+			if (Unknown20C == 1) {
+				float speed = accel + Unknown308;
+				if (Unknown2F4) {
+					if (run_max < speed) {
+						speed = run_max;
+					}
+				} else {
+					if (walk_max < speed) {
+						speed = walk_max;
+					}
+				}
+				Unknown308 = speed;
+				Unknown360 = (Unknown330.Get_X_Vector() * Unknown308) * time;
+				Unknown330.Adjust_Translation(Unknown360);
+			}
+		} else if (flags & 2) {
+			if (Unknown20C == 2 && Unknown210 == 0) {
+				Unknown20C = 0;
+				Unknown214 = true;
+				Unknown208 = 2;
+			}
+			if (Unknown20C == 1) {
+				float speed = Unknown308 - accel;
+				if (-walk_max > speed) {
+					speed = -walk_max;
+				}
+				Unknown308 = speed;
+				Unknown360 = (Unknown330.Get_X_Vector() * Unknown308) * time;
+				Unknown330.Adjust_Translation(Unknown360);
+			}
+		} else if (Unknown308 != 0.0f) {
+			if (Unknown308 > 0.0f) {
+				float speed = Unknown308 - accel;
+				if (0.0f > speed) {
+					speed = 0.0f;
+				}
+				Unknown308 = speed;
+			} else {
+				float speed = accel + Unknown308;
+				if (0.0f < speed) {
+					speed = 0.0f;
+				}
+				Unknown308 = speed;
+			}
+			Unknown360 = (Unknown330.Get_X_Vector() * Unknown308) * time;
+			Unknown330.Adjust_Translation(Unknown360);
+		}
+	}
+	if (!Unknown36C) {
+		Set_Transform(Unknown330);
+	}
+	if (!Unknown231 && !Unknown232) {
+		if (Unknown208 == 0 && Unknown210 == 0 && Unknown230) {
+			Unknown22C += time;
+		}
+	} else {
+		Unknown22C = 0.0f;
+	}
+	if (Unknown233) {
+		Unknown228 += time;
+		int steps = (int)(Unknown228 * 20.0f);
+		if (steps > 0) {
+			Unknown228 -= steps * 0.05f;
+			if (Unknown29C) {
+				Unknown_781410(0, steps);
+			}
+			if (Unknown29D) {
+				Unknown_781570(0, steps);
+			}
+		}
+	}
+	if (Unknown2EC && (BodyObj == NULL || !BodyObj->Is_Hidden())) {
+		Unknown2F0 -= time;
+		if (Unknown2F0 < 0.0f) {
+			TutorialManagerClass::Instance->Start_Step(Unknown2EC);
+			Unknown2F0 = 60.0f;
+		}
+	}
+	Unknown_783620(time);
+	Unknown_7854B0(time);
+	{
+		if (Unknown_7835D0()) {
+			switch (Unknown208) {
+				case 0:
+					if (Unknown204 == 2) {
+						Unknown204 = 0;
+						break;
+					}
+					if (Unknown_7860C0()) {
+						Unknown_782200();
+					} else {
+						Unknown_781EA0();
+					}
+					break;
+				case 1:
+					Unknown_782200();
+					break;
+				case 2:
+					Unknown_7826A0();
+					break;
+				case 3:
+					Unknown_782850();
+					break;
+			}
+		}
+	}
+	if (MaskObj != NULL) {
+		if (TimeMgrClass::Get_Instance()->Is_Unknown_819280()) {
+			MaskObj->Set_Hidden(0);
+			HeadObj->Set_Hidden(1);
+		} else {
+			MaskObj->Set_Hidden(1);
+			HeadObj->Set_Hidden(0);
+		}
+	}
+}
+
+// FORM signed_coast
+// SOURCE /home/dev/Projects/EnB/.work/claim-240/focused/783B50/signed_coast/avatar.cpp
+void CharacterViewAvatarClass::Unknown_1C4()
+{
+	if (Unknown204 == 0) {
+		return;
+	}
+	if (Unknown0E4 == (int)WW3D::Get_Frame_Count()) {
+		return;
+	}
+	Unknown0E4 = WW3D::Get_Frame_Count();
+	if (BodyObj == NULL || HeadObj == NULL || PlayerNLP == NULL) {
+		Message_Error("Avatar Animation", "", __FILE__, __LINE__, "Invalid avatar objects (%x %x %x)", BodyObj.Peek(), HeadObj.Peek(), PlayerNLP);
+		return;
+	}
+	Unknown_788900();
+	Unknown_7897D0();
+	float time = (float)WW3D::Get_Frame_Time() * 0.001f;
+	bool clamped = false;
+	if (time > 0.25f) {
+		time = 0.25f;
+		clamped = true;
+	}
+	if (Unknown2F8 != 0 || Unknown308 != 0.0f) {
+		static const float run_max = 25.0f;
+		static const float walk_max = 10.0f;
+		static const float turn_rate = 2.0f;
+		static const float pitch_rate = 1.0f;
+		static const float accel_rate = 30.0f;
+		float accel = accel_rate * time;
+		Unknown360.Set(0.0f, 0.0f, 0.0f);
+		if (Unknown308 > 0.0f && Unknown2F4) {
+			accel = (run_max / walk_max) * accel;
+		}
+		float turn = turn_rate * time;
+		if (clamped) {
+			turn = 0.0f;
+		}
+		if (Unknown318.size() != 0 && Unknown20C != 2) {
+			turn *= 3.0f;
+		}
+		if (Unknown2FC < 0.25) {
+			float scale = Unknown2FC * 4.0f;
+			turn *= scale;
+		}
+		if (Unknown2F8 & 4) {
+			Unknown330.Rotate_Z(turn);
+		} else if (Unknown2F8 & 8) {
+			Unknown330.Rotate_Z(-turn);
+		}
+		float pitch = pitch_rate * Unknown300 * time;
+		if (clamped) {
+			pitch = 0.0f;
+		}
+		int flags = Unknown2F8;
+		if (flags & 0x10) {
+			pitch = Unknown30C - pitch;
+			if (pitch <= -0.8f) {
+				pitch = -0.8f;
+			}
+			Unknown30C = pitch;
+		} else if (flags & 0x20) {
+			pitch = pitch + Unknown30C;
+			if (pitch >= 0.4f) {
+				pitch = 0.4f;
+			}
+			Unknown30C = pitch;
+		}
+		float yaw = turn_rate * Unknown304 * time;
+		if (flags & 0x40) {
+			Unknown310 = Unknown310 - yaw;
+		} else if (flags & 0x80) {
+			Unknown310 = yaw + Unknown310;
+		}
+		if (flags & 1) {
+			if (Unknown20C == 2 && Unknown210 == 0) {
+				Unknown20C = 0;
+				Unknown214 = true;
+				Unknown208 = 2;
+			}
+			if (Unknown20C == 1) {
+				float speed = accel + Unknown308;
+				if (Unknown2F4) {
+					if (run_max < speed) {
+						speed = run_max;
+					}
+				} else {
+					if (walk_max < speed) {
+						speed = walk_max;
+					}
+				}
+				Unknown308 = speed;
+				Unknown360 = (Unknown330.Get_X_Vector() * Unknown308) * time;
+				Unknown330.Adjust_Translation(Unknown360);
+			}
+		} else if (flags & 2) {
+			if (Unknown20C == 2 && Unknown210 == 0) {
+				Unknown20C = 0;
+				Unknown214 = true;
+				Unknown208 = 2;
+			}
+			if (Unknown20C == 1) {
+				float speed = Unknown308 - accel;
+				if (-walk_max > speed) {
+					speed = -walk_max;
+				}
+				Unknown308 = speed;
+				Unknown360 = (Unknown330.Get_X_Vector() * Unknown308) * time;
+				Unknown330.Adjust_Translation(Unknown360);
+			}
+		} else if (Unknown308 != 0.0f) {
+			if (Unknown308 > 0.0f) {
+				float speed = Unknown308 - accel;
+				if (0.0f > speed) {
+					speed = 0.0f;
+				}
+				Unknown308 = speed;
+			} else if (Unknown308 < 0.0f) {
+				float speed = accel + Unknown308;
+				if (0.0f < speed) {
+					speed = 0.0f;
+				}
+				Unknown308 = speed;
+			}
+			Unknown360 = (Unknown330.Get_X_Vector() * Unknown308) * time;
+			Unknown330.Adjust_Translation(Unknown360);
+		}
+	}
+	if (!Unknown36C) {
+		Set_Transform(Unknown330);
+	}
+	if (!Unknown231 && !Unknown232) {
+		if (Unknown208 == 0 && Unknown210 == 0 && Unknown230) {
+			Unknown22C += time;
+		}
+	} else {
+		Unknown22C = 0.0f;
+	}
+	if (Unknown233) {
+		Unknown228 += time;
+		int steps = (int)(Unknown228 * 20.0f);
+		if (steps > 0) {
+			Unknown228 -= steps * 0.05f;
+			if (Unknown29C) {
+				Unknown_781410(0, steps);
+			}
+			if (Unknown29D) {
+				Unknown_781570(0, steps);
+			}
+		}
+	}
+	if (Unknown2EC && (BodyObj == NULL || !BodyObj->Is_Hidden())) {
+		Unknown2F0 -= time;
+		if (Unknown2F0 < 0.0f) {
+			TutorialManagerClass::Instance->Start_Step(Unknown2EC);
+			Unknown2F0 = 60.0f;
+		}
+	}
+	Unknown_783620(time);
+	Unknown_7854B0(time);
+	{
+		if (Unknown_7835D0()) {
+			switch (Unknown208) {
+				case 0:
+					if (Unknown204 == 2) {
+						Unknown204 = 0;
+						break;
+					}
+					if (Unknown_7860C0()) {
+						Unknown_782200();
+					} else {
+						Unknown_781EA0();
+					}
+					break;
+				case 1:
+					Unknown_782200();
+					break;
+				case 2:
+					Unknown_7826A0();
+					break;
+				case 3:
+					Unknown_782850();
+					break;
+			}
+		}
+	}
+	if (MaskObj != NULL) {
+		if (TimeMgrClass::Get_Instance()->Is_Unknown_819280()) {
+			MaskObj->Set_Hidden(0);
+			HeadObj->Set_Hidden(1);
+		} else {
+			MaskObj->Set_Hidden(1);
+			HeadObj->Set_Hidden(0);
+		}
+	}
+}
+
+// FORM forward_min
+// SOURCE /home/dev/Projects/EnB/.work/claim-240/focused/783B50/forward_min/avatar.cpp
+void CharacterViewAvatarClass::Unknown_1C4()
+{
+	if (Unknown204 == 0) {
+		return;
+	}
+	if (Unknown0E4 == (int)WW3D::Get_Frame_Count()) {
+		return;
+	}
+	Unknown0E4 = WW3D::Get_Frame_Count();
+	if (BodyObj == NULL || HeadObj == NULL || PlayerNLP == NULL) {
+		Message_Error("Avatar Animation", "", __FILE__, __LINE__, "Invalid avatar objects (%x %x %x)", BodyObj.Peek(), HeadObj.Peek(), PlayerNLP);
+		return;
+	}
+	Unknown_788900();
+	Unknown_7897D0();
+	float time = (float)WW3D::Get_Frame_Time() * 0.001f;
+	bool clamped = false;
+	if (time > 0.25f) {
+		time = 0.25f;
+		clamped = true;
+	}
+	if (Unknown2F8 != 0 || Unknown308 != 0.0f) {
+		static const float run_max = 25.0f;
+		static const float walk_max = 10.0f;
+		static const float turn_rate = 2.0f;
+		static const float pitch_rate = 1.0f;
+		static const float accel_rate = 30.0f;
+		float accel = accel_rate * time;
+		Unknown360.Set(0.0f, 0.0f, 0.0f);
+		if (Unknown308 > 0.0f && Unknown2F4) {
+			accel = (run_max / walk_max) * accel;
+		}
+		float turn = turn_rate * time;
+		if (clamped) {
+			turn = 0.0f;
+		}
+		if (Unknown318.size() != 0 && Unknown20C != 2) {
+			turn *= 3.0f;
+		}
+		if (Unknown2FC < 0.25) {
+			float scale = Unknown2FC * 4.0f;
+			turn *= scale;
+		}
+		if (Unknown2F8 & 4) {
+			Unknown330.Rotate_Z(turn);
+		} else if (Unknown2F8 & 8) {
+			Unknown330.Rotate_Z(-turn);
+		}
+		float pitch = pitch_rate * Unknown300 * time;
+		if (clamped) {
+			pitch = 0.0f;
+		}
+		int flags = Unknown2F8;
+		if (flags & 0x10) {
+			pitch = Unknown30C - pitch;
+			if (pitch <= -0.8f) {
+				pitch = -0.8f;
+			}
+			Unknown30C = pitch;
+		} else if (flags & 0x20) {
+			pitch = pitch + Unknown30C;
+			if (pitch >= 0.4f) {
+				pitch = 0.4f;
+			}
+			Unknown30C = pitch;
+		}
+		float yaw = turn_rate * Unknown304 * time;
+		if (flags & 0x40) {
+			Unknown310 = Unknown310 - yaw;
+		} else if (flags & 0x80) {
+			Unknown310 = yaw + Unknown310;
+		}
+		if (flags & 1) {
+			if (Unknown20C == 2 && Unknown210 == 0) {
+				Unknown20C = 0;
+				Unknown214 = true;
+				Unknown208 = 2;
+			}
+			if (Unknown20C == 1) {
+				float speed = accel + Unknown308;
+				if (Unknown2F4) {
+					speed = WWMath::Min(run_max, speed);
+
+
+				} else {
+					speed = WWMath::Min(walk_max, speed);
+
+
+				}
+				Unknown308 = speed;
+				Unknown360 = (Unknown330.Get_X_Vector() * Unknown308) * time;
+				Unknown330.Adjust_Translation(Unknown360);
+			}
+		} else if (flags & 2) {
+			if (Unknown20C == 2 && Unknown210 == 0) {
+				Unknown20C = 0;
+				Unknown214 = true;
+				Unknown208 = 2;
+			}
+			if (Unknown20C == 1) {
+				float speed = Unknown308 - accel;
+				if (-walk_max > speed) {
+					speed = -walk_max;
+				}
+				Unknown308 = speed;
+				Unknown360 = (Unknown330.Get_X_Vector() * Unknown308) * time;
+				Unknown330.Adjust_Translation(Unknown360);
+			}
+		} else if (Unknown308 != 0.0f) {
+			if (Unknown308 > 0.0f) {
+				float speed = Unknown308 - accel;
+				if (0.0f > speed) {
+					speed = 0.0f;
+				}
+				Unknown308 = speed;
+			} else if (Unknown308 < 0.0f) {
+				float speed = accel + Unknown308;
+				if (0.0f < speed) {
+					speed = 0.0f;
+				}
+				Unknown308 = speed;
+			}
+			Unknown360 = (Unknown330.Get_X_Vector() * Unknown308) * time;
+			Unknown330.Adjust_Translation(Unknown360);
+		}
+	}
+	if (!Unknown36C) {
+		Set_Transform(Unknown330);
+	}
+	if (!Unknown231 && !Unknown232) {
+		if (Unknown208 == 0 && Unknown210 == 0 && Unknown230) {
+			Unknown22C += time;
+		}
+	} else {
+		Unknown22C = 0.0f;
+	}
+	if (Unknown233) {
+		Unknown228 += time;
+		int steps = (int)(Unknown228 * 20.0f);
+		if (steps > 0) {
+			Unknown228 -= steps * 0.05f;
+			if (Unknown29C) {
+				Unknown_781410(0, steps);
+			}
+			if (Unknown29D) {
+				Unknown_781570(0, steps);
+			}
+		}
+	}
+	if (Unknown2EC && (BodyObj == NULL || !BodyObj->Is_Hidden())) {
+		Unknown2F0 -= time;
+		if (Unknown2F0 < 0.0f) {
+			TutorialManagerClass::Instance->Start_Step(Unknown2EC);
+			Unknown2F0 = 60.0f;
+		}
+	}
+	Unknown_783620(time);
+	Unknown_7854B0(time);
+	{
+		if (Unknown_7835D0()) {
+			switch (Unknown208) {
+				case 0:
+					if (Unknown204 == 2) {
+						Unknown204 = 0;
+						break;
+					}
+					if (Unknown_7860C0()) {
+						Unknown_782200();
+					} else {
+						Unknown_781EA0();
+					}
+					break;
+				case 1:
+					Unknown_782200();
+					break;
+				case 2:
+					Unknown_7826A0();
+					break;
+				case 3:
+					Unknown_782850();
+					break;
+			}
+		}
+	}
+	if (MaskObj != NULL) {
+		if (TimeMgrClass::Get_Instance()->Is_Unknown_819280()) {
+			MaskObj->Set_Hidden(0);
+			HeadObj->Set_Hidden(1);
+		} else {
+			MaskObj->Set_Hidden(1);
+			HeadObj->Set_Hidden(0);
+		}
+	}
+}
+
+// FORM forward_member
+// SOURCE /home/dev/Projects/EnB/.work/claim-240/focused/783B50/forward_member/avatar.cpp
+void CharacterViewAvatarClass::Unknown_1C4()
+{
+	if (Unknown204 == 0) {
+		return;
+	}
+	if (Unknown0E4 == (int)WW3D::Get_Frame_Count()) {
+		return;
+	}
+	Unknown0E4 = WW3D::Get_Frame_Count();
+	if (BodyObj == NULL || HeadObj == NULL || PlayerNLP == NULL) {
+		Message_Error("Avatar Animation", "", __FILE__, __LINE__, "Invalid avatar objects (%x %x %x)", BodyObj.Peek(), HeadObj.Peek(), PlayerNLP);
+		return;
+	}
+	Unknown_788900();
+	Unknown_7897D0();
+	float time = (float)WW3D::Get_Frame_Time() * 0.001f;
+	bool clamped = false;
+	if (time > 0.25f) {
+		time = 0.25f;
+		clamped = true;
+	}
+	if (Unknown2F8 != 0 || Unknown308 != 0.0f) {
+		static const float run_max = 25.0f;
+		static const float walk_max = 10.0f;
+		static const float turn_rate = 2.0f;
+		static const float pitch_rate = 1.0f;
+		static const float accel_rate = 30.0f;
+		float accel = accel_rate * time;
+		Unknown360.Set(0.0f, 0.0f, 0.0f);
+		if (Unknown308 > 0.0f && Unknown2F4) {
+			accel = (run_max / walk_max) * accel;
+		}
+		float turn = turn_rate * time;
+		if (clamped) {
+			turn = 0.0f;
+		}
+		if (Unknown318.size() != 0 && Unknown20C != 2) {
+			turn *= 3.0f;
+		}
+		if (Unknown2FC < 0.25) {
+			float scale = Unknown2FC * 4.0f;
+			turn *= scale;
+		}
+		if (Unknown2F8 & 4) {
+			Unknown330.Rotate_Z(turn);
+		} else if (Unknown2F8 & 8) {
+			Unknown330.Rotate_Z(-turn);
+		}
+		float pitch = pitch_rate * Unknown300 * time;
+		if (clamped) {
+			pitch = 0.0f;
+		}
+		int flags = Unknown2F8;
+		if (flags & 0x10) {
+			pitch = Unknown30C - pitch;
+			if (pitch <= -0.8f) {
+				pitch = -0.8f;
+			}
+			Unknown30C = pitch;
+		} else if (flags & 0x20) {
+			pitch = pitch + Unknown30C;
+			if (pitch >= 0.4f) {
+				pitch = 0.4f;
+			}
+			Unknown30C = pitch;
+		}
+		float yaw = turn_rate * Unknown304 * time;
+		if (flags & 0x40) {
+			Unknown310 = Unknown310 - yaw;
+		} else if (flags & 0x80) {
+			Unknown310 = yaw + Unknown310;
+		}
+		if (flags & 1) {
+			if (Unknown20C == 2 && Unknown210 == 0) {
+				Unknown20C = 0;
+				Unknown214 = true;
+				Unknown208 = 2;
+			}
+			if (Unknown20C == 1) {
+				Unknown308 = accel + Unknown308;
+				if (Unknown2F4) {
+					if (run_max < Unknown308) {
+						Unknown308 = run_max;
+					}
+				} else {
+					if (walk_max < Unknown308) {
+						Unknown308 = walk_max;
+					}
+				}
+
+				Unknown360 = (Unknown330.Get_X_Vector() * Unknown308) * time;
+				Unknown330.Adjust_Translation(Unknown360);
+			}
+		} else if (flags & 2) {
+			if (Unknown20C == 2 && Unknown210 == 0) {
+				Unknown20C = 0;
+				Unknown214 = true;
+				Unknown208 = 2;
+			}
+			if (Unknown20C == 1) {
+				float speed = Unknown308 - accel;
+				if (-walk_max > speed) {
+					speed = -walk_max;
+				}
+				Unknown308 = speed;
+				Unknown360 = (Unknown330.Get_X_Vector() * Unknown308) * time;
+				Unknown330.Adjust_Translation(Unknown360);
+			}
+		} else if (Unknown308 != 0.0f) {
+			if (Unknown308 > 0.0f) {
+				float speed = Unknown308 - accel;
+				if (0.0f > speed) {
+					speed = 0.0f;
+				}
+				Unknown308 = speed;
+			} else if (Unknown308 < 0.0f) {
+				float speed = accel + Unknown308;
+				if (0.0f < speed) {
+					speed = 0.0f;
+				}
+				Unknown308 = speed;
+			}
+			Unknown360 = (Unknown330.Get_X_Vector() * Unknown308) * time;
+			Unknown330.Adjust_Translation(Unknown360);
+		}
+	}
+	if (!Unknown36C) {
+		Set_Transform(Unknown330);
+	}
+	if (!Unknown231 && !Unknown232) {
+		if (Unknown208 == 0 && Unknown210 == 0 && Unknown230) {
+			Unknown22C += time;
+		}
+	} else {
+		Unknown22C = 0.0f;
+	}
+	if (Unknown233) {
+		Unknown228 += time;
+		int steps = (int)(Unknown228 * 20.0f);
+		if (steps > 0) {
+			Unknown228 -= steps * 0.05f;
+			if (Unknown29C) {
+				Unknown_781410(0, steps);
+			}
+			if (Unknown29D) {
+				Unknown_781570(0, steps);
+			}
+		}
+	}
+	if (Unknown2EC && (BodyObj == NULL || !BodyObj->Is_Hidden())) {
+		Unknown2F0 -= time;
+		if (Unknown2F0 < 0.0f) {
+			TutorialManagerClass::Instance->Start_Step(Unknown2EC);
+			Unknown2F0 = 60.0f;
+		}
+	}
+	Unknown_783620(time);
+	Unknown_7854B0(time);
+	{
+		if (Unknown_7835D0()) {
+			switch (Unknown208) {
+				case 0:
+					if (Unknown204 == 2) {
+						Unknown204 = 0;
+						break;
+					}
+					if (Unknown_7860C0()) {
+						Unknown_782200();
+					} else {
+						Unknown_781EA0();
+					}
+					break;
+				case 1:
+					Unknown_782200();
+					break;
+				case 2:
+					Unknown_7826A0();
+					break;
+				case 3:
+					Unknown_782850();
+					break;
+			}
+		}
+	}
+	if (MaskObj != NULL) {
+		if (TimeMgrClass::Get_Instance()->Is_Unknown_819280()) {
+			MaskObj->Set_Hidden(0);
+			HeadObj->Set_Hidden(1);
+		} else {
+			MaskObj->Set_Hidden(1);
+			HeadObj->Set_Hidden(0);
+		}
+	}
+}
+
+// FORM forward_branch_store
+// SOURCE /home/dev/Projects/EnB/.work/claim-240/focused/783B50/forward_branch_store/avatar.cpp
+void CharacterViewAvatarClass::Unknown_1C4()
+{
+	if (Unknown204 == 0) {
+		return;
+	}
+	if (Unknown0E4 == (int)WW3D::Get_Frame_Count()) {
+		return;
+	}
+	Unknown0E4 = WW3D::Get_Frame_Count();
+	if (BodyObj == NULL || HeadObj == NULL || PlayerNLP == NULL) {
+		Message_Error("Avatar Animation", "", __FILE__, __LINE__, "Invalid avatar objects (%x %x %x)", BodyObj.Peek(), HeadObj.Peek(), PlayerNLP);
+		return;
+	}
+	Unknown_788900();
+	Unknown_7897D0();
+	float time = (float)WW3D::Get_Frame_Time() * 0.001f;
+	bool clamped = false;
+	if (time > 0.25f) {
+		time = 0.25f;
+		clamped = true;
+	}
+	if (Unknown2F8 != 0 || Unknown308 != 0.0f) {
+		static const float run_max = 25.0f;
+		static const float walk_max = 10.0f;
+		static const float turn_rate = 2.0f;
+		static const float pitch_rate = 1.0f;
+		static const float accel_rate = 30.0f;
+		float accel = accel_rate * time;
+		Unknown360.Set(0.0f, 0.0f, 0.0f);
+		if (Unknown308 > 0.0f && Unknown2F4) {
+			accel = (run_max / walk_max) * accel;
+		}
+		float turn = turn_rate * time;
+		if (clamped) {
+			turn = 0.0f;
+		}
+		if (Unknown318.size() != 0 && Unknown20C != 2) {
+			turn *= 3.0f;
+		}
+		if (Unknown2FC < 0.25) {
+			float scale = Unknown2FC * 4.0f;
+			turn *= scale;
+		}
+		if (Unknown2F8 & 4) {
+			Unknown330.Rotate_Z(turn);
+		} else if (Unknown2F8 & 8) {
+			Unknown330.Rotate_Z(-turn);
+		}
+		float pitch = pitch_rate * Unknown300 * time;
+		if (clamped) {
+			pitch = 0.0f;
+		}
+		int flags = Unknown2F8;
+		if (flags & 0x10) {
+			pitch = Unknown30C - pitch;
+			if (pitch <= -0.8f) {
+				pitch = -0.8f;
+			}
+			Unknown30C = pitch;
+		} else if (flags & 0x20) {
+			pitch = pitch + Unknown30C;
+			if (pitch >= 0.4f) {
+				pitch = 0.4f;
+			}
+			Unknown30C = pitch;
+		}
+		float yaw = turn_rate * Unknown304 * time;
+		if (flags & 0x40) {
+			Unknown310 = Unknown310 - yaw;
+		} else if (flags & 0x80) {
+			Unknown310 = yaw + Unknown310;
+		}
+		if (flags & 1) {
+			if (Unknown20C == 2 && Unknown210 == 0) {
+				Unknown20C = 0;
+				Unknown214 = true;
+				Unknown208 = 2;
+			}
+			if (Unknown20C == 1) {
+				float speed = accel + Unknown308;
+				if (Unknown2F4) {
+					if (run_max < speed) {
+						speed = run_max;
+					} Unknown308 = speed;
+				} else {
+					if (walk_max < speed) {
+						speed = walk_max;
+					} Unknown308 = speed;
+				}
+
+				Unknown360 = (Unknown330.Get_X_Vector() * Unknown308) * time;
+				Unknown330.Adjust_Translation(Unknown360);
+			}
+		} else if (flags & 2) {
+			if (Unknown20C == 2 && Unknown210 == 0) {
+				Unknown20C = 0;
+				Unknown214 = true;
+				Unknown208 = 2;
+			}
+			if (Unknown20C == 1) {
+				float speed = Unknown308 - accel;
+				if (-walk_max > speed) {
+					speed = -walk_max;
+				}
+				Unknown308 = speed;
+				Unknown360 = (Unknown330.Get_X_Vector() * Unknown308) * time;
+				Unknown330.Adjust_Translation(Unknown360);
+			}
+		} else if (Unknown308 != 0.0f) {
+			if (Unknown308 > 0.0f) {
+				float speed = Unknown308 - accel;
+				if (0.0f > speed) {
+					speed = 0.0f;
+				}
+				Unknown308 = speed;
+			} else if (Unknown308 < 0.0f) {
+				float speed = accel + Unknown308;
+				if (0.0f < speed) {
+					speed = 0.0f;
+				}
+				Unknown308 = speed;
+			}
+			Unknown360 = (Unknown330.Get_X_Vector() * Unknown308) * time;
+			Unknown330.Adjust_Translation(Unknown360);
+		}
+	}
+	if (!Unknown36C) {
+		Set_Transform(Unknown330);
+	}
+	if (!Unknown231 && !Unknown232) {
+		if (Unknown208 == 0 && Unknown210 == 0 && Unknown230) {
+			Unknown22C += time;
+		}
+	} else {
+		Unknown22C = 0.0f;
+	}
+	if (Unknown233) {
+		Unknown228 += time;
+		int steps = (int)(Unknown228 * 20.0f);
+		if (steps > 0) {
+			Unknown228 -= steps * 0.05f;
+			if (Unknown29C) {
+				Unknown_781410(0, steps);
+			}
+			if (Unknown29D) {
+				Unknown_781570(0, steps);
+			}
+		}
+	}
+	if (Unknown2EC && (BodyObj == NULL || !BodyObj->Is_Hidden())) {
+		Unknown2F0 -= time;
+		if (Unknown2F0 < 0.0f) {
+			TutorialManagerClass::Instance->Start_Step(Unknown2EC);
+			Unknown2F0 = 60.0f;
+		}
+	}
+	Unknown_783620(time);
+	Unknown_7854B0(time);
+	{
+		if (Unknown_7835D0()) {
+			switch (Unknown208) {
+				case 0:
+					if (Unknown204 == 2) {
+						Unknown204 = 0;
+						break;
+					}
+					if (Unknown_7860C0()) {
+						Unknown_782200();
+					} else {
+						Unknown_781EA0();
+					}
+					break;
+				case 1:
+					Unknown_782200();
+					break;
+				case 2:
+					Unknown_7826A0();
+					break;
+				case 3:
+					Unknown_782850();
+					break;
+			}
+		}
+	}
+	if (MaskObj != NULL) {
+		if (TimeMgrClass::Get_Instance()->Is_Unknown_819280()) {
+			MaskObj->Set_Hidden(0);
+			HeadObj->Set_Hidden(1);
+		} else {
+			MaskObj->Set_Hidden(1);
+			HeadObj->Set_Hidden(0);
+		}
+	}
+}

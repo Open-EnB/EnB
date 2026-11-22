@@ -1,0 +1,1279 @@
+# Independently applicable source forms against frozen5a7c65f3 avatar.cpp
+
+## seed
+control; compiled=True; source SHA256=a0e66462fed43b5b472b90b6b811823e485bfd0bb213d68a379c7ff28388e257
+--- a/app/client/avatar.cpp
++++ b/app/client/avatar.cpp
+@@ -3656,29 +3656,29 @@
+ 	if (BodyObj == NULL || Unknown380 == mode) {
+ 		return;
+ 	}
+-	if (Unknown370) {
+-		Unknown370->Set_Animation();
+-		Unknown370->Remove();
+-		Unknown370 = NULL;
+-	}
+-	if (Unknown374) {
+-		Unknown374 = NULL;
+-	}
+-	Unknown378 = -100.0f;
+-	Unknown37C = 0.0f;
++	Unknown_788EF0();
++
++
++
++
++
++
++
++
++
+ 	Unknown380 = mode;
+ 	if (mode == 0) {
+ 		return;
+ 	}
+ 	switch (mode) {
+ 		case 1:
+-			Unknown370 = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele01"));
++			Unknown370 = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele01"));
+ 			Unknown374 = Create_Get(WW3DAssetManager::Get_Instance()->Get_HAnim("av_tele01a.Av_tele01a-1"));
+ 			Unknown378 = 0.7f;
+ 			Unknown37C = 3.2f;
+ 			break;
+ 		case 2:
+-			Unknown370 = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele03"));
++			Unknown370 = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele03"));
+ 			Unknown374 = Create_Get(WW3DAssetManager::Get_Instance()->Get_HAnim("av_tele03a.Av_tele03a-1"));
+ 			if (BodyObj) {
+ 				BodyObj->Set_Hidden(1);
+@@ -3690,13 +3690,13 @@
+ 			Unknown37C = 1.0f;
+ 			break;
+ 		case 3:
+-			Unknown370 = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele02"));
++			Unknown370 = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele02"));
+ 			Unknown374 = Create_Get(WW3DAssetManager::Get_Instance()->Get_HAnim("av_tele02a.Av_tele02a-1"));
+ 			Unknown378 = 0.5f;
+ 			Unknown37C = 1.0f;
+ 			break;
+ 		case 4:
+-			Unknown370 = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele04"));
++			Unknown370 = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele04"));
+ 			Unknown374 = Create_Get(WW3DAssetManager::Get_Instance()->Get_HAnim("av_tele04a.Av_tele04a-1"));
+ 			Unknown_786370(true);
+ 			Unknown378 = 0.0f;
+
+## hide_helper
+new form; compiled=True; source SHA256=acb77b0adaf68b1a829a96882d674c35036f54df14dc5a7d6ade4f5dc1cb8e92
+--- a/app/client/avatar.cpp
++++ b/app/client/avatar.cpp
+@@ -3656,47 +3656,47 @@
+ 	if (BodyObj == NULL || Unknown380 == mode) {
+ 		return;
+ 	}
+-	if (Unknown370) {
+-		Unknown370->Set_Animation();
+-		Unknown370->Remove();
+-		Unknown370 = NULL;
+-	}
+-	if (Unknown374) {
+-		Unknown374 = NULL;
+-	}
+-	Unknown378 = -100.0f;
+-	Unknown37C = 0.0f;
++	Unknown_788EF0();
++
++
++
++
++
++
++
++
++
+ 	Unknown380 = mode;
+ 	if (mode == 0) {
+ 		return;
+ 	}
+ 	switch (mode) {
+ 		case 1:
+-			Unknown370 = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele01"));
++			Unknown370 = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele01"));
+ 			Unknown374 = Create_Get(WW3DAssetManager::Get_Instance()->Get_HAnim("av_tele01a.Av_tele01a-1"));
+ 			Unknown378 = 0.7f;
+ 			Unknown37C = 3.2f;
+ 			break;
+ 		case 2:
+-			Unknown370 = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele03"));
++			Unknown370 = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele03"));
+ 			Unknown374 = Create_Get(WW3DAssetManager::Get_Instance()->Get_HAnim("av_tele03a.Av_tele03a-1"));
+-			if (BodyObj) {
+-				BodyObj->Set_Hidden(1);
+-			}
+-			if (HeadObj) {
+-				HeadObj->Set_Hidden(1);
+-			}
++			Unknown_786370(true);
++
++
++
++
++
+ 			Unknown378 = 0.5f;
+ 			Unknown37C = 1.0f;
+ 			break;
+ 		case 3:
+-			Unknown370 = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele02"));
++			Unknown370 = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele02"));
+ 			Unknown374 = Create_Get(WW3DAssetManager::Get_Instance()->Get_HAnim("av_tele02a.Av_tele02a-1"));
+ 			Unknown378 = 0.5f;
+ 			Unknown37C = 1.0f;
+ 			break;
+ 		case 4:
+-			Unknown370 = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele04"));
++			Unknown370 = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele04"));
+ 			Unknown374 = Create_Get(WW3DAssetManager::Get_Instance()->Get_HAnim("av_tele04a.Av_tele04a-1"));
+ 			Unknown_786370(true);
+ 			Unknown378 = 0.0f;
+
+## body_compare
+new form; compiled=True; source SHA256=74b5b7b57c564806e2c95adad819c4b82b4bf59a043319a78d034af0f7bfe665
+--- a/app/client/avatar.cpp
++++ b/app/client/avatar.cpp
+@@ -3171,7 +3171,7 @@
+ // 0x786370
+ void CharacterViewAvatarClass::Unknown_786370(bool on)
+ {
+-	if (BodyObj) {
++	if (BodyObj != NULL) {
+ 		BodyObj->Set_Hidden(on);
+ 	}
+ 	if (HeadObj) {
+@@ -3656,47 +3656,47 @@
+ 	if (BodyObj == NULL || Unknown380 == mode) {
+ 		return;
+ 	}
+-	if (Unknown370) {
+-		Unknown370->Set_Animation();
+-		Unknown370->Remove();
+-		Unknown370 = NULL;
+-	}
+-	if (Unknown374) {
+-		Unknown374 = NULL;
+-	}
+-	Unknown378 = -100.0f;
+-	Unknown37C = 0.0f;
++	Unknown_788EF0();
++
++
++
++
++
++
++
++
++
+ 	Unknown380 = mode;
+ 	if (mode == 0) {
+ 		return;
+ 	}
+ 	switch (mode) {
+ 		case 1:
+-			Unknown370 = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele01"));
++			Unknown370 = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele01"));
+ 			Unknown374 = Create_Get(WW3DAssetManager::Get_Instance()->Get_HAnim("av_tele01a.Av_tele01a-1"));
+ 			Unknown378 = 0.7f;
+ 			Unknown37C = 3.2f;
+ 			break;
+ 		case 2:
+-			Unknown370 = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele03"));
++			Unknown370 = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele03"));
+ 			Unknown374 = Create_Get(WW3DAssetManager::Get_Instance()->Get_HAnim("av_tele03a.Av_tele03a-1"));
+-			if (BodyObj) {
+-				BodyObj->Set_Hidden(1);
+-			}
+-			if (HeadObj) {
+-				HeadObj->Set_Hidden(1);
+-			}
++			Unknown_786370(true);
++
++
++
++
++
+ 			Unknown378 = 0.5f;
+ 			Unknown37C = 1.0f;
+ 			break;
+ 		case 3:
+-			Unknown370 = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele02"));
++			Unknown370 = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele02"));
+ 			Unknown374 = Create_Get(WW3DAssetManager::Get_Instance()->Get_HAnim("av_tele02a.Av_tele02a-1"));
+ 			Unknown378 = 0.5f;
+ 			Unknown37C = 1.0f;
+ 			break;
+ 		case 4:
+-			Unknown370 = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele04"));
++			Unknown370 = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele04"));
+ 			Unknown374 = Create_Get(WW3DAssetManager::Get_Instance()->Get_HAnim("av_tele04a.Av_tele04a-1"));
+ 			Unknown_786370(true);
+ 			Unknown378 = 0.0f;
+
+## head_compare
+new form; compiled=True; source SHA256=bebd8ec77c892c67a1b4d0262ab53f112ddcf86419fed5b26421fceee15acd6e
+--- a/app/client/avatar.cpp
++++ b/app/client/avatar.cpp
+@@ -3174,7 +3174,7 @@
+ 	if (BodyObj) {
+ 		BodyObj->Set_Hidden(on);
+ 	}
+-	if (HeadObj) {
++	if (HeadObj != NULL) {
+ 		HeadObj->Set_Hidden(on);
+ 	}
+ }
+@@ -3656,47 +3656,47 @@
+ 	if (BodyObj == NULL || Unknown380 == mode) {
+ 		return;
+ 	}
+-	if (Unknown370) {
+-		Unknown370->Set_Animation();
+-		Unknown370->Remove();
+-		Unknown370 = NULL;
+-	}
+-	if (Unknown374) {
+-		Unknown374 = NULL;
+-	}
+-	Unknown378 = -100.0f;
+-	Unknown37C = 0.0f;
++	Unknown_788EF0();
++
++
++
++
++
++
++
++
++
+ 	Unknown380 = mode;
+ 	if (mode == 0) {
+ 		return;
+ 	}
+ 	switch (mode) {
+ 		case 1:
+-			Unknown370 = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele01"));
++			Unknown370 = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele01"));
+ 			Unknown374 = Create_Get(WW3DAssetManager::Get_Instance()->Get_HAnim("av_tele01a.Av_tele01a-1"));
+ 			Unknown378 = 0.7f;
+ 			Unknown37C = 3.2f;
+ 			break;
+ 		case 2:
+-			Unknown370 = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele03"));
++			Unknown370 = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele03"));
+ 			Unknown374 = Create_Get(WW3DAssetManager::Get_Instance()->Get_HAnim("av_tele03a.Av_tele03a-1"));
+-			if (BodyObj) {
+-				BodyObj->Set_Hidden(1);
+-			}
+-			if (HeadObj) {
+-				HeadObj->Set_Hidden(1);
+-			}
++			Unknown_786370(true);
++
++
++
++
++
+ 			Unknown378 = 0.5f;
+ 			Unknown37C = 1.0f;
+ 			break;
+ 		case 3:
+-			Unknown370 = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele02"));
++			Unknown370 = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele02"));
+ 			Unknown374 = Create_Get(WW3DAssetManager::Get_Instance()->Get_HAnim("av_tele02a.Av_tele02a-1"));
+ 			Unknown378 = 0.5f;
+ 			Unknown37C = 1.0f;
+ 			break;
+ 		case 4:
+-			Unknown370 = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele04"));
++			Unknown370 = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele04"));
+ 			Unknown374 = Create_Get(WW3DAssetManager::Get_Instance()->Get_HAnim("av_tele04a.Av_tele04a-1"));
+ 			Unknown_786370(true);
+ 			Unknown378 = 0.0f;
+
+## both_compare
+new form; compiled=True; source SHA256=9ca09a91312e24400988ac56ffc9f34a8a65827c77ee088af332c4b19f5efd48
+--- a/app/client/avatar.cpp
++++ b/app/client/avatar.cpp
+@@ -3171,10 +3171,10 @@
+ // 0x786370
+ void CharacterViewAvatarClass::Unknown_786370(bool on)
+ {
+-	if (BodyObj) {
++	if (BodyObj != NULL) {
+ 		BodyObj->Set_Hidden(on);
+ 	}
+-	if (HeadObj) {
++	if (HeadObj != NULL) {
+ 		HeadObj->Set_Hidden(on);
+ 	}
+ }
+@@ -3656,47 +3656,47 @@
+ 	if (BodyObj == NULL || Unknown380 == mode) {
+ 		return;
+ 	}
+-	if (Unknown370) {
+-		Unknown370->Set_Animation();
+-		Unknown370->Remove();
+-		Unknown370 = NULL;
+-	}
+-	if (Unknown374) {
+-		Unknown374 = NULL;
+-	}
+-	Unknown378 = -100.0f;
+-	Unknown37C = 0.0f;
++	Unknown_788EF0();
++
++
++
++
++
++
++
++
++
+ 	Unknown380 = mode;
+ 	if (mode == 0) {
+ 		return;
+ 	}
+ 	switch (mode) {
+ 		case 1:
+-			Unknown370 = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele01"));
++			Unknown370 = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele01"));
+ 			Unknown374 = Create_Get(WW3DAssetManager::Get_Instance()->Get_HAnim("av_tele01a.Av_tele01a-1"));
+ 			Unknown378 = 0.7f;
+ 			Unknown37C = 3.2f;
+ 			break;
+ 		case 2:
+-			Unknown370 = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele03"));
++			Unknown370 = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele03"));
+ 			Unknown374 = Create_Get(WW3DAssetManager::Get_Instance()->Get_HAnim("av_tele03a.Av_tele03a-1"));
+-			if (BodyObj) {
+-				BodyObj->Set_Hidden(1);
+-			}
+-			if (HeadObj) {
+-				HeadObj->Set_Hidden(1);
+-			}
++			Unknown_786370(true);
++
++
++
++
++
+ 			Unknown378 = 0.5f;
+ 			Unknown37C = 1.0f;
+ 			break;
+ 		case 3:
+-			Unknown370 = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele02"));
++			Unknown370 = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele02"));
+ 			Unknown374 = Create_Get(WW3DAssetManager::Get_Instance()->Get_HAnim("av_tele02a.Av_tele02a-1"));
+ 			Unknown378 = 0.5f;
+ 			Unknown37C = 1.0f;
+ 			break;
+ 		case 4:
+-			Unknown370 = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele04"));
++			Unknown370 = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele04"));
+ 			Unknown374 = Create_Get(WW3DAssetManager::Get_Instance()->Get_HAnim("av_tele04a.Av_tele04a-1"));
+ 			Unknown_786370(true);
+ 			Unknown378 = 0.0f;
+
+## helper_accessor
+new form; compiled=False; source SHA256=3a3be1acc82956997cad1326be16e1ebc2416545ac3555c60fa5141021b332d4
+--- a/app/client/avatar.cpp
++++ b/app/client/avatar.cpp
+@@ -3171,8 +3171,8 @@
+ // 0x786370
+ void CharacterViewAvatarClass::Unknown_786370(bool on)
+ {
+-	if (BodyObj) {
+-		BodyObj->Set_Hidden(on);
++	if (Peek_Body_Obj()) {
++		Peek_Body_Obj()->Set_Hidden(on);
+ 	}
+ 	if (HeadObj) {
+ 		HeadObj->Set_Hidden(on);
+@@ -3656,47 +3656,47 @@
+ 	if (BodyObj == NULL || Unknown380 == mode) {
+ 		return;
+ 	}
+-	if (Unknown370) {
+-		Unknown370->Set_Animation();
+-		Unknown370->Remove();
+-		Unknown370 = NULL;
+-	}
+-	if (Unknown374) {
+-		Unknown374 = NULL;
+-	}
+-	Unknown378 = -100.0f;
+-	Unknown37C = 0.0f;
++	Unknown_788EF0();
++
++
++
++
++
++
++
++
++
+ 	Unknown380 = mode;
+ 	if (mode == 0) {
+ 		return;
+ 	}
+ 	switch (mode) {
+ 		case 1:
+-			Unknown370 = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele01"));
++			Unknown370 = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele01"));
+ 			Unknown374 = Create_Get(WW3DAssetManager::Get_Instance()->Get_HAnim("av_tele01a.Av_tele01a-1"));
+ 			Unknown378 = 0.7f;
+ 			Unknown37C = 3.2f;
+ 			break;
+ 		case 2:
+-			Unknown370 = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele03"));
++			Unknown370 = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele03"));
+ 			Unknown374 = Create_Get(WW3DAssetManager::Get_Instance()->Get_HAnim("av_tele03a.Av_tele03a-1"));
+-			if (BodyObj) {
+-				BodyObj->Set_Hidden(1);
+-			}
+-			if (HeadObj) {
+-				HeadObj->Set_Hidden(1);
+-			}
++			Unknown_786370(true);
++
++
++
++
++
+ 			Unknown378 = 0.5f;
+ 			Unknown37C = 1.0f;
+ 			break;
+ 		case 3:
+-			Unknown370 = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele02"));
++			Unknown370 = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele02"));
+ 			Unknown374 = Create_Get(WW3DAssetManager::Get_Instance()->Get_HAnim("av_tele02a.Av_tele02a-1"));
+ 			Unknown378 = 0.5f;
+ 			Unknown37C = 1.0f;
+ 			break;
+ 		case 4:
+-			Unknown370 = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele04"));
++			Unknown370 = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele04"));
+ 			Unknown374 = Create_Get(WW3DAssetManager::Get_Instance()->Get_HAnim("av_tele04a.Av_tele04a-1"));
+ 			Unknown_786370(true);
+ 			Unknown378 = 0.0f;
+
+## initial_accessor
+new form; compiled=False; source SHA256=b4257993e02317665e0766953dd951d62c1e3d85a55ff45f31f01223d309fb69
+--- a/app/client/avatar.cpp
++++ b/app/client/avatar.cpp
+@@ -3653,50 +3653,50 @@
+ // NOT EXACT: inline-budget + Matrix3D copy scheduling (0x788FF3 / 0x789009 operator=(NULL) and case 4 RefCountPtr calls inlined here, out of line in client; [esi+0x338] vs [esi+0x330])
+ void CharacterViewAvatarClass::Unknown_788F90(int mode)
+ {
+-	if (BodyObj == NULL || Unknown380 == mode) {
++	if (Peek_Body_Obj() == NULL || Unknown380 == mode) {
+ 		return;
+ 	}
+-	if (Unknown370) {
+-		Unknown370->Set_Animation();
+-		Unknown370->Remove();
+-		Unknown370 = NULL;
+-	}
+-	if (Unknown374) {
+-		Unknown374 = NULL;
+-	}
+-	Unknown378 = -100.0f;
+-	Unknown37C = 0.0f;
++	Unknown_788EF0();
++
++
++
++
++
++
++
++
++
+ 	Unknown380 = mode;
+ 	if (mode == 0) {
+ 		return;
+ 	}
+ 	switch (mode) {
+ 		case 1:
+-			Unknown370 = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele01"));
++			Unknown370 = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele01"));
+ 			Unknown374 = Create_Get(WW3DAssetManager::Get_Instance()->Get_HAnim("av_tele01a.Av_tele01a-1"));
+ 			Unknown378 = 0.7f;
+ 			Unknown37C = 3.2f;
+ 			break;
+ 		case 2:
+-			Unknown370 = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele03"));
++			Unknown370 = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele03"));
+ 			Unknown374 = Create_Get(WW3DAssetManager::Get_Instance()->Get_HAnim("av_tele03a.Av_tele03a-1"));
+-			if (BodyObj) {
+-				BodyObj->Set_Hidden(1);
+-			}
+-			if (HeadObj) {
+-				HeadObj->Set_Hidden(1);
+-			}
++			Unknown_786370(true);
++
++
++
++
++
+ 			Unknown378 = 0.5f;
+ 			Unknown37C = 1.0f;
+ 			break;
+ 		case 3:
+-			Unknown370 = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele02"));
++			Unknown370 = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele02"));
+ 			Unknown374 = Create_Get(WW3DAssetManager::Get_Instance()->Get_HAnim("av_tele02a.Av_tele02a-1"));
+ 			Unknown378 = 0.5f;
+ 			Unknown37C = 1.0f;
+ 			break;
+ 		case 4:
+-			Unknown370 = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele04"));
++			Unknown370 = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele04"));
+ 			Unknown374 = Create_Get(WW3DAssetManager::Get_Instance()->Get_HAnim("av_tele04a.Av_tele04a-1"));
+ 			Unknown_786370(true);
+ 			Unknown378 = 0.0f;
+
+## both_accessor
+new form; compiled=False; source SHA256=1b1f51438757f5393f96705b0c4b507c29a6ea9e7e0e13cef73e88e5be68277f
+--- a/app/client/avatar.cpp
++++ b/app/client/avatar.cpp
+@@ -3171,8 +3171,8 @@
+ // 0x786370
+ void CharacterViewAvatarClass::Unknown_786370(bool on)
+ {
+-	if (BodyObj) {
+-		BodyObj->Set_Hidden(on);
++	if (Peek_Body_Obj()) {
++		Peek_Body_Obj()->Set_Hidden(on);
+ 	}
+ 	if (HeadObj) {
+ 		HeadObj->Set_Hidden(on);
+@@ -3653,50 +3653,50 @@
+ // NOT EXACT: inline-budget + Matrix3D copy scheduling (0x788FF3 / 0x789009 operator=(NULL) and case 4 RefCountPtr calls inlined here, out of line in client; [esi+0x338] vs [esi+0x330])
+ void CharacterViewAvatarClass::Unknown_788F90(int mode)
+ {
+-	if (BodyObj == NULL || Unknown380 == mode) {
++	if (Peek_Body_Obj() == NULL || Unknown380 == mode) {
+ 		return;
+ 	}
+-	if (Unknown370) {
+-		Unknown370->Set_Animation();
+-		Unknown370->Remove();
+-		Unknown370 = NULL;
+-	}
+-	if (Unknown374) {
+-		Unknown374 = NULL;
+-	}
+-	Unknown378 = -100.0f;
+-	Unknown37C = 0.0f;
++	Unknown_788EF0();
++
++
++
++
++
++
++
++
++
+ 	Unknown380 = mode;
+ 	if (mode == 0) {
+ 		return;
+ 	}
+ 	switch (mode) {
+ 		case 1:
+-			Unknown370 = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele01"));
++			Unknown370 = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele01"));
+ 			Unknown374 = Create_Get(WW3DAssetManager::Get_Instance()->Get_HAnim("av_tele01a.Av_tele01a-1"));
+ 			Unknown378 = 0.7f;
+ 			Unknown37C = 3.2f;
+ 			break;
+ 		case 2:
+-			Unknown370 = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele03"));
++			Unknown370 = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele03"));
+ 			Unknown374 = Create_Get(WW3DAssetManager::Get_Instance()->Get_HAnim("av_tele03a.Av_tele03a-1"));
+-			if (BodyObj) {
+-				BodyObj->Set_Hidden(1);
+-			}
+-			if (HeadObj) {
+-				HeadObj->Set_Hidden(1);
+-			}
++			Unknown_786370(true);
++
++
++
++
++
+ 			Unknown378 = 0.5f;
+ 			Unknown37C = 1.0f;
+ 			break;
+ 		case 3:
+-			Unknown370 = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele02"));
++			Unknown370 = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele02"));
+ 			Unknown374 = Create_Get(WW3DAssetManager::Get_Instance()->Get_HAnim("av_tele02a.Av_tele02a-1"));
+ 			Unknown378 = 0.5f;
+ 			Unknown37C = 1.0f;
+ 			break;
+ 		case 4:
+-			Unknown370 = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele04"));
++			Unknown370 = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele04"));
+ 			Unknown374 = Create_Get(WW3DAssetManager::Get_Instance()->Get_HAnim("av_tele04a.Av_tele04a-1"));
+ 			Unknown_786370(true);
+ 			Unknown378 = 0.0f;
+
+## helper_peek
+new form; compiled=True; source SHA256=ac48954759c2f01f5b8cd151eed273bcf84b19cc2c9fcad622b45bf137a298eb
+--- a/app/client/avatar.cpp
++++ b/app/client/avatar.cpp
+@@ -3171,8 +3171,8 @@
+ // 0x786370
+ void CharacterViewAvatarClass::Unknown_786370(bool on)
+ {
+-	if (BodyObj) {
+-		BodyObj->Set_Hidden(on);
++	if (BodyObj.Peek()) {
++		BodyObj.Peek()->Set_Hidden(on);
+ 	}
+ 	if (HeadObj) {
+ 		HeadObj->Set_Hidden(on);
+@@ -3656,47 +3656,47 @@
+ 	if (BodyObj == NULL || Unknown380 == mode) {
+ 		return;
+ 	}
+-	if (Unknown370) {
+-		Unknown370->Set_Animation();
+-		Unknown370->Remove();
+-		Unknown370 = NULL;
+-	}
+-	if (Unknown374) {
+-		Unknown374 = NULL;
+-	}
+-	Unknown378 = -100.0f;
+-	Unknown37C = 0.0f;
++	Unknown_788EF0();
++
++
++
++
++
++
++
++
++
+ 	Unknown380 = mode;
+ 	if (mode == 0) {
+ 		return;
+ 	}
+ 	switch (mode) {
+ 		case 1:
+-			Unknown370 = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele01"));
++			Unknown370 = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele01"));
+ 			Unknown374 = Create_Get(WW3DAssetManager::Get_Instance()->Get_HAnim("av_tele01a.Av_tele01a-1"));
+ 			Unknown378 = 0.7f;
+ 			Unknown37C = 3.2f;
+ 			break;
+ 		case 2:
+-			Unknown370 = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele03"));
++			Unknown370 = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele03"));
+ 			Unknown374 = Create_Get(WW3DAssetManager::Get_Instance()->Get_HAnim("av_tele03a.Av_tele03a-1"));
+-			if (BodyObj) {
+-				BodyObj->Set_Hidden(1);
+-			}
+-			if (HeadObj) {
+-				HeadObj->Set_Hidden(1);
+-			}
++			Unknown_786370(true);
++
++
++
++
++
+ 			Unknown378 = 0.5f;
+ 			Unknown37C = 1.0f;
+ 			break;
+ 		case 3:
+-			Unknown370 = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele02"));
++			Unknown370 = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele02"));
+ 			Unknown374 = Create_Get(WW3DAssetManager::Get_Instance()->Get_HAnim("av_tele02a.Av_tele02a-1"));
+ 			Unknown378 = 0.5f;
+ 			Unknown37C = 1.0f;
+ 			break;
+ 		case 4:
+-			Unknown370 = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele04"));
++			Unknown370 = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele04"));
+ 			Unknown374 = Create_Get(WW3DAssetManager::Get_Instance()->Get_HAnim("av_tele04a.Av_tele04a-1"));
+ 			Unknown_786370(true);
+ 			Unknown378 = 0.0f;
+
+## initial_peek
+new form; compiled=True; source SHA256=3fb8203d0540d964fb6f634a12810056e41ef6c48f96856dbf61b64ac6240e23
+--- a/app/client/avatar.cpp
++++ b/app/client/avatar.cpp
+@@ -3653,50 +3653,50 @@
+ // NOT EXACT: inline-budget + Matrix3D copy scheduling (0x788FF3 / 0x789009 operator=(NULL) and case 4 RefCountPtr calls inlined here, out of line in client; [esi+0x338] vs [esi+0x330])
+ void CharacterViewAvatarClass::Unknown_788F90(int mode)
+ {
+-	if (BodyObj == NULL || Unknown380 == mode) {
++	if (BodyObj.Peek() == NULL || Unknown380 == mode) {
+ 		return;
+ 	}
+-	if (Unknown370) {
+-		Unknown370->Set_Animation();
+-		Unknown370->Remove();
+-		Unknown370 = NULL;
+-	}
+-	if (Unknown374) {
+-		Unknown374 = NULL;
+-	}
+-	Unknown378 = -100.0f;
+-	Unknown37C = 0.0f;
++	Unknown_788EF0();
++
++
++
++
++
++
++
++
++
+ 	Unknown380 = mode;
+ 	if (mode == 0) {
+ 		return;
+ 	}
+ 	switch (mode) {
+ 		case 1:
+-			Unknown370 = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele01"));
++			Unknown370 = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele01"));
+ 			Unknown374 = Create_Get(WW3DAssetManager::Get_Instance()->Get_HAnim("av_tele01a.Av_tele01a-1"));
+ 			Unknown378 = 0.7f;
+ 			Unknown37C = 3.2f;
+ 			break;
+ 		case 2:
+-			Unknown370 = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele03"));
++			Unknown370 = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele03"));
+ 			Unknown374 = Create_Get(WW3DAssetManager::Get_Instance()->Get_HAnim("av_tele03a.Av_tele03a-1"));
+-			if (BodyObj) {
+-				BodyObj->Set_Hidden(1);
+-			}
+-			if (HeadObj) {
+-				HeadObj->Set_Hidden(1);
+-			}
++			Unknown_786370(true);
++
++
++
++
++
+ 			Unknown378 = 0.5f;
+ 			Unknown37C = 1.0f;
+ 			break;
+ 		case 3:
+-			Unknown370 = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele02"));
++			Unknown370 = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele02"));
+ 			Unknown374 = Create_Get(WW3DAssetManager::Get_Instance()->Get_HAnim("av_tele02a.Av_tele02a-1"));
+ 			Unknown378 = 0.5f;
+ 			Unknown37C = 1.0f;
+ 			break;
+ 		case 4:
+-			Unknown370 = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele04"));
++			Unknown370 = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele04"));
+ 			Unknown374 = Create_Get(WW3DAssetManager::Get_Instance()->Get_HAnim("av_tele04a.Av_tele04a-1"));
+ 			Unknown_786370(true);
+ 			Unknown378 = 0.0f;
+
+## both_peek
+new form; compiled=True; source SHA256=61aaa1cffd188332d5572eda76f80fe97bb1592c4dec1a682107389c02fb4e33
+--- a/app/client/avatar.cpp
++++ b/app/client/avatar.cpp
+@@ -3171,8 +3171,8 @@
+ // 0x786370
+ void CharacterViewAvatarClass::Unknown_786370(bool on)
+ {
+-	if (BodyObj) {
+-		BodyObj->Set_Hidden(on);
++	if (BodyObj.Peek()) {
++		BodyObj.Peek()->Set_Hidden(on);
+ 	}
+ 	if (HeadObj) {
+ 		HeadObj->Set_Hidden(on);
+@@ -3653,50 +3653,50 @@
+ // NOT EXACT: inline-budget + Matrix3D copy scheduling (0x788FF3 / 0x789009 operator=(NULL) and case 4 RefCountPtr calls inlined here, out of line in client; [esi+0x338] vs [esi+0x330])
+ void CharacterViewAvatarClass::Unknown_788F90(int mode)
+ {
+-	if (BodyObj == NULL || Unknown380 == mode) {
++	if (BodyObj.Peek() == NULL || Unknown380 == mode) {
+ 		return;
+ 	}
+-	if (Unknown370) {
+-		Unknown370->Set_Animation();
+-		Unknown370->Remove();
+-		Unknown370 = NULL;
+-	}
+-	if (Unknown374) {
+-		Unknown374 = NULL;
+-	}
+-	Unknown378 = -100.0f;
+-	Unknown37C = 0.0f;
++	Unknown_788EF0();
++
++
++
++
++
++
++
++
++
+ 	Unknown380 = mode;
+ 	if (mode == 0) {
+ 		return;
+ 	}
+ 	switch (mode) {
+ 		case 1:
+-			Unknown370 = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele01"));
++			Unknown370 = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele01"));
+ 			Unknown374 = Create_Get(WW3DAssetManager::Get_Instance()->Get_HAnim("av_tele01a.Av_tele01a-1"));
+ 			Unknown378 = 0.7f;
+ 			Unknown37C = 3.2f;
+ 			break;
+ 		case 2:
+-			Unknown370 = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele03"));
++			Unknown370 = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele03"));
+ 			Unknown374 = Create_Get(WW3DAssetManager::Get_Instance()->Get_HAnim("av_tele03a.Av_tele03a-1"));
+-			if (BodyObj) {
+-				BodyObj->Set_Hidden(1);
+-			}
+-			if (HeadObj) {
+-				HeadObj->Set_Hidden(1);
+-			}
++			Unknown_786370(true);
++
++
++
++
++
+ 			Unknown378 = 0.5f;
+ 			Unknown37C = 1.0f;
+ 			break;
+ 		case 3:
+-			Unknown370 = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele02"));
++			Unknown370 = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele02"));
+ 			Unknown374 = Create_Get(WW3DAssetManager::Get_Instance()->Get_HAnim("av_tele02a.Av_tele02a-1"));
+ 			Unknown378 = 0.5f;
+ 			Unknown37C = 1.0f;
+ 			break;
+ 		case 4:
+-			Unknown370 = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele04"));
++			Unknown370 = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele04"));
+ 			Unknown374 = Create_Get(WW3DAssetManager::Get_Instance()->Get_HAnim("av_tele04a.Av_tele04a-1"));
+ 			Unknown_786370(true);
+ 			Unknown378 = 0.0f;
+
+## overlay_only
+new form; compiled=True; source SHA256=737916f1267023f953be1b73b21c3226028ed2eff48f2549bb7c716b22dcdef1
+--- a/app/client/avatar.cpp
++++ b/app/client/avatar.cpp
+@@ -1,4 +1,6 @@
++#define __CHARVIEW_AVSEL_MEMBERS
+ #include "avatar.h"
++#undef __CHARVIEW_AVSEL_MEMBERS
+ #include "tutorial_manager.h"
+ #include "nstrdup.h"
+ #include "..\audio\soundlib.h"
+@@ -29,10 +31,8 @@
+ #include "..\packets\pkcolorization.h"
+ #include "time_mgr.h"
+ extern RandomClass Unknown_BDBB84;	// NAME 1 [Unknown_BDBB84]: neutral (D10), as eff_o.cpp's
+-
+ // 0xB9CD28: the default skeletons by gender (0x781D10, 0x7826A0)
+ static const char *Unknown_B9CD28[2] = { "AMDEFAULTSKEL", "AFDEFAULTSKEL" };	// NAME 1 [Unknown_B9CD28]: neutral (D10)
+-
+ // 0xB9CD30: the gender prefixes, 0xB9CD38 the race letters (0x77DA20, 0x783470)
+ static const char *Unknown_B9CD30[2] = { "AM", "AF" };	// NAME 1 [Unknown_B9CD30]: neutral (D10)
+ static const char *Unknown_B9CD38[5] = { "T", "J", "P", "L", "R" };	// NAME 1 [Unknown_B9CD38]: neutral (D10)
+@@ -3656,47 +3656,47 @@
+ 	if (BodyObj == NULL || Unknown380 == mode) {
+ 		return;
+ 	}
+-	if (Unknown370) {
+-		Unknown370->Set_Animation();
+-		Unknown370->Remove();
+-		Unknown370 = NULL;
+-	}
+-	if (Unknown374) {
+-		Unknown374 = NULL;
+-	}
+-	Unknown378 = -100.0f;
+-	Unknown37C = 0.0f;
++	Unknown_788EF0();
++
++
++
++
++
++
++
++
++
+ 	Unknown380 = mode;
+ 	if (mode == 0) {
+ 		return;
+ 	}
+ 	switch (mode) {
+ 		case 1:
+-			Unknown370 = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele01"));
++			Unknown370 = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele01"));
+ 			Unknown374 = Create_Get(WW3DAssetManager::Get_Instance()->Get_HAnim("av_tele01a.Av_tele01a-1"));
+ 			Unknown378 = 0.7f;
+ 			Unknown37C = 3.2f;
+ 			break;
+ 		case 2:
+-			Unknown370 = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele03"));
++			Unknown370 = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele03"));
+ 			Unknown374 = Create_Get(WW3DAssetManager::Get_Instance()->Get_HAnim("av_tele03a.Av_tele03a-1"));
+-			if (BodyObj) {
+-				BodyObj->Set_Hidden(1);
+-			}
+-			if (HeadObj) {
+-				HeadObj->Set_Hidden(1);
+-			}
++			Unknown_786370(true);
++
++
++
++
++
+ 			Unknown378 = 0.5f;
+ 			Unknown37C = 1.0f;
+ 			break;
+ 		case 3:
+-			Unknown370 = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele02"));
++			Unknown370 = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele02"));
+ 			Unknown374 = Create_Get(WW3DAssetManager::Get_Instance()->Get_HAnim("av_tele02a.Av_tele02a-1"));
+ 			Unknown378 = 0.5f;
+ 			Unknown37C = 1.0f;
+ 			break;
+ 		case 4:
+-			Unknown370 = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele04"));
++			Unknown370 = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele04"));
+ 			Unknown374 = Create_Get(WW3DAssetManager::Get_Instance()->Get_HAnim("av_tele04a.Av_tele04a-1"));
+ 			Unknown_786370(true);
+ 			Unknown378 = 0.0f;
+
+## overlay_helper
+new form; compiled=True; source SHA256=0bbde36a46b7513a9e61043cb57333ef0c24385a7ee3e20cd2df21cd0dce9513
+--- a/app/client/avatar.cpp
++++ b/app/client/avatar.cpp
+@@ -1,4 +1,6 @@
++#define __CHARVIEW_AVSEL_MEMBERS
+ #include "avatar.h"
++#undef __CHARVIEW_AVSEL_MEMBERS
+ #include "tutorial_manager.h"
+ #include "nstrdup.h"
+ #include "..\audio\soundlib.h"
+@@ -29,10 +31,8 @@
+ #include "..\packets\pkcolorization.h"
+ #include "time_mgr.h"
+ extern RandomClass Unknown_BDBB84;	// NAME 1 [Unknown_BDBB84]: neutral (D10), as eff_o.cpp's
+-
+ // 0xB9CD28: the default skeletons by gender (0x781D10, 0x7826A0)
+ static const char *Unknown_B9CD28[2] = { "AMDEFAULTSKEL", "AFDEFAULTSKEL" };	// NAME 1 [Unknown_B9CD28]: neutral (D10)
+-
+ // 0xB9CD30: the gender prefixes, 0xB9CD38 the race letters (0x77DA20, 0x783470)
+ static const char *Unknown_B9CD30[2] = { "AM", "AF" };	// NAME 1 [Unknown_B9CD30]: neutral (D10)
+ static const char *Unknown_B9CD38[5] = { "T", "J", "P", "L", "R" };	// NAME 1 [Unknown_B9CD38]: neutral (D10)
+@@ -3171,8 +3171,8 @@
+ // 0x786370
+ void CharacterViewAvatarClass::Unknown_786370(bool on)
+ {
+-	if (BodyObj) {
+-		BodyObj->Set_Hidden(on);
++	if (Peek_Body_Obj()) {
++		Peek_Body_Obj()->Set_Hidden(on);
+ 	}
+ 	if (HeadObj) {
+ 		HeadObj->Set_Hidden(on);
+@@ -3656,47 +3656,47 @@
+ 	if (BodyObj == NULL || Unknown380 == mode) {
+ 		return;
+ 	}
+-	if (Unknown370) {
+-		Unknown370->Set_Animation();
+-		Unknown370->Remove();
+-		Unknown370 = NULL;
+-	}
+-	if (Unknown374) {
+-		Unknown374 = NULL;
+-	}
+-	Unknown378 = -100.0f;
+-	Unknown37C = 0.0f;
++	Unknown_788EF0();
++
++
++
++
++
++
++
++
++
+ 	Unknown380 = mode;
+ 	if (mode == 0) {
+ 		return;
+ 	}
+ 	switch (mode) {
+ 		case 1:
+-			Unknown370 = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele01"));
++			Unknown370 = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele01"));
+ 			Unknown374 = Create_Get(WW3DAssetManager::Get_Instance()->Get_HAnim("av_tele01a.Av_tele01a-1"));
+ 			Unknown378 = 0.7f;
+ 			Unknown37C = 3.2f;
+ 			break;
+ 		case 2:
+-			Unknown370 = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele03"));
++			Unknown370 = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele03"));
+ 			Unknown374 = Create_Get(WW3DAssetManager::Get_Instance()->Get_HAnim("av_tele03a.Av_tele03a-1"));
+-			if (BodyObj) {
+-				BodyObj->Set_Hidden(1);
+-			}
+-			if (HeadObj) {
+-				HeadObj->Set_Hidden(1);
+-			}
++			Unknown_786370(true);
++
++
++
++
++
+ 			Unknown378 = 0.5f;
+ 			Unknown37C = 1.0f;
+ 			break;
+ 		case 3:
+-			Unknown370 = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele02"));
++			Unknown370 = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele02"));
+ 			Unknown374 = Create_Get(WW3DAssetManager::Get_Instance()->Get_HAnim("av_tele02a.Av_tele02a-1"));
+ 			Unknown378 = 0.5f;
+ 			Unknown37C = 1.0f;
+ 			break;
+ 		case 4:
+-			Unknown370 = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele04"));
++			Unknown370 = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele04"));
+ 			Unknown374 = Create_Get(WW3DAssetManager::Get_Instance()->Get_HAnim("av_tele04a.Av_tele04a-1"));
+ 			Unknown_786370(true);
+ 			Unknown378 = 0.0f;
+
+## overlay_initial
+new form; compiled=True; source SHA256=d6e84d90ba9e7cc698e2a79a26e24c2a976011222beff2a05049ae27873291fe
+--- a/app/client/avatar.cpp
++++ b/app/client/avatar.cpp
+@@ -1,4 +1,6 @@
++#define __CHARVIEW_AVSEL_MEMBERS
+ #include "avatar.h"
++#undef __CHARVIEW_AVSEL_MEMBERS
+ #include "tutorial_manager.h"
+ #include "nstrdup.h"
+ #include "..\audio\soundlib.h"
+@@ -29,10 +31,8 @@
+ #include "..\packets\pkcolorization.h"
+ #include "time_mgr.h"
+ extern RandomClass Unknown_BDBB84;	// NAME 1 [Unknown_BDBB84]: neutral (D10), as eff_o.cpp's
+-
+ // 0xB9CD28: the default skeletons by gender (0x781D10, 0x7826A0)
+ static const char *Unknown_B9CD28[2] = { "AMDEFAULTSKEL", "AFDEFAULTSKEL" };	// NAME 1 [Unknown_B9CD28]: neutral (D10)
+-
+ // 0xB9CD30: the gender prefixes, 0xB9CD38 the race letters (0x77DA20, 0x783470)
+ static const char *Unknown_B9CD30[2] = { "AM", "AF" };	// NAME 1 [Unknown_B9CD30]: neutral (D10)
+ static const char *Unknown_B9CD38[5] = { "T", "J", "P", "L", "R" };	// NAME 1 [Unknown_B9CD38]: neutral (D10)
+@@ -3653,50 +3653,50 @@
+ // NOT EXACT: inline-budget + Matrix3D copy scheduling (0x788FF3 / 0x789009 operator=(NULL) and case 4 RefCountPtr calls inlined here, out of line in client; [esi+0x338] vs [esi+0x330])
+ void CharacterViewAvatarClass::Unknown_788F90(int mode)
+ {
+-	if (BodyObj == NULL || Unknown380 == mode) {
++	if (Peek_Body_Obj() == NULL || Unknown380 == mode) {
+ 		return;
+ 	}
+-	if (Unknown370) {
+-		Unknown370->Set_Animation();
+-		Unknown370->Remove();
+-		Unknown370 = NULL;
+-	}
+-	if (Unknown374) {
+-		Unknown374 = NULL;
+-	}
+-	Unknown378 = -100.0f;
+-	Unknown37C = 0.0f;
++	Unknown_788EF0();
++
++
++
++
++
++
++
++
++
+ 	Unknown380 = mode;
+ 	if (mode == 0) {
+ 		return;
+ 	}
+ 	switch (mode) {
+ 		case 1:
+-			Unknown370 = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele01"));
++			Unknown370 = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele01"));
+ 			Unknown374 = Create_Get(WW3DAssetManager::Get_Instance()->Get_HAnim("av_tele01a.Av_tele01a-1"));
+ 			Unknown378 = 0.7f;
+ 			Unknown37C = 3.2f;
+ 			break;
+ 		case 2:
+-			Unknown370 = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele03"));
++			Unknown370 = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele03"));
+ 			Unknown374 = Create_Get(WW3DAssetManager::Get_Instance()->Get_HAnim("av_tele03a.Av_tele03a-1"));
+-			if (BodyObj) {
+-				BodyObj->Set_Hidden(1);
+-			}
+-			if (HeadObj) {
+-				HeadObj->Set_Hidden(1);
+-			}
++			Unknown_786370(true);
++
++
++
++
++
+ 			Unknown378 = 0.5f;
+ 			Unknown37C = 1.0f;
+ 			break;
+ 		case 3:
+-			Unknown370 = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele02"));
++			Unknown370 = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele02"));
+ 			Unknown374 = Create_Get(WW3DAssetManager::Get_Instance()->Get_HAnim("av_tele02a.Av_tele02a-1"));
+ 			Unknown378 = 0.5f;
+ 			Unknown37C = 1.0f;
+ 			break;
+ 		case 4:
+-			Unknown370 = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele04"));
++			Unknown370 = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele04"));
+ 			Unknown374 = Create_Get(WW3DAssetManager::Get_Instance()->Get_HAnim("av_tele04a.Av_tele04a-1"));
+ 			Unknown_786370(true);
+ 			Unknown378 = 0.0f;
+
+## overlay_both
+new form; compiled=True; source SHA256=b0d15e67a012a448edc5f1b68629e50d41fafff6fa3265b38f6216ab97f577a6
+--- a/app/client/avatar.cpp
++++ b/app/client/avatar.cpp
+@@ -1,4 +1,6 @@
++#define __CHARVIEW_AVSEL_MEMBERS
+ #include "avatar.h"
++#undef __CHARVIEW_AVSEL_MEMBERS
+ #include "tutorial_manager.h"
+ #include "nstrdup.h"
+ #include "..\audio\soundlib.h"
+@@ -29,10 +31,8 @@
+ #include "..\packets\pkcolorization.h"
+ #include "time_mgr.h"
+ extern RandomClass Unknown_BDBB84;	// NAME 1 [Unknown_BDBB84]: neutral (D10), as eff_o.cpp's
+-
+ // 0xB9CD28: the default skeletons by gender (0x781D10, 0x7826A0)
+ static const char *Unknown_B9CD28[2] = { "AMDEFAULTSKEL", "AFDEFAULTSKEL" };	// NAME 1 [Unknown_B9CD28]: neutral (D10)
+-
+ // 0xB9CD30: the gender prefixes, 0xB9CD38 the race letters (0x77DA20, 0x783470)
+ static const char *Unknown_B9CD30[2] = { "AM", "AF" };	// NAME 1 [Unknown_B9CD30]: neutral (D10)
+ static const char *Unknown_B9CD38[5] = { "T", "J", "P", "L", "R" };	// NAME 1 [Unknown_B9CD38]: neutral (D10)
+@@ -3171,8 +3171,8 @@
+ // 0x786370
+ void CharacterViewAvatarClass::Unknown_786370(bool on)
+ {
+-	if (BodyObj) {
+-		BodyObj->Set_Hidden(on);
++	if (Peek_Body_Obj()) {
++		Peek_Body_Obj()->Set_Hidden(on);
+ 	}
+ 	if (HeadObj) {
+ 		HeadObj->Set_Hidden(on);
+@@ -3653,50 +3653,50 @@
+ // NOT EXACT: inline-budget + Matrix3D copy scheduling (0x788FF3 / 0x789009 operator=(NULL) and case 4 RefCountPtr calls inlined here, out of line in client; [esi+0x338] vs [esi+0x330])
+ void CharacterViewAvatarClass::Unknown_788F90(int mode)
+ {
+-	if (BodyObj == NULL || Unknown380 == mode) {
++	if (Peek_Body_Obj() == NULL || Unknown380 == mode) {
+ 		return;
+ 	}
+-	if (Unknown370) {
+-		Unknown370->Set_Animation();
+-		Unknown370->Remove();
+-		Unknown370 = NULL;
+-	}
+-	if (Unknown374) {
+-		Unknown374 = NULL;
+-	}
+-	Unknown378 = -100.0f;
+-	Unknown37C = 0.0f;
++	Unknown_788EF0();
++
++
++
++
++
++
++
++
++
+ 	Unknown380 = mode;
+ 	if (mode == 0) {
+ 		return;
+ 	}
+ 	switch (mode) {
+ 		case 1:
+-			Unknown370 = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele01"));
++			Unknown370 = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele01"));
+ 			Unknown374 = Create_Get(WW3DAssetManager::Get_Instance()->Get_HAnim("av_tele01a.Av_tele01a-1"));
+ 			Unknown378 = 0.7f;
+ 			Unknown37C = 3.2f;
+ 			break;
+ 		case 2:
+-			Unknown370 = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele03"));
++			Unknown370 = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele03"));
+ 			Unknown374 = Create_Get(WW3DAssetManager::Get_Instance()->Get_HAnim("av_tele03a.Av_tele03a-1"));
+-			if (BodyObj) {
+-				BodyObj->Set_Hidden(1);
+-			}
+-			if (HeadObj) {
+-				HeadObj->Set_Hidden(1);
+-			}
++			Unknown_786370(true);
++
++
++
++
++
+ 			Unknown378 = 0.5f;
+ 			Unknown37C = 1.0f;
+ 			break;
+ 		case 3:
+-			Unknown370 = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele02"));
++			Unknown370 = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele02"));
+ 			Unknown374 = Create_Get(WW3DAssetManager::Get_Instance()->Get_HAnim("av_tele02a.Av_tele02a-1"));
+ 			Unknown378 = 0.5f;
+ 			Unknown37C = 1.0f;
+ 			break;
+ 		case 4:
+-			Unknown370 = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele04"));
++			Unknown370 = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele04"));
+ 			Unknown374 = Create_Get(WW3DAssetManager::Get_Instance()->Get_HAnim("av_tele04a.Av_tele04a-1"));
+ 			Unknown_786370(true);
+ 			Unknown378 = 0.0f;

@@ -1,0 +1,292 @@
+# 0x782200 cross-target source forms; baseline277cb346
+# Three new forms, two controls; every object compiled/full-native-matched261pairs +0/-0.
+
+# baseline (control)
+void CharacterViewAvatarClass::Unknown_782200()
+{
+	std::string name;
+	Unknown220 = false;
+	Unknown250 = 0.0f;
+	Unknown258 = 0.0f;
+	Unknown264 = 0.0f;
+	Unknown268 = 0.0f;
+	if (Unknown248 > 0) {
+		name = Unknown_781D10(PlayerNLP->Unknown_78EE00(Unknown248, Unknown210 != 0));
+		Unknown_7831C0(name.c_str());
+		int frames;
+		if (Unknown0C0[1]) {
+			frames = Unknown0C0[1]->Get_Num_Frames();
+		} else {
+			frames = Unknown0C0[0]->Get_Num_Frames();
+		}
+		int left = Unknown248 - frames;
+		Unknown248 = (left < 0) ? 0 : left;
+
+	} else {
+	Unknown_AvatarQueueStruct *entry = Unknown_781B20();
+	if (entry != NULL) {
+		int anim;
+		if (Unknown210 != 0) {
+			int delay = PlayerNLP->Personality->Get_Speech_Delay();
+			int phonemes[256];
+			int count = Unknown_BE856C->Phonemes.Unknown_791400(entry->Text, phonemes, 0xFF);
+			anim = PlayerNLP->Unknown_78EE00(count * delay, true);
+			name = Unknown_781D10(anim);
+		} else {
+			anim = entry->Anim;
+			if (entry->Mood >= 0) {
+				Desc.Mood_Type = entry->Mood;
+			}
+			Unknown22C = 0.0f;
+			Unknown244 = 0;
+			name = Unknown_781D10(anim);
+		}
+		Unknown_7831C0(name.c_str());
+		if (Unknown0BC && (Unknown0C0[0] || Unknown0C0[1])) {
+			Unknown0BC->Release_Keys();
+			Unknown_782FF0(entry->Text);
+			name = Unknown_781D10(anim);
+			if (!Unknown_7829B0(name.c_str())) {
+				Unknown_782CA0();
+			}
+			Unknown_783470();
+		}
+		Unknown_781B50(entry);
+	}
+	if (Unknown_781B20() == NULL && Unknown248 == 0) {
+		Unknown208 = 0;
+	}
+	}
+}
+
+# best22_control (control)
+void CharacterViewAvatarClass::Unknown_782200()
+{
+	std::string name;
+	Unknown220 = false;
+	Unknown250 = 0.0f;
+	Unknown258 = 0.0f;
+	Unknown264 = 0.0f;
+	Unknown268 = 0.0f;
+	if (Unknown248 > 0) {
+		name = Unknown_781D10(NLP_Of(this)->Unknown_78EE00(Unknown248, Unknown210 != 0));
+		Unknown_7831C0(name.c_str());
+		int frames;
+		if (Unknown0C0[1]) {
+			frames = Unknown0C0[1]->Get_Num_Frames();
+		} else {
+			frames = Unknown0C0[0]->Get_Num_Frames();
+		}
+		int left = Unknown248 - frames;
+		Unknown248 = (left < 0) ? 0 : left;
+
+	} else {
+	Unknown_AvatarQueueStruct *entry = Unknown_781B20();
+	if (entry != NULL) {
+		int anim;
+		if (Unknown210 != 0) {
+			int delay = NLP_Of(this)->Personality->Get_Speech_Delay();
+			int phonemes[256];
+			int count = Unknown_BE856C->Phonemes.Unknown_791400(entry->Text, phonemes, 0xFF);
+			anim = PlayerNLP->Unknown_78EE00(count * delay, true);
+			name = Unknown_781D10(anim); Unknown_7831C0(name.c_str());
+		} else {
+			anim = entry->Anim;
+			if (entry->Mood >= 0) {
+				Desc.Mood_Type = entry->Mood;
+			}
+			Unknown22C = 0.0f;
+			Unknown244 = 0;
+			name = Unknown_781D10(anim); Unknown_7831C0(name.c_str());
+		}
+		
+		if (Unknown0BC && (Unknown0C0[0] || Unknown0C0[1])) {
+			Unknown0BC->Release_Keys();
+			Unknown_782FF0(entry->Text);
+			name = Unknown_781D10(anim);
+			if (!Unknown_7829B0(name.c_str())) {
+				Unknown_782CA0();
+			}
+			Unknown_783470();
+		}
+		Unknown_781B50(entry);
+	}
+	if (Unknown_781B20() == NULL && Unknown248 == 0) {
+		Unknown208 = 0;
+	}
+	}
+}
+
+# clamp_without_local (new form)
+void CharacterViewAvatarClass::Unknown_782200()
+{
+	std::string name;
+	Unknown220 = false;
+	Unknown250 = 0.0f;
+	Unknown258 = 0.0f;
+	Unknown264 = 0.0f;
+	Unknown268 = 0.0f;
+	if (Unknown248 > 0) {
+		name = Unknown_781D10(NLP_Of(this)->Unknown_78EE00(Unknown248, Unknown210 != 0));
+		Unknown_7831C0(name.c_str());
+		int frames;
+		if (Unknown0C0[1]) {
+			frames = Unknown0C0[1]->Get_Num_Frames();
+		} else {
+			frames = Unknown0C0[0]->Get_Num_Frames();
+		}
+		Unknown248 = (Unknown248 - frames < 0) ? 0 : Unknown248 - frames;
+
+
+	} else {
+	Unknown_AvatarQueueStruct *entry = Unknown_781B20();
+	if (entry != NULL) {
+		int anim;
+		if (Unknown210 != 0) {
+			int delay = NLP_Of(this)->Personality->Get_Speech_Delay();
+			int phonemes[256];
+			int count = Unknown_BE856C->Phonemes.Unknown_791400(entry->Text, phonemes, 0xFF);
+			anim = PlayerNLP->Unknown_78EE00(count * delay, true);
+			name = Unknown_781D10(anim); Unknown_7831C0(name.c_str());
+		} else {
+			anim = entry->Anim;
+			if (entry->Mood >= 0) {
+				Desc.Mood_Type = entry->Mood;
+			}
+			Unknown22C = 0.0f;
+			Unknown244 = 0;
+			name = Unknown_781D10(anim); Unknown_7831C0(name.c_str());
+		}
+		
+		if (Unknown0BC && (Unknown0C0[0] || Unknown0C0[1])) {
+			Unknown0BC->Release_Keys();
+			Unknown_782FF0(entry->Text);
+			name = Unknown_781D10(anim);
+			if (!Unknown_7829B0(name.c_str())) {
+				Unknown_782CA0();
+			}
+			Unknown_783470();
+		}
+		Unknown_781B50(entry);
+	}
+	if (Unknown_781B20() == NULL && Unknown248 == 0) {
+		Unknown208 = 0;
+	}
+	}
+}
+
+# per_arm_clamp (new form)
+void CharacterViewAvatarClass::Unknown_782200()
+{
+	std::string name;
+	Unknown220 = false;
+	Unknown250 = 0.0f;
+	Unknown258 = 0.0f;
+	Unknown264 = 0.0f;
+	Unknown268 = 0.0f;
+	if (Unknown248 > 0) {
+		name = Unknown_781D10(NLP_Of(this)->Unknown_78EE00(Unknown248, Unknown210 != 0));
+		Unknown_7831C0(name.c_str());
+		int frames;
+		if (Unknown0C0[1]) {
+			frames = Unknown0C0[1]->Get_Num_Frames();
+			Unknown248 = (Unknown248 - frames < 0) ? 0 : Unknown248 - frames;
+		} else {
+			frames = Unknown0C0[0]->Get_Num_Frames();
+			Unknown248 = (Unknown248 - frames < 0) ? 0 : Unknown248 - frames;
+		}
+
+	} else {
+	Unknown_AvatarQueueStruct *entry = Unknown_781B20();
+	if (entry != NULL) {
+		int anim;
+		if (Unknown210 != 0) {
+			int delay = NLP_Of(this)->Personality->Get_Speech_Delay();
+			int phonemes[256];
+			int count = Unknown_BE856C->Phonemes.Unknown_791400(entry->Text, phonemes, 0xFF);
+			anim = PlayerNLP->Unknown_78EE00(count * delay, true);
+			name = Unknown_781D10(anim); Unknown_7831C0(name.c_str());
+		} else {
+			anim = entry->Anim;
+			if (entry->Mood >= 0) {
+				Desc.Mood_Type = entry->Mood;
+			}
+			Unknown22C = 0.0f;
+			Unknown244 = 0;
+			name = Unknown_781D10(anim); Unknown_7831C0(name.c_str());
+		}
+		
+		if (Unknown0BC && (Unknown0C0[0] || Unknown0C0[1])) {
+			Unknown0BC->Release_Keys();
+			Unknown_782FF0(entry->Text);
+			name = Unknown_781D10(anim);
+			if (!Unknown_7829B0(name.c_str())) {
+				Unknown_782CA0();
+			}
+			Unknown_783470();
+		}
+		Unknown_781B50(entry);
+	}
+	if (Unknown_781B20() == NULL && Unknown248 == 0) {
+		Unknown208 = 0;
+	}
+	}
+}
+
+# per_arm_reset (new form)
+void CharacterViewAvatarClass::Unknown_782200()
+{
+	std::string name;
+	Unknown220 = false;
+	Unknown_785480();
+
+
+
+	if (Unknown248 > 0) {
+		name = Unknown_781D10(NLP_Of(this)->Unknown_78EE00(Unknown248, Unknown210 != 0));
+		Unknown_7831C0(name.c_str());
+		int frames;
+		if (Unknown0C0[1]) {
+			frames = Unknown0C0[1]->Get_Num_Frames();
+			Unknown248 = (Unknown248 - frames < 0) ? 0 : Unknown248 - frames;
+		} else {
+			frames = Unknown0C0[0]->Get_Num_Frames();
+			Unknown248 = (Unknown248 - frames < 0) ? 0 : Unknown248 - frames;
+		}
+
+	} else {
+	Unknown_AvatarQueueStruct *entry = Unknown_781B20();
+	if (entry != NULL) {
+		int anim;
+		if (Unknown210 != 0) {
+			int delay = NLP_Of(this)->Personality->Get_Speech_Delay();
+			int phonemes[256];
+			int count = Unknown_BE856C->Phonemes.Unknown_791400(entry->Text, phonemes, 0xFF);
+			anim = PlayerNLP->Unknown_78EE00(count * delay, true);
+			name = Unknown_781D10(anim); Unknown_7831C0(name.c_str());
+		} else {
+			anim = entry->Anim;
+			if (entry->Mood >= 0) {
+				Desc.Mood_Type = entry->Mood;
+			}
+			Unknown22C = 0.0f;
+			Unknown244 = 0;
+			name = Unknown_781D10(anim); Unknown_7831C0(name.c_str());
+		}
+		
+		if (Unknown0BC && (Unknown0C0[0] || Unknown0C0[1])) {
+			Unknown0BC->Release_Keys();
+			Unknown_782FF0(entry->Text);
+			name = Unknown_781D10(anim);
+			if (!Unknown_7829B0(name.c_str())) {
+				Unknown_782CA0();
+			}
+			Unknown_783470();
+		}
+		Unknown_781B50(entry);
+	}
+	if (Unknown_781B20() == NULL && Unknown248 == 0) {
+		Unknown208 = 0;
+	}
+	}
+}

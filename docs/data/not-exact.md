@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-645 entries in 260 files.
+639 entries in 259 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -33,12 +33,9 @@ edit the comments in the code, not this file.
 | `app/client/aux_roots_shipinv.h:5` | `?` | marker | NOT EXACT (D42) where aux_roots.h is. NAME 1 [aux_roots_shipinv.h]: provisional file name (the client's headers are not named by any string) |
 | `app/client/aux_roots_skill.h:5` | `?` | marker | NOT EXACT (D42) where aux_roots.h is. NAME 1 [aux_roots_skill.h]: provisional file name (the client's headers are not named by any string) |
 | `app/client/aux_roots_types.h:5` | `Unknown_Hex_String` | marker | NOT EXACT (D42) where aux_roots.h is. NAME 1 [aux_roots_types.h]: provisional file name (the client's headers are not named by any string) |
-| `app/client/avatar.cpp:1196` | `CharacterViewAvatarClass::Unknown_780810` | marker | NOT EXACT: inline-budget (the client keeps vector::insert out of line and emits 0x780AC0 ColorizationHalfStruct::operator= out of line at Shirt, inline at Pants) |
-| `app/client/avatar.cpp:1310` | `CharacterViewAvatarClass::Unknown_780AF0` | marker | NOT EXACT: functional for POC (D64), literal (__LINE__) |
 | `app/client/avatar.cpp:1615` | `CharacterViewAvatarClass::Unknown_781EA0` | marker | NOT EXACT: functional for POC (D64), register (ebx for the zero where the client has ebp; the client keeps Unknown314 = 1 apart from = n) |
 | `app/client/avatar.cpp:1669` | `CharacterViewAvatarClass::Unknown_782200` | marker | NOT EXACT: functional for POC (D64) |
 | `app/client/avatar.cpp:2380` | `CharacterViewAvatarClass::Unknown_1C4` | marker | NOT EXACT: register-allocation / inline-budget (the client keeps accel in FPU ST(0) without spilling; also some NLP/blink/face callees not inlined) |
-| `app/client/avatar.cpp:3524` | `CharacterViewAvatarClass::Unknown_788900` | marker | NOT EXACT: shape (0.81: the client calls 0x784F20 out of line here (inline budget; its other callers inline it), and keeps the Normalize result on the FPU stack on both paths) |
 | `app/client/avatar.cpp:3653` | `CharacterViewAvatarClass::Unknown_788F90` | marker | NOT EXACT: inline-budget + Matrix3D copy scheduling (0x788FF3 / 0x789009 operator=(NULL) and case 4 RefCountPtr calls inlined here, out of line in client; [esi+0x338] vs [esi+0x330]) |
 | `app/client/avatar_pip.cpp:198` | `AvatarPipClass::Unknown_7E3A20` | marker | NOT EXACT: order (4 masked rows): the client pushes the light's Set_Transform argument before the last translation store; pos is a dead copy here (without it the distance's squares sum in another order) |
 | `app/client/bar2d.cpp:10` | `?` | marker | NOT EXACT: 0.76, shape (inline budget): the client inlines Rotate_Z only in case 1 (2 and 3 call 0x577940) and Set_Dirty, and calls the last vertex's UV (0x6B71E0); ours inlines Rotate_Z in cases 1 and 2, all eight UVs and calls Set_Dirty |
@@ -495,18 +492,15 @@ edit the comments in the code, not this file.
 | `app/client/unknown_75b7b0.cpp:29` | `Unknown_75B8F0` | marker | NOT EXACT: functional (D64), 0.83: the x87 order of the cross product's length and the dot product (WE5) @0x75B8F0 |
 | `app/client/unknown_75b7b0.cpp:57` | `Unknown_75BB50` | marker | NOT EXACT: functional (D64), 0.37: ours calls StringClass::operator= where the client inlines it, so the registers differ (WE5) @0x75BB50 |
 | `app/client/unknown_7979a0.cpp:178` | `CameraController02Class::Unknown_7981B0` | marker | NOT EXACT: 0x7981B0 (the frame's size and the statements' order are the client's; the two offsets, the two results and the camera's copy sit in other frame slots, and the products' operand order follows the slots) 0x7981B0 |
-| `app/client/unknown_7979a0.cpp:218` | `CameraController02Class::Unknown_798570` | marker | NOT EXACT: 0x798570 (the frame's size is the client's; the angle and the offset swap frame slots (the client: the offset at ebp-0xC, the angle at ebp-0x10), the products' operand order follows them, and the client stores Y and Z before doubling them) 0x798570 |
 | `app/client/unknown_7979a0.cpp:247` | `CameraController02Class::Unknown_7987F0` | marker | NOT EXACT: 0x7987F0 (the frame's size is the client's; the destination's position and the offset sit in other frame slots (the client: both at ebp-0xC), and the speed's square root keeps a slot of its own in the client) 0x7987F0 |
-| `app/client/unknown_7979a0.cpp:285` | `CameraController02Class::Unknown_7987F0` | mention | NOT EXACT: WWMath::Sin / Cos (their retval slots are in the client's frames), the matrix * vector operator and the module's members through Unknown0C are the client's (P2). |
+| `app/client/unknown_7979a0.cpp:285` | `CameraController02Class::Unknown_7987F0` | mention | NOT EXACT; WWMath::Sin / Cos, matrix * vector and member reloads follow the client (P2). 0x798570 exact: Vector3::Scale(Vector3(1,2,2)) preserves Y/Z product stores, angle/offset slots and the matrix load order. |
 | `app/client/unknown_79c8e0.cpp:20` | `CameraModule79C8E0Class::Unknown_08` | marker | NOT EXACT: shape (18 masked rows, was 184: the first product after each Inv_Sqrt comes out fld st(0); fmul mem where the client has fld mem; fmul st(1), and two stores schedule apart; attempts.csv) |
 | `app/client/unknown_7cef30.cpp:382` | `RegistrationUnknown1ACClass::Unknown_7D4E30` | marker | NOT EXACT: inline budget (0.71: the client inlines Add_Param(int) for bdateyear too, ours calls it from there on; the rest is the client's) |
 | `app/client/unknown_7e1e40.cpp:24` | `Sub14CUnknown18Class::~Sub14CUnknown18Class` | marker | NOT EXACT: the client's has an EH frame (states 1, 0 around the _bstr_t members' destruction); /GX gives none here (/EHa gives it, and an EH frame in the constructor the client lacks) |
 | `app/client/unknown_fontsound.cpp:10` | `Unknown_6BCFB0Class::Unknown_6BCFB0Class` | marker | NOT EXACT: (D64) the client's has an EH frame with no state stores around the same seven stores |
 | `app/client/unknown_fontsound.cpp:15` | `Unknown_6BCFB0Class::~Unknown_6BCFB0Class` | marker | NOT EXACT: (D64) Clear's loop as `while (--index >= 0)` (dec / js, 0.80); the client has no state -1 store before the member's destructor |
-| `app/client/unknown_personality.cpp:178` | `Unknown_790260Class::Unknown_790360` | marker | NOT EXACT: shape (the client materializes a boolean and repeats the Data null check before cleanup) |
-| `app/client/unknown_phoneme.cpp:84` | `Unknown_791310Class::Unknown_791400` | marker | NOT EXACT: functional for POC (D64), register (prev and last kept in memory, 12 in ebx; the case bodies in the client's order, from its jump table, and 't' written out as the client inlines it) |
-| `app/client/unknown_phoneme.cpp:196` | `Unknown_791310Class::Unknown_7917B0` | marker | NOT EXACT: functional for POC (D64), register (First and Count loaded into the other registers; 6 index forms tried) |
-| `app/client/unknown_phoneme.cpp:216` | `Unknown_791310Class::Unknown_791880` | marker | NOT EXACT: functional for POC (D64), shape (the client merges the 'g' case's tail with the second-letter vowel's; switch and if-chain forms tried) |
+| `app/client/unknown_phoneme.cpp:201` | `Unknown_791310Class::Unknown_7917B0` | marker | NOT EXACT: functional for POC (D64), register (First and Count loaded into the other registers; 6 index forms tried) |
+| `app/client/unknown_phoneme.cpp:221` | `Unknown_791310Class::Unknown_791880` | marker | NOT EXACT: functional for POC (D64), shape (the client merges the 'g' case's tail with the second-letter vowel's; switch and if-chain forms tried) |
 | `app/client/viewbttn.cpp:18` | `ViewButtonClass::ViewButtonClass` | marker | NOT EXACT: the client keeps an EH state around the new UnknownAFE0B8Class (a byte state store before Get_Bool, attempts.csv); ours has none |
 | `app/client/viewbttn.cpp:160` | `ViewButtonClass::Unknown_2C` | marker | NOT EXACT: register allocation only (explain.py; attempts.csv) |
 | `app/client/viewbttn.cpp:404` | `Unknown_6B5FD0` | marker | NOT EXACT: the client's EH frame around the new (attempts.csv); ours has none |

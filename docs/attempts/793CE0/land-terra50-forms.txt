@@ -1,0 +1,1076 @@
+FORM ctor_up__key0_temp
+--- cached_matrix_rows/camctrl_land.cpp
++++ ctor_up__key0_temp/camctrl_land.cpp
+@@ -143,11 +143,11 @@
+ 	Vector3 key0 = from + dir * 100.0f;
+ 	offset.Normalize();
+ 	Vector3 key1 = key0 + (offset - dir) * 1000.0f;
+-	Unknown718510Class *state = new Unknown718510Class(Client->Unknown10BC, Client->Unknown10BC + 4000, Vector3(0.0f, 0.0f, 1.0f), dir, ship->PositionalState);
++	Vector3 camera_up(0.0f, 0.0f, 1.0f); Unknown718510Class *state = new Unknown718510Class(Client->Unknown10BC, Client->Unknown10BC + 4000, camera_up, dir, ship->PositionalState);
+ 	HermiteSpline3DClass *spline = state->Unknown_30();
+ 	dir *= 100.0f;
+ 	offset *= 1000.0f;
+-	spline->Add_Key(key0, 0.0f);
++	spline->Add_Key(Vector3(key0), 0.0f);
+ 	
+ 	spline->Set_Tangents(0, -dir, -dir);
+ 	spline->Add_Key(key1, 1.0f);
+
+FORM ctor_up__key1_temp
+--- cached_matrix_rows/camctrl_land.cpp
++++ ctor_up__key1_temp/camctrl_land.cpp
+@@ -143,14 +143,14 @@
+ 	Vector3 key0 = from + dir * 100.0f;
+ 	offset.Normalize();
+ 	Vector3 key1 = key0 + (offset - dir) * 1000.0f;
+-	Unknown718510Class *state = new Unknown718510Class(Client->Unknown10BC, Client->Unknown10BC + 4000, Vector3(0.0f, 0.0f, 1.0f), dir, ship->PositionalState);
++	Vector3 camera_up(0.0f, 0.0f, 1.0f); Unknown718510Class *state = new Unknown718510Class(Client->Unknown10BC, Client->Unknown10BC + 4000, camera_up, dir, ship->PositionalState);
+ 	HermiteSpline3DClass *spline = state->Unknown_30();
+ 	dir *= 100.0f;
+ 	offset *= 1000.0f;
+ 	spline->Add_Key(key0, 0.0f);
+ 	
+ 	spline->Set_Tangents(0, -dir, -dir);
+-	spline->Add_Key(key1, 1.0f);
++	spline->Add_Key(Vector3(key1), 1.0f);
+ 	Vector3 tangent1 = offset - dir * 5.0f;
+ 	spline->Set_Tangents(1, tangent1, tangent1);
+ 	ship->PositionalState = state;
+
+FORM ctor_up__dir_scale
+--- cached_matrix_rows/camctrl_land.cpp
++++ ctor_up__dir_scale/camctrl_land.cpp
+@@ -143,9 +143,9 @@
+ 	Vector3 key0 = from + dir * 100.0f;
+ 	offset.Normalize();
+ 	Vector3 key1 = key0 + (offset - dir) * 1000.0f;
+-	Unknown718510Class *state = new Unknown718510Class(Client->Unknown10BC, Client->Unknown10BC + 4000, Vector3(0.0f, 0.0f, 1.0f), dir, ship->PositionalState);
++	Vector3 camera_up(0.0f, 0.0f, 1.0f); Unknown718510Class *state = new Unknown718510Class(Client->Unknown10BC, Client->Unknown10BC + 4000, camera_up, dir, ship->PositionalState);
+ 	HermiteSpline3DClass *spline = state->Unknown_30();
+-	dir *= 100.0f;
++	dir = dir * 100.0f;
+ 	offset *= 1000.0f;
+ 	spline->Add_Key(key0, 0.0f);
+ 	
+
+FORM ctor_up__offset_scale
+--- cached_matrix_rows/camctrl_land.cpp
++++ ctor_up__offset_scale/camctrl_land.cpp
+@@ -143,10 +143,10 @@
+ 	Vector3 key0 = from + dir * 100.0f;
+ 	offset.Normalize();
+ 	Vector3 key1 = key0 + (offset - dir) * 1000.0f;
+-	Unknown718510Class *state = new Unknown718510Class(Client->Unknown10BC, Client->Unknown10BC + 4000, Vector3(0.0f, 0.0f, 1.0f), dir, ship->PositionalState);
++	Vector3 camera_up(0.0f, 0.0f, 1.0f); Unknown718510Class *state = new Unknown718510Class(Client->Unknown10BC, Client->Unknown10BC + 4000, camera_up, dir, ship->PositionalState);
+ 	HermiteSpline3DClass *spline = state->Unknown_30();
+ 	dir *= 100.0f;
+-	offset *= 1000.0f;
++	offset = offset * 1000.0f;
+ 	spline->Add_Key(key0, 0.0f);
+ 	
+ 	spline->Set_Tangents(0, -dir, -dir);
+
+FORM ctor_up__key0_temp_key1_temp
+--- cached_matrix_rows/camctrl_land.cpp
++++ ctor_up__key0_temp_key1_temp/camctrl_land.cpp
+@@ -143,14 +143,14 @@
+ 	Vector3 key0 = from + dir * 100.0f;
+ 	offset.Normalize();
+ 	Vector3 key1 = key0 + (offset - dir) * 1000.0f;
+-	Unknown718510Class *state = new Unknown718510Class(Client->Unknown10BC, Client->Unknown10BC + 4000, Vector3(0.0f, 0.0f, 1.0f), dir, ship->PositionalState);
++	Vector3 camera_up(0.0f, 0.0f, 1.0f); Unknown718510Class *state = new Unknown718510Class(Client->Unknown10BC, Client->Unknown10BC + 4000, camera_up, dir, ship->PositionalState);
+ 	HermiteSpline3DClass *spline = state->Unknown_30();
+ 	dir *= 100.0f;
+ 	offset *= 1000.0f;
+-	spline->Add_Key(key0, 0.0f);
++	spline->Add_Key(Vector3(key0), 0.0f);
+ 	
+ 	spline->Set_Tangents(0, -dir, -dir);
+-	spline->Add_Key(key1, 1.0f);
++	spline->Add_Key(Vector3(key1), 1.0f);
+ 	Vector3 tangent1 = offset - dir * 5.0f;
+ 	spline->Set_Tangents(1, tangent1, tangent1);
+ 	ship->PositionalState = state;
+
+FORM ctor_up__key0_temp_dir_scale
+--- cached_matrix_rows/camctrl_land.cpp
++++ ctor_up__key0_temp_dir_scale/camctrl_land.cpp
+@@ -143,11 +143,11 @@
+ 	Vector3 key0 = from + dir * 100.0f;
+ 	offset.Normalize();
+ 	Vector3 key1 = key0 + (offset - dir) * 1000.0f;
+-	Unknown718510Class *state = new Unknown718510Class(Client->Unknown10BC, Client->Unknown10BC + 4000, Vector3(0.0f, 0.0f, 1.0f), dir, ship->PositionalState);
++	Vector3 camera_up(0.0f, 0.0f, 1.0f); Unknown718510Class *state = new Unknown718510Class(Client->Unknown10BC, Client->Unknown10BC + 4000, camera_up, dir, ship->PositionalState);
+ 	HermiteSpline3DClass *spline = state->Unknown_30();
+-	dir *= 100.0f;
++	dir = dir * 100.0f;
+ 	offset *= 1000.0f;
+-	spline->Add_Key(key0, 0.0f);
++	spline->Add_Key(Vector3(key0), 0.0f);
+ 	
+ 	spline->Set_Tangents(0, -dir, -dir);
+ 	spline->Add_Key(key1, 1.0f);
+
+FORM ctor_up__key0_temp_offset_scale
+--- cached_matrix_rows/camctrl_land.cpp
++++ ctor_up__key0_temp_offset_scale/camctrl_land.cpp
+@@ -143,11 +143,11 @@
+ 	Vector3 key0 = from + dir * 100.0f;
+ 	offset.Normalize();
+ 	Vector3 key1 = key0 + (offset - dir) * 1000.0f;
+-	Unknown718510Class *state = new Unknown718510Class(Client->Unknown10BC, Client->Unknown10BC + 4000, Vector3(0.0f, 0.0f, 1.0f), dir, ship->PositionalState);
++	Vector3 camera_up(0.0f, 0.0f, 1.0f); Unknown718510Class *state = new Unknown718510Class(Client->Unknown10BC, Client->Unknown10BC + 4000, camera_up, dir, ship->PositionalState);
+ 	HermiteSpline3DClass *spline = state->Unknown_30();
+ 	dir *= 100.0f;
+-	offset *= 1000.0f;
+-	spline->Add_Key(key0, 0.0f);
++	offset = offset * 1000.0f;
++	spline->Add_Key(Vector3(key0), 0.0f);
+ 	
+ 	spline->Set_Tangents(0, -dir, -dir);
+ 	spline->Add_Key(key1, 1.0f);
+
+FORM ctor_up__key1_temp_dir_scale
+--- cached_matrix_rows/camctrl_land.cpp
++++ ctor_up__key1_temp_dir_scale/camctrl_land.cpp
+@@ -143,14 +143,14 @@
+ 	Vector3 key0 = from + dir * 100.0f;
+ 	offset.Normalize();
+ 	Vector3 key1 = key0 + (offset - dir) * 1000.0f;
+-	Unknown718510Class *state = new Unknown718510Class(Client->Unknown10BC, Client->Unknown10BC + 4000, Vector3(0.0f, 0.0f, 1.0f), dir, ship->PositionalState);
++	Vector3 camera_up(0.0f, 0.0f, 1.0f); Unknown718510Class *state = new Unknown718510Class(Client->Unknown10BC, Client->Unknown10BC + 4000, camera_up, dir, ship->PositionalState);
+ 	HermiteSpline3DClass *spline = state->Unknown_30();
+-	dir *= 100.0f;
++	dir = dir * 100.0f;
+ 	offset *= 1000.0f;
+ 	spline->Add_Key(key0, 0.0f);
+ 	
+ 	spline->Set_Tangents(0, -dir, -dir);
+-	spline->Add_Key(key1, 1.0f);
++	spline->Add_Key(Vector3(key1), 1.0f);
+ 	Vector3 tangent1 = offset - dir * 5.0f;
+ 	spline->Set_Tangents(1, tangent1, tangent1);
+ 	ship->PositionalState = state;
+
+FORM ctor_up__key1_temp_offset_scale
+--- cached_matrix_rows/camctrl_land.cpp
++++ ctor_up__key1_temp_offset_scale/camctrl_land.cpp
+@@ -143,14 +143,14 @@
+ 	Vector3 key0 = from + dir * 100.0f;
+ 	offset.Normalize();
+ 	Vector3 key1 = key0 + (offset - dir) * 1000.0f;
+-	Unknown718510Class *state = new Unknown718510Class(Client->Unknown10BC, Client->Unknown10BC + 4000, Vector3(0.0f, 0.0f, 1.0f), dir, ship->PositionalState);
++	Vector3 camera_up(0.0f, 0.0f, 1.0f); Unknown718510Class *state = new Unknown718510Class(Client->Unknown10BC, Client->Unknown10BC + 4000, camera_up, dir, ship->PositionalState);
+ 	HermiteSpline3DClass *spline = state->Unknown_30();
+ 	dir *= 100.0f;
+-	offset *= 1000.0f;
++	offset = offset * 1000.0f;
+ 	spline->Add_Key(key0, 0.0f);
+ 	
+ 	spline->Set_Tangents(0, -dir, -dir);
+-	spline->Add_Key(key1, 1.0f);
++	spline->Add_Key(Vector3(key1), 1.0f);
+ 	Vector3 tangent1 = offset - dir * 5.0f;
+ 	spline->Set_Tangents(1, tangent1, tangent1);
+ 	ship->PositionalState = state;
+
+FORM ctor_up__dir_scale_offset_scale
+--- cached_matrix_rows/camctrl_land.cpp
++++ ctor_up__dir_scale_offset_scale/camctrl_land.cpp
+@@ -143,10 +143,10 @@
+ 	Vector3 key0 = from + dir * 100.0f;
+ 	offset.Normalize();
+ 	Vector3 key1 = key0 + (offset - dir) * 1000.0f;
+-	Unknown718510Class *state = new Unknown718510Class(Client->Unknown10BC, Client->Unknown10BC + 4000, Vector3(0.0f, 0.0f, 1.0f), dir, ship->PositionalState);
++	Vector3 camera_up(0.0f, 0.0f, 1.0f); Unknown718510Class *state = new Unknown718510Class(Client->Unknown10BC, Client->Unknown10BC + 4000, camera_up, dir, ship->PositionalState);
+ 	HermiteSpline3DClass *spline = state->Unknown_30();
+-	dir *= 100.0f;
+-	offset *= 1000.0f;
++	dir = dir * 100.0f;
++	offset = offset * 1000.0f;
+ 	spline->Add_Key(key0, 0.0f);
+ 	
+ 	spline->Set_Tangents(0, -dir, -dir);
+
+FORM to_scope__key0_temp
+--- cached_matrix_rows/camctrl_land.cpp
++++ to_scope__key0_temp/camctrl_land.cpp
+@@ -133,8 +133,8 @@
+ 	}
+ 	Vector3 offset = (side + up) * radius * 0.5f;
+ 	Vector3 from = target_pos + dir * radius * 0.5f;
+-	Vector3 to = target_pos + offset;
+-	tm.Look_At(from, to, 0.0f);
++	{ Vector3 to = target_pos + offset;
++	tm.Look_At(from, to, 0.0f); }
+ 	{ CameraModule79C4A0Class *module = Unknown0C; module->Unknown08[0] = tm[0]; module->Unknown08[1] = tm[1]; module->Unknown08[2] = tm[2]; }
+ 	Unknown0C->Unknown38 = Unknown_BDB1C0(0, 1) ? Unknown_B04D30 : -Unknown_B04D30;
+ 	Unknown0C->Unknown3C = 2;
+@@ -147,7 +147,7 @@
+ 	HermiteSpline3DClass *spline = state->Unknown_30();
+ 	dir *= 100.0f;
+ 	offset *= 1000.0f;
+-	spline->Add_Key(key0, 0.0f);
++	spline->Add_Key(Vector3(key0), 0.0f);
+ 	
+ 	spline->Set_Tangents(0, -dir, -dir);
+ 	spline->Add_Key(key1, 1.0f);
+
+FORM to_scope__key1_temp
+--- cached_matrix_rows/camctrl_land.cpp
++++ to_scope__key1_temp/camctrl_land.cpp
+@@ -133,8 +133,8 @@
+ 	}
+ 	Vector3 offset = (side + up) * radius * 0.5f;
+ 	Vector3 from = target_pos + dir * radius * 0.5f;
+-	Vector3 to = target_pos + offset;
+-	tm.Look_At(from, to, 0.0f);
++	{ Vector3 to = target_pos + offset;
++	tm.Look_At(from, to, 0.0f); }
+ 	{ CameraModule79C4A0Class *module = Unknown0C; module->Unknown08[0] = tm[0]; module->Unknown08[1] = tm[1]; module->Unknown08[2] = tm[2]; }
+ 	Unknown0C->Unknown38 = Unknown_BDB1C0(0, 1) ? Unknown_B04D30 : -Unknown_B04D30;
+ 	Unknown0C->Unknown3C = 2;
+@@ -150,7 +150,7 @@
+ 	spline->Add_Key(key0, 0.0f);
+ 	
+ 	spline->Set_Tangents(0, -dir, -dir);
+-	spline->Add_Key(key1, 1.0f);
++	spline->Add_Key(Vector3(key1), 1.0f);
+ 	Vector3 tangent1 = offset - dir * 5.0f;
+ 	spline->Set_Tangents(1, tangent1, tangent1);
+ 	ship->PositionalState = state;
+
+FORM to_scope__dir_scale
+--- cached_matrix_rows/camctrl_land.cpp
++++ to_scope__dir_scale/camctrl_land.cpp
+@@ -133,8 +133,8 @@
+ 	}
+ 	Vector3 offset = (side + up) * radius * 0.5f;
+ 	Vector3 from = target_pos + dir * radius * 0.5f;
+-	Vector3 to = target_pos + offset;
+-	tm.Look_At(from, to, 0.0f);
++	{ Vector3 to = target_pos + offset;
++	tm.Look_At(from, to, 0.0f); }
+ 	{ CameraModule79C4A0Class *module = Unknown0C; module->Unknown08[0] = tm[0]; module->Unknown08[1] = tm[1]; module->Unknown08[2] = tm[2]; }
+ 	Unknown0C->Unknown38 = Unknown_BDB1C0(0, 1) ? Unknown_B04D30 : -Unknown_B04D30;
+ 	Unknown0C->Unknown3C = 2;
+@@ -145,7 +145,7 @@
+ 	Vector3 key1 = key0 + (offset - dir) * 1000.0f;
+ 	Unknown718510Class *state = new Unknown718510Class(Client->Unknown10BC, Client->Unknown10BC + 4000, Vector3(0.0f, 0.0f, 1.0f), dir, ship->PositionalState);
+ 	HermiteSpline3DClass *spline = state->Unknown_30();
+-	dir *= 100.0f;
++	dir = dir * 100.0f;
+ 	offset *= 1000.0f;
+ 	spline->Add_Key(key0, 0.0f);
+ 	
+
+FORM to_scope__offset_scale
+--- cached_matrix_rows/camctrl_land.cpp
++++ to_scope__offset_scale/camctrl_land.cpp
+@@ -133,8 +133,8 @@
+ 	}
+ 	Vector3 offset = (side + up) * radius * 0.5f;
+ 	Vector3 from = target_pos + dir * radius * 0.5f;
+-	Vector3 to = target_pos + offset;
+-	tm.Look_At(from, to, 0.0f);
++	{ Vector3 to = target_pos + offset;
++	tm.Look_At(from, to, 0.0f); }
+ 	{ CameraModule79C4A0Class *module = Unknown0C; module->Unknown08[0] = tm[0]; module->Unknown08[1] = tm[1]; module->Unknown08[2] = tm[2]; }
+ 	Unknown0C->Unknown38 = Unknown_BDB1C0(0, 1) ? Unknown_B04D30 : -Unknown_B04D30;
+ 	Unknown0C->Unknown3C = 2;
+@@ -146,7 +146,7 @@
+ 	Unknown718510Class *state = new Unknown718510Class(Client->Unknown10BC, Client->Unknown10BC + 4000, Vector3(0.0f, 0.0f, 1.0f), dir, ship->PositionalState);
+ 	HermiteSpline3DClass *spline = state->Unknown_30();
+ 	dir *= 100.0f;
+-	offset *= 1000.0f;
++	offset = offset * 1000.0f;
+ 	spline->Add_Key(key0, 0.0f);
+ 	
+ 	spline->Set_Tangents(0, -dir, -dir);
+
+FORM to_scope__key0_temp_key1_temp
+--- cached_matrix_rows/camctrl_land.cpp
++++ to_scope__key0_temp_key1_temp/camctrl_land.cpp
+@@ -133,8 +133,8 @@
+ 	}
+ 	Vector3 offset = (side + up) * radius * 0.5f;
+ 	Vector3 from = target_pos + dir * radius * 0.5f;
+-	Vector3 to = target_pos + offset;
+-	tm.Look_At(from, to, 0.0f);
++	{ Vector3 to = target_pos + offset;
++	tm.Look_At(from, to, 0.0f); }
+ 	{ CameraModule79C4A0Class *module = Unknown0C; module->Unknown08[0] = tm[0]; module->Unknown08[1] = tm[1]; module->Unknown08[2] = tm[2]; }
+ 	Unknown0C->Unknown38 = Unknown_BDB1C0(0, 1) ? Unknown_B04D30 : -Unknown_B04D30;
+ 	Unknown0C->Unknown3C = 2;
+@@ -147,10 +147,10 @@
+ 	HermiteSpline3DClass *spline = state->Unknown_30();
+ 	dir *= 100.0f;
+ 	offset *= 1000.0f;
+-	spline->Add_Key(key0, 0.0f);
++	spline->Add_Key(Vector3(key0), 0.0f);
+ 	
+ 	spline->Set_Tangents(0, -dir, -dir);
+-	spline->Add_Key(key1, 1.0f);
++	spline->Add_Key(Vector3(key1), 1.0f);
+ 	Vector3 tangent1 = offset - dir * 5.0f;
+ 	spline->Set_Tangents(1, tangent1, tangent1);
+ 	ship->PositionalState = state;
+
+FORM to_scope__key0_temp_dir_scale
+--- cached_matrix_rows/camctrl_land.cpp
++++ to_scope__key0_temp_dir_scale/camctrl_land.cpp
+@@ -133,8 +133,8 @@
+ 	}
+ 	Vector3 offset = (side + up) * radius * 0.5f;
+ 	Vector3 from = target_pos + dir * radius * 0.5f;
+-	Vector3 to = target_pos + offset;
+-	tm.Look_At(from, to, 0.0f);
++	{ Vector3 to = target_pos + offset;
++	tm.Look_At(from, to, 0.0f); }
+ 	{ CameraModule79C4A0Class *module = Unknown0C; module->Unknown08[0] = tm[0]; module->Unknown08[1] = tm[1]; module->Unknown08[2] = tm[2]; }
+ 	Unknown0C->Unknown38 = Unknown_BDB1C0(0, 1) ? Unknown_B04D30 : -Unknown_B04D30;
+ 	Unknown0C->Unknown3C = 2;
+@@ -145,9 +145,9 @@
+ 	Vector3 key1 = key0 + (offset - dir) * 1000.0f;
+ 	Unknown718510Class *state = new Unknown718510Class(Client->Unknown10BC, Client->Unknown10BC + 4000, Vector3(0.0f, 0.0f, 1.0f), dir, ship->PositionalState);
+ 	HermiteSpline3DClass *spline = state->Unknown_30();
+-	dir *= 100.0f;
++	dir = dir * 100.0f;
+ 	offset *= 1000.0f;
+-	spline->Add_Key(key0, 0.0f);
++	spline->Add_Key(Vector3(key0), 0.0f);
+ 	
+ 	spline->Set_Tangents(0, -dir, -dir);
+ 	spline->Add_Key(key1, 1.0f);
+
+FORM to_scope__key0_temp_offset_scale
+--- cached_matrix_rows/camctrl_land.cpp
++++ to_scope__key0_temp_offset_scale/camctrl_land.cpp
+@@ -133,8 +133,8 @@
+ 	}
+ 	Vector3 offset = (side + up) * radius * 0.5f;
+ 	Vector3 from = target_pos + dir * radius * 0.5f;
+-	Vector3 to = target_pos + offset;
+-	tm.Look_At(from, to, 0.0f);
++	{ Vector3 to = target_pos + offset;
++	tm.Look_At(from, to, 0.0f); }
+ 	{ CameraModule79C4A0Class *module = Unknown0C; module->Unknown08[0] = tm[0]; module->Unknown08[1] = tm[1]; module->Unknown08[2] = tm[2]; }
+ 	Unknown0C->Unknown38 = Unknown_BDB1C0(0, 1) ? Unknown_B04D30 : -Unknown_B04D30;
+ 	Unknown0C->Unknown3C = 2;
+@@ -146,8 +146,8 @@
+ 	Unknown718510Class *state = new Unknown718510Class(Client->Unknown10BC, Client->Unknown10BC + 4000, Vector3(0.0f, 0.0f, 1.0f), dir, ship->PositionalState);
+ 	HermiteSpline3DClass *spline = state->Unknown_30();
+ 	dir *= 100.0f;
+-	offset *= 1000.0f;
+-	spline->Add_Key(key0, 0.0f);
++	offset = offset * 1000.0f;
++	spline->Add_Key(Vector3(key0), 0.0f);
+ 	
+ 	spline->Set_Tangents(0, -dir, -dir);
+ 	spline->Add_Key(key1, 1.0f);
+
+FORM to_scope__key1_temp_dir_scale
+--- cached_matrix_rows/camctrl_land.cpp
++++ to_scope__key1_temp_dir_scale/camctrl_land.cpp
+@@ -133,8 +133,8 @@
+ 	}
+ 	Vector3 offset = (side + up) * radius * 0.5f;
+ 	Vector3 from = target_pos + dir * radius * 0.5f;
+-	Vector3 to = target_pos + offset;
+-	tm.Look_At(from, to, 0.0f);
++	{ Vector3 to = target_pos + offset;
++	tm.Look_At(from, to, 0.0f); }
+ 	{ CameraModule79C4A0Class *module = Unknown0C; module->Unknown08[0] = tm[0]; module->Unknown08[1] = tm[1]; module->Unknown08[2] = tm[2]; }
+ 	Unknown0C->Unknown38 = Unknown_BDB1C0(0, 1) ? Unknown_B04D30 : -Unknown_B04D30;
+ 	Unknown0C->Unknown3C = 2;
+@@ -145,12 +145,12 @@
+ 	Vector3 key1 = key0 + (offset - dir) * 1000.0f;
+ 	Unknown718510Class *state = new Unknown718510Class(Client->Unknown10BC, Client->Unknown10BC + 4000, Vector3(0.0f, 0.0f, 1.0f), dir, ship->PositionalState);
+ 	HermiteSpline3DClass *spline = state->Unknown_30();
+-	dir *= 100.0f;
++	dir = dir * 100.0f;
+ 	offset *= 1000.0f;
+ 	spline->Add_Key(key0, 0.0f);
+ 	
+ 	spline->Set_Tangents(0, -dir, -dir);
+-	spline->Add_Key(key1, 1.0f);
++	spline->Add_Key(Vector3(key1), 1.0f);
+ 	Vector3 tangent1 = offset - dir * 5.0f;
+ 	spline->Set_Tangents(1, tangent1, tangent1);
+ 	ship->PositionalState = state;
+
+FORM to_scope__key1_temp_offset_scale
+--- cached_matrix_rows/camctrl_land.cpp
++++ to_scope__key1_temp_offset_scale/camctrl_land.cpp
+@@ -133,8 +133,8 @@
+ 	}
+ 	Vector3 offset = (side + up) * radius * 0.5f;
+ 	Vector3 from = target_pos + dir * radius * 0.5f;
+-	Vector3 to = target_pos + offset;
+-	tm.Look_At(from, to, 0.0f);
++	{ Vector3 to = target_pos + offset;
++	tm.Look_At(from, to, 0.0f); }
+ 	{ CameraModule79C4A0Class *module = Unknown0C; module->Unknown08[0] = tm[0]; module->Unknown08[1] = tm[1]; module->Unknown08[2] = tm[2]; }
+ 	Unknown0C->Unknown38 = Unknown_BDB1C0(0, 1) ? Unknown_B04D30 : -Unknown_B04D30;
+ 	Unknown0C->Unknown3C = 2;
+@@ -146,11 +146,11 @@
+ 	Unknown718510Class *state = new Unknown718510Class(Client->Unknown10BC, Client->Unknown10BC + 4000, Vector3(0.0f, 0.0f, 1.0f), dir, ship->PositionalState);
+ 	HermiteSpline3DClass *spline = state->Unknown_30();
+ 	dir *= 100.0f;
+-	offset *= 1000.0f;
++	offset = offset * 1000.0f;
+ 	spline->Add_Key(key0, 0.0f);
+ 	
+ 	spline->Set_Tangents(0, -dir, -dir);
+-	spline->Add_Key(key1, 1.0f);
++	spline->Add_Key(Vector3(key1), 1.0f);
+ 	Vector3 tangent1 = offset - dir * 5.0f;
+ 	spline->Set_Tangents(1, tangent1, tangent1);
+ 	ship->PositionalState = state;
+
+FORM to_scope__dir_scale_offset_scale
+--- cached_matrix_rows/camctrl_land.cpp
++++ to_scope__dir_scale_offset_scale/camctrl_land.cpp
+@@ -133,8 +133,8 @@
+ 	}
+ 	Vector3 offset = (side + up) * radius * 0.5f;
+ 	Vector3 from = target_pos + dir * radius * 0.5f;
+-	Vector3 to = target_pos + offset;
+-	tm.Look_At(from, to, 0.0f);
++	{ Vector3 to = target_pos + offset;
++	tm.Look_At(from, to, 0.0f); }
+ 	{ CameraModule79C4A0Class *module = Unknown0C; module->Unknown08[0] = tm[0]; module->Unknown08[1] = tm[1]; module->Unknown08[2] = tm[2]; }
+ 	Unknown0C->Unknown38 = Unknown_BDB1C0(0, 1) ? Unknown_B04D30 : -Unknown_B04D30;
+ 	Unknown0C->Unknown3C = 2;
+@@ -145,8 +145,8 @@
+ 	Vector3 key1 = key0 + (offset - dir) * 1000.0f;
+ 	Unknown718510Class *state = new Unknown718510Class(Client->Unknown10BC, Client->Unknown10BC + 4000, Vector3(0.0f, 0.0f, 1.0f), dir, ship->PositionalState);
+ 	HermiteSpline3DClass *spline = state->Unknown_30();
+-	dir *= 100.0f;
+-	offset *= 1000.0f;
++	dir = dir * 100.0f;
++	offset = offset * 1000.0f;
+ 	spline->Add_Key(key0, 0.0f);
+ 	
+ 	spline->Set_Tangents(0, -dir, -dir);
+
+FORM key0_assign__key0_temp
+--- cached_matrix_rows/camctrl_land.cpp
++++ key0_assign__key0_temp/camctrl_land.cpp
+@@ -140,14 +140,14 @@
+ 	Unknown0C->Unknown3C = 2;
+ 	Unknown0C->Unknown_04();
+ 
+-	Vector3 key0 = from + dir * 100.0f;
++	Vector3 key0; key0 = from + dir * 100.0f;
+ 	offset.Normalize();
+ 	Vector3 key1 = key0 + (offset - dir) * 1000.0f;
+ 	Unknown718510Class *state = new Unknown718510Class(Client->Unknown10BC, Client->Unknown10BC + 4000, Vector3(0.0f, 0.0f, 1.0f), dir, ship->PositionalState);
+ 	HermiteSpline3DClass *spline = state->Unknown_30();
+ 	dir *= 100.0f;
+ 	offset *= 1000.0f;
+-	spline->Add_Key(key0, 0.0f);
++	spline->Add_Key(Vector3(key0), 0.0f);
+ 	
+ 	spline->Set_Tangents(0, -dir, -dir);
+ 	spline->Add_Key(key1, 1.0f);
+
+FORM key0_assign__key1_temp
+--- cached_matrix_rows/camctrl_land.cpp
++++ key0_assign__key1_temp/camctrl_land.cpp
+@@ -140,7 +140,7 @@
+ 	Unknown0C->Unknown3C = 2;
+ 	Unknown0C->Unknown_04();
+ 
+-	Vector3 key0 = from + dir * 100.0f;
++	Vector3 key0; key0 = from + dir * 100.0f;
+ 	offset.Normalize();
+ 	Vector3 key1 = key0 + (offset - dir) * 1000.0f;
+ 	Unknown718510Class *state = new Unknown718510Class(Client->Unknown10BC, Client->Unknown10BC + 4000, Vector3(0.0f, 0.0f, 1.0f), dir, ship->PositionalState);
+@@ -150,7 +150,7 @@
+ 	spline->Add_Key(key0, 0.0f);
+ 	
+ 	spline->Set_Tangents(0, -dir, -dir);
+-	spline->Add_Key(key1, 1.0f);
++	spline->Add_Key(Vector3(key1), 1.0f);
+ 	Vector3 tangent1 = offset - dir * 5.0f;
+ 	spline->Set_Tangents(1, tangent1, tangent1);
+ 	ship->PositionalState = state;
+
+FORM key0_assign__dir_scale
+--- cached_matrix_rows/camctrl_land.cpp
++++ key0_assign__dir_scale/camctrl_land.cpp
+@@ -140,12 +140,12 @@
+ 	Unknown0C->Unknown3C = 2;
+ 	Unknown0C->Unknown_04();
+ 
+-	Vector3 key0 = from + dir * 100.0f;
++	Vector3 key0; key0 = from + dir * 100.0f;
+ 	offset.Normalize();
+ 	Vector3 key1 = key0 + (offset - dir) * 1000.0f;
+ 	Unknown718510Class *state = new Unknown718510Class(Client->Unknown10BC, Client->Unknown10BC + 4000, Vector3(0.0f, 0.0f, 1.0f), dir, ship->PositionalState);
+ 	HermiteSpline3DClass *spline = state->Unknown_30();
+-	dir *= 100.0f;
++	dir = dir * 100.0f;
+ 	offset *= 1000.0f;
+ 	spline->Add_Key(key0, 0.0f);
+ 	
+
+FORM key0_assign__offset_scale
+--- cached_matrix_rows/camctrl_land.cpp
++++ key0_assign__offset_scale/camctrl_land.cpp
+@@ -140,13 +140,13 @@
+ 	Unknown0C->Unknown3C = 2;
+ 	Unknown0C->Unknown_04();
+ 
+-	Vector3 key0 = from + dir * 100.0f;
++	Vector3 key0; key0 = from + dir * 100.0f;
+ 	offset.Normalize();
+ 	Vector3 key1 = key0 + (offset - dir) * 1000.0f;
+ 	Unknown718510Class *state = new Unknown718510Class(Client->Unknown10BC, Client->Unknown10BC + 4000, Vector3(0.0f, 0.0f, 1.0f), dir, ship->PositionalState);
+ 	HermiteSpline3DClass *spline = state->Unknown_30();
+ 	dir *= 100.0f;
+-	offset *= 1000.0f;
++	offset = offset * 1000.0f;
+ 	spline->Add_Key(key0, 0.0f);
+ 	
+ 	spline->Set_Tangents(0, -dir, -dir);
+
+FORM key0_assign__key0_temp_key1_temp
+--- cached_matrix_rows/camctrl_land.cpp
++++ key0_assign__key0_temp_key1_temp/camctrl_land.cpp
+@@ -140,17 +140,17 @@
+ 	Unknown0C->Unknown3C = 2;
+ 	Unknown0C->Unknown_04();
+ 
+-	Vector3 key0 = from + dir * 100.0f;
++	Vector3 key0; key0 = from + dir * 100.0f;
+ 	offset.Normalize();
+ 	Vector3 key1 = key0 + (offset - dir) * 1000.0f;
+ 	Unknown718510Class *state = new Unknown718510Class(Client->Unknown10BC, Client->Unknown10BC + 4000, Vector3(0.0f, 0.0f, 1.0f), dir, ship->PositionalState);
+ 	HermiteSpline3DClass *spline = state->Unknown_30();
+ 	dir *= 100.0f;
+ 	offset *= 1000.0f;
+-	spline->Add_Key(key0, 0.0f);
++	spline->Add_Key(Vector3(key0), 0.0f);
+ 	
+ 	spline->Set_Tangents(0, -dir, -dir);
+-	spline->Add_Key(key1, 1.0f);
++	spline->Add_Key(Vector3(key1), 1.0f);
+ 	Vector3 tangent1 = offset - dir * 5.0f;
+ 	spline->Set_Tangents(1, tangent1, tangent1);
+ 	ship->PositionalState = state;
+
+FORM key0_assign__key0_temp_dir_scale
+--- cached_matrix_rows/camctrl_land.cpp
++++ key0_assign__key0_temp_dir_scale/camctrl_land.cpp
+@@ -140,14 +140,14 @@
+ 	Unknown0C->Unknown3C = 2;
+ 	Unknown0C->Unknown_04();
+ 
+-	Vector3 key0 = from + dir * 100.0f;
++	Vector3 key0; key0 = from + dir * 100.0f;
+ 	offset.Normalize();
+ 	Vector3 key1 = key0 + (offset - dir) * 1000.0f;
+ 	Unknown718510Class *state = new Unknown718510Class(Client->Unknown10BC, Client->Unknown10BC + 4000, Vector3(0.0f, 0.0f, 1.0f), dir, ship->PositionalState);
+ 	HermiteSpline3DClass *spline = state->Unknown_30();
+-	dir *= 100.0f;
++	dir = dir * 100.0f;
+ 	offset *= 1000.0f;
+-	spline->Add_Key(key0, 0.0f);
++	spline->Add_Key(Vector3(key0), 0.0f);
+ 	
+ 	spline->Set_Tangents(0, -dir, -dir);
+ 	spline->Add_Key(key1, 1.0f);
+
+FORM key0_assign__key0_temp_offset_scale
+--- cached_matrix_rows/camctrl_land.cpp
++++ key0_assign__key0_temp_offset_scale/camctrl_land.cpp
+@@ -140,14 +140,14 @@
+ 	Unknown0C->Unknown3C = 2;
+ 	Unknown0C->Unknown_04();
+ 
+-	Vector3 key0 = from + dir * 100.0f;
++	Vector3 key0; key0 = from + dir * 100.0f;
+ 	offset.Normalize();
+ 	Vector3 key1 = key0 + (offset - dir) * 1000.0f;
+ 	Unknown718510Class *state = new Unknown718510Class(Client->Unknown10BC, Client->Unknown10BC + 4000, Vector3(0.0f, 0.0f, 1.0f), dir, ship->PositionalState);
+ 	HermiteSpline3DClass *spline = state->Unknown_30();
+ 	dir *= 100.0f;
+-	offset *= 1000.0f;
+-	spline->Add_Key(key0, 0.0f);
++	offset = offset * 1000.0f;
++	spline->Add_Key(Vector3(key0), 0.0f);
+ 	
+ 	spline->Set_Tangents(0, -dir, -dir);
+ 	spline->Add_Key(key1, 1.0f);
+
+FORM key0_assign__key1_temp_dir_scale
+--- cached_matrix_rows/camctrl_land.cpp
++++ key0_assign__key1_temp_dir_scale/camctrl_land.cpp
+@@ -140,17 +140,17 @@
+ 	Unknown0C->Unknown3C = 2;
+ 	Unknown0C->Unknown_04();
+ 
+-	Vector3 key0 = from + dir * 100.0f;
++	Vector3 key0; key0 = from + dir * 100.0f;
+ 	offset.Normalize();
+ 	Vector3 key1 = key0 + (offset - dir) * 1000.0f;
+ 	Unknown718510Class *state = new Unknown718510Class(Client->Unknown10BC, Client->Unknown10BC + 4000, Vector3(0.0f, 0.0f, 1.0f), dir, ship->PositionalState);
+ 	HermiteSpline3DClass *spline = state->Unknown_30();
+-	dir *= 100.0f;
++	dir = dir * 100.0f;
+ 	offset *= 1000.0f;
+ 	spline->Add_Key(key0, 0.0f);
+ 	
+ 	spline->Set_Tangents(0, -dir, -dir);
+-	spline->Add_Key(key1, 1.0f);
++	spline->Add_Key(Vector3(key1), 1.0f);
+ 	Vector3 tangent1 = offset - dir * 5.0f;
+ 	spline->Set_Tangents(1, tangent1, tangent1);
+ 	ship->PositionalState = state;
+
+FORM key0_assign__key1_temp_offset_scale
+--- cached_matrix_rows/camctrl_land.cpp
++++ key0_assign__key1_temp_offset_scale/camctrl_land.cpp
+@@ -140,17 +140,17 @@
+ 	Unknown0C->Unknown3C = 2;
+ 	Unknown0C->Unknown_04();
+ 
+-	Vector3 key0 = from + dir * 100.0f;
++	Vector3 key0; key0 = from + dir * 100.0f;
+ 	offset.Normalize();
+ 	Vector3 key1 = key0 + (offset - dir) * 1000.0f;
+ 	Unknown718510Class *state = new Unknown718510Class(Client->Unknown10BC, Client->Unknown10BC + 4000, Vector3(0.0f, 0.0f, 1.0f), dir, ship->PositionalState);
+ 	HermiteSpline3DClass *spline = state->Unknown_30();
+ 	dir *= 100.0f;
+-	offset *= 1000.0f;
++	offset = offset * 1000.0f;
+ 	spline->Add_Key(key0, 0.0f);
+ 	
+ 	spline->Set_Tangents(0, -dir, -dir);
+-	spline->Add_Key(key1, 1.0f);
++	spline->Add_Key(Vector3(key1), 1.0f);
+ 	Vector3 tangent1 = offset - dir * 5.0f;
+ 	spline->Set_Tangents(1, tangent1, tangent1);
+ 	ship->PositionalState = state;
+
+FORM key0_assign__dir_scale_offset_scale
+--- cached_matrix_rows/camctrl_land.cpp
++++ key0_assign__dir_scale_offset_scale/camctrl_land.cpp
+@@ -140,13 +140,13 @@
+ 	Unknown0C->Unknown3C = 2;
+ 	Unknown0C->Unknown_04();
+ 
+-	Vector3 key0 = from + dir * 100.0f;
++	Vector3 key0; key0 = from + dir * 100.0f;
+ 	offset.Normalize();
+ 	Vector3 key1 = key0 + (offset - dir) * 1000.0f;
+ 	Unknown718510Class *state = new Unknown718510Class(Client->Unknown10BC, Client->Unknown10BC + 4000, Vector3(0.0f, 0.0f, 1.0f), dir, ship->PositionalState);
+ 	HermiteSpline3DClass *spline = state->Unknown_30();
+-	dir *= 100.0f;
+-	offset *= 1000.0f;
++	dir = dir * 100.0f;
++	offset = offset * 1000.0f;
+ 	spline->Add_Key(key0, 0.0f);
+ 	
+ 	spline->Set_Tangents(0, -dir, -dir);
+
+FORM key1_assign__key0_temp
+--- cached_matrix_rows/camctrl_land.cpp
++++ key1_assign__key0_temp/camctrl_land.cpp
+@@ -142,12 +142,12 @@
+ 
+ 	Vector3 key0 = from + dir * 100.0f;
+ 	offset.Normalize();
+-	Vector3 key1 = key0 + (offset - dir) * 1000.0f;
++	Vector3 key1; key1 = key0 + (offset - dir) * 1000.0f;
+ 	Unknown718510Class *state = new Unknown718510Class(Client->Unknown10BC, Client->Unknown10BC + 4000, Vector3(0.0f, 0.0f, 1.0f), dir, ship->PositionalState);
+ 	HermiteSpline3DClass *spline = state->Unknown_30();
+ 	dir *= 100.0f;
+ 	offset *= 1000.0f;
+-	spline->Add_Key(key0, 0.0f);
++	spline->Add_Key(Vector3(key0), 0.0f);
+ 	
+ 	spline->Set_Tangents(0, -dir, -dir);
+ 	spline->Add_Key(key1, 1.0f);
+
+FORM key1_assign__key1_temp
+--- cached_matrix_rows/camctrl_land.cpp
++++ key1_assign__key1_temp/camctrl_land.cpp
+@@ -142,7 +142,7 @@
+ 
+ 	Vector3 key0 = from + dir * 100.0f;
+ 	offset.Normalize();
+-	Vector3 key1 = key0 + (offset - dir) * 1000.0f;
++	Vector3 key1; key1 = key0 + (offset - dir) * 1000.0f;
+ 	Unknown718510Class *state = new Unknown718510Class(Client->Unknown10BC, Client->Unknown10BC + 4000, Vector3(0.0f, 0.0f, 1.0f), dir, ship->PositionalState);
+ 	HermiteSpline3DClass *spline = state->Unknown_30();
+ 	dir *= 100.0f;
+@@ -150,7 +150,7 @@
+ 	spline->Add_Key(key0, 0.0f);
+ 	
+ 	spline->Set_Tangents(0, -dir, -dir);
+-	spline->Add_Key(key1, 1.0f);
++	spline->Add_Key(Vector3(key1), 1.0f);
+ 	Vector3 tangent1 = offset - dir * 5.0f;
+ 	spline->Set_Tangents(1, tangent1, tangent1);
+ 	ship->PositionalState = state;
+
+FORM key1_assign__dir_scale
+--- cached_matrix_rows/camctrl_land.cpp
++++ key1_assign__dir_scale/camctrl_land.cpp
+@@ -142,10 +142,10 @@
+ 
+ 	Vector3 key0 = from + dir * 100.0f;
+ 	offset.Normalize();
+-	Vector3 key1 = key0 + (offset - dir) * 1000.0f;
++	Vector3 key1; key1 = key0 + (offset - dir) * 1000.0f;
+ 	Unknown718510Class *state = new Unknown718510Class(Client->Unknown10BC, Client->Unknown10BC + 4000, Vector3(0.0f, 0.0f, 1.0f), dir, ship->PositionalState);
+ 	HermiteSpline3DClass *spline = state->Unknown_30();
+-	dir *= 100.0f;
++	dir = dir * 100.0f;
+ 	offset *= 1000.0f;
+ 	spline->Add_Key(key0, 0.0f);
+ 	
+
+FORM key1_assign__offset_scale
+--- cached_matrix_rows/camctrl_land.cpp
++++ key1_assign__offset_scale/camctrl_land.cpp
+@@ -142,11 +142,11 @@
+ 
+ 	Vector3 key0 = from + dir * 100.0f;
+ 	offset.Normalize();
+-	Vector3 key1 = key0 + (offset - dir) * 1000.0f;
++	Vector3 key1; key1 = key0 + (offset - dir) * 1000.0f;
+ 	Unknown718510Class *state = new Unknown718510Class(Client->Unknown10BC, Client->Unknown10BC + 4000, Vector3(0.0f, 0.0f, 1.0f), dir, ship->PositionalState);
+ 	HermiteSpline3DClass *spline = state->Unknown_30();
+ 	dir *= 100.0f;
+-	offset *= 1000.0f;
++	offset = offset * 1000.0f;
+ 	spline->Add_Key(key0, 0.0f);
+ 	
+ 	spline->Set_Tangents(0, -dir, -dir);
+
+FORM key1_assign__key0_temp_key1_temp
+--- cached_matrix_rows/camctrl_land.cpp
++++ key1_assign__key0_temp_key1_temp/camctrl_land.cpp
+@@ -142,15 +142,15 @@
+ 
+ 	Vector3 key0 = from + dir * 100.0f;
+ 	offset.Normalize();
+-	Vector3 key1 = key0 + (offset - dir) * 1000.0f;
++	Vector3 key1; key1 = key0 + (offset - dir) * 1000.0f;
+ 	Unknown718510Class *state = new Unknown718510Class(Client->Unknown10BC, Client->Unknown10BC + 4000, Vector3(0.0f, 0.0f, 1.0f), dir, ship->PositionalState);
+ 	HermiteSpline3DClass *spline = state->Unknown_30();
+ 	dir *= 100.0f;
+ 	offset *= 1000.0f;
+-	spline->Add_Key(key0, 0.0f);
++	spline->Add_Key(Vector3(key0), 0.0f);
+ 	
+ 	spline->Set_Tangents(0, -dir, -dir);
+-	spline->Add_Key(key1, 1.0f);
++	spline->Add_Key(Vector3(key1), 1.0f);
+ 	Vector3 tangent1 = offset - dir * 5.0f;
+ 	spline->Set_Tangents(1, tangent1, tangent1);
+ 	ship->PositionalState = state;
+
+FORM key1_assign__key0_temp_dir_scale
+--- cached_matrix_rows/camctrl_land.cpp
++++ key1_assign__key0_temp_dir_scale/camctrl_land.cpp
+@@ -142,12 +142,12 @@
+ 
+ 	Vector3 key0 = from + dir * 100.0f;
+ 	offset.Normalize();
+-	Vector3 key1 = key0 + (offset - dir) * 1000.0f;
++	Vector3 key1; key1 = key0 + (offset - dir) * 1000.0f;
+ 	Unknown718510Class *state = new Unknown718510Class(Client->Unknown10BC, Client->Unknown10BC + 4000, Vector3(0.0f, 0.0f, 1.0f), dir, ship->PositionalState);
+ 	HermiteSpline3DClass *spline = state->Unknown_30();
+-	dir *= 100.0f;
++	dir = dir * 100.0f;
+ 	offset *= 1000.0f;
+-	spline->Add_Key(key0, 0.0f);
++	spline->Add_Key(Vector3(key0), 0.0f);
+ 	
+ 	spline->Set_Tangents(0, -dir, -dir);
+ 	spline->Add_Key(key1, 1.0f);
+
+FORM key1_assign__key0_temp_offset_scale
+--- cached_matrix_rows/camctrl_land.cpp
++++ key1_assign__key0_temp_offset_scale/camctrl_land.cpp
+@@ -142,12 +142,12 @@
+ 
+ 	Vector3 key0 = from + dir * 100.0f;
+ 	offset.Normalize();
+-	Vector3 key1 = key0 + (offset - dir) * 1000.0f;
++	Vector3 key1; key1 = key0 + (offset - dir) * 1000.0f;
+ 	Unknown718510Class *state = new Unknown718510Class(Client->Unknown10BC, Client->Unknown10BC + 4000, Vector3(0.0f, 0.0f, 1.0f), dir, ship->PositionalState);
+ 	HermiteSpline3DClass *spline = state->Unknown_30();
+ 	dir *= 100.0f;
+-	offset *= 1000.0f;
+-	spline->Add_Key(key0, 0.0f);
++	offset = offset * 1000.0f;
++	spline->Add_Key(Vector3(key0), 0.0f);
+ 	
+ 	spline->Set_Tangents(0, -dir, -dir);
+ 	spline->Add_Key(key1, 1.0f);
+
+FORM key1_assign__key1_temp_dir_scale
+--- cached_matrix_rows/camctrl_land.cpp
++++ key1_assign__key1_temp_dir_scale/camctrl_land.cpp
+@@ -142,15 +142,15 @@
+ 
+ 	Vector3 key0 = from + dir * 100.0f;
+ 	offset.Normalize();
+-	Vector3 key1 = key0 + (offset - dir) * 1000.0f;
++	Vector3 key1; key1 = key0 + (offset - dir) * 1000.0f;
+ 	Unknown718510Class *state = new Unknown718510Class(Client->Unknown10BC, Client->Unknown10BC + 4000, Vector3(0.0f, 0.0f, 1.0f), dir, ship->PositionalState);
+ 	HermiteSpline3DClass *spline = state->Unknown_30();
+-	dir *= 100.0f;
++	dir = dir * 100.0f;
+ 	offset *= 1000.0f;
+ 	spline->Add_Key(key0, 0.0f);
+ 	
+ 	spline->Set_Tangents(0, -dir, -dir);
+-	spline->Add_Key(key1, 1.0f);
++	spline->Add_Key(Vector3(key1), 1.0f);
+ 	Vector3 tangent1 = offset - dir * 5.0f;
+ 	spline->Set_Tangents(1, tangent1, tangent1);
+ 	ship->PositionalState = state;
+
+FORM key1_assign__key1_temp_offset_scale
+--- cached_matrix_rows/camctrl_land.cpp
++++ key1_assign__key1_temp_offset_scale/camctrl_land.cpp
+@@ -142,15 +142,15 @@
+ 
+ 	Vector3 key0 = from + dir * 100.0f;
+ 	offset.Normalize();
+-	Vector3 key1 = key0 + (offset - dir) * 1000.0f;
++	Vector3 key1; key1 = key0 + (offset - dir) * 1000.0f;
+ 	Unknown718510Class *state = new Unknown718510Class(Client->Unknown10BC, Client->Unknown10BC + 4000, Vector3(0.0f, 0.0f, 1.0f), dir, ship->PositionalState);
+ 	HermiteSpline3DClass *spline = state->Unknown_30();
+ 	dir *= 100.0f;
+-	offset *= 1000.0f;
++	offset = offset * 1000.0f;
+ 	spline->Add_Key(key0, 0.0f);
+ 	
+ 	spline->Set_Tangents(0, -dir, -dir);
+-	spline->Add_Key(key1, 1.0f);
++	spline->Add_Key(Vector3(key1), 1.0f);
+ 	Vector3 tangent1 = offset - dir * 5.0f;
+ 	spline->Set_Tangents(1, tangent1, tangent1);
+ 	ship->PositionalState = state;
+
+FORM key1_assign__dir_scale_offset_scale
+--- cached_matrix_rows/camctrl_land.cpp
++++ key1_assign__dir_scale_offset_scale/camctrl_land.cpp
+@@ -142,11 +142,11 @@
+ 
+ 	Vector3 key0 = from + dir * 100.0f;
+ 	offset.Normalize();
+-	Vector3 key1 = key0 + (offset - dir) * 1000.0f;
++	Vector3 key1; key1 = key0 + (offset - dir) * 1000.0f;
+ 	Unknown718510Class *state = new Unknown718510Class(Client->Unknown10BC, Client->Unknown10BC + 4000, Vector3(0.0f, 0.0f, 1.0f), dir, ship->PositionalState);
+ 	HermiteSpline3DClass *spline = state->Unknown_30();
+-	dir *= 100.0f;
+-	offset *= 1000.0f;
++	dir = dir * 100.0f;
++	offset = offset * 1000.0f;
+ 	spline->Add_Key(key0, 0.0f);
+ 	
+ 	spline->Set_Tangents(0, -dir, -dir);
+
+FORM tangent_assign__key0_temp
+--- cached_matrix_rows/camctrl_land.cpp
++++ tangent_assign__key0_temp/camctrl_land.cpp
+@@ -147,11 +147,11 @@
+ 	HermiteSpline3DClass *spline = state->Unknown_30();
+ 	dir *= 100.0f;
+ 	offset *= 1000.0f;
+-	spline->Add_Key(key0, 0.0f);
++	spline->Add_Key(Vector3(key0), 0.0f);
+ 	
+ 	spline->Set_Tangents(0, -dir, -dir);
+ 	spline->Add_Key(key1, 1.0f);
+-	Vector3 tangent1 = offset - dir * 5.0f;
++	Vector3 tangent1; tangent1 = offset - dir * 5.0f;
+ 	spline->Set_Tangents(1, tangent1, tangent1);
+ 	ship->PositionalState = state;
+ }
+
+FORM tangent_assign__key1_temp
+--- cached_matrix_rows/camctrl_land.cpp
++++ tangent_assign__key1_temp/camctrl_land.cpp
+@@ -150,8 +150,8 @@
+ 	spline->Add_Key(key0, 0.0f);
+ 	
+ 	spline->Set_Tangents(0, -dir, -dir);
+-	spline->Add_Key(key1, 1.0f);
+-	Vector3 tangent1 = offset - dir * 5.0f;
++	spline->Add_Key(Vector3(key1), 1.0f);
++	Vector3 tangent1; tangent1 = offset - dir * 5.0f;
+ 	spline->Set_Tangents(1, tangent1, tangent1);
+ 	ship->PositionalState = state;
+ }
+
+FORM tangent_assign__dir_scale
+--- cached_matrix_rows/camctrl_land.cpp
++++ tangent_assign__dir_scale/camctrl_land.cpp
+@@ -145,13 +145,13 @@
+ 	Vector3 key1 = key0 + (offset - dir) * 1000.0f;
+ 	Unknown718510Class *state = new Unknown718510Class(Client->Unknown10BC, Client->Unknown10BC + 4000, Vector3(0.0f, 0.0f, 1.0f), dir, ship->PositionalState);
+ 	HermiteSpline3DClass *spline = state->Unknown_30();
+-	dir *= 100.0f;
++	dir = dir * 100.0f;
+ 	offset *= 1000.0f;
+ 	spline->Add_Key(key0, 0.0f);
+ 	
+ 	spline->Set_Tangents(0, -dir, -dir);
+ 	spline->Add_Key(key1, 1.0f);
+-	Vector3 tangent1 = offset - dir * 5.0f;
++	Vector3 tangent1; tangent1 = offset - dir * 5.0f;
+ 	spline->Set_Tangents(1, tangent1, tangent1);
+ 	ship->PositionalState = state;
+ }
+
+FORM tangent_assign__offset_scale
+--- cached_matrix_rows/camctrl_land.cpp
++++ tangent_assign__offset_scale/camctrl_land.cpp
+@@ -146,12 +146,12 @@
+ 	Unknown718510Class *state = new Unknown718510Class(Client->Unknown10BC, Client->Unknown10BC + 4000, Vector3(0.0f, 0.0f, 1.0f), dir, ship->PositionalState);
+ 	HermiteSpline3DClass *spline = state->Unknown_30();
+ 	dir *= 100.0f;
+-	offset *= 1000.0f;
++	offset = offset * 1000.0f;
+ 	spline->Add_Key(key0, 0.0f);
+ 	
+ 	spline->Set_Tangents(0, -dir, -dir);
+ 	spline->Add_Key(key1, 1.0f);
+-	Vector3 tangent1 = offset - dir * 5.0f;
++	Vector3 tangent1; tangent1 = offset - dir * 5.0f;
+ 	spline->Set_Tangents(1, tangent1, tangent1);
+ 	ship->PositionalState = state;
+ }
+
+FORM tangent_assign__key0_temp_key1_temp
+--- cached_matrix_rows/camctrl_land.cpp
++++ tangent_assign__key0_temp_key1_temp/camctrl_land.cpp
+@@ -147,11 +147,11 @@
+ 	HermiteSpline3DClass *spline = state->Unknown_30();
+ 	dir *= 100.0f;
+ 	offset *= 1000.0f;
+-	spline->Add_Key(key0, 0.0f);
++	spline->Add_Key(Vector3(key0), 0.0f);
+ 	
+ 	spline->Set_Tangents(0, -dir, -dir);
+-	spline->Add_Key(key1, 1.0f);
+-	Vector3 tangent1 = offset - dir * 5.0f;
++	spline->Add_Key(Vector3(key1), 1.0f);
++	Vector3 tangent1; tangent1 = offset - dir * 5.0f;
+ 	spline->Set_Tangents(1, tangent1, tangent1);
+ 	ship->PositionalState = state;
+ }
+
+FORM tangent_assign__key0_temp_dir_scale
+--- cached_matrix_rows/camctrl_land.cpp
++++ tangent_assign__key0_temp_dir_scale/camctrl_land.cpp
+@@ -145,13 +145,13 @@
+ 	Vector3 key1 = key0 + (offset - dir) * 1000.0f;
+ 	Unknown718510Class *state = new Unknown718510Class(Client->Unknown10BC, Client->Unknown10BC + 4000, Vector3(0.0f, 0.0f, 1.0f), dir, ship->PositionalState);
+ 	HermiteSpline3DClass *spline = state->Unknown_30();
+-	dir *= 100.0f;
++	dir = dir * 100.0f;
+ 	offset *= 1000.0f;
+-	spline->Add_Key(key0, 0.0f);
++	spline->Add_Key(Vector3(key0), 0.0f);
+ 	
+ 	spline->Set_Tangents(0, -dir, -dir);
+ 	spline->Add_Key(key1, 1.0f);
+-	Vector3 tangent1 = offset - dir * 5.0f;
++	Vector3 tangent1; tangent1 = offset - dir * 5.0f;
+ 	spline->Set_Tangents(1, tangent1, tangent1);
+ 	ship->PositionalState = state;
+ }
+
+FORM tangent_assign__key0_temp_offset_scale
+--- cached_matrix_rows/camctrl_land.cpp
++++ tangent_assign__key0_temp_offset_scale/camctrl_land.cpp
+@@ -146,12 +146,12 @@
+ 	Unknown718510Class *state = new Unknown718510Class(Client->Unknown10BC, Client->Unknown10BC + 4000, Vector3(0.0f, 0.0f, 1.0f), dir, ship->PositionalState);
+ 	HermiteSpline3DClass *spline = state->Unknown_30();
+ 	dir *= 100.0f;
+-	offset *= 1000.0f;
+-	spline->Add_Key(key0, 0.0f);
++	offset = offset * 1000.0f;
++	spline->Add_Key(Vector3(key0), 0.0f);
+ 	
+ 	spline->Set_Tangents(0, -dir, -dir);
+ 	spline->Add_Key(key1, 1.0f);
+-	Vector3 tangent1 = offset - dir * 5.0f;
++	Vector3 tangent1; tangent1 = offset - dir * 5.0f;
+ 	spline->Set_Tangents(1, tangent1, tangent1);
+ 	ship->PositionalState = state;
+ }
+
+FORM tangent_assign__key1_temp_dir_scale
+--- cached_matrix_rows/camctrl_land.cpp
++++ tangent_assign__key1_temp_dir_scale/camctrl_land.cpp
+@@ -145,13 +145,13 @@
+ 	Vector3 key1 = key0 + (offset - dir) * 1000.0f;
+ 	Unknown718510Class *state = new Unknown718510Class(Client->Unknown10BC, Client->Unknown10BC + 4000, Vector3(0.0f, 0.0f, 1.0f), dir, ship->PositionalState);
+ 	HermiteSpline3DClass *spline = state->Unknown_30();
+-	dir *= 100.0f;
++	dir = dir * 100.0f;
+ 	offset *= 1000.0f;
+ 	spline->Add_Key(key0, 0.0f);
+ 	
+ 	spline->Set_Tangents(0, -dir, -dir);
+-	spline->Add_Key(key1, 1.0f);
+-	Vector3 tangent1 = offset - dir * 5.0f;
++	spline->Add_Key(Vector3(key1), 1.0f);
++	Vector3 tangent1; tangent1 = offset - dir * 5.0f;
+ 	spline->Set_Tangents(1, tangent1, tangent1);
+ 	ship->PositionalState = state;
+ }
+
+FORM tangent_assign__key1_temp_offset_scale
+--- cached_matrix_rows/camctrl_land.cpp
++++ tangent_assign__key1_temp_offset_scale/camctrl_land.cpp
+@@ -146,12 +146,12 @@
+ 	Unknown718510Class *state = new Unknown718510Class(Client->Unknown10BC, Client->Unknown10BC + 4000, Vector3(0.0f, 0.0f, 1.0f), dir, ship->PositionalState);
+ 	HermiteSpline3DClass *spline = state->Unknown_30();
+ 	dir *= 100.0f;
+-	offset *= 1000.0f;
++	offset = offset * 1000.0f;
+ 	spline->Add_Key(key0, 0.0f);
+ 	
+ 	spline->Set_Tangents(0, -dir, -dir);
+-	spline->Add_Key(key1, 1.0f);
+-	Vector3 tangent1 = offset - dir * 5.0f;
++	spline->Add_Key(Vector3(key1), 1.0f);
++	Vector3 tangent1; tangent1 = offset - dir * 5.0f;
+ 	spline->Set_Tangents(1, tangent1, tangent1);
+ 	ship->PositionalState = state;
+ }
+
+FORM tangent_assign__dir_scale_offset_scale
+--- cached_matrix_rows/camctrl_land.cpp
++++ tangent_assign__dir_scale_offset_scale/camctrl_land.cpp
+@@ -145,13 +145,13 @@
+ 	Vector3 key1 = key0 + (offset - dir) * 1000.0f;
+ 	Unknown718510Class *state = new Unknown718510Class(Client->Unknown10BC, Client->Unknown10BC + 4000, Vector3(0.0f, 0.0f, 1.0f), dir, ship->PositionalState);
+ 	HermiteSpline3DClass *spline = state->Unknown_30();
+-	dir *= 100.0f;
+-	offset *= 1000.0f;
++	dir = dir * 100.0f;
++	offset = offset * 1000.0f;
+ 	spline->Add_Key(key0, 0.0f);
+ 	
+ 	spline->Set_Tangents(0, -dir, -dir);
+ 	spline->Add_Key(key1, 1.0f);
+-	Vector3 tangent1 = offset - dir * 5.0f;
++	Vector3 tangent1; tangent1 = offset - dir * 5.0f;
+ 	spline->Set_Tangents(1, tangent1, tangent1);
+ 	ship->PositionalState = state;
+ }
+

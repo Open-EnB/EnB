@@ -1,0 +1,104 @@
+0x783B50: matched camera clamp/inlining comparison
+
+Read-only follow-up to inplace-movement-forms.txt. No new source forms,
+compilations, or attempt-count increments. Application source remains aa57c927;
+investigation started at da53ffbf. Independent analysis by gpt-6-astra (high),
+with coordinator checks of retail instruction streams and ledger membership.
+Retail SHA256:
+249f852496f341c00361be95b66e7c0becc2c39e7cba026f9227e38b602651c4.
+
+Question
+Can the already-matched SBaseViewClass::Unknown_69EF00 explain why avatar
+forward movement stores and reloads speed, while reverse movement retains it
+on the x87 stack? References: app/client/sbaseview.cpp, app/client/avatar.cpp,
+wwmath/matrix3d.h and wwmath/wwmath.h. Existing verification ledger shards
+docs/data/imports/app/sbaseview.json and ship_pip.json contain 0x69EF00 and
+0x80E190, respectively. This audit reads that verification record; it does
+not claim a fresh build of those witnesses.
+
+Observed camera structure
+Unknown_69EF00(mode, speed) computes an angle from frame time and speed.
+Mode 0 inlines Rotate_X(-pitch), Rotate_Y(angle), Rotate_X(pitch).
+Mode 1 instead calls Rotate_X at 69F159 and 69F17C (409D72 -> 69F3B0),
+and Rotate_Y at 69F16C (4163B0 -> 551270).
+Modes 2 and 3 inline WWMath::Min/Max but call Rotate_X at 69F1BF/69F209.
+Thus different source branches really have different rotation inlining;
+the clamp itself is not an out-of-line helper.
+
+Mode 2 computes Min(angle + member[1BC], 0.25f). On the non-bound path,
+69F19D FSTP writes ESP+48; the bound path writes 0x3E800000 there at
+69F1A5. ESP+48 is the original speed argument home (0x38-byte allocation,
+two saved registers). At 69F1AD the clamped value is loaded, old pitch is
+subtracted, and the difference is passed to Rotate_X at 69F1BF. After
+that call, 69F1C4 MOV reloads the saved clamped value and 69F1C8 writes
+member[1BC]. Mode 3 repeats the structure with Max and -0.25f at
+69F1E7/69F1EF, 69F1F7, 69F209, and 69F20E/69F212.
+
+Inference: the saved clamped value has a real use after an out-of-line call.
+It needs a durable copy across that call; it cannot simply remain live in
+an x87 register. This explains a storage requirement, not uniquely every
+instruction's scheduling or the original author's local-variable spelling.
+
+Avatar comparison
+Retail 783B50 has no call in the complete movement interval
+783EC9..78419B. Forward speed is clamped before 783F1A FSTP [esi+308].
+783F2C MOV reads that member and 783F40 writes its bits to ESP+18;
+783F44 and the next two component products use the float in that home.
+Reverse at 783FF9 uses FST [esi+308], retaining speed for its products.
+Both consume the same matrix X axis and scale each component by speed,
+then time. There is no rotation call, other scalar-preserving call, or
+intervening unknown call that could supply the camera's explanation.
+The saved signed_coast control instead uses FST in both paths. Its current
+raw84/reg-masked73 diagnostic covers the full executable 783B50..784483,
+including the cold error tail. Historical masked36 uses different normalization
+and is not comparable to raw84; the earlier source-sized raw diff also cropped
+the cold tail. These are separate diagnostic limitations.
+
+Copying the camera clamp's argument order is not supported: camera uses
+Min(computed, bound), whereas avatar's ordered comparison preserves the
+computed value on unordered input. The already-tested Min(bound, computed)
+keeps that avatar behavior and emitted the signed_coast control's bytes.
+
+Control witness: ShipPipClass::Unknown_80E190
+app/client/ship_pip.cpp clamps a distance, uses clamped-oldDistance in
+Matrix3D::Translate_Z, then writes the clamped member. Its retail sequence
+80E1E8 duplicates the clamped x87 value, computes the translation inline,
+and only at 80E221 FSTP writes the clamped member. There is no call before
+that store. A clamp followed by vector/matrix arithmetic alone therefore
+does not establish a required store/reload. This witness does not establish
+how the avatar's distinct forward producer was spelled.
+
+Existing API check
+Matrix3D also supplies Get_X_Vector(Vector3 *), in addition to its returned
+Vector3 overload. The output form immediately calls inline Set(float,float,
+float); the returned form constructs a Vector3 with the same three values.
+Using a local output vector is an untested spelling, but this audit found
+no surviving call or pointer escape to explain a mandatory speed reload.
+Writing directly to Unknown360 would introduce source stores before scaling;
+retail writes final displacement components after scaling. That requires
+independent evidence or proof of eliminated intermediate stores, not an
+assumption that a fresh spelling is a likely solution.
+
+The scalar-left FIRST product (Unknown308 * Get_X_Vector()) is also untested;
+the scalar-left SECOND product time * (axis * speed) was tested earlier.
+Both scalar/vector overloads in vector3.h have the identical component body
+Vector3(a.X*k, a.Y*k, a.Z*k). Argument evaluation/inline bookkeeping could
+change, but this comparison gives no positive reason that change would end
+the retained speed lifetime. Neither untested overload is counted as a trial.
+
+Conclusion and boundary
+The matched camera supplies a concrete call-survival explanation which does
+not transfer to this call-free avatar region. Do not introduce a helper call,
+force spills, or perturb inline budgets to imitate it. This does not disprove
+all effects of original inline source layers on VC6 allocation; their identity
+remains unknown. The comparison supplies no positively supported new form.
+Keep the existing partial and reopen on independent source/producer evidence.
+No new exact pair, no application change, and no new compilation is claimed.
+
+Reproducibility
+Local .work/claim-240/783b50-camera-precedent/ contains root-audit.json,
+camera-retail.txt, avatar-retail.txt, zoom-retail.txt and worker-report.txt.
+Retail was read using tools/re/explain.py's client_side from each function's
+start; camera executable instructions stop before the switch table69F2A8.
+Avatar comparison artifacts remain in 783b50-inplace-movement/runs/
+batch1-o60lrihf/best_control. This is static analysis, not runtime observation.

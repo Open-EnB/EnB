@@ -1,0 +1,62 @@
+FORM explicit_success_join
+--- a/app/client/camctrl_tractor.cpp
++++ b/app/client/camctrl_tractor.cpp
+@@ -73,37 +73,37 @@
+ // NOT EXACT: the register choice (edx / ebp for 3) and the duplicated !ship test differ; functional
+ void CameraController08Class::Unknown_797570()
+ {
+-	if (Unknown1C == 3) {
+-		return;
+-	}
++	if (Unknown1C == 3) return;
+ 	if (Unknown1C == 2) {
+-		if (Client->Unknown10BC > Unknown14) {
+-			Unknown1C = 3;
+-		}
+-		return;
+-	}
+-	if (Client->Unknown10BC - Unknown10 > 15000) {
+-		Unknown1C = 3;
+-		return;
+-	}
++		if (Client->Unknown10BC > Unknown14) Unknown1C = 3;
++		return;
++	}
++	if (Client->Unknown10BC - Unknown10 > 15000) { Unknown1C = 3; return; }
+ 	ClientObjectClass *target = Client->Find_Object(Client->Unknown13B4);
+ 	ClientObjectClass *ship = Client->Get_Avatar();
+-	if (target) {
++	if (!target) {
++		if (!ship) { Unknown1C = 3; return; }
++		goto transition;
++	}
++	{
+ 		Vector3 target_pos = target->Unknown_24();
+ 		Vector3 delta = target_pos - ship->Unknown_24();
+ 		float radius = target->Unknown_30();
+ 		float distance = CameraManagerClass::Unknown_79B6B0();
+-		if (!(delta.Length2() < radius * radius + distance * distance)) {
+-			return;
+-		}
+-	}
+-	if (!ship) {
+-		Unknown1C = 3;
+-		return;
+-	}
++		if (!(delta.Length2() < radius * radius + distance * distance)) return;
++	}
++	if (!ship) { Unknown1C = 3; return; }
++transition:
+ 	Unknown1C = 2;
+ 	Unknown14 = Client->Unknown10BC + 1000;
+ 	Unknown0C->Unknown18 = ship->GameID;
++
++
++
++
++
++
++
+ }
+ 
+ // @0x797720

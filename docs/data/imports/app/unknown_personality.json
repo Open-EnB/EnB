@@ -27,7 +27,8 @@
   "0x790190",
   "0x7901C0",
   "0x790260",
-  "0x790320"
+  "0x790320",
+  "0x790360"
  ],
  "merged": [],
  "name": "client/unknown_personality.cpp",

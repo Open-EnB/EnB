@@ -1,0 +1,86 @@
+FORM cached_module_copy
+--- a/app/client/camctrl_pland.cpp
++++ b/app/client/camctrl_pland.cpp
+@@ -19,7 +19,7 @@
+ struct LandClassAccessor : public LandClass {
+ 	HeightFieldClass *Get_Field() const { return Field; }
+ };
+-
++inline Vector3 Unknown_Rotate(const Matrix3D &tm, const Vector3 &v) { return Vector3(tm[0][0]*v.X + tm[0][1]*v.Y + tm[0][2]*v.Z, tm[1][0]*v.X + tm[1][1]*v.Y + tm[1][2]*v.Z, tm[2][0]*v.X + tm[2][1]*v.Y + tm[2][2]*v.Z); } // NAME 1: 794D5E..E8A inline rotation, matching dock helper
+ extern Random4Class Unknown_BDB1C0;				// NAME 1 [Unknown_BDB1C0]: 0xBDB1C0, the camera controllers' generator outside this file
+ static int Unknown_B9E3B0 = 0;					// NAME 1: neutral (D10): 0x794A90's section id
+ 
+@@ -126,27 +126,35 @@
+ 
+ 	INIClass ini;
+ 	ini.Load("landingpattern.ini");
+-	char section[64];
++	char section[16];
+ 	sprintf(section, "%d", Unknown_B9E3B0);
+ 	if (!ini.Find_Section(section)) {
+ 		sprintf(section, "Default");
+ 	}
+-	float sx = ini.Get_Float(section, "SX", -1000.0f);
+-	float sy = ini.Get_Float(section, "SY", -1000.0f);
+-	float sz = ini.Get_Float(section, "SZ", 1250.0f);
+-	float ux = ini.Get_Float(section, "UX", 0.0f);
+-	float uy = ini.Get_Float(section, "UY", 0.0f);
+-	float uz = ini.Get_Float(section, "UZ", 1.0f);
+-	float speed_fwd = ini.Get_Float(section, "SpeedForward", 0.0f);
+-	float speed_down = ini.Get_Float(section, "SpeedDown", 0.0f);
+-
+-	Matrix3D ship_tm = ship->Unknown_28(true);
+-	Vector3 start_pos = ship_tm * Vector3(sx, sy, sz);
+-	Vector3 up_dir = ship_tm.Rotate_Vector(Vector3(ux, uy, uz));
+-	up_dir.Normalize();
+-
+-	Vector3 tangent0(speed_fwd, 0.0f, -speed_down);
+-	Vector3 cam_pos = ship_tm.Get_Translation();
++	Vector3 start_pos(0.0f, 0.0f, 0.0f);
++	Vector3 tangent0(0.0f, 0.0f, 0.0f);
++	Vector3 configured_up(0.0f, 0.0f, 0.0f); // NAME 1: 794CB9..D00, INI UX/UY/UZ values stored but unread
++	Vector3 end_pos(0.0f, 0.0f, 0.0f); // NAME 1: 794D5A..94 saved endpoint translation
++	Vector3 tangent1(0.0f, 0.0f, 0.0f);
++	Vector3 up_dir(0.0f, 0.0f, 1.0f);
++	start_pos.X = ini.Get_Float(section, "SX", -1000.0f);
++	start_pos.Y = ini.Get_Float(section, "SY", -1000.0f);
++	start_pos.Z = ini.Get_Float(section, "SZ", 5000.0f);
++	configured_up.X = ini.Get_Float(section, "UX", 0.0f);
++	configured_up.Y = ini.Get_Float(section, "UY", 0.0f);
++	configured_up.Z = ini.Get_Float(section, "UZ", 1.0f);
++	float speed_fwd = ini.Get_Float(section, "SpeedForward", 100.0f);
++	float speed_down = ini.Get_Float(section, "SpeedDown", 100.0f);
++	Matrix3D ship_tm = ship->Unknown_28(false);
++	end_pos = ship_tm.Get_Translation();
++	ship_tm.Set_Translation(Vector3(0.0f, 0.0f, 0.0f));
++	start_pos = end_pos + Unknown_Rotate(ship_tm, start_pos);
++	tangent1.X = speed_fwd;
++	Vector3 rotated = Unknown_Rotate(ship_tm, tangent1); tangent1 = rotated; // NAME 1: 794E3A..E92 rotation-return object copied to raw tangent
++	Vector3 normalized = Normalize(rotated); // NAME 1: 794E96..EF7 result before down product
++	tangent0 = normalized * speed_fwd + Vector3(0.0f, 0.0f, -1.0f) * speed_down;
++	up_dir = ship_tm * up_dir;
++	Vector3 cam_pos = end_pos;
+ 	cam_pos.X += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+ 	cam_pos.Y += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+ 	cam_pos.Z += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+@@ -156,17 +164,16 @@
+ 		cam_pos.Z = h + 100.0f;
+ 	}
+ 
+-	Unknown0C->Position = cam_pos;
++	{ CameraModule79C8E0Class *module = Unknown0C; module->Position.X = cam_pos.X; module->Position.Y = cam_pos.Y; module->Position.Z = cam_pos.Z; }
+ 	Unknown0C->Unknown14 = true;
+ 	Unknown0C->Unknown18 = Client->AvatarID;
+ 	Unknown0C->Unknown_04();
+ 
+-	Unknown718510Class *state = new Unknown718510Class(Client->Unknown10BC, Client->Unknown10BC + 4000, Vector3(0.0f, 0.0f, 1.0f), up_dir, ship->PositionalState);
++	Unknown718510Class *state = new Unknown718510Class(Client->Unknown10BC, Client->Unknown10BC + 4000, tangent0, up_dir, ship->PositionalState);
+ 	HermiteSpline3DClass *spline = state->Unknown_30();
+ 	spline->Add_Key(start_pos, 0.0f);
+ 	spline->Set_Tangents(0, tangent0, tangent0);
+-	spline->Add_Key(cam_pos, 1.0f);
+-	Vector3 tangent1 = tangent0;
++	spline->Add_Key(end_pos, 1.0f);
+ 	spline->Set_Tangents(1, tangent1, tangent1);
+ 	ship->PositionalState = state;
+ }

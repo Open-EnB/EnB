@@ -1,0 +1,561 @@
+# Base application source revision aa57c927; frozen tree also includes exact 788900. Apply each seed patch below to that tree, place source at the paths referenced by the replay script, and adjust absolute workspace paths if needed. Replay iterates the exact metadata below, ignoring scratch-history membership.
+
+# Source seed patches against frozen current tree; generator uses listed original seed paths.
+
+
+
+# Exact selected form metadata
+{
+  "historical_distinct_bodies": 6,
+  "forms": [
+    {
+      "name": "v01",
+      "setup": 1,
+      "while_loop": 1,
+      "reordered_local_guard": 1,
+      "split_len": 1,
+      "negated_match": 0,
+      "first_store_deref": 1,
+      "body_sha256": "459087663b185479ed8d3f021205e06fb01f44b0015503071a612a9a2acf2a4a"
+    },
+    {
+      "name": "v02",
+      "setup": 2,
+      "while_loop": 1,
+      "reordered_local_guard": 0,
+      "split_len": 1,
+      "negated_match": 0,
+      "first_store_deref": 0,
+      "body_sha256": "e6eac44f9cf53c87d32a60fcb65171ddfa39ab14d87a19aa495b927ea79d9f20"
+    },
+    {
+      "name": "v03",
+      "setup": 0,
+      "while_loop": 1,
+      "reordered_local_guard": 1,
+      "split_len": 1,
+      "negated_match": 1,
+      "first_store_deref": 0,
+      "body_sha256": "41a558cfb9f7405a2b32d1c34539f30a9fe61c03d6c0413b7244d9b519392ece"
+    },
+    {
+      "name": "v04",
+      "setup": 1,
+      "while_loop": 1,
+      "reordered_local_guard": 1,
+      "split_len": 0,
+      "negated_match": 0,
+      "first_store_deref": 1,
+      "body_sha256": "194f3c1bf9a9440a8a1f6b9ed68389ded6568716fe8cfe6d2daddc633ff87879"
+    },
+    {
+      "name": "v05",
+      "setup": 2,
+      "while_loop": 1,
+      "reordered_local_guard": 1,
+      "split_len": 1,
+      "negated_match": 1,
+      "first_store_deref": 0,
+      "body_sha256": "99735941ba828102fe50e5f4b8f74f027822d7314c507d56d86f9f3c8c48aee4"
+    },
+    {
+      "name": "v06",
+      "setup": 2,
+      "while_loop": 1,
+      "reordered_local_guard": 1,
+      "split_len": 0,
+      "negated_match": 0,
+      "first_store_deref": 0,
+      "body_sha256": "fae314a82cd4009dbd31b06b926388e8b15aa686bc99d3a035408e87d7245a09"
+    },
+    {
+      "name": "v07",
+      "setup": 2,
+      "while_loop": 1,
+      "reordered_local_guard": 0,
+      "split_len": 0,
+      "negated_match": 1,
+      "first_store_deref": 1,
+      "body_sha256": "8296c95c4a932f9322ec0cbd2b2d90f9305075e11f1c7b914c8e03db82256230"
+    },
+    {
+      "name": "v08",
+      "setup": 2,
+      "while_loop": 1,
+      "reordered_local_guard": 1,
+      "split_len": 0,
+      "negated_match": 1,
+      "first_store_deref": 0,
+      "body_sha256": "c08628e28feb5c171efe7ff9f543d84635e415b9457eced66fae0d6afcf24c5b"
+    },
+    {
+      "name": "v09",
+      "setup": 2,
+      "while_loop": 0,
+      "reordered_local_guard": 0,
+      "split_len": 1,
+      "negated_match": 0,
+      "first_store_deref": 1,
+      "body_sha256": "7ef719fdd368b2efc0f6f7d5916af0e11a8c5c8de7ba5145cbd67cf9f7ea67d0"
+    },
+    {
+      "name": "v10",
+      "setup": 1,
+      "while_loop": 0,
+      "reordered_local_guard": 1,
+      "split_len": 1,
+      "negated_match": 0,
+      "first_store_deref": 1,
+      "body_sha256": "3c8951694fc3034544d10189525750cb7f3969eef97aff6f58effa4583237b8c"
+    },
+    {
+      "name": "v11",
+      "setup": 0,
+      "while_loop": 1,
+      "reordered_local_guard": 0,
+      "split_len": 0,
+      "negated_match": 0,
+      "first_store_deref": 1,
+      "body_sha256": "4036d0d8571e8d1fedf0f7b34400d0ef5057d7bebdab8a28ab0d7a03f4e6ac56"
+    },
+    {
+      "name": "v12",
+      "setup": 0,
+      "while_loop": 1,
+      "reordered_local_guard": 1,
+      "split_len": 0,
+      "negated_match": 1,
+      "first_store_deref": 1,
+      "body_sha256": "a09e3ea3c36f54edf228d88f9964744708a8477052451c6002a09f5f16d43f11"
+    },
+    {
+      "name": "v13",
+      "setup": 2,
+      "while_loop": 0,
+      "reordered_local_guard": 0,
+      "split_len": 0,
+      "negated_match": 0,
+      "first_store_deref": 1,
+      "body_sha256": "ce76992a1ed841f3eb16f2a6ff165c870ddcc7e1665687f9f6485f74a090fce2"
+    },
+    {
+      "name": "v14",
+      "setup": 1,
+      "while_loop": 1,
+      "reordered_local_guard": 1,
+      "split_len": 1,
+      "negated_match": 1,
+      "first_store_deref": 0,
+      "body_sha256": "408abd7b1be7fab6bd597c81056ab490f83ee1941748bdc9e739d06d9b917e79"
+    },
+    {
+      "name": "v15",
+      "setup": 0,
+      "while_loop": 0,
+      "reordered_local_guard": 0,
+      "split_len": 1,
+      "negated_match": 0,
+      "first_store_deref": 0,
+      "body_sha256": "7e44f16d39c4073eb74c9e7fe95a0240314833b15aaa557fe877be618f1fc10d"
+    },
+    {
+      "name": "v16",
+      "setup": 1,
+      "while_loop": 0,
+      "reordered_local_guard": 1,
+      "split_len": 0,
+      "negated_match": 0,
+      "first_store_deref": 1,
+      "body_sha256": "98a99b387d6eb1580f1a7df8025b3e5b45e27f1caa95f3913056e69728b2e291"
+    },
+    {
+      "name": "v17",
+      "setup": 2,
+      "while_loop": 1,
+      "reordered_local_guard": 0,
+      "split_len": 1,
+      "negated_match": 1,
+      "first_store_deref": 0,
+      "body_sha256": "5e1a67e4227a2b64338a62b70be5e15a426158f1533e531da9ab39fce5fcf919"
+    },
+    {
+      "name": "v18",
+      "setup": 1,
+      "while_loop": 1,
+      "reordered_local_guard": 0,
+      "split_len": 1,
+      "negated_match": 1,
+      "first_store_deref": 1,
+      "body_sha256": "9b63f7d527aeb4e1f4007126734deb140143a6c580ef842e6247450e6d01f1d2"
+    },
+    {
+      "name": "v19",
+      "setup": 0,
+      "while_loop": 1,
+      "reordered_local_guard": 0,
+      "split_len": 1,
+      "negated_match": 0,
+      "first_store_deref": 1,
+      "body_sha256": "729921513cedf1f99922ec9df3538dab6b5396d7d4b5fdd5339cc38027a8caad"
+    },
+    {
+      "name": "v20",
+      "setup": 2,
+      "while_loop": 0,
+      "reordered_local_guard": 1,
+      "split_len": 1,
+      "negated_match": 0,
+      "first_store_deref": 0,
+      "body_sha256": "5ff4a120df99296bcad713923c89cad9111e92e9abb088e4fecb249ce07c05eb"
+    },
+    {
+      "name": "v21",
+      "setup": 1,
+      "while_loop": 0,
+      "reordered_local_guard": 1,
+      "split_len": 0,
+      "negated_match": 1,
+      "first_store_deref": 1,
+      "body_sha256": "17cbf0302253919e965f51851efe56de1bd1a6b228bdae1182caf3ae5ffb5d5a"
+    },
+    {
+      "name": "v22",
+      "setup": 1,
+      "while_loop": 0,
+      "reordered_local_guard": 0,
+      "split_len": 1,
+      "negated_match": 1,
+      "first_store_deref": 0,
+      "body_sha256": "0aef0fb30500cf8fcb0b0c8fb555f42c46359224ee93298226022bd6cf0ed20c"
+    },
+    {
+      "name": "v23",
+      "setup": 1,
+      "while_loop": 0,
+      "reordered_local_guard": 0,
+      "split_len": 0,
+      "negated_match": 0,
+      "first_store_deref": 1,
+      "body_sha256": "d3dfee66d4d14a7e736f4ca74b5413b2d7a2b86ee74a9d1dfb3c055934d0cdfb"
+    },
+    {
+      "name": "v24",
+      "setup": 1,
+      "while_loop": 1,
+      "reordered_local_guard": 1,
+      "split_len": 1,
+      "negated_match": 0,
+      "first_store_deref": 0,
+      "body_sha256": "4fdb924ae6e6d19e02e6c037300b56eea39810689cc78c2df05130b13d9508dc"
+    },
+    {
+      "name": "v25",
+      "setup": 1,
+      "while_loop": 0,
+      "reordered_local_guard": 0,
+      "split_len": 1,
+      "negated_match": 1,
+      "first_store_deref": 1,
+      "body_sha256": "efa6282a1c5ed4d27b82e6ff613799f673f12d441f6ed0bf8ce0f53c3617d9f0"
+    },
+    {
+      "name": "v26",
+      "setup": 2,
+      "while_loop": 1,
+      "reordered_local_guard": 1,
+      "split_len": 1,
+      "negated_match": 0,
+      "first_store_deref": 0,
+      "body_sha256": "7f018e432bfc1c8a0c52bb7241d48ae01dbb166c1974d9d9738d3fdbe30dda5e"
+    },
+    {
+      "name": "v27",
+      "setup": 0,
+      "while_loop": 1,
+      "reordered_local_guard": 0,
+      "split_len": 1,
+      "negated_match": 1,
+      "first_store_deref": 1,
+      "body_sha256": "9c457ed0277e6fb0071908351283b78b8146b61caf9c05fc8e83189ea2ac1ec0"
+    },
+    {
+      "name": "v28",
+      "setup": 2,
+      "while_loop": 1,
+      "reordered_local_guard": 0,
+      "split_len": 1,
+      "negated_match": 1,
+      "first_store_deref": 1,
+      "body_sha256": "41352a56ab64d61c46f6f545c1b90e1b806c4db3f38d7924bdbcc488993e059a"
+    },
+    {
+      "name": "v29",
+      "setup": 0,
+      "while_loop": 1,
+      "reordered_local_guard": 1,
+      "split_len": 1,
+      "negated_match": 0,
+      "first_store_deref": 1,
+      "body_sha256": "0e89844e302eed9d01c63655876a10392a8a198ea70dd7482c0bc20d38496320"
+    },
+    {
+      "name": "v30",
+      "setup": 0,
+      "while_loop": 1,
+      "reordered_local_guard": 1,
+      "split_len": 0,
+      "negated_match": 0,
+      "first_store_deref": 0,
+      "body_sha256": "728c1785b491c2c23a54dbfc05ba7d732ee3f5ebe0af10e026c769ea046e9d8a"
+    },
+    {
+      "name": "v31",
+      "setup": 2,
+      "while_loop": 1,
+      "reordered_local_guard": 1,
+      "split_len": 0,
+      "negated_match": 0,
+      "first_store_deref": 1,
+      "body_sha256": "8ee0447f306d8ac9ccbc0f4574738f5b19b333e1298de48fc7c43198efc0e48c"
+    },
+    {
+      "name": "v32",
+      "setup": 2,
+      "while_loop": 0,
+      "reordered_local_guard": 0,
+      "split_len": 1,
+      "negated_match": 1,
+      "first_store_deref": 0,
+      "body_sha256": "2794a96834aa2b764ce128c99079c7a5e0f3936375ae38598d1d65db7440f95f"
+    },
+    {
+      "name": "v33",
+      "setup": 2,
+      "while_loop": 0,
+      "reordered_local_guard": 0,
+      "split_len": 0,
+      "negated_match": 1,
+      "first_store_deref": 0,
+      "body_sha256": "7005fa58077959b7c90ac7369e94b483b52eea8207d143d6d326592eeaa830f1"
+    },
+    {
+      "name": "v34",
+      "setup": 0,
+      "while_loop": 1,
+      "reordered_local_guard": 1,
+      "split_len": 0,
+      "negated_match": 1,
+      "first_store_deref": 0,
+      "body_sha256": "b1ffaf2607bb95ebcd18a019ba86f4e9d61417046114fed76c321966b629fb89"
+    },
+    {
+      "name": "v35",
+      "setup": 0,
+      "while_loop": 0,
+      "reordered_local_guard": 0,
+      "split_len": 1,
+      "negated_match": 0,
+      "first_store_deref": 1,
+      "body_sha256": "1664a41745eed3601c6d698169450d441e46132a3b69d592981ec5c8c1fecaf9"
+    },
+    {
+      "name": "v36",
+      "setup": 1,
+      "while_loop": 1,
+      "reordered_local_guard": 1,
+      "split_len": 0,
+      "negated_match": 1,
+      "first_store_deref": 1,
+      "body_sha256": "7624510796247b7ff19f25f2366bea5942b7cfb503c5363ac23dc5c71ddfac44"
+    },
+    {
+      "name": "v37",
+      "setup": 0,
+      "while_loop": 1,
+      "reordered_local_guard": 0,
+      "split_len": 1,
+      "negated_match": 1,
+      "first_store_deref": 0,
+      "body_sha256": "0d566033bd9a4645552d334ad7f0da729c1e31226ebee61c949f2eb90b3df9e4"
+    },
+    {
+      "name": "v38",
+      "setup": 2,
+      "while_loop": 0,
+      "reordered_local_guard": 1,
+      "split_len": 1,
+      "negated_match": 1,
+      "first_store_deref": 1,
+      "body_sha256": "cebf1add8285962f1529bf04b30c2ee4bd1d8ddd7df2dedfe3aacb7ae19a47df"
+    },
+    {
+      "name": "v39",
+      "setup": 0,
+      "while_loop": 0,
+      "reordered_local_guard": 0,
+      "split_len": 0,
+      "negated_match": 1,
+      "first_store_deref": 0,
+      "body_sha256": "491582549223ce1db3bed9d54999b7b47bc5593e018d987646c02157b1dc7122"
+    },
+    {
+      "name": "v40",
+      "setup": 1,
+      "while_loop": 0,
+      "reordered_local_guard": 1,
+      "split_len": 1,
+      "negated_match": 1,
+      "first_store_deref": 0,
+      "body_sha256": "28d29eaa72921c54f4da7dfb025597862b921cfe0254bf0785bd4bad485f5331"
+    },
+    {
+      "name": "v41",
+      "setup": 2,
+      "while_loop": 1,
+      "reordered_local_guard": 1,
+      "split_len": 1,
+      "negated_match": 1,
+      "first_store_deref": 1,
+      "body_sha256": "7e7fc078e60b3de606a339d682686ce7222f9c16faf28394689999feab5ea7d9"
+    },
+    {
+      "name": "v42",
+      "setup": 2,
+      "while_loop": 0,
+      "reordered_local_guard": 1,
+      "split_len": 0,
+      "negated_match": 0,
+      "first_store_deref": 1,
+      "body_sha256": "bb6529edf2e9f9a7e3b996b10959292842d1770794440e7faa3afe00f62ceaf0"
+    },
+    {
+      "name": "v43",
+      "setup": 2,
+      "while_loop": 0,
+      "reordered_local_guard": 0,
+      "split_len": 0,
+      "negated_match": 1,
+      "first_store_deref": 1,
+      "body_sha256": "bbf5b8a1c980cd4a5e7f1552216229b22eeec6851a641762f9b146ebf708ab20"
+    },
+    {
+      "name": "v44",
+      "setup": 1,
+      "while_loop": 1,
+      "reordered_local_guard": 0,
+      "split_len": 1,
+      "negated_match": 0,
+      "first_store_deref": 0,
+      "body_sha256": "7104b4c980d6c58c8f4c930b77687105569d9c3ffa2a37f6913f52f223b39b7d"
+    },
+    {
+      "name": "v45",
+      "setup": 2,
+      "while_loop": 0,
+      "reordered_local_guard": 1,
+      "split_len": 0,
+      "negated_match": 0,
+      "first_store_deref": 0,
+      "body_sha256": "ed03eb664c2dc95d00eb48991f946e5b764ea364ecb54ff3c099aa25c64cd069"
+    },
+    {
+      "name": "v46",
+      "setup": 1,
+      "while_loop": 0,
+      "reordered_local_guard": 0,
+      "split_len": 0,
+      "negated_match": 1,
+      "first_store_deref": 0,
+      "body_sha256": "610bd1e951f27604b2a25c5acdfcbde398ec0cb31db23110b741328c4166ceb9"
+    },
+    {
+      "name": "v47",
+      "setup": 1,
+      "while_loop": 1,
+      "reordered_local_guard": 0,
+      "split_len": 0,
+      "negated_match": 0,
+      "first_store_deref": 0,
+      "body_sha256": "c1982d6736ea314523ad8d79e63b3c6512a50048bf767ee3a52e75555603cc72"
+    },
+    {
+      "name": "v48",
+      "setup": 1,
+      "while_loop": 0,
+      "reordered_local_guard": 0,
+      "split_len": 1,
+      "negated_match": 0,
+      "first_store_deref": 1,
+      "body_sha256": "a456afdb13399d7d5c531383ad8443bb092ab500bb1258070169c7a064725163"
+    },
+    {
+      "name": "v49",
+      "setup": 1,
+      "while_loop": 1,
+      "reordered_local_guard": 1,
+      "split_len": 1,
+      "negated_match": 1,
+      "first_store_deref": 1,
+      "body_sha256": "e8d49309a12fefc743049fdeca96515afa3226d0939ce3119922400b7728202d"
+    },
+    {
+      "name": "v50",
+      "setup": 2,
+      "while_loop": 0,
+      "reordered_local_guard": 0,
+      "split_len": 0,
+      "negated_match": 0,
+      "first_store_deref": 0,
+      "body_sha256": "beb1259e2605e9d6901a94ab4021d88a2bda5cb2252a83915dcb37910b6daa75"
+    }
+  ]
+}
+
+# Deterministic replay generator
+from pathlib import Path
+import hashlib,itertools,json,re,random
+root=Path('/home/dev/Projects/EnB'); work=root/'.work/claim-240'; out=work/'terra50-final/7917b0'
+tree=work/'788900-operand-provenance/final-tree'; unit=Path('app/client/unknown_phoneme.cpp'); current=(tree/unit).read_text()
+start='int Unknown_791310Class::Unknown_7917B0('; end='// 0x791880'
+def body(s): return s[s.index(start):s.index(end,s.index(start))]
+def norm(s): return re.sub(r'\s+','',re.sub(r'//[^\n]*','',s))
+base=body(current); historical=set()
+for directory in [work/'focused/7917B0',work/'broad-speech']+[p for p in work.iterdir() if p.is_dir() and '7917b0' in p.name.lower()]:
+ if not directory.exists(): continue
+ for p in directory.rglob('unknown_phoneme.cpp'):
+  try: historical.add(norm(body(p.read_text())))
+  except (ValueError,UnicodeError): pass
+setup='int count = Unknown_BE8570[letter].Count;\n\t\tUnknown_PhonemeGroupStruct *group = &Unknown_B9DAB8[Unknown_BE8570[letter].First + count - 1];'
+setups=[setup,'int count = Unknown_BE8570[letter].Count;\n\t\tint first = Unknown_BE8570[letter].First; Unknown_PhonemeGroupStruct *group = &Unknown_B9DAB8[first + count - 1];','int count; count = Unknown_BE8570[letter].Count;\n\t\tUnknown_PhonemeGroupStruct *group = &Unknown_B9DAB8[Unknown_BE8570[letter].First + count - 1];']
+loop='for (int i = 0; i < Unknown_BE8570[letter].Count; i++, group--) {'
+close='''				return(len);
+			}
+		}'''
+assert setup in base and loop in base and close in base
+variants=[]; index=[]
+def save(name,b):
+ assert b.count('\n')==base.count('\n')
+ p=out/name/'unknown_phoneme.cpp'; p.parent.mkdir(exist_ok=True); p.write_text(current.replace(base,b,1)); variants.append({'name':name,'source':str(p)})
+ return hashlib.sha256(b.encode()).hexdigest()
+save('baseline',base)
+combos=list(itertools.product(range(3),range(2),range(2),range(2),range(2),range(2))); random.Random(7917).shuffle(combos); seen=historical|{norm(base)}
+# Exact combinations selected by the original pass; no prior history needed.
+combos = [(1, 1, 1, 1, 0, 1), (2, 1, 0, 1, 0, 0), (0, 1, 1, 1, 1, 0), (1, 1, 1, 0, 0, 1), (2, 1, 1, 1, 1, 0), (2, 1, 1, 0, 0, 0), (2, 1, 0, 0, 1, 1), (2, 1, 1, 0, 1, 0), (2, 0, 0, 1, 0, 1), (1, 0, 1, 1, 0, 1), (0, 1, 0, 0, 0, 1), (0, 1, 1, 0, 1, 1), (2, 0, 0, 0, 0, 1), (1, 1, 1, 1, 1, 0), (0, 0, 0, 1, 0, 0), (1, 0, 1, 0, 0, 1), (2, 1, 0, 1, 1, 0), (1, 1, 0, 1, 1, 1), (0, 1, 0, 1, 0, 1), (2, 0, 1, 1, 0, 0), (1, 0, 1, 0, 1, 1), (1, 0, 0, 1, 1, 0), (1, 0, 0, 0, 0, 1), (1, 1, 1, 1, 0, 0), (1, 0, 0, 1, 1, 1), (2, 1, 1, 1, 0, 0), (0, 1, 0, 1, 1, 1), (2, 1, 0, 1, 1, 1), (0, 1, 1, 1, 0, 1), (0, 1, 1, 0, 0, 0), (2, 1, 1, 0, 0, 1), (2, 0, 0, 1, 1, 0), (2, 0, 0, 0, 1, 0), (0, 1, 1, 0, 1, 0), (0, 0, 0, 1, 0, 1), (1, 1, 1, 0, 1, 1), (0, 1, 0, 1, 1, 0), (2, 0, 1, 1, 1, 1), (0, 0, 0, 0, 1, 0), (1, 0, 1, 1, 1, 0), (2, 1, 1, 1, 1, 1), (2, 0, 1, 0, 0, 1), (2, 0, 0, 0, 1, 1), (1, 1, 0, 1, 0, 0), (2, 0, 1, 0, 0, 0), (1, 0, 0, 0, 1, 0), (1, 1, 0, 0, 0, 0), (1, 0, 0, 1, 0, 1), (1, 1, 1, 1, 1, 1), (2, 0, 0, 0, 0, 0)]
+seen = set()
+for setupmode,loopmode,guard,lenmode,cmpmode,store in combos:
+ b=base.replace(setup,setups[setupmode])
+ if loopmode: b=b.replace(loop,'int i = 0; while (i < Unknown_BE8570[letter].Count) {').replace(close,'''\t\t\t\treturn(len);
+\t\t\t}
+\t\t\ti++; group--; }''')
+ if guard: b=b.replace('letter >= 0 && letter < 26','letter < 26 && letter >= 0')
+ if lenmode: b=b.replace('int len = strlen(group->Text);','int len; len = strlen(group->Text);')
+ if cmpmode: b=b.replace('_strnicmp(text, group->Text, len) == 0','!_strnicmp(text, group->Text, len)')
+ if store: b=b.replace('shapes[0] = group->Shapes[0];','*shapes = group->Shapes[0];')
+ key=norm(b)
+ if key in seen: continue
+ seen.add(key); name='v%02d'%(len(index)+1)
+ index.append({'name':name,'setup':setupmode,'while_loop':loopmode,'reordered_local_guard':guard,'split_len':lenmode,'negated_match':cmpmode,'first_store_deref':store,'body_sha256':save(name,b)})
+ if len(index)==50: break
+assert len(index)==50
+(out/'packet.json').write_text(json.dumps({'unit':str(unit),'target':'0x7917B0','tree':str(tree),'variants':variants},indent=2)+'\n')
+(out/'forms.json').write_text(json.dumps({'historical_distinct_bodies':len(historical),'forms':index},indent=2)+'\n')

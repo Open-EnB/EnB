@@ -1,0 +1,66 @@
+0x780AC0 source/identity audit; zero new source forms.
+Model: gpt-6.1-sol (high). Baseline: 64644f39.
+Scratch root: /home/dev/Projects/EnB/.work/claim-240/focused/780AC0
+
+The frozen header is app/packets/pkcolorization.h (not a file named
+headerpkcolorization.h). Relevant declarations are unchanged:
+
+struct ColorizationHalfStruct { int Unknown00; Vector3 Unknown04; };
+struct ColorizationRegionStruct {
+    ColorizationHalfStruct Unknown00;
+    ColorizationHalfStruct Unknown10;
+};
+
+No user copy constructor, assignment or region constructor is declared.
+Vector3 has a user inline copy ctor and assignment, each copying X,Y,Z.
+Thus another user half assignment is not evidence for a newly missing layer.
+
+The frozen avatar source computes primary scalar/Vector3 and secondary half,
+then executes this sequence twice, once for shirt and once for pants:
+
+region.Unknown00.Unknown00 = primary_metal;
+region.Unknown00.Unknown04 = primary_color;
+region.Unknown10 = secondary;
+regions.push_back(region);
+
+The reused baseline full object contains one HalfStruct symbol:
+??4ColorizationHalfStruct@@QAEAAU0@ABU0@@Z
+Native exact address 0x62A5D0; length/fixed31; call_tie and call_placed true.
+It has no relocations. Direct comparison verifies those31bytes also equal
+0x780AC0. The native baseline path is:
+/home/dev/Projects/EnB/.work/claim-240/focused/780810/runs/batch1-qvdn0r7f/baseline/matches.json
+
+Distinct observed retail copy targets:
+- 0x62A5D0: called by exact vector<Region>::insert 0x62A0A0 at
+  0x62A28C,0x62A333,0x62A355,0x62A35E.
+- 0x780AC0: called through thunk0x404BA1 by avatar at0x7808F6 and by
+  ScriptedMovie0x8020B0 at0x80212B,0x80216A,0x8021A9.
+  ScriptedMovie's fourth secondary copy is inline.
+
+Interpretation boundary: byte equality proves the existing copy implementation,
+not the 0x780AC0 source identity. This may involve assignment, copy construction
+or a distinct scoped type/helper. Return-this code alone cannot distinguish
+copy construction from assignment. Reused stack storage in ScriptedMovie cannot
+exclude disjoint source scopes. No source name or API was recovered for780AC0.
+
+Matcher provenance: objmatch.py documents P-CGP-1 and own-call placement.
+The existing exact vector insert calls place the emitted assignment at62A5D0;
+an emitted unused symbol at a nearby address is not additional caller evidence.
+accepted-corrections.json already records the historical780AC0->62A5D0 move
+underD192. This audit does not change that decision or create a proof rule.
+
+Read history: original3-form IB2 row; Terra25coupled forms (8 assignment/copy,
+12local/vector and5wrapper forms); all three avatar reports/manifests; focused
+780810 report, manifest, hypotheses and complete source stash. Its3new valid
+forms were primary-half assignment and two Vector3 value forms; all retain257
+pairs, with5calls versus retail6. Its2aggregate forms failVC6C2552/C2078.
+These are prior attempts, not new780AC0 forms. The first copy/temporary wrappers
+and depth spenders are already covered. An aggregate rejection does not rule
+out every real constructor, but no independent API/lifetime evidence justifies
+adding one here. No new form prepared; no pending compiler input.
+
+Reproduce the binary/object audit without compiling:
+/home/dev/Toolchains/enb-vc6-sp4/venv/bin/python .work/claim-240/focused/780AC0/audit.py
+It writes audit.json containing source hashes, the actual native row, body
+equality checks, decoded retail call sites and current object call relocations.
+All current source files remain unchanged. No new attempt row/specification.

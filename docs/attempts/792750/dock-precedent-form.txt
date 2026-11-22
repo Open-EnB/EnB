@@ -1,0 +1,14 @@
+FORM duration_local_only
+CONTROL dock_control
+Control source SHA256 1c5ea7a386f75987608f07ba458597beb8e6b1ae1b971b9186ff2110ede524a8
+--- dock_control/camctrl_dock.cpp
++++ duration_local_only/camctrl_dock.cpp
+@@ -201,7 +201,7 @@
+ 		}
+ 		start = end + start_offset;
+ 		speed = ini.Get_Float(section, "Speed", Unknown_B04AF0);
+-		Unknown18 = ini.Get_Float(section, "Duration", 4.0f) * 1000.0f;
++		float duration = ini.Get_Float(section, "Duration", 4.0f) * 1000.0f; Unknown18 = duration;
+ 		if (Get_Flag(0)) {
+ 			lead = ini.Get_Float(section, "EnterLead", Unknown_B04AF4);
+ 		} else if (Get_Flag(1)) {

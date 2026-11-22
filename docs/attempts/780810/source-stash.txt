@@ -1,0 +1,225 @@
+## primary_half [new-valid]
+
+--- 64644f39/app/client/avatar.cpp
++++ primary_half/avatar.cpp
+@@ -1199,13 +1199,13 @@
+ 	if (env_maps) {
+ 		std::vector<ColorizationRegionStruct> regions;
+ 		ColorizationRegionStruct region;
+-		Vector3 primary_color;
++		ColorizationHalfStruct primary;
+ 		ColorizationHalfStruct secondary;
+-		int primary_metal = Desc.Shirt_Primary_Metal;
+-		if (primary_metal >= 0) {
+-			primary_color.Set(1.0f, 1.0f, 1.0f);
++		primary.Unknown00 = Desc.Shirt_Primary_Metal;
++		if (primary.Unknown00 >= 0) {
++			primary.Unknown04.Set(1.0f, 1.0f, 1.0f);
+ 		} else {
+-			primary_color = Desc.Shirt_Primary_Color;
++			primary.Unknown04 = Desc.Shirt_Primary_Color;
+ 		}
+ 		secondary.Unknown00 = Desc.Shirt_Secondary_Metal;
+ 		if (secondary.Unknown00 >= 0) {
+@@ -1213,15 +1213,15 @@
+ 		} else {
+ 			secondary.Unknown04 = Desc.Shirt_Secondary_Color;
+ 		}
+-		region.Unknown00.Unknown00 = primary_metal;
+-		region.Unknown00.Unknown04 = primary_color;
++		region.Unknown00 = primary;
++		
+ 		region.Unknown10 = secondary;
+ 		regions.push_back(region);
+-		primary_metal = Desc.Pants_Primary_Metal;
+-		if (primary_metal >= 0) {
+-			primary_color.Set(1.0f, 1.0f, 1.0f);
++		primary.Unknown00 = Desc.Pants_Primary_Metal;
++		if (primary.Unknown00 >= 0) {
++			primary.Unknown04.Set(1.0f, 1.0f, 1.0f);
+ 		} else {
+-			primary_color = Desc.Pants_Primary_Color;
++			primary.Unknown04 = Desc.Pants_Primary_Color;
+ 		}
+ 		secondary.Unknown00 = Desc.Pants_Secondary_Metal;
+ 		if (secondary.Unknown00 >= 0) {
+@@ -1229,8 +1229,8 @@
+ 		} else {
+ 			secondary.Unknown04 = Desc.Pants_Secondary_Color;
+ 		}
+-		region.Unknown00.Unknown00 = primary_metal;
+-		region.Unknown00.Unknown04 = primary_color;
++		region.Unknown00 = primary;
++		
+ 		region.Unknown10 = secondary;
+ 		regions.push_back(region);
+ 		Unknown_80FCE0(BodyObj.Peek(), regions, env_maps, &Desc.Skin_Color);
+
+## shirt_aggregate [compile-rejected]
+
+--- 64644f39/app/client/avatar.cpp
++++ shirt_aggregate/avatar.cpp
+@@ -1198,7 +1198,7 @@
+ {
+ 	if (env_maps) {
+ 		std::vector<ColorizationRegionStruct> regions;
+-		ColorizationRegionStruct region;
++		
+ 		Vector3 primary_color;
+ 		ColorizationHalfStruct secondary;
+ 		int primary_metal = Desc.Shirt_Primary_Metal;
+@@ -1213,9 +1213,9 @@
+ 		} else {
+ 			secondary.Unknown04 = Desc.Shirt_Secondary_Color;
+ 		}
+-		region.Unknown00.Unknown00 = primary_metal;
+-		region.Unknown00.Unknown04 = primary_color;
+-		region.Unknown10 = secondary;
++		ColorizationRegionStruct region = { { primary_metal, primary_color }, secondary };
++		
++		
+ 		regions.push_back(region);
+ 		primary_metal = Desc.Pants_Primary_Metal;
+ 		if (primary_metal >= 0) {
+
+## shirt_aggregate_halves [compile-rejected]
+
+--- 64644f39/app/client/avatar.cpp
++++ shirt_aggregate_halves/avatar.cpp
+@@ -1198,14 +1198,14 @@
+ {
+ 	if (env_maps) {
+ 		std::vector<ColorizationRegionStruct> regions;
+-		ColorizationRegionStruct region;
+-		Vector3 primary_color;
++		
++		ColorizationHalfStruct primary;
+ 		ColorizationHalfStruct secondary;
+-		int primary_metal = Desc.Shirt_Primary_Metal;
+-		if (primary_metal >= 0) {
+-			primary_color.Set(1.0f, 1.0f, 1.0f);
++		primary.Unknown00 = Desc.Shirt_Primary_Metal;
++		if (primary.Unknown00 >= 0) {
++			primary.Unknown04.Set(1.0f, 1.0f, 1.0f);
+ 		} else {
+-			primary_color = Desc.Shirt_Primary_Color;
++			primary.Unknown04 = Desc.Shirt_Primary_Color;
+ 		}
+ 		secondary.Unknown00 = Desc.Shirt_Secondary_Metal;
+ 		if (secondary.Unknown00 >= 0) {
+@@ -1213,15 +1213,15 @@
+ 		} else {
+ 			secondary.Unknown04 = Desc.Shirt_Secondary_Color;
+ 		}
+-		region.Unknown00.Unknown00 = primary_metal;
+-		region.Unknown00.Unknown04 = primary_color;
+-		region.Unknown10 = secondary;
++		ColorizationRegionStruct region = { primary, secondary };
++		
++		
+ 		regions.push_back(region);
+-		primary_metal = Desc.Pants_Primary_Metal;
+-		if (primary_metal >= 0) {
+-			primary_color.Set(1.0f, 1.0f, 1.0f);
++		primary.Unknown00 = Desc.Pants_Primary_Metal;
++		if (primary.Unknown00 >= 0) {
++			primary.Unknown04.Set(1.0f, 1.0f, 1.0f);
+ 		} else {
+-			primary_color = Desc.Pants_Primary_Color;
++			primary.Unknown04 = Desc.Pants_Primary_Color;
+ 		}
+ 		secondary.Unknown00 = Desc.Pants_Secondary_Metal;
+ 		if (secondary.Unknown00 >= 0) {
+@@ -1229,8 +1229,8 @@
+ 		} else {
+ 			secondary.Unknown04 = Desc.Pants_Secondary_Color;
+ 		}
+-		region.Unknown00.Unknown00 = primary_metal;
+-		region.Unknown00.Unknown04 = primary_color;
++		region.Unknown00 = primary;
++		
+ 		region.Unknown10 = secondary;
+ 		regions.push_back(region);
+ 		Unknown_80FCE0(BodyObj.Peek(), regions, env_maps, &Desc.Skin_Color);
+
+## primary_value_init [new-valid]
+
+--- 64644f39/app/client/avatar.cpp
++++ primary_value_init/avatar.cpp
+@@ -1199,14 +1199,14 @@
+ 	if (env_maps) {
+ 		std::vector<ColorizationRegionStruct> regions;
+ 		ColorizationRegionStruct region;
+-		Vector3 primary_color;
++		
+ 		ColorizationHalfStruct secondary;
+ 		int primary_metal = Desc.Shirt_Primary_Metal;
+-		if (primary_metal >= 0) {
+-			primary_color.Set(1.0f, 1.0f, 1.0f);
+-		} else {
+-			primary_color = Desc.Shirt_Primary_Color;
+-		}
++		Vector3 primary_color = primary_metal >= 0 ? Vector3(1.0f, 1.0f, 1.0f) : Desc.Shirt_Primary_Color;
++		
++		
++		
++		
+ 		secondary.Unknown00 = Desc.Shirt_Secondary_Metal;
+ 		if (secondary.Unknown00 >= 0) {
+ 			secondary.Unknown04 = Vector3(1.0f, 1.0f, 1.0f);
+@@ -1218,11 +1218,11 @@
+ 		region.Unknown10 = secondary;
+ 		regions.push_back(region);
+ 		primary_metal = Desc.Pants_Primary_Metal;
+-		if (primary_metal >= 0) {
+-			primary_color.Set(1.0f, 1.0f, 1.0f);
+-		} else {
+-			primary_color = Desc.Pants_Primary_Color;
+-		}
++		primary_color = primary_metal >= 0 ? Vector3(1.0f, 1.0f, 1.0f) : Desc.Pants_Primary_Color;
++		
++		
++		
++		
+ 		secondary.Unknown00 = Desc.Pants_Secondary_Metal;
+ 		if (secondary.Unknown00 >= 0) {
+ 			secondary.Unknown04 = Vector3(1.0f, 1.0f, 1.0f);
+
+## secondary_value [new-valid]
+
+--- 64644f39/app/client/avatar.cpp
++++ secondary_value/avatar.cpp
+@@ -1208,11 +1208,11 @@
+ 			primary_color = Desc.Shirt_Primary_Color;
+ 		}
+ 		secondary.Unknown00 = Desc.Shirt_Secondary_Metal;
+-		if (secondary.Unknown00 >= 0) {
+-			secondary.Unknown04 = Vector3(1.0f, 1.0f, 1.0f);
+-		} else {
+-			secondary.Unknown04 = Desc.Shirt_Secondary_Color;
+-		}
++		secondary.Unknown04 = secondary.Unknown00 >= 0 ? Vector3(1.0f, 1.0f, 1.0f) : Desc.Shirt_Secondary_Color;
++		
++		
++		
++		
+ 		region.Unknown00.Unknown00 = primary_metal;
+ 		region.Unknown00.Unknown04 = primary_color;
+ 		region.Unknown10 = secondary;
+@@ -1224,11 +1224,11 @@
+ 			primary_color = Desc.Pants_Primary_Color;
+ 		}
+ 		secondary.Unknown00 = Desc.Pants_Secondary_Metal;
+-		if (secondary.Unknown00 >= 0) {
+-			secondary.Unknown04 = Vector3(1.0f, 1.0f, 1.0f);
+-		} else {
+-			secondary.Unknown04 = Desc.Pants_Secondary_Color;
+-		}
++		secondary.Unknown04 = secondary.Unknown00 >= 0 ? Vector3(1.0f, 1.0f, 1.0f) : Desc.Pants_Secondary_Color;
++		
++		
++		
++		
+ 		region.Unknown00.Unknown00 = primary_metal;
+ 		region.Unknown00.Unknown04 = primary_color;
+ 		region.Unknown10 = secondary;

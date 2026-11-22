@@ -1,0 +1,213 @@
+FORM staged_products
+--- 64644f39/unknown_7979a0.cpp
++++ staged_products/unknown_7979a0.cpp
+@@ -179,9 +179,7 @@
+ // 0x7981B0
+ void CameraController02Class::Unknown_7981B0()
+ {
+-	Matrix3D tm = Client->Get_Avatar()->Unknown_28(true);
+-	ClientObjectClass *dest = Client->Find_Object(((NavigationListClass &)Client->MainView->Radar->Unknown_7BD960()).Get_Current());
+-	Vector3 dir;
++	Matrix3D tm = Client->Get_Avatar()->Unknown_28(true); ClientObjectClass *dest = Client->Find_Object(((NavigationListClass &)Client->MainView->Radar->Unknown_7BD960()).Get_Current()); Vector3 dir;
+ 	if (dest) {
+ 		Vector3 target = dest->Unknown_24();
+ 		dir = target - tm.Get_Translation();
+@@ -193,10 +191,12 @@
+ 	float range = CameraManagerClass::Unknown_79B6B0();
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 one(range + range, c * range, s * range);
++	c *= range; s *= range;
++	Vector3 one(range + range, c, s);
+ 	s = WWMath::Sin(back);
+ 	c = WWMath::Cos(back);
+-	Vector3 two(range + range, c * range, s * range);
++	c *= range; s *= range;
++	Vector3 two(range + range, c, s);
+ 	one.Y *= 1.25f;
+ 	one.Z *= 1.25f;
+ 	two.Y *= 1.25f;
+
+FORM delayed_x
+--- 64644f39/unknown_7979a0.cpp
++++ delayed_x/unknown_7979a0.cpp
+@@ -179,8 +179,7 @@
+ // 0x7981B0
+ void CameraController02Class::Unknown_7981B0()
+ {
+-	Matrix3D tm = Client->Get_Avatar()->Unknown_28(true);
+-	ClientObjectClass *dest = Client->Find_Object(((NavigationListClass &)Client->MainView->Radar->Unknown_7BD960()).Get_Current());
++	Matrix3D tm = Client->Get_Avatar()->Unknown_28(true); ClientObjectClass *dest = Client->Find_Object(((NavigationListClass &)Client->MainView->Radar->Unknown_7BD960()).Get_Current());
+ 	Vector3 dir;
+ 	if (dest) {
+ 		Vector3 target = dest->Unknown_24();
+@@ -193,10 +192,11 @@
+ 	float range = CameraManagerClass::Unknown_79B6B0();
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 one(range + range, c * range, s * range);
++	Vector3 one; one.Y = c * range; one.Z = s * range;
+ 	s = WWMath::Sin(back);
+ 	c = WWMath::Cos(back);
+-	Vector3 two(range + range, c * range, s * range);
++	Vector3 two; two.Y = c * range; two.Z = s * range;
++	one.X = two.X = range + range;
+ 	one.Y *= 1.25f;
+ 	one.Z *= 1.25f;
+ 	two.Y *= 1.25f;
+
+FORM staged_delayed_x
+--- 64644f39/unknown_7979a0.cpp
++++ staged_delayed_x/unknown_7979a0.cpp
+@@ -179,10 +179,7 @@
+ // 0x7981B0
+ void CameraController02Class::Unknown_7981B0()
+ {
+-	Matrix3D tm = Client->Get_Avatar()->Unknown_28(true);
+-	ClientObjectClass *dest = Client->Find_Object(((NavigationListClass &)Client->MainView->Radar->Unknown_7BD960()).Get_Current());
+-	Vector3 dir;
+-	if (dest) {
++	Matrix3D tm = Client->Get_Avatar()->Unknown_28(true); ClientObjectClass *dest = Client->Find_Object(((NavigationListClass &)Client->MainView->Radar->Unknown_7BD960()).Get_Current()); Vector3 dir; if (dest) {
+ 		Vector3 target = dest->Unknown_24();
+ 		dir = target - tm.Get_Translation();
+ 	} else {
+@@ -193,10 +190,13 @@
+ 	float range = CameraManagerClass::Unknown_79B6B0();
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 one(range + range, c * range, s * range);
++	c *= range; s *= range;
++	Vector3 one; one.Y = c; one.Z = s;
+ 	s = WWMath::Sin(back);
+ 	c = WWMath::Cos(back);
+-	Vector3 two(range + range, c * range, s * range);
++	c *= range; s *= range;
++	Vector3 two; two.Y = c; two.Z = s;
++	one.X = two.X = range + range;
+ 	one.Y *= 1.25f;
+ 	one.Z *= 1.25f;
+ 	two.Y *= 1.25f;
+
+FORM late_ctor
+--- 64644f39/unknown_7979a0.cpp
++++ late_ctor/unknown_7979a0.cpp
+@@ -193,10 +193,10 @@
+ 	float range = CameraManagerClass::Unknown_79B6B0();
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 one(range + range, c * range, s * range);
++	float y1 = c * range; float z1 = s * range;
+ 	s = WWMath::Sin(back);
+ 	c = WWMath::Cos(back);
+-	Vector3 two(range + range, c * range, s * range);
++	Vector3 one(range + range, y1, z1); Vector3 two(range + range, c * range, s * range);
+ 	one.Y *= 1.25f;
+ 	one.Z *= 1.25f;
+ 	two.Y *= 1.25f;
+
+FORM late_ctor_both
+--- 64644f39/unknown_7979a0.cpp
++++ late_ctor_both/unknown_7979a0.cpp
+@@ -179,8 +179,7 @@
+ // 0x7981B0
+ void CameraController02Class::Unknown_7981B0()
+ {
+-	Matrix3D tm = Client->Get_Avatar()->Unknown_28(true);
+-	ClientObjectClass *dest = Client->Find_Object(((NavigationListClass &)Client->MainView->Radar->Unknown_7BD960()).Get_Current());
++	Matrix3D tm = Client->Get_Avatar()->Unknown_28(true); ClientObjectClass *dest = Client->Find_Object(((NavigationListClass &)Client->MainView->Radar->Unknown_7BD960()).Get_Current());
+ 	Vector3 dir;
+ 	if (dest) {
+ 		Vector3 target = dest->Unknown_24();
+@@ -193,10 +192,11 @@
+ 	float range = CameraManagerClass::Unknown_79B6B0();
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 one(range + range, c * range, s * range);
++	float y1 = c * range; float z1 = s * range;
+ 	s = WWMath::Sin(back);
+ 	c = WWMath::Cos(back);
+-	Vector3 two(range + range, c * range, s * range);
++	float y2 = c * range; float z2 = s * range;
++	Vector3 one(range + range, y1, z1); Vector3 two(range + range, y2, z2);
+ 	one.Y *= 1.25f;
+ 	one.Z *= 1.25f;
+ 	two.Y *= 1.25f;
+
+FORM first_difference
+--- 64644f39/unknown_7979a0.cpp
++++ first_difference/unknown_7979a0.cpp
+@@ -179,8 +179,7 @@
+ // 0x7981B0
+ void CameraController02Class::Unknown_7981B0()
+ {
+-	Matrix3D tm = Client->Get_Avatar()->Unknown_28(true);
+-	ClientObjectClass *dest = Client->Find_Object(((NavigationListClass &)Client->MainView->Radar->Unknown_7BD960()).Get_Current());
++	Matrix3D tm = Client->Get_Avatar()->Unknown_28(true); ClientObjectClass *dest = Client->Find_Object(((NavigationListClass &)Client->MainView->Radar->Unknown_7BD960()).Get_Current());
+ 	Vector3 dir;
+ 	if (dest) {
+ 		Vector3 target = dest->Unknown_24();
+@@ -205,7 +204,8 @@
+ 	Vector3 first = frame * one;
+ 	Vector3 second = frame * two;
+ 	Vector3 camera = Client->CameraManager->Position;
+-	if ((first - camera).Length2() < (second - camera).Length2()) {
++	Vector3 difference = first - camera;
++	if (difference.Length2() < (second - camera).Length2()) {
+ 		((CameraModule79C8E0Class *)Unknown0C)->Position = first;
+ 	} else {
+ 		((CameraModule79C8E0Class *)Unknown0C)->Position = second;
+
+FORM first_distance
+--- 64644f39/unknown_7979a0.cpp
++++ first_distance/unknown_7979a0.cpp
+@@ -179,8 +179,7 @@
+ // 0x7981B0
+ void CameraController02Class::Unknown_7981B0()
+ {
+-	Matrix3D tm = Client->Get_Avatar()->Unknown_28(true);
+-	ClientObjectClass *dest = Client->Find_Object(((NavigationListClass &)Client->MainView->Radar->Unknown_7BD960()).Get_Current());
++	Matrix3D tm = Client->Get_Avatar()->Unknown_28(true); ClientObjectClass *dest = Client->Find_Object(((NavigationListClass &)Client->MainView->Radar->Unknown_7BD960()).Get_Current());
+ 	Vector3 dir;
+ 	if (dest) {
+ 		Vector3 target = dest->Unknown_24();
+@@ -205,7 +204,8 @@
+ 	Vector3 first = frame * one;
+ 	Vector3 second = frame * two;
+ 	Vector3 camera = Client->CameraManager->Position;
+-	if ((first - camera).Length2() < (second - camera).Length2()) {
++	float distance = (first - camera).Length2();
++	if (distance < (second - camera).Length2()) {
+ 		((CameraModule79C8E0Class *)Unknown0C)->Position = first;
+ 	} else {
+ 		((CameraModule79C8E0Class *)Unknown0C)->Position = second;
+
+FORM offset_array
+--- 64644f39/unknown_7979a0.cpp
++++ offset_array/unknown_7979a0.cpp
+@@ -193,17 +193,17 @@
+ 	float range = CameraManagerClass::Unknown_79B6B0();
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 one(range + range, c * range, s * range);
++	Vector3 offsets[2]; offsets[0].Y = c * range; offsets[0].Z = s * range;
+ 	s = WWMath::Sin(back);
+ 	c = WWMath::Cos(back);
+-	Vector3 two(range + range, c * range, s * range);
+-	one.Y *= 1.25f;
+-	one.Z *= 1.25f;
+-	two.Y *= 1.25f;
+-	two.Z *= 1.25f;
++	offsets[1].Y = c * range; offsets[1].Z = s * range; offsets[0].X = offsets[1].X = range + range;
++	offsets[0].Y *= 1.25f;
++	offsets[0].Z *= 1.25f;
++	offsets[1].Y *= 1.25f;
++	offsets[1].Z *= 1.25f;
+ 	Matrix3D frame = Unknown_82ECB0(dir, tm.Get_Translation());
+-	Vector3 first = frame * one;
+-	Vector3 second = frame * two;
++	Vector3 first = frame * offsets[0];
++	Vector3 second = frame * offsets[1];
+ 	Vector3 camera = Client->CameraManager->Position;
+ 	if ((first - camera).Length2() < (second - camera).Length2()) {
+ 		((CameraModule79C8E0Class *)Unknown0C)->Position = first;
+

@@ -1,0 +1,781 @@
+# Standalone source-form replay, base application revision aa57c927.
+# Run: python3 terra50-final-forms.txt /path/to/clone /path/to/output
+# Seed lines and indexed replacement hunks below preserve exact selected forms.
+import hashlib, json, sys
+from pathlib import Path
+d = json.loads(r'''{
+ "unit": "app/client/camctrl_tractor.cpp",
+ "target": "0x797770",
+ "baseline_sha256": "aeda6a4e86ee996fb4a474673143db54329eff96872085aec9c783a995f60cec",
+ "start": "// @0x797770\n",
+ "end": "\n/*\n** Reconstruction notes",
+ "seed_lines": [
+  "// @0x797770\n",
+  "// NOT EXACT: a few operand loads and slots differ (16 rows); functional\n",
+  "void CameraController08Class::Unknown_797770()\n",
+  "{\n",
+  "\tClientObjectClass *target = Client->Find_Object(Client->Unknown13B4);\n",
+  "\tif (!target) {\n",
+  "\t\tClient->CameraManager->Unknown_79B2B0(0x10);\n",
+  "\t\treturn;\n",
+  "\t} else {\n",
+  "\tClientObjectClass *ship = Client->Get_Avatar();\n",
+  "\n",
+  "\n",
+  "\n",
+  "\n",
+  "\n",
+  "\n",
+  "\n",
+  "\n",
+  "\n",
+  "\n",
+  "\n",
+  "\n",
+  "\n",
+  "\n",
+  "\n",
+  "\n",
+  "\n",
+  "\n",
+  "\n",
+  "\n",
+  "\n",
+  "\n",
+  "\n",
+  "\n",
+  "\n",
+  "\n",
+  "\n",
+  "\n",
+  "\n",
+  "\n",
+  "\n",
+  "\n",
+  "\n",
+  "\n",
+  "\n",
+  "\n",
+  "\n",
+  "\n",
+  "\n",
+  "\n",
+  "\n",
+  "\n",
+  "\n",
+  "\n",
+  "\n",
+  "\n",
+  "\n",
+  "\n",
+  "\n",
+  "\n",
+  "\n",
+  "\tFAIL_IF(!ship) {\n",
+  "\t\treturn; }\n",
+  "\tfloat angle = Unknown_BDB1C0.Get_Float() * (Unknown_B05198 * (WWMATH_PI / 180.0f));\n",
+  "\tswitch (Unknown_BDB1C0(0, 1)) {\n",
+  "\t\tcase 1:\n",
+  "\t\t\tangle = WWMATH_PI - angle;\n",
+  "\t\t\tbreak;\n",
+  "\t}\n",
+  "\tfloat distance = CameraManagerClass::Unknown_79B6B0();\n",
+  "\tfloat s = WWMath::Sin(angle);\n",
+  "\tfloat c = WWMath::Cos(angle);\n",
+  "\tVector3 offset(Unknown_B0519C * distance, c * Unknown_B051A0 * distance, s * Unknown_B051A0 * distance);\n",
+  "\tVector3 target_pos = target->Unknown_24();\n",
+  "\tMatrix3D tm;\n",
+  "\ttm.Obj_Look_At(ship->Unknown_24(), target_pos, 0.0f);\n",
+  "\tUnknown0C->Position = tm * offset;\n",
+  "\tUnknown0C->Unknown14 = true;\n",
+  "\tUnknown0C->Unknown18 = Client->Unknown13B4;\n",
+  "\tUnknown0C->Unknown_04();\n",
+  "\t}\n",
+  "}\n"
+ ],
+ "hunks": [
+  [
+   8,
+   9,
+   "\t}\n"
+  ],
+  [
+   62,
+   63,
+   "\t\treturn;\n\t}\n"
+  ],
+  [
+   80,
+   81,
+   ""
+  ],
+  [
+   62,
+   64,
+   "\t\treturn;\n\t}\n\tfloat angle; angle = Unknown_BDB1C0.Get_Float() * (Unknown_B05198 * (WWMATH_PI / 180.0f));\n"
+  ],
+  [
+   71,
+   72,
+   "\tfloat c; c = WWMath::Cos(angle);\n"
+  ],
+  [
+   70,
+   71,
+   "\tfloat s; s = WWMath::Sin(angle);\n"
+  ],
+  [
+   69,
+   70,
+   "\tfloat distance; distance = CameraManagerClass::Unknown_79B6B0();\n"
+  ],
+  [
+   63,
+   64,
+   "\tfloat angle; angle = Unknown_BDB1C0.Get_Float() * (Unknown_B05198 * (WWMATH_PI / 180.0f));\n"
+  ],
+  [
+   73,
+   74,
+   "\tVector3 target_pos; target_pos = target->Unknown_24();\n"
+  ],
+  [
+   5,
+   9,
+   "\tif (target) {\n"
+  ],
+  [
+   10,
+   10,
+   "\n\n\n"
+  ],
+  [
+   63,
+   65,
+   "\tfloat angle; angle = Unknown_BDB1C0.Get_Float() * (Unknown_B05198 * (WWMATH_PI / 180.0f)); switch (Unknown_BDB1C0(0, 1)) {\n"
+  ],
+  [
+   66,
+   68,
+   "\t\t\tangle = WWMATH_PI - angle; \t\tbreak;\n"
+  ],
+  [
+   80,
+   80,
+   "\t} else {\n\t\tClient->CameraManager->Unknown_79B2B0(0x10);\n"
+  ],
+  [
+   63,
+   65,
+   "\tfloat angle = Unknown_BDB1C0.Get_Float() * (Unknown_B05198 * (WWMATH_PI / 180.0f)); switch (Unknown_BDB1C0(0, 1)) {\n"
+  ],
+  [
+   7,
+   9,
+   "\t\tgoto done;\n\t} {\n"
+  ],
+  [
+   81,
+   81,
+   "done:\n\treturn;\n"
+  ],
+  [
+   70,
+   72,
+   "\tfloat s; s = WWMath::Sin(angle);\n\tfloat c; c = WWMath::Cos(angle);\n"
+  ],
+  [
+   69,
+   71,
+   "\tfloat distance; distance = CameraManagerClass::Unknown_79B6B0();\n\tfloat s; s = WWMath::Sin(angle);\n"
+  ]
+ ],
+ "variants": [
+  {
+   "name": "baseline",
+   "include": false,
+   "sha256": "aeda6a4e86ee996fb4a474673143db54329eff96872085aec9c783a995f60cec",
+   "hunks": [
+    0,
+    1,
+    2
+   ]
+  },
+  {
+   "name": "seed_control",
+   "include": false,
+   "sha256": "3f3d4a227573834ffa15158faf025a20f9ee7d7e71149f59ced097a805424150",
+   "hunks": []
+  },
+  {
+   "name": "v03",
+   "include": false,
+   "sha256": "e1020c1e1dca43da68c87934e90de48eb10ea675229dd02f7779d20bd86104eb",
+   "hunks": [
+    0,
+    3,
+    2
+   ]
+  },
+  {
+   "name": "v04",
+   "include": false,
+   "sha256": "67798da21801c654b78860e2800cfab202718f505ab3117568296d08380ad145",
+   "hunks": [
+    0,
+    1,
+    4,
+    2
+   ]
+  },
+  {
+   "name": "v05",
+   "include": false,
+   "sha256": "5563f441774e2133b25a3279210985f949cf7a54a1cf2db7e9f2a661e7c83039",
+   "hunks": [
+    0,
+    1,
+    5,
+    2
+   ]
+  },
+  {
+   "name": "v06",
+   "include": false,
+   "sha256": "04bfbf8e6d678ffe1b7db3140bfde7923a06b7f7da82802a5f82090ae1307bcc",
+   "hunks": [
+    0,
+    1,
+    6,
+    2
+   ]
+  },
+  {
+   "name": "v08",
+   "include": false,
+   "sha256": "46e43dfcb235f7871c0c6319ee733aca4814e8ae38f5b2429ae986b09cf69ce8",
+   "hunks": [
+    7
+   ]
+  },
+  {
+   "name": "v09",
+   "include": false,
+   "sha256": "19929bd587a9fe0a0e411543138a66f2d0fe0ef7a067db11131f30c5bf92304f",
+   "hunks": [
+    4
+   ]
+  },
+  {
+   "name": "v10",
+   "include": false,
+   "sha256": "7e633508412c9739bf36d28efa124da4283f040a96ac22dcc59d6cc29a6c06ed",
+   "hunks": [
+    5
+   ]
+  },
+  {
+   "name": "v11",
+   "include": false,
+   "sha256": "23404616e0c74ae852a0e97ca74052ce8556debe05c10690e9ecf36a11d8f4e9",
+   "hunks": [
+    6
+   ]
+  },
+  {
+   "name": "v12",
+   "include": false,
+   "sha256": "4950ddf0c38cbaf2855b8fd17c1e9dae2fc700f3b0c5680732306bd5a1710f09",
+   "hunks": [
+    8
+   ]
+  },
+  {
+   "name": "v13",
+   "include": false,
+   "sha256": "b9e38b16bfafdb3c797c202ed00850a751b0d0fd5cd7309aaf1f1942747a9d0c",
+   "hunks": [
+    9,
+    10,
+    11,
+    12,
+    13
+   ]
+  },
+  {
+   "name": "v14",
+   "include": false,
+   "sha256": "4c2c81cbcd6c32ea6aaba944fad57007b03d167554772e4e2602bb763f0b30ce",
+   "hunks": [
+    9,
+    10,
+    14,
+    12,
+    4,
+    13
+   ]
+  },
+  {
+   "name": "v15",
+   "include": false,
+   "sha256": "90cc06429c677e1d42c48e12f80dccc08e2792f059c31ffea3678e996f3504b3",
+   "hunks": [
+    9,
+    10,
+    14,
+    12,
+    5,
+    13
+   ]
+  },
+  {
+   "name": "v16",
+   "include": false,
+   "sha256": "d1d24fda8a86988d590eab895e1151836a9a4e072bb7a27e354daf9d9ce89fa6",
+   "hunks": [
+    9,
+    10,
+    14,
+    12,
+    6,
+    13
+   ]
+  },
+  {
+   "name": "v17",
+   "include": false,
+   "sha256": "5fc105987f5e1fccebaa00ec08a35639d4e5ebd23073493d0c7418406950ddf6",
+   "hunks": [
+    9,
+    10,
+    14,
+    12,
+    8,
+    13
+   ]
+  },
+  {
+   "name": "v18",
+   "include": false,
+   "sha256": "82846042aa95c7d04e7eb84a4c5403d3ad951ee2866a012ce1a62b8309200e38",
+   "hunks": [
+    15,
+    11,
+    12,
+    16
+   ]
+  },
+  {
+   "name": "v19",
+   "include": false,
+   "sha256": "c0ba09647b9fe0abf7124e63a5496e12b9d7bfc0f2e4b9b6aa5a5a45f1a593cc",
+   "hunks": [
+    15,
+    14,
+    12,
+    4,
+    16
+   ]
+  },
+  {
+   "name": "v20",
+   "include": false,
+   "sha256": "a7fd4307bdb319104cfff6f3c69f816d775720628d8aa8c08cd9e4b21ae94052",
+   "hunks": [
+    15,
+    14,
+    12,
+    5,
+    16
+   ]
+  },
+  {
+   "name": "v21",
+   "include": false,
+   "sha256": "809df75d5ace9c8c9973c8c0490befc2fc8bffcf65443dc35d945109b80c7e2c",
+   "hunks": [
+    15,
+    14,
+    12,
+    6,
+    16
+   ]
+  },
+  {
+   "name": "v22",
+   "include": false,
+   "sha256": "d47c539c380921114281eee36a512ef7428bde39f6714aa20a2e7f48fd41e900",
+   "hunks": [
+    15,
+    14,
+    12,
+    8,
+    16
+   ]
+  },
+  {
+   "name": "v23",
+   "include": false,
+   "sha256": "e96f3ece7ba1e5695fd5604118a900e66b3857763b3920b96b086ce3c3485067",
+   "hunks": [
+    0,
+    3,
+    4,
+    2
+   ]
+  },
+  {
+   "name": "v24",
+   "include": false,
+   "sha256": "7fa221952f0fb8407f15de65a6db548f2e2f9078a905bbe78f201ff61da64fa4",
+   "hunks": [
+    0,
+    3,
+    5,
+    2
+   ]
+  },
+  {
+   "name": "v25",
+   "include": false,
+   "sha256": "47559aa35e8848ea08e2b1b073a00a9ce7fc303b09c3a4ba9b2bf1ee2a5db771",
+   "hunks": [
+    0,
+    1,
+    17,
+    2
+   ]
+  },
+  {
+   "name": "v26",
+   "include": false,
+   "sha256": "34476565845d19c28405dff23779e777f16e629df0eb941a55697cd8c1ac00bd",
+   "hunks": [
+    0,
+    3,
+    6,
+    2
+   ]
+  },
+  {
+   "name": "v27",
+   "include": false,
+   "sha256": "2fc257ce9c409a5ade67166a0cf2c811a7a1c7f45fcbb01d1fbaa12a38500bfb",
+   "hunks": [
+    0,
+    1,
+    6,
+    4,
+    2
+   ]
+  },
+  {
+   "name": "v28",
+   "include": false,
+   "sha256": "0d256241c6e058afeb60addf264a281c028850011cdbfbba65333f6deef90daf",
+   "hunks": [
+    0,
+    1,
+    18,
+    2
+   ]
+  },
+  {
+   "name": "v29",
+   "include": false,
+   "sha256": "bbd1f1bf9bec31423ca381c5d2d7c53cd75033cda0b5f42c7d2db630fbd45e05",
+   "hunks": [
+    0,
+    3,
+    8,
+    2
+   ]
+  },
+  {
+   "name": "v30",
+   "include": false,
+   "sha256": "8882fac58d9280971e0a7ba2704edd9fe8b888062598f6fa0cb9b821003b9a9b",
+   "hunks": [
+    0,
+    1,
+    4,
+    8,
+    2
+   ]
+  },
+  {
+   "name": "v31",
+   "include": false,
+   "sha256": "a2dc4ccd443a12609efd444bc608806dfc6a5f39155ca9a7b8f4d9988543b921",
+   "hunks": [
+    0,
+    1,
+    5,
+    8,
+    2
+   ]
+  },
+  {
+   "name": "v32",
+   "include": false,
+   "sha256": "8703d46cddb989e21daa306d050b7eede63b0ab13c55f695beff9ad62f6aac7c",
+   "hunks": [
+    0,
+    1,
+    6,
+    8,
+    2
+   ]
+  },
+  {
+   "name": "v33",
+   "include": false,
+   "sha256": "35ebf03df72cfe9eba23dd5b6b08e1a05205e3c9c10f43575e8bc2d10019e04c",
+   "hunks": [
+    7,
+    4
+   ]
+  },
+  {
+   "name": "v34",
+   "include": false,
+   "sha256": "0b7e01a881d379310f216020a109a81683944f9025bfc437bd6d90408f5f7393",
+   "hunks": [
+    7,
+    5
+   ]
+  },
+  {
+   "name": "v35",
+   "include": false,
+   "sha256": "b37b4ee2a67cf81cd8b5b4fd68def217dc95d2d3303e87569f815fec67faf69e",
+   "hunks": [
+    17
+   ]
+  },
+  {
+   "name": "v36",
+   "include": false,
+   "sha256": "84ba3b73c76ac18f1898e232685e4c57edc084d1de13c0982558e8b46930cbea",
+   "hunks": [
+    7,
+    6
+   ]
+  },
+  {
+   "name": "v37",
+   "include": false,
+   "sha256": "df026d7762eacd09e2d463bbea826cfffe99a70a8c7ba3f1559336b3e6b5be47",
+   "hunks": [
+    6,
+    4
+   ]
+  },
+  {
+   "name": "v38",
+   "include": false,
+   "sha256": "54302af6a712a5df440d0847e9d1939a4027e0d36a093f326d1d5306c2cc6809",
+   "hunks": [
+    18
+   ]
+  },
+  {
+   "name": "v39",
+   "include": false,
+   "sha256": "dbfdd1c98d4ad5be9db92ff20de1f1ed62ce95e699c7699690444077eef4f332",
+   "hunks": [
+    7,
+    8
+   ]
+  },
+  {
+   "name": "v40",
+   "include": false,
+   "sha256": "ae7a71ca29cd7b8f119fbd898df348ed948ce6cde4889db91929117a5e86805a",
+   "hunks": [
+    4,
+    8
+   ]
+  },
+  {
+   "name": "v41",
+   "include": false,
+   "sha256": "b2a9832e214e380d39ee4926524d5bf1cfced8c379858246802c019b47128aee",
+   "hunks": [
+    5,
+    8
+   ]
+  },
+  {
+   "name": "v42",
+   "include": false,
+   "sha256": "600b8161b1cdecbcd03758599656e06ae68fb3399e74355bf5812c541680e433",
+   "hunks": [
+    6,
+    8
+   ]
+  },
+  {
+   "name": "v43",
+   "include": false,
+   "sha256": "52170880068bb6459b54af92459d7ca752d614ce1f69d4ddbb54c00b2682165b",
+   "hunks": [
+    9,
+    10,
+    11,
+    12,
+    4,
+    13
+   ]
+  },
+  {
+   "name": "v44",
+   "include": false,
+   "sha256": "5205d7c46013fc4708bf7892a733a555e6273f4a9d1379f41871fdf1aded73a6",
+   "hunks": [
+    9,
+    10,
+    11,
+    12,
+    5,
+    13
+   ]
+  },
+  {
+   "name": "v45",
+   "include": false,
+   "sha256": "3cde790d1be330c514f7d07dbdb8843e0699a73f7b46751d4263a255bc65a0d3",
+   "hunks": [
+    9,
+    10,
+    14,
+    12,
+    17,
+    13
+   ]
+  },
+  {
+   "name": "v46",
+   "include": false,
+   "sha256": "e6510f218d56e6bc1b85ff13e3114598ea748b8b824c3cb170c3dc1400964d8c",
+   "hunks": [
+    9,
+    10,
+    11,
+    12,
+    6,
+    13
+   ]
+  },
+  {
+   "name": "v47",
+   "include": false,
+   "sha256": "f44ed887c138ddf3e993318af32979bf8909177f4c2283c608694874b9e3dc70",
+   "hunks": [
+    9,
+    10,
+    14,
+    12,
+    6,
+    4,
+    13
+   ]
+  },
+  {
+   "name": "v48",
+   "include": false,
+   "sha256": "559296aa8c779bd811623d00dcbd4ebf94bcf2c8e300ae7793944e12e29fb357",
+   "hunks": [
+    9,
+    10,
+    14,
+    12,
+    18,
+    13
+   ]
+  },
+  {
+   "name": "v49",
+   "include": false,
+   "sha256": "b7356d75787921815eaaea515a8e1b297e4765b6925903d3614eb650c38afa8c",
+   "hunks": [
+    9,
+    10,
+    11,
+    12,
+    8,
+    13
+   ]
+  },
+  {
+   "name": "v50",
+   "include": false,
+   "sha256": "a538b29eb9001cc1f72abeb1094b66a1c1771379de31f69c45486cdd24354c31",
+   "hunks": [
+    9,
+    10,
+    14,
+    12,
+    4,
+    8,
+    13
+   ]
+  },
+  {
+   "name": "replacement_v48",
+   "include": false,
+   "sha256": "7441d6a465a5e4bff136c2c8ac410b535d81e7bc4a716d215310ba4af822986e",
+   "hunks": [
+    9,
+    10,
+    14,
+    12,
+    5,
+    8,
+    13
+   ]
+  },
+  {
+   "name": "replacement_v49",
+   "include": false,
+   "sha256": "e3a6392afc5e86d0fdcd9261a334017870cb1d1a29c4d18f667c3804684ec513",
+   "hunks": [
+    9,
+    10,
+    14,
+    12,
+    6,
+    8,
+    13
+   ]
+  },
+  {
+   "name": "replacement_v50",
+   "include": false,
+   "sha256": "d5470f0a80db16f251d5330f44a1361ed67f4434562fb8c9020c7b2fd3335d41",
+   "hunks": [
+    15,
+    11,
+    12,
+    4,
+    16
+   ]
+  }
+ ]
+}''')
+root, out = map(Path, sys.argv[1:3])
+s = (root / d["unit"]).read_text()
+assert hashlib.sha256(s.encode()).hexdigest() == d["baseline_sha256"], "wrong baseline source"
+a, b = s.index(d["start"]), s.index(d["end"])
+variants=[]
+for row in d["variants"]:
+ lines=d["seed_lines"][:]
+ for i,j,replacement in reversed([d["hunks"][x] for x in row["hunks"]]): lines[i:j]=replacement.splitlines(keepends=True)
+ text=s[:a]+"".join(lines)+s[b:]
+ if row["include"]: text=text.replace('#include "camera.h"', '#include "aabox.h"', 1)
+ assert hashlib.sha256(text.encode()).hexdigest() == row["sha256"], row["name"]
+ p=out/row["name"]/Path(d["unit"]).name
+ p.parent.mkdir(parents=True,exist_ok=True); p.write_text(text)
+ variants.append({"name":row["name"],"source":str(p.resolve())})
+out.mkdir(parents=True,exist_ok=True)
+(out/"packet.json").write_text(json.dumps({"unit":d["unit"],"target":d["target"],"tree":str(root.resolve()),"variants":variants},indent=2)+"\n")

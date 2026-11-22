@@ -1,0 +1,1033 @@
+# Base application source revision aa57c927; frozen tree also includes exact 788900. Apply each seed patch below to that tree, place source at the paths referenced by the replay script, and adjust absolute workspace paths if needed. Replay iterates the exact metadata below, ignoring scratch-history membership.
+
+# Source seed patches against frozen current tree; generator uses listed original seed paths.
+
+--- frozen/avatar.cpp
++++ seed_control/avatar.cpp
+@@ -3656,47 +3656,47 @@
+ 	if (BodyObj == NULL || Unknown380 == mode) {
+ 		return;
+ 	}
+-	if (Unknown370) {
+-		Unknown370->Set_Animation();
+-		Unknown370->Remove();
+-		Unknown370 = NULL;
+-	}
+-	if (Unknown374) {
+-		Unknown374 = NULL;
+-	}
+-	Unknown378 = -100.0f;
+-	Unknown37C = 0.0f;
++	Unknown_788EF0();
++
++
++
++
++
++
++
++
++
+ 	Unknown380 = mode;
+ 	if (mode == 0) {
+ 		return;
+ 	}
+ 	switch (mode) {
+ 		case 1:
+-			Unknown370 = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele01"));
++			Unknown370 = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele01"));
+ 			Unknown374 = Create_Get(WW3DAssetManager::Get_Instance()->Get_HAnim("av_tele01a.Av_tele01a-1"));
+ 			Unknown378 = 0.7f;
+ 			Unknown37C = 3.2f;
+ 			break;
+ 		case 2:
+-			Unknown370 = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele03"));
++			Unknown370 = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele03"));
+ 			Unknown374 = Create_Get(WW3DAssetManager::Get_Instance()->Get_HAnim("av_tele03a.Av_tele03a-1"));
+-			if (BodyObj) {
+-				BodyObj->Set_Hidden(1);
+-			}
+-			if (HeadObj) {
+-				HeadObj->Set_Hidden(1);
+-			}
++			Unknown_786370(true);
++
++
++
++
++
+ 			Unknown378 = 0.5f;
+ 			Unknown37C = 1.0f;
+ 			break;
+ 		case 3:
+-			Unknown370 = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele02"));
++			Unknown370 = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele02"));
+ 			Unknown374 = Create_Get(WW3DAssetManager::Get_Instance()->Get_HAnim("av_tele02a.Av_tele02a-1"));
+ 			Unknown378 = 0.5f;
+ 			Unknown37C = 1.0f;
+ 			break;
+ 		case 4:
+-			Unknown370 = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele04"));
++			Unknown370 = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele04"));
+ 			Unknown374 = Create_Get(WW3DAssetManager::Get_Instance()->Get_HAnim("av_tele04a.Av_tele04a-1"));
+ 			Unknown_786370(true);
+ 			Unknown378 = 0.0f;
+
+--- frozen/avatar.cpp
++++ visibility_control/avatar.cpp
+@@ -3656,29 +3656,29 @@
+ 	if (BodyObj == NULL || Unknown380 == mode) {
+ 		return;
+ 	}
+-	if (Unknown370) {
+-		Unknown370->Set_Animation();
+-		Unknown370->Remove();
+-		Unknown370 = NULL;
+-	}
+-	if (Unknown374) {
+-		Unknown374 = NULL;
+-	}
+-	Unknown378 = -100.0f;
+-	Unknown37C = 0.0f;
++	Unknown_788EF0();
++
++
++
++
++
++
++
++
++
+ 	Unknown380 = mode;
+ 	if (mode == 0) {
+ 		return;
+ 	}
+ 	switch (mode) {
+ 		case 1:
+-			Unknown370 = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele01"));
++			Unknown370 = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele01"));
+ 			Unknown374 = Create_Get(WW3DAssetManager::Get_Instance()->Get_HAnim("av_tele01a.Av_tele01a-1"));
+ 			Unknown378 = 0.7f;
+ 			Unknown37C = 3.2f;
+ 			break;
+ 		case 2:
+-			Unknown370 = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele03"));
++			Unknown370 = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele03"));
+ 			Unknown374 = Create_Get(WW3DAssetManager::Get_Instance()->Get_HAnim("av_tele03a.Av_tele03a-1"));
+ 			if (BodyObj) {
+ 				BodyObj->Set_Hidden(1);
+@@ -3690,13 +3690,13 @@
+ 			Unknown37C = 1.0f;
+ 			break;
+ 		case 3:
+-			Unknown370 = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele02"));
++			Unknown370 = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele02"));
+ 			Unknown374 = Create_Get(WW3DAssetManager::Get_Instance()->Get_HAnim("av_tele02a.Av_tele02a-1"));
+ 			Unknown378 = 0.5f;
+ 			Unknown37C = 1.0f;
+ 			break;
+ 		case 4:
+-			Unknown370 = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele04"));
++			Unknown370 = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("av_tele04"));
+ 			Unknown374 = Create_Get(WW3DAssetManager::Get_Instance()->Get_HAnim("av_tele04a.Av_tele04a-1"));
+ 			Unknown_786370(true);
+ 			Unknown378 = 0.0f;
+
+
+# Exact selected form metadata
+{
+  "historical_distinct_bodies": 5,
+  "forms": [
+    {
+      "name": "v01",
+      "seed": "hide_helper",
+      "inline_cleanup": 0,
+      "split_guards": 0,
+      "matrix_copy_construct": 1,
+      "case_scopes": 1,
+      "explicit_peek": 1,
+      "body_sha256": "1a828f317042bb1d3b7ef0183fc0b98ea07c0f2ce12c58ad064bfcabaa35e693"
+    },
+    {
+      "name": "v02",
+      "seed": "seed",
+      "inline_cleanup": 0,
+      "split_guards": 0,
+      "matrix_copy_construct": 1,
+      "case_scopes": 1,
+      "explicit_peek": 1,
+      "body_sha256": "6c9c28de98ca96074cf137c827d3c2b947b73d8e50496cd72bc7ee12c811bfb6"
+    },
+    {
+      "name": "v03",
+      "seed": "hide_helper",
+      "inline_cleanup": 1,
+      "split_guards": 0,
+      "matrix_copy_construct": 0,
+      "case_scopes": 0,
+      "explicit_peek": 1,
+      "body_sha256": "2684055789960f6a7066fcdefeb932d62a2650e7a50fbcf5d5f895291fb6fbff"
+    },
+    {
+      "name": "v04",
+      "seed": "hide_helper",
+      "inline_cleanup": 1,
+      "split_guards": 0,
+      "matrix_copy_construct": 0,
+      "case_scopes": 1,
+      "explicit_peek": 0,
+      "body_sha256": "cd5b2484e82c393019669dce4c239c9ca6cd8444894311088085ff29280ce6e2"
+    },
+    {
+      "name": "v05",
+      "seed": "hide_helper",
+      "inline_cleanup": 1,
+      "split_guards": 1,
+      "matrix_copy_construct": 1,
+      "case_scopes": 0,
+      "explicit_peek": 1,
+      "body_sha256": "ca274c6c473e0bdc1ccbe5afaca6f2ec8db11ec681832b113c94c6623ac0f6ef"
+    },
+    {
+      "name": "v06",
+      "seed": "hide_helper",
+      "inline_cleanup": 1,
+      "split_guards": 0,
+      "matrix_copy_construct": 0,
+      "case_scopes": 0,
+      "explicit_peek": 0,
+      "body_sha256": "a0e93f46b8d6403cec40b7148bf88a375561974c701f88aabec47eaf00684fc5"
+    },
+    {
+      "name": "v07",
+      "seed": "hide_helper",
+      "inline_cleanup": 1,
+      "split_guards": 1,
+      "matrix_copy_construct": 1,
+      "case_scopes": 1,
+      "explicit_peek": 1,
+      "body_sha256": "7a5432b8b375318eb2286149b530149b167b28b912678cd1e3eceec65c6c5bb8"
+    },
+    {
+      "name": "v08",
+      "seed": "seed",
+      "inline_cleanup": 1,
+      "split_guards": 1,
+      "matrix_copy_construct": 0,
+      "case_scopes": 0,
+      "explicit_peek": 1,
+      "body_sha256": "bbfa7686bf3df9bafdeef5bf903846bec40d0f823347b0fdc96e42c6c20ce742"
+    },
+    {
+      "name": "v09",
+      "seed": "hide_helper",
+      "inline_cleanup": 1,
+      "split_guards": 1,
+      "matrix_copy_construct": 0,
+      "case_scopes": 0,
+      "explicit_peek": 0,
+      "body_sha256": "1443e155f9d374e70dae60d0bdc1f4d8e718424c476693f4d36b892e8b66f131"
+    },
+    {
+      "name": "v10",
+      "seed": "hide_helper",
+      "inline_cleanup": 0,
+      "split_guards": 1,
+      "matrix_copy_construct": 1,
+      "case_scopes": 0,
+      "explicit_peek": 1,
+      "body_sha256": "c23023bdc2da17a52be093079f3077049ffdc48b5fdd7308e4f4bb7fdede05e9"
+    },
+    {
+      "name": "v11",
+      "seed": "seed",
+      "inline_cleanup": 1,
+      "split_guards": 1,
+      "matrix_copy_construct": 1,
+      "case_scopes": 0,
+      "explicit_peek": 0,
+      "body_sha256": "fbfb0212cb5c49d098dd3ac08042a3846095c26861a235bb0647d534d59c97c3"
+    },
+    {
+      "name": "v12",
+      "seed": "seed",
+      "inline_cleanup": 0,
+      "split_guards": 1,
+      "matrix_copy_construct": 0,
+      "case_scopes": 1,
+      "explicit_peek": 0,
+      "body_sha256": "897e9cf28abbe33df718dab7f5e600ad6052e8dbc6556065349013b08b86579a"
+    },
+    {
+      "name": "v13",
+      "seed": "hide_helper",
+      "inline_cleanup": 1,
+      "split_guards": 0,
+      "matrix_copy_construct": 1,
+      "case_scopes": 0,
+      "explicit_peek": 1,
+      "body_sha256": "77ff3ce696787198fbf1fa766eb96acbc79cd4e3ce793843a9c60d6ea1ccdfe0"
+    },
+    {
+      "name": "v14",
+      "seed": "seed",
+      "inline_cleanup": 0,
+      "split_guards": 1,
+      "matrix_copy_construct": 1,
+      "case_scopes": 0,
+      "explicit_peek": 1,
+      "body_sha256": "3cc2cbc7d4189aa73c9e95aef745102c1658a78d08e07c8ec531a3b42a4f5b97"
+    },
+    {
+      "name": "v15",
+      "seed": "hide_helper",
+      "inline_cleanup": 0,
+      "split_guards": 0,
+      "matrix_copy_construct": 1,
+      "case_scopes": 1,
+      "explicit_peek": 0,
+      "body_sha256": "b4c6d3557b54f8790ad377bdc78645af6adf3390fe98d3bba3a645aa273d7ff5"
+    },
+    {
+      "name": "v16",
+      "seed": "seed",
+      "inline_cleanup": 0,
+      "split_guards": 0,
+      "matrix_copy_construct": 0,
+      "case_scopes": 1,
+      "explicit_peek": 0,
+      "body_sha256": "2d593e2c1539311689e127e677f7e6bdf7f7cb3afa0c78e1cb20517fb536ef7c"
+    },
+    {
+      "name": "v17",
+      "seed": "seed",
+      "inline_cleanup": 1,
+      "split_guards": 1,
+      "matrix_copy_construct": 0,
+      "case_scopes": 0,
+      "explicit_peek": 0,
+      "body_sha256": "bd8ff9522b9eebc6bf569ee258068bcf609e971695c463c8dd5c878793bfec0b"
+    },
+    {
+      "name": "v18",
+      "seed": "hide_helper",
+      "inline_cleanup": 1,
+      "split_guards": 1,
+      "matrix_copy_construct": 1,
+      "case_scopes": 0,
+      "explicit_peek": 0,
+      "body_sha256": "10e71e71b6f3fd2fc3d2dab47916d4314098f6a2be399f5d5f847a06ca6114f9"
+    },
+    {
+      "name": "v19",
+      "seed": "hide_helper",
+      "inline_cleanup": 0,
+      "split_guards": 0,
+      "matrix_copy_construct": 1,
+      "case_scopes": 0,
+      "explicit_peek": 1,
+      "body_sha256": "76b993206a7ef67c94aca6a96f571450f0a86f6514e0c3a276c7a2d64fd4601e"
+    },
+    {
+      "name": "v20",
+      "seed": "hide_helper",
+      "inline_cleanup": 0,
+      "split_guards": 1,
+      "matrix_copy_construct": 0,
+      "case_scopes": 0,
+      "explicit_peek": 1,
+      "body_sha256": "38f0706dbd4485da55211cc8f9c8f9cd0086e41ffc39c16e263cc3f258a83140"
+    },
+    {
+      "name": "v21",
+      "seed": "hide_helper",
+      "inline_cleanup": 1,
+      "split_guards": 1,
+      "matrix_copy_construct": 0,
+      "case_scopes": 1,
+      "explicit_peek": 0,
+      "body_sha256": "e0eaa3db157ed2a008c2da72f5ceba1b7f35081888ee0a742a943f38f09784b8"
+    },
+    {
+      "name": "v22",
+      "seed": "hide_helper",
+      "inline_cleanup": 1,
+      "split_guards": 1,
+      "matrix_copy_construct": 1,
+      "case_scopes": 1,
+      "explicit_peek": 0,
+      "body_sha256": "75bf550da8844bc29c36f03e6dbdedb40be2d0897c949c41563e474999e8bc8d"
+    },
+    {
+      "name": "v23",
+      "seed": "seed",
+      "inline_cleanup": 0,
+      "split_guards": 0,
+      "matrix_copy_construct": 1,
+      "case_scopes": 1,
+      "explicit_peek": 0,
+      "body_sha256": "285a84efaa360b750a792b5e0c731593956e5b2d027b474c5dffcb0dbdd1928d"
+    },
+    {
+      "name": "v24",
+      "seed": "seed",
+      "inline_cleanup": 1,
+      "split_guards": 0,
+      "matrix_copy_construct": 0,
+      "case_scopes": 0,
+      "explicit_peek": 1,
+      "body_sha256": "57da0ae77f6624b60bf2739c4673bf4756d3e0f3589289ad0039a09fab1e7882"
+    },
+    {
+      "name": "v25",
+      "seed": "seed",
+      "inline_cleanup": 0,
+      "split_guards": 1,
+      "matrix_copy_construct": 1,
+      "case_scopes": 1,
+      "explicit_peek": 0,
+      "body_sha256": "b97065ebd35961b5aef7a841e951f78fb26df72cab61f55235b7ce7143bd1b0b"
+    },
+    {
+      "name": "v26",
+      "seed": "seed",
+      "inline_cleanup": 0,
+      "split_guards": 1,
+      "matrix_copy_construct": 1,
+      "case_scopes": 1,
+      "explicit_peek": 1,
+      "body_sha256": "59f436a06684195aba84bf9ef64d37f9c59fb637a31c7dea1393c8c87debfd7e"
+    },
+    {
+      "name": "v27",
+      "seed": "seed",
+      "inline_cleanup": 1,
+      "split_guards": 0,
+      "matrix_copy_construct": 1,
+      "case_scopes": 1,
+      "explicit_peek": 0,
+      "body_sha256": "af61dc94f03d8491c07c01eb9d6ec586f130719b93bddbe8e336c47550442975"
+    },
+    {
+      "name": "v28",
+      "seed": "hide_helper",
+      "inline_cleanup": 1,
+      "split_guards": 0,
+      "matrix_copy_construct": 0,
+      "case_scopes": 1,
+      "explicit_peek": 1,
+      "body_sha256": "3e160a26c70a5097d677cd097b3e49021b9a9282d7c70ea82e831bf5fa70afae"
+    },
+    {
+      "name": "v29",
+      "seed": "seed",
+      "inline_cleanup": 1,
+      "split_guards": 1,
+      "matrix_copy_construct": 1,
+      "case_scopes": 1,
+      "explicit_peek": 0,
+      "body_sha256": "cc565eada761acd2cb4b8afb59f3e2dd3cbd89bf7df338241fc9c56ebb8643e0"
+    },
+    {
+      "name": "v30",
+      "seed": "seed",
+      "inline_cleanup": 0,
+      "split_guards": 0,
+      "matrix_copy_construct": 0,
+      "case_scopes": 1,
+      "explicit_peek": 1,
+      "body_sha256": "0551fd3f91220f9fa9526a0684dfe4d4c4f6429713ea6602d2daf9b36d9da8de"
+    },
+    {
+      "name": "v31",
+      "seed": "seed",
+      "inline_cleanup": 1,
+      "split_guards": 0,
+      "matrix_copy_construct": 0,
+      "case_scopes": 1,
+      "explicit_peek": 0,
+      "body_sha256": "4dacce3d10c563ef3b38d336be60f22f9d80ea3d31735c78da092c8dfce3ba7b"
+    },
+    {
+      "name": "v32",
+      "seed": "seed",
+      "inline_cleanup": 0,
+      "split_guards": 1,
+      "matrix_copy_construct": 0,
+      "case_scopes": 1,
+      "explicit_peek": 1,
+      "body_sha256": "9aa18126a7b5725e0fe1ea85829cf837e0ed74b4f8a40bc3f434a1bcbcdc94a2"
+    },
+    {
+      "name": "v33",
+      "seed": "hide_helper",
+      "inline_cleanup": 1,
+      "split_guards": 0,
+      "matrix_copy_construct": 1,
+      "case_scopes": 1,
+      "explicit_peek": 1,
+      "body_sha256": "b92f984e2d3c11f2b4d084e2ba555c13a9f912a96cf1877e346a8d4517a777a2"
+    },
+    {
+      "name": "v34",
+      "seed": "hide_helper",
+      "inline_cleanup": 0,
+      "split_guards": 0,
+      "matrix_copy_construct": 0,
+      "case_scopes": 1,
+      "explicit_peek": 1,
+      "body_sha256": "71aea2c99b18137c2e6b3855cb2402900ccbf5f03569d0802158bbeeda8b27e3"
+    },
+    {
+      "name": "v35",
+      "seed": "seed",
+      "inline_cleanup": 1,
+      "split_guards": 0,
+      "matrix_copy_construct": 1,
+      "case_scopes": 0,
+      "explicit_peek": 1,
+      "body_sha256": "075057434085db7349a8e4aeb8c6a19ea3673ad3f1f5be48e6c3dfaaf06cdeae"
+    },
+    {
+      "name": "v36",
+      "seed": "seed",
+      "inline_cleanup": 1,
+      "split_guards": 1,
+      "matrix_copy_construct": 0,
+      "case_scopes": 1,
+      "explicit_peek": 0,
+      "body_sha256": "90d4e650a4de2a8ecad643551bf6634753d28932ff5747ae3ae5a059fa8349e8"
+    },
+    {
+      "name": "v37",
+      "seed": "hide_helper",
+      "inline_cleanup": 0,
+      "split_guards": 0,
+      "matrix_copy_construct": 0,
+      "case_scopes": 1,
+      "explicit_peek": 0,
+      "body_sha256": "eedfb7dab9b4cd23efba2886d58e4d8939dc610e5a2b8845339289131d20845c"
+    },
+    {
+      "name": "v38",
+      "seed": "seed",
+      "inline_cleanup": 0,
+      "split_guards": 0,
+      "matrix_copy_construct": 1,
+      "case_scopes": 0,
+      "explicit_peek": 1,
+      "body_sha256": "1416da87324aaf84cd682f89428bcf3ce85f761e90aa6ea2b60a5350987b9f5b"
+    },
+    {
+      "name": "v39",
+      "seed": "hide_helper",
+      "inline_cleanup": 0,
+      "split_guards": 0,
+      "matrix_copy_construct": 0,
+      "case_scopes": 0,
+      "explicit_peek": 1,
+      "body_sha256": "f25ce98b640cda8581d6698e5dc52f16be833f854ff8abd23c0c3e0aa8bb9f72"
+    },
+    {
+      "name": "v40",
+      "seed": "seed",
+      "inline_cleanup": 1,
+      "split_guards": 0,
+      "matrix_copy_construct": 1,
+      "case_scopes": 1,
+      "explicit_peek": 1,
+      "body_sha256": "d6e1e50168826ac84fb40cd4efa0cc7c28647c5761cf168b432d580ae4318d5a"
+    },
+    {
+      "name": "v41",
+      "seed": "hide_helper",
+      "inline_cleanup": 0,
+      "split_guards": 0,
+      "matrix_copy_construct": 1,
+      "case_scopes": 0,
+      "explicit_peek": 0,
+      "body_sha256": "946839de7eba801b49b3b503b4af3f6ed2e020c1f53ff26d1899c8059b546567"
+    },
+    {
+      "name": "v42",
+      "seed": "seed",
+      "inline_cleanup": 0,
+      "split_guards": 0,
+      "matrix_copy_construct": 1,
+      "case_scopes": 0,
+      "explicit_peek": 0,
+      "body_sha256": "2f939119ae234a0496810834e7ed96a328d5230eb774f96a68afd1678c0fe3f3"
+    },
+    {
+      "name": "v43",
+      "seed": "hide_helper",
+      "inline_cleanup": 1,
+      "split_guards": 1,
+      "matrix_copy_construct": 0,
+      "case_scopes": 1,
+      "explicit_peek": 1,
+      "body_sha256": "bc953a672467d62ab0fcad0d8ea91ce8f2402da92a0768415b4c343cf56063fe"
+    },
+    {
+      "name": "v44",
+      "seed": "hide_helper",
+      "inline_cleanup": 0,
+      "split_guards": 1,
+      "matrix_copy_construct": 1,
+      "case_scopes": 1,
+      "explicit_peek": 0,
+      "body_sha256": "33db9cb51fe1643a10e08d7a534cf508feaad01fdb6604a69fa87a900b459b7f"
+    },
+    {
+      "name": "v45",
+      "seed": "hide_helper",
+      "inline_cleanup": 1,
+      "split_guards": 1,
+      "matrix_copy_construct": 0,
+      "case_scopes": 0,
+      "explicit_peek": 1,
+      "body_sha256": "4d6e21f37d27984a42fa3048ce66c961acac890edad2408d286625337ed38b15"
+    },
+    {
+      "name": "v46",
+      "seed": "hide_helper",
+      "inline_cleanup": 0,
+      "split_guards": 1,
+      "matrix_copy_construct": 1,
+      "case_scopes": 1,
+      "explicit_peek": 1,
+      "body_sha256": "38c185130eacb8737db85fcabd0cd092ba5a124d13521eec0e3900374426b722"
+    },
+    {
+      "name": "v47",
+      "seed": "seed",
+      "inline_cleanup": 1,
+      "split_guards": 0,
+      "matrix_copy_construct": 0,
+      "case_scopes": 0,
+      "explicit_peek": 0,
+      "body_sha256": "fc81dc6f95d45165acd8f302cb6ab8f71fae19de2097328cb69fcff3412b1911"
+    },
+    {
+      "name": "v48",
+      "seed": "seed",
+      "inline_cleanup": 1,
+      "split_guards": 1,
+      "matrix_copy_construct": 1,
+      "case_scopes": 1,
+      "explicit_peek": 1,
+      "body_sha256": "1142f82717745b3be10fc9643bcf150bfad8de99af073f4a6be465e24e2df154"
+    },
+    {
+      "name": "v49",
+      "seed": "hide_helper",
+      "inline_cleanup": 1,
+      "split_guards": 0,
+      "matrix_copy_construct": 1,
+      "case_scopes": 0,
+      "explicit_peek": 0,
+      "body_sha256": "1a94601b26c50112759b24c717e81485dc51d4486c07e08663ad1d6d443646ae"
+    },
+    {
+      "name": "v50",
+      "seed": "hide_helper",
+      "inline_cleanup": 0,
+      "split_guards": 1,
+      "matrix_copy_construct": 0,
+      "case_scopes": 1,
+      "explicit_peek": 0,
+      "body_sha256": "531b88e153ddf131f2dc535b23ceae4c1e159a97d6c3bbdda0e073e94084cf67"
+    }
+  ]
+}
+
+# Deterministic replay generator
+from pathlib import Path
+import hashlib,itertools,json,re,random
+root=Path('/home/dev/Projects/EnB'); work=root/'.work/claim-240'; out=work/'terra50-final/788f90'
+tree=work/'788900-operand-provenance/final-tree'; unit=Path('app/client/avatar.cpp'); current=(tree/unit).read_text()
+start='void CharacterViewAvatarClass::Unknown_788F90(int mode)'; end='// 0x7896B0'
+def body(s): return s[s.index(start):s.index(end,s.index(start))]
+def norm(s): return re.sub(r'\s+','',re.sub(r'//[^\n]*','',s))
+base=body(current); focus=work/'focused/788F90'; names=['hide_helper','seed']; seeds=[body((focus/n/'avatar.cpp').read_text()) for n in names]
+historical=set()
+for directory in [focus,work/'broad-avatar']+[p for p in work.iterdir() if p.is_dir() and '788f90' in p.name.lower()]:
+ for p in directory.rglob('avatar.cpp'):
+  try: historical.add(norm(body(p.read_text())))
+  except (ValueError,UnicodeError): pass
+cleanup='\tUnknown_788EF0();\n'+ '\n'*9
+oldclean=base[base.index('\tif (Unknown370)'):base.index('\tUnknown380 = mode;')]
+assert all(cleanup in b for b in seeds) and cleanup.count('\n')==oldclean.count('\n')
+guard='''if (BodyObj == NULL || Unknown380 == mode) {
+		return;
+	}'''
+guard2='''if (BodyObj == NULL) { return; } if (Unknown380 == mode) {
+		return;
+	}'''
+mat='''Matrix3D m;
+		m = Unknown330;'''; mat2='''Matrix3D m(Unknown330);
+'''
+assert all(guard in b and mat in b for b in seeds)
+variants=[]; index=[]
+def save(name,b):
+ assert b.count('\n')==base.count('\n')
+ p=out/name/'avatar.cpp'; p.parent.mkdir(exist_ok=True); p.write_text(current.replace(base,b,1)); variants.append({'name':name,'source':str(p)})
+ return hashlib.sha256(b.encode()).hexdigest()
+save('baseline',base); save('seed_control',seeds[0]); save('visibility_control',seeds[1])
+combos=list(itertools.product(range(2),repeat=6)); random.Random(788).shuffle(combos); seen=historical|{norm(base)}
+# Exact combinations selected by the original pass; no prior history needed.
+combos = [(0, 0, 0, 1, 1, 1), (1, 0, 0, 1, 1, 1), (0, 1, 0, 0, 0, 1), (0, 1, 0, 0, 1, 0), (0, 1, 1, 1, 0, 1), (0, 1, 0, 0, 0, 0), (0, 1, 1, 1, 1, 1), (1, 1, 1, 0, 0, 1), (0, 1, 1, 0, 0, 0), (0, 0, 1, 1, 0, 1), (1, 1, 1, 1, 0, 0), (1, 0, 1, 0, 1, 0), (0, 1, 0, 1, 0, 1), (1, 0, 1, 1, 0, 1), (0, 0, 0, 1, 1, 0), (1, 0, 0, 0, 1, 0), (1, 1, 1, 0, 0, 0), (0, 1, 1, 1, 0, 0), (0, 0, 0, 1, 0, 1), (0, 0, 1, 0, 0, 1), (0, 1, 1, 0, 1, 0), (0, 1, 1, 1, 1, 0), (1, 0, 0, 1, 1, 0), (1, 1, 0, 0, 0, 1), (1, 0, 1, 1, 1, 0), (1, 0, 1, 1, 1, 1), (1, 1, 0, 1, 1, 0), (0, 1, 0, 0, 1, 1), (1, 1, 1, 1, 1, 0), (1, 0, 0, 0, 1, 1), (1, 1, 0, 0, 1, 0), (1, 0, 1, 0, 1, 1), (0, 1, 0, 1, 1, 1), (0, 0, 0, 0, 1, 1), (1, 1, 0, 1, 0, 1), (1, 1, 1, 0, 1, 0), (0, 0, 0, 0, 1, 0), (1, 0, 0, 1, 0, 1), (0, 0, 0, 0, 0, 1), (1, 1, 0, 1, 1, 1), (0, 0, 0, 1, 0, 0), (1, 0, 0, 1, 0, 0), (0, 1, 1, 0, 1, 1), (0, 0, 1, 1, 1, 0), (0, 1, 1, 0, 0, 1), (0, 0, 1, 1, 1, 1), (1, 1, 0, 0, 0, 0), (1, 1, 1, 1, 1, 1), (0, 1, 0, 1, 0, 0), (0, 0, 1, 0, 1, 0)]
+seen = set()
+for visibility,clean,guards,matrix,scopes,peek in combos:
+ b=seeds[visibility]
+ if clean: b=b.replace(cleanup,oldclean)
+ if guards: b=b.replace(guard,guard2)
+ if matrix: b=b.replace(mat,mat2)
+ if scopes:
+  for n in range(1,5): b=b.replace('case %d:'%n,'case %d: {'%n)
+  b=b.replace('\t\t\tbreak;','\t\t\tbreak; }')
+ if peek: b=b.replace('Unknown370->Set_Transform(', 'Unknown370.Peek()->Set_Transform(').replace('Unknown370->Set_Hidden(', 'Unknown370.Peek()->Set_Hidden(').replace('Unknown370->Set_Animation_Hidden(', 'Unknown370.Peek()->Set_Animation_Hidden(')
+ key=norm(b)
+ if key in seen: continue
+ seen.add(key); name='v%02d'%(len(index)+1)
+ index.append({'name':name,'seed':names[visibility],'inline_cleanup':clean,'split_guards':guards,'matrix_copy_construct':matrix,'case_scopes':scopes,'explicit_peek':peek,'body_sha256':save(name,b)})
+ if len(index)==50: break
+assert len(index)==50
+(out/'packet.json').write_text(json.dumps({'unit':str(unit),'target':'0x788F90','tree':str(tree),'variants':variants},indent=2)+'\n')
+(out/'forms.json').write_text(json.dumps({'historical_distinct_bodies':len(historical),'forms':index},indent=2)+'\n')
+
+
+# Native target matches v19/v41: relocation-normalized; each loses actual file/address pair 0x57B6B0. Full-body normalized instruction distance 0, eight retail string constants agree. Retail HAnim factory call thunks resolve 0x6A25B0; its 21-byte body equals 0x57B6B0, but masked relocation does not prove identical factory target identity. No adoption. Other 48 forms retain the pair but do not match target.
+
+# Exact candidate call and string observations
+{
+  "v19": {
+    "retail_first": "0x788F90",
+    "retail_last": "0x789520 ret 4",
+    "instructions": 439,
+    "normalized_instruction_distance": 0,
+    "strings": [
+      {
+        "symbol": "??_C@_09FLFJ@av_tele01?$AA@",
+        "retail_insn": "0x789045",
+        "retail_address": "0xb9d530",
+        "bytes": "61765f74656c65303100",
+        "equal": true
+      },
+      {
+        "symbol": "??_C@_0BI@GBFE@av_tele01a?4Av_tele01a?91?$AA@",
+        "retail_insn": "0x7890b7",
+        "retail_address": "0xb9d514",
+        "bytes": "61765f74656c653031612e41765f74656c653031612d3100",
+        "equal": true
+      },
+      {
+        "symbol": "??_C@_09OHH@av_tele03?$AA@",
+        "retail_insn": "0x789141",
+        "retail_address": "0xb9d508",
+        "bytes": "61765f74656c65303300",
+        "equal": true
+      },
+      {
+        "symbol": "??_C@_0BI@KOLA@av_tele03a?4Av_tele03a?91?$AA@",
+        "retail_insn": "0x7891b7",
+        "retail_address": "0xb9d4ec",
+        "bytes": "61765f74656c653033612e41765f74656c653033612d3100",
+        "equal": true
+      },
+      {
+        "symbol": "??_C@_09KEOA@av_tele02?$AA@",
+        "retail_insn": "0x789271",
+        "retail_address": "0xb9d4e0",
+        "bytes": "61765f74656c65303200",
+        "equal": true
+      },
+      {
+        "symbol": "??_C@_0BI@EJEC@av_tele02a?4Av_tele02a?91?$AA@",
+        "retail_insn": "0x7892e7",
+        "retail_address": "0xb9d4c4",
+        "bytes": "61765f74656c653032612e41765f74656c653032612d3100",
+        "equal": true
+      },
+      {
+        "symbol": "??_C@_09FLJC@av_tele04?$AA@",
+        "retail_insn": "0x789371",
+        "retail_address": "0xb9d4b8",
+        "bytes": "61765f74656c65303400",
+        "equal": true
+      },
+      {
+        "symbol": "??_C@_0BI@BJGP@av_tele04a?4Av_tele04a?91?$AA@",
+        "retail_insn": "0x7893c7",
+        "retail_address": "0xb9d49c",
+        "bytes": "61765f74656c653034612e41765f74656c653034612d3100",
+        "equal": true
+      }
+    ],
+    "relocated_calls": [
+      {
+        "symbol": "??4?$RefCountPtr@VRenderObjClass@@@@QAEABV0@PAVDummyPtrType@@@Z",
+        "retail_instruction": "0x788ff3",
+        "retail_operand": "0x418296",
+        "resolved_target": "0x5988a0"
+      },
+      {
+        "symbol": "??4?$RefCountPtr@VHAnimClass@@@@QAEABV0@PAVDummyPtrType@@@Z",
+        "retail_instruction": "0x789009",
+        "retail_operand": "0x4023c4",
+        "resolved_target": "0x78a460"
+      },
+      {
+        "symbol": "?Create_NEW@@YA?AV?$RefCountPtr@VRenderObjClass@@@@PAVRenderObjClass@@@Z",
+        "retail_instruction": "0x789055",
+        "retail_operand": "0x407c11",
+        "resolved_target": "0x47d2e0"
+      },
+      {
+        "symbol": "?Create_Get@@YA?AV?$RefCountPtr@VHAnimClass@@@@PAVHAnimClass@@@Z",
+        "retail_instruction": "0x7890c7",
+        "retail_operand": "0x4115d1",
+        "resolved_target": "0x6a25b0"
+      },
+      {
+        "symbol": "?Create_NEW@@YA?AV?$RefCountPtr@VRenderObjClass@@@@PAVRenderObjClass@@@Z",
+        "retail_instruction": "0x789151",
+        "retail_operand": "0x407c11",
+        "resolved_target": "0x47d2e0"
+      },
+      {
+        "symbol": "?Create_Get@@YA?AV?$RefCountPtr@VHAnimClass@@@@PAVHAnimClass@@@Z",
+        "retail_instruction": "0x7891c7",
+        "retail_operand": "0x4115d1",
+        "resolved_target": "0x6a25b0"
+      },
+      {
+        "symbol": "?Create_NEW@@YA?AV?$RefCountPtr@VRenderObjClass@@@@PAVRenderObjClass@@@Z",
+        "retail_instruction": "0x789281",
+        "retail_operand": "0x407c11",
+        "resolved_target": "0x47d2e0"
+      },
+      {
+        "symbol": "?Create_Get@@YA?AV?$RefCountPtr@VHAnimClass@@@@PAVHAnimClass@@@Z",
+        "retail_instruction": "0x7892f7",
+        "retail_operand": "0x4115d1",
+        "resolved_target": "0x6a25b0"
+      },
+      {
+        "symbol": "?Create_NEW@@YA?AV?$RefCountPtr@VRenderObjClass@@@@PAVRenderObjClass@@@Z",
+        "retail_instruction": "0x789381",
+        "retail_operand": "0x407c11",
+        "resolved_target": "0x47d2e0"
+      },
+      {
+        "symbol": "??4?$RefCountPtr@VRenderObjClass@@@@QAEABV0@ABV0@@Z",
+        "retail_instruction": "0x789394",
+        "retail_operand": "0x4153b6",
+        "resolved_target": "0x474480"
+      },
+      {
+        "symbol": "?Create_Get@@YA?AV?$RefCountPtr@VHAnimClass@@@@PAVHAnimClass@@@Z",
+        "retail_instruction": "0x7893d7",
+        "retail_operand": "0x4115d1",
+        "resolved_target": "0x6a25b0"
+      },
+      {
+        "symbol": "??4?$RefCountPtr@VHAnimClass@@@@QAEABV0@ABV0@@Z",
+        "retail_instruction": "0x7893ee",
+        "retail_operand": "0x4184d0",
+        "resolved_target": "0x604f10"
+      },
+      {
+        "symbol": "??1?$RefCountPtr@VHAnimClass@@@@QAE@XZ",
+        "retail_instruction": "0x7893fb",
+        "retail_operand": "0x4017a3",
+        "resolved_target": "0x57b6e0"
+      },
+      {
+        "symbol": "?Unknown_786370@CharacterViewAvatarClass@@QAEX_N@Z",
+        "retail_instruction": "0x789404",
+        "retail_operand": "0x418935",
+        "resolved_target": "0x786370"
+      },
+      {
+        "symbol": "?Unknown_496AE0@@YAXPAVRenderObjClass@@_N@Z",
+        "retail_instruction": "0x78941f",
+        "retail_operand": "0x40c545",
+        "resolved_target": "0x496ae0"
+      },
+      {
+        "symbol": "??_H@YGXPAXIHP6EX0@Z@Z",
+        "retail_instruction": "0x78946a",
+        "retail_operand": "0x410528",
+        "resolved_target": "0x42f250"
+      }
+    ],
+    "immediates": "identical in normalized 439-instruction comparison; call addresses listed for identity audit"
+  },
+  "v41": {
+    "retail_first": "0x788F90",
+    "retail_last": "0x789520 ret 4",
+    "instructions": 439,
+    "normalized_instruction_distance": 0,
+    "strings": [
+      {
+        "symbol": "??_C@_09FLFJ@av_tele01?$AA@",
+        "retail_insn": "0x789045",
+        "retail_address": "0xb9d530",
+        "bytes": "61765f74656c65303100",
+        "equal": true
+      },
+      {
+        "symbol": "??_C@_0BI@GBFE@av_tele01a?4Av_tele01a?91?$AA@",
+        "retail_insn": "0x7890b7",
+        "retail_address": "0xb9d514",
+        "bytes": "61765f74656c653031612e41765f74656c653031612d3100",
+        "equal": true
+      },
+      {
+        "symbol": "??_C@_09OHH@av_tele03?$AA@",
+        "retail_insn": "0x789141",
+        "retail_address": "0xb9d508",
+        "bytes": "61765f74656c65303300",
+        "equal": true
+      },
+      {
+        "symbol": "??_C@_0BI@KOLA@av_tele03a?4Av_tele03a?91?$AA@",
+        "retail_insn": "0x7891b7",
+        "retail_address": "0xb9d4ec",
+        "bytes": "61765f74656c653033612e41765f74656c653033612d3100",
+        "equal": true
+      },
+      {
+        "symbol": "??_C@_09KEOA@av_tele02?$AA@",
+        "retail_insn": "0x789271",
+        "retail_address": "0xb9d4e0",
+        "bytes": "61765f74656c65303200",
+        "equal": true
+      },
+      {
+        "symbol": "??_C@_0BI@EJEC@av_tele02a?4Av_tele02a?91?$AA@",
+        "retail_insn": "0x7892e7",
+        "retail_address": "0xb9d4c4",
+        "bytes": "61765f74656c653032612e41765f74656c653032612d3100",
+        "equal": true
+      },
+      {
+        "symbol": "??_C@_09FLJC@av_tele04?$AA@",
+        "retail_insn": "0x789371",
+        "retail_address": "0xb9d4b8",
+        "bytes": "61765f74656c65303400",
+        "equal": true
+      },
+      {
+        "symbol": "??_C@_0BI@BJGP@av_tele04a?4Av_tele04a?91?$AA@",
+        "retail_insn": "0x7893c7",
+        "retail_address": "0xb9d49c",
+        "bytes": "61765f74656c653034612e41765f74656c653034612d3100",
+        "equal": true
+      }
+    ],
+    "relocated_calls": [
+      {
+        "symbol": "??4?$RefCountPtr@VRenderObjClass@@@@QAEABV0@PAVDummyPtrType@@@Z",
+        "retail_instruction": "0x788ff3",
+        "retail_operand": "0x418296",
+        "resolved_target": "0x5988a0"
+      },
+      {
+        "symbol": "??4?$RefCountPtr@VHAnimClass@@@@QAEABV0@PAVDummyPtrType@@@Z",
+        "retail_instruction": "0x789009",
+        "retail_operand": "0x4023c4",
+        "resolved_target": "0x78a460"
+      },
+      {
+        "symbol": "?Create_NEW@@YA?AV?$RefCountPtr@VRenderObjClass@@@@PAVRenderObjClass@@@Z",
+        "retail_instruction": "0x789055",
+        "retail_operand": "0x407c11",
+        "resolved_target": "0x47d2e0"
+      },
+      {
+        "symbol": "?Create_Get@@YA?AV?$RefCountPtr@VHAnimClass@@@@PAVHAnimClass@@@Z",
+        "retail_instruction": "0x7890c7",
+        "retail_operand": "0x4115d1",
+        "resolved_target": "0x6a25b0"
+      },
+      {
+        "symbol": "?Create_NEW@@YA?AV?$RefCountPtr@VRenderObjClass@@@@PAVRenderObjClass@@@Z",
+        "retail_instruction": "0x789151",
+        "retail_operand": "0x407c11",
+        "resolved_target": "0x47d2e0"
+      },
+      {
+        "symbol": "?Create_Get@@YA?AV?$RefCountPtr@VHAnimClass@@@@PAVHAnimClass@@@Z",
+        "retail_instruction": "0x7891c7",
+        "retail_operand": "0x4115d1",
+        "resolved_target": "0x6a25b0"
+      },
+      {
+        "symbol": "?Create_NEW@@YA?AV?$RefCountPtr@VRenderObjClass@@@@PAVRenderObjClass@@@Z",
+        "retail_instruction": "0x789281",
+        "retail_operand": "0x407c11",
+        "resolved_target": "0x47d2e0"
+      },
+      {
+        "symbol": "?Create_Get@@YA?AV?$RefCountPtr@VHAnimClass@@@@PAVHAnimClass@@@Z",
+        "retail_instruction": "0x7892f7",
+        "retail_operand": "0x4115d1",
+        "resolved_target": "0x6a25b0"
+      },
+      {
+        "symbol": "?Create_NEW@@YA?AV?$RefCountPtr@VRenderObjClass@@@@PAVRenderObjClass@@@Z",
+        "retail_instruction": "0x789381",
+        "retail_operand": "0x407c11",
+        "resolved_target": "0x47d2e0"
+      },
+      {
+        "symbol": "??4?$RefCountPtr@VRenderObjClass@@@@QAEABV0@ABV0@@Z",
+        "retail_instruction": "0x789394",
+        "retail_operand": "0x4153b6",
+        "resolved_target": "0x474480"
+      },
+      {
+        "symbol": "?Create_Get@@YA?AV?$RefCountPtr@VHAnimClass@@@@PAVHAnimClass@@@Z",
+        "retail_instruction": "0x7893d7",
+        "retail_operand": "0x4115d1",
+        "resolved_target": "0x6a25b0"
+      },
+      {
+        "symbol": "??4?$RefCountPtr@VHAnimClass@@@@QAEABV0@ABV0@@Z",
+        "retail_instruction": "0x7893ee",
+        "retail_operand": "0x4184d0",
+        "resolved_target": "0x604f10"
+      },
+      {
+        "symbol": "??1?$RefCountPtr@VHAnimClass@@@@QAE@XZ",
+        "retail_instruction": "0x7893fb",
+        "retail_operand": "0x4017a3",
+        "resolved_target": "0x57b6e0"
+      },
+      {
+        "symbol": "?Unknown_786370@CharacterViewAvatarClass@@QAEX_N@Z",
+        "retail_instruction": "0x789404",
+        "retail_operand": "0x418935",
+        "resolved_target": "0x786370"
+      },
+      {
+        "symbol": "?Unknown_496AE0@@YAXPAVRenderObjClass@@_N@Z",
+        "retail_instruction": "0x78941f",
+        "retail_operand": "0x40c545",
+        "resolved_target": "0x496ae0"
+      },
+      {
+        "symbol": "??_H@YGXPAXIHP6EX0@Z@Z",
+        "retail_instruction": "0x78946a",
+        "retail_operand": "0x410528",
+        "resolved_target": "0x42f250"
+      }
+    ],
+    "immediates": "identical in normalized 439-instruction comparison; call addresses listed for identity audit"
+  }
+}
+
+# Retail factory equivalence: 0x6A25B0 and 0x57B6B0 each have executable bytes 518b4424088b4c240cc744240000000000890859c3 (21 bytes). This does not establish distinct relocation identity.

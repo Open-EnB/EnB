@@ -1,0 +1,403 @@
+# Takeoff 0x796920: stack and argument lifetime audit
+
+Stronger partial, no source adoption. One new direct-midpoint form plus two fresh
+controls: three successful VC6 SP4 objects, fully native matched, all15 existing
+(file,address) pairs held, +0/-0. Target remains nonexact. No failed, invalid,
+untested, withdrawn or confirmation inputs. No additional grounded form proposed.
+
+| Input | Normalized distance / GPR masked | Raw distance / GPR masked | Instructions / calls | Bytes | Frame |
+| --- | --- | --- | --- | --- | --- |
+| baseline control |442/404|383/358|418/27|1703|historical baseline|
+| previous-best control |40/31|256/251|536/29|2051|22C|
+| direct_midpoint |40/31|216/210|536/29|2012|220|
+| retail |0|0|537/29|2000|220|
+
+Scores are diagnostic, not exactness proof. Comparison uses complete retail
+796920..7970F0, including returns796976,7969AA,7970EF. No source-sized croppedtail.
+Fresh controls reproduce the old baseline and previous-best groups. New group
+ca4d56e7fc0defa1. Root's native-file-pairs audit independently confirms all15pairs.
+
+The successful hypothesis replaces named Vector3 mid with the unchanged
+(Unknown24 + Unknown30) * 0.5f expression passed directly to the existing
+Obj_Look_At(const Vector3&,const Vector3&,float). The temporary lasts through the
+call. No arithmetic operands, random calls, collision predicates or object
+consumers change. All61 retained prior sources, including controls/duplicates,
+had the named midpoint; five durable source stashes were read. freshness.json
+records hashes. This is one actual form, not61 new tests.
+
+Retail reuses EBP-a8..a0 for initial ship position, collision dir*1000000 and
+postloop midpoint; quaternion result uses overlapping -ac..a0. Previousbest
+uses -78..-70 for position/cast, -7c..-70 for quaternion, but separate -68..-60
+for named midpoint. New form shares -68..-60 across position/cast/midpoint and
+-6c..-60 for quaternion. Thus the predicted temp identity is recovered, though
+its physical address still differs from retail. Frame drops22C->220 and several
+larger homes now exactly match. EBP locals include12bytes preceding SUB for SEH;
+retail deepest local is -22c, not -220.
+
+| Actual object or live role | Retail EBP offset | New partial EBP offset |
+| --- | --- | --- |
+| assigned ship-matrix hidden result | -22c | -22c |
+| yaw ship-matrix hidden result | -1fc | -1cc |
+| state-constructor ship-matrix hidden result | -1cc | -1fc |
+| end_box basis | -19c | -19c |
+| start_box basis | -160 | -160 |
+| model AABox | -124 | -124 |
+| CastResultStruct | -10c | -10c |
+| twice-used postloop lookat | -e4 | -e4 |
+| local_box basis | -9c | -ac |
+| initial matrix / loop rotation | -50 | -48 |
+| position/cast/midpoint temp | -a8 | -68 |
+| quaternion temp | -ac | -6c |
+| ship_ro / later angle | -5c | -54 |
+| loop counter | -b4 | -18 |
+
+Actual constructor/consumer audit does not find another wrong consumer:
+- Three Vector3[3] constructor iterators (strideC,count3,callback402B85): local_box
+  basis796BAE, start_box796C47, end_box796C5C. Prior 'two' shorthand omitted the
+  local_box iterator; it correctly referred only to the two output boxes.
+- Matrix3::Multiply8C3CF0 receives rotation,localbasis,outputbasis twice. It has
+  plain RET at8C3DD6; caller796E68 adds18 after both three-argument calls.
+- Collision75FB00 arguments are pushed false,ship_ro,&result,&dir1M,&end_box,
+  &start_box before MainView slot64. RET18 at75FE83 and760041 agrees with six
+  arguments. Guessed to/from parameter names cannot overturn these producer
+  addresses. The collision body is itself nonexact; no claim of exactness is
+  needed for this raw calling-convention evidence. Exact7998B0 is a separate
+  source/API witness for the same moved,box,delta,&result,object,flag operation.
+- Position virtual slot24 base implementation6F4C20 returns with RET4 at6F4DE8;
+  matrix slot28 base6F4610 returns RET8 at6F4AD9 (hidden buffer plus bool). The
+  returned EAX matrix reference is forwarded to state ctor, not reinterpreted.
+- Exact state ctor718D70 takes time,const Matrix3D&,oldstate; RETC at718E21. At
+  7970B8 oldstate is pushed before matrix construction; after the virtual call,
+  returned EAX and time are pushed for that ctor. Correct actual consumer.
+- Obj_Look_At8C29B0 RETC at8C2BB5; Build_Quaternion8D2710 plain RET8D2846, caller
+  adds8 for hidden result plus input reference. No extra stack argument exists.
+
+Remaining differences are not all interchangeable stack names. Pitch still emits
+FADD1/FMUL30/FMULrad versus retail FMUL30/FADD30/FMULrad. Literal audit confirms
+rad35fa8e3c and all seven final-camera constant references equal retail; it does
+not claim all pitch literals equal. Final camera computes cosine product before
+sine, opposite retail, and Y/X transformed-component products occur Z-before-Y
+where retail uses Y-before-Z. Z output uses Z-before-Y in both. This is an actual
+FP evaluation-order difference, not just the home offsets. Midpoint arithmetic
+and consumer recover storage identity; local-box/scalar homes, two matrix-buffer
+ordering, loop reload/backedge, copy/argument scheduling and five tail GPR rows
+remain. No arbitrary operand commutation, precision barrier, aggregate padding,
+register forcing, unused objects, header edits or broad permutation is warranted.
+
+New best scratch source: direct_midpoint/camctrl_takeoff.cpp. It is rebased into
+half-copy-identity/final-tree, with only inherited camera.h->aabox.h prefix
+substitution needed by previous best. Function796440 and all other bodies/footer
+are unchanged. Source basename, physical assertions and line counts guarded.
+Reproducible full-baseline patch is in stack-audit-forms.txt, plus incremental
+patch relative to priorbest. Root owns tracked stash/attempt recording/commit.
+Application source remains277cb346; HEAD at start ea659ec9, modelgpt-6-astra(high).
+
+
+BEFORE-TEST HYPOTHESIS
+# Before batch1: direct midpoint const-reference argument
+
+Scope: claim244 target796920, HEAD ea659ec9, immutable half-copy-identity/final-tree.
+Model gpt-6-astra (high). Root owns all compilation/native matching. All other
+functions including796440 unchanged; inherited camera.h -> aabox.h include is
+the only prefix exception. Basename, assertions and line counts guarded.
+
+Freshness: read61 retained source inputs from high/xhigh/ultra/focused/astra
+(including controls/duplicates); every one retains named Vector3 mid. Read all
+five durable source stashes; hashes retained in freshness.json. This is one new
+form, not another geometry, operand, matrix lifetime or pitch reassociation form.
+
+Retail fullbody796920..7970F0:537instructions,29calls,2000bytes, returns796976,
+7969AA,7970EF. EBP frame sub220 excludes preceding12bytes of SEH setup; deepest
+local is -22c. Do not infer object identity from sub alone.
+
+Observed retail EBP-a8..a0 stores initialshipposition return, collision dir*1M
+argument and postloopmidpoint argument. Quaternion return uses overlapping
+-ac..a0. Currentbest reuses -78..-70 for initialposition/cast and -7c..-70 for
+quaternion, but named midpoint uses separate -68..-60. Larger box/matrix homes
+are consequently12bytes deeper in currentbest: start_box -16c vsretail-160,
+end_box -1a8 vs-19c, lookat -f0 vs-e4, assigned shipmatrix -238 vs-22c.
+These actual def/use homes motivate replacing named midpoint with the same
+(Unknown24 + Unknown30) * 0.5f expression directly as Obj_Look_At argument.
+Existing matrix3d.h API takes const Vector3&,const Vector3&,float; the temporary
+lasts through the call. Same arithmetic operands and source order, no extra
+side effects, random/trig calls or changed branch/NaN predicates.
+
+Prediction: materialized return temporary reuses existing temp area, eliminating
+separate named midpoint home and potentially restoring sub220. Reject prediction
+if raw homes remain separate, even if a normalized score changes. Preserve all
+consumer identities, FP rounding/literals and15 native pairs. Fulltarget exact
+with gainedpair and zeroloss required adoption. Baseline plus rebased previous
+best control establish currenttree behavior before one direct_midpoint form.
+
+Actual consumers audited: collision arguments pushed false,ship_ro,&result,
+&dir1M,&end_box,&start_box before MainView slot64, preserving actual order.
+State ctor718D70 receives time, shipUnknown28 returnedmatrix reference, oldstate.
+Three Vector3[3] constructor iterators initialize basis of local_box,start_box,
+end_box; prior shorthand 'two' describes only output boxes, not all iterators.
+No invented aggregate or missing object is warranted.
+
+
+FORM direct_midpoint: incremental patch relative to priorbest
+--- priorbest/camctrl_takeoff.cpp
++++ direct_midpoint/camctrl_takeoff.cpp
+@@ -259,9 +259,9 @@
+ 
+ 	float distance = CameraManagerClass::Unknown_79B6B0();
+ 	float angle = Unknown_BDB1C0.Get_Float() * 360.0f; angle *= (WWMATH_PI / 180.0f);
+-	Vector3 mid = (Unknown24 + Unknown30) * 0.5f;
+-
+-	lookat.Obj_Look_At(mid, Unknown30, 0.0f);
++
++
++	lookat.Obj_Look_At((Unknown24 + Unknown30) * 0.5f, Unknown30, 0.0f);
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+ 	Vector3 camera_position = lookat * Vector3(0.0f, c * distance * 1.5f, s * distance * 1.5f); { CameraModule79C8E0Class *module = Unknown0C; module->Position.X = camera_position.X; module->Position.Y = camera_position.Y; module->Position.Z = camera_position.Z; }
+
+REPRODUCIBLE PATCH from immutable current app source277cb346
+--- a/app/client/camctrl_takeoff.cpp
++++ b/app/client/camctrl_takeoff.cpp
+@@ -10,7 +10,7 @@
+ #include "obbox.h"
+ #include "castres.h"
+ #include "scene.h"
+-#include "camera.h"
++#include "aabox.h"
+ #include "matrix3d.h"
+ #include "wwmath.h"
+ #include "..\shared\g_assert.h"
+@@ -220,38 +220,34 @@
+ 	}
+ 
+ 	Unknown24 = ship->Unknown_24();
+-	Unknown30 = Unknown24;
+-	Unknown30.Z += Unknown_BDB1C0.Get_Float() * 500.0f + 100.0f;
++	Unknown30 = Vector3(Unknown24.X, Unknown24.Y, (Unknown_BDB1C0.Get_Float() * 500.0f + 100.0f) + Unknown24.Z);
+ 	Unknown3C = Build_Quaternion(ship->Unknown_28(true));
+ 
+-	for (int i = 0; i <= 10; ++i) {
++	int i = 0; while (true) {
+ 		if (i >= 10) {
+-			Unknown18 = Unknown30;
+-			Unknown18.Z += 5000.0f;
++			Unknown18 = Vector3(Unknown30.X, Unknown30.Y, Unknown30.Z + 5000.0f);
+ 			break;
+ 		}
+-		float pitch = (Unknown_BDB1C0.Get_Float() * 30.0f + 30.0f) * (WWMATH_PI / 180.0f);
++		++i; float pitch = Unknown_BDB1C0.Get_Float() * 30.0f + 30.0f; pitch *= (WWMATH_PI / 180.0f);
+ 		float yaw = (Unknown_BDB1C0.Get_Float() * 315.0f + 45.0f) * (WWMATH_PI / 180.0f);
+-		Matrix3D ship_tm = ship->Unknown_28(true);
+-		float zrot = ship_tm.Get_Z_Rotation();
+-		float c_p = cos(pitch);
+-		float s_p = sin(pitch);
+-		float c_y = cos(zrot + yaw);
+-		float s_y = sin(zrot + yaw);
+-		Vector3 dir(c_y * c_p, s_y * c_p, s_p);
++		yaw += ship->Unknown_28(true).Get_Z_Rotation();
++		float c_p = WWMath::Cos(pitch);
++		float s_p = WWMath::Sin(pitch);
++		Matrix3D rotation(true); rotation.Rotate_Z(yaw);
++		Vector3 dir = rotation * Vector3(c_p, 0.0f, s_p);
+ 		Vector3 offset = dir * 5000.0f;
+ 		Unknown18 = Unknown30 + offset;
+ 
+-		CameraClass *cam = (CameraClass *)Client->MainView->Unknown_7C();
+-		OBBoxClass box = cam->Get_Near_Clip_Bounding_Box();
+-		OBBoxClass moved;
+-		Vector3 delta = Unknown18 - Unknown30;
+-		Matrix3D shift(true);
+-		shift.Set_Translation(delta);
+-		OBBoxClass::Transform(shift, box, &moved);
++		AABoxClass model_box; ship_ro->Get_Obj_Space_Bounding_Box(model_box); // NAME 2: 0x796b98
++		OBBoxClass local_box(Vector3(0.0f, 0.0f, 0.0f), model_box.Extent); // NAME 2: identity basis and model box, 0x796bd8
++		OBBoxClass start_box, end_box; // NAME 2: 0x796da1 and 0x796e42
++		rotation.Make_Identity(); rotation = ship->Unknown_28(true); // NAME 2: 0x796cc2
++		rotation.Set_Translation(Unknown30);
++		OBBoxClass::Transform(rotation, local_box, &start_box);
++		rotation.Set_Translation(Unknown18);
++		OBBoxClass::Transform(rotation, local_box, &end_box);
+ 		CastResultStruct result;
+-		MainViewSceneClass *scene = (MainViewSceneClass *)Client->MainView->Unknown_64();
+-		scene->Unknown_75FB00(moved, box, delta, &result, ship_ro, false);
++		((MainViewSceneClass *)Client->MainView->Unknown_64())->Unknown_75FB00(start_box, end_box, dir * 1000000.0f, &result, ship_ro, false);
+ 		if (result.Fraction >= 1.0f) {
+ 			break;
+ 		}
+@@ -262,13 +258,13 @@
+ 	Unknown4C = Build_Quaternion(lookat);
+ 
+ 	float distance = CameraManagerClass::Unknown_79B6B0();
+-	float angle = Unknown_BDB1C0.Get_Float() * 360.0f * (WWMATH_PI / 180.0f);
+-	Vector3 mid = (Unknown24 + Unknown30) * 0.5f;
+-	Matrix3D mid_lookat;
+-	mid_lookat.Obj_Look_At(mid, Unknown30, 0.0f);
+-	float s = sin(angle);
+-	float c = cos(angle);
+-	Unknown0C->Position = mid_lookat * Vector3(0.0f, c * 1.5f * distance, s * 1.5f * distance);
++	float angle = Unknown_BDB1C0.Get_Float() * 360.0f; angle *= (WWMATH_PI / 180.0f);
++
++
++	lookat.Obj_Look_At((Unknown24 + Unknown30) * 0.5f, Unknown30, 0.0f);
++	float s = WWMath::Sin(angle);
++	float c = WWMath::Cos(angle);
++	Vector3 camera_position = lookat * Vector3(0.0f, c * distance * 1.5f, s * distance * 1.5f); { CameraModule79C8E0Class *module = Unknown0C; module->Position.X = camera_position.X; module->Position.Y = camera_position.Y; module->Position.Z = camera_position.Z; }
+ 	Unknown0C->Unknown14 = true;
+ 	Unknown0C->Unknown18 = Client->AvatarID;
+ 	Unknown0C->Unknown_04();
+
+SOURCE SHA256
+baseline b4a80f59ba320954ed5e074dd77ada745a53a4c22d734b09cb1bdc73d5a6e062
+best_control 7ac74b57648738f422dc849e534afb3bbf0b581e6a4f01d77eb17bfcbc1c50df
+direct_midpoint a655b9138a5fadddbf1c567ec2dc347a3663acc2c1c270f751a848f1883502af
+
+RAW CALLEE CLEANUP
+[
+  {
+    "start": "0x75fb00",
+    "end": "0x7601b0",
+    "returns": [
+      "0075FE83 ret 0x18",
+      "00760041 ret 0x18"
+    ],
+    "tail": [
+      "007601A4 int3 ",
+      "007601A5 int3 ",
+      "007601A6 int3 ",
+      "007601A7 int3 ",
+      "007601A8 int3 ",
+      "007601A9 int3 ",
+      "007601AA int3 ",
+      "007601AB int3 ",
+      "007601AC int3 ",
+      "007601AD int3 ",
+      "007601AE int3 ",
+      "007601AF int3 "
+    ]
+  },
+  {
+    "start": "0x718d70",
+    "end": "0x718e60",
+    "returns": [
+      "00718E21 ret 0xc"
+    ],
+    "tail": [
+      "00718E54 int3 ",
+      "00718E55 int3 ",
+      "00718E56 int3 ",
+      "00718E57 int3 ",
+      "00718E58 int3 ",
+      "00718E59 int3 ",
+      "00718E5A int3 ",
+      "00718E5B int3 ",
+      "00718E5C int3 ",
+      "00718E5D int3 ",
+      "00718E5E int3 ",
+      "00718E5F int3 "
+    ]
+  },
+  {
+    "start": "0x8c3cf0",
+    "end": "0x8c3de0",
+    "returns": [
+      "008C3DD6 ret "
+    ],
+    "tail": [
+      "008C3DD1 faddp st(1)",
+      "008C3DD3 fstp dword ptr [edx + 0x20]",
+      "008C3DD6 ret ",
+      "008C3DD7 nop ",
+      "008C3DD8 nop ",
+      "008C3DD9 nop ",
+      "008C3DDA nop ",
+      "008C3DDB nop ",
+      "008C3DDC nop ",
+      "008C3DDD nop ",
+      "008C3DDE nop ",
+      "008C3DDF nop "
+    ]
+  },
+  {
+    "start": "0x8d2710",
+    "end": "0x8d2850",
+    "returns": [
+      "008D2846 ret "
+    ],
+    "tail": [
+      "008D2840 mov dword ptr [ecx + 0xc], edx",
+      "008D2843 add esp, 0x10",
+      "008D2846 ret ",
+      "008D2847 nop ",
+      "008D2848 nop ",
+      "008D2849 nop ",
+      "008D284A nop ",
+      "008D284B nop ",
+      "008D284C nop ",
+      "008D284D nop ",
+      "008D284E nop ",
+      "008D284F nop "
+    ]
+  },
+  {
+    "start": "0x8c29b0",
+    "end": "0x8c2bc0",
+    "returns": [
+      "008C2BB5 ret 0xc"
+    ],
+    "tail": [
+      "008C2BAB fstp st(0)",
+      "008C2BAD call 0x409d72",
+      "008C2BB2 add esp, 8",
+      "008C2BB5 ret 0xc",
+      "008C2BB8 nop ",
+      "008C2BB9 nop ",
+      "008C2BBA nop ",
+      "008C2BBB nop ",
+      "008C2BBC nop ",
+      "008C2BBD nop ",
+      "008C2BBE nop ",
+      "008C2BBF nop "
+    ]
+  },
+  {
+    "start": "0x6f4610",
+    "end": "0x6f4c20",
+    "returns": [
+      "006F4AD9 ret 8"
+    ],
+    "tail": [
+      "006F4C14 int3 ",
+      "006F4C15 int3 ",
+      "006F4C16 int3 ",
+      "006F4C17 int3 ",
+      "006F4C18 int3 ",
+      "006F4C19 int3 ",
+      "006F4C1A int3 ",
+      "006F4C1B int3 ",
+      "006F4C1C int3 ",
+      "006F4C1D int3 ",
+      "006F4C1E int3 ",
+      "006F4C1F int3 "
+    ]
+  },
+  {
+    "start": "0x6f4c20",
+    "end": "0x6f4e70",
+    "returns": [
+      "006F4DE8 ret 4"
+    ],
+    "tail": [
+      "006F4E64 int3 ",
+      "006F4E65 int3 ",
+      "006F4E66 int3 ",
+      "006F4E67 int3 ",
+      "006F4E68 int3 ",
+      "006F4E69 int3 ",
+      "006F4E6A int3 ",
+      "006F4E6B int3 ",
+      "006F4E6C int3 ",
+      "006F4E6D int3 ",
+      "006F4E6E int3 ",
+      "006F4E6F int3 "
+    ]
+  }
+]

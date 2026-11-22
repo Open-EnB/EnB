@@ -1,0 +1,119 @@
+FORM distance_api
+--- 64644f39/unknown_7979a0.cpp
++++ distance_api/unknown_7979a0.cpp
+@@ -226,7 +226,7 @@
+ 	float angle;
+ 	if (dest) {
+ 		Vector3 pos = tm.Get_Translation();
+-		dist = (dest->Unknown_24() - pos).Length();
++		dist = Vector3::Distance(dest->Unknown_24(), pos);
+ 	}
+ 	angle = (Unknown_BDB1C0.Get_Float() - 0.5f) * 0.62831855f;
+ 	if (Unknown_BDB1C0(0, 1)) {
+
+FORM set_api
+--- 64644f39/unknown_7979a0.cpp
++++ set_api/unknown_7979a0.cpp
+@@ -234,7 +234,7 @@
+ 	}
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 offset(dist * 0.75f, c * range, s * range);
++	Vector3 offset; offset.Set(dist * 0.75f, c * range, s * range);
+ 	offset.Y *= 2.0f;
+ 	offset.Z *= 2.0f;
+ 	Matrix3D frame = Unknown_82ECB0(tm.Get_X_Vector(), tm.Get_Translation());
+
+FORM distance_direct_translation
+--- 64644f39/unknown_7979a0.cpp
++++ distance_direct_translation/unknown_7979a0.cpp
+@@ -225,8 +225,8 @@
+ 	float dist = 1000.0f;
+ 	float angle;
+ 	if (dest) {
+-		Vector3 pos = tm.Get_Translation();
+-		dist = (dest->Unknown_24() - pos).Length();
++		dist = Vector3::Distance(dest->Unknown_24(), tm.Get_Translation());
++
+ 	}
+ 	angle = (Unknown_BDB1C0.Get_Float() - 0.5f) * 0.62831855f;
+ 	if (Unknown_BDB1C0(0, 1)) {
+
+FORM length_direct_translation
+--- 64644f39/unknown_7979a0.cpp
++++ length_direct_translation/unknown_7979a0.cpp
+@@ -225,8 +225,8 @@
+ 	float dist = 1000.0f;
+ 	float angle;
+ 	if (dest) {
+-		Vector3 pos = tm.Get_Translation();
+-		dist = (dest->Unknown_24() - pos).Length();
++		dist = (dest->Unknown_24() - tm.Get_Translation()).Length();
++
+ 	}
+ 	angle = (Unknown_BDB1C0.Get_Float() - 0.5f) * 0.62831855f;
+ 	if (Unknown_BDB1C0(0, 1)) {
+
+FORM indexed_offset
+--- 64644f39/unknown_7979a0.cpp
++++ indexed_offset/unknown_7979a0.cpp
+@@ -235,8 +235,8 @@
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+ 	Vector3 offset(dist * 0.75f, c * range, s * range);
+-	offset.Y *= 2.0f;
+-	offset.Z *= 2.0f;
++	offset[1] *= 2.0f;
++	offset[2] *= 2.0f;
+ 	Matrix3D frame = Unknown_82ECB0(tm.Get_X_Vector(), tm.Get_Translation());
+ 	((CameraModule79C8E0Class *)Unknown0C)->Position = frame * offset;
+ 	((CameraModule79C8E0Class *)Unknown0C)->Unknown14 = true;
+
+FORM scale_api
+--- 64644f39/unknown_7979a0.cpp
++++ scale_api/unknown_7979a0.cpp
+@@ -235,8 +235,8 @@
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+ 	Vector3 offset(dist * 0.75f, c * range, s * range);
+-	offset.Y *= 2.0f;
+-	offset.Z *= 2.0f;
++	offset.Scale(Vector3(1.0f, 2.0f, 2.0f));
++
+ 	Matrix3D frame = Unknown_82ECB0(tm.Get_X_Vector(), tm.Get_Translation());
+ 	((CameraModule79C8E0Class *)Unknown0C)->Position = frame * offset;
+ 	((CameraModule79C8E0Class *)Unknown0C)->Unknown14 = true;
+
+CONFIRMATION winner
+--- 64644f39/unknown_7979a0.cpp
++++ winner/unknown_7979a0.cpp
+@@ -215,7 +215,7 @@
+ 	Unknown0C->Unknown_04();
+ }
+ 
+-// NOT EXACT: 0x798570 (the frame's size is the client's; the angle and the offset swap frame slots (the client: the offset at ebp-0xC, the angle at ebp-0x10), the products' operand order follows them, and the client stores Y and Z before doubling them)
++
+ // 0x798570
+ void CameraController02Class::Unknown_798570()
+ {
+@@ -235,8 +235,8 @@
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+ 	Vector3 offset(dist * 0.75f, c * range, s * range);
+-	offset.Y *= 2.0f;
+-	offset.Z *= 2.0f;
++	offset.Scale(Vector3(1.0f, 2.0f, 2.0f));
++
+ 	Matrix3D frame = Unknown_82ECB0(tm.Get_X_Vector(), tm.Get_Translation());
+ 	((CameraModule79C8E0Class *)Unknown0C)->Position = frame * offset;
+ 	((CameraModule79C8E0Class *)Unknown0C)->Unknown14 = true;
+@@ -282,6 +282,6 @@
+ ** The object 0x7979A0-0x798ACF: after camctrl_tractor.cpp's (its <string> initialiser 0x797970), ending with its own at
+ ** 0x798AB0. No __FILE__ or assert: the name is PROVISIONAL (D137). In the slot +0x08 0x797B50 phase 1 has its own copy
+ ** of phase 3's body (the client keeps one copy, after phase 2's: its jump table sends 1 and 3 to 0x797BDC / 0x797BEB). The module's
+-** placements 0x7981B0 / 0x798570 / 0x7987F0 (Random4Class 0xBDB1C0 and 0x82ECB0) NOT EXACT: WWMath::Sin / Cos (their retval slots
+-** are in the client's frames), the matrix * vector operator and the module's members through Unknown0C are the client's (P2).
++** placements 0x7981B0 / 0x7987F0 remain NOT EXACT; WWMath::Sin / Cos, matrix * vector and member reloads follow the client (P2).
++** 0x798570 exact: Vector3::Scale(Vector3(1,2,2)) preserves Y/Z product stores, angle/offset slots and the matrix load order.
+ */
+

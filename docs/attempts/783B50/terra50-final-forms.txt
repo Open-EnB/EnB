@@ -1,0 +1,678 @@
+# Base application source revision aa57c927; frozen tree also includes exact 788900. Apply each seed patch below to that tree, place source at the paths referenced by the replay script, and adjust absolute workspace paths if needed. Replay iterates the exact metadata below, ignoring scratch-history membership.
+
+# Source seed patches against frozen current tree; generator uses listed original seed paths.
+
+--- frozen/avatar.cpp
++++ seed_control/avatar.cpp
+@@ -2493,7 +2493,7 @@
+ 					speed = 0.0f;
+ 				}
+ 				Unknown308 = speed;
+-			} else {
++			} else if (Unknown308 < 0.0f) {
+ 				float speed = accel + Unknown308;
+ 				if (0.0f < speed) {
+ 					speed = 0.0f;
+
+--- frozen/avatar.cpp
++++ forward_min/avatar.cpp
+@@ -2459,13 +2459,13 @@
+ 			if (Unknown20C == 1) {
+ 				float speed = accel + Unknown308;
+ 				if (Unknown2F4) {
+-					if (run_max < speed) {
+-						speed = run_max;
+-					}
++					speed = WWMath::Min(run_max, speed);
++
++
+ 				} else {
+-					if (walk_max < speed) {
+-						speed = walk_max;
+-					}
++					speed = WWMath::Min(walk_max, speed);
++
++
+ 				}
+ 				Unknown308 = speed;
+ 				Unknown360 = (Unknown330.Get_X_Vector() * Unknown308) * time;
+@@ -2493,7 +2493,7 @@
+ 					speed = 0.0f;
+ 				}
+ 				Unknown308 = speed;
+-			} else {
++			} else if (Unknown308 < 0.0f) {
+ 				float speed = accel + Unknown308;
+ 				if (0.0f < speed) {
+ 					speed = 0.0f;
+
+--- frozen/avatar.cpp
++++ forward_branch_store/avatar.cpp
+@@ -2461,13 +2461,13 @@
+ 				if (Unknown2F4) {
+ 					if (run_max < speed) {
+ 						speed = run_max;
+-					}
++					} Unknown308 = speed;
+ 				} else {
+ 					if (walk_max < speed) {
+ 						speed = walk_max;
+-					}
++					} Unknown308 = speed;
+ 				}
+-				Unknown308 = speed;
++
+ 				Unknown360 = (Unknown330.Get_X_Vector() * Unknown308) * time;
+ 				Unknown330.Adjust_Translation(Unknown360);
+ 			}
+@@ -2493,7 +2493,7 @@
+ 					speed = 0.0f;
+ 				}
+ 				Unknown308 = speed;
+-			} else {
++			} else if (Unknown308 < 0.0f) {
+ 				float speed = accel + Unknown308;
+ 				if (0.0f < speed) {
+ 					speed = 0.0f;
+
+
+# Exact selected form metadata
+{
+  "historical_distinct_bodies": 7,
+  "forms": [
+    {
+      "name": "v01",
+      "forward_clamp_seed": "forward_min",
+      "movement_forms": [
+        1,
+        2,
+        1
+      ],
+      "split_scalars": 1,
+      "body_sha256": "346ebd685af209ed76d0aafca75c29f61bf5c0bfd84b1df3abafc50b0f6f0db0"
+    },
+    {
+      "name": "v02",
+      "forward_clamp_seed": "forward_branch_store",
+      "movement_forms": [
+        1,
+        1,
+        2
+      ],
+      "split_scalars": 0,
+      "body_sha256": "602243cb322c6d34fd308be9bf55b732af29897c9dd683df0445eb74d5982ed9"
+    },
+    {
+      "name": "v03",
+      "forward_clamp_seed": "signed_coast",
+      "movement_forms": [
+        0,
+        1,
+        0
+      ],
+      "split_scalars": 0,
+      "body_sha256": "305068b04e34131c2b71b3ad2921645c0ae87b90ea2c42c66e0733821ece2355"
+    },
+    {
+      "name": "v04",
+      "forward_clamp_seed": "signed_coast",
+      "movement_forms": [
+        0,
+        1,
+        2
+      ],
+      "split_scalars": 0,
+      "body_sha256": "83e0e9cd61ac6127cd5e70e8b808a6d99875cc57a375501633bfdba15b959ca2"
+    },
+    {
+      "name": "v05",
+      "forward_clamp_seed": "forward_min",
+      "movement_forms": [
+        1,
+        2,
+        2
+      ],
+      "split_scalars": 1,
+      "body_sha256": "792e69e9ca72238de27571d7fa1949cbe5b011355c4856420c34280af33a57b0"
+    },
+    {
+      "name": "v06",
+      "forward_clamp_seed": "signed_coast",
+      "movement_forms": [
+        0,
+        2,
+        1
+      ],
+      "split_scalars": 0,
+      "body_sha256": "c27bb9c684ad97c94ef59e4b405dffa78db6be7cdddc9fc90d2e0dfbaaaa89d1"
+    },
+    {
+      "name": "v07",
+      "forward_clamp_seed": "forward_branch_store",
+      "movement_forms": [
+        1,
+        1,
+        2
+      ],
+      "split_scalars": 1,
+      "body_sha256": "18cda24cee70926760d1a5bcc6049942f5bf7239b628fba9beee4bd3980a5f48"
+    },
+    {
+      "name": "v08",
+      "forward_clamp_seed": "signed_coast",
+      "movement_forms": [
+        0,
+        1,
+        2
+      ],
+      "split_scalars": 1,
+      "body_sha256": "93223dc90c9d94292d323b79584141b3134490d4ed3472b82d9e824352297930"
+    },
+    {
+      "name": "v09",
+      "forward_clamp_seed": "forward_min",
+      "movement_forms": [
+        1,
+        1,
+        0
+      ],
+      "split_scalars": 0,
+      "body_sha256": "b1faa11bd96368c830406ee41397b86852fed0f675253cfac0e2bb5ee9b7a979"
+    },
+    {
+      "name": "v10",
+      "forward_clamp_seed": "forward_min",
+      "movement_forms": [
+        2,
+        0,
+        1
+      ],
+      "split_scalars": 0,
+      "body_sha256": "62fb110200a9657bf0b1cf5f62c400a04b11796697a74c3f51bf242e3c410724"
+    },
+    {
+      "name": "v11",
+      "forward_clamp_seed": "forward_branch_store",
+      "movement_forms": [
+        2,
+        0,
+        1
+      ],
+      "split_scalars": 0,
+      "body_sha256": "db9426a231aa2c52f6d74696ad47c7537004cf138a361973dc66c6bdf052b925"
+    },
+    {
+      "name": "v12",
+      "forward_clamp_seed": "forward_branch_store",
+      "movement_forms": [
+        1,
+        0,
+        2
+      ],
+      "split_scalars": 0,
+      "body_sha256": "9fe3f9d80110fbfda6f627eb22d4d187fc3995a205be55483d7f70095b957d1c"
+    },
+    {
+      "name": "v13",
+      "forward_clamp_seed": "forward_min",
+      "movement_forms": [
+        2,
+        0,
+        0
+      ],
+      "split_scalars": 0,
+      "body_sha256": "a1807a6dcc1bba42007c14b8b3db96df26273a9e9a8d54ddca136c561539701a"
+    },
+    {
+      "name": "v14",
+      "forward_clamp_seed": "forward_branch_store",
+      "movement_forms": [
+        0,
+        0,
+        2
+      ],
+      "split_scalars": 0,
+      "body_sha256": "4e2d117619738211b53d811192c68b6479a0fe5bc2b2c2beaeba05536f66ebc1"
+    },
+    {
+      "name": "v15",
+      "forward_clamp_seed": "forward_min",
+      "movement_forms": [
+        1,
+        1,
+        1
+      ],
+      "split_scalars": 0,
+      "body_sha256": "5422d37a5d8ff46a10bc65d3d24b2ce1712e8a664b065f286d0cd10767a90281"
+    },
+    {
+      "name": "v16",
+      "forward_clamp_seed": "signed_coast",
+      "movement_forms": [
+        1,
+        2,
+        0
+      ],
+      "split_scalars": 0,
+      "body_sha256": "ebc1ef6f45f953b7ad913c9bb7c044578bcbef9f715ae2db135039b2fae5fa4c"
+    },
+    {
+      "name": "v17",
+      "forward_clamp_seed": "forward_branch_store",
+      "movement_forms": [
+        1,
+        0,
+        2
+      ],
+      "split_scalars": 1,
+      "body_sha256": "3d04f47b9df9172745edaa140d3c0a1bef40ca2ca789c4d374718b3b0005e91d"
+    },
+    {
+      "name": "v18",
+      "forward_clamp_seed": "forward_branch_store",
+      "movement_forms": [
+        1,
+        1,
+        1
+      ],
+      "split_scalars": 0,
+      "body_sha256": "6453b56818affc9691ae7de17671ca7be77de63fe8e7adba2828869565837efe"
+    },
+    {
+      "name": "v19",
+      "forward_clamp_seed": "forward_min",
+      "movement_forms": [
+        0,
+        1,
+        1
+      ],
+      "split_scalars": 1,
+      "body_sha256": "2de1483c67ed030531901343a4b1eaffc77b8e189af8d4130af8c3c0a5b51f60"
+    },
+    {
+      "name": "v20",
+      "forward_clamp_seed": "forward_branch_store",
+      "movement_forms": [
+        2,
+        1,
+        2
+      ],
+      "split_scalars": 1,
+      "body_sha256": "945f64009fb7b7b0c3e208bc54d8b235ea3b289b6c14e8d0ebd3be8004eb1d98"
+    },
+    {
+      "name": "v21",
+      "forward_clamp_seed": "forward_min",
+      "movement_forms": [
+        1,
+        0,
+        1
+      ],
+      "split_scalars": 1,
+      "body_sha256": "e772425e9f2e88ca5b358ed22b1340e52534f41081bef3d3ed43fc703142bbbb"
+    },
+    {
+      "name": "v22",
+      "forward_clamp_seed": "forward_branch_store",
+      "movement_forms": [
+        1,
+        1,
+        0
+      ],
+      "split_scalars": 1,
+      "body_sha256": "ae62db2ce19be0f0fbdd903243cfcda42cdd77b0094382218593d72c1c5ddfce"
+    },
+    {
+      "name": "v23",
+      "forward_clamp_seed": "signed_coast",
+      "movement_forms": [
+        1,
+        0,
+        2
+      ],
+      "split_scalars": 0,
+      "body_sha256": "e6cfbabe7c40b2fe657dc51d8805676af48765b2bff9887096c0c5392d6c8670"
+    },
+    {
+      "name": "v24",
+      "forward_clamp_seed": "forward_min",
+      "movement_forms": [
+        2,
+        2,
+        2
+      ],
+      "split_scalars": 0,
+      "body_sha256": "94bee43b3d01522e28629d4c31498206af18ecbad5e27acd61fd827b983f6270"
+    },
+    {
+      "name": "v25",
+      "forward_clamp_seed": "signed_coast",
+      "movement_forms": [
+        0,
+        0,
+        2
+      ],
+      "split_scalars": 0,
+      "body_sha256": "a54dbba78609b423064c018ca2c8c0801e939c12e9f78a1a2c1ac02e11af9107"
+    },
+    {
+      "name": "v26",
+      "forward_clamp_seed": "forward_min",
+      "movement_forms": [
+        1,
+        2,
+        0
+      ],
+      "split_scalars": 1,
+      "body_sha256": "e50cf2370862493e168afafdc5b8066e8f7508b7be4991ba4cbd7415eb0e2117"
+    },
+    {
+      "name": "v27",
+      "forward_clamp_seed": "forward_branch_store",
+      "movement_forms": [
+        1,
+        2,
+        2
+      ],
+      "split_scalars": 1,
+      "body_sha256": "d30673f75cc21759e29312def768a92f2237e30105d9f0539f63a1a29a1e3d9b"
+    },
+    {
+      "name": "v28",
+      "forward_clamp_seed": "signed_coast",
+      "movement_forms": [
+        0,
+        1,
+        1
+      ],
+      "split_scalars": 0,
+      "body_sha256": "2d84f061f8c7911639e8dc7d801864ed52251e1c019da235cf3d2876c9eda229"
+    },
+    {
+      "name": "v29",
+      "forward_clamp_seed": "forward_branch_store",
+      "movement_forms": [
+        0,
+        0,
+        0
+      ],
+      "split_scalars": 1,
+      "body_sha256": "3ab4d58ad29b5c546b91390b8d1b854d2cd49b625fe67e88a676d360515fbf09"
+    },
+    {
+      "name": "v30",
+      "forward_clamp_seed": "forward_min",
+      "movement_forms": [
+        2,
+        1,
+        0
+      ],
+      "split_scalars": 1,
+      "body_sha256": "4d7051e780dfafd017fc0288e377f0d0faa3cb0d0a4d375a286e17d30d6be17e"
+    },
+    {
+      "name": "v31",
+      "forward_clamp_seed": "forward_min",
+      "movement_forms": [
+        1,
+        1,
+        1
+      ],
+      "split_scalars": 1,
+      "body_sha256": "af9e38f19a9391747258705999be76fae5ce3a18deb11eb44e41878dfeb3b3e2"
+    },
+    {
+      "name": "v32",
+      "forward_clamp_seed": "signed_coast",
+      "movement_forms": [
+        0,
+        2,
+        2
+      ],
+      "split_scalars": 1,
+      "body_sha256": "0e9da219d3e417eca009cc2e26efddb586faf5b3aed94b56acaa394f6daf6946"
+    },
+    {
+      "name": "v33",
+      "forward_clamp_seed": "forward_branch_store",
+      "movement_forms": [
+        1,
+        0,
+        1
+      ],
+      "split_scalars": 0,
+      "body_sha256": "277d9c94b01c2b77da4dc3b6f8e3ceb3dd6c54e406e2bfc3d2bb9d9fd54542c2"
+    },
+    {
+      "name": "v34",
+      "forward_clamp_seed": "forward_min",
+      "movement_forms": [
+        2,
+        0,
+        2
+      ],
+      "split_scalars": 0,
+      "body_sha256": "13dbadd4153381710d84ef129ab18506c2dba017c879d68460917104e3923538"
+    },
+    {
+      "name": "v35",
+      "forward_clamp_seed": "forward_min",
+      "movement_forms": [
+        2,
+        0,
+        0
+      ],
+      "split_scalars": 1,
+      "body_sha256": "86c22ee5c0ed4f84050e02d4af770da2830af0ae041f19a2736acdfbb688cbb1"
+    },
+    {
+      "name": "v36",
+      "forward_clamp_seed": "forward_branch_store",
+      "movement_forms": [
+        1,
+        1,
+        0
+      ],
+      "split_scalars": 0,
+      "body_sha256": "c5775fa9dcda5abc188ff5037ec2f8493d48604aed48dc4793cb645d564b2ab1"
+    },
+    {
+      "name": "v37",
+      "forward_clamp_seed": "forward_min",
+      "movement_forms": [
+        2,
+        1,
+        2
+      ],
+      "split_scalars": 1,
+      "body_sha256": "e86905ab3e42b60cbbe6d86d7895cd6df052d0fc4c322d6264b483d691b7e330"
+    },
+    {
+      "name": "v38",
+      "forward_clamp_seed": "signed_coast",
+      "movement_forms": [
+        1,
+        1,
+        2
+      ],
+      "split_scalars": 1,
+      "body_sha256": "1ceff8b9c4891191cd89c569bdb97e41b932a2d44a245e2e00c5eebb5fe5a87b"
+    },
+    {
+      "name": "v39",
+      "forward_clamp_seed": "forward_min",
+      "movement_forms": [
+        1,
+        0,
+        1
+      ],
+      "split_scalars": 0,
+      "body_sha256": "865106bb36498f6f10af5932accc83d12b8281a2057657d8a9a115062faa256f"
+    },
+    {
+      "name": "v40",
+      "forward_clamp_seed": "forward_min",
+      "movement_forms": [
+        1,
+        1,
+        2
+      ],
+      "split_scalars": 1,
+      "body_sha256": "797ead48c67795f282e0858cf23fd79cd58e7e2b73d4d8a1a13d005b1354d128"
+    },
+    {
+      "name": "v41",
+      "forward_clamp_seed": "forward_min",
+      "movement_forms": [
+        2,
+        2,
+        2
+      ],
+      "split_scalars": 1,
+      "body_sha256": "1bed660efaee03cb10f809415b32cafadd27c999d135c7768697d692d8f6e4de"
+    },
+    {
+      "name": "v42",
+      "forward_clamp_seed": "signed_coast",
+      "movement_forms": [
+        1,
+        2,
+        2
+      ],
+      "split_scalars": 0,
+      "body_sha256": "2c68b6d83501cb314b74fbab4fb8d0269ef0e2f55517e89f0399e35338d8c909"
+    },
+    {
+      "name": "v43",
+      "forward_clamp_seed": "signed_coast",
+      "movement_forms": [
+        2,
+        2,
+        2
+      ],
+      "split_scalars": 1,
+      "body_sha256": "af4a517625044636cafbb6d4d0fc75c41e5ce1bb517e6671d2aafc52795f7950"
+    },
+    {
+      "name": "v44",
+      "forward_clamp_seed": "signed_coast",
+      "movement_forms": [
+        2,
+        2,
+        0
+      ],
+      "split_scalars": 1,
+      "body_sha256": "df6ed9415ddc10b3cfae9e9c2ae1e0aa406032c3fa4419a54b494b608b3c4c62"
+    },
+    {
+      "name": "v45",
+      "forward_clamp_seed": "signed_coast",
+      "movement_forms": [
+        2,
+        0,
+        2
+      ],
+      "split_scalars": 1,
+      "body_sha256": "46b9617035211afe6c5ecc091a31854e8435d4df0ea8efd0367fd47dcaf56e8b"
+    },
+    {
+      "name": "v46",
+      "forward_clamp_seed": "signed_coast",
+      "movement_forms": [
+        1,
+        2,
+        0
+      ],
+      "split_scalars": 1,
+      "body_sha256": "db6afedcf185a40756ec3ca3e76be78895cdecfba6d22ff8c66dc23b4ee5a464"
+    },
+    {
+      "name": "v47",
+      "forward_clamp_seed": "signed_coast",
+      "movement_forms": [
+        2,
+        0,
+        0
+      ],
+      "split_scalars": 0,
+      "body_sha256": "aa92670f12cfcdb2129588fbf3f2a7956fa1ca5d03a0bff9b3bfc3b9a90c20a0"
+    },
+    {
+      "name": "v48",
+      "forward_clamp_seed": "signed_coast",
+      "movement_forms": [
+        2,
+        0,
+        2
+      ],
+      "split_scalars": 0,
+      "body_sha256": "916ad2a29a0050fe9e632f9e875b69cdcd2d056cf501c6e8814c72856e78bb35"
+    },
+    {
+      "name": "v49",
+      "forward_clamp_seed": "signed_coast",
+      "movement_forms": [
+        0,
+        1,
+        1
+      ],
+      "split_scalars": 1,
+      "body_sha256": "57956777bda42c2378aef926da82de8c9ddc98a5be721508e59b627fa052e78a"
+    },
+    {
+      "name": "v50",
+      "forward_clamp_seed": "signed_coast",
+      "movement_forms": [
+        1,
+        1,
+        0
+      ],
+      "split_scalars": 1,
+      "body_sha256": "e703c9e7f913b1d9f34144fc14c792961fb987e3fa4450fee2537893ee094285"
+    }
+  ]
+}
+
+# Deterministic replay generator
+from pathlib import Path
+import hashlib,itertools,json,re,random
+root=Path('/home/dev/Projects/EnB'); work=root/'.work/claim-240'; out=work/'terra50-final/783b50_v3'
+tree=work/'788900-operand-provenance/final-tree'; unit=Path('app/client/avatar.cpp'); current=(tree/unit).read_text()
+start='void CharacterViewAvatarClass::Unknown_1C4()'; end='// 0x784700'
+def body(s): return s[s.index(start):s.index(end,s.index(start))]
+def norm(s): return re.sub(r'\s+','',re.sub(r'//[^\n]*','',s))
+base=body(current); focus=work/'focused/783B50'; names=['signed_coast','forward_min','forward_branch_store']; seeds=[body((focus/n/'avatar.cpp').read_text()) for n in names]
+historical=set()
+for directory in [focus]+[p for p in work.iterdir() if p.is_dir() and '783b50' in p.name.lower()]:
+ for p in directory.rglob('avatar.cpp'):
+  try: historical.add(norm(body(p.read_text())))
+  except (ValueError,UnicodeError): pass
+needle='Unknown360 = (Unknown330.Get_X_Vector() * Unknown308) * time;'
+partial='Vector3 movement = Unknown330.Get_X_Vector() * Unknown308; movement *= time; Unknown360 = movement;'
+axis='Vector3 movement = Unknown330.Get_X_Vector(); movement *= Unknown308; movement *= time; Unknown360 = movement;'
+assert all(b.count(needle)==3 for b in seeds)
+variants=[]; index=[]
+def save(name,b):
+ assert b.count('\n')==base.count('\n')
+ p=out/name/'avatar.cpp'; p.parent.mkdir(exist_ok=True); text=current.replace(base,b,1)
+ for n,line in enumerate(current.splitlines(),1):
+  if '__LINE__' in line: assert text.splitlines()[n-1]==line
+ p.write_text(text); variants.append({'name':name,'source':str(p)}); return hashlib.sha256(b.encode()).hexdigest()
+save('baseline',base); save('seed_control',seeds[0])
+combos=list(itertools.product(range(3),range(3),range(3),range(3),range(2)))
+random.Random(783).shuffle(combos); seen=historical|{norm(base)}
+# Exact combinations selected by the original pass; no prior history needed.
+combos = [(1, 1, 2, 1, 1), (2, 1, 1, 2, 0), (0, 0, 1, 0, 0), (0, 0, 1, 2, 0), (1, 1, 2, 2, 1), (0, 0, 2, 1, 0), (2, 1, 1, 2, 1), (0, 0, 1, 2, 1), (1, 1, 1, 0, 0), (1, 2, 0, 1, 0), (2, 2, 0, 1, 0), (2, 1, 0, 2, 0), (1, 2, 0, 0, 0), (2, 0, 0, 2, 0), (1, 1, 1, 1, 0), (0, 1, 2, 0, 0), (2, 1, 0, 2, 1), (2, 1, 1, 1, 0), (1, 0, 1, 1, 1), (2, 2, 1, 2, 1), (1, 1, 0, 1, 1), (2, 1, 1, 0, 1), (0, 1, 0, 2, 0), (1, 2, 2, 2, 0), (0, 0, 0, 2, 0), (1, 1, 2, 0, 1), (2, 1, 2, 2, 1), (0, 0, 1, 1, 0), (2, 0, 0, 0, 1), (1, 2, 1, 0, 1), (1, 1, 1, 1, 1), (0, 0, 2, 2, 1), (2, 1, 0, 1, 0), (1, 2, 0, 2, 0), (1, 2, 0, 0, 1), (2, 1, 1, 0, 0), (1, 2, 1, 2, 1), (0, 1, 1, 2, 1), (1, 1, 0, 1, 0), (1, 1, 1, 2, 1), (1, 2, 2, 2, 1), (0, 1, 2, 2, 0), (0, 2, 2, 2, 1), (0, 2, 2, 0, 1), (0, 2, 0, 2, 1), (0, 1, 2, 0, 1), (0, 2, 0, 0, 0), (0, 2, 0, 2, 0), (0, 0, 1, 1, 1), (0, 1, 1, 0, 1)]
+seen = set()
+for sm,fwd,rev,coast,split in combos:
+ b=seeds[sm]; parts=b.split(needle); assert len(parts)==4
+ b=parts[0]+(needle,partial,axis)[fwd]+parts[1]+(needle,partial,axis)[rev]+parts[2]+(needle,partial,axis)[coast]+parts[3]
+ if split: b=b.replace('float accel = accel_rate * time;','float accel; accel = accel_rate * time;').replace('float turn = turn_rate * time;','float turn; turn = turn_rate * time;')
+ key=norm(b)
+ if key in seen: continue
+ seen.add(key); name='v%02d'%(len(index)+1)
+ index.append({'name':name,'forward_clamp_seed':names[sm],'movement_forms':[fwd,rev,coast],'split_scalars':split,'body_sha256':save(name,b)})
+ if len(index)==50: break
+assert len(index)==50
+(out/'packet.json').write_text(json.dumps({'unit':str(unit),'target':'0x783B50','tree':str(tree),'variants':variants},indent=2)+'\n')
+(out/'forms.json').write_text(json.dumps({'historical_distinct_bodies':len(historical),'forms':index},indent=2)+'\n')

@@ -1,0 +1,866 @@
+FORM client_geometry
+--- 64644f39/app/client/camctrl_takeoff.cpp
++++ client_geometry/app/client/camctrl_takeoff.cpp
+@@ -10,7 +10,7 @@
+ #include "obbox.h"
+ #include "castres.h"
+ #include "scene.h"
+-#include "camera.h"
++#include "aabox.h"
+ #include "matrix3d.h"
+ #include "wwmath.h"
+ #include "..\shared\g_assert.h"
+@@ -220,38 +220,36 @@
+ 	}
+ 
+ 	Unknown24 = ship->Unknown_24();
+-	Unknown30 = Unknown24;
+-	Unknown30.Z += Unknown_BDB1C0.Get_Float() * 500.0f + 100.0f;
++	Unknown30 = Vector3(Unknown24.X, Unknown24.Y, Unknown24.Z + Unknown_BDB1C0.Get_Float() * 500.0f + 100.0f);
+ 	Unknown3C = Build_Quaternion(ship->Unknown_28(true));
+ 
+-	for (int i = 0; i <= 10; ++i) {
++	for (int i = 0; ; ) {
+ 		if (i >= 10) {
+ 			Unknown18 = Unknown30;
+ 			Unknown18.Z += 5000.0f;
+ 			break;
+ 		}
+-		float pitch = (Unknown_BDB1C0.Get_Float() * 30.0f + 30.0f) * (WWMATH_PI / 180.0f);
++		++i; float pitch = (Unknown_BDB1C0.Get_Float() * 30.0f + 30.0f) * (WWMATH_PI / 180.0f);
+ 		float yaw = (Unknown_BDB1C0.Get_Float() * 315.0f + 45.0f) * (WWMATH_PI / 180.0f);
+-		Matrix3D ship_tm = ship->Unknown_28(true);
+-		float zrot = ship_tm.Get_Z_Rotation();
+-		float c_p = cos(pitch);
+-		float s_p = sin(pitch);
+-		float c_y = cos(zrot + yaw);
+-		float s_y = sin(zrot + yaw);
+-		Vector3 dir(c_y * c_p, s_y * c_p, s_p);
++		float zrot = ship->Unknown_28(true).Get_Z_Rotation();
++		float c_p = WWMath::Cos(pitch);
++		float s_p = WWMath::Sin(pitch);
++		Matrix3D rotation(true); rotation.Rotate_Z(zrot + yaw);
++		Vector3 dir = rotation * Vector3(c_p, 0.0f, s_p);
+ 		Vector3 offset = dir * 5000.0f;
+ 		Unknown18 = Unknown30 + offset;
+ 
+-		CameraClass *cam = (CameraClass *)Client->MainView->Unknown_7C();
+-		OBBoxClass box = cam->Get_Near_Clip_Bounding_Box();
+-		OBBoxClass moved;
+-		Vector3 delta = Unknown18 - Unknown30;
+-		Matrix3D shift(true);
+-		shift.Set_Translation(delta);
+-		OBBoxClass::Transform(shift, box, &moved);
++		AABoxClass model_box; ship_ro->Get_Obj_Space_Bounding_Box(model_box); // NAME 2: 0x796b98
++		OBBoxClass local_box(Vector3(0.0f, 0.0f, 0.0f), model_box.Extent); // NAME 2: identity basis and model box, 0x796bd8
++		OBBoxClass start_box, end_box; // NAME 2: 0x796da1 and 0x796e42
++		Matrix3D box_tm(true); box_tm = ship->Unknown_28(true); // NAME 2: 0x796cc2
++		box_tm.Set_Translation(Unknown30);
++		OBBoxClass::Transform(box_tm, local_box, &start_box);
++		box_tm.Set_Translation(Unknown18);
++		OBBoxClass::Transform(box_tm, local_box, &end_box);
+ 		CastResultStruct result;
+ 		MainViewSceneClass *scene = (MainViewSceneClass *)Client->MainView->Unknown_64();
+-		scene->Unknown_75FB00(moved, box, delta, &result, ship_ro, false);
++		scene->Unknown_75FB00(start_box, end_box, dir * 1000000.0f, &result, ship_ro, false);
+ 		if (result.Fraction >= 1.0f) {
+ 			break;
+ 		}
+@@ -266,8 +264,8 @@
+ 	Vector3 mid = (Unknown24 + Unknown30) * 0.5f;
+ 	Matrix3D mid_lookat;
+ 	mid_lookat.Obj_Look_At(mid, Unknown30, 0.0f);
+-	float s = sin(angle);
+-	float c = cos(angle);
++	float s = WWMath::Sin(angle);
++	float c = WWMath::Cos(angle);
+ 	Unknown0C->Position = mid_lookat * Vector3(0.0f, c * 1.5f * distance, s * 1.5f * distance);
+ 	Unknown0C->Unknown14 = true;
+ 	Unknown0C->Unknown18 = Client->AvatarID;
+
+FORM shared_matrices
+--- 64644f39/app/client/camctrl_takeoff.cpp
++++ shared_matrices/app/client/camctrl_takeoff.cpp
+@@ -10,7 +10,7 @@
+ #include "obbox.h"
+ #include "castres.h"
+ #include "scene.h"
+-#include "camera.h"
++#include "aabox.h"
+ #include "matrix3d.h"
+ #include "wwmath.h"
+ #include "..\shared\g_assert.h"
+@@ -220,38 +220,36 @@
+ 	}
+ 
+ 	Unknown24 = ship->Unknown_24();
+-	Unknown30 = Unknown24;
+-	Unknown30.Z += Unknown_BDB1C0.Get_Float() * 500.0f + 100.0f;
++	Unknown30 = Vector3(Unknown24.X, Unknown24.Y, Unknown24.Z + Unknown_BDB1C0.Get_Float() * 500.0f + 100.0f);
+ 	Unknown3C = Build_Quaternion(ship->Unknown_28(true));
+ 
+-	for (int i = 0; i <= 10; ++i) {
++	for (int i = 0; ; ) {
+ 		if (i >= 10) {
+ 			Unknown18 = Unknown30;
+ 			Unknown18.Z += 5000.0f;
+ 			break;
+ 		}
+-		float pitch = (Unknown_BDB1C0.Get_Float() * 30.0f + 30.0f) * (WWMATH_PI / 180.0f);
++		++i; float pitch = (Unknown_BDB1C0.Get_Float() * 30.0f + 30.0f) * (WWMATH_PI / 180.0f);
+ 		float yaw = (Unknown_BDB1C0.Get_Float() * 315.0f + 45.0f) * (WWMATH_PI / 180.0f);
+-		Matrix3D ship_tm = ship->Unknown_28(true);
+-		float zrot = ship_tm.Get_Z_Rotation();
+-		float c_p = cos(pitch);
+-		float s_p = sin(pitch);
+-		float c_y = cos(zrot + yaw);
+-		float s_y = sin(zrot + yaw);
+-		Vector3 dir(c_y * c_p, s_y * c_p, s_p);
++		float zrot = ship->Unknown_28(true).Get_Z_Rotation();
++		float c_p = WWMath::Cos(pitch);
++		float s_p = WWMath::Sin(pitch);
++		Matrix3D rotation(true); rotation.Rotate_Z(zrot + yaw);
++		Vector3 dir = rotation * Vector3(c_p, 0.0f, s_p);
+ 		Vector3 offset = dir * 5000.0f;
+ 		Unknown18 = Unknown30 + offset;
+ 
+-		CameraClass *cam = (CameraClass *)Client->MainView->Unknown_7C();
+-		OBBoxClass box = cam->Get_Near_Clip_Bounding_Box();
+-		OBBoxClass moved;
+-		Vector3 delta = Unknown18 - Unknown30;
+-		Matrix3D shift(true);
+-		shift.Set_Translation(delta);
+-		OBBoxClass::Transform(shift, box, &moved);
++		AABoxClass model_box; ship_ro->Get_Obj_Space_Bounding_Box(model_box); // NAME 2: 0x796b98
++		OBBoxClass local_box(Vector3(0.0f, 0.0f, 0.0f), model_box.Extent); // NAME 2: identity basis and model box, 0x796bd8
++		OBBoxClass start_box, end_box; // NAME 2: 0x796da1 and 0x796e42
++		rotation.Make_Identity(); rotation = ship->Unknown_28(true); // NAME 2: 0x796cc2
++		rotation.Set_Translation(Unknown30);
++		OBBoxClass::Transform(rotation, local_box, &start_box);
++		rotation.Set_Translation(Unknown18);
++		OBBoxClass::Transform(rotation, local_box, &end_box);
+ 		CastResultStruct result;
+ 		MainViewSceneClass *scene = (MainViewSceneClass *)Client->MainView->Unknown_64();
+-		scene->Unknown_75FB00(moved, box, delta, &result, ship_ro, false);
++		scene->Unknown_75FB00(start_box, end_box, dir * 1000000.0f, &result, ship_ro, false);
+ 		if (result.Fraction >= 1.0f) {
+ 			break;
+ 		}
+@@ -264,11 +262,11 @@
+ 	float distance = CameraManagerClass::Unknown_79B6B0();
+ 	float angle = Unknown_BDB1C0.Get_Float() * 360.0f * (WWMATH_PI / 180.0f);
+ 	Vector3 mid = (Unknown24 + Unknown30) * 0.5f;
+-	Matrix3D mid_lookat;
+-	mid_lookat.Obj_Look_At(mid, Unknown30, 0.0f);
+-	float s = sin(angle);
+-	float c = cos(angle);
+-	Unknown0C->Position = mid_lookat * Vector3(0.0f, c * 1.5f * distance, s * 1.5f * distance);
++
++	lookat.Obj_Look_At(mid, Unknown30, 0.0f);
++	float s = WWMath::Sin(angle);
++	float c = WWMath::Cos(angle);
++	Unknown0C->Position = lookat * Vector3(0.0f, c * 1.5f * distance, s * 1.5f * distance);
+ 	Unknown0C->Unknown14 = true;
+ 	Unknown0C->Unknown18 = Client->AvatarID;
+ 	Unknown0C->Unknown_04();
+
+FORM ultra_cast_only
+--- 64644f39/app/client/camctrl_takeoff.cpp
++++ ultra_cast_only/app/client/camctrl_takeoff.cpp
+@@ -10,7 +10,7 @@
+ #include "obbox.h"
+ #include "castres.h"
+ #include "scene.h"
+-#include "camera.h"
++#include "aabox.h"
+ #include "matrix3d.h"
+ #include "wwmath.h"
+ #include "..\shared\g_assert.h"
+@@ -220,38 +220,36 @@
+ 	}
+ 
+ 	Unknown24 = ship->Unknown_24();
+-	Unknown30 = Unknown24;
+-	Unknown30.Z += Unknown_BDB1C0.Get_Float() * 500.0f + 100.0f;
++	Unknown30 = Vector3(Unknown24.X, Unknown24.Y, Unknown24.Z + Unknown_BDB1C0.Get_Float() * 500.0f + 100.0f);
+ 	Unknown3C = Build_Quaternion(ship->Unknown_28(true));
+ 
+-	for (int i = 0; i <= 10; ++i) {
++	for (int i = 0; ; ) {
+ 		if (i >= 10) {
+ 			Unknown18 = Unknown30;
+ 			Unknown18.Z += 5000.0f;
+ 			break;
+ 		}
+-		float pitch = (Unknown_BDB1C0.Get_Float() * 30.0f + 30.0f) * (WWMATH_PI / 180.0f);
++		++i; float pitch = (Unknown_BDB1C0.Get_Float() * 30.0f + 30.0f) * (WWMATH_PI / 180.0f);
+ 		float yaw = (Unknown_BDB1C0.Get_Float() * 315.0f + 45.0f) * (WWMATH_PI / 180.0f);
+-		Matrix3D ship_tm = ship->Unknown_28(true);
+-		float zrot = ship_tm.Get_Z_Rotation();
++		float zrot = ship->Unknown_28(true).Get_Z_Rotation();
+ 		float c_p = cos(pitch);
+ 		float s_p = sin(pitch);
+-		float c_y = cos(zrot + yaw);
+-		float s_y = sin(zrot + yaw);
+-		Vector3 dir(c_y * c_p, s_y * c_p, s_p);
++		Matrix3D rotation(true); rotation.Rotate_Z(zrot + yaw);
++		Vector3 dir = rotation * Vector3(c_p, 0.0f, s_p);
+ 		Vector3 offset = dir * 5000.0f;
+ 		Unknown18 = Unknown30 + offset;
+ 
+-		CameraClass *cam = (CameraClass *)Client->MainView->Unknown_7C();
+-		OBBoxClass box = cam->Get_Near_Clip_Bounding_Box();
+-		OBBoxClass moved;
+-		Vector3 delta = Unknown18 - Unknown30;
+-		Matrix3D shift(true);
+-		shift.Set_Translation(delta);
+-		OBBoxClass::Transform(shift, box, &moved);
++		AABoxClass model_box; ship_ro->Get_Obj_Space_Bounding_Box(model_box); // NAME 2: 0x796b98
++		OBBoxClass local_box(Vector3(0.0f, 0.0f, 0.0f), model_box.Extent); // NAME 2: identity basis and model box, 0x796bd8
++		OBBoxClass start_box, end_box; // NAME 2: 0x796da1 and 0x796e42
++		Matrix3D box_tm(true); box_tm = ship->Unknown_28(true); // NAME 2: 0x796cc2
++		box_tm.Set_Translation(Unknown30);
++		OBBoxClass::Transform(box_tm, local_box, &start_box);
++		box_tm.Set_Translation(Unknown18);
++		OBBoxClass::Transform(box_tm, local_box, &end_box);
+ 		CastResultStruct result;
+ 		MainViewSceneClass *scene = (MainViewSceneClass *)Client->MainView->Unknown_64();
+-		scene->Unknown_75FB00(moved, box, delta, &result, ship_ro, false);
++		scene->Unknown_75FB00(start_box, end_box, dir * 1000000.0f, &result, ship_ro, false);
+ 		if (result.Fraction >= 1.0f) {
+ 			break;
+ 		}
+
+FORM scalar_dataflow
+--- 64644f39/app/client/camctrl_takeoff.cpp
++++ scalar_dataflow/app/client/camctrl_takeoff.cpp
+@@ -10,7 +10,7 @@
+ #include "obbox.h"
+ #include "castres.h"
+ #include "scene.h"
+-#include "camera.h"
++#include "aabox.h"
+ #include "matrix3d.h"
+ #include "wwmath.h"
+ #include "..\shared\g_assert.h"
+@@ -220,38 +220,35 @@
+ 	}
+ 
+ 	Unknown24 = ship->Unknown_24();
+-	Unknown30 = Unknown24;
+-	Unknown30.Z += Unknown_BDB1C0.Get_Float() * 500.0f + 100.0f;
++	Unknown30 = Vector3(Unknown24.X, Unknown24.Y, (Unknown_BDB1C0.Get_Float() * 500.0f + 100.0f) + Unknown24.Z);
+ 	Unknown3C = Build_Quaternion(ship->Unknown_28(true));
+ 
+-	for (int i = 0; i <= 10; ++i) {
++	for (int i = 0; ; ) {
+ 		if (i >= 10) {
+-			Unknown18 = Unknown30;
+-			Unknown18.Z += 5000.0f;
++			Unknown18 = Vector3(Unknown30.X, Unknown30.Y, Unknown30.Z + 5000.0f);
+ 			break;
+ 		}
+-		float pitch = (Unknown_BDB1C0.Get_Float() * 30.0f + 30.0f) * (WWMATH_PI / 180.0f);
++		++i; float pitch = Unknown_BDB1C0.Get_Float() * 30.0f + 30.0f; pitch *= (WWMATH_PI / 180.0f);
+ 		float yaw = (Unknown_BDB1C0.Get_Float() * 315.0f + 45.0f) * (WWMATH_PI / 180.0f);
+-		Matrix3D ship_tm = ship->Unknown_28(true);
+-		float zrot = ship_tm.Get_Z_Rotation();
+-		float c_p = cos(pitch);
+-		float s_p = sin(pitch);
+-		float c_y = cos(zrot + yaw);
+-		float s_y = sin(zrot + yaw);
+-		Vector3 dir(c_y * c_p, s_y * c_p, s_p);
++		yaw += ship->Unknown_28(true).Get_Z_Rotation();
++		float c_p = WWMath::Cos(pitch);
++		float s_p = WWMath::Sin(pitch);
++		Matrix3D rotation(true); rotation.Rotate_Z(yaw);
++		Vector3 dir = rotation * Vector3(c_p, 0.0f, s_p);
+ 		Vector3 offset = dir * 5000.0f;
+ 		Unknown18 = Unknown30 + offset;
+ 
+-		CameraClass *cam = (CameraClass *)Client->MainView->Unknown_7C();
+-		OBBoxClass box = cam->Get_Near_Clip_Bounding_Box();
+-		OBBoxClass moved;
+-		Vector3 delta = Unknown18 - Unknown30;
+-		Matrix3D shift(true);
+-		shift.Set_Translation(delta);
+-		OBBoxClass::Transform(shift, box, &moved);
++		AABoxClass model_box; ship_ro->Get_Obj_Space_Bounding_Box(model_box); // NAME 2: 0x796b98
++		OBBoxClass local_box(Vector3(0.0f, 0.0f, 0.0f), model_box.Extent); // NAME 2: identity basis and model box, 0x796bd8
++		OBBoxClass start_box, end_box; // NAME 2: 0x796da1 and 0x796e42
++		rotation.Make_Identity(); rotation = ship->Unknown_28(true); // NAME 2: 0x796cc2
++		rotation.Set_Translation(Unknown30);
++		OBBoxClass::Transform(rotation, local_box, &start_box);
++		rotation.Set_Translation(Unknown18);
++		OBBoxClass::Transform(rotation, local_box, &end_box);
+ 		CastResultStruct result;
+ 		MainViewSceneClass *scene = (MainViewSceneClass *)Client->MainView->Unknown_64();
+-		scene->Unknown_75FB00(moved, box, delta, &result, ship_ro, false);
++		scene->Unknown_75FB00(start_box, end_box, dir * 1000000.0f, &result, ship_ro, false);
+ 		if (result.Fraction >= 1.0f) {
+ 			break;
+ 		}
+@@ -262,13 +259,13 @@
+ 	Unknown4C = Build_Quaternion(lookat);
+ 
+ 	float distance = CameraManagerClass::Unknown_79B6B0();
+-	float angle = Unknown_BDB1C0.Get_Float() * 360.0f * (WWMATH_PI / 180.0f);
++	float angle = Unknown_BDB1C0.Get_Float() * 360.0f; angle *= (WWMATH_PI / 180.0f);
+ 	Vector3 mid = (Unknown24 + Unknown30) * 0.5f;
+-	Matrix3D mid_lookat;
+-	mid_lookat.Obj_Look_At(mid, Unknown30, 0.0f);
+-	float s = sin(angle);
+-	float c = cos(angle);
+-	Unknown0C->Position = mid_lookat * Vector3(0.0f, c * 1.5f * distance, s * 1.5f * distance);
++
++	lookat.Obj_Look_At(mid, Unknown30, 0.0f);
++	float s = WWMath::Sin(angle);
++	float c = WWMath::Cos(angle);
++	Unknown0C->Position = lookat * Vector3(0.0f, c * distance * 1.5f, s * distance * 1.5f);
+ 	Unknown0C->Unknown14 = true;
+ 	Unknown0C->Unknown18 = Client->AvatarID;
+ 	Unknown0C->Unknown_04();
+
+FORM chained_receiver
+--- 64644f39/app/client/camctrl_takeoff.cpp
++++ chained_receiver/app/client/camctrl_takeoff.cpp
+@@ -10,7 +10,7 @@
+ #include "obbox.h"
+ #include "castres.h"
+ #include "scene.h"
+-#include "camera.h"
++#include "aabox.h"
+ #include "matrix3d.h"
+ #include "wwmath.h"
+ #include "..\shared\g_assert.h"
+@@ -220,38 +220,35 @@
+ 	}
+ 
+ 	Unknown24 = ship->Unknown_24();
+-	Unknown30 = Unknown24;
+-	Unknown30.Z += Unknown_BDB1C0.Get_Float() * 500.0f + 100.0f;
++	Unknown30 = Vector3(Unknown24.X, Unknown24.Y, Unknown24.Z + Unknown_BDB1C0.Get_Float() * 500.0f + 100.0f);
+ 	Unknown3C = Build_Quaternion(ship->Unknown_28(true));
+ 
+-	for (int i = 0; i <= 10; ++i) {
++	for (int i = 0; ; ) {
+ 		if (i >= 10) {
+ 			Unknown18 = Unknown30;
+ 			Unknown18.Z += 5000.0f;
+ 			break;
+ 		}
+-		float pitch = (Unknown_BDB1C0.Get_Float() * 30.0f + 30.0f) * (WWMATH_PI / 180.0f);
++		++i; float pitch = (Unknown_BDB1C0.Get_Float() * 30.0f + 30.0f) * (WWMATH_PI / 180.0f);
+ 		float yaw = (Unknown_BDB1C0.Get_Float() * 315.0f + 45.0f) * (WWMATH_PI / 180.0f);
+-		Matrix3D ship_tm = ship->Unknown_28(true);
+-		float zrot = ship_tm.Get_Z_Rotation();
+-		float c_p = cos(pitch);
+-		float s_p = sin(pitch);
+-		float c_y = cos(zrot + yaw);
+-		float s_y = sin(zrot + yaw);
+-		Vector3 dir(c_y * c_p, s_y * c_p, s_p);
++		float zrot = ship->Unknown_28(true).Get_Z_Rotation();
++		float c_p = WWMath::Cos(pitch);
++		float s_p = WWMath::Sin(pitch);
++		Matrix3D rotation(true); rotation.Rotate_Z(zrot + yaw);
++		Vector3 dir = rotation * Vector3(c_p, 0.0f, s_p);
+ 		Vector3 offset = dir * 5000.0f;
+ 		Unknown18 = Unknown30 + offset;
+ 
+-		CameraClass *cam = (CameraClass *)Client->MainView->Unknown_7C();
+-		OBBoxClass box = cam->Get_Near_Clip_Bounding_Box();
+-		OBBoxClass moved;
+-		Vector3 delta = Unknown18 - Unknown30;
+-		Matrix3D shift(true);
+-		shift.Set_Translation(delta);
+-		OBBoxClass::Transform(shift, box, &moved);
++		AABoxClass model_box; ship_ro->Get_Obj_Space_Bounding_Box(model_box); // NAME 2: 0x796b98
++		OBBoxClass local_box(Vector3(0.0f, 0.0f, 0.0f), model_box.Extent); // NAME 2: identity basis and model box, 0x796bd8
++		OBBoxClass start_box, end_box; // NAME 2: 0x796da1 and 0x796e42
++		rotation.Make_Identity(); rotation = ship->Unknown_28(true); // NAME 2: 0x796cc2
++		rotation.Set_Translation(Unknown30);
++		OBBoxClass::Transform(rotation, local_box, &start_box);
++		rotation.Set_Translation(Unknown18);
++		OBBoxClass::Transform(rotation, local_box, &end_box);
+ 		CastResultStruct result;
+-		MainViewSceneClass *scene = (MainViewSceneClass *)Client->MainView->Unknown_64();
+-		scene->Unknown_75FB00(moved, box, delta, &result, ship_ro, false);
++		((MainViewSceneClass *)Client->MainView->Unknown_64())->Unknown_75FB00(start_box, end_box, dir * 1000000.0f, &result, ship_ro, false);
+ 		if (result.Fraction >= 1.0f) {
+ 			break;
+ 		}
+@@ -264,11 +261,11 @@
+ 	float distance = CameraManagerClass::Unknown_79B6B0();
+ 	float angle = Unknown_BDB1C0.Get_Float() * 360.0f * (WWMATH_PI / 180.0f);
+ 	Vector3 mid = (Unknown24 + Unknown30) * 0.5f;
+-	Matrix3D mid_lookat;
+-	mid_lookat.Obj_Look_At(mid, Unknown30, 0.0f);
+-	float s = sin(angle);
+-	float c = cos(angle);
+-	Unknown0C->Position = mid_lookat * Vector3(0.0f, c * 1.5f * distance, s * 1.5f * distance);
++
++	lookat.Obj_Look_At(mid, Unknown30, 0.0f);
++	float s = WWMath::Sin(angle);
++	float c = WWMath::Cos(angle);
++	Unknown0C->Position = lookat * Vector3(0.0f, c * 1.5f * distance, s * 1.5f * distance);
+ 	Unknown0C->Unknown14 = true;
+ 	Unknown0C->Unknown18 = Client->AvatarID;
+ 	Unknown0C->Unknown_04();
+
+FORM coherent_flow
+--- 64644f39/app/client/camctrl_takeoff.cpp
++++ coherent_flow/app/client/camctrl_takeoff.cpp
+@@ -10,7 +10,7 @@
+ #include "obbox.h"
+ #include "castres.h"
+ #include "scene.h"
+-#include "camera.h"
++#include "aabox.h"
+ #include "matrix3d.h"
+ #include "wwmath.h"
+ #include "..\shared\g_assert.h"
+@@ -220,38 +220,34 @@
+ 	}
+ 
+ 	Unknown24 = ship->Unknown_24();
+-	Unknown30 = Unknown24;
+-	Unknown30.Z += Unknown_BDB1C0.Get_Float() * 500.0f + 100.0f;
++	Unknown30 = Vector3(Unknown24.X, Unknown24.Y, (Unknown_BDB1C0.Get_Float() * 500.0f + 100.0f) + Unknown24.Z);
+ 	Unknown3C = Build_Quaternion(ship->Unknown_28(true));
+ 
+-	for (int i = 0; i <= 10; ++i) {
++	for (int i = 0; ; ) {
+ 		if (i >= 10) {
+-			Unknown18 = Unknown30;
+-			Unknown18.Z += 5000.0f;
++			Unknown18 = Vector3(Unknown30.X, Unknown30.Y, Unknown30.Z + 5000.0f);
+ 			break;
+ 		}
+-		float pitch = (Unknown_BDB1C0.Get_Float() * 30.0f + 30.0f) * (WWMATH_PI / 180.0f);
++		++i; float pitch = Unknown_BDB1C0.Get_Float() * 30.0f + 30.0f; pitch *= (WWMATH_PI / 180.0f);
+ 		float yaw = (Unknown_BDB1C0.Get_Float() * 315.0f + 45.0f) * (WWMATH_PI / 180.0f);
+-		Matrix3D ship_tm = ship->Unknown_28(true);
+-		float zrot = ship_tm.Get_Z_Rotation();
+-		float c_p = cos(pitch);
+-		float s_p = sin(pitch);
+-		float c_y = cos(zrot + yaw);
+-		float s_y = sin(zrot + yaw);
+-		Vector3 dir(c_y * c_p, s_y * c_p, s_p);
++		yaw += ship->Unknown_28(true).Get_Z_Rotation();
++		float c_p = WWMath::Cos(pitch);
++		float s_p = WWMath::Sin(pitch);
++		Matrix3D rotation(true); rotation.Rotate_Z(yaw);
++		Vector3 dir = rotation * Vector3(c_p, 0.0f, s_p);
+ 		Vector3 offset = dir * 5000.0f;
+ 		Unknown18 = Unknown30 + offset;
+ 
+-		CameraClass *cam = (CameraClass *)Client->MainView->Unknown_7C();
+-		OBBoxClass box = cam->Get_Near_Clip_Bounding_Box();
+-		OBBoxClass moved;
+-		Vector3 delta = Unknown18 - Unknown30;
+-		Matrix3D shift(true);
+-		shift.Set_Translation(delta);
+-		OBBoxClass::Transform(shift, box, &moved);
++		AABoxClass model_box; ship_ro->Get_Obj_Space_Bounding_Box(model_box); // NAME 2: 0x796b98
++		OBBoxClass local_box(Vector3(0.0f, 0.0f, 0.0f), model_box.Extent); // NAME 2: identity basis and model box, 0x796bd8
++		OBBoxClass start_box, end_box; // NAME 2: 0x796da1 and 0x796e42
++		rotation.Make_Identity(); rotation = ship->Unknown_28(true); // NAME 2: 0x796cc2
++		rotation.Set_Translation(Unknown30);
++		OBBoxClass::Transform(rotation, local_box, &start_box);
++		rotation.Set_Translation(Unknown18);
++		OBBoxClass::Transform(rotation, local_box, &end_box);
+ 		CastResultStruct result;
+-		MainViewSceneClass *scene = (MainViewSceneClass *)Client->MainView->Unknown_64();
+-		scene->Unknown_75FB00(moved, box, delta, &result, ship_ro, false);
++		((MainViewSceneClass *)Client->MainView->Unknown_64())->Unknown_75FB00(start_box, end_box, dir * 1000000.0f, &result, ship_ro, false);
+ 		if (result.Fraction >= 1.0f) {
+ 			break;
+ 		}
+@@ -262,13 +258,13 @@
+ 	Unknown4C = Build_Quaternion(lookat);
+ 
+ 	float distance = CameraManagerClass::Unknown_79B6B0();
+-	float angle = Unknown_BDB1C0.Get_Float() * 360.0f * (WWMATH_PI / 180.0f);
++	float angle = Unknown_BDB1C0.Get_Float() * 360.0f; angle *= (WWMATH_PI / 180.0f);
+ 	Vector3 mid = (Unknown24 + Unknown30) * 0.5f;
+-	Matrix3D mid_lookat;
+-	mid_lookat.Obj_Look_At(mid, Unknown30, 0.0f);
+-	float s = sin(angle);
+-	float c = cos(angle);
+-	Unknown0C->Position = mid_lookat * Vector3(0.0f, c * 1.5f * distance, s * 1.5f * distance);
++
++	lookat.Obj_Look_At(mid, Unknown30, 0.0f);
++	float s = WWMath::Sin(angle);
++	float c = WWMath::Cos(angle);
++	Unknown0C->Position = lookat * Vector3(0.0f, c * distance * 1.5f, s * distance * 1.5f);
+ 	Unknown0C->Unknown14 = true;
+ 	Unknown0C->Unknown18 = Client->AvatarID;
+ 	Unknown0C->Unknown_04();
+
+FORM while_control
+--- 64644f39/app/client/camctrl_takeoff.cpp
++++ while_control/app/client/camctrl_takeoff.cpp
+@@ -10,7 +10,7 @@
+ #include "obbox.h"
+ #include "castres.h"
+ #include "scene.h"
+-#include "camera.h"
++#include "aabox.h"
+ #include "matrix3d.h"
+ #include "wwmath.h"
+ #include "..\shared\g_assert.h"
+@@ -220,38 +220,34 @@
+ 	}
+ 
+ 	Unknown24 = ship->Unknown_24();
+-	Unknown30 = Unknown24;
+-	Unknown30.Z += Unknown_BDB1C0.Get_Float() * 500.0f + 100.0f;
++	Unknown30 = Vector3(Unknown24.X, Unknown24.Y, (Unknown_BDB1C0.Get_Float() * 500.0f + 100.0f) + Unknown24.Z);
+ 	Unknown3C = Build_Quaternion(ship->Unknown_28(true));
+ 
+-	for (int i = 0; i <= 10; ++i) {
++	int i = 0; while (true) {
+ 		if (i >= 10) {
+-			Unknown18 = Unknown30;
+-			Unknown18.Z += 5000.0f;
++			Unknown18 = Vector3(Unknown30.X, Unknown30.Y, Unknown30.Z + 5000.0f);
+ 			break;
+ 		}
+-		float pitch = (Unknown_BDB1C0.Get_Float() * 30.0f + 30.0f) * (WWMATH_PI / 180.0f);
++		++i; float pitch = Unknown_BDB1C0.Get_Float() * 30.0f + 30.0f; pitch *= (WWMATH_PI / 180.0f);
+ 		float yaw = (Unknown_BDB1C0.Get_Float() * 315.0f + 45.0f) * (WWMATH_PI / 180.0f);
+-		Matrix3D ship_tm = ship->Unknown_28(true);
+-		float zrot = ship_tm.Get_Z_Rotation();
+-		float c_p = cos(pitch);
+-		float s_p = sin(pitch);
+-		float c_y = cos(zrot + yaw);
+-		float s_y = sin(zrot + yaw);
+-		Vector3 dir(c_y * c_p, s_y * c_p, s_p);
++		yaw += ship->Unknown_28(true).Get_Z_Rotation();
++		float c_p = WWMath::Cos(pitch);
++		float s_p = WWMath::Sin(pitch);
++		Matrix3D rotation(true); rotation.Rotate_Z(yaw);
++		Vector3 dir = rotation * Vector3(c_p, 0.0f, s_p);
+ 		Vector3 offset = dir * 5000.0f;
+ 		Unknown18 = Unknown30 + offset;
+ 
+-		CameraClass *cam = (CameraClass *)Client->MainView->Unknown_7C();
+-		OBBoxClass box = cam->Get_Near_Clip_Bounding_Box();
+-		OBBoxClass moved;
+-		Vector3 delta = Unknown18 - Unknown30;
+-		Matrix3D shift(true);
+-		shift.Set_Translation(delta);
+-		OBBoxClass::Transform(shift, box, &moved);
++		AABoxClass model_box; ship_ro->Get_Obj_Space_Bounding_Box(model_box); // NAME 2: 0x796b98
++		OBBoxClass local_box(Vector3(0.0f, 0.0f, 0.0f), model_box.Extent); // NAME 2: identity basis and model box, 0x796bd8
++		OBBoxClass start_box, end_box; // NAME 2: 0x796da1 and 0x796e42
++		rotation.Make_Identity(); rotation = ship->Unknown_28(true); // NAME 2: 0x796cc2
++		rotation.Set_Translation(Unknown30);
++		OBBoxClass::Transform(rotation, local_box, &start_box);
++		rotation.Set_Translation(Unknown18);
++		OBBoxClass::Transform(rotation, local_box, &end_box);
+ 		CastResultStruct result;
+-		MainViewSceneClass *scene = (MainViewSceneClass *)Client->MainView->Unknown_64();
+-		scene->Unknown_75FB00(moved, box, delta, &result, ship_ro, false);
++		((MainViewSceneClass *)Client->MainView->Unknown_64())->Unknown_75FB00(start_box, end_box, dir * 1000000.0f, &result, ship_ro, false);
+ 		if (result.Fraction >= 1.0f) {
+ 			break;
+ 		}
+@@ -262,13 +258,13 @@
+ 	Unknown4C = Build_Quaternion(lookat);
+ 
+ 	float distance = CameraManagerClass::Unknown_79B6B0();
+-	float angle = Unknown_BDB1C0.Get_Float() * 360.0f * (WWMATH_PI / 180.0f);
++	float angle = Unknown_BDB1C0.Get_Float() * 360.0f; angle *= (WWMATH_PI / 180.0f);
+ 	Vector3 mid = (Unknown24 + Unknown30) * 0.5f;
+-	Matrix3D mid_lookat;
+-	mid_lookat.Obj_Look_At(mid, Unknown30, 0.0f);
+-	float s = sin(angle);
+-	float c = cos(angle);
+-	Unknown0C->Position = mid_lookat * Vector3(0.0f, c * 1.5f * distance, s * 1.5f * distance);
++
++	lookat.Obj_Look_At(mid, Unknown30, 0.0f);
++	float s = WWMath::Sin(angle);
++	float c = WWMath::Cos(angle);
++	Unknown0C->Position = lookat * Vector3(0.0f, c * distance * 1.5f, s * distance * 1.5f);
+ 	Unknown0C->Unknown14 = true;
+ 	Unknown0C->Unknown18 = Client->AvatarID;
+ 	Unknown0C->Unknown_04();
+
+FORM named_camera_offset
+--- 64644f39/app/client/camctrl_takeoff.cpp
++++ named_camera_offset/app/client/camctrl_takeoff.cpp
+@@ -10,7 +10,7 @@
+ #include "obbox.h"
+ #include "castres.h"
+ #include "scene.h"
+-#include "camera.h"
++#include "aabox.h"
+ #include "matrix3d.h"
+ #include "wwmath.h"
+ #include "..\shared\g_assert.h"
+@@ -220,38 +220,34 @@
+ 	}
+ 
+ 	Unknown24 = ship->Unknown_24();
+-	Unknown30 = Unknown24;
+-	Unknown30.Z += Unknown_BDB1C0.Get_Float() * 500.0f + 100.0f;
++	Unknown30 = Vector3(Unknown24.X, Unknown24.Y, (Unknown_BDB1C0.Get_Float() * 500.0f + 100.0f) + Unknown24.Z);
+ 	Unknown3C = Build_Quaternion(ship->Unknown_28(true));
+ 
+-	for (int i = 0; i <= 10; ++i) {
++	for (int i = 0; ; ) {
+ 		if (i >= 10) {
+-			Unknown18 = Unknown30;
+-			Unknown18.Z += 5000.0f;
++			Unknown18 = Vector3(Unknown30.X, Unknown30.Y, Unknown30.Z + 5000.0f);
+ 			break;
+ 		}
+-		float pitch = (Unknown_BDB1C0.Get_Float() * 30.0f + 30.0f) * (WWMATH_PI / 180.0f);
++		++i; float pitch = Unknown_BDB1C0.Get_Float() * 30.0f + 30.0f; pitch *= (WWMATH_PI / 180.0f);
+ 		float yaw = (Unknown_BDB1C0.Get_Float() * 315.0f + 45.0f) * (WWMATH_PI / 180.0f);
+-		Matrix3D ship_tm = ship->Unknown_28(true);
+-		float zrot = ship_tm.Get_Z_Rotation();
+-		float c_p = cos(pitch);
+-		float s_p = sin(pitch);
+-		float c_y = cos(zrot + yaw);
+-		float s_y = sin(zrot + yaw);
+-		Vector3 dir(c_y * c_p, s_y * c_p, s_p);
++		yaw += ship->Unknown_28(true).Get_Z_Rotation();
++		float c_p = WWMath::Cos(pitch);
++		float s_p = WWMath::Sin(pitch);
++		Matrix3D rotation(true); rotation.Rotate_Z(yaw);
++		Vector3 dir = rotation * Vector3(c_p, 0.0f, s_p);
+ 		Vector3 offset = dir * 5000.0f;
+ 		Unknown18 = Unknown30 + offset;
+ 
+-		CameraClass *cam = (CameraClass *)Client->MainView->Unknown_7C();
+-		OBBoxClass box = cam->Get_Near_Clip_Bounding_Box();
+-		OBBoxClass moved;
+-		Vector3 delta = Unknown18 - Unknown30;
+-		Matrix3D shift(true);
+-		shift.Set_Translation(delta);
+-		OBBoxClass::Transform(shift, box, &moved);
++		AABoxClass model_box; ship_ro->Get_Obj_Space_Bounding_Box(model_box); // NAME 2: 0x796b98
++		OBBoxClass local_box(Vector3(0.0f, 0.0f, 0.0f), model_box.Extent); // NAME 2: identity basis and model box, 0x796bd8
++		OBBoxClass start_box, end_box; // NAME 2: 0x796da1 and 0x796e42
++		rotation.Make_Identity(); rotation = ship->Unknown_28(true); // NAME 2: 0x796cc2
++		rotation.Set_Translation(Unknown30);
++		OBBoxClass::Transform(rotation, local_box, &start_box);
++		rotation.Set_Translation(Unknown18);
++		OBBoxClass::Transform(rotation, local_box, &end_box);
+ 		CastResultStruct result;
+-		MainViewSceneClass *scene = (MainViewSceneClass *)Client->MainView->Unknown_64();
+-		scene->Unknown_75FB00(moved, box, delta, &result, ship_ro, false);
++		((MainViewSceneClass *)Client->MainView->Unknown_64())->Unknown_75FB00(start_box, end_box, dir * 1000000.0f, &result, ship_ro, false);
+ 		if (result.Fraction >= 1.0f) {
+ 			break;
+ 		}
+@@ -262,13 +258,14 @@
+ 	Unknown4C = Build_Quaternion(lookat);
+ 
+ 	float distance = CameraManagerClass::Unknown_79B6B0();
+-	float angle = Unknown_BDB1C0.Get_Float() * 360.0f * (WWMATH_PI / 180.0f);
++	float angle = Unknown_BDB1C0.Get_Float() * 360.0f; angle *= (WWMATH_PI / 180.0f);
+ 	Vector3 mid = (Unknown24 + Unknown30) * 0.5f;
+-	Matrix3D mid_lookat;
+-	mid_lookat.Obj_Look_At(mid, Unknown30, 0.0f);
+-	float s = sin(angle);
+-	float c = cos(angle);
+-	Unknown0C->Position = mid_lookat * Vector3(0.0f, c * 1.5f * distance, s * 1.5f * distance);
++
++	lookat.Obj_Look_At(mid, Unknown30, 0.0f);
++	float s = WWMath::Sin(angle);
++	float c = WWMath::Cos(angle);
++	Vector3 camera_offset(0.0f, c * distance * 1.5f, s * distance * 1.5f); // NAME 2: consumed camera offset at 0x797020
++	Unknown0C->Position = lookat * camera_offset;
+ 	Unknown0C->Unknown14 = true;
+ 	Unknown0C->Unknown18 = Client->AvatarID;
+ 	Unknown0C->Unknown_04();
+
+FORM direct_endpoint
+--- 64644f39/app/client/camctrl_takeoff.cpp
++++ direct_endpoint/app/client/camctrl_takeoff.cpp
+@@ -10,7 +10,7 @@
+ #include "obbox.h"
+ #include "castres.h"
+ #include "scene.h"
+-#include "camera.h"
++#include "aabox.h"
+ #include "matrix3d.h"
+ #include "wwmath.h"
+ #include "..\shared\g_assert.h"
+@@ -220,38 +220,33 @@
+ 	}
+ 
+ 	Unknown24 = ship->Unknown_24();
+-	Unknown30 = Unknown24;
+-	Unknown30.Z += Unknown_BDB1C0.Get_Float() * 500.0f + 100.0f;
++	Unknown30 = Vector3(Unknown24.X, Unknown24.Y, (Unknown_BDB1C0.Get_Float() * 500.0f + 100.0f) + Unknown24.Z);
+ 	Unknown3C = Build_Quaternion(ship->Unknown_28(true));
+ 
+-	for (int i = 0; i <= 10; ++i) {
++	for (int i = 0; ; ) {
+ 		if (i >= 10) {
+-			Unknown18 = Unknown30;
+-			Unknown18.Z += 5000.0f;
++			Unknown18 = Vector3(Unknown30.X, Unknown30.Y, Unknown30.Z + 5000.0f);
+ 			break;
+ 		}
+-		float pitch = (Unknown_BDB1C0.Get_Float() * 30.0f + 30.0f) * (WWMATH_PI / 180.0f);
++		++i; float pitch = Unknown_BDB1C0.Get_Float() * 30.0f + 30.0f; pitch *= (WWMATH_PI / 180.0f);
+ 		float yaw = (Unknown_BDB1C0.Get_Float() * 315.0f + 45.0f) * (WWMATH_PI / 180.0f);
+-		Matrix3D ship_tm = ship->Unknown_28(true);
+-		float zrot = ship_tm.Get_Z_Rotation();
+-		float c_p = cos(pitch);
+-		float s_p = sin(pitch);
+-		float c_y = cos(zrot + yaw);
+-		float s_y = sin(zrot + yaw);
+-		Vector3 dir(c_y * c_p, s_y * c_p, s_p);
+-		Vector3 offset = dir * 5000.0f;
+-		Unknown18 = Unknown30 + offset;
+-
+-		CameraClass *cam = (CameraClass *)Client->MainView->Unknown_7C();
+-		OBBoxClass box = cam->Get_Near_Clip_Bounding_Box();
+-		OBBoxClass moved;
+-		Vector3 delta = Unknown18 - Unknown30;
+-		Matrix3D shift(true);
+-		shift.Set_Translation(delta);
+-		OBBoxClass::Transform(shift, box, &moved);
++		yaw += ship->Unknown_28(true).Get_Z_Rotation();
++		float c_p = WWMath::Cos(pitch);
++		float s_p = WWMath::Sin(pitch);
++		Matrix3D rotation(true); rotation.Rotate_Z(yaw);
++		Vector3 dir = rotation * Vector3(c_p, 0.0f, s_p);
++		Unknown18 = Unknown30 + dir * 5000.0f;
++
++		AABoxClass model_box; ship_ro->Get_Obj_Space_Bounding_Box(model_box); // NAME 2: 0x796b98
++		OBBoxClass local_box(Vector3(0.0f, 0.0f, 0.0f), model_box.Extent); // NAME 2: identity basis and model box, 0x796bd8
++		OBBoxClass start_box, end_box; // NAME 2: 0x796da1 and 0x796e42
++		rotation.Make_Identity(); rotation = ship->Unknown_28(true); // NAME 2: 0x796cc2
++		rotation.Set_Translation(Unknown30);
++		OBBoxClass::Transform(rotation, local_box, &start_box);
++		rotation.Set_Translation(Unknown18);
++		OBBoxClass::Transform(rotation, local_box, &end_box);
+ 		CastResultStruct result;
+-		MainViewSceneClass *scene = (MainViewSceneClass *)Client->MainView->Unknown_64();
+-		scene->Unknown_75FB00(moved, box, delta, &result, ship_ro, false);
++		((MainViewSceneClass *)Client->MainView->Unknown_64())->Unknown_75FB00(start_box, end_box, dir * 1000000.0f, &result, ship_ro, false);
+ 		if (result.Fraction >= 1.0f) {
+ 			break;
+ 		}
+@@ -262,13 +257,13 @@
+ 	Unknown4C = Build_Quaternion(lookat);
+ 
+ 	float distance = CameraManagerClass::Unknown_79B6B0();
+-	float angle = Unknown_BDB1C0.Get_Float() * 360.0f * (WWMATH_PI / 180.0f);
++	float angle = Unknown_BDB1C0.Get_Float() * 360.0f; angle *= (WWMATH_PI / 180.0f);
+ 	Vector3 mid = (Unknown24 + Unknown30) * 0.5f;
+-	Matrix3D mid_lookat;
+-	mid_lookat.Obj_Look_At(mid, Unknown30, 0.0f);
+-	float s = sin(angle);
+-	float c = cos(angle);
+-	Unknown0C->Position = mid_lookat * Vector3(0.0f, c * 1.5f * distance, s * 1.5f * distance);
++
++	lookat.Obj_Look_At(mid, Unknown30, 0.0f);
++	float s = WWMath::Sin(angle);
++	float c = WWMath::Cos(angle);
++	Unknown0C->Position = lookat * Vector3(0.0f, c * distance * 1.5f, s * distance * 1.5f);
+ 	Unknown0C->Unknown14 = true;
+ 	Unknown0C->Unknown18 = Client->AvatarID;
+ 	Unknown0C->Unknown_04();
+
+FORM do_while_retry
+--- 64644f39/app/client/camctrl_takeoff.cpp
++++ do_while_retry/app/client/camctrl_takeoff.cpp
+@@ -10,7 +10,7 @@
+ #include "obbox.h"
+ #include "castres.h"
+ #include "scene.h"
+-#include "camera.h"
++#include "aabox.h"
+ #include "matrix3d.h"
+ #include "wwmath.h"
+ #include "..\shared\g_assert.h"
+@@ -220,55 +220,49 @@
+ 	}
+ 
+ 	Unknown24 = ship->Unknown_24();
+-	Unknown30 = Unknown24;
+-	Unknown30.Z += Unknown_BDB1C0.Get_Float() * 500.0f + 100.0f;
++	Unknown30 = Vector3(Unknown24.X, Unknown24.Y, (Unknown_BDB1C0.Get_Float() * 500.0f + 100.0f) + Unknown24.Z);
+ 	Unknown3C = Build_Quaternion(ship->Unknown_28(true));
+ 
+-	for (int i = 0; i <= 10; ++i) {
++	int i = 0; bool retry = true; do { // NAME 2 [retry]: fraction backedge at 0x796F1D
+ 		if (i >= 10) {
+-			Unknown18 = Unknown30;
+-			Unknown18.Z += 5000.0f;
++			Unknown18 = Vector3(Unknown30.X, Unknown30.Y, Unknown30.Z + 5000.0f);
+ 			break;
+ 		}
+-		float pitch = (Unknown_BDB1C0.Get_Float() * 30.0f + 30.0f) * (WWMATH_PI / 180.0f);
++		++i; float pitch = Unknown_BDB1C0.Get_Float() * 30.0f + 30.0f; pitch *= (WWMATH_PI / 180.0f);
+ 		float yaw = (Unknown_BDB1C0.Get_Float() * 315.0f + 45.0f) * (WWMATH_PI / 180.0f);
+-		Matrix3D ship_tm = ship->Unknown_28(true);
+-		float zrot = ship_tm.Get_Z_Rotation();
+-		float c_p = cos(pitch);
+-		float s_p = sin(pitch);
+-		float c_y = cos(zrot + yaw);
+-		float s_y = sin(zrot + yaw);
+-		Vector3 dir(c_y * c_p, s_y * c_p, s_p);
++		yaw += ship->Unknown_28(true).Get_Z_Rotation();
++		float c_p = WWMath::Cos(pitch);
++		float s_p = WWMath::Sin(pitch);
++		Matrix3D rotation(true); rotation.Rotate_Z(yaw);
++		Vector3 dir = rotation * Vector3(c_p, 0.0f, s_p);
+ 		Vector3 offset = dir * 5000.0f;
+ 		Unknown18 = Unknown30 + offset;
+ 
+-		CameraClass *cam = (CameraClass *)Client->MainView->Unknown_7C();
+-		OBBoxClass box = cam->Get_Near_Clip_Bounding_Box();
+-		OBBoxClass moved;
+-		Vector3 delta = Unknown18 - Unknown30;
+-		Matrix3D shift(true);
+-		shift.Set_Translation(delta);
+-		OBBoxClass::Transform(shift, box, &moved);
++		AABoxClass model_box; ship_ro->Get_Obj_Space_Bounding_Box(model_box); // NAME 2: 0x796b98
++		OBBoxClass local_box(Vector3(0.0f, 0.0f, 0.0f), model_box.Extent); // NAME 2: identity basis and model box, 0x796bd8
++		OBBoxClass start_box, end_box; // NAME 2: 0x796da1 and 0x796e42
++		rotation.Make_Identity(); rotation = ship->Unknown_28(true); // NAME 2: 0x796cc2
++		rotation.Set_Translation(Unknown30);
++		OBBoxClass::Transform(rotation, local_box, &start_box);
++		rotation.Set_Translation(Unknown18);
++		OBBoxClass::Transform(rotation, local_box, &end_box);
+ 		CastResultStruct result;
+-		MainViewSceneClass *scene = (MainViewSceneClass *)Client->MainView->Unknown_64();
+-		scene->Unknown_75FB00(moved, box, delta, &result, ship_ro, false);
+-		if (result.Fraction >= 1.0f) {
+-			break;
+-		}
+-	}
++		((MainViewSceneClass *)Client->MainView->Unknown_64())->Unknown_75FB00(start_box, end_box, dir * 1000000.0f, &result, ship_ro, false);
++		retry = !(result.Fraction >= 1.0f);
++	} while (retry);
+ 
+ 	Matrix3D lookat;
+ 	lookat.Obj_Look_At(Unknown30, Unknown18, 0.0f);
+ 	Unknown4C = Build_Quaternion(lookat);
+ 
+ 	float distance = CameraManagerClass::Unknown_79B6B0();
+-	float angle = Unknown_BDB1C0.Get_Float() * 360.0f * (WWMATH_PI / 180.0f);
++	float angle = Unknown_BDB1C0.Get_Float() * 360.0f; angle *= (WWMATH_PI / 180.0f);
+ 	Vector3 mid = (Unknown24 + Unknown30) * 0.5f;
+-	Matrix3D mid_lookat;
+-	mid_lookat.Obj_Look_At(mid, Unknown30, 0.0f);
+-	float s = sin(angle);
+-	float c = cos(angle);
+-	Unknown0C->Position = mid_lookat * Vector3(0.0f, c * 1.5f * distance, s * 1.5f * distance);
++
++	lookat.Obj_Look_At(mid, Unknown30, 0.0f);
++	float s = WWMath::Sin(angle);
++	float c = WWMath::Cos(angle);
++	Unknown0C->Position = lookat * Vector3(0.0f, c * distance * 1.5f, s * distance * 1.5f);
+ 	Unknown0C->Unknown14 = true;
+ 	Unknown0C->Unknown18 = Client->AvatarID;
+ 	Unknown0C->Unknown_04();

@@ -1,0 +1,504 @@
+Reproduce from application source at revision aa57c927. Copy the indicated unit into an isolated directory as its original basename. Save the SEED PATCH block as seed.patch; when nonempty, run `patch -p1 < seed.patch` from that directory. This produces seed source. Save the REPLAY PYTHON and DATA JSON blocks as replay.py and forms.json, then run `python replay.py forms.json UNIT_BASENAME OUTPUT_DIRECTORY`. Each vNN subdirectory holds that frozen variant. The selected forms are explicit; replay performs no historical scan. Retain all source lines and the exact helper patch where present.
+
+UNIT: app/client/camctrl_land.cpp
+
+SEED PATCH:
+--- a/camctrl_land.cpp
++++ b/camctrl_land.cpp
+@@ -126,8 +126,8 @@
+ 	float radius = target->Unknown_30();
+ 	Vector3 dir = ship_pos - target_pos;
+ 	dir.Normalize();
+-	Vector3 side = Vector3::Cross_Product(Vector3(0.0f, 0.0f, 1.0f), dir);
+-	Vector3 up = Vector3::Cross_Product(dir, side);
++	Vector3 side; Vector3::Cross_Product(Vector3(0.0f, 0.0f, 1.0f), dir, &side);
++	Vector3 up; Vector3::Cross_Product(dir, side, &up);
+ 	if (Unknown_BDB1C0(0, 1)) {
+ 		side = -side;
+ 	}
+@@ -135,7 +135,7 @@
+ 	Vector3 from = target_pos + dir * radius * 0.5f;
+ 	Vector3 to = target_pos + offset;
+ 	tm.Look_At(from, to, 0.0f);
+-	Unknown0C->Unknown08 = tm;
++	{ CameraModule79C4A0Class *module = Unknown0C; module->Unknown08[0] = tm[0]; module->Unknown08[1] = tm[1]; module->Unknown08[2] = tm[2]; }
+ 	Unknown0C->Unknown38 = Unknown_BDB1C0(0, 1) ? Unknown_B04D30 : -Unknown_B04D30;
+ 	Unknown0C->Unknown3C = 2;
+ 	Unknown0C->Unknown_04();
+@@ -148,8 +148,8 @@
+ 	dir *= 100.0f;
+ 	offset *= 1000.0f;
+ 	spline->Add_Key(key0, 0.0f);
+-	Vector3 tangent0 = -dir;
+-	spline->Set_Tangents(0, tangent0, tangent0);
++	
++	spline->Set_Tangents(0, -dir, -dir);
+ 	spline->Add_Key(key1, 1.0f);
+ 	Vector3 tangent1 = offset - dir * 5.0f;
+ 	spline->Set_Tangents(1, tangent1, tangent1);
+
+REPLAY PYTHON:
+import json, pathlib, sys
+data=json.loads(pathlib.Path(sys.argv[1]).read_text())
+seed=pathlib.Path(sys.argv[2]).read_text()
+out=pathlib.Path(sys.argv[3]); out.mkdir(parents=True, exist_ok=True)
+a=seed.index(data['start']); b=seed.index('\n}',a)+2
+for number,combo in data['selected']:
+    body=seed[a:b]
+    for index in combo:
+        for old,new in data['choices'][index]:
+            assert body.count(old)==1, (number,index,old)
+            body=body.replace(old,new)
+    dest=out/('v%02d'%number)/data['basename']; dest.parent.mkdir(parents=True,exist_ok=True)
+    dest.write_text(seed[:a]+body+seed[b:])
+
+DATA JSON:
+{
+  "start": "void CameraController05Class::Unknown_793CE0()",
+  "basename": "camctrl_land.cpp",
+  "choices": [
+    [
+      [
+        "if (Unknown_BDB1C0(0, 1)) {\n\t\tside = -side;\n\t}",
+        "if (!Unknown_BDB1C0(0, 1)) {\n\t} else { side = -side;\n\t}"
+      ]
+    ],
+    [
+      [
+        "if (Unknown_BDB1C0(0, 1))",
+        "if (Unknown_BDB1C0(0, 1) != 0)"
+      ]
+    ],
+    [
+      [
+        "Unknown0C->Unknown38 = Unknown_BDB1C0(0, 1) ? Unknown_B04D30 : -Unknown_B04D30;",
+        "if (Unknown_BDB1C0(0, 1)) { Unknown0C->Unknown38 = Unknown_B04D30; } else { Unknown0C->Unknown38 = -Unknown_B04D30; }"
+      ]
+    ],
+    [
+      [
+        "{ CameraModule79C4A0Class *module = Unknown0C; module->Unknown08[0] = tm[0]; module->Unknown08[1] = tm[1]; module->Unknown08[2] = tm[2]; }",
+        "Unknown0C->Unknown08 = tm;"
+      ]
+    ],
+    [
+      [
+        "Vector3 to = target_pos + offset;\n\ttm.Look_At(from, to, 0.0f);",
+        "{ Vector3 to = target_pos + offset;\n\ttm.Look_At(from, to, 0.0f); }"
+      ]
+    ],
+    [
+      [
+        "Vector3 key0 = from + dir * 100.0f;",
+        "Vector3 key0; key0 = from + dir * 100.0f;"
+      ]
+    ],
+    [
+      [
+        "Vector3 key1 = key0 + (offset - dir) * 1000.0f;",
+        "Vector3 key1; key1 = key0 + (offset - dir) * 1000.0f;"
+      ]
+    ],
+    [
+      [
+        "Vector3 tangent1 = offset - dir * 5.0f;",
+        "Vector3 tangent1; tangent1 = offset - dir * 5.0f;"
+      ]
+    ],
+    [
+      [
+        "dir *= 100.0f;",
+        "dir = dir * 100.0f;"
+      ]
+    ],
+    [
+      [
+        "offset *= 1000.0f;",
+        "offset = offset * 1000.0f;"
+      ]
+    ],
+    [
+      [
+        "Vector3 side; Vector3::Cross_Product(Vector3(0.0f, 0.0f, 1.0f), dir, &side);",
+        "Vector3 side = Vector3::Cross_Product(Vector3(0.0f, 0.0f, 1.0f), dir);"
+      ]
+    ],
+    [
+      [
+        "Vector3 up; Vector3::Cross_Product(dir, side, &up);",
+        "Vector3 up = Vector3::Cross_Product(dir, side);"
+      ]
+    ]
+  ],
+  "selected": [
+    [
+      1,
+      [
+        0
+      ]
+    ],
+    [
+      2,
+      [
+        1
+      ]
+    ],
+    [
+      3,
+      [
+        2
+      ]
+    ],
+    [
+      4,
+      [
+        4
+      ]
+    ],
+    [
+      5,
+      [
+        5
+      ]
+    ],
+    [
+      6,
+      [
+        6
+      ]
+    ],
+    [
+      7,
+      [
+        7
+      ]
+    ],
+    [
+      8,
+      [
+        8
+      ]
+    ],
+    [
+      9,
+      [
+        9
+      ]
+    ],
+    [
+      10,
+      [
+        10
+      ]
+    ],
+    [
+      11,
+      [
+        11
+      ]
+    ],
+    [
+      12,
+      [
+        1,
+        4,
+        8
+      ]
+    ],
+    [
+      13,
+      [
+        5,
+        6,
+        11
+      ]
+    ],
+    [
+      14,
+      [
+        3,
+        4,
+        6
+      ]
+    ],
+    [
+      15,
+      [
+        0,
+        5,
+        10
+      ]
+    ],
+    [
+      16,
+      [
+        1,
+        6
+      ]
+    ],
+    [
+      17,
+      [
+        0,
+        10,
+        11
+      ]
+    ],
+    [
+      18,
+      [
+        2,
+        7,
+        9
+      ]
+    ],
+    [
+      19,
+      [
+        3,
+        7,
+        8
+      ]
+    ],
+    [
+      20,
+      [
+        8,
+        9,
+        10
+      ]
+    ],
+    [
+      21,
+      [
+        3,
+        8,
+        10
+      ]
+    ],
+    [
+      22,
+      [
+        7,
+        10
+      ]
+    ],
+    [
+      23,
+      [
+        1,
+        8,
+        10
+      ]
+    ],
+    [
+      24,
+      [
+        3,
+        9,
+        11
+      ]
+    ],
+    [
+      25,
+      [
+        6,
+        7,
+        11
+      ]
+    ],
+    [
+      26,
+      [
+        5,
+        6,
+        10
+      ]
+    ],
+    [
+      27,
+      [
+        3,
+        4
+      ]
+    ],
+    [
+      28,
+      [
+        0,
+        7,
+        9
+      ]
+    ],
+    [
+      29,
+      [
+        0,
+        3
+      ]
+    ],
+    [
+      30,
+      [
+        6,
+        8,
+        10
+      ]
+    ],
+    [
+      31,
+      [
+        0,
+        2
+      ]
+    ],
+    [
+      32,
+      [
+        2,
+        10,
+        11
+      ]
+    ],
+    [
+      33,
+      [
+        2,
+        5,
+        8
+      ]
+    ],
+    [
+      34,
+      [
+        1,
+        4
+      ]
+    ],
+    [
+      35,
+      [
+        4,
+        7,
+        8
+      ]
+    ],
+    [
+      36,
+      [
+        3,
+        8,
+        11
+      ]
+    ],
+    [
+      37,
+      [
+        2,
+        8,
+        10
+      ]
+    ],
+    [
+      38,
+      [
+        2,
+        4,
+        9
+      ]
+    ],
+    [
+      39,
+      [
+        0,
+        6,
+        8
+      ]
+    ],
+    [
+      40,
+      [
+        1,
+        5,
+        6
+      ]
+    ],
+    [
+      41,
+      [
+        4,
+        11
+      ]
+    ],
+    [
+      42,
+      [
+        1,
+        9,
+        11
+      ]
+    ],
+    [
+      43,
+      [
+        1,
+        3,
+        4
+      ]
+    ],
+    [
+      44,
+      [
+        1,
+        6,
+        8
+      ]
+    ],
+    [
+      45,
+      [
+        0,
+        4,
+        10
+      ]
+    ],
+    [
+      46,
+      [
+        5,
+        10,
+        11
+      ]
+    ],
+    [
+      47,
+      [
+        0,
+        2,
+        3
+      ]
+    ],
+    [
+      48,
+      [
+        0,
+        6
+      ]
+    ],
+    [
+      49,
+      [
+        1,
+        2,
+        7
+      ]
+    ],
+    [
+      50,
+      [
+        2,
+        3
+      ]
+    ]
+  ]
+}
