@@ -3023,7 +3023,7 @@ void RegistrationInterface::Unknown_5FBD30()
 
 
 
-			Unknown26C = selected; UnknownD8.size(); UnknownD8.size(); UnknownD8.size(); UnknownD8.size();   // D272: dead reads (swept 1-8)
+			Unknown26C = selected; UnknownD8.size(); UnknownD8.size(); UnknownD8.size(); UnknownD8.size(); UnknownD8.size(); UnknownD8.size();   // D272: dead reads (swept 1-8)
 			if (selected == 8) {
 				Unknown_5F87D0();
 				Unknown_5F3770(7);
@@ -3493,15 +3493,15 @@ bad_login:
 			std::string country(Unknown108[0x19].Combo->Get_Selected_Text());
 			int type = Unknown5A8[Unknown108[0x22].Combo->Get_Selected()].Unknown00;
 			if (strlen(first_name) == 0) {
-				UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "Please enter a valid First Name.", 0x140, 0, 0);
+				UnknownBC->Unknown34->Unknown_588A70("OK", 0, "Please enter a valid First Name.", 0x140, 0, 0);
 			} else if (strlen(last_name) == 0) {
-				UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "Please enter a valid Last Name.", 0x140, 0, 0);
+				UnknownBC->Unknown34->Unknown_588A70("OK", 0, "Please enter a valid Last Name.", 0x140, 0, 0);
 			} else if (strlen(address) == 0) {
-				UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "Please enter a valid Address.", 0x140, 0, 0);
+				UnknownBC->Unknown34->Unknown_588A70("OK", 0, "Please enter a valid Address.", 0x140, 0, 0);
 			} else if (strlen(city) == 0) {
-				UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "Please enter a valid City name.", 0x140, 0, 0);
+				UnknownBC->Unknown34->Unknown_588A70("OK", 0, "Please enter a valid City name.", 0x140, 0, 0);
 			} else if (strlen(province) == 0) {
-				UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "Please enter a valid State or Province.", 0x140, 0, 0);
+				UnknownBC->Unknown34->Unknown_588A70("OK", 0, "Please enter a valid State or Province.", 0x140, 0, 0);
 			} else if (strlen(phone) == 0) {
 				UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "Please enter a valid Phone Number.", 0x140, 0, 0);
 			} else if (!Unknown_603820(number)) {
@@ -4079,7 +4079,7 @@ void RegistrationInterface::Unknown_5F00C0()
 					break;
 				default:
 					Unknown1D5 = false;
-					UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, Unknown390.Unknown14.c_str(), 0x140, 0, 0);
+					UnknownBC->Unknown34->Unknown_588A70("OK", 0, Unknown390.Unknown14.c_str(), 0x140, 0, 0);
 					Unknown_5F3770(0x14);
 					break;
 			}
@@ -4096,7 +4096,7 @@ void RegistrationInterface::Unknown_5F00C0()
 				Unknown_5F8560();
 				return;
 			}
-			UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "An Internal Error has occured.  Please try again.", 0x140, 0, 0);
+			UnknownBC->Unknown34->Unknown_588A70("OK", 0, "An Internal Error has occured.  Please try again.", 0x140, 0, 0);
 			Unknown_5F8560();
 			return;
 		case 0x10:
@@ -4105,7 +4105,7 @@ void RegistrationInterface::Unknown_5F00C0()
 				Unknown_5F3770(0xB);
 				return;
 			}
-			UnknownBC->Get_Unknown34()->Unknown_588A70("OK", 0, "An Internal Error has occured.  Please try again.", 0x140, 0, 0);
+			UnknownBC->Unknown34->Unknown_588A70("OK", 0, "An Internal Error has occured.  Please try again.", 0x140, 0, 0);
 			Unknown_5F8560(); UnknownD8.size();   // D272: dead reads (swept 0-7, with case 5's back-out 0-7)
 			return;
 	}
