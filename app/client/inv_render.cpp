@@ -628,7 +628,7 @@ Unknown68DC20Class::~Unknown68DC20Class()
 
 
 
-// NOT EXACT: 0x68E360, masked residue 56 rows: register and order only: the client reloads Unknown78 for the subtract and swaps eax / ecx in the zero compares
+// NOT EXACT: 0x68E360, masked residue 15 rows: register only: ours evaluates the two sound ternaries into eax for one merged call, the client pushes the literals in each branch
 // 0x68E360
 void Unknown68DC20Class::Unknown_2C(bool force)
 {
@@ -747,8 +747,8 @@ have:
 		}
 		done = true;
 	} else {
-		Unknown78.Time = Unknown78.Time - now.Time;
-		if (_Zero == previous) {
+		DurationClass *ready = &Unknown78; ready->Time -= now.Time;
+		if (previous == _Zero) {
 			update = true;
 		}
 		done = false;
@@ -760,7 +760,7 @@ have:
 		return;
 	}
 	bool on = (state & 1) != 0;
-	if (Unknown88 && ((Unknown80 & 1) != 0) != on) {
+	if (Unknown88 && ((unsigned char)Unknown80 & 1) != on) {
 		Unknown88 = false;
 		switch (type) {
 			case 1:
