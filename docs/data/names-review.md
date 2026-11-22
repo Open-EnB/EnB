@@ -19314,7 +19314,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_66E460` | `app/client/ui_trade.cpp:115` | untagged neutral name (D10) |
 | 1 | `Unknown_54` | `app/client/ui_trade.cpp:133` | untagged neutral name (D10) |
 | 1 | `Unknown4C` | `app/client/ui_trade.cpp:152` | untagged neutral name (D10) |
-| 1 | `Unknown_C4` | `app/client/ui_trade.cpp:153` | untagged neutral name (D10) |
+| 1 | `Unknown_C4` | `app/client/ui_trade.cpp:154` | untagged neutral name (D10) |
 | 1 | `Unknown_24` | `app/client/ui_trade.cpp:163` | untagged neutral name (D10) |
 | 1 | `Unknown_6902E0` | `app/client/ui_trade.cpp:166` | untagged neutral name (D10) |
 | 1 | `Unknown_65FFC0` | `app/client/ui_trade.cpp:177` | untagged neutral name (D10) |
