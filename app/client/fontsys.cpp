@@ -36,7 +36,7 @@ FontSys::FontSys(const char *name, RenderObjClass *object, const char *text) :
 	float wait = Info.Wait;
 	Unknown26C = (int)(wait * 1000.0f);
 }
-// NOT EXACT: written from the client's code (0x6D4C70) for the POC, not yet matched
+// 0x6D4C70 (exact once Info's Offset is a TPoint2D<float>: the by-value copy stores the point as the client, F1B)
 FontSys::FontSys(FontStringStruct def, RenderObjClass *object, const char *text) :
 	DynamicMeshClass(2, 4),
 	Font(NULL)
@@ -108,8 +108,8 @@ void FontSys::Unknown_6D5170(RenderObjClass *object)
 	Unknown4D0.Y = 0.0f;
 	Unknown4D0.Z = 0.0f;
 	Unknown47C.Z = 0.0f;
-	Unknown47C.X = Info.Offset[0] * 640.0f;
-	Unknown47C.Y = Info.Offset[1] * 480.0f;
+	Unknown47C.X = Info.Offset.X * 640.0f;
+	Unknown47C.Y = Info.Offset.Y * 480.0f;
 	Unknown470 = Unknown47C;
 	Unknown430[0] = -320;
 	Unknown430[2] = 240;
@@ -276,13 +276,13 @@ void FontSys::Unknown_6D5D40()
 		if (sub != NULL) {
 			sub->Get_Position();
 			AABoxClass box = sub->Get_Bounding_Box();
-			int value = (int)(box.Center.X - box.Extent.X + Info.BoxOffset[0]);
+			int value = (int)(box.Center.X - box.Extent.X + Info.BoxOffset.X);
 			Unknown430[0] = value < -320 ? -320 : (value > 320 ? 320 : value);
-			value = (int)(box.Center.X + box.Extent.X - Info.BoxOffset[0]);
+			value = (int)(box.Center.X + box.Extent.X - Info.BoxOffset.X);
 			Unknown430[1] = value < -320 ? -320 : (value > 320 ? 320 : value);
-			value = (int)(box.Center.Y + box.Extent.Y - Info.BoxOffset[1]);
+			value = (int)(box.Center.Y + box.Extent.Y - Info.BoxOffset.Y);
 			Unknown430[2] = value < -240 ? -240 : (value > 240 ? 240 : value);
-			value = (int)(box.Center.Y - box.Extent.Y + Info.BoxOffset[1]);
+			value = (int)(box.Center.Y - box.Extent.Y + Info.BoxOffset.Y);
 			Unknown430[3] = value < -240 ? -240 : (value > 240 ? 240 : value);
 			sub->Release_Ref();
 			Unknown250 = 1;

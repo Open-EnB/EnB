@@ -62,9 +62,9 @@ void ManagedFontClass::Unknown_6CF930(FontStringStruct *def, RenderObjClass *obj
 		if (box) {
 			int left = (int)(box->Get_Bounding_Box().Center.X - box->Get_Bounding_Box().Extent.X);
 			int right = (int)(box->Get_Bounding_Box().Extent.X + box->Get_Bounding_Box().Center.X);
-			width = (float)(right - left) - def->BoxOffset[0] * 2;
+			width = (float)(right - left) - def->BoxOffset.X * 2;
 			box->Release_Ref();
-			box_height = (int)(box->Get_Bounding_Box().Extent.Y * 2 - def->BoxOffset[1] * 2);
+			box_height = (int)(box->Get_Bounding_Box().Extent.Y * 2 - def->BoxOffset.Y * 2);
 		}
 	}
 	width -= font->font32Ptr->Get_Text_Width("...", 640.0f);
@@ -169,7 +169,7 @@ void ManagedFontClass::Unknown_6D0A20(const char *name, const char *text, int un
 	Unknown_6D1600(name)->Change_Text(text, unknown);
 }
 
-// NOT EXACT: inline budget, 58 rows: the client inlines std::string(const char *) for the key, ours calls it (and two of the six 4-string loops swap lea operands; attempts.csv)
+// 0x6D0A70 (exact with FontStringStruct's implicit operator= over its TPoint2D<float> points: the written-out one spent the budget the key's std::string("") needs, F1B)
 void ManagedFontClass::Unknown_6D0A70(const char *name, const char *text)
 {
 	FontStringStruct def;
@@ -585,9 +585,9 @@ ManagedFontClass *FontManagerClass::Unknown_6D2AE0(const RefCountPtr<RenderObjCl
 **	0x6D3730 and 0x6D3DB0, which the linker placed after 0x6D2A70, so its object is this one (so is
 **	ManagedFontClass's block from 0x6CE990: its constructor calls 0x6D2BA0 / 0x6D3F40, 0x6CF520 calls
 **	0x6D3350). 0x6D0F70 is FontSoundStruct's implicit operator=, emitted after its first caller
-**	0x6D0A70 (FU1): 0x6D0A70 inlines FontStringStruct's copy only through the explicit inline operator=
-**	in fontdatabase.h; with the implicit one it is called out of line and fontdatabase.cpp's Load_Init
-**	0x6BF330 moves one load (H21's order-only knock-on; attempts.csv, docs/attempts/6D0F70). 0x6D2700 exact (H21: a flat style test and a key copy). 0x6D2400 / 0x6D2480 / 0x6D2500 exact once their callees 0x6D0390 / 0x6D0550 / 0x6D0A20 are
+**	0x6D0A70 (FU1). 0x6D0A70 inlines FontStringStruct's implicit operator= (F1B: with Offset / Target /
+**	BoxOffset as TPoint2D<float>, as Load_String's Get_Point copies show; with float[2] arrays the implicit
+**	one is called out of line, and written out it costs the key's std::string("") its inlining). 0x6D2700 exact (H21: a flat style test and a key copy). 0x6D2400 / 0x6D2480 / 0x6D2500 exact once their callees 0x6D0390 / 0x6D0550 / 0x6D0A20 are
 **	defined (FU1). FontSys is a DynamicMeshClass (0x6D47C0 builds the base, vtable 0xAFECB4): its
 **	+0x16C is Set_Sort_Level (0x6D01C0), its +0x184 Set_Hidden (0x6D0390 / 0x6D0550; its override 0x67EF40).
 **	The font is keyed by its render object's address: the constructor 0x6CE990 takes the object (its Get_Name

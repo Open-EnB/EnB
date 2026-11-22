@@ -99,8 +99,8 @@ bool FontSys::Unknown_6CD180()
 			return true;
 		}
 	} else {
-		int a = (int)((float)(Unknown2C4 / 2) + Info.BoxOffset[0]);
-		int b = (int)((float)(Unknown2C8 / 2) + Info.BoxOffset[1]);
+		int a = (int)((float)(Unknown2C4 / 2) + Info.BoxOffset.X);
+		int b = (int)((float)(Unknown2C8 / 2) + Info.BoxOffset.Y);
 		if (Info.Rotate90) {
 			int t = b;
 			b = a;
@@ -232,8 +232,8 @@ void FontSys::Unknown_6CDAB0(FontEffectStruct *effect)
 			Unknown2F4[1] = -1.0f;
 			break;
 		case 7:		// SCROLL
-			Unknown47C.X = Info.Offset[0] * 640.0f;
-			Unknown47C.Y = Info.Offset[1] * 480.0f;
+			Unknown47C.X = Info.Offset.X * 640.0f;
+			Unknown47C.Y = Info.Offset.Y * 480.0f;
 			break;
 		case 4:		// FADE
 			((float *)&Unknown494)[3] = effect->Initial;
