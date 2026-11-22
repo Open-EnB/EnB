@@ -7,7 +7,7 @@ Claude builders. Not Opus through agy: its per-model quota ran out after one 8-m
 | Script | Does |
 |---|---|
 | `launch.sh ID [MODEL] [TIMEOUT]` | one headless builder in worktree `.work/wt/ID`; `RUN_DIR` names the run folder with `brief-ID.md` and `common.md`; stream to `ID.jsonl`, start / exit in `ID.err` |
-| `poc_check.sh NAME COMMIT [LOG]` | the coordinator's POC run at a commit (a worktree, app build, clientpoc link, 40 s run); `CHECK_HARNESS=1` adds clienttest and udpreplay |
+| `poc_check.sh NAME COMMIT [LOG]` | the coordinator's client run at a commit (a worktree, app build, the client's link, 40 s run under clientrun.py); `CHECK_HARNESS=1` adds clienttest and udpreplay |
 | `rebase_gen.sh ID run/<date> [BASELINE]` | `wt.py rebase ID --onto run/<date>` then `wt.py bring-over` (bring-over alone now resolves generated-file conflicts) |
 
 A run (the coordinator-pacing skill's "agy builders" section has the pacing):

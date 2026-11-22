@@ -294,3 +294,7 @@ void Unknown4591A0Class::Unknown_3C()
 		Flags |= 0x20;
 	}
 }
+
+// EFFECT_PASS_TYPE's names (rs_track.h; .data 0xB70E40, their strings after them, then this file's
+// 'NextRenderState' and __FILE__): rs_list.cpp's 0x45B550 reads them
+char *Unknown_B70E40[] = { "Axial", "Silhouette", "Environment", "Screen", NULL };

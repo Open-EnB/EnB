@@ -220,7 +220,7 @@ std::ostream &operator<<(std::ostream &os, const MoneyClass &money)
 
 // 0x4F0AB0
 // @0x4F0AB0
-const char *Type_Name(MoneyClass *)	// NAME 2: describes what it does
+const char *Type_Name(MoneyClass)	// NAME 2: describes what it does
 {
 	return "MoneyType";
 }

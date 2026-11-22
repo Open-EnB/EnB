@@ -25,10 +25,10 @@ class UISlotInfoClass;			// ui_slot_info.h's (+0x9C)
 class SlotDataInterface : public InterfaceClass	// NAME 5: the client's RTTI (MemberCallback<SlotDataClass, SlotDataInterface, ...>)
 {
 public:
-#ifdef POC_WINDOW_CTOR
-	SlotDataInterface(LineDisplayClientClass *client) : InterfaceClass(client), ShortcutUI(0), SlotData(0), Unknown9C(0), SlotDrag(0), SelectedHilight(0), UnknownA8(0), VisibleButtons(0), UnknownB0(-1), UnknownB4(-1)
-		{ UnknownB8_0 = 0; UnknownB8_1 = 0; UnknownB8_2 = 0; UnknownB8_3 = 1; }	// (the POC's empty windows, poc_world3.cpp)
-#endif
+// (the stand-in build's empty-window constructor went with it, 2026-11-21)
+
+
+
 	SlotDataInterface(SClient *client);					// 0x62DE80  // NAME 1 [client]: neutral
 	SlotDataInterface(UIViewClass *view, int unknown);	// 0x62DD20 (no caller found)  // NAME 1 [view, unknown]: InterfaceClass's
 	virtual ~SlotDataInterface();						// 0x62E320

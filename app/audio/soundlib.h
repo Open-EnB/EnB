@@ -64,7 +64,7 @@ public:
 	int Type;																		// +0x54, SoundType (AudibleSoundClass::SOUND_TYPE)  // NAME 2: the ini key
 	int MaxInstances;																// +0x58, SoundMaxInstances  // NAME 2: the ini key
 	float Pitch;																	// +0x5C, SoundPitch  // NAME 2: the ini key
-	unsigned int SecsBetweenCalls;											// +0x60, SoundSecsBetweenCalls (ticks)  // NAME 2: the ini key
+	unsigned int SecsBetweenCalls;											// +0x60, SoundSecsBetweenCalls * 1000 (seconds to ticks, 0x43DCC3)  // NAME 2: the ini key
 	unsigned int NextCallTime;													// +0x64  // NAME 2: what it holds
 };
 

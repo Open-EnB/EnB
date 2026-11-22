@@ -46,20 +46,7 @@
 
 // ------------------------------------------------------------------------- strconv_lib.h
 
-// MoneyClass's (money.cpp, 0x4F0AB0 / 0x4F0BE0 / 0x4F0640)
-char *Value_To_String(char *buf, int size, const MoneyClass &value)
-{
-	STUB_CALLED("Value_To_String(MoneyClass) (0x4F0BE0)");
-	sprintf(buf, "%I64d", value.Amount);
-	return buf;
-}
-
-// money.cpp's by-value type name and comparisons (0x4F0AB0, 0x4F0600, 0x4F0640), declared in delta_money.cpp
-const char *Type_Name(MoneyClass)
-{
-	STUB_CALLED("Type_Name(MoneyClass) (0x4F0AB0)");
-	return "MoneyClass";
-}
+// (MoneyClass's Type_Name 0x4F0AB0 and Value_To_String 0x4F0BE0 are money.cpp's, by value)
 
 
 // ------------------------------------------------------------------------- lego_identifier.cpp's helpers

@@ -15,7 +15,7 @@
 #include "..\shared\g_assert.h"
 #include "..\shared\message.h"
 
-int Unknown_94B910();									// 0x94B910 (the textures' 'Frame: %d')
+// 0x94B910 (the textures' 'Frame: %d') is texture.h's TextureBaseClass::Unknown_Get_Textures_Applied_Last_Frame
 
 // 0x53E970
 FrameInterfaceClass::FrameInterfaceClass(UIViewClass *view, SimpleSceneClass *scene) :
@@ -237,7 +237,7 @@ void FrameInterfaceClass::Unknown_60()
 			(float)(TextureClass::_Get_Total_Texture_Size() - TextureClass::_Get_Total_Locked_Surface_Size()) / (1024.0f * 1024.0f),
 			TextureClass::_Get_Total_Locked_Surface_Count(),
 			(float)TextureClass::_Get_Total_Locked_Surface_Size() / (1024.0f * 1024.0f),
-			Unknown_94B910(),
+			TextureBaseClass::Unknown_Get_Textures_Applied_Last_Frame(),
 			IndexBufferClass::Get_Total_Buffer_Count(),
 			(float)IndexBufferClass::Get_Total_Allocated_Memory() / (1024.0f * 1024.0f),
 			VertexBufferClass::Get_Total_Buffer_Count(),

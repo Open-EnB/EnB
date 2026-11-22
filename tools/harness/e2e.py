@@ -11,7 +11,8 @@ r"""End-to-end scenarios for client builds (D237): an input script plus log-even
     python tools/harness/e2e.py check [NAME...]            parse only (no client)
 
 Each scenario is tools/harness/e2e/NAME.scn. A run is ONE client session for all its scenarios: antprox /REPLAY
-starts the client (tools/harness/clientpoc.py's instance and antprox code), the first scenario's steps run from
+starts the client (tools/harness/clientrun.py's instance and antprox code; ours is the tree's one client build,
+build/programs/client/client.exe, unless --exe), the first scenario's steps run from
 its `include`s (the login), and every later scenario runs only its own steps in the same world; a scenario leaves
 the world as it found it (it closes what it opens). After a scenario that fails, the client is stopped and the
 rest run in a fresh session (a crash or a window left open must not fail the others); so do they after an XFAIL,
@@ -23,7 +24,7 @@ scenario its own client, as before 2026-11-14. Exit 0 only if every scenario pas
 that fails as expected counts as passed and is printed XFAIL; one that passes is printed XPASS and fails the
 run, so the note gets removed). One line per scenario on stdout; everything else in .work/e2e/<HHMMSS>-<NAME or
 'session'>/ (e2e.log, events.log, antprox.out, d3d8shot.log, a copy of stubs.log, result-NAME.json, shots). The
-instance is removed at the end (clientpoc.py clean) unless --keep.
+instance is removed at the end (clientrun.py clean) unless --keep.
 
 The format (one step a line, '#' comments, shell-style quoting):
     name: TEXT / expected-fail: REASON / timeout: SECONDS     headers (before the steps)
@@ -34,7 +35,9 @@ The format (one step a line, '#' comments, shell-style quoting):
                                   its last line and the last input step (default T 30 s): "the loading this step
                                   started is over" where the client logs no "ready" line (the proxy's file opens)
     expect-no SOURCE PATTERN      from here to the scenario's end no line of SOURCE may match (checked continuously)
-    expect-no CRASH               short for: expect-no stubs '^CRASH:' (every scenario has it from the start)
+    expect-no CRASH               short for: expect-no any '^CRASH:' (the d3d8shot proxy's first-chance CRASH: line in
+                                  d3d8shot.log, or an older stand-in exe's in stubs.log; every scenario has it from
+                                  the start)
     click gadget NAME | click X,Y   rclick ... | move ...    mouse at a gadget of e2e/gadgets.txt or client pixels
     down X,Y / up X,Y             the left button pressed at a point / moved there held and let go: a drag (the
                                   client's item windows move an item on the button-up, e.g. into a terminal's slot)
@@ -58,6 +61,15 @@ The format (one step a line, '#' comments, shell-style quoting):
                                   click on something in the room needs before it (the click is a screen point)
     hold VK until SOURCE PATTERN [within S]   the key held down until the line is seen (walk on through a door
                                   until the room changes)
+    hold VK for S                 the key held down S seconds (flight: thrust, the arrow keys' turn and tilt)
+    rdrag X,Y for S               the right button pressed at the window's middle, the pointer held at X,Y for S
+                                  seconds, let go back at the middle (flight: the ship's nose follows the pointer)
+    pose-mark                     the pose now (camera at rest, at most 3 s) is what expect-pose measures from
+    expect-pose KIND MIN          since the pose-mark, the pose went MIN in the KIND direction: forward / back
+                                  (units along the marked heading), left / right (yaw degrees), up / down (pitch
+                                  degrees), moved (units, any direction); the best of the poses sampled during the
+                                  hold / rdrag steps since the mark and the pose now, so a chase camera's lag or an
+                                  auto-level after the input does not hide it
     pose                          the avatar's place and heading, written to e2e.log (for writing walk-to steps)
     shot NAME                     the client's own back buffer at the next Present (d3d8shot's D3D8SHOT_TRIGGER)
 SOURCE: antprox (antprox.out: antprox, the replay server and the client's stderr), stubs (stubs.log), msg
@@ -72,11 +84,12 @@ is posted with the harness's tag (IN_TAG in wParam's high word) and the proxy ru
 untagged input, a person's click or keystroke in the test window, is dropped and logged 'input: NOT REPLAYED';
 the result line counts such lines.
 
---retail (D190, D248): the scenarios drive a COPY of the retail client (clientpoc.py's Inst(retail=True): the copy
+--retail (D190, D248): the scenarios drive a COPY of the retail client (clientrun.py's Inst(retail=True): the copy
 in the instance folder, never the install), through the same proxy and the same tagged input; the terms box's
-"I Agree" is clicked for it. The retail client writes no stubs.log, so a step on the `stubs` source is ours only:
-wait-event / expect-event / expect-no / stand-in steps on it are skipped (noted in e2e.log), and a crash shows as
-'the client exited'. `compare` then reads two runs' events.log (ours, retail's) and prints, per scenario, the
+"I Agree" is clicked for it. No client writes stubs.log now (the one client build has no stand-in; older stand-in exes did), so
+a step on the `stubs` source is skipped on retail (noted in e2e.log) and never seen on ours. A crash on either shows
+as the d3d8shot proxy's first-chance `CRASH:` line in d3d8shot.log (source `proxy`; a fault the client handles
+itself shows too) and 'the client exited'. `compare` then reads two runs' events.log (ours, retail's) and prints, per scenario, the
 packets the client sent (antprox.out's 'received NAME' lines between the scenario's marks) where the two differ:
 the retail run is the expected result.
 
@@ -116,6 +129,11 @@ def _wrap(deg):
     return (deg + 180.0) % 360.0 - 180.0
 
 
+def _key_lparam(vk, up=False):
+    import clientrun
+    return clientrun.key_lparam(vk, up)
+
+
 class Pilot:
     """The avatar's pose in a starbase from the proxy's camera file (d3d8shot.c D3D8SHOT_CAMERA: the frame's first
     view matrix is the room's camera, which trails the avatar), and the closed loops that steer by it. Measured on
@@ -129,6 +147,7 @@ class Pilot:
     REACH = 560         # the largest offset used (pixels from the window's middle)
     COAST = 4.5         # units the avatar still walks after the button or key is let go
     CX, CY = 640, 512
+    REPEAT = 0.05       # hold VK for S: a key-down every 50 ms
 
     def __init__(self, hwnd, camera, tick, note):
         import ctypes
@@ -217,7 +236,60 @@ class Pilot:
             self._rup()
 
     def key(self, vk, down):
-        self._post(0x100 if down else 0x101, vk, 1 if down else 0xC0000001)
+        self._post(0x100 if down else 0x101, vk, _key_lparam(vk, up=not down))
+
+    def hold_for(self, vk, secs, sample):
+        """The key held secs seconds: a down every REPEAT seconds, as the keyboard's auto-repeat, a fixed count of
+        them (the client sends a MOVE per down of the thrust keys, so a run's packets compare with another's), the
+        pose sampled between them."""
+        t0 = time.time()
+        try:
+            for i in range(max(1, round(secs / self.REPEAT))):
+                while time.time() < t0 + i * self.REPEAT:
+                    sample(self.pose(5))
+                    time.sleep(0.01)
+                self.key(vk, True)
+                fail = self.tick()
+                if fail:
+                    return fail
+            while time.time() < t0 + secs:
+                sample(self.pose(5))
+                time.sleep(0.01)
+        finally:
+            self.key(vk, False)
+        return None
+
+    def rdrag(self, x, y, secs, sample):
+        """The right button down at the window's middle, the pointer held at x,y for secs seconds (the move posted
+        again every frame or so, with MK_RBUTTON), then back to the middle and let go; the pose sampled meanwhile."""
+        self._rdown()
+        end = time.time() + secs
+        try:
+            while time.time() < end:
+                self._mouse(0x200, 2, x, y)
+                sample(self.pose(5))
+                fail = self.tick()
+                if fail:
+                    return fail
+                time.sleep(0.03)
+        finally:
+            self._rup()
+        return None
+
+    @staticmethod
+    def change(mark, poses, kind):
+        """The best change in KIND's direction from mark over poses (see expect-pose), with the pose it came from."""
+        ry, rp = math.radians(mark['yaw']), math.radians(mark['pitch'])
+        look = (math.cos(rp) * math.cos(ry), math.cos(rp) * math.sin(ry), math.sin(rp))
+        best = None
+        for p in poses:
+            d = (p['x'] - mark['x'], p['y'] - mark['y'], p['z'] - mark['z'])
+            v = {'forward': sum(a * b for a, b in zip(d, look)), 'moved': math.sqrt(sum(a * a for a in d)),
+                 'left': _wrap(p['yaw'] - mark['yaw']), 'up': p['pitch'] - mark['pitch']}
+            v['back'], v['right'], v['down'] = -v['forward'], -v['left'], -v['up']
+            if best is None or v[kind] > best[0]:
+                best = (v[kind], p)
+        return best
 
     def walk_to(self, x, y, tol=2.0, within=30.0):
         """Walks with the right button held, steering by the cursor's offset; lets go a coast's length before the
@@ -382,11 +454,11 @@ def parse(text, name='?', gadgets=None, loader=None, _depth=0):
                 raise ScenarioError(f'{where}: wait-quiet SOURCE SECONDS [within S]')
         elif op == 'stand-in':
             if len(args) != 1:
-                raise ScenarioError(f'{where}: stand-in PATTERN (a stubs.log line, e.g. the first call of a POC stand-in)')
+                raise ScenarioError(f'{where}: stand-in PATTERN (a stubs.log line, e.g. the first call of a stand-in)')
             st.update(source='stubs', pattern=_regex(args[0], where))
         elif op == 'expect-no':
             if args == ['CRASH']:
-                args = ['stubs', '^CRASH:']
+                args = ['any', '^CRASH:']
             if len(args) != 2 or args[0] not in SOURCES:
                 raise ScenarioError(f'{where}: expect-no SOURCE PATTERN | expect-no CRASH')
             st.update(source=_source(args[0]), pattern=_regex(args[1], where))
@@ -434,12 +506,36 @@ def parse(text, name='?', gadgets=None, loader=None, _depth=0):
                     raise ValueError
             except ValueError:
                 raise ScenarioError(f'{where}: walk-to X,Y [tol T] [within S] / face YAW [tol D] [within S]')
+        elif op == 'hold' and len(args) == 3 and args[1] == 'for':
+            try:
+                st['vk'], st['secs'] = int(args[0], 0), float(args[2])
+            except ValueError:
+                raise ScenarioError(f'{where}: hold VK for SECONDS')
         elif op == 'hold':
             args, st['within'] = _within(args, 30.0, where)
             if len(args) != 4 or args[1] != 'until':
-                raise ScenarioError(f'{where}: hold VK until SOURCE PATTERN [within S]')
+                raise ScenarioError(f'{where}: hold VK until SOURCE PATTERN [within S] / hold VK for SECONDS')
             st['vk'] = int(args[0], 0)
             st['source'], st['pattern'] = _source(args[2]), _regex(args[3], where)
+        elif op == 'rdrag':
+            if len(args) < 3 or args[-2] != 'for':
+                raise ScenarioError(f'{where}: rdrag X,Y|gadget NAME for SECONDS')
+            x, y, g = _point(args[:-2], gadgets, where)
+            try:
+                st.update(x=x, y=y, gadget=g, secs=float(args[-1]))
+            except ValueError:
+                raise ScenarioError(f'{where}: rdrag X,Y|gadget NAME for SECONDS')
+        elif op == 'pose-mark':
+            if args:
+                raise ScenarioError(f'{where}: pose-mark takes nothing')
+        elif op == 'expect-pose':
+            kinds = ('forward', 'back', 'left', 'right', 'up', 'down', 'moved')
+            try:
+                if len(args) != 2 or args[0] not in kinds:
+                    raise ValueError
+                st.update(kind=args[0], min=float(args[1]))
+            except ValueError:
+                raise ScenarioError(f'{where}: expect-pose {"|".join(kinds)} MIN')
         elif op == 'pose':
             if args:
                 raise ScenarioError(f'{where}: pose takes nothing')
@@ -447,6 +543,17 @@ def parse(text, name='?', gadgets=None, loader=None, _depth=0):
             if len(args) != 1 or not re.fullmatch(r'[A-Za-z0-9_-]{1,40}', args[0]):
                 raise ScenarioError(f'{where}: shot NAME (letters, digits, - and _)')
             st['shot'] = args[0]
+        elif op == 'expect-ink':
+            try:
+                if len(args) != 3 or not re.fullmatch(r'[A-Za-z0-9_-]{1,40}', args[0]):
+                    raise ValueError
+                box = [int(v) for v in args[1].split(',')]
+                if len(box) != 4 or box[2] <= 0 or box[3] <= 0:
+                    raise ValueError
+                st.update(shot=args[0], box=box, min=int(args[2]))
+            except ValueError:
+                raise ScenarioError(f'{where}: expect-ink SHOT X,Y,W,H MIN (MIN bright pixels in the box of the '
+                                    f'shot taken last under that name)')
         else:
             raise ScenarioError(f'{where}: unknown step {op!r}')
         sc['steps'].append(st)
@@ -736,8 +843,8 @@ class Session:
     """One client under antprox /REPLAY, for one scenario or several in a row."""
 
     def __init__(self, args, scs):
-        import clientpoc
-        self.cp = clientpoc
+        import clientrun
+        self.cp = clientrun
         self.args = args
         tag = scs[0]['name'] if len(scs) == 1 else 'session'
         # Two runs started in the same second (another instance) must not share a folder: their antprox.out and
@@ -753,14 +860,14 @@ class Session:
                 self.out = f'{base}-{n}'
         self.elog = open(os.path.join(self.out, 'e2e.log'), 'w', encoding='utf-8', newline='\n')
         self.retail = bool(getattr(args, 'retail', False))
-        self.inst = clientpoc.Inst(args.instance, None if self.retail else args.exe, self.retail)
+        self.inst = clientrun.Inst(args.instance, None if self.retail else args.exe, self.retail)
         self.inst.prepare()
         env = dict(os.environ)
-        env.update(ENB_POC_WINDOWED='1')
         # record: a person plays, so untagged input passes (the proxy logs it 'input: untagged ...')
         self.record = bool(getattr(args, 'record', False))
         self.proxy = self.inst.use_proxy(env, self.out, input=True, tag=not self.record)
         self.trigger = os.path.join(self.out, 'trigger.txt')
+        self.shot_frames = {}           # shot NAME -> the newest frame before its step (expect-ink reads a newer one)
         self.camera = os.path.join(self.out, 'camera.txt')
         env.update(D3D8SHOT_CAMERA=self.camera)
         env.update(D3D8SHOT_TRIGGER=self.trigger, D3D8SHOT_MAX=str(3000 if self.record else 20 * len(scs)))
@@ -771,17 +878,17 @@ class Session:
             files['msg'] = os.path.join(self.out, 'messages.log')
         self.note(f'session of {len(scs)}: {", ".join(sc["name"] for sc in scs)}; exe {self.inst.src_exe}, '
                   f'instance {self.inst.name}, out {self.out}')
-        self.a, self.pid, _ = clientpoc.start_antprox(self.inst, self.out, env,
+        self.a, self.pid, _ = clientrun.start_antprox(self.inst, self.out, env,
                                                       ['-ENABLE_MESSAGES'] if self.messages else [],
                                                       mode=live_mode(args))
         self.ev = Events(files, log=os.path.join(self.out, 'events.log'))
         self.note(f'antprox pid {self.a.pid}, client pid {self.pid}' + (' (the retail client)' if self.retail else ''))
         if self.retail and self.pid:
             import threading
-            threading.Thread(target=clientpoc.click_agree, args=(self.pid, 60), daemon=True).start()
+            threading.Thread(target=clientrun.click_agree, args=(self.pid, 60), daemon=True).start()
         self.listener = None
         if self.messages and self.pid:
-            self.listener = clientpoc.start_listener(self.pid, self.out, sum(sc['timeout'] for sc in scs) + 10)
+            self.listener = clientrun.start_listener(self.pid, self.out, sum(sc['timeout'] for sc in scs) + 10)
         self.hwnd = None
         self.mark = 0               # ev.total index of the last input step
         self.mark_time = 0.0
@@ -796,6 +903,42 @@ class Session:
 
     def alive(self):
         return self.a.poll() is None and bool(self.pid) and _alive(self.pid)
+
+    def _shots(self, name):
+        """[(frame, file)] of the session's shot_NAME_<frame>.bmp|png, by frame."""
+        return sorted((int(m.group(1)), f) for f in os.listdir(self.out)
+                      for m in [re.match(re.escape(f'shot_{name}_') + r'(\d+)\.(?:bmp|png)$', f)] if m)
+
+    def _ink(self, name, box, seconds=5.0):
+        """(bright pixels, path) in BOX (x, y, w, h) of the newest shot_NAME_*.bmp: a pixel counts when its
+        brightest channel is at least INK_LEVEL (the UI's text is near white on the dark blue panels)."""
+        end = time.time() + seconds          # the proxy saves the shot just after it takes the trigger: wait for
+        size = -1                             # the file, and for its size to hold still
+        while True:
+            shots = [x for x in self._shots(name) if x[0] > self.shot_frames.get(name, -1)]   # this step's shot
+            path = os.path.join(self.out, shots[-1][1]) if shots else None
+            rows = None
+            if path:
+                try:
+                    now = os.path.getsize(path)
+                    if now == size:
+                        w, h, n, rows = read_shot(path)
+                    size = now
+                except (OSError, ValueError):
+                    rows = None
+            if rows is not None:
+                break
+            if time.time() >= end:
+                return 0, path
+            time.sleep(0.2)
+        x0, y0, bw, bh = box
+        count = 0
+        for y in range(max(0, y0), min(h, y0 + bh)):
+            row = rows[y]
+            for x in range(max(0, x0), min(w, x0 + bw)):
+                if max(row[x * n], row[x * n + 1], row[x * n + 2]) >= INK_LEVEL:
+                    count += 1
+        return count, path
 
     def _trigger(self, line, seconds):
         """Writes the proxy's trigger file; True once the proxy took it (deleted it at a Present)."""
@@ -830,6 +973,8 @@ class Session:
                     seen['stubs'].append(text)
             elif src == 'proxy' and text.startswith('input: NOT REPLAYED'):
                 seen['human'] += 1
+            elif src == 'proxy' and text.startswith('CRASH:'):        # d3d8shot.c Safe_Crash_Log, first chance
+                seen['stubs'].append(text)
 
         ev.flush_repeats()
         ev.mark_epoch()
@@ -838,8 +983,9 @@ class Session:
             first = not self.logged_in
             t_start = ev.now()
             deadline = time.time() + sc['timeout']
-            standing.append({'source': 'stubs', 'pattern': re.compile('^CRASH:'), 'line': '(always)',
-                             'watch': ev.watch('stubs', re.compile('^CRASH:'), start_line)})
+            for src in ('stubs', 'proxy'):        # an older stand-in exe's handler; the d3d8shot proxy's (any exe)
+                standing.append({'source': src, 'pattern': re.compile('^CRASH:'), 'line': '(always)',
+                                 'watch': ev.watch(src, re.compile('^CRASH:'), start_line)})
             note(f'scenario {sc["name"]}' + ('' if first else ' (own steps only: the session is in the world)'))
             ev.add('e2e', f'scenario {sc["name"]}')
 
@@ -989,14 +1135,37 @@ class Session:
                             ev.unwatch(w_until)
                     else:
                         post(op, st)
-                elif op in ('walk-to', 'face', 'hold', 'pose'):
+                elif op in ('pose-mark', 'expect-pose'):
+                    pilot = Pilot(self.hwnd, self.camera, tick, note)
+                    p = pilot.still(3.0)
+                    if p is None:
+                        fail = f'{st["line"]}: {op}: no camera file from the proxy (run_reference.py build)'
+                    elif op == 'pose-mark':
+                        self.pose_mark, self.pose_samples = p, []
+                        note(f'  marked at {pilot.say(p)} z {p["z"]:.1f}')
+                    elif getattr(self, 'pose_mark', None) is None:
+                        fail = f'{st["line"]}: expect-pose before any pose-mark'
+                    else:
+                        v, at = Pilot.change(self.pose_mark, self.pose_samples + [p], st['kind'])
+                        note(f'  {st["kind"]} {v:.1f} (min {st["min"]:g}; best at {pilot.say(at)} z {at["z"]:.1f}; '
+                             f'now {pilot.say(p)} z {p["z"]:.1f})')
+                        if v < st['min']:
+                            fail = (f'{st["line"]}: expect-pose {st["kind"]} {st["min"]:g}: {v:.1f} '
+                                    f'(from {pilot.say(self.pose_mark)} to {pilot.say(p)})')
+                elif op in ('walk-to', 'face', 'hold', 'pose', 'rdrag'):
                     ev.poll()
                     self.mark = ev.total
                     ev.mark_epoch()
                     pilot = Pilot(self.hwnd, self.camera, tick, note)
-                    if op != 'hold':
+                    samples = getattr(self, 'pose_samples', None)
+                    sample = (lambda p: p is not None and samples is not None and samples.append(p))
+                    if op not in ('hold', 'rdrag'):
                         pilot.still()
-                    if op == 'walk-to':
+                    if op == 'rdrag':
+                        fail = pilot.rdrag(st['x'], st['y'], st['secs'], sample)
+                    elif op == 'hold' and 'secs' in st:
+                        fail = pilot.hold_for(st['vk'], st['secs'], sample)
+                    elif op == 'walk-to':
                         fail = pilot.walk_to(st['to'][0], st['to'][1], st['tol'], st['within'])
                     elif op == 'face':
                         fail = pilot.face(st['to'][0], st['tol'], st['within'])
@@ -1026,10 +1195,17 @@ class Session:
                 elif op == 'shot':
                     fail = tick()
                     if not fail:
+                        self.shot_frames[st['shot']] = max(self._shots(st['shot']) or [(-1, '')])[0]
                         if self._trigger(st['shot'], 5):
                             note(f'  shot {st["shot"]} taken')
                         else:
                             note('  shot not taken in 5 s (a proxy without D3D8SHOT_TRIGGER? run_reference.py build)')
+                elif op == 'expect-ink':
+                    n, path = self._ink(st['shot'], st['box'])
+                    note(f'  ink {st["shot"]} {",".join(map(str, st["box"]))}: {n} bright pixels (min {st["min"]})')
+                    if n < st['min']:
+                        fail = (f'{sc["name"]}:{st["line"]}: expect-ink {st["shot"]}: {n} bright pixels in the box, '
+                                f'fewer than {st["min"]} ({path})')
             if not fail:
                 fail = tick()
             if not fail:
@@ -1043,21 +1219,19 @@ class Session:
             gens = gen_lines(stub_text)
             own_text = seen['stubs'][own_from:]
             own = [g for g in gen_lines(own_text) if g not in self.gen_before]
-            poc_own = [t[len('STUB first call: POC '):][:80] for t in own_text
-                       if t.startswith('STUB first call: POC ') and 'watchdog' not in t]
+            hand_own = [t[len('STUB first call: POC '):][:80] for t in own_text     # an older stand-in exe's hand ones
+                        if t.startswith('STUB first call: POC ') and 'watchdog' not in t]
             crash = [t for t in stub_text if t.startswith('CRASH:')]
             if crash:
                 self.dead = self.dead or 'CRASH'
             res = {'name': sc['name'], 'passed': fail is None, 'failure': fail, 'expected_fail': sc['expected_fail'],
-                   'gen': gens, 'gen_own': own, 'poc_own': poc_own, 'human_dropped': seen['human'], 'crash': crash[:1],
+                   'gen': gens, 'gen_own': own, 'hand_own': hand_own, 'human_dropped': seen['human'], 'crash': crash[:1],
                    'out': self.out, 'seconds': round(ev.now() - t_start, 1),
                    'login_failed': fail is not None and first and not reached_own}
             if crash and self.inst.map and os.path.exists(self.inst.map):
                 import symbolize
                 syms = symbolize.load(self.inst.map)
-                a0 = re.findall(r'\b([0-9A-F]{8})\b', crash[0])
-                res['crash_at'] = [f'{int(x, 16):08X} {symbolize.name_of(syms, int(x, 16))}' for x in a0[1:2] + a0[3:7]
-                                   if 0x401000 <= int(x, 16) < 0x1000000]
+                res['crash_at'] = [f'{v:08X} {symbolize.name_of(syms, v)}' for v in symbolize.crash_addrs(crash[0])[:5]]
             note(f'result: {json.dumps(res)}')
             with open(os.path.join(self.out, f'result-{sc["name"]}.json'), 'w', encoding='utf-8') as f:
                 json.dump(res, f, indent=1)
@@ -1202,7 +1376,7 @@ def run_all(scs, args, report):
         if stop:
             for sc in pending:
                 res = {'name': sc['name'], 'passed': False, 'expected_fail': sc['expected_fail'], 'gen': [],
-                       'gen_own': [], 'poc_own': [], 'human_dropped': 0, 'crash': [], 'out': results[-1]['out'],
+                       'gen_own': [], 'hand_own': [], 'human_dropped': 0, 'crash': [], 'out': results[-1]['out'],
                        'seconds': 0, 'failure': 'not run: ' + stop}
                 results.append(res)
                 report(res)
@@ -1239,6 +1413,12 @@ def _desc(st):
         return f'{st["source"]} {st["quiet"]:g}'
     if st['op'] in ('walk-to', 'face'):
         return ','.join(f'{v:g}' for v in st['to']) + f' tol {st["tol"]:g}'
+    if st['op'] == 'hold' and 'secs' in st:
+        return f'0x{st["vk"]:X} for {st["secs"]:g} s'
+    if st['op'] == 'rdrag':
+        return (f'gadget {st["gadget"]} ' if st['gadget'] else '') + f'({st["x"]},{st["y"]}) for {st["secs"]:g} s'
+    if st['op'] == 'expect-pose':
+        return f'{st["kind"]} {st["min"]:g}'
     if st['op'] == 'hold':
         return f'0x{st["vk"]:X} until {st["source"]} {st["pattern"].pattern!r}'
     if st['op'] == 'key' and st.get('until'):
@@ -1454,6 +1634,7 @@ def read_shot(path):
     return w, h, n, out
 
 
+INK_LEVEL = 200        # expect-ink: a pixel is ink when its brightest channel reaches this (0-255)
 SHOT_GRID = 16          # the shot compare's cells: GRID x GRID
 SHOT_TOL = 16           # a cell differs when its mean |difference| per channel (0-255) is above this
 SHOT_STEP = 2           # every STEP-th pixel and row is compared
@@ -1700,8 +1881,8 @@ def summary_line(res):
 
 
 def default_exe():
-    p = os.path.join(ROOT, 'build', 'programs', 'clientpoc', 'clientpoc.exe')
-    return p if os.path.exists(p) else None
+    """This tree's one client build (a worktree's own build/ in a worktree); clientrun.py refuses a missing one."""
+    return os.path.join(ROOT, 'build', 'programs', 'client', 'client.exe')
 
 
 # --db-snapshot (D270): the live station scenarios change the character (a warhead bought, a job item per accepted
@@ -1821,11 +2002,10 @@ def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__.split('\n')[0])
     ap.add_argument('command', choices=['run', 'list', 'check', 'compare', 'record', 'retail'])
     ap.add_argument('names', nargs='*')
-    ap.add_argument('--instance', default='e2e', help='clientpoc.py instance name (default e2e)')
-    ap.add_argument('--exe', help='the POC exe (default: this tree\'s build/programs/clientpoc/clientpoc.exe, '
-                                  'else ClientPOC\\release\'s)')
+    ap.add_argument('--instance', default='e2e', help='clientrun.py instance name (default e2e)')
+    ap.add_argument('--exe', help='our exe, its .map beside it (default: this tree\'s build/programs/client/client.exe)')
     ap.add_argument('--messages', action='store_true', help='-ENABLE_MESSAGES and msglisten (source msg)')
-    ap.add_argument('--keep', action='store_true', help='keep the instance (default: clientpoc.py clean it at the end)')
+    ap.add_argument('--keep', action='store_true', help='keep the instance (default: clientrun.py cleans it at the end)')
     ap.add_argument('--separate', action='store_true', help='a client of its own for every scenario (default: one session)')
     ap.add_argument('--retail', action='store_true', help='run a copy of the retail client (needs --instance; D190)')
     ap.add_argument('--live', nargs='?', const='localhost', metavar='SERVER',
@@ -1911,8 +2091,8 @@ def main(argv=None):
                                       'failure': r.get('failure')} for r in results]}, f, indent=1)
     print(f'e2e: {len(scs) - bad} of {len(scs)} as expected in {time.time() - t0:.0f} s; logs under {OUT}')
     if not args.keep:
-        import clientpoc
-        clientpoc.clean(args.instance)
+        import clientrun
+        clientrun.clean(args.instance)
     return 1 if bad else 0
 
 

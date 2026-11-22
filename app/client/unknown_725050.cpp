@@ -87,6 +87,33 @@ bool UnknownB02C90Class::Unknown_10(UnknownB02C90Class *child, int slot, int chi
 	return(false);
 }
 
+// 0x725A90
+int UnknownB02C90Class::Unknown_725A90(int slot)
+{
+	BufferStruct::ElementStruct *e = Buffer.Get(slot);
+	if (e == NULL) {
+		return(-1);
+	}
+	return(e->Bone);
+}
+
+// 0x725AD0
+Matrix3D UnknownB02C90Class::Unknown_725AD0()
+{
+	Matrix3D result(true);
+	Matrix3D::Multiply(((ClientObjectClass *)Unknown08)->Unknown_28(true), Unknown1C, &result);
+	return(result);
+}
+
+// 0x725BF0
+void UnknownB02C90Class::Unknown_725BF0()
+{
+	if (((ClientObjectClass *)Unknown04)->Type != 29) {
+		float radius = Unknown_725C60(Vector3(0, 0, 0), Buffer.Radius);
+		((ClientObjectClass *)Unknown04)->Unknown_34(radius);
+	}
+}
+
 // 0x725C60
 float UnknownB02C90Class::Unknown_725C60(const Vector3 &center, float radius)
 {
@@ -105,6 +132,49 @@ float UnknownB02C90Class::Unknown_725C60(const Vector3 &center, float radius)
 		}
 	}
 	return(radius);
+}
+
+#include <string.h>
+#include <new.h>
+
+// (inline in 0x725E70, twice: room for one more element)
+static inline void Unknown_Grow(UnknownB02C90Class::BufferStruct *buffer)	// NAME 1 [buffer]: what 0x725E70 passes
+{
+	int count = buffer->Count + 1;
+	if (count >= buffer->Unknown04) {
+		int size = count * 2;
+		if (size < 10) {
+			size = 10;
+		}
+		UnknownB02C90Class::BufferStruct::ElementStruct *data = (UnknownB02C90Class::BufferStruct::ElementStruct *)new char[size * sizeof(UnknownB02C90Class::BufferStruct::ElementStruct)];
+		memset(data, 0, size * sizeof(UnknownB02C90Class::BufferStruct::ElementStruct));
+		if (buffer->Data) {
+			memcpy(data, buffer->Data, buffer->Count * sizeof(UnknownB02C90Class::BufferStruct::ElementStruct));
+		}
+		delete buffer->Data;
+		buffer->Data = data;
+		buffer->Unknown04 = size;
+	}
+}
+
+// 0x725E70
+bool UnknownB02C90Class::BufferStruct::Insert(const ElementStruct &element, int index)
+{
+	if (index > Count) {
+		index = Count;
+	}
+	if (index >= Unknown04) {
+		Unknown_Grow(this);
+	}
+	if (Count >= Unknown04) {
+		Unknown_Grow(this);
+	}
+	if (index < Count) {
+		memmove(&Data[index + 1], &Data[index], (Count - index) * sizeof(ElementStruct));
+	}
+	new (&Data[index]) ElementStruct(element);
+	Count++;
+	return(true);
 }
 
 // 0x725120
@@ -188,8 +258,10 @@ void UnknownB02C90Class::Unknown_04(int base_asset)
 **
 **	Client 0x725050-0x7260F0, an object of its own by the CRT initialiser table (SG, run 2026-11-18): UnknownB02C90Class's
 **	members (co.h; the attachment slots of a client object: constructor 0x725050, destructor 0x7250F0, 0x725120,
-**	0x7251C0 with its function-local INIClass and atexit stub 0x7255F0, 0x725610, 0x7257F0, 0x725C60), then <string>'s
+**	0x7251C0 with its function-local INIClass and atexit stub 0x7255F0, 0x725610, 0x7257F0, 0x725A90, 0x725AD0, 0x725BF0, 0x725C60, 0x725E70), then <string>'s
 **	guarded initialiser 0x7260D0 (entry 573), before client.cpp's object (ClientClass's constructor 0x726100, its own
 **	guard 0x729450, entry 574). Moved out of client.cpp in the order client.cpp had them. No assert or string names
 **	the file: PROVISIONAL (D137).
+**	0x725A90, 0x725AD0, 0x725BF0 and the buffer's insert 0x725E70 (run 2026-11-21, WARP; the POC's hand stand-ins of
+**	0x725AD0 / 0x725E70 retired): 0x725AD0 is what eff_o.cpp's 0x6E7AA0 / 0x6E82A0 place source-based effects with.
 */

@@ -70,7 +70,8 @@ public:
 	bool Unknown4074;
 };
 static ENBAssetManager BDADC0;
-ENBAssetManager *AssetManager = &BDADC0;
+extern ENBAssetManager *AssetManager;	// 0xBDADC0: kernel.cpp's (compiled here), set at start-up
+static struct Replay_Asset_Manager { Replay_Asset_Manager() { AssetManager = &BDADC0; } } Replay_Asset_Manager_Set;
 class UnknownBFAEE0Class
 {
 public:

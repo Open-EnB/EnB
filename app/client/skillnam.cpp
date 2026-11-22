@@ -251,7 +251,7 @@ void SkillNamesDatabase::Unknown_817070(const char *ini_name, const char *ex_ini
 			FAIL_IF(max < 0) max = 0;
 			skill->Set_Max(char_tmpl, max);
 			std::string name(entry->Value);
-			name += " ";
+			name += "\\";
 			name += tmpl_name;
 			if (ini.Find_Section(name.c_str())) {
 				std::string trainer;
@@ -414,4 +414,6 @@ const char *SkillNamesDatabase::Unknown_818640(int index, int char_tmpl)
 **	Forms 0x817070 needs: Add_Range, an inline taking the value, shares the atoi temporary's slot with the constructor's
 **	(a direct push_back makes the frame 4 bigger); a named string for the descriptions' resize; append for the trainer's
 **	pieces, since += spends enough inline budget to push ' upon reaching level ' out of line.
+**	Unknown_817070's trainer section is the skill's name, '\\' and the template's name (0x8177C0 appends
+**	0xB6E914 '\\', not ' ') (relocaudit.py, run 2026-11-21 PRESET).
 */

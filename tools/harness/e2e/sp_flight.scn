@@ -1,0 +1,117 @@
+# Space (live server): flight by every input the client has for it, then a warp to a nav point. Elanor logs in at
+# rest in Jupiter (_login_space). Each manoeuvre is a pose-mark, the input, the packet the client sends for it
+# (MOVE: thrust on, off or reversed; TURN: yaw; TILT: pitch) and the pose change it made (expect-pose, on the
+# camera the proxy reports: the chase camera trails the ship, so the best pose sampled during the input counts).
+# - The thrust gadget (the dial at the bottom middle): its upper half is 'Forward Thrust. Click to thrust forward.
+#   Click again to stop.' (its tooltip), its lower half reverse thrust, a click again stops.
+# - A held (Move Forward) and Z held (Move Backward): thrust while held, the ship coasts to a stop after.
+# - The arrow keys (Turn Left / Right, Tilt Up / Down): yaw and pitch while held. A keyboard sends them with
+#   lParam's extended bit; without it the client reads the numpad's keys, which nothing binds (clientrun.key_lparam).
+# - The right button held: the nose follows the pointer (rdrag: pressed at the middle, the pointer held left,
+#   right, above, below). Left raises yaw, up raises pitch (e2e.py's pose).
+# - W (Target Near Navigation) targets the nearest nav point, Jupiter Path the First, about 1.35k from where the
+#   manoeuvres end: too close, the server answers Q with a MESSAGE_STRING and no warp (run 094456). The target
+#   panel's >> (1248,987) steps to the next one twice, to Nav Group Shrine (54.95k, run 095049); Q (Warp) warps to
+#   it: WARP, then the server's WARP_INDEX when the ship drops out, about 19 s later, some 50k on.
+# Calibrated on retail 2026-11-21 (run 093925: gadget forward 1041 in 3 s, A 1425 in 3 s, Z back 566 in 4 s,
+# right-button turns 133-172 degrees and pitch 70 / 78 in 2 s; run 095049 with the arrow keys and the gadget's
+# reverse: arrows yaw 80 / 145 and pitch 70 / 99 degrees in 1.5 s, the gadget's reverse 743 back, the warp 49928).
+# Ours (the stand-in build of 2026-11-21 06:14) passes too, and `compare` finds the SAME 201 packets (each down of
+# A / Z sends a MOVE: hold VK for S posts a fixed count of downs). The shots after the turns are never comparable
+# (shot_mask.txt); those at the start pose are: ours is 5-8 of 255 darker in Jupiter (space_entered 49.8 against
+# retail's 55.9 / 57.5), the sector brightness fault E2 found in sector 4505.
+# Run: e2e.py --live --retail --db-snapshot 7 --instance space run sp_flight (it moves Elanor; the snapshot puts
+# her back).
+name: space flight: thrust gadget, A / Z, arrow keys, right-button steering, warp to a nav point
+timeout: 420
+include _login_space
+# the thrust gadget's upper half: forward, then again: stop
+pose-mark
+click 640,878
+expect-event antprox 'received MOVE$' within 10
+alive 3
+expect-pose forward 300
+shot gadget_forward
+click 640,878
+expect-event antprox 'received MOVE$' within 10
+alive 4
+# the gadget's lower half: reverse, then again: stop
+pose-mark
+click 640,968
+expect-event antprox 'received MOVE$' within 10
+alive 4
+expect-pose back 100
+shot gadget_reverse
+click 640,968
+expect-event antprox 'received MOVE$' within 10
+alive 4
+# A held: forward; Z held: reverse
+pose-mark
+hold 0x41 for 3
+expect-event antprox 'received MOVE$' within 5
+expect-pose forward 300
+alive 3
+pose-mark
+hold 0x5A for 4
+expect-event antprox 'received MOVE$' within 5
+expect-pose back 100
+alive 3
+# the arrow keys: turn left, right; tilt up, down
+pose-mark
+hold 0x25 for 1.5
+expect-event antprox 'received TURN$' within 5
+expect-pose left 10
+pose-mark
+hold 0x27 for 1.5
+expect-event antprox 'received TURN$' within 5
+expect-pose right 10
+pose-mark
+hold 0x26 for 1.5
+expect-event antprox 'received TILT$' within 5
+expect-pose up 10
+pose-mark
+hold 0x28 for 1.5
+expect-event antprox 'received TILT$' within 5
+expect-pose down 10
+shot arrows
+# the right button held: the nose follows the pointer left, right, up, down
+pose-mark
+rdrag 240,512 for 2
+expect-event antprox 'received TURN$' within 5
+expect-pose left 30
+pose-mark
+rdrag 1040,512 for 2
+expect-event antprox 'received TURN$' within 5
+expect-pose right 30
+pose-mark
+rdrag 640,212 for 2
+expect-event antprox 'received TILT$' within 5
+expect-pose up 20
+pose-mark
+rdrag 640,812 for 2
+expect-event antprox 'received TILT$' within 5
+expect-pose down 20
+shot steered
+# the nearest nav point as the target, then warp to it
+key 0x57 until antprox 'sent SET_TARGET$' every 1.5 within 15
+wait-quiet proxy 0.5 within 10
+shot nav_nearest
+# the target panel's >>: the next target, twice
+click 1248,987 until antprox 'sent SET_TARGET$' every 1.5 within 15
+wait-quiet proxy 0.5 within 10
+shot nav_next1
+click 1248,987 until antprox 'sent SET_TARGET$' every 1.5 within 15
+wait-quiet proxy 0.5 within 10
+shot nav_target
+pose-mark
+key 0x51
+expect-event antprox 'received WARP$' within 10
+# in the warp: the ship's distortion and the slipstream around it (warp_tun01a-c.w3d, pwarp01-04.w3d, sw_warp*.dds)
+alive 3
+shot warping_3s
+alive 5
+shot warping_8s
+wait-event antprox 'sent WARP_INDEX$' within 90
+expect-pose moved 20000
+shot warped
+expect-no CRASH

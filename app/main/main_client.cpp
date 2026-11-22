@@ -140,8 +140,8 @@ extern Unknown_790560Class *Unknown_BE856C;			// NAME 1 [Unknown_BE856C]: neutra
 **
 **	The order of the steps is the client's log (dbgmgr.cpp's Begin_Step / End_Step texts); every callee
 **	is called as the client calls it, the ones not rebuilt yet declared above as far as WinMain uses them
-**	(their NAME 1 tags give the evidence). The POC client links them against
-**	programs/clientpoc/poc_standins.cpp (D179) until they are rebuilt.
+**	(their NAME 1 tags give the evidence). The one client build links them all
+**	from the tree's own definitions (no stand-in since 2026-11-21).
 **
 **	Forms (from the client's bytes):
 **	* DisableExceptions: the flag is the inverse (`sete` on the value, then `je` past the hooks), so the

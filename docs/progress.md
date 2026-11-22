@@ -4,6 +4,49 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
+### 2026-11-21 (17:00 PST, day; run 2026-11-21, PR #242): the user's nine client gaps (six fixed on our build and one already working, live; two the server's), one client build for all testing (D280: every stand-in retired, programs/clientpoc deleted), the effect path mapped and its last near misses cut, the data-relocation audit (D281) and the sibling check (D282); +16 pairs over the run's baseline, 0 lost outright beyond one D246
+
+- **Session** Opus coordinator, 11:25 -> 17:00, the user's goals: the nine gaps they found playing our build (effects first: map the effect functions on the app's path and make them exact), then non-exact functions, spending +7 % of the week by 17:00 (67 % at 11:25 -> 73 % at 15:49 (target 74)). run/2026-11-21 from origin/master 8377691ac (baseline .work/imports.8377691ac.json), sp_flight's three commits cherry-picked. Plan log `.work/run-2026-11-21/plan.md`. Gap tests on the local Net-7 server only (the user; memory gap-tests-live-only), one live run at a time under `.work/coord/live.py`.
+- **The gaps** (live, retail against ours): (3) starbase emotes, (4) the refinery's ore list, (5) the manufacturing drill-down, (6) ability area effects, (7) ability sounds, (8) the galaxy map's opaque planet picture, (9) the warp slipstream: fixed or confirmed working (the user confirmed 3 and 7); (1) private chat Join -> New and (2) Join -> Existing's input: the server's behaviour (the user): Net-7's CCE_INSERT_CHANNEL answers nothing, so no window and the client's pending flag (+0x225) blocks later joins; Existing's box is digits-only (edit flags 0xC4) on retail too.
+  - 6 / 7 / 9 (WARP, EMAP's map): the POC's hand stand-in for 0x725AD0 returned the mount's local matrix, not the owner's slot +0x28 transform times it, so every positioned effect and its 3-D sound sat at the sector origin; unknown_725050.cpp's four functions exact (+4). sp_warp (Enrage Group's area effect, the slipstream and the camera's lag as retail).
+  - 4 / 5 (TERM): ui_manu.cpp's UI aux classes had their own zero `UnknownGlobal` statics; since the template globals were numbered every Cast failed (auxdata.h(155) asserts); they derive from the real Delta types. sb_refinery / sb_manufacture* assert the lists (e2e `expect-ink`).
+  - 8 (GMAP): starmap_data 0x7BEAD0 and galaxy_map_robj 0x7B3770 used Alpha2D where the client copies 0xC01180, Additive2D: exact functions with the wrong preset (D281). sp_galaxymap; d3d8shot's `shot dump_NAME` draw dump.
+  - 3 (EMOTE), 1 / 2 (CHAT): not reproduced on the run head; sb_emote*, sp_chat_private added.
+- **One client build (D280; NOSTUB, TOOLS, combined as NT):** the 21 generated stand-ins and 13 null globals were mostly callers declaring the wrong class (fixed to the real one) and globals placed by .data / .bss order; hand stand-ins retired (0x744240, 0x6CE420, 0x846C90 exact); programs/clientpoc deleted; `build.py link --program client` fails on any unresolved symbol; clientpoc.py -> clientrun.py; linkgate, wt.py, dsp / msdev, build_client and the docs moved; dialogs and CRASH lines in the d3d8shot proxy. NT's checks: client 0 unresolved, 286 tools tests, e2e 25 / 25.
+- **Effect path (EMAP's map `.work/run-2026-11-21/effects-map.md`):** 342 functions from the effect packets down, 335 exact at the start. Made exact: unknown_725050's four (WARP), eff_robj 0x6EF740, eff_seek 0x6F1390 / 0x6F1AD0 (EFX), soundlib 0x43D3E0 + 0x4406E0 (SND: also a behaviour fix, SoundSecsBetweenCalls in ms). Cut: eff_line 0x6E6030 173 -> 0 masked (stack slots only; EFX, EFX2), cameraeffects 0x6E2CC0 63 -> 38 (CAM). Parked: eff_seek 0x6F0D40 (the user's form tested: res 23; reads through point res 3 with the kept product lost), sectorsound 0x43C780 (SND2, SND3: the sibling's nesting refuted by the client's own return path).
+- **Wrong objects (PRESET, D281):** objmatch masks relocated fields; 12 wrong-object sites fixed (presets in proj_man, mainview, dynamic_window_icon / _toggle; strings in skillnam, gd_attrb_skills, avatar_desc; mousetbl's AssetManager; ww3d2 SimpleScene Add_Tail; ...); tools/re/relocaudit.py (27 exact functions flagged on the head).
+- **Siblings (D282; the user):** tools/re/siblings.py and `.work/run-2026-11-21/siblings.md` (308 parked / blocked: 273 with an exact sibling, 37 tier-0 leads). First rounds: musicmanager Load_INI 0x43A1F0 188 -> 6 (+2; SIBA), PxList::Set_Corners 0x44C900 724 -> 88 (+2; SIBB), both by inline-budget levers rather than the sibling's shape: a sibling row can be the function's caller (SIBB) and already the client's form (SIBA).
+- **Calls (D246):** C1 / D280 the one client build's design (the user's direction, the ClientPOC data folder kept); C3 the `if (0) { dead call; }` budget device; C4 0xC01180 is Additive2D; C6 the UI aux classes derive from the Delta types; C7 the watchdog start at process start; C8 NOSTUB's global placements (0xBE350C observer.cpp, 0xB08C90 gadget.cpp, 0xBA8C20 ui_chat_panel.cpp interim, D137); C9 / D281 relocaudit is a report; C11 **D246 0x5E9410** (ui_radio_main, send-pad correlated in WARP's landing, +4 / -1; its regain round is the pad sweep); C12 the two arms of 0x6E6030 differ by the client's bytes.
+- **Pads (D279):** at the handoff, no builder running (main tree, --hold --pool 1): aux pad 11 -> 9 (window 8..10), send pad 37 -> 53 (window 50..57), +3 (co 0x6FB1E0, sclient 0x702240, 0x758210), 0 lost; 0x5E9410 not regained (its D246 entry stays).
+- **Verified vs not:** every landing's verify; the checker at 19799942d (the first one-client commit): linkgate (client 0 unresolved, no stand-in), clienttest 102 / 102 trace equal, udpreplay alex3, handshake 54 / 54, e2e 25 / 25 (301 s), live sp_warp PASS; the client linked again at c2bb0648e; SIBA / SIBB landed with the full link check. Each gap's live retail / ours runs are in the builders' worktrees' .work/e2e (plan log). Not run: retail under the new CRASH watch; a long POC / play session on the client build.
+- **Coordinator errors:** a TaskStop on a lander with queued branches killed SND3 / CAM / SIB's landing mid-verify (relanded; trap in the pacing skill); that relaunch passed --no-link on an app change (the checker linked the head after).
+- **For the user:** (1) merge the corrections PR #245 (D268: +0x5E9410), then #242; (2) the untracked programs/clientpoc/ (clientpoc.dsp, gen/) left in the main tree by the old generators can be deleted; (3) nothing for §3.
+- **Next items:** (1) the sibling table's tier-0 leads (`siblings.py ADDR --shape`, check `refs` and `attempts.py show` first); (2) relocaudit's rows (§4 item 1); (3) 0x6E6030's q form, 0x6E2CC0's r24 / r26, 0x44C900's last two insert sites, 0x43A1F0's this / name swap; (4) live.py's FIFO ticket; (5) the unknown_82ecb0.h include in eff_seek / eff_o / unknown_7979a0.
+
+### 2026-11-21 (10:20 PST, day; e2e session on run/2026-11-20-night): `sp_flight`, every flight input and a warp to a distant nav point; retail and ours pass with the same packets; arrow keys now posted as a keyboard does; no reconstruction change
+
+**Done.** `tools/harness/e2e/sp_flight.scn` (named only, `--live --db-snapshot 7`): the thrust gadget's upper half
+(forward, again stops) and lower half (reverse, again stops), A / Z held, the four arrow keys, the right button held
+with the pointer left / right / above / below, then W, the target panel's >> twice (Nav Group Shrine, 54.95k) and Q;
+each manoeuvre asserts its packet (MOVE / TURN / TILT; WARP, then WARP_INDEX) and the pose change on the camera.
+e2e.py: `hold VK for S` (a fixed count of downs, 50 ms apart), `rdrag X,Y for S`, `pose-mark`, `expect-pose KIND
+MIN`. clientpoc.py: `key_lparam` gives posted keys their scan code and the extended bit (the arrows had none, so
+the client read numpad keys and nothing turned). shot_mask.txt: the shots after the turns are `skip` (heading and
+brightness vary between two retail runs). README "Space" has the details.
+
+**Calls.** W's nearest nav point is ~1.35k off where the manoeuvres end, and the server refuses Q (a
+MESSAGE_STRING, no warp; run 094456), so the scenario steps to a distant one with the target panel's >>.
+
+**Verified.** Retail PASS (runs 095049, 100027); ours (ClientPOC\release\client.exe of 06:14) PASS (100439), no
+gen stand-ins hit, `compare`: SAME 201 packets. The default replay set on ours with the new key lParams: 25 / 25
+(100944-session). Found: in Jupiter ours is 5-8 of 255 darker than retail at the fixed start pose (space_entered
+49.8 against 55.9 / 57.5), the sector brightness fault E2 filed for sector 4505 (§4), so not a new item.
+Not run: `e2e.py retail` (the paired runner) on sp_flight; the run's retail check of the other scenarios.
+The user then saw the warp slipstream missing on ours: sp_flight shoots warping_3s / warping_8s (runs 101901 retail, 102315 ours, both PASS); filed in §4 (the shots differ in the camera too, the assets load on both).
+- **Next step:** the warp item in §4: compare what retail and ours create for the WARP (OBJECT_EFFECT DIDs in antprox.out, then WarpEffectClass / the camera), starting from runs 101901 / 102315.
+- **Traps:** an arrow key posted with lParam 1 is the numpad's (README 'Extended keys'); W's nearest nav point can be too close to warp (the server's MESSAGE_STRING, no WARP_INDEX); a heredoc mangles backslashes in Python (write the script with the Write tool).
+- **Outside git:** runs under `.work/e2e/*-sp_flight` (retail 093925, 094456, 095049, 100027, 101901; ours 095533, 100439, 102315), `.work/warpfiles.py`; Net7.exe running (restarted by each `--db-snapshot`); no VM leased. `tools/eol.py fix` turned docs/workflow.md (committed CRLF) to LF: left uncommitted.
+
 ### 2026-11-21 (07:00 PST, night; run 2026-11-20-night, PR #237): progress.md §4.1 pruned to open work, sp_combat passing on our build (the asserts are the client's own; the stops were the harness), and the near-miss functions by bytes: 12 functions made exact by builders (+2 out-of-line companions), +21 pairs over the run's baseline, 0 lost outright beyond one D240
 
 - **Session** Opus coordinator, 00:29 -> ~07:00, the user's three goals: reach 70 % of the week by 07:00 (61 % at the start, 67 % at the end); prune §4.1 of completed items; continue the stuck / not-exact functions; resolve sp_combat's failure on our build. run/2026-11-20-night (PR #237) brought up to origin/master e6b2e3555 (baseline .work/imports.e6b2e3555.json). Plan log `.work/run-2026-11-20-night/plan.md`.
@@ -4115,6 +4158,9 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 | D277 | 2026-11-20 | Budget devices (D272 dead reads, `#pragma auto_inline`, invented inline layers) are removed only where the file stays exact without them, or a near miss compiles to identical code; a device that still holds pairs stays, listed in docs/data/budget-devices.json as budget-held, source unproven; a holding `#pragma auto_inline` is read as a missing source layer or file split, not as budget (session 6, AUD; C45, C49). An invented inline layer or forwarder lands only with client evidence of its own (the client's out-of-line COMDATs it makes the object emit, a single-caller out-of-line call, its slot or copy-in bytes) and is listed there as interim (D137). | coordinator (D246) |
 | D278 | 2026-11-20 | A contributor's PR that conflicts with master only in the generated documents (`docs/data/names-review.md`, `docs/data/not-exact.md`) is merged by the verify service itself (`verify_pr.py`: `git merge-tree`, then `names.py` in the verify worktree) and lands with the regenerated files; no rebase is asked for. Any other conflict, and a maintainer's PR, still fails with "rebase". Attempt stashes (`docs/attempts/**.txt\|diff\|patch`) pass verify_pr.py's gate ([github-plan.md](github-plan.md) §4.5.5) | coordinator (D246), at the user's request |
 | D279 | 2026-11-21 | The symbol pads are tuned once a run, not at landings. The pairs that are exact only inside a window of co.cpp's `CoSymbolPadType` or sclient.cpp's `SEND_SYMBOL_PAD` are listed in `docs/data/pad-held.json` (nine: co 0x6FB1E0 0x7014B0 0x701D70 0x702240 0x7045F0, sclient 0x701D70 0x702240 0x74D990 0x758210); `pairs_cmp.py` prints their loss as `pad-held`, not as a loss, so no verify, bring-over or PR check refuses for them, no builder or landing sweeps or sets a pad (`wt.py bring-over --sendpad` is off by default), and they take no `accepted-corrections.json` entry during the run. At the handoff the coordinator runs `auxpad.py sweep --lockfree` + `auxpad.py set N` and `sendpad.py --lockfree` once and verifies; a pair then out of every window gets its entry (`"decision": "D279"`, `moved_to` null) until regained. Reason: the pad stands for compiler state the client does not record (declarations that emit no bytes, perhaps the build environment), it moved at 31 landings in the week of 2026-11-13 for nine functions, and it stays needed after every byte is exact. The guard macros and the generator stay as they are for now. The user. |  |  |  |
+| D280 | 2026-11-21 | **One client build for all testing** (the user). The client is `python tools/vc6/build.py link --program client` (build/programs/client/client.exe + client.map): every library, no stand-ins, no stubs.lib, no generated-stand-in pass, and the link fails on any unresolved symbol. programs/clientpoc is deleted; tools/harness/clientpoc.py is clientrun.py (same commands); e2e.py, linkgate.py (the client STRICT), wt.py's landing link check, dsp.py / msdev.py and build_client.py all use it. The test programs (clienttest, udpreplay, auxreplay) keep their own stubs. What the harness needs for safety (D69) lives in the d3d8shot proxy, not in the exe: DialogBoxParamA / MessageBoxA log and return IDOK unless D3D8SHOT_DIALOGS=1, first-chance CRASH lines go to d3d8shot.log; the read-only registry is gone (D181: the client writes only its own keys, as retail does). The runtime data folder C:\EnBDevelopment\ClientPOC keeps its name (the user). | stand-ins hid behaviour gaps (one, 0x725AD0, put every positioned effect and its sound at the sector origin); byte matching is per object through verify, not the link, so a strict link costs exactness nothing; a function nobody wrote now fails the link by name |
+| D281 | 2026-11-21 | Data relocations are audited, not credited: objmatch masks every relocated field, so an exact function can name the wrong object (a preset, a global, a string). `tools/re/relocaudit.py` compares every exact function's relocation targets with the client's (symbols.json, a derived data map, the client's strings and constants) and lists the differences; its rows are fixed as behaviour bugs (§4), and crediting is unchanged until symbols.json's stale duplicates are cleaned and the fold / deleting-dtor rows are filtered. coordinator (D246) | the galaxy map's opaque planet came from two exact functions with the wrong 2-D preset; on the run head 27 exact functions were flagged, at least 5 of them false |
+| D282 | 2026-11-21 | Before a round on a parked or stuck function, check its exact siblings by the same authors (the user): `tools/re/siblings.py ADDR --shape` ranks exact functions by the same method name on another class, file neighbours, shared callees and strings, and lists the shape differences (early return vs nesting, loops, helpers, accessors) the attempts never tried. Compare how each function's early exits leave in the client's bytes before copying a sibling's nesting (a separate `mov [state],-1; jmp dtor` block is a return; a jump into the shared ending is a nested if). An untried sibling form is new evidence under D271. | the original programmers reused their forms (the audio family's Load_INI, the seek effects' Unknown_1C); 273 of 308 parked / blocked functions have an exact sibling |
 
 ## 3. Open decisions
 
@@ -4140,11 +4186,14 @@ below name only the work items, the blocked work, the leads and the queues.
 
 1. **Work items** (each at its file's next edit, unless it says otherwise):
    * **Pad-forced shapes, to retry now that the aux constructors are in co.cpp** (the pad counts declarations, so these forms cost nothing in the pad any more where they only add declarations): P-L5-1's `__SIGNAL_MEMBERS` guard, P-D1-1's Get_Size placement, and the retypes blocked by 'no aux pad keeps all six'; each keeps the client's form only if the co.cpp aux pad (auxpad.py sweep --lockfree) and the send pad still have a window.
-   * **Budget devices (docs/data/budget-devices.md / .json, tools/re/budgetdev.py):** 168 measured devices hold 264 pairs (budget-held, source unproven): turn them into layer / file-placement items, the 58 holding `#pragma auto_inline` first; 567 devices are unmeasured (`budgetdev.py measure`), 13 are client-evidenced. Remove the free devices (they change no byte): sclient 0x7405E0's read, 0x7429B0's pragma, unknown_474530's two.
+   * **Budget devices (docs/data/budget-devices.md / .json, tools/re/budgetdev.py):** 168 measured devices hold 264 pairs (budget-held, source unproven): turn them into layer / file-placement items, the 58 holding `#pragma auto_inline` first; 567 devices are unmeasured (`budgetdev.py measure`), 13 are client-evidenced; a `dead-if0-call` kind is missing (a call in its own `if (0) { f(); }` raises the inline budget: soundlib 0x43D3E0's device, client-evidenced). Remove the free devices (they change no byte): sclient 0x7405E0's read, 0x7429B0's pragma, unknown_474530's two.
    * **Names:** 0x57B6B0 is Create_Get<HAnimClass> (symbols.json); pdaint's Unknown_694AA0 (the chat window's
      Create_Get for its panel, as 0x56CCB0 for the window base) wants its client name.
-   * **D237 / D248 (the end-to-end harness):** left after the one-session, event-driven e2e.py (48 s for the six scenarios) and the hooks' move into the d3d8shot proxy: (a) the retail comparison: `e2e.py run --retail` and `e2e.py compare` exist (packets sent per scenario; five scenarios SAME on first use); left: run the whole set and the recorded sessions (`/play N`) against retail, compare the shots per step (the same step's back buffer: a tolerance or a per-region diff), and give the checker a `retail` check; (b) poc_window.cpp's `CRASH:` line and read-only registry are still compiled into the exe (the proxy loads only at Direct3DCreate8, after WinMain's start: an earlier loader, or antprox, would be needed to move them); (c) gadget names come from a hand-kept table (tools/harness/e2e/gadgets.txt; the client does not log gadget names or rectangles: a proxy-side lookup); (d) the in-world `wait-quiet proxy` steps pass on their minimum when a window opens no file: a draw-count-stable event from the proxy would be a real "drawn" signal; (e) e2e.py refuses nothing when the exe was linked from stale libraries (a main-tree build of 11-11 crashed at world entry on 60 unresolved symbols: check the link's summary.json `unresolved` before the run); (f) the checker's definition (P-T1-1), the smoke-set rule in builders.md. (e) `sp_warp` (the recording's warp and second fight) is not yet a scenario.
+   * **D237 / D248 (the end-to-end harness):** left after the one-session, event-driven e2e.py (48 s for the six scenarios) and the hooks' move into the d3d8shot proxy: (a) the retail comparison: `e2e.py run --retail` and `e2e.py compare` exist (packets sent per scenario; five scenarios SAME on first use); left: run the whole set and the recorded sessions (`/play N`) against retail, compare the shots per step (the same step's back buffer: a tolerance or a per-region diff), and give the checker a `retail` check; (c) gadget names come from a hand-kept table (tools/harness/e2e/gadgets.txt; the client does not log gadget names or rectangles: a proxy-side lookup); (d) the in-world `wait-quiet proxy` steps pass on their minimum when a window opens no file: a draw-count-stable event from the proxy would be a real "drawn" signal; (f) the checker's definition (P-T1-1), the smoke-set rule in builders.md. (e) `sp_warp` (the recording's warp and second fight) is not yet a scenario. (g) `expect-ink` (the first-row ink check of the refinery / manufacturing steps) for the vendor and jobs lists. (h) sp_combat's hotbar header is stale: Elanor's slots 4 / 5 are now Biocessation / Enrage Group. (i) tools/harness live.py's lock has no queue (a retail run was blocked by the live lock): a FIFO ticket.
    * **Two app faults found by the retail e2e comparison** (ours against retail 22 of 25 SAME; the checker lists them as known): `pda_faction` shows no blue HIGHLIGHTnn panel (ours hides it through RObjGadgetClass::Unknown_8C -> Set_Hidden; leads: rs_track Unknown_1C8 / rs_list NOT EXACT, or a duplicate HIGHLIGHTnn across LODs) and sector 4505 (`play1` / `play1_windows`) renders darker (36-42 against 44-52; leads: DebrisFieldClass::Render's rest, the constructors 0x6B8F20 / 0x6BB470, ww3d2's additive point sprites); the recordings with a shot lead and no retail baseline are 8 of 10. ShipCustSettingsClass's Unknown10 / Unknown14 as one Vector2 (by-value Vector2 evidence in the client: the constructor 0x4F61C0 takes one).
+   * **relocaudit.py's flagged rows** (`python tools/re/relocaudit.py`: exact functions whose masked relocation targets differ from the client's; a report, not a crediting rule: stale symbols.json duplicates, fold / deleting-destructor rows give false hits): co 0x6FD7A0 AssetManager (pad-sensitive: at a pad sweep); symbols.json 0x92F060 is Set_Emissive (name); ui_ping 0x5D7D60 (Add_Object(Element)); ui_faction 0x58E6F0; the soundrobj vtable; pkmessageline's duration.h `__FILE__`; LandClass 0x470EF0 (1/255 ulp). Related: the older relaudit item in item 9.
+   * **unknown_82ecb0.h:** 0x82ECB0 is exact in its own object (unknown_82ecb0.cpp, between udpconn and chartemplate; 11 client callers: eff_o 0x6E8DD0, eff_seek x5, camera 0x7981B0 / 0x798570 / 0x7987F0); eff_seek.cpp, eff_o.cpp and unknown_7979a0.cpp declare it locally ("file unknown", stale): include unknown_82ecb0.h at their next edit (line-neutral; pad check).
+   * **Sibling leads (tools/re/siblings.py, `.work/run-2026-11-21/siblings.md`):** 308 parked / blocked functions ranked by an exact sibling (273 have one, 217 strong); tier 0 = 37 functions (a strong sibling and an untried control-structure difference), tier 1 = 10, tier 2 = 69. Top leads: 0x43A1F0 musicmanager Load_INI, 0x738970 DamagePacket Process_Packet (`?:` against else), 0x44C900 / 0x44C2E0 PxList, 0x64D770, 0x824540, 0x74ABC0. A round on a lead is new evidence under D271; 'untried' is a keyword match of attempts rows (it flagged 0x43C780's nesting, which had been tried twice).
    * **sclient.h** (at the next pad sweep): loadingview.cpp's file-static Release_Screen layer as an inline member of LoadingViewClass.
    * **fontsys.cpp / fontmanager.h** (at fontsys.cpp's next edit): move the file-local `Set_Complete` (unknown_6ca0c0.cpp) into fontmanager.h as a FontSys inline member; a new FontSys member declaration flips ui_option_quit 0x5CE830 under the full verify, so measure it against a base where 0x5CE830's D240 entry stands.
    * **tests/clienttest/data/basset.ini:** line 61's comment (0x4981E0 "not rebuilt") is stale; clienttest could use BASE-1091's Width= line.
@@ -4266,7 +4315,7 @@ below name only the work items, the blocked work, the leads and the queues.
      0x547C20 (layout 0.61: the client leaves the valid branch's null result unmerged) and 0x547FD0 (inline budget 0.48:
      only the valid branch's Cast out of line); the skill panel's 0x548D60 (0.73, register in the title's colour stores,
      9 forms).
-   * optdlg.cpp (OD1 / OD2 / LV2; the client's file, WinMain's stand-ins 0x846C90 / 0x847D20 stay, D69): NOT EXACT
+   * optdlg.cpp (OD1 / OD2 / LV2; the client's file, 0x846C90 is exact; WinMain's 0x847D20 dialog stays, D69): NOT EXACT
      0x846FC0 (register 0.66: case 2 keeps Choices in edi, the client the dialog) and 0x847630 (shape 0.77, 30 forms:
      the client loads Type into ecx and the table into eax before the inlined 0x846CD0's first test); the page
      procedures 0x847BB0 / 0x847C40 (0.77) and the servers.ini page 0x8476C0 (0.78) are functional with the same
@@ -4287,7 +4336,7 @@ below name only the work items, the blocked work, the leads and the queues.
      tail-merge, Rotate_Y's operand order).
    * ui_ptrade.cpp (PT1 / PT2; UIPTradeClass in sclient.h, interim D137, base Unknown5BB320Class, 0xE8): NOT
      EXACT only 0x5E2CE0 (0.84, register: key 3 reads the client through edx, the client eax; 7 forms). 0x5E1B80 / 0x5E1B90 are the previous file's.
-     money.cpp's operators 0x4F0500 / 0x4F0700 / 0x4F0740 are stubs in clienttest / clientpoc until money.cpp links there.
+     money.cpp's operators 0x4F0500 / 0x4F0700 / 0x4F0740 are stubs in clienttest until money.cpp links there.
    * ui_friends.cpp (FR1 / FR2; UIFriendsClass 0x14C over UIChatPanelBaseClass, 0x58F0F0-0x5921F0): NOT EXACT 0x58FBA0 (the inlined player dtor's EH state
      between its two strings: client 2, ours 1), 0x5908B0 (register, 6 loop forms), 0x5913E0 (inline budget).
      ui_friends.h interim (NAME 1).
@@ -4327,16 +4376,9 @@ below name only the work items, the blocked work, the leads and the queues.
      its address as one); sclient.h's `SClientFontDatabaseClass::Unknown_6C52B0(int)` is
      `FontStringFilesClass::Load(const char *)`. FontColorStruct / FontEffectStruct stay in their .cpp files (in
      fontdatabase.h they cost Load_Init its match).
-   * **The POC client (queue `.work/poc/ledger.md`, run log `.work/poc/runs.md`):** build with
-     `build.py build --lib app --allow-dirty`, mkauthlogin, `build.py link --program clientpoc`, run `clientpoc.py run
-     --seconds 40 --shots 60000,120000` (the client's own back buffer, PNGs in `.work/poc/shots/`; `git add -N` new files
-     first; build in a `wt.py` worktree when others' edits are in the main tree: workflow.md §3.0). State (run
-     2026-11-02 agy night): the mouse and keyboard log in (`clientpoc.py --input FILE` with the d3d8shot proxy's virtual
-     cursor; against antprox /REPLAY, allowed unattended by D181, with `.work/coord/replay.py INPUT SECONDS SHOTS`); the
-     29 combo_ffactory.cpp(101) FAIL_IF lines are retail behaviour. Next, in order: avatar.cpp's functional NOT EXACT functions toward exact (RefCountPtr members +0x2B0..+0x2E4 /
+   * **Leads from the POC client's queue (`.work/poc/ledger.md`; the client is now the one build, `build.py link --program client`, run by `clientrun.py`):** Next, in order: avatar.cpp's functional NOT EXACT functions toward exact (RefCountPtr members +0x2B0..+0x2E4 /
      +0xBC as the client has them; 0x782200); gen globals the client starts at 1 (0xBB9654, 0xBBB084) and TextureLoader's 0xC01290; the /O2
      constant-in-ebx residue blocking 0x769500 / 0x769680 (.work/wt/lgx/.work/lgx/find_ebx1.py);
-     never the 0x847D20 / 0x846C90 dialog stand-ins: they keep the POC free of modal dialogs);
      ui_registration.cpp's rest: 0x5FA0B0 (the getter
      0x5FFFE0 pairs with 0x5FBD30), functional toward exact 0x5F9460 (attempts.csv rows),
      ro_funcs 0x496960;
@@ -4346,10 +4388,6 @@ below name only the work items, the blocked work, the leads and the queues.
      Leads by file: ctrngadg 0x50ABC0 (block layout), tooltip
      0x6AB930 / 0x6ABC60, textgadg 0x6AAD10, gclass 0x4A17B0, filter match
      udpconn's constructor,
-     clientpoc.py's docstring: ENB_POC_WINDOWED /
-     --fullscreen no longer act (the real 0x442AC0 reads RenderDeviceWindowed from the registry, read-only). Stand-ins to
-     delete as code lands: programs\clientpoc\poc_standins.cpp, poc_link.cpp, poc_ui.cpp, poc_data.cpp (its flag constants
-     0xB08CAC-0xB08CC4 want their owner).
    * Leftovers by file (attempts.csv rows for each): cordcon read 0x850FD0 (m's home in k's
      slot), handlePacket / pumpInternal (match the timebufs' frame offsets +0xE8 / +0xC0 first), openc / write (register);
      cordmgr Pump / Go_Away / ACK2; gadget 0x6609A0;
@@ -4475,9 +4513,7 @@ below name only the work items, the blocked work, the leads and the queues.
      under Tools).
    * fontsys.cpp: Update_Text 0x6D64C0 (a round of its own, Fable-eligible per D72; F1): the client calls Convert_Color_Clamp out of line twice and ShaderClass::Reset where ours calls Clamp_Color, three `??_H` vector ctors, the argument read as a dword; 0x6D60C0 (spend a little budget between the two Play copies).
    * sclient.cpp: 0x74CA90 / 0x741180 (above).
-   * **World gen stand-ins and leads (GS1, ID1, SB1, TX1, SK1, CE1):** gen stand-ins still hit in the world (35 at GS1's
-     close, 34 after UV1; list them with the POC's stubs.log `gen` lines against `client.py name`): MusicManager / 0x74BFB0, the 'if_targ' range gauge's 0x6A4020
-     (its stubs are inert); the dtor behind table 0xB08C34 (SG1; item_effect_description.cpp
+   * **World leads (GS1, ID1, SB1, TX1, SK1, CE1):** the dtor behind table 0xB08C34 (SG1; item_effect_description.cpp
      is E1's, see below); the 0x42A410 key-binding writer's retype (ControlKeyComboStruct against KernelEventClass); Unknown_671300Class's
      second ctor argument as RenderObjClass * (UV1: ui_cpit passes `(int)uv`; ui_avatr / ui_avatar_cust's local declarations
      must change with it); the chat panel's
@@ -4499,7 +4535,7 @@ below name only the work items, the blocked work, the leads and the queues.
    * **Block-shape frame lever (D252)** across the frame class's remaining members, then the parked ones once each.
    * **Inline-budget class's 'multiple' callees through their callers (CR8: 88 app multiples left):** lead: align a located caller's calls only over the tied symbols the client's branches reach (0x56C180's Create_Get); 0x56CD50 / 0x780810 need app inline-budget fixes, not crediting.
    * **aux_roots' 9 untried functions** (pad-sensitive: one builder, the landing retunes).
-   * **Starbase render stalls:** ours-only stalls over 5 s in `_play7` (SBaseViewClass::Unknown_0C into WW3D::Render); a recording that reaches the generated stand-ins the link still writes.
+   * **Starbase render stalls:** ours-only stalls over 5 s in `_play7` (SBaseViewClass::Unknown_0C into WW3D::Render).
    * **The starbase gadget's file** (unknown_6b6050.cpp): confirm its range (0x6B6170 is not a function start).
    * **Client-names rows with most work left** (counts of 2026-11-14, recount with notexact.py first): co.cpp, ui_registration, mainview, ui_manu, attrib_dir, ui_chat_panel's rest, ui_scan.
    * **ui_interrupt.cpp:** its local inline `operator >` and `Millisecond` say "duration.h's, not rebuilt there yet";
@@ -4573,7 +4609,7 @@ below name only the work items, the blocked work, the leads and the queues.
      sbaseview.cpp (leads 0x6A0590; 0x69F710 order);
      scriptedmovie.cpp (the dtor 0x8008B0, the loader 0x8099B0, 0x8059A0 shape, 0x8020B0: its D185 variant needs a
      fake derived struct).
-   * POC world entry (WE1's path; run `clientpoc.py replay --input .work/WE1/input.txt --seconds 140 --shots 1` with
+   * POC world entry (WE1's path; run `clientrun.py replay --input .work/WE1/input.txt --seconds 140 --shots 1` with
      `D3D8SHOT_EVERY=2000 D3D8SHOT_MAX=500`; in-world frames from ~280000): the POC enters the sector and draws the
      backdrop, the orbitals, the player's ship as retail's, lit by the real lights, under the cockpit HUD with the radar
      panel (ui_scan.cpp). Open (retail ~170 draws per frame, the POC ~114 at WE9; WE7's `.work/we7/drawsum.py`): the
@@ -4581,9 +4617,9 @@ below name only the work items, the blocked work, the leads and the queues.
      a 0.77 form with dead reads stashed);
      ChatWindowInterface's NOT EXACT (attempts.csv, CW2); the chat reply list 0x56E2A0 (fc_symbolchat.ini: likely
      ui_symbolchat.cpp) and the combo box's ctor 0x578210 / 0x5689D0; the
-     PDA's NOT EXACT 0x693E70, 0x695780, 0x695A00, 0x695FE0 and its windows' stand-ins (poc_world3.cpp: vault, experience,
+     PDA's NOT EXACT 0x693E70, 0x695780, 0x695A00, 0x695FE0 and its windows' former POC stand-ins (vault, experience,
      and PW1's D179 stand-ins under the cargo and equipment windows: DynamicWindowIconClass::Create 0x519A20, 0x51A9C0,
-     0x66CC00, combo 0x5789E0 / 0x57B480, ship PIP 0x541DE0 / 0x66DA50, stats 0x6A2ED0; poc_world4.cpp: the star map
+     0x66CC00, combo 0x5789E0 / 0x57B480, ship PIP 0x541DE0 / 0x66DA50, stats 0x6A2ED0; the star map
      set-up's class, GadgetPipSceneClass 0x66ACE0, GadgetStarmapClass 0x7B4700); in the world the chat panel's tabs are
      missing and the chat text colour differs from retail's (red against green: SClient +0x13CC, 0x765540 / 0x765BE0 /
      0x765E40), the cargo window shows no items (the replay's cargo is empty: a replay with items is the next check of item_template.cpp) and
@@ -4595,8 +4631,7 @@ below name only the work items, the blocked work, the leads and the queues.
      EXACT 0x60E300, 0x60E580, 0x60D8D0, 0x60E6A0, 0x60F1A0; the target lines need a replay that selects a target;
      Jupiter needs its CREATE + PLANET_POSITIONAL_UPDATE in antprox's replay (antprox repo); the render states:
      rs_list's twins 0x45A750 / 0x45A7E0; enbscene's NOT EXACT 0x75F8B0 (field-offset) and 0x75FB00 (FP order);
-     camera_manager.cpp / camctrl_takeoff.cpp's local MainViewSceneClass -> enbscene.h where lines hold; the stand-ins
-     listed in poc_world.cpp / poc_world2.cpp / poc_world3.cpp / poc_world4.cpp. Evidence-backed
+     camera_manager.cpp / camctrl_takeoff.cpp's local MainViewSceneClass -> enbscene.h where lines hold; Evidence-backed
      cleanups: the 0x755AF0-0x755C30 COMDAT copies are sclient.cpp's, tied to SClient::Init 0x741180 (NOT EXACT).
 
 6. **Step 8's tail:** at LIMIT (Rate Count, the UDP constructor 0x82CBF0 register: try
@@ -4801,7 +4836,7 @@ below name only the work items, the blocked work, the leads and the queues.
      - audio: musicmanager 0x43A1F0 Load_INI (inline-budget, best 0.74 with a dead size() after push_back, uncommitted); unknown_431e30 0x4328B0 Update (inline-budget: the client calls 0x432C00 out of line, ours inlines)
      - avatar 0x781EA0 (register: ebx against ebp zero; Unknown314 = 1 merged into = n), 0x788900 (shape 0.81), 0x780810, 0x782200, 0x788F90 (inline-budget), 0x783B50 (waits for its NLP / blink / face callees), 0x780AF0 (LIMIT REACHED); 0x780AC0 is the compiler's ColorizationHalfStruct::operator= (identical to 0x62A5D0 / 0x80B100), waits on 0x780810's / 0x8020B0's inline budget
      - manufacturing_defs 0x845AA0 String_To_Value(ManufacturingModeBitFlag) (inline-budget: the failed lookup gets an inlined _Tidy(true), the client calls ??_G(0))
-     - emote_data 0x7E6860 (layout 0.63: the client puts the shared stop block before the active block), 0x7E70A0 (frame 0.31: the client's locals are 4 bytes larger); eff_line 0x6E6030 (order: x87 load / store order around two Vector2 normalisations)
+     - emote_data 0x7E6860 (layout 0.63: the client puts the shared stop block before the active block), 0x7E70A0 (frame 0.31: the client's locals are 4 bytes larger); eff_line 0x6E6030 (stack slots only: raw rows 12 -> 4, masked residue 0, explain 'identical'; the result temporary at 0x20 against the client's self-copy into p at 0x2c; a result variable `Vector2 q` gives that branch exactly but then `q *= s` loads q.Y first where the client keeps s on the x87 (`fst s; fmulp; fld s; fmul q.Y`): find the q form's slots with the p form's s multiply, trying the head's locals (view_start / view_end, delta, xz / yz))
      - ui_vault 0x656FF0 (inline-budget: string::_Eos for FilterName("") called against inlined, as cargo's 0x5CF9B0), 0x657430 (order, as cargo's 0x5CFE40), 0x657AA0 (frame: shrink-wrapped pushes for the filter tail), 0x657DA0 (order: INVENTORY_SORT argument loads)
      - ship_stats_display 0x6A34E0 (shape 0.72: the arrow texture pick's registers; a ternary spends the inline budget); shortcut_range_gauge 0x6A4020 (parked after round 2, shape 0.67: the hidden case laid out last; `1 - distance/range` before the frame time); ship_equip_pip 0x542250 (literal / frame 0.46), 0x542A10 (literal 0.85: product order in each translation sum), 0x542EE0 (shape 0.92: Camera loaded early)
      - accel 0x4990C0 (shape)
@@ -4852,7 +4887,7 @@ below name only the work items, the blocked work, the leads and the queues.
        Get_Value copies the client lacks)
      - fontsys 0x6D47C0 (register, 1 row), 0x6D4C70 (order, 4 rows), 0x6D0A70 (inline-budget), 0x6D5C10 (FPU copy),
        0x6D60C0; 0x6C2A10 parked (FN1)
-     - eff_robj 0x6EF740 (order, four forms stashed); eff_seek 0x6F0D40 (shape), 0x6F1390 / 0x6F1AD0 (order)
+     - eff_seek 0x6F0D40 (shape, parked: the point.Y read with the kept product; the user's form tested at residue 23, the point reads at residue 3 / frame 0xAC lose the kept product; the exact siblings 0x6F1390 / 0x6F1AD0 are the evidence for a next round)
      - ui_dynamicwindow Add_Text 0x58AE90 and 0x58B160 (inline-budget: the client calls std::string::_Eos out of line; six forms)
      - debrsint 0x53D250 (register), 0x53D9F0 (order); frameint 0x53EB00
        (register)
@@ -4906,7 +4941,7 @@ below name only the work items, the blocked work, the leads and the queues.
 
    * StrEditClass::Process_Key 0x84AAD0 (parked after three rounds, none exact): lead: the shared delete / backspace tail sits in the backspace block in the client; untried: case 8 before 0x2E.
    * SplitStringClass::Split 0x4F9D90 (parked after three rounds, none exact): lead: the pad line's assign(const char *, n) is out of line in the client; the pad string is built outside the normal constructor path.
-   * Run 2026-11-17: 0x693E70 PDAInterfaceClass::Unknown_68 (0.78: ebx zero in case 1, the play tail after case 10); enbassetmgr 0x48CB40 (register); cameraeffects 0x6E2CC0 (register); sound_manager 0x75AB50 / 0x75B4B0 (inline budget, round 2: the deque's ??_F calls the constructor out of line; the client's deque ctor 0x75B4B0 sits at the object's end, a different instantiation point).
+   * Run 2026-11-17: 0x693E70 PDAInterfaceClass::Unknown_68 (0.78: ebx zero in case 1, the play tail after case 10); enbassetmgr 0x48CB40 (register); cameraeffects 0x6E2CC0 (38 rows, score 0.90 after the pointer form `float *move = &Unknown18.X` for the snap call; r24: ours drops ebx = &Unknown18 in the second X wrap loop and re-leas it before the call; r26: the client keeps Xt, Zt and U.X on the x87 (`fadd st(2)`), copies U.Y as an int to a stack temp via [ebx+4] (shared with force.Y at esp+0x20) and adds it to the copy's Y, Zt stored last: a form holding U.X on the x87 (a value used twice, or an inline helper with float parameters)); sectorsound 0x43C780 Load_INI (parked, register residue 9, 23 forms: the client loads the spilled this before the pushes at 0x43C95B; esi = &Elevations; lead: keep max's reload at the block start with MaxElevation read into the struct); sound_manager 0x75AB50 / 0x75B4B0 (inline budget, round 2: the deque's ??_F calls the constructor out of line; the client's deque ctor 0x75B4B0 sits at the object's end, a different instantiation point).
    * Parked after round 2 (attempts.csv rows): unknown_phoneme 0x791400 / 0x7917B0 / 0x791BF0 (register), 0x791880 (shape); 0x84C470 (register, after a new lever); winmsg 0x42FAC0 (shape); 0x719670 (two ids numbered from 0xBE3B44: not rebuilt; the zero CRT entry after it suggests postate.cpp); the late-helper lever (hashtemplate.h / listnode.h switches) does not reach 0x707040 (DeltaElementClass ctor 0x707430) or 0x7B18F0 (hashtable resize 0x7B2530): inline budget.
 
   * 0x707040 (AB, parked): inline-budget; `attempts.py show 0x707040`.

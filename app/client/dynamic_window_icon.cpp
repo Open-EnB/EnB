@@ -87,7 +87,7 @@ RefCountPtr<RenderObjClass> DynamicWindowIconClass::Create_Render_Object(const R
 	}
 	RefCountPtr<DynamicMeshClass> mesh = Create_NEW(new DynamicMeshClass(2, 4));
 	mesh->Set_Texture(texture.Peek());
-	mesh->Set_Shader(ShaderClass::_PresetAlpha2DShader);
+	mesh->Set_Shader(ShaderClass::_PresetAdditive2DShader);
 
 	int width = size.X * 0.5f;
 	int height = size.Y * 0.5f;
@@ -112,4 +112,6 @@ RefCountPtr<RenderObjClass> DynamicWindowIconClass::Create_Render_Object(const R
 **	0x51A4F0, UVBufferClass's destructors 0x51A5E0 / 0x51A610, DynamicMeshModel's Set_Single_Shader 0x51A650,
 **	Create_NEW<DynamicWindowIconClass> 0x51A690, Create_Get<TextureClass> 0x51A6F0, Create_NEW<DynamicMeshClass>
 **	0x51A720 and ShareBufferClass<Vector2>'s destructors to 0x51A7AF. The class name is the file's (D24; no RTTI).
+**	The mesh's shader is _PresetAdditive2DShader (0x51A253 pushes 0xC01180: its initialiser 0x93B2B0 writes 0x94037),
+**	not Alpha2D (0xC01138), which the client reads only in Bitmap2DObjClass's constructors (run 2026-11-21 PRESET).
 */

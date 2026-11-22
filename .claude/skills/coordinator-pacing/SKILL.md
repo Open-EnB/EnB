@@ -105,8 +105,8 @@ on known-pattern files moved the meter about 1 point an hour with two to four ru
   rather than running `wt.py bring-over` yourself; several finished at once go to one lander as one batch, and
   only one lander runs at a time. It returns one line per branch; a refusal names who acts next (resume that
   builder with the line).
-- Checks and filing (D226): the harness check below and a POC run or replay go to the `checker` subagent
-  (`subagent_type: checker`; Sonnet) with the commit or worktree, which checks, and for the POC the input, the
+- Checks and filing (D226): the harness check below and a client run or replay go to the `checker` subagent
+  (`subagent_type: checker`; Sonnet) with the commit or worktree, which checks, and for the client the input, the
   seconds and the question; it returns one line per program, and a failure is still your health item. At a
   drain, the builders' traps and leftovers go to the `doc-filer` subagent (`subagent_type:
   doc-filer`; Sonnet) with the reports and the run branch; it returns their calls and proposals to you, and
@@ -146,7 +146,7 @@ on known-pattern files moved the meter about 1 point an hour with two to four ru
   that the window is closed, and keep it closed unless the user reopens it.
 - While the last builders run, draft the progress.md entry and the §4 refresh as scripts in `.work/coord/`
   (the Write tool, never a heredoc) with slots for the last results; run them after the final report.
-- Then: `python tools/vc6/pool.py stop-idle --minutes 0`, `python tools/harness/clientpoc.py clean --all` (POC
+- Then: `python tools/vc6/pool.py stop-idle --minutes 0`, `python tools/harness/clientrun.py clean --all` (client
   instances; a running client's is kept), `git status` clean except `.claude/settings.json`,
   HEAD's ledger parses, `python tools/vc6/wt.py list --unlanded` is empty, or each one is named in the log with
   why (the heartbeat's `unlanded` line counts them; `wt.py remove` refuses such a branch without `--force`), delete
@@ -242,20 +242,19 @@ Landing and bring-over (the lander does the landing; these are what you see arou
   after the rebase; grep the rebased tree for the old names. A rebase stopped at a conflict keeps its start-time base;
   generated-file conflicts stay UU until `--continue`; a rebase whose verify hit compile errors leaves the generated
   files unregenerated; two branches' rows in tools/re/symbols_named.json conflict (abort the rebase cleanly).
-- **After every landing that retires a stand-in run the end-to-end smoke set** (the checker: clienttest, udpreplay,
-  `e2e.py run`); POC checks build `--lib binkmovie` first. The link gate and the stand-in check pass when a
-  generated null-returning stand-in replaced a hand one next to the retired one; only the POC run shows it.
-- **A branch that retires a stand-in must drop what names it:** (1) a generated or hand stand-in that clienttest's trace
-  prints (`gen Class::Function` lines in tests/clienttest/expected.txt): the lines go in the same branch, else only
-  clienttest's trace compare fails (the landing's link and stand-in checks pass); (2) a POC section for a class that
-  becomes real (programs/clientpoc/poc_world*.cpp sections named after the old Unknown class): the section goes in
-  the branch, else only the landing's clientpoc link fails (compile errors on the old class name, then hundreds of
-  unresolved symbols; the verify, stand-in check, clienttest and udpreplay pass). Briefs say: grep expected.txt and
-  programs/clientpoc for the retired names before reporting.
+- **After every landing that changes the client's behaviour run the end-to-end smoke set** (the checker: clienttest,
+  udpreplay, `e2e.py run`); client checks build `--lib binkmovie` first. The link gate shows that the one client
+  build links whole (no unresolved symbol, no stand-in object); only the e2e run shows what it does.
+- **A branch that rebuilds a function clienttest stands in for must drop what names it:** a generated or hand
+  stand-in that clienttest's trace prints (`gen Class::Function` lines in tests/clienttest/expected.txt): the lines go
+  in the same branch, else only clienttest's trace compare fails (the landing's link and stand-in checks pass). The
+  client itself has no stand-in (one client build, `build.py link --program client`): a branch that renames or drops
+  a function another app file still calls fails the client's link (an unresolved symbol, refused by linkgate). Briefs
+  say: grep expected.txt for the retired names before reporting.
 - **e2e on a client linked without `build.py build --lib binkmovie` fails every scenario at `_login:11`** (wait-event
   VERSION_RESPONSE not seen): without the movie library the client connects at once, before the scenario's
   movie-skip step starts its wait. A worktree's own stale build/binkmovie lib does the same (a generated stand-in for
-  BINKMovie::Play). Build binkmovie first for every e2e or POC run, in that tree (Tools item: e2e.py should refuse or
+  BINKMovie::Play in the stand-in builds; the one client build's link fails on it instead). Build binkmovie first for every e2e or client run, in that tree (Tools item: e2e.py should refuse or
   warn when the linked client has no movie library).
 - **Stacked builders (`--base wt/P`) pay a rebase with its own verify** after P lands, and conflict when another landed
   branch touched the same file (a shared header's users): prefer landing P first when the lock is free.
@@ -275,7 +274,14 @@ Landing and bring-over (the lander does the landing; these are what you see arou
 - **A worktree with uncommitted generated files (names-review.md, imports.md) makes the lander refuse at step 1:**
   discard them (`git checkout -- FILE`); the landing regenerates them.
 - **A check in a reused worktree name or a shared build dir can link another builder's objects** (a clienttest link failure and e2e crashes that the baseline did not show): use a fresh worktree name and a private lease, and compare against the baseline before calling a regression.
-- **A finished subagent (lander, checker) can keep re-sending its report:** stop it; the landing is intact.
+- **A finished subagent (lander, checker) can keep re-sending its report:** stop it; the landing is intact. But a lander
+  you queued more branches on by SendMessage is still landing them: `TaskStop` kills its bring-over mid-verify (nothing
+  lands, an `importer-<pid>` lease stays, a `batch-*.bo` worktree is left). Check `.work/log/land-*.log` for a running
+  verify before stopping one; give a new batch to a new lander instead of queuing it on a finished one.
+- **One live server, several builders:** live e2e runs (`--live`) share one Net-7 server and one character, so they
+  run one at a time under a host lock (`.work/coord/live.py ID --wait M -- CMD`). It has no queue: with six or more
+  builders a waiter lost the lock for 10-20 minutes at a time, and a 45-minute wait gave up. Briefs say: batch the
+  scenarios into one `e2e.py run A B C` per lock hold, retail and ours from one script under one hold.
 - **Tell a lander which refusals to retry:** "retry once" makes it re-run a real link refusal (a compile error in a
   branch's file) as a flake, holding the lock for a verify that fails the same way. Name the flake signs (stubs.rsp,
   sync.tar, unresolved symbols the branches do not touch) and say "any other refusal: skip that branch, go on". A
@@ -366,13 +372,13 @@ Stop times, launchers and POC checks:
   .work/poc-check-NAME.log); a leftover `wt/NAME` branch stops it at once (`wt.py remove NAME --delete-branch`);
   start it as a tracked background task (behind `&` it failed silently). With CHECK_HARNESS=1 it runs clienttest
   and udpreplay: lease first and set ENB_VC6_HOST(S). `.work/coord/pocfull.sh` is the coordinator's (instance
-  coord). `clientpoc.py clean --all` / `--older HOURS` unlinks instances' junctions into ClientPOC\Data and keeps
+  coord). `clientrun.py clean --all` / `--older HOURS` unlinks instances' junctions into ClientPOC\Data (CLIENT_DATA_ROOT) and keeps
   an instance whose client.exe still runs. For character select in the 44 s input3-quit replay, shoot at ~290000
   frames, not 2400 (menus run ~7,000 Presents a second).
 - **A checker in a fresh worktree builds wlib and wnet (and binkmovie) before clienttest:** otherwise 87 unresolved Wstring / TCPCon / CritSec externals look like a regression.
 - **bring-over refuses "the commits record other pairs than the verify gives"** when an order-only flip toggles (a D246 entry's address) or another branch's landing regained an address: rerun as a batch of one (`--batch-name ID`).
-- **`wt.py remove NAME` leaves the `wt/NAME` branch behind** (add `--delete-branch`); `build.py link --program
-  clientpoc` deploys to C:\EnBDevelopment\ClientPOC\release.
+- **`wt.py remove NAME` leaves the `wt/NAME` branch behind** (add `--delete-branch`); `clientrun.py run` copies the
+  exe it runs into C:\EnBDevelopment\ClientPOC\release (CLIENT_DATA_ROOT, outside git).
 - **agy:** `--mode auto` is not available on the account (`--dangerously-skip-permissions` suffices); under Git
   Bash set `MSYS_NO_PATHCONV=1` (also for `agy -p /usage`); agy runs its commands in PowerShell whatever the brief
   says; the stream's `usage` is per turn: sum the lines for a running item. `tools/agy/launch.sh` wants `RUN_DIR`
@@ -400,8 +406,8 @@ Gemini 3.8 Flash (high) through the Antigravity CLI runs on the user's Google su
 - **Each exit:** log `result.usage` (never the builder's own token figure), land with `wt.py bring-over ID --target
   run/<date>` (several finished at once: `wt.py bring-over A B C --target run/<date>`, one verify;
   both resolve and regenerate generated-file conflicts; another file's conflict: `wt.py rebase ID`, which stops on it
-  for the builder), run the heartbeat; after POC code lands, the POC
-  check is yours (`tools/agy/poc_check.sh`): builders' own POC runs crash at startup and prove nothing.
+  for the builder), run the heartbeat; after client code lands, the client
+  check is yours (`tools/agy/poc_check.sh`): agy builders' own client runs crash at startup and prove nothing.
 - **Briefs** name every WinMain stand-in that opens a dialog (0x847D20, 0x846C90) and say it stays (D69).
 
 ## Session caps

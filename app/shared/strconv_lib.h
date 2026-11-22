@@ -31,11 +31,11 @@ bool String_To_Value(const char *text, float *value);						// 0x4A3240 (atof)  /
 char *Value_To_String(char *buf, int size, unsigned int value);			// 0x4A3590 ("%u")
 bool String_To_Value(const char *text, unsigned int *value);			// 0x4A35C0 (sscanf "%u")
 
-// The money pair's are MoneyClass's own (money.cpp, not in the tree: 0x4F0AB0, 0x4F0BE0, 0x4F0640,
-// called from the pair 0x4A7600-0x4A7670); stubs/ stands in for them
+// The money pair's are MoneyClass's own (money.cpp: 0x4F0AB0, 0x4F0BE0, 0x4F0640, called from the pair
+// 0x4A7600-0x4A7670 with the value pushed: 0x4F0BE0 takes the address of its stack argument as this)
 class MoneyClass;
-const char *Type_Name(MoneyClass *);  // NAME 2: describes what it does
-char *Value_To_String(char *buf, int size, const MoneyClass &value);
+const char *Type_Name(MoneyClass);  // NAME 2: describes what it does
+char *Value_To_String(char *buf, int size, MoneyClass value);
 bool String_To_Value(const char *text, MoneyClass *value);
 
 // The pairs' type names (KVPairTemplateClass<T>::Get_Type_Name: float 0x448580, unsigned int 0x4A8830)

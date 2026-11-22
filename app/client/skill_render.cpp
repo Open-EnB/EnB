@@ -231,7 +231,7 @@ void SkillRenderClass::Unknown_2C(bool force)
 	}
 
 	__int64 now = sclient->Unknown10BC;
-	bool ready = (((const UnknownDurationSum &)skill.Get_Recycle_Time(slot) + (const UnknownDurationSum &)skill.Get_Last_Activation(slot)).Value <= now);
+	bool ready = (((const UnknownDurationSum &)skill.Get_Last_Activation(slot) + (const UnknownDurationSum &)skill.Get_Recycle_Time(slot)).Value <= now);
 	if (force || flags != Unknown54 || Unknown58 != ready) {
 		Unknown_6A73C0((flags & 0x170) != 0, WrongTargetTypeIndicator);
 		Unknown_6A73C0(flags != 0 || !ready, ValidityIndicator);
@@ -467,4 +467,6 @@ void SkillRenderClass::Unknown_6A73C0(bool on, const RefCountPtr<RenderObjClass>
 **	operator+ on the time value (0x6A6550: the load order of the sum), __int64 now before the two calls (the same),
 **	if / else if with the base's call after it in 0x6A7020 (tail duplication keeps `push ebx`; an early return folds it to
 **	the -1 in eax), Get_Slot in 0x6A6EA0, Unknown_6A72E0 in 0x6A6C00 (spends the inline budget that leaves the first ~string to _Tidy).
+**	Unknown_2C's ready test sums Get_Last_Activation + Get_Recycle_Time: the right operand is called first,
+**	the client calls Get_Recycle_Time (0x6A55B0) at +0x2F3 and Get_Last_Activation (0x6A5520) at +0x306 (relocaudit.py, run 2026-11-21 PRESET).
 */

@@ -39,7 +39,7 @@ Unknown_VersionStruct *Unknown_4456C0();				// NAME 1 [Unknown_4456C0]: neutral 
 
 #include "..\splash.h"	// Splash (0x6A9B60, Render 0x6A9E40)
 #include "..\mousetbl.h"								// Unknown_723150 (the destructor calls it), Unknown_7228C0 (the first LoginTaskClass(mode))
-extern bool Unknown_BB9654;							// NAME 1 [Unknown_BB9654]: neutral (D10); Accept_Focus clears it
+// 0xBB9654 is WW3D::ThumbnailEnabled (ww3d.cpp, initial true): WW3D::Set_Thumbnail_Enabled (Accept_Focus clears it)
 #include "..\..\packets\pkglobalerror.h"	// opcode 117 (GlobalErrorPacketClass, rebuilt there; this file's view before)
 #include "..\..\packets\pkglobalticket.h"	// opcode 111 (GLOBAL_TICKET)
 // opcode 118 (GlobalLoginPacketClass): pkgloballogin.h, included by tsk_login.h
@@ -154,7 +154,7 @@ bool LoginTaskClass::Accept_Focus()
 	if (CharacterView) {
 		Unknown0018->Unknown_515340((void *)CharacterView->Unknown_3C());
 	}
-	Unknown_BB9654 = false;
+	WW3D::Set_Thumbnail_Enabled(false);
 	Done = false;
 	return true;
 }
@@ -970,7 +970,7 @@ void LoginTaskClass::Start_Game()
 		Unknown_Debug_Print("LoginTask: removing self.");
 		KernelClass *kernel = Kernel;
 		Done = true;
-		Unknown_BB9654 = true;
+		WW3D::Set_Thumbnail_Enabled(true);
 		std::string name(Username ? Username : "LoginName");
 		std::string password(Password ? Password : "Password");
 		ClientTaskClass *task = new ClientTaskClass(name, password);

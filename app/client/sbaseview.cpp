@@ -46,7 +46,7 @@ float Unknown_77B7D0(float t);	// 0x77B7D0: an easing of 0..1 (0x69ED80)  // NAM
 #include "wwstring.h"
 #include "wwmemlog.h"	// the categories (0x6A1180)
 #include "fastallocator.h"	// the allocator's totals (0x6A1180)
-int Unknown_94B910();	// 0x94B910 (the textures' 'Frame: %d'; frameint.cpp declares it too)
+// 0x94B910 (the textures' 'Frame: %d') is texture.h's TextureBaseClass::Unknown_Get_Textures_Applied_Last_Frame
 // ui_talkt_space.cpp's talk tree (sclient.cpp declares it so); 0x69CDE0 resets SClient's to it
 class UITalkTreeSpaceClass : public InterfaceClass	// NAME 3: class-from-file (D24) for ui_talkt_space.cpp
 {
@@ -1430,7 +1430,7 @@ void SBaseViewClass::Unknown_6A1180()
 				(float)(int)(TextureClass::_Get_Total_Texture_Size() - TextureClass::_Get_Total_Locked_Surface_Size()) / (1024.0f * 1024.0f),
 				TextureClass::_Get_Total_Locked_Surface_Count(),
 				(float)(int)TextureClass::_Get_Total_Locked_Surface_Size() / (1024.0f * 1024.0f),
-				Unknown_94B910(),
+				TextureBaseClass::Unknown_Get_Textures_Applied_Last_Frame(),
 				IndexBufferClass::Get_Total_Buffer_Count(),
 				(float)IndexBufferClass::Get_Total_Allocated_Memory() / (1024.0f * 1024.0f),
 				VertexBufferClass::Get_Total_Buffer_Count(),

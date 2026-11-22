@@ -11,11 +11,10 @@ name: the data windows inside a recorded session: /play 1, then in sector 4505 t
 # come before it). The windows part takes about 15 s of the playback's recorded pace.
 # Ours shows the same since 2026-11-14 (the ability table's reader in kv_util.cpp; ui_item_examination.cpp calling
 # the real inventory and property-builder classes). The details window opens no file of its own, so on our build
-# the check is that its two former stand-ins are not hit (a `stubs` step: skipped on the retail client), and on
-# both the shots.
+# the check was that its two former stand-ins are not hit; the one client build has no stand-in (2026-11-21),
+# so on both it is the shots.
 timeout: 400
 include _login
-expect-no stubs 'gen UISlotInfoItem'
 key 0x08
 expect-event proxy '^input: replayed key 0x8'
 alive 1

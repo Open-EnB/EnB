@@ -141,10 +141,10 @@ public:
 
 // An object whose first member is a gadget (the window's +0x2FC / +0x308 / +0x31C, as far as 0x551B20 reads them;
 // ui_avatr.cpp's pull, UIAvatrPullClass: its destructor 0x585950)
-struct UIAvatarCustGadgetHolderStruct	// NAME 1: neutral (D10)
-{
-	UIAvatarCustGadgetHolderStruct();					// 0x585920 (0x10 bytes)
-	~UIAvatarCustGadgetHolderStruct();					// 0x585950 (the window's destructor)
+class UIAvatrPullClass	// NAME 1: neutral (D10), as unknown_585920.cpp / ui_avatr.cpp name it
+{ public:
+	UIAvatrPullClass();					// 0x585920 (0x10 bytes)
+	~UIAvatrPullClass();					// 0x585950 (the window's destructor)
 	void Unknown_5859A0();								// 0x5859A0 (once the gadget is in)
 	Unknown_671300Class *Unknown00;						// +0x00 (unknown_671300.h's: 0x54D8A0 makes it)
 	RenderObjClass *Unknown04;							// +0x04 (the pull: 'PULL_COLOR')
@@ -174,7 +174,7 @@ extern GadgetClass *Unknown_BE5F28;					// NAME 1 [Unknown_BE5F28]: 0xBE5F28
 extern FontManagerClass *Unknown_BE67C4;	// NAME 1 [Unknown_BE67C4]: 0xBE67C4
 // fontdatabase.h's FontStringFilesClass at 0xBE67BC (sclient.h declares the pointer), as ui_avatr.cpp does
 
-extern bool Unknown_BB9654;							// NAME 1 [Unknown_BB9654]: neutral (D10) (tsk_login.cpp's); the constructor clears it, the destructor sets it
+// 0xBB9654 is WW3D::ThumbnailEnabled (ww3d.cpp, initial true): WW3D::Set_Thumbnail_Enabled (the constructor clears it, the destructor sets it)
 
 // The gadget events' callbacks (SignalBaseClass's, unknown_signalbase.h: vtable 0xAEDB58)
 #include "unknown_signalbase.h"
@@ -265,11 +265,11 @@ template<class C> inline C *Unknown_Find_Valid(DeltaCompoundClass *root, const c
 template<class C> inline C *Unknown_Find_Changed(DeltaCompoundClass *root, const char *name) { NameClass n(name); C *t = Unknown_Find_Field<C>(root, n); if (t && t->Unknown70 > 1) return(t); return(NULL); }	// NAME 1: neutral (D10)
 
 // What the window holds at +0x368..+0x378 (its destructor 0x585BF0 not inlined; 0x54F2B0 deletes them)
-class UIAvatarCustUnknown368Class	// NAME 1: neutral (D10)
+class UIAvatrUnknown2ECStruct	// NAME 1: neutral (D10), as unknown_585920.cpp / ui_avatr.cpp name it
 {
 public:
-	~UIAvatarCustUnknown368Class();						// 0x585BF0
-	UIAvatarCustUnknown368Class(RenderObjClass *model, const char *name, const char *texture, const char *part, bool two_digits);	// 0x585B50 (0x24 bytes)  // NAME 1 [model, name, texture, part, two_digits]: as ui_avatr.cpp's
+	~UIAvatrUnknown2ECStruct();						// 0x585BF0
+	UIAvatrUnknown2ECStruct(RenderObjClass *model, const char *name, const char *texture, const char *part, bool two_digits);	// 0x585B50 (0x24 bytes)  // NAME 1 [model, name, texture, part, two_digits]: as ui_avatr.cpp's
 	void Unknown_585CF0(int choice);					// 0x585CF0  // NAME 1 [choice]: as ui_avatr.cpp's
 	void Unknown_585D10();								// 0x585D10 (how many choices exist)
 	void Unknown_585C90();								// 0x585C90 (0x54EAD0: any direction but 1)
@@ -428,13 +428,13 @@ StarbaseAvatarCreationInterface::StarbaseAvatarCreationInterface(UIViewClass *vi
 	for (int j = 0; j < 3; j++) {
 		Unknown26C[j].Make_Identity();
 	}
-	Unknown_BB9654 = false;
+	WW3D::Set_Thumbnail_Enabled(false);
 }
 
 // 0x54BAB0
 StarbaseAvatarCreationInterface::~StarbaseAvatarCreationInterface()
 {
-	Unknown_BB9654 = true;
+	WW3D::Set_Thumbnail_Enabled(true);
 	Unknown_5C();
 	Unknown0B4->Unknown_69DC60();
 	if (Unknown31C) {
@@ -696,7 +696,7 @@ void StarbaseAvatarCreationInterface::Unknown_54D720(int text)
 // 0x54D8A0
 void StarbaseAvatarCreationInterface::Unknown_54D8A0()
 {
-	Unknown31C = new UIAvatarCustGadgetHolderStruct;
+	Unknown31C = new UIAvatrPullClass;
 	RenderObjClass *palette = InterfaceMesh->Peek_Object()->Get_Sub_Object_By_Name("COLOR_PALETTE");
 	Unknown_496AE0(palette, 0);
 	Unknown31C->Unknown00 = new Unknown_671300Class(palette, 0, *Unknown0AC, 0, 0, 0);
@@ -712,7 +712,7 @@ void StarbaseAvatarCreationInterface::Unknown_54D8A0()
 // 0x54DA50
 void StarbaseAvatarCreationInterface::Unknown_54DA50()
 {
-	Unknown308 = new UIAvatarCustGadgetHolderStruct;
+	Unknown308 = new UIAvatrPullClass;
 	RefCountPtr<RenderObjClass> area = Create_Get(InterfaceMesh->Peek_Object()->Get_Sub_Object_By_Name("HEAD_AREA"));
 	Unknown_496AE0(area.Peek(), 0);
 	Unknown308->Unknown00 = new Unknown_671300Class(area.Peek(), 0, *Unknown0AC, 0, 0, 0);
@@ -995,22 +995,22 @@ void StarbaseAvatarCreationInterface::Unknown_54EEC0()
 	Unknown_54F2B0();
 	RefCountPtr<RenderObjClass> model = Unknown_497300(InterfaceMesh->Peek_Object());
 	_snprintf(name, sizeof(name), "%s%shair", UIAvatarCustGenders[Unknown0BC->Get_Desc()->Gender], UIAvatarCustRaces[Unknown0BC->Get_Desc()->Race]);
-	Unknown368 = new UIAvatarCustUnknown368Class(model.Peek(), name, NULL, "HAIR", false);
+	Unknown368 = new UIAvatrUnknown2ECStruct(model.Peek(), name, NULL, "HAIR", false);
 	Unknown368->Unknown_585CF0(Unknown0BC->Get_Desc()->Hair_Num);
 	Unknown368->Unknown_585D10();
 	_snprintf(name, sizeof(name), "%s%sbeard", UIAvatarCustGenders[Unknown0BC->Get_Desc()->Gender], UIAvatarCustRaces[Unknown0BC->Get_Desc()->Race]);
-	Unknown36C = new UIAvatarCustUnknown368Class(model.Peek(), name, NULL, "BEARD", false);
+	Unknown36C = new UIAvatrUnknown2ECStruct(model.Peek(), name, NULL, "BEARD", false);
 	Unknown36C->Unknown_585CF0(Unknown0BC->Get_Desc()->Beard_Num);
 	Unknown36C->Unknown_585D10();
-	Unknown370 = new UIAvatarCustUnknown368Class(model.Peek(), NULL, "atattoo", "TATTOO", false);
+	Unknown370 = new UIAvatrUnknown2ECStruct(model.Peek(), NULL, "atattoo", "TATTOO", false);
 	Unknown370->Unknown_585CF0(Unknown0BC->Get_Desc()->Tattoo_Texture_Num);
 	Unknown370->Unknown_585D10();
 	_snprintf(name, sizeof(name), "%s%sGOGGLE", UIAvatarCustGenders[Unknown0BC->Get_Desc()->Gender], UIAvatarCustRaces[Unknown0BC->Get_Desc()->Race]);
-	Unknown374 = new UIAvatarCustUnknown368Class(model.Peek(), name, NULL, "EYE", false);
+	Unknown374 = new UIAvatrUnknown2ECStruct(model.Peek(), name, NULL, "EYE", false);
 	Unknown374->Unknown_585CF0(Unknown0BC->Get_Desc()->Goggle_Num);
 	Unknown374->Unknown_585D10();
 	_snprintf(name, sizeof(name), "%s%sEAR", UIAvatarCustGenders[Unknown0BC->Get_Desc()->Gender], UIAvatarCustRaces[Unknown0BC->Get_Desc()->Race]);
-	Unknown378 = new UIAvatarCustUnknown368Class(model.Peek(), name, NULL, "EAR", false);
+	Unknown378 = new UIAvatrUnknown2ECStruct(model.Peek(), name, NULL, "EAR", false);
 	Unknown378->Unknown_585CF0(Unknown0BC->Get_Desc()->Ear_Num);
 	Unknown378->Unknown_585D10();
 }
@@ -1046,7 +1046,7 @@ void StarbaseAvatarCreationInterface::Unknown_54F2B0()
 // 0x54F390
 void StarbaseAvatarCreationInterface::Unknown_54F390(int arg)
 {
-	UIAvatarCustGadgetHolderStruct *pull = Unknown308;
+	UIAvatrPullClass *pull = Unknown308;
 	if (((Unknown_671300Class *)pull->Unknown00)->Unknown64) {
 		pull->Unknown08 = true;
 	}
@@ -1090,7 +1090,7 @@ void StarbaseAvatarCreationInterface::Unknown_54F390(int arg)
 // 0x54F6F0
 void StarbaseAvatarCreationInterface::Unknown_54F6F0(int unused, bool random, float du, float dv)
 {
-	UIAvatarCustGadgetHolderStruct *pull = Unknown308;
+	UIAvatrPullClass *pull = Unknown308;
 	Vector2 point;
 	point.X = Unknown30C.X;
 	point.Y = Unknown30C.Y;

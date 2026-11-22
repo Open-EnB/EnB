@@ -383,6 +383,24 @@ static inline void Clip_Text(FontSys *f, StringClass &text)	// NAME 1 [Clip_Text
 	}
 }
 
+#include <stdio.h>
+#include <stdarg.h>
+// @0x6CE420
+void __cdecl FontSys::Unknown_6CE420(int unknown, const char *format, ...)
+{
+	char buffer[0x400];
+	if (format) {
+		va_list args;
+		va_start(args, format);
+		_vsnprintf(buffer, sizeof(buffer), format, args);
+		va_end(args);
+		buffer[sizeof(buffer) - 1] = 0;
+		Change_Text(buffer, unknown);
+	} else {
+		Change_Text(NULL, unknown);
+	}
+}
+
 void FontSys::Unknown_6CE4E0(int font_index)
 {
 	FontIndex = font_index;

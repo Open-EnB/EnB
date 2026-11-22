@@ -723,7 +723,7 @@ void UIGroupClass::Unknown_60()
 
 
 #include "target_find.h"	// (0x7C43A0; SClient +0x12A4 derives from it: constructor 0x7C6120)
-extern int Unknown_BE5F34;								// NAME 1: neutral (D10): the key modifiers (as sclient.cpp declares it; 0x5946D0 tests 0x50)
+extern unsigned int Unknown_BE5F34;						// gadget.cpp's: the key modifiers (0x5946D0 tests 0x50)
 
 
 

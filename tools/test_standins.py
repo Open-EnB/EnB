@@ -20,7 +20,7 @@ import standins  # noqa: E402
 import wt  # noqa: E402
 
 STUBS = 'stubs/app_stubs.cpp'
-POC = 'programs/clientpoc/poc_world2.cpp'
+UI = 'tests/clienttest/ui_stubs.cpp'
 CT = 'tests/clienttest/client_stubs.cpp'
 
 
@@ -42,7 +42,7 @@ class Repo(unittest.TestCase):
             'app/client/thing.cpp': '// thing\nint Thing::Old(int a)\n{\n\treturn a;\n}\n',
             STUBS: '// stand-ins\nvoid Unrelated_Free(int)\n{\n}\n\n'
                    'char *Value_To_String(char *buf, int size, const MoneyClass &value)\n{\n\treturn buf;\n}\n',
-            POC: '// POC stand-ins\nvoid Thing::Render(int when)\n{\n}\n'
+            UI: '// UI stand-ins\nvoid Thing::Render(int when)\n{\n}\n'
                  'Thing::Thing() { }\n',
             CT: '#include "x.h"\nint SOptionsClass::Get() { return 0; }\n'})
 
@@ -69,8 +69,8 @@ class Repo(unittest.TestCase):
                                      '\nvoid Thing::Render(int t)\n{\n\tDraw(t);\n}\n'})
         found, _ = self.check(new)
         self.assertEqual([(f[0], f[1], f[2]) for f in found],
-                         [('Thing::Render', ['app/client/thing.cpp'], [(POC, 2)])])
-        self.assertIn('Thing::Render: new in app/client/thing.cpp; stand-in at ' + POC + ':2',
+                         [('Thing::Render', ['app/client/thing.cpp'], [(UI, 2)])])
+        self.assertIn('Thing::Render: new in app/client/thing.cpp; stand-in at ' + UI + ':2',
                       '\n'.join(standins.report(found)))
 
     def test_constructor_in_header_refuses(self):
@@ -93,7 +93,7 @@ class Repo(unittest.TestCase):
 
     def test_standin_deleted_in_same_change_passes(self):
         new = self.commit('render', {'app/client/thing.cpp': 'void Thing::Render(int t)\n{\n}\n',
-                                     POC: '// POC stand-ins\nThing::Thing() { }\n'})
+                                     UI: '// UI stand-ins\nThing::Thing() { }\n'})
         self.assertEqual(self.check(new), ([], []))
 
     def test_standin_added_with_the_definition_is_a_note(self):
@@ -113,7 +113,7 @@ class Repo(unittest.TestCase):
         self.assertIn('both defined it before', notes[0])
 
     def test_keep_marker_is_a_note(self):
-        self.base = self.commit('mark', {POC: '// POC stand-ins\n// standins: keep (the POC never pulls thing.obj)\n'
+        self.base = self.commit('mark', {UI: '// UI stand-ins\n// standins: keep (clienttest never pulls thing.obj)\n'
                                               'void Thing::Render(int when)\n{\n}\n'})
         new = self.commit('render', {'app/client/thing.cpp': 'void Thing::Render(int t)\n{\n}\n'})
         found, notes = self.check(new)
@@ -138,7 +138,7 @@ class Repo(unittest.TestCase):
                 wt.standin_gate(self.base, new, {}, {}, 'run/x')
             self.assertIn('Thing::Render', str(cm.exception))
             self.assertIn('run/x untouched', str(cm.exception))
-            ok = self.commit('drop', {POC: '// none\n'})
+            ok = self.commit('drop', {UI: '// none\n'})
             buf = io.StringIO()
             with redirect_stdout(buf):
                 wt.standin_gate(self.base, ok, {}, {}, 'run/x')

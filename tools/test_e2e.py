@@ -41,7 +41,7 @@ class ParserTest(unittest.TestCase):
         self.assertEqual(sc['steps'][4]['text'], 'hello world')
         self.assertEqual(sc['steps'][5]['seconds'], 2.5)
         self.assertEqual(sc['steps'][7]['pattern'].pattern, '^CRASH:')
-        self.assertEqual(sc['steps'][7]['source'], 'stubs')
+        self.assertEqual(sc['steps'][7]['source'], 'any')        # the proxy's d3d8shot.log or a stubs.log
         self.assertEqual(sc['steps'][8]['within'], 15.0)       # expect-event's default
 
     def test_wait_quiet_and_click_until(self):

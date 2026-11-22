@@ -2,7 +2,7 @@
 // clienttest: hand stand-ins for the symbols gen_stubs.py --link cannot write (a pointer to a member function
 // or a nested class as a parameter, a string or an object as a global) that the real app.lib objects
 // (intrface.obj, ui_chat_panel.obj, ui_cpit.obj, loadingview.obj, soundlib.obj) reach since they are linked
-// instead of stand-ins. The same ones programs/clientpoc/poc_link.cpp and poc_data.cpp have. Delete one here
+// instead of stand-ins (the client links the real definitions: it has no stand-in). Delete one here
 // when a tree file defines it (the linker reports the duplicate).
 #include <windows.h>
 #include <stdio.h>

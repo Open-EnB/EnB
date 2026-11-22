@@ -22,9 +22,9 @@ class UIInvClass : public SlotDataInterface	// NAME 3: class-from-file (D24) for
 {
 public:
 	enum { INV_NONE = 0, INV_VENDOR = 4 };				// InvType's (G_ASSERTs 'InvType != INV_NONE' l.306, 'InvType == INV_VENDOR' l.543 / 570)  // NAME 3: the asserts'
-#ifdef POC_WINDOW_CTOR
-	UIInvClass(LineDisplayClientClass *client) : SlotDataInterface(client), Kind(0), InvType(0), InvTransaction(0), UnknownC8(0), Name(0) {}	// (the POC's empty windows, poc_world3.cpp)
-#endif
+// (the stand-in build's empty-window constructor went with it, 2026-11-21)
+
+
 	UIInvClass(SClient *client, int kind);				// 0x59F3D0 (the kind into +0xBC: the trade window passes 7)  // NAME 1 [client]: neutral; NAME 2 [kind]: what it chooses
 	virtual ~UIInvClass();								// 0x59F940 (deleting 0x59F440)
 	virtual void Unknown_54();							// 0x59F470 (InvType and the flags by the kind; G_ASSERT 'InvType != INV_NONE' l.306)
@@ -62,9 +62,9 @@ public:
 class UIInvStripClass : public UIInvClass	// NAME 2: what it is (the week's map calls it the inventory strip)
 {
 public:
-#ifdef POC_WINDOW_CTOR
-	UIInvStripClass(LineDisplayClientClass *client) : UIInvClass(client) {}	// (the POC's empty windows)
-#endif
+// (the stand-in build's empty-window constructor went with it, 2026-11-21)
+
+
 	UIInvStripClass(SClient *client, int kind) : UIInvClass(client, kind) {}	// (inline: 0x59EA30, 0x59EDC0)  // NAME 1 [client]: neutral; NAME 2 [kind]: UIInvClass's
 	virtual void Unknown_54();							// 0x59F2C0 (UIInvClass's, then a button for each of Robjs through slot +0xAC, and Robjs emptied)
 	void Add(RenderObjClass *robj);						// 0x59F060 (FAIL_IF '!robj' l.108; no caller left: inline in the constructors)  // NAME 2: what it does; NAME 3 [robj]: the FAIL_IF's

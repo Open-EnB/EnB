@@ -10,4 +10,3 @@ build/
 *.ncb
 *.opt
 client_release/
-programs/clientpoc/gen/

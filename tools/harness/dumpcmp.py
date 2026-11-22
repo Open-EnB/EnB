@@ -1,8 +1,8 @@
-"""Compares two d3d8shot draw dumps draw by draw (D190): the same frame of the POC and of the retail client.
+"""Compares two d3d8shot draw dumps draw by draw (D190): the same frame of our client and of the retail client.
 
     python tools/harness/dumpcmp.py A B [--frame N]
 
-A and B are shot folders (clientpoc.py replay ... with D3D8SHOT_DUMP=N in the environment) holding draws_NNNNN.bin and
+A and B are shot folders (clientrun.py replay ... with D3D8SHOT_DUMP=N in the environment) holding draws_NNNNN.bin and
 d3d8shot.log (the material and the enabled lights of each draw, Log_Lights). Prints the draw counts, then for each draw
 that differs the fields that differ: prims, stride, textures (size, format), render states (A vs B), stage states,
 material, lights (light numbers ignored, sorted).

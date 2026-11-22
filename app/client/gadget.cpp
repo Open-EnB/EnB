@@ -1121,3 +1121,19 @@ void RectangleGadgetClass::Unknown_64(AABoxClass &box)
 **	Set_Tooltip_Name's buffer is 36 bytes (the client's frame), 31 of them used. The flash's RenderObjClass slots, as
 **	the client calls them: +0x9C Set_Animation, +0xA4 Peek_Animation, +0xF0 Get_Bounding_Sphere, +0x184 Set_Hidden.
 */
+
+// Interim placement (D137): textgadg.h's flag constants (.rdata 0xB08C90-0xB08CC4, the client's values; their
+// object is not known; a file that reads them would fold them, the client reads them from memory)
+extern const int Unknown_B08C90 = 0x1;
+extern const int Unknown_B08C94 = 0x2;
+extern const int Unknown_B08C98 = 0x4;
+extern const int Unknown_B08C9C = 0x8;
+extern const int Unknown_B08CA0 = 0x10;
+extern const int Unknown_B08CA8 = 0x40;
+extern const int Unknown_B08CAC = 0x80;
+extern const int Unknown_B08CB0 = 0x100;
+extern const int Unknown_B08CB4 = 0x200;
+extern const int Unknown_B08CB8 = 0x400;
+extern const int Unknown_B08CBC = 0x800;
+extern const int Unknown_B08CC0 = 0x1000;
+extern const int Unknown_B08CC4 = 0x2C0;

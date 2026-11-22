@@ -85,13 +85,11 @@ void ClientLegoRootClass::Unknown_732690() {}
 // (co.h's +0x134 AccelClass links from app.lib: accel.cpp)
 // (co.cpp's SUBPARTS 0x6FEF70 gets a sub part's lego from 0x7294D0: app.lib's unknown_7294d0.cpp)
 
-// SClient::Do_Frame's data globals (gen_stubs --link skips data): the frame's toggle and the input flags
-int Unknown_BE350C = 0;
-int Unknown_BE5F34 = 0;
+// (SClient::Do_Frame's frame toggle 0xBE350C and input flags 0xBE5F34 are observer.cpp's and gadget.cpp's, app.lib)
 
 // Do_Frame's callees that take an input event by value (gen_stubs skips a class by value)
 #include "..\..\..\app\kernel\kernel.h"
-void SClient::Unknown_744240(KernelEventClass event) { Trace("stub SClient::Unknown_744240 key 0x%X", event.Key); }
+// (SClient::Unknown_744240, which does nothing, is sclient.cpp's)
 // (ScriptedMovieViewClass::Unknown_802960 is rebuilt in scriptedmovie.cpp, UI1; the trace never reaches it)
 
 // ------------------------------------------------------------------------- eff_o.cpp's effect, the third list's records
@@ -105,10 +103,11 @@ void SClient::Unknown_744240(KernelEventClass event) { Trace("stub SClient::Unkn
 
 // ------------------------------------------------------------------------- cpacket.cpp's callees in other files
 
-// sound_manager.cpp's real SoundManagerClass (app.lib); the global WinMain makes (0xBE82A4) is a static here
+// sound_manager.cpp's real SoundManagerClass and its global 0xBE82A4 (app.lib); the object WinMain makes is a static here
 #include "..\..\app\client\sound_manager.h"
 static SoundManagerClass The_Sound_Manager;
-SoundManagerClass *SoundManager = &The_Sound_Manager;
+extern SoundManagerClass *SoundManager;
+static struct Clienttest_Sound_Manager { Clienttest_Sound_Manager() { SoundManager = &The_Sound_Manager; } } Clienttest_Sound_Manager_Set;
 
 // ui_line_display.cpp (the handlers 32-36 through SClient +0x1280): the members cpacket.cpp calls, as
 // ui_line_display.h declares them (non-virtual: same mangling); clienttest.cpp points LineDisplay at a fake. The
@@ -152,7 +151,7 @@ void Unknown_Debug_Printf(const char *, ...) {}	// 0x509DC0 (app\dbgmgr\dbgmgr.c
 
 // ------------------------------------------------------------------------- data gen_stubs.py --link can't write
 
-RectClass Unknown_C07550;	// 0xC07550 (sclient.cpp's Init)
+// (0xC07550, sclient.cpp's Init's coordinate range, is Render2DClass::ScreenResolution, ww3d2)
 
 
 
@@ -168,10 +167,7 @@ template<> int DeltaTemplateClass<bool>::UnknownGlobal = 0;
 
 // postate.cpp and extrap.cpp are in app.lib and define every state node: nothing stands in here
 #include "..\..\..\app\client\postate.h"
-// client.cpp's mount buffer insert 0x725E70 (not rebuilt; Add reaches it since f384d62, a nested struct gen_stubs.py cannot write)
-void UnknownB02C90Class::BufferStruct::Insert(const ElementStruct &, int index) { Trace("stub UnknownB02C90Class::BufferStruct::Insert %d", index); }
-// eff_o.cpp (real code, in the link since the testeffects.ini loader) calls it; co.cpp is not in the harness
-Matrix3D UnknownB02C90Class::Unknown_725AD0() { Trace("stub UnknownB02C90Class::Unknown_725AD0"); return(Matrix3D(1)); }
+// UnknownB02C90Class::BufferStruct::Insert (0x725E70) and Unknown_725AD0 (0x725AD0) are unknown_725050.cpp's real ones (run 2026-11-21)
 
 // ------------------------------------------------------------------------- the aux-data roots' decode (AUX_DATA 27 / 28)
 

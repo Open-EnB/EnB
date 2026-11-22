@@ -107,7 +107,7 @@ public:
 };
 template<class C> inline C *UIShipCust_Find_Valid(DeltaCompoundClass *root, const char *name) { NameClass n(name); C *t = Unknown_Find_Field<C>(root, n); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10): as ui_avatar_cust.cpp's
 template<class C> inline C *UIShipCust_Find_Changed(DeltaCompoundClass *root, const char *name) { NameClass n(name); C *t = Unknown_Find_Field<C>(root, n); if (t && t->Unknown70 > 1) return(t); return(NULL); }	// NAME 1: neutral (D10): as ui_avatar_cust.cpp's
-extern bool Unknown_BB9654;							// NAME 1 [Unknown_BB9654]: neutral (D10) (tsk_login.cpp's); the constructor clears it, the destructor sets it
+// 0xBB9654 is WW3D::ThumbnailEnabled (ww3d.cpp, initial true): WW3D::Set_Thumbnail_Enabled (the constructor clears it, the destructor sets it)
 
 // The pages' font styles and string files (0xB894A0)
 static const char *Unknown_B894A0[][2] = { { "BUY_SHIP01", "fa_buy_ship01.ini" }, { "BUY_SHIP02", "fa_buy_ship02.ini" }, { "BUY_SHIP03", "fa_buy_ship03.ini" }, { "BUY_SHIP04", "fa_buy_ship04.ini" } };	// NAME 1: neutral (D10)
@@ -149,13 +149,13 @@ StarbaseShipCustomizeInterface::StarbaseShipCustomizeInterface(UIViewClass *view
 	for (int i = 0; i < 3; i++) {
 		Unknown244[i].Make_Identity();
 	}
-	Unknown_BB9654 = false;
+	WW3D::Set_Thumbnail_Enabled(false);
 }
 
 // @0x6186A0
 StarbaseShipCustomizeInterface::~StarbaseShipCustomizeInterface()
 {
-	Unknown_BB9654 = true;
+	WW3D::Set_Thumbnail_Enabled(true);
 	SBaseView->Unknown_69DC60();
 	Unknown_5C();
 	Unknown2E0->Unknown_80();

@@ -246,7 +246,7 @@ VertexMaterialClass * ProjectorManagerClass::Get_Shadow_Material(void)
 
 ShaderClass ProjectorManagerClass::Get_Shadow_Shader(void)
 {
-	ShaderClass shader = ShaderClass::_PresetOpaqueShader;
+	ShaderClass shader = ShaderClass::_PresetOpaqueSolidShader;
 	shader.Set_Depth_Compare(ShaderClass::PASS_ALWAYS);
 	shader.Set_Depth_Mask(ShaderClass::DEPTH_WRITE_DISABLE);
 	shader.Set_Primary_Gradient(ShaderClass::GRADIENT_MODULATE);
@@ -838,4 +838,7 @@ void * CasterTexProjectClass::Get_Projection_Object_ID(void) const
 **	Two getters (0x492290, 0x492380) return inside their creating branch: the client's near jne /
 **	mov-cmp come from the duplicated Add_Ref tail. ProjectionDefClass's accessors come from the
 **	client's spills (a field read gives other registers).
+**	Get_Shadow_Shader (0x492470, inlined at 0x493620 / 0x4941A0) copies _PresetOpaqueSolidShader (0xC0113C: its
+**	initialiser 0x93B2F0 writes 0x8441B, texturing off), not Renegade's _PresetOpaqueShader (0xC01140); the matcher
+**	masks the address, so the opaque form was credited exact (relocaudit.py, run 2026-11-21 PRESET).
 */

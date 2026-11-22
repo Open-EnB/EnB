@@ -259,24 +259,24 @@ class LoginTaskClass;
 
 
 
-// What the edit box's +0x4C points to, as far as 0x55F760 calls it
-class UIAvselEditUnknown4CClass { public: void Unknown_6E2A20(const Vector4 &color); };	// NAME 1: neutral (D10)  // NAME 1 [color]: neutral (1, 1, 1, 1)
-// textgadg.cpp's text gadget (0x80 bytes, constructor 0x6AA810; as ui_login.cpp declares it): the referral's name
-class UIAvselEditClass : public GadgetClass	// NAME 1: neutral (D10)
-{
-public:
-	UIAvselEditClass(InterfaceClass *iface, int length, const char *name, RenderObjClass *model, int a, int b); virtual bool Unknown_30(float x, float y);	// 0x6AA810  // NAME 1 [iface, length, name, model, a, b]: as ui_login.cpp's
-	void Set_Text(const char *text, int unknown);		// 0x6AA570  // NAME 1: as ui_login.cpp's
-	char *Get_Text();									// 0x6AA6C0 (a copy, deleted by the caller)  // NAME 1: as ui_login.cpp's
-	void Unknown_6AAD10(); virtual void Unknown_74(int arg);	// 0x6AAD10 (every frame); slot +0x74 (0x55F760: 1)  // NAME 1 [arg]: neutral
-	char Unknown30[0x3B - 0x30];						// +0x30
-	bool Unknown3B;										// +0x3B (0x55F760 sets it)
-	char Unknown3C[0x4C - 0x3C];						// +0x3C
-	UIAvselEditUnknown4CClass *Unknown4C;				// +0x4C
-	char Unknown50[0x5C - 0x50];						// +0x50
-	bool Unknown5C;										// +0x5C (0x55F760 clears it; ui_login.cpp: the password's hidden)
-	char Unknown5D[0x80 - 0x5D];						// +0x5D
-};
+// The edit box (the referral's name): textgadg.cpp's TextGadgetClass (0x80 bytes, constructor 0x6AA810); its cursor
+// +0x4C is fontsys_cursor.h's TextCursorClass (Rect3DClass::Set_Color 0x6E2A20)
+#include "textgadg.h"
+#include "fontsys_cursor.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 extern const int Unknown_B08CAC; extern const int Unknown_B08CBC; extern const int Unknown_B08CC0;	// NAME 1: neutral (D10): what 0x55F760's edit box gets (or'ed)
 
 
@@ -541,7 +541,7 @@ bool AvatarSelectionInterface::Unknown_68(int key)
 				Unknown_55ED20();
 				return false;
 			case 4:
-				Unknown114->Unknown_74(1);
+				Unknown114->Unknown_74(true);
 				return false;
 			case 2:
 				{
@@ -1167,13 +1167,13 @@ void AvatarSelectionInterface::Unknown_55F760()
 		Unknown10C[i] = new ButtonGadgetClass(robj.Peek(), *Layer, 0x55, 3);
 		Unknown64.Unknown_6870E0(Unknown10C[i], i + 1, View, 1, 0);
 	}
-	Unknown114 = new UIAvselEditClass(this, 20, "ENTRY_NAME_BUDDYREF1", BuddyReferralUI.Peek(), Unknown_B08CC0 | Unknown_B08CBC | Unknown_B08CAC, 0);
+	Unknown114 = new TextGadgetClass(this, 20, "ENTRY_NAME_BUDDYREF1", BuddyReferralUI.Peek(), Unknown_B08CC0 | Unknown_B08CBC | Unknown_B08CAC, 0);
 	Unknown114->Unknown_28(Layer);
-	Unknown114->Unknown4C->Unknown_6E2A20(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
-	Unknown114->Set_Text("", 0);
+	Unknown114->Cursor->Set_Color(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
+	Unknown114->Set_Text("", false);
 	Unknown114->Unknown5C = false;
 	Unknown114->Unknown3B = true;
-	Unknown114->Unknown_74(1);
+	Unknown114->Unknown_74(true);
 	Unknown64.Unknown_6870E0(Unknown114, 4, View, 1, 0);
 	((ControlKeyListClass *)Unknown4C)->Add(KernelEventClass(0x0D), (void *)2);
 	((ControlKeyListClass *)Unknown4C)->Add(KernelEventClass(0x1B), (void *)1);

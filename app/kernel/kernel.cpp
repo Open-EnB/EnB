@@ -92,7 +92,7 @@ public:
 	char Unknown0000[0x4074];
 	bool Unknown4074;
 };
-extern ENBAssetManager *AssetManager;	// NAME 3 [AssetManager]: 0xBDADC0, scriptedmovie.cpp's G_ASSERT 'AssetManager' (0x802D30)
+ENBAssetManager *AssetManager;	// NAME 3 [AssetManager]: 0xBDADC0 (.bss between display.cpp's 0xBDADB8 and main.cpp's 0xBDADC8), scriptedmovie.cpp's G_ASSERT 'AssetManager' (0x802D30)
 
 #include "assetmgr.h"	// WW3DAssetManager: 0xBFAEE0 is WW3DAssetManager::TheInstance (its constructor 0x91C2C0 stores it)
 

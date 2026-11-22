@@ -1,6 +1,6 @@
 #!/bin/sh
 # The coordinator's POC check at a commit (D187: agy builders' own POC runs crash in WW3D::Set_Gamma, so they prove nothing):
-#   sh tools/agy/poc_check.sh NAME COMMIT [LOG]      builds app in worktree .work/wt/NAME, links clientpoc, runs it 40 s
+#   sh tools/agy/poc_check.sh NAME COMMIT [LOG]      builds app in worktree .work/wt/NAME, links the client, runs it 40 s
 # With CHECK_HARNESS=1 it also runs clienttest (D182) and udpreplay alex3 + handshake.
 N=$1; C=$2
 R=$(cd "$(dirname "$0")/../.." && pwd)
@@ -15,10 +15,10 @@ cp "$R/build/art/MSS32.DLL" build/ 2>/dev/null
 echo "== build $(date +%T)" >> "$L"
 python tools/vc6/build.py build --lib app --allow-dirty --pool 1 >> "$L" 2>&1
 echo "== link $(date +%T)" >> "$L"
-python tools/vc6/build.py link --program clientpoc --pool 1 >> "$L" 2>&1
+python tools/vc6/build.py link --program client --pool 1 >> "$L" 2>&1
 echo "== run $(date +%T)" >> "$L"
-python tools/harness/clientpoc.py --seconds 40 --shots 60000,120000 run >> "$L" 2>&1
-echo "== poc exit $? $(date +%T)" >> "$L"
+python tools/harness/clientrun.py --seconds 40 --shots 60000,120000 run >> "$L" 2>&1
+echo "== client exit $? $(date +%T)" >> "$L"
 if [ "$CHECK_HARNESS" = 1 ]; then
   # lease first: clienttest's build needs a host too (without one it ssh'es to a stale IP, 2026-11-07)
   python tools/vc6/pool.py lease --agent $N > .work/lease.txt 2>&1

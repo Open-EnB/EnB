@@ -22,7 +22,7 @@
 
 template<class T> inline T Unknown_Clamp(T val, T lo, T hi) { if (val < lo) return(lo); if (val > hi) return(hi); return(val); }	// 0x57BA10 (out of line for unsigned: 0x579DC0)  // NAME 1: neutral (D10): WWMath::Clamp_Int's form, unsigned (0x57A330's top row)
 RefCountPtr<RenderObjClass> Unknown_497300(RenderObjClass *robj);	// 0x497300 (cdecl, ro_funcs.cpp's neighbourhood)  // NAME 1 [robj]: neutral
-extern UIComboBoxClass *Unknown_BE5BC4;	// NAME 1: neutral (D10): the open combo box (0x57A330 sets it while the list is down)
+UIComboBoxClass *Unknown_BE5BC4;	// NAME 1: neutral (D10): the open combo box (.bss 0xBE5BC4, before ui_cpit.cpp's 0xBE5BD0) (0x57A330 sets it while the list is down)
 
 // (the header's inline: the text field shows the selected item unless it shows a label)
 inline void UIComboBoxClass::Show_Selected() { if (!Has_Label()) TextField->Set_Text(Get_Item_Text(Selected)); }

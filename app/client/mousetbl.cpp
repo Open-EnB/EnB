@@ -1,6 +1,6 @@
 // Earth & Beyond client (reconstruction): app\Client\mousetbl.cpp (__FILE__ 0xB94DD0). Notes at the end of the file.
 #include "..\shared\g_assert.h"
-#include "assetmgr.h"
+#include "..\shared\enbassetmgr.h"
 #include "texture.h"
 #include "rendobj.h"
 #include "matinfo.h"
@@ -31,7 +31,7 @@ MouseCursorStruct::MouseCursorStruct(int idx, const char *name, float hot_x, flo
 
 
 	G_ASSERT(idx < MCURSOR_MAX);
-	WW3DAssetManager *mgr = WW3DAssetManager::Get_Instance();
+	ENBAssetManager *mgr = AssetManager;
 	Texture = mgr->Get_Texture(name, MIP_LEVELS_1, WW3D_FORMAT_UNKNOWN, true);
 	HotX = hot_x;
 	HotY = hot_y;
@@ -150,4 +150,6 @@ void Unknown_723150()
 **	* The object's start: 0x722720 / 0x722740 before it are a singly linked list's Is_Empty / Count
 **	  (template code, placed by the linker), 0x722660 a list insert; not this file's.
 **	* mousetbl.h (PROVISIONAL name, D137) holds the struct, the enum and the table for this file and smouse.cpp (KRN2).
+**	MouseCursorStruct's constructor (0x722770, inlined in 0x7228C0) reads E&B's AssetManager (0xBDADC0:
+**	0x722791), not WW3DAssetManager::TheInstance (0xBFAEE0, the address assetmgr.obj's own functions read) (relocaudit.py, run 2026-11-21 PRESET).
 */

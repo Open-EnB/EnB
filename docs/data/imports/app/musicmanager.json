@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42AFF0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "MusicManagerClass (NAME 3), client 0x439E40-0x43BFD0: G_ASSERT 'MusicINI' l.83 / l.114 / l.141, FAIL_IF '(CurrentMusicType >= NUM_MUSIC_THEME_TYPES) || (CurrentMusicType < 0)' l.572 and G_ASSERT 'theme' l.586 give the path e:\\build\\beta\\G\\app\\Audio\\musicmanager.cpp (D25); music.ini",
  "expected": {},
@@ -28,6 +26,8 @@
   "0x43B970",
   "0x43BBA0",
   "0x43BBF0",
+  "0x43BC30",
+  "0x43BC60",
   "0x43BC80",
   "0x43BF20",
   "0x43BF60",

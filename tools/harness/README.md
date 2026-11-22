@@ -102,7 +102,7 @@ python tools/harness/auxreplay.py run alex3 --dump [--out DIR]   # the messages 
 * **tests/auxreplay** links the generated roots (`app/client/aux_roots.h`, tools/re/auxroots.py)
   and the auxdata library. Since Player's tree compiles in sclient.cpp (4292c395e, 2026-11-08) the aux objects'
   callees take most of app.lib into the link (co.obj -> item_effect.obj -> pk.obj -> cpacket.obj ->
-  sclient.obj), so it links as clientpoc does: wlib, wnet, WinInet, shell32 and the old iostreams, then a second
+  sclient.obj), so it links as the client does: wlib, wnet, WinInet, shell32 and the old iostreams, then a second
   pass with a logging stand-in for each symbol still unresolved (build.py `gen_stubs`; the rest at address 0,
   `force_unresolved`); `run` copies build/art's MSS32.DLL into the working directory, as clienttest.py. Per channel it makes a root for each CREATE (0x0004: the type byte at
   offset 10, through the factory 0x6F6000's cases; a repeated id replaces the object, as the reference decoder's
@@ -507,7 +507,7 @@ harness's fakes: the fake gadget is a zeroed 0x100-byte object with its name at 
 the main view's +0x34 object are zeroed fakes with a table that pops slot +0x7C's two arguments (SClient::Unknown_742530 is
 real); `Unknown_Get_Ticks` (unknown_root.cpp) and `WWAudioClass::Flush_Cache` are real functions that main() jumps to the
 harness's clock and to a trace line (a second definition would be a duplicate). ui_stubs.cpp / ui_avsel_stubs.cpp hold what
-gen_stubs --link cannot write (as programs/clientpoc/poc_link.cpp). A crash prints its address on stderr (a vectored handler:
+gen_stubs --link cannot write (test programs keep their own stand-ins; the client has none). A crash prints its address on stderr (a vectored handler:
 look it up in the exe's .map). 103 checks, 3,178 trace lines; the trace lost the lines of the deleted stand-ins
 (`stub DeltaCompoundClass::Decode` x213, the Play_2D_Sound, RsTrack and gadget 0x6607D0 / group 0x5981B0.. lines, 0x56BA80).
 
@@ -527,10 +527,10 @@ Each script has its usage in its docstring; `python tools/harness/X.py --help` w
 | `kerneltest.py` | `tests/kerneltest` (task kernel, scripted tasks, 35 expected trace lines); `build` then `run`. `taskstest.cpp` beside it has no script of its own | pool VM |
 | `clienttest.py` | `tests/clienttest` (ClientClass's lists, the DEBUG setters and the redirect, SClient::Process_Packets through cpacket.cpp's handlers on a capture's messages; trace against `expected.txt`); `build` then `run` | pool VM, the reference decoder's trace.jsonl |
 | `movietest.py` | `tests/movietest`: the movie task plays a Bink movie (kernel-map step 7); `build` stages Renegade's BinkMovie source from `roots.EA_ROOT`, `run` copies `binkw32.dll` and the movie from the retail install (read only) and runs in `.work/harness/movietest` | retail install, pool VM |
-| `clientpoc.py` | the proof-of-concept client (D179): `run` starts `ClientPOC\release\client.exe` there (windowed unless `--fullscreen`), kills it by PID after `--seconds`, and digests `stubs.log` (stand-ins' first calls, repeats folded, the first `CRASH:` line named from `client.map`) and `_except.txt`; `log` digests the last run. `run --shots N,M` saves the client's own back buffer at those Present calls through the d3d8shot proxy (`build/d3d8shot/d3d8.dll`, copied beside the exe for the run and deleted after it; never a screen grab, D69) as `.work/poc/shots/HHMMSS/frame_NNNNN.png` with the proxy's `d3d8shot.log`. The login screen presents thousands of frames a second (frame 120000 is about 25 s in), so pick large numbers. Build it with `tools/vc6/build.py link --program clientpoc`; each run's first failure goes in `.work/poc/runs.md`. **Several at once:** `--instance NAME` runs in `ClientPOC\inst\NAME\release` beside its own `inst\NAME\Data` (`client\ini` and `client\output` copied once, every other folder a junction to `ClientPOC\Data`'s: antprox `/REPLAY` rewrites `auth.ini`'s AAIUrl / LKeyUrl at each start, and with one shared `auth.ini` the first-started client sent its account login to the other replay server; own stubs.log, `_except.txt`, proxy, shots `.work/poc/shots/NAME-HHMMSS`; prints `client pid N`), `--exe PATH` runs a worktree's own link output, `<worktree>\build\programs\clientpoc\clientpoc.exe`, whatever `release` holds (needs `--instance`; must exist; the worktree's link also deploys into `release`, which is fine), `replay --input FILE [--seconds N] [--shots N,M]` runs the same against antprox `/REPLAY` (antprox is the frozen 1.0.0 release, `AntaresProxy\releases\antprox-1.0.0-win-x64\antprox.exe`, commit 22ebc7a; `ANTPROX_EXE` overrides it with another build; the client is the child of that antprox; its output goes in the shot folder; CLIENT ARGS after `--` become `/CLIENTOP:` switches); `--messages` (run, replay) adds `-ENABLE_MESSAGES` and `msglisten.py` (`<shots dir>\messages.log`); programs/clientpoc/poc_multi.cpp (mutex per process, no cursor warp) makes it work. `clean --instance NAME | --all | --older HOURS` deletes instances (junctions into `ClientPOC\Data` unlinked, never followed; a running client's instance kept): each builder its own before reporting, the coordinator `--all` at handoff. **`replay` also prints the client's exit** (D191: antprox.out's "Client exited" against the last input's time, or "still running when this run killed it"). **`--ea`** (with `--instance`, D200) runs the instance in `C:\EnBDevelopment\ClientPOC_EA\inst\NAME` over that folder's `Data` and DLLs, EA's final data (P-EA1-1; local, never committed); the exe stays `ClientPOC\release`'s, `--exe`'s or `--retail`'s, and `clean` covers both folders' instances. **`replay --retail`** (D190; needs `--instance` and `--shots`) runs a copy of `INSTALL\release\client.exe` in the instance folder under the d3d8shot proxy with `D3D8SHOT_INPUT=1` (`Hook_Input` in d3d8shot.c patches the client's user32 imports to read the posted messages, as poc_input.cpp does; rebuild the proxy with `run_reference.py build` for it) and posts BM_CLICK to the terms box's "I Agree"; the same `--input` file as the POC; character select needs frames in the hundreds to few thousands (`--shots 300,1000,3000`), not the login screen's 100000s. `dumpcmp.py A B` compares two draw dumps (`D3D8SHOT_DUMP=N` in the environment) draw by draw. It writes `*.th6` thumbnails beside the mixes in `ClientPOC\Data\client\mixfiles` (as the client does) | every library built, `mkauthlogin.py`, pool VM for the link |
-| `e2e.py` | end-to-end scenarios for client builds (D237): `tools/harness/e2e/*.scn`, one client session for all of them, event-driven steps, tagged input through the proxy, shots on events, the gen stand-ins per scenario (section below) | a linked client (`build.py link --program clientpoc`, every library and binkmovie built at that tree's head), antprox, a current proxy |
+| `clientrun.py` | runs our client, the one client build (`build/programs/client/client.exe`, `client.map` beside it, linked from every library with no stand-in: `tools/vc6/build.py link --program client`; a worktree's own `build/` in a worktree; `--exe PATH` another), or a copy of retail. The runtime data stays outside git in `CLIENT_DATA_ROOT`, `C:\EnBDevelopment\ClientPOC` (the user's folder, its name kept): `run` copies the exe and its map into its `release` folder and starts it there (windowed or full screen is the registry's; `--fullscreen` has no effect), kills it by PID after `--seconds`, and digests `_except.txt` (and a `stubs.log` when an older stand-in exe wrote one: repeats folded, the first `CRASH:` line named from `client.map`); `log` digests the last run. `run --shots N,M` saves the client's own back buffer at those Present calls through the d3d8shot proxy (`build/d3d8shot/d3d8.dll`, copied beside the exe for the run and deleted after it; never a screen grab, D69) as `.work/poc/shots/HHMMSS/frame_NNNNN.png` with the proxy's `d3d8shot.log`. The login screen presents thousands of frames a second (frame 120000 is about 25 s in), so pick large numbers. Each run's first failure goes in `.work/poc/runs.md`. **Several at once:** `--instance NAME` runs in `CLIENT_DATA_ROOT\inst\NAME\release` beside its own `inst\NAME\Data` (`client\ini` and `client\output` copied once, every other folder a junction to `CLIENT_DATA_ROOT\Data`'s: antprox `/REPLAY` rewrites `auth.ini`'s AAIUrl / LKeyUrl at each start, and with one shared `auth.ini` the first-started client sent its account login to the other replay server; own `_except.txt`, proxy, shots `.work/poc/shots/NAME-HHMMSS`; prints `client pid N`), `--exe PATH` runs another tree's link output, e.g. `<worktree>\build\programs\client\client.exe` (must exist), `replay --input FILE [--seconds N] [--shots N,M]` runs the same against antprox `/REPLAY` (antprox is the frozen 1.0.0 release, `AntaresProxy\releases\antprox-1.0.0-win-x64\antprox.exe`, commit 22ebc7a; `ANTPROX_EXE` overrides it with another build; the client is the child of that antprox; its output goes in the shot folder; CLIENT ARGS after `--` become `/CLIENTOP:` switches); `--messages` (run, replay) adds `-ENABLE_MESSAGES` and `msglisten.py` (`<shots dir>\messages.log`); the instance's copy of the exe gets its own mutex name and the proxy's `D3D8SHOT_CURSOR=off` stops the cursor warp (below). `clean --instance NAME | --all | --older HOURS` deletes instances (junctions into `CLIENT_DATA_ROOT\Data` unlinked, never followed; a running client's instance kept): each builder its own before reporting, the coordinator `--all` at handoff. **`replay` also prints the client's exit** (D191: antprox.out's "Client exited" against the last input's time, or "still running when this run killed it"). **`--ea`** (with `--instance`, D200) runs the instance in `EA_DATA_ROOT\inst\NAME` (`C:\EnBDevelopment\ClientPOC_EA`) over that folder's `Data` and DLLs, EA's final data (P-EA1-1; local, never committed); the exe stays the tree's client, `--exe`'s or `--retail`'s, and `clean` covers both folders' instances. **`replay --retail`** (D190; needs `--instance` and `--shots`) runs a copy of `INSTALL\release\client.exe` in the instance folder under the d3d8shot proxy with `D3D8SHOT_INPUT=1` (`Hook_Input` in d3d8shot.c patches the client's user32 imports to read the posted messages, as it does for ours; rebuild the proxy with `run_reference.py build` for it) and posts BM_CLICK to the terms box's "I Agree"; the same `--input` file as ours; character select needs frames in the hundreds to few thousands (`--shots 300,1000,3000`), not the login screen's 100000s. `dumpcmp.py A B` compares two draw dumps (`D3D8SHOT_DUMP=N` in the environment) draw by draw. A dump on an event: with `D3D8SHOT_DUMP=0` in the environment (buffers shadowed from the start, no frame listed), an e2e `shot dump_NAME` step also dumps the frame after the shot (`draws_NNNNN.bin` and its `tex_*` in the run folder; e2e/sp_galaxymap.scn). It writes `*.th6` thumbnails beside the mixes in `CLIENT_DATA_ROOT\Data\client\mixfiles` (as the client does) | every library built, `mkauthlogin.py`, pool VM for the link |
+| `e2e.py` | end-to-end scenarios for client builds (D237): `tools/harness/e2e/*.scn`, one client session for all of them, event-driven steps, tagged input through the proxy, shots on events, the gen stand-ins per scenario (section below) | the linked client (`build.py link --program client`, every library and binkmovie built at that tree's head), antprox, a current proxy |
 | `run_vidtest.py`, `vidtest_sbs.py`, `run_reference.py`, `drawdump.py`, `symbolize.py`, `bmp2png.py`, `d3d8shot.c` | vidtest (above) | |
-| `msglisten.py` | listens to a running client's debug-message server (the client's `-ENABLE_MESSAGES`: app/shared/message/msgserv.cpp's MsgServer on the first free TCP port of 9999-10009, bound to every interface by the client's own code, so run it on this host only). `msglisten.py [--pid PID | --port P] [--out FILE] [--seconds N] [--levels MASK] [--modules A,B] [--files F,G] [--prefix TEXT] [--raw]`: `--pid` finds that client's port with netstat (several clients each get their own) and waits for it; it sends one filter record (`S` name `` ` `` levels `` ` `` modules `` ` `` files `` ` `` prefix, `\0`-ended, empty fields as ' ') and prints each `M` record (level `` ` `` [sender,]category `` ` `` file `` ` `` line `` ` `` x `` ` `` y `` ` `` sec.usec `` ` `` text, `\0`-ended) as `HH:MM:SS.uuuuuu LEVEL category: text  file(line)`. The client drops messages while no listener is connected and accepts one at most once a second in the server's run (the kernel task, every 200 ms, and after each error report), so start-up asserts before WinMain's 'adding message server to kernel' never arrive. `clientpoc.py run|replay --messages` starts the client with `-ENABLE_MESSAGES` (replay: antprox `/CLIENTOP:`) and msglisten beside it into `<shots dir>\messages.log` | a client started with `-ENABLE_MESSAGES` |
+| `msglisten.py` | listens to a running client's debug-message server (the client's `-ENABLE_MESSAGES`: app/shared/message/msgserv.cpp's MsgServer on the first free TCP port of 9999-10009, bound to every interface by the client's own code, so run it on this host only). `msglisten.py [--pid PID | --port P] [--out FILE] [--seconds N] [--levels MASK] [--modules A,B] [--files F,G] [--prefix TEXT] [--raw]`: `--pid` finds that client's port with netstat (several clients each get their own) and waits for it; it sends one filter record (`S` name `` ` `` levels `` ` `` modules `` ` `` files `` ` `` prefix, `\0`-ended, empty fields as ' ') and prints each `M` record (level `` ` `` [sender,]category `` ` `` file `` ` `` line `` ` `` x `` ` `` y `` ` `` sec.usec `` ` `` text, `\0`-ended) as `HH:MM:SS.uuuuuu LEVEL category: text  file(line)`. The client drops messages while no listener is connected and accepts one at most once a second in the server's run (the kernel task, every 200 ms, and after each error report), so start-up asserts before WinMain's 'adding message server to kernel' never arrive. `clientrun.py run|replay --messages` starts the client with `-ENABLE_MESSAGES` (replay: antprox `/CLIENTOP:`) and msglisten beside it into `<shots dir>\messages.log` | a client started with `-ENABLE_MESSAGES` |
 | `artdir.py` | the art folder default of drawcheck, vidtest_sbs and run_vidtest (D120): `build/art` when it exists, else a warning | `build/art` (`cp -rp` of EBCONFIG) |
 | `vidtest_e2e.py` | starts vidtest as E&BConfig does (its command line, `CreateProcessA` with a relative name, E&BConfig's working directory = a copy of EBCONFIG at `build/programs/vidtest/e2e_ebconfig`, never the install) and reads `results.ini` as E&BConfig does; `--original` runs the retail VIDTEST (which has no `-nomsgbox`; ours gets it appended) | built vidtest, retail EBCONFIG folder to copy |
 | `vidtest_exitcodes.py` | the exit-code matrix (cases `finish close key mode res scenes`, `--case NAME`, repeatable) with `-nomsgbox` always; window and any stray message box are found by process id; results.ini compared with `--ref` | built vidtest |
@@ -542,9 +542,9 @@ build through scenarios against antprox `/REPLAY` (D181; world login included) a
 (`PASS` / `FAIL` / `XFAIL` / `XPASS`, the generated stand-ins hit, the failure, its seconds); exit 0 only if every
 one is as expected (`XFAIL`: a scenario marked `expected-fail: REASON` ran every step and failed only on its
 `stand-in` step; `XPASS`, the stand-in no longer hit, fails the run so the stale note is removed; any other failure
-is `FAIL`). `list` and `check` parse only. `--exe` defaults to this tree's `build/programs/clientpoc/clientpoc.exe`
-(a worktree's own link), else `ClientPOC\release`'s; the instance (default `e2e`) is clientpoc.py's, removed at the
-end (`clientpoc.py clean`) unless `--keep`.
+is `FAIL`). `list` and `check` parse only. `--exe` defaults to this tree's `build/programs/client/client.exe`
+(a worktree's own link; missing: the run stops and says so); the instance (default `e2e`) is clientrun.py's, removed at
+the end (`clientrun.py clean`) unless `--keep`.
 
 **One client session for the whole run (2026-11-14):** the first scenario runs its `include`s (the start-up movie,
 login, character select, the world); every later scenario runs only its own steps in the same world, so a scenario
@@ -598,17 +598,18 @@ fa_*.ini opens again when it closes; chat-panel drop-down items act on mouse-dow
 window is open (an Esc during the options window opens the quit menu after it closes); the chat panel's browser items
 do nothing while the settings store's +0x34 is set.
 
-**The exe carries no test code (2026-11-14):** programs/clientpoc/poc_input.cpp and poc_multi.cpp are gone. The
+**The exe carries no test code (2026-11-14):** the stand-in build's input and multi-instance hooks are gone. The
 d3d8shot proxy, copied beside the instance's exe for every run, gives the client its virtual cursor and keyboard
 (`D3D8SHOT_INPUT=1`, d3d8shot.c `Hook_Input`: the exe's user32 imports), exactly as it does for the retail
-client (`clientpoc.py replay --retail`), so one scenario can drive both. e2e posts with `0x5043` in wParam's high
+client (`clientrun.py replay --retail`), so one scenario can drive both. e2e posts with `0x5043` in wParam's high
 word and sets `D3D8SHOT_INPUT_TAG=1`: the proxy strips the tag, logs each button / key-down as `input: replayed
 ...`, and drops untagged mouse and key messages (`input: NOT REPLAYED (dropped) ...`): a person's click or the
 real cursor crossing the test window does not reach the client, and the result line counts the dropped ones.
-`clientpoc.py replay` posts untagged (its `post_step(tag=False)`). Several instances at once: `Inst.prepare()`
+`clientrun.py replay` posts untagged (its `post_step(tag=False)`). Several instances at once: `Inst.prepare()`
 gives the instance's COPY of the exe its own mutex name (the string `enb_mutex_lock` rewritten in the copy, same
-length), and without virtual input the proxy's `D3D8SHOT_CURSOR=off` makes SetCursorPos / ClipCursor no-ops. Left
-in the exe as stand-in-layer code, not hooks: poc_window.cpp's read-only registry (D69) and its `CRASH:` line.
+length), and without virtual input the proxy's `D3D8SHOT_CURSOR=off` makes SetCursorPos / ClipCursor no-ops. The
+one client build has no stand-in layer either (the stand-in build's read-only registry and its `CRASH:` line went with
+it): a crash shows as the client's exit and its `_except.txt`, as on retail.
 
 **The retail client as the expected result (D190, D248):** `e2e.py run [NAME...] --retail --instance NAME` drives a
 COPY of the retail client (in the instance folder, never the install) through the same scenarios: the same proxy,
@@ -661,6 +662,9 @@ without the export still runs (`no stand-in marker` in e2e.log; later scenarios 
 8th Present); the next frame is saved as `shot_NAME_NNNNN.png` from the client's own back buffer (D69). The proxy
 in `build/d3d8shot/` must be current: `python tools/harness/run_reference.py build` after any change to
 d3d8shot.c (a proxy of 2026-11-04 ignored the trigger, and every shot step waited out its 15 s).
+`expect-ink SHOT X,Y,W,H MIN` (2026-11-21) asserts on that shot: at least MIN pixels in the box whose brightest
+channel reaches 200 (`INK_LEVEL`; the UI's text is near white on the dark blue panels), so a scenario checks that a list
+was filled, not only that its packets went (sb_refinery's ore rows, sb_manufacture's second category level).
 
 **Station operations on a live server (2026-11-15):** `e2e.py --live [SERVER] [--retail] --instance NAME run
 sb_vendor sb_talk` (options before `run`: `--live` takes an optional SERVER, so `--live run` would read `run` as
@@ -724,6 +728,25 @@ the last name. Live antprox logs opcode numbers; e2e appends the names (`... = s
   the loot is random, so the number of takes varies). Retail passes, 65 s (149 s with the restore). The recording
   dragged a skill from the PDA's list to the hotbar; a replayed drag found the list scrolled elsewhere (the list
   keeps no fixed start), so the scenario uses the hotbar the rows have.
+- **Flight (`sp_flight`, 2026-11-21):** every flight input, each a `pose-mark`, the input, its packet (MOVE: thrust;
+  TURN: yaw; TILT: pitch) and `expect-pose` on the camera: the thrust gadget's upper half (640,878: forward, again
+  stops) and lower half (640,968: reverse, again stops), A and Z held (`hold VK for S`), the four arrow keys, the
+  right button held with the pointer left / right / above / below (`rdrag X,Y for S`: the nose follows it), then W
+  (the nearest nav point, Jupiter Path the First, too close: the server answers Q with a MESSAGE_STRING), the
+  target panel's >> twice (1248,987: Nav Group Shrine, 54.95k) and Q: WARP, WARP_INDEX about 19 s later, about
+  50k on. Retail and ours pass (~250 s with the restore) with the SAME 201 packets. New steps for it (e2e.py's
+  docstring): `hold VK for S` (a down every 50 ms, a fixed count: each thrust down sends a MOVE), `rdrag`,
+  `pose-mark`, `expect-pose forward|back|left|right|up|down|moved MIN` (the best of the poses sampled during the
+  input, since the chase camera lags and the ship coasts). Left raises the pose's yaw, up its pitch.
+- **Private channels (`sp_chat_private`, 2026-11-21):** Chat -> Private Channel -> Join -> New sends
+  CLIENT_CHAT_REQUEST type 4 and the local server answers nothing (its CCE_INSERT_CHANNEL branch is empty), so no
+  window follows and the chat panel's request flag stays set; Join -> Existing's box takes digits only (edit flags
+  0xC4, stredit's 4: 'ab12' shows '12'), and its Confirm then prints 'Another request is pending' and sends nothing.
+  Retail and ours alike (the scenario's header has the coordinates and the client's functions).
+- **Extended keys (2026-11-21):** the client's keyboard code (w32kbd.cpp) reads lParam's scan code and extended
+  bit; an arrow key posted with lParam 1 is the numpad's and nothing happens. `clientrun.key_lparam` gives every
+  posted key its scan code and, for the arrows, Insert / Delete / Home / End / PgUp / PgDn, the extended bit, as a
+  keyboard does (the user's recording: Left 0x014B0001). The default set still passes 25 / 25 with it.
 - First results: `sb_vendor` (room 2, a vendor's talk tree and trade window, back) and `sb_talk` (an NPC's
   two-page talk tree) pass on retail in one session, 224 s.
 - 2026-11-18 (H1): `sb_buysell` (room 2's Miyoshi Basho: a vendor row and Buy, a cargo slot and Sell, each an
@@ -733,7 +756,7 @@ the last name. Live antprox logs opcode numbers; e2e appends the names (`... = s
   the Combat / Trade / Explore tabs, the close box). The 2010 server listed no jobs (SectorManager::RefreshJobs
   found no mission with a job category: JOB_LIST 8 bytes); since 2026-11-18 the server and DB have them (below). The buy / sell clicks of the recordings miss their double-clicks: the
   recorder logs only button-downs (0x201 / 0x204 / 0x207), not 0x203 or the button-ups. Results: retail and ours
-  (this tree's clientpoc.exe at run/2026-11-18 1a45b1d78) pass all four `sb_*` in one session each (ours 417 s);
+  (this tree's stand-in build at run/2026-11-18 1a45b1d78) pass all four `sb_*` in one session each (ours 417 s);
   `e2e.py compare` reads live runs too (packet names only: the live log has no sizes; the walk's
   STARBASE_AVATAR_CHANGE count follows the pilot, so it is left out), and sb_buysell, sb_jobs (4),
   sb_vendor (7) and sb_talk (5) send the SAME packets on both.
@@ -775,8 +798,8 @@ the last name. Live antprox logs opcode numbers; e2e appends the names (`... = s
   --retail --instance NAME run _sb_dock` (named only) logs in, targets the station (641,1009, SET_TARGET) and
   docks (the target panel's right verb, 1238,672, until SERVER_HANDOFF); then run the `sb_*` set again.
 
-**Smoke set (D237):** a landing that retires a stand-in runs `e2e.py run --exe <its worktree's clientpoc.exe>
---instance <name>` and lands only with every line as expected.
+**Smoke set (D237):** a landing that changes the client's behaviour runs `e2e.py run --exe <its worktree's
+build\programs\client\client.exe> --instance <name>` and lands only with every line as expected.
 
 `vidtest_e2e.py` and `vidtest_exitcodes.py` stay two scripts: one reproduces E&BConfig's launch
 (ctypes `CreateProcessA`, the working directory trick, the results.ini reader) and one drives

@@ -1,26 +1,31 @@
-"""Runs the proof-of-concept client (D179; built by `tools/vc6/build.py link --program clientpoc`).
+"""Runs our client: the one client build, `client` (build/programs/client/client.exe with client.map beside it,
+linked from every library with no stand-in; `tools/vc6/build.py link --program client`), or a copy of retail.
 
-    python tools/harness/clientpoc.py run [--seconds N] [--fullscreen] [--shots N,M,...] [-- CLIENT ARGS...]
-    python tools/harness/clientpoc.py replay [--instance NAME] [--exe PATH | --retail] --input FILE [--seconds N] [--shots N,M] [--messages] [-- CLIENT ARGS...]
+    python tools/harness/clientrun.py run [--instance NAME] [--exe PATH] [--seconds N] [--shots N,M,...] [-- CLIENT ARGS...]
+    python tools/harness/clientrun.py replay [--instance NAME] [--exe PATH | --retail] --input FILE [--seconds N] [--shots N,M] [--messages] [-- CLIENT ARGS...]
     python tools/harness/dumpcmp.py A B           compares two draw dumps (d3d8shot D3D8SHOT_DUMP folders), see below
-    python tools/harness/clientpoc.py log         the last run's stubs.log, digested
-    python tools/harness/clientpoc.py clean --instance NAME | --all | --older HOURS
+    python tools/harness/clientrun.py log         the last run's _except.txt (and a stubs.log, when an exe wrote one), digested
+    python tools/harness/clientrun.py clean --instance NAME | --all | --older HOURS
                                                   delete instances (a builder its own before reporting; the
                                                   coordinator --all at handoff); junctions unlinked, never followed
 
+The exe: --exe PATH (its .map beside it), else this tree's build/programs/client/client.exe (a worktree's own
+build/ in a worktree); it must exist. The runtime data (the DLLs and Data the client loads) stays outside git in
+CLIENT_DATA_ROOT, C:\\EnBDevelopment\\ClientPOC (release\\ and Data\\; the user's folder, its name kept): each run
+copies the exe and its map into the folder it runs in (release\\, or an instance's release\\).
+
 Several runs at once (builders): give each its own --instance NAME. The run then uses
-C:\\EnBDevelopment\\ClientPOC\\inst\\NAME\\release beside its own inst\\NAME\\Data (so the client's ..\\Data paths
+CLIENT_DATA_ROOT\\inst\\NAME\\release beside its own inst\\NAME\\Data (so the client's ..\\Data paths
 resolve): Data\\client\\ini and output are the instance's own copies, every other folder a junction to
-ClientPOC\\Data's (antprox /REPLAY rewrites ini\\auth.ini's AAIUrl / LKeyUrl for its own replay server at
+CLIENT_DATA_ROOT\\Data's (antprox /REPLAY rewrites ini\\auth.ini's AAIUrl / LKeyUrl for its own replay server at
 each start: with one shared auth.ini the first-started client sent its account login to the second's server,
-failed, and crashed in the error message box). The release folder is filled from release\\ on each run (client.exe and client.map, or --exe PATH's exe and map beside it; the DLLs and data files when
-they differ), with its own stubs.log, _except.txt and d3d8.dll proxy, and shots in
+failed, and crashed in the error message box). The release folder is filled from release\\ on each run (the exe and
+its map; the DLLs and data files when they differ), with its own _except.txt and d3d8.dll proxy, and shots in
 .work/poc/shots/NAME-HHMMSS. The PID of the client is printed ("client pid N"); kill it by that PID only.
 The exe carries no test code for this: an instance's COPY of the exe gets its own mutex name (prepare() rewrites
 the string "enb_mutex_lock" in the copy to a name of the same length made from the instance's name; antprox does
 the same in memory for the retail build it knows), and the d3d8shot proxy beside it makes SetCursorPos / ClipCursor
-no-ops (D3D8SHOT_CURSOR=off) or gives the client its virtual input (D3D8SHOT_INPUT=1). --exe runs a worktree's own link output (WT\\build\\programs\\clientpoc\\clientpoc.exe, its map beside it) whatever
-release\\ holds: builders' checks use it (docs/builders.md, POC instances); it must exist.
+no-ops (D3D8SHOT_CURSOR=off) or gives the client its virtual input (D3D8SHOT_INPUT=1).
 
 replay: antprox /REPLAY (D181; the loopback server for one client; each instance gets its own address, so
 several replays run at once) starts the client (/CLIENT:<instance exe>), the proxy's D3D8SHOT_INPUT=1, the --input steps
@@ -28,25 +33,25 @@ are posted to the window of the client.exe whose parent is that antprox (found b
 then both are killed by PID. antprox's console output and its per-run files go in the shot folder
 (antprox.out, antprox-logs\\).
 
---ea (with --instance, P-EA1-1): the instance lives in C:\\EnBDevelopment\\ClientPOC_EA\\inst\\NAME over that folder's
-Data and DLLs, EA's final set (hash-proven against EA's manifest; only the *.th6 thumbnails the client writes are added). The
-exe is unchanged: ClientPOC\\release's last build, --exe's, or --retail's copy of 249f8524. Its release\\client.exe is EA's own
-82663b2f, kept as data and never run by this tool.
+--ea (with --instance, P-EA1-1): the instance lives in EA_DATA_ROOT\\inst\\NAME (C:\\EnBDevelopment\\ClientPOC_EA) over
+that folder's Data and DLLs, EA's final set (hash-proven against EA's manifest; only the *.th6 thumbnails the client writes
+are added). The exe is unchanged: the tree's client build, --exe's, or --retail's copy of 249f8524. Its
+release\\client.exe is EA's own 82663b2f, kept as data and never run by this tool.
 
-run: starts C:\\EnBDevelopment\\ClientPOC\\release\\client.exe with that folder as working directory (never
-the game's install), ENB_POC_WINDOWED=1 unless --fullscreen, waits N seconds (default 40) and kills it by PID
-if it still runs; then prints the digest. Delete stubs.log and _except.txt first (the client's exception
-report, written beside the exe).
+run: copies the exe into CLIENT_DATA_ROOT\\release (or the instance's) and starts it with that folder as working
+directory (never the game's install), waits N seconds (default 40) and kills it by PID if it still runs; then prints
+the digest. Windowed or full screen is the registry's setting (--fullscreen is accepted and has no effect). Deletes
+stubs.log and _except.txt first (the client's exception report, written beside the exe).
 
 replay prints, after the run, whether the client exited by itself and when (D191): antprox.out's "Client exited"
 line against the time the last input step was posted ("exited by itself at ..., +2.4 s after the last input (step
 15000 click ...)"), or "still running when this run killed it". `run` reports the exit code of the process itself.
 
 replay --retail (D190): runs a COPY of the retail client (INSTALL/release/client.exe, SHA 249f8524) copied into the
-instance folder (--instance is required; the install folder is only read, D69 / D143) on the same replay input as the
-POC. The d3d8shot proxy then runs with D3D8SHOT_INPUT=1: it patches the client's user32 imports (GetMessageA /
+instance folder (--instance is required; the install folder is only read, D69 / D143) on the same replay input as
+ours. The d3d8shot proxy then runs with D3D8SHOT_INPUT=1: it patches the client's user32 imports (GetMessageA /
 PeekMessageA, GetCursorPos, GetMessagePos, SetCursorPos, GetForegroundWindow, GetActiveWindow, GetKeyState,
-GetAsyncKeyState, ClipCursor) to read the posted messages, as programs/clientpoc/poc_input.cpp does for the POC, so the
+GetAsyncKeyState, ClipCursor) to read the posted messages, as it does for our client, so the
 real cursor and keyboard are never used. The terms box ("I Agree") is the dialog's own input: a BM_CLICK is posted to
 its button (a thread of replay); the input steps go to the main window (dialogs are skipped when looking for it). There
 is no stubs.log. --shots is required (the proxy carries the hooks; `run_reference.py build` first, the proxy must be
@@ -59,9 +64,10 @@ never a screen grab, D69) through the d3d8shot proxy (build/d3d8shot/d3d8.dll, b
 runs load the system's d3d8.dll. The frames go to .work/poc/shots/<HHMMSS>/frame_NNNNN.png (converted
 by bmp2png.py, the .bmp deleted) with the proxy's d3d8shot.log (the Present count, the files opened).
 
-The digest: stubs.log's lines in order, repeats folded ("x12"), each CRASH: line (poc_window.cpp's
-vectored handler) with its addresses named from client.map (tools/harness/symbolize.py), and the first
-lines of _except.txt. Nothing is run against a server (antprox stays off: it writes the registry).
+The digest: the d3d8shot proxy's first-chance CRASH: / CRASH regs: lines (the shot folder's d3d8shot.log; the first
+CRASH: line's addresses named from client.map), the first lines of _except.txt; and when the exe wrote a stubs.log (the stand-in builds before the one
+client build did; the client writes none), its lines in order, repeats folded ("x12"), each CRASH: line with its
+addresses named from client.map (tools/harness/symbolize.py). Nothing is run against a server (antprox stays off: it writes the registry).
 
 --input FILE: posts window messages to the client's top-level window (found by its PID) at the times the
 file gives; never the real cursor or keyboard (PostMessage only: nothing reaches other programs). It sets
@@ -83,8 +89,8 @@ Each step is logged to stdout with the time it was sent.
 every CLIENT ARG; it adds the '-') and tools/harness/msglisten.py beside it (--pid: the client's own port), which writes the
 client's debug messages (G_ASSERT / FAIL_IF and the reporters' others) to <shots dir>\\messages.log. The
 client drops messages until msglisten is accepted (the kernel's first message-server run, after the sound
-library starts), so the start-up asserts reach only stubs.log (poc_standins.cpp's tee); after the run every
-G_ASSERT / FAIL_IF line of stubs.log is appended to messages.log under a '# stubs.log' header.
+library starts), so the start-up asserts are not in it. An exe that tees its asserts to stubs.log (the stand-in
+builds did) has every G_ASSERT / FAIL_IF line of stubs.log appended to messages.log under a '# stubs.log' header.
 """
 import argparse
 import datetime
@@ -115,8 +121,8 @@ def start_listener(pid, out, seconds):
 
 
 def stop_listener(listener, inst=None, out=None):
-    """Waits for msglisten; then appends stubs.log's G_ASSERT / FAIL_IF lines (programs/clientpoc/poc_standins.cpp's
-    tee) to messages.log: the client drops the start-up ones (no listener yet), so the log has every report."""
+    """Waits for msglisten; then appends stubs.log's G_ASSERT / FAIL_IF lines (an exe's
+    tee, when it has one) to messages.log: the client drops the start-up ones (no listener yet), so the log has every report."""
     if listener is None:
         return
     try:
@@ -132,11 +138,15 @@ def stop_listener(listener, inst=None, out=None):
         for l in lines:
             f.write(l + '\n')
 
-RELEASE = r'C:\EnBDevelopment\ClientPOC\release'
-EA_RELEASE = r'C:\EnBDevelopment\ClientPOC_EA\release'
+# The client's runtime data (release\ with the DLLs, Data\, inst\ instances): outside git, the user's folder (its
+# name is kept); EA_DATA_ROOT the same over EA's final data set (--ea)
+CLIENT_DATA_ROOT = r'C:\EnBDevelopment\ClientPOC'
+EA_DATA_ROOT = r'C:\EnBDevelopment\ClientPOC_EA'
+RELEASE = os.path.join(CLIENT_DATA_ROOT, 'release')
+EA_RELEASE = os.path.join(EA_DATA_ROOT, 'release')
 RETAIL = os.path.join(os.environ.get('ENB_RETAIL_INSTALL') or r'C:\Program Files (x86)\EA GAMES\Earth & Beyond',
                       'release', 'client.exe')
-EXE = os.path.join(RELEASE, 'client.exe')
+EXE = os.path.join(RELEASE, 'client.exe')       # where a run without --instance copies the exe to
 MAP = os.path.join(RELEASE, 'client.map')
 LOG = os.path.join(RELEASE, 'stubs.log')
 EXCEPT = os.path.join(RELEASE, '_except.txt')
@@ -148,10 +158,12 @@ ANTPROX = os.environ.get('ANTPROX_EXE') or \
 ROOT = os.path.dirname(os.path.dirname(HERE))
 PROXY = os.path.join(ROOT, 'build', 'd3d8shot', 'd3d8.dll')
 SHOTS = os.path.join(ROOT, '.work', 'poc', 'shots')
+# the one client build of this tree (a worktree's own build/ in a worktree): every run's default exe
+CLIENT_EXE = os.path.join(ROOT, 'build', 'programs', 'client', 'client.exe')
 
 
 class Inst:
-    """Where a run happens: the release folder, or ClientPOC\\inst\\NAME\\release filled from it."""
+    """Where a run happens: the release folder, or CLIENT_DATA_ROOT\\inst\\NAME\\release filled from it."""
     def __init__(self, name=None, exe=None, retail=False, ea=False):
         self.name = name
         self.source = EA_RELEASE if ea else RELEASE      # the DLLs and, beside it, the shared Data
@@ -162,19 +174,22 @@ class Inst:
         self.base = None if not name else os.path.join(os.path.dirname(self.source), 'inst', name)
         self.dir = RELEASE if not name else os.path.join(self.base, 'release')
         self.retail = retail
-        self.src_exe = RETAIL if retail else (exe or EXE)
-        self.exe = EXE if (not name and not exe) else os.path.join(self.dir, 'client.exe')
+        self.src_exe = RETAIL if retail else (exe or CLIENT_EXE)
+        self.exe = os.path.join(self.dir, 'client.exe')
         self.map = os.path.join(self.dir, 'client.map')
         self.log = os.path.join(self.dir, 'stubs.log')
         self.exc = os.path.join(self.dir, '_except.txt')
         if name and not re.fullmatch(r'[A-Za-z0-9_.-]+', name):
             raise SystemExit('--instance: letters, digits, _ . - only')
-        if (exe or retail) and not name:
-            raise SystemExit('--exe / --retail need --instance (the release folder is not overwritten)')
+        if retail and not name:
+            raise SystemExit('--retail needs --instance (the release folder holds our client)')
         if exe and retail:
             raise SystemExit('--exe and --retail exclude each other')
 
     def prepare(self):
+        if not os.path.isfile(self.src_exe):
+            raise SystemExit(f'{self.src_exe}: missing (build it: python tools/vc6/build.py link --program client, '
+                             f'or give --exe PATH)')
         if self.name:
             os.makedirs(self.dir, exist_ok=True)
             self._data()
@@ -183,12 +198,17 @@ class Inst:
             for f in os.listdir(self.source):
                 if f.lower() not in skip and os.path.isfile(os.path.join(self.source, f)):
                     self._copy(os.path.join(self.source, f), os.path.join(self.dir, f))
-            self._copy(self.src_exe, self.exe)
-            if not self.retail:
-                self._own_mutex()
+        self._copy(self.src_exe, self.exe)
+        if self.name and not self.retail:
+            self._own_mutex()
+        if not self.retail:
             m = os.path.splitext(self.src_exe)[0] + '.map'
-            if not self.retail:
-                self._copy(m if os.path.exists(m) else MAP, self.map)
+            if os.path.exists(m):
+                self._copy(m, self.map)
+            else:
+                print(f'{m}: missing; crash addresses are not named', flush=True)
+                if os.path.exists(self.map):
+                    os.remove(self.map)          # another exe's map would name them wrong
         for f in (self.log, self.exc):
             if os.path.exists(f):
                 os.remove(f)
@@ -303,13 +323,16 @@ def descendants(pid):
     return found
 
 
-def digest(inst=None):
+def digest(inst=None, out=None):
+    """stubs.log (an older stand-in exe's), the d3d8shot proxy's CRASH: lines (OUT/d3d8shot.log: first chance,
+    the first named from the map) and _except.txt."""
     inst = inst or Inst()
     LOG, MAP, EXCEPT = inst.log, inst.map, inst.exc
-    if not os.path.exists(LOG):
-        print('no stubs.log')
-        return
     syms = symbolize.load(MAP) if os.path.exists(MAP) else []
+    proxy_crashes(os.path.join(out, 'd3d8shot.log') if out else None, syms)
+    if not os.path.exists(LOG):
+        print_except(EXCEPT)
+        return
     lines = [l.rstrip('\n') for l in open(LOG, encoding='latin1')]
     out, last, count = [], None, 0
     for line in lines + [None]:
@@ -324,15 +347,36 @@ def digest(inst=None):
         print(line)
         if line.startswith('CRASH:') and syms and not named:     # the first: later ones come from the report's own probing
             named = True
-            addrs = re.findall(r'\b([0-9A-F]{8})\b', line)
-            for a in addrs[1:2] + addrs[3:13]:
-                v = int(a, 16)
-                if 0x401000 <= v < 0x1000000:
-                    print(f'    {v:08X} {symbolize.name_of(syms, v)}')
-    if os.path.exists(EXCEPT):
+            for v in symbolize.crash_addrs(line)[:11]:
+                print(f'    {v:08X} {symbolize.name_of(syms, v)}')
+    print_except(EXCEPT)
+
+
+def proxy_crashes(log, syms):
+    """The d3d8shot proxy's CRASH: / CRASH regs: lines (d3d8shot.c Safe_Crash_Log, first chance: a fault the client
+    then handles itself shows too); the first CRASH: line's addresses named from the map."""
+    if not log or not os.path.exists(log):
+        return
+    named = False
+    for line in open(log, encoding='latin1'):
+        text = symbolize.crash_line(line) or (line.split(None, 1)[1].rstrip() if ' CRASH regs:' in line else None)
+        if not text:
+            continue
+        print('d3d8shot.log:', text[:300])
+        if text.startswith('CRASH:') and syms and not named:
+            named = True
+            for v in symbolize.crash_addrs(text)[:11]:
+                print(f'    {v:08X} {symbolize.name_of(syms, v)}')
+
+
+def print_except(path):
+    """The first lines of the client's exception report, _except.txt (none: the run raised none)."""
+    if os.path.exists(path):
         print('_except.txt:')
-        for line in open(EXCEPT, encoding='latin1').read().splitlines()[:4]:
+        for line in open(path, encoding='latin1').read().splitlines()[:4]:
             print('   ', line)
+    else:
+        print('no _except.txt')
 
 
 WM = {'move': 0x200, 'ldown': 0x201, 'lup': 0x202, 'rdown': 0x204, 'rup': 0x205,
@@ -368,6 +412,17 @@ def find_window(pid, skip_dialogs=False):
     return found[0] if found else None
 
 
+# keys a keyboard sends with lParam's extended bit (24): the client's w32kbd.cpp reads the scan code and that bit,
+# and an arrow without it is the numpad's (sp_flight 2026-11-21: Left with lParam 1 turned nothing)
+EXTENDED_VKS = {0x21, 0x22, 0x23, 0x24, 0x25, 0x26, 0x27, 0x28, 0x2D, 0x2E, 0x6F, 0x90, 0xA3, 0xA5}
+
+
+def key_lparam(vk, up=False):
+    """A key message's lParam as the keyboard gives it: repeat 1, the scan code, the extended bit, up's bits 30-31."""
+    lp = 1 | (ctypes.windll.user32.MapVirtualKeyW(vk, 0) << 16) | ((1 << 24) if vk in EXTENDED_VKS else 0)
+    return lp | (3 << 30) if up else lp
+
+
 TAG = 0x5043 << 16      # tools/harness/d3d8shot.c's IN_TAG: the high word of a replayed message's wParam
 
 
@@ -395,10 +450,9 @@ def post_step(hwnd, op, rest, tag=False):
         post(WM['ldown'] if op == 'down' else WM['lup'], 1 if op == 'down' else 0, lp)
     elif op == 'key':
         vk = int(rest.split()[0], 0)
-        scan = user32.MapVirtualKeyW(vk, 0)
-        post(WM['keydown'], vk, 1 | (scan << 16))
+        post(WM['keydown'], vk, key_lparam(vk))
         time.sleep(0.05)
-        post(WM['keyup'], vk, 1 | (scan << 16) | (3 << 30))
+        post(WM['keyup'], vk, key_lparam(vk, up=True))
     elif op == 'text':
         for ch in rest:
             vs = user32.VkKeyScanW(ord(ch))
@@ -468,8 +522,6 @@ def run(seconds, fullscreen, args, shots=None, steps=None, inst=None, messages=F
     inst.prepare()
     RELEASE, EXE = inst.dir, inst.exe
     env = dict(os.environ)
-    if not fullscreen:
-        env['ENB_POC_WINDOWED'] = '1'
     proxy = None
     hooks = True        # the proxy, always: shots, the virtual input, an instance's cursor guard, no DllRegisterServer (D249)
     if hooks or messages:
@@ -513,7 +565,7 @@ def run(seconds, fullscreen, args, shots=None, steps=None, inst=None, messages=F
         if proxy and os.path.exists(proxy):
             os.remove(proxy)
         stop_listener(listener, inst, out if messages else None)
-    digest(inst)
+    digest(inst, out)
     if shots:
         convert_shots(out)
 
@@ -541,7 +593,7 @@ def start_antprox(inst, out, env, args, mode=None):
     os.makedirs(logdir, exist_ok=True)
     # antprox picks its loopback address at start: two starting together can pick the same one, so start one at a
     # time (a lock folder in %TEMP%) and let each say "Replay server ready" before the next starts
-    gate = os.path.join(os.environ.get('TEMP', '.'), 'clientpoc-antprox-start.lock')
+    gate = os.path.join(os.environ.get('TEMP', '.'), 'enb-antprox-start.lock')
     for _ in range(300):
         try:
             os.mkdir(gate)
@@ -580,7 +632,6 @@ def start_antprox(inst, out, env, args, mode=None):
 def replay(seconds, shots, steps, inst, messages=False, args=()):
     inst.prepare()
     env = dict(os.environ)
-    env['ENB_POC_WINDOWED'] = '1'
     out = inst.shots_dir('replay-' if not inst.name else '')
     os.makedirs(out, exist_ok=True)
     proxy = inst.use_proxy(env, out, input=True)    # d3d8shot.c Hook_Input: the client reads the posted messages
@@ -629,7 +680,7 @@ def replay(seconds, shots, steps, inst, messages=False, args=()):
         if os.path.exists(proxy):
             os.remove(proxy)
         stop_listener(listener, inst, out if messages else None)
-    digest(inst)
+    digest(inst, out)
     if shots:
         convert_shots(out)
     exit_report(os.path.join(out, 'antprox.out'), last_input, killed)
@@ -668,7 +719,7 @@ def _walk_own(base):
 
 
 def remove_instance(base):
-    """Delete an instance folder: its junctions into ClientPOC\\Data are unlinked first (os.rmdir on the junction
+    """Delete an instance folder: its junctions into CLIENT_DATA_ROOT\\Data are unlinked first (os.rmdir on the junction
     itself), never followed, so the shared data stays; then the rest (its own copies, logs, exe) is deleted."""
     for dirpath, _, links in list(_walk_own(base)):
         for d in links:
@@ -677,7 +728,7 @@ def remove_instance(base):
 
 
 def clean(name=None, older=None):
-    """Delete ClientPOC\\inst\\NAME and ClientPOC_EA\\inst\\NAME (or every instance, or those unused for `older`
+    """Delete CLIENT_DATA_ROOT\\inst\\NAME and EA_DATA_ROOT\\inst\\NAME (or every instance, or those unused for `older`
     hours), skipping any whose client still runs. Shots and antprox logs stay in .work/poc/shots."""
     tops = [os.path.join(os.path.dirname(r), 'inst') for r in (RELEASE, EA_RELEASE)]
     if name:
@@ -710,16 +761,16 @@ def main():
     ap.add_argument('--all', action='store_true', help='clean: every instance')
     ap.add_argument('--older', type=float, metavar='HOURS', help='clean: instances unused for HOURS')
     ap.add_argument('--seconds', type=int, default=40)
-    ap.add_argument('--fullscreen', action='store_true')
+    ap.add_argument('--fullscreen', action='store_true', help='no effect (the registry sets windowed or full screen)')
     ap.add_argument('--shots', help='Present calls to save the back buffer at, e.g. 30,300,900 (d3d8shot)')
     ap.add_argument('--input', help='a file of timed window messages to post (see the docstring)')
-    ap.add_argument('--instance', help='run in ClientPOC\\inst\\NAME\\release with its own logs, proxy and shots (several at once)')
-    ap.add_argument('--exe', help='an exe to run instead of release\\client.exe, e.g. a worktree\'s '
-                    'build\\programs\\clientpoc\\clientpoc.exe (needs --instance)')
+    ap.add_argument('--instance', help='run in CLIENT_DATA_ROOT\\inst\\NAME\\release with its own logs, proxy and shots (several at once)')
+    ap.add_argument('--exe', help='the exe to run (its .map beside it), e.g. another worktree\'s '
+                    'build\\programs\\client\\client.exe (default: this tree\'s)')
     ap.add_argument('--retail', action='store_true',
                     help='replay: run a copy of the retail client under the d3d8shot input hooks (D190; needs --instance, --shots)')
     ap.add_argument('--ea', action='store_true',
-                    help='run over EA\'s final data, ClientPOC_EA (needs --instance; the exe is still ClientPOC\\release\'s, --exe\'s or --retail\'s)')
+                    help='run over EA\'s final data, ClientPOC_EA (needs --instance; the exe is still this tree\'s client, --exe\'s or --retail\'s)')
     ap.add_argument('--messages', action='store_true',
                     help='-ENABLE_MESSAGES and msglisten.py beside the client: <shots dir>\\messages.log')
     ap.add_argument('args', nargs='*')
@@ -729,7 +780,7 @@ def main():
             raise SystemExit('clean needs --instance NAME, --all or --older HOURS')
         return clean(a.instance, a.older)
     if a.exe is not None and not os.path.isfile(a.exe):
-        raise SystemExit(f'--exe {a.exe!r}: no such file (an empty --exe would run release\\client.exe instead)')
+        raise SystemExit(f'--exe {a.exe!r}: no such file (an empty --exe would run this tree\'s client instead)')
     inst = Inst(a.instance, a.exe, a.retail, a.ea)
     if a.command == 'run':
         run(a.seconds, a.fullscreen, a.args, a.shots, read_input(a.input) if a.input else None, inst, a.messages)

@@ -38,3 +38,11 @@ w_* mean 8
 # home shot is back home (compared by cells, the planet's places above).
 play*_home cells
 play*_s* mean 8
+
+# sp_flight's shots after the turns (arrows, steered, nav_*, warping_*: for the eye, progress.md section 4's warp item): the heading a held key or drag reaches follows the
+# frame timing, tens of degrees apart between two retail runs (2026-11-21: 153-167 of 256 cells), and the
+# nebula behind changes the mean brightness too (4-6 of 255 between them): never comparable.
+arrows skip
+steered skip
+nav_* skip
+warping_* skip

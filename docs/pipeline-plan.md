@@ -287,11 +287,12 @@ This is the one idea worth taking from ruah (§5.3): merging in dependency order
 **6. A pre-landing gate for stand-in collisions and links.** In `bring-over`, after the verify:
 
 * **(a) Stand-in check, always, in seconds.** For every function a landing defines anew in app/ (new pairs, and definitions that
-  are new in the diff), search `programs/clientpoc/poc_standins.cpp`, `programs/clientpoc/poc_world*.cpp`,
-  `programs/clientpoc/poc_gadget_*.cpp`, `stubs/app_stubs.cpp` and `tests/clienttest/client_stubs.cpp` for a definition of the
+  are new in the diff), search the test programs' stand-ins (`stubs/app_stubs.cpp`, `tests/clienttest/client_stubs.cpp`,
+  `ui_stubs.cpp`; until 2026-11-21 also the stand-in build's `programs/clientpoc/` files) for a definition of the
   same symbol. Refuse with the list. The builder, or a bounded Sonnet fix, deletes the stand-in in the same landing.
-* **(b) Link check, when the landing touches app/ or the stubs.** `build.py link --program clientpoc` and `clienttest.py build`
-  on the landing's leased VM. Refuse on an unresolved symbol or LNK2005. In a batch landing, run it once per batch, so the cost
+* **(b) Link check, when the landing touches app/ or the stubs.** `build.py link --program client` (the one client build, no
+  stand-in, since 2026-11-21), `clienttest.py build` and `udpreplay.py build` on the landing's leased VM. Refuse on LNK2005, on
+  any unresolved symbol or stand-in object in the client, and on a test program's unresolved symbol outside its baseline. In a batch landing, run it once per batch, so the cost
   is spread.
 * `--no-link` skips (b), with a printed warning, for doc-only or tools-only landings.
 

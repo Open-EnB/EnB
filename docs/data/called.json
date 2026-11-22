@@ -240,21 +240,6 @@
 "??0UDP@@QAE@XZ": [
 "0x8BF990"
 ],
-"??0UIAvatarCustGadgetHolderStruct@@QAE@XZ": [
-"0x585920"
-],
-"??0UIAvatarCustUnknown368Class@@QAE@PAVRenderObjClass@@PBD11_N@Z": [
-"0x585B50"
-],
-"??0UIAvselEditClass@@QAE@PAVInterfaceClass@@HPBDPAVRenderObjClass@@HH@Z": [
-"0x6AA810"
-],
-"??0Unknown8B5D90Class@@QAE@PBD@Z": [
-"0x8B5DB0"
-],
-"??0Unknown8B5D90Class@@QAE@XZ": [
-"0x8B5D90"
-],
 "??0VertexMaterialClass@@QAE@ABV0@@Z": [
 "0x92E9B0"
 ],
@@ -431,15 +416,6 @@
 ],
 "??1UDP@@QAE@XZ": [
 "0x8BFA10"
-],
-"??1UIAvatarCustGadgetHolderStruct@@QAE@XZ": [
-"0x585950"
-],
-"??1UIAvatarCustUnknown368Class@@QAE@XZ": [
-"0x585BF0"
-],
-"??1Unknown8B5D90Class@@QAE@XZ": [
-"0x8B5EC0"
 ],
 "??1WW3DAssetManager@@UAE@XZ": [
 "0x91C530"
@@ -1089,9 +1065,6 @@
 "?Initialize@WWAudioClass@@QAEXPBD@Z": [
 "0x9F2740"
 ],
-"?Insert@BufferStruct@UnknownB02C90Class@@QAEXABUElementStruct@12@H@Z": [
-"0x725E70"
-],
 "?Insert_Morph_Key@HMorphAnimClass@@QAEXHKK@Z": [
 "0x988610"
 ],
@@ -1280,6 +1253,9 @@
 ],
 "?Printf_Indented@FileClass@@QAAHIPADZZ": [
 "0x9D4680"
+],
+"?Project@CameraClass@@QBE?AW4ProjectionResType@1@AAVVector3@@ABV3@@Z": [
+"0x944890"
 ],
 "?Push_Material_Pass@RenderInfoClass@@QAEXPAVMaterialPassClass@@@Z": [
 "0x930FD0"
@@ -1674,9 +1650,6 @@
 "?Set_Tail_Diffuse@LineGroupClass@@QAEXABVVector4@@@Z": [
 "0x97B9A0"
 ],
-"?Set_Text@UIAvselEditClass@@QAEXPBDH@Z": [
-"0x6AA570"
-],
 "?Set_Texture@DynamicMeshClass@@QAEHPAVTextureClass@@_NH@Z": [
 "0x976D40"
 ],
@@ -1803,56 +1776,8 @@
 "?Transform_To_View_Space@CameraClass@@QBEXAAVVector3@@ABV2@@Z": [
 "0x944D20"
 ],
-"?Type_Name@@YAPBDVMoneyClass@@@Z": [
-"0x4F0AB0"
-],
 "?Uninitialised_Grow@StringClass@@AAEXH@Z": [
 "0x9CF3D0"
-],
-"?Unknown_497300@@YA?AV?$RefCountPtr@VRenderObjClass@@@@PAVRenderObjClass@@@Z": [
-"0x497300"
-],
-"?Unknown_5859A0@UIAvatarCustGadgetHolderStruct@@QAEXXZ": [
-"0x5859A0"
-],
-"?Unknown_585C90@UIAvatarCustUnknown368Class@@QAEXXZ": [
-"0x585C90"
-],
-"?Unknown_585CC0@UIAvatarCustUnknown368Class@@QAEXXZ": [
-"0x585CC0"
-],
-"?Unknown_585CF0@UIAvatarCustUnknown368Class@@QAEXH@Z": [
-"0x585CF0"
-],
-"?Unknown_585D10@UIAvatarCustUnknown368Class@@QAEXXZ": [
-"0x585D10"
-],
-"?Unknown_6AAD10@UIAvselEditClass@@QAEXXZ": [
-"0x6AAD10"
-],
-"?Unknown_6CE420@FontSys@@QAAXHPBDZZ": [
-"0x6CE420"
-],
-"?Unknown_6E2A20@UIAvselEditUnknown4CClass@@QAEXABVVector4@@@Z": [
-"0x6E2A20"
-],
-"?Unknown_725A90@UnknownB02C90Class@@QAEHH@Z": [
-"0x725A90"
-],
-"?Unknown_725AD0@UnknownB02C90Class@@QAE?AVMatrix3D@@XZ": [
-"0x725AD0"
-],
-"?Unknown_744240@SClient@@QAEXUKernelEventClass@@@Z": [
-"0x744240"
-],
-"?Unknown_846C90@@YA_NXZ": [
-"0x846C90"
-],
-"?Unknown_8B6FC0@Unknown8B5D90Class@@QBEPBDXZ": [
-"0x8B6FC0"
-],
-"?Unknown_8B7C60@Unknown8B5D90Class@@QAEHHPBDAAV1@@Z": [
-"0x8B7C60"
 ],
 "?Unknown_Restore_Device@WW3D@@SA?AW4WW3DErrorType@@XZ": [
 "0x9179D0"
@@ -3006,6 +2931,9 @@
 "0xBDADC0",
 "0xBFAEE0"
 ],
+"data:?ThumbnailEnabled@WW3D@@0_NA": [
+"0xBB9654"
+],
 "data:?TotalCost@PredictiveLODOptimizerClass@@0MA": [
 "0xC0754C"
 ],
@@ -3169,21 +3097,6 @@
 ],
 "data:?UnknownGlobal@DeltaStringClass@@2HA": [
 "0xBE3A9C"
-],
-"data:?UnknownGlobal@UIManuCategoriesClass@@2HA": [
-"0xC4162C"
-],
-"data:?UnknownGlobal@UIManuComponentsClass@@2HA": [
-"0xC41624"
-],
-"data:?UnknownGlobal@UIManuCurrentCategoryClass@@2HA": [
-"0xC41630"
-],
-"data:?UnknownGlobal@UIManuListClass@@2HA": [
-"0xC41628"
-],
-"data:?UnknownGlobal@UIManuTechLevelFilterClass@@2HA": [
-"0xC4163C"
 ],
 "data:?Unknown_B0804C@@3HB": [
 "0xB0804C"
@@ -3373,9 +3286,6 @@
 "data:?Unknown_BAE854@@3PAPBDA": [
 "0xBAE854"
 ],
-"data:?Unknown_BB9654@@3_NA": [
-"0xBB9654"
-],
 "data:?Unknown_BDA968@@3PAVInputQueueClass@@A": [
 "0xBDA968"
 ],
@@ -3445,9 +3355,6 @@
 "data:?Unknown_BE5F2C@@3PAVGadgetClass@@A": [
 "0xBE5F2C"
 ],
-"data:?Unknown_BE5F34@@3HA": [
-"0xBE5F34"
-],
 "data:?Unknown_BE5F34@@3IA": [
 "0xBE5F34"
 ],
@@ -3496,17 +3403,8 @@
 "data:?Unknown_BE8AD8@@3PAVSub14CClass@@A": [
 "0xBE8AD8"
 ],
-"data:?Unknown_C01290@@3HA": [
-"0xC01290"
-],
-"data:?Unknown_C07550@@3VRectClass@@A": [
-"0xC07550"
-],
 "data:?Unknown_C404F8@@3_NA": [
 "0xC404F8"
-],
-"data:?Unknown_Main_Window@@3PAUHWND__@@A": [
-"0xBDAA7C"
 ],
 "data:?UseCount@CFactionDatabaseClass@@0HA": [
 "0xBE8B24"
@@ -3733,11 +3631,11 @@
 "data:?_PresetATestSpriteShader@ShaderClass@@2V1@A": [
 "0xC0117C"
 ],
+"data:?_PresetAdditive2DShader@ShaderClass@@2V1@A": [
+"0xC01180"
+],
 "data:?_PresetAdditiveSpriteShader@ShaderClass@@2V1@A": [
 "0xC010F8"
-],
-"data:?_PresetAlpha2DShader@ShaderClass@@2V1@A": [
-"0xC01180"
 ],
 "data:?_PresetAlphaShader@ShaderClass@@2V1@A": [
 "0xC01190"
@@ -3755,7 +3653,6 @@
 "0xC01130"
 ],
 "data:?_PresetOpaqueShader@ShaderClass@@2V1@A": [
-"0xC0113C",
 "0xC01140"
 ],
 "data:?_PresetOpaqueSolidShader@ShaderClass@@2V1@A": [
@@ -3811,6 +3708,9 @@
 ],
 "data:?_TheWritingFileFactory@@3PAVFileFactoryClass@@A": [
 "0xBC77E4"
+],
+"data:?_UnknownInvalidationTime@TextureLoader@@2IA": [
+"0xC01290"
 ],
 "data:?_theInstance@WWAudioClass@@0PAV1@A": [
 "0xC404D8"
@@ -5218,8 +5118,7 @@
 "0x8DD7A0"
 ],
 "?Internal_Add@GenericMultiListClass@@IAE_NPAVMultiListObjectClass@@_N@Z": [
-"0x9D1040",
-"0x9D1160"
+"0x9D1040"
 ],
 "?Internal_Add_After@GenericMultiListClass@@IAE_NPAVMultiListObjectClass@@PBV2@_N@Z": [
 "0x9D1270"

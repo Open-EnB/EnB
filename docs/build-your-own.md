@@ -88,15 +88,10 @@ and run the script again: finished steps are skipped.
    * **the workspace**: `tools\vc6\dsp.py` writes a Visual C++ 6.0 workspace, `app\main\main.dsw`
      with one project per library, and `tools\vc6\msdev.py` builds it with the IDE's own
      command-line build (`msdev main.dsw /MAKE`): every library, then **`main`**, the client itself.
-     `main` holds only reconstructed source. While the reconstruction is unfinished, its link reports
-     the functions nobody has rebuilt yet as *unresolved externals*, and it writes no exe. That list
-     is the project's remaining work: 98 symbols on 2026-11-16;
-   * **the stand-in build** (`clientpoc`): the same libraries and `app\main` sources as `main`, plus
-     a *stand-in* for each unresolved function. Some stand-ins are written by hand
-     (`programs\clientpoc`, `stubs\`). The rest are generated from the first link's unresolved list
-     (`tests\clienttest\gen_stubs.py`), and then the project is linked a second time. On 2026-11-16
-     there were 48 generated stand-ins. A generated stand-in records that it was called and returns,
-     so the client runs as far as the rebuilt code takes it. `-NoStandin` skips it.
+     `main` holds only reconstructed source and links every library with no stand-in: it is the same
+     one client build every test runs (`tools\vc6\build.py link --program client`). A function nobody
+     has rebuilt yet shows as an *unresolved external* and the link writes no exe, so the link is
+     kept whole: a change that leaves one is refused before it lands (`tools\vc6\linkgate.py`).
 7. **The results** are copied back to `build\client\` on your PC. If the script started the VM, it
    shuts it down again (`-KeepRunning` leaves it on).
 
@@ -104,10 +99,9 @@ and run the script again: finished steps are skipped.
 
 | `build\client\` | |
 |---|---|
-| `client.exe`, `client.map` | the stand-in build, and its linker map |
-| `msdev\main\msdev.log` | the IDE build of every library and of `main`: compiler output, then the unresolved list |
-| `msdev\clientpoc\msdev.log` | the stand-in build's log |
-| `summary.json` | the unresolved count |
+| `client.exe`, `client.map` | the client, and its linker map |
+| `msdev\main\msdev.log` | the IDE build of every library and of `main`: compiler output, then the link (unresolved externals, if any) |
+| `summary.json` | the unresolved count (0 for a whole link) |
 | `logs\` | the import-library steps |
 
 Every project's objects and libraries stay in the VM's copy of the tree, in a `client_release\`
@@ -135,9 +129,9 @@ own tests also replay recorded sessions with a proxy that is not published yet.
    `client.exe`. Never build or run inside the game's install folder.
 2. Start the server or the replay, then start `client.exe` from that folder.
 
-Where the client reaches a stand-in, it logs the stand-in's name to `stubs.log` in its folder. The
-stand-in build keeps the old test hooks out of the exe (D248): the project's tests drive the client
-through a `d3d8.dll` proxy (`tools\harness\d3d8shot.c`), and that proxy also drives the retail client.
+The client has no stand-in and no test hooks in the exe (D248): the project's tests
+(`tools\harness\clientrun.py`, `e2e.py`) drive the client through a `d3d8.dll` proxy
+(`tools\harness\d3d8shot.c`), and that proxy also drives the retail client.
 
 ## Building by hand
 
@@ -150,8 +144,7 @@ python tools\build_client.py                          # what Build-Client.ps1 ru
 python tools\vc6\pool.py lease --agent me            # prints ENB_VC6_HOSTS=user@<ip>
 $env:ENB_VC6_HOSTS = 'user@<ip>'
 python tools\vc6\dsp.py generate                      # the workspace (dsp.py list: what is in it)
-python tools\vc6\msdev.py make --project main         # libraries + main, in the VM
-python tools\vc6\msdev.py make --project clientpoc    # the stand-in build
+python tools\vc6\msdev.py make --project main         # libraries + main (the client), in the VM
 python tools\vc6\msdev.py make --project wwlib        # any one project and what it depends on
 python tools\vc6\pool.py release --agent me
 ```

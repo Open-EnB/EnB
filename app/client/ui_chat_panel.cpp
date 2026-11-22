@@ -131,7 +131,7 @@ static const char *Unknown_B7C344[] = { "Commands", "Get Help", "Self Help", "Ca
 static const char *Unknown_B7C358[][2] = { { "Loop", "/loop" }, { "Dive", "/dive" }, { "Barrel Left", "/leftroll" }, { "Barrel Right", "/rightroll" }, { "Spin Left", "/leftspin" }, { "Spin Right", "/rightspin" }, { "Wing Wave", "/wave" }, { NULL, NULL } };	// NAME 1: neutral (D10)
 static const char *Unknown_B7C398[][3] = { { "Agree", "Agree", "/agree" }, { "Bored", "Bored", "/bored" }, { "Bow", "Bow", "/bow" }, { "Celebrate", "Celebrate", "/celebrate" }, { "Chuckle", "Chuckle", "/chuckle" }, { "Clap", "Clap", "/clap" }, { "Crash", "Crash", "/crash" }, { "Crazy", "Crazy", "/crazy" }, { "Give", "Give", "/give" }, { "No", "No", "/no" }, { "No Way!", "No Way!", "/noway" }, { "Point", "Point", "/point" }, { "Rude", "Rude", "/rude" }, { "Shocked", "Shocked", "/shocked" }, { "Shoot", "Shoot", "/shoot" }, { "Shrug", "Shrug", "/shrug" }, { "Sick", "Sick", "/sick" }, { "Sleep", "Sleep", "/sleep" }, { "Smash", "Smash", "/smash" }, { "Take", "Take", "/take" }, { "Threaten", "Threaten", "/threaten" }, { "Thumbs", "Thumbs", "/thumbs" }, { "Wave", "Wave", "/handwave" }, { "Mime", "Mime", "/mime" }, { "Disco", "Disco", "/disco" }, { "Robot", "Robot", "/robot" }, { "Drunk", "Drunk", "/drunk" }, { "Drink", "Drink", "/drink" }, { "Sneak", "Sneak", "/sneak" }, { "Salute", "Salute", "/salute" }, { "Doh", "Flip", "/gender1" }, { "Judo", "Pirouette", "/gender2" }, { "Moonwalk", "Rumpshake", "/gender3" }, { NULL, NULL, NULL } };	// NAME 1: neutral (D10)
 
-extern int Unknown_BE5F34;								// NAME 1: neutral (D10): the key modifiers (as sclient.cpp declares it; 0x70 for slot +0x68's key 3)
+extern unsigned int Unknown_BE5F34;						// gadget.cpp's: the key modifiers (0x70 for slot +0x68's key 3)
 
 // The windows the panel opens (slot +0x68's key 16 'Online Manual', 0x565F80's requests), each over the window base
 #include "ui_popup_browser.h"	// UIPopupBrowserClass (0x5DAE90, 0xCC bytes: request 11 'Credits', key 16 'Online Manual')
@@ -2503,3 +2503,11 @@ void ChatPanelInterface::Unknown_56C7E0()
 ** 0x566AF0's tail test), the table walked by index (0x565120), #pragma auto_inline(off) on 0x5685C0 and 0x56C0C0
 ** (the client calls them out of line everywhere), and case 5's test written on +0x10C itself (0x565F80).
 */
+
+// Interim placement (D137): the chat channels' names (.data 0xBA8C20-0xBA8C50, after chartemplate.cpp's data, in
+// the object 0x8300D0-0x830460 before chat_defs.cpp, which the tree does not have; here, where 0x568700 reads them,
+// as ui_option_channel.cpp does)
+char *Unknown_BA8C20 = "General", *Unknown_BA8C24 = "Out of Context", *Unknown_BA8C28 = "Market", *Unknown_BA8C2C = "New Players",
+	*Unknown_BA8C30 = "Terran", *Unknown_BA8C34 = "Jenquai", *Unknown_BA8C38 = "Progen", *Unknown_BA8C3C = "Explorers",
+	*Unknown_BA8C40 = "Warriors", *Unknown_BA8C44 = "Tradesmen", *Unknown_BA8C48 = "Sentinels", *Unknown_BA8C4C = "Defenders",
+	*Unknown_BA8C50 = "Enforcers";  // NAME 1: neutral (D10)

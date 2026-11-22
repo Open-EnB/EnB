@@ -356,38 +356,38 @@ public:
 	char Unknown124[0x1A8 - 0x124];						// +0x124
 	int Unknown1A8;										// +0x1A8: the item id (0x5B39B0's)
 };
-class UIManuListClass : public DeltaCompoundClass	// NAME 1: neutral (D10)
-{
-public:
-	static int UnknownGlobal;							// the per-class global at +0x04 (0xC41628)
-};
-int UIManuListClass::UnknownGlobal;
-class UIManuCategoriesClass : public DeltaCompoundClass	// NAME 1: neutral (D10): 'PrimaryCategories' (the tree UIManuNodeClass reads)
-{
-public:
-	static int UnknownGlobal;							// the per-class global at +0x04 (0xC4162C)
-};
-int UIManuCategoriesClass::UnknownGlobal;
 #include "aux_manu.h"				// (after auxdata.h, as ui_cpit.cpp): 'Validity' is DeltaManufacturingLabClass's DeltaTemplateClass<UnknownB01394Enum> (0xC41640)
-
-
-
-
-
-
-class UIManuCurrentCategoryClass : public DeltaClass	// NAME 1: neutral (D10): 'CurrentItemCategory' (an item id)
+class UIManuListClass : public DeltaItemArrayClass<DeltaKnownFormulaClass>	// NAME 1: neutral (D10)
 {
 public:
-	static int UnknownGlobal;							// the per-class global at +0x04 (0xC41630)
-	int Value;											// +0x84  // NAME 2: what it holds
+	// UnknownGlobal: the base's (0xC41628, numbered by 0x5B71A0, stored by 0x6FA6F0)
 };
-int UIManuCurrentCategoryClass::UnknownGlobal;
-class UIManuComponentsClass : public DeltaCompoundClass	// NAME 1: neutral (D10): 'ManufactureComponents' (its global is the item arrays', 0xC41624)
+
+class UIManuCategoriesClass : public DeltaItemArrayClass<DeltaPrimaryCategoryClass>	// NAME 1: neutral (D10): 'PrimaryCategories' (the tree UIManuNodeClass reads)
 {
 public:
-	static int UnknownGlobal;							// the per-class global at +0x04
+	// UnknownGlobal: the base's (0xC4162C)
 };
-int UIManuComponentsClass::UnknownGlobal;
+
+
+
+
+
+
+
+class UIManuCurrentCategoryClass : public DeltaTemplateClass<UnknownB0122CEnum>	// NAME 1: neutral (D10): 'CurrentItemCategory' (an item id)
+{
+public:
+	// UnknownGlobal: the base's (0xC41630, numbered by 0x5B6FD0, stored by 0x6FA6F0); Value: the base's (+0x84)
+
+};
+
+class UIManuComponentsClass : public DeltaItemArrayClass<DeltaItemClass>	// NAME 1: neutral (D10): 'ManufactureComponents' (its global is the item arrays', 0xC41624)
+{
+public:
+	// UnknownGlobal: the base's (0xC41624)
+};
+
 bool Is_Validity_Attempt(UnknownB01394Enum validity);				// 0x846210 (manufacturing_defs.h keeps it from aux_roots.cpp's declaration count)
 static const char *Unknown_B81880[] = { "Manufacturing Target", "Attempt Succeeded", "N/A", " " };	// NAME 1: neutral (D10)
 template<class C> inline C *Unknown_Find_Valid(DeltaCompoundClass *root, const NameClass &name) { C *t = Unknown_Find_Field<C>(root, name); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10): as co.cpp's
@@ -1440,13 +1440,13 @@ inline bool UIManuClass::Unknown_All_Levels_Checked()
 
 
 // 'TechLevelFilterBitfield' (bit n - 1 set: tech level n shown)
-class UIManuTechLevelFilterClass : public DeltaClass	// NAME 1: neutral (D10)
+class UIManuTechLevelFilterClass : public DeltaTemplateClass<unsigned int>	// NAME 1: neutral (D10)
 {
 public:
-	static int UnknownGlobal;							// the per-class global at +0x04 (0xC4163C)
-	int Value;											// +0x84  // NAME 2: what it holds
+	// UnknownGlobal: the base's (0xC4163C, numbered by 0x5B6FD0, stored by 0x6FA6F0); Value: the base's (+0x84)
+
 };
-int UIManuTechLevelFilterClass::UnknownGlobal;
+
 
 // NOT EXACT: frame (the NegotiatedCost and ExpectedQuality finds out of line as the client, 0x5466A0 / 0x546710, through two inline layers, and the Casts as the client's; the stack slots differ) (0x5B4B10)
 void UIManuClass::Unknown_5B4B10()

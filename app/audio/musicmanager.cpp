@@ -135,7 +135,7 @@ MusicManagerClass::~MusicManagerClass()
 
 
 // @0x43A1F0
-// NOT EXACT: inline budget (explain.py: 2287 bytes vs 2227, 0.61): the client calls push_back's _Ucopy / _Ufill / _Destroy (0x43BF20, 0x43BF60, 0x43BC60) and its last size() (0x43BC30) out of line, here they are inline; this and the section name swap edi / ebp
+// NOT EXACT: register-only (explain.py: 720 rows vs 720, masked residue 6): this and the section name swap edi / ebp at the theme block's top (0x43A464). Budget devices (no bytes, D272; measured 2026-11-21): the two dead if (0) Is_Loaded calls before the push_back and the dead size() after it send push_back's _Ucopy / _Ufill / _Destroy (0x43BF20, 0x43BF60, 0x43BC60) and its last size() (0x43BC30) out of line as the client (residue 188 -> 6)
 void MusicManagerClass::Load_INI(int race)
 {
 	G_ASSERT(MusicINI);
@@ -208,7 +208,7 @@ void MusicManagerClass::Load_INI(int race)
 					float fade_out = MusicINI->Get_Float(name, entry, 0.0f);
 					theme->Add_Component(temp, fade_in, fade_out);
 				}
-				Themes[theme_type].push_back(theme);
+				if (0) { MusicINI->Is_Loaded(); } if (0) { MusicINI->Is_Loaded(); } Themes[theme_type].push_back(theme); Themes[theme_type].size();
 			}
 		}
 	}
@@ -708,8 +708,8 @@ the kind playing now. The object is 0x439E40-0x43BFD0 (after musiclist.cpp's deq
 musictheme.cpp's 0x43C010). Update 0x43AE30 is NOT EXACT (shape: a merged tail, attempts.csv) and stands last in
 the file, after the functions it calls (Queue_Sector_Themes 0x43B7D0 is inline in the client's), so no __LINE__
 above it moves. Load_INI 0x43A1F0 is NOT EXACT (inline budget:
-the client keeps push_back's helpers out of line; one dead size() after the push_back gives 0.74, 2219 bytes, with
-size() out of line one call too early). Get_Current_Name 0x43B190 is a plain tail call of MusicListClass's 0x438800
+the client keeps push_back's helpers out of line: two dead if (0) Is_Loaded calls before the push_back and one dead
+size() after it reach the client's 720 rows; this and the section name stay in edi / ebp swapped). Get_Current_Name 0x43B190 is a plain tail call of MusicListClass's 0x438800
 (no assert of its own: the musiclist.cpp lines 364 / 365 are 0x438800's). Stop_Sector_Music 0x43BBA0 has no caller:
 the out-of-line copy of a member whose code the destructor, Stop and Play_Music hold inline.
 */

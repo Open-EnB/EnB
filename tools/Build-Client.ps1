@@ -18,8 +18,8 @@
       C:\EnBTools\Python): the build tools are Python, and the VM is the only place they run.
    5. The tree and the SDKs copied into the VM (C:\EnBDevelopment, as on the host).
    6. In the VM: python tools\build_client.py --local (the import libraries, the generated workspace
-      built by msdev /MAKE, main, the stand-in build).
-   7. build\client\ copied back: client.exe (the stand-in build), client.map, the logs.
+      built by msdev /MAKE: every library, then the client).
+   7. build\client\ copied back: client.exe (the reconstruction alone), client.map, the logs.
 
 .EXAMPLE
   powershell -ExecutionPolicy Bypass -File tools\Build-Client.ps1
@@ -28,7 +28,6 @@ param(
     [string]$VMName = '',
     [string]$ConfigFile = '',
     [switch]$AcceptDownloads,
-    [switch]$NoStandin,
     [switch]$Rebuild,
     [switch]$KeepRunning
 )
@@ -188,7 +187,7 @@ try {
 
     # ------------------------------------------------------------ 6. the build, in the VM
     Step '6. the build, in the VM (tools\build_client.py --local)'
-    $flags = @('--local') + $(if ($NoStandin) { '--no-standin' }) + $(if ($Rebuild) { '--rebuild' })
+    $flags = @('--local') + $(if ($Rebuild) { '--rebuild' })
     Invoke-VMBat $target $key -NoVCVars @("cd /d $Root\EnB", "$VMPython\python.exe -u tools\build_client.py $($flags -join ' ')")
     if ($LASTEXITCODE) { Stop-Here 'the build stopped in the VM (its message above)' }
 

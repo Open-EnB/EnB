@@ -1,5 +1,6 @@
-"""Link check (pipeline-plan §4 item 6b): build app.lib in a tree, link the three programs there, and refuse on a
-duplicate definition or an unresolved symbol the baseline does not list.
+"""Link check (pipeline-plan §4 item 6b): build app.lib in a tree, link the client and the two test programs there,
+and refuse on a duplicate definition, on any unresolved symbol or stand-in object in the client, or on an unresolved
+symbol of a test program the baseline does not list.
 
     python tools/vc6/linkgate.py check [--tree DIR] [--pool K] [--lib X ...] [--write-baseline]
 
@@ -8,19 +9,21 @@ from pool.py (vc6lock.pool_lease, released afterwards; default 1):
   1. the non-app libraries the tree lacks are copied from the main tree's build/ (as `wt.py new` does);
   2. `build.py build --lib app --allow-dirty` (plus --lib X: the other libraries the landing touched), so app.lib is
      the tree's own;
-  3. `build.py link --program clientpoc --no-deploy` (its gen_stubs second pass and /force:unresolved as always; the
-     POC's release folder is not touched);
+  3. `build.py link --program client --no-deploy` (the one client build: every library, no stand-in, no stubs.lib,
+     no generated-stand-in pass; the client's runtime data folder is not touched);
   4. `clienttest.py build` (with its own gen_stubs pass);
   5. `udpreplay.py build` (app\wwudp and the connection sources compiled into the program, against the tree's
-     libraries; D244, P-H1-1: a landing that breaks udpreplay's link is refused like one that breaks the POC's).
-Each step logs to LOG.<step>.log. Then judge() reads build/programs/{clientpoc,clienttest,udpreplay}/summary.json:
+     libraries; D244, P-H1-1: a landing that breaks udpreplay's link is refused like one that breaks the client's).
+Each step logs to LOG.<step>.log. Then judge() reads build/programs/{client,clienttest,udpreplay}/summary.json:
 refused on
-a compile error, any LNK2005 / LNK1169 (a duplicate definition), an unresolved symbol (mangled name; after the
-gen_stubs pass, i.e. what gen_stubs cannot write) not in BASELINE, or no exe. Symbols of the baseline that are gone
-are printed (update it with --write-baseline).
+a compile error, any LNK2005 / LNK1169 (a duplicate definition), or no exe; for the client (STRICT) on any unresolved
+symbol and on any stand-in object (summary.json's stub_objects / stub_objects_linked: stubs/ compiled into or
+pulled into the link), with no baseline; for a test program on an unresolved symbol (mangled name; after its
+gen_stubs pass, i.e. what gen_stubs cannot write) not in BASELINE. Symbols of the baseline that are gone are printed
+(update it with --write-baseline).
 
-BASELINE: tools/vc6/link_baseline.json, read from TREE: {program: [mangled names]}, the unresolved symbols a link
-of the run branch leaves (templates and by-value classes gen_stubs skips: the POC's known set). A recorded
+BASELINE: tools/vc6/link_baseline.json, read from TREE: {test program: [mangled names]}, the unresolved symbols a
+link of the run branch leaves (templates and by-value classes gen_stubs skips); the client has none (STRICT). A recorded
 allowlist rather than a second link of the target, which would double the cost; a landing that must add one says
 so by changing the file (it shows in its diff). --write-baseline rewrites it from this run's summaries.
 """
@@ -34,8 +37,9 @@ import sys
 HERE = os.path.dirname(os.path.abspath(__file__))
 TREE = os.path.dirname(os.path.dirname(HERE))
 BASELINE = 'tools/vc6/link_baseline.json'
-PROGRAMS = ('clientpoc', 'clienttest', 'udpreplay')
-TOUCH = ('app/', 'stubs/', 'programs/clientpoc/', 'tests/clienttest/', 'tests/udpreplay/')
+PROGRAMS = ('client', 'clienttest', 'udpreplay')
+STRICT = ('client',)        # no baseline: zero unresolved symbols and no stand-in object
+TOUCH = ('app/', 'stubs/', 'programs/client/', 'tests/clienttest/', 'tests/udpreplay/')
 DUPLICATE = ('LNK2005', 'LNK1169')
 
 
@@ -55,11 +59,11 @@ def read_baseline(tree):
     if not os.path.exists(p):
         return {}
     with open(p, encoding='utf-8') as f:
-        return {k: v for k, v in json.load(f).items() if k in PROGRAMS}
+        return {k: v for k, v in json.load(f).items() if k in PROGRAMS and k not in STRICT}
 
 
 def write_baseline(tree, summaries):
-    data = {prog: sorted(s['unresolved']) for prog, s in summaries.items() if s}
+    data = {prog: sorted(s['unresolved']) for prog, s in summaries.items() if s and prog not in STRICT}
     with open(os.path.join(tree, *BASELINE.split('/')), 'w', newline='\n', encoding='utf-8') as f:
         json.dump(data, f, indent=1)
         f.write('\n')
@@ -78,18 +82,26 @@ def judge(summaries, baseline):
         dups = [l for l in s.get('link_errors', []) if any(c in l for c in DUPLICATE)]
         if dups:
             problems.append(f'{prog}: duplicate definitions ({len(dups)} line(s)): ' + '; '.join(dups[:5]))
-        known = set(baseline.get(prog, ()))
+        strict = prog in STRICT
+        known = set() if strict else set(baseline.get(prog, ()))
         new = sorted(set(s.get('unresolved', {})) - known)
         if new:
-            problems.append(f'{prog}: {len(new)} unresolved symbol(s) not in {BASELINE}: ' + ', '.join(new[:10]))
+            problems.append(f'{prog}: {len(new)} unresolved symbol(s)'
+                            + (' (the client links with none)' if strict else f' not in {BASELINE}') + ': '
+                            + ', '.join(new[:10]))
+        standins = sorted(set(s.get('stub_objects', [])) | set(s.get('stub_objects_linked', []))) if strict else []
+        if standins:
+            problems.append(f'{prog}: {len(standins)} stand-in object(s) in the link (the client has none): '
+                            + ', '.join(standins[:10]))
         gone = sorted(known - set(s.get('unresolved', {})))
         if gone:
             notes.append(f'{prog}: {len(gone)} baseline symbol(s) now resolved (--write-baseline drops them): '
                          + ', '.join(gone[:5]))
-        if not s.get('exe') and not dups and not new and not s.get('cl_errors'):
+        if not s.get('exe') and not dups and not new and not standins and not s.get('cl_errors'):
             problems.append(f'{prog}: no exe written ({"; ".join(s.get("link_errors", [])[:3])})')
-        if s.get('exe') and not new and not dups:
-            notes.append(f'{prog}: linked, {len(s.get("unresolved", {}))} unresolved (all in the baseline)')
+        if s.get('exe') and not new and not dups and not standins:
+            notes.append(f'{prog}: linked, no unresolved symbol, no stand-in' if strict else
+                         f'{prog}: linked, {len(s.get("unresolved", {}))} unresolved (all in the baseline)')
     return problems, notes
 
 
@@ -118,7 +130,7 @@ def steps(tree, libs):
     py = sys.executable
     build = [py, 'tools/vc6/build.py', 'build', '--allow-dirty'] + [x for lib in ['app', *libs] for x in ('--lib', lib)]
     return [('build', build),
-            ('clientpoc', [py, 'tools/vc6/build.py', 'link', '--program', 'clientpoc', '--no-deploy']),
+            ('client', [py, 'tools/vc6/build.py', 'link', '--program', 'client', '--no-deploy']),
             ('clienttest', [py, 'tools/harness/clienttest.py', 'build']),
             ('udpreplay', [py, 'tools/harness/udpreplay.py', 'build'])]
 

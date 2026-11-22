@@ -1,0 +1,19 @@
+# Space (live server): the navigation (galaxy) map opened in Jupiter from its HUD button, then closed. Elanor logs in
+# at rest in Jupiter (_login_space). The map shows the sector's planet picture: retail draws it with its alpha, so
+# the items behind it stay visible (the user's gap 8). 'shot dump_*' also dumps the next frame's draws when the
+# client runs with D3D8SHOT_DUMP=0 (d3d8shot.c), for tools/harness/dumpcmp.py.
+# Run: e2e.py --live --db-snapshot 7 --instance gmap [--retail] run sp_galaxymap
+name: space: the galaxy map opened in Jupiter, its planet picture drawn with alpha
+timeout: 300
+include _login_space
+click gadget hud.navmap
+expect-event proxy '^input: replayed mouse 0x202 at 140, 946'
+wait-quiet proxy 1.0 within 15
+alive 2
+shot dump_galaxymap_open
+alive 2
+click gadget hud.navmap
+expect-event proxy '^input: replayed mouse 0x202 at 140, 946'
+wait-quiet proxy 1.0 within 15
+shot galaxymap_closed
+alive 1

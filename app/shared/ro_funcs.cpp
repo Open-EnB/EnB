@@ -458,3 +458,13 @@ void Unknown_497240(RenderObjClass *robj, bool on)	// NAME 1 [Unknown_497240, ro
 **	  part_emt.h included in the top padding so the lines hold; its Create_Peek<ParticleBufferClass> is 0x497300)
 **	- 0x497240 (exact)
 */
+
+// 0x497300: Create_Peek out of line (gadget.cpp, textgadg.cpp, ui_login.cpp ... declare it for RenderObjClass;
+// the linker folds it with Create_Peek<ParticleBufferClass>, the notes above)
+// NOT EXACT: a wrapper over Create_Peek (the template instance is exact at 0x497300); the callers' declaration
+// Unknown_497300 should become the template call itself
+#include "ref_ptr.h"
+RefCountPtr<RenderObjClass> Unknown_497300(RenderObjClass *robj)  // NAME 1 [Unknown_497300, robj]: neutral
+{
+	return(Create_Peek(robj));
+}

@@ -22,6 +22,10 @@ wait-quiet proxy 1.0 within 20
 click 598,285
 expect-event antprox 'received MANUFACTURE_ACTION' within 10
 wait-quiet proxy 1.0 within 20
+shot manu_level1
+# the drill-down: the root's children (Items, Components) listed in the column below it (the user's gap 5 of
+# 2026-11-21: ours left it empty, the categories' type test read a global of its own)
+expect-ink manu_level1 520,400,140,60 300
 # the root's two children (Items, Components) fill the column below it: Items; then its children (a column at
 # x 684): the third (silver), then its first child (x 784), a leaf: its item list (MANUFACTURE_ITEM_CATAGORY)
 click 569,428

@@ -28,24 +28,56 @@ def summary(unresolved=(), exe=True, link_errors=(), cl_errors=()):
 
 
 class Judge(unittest.TestCase):
-    base = {'clientpoc': KNOWN, 'clienttest': [], 'udpreplay': []}
+    base = {'clienttest': KNOWN, 'udpreplay': []}
 
     def test_known_baseline_passes(self):
-        problems, notes = linkgate.judge({'clientpoc': summary(KNOWN), 'clienttest': summary(),
+        problems, notes = linkgate.judge({'client': summary(), 'clienttest': summary(KNOWN),
                                           'udpreplay': summary()}, self.base)
         self.assertEqual(problems, [])
-        self.assertIn('clientpoc: linked, 2 unresolved (all in the baseline)', notes)
+        self.assertIn('client: linked, no unresolved symbol, no stand-in', notes)
+        self.assertIn('clienttest: linked, 2 unresolved (all in the baseline)', notes)
 
     def test_new_unresolved_refuses(self):
-        problems, _ = linkgate.judge({'clientpoc': summary(KNOWN + ['?New@@YAXXZ']), 'clienttest': summary(),
+        problems, _ = linkgate.judge({'client': summary(), 'clienttest': summary(KNOWN + ['?New@@YAXXZ']),
                                       'udpreplay': summary()}, self.base)
         self.assertEqual(len(problems), 1)
         self.assertIn('?New@@YAXXZ', problems[0])
 
+    def test_client_any_unresolved_refuses_baseline_or_not(self):
+        base = dict(self.base, client=KNOWN)          # a baseline entry for the client is never read
+        problems, _ = linkgate.judge({'client': summary(KNOWN[:1]), 'clienttest': summary(KNOWN),
+                                      'udpreplay': summary()}, base)
+        self.assertEqual(len(problems), 1)
+        self.assertIn('client: 1 unresolved symbol(s) (the client links with none)', problems[0])
+
+    def test_client_standin_object_refuses(self):
+        s = summary()
+        s['stub_objects'] = ['app_stubs.cpp']
+        s['stub_objects_linked'] = ['app_stubs.obj']
+        problems, notes = linkgate.judge({'client': s, 'clienttest': summary(KNOWN), 'udpreplay': summary()},
+                                         self.base)
+        self.assertEqual(len(problems), 1)
+        self.assertIn('client: 2 stand-in object(s) in the link', problems[0])
+        self.assertFalse(any(n.startswith('client:') for n in notes))
+        t = summary(KNOWN)
+        t['stub_objects_linked'] = ['app_stubs.obj']     # a test program keeps its stand-ins
+        self.assertEqual(linkgate.judge({'client': summary(), 'clienttest': t, 'udpreplay': summary()},
+                                        self.base)[0], [])
+
+    def test_baseline_never_holds_the_client(self):
+        tree = tempfile.mkdtemp(prefix='linkgate_base_')
+        try:
+            os.makedirs(os.path.join(tree, 'tools', 'vc6'))
+            linkgate.write_baseline(tree, {'client': summary(['?X@@']), 'clienttest': summary(KNOWN),
+                                           'udpreplay': summary()})
+            self.assertEqual(linkgate.read_baseline(tree), {'clienttest': sorted(KNOWN), 'udpreplay': []})
+        finally:
+            shutil.rmtree(tree, ignore_errors=True)
+
     def test_lnk2005_refuses(self):
         dup = ('client_stubs.obj : error LNK2005: "public: void __thiscall SClient::Unknown_64(void)" '
                '(?Unknown_64@SClient@@QAEXXZ) already defined in app_sclient.obj')
-        problems, _ = linkgate.judge({'clientpoc': summary(KNOWN),
+        problems, _ = linkgate.judge({'client': summary(),
                                       'clienttest': summary(exe=False, link_errors=[dup, 'fatal error LNK1169: one or '
                                                                                      'more multiply defined symbols found']),
                                       'udpreplay': summary()},
@@ -54,14 +86,14 @@ class Judge(unittest.TestCase):
         self.assertIn('clienttest: duplicate definitions (2 line(s))', problems[0])
 
     def test_fewer_unresolved_is_a_note_and_missing_summary_refuses(self):
-        problems, notes = linkgate.judge({'clientpoc': summary(KNOWN[:1]), 'clienttest': None,
+        problems, notes = linkgate.judge({'client': None, 'clienttest': summary(KNOWN[:1]),
                                           'udpreplay': summary()}, self.base)
         self.assertEqual(len(problems), 1)
-        self.assertIn('clienttest: no link summary', problems[0])
+        self.assertIn('client: no link summary', problems[0])
         self.assertTrue(any('1 baseline symbol(s) now resolved' in n for n in notes))
 
     def test_compile_error_and_no_exe_refuse(self):
-        problems, _ = linkgate.judge({'clientpoc': summary(KNOWN, cl_errors=['x.cpp(3) : error C2084: ...']),
+        problems, _ = linkgate.judge({'client': summary(cl_errors=['x.cpp(3) : error C2084: ...']),
                                       'clienttest': summary(exe=False, link_errors=['fatal error LNK1104: x']),
                                       'udpreplay': summary()},
                                      self.base)
@@ -73,10 +105,11 @@ class Judge(unittest.TestCase):
         self.assertTrue(linkgate.touches(['docs/x.md', 'app/client/a.cpp']))
         self.assertTrue(linkgate.touches(['tests/clienttest/client_stubs.cpp']))
         self.assertTrue(linkgate.touches(['tests/udpreplay/x.cpp']))
+        self.assertTrue(linkgate.touches(['programs/client/x.cpp']))
         self.assertFalse(linkgate.touches(['docs/x.md', 'tools/vc6/wt.py', 'tests/kerneltest/x.cpp']))
 
     def test_udpreplay_refuses(self):
-        problems, _ = linkgate.judge({'clientpoc': summary(KNOWN), 'clienttest': summary(),
+        problems, _ = linkgate.judge({'client': summary(), 'clienttest': summary(KNOWN),
                                       'udpreplay': summary(['?Gone@CordCon@@QAEXXZ'], exe=False)}, self.base)
         self.assertEqual(len(problems), 1)
         self.assertIn('udpreplay: 1 unresolved symbol(s)', problems[0])
@@ -89,7 +122,7 @@ class Gate(unittest.TestCase):
         self.tree = tempfile.mkdtemp(prefix='linkgate_test_')
         os.makedirs(os.path.join(self.tree, 'tools', 'vc6'))
         with open(os.path.join(self.tree, *linkgate.BASELINE.split('/')), 'w') as f:
-            json.dump({'clientpoc': KNOWN, 'clienttest': [], 'udpreplay': []}, f)
+            json.dump({'clienttest': KNOWN, 'udpreplay': []}, f)
         self.calls = []
 
     def tearDown(self):
@@ -110,16 +143,17 @@ class Gate(unittest.TestCase):
     def test_gate_passes_and_refuses(self):
         with redirect_stdout(io.StringIO()):
             problems, _ = linkgate.gate(self.tree, ['ww3d2'], 0, None,
-                                        self.runner({'clientpoc': summary(KNOWN), 'clienttest': summary(),
+                                        self.runner({'client': summary(), 'clienttest': summary(KNOWN),
                                                      'udpreplay': summary()}))
         self.assertEqual(problems, [])
-        self.assertEqual([c[0] for c in self.calls], ['build', 'clientpoc', 'clienttest', 'udpreplay'])
+        self.assertEqual([c[0] for c in self.calls], ['build', 'client', 'clienttest', 'udpreplay'])
         self.assertEqual(self.calls[3][1], ['tools/harness/udpreplay.py', 'build'])
         self.assertIn('--no-deploy', self.calls[1][1])
+        self.assertEqual(self.calls[1][1][:4], ['tools/vc6/build.py', 'link', '--program', 'client'])
         self.assertEqual(self.calls[0][1][-4:], ['--lib', 'app', '--lib', 'ww3d2'])
         # a stale summary from the previous run never counts: this run writes none for clienttest or udpreplay
         with redirect_stdout(io.StringIO()):
-            problems, _ = linkgate.gate(self.tree, [], 0, None, self.runner({'clientpoc': summary(KNOWN + ['?X@@'])}))
+            problems, _ = linkgate.gate(self.tree, [], 0, None, self.runner({'client': summary(['?X@@'])}))
         self.assertEqual(len(problems), 3)
 
     def test_wt_link_gate(self):

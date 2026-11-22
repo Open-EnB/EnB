@@ -267,7 +267,7 @@ int Unknown_4307A0(int message, unsigned int wparam, unsigned int lparam)
 
 
 
-	Message_Info("input", "", __FILE__, __LINE__, "(%4x, %4x, %4x) => (%4x %4x) :  %c%c%c%c%c%c \n", message, wparam, lparam, key, flags,
+	Message_Info("input", "", __FILE__, __LINE__, "(%4x, %4x, %4x) => (%4x %4x) :  %c%c%c%c%c%c ", message, wparam, lparam, key, flags,
 		control ? 'C' : '-', alt ? 'A' : '-', shift ? 'S' : '-', caps ? 'U' : '-', pad ? 'N' : '-', extended ? 'E' : '-');
 	return 0;
 }
@@ -306,12 +306,14 @@ bool Win32KeyboardHandlerClass::Unknown_0C(int unknown1, int unknown2)
 **	WM_SYSKEYDOWN / WM_SYSKEYUP handler 0x4307A0 and the key test 0x430CA0 (NOT EXACT, register).
 **	0x430D70 is KeyboardClass's destructor out of line (input.h). Not rebuilt: the part of the
 **	file before 0x430490, if it is this file's: the window-message handler list (0x42F860-0x430450,
-**	0x42F940 adds, 0x42FAC0 removes, 0x42FBA0 dispatches; programs/clientpoc/poc_window.cpp has
-**	stand-ins) and input.h's drag tracker (0x42F360 / 0x42F3A0, the TrackMouseCounter asserts).
+**	0x42F940 adds, 0x42FAC0 removes, 0x42FBA0 dispatches; winmsg.cpp has
+**	them) and input.h's drag tracker (0x42F360 / 0x42F3A0, the TrackMouseCounter asserts).
 **	The handlers take (message, wParam, lParam); the list's declared type is two-argument (cdecl:
 **	the cast is the client's call through it).
 **	Forms that matched: GetKeyState's down bit as `((unsigned)GetKeyState(k) >> 15) & 1` (the
 **	client's shr / and 1; a short or unsigned short shift gives sar or and 0xFFFF).
 **	Unknown_B6EA58 starts true (initialized data 0xB6EA58 = 1): presses repeated by the keyboard
 **	are kept; when it is false they are dropped and the numeric pad's keys are translated.
+**	Unknown_4307A0's key trace format ends in a space, no newline (0x4307A0+0x381 pushes 0xB6EA5C) (relocaudit.py,
+**	run 2026-11-21 PRESET).
 */

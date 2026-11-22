@@ -1,0 +1,29 @@
+# Station (live server): the avatar's emote after a launch and a dock in the same session (the user's gap 3 path:
+# space first, then the starbase). The hangar's ship clicked from about 50,-5 (ui_starbase.cpp's ship_extents00
+# gadget, 'Exit Starbase': STARBASE_REQUEST 1, the server's SERVER_HANDOFF into space; the user's recording
+# .work/e2e/202650-record, 356-360 s), then _sb_dock's target and dock clicks, then the chat panel's Emote tab and
+# 'Bow' as in sb_emote.
+name: starbase avatar emote after launch and dock: Emote tab, Bow
+timeout: 400
+include _login_live
+walk-to 50,-5
+face -124 tol 10
+click 770,284 until antprox 'received STARBASE_REQUEST' every 2 within 20
+wait-event antprox 'sent SERVER_HANDOFF' within 30
+wait-event msg 'Render: Frame Rate' within 90
+wait-quiet proxy 2.0 within 60
+click 641,1009 until antprox 'sent SET_TARGET' every 2 within 30
+wait-quiet proxy 1.0 within 20
+click 1238,672 until antprox 'sent SERVER_HANDOFF' every 5 within 180
+wait-event msg 'Changing room from -1 to 0' within 120
+wait-quiet proxy 2.0 within 30
+click gadget chat.tab.emote
+alive 0.5
+shot dock_emote_list
+click gadget emote.bow
+expect-event antprox 'received AVATAR_EMOTE$' within 10
+expect-event antprox 'sent AVATAR_EMOTE_RESPONSE' within 10
+expect-event proxy 'AMDEFAULTSKEL\.ABANIM00-46' within 5
+alive 1
+shot dock_emote_bow
+alive 5

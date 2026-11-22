@@ -1,0 +1,62 @@
+# Space (live server): the chat panel's private channel windows, Chat -> Private Channel -> Join -> New, then
+# Join -> Existing with letters and digits typed. Elanor logs in in Jupiter (_login_space).
+# - cht01 (ui_radio_main.cpp, UIRadioMainClass): state 0 'No Channel' (Cancel 450,546; Join 833,546), Join opens
+#   state 1 'Private Channels' (Existing 450,546; New 833,546).
+# - New (state 1, key 4: 0x5EA7F0 then 0x5EA370) closes the window and sends CLIENT_CHAT_REQUEST type 4 (create a
+#   channel), setting the chat panel's request flag (+0x225). The local Net-7 server answers nothing to type 4
+#   (PlayerConnection.cpp's CCE_INSERT_CHANNEL branch is empty), so no 'Channel N Created!' window follows on either
+#   client and the flag stays set until a chat event / error clears it (ui_chat_panel.cpp 0x5679A0, 0x567DF0).
+# - Existing opens cht03 (ui_radio_join.cpp, UIRadioJoinClass state 0, its TEXTFIELD_Cht03 box at 640,558, Cancel
+#   491,624, Confirm 788,624). The box's edit flags are 0xC4 (0xB08CAC | 0xB08CA8 | 0xB08C98): 4 is stredit.cpp's
+#   digits-only flag, so 'ab12' shows as '12' on both clients: letters are refused by the client itself.
+# - Confirm (key 4, 0x5EB2F0) with the flag still set from New prints 'Another request is pending. Cannot join a new
+#   channel.' and sends nothing; without New first it sends type 6 and the window says 'Channel 12' (probe runs
+#   121148 retail / 121455 ours, 2026-11-21).
+# Retail and ours alike (2026-11-21, runs 131833-session retail and 132125-session ours: compare finds the same
+# packets; the shots differ only in 1-2 cells of the hotbar).
+# Run: e2e.py --live --db-snapshot 7 --instance NAME [--retail] run sp_chat_private
+name: private channel: Join -> New (sends the create request, no reply), Join -> Existing (digits only typed)
+timeout: 300
+include _login_space
+click gadget chat.tab.chat
+alive 0.5
+click gadget chat.private
+expect-event proxy 'cht01\.ini", R, disposition 3\) = ok' within 10
+wait-quiet proxy 1.0 within 15
+# Join: the same window in state 1 (Existing / New)
+click 833,546
+wait-quiet proxy 1.0 within 15
+shot private_channels
+# New: the create request (type 4); the server sends nothing back
+click 833,546
+expect-event antprox 'received CLIENT_CHAT_REQUEST' within 10
+alive 3
+shot private_new
+click gadget chat.tab.chat
+alive 0.5
+click gadget chat.private
+expect-event proxy 'cht01\.ini", R, disposition 3\) = ok' within 10
+wait-quiet proxy 1.0 within 15
+click 833,546
+wait-quiet proxy 1.0 within 15
+# Existing: the join window; the box takes digits only
+click 450,546
+expect-event proxy 'cht03\.ini", R, disposition 3\) = ok' within 10
+wait-quiet proxy 1.0 within 15
+click 640,558
+alive 0.5
+text ab12
+alive 1
+shot private_existing_typed
+# Confirm: the request from New is still pending, so nothing is sent
+expect-no antprox 'received CLIENT_CHAT_REQUEST'
+click 788,624
+alive 3
+click gadget chat.tab.chat
+alive 0.5
+click gadget chat.private
+expect-event proxy 'cht01\.ini", R, disposition 3\) = ok' within 10
+wait-quiet proxy 1.0 within 15
+shot private_still_none
+click gadget private.cancel
+wait-quiet proxy 1.0 within 15

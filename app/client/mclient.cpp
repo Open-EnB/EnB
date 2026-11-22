@@ -18,7 +18,7 @@
 #include "..\audio\soundlib.h"
 #include "..\shared\g_assert.h"
 
-extern HWND Unknown_Main_Window;						// 0xBDAA7C (input.cpp's neighbourhood)  // NAME 2: what Unknown_10 redraws
+extern HWND Unknown_BDAA7C;							// 0xBDAA7C (input.cpp's: the window Init was given): what Unknown_10 redraws
 extern SoundManagerClass *SoundManager;					// 0xBE82A4  // NAME 2: what it holds
 unsigned int Unknown_Get_Ticks();						// 0x4A3B40, the aux-data clock (unknown_root.h)
 
@@ -167,7 +167,7 @@ void MovieClientClass::Unknown_10()
 		if (GetMessage(&msg, NULL, 0, 0)) {
 			TranslateMessage(&msg);
 			if (msg.message == WM_PAINT) {
-				RedrawWindow(Unknown_Main_Window, NULL, NULL, RDW_INVALIDATE | RDW_ERASE);
+				RedrawWindow(Unknown_BDAA7C, NULL, NULL, RDW_INVALIDATE | RDW_ERASE);
 			}
 			DispatchMessage(&msg);
 		}

@@ -3,7 +3,7 @@ name: the PDA character page's Faction tab (ui_faction.cpp's UIFactionPanelClass
 # packet sent, so the check is that none of the page's FAIL_IFs fires and the client stays up.
 timeout: 400
 include _login
-expect-no stubs 'ui_faction|ui_faction_panel|ui_skills|ui_experience'
+expect-no msg 'ui_faction|ui_faction_panel|ui_skills|ui_experience'
 key 0x59
 expect-event proxy '^input: replayed key 0x59'
 wait-quiet proxy 1.0 within 15
