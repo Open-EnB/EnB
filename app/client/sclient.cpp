@@ -1075,8 +1075,8 @@ void SClient::Unknown_743440() {
 
 #include "option.h"
 #include "..\packets\pkmove.h"
-
-// NOT EXACT: inline budget (explain.py: 731 instructions, the client's about twice as many): the client inlines more of std::string's construction (the last three key names copied in place) and its five camera blocks (0x744D80's body); first round
+static void Unknown_Register_Key(const std::string &module, const char *name, int id) { ControlKeysManager::Register_Key(module, name, id); }	// the key name built one inline layer down (0x7436A0 calls assign out of line for the first four)  // NAME 1: neutral (D10)
+// NOT EXACT: inline budget (masked residue 209, was 485): the first four key names go through the file-static Unknown_Register_Key layer (the client calls their assign out of line), Bridge_Mode through Set_Value; left: the module string inlines assign (the client calls it), the client keeps a zero register in ebx with four saved registers and one shared epilogue
 // 0x7436A0 (Do_Frame: an event no dispatcher took; the module 'sclient' keys, registered on the first call)
 bool SClient::Unknown_7436A0(KernelEventClass event)
 {
@@ -1089,10 +1089,10 @@ bool SClient::Unknown_7436A0(KernelEventClass event)
 		static bool first = true;
 		if (first) {
 			first = false;
-			ControlKeysManager::Register_Key(module, "Screenshot", 0);
-			ControlKeysManager::Register_Key(module, "Toggle Auto Level", 1);
-			ControlKeysManager::Register_Key(module, "Restore Camera", 2);
-			ControlKeysManager::Register_Key(module, "First Person", 3);
+			Unknown_Register_Key(module, "Screenshot", 0);
+			Unknown_Register_Key(module, "Toggle Auto Level", 1);
+			Unknown_Register_Key(module, "Restore Camera", 2);
+			Unknown_Register_Key(module, "First Person", 3);
 			ControlKeysManager::Register_Key(module, "Save Camera", 4);
 			ControlKeysManager::Register_Key(module, "Next Camera", 5);
 			ControlKeysManager::Register_Key(module, "Prev Camera", 6);
@@ -1117,11 +1117,11 @@ bool SClient::Unknown_7436A0(KernelEventClass event)
 					BoolOptionStruct *option = OptionClass::Instance->Find_Bool("Bridge_Mode");
 					if (CameraMode == 0) {
 						Print(0x17, "Camera set to 3rd person mode %i,", Unknown_75A5D0());
-						if (option) option->Value = false;
+						if (option) option->Set_Value(false);
 					} else {
 						Set_Camera_Mode(0);
 						Unknown_74D990(0x17, "Camera set to 1st person mode.", 0);
-						if (option) option->Value = true;
+						if (option) option->Set_Value(true);
 					}
 					Unknown_744D80();
 				}
@@ -1171,7 +1171,7 @@ bool SClient::Unknown_7436A0(KernelEventClass event)
 				break;
 		}
 	}
-	return(false);
+	CameraManager->Get_Player_Chase_Camera_Module(); return(false);	// a dead read (budget device): Prev Camera calls _Eos out of line as the client
 }
 
 
@@ -4370,7 +4370,7 @@ struct TestEffectStruct	// NAME 2: testeffects.ini's record
 // Unknown_BE7D80 (0xBE7D80) holds them: defined above with INIUsers, where the client's CRT table puts its initialiser
 #include "..\shared\unknown_4a1590.h"
 
-// NOT EXACT: inline budget (B97, 0.47): the record goes in through insert(end(), 1, record), whose body the client inlines (push_back calls it out of line); the client still calls size() and assign out of line and inlines _Tidy
+// NOT EXACT: inline budget (masked residue 321, was 379): hsv_shift as the client has it (a zero default local, two Get_Point calls under the ternary, a Vector3 temporary); left: the client's frame is 12 bytes larger, it calls size() and assign out of line and inlines _Tidy
 // 0x74CA90 (Load_INIs: testeffects.ini): one record per section but [Defaults], each entry from the section or [Defaults];
 // a zero duration is the distance over effect.ini's AmmoSpeed of its EFFECT-<descid>\Weapon Usage section
 void Unknown_74CA90(const char *filename)
@@ -4427,8 +4427,8 @@ void Unknown_74CA90(const char *filename)
 		record.Interval = (int)(f_intra_volley_delay * 1000.0f);
 		record.Target = ini.Get_Bool((ini.Is_Present(section->Section, "playertarget") ? section->Section : "Defaults"), "playertarget", false);
 		record.Scale = ini.Get_Float((ini.Is_Present(section->Section, "scale") ? section->Section : "Defaults"), "scale", 1.0f);
-		TPoint3D<float> hsv = ini.Get_Point((ini.Is_Present(section->Section, "hsv_shift") ? section->Section : "Defaults"), "hsv_shift", TPoint3D<float>(0.0f, 0.0f, 0.0f));
-		record.HSVShift.Set(hsv.X, hsv.Y, hsv.Z);
+		TPoint3D<float> zero(0.0f, 0.0f, 0.0f); TPoint3D<float> hsv = ini.Is_Present(section->Section, "hsv_shift") ? ini.Get_Point(section->Section, "hsv_shift", zero) : ini.Get_Point("Defaults", "hsv_shift", zero);
+		record.HSVShift = Vector3(hsv.X, hsv.Y, hsv.Z);
 		record.Speedup = ini.Get_Float((ini.Is_Present(section->Section, "speedup") ? section->Section : "Defaults"), "speedup", 1.0f);
 		float f_advance = ini.Get_Float((ini.Is_Present(section->Section, "advance") ? section->Section : "Defaults"), "advance", 0.0f);
 
