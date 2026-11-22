@@ -1,0 +1,178 @@
+### scale_first
+--- corrected-baseline/unknown_7979a0.cpp
++++ scale_first/unknown_7979a0.cpp
+@@ -197,8 +197,8 @@
+ 	s = WWMath::Sin(back);
+ 	c = WWMath::Cos(back);
+ 	Vector3 two(range + range, c * range, s * range);
+-	one.Y *= 1.25f;
+-	one.Z *= 1.25f;
++	one.Scale(Vector3(1.0f, 1.25f, 1.25f));
++
+ 	two.Y *= 1.25f;
+ 	two.Z *= 1.25f;
+ 	Matrix3D frame = Unknown_82ECB0(dir, tm.Get_Translation());
+
+### scale_second
+--- corrected-baseline/unknown_7979a0.cpp
++++ scale_second/unknown_7979a0.cpp
+@@ -199,8 +199,8 @@
+ 	Vector3 two(range + range, c * range, s * range);
+ 	one.Y *= 1.25f;
+ 	one.Z *= 1.25f;
+-	two.Y *= 1.25f;
+-	two.Z *= 1.25f;
++	two.Scale(Vector3(1.0f, 1.25f, 1.25f));
++
+ 	Matrix3D frame = Unknown_82ECB0(dir, tm.Get_Translation());
+ 	Vector3 first = frame * one;
+ 	Vector3 second = frame * two;
+
+### scale_both
+--- corrected-baseline/unknown_7979a0.cpp
++++ scale_both/unknown_7979a0.cpp
+@@ -197,10 +197,10 @@
+ 	s = WWMath::Sin(back);
+ 	c = WWMath::Cos(back);
+ 	Vector3 two(range + range, c * range, s * range);
+-	one.Y *= 1.25f;
+-	one.Z *= 1.25f;
+-	two.Y *= 1.25f;
+-	two.Z *= 1.25f;
++	one.Scale(Vector3(1.0f, 1.25f, 1.25f));
++
++	two.Scale(Vector3(1.0f, 1.25f, 1.25f));
++
+ 	Matrix3D frame = Unknown_82ECB0(dir, tm.Get_Translation());
+ 	Vector3 first = frame * one;
+ 	Vector3 second = frame * two;
+
+### delayed_x_second
+--- corrected-baseline/unknown_7979a0.cpp
++++ delayed_x_second/unknown_7979a0.cpp
+@@ -193,14 +193,14 @@
+ 	float range = CameraManagerClass::Unknown_79B6B0();
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 one(range + range, c * range, s * range);
++	Vector3 one; one.Y = c * range; one.Z = s * range;
+ 	s = WWMath::Sin(back);
+ 	c = WWMath::Cos(back);
+-	Vector3 two(range + range, c * range, s * range);
++	Vector3 two; two.Y = c * range; two.Z = s * range; one.X = two.X = range + range;
+ 	one.Y *= 1.25f;
+ 	one.Z *= 1.25f;
+-	two.Y *= 1.25f;
+-	two.Z *= 1.25f;
++	two.Scale(Vector3(1.0f, 1.25f, 1.25f));
++
+ 	Matrix3D frame = Unknown_82ECB0(dir, tm.Get_Translation());
+ 	Vector3 first = frame * one;
+ 	Vector3 second = frame * two;
+
+### delayed_x_both
+--- corrected-baseline/unknown_7979a0.cpp
++++ delayed_x_both/unknown_7979a0.cpp
+@@ -193,14 +193,14 @@
+ 	float range = CameraManagerClass::Unknown_79B6B0();
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 one(range + range, c * range, s * range);
++	Vector3 one; one.Y = c * range; one.Z = s * range;
+ 	s = WWMath::Sin(back);
+ 	c = WWMath::Cos(back);
+-	Vector3 two(range + range, c * range, s * range);
+-	one.Y *= 1.25f;
+-	one.Z *= 1.25f;
+-	two.Y *= 1.25f;
+-	two.Z *= 1.25f;
++	Vector3 two; two.Y = c * range; two.Z = s * range; one.X = two.X = range + range;
++	one.Scale(Vector3(1.0f, 1.25f, 1.25f));
++
++	two.Scale(Vector3(1.0f, 1.25f, 1.25f));
++
+ 	Matrix3D frame = Unknown_82ECB0(dir, tm.Get_Translation());
+ 	Vector3 first = frame * one;
+ 	Vector3 second = frame * two;
+
+### assign_first
+--- corrected-baseline/unknown_7979a0.cpp
++++ assign_first/unknown_7979a0.cpp
+@@ -193,16 +193,16 @@
+ 	float range = CameraManagerClass::Unknown_79B6B0();
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 one(range + range, c * range, s * range);
++	Vector3 one; one.Y = c * range; one.Z = s * range;
+ 	s = WWMath::Sin(back);
+ 	c = WWMath::Cos(back);
+-	Vector3 two(range + range, c * range, s * range);
++	Vector3 two; two.Y = c * range; two.Z = s * range; one.X = two.X = range + range;
+ 	one.Y *= 1.25f;
+ 	one.Z *= 1.25f;
+-	two.Y *= 1.25f;
+-	two.Z *= 1.25f;
++	two.Scale(Vector3(1.0f, 1.25f, 1.25f));
++
+ 	Matrix3D frame = Unknown_82ECB0(dir, tm.Get_Translation());
+-	Vector3 first = frame * one;
++	Vector3 first; first = frame * one;
+ 	Vector3 second = frame * two;
+ 	Vector3 camera = Client->CameraManager->Position;
+ 	if ((first - camera).Length2() < (second - camera).Length2()) {
+
+### assign_second
+--- corrected-baseline/unknown_7979a0.cpp
++++ assign_second/unknown_7979a0.cpp
+@@ -193,17 +193,17 @@
+ 	float range = CameraManagerClass::Unknown_79B6B0();
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 one(range + range, c * range, s * range);
++	Vector3 one; one.Y = c * range; one.Z = s * range;
+ 	s = WWMath::Sin(back);
+ 	c = WWMath::Cos(back);
+-	Vector3 two(range + range, c * range, s * range);
++	Vector3 two; two.Y = c * range; two.Z = s * range; one.X = two.X = range + range;
+ 	one.Y *= 1.25f;
+ 	one.Z *= 1.25f;
+-	two.Y *= 1.25f;
+-	two.Z *= 1.25f;
++	two.Scale(Vector3(1.0f, 1.25f, 1.25f));
++
+ 	Matrix3D frame = Unknown_82ECB0(dir, tm.Get_Translation());
+ 	Vector3 first = frame * one;
+-	Vector3 second = frame * two;
++	Vector3 second; second = frame * two;
+ 	Vector3 camera = Client->CameraManager->Position;
+ 	if ((first - camera).Length2() < (second - camera).Length2()) {
+ 		((CameraModule79C8E0Class *)Unknown0C)->Position = first;
+
+### assign_both
+--- corrected-baseline/unknown_7979a0.cpp
++++ assign_both/unknown_7979a0.cpp
+@@ -193,17 +193,17 @@
+ 	float range = CameraManagerClass::Unknown_79B6B0();
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 one(range + range, c * range, s * range);
++	Vector3 one; one.Y = c * range; one.Z = s * range;
+ 	s = WWMath::Sin(back);
+ 	c = WWMath::Cos(back);
+-	Vector3 two(range + range, c * range, s * range);
++	Vector3 two; two.Y = c * range; two.Z = s * range; one.X = two.X = range + range;
+ 	one.Y *= 1.25f;
+ 	one.Z *= 1.25f;
+-	two.Y *= 1.25f;
+-	two.Z *= 1.25f;
++	two.Scale(Vector3(1.0f, 1.25f, 1.25f));
++
+ 	Matrix3D frame = Unknown_82ECB0(dir, tm.Get_Translation());
+-	Vector3 first = frame * one;
+-	Vector3 second = frame * two;
++	Vector3 first; first = frame * one;
++	Vector3 second; second = frame * two;
+ 	Vector3 camera = Client->CameraManager->Position;
+ 	if ((first - camera).Length2() < (second - camera).Length2()) {
+ 		((CameraModule79C8E0Class *)Unknown0C)->Position = first;
+
