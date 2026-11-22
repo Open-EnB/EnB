@@ -1616,7 +1616,7 @@ bool UIStarbaseClass::Unknown_68(int key)
 
 
 static inline void Unknown_Show_Ship(UIStarbaseClass *ui, RenderObjClass *ship) { Matrix3D tm = ui->InterfaceMesh->Peek_Object()->Get_Bone_Transform("ship"); ((SceneClass *)ui->UnknownB0->Unknown70.Peek())->Add_Render_Object(ship); ui->UnknownB0->Unknown70.Peek()->Add_Light_Environment(ship); ship->Set_Transform(tm); }	// the 'ship' block of 0x6366A0, 0x640360 and 0x6415B0 (its Matrix3D local one level deep: the client's ??_H, Row[3]'s Vector4() 0x468E70 cut out of line, in 0x6366A0 / 0x640360)  // NAME 1: neutral (D10)
-// NOT EXACT: 0x6366A0, functional (register / order: the ship block through Unknown_Show_Ship gives the client's ??_H; left: Unknown_7C's View / vtable registers swapped, UnknownB0 loaded before the flag stores, Room in edx (client edi); Get_Info() for the column, the map manager through a local, Unknown138 as one dword and the third-person test as one condition give the client's loads, its zero register ebp and its single toggle; O4, SB2)
+// NOT EXACT: 0x6366A0, functional (order: the ship block through Unknown_Show_Ship gives the client's ??_H; the +0x138 store through a pointer local holds the UnknownB0 load after it, a room local gives the client's edi / edx; left: the room's load before the door's (the client's in the else); Get_Info() for the column, the map manager through a local, Unknown138 as one dword and the third-person test as one condition give the client's loads, its zero register ebp and its single toggle; O4, SB2)
 // 0x6366A0 (slot +0x58, the interface opened: the room's model in the view, the camera at the door the avatar came
 // through (or 'camera_3rd' on arrival), the ship and its animation in the hangar, the NPC slots, the parts, the fog)
 void UIStarbaseClass::Unknown_58()
@@ -1633,16 +1633,16 @@ void UIStarbaseClass::Unknown_58()
 	UnknownC0.A = -1;
 	UnknownC0.B = -1;
 	UnknownC0.C = -1;
-	*(int *)Unknown138 = 0;	// the four flags as one dword store (the client: mov [esi+0x138], ebp)
-	int i;
+	int *flags = (int *)Unknown138; *flags = 0;	// the four flags as one dword store (the client: mov [esi+0x138], ebp)
+	int i; int room = Room;
 	if (UnknownB0->Unknown58 == -1) {
 		UnknownB0->Unknown_69E260("camera_3rd");
 		Unknown1FD = true;
 		Unknown1AC = 4;
 	} else {
 		for (i = 0; i < 4; i++) {
-			if (Unknown_B8AB3C[Room * 4 + i] == UnknownB0->Unknown58) {
-				Unknown_63C080(Unknown_B8AB7C[Room * 4 + i], true, true);
+			if (Unknown_B8AB3C[room * 4 + i] == UnknownB0->Unknown58) {
+				Unknown_63C080(Unknown_B8AB7C[room * 4 + i], true, true);
 				UnknownB0->Unknown_69E510(UnknownC0.D->Avatar->Unknown_787A90());
 				break;
 			}
