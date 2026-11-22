@@ -2379,16 +2379,16 @@ void ChatPanelInterface::Unknown_56C0C0()
 #pragma auto_inline(on)
 
 
-// NOT EXACT: frame (0x18 vs the client's 0x1C: the client keeps &ChatInt in edi and calls RefCountPtr's operator=(NULL) 0x56CD50 out of line; 349 instructions vs 346)
+// The old window goes through 0x56C6A0 (inlined: its Remove and operator=(NULL) 0x56CD50 out of line, &ChatInt in edi)
 // 0x56C180
 void ChatPanelInterface::Unknown_56C180(int window)
 {
 	bool active = Active;
-	if (ChatInt) {
-		InterfaceClass::Get_Signal_Map().Remove(ChatInt.Peek(), this, &ChatPanelInterface::Unknown_56C730, ChatWindowInterfaceEvent());
-		ChatInt->Unknown_7C(NULL, 0);
-		ChatInt = NULL;
-	}
+	Unknown_56C6A0();
+
+
+
+
 	Unknown134 = window;
 	switch (window) {
 		case 1:
@@ -2406,11 +2406,11 @@ void ChatPanelInterface::Unknown_56C180(int window)
 			break;
 	}
 	if (ChatInt) {
-		SignalMap &dispatcher = InterfaceClass::Get_Signal_Map();
-		dispatcher.Add(ChatInt.Peek(), this, &ChatPanelInterface::Unknown_56C730);
+
+		InterfaceClass::Get_Signal_Map().Add(ChatInt.Peek(), this, &ChatPanelInterface::Unknown_56C730);
 		ChatInt->Unknown_5417D0(this);
 		ChatInt->Unknown_54();
-		ChatInt->Unknown_7C(Get_View(), active);
+		ChatInt->Unknown_7C(View, active); Get_View();
 		Unknown_5646A0(Unknown148);
 	}
 
