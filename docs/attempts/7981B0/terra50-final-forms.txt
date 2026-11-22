@@ -1,0 +1,714 @@
+# Standalone source-form replay, base application revision aa57c927.
+# Run: python3 terra50-final-forms.txt /path/to/clone /path/to/output
+# Seed lines and indexed replacement hunks below preserve exact selected forms.
+import hashlib, json, sys
+from pathlib import Path
+d = json.loads(r'''{
+ "unit": "app/client/unknown_7979a0.cpp",
+ "target": "0x7981B0",
+ "baseline_sha256": "3e4e05dc04b62ec9417723fa50702578458928add9c71f717478f9578fce8ce3",
+ "start": "// NOT EXACT: 0x7981B0",
+ "end": "// 0x798570\n",
+ "seed_lines": [
+  "// NOT EXACT: 0x7981B0 (the frame's size and the statements' order are the client's; the two offsets, the two results and the camera's copy sit in other frame slots, and the products' operand order follows the slots)\n",
+  "// 0x7981B0\n",
+  "void CameraController02Class::Unknown_7981B0()\n",
+  "{\n",
+  "\tMatrix3D tm = Client->Get_Avatar()->Unknown_28(true);\n",
+  "\tClientObjectClass *dest = Client->Find_Object(((NavigationListClass &)Client->MainView->Radar->Unknown_7BD960()).Get_Current());\n",
+  "\tVector3 dir;\n",
+  "\tif (dest) {\n",
+  "\t\tVector3 target = dest->Unknown_24();\n",
+  "\t\tdir = target - tm.Get_Translation();\n",
+  "\t} else {\n",
+  "\t\tdir = tm.Get_X_Vector();\n",
+  "\t}\n",
+  "\tfloat angle = (Unknown_BDB1C0.Get_Float() - 0.5f) * 0.62831855f;\n",
+  "\tfloat back = angle + 3.1415927f;\n",
+  "\tfloat range = CameraManagerClass::Unknown_79B6B0();\n",
+  "\tfloat s = WWMath::Sin(angle);\n",
+  "\tfloat c = WWMath::Cos(angle);\n",
+  "\tVector3 one; one.Y = c * range; one.Z = s * range;\n",
+  "\ts = WWMath::Sin(back);\n",
+  "\tc = WWMath::Cos(back);\n",
+  "\tVector3 two; two.Y = c * range; two.Z = s * range; one.X = two.X = range + range;\n",
+  "\tone.Y *= 1.25f;\n",
+  "\tone.Z *= 1.25f;\n",
+  "\ttwo.Scale(Vector3(1.0f, 1.25f, 1.25f));\n",
+  "\n",
+  "\tMatrix3D frame = Unknown_82ECB0(dir, tm.Get_Translation());\n",
+  "\tVector3 first = frame * one;\n",
+  "\tVector3 second = frame * two;\n",
+  "\tVector3 camera = Client->CameraManager->Position;\n",
+  "\tif ((first - camera).Length2() < (second - camera).Length2()) {\n",
+  "\t\t((CameraModule79C8E0Class *)Unknown0C)->Position = first;\n",
+  "\t} else {\n",
+  "\t\t((CameraModule79C8E0Class *)Unknown0C)->Position = second;\n",
+  "\t}\n",
+  "\t((CameraModule79C8E0Class *)Unknown0C)->Unknown14 = true;\n",
+  "\t((CameraModule79C8E0Class *)Unknown0C)->Unknown18 = Client->AvatarID;\n",
+  "\tUnknown0C->Unknown_04();\n",
+  "}\n",
+  "\n",
+  "\n"
+ ],
+ "hunks": [
+  [
+   18,
+   19,
+   "\tVector3 one(range + range, c * range, s * range);\n"
+  ],
+  [
+   21,
+   22,
+   "\tVector3 two(range + range, c * range, s * range);\n"
+  ],
+  [
+   24,
+   26,
+   "\ttwo.Y *= 1.25f;\n\ttwo.Z *= 1.25f;\n"
+  ],
+  [
+   29,
+   30,
+   "\tVector3 camera; camera = Client->CameraManager->Position;\n"
+  ],
+  [
+   26,
+   27,
+   "\tMatrix3D frame; frame = Unknown_82ECB0(dir, tm.Get_Translation());\n"
+  ],
+  [
+   28,
+   29,
+   "\tVector3 second; frame.mulVector3(two, second);\n"
+  ],
+  [
+   28,
+   29,
+   "\tVector3 second; Matrix3D::Transform_Vector(frame, two, &second);\n"
+  ],
+  [
+   27,
+   28,
+   "\tVector3 first; frame.mulVector3(one, first);\n"
+  ],
+  [
+   27,
+   28,
+   "\tVector3 first; Matrix3D::Transform_Vector(frame, one, &first);\n"
+  ],
+  [
+   28,
+   30,
+   "\tVector3 second; second = frame * two;\n\tVector3 camera; camera = Client->CameraManager->Position;\n"
+  ],
+  [
+   28,
+   29,
+   "\tVector3 second; second = frame * two;\n"
+  ],
+  [
+   28,
+   30,
+   "\tVector3 second; frame.mulVector3(two, second);\n\tVector3 camera; camera = Client->CameraManager->Position;\n"
+  ],
+  [
+   28,
+   30,
+   "\tVector3 second; Matrix3D::Transform_Vector(frame, two, &second);\n\tVector3 camera; camera = Client->CameraManager->Position;\n"
+  ],
+  [
+   27,
+   28,
+   "\tVector3 first; first = frame * one;\n"
+  ],
+  [
+   26,
+   28,
+   "\tMatrix3D frame; frame = Unknown_82ECB0(dir, tm.Get_Translation());\n\tVector3 first; first = frame * one;\n"
+  ],
+  [
+   27,
+   29,
+   "\tVector3 first; first = frame * one;\n\tVector3 second; frame.mulVector3(two, second);\n"
+  ],
+  [
+   27,
+   29,
+   "\tVector3 first; first = frame * one;\n\tVector3 second; Matrix3D::Transform_Vector(frame, two, &second);\n"
+  ],
+  [
+   26,
+   28,
+   "\tMatrix3D frame; frame = Unknown_82ECB0(dir, tm.Get_Translation());\n\tVector3 first; frame.mulVector3(one, first);\n"
+  ],
+  [
+   27,
+   29,
+   "\tVector3 first; frame.mulVector3(one, first);\n\tVector3 second; second = frame * two;\n"
+  ],
+  [
+   27,
+   29,
+   "\tVector3 first; frame.mulVector3(one, first);\n\tVector3 second; Matrix3D::Transform_Vector(frame, two, &second);\n"
+  ],
+  [
+   26,
+   28,
+   "\tMatrix3D frame; frame = Unknown_82ECB0(dir, tm.Get_Translation());\n\tVector3 first; Matrix3D::Transform_Vector(frame, one, &first);\n"
+  ],
+  [
+   27,
+   29,
+   "\tVector3 first; Matrix3D::Transform_Vector(frame, one, &first);\n\tVector3 second; second = frame * two;\n"
+  ],
+  [
+   27,
+   29,
+   "\tVector3 first; Matrix3D::Transform_Vector(frame, one, &first);\n\tVector3 second; frame.mulVector3(two, second);\n"
+  ],
+  [
+   27,
+   29,
+   "\tVector3 first; Matrix3D::Transform_Vector(frame, one, &first);\n\tVector3 second; Matrix3D::Transform_Vector(frame, two, &second);\n"
+  ],
+  [
+   27,
+   30,
+   "\tVector3 first; first = frame * one;\n\tVector3 second; second = frame * two;\n\tVector3 camera; camera = Client->CameraManager->Position;\n"
+  ],
+  [
+   26,
+   29,
+   "\tMatrix3D frame; frame = Unknown_82ECB0(dir, tm.Get_Translation());\n\tVector3 first; first = frame * one;\n\tVector3 second; second = frame * two;\n"
+  ],
+  [
+   27,
+   30,
+   "\tVector3 first; first = frame * one;\n\tVector3 second; frame.mulVector3(two, second);\n\tVector3 camera; camera = Client->CameraManager->Position;\n"
+  ],
+  [
+   26,
+   29,
+   "\tMatrix3D frame; frame = Unknown_82ECB0(dir, tm.Get_Translation());\n\tVector3 first; first = frame * one;\n\tVector3 second; frame.mulVector3(two, second);\n"
+  ],
+  [
+   27,
+   30,
+   "\tVector3 first; first = frame * one;\n\tVector3 second; Matrix3D::Transform_Vector(frame, two, &second);\n\tVector3 camera; camera = Client->CameraManager->Position;\n"
+  ],
+  [
+   26,
+   29,
+   "\tMatrix3D frame; frame = Unknown_82ECB0(dir, tm.Get_Translation());\n\tVector3 first; first = frame * one;\n\tVector3 second; Matrix3D::Transform_Vector(frame, two, &second);\n"
+  ],
+  [
+   27,
+   30,
+   "\tVector3 first; frame.mulVector3(one, first);\n\tVector3 second; second = frame * two;\n\tVector3 camera; camera = Client->CameraManager->Position;\n"
+  ],
+  [
+   26,
+   29,
+   "\tMatrix3D frame; frame = Unknown_82ECB0(dir, tm.Get_Translation());\n\tVector3 first; frame.mulVector3(one, first);\n\tVector3 second; second = frame * two;\n"
+  ],
+  [
+   27,
+   30,
+   "\tVector3 first; frame.mulVector3(one, first);\n\tVector3 second; frame.mulVector3(two, second);\n\tVector3 camera; camera = Client->CameraManager->Position;\n"
+  ],
+  [
+   26,
+   29,
+   "\tMatrix3D frame; frame = Unknown_82ECB0(dir, tm.Get_Translation());\n\tVector3 first; frame.mulVector3(one, first);\n\tVector3 second; frame.mulVector3(two, second);\n"
+  ],
+  [
+   27,
+   30,
+   "\tVector3 first; frame.mulVector3(one, first);\n\tVector3 second; Matrix3D::Transform_Vector(frame, two, &second);\n\tVector3 camera; camera = Client->CameraManager->Position;\n"
+  ],
+  [
+   26,
+   29,
+   "\tMatrix3D frame; frame = Unknown_82ECB0(dir, tm.Get_Translation());\n\tVector3 first; frame.mulVector3(one, first);\n\tVector3 second; Matrix3D::Transform_Vector(frame, two, &second);\n"
+  ],
+  [
+   27,
+   30,
+   "\tVector3 first; Matrix3D::Transform_Vector(frame, one, &first);\n\tVector3 second; second = frame * two;\n\tVector3 camera; camera = Client->CameraManager->Position;\n"
+  ],
+  [
+   26,
+   29,
+   "\tMatrix3D frame; frame = Unknown_82ECB0(dir, tm.Get_Translation());\n\tVector3 first; Matrix3D::Transform_Vector(frame, one, &first);\n\tVector3 second; second = frame * two;\n"
+  ],
+  [
+   27,
+   30,
+   "\tVector3 first; Matrix3D::Transform_Vector(frame, one, &first);\n\tVector3 second; frame.mulVector3(two, second);\n\tVector3 camera; camera = Client->CameraManager->Position;\n"
+  ],
+  [
+   26,
+   29,
+   "\tMatrix3D frame; frame = Unknown_82ECB0(dir, tm.Get_Translation());\n\tVector3 first; Matrix3D::Transform_Vector(frame, one, &first);\n\tVector3 second; frame.mulVector3(two, second);\n"
+  ],
+  [
+   27,
+   30,
+   "\tVector3 first; Matrix3D::Transform_Vector(frame, one, &first);\n\tVector3 second; Matrix3D::Transform_Vector(frame, two, &second);\n\tVector3 camera; camera = Client->CameraManager->Position;\n"
+  ],
+  [
+   26,
+   29,
+   "\tMatrix3D frame; frame = Unknown_82ECB0(dir, tm.Get_Translation());\n\tVector3 first; Matrix3D::Transform_Vector(frame, one, &first);\n\tVector3 second; Matrix3D::Transform_Vector(frame, two, &second);\n"
+  ]
+ ],
+ "variants": [
+  {
+   "name": "baseline",
+   "include": false,
+   "sha256": "3e4e05dc04b62ec9417723fa50702578458928add9c71f717478f9578fce8ce3",
+   "hunks": [
+    0,
+    1,
+    2
+   ]
+  },
+  {
+   "name": "seed_control",
+   "include": false,
+   "sha256": "263c005a31321246d11f3040fcaf8399fd71651c8d560e4e0e6922bab523c3f9",
+   "hunks": []
+  },
+  {
+   "name": "v01",
+   "include": false,
+   "sha256": "6a83639a7db50233561b3f95d7725ff960111867c96a140673943ed6f5fbfa18",
+   "hunks": [
+    3
+   ]
+  },
+  {
+   "name": "v02",
+   "include": false,
+   "sha256": "df4891a670998de73a099aae29f46d131b7d0138c5e0436a5529bfdd04aa194f",
+   "hunks": [
+    4
+   ]
+  },
+  {
+   "name": "v03",
+   "include": false,
+   "sha256": "f161a64bf7e64ec53f45a1062761ac2c104f8f194f2b85d5ec8f612cd86fdfc0",
+   "hunks": [
+    5
+   ]
+  },
+  {
+   "name": "v04",
+   "include": false,
+   "sha256": "c00ea80ffcbecf40e1f16097054d667c60cfbd82c79c457dc4f5bd9a061d6936",
+   "hunks": [
+    6
+   ]
+  },
+  {
+   "name": "v05",
+   "include": false,
+   "sha256": "3c612baf506d02fa9fc745a2508a49caef8e82761fb7449113cd18d32eee15ee",
+   "hunks": [
+    7
+   ]
+  },
+  {
+   "name": "v06",
+   "include": false,
+   "sha256": "bfa0bb5212dca6a387cccc1134611fd31f0df5dc766fba067b55d24cbea49f49",
+   "hunks": [
+    8
+   ]
+  },
+  {
+   "name": "v07",
+   "include": false,
+   "sha256": "f65d2a5145263cc64d2126fb3eecdaa6550bfa2bcd4bdaf6a136805c9800d640",
+   "hunks": [
+    4,
+    3
+   ]
+  },
+  {
+   "name": "v08",
+   "include": false,
+   "sha256": "5d2ccbb71b226ccd44fa253789366b5b9ff97950351e84ec3592db96e77baea1",
+   "hunks": [
+    9
+   ]
+  },
+  {
+   "name": "v09",
+   "include": false,
+   "sha256": "c0c1973b9e8e568b9919734663ef3fc5e40fb42979a7b7b4fd1c11a1cadfa5eb",
+   "hunks": [
+    4,
+    10
+   ]
+  },
+  {
+   "name": "v10",
+   "include": false,
+   "sha256": "6f78d0948823def7d61377ff14a53fb363564490132cf0ab7e2e1e908401ca46",
+   "hunks": [
+    11
+   ]
+  },
+  {
+   "name": "v11",
+   "include": false,
+   "sha256": "b76b9133d2662d384a0f50b6245dd690f1dce36daea7031f4f71f2e1d49cf258",
+   "hunks": [
+    4,
+    5
+   ]
+  },
+  {
+   "name": "v12",
+   "include": false,
+   "sha256": "36b9075d4dce6087b9d2eb911eaaf36f4922de4c283949e1e41fc9e042b94782",
+   "hunks": [
+    12
+   ]
+  },
+  {
+   "name": "v13",
+   "include": false,
+   "sha256": "7adc91f6922ed470cb82ef79262eba6698bdccad5beb2ca181860e50b5c255db",
+   "hunks": [
+    4,
+    6
+   ]
+  },
+  {
+   "name": "v14",
+   "include": false,
+   "sha256": "3d67859b4a6399b8e59710d8ce9d51132c6e17b8741645726f6c9fe3bd1a2232",
+   "hunks": [
+    13,
+    3
+   ]
+  },
+  {
+   "name": "v15",
+   "include": false,
+   "sha256": "748add322aedbbb167442fcbeddfa1e295463b40431dbb6ab2a98fe9431d0055",
+   "hunks": [
+    14
+   ]
+  },
+  {
+   "name": "v16",
+   "include": false,
+   "sha256": "4cf16552c99a62ae6469b7772fdd6432c7843da72dabba2b94d34445c09c54f6",
+   "hunks": [
+    15
+   ]
+  },
+  {
+   "name": "v17",
+   "include": false,
+   "sha256": "7f0757766120921287a28a6d95cebfa0c6ec7637a616999f2c9b3d22cc7c273c",
+   "hunks": [
+    16
+   ]
+  },
+  {
+   "name": "v18",
+   "include": false,
+   "sha256": "c6e5855597d10d14b51873a59e2200d69af8694f9a4514814ca1ebeab500d971",
+   "hunks": [
+    7,
+    3
+   ]
+  },
+  {
+   "name": "v19",
+   "include": false,
+   "sha256": "1fe7b922dd1367cdfb110d3cb3c4c0afe075e866dd1ef60bb0cccc8f263aa782",
+   "hunks": [
+    17
+   ]
+  },
+  {
+   "name": "v20",
+   "include": false,
+   "sha256": "bf53bc7674ca16e9185ec9af88536aaea66fa3363ec3ec3c337df4f93ca9c36c",
+   "hunks": [
+    18
+   ]
+  },
+  {
+   "name": "v21",
+   "include": false,
+   "sha256": "89dd95ab3d7b47bce4bd31c82ad12123cbbe2a57b73a2ff5e9b8f82b2fcded2b",
+   "hunks": [
+    19
+   ]
+  },
+  {
+   "name": "v22",
+   "include": false,
+   "sha256": "56148338d562d90294418b0e15dd5383d1e712e632e49e736b82443c548c1ea2",
+   "hunks": [
+    8,
+    3
+   ]
+  },
+  {
+   "name": "v23",
+   "include": false,
+   "sha256": "eea9dde6519e751b18e45cb1ff631b84e79ac436242b7987b5bef3ecab06c40a",
+   "hunks": [
+    20
+   ]
+  },
+  {
+   "name": "v24",
+   "include": false,
+   "sha256": "ca5b42f938b6fc38e103433ba3cf29f69ba6b6e9552e65585980f3ecf84e79df",
+   "hunks": [
+    21
+   ]
+  },
+  {
+   "name": "v25",
+   "include": false,
+   "sha256": "20633b23571fa4f437d246cf982fa569c5887176c4369d7c4b844206caede2bf",
+   "hunks": [
+    22
+   ]
+  },
+  {
+   "name": "v26",
+   "include": false,
+   "sha256": "e42affb7790f8a06cb0540b8cf92f8ad7c36db37c65ec3d3ea6f380152dc289b",
+   "hunks": [
+    23
+   ]
+  },
+  {
+   "name": "v27",
+   "include": false,
+   "sha256": "22ec4ef5ad4f159e0a455ac697bd710f4e8a76972261d8741adf939a3f579661",
+   "hunks": [
+    4,
+    9
+   ]
+  },
+  {
+   "name": "v28",
+   "include": false,
+   "sha256": "70e09c543afe8c721bc38b2b06b78063811ca601873a4a66b022687af0166062",
+   "hunks": [
+    4,
+    11
+   ]
+  },
+  {
+   "name": "v29",
+   "include": false,
+   "sha256": "69da3d266dbbd3bd19e40418455fbe421eca8e7904a14df0ee90d9684f702d84",
+   "hunks": [
+    4,
+    12
+   ]
+  },
+  {
+   "name": "v30",
+   "include": false,
+   "sha256": "43b0ada1b849fac9ce7e4c9ec903d8667c57e35fb120bbc3873aac4095949e51",
+   "hunks": [
+    14,
+    3
+   ]
+  },
+  {
+   "name": "v31",
+   "include": false,
+   "sha256": "03d92d08b5a32a47546d64ceb9a498b7dbacf8a1f028519942b97192c89a8b5f",
+   "hunks": [
+    24
+   ]
+  },
+  {
+   "name": "v32",
+   "include": false,
+   "sha256": "616da95de805cab3f422be383e01edb401bcc92d2c8f8dfd52c8fb4da0854d4d",
+   "hunks": [
+    25
+   ]
+  },
+  {
+   "name": "v33",
+   "include": false,
+   "sha256": "bb37a80c3f1b49238b0b86e6433ad1ccac0a70ae585996f359749ee007eee21a",
+   "hunks": [
+    26
+   ]
+  },
+  {
+   "name": "v34",
+   "include": false,
+   "sha256": "cfbbbcd093901930e7a99232b4e78940bc9d989e8bbbdc138a7959082cc2b71d",
+   "hunks": [
+    27
+   ]
+  },
+  {
+   "name": "v35",
+   "include": false,
+   "sha256": "e84f4b96c53d7ad52a8bd1ff8e207742caa07ea792c60d842e71417a3aa5dda8",
+   "hunks": [
+    28
+   ]
+  },
+  {
+   "name": "v36",
+   "include": false,
+   "sha256": "3088eaa07703a0a34b66aa587839695df9201d157a6ad6dd4701390f225cc84c",
+   "hunks": [
+    29
+   ]
+  },
+  {
+   "name": "v37",
+   "include": false,
+   "sha256": "e8696fd1820914c001b4a16f2bbb5a89966b202de4f09d4c346b480b819fd5ad",
+   "hunks": [
+    17,
+    3
+   ]
+  },
+  {
+   "name": "v38",
+   "include": false,
+   "sha256": "2dbd4de1ee6a605f3b841a6fe9547db75fc2ae7caf38c36e2bd8d745d06fc099",
+   "hunks": [
+    30
+   ]
+  },
+  {
+   "name": "v39",
+   "include": false,
+   "sha256": "40ae3c981f466a9831bc0d5cf9374ebd63423dab04d7b2d712e5340e9896503f",
+   "hunks": [
+    31
+   ]
+  },
+  {
+   "name": "v40",
+   "include": false,
+   "sha256": "0fd33e9376e48619d8ca5dada1223ccc59f559ad183cf74ad8ae12f0fdb32f57",
+   "hunks": [
+    32
+   ]
+  },
+  {
+   "name": "v41",
+   "include": false,
+   "sha256": "1d9b617eaf73af3d51aab8eacda2f8b0938625c10e59ad4bd633e6dd7087c45b",
+   "hunks": [
+    33
+   ]
+  },
+  {
+   "name": "v42",
+   "include": false,
+   "sha256": "0df0c822ac1b72aa92ea10e3e71adfb531c7c0e7f3adcb364dcf932570d6c1f5",
+   "hunks": [
+    34
+   ]
+  },
+  {
+   "name": "v43",
+   "include": false,
+   "sha256": "a05eeb6f5fb0b65daafa43fd2462eed84a6c7fd619813c2bbd183bd84175b470",
+   "hunks": [
+    35
+   ]
+  },
+  {
+   "name": "v44",
+   "include": false,
+   "sha256": "664ec54aa62acfab7b229b617bd7f836d76c933265e1b92d93b17a3773646479",
+   "hunks": [
+    20,
+    3
+   ]
+  },
+  {
+   "name": "v45",
+   "include": false,
+   "sha256": "28ab4cf856aa705e8d8247ddd035a1cc0f168374d7aa627682c6d842929c0423",
+   "hunks": [
+    36
+   ]
+  },
+  {
+   "name": "v46",
+   "include": false,
+   "sha256": "2c410540011ec63c5d422392f88e4e37328f2d1bc690e7a5788cd9ce7d93f6b9",
+   "hunks": [
+    37
+   ]
+  },
+  {
+   "name": "v47",
+   "include": false,
+   "sha256": "46087f507fe237adf116793bab0c1cf062ce56bb025d11cb5983c7c124520ae4",
+   "hunks": [
+    38
+   ]
+  },
+  {
+   "name": "v48",
+   "include": false,
+   "sha256": "778cdab340b48d09e180780e7b07f9e501455c8073e68ed95cb81733478c958a",
+   "hunks": [
+    39
+   ]
+  },
+  {
+   "name": "v49",
+   "include": false,
+   "sha256": "bc7ea0c91c3e9b7cd8acd17f6076f4a812bbbd5980a05ff5917111f723e6a245",
+   "hunks": [
+    40
+   ]
+  },
+  {
+   "name": "v50",
+   "include": false,
+   "sha256": "eac917384a13cfd973eab504b2bb4b29dac07d30024e8ec876e70905dc4bedfa",
+   "hunks": [
+    41
+   ]
+  }
+ ]
+}''')
+root, out = map(Path, sys.argv[1:3])
+s = (root / d["unit"]).read_text()
+assert hashlib.sha256(s.encode()).hexdigest() == d["baseline_sha256"], "wrong baseline source"
+a, b = s.index(d["start"]), s.index(d["end"])
+variants=[]
+for row in d["variants"]:
+ lines=d["seed_lines"][:]
+ for i,j,replacement in reversed([d["hunks"][x] for x in row["hunks"]]): lines[i:j]=replacement.splitlines(keepends=True)
+ text=s[:a]+"".join(lines)+s[b:]
+ if row["include"]: text=text.replace('#include "camera.h"', '#include "aabox.h"', 1)
+ assert hashlib.sha256(text.encode()).hexdigest() == row["sha256"], row["name"]
+ p=out/row["name"]/Path(d["unit"]).name
+ p.parent.mkdir(parents=True,exist_ok=True); p.write_text(text)
+ variants.append({"name":row["name"],"source":str(p.resolve())})
+out.mkdir(parents=True,exist_ok=True)
+(out/"packet.json").write_text(json.dumps({"unit":d["unit"],"target":d["target"],"tree":str(root.resolve()),"variants":variants},indent=2)+"\n")

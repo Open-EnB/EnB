@@ -1,0 +1,913 @@
+# Standalone source-form replay, base application revision aa57c927.
+# Run: python3 terra50-final-forms.txt /path/to/clone /path/to/output
+# Seed lines and indexed replacement hunks below preserve exact selected forms.
+import hashlib, json, sys
+from pathlib import Path
+d = json.loads(r'''{
+ "unit": "app/client/camctrl_tractor.cpp",
+ "target": "0x797570",
+ "baseline_sha256": "aeda6a4e86ee996fb4a474673143db54329eff96872085aec9c783a995f60cec",
+ "start": "// @0x797570\n",
+ "end": "// @0x797720\n",
+ "seed_lines": [
+  "// @0x797570\n",
+  "// NOT EXACT: the register choice (edx / ebp for 3) and the duplicated !ship test differ; functional\n",
+  "void CameraController08Class::Unknown_797570()\n",
+  "{\n",
+  "\tif (Unknown1C == 3) return;\n",
+  "\tif (Unknown1C == 2) {\n",
+  "\t\tif (Client->Unknown10BC > Unknown14) Unknown1C = 3;\n",
+  "\t\treturn;\n",
+  "\t}\n",
+  "\tif (Client->Unknown10BC - Unknown10 > 15000) { Unknown1C = 3; return; }\n",
+  "\tClientObjectClass *target = Client->Find_Object(Client->Unknown13B4);\n",
+  "\tClientObjectClass *ship = Client->Get_Avatar();\n",
+  "\tif (!target) {\n",
+  "\t\tif (!ship) { Unknown1C = 3; return; }\n",
+  "\t\tUnknown1C = 2;\n",
+  "\t\tUnknown14 = Client->Unknown10BC + 1000;\n",
+  "\t\tUnknown0C->Unknown18 = ship->GameID;\n",
+  "\t\treturn;\n",
+  "\t}\n",
+  "\t\tVector3 target_pos = target->Unknown_24();\n",
+  "\t\tVector3 delta = target_pos - ship->Unknown_24();\n",
+  "\t\tfloat radius = target->Unknown_30();\n",
+  "\t\tfloat distance = CameraManagerClass::Unknown_79B6B0();\n",
+  "\tif (delta.Length2() < radius * radius + distance * distance) {\n",
+  "\t\tif (!ship) { Unknown1C = 3; return; }\n",
+  "\t\tUnknown1C = 2;\n",
+  "\t\tUnknown14 = Client->Unknown10BC + 1000;\n",
+  "\t\tUnknown0C->Unknown18 = ship->GameID;\n",
+  "\t}\n",
+  "\n",
+  "\n",
+  "\n",
+  "\n",
+  "\n",
+  "\n",
+  "}\n",
+  "\n"
+ ],
+ "hunks": [
+  [
+   4,
+   7,
+   "\tif (Unknown1C == 3) {\n"
+  ],
+  [
+   9,
+   10,
+   "\tif (Unknown1C == 2) {\n\t\tif (Client->Unknown10BC > Unknown14) {\n\t\t\tUnknown1C = 3;\n\t\t}\n\t\treturn;\n\t}\n\tif (Client->Unknown10BC - Unknown10 > 15000) {\n\t\tUnknown1C = 3;\n\t\treturn;\n\t}\n"
+  ],
+  [
+   12,
+   19,
+   "\tif (target) {\n"
+  ],
+  [
+   23,
+   28,
+   "\t\tif (!(delta.Length2() < radius * radius + distance * distance)) {\n\t\t\treturn;\n\t\t}\n"
+  ],
+  [
+   29,
+   35,
+   "\tif (!ship) {\n\t\tUnknown1C = 3;\n\t\treturn;\n\t}\n\tUnknown1C = 2;\n\tUnknown14 = Client->Unknown10BC + 1000;\n\tUnknown0C->Unknown18 = ship->GameID;\n"
+  ],
+  [
+   22,
+   28,
+   "\t\tfloat distance; distance = CameraManagerClass::Unknown_79B6B0();\n\t\tif (!(delta.Length2() < radius * radius + distance * distance)) {\n\t\t\treturn;\n\t\t}\n"
+  ],
+  [
+   12,
+   17,
+   "\tif (target) {\n\t\tVector3 target_pos = target->Unknown_24();\n\t\tVector3 delta = target_pos - ship->Unknown_24();\n\t\tfloat radius; radius = target->Unknown_30();\n\t\tfloat distance = CameraManagerClass::Unknown_79B6B0();\n\t\tif (!(delta.Length2() < radius * radius + distance * distance)) {\n\t\t\treturn;\n\t\t}\n\t}\n\tif (!ship) {\n\t\tUnknown1C = 3;\n"
+  ],
+  [
+   19,
+   35,
+   "\tUnknown1C = 2;\n\tUnknown14 = Client->Unknown10BC + 1000;\n\tUnknown0C->Unknown18 = ship->GameID;\n"
+  ],
+  [
+   12,
+   17,
+   "\tif (target) {\n\t\tVector3 target_pos = target->Unknown_24();\n\t\tVector3 delta; delta = target_pos - ship->Unknown_24();\n\t\tfloat radius = target->Unknown_30();\n\t\tfloat distance = CameraManagerClass::Unknown_79B6B0();\n\t\tif (!(delta.Length2() < radius * radius + distance * distance)) {\n\t\t\treturn;\n\t\t}\n\t}\n\tif (!ship) {\n\t\tUnknown1C = 3;\n"
+  ],
+  [
+   12,
+   20,
+   "\tif (target) {\n\t\tVector3 target_pos; target_pos = target->Unknown_24();\n"
+  ],
+  [
+   22,
+   23,
+   "\t\tfloat distance; distance = CameraManagerClass::Unknown_79B6B0();\n"
+  ],
+  [
+   21,
+   22,
+   "\t\tfloat radius; radius = target->Unknown_30();\n"
+  ],
+  [
+   20,
+   21,
+   "\t\tVector3 delta; delta = target_pos - ship->Unknown_24();\n"
+  ],
+  [
+   19,
+   20,
+   "\t\tVector3 target_pos; target_pos = target->Unknown_24();\n"
+  ],
+  [
+   6,
+   7,
+   "\t\tif (Client->Unknown10BC > Unknown14) {\n\t\t\tUnknown1C = 3;\n\t\t}\n"
+  ],
+  [
+   9,
+   10,
+   "\tif (Client->Unknown10BC - Unknown10 > 15000) {\n\t\tUnknown1C = 3;\n\t\treturn;\n\t}\n"
+  ],
+  [
+   12,
+   19,
+   "\tif (!target) { if (!ship) { Unknown1C = 3; return; } }\n\tif (target) {\n"
+  ],
+  [
+   29,
+   34,
+   "\tif (!ship) {\n\t\tUnknown1C = 3;\n\t\treturn;\n\t}\n\tUnknown1C = 2;\n\tUnknown14 = Client->Unknown10BC + 1000;\n\tUnknown0C->Unknown18 = ship->GameID;\n"
+  ],
+  [
+   12,
+   17,
+   "\tif (!target) { if (!ship) { Unknown1C = 3; return; } }\n\tif (target) {\n\t\tVector3 target_pos = target->Unknown_24();\n\t\tVector3 delta = target_pos - ship->Unknown_24();\n\t\tfloat radius; radius = target->Unknown_30();\n\t\tfloat distance = CameraManagerClass::Unknown_79B6B0();\n\t\tif (!(delta.Length2() < radius * radius + distance * distance)) {\n\t\t\treturn;\n\t\t}\n\t}\n\tif (!ship) {\n\t\tUnknown1C = 3;\n"
+  ],
+  [
+   19,
+   34,
+   "\tUnknown1C = 2;\n\tUnknown14 = Client->Unknown10BC + 1000;\n\tUnknown0C->Unknown18 = ship->GameID;\n"
+  ],
+  [
+   12,
+   17,
+   "\tif (!target) { if (!ship) { Unknown1C = 3; return; } }\n\tif (target) {\n\t\tVector3 target_pos = target->Unknown_24();\n\t\tVector3 delta; delta = target_pos - ship->Unknown_24();\n\t\tfloat radius = target->Unknown_30();\n\t\tfloat distance = CameraManagerClass::Unknown_79B6B0();\n\t\tif (!(delta.Length2() < radius * radius + distance * distance)) {\n\t\t\treturn;\n\t\t}\n\t}\n\tif (!ship) {\n\t\tUnknown1C = 3;\n"
+  ],
+  [
+   12,
+   20,
+   "\tif (!target) { if (!ship) { Unknown1C = 3; return; } }\n\tif (target) {\n\t\tVector3 target_pos; target_pos = target->Unknown_24();\n"
+  ],
+  [
+   4,
+   10,
+   "\tif (Unknown1C != 3) {\n\t\tif (Unknown1C == 2) { if (Client->Unknown10BC > Unknown14) Unknown1C = 3; }\n\t\telse {\n\t\t\tif (Client->Unknown10BC - Unknown10 > 15000) { Unknown1C = 3; return; }\n"
+  ],
+  [
+   12,
+   19,
+   "\tif (!target && !ship) { Unknown1C = 3; return; }\n\tif (target) {\n"
+  ],
+  [
+   22,
+   28,
+   "\t\tfloat distance; distance = CameraManagerClass::Unknown_79B6B0();\n\t\tif (!(delta.Length2() < radius * radius + distance * distance)) {\n\t\t\treturn;\n\t\t}\n\t}\n\tif (!ship) {\n\t\tUnknown1C = 3;\n\t\treturn;\n\t}\n\tUnknown1C = 2;\n\tUnknown14 = Client->Unknown10BC + 1000;\n\tUnknown0C->Unknown18 = ship->GameID;\n\t\t}\n"
+  ],
+  [
+   4,
+   7,
+   "\tif (Unknown1C != 3) {\n\t\tif (Unknown1C == 2) { if (Client->Unknown10BC > Unknown14) Unknown1C = 3; }\n\t\telse {\n\t\t\tif (Client->Unknown10BC - Unknown10 > 15000) { Unknown1C = 3; return; }\n\tClientObjectClass *target = Client->Find_Object(Client->Unknown13B4);\n\tClientObjectClass *ship = Client->Get_Avatar();\n\tif (!target && !ship) { Unknown1C = 3; return; }\n\tif (target) {\n\t\tVector3 target_pos = target->Unknown_24();\n\t\tVector3 delta = target_pos - ship->Unknown_24();\n\t\tfloat radius; radius = target->Unknown_30();\n\t\tfloat distance = CameraManagerClass::Unknown_79B6B0();\n\t\tif (!(delta.Length2() < radius * radius + distance * distance)) {\n\t\t\treturn;\n\t\t}\n\t}\n\tif (!ship) {\n\t\tUnknown1C = 3;\n"
+  ],
+  [
+   9,
+   28,
+   "\tUnknown1C = 2;\n\tUnknown14 = Client->Unknown10BC + 1000;\n\tUnknown0C->Unknown18 = ship->GameID;\n\t\t}\n"
+  ],
+  [
+   4,
+   7,
+   "\tif (Unknown1C != 3) {\n\t\tif (Unknown1C == 2) { if (Client->Unknown10BC > Unknown14) Unknown1C = 3; }\n\t\telse {\n\t\t\tif (Client->Unknown10BC - Unknown10 > 15000) { Unknown1C = 3; return; }\n\tClientObjectClass *target = Client->Find_Object(Client->Unknown13B4);\n\tClientObjectClass *ship = Client->Get_Avatar();\n\tif (!target && !ship) { Unknown1C = 3; return; }\n\tif (target) {\n\t\tVector3 target_pos = target->Unknown_24();\n\t\tVector3 delta; delta = target_pos - ship->Unknown_24();\n\t\tfloat radius = target->Unknown_30();\n\t\tfloat distance = CameraManagerClass::Unknown_79B6B0();\n\t\tif (!(delta.Length2() < radius * radius + distance * distance)) {\n\t\t\treturn;\n\t\t}\n\t}\n\tif (!ship) {\n\t\tUnknown1C = 3;\n"
+  ],
+  [
+   12,
+   20,
+   "\tif (!target && !ship) { Unknown1C = 3; return; }\n\tif (target) {\n\t\tVector3 target_pos; target_pos = target->Unknown_24();\n"
+  ],
+  [
+   23,
+   28,
+   "\t\tif (!(delta.Length2() < radius * radius + distance * distance)) {\n\t\t\treturn;\n\t\t}\n\t}\n\tif (!ship) {\n\t\tUnknown1C = 3;\n\t\treturn;\n\t}\n\tUnknown1C = 2;\n\tUnknown14 = Client->Unknown10BC + 1000;\n\tUnknown0C->Unknown18 = ship->GameID;\n\t\t}\n"
+  ],
+  [
+   4,
+   8,
+   "\tswitch (Unknown1C) {\n\tcase 3: return;\n\tcase 2: if (Client->Unknown10BC > Unknown14) Unknown1C = 3; return;\n\tdefault: break;\n"
+  ],
+  [
+   29,
+   29,
+   "\tif (!ship) {\n\t\tUnknown1C = 3;\n\t\treturn;\n\t}\n\tUnknown1C = 2;\n\tUnknown14 = Client->Unknown10BC + 1000;\n\tUnknown0C->Unknown18 = ship->GameID;\n"
+  ],
+  [
+   12,
+   17,
+   "\tif (!target && !ship) { Unknown1C = 3; return; }\n\tif (target) {\n\t\tVector3 target_pos = target->Unknown_24();\n\t\tVector3 delta = target_pos - ship->Unknown_24();\n\t\tfloat radius; radius = target->Unknown_30();\n\t\tfloat distance = CameraManagerClass::Unknown_79B6B0();\n\t\tif (!(delta.Length2() < radius * radius + distance * distance)) {\n\t\t\treturn;\n\t\t}\n\t}\n\tif (!ship) {\n\t\tUnknown1C = 3;\n"
+  ],
+  [
+   19,
+   29,
+   "\tUnknown1C = 2;\n\tUnknown14 = Client->Unknown10BC + 1000;\n\tUnknown0C->Unknown18 = ship->GameID;\n"
+  ],
+  [
+   12,
+   17,
+   "\tif (!target && !ship) { Unknown1C = 3; return; }\n\tif (target) {\n\t\tVector3 target_pos = target->Unknown_24();\n\t\tVector3 delta; delta = target_pos - ship->Unknown_24();\n\t\tfloat radius = target->Unknown_30();\n\t\tfloat distance = CameraManagerClass::Unknown_79B6B0();\n\t\tif (!(delta.Length2() < radius * radius + distance * distance)) {\n\t\t\treturn;\n\t\t}\n\t}\n\tif (!ship) {\n\t\tUnknown1C = 3;\n"
+  ],
+  [
+   12,
+   13,
+   "\tif (target) {\n\t\tVector3 target_pos = target->Unknown_24();\n\t\tVector3 delta = target_pos - ship->Unknown_24();\n\t\tfloat radius = target->Unknown_30();\n\t\tfloat distance; distance = CameraManagerClass::Unknown_79B6B0();\n\t\tif (!(delta.Length2() < radius * radius + distance * distance)) return;\n"
+  ],
+  [
+   17,
+   24,
+   "\t} else {\n"
+  ],
+  [
+   35,
+   35,
+   "\n"
+  ],
+  [
+   12,
+   13,
+   "\tif (target) {\n\t\tVector3 target_pos = target->Unknown_24();\n\t\tVector3 delta = target_pos - ship->Unknown_24();\n\t\tfloat radius; radius = target->Unknown_30();\n\t\tfloat distance = CameraManagerClass::Unknown_79B6B0();\n\t\tif (!(delta.Length2() < radius * radius + distance * distance)) return;\n"
+  ],
+  [
+   12,
+   13,
+   "\tif (target) {\n\t\tVector3 target_pos = target->Unknown_24();\n\t\tVector3 delta; delta = target_pos - ship->Unknown_24();\n\t\tfloat radius = target->Unknown_30();\n\t\tfloat distance = CameraManagerClass::Unknown_79B6B0();\n\t\tif (!(delta.Length2() < radius * radius + distance * distance)) return;\n"
+  ],
+  [
+   12,
+   13,
+   "\tif (target) {\n\t\tVector3 target_pos; target_pos = target->Unknown_24();\n\t\tVector3 delta = target_pos - ship->Unknown_24();\n\t\tfloat radius = target->Unknown_30();\n\t\tfloat distance = CameraManagerClass::Unknown_79B6B0();\n\t\tif (!(delta.Length2() < radius * radius + distance * distance)) return;\n"
+  ],
+  [
+   12,
+   17,
+   "\tif (target) {\n\t\tVector3 target_pos = target->Unknown_24();\n\t\tVector3 delta = target_pos - ship->Unknown_24();\n\t\tfloat radius; radius = target->Unknown_30();\n\t\tfloat distance; distance = CameraManagerClass::Unknown_79B6B0();\n\t\tif (!(delta.Length2() < radius * radius + distance * distance)) {\n\t\t\treturn;\n\t\t}\n\t}\n\tif (!ship) {\n\t\tUnknown1C = 3;\n"
+  ],
+  [
+   12,
+   17,
+   "\tif (target) {\n\t\tVector3 target_pos = target->Unknown_24();\n\t\tVector3 delta; delta = target_pos - ship->Unknown_24();\n\t\tfloat radius = target->Unknown_30();\n\t\tfloat distance; distance = CameraManagerClass::Unknown_79B6B0();\n\t\tif (!(delta.Length2() < radius * radius + distance * distance)) {\n\t\t\treturn;\n\t\t}\n\t}\n\tif (!ship) {\n\t\tUnknown1C = 3;\n"
+  ],
+  [
+   12,
+   17,
+   "\tif (target) {\n\t\tVector3 target_pos = target->Unknown_24();\n\t\tVector3 delta; delta = target_pos - ship->Unknown_24();\n\t\tfloat radius; radius = target->Unknown_30();\n\t\tfloat distance = CameraManagerClass::Unknown_79B6B0();\n\t\tif (!(delta.Length2() < radius * radius + distance * distance)) {\n\t\t\treturn;\n\t\t}\n\t}\n\tif (!ship) {\n\t\tUnknown1C = 3;\n"
+  ],
+  [
+   12,
+   17,
+   "\tif (target) {\n\t\tVector3 target_pos; target_pos = target->Unknown_24();\n\t\tVector3 delta = target_pos - ship->Unknown_24();\n\t\tfloat radius = target->Unknown_30();\n\t\tfloat distance; distance = CameraManagerClass::Unknown_79B6B0();\n\t\tif (!(delta.Length2() < radius * radius + distance * distance)) {\n\t\t\treturn;\n\t\t}\n\t}\n\tif (!ship) {\n\t\tUnknown1C = 3;\n"
+  ],
+  [
+   12,
+   17,
+   "\tif (target) {\n\t\tVector3 target_pos; target_pos = target->Unknown_24();\n\t\tVector3 delta = target_pos - ship->Unknown_24();\n\t\tfloat radius; radius = target->Unknown_30();\n\t\tfloat distance = CameraManagerClass::Unknown_79B6B0();\n\t\tif (!(delta.Length2() < radius * radius + distance * distance)) {\n\t\t\treturn;\n\t\t}\n\t}\n\tif (!ship) {\n\t\tUnknown1C = 3;\n"
+  ],
+  [
+   12,
+   17,
+   "\tif (target) {\n\t\tVector3 target_pos; target_pos = target->Unknown_24();\n\t\tVector3 delta; delta = target_pos - ship->Unknown_24();\n\t\tfloat radius = target->Unknown_30();\n\t\tfloat distance = CameraManagerClass::Unknown_79B6B0();\n\t\tif (!(delta.Length2() < radius * radius + distance * distance)) {\n\t\t\treturn;\n\t\t}\n\t}\n\tif (!ship) {\n\t\tUnknown1C = 3;\n"
+  ],
+  [
+   12,
+   20,
+   "\tif (target) {\n\t\tconst Vector3 &target_pos = target->Unknown_24();\n"
+  ],
+  [
+   21,
+   23,
+   "\t\tfloat radius; radius = target->Unknown_30();\n\t\tfloat distance; distance = CameraManagerClass::Unknown_79B6B0();\n"
+  ],
+  [
+   20,
+   22,
+   "\t\tVector3 delta; delta = target_pos - ship->Unknown_24();\n\t\tfloat radius; radius = target->Unknown_30();\n"
+  ],
+  [
+   19,
+   21,
+   "\t\tVector3 target_pos; target_pos = target->Unknown_24();\n\t\tVector3 delta; delta = target_pos - ship->Unknown_24();\n"
+  ],
+  [
+   19,
+   20,
+   "\t\tconst Vector3 &target_pos = target->Unknown_24();\n"
+  ],
+  [
+   12,
+   17,
+   "\tif (!target) { if (!ship) { Unknown1C = 3; return; } }\n\tif (target) {\n\t\tVector3 target_pos = target->Unknown_24();\n\t\tVector3 delta = target_pos - ship->Unknown_24();\n\t\tfloat radius; radius = target->Unknown_30();\n\t\tfloat distance; distance = CameraManagerClass::Unknown_79B6B0();\n\t\tif (!(delta.Length2() < radius * radius + distance * distance)) {\n\t\t\treturn;\n\t\t}\n\t}\n\tif (!ship) {\n\t\tUnknown1C = 3;\n"
+  ],
+  [
+   12,
+   17,
+   "\tif (!target) { if (!ship) { Unknown1C = 3; return; } }\n\tif (target) {\n\t\tVector3 target_pos = target->Unknown_24();\n\t\tVector3 delta; delta = target_pos - ship->Unknown_24();\n\t\tfloat radius = target->Unknown_30();\n\t\tfloat distance; distance = CameraManagerClass::Unknown_79B6B0();\n\t\tif (!(delta.Length2() < radius * radius + distance * distance)) {\n\t\t\treturn;\n\t\t}\n\t}\n\tif (!ship) {\n\t\tUnknown1C = 3;\n"
+  ],
+  [
+   12,
+   17,
+   "\tif (!target) { if (!ship) { Unknown1C = 3; return; } }\n\tif (target) {\n\t\tVector3 target_pos = target->Unknown_24();\n\t\tVector3 delta; delta = target_pos - ship->Unknown_24();\n\t\tfloat radius; radius = target->Unknown_30();\n\t\tfloat distance = CameraManagerClass::Unknown_79B6B0();\n\t\tif (!(delta.Length2() < radius * radius + distance * distance)) {\n\t\t\treturn;\n\t\t}\n\t}\n\tif (!ship) {\n\t\tUnknown1C = 3;\n"
+  ],
+  [
+   12,
+   17,
+   "\tif (!target) { if (!ship) { Unknown1C = 3; return; } }\n\tif (target) {\n\t\tVector3 target_pos; target_pos = target->Unknown_24();\n\t\tVector3 delta = target_pos - ship->Unknown_24();\n\t\tfloat radius = target->Unknown_30();\n\t\tfloat distance; distance = CameraManagerClass::Unknown_79B6B0();\n\t\tif (!(delta.Length2() < radius * radius + distance * distance)) {\n\t\t\treturn;\n\t\t}\n\t}\n\tif (!ship) {\n\t\tUnknown1C = 3;\n"
+  ],
+  [
+   12,
+   17,
+   "\tif (!target) { if (!ship) { Unknown1C = 3; return; } }\n\tif (target) {\n\t\tVector3 target_pos; target_pos = target->Unknown_24();\n\t\tVector3 delta = target_pos - ship->Unknown_24();\n\t\tfloat radius; radius = target->Unknown_30();\n\t\tfloat distance = CameraManagerClass::Unknown_79B6B0();\n\t\tif (!(delta.Length2() < radius * radius + distance * distance)) {\n\t\t\treturn;\n\t\t}\n\t}\n\tif (!ship) {\n\t\tUnknown1C = 3;\n"
+  ],
+  [
+   12,
+   17,
+   "\tif (!target) { if (!ship) { Unknown1C = 3; return; } }\n\tif (target) {\n\t\tVector3 target_pos; target_pos = target->Unknown_24();\n\t\tVector3 delta; delta = target_pos - ship->Unknown_24();\n\t\tfloat radius = target->Unknown_30();\n\t\tfloat distance = CameraManagerClass::Unknown_79B6B0();\n\t\tif (!(delta.Length2() < radius * radius + distance * distance)) {\n\t\t\treturn;\n\t\t}\n\t}\n\tif (!ship) {\n\t\tUnknown1C = 3;\n"
+  ],
+  [
+   12,
+   20,
+   "\tif (!target) { if (!ship) { Unknown1C = 3; return; } }\n\tif (target) {\n\t\tconst Vector3 &target_pos = target->Unknown_24();\n"
+  ],
+  [
+   4,
+   7,
+   "\tif (Unknown1C != 3) {\n\t\tif (Unknown1C == 2) { if (Client->Unknown10BC > Unknown14) Unknown1C = 3; }\n\t\telse {\n\t\t\tif (Client->Unknown10BC - Unknown10 > 15000) { Unknown1C = 3; return; }\n\tClientObjectClass *target = Client->Find_Object(Client->Unknown13B4);\n\tClientObjectClass *ship = Client->Get_Avatar();\n\tif (!target && !ship) { Unknown1C = 3; return; }\n\tif (target) {\n\t\tVector3 target_pos = target->Unknown_24();\n\t\tVector3 delta = target_pos - ship->Unknown_24();\n\t\tfloat radius; radius = target->Unknown_30();\n\t\tfloat distance; distance = CameraManagerClass::Unknown_79B6B0();\n\t\tif (!(delta.Length2() < radius * radius + distance * distance)) {\n\t\t\treturn;\n\t\t}\n\t}\n\tif (!ship) {\n\t\tUnknown1C = 3;\n"
+  ],
+  [
+   4,
+   7,
+   "\tif (Unknown1C != 3) {\n\t\tif (Unknown1C == 2) { if (Client->Unknown10BC > Unknown14) Unknown1C = 3; }\n\t\telse {\n\t\t\tif (Client->Unknown10BC - Unknown10 > 15000) { Unknown1C = 3; return; }\n\tClientObjectClass *target = Client->Find_Object(Client->Unknown13B4);\n\tClientObjectClass *ship = Client->Get_Avatar();\n\tif (!target && !ship) { Unknown1C = 3; return; }\n\tif (target) {\n\t\tVector3 target_pos = target->Unknown_24();\n\t\tVector3 delta; delta = target_pos - ship->Unknown_24();\n\t\tfloat radius = target->Unknown_30();\n\t\tfloat distance; distance = CameraManagerClass::Unknown_79B6B0();\n\t\tif (!(delta.Length2() < radius * radius + distance * distance)) {\n\t\t\treturn;\n\t\t}\n\t}\n\tif (!ship) {\n\t\tUnknown1C = 3;\n"
+  ],
+  [
+   4,
+   7,
+   "\tif (Unknown1C != 3) {\n\t\tif (Unknown1C == 2) { if (Client->Unknown10BC > Unknown14) Unknown1C = 3; }\n\t\telse {\n\t\t\tif (Client->Unknown10BC - Unknown10 > 15000) { Unknown1C = 3; return; }\n\tClientObjectClass *target = Client->Find_Object(Client->Unknown13B4);\n\tClientObjectClass *ship = Client->Get_Avatar();\n\tif (!target && !ship) { Unknown1C = 3; return; }\n\tif (target) {\n\t\tVector3 target_pos = target->Unknown_24();\n\t\tVector3 delta; delta = target_pos - ship->Unknown_24();\n\t\tfloat radius; radius = target->Unknown_30();\n\t\tfloat distance = CameraManagerClass::Unknown_79B6B0();\n\t\tif (!(delta.Length2() < radius * radius + distance * distance)) {\n\t\t\treturn;\n\t\t}\n\t}\n\tif (!ship) {\n\t\tUnknown1C = 3;\n"
+  ],
+  [
+   4,
+   7,
+   "\tif (Unknown1C != 3) {\n\t\tif (Unknown1C == 2) { if (Client->Unknown10BC > Unknown14) Unknown1C = 3; }\n\t\telse {\n\t\t\tif (Client->Unknown10BC - Unknown10 > 15000) { Unknown1C = 3; return; }\n\tClientObjectClass *target = Client->Find_Object(Client->Unknown13B4);\n\tClientObjectClass *ship = Client->Get_Avatar();\n\tif (!target && !ship) { Unknown1C = 3; return; }\n\tif (target) {\n\t\tVector3 target_pos; target_pos = target->Unknown_24();\n\t\tVector3 delta = target_pos - ship->Unknown_24();\n\t\tfloat radius = target->Unknown_30();\n\t\tfloat distance; distance = CameraManagerClass::Unknown_79B6B0();\n\t\tif (!(delta.Length2() < radius * radius + distance * distance)) {\n\t\t\treturn;\n\t\t}\n\t}\n\tif (!ship) {\n\t\tUnknown1C = 3;\n"
+  ],
+  [
+   4,
+   7,
+   "\tif (Unknown1C != 3) {\n\t\tif (Unknown1C == 2) { if (Client->Unknown10BC > Unknown14) Unknown1C = 3; }\n\t\telse {\n\t\t\tif (Client->Unknown10BC - Unknown10 > 15000) { Unknown1C = 3; return; }\n\tClientObjectClass *target = Client->Find_Object(Client->Unknown13B4);\n\tClientObjectClass *ship = Client->Get_Avatar();\n\tif (!target && !ship) { Unknown1C = 3; return; }\n\tif (target) {\n\t\tVector3 target_pos; target_pos = target->Unknown_24();\n\t\tVector3 delta = target_pos - ship->Unknown_24();\n\t\tfloat radius; radius = target->Unknown_30();\n\t\tfloat distance = CameraManagerClass::Unknown_79B6B0();\n\t\tif (!(delta.Length2() < radius * radius + distance * distance)) {\n\t\t\treturn;\n\t\t}\n\t}\n\tif (!ship) {\n\t\tUnknown1C = 3;\n"
+  ]
+ ],
+ "variants": [
+  {
+   "name": "baseline",
+   "include": false,
+   "sha256": "aeda6a4e86ee996fb4a474673143db54329eff96872085aec9c783a995f60cec",
+   "hunks": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ]
+  },
+  {
+   "name": "seed_control",
+   "include": false,
+   "sha256": "b7083f17277f473617b03750b4e52b791bc25467d99319f5b2c63222052c40ff",
+   "hunks": []
+  },
+  {
+   "name": "v05",
+   "include": false,
+   "sha256": "e93b2f9471a18778275fc5dc5f3df70a5930feb6d7271dbb09291f3523313782",
+   "hunks": [
+    0,
+    1,
+    2,
+    5,
+    4
+   ]
+  },
+  {
+   "name": "v06",
+   "include": false,
+   "sha256": "e5f19e91e64973c5ba1c84266adfd5b132aa2c57c5e69e1dddf7ec91698fb7c3",
+   "hunks": [
+    0,
+    1,
+    6,
+    7
+   ]
+  },
+  {
+   "name": "v07",
+   "include": false,
+   "sha256": "01ccebf02850a25a1da2a1afdab94868de69268e1dd1a78895484674e03e2251",
+   "hunks": [
+    0,
+    1,
+    8,
+    7
+   ]
+  },
+  {
+   "name": "v08",
+   "include": false,
+   "sha256": "53278b8ac0fa3ee976ca86fd2033b2c4d38863a95562311f71332e1d6d00e626",
+   "hunks": [
+    0,
+    1,
+    9,
+    3,
+    4
+   ]
+  },
+  {
+   "name": "v09",
+   "include": false,
+   "sha256": "0d45ecdb3e21aabe140cb3eb3323278cf128446f2379a6bbd1f60c26a3c33479",
+   "hunks": [
+    10
+   ]
+  },
+  {
+   "name": "v10",
+   "include": false,
+   "sha256": "6c9d34617b12b15f8db1fb289470f525366dd129221c2649d4afea42f1113b7d",
+   "hunks": [
+    11
+   ]
+  },
+  {
+   "name": "v11",
+   "include": false,
+   "sha256": "851bec77865ca1ff68a046ee4885758e5a841f9f8070f26ec01afe67e8a1f5c2",
+   "hunks": [
+    12
+   ]
+  },
+  {
+   "name": "v12",
+   "include": false,
+   "sha256": "76193cf3af85f81bfdb75f2ea38356f7fa98142711ba65d0bfdc7d68db4a4f6f",
+   "hunks": [
+    13
+   ]
+  },
+  {
+   "name": "v13",
+   "include": false,
+   "sha256": "e3aae3706303725e59555e81061ac9f51906e70d9129afc89271e0ce647dfa5e",
+   "hunks": [
+    14,
+    15,
+    16,
+    5,
+    17
+   ]
+  },
+  {
+   "name": "v14",
+   "include": false,
+   "sha256": "6750f971f6dea5f7eb4b2fac4671094dfc5d3801d0287ecc5bec242731173561",
+   "hunks": [
+    14,
+    15,
+    18,
+    19
+   ]
+  },
+  {
+   "name": "v15",
+   "include": false,
+   "sha256": "090865fd27b1a45b83f81d7bac6bc8c954946a7cc0b820250ecff292cc035e19",
+   "hunks": [
+    14,
+    15,
+    20,
+    19
+   ]
+  },
+  {
+   "name": "v16",
+   "include": false,
+   "sha256": "93cde2fc2d5f9774ef4ca013d6a2540a0fd257847a4bc396b19d7fcdae571280",
+   "hunks": [
+    14,
+    15,
+    21,
+    3,
+    17
+   ]
+  },
+  {
+   "name": "v17",
+   "include": false,
+   "sha256": "06d83bd5cf8cd7bc46749bfff58ecf7403dfa4a9bf265dec70ef9ba35ab17e14",
+   "hunks": [
+    22,
+    23,
+    24
+   ]
+  },
+  {
+   "name": "v18",
+   "include": false,
+   "sha256": "2057055457be3ab5874c14dcf15e44f52c55e25e57ae95782d34fa62d9e58c27",
+   "hunks": [
+    25,
+    26
+   ]
+  },
+  {
+   "name": "v19",
+   "include": false,
+   "sha256": "6716bb49b208058b8753faaacbd9eab72d3a3d51f17d0e977b567a357fded91e",
+   "hunks": [
+    27,
+    26
+   ]
+  },
+  {
+   "name": "v20",
+   "include": false,
+   "sha256": "95c3798cd4d67cb073194a60ec74286d3ba09de37989b3d7b6337fae2a69f6dc",
+   "hunks": [
+    22,
+    28,
+    29
+   ]
+  },
+  {
+   "name": "v21",
+   "include": false,
+   "sha256": "261c59ede0f14b22545717fbea7abdf7406f52222136f33148e1d8b63e3c17e5",
+   "hunks": [
+    30,
+    23,
+    5,
+    31
+   ]
+  },
+  {
+   "name": "v22",
+   "include": false,
+   "sha256": "46b86d38eada0958f6d4671c656c9c5192188c2bc0251e5737266e3e3bba22d0",
+   "hunks": [
+    30,
+    32,
+    33
+   ]
+  },
+  {
+   "name": "v23",
+   "include": false,
+   "sha256": "8f53e9f8c45690566ddd2098f166c67af927cfa24ea7591cc04730a3c9b2e780",
+   "hunks": [
+    30,
+    34,
+    33
+   ]
+  },
+  {
+   "name": "v24",
+   "include": false,
+   "sha256": "542046efbf92fb8b8fd296882902ac1138ce0e79d746ddd82d19f3271d26dbcf",
+   "hunks": [
+    30,
+    28,
+    3,
+    31
+   ]
+  },
+  {
+   "name": "v25",
+   "include": false,
+   "sha256": "0afcdb5b87881a370ae0544508b0fb23b58583c9c8b2c530d1fb0c8ad0ca11fa",
+   "hunks": [
+    35,
+    36,
+    37
+   ]
+  },
+  {
+   "name": "v26",
+   "include": false,
+   "sha256": "c0f5c140206110e08cdf42fbc8dd7dd2689af6fad3cf82cd8c2ee9d5e81d2333",
+   "hunks": [
+    38,
+    36,
+    37
+   ]
+  },
+  {
+   "name": "v27",
+   "include": false,
+   "sha256": "e8e9ecac09dd54e44392bb7e5c5b5b4553f21307ac30f9ebab29665217eee896",
+   "hunks": [
+    39,
+    36,
+    37
+   ]
+  },
+  {
+   "name": "v28",
+   "include": false,
+   "sha256": "c62d4db5cbdb3b7b9662e8abe2044137ac47a27929a65b64f141ad5d76000a86",
+   "hunks": [
+    40,
+    36,
+    37
+   ]
+  },
+  {
+   "name": "v29",
+   "include": false,
+   "sha256": "b911c4f78e639076e2d2d0c731311ca4447293d50a117f2aa97a83fab89b4652",
+   "hunks": [
+    0,
+    1,
+    41,
+    7
+   ]
+  },
+  {
+   "name": "v30",
+   "include": false,
+   "sha256": "058790257c5070379beb97f0d106649974b8b5d242ce4adb093ecaa615259f0f",
+   "hunks": [
+    0,
+    1,
+    42,
+    7
+   ]
+  },
+  {
+   "name": "v31",
+   "include": false,
+   "sha256": "f9b4822771d081439f8edc6bf56875b193890b27657aefc9b4e26a10d2ad95c9",
+   "hunks": [
+    0,
+    1,
+    43,
+    7
+   ]
+  },
+  {
+   "name": "v32",
+   "include": false,
+   "sha256": "a25e5899fb388d46415d0487d5d1e616e6d9f437fc00c841b5bd1e99eaf7fb92",
+   "hunks": [
+    0,
+    1,
+    44,
+    7
+   ]
+  },
+  {
+   "name": "v33",
+   "include": false,
+   "sha256": "8d71ecbe5054027fc3fbe487676d8f9359b528f0236f478e4efa014c58cadbbc",
+   "hunks": [
+    0,
+    1,
+    45,
+    7
+   ]
+  },
+  {
+   "name": "v34",
+   "include": false,
+   "sha256": "9024b8ec4e1f0a89f0dd3175ba29cb8efb19e5445441d0395ea9fc41c4d7c973",
+   "hunks": [
+    0,
+    1,
+    46,
+    7
+   ]
+  },
+  {
+   "name": "v35",
+   "include": false,
+   "sha256": "de1277a57d5e98305bf087cfa2f44c492232313ecbdb992e8f29403e041375e3",
+   "hunks": [
+    0,
+    1,
+    47,
+    3,
+    4
+   ]
+  },
+  {
+   "name": "v36",
+   "include": false,
+   "sha256": "4c3a35cfa5c5d6b465a2ad5a3a0cc2e10bfaa5ca112c15f8fdfc3dcde4eaebfa",
+   "hunks": [
+    48
+   ]
+  },
+  {
+   "name": "v37",
+   "include": false,
+   "sha256": "348b32a10f8b09a9155463614e522fb9256bc0ef28ade5a6b9993ef4b41246d1",
+   "hunks": [
+    12,
+    10
+   ]
+  },
+  {
+   "name": "v38",
+   "include": false,
+   "sha256": "efe07f1ca48c9e663a7b0352467634dd4628018b39b9fcf924af466bf8c7b304",
+   "hunks": [
+    49
+   ]
+  },
+  {
+   "name": "v39",
+   "include": false,
+   "sha256": "04f3deb9dd8c7ab5b07729b562f02c7e81d7a2fb6c472e7b8d013a7ef7c94619",
+   "hunks": [
+    13,
+    10
+   ]
+  },
+  {
+   "name": "v40",
+   "include": false,
+   "sha256": "94d0ea72e167d1b87ab96f7d973ee14a75c205ef98114799e798626a7dc31a36",
+   "hunks": [
+    13,
+    11
+   ]
+  },
+  {
+   "name": "v41",
+   "include": false,
+   "sha256": "5923dd4fe0877cd3a61c1834a30d6702b849efff65c607237fc5db2d4e2fd33a",
+   "hunks": [
+    50
+   ]
+  },
+  {
+   "name": "v42",
+   "include": false,
+   "sha256": "4f621b7307ac3f7fa4056322383d9fdebb010def08d2b6323399db0bb194e559",
+   "hunks": [
+    51
+   ]
+  },
+  {
+   "name": "v43",
+   "include": false,
+   "sha256": "6b94331212115b14408838c9fe6c22ba21a042e2e99f4d27cd8d60de392f5237",
+   "hunks": [
+    14,
+    15,
+    52,
+    19
+   ]
+  },
+  {
+   "name": "v44",
+   "include": false,
+   "sha256": "d7b23799399fdcc58389a1d8ffb3f766b988aebfdfb0b4304c00719491406d6c",
+   "hunks": [
+    14,
+    15,
+    53,
+    19
+   ]
+  },
+  {
+   "name": "v45",
+   "include": false,
+   "sha256": "b433a4e6766f02ee6bd6c75755f738aab4f1677bc2ccc41d384bf34cd4977c04",
+   "hunks": [
+    14,
+    15,
+    54,
+    19
+   ]
+  },
+  {
+   "name": "v46",
+   "include": false,
+   "sha256": "b43d868acf8583e0f1a67b560b5563379b39fed222b094e7956fd22ce995607a",
+   "hunks": [
+    14,
+    15,
+    55,
+    19
+   ]
+  },
+  {
+   "name": "v47",
+   "include": false,
+   "sha256": "28b7401ca9eb3ee375248a7634e1c5ed49d9d7a923ddd35b2dc489289b01828a",
+   "hunks": [
+    14,
+    15,
+    56,
+    19
+   ]
+  },
+  {
+   "name": "v48",
+   "include": false,
+   "sha256": "53f855ef94e01ac0c36d6b8cf6d2c1fb36de838febc9f5aa0864f49a59a5fbb4",
+   "hunks": [
+    14,
+    15,
+    57,
+    19
+   ]
+  },
+  {
+   "name": "v49",
+   "include": false,
+   "sha256": "f3306908facfe16b23f00d3cc00047a30aaae9e2f85974f58c9d9344f57829ae",
+   "hunks": [
+    14,
+    15,
+    58,
+    3,
+    17
+   ]
+  },
+  {
+   "name": "v50",
+   "include": false,
+   "sha256": "5e9a7a86f03f4f64b21f5227456d5b0392ef95d11bb49cc3a43c9a2dbfb73ec9",
+   "hunks": [
+    59,
+    26
+   ]
+  },
+  {
+   "name": "replacement_v47",
+   "include": false,
+   "sha256": "9b21d9591844f62c1f9b55e5fdf20f9773cb82bdf371db6739085bdfbcfaaa4e",
+   "hunks": [
+    60,
+    26
+   ]
+  },
+  {
+   "name": "replacement_v48",
+   "include": false,
+   "sha256": "a77cc9a6d8ef5a627cfaba6d286f3dd8529a4644c94fc0dd7fe24594f3c0e5e4",
+   "hunks": [
+    61,
+    26
+   ]
+  },
+  {
+   "name": "replacement_v49",
+   "include": false,
+   "sha256": "eeebca97919972d691d0318c01c8f6a1ae5588438431f48dffd6f78752b76061",
+   "hunks": [
+    62,
+    26
+   ]
+  },
+  {
+   "name": "replacement_v50",
+   "include": false,
+   "sha256": "547571b11d13201db3cc038516553a2a8f1943e595786b0bcf16ff3f4739649e",
+   "hunks": [
+    63,
+    26
+   ]
+  }
+ ]
+}''')
+root, out = map(Path, sys.argv[1:3])
+s = (root / d["unit"]).read_text()
+assert hashlib.sha256(s.encode()).hexdigest() == d["baseline_sha256"], "wrong baseline source"
+a, b = s.index(d["start"]), s.index(d["end"])
+variants=[]
+for row in d["variants"]:
+ lines=d["seed_lines"][:]
+ for i,j,replacement in reversed([d["hunks"][x] for x in row["hunks"]]): lines[i:j]=replacement.splitlines(keepends=True)
+ text=s[:a]+"".join(lines)+s[b:]
+ if row["include"]: text=text.replace('#include "camera.h"', '#include "aabox.h"', 1)
+ assert hashlib.sha256(text.encode()).hexdigest() == row["sha256"], row["name"]
+ p=out/row["name"]/Path(d["unit"]).name
+ p.parent.mkdir(parents=True,exist_ok=True); p.write_text(text)
+ variants.append({"name":row["name"],"source":str(p.resolve())})
+out.mkdir(parents=True,exist_ok=True)
+(out/"packet.json").write_text(json.dumps({"unit":d["unit"],"target":d["target"],"tree":str(root.resolve()),"variants":variants},indent=2)+"\n")

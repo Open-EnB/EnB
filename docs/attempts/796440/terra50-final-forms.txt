@@ -1,0 +1,687 @@
+# Standalone source-form replay, base application revision aa57c927.
+# Run: python3 terra50-final-forms.txt /path/to/clone /path/to/output
+# Seed lines and indexed replacement hunks below preserve exact selected forms.
+import hashlib, json, sys
+from pathlib import Path
+d = json.loads(r'''{
+ "unit": "app/client/camctrl_takeoff.cpp",
+ "target": "0x796440",
+ "baseline_sha256": "b4a80f59ba320954ed5e074dd77ada745a53a4c22d734b09cb1bdc73d5a6e062",
+ "start": "// @0x796440\n",
+ "end": "// @0x796850\n",
+ "seed_lines": [
+  "// @0x796440\n",
+  "// NOT EXACT: shape: the same callees, 16 calls in ours and 17 in the client; functional\n",
+  "void CameraController09Class::Unknown_08(Vector3 *pos, Quaternion *rot, int *mode, int *target)\n",
+  "{\n",
+  "\tClientObjectClass *ship = Client->Get_Avatar();\n",
+  "\tfloat distance = CameraManagerClass::Unknown_79B6B0();\n",
+  "\tFAIL_IF(!ship) {\n",
+  "\t\treturn;\n",
+  "\t}\n",
+  "\tUnknown0C->Unknown_08(pos, rot);\n",
+  "\tunsigned int elapsed = Client->Unknown10BC - Unknown10;\n",
+  "\tif (elapsed < 2000) {\n",
+  "\t\tfloat t = (float)elapsed * 0.0005f;\n",
+  "\t\tQuaternion q;\n",
+  "\t\tSlerp(q, Unknown3C, Unknown4C, t * t);\n",
+  "\t\tMatrix3D tm = Build_Matrix3D(q);\n",
+  "\t\tVector3 p = Lerp(Unknown24, Unknown30, t);\n",
+  "\t\ttm.Set_Translation(p);\n",
+  "\t\tif (ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {\n",
+  "\t\t\t((Unknown718D70Class *)ship->PositionalState)->Unknown_30(Client->Unknown10BC, tm);\n",
+  "\t\t\t*mode = 2;\n",
+  "\t\t\treturn;\n",
+  "\t\t}\n",
+  "\t} else if (elapsed < 5000) { Matrix3D tm;\n",
+  "\t\tif (!Unknown5C) {\n",
+  "\t\t\tUnknown5C = true;\n",
+  "\t\t\t\n",
+  "\t\t\ttm.Obj_Look_At(Unknown30, Unknown18, 0.0f);\n",
+  "\t\t\tfloat angle = (Unknown_BDB1C0.Get_Float() - 0.5f) * 30.0f; angle *= (WWMATH_PI / 180.0f);\n",
+  "\t\t\tswitch (Unknown_BDB1C0(0, 1)) { case 1:\n",
+  "\t\t\t\tangle = WWMATH_PI - angle;\n",
+  "\t\t\t}\n",
+  "\t\t\tfloat dist = (Unknown_BDB1C0.Get_Float() * 7.0f + 10.0f) * distance;\n",
+  "\t\t\tfloat s = WWMath::Sin(angle);\n",
+  "\t\t\tfloat c = WWMath::Cos(angle); c *= 1.5f; c *= distance; s *= 1.5f; s *= distance;\n",
+  "\t\t\tVector3 offset(dist, c, s); Unknown0C->Position = tm * offset;\n",
+  "\t\t\tUnknown0C->Unknown_04();\n",
+  "\t\t}\n",
+  "\t\tfloat t = (float)(elapsed - 2000) * 0.00033333333f;\n",
+  "\t\ttm = Build_Matrix3D(Unknown4C);\n",
+  "\t\tVector3 p; Lerp(Unknown30, Unknown18, t, &p);\n",
+  "\t\ttm.Set_Translation(p);\n",
+  "\t\tif (ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {\n",
+  "\t\t\t((Unknown718D70Class *)ship->PositionalState)->Unknown_30(Client->Unknown10BC, tm);\n",
+  "\t\t\t*mode = 2;\n",
+  "\t\t\treturn;\n",
+  "\t\t}\n",
+  "\t} else {\n",
+  "\t\tClient->CameraManager->Unknown_79B2B0(0x12);\n",
+  "\t}\n",
+  "\t*mode = 2;\n",
+  "}\n",
+  "\n",
+  "\n",
+  "\n",
+  "\n",
+  "\n",
+  "\n",
+  "\n",
+  "\n",
+  "\n",
+  "\n",
+  "\n",
+  "\n",
+  "\n",
+  "\n",
+  "\n"
+ ],
+ "hunks": [
+  [
+   16,
+   17,
+   "\t\tVector3 p = (Unknown30 - Unknown24) * t + Unknown24;\n"
+  ],
+  [
+   18,
+   19,
+   "\t\tif (ship->PositionalState && ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {\n"
+  ],
+  [
+   23,
+   24,
+   "\t} else if (elapsed < 5000) {\n"
+  ],
+  [
+   26,
+   30,
+   "\t\t\tMatrix3D lookat;\n\t\t\tlookat.Obj_Look_At(Unknown30, Unknown18, 0.0f);\n\t\t\tfloat angle = (Unknown_BDB1C0.Get_Float() - 0.5f) * 30.0f * (WWMATH_PI / 180.0f);\n\t\t\tif (Unknown_BDB1C0(0, 1) == 1) {\n"
+  ],
+  [
+   33,
+   36,
+   "\t\t\tfloat s = sin(angle);\n\t\t\tfloat c = cos(angle);\n\t\t\tUnknown0C->Position = lookat * Vector3(dist, c * 1.5f * distance, s * 1.5f * distance);\n"
+  ],
+  [
+   39,
+   41,
+   "\t\tMatrix3D tm = Build_Matrix3D(Unknown4C);\n\t\tVector3 p = (Unknown18 - Unknown30) * t + Unknown30;\n"
+  ],
+  [
+   42,
+   43,
+   "\t\tif (ship->PositionalState && ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {\n"
+  ],
+  [
+   24,
+   25,
+   "\t\tif (Unknown5C == false) {\n"
+  ],
+  [
+   28,
+   29,
+   "\t\t\t{ float angle = (Unknown_BDB1C0.Get_Float() - 0.5f) * 30.0f; angle *= (WWMATH_PI / 180.0f);\n"
+  ],
+  [
+   36,
+   37,
+   "\t\t\tUnknown0C->Unknown_04(); }\n"
+  ],
+  [
+   29,
+   30,
+   "\t\t\tif (Unknown_BDB1C0(0, 1) == 1) {\n"
+  ],
+  [
+   15,
+   16,
+   "\t\tMatrix3D tm; tm = Build_Matrix3D(q);\n"
+  ],
+  [
+   16,
+   17,
+   "\t\tVector3 p; Lerp(Unknown24, Unknown30, t, &p);\n"
+  ],
+  [
+   28,
+   30,
+   "\t\t\t{ float angle = (Unknown_BDB1C0.Get_Float() - 0.5f) * 30.0f; angle *= (WWMATH_PI / 180.0f);\n\t\t\tif (Unknown_BDB1C0(0, 1) == 1) {\n"
+  ],
+  [
+   39,
+   40,
+   "\t\tconst Matrix3D &rotation = Build_Matrix3D(Unknown4C); tm = rotation;\n"
+  ],
+  [
+   40,
+   41,
+   "\t\tVector3 p = Lerp(Unknown30, Unknown18, t);\n"
+  ],
+  [
+   39,
+   41,
+   "\t\tconst Matrix3D &rotation = Build_Matrix3D(Unknown4C); tm = rotation;\n\t\tVector3 p = Lerp(Unknown30, Unknown18, t);\n"
+  ],
+  [
+   15,
+   17,
+   "\t\tMatrix3D tm; tm = Build_Matrix3D(q);\n\t\tVector3 p; Lerp(Unknown24, Unknown30, t, &p);\n"
+  ]
+ ],
+ "variants": [
+  {
+   "name": "baseline",
+   "include": false,
+   "sha256": "b4a80f59ba320954ed5e074dd77ada745a53a4c22d734b09cb1bdc73d5a6e062",
+   "hunks": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ]
+  },
+  {
+   "name": "seed_control",
+   "include": false,
+   "sha256": "93bd288579d994aa9ce5a34f480dd36d768252f3710beb9968b327d5dfe44036",
+   "hunks": []
+  },
+  {
+   "name": "v01",
+   "include": false,
+   "sha256": "f74218e565061d08d6498343ca5475a5e520b736113e8b1c8a69fd7935d0b2f9",
+   "hunks": [
+    7
+   ]
+  },
+  {
+   "name": "v02",
+   "include": false,
+   "sha256": "2a70a9a3201c6e98a5d935fb0a5a6dae4bf1b609ff8e92117dcd1193867621fe",
+   "hunks": [
+    8,
+    9
+   ]
+  },
+  {
+   "name": "v03",
+   "include": false,
+   "sha256": "edd6d56f7b44c9416635e04904bfe642960581157cf4361a5ac769fd0e911959",
+   "hunks": [
+    10
+   ]
+  },
+  {
+   "name": "v04",
+   "include": false,
+   "sha256": "e050372e43cb50d0f1242ff1da6f4682fbfa8ef8ea9d70bb1cc2a1fe2fcea467",
+   "hunks": [
+    11
+   ]
+  },
+  {
+   "name": "v06",
+   "include": false,
+   "sha256": "96abca00619946143e59d0c19a8d100656edb38d6689363f62bfb2bd9455a8d6",
+   "hunks": [
+    12
+   ]
+  },
+  {
+   "name": "v07",
+   "include": false,
+   "sha256": "8f0ea42c89761e1cfa4c8af34fedc665fb107d02f4ff1c0855751ae6448c8cc7",
+   "hunks": [
+    7,
+    8,
+    9
+   ]
+  },
+  {
+   "name": "v08",
+   "include": false,
+   "sha256": "91f913785dd7ff48bceaf18a08772196decdea45848cf688840ed62dead565d5",
+   "hunks": [
+    7,
+    10
+   ]
+  },
+  {
+   "name": "v09",
+   "include": false,
+   "sha256": "f1de6f4bb6d521a590b7eb6f6f242097c2c5e3383887cb7af44d4d165dc69e6a",
+   "hunks": [
+    13,
+    9
+   ]
+  },
+  {
+   "name": "v10",
+   "include": false,
+   "sha256": "9ca75326403096852c71cc68ba79b6e2a48e8893d0925201c695edc1ee445282",
+   "hunks": [
+    7,
+    14
+   ]
+  },
+  {
+   "name": "v11",
+   "include": false,
+   "sha256": "36f5652e688b468b67fa45d2e2b8d00a1c825ad007f29c4453b25e93d8037cc2",
+   "hunks": [
+    8,
+    9,
+    14
+   ]
+  },
+  {
+   "name": "v12",
+   "include": false,
+   "sha256": "742c7de352b7c826c9e12dd598a400bab22dee23c9ed5054d8abc0161e80b5ef",
+   "hunks": [
+    10,
+    14
+   ]
+  },
+  {
+   "name": "v13",
+   "include": false,
+   "sha256": "8b222a2368dd1318bb08100514c720ba05aacaec1a541f2064eab73ac810da67",
+   "hunks": [
+    11,
+    7
+   ]
+  },
+  {
+   "name": "v14",
+   "include": false,
+   "sha256": "f702e2879e06066735f9c70972422a4b232f5f798b4e68aabecfe4f121f6fd74",
+   "hunks": [
+    11,
+    8,
+    9
+   ]
+  },
+  {
+   "name": "v15",
+   "include": false,
+   "sha256": "3d8793cc793c66ee8467e222c39b3aa67176e68a89527422de74244702698865",
+   "hunks": [
+    11,
+    10
+   ]
+  },
+  {
+   "name": "v16",
+   "include": false,
+   "sha256": "077dfa2a496695d77aa6d7de0a736e02d9fbad2783fab5a4b425e89eb3504843",
+   "hunks": [
+    11,
+    14
+   ]
+  },
+  {
+   "name": "v17",
+   "include": false,
+   "sha256": "7b8acb57a0320034e76651007e4da13eb3bd0434b9382fec6a9a7b193ecf7e62",
+   "hunks": [
+    7,
+    15
+   ]
+  },
+  {
+   "name": "v18",
+   "include": false,
+   "sha256": "2a06cf00dd40f091c7c1cfa6304c4d03aa3e5ec03de03c772ef8b7dddd82fa99",
+   "hunks": [
+    8,
+    9,
+    15
+   ]
+  },
+  {
+   "name": "v19",
+   "include": false,
+   "sha256": "46747cb88e655479333f44bfc2ef4a3d4127fafc490e353e248b862647fabe02",
+   "hunks": [
+    10,
+    15
+   ]
+  },
+  {
+   "name": "v20",
+   "include": false,
+   "sha256": "060b74ebac0d421dd1b8f3b4d7af47f14e8ec51c3e6421712908131f364b300d",
+   "hunks": [
+    16
+   ]
+  },
+  {
+   "name": "v21",
+   "include": false,
+   "sha256": "a817f6435d03eee2776a3c43c691820faabd84e40beab94da749bd19590abf35",
+   "hunks": [
+    11,
+    15
+   ]
+  },
+  {
+   "name": "v22",
+   "include": false,
+   "sha256": "5d3b7bfded70a6b5936f7f222615b964d5ba589379bd078efd525e4a5c45d2b6",
+   "hunks": [
+    12,
+    7
+   ]
+  },
+  {
+   "name": "v23",
+   "include": false,
+   "sha256": "3ea6904ae1f962aa2cc219d734247b23ec346981f24eef4eaf0fb2e4ac77188e",
+   "hunks": [
+    12,
+    8,
+    9
+   ]
+  },
+  {
+   "name": "v24",
+   "include": false,
+   "sha256": "4cef3d81d35bc437fb0228782c0f4c42babe03a21334b235f4ea02ce9f89cce3",
+   "hunks": [
+    12,
+    10
+   ]
+  },
+  {
+   "name": "v25",
+   "include": false,
+   "sha256": "ad8dd8161e61a60d794ab6bedf66d524bf39829acbb634216f72878ed556c97e",
+   "hunks": [
+    12,
+    14
+   ]
+  },
+  {
+   "name": "v26",
+   "include": false,
+   "sha256": "62cd0477c215d31f959535abb75d6aeb0d9f772f82b5194bb06a25bcd18382fd",
+   "hunks": [
+    17
+   ]
+  },
+  {
+   "name": "v27",
+   "include": false,
+   "sha256": "abec418237800043554c0d8dba2c33515416f12418be27b064ae52943299136a",
+   "hunks": [
+    12,
+    15
+   ]
+  },
+  {
+   "name": "v28",
+   "include": false,
+   "sha256": "d5fee87b6696ab1884fe28b773a4adc060eb036c143c92e4bc1a77d93c871f9b",
+   "hunks": [
+    7,
+    13,
+    9
+   ]
+  },
+  {
+   "name": "v29",
+   "include": false,
+   "sha256": "1ea9d119af201d610897e50ba3fce6b6b61601bc7890cb3a159e162036bef20b",
+   "hunks": [
+    7,
+    8,
+    9,
+    14
+   ]
+  },
+  {
+   "name": "v30",
+   "include": false,
+   "sha256": "7a7b863830af7da0ca04d5bd28d81d9b9d59844a3d22263f3d904cbf1cde9388",
+   "hunks": [
+    7,
+    10,
+    14
+   ]
+  },
+  {
+   "name": "v31",
+   "include": false,
+   "sha256": "472a79c49c29af4beec3c0f6562206b6fd6198825e3641fadb81624a5ae26c87",
+   "hunks": [
+    13,
+    9,
+    14
+   ]
+  },
+  {
+   "name": "v32",
+   "include": false,
+   "sha256": "5de65d295b2af45555554780a09a712652f2d55dccb2325829f54c5753dc5d69",
+   "hunks": [
+    11,
+    7,
+    8,
+    9
+   ]
+  },
+  {
+   "name": "v33",
+   "include": false,
+   "sha256": "cb03f7d593a412eb883772448319275a60d80ad91c9ba3c3e96640d1cc648b5f",
+   "hunks": [
+    11,
+    7,
+    10
+   ]
+  },
+  {
+   "name": "v34",
+   "include": false,
+   "sha256": "520b81668b9eda9ff1a0edacbcdf1a8707d62253256a94c638bdf4ecd8b7d3ac",
+   "hunks": [
+    11,
+    13,
+    9
+   ]
+  },
+  {
+   "name": "v35",
+   "include": false,
+   "sha256": "e51db004b8bb6338759b341cb6b4202529a03a06e594ba8d1f18f1f03fa7e543",
+   "hunks": [
+    11,
+    7,
+    14
+   ]
+  },
+  {
+   "name": "v36",
+   "include": false,
+   "sha256": "44a71fdba3a10f50e09bc888c7aed10001ddfd2a8c10f992c47a98ecca4d1609",
+   "hunks": [
+    11,
+    8,
+    9,
+    14
+   ]
+  },
+  {
+   "name": "v37",
+   "include": false,
+   "sha256": "59426f2b12ac537ccb78d80ebb75f2e3ec4f0f62737b7f393b9ef2052f147423",
+   "hunks": [
+    11,
+    10,
+    14
+   ]
+  },
+  {
+   "name": "v38",
+   "include": false,
+   "sha256": "790016f221fed9a0feac8b7556cc09a623bd4216030b74fb9929cf763ce771a5",
+   "hunks": [
+    7,
+    8,
+    9,
+    15
+   ]
+  },
+  {
+   "name": "v39",
+   "include": false,
+   "sha256": "2317d8f50e7402eabb44feeeb044d008c26ca64372f386ff4bb5f6cb028d3ccd",
+   "hunks": [
+    7,
+    10,
+    15
+   ]
+  },
+  {
+   "name": "v40",
+   "include": false,
+   "sha256": "0be8ac4be50a462b36bb4c16b77c681b1a23b1b1a6aaf8b43a205656402a5af7",
+   "hunks": [
+    13,
+    9,
+    15
+   ]
+  },
+  {
+   "name": "v41",
+   "include": false,
+   "sha256": "a68994301bc26360dcdd41f0f13427ee24760cc8b3b10bb5ab2831ffe10e66a9",
+   "hunks": [
+    7,
+    16
+   ]
+  },
+  {
+   "name": "v42",
+   "include": false,
+   "sha256": "36112f63a70f86975300ca484d9ea63698966b8ea50b1df49d968f0ca7193f5c",
+   "hunks": [
+    8,
+    9,
+    16
+   ]
+  },
+  {
+   "name": "v43",
+   "include": false,
+   "sha256": "13f94d302c9ad077ea818113cfd0ad293dfedd97a95b9035772357157f0be9ca",
+   "hunks": [
+    10,
+    16
+   ]
+  },
+  {
+   "name": "v44",
+   "include": false,
+   "sha256": "2037690a3cebef07bd97f669f78aeda0e15a063d7b31189f83cf63e7c50928ec",
+   "hunks": [
+    11,
+    7,
+    15
+   ]
+  },
+  {
+   "name": "v45",
+   "include": false,
+   "sha256": "b2013da19d3cfdd77041bdce23bf2ea238a66ff1effa70853f7bc25850155ab3",
+   "hunks": [
+    11,
+    8,
+    9,
+    15
+   ]
+  },
+  {
+   "name": "v46",
+   "include": false,
+   "sha256": "bb9fd7487416b58c4703ad7423a46ec074e4db5a61b4bf3b69e461392d622720",
+   "hunks": [
+    11,
+    10,
+    15
+   ]
+  },
+  {
+   "name": "v47",
+   "include": false,
+   "sha256": "a62510dde23eb6896265e54b347e72f6951130dbcbcccfaf645935aa4f378022",
+   "hunks": [
+    11,
+    16
+   ]
+  },
+  {
+   "name": "v48",
+   "include": false,
+   "sha256": "537a81e44bda0018f9dbb28de8e05a9e2c0b6f199a47e004c0494837c44e480c",
+   "hunks": [
+    12,
+    7,
+    8,
+    9
+   ]
+  },
+  {
+   "name": "v49",
+   "include": false,
+   "sha256": "66186a28a651fab6d70f0e36cce8b62405ebec6bd7089d4f7d128b73fbf6afed",
+   "hunks": [
+    12,
+    7,
+    10
+   ]
+  },
+  {
+   "name": "v50",
+   "include": false,
+   "sha256": "332152ea303384e291445b49adeb25f42ca2272168889515a2b0daf9e82b5ea8",
+   "hunks": [
+    12,
+    13,
+    9
+   ]
+  },
+  {
+   "name": "replacement_v50",
+   "include": false,
+   "sha256": "ece254ebfa396071f6a297914162fb8f4d6387a8e7cb9b3f057b457d43085826",
+   "hunks": [
+    12,
+    7,
+    14
+   ]
+  }
+ ]
+}''')
+root, out = map(Path, sys.argv[1:3])
+s = (root / d["unit"]).read_text()
+assert hashlib.sha256(s.encode()).hexdigest() == d["baseline_sha256"], "wrong baseline source"
+a, b = s.index(d["start"]), s.index(d["end"])
+variants=[]
+for row in d["variants"]:
+ lines=d["seed_lines"][:]
+ for i,j,replacement in reversed([d["hunks"][x] for x in row["hunks"]]): lines[i:j]=replacement.splitlines(keepends=True)
+ text=s[:a]+"".join(lines)+s[b:]
+ if row["include"]: text=text.replace('#include "camera.h"', '#include "aabox.h"', 1)
+ assert hashlib.sha256(text.encode()).hexdigest() == row["sha256"], row["name"]
+ p=out/row["name"]/Path(d["unit"]).name
+ p.parent.mkdir(parents=True,exist_ok=True); p.write_text(text)
+ variants.append({"name":row["name"],"source":str(p.resolve())})
+out.mkdir(parents=True,exist_ok=True)
+(out/"packet.json").write_text(json.dumps({"unit":d["unit"],"target":d["target"],"tree":str(root.resolve()),"variants":variants},indent=2)+"\n")

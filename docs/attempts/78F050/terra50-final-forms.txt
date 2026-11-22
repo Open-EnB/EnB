@@ -1,0 +1,700 @@
+# Base application source revision aa57c927; frozen tree also includes exact 788900. Apply each seed patch below to that tree, place source at the paths referenced by the replay script, and adjust absolute workspace paths if needed. Replay iterates the exact metadata below, ignoring scratch-history membership.
+
+# Source seed patches against frozen current tree; generator uses listed original seed paths.
+
+--- frozen/nlp.cpp
++++ seed_control/nlp.cpp
+@@ -464,7 +464,7 @@
+ 		Unknown_78E2F0("NLP error: null input!\n");
+ 		return;
+ 	}
+-	if ((int)strlen(text) <= len) {
++	if (len >= (int)strlen(text)) {
+ 		len = strlen(text);
+ 	}
+ 	if (!Initialized || Lexicon == NULL) {
+@@ -491,15 +491,17 @@
+ 			strncpy(phrase, start, count);
+ 			phrase[count] = '\0';
+ 			strncat(phrase, p, 1);
+-			if (count == 0) {
++			if (count != 0) {
++				unsigned char animation = (unsigned char)Unknown_78EEF0(start, count); // NAME 3: client AL byte spill before stream call
++				count++;
++				stream->Unknown_4C45B0(1, animation, phrase, count);
++			} else {
+ 				stream->Unknown_4C45B0(1, 0, phrase, 1);
+-			} else {
+-				stream->Unknown_4C45B0(1, (unsigned char)Unknown_78EEF0(start, count), phrase, count + 1);
+ 			}
+ 			delete [] phrase;
+ 			p++;
++			start = p;
+ 			count = 0;
+-			start = p;
+ 		} else if (c == '/') {
+ 			const char *space = strchr(p, ' ');
+ 			int cmdlen = space ? (space - p) + 1 : strlen(p);
+@@ -516,45 +518,43 @@
+ 			Unknown_78F700Class::BAnimStruct *gesture = Personality->Find_BAnim(name);
+ 			if (gesture == NULL) {
+ 				int number = Personality->Get_Mood_Number(name);
+-				if (number < 0) {
++				if (number >= 0) {
++					for (int i = 0; i < count; i++) {
++						if (start[i] != '\0' && start[i] != ' ') {
++							unsigned char animation = (unsigned char)Unknown_78EEF0(start, count); // NAME 3: client AL byte spill before stream call
++							stream->Unknown_4C45B0(1, animation, start, count);
++							break;
++						}
++					}
++					*mood = number;
++					Unknown_78E2F0("NLP: Changing Mood to ( %d ) \n", number);
++					Unknown_78E2F0("------------------------------------------------------\n");
++					stream->Unknown_4C45B0(0, (unsigned char)*mood, NULL, 0);
++					p += cmdlen;
++					count = 0;
++					start = p;
++				} else {
+ 					p += cmdlen;
+ 					count += cmdlen;
+-					continue;
+ 				}
+-				for (int i = 0; i < count; i++) {
+-					if (start[i] != '\0' && start[i] != ' ') {
+-						stream->Unknown_4C45B0(1, (unsigned char)Unknown_78EEF0(start, count), start, count);
+-						break;
+-					}
+-				}
+-				*mood = number;
+-				Unknown_78E2F0("NLP: Changing Mood to ( %d ) \n", number);
+-				Unknown_78E2F0("------------------------------------------------------\n");
+-				stream->Unknown_4C45B0(0, (unsigned char)*mood, NULL, 0);
+ 			} else {
+ 				for (int i = 0; i < count; i++) {
+ 					if (start[i] != '\0' && start[i] != ' ') {
+-						stream->Unknown_4C45B0(1, (unsigned char)Unknown_78EEF0(start, count), start, count);
++						unsigned char animation = (unsigned char)Unknown_78EEF0(start, count); // NAME 3: client AL byte spill before stream call
++						stream->Unknown_4C45B0(1, animation, start, count);
+ 						break;
+ 					}
+ 				}
+ 				Unknown_78E2F0("NLP: Manual Gesture for action %s is ( %s ) \n", name, gesture->Tag);
+ 				Unknown_78E2F0("------------------------------------------------------\n");
+ 				stream->Unknown_4C45B0(2, (unsigned char)gesture->AnimNumber, NULL, 0);
+-			}
+-			p += cmdlen;
+-			count = 0;
+-			start = p;
++				p += cmdlen;
++				count = 0;
++				start = p;
++			}
+ 		} else {
+ 			Unknown_NLPPhraseStruct *phrase = lexicon->Unknown_78E980(p);
+-			if (phrase == NULL) {
+-				const char *next = Unknown_78ED30(p, end);
+-				int n = next ? next - p : strlen(p);
+-				if (n != 0) {
+-					count += n;
+-					p += n;
+-				}
+-			} else {
++			if (phrase != NULL) {
+ 				int n = strlen(phrase->Phrase);
+ 				int context;
+ 				if (p == text) {
+@@ -572,31 +572,31 @@
+ 						p += m;
+ 					}
+ 				} else {
++					p += n;
+ 					Unknown_78F700Class::BAnimStruct *gesture = Personality->Find_BAnim(tag);
+-					if (count + n != 0) {
+-						stream->Unknown_4C45B0(1, (unsigned char)gesture->AnimNumber, start, count + n);
++					count += n;
++					if (count != 0) {
++						stream->Unknown_4C45B0(1, (unsigned char)gesture->AnimNumber, start, count);
+ 					}
++					start = p;
+ 					count = 0;
+-					p += n;
+-					start = p;
+ 				}
+ 				Unknown_78E2F0("------------------------------------------------------\n");
++			} else {
++				const char *next = Unknown_78ED30(p, end);
++				int n = next ? next - p : strlen(p);
++				if (n != 0) {
++					count += n;
++					p += n;
++				}
+ 			}
+ 		}
+ 	} while (p - text < len);
+ 	if (count != 0) {
+-		stream->Unknown_4C45B0(1, (unsigned char)Unknown_78EEF0(start, count), start, count);
+-	}
+-}
+-
+-
+-
+-
+-
+-
+-
+-
+-
++		unsigned char animation = (unsigned char)Unknown_78EEF0(start, count); // NAME 3: client AL byte spill before stream call
++		stream->Unknown_4C45B0(1, animation, start, count);
++	}
++}
+ 
+ 
+ 
+
+
+# Exact selected form metadata
+{
+  "historical_distinct_bodies": 14,
+  "forms": [
+    {
+      "name": "v01",
+      "changes": [
+        1,
+        2,
+        4
+      ],
+      "body_sha256": "9ff9e366b5a9b9d3bc8d658d71f2ecf93e629e7726f541588ad730a058972faa"
+    },
+    {
+      "name": "v02",
+      "changes": [
+        2,
+        7
+      ],
+      "body_sha256": "d3a42256c93373dab5b6fddbe9d91992adbc7cc54236c928f429d3c8ee266003"
+    },
+    {
+      "name": "v03",
+      "changes": [
+        2,
+        4,
+        5
+      ],
+      "body_sha256": "f02f0c7b6bbb5d03f25abef0642b75968427cf002cfb8c9f1f8b18bd51044570"
+    },
+    {
+      "name": "v04",
+      "changes": [
+        1,
+        3,
+        4,
+        5,
+        6
+      ],
+      "body_sha256": "356cd254748f27336cd10304951dbf866a2575149459698afdcf7d775a8fcede"
+    },
+    {
+      "name": "v05",
+      "changes": [
+        7
+      ],
+      "body_sha256": "6501d12fe59c7890464009fef4f41baaaaa4c43601eccdfbe4607a332fc353a8"
+    },
+    {
+      "name": "v06",
+      "changes": [
+        1,
+        7
+      ],
+      "body_sha256": "dcad4282f1d21bd546bf7f3555fa94dff93a83796c02647d7563731b6eda0753"
+    },
+    {
+      "name": "v07",
+      "changes": [
+        1,
+        3,
+        4
+      ],
+      "body_sha256": "c423fed7d3bd12367d6735eb00855c3b51d7bd49b48338c7962ee13ffc19b927"
+    },
+    {
+      "name": "v08",
+      "changes": [
+        4,
+        7
+      ],
+      "body_sha256": "aada8361c7c023ba22b3f8b481950ceb91986c3fa004cc91e9f213c03af1bcaf"
+    },
+    {
+      "name": "v09",
+      "changes": [
+        4,
+        5,
+        6
+      ],
+      "body_sha256": "988e88efead4ab5fea3cd0ebdb0aae2ac8ce1974d7b04c77c9f91080bbef2a36"
+    },
+    {
+      "name": "v10",
+      "changes": [
+        3,
+        5,
+        6
+      ],
+      "body_sha256": "1ee82381aa08ba7ae7d8d4b808a42ef9e9e184a3e7db7db8b51eac9ac0407e58"
+    },
+    {
+      "name": "v11",
+      "changes": [
+        1,
+        2,
+        4,
+        5
+      ],
+      "body_sha256": "e4668add3c7f705b7bb16a006214a4b6b9dfd60b302cfbb0457e836ef2c3645a"
+    },
+    {
+      "name": "v12",
+      "changes": [
+        1,
+        2,
+        3,
+        5
+      ],
+      "body_sha256": "8e8e24b92877e59a7595b7fc1f41fa3c72582165e4efd87d895533f5d47cc0b7"
+    },
+    {
+      "name": "v13",
+      "changes": [
+        2,
+        3,
+        4
+      ],
+      "body_sha256": "f6d70b8dc346a52f78c81c1efa84f30ba32e9b5b333b534a3bda5528cd1654bd"
+    },
+    {
+      "name": "v14",
+      "changes": [
+        5,
+        6
+      ],
+      "body_sha256": "ef1b267d895b2492374c9e004662a4e8c33c096f2d14cc095dcae99fe93f791d"
+    },
+    {
+      "name": "v15",
+      "changes": [
+        1,
+        5,
+        6,
+        7
+      ],
+      "body_sha256": "fa295fe45021f0e599a0b55b922ea35936d8534bb0ce51fc2f429da3960e0c45"
+    },
+    {
+      "name": "v16",
+      "changes": [
+        1,
+        2,
+        4,
+        6
+      ],
+      "body_sha256": "e55a66920b0f3f56aa0b360e89fb5852e4c049f8cad390b6a89f2171f32da20b"
+    },
+    {
+      "name": "v17",
+      "changes": [
+        3,
+        5,
+        6,
+        7
+      ],
+      "body_sha256": "b2449eda4bdc85f3d1ba03d3972e540ee6b838b84ed305aa8e20f529024231bd"
+    },
+    {
+      "name": "v18",
+      "changes": [
+        1,
+        2,
+        3,
+        6
+      ],
+      "body_sha256": "40890b221d640f5916ba4482965fa5cc7436a705277f7b295253d3462b770075"
+    },
+    {
+      "name": "v19",
+      "changes": [
+        1,
+        2,
+        5,
+        7
+      ],
+      "body_sha256": "163ee5cf8b1e849d51458fa2a2fbc3d8ce0bd600d741b14203b53dd249897948"
+    },
+    {
+      "name": "v20",
+      "changes": [
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "body_sha256": "5ce796d03cccb449dccff3382fdafa7d8ddcd3dd72568a132d1fdad5fcc4d887"
+    },
+    {
+      "name": "v21",
+      "changes": [
+        1,
+        2,
+        5,
+        6
+      ],
+      "body_sha256": "f518013fcd413a385236063376d54364b340d6177e769e4090753982183a19b0"
+    },
+    {
+      "name": "v22",
+      "changes": [
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "body_sha256": "8fa7c1d1b23ca2cf0de2b4ae35d5ec1d06a5bfc01a04e7e663e363021d98c481"
+    },
+    {
+      "name": "v23",
+      "changes": [
+        1,
+        2,
+        6,
+        7
+      ],
+      "body_sha256": "eafaa6d2611421001349532f41dde497b22b260db094fd4f1346342e795bd564"
+    },
+    {
+      "name": "v24",
+      "changes": [
+        1,
+        3,
+        6
+      ],
+      "body_sha256": "9f436c3609f32cb3f8d5ac4fe0d840bc4e29e2735463113e3a8bdb252f76a85c"
+    },
+    {
+      "name": "v25",
+      "changes": [
+        1,
+        4
+      ],
+      "body_sha256": "d7ac0ddd7e77ccd4e9cc68a4450bdbbeebb2ff8c12e3d2d7af879f7a897b3099"
+    },
+    {
+      "name": "v26",
+      "changes": [
+        1,
+        6
+      ],
+      "body_sha256": "4d4090f3945aea347885ef7a343e03800a02ff13807f5c25df5b9e1a88aab8b9"
+    },
+    {
+      "name": "v27",
+      "changes": [
+        2,
+        3,
+        6,
+        7
+      ],
+      "body_sha256": "709b3162f586b91817e41f62b72add6012e6db074dfab0404ae96e870e9a4e88"
+    },
+    {
+      "name": "v28",
+      "changes": [
+        1,
+        3,
+        6,
+        7
+      ],
+      "body_sha256": "1a31b978b271ae03c1ab6319252c9631f6f86cc203904e29ebeecf7c25f12be4"
+    },
+    {
+      "name": "v29",
+      "changes": [
+        3,
+        6
+      ],
+      "body_sha256": "466d04763fa84c5fb1614648651ff2129dab03ac043dced70e9f39b9dab46930"
+    },
+    {
+      "name": "v30",
+      "changes": [
+        1,
+        2,
+        3,
+        4,
+        6
+      ],
+      "body_sha256": "db1dd36c5bb3130399f6e1b8c3b499ad0158acbdefdef1e537b4dd2eda42767b"
+    },
+    {
+      "name": "v31",
+      "changes": [
+        2,
+        4,
+        5,
+        7
+      ],
+      "body_sha256": "de93f148a94e09d4bf4408b5fbfbf0c6a42661481da9806d4294b9b86c6e162b"
+    },
+    {
+      "name": "v32",
+      "changes": [
+        2,
+        4,
+        5,
+        6
+      ],
+      "body_sha256": "e60cc06584bc529a27d95bf9e36c57c448e38ec530bf450ee82ac52f9ed17e1a"
+    },
+    {
+      "name": "v33",
+      "changes": [
+        2,
+        3,
+        5,
+        6,
+        7
+      ],
+      "body_sha256": "a72fd1c780c1eade71ddc92a66349b72639ffdfb79f8656ed9d07993fa620fbc"
+    },
+    {
+      "name": "v34",
+      "changes": [
+        2,
+        3,
+        4,
+        6,
+        7
+      ],
+      "body_sha256": "c0ca1fb21be1e836db9ba0f60b8028121ed7319c4a8bbd8e48d420a90ad4ae46"
+    },
+    {
+      "name": "v35",
+      "changes": [
+        6,
+        7
+      ],
+      "body_sha256": "122c4df10b69cdb9d7fd609474a557d7f2b1f70d2c5260f90e7dbda0ce46d3a0"
+    },
+    {
+      "name": "v36",
+      "changes": [
+        3,
+        4,
+        6,
+        7
+      ],
+      "body_sha256": "03c87de1adb941e1ed9fdc29dff7a3d1f3ab470881eeb4e91ae6b9296e815e60"
+    },
+    {
+      "name": "v37",
+      "changes": [
+        2,
+        4,
+        7
+      ],
+      "body_sha256": "3a5d60890de34816330f3867f7d47d2c1aa91cb54d6985db20a1deb9b11463d7"
+    },
+    {
+      "name": "v38",
+      "changes": [
+        1,
+        3,
+        7
+      ],
+      "body_sha256": "fda1addf00133f4a43ca352f711e2d7610a3e66f23016596109f4a403579b0ee"
+    },
+    {
+      "name": "v39",
+      "changes": [
+        3,
+        6,
+        7
+      ],
+      "body_sha256": "f37ca00045d4466018bdde6be9ee04d333db91c9fd073b4288c8f98597e88761"
+    },
+    {
+      "name": "v40",
+      "changes": [
+        1
+      ],
+      "body_sha256": "e79ae5be1c04e97a21aa3900de0539d6e6a02c4cf9e533c7e8d28fdc89c2538f"
+    },
+    {
+      "name": "v41",
+      "changes": [
+        1,
+        2,
+        4,
+        6,
+        7
+      ],
+      "body_sha256": "c5592c78ce40ae357bf7f01d4f241a66bc4f43cdd193f9b9892edb292493baf8"
+    },
+    {
+      "name": "v42",
+      "changes": [
+        1,
+        2,
+        4,
+        5,
+        6
+      ],
+      "body_sha256": "0dad79b6fa5a45d87c1b68a119e7fdf9920c2f2c92782dcc2ff7e1ce5c664371"
+    },
+    {
+      "name": "v43",
+      "changes": [
+        1,
+        2,
+        3,
+        5,
+        6,
+        7
+      ],
+      "body_sha256": "67df1dcfdd186fbade7a90fcc4e64d8127a8c096590eaabcdbd5df8ea5a8e317"
+    },
+    {
+      "name": "v44",
+      "changes": [
+        3,
+        4,
+        6
+      ],
+      "body_sha256": "ee0b101b2461a83b3b0ef94a09baa6410f6a22d44833292531c0379638b2902f"
+    },
+    {
+      "name": "v45",
+      "changes": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "body_sha256": "112daeb848e5c68ff2c66c520eb098055e245c89b7b95d7da6cd2976f0b13dbd"
+    },
+    {
+      "name": "v46",
+      "changes": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "body_sha256": "11fad01422b58b381788c48cccf4eba7acab4d3c69e02854aaf554d72d84e38e"
+    },
+    {
+      "name": "v47",
+      "changes": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "body_sha256": "824c52a372f715522685f0df43824c79a44fe8bea85cfbb5106da256f0ae2644"
+    },
+    {
+      "name": "v48",
+      "changes": [
+        1,
+        3,
+        4,
+        7
+      ],
+      "body_sha256": "50fe311a1ebe7e11aff72827cb2a42850a28fd6f974a8be81491b6ae84af5d95"
+    },
+    {
+      "name": "v49",
+      "changes": [
+        1,
+        2,
+        3,
+        6,
+        7
+      ],
+      "body_sha256": "36621281d2cb6df0c9efec298ac8bd901f5774a7f3a698e1323861257220ec4b"
+    },
+    {
+      "name": "v50",
+      "changes": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "body_sha256": "95abef22b3a32e702495f47891cb24336dcb311d089c1512a6c782a1c17bb7e2"
+    }
+  ]
+}
+
+# Deterministic replay generator
+from pathlib import Path
+import hashlib,itertools,json,re,random
+root=Path('/home/dev/Projects/EnB'); work=root/'.work/claim-240'; out=work/'terra50-final/78f050'
+tree=work/'788900-operand-provenance/final-tree'; unit=Path('app/client/nlp.cpp'); current=(tree/unit).read_text()
+start='void PlayerNLPClass::Unknown_78F050('; end='// 0x78F640'
+def body(s): return s[s.index(start):s.index(end,s.index(start))]
+def norm(s): return re.sub(r'\s+','',re.sub(r'//[^\n]*','',s))
+base=body(current); seed=body((work/'78f050-followup/signed_length_order/nlp.cpp').read_text())
+historical=set()
+for directory in [work/'focused/78F050',work/'broad-speech']+[p for p in work.iterdir() if p.is_dir() and '78f050' in p.name.lower()]:
+ for p in directory.rglob('nlp.cpp'):
+  try: historical.add(norm(body(p.read_text())))
+  except (ValueError,UnicodeError): pass
+cmd='int cmdlen = space ? (space - p) + 1 : strlen(p);'
+cmd2='int cmdlen; if (space) cmdlen = (space - p) + 1; else cmdlen = strlen(p);'
+context='''if (p == text) {
+					context = Unknown_78ED30(p + n, end) ? 0 : 3;
+				} else {
+					context = Unknown_78ED30(p + n, end) ? 1 : 2;
+				}'''
+context2='''if (p != text) {
+					context = Unknown_78ED30(p + n, end) ? 1 : 2;
+				} else {
+					context = Unknown_78ED30(p + n, end) ? 0 : 3;
+				}'''
+assert cmd in seed and context in seed
+subs=[(cmd,cmd2),(context,context2),('int n = cmdlen - 1;','int n; n = cmdlen - 1;'),('int number = Personality->Get_Mood_Number(name);','int number; number = Personality->Get_Mood_Number(name);'),('int m = next ? next - p : strlen(p);','int m; if (next) m = next - p; else m = strlen(p);'),('int n = next ? next - p : strlen(p);','int n; if (next) n = next - p; else n = strlen(p);'),('int n = strlen(phrase->Phrase);','int n; n = strlen(phrase->Phrase);')]
+for old,new in subs: assert seed.count(old)==1,old
+variants=[]; index=[]
+def save(name,b):
+ assert b.count('\n')==base.count('\n')
+ p=out/name/'nlp.cpp'; p.parent.mkdir(exist_ok=True); text=current.replace(base,b,1)
+ for n,line in enumerate(current.splitlines(),1):
+  if '__LINE__' in line: assert text.splitlines()[n-1]==line
+ p.write_text(text); variants.append({'name':name,'source':str(p)}); return hashlib.sha256(b.encode()).hexdigest()
+save('baseline',base); save('seed_control',seed)
+combos=list(itertools.product(range(2),repeat=len(subs))); random.Random(7850).shuffle(combos); seen=historical|{norm(base),norm(seed)}
+# Exact combinations selected by the original pass; no prior history needed.
+combos = [(1, 1, 0, 1, 0, 0, 0), (0, 1, 0, 0, 0, 0, 1), (0, 1, 0, 1, 1, 0, 0), (1, 0, 1, 1, 1, 1, 0), (0, 0, 0, 0, 0, 0, 1), (1, 0, 0, 0, 0, 0, 1), (1, 0, 1, 1, 0, 0, 0), (0, 0, 0, 1, 0, 0, 1), (0, 0, 0, 1, 1, 1, 0), (0, 0, 1, 0, 1, 1, 0), (1, 1, 0, 1, 1, 0, 0), (1, 1, 1, 0, 1, 0, 0), (0, 1, 1, 1, 0, 0, 0), (0, 0, 0, 0, 1, 1, 0), (1, 0, 0, 0, 1, 1, 1), (1, 1, 0, 1, 0, 1, 0), (0, 0, 1, 0, 1, 1, 1), (1, 1, 1, 0, 0, 1, 0), (1, 1, 0, 0, 1, 0, 1), (0, 1, 1, 1, 1, 1, 0), (1, 1, 0, 0, 1, 1, 0), (0, 0, 1, 1, 1, 1, 1), (1, 1, 0, 0, 0, 1, 1), (1, 0, 1, 0, 0, 1, 0), (1, 0, 0, 1, 0, 0, 0), (1, 0, 0, 0, 0, 1, 0), (0, 1, 1, 0, 0, 1, 1), (1, 0, 1, 0, 0, 1, 1), (0, 0, 1, 0, 0, 1, 0), (1, 1, 1, 1, 0, 1, 0), (0, 1, 0, 1, 1, 0, 1), (0, 1, 0, 1, 1, 1, 0), (0, 1, 1, 0, 1, 1, 1), (0, 1, 1, 1, 0, 1, 1), (0, 0, 0, 0, 0, 1, 1), (0, 0, 1, 1, 0, 1, 1), (0, 1, 0, 1, 0, 0, 1), (1, 0, 1, 0, 0, 0, 1), (0, 0, 1, 0, 0, 1, 1), (1, 0, 0, 0, 0, 0, 0), (1, 1, 0, 1, 0, 1, 1), (1, 1, 0, 1, 1, 1, 0), (1, 1, 1, 0, 1, 1, 1), (0, 0, 1, 1, 0, 1, 0), (1, 1, 1, 1, 1, 1, 0), (0, 0, 0, 1, 1, 1, 1), (1, 1, 1, 1, 1, 1, 1), (1, 0, 1, 1, 0, 0, 1), (1, 1, 1, 0, 0, 1, 1), (1, 1, 1, 1, 1, 0, 0)]
+seen = set()
+for bits in combos:
+ b=seed
+ for bit,(old,new) in zip(bits,subs):
+  if bit: b=b.replace(old,new)
+ key=norm(b)
+ if key in seen: continue
+ seen.add(key); name='v%02d'%(len(index)+1)
+ index.append({'name':name,'changes':[i+1 for i,bit in enumerate(bits) if bit],'body_sha256':save(name,b)})
+ if len(index)==50: break
+assert len(index)==50
+(out/'packet.json').write_text(json.dumps({'unit':str(unit),'target':'0x78F050','tree':str(tree),'variants':variants},indent=2)+'\n')
+(out/'forms.json').write_text(json.dumps({'historical_distinct_bodies':len(historical),'forms':index},indent=2)+'\n')

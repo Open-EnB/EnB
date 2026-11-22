@@ -1,0 +1,617 @@
+# Base application source revision aa57c927; frozen tree also includes exact 788900. Apply each seed patch below to that tree, place source at the paths referenced by the replay script, and adjust absolute workspace paths if needed. Replay iterates the exact metadata below, ignoring scratch-history membership.
+
+# Source seed patches against frozen current tree; generator uses listed original seed paths.
+
+--- frozen/avatar.cpp
++++ seed_control/avatar.cpp
+@@ -1671,32 +1671,32 @@
+ {
+ 	std::string name;
+ 	Unknown220 = false;
+-	Unknown250 = 0.0f;
+-	Unknown258 = 0.0f;
+-	Unknown264 = 0.0f;
+-	Unknown268 = 0.0f;
++	Unknown_785480();
++
++
++
+ 	if (Unknown248 > 0) {
+-		name = Unknown_781D10(PlayerNLP->Unknown_78EE00(Unknown248, Unknown210 != 0));
++		name = Unknown_781D10(NLP_Of(this)->Unknown_78EE00(Unknown248, Unknown210 != 0));
+ 		Unknown_7831C0(name.c_str());
+ 		int frames;
+ 		if (Unknown0C0[1]) {
+ 			frames = Unknown0C0[1]->Get_Num_Frames();
++			Unknown248 = (Unknown248 - frames < 0) ? 0 : Unknown248 - frames;
+ 		} else {
+ 			frames = Unknown0C0[0]->Get_Num_Frames();
+-		}
+-		int left = Unknown248 - frames;
+-		Unknown248 = (left < 0) ? 0 : left;
++			Unknown248 = (Unknown248 - frames < 0) ? 0 : Unknown248 - frames;
++		}
+ 
+ 	} else {
+ 	Unknown_AvatarQueueStruct *entry = Unknown_781B20();
+ 	if (entry != NULL) {
+ 		int anim;
+ 		if (Unknown210 != 0) {
+-			int delay = PlayerNLP->Personality->Get_Speech_Delay();
++			int delay = NLP_Of(this)->Personality->Get_Speech_Delay();
+ 			int phonemes[256];
+ 			int count = Unknown_BE856C->Phonemes.Unknown_791400(entry->Text, phonemes, 0xFF);
+ 			anim = PlayerNLP->Unknown_78EE00(count * delay, true);
+-			name = Unknown_781D10(anim);
++			name = Unknown_781D10(anim); Unknown_7831C0(name.c_str());
+ 		} else {
+ 			anim = entry->Anim;
+ 			if (entry->Mood >= 0) {
+@@ -1704,9 +1704,9 @@
+ 			}
+ 			Unknown22C = 0.0f;
+ 			Unknown244 = 0;
+-			name = Unknown_781D10(anim);
+-		}
+-		Unknown_7831C0(name.c_str());
++			name = Unknown_781D10(anim); Unknown_7831C0(name.c_str());
++		}
++		
+ 		if (Unknown0BC && (Unknown0C0[0] || Unknown0C0[1])) {
+ 			Unknown0BC->Release_Keys();
+ 			Unknown_782FF0(entry->Text);
+
+--- frozen/avatar.cpp
++++ queue_control/avatar.cpp
+@@ -1676,27 +1676,27 @@
+ 	Unknown264 = 0.0f;
+ 	Unknown268 = 0.0f;
+ 	if (Unknown248 > 0) {
+-		name = Unknown_781D10(PlayerNLP->Unknown_78EE00(Unknown248, Unknown210 != 0));
++		name = Unknown_781D10(NLP_Of(this)->Unknown_78EE00(Unknown248, Unknown210 != 0));
+ 		Unknown_7831C0(name.c_str());
+ 		int frames;
+ 		if (Unknown0C0[1]) {
+ 			frames = Unknown0C0[1]->Get_Num_Frames();
++			Unknown248 = (Unknown248 - frames < 0) ? 0 : Unknown248 - frames;
+ 		} else {
+ 			frames = Unknown0C0[0]->Get_Num_Frames();
+-		}
+-		int left = Unknown248 - frames;
+-		Unknown248 = (left < 0) ? 0 : left;
++			Unknown248 = (Unknown248 - frames < 0) ? 0 : Unknown248 - frames;
++		}
+ 
+ 	} else {
+ 	Unknown_AvatarQueueStruct *entry = Unknown_781B20();
+ 	if (entry != NULL) {
+ 		int anim;
+ 		if (Unknown210 != 0) {
+-			int delay = PlayerNLP->Personality->Get_Speech_Delay();
++			int delay = NLP_Of(this)->Personality->Get_Speech_Delay();
+ 			int phonemes[256];
+ 			int count = Unknown_BE856C->Phonemes.Unknown_791400(entry->Text, phonemes, 0xFF);
+ 			anim = PlayerNLP->Unknown_78EE00(count * delay, true);
+-			name = Unknown_781D10(anim);
++			name = Unknown_781D10(anim); Unknown_7831C0(name.c_str());
+ 		} else {
+ 			anim = entry->Anim;
+ 			if (entry->Mood >= 0) {
+@@ -1704,9 +1704,9 @@
+ 			}
+ 			Unknown22C = 0.0f;
+ 			Unknown244 = 0;
+-			name = Unknown_781D10(anim);
+-		}
+-		Unknown_7831C0(name.c_str());
++			name = Unknown_781D10(anim); Unknown_7831C0(name.c_str());
++		}
++		
+ 		if (Unknown0BC && (Unknown0C0[0] || Unknown0C0[1])) {
+ 			Unknown0BC->Release_Keys();
+ 			Unknown_782FF0(entry->Text);
+
+
+# Exact selected form metadata
+{
+  "historical_distinct_bodies": 15,
+  "forms": [
+    {
+      "name": "v01",
+      "seed": "per_arm_clamp",
+      "assign_mask": 7,
+      "first_receiver": 0,
+      "speech_receiver": 1,
+      "nested_tail": 0,
+      "body_sha256": "6c930da447c8ad4ef1ad936acac9761ce025b2355250e60bb5cf6a07504cd192"
+    },
+    {
+      "name": "v02",
+      "seed": "per_arm_reset",
+      "assign_mask": 12,
+      "first_receiver": 1,
+      "speech_receiver": 1,
+      "nested_tail": 1,
+      "body_sha256": "cc63ef17c649ced3805b1fc694734e97e7551ccc5818f2f9d78bc6612f71cfd6"
+    },
+    {
+      "name": "v03",
+      "seed": "per_arm_reset",
+      "assign_mask": 8,
+      "first_receiver": 1,
+      "speech_receiver": 1,
+      "nested_tail": 1,
+      "body_sha256": "f524e0470bcc5770ed9cc9e284cea5c64bb843772b0d5107e082814b92b28dd6"
+    },
+    {
+      "name": "v04",
+      "seed": "per_arm_reset",
+      "assign_mask": 15,
+      "first_receiver": 0,
+      "speech_receiver": 1,
+      "nested_tail": 0,
+      "body_sha256": "bb7bc0832de0d0e92a3a72a4f9d5d225ed2bfbaa9c4f79cf01104779d5864024"
+    },
+    {
+      "name": "v05",
+      "seed": "per_arm_reset",
+      "assign_mask": 3,
+      "first_receiver": 1,
+      "speech_receiver": 1,
+      "nested_tail": 1,
+      "body_sha256": "92efbe43783cbb3ad8b654abb12b9e82c3d31c3364c2f224c01dc6ad58f086e8"
+    },
+    {
+      "name": "v06",
+      "seed": "per_arm_reset",
+      "assign_mask": 6,
+      "first_receiver": 1,
+      "speech_receiver": 0,
+      "nested_tail": 0,
+      "body_sha256": "f4fe94a8a79c7cb154f694a26c3d15d2079566ac62667618c8971d2ca88404ee"
+    },
+    {
+      "name": "v07",
+      "seed": "per_arm_clamp",
+      "assign_mask": 13,
+      "first_receiver": 1,
+      "speech_receiver": 1,
+      "nested_tail": 0,
+      "body_sha256": "ffddc194cc6ebcb5fcf98c9279ed7484a31b02742760d2c77f91b7890b96d8a3"
+    },
+    {
+      "name": "v08",
+      "seed": "per_arm_reset",
+      "assign_mask": 7,
+      "first_receiver": 1,
+      "speech_receiver": 0,
+      "nested_tail": 0,
+      "body_sha256": "4aab6e9a47fc54216143c78c9f7cf1b6328fd10b930130fca327f38a202b8315"
+    },
+    {
+      "name": "v09",
+      "seed": "per_arm_reset",
+      "assign_mask": 13,
+      "first_receiver": 0,
+      "speech_receiver": 1,
+      "nested_tail": 1,
+      "body_sha256": "f17172fd019519acde7ee5196b17ef1eaea237911f2168914aebba7be01ffdd7"
+    },
+    {
+      "name": "v10",
+      "seed": "per_arm_clamp",
+      "assign_mask": 2,
+      "first_receiver": 0,
+      "speech_receiver": 0,
+      "nested_tail": 0,
+      "body_sha256": "2fdc6fcfa830a7e0e8f7bb5c3fb529350e81b5969d55ecfb562c3ad031a85ddc"
+    },
+    {
+      "name": "v11",
+      "seed": "per_arm_reset",
+      "assign_mask": 9,
+      "first_receiver": 1,
+      "speech_receiver": 1,
+      "nested_tail": 0,
+      "body_sha256": "4c4ef355b66e1a2bb47fa8134bff5e73d8d0fb73851ff6f0ebc14e8dd6bf2073"
+    },
+    {
+      "name": "v12",
+      "seed": "per_arm_reset",
+      "assign_mask": 9,
+      "first_receiver": 0,
+      "speech_receiver": 1,
+      "nested_tail": 1,
+      "body_sha256": "55ab7e947f30409c6a538b02f43b97e6d72cf2f0eb33b26b43364f20f5edfb39"
+    },
+    {
+      "name": "v13",
+      "seed": "per_arm_clamp",
+      "assign_mask": 9,
+      "first_receiver": 0,
+      "speech_receiver": 0,
+      "nested_tail": 1,
+      "body_sha256": "48e7389f18782c6f3f303b32b752610ea298f14b8b53db46298a17850b183dfb"
+    },
+    {
+      "name": "v14",
+      "seed": "per_arm_clamp",
+      "assign_mask": 3,
+      "first_receiver": 0,
+      "speech_receiver": 1,
+      "nested_tail": 1,
+      "body_sha256": "a18987d77fe35e582fd7fbf9130757313af8e44d5ae7b31a4b4bfcbcfac0cab0"
+    },
+    {
+      "name": "v15",
+      "seed": "per_arm_clamp",
+      "assign_mask": 15,
+      "first_receiver": 1,
+      "speech_receiver": 1,
+      "nested_tail": 1,
+      "body_sha256": "aa8911c9924331dfc4e1a69d5dd6a65b0818a19fe897fd41c91375cf88cdb88f"
+    },
+    {
+      "name": "v16",
+      "seed": "per_arm_reset",
+      "assign_mask": 11,
+      "first_receiver": 0,
+      "speech_receiver": 0,
+      "nested_tail": 0,
+      "body_sha256": "d587d0843120cb7692ad72fd3c93d3495542f4bcc65cc6a3e147fc83a0894c73"
+    },
+    {
+      "name": "v17",
+      "seed": "per_arm_clamp",
+      "assign_mask": 4,
+      "first_receiver": 1,
+      "speech_receiver": 0,
+      "nested_tail": 0,
+      "body_sha256": "50cdccca0b1a735cd7477c582b8c27829feb445cc9ac4653c95155dd1d4755ea"
+    },
+    {
+      "name": "v18",
+      "seed": "per_arm_reset",
+      "assign_mask": 9,
+      "first_receiver": 1,
+      "speech_receiver": 0,
+      "nested_tail": 1,
+      "body_sha256": "fc60b26ef5211e2d21a9e8218498998f0408be5d8c834c046626e5c84f121279"
+    },
+    {
+      "name": "v19",
+      "seed": "per_arm_reset",
+      "assign_mask": 10,
+      "first_receiver": 1,
+      "speech_receiver": 1,
+      "nested_tail": 1,
+      "body_sha256": "fa5c499040c0e6660e037ebca640e4014bd1810911d0b5c4894d8b855cd7e330"
+    },
+    {
+      "name": "v20",
+      "seed": "per_arm_clamp",
+      "assign_mask": 12,
+      "first_receiver": 1,
+      "speech_receiver": 1,
+      "nested_tail": 1,
+      "body_sha256": "a4c9ac3b5b14a9ce87682ec58b89993416392e1870af56dd8b9da11be0f515a8"
+    },
+    {
+      "name": "v21",
+      "seed": "per_arm_clamp",
+      "assign_mask": 14,
+      "first_receiver": 1,
+      "speech_receiver": 1,
+      "nested_tail": 0,
+      "body_sha256": "0b15a1b3405f119c7cac0c4a7151be80759b98b34d3f890bf623c9734c726423"
+    },
+    {
+      "name": "v22",
+      "seed": "per_arm_clamp",
+      "assign_mask": 13,
+      "first_receiver": 0,
+      "speech_receiver": 1,
+      "nested_tail": 1,
+      "body_sha256": "b7c5a35d417ef3f80b5405106af9644fa3b7a5ca6dff61a803943408b1795fe9"
+    },
+    {
+      "name": "v23",
+      "seed": "per_arm_clamp",
+      "assign_mask": 10,
+      "first_receiver": 1,
+      "speech_receiver": 1,
+      "nested_tail": 0,
+      "body_sha256": "7bdb8e4494f4e112e09391fc70f79f2504d1cd0f0afed1f531e5dc16aa873d91"
+    },
+    {
+      "name": "v24",
+      "seed": "per_arm_reset",
+      "assign_mask": 0,
+      "first_receiver": 1,
+      "speech_receiver": 1,
+      "nested_tail": 1,
+      "body_sha256": "0f1ff4b59c36bb2f626864359dd9c515d12f5954595255ac2011f33652c230a1"
+    },
+    {
+      "name": "v25",
+      "seed": "per_arm_reset",
+      "assign_mask": 11,
+      "first_receiver": 1,
+      "speech_receiver": 0,
+      "nested_tail": 1,
+      "body_sha256": "e6994ae300c000d147b221730fb1c10f6af9309f7253d8d3367b71740c0e01b2"
+    },
+    {
+      "name": "v26",
+      "seed": "per_arm_clamp",
+      "assign_mask": 9,
+      "first_receiver": 0,
+      "speech_receiver": 1,
+      "nested_tail": 0,
+      "body_sha256": "f84c203e98fa3f5dc5fc7ed21e7593cc426476e033efa7d07c3417e76b9d40f5"
+    },
+    {
+      "name": "v27",
+      "seed": "per_arm_reset",
+      "assign_mask": 7,
+      "first_receiver": 0,
+      "speech_receiver": 1,
+      "nested_tail": 0,
+      "body_sha256": "633db5dfed60b9aee7df90da0c4d1ed60d39497a2ca98f8e71ae5eecc421cb63"
+    },
+    {
+      "name": "v28",
+      "seed": "per_arm_reset",
+      "assign_mask": 1,
+      "first_receiver": 0,
+      "speech_receiver": 0,
+      "nested_tail": 1,
+      "body_sha256": "f1d4d5d209b14deca0495d17721123bc182b888c5c564eb7e80c17db0fbd2c14"
+    },
+    {
+      "name": "v29",
+      "seed": "per_arm_clamp",
+      "assign_mask": 0,
+      "first_receiver": 0,
+      "speech_receiver": 0,
+      "nested_tail": 1,
+      "body_sha256": "188e6767ae9e1bc4d2c81f9e7b1d23daebfcca4cda7c967546afb9f892b6a6bd"
+    },
+    {
+      "name": "v30",
+      "seed": "per_arm_reset",
+      "assign_mask": 10,
+      "first_receiver": 1,
+      "speech_receiver": 1,
+      "nested_tail": 0,
+      "body_sha256": "c43cfb89376be921b1367868ad7fa77c3465be4c9fc7b438fd5036b4c247580a"
+    },
+    {
+      "name": "v31",
+      "seed": "per_arm_clamp",
+      "assign_mask": 15,
+      "first_receiver": 0,
+      "speech_receiver": 0,
+      "nested_tail": 0,
+      "body_sha256": "fc76d529c29f08774c9745e6b4dbe0424d5d162db063e068f2ffbbe21eee7956"
+    },
+    {
+      "name": "v32",
+      "seed": "per_arm_clamp",
+      "assign_mask": 15,
+      "first_receiver": 1,
+      "speech_receiver": 0,
+      "nested_tail": 0,
+      "body_sha256": "110b022e6ed92a6875dc5c5820283c2bfb76fb41fe97836b9889dc5f064ea771"
+    },
+    {
+      "name": "v33",
+      "seed": "per_arm_reset",
+      "assign_mask": 14,
+      "first_receiver": 0,
+      "speech_receiver": 1,
+      "nested_tail": 1,
+      "body_sha256": "51f89c25b9a3704be9c2f99b3672424ba2c0b4ba22048b6ae746fae620a676b5"
+    },
+    {
+      "name": "v34",
+      "seed": "per_arm_clamp",
+      "assign_mask": 5,
+      "first_receiver": 0,
+      "speech_receiver": 1,
+      "nested_tail": 1,
+      "body_sha256": "3af670cd761c76662a0fa031c3ce042e83a97b7265930b4f9a01d6918a238cfa"
+    },
+    {
+      "name": "v35",
+      "seed": "per_arm_clamp",
+      "assign_mask": 8,
+      "first_receiver": 1,
+      "speech_receiver": 0,
+      "nested_tail": 1,
+      "body_sha256": "7033a54ba03feaec74b47a31aa492ab5dc7b509d73a9fd30eea1721356904676"
+    },
+    {
+      "name": "v36",
+      "seed": "per_arm_clamp",
+      "assign_mask": 8,
+      "first_receiver": 0,
+      "speech_receiver": 1,
+      "nested_tail": 0,
+      "body_sha256": "bdedd61914f8d00c55913bbcbe26b9635130b62d544a0388fe43d1e785a53b08"
+    },
+    {
+      "name": "v37",
+      "seed": "per_arm_clamp",
+      "assign_mask": 0,
+      "first_receiver": 0,
+      "speech_receiver": 1,
+      "nested_tail": 1,
+      "body_sha256": "b6e5a6cd2fc9034478a3aeee70276be43e9161fd2f112fcdceed961ccd634677"
+    },
+    {
+      "name": "v38",
+      "seed": "per_arm_reset",
+      "assign_mask": 3,
+      "first_receiver": 1,
+      "speech_receiver": 1,
+      "nested_tail": 0,
+      "body_sha256": "3f7a8e3590768a97773e3bb5c5964fe817a79f8b6883fa91b7f42cd7603424ed"
+    },
+    {
+      "name": "v39",
+      "seed": "per_arm_clamp",
+      "assign_mask": 0,
+      "first_receiver": 1,
+      "speech_receiver": 1,
+      "nested_tail": 0,
+      "body_sha256": "176aa27814e28c68c7e4c3b9fb97a63a07bab0788a871aac44a09a0c6c0b0304"
+    },
+    {
+      "name": "v40",
+      "seed": "per_arm_clamp",
+      "assign_mask": 4,
+      "first_receiver": 0,
+      "speech_receiver": 0,
+      "nested_tail": 1,
+      "body_sha256": "07bcf4d5ca6eaf3ac8972f748e0a83601bc5155fe5c56b8d66ad82cdf6c36537"
+    },
+    {
+      "name": "v41",
+      "seed": "per_arm_reset",
+      "assign_mask": 5,
+      "first_receiver": 1,
+      "speech_receiver": 1,
+      "nested_tail": 1,
+      "body_sha256": "bd83c1798deb8e8b0f322645eec15b193781f690ccc5dd16ff224b5bb200cba6"
+    },
+    {
+      "name": "v42",
+      "seed": "per_arm_clamp",
+      "assign_mask": 14,
+      "first_receiver": 0,
+      "speech_receiver": 1,
+      "nested_tail": 1,
+      "body_sha256": "d462928360126cd97958974d60a715b9c3ee2d45daa497090c5e68ad418e94be"
+    },
+    {
+      "name": "v43",
+      "seed": "per_arm_reset",
+      "assign_mask": 7,
+      "first_receiver": 0,
+      "speech_receiver": 0,
+      "nested_tail": 0,
+      "body_sha256": "0e18c45c413029a6d340266c986611f35a518c8d94837c505118535b0b23e4cc"
+    },
+    {
+      "name": "v44",
+      "seed": "per_arm_reset",
+      "assign_mask": 1,
+      "first_receiver": 0,
+      "speech_receiver": 1,
+      "nested_tail": 1,
+      "body_sha256": "4a2920bddf084ca20695d0db7d92963339f3df341b9b4de6c96d34ac5ae82b6a"
+    },
+    {
+      "name": "v45",
+      "seed": "per_arm_reset",
+      "assign_mask": 11,
+      "first_receiver": 1,
+      "speech_receiver": 0,
+      "nested_tail": 0,
+      "body_sha256": "1d5b07cba9de4b7e9e038883a06a9ada6126a7850bfbbf3241a96e4e8fe5b25f"
+    },
+    {
+      "name": "v46",
+      "seed": "per_arm_reset",
+      "assign_mask": 2,
+      "first_receiver": 1,
+      "speech_receiver": 1,
+      "nested_tail": 1,
+      "body_sha256": "ca455a1216af936c5d0d07839c949b448afcbee08684fe36d5dba89c403396b2"
+    },
+    {
+      "name": "v47",
+      "seed": "per_arm_clamp",
+      "assign_mask": 5,
+      "first_receiver": 0,
+      "speech_receiver": 0,
+      "nested_tail": 0,
+      "body_sha256": "dd15d08142d43b5e4582f306f1efe84680b9f4669a918cdfbe9f1f214ad05be4"
+    },
+    {
+      "name": "v48",
+      "seed": "per_arm_clamp",
+      "assign_mask": 3,
+      "first_receiver": 1,
+      "speech_receiver": 1,
+      "nested_tail": 1,
+      "body_sha256": "5c1f877a8b5102e4ebf3f3748be0a06eb4f961012307efdce06262b3a19fc5e9"
+    },
+    {
+      "name": "v49",
+      "seed": "per_arm_clamp",
+      "assign_mask": 10,
+      "first_receiver": 1,
+      "speech_receiver": 0,
+      "nested_tail": 0,
+      "body_sha256": "6fe256cbb08e7153e95d620f870d080f6261892330e60237bc79f3e7574b6ae1"
+    },
+    {
+      "name": "v50",
+      "seed": "per_arm_reset",
+      "assign_mask": 13,
+      "first_receiver": 1,
+      "speech_receiver": 1,
+      "nested_tail": 1,
+      "body_sha256": "54fe83270e3aba61a066b0d839d042bdd1052c0fa25354bab7c08a1912cbca89"
+    }
+  ]
+}
+
+# Deterministic replay generator
+from pathlib import Path
+import hashlib,itertools,json,re,random
+root=Path('/home/dev/Projects/EnB'); work=root/'.work/claim-240'; out=work/'terra50-final/782200_v3'
+tree=work/'788900-operand-provenance/final-tree'; unit=Path('app/client/avatar.cpp'); current=(tree/unit).read_text()
+start='void CharacterViewAvatarClass::Unknown_782200()'; end='// 0x7826A0'
+def body(s): return s[s.index(start):s.index(end,s.index(start))]
+def norm(s): return re.sub(r'\s+','',re.sub(r'//[^\n]*','',s))
+base=body(current); cross=work/'782200-cross-target'; seeds=[body((cross/n/'avatar.cpp').read_text()) for n in ('per_arm_reset','per_arm_clamp')]
+historical=set()
+directories=[work/'focused/782200',work/'broad-avatar']+[p for p in work.iterdir() if p.is_dir() and '782200' in p.name.lower()]
+for directory in directories:
+ for p in directory.rglob('avatar.cpp'):
+  try: historical.add(norm(body(p.read_text())))
+  except (ValueError,UnicodeError): pass
+first='name = Unknown_781D10(NLP_Of(this)->Unknown_78EE00(Unknown248, Unknown210 != 0));'
+remaining='name = Unknown_781D10(anim);'
+tail='if (Unknown0BC && (Unknown0C0[0] || Unknown0C0[1])) {'; tailend='\t\t\tUnknown_783470();\n\t\t}'
+assert all(first in b and b.count(remaining)==3 and tail in b and tailend in b for b in seeds)
+variants=[]; index=[]
+def save(name,b):
+ assert b.count('\n')==base.count('\n')
+ p=out/name/'avatar.cpp'; p.parent.mkdir(exist_ok=True); p.write_text(current.replace(base,b,1)); variants.append({'name':name,'source':str(p)})
+ return hashlib.sha256(b.encode()).hexdigest()
+save('baseline',base); save('seed_control',seeds[0]); save('queue_control',seeds[1])
+combos=list(itertools.product(range(2),range(16),range(2),range(2),range(2)))
+random.Random(7823).shuffle(combos); seen=historical|{norm(base)}
+# Exact combinations selected by the original pass; no prior history needed.
+combos = [(1, 7, 0, 1, 0), (0, 12, 1, 1, 1), (0, 8, 1, 1, 1), (0, 15, 0, 1, 0), (0, 3, 1, 1, 1), (0, 6, 1, 0, 0), (1, 13, 1, 1, 0), (0, 7, 1, 0, 0), (0, 13, 0, 1, 1), (1, 2, 0, 0, 0), (0, 9, 1, 1, 0), (0, 9, 0, 1, 1), (1, 9, 0, 0, 1), (1, 3, 0, 1, 1), (1, 15, 1, 1, 1), (0, 11, 0, 0, 0), (1, 4, 1, 0, 0), (0, 9, 1, 0, 1), (0, 10, 1, 1, 1), (1, 12, 1, 1, 1), (1, 14, 1, 1, 0), (1, 13, 0, 1, 1), (1, 10, 1, 1, 0), (0, 0, 1, 1, 1), (0, 11, 1, 0, 1), (1, 9, 0, 1, 0), (0, 7, 0, 1, 0), (0, 1, 0, 0, 1), (1, 0, 0, 0, 1), (0, 10, 1, 1, 0), (1, 15, 0, 0, 0), (1, 15, 1, 0, 0), (0, 14, 0, 1, 1), (1, 5, 0, 1, 1), (1, 8, 1, 0, 1), (1, 8, 0, 1, 0), (1, 0, 0, 1, 1), (0, 3, 1, 1, 0), (1, 0, 1, 1, 0), (1, 4, 0, 0, 1), (0, 5, 1, 1, 1), (1, 14, 0, 1, 1), (0, 7, 0, 0, 0), (0, 1, 0, 1, 1), (0, 11, 1, 0, 0), (0, 2, 1, 1, 1), (1, 5, 0, 0, 0), (1, 3, 1, 1, 1), (1, 10, 1, 0, 0), (0, 13, 1, 1, 1)]
+seen = set()
+for seed,assign,firstreceiver,speechreceiver,tailmode in combos:
+ b=seeds[seed]
+ if assign&1: b=b.replace(first,'name.assign(Unknown_781D10(NLP_Of(this)->Unknown_78EE00(Unknown248, Unknown210 != 0)));')
+ parts=b.split(remaining); assert len(parts)==4
+ b=parts[0]+('name.assign(Unknown_781D10(anim));' if assign&2 else remaining)+parts[1]+('name.assign(Unknown_781D10(anim));' if assign&4 else remaining)+parts[2]+('name.assign(Unknown_781D10(anim));' if assign&8 else remaining)+parts[3]
+ if firstreceiver: b=b.replace('NLP_Of(this)->Unknown_78EE00(Unknown248','PlayerNLP->Unknown_78EE00(Unknown248')
+ if speechreceiver: b=b.replace('NLP_Of(this)->Personality->Get_Speech_Delay()','PlayerNLP->Personality->Get_Speech_Delay()')
+ if tailmode: b=b.replace(tail,'if (Unknown0BC) { if (Unknown0C0[0] || Unknown0C0[1]) {').replace(tailend,'\t\t\tUnknown_783470();\n\t\t} }')
+ key=norm(b)
+ if key in seen: continue
+ seen.add(key); name='v%02d'%(len(index)+1)
+ index.append({'name':name,'seed':('per_arm_reset','per_arm_clamp')[seed],'assign_mask':assign,'first_receiver':firstreceiver,'speech_receiver':speechreceiver,'nested_tail':tailmode,'body_sha256':save(name,b)})
+ if len(index)==50: break
+assert len(index)==50
+(out/'packet.json').write_text(json.dumps({'unit':str(unit),'target':'0x782200','tree':str(tree),'variants':variants},indent=2)+'\n')
+(out/'forms.json').write_text(json.dumps({'historical_distinct_bodies':len(historical),'forms':index},indent=2)+'\n')
