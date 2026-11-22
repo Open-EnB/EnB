@@ -79,7 +79,7 @@ void ClientItemPropertyBuilderClass::Unknown_521C10(UIItemExaminationPropertyRou
 }
 
 
-// NOT EXACT: 0x522860 (functional, masked residue 58 rows, frame 0x66C as the client's: 25 dead Data.Peek() reads in the gap above FAIL_IF (D272) and an explicit RefCountPtr<const ClientItemPropertyClass> temporary at the Mode Route spend the inline budget, so the Modes Create's three string constructors and the separator's destructor go out of line and case 26's three assigns expand as the client's; left: the Modes case's inline profile (0x5266A7, ours 28 rows to the client's 60) and the case tail at 0x5237F0 not merged into 0x525D60 (any bare dead statement splits it); CB, 2026-11-20-night)
+// NOT EXACT: 0x522860 (functional, masked residue 56 rows, frame 0x66C as the client's: 25 dead Data.Peek() reads in the gap above FAIL_IF (D272) and a copy-initialised RefCountPtr<const ClientItemPropertyClass> local at the Mode Route (the client re-reads it from its slot) spend the inline budget, so the Modes Create's three string constructors and the separator's destructor go out of line and case 26's three assigns expand as the client's; left: the Modes case's inline profile (0x5266A7, ours 28 rows to the client's 60) and the case tail at 0x5237F0 not merged into 0x525D60 (any bare dead statement splits it); CB, 2026-11-20-night)
 void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRouterBaseClass &router)
 {
 	Data->Unknown_688830()->Get_Quality(Slot);
@@ -743,7 +743,7 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 				if (mode_flags & 8) modes.push_back("Refining");
 				std::string text = String_Join(modes, ", ");
 				RefCountPtr<ClientItemPropertyClass> property = ClientItemPropertyAttributeStringClass::Create(6, "Mode", "", "Which activities this Override item benefits", 0, text);
-				router.Route(RefCountPtr<const ClientItemPropertyClass>(property));
+				RefCountPtr<const ClientItemPropertyClass> route = property; router.Route(route);
 			}
 			break;
 		}
