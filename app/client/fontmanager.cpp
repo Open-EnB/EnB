@@ -190,14 +190,14 @@ void ManagedFontClass::Unknown_6D0A70(const char *name, const char *text)
 	Unknown_6CF930(&def, Id);
 }
 
-// NOT EXACT: inline budget: the client calls the std::string(const char *, allocator) constructor out of line, ours inlines it (attempts.csv)
+#pragma inline_depth(0)	// 0x6D1010 (exact so: the client calls std::string(const char *, allocator) out of line; the colour stored field by field, its copy read back through a pointer)
 void ManagedFontClass::Unknown_6D1010(const char *name, Vector3 color)
 {
 	FontSys *style = Unknown_6D1600(name);
-	style->Unknown494.Color = color;
-	style->Unknown4A4 = style->Unknown494;
+	style->Unknown494.Color.X = color.X; style->Unknown494.Color.Y = color.Y; style->Unknown494.Color.Z = color.Z;
+	FontStyleColorStruct *c = &style->Unknown494; style->Unknown4A4.Color.X = c->Color.X; style->Unknown4A4.Color.Y = c->Color.Y; style->Unknown4A4.Color.Z = c->Color.Z; style->Unknown4A4.Unknown0C = c->Unknown0C;
 }
-
+#pragma inline_depth()
 // 0x6D10B0 (exact with the colour typed as floats: the client copies the three dwords)
 void ManagedFontClass::Unknown_6D10B0(const char *name, Vector3 color)
 {
@@ -374,16 +374,16 @@ FontSys *ManagedFontClass::Unknown_6D1480(std::string name)
 	if (it == Styles.end()) return NULL; else return it->second;
 }
 
-// NOT EXACT: shape, 39 rows: the client destroys the name in one shared tail, ours in each return (attempts.csv)
+// 0x6D1600 (exact with the iterator declared, then assigned, and two dead size() reads after the find: the client calls hashtable::find out of line, the by-value copy inline)
 FontSys *ManagedFontClass::Unknown_6D1600(std::string name)
 {
-	std::hash_map<std::string, FontSys *>::iterator it = Styles.find(name);
+	std::hash_map<std::string, FontSys *>::iterator it;
+	it = Styles.find(name);
+	Styles.size();
+	Styles.size();
 	if (it == Styles.end()) return Unknown_6D1480(name);
 	return it->second;
 }
-
-
-
 
 
 
