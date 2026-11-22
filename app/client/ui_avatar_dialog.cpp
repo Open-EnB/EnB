@@ -161,7 +161,7 @@ void UIAvatarDialogClass::Unknown_58()
 		}
 		SClient *sclient = ((SClient *)((ClientClass *)Client)->As_Space_Client());
 		Pip->Unknown_7E36B0(sclient, Create_Get(InterfaceMesh->Get_Sub_Object_By_Name("PICTURE")), false);
-		Pip->Unknown_7E3A20(Text.c_str(), 0, (CharacterViewAvatarClass *)AvatarRObj.Peek());
+		Pip->Unknown_7E3A20(Text.c_str(), 0, AvatarRObj.Peek());
 		Unknown0E0 = false;
 		Answer = -1;
 		SoundLibraryClass::Play_2D_Sound("message_1.wav", 2);
@@ -184,7 +184,7 @@ void UIAvatarDialogClass::Unknown_5C()
 // 0x552C60
 void UIAvatarDialogClass::Unknown_60()
 {
-	Pip->Unknown_7E3A20(NULL, 0, (CharacterViewAvatarClass *)AvatarRObj.Peek());
+	Pip->Unknown_7E3A20(NULL, 0, AvatarRObj.Peek());
 	if (Unknown0E0 && Pip->Unknown02C->Unknown220) {
 		Unknown_5C();
 	}
@@ -228,7 +228,7 @@ void UIAvatarDialogClass::Unknown_552D90(int answer)
 	}
 	if (!Replies[Answer].empty()) {
 		Unknown_553370(Replies[Answer].c_str());
-		Pip->Unknown_7E3A20(Text.c_str(), 0, (CharacterViewAvatarClass *)AvatarRObj.Peek());
+		Pip->Unknown_7E3A20(Text.c_str(), 0, AvatarRObj.Peek());
 		Unknown0E0 = true;
 		Buttons[1]->Unknown_40(true);
 		Buttons[1]->Unknown_8C(false);
@@ -296,7 +296,7 @@ void UIAvatarDialogClass::Unknown_552D90(int answer)
 
 
 
-// NOT EXACT: register (one load: the client reads the new avatar into ecx for the store to AvatarRObj, ours reuses edi; the template operator= and the inline env-map read fixed the rest)
+
 // 0x552FC0
 void UIAvatarDialogClass::Unknown_552FC0(AvatarDescClass *desc)
 {
@@ -309,7 +309,7 @@ void UIAvatarDialogClass::Unknown_552FC0(AvatarDescClass *desc)
 	RefCountPtr<FontSys> font = Create_Peek(Unknown_BE67C4->Get_Style("NAME_TLI01A_AV", InterfaceMesh->Peek_Object()));
 	FAIL_IF(!font) return;
 	std::string name;
-	((CharacterViewAvatarClass *)AvatarRObj.Peek())->Desc.Get_Full_Name(name);
+	(AvatarRObj.Peek())->Desc.Get_Full_Name(name);
 	font->Set_Sort_Level(level);
 	font->Change_Text(name.c_str(), 0);
 	font = Create_Peek(Unknown_BE67C4->Get_Style("Reply_TLI01A_AV", InterfaceMesh->Peek_Object()));
