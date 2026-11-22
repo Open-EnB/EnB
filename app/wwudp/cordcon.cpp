@@ -985,15 +985,15 @@ bool CordCon::handlePacket(unsigned char *data, int datalen)
 	PacketsIn_++;
 	LastReceive_ = current.getTime_t();
 	GoneAway_ = false;
-	int pos = 10;
-	if (data[9] & 2) {
+	int pos = 10; unsigned char flags = data[9];
+	if (flags & 2) {
 		if (CloseState_ == 1 || CloseState_ == 2) {
 			CloseState_ = 4;
 		} else {
 			CloseState_ = 3;
 		}
 	}
-	if (data[9] & 1) {
+	if (flags & 1) {
 		acks = data[10];
 		pos = 11;
 	}
@@ -1144,9 +1144,9 @@ bool CordCon::handlePacket(unsigned char *data, int datalen)
 		} else if (kind == 1) {
 			for (std::vector<CordMessageClass>::iterator it = c->Sent.begin(); it != c->Sent.end(); ++it) {
 				if (it->Seq == seq) {
+					it->SentTime.setDay(0);
+					it->SentTime.setMsec(0);
 					CordMessageClass m = *it;
-					m.SentTime.setDay(0);
-					m.SentTime.setMsec(0);
 					c->Sent.erase(it);
 					c->Sent.insert(c->Sent.begin(), m);
 					CORD_HARNESS_COUNT(this, ResendRequests);
