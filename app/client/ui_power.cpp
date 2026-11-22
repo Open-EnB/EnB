@@ -30,9 +30,9 @@ public:
 template<class C> inline C *Unknown_Power_Field(DeltaCompoundClass *const &root, const char *name) { NameClass n(name); DeltaCompoundClass *r = root; C *t = Unknown_Find_Field<C>(r, n); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10)
 template<class C> inline C *Unknown_Power_Find(DeltaCompoundClass *const &root, const char *name) { return(Unknown_Power_Field<C>(root, name)); }	// NAME 1: neutral (D10)
 
-// @0x5DBFC0  // NOT EXACT: functional (D64): the client calls GenericNode::GenericNode out of line (as ui_experience.cpp's 0x58C450)
+// @0x5DBFC0  (Parent through the plain base first; GenericNode() out of line by the inline_depth at the file's end)
 UIPowerClass::UIPowerClass(RenderObjClass *mesh, LayerClass *layer, InterfaceClass *parent, int arg) :
-	Parent(parent),
+	UnknownPowerParentClass(parent),
 	EnergyGauge(NULL),
 	ShieldGauge(NULL),
 	HullGauge(NULL)
@@ -207,3 +207,4 @@ bool UIPowerGaugeClass::Set_Value(float value)
 **	auxdata.h l.155): the file name is NAME 1, from the tooltips' section UI_POWER and the link order. Its twin is
 **	ui_experience.cpp (the same watcher shape, the same three-bar constructor).
 */
+#pragma inline_depth(2)	// templates take the file end's inline state: the watcher's DataNode<> calls GenericNode() 0x48A060 out of line in 0x5DBFC0, as the client
