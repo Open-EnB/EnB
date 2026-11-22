@@ -232,7 +232,7 @@ void PxAccurateBox::On_Exit(PxBox *box)
 	if (box->Self & 2) { cb->Tight_Exit((PxObject *)box->Owner); } else { cb->Loose_Exit((PxObject *)box->Owner); cb->Overlaps.end(); cb->Overlaps.end(); cb->Overlaps.end(); }
 }
 // 0x44F8F0
-// NOT EXACT: inline budget (as 0x44F3D0)
+// (exact with Update's high corner as pos + Extent: the inlined copy's X sum then loads pos.X first, as the client)
 PxAccurateBoxCallback::PxAccurateBoxCallback(PxObject *object, const PxAccurateBoxCallback &src) :
 	PxAccurateCallback(object, src),
 	Box(NULL),
@@ -243,7 +243,7 @@ PxAccurateBoxCallback::PxAccurateBoxCallback(PxObject *object, const PxAccurateB
 }
 
 // 0x44FAD0
-// NOT EXACT: inline budget (it inlines the copy constructor 0x44F8F0)
+// (exact: it inlines the copy constructor 0x44F8F0)
 PxCallback *PxAccurateBoxCallback::Clone(PxObject *object)
 {
 	return(new PxAccurateBoxCallback(object, *this));
@@ -272,7 +272,7 @@ void PxAccurateBoxCallback::Detach(PxList *list)
 void PxAccurateBoxCallback::Update()
 {
 	const Vector3 &pos = Object->Pos;
-	Box->Set_Corners(pos - Extent, Extent + pos);
+	Box->Set_Corners(pos - Extent, pos + Extent);
 }
 
 // 0x44FF10
