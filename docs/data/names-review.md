@@ -10,7 +10,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 227 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1970 |
-| 2 | describes what the code does | 5005 |
+| 2 | describes what the code does | 5006 |
 | 1 | neutral placeholder | 25133 |
 
 ## For review (score 3 and below)
@@ -20468,19 +20468,19 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown4C4` | `app/client/unknown_6ca0c0.cpp:72` | untagged neutral name (D10) |
 | 1 | `Unknown2D0` | `app/client/unknown_6ca0c0.cpp:72` | untagged neutral name (D10) |
 | 1 | `Unknown_6D8DC0` | `app/client/unknown_6ca0c0.cpp:72` | untagged neutral name (D10) |
-| 1 | `Unknown404` | `app/client/unknown_6ca0c0.cpp:74` | untagged neutral name (D10) |
-| 1 | `Unknown_6CA0C0` | `app/client/unknown_6ca0c0.cpp:76` | untagged neutral name (D10) |
-| 1 | `Unknown270` | `app/client/unknown_6ca0c0.cpp:87` | untagged neutral name (D10) |
-| 1 | `Unknown274` | `app/client/unknown_6ca0c0.cpp:88` | untagged neutral name (D10) |
-| 1 | `Unknown494` | `app/client/unknown_6ca0c0.cpp:89` | untagged neutral name (D10) |
-| 1 | `Unknown0C` | `app/client/unknown_6ca0c0.cpp:89` | untagged neutral name (D10) |
-| 1 | `Unknown2F4` | `app/client/unknown_6ca0c0.cpp:90` | untagged neutral name (D10) |
-| 1 | `Unknown420` | `app/client/unknown_6ca0c0.cpp:92` | untagged neutral name (D10) |
-| 1 | `Unknown254` | `app/client/unknown_6ca0c0.cpp:101` | untagged neutral name (D10) |
-| 1 | `Unknown4C5` | `app/client/unknown_6ca0c0.cpp:103` | untagged neutral name (D10) |
-| 1 | `Unknown414` | `app/client/unknown_6ca0c0.cpp:206` | untagged neutral name (D10) |
-| 1 | `Unknown303` | `app/client/unknown_6ca0c0.cpp:211` | untagged neutral name (D10) |
-| 1 | `Unknown406` | `app/client/unknown_6ca0c0.cpp:247` | untagged neutral name (D10) |
+| 1 | `Unknown404` | `app/client/unknown_6ca0c0.cpp:75` | untagged neutral name (D10) |
+| 1 | `Unknown_6CA0C0` | `app/client/unknown_6ca0c0.cpp:77` | untagged neutral name (D10) |
+| 1 | `Unknown270` | `app/client/unknown_6ca0c0.cpp:88` | untagged neutral name (D10) |
+| 1 | `Unknown274` | `app/client/unknown_6ca0c0.cpp:89` | untagged neutral name (D10) |
+| 1 | `Unknown494` | `app/client/unknown_6ca0c0.cpp:90` | untagged neutral name (D10) |
+| 1 | `Unknown0C` | `app/client/unknown_6ca0c0.cpp:90` | untagged neutral name (D10) |
+| 1 | `Unknown2F4` | `app/client/unknown_6ca0c0.cpp:91` | untagged neutral name (D10) |
+| 1 | `Unknown420` | `app/client/unknown_6ca0c0.cpp:93` | untagged neutral name (D10) |
+| 1 | `Unknown254` | `app/client/unknown_6ca0c0.cpp:102` | untagged neutral name (D10) |
+| 1 | `Unknown4C5` | `app/client/unknown_6ca0c0.cpp:104` | untagged neutral name (D10) |
+| 1 | `Unknown414` | `app/client/unknown_6ca0c0.cpp:207` | untagged neutral name (D10) |
+| 1 | `Unknown303` | `app/client/unknown_6ca0c0.cpp:212` | untagged neutral name (D10) |
+| 1 | `Unknown406` | `app/client/unknown_6ca0c0.cpp:248` | untagged neutral name (D10) |
 | 1 | `Unknown2C4` | `app/client/unknown_6ca0c0.cpp:253` | untagged neutral name (D10) |
 | 1 | `Unknown47C` | `app/client/unknown_6ca0c0.cpp:270` | untagged neutral name (D10) |
 | 1 | `Unknown454` | `app/client/unknown_6ca0c0.cpp:271` | untagged neutral name (D10) |
@@ -20489,7 +20489,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown4DC` | `app/client/unknown_6ca0c0.cpp:289` | untagged neutral name (D10) |
 | 1 | `Unknown_6D5B10` | `app/client/unknown_6ca0c0.cpp:303` | untagged neutral name (D10) |
 | 1 | `Unknown302` | `app/client/unknown_6ca0c0.cpp:332` | untagged neutral name (D10) |
-| 1 | `Unknown464` | `app/client/unknown_6ca0c0.cpp:337` | untagged neutral name (D10) |
+| 1 | `Unknown464` | `app/client/unknown_6ca0c0.cpp:333` | untagged neutral name (D10) |
 | 1 | `Unknown2C8` | `app/client/unknown_6ca0c0.cpp:423` | untagged neutral name (D10) |
 | 1 | `Unknown4A4` | `app/client/unknown_6ca0c0.cpp:477` | untagged neutral name (D10) |
 | 1 | `Unknown44C` | `app/client/unknown_6ca0c0.cpp:477` | untagged neutral name (D10) |
@@ -27778,7 +27778,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Pass` | `app/client/unknown_6bb7e0.h:20` | what it holds |
 | 2 | `std:` | `app/client/unknown_6bb7e0.h:33` | what it holds |
 | 2 | `Random_Letter` | `app/client/unknown_6ca0c0.cpp:47` | random ASCII alphanumeric for FONT_EFFECT_RANDLETTER (0x6CA070) |
-| 2 | `Set_Complete` | `app/client/unknown_6ca0c0.cpp:74` | Is_Complete's setter (0x67EEE0 reads +0x404); an inline layer, as the client spends inline budget here |
+| 2 | `Append_Dots` | `app/client/unknown_6ca0c0.cpp:74` | Update_Text's "..." layer (fontsys.cpp): the client calls the += copy's Get_Length out of line here too (0x6CAC4E, as 0x6D676E); the dead read is the layer's budget (D272) |
+| 2 | `Set_Complete` | `app/client/unknown_6ca0c0.cpp:75` | Is_Complete's setter (0x67EEE0 reads +0x404); an inline layer, as the client spends inline budget here |
 | 2 | `FontEffectStruct::EffectType` | `app/client/unknown_6ca0c0.h:7` | the client's ini words |
 | 2 | `FontEffectStruct::Direction` | `app/client/unknown_6ca0c0.h:33` | the client's ini words |
 | 2 | `Class_ID` | `app/client/unknown_6e1ab0.h:32` | E&B's class id |
