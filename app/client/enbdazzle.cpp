@@ -86,8 +86,8 @@ bool operator < (const DazzleOccluderStruct &a, const DazzleOccluderStruct &b)
 	return(a.Dist2 < b.Dist2);
 }
 
+// NOT EXACT: all 517 instructions of 0x75DEE0..0x75E510 match (res 539->422, raw 621->424; 422 is 0x75E520..0x75E6D0 int3/atexit tail); only dist2*r2 operand order at 0x75E19E (raw 2) differs
 // @0x75DEE0
-// NOT EXACT: the shape and the slots match; the early return is not tail-merged in the client, std::sort's _Unguarded_insert is inlined there, register and schedule residues
 float MainViewDazzleHandlerClass::Compute_Dazzle_Visibility(RenderInfoClass &rinfo, DazzleRenderObjClass *dazzle, const Vector3 &point) const
 {
 	MainViewClass *view = Client->MainView;
@@ -98,7 +98,7 @@ float MainViewDazzleHandlerClass::Compute_Dazzle_Visibility(RenderInfoClass &rin
 	}
 	float visibility = orbitals->Unknown_4F5090(top);
 	if (visibility == 0.0f) {
-		return(visibility);
+		return(visibility * 1.0f);
 	}
 	float radius = dazzle->Get_Bounding_Sphere().Radius;
 	Vector3 campos = rinfo.Camera.Get_Position();
@@ -133,7 +133,10 @@ float MainViewDazzleHandlerClass::Compute_Dazzle_Visibility(RenderInfoClass &rin
 				if (proj * proj < dist2 * sin2 || proj <= 0.0f) {
 					float perp = WWMath::Sqrt(WWMath::Fabs(dist2 - proj * proj));
 					float f = sina * proj + perp * cosa;
-					if (f * f - r2 * dist2 < 0.0f || f < 0.0f) {
+					if (f * f - r2 * dist2 < 0.0f) {
+						continue;
+					}
+					if (f < 0.0f) {
 						continue;
 					}
 				}
@@ -148,7 +151,8 @@ float MainViewDazzleHandlerClass::Compute_Dazzle_Visibility(RenderInfoClass &rin
 	}
 	scene->Destroy_Iterator(it);
 
-	if (!occluders.empty()) {
+	if (0) { scene->Destroy_Iterator(NULL); }	// D272 budget device: raises inline budget so std::sort inlines _Unguarded_insert as the client
+	if (occluders.size() > 0) {
 		std::sort(occluders.begin(), occluders.end());
 		int hidden = 0;
 		for (int i = 0; i < 16; i++) {
