@@ -1,0 +1,225 @@
+# 78F050 signed-comparison repeat and remaining-lead audit
+
+One disambiguating repeat/confirmation, zero proven-new forms, one successful
+full-native object, no fresh control. All18 current nlp file/address pairs held,
++0/-0; target nonexact, no source adoption. Appsourceaa57c927 unchanged.
+
+The old Opus summary reports `len >= strlen(text)`, but no full source survives
+to establish its cast/signedness. All43 retained .work nlp.cpp sources and the
+published generators were searched. This is not claimed as a new family, nor
+proof that the old form used unsigned comparison. Explicit signed
+`len >= (int)strlen(text)` preserves both strlen evaluations and existing signed
+conversion/negative-len behavior.
+
+The emitted change is exactly CMP ECX,EAX -> CMP EAX,ECX and JG -> JL, matching
+retail78F08C/08E. Every instruction string in command, lexicon, punctuation and
+final regions is unchanged from punctuation_reset. Fullscope raw86/80->84/79;
+register masking already ignored the CMP register exchange, hence only one point
+there. Initial region now0; command73/lexicon11 remain, punctuation/final0.
+443instructions37calls1210bytes/frame60 versus retail443/36/1205/frame60.
+Full retail executable78F050..78F505, all3returns included. No cropped comparison.
+
+All11 string references retain exact retail bytes including NUL; retail10sites
+has one fewer static separator reference due to the known cloned lexicon log.
+No floating references. Existing native18 proof is reused as control; ledger19
+includes shared42B320 absent already in that native baseline. No loss is hidden.
+
+Targeted command/lexicon review found no positive new hypothesis. Number survives
+real calls via EBX versus retail EDX/slot28, with no supported missing type/API.
+Lexicon source already has resets then one common separator log; compiler hoists
+the PUSH and clones the call. After that PUSH, [esp14] is still steady+10 start,
+not an incorrect object. Source labels/log duplication/forced lifetime boundaries
+would prescribe code layout without independent evidence. Detailed negative
+findings in remaining-audit.txt. Stop here, no further candidate prepared.
+
+New best partial: signed_length_order/nlp.cpp. Reproduce by applying its
+incremental.patch to the punctuation_reset source preserved in committed
+`docs/attempts/78F050/structural-forms.txt` (459c1317); source.patch additionally
+reconstructs fromaa57c927. All outside-target bytes/physical assertion lines
+including FAIL_IF708 unchanged; no locals/helpers/headers/types/flags changed.
+Root alone compiled runs/batch1-w7rxkp4o; worker only inspected output. Counts
+remain446proven-valid new forms,547investigativeobjects,17unfinished, with earlier
+production confirmation separate. Root owns evidence recording/checks/commit.
+
+TARGETED AUDIT
+Targeted follow-up from punctuation_reset raw86/80 (459c1317)
+
+No positive new command/lexicon hypothesis emerged. The command mood result
+survives scan/emission calls in callee-saved EBX in candidate, versus EDX plus
+slot28 in retail. Both preserve the same value; prior actual helper contracts
+provide no changed return type, output argument, hidden owning object or alias.
+Known scan/emission separation/shared-scan/declaration families already tested.
+
+The extra static lexicon separator call is a scheduling/tail-cloning issue:
+source already resets start/count before one common log. Candidate hoists the
+separator PUSH before MOVstart/XORcount on success. Its [esp14] then still refers
+to steady-ESP+10 start; no wrong-object inference follows from shifted ESP.
+Retail stores start then clears count, jumps to common log. Candidate phase
+ordering alone supplies no evidence for an extra helper, aggregate, forced store,
+source label, or duplicated source log. The inner success inversion was already
+canonical. Existing direct scanner calls and duplicate Find_BAnim calls agree.
+
+A root-proposed initial comparison diagnostic has a narrower evidence boundary:
+old Opus summary lists len>=strlen(text), but its full source is not preserved.
+Search found no reversed comparison in43 retained nlp.cpp sources or published
+generators. Explicit signed `len >= (int)strlen(text)` is therefore NOT proven
+fresh; it is one approved disambiguating repeat/confirmation,0proven-new forms.
+No claim is made that the old trial lacked a cast or had an unsigned bug.
+Retail CMP len,strlen then signedJL directly supports this one spelling. It
+retains the current signed conversion, negative-len behavior and two evaluations.
+Only this source was prepared, on current strongest partial; no control rebuild.
+
+PREDICTION
+Single approved disambiguating repeat of historical comparison family. Prior Opus summary says len >= strlen(text), but full source absent: no claim of proven freshness or unsigned old behavior. 43 retained nlp.cpp sources and all published generators have no reversed comparison. Explicit signed cast preserves existing negative len behavior, duplicate strlen evaluations and narrowing semantics. Retail78F08C CMP EAX(len),ECX(strlen),78F08E JL. Current best CMP ECX,EAX/JG. Predict exactly two initial instruction substitutions recovered, raw86/80->84/78 with command/lexicon/punctuation/final unchanged. No new helper/locals/header/flags/alias; source line467 only, all assertion/error positions and outside target unchanged. No further candidate authorized.
+
+FRESHNESS LIMITS
+{
+  "nlp_cpp_files_inspected": 43,
+  "len_ge_strlen_source_matches": [],
+  "limitations": "No retained full Opus source located; published summary omits cast, so prior signedness cannot be established from summary alone."
+}
+
+MANIFEST
+{
+  "head": "459c1317",
+  "appsource": "aa57c927",
+  "target": "0x78F050",
+  "proven_new_forms": 0,
+  "disambiguating_repeats": 1,
+  "successful_native_objects": 1,
+  "fresh_controls": 0,
+  "no_adoption": true,
+  "source": "/home/dev/Projects/EnB/.work/claim-240/78f050-followup/signed_length_order/nlp.cpp",
+  "source_sha256": "64ec4d7d1da82fe8011962441f126e2df7ef5b6e96538306dcea3516134b1331",
+  "object": "/home/dev/Projects/EnB/.work/claim-240/78f050-followup/runs/batch1-w7rxkp4o/signed_length_order/nlp.obj",
+  "matches": "/home/dev/Projects/EnB/.work/claim-240/78f050-followup/runs/batch1-w7rxkp4o/signed_length_order/matches.json",
+  "exact_symbol_pairs": [
+    [
+      "??0NLPLexiconClass@@QAE@PBD@Z",
+      "0x78E330"
+    ],
+    [
+      "??0PlayerNLPClass@@QAE@XZ",
+      "0x78EB50"
+    ],
+    [
+      "??1NLPLexiconClass@@QAE@XZ",
+      "0x78E8A0"
+    ],
+    [
+      "??1PlayerNLPClass@@QAE@XZ",
+      "0x78EB80"
+    ],
+    [
+      "??_H@YGXPAXIHP6EX0@Z@Z",
+      "0x42F250"
+    ],
+    [
+      "?Unknown_78E190@@YAXPADPBD11@Z",
+      "0x78E190"
+    ],
+    [
+      "?Unknown_78E2C0@@YAXPADPBD@Z",
+      "0x78E2C0"
+    ],
+    [
+      "?Unknown_78E2F0@@YAXPBDZZ",
+      "0x78E2F0"
+    ],
+    [
+      "?Unknown_78E870@@YAHPBX0@Z",
+      "0x78E870"
+    ],
+    [
+      "?Unknown_78E8F0@NLPLexiconClass@@QAEXXZ",
+      "0x78E8F0"
+    ],
+    [
+      "?Unknown_78E980@NLPLexiconClass@@QAEPAUUnknown_NLPPhraseStruct@@PBD@Z",
+      "0x78E980"
+    ],
+    [
+      "?Unknown_78EC00@PlayerNLPClass@@UAE_NHH@Z",
+      "0x78EC00"
+    ],
+    [
+      "?Unknown_78ECC0@PlayerNLPClass@@UAEXXZ",
+      "0x78ECC0"
+    ],
+    [
+      "?Unknown_78ED30@PlayerNLPClass@@UAEPBDPBD0@Z",
+      "0x78ED30"
+    ],
+    [
+      "?Unknown_78EE00@PlayerNLPClass@@QAEHH_N@Z",
+      "0x78EE00"
+    ],
+    [
+      "?Unknown_78EEF0@PlayerNLPClass@@QAEHPBDH@Z",
+      "0x78EEF0"
+    ],
+    [
+      "?Unknown_78F640@PlayerNLPClass@@QAEHPBD@Z",
+      "0x78F640"
+    ],
+    [
+      "?Unknown_78F690@PlayerNLPClass@@UAEXPBDHPAHPAVUnknown_ChatStreamClass@@@Z",
+      "0x78F690"
+    ]
+  ],
+  "raw": [
+    84,
+    79
+  ],
+  "instructions": [
+    443,
+    443
+  ],
+  "calls": [
+    37,
+    36
+  ],
+  "bytes": [
+    1210,
+    1205
+  ],
+  "frame": "sub esp, 0x60",
+  "regions": {
+    "initial": 0,
+    "command": 73,
+    "lexicon": 11,
+    "punctuation": 0,
+    "final": 0
+  },
+  "retail_returns": [
+    "0x78f079",
+    "0x78f4ba",
+    "0x78f502"
+  ],
+  "all_other_regions_identical_to_previous_best": true,
+  "string_sites": 11,
+  "retail_string_sites": 10,
+  "string_values_all_match": true,
+  "literal_multiplicity_delta": {
+    "'------------------------------------------------------\\n\\x00'": 1
+  },
+  "guards": {
+    "outside_target_identical": true,
+    "physical_assertions_and_errors_fixed": true,
+    "FAIL_IF708": true,
+    "only_incremental_line": 467
+  }
+}
+
+INCREMENTAL PATCH ON structural-forms.txt punctuation_reset
+--- incremental/app/client/nlp.cpp
++++ signed_length_order/app/client/nlp.cpp
+@@ -464,7 +464,7 @@
+ 		Unknown_78E2F0("NLP error: null input!\n");
+ 		return;
+ 	}
+-	if ((int)strlen(text) <= len) {
++	if (len >= (int)strlen(text)) {
+ 		len = strlen(text);
+ 	}
+ 	if (!Initialized || Lexicon == NULL) {
