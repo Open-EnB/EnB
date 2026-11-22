@@ -184,18 +184,18 @@ StarbaseShipCustomizeInterface::~StarbaseShipCustomizeInterface()
 	GadgetClass::Get_Signal_Map().disconnect((GadgetClass *)NULL, this, &StarbaseShipCustomizeInterface::Unknown_61E730, FlashingGadgetEvent(NULL));
 }
 
-// NOT EXACT: register (0.73: every call matches; left: Desc's Selected_Decal read through ebx (the client's &Desc) where
-// VC6 here reads [ebp+0xF0], and eax / ecx / edx swaps around the 0x74C960 results and the virtual calls)
+// NOT EXACT: register (every call matches; Desc through a pointer local reads Selected_Decal through ebx as the client
+// does, masked 29 -> 24; left: eax / ecx / edx swaps around the 0x74C960 results, the pip's set-up and the virtual calls)
 // @0x618CA0
 void StarbaseShipCustomizeInterface::Unknown_54()
 {
 	SBaseView->Unknown_69DC40();
 	InterfaceSortScopeClass sort(this);
-	Desc = ShipCustDescClass();
-	Desc.Set_Race(SBaseView->Client->Unknown_74C960(SBaseView->Client->AvatarID)[4]);
-	Desc.Reset_Parts();
-	Desc.Set_Profession(SBaseView->Client->Unknown_74C960(SBaseView->Client->AvatarID)[5]);
-	Unknown318 = (Desc.Selected_Decal == 0x7FFFFFF) ? 0 : Desc.Selected_Decal + 1;
+	Desc = ShipCustDescClass(); ShipCustDescClass *d = &Desc;
+	d->Set_Race(SBaseView->Client->Unknown_74C960(SBaseView->Client->AvatarID)[4]);
+	d->Reset_Parts();
+	d->Set_Profession(SBaseView->Client->Unknown_74C960(SBaseView->Client->AvatarID)[5]);
+	Unknown318 = (d->Selected_Decal == 0x7FFFFFF) ? 0 : d->Selected_Decal + 1;
 	Unknown2E0 = new ShipPipClass(0);
 	Unknown2E0->Unknown_80C220((ViewClass *)SBaseView);
 	Unknown2E0->Unknown_74(0);

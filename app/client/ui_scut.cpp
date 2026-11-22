@@ -786,7 +786,7 @@ void UIScutBarClass::Unknown_611F60(int group)
 
 
 
-// NOT EXACT: register (and the client loads both floats before slot +0x2C's flags)
+// NOT EXACT: register (the mask passed as the unsigned int it is: the client's dword read of +0x10; left: the client loads both floats before the mask)
 bool UIScutBarClass::Unknown_6120E0(int key)
 {
 	if (Bank->Unknown1C == key) {
@@ -814,7 +814,7 @@ bool UIScutBarClass::Unknown_6120E0(int key)
 			mouse->Unknown28++;
 			ProxyButtons[index]->Save_Sticky(false);
 			const Matrix3D &pos = shortcut->Unknown_66C6C0();
-			shortcut->Unknown_2C(&event, pos.Get_X_Translation(), pos.Get_Y_Translation(), (unsigned short)((shortcut->Mask & 1) | 0x1000));
+			shortcut->Unknown_2C(&event, pos.Get_X_Translation(), pos.Get_Y_Translation(), ((shortcut->Mask & 1) | 0x1000));
 			sclient->Unknown_743380(&event);
 			ProxyButtons[index]->Pressed = true;
 			ProxyButtons[index]->Restore_Sticky();
@@ -831,7 +831,7 @@ bool UIScutBarClass::Unknown_6120E0(int key)
 			ProxyButtons[index]->Save_Sticky(true);
 			if (shortcut) {
 				const Matrix3D &pos = shortcut->Unknown_66C6C0();
-				shortcut->Unknown_2C(&event, pos.Get_X_Translation(), pos.Get_Y_Translation(), (unsigned short)((shortcut->Mask & 4) | 0x1000));
+				shortcut->Unknown_2C(&event, pos.Get_X_Translation(), pos.Get_Y_Translation(), ((shortcut->Mask & 4) | 0x1000));
 			}
 			sclient->Unknown_743380(&event);
 			ProxyButtons[index]->Pressed = false;
