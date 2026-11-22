@@ -29,11 +29,11 @@ struct FontEffectStruct  // fontdatabase.cpp's (0x24 bytes)
 extern Unknown_6BCFB0Class *Unknown_BE67B4;	// NAME 1 [Unknown_BE67B4]: neutral (D10): FontSys's sounds (main_client.cpp declares it so)
 void Unknown_42ECF0(float *x, float *y);	// 0x42ECF0 (cdecl): the pointer's position, 0..1 (gadget.cpp, scriptedmovie.cpp declare it so)  // NAME 1 [x, y]: neutral
 bool Unknown_42EC60(int button, int arg);	// 0x42EC60 (cdecl): a button down (gadget.cpp declares it so)  // NAME 1 [button, arg]: neutral
-
+static inline void Add_Dots(StringClass &text) { text += "..."; }	// NAME 1 [Add_Dots]: what it does; the one-line layer spends the budget so the client's += calls Get_Length and Store_Length out of line (0x6CCFDC / 0x6CD009)
 // 0x6CCE60: Update_Text's countdowns after the effects (+0x254 .. +0x268, one per frame): at zero each puts back what
 // its effect changed (+0x488 the offset, +0x27C, +0x4A4 the colour from Colors[+0x44C], +0x284, +0x288, and +0x29C
 // with the text rebuilt from Info.Text, "..." added while +0x406 says the line is clipped).
-// NOT EXACT: inline budget (attempts.csv; 10 masked rows): the client calls the "..." append's Store_Length out of line; Font.Peek() read once, the buffer in a local, two dead reads after the append (Update_Text's Append_Dots form) (90 -> 10)
+// Exact: Font.Peek() read once, the buffer in a local for both calls, the "..." through Add_Dots (Q2 2026-11-22: the one-line layer replaces F3's two dead reads, 10 -> 0)
 void FontSys::Unknown_6CCE60()
 {
 	if (Unknown254[0] > 0 && --Unknown254[0] == 0) {
@@ -61,7 +61,7 @@ void FontSys::Unknown_6CCE60()
 		Unknown274[10] = 0;
 		StringClass text = Info.Text;
 		if (Unknown406) {
-			text += "..."; text.Peek_Buffer(); text.Peek_Buffer();	// the dead reads: the budget the client's text copy keeps (D272)
+			Add_Dots(text);
 		}
 		const char *buf = text.Get_Buffer(text.Get_Length());
 		Font32Class *font = Font.Peek(); *(int *)((char *)font + 0xD28) = *(int *)((char *)font + 0xD2C);	// Font->XSpacing = Font->MinSpacing (protected in font32bit.h)
