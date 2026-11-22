@@ -5541,7 +5541,7 @@ void SClient::Unknown_755600()
 
 SClient *Unknown_BE5F20;	// NAME 1: neutral (D10)
 
-// NOT EXACT: shape (explain.py: 606 instructions, the client 640, 127 masked rows; 69 calls, the client 70): VC6 merges the two beacon sends' tails here, the client keeps both; the logoff packet a named local, '/fps' enable first and the dialog read once moved nothing; two rounds
+// NOT EXACT: relocation (explain.py: 620 instructions, the client 640, residue 80): the client inlines ~reason at the returns from /self tag on down (0x74B077, 0x74B166), ours shares the out-of-line _Tidy tail there; the returns in each /deco and /self tag branch, the camp packet as a temporary, a ?: dialog read: no better
 // 0x74ABC0 (slot +0x34: the chat line's '/' commands; true when the line was a command)
 bool SClient::Unknown_34(const char *text)
 {
@@ -5655,9 +5655,9 @@ bool SClient::Unknown_34(const char *text)
 		}
 		return(true);
 	}
-	if (Unknown_747FA0(text) || Unknown_749020(text) || Unknown_749590(text) || Unknown_749A70(text) || Unknown_749ED0(text)) {
-		return(true);
-	}
+	if (Unknown_747FA0(text)) return(true);
+	if (Unknown_749020(text)) return(true);
+	if (Unknown_749590(text)) return(true); if (Unknown_749A70(text)) return(true); if (Unknown_749ED0(text)) return(true);
 	if (text[0] == '/' && text[1] == 'g' && text[2] == ' ') {
 		Connection->Send_Packet(&ClientChatPacketClass(AvatarID, (char *)text + 3, 1, NULL));
 		return(true);
@@ -5683,12 +5683,12 @@ bool SClient::Unknown_34(const char *text)
 			return(true);
 		}
 	}
-	if (strcmp(text, "/texture_flush") != 0) {
-		return(ClientClass::Unknown_34(text));
+	if (strcmp(text, "/texture_flush") == 0) {
+		WW3D::_Invalidate_Textures();
+		Unknown_74D990(0, "TEXTURES FLUSHED", 0);
+		return(true);
 	}
-	WW3D::_Invalidate_Textures();
-	Unknown_74D990(0, "TEXTURES FLUSHED", 0);
-	return(true);
+	return(ClientClass::Unknown_34(text));
 }
 
 // 0x74D950 (cpacket.cpp: CHANGE_BASE_ASSET 38, after 0x744B60, for the objects 0x6F5A40 picks): in the starbase view,
