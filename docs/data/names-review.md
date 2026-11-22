@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1970 |
 | 2 | describes what the code does | 5006 |
-| 1 | neutral placeholder | 25140 |
+| 1 | neutral placeholder | 25137 |
 
 ## For review (score 3 and below)
 
@@ -14266,6 +14266,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_74D990` | `app/client/ui_manu.cpp:1570` | untagged neutral name (D10) |
 | 1 | `Unknown_5B6D30` | `app/client/ui_manu.cpp:1763` | untagged neutral name (D10) |
 | 1 | `Unknown_Find_Aux` | `app/client/ui_manu.cpp:1861` | untagged neutral name (D10) |
+| 1 | `UnknownRTTIClass` | `app/client/ui_manu.cpp:1876` | untagged neutral name (D10) |
 | 1 | `ui_manu.h` | `app/client/ui_manu.h:4` | provisional header name for ui_manu.cpp |
 | 1 | `UIManuRowStruct` | `app/client/ui_manu.h:24` | neutral (D10) |
 | 1 | `Unknown04` | `app/client/ui_manu.h:27` | untagged neutral name (D10) |
@@ -14796,11 +14797,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_58` | `app/client/ui_mount.cpp:64` | untagged neutral name (D10) |
 | 1 | `Unknown_5C` | `app/client/ui_mount.cpp:75` | untagged neutral name (D10) |
 | 1 | `Unknown_50` | `app/client/ui_mount.cpp:200` | untagged neutral name (D10) |
-| 1 | `model_field` | `app/client/ui_mount.cpp:275` | neutral (D10) |
 | 1 | `Unknown_Find_Set_Field` | `app/client/ui_mount.cpp:276` | untagged neutral name (D10) |
-| 1 | `model_file` | `app/client/ui_mount.cpp:278` | neutral (D10) |
-| 1 | `mounts_field` | `app/client/ui_mount.cpp:279` | neutral (D10) |
-| 1 | `bones_field` | `app/client/ui_mount.cpp:282` | neutral (D10) |
 | 1 | `Unknown0C` | `app/client/ui_mount.cpp:422` | untagged neutral name (D10) |
 | 1 | `Unknown_843440` | `app/client/ui_mount.cpp:425` | untagged neutral name (D10) |
 | 1 | `Unknown_BC` | `app/client/ui_mount.cpp:473` | untagged neutral name (D10) |
@@ -23579,10 +23576,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_08` | `app/shared/fp_tt.cpp:321` | untagged neutral name (D10) |
 | 1 | `Unknown_4568E0` | `app/shared/fp_tt.cpp:326` | untagged neutral name (D10) |
 | 1 | `Unknown04` | `app/shared/fp_tt.cpp:337` | untagged neutral name (D10) |
-| 1 | `Unknown_Dyn48` | `app/shared/fp_tt.cpp:338` | untagged neutral name (D10) |
-| 1 | `Unknown_Dyn4C` | `app/shared/fp_tt.cpp:413` | untagged neutral name (D10) |
-| 1 | `Unknown_Dyn58` | `app/shared/fp_tt.cpp:415` | untagged neutral name (D10) |
-| 1 | `Unknown_44AFD0` | `app/shared/fp_tt.cpp:416` | untagged neutral name (D10) |
+| 1 | `Unknown_Dyn48` | `app/shared/fp_tt.cpp:339` | untagged neutral name (D10) |
+| 1 | `Unknown_Dyn4C` | `app/shared/fp_tt.cpp:396` | untagged neutral name (D10) |
+| 1 | `Unknown_Dyn58` | `app/shared/fp_tt.cpp:398` | untagged neutral name (D10) |
+| 1 | `Unknown_44AFD0` | `app/shared/fp_tt.cpp:399` | untagged neutral name (D10) |
 | 1 | `Unknown_456900` | `app/shared/fp_tt.cpp:504` | untagged neutral name (D10) |
 | 1 | `Unknown_0C` | `app/shared/fp_tt.cpp:509` | untagged neutral name (D10) |
 | 1 | `RegistrationUnknown568Struct` | `app/shared/fp_tt.cpp:530` | untagged neutral name (D10) |
