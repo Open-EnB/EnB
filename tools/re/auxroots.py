@@ -1083,7 +1083,7 @@ inline char *Unknown_Hex_String(char *buf, int size, const unsigned char *data, 
 # defined last, not the client's order); in co.cpp, the client's object (its constructors 0x6F6000-0x6FBEF0, the
 # template instances 0x7014B0..0x7045F0 and the numbering initialisers 0x7057D0 / 0x707A20 / 0x709B80 in its tail),
 # the client's address order holds them over a window several values wide (.work/pad/measure.tsv; COM's sweep).
-SYMBOL_PAD = 9
+SYMBOL_PAD = 39
 PAD = '''
 // VC6 symbol pad (not the client's code): the aux-data constructors (auxroots.py's region above) match only when the
 // count of the declarations this file sees falls in a window of a cycle of 64 (tools/re/auxroots.py SYMBOL_PAD)
@@ -1116,7 +1116,7 @@ REGION_END = '// (end of the region tools/re/auxroots.py generates)'
 # TC1's ui_stringentry.h (UIPTradeCreditsClass out of sclient.h): 0x758210 and 0x702240 both only at 33 and 55-57: 56.
 # P1 (run 2026-11-18b): aux_ship_player.h back to the item / ship inventory / Hull / player headers first (the
 # client's numbering, 0x755C60): only 4 keeps all six (0x758210 61-4 and 33-40, 0x702240 2-7 and 41-43).
-SEND_SYMBOL_PAD = 53
+SEND_SYMBOL_PAD = 31
 SEND_PAD = '''// VC6 symbol pad (not the client's code): sclient.cpp's copy of 0x758210 matches only when the count of
 // the declarations it sees falls in a window (tools/re/auxroots.py SEND_SYMBOL_PAD)
 enum AuxRootsSendSymbolPadType { %s };	// NAME 1: a build aid (SC1)
