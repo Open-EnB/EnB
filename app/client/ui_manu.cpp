@@ -1559,7 +1559,7 @@ static std::string Unknown_5B6060(int validity)	// NAME 1: neutral (D10)  // NAM
 	Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(NameClass *)&validity);	// not the client's: a dead find (root NULL, unreachable: no code) spends the inline budget the client spent (D130), so the first case calls _Eos out of line as the client's
 }
 
-// NOT EXACT: inline budget (the seven finds out of line as the client through two inline layers, 0x5465C0 / 0x5466A0 / 0x546710 / 0x5B7130 / 0x5B6DB0; ours still inlines 0x5B2F20, which the client calls) (0x5B5320)
+// NOT EXACT: register (every call in place, the seven finds out of line as the client through two inline layers; the quality fields selected as (f && f->Unknown70 > 1) ? f : NULL and the filter bits read once before the loop, as the client's bytes; left: argument-load order at 0x5B5CD0 / 0x5B6060 and the inlined 0x5B1AF0's Get_Style, the message temporaries) (0x5B5320)
 void UIManuClass::Unknown_5B5320()
 {		DeltaTemplateClass<UnknownB01394Enum> *validity = Unknown_Manu_Raw<DeltaTemplateClass<UnknownB01394Enum> >(Unknown0BA0, "Validity");
 	if (validity && validity->Unknown70 > 1) {
@@ -1576,16 +1576,16 @@ void UIManuClass::Unknown_5B5320()
 		cost = negotiated->Value;
 		Unknown_5B1AF0(1, true, cost.Amount_As_Text(false).c_str());
 	}
-		DeltaTemplateClass<float> *min = Unknown_Manu_Raw<DeltaTemplateClass<float> >(Unknown0BA0, "MinimumQuality");
-	if (min && min->Unknown70 <= 1) {
-		min = NULL;
-	}		DeltaTemplateClass<float> *max = Unknown_Manu_Raw<DeltaTemplateClass<float> >(Unknown0BA0, "MaximumQuality");
-	if (max && max->Unknown70 <= 1) {
-		max = NULL;
-	}		DeltaTemplateClass<float> *expected = Unknown_Manu_Raw<DeltaTemplateClass<float> >(Unknown0BA0, "ExpectedQuality");
-	if (expected && expected->Unknown70 <= 1) {
-		expected = NULL;
-	}
+		DeltaTemplateClass<float> *min_f = Unknown_Manu_Raw<DeltaTemplateClass<float> >(Unknown0BA0, "MinimumQuality");
+	DeltaTemplateClass<float> *min = (min_f && min_f->Unknown70 > 1) ? min_f : NULL;
+
+		DeltaTemplateClass<float> *max_f = Unknown_Manu_Raw<DeltaTemplateClass<float> >(Unknown0BA0, "MaximumQuality");
+	DeltaTemplateClass<float> *max = (max_f && max_f->Unknown70 > 1) ? max_f : NULL;
+
+		DeltaTemplateClass<float> *expected_f = Unknown_Manu_Raw<DeltaTemplateClass<float> >(Unknown0BA0, "ExpectedQuality");
+	DeltaTemplateClass<float> *expected = (expected_f && expected_f->Unknown70 > 1) ? expected_f : NULL;
+
+
 
 	char text[64];
 	if (min && max) {
@@ -1650,8 +1650,8 @@ void UIManuClass::Unknown_5B5320()
 	}
 		UIManuTechLevelFilterClass *filter = Unknown_Manu_Raw<UIManuTechLevelFilterClass>(Unknown0BA0, "TechLevelFilterBitfield");
 	if (filter && filter->Unknown70 > 1) {
-		for (int i = 1; i < 10; i++) {
-			Unknown_5B67C0(i, (filter->Value & (1 << (i - 1))) != 0, 1);
+		int bits = filter->Value; for (int i = 1; i < 10; i++) {
+			Unknown_5B67C0(i, (bits & (1 << (i - 1))) != 0, 1);
 		}
 	}
 

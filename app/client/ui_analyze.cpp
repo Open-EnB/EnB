@@ -311,7 +311,7 @@ void UIAnalyzeClass::Unknown_5C()
 
 
 
-// NOT EXACT: inline budget (the client calls the first 'Validity' find out of line, 0x5465C0, and the 'Validity' / 'Mode' Casts in the second and third, 0x5468D0 / 0x546920, but inlines the last find whole; its blocks also come in another order) (0x5443F0)
+// NOT EXACT: inline budget (the first 'Validity' find through Unknown_Find_Valid, out of line 0x5465C0 as the client; the second through Unknown_Find_Root_Field, its Cast 0x5468D0 out of line as the client; the client also calls the 'Mode' Cast 0x546920 out of line, and its blocks come in another order) (0x5443F0)
 // @0x5443F0
 void UIAnalyzeClass::Unknown_60()
 {
@@ -330,8 +330,8 @@ void UIAnalyzeClass::Unknown_60()
 					Unknown0DC->Unknown_62F5B0(true);
 				}
 			}
-			DeltaTemplateClass<UnknownB01394Enum> *validity = Unknown_Find_Field<DeltaTemplateClass<UnknownB01394Enum> >(Unknown10C, NameClass("Validity"));
-			if (validity && validity->Unknown70 && validity->Value == 15) {
+			DeltaTemplateClass<UnknownB01394Enum> *validity = Unknown_Find_Valid<DeltaTemplateClass<UnknownB01394Enum> >(Unknown10C, "Validity");
+			if (validity && validity->Value == 15) {
 				((ClientClass *)Client)->Send_Packet(&ManufactureActionPacketClass(((SClient *)Client)->Unknown1138, 1));
 			}
 		}
@@ -340,7 +340,7 @@ void UIAnalyzeClass::Unknown_60()
 			Unknown_545610();
 		}
 	} else {
-		DeltaTemplateClass<UnknownB01394Enum> *validity = Unknown_Find_Field<DeltaTemplateClass<UnknownB01394Enum> >(Unknown10C, NameClass("Validity"));
+		DeltaTemplateClass<UnknownB01394Enum> *validity = Unknown_Find_Root_Field<DeltaTemplateClass<UnknownB01394Enum> >(Unknown10C, NameClass("Validity"));
 		if (validity && validity->Unknown70 && validity->Value != 13) {
 			Unknown110 = false;
 			Unknown114 = Unknown_AEF0EC;
