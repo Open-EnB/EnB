@@ -603,9 +603,9 @@ unsigned char LandClass::Nearest_Normal(const Vector3 &n)
 	float best = -1.0f;
 	for (int k = 0; k < 256; k++) {
 		const Vector3 &N = Normals[k];
-		float dot = N.X * n.X + N.Z * n.Z + N.Y * n.Y;
-		if (dot > best) {
-			best = dot;
+		// the dot product written at both uses, no local: same code here, 0x46F120's inlined copies pack closer (325 rows)
+		if (N.X * n.X + N.Z * n.Z + N.Y * n.Y > best) {
+			best = N.X * n.X + N.Z * n.Z + N.Y * n.Y;
 			best_index = (unsigned char)k;
 		}
 	}
