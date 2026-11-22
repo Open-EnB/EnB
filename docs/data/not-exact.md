@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-652 entries in 261 files.
+651 entries in 261 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -112,12 +112,11 @@ edit the comments in the code, not this file.
 | `app/client/eff_seek.cpp:110` | `SpiralSeekEffectClass::Unknown_1C` | marker | NOT EXACT: shape (the frame 0xB0, the sine's slot and the kept product radius * s are the client's; the client has point above rate above direction where this has rate, direction, point, and it stores point.X before rate.X from the FPU stack, 0x6F0E3D); attempts.py show 0x6F0D40 0x6F0D40 |
 | `app/client/emote_data.cpp:91` | `EmoteDataClass::Unknown_7E6860` | marker | NOT EXACT: control flow (the switch's default reaches the stop block placed after the compare in the client, before the active block in this build) |
 | `app/client/emote_data.cpp:156` | `EmoteDataClass::Unknown_7E70A0` | marker | NOT EXACT: frame (the client's frame has 4 more bytes of locals; the cases' x87 code follows from it) |
-| `app/client/enbdazzle.cpp:90` | `MainViewDazzleHandlerClass::Compute_Dazzle_Visibility` | marker | NOT EXACT: the shape and the slots match; the early return is not tail-merged in the client, std::sort's _Unguarded_insert is inlined there, register and schedule residues |
+| `app/client/enbdazzle.cpp:89` | `MainViewDazzleHandlerClass::Compute_Dazzle_Visibility` | marker | NOT EXACT: all 517 instructions of 0x75DEE0..0x75E510 match (res 539->422, raw 621->424; 422 is 0x75E520..0x75E6D0 int3/atexit tail); only dist2*r2 operand order at 0x75E19E (raw 2) differs @0x75DEE0 |
 | `app/client/enbscene.cpp:170` | `MainViewSceneClass::Apply_Projectors` | marker | NOT EXACT: field-offset (explain.py; 0.78): the client addresses the projector lists' heads from the manager (+0x60 / +0x64, +0x48 / +0x4C), ours from the list (add 0x5C, +4 / +8), and copies the camera's transform in another order |
 | `app/client/enbscene.cpp:201` | `MainViewSceneClass::Unknown_75FB00` | marker | NOT EXACT: field-offset (explain.py; 0.84): FP operand order only: the client evaluates the inlined Matrix3::Rotate_Vector rows (Compute_Point) and Matrix3D::Inverse_Transform_Vector in another order than the tree's wwmath forms |
 | `app/client/env_map_manager.cpp:50` | `EnvironmentMapManagerClass::Unknown_760770` | marker | NOT EXACT: register (masked residue 106, was 170): sprintf's 4th argument 0xFE and the Z / z cases are the client's (its push / add esp, 0x10 and switch tables); the pixel blocks are index loops (the client's dst row after the int guard), left: ours addresses src as dst + (src - dst) where the client steps both pointers, and the register webs around it (D64) 0x760770 |
 | `app/client/env_map_manager.cpp:215` | `EnvironmentMapManagerClass::Unknown_760770` | mention | NOT EXACT (D64). |
-| `app/client/extrap.cpp:310` | `Unknown70F4F0Class::Unknown_1C` | marker | NOT EXACT: 0x70F630 frame: the client's frame is 0x20 (its temporaries share slots), ours 0x38; the cached copy's test is laid out the other way |
 | `app/client/extrap.cpp:774` | `Unknown710110Class::Set_Motion` | marker | NOT EXACT: 0x7102B0 shape (3 rows): the client stores Unknown3C (fst) before the flag; here the flag store comes first. (-1.0f * a) * 10000 keeps the client's fchs and the two branches' merged fmul (-a * 10000 folds into one constant) |
 | `app/client/extrap.cpp:827` | `Unknown710530Class::Unknown710530Class` | marker | NOT EXACT: 0x710530 shape: the flag store before the fst as Set_Motion 0x7102B0's; the decay test's two blocks swapped |
 | `app/client/extrap.cpp:897` | `Unknown710530Class::Unknown_08` | marker | NOT EXACT: 0x710A20 order: the turn's spill to the stack and the operand order of three products differ (the client stores the turn once and reloads it) |
@@ -276,7 +275,7 @@ edit the comments in the code, not this file.
 | `app/client/ship_pip.cpp:294` | `ShipPipClass::Unknown_7C` | marker | NOT EXACT: ShipPipClass, frame (sub esp 0xA0 against 0x74: the client keeps a Matrix3D temporary for +0x6C's Set(Vector3), the bone index in ebp) @0x80C640 |
 | `app/client/ship_pip.cpp:343` | `ShipPipClass::Unknown_84` | marker | NOT EXACT: ShipPipClass, frame (sub esp 0x48 against 0x44: the first clamp holds min on the FPU stack and spills max, ours the other way) @0x80CA30 |
 | `app/client/ship_pip.cpp:376` | `ShipPipClass::Unknown_78` | marker | NOT EXACT: ShipPipClass, frame (the trackball's Matrix3D inverse and Quaternion swap stack slots, 0x64 against 0x24) @0x80CE10 |
-| `app/client/ship_pip.cpp:457` | `ShipPipClass::Unknown_2C` | marker | NOT EXACT: ShipPipClass, literal (first: the left drag's Translate(-center) FPU stack order; one temp slot [esp + 0x14] against 0x10) @0x80D5E0 |
+| `app/client/ship_pip.cpp:457` | `ShipPipClass::Unknown_2C` | marker | NOT EXACT: r15/zoom matched (res 116->31, raw 147->41); remaining: r17/r19 Translate FPU order and eax vs ecx at 4 Unknown_80E7D0() sites @0x80D5E0 |
 | `app/client/ship_stats_display.cpp:149` | `ShipStatsDisplayClass::Unknown_6A34E0` | marker | NOT EXACT: functional from the pseudocode (D64); the arrow's texture pick takes eax / ecx the other way round 0x6A34E0 |
 | `app/client/shiputils.cpp:34` | `void` | marker | NOT EXACT: functional (D64), from the disassembly (attempts.py show 0x80EAF0): a mesh named '[prefix.]decalNN' gets slot NN's material (an empty slot's from the library, else the slot's decal tinted by its colour): the mesh made unique, its passes, two texture stages, shader and vertex material replaced and its material info rebuilt; anything else recurses over its sub-objects @0x80EAF0 |
 | `app/client/shiputils.cpp:142` | `Unknown_80EFF0` | marker | NOT EXACT: functional (D64): 0x80F020 from region 0 with the environment-map manager's axis (+0x10) @0x80EFF0 |
@@ -598,7 +597,7 @@ edit the comments in the code, not this file.
 | `app/shared/landdmap.cpp:593` | `LandUnknown466BE0Class::Unknown_468D50` | mention | NOT EXACT (Matrox only, never run): the draw 0x466F60 and its helpers 0x468240, 0x468760, 0x468920, 0x468D50. |
 | `app/shared/lookup_table.cpp:204` | `SampledLookupTableClass::SampledLookupTableClass` | marker | NOT EXACT: order-only, the client stores the sample's Value (atof) after pushing push_back's arguments, ours before; everything else equal |
 | `app/shared/orbitalmanager.cpp:164` | `OrbitalObject::Update` | marker | NOT EXACT: the products' order and the temporaries' stack slots differ (similarity 0.53 before the rotations took the client's axes, Z then X) |
-| `app/shared/orbitalmanager.cpp:514` | `OrbitalManager::Update` | marker | NOT EXACT: the locals' slots differ (the client's sphere centre sits below the cast result; similarity 0.57) |
+| `app/shared/orbitalmanager.cpp:514` | `OrbitalManager::Update` | marker | NOT EXACT: all 21 regions res 0 / frame 0xc8; only point.Y add order (center.Y + s*d vs s*d + center.Y, raw 2) differs @0x4F45A0 |
 | `app/shared/proj_man.cpp:627` | `ProjectorManagerClass::Setup_Static_Directional_Shadow` | marker | NOT EXACT: 0x493620, 1 register row in the inlined Get_Static_Shadow_Tex_Mgr (mov eax,esi / test eax,eax) |
 | `app/shared/px.cpp:642` | `PxList::Set_Corners` | marker | NOT EXACT: inline budget and register (the client calls clear 0x44D580 and ~WWProfileSampleClass 0x444160 out of line at the end, ours inlines both whatever is spent before them; registers in the relinks; attempts.py show 0x44C900) |
 | `app/shared/px_collision.cpp:95` | `PxCollision::Unknown_453F10` | marker | NOT EXACT: register (the setup copies through eax alone where ours uses ecx / edx too: the client keeps self / other in ecx / edi from the start; moving their initialisation to the top made it worse, 151 -> 198 rows; attempts.py show 0x453F10) |
