@@ -133,9 +133,9 @@ void UIExperienceBarClass::Set_Value_Clamped(float value)
 
 
 
-// @0x58C450  // NOT EXACT: functional (D64): the client calls GenericNode::GenericNode out of line (an EH state for the node)
+// @0x58C450  (Parent through the plain base first; GenericNode() out of line by the inline_depth at the file's end)
 UIExperienceClass::UIExperienceClass(RenderObjClass *mesh, InterfaceClass *parent) :
-	Parent(parent),
+	UnknownExperienceParentClass(parent),
 	CombatBar(NULL),
 	TradeBar(NULL),
 	ExploreBar(NULL)
@@ -237,3 +237,4 @@ void UIExperienceClass::Unknown_58CF60()
 **	Every __FILE__ in 0x58BFE0-0x58CF60 is 'e:\build\beta\G\app\Client\ui_experience.cpp' (0xB7EFBC). The asserts:
 **	'!Gauge' l.47, '!name' l.79, '!robj' l.85, '!Exists' l.106 / l.118, '!client' l.195, '!sclient' l.197.
 */
+#pragma inline_depth(2)	// templates take the file end's inline state: the watcher's DataNode<> calls GenericNode() 0x48A060 out of line in 0x58C450, as the client

@@ -14,7 +14,10 @@ class UIExperienceBarClass;
 
 // The combat, trade and explore bars of a mesh (0x28 bytes, table 0xAF16BC): a watcher of the avatar whose slot +0x10
 // fills the bars from its RPGInfo every frame
-class UIExperienceClass : public UnknownObjectWatchClass	// NAME 3: class-from-file (D24) for app\client\ui_experience.cpp
+// The parent's holder: a plain base declared first (the constructor stores Parent before the watcher's vtable and
+// node, 0x58C473); VC6 lays the polymorphic watcher out first, so Parent sits at +0x18 (ui_power.cpp's twin)
+class UnknownExperienceParentClass { public: UnknownExperienceParentClass(InterfaceClass *parent) : Parent(parent) {} InterfaceClass *Parent; };	// NAME 1: neutral (D10)
+class UIExperienceClass : public UnknownExperienceParentClass, public UnknownObjectWatchClass	// NAME 3: class-from-file (D24) for app\client\ui_experience.cpp
 {
 public:
 	UIExperienceClass(RenderObjClass *mesh, InterfaceClass *parent);	// 0x58C450 ('combat_bar', 'trade_bar', 'explore_bar'; tooltips UI_EXPERIENCE)  // NAME 1 [mesh, parent]: what its callers pass
@@ -27,7 +30,7 @@ public:
 
 	ClientObjectClass *Get_Object() { return(Object); }	// (inline: 0x693CA0 loads +0x04 before the client's slot +0x28 call)  // NAME 2: what it returns
 
-	InterfaceClass *Parent;								// +0x18  // NAME 1: what its callers pass
+	// +0x18 Parent (UnknownExperienceParentClass's)  // NAME 1: what its callers pass
 	UIExperienceBarClass *CombatBar;					// +0x1C ('combat_bar')  // NAME 2: the mesh object's name
 	UIExperienceBarClass *TradeBar;						// +0x20 ('trade_bar')  // NAME 2: the mesh object's name
 	UIExperienceBarClass *ExploreBar;					// +0x24 ('explore_bar')  // NAME 2: the mesh object's name
