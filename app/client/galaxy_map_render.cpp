@@ -820,7 +820,7 @@ bool GalaxyMapRenderClass::Unknown_7A89A0(SphereClass &sphere)
 	return(false);
 }
 
-// NOT EXACT: register / frame: the calls and inlining are the client's (Create_Item and the 0x7AA8C0 / 0x7ABFE0 layers); the client keeps 0 in ebp and this in ebx, frame 0x60 against ours 0x64 (see attempts.csv)
+// NOT EXACT: register / frame (masked residue 317 rows; the Updates push as insert at end, the client's out-of-line insert 0x7AF200): the calls and inlining are the client's (Create_Item and the 0x7AA8C0 / 0x7ABFE0 layers); the client keeps 0 in ebp and this in ebx, frame 0x60 against ours 0x64 (see attempts.csv)
 
 
 
@@ -895,7 +895,7 @@ void GalaxyMapRenderClass::Unknown_7A8B70()
 		if (!render->Unknown_7AB6D0(Systems, GalaxyMap->Unknown_7A5400(sectors.Current))) {
 			Remove_Item(Sectors, RefCountPtr<GalaxyMapRenderItemClass>(render));
 		} else if (render->Needs_Update()) {
-			Updates.push_back(RefCountPtr<GalaxyMapRenderItemClass>(render));
+			Updates.insert(Updates.end(), RefCountPtr<GalaxyMapRenderItemClass>(render));
 		}
 
 
