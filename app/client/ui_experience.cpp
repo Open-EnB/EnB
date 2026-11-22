@@ -129,7 +129,7 @@ void UIExperienceBarClass::Set_Value_Clamped(float value)
 
 
 
-
+template<class C> inline C *Unknown_Experience_Find(DeltaCompoundClass *root, const char *name) { NameClass n(name); return(Unknown_Find_Set_Field<C>(root, n)); }	// NAME 1: neutral (D10); the one more inline layer sends Unknown_Find_Field 0x546710 out of line at 0x58CB50's first site, as the client
 
 
 
@@ -186,7 +186,7 @@ void UIExperienceClass::Unknown_08(ClientObjectClass *object)
 	UnknownObjectWatchClass::Unknown_08(object);
 }
 
-// @0x58CB50  // NOT EXACT: functional (D64): the client calls Unknown_Find_Field out of line for CombatExp only
+// @0x58CB50  (CombatExp through Unknown_Experience_Find: Unknown_Find_Field out of line there under the file end's inline_depth; named names at the other two)
 void UIExperienceClass::Unknown_10()
 {
 	if (!Object) return;
@@ -198,21 +198,21 @@ void UIExperienceClass::Unknown_10()
 	DeltaCompoundClass *aux = (DeltaCompoundClass *)sclient->AuxData;
 	char text[32];
 	if (CombatBar->Exists) {
-		DeltaTemplateClass<float> *field = Unknown_Find_Set_Field<DeltaTemplateClass<float> >(aux, NameClass("RPGInfo.CombatExp"));
+		DeltaTemplateClass<float> *field = Unknown_Experience_Find<DeltaTemplateClass<float> >(aux, "RPGInfo.CombatExp");
 		float value = field ? field->Value : 0.0f;
 		CombatBar->Set_Value(value);
 		_snprintf(text, sizeof(text), "Progress: %1.2f%%", value * 100.0f);
 		CombatBar->Set_Unknown14(text);
 	}
 	if (TradeBar->Exists) {
-		DeltaTemplateClass<float> *field = Unknown_Find_Set_Field<DeltaTemplateClass<float> >(aux, NameClass("RPGInfo.TradeExp"));
+		NameClass name("RPGInfo.TradeExp"); DeltaTemplateClass<float> *field = Unknown_Find_Set_Field<DeltaTemplateClass<float> >(aux, name);
 		float value = field ? field->Value : 0.0f;
 		TradeBar->Set_Value(value);
 		_snprintf(text, sizeof(text), "Progress: %1.2f%%", value * 100.0f);
 		TradeBar->Set_Unknown14(text);
 	}
 	if (ExploreBar->Exists) {
-		DeltaTemplateClass<float> *field = Unknown_Find_Set_Field<DeltaTemplateClass<float> >(aux, NameClass("RPGInfo.ExploreExp"));
+		NameClass name("RPGInfo.ExploreExp"); DeltaTemplateClass<float> *field = Unknown_Find_Set_Field<DeltaTemplateClass<float> >(aux, name);
 		float value = field ? field->Value : 0.0f;
 		ExploreBar->Set_Value(value);
 		_snprintf(text, sizeof(text), "Progress: %1.2f%%", value * 100.0f);
