@@ -1,0 +1,196 @@
+FORM returned_result_cached
+--- a/app/client/camctrl_dock.cpp
++++ b/app/client/camctrl_dock.cpp
+@@ -195,7 +195,7 @@
+ 			}
+ 			Unknown14 = true;
+ 			start_offset = Unknown_Rotate(tm, start_offset);
+-			end = tm.Get_Translation() + Unknown_Rotate(tm, end_offset);
++			end = tm.Get_Translation(); end += Unknown_Rotate(tm, end_offset);
+ 		} else {
+ 			Unknown14 = false;
+ 		}
+@@ -260,15 +260,15 @@
+ 	}
+ 
+ 	angle = Unknown_BDB1C0.Get_Float() * angle;
+-	if (Unknown_BDB1C0(0, 1) == 1) {
+-		angle = WWMATH_PI - angle;
++	switch (Unknown_BDB1C0(0, 1)) { default: break;
++		case 1: angle = WWMATH_PI - angle; break;
+ 	}
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+ 	Vector3 offset(lead, c * radius * scale, s * radius * scale);
+ 	Matrix3D tm;
+ 	tm.Obj_Look_At(start, end, 0.0f);
+-	Unknown0C->Position = tm * offset;
++	Vector3 position = tm * offset; { CameraModule79C8E0Class *module = Unknown0C; module->Position.X = position.X; module->Position.Y = position.Y; module->Position.Z = position.Z; }
+ 	Unknown0C->Unknown14 = true;
+ 	Unknown0C->Unknown18 = Client->AvatarID;
+ 	Unknown0C->Unknown_04();
+
+FORM inplace_result_cached
+--- a/app/client/camctrl_dock.cpp
++++ b/app/client/camctrl_dock.cpp
+@@ -195,7 +195,7 @@
+ 			}
+ 			Unknown14 = true;
+ 			start_offset = Unknown_Rotate(tm, start_offset);
+-			end = tm.Get_Translation() + Unknown_Rotate(tm, end_offset);
++			end = tm.Get_Translation(); end += Unknown_Rotate(tm, end_offset);
+ 		} else {
+ 			Unknown14 = false;
+ 		}
+@@ -260,15 +260,15 @@
+ 	}
+ 
+ 	angle = Unknown_BDB1C0.Get_Float() * angle;
+-	if (Unknown_BDB1C0(0, 1) == 1) {
+-		angle = WWMATH_PI - angle;
++	switch (Unknown_BDB1C0(0, 1)) { default: break;
++		case 1: angle = WWMATH_PI - angle; break;
+ 	}
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+ 	Vector3 offset(lead, c * radius * scale, s * radius * scale);
+ 	Matrix3D tm;
+ 	tm.Obj_Look_At(start, end, 0.0f);
+-	Unknown0C->Position = tm * offset;
++	offset = tm * offset; { CameraModule79C8E0Class *module = Unknown0C; module->Position.X = offset.X; module->Position.Y = offset.Y; module->Position.Z = offset.Z; }
+ 	Unknown0C->Unknown14 = true;
+ 	Unknown0C->Unknown18 = Client->AvatarID;
+ 	Unknown0C->Unknown_04();
+
+FORM duration_flag_before_store
+--- a/app/client/camctrl_dock.cpp
++++ b/app/client/camctrl_dock.cpp
+@@ -195,14 +195,14 @@
+ 			}
+ 			Unknown14 = true;
+ 			start_offset = Unknown_Rotate(tm, start_offset);
+-			end = tm.Get_Translation() + Unknown_Rotate(tm, end_offset);
++			end = tm.Get_Translation(); end += Unknown_Rotate(tm, end_offset);
+ 		} else {
+ 			Unknown14 = false;
+ 		}
+ 		start = end + start_offset;
+ 		speed = ini.Get_Float(section, "Speed", Unknown_B04AF0);
+-		Unknown18 = ini.Get_Float(section, "Duration", 4.0f) * 1000.0f;
+-		if (Get_Flag(0)) {
++		float duration = ini.Get_Float(section, "Duration", 4.0f) * 1000.0f; bool entering = Get_Flag(0); Unknown18 = duration;
++		if (entering) {
+ 			lead = ini.Get_Float(section, "EnterLead", Unknown_B04AF4);
+ 		} else if (Get_Flag(1)) {
+ 			Vector3 temp = start;
+@@ -260,15 +260,15 @@
+ 	}
+ 
+ 	angle = Unknown_BDB1C0.Get_Float() * angle;
+-	if (Unknown_BDB1C0(0, 1) == 1) {
+-		angle = WWMATH_PI - angle;
++	switch (Unknown_BDB1C0(0, 1)) { default: break;
++		case 1: angle = WWMATH_PI - angle; break;
+ 	}
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+ 	Vector3 offset(lead, c * radius * scale, s * radius * scale);
+ 	Matrix3D tm;
+ 	tm.Obj_Look_At(start, end, 0.0f);
+-	Unknown0C->Position = tm * offset;
++	Vector3 position = tm * offset; { CameraModule79C8E0Class *module = Unknown0C; module->Position.X = position.X; module->Position.Y = position.Y; module->Position.Z = position.Z; }
+ 	Unknown0C->Unknown14 = true;
+ 	Unknown0C->Unknown18 = Client->AvatarID;
+ 	Unknown0C->Unknown_04();
+
+FORM angle_degrees_macro
+--- a/app/client/camctrl_dock.cpp
++++ b/app/client/camctrl_dock.cpp
+@@ -180,7 +180,7 @@
+ 		end_offset.X = ini.Get_Float(section, "EX", 0.0f);
+ 		end_offset.Y = ini.Get_Float(section, "EY", 0.0f);
+ 		end_offset.Z = ini.Get_Float(section, "EZ", 0.0f);
+-		angle = ini.Get_Float(section, "Angle", Unknown_B04AF8) * (WWMATH_PI / 180.0f);
++		angle = DEG_TO_RADF(ini.Get_Float(section, "Angle", Unknown_B04AF8));
+ 		radius = ini.Get_Float(section, "Radius", Unknown_B04AFC);
+ 		char bone[100];
+ 		if (ini.Get_String(section, "Bone", "", bone, 100)) {
+@@ -195,7 +195,7 @@
+ 			}
+ 			Unknown14 = true;
+ 			start_offset = Unknown_Rotate(tm, start_offset);
+-			end = tm.Get_Translation() + Unknown_Rotate(tm, end_offset);
++			end = tm.Get_Translation(); end += Unknown_Rotate(tm, end_offset);
+ 		} else {
+ 			Unknown14 = false;
+ 		}
+@@ -260,15 +260,15 @@
+ 	}
+ 
+ 	angle = Unknown_BDB1C0.Get_Float() * angle;
+-	if (Unknown_BDB1C0(0, 1) == 1) {
+-		angle = WWMATH_PI - angle;
++	switch (Unknown_BDB1C0(0, 1)) { default: break;
++		case 1: angle = WWMATH_PI - angle; break;
+ 	}
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+ 	Vector3 offset(lead, c * radius * scale, s * radius * scale);
+ 	Matrix3D tm;
+ 	tm.Obj_Look_At(start, end, 0.0f);
+-	Unknown0C->Position = tm * offset;
++	Vector3 position = tm * offset; { CameraModule79C8E0Class *module = Unknown0C; module->Position.X = position.X; module->Position.Y = position.Y; module->Position.Z = position.Z; }
+ 	Unknown0C->Unknown14 = true;
+ 	Unknown0C->Unknown18 = Client->AvatarID;
+ 	Unknown0C->Unknown_04();
+
+FORM duration_and_angle
+--- a/app/client/camctrl_dock.cpp
++++ b/app/client/camctrl_dock.cpp
+@@ -180,7 +180,7 @@
+ 		end_offset.X = ini.Get_Float(section, "EX", 0.0f);
+ 		end_offset.Y = ini.Get_Float(section, "EY", 0.0f);
+ 		end_offset.Z = ini.Get_Float(section, "EZ", 0.0f);
+-		angle = ini.Get_Float(section, "Angle", Unknown_B04AF8) * (WWMATH_PI / 180.0f);
++		angle = DEG_TO_RADF(ini.Get_Float(section, "Angle", Unknown_B04AF8));
+ 		radius = ini.Get_Float(section, "Radius", Unknown_B04AFC);
+ 		char bone[100];
+ 		if (ini.Get_String(section, "Bone", "", bone, 100)) {
+@@ -195,14 +195,14 @@
+ 			}
+ 			Unknown14 = true;
+ 			start_offset = Unknown_Rotate(tm, start_offset);
+-			end = tm.Get_Translation() + Unknown_Rotate(tm, end_offset);
++			end = tm.Get_Translation(); end += Unknown_Rotate(tm, end_offset);
+ 		} else {
+ 			Unknown14 = false;
+ 		}
+ 		start = end + start_offset;
+ 		speed = ini.Get_Float(section, "Speed", Unknown_B04AF0);
+-		Unknown18 = ini.Get_Float(section, "Duration", 4.0f) * 1000.0f;
+-		if (Get_Flag(0)) {
++		float duration = ini.Get_Float(section, "Duration", 4.0f) * 1000.0f; bool entering = Get_Flag(0); Unknown18 = duration;
++		if (entering) {
+ 			lead = ini.Get_Float(section, "EnterLead", Unknown_B04AF4);
+ 		} else if (Get_Flag(1)) {
+ 			Vector3 temp = start;
+@@ -260,15 +260,15 @@
+ 	}
+ 
+ 	angle = Unknown_BDB1C0.Get_Float() * angle;
+-	if (Unknown_BDB1C0(0, 1) == 1) {
+-		angle = WWMATH_PI - angle;
++	switch (Unknown_BDB1C0(0, 1)) { default: break;
++		case 1: angle = WWMATH_PI - angle; break;
+ 	}
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+ 	Vector3 offset(lead, c * radius * scale, s * radius * scale);
+ 	Matrix3D tm;
+ 	tm.Obj_Look_At(start, end, 0.0f);
+-	Unknown0C->Position = tm * offset;
++	Vector3 position = tm * offset; { CameraModule79C8E0Class *module = Unknown0C; module->Position.X = position.X; module->Position.Y = position.Y; module->Position.Z = position.Z; }
+ 	Unknown0C->Unknown14 = true;
+ 	Unknown0C->Unknown18 = Client->AvatarID;
+ 	Unknown0C->Unknown_04();
+
