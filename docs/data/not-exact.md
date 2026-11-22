@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-674 entries in 265 files.
+673 entries in 265 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -38,7 +38,6 @@ edit the comments in the code, not this file.
 | `app/client/avatar.cpp:1615` | `CharacterViewAvatarClass::Unknown_781EA0` | marker | NOT EXACT: functional for POC (D64), register (ebx for the zero where the client has ebp; the client keeps Unknown314 = 1 apart from = n) |
 | `app/client/avatar.cpp:1669` | `CharacterViewAvatarClass::Unknown_782200` | marker | NOT EXACT: functional for POC (D64) |
 | `app/client/avatar.cpp:2380` | `CharacterViewAvatarClass::Unknown_1C4` | marker | NOT EXACT: register-allocation / inline-budget (the client keeps accel in FPU ST(0) without spilling; also some NLP/blink/face callees not inlined) |
-| `app/client/avatar.cpp:3524` | `CharacterViewAvatarClass::Unknown_788900` | marker | NOT EXACT: shape (0.81: the client calls 0x784F20 out of line here (inline budget; its other callers inline it), and keeps the Normalize result on the FPU stack on both paths) |
 | `app/client/avatar.cpp:3653` | `CharacterViewAvatarClass::Unknown_788F90` | marker | NOT EXACT: inline-budget + Matrix3D copy scheduling (0x788FF3 / 0x789009 operator=(NULL) and case 4 RefCountPtr calls inlined here, out of line in client; [esi+0x338] vs [esi+0x330]) |
 | `app/client/avatar_pip.cpp:198` | `AvatarPipClass::Unknown_7E3A20` | marker | NOT EXACT: shape (the client copies target into the light's translation first, then folds Translate's products: two zeroed floats per axis where ours multiplies; a release tail-merge and Rotate_Y's operand order; 0.83) |
 | `app/client/bar2d.cpp:10` | `?` | marker | NOT EXACT: 0.76, shape (inline budget): the client inlines Rotate_Z only in case 1 (2 and 3 call 0x577940) and Set_Dirty, and calls the last vertex's UV (0x6B71E0); ours inlines Rotate_Z in cases 1 and 2, all eight UVs and calls Set_Dirty |

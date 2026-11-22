@@ -10,7 +10,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 226 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1970 |
-| 2 | describes what the code does | 5004 |
+| 2 | describes what the code does | 5005 |
 | 1 | neutral placeholder | 25181 |
 
 ## For review (score 3 and below)
@@ -25417,6 +25417,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `State` | `app/client/acticon.h:34` | what Set_State stores |
 | 2 | `ActionClass` | `app/client/acticon.h:43` | action.ini's 'Action%04d' sections |
 | 2 | `Group` | `app/client/acticon.h:49` | the INI entry and the assert |
+| 2 | `forward` | `app/client/avatar.cpp:3553` | inferred name for the X-axis/direction dot product |
 | 2 | `PlayerNLP` | `app/client/avatar.h:195` | PlayerNLP != 0 assert |
 | 2 | `HeadSource` | `app/client/avatar.h:238` | '!HeadSource \|\| !BodyObj' assert |
 | 2 | `HeadObj` | `app/client/avatar.h:240` | '!HeadObj' assert (0x786370 sets hidden) |

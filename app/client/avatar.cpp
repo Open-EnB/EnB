@@ -3281,11 +3281,11 @@ void CharacterViewAvatarClass::Unknown_786BF0(bool keep)
 // 0x786C70
 void CharacterViewAvatarClass::Unknown_786C70()
 {
-	if (Unknown20C != 2) {
-		Unknown208 = 0;
-		Unknown20C = 2;
-		Unknown214 = true;
-	}
+	Unknown_784F20();
+
+
+
+
 	Unknown2F8 &= 0xFFFC;
 }
 
@@ -3521,7 +3521,7 @@ void CharacterViewAvatarClass::Unknown_788890()
 }
 
 // 0x788900
-// NOT EXACT: shape (0.81: the client calls 0x784F20 out of line here (inline budget; its other callers inline it), and keeps the Normalize result on the FPU stack on both paths)
+
 void CharacterViewAvatarClass::Unknown_788900()
 {
 	while (Unknown318.size() != 0) {
@@ -3534,10 +3534,10 @@ void CharacterViewAvatarClass::Unknown_788900()
 				Unknown_788890();
 				continue;
 			}
-			Unknown_784F20();
-			Unknown2F8 &= 0xFFFC;
+			Unknown_786C70();
+
 			float facing = Vector3::Dot_Product(Unknown330.Get_X_Vector(), goal->Get_Y_Vector());
-			if (fabs(facing) < 0.0436193873653360) {
+			if (fabs(facing) < 0.0436193f) {
 				Unknown_786D20();
 				Unknown_788890();
 				return;
@@ -3549,11 +3549,11 @@ void CharacterViewAvatarClass::Unknown_788900()
 			}
 			return;
 		}
-		Vector3 dir = Normalize(delta);
-		float side = Vector3::Dot_Product(Unknown330.Get_Y_Vector(), dir);
+		Vector3 dir = delta; dir.Normalize();
+		float side = Vector3::Dot_Product(Unknown330.Get_Y_Vector(), dir); float forward = Vector3::Dot_Product(Unknown330.Get_X_Vector(), dir); // NAME 2 [forward]: inferred name for the X-axis/direction dot product
 		Vector3 goal_x = goal->Get_X_Vector();
 		Vector3 my_x = Unknown330.Get_X_Vector();
-		if (Vector3::Dot_Product(Unknown330.Get_X_Vector(), dir) <= 0.0f
+		if (forward <= 0.0f
 			&& Vector3::Dot_Product(my_x, goal_x) >= 0.0f
 			&& dist <= 10.0f) {
 			bool full = false;
@@ -3586,9 +3586,9 @@ void CharacterViewAvatarClass::Unknown_788900()
 		}
 		if (fabs(side) < 0.5) {
 			if (Unknown2F8 & 2) {
-				Unknown_Inline_786C70();
-			}
-			Unknown2F8 |= 1;
+				Unknown_Inline_786C70(); Unknown2F8 |= 1;
+			} else { Unknown2F8 |= 1; }
+
 		}
 		if (side < 0.0f) {
 			Unknown_786CC0((float)fabs(side));
