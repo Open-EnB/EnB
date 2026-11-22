@@ -615,7 +615,7 @@ bool UITalkTreeClass::Unknown_68(int event_id)
 	return(true);
 }
 
-// NOT EXACT: 0x64D770 (Unknown_60: this in edi, one slot fewer)
+// NOT EXACT: 0x64D770 (Unknown_60, inline budget: SpeechFile.erase()'s nested _Grow calls max_size out of line in the client, inlined in ours)
 void UITalkTreeClass::Unknown_60()
 {
 	Unknown5BB320Class::Unknown_60();
@@ -623,7 +623,7 @@ void UITalkTreeClass::Unknown_60()
 		int response = Unknown154;
 		Unknown150 = false;
 		SClient *sclient = Client->As_Space_Client();
-		sclient->Send_Packet(&SelectTalkTreePacketClass(sclient->Unknown1138, response));
+		int id = sclient->Unknown1138; sclient->Send_Packet(&SelectTalkTreePacketClass(id, response));
 	}
 	if (Unknown158 < 0) {
 		Unknown_5C();

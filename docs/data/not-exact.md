@@ -484,7 +484,7 @@ edit the comments in the code, not this file.
 | `app/client/ui_talkt.cpp:68` | `UITalkTreeClass::UITalkTreeClass` | marker | NOT EXACT: 0x64B6E0 (the constructor: the +0x174 stores scheduled after the fill's setup) |
 | `app/client/ui_talkt.cpp:287` | `UITalkTreeClass::Unknown_5C` | marker | NOT EXACT: 0x64C8D0 (Unknown_5C: inline budget, _Eos / _Tidy out of line in the client) |
 | `app/client/ui_talkt.cpp:357` | `UITalkTreeClass::Unknown_90` | marker | NOT EXACT: 0x64CC90 (Unknown_90: the vector's _Destroy out of line in the client) |
-| `app/client/ui_talkt.cpp:618` | `UITalkTreeClass::Unknown_60` | marker | NOT EXACT: 0x64D770 (Unknown_60: this in edi, one slot fewer) |
+| `app/client/ui_talkt.cpp:618` | `UITalkTreeClass::Unknown_60` | marker | NOT EXACT: 0x64D770 (Unknown_60, inline budget: SpeechFile.erase()'s nested _Grow calls max_size out of line in the client, inlined in ours) |
 | `app/client/ui_talkt.cpp:839` | `UITalkTreeClass::Unknown_64E7A0` | marker | NOT EXACT: 0x64E7A0 (Unknown_64E7A0: registers only: the bit test, and the 0x497300 call's return slot loaded before its argument) |
 | `app/client/ui_trade.cpp:131` | `UITradeClass::Unknown_54` | marker | NOT EXACT: shape (explain.py; register and hoisting): the first id through ecx, the style call's register, 0x653A80's shared Change_Text set-up not hoisted @0x650A40 |
 | `app/client/ui_trade.cpp:265` | `UITradeClass::Unknown_60` | marker | NOT EXACT: register (the box's +0x34 through edx, -1 kept in ebx; explain.py names a relocation: symbols.json's stale return type for 0x695680) @0x651510 |
