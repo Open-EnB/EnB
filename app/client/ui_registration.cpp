@@ -1286,7 +1286,7 @@ void RegistrationInterface::Unknown_5F3770(int state)
 	Unknown_BE67C4->Add(DialogRenderObj.Peek());
 	Unknown118 = true;
 	Unknown_5F2B20(0x2E, "Button_Privacy", "BUTTON_PRIVACY_RG_FRAME", 0, 0, true);
-	Unknown_5F8DB0(state != 0x15 && state != 0x16);
+	if (state == 0x15 || state == 0x16) Unknown_5F8DB0(false); else Unknown_5F8DB0(true);
 	Unknown_Debug_Printf("meshname: %s   fontini: %s \n", RegistrationPages[state].Name, RegistrationPages[state].Ini);
 	UnknownD4 = state;
 	UnknownBC->Get_Unknown198()->Unknown_784E00();
@@ -4363,8 +4363,8 @@ bool RegistrationInterface::Unknown_603A60(int month, int day, int year, int age
 	struct tm today = *gmtime(&now);
 	int years;
 	if (today.tm_mon < month - 1 || (today.tm_mon == month - 1 && today.tm_mday < day)) { years = (today.tm_year - year) + 1899; } else { years = (today.tm_year - year) + 1900; }
-	bool ok = years >= age;
-	return(ok);
+	return (years >= age) ? true : false;
+
 }
 
 // @0x603B20
