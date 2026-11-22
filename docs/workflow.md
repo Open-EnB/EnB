@@ -97,8 +97,10 @@ repository; every compile repeats the setup). Check a new file's string in the o
 `%TEMP%\enb_import\verify-app\`. appfile.py drafts compile under their own path: their string
 differs, their bytes don't (the string is reached through a relocation). Headers' strings in
 the client are relative (`..\shared/auxdata/auxdata.h`, `..\..\wwlib\ref_ptr.h`): E&B's
-compiles ran in a project directory with relative includes. Leave them (D41): the string
-differs, the bytes and lines match through the relocation.
+compiles ran in a project directory with relative includes. The string differs, the bytes
+and lines match through the relocation. D283 (rescinding D41): the client's header strings and
+include spellings are the target, adopted as one tools-first item (progress.md §4), not by
+editing includes file by file: a builder leaves include spellings as they are until that item lands.
 
 ## 3. Known traps
 
@@ -1225,7 +1227,7 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
   inside a declaration: `class X *`); a removed class block or NOT EXACT line becomes blank or `// 0xADDR`
   lines. Log calls are pinned like asserts: E&B's INFMSG pushes `__LINE__` as an immediate before the " "
   string 0xB6E948 (cordcon, cordmgr). `appfile.py match` markers replace lines, never add them.
-* **`__FILE__`: §2.1;** header strings stay as they are (D41). A `__FILE__` that differs only in case
+* **`__FILE__`: §2.1;** header strings stay as they are until D283's item lands. A `__FILE__` that differs only in case
   (`app\Client\`) differs in the string, not the bytes.
 * **Assert text is evidence of the source:** a FAIL_IF's text is `#expr`, so a helper that matches the bytes
   but changes the condition's tokens changes the client's string (don't keep it); names can be reversed
