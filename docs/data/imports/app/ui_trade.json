@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x474080"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "RECONSTRUCTED: the trade window, the client's ui_trade.cpp (__FILE__ 'e:\\build\\beta\\G\\app\\Client\\ui_trade.cpp' at 0xB8BF74; FAIL_IFs l.674-917); the functions 0x651F60-0x6531F0 as far as rebuilt (TR1)",
  "expected": {},
@@ -22,6 +20,7 @@
   "0x46BE90",
   "0x474080",
   "0x4740B0",
+  "0x47D2E0",
   "0x4A0810",
   "0x4A1930",
   "0x4A19A0",
@@ -58,6 +57,7 @@
   "0x650560",
   "0x650790",
   "0x6507C0",
+  "0x650A40",
   "0x651390",
   "0x651470",
   "0x651830",
@@ -118,6 +118,7 @@
   "0x46BE90",
   "0x474080",
   "0x4740B0",
+  "0x47D2E0",
   "0x4A1930",
   "0x4A19A0",
   "0x4A19C0",
