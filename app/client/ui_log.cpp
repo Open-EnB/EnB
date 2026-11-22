@@ -101,15 +101,15 @@ UILogClass::~UILogClass()
 	Slider = NULL;
 }
 
-// NOT EXACT: the buttons' loop (the client steps the table offset and the id in two registers) and the registers after it (0x5AB030)
+// NOT EXACT: register (the loop by id to < 6, the page entry through textgadg.h's setter and the first view through Get_View() as 0x5D4890; left: the entry Create_Get's vtable / return-slot registers, the flags' registers, the reload before Set_Tooltip; GV4)
 // 0x5AB030
 void UILogClass::Unknown_54()
 {
 	if (Unknown_98("log00a", "fa_log00a.ini")) {
 		InterfaceSortScopeClass sort(this);
-		for (int i = 0; i < 5; i++) {
-			Buttons[i + 1] = Add_Button(i + 1, Unknown_B80F58[i], Unknown_B80F74[i]);
-			GadgetClass::Set_Tooltip(Buttons[i + 1], "UI_LOG", Unknown_B80F58[i]);
+		for (int id = 1; id < 6; id++) {
+			Buttons[id] = Add_Button(id, Unknown_B80F58[id - 1], Unknown_B80F74[id - 1]);
+			GadgetClass::Set_Tooltip(Buttons[id], "UI_LOG", Unknown_B80F58[id - 1]);
 		}
 		Add_Back_Gadget(1, Vector3(0.0f, 0.0f, 0.0f));
 		Slider = new GadgetSlider(false);
@@ -122,10 +122,10 @@ void UILogClass::Unknown_54()
 		RefCountPtr<RenderObjClass> entry = Create_Get(InterfaceMesh->Get_Sub_Object_By_Name("Entry_Field00"));
 		PageEntry = new TextGadgetClass(this, 3, "PAGE_EDIT_log00a", entry.Peek(), Unknown_B08CA8 | Unknown_B08C98, 0);
 		PageEntry->Set_Text("", 0);
-		PageEntry->Unknown58 = 0.95f;
-		PageEntry->Changed = true;
+		PageEntry->Set_Unknown58(0.95f);
+
 		GadgetClass::Set_Tooltip(PageEntry, "UI_LOG", "PAGE");
-		Unknown64.Unknown_6870E0(Slider, 9, View, 1, 1);
+		Unknown64.Unknown_6870E0(Slider, 9, Get_View(), 1, 1);
 		Unknown64.Unknown_6870E0(Editor, 7, View, 1, 1);
 		Unknown64.Unknown_6870E0(PageEntry, 8, View, 1, 1);
 		Unknown_10();
