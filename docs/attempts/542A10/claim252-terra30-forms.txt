@@ -1,0 +1,310 @@
+{
+  "base_commit": "a6aee2de",
+  "source": "app/client/ship_equip_pip.cpp",
+  "instructions": "For one form, save its patch verbatim to a UTF-8 file; apply it with patch -p0 in a scratch directory containing the base commit source as ship_equip_pip.cpp. Verify source_sha256. Each patch is independent of all other forms.",
+  "variants": [
+    {
+      "name": "x4",
+      "selection": [
+        "guard_idle"
+      ],
+      "control": false,
+      "source_sha256": "4f32434050009b99bc6d5147f1d6bdb96e2b7a2c9d3c530cb2f65db8e1ddd6bf",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -225,5 +225,5 @@\n void ShipEquipPipClass::Unknown_542A10(const Vector2 &point, bool on)\n {\n-\tif (Unknown4C <= 0.0f) {\n+\tif (!(Unknown4C <= 0.0f)) return; {\n \t\tVector2 mouse;\n \t\tUnknown_543200(&mouse, point);\n"
+    },
+    {
+      "name": "x5",
+      "selection": [
+        "guard_on"
+      ],
+      "control": false,
+      "source_sha256": "412b81ce7ffa0aeae1a37b980494d226931a452e476fa69e2381a0ae9c7b4c6f",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -230,5 +230,5 @@\n \t\tVector2 last = LastMouse;\n \t\tLastMouse = mouse;\n-\t\tif (!on) {\n+\t\tif (on) return; {\n \t\t\tCameraClass *camera = Camera.Peek();\n \t\t\tFAIL_IF(!camera) return;\n"
+    },
+    {
+      "name": "x04",
+      "selection": [
+        "matrix_assign",
+        "guard_idle"
+      ],
+      "control": false,
+      "source_sha256": "5150a45bc7b503a0054836f24ad6b53d442ca0226029b0aa15a89d96511b713b",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -225,5 +225,5 @@\n void ShipEquipPipClass::Unknown_542A10(const Vector2 &point, bool on)\n {\n-\tif (Unknown4C <= 0.0f) {\n+\tif (!(Unknown4C <= 0.0f)) return; {\n \t\tVector2 mouse;\n \t\tUnknown_543200(&mouse, point);\n@@ -233,5 +233,5 @@\n \t\t\tCameraClass *camera = Camera.Peek();\n \t\t\tFAIL_IF(!camera) return;\n-\t\t\tMatrix3D tm = camera->Get_Transform();\n+\t\t\tMatrix3D tm; tm = camera->Get_Transform();\n \t\t\tQuaternion rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, 0.8f);\n \t\t\tMatrix3D inv;\n"
+    },
+    {
+      "name": "x05",
+      "selection": [
+        "matrix_assign",
+        "guard_on"
+      ],
+      "control": false,
+      "source_sha256": "3a762603bb65087dc8a3cdc0a561ffd4d0e2ea6c0b68daef2285b226698b2e64",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -230,8 +230,8 @@\n \t\tVector2 last = LastMouse;\n \t\tLastMouse = mouse;\n-\t\tif (!on) {\n+\t\tif (on) return; {\n \t\t\tCameraClass *camera = Camera.Peek();\n \t\t\tFAIL_IF(!camera) return;\n-\t\t\tMatrix3D tm = camera->Get_Transform();\n+\t\t\tMatrix3D tm; tm = camera->Get_Transform();\n \t\t\tQuaternion rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, 0.8f);\n \t\t\tMatrix3D inv;\n"
+    },
+    {
+      "name": "x14",
+      "selection": [
+        "rot_assign",
+        "guard_idle"
+      ],
+      "control": false,
+      "source_sha256": "76166791753779f1184a0c6d49a8ef514f8786b8646d2838b685f41e3c3c16df",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -225,5 +225,5 @@\n void ShipEquipPipClass::Unknown_542A10(const Vector2 &point, bool on)\n {\n-\tif (Unknown4C <= 0.0f) {\n+\tif (!(Unknown4C <= 0.0f)) return; {\n \t\tVector2 mouse;\n \t\tUnknown_543200(&mouse, point);\n@@ -234,5 +234,5 @@\n \t\t\tFAIL_IF(!camera) return;\n \t\t\tMatrix3D tm = camera->Get_Transform();\n-\t\t\tQuaternion rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, 0.8f);\n+\t\t\tQuaternion rot; rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, 0.8f);\n \t\t\tMatrix3D inv;\n \t\t\ttm.Get_Orthogonal_Inverse(inv);\n"
+    },
+    {
+      "name": "x15",
+      "selection": [
+        "rot_assign",
+        "guard_on"
+      ],
+      "control": false,
+      "source_sha256": "c074dfe4c7d76bd50d937b4ad0de13d46ad366028e159aa8bfe4cf7187020be5",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -230,9 +230,9 @@\n \t\tVector2 last = LastMouse;\n \t\tLastMouse = mouse;\n-\t\tif (!on) {\n+\t\tif (on) return; {\n \t\t\tCameraClass *camera = Camera.Peek();\n \t\t\tFAIL_IF(!camera) return;\n \t\t\tMatrix3D tm = camera->Get_Transform();\n-\t\t\tQuaternion rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, 0.8f);\n+\t\t\tQuaternion rot; rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, 0.8f);\n \t\t\tMatrix3D inv;\n \t\t\ttm.Get_Orthogonal_Inverse(inv);\n"
+    },
+    {
+      "name": "x24",
+      "selection": [
+        "last_assign",
+        "guard_idle"
+      ],
+      "control": false,
+      "source_sha256": "c4012b1c4759d784e38c79367efc2b31684e712fd014a8ebfb479a255fe6c16b",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -225,8 +225,8 @@\n void ShipEquipPipClass::Unknown_542A10(const Vector2 &point, bool on)\n {\n-\tif (Unknown4C <= 0.0f) {\n+\tif (!(Unknown4C <= 0.0f)) return; {\n \t\tVector2 mouse;\n \t\tUnknown_543200(&mouse, point);\n-\t\tVector2 last = LastMouse;\n+\t\tVector2 last; last = LastMouse;\n \t\tLastMouse = mouse;\n \t\tif (!on) {\n"
+    },
+    {
+      "name": "x25",
+      "selection": [
+        "last_assign",
+        "guard_on"
+      ],
+      "control": false,
+      "source_sha256": "f496bfcc579da76c76657e268c94f901feddddda7613b34631a1532e8878946a",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -228,7 +228,7 @@\n \t\tVector2 mouse;\n \t\tUnknown_543200(&mouse, point);\n-\t\tVector2 last = LastMouse;\n+\t\tVector2 last; last = LastMouse;\n \t\tLastMouse = mouse;\n-\t\tif (!on) {\n+\t\tif (on) return; {\n \t\t\tCameraClass *camera = Camera.Peek();\n \t\t\tFAIL_IF(!camera) return;\n"
+    },
+    {
+      "name": "x34",
+      "selection": [
+        "center_out",
+        "guard_idle"
+      ],
+      "control": false,
+      "source_sha256": "32362342f07790d6ab3d8e639bb9380ff0cf12749206440649f1dae908846277",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -225,5 +225,5 @@\n void ShipEquipPipClass::Unknown_542A10(const Vector2 &point, bool on)\n {\n-\tif (Unknown4C <= 0.0f) {\n+\tif (!(Unknown4C <= 0.0f)) return; {\n \t\tVector2 mouse;\n \t\tUnknown_543200(&mouse, point);\n@@ -238,5 +238,5 @@\n \t\t\ttm.Get_Orthogonal_Inverse(inv);\n \t\t\tCameraManagerClass::Unknown_79B6B0();\n-\t\t\tVector3 center = inv.Get_Translation();\n+\t\t\tVector3 center; inv.Get_Translation(&center);\n \t\t\ttm.Translate(center.X, center.Y, center.Z);\n \t\t\tMatrix3D::Multiply(tm, Build_Matrix3D(rot), &tm);\n"
+    },
+    {
+      "name": "x35",
+      "selection": [
+        "center_out",
+        "guard_on"
+      ],
+      "control": false,
+      "source_sha256": "d9604d90e5f9f7466c4c5b6fae10c0d3cd227cf533df6002362ce1d8724c4908",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -230,5 +230,5 @@\n \t\tVector2 last = LastMouse;\n \t\tLastMouse = mouse;\n-\t\tif (!on) {\n+\t\tif (on) return; {\n \t\t\tCameraClass *camera = Camera.Peek();\n \t\t\tFAIL_IF(!camera) return;\n@@ -238,5 +238,5 @@\n \t\t\ttm.Get_Orthogonal_Inverse(inv);\n \t\t\tCameraManagerClass::Unknown_79B6B0();\n-\t\t\tVector3 center = inv.Get_Translation();\n+\t\t\tVector3 center; inv.Get_Translation(&center);\n \t\t\ttm.Translate(center.X, center.Y, center.Z);\n \t\t\tMatrix3D::Multiply(tm, Build_Matrix3D(rot), &tm);\n"
+    },
+    {
+      "name": "x45",
+      "selection": [
+        "guard_idle",
+        "guard_on"
+      ],
+      "control": false,
+      "source_sha256": "335e2efbe2ec07aa6497257303c451141874a137fb1db055632c969783ac52ae",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -225,10 +225,10 @@\n void ShipEquipPipClass::Unknown_542A10(const Vector2 &point, bool on)\n {\n-\tif (Unknown4C <= 0.0f) {\n+\tif (!(Unknown4C <= 0.0f)) return; {\n \t\tVector2 mouse;\n \t\tUnknown_543200(&mouse, point);\n \t\tVector2 last = LastMouse;\n \t\tLastMouse = mouse;\n-\t\tif (!on) {\n+\t\tif (on) return; {\n \t\t\tCameraClass *camera = Camera.Peek();\n \t\t\tFAIL_IF(!camera) return;\n"
+    },
+    {
+      "name": "x012",
+      "selection": [
+        "matrix_assign",
+        "rot_assign",
+        "last_assign"
+      ],
+      "control": false,
+      "source_sha256": "35895e8df16d0be857b344a356b68a56b9cc7fcdbf66ab4562f92bdfb8666249",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -228,11 +228,11 @@\n \t\tVector2 mouse;\n \t\tUnknown_543200(&mouse, point);\n-\t\tVector2 last = LastMouse;\n+\t\tVector2 last; last = LastMouse;\n \t\tLastMouse = mouse;\n \t\tif (!on) {\n \t\t\tCameraClass *camera = Camera.Peek();\n \t\t\tFAIL_IF(!camera) return;\n-\t\t\tMatrix3D tm = camera->Get_Transform();\n-\t\t\tQuaternion rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, 0.8f);\n+\t\t\tMatrix3D tm; tm = camera->Get_Transform();\n+\t\t\tQuaternion rot; rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, 0.8f);\n \t\t\tMatrix3D inv;\n \t\t\ttm.Get_Orthogonal_Inverse(inv);\n"
+    },
+    {
+      "name": "x013",
+      "selection": [
+        "matrix_assign",
+        "rot_assign",
+        "center_out"
+      ],
+      "control": false,
+      "source_sha256": "bae7f8fd28156e8db70ef5b35d1e1e8fe094e30ed663ec945bc99f146276cbe5",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -233,10 +233,10 @@\n \t\t\tCameraClass *camera = Camera.Peek();\n \t\t\tFAIL_IF(!camera) return;\n-\t\t\tMatrix3D tm = camera->Get_Transform();\n-\t\t\tQuaternion rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, 0.8f);\n+\t\t\tMatrix3D tm; tm = camera->Get_Transform();\n+\t\t\tQuaternion rot; rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, 0.8f);\n \t\t\tMatrix3D inv;\n \t\t\ttm.Get_Orthogonal_Inverse(inv);\n \t\t\tCameraManagerClass::Unknown_79B6B0();\n-\t\t\tVector3 center = inv.Get_Translation();\n+\t\t\tVector3 center; inv.Get_Translation(&center);\n \t\t\ttm.Translate(center.X, center.Y, center.Z);\n \t\t\tMatrix3D::Multiply(tm, Build_Matrix3D(rot), &tm);\n"
+    },
+    {
+      "name": "x014",
+      "selection": [
+        "matrix_assign",
+        "rot_assign",
+        "guard_idle"
+      ],
+      "control": false,
+      "source_sha256": "9f8b8c7527d7780f640eb2c13a8a26d2c0c2a12e8eaa9f3120e8406b464eca62",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -225,5 +225,5 @@\n void ShipEquipPipClass::Unknown_542A10(const Vector2 &point, bool on)\n {\n-\tif (Unknown4C <= 0.0f) {\n+\tif (!(Unknown4C <= 0.0f)) return; {\n \t\tVector2 mouse;\n \t\tUnknown_543200(&mouse, point);\n@@ -233,6 +233,6 @@\n \t\t\tCameraClass *camera = Camera.Peek();\n \t\t\tFAIL_IF(!camera) return;\n-\t\t\tMatrix3D tm = camera->Get_Transform();\n-\t\t\tQuaternion rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, 0.8f);\n+\t\t\tMatrix3D tm; tm = camera->Get_Transform();\n+\t\t\tQuaternion rot; rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, 0.8f);\n \t\t\tMatrix3D inv;\n \t\t\ttm.Get_Orthogonal_Inverse(inv);\n"
+    },
+    {
+      "name": "x015",
+      "selection": [
+        "matrix_assign",
+        "rot_assign",
+        "guard_on"
+      ],
+      "control": false,
+      "source_sha256": "0a68d52cef10886d3efd4b3fa80faa7109edded1eb72429899b228484f4b4d47",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -230,9 +230,9 @@\n \t\tVector2 last = LastMouse;\n \t\tLastMouse = mouse;\n-\t\tif (!on) {\n+\t\tif (on) return; {\n \t\t\tCameraClass *camera = Camera.Peek();\n \t\t\tFAIL_IF(!camera) return;\n-\t\t\tMatrix3D tm = camera->Get_Transform();\n-\t\t\tQuaternion rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, 0.8f);\n+\t\t\tMatrix3D tm; tm = camera->Get_Transform();\n+\t\t\tQuaternion rot; rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, 0.8f);\n \t\t\tMatrix3D inv;\n \t\t\ttm.Get_Orthogonal_Inverse(inv);\n"
+    },
+    {
+      "name": "x023",
+      "selection": [
+        "matrix_assign",
+        "last_assign",
+        "center_out"
+      ],
+      "control": false,
+      "source_sha256": "8aee5b217b7b3ceb31c6bb2a05495c5483b934722c0d7db95d21c7ebc2e4c6f8",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -228,15 +228,15 @@\n \t\tVector2 mouse;\n \t\tUnknown_543200(&mouse, point);\n-\t\tVector2 last = LastMouse;\n+\t\tVector2 last; last = LastMouse;\n \t\tLastMouse = mouse;\n \t\tif (!on) {\n \t\t\tCameraClass *camera = Camera.Peek();\n \t\t\tFAIL_IF(!camera) return;\n-\t\t\tMatrix3D tm = camera->Get_Transform();\n+\t\t\tMatrix3D tm; tm = camera->Get_Transform();\n \t\t\tQuaternion rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, 0.8f);\n \t\t\tMatrix3D inv;\n \t\t\ttm.Get_Orthogonal_Inverse(inv);\n \t\t\tCameraManagerClass::Unknown_79B6B0();\n-\t\t\tVector3 center = inv.Get_Translation();\n+\t\t\tVector3 center; inv.Get_Translation(&center);\n \t\t\ttm.Translate(center.X, center.Y, center.Z);\n \t\t\tMatrix3D::Multiply(tm, Build_Matrix3D(rot), &tm);\n"
+    },
+    {
+      "name": "x024",
+      "selection": [
+        "matrix_assign",
+        "last_assign",
+        "guard_idle"
+      ],
+      "control": false,
+      "source_sha256": "fba5cc44a2ebfc1291abf0c6d2dca2d5b27fe75e0e200781d9d9001131cdf65a",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -225,13 +225,13 @@\n void ShipEquipPipClass::Unknown_542A10(const Vector2 &point, bool on)\n {\n-\tif (Unknown4C <= 0.0f) {\n+\tif (!(Unknown4C <= 0.0f)) return; {\n \t\tVector2 mouse;\n \t\tUnknown_543200(&mouse, point);\n-\t\tVector2 last = LastMouse;\n+\t\tVector2 last; last = LastMouse;\n \t\tLastMouse = mouse;\n \t\tif (!on) {\n \t\t\tCameraClass *camera = Camera.Peek();\n \t\t\tFAIL_IF(!camera) return;\n-\t\t\tMatrix3D tm = camera->Get_Transform();\n+\t\t\tMatrix3D tm; tm = camera->Get_Transform();\n \t\t\tQuaternion rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, 0.8f);\n \t\t\tMatrix3D inv;\n"
+    },
+    {
+      "name": "x025",
+      "selection": [
+        "matrix_assign",
+        "last_assign",
+        "guard_on"
+      ],
+      "control": false,
+      "source_sha256": "d4c44f0fd2755f290ec0e86cb89134d1f67ddd6538644fd5ec76b6d8e692c3e9",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -228,10 +228,10 @@\n \t\tVector2 mouse;\n \t\tUnknown_543200(&mouse, point);\n-\t\tVector2 last = LastMouse;\n+\t\tVector2 last; last = LastMouse;\n \t\tLastMouse = mouse;\n-\t\tif (!on) {\n+\t\tif (on) return; {\n \t\t\tCameraClass *camera = Camera.Peek();\n \t\t\tFAIL_IF(!camera) return;\n-\t\t\tMatrix3D tm = camera->Get_Transform();\n+\t\t\tMatrix3D tm; tm = camera->Get_Transform();\n \t\t\tQuaternion rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, 0.8f);\n \t\t\tMatrix3D inv;\n"
+    },
+    {
+      "name": "x034",
+      "selection": [
+        "matrix_assign",
+        "center_out",
+        "guard_idle"
+      ],
+      "control": false,
+      "source_sha256": "4f5ad67f9b2d4634dc0861be3f9d456a4d9254967757e505cb48ae0b7d16d5e7",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -225,5 +225,5 @@\n void ShipEquipPipClass::Unknown_542A10(const Vector2 &point, bool on)\n {\n-\tif (Unknown4C <= 0.0f) {\n+\tif (!(Unknown4C <= 0.0f)) return; {\n \t\tVector2 mouse;\n \t\tUnknown_543200(&mouse, point);\n@@ -233,10 +233,10 @@\n \t\t\tCameraClass *camera = Camera.Peek();\n \t\t\tFAIL_IF(!camera) return;\n-\t\t\tMatrix3D tm = camera->Get_Transform();\n+\t\t\tMatrix3D tm; tm = camera->Get_Transform();\n \t\t\tQuaternion rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, 0.8f);\n \t\t\tMatrix3D inv;\n \t\t\ttm.Get_Orthogonal_Inverse(inv);\n \t\t\tCameraManagerClass::Unknown_79B6B0();\n-\t\t\tVector3 center = inv.Get_Translation();\n+\t\t\tVector3 center; inv.Get_Translation(&center);\n \t\t\ttm.Translate(center.X, center.Y, center.Z);\n \t\t\tMatrix3D::Multiply(tm, Build_Matrix3D(rot), &tm);\n"
+    },
+    {
+      "name": "x035",
+      "selection": [
+        "matrix_assign",
+        "center_out",
+        "guard_on"
+      ],
+      "control": false,
+      "source_sha256": "ff575615e91c3b4c058b74fb26b7622bbaa76716dae81fa76b0a868f9a9527d7",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -230,13 +230,13 @@\n \t\tVector2 last = LastMouse;\n \t\tLastMouse = mouse;\n-\t\tif (!on) {\n+\t\tif (on) return; {\n \t\t\tCameraClass *camera = Camera.Peek();\n \t\t\tFAIL_IF(!camera) return;\n-\t\t\tMatrix3D tm = camera->Get_Transform();\n+\t\t\tMatrix3D tm; tm = camera->Get_Transform();\n \t\t\tQuaternion rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, 0.8f);\n \t\t\tMatrix3D inv;\n \t\t\ttm.Get_Orthogonal_Inverse(inv);\n \t\t\tCameraManagerClass::Unknown_79B6B0();\n-\t\t\tVector3 center = inv.Get_Translation();\n+\t\t\tVector3 center; inv.Get_Translation(&center);\n \t\t\ttm.Translate(center.X, center.Y, center.Z);\n \t\t\tMatrix3D::Multiply(tm, Build_Matrix3D(rot), &tm);\n"
+    },
+    {
+      "name": "matrix_assign",
+      "selection": [
+        "matrix_assign"
+      ],
+      "control": false,
+      "source_sha256": "204df32960d6ed62a5188c3815e1f456daccf56211470a03bfcea391b4ffeee3",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -233,5 +233,5 @@\n \t\t\tCameraClass *camera = Camera.Peek();\n \t\t\tFAIL_IF(!camera) return;\n-\t\t\tMatrix3D tm = camera->Get_Transform();\n+\t\t\tMatrix3D tm; tm = camera->Get_Transform();\n \t\t\tQuaternion rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, 0.8f);\n \t\t\tMatrix3D inv;\n"
+    },
+    {
+      "name": "rot_assign",
+      "selection": [
+        "rot_assign"
+      ],
+      "control": false,
+      "source_sha256": "da65a27ef482d6fb3dd799f8999f48c48b5180a010528f61f777708f0d3203b4",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -234,5 +234,5 @@\n \t\t\tFAIL_IF(!camera) return;\n \t\t\tMatrix3D tm = camera->Get_Transform();\n-\t\t\tQuaternion rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, 0.8f);\n+\t\t\tQuaternion rot; rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, 0.8f);\n \t\t\tMatrix3D inv;\n \t\t\ttm.Get_Orthogonal_Inverse(inv);\n"
+    },
+    {
+      "name": "last_assign",
+      "selection": [
+        "last_assign"
+      ],
+      "control": false,
+      "source_sha256": "f6b7d15a6f353c5ace6558b053004504f87f3816188c9ed5f1a54fcb889da05d",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -228,5 +228,5 @@\n \t\tVector2 mouse;\n \t\tUnknown_543200(&mouse, point);\n-\t\tVector2 last = LastMouse;\n+\t\tVector2 last; last = LastMouse;\n \t\tLastMouse = mouse;\n \t\tif (!on) {\n"
+    },
+    {
+      "name": "center_out",
+      "selection": [
+        "center_out"
+      ],
+      "control": false,
+      "source_sha256": "36c61d542b054ded178e999346f26d76c7ff3a5b331d712f6d2063d0462fd416",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -238,5 +238,5 @@\n \t\t\ttm.Get_Orthogonal_Inverse(inv);\n \t\t\tCameraManagerClass::Unknown_79B6B0();\n-\t\t\tVector3 center = inv.Get_Translation();\n+\t\t\tVector3 center; inv.Get_Translation(&center);\n \t\t\ttm.Translate(center.X, center.Y, center.Z);\n \t\t\tMatrix3D::Multiply(tm, Build_Matrix3D(rot), &tm);\n"
+    },
+    {
+      "name": "rot_assign_matrix_assign",
+      "selection": [
+        "rot_assign",
+        "matrix_assign"
+      ],
+      "control": false,
+      "source_sha256": "d2cbf7fa24f83b57a94bb811087d2dfce93e73be236bb3dae97c307a78726b10",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -233,6 +233,6 @@\n \t\t\tCameraClass *camera = Camera.Peek();\n \t\t\tFAIL_IF(!camera) return;\n-\t\t\tMatrix3D tm = camera->Get_Transform();\n-\t\t\tQuaternion rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, 0.8f);\n+\t\t\tMatrix3D tm; tm = camera->Get_Transform();\n+\t\t\tQuaternion rot; rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, 0.8f);\n \t\t\tMatrix3D inv;\n \t\t\ttm.Get_Orthogonal_Inverse(inv);\n"
+    },
+    {
+      "name": "last_assign_matrix_assign",
+      "selection": [
+        "last_assign",
+        "matrix_assign"
+      ],
+      "control": false,
+      "source_sha256": "c8d3b00e6a4f445a6e740d6f4e5fbd7d6c97be60cdb7c2e7662f1bc3e71e7299",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -228,10 +228,10 @@\n \t\tVector2 mouse;\n \t\tUnknown_543200(&mouse, point);\n-\t\tVector2 last = LastMouse;\n+\t\tVector2 last; last = LastMouse;\n \t\tLastMouse = mouse;\n \t\tif (!on) {\n \t\t\tCameraClass *camera = Camera.Peek();\n \t\t\tFAIL_IF(!camera) return;\n-\t\t\tMatrix3D tm = camera->Get_Transform();\n+\t\t\tMatrix3D tm; tm = camera->Get_Transform();\n \t\t\tQuaternion rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, 0.8f);\n \t\t\tMatrix3D inv;\n"
+    },
+    {
+      "name": "center_out_matrix_assign",
+      "selection": [
+        "center_out",
+        "matrix_assign"
+      ],
+      "control": false,
+      "source_sha256": "26003cef654de0310473377f5927112d0b9835db9cc3bf0e340eaa67008b95f4",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -233,10 +233,10 @@\n \t\t\tCameraClass *camera = Camera.Peek();\n \t\t\tFAIL_IF(!camera) return;\n-\t\t\tMatrix3D tm = camera->Get_Transform();\n+\t\t\tMatrix3D tm; tm = camera->Get_Transform();\n \t\t\tQuaternion rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, 0.8f);\n \t\t\tMatrix3D inv;\n \t\t\ttm.Get_Orthogonal_Inverse(inv);\n \t\t\tCameraManagerClass::Unknown_79B6B0();\n-\t\t\tVector3 center = inv.Get_Translation();\n+\t\t\tVector3 center; inv.Get_Translation(&center);\n \t\t\ttm.Translate(center.X, center.Y, center.Z);\n \t\t\tMatrix3D::Multiply(tm, Build_Matrix3D(rot), &tm);\n"
+    },
+    {
+      "name": "last_assign_rot_assign",
+      "selection": [
+        "last_assign",
+        "rot_assign"
+      ],
+      "control": false,
+      "source_sha256": "fa6d7fb4549e8505f975a9ef411452efb466478ed757dd62d56225a521caa0bd",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -228,5 +228,5 @@\n \t\tVector2 mouse;\n \t\tUnknown_543200(&mouse, point);\n-\t\tVector2 last = LastMouse;\n+\t\tVector2 last; last = LastMouse;\n \t\tLastMouse = mouse;\n \t\tif (!on) {\n@@ -234,5 +234,5 @@\n \t\t\tFAIL_IF(!camera) return;\n \t\t\tMatrix3D tm = camera->Get_Transform();\n-\t\t\tQuaternion rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, 0.8f);\n+\t\t\tQuaternion rot; rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, 0.8f);\n \t\t\tMatrix3D inv;\n \t\t\ttm.Get_Orthogonal_Inverse(inv);\n"
+    },
+    {
+      "name": "center_out_rot_assign",
+      "selection": [
+        "center_out",
+        "rot_assign"
+      ],
+      "control": false,
+      "source_sha256": "d72045b2088ff06af5ad89a2d0e7bdb56236f695375158d38ed4a1f1c83fc22d",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -234,9 +234,9 @@\n \t\t\tFAIL_IF(!camera) return;\n \t\t\tMatrix3D tm = camera->Get_Transform();\n-\t\t\tQuaternion rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, 0.8f);\n+\t\t\tQuaternion rot; rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, 0.8f);\n \t\t\tMatrix3D inv;\n \t\t\ttm.Get_Orthogonal_Inverse(inv);\n \t\t\tCameraManagerClass::Unknown_79B6B0();\n-\t\t\tVector3 center = inv.Get_Translation();\n+\t\t\tVector3 center; inv.Get_Translation(&center);\n \t\t\ttm.Translate(center.X, center.Y, center.Z);\n \t\t\tMatrix3D::Multiply(tm, Build_Matrix3D(rot), &tm);\n"
+    },
+    {
+      "name": "center_out_last_assign",
+      "selection": [
+        "center_out",
+        "last_assign"
+      ],
+      "control": false,
+      "source_sha256": "5041ed2b37cdb28604b2fc0aba3ae0543caabdc50c38bd857aeb5b3a305060e1",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -228,5 +228,5 @@\n \t\tVector2 mouse;\n \t\tUnknown_543200(&mouse, point);\n-\t\tVector2 last = LastMouse;\n+\t\tVector2 last; last = LastMouse;\n \t\tLastMouse = mouse;\n \t\tif (!on) {\n@@ -238,5 +238,5 @@\n \t\t\ttm.Get_Orthogonal_Inverse(inv);\n \t\t\tCameraManagerClass::Unknown_79B6B0();\n-\t\t\tVector3 center = inv.Get_Translation();\n+\t\t\tVector3 center; inv.Get_Translation(&center);\n \t\t\ttm.Translate(center.X, center.Y, center.Z);\n \t\t\tMatrix3D::Multiply(tm, Build_Matrix3D(rot), &tm);\n"
+    }
+  ]
+}

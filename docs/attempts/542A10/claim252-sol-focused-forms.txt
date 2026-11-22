@@ -1,0 +1,68 @@
+{
+  "base_commit": "a6aee2de",
+  "source": "app/client/ship_equip_pip.cpp",
+  "base_source_sha256": "7cad5dc16221d00fe4419625f7f431bfc6f02536c63af41aace07886ee014fa4",
+  "instructions": "For each independent variant, obtain this source from base_commit, save as ship_equip_pip.cpp in fresh scratch, apply the patch with patch -p0 (baseline patch is empty), and check source_sha256.",
+  "variants": [
+    {
+      "name": "baseline",
+      "control": "fresh immutable base control",
+      "source_sha256": "7cad5dc16221d00fe4419625f7f431bfc6f02536c63af41aace07886ee014fa4",
+      "patch": ""
+    },
+    {
+      "name": "first_vector",
+      "control": "known historical overload description repeat control",
+      "source_sha256": "d1410732e86b2f087d4b86d77e65e38c4c43a0758ba8f3d9f575cd8bc0aebdd9",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -239,5 +239,5 @@\n \t\t\tCameraManagerClass::Unknown_79B6B0();\n \t\t\tVector3 center = inv.Get_Translation();\n-\t\t\ttm.Translate(center.X, center.Y, center.Z);\n+\t\t\ttm.Translate(center);\n \t\t\tMatrix3D::Multiply(tm, Build_Matrix3D(rot), &tm);\n \t\t\ttm.Translate(-center.X, -center.Y, -center.Z);\n"
+    },
+    {
+      "name": "both_vector",
+      "control": null,
+      "source_sha256": "5efa95fc40a857d8fa19ef32f39b5c5169831d6edefd241671846c6ef1f5af00",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -239,7 +239,7 @@\n \t\t\tCameraManagerClass::Unknown_79B6B0();\n \t\t\tVector3 center = inv.Get_Translation();\n-\t\t\ttm.Translate(center.X, center.Y, center.Z);\n+\t\t\ttm.Translate(center);\n \t\t\tMatrix3D::Multiply(tm, Build_Matrix3D(rot), &tm);\n-\t\t\ttm.Translate(-center.X, -center.Y, -center.Z);\n+\t\t\ttm.Translate(-center);\n \t\t\tUnknown_543270(tm);\n \t\t}\n"
+    },
+    {
+      "name": "negative_vector",
+      "control": null,
+      "source_sha256": "9d3adce21f9d4347bc75d8be47546628dad14bcf8446b212f02f071c1676f686",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -241,5 +241,5 @@\n \t\t\ttm.Translate(center.X, center.Y, center.Z);\n \t\t\tMatrix3D::Multiply(tm, Build_Matrix3D(rot), &tm);\n-\t\t\ttm.Translate(-center.X, -center.Y, -center.Z);\n+\t\t\ttm.Translate(-center);\n \t\t\tUnknown_543270(tm);\n \t\t}\n"
+    },
+    {
+      "name": "scalar_getters",
+      "control": null,
+      "source_sha256": "0ba3612c77567056697d4c15cf12a5c93390fd3f1073f97888e9850eaa1945ec",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -238,8 +238,8 @@\n \t\t\ttm.Get_Orthogonal_Inverse(inv);\n \t\t\tCameraManagerClass::Unknown_79B6B0();\n-\t\t\tVector3 center = inv.Get_Translation();\n-\t\t\ttm.Translate(center.X, center.Y, center.Z);\n+\t\t\tfloat x = inv.Get_X_Translation(); float y = inv.Get_Y_Translation(); float z = inv.Get_Z_Translation();\n+\t\t\ttm.Translate(x, y, z);\n \t\t\tMatrix3D::Multiply(tm, Build_Matrix3D(rot), &tm);\n-\t\t\ttm.Translate(-center.X, -center.Y, -center.Z);\n+\t\t\ttm.Translate(-x, -y, -z);\n \t\t\tUnknown_543270(tm);\n \t\t}\n"
+    },
+    {
+      "name": "getter_construct_negative_vector",
+      "control": null,
+      "source_sha256": "7eb6c474734371f54915a043836575067be7a3477b069f4c855cd534e4e993bb",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -238,8 +238,8 @@\n \t\t\ttm.Get_Orthogonal_Inverse(inv);\n \t\t\tCameraManagerClass::Unknown_79B6B0();\n-\t\t\tVector3 center = inv.Get_Translation();\n+\t\t\tVector3 center(inv.Get_X_Translation(), inv.Get_Y_Translation(), inv.Get_Z_Translation());\n \t\t\ttm.Translate(center.X, center.Y, center.Z);\n \t\t\tMatrix3D::Multiply(tm, Build_Matrix3D(rot), &tm);\n-\t\t\ttm.Translate(-center.X, -center.Y, -center.Z);\n+\t\t\ttm.Translate(-center);\n \t\t\tUnknown_543270(tm);\n \t\t}\n"
+    },
+    {
+      "name": "reference_negative_vector",
+      "control": null,
+      "source_sha256": "fa6d6f662bfb8646d91631754db81ed7bd8aeaa77b0383e145cb2b821ef9093c",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -238,8 +238,8 @@\n \t\t\ttm.Get_Orthogonal_Inverse(inv);\n \t\t\tCameraManagerClass::Unknown_79B6B0();\n-\t\t\tVector3 center = inv.Get_Translation();\n+\t\t\tconst Vector3 &center = inv.Get_Translation();\n \t\t\ttm.Translate(center.X, center.Y, center.Z);\n \t\t\tMatrix3D::Multiply(tm, Build_Matrix3D(rot), &tm);\n-\t\t\ttm.Translate(-center.X, -center.Y, -center.Z);\n+\t\t\ttm.Translate(-center);\n \t\t\tUnknown_543270(tm);\n \t\t}\n"
+    },
+    {
+      "name": "reference_both_vector",
+      "control": null,
+      "source_sha256": "615abaa7056a23f768659c95125985a4d51205cab0333b203e6118ad886282c4",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -238,8 +238,8 @@\n \t\t\ttm.Get_Orthogonal_Inverse(inv);\n \t\t\tCameraManagerClass::Unknown_79B6B0();\n-\t\t\tVector3 center = inv.Get_Translation();\n-\t\t\ttm.Translate(center.X, center.Y, center.Z);\n+\t\t\tconst Vector3 &center = inv.Get_Translation();\n+\t\t\ttm.Translate(center);\n \t\t\tMatrix3D::Multiply(tm, Build_Matrix3D(rot), &tm);\n-\t\t\ttm.Translate(-center.X, -center.Y, -center.Z);\n+\t\t\ttm.Translate(-center);\n \t\t\tUnknown_543270(tm);\n \t\t}\n"
+    },
+    {
+      "name": "reference_named_negative",
+      "control": null,
+      "source_sha256": "2f39f6f5c748f98e7b94c3915bd7bb8058755d45eb766debc1564973a129e909",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -238,8 +238,8 @@\n \t\t\ttm.Get_Orthogonal_Inverse(inv);\n \t\t\tCameraManagerClass::Unknown_79B6B0();\n-\t\t\tVector3 center = inv.Get_Translation();\n+\t\t\tconst Vector3 &center = inv.Get_Translation();\n \t\t\ttm.Translate(center.X, center.Y, center.Z);\n \t\t\tMatrix3D::Multiply(tm, Build_Matrix3D(rot), &tm);\n-\t\t\ttm.Translate(-center.X, -center.Y, -center.Z);\n+\t\t\tVector3 reverse = -center; tm.Translate(reverse);\n \t\t\tUnknown_543270(tm);\n \t\t}\n"
+    },
+    {
+      "name": "inplace_negative",
+      "control": null,
+      "source_sha256": "1ffedf7f63d972c8efc2a2d8e1d2d03ae762d7b5897aa2633e2bfe2f9fe80381",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -241,5 +241,5 @@\n \t\t\ttm.Translate(center.X, center.Y, center.Z);\n \t\t\tMatrix3D::Multiply(tm, Build_Matrix3D(rot), &tm);\n-\t\t\ttm.Translate(-center.X, -center.Y, -center.Z);\n+\t\t\tcenter = -center; tm.Translate(center);\n \t\t\tUnknown_543270(tm);\n \t\t}\n"
+    }
+  ]
+}

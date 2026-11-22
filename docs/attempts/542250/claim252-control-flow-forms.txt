@@ -1,0 +1,284 @@
+{
+  "base_commit": "2a2c0b3cf511bed64906a6b24632924fc0fbd206",
+  "source": "app/client/ship_equip_pip.cpp",
+  "base_source_sha256": "ac110b98654ed3f0c2a020cf50b793b06ae5e2bd7042e48d8271c471d742af2e",
+  "seed_metrics": {
+    "raw": 273,
+    "masked": 29,
+    "unit_exact_pairs": 12
+  },
+  "instructions": "All patches independent against base commit source. Export git show BASE:app/client/ship_equip_pip.cpp to ship_equip_pip.cpp in a new scratch directory, apply one patch with patch -p0, verify source_sha256. Empty patch is baseline. Use run_batch.py with frozen git archive tree and original source basename. Do not apply multiple patches together.",
+  "semantic_constraints": "No cached Proxy/robj predicates across virtual calls; unchanged camera call counts and runtime order on each original path; !original FP tests preserve unordered/NaN branching. Matrix and pointer scopes close only after their last read; types have no custom destructors. Assertion source text and physical lines identical. No extra null safety, arithmetic, FP grouping, helper, header or precision changes. Source layout and inlining can still alter generated intermediate rounding.",
+  "variants": [
+    {
+      "name": "baseline",
+      "control": true,
+      "family": "control",
+      "knobs": [],
+      "source_sha256": "ac110b98654ed3f0c2a020cf50b793b06ae5e2bd7042e48d8271c471d742af2e",
+      "patch": "",
+      "metrics": {
+        "raw": 273,
+        "masked": 29,
+        "pair_gains": 0,
+        "pair_losses": 0,
+        "helper_calls": 2
+      }
+    },
+    {
+      "name": "changed_return",
+      "control": false,
+      "family": "A",
+      "knobs": [
+        "changed arm returns; robj tested in following block"
+      ],
+      "source_sha256": "0cb96d535fb3141955cbf073cd59f5c44e04bd2b225edc2a49a98424b05bf545",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -169,10 +169,10 @@\n \t\t\tDistance = Vector3::Distance(pos, target);\n \t\t}\n-\t} else if (robj) {\n+\t\treturn;\n+\t}\n+\tif (robj) {\n \t\tfloat unit = CameraManagerClass::Unknown_79B6B0();\n \t\tVector3 target(0, 0, 0);\n-\t\tVector3 pos;\n-\t\tif (unit != Unknown48) {\n-\t\t\tCameraClass *camera = Camera.Peek();\n+\t\tVector3 pos; if (unit != Unknown48) { CameraClass *camera = Camera.Peek();\n \t\t\tFAIL_IF(!camera) return;\n \t\t\tUnknown50 = camera->Get_Transform();\n",
+      "metrics": {
+        "raw": 273,
+        "masked": 29,
+        "pair_gains": 0,
+        "pair_losses": 0,
+        "helper_calls": 2
+      }
+    },
+    {
+      "name": "unchanged_first",
+      "control": false,
+      "family": "A",
+      "knobs": [
+        "equal arm first; changed arm remains else"
+      ],
+      "source_sha256": "88be43b1d3bf90ea0e6468d6547cd74aef0572678e6e9c6d714fbf90563dbd0d",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -155,5 +155,32 @@\n void ShipEquipPipClass::Unknown_542250(const RefCountPtr<RenderObjClass> &robj)\n {\n-\tif (Proxy->Proxied != robj.Peek()) {\n+\tif (Proxy->Proxied == robj.Peek()) {\n+\t\tif (robj) {\n+\t\tfloat unit = CameraManagerClass::Unknown_79B6B0();\n+\t\tVector3 target(0, 0, 0);\n+\t\tVector3 pos;\n+\t\tif (unit != Unknown48) {\n+\t\t\tCameraClass *camera = Camera.Peek();\n+\n+\n+\n+\n+\n+\n+\n+\n+\n+\n+\n+\n+\n+\t\t\tFAIL_IF(!camera) return;\n+\t\t\tUnknown50 = camera->Get_Transform(); Unknown80 = Unknown50; Unknown80.Translate_Z(unit - Unknown48); pos.Set(Unknown80.Get_X_Translation(), Unknown80.Get_Y_Translation(), Unknown80.Get_Z_Translation()); Unknown80.Look_At(pos, target, 0); Unknown4C = 1.0f; Unknown48 = unit; } if (Unknown4C > 0.0f) { Unknown4C -= WW3D::Get_Frame_Time() * 0.001f; Unknown4C = WWMath::Clamp(Unknown4C, 0.0f, 1.0f); Matrix3D tm = Lerp(Unknown50, Unknown80, 1.0f - Unknown4C); Unknown_543270(tm); pos.Set(tm.Get_X_Translation(), tm.Get_Y_Translation(), tm.Get_Z_Translation()); Distance = Vector3::Distance(pos, target);\n+\n+\t\t\tif (Unknown4C == 0.0f) { Unknown_542EE0(0);\n+\t\t\t}\n+\t\t}\n+\t\t}\n+\t} else {\n \t\tProxy->Unknown_47FF70(robj.Peek());\n \t\tProxy->Set_Transform(Matrix3D::Identity);\n@@ -168,31 +195,4 @@\n \t\t\tUnknown_543270(tm);\n \t\t\tDistance = Vector3::Distance(pos, target);\n-\t\t}\n-\t} else if (robj) {\n-\t\tfloat unit = CameraManagerClass::Unknown_79B6B0();\n-\t\tVector3 target(0, 0, 0);\n-\t\tVector3 pos;\n-\t\tif (unit != Unknown48) {\n-\t\t\tCameraClass *camera = Camera.Peek();\n-\t\t\tFAIL_IF(!camera) return;\n-\t\t\tUnknown50 = camera->Get_Transform();\n-\t\t\tUnknown80 = Unknown50;\n-\t\t\tUnknown80.Translate_Z(unit - Unknown48);\n-\t\t\tpos.Set(Unknown80.Get_X_Translation(), Unknown80.Get_Y_Translation(), Unknown80.Get_Z_Translation());\n-\t\t\tUnknown80.Look_At(pos, target, 0);\n-\t\t\tUnknown4C = 1.0f;\n-\t\t\tUnknown48 = unit;\n-\t\t}\n-\t\tif (Unknown4C > 0.0f) {\n-\t\t\tUnknown4C -= WW3D::Get_Frame_Time() * 0.001f;\n-\t\t\tUnknown4C = WWMath::Clamp(Unknown4C, 0.0f, 1.0f);\n-\t\t\tMatrix3D tm = Lerp(Unknown50, Unknown80, 1.0f - Unknown4C);\n-\t\t\tUnknown_543270(tm);\n-\t\t\tpos.Set(tm.Get_X_Translation(), tm.Get_Y_Translation(), tm.Get_Z_Translation());\n-\t\t\tDistance = Vector3::Distance(pos, target);\n-\n-\t\t\tif (Unknown4C == 0.0f) {\n-\t\t\t\tUnknown_542EE0(0);\n-\t\t\t}\n \t\t}\n \t}\n",
+      "metrics": {
+        "raw": 611,
+        "masked": 386,
+        "pair_gains": 0,
+        "pair_losses": 0,
+        "helper_calls": 1
+      }
+    },
+    {
+      "name": "unchanged_return",
+      "control": false,
+      "family": "A",
+      "knobs": [
+        "equal arm first; early return then changed arm"
+      ],
+      "source_sha256": "a678db77d6d32ab4a78b4c078d39f6737053b7c54b422bad43e5b518e7ff66a8",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -155,8 +155,36 @@\n void ShipEquipPipClass::Unknown_542250(const RefCountPtr<RenderObjClass> &robj)\n {\n-\tif (Proxy->Proxied != robj.Peek()) {\n+\tif (Proxy->Proxied == robj.Peek()) {\n+\t\tif (robj) {\n+\t\tfloat unit = CameraManagerClass::Unknown_79B6B0();\n+\t\tVector3 target(0, 0, 0);\n+\t\tVector3 pos;\n+\t\tif (unit != Unknown48) {\n+\t\t\tCameraClass *camera = Camera.Peek();\n+\n+\n+\n+\n+\n+\n+\n+\n+\n+\n+\n+\n+\n+\t\t\tFAIL_IF(!camera) return;\n+\t\t\tUnknown50 = camera->Get_Transform(); Unknown80 = Unknown50; Unknown80.Translate_Z(unit - Unknown48); pos.Set(Unknown80.Get_X_Translation(), Unknown80.Get_Y_Translation(), Unknown80.Get_Z_Translation()); Unknown80.Look_At(pos, target, 0); Unknown4C = 1.0f; Unknown48 = unit; } if (Unknown4C > 0.0f) { Unknown4C -= WW3D::Get_Frame_Time() * 0.001f; Unknown4C = WWMath::Clamp(Unknown4C, 0.0f, 1.0f); Matrix3D tm = Lerp(Unknown50, Unknown80, 1.0f - Unknown4C); Unknown_543270(tm); pos.Set(tm.Get_X_Translation(), tm.Get_Y_Translation(), tm.Get_Z_Translation()); Distance = Vector3::Distance(pos, target);\n+\n+\t\t\tif (Unknown4C == 0.0f) { Unknown_542EE0(0);\n+\t\t\t}\n+\t\t}\n+\t\t}\n+\t\treturn;\n+\t}\n \t\tProxy->Unknown_47FF70(robj.Peek());\n \t\tProxy->Set_Transform(Matrix3D::Identity);\n-\t\tif (robj) {\n+\tif (robj) {\n \t\t\tfloat unit = CameraManagerClass::Unknown_79B6B0();\n \t\t\tUnknown48 = unit;\n@@ -168,32 +196,4 @@\n \t\t\tUnknown_543270(tm);\n \t\t\tDistance = Vector3::Distance(pos, target);\n-\t\t}\n-\t} else if (robj) {\n-\t\tfloat unit = CameraManagerClass::Unknown_79B6B0();\n-\t\tVector3 target(0, 0, 0);\n-\t\tVector3 pos;\n-\t\tif (unit != Unknown48) {\n-\t\t\tCameraClass *camera = Camera.Peek();\n-\t\t\tFAIL_IF(!camera) return;\n-\t\t\tUnknown50 = camera->Get_Transform();\n-\t\t\tUnknown80 = Unknown50;\n-\t\t\tUnknown80.Translate_Z(unit - Unknown48);\n-\t\t\tpos.Set(Unknown80.Get_X_Translation(), Unknown80.Get_Y_Translation(), Unknown80.Get_Z_Translation());\n-\t\t\tUnknown80.Look_At(pos, target, 0);\n-\t\t\tUnknown4C = 1.0f;\n-\t\t\tUnknown48 = unit;\n-\t\t}\n-\t\tif (Unknown4C > 0.0f) {\n-\t\t\tUnknown4C -= WW3D::Get_Frame_Time() * 0.001f;\n-\t\t\tUnknown4C = WWMath::Clamp(Unknown4C, 0.0f, 1.0f);\n-\t\t\tMatrix3D tm = Lerp(Unknown50, Unknown80, 1.0f - Unknown4C);\n-\t\t\tUnknown_543270(tm);\n-\t\t\tpos.Set(tm.Get_X_Translation(), tm.Get_Y_Translation(), tm.Get_Z_Translation());\n-\t\t\tDistance = Vector3::Distance(pos, target);\n-\n-\t\t\tif (Unknown4C == 0.0f) {\n-\t\t\t\tUnknown_542EE0(0);\n-\t\t\t}\n-\t\t}\n \t}\n }\n",
+      "metrics": {
+        "raw": 611,
+        "masked": 386,
+        "pair_gains": 0,
+        "pair_losses": 0,
+        "helper_calls": 1
+      }
+    },
+    {
+      "name": "changed_null_return",
+      "control": false,
+      "family": "A",
+      "knobs": [
+        "original changed arm; !robj returns after transform call"
+      ],
+      "source_sha256": "d3046df3ec68aa942c5c24600b3b3b5bb2291160a037967530296e629c1ed0a0",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -158,5 +158,5 @@\n \t\tProxy->Unknown_47FF70(robj.Peek());\n \t\tProxy->Set_Transform(Matrix3D::Identity);\n-\t\tif (robj) {\n+\t\tif (!robj) return;\n \t\t\tfloat unit = CameraManagerClass::Unknown_79B6B0();\n \t\t\tUnknown48 = unit;\n@@ -168,5 +168,4 @@\n \t\t\tUnknown_543270(tm);\n \t\t\tDistance = Vector3::Distance(pos, target);\n-\t\t}\n \t} else if (robj) {\n \t\tfloat unit = CameraManagerClass::Unknown_79B6B0();\n@@ -175,4 +174,5 @@\n \t\tif (unit != Unknown48) {\n \t\t\tCameraClass *camera = Camera.Peek();\n+\n \t\t\tFAIL_IF(!camera) return;\n \t\t\tUnknown50 = camera->Get_Transform();\n",
+      "metrics": {
+        "raw": 273,
+        "masked": 29,
+        "pair_gains": 0,
+        "pair_losses": 0,
+        "helper_calls": 2
+      }
+    },
+    {
+      "name": "both_null_returns",
+      "control": false,
+      "family": "A",
+      "knobs": [
+        "changed arm returns; each arm !robj early return"
+      ],
+      "source_sha256": "acaff70d08299817add097767ff37428a5f0fe3cae29eca9edf5bfa660b3a4fe",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -158,5 +158,5 @@\n \t\tProxy->Unknown_47FF70(robj.Peek());\n \t\tProxy->Set_Transform(Matrix3D::Identity);\n-\t\tif (robj) {\n+\t\tif (!robj) return;\n \t\t\tfloat unit = CameraManagerClass::Unknown_79B6B0();\n \t\t\tUnknown48 = unit;\n@@ -168,11 +168,11 @@\n \t\t\tUnknown_543270(tm);\n \t\t\tDistance = Vector3::Distance(pos, target);\n-\t\t}\n-\t} else if (robj) {\n+\t\treturn;\n+\t}\n+\tif (!robj) return;\n \t\tfloat unit = CameraManagerClass::Unknown_79B6B0();\n \t\tVector3 target(0, 0, 0);\n \t\tVector3 pos;\n-\t\tif (unit != Unknown48) {\n-\t\t\tCameraClass *camera = Camera.Peek();\n+\t\tif (unit != Unknown48) { CameraClass *camera = Camera.Peek();\n \t\t\tFAIL_IF(!camera) return;\n \t\t\tUnknown50 = camera->Get_Transform();\n@@ -196,6 +196,6 @@\n \t\t\t}\n \t\t}\n-\t}\n-}\n+}\n+\n \n \n",
+      "metrics": {
+        "raw": 333,
+        "masked": 29,
+        "pair_gains": 0,
+        "pair_losses": 0,
+        "helper_calls": 2
+      }
+    },
+    {
+      "name": "unit_equal_else",
+      "control": false,
+      "family": "B",
+      "knobs": [
+        "invert unit guard with empty equal arm"
+      ],
+      "source_sha256": "524111f394ac3f5a2e028bd108c5d5b45c0734d8485a3085d33cf3b3a8580ba3",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -173,5 +173,5 @@\n \t\tVector3 target(0, 0, 0);\n \t\tVector3 pos;\n-\t\tif (unit != Unknown48) {\n+\t\tif (unit == Unknown48) {} else {\n \t\t\tCameraClass *camera = Camera.Peek();\n \t\t\tFAIL_IF(!camera) return;\n",
+      "metrics": {
+        "raw": 273,
+        "masked": 29,
+        "pair_gains": 0,
+        "pair_losses": 0,
+        "helper_calls": 2
+      }
+    },
+    {
+      "name": "interp_empty_else",
+      "control": false,
+      "family": "B",
+      "knobs": [
+        "negate original >0 guard; empty false arm"
+      ],
+      "source_sha256": "4040e8cdac2e333b8fbc4e2dabe487d86e51b56681213032c4906efebc1b2afa",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -184,5 +184,5 @@\n \t\t\tUnknown48 = unit;\n \t\t}\n-\t\tif (Unknown4C > 0.0f) {\n+\t\tif (!(Unknown4C > 0.0f)) {} else {\n \t\t\tUnknown4C -= WW3D::Get_Frame_Time() * 0.001f;\n \t\t\tUnknown4C = WWMath::Clamp(Unknown4C, 0.0f, 1.0f);\n",
+      "metrics": {
+        "raw": 273,
+        "masked": 29,
+        "pair_gains": 0,
+        "pair_losses": 0,
+        "helper_calls": 2
+      }
+    },
+    {
+      "name": "interp_guard_return",
+      "control": false,
+      "family": "B",
+      "knobs": [
+        "negated original >0 guard returns; same interpolation scope"
+      ],
+      "source_sha256": "24d0f872e19b7fb0ae97133032c1d2de719bcfc911dce1afcc2ea34c9da0e2fc",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -184,5 +184,5 @@\n \t\t\tUnknown48 = unit;\n \t\t}\n-\t\tif (Unknown4C > 0.0f) {\n+\t\tif (!(Unknown4C > 0.0f)) return; {\n \t\t\tUnknown4C -= WW3D::Get_Frame_Time() * 0.001f;\n \t\t\tUnknown4C = WWMath::Clamp(Unknown4C, 0.0f, 1.0f);\n",
+      "metrics": {
+        "raw": 273,
+        "masked": 29,
+        "pair_gains": 0,
+        "pair_losses": 0,
+        "helper_calls": 2
+      }
+    },
+    {
+      "name": "completed_guard_return",
+      "control": false,
+      "family": "B",
+      "knobs": [
+        "negated original ==0 guard returns; same completed scope"
+      ],
+      "source_sha256": "51a6f63480b64474cd40f32fb1238adb430ea10cb1787a8665ed9be4f69e7157",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -192,5 +192,5 @@\n \t\t\tDistance = Vector3::Distance(pos, target);\n \n-\t\t\tif (Unknown4C == 0.0f) {\n+\t\t\tif (!(Unknown4C == 0.0f)) return; {\n \t\t\t\tUnknown_542EE0(0);\n \t\t\t}\n",
+      "metrics": {
+        "raw": 273,
+        "masked": 29,
+        "pair_gains": 0,
+        "pair_losses": 0,
+        "helper_calls": 2
+      }
+    },
+    {
+      "name": "both_guard_returns",
+      "control": false,
+      "family": "B",
+      "knobs": [
+        "interpolation and completed negated-original guard returns"
+      ],
+      "source_sha256": "79795342084a30d272f79cdeaa62c89a222238a01da1d42dbbf9bb3b6a80f050",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -184,5 +184,5 @@\n \t\t\tUnknown48 = unit;\n \t\t}\n-\t\tif (Unknown4C > 0.0f) {\n+\t\tif (!(Unknown4C > 0.0f)) return; {\n \t\t\tUnknown4C -= WW3D::Get_Frame_Time() * 0.001f;\n \t\t\tUnknown4C = WWMath::Clamp(Unknown4C, 0.0f, 1.0f);\n@@ -192,5 +192,5 @@\n \t\t\tDistance = Vector3::Distance(pos, target);\n \n-\t\t\tif (Unknown4C == 0.0f) {\n+\t\t\tif (!(Unknown4C == 0.0f)) return; {\n \t\t\t\tUnknown_542EE0(0);\n \t\t\t}\n",
+      "metrics": {
+        "raw": 273,
+        "masked": 29,
+        "pair_gains": 0,
+        "pair_losses": 0,
+        "helper_calls": 2
+      }
+    },
+    {
+      "name": "first_tm_scope",
+      "control": false,
+      "family": "C",
+      "knobs": [
+        "first matrix scope ends after lighting before distance"
+      ],
+      "source_sha256": "608be2d026da6483101a883a3f0c5fc0f5601f8f4266c4357f82c654e51c884f",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -164,7 +164,7 @@\n \t\t\tVector3 pos(unit * 1.1, unit * 1.1, unit * 1.1);\n \t\t\tProxy->Set_Position(Vector3(0, 0, 0));\n-\t\t\tMatrix3D tm(true);\n+\t\t\t{ Matrix3D tm(true);\n \t\t\ttm.Look_At(pos, target, 0);\n-\t\t\tUnknown_543270(tm);\n+\t\t\tUnknown_543270(tm); }\n \t\t\tDistance = Vector3::Distance(pos, target);\n \t\t}\n",
+      "metrics": {
+        "raw": 273,
+        "masked": 29,
+        "pair_gains": 0,
+        "pair_losses": 0,
+        "helper_calls": 2
+      }
+    },
+    {
+      "name": "second_tm_scope",
+      "control": false,
+      "family": "C",
+      "knobs": [
+        "second matrix scope ends after extracting position"
+      ],
+      "source_sha256": "8af69b0b314ff34e9c65ede43a6763bfd1d494931d7802c693eb653d914d1b1d",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -187,7 +187,7 @@\n \t\t\tUnknown4C -= WW3D::Get_Frame_Time() * 0.001f;\n \t\t\tUnknown4C = WWMath::Clamp(Unknown4C, 0.0f, 1.0f);\n-\t\t\tMatrix3D tm = Lerp(Unknown50, Unknown80, 1.0f - Unknown4C);\n+\t\t\t{ Matrix3D tm = Lerp(Unknown50, Unknown80, 1.0f - Unknown4C);\n \t\t\tUnknown_543270(tm);\n-\t\t\tpos.Set(tm.Get_X_Translation(), tm.Get_Y_Translation(), tm.Get_Z_Translation());\n+\t\t\tpos.Set(tm.Get_X_Translation(), tm.Get_Y_Translation(), tm.Get_Z_Translation()); }\n \t\t\tDistance = Vector3::Distance(pos, target);\n \n",
+      "metrics": {
+        "raw": 273,
+        "masked": 29,
+        "pair_gains": 0,
+        "pair_losses": 0,
+        "helper_calls": 2
+      }
+    },
+    {
+      "name": "both_tm_scopes",
+      "control": false,
+      "family": "C",
+      "knobs": [
+        "both matrix scopes end before distance"
+      ],
+      "source_sha256": "d66d2ed922d3a4dda1783f5cf5fe24b7c3159bb66393da8bf5ccdade8c16b824",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -164,7 +164,7 @@\n \t\t\tVector3 pos(unit * 1.1, unit * 1.1, unit * 1.1);\n \t\t\tProxy->Set_Position(Vector3(0, 0, 0));\n-\t\t\tMatrix3D tm(true);\n+\t\t\t{ Matrix3D tm(true);\n \t\t\ttm.Look_At(pos, target, 0);\n-\t\t\tUnknown_543270(tm);\n+\t\t\tUnknown_543270(tm); }\n \t\t\tDistance = Vector3::Distance(pos, target);\n \t\t}\n@@ -187,7 +187,7 @@\n \t\t\tUnknown4C -= WW3D::Get_Frame_Time() * 0.001f;\n \t\t\tUnknown4C = WWMath::Clamp(Unknown4C, 0.0f, 1.0f);\n-\t\t\tMatrix3D tm = Lerp(Unknown50, Unknown80, 1.0f - Unknown4C);\n+\t\t\t{ Matrix3D tm = Lerp(Unknown50, Unknown80, 1.0f - Unknown4C);\n \t\t\tUnknown_543270(tm);\n-\t\t\tpos.Set(tm.Get_X_Translation(), tm.Get_Y_Translation(), tm.Get_Z_Translation());\n+\t\t\tpos.Set(tm.Get_X_Translation(), tm.Get_Y_Translation(), tm.Get_Z_Translation()); }\n \t\t\tDistance = Vector3::Distance(pos, target);\n \n",
+      "metrics": {
+        "raw": 273,
+        "masked": 29,
+        "pair_gains": 0,
+        "pair_losses": 0,
+        "helper_calls": 2
+      }
+    },
+    {
+      "name": "camera_scope",
+      "control": false,
+      "family": "C",
+      "knobs": [
+        "camera pointer scope ends after Get_Transform"
+      ],
+      "source_sha256": "1347ab13ed4dce1b1b97a02959bdfa699834727c1dcf59280e381544fb8a22a8",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -174,7 +174,7 @@\n \t\tVector3 pos;\n \t\tif (unit != Unknown48) {\n-\t\t\tCameraClass *camera = Camera.Peek();\n+\t\t\t{ CameraClass *camera = Camera.Peek();\n \t\t\tFAIL_IF(!camera) return;\n-\t\t\tUnknown50 = camera->Get_Transform();\n+\t\t\tUnknown50 = camera->Get_Transform(); }\n \t\t\tUnknown80 = Unknown50;\n \t\t\tUnknown80.Translate_Z(unit - Unknown48);\n",
+      "metrics": {
+        "raw": 273,
+        "masked": 29,
+        "pair_gains": 0,
+        "pair_losses": 0,
+        "helper_calls": 2
+      }
+    },
+    {
+      "name": "both_tm_camera_scopes",
+      "control": false,
+      "family": "C",
+      "knobs": [
+        "both shorter matrix scopes and shorter camera pointer scope"
+      ],
+      "source_sha256": "a60f414a6bceb7749b99d17800a59510f79cd708b16c7fc7e2125ddc7808dfc8",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -164,7 +164,7 @@\n \t\t\tVector3 pos(unit * 1.1, unit * 1.1, unit * 1.1);\n \t\t\tProxy->Set_Position(Vector3(0, 0, 0));\n-\t\t\tMatrix3D tm(true);\n+\t\t\t{ Matrix3D tm(true);\n \t\t\ttm.Look_At(pos, target, 0);\n-\t\t\tUnknown_543270(tm);\n+\t\t\tUnknown_543270(tm); }\n \t\t\tDistance = Vector3::Distance(pos, target);\n \t\t}\n@@ -174,7 +174,7 @@\n \t\tVector3 pos;\n \t\tif (unit != Unknown48) {\n-\t\t\tCameraClass *camera = Camera.Peek();\n+\t\t\t{ CameraClass *camera = Camera.Peek();\n \t\t\tFAIL_IF(!camera) return;\n-\t\t\tUnknown50 = camera->Get_Transform();\n+\t\t\tUnknown50 = camera->Get_Transform(); }\n \t\t\tUnknown80 = Unknown50;\n \t\t\tUnknown80.Translate_Z(unit - Unknown48);\n@@ -187,7 +187,7 @@\n \t\t\tUnknown4C -= WW3D::Get_Frame_Time() * 0.001f;\n \t\t\tUnknown4C = WWMath::Clamp(Unknown4C, 0.0f, 1.0f);\n-\t\t\tMatrix3D tm = Lerp(Unknown50, Unknown80, 1.0f - Unknown4C);\n+\t\t\t{ Matrix3D tm = Lerp(Unknown50, Unknown80, 1.0f - Unknown4C);\n \t\t\tUnknown_543270(tm);\n-\t\t\tpos.Set(tm.Get_X_Translation(), tm.Get_Y_Translation(), tm.Get_Z_Translation());\n+\t\t\tpos.Set(tm.Get_X_Translation(), tm.Get_Y_Translation(), tm.Get_Z_Translation()); }\n \t\t\tDistance = Vector3::Distance(pos, target);\n \n",
+      "metrics": {
+        "raw": 273,
+        "masked": 29,
+        "pair_gains": 0,
+        "pair_losses": 0,
+        "helper_calls": 2
+      }
+    }
+  ]
+}
