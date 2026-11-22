@@ -1193,19 +1193,19 @@ void CharacterViewAvatarClass::Unknown_780790(int index, int metal)
 // 0x780810: two colorization regions from the description, shirt (primary, secondary) and pants (primary, secondary):
 // a half's metal and its colour, white when the metal is an environment map (>= 0); then shiputils.cpp's 0x80FCE0 on
 // the body and the head with the skin colour
-// NOT EXACT: inline-budget (the client keeps vector::insert out of line and emits 0x780AC0 ColorizationHalfStruct::operator= out of line at Shirt, inline at Pants)
+// The region pair constructs its halves: copy ctor 0x780AC0 at Shirt, inline at Pants; vector insert uses assignment 0x62A5D0.
 void CharacterViewAvatarClass::Unknown_780810(EnvironmentMapManagerClass *env_maps)
 {
 	if (env_maps) {
 		std::vector<ColorizationRegionStruct> regions;
-		ColorizationRegionStruct region;
-		Vector3 primary_color;
+
+		ColorizationHalfStruct primary;
 		ColorizationHalfStruct secondary;
-		int primary_metal = Desc.Shirt_Primary_Metal;
-		if (primary_metal >= 0) {
-			primary_color.Set(1.0f, 1.0f, 1.0f);
+		primary.Unknown00 = Desc.Shirt_Primary_Metal;
+		if (primary.Unknown00 >= 0) {
+			primary.Unknown04.Set(1.0f, 1.0f, 1.0f);
 		} else {
-			primary_color = Desc.Shirt_Primary_Color;
+			primary.Unknown04 = Desc.Shirt_Primary_Color;
 		}
 		secondary.Unknown00 = Desc.Shirt_Secondary_Metal;
 		if (secondary.Unknown00 >= 0) {
@@ -1213,15 +1213,15 @@ void CharacterViewAvatarClass::Unknown_780810(EnvironmentMapManagerClass *env_ma
 		} else {
 			secondary.Unknown04 = Desc.Shirt_Secondary_Color;
 		}
-		region.Unknown00.Unknown00 = primary_metal;
-		region.Unknown00.Unknown04 = primary_color;
-		region.Unknown10 = secondary;
-		regions.push_back(region);
-		primary_metal = Desc.Pants_Primary_Metal;
-		if (primary_metal >= 0) {
-			primary_color.Set(1.0f, 1.0f, 1.0f);
+
+
+
+		regions.push_back(ColorizationRegionStruct(primary, secondary));
+		primary.Unknown00 = Desc.Pants_Primary_Metal;
+		if (primary.Unknown00 >= 0) {
+			primary.Unknown04.Set(1.0f, 1.0f, 1.0f);
 		} else {
-			primary_color = Desc.Pants_Primary_Color;
+			primary.Unknown04 = Desc.Pants_Primary_Color;
 		}
 		secondary.Unknown00 = Desc.Pants_Secondary_Metal;
 		if (secondary.Unknown00 >= 0) {
@@ -1229,10 +1229,10 @@ void CharacterViewAvatarClass::Unknown_780810(EnvironmentMapManagerClass *env_ma
 		} else {
 			secondary.Unknown04 = Desc.Pants_Secondary_Color;
 		}
-		region.Unknown00.Unknown00 = primary_metal;
-		region.Unknown00.Unknown04 = primary_color;
-		region.Unknown10 = secondary;
-		regions.push_back(region);
+
+
+
+		regions.push_back(ColorizationRegionStruct(primary, secondary));
 		Unknown_80FCE0(BodyObj.Peek(), regions, env_maps, &Desc.Skin_Color);
 		Unknown_80FCE0(HeadObj.Peek(), regions, env_maps, &Desc.Skin_Color);
 	}

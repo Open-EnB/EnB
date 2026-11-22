@@ -804,13 +804,13 @@ void ScriptedMovieViewClass::Unknown_8020B0(RenderObjClass *model, Vector3 a, Ve
 	second.Unknown00 = metal;
 	second.Unknown04 = b;
 	ColorizationRegionStruct region;
-	region.Unknown00.Unknown00 = metal; region.Unknown00.Unknown04 = a; region.Unknown10 = second;
+	region.first.Unknown00 = metal; region.first.Unknown04 = a; region.second = second;
 	regions.push_back(region);
-	region.Unknown00.Unknown00 = metal; region.Unknown00.Unknown04 = a; region.Unknown10 = second;
+	region.first.Unknown00 = metal; region.first.Unknown04 = a; region.second = second;
 	regions.push_back(region);
-	region.Unknown00.Unknown00 = metal; region.Unknown00.Unknown04 = a; region.Unknown10 = second;
+	region.first.Unknown00 = metal; region.first.Unknown04 = a; region.second = second;
 	regions.push_back(region);
-	region.Unknown00.Unknown00 = metal; region.Unknown00.Unknown04 = a; region.Unknown10 = second;
+	region.first.Unknown00 = metal; region.first.Unknown04 = a; region.second = second;
 	regions.push_back(region);
 	Unknown_80EFF0(model, regions, Unknown140);
 }

@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1970 |
 | 2 | describes what the code does | 5004 |
-| 1 | neutral placeholder | 25184 |
+| 1 | neutral placeholder | 25181 |
 
 ## For review (score 3 and below)
 
@@ -270,9 +270,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_77FEC0` | `app/client/avatar.cpp:1092` | untagged neutral name (D10) |
 | 1 | `Unknown_780680` | `app/client/avatar.cpp:1171` | untagged neutral name (D10) |
 | 1 | `Unknown_780790` | `app/client/avatar.cpp:1183` | untagged neutral name (D10) |
-| 1 | `Unknown00` | `app/client/avatar.cpp:1210` | untagged neutral name (D10) |
-| 1 | `Unknown04` | `app/client/avatar.cpp:1212` | untagged neutral name (D10) |
-| 1 | `Unknown10` | `app/client/avatar.cpp:1218` | untagged neutral name (D10) |
+| 1 | `Unknown00` | `app/client/avatar.cpp:1204` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `app/client/avatar.cpp:1206` | untagged neutral name (D10) |
 | 1 | `Unknown_780AF0` | `app/client/avatar.cpp:1311` | untagged neutral name (D10) |
 | 1 | `name` | `app/client/avatar.cpp:1328` | cached subobject name (client 0x780C84) |
 | 1 | `Unknown_7812A0` | `app/client/avatar.cpp:1333` | untagged neutral name (D10) |
@@ -17850,7 +17849,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6211D0` | `app/client/ui_shipcust.cpp:171` | untagged neutral name (D10) |
 | 1 | `Unknown00` | `app/client/ui_shipcust.cpp:180` | untagged neutral name (D10) |
 | 1 | `Unknown04` | `app/client/ui_shipcust.cpp:180` | untagged neutral name (D10) |
-| 1 | `Unknown10` | `app/client/ui_shipcust.cpp:192` | untagged neutral name (D10) |
 | 1 | `Unknown_80EFF0` | `app/client/ui_shipcust.cpp:195` | untagged neutral name (D10) |
 | 1 | `Unknown160` | `app/client/ui_shipcust.cpp:195` | untagged neutral name (D10) |
 | 1 | `Unknown_621390` | `app/client/ui_shipcust.cpp:234` | untagged neutral name (D10) |
@@ -17972,6 +17970,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_B08CB8` | `app/client/ui_shipcust.cpp:1841` | untagged neutral name (D10) |
 | 1 | `Unknown78` | `app/client/ui_shipcust.cpp:1842` | untagged neutral name (D10) |
 | 1 | `Unknown_58` | `app/client/ui_shipcust.cpp:1864` | untagged neutral name (D10) |
+| 1 | `Unknown10` | `app/client/ui_shipcust.cpp:1875` | untagged neutral name (D10) |
 | 1 | `Unknown3C` | `app/client/ui_shipcust.cpp:1877` | untagged neutral name (D10) |
 | 1 | `Unknown_627160` | `app/client/ui_shipcust.cpp:1883` | untagged neutral name (D10) |
 | 1 | `Unknown_627730` | `app/client/ui_shipcust.cpp:1947` | untagged neutral name (D10) |
@@ -22451,13 +22450,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_14` | `app/packets/pkcolorization.cpp:9` | untagged neutral name (D10) |
 | 1 | `Unknown00` | `app/packets/pkcolorization.cpp:20` | untagged neutral name (D10) |
 | 1 | `Unknown04` | `app/packets/pkcolorization.cpp:21` | untagged neutral name (D10) |
-| 1 | `Unknown10` | `app/packets/pkcolorization.cpp:22` | untagged neutral name (D10) |
 | 1 | `pkcolorization` | `app/packets/pkcolorization.h:15` | provisional, pk + its class's name |
 | 1 | `ColorizationHalfStruct` | `app/packets/pkcolorization.h:26` | neutral (D10), half of a region |
 | 1 | `Unknown00` | `app/packets/pkcolorization.h:28` | untagged neutral name (D10) |
 | 1 | `Unknown04` | `app/packets/pkcolorization.h:29` | untagged neutral name (D10) |
-| 1 | `ColorizationRegionStruct` | `app/packets/pkcolorization.h:32` | neutral (D10), the packet's 'NumRegions' |
-| 1 | `Unknown10` | `app/packets/pkcolorization.h:35` | untagged neutral name (D10) |
+| 1 | `ColorizationRegionStruct` | `app/packets/pkcolorization.h:32` | neutral packet-region alias; std::pair inferred from exact construction/copy callers |
 | 1 | `pkconfirmedaction` | `app/packets/pkconfirmedaction.h:15` | provisional, pk + its classes' common name |
 | 1 | `ConfirmedActionEnum` | `app/packets/pkconfirmedaction.h:21` | neutral placeholder (D10) |
 | 1 | `CONFIRMED_ACTION_NONE` | `app/packets/pkconfirmedaction.h:23` | neutral placeholder (D10) |

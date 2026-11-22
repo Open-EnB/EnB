@@ -188,8 +188,8 @@ void Unknown620D20Class::Unknown_6211D0(EnvironmentMapManagerClass *environmentm
 		} else {
 			half1.Unknown00 = second.Is_Matte ? -2 : -1; half1.Unknown04 = second.Color;
 		}
-		region.Unknown00 = half0;
-		region.Unknown10 = half1;
+		region.first = half0;
+		region.second = half1;
 		regions.push_back(region);
 	}
 	Unknown_80EFF0(Unknown160.Peek(), regions, environmentmapmanager);

@@ -160,8 +160,8 @@ static void Unknown_80F470(RenderObjClass *robj, std::vector<ColorizationRegionS
 	if (!_MetalDatabase.Is_Loaded()) {
 		_MetalDatabase.Load("metal_equivalent_rgbs.ini");
 	}
-	int metal = reg_mat_defs[current_region].Unknown00.Unknown00;	// NAME 2: metal_equivalent_rgbs.ini's 'Metal-%02d'
-	Vector3 color = reg_mat_defs[current_region].Unknown00.Unknown04;
+	int metal = reg_mat_defs[current_region].first.Unknown00;	// NAME 2: metal_equivalent_rgbs.ini's 'Metal-%02d'
+	Vector3 color = reg_mat_defs[current_region].first.Unknown04;
 	if (metal >= 0) {
 		char section[256];
 		sprintf(section, "Metal-%02d", metal);
@@ -943,8 +943,8 @@ void Unknown_812390(RenderObjClass *robj, std::vector<ColorizationRegionStruct> 
 	ShaderClass::DetailColorFuncType primary_func;	// NAME 2: as primary_mapper
 	ShaderClass::DetailColorFuncType secondary_func;	// NAME 2: as secondary_mapper
 
-	int primary_metal = reg_mat_defs[current_region].Unknown00.Unknown00;	// NAME 2: a metal_equivalent_rgbs.ini 'Metal-NN' (0x80F470), or -1 / -2
-	Vector3 primary_color = reg_mat_defs[current_region].Unknown00.Unknown04;	// NAME 2: as primary_mapper
+	int primary_metal = reg_mat_defs[current_region].first.Unknown00;	// NAME 2: a metal_equivalent_rgbs.ini 'Metal-NN' (0x80F470), or -1 / -2
+	Vector3 primary_color = reg_mat_defs[current_region].first.Unknown04;	// NAME 2: as primary_mapper
 	if (primary_metal >= 0) {
 		primary_func = ShaderClass::DETAILCOLOR_SCALE2X;
 		primary_mapper = Create_NEW(new GridWSEnvironmentMapperClass(0.0f, 2, 0, primary_metal, (GridWSEnvMapperClass::AxisType)axis, 1));
@@ -968,8 +968,8 @@ void Unknown_812390(RenderObjClass *robj, std::vector<ColorizationRegionStruct> 
 		}
 	}
 
-	int secondary_metal = reg_mat_defs[current_region].Unknown10.Unknown00;	// NAME 2: a metal_equivalent_rgbs.ini 'Metal-NN' (0x80F470), or -1 / -2
-	Vector3 secondary_color = reg_mat_defs[current_region].Unknown10.Unknown04;	// NAME 2: as secondary_mapper
+	int secondary_metal = reg_mat_defs[current_region].second.Unknown00;	// NAME 2: a metal_equivalent_rgbs.ini 'Metal-NN' (0x80F470), or -1 / -2
+	Vector3 secondary_color = reg_mat_defs[current_region].second.Unknown04;	// NAME 2: as secondary_mapper
 	if (secondary_metal >= 0) {
 		secondary_func = ShaderClass::DETAILCOLOR_SCALE2X;
 		secondary_mapper = Create_NEW(new GridWSEnvironmentMapperClass(0.0f, 2, 0, secondary_metal, (GridWSEnvMapperClass::AxisType)axis, 1));

@@ -1,0 +1,210 @@
+ONE coupled valid target candidate (counted under780810;780AC0 adds zero trials), one targetcontrol, plus six mechanicalconsumer validation pairs. Joint native matcher1399->1402 file/address pairs,+avatar780810,+avatar780AC0,+co6FB1E0,zero losses. Original Half unchanged; implicit copyctor780AC0 distinct from assignment62A5D0. ScriptedMovie field-access renames only;8020B0 remains unmatched. Fullapp verification not run.
+
+diff --git a/app/client/avatar.cpp b/app/client/avatar.cpp
+index 9204c2b3..91e0c47d 100644
+--- a/app/client/avatar.cpp
++++ b/app/client/avatar.cpp
+@@ -1193,19 +1193,19 @@ void CharacterViewAvatarClass::Unknown_780790(int index, int metal)
+ // 0x780810: two colorization regions from the description, shirt (primary, secondary) and pants (primary, secondary):
+ // a half's metal and its colour, white when the metal is an environment map (>= 0); then shiputils.cpp's 0x80FCE0 on
+ // the body and the head with the skin colour
+-// NOT EXACT: inline-budget (the client keeps vector::insert out of line and emits 0x780AC0 ColorizationHalfStruct::operator= out of line at Shirt, inline at Pants)
++// The region pair constructs its halves: copy ctor 0x780AC0 at Shirt, inline at Pants; vector insert uses assignment 0x62A5D0.
+ void CharacterViewAvatarClass::Unknown_780810(EnvironmentMapManagerClass *env_maps)
+ {
+ 	if (env_maps) {
+ 		std::vector<ColorizationRegionStruct> regions;
+-		ColorizationRegionStruct region;
+-		Vector3 primary_color;
++
++		ColorizationHalfStruct primary;
+ 		ColorizationHalfStruct secondary;
+-		int primary_metal = Desc.Shirt_Primary_Metal;
+-		if (primary_metal >= 0) {
+-			primary_color.Set(1.0f, 1.0f, 1.0f);
++		primary.Unknown00 = Desc.Shirt_Primary_Metal;
++		if (primary.Unknown00 >= 0) {
++			primary.Unknown04.Set(1.0f, 1.0f, 1.0f);
+ 		} else {
+-			primary_color = Desc.Shirt_Primary_Color;
++			primary.Unknown04 = Desc.Shirt_Primary_Color;
+ 		}
+ 		secondary.Unknown00 = Desc.Shirt_Secondary_Metal;
+ 		if (secondary.Unknown00 >= 0) {
+@@ -1213,15 +1213,15 @@ void CharacterViewAvatarClass::Unknown_780810(EnvironmentMapManagerClass *env_ma
+ 		} else {
+ 			secondary.Unknown04 = Desc.Shirt_Secondary_Color;
+ 		}
+-		region.Unknown00.Unknown00 = primary_metal;
+-		region.Unknown00.Unknown04 = primary_color;
+-		region.Unknown10 = secondary;
+-		regions.push_back(region);
+-		primary_metal = Desc.Pants_Primary_Metal;
+-		if (primary_metal >= 0) {
+-			primary_color.Set(1.0f, 1.0f, 1.0f);
++
++
++
++		regions.push_back(ColorizationRegionStruct(primary, secondary));
++		primary.Unknown00 = Desc.Pants_Primary_Metal;
++		if (primary.Unknown00 >= 0) {
++			primary.Unknown04.Set(1.0f, 1.0f, 1.0f);
+ 		} else {
+-			primary_color = Desc.Pants_Primary_Color;
++			primary.Unknown04 = Desc.Pants_Primary_Color;
+ 		}
+ 		secondary.Unknown00 = Desc.Pants_Secondary_Metal;
+ 		if (secondary.Unknown00 >= 0) {
+@@ -1229,10 +1229,10 @@ void CharacterViewAvatarClass::Unknown_780810(EnvironmentMapManagerClass *env_ma
+ 		} else {
+ 			secondary.Unknown04 = Desc.Pants_Secondary_Color;
+ 		}
+-		region.Unknown00.Unknown00 = primary_metal;
+-		region.Unknown00.Unknown04 = primary_color;
+-		region.Unknown10 = secondary;
+-		regions.push_back(region);
++
++
++
++		regions.push_back(ColorizationRegionStruct(primary, secondary));
+ 		Unknown_80FCE0(BodyObj.Peek(), regions, env_maps, &Desc.Skin_Color);
+ 		Unknown_80FCE0(HeadObj.Peek(), regions, env_maps, &Desc.Skin_Color);
+ 	}
+diff --git a/app/client/scriptedmovie.cpp b/app/client/scriptedmovie.cpp
+index 501b7713..e6075612 100644
+--- a/app/client/scriptedmovie.cpp
++++ b/app/client/scriptedmovie.cpp
+@@ -804,13 +804,13 @@ void ScriptedMovieViewClass::Unknown_8020B0(RenderObjClass *model, Vector3 a, Ve
+ 	second.Unknown00 = metal;
+ 	second.Unknown04 = b;
+ 	ColorizationRegionStruct region;
+-	region.Unknown00.Unknown00 = metal; region.Unknown00.Unknown04 = a; region.Unknown10 = second;
++	region.first.Unknown00 = metal; region.first.Unknown04 = a; region.second = second;
+ 	regions.push_back(region);
+-	region.Unknown00.Unknown00 = metal; region.Unknown00.Unknown04 = a; region.Unknown10 = second;
++	region.first.Unknown00 = metal; region.first.Unknown04 = a; region.second = second;
+ 	regions.push_back(region);
+-	region.Unknown00.Unknown00 = metal; region.Unknown00.Unknown04 = a; region.Unknown10 = second;
++	region.first.Unknown00 = metal; region.first.Unknown04 = a; region.second = second;
+ 	regions.push_back(region);
+-	region.Unknown00.Unknown00 = metal; region.Unknown00.Unknown04 = a; region.Unknown10 = second;
++	region.first.Unknown00 = metal; region.first.Unknown04 = a; region.second = second;
+ 	regions.push_back(region);
+ 	Unknown_80EFF0(model, regions, Unknown140);
+ }
+diff --git a/app/client/shiputils.cpp b/app/client/shiputils.cpp
+index 9e48748f..c223b729 100644
+--- a/app/client/shiputils.cpp
++++ b/app/client/shiputils.cpp
+@@ -160,8 +160,8 @@ static void Unknown_80F470(RenderObjClass *robj, std::vector<ColorizationRegionS
+ 	if (!_MetalDatabase.Is_Loaded()) {
+ 		_MetalDatabase.Load("metal_equivalent_rgbs.ini");
+ 	}
+-	int metal = reg_mat_defs[current_region].Unknown00.Unknown00;	// NAME 2: metal_equivalent_rgbs.ini's 'Metal-%02d'
+-	Vector3 color = reg_mat_defs[current_region].Unknown00.Unknown04;
++	int metal = reg_mat_defs[current_region].first.Unknown00;	// NAME 2: metal_equivalent_rgbs.ini's 'Metal-%02d'
++	Vector3 color = reg_mat_defs[current_region].first.Unknown04;
+ 	if (metal >= 0) {
+ 		char section[256];
+ 		sprintf(section, "Metal-%02d", metal);
+@@ -943,8 +943,8 @@ void Unknown_812390(RenderObjClass *robj, std::vector<ColorizationRegionStruct>
+ 	ShaderClass::DetailColorFuncType primary_func;	// NAME 2: as primary_mapper
+ 	ShaderClass::DetailColorFuncType secondary_func;	// NAME 2: as secondary_mapper
+ 
+-	int primary_metal = reg_mat_defs[current_region].Unknown00.Unknown00;	// NAME 2: a metal_equivalent_rgbs.ini 'Metal-NN' (0x80F470), or -1 / -2
+-	Vector3 primary_color = reg_mat_defs[current_region].Unknown00.Unknown04;	// NAME 2: as primary_mapper
++	int primary_metal = reg_mat_defs[current_region].first.Unknown00;	// NAME 2: a metal_equivalent_rgbs.ini 'Metal-NN' (0x80F470), or -1 / -2
++	Vector3 primary_color = reg_mat_defs[current_region].first.Unknown04;	// NAME 2: as primary_mapper
+ 	if (primary_metal >= 0) {
+ 		primary_func = ShaderClass::DETAILCOLOR_SCALE2X;
+ 		primary_mapper = Create_NEW(new GridWSEnvironmentMapperClass(0.0f, 2, 0, primary_metal, (GridWSEnvMapperClass::AxisType)axis, 1));
+@@ -968,8 +968,8 @@ void Unknown_812390(RenderObjClass *robj, std::vector<ColorizationRegionStruct>
+ 		}
+ 	}
+ 
+-	int secondary_metal = reg_mat_defs[current_region].Unknown10.Unknown00;	// NAME 2: a metal_equivalent_rgbs.ini 'Metal-NN' (0x80F470), or -1 / -2
+-	Vector3 secondary_color = reg_mat_defs[current_region].Unknown10.Unknown04;	// NAME 2: as secondary_mapper
++	int secondary_metal = reg_mat_defs[current_region].second.Unknown00;	// NAME 2: a metal_equivalent_rgbs.ini 'Metal-NN' (0x80F470), or -1 / -2
++	Vector3 secondary_color = reg_mat_defs[current_region].second.Unknown04;	// NAME 2: as secondary_mapper
+ 	if (secondary_metal >= 0) {
+ 		secondary_func = ShaderClass::DETAILCOLOR_SCALE2X;
+ 		secondary_mapper = Create_NEW(new GridWSEnvironmentMapperClass(0.0f, 2, 0, secondary_metal, (GridWSEnvMapperClass::AxisType)axis, 1));
+diff --git a/app/client/ui_shipcust.cpp b/app/client/ui_shipcust.cpp
+index f92d5d7a..de938408 100644
+--- a/app/client/ui_shipcust.cpp
++++ b/app/client/ui_shipcust.cpp
+@@ -188,8 +188,8 @@ void Unknown620D20Class::Unknown_6211D0(EnvironmentMapManagerClass *environmentm
+ 		} else {
+ 			half1.Unknown00 = second.Is_Matte ? -2 : -1; half1.Unknown04 = second.Color;
+ 		}
+-		region.Unknown00 = half0;
+-		region.Unknown10 = half1;
++		region.first = half0;
++		region.second = half1;
+ 		regions.push_back(region);
+ 	}
+ 	Unknown_80EFF0(Unknown160.Peek(), regions, environmentmapmanager);
+diff --git a/app/packets/pkcolorization.cpp b/app/packets/pkcolorization.cpp
+index 9884e7d2..90c81597 100644
+--- a/app/packets/pkcolorization.cpp
++++ b/app/packets/pkcolorization.cpp
+@@ -17,10 +17,10 @@ ColorizationPacketClass::ColorizationPacketClass(RawPacketClass *raw)
+ 	Regions.reserve(count);
+ 	for (int i = 0; i < count; i++) {
+ 		ColorizationRegionStruct region;
+-		raw->Get(&region.Unknown00.Unknown00, sizeof(region.Unknown00.Unknown00));
+-		raw->Get(&region.Unknown00.Unknown04, sizeof(region.Unknown00.Unknown04));
+-		raw->Get(&region.Unknown10.Unknown00, sizeof(region.Unknown10.Unknown00));
+-		raw->Get(&region.Unknown10.Unknown04, sizeof(region.Unknown10.Unknown04));
++		raw->Get(&region.first.Unknown00, sizeof(region.first.Unknown00));
++		raw->Get(&region.first.Unknown04, sizeof(region.first.Unknown04));
++		raw->Get(&region.second.Unknown00, sizeof(region.second.Unknown00));
++		raw->Get(&region.second.Unknown04, sizeof(region.second.Unknown04));
+ 		Regions.push_back(region);
+ 	}
+ }
+@@ -32,10 +32,10 @@ RawPacketClass *ColorizationPacketClass::Build()
+ 	int count = Regions.size();
+ 	raw->Add(&count, sizeof(short));
+ 	for (std::vector<ColorizationRegionStruct>::iterator it = Regions.begin(); it != Regions.end(); ++it) {
+-		raw->Add(&it->Unknown00.Unknown00, sizeof(it->Unknown00.Unknown00));
+-		raw->Add(&it->Unknown00.Unknown04, sizeof(it->Unknown00.Unknown04));
+-		raw->Add(&it->Unknown10.Unknown00, sizeof(it->Unknown10.Unknown00));
+-		raw->Add(&it->Unknown10.Unknown04, sizeof(it->Unknown10.Unknown04));
++		raw->Add(&it->first.Unknown00, sizeof(it->first.Unknown00));
++		raw->Add(&it->first.Unknown04, sizeof(it->first.Unknown04));
++		raw->Add(&it->second.Unknown00, sizeof(it->second.Unknown00));
++		raw->Add(&it->second.Unknown04, sizeof(it->second.Unknown04));
+ 	}
+ 	return(raw);
+ }
+diff --git a/app/packets/pkcolorization.h b/app/packets/pkcolorization.h
+index e6f8e6b0..d465ae50 100644
+--- a/app/packets/pkcolorization.h
++++ b/app/packets/pkcolorization.h
+@@ -18,7 +18,7 @@
+ #include "pk.h"
+ #include <vector>
+ #include "vector3.h"
+-
++#include <utility>
+ // One region of a COLORIZATION packet: 32 bytes, read and written field by field (its vector's
+ // copy and insert are another object's instances, 0x62A560 / 0x62A0A0)
+ // Half a region: an int and a Vector3. The client copies a region as two of these (the inline copy in
+@@ -29,11 +29,11 @@ struct ColorizationHalfStruct  // NAME 1: neutral (D10), half of a region
+ 	Vector3 Unknown04;	// +0x04
+ };
+ 
+-struct ColorizationRegionStruct  // NAME 1: neutral (D10), the packet's 'NumRegions'
+-{
+-	ColorizationHalfStruct Unknown00;	// +0x00
+-	ColorizationHalfStruct Unknown10;	// +0x10
+-};
++typedef std::pair<ColorizationHalfStruct, ColorizationHalfStruct> ColorizationRegionStruct; // NAME 1 [ColorizationRegionStruct]: neutral packet-region alias; std::pair inferred from exact construction/copy callers
++// A region value constructed from two halves matches 0x780810 and calls half copy constructor 0x780AC0.
++// The half assignment remains 0x62A5D0; its distinct callers and identical body do not make it the copy constructor.
++// The original region typedef spelling is unknown.
++
+ 
+ // opcode 17 (0x0011, COLORIZATION): vtable 0xB0A110, constructor 0x87F510, 0x24 bytes
+ class ColorizationPacketClass : public PacketClass

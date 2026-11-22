@@ -18,7 +18,7 @@
 #include "pk.h"
 #include <vector>
 #include "vector3.h"
-
+#include <utility>
 // One region of a COLORIZATION packet: 32 bytes, read and written field by field (its vector's
 // copy and insert are another object's instances, 0x62A560 / 0x62A0A0)
 // Half a region: an int and a Vector3. The client copies a region as two of these (the inline copy in
@@ -29,11 +29,11 @@ struct ColorizationHalfStruct  // NAME 1: neutral (D10), half of a region
 	Vector3 Unknown04;	// +0x04
 };
 
-struct ColorizationRegionStruct  // NAME 1: neutral (D10), the packet's 'NumRegions'
-{
-	ColorizationHalfStruct Unknown00;	// +0x00
-	ColorizationHalfStruct Unknown10;	// +0x10
-};
+typedef std::pair<ColorizationHalfStruct, ColorizationHalfStruct> ColorizationRegionStruct; // NAME 1 [ColorizationRegionStruct]: neutral packet-region alias; std::pair inferred from exact construction/copy callers
+// A region value constructed from two halves matches 0x780810 and calls half copy constructor 0x780AC0.
+// The half assignment remains 0x62A5D0; its distinct callers and identical body do not make it the copy constructor.
+// The original region typedef spelling is unknown.
+
 
 // opcode 17 (0x0011, COLORIZATION): vtable 0xB0A110, constructor 0x87F510, 0x24 bytes
 class ColorizationPacketClass : public PacketClass
