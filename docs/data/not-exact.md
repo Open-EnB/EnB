@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-669 entries in 265 files.
+668 entries in 264 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -617,7 +617,6 @@ edit the comments in the code, not this file.
 | `app/shared/orbitalmanager.cpp:514` | `OrbitalManager::Update` | marker | NOT EXACT: the locals' slots differ (the client's sphere centre sits below the cast result; similarity 0.57) |
 | `app/shared/proj_man.cpp:627` | `ProjectorManagerClass::Setup_Static_Directional_Shadow` | marker | NOT EXACT: 0x493620, 1 register row in the inlined Get_Static_Shadow_Tex_Mgr (mov eax,esi / test eax,eax) |
 | `app/shared/px.cpp:642` | `PxList::Set_Corners` | marker | NOT EXACT: inline budget and shape (insert(it, x) still inline at sites 4-5, erase and ~WWProfileSampleClass inline; attempts.py show 0x44C900) |
-| `app/shared/px_callback_accurate.cpp:328` | `PxAccurateSphereCallback::Clone` | marker | NOT EXACT: inline budget (it inlines the copy constructor 0x450350) |
 | `app/shared/px_collision.cpp:95` | `PxCollision::Unknown_453F10` | marker | NOT EXACT: register (the setup copies through eax alone where ours uses ecx / edx too: the client keeps self / other in ecx / edi from the start; moving their initialisation to the top made it worse, 151 -> 198 rows; attempts.py show 0x453F10) |
 | `app/shared/px_collision.cpp:231` | `PxCollision::Unknown_454730` | marker | NOT EXACT: order (the first inlined OBBoxClass::Transform, A's box with both reps, multiplies centre by matrix where ours loads the matrix first: 18 rows; frame and every other instruction match; attempts.py show 0x454730) |
 | `app/shared/px_collision.cpp:331` | `PxObject::~PxObject` | mention | NOT EXACT) tests the objects' world OBBoxes (each DynObj's slot +0x7C box turned by its slot +0x3C transform) against the meshes: with both meshes an OBBoxIntersectionTestClass each way (Unknown08 set to (1, 0, 0)); with one, the other object's box swept by its slot +0x40 velocity (OBBoxCollisionTestClass) cast in the mesh's space, the hit normal turned back into Unknown08 (negated when the mesh i... |

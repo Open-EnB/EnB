@@ -325,7 +325,7 @@ PxAccurateSphereCallback::PxAccurateSphereCallback(PxObject *object, const PxAcc
 }
 
 // 0x450620
-// NOT EXACT: inline budget (it inlines the copy constructor 0x450350)
+// (exact: it inlines the copy constructor 0x450350)
 PxCallback *PxAccurateSphereCallback::Clone(PxObject *object)
 {
 	return(new PxAccurateSphereCallback(object, *this));
