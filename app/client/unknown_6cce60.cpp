@@ -33,7 +33,7 @@ bool Unknown_42EC60(int button, int arg);	// 0x42EC60 (cdecl): a button down (ga
 // 0x6CCE60: Update_Text's countdowns after the effects (+0x254 .. +0x268, one per frame): at zero each puts back what
 // its effect changed (+0x488 the offset, +0x27C, +0x4A4 the colour from Colors[+0x44C], +0x284, +0x288, and +0x29C
 // with the text rebuilt from Info.Text, "..." added while +0x406 says the line is clipped).
-// NOT EXACT: functional (D64), not yet worked toward the client's bytes (0x6CCE60)
+// NOT EXACT: inline budget (attempts.csv; 18 masked rows): the client calls the "..." append's Store_Length out of line and keeps the buffer in edi for both calls; Font.Peek() read once (90 -> 18)
 void FontSys::Unknown_6CCE60()
 {
 	if (Unknown254[0] > 0 && --Unknown254[0] == 0) {
@@ -64,7 +64,7 @@ void FontSys::Unknown_6CCE60()
 			text += "...";
 		}
 		text.Get_Buffer(text.Get_Length());
-		*(int *)((char *)Font.Peek() + 0xD28) = *(int *)((char *)Font.Peek() + 0xD2C);	// Font->XSpacing = Font->MinSpacing (protected in font32bit.h)
+		Font32Class *font = Font.Peek(); *(int *)((char *)font + 0xD28) = *(int *)((char *)font + 0xD2C);	// Font->XSpacing = Font->MinSpacing (protected in font32bit.h)
 		Unknown4C4 = Unknown2D0.Unknown_6D8DC0(&Font, text, 0);
 		Unknown420[1] = Unknown2C4 = Font->String_Pixel_Width(text);
 		Unknown420[3] = Unknown2C8 = Font->Get_Height();
