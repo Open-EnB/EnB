@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1970 |
 | 2 | describes what the code does | 5009 |
-| 1 | neutral placeholder | 25144 |
+| 1 | neutral placeholder | 25145 |
 
 ## For review (score 3 and below)
 
@@ -5760,16 +5760,18 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_68C3E0` | `app/client/inv_render.cpp:124` | neutral (D10); NAME 1 [space_client, item, data, slot]: neutral |
 | 1 | `visitor` | `app/client/inv_render.cpp:126` | neutral |
 | 1 | `info` | `app/client/inv_render.cpp:127` | neutral |
+| 1 | `Unknown_Cannot_Use` | `app/client/inv_render.cpp:142` | neutral (D10) |
+| 1 | `Unknown_68EAE0` | `app/client/inv_render.cpp:142` | untagged neutral name (D10) |
+| 1 | `Unknown_Refresh` | `app/client/inv_render.cpp:143` | neutral (D10) |
+| 1 | `Unknown_68D700` | `app/client/inv_render.cpp:143` | untagged neutral name (D10) |
+| 1 | `Unknown_50` | `app/client/inv_render.cpp:143` | untagged neutral name (D10) |
+| 1 | `Unknown_68EB10` | `app/client/inv_render.cpp:143` | untagged neutral name (D10) |
 | 1 | `usable` | `app/client/inv_render.cpp:174` | neutral |
 | 1 | `Unknown_2C` | `app/client/inv_render.cpp:180` | untagged neutral name (D10) |
 | 1 | `count, usable, item, level, data, other, item_level, now, inv_data, done` | `app/client/inv_render.cpp:185` | neutral |
 | 1 | `Unknown_688830` | `app/client/inv_render.cpp:190` | untagged neutral name (D10) |
 | 1 | `Unknown_688850` | `app/client/inv_render.cpp:200` | untagged neutral name (D10) |
 | 1 | `Unknown10BC` | `app/client/inv_render.cpp:212` | untagged neutral name (D10) |
-| 1 | `Unknown_68D700` | `app/client/inv_render.cpp:223` | untagged neutral name (D10) |
-| 1 | `Unknown_50` | `app/client/inv_render.cpp:224` | untagged neutral name (D10) |
-| 1 | `Unknown_68EAE0` | `app/client/inv_render.cpp:225` | untagged neutral name (D10) |
-| 1 | `Unknown_68EB10` | `app/client/inv_render.cpp:226` | untagged neutral name (D10) |
 | 1 | `Unknown_34` | `app/client/inv_render.cpp:233` | untagged neutral name (D10) |
 | 1 | `Unknown20` | `app/client/inv_render.cpp:235` | untagged neutral name (D10) |
 | 1 | `Unknown831340Class` | `app/client/inv_render.cpp:240` | untagged neutral name (D10) |
@@ -9500,13 +9502,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown44` | `app/client/starmap_pip.cpp:1199` | untagged neutral name (D10) |
 | 1 | `Unknown_7C2340` | `app/client/starmap_pip.cpp:1231` | untagged neutral name (D10) |
 | 1 | `Unknown_6F5A40` | `app/client/starmap_pip.cpp:1261` | untagged neutral name (D10) |
-| 1 | `Unknown_Find_Field` | `app/client/starmap_pip.cpp:1265` | untagged neutral name (D10) |
-| 1 | `Unknown70` | `app/client/starmap_pip.cpp:1266` | untagged neutral name (D10) |
-| 1 | `Unknown38` | `app/client/starmap_pip.cpp:1302` | untagged neutral name (D10) |
-| 1 | `Unknown_6FF7A0` | `app/client/starmap_pip.cpp:1323` | untagged neutral name (D10) |
-| 1 | `Unknown_700860` | `app/client/starmap_pip.cpp:1324` | untagged neutral name (D10) |
-| 1 | `Unknown_7C2D30` | `app/client/starmap_pip.cpp:1341` | untagged neutral name (D10) |
-| 1 | `Unknown_7B9CD0` | `app/client/starmap_pip.cpp:1343` | untagged neutral name (D10) |
+| 1 | `Unknown_Find_Set_Field` | `app/client/starmap_pip.cpp:1265` | untagged neutral name (D10) |
+| 1 | `Unknown38` | `app/client/starmap_pip.cpp:1303` | untagged neutral name (D10) |
+| 1 | `Unknown_6FF7A0` | `app/client/starmap_pip.cpp:1311` | untagged neutral name (D10) |
+| 1 | `Unknown_700860` | `app/client/starmap_pip.cpp:1312` | untagged neutral name (D10) |
+| 1 | `Unknown_7C2D30` | `app/client/starmap_pip.cpp:1329` | untagged neutral name (D10) |
+| 1 | `Unknown_7B9CD0` | `app/client/starmap_pip.cpp:1331` | untagged neutral name (D10) |
 | 1 | `Unknown_7C3220Class` | `app/client/starmap_pip.h:49` | neutral (D10) |
 | 1 | `scene, arg, type` | `app/client/starmap_pip.h:52` | what it does with them |
 | 1 | `left, top, right, bottom` | `app/client/starmap_pip.h:54` | FontSys 0x6D88F0's |
