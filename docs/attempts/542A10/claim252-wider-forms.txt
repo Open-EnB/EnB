@@ -1,0 +1,775 @@
+{
+  "base_commit": "d87f16f897cb7e6a6aa7c1cf379cb09f3070289d",
+  "source": "app/client/ship_equip_pip.cpp",
+  "instructions": "Each patch independently applies with patch -p0 against the base source saved as ship_equip_pip.cpp; verify SHA256.",
+  "variants": [
+    {
+      "name": "baseline",
+      "hypothesis": "Fresh d87f16f8 control",
+      "control": true,
+      "source_sha256": "ac110b98654ed3f0c2a020cf50b793b06ae5e2bd7042e48d8271c471d742af2e",
+      "patch": "",
+      "raw_rows": 58,
+      "masked_rows": 55,
+      "instructions": 302,
+      "executable_bytes": 969,
+      "target_code_sha256": "16e9932b4cfc5eaaec4cfa6c20e3d3aeca40af7cd7311b3f5f3217967ae0e122",
+      "pair_delta": "+0/-0; all 12 unit pairs incl 0x542EE0 preserved"
+    },
+    {
+      "name": "seed_raw",
+      "hypothesis": "Prior best raw form rebased; repeat control",
+      "control": true,
+      "source_sha256": "1acad521d158d690e580020fcd87c735d241b5d3b9afdb87956d19e4d39c00ed",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -233,5 +233,5 @@\n \t\t\tCameraClass *camera = Camera.Peek();\n \t\t\tFAIL_IF(!camera) return;\n-\t\t\tMatrix3D tm = camera->Get_Transform();\n+\t\t\tMatrix3D owned_tm = camera->Get_Transform(); Matrix3D &tm = owned_tm;\n \t\t\tQuaternion rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, 0.8f);\n \t\t\tMatrix3D inv;\n@@ -241,5 +241,5 @@\n \t\t\ttm.Translate(center.X, center.Y, center.Z);\n \t\t\tMatrix3D::Multiply(tm, Build_Matrix3D(rot), &tm);\n-\t\t\ttm.Translate(-center.X, -center.Y, -center.Z);\n+\t\t\ttm.Translate(-center);\n \t\t\tUnknown_543270(tm);\n \t\t}\n",
+      "raw_rows": 38,
+      "masked_rows": 35,
+      "instructions": 302,
+      "executable_bytes": 969,
+      "target_code_sha256": "3b6a3800154d84c15ee92b684c6a99e1a0da01ae9a5baa93ca3e1a202c4e93cc",
+      "pair_delta": "+0/-0; all 12 unit pairs incl 0x542EE0 preserved"
+    },
+    {
+      "name": "seed_masked",
+      "hypothesis": "Prior best masked form rebased; repeat control",
+      "control": true,
+      "source_sha256": "1e30ad603e56c3f564d2daf7fb11b4fa6661a45e43e18c425559d0cea5186a5c",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -233,13 +233,13 @@\n \t\t\tCameraClass *camera = Camera.Peek();\n \t\t\tFAIL_IF(!camera) return;\n-\t\t\tMatrix3D tm = camera->Get_Transform();\n+\t\t\tMatrix3D owned_tm = camera->Get_Transform(); Matrix3D &tm = owned_tm;\n \t\t\tQuaternion rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, 0.8f);\n \t\t\tMatrix3D inv;\n \t\t\ttm.Get_Orthogonal_Inverse(inv);\n \t\t\tCameraManagerClass::Unknown_79B6B0();\n-\t\t\tVector3 center = inv.Get_Translation();\n+\t\t\tconst Vector3 &center = inv.Get_Translation();\n \t\t\ttm.Translate(center.X, center.Y, center.Z);\n \t\t\tMatrix3D::Multiply(tm, Build_Matrix3D(rot), &tm);\n-\t\t\ttm.Translate(-center.X, -center.Y, -center.Z);\n+\t\t\ttm.Translate(-center);\n \t\t\tUnknown_543270(tm);\n \t\t}\n",
+      "raw_rows": 46,
+      "masked_rows": 29,
+      "instructions": 302,
+      "executable_bytes": 969,
+      "target_code_sha256": "f28a27f69bc88763bbb5cceb1734992a6f645d3a92a7aade2a75e23e527c06cf",
+      "pair_delta": "+0/-0; all 12 unit pairs incl 0x542EE0 preserved"
+    },
+    {
+      "name": "center_output",
+      "hypothesis": "Existing output-parameter producer avoids return-value identity",
+      "control": false,
+      "source_sha256": "34a05a88540d58c94ad12d2128b307a9888a4bc254226d2c9d6062e051f6e642",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -233,13 +233,13 @@\n \t\t\tCameraClass *camera = Camera.Peek();\n \t\t\tFAIL_IF(!camera) return;\n-\t\t\tMatrix3D tm = camera->Get_Transform();\n+\t\t\tMatrix3D owned_tm = camera->Get_Transform(); Matrix3D &tm = owned_tm;\n \t\t\tQuaternion rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, 0.8f);\n \t\t\tMatrix3D inv;\n \t\t\ttm.Get_Orthogonal_Inverse(inv);\n \t\t\tCameraManagerClass::Unknown_79B6B0();\n-\t\t\tVector3 center = inv.Get_Translation();\n+\t\t\tVector3 center; inv.Get_Translation(&center);\n \t\t\ttm.Translate(center.X, center.Y, center.Z);\n \t\t\tMatrix3D::Multiply(tm, Build_Matrix3D(rot), &tm);\n-\t\t\ttm.Translate(-center.X, -center.Y, -center.Z);\n+\t\t\ttm.Translate(-center);\n \t\t\tUnknown_543270(tm);\n \t\t}\n",
+      "raw_rows": 214,
+      "masked_rows": 43,
+      "instructions": 302,
+      "executable_bytes": 996,
+      "target_code_sha256": "67da70366db958651b951e71d23259dff565c62a615d955804978999cf28d9cb",
+      "pair_delta": "+0/-0; all 12 unit pairs incl 0x542EE0 preserved"
+    },
+    {
+      "name": "center_const",
+      "hypothesis": "Owned const center distinguishes immutable value from temporary reference",
+      "control": false,
+      "source_sha256": "93c82b041f6572040c0dfbe7e8d53eaa68eabedcd869bb4d931e7499d8bcda77",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -233,13 +233,13 @@\n \t\t\tCameraClass *camera = Camera.Peek();\n \t\t\tFAIL_IF(!camera) return;\n-\t\t\tMatrix3D tm = camera->Get_Transform();\n+\t\t\tMatrix3D owned_tm = camera->Get_Transform(); Matrix3D &tm = owned_tm;\n \t\t\tQuaternion rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, 0.8f);\n \t\t\tMatrix3D inv;\n \t\t\ttm.Get_Orthogonal_Inverse(inv);\n \t\t\tCameraManagerClass::Unknown_79B6B0();\n-\t\t\tVector3 center = inv.Get_Translation();\n+\t\t\tconst Vector3 center = inv.Get_Translation();\n \t\t\ttm.Translate(center.X, center.Y, center.Z);\n \t\t\tMatrix3D::Multiply(tm, Build_Matrix3D(rot), &tm);\n-\t\t\ttm.Translate(-center.X, -center.Y, -center.Z);\n+\t\t\ttm.Translate(-center);\n \t\t\tUnknown_543270(tm);\n \t\t}\n",
+      "raw_rows": 38,
+      "masked_rows": 35,
+      "instructions": 302,
+      "executable_bytes": 969,
+      "target_code_sha256": "3b6a3800154d84c15ee92b684c6a99e1a0da01ae9a5baa93ca3e1a202c4e93cc",
+      "pair_delta": "+0/-0; all 12 unit pairs incl 0x542EE0 preserved"
+    },
+    {
+      "name": "center_mutable_alias",
+      "hypothesis": "Mutable owned center alias mirrors proven matrix alias",
+      "control": false,
+      "source_sha256": "0c4569efff1573c19f58501547dc8e7185bb826dd167f136a0054a868031a6ad",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -233,13 +233,13 @@\n \t\t\tCameraClass *camera = Camera.Peek();\n \t\t\tFAIL_IF(!camera) return;\n-\t\t\tMatrix3D tm = camera->Get_Transform();\n+\t\t\tMatrix3D owned_tm = camera->Get_Transform(); Matrix3D &tm = owned_tm;\n \t\t\tQuaternion rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, 0.8f);\n \t\t\tMatrix3D inv;\n \t\t\ttm.Get_Orthogonal_Inverse(inv);\n \t\t\tCameraManagerClass::Unknown_79B6B0();\n-\t\t\tVector3 center = inv.Get_Translation();\n+\t\t\tVector3 owned_center = inv.Get_Translation(); Vector3 &center = owned_center;\n \t\t\ttm.Translate(center.X, center.Y, center.Z);\n \t\t\tMatrix3D::Multiply(tm, Build_Matrix3D(rot), &tm);\n-\t\t\ttm.Translate(-center.X, -center.Y, -center.Z);\n+\t\t\ttm.Translate(-center);\n \t\t\tUnknown_543270(tm);\n \t\t}\n",
+      "raw_rows": 46,
+      "masked_rows": 29,
+      "instructions": 302,
+      "executable_bytes": 969,
+      "target_code_sha256": "f28a27f69bc88763bbb5cceb1734992a6f645d3a92a7aade2a75e23e527c06cf",
+      "pair_delta": "+0/-0; all 12 unit pairs incl 0x542EE0 preserved"
+    },
+    {
+      "name": "inverse_alias",
+      "hypothesis": "Same existing API through owned mutable inverse alias",
+      "control": false,
+      "source_sha256": "933cbd2955fd83446072978a3481691d436f2822a68353156bd163f11777f609",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -233,7 +233,7 @@\n \t\t\tCameraClass *camera = Camera.Peek();\n \t\t\tFAIL_IF(!camera) return;\n-\t\t\tMatrix3D tm = camera->Get_Transform();\n+\t\t\tMatrix3D owned_tm = camera->Get_Transform(); Matrix3D &tm = owned_tm;\n \t\t\tQuaternion rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, 0.8f);\n-\t\t\tMatrix3D inv;\n+\t\t\tMatrix3D owned_inv; Matrix3D &inv = owned_inv;\n \t\t\ttm.Get_Orthogonal_Inverse(inv);\n \t\t\tCameraManagerClass::Unknown_79B6B0();\n@@ -241,5 +241,5 @@\n \t\t\ttm.Translate(center.X, center.Y, center.Z);\n \t\t\tMatrix3D::Multiply(tm, Build_Matrix3D(rot), &tm);\n-\t\t\ttm.Translate(-center.X, -center.Y, -center.Z);\n+\t\t\ttm.Translate(-center);\n \t\t\tUnknown_543270(tm);\n \t\t}\n",
+      "raw_rows": 33,
+      "masked_rows": 33,
+      "instructions": 302,
+      "executable_bytes": 969,
+      "target_code_sha256": "50664d21f242c38e2f100fc51345dab99c8355089ebf9255a7126f72b9b6b10f",
+      "pair_delta": "+0/-0; all 12 unit pairs incl 0x542EE0 preserved"
+    },
+    {
+      "name": "rot_const_ref",
+      "hypothesis": "Lifetime-extended Trackball return changes producer identity",
+      "control": false,
+      "source_sha256": "21bcaaccad3f3bb310cf4ad094638104bdf65a566ee06c490c2a92faf219e53f",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -233,6 +233,6 @@\n \t\t\tCameraClass *camera = Camera.Peek();\n \t\t\tFAIL_IF(!camera) return;\n-\t\t\tMatrix3D tm = camera->Get_Transform();\n-\t\t\tQuaternion rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, 0.8f);\n+\t\t\tMatrix3D owned_tm = camera->Get_Transform(); Matrix3D &tm = owned_tm;\n+\t\t\tconst Quaternion &rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, 0.8f);\n \t\t\tMatrix3D inv;\n \t\t\ttm.Get_Orthogonal_Inverse(inv);\n@@ -241,5 +241,5 @@\n \t\t\ttm.Translate(center.X, center.Y, center.Z);\n \t\t\tMatrix3D::Multiply(tm, Build_Matrix3D(rot), &tm);\n-\t\t\ttm.Translate(-center.X, -center.Y, -center.Z);\n+\t\t\ttm.Translate(-center);\n \t\t\tUnknown_543270(tm);\n \t\t}\n",
+      "raw_rows": 33,
+      "masked_rows": 33,
+      "instructions": 302,
+      "executable_bytes": 969,
+      "target_code_sha256": "50664d21f242c38e2f100fc51345dab99c8355089ebf9255a7126f72b9b6b10f",
+      "pair_delta": "+0/-0; all 12 unit pairs incl 0x542EE0 preserved"
+    },
+    {
+      "name": "rot_assign",
+      "hypothesis": "ShipPip sibling uses a separately declared assigned quaternion",
+      "control": false,
+      "source_sha256": "d8cdcbc79454beb7afd720ee42b6644077427a0b5d0925a7833885344e3d5cb1",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -233,6 +233,6 @@\n \t\t\tCameraClass *camera = Camera.Peek();\n \t\t\tFAIL_IF(!camera) return;\n-\t\t\tMatrix3D tm = camera->Get_Transform();\n-\t\t\tQuaternion rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, 0.8f);\n+\t\t\tMatrix3D owned_tm = camera->Get_Transform(); Matrix3D &tm = owned_tm;\n+\t\t\tQuaternion rot; rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, 0.8f);\n \t\t\tMatrix3D inv;\n \t\t\ttm.Get_Orthogonal_Inverse(inv);\n@@ -241,5 +241,5 @@\n \t\t\ttm.Translate(center.X, center.Y, center.Z);\n \t\t\tMatrix3D::Multiply(tm, Build_Matrix3D(rot), &tm);\n-\t\t\ttm.Translate(-center.X, -center.Y, -center.Z);\n+\t\t\ttm.Translate(-center);\n \t\t\tUnknown_543270(tm);\n \t\t}\n",
+      "raw_rows": 251,
+      "masked_rows": 65,
+      "instructions": 310,
+      "executable_bytes": 1017,
+      "target_code_sha256": "6027fef4cdb95aff5ff7ed256f893c6c9640f3c56e05c0010671f755f474f3bf",
+      "pair_delta": "+0/-0; all 12 unit pairs incl 0x542EE0 preserved"
+    },
+    {
+      "name": "rot_mutable_alias",
+      "hypothesis": "Owned mutable quaternion alias tests Trackball return provenance",
+      "control": false,
+      "source_sha256": "37bb1dcd638ac0baa4dbc90b3f86743678a8f5c27dd7c58f3f331fe18b7ece06",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -233,6 +233,6 @@\n \t\t\tCameraClass *camera = Camera.Peek();\n \t\t\tFAIL_IF(!camera) return;\n-\t\t\tMatrix3D tm = camera->Get_Transform();\n-\t\t\tQuaternion rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, 0.8f);\n+\t\t\tMatrix3D owned_tm = camera->Get_Transform(); Matrix3D &tm = owned_tm;\n+\t\t\tQuaternion owned_rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, 0.8f); Quaternion &rot = owned_rot;\n \t\t\tMatrix3D inv;\n \t\t\ttm.Get_Orthogonal_Inverse(inv);\n@@ -241,5 +241,5 @@\n \t\t\ttm.Translate(center.X, center.Y, center.Z);\n \t\t\tMatrix3D::Multiply(tm, Build_Matrix3D(rot), &tm);\n-\t\t\ttm.Translate(-center.X, -center.Y, -center.Z);\n+\t\t\ttm.Translate(-center);\n \t\t\tUnknown_543270(tm);\n \t\t}\n",
+      "raw_rows": 33,
+      "masked_rows": 33,
+      "instructions": 302,
+      "executable_bytes": 969,
+      "target_code_sha256": "50664d21f242c38e2f100fc51345dab99c8355089ebf9255a7126f72b9b6b10f",
+      "pair_delta": "+0/-0; all 12 unit pairs incl 0x542EE0 preserved"
+    },
+    {
+      "name": "center_xyz_refs",
+      "hypothesis": "Scalar component references preserve existing grouping, alter expression identities",
+      "control": false,
+      "source_sha256": "6aebffa373376a2951fcf333b6d164086e194afaebdf40e2e6c7f8b5addc8c3e",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -233,13 +233,13 @@\n \t\t\tCameraClass *camera = Camera.Peek();\n \t\t\tFAIL_IF(!camera) return;\n-\t\t\tMatrix3D tm = camera->Get_Transform();\n+\t\t\tMatrix3D owned_tm = camera->Get_Transform(); Matrix3D &tm = owned_tm;\n \t\t\tQuaternion rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, 0.8f);\n \t\t\tMatrix3D inv;\n \t\t\ttm.Get_Orthogonal_Inverse(inv);\n \t\t\tCameraManagerClass::Unknown_79B6B0();\n-\t\t\tVector3 center = inv.Get_Translation();\n-\t\t\ttm.Translate(center.X, center.Y, center.Z);\n+\t\t\tVector3 center = inv.Get_Translation(); const float &cx = center.X, &cy = center.Y, &cz = center.Z;\n+\t\t\ttm.Translate(cx, cy, cz);\n \t\t\tMatrix3D::Multiply(tm, Build_Matrix3D(rot), &tm);\n-\t\t\ttm.Translate(-center.X, -center.Y, -center.Z);\n+\t\t\ttm.Translate(-center);\n \t\t\tUnknown_543270(tm);\n \t\t}\n",
+      "raw_rows": 203,
+      "masked_rows": 44,
+      "instructions": 307,
+      "executable_bytes": 965,
+      "target_code_sha256": "a8e7014b115a7ace020cba2979fcec97b0b4c3bf4484a2e0453fd2be0a536dfd",
+      "pair_delta": "+0/-0; all 12 unit pairs incl 0x542EE0 preserved"
+    },
+    {
+      "name": "rotation_owned",
+      "hypothesis": "Owned Build_Matrix3D result instead of unnamed temporary, same call order",
+      "control": false,
+      "source_sha256": "0a43bd5405773bd8fe8361014b147c701458c6d3da83118bbb6cd4415b061e12",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -233,5 +233,5 @@\n \t\t\tCameraClass *camera = Camera.Peek();\n \t\t\tFAIL_IF(!camera) return;\n-\t\t\tMatrix3D tm = camera->Get_Transform();\n+\t\t\tMatrix3D owned_tm = camera->Get_Transform(); Matrix3D &tm = owned_tm;\n \t\t\tQuaternion rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, 0.8f);\n \t\t\tMatrix3D inv;\n@@ -240,6 +240,6 @@\n \t\t\tVector3 center = inv.Get_Translation();\n \t\t\ttm.Translate(center.X, center.Y, center.Z);\n-\t\t\tMatrix3D::Multiply(tm, Build_Matrix3D(rot), &tm);\n-\t\t\ttm.Translate(-center.X, -center.Y, -center.Z);\n+\t\t\tMatrix3D rotation_tm = Build_Matrix3D(rot); Matrix3D::Multiply(tm, rotation_tm, &tm);\n+\t\t\ttm.Translate(-center);\n \t\t\tUnknown_543270(tm);\n \t\t}\n",
+      "raw_rows": 65,
+      "masked_rows": 42,
+      "instructions": 302,
+      "executable_bytes": 976,
+      "target_code_sha256": "8c1f4220c2397c13d6d0e2139a624135b1546c173adec2ce7a7d0ea82ba4f103",
+      "pair_delta": "+0/-0; all 12 unit pairs incl 0x542EE0 preserved"
+    },
+    {
+      "name": "rotation_const_ref",
+      "hypothesis": "Lifetime-extended existing matrix-return producer",
+      "control": false,
+      "source_sha256": "1e4a170c93eec24e1df482ffa319f2ffaae9e5f30cf44bc797c9b9703dad5d55",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -233,5 +233,5 @@\n \t\t\tCameraClass *camera = Camera.Peek();\n \t\t\tFAIL_IF(!camera) return;\n-\t\t\tMatrix3D tm = camera->Get_Transform();\n+\t\t\tMatrix3D owned_tm = camera->Get_Transform(); Matrix3D &tm = owned_tm;\n \t\t\tQuaternion rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, 0.8f);\n \t\t\tMatrix3D inv;\n@@ -240,6 +240,6 @@\n \t\t\tVector3 center = inv.Get_Translation();\n \t\t\ttm.Translate(center.X, center.Y, center.Z);\n-\t\t\tMatrix3D::Multiply(tm, Build_Matrix3D(rot), &tm);\n-\t\t\ttm.Translate(-center.X, -center.Y, -center.Z);\n+\t\t\tconst Matrix3D &rotation_tm = Build_Matrix3D(rot); Matrix3D::Multiply(tm, rotation_tm, &tm);\n+\t\t\ttm.Translate(-center);\n \t\t\tUnknown_543270(tm);\n \t\t}\n",
+      "raw_rows": 60,
+      "masked_rows": 40,
+      "instructions": 302,
+      "executable_bytes": 976,
+      "target_code_sha256": "016547df403ac63f982baaa444d256b7b8a339580a0dda54aae5996dd32a4d21",
+      "pair_delta": "+0/-0; all 12 unit pairs incl 0x542EE0 preserved"
+    },
+    {
+      "name": "rotation_reuse_inverse",
+      "hypothesis": "Reuse inverse after translation copied: existing assignment API and unchanged external call order",
+      "control": false,
+      "source_sha256": "337ceeb7241e16137f8ecb69deb515838703238ef9ee99c084246e54247d86e5",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -233,5 +233,5 @@\n \t\t\tCameraClass *camera = Camera.Peek();\n \t\t\tFAIL_IF(!camera) return;\n-\t\t\tMatrix3D tm = camera->Get_Transform();\n+\t\t\tMatrix3D owned_tm = camera->Get_Transform(); Matrix3D &tm = owned_tm;\n \t\t\tQuaternion rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, 0.8f);\n \t\t\tMatrix3D inv;\n@@ -240,6 +240,6 @@\n \t\t\tVector3 center = inv.Get_Translation();\n \t\t\ttm.Translate(center.X, center.Y, center.Z);\n-\t\t\tMatrix3D::Multiply(tm, Build_Matrix3D(rot), &tm);\n-\t\t\ttm.Translate(-center.X, -center.Y, -center.Z);\n+\t\t\tinv = Build_Matrix3D(rot); Matrix3D::Multiply(tm, inv, &tm);\n+\t\t\ttm.Translate(-center);\n \t\t\tUnknown_543270(tm);\n \t\t}\n",
+      "raw_rows": 106,
+      "masked_rows": 69,
+      "instructions": 326,
+      "executable_bytes": 1092,
+      "target_code_sha256": "3f1d133c98e0d7fc8c31afa5ba0caa0b8771c3fd274194f98a3ac9f582306e34",
+      "pair_delta": "+0/-0; all 12 unit pairs incl 0x542EE0 preserved"
+    },
+    {
+      "name": "inverse_scoped",
+      "hypothesis": "Real inverse lifetime ends immediately after center extraction",
+      "control": false,
+      "source_sha256": "fb8df9934dc21450a9035f6d4f8f3fa9206280f147e2812066747f6ef3081d98",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -233,13 +233,13 @@\n \t\t\tCameraClass *camera = Camera.Peek();\n \t\t\tFAIL_IF(!camera) return;\n-\t\t\tMatrix3D tm = camera->Get_Transform();\n-\t\t\tQuaternion rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, 0.8f);\n-\t\t\tMatrix3D inv;\n+\t\t\tMatrix3D owned_tm = camera->Get_Transform(); Matrix3D &tm = owned_tm;\n+\t\t\tQuaternion rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, 0.8f); Vector3 center;\n+\t\t\t{ Matrix3D inv;\n \t\t\ttm.Get_Orthogonal_Inverse(inv);\n \t\t\tCameraManagerClass::Unknown_79B6B0();\n-\t\t\tVector3 center = inv.Get_Translation();\n+\t\t\tinv.Get_Translation(&center); }\n \t\t\ttm.Translate(center.X, center.Y, center.Z);\n \t\t\tMatrix3D::Multiply(tm, Build_Matrix3D(rot), &tm);\n-\t\t\ttm.Translate(-center.X, -center.Y, -center.Z);\n+\t\t\ttm.Translate(-center);\n \t\t\tUnknown_543270(tm);\n \t\t}\n",
+      "raw_rows": 255,
+      "masked_rows": 40,
+      "instructions": 296,
+      "executable_bytes": 936,
+      "target_code_sha256": "2a1e97f4981ea90cfa07896005bad786d839bafb133a3e6091522d3b21a5023c",
+      "pair_delta": "+0/-0; all 12 unit pairs incl 0x542EE0 preserved"
+    },
+    {
+      "name": "inverse_predeclare",
+      "hypothesis": "Predeclare default inverse before owned transform to test stack object construction ordering",
+      "control": false,
+      "source_sha256": "b0cb0d396a2f95937cf546b030236e0045c1e90d3825931bc8ef3b38bb84c6a9",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -233,7 +233,7 @@\n \t\t\tCameraClass *camera = Camera.Peek();\n \t\t\tFAIL_IF(!camera) return;\n-\t\t\tMatrix3D tm = camera->Get_Transform();\n+\t\t\tMatrix3D inv; Matrix3D owned_tm = camera->Get_Transform(); Matrix3D &tm = owned_tm;\n \t\t\tQuaternion rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, 0.8f);\n-\t\t\tMatrix3D inv;\n+\t\t\t\n \t\t\ttm.Get_Orthogonal_Inverse(inv);\n \t\t\tCameraManagerClass::Unknown_79B6B0();\n@@ -241,5 +241,5 @@\n \t\t\ttm.Translate(center.X, center.Y, center.Z);\n \t\t\tMatrix3D::Multiply(tm, Build_Matrix3D(rot), &tm);\n-\t\t\ttm.Translate(-center.X, -center.Y, -center.Z);\n+\t\t\ttm.Translate(-center);\n \t\t\tUnknown_543270(tm);\n \t\t}\n",
+      "raw_rows": 38,
+      "masked_rows": 35,
+      "instructions": 302,
+      "executable_bytes": 969,
+      "target_code_sha256": "3b6a3800154d84c15ee92b684c6a99e1a0da01ae9a5baa93ca3e1a202c4e93cc",
+      "pair_delta": "+0/-0; all 12 unit pairs incl 0x542EE0 preserved"
+    },
+    {
+      "name": "inverse_decl_before_rot",
+      "hypothesis": "Predeclare inverse before Trackball without moving calls",
+      "control": false,
+      "source_sha256": "674e22e1566a8821efccae3b0011d4541f09bfe193ed71066dc4d121b5f8e262",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -233,7 +233,7 @@\n \t\t\tCameraClass *camera = Camera.Peek();\n \t\t\tFAIL_IF(!camera) return;\n-\t\t\tMatrix3D tm = camera->Get_Transform();\n-\t\t\tQuaternion rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, 0.8f);\n-\t\t\tMatrix3D inv;\n+\t\t\tMatrix3D owned_tm = camera->Get_Transform(); Matrix3D &tm = owned_tm;\n+\t\t\tMatrix3D inv; Quaternion rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, 0.8f);\n+\t\t\t\n \t\t\ttm.Get_Orthogonal_Inverse(inv);\n \t\t\tCameraManagerClass::Unknown_79B6B0();\n@@ -241,5 +241,5 @@\n \t\t\ttm.Translate(center.X, center.Y, center.Z);\n \t\t\tMatrix3D::Multiply(tm, Build_Matrix3D(rot), &tm);\n-\t\t\ttm.Translate(-center.X, -center.Y, -center.Z);\n+\t\t\ttm.Translate(-center);\n \t\t\tUnknown_543270(tm);\n \t\t}\n",
+      "raw_rows": 38,
+      "masked_rows": 35,
+      "instructions": 302,
+      "executable_bytes": 969,
+      "target_code_sha256": "3b6a3800154d84c15ee92b684c6a99e1a0da01ae9a5baa93ca3e1a202c4e93cc",
+      "pair_delta": "+0/-0; all 12 unit pairs incl 0x542EE0 preserved"
+    },
+    {
+      "name": "center_decl_before_inv",
+      "hypothesis": "Separate center storage lifetime from inverse construction",
+      "control": false,
+      "source_sha256": "80a9466898b97564e717a31c4e206492e96ca7de36068cf84d1f124a702563f4",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -233,13 +233,13 @@\n \t\t\tCameraClass *camera = Camera.Peek();\n \t\t\tFAIL_IF(!camera) return;\n-\t\t\tMatrix3D tm = camera->Get_Transform();\n-\t\t\tQuaternion rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, 0.8f);\n+\t\t\tMatrix3D owned_tm = camera->Get_Transform(); Matrix3D &tm = owned_tm;\n+\t\t\tQuaternion rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, 0.8f); Vector3 center;\n \t\t\tMatrix3D inv;\n \t\t\ttm.Get_Orthogonal_Inverse(inv);\n \t\t\tCameraManagerClass::Unknown_79B6B0();\n-\t\t\tVector3 center = inv.Get_Translation();\n+\t\t\tinv.Get_Translation(&center);\n \t\t\ttm.Translate(center.X, center.Y, center.Z);\n \t\t\tMatrix3D::Multiply(tm, Build_Matrix3D(rot), &tm);\n-\t\t\ttm.Translate(-center.X, -center.Y, -center.Z);\n+\t\t\ttm.Translate(-center);\n \t\t\tUnknown_543270(tm);\n \t\t}\n",
+      "raw_rows": 214,
+      "masked_rows": 43,
+      "instructions": 302,
+      "executable_bytes": 996,
+      "target_code_sha256": "67da70366db958651b951e71d23259dff565c62a615d955804978999cf28d9cb",
+      "pair_delta": "+0/-0; all 12 unit pairs incl 0x542EE0 preserved"
+    },
+    {
+      "name": "alias_both_vector",
+      "hypothesis": "Closest ShipPip Trackball sibling uses both vector overloads with same existing arithmetic",
+      "control": false,
+      "source_sha256": "73bed27d18e39f2176fc3d7f2f471b2f6605e3361839b3a9ac84808d3884dcae",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -233,5 +233,5 @@\n \t\t\tCameraClass *camera = Camera.Peek();\n \t\t\tFAIL_IF(!camera) return;\n-\t\t\tMatrix3D tm = camera->Get_Transform();\n+\t\t\tMatrix3D owned_tm = camera->Get_Transform(); Matrix3D &tm = owned_tm;\n \t\t\tQuaternion rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, 0.8f);\n \t\t\tMatrix3D inv;\n@@ -239,7 +239,7 @@\n \t\t\tCameraManagerClass::Unknown_79B6B0();\n \t\t\tVector3 center = inv.Get_Translation();\n-\t\t\ttm.Translate(center.X, center.Y, center.Z);\n+\t\t\ttm.Translate(center);\n \t\t\tMatrix3D::Multiply(tm, Build_Matrix3D(rot), &tm);\n-\t\t\ttm.Translate(-center.X, -center.Y, -center.Z);\n+\t\t\ttm.Translate(-center);\n \t\t\tUnknown_543270(tm);\n \t\t}\n",
+      "raw_rows": 56,
+      "masked_rows": 33,
+      "instructions": 302,
+      "executable_bytes": 969,
+      "target_code_sha256": "d75169320462e82190cb98b7b730bb88131700ed9edfd9d08cae8d7c54e0e49c",
+      "pair_delta": "+0/-0; all 12 unit pairs incl 0x542EE0 preserved"
+    },
+    {
+      "name": "alias_ref_both_vector",
+      "hypothesis": "Vector overload pair plus existing lifetime-extended center",
+      "control": false,
+      "source_sha256": "6e7ab7f1ac1db787555b25aa1eafa7c077474b6b17d9c15613f3e9e334636cdc",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -233,13 +233,13 @@\n \t\t\tCameraClass *camera = Camera.Peek();\n \t\t\tFAIL_IF(!camera) return;\n-\t\t\tMatrix3D tm = camera->Get_Transform();\n+\t\t\tMatrix3D owned_tm = camera->Get_Transform(); Matrix3D &tm = owned_tm;\n \t\t\tQuaternion rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, 0.8f);\n \t\t\tMatrix3D inv;\n \t\t\ttm.Get_Orthogonal_Inverse(inv);\n \t\t\tCameraManagerClass::Unknown_79B6B0();\n-\t\t\tVector3 center = inv.Get_Translation();\n-\t\t\ttm.Translate(center.X, center.Y, center.Z);\n+\t\t\tconst Vector3 &center = inv.Get_Translation();\n+\t\t\ttm.Translate(center);\n \t\t\tMatrix3D::Multiply(tm, Build_Matrix3D(rot), &tm);\n-\t\t\ttm.Translate(-center.X, -center.Y, -center.Z);\n+\t\t\ttm.Translate(-center);\n \t\t\tUnknown_543270(tm);\n \t\t}\n",
+      "raw_rows": 56,
+      "masked_rows": 33,
+      "instructions": 302,
+      "executable_bytes": 969,
+      "target_code_sha256": "d75169320462e82190cb98b7b730bb88131700ed9edfd9d08cae8d7c54e0e49c",
+      "pair_delta": "+0/-0; all 12 unit pairs incl 0x542EE0 preserved"
+    },
+    {
+      "name": "alias_center_direct_construct",
+      "hypothesis": "Component getter producer combined with owned matrix alias",
+      "control": false,
+      "source_sha256": "0c0d6da847238417c5655178c723ef94b10af86f714cc95ac1a0804a50c35e2f",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -233,13 +233,13 @@\n \t\t\tCameraClass *camera = Camera.Peek();\n \t\t\tFAIL_IF(!camera) return;\n-\t\t\tMatrix3D tm = camera->Get_Transform();\n+\t\t\tMatrix3D owned_tm = camera->Get_Transform(); Matrix3D &tm = owned_tm;\n \t\t\tQuaternion rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, 0.8f);\n \t\t\tMatrix3D inv;\n \t\t\ttm.Get_Orthogonal_Inverse(inv);\n \t\t\tCameraManagerClass::Unknown_79B6B0();\n-\t\t\tVector3 center = inv.Get_Translation();\n+\t\t\tVector3 center(inv.Get_X_Translation(), inv.Get_Y_Translation(), inv.Get_Z_Translation());\n \t\t\ttm.Translate(center.X, center.Y, center.Z);\n \t\t\tMatrix3D::Multiply(tm, Build_Matrix3D(rot), &tm);\n-\t\t\ttm.Translate(-center.X, -center.Y, -center.Z);\n+\t\t\ttm.Translate(-center);\n \t\t\tUnknown_543270(tm);\n \t\t}\n",
+      "raw_rows": 38,
+      "masked_rows": 35,
+      "instructions": 302,
+      "executable_bytes": 969,
+      "target_code_sha256": "63780ea162098233148453b800404fe685549008b038f0c771acd9085f539262",
+      "pair_delta": "+0/-0; all 12 unit pairs incl 0x542EE0 preserved"
+    },
+    {
+      "name": "alias_named_negative",
+      "hypothesis": "Named existing unary-minus return shortens temporary provenance; same rounding",
+      "control": false,
+      "source_sha256": "fa16ff870d52e5064c2634e28006440b09c82ff05cddf3405c80ae3f9a1c63e1",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -233,5 +233,5 @@\n \t\t\tCameraClass *camera = Camera.Peek();\n \t\t\tFAIL_IF(!camera) return;\n-\t\t\tMatrix3D tm = camera->Get_Transform();\n+\t\t\tMatrix3D owned_tm = camera->Get_Transform(); Matrix3D &tm = owned_tm;\n \t\t\tQuaternion rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, 0.8f);\n \t\t\tMatrix3D inv;\n@@ -241,5 +241,5 @@\n \t\t\ttm.Translate(center.X, center.Y, center.Z);\n \t\t\tMatrix3D::Multiply(tm, Build_Matrix3D(rot), &tm);\n-\t\t\ttm.Translate(-center.X, -center.Y, -center.Z);\n+\t\t\tVector3 reverse = -center; tm.Translate(reverse);\n \t\t\tUnknown_543270(tm);\n \t\t}\n",
+      "raw_rows": 38,
+      "masked_rows": 35,
+      "instructions": 302,
+      "executable_bytes": 969,
+      "target_code_sha256": "3b6a3800154d84c15ee92b684c6a99e1a0da01ae9a5baa93ca3e1a202c4e93cc",
+      "pair_delta": "+0/-0; all 12 unit pairs incl 0x542EE0 preserved"
+    },
+    {
+      "name": "alias_inplace_negative",
+      "hypothesis": "Real center reuse after multiply, same negations and vector API",
+      "control": false,
+      "source_sha256": "69518c43da28ce09b6d6ef5f713f1c9526cb48403641386f04083a085d623da9",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -233,5 +233,5 @@\n \t\t\tCameraClass *camera = Camera.Peek();\n \t\t\tFAIL_IF(!camera) return;\n-\t\t\tMatrix3D tm = camera->Get_Transform();\n+\t\t\tMatrix3D owned_tm = camera->Get_Transform(); Matrix3D &tm = owned_tm;\n \t\t\tQuaternion rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, 0.8f);\n \t\t\tMatrix3D inv;\n@@ -241,5 +241,5 @@\n \t\t\ttm.Translate(center.X, center.Y, center.Z);\n \t\t\tMatrix3D::Multiply(tm, Build_Matrix3D(rot), &tm);\n-\t\t\ttm.Translate(-center.X, -center.Y, -center.Z);\n+\t\t\tcenter = -center; tm.Translate(center);\n \t\t\tUnknown_543270(tm);\n \t\t}\n",
+      "raw_rows": 38,
+      "masked_rows": 35,
+      "instructions": 302,
+      "executable_bytes": 969,
+      "target_code_sha256": "3b6a3800154d84c15ee92b684c6a99e1a0da01ae9a5baa93ca3e1a202c4e93cc",
+      "pair_delta": "+0/-0; all 12 unit pairs incl 0x542EE0 preserved"
+    },
+    {
+      "name": "inverse_alias_center_ref",
+      "hypothesis": "New raw-best producer alias combined with existing center/Translate identities; no arithmetic regrouping or call movement",
+      "control": false,
+      "source_sha256": "5c5b5640780baff3ca08af0c07001085fb7d777991344605f4573dacfdd393dd",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -233,13 +233,13 @@\n \t\t\tCameraClass *camera = Camera.Peek();\n \t\t\tFAIL_IF(!camera) return;\n-\t\t\tMatrix3D tm = camera->Get_Transform();\n+\t\t\tMatrix3D owned_tm = camera->Get_Transform(); Matrix3D &tm = owned_tm;\n \t\t\tQuaternion rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, 0.8f);\n-\t\t\tMatrix3D inv;\n+\t\t\tMatrix3D owned_inv; Matrix3D &inv = owned_inv;\n \t\t\ttm.Get_Orthogonal_Inverse(inv);\n \t\t\tCameraManagerClass::Unknown_79B6B0();\n-\t\t\tVector3 center = inv.Get_Translation();\n+\t\t\tconst Vector3 &center = inv.Get_Translation();\n \t\t\ttm.Translate(center.X, center.Y, center.Z);\n \t\t\tMatrix3D::Multiply(tm, Build_Matrix3D(rot), &tm);\n-\t\t\ttm.Translate(-center.X, -center.Y, -center.Z);\n+\t\t\ttm.Translate(-center);\n \t\t\tUnknown_543270(tm);\n \t\t}\n",
+      "raw_rows": 41,
+      "masked_rows": 27,
+      "instructions": 302,
+      "executable_bytes": 969,
+      "target_code_sha256": "b752804101d1fa8da8322ed59366fcd41a5578f5e000fbb3a87a60f7ca97cd5f",
+      "pair_delta": "+0/-0; all 12 unit pairs incl 0x542EE0 preserved"
+    },
+    {
+      "name": "inverse_alias_both_vector",
+      "hypothesis": "New raw-best producer alias combined with existing center/Translate identities; no arithmetic regrouping or call movement",
+      "control": false,
+      "source_sha256": "088af763e25f566399a5a2d44f1a2e750602b6050a7ae2f37ec78d0531df878a",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -233,13 +233,13 @@\n \t\t\tCameraClass *camera = Camera.Peek();\n \t\t\tFAIL_IF(!camera) return;\n-\t\t\tMatrix3D tm = camera->Get_Transform();\n+\t\t\tMatrix3D owned_tm = camera->Get_Transform(); Matrix3D &tm = owned_tm;\n \t\t\tQuaternion rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, 0.8f);\n-\t\t\tMatrix3D inv;\n+\t\t\tMatrix3D owned_inv; Matrix3D &inv = owned_inv;\n \t\t\ttm.Get_Orthogonal_Inverse(inv);\n \t\t\tCameraManagerClass::Unknown_79B6B0();\n \t\t\tVector3 center = inv.Get_Translation();\n-\t\t\ttm.Translate(center.X, center.Y, center.Z);\n+\t\t\ttm.Translate(center);\n \t\t\tMatrix3D::Multiply(tm, Build_Matrix3D(rot), &tm);\n-\t\t\ttm.Translate(-center.X, -center.Y, -center.Z);\n+\t\t\ttm.Translate(-center);\n \t\t\tUnknown_543270(tm);\n \t\t}\n",
+      "raw_rows": 33,
+      "masked_rows": 20,
+      "instructions": 302,
+      "executable_bytes": 969,
+      "target_code_sha256": "2754eb02511070f04d593dcb3d3688577b0dfd22607ce2beeac9312e4b1b2e4b",
+      "pair_delta": "+0/-0; all 12 unit pairs incl 0x542EE0 preserved"
+    },
+    {
+      "name": "inverse_alias_ref_both_vector",
+      "hypothesis": "New raw-best producer alias combined with existing center/Translate identities; no arithmetic regrouping or call movement",
+      "control": false,
+      "source_sha256": "53e89966414bccccc78a9f778be46ff64b97582fe65c5e778297cec82c852757",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -233,13 +233,13 @@\n \t\t\tCameraClass *camera = Camera.Peek();\n \t\t\tFAIL_IF(!camera) return;\n-\t\t\tMatrix3D tm = camera->Get_Transform();\n+\t\t\tMatrix3D owned_tm = camera->Get_Transform(); Matrix3D &tm = owned_tm;\n \t\t\tQuaternion rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, 0.8f);\n-\t\t\tMatrix3D inv;\n+\t\t\tMatrix3D owned_inv; Matrix3D &inv = owned_inv;\n \t\t\ttm.Get_Orthogonal_Inverse(inv);\n \t\t\tCameraManagerClass::Unknown_79B6B0();\n-\t\t\tVector3 center = inv.Get_Translation();\n-\t\t\ttm.Translate(center.X, center.Y, center.Z);\n+\t\t\tconst Vector3 &center = inv.Get_Translation();\n+\t\t\ttm.Translate(center);\n \t\t\tMatrix3D::Multiply(tm, Build_Matrix3D(rot), &tm);\n-\t\t\ttm.Translate(-center.X, -center.Y, -center.Z);\n+\t\t\ttm.Translate(-center);\n \t\t\tUnknown_543270(tm);\n \t\t}\n",
+      "raw_rows": 33,
+      "masked_rows": 20,
+      "instructions": 302,
+      "executable_bytes": 969,
+      "target_code_sha256": "2754eb02511070f04d593dcb3d3688577b0dfd22607ce2beeac9312e4b1b2e4b",
+      "pair_delta": "+0/-0; all 12 unit pairs incl 0x542EE0 preserved"
+    },
+    {
+      "name": "inverse_alias_rot_const_ref",
+      "hypothesis": "New raw-best producer alias combined with existing center/Translate identities; no arithmetic regrouping or call movement",
+      "control": false,
+      "source_sha256": "cd38e93a8c0a362ec966c5122528befd0db4eb5c9e5b99869da6446d4d22ad73",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -233,7 +233,7 @@\n \t\t\tCameraClass *camera = Camera.Peek();\n \t\t\tFAIL_IF(!camera) return;\n-\t\t\tMatrix3D tm = camera->Get_Transform();\n-\t\t\tQuaternion rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, 0.8f);\n-\t\t\tMatrix3D inv;\n+\t\t\tMatrix3D owned_tm = camera->Get_Transform(); Matrix3D &tm = owned_tm;\n+\t\t\tconst Quaternion &rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, 0.8f);\n+\t\t\tMatrix3D owned_inv; Matrix3D &inv = owned_inv;\n \t\t\ttm.Get_Orthogonal_Inverse(inv);\n \t\t\tCameraManagerClass::Unknown_79B6B0();\n@@ -241,5 +241,5 @@\n \t\t\ttm.Translate(center.X, center.Y, center.Z);\n \t\t\tMatrix3D::Multiply(tm, Build_Matrix3D(rot), &tm);\n-\t\t\ttm.Translate(-center.X, -center.Y, -center.Z);\n+\t\t\ttm.Translate(-center);\n \t\t\tUnknown_543270(tm);\n \t\t}\n",
+      "raw_rows": 38,
+      "masked_rows": 38,
+      "instructions": 302,
+      "executable_bytes": 969,
+      "target_code_sha256": "3d04948ff7cc9ce1328ef9e22cbf06a4dc833df49384fe5c92b0465d05471370",
+      "pair_delta": "+0/-0; all 12 unit pairs incl 0x542EE0 preserved"
+    },
+    {
+      "name": "rot_const_ref_center_ref",
+      "hypothesis": "New raw-best producer alias combined with existing center/Translate identities; no arithmetic regrouping or call movement",
+      "control": false,
+      "source_sha256": "dd125991c82b18c221390e2535d54c7851ca1b3fa7376bd4f0a619debe87d31f",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -233,13 +233,13 @@\n \t\t\tCameraClass *camera = Camera.Peek();\n \t\t\tFAIL_IF(!camera) return;\n-\t\t\tMatrix3D tm = camera->Get_Transform();\n-\t\t\tQuaternion rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, 0.8f);\n+\t\t\tMatrix3D owned_tm = camera->Get_Transform(); Matrix3D &tm = owned_tm;\n+\t\t\tconst Quaternion &rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, 0.8f);\n \t\t\tMatrix3D inv;\n \t\t\ttm.Get_Orthogonal_Inverse(inv);\n \t\t\tCameraManagerClass::Unknown_79B6B0();\n-\t\t\tVector3 center = inv.Get_Translation();\n+\t\t\tconst Vector3 &center = inv.Get_Translation();\n \t\t\ttm.Translate(center.X, center.Y, center.Z);\n \t\t\tMatrix3D::Multiply(tm, Build_Matrix3D(rot), &tm);\n-\t\t\ttm.Translate(-center.X, -center.Y, -center.Z);\n+\t\t\ttm.Translate(-center);\n \t\t\tUnknown_543270(tm);\n \t\t}\n",
+      "raw_rows": 41,
+      "masked_rows": 27,
+      "instructions": 302,
+      "executable_bytes": 969,
+      "target_code_sha256": "b752804101d1fa8da8322ed59366fcd41a5578f5e000fbb3a87a60f7ca97cd5f",
+      "pair_delta": "+0/-0; all 12 unit pairs incl 0x542EE0 preserved"
+    },
+    {
+      "name": "rot_const_ref_both_vector",
+      "hypothesis": "New raw-best producer alias combined with existing center/Translate identities; no arithmetic regrouping or call movement",
+      "control": false,
+      "source_sha256": "92341a855df8665909d45e1f608bb6451116159f17266842a80bacf479dbfd5e",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -233,13 +233,13 @@\n \t\t\tCameraClass *camera = Camera.Peek();\n \t\t\tFAIL_IF(!camera) return;\n-\t\t\tMatrix3D tm = camera->Get_Transform();\n-\t\t\tQuaternion rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, 0.8f);\n+\t\t\tMatrix3D owned_tm = camera->Get_Transform(); Matrix3D &tm = owned_tm;\n+\t\t\tconst Quaternion &rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, 0.8f);\n \t\t\tMatrix3D inv;\n \t\t\ttm.Get_Orthogonal_Inverse(inv);\n \t\t\tCameraManagerClass::Unknown_79B6B0();\n \t\t\tVector3 center = inv.Get_Translation();\n-\t\t\ttm.Translate(center.X, center.Y, center.Z);\n+\t\t\ttm.Translate(center);\n \t\t\tMatrix3D::Multiply(tm, Build_Matrix3D(rot), &tm);\n-\t\t\ttm.Translate(-center.X, -center.Y, -center.Z);\n+\t\t\ttm.Translate(-center);\n \t\t\tUnknown_543270(tm);\n \t\t}\n",
+      "raw_rows": 56,
+      "masked_rows": 33,
+      "instructions": 302,
+      "executable_bytes": 969,
+      "target_code_sha256": "d75169320462e82190cb98b7b730bb88131700ed9edfd9d08cae8d7c54e0e49c",
+      "pair_delta": "+0/-0; all 12 unit pairs incl 0x542EE0 preserved"
+    },
+    {
+      "name": "inverse_alias_scalar_negative",
+      "hypothesis": "New 33/20 best: independently test inverse alias with scalar negative or alternate existing center producers, retaining calls and source grouping",
+      "control": false,
+      "source_sha256": "e82dbfe633e45f86ff336acbf43e022cd67472dcf28a29ccf3a237dce5f18f48",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -233,11 +233,11 @@\n \t\t\tCameraClass *camera = Camera.Peek();\n \t\t\tFAIL_IF(!camera) return;\n-\t\t\tMatrix3D tm = camera->Get_Transform();\n+\t\t\tMatrix3D owned_tm = camera->Get_Transform(); Matrix3D &tm = owned_tm;\n \t\t\tQuaternion rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, 0.8f);\n-\t\t\tMatrix3D inv;\n+\t\t\tMatrix3D owned_inv; Matrix3D &inv = owned_inv;\n \t\t\ttm.Get_Orthogonal_Inverse(inv);\n \t\t\tCameraManagerClass::Unknown_79B6B0();\n \t\t\tVector3 center = inv.Get_Translation();\n-\t\t\ttm.Translate(center.X, center.Y, center.Z);\n+\t\t\ttm.Translate(center);\n \t\t\tMatrix3D::Multiply(tm, Build_Matrix3D(rot), &tm);\n \t\t\ttm.Translate(-center.X, -center.Y, -center.Z);\n",
+      "raw_rows": 57,
+      "masked_rows": 27,
+      "instructions": 302,
+      "executable_bytes": 969,
+      "target_code_sha256": "41be15a2941550a395c06d6526f2af52b38b211d8f4bc06332d5c142f8da7f89",
+      "pair_delta": "+0/-0; all 12 unit pairs incl 0x542EE0 preserved"
+    },
+    {
+      "name": "inverse_alias_direct_both",
+      "hypothesis": "New 33/20 best: independently test inverse alias with scalar negative or alternate existing center producers, retaining calls and source grouping",
+      "control": false,
+      "source_sha256": "2e65c0b7bcb626172668013ec003360ee52b629b134a890d19296798acda4c01",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -233,13 +233,13 @@\n \t\t\tCameraClass *camera = Camera.Peek();\n \t\t\tFAIL_IF(!camera) return;\n-\t\t\tMatrix3D tm = camera->Get_Transform();\n+\t\t\tMatrix3D owned_tm = camera->Get_Transform(); Matrix3D &tm = owned_tm;\n \t\t\tQuaternion rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, 0.8f);\n-\t\t\tMatrix3D inv;\n+\t\t\tMatrix3D owned_inv; Matrix3D &inv = owned_inv;\n \t\t\ttm.Get_Orthogonal_Inverse(inv);\n \t\t\tCameraManagerClass::Unknown_79B6B0();\n-\t\t\tVector3 center = inv.Get_Translation();\n-\t\t\ttm.Translate(center.X, center.Y, center.Z);\n+\t\t\tVector3 center(inv.Get_X_Translation(), inv.Get_Y_Translation(), inv.Get_Z_Translation());\n+\t\t\ttm.Translate(center);\n \t\t\tMatrix3D::Multiply(tm, Build_Matrix3D(rot), &tm);\n-\t\t\ttm.Translate(-center.X, -center.Y, -center.Z);\n+\t\t\ttm.Translate(-center);\n \t\t\tUnknown_543270(tm);\n \t\t}\n",
+      "raw_rows": 35,
+      "masked_rows": 20,
+      "instructions": 302,
+      "executable_bytes": 969,
+      "target_code_sha256": "dcf56d0d9b7d8323a46530369abe6f4f513f7c4f29bfb17725b9ff514d45d818",
+      "pair_delta": "+0/-0; all 12 unit pairs incl 0x542EE0 preserved"
+    },
+    {
+      "name": "inverse_alias_output_both",
+      "hypothesis": "New 33/20 best: independently test inverse alias with scalar negative or alternate existing center producers, retaining calls and source grouping",
+      "control": false,
+      "source_sha256": "b274c83066f2890fc24e90f1c17ce156e7feff3c2eeb794ada0bb5d369efcaed",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -233,13 +233,13 @@\n \t\t\tCameraClass *camera = Camera.Peek();\n \t\t\tFAIL_IF(!camera) return;\n-\t\t\tMatrix3D tm = camera->Get_Transform();\n+\t\t\tMatrix3D owned_tm = camera->Get_Transform(); Matrix3D &tm = owned_tm;\n \t\t\tQuaternion rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, 0.8f);\n-\t\t\tMatrix3D inv;\n+\t\t\tMatrix3D owned_inv; Matrix3D &inv = owned_inv;\n \t\t\ttm.Get_Orthogonal_Inverse(inv);\n \t\t\tCameraManagerClass::Unknown_79B6B0();\n-\t\t\tVector3 center = inv.Get_Translation();\n-\t\t\ttm.Translate(center.X, center.Y, center.Z);\n+\t\t\tVector3 center; inv.Get_Translation(&center);\n+\t\t\ttm.Translate(center);\n \t\t\tMatrix3D::Multiply(tm, Build_Matrix3D(rot), &tm);\n-\t\t\ttm.Translate(-center.X, -center.Y, -center.Z);\n+\t\t\ttm.Translate(-center);\n \t\t\tUnknown_543270(tm);\n \t\t}\n",
+      "raw_rows": 191,
+      "masked_rows": 34,
+      "instructions": 302,
+      "executable_bytes": 996,
+      "target_code_sha256": "8225d9a4f80dc6feaeee67410a307b49978711fd4a6c8b204009629ece44b945",
+      "pair_delta": "+0/-0; all 12 unit pairs incl 0x542EE0 preserved"
+    },
+    {
+      "name": "inverse_alias_direct_scalar_first",
+      "hypothesis": "New 33/20 best: independently test inverse alias with scalar negative or alternate existing center producers, retaining calls and source grouping",
+      "control": false,
+      "source_sha256": "6a7da26988f75cd1c0312670e446ec0f7fe255a8a82ec9b64ab36d6fe3229617",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -233,13 +233,13 @@\n \t\t\tCameraClass *camera = Camera.Peek();\n \t\t\tFAIL_IF(!camera) return;\n-\t\t\tMatrix3D tm = camera->Get_Transform();\n+\t\t\tMatrix3D owned_tm = camera->Get_Transform(); Matrix3D &tm = owned_tm;\n \t\t\tQuaternion rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, 0.8f);\n-\t\t\tMatrix3D inv;\n+\t\t\tMatrix3D owned_inv; Matrix3D &inv = owned_inv;\n \t\t\ttm.Get_Orthogonal_Inverse(inv);\n \t\t\tCameraManagerClass::Unknown_79B6B0();\n-\t\t\tVector3 center = inv.Get_Translation();\n+\t\t\tVector3 center(inv.Get_X_Translation(), inv.Get_Y_Translation(), inv.Get_Z_Translation());\n \t\t\ttm.Translate(center.X, center.Y, center.Z);\n \t\t\tMatrix3D::Multiply(tm, Build_Matrix3D(rot), &tm);\n-\t\t\ttm.Translate(-center.X, -center.Y, -center.Z);\n+\t\t\ttm.Translate(-center);\n \t\t\tUnknown_543270(tm);\n \t\t}\n",
+      "raw_rows": 33,
+      "masked_rows": 33,
+      "instructions": 302,
+      "executable_bytes": 969,
+      "target_code_sha256": "27372cdd447668da2933a158709c5f8543c51c054b0c8e78e658d4023acfb4fb",
+      "pair_delta": "+0/-0; all 12 unit pairs incl 0x542EE0 preserved"
+    }
+  ],
+  "model": "gpt-6.1-sol (high)",
+  "counts": {
+    "actual_new_valid_forms": 30,
+    "baseline_controls": 1,
+    "known_repeat_controls": 2,
+    "successful_objects": 33,
+    "candidate_failures": 0,
+    "unique_source_hashes": 33,
+    "unique_normalized_target_code_groups": 20,
+    "hypothesis_batches": 5
+  },
+  "historical_novelty": "Thirty new current source combinations against available Terra30, focused and cross-target patches; pre-Terra exact historical source texts are unavailable, so exhaustive novelty cannot be proved.",
+  "retail_sha256": "249f852496f341c00361be95b66e7c0becc2c39e7cba026f9227e38b602651c4",
+  "cross_caller_observations": [
+    {
+      "function": "0x80ce10",
+      "source": "app/client/ship_pip.cpp",
+      "source_sha256": "e261a36acb50fc3888fbdcb0e52a9588a0ae8d3f00e0c97d2603eed53f55b975",
+      "observation": "Member matrix, owned inverse and center, paired vector Translate; retail positive and negative rows ZYX"
+    },
+    {
+      "function": "0x80d5e0",
+      "source": "app/client/ship_pip.cpp",
+      "source_sha256": "e261a36acb50fc3888fbdcb0e52a9588a0ae8d3f00e0c97d2603eed53f55b975",
+      "observation": "Member matrix; positive and negative first row ZYX, remaining rows XZY"
+    },
+    {
+      "function": "0x4909d0",
+      "source": "app/shared/unknown_490900.cpp",
+      "source_sha256": "75c26d73cf44d5434067479bfd70605f62abc844c128c7a8af5dd4f35eb83f73",
+      "observation": "Owned identity matrix, position setter, Build_Matrix3D temporary passed to alias-safe Multiply"
+    },
+    {
+      "function": "0x796440",
+      "source": "app/client/camctrl_takeoff.cpp",
+      "source_sha256": "b4a80f59ba320954ed5e074dd77ada745a53a4c22d734b09cb1bdc73d5a6e062",
+      "observation": "Owned Build_Matrix3D return, subsequent independent position producer"
+    },
+    {
+      "function": "0x7998b0",
+      "source": "app/client/camera_manager.cpp",
+      "source_sha256": "3143d7a806892b6631049bea87b4b31c49530bf28cc73020771e00178bf38190",
+      "observation": "Owned Build_Matrix3D return followed by position setter and camera transform"
+    },
+    {
+      "function": "0x542a10",
+      "source": "app/client/ship_equip_pip.cpp",
+      "source_sha256": "ac110b98654ed3f0c2a020cf50b793b06ae5e2bd7042e48d8271c471d742af2e",
+      "observation": "Full target 969 executable bytes, both returns; all positive and negative translation rows XZY"
+    }
+  ],
+  "call_census": {
+    "0x8D1CE0": "0x8D1CE0 (Trackball): 4 caller(s)\n   0x542B20 call  in ? (0x542A10)\n   0x80D1FD call  in ShipPipClass::Unknown_78 (0x80CE10)\n   0x80D232 call  in ShipPipClass::Unknown_78 (0x80CE10)\n   0x80D90B call  in ShipPipClass::Unknown_2C (0x80D5E0)\n",
+    "0x8D2C10": "0x8D2C10 (Build_Matrix3D): 22 caller(s)\n   0x4797ED call  in LandClass::Load_Decorations (0x4795D0)\n   0x490ECC call  in ? (0x4909D0)\n   0x542BDC call  in ? (0x542A10)\n   0x710574 call  in ? (0x710530)\n   0x711A99 call  in Unknown7119B0Class::Unknown7119B0Class (0x7119B0)\n   0x713DB1 call  in ? (0x713D70)\n   0x714E8F call  in Unknown714E10Struct::Unknown_714E10 (0x714E10)\n   0x71545F call  in Unknown715270Class::Unknown_08 (0x715450)\n   0x7964E0 call  in CameraController09Class::Unknown_08 (0x796440)\n   0x7966A3 call  in CameraController09Class::Unknown_08 (0x796440)\n   0x799938 call  in CameraManagerClass::Unknown_7998B0 (0x7998B0)\n   0x80D2E5 call  in ShipPipClass::Unknown_78 (0x80CE10)\n   0x80D9B8 call  in ShipPipClass::Unknown_2C (0x80D5E0)\n   0x988533 call  in HMorphAnimClass::Get_Transform (0x9884A0)\n   0x98922A call  in HTreeClass::read_pivots (0x989060)\n   0x9897E0 call  in HTreeClass::Anim_Update (0x989670)\n   0x989AE1 call  in HTreeClass::Blend_Update (0x989890)\n   0x989EFF call  in HTreeClass::Combo_Update (0x989BC0)\n   0x9C3665 call  in HRawAnimClass::Get_Transform (0x9C35B0)\n   0x9C376C call  in HRawAnimClass::Get_Transform (0x9C35B0)\n   0x9C4500 call  in HCompressedAnimClass::Get_Transform (0x9C4490)\n   0x9C4610 call  in HCompressedAnimClass::Get_Transform (0x9C4490)\n",
+    "0x8C2BD0": "0x8C2BD0 (Matrix3D::Get_Orthogonal_Inverse): 36 caller(s)\n   0x454B74 call  in ? (0x454730)\n   0x454BEC call  in ? (0x454730)\n   0x454E48 call  in ? (0x454730)\n   0x45518D call  in ? (0x454730)\n   0x542B34 call  in ? (0x542A10)\n   0x63ECF2 call  in ? (0x63E930)\n   0x63F383 call  in ? (0x63F0D0)\n   0x6412BB call  in ? (0x640F50)\n   0x6EE582 call  in ? (0x6EE260)\n   0x6EE7BB call  in ? (0x6EE260)\n   0x70EA12 call  in Unknown70E5A0Class::Unknown_20 (0x70E850)\n   0x78826F call  in CharacterViewAvatarClass::Unknown_787F40 (0x787F40)\n   0x80D25F call  in ShipPipClass::Unknown_78 (0x80CE10)\n   0x80D938 call  in ShipPipClass::Unknown_2C (0x80D5E0)\n   0x8C2BC5 call  in Matrix3D::Get_Inverse (0x8C2BC0)\n   0x92B1F0 call  in MeshGeometryClass::Cast_World_Space_AABox (0x92AED0)\n   0x93D8BA call  in TexProjectClass::Compute_Perspective_Projection (0x93D800)\n   0x93DCEA call  in TexProjectClass::Compute_Ortho_Projection (0x93DBF0)\n   0x93E1F1 call  in TexProjectClass::Pre_Render_Update (0x93E1E0)\n   0x93F08C call  in MeshClass::Create_Decal (0x93F020)\n   0x93F844 call  in MeshClass::Render_Material_Pass (0x93F620)\n   0x940677 call  in MeshClass::Cast_Ray (0x940530)\n   0x940881 call  in MeshClass::Cast_OBBox (0x940830)\n   0x9409E9 call  in MeshClass::Intersect_AABox (0x9409B0)\n   0x940B79 call  in MeshClass::Intersect_OBBox (0x940B40)\n   0x943A98 call  in Line3DClass::Reset (0x943990)\n   0x9814A1 call  in DecalGeneratorClass::Set_Mesh_Transform (0x981490)\n   0x98D01E call  in HLodClass::Get_Obj_Space_Bounding_Box (0x98CF90)\n   0x9ADAFC call  in ShatterSystem::Shatter_Mesh (0x9AD930)\n   0x9ADB2D call  in ShatterSystem::Shatter_Mesh (0x9AD930)\n   0x9B72DC call  in RigidDecalMeshClass::Create_Decal (0x9B7250)\n   0x9F86A2 call  in Sound3DClass::Update_Miles_Transform (0x9F8680)\n   0xA09640 call  in ShdMeshClass::Cast_Ray (0xA09580)\n   0xA09879 call  in ShdMeshClass::Cast_OBBox (0xA09840)\n   0xA09A00 call  in ShdMeshClass::Intersect_AABox (0xA099D0)\n   0xA09BC0 call  in ShdMeshClass::Intersect_OBBox (0xA09B90)\n"
+  },
+  "limitations": [
+    "Unit native match only, no full app-library proof and no source adoption.",
+    "Full scratch __FILE__ strings differ; matcher normalizes basename.",
+    "One Wine socket sandbox failure before any object, resolved by approved escalation.",
+    "No changes outside the target in each source patch; line counts and physical FAIL_IF lines preserved; outside-target functions independently relocation-masked hashed."
+  ],
+  "best_forms": {
+    "inverse_alias": {
+      "raw_residue": 33,
+      "candidate_instruction_count": 302,
+      "retail_instruction_count": 302,
+      "candidate_executable_length": 969,
+      "retail_executable_end": "0x542dd9",
+      "candidate_returns": [
+        "0x91",
+        "0x3c6"
+      ],
+      "retail_returns": [
+        "0x542aa1",
+        "0x542dd6"
+      ],
+      "outside_translation_relocation_masked_byte_differences": [],
+      "operand_stores": {
+        "candidate": {
+          "positive": [
+            {
+              "offset": "0x171",
+              "destination": "m03",
+              "expression": "((((m01 * y) + (m02 * z)) + (m00 * x)) + m03)"
+            },
+            {
+              "offset": "0x195",
+              "destination": "m13",
+              "expression": "((((m10 * x) + (m11 * y)) + (m12 * z)) + m13)"
+            },
+            {
+              "offset": "0x1c8",
+              "destination": "m23",
+              "expression": "((((m20 * x) + (m21 * y)) + (m22 * z)) + m23)"
+            }
+          ],
+          "negative": [
+            {
+              "offset": "0x213",
+              "destination": "m03",
+              "expression": "((((m02 * (-z)) + (m01 * (-y))) + ((-x) * m00)) + m03)"
+            },
+            {
+              "offset": "0x231",
+              "destination": "m13",
+              "expression": "((((m12 * (-z)) + (m10 * (-x))) + (m11 * (-y))) + m13)"
+            },
+            {
+              "offset": "0x24f",
+              "destination": "m23",
+              "expression": "((((m22 * (-z)) + (m20 * (-x))) + (m21 * (-y))) + m23)"
+            }
+          ]
+        },
+        "retail": {
+          "positive": [
+            {
+              "offset": "0x171",
+              "destination": "m03",
+              "expression": "((((x * m00) + (m02 * z)) + (m01 * y)) + m03)"
+            },
+            {
+              "offset": "0x195",
+              "destination": "m13",
+              "expression": "((((m10 * x) + (m12 * z)) + (m11 * y)) + m13)"
+            },
+            {
+              "offset": "0x1c8",
+              "destination": "m23",
+              "expression": "((((m20 * x) + (m22 * z)) + (m21 * y)) + m23)"
+            }
+          ],
+          "negative": [
+            {
+              "offset": "0x213",
+              "destination": "m03",
+              "expression": "(((((-x) * m00) + (m02 * (-z))) + (m01 * (-y))) + m03)"
+            },
+            {
+              "offset": "0x231",
+              "destination": "m13",
+              "expression": "((((m10 * (-x)) + (m12 * (-z))) + (m11 * (-y))) + m13)"
+            },
+            {
+              "offset": "0x24f",
+              "destination": "m23",
+              "expression": "((((m20 * (-x)) + (m22 * (-z))) + (m21 * (-y))) + m23)"
+            }
+          ]
+        }
+      },
+      "fp_memory_literals": [
+        {
+          "offset": "0xd",
+          "operation": "fcomp",
+          "width": 4,
+          "symbol": "__real@4@00000000000000000000",
+          "retail_reference": "0xae7244",
+          "candidate_bytes": "00000000",
+          "retail_bytes": "00000000",
+          "equal": true
+        },
+        {
+          "offset": "0x26f",
+          "operation": "fld",
+          "width": 8,
+          "symbol": "__real@8@3ffe860a920000000000",
+          "retail_reference": "0xaef060",
+          "candidate_bytes": "0000004052c1e03f",
+          "retail_bytes": "0000004052c1e03f",
+          "equal": true
+        },
+        {
+          "offset": "0x279",
+          "operation": "fld",
+          "width": 8,
+          "symbol": "__real@8@3ffe860a920000000000",
+          "retail_reference": "0xaef060",
+          "candidate_bytes": "0000004052c1e03f",
+          "retail_bytes": "0000004052c1e03f",
+          "equal": true
+        }
+      ],
+      "immediate_trackball_radius": {
+        "candidate_bytes": "cdcc4c3f",
+        "retail_bytes": "cdcc4c3f",
+        "equal": true,
+        "offset": "0x9f"
+      },
+      "all_calls_and_branches_audited": true,
+      "lighting_note": "All nontranslation relocation-masked bytes agree"
+    },
+    "inverse_alias_both_vector": {
+      "raw_residue": 33,
+      "candidate_instruction_count": 302,
+      "retail_instruction_count": 302,
+      "candidate_executable_length": 969,
+      "retail_executable_end": "0x542dd9",
+      "candidate_returns": [
+        "0x91",
+        "0x3c6"
+      ],
+      "retail_returns": [
+        "0x542aa1",
+        "0x542dd6"
+      ],
+      "outside_translation_relocation_masked_byte_differences": [
+        "0x31e",
+        "0x31f",
+        "0x320",
+        "0x321",
+        "0x322",
+        "0x324",
+        "0x325",
+        "0x326",
+        "0x327",
+        "0x328",
+        "0x394",
+        "0x396",
+        "0x39a",
+        "0x39c"
+      ],
+      "operand_stores": {
+        "candidate": {
+          "positive": [
+            {
+              "offset": "0x171",
+              "destination": "m03",
+              "expression": "((((m02 * z) + (x * m00)) + (m01 * y)) + m03)"
+            },
+            {
+              "offset": "0x195",
+              "destination": "m13",
+              "expression": "((((m10 * x) + (m11 * y)) + (m12 * z)) + m13)"
+            },
+            {
+              "offset": "0x1c8",
+              "destination": "m23",
+              "expression": "((((m20 * x) + (m21 * y)) + (m22 * z)) + m23)"
+            }
+          ],
+          "negative": [
+            {
+              "offset": "0x213",
+              "destination": "m03",
+              "expression": "((((m02 * (-z)) + (m01 * (-y))) + ((-x) * m00)) + m03)"
+            },
+            {
+              "offset": "0x231",
+              "destination": "m13",
+              "expression": "((((m10 * (-x)) + (m12 * (-z))) + (m11 * (-y))) + m13)"
+            },
+            {
+              "offset": "0x24f",
+              "destination": "m23",
+              "expression": "((((m20 * (-x)) + (m22 * (-z))) + (m21 * (-y))) + m23)"
+            }
+          ]
+        },
+        "retail": {
+          "positive": [
+            {
+              "offset": "0x171",
+              "destination": "m03",
+              "expression": "((((x * m00) + (m02 * z)) + (m01 * y)) + m03)"
+            },
+            {
+              "offset": "0x195",
+              "destination": "m13",
+              "expression": "((((m10 * x) + (m12 * z)) + (m11 * y)) + m13)"
+            },
+            {
+              "offset": "0x1c8",
+              "destination": "m23",
+              "expression": "((((m20 * x) + (m22 * z)) + (m21 * y)) + m23)"
+            }
+          ],
+          "negative": [
+            {
+              "offset": "0x213",
+              "destination": "m03",
+              "expression": "(((((-x) * m00) + (m02 * (-z))) + (m01 * (-y))) + m03)"
+            },
+            {
+              "offset": "0x231",
+              "destination": "m13",
+              "expression": "((((m10 * (-x)) + (m12 * (-z))) + (m11 * (-y))) + m13)"
+            },
+            {
+              "offset": "0x24f",
+              "destination": "m23",
+              "expression": "((((m20 * (-x)) + (m22 * (-z))) + (m21 * (-y))) + m23)"
+            }
+          ]
+        }
+      },
+      "fp_memory_literals": [
+        {
+          "offset": "0xd",
+          "operation": "fcomp",
+          "width": 4,
+          "symbol": "__real@4@00000000000000000000",
+          "retail_reference": "0xae7244",
+          "candidate_bytes": "00000000",
+          "retail_bytes": "00000000",
+          "equal": true
+        },
+        {
+          "offset": "0x26f",
+          "operation": "fld",
+          "width": 8,
+          "symbol": "__real@8@3ffe860a920000000000",
+          "retail_reference": "0xaef060",
+          "candidate_bytes": "0000004052c1e03f",
+          "retail_bytes": "0000004052c1e03f",
+          "equal": true
+        },
+        {
+          "offset": "0x279",
+          "operation": "fld",
+          "width": 8,
+          "symbol": "__real@8@3ffe860a920000000000",
+          "retail_reference": "0xaef060",
+          "candidate_bytes": "0000004052c1e03f",
+          "retail_bytes": "0000004052c1e03f",
+          "equal": true
+        }
+      ],
+      "immediate_trackball_radius": {
+        "candidate_bytes": "cdcc4c3f",
+        "retail_bytes": "cdcc4c3f",
+        "equal": true,
+        "offset": "0x9f"
+      },
+      "all_calls_and_branches_audited": true,
+      "lighting_note": "Eight actual lighting instruction rows differ at +0x31D..0x327 and +0x391..0x39B; masked score is not only translation residue"
+    }
+  }
+}

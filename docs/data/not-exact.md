@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-639 entries in 259 files.
+638 entries in 259 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -265,7 +265,6 @@ edit the comments in the code, not this file.
 | `app/client/scriptedmovie.cpp:3626` | `ScriptedMovieViewClass::Unknown_8099B0` | marker | NOT EXACT: register (0.82, 2 masked rows): the client sets p (esi) before the tab loop, ours after it 0x8099B0: the script loaded: one command a line ('<frame> <command>,<parameters>', ';' a comment; FRAME_PAD and SOUNDTRACK set the view, CREATE_SFX lines also run at once), the lines sorted by frame (0x7FFEA0) |
 | `app/client/ship_equip_pip.cpp:153` | `ShipEquipPipClass::Unknown_542250` | marker | NOT EXACT: inline-budget (29 masked rows, from 185); second Unknown_543270 keeps ??_H and unit is not spilled to ebp-0x40 0x542250 |
 | `app/client/ship_equip_pip.cpp:223` | `ShipEquipPipClass::Unknown_542A10` | marker | NOT EXACT: functional from the pseudocode (D64); the translations' products are summed in another order 0x542A10 |
-| `app/client/ship_equip_pip.cpp:277` | `ShipEquipPipClass::Unknown_542EE0` | marker | NOT EXACT: functional from the pseudocode (D64); the inlined Unknown_543270 reads Camera earlier (scheduling) 0x542EE0 (out of line in all three callers, 0x542250's included) |
 | `app/client/ship_pip.cpp:294` | `ShipPipClass::Unknown_7C` | marker | NOT EXACT: ShipPipClass, frame (sub esp 0xA0 against 0x74: the client keeps a Matrix3D temporary for +0x6C's Set(Vector3), the bone index in ebp) @0x80C640 |
 | `app/client/ship_pip.cpp:343` | `ShipPipClass::Unknown_84` | marker | NOT EXACT: ShipPipClass, frame (sub esp 0x48 against 0x44: the first clamp holds min on the FPU stack and spills max, ours the other way) @0x80CA30 |
 | `app/client/ship_pip.cpp:376` | `ShipPipClass::Unknown_78` | marker | NOT EXACT: ShipPipClass, frame (the trackball's Matrix3D inverse and Quaternion swap stack slots, 0x64 against 0x24) @0x80CE10 |

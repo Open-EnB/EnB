@@ -1,0 +1,540 @@
+{
+  "base_commit": "2c63ec6a64c7abf827d816489d0afa9777d479be",
+  "model": "gpt-6.1-sol (high)",
+  "retail_sha256": "249f852496f341c00361be95b66e7c0becc2c39e7cba026f9227e38b602651c4",
+  "source": "app/client/ship_equip_pip.cpp",
+  "source_patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -233,7 +233,7 @@\n \t\t\tCameraClass *camera = Camera.Peek();\n \t\t\tFAIL_IF(!camera) return;\n-\t\t\tMatrix3D tm = camera->Get_Transform();\n+\t\t\tMatrix3D owned_tm = camera->Get_Transform(); Matrix3D &tm = owned_tm;\n \t\t\tQuaternion rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, 0.8f);\n-\t\t\tMatrix3D inv;\n+\t\t\tMatrix3D owned_inv; Matrix3D &inv = owned_inv;\n \t\t\ttm.Get_Orthogonal_Inverse(inv);\n \t\t\tCameraManagerClass::Unknown_79B6B0();\n@@ -241,5 +241,5 @@\n \t\t\ttm.Translate(center.X, center.Y, center.Z);\n \t\t\tMatrix3D::Multiply(tm, Build_Matrix3D(rot), &tm);\n-\t\t\ttm.Translate(-center.X, -center.Y, -center.Z);\n+\t\t\ttm.Translate(-center);\n \t\t\tUnknown_543270(tm);\n \t\t}\n",
+  "header": "wwmath/matrix3d.h",
+  "probe_source": "#include \"matrix3d.h\"\n// Diagnostic probes only: synthetic wrappers, never production candidates.\nextern \"C\" {\nvoid scalar(Matrix3D *m, float x, float y, float z) { m->Translate(x,y,z); }\nvoid vector(Matrix3D *m, const Vector3 &v) { m->Translate(v); }\nvoid scalar_local(Matrix3D *out, const Matrix3D &in, const Vector3 &v) { Matrix3D m=in; m.Translate(v.X,v.Y,v.Z); *out=m; }\nvoid vector_local(Matrix3D *out, const Matrix3D &in, const Vector3 &v) { Matrix3D m=in; m.Translate(v); *out=m; }\nvoid scalar_alias(Matrix3D *out, const Matrix3D &in, const Vector3 &v) { Matrix3D owned=in; Matrix3D &m=owned; m.Translate(v.X,v.Y,v.Z); *out=m; }\nvoid xyz(float *m, float x, float y, float z) { m[3] += m[0]*x + m[1]*y + m[2]*z; }\nvoid xyz_cast(float *m, float x, float y, float z) { m[3] += (float)(m[0]*x + m[1]*y + m[2]*z); }\nvoid xzy(float *m, float x, float y, float z) { m[3] += (m[0]*x + m[2]*z) + m[1]*y; }\nvoid xyz_parens(float *m, float x, float y, float z) { m[3] += (m[0]*x + m[1]*y) + m[2]*z; }\n}\n",
+  "probe_source_sha256": "77a5a6e56b4e9f1b2fa31d59dd3ecfc6c882acbb9ff1cc011876095acf3f4380",
+  "probe_modes": [
+    "app /nologo /c /MT /W3 /O2 /Ob2 /GX with repository app defines/includes",
+    "same plus /Op diagnostic only"
+  ],
+  "probe_code": {
+    "default": {
+      "_scalar": {
+        "bytes": 97,
+        "sha256": "c9640bd2e4ba87b730df9fd5cb77cecbf108e49a8a3b897a3c0b529a8b3bb634",
+        "listing": "0x0 mov eax, dword ptr [esp + 4]\n0x4 fld dword ptr [esp + 0xc]\n0x8 fmul dword ptr [eax + 4]\n0xb fld dword ptr [esp + 0x10]\n0xf fmul dword ptr [eax + 8]\n0x12 faddp st(1)\n0x14 fld dword ptr [esp + 8]\n0x18 fmul dword ptr [eax]\n0x1a faddp st(1)\n0x1c fadd dword ptr [eax + 0xc]\n0x1f fstp dword ptr [eax + 0xc]\n0x22 fld dword ptr [esp + 8]\n0x26 fmul dword ptr [eax + 0x10]\n0x29 fld dword ptr [esp + 0xc]\n0x2d fmul dword ptr [eax + 0x14]\n0x30 faddp st(1)\n0x32 fld dword ptr [esp + 0x10]\n0x36 fmul dword ptr [eax + 0x18]\n0x39 faddp st(1)\n0x3b fadd dword ptr [eax + 0x1c]\n0x3e fstp dword ptr [eax + 0x1c]\n0x41 fld dword ptr [esp + 8]\n0x45 fmul dword ptr [eax + 0x20]\n0x48 fld dword ptr [esp + 0xc]\n0x4c fmul dword ptr [eax + 0x24]\n0x4f faddp st(1)\n0x51 fld dword ptr [esp + 0x10]\n0x55 fmul dword ptr [eax + 0x28]\n0x58 faddp st(1)\n0x5a fadd dword ptr [eax + 0x2c]\n0x5d fstp dword ptr [eax + 0x2c]\n0x60 ret "
+      },
+      "_vector": {
+        "bytes": 89,
+        "sha256": "b07ce10873113f94afe5a5407ee431034aa4cf5b53092368d4bfd4ffd1fcf09d",
+        "listing": "0x0 mov eax, dword ptr [esp + 4]\n0x4 mov ecx, dword ptr [esp + 8]\n0x8 fld dword ptr [eax + 4]\n0xb fmul dword ptr [ecx + 4]\n0xe fld dword ptr [eax + 8]\n0x11 fmul dword ptr [ecx + 8]\n0x14 faddp st(1)\n0x16 fld dword ptr [eax]\n0x18 fmul dword ptr [ecx]\n0x1a faddp st(1)\n0x1c fadd dword ptr [eax + 0xc]\n0x1f fstp dword ptr [eax + 0xc]\n0x22 fld dword ptr [eax + 0x14]\n0x25 fmul dword ptr [ecx + 4]\n0x28 fld dword ptr [eax + 0x10]\n0x2b fmul dword ptr [ecx]\n0x2d faddp st(1)\n0x2f fld dword ptr [eax + 0x18]\n0x32 fmul dword ptr [ecx + 8]\n0x35 faddp st(1)\n0x37 fadd dword ptr [eax + 0x1c]\n0x3a fstp dword ptr [eax + 0x1c]\n0x3d fld dword ptr [eax + 0x24]\n0x40 fmul dword ptr [ecx + 4]\n0x43 fld dword ptr [eax + 0x20]\n0x46 fmul dword ptr [ecx]\n0x48 faddp st(1)\n0x4a fld dword ptr [eax + 0x28]\n0x4d fmul dword ptr [ecx + 8]\n0x50 faddp st(1)\n0x52 fadd dword ptr [eax + 0x2c]\n0x55 fstp dword ptr [eax + 0x2c]\n0x58 ret "
+      },
+      "_scalar_local": {
+        "bytes": 291,
+        "sha256": "7acd16a41ecf46c5143a082c6200eed5cc91baff2ad1825ab1fc0e0000f9dd1f",
+        "listing": "0x0 sub esp, 0x34\n0x3 mov eax, dword ptr [esp + 0x3c]\n0x7 mov ecx, dword ptr [eax + 8]\n0xa mov edx, dword ptr [eax + 0x10]\n0xd fld dword ptr [eax]\n0xf fld dword ptr [eax + 4]\n0x12 fld dword ptr [eax + 0xc]\n0x15 mov dword ptr [esp + 0xc], ecx\n0x19 mov ecx, dword ptr [eax + 0x14]\n0x1c mov dword ptr [esp + 0x14], edx\n0x20 mov edx, dword ptr [eax + 0x18]\n0x23 mov dword ptr [esp + 0x18], ecx\n0x27 mov ecx, dword ptr [eax + 0x1c]\n0x2a mov dword ptr [esp + 0x1c], edx\n0x2e mov edx, dword ptr [eax + 0x20]\n0x31 mov dword ptr [esp + 0x20], ecx\n0x35 mov ecx, dword ptr [eax + 0x24]\n0x38 mov dword ptr [esp + 0x24], edx\n0x3c mov edx, dword ptr [eax + 0x28]\n0x3f mov eax, dword ptr [eax + 0x2c]\n0x42 mov dword ptr [esp + 0x28], ecx\n0x46 mov dword ptr [esp + 0x30], eax\n0x4a mov eax, dword ptr [esp + 0x40]\n0x4e mov dword ptr [esp + 0x2c], edx\n0x52 mov ecx, dword ptr [eax + 8]\n0x55 mov edx, dword ptr [eax + 4]\n0x58 mov eax, dword ptr [eax]\n0x5a mov dword ptr [esp], ecx\n0x5e mov dword ptr [esp + 0x3c], eax\n0x62 mov dword ptr [esp + 0x40], edx\n0x66 fld dword ptr [esp + 0x3c]\n0x6a fmul st(3)\n0x6c fld dword ptr [esp + 0xc]\n0x70 fmul dword ptr [esp]\n0x74 mov eax, dword ptr [esp + 0x38]\n0x78 mov ecx, dword ptr [esp + 0xc]\n0x7c faddp st(1)\n0x7e fld dword ptr [esp + 0x40]\n0x82 fmul st(3)\n0x84 mov dword ptr [eax + 8], ecx\n0x87 mov ecx, dword ptr [esp + 0x14]\n0x8b faddp st(1)\n0x8d fadd st(1)\n0x8f fstp dword ptr [esp + 0x10]\n0x93 mov edx, dword ptr [esp + 0x10]\n0x97 fstp st(0)\n0x99 fld dword ptr [esp + 0x14]\n0x9d fmul dword ptr [esp + 0x3c]\n0xa1 fld dword ptr [esp + 0x18]\n0xa5 fmul dword ptr [esp + 0x40]\n0xa9 mov dword ptr [eax + 0xc], edx\n0xac mov edx, dword ptr [esp + 0x18]\n0xb0 faddp st(1)\n0xb2 fld dword ptr [esp + 0x1c]\n0xb6 fmul dword ptr [esp]\n0xba faddp st(1)\n0xbc fadd dword ptr [esp + 0x20]\n0xc0 fstp dword ptr [esp + 0x20]\n0xc4 fld dword ptr [esp + 0x24]\n0xc8 fmul dword ptr [esp + 0x3c]\n0xcc fld dword ptr [esp + 0x28]\n0xd0 fmul dword ptr [esp + 0x40]\n0xd4 faddp st(1)\n0xd6 fld dword ptr [esp + 0x2c]\n0xda fmul dword ptr [esp]\n0xde faddp st(1)\n0xe0 fadd dword ptr [esp + 0x30]\n0xe4 fstp dword ptr [esp + 0x30]\n0xe8 fxch st(1)\n0xea fstp dword ptr [eax]\n0xec fstp dword ptr [eax + 4]\n0xef mov dword ptr [eax + 0x10], ecx\n0xf2 mov ecx, dword ptr [esp + 0x1c]\n0xf6 mov dword ptr [eax + 0x14], edx\n0xf9 mov edx, dword ptr [esp + 0x20]\n0xfd mov dword ptr [eax + 0x18], ecx\n0x100 mov ecx, dword ptr [esp + 0x24]\n0x104 mov dword ptr [eax + 0x1c], edx\n0x107 mov dword ptr [eax + 0x20], ecx\n0x10a mov edx, dword ptr [esp + 0x28]\n0x10e mov ecx, dword ptr [esp + 0x2c]\n0x112 mov dword ptr [eax + 0x24], edx\n0x115 mov edx, dword ptr [esp + 0x30]\n0x119 mov dword ptr [eax + 0x28], ecx\n0x11c mov dword ptr [eax + 0x2c], edx\n0x11f add esp, 0x34\n0x122 ret "
+      },
+      "_vector_local": {
+        "bytes": 259,
+        "sha256": "a340a3f7ad7028527ca4ddcfc08ce54e50cdcedb31dd7a062b3109f06e335ff2",
+        "listing": "0x0 sub esp, 0x30\n0x3 mov eax, dword ptr [esp + 0x38]\n0x7 mov ecx, dword ptr [eax + 8]\n0xa mov edx, dword ptr [eax + 0x10]\n0xd fld dword ptr [eax]\n0xf fld dword ptr [eax + 4]\n0x12 fld dword ptr [eax + 0xc]\n0x15 mov dword ptr [esp + 8], ecx\n0x19 mov ecx, dword ptr [eax + 0x14]\n0x1c mov dword ptr [esp + 0x10], edx\n0x20 mov edx, dword ptr [eax + 0x18]\n0x23 mov dword ptr [esp + 0x14], ecx\n0x27 mov ecx, dword ptr [eax + 0x1c]\n0x2a mov dword ptr [esp + 0x18], edx\n0x2e mov edx, dword ptr [eax + 0x20]\n0x31 mov dword ptr [esp + 0x1c], ecx\n0x35 mov ecx, dword ptr [eax + 0x24]\n0x38 mov dword ptr [esp + 0x20], edx\n0x3c mov edx, dword ptr [eax + 0x28]\n0x3f mov eax, dword ptr [eax + 0x2c]\n0x42 mov dword ptr [esp + 0x24], ecx\n0x46 mov dword ptr [esp + 0x2c], eax\n0x4a mov eax, dword ptr [esp + 0x3c]\n0x4e fld st(1)\n0x50 fmul dword ptr [eax + 4]\n0x53 fld dword ptr [esp + 8]\n0x57 fmul dword ptr [eax + 8]\n0x5a mov dword ptr [esp + 0x28], edx\n0x5e mov ecx, dword ptr [esp + 8]\n0x62 faddp st(1)\n0x64 fld st(3)\n0x66 fmul dword ptr [eax]\n0x68 faddp st(1)\n0x6a fadd st(1)\n0x6c fstp dword ptr [esp + 0xc]\n0x70 mov edx, dword ptr [esp + 0xc]\n0x74 fstp st(0)\n0x76 fld dword ptr [esp + 0x14]\n0x7a fmul dword ptr [eax + 4]\n0x7d fld dword ptr [esp + 0x18]\n0x81 fmul dword ptr [eax + 8]\n0x84 faddp st(1)\n0x86 fld dword ptr [esp + 0x10]\n0x8a fmul dword ptr [eax]\n0x8c faddp st(1)\n0x8e fadd dword ptr [esp + 0x1c]\n0x92 fstp dword ptr [esp + 0x1c]\n0x96 fld dword ptr [esp + 0x24]\n0x9a fmul dword ptr [eax + 4]\n0x9d fld dword ptr [esp + 0x28]\n0xa1 fmul dword ptr [eax + 8]\n0xa4 faddp st(1)\n0xa6 fld dword ptr [esp + 0x20]\n0xaa fmul dword ptr [eax]\n0xac mov eax, dword ptr [esp + 0x34]\n0xb0 faddp st(1)\n0xb2 mov dword ptr [eax + 8], ecx\n0xb5 mov ecx, dword ptr [esp + 0x10]\n0xb9 mov dword ptr [eax + 0xc], edx\n0xbc mov edx, dword ptr [esp + 0x14]\n0xc0 fadd dword ptr [esp + 0x2c]\n0xc4 fstp dword ptr [esp + 0x2c]\n0xc8 fxch st(1)\n0xca fstp dword ptr [eax]\n0xcc fstp dword ptr [eax + 4]\n0xcf mov dword ptr [eax + 0x10], ecx\n0xd2 mov ecx, dword ptr [esp + 0x18]\n0xd6 mov dword ptr [eax + 0x14], edx\n0xd9 mov edx, dword ptr [esp + 0x1c]\n0xdd mov dword ptr [eax + 0x18], ecx\n0xe0 mov ecx, dword ptr [esp + 0x20]\n0xe4 mov dword ptr [eax + 0x1c], edx\n0xe7 mov edx, dword ptr [esp + 0x24]\n0xeb mov dword ptr [eax + 0x20], ecx\n0xee mov ecx, dword ptr [esp + 0x28]\n0xf2 mov dword ptr [eax + 0x24], edx\n0xf5 mov edx, dword ptr [esp + 0x2c]\n0xf9 mov dword ptr [eax + 0x28], ecx\n0xfc mov dword ptr [eax + 0x2c], edx\n0xff add esp, 0x30\n0x102 ret "
+      },
+      "_scalar_alias": {
+        "bytes": 291,
+        "sha256": "d8101d6f4bfdb29dadfe90a2c2c3c1d8bc518dbac7fd115324d2870bbe4a2d77",
+        "listing": "0x0 sub esp, 0x34\n0x3 mov eax, dword ptr [esp + 0x3c]\n0x7 mov ecx, dword ptr [eax + 8]\n0xa mov edx, dword ptr [eax + 0x10]\n0xd fld dword ptr [eax]\n0xf fld dword ptr [eax + 4]\n0x12 fld dword ptr [eax + 0xc]\n0x15 mov dword ptr [esp + 0xc], ecx\n0x19 mov ecx, dword ptr [eax + 0x14]\n0x1c mov dword ptr [esp + 0x14], edx\n0x20 mov edx, dword ptr [eax + 0x18]\n0x23 mov dword ptr [esp + 0x18], ecx\n0x27 mov ecx, dword ptr [eax + 0x1c]\n0x2a mov dword ptr [esp + 0x1c], edx\n0x2e mov edx, dword ptr [eax + 0x20]\n0x31 mov dword ptr [esp + 0x20], ecx\n0x35 mov ecx, dword ptr [eax + 0x24]\n0x38 mov dword ptr [esp + 0x24], edx\n0x3c mov edx, dword ptr [eax + 0x28]\n0x3f mov eax, dword ptr [eax + 0x2c]\n0x42 mov dword ptr [esp + 0x2c], edx\n0x46 mov dword ptr [esp + 0x30], eax\n0x4a mov eax, dword ptr [esp + 0x40]\n0x4e mov dword ptr [esp + 0x28], ecx\n0x52 mov edx, dword ptr [eax + 4]\n0x55 mov ecx, dword ptr [eax + 8]\n0x58 mov eax, dword ptr [eax]\n0x5a mov dword ptr [esp + 0x40], edx\n0x5e fld st(1)\n0x60 fmul dword ptr [esp + 0x40]\n0x64 mov dword ptr [esp + 0x3c], eax\n0x68 mov dword ptr [esp], ecx\n0x6c fld dword ptr [esp + 0x3c]\n0x70 fmul st(4)\n0x72 mov eax, dword ptr [esp + 0x38]\n0x76 mov ecx, dword ptr [esp + 0xc]\n0x7a faddp st(1)\n0x7c fld dword ptr [esp + 0xc]\n0x80 fmul dword ptr [esp]\n0x84 mov dword ptr [eax + 8], ecx\n0x87 mov ecx, dword ptr [esp + 0x14]\n0x8b faddp st(1)\n0x8d fadd st(1)\n0x8f fstp dword ptr [esp + 0x10]\n0x93 mov edx, dword ptr [esp + 0x10]\n0x97 fstp st(0)\n0x99 fld dword ptr [esp + 0x18]\n0x9d fmul dword ptr [esp + 0x40]\n0xa1 fld dword ptr [esp + 0x1c]\n0xa5 fmul dword ptr [esp]\n0xa9 mov dword ptr [eax + 0xc], edx\n0xac mov edx, dword ptr [esp + 0x18]\n0xb0 faddp st(1)\n0xb2 fld dword ptr [esp + 0x14]\n0xb6 fmul dword ptr [esp + 0x3c]\n0xba faddp st(1)\n0xbc fadd dword ptr [esp + 0x20]\n0xc0 fstp dword ptr [esp + 0x20]\n0xc4 fld dword ptr [esp + 0x24]\n0xc8 fmul dword ptr [esp + 0x3c]\n0xcc fld dword ptr [esp + 0x28]\n0xd0 fmul dword ptr [esp + 0x40]\n0xd4 faddp st(1)\n0xd6 fld dword ptr [esp + 0x2c]\n0xda fmul dword ptr [esp]\n0xde faddp st(1)\n0xe0 fadd dword ptr [esp + 0x30]\n0xe4 fstp dword ptr [esp + 0x30]\n0xe8 fxch st(1)\n0xea fstp dword ptr [eax]\n0xec fstp dword ptr [eax + 4]\n0xef mov dword ptr [eax + 0x10], ecx\n0xf2 mov ecx, dword ptr [esp + 0x1c]\n0xf6 mov dword ptr [eax + 0x14], edx\n0xf9 mov edx, dword ptr [esp + 0x20]\n0xfd mov dword ptr [eax + 0x18], ecx\n0x100 mov ecx, dword ptr [esp + 0x24]\n0x104 mov dword ptr [eax + 0x1c], edx\n0x107 mov dword ptr [eax + 0x20], ecx\n0x10a mov edx, dword ptr [esp + 0x28]\n0x10e mov ecx, dword ptr [esp + 0x2c]\n0x112 mov dword ptr [eax + 0x24], edx\n0x115 mov edx, dword ptr [esp + 0x30]\n0x119 mov dword ptr [eax + 0x28], ecx\n0x11c mov dword ptr [eax + 0x2c], edx\n0x11f add esp, 0x34\n0x122 ret "
+      },
+      "_xyz": {
+        "bytes": 35,
+        "sha256": "3508e6367ba098c1c02068e90ff4d8260ee82a84f1f495a621c6849dc604f263",
+        "listing": "0x0 mov eax, dword ptr [esp + 4]\n0x4 fld dword ptr [esp + 0xc]\n0x8 fmul dword ptr [eax + 4]\n0xb fld dword ptr [esp + 0x10]\n0xf fmul dword ptr [eax + 8]\n0x12 faddp st(1)\n0x14 fld dword ptr [esp + 8]\n0x18 fmul dword ptr [eax]\n0x1a faddp st(1)\n0x1c fadd dword ptr [eax + 0xc]\n0x1f fstp dword ptr [eax + 0xc]\n0x22 ret "
+      },
+      "_xyz_cast": {
+        "bytes": 35,
+        "sha256": "3508e6367ba098c1c02068e90ff4d8260ee82a84f1f495a621c6849dc604f263",
+        "listing": "0x0 mov eax, dword ptr [esp + 4]\n0x4 fld dword ptr [esp + 0xc]\n0x8 fmul dword ptr [eax + 4]\n0xb fld dword ptr [esp + 0x10]\n0xf fmul dword ptr [eax + 8]\n0x12 faddp st(1)\n0x14 fld dword ptr [esp + 8]\n0x18 fmul dword ptr [eax]\n0x1a faddp st(1)\n0x1c fadd dword ptr [eax + 0xc]\n0x1f fstp dword ptr [eax + 0xc]\n0x22 ret "
+      },
+      "_xzy": {
+        "bytes": 35,
+        "sha256": "ce9571cf4d0b1b46dbf338487a3b121a0130938102977a0ae990873ba174bef3",
+        "listing": "0x0 mov eax, dword ptr [esp + 4]\n0x4 fld dword ptr [esp + 0x10]\n0x8 fmul dword ptr [eax + 8]\n0xb fld dword ptr [esp + 8]\n0xf fmul dword ptr [eax]\n0x11 faddp st(1)\n0x13 fld dword ptr [esp + 0xc]\n0x17 fmul dword ptr [eax + 4]\n0x1a faddp st(1)\n0x1c fadd dword ptr [eax + 0xc]\n0x1f fstp dword ptr [eax + 0xc]\n0x22 ret "
+      },
+      "_xyz_parens": {
+        "bytes": 35,
+        "sha256": "0e2f0c27a9cf6426955cb738a8dc3a8a698e3b069ff46e13e03ab0406f5fdee5",
+        "listing": "0x0 mov eax, dword ptr [esp + 4]\n0x4 fld dword ptr [esp + 0xc]\n0x8 fmul dword ptr [eax + 4]\n0xb fld dword ptr [esp + 8]\n0xf fmul dword ptr [eax]\n0x11 faddp st(1)\n0x13 fld dword ptr [esp + 0x10]\n0x17 fmul dword ptr [eax + 8]\n0x1a faddp st(1)\n0x1c fadd dword ptr [eax + 0xc]\n0x1f fstp dword ptr [eax + 0xc]\n0x22 ret "
+      }
+    },
+    "strict_diagnostic": {
+      "_scalar": {
+        "bytes": 97,
+        "sha256": "c9640bd2e4ba87b730df9fd5cb77cecbf108e49a8a3b897a3c0b529a8b3bb634",
+        "listing": "0x0 mov eax, dword ptr [esp + 4]\n0x4 fld dword ptr [esp + 0xc]\n0x8 fmul dword ptr [eax + 4]\n0xb fld dword ptr [esp + 0x10]\n0xf fmul dword ptr [eax + 8]\n0x12 faddp st(1)\n0x14 fld dword ptr [esp + 8]\n0x18 fmul dword ptr [eax]\n0x1a faddp st(1)\n0x1c fadd dword ptr [eax + 0xc]\n0x1f fstp dword ptr [eax + 0xc]\n0x22 fld dword ptr [esp + 8]\n0x26 fmul dword ptr [eax + 0x10]\n0x29 fld dword ptr [esp + 0xc]\n0x2d fmul dword ptr [eax + 0x14]\n0x30 faddp st(1)\n0x32 fld dword ptr [esp + 0x10]\n0x36 fmul dword ptr [eax + 0x18]\n0x39 faddp st(1)\n0x3b fadd dword ptr [eax + 0x1c]\n0x3e fstp dword ptr [eax + 0x1c]\n0x41 fld dword ptr [esp + 8]\n0x45 fmul dword ptr [eax + 0x20]\n0x48 fld dword ptr [esp + 0xc]\n0x4c fmul dword ptr [eax + 0x24]\n0x4f faddp st(1)\n0x51 fld dword ptr [esp + 0x10]\n0x55 fmul dword ptr [eax + 0x28]\n0x58 faddp st(1)\n0x5a fadd dword ptr [eax + 0x2c]\n0x5d fstp dword ptr [eax + 0x2c]\n0x60 ret "
+      },
+      "_vector": {
+        "bytes": 89,
+        "sha256": "b07ce10873113f94afe5a5407ee431034aa4cf5b53092368d4bfd4ffd1fcf09d",
+        "listing": "0x0 mov eax, dword ptr [esp + 4]\n0x4 mov ecx, dword ptr [esp + 8]\n0x8 fld dword ptr [eax + 4]\n0xb fmul dword ptr [ecx + 4]\n0xe fld dword ptr [eax + 8]\n0x11 fmul dword ptr [ecx + 8]\n0x14 faddp st(1)\n0x16 fld dword ptr [eax]\n0x18 fmul dword ptr [ecx]\n0x1a faddp st(1)\n0x1c fadd dword ptr [eax + 0xc]\n0x1f fstp dword ptr [eax + 0xc]\n0x22 fld dword ptr [eax + 0x14]\n0x25 fmul dword ptr [ecx + 4]\n0x28 fld dword ptr [eax + 0x10]\n0x2b fmul dword ptr [ecx]\n0x2d faddp st(1)\n0x2f fld dword ptr [eax + 0x18]\n0x32 fmul dword ptr [ecx + 8]\n0x35 faddp st(1)\n0x37 fadd dword ptr [eax + 0x1c]\n0x3a fstp dword ptr [eax + 0x1c]\n0x3d fld dword ptr [eax + 0x24]\n0x40 fmul dword ptr [ecx + 4]\n0x43 fld dword ptr [eax + 0x20]\n0x46 fmul dword ptr [ecx]\n0x48 faddp st(1)\n0x4a fld dword ptr [eax + 0x28]\n0x4d fmul dword ptr [ecx + 8]\n0x50 faddp st(1)\n0x52 fadd dword ptr [eax + 0x2c]\n0x55 fstp dword ptr [eax + 0x2c]\n0x58 ret "
+      },
+      "_scalar_local": {
+        "bytes": 301,
+        "sha256": "094a75f63dafd28d2e1047c589c91dfad02278eaee312f0d4f9d47a34abc344e",
+        "listing": "0x0 sub esp, 0x34\n0x3 mov eax, dword ptr [esp + 0x3c]\n0x7 push ebx\n0x8 push ebp\n0x9 push esi\n0xa mov ebp, dword ptr [eax + 0x18]\n0xd mov ecx, dword ptr [eax]\n0xf mov dword ptr [esp + 0x28], ebp\n0x13 mov ebp, dword ptr [eax + 0x1c]\n0x16 mov edx, dword ptr [eax + 4]\n0x19 mov esi, dword ptr [eax + 8]\n0x1c mov ebx, dword ptr [eax + 0x14]\n0x1f mov dword ptr [esp + 0x2c], ebp\n0x23 mov ebp, dword ptr [eax + 0x20]\n0x26 push edi\n0x27 mov edi, dword ptr [eax + 0xc]\n0x2a mov dword ptr [esp + 0x34], ebp\n0x2e mov ebp, dword ptr [eax + 0x24]\n0x31 mov dword ptr [esp + 0x20], edi\n0x35 mov edi, dword ptr [eax + 0x10]\n0x38 mov dword ptr [esp + 0x38], ebp\n0x3c mov ebp, dword ptr [eax + 0x28]\n0x3f mov eax, dword ptr [eax + 0x2c]\n0x42 mov dword ptr [esp + 0x40], eax\n0x46 mov eax, dword ptr [esp + 0x50]\n0x4a mov dword ptr [esp + 0x3c], ebp\n0x4e mov dword ptr [esp + 0x14], ecx\n0x52 mov ebp, dword ptr [eax + 8]\n0x55 mov dword ptr [esp + 0x1c], esi\n0x59 mov dword ptr [esp + 0x10], ebp\n0x5d mov ebp, dword ptr [eax + 4]\n0x60 mov eax, dword ptr [eax]\n0x62 mov dword ptr [esp + 0x50], ebp\n0x66 mov dword ptr [esp + 0x4c], eax\n0x6a mov dword ptr [esp + 0x18], edx\n0x6e fld dword ptr [esp + 0x4c]\n0x72 fmul dword ptr [esp + 0x14]\n0x76 fld dword ptr [esp + 0x1c]\n0x7a fmul dword ptr [esp + 0x10]\n0x7e mov dword ptr [esp + 0x24], edi\n0x82 mov dword ptr [esp + 0x28], ebx\n0x86 mov eax, dword ptr [esp + 0x48]\n0x8a faddp st(1)\n0x8c fld dword ptr [esp + 0x50]\n0x90 fmul dword ptr [esp + 0x18]\n0x94 mov dword ptr [eax], ecx\n0x96 mov dword ptr [eax + 4], edx\n0x99 mov edx, dword ptr [esp + 0x2c]\n0x9d mov dword ptr [eax + 8], esi\n0xa0 faddp st(1)\n0xa2 fadd dword ptr [esp + 0x20]\n0xa6 fstp dword ptr [esp + 0x20]\n0xaa fld dword ptr [esp + 0x24]\n0xae fmul dword ptr [esp + 0x4c]\n0xb2 fld dword ptr [esp + 0x28]\n0xb6 fmul dword ptr [esp + 0x50]\n0xba mov ecx, dword ptr [esp + 0x20]\n0xbe mov dword ptr [eax + 0xc], ecx\n0xc1 mov dword ptr [eax + 0x10], edi\n0xc4 faddp st(1)\n0xc6 fld dword ptr [esp + 0x2c]\n0xca fmul dword ptr [esp + 0x10]\n0xce mov dword ptr [eax + 0x14], ebx\n0xd1 mov dword ptr [eax + 0x18], edx\n0xd4 faddp st(1)\n0xd6 fadd dword ptr [esp + 0x30]\n0xda fstp dword ptr [esp + 0x30]\n0xde fld dword ptr [esp + 0x34]\n0xe2 fmul dword ptr [esp + 0x4c]\n0xe6 fld dword ptr [esp + 0x38]\n0xea fmul dword ptr [esp + 0x50]\n0xee mov ecx, dword ptr [esp + 0x30]\n0xf2 mov dword ptr [eax + 0x1c], ecx\n0xf5 faddp st(1)\n0xf7 fld dword ptr [esp + 0x3c]\n0xfb fmul dword ptr [esp + 0x10]\n0xff faddp st(1)\n0x101 fadd dword ptr [esp + 0x40]\n0x105 fstp dword ptr [esp + 0x40]\n0x109 mov edx, dword ptr [esp + 0x34]\n0x10d mov ecx, dword ptr [esp + 0x38]\n0x111 mov dword ptr [eax + 0x20], edx\n0x114 mov edx, dword ptr [esp + 0x3c]\n0x118 mov dword ptr [eax + 0x24], ecx\n0x11b mov ecx, dword ptr [esp + 0x40]\n0x11f pop edi\n0x120 pop esi\n0x121 pop ebp\n0x122 mov dword ptr [eax + 0x28], edx\n0x125 mov dword ptr [eax + 0x2c], ecx\n0x128 pop ebx\n0x129 add esp, 0x34\n0x12c ret "
+      },
+      "_vector_local": {
+        "bytes": 265,
+        "sha256": "cbe6912fdf3931f498e0635915d8907ac04064ecc3c83ffad455b873419eb57b",
+        "listing": "0x0 sub esp, 0x30\n0x3 mov eax, dword ptr [esp + 0x38]\n0x7 push ebx\n0x8 push ebp\n0x9 push esi\n0xa mov ebp, dword ptr [eax + 0x18]\n0xd mov ecx, dword ptr [eax]\n0xf mov dword ptr [esp + 0x24], ebp\n0x13 mov ebp, dword ptr [eax + 0x1c]\n0x16 mov edx, dword ptr [eax + 4]\n0x19 mov esi, dword ptr [eax + 8]\n0x1c mov ebx, dword ptr [eax + 0x14]\n0x1f mov dword ptr [esp + 0x28], ebp\n0x23 mov ebp, dword ptr [eax + 0x20]\n0x26 push edi\n0x27 mov edi, dword ptr [eax + 0xc]\n0x2a mov dword ptr [esp + 0x30], ebp\n0x2e mov ebp, dword ptr [eax + 0x24]\n0x31 mov dword ptr [esp + 0x1c], edi\n0x35 mov edi, dword ptr [eax + 0x10]\n0x38 mov dword ptr [esp + 0x34], ebp\n0x3c mov ebp, dword ptr [eax + 0x28]\n0x3f mov eax, dword ptr [eax + 0x2c]\n0x42 mov dword ptr [esp + 0x3c], eax\n0x46 mov eax, dword ptr [esp + 0x4c]\n0x4a mov dword ptr [esp + 0x14], edx\n0x4e mov dword ptr [esp + 0x18], esi\n0x52 fld dword ptr [esp + 0x14]\n0x56 fmul dword ptr [eax + 4]\n0x59 fld dword ptr [esp + 0x18]\n0x5d fmul dword ptr [eax + 8]\n0x60 mov dword ptr [esp + 0x10], ecx\n0x64 mov dword ptr [esp + 0x24], ebx\n0x68 mov dword ptr [esp + 0x20], edi\n0x6c mov dword ptr [esp + 0x38], ebp\n0x70 faddp st(1)\n0x72 fld dword ptr [esp + 0x10]\n0x76 fmul dword ptr [eax]\n0x78 faddp st(1)\n0x7a fadd dword ptr [esp + 0x1c]\n0x7e fstp dword ptr [esp + 0x1c]\n0x82 fld dword ptr [esp + 0x24]\n0x86 fmul dword ptr [eax + 4]\n0x89 fld dword ptr [esp + 0x28]\n0x8d fmul dword ptr [eax + 8]\n0x90 faddp st(1)\n0x92 fld dword ptr [esp + 0x20]\n0x96 fmul dword ptr [eax]\n0x98 faddp st(1)\n0x9a fadd dword ptr [esp + 0x2c]\n0x9e fstp dword ptr [esp + 0x2c]\n0xa2 fld dword ptr [esp + 0x34]\n0xa6 fmul dword ptr [eax + 4]\n0xa9 fld dword ptr [esp + 0x38]\n0xad fmul dword ptr [eax + 8]\n0xb0 faddp st(1)\n0xb2 fld dword ptr [esp + 0x30]\n0xb6 fmul dword ptr [eax]\n0xb8 mov eax, dword ptr [esp + 0x44]\n0xbc faddp st(1)\n0xbe mov dword ptr [eax], ecx\n0xc0 mov ecx, dword ptr [esp + 0x1c]\n0xc4 mov dword ptr [eax + 4], edx\n0xc7 mov edx, dword ptr [esp + 0x28]\n0xcb fadd dword ptr [esp + 0x3c]\n0xcf mov dword ptr [eax + 8], esi\n0xd2 mov dword ptr [eax + 0xc], ecx\n0xd5 mov ecx, dword ptr [esp + 0x2c]\n0xd9 mov dword ptr [eax + 0x18], edx\n0xdc mov edx, dword ptr [esp + 0x30]\n0xe0 mov dword ptr [eax + 0x10], edi\n0xe3 fstp dword ptr [esp + 0x3c]\n0xe7 mov dword ptr [eax + 0x14], ebx\n0xea mov dword ptr [eax + 0x1c], ecx\n0xed mov ecx, dword ptr [esp + 0x34]\n0xf1 mov dword ptr [eax + 0x20], edx\n0xf4 mov edx, dword ptr [esp + 0x3c]\n0xf8 pop edi\n0xf9 mov dword ptr [eax + 0x24], ecx\n0xfc mov dword ptr [eax + 0x28], ebp\n0xff mov dword ptr [eax + 0x2c], edx\n0x102 pop esi\n0x103 pop ebp\n0x104 pop ebx\n0x105 add esp, 0x30\n0x108 ret "
+      },
+      "_scalar_alias": {
+        "bytes": 301,
+        "sha256": "051f223f578b866c82cfc45de33a37b58325f77ffbb0f94e749cc9d8d9ab8903",
+        "listing": "0x0 sub esp, 0x34\n0x3 mov eax, dword ptr [esp + 0x3c]\n0x7 push ebx\n0x8 push ebp\n0x9 push esi\n0xa mov ebp, dword ptr [eax + 0x18]\n0xd mov ecx, dword ptr [eax]\n0xf mov dword ptr [esp + 0x28], ebp\n0x13 mov ebp, dword ptr [eax + 0x1c]\n0x16 mov edx, dword ptr [eax + 4]\n0x19 mov esi, dword ptr [eax + 8]\n0x1c mov ebx, dword ptr [eax + 0x14]\n0x1f mov dword ptr [esp + 0x2c], ebp\n0x23 mov ebp, dword ptr [eax + 0x20]\n0x26 push edi\n0x27 mov edi, dword ptr [eax + 0xc]\n0x2a mov dword ptr [esp + 0x34], ebp\n0x2e mov ebp, dword ptr [eax + 0x24]\n0x31 mov dword ptr [esp + 0x20], edi\n0x35 mov edi, dword ptr [eax + 0x10]\n0x38 mov dword ptr [esp + 0x38], ebp\n0x3c mov ebp, dword ptr [eax + 0x28]\n0x3f mov eax, dword ptr [eax + 0x2c]\n0x42 mov dword ptr [esp + 0x40], eax\n0x46 mov eax, dword ptr [esp + 0x50]\n0x4a mov dword ptr [esp + 0x3c], ebp\n0x4e mov dword ptr [esp + 0x18], edx\n0x52 mov ebp, dword ptr [eax + 8]\n0x55 mov dword ptr [esp + 0x14], ecx\n0x59 fld dword ptr [esp + 0x18]\n0x5d mov dword ptr [esp + 0x10], ebp\n0x61 mov ebp, dword ptr [eax + 4]\n0x64 mov eax, dword ptr [eax]\n0x66 mov dword ptr [esp + 0x50], ebp\n0x6a fmul dword ptr [esp + 0x50]\n0x6e mov dword ptr [esp + 0x4c], eax\n0x72 mov dword ptr [esp + 0x1c], esi\n0x76 fld dword ptr [esp + 0x4c]\n0x7a fmul dword ptr [esp + 0x14]\n0x7e mov dword ptr [esp + 0x28], ebx\n0x82 mov dword ptr [esp + 0x24], edi\n0x86 mov eax, dword ptr [esp + 0x48]\n0x8a faddp st(1)\n0x8c fld dword ptr [esp + 0x1c]\n0x90 fmul dword ptr [esp + 0x10]\n0x94 mov dword ptr [eax], ecx\n0x96 mov dword ptr [eax + 4], edx\n0x99 mov edx, dword ptr [esp + 0x2c]\n0x9d mov dword ptr [eax + 8], esi\n0xa0 faddp st(1)\n0xa2 fadd dword ptr [esp + 0x20]\n0xa6 fstp dword ptr [esp + 0x20]\n0xaa fld dword ptr [esp + 0x28]\n0xae fmul dword ptr [esp + 0x50]\n0xb2 fld dword ptr [esp + 0x2c]\n0xb6 fmul dword ptr [esp + 0x10]\n0xba mov ecx, dword ptr [esp + 0x20]\n0xbe mov dword ptr [eax + 0xc], ecx\n0xc1 mov dword ptr [eax + 0x10], edi\n0xc4 faddp st(1)\n0xc6 fld dword ptr [esp + 0x24]\n0xca fmul dword ptr [esp + 0x4c]\n0xce mov dword ptr [eax + 0x14], ebx\n0xd1 mov dword ptr [eax + 0x18], edx\n0xd4 faddp st(1)\n0xd6 fadd dword ptr [esp + 0x30]\n0xda fstp dword ptr [esp + 0x30]\n0xde fld dword ptr [esp + 0x34]\n0xe2 fmul dword ptr [esp + 0x4c]\n0xe6 fld dword ptr [esp + 0x38]\n0xea fmul dword ptr [esp + 0x50]\n0xee mov ecx, dword ptr [esp + 0x30]\n0xf2 mov dword ptr [eax + 0x1c], ecx\n0xf5 faddp st(1)\n0xf7 fld dword ptr [esp + 0x3c]\n0xfb fmul dword ptr [esp + 0x10]\n0xff faddp st(1)\n0x101 fadd dword ptr [esp + 0x40]\n0x105 fstp dword ptr [esp + 0x40]\n0x109 mov edx, dword ptr [esp + 0x34]\n0x10d mov ecx, dword ptr [esp + 0x38]\n0x111 mov dword ptr [eax + 0x20], edx\n0x114 mov edx, dword ptr [esp + 0x3c]\n0x118 mov dword ptr [eax + 0x24], ecx\n0x11b mov ecx, dword ptr [esp + 0x40]\n0x11f pop edi\n0x120 pop esi\n0x121 pop ebp\n0x122 mov dword ptr [eax + 0x28], edx\n0x125 mov dword ptr [eax + 0x2c], ecx\n0x128 pop ebx\n0x129 add esp, 0x34\n0x12c ret "
+      },
+      "_xyz": {
+        "bytes": 35,
+        "sha256": "3508e6367ba098c1c02068e90ff4d8260ee82a84f1f495a621c6849dc604f263",
+        "listing": "0x0 mov eax, dword ptr [esp + 4]\n0x4 fld dword ptr [esp + 0xc]\n0x8 fmul dword ptr [eax + 4]\n0xb fld dword ptr [esp + 0x10]\n0xf fmul dword ptr [eax + 8]\n0x12 faddp st(1)\n0x14 fld dword ptr [esp + 8]\n0x18 fmul dword ptr [eax]\n0x1a faddp st(1)\n0x1c fadd dword ptr [eax + 0xc]\n0x1f fstp dword ptr [eax + 0xc]\n0x22 ret "
+      },
+      "_xyz_cast": {
+        "bytes": 35,
+        "sha256": "3508e6367ba098c1c02068e90ff4d8260ee82a84f1f495a621c6849dc604f263",
+        "listing": "0x0 mov eax, dword ptr [esp + 4]\n0x4 fld dword ptr [esp + 0xc]\n0x8 fmul dword ptr [eax + 4]\n0xb fld dword ptr [esp + 0x10]\n0xf fmul dword ptr [eax + 8]\n0x12 faddp st(1)\n0x14 fld dword ptr [esp + 8]\n0x18 fmul dword ptr [eax]\n0x1a faddp st(1)\n0x1c fadd dword ptr [eax + 0xc]\n0x1f fstp dword ptr [eax + 0xc]\n0x22 ret "
+      },
+      "_xzy": {
+        "bytes": 35,
+        "sha256": "ce9571cf4d0b1b46dbf338487a3b121a0130938102977a0ae990873ba174bef3",
+        "listing": "0x0 mov eax, dword ptr [esp + 4]\n0x4 fld dword ptr [esp + 0x10]\n0x8 fmul dword ptr [eax + 8]\n0xb fld dword ptr [esp + 8]\n0xf fmul dword ptr [eax]\n0x11 faddp st(1)\n0x13 fld dword ptr [esp + 0xc]\n0x17 fmul dword ptr [eax + 4]\n0x1a faddp st(1)\n0x1c fadd dword ptr [eax + 0xc]\n0x1f fstp dword ptr [eax + 0xc]\n0x22 ret "
+      },
+      "_xyz_parens": {
+        "bytes": 35,
+        "sha256": "0e2f0c27a9cf6426955cb738a8dc3a8a698e3b069ff46e13e03ab0406f5fdee5",
+        "listing": "0x0 mov eax, dword ptr [esp + 4]\n0x4 fld dword ptr [esp + 0xc]\n0x8 fmul dword ptr [eax + 4]\n0xb fld dword ptr [esp + 8]\n0xf fmul dword ptr [eax]\n0x11 faddp st(1)\n0x13 fld dword ptr [esp + 0x10]\n0x17 fmul dword ptr [eax + 8]\n0x1a faddp st(1)\n0x1c fadd dword ptr [eax + 0xc]\n0x1f fstp dword ptr [eax + 0xc]\n0x22 ret "
+      }
+    }
+  },
+  "target_experiments": [
+    {
+      "name": "inverse_alias_control",
+      "classification": "known repeat control",
+      "source_sha256": "933cbd2955fd83446072978a3481691d436f2822a68353156bd163f11777f609",
+      "header_sha256": "676603b23ef58280c75c4ae54d2557b048823767e342d9b64afa93b9eaac50c6",
+      "header_patch": "",
+      "metrics": {
+        "raw_residue": 33,
+        "masked_residue": 33,
+        "instructions": 302,
+        "executable_bytes": 969,
+        "operand_stores": {
+          "candidate": {
+            "positive": [
+              {
+                "offset": "0x171",
+                "destination": "m03",
+                "expression": "((((m01 * y) + (m02 * z)) + (m00 * x)) + m03)"
+              },
+              {
+                "offset": "0x195",
+                "destination": "m13",
+                "expression": "((((m10 * x) + (m11 * y)) + (m12 * z)) + m13)"
+              },
+              {
+                "offset": "0x1c8",
+                "destination": "m23",
+                "expression": "((((m20 * x) + (m21 * y)) + (m22 * z)) + m23)"
+              }
+            ],
+            "negative": [
+              {
+                "offset": "0x213",
+                "destination": "m03",
+                "expression": "((((m02 * (-z)) + (m01 * (-y))) + ((-x) * m00)) + m03)"
+              },
+              {
+                "offset": "0x231",
+                "destination": "m13",
+                "expression": "((((m12 * (-z)) + (m10 * (-x))) + (m11 * (-y))) + m13)"
+              },
+              {
+                "offset": "0x24f",
+                "destination": "m23",
+                "expression": "((((m22 * (-z)) + (m20 * (-x))) + (m21 * (-y))) + m23)"
+              }
+            ]
+          },
+          "retail": {
+            "positive": [
+              {
+                "offset": "0x171",
+                "destination": "m03",
+                "expression": "((((x * m00) + (m02 * z)) + (m01 * y)) + m03)"
+              },
+              {
+                "offset": "0x195",
+                "destination": "m13",
+                "expression": "((((m10 * x) + (m12 * z)) + (m11 * y)) + m13)"
+              },
+              {
+                "offset": "0x1c8",
+                "destination": "m23",
+                "expression": "((((m20 * x) + (m22 * z)) + (m21 * y)) + m23)"
+              }
+            ],
+            "negative": [
+              {
+                "offset": "0x213",
+                "destination": "m03",
+                "expression": "(((((-x) * m00) + (m02 * (-z))) + (m01 * (-y))) + m03)"
+              },
+              {
+                "offset": "0x231",
+                "destination": "m13",
+                "expression": "((((m10 * (-x)) + (m12 * (-z))) + (m11 * (-y))) + m13)"
+              },
+              {
+                "offset": "0x24f",
+                "destination": "m23",
+                "expression": "((((m20 * (-x)) + (m22 * (-z))) + (m21 * (-y))) + m23)"
+              }
+            ]
+          }
+        }
+      },
+      "pair_delta": "+0/-0; 12 exact unit pairs incl 0x542EE0",
+      "nontranslation_relocation_masked_bytes_equal": true
+    },
+    {
+      "name": "header_xyz_parenthesized",
+      "classification": "FP grouping diagnostic; not a valid production attempt",
+      "source_sha256": "933cbd2955fd83446072978a3481691d436f2822a68353156bd163f11777f609",
+      "header_sha256": "53f86bf48b65dcc28d921786096e9c1e55582337671cb8b6412395dfa1066939",
+      "header_patch": "--- matrix3d.h\n+++ matrix3d.h\n@@ -656,7 +656,7 @@\n WWINLINE void Matrix3D::Translate(float x,float y,float z)\n {\n-\tRow[0][3]  += (float)(Row[0][0]*x + Row[0][1]*y + Row[0][2]*z);\n-\tRow[1][3]  += (float)(Row[1][0]*x + Row[1][1]*y + Row[1][2]*z);\n-\tRow[2][3]  += (float)(Row[2][0]*x + Row[2][1]*y + Row[2][2]*z);\n+\tRow[0][3]  += (float)((Row[0][0]*x + Row[0][1]*y) + Row[0][2]*z);\n+\tRow[1][3]  += (float)((Row[1][0]*x + Row[1][1]*y) + Row[1][2]*z);\n+\tRow[2][3]  += (float)((Row[2][0]*x + Row[2][1]*y) + Row[2][2]*z);\n }\n \n@@ -676,7 +676,7 @@\n WWINLINE void Matrix3D::Translate(const Vector3 &t)\n {\n-\tRow[0][3]  += Row[0][0]*t[0] + Row[0][1]*t[1] + Row[0][2]*t[2];\n-\tRow[1][3]  += Row[1][0]*t[0] + Row[1][1]*t[1] + Row[1][2]*t[2];\n-\tRow[2][3]  += Row[2][0]*t[0] + Row[2][1]*t[1] + Row[2][2]*t[2];\n+\tRow[0][3]  += (Row[0][0]*t[0] + Row[0][1]*t[1]) + Row[0][2]*t[2];\n+\tRow[1][3]  += (Row[1][0]*t[0] + Row[1][1]*t[1]) + Row[1][2]*t[2];\n+\tRow[2][3]  += (Row[2][0]*t[0] + Row[2][1]*t[1]) + Row[2][2]*t[2];\n }\n \n",
+      "metrics": {
+        "raw_residue": 39,
+        "masked_residue": 9,
+        "instructions": 302,
+        "executable_bytes": 969,
+        "operand_stores": {
+          "candidate": {
+            "positive": [
+              {
+                "offset": "0x171",
+                "destination": "m03",
+                "expression": "((((m01 * y) + (m00 * x)) + (m02 * z)) + m03)"
+              },
+              {
+                "offset": "0x195",
+                "destination": "m13",
+                "expression": "((((m10 * x) + (m11 * y)) + (m12 * z)) + m13)"
+              },
+              {
+                "offset": "0x1c8",
+                "destination": "m23",
+                "expression": "((((m20 * x) + (m21 * y)) + (m22 * z)) + m23)"
+              }
+            ],
+            "negative": [
+              {
+                "offset": "0x213",
+                "destination": "m03",
+                "expression": "((((m01 * (-y)) + ((-x) * m00)) + (m02 * (-z))) + m03)"
+              },
+              {
+                "offset": "0x231",
+                "destination": "m13",
+                "expression": "((((m10 * (-x)) + (m11 * (-y))) + (m12 * (-z))) + m13)"
+              },
+              {
+                "offset": "0x24f",
+                "destination": "m23",
+                "expression": "((((m20 * (-x)) + (m21 * (-y))) + (m22 * (-z))) + m23)"
+              }
+            ]
+          },
+          "retail": {
+            "positive": [
+              {
+                "offset": "0x171",
+                "destination": "m03",
+                "expression": "((((x * m00) + (m02 * z)) + (m01 * y)) + m03)"
+              },
+              {
+                "offset": "0x195",
+                "destination": "m13",
+                "expression": "((((m10 * x) + (m12 * z)) + (m11 * y)) + m13)"
+              },
+              {
+                "offset": "0x1c8",
+                "destination": "m23",
+                "expression": "((((m20 * x) + (m22 * z)) + (m21 * y)) + m23)"
+              }
+            ],
+            "negative": [
+              {
+                "offset": "0x213",
+                "destination": "m03",
+                "expression": "(((((-x) * m00) + (m02 * (-z))) + (m01 * (-y))) + m03)"
+              },
+              {
+                "offset": "0x231",
+                "destination": "m13",
+                "expression": "((((m10 * (-x)) + (m12 * (-z))) + (m11 * (-y))) + m13)"
+              },
+              {
+                "offset": "0x24f",
+                "destination": "m23",
+                "expression": "((((m20 * (-x)) + (m22 * (-z))) + (m21 * (-y))) + m23)"
+              }
+            ]
+          }
+        }
+      },
+      "pair_delta": "+0/-0; 12 exact unit pairs incl 0x542EE0",
+      "nontranslation_relocation_masked_bytes_equal": true
+    },
+    {
+      "name": "header_xzy_parenthesized",
+      "classification": "FP grouping diagnostic; not a valid production attempt",
+      "source_sha256": "933cbd2955fd83446072978a3481691d436f2822a68353156bd163f11777f609",
+      "header_sha256": "e91a40f7aaa0b7710d23032ee818795301a06b89b499d0f23118b96030e4b2d2",
+      "header_patch": "--- matrix3d.h\n+++ matrix3d.h\n@@ -656,7 +656,7 @@\n WWINLINE void Matrix3D::Translate(float x,float y,float z)\n {\n-\tRow[0][3]  += (float)(Row[0][0]*x + Row[0][1]*y + Row[0][2]*z);\n-\tRow[1][3]  += (float)(Row[1][0]*x + Row[1][1]*y + Row[1][2]*z);\n-\tRow[2][3]  += (float)(Row[2][0]*x + Row[2][1]*y + Row[2][2]*z);\n+\tRow[0][3]  += (float)((Row[0][0]*x + Row[0][2]*z) + Row[0][1]*y);\n+\tRow[1][3]  += (float)((Row[1][0]*x + Row[1][2]*z) + Row[1][1]*y);\n+\tRow[2][3]  += (float)((Row[2][0]*x + Row[2][2]*z) + Row[2][1]*y);\n }\n \n@@ -676,7 +676,7 @@\n WWINLINE void Matrix3D::Translate(const Vector3 &t)\n {\n-\tRow[0][3]  += Row[0][0]*t[0] + Row[0][1]*t[1] + Row[0][2]*t[2];\n-\tRow[1][3]  += Row[1][0]*t[0] + Row[1][1]*t[1] + Row[1][2]*t[2];\n-\tRow[2][3]  += Row[2][0]*t[0] + Row[2][1]*t[1] + Row[2][2]*t[2];\n+\tRow[0][3]  += (Row[0][0]*t[0] + Row[0][2]*t[2]) + Row[0][1]*t[1];\n+\tRow[1][3]  += (Row[1][0]*t[0] + Row[1][2]*t[2]) + Row[1][1]*t[1];\n+\tRow[2][3]  += (Row[2][0]*t[0] + Row[2][2]*t[2]) + Row[2][1]*t[1];\n }\n \n",
+      "metrics": {
+        "raw_residue": 19,
+        "masked_residue": 9,
+        "instructions": 302,
+        "executable_bytes": 969,
+        "operand_stores": {
+          "candidate": {
+            "positive": [
+              {
+                "offset": "0x171",
+                "destination": "m03",
+                "expression": "((((m02 * z) + (m00 * x)) + (m01 * y)) + m03)"
+              },
+              {
+                "offset": "0x195",
+                "destination": "m13",
+                "expression": "((((m10 * x) + (m12 * z)) + (m11 * y)) + m13)"
+              },
+              {
+                "offset": "0x1c8",
+                "destination": "m23",
+                "expression": "((((m20 * x) + (m22 * z)) + (m21 * y)) + m23)"
+              }
+            ],
+            "negative": [
+              {
+                "offset": "0x213",
+                "destination": "m03",
+                "expression": "((((m02 * (-z)) + ((-x) * m00)) + (m01 * (-y))) + m03)"
+              },
+              {
+                "offset": "0x231",
+                "destination": "m13",
+                "expression": "((((m12 * (-z)) + (m10 * (-x))) + (m11 * (-y))) + m13)"
+              },
+              {
+                "offset": "0x24f",
+                "destination": "m23",
+                "expression": "((((m22 * (-z)) + (m20 * (-x))) + (m21 * (-y))) + m23)"
+              }
+            ]
+          },
+          "retail": {
+            "positive": [
+              {
+                "offset": "0x171",
+                "destination": "m03",
+                "expression": "((((x * m00) + (m02 * z)) + (m01 * y)) + m03)"
+              },
+              {
+                "offset": "0x195",
+                "destination": "m13",
+                "expression": "((((m10 * x) + (m12 * z)) + (m11 * y)) + m13)"
+              },
+              {
+                "offset": "0x1c8",
+                "destination": "m23",
+                "expression": "((((m20 * x) + (m22 * z)) + (m21 * y)) + m23)"
+              }
+            ],
+            "negative": [
+              {
+                "offset": "0x213",
+                "destination": "m03",
+                "expression": "(((((-x) * m00) + (m02 * (-z))) + (m01 * (-y))) + m03)"
+              },
+              {
+                "offset": "0x231",
+                "destination": "m13",
+                "expression": "((((m10 * (-x)) + (m12 * (-z))) + (m11 * (-y))) + m13)"
+              },
+              {
+                "offset": "0x24f",
+                "destination": "m23",
+                "expression": "((((m20 * (-x)) + (m22 * (-z))) + (m21 * (-y))) + m23)"
+              }
+            ]
+          }
+        }
+      },
+      "pair_delta": "+0/-0; 12 exact unit pairs incl 0x542EE0",
+      "nontranslation_relocation_masked_bytes_equal": true
+    }
+  ],
+  "sibling_evidence": [
+    {
+      "address": "0x80CD90",
+      "name": "Matrix3D::Translate(float,float,float)",
+      "source": "app/client/ship_pip.cpp",
+      "source_sha256": "e261a36acb50fc3888fbdcb0e52a9588a0ae8d3f00e0c97d2603eed53f55b975",
+      "proof": {
+        "address": "0x80CD90",
+        "symbol": "?Translate@Matrix3D@@QAEXMMM@Z",
+        "name": "Matrix3D::Translate",
+        "kind": "function",
+        "source": "exact",
+        "length": 95
+      },
+      "window": [
+        "0x80cd90",
+        "0x80cdec"
+      ],
+      "stores": [
+        {
+          "address": "0x80cdab",
+          "destination": "dword ptr [ecx + 0xc]",
+          "width": 4,
+          "expression": "R32(((((y * m01) + (z * m02)) + (x * m00)) + m03))"
+        },
+        {
+          "address": "0x80cdca",
+          "destination": "dword ptr [ecx + 0x1c]",
+          "width": 4,
+          "expression": "R32(((((x * m10) + (y * m11)) + (z * m12)) + m13))"
+        },
+        {
+          "address": "0x80cde9",
+          "destination": "dword ptr [ecx + 0x2c]",
+          "width": 4,
+          "expression": "R32(((((x * m20) + (y * m21)) + (z * m22)) + m23))"
+        }
+      ],
+      "instructions": "0080CD90 fld      dword ptr [esp + 8]\n0080CD94 fmul     dword ptr [ecx + 4]\n0080CD97 fld      dword ptr [esp + 0xc]\n0080CD9B fmul     dword ptr [ecx + 8]\n0080CD9E faddp    st(1)\n0080CDA0 fld      dword ptr [esp + 4]\n0080CDA4 fmul     dword ptr [ecx]\n0080CDA6 faddp    st(1)\n0080CDA8 fadd     dword ptr [ecx + 0xc]\n0080CDAB fstp     dword ptr [ecx + 0xc]\n0080CDAE fld      dword ptr [esp + 4]\n0080CDB2 fmul     dword ptr [ecx + 0x10]\n0080CDB5 fld      dword ptr [esp + 8]\n0080CDB9 fmul     dword ptr [ecx + 0x14]\n0080CDBC faddp    st(1)\n0080CDBE fld      dword ptr [esp + 0xc]\n0080CDC2 fmul     dword ptr [ecx + 0x18]\n0080CDC5 faddp    st(1)\n0080CDC7 fadd     dword ptr [ecx + 0x1c]\n0080CDCA fstp     dword ptr [ecx + 0x1c]\n0080CDCD fld      dword ptr [esp + 4]\n0080CDD1 fmul     dword ptr [ecx + 0x20]\n0080CDD4 fld      dword ptr [esp + 8]\n0080CDD8 fmul     dword ptr [ecx + 0x24]\n0080CDDB faddp    st(1)\n0080CDDD fld      dword ptr [esp + 0xc]\n0080CDE1 fmul     dword ptr [ecx + 0x28]\n0080CDE4 faddp    st(1)\n0080CDE6 fadd     dword ptr [ecx + 0x2c]\n0080CDE9 fstp     dword ptr [ecx + 0x2c]\n"
+    },
+    {
+      "address": "0x47F610",
+      "name": "OffsetRenderObjClass::Set_Transform",
+      "source": "app/shared/ro_offset.cpp",
+      "source_sha256": "5e50e2da28e22a94f0fb05a2e71d52b1b2effc54e7aec12641889652e71c90d6",
+      "proof": {
+        "address": "0x47F610",
+        "symbol": "?Set_Transform@OffsetRenderObjClass@@UAEXABVMatrix3D@@@Z",
+        "name": "OffsetRenderObjClass::Set_Transform",
+        "kind": "function",
+        "source": "exact",
+        "length": 253,
+        "proof": "vtable"
+      },
+      "window": [
+        "0x47f63e",
+        "0x47f701"
+      ],
+      "stores": [
+        {
+          "address": "0x47f6a6",
+          "destination": "dword ptr [esp + 0x10]",
+          "width": 4,
+          "expression": "R32(((((m00 * x) + (m02 * z)) + (m01 * y)) + m03))"
+        },
+        {
+          "address": "0x47f6d3",
+          "destination": "dword ptr [esp + 0x24]",
+          "width": 4,
+          "expression": "R32(((((m10 * x) + (m12 * z)) + (m11 * y)) + m13))"
+        },
+        {
+          "address": "0x47f6fd",
+          "destination": "dword ptr [esp + 0x34]",
+          "width": 4,
+          "expression": "R32(((((m20 * x) + (m21 * y)) + (m22 * z)) + m23))"
+        }
+      ],
+      "instructions": "0047F63E fld      dword ptr [esp + 4]\n0047F642 fmul     dword ptr [esi + 0xc4]\n0047F648 mov      dword ptr [esp + 0xc], edx\n0047F64C mov      dword ptr [esp + 8], eax\n0047F650 fld      dword ptr [esp + 0xc]\n0047F654 fmul     dword ptr [esi + 0xcc]\n0047F65A mov      eax, dword ptr [esi + 0x2c]\n0047F65D mov      edx, dword ptr [esi + 0x30]\n0047F660 mov      dword ptr [esp + 0x14], eax\n0047F664 mov      eax, dword ptr [esi + 0x34]\n0047F667 faddp    st(1)\n0047F669 fld      dword ptr [esp + 8]\n0047F66D fmul     dword ptr [esi + 0xc8]\n0047F673 mov      dword ptr [esp + 0x1c], eax\n0047F677 mov      dword ptr [esp + 0x18], edx\n0047F67B mov      edx, dword ptr [esi + 0x38]\n0047F67E mov      eax, dword ptr [esi + 0x3c]\n0047F681 faddp    st(1)\n0047F683 mov      dword ptr [esp + 0x20], edx\n0047F687 mov      edx, dword ptr [esi + 0x40]\n0047F68A mov      dword ptr [esp + 0x24], eax\n0047F68E mov      eax, dword ptr [esi + 0x44]\n0047F691 fadd     st(1)\n0047F693 mov      dword ptr [esp + 0x28], edx\n0047F697 mov      dword ptr [esp + 0x2c], eax\n0047F69B mov      edx, dword ptr [esi + 0x48]\n0047F69E mov      dword ptr [esp + 0x30], edx\n0047F6A2 lea      edx, [esp + 4]\n0047F6A6 fstp     dword ptr [esp + 0x10]\n0047F6AA push     edx\n0047F6AB fstp     st(0)\n0047F6AD fld      dword ptr [esp + 0x18]\n0047F6B1 fmul     dword ptr [esi + 0xc4]\n0047F6B7 fld      dword ptr [esp + 0x20]\n0047F6BB fmul     dword ptr [esi + 0xcc]\n0047F6C1 faddp    st(1)\n0047F6C3 fld      dword ptr [esp + 0x1c]\n0047F6C7 fmul     dword ptr [esi + 0xc8]\n0047F6CD faddp    st(1)\n0047F6CF fadd     dword ptr [esp + 0x24]\n0047F6D3 fstp     dword ptr [esp + 0x24]\n0047F6D7 fld      dword ptr [esp + 0x28]\n0047F6DB fmul     dword ptr [esi + 0xc4]\n0047F6E1 fld      dword ptr [esp + 0x2c]\n0047F6E5 fmul     dword ptr [esi + 0xc8]\n0047F6EB faddp    st(1)\n0047F6ED fld      dword ptr [esp + 0x30]\n0047F6F1 fmul     dword ptr [esi + 0xcc]\n0047F6F7 faddp    st(1)\n0047F6F9 fadd     dword ptr [esp + 0x34]\n0047F6FD fstp     dword ptr [esp + 0x34]\n"
+    },
+    {
+      "address": "0x989670",
+      "name": "HTreeClass::Anim_Update",
+      "source": "ww3d2/htree.cpp",
+      "source_sha256": "f26bad535d9b64d82b856353eb883f1469a85eafb38698a0f0388fba7866af56",
+      "proof": {
+        "address": "0x989670",
+        "symbol": "?Anim_Update@HTreeClass@@QAEXABVMatrix3D@@PAVHAnimClass@@M@Z",
+        "name": "HTreeClass::Anim_Update",
+        "kind": "function",
+        "source": "exact",
+        "length": 543
+      },
+      "window": [
+        "0x989755",
+        "0x9897d0"
+      ],
+      "stores": [
+        {
+          "address": "0x989767",
+          "destination": "dword ptr [esp + 0x20]",
+          "width": 4,
+          "expression": "R32((x * scale))"
+        },
+        {
+          "address": "0x989774",
+          "destination": "dword ptr [esp + 0x28]",
+          "width": 4,
+          "expression": "R32((y * scale))"
+        },
+        {
+          "address": "0x989795",
+          "destination": "dword ptr [esi + 0xc]",
+          "width": 4,
+          "expression": "R32((((((scale * z) * m02) + (R32((y * scale)) * m01)) + (R32((x * scale)) * m00)) + m03))"
+        },
+        {
+          "address": "0x9897b2",
+          "destination": "dword ptr [esi + 0x1c]",
+          "width": 4,
+          "expression": "R32((((((scale * z) * m12) + (R32((y * scale)) * m11)) + (R32((x * scale)) * m10)) + m13))"
+        },
+        {
+          "address": "0x9897cd",
+          "destination": "dword ptr [esi + 0x2c]",
+          "width": 4,
+          "expression": "R32((((((scale * z) * m22) + (R32((y * scale)) * m21)) + (R32((x * scale)) * m20)) + m23))"
+        }
+      ],
+      "instructions": "00989755 fld      dword ptr [eax + 0x18]\n00989758 fld      dword ptr [esp + 0x28]\n0098975C fmul     st(1)\n0098975E mov      eax, dword ptr [esp + 0xb0]\n00989765 push     eax\n00989766 push     ebx\n00989767 fstp     dword ptr [esp + 0x20]\n0098976B fld      dword ptr [esp + 0x34]\n0098976F fmul     st(1)\n00989771 push     ecx\n00989772 mov      ecx, ebp\n00989774 fstp     dword ptr [esp + 0x28]\n00989778 fmul     dword ptr [esp + 0x3c]\n0098977C fld      st(0)\n0098977E fmul     dword ptr [esi + 8]\n00989781 fld      dword ptr [esp + 0x28]\n00989785 fmul     dword ptr [esi + 4]\n00989788 faddp    st(1)\n0098978A fld      dword ptr [esp + 0x24]\n0098978E fmul     dword ptr [esi]\n00989790 faddp    st(1)\n00989792 fadd     dword ptr [esi + 0xc]\n00989795 fstp     dword ptr [esi + 0xc]\n00989798 fld      st(0)\n0098979A fmul     dword ptr [esi + 0x18]\n0098979D fld      dword ptr [esp + 0x28]\n009897A1 fmul     dword ptr [esi + 0x14]\n009897A4 faddp    st(1)\n009897A6 fld      dword ptr [esp + 0x24]\n009897AA fmul     dword ptr [esi + 0x10]\n009897AD faddp    st(1)\n009897AF fadd     dword ptr [esi + 0x1c]\n009897B2 fstp     dword ptr [esi + 0x1c]\n009897B5 fmul     dword ptr [esi + 0x28]\n009897B8 fld      dword ptr [esp + 0x28]\n009897BC fmul     dword ptr [esi + 0x24]\n009897BF faddp    st(1)\n009897C1 fld      dword ptr [esp + 0x24]\n009897C5 fmul     dword ptr [esi + 0x20]\n009897C8 faddp    st(1)\n009897CA fadd     dword ptr [esi + 0x2c]\n009897CD fstp     dword ptr [esi + 0x2c]\n"
+    }
+  ],
+  "counts": {
+    "probe_translation_units": 2,
+    "wrappers_each": 9,
+    "target_objects": 3,
+    "target_repeat_controls": 1,
+    "target_FP_diagnostics": 2,
+    "new_valid_production_forms": 0
+  },
+  "replay": "git archive base_commit into a fresh tree; apply source_patch in a separate source folder using patch -p0; apply each header_patch to that tree/wwmath using patch -p0 (each experiment starts from unmodified archive). Compile source with VC6 SP4 app flags/defines/includes. probe_source is standalone new TU including matrix3d.h; compile once normally and once with /Op. No existing function outside claim is rebuilt by probes. SHA256 values verify source/header/probe reconstruction. All paths/callers/metrics needed for source replay are contained here.",
+  "limitations": [
+    "No header adoption; no full app/library proof.",
+    "No global header compatibility claim; exact callers already require different pairings.",
+    "Target diagnostics change FP grouping and cannot be counted as production candidates.",
+    "x87 arithmetic precision and rounding mode depend on runtime control word, not established here. All observed translation memory operands/stores are 4 bytes; no intervening float rounding of the dot sum.",
+    "__FILE__ full scratch paths differ; native matcher normalizes basename."
+  ],
+  "compile_response_templates": {
+    "probes": "/nologo\n/c\n/MT\n/W3\n/O2\n/Ob2\n/GX\n/DWIN32\n/D_WINDOWS\n/DWIN32_LEAN_AND_MEAN\n/DWINVER=0x400\n/DNDEBUG\n/DENABLE_WWPROFILE\n/I\"${TREE}\\wwmath\"\n/I\"${TREE}\\wwlib\"\n/I\"${TREE}\\wwdebug\"\n/I\"${TREE}\\stubs\"\n/I\"${TREE}\\app\\audio\"\n/I\"${TREE}\\app\\client\"\n/I\"${TREE}\\app\\client\\html\"\n/I\"${TREE}\\app\\client\\html\\image\"\n/I\"${TREE}\\app\\client\\item\"\n/I\"${TREE}\\app\\client\\tasks\"\n/I\"${TREE}\\app\\common\"\n/I\"${TREE}\\app\\input\"\n/I\"${TREE}\\app\\kernel\"\n/I\"${TREE}\\app\\packets\"\n/I\"${TREE}\\app\\packets\\gameedit\"\n/I\"${TREE}\\app\\shared\"\n/I\"${TREE}\\app\\shared\\auxdata\"\n/I\"${TREE}\\app\\shared\\expr\"\n/I\"${TREE}\\app\\shared\\message\"\n/I\"${TREE}\\app\\wwudp\"\n/I\"${TREE}\\wwsaveload\"\n/I\"${TREE}\\wwaudio\"\n/I\"${TREE}\\ww3d2\"\n/I\"${TREE}\\wwshade\"\n/I\"${TREE}\\libs\\wwonline\"\n/I\"${TREE}\\libs\\sgistl\"\n/I\"${TREE}\\libs\\wwonline\\wlib\"\n/I\"${TREE}\\libs\\wwonline\\wnet\"\n/I\"${TREE}\\binkmovie\"\n/I\"${TREE}\"\n\"${PROBE_SOURCE}\"",
+    "target": "/nologo\n/c\n/MT\n/W3\n/O2\n/Ob2\n/GX\n/DWIN32\n/D_WINDOWS\n/DWIN32_LEAN_AND_MEAN\n/DWINVER=0x400\n/DNDEBUG\n/DENABLE_WWPROFILE\n/I\"${TARGET_SOURCE_DIR}\"\n/I\"${TREE}\\app\\client\"\n/I\"${TREE}\\app\\audio\"\n/I\"${TREE}\\app\\client\\html\"\n/I\"${TREE}\\app\\client\\html\\image\"\n/I\"${TREE}\\app\\client\\item\"\n/I\"${TREE}\\app\\client\\tasks\"\n/I\"${TREE}\\app\\common\"\n/I\"${TREE}\\app\\input\"\n/I\"${TREE}\\app\\kernel\"\n/I\"${TREE}\\app\\packets\"\n/I\"${TREE}\\app\\packets\\gameedit\"\n/I\"${TREE}\\app\\shared\"\n/I\"${TREE}\\app\\shared\\auxdata\"\n/I\"${TREE}\\app\\shared\\expr\"\n/I\"${TREE}\\app\\shared\\message\"\n/I\"${TREE}\\app\\wwudp\"\n/I\"${TREE}\\wwdebug\"\n/I\"${TREE}\\wwlib\"\n/I\"${TREE}\\wwmath\"\n/I\"${TREE}\\wwsaveload\"\n/I\"${TREE}\\wwaudio\"\n/I\"${TREE}\\ww3d2\"\n/I\"${TREE}\\wwshade\"\n/I\"${TREE}\\libs\\wwonline\"\n/I\"${TREE}\\libs\\sgistl\"\n/I\"${TREE}\\libs\\wwonline\\wlib\"\n/I\"${TREE}\\libs\\wwonline\\wnet\"\n/I\"${TREE}\\binkmovie\"\n/I\"${TREE}\"\n\"${TARGET_SOURCE}\""
+  },
+  "FP_findings": [
+    "A=m_i0*x, B=m_i1*y, C=m_i2*z, T=m_i3; order labels denote actual sum trees, not mere load traversal. Each row is R32(((first+second)+third)+T), with x87 operations at runtime control-word precision.",
+    "Scalar explicit float cast and no-cast synthetic xyz compile byte-identically. No fst/fstp between completed dot sum and adding T in target, exact 80CD90, or exact 47F610.",
+    "Exact 47F610 rows are ((A+C)+B)+T, ((A+C)+B)+T, ((A+B)+C)+T. Exact 80CD90 scalar body rows are ((B+C)+A)+T, ((A+B)+C)+T, ((A+B)+C)+T.",
+    "Exact 989670 all rows use ((C+B)+A)+T with A=m_i0*R32(x*scale), B=m_i1*R32(y*scale), C=m_i2*(scale*z); scaled Z remains in an x87 register while X/Y spill to float.",
+    "The isolated XZY header pairs X with Z in all six target rows but changes FP grouping and requires broad caller proof before any candidate/adoption.",
+    "Numerical distinction under round-to-nearest x87 precision at most 64 bits: representable float products A=2^80,B=-2^80,C=1,T=0 yield ((A+B)+C)+T=1 and ((A+C)+B)+T=0. This is a grouping change, not merely instruction scheduling.",
+    "Conditional cast/rounding witness for precision >=53 bits: A=1,B=2^-25,C=0,T=-1 yields 2^-25 without an intermediate float spill and 0 if dot is rounded to float before adding T. No such intermediate spill is present in tested scalar code."
+  ]
+}
