@@ -14,6 +14,20 @@ namespace std { template<> inline hashtable<pair<std::string const, PacketStatsS
 static PacketStatsMap Packet_Stats;	// 0xBE9008 (the statistics wrapper's)  // NAME 2: what it holds
 static char Log_Directory[256];	// 0xBE9024  // NAME 2: what it holds
 
+static FILE *Open_Log(const char *name)	// NAME 1: what it does (no client copy: inlined at its one call)
+{
+	const char *directory = Get_Log_Directory();
+	char path[256];
+	struct stat info;
+	for (int i = 0; i < 1000; i++) {
+		sprintf(path, "%s\\%s-%03d.%s", directory, name, i, "log");
+		if (stat(path, &info) == -1) {
+			break;
+		}
+	}
+	return(fopen(path, "w"));
+}
+
 // LogConnectionClass (vtable 0xB086C4)
 LogConnectionClass::LogConnectionClass(ConnectionClass *connection, const char *name) :
 	ForwardingConnectionClass(connection),
@@ -24,16 +38,7 @@ LogConnectionClass::LogConnectionClass(ConnectionClass *connection, const char *
 	if (name == 0) {
 		name = "netlog";
 	}
-	const char *directory = Get_Log_Directory();
-	char path[256];
-	struct stat info;
-	for (int i = 0; i < 1000; i++) {
-		sprintf(path, "%s\\%s-%03d.%s", directory, name, i, "log");
-		if (stat(path, &info) == -1) {
-			break;
-		}
-	}
-	File = fopen(path, "w");
+	File = Open_Log(name);
 }
 
 LogConnectionClass::~LogConnectionClass()
@@ -104,12 +109,7 @@ done:
 	return(Log_Directory);
 }
 
-
-
-
 // TimedLogConnectionClass (vtable 0xB0870C)
-// NOT EXACT: the client inlines LogConnectionClass's constructor here and keeps it out of line (0x823F70,
-// no caller); `inline` on it matches this one and loses that one.
 TimedLogConnectionClass::TimedLogConnectionClass(ConnectionClass *connection, const char *name) :
 	LogConnectionClass(connection, name)
 {
@@ -384,6 +384,11 @@ void Record_Sent(const char *name, int bytes)
 **	  initializer 0x823E40 and destructor 0x823EA0, the table's instances 0x8257D0-0x826470, the
 **	  string hash 0x42DB00). PacketStatsStruct's zeroing constructor is what makes the client's
 **	  operator[] temporary zero-filled.
+**	* The log file is opened through a static helper (Open_Log, inlined, no client copy): VC6 /Ob2
+**	  auto-inlines the constructor into TimedLogConnectionClass's 0x824540 only when its own source
+**	  holds no sprintf / stat calls (2026-11-21 trybatch diagnostics: a loop without calls, or the
+**	  calls moved into a helper, inline; a call-only loop, straight-line sprintf + stat, 8 extra caller
+**	  statements, smaller locals, while / goto loops do not), and 0x823F70 keeps its bytes.
 **	* Forms: Get_Log_Directory's success leaves through a goto to the one return; Format_Time
 **	  takes `ms %= 60000` after the minutes; the timed Describe adds the text's length to len
 **	  before the last sprintf; the raw one reads Header.Size first.

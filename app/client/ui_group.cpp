@@ -728,7 +728,7 @@ extern unsigned int Unknown_BE5F34;						// gadget.cpp's: the key modifiers (0x5
 
 
 // 0x5946D0
-// NOT EXACT: (masked 18, attempts.py 0x5946D0): case 2 as if (!modifier) { .. } return(true) as case 3; the packets' avatar id through ClientClass's inline Get_Avatar_ID() (the client tests Members[k] in memory and reloads it); two dead Peek()s in 0x593180 make the client's call of it (D272); case 47's second test as else if, 0x5979A0's and 0x597A60's returns as ifs (the client's inlined copies branch); case 11-15 through Members[key - 11] with key unmodified (cases 23-27 / 41-45 then load as the client); left: the client materialises key - 11 in edi (add edi,-0xb; any index variable or key -= 11 moves cases 23-27 / 41-45 back: 24), the packet arguments' load order in 29-33 and 47, registers
+// NOT EXACT: (masked 10, attempts.py 0x5946D0): case 2 as if (!modifier) { .. } return(true) as case 3; case 11-15 index local k = key - 11 (add edi,-0xb); case 23-27 UIGroupMemberClass *m = Members[key - 23] in the test (keeps Members[k] before Client); case 29-33 sclient->Get_Avatar_ID() in packet ctor; two dead Peek()s in 0x593180 (D272); case 47's second test as else if, 0x5979A0/0x597A60 as ifs; left: 23-27 (2), 29-33 (2), 47 (3), 17-21 (2), end (1)
 bool UIGroupClass::Unknown_68(int key)
 {
 	SClient *sclient = (SClient *)((ClientClass *)Client)->As_Space_Client();
@@ -743,15 +743,15 @@ bool UIGroupClass::Unknown_68(int key)
 		case 14:
 		case 15:
 
-			if (Members[key - 11]) {
+			{ int k = key - 11; if (Members[k]) {
 				TargetFindClass *targeting = (TargetFindClass *)sclient->Targeting;
 
 
 
 				FAIL_IF(!targeting) return(false);
-				targeting->Select_Group_Member(key - 11);
-				Unknown0E8->Unknown_593180(Members[key - 11]->Unknown18);
-			}
+				targeting->Select_Group_Member(k);
+				Unknown0E8->Unknown_593180(Members[k]->Unknown18);
+			} }
 			break;
 		default:
 			return(false);
@@ -769,10 +769,10 @@ bool UIGroupClass::Unknown_68(int key)
 		case 26:
 		case 27:
 
-			if (Members[key - 23] && strcmp(Members[key - 23]->Unknown28, "G_TARGET") == 0) {
+			{ UIGroupMemberClass *m = Members[key - 23]; if (m && strcmp(m->Unknown28, "G_TARGET") == 0) {
 
 				((ClientClass *)Client)->Send_Packet(&RequestTargetsTargetPacketClass(((ClientClass *)Client)->Get_Avatar_ID(), Members[key - 23]->ID));
-			}
+			} }
 			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
 			if (!SymbolChatUI) return(true);
 			SymbolChatUI->Unknown_5C();
@@ -804,7 +804,7 @@ bool UIGroupClass::Unknown_68(int key)
 			if (modifier) goto symbol;
 			if (Members[key - 29]) {
 
-				((ClientClass *)Client)->Send_Packet(&CTA_Request_PacketClass(((ClientClass *)Client)->Get_Avatar_ID(), Members[key - 29]->ID, 12));
+				((ClientClass *)Client)->Send_Packet(&CTA_Request_PacketClass(sclient->Get_Avatar_ID(), Members[key - 29]->ID, 12));
 			}
 			break;
 		case 35:

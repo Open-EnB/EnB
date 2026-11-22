@@ -15,7 +15,10 @@ class UIPowerGaugeClass;	// ui_power.cpp's (over gd_gauge.h's gauge)
 
 // The energy, shield and hull gauges of a mesh (0x28 bytes, table 0xAF5D70): a watcher of a ship whose slot +0x10 fills
 // them from its EnergyPercent / ShieldPercent / HullPoints every frame
-class UIPowerClass : public UnknownObjectWatchClass	// NAME 1: neutral (D10), from the tooltips' section UI_POWER
+// The parent's holder: a plain base declared first (the constructor stores Parent before the watcher's vtable and
+// node, 0x5DBFE3); VC6 lays the polymorphic watcher out first, so Parent sits at +0x18 (ui_experience.cpp's twin)
+class UnknownPowerParentClass { public: UnknownPowerParentClass(InterfaceClass *parent) : Parent(parent) {} InterfaceClass *Parent; };	// NAME 1: neutral (D10)
+class UIPowerClass : public UnknownPowerParentClass, public UnknownObjectWatchClass	// NAME 1: neutral (D10), from the tooltips' section UI_POWER
 {
 public:
 	UIPowerClass(RenderObjClass *mesh, LayerClass *layer, InterfaceClass *parent, int arg);	// 0x5DBFC0 ('reactor_bar%d', 'shield_bar%d', 'hull_bar%d')  // NAME 1 [mesh, layer, parent, arg]: what the set-ups pass
@@ -27,7 +30,7 @@ public:
 	void Unknown_5DCAE0();								// 0x5DCAE0 (the gauges out of the parent's +0x64, before its delete)
 	void operator = (ClientObjectClass *object) { Unknown_08(object); }	// (the base's: the implicit copy assignment hides it; ui_cpit.cpp sets +0xD0's object so)
 
-	InterfaceClass *Parent;								// +0x18  // NAME 1: what its callers pass
+	// +0x18 Parent (UnknownPowerParentClass's)  // NAME 1: what its callers pass
 	UIPowerGaugeClass *EnergyGauge;						// +0x1C ('reactor_bar%d', tooltip ENERGY)  // NAME 2: its tooltip
 	UIPowerGaugeClass *ShieldGauge;						// +0x20 ('shield_bar%d', tooltip SHIELDS)  // NAME 2: its tooltip
 	UIPowerGaugeClass *HullGauge;						// +0x24 ('hull_bar%d', tooltip HULL)  // NAME 2: its tooltip

@@ -148,11 +148,11 @@ bool Unknown548D60Class::Unknown_68(int key)
 class AttrbFontSys : public FontSys	// NAME 1: neutral (D10)
 {
 public:
-	void Set_Color(float r, float g, float b) { Unknown494.Color.Set(r, g, b); Unknown4A4 = Unknown494; }	// NAME 1 [Set_Color, r, g, b]: neutral (D10)
+	void Set_Color(float r, float g, float b) { Unknown494.Color.X = r; FontStyleColorStruct &c = Unknown494; Unknown494.Color.Y = g; Unknown494.Color.Z = b; Unknown4A4 = c; }	// NAME 1 [Set_Color, r, g, b]: neutral (D10)
 };
 
-// NOT EXACT: field-offset (explain.py; a register choice: the title's colour: ours holds the style in ecx and &+0x494 in eax, the client the other way round,
-// with the ecx / eax / edx choices after it; flags, branches and calls as the client's) (0x548D60)
+// 0x548D60 (exact; FontSys color stores take &Unknown494 after storing X so eax/ecx match)
+//
 // @0x548D60
 void Unknown548D60Class::Unknown_548D60(SkillDataClass *list, int skill, int index)
 {
@@ -262,7 +262,7 @@ void Unknown548D60Class::Unknown_5494E0(bool on)
 **	226-227 open and close this one: permstr.h's PermStringInitClass static 0x548260 (atexit 0x548290, the static
 **	0xBE5B2C) and <string>'s guarded initialiser 0x5495A0; ui_attrb_skills.cpp's static 0x5495F0 follows. The panel
 **	(Unknown548D60Class, AT2's notes in ui_attrb.cpp): the constructor 0x5482B0, the deleting destructor 0x548410, the
-**	destructor 0x548440, slots +0x54 0x548610 and +0x68 0x548C50, pkskill.h's inline ~SkillPacketClass 0x548D40, 0x548D60
-**	(NOT EXACT, the title's colour stores: attempts.csv), 0x5494E0 (auto_inline(off): 0x548D60 calls it out of line) and the
+**	destructor 0x548440, slots +0x54 0x548610 and +0x68 0x548C50, pkskill.h's inline ~SkillPacketClass 0x548D40, 0x548D60,
+**	0x5494E0 (auto_inline(off): 0x548D60 calls it out of line) and the
 **	adjustor thunks 0x5495D0 / 0x5495E0. The level names 0xB79F04 are this object's (0x548D60 alone reads them).
 */

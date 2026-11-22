@@ -272,7 +272,7 @@ UIPetitionPlayerNameClass::~UIPetitionPlayerNameClass()
 	NameEditor = NULL;
 }
 
-// NOT EXACT: shape (the client stores the name box's +0x58 and +0x38 through one load; a local inline setter leaves only registers, CP3)
+// (the name box's +0x3B / +0x58 / +0x38 through textgadg.h's setters: +0x58 and +0x38 through one load, as the client)
 // 0x5D6BC0
 void UIPetitionPlayerNameClass::Unknown_54()
 {
@@ -285,9 +285,9 @@ void UIPetitionPlayerNameClass::Unknown_54()
 		RefCountPtr<RenderObjClass> entry = Create_Get(InterfaceMesh->Get_Sub_Object_By_Name("Entry_Field01"));
 		NameEditor = new TextGadgetClass(this, 0xFA, "PLAYER_NAME_hsi03a", entry.Peek(), Unknown_B08CB0 | Unknown_B08C9C, 0);
 		NameEditor->Set_Text("Enter name or click Import Name", 0);
-		NameEditor->Unknown3B = false;
-		NameEditor->Unknown58 = 0.9f;
-		NameEditor->Changed = true;
+		NameEditor->Set_Unknown3B(false);
+		NameEditor->Set_Unknown58(0.9f);
+
 		Unknown64.Unknown_6870E0(NameEditor, 8, View, 1, 1);
 	}
 }

@@ -378,7 +378,7 @@ void Unknown58E210Class::Unknown_40(bool on)
 {
 	Unknown74->Unknown_8C(!on);
 	Unknown78->Unknown_8C(!on);
-	ButtonGadgetClass::Unknown_40(on);
+	GadgetClass::Unknown_40(on);
 }
 
 // 0x58E740

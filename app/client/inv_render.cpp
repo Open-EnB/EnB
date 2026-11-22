@@ -628,7 +628,7 @@ Unknown68DC20Class::~Unknown68DC20Class()
 
 
 
-// NOT EXACT: 0x68E360, about 120 rows: register and order only, in the compares of the duration and the second switch
+// NOT EXACT: 0x68E360, masked residue 15 rows: register only: ours evaluates the two sound ternaries into eax for one merged call, the client pushes the literals in each branch
 // 0x68E360
 void Unknown68DC20Class::Unknown_2C(bool force)
 {
@@ -747,7 +747,7 @@ have:
 		}
 		done = true;
 	} else {
-		Unknown78.Time = Unknown78.Time - now.Time;
+		DurationClass *ready = &Unknown78; ready->Time -= now.Time;
 		if (previous == _Zero) {
 			update = true;
 		}
@@ -759,8 +759,8 @@ have:
 	if ((!device || Unknown84 == moved) && !update) {
 		return;
 	}
-	unsigned char on = (unsigned char)(state & 1);
-	if (Unknown88 && (unsigned char)(Unknown80 & 1) != on) {
+	bool on = (state & 1) != 0;
+	if (Unknown88 && ((unsigned char)Unknown80 & 1) != on) {
 		Unknown88 = false;
 		switch (type) {
 			case 1:

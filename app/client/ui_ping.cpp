@@ -113,7 +113,7 @@ void UIPingClass::Unknown_54()
 
 	RefCountPtr<FontSys> text = Create_NEW(new FontSys("HEADER_INFO", 0, 0));
 	Header = Create_NEW(new Unknown51C800Class(text.Peek(), 6));
-	Info->Add_Object(Header.Peek(), 0);
+	Info->Add_Object((DynamicWindowElementClass *)Header.Peek(), 0);
 
 	char name[32];
 	for (int i = 0; i < 3; i++) {
@@ -122,7 +122,7 @@ void UIPingClass::Unknown_54()
 		_snprintf(name, sizeof(name), "%s000", UIPingLabels[i]);
 		text->Change_Text(name, 0);
 		Rows[i] = Create_NEW(new Unknown51C800Class(text.Peek(), 6));
-		Unknown098->Add_Object(Rows[i].Peek(), i);
+		Unknown098->Add_Object((DynamicWindowElementClass *)Rows[i].Peek(), i);
 	}
 }
 

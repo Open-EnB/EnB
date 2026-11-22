@@ -184,24 +184,24 @@ StarbaseShipCustomizeInterface::~StarbaseShipCustomizeInterface()
 	GadgetClass::Get_Signal_Map().disconnect((GadgetClass *)NULL, this, &StarbaseShipCustomizeInterface::Unknown_61E730, FlashingGadgetEvent(NULL));
 }
 
-// NOT EXACT: register (every call matches; Desc through a pointer local reads Selected_Decal through ebx as the client
-// does, masked 29 -> 24; left: eax / ecx / edx swaps around the 0x74C960 results, the pip's set-up and the virtual calls)
+
+
 // @0x618CA0
 void StarbaseShipCustomizeInterface::Unknown_54()
 {
 	SBaseView->Unknown_69DC40();
 	InterfaceSortScopeClass sort(this);
 	Desc = ShipCustDescClass(); ShipCustDescClass *d = &Desc;
-	d->Set_Race(SBaseView->Client->Unknown_74C960(SBaseView->Client->AvatarID)[4]);
+	d->Set_Race(SBaseView->Client->Unknown_74C960(SBaseView->Client->Get_Avatar_ID())[4]);
 	d->Reset_Parts();
-	d->Set_Profession(SBaseView->Client->Unknown_74C960(SBaseView->Client->AvatarID)[5]);
+	d->Set_Profession(SBaseView->Client->Unknown_74C960(SBaseView->Client->Get_Avatar_ID())[5]);
 	Unknown318 = (d->Selected_Decal == 0x7FFFFFF) ? 0 : d->Selected_Decal + 1;
 	Unknown2E0 = new ShipPipClass(0);
 	Unknown2E0->Unknown_80C220((ViewClass *)SBaseView);
 	Unknown2E0->Unknown_74(0);
 	Unknown2E0->Set_Last_Sort_Group(1);
 	Unknown2E0->Unknown_80C540(Vector2(640.0f, 480.0f), Vector3(0.0f, 0.0f, 0.0f), 0x1C);
-	Unknown64.Unknown_6870E0(Unknown2E0, 0x33, Get_View(), 1, 0);
+	Unknown64.Unknown_6870E0(Unknown2E0, 0x33, View, 1, 0);
 	Unknown330 = new SClientUnknown1334Class;
 	Unknown330->Load("decal_textures.ini", "decal_swatches.ini", "secret_decal_textures.ini");
 	((ControlKeyListClass *)&Unknown4C)->Add(KernelEventClass(0x1B), (void *)0x1B);
@@ -212,9 +212,9 @@ void StarbaseShipCustomizeInterface::Unknown_54()
 	TheDX8MeshRenderer.Invalidate();
 	GadgetClass::Get_Signal_Map().connect((GadgetClass *)NULL, this, &StarbaseShipCustomizeInterface::Unknown_61E730);
 	// (SignalMap's template connect: its inline layer leaves the callback's constructor 0x620BC0 out of line, as the
-	// client's; the eight dead size() reads after 0x61F1D0 push the first vector constructor 0x61FAB0 out of line)
+	// client's; the nine dead size() reads after 0x61F1D0 keep the inline budget balanced with Get_Avatar_ID())
 
-	Unknown_61F1D0(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size();	// (inline: 0x61F1D0 is defined later in the file; its expansion spends VC6's inline budget so ShipCustPartClass's constructor 0x6191F0 is called out of line, as the client's)
+	Unknown_61F1D0(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size();	// (inline: 0x61F1D0 is defined later in the file; its expansion spends VC6's inline budget so ShipCustPartClass's constructor 0x6191F0 is called out of line, as the client's)
 }
 
 // @0x6193A0
@@ -1362,13 +1362,13 @@ bool *StarbaseShipCustomizeInterface::Unknown_61D200()
 {
 	return(&Desc.Parts[Unknown30C].Settings[Unknown310].Is_Matte);
 }
-#pragma auto_inline(off)	// 0x61D260 calls 0x61D230 out of line where it does not read the metal itself
+// The index locals (same code out of line) keep 0x61D260's call out of line as the client's while 0x61DF80 inlines all three reads
 // @0x61D230
 ShipCustomizationMetal *StarbaseShipCustomizeInterface::Unknown_61D230()
 {
-	return(&Desc.Parts[Unknown30C].Settings[Unknown310].Metal);
+	int part = Unknown30C; int setting = Unknown310; return(&Desc.Parts[part].Settings[setting].Metal);
 }
-#pragma auto_inline(on)
+
 // @0x61D260
 void StarbaseShipCustomizeInterface::Unknown_61D260()
 {
@@ -1951,8 +1951,8 @@ void StarbaseShipCustomizeInterface::Unknown_61DBF0()
 
 
 
-// NOT EXACT: inline budget (0.47, 1705 bytes against 0x611: as ui_avatar_cust.cpp's 0x550A10; the client copies only
-// the first model's translation, builds the second's Matrix3D through ??_H, and calls the third Rotate_Y out of line)
+// NOT EXACT: frame (masked residue 0: the metal read through 0x61D230 inlined, as ui_shipcust.cpp's 0x628420, and the dead read
+// at the end spend what the client spent (??_H copies, operator[] 0x61F760 last); left: frame 0x94 vs 0xA0, code 12 bytes longer)
 // @0x61DF80
 void StarbaseShipCustomizeInterface::Unknown_61DF80()
 {
@@ -1960,8 +1960,8 @@ void StarbaseShipCustomizeInterface::Unknown_61DF80()
 	float slow = time * 0.3f;
 	float fast = time * 2.0f;
 	if (Unknown2D4 != NULL) {
-		Vector3 pos = Unknown2D4->Get_Transform().Get_Translation();
-		if (Desc.Parts[Unknown30C].Settings[Unknown310].Metal == METAL_CHROME) {
+		Vector3 pos; Unknown2D4->Get_Transform().Get_Translation(&pos);
+		if (*Unknown_61D230() == METAL_CHROME) {
 			Unknown244[0].Rotate_Y(fast);
 		} else {
 			Unknown244[0].Rotate_Y(slow);
@@ -1970,13 +1970,13 @@ void StarbaseShipCustomizeInterface::Unknown_61DF80()
 		InterfaceMesh->Peek_Object()->Capture_Bone(bone);
 		InterfaceMesh->Peek_Object()->Control_Bone(bone, Unknown244[0]);
 		Matrix3D newtm(Unknown244[0]);
-		newtm.Set_Translation(pos);
+		newtm.Set_Translation(Vector3(pos.X, pos.Y, pos.Z));
 		Unknown2D4->Set_Transform(newtm);
 		Gadgets[0x11].Gadget->Unknown_6608F0();
 	}
 	if (Unknown2D8 != NULL) {
 		Matrix3D tm = Unknown2D8->Get_Transform();
-		if (Desc.Parts[Unknown30C].Settings[Unknown310].Metal == METAL_BRONZE) {
+		if (*Unknown_61D230() == METAL_BRONZE) {
 			Unknown244[1].Rotate_Y(fast);
 		} else {
 			Unknown244[1].Rotate_Y(slow);
@@ -1991,7 +1991,7 @@ void StarbaseShipCustomizeInterface::Unknown_61DF80()
 	}
 	if (Unknown2DC != NULL) {
 		Matrix3D tm = Unknown2DC->Get_Transform();
-		if (Desc.Parts[Unknown30C].Settings[Unknown310].Metal == METAL_COPPER) {
+		if (*Unknown_61D230() == METAL_COPPER) {
 			Unknown244[2].Rotate_Y(fast);
 		} else {
 			Unknown244[2].Rotate_Y(slow);
@@ -2001,9 +2001,9 @@ void StarbaseShipCustomizeInterface::Unknown_61DF80()
 		InterfaceMesh->Peek_Object()->Control_Bone(bone, Unknown244[2]);
 		Matrix3D newtm(Unknown244[2]);
 		newtm.Set_Translation(tm.Get_Translation());
-		Unknown2DC->Set_Transform(newtm);
+		Unknown2DC->Set_Transform(newtm); Unknown_61D230();	// a dead accessor read (D272): the last lookup Gadgets[0x13] then calls operator[] 0x61F760 as the client
 		Gadgets[0x13].Gadget->Unknown_6608F0();
-	}
+	} Gadgets.size();	// a dead read (D272): with the three inlined metal reads it spends what the client spent (1-4 the same)
 }
 
 

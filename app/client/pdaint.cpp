@@ -205,7 +205,7 @@ inline void PDA_Close_Window(ChatPanelUIBase *window) { window->Unknown_5C(); wi
 
 
 
-// 0x693E70 (NOT EXACT: layout and registers (0.78): the client keeps 0 in ebx only inside case 1, and places the play tail right after case 10's active branch)
+// 0x693E70 (NOT EXACT: layout (0.94): the client has one play block, right after case 10's inner else, that every other path jumps to (eax = the name); ours keeps a second copy after the switch. The 40 name is one label in case 1: the client's cases 2 and 3/8 jump to its block)
 bool PDAInterfaceClass::Unknown_68(int key)
 {
 	if (!UnknownBC) {
@@ -222,6 +222,7 @@ bool PDAInterfaceClass::Unknown_68(int key)
 		}
 		Unknown_695780(4);
 		PDA_Close_Chat_Window(chat);
+play40:
 		sound = "SR_scifielectronic40.wav";
 		goto play;
 	case 2:
@@ -231,18 +232,26 @@ bool PDAInterfaceClass::Unknown_68(int key)
 		}
 		Unknown_695780(2);
 		PDA_Close_Chat_Window(chat);
-		sound = "SR_scifielectronic40.wav";
-		goto play;
+		goto play40;
 	case 10:
 		if (Character->Is_Active()) {
 			if (Character->Unknown_574220(0)) Unknown_695A00(2, true);
-			else Character->Unknown_5742B0(0);
+			else {
+				Character->Unknown_5742B0(0);
+				sound = "SR_scifielectronic42.wav";
+				{ AudibleSoundClass *audible = SoundLibraryClass::Play_2D_Sound(sound, 0);
+				if (audible) {
+					audible->Set_Pan(0.5f);
+					audible->Play(true);
+					audible->Release_Ref();
+				} }
+				return(true);
+			}
 		} else {
 			Character->Unknown_5742B0(0);
 			Unknown_695780(2);
 			PDA_Close_Chat_Window(chat);
 		}
-
 		break;
 	case 11:
 		if (Character->Is_Active()) {
@@ -280,15 +289,11 @@ bool PDAInterfaceClass::Unknown_68(int key)
 		PDA_Close_Chat_Window(chat);
 		break;
 	case 7:
-		
-		
 			if (PDA_Window_Active(this, 1)) {
-				
 				Unknown_695A00(0, true);
 				Unknown_695A00(1, true);
 				break;
 			}
-		
 		if (Unknown_695780(0)) {
 			OpenedCargoInterface = Equipment;
 		} else {
@@ -300,15 +305,11 @@ bool PDAInterfaceClass::Unknown_68(int key)
 		if (!client->Unknown_744B60()) {
 			return(true);
 		}
-		
-		
 			if (PDA_Window_Active(this, 3)) {
-				
 				Unknown_695A00(0, true);
 				Unknown_695A00(3, true);
 				break;
 			}
-		
 		if (Unknown_695780(0)) {
 			OpenedCargoInterface = Vault;
 		} else {
@@ -326,8 +327,7 @@ bool PDAInterfaceClass::Unknown_68(int key)
 		}
 		Unknown_695780(0);
 		PDA_Close_Chat_Window(chat);
-		sound = "SR_scifielectronic40.wav";
-		goto play;
+		goto play40;
 	case 4:
 		if (chat) {
 			if (chat->Unknown_694AA0()) {

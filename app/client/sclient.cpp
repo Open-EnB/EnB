@@ -1075,8 +1075,8 @@ void SClient::Unknown_743440() {
 
 #include "option.h"
 #include "..\packets\pkmove.h"
-
-// NOT EXACT: inline budget (explain.py: 731 instructions, the client's about twice as many): the client inlines more of std::string's construction (the last three key names copied in place) and its five camera blocks (0x744D80's body); first round
+static void Unknown_Register_Key(const std::string &module, const char *name, int id) { ControlKeysManager::Register_Key(module, name, id); }	// the key name built one inline layer down (0x7436A0 calls assign out of line for the first four)  // NAME 1: neutral (D10)
+// NOT EXACT: inline budget (masked residue 209, was 485): the first four key names go through the file-static Unknown_Register_Key layer (the client calls their assign out of line), Bridge_Mode through Set_Value; left: the module string inlines assign (the client calls it), the client keeps a zero register in ebx with four saved registers and one shared epilogue
 // 0x7436A0 (Do_Frame: an event no dispatcher took; the module 'sclient' keys, registered on the first call)
 bool SClient::Unknown_7436A0(KernelEventClass event)
 {
@@ -1089,10 +1089,10 @@ bool SClient::Unknown_7436A0(KernelEventClass event)
 		static bool first = true;
 		if (first) {
 			first = false;
-			ControlKeysManager::Register_Key(module, "Screenshot", 0);
-			ControlKeysManager::Register_Key(module, "Toggle Auto Level", 1);
-			ControlKeysManager::Register_Key(module, "Restore Camera", 2);
-			ControlKeysManager::Register_Key(module, "First Person", 3);
+			Unknown_Register_Key(module, "Screenshot", 0);
+			Unknown_Register_Key(module, "Toggle Auto Level", 1);
+			Unknown_Register_Key(module, "Restore Camera", 2);
+			Unknown_Register_Key(module, "First Person", 3);
 			ControlKeysManager::Register_Key(module, "Save Camera", 4);
 			ControlKeysManager::Register_Key(module, "Next Camera", 5);
 			ControlKeysManager::Register_Key(module, "Prev Camera", 6);
@@ -1117,11 +1117,11 @@ bool SClient::Unknown_7436A0(KernelEventClass event)
 					BoolOptionStruct *option = OptionClass::Instance->Find_Bool("Bridge_Mode");
 					if (CameraMode == 0) {
 						Print(0x17, "Camera set to 3rd person mode %i,", Unknown_75A5D0());
-						if (option) option->Value = false;
+						if (option) option->Set_Value(false);
 					} else {
 						Set_Camera_Mode(0);
 						Unknown_74D990(0x17, "Camera set to 1st person mode.", 0);
-						if (option) option->Value = true;
+						if (option) option->Set_Value(true);
 					}
 					Unknown_744D80();
 				}
@@ -1171,7 +1171,7 @@ bool SClient::Unknown_7436A0(KernelEventClass event)
 				break;
 		}
 	}
-	return(false);
+	CameraManager->Get_Player_Chase_Camera_Module(); return(false);	// a dead read (budget device): Prev Camera calls _Eos out of line as the client
 }
 
 
@@ -2815,14 +2815,14 @@ bool Unknown_747990(const char *text, std::string &reason, bool *quit)	// NAME 1
 	}
 	return(false);
 }
-// NOT EXACT: shape (explain.py: 2 rows): the client sets the packet's unwind state after pushing its address (lea eax), ours before (lea ecx); the temporary, copy-init, a block scope and a base reference: no better; 0x74ABC0's inlined copy shows the same
+
 // 0x747AF0 (0x74ABC0 inlines it: no call left): LOGOFF_REQUEST sent with Unknown138C = 1, then 0x743290's answer
 // when the command quits
 bool SClient::Unknown_747AF0(const std::string &reason, bool quit)
 {
+	int id = Unknown1138;
 	Unknown138C = 1;
-	LogoffRequestPacketClass packet(Unknown1138);
-	Send_Packet(&packet);
+	LogoffRequestPacketClass packet(id); Send_Packet(&packet);
 	if (quit) {
 		Unknown_743290();
 	}
@@ -4370,7 +4370,7 @@ struct TestEffectStruct	// NAME 2: testeffects.ini's record
 // Unknown_BE7D80 (0xBE7D80) holds them: defined above with INIUsers, where the client's CRT table puts its initialiser
 #include "..\shared\unknown_4a1590.h"
 
-// NOT EXACT: inline budget (B97, 0.47): the record goes in through insert(end(), 1, record), whose body the client inlines (push_back calls it out of line); the client still calls size() and assign out of line and inlines _Tidy
+// NOT EXACT: inline budget (masked residue 321, was 379): hsv_shift as the client has it (a zero default local, two Get_Point calls under the ternary, a Vector3 temporary); left: the client's frame is 12 bytes larger, it calls size() and assign out of line and inlines _Tidy
 // 0x74CA90 (Load_INIs: testeffects.ini): one record per section but [Defaults], each entry from the section or [Defaults];
 // a zero duration is the distance over effect.ini's AmmoSpeed of its EFFECT-<descid>\Weapon Usage section
 void Unknown_74CA90(const char *filename)
@@ -4427,8 +4427,8 @@ void Unknown_74CA90(const char *filename)
 		record.Interval = (int)(f_intra_volley_delay * 1000.0f);
 		record.Target = ini.Get_Bool((ini.Is_Present(section->Section, "playertarget") ? section->Section : "Defaults"), "playertarget", false);
 		record.Scale = ini.Get_Float((ini.Is_Present(section->Section, "scale") ? section->Section : "Defaults"), "scale", 1.0f);
-		TPoint3D<float> hsv = ini.Get_Point((ini.Is_Present(section->Section, "hsv_shift") ? section->Section : "Defaults"), "hsv_shift", TPoint3D<float>(0.0f, 0.0f, 0.0f));
-		record.HSVShift.Set(hsv.X, hsv.Y, hsv.Z);
+		TPoint3D<float> zero(0.0f, 0.0f, 0.0f); TPoint3D<float> hsv = ini.Is_Present(section->Section, "hsv_shift") ? ini.Get_Point(section->Section, "hsv_shift", zero) : ini.Get_Point("Defaults", "hsv_shift", zero);
+		record.HSVShift = Vector3(hsv.X, hsv.Y, hsv.Z);
 		record.Speedup = ini.Get_Float((ini.Is_Present(section->Section, "speedup") ? section->Section : "Defaults"), "speedup", 1.0f);
 		float f_advance = ini.Get_Float((ini.Is_Present(section->Section, "advance") ? section->Section : "Defaults"), "advance", 0.0f);
 
@@ -5541,7 +5541,7 @@ void SClient::Unknown_755600()
 
 SClient *Unknown_BE5F20;	// NAME 1: neutral (D10)
 
-// NOT EXACT: shape (explain.py: 606 instructions, the client 640, 127 masked rows; 69 calls, the client 70): VC6 merges the two beacon sends' tails here, the client keeps both; the logoff packet a named local, '/fps' enable first and the dialog read once moved nothing; two rounds
+// NOT EXACT: shape (explain.py: 637 instructions, the client 640, residue 48): the client inlines ~reason at /self tag on's return (0x74B077) and jumps /deco into the logoff tail (0x74AD7D), ours shares the out-of-line _Tidy tail there; the returns in each /deco and /self tag branch, the camp packet as a temporary, an options local, a ?: dialog read: no better
 // 0x74ABC0 (slot +0x34: the chat line's '/' commands; true when the line was a command)
 bool SClient::Unknown_34(const char *text)
 {
@@ -5614,7 +5614,7 @@ bool SClient::Unknown_34(const char *text)
 		return(true);
 	}
 	if (stricmp(text, "/beacon off") == 0) {
-		Connection->Send_Packet(&IncapacitanceDistressBeaconPacketClass(AvatarID, false));
+		int id = AvatarID; Connection->Send_Packet(&IncapacitanceDistressBeaconPacketClass(id, false));
 		return(true);
 	}
 	if (stricmp(text, "/rescue") == 0) {
@@ -5655,11 +5655,11 @@ bool SClient::Unknown_34(const char *text)
 		}
 		return(true);
 	}
-	if (Unknown_747FA0(text) || Unknown_749020(text) || Unknown_749590(text) || Unknown_749A70(text) || Unknown_749ED0(text)) {
-		return(true);
-	}
+	if (Unknown_747FA0(text)) return(true);
+	if (Unknown_749020(text)) return(true);
+	if (Unknown_749590(text)) return(true); if (Unknown_749A70(text)) return(true); if (Unknown_749ED0(text)) return(true);
 	if (text[0] == '/' && text[1] == 'g' && text[2] == ' ') {
-		Connection->Send_Packet(&ClientChatPacketClass(AvatarID, (char *)text + 3, 1, NULL));
+		int id = AvatarID; Connection->Send_Packet(&ClientChatPacketClass(id, (char *)text + 3, 1, NULL));
 		return(true);
 	}
 	if (strnicmp(text, "/gu ", 4) == 0) {
@@ -5683,12 +5683,12 @@ bool SClient::Unknown_34(const char *text)
 			return(true);
 		}
 	}
-	if (strcmp(text, "/texture_flush") != 0) {
-		return(ClientClass::Unknown_34(text));
+	if (strcmp(text, "/texture_flush") == 0) {
+		WW3D::_Invalidate_Textures();
+		Unknown_74D990(0, "TEXTURES FLUSHED", 0);
+		return(true);
 	}
-	WW3D::_Invalidate_Textures();
-	Unknown_74D990(0, "TEXTURES FLUSHED", 0);
-	return(true);
+	return(ClientClass::Unknown_34(text));
 }
 
 // 0x74D950 (cpacket.cpp: CHANGE_BASE_ASSET 38, after 0x744B60, for the objects 0x6F5A40 picks): in the starbase view,

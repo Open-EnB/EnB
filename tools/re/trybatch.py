@@ -112,6 +112,21 @@ BLOCKER = {'register-only': 'register', 'order-only': 'order', 'identical': '', 
 
 # ---------------------------------------------------------------- the variants file and the edits
 
+def check_form_names(forms, where=''):
+    """Refuse invalid form names and names that differ only by case (Windows directories collide)."""
+    prefix = f'{where}: ' if where else ''
+    seen = {'base': 'base'}
+    for name in forms:
+        if not re.fullmatch(r'[\w.-]+', name):
+            raise SystemExit(f'{prefix}form name {name!r}: letters, digits, _ . - only')
+        low = name.lower()
+        if low in seen:
+            if name == 'base':
+                raise SystemExit(f'{prefix}`base` is the unmodified file; name the form otherwise')
+            raise SystemExit(f'{prefix}form names {seen[low]!r} and {name!r} differ only by case (collide on Windows)')
+        seen[low] = name
+
+
 def load_spec(path, need_forms=True):
     g = runpy.run_path(path)
     forms = g.get('FORMS', g.get('V')) or {}
@@ -122,8 +137,7 @@ def load_spec(path, need_forms=True):
             raise SystemExit(f'{path}: {k} missing')
     addr = g['ADDRESS']
     addr = int(addr, 16) if isinstance(addr, str) else int(addr)
-    if 'base' in forms:
-        raise SystemExit(f'{path}: `base` is the unmodified file; name the form otherwise')
+    check_form_names(forms, path)
     return {'hypothesis': ' '.join(str(g.get('HYPOTHESIS', '')).split()), 'file': g['FILE'].replace(chr(92), '/'),
             'symbol': g['SYMBOL'], 'address': addr, 'forms': dict(forms), 'flags': g.get('FLAGS'),
             'unit': (g.get('UNIT') or '').replace(chr(92), '/') or None}
@@ -1021,6 +1035,7 @@ def run_spec(a, spec, stem, variants):
                 raise SystemExit(f'trybatch: {file} does not define {spec["symbol"]} (0x{spec["address"]:06X}); '
                                  f'{moved} does: point FILE there')
             file = unit = spec['file'] = moved
+    check_form_names(spec['forms'], variants or file)
     flags = spec['flags'] or libdefs.flags_of(os.path.join(REPO, unit))
     batch = os.path.join(REPO, '.work', 'trybatch', f'{stem}-{time.strftime("%H%M%S")}')
     os.makedirs(batch)
@@ -1042,8 +1057,6 @@ def run_spec(a, spec, stem, variants):
 
     results, todo, dlines, objs = {}, [], {}, {}
     for name, form in forms.items():
-        if not re.fullmatch(r'[\w.-]+', name):
-            raise SystemExit(f'form name {name!r}: letters, digits, _ . - only')
         try:
             files = apply_form(read, file, form)
         except (ValueError, OSError) as e:

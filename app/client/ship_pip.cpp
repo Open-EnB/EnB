@@ -454,7 +454,7 @@ bool ShipPipClass::Unknown_30(float x, float y)
 	return(false);
 }
 
-// NOT EXACT: ShipPipClass, literal (first: the left drag's Translate(-center) FPU stack order; one temp slot [esp + 0x14] against 0x10)
+// NOT EXACT: r15/zoom matched (res 116->31, raw 147->41); remaining: r17/r19 Translate FPU order and eax vs ecx at 4 Unknown_80E7D0() sites
 // @0x80D5E0
 bool ShipPipClass::Unknown_2C(KernelEventClass *event, float x, float y, unsigned int mask)
 {
@@ -487,34 +487,34 @@ bool ShipPipClass::Unknown_2C(KernelEventClass *event, float x, float y, unsigne
 			Unknown0A8 = (int)(y * 480.0f - Unknown064.Y);
 			float half_w = Unknown040 * 0.5f;
 			float half_h = Unknown044 * 0.5f;
-			float time = WW3D::Get_Frame_Time() * 0.001f;
+			unsigned int dt = WW3D::Get_Frame_Time();
 			float x0 = (Unknown09C - half_w) / half_w;
 			float y0 = (half_h - Unknown0A0) / half_h;
 			float x1 = (Unknown0A4 - half_w) / half_w;
-			float y1 = (half_h - Unknown0A8) / half_h;
+			float y1 = (half_h - Unknown0A8) / half_h; float time = dt * 0.001f;
 			if (time > 0.0f) {
-				float dy = y1 - y0;
-				if (x1 - x0 == 0.0f) {
+				float dx = x1 - x0; float dy = y1 - y0;
+				if (dx != 0.0f) {
+					Unknown0E0 = dx / time;
+				} else {
 					Unknown0E0 = Unknown0E0 * 0.66f;
-				} else {
-					Unknown0E0 = (x1 - x0) / time;
 				}
-				if (dy == 0.0f) {
-					Unknown0E4 = Unknown0E4 * 0.66f;
-				} else {
+				if (dy != 0.0f) {
 					Unknown0E4 = dy / time;
+				} else {
+					Unknown0E4 = Unknown0E4 * 0.66f;
 				}
-				if (fabs(Unknown0E0) + fabs(Unknown0E4) < 1.0f) {
+				if (fabs(Unknown0E4) + fabs(Unknown0E0) < 1.0f) {
 					Unknown0E0 = 0.0f;
 					Unknown0E4 = 0.0f;
 				}
 			}
 			Unknown0E8 = false;
-			Quaternion q(true);
+			Quaternion q;
 			if (Type == 0) {
 				q = Trackball(x0, y0, x1, y1, 0.8f);
 			}
-		if (Type == 1) {
+			else if (Type == 1) {
 				q = Trackball(x0, 0.0f, x1, 0.0f, 0.8f);
 			}
 			Matrix3D inverse;
@@ -522,7 +522,7 @@ bool ShipPipClass::Unknown_2C(KernelEventClass *event, float x, float y, unsigne
 			Vector3 center = inverse.Get_Translation();
 			Unknown06C.Translate(center);
 			Matrix3D::Multiply(Unknown06C, Build_Matrix3D(q), &Unknown06C);
-			Unknown06C.Translate(-center);
+			Unknown06C.Translate(-center.X, -center.Y, -center.Z);
 			Unknown_90();
 			Unknown09C = Unknown0A4;
 			Unknown0A0 = Unknown0A8;
@@ -564,7 +564,7 @@ bool ShipPipClass::Unknown_2C(KernelEventClass *event, float x, float y, unsigne
 				if (distance > 0.0f) {
 					mouse->Unknown_515120(0x17);
 				}
-		if (distance < 0.0f) {
+				else if (distance < 0.0f) {
 					mouse->Unknown_515120(0x16);
 				}
 			}

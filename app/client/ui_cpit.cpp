@@ -1247,8 +1247,8 @@ void UICpitClass::Unknown_582190(ClientObjectClass *object, int arg)
 
 
 
-// 0x5821C0's 0x584000 through one more inline layer: its expansion calls the find out of line as the client's (0x546710)
-inline bool Unknown_Cpit_Engine(UICpitClass *cpit) { return(cpit->Unknown_584000(true)); }	// NAME 1: neutral (D10)
+// 0x5821C0's inline copy of 0x584000 with one dead Unknown16C.Peek() after the set-field find so 0x546710 stays out of line (+0x70 test inline) and 0x5806E0 keeps Unknown_584000
+inline bool Unknown_Cpit_Engine(UICpitClass *cpit) { SClient *sclient = (SClient *)cpit->Client; ClientObjectClass *avatar = sclient->Get_Avatar(); if (!avatar) return(false); if (!avatar->AuxData) return(false); NameClass name("MaxSpeed"); DeltaTemplateClass<float> *t = Unknown_Cpit_Find_Set_Field<DeltaTemplateClass<float> >((DeltaCompoundClass *)avatar->AuxData, name); cpit->Unknown16C.Peek(); bool ok = (t && t->Value != 0.0f); if (!ok) { sclient->Unknown_74D990(17, "Engine unavailable. Please wait.", 0); return(false); } return(true); }	// NAME 1: neutral (D10)
 // auxdata.h's find through two inline layers, the NameClass built in the inner one: set (+0x70), or changed since (+0x70
 // above 1), else NULL. 0x5821C0's copies call the Casts out of line as the client's (0x546970, 0x584FF0, 0x531590, 0x585040)
 template<class C> inline C *Unknown_Find_Valid_Field(DeltaCompoundClass *root, const char *name)	// NAME 1: neutral (D10)
@@ -1275,7 +1275,7 @@ template<class C> inline C *Unknown_Find_Changed(DeltaCompoundClass *root, const
 }
 
 // 0x5821C0: the warp button's state from the avatar's aux data, the throttle lights and the speed display (slot +0x60)
-// NOT EXACT: the expanded 0x584000 calls its set-field layer out of line (the client the find, 0x546710, with the +0x70 test inline) and cases 3 / 1 put their NameClass in the shared slot (the client's -0xB8 / -0x84); the dead Children.size() reads after case 0's WarpAvailable find and before case 1's time test spend the inline budget so every Cast but the last two goes out of line as the client's (D272)
+// NOT EXACT: 0 masked (961/961 rows), raw 4 (12 bytes): cases 3 / 1 put their NameClass in the shared -0x50 slot instead of the client's -0xB8 / -0x84; the dead Unknown16C.Peek() in Unknown_Cpit_Engine and dead Children.size() reads after case 0's WarpAvailable find and before case 1's time test keep 0x546710 and every Cast but the last two out of line as the client's (D272)
 void UICpitClass::Unknown_5821C0(ClientObjectClass *avatar)
 {
 	DeltaCompoundClass *aux = (DeltaCompoundClass *)avatar->AuxData;

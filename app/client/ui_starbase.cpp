@@ -673,12 +673,12 @@ static const char *Unknown_B8ABBC[4][10] = {	// NAME 1: neutral (D10)
 	{ "tbar01_v", "jbar01_v", "pbar01_v", "nbar01_v", "nbar01_v", "nbar01_v", "nbar01_v", "nbar01_v", "nbar01_v", "nbar01_v" },
 	{ "tbar01", "jbar01", "pbar01", "nbar01", "nbar01", "nbar01", "nbar01", "nbar01", "nbar01", "nbar01" },
 };
-void Unknown_496DB0(RenderObjClass *robj);	// 0x496DB0 (ro_funcs.cpp, cdecl), as avatar.cpp's  // NAME 1 [robj]: avatar.cpp's
+static inline EnvironmentMapManagerClass *Unknown_Map_Manager(SClient *client) { return(client->EnvironmentMapManager); } static inline LayerClass &Unknown_View_Layer(SBaseViewClass *view) { return(*view->Unknown80); } void Unknown_496DB0(RenderObjClass *robj);	// 0x496DB0 (ro_funcs.cpp, cdecl), as avatar.cpp's; Unknown_View_Layer / Unknown_Map_Manager: the starbase view's +0x80 layer and the space client's map manager through inlines (0x634140's three NPC buttons and its NPC avatars take the client's registers so)  // NAME 1 [robj]: avatar.cpp's
 inline UIStarbaseUnknownCCClass::UIStarbaseUnknownCCClass() : Unknown00(0), Avatar(NULL), AmbientAvatar(NULL), NameTag(NULL), Unknown10(NULL), Unknown14(0), Unknown18(0), Unknown1C(0), Unknown20(0), Unknown24(""), Unknown34(-1) {}
 // NOT EXACT: 0x634140, functional from the pseudocode (D64; SU1): the window's set-up (slot +0x54): the full-screen
 // gadget, the +0x1F8 interface, the player's avatar entry with its name and guild texts, the 14 NPC slots, the four
 // terminals, the four doors with their signs, the ship on the hangar's extents, the bar and table models and the
-// '%s_%dmd' animated models (PT3: client bytes read as source, masked residue 1444 -> 67, frame and slots exact; the dead Get_Info() reads (D272) send the first entry's string constructor out of line and keep the signs' _Eos out; left: register choices in the NPC loop, i in ebx and npc in edi in the client)
+// '%s_%dmd' animated models (PT3: client bytes read as source, masked residue 1444 -> 20, frame and slots exact; the three NPC buttons' layer and the NPC avatars' map manager through the inlines Unknown_View_Layer / Unknown_Map_Manager and the ambient avatar stored through a slot local give the client's registers there; the dead Get_Info() reads (D272) send the first entry's string constructor out of line and keep the signs' _Eos out; left: register choices in the NPC loop, i in ebx and npc in edi in the client)
 // 0x634140
 void UIStarbaseClass::Unknown_54()
 {
@@ -726,8 +726,8 @@ void UIStarbaseClass::Unknown_54()
 			StarbaseNPCClass *npc = RoomInfo->Find_NPC(i);
 			if (npc->Unknown1C) {
 				Unknown13C[i] = new UIStarbaseUnknownCCClass;
-				Unknown13C[i]->AmbientAvatar = Create_NEW(Unknown_642740(npc));
-				Unknown13C[i]->Unknown14 = new ButtonGadgetClass(Unknown13C[i]->AmbientAvatar->BodyObj.Peek(), *UnknownB0->Unknown80, 5, 0);
+				UIStarbaseUnknownCCClass *slot = Unknown13C[i]; slot->AmbientAvatar = Create_NEW(Unknown_642740(npc));
+				Unknown13C[i]->Unknown14 = new ButtonGadgetClass(Unknown13C[i]->AmbientAvatar->BodyObj.Peek(), Unknown_View_Layer(UnknownB0), 5, 0);
 				Unknown13C[i]->Unknown14->Unknown2C_0A = true;
 				Unknown13C[i]->Unknown14->Set_Last_Sort_Group(true);
 				Unknown64.Unknown_6870E0(Unknown13C[i]->Unknown14, i + 2, View, true, true);
@@ -742,17 +742,17 @@ void UIStarbaseClass::Unknown_54()
 				robj = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj(Unknown_B8AA18[npc->Get_Booth_Index()]));
 				Unknown_496AE0(robj.Peek(), false);
 				InterfaceMesh->Peek_Object()->Add_Sub_Object_To_Bone(robj.Peek(), name);
-				Unknown13C[i]->Unknown14 = new ButtonGadgetClass(robj.Peek(), *UnknownB0->Unknown80, 5, 0);
+				Unknown13C[i]->Unknown14 = new ButtonGadgetClass(robj.Peek(), Unknown_View_Layer(UnknownB0), 5, 0);
 				Unknown13C[i]->Unknown14->Unknown2C_0A = true;
 				Unknown64.Unknown_6870E0(Unknown13C[i]->Unknown14, i + 2, View, true, false);
 			} else {
 				AvatarDescClass desc(npc->Desc);
-				Unknown13C[i]->Avatar = Create_NEW(new CharacterViewAvatarClass(&desc, true, false, ((LineDisplayClientClass *)Client)->As_Space_Client()->EnvironmentMapManager));
+				Unknown13C[i]->Avatar = Create_NEW(new CharacterViewAvatarClass(&desc, true, false, Unknown_Map_Manager(((LineDisplayClientClass *)Client)->As_Space_Client())));
 				if (Unknown13C[i]->Avatar) {
 					Matrix3D tm = InterfaceMesh->Peek_Object()->Get_Bone_Transform(name); Unknown13C[i]->Avatar->Unknown330 = tm;
 					Unknown13C[i]->Avatar->Unknown_77E3D0(1);
 					Unknown13C[i]->Avatar->Unknown_785F20(true);
-					Unknown13C[i]->Unknown14 = new ButtonGadgetClass(Unknown13C[i]->Avatar->BodyObj.Peek(), *UnknownB0->Unknown80, 5, 0);
+					Unknown13C[i]->Unknown14 = new ButtonGadgetClass(Unknown13C[i]->Avatar->BodyObj.Peek(), Unknown_View_Layer(UnknownB0), 5, 0);
 					Unknown13C[i]->Unknown14->Unknown2C_0A = true;
 					Unknown13C[i]->Unknown14->Set_Last_Sort_Group(true);
 					Unknown64.Unknown_6870E0(Unknown13C[i]->Unknown14, i + 2, View, true, true);
@@ -1616,7 +1616,7 @@ bool UIStarbaseClass::Unknown_68(int key)
 
 
 static inline void Unknown_Show_Ship(UIStarbaseClass *ui, RenderObjClass *ship) { Matrix3D tm = ui->InterfaceMesh->Peek_Object()->Get_Bone_Transform("ship"); ((SceneClass *)ui->UnknownB0->Unknown70.Peek())->Add_Render_Object(ship); ui->UnknownB0->Unknown70.Peek()->Add_Light_Environment(ship); ship->Set_Transform(tm); }	// the 'ship' block of 0x6366A0, 0x640360 and 0x6415B0 (its Matrix3D local one level deep: the client's ??_H, Row[3]'s Vector4() 0x468E70 cut out of line, in 0x6366A0 / 0x640360)  // NAME 1: neutral (D10)
-// NOT EXACT: 0x6366A0, functional (register / order: the ship block through Unknown_Show_Ship gives the client's ??_H; left: Unknown_7C's View / vtable registers swapped, UnknownB0 loaded before the flag stores, Room in edx (client edi); Get_Info() for the column, the map manager through a local, Unknown138 as one dword and the third-person test as one condition give the client's loads, its zero register ebp and its single toggle; O4, SB2)
+// NOT EXACT: 0x6366A0, functional (order: the ship block through Unknown_Show_Ship gives the client's ??_H; the +0x138 store through a pointer local holds the UnknownB0 load after it, a room local gives the client's edi / edx; left: the room's load before the door's (the client's in the else); Get_Info() for the column, the map manager through a local, Unknown138 as one dword and the third-person test as one condition give the client's loads, its zero register ebp and its single toggle; O4, SB2)
 // 0x6366A0 (slot +0x58, the interface opened: the room's model in the view, the camera at the door the avatar came
 // through (or 'camera_3rd' on arrival), the ship and its animation in the hangar, the NPC slots, the parts, the fog)
 void UIStarbaseClass::Unknown_58()
@@ -1633,16 +1633,16 @@ void UIStarbaseClass::Unknown_58()
 	UnknownC0.A = -1;
 	UnknownC0.B = -1;
 	UnknownC0.C = -1;
-	*(int *)Unknown138 = 0;	// the four flags as one dword store (the client: mov [esi+0x138], ebp)
-	int i;
+	int *flags = (int *)Unknown138; *flags = 0;	// the four flags as one dword store (the client: mov [esi+0x138], ebp)
+	int i; int room = Room;
 	if (UnknownB0->Unknown58 == -1) {
 		UnknownB0->Unknown_69E260("camera_3rd");
 		Unknown1FD = true;
 		Unknown1AC = 4;
 	} else {
 		for (i = 0; i < 4; i++) {
-			if (Unknown_B8AB3C[Room * 4 + i] == UnknownB0->Unknown58) {
-				Unknown_63C080(Unknown_B8AB7C[Room * 4 + i], true, true);
+			if (Unknown_B8AB3C[room * 4 + i] == UnknownB0->Unknown58) {
+				Unknown_63C080(Unknown_B8AB7C[room * 4 + i], true, true);
 				UnknownB0->Unknown_69E510(UnknownC0.D->Avatar->Unknown_787A90());
 				break;
 			}

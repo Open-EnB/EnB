@@ -150,7 +150,7 @@ ShipEquipPipClass::~ShipEquipPipClass()
 
 
 
-// NOT EXACT: functional from the pseudocode (D64); its locals sit in other frame slots
+// NOT EXACT: inline-budget (29 masked rows, from 185); second Unknown_543270 keeps ??_H and unit is not spilled to ebp-0x40
 // 0x542250
 void ShipEquipPipClass::Unknown_542250(const RefCountPtr<RenderObjClass> &robj)
 {
@@ -166,7 +166,7 @@ void ShipEquipPipClass::Unknown_542250(const RefCountPtr<RenderObjClass> &robj)
 			Matrix3D tm(true);
 			tm.Look_At(pos, target, 0);
 			Unknown_543270(tm);
-			Distance = (pos - target).Length();
+			Distance = Vector3::Distance(pos, target);
 		}
 	} else if (robj) {
 		float unit = CameraManagerClass::Unknown_79B6B0();
@@ -178,7 +178,7 @@ void ShipEquipPipClass::Unknown_542250(const RefCountPtr<RenderObjClass> &robj)
 			Unknown50 = camera->Get_Transform();
 			Unknown80 = Unknown50;
 			Unknown80.Translate_Z(unit - Unknown48);
-			pos = Unknown80.Get_Translation();
+			pos.Set(Unknown80.Get_X_Translation(), Unknown80.Get_Y_Translation(), Unknown80.Get_Z_Translation());
 			Unknown80.Look_At(pos, target, 0);
 			Unknown4C = 1.0f;
 			Unknown48 = unit;
@@ -188,9 +188,9 @@ void ShipEquipPipClass::Unknown_542250(const RefCountPtr<RenderObjClass> &robj)
 			Unknown4C = WWMath::Clamp(Unknown4C, 0.0f, 1.0f);
 			Matrix3D tm = Lerp(Unknown50, Unknown80, 1.0f - Unknown4C);
 			Unknown_543270(tm);
-			pos = tm.Get_Translation();
-			pos -= target;
-			Distance = pos.Length();
+			pos.Set(tm.Get_X_Translation(), tm.Get_Y_Translation(), tm.Get_Z_Translation());
+			Distance = Vector3::Distance(pos, target);
+
 			if (Unknown4C == 0.0f) {
 				Unknown_542EE0(0);
 			}

@@ -47,11 +47,11 @@ void EnvironmentMapManagerClass::Load(const char *env_map_ini_filename)
 		sprintf(section, "PROCTEX-%02d", index);
 	}
 }
-// NOT EXACT: frame layout (explain.py's first class, relocation, is symbols.json's stale TextureClass::MipCountType name for 0x925CC0: dx8wrapper.obj emits the global one) (similarity 0.69, its calls one for one the client's): functional for POC (D64)
+// NOT EXACT: register (masked residue 106, was 170): sprintf's 4th argument 0xFE and the Z / z cases are the client's (its push / add esp, 0x10 and switch tables); the pixel blocks are index loops (the client's dst row after the int guard), left: ours addresses src as dst + (src - dst) where the client steps both pointers, and the register webs around it (D64)
 // 0x760770
 void EnvironmentMapManagerClass::Unknown_760770(int base_asset, bool a)
 {
-	char section[256]; char name[256]; sprintf(section, "BACK-%i", base_asset); INI.Get_String(section, "Texture", "", name, 0xFE);
+	char section[256]; char name[256]; sprintf(section, "BACK-%i", base_asset, 0xFE); INI.Get_String(section, "Texture", "", name, 0xFE);
 	if (!name[0]) INI.Get_String("BACK-DEFAULT", "Texture", "", name, 0xFE);
 	FAIL_IF(!name[0]) return;
 
@@ -66,7 +66,7 @@ void EnvironmentMapManagerClass::Unknown_760770(int base_asset, bool a)
 		case 'y':
 			Unknown10 = 1;
 			break;
-		default:
+		case 'Z': case 'z': Unknown10 = 2; break; default:
 			Unknown10 = 2;
 			break;
 	}
@@ -140,50 +140,50 @@ void EnvironmentMapManagerClass::Unknown_760770(int base_asset, bool a)
 		}
 
 		// the reflection added over the bottom right quarter, its half size copy over each other cell of a 4 x 4 grid
-		int scale = a + 1;
+		int scale = a ? 2 : 1;
 		int pitch = base_desc.Width * 3;
-		unsigned int half_height = base_desc.Height >> 1;
+		int half_height = base_desc.Height >> 1;
 		int half_pitch = (base_desc.Width >> 1) * 3;
-		unsigned char *src_row = reflection;
-		unsigned char *dst_row = pixels + pitch * half_height + half_pitch;
-		for (unsigned int y = half_height; y != 0; y--) {
-			unsigned char *src = src_row;
-			unsigned char *dst = dst_row;
-			for (int x = half_pitch; x > 0; x--) {
-				unsigned int value = *src * scale + *dst;
+		for (int y = 0; y < half_height; y++) {
+			unsigned char *dst = pixels + (half_height + y) * pitch + half_pitch;
+			unsigned char *src = reflection + y * half_pitch;
+			for (int x = 0; x < half_pitch; x++) {
+				int s = *src; int value = s * scale + *dst;
 				if (value > 0xFF) {
 					value = 0xFF;
 				}
-				*dst = (unsigned char)value;
-				dst++;
-				src++;
+				*dst = (unsigned char)value; dst++; src++;
 			}
-			dst_row += pitch;
-			src_row += half_pitch;
 		}
 
-		unsigned int quarter_height = base_desc.Height >> 2;
+
+
+
+
+
+
+		int quarter_height = base_desc.Height >> 2;
 		int quarter_pitch = (base_desc.Width >> 2) * 3;
 		for (int row = 0; row < (int)base_desc.Height; row += quarter_height) {
 			for (int col = 0; col < pitch; col += quarter_pitch) {
-				if ((col < half_pitch || row < (int)half_height) && quarter_height != 0) {
-					unsigned char *cell_src = reflection_small;
-					unsigned char *cell_dst = pixels + row * pitch + col;
-					for (unsigned int y = quarter_height; y != 0; y--) {
-						unsigned char *src = cell_src;
-						unsigned char *dst = cell_dst;
-						for (int x = quarter_pitch; x > 0; x--) {
-							unsigned int value = *src * scale + *dst;
+				if (col < half_pitch || row < half_height) {
+					for (int y = 0; y < quarter_height; y++) {
+						unsigned char *dst = pixels + (row + y) * pitch + col;
+						unsigned char *src = reflection_small + y * quarter_pitch;
+						for (int x = 0; x < quarter_pitch; x++) {
+							int s = *src; int value = s * scale + *dst;
 							if (value > 0xFF) {
 								value = 0xFF;
 							}
-							*dst = (unsigned char)value;
-							dst++;
-							src++;
+							*dst = (unsigned char)value; dst++; src++;
 						}
-						cell_dst += pitch;
-						cell_src += quarter_pitch;
 					}
+
+
+
+
+
+
 				}
 			}
 		}

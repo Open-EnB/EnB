@@ -27,7 +27,7 @@ extern const int Unknown_B08CA8;	// 0xB08CA8 (0x40: StrEditClass's enter flag; t
 // The 'chatgadg' module's control keys (ControlKeysManager): the dynamic initialiser 0x65BEA0, atexit 0x65BF60
 static std::string ModuleName("chatgadg");	// 0xBE5E78  // NAME 1: neutral (D10): what it holds
 
-// 0x65BFD0  // NOT EXACT: functional (D64)
+// 0x65BFD0
 ChatGadgetClass::ChatGadgetClass(LineDisplayClientClass *client) :
 	TextBaseGadgetClass(0xFF, Unknown_B08CA8, NULL),
 	Client((ClientClass *)client),
@@ -50,17 +50,17 @@ ChatGadgetClass::ChatGadgetClass(LineDisplayClientClass *client) :
 		ControlKeysManager::Register_Key(ModuleName, "Reply Menu", 9);
 		ControlKeysManager::Register_Key(ModuleName, "Target Position", 10);
 		ControlKeysManager::Register_Key(ModuleName, "Player Position", 11);
-		for (int i = 1; i < 10; i++) {
+		int i = 0;
+		while (i < NUM_QUICK_MESSAGES) {
 			char name[64];
-			sprintf(name, "Save Quick Message %d", i);
-			ControlKeysManager::Register_Key(ModuleName, name, i + 11);
-			sprintf(name, "Send Quick Message %d", i);
-			ControlKeysManager::Register_Key(ModuleName, name, i + 20);
+			sprintf(name, "Save Quick Message %d", i + 1);
+			ControlKeysManager::Register_Key(ModuleName, name, i + 12);
+			sprintf(name, "Send Quick Message %d", i + 1);
+			ControlKeysManager::Register_Key(ModuleName, name, i + 21);
+			i++;
 		}
 	}
-	for (int i = 0; i < 10; i++) {
-		History[i] = NULL;
-	}
+	memset(History, 0, sizeof(History));
 	QuickMessages = new INIClass;
 	QuickMessages->Load("chat.ini");
 }

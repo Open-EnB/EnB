@@ -896,13 +896,13 @@ Vector3 Unknown_50EE60(const Vector3 &source)
 // DurationClass::operator+ out of line (0x514B00, its only copy), as VC6 does at this depth (one layer inlines it)
 static inline DurationClass Unknown_Server_Time(SClient *client) { return DurationClass((unsigned)client->Unknown10BC) + client->Unknown10C0; }	// NAME 1: neutral (D10)
 static inline DurationClass Unknown_Time(SClient *client) { return Unknown_Server_Time(client); }	// NAME 1: neutral (D10)
-// NOT EXACT: 0.95 (BG7, run 2026-11-19; frame and size match; x87 / store scheduling left in case 1, sun.Normalize, the fill test, the offset product, the shadow call; attempts.csv)
+// NOT EXACT: 0.99 (masked 39 -> 10, raw 256 -> 207, frame 0xCC = client; x87 left in sun.Normalize and frame*offset; attempts.csv 0x50F1B0)
 void MainViewClass::Update(CameraClass *camera, bool under)
 {
 	WWPROFILE("MainView::Update");
 	SClient *client = Get_Client();
 	FAIL_IF(!client) return;
-	float hours = Unknown_Time(client).Get() * 2.777778e-07f;
+	float hours = (float)Unknown_Time(client).Get();	hours *= 2.777778e-07f;
 	if (Get_Client()->DebugMode) {
 		float offset = Get_Client()->Unknown1390;	hours += offset;
 	}
@@ -953,7 +953,7 @@ void MainViewClass::Update(CameraClass *camera, bool under)
 			Land->Update_Patches(*camera, LandLOD);
 			Unknown16C = sky;
 			Lighting.SkyColor = ambient;
-			Lighting.Valid = Orbitals->Unknown4C;
+			bool valid = Orbitals->Unknown4C;	Lighting.Valid = valid;
 			Lighting.SunAngle = Orbitals->Unknown2C;
 			Lighting.LightColor = sun;
 			Lighting.SunDirection = Orbitals->Unknown20;
@@ -1047,7 +1047,7 @@ void MainViewClass::Update(CameraClass *camera, bool under)
 		Vector3 view = camera->Get_Transform().Get_Z_Vector();
 		Vector4 fill = Orbitals->Unknown_4F50D0(4);
 		if (fill.Length2() > 0.0001f) {
-			Scene->Set_Ambient_Light(Vector3(fill.X, fill.Y, fill.Z) * fill.W);
+			Vector3 ambient_fill(fill.X, fill.Y, fill.Z);	Scene->Set_Ambient_Light(ambient_fill * fill.W);
 		}
 		for (int k = 0; k < 4; k++) {
 			Vector4 color = Orbitals->Unknown_4F50D0(k);
@@ -1076,7 +1076,7 @@ void MainViewClass::Update(CameraClass *camera, bool under)
 				Vector3 up;
 				Vector3::Cross_Product(dir, side, &up);
 				up.Normalize();
-				Matrix3D frame(dir, side, up, Vector3(0.0f, 0.0f, 0.0f));
+				Matrix3D frame;	frame.Set(dir, side, up, Vector3(0.0f, 0.0f, 0.0f));
 				dir = dir + frame * offset;
 				dir.Normalize();
 			}
@@ -1090,7 +1090,7 @@ void MainViewClass::Update(CameraClass *camera, bool under)
 	}
 	if (Orbitals->Unknown4C) {
 		Scene->Add_Render_Object(Unknown144[0].Peek());
-		ProjectorManagerClass *projectors = ((MainViewSceneClass *)Scene)->ProjectorManager;	projectors->Set_Shadow_Light_Direction(-Orbitals->Unknown20);
+		Vector3 shadow_dir = -Orbitals->Unknown20;	ProjectorManagerClass *projectors = ((MainViewSceneClass *)Scene)->ProjectorManager;	projectors->Set_Shadow_Light_Direction(shadow_dir);
 		((MainViewSceneClass *)Scene)->Apply_Projectors(Camera);
 		if (Get_Client()->Unknown10F8) {
 			Vector3 dir;		// one vector for both (the client: one slot, its X kept in st(0) across Get_Diffuse's null test)
@@ -1224,7 +1224,7 @@ void MainViewClass::Unknown_510420()
 #include "..\..\ww3d2\dx8fvf.h"
 #include "..\..\ww3d2\vertmaterial.h"
 #include "..\..\ww3d2\shader.h"
-// NOT EXACT: functional (MV2): Renegade's phys.cpp projection-preview quad (wwphys, disabled there) as the client has it:
+// NOT EXACT: frame (0x510D40, 0 masked / 18 raw rows, score 1.00, frame 0x214 = client; DynamicIBAccessClass sits at -0x160 above the 7 Get_Transform spill slots vs client -0x17c below them; attempts.csv)
 // 0x510D40, the sea's tint over the whole screen in the colour arg (0x50CF70 passes +0x16C), no texture
 void MainViewClass::Unknown_510D40(Vector3 &arg)
 {
@@ -1241,8 +1241,8 @@ void MainViewClass::Unknown_510D40(Vector3 &arg)
 	DX8Wrapper::Set_Transform(D3DTS_WORLD, identity);
 	DX8Wrapper::Set_Transform(D3DTS_VIEW, identity);
 	DX8Wrapper::Set_Transform(D3DTS_PROJECTION, identity);
-	float scale = 255.0f;
-	unsigned color = WWMath::Float_To_Long(arg.Z * scale) | (WWMath::Float_To_Long(arg.X * scale) << 16) | (WWMath::Float_To_Long(arg.Y * scale) << 8);
+	unsigned color = DX8Wrapper::Convert_Color(arg, 0.0f);
+
 	DynamicVBAccessClass vbaccess(BUFFER_TYPE_DYNAMIC_DX8, dynamic_fvf_type, 4);
 	{
 		DynamicVBAccessClass::WriteLockClass lock(&vbaccess);
@@ -1264,12 +1264,12 @@ void MainViewClass::Unknown_510D40(Vector3 &arg)
 	{
 		DynamicIBAccessClass::WriteLockClass lock(&ibaccess);
 		unsigned short *indices = lock.Get_Index_Array();
-		indices[0] = 0;
-		indices[1] = 2;
-		indices[2] = 1;
-		indices[3] = 0;
-		indices[4] = 3;
-		indices[5] = 2;
+		*indices++ = 0;
+		*indices++ = 2;
+		*indices++ = 1;
+		*indices++ = 0;
+		*indices++ = 3;
+		*indices = 2;
 	}
 	DX8Wrapper::Set_Vertex_Buffer(vbaccess);
 	DX8Wrapper::Set_Index_Buffer(ibaccess, 0);

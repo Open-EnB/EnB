@@ -307,16 +307,16 @@ Unknown70F4F0Class::~Unknown70F4F0Class()
 }
 
 
-// NOT EXACT: 0x70F630 frame: the client's frame is 0x20 (its temporaries share slots), ours 0x38; the cached copy's test is laid out the other way
+// 0x70F630
 void Unknown70F4F0Class::Unknown_1C(int time, Vector3 *position, Quaternion *orientation, Vector3 *velocity, float *speed, Vector3 *rotrate, bool unknown)
 {
 	Unknown710030Class *motion;
 	if (unknown) {
-		motion = Unknown0C;
-		if (motion == 0 || motion->Time > (unsigned int)time) {
-			delete motion;
-			motion = Current->Unknown_0C();
-			Unknown0C = motion;
+		if (Unknown0C != 0 && Unknown0C->Time <= (unsigned int)time) motion = Unknown0C;
+		else {
+			if (Unknown0C) delete Unknown0C;
+			Unknown0C = Current->Unknown_0C();
+			motion = Unknown0C;
 		}
 	} else {
 		motion = Current;
@@ -373,15 +373,15 @@ void Unknown70F4F0Class::Unknown_1C(int time, Vector3 *position, Quaternion *ori
 		}
 		return;
 	}
-	unsigned int before = time - remainder;
+	unsigned int before = time - remainder; unsigned int after = before + 100;
 	motion->Unknown_04(before);
 	Unknown710030Class **next = unknown ? &Unknown10 : &Unknown08;
-	if (*next == 0 || (*next)->Time != before + 100) {
+	if (*next == 0 || (*next)->Time != after) {
 		if (*next) {
 			delete *next;
 		}
 		*next = motion->Unknown_0C();
-		(*next)->Unknown_04(before + 100);
+		(*next)->Unknown_04(after);
 	}
 	float t = remainder * 0.01f;
 	if (position) {
@@ -409,7 +409,7 @@ void Unknown70F4F0Class::Unknown_1C(int time, Vector3 *position, Quaternion *ori
 	if (velocity) {
 		Vector3 start_vector = motion->Unknown_14();
 		Vector3 end_vector = (*next)->Unknown_14();
-		*velocity = Lerp(start_vector, end_vector, t) * 0.01f;
+		velocity->X = WWMath::Lerp(start_vector.X, end_vector.X, t) * 0.01f; velocity->Y = WWMath::Lerp(start_vector.Y, end_vector.Y, t) * 0.01f; velocity->Z = WWMath::Lerp(start_vector.Z, end_vector.Z, t) * 0.01f;
 
 
 
@@ -418,7 +418,7 @@ void Unknown70F4F0Class::Unknown_1C(int time, Vector3 *position, Quaternion *ori
 	if (speed) {
 		float start = motion->Unknown_18();
 		float end = (*next)->Unknown_18();
-		*speed = WWMath::Lerp(start, end, t) * 0.01f;
+		*speed = (start + (end - start) * t) * 0.01f;
 
 
 
@@ -427,7 +427,7 @@ void Unknown70F4F0Class::Unknown_1C(int time, Vector3 *position, Quaternion *ori
 	if (rotrate) {
 		Vector3 start_vector = motion->Unknown_1C();
 		Vector3 end_vector = (*next)->Unknown_1C();
-		*rotrate = Lerp(start_vector, end_vector, t) * 0.01f;
+		rotrate->X = WWMath::Lerp(start_vector.X, end_vector.X, t) * 0.01f; rotrate->Y = WWMath::Lerp(start_vector.Y, end_vector.Y, t) * 0.01f; rotrate->Z = WWMath::Lerp(start_vector.Z, end_vector.Z, t) * 0.01f;
 
 
 		G_ASSERT(rotrate->Is_Valid());

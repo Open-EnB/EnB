@@ -5361,5 +5361,23 @@
   "evidence": "the value type renamed with the client's shared KVAccessorClass tables: 0xAEC9C8 is stored by both ~KVPointerAccessorClass<ProfessionType> 0x4F76E0 and ~DeltaTemplateAccessorClass 0x7595F0, 0xAEC9DC by ~KVPointerAccessorClass<RaceType> 0x4F7730 and 0x7595D0, 0xAEB258's slot 0 is KVAccessorClass<unsigned int>'s ??_G 0x4A8600 and 0x706D80 stores it (KV, 2026-11-17)",
   "kind": "vtable",
   "replaces": "??_7?$DeltaTemplateAccessorClass@W4UnknownB03588Enum@@@@6B@"
+ },
+ {
+  "address": "0x92F060",
+  "symbol": "?Set_Emissive_Color_Source@VertexMaterialClass@@QAEXW4ColorSourceType@1@@Z",
+  "evidence": "0x92F060 writes [ecx+0x14] (EmissiveColorSource, matching Get_Emissive_Color_Source 0x92F0E0 at +0x14 and MeshMatDescClass callers; 0x92F030 writes +0x10 AmbientColorSource); bytematch-ww3d2 Z mislabelled it (2026-11-21)",
+  "replaces": "?Set_Ambient_Color_Source@VertexMaterialClass@@QAEXW4ColorSourceType@1@@Z"
+ },
+ {
+  "address": "0x92F090",
+  "symbol": "?Set_Diffuse_Color_Source@VertexMaterialClass@@QAEXW4ColorSourceType@1@@Z",
+  "evidence": "0x92F090 writes [ecx+0x18] (DiffuseColorSource, matching Get_Diffuse_Color_Source 0x92F100 at +0x18 and MeshMatDescClass callers); bytematch-ww3d2 Z mislabelled it Set_Emissive_Color_Source (2026-11-21)",
+  "replaces": "?Set_Emissive_Color_Source@VertexMaterialClass@@QAEXW4ColorSourceType@1@@Z"
+ },
+ {
+  "address": "0x982A30",
+  "symbol": "??_GFont3DInstanceClass@@UAEPAXI@Z",
+  "evidence": "0x982A30 stores ??_7Font3DInstanceClass@@6B@ (0xB12F40) and ??_7RefCountClass@@6B@ (0xAE7FB0), sits between Font3DInstanceClass ctor 0x9829C0 and dtor 0x982A80, and is slot 0 of Font3DInstanceClass vtable 0xB12F40 (vtables-ww3d2.json); bytematch-ww3d2 R mislabelled it SoundRenderObjPrototypeClass (whose PrototypeClass base vtable is 0xAEA5B4) (2026-11-21)",
+  "replaces": "??_GSoundRenderObjPrototypeClass@@UAEPAXI@Z"
  }
 ]

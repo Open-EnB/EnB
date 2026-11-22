@@ -511,7 +511,7 @@ void UIMissnClass::Unknown_5C5AC0(unsigned int cur_mission_idx, bool arg)
 
 
 // 0x5C5DB0
-// NOT EXACT: register (similarity 0.58: the client keeps this in ebp, spilled, and the mission in ebx, spilled to new_mission's slot; edi is pushed only around the text; the dead reads at the end bring the appends' inline / out-of-line mix to the client's: 9 append calls, the loop's inline)
+// NOT EXACT: register (masked residue 6 rows: the client loads Reward once, into esi, across the 'Reward: ' append; a reward local of any form costs the client's allocation, this in ebp spilled and the mission in ebx spilled to new_mission's slot, back to 155 rows; the dead reads at the end bring the appends' inline / out-of-line mix to the client's: 9 append calls, the loop's inline)
 void UIMissnClass::Unknown_5C5DB0(int new_mission)
 {
 	if (UnknownC4 && UnknownC4->Active) {
@@ -555,12 +555,12 @@ void UIMissnClass::Unknown_5C5DB0(int new_mission)
 	UnknownD8[CurrentMission + 1]->Unknown_90(SelectedBttnTexture);
 
 	std::string text;
-	const char *reward = mission->Reward.Get();
-	if (reward && *reward) {
+	if (mission->Reward.Get() && *mission->Reward.Get()) {
 		text += "Reward: ";
-		text += reward;
+		text += mission->Reward.Get();
 		text += "\n\n";
 	}
+
 	const char *failure = mission->FailureConsequence.Get();
 	if (failure && *failure) {
 		text += "Failure: ";

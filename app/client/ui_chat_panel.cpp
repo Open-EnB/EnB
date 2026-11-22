@@ -257,13 +257,13 @@ ChatPanelInterface::ChatPanelInterface(SClient *client) :
 class UILogClass : public ChatPanelUIBase { public: UILogClass(SClient *client); char Unknown0A0[0xCC - 0xA0]; };	// ui_log.cpp's log book (0x5AAE40, 0xCC bytes: 'Captain's Log'; declared in ui_log.cpp, no header)
 #include "..\packets\pkunknown_87dec0.h"	// AvatarEmotePacketClass (0x87DEC0: the avatar's emotes)
 #include "camera_manager.h"	// CameraManagerClass (SClient +0x12A8; 0x79B600 before the ship's emotes)
-// NOT EXACT: inline-budget/shape: 1220B, sim 0.50 (4 dead size() reads send _Eos out of line; UnknownD4=NULL 0x56CC30, Remove 0x56CE40, ChatInt=NULL 0x56CD50, ~list erase still inline)
+// (4 dead size() reads send _Eos out of line; the combo through 0x568910 and the chat window through 0x56C6A0 inlined give 0x56CC30, Remove 0x56CE40 and ChatInt=NULL 0x56CD50 out of line; the deletes' own null tests)
 // @0x562440
 // 0x562410 / 0x562440
 ChatPanelInterface::~ChatPanelInterface()
 {
 	Unknown228.clear();
-	if (UnknownD4) UnknownD4 = NULL;
+	Unknown_568910();
 	if (Unknown258) {
 		if (InterfaceMesh) {
 			InterfaceMesh->Remove_Sub_Object(Unknown258.Peek());
@@ -274,20 +274,20 @@ ChatPanelInterface::~ChatPanelInterface()
 	for (int i = 0; i < NUM_COMBO; i++) {
 		Combo[i] = NULL;
 	}
-	if (Unknown110) {
-		delete Unknown110;
-		Unknown110 = NULL;
-	}
-	if (ChatInt) {
-		InterfaceClass::Get_Signal_Map().Remove(ChatInt.Peek(), this, &ChatPanelInterface::Unknown_56C730, ChatWindowInterfaceEvent());
-		ChatInt->Unknown_7C(NULL, false);
-		ChatInt = NULL;
-	}
+	delete Unknown110;
+	Unknown110 = NULL;
+
+
+	Unknown_56C6A0();
+
+
+
+
 	Unknown114 = NULL;
-	if (Unknown13C) {
-		delete (Unknown67D430Class *)Unknown13C;
-		Unknown13C = 0;
-	}
+	delete (Unknown67D430Class *)Unknown13C;
+	Unknown13C = 0;
+
+
 	Unknown124.erase();
 	if (Unknown1E8) Unknown1E8 = NULL;
 	GadgetClass::Destroy((GadgetClass *)Unknown140);
@@ -637,7 +637,7 @@ bool ChatPanelInterface::Unknown_5638E0(int key)
 	if (!ChatInt) return(false);
 	return(ChatInt->Unknown_B8(key));
 }
-// NOT EXACT: inline-budget (the second branch's name copy: the client inlines assign with _Grow out of line, ours expands _Grow; frame 0xC vs 8)
+// (exact: the second branch's name copy inlines assign with _Grow out of line, as the client)
 // 0x563910
 void ChatPanelInterface::Unknown_563910(unsigned id, bool flag)
 {
@@ -1317,7 +1317,7 @@ void ChatPanelInterface::Unknown_5679A0(int event, const std::string &channel, c
 	}
 }
 
-// NOT EXACT: inline-budget (the client builds the two empty strings differently: case 2 expands the constructor with _Grow / _Eos, case 10 calls assign; 185 instructions vs 169)
+// NOT EXACT: inline-budget (one dead size() read sends case 10's string("") assign out of line as the client; left: the client calls case 2's _Eos and 0x5680B0's == compare out of line, ours inlines them; 162 rows vs 154, GV4)
 // 0x567DF0
 void ChatPanelInterface::Unknown_567DF0(int code)
 {
@@ -1331,7 +1331,7 @@ void ChatPanelInterface::Unknown_567DF0(int code)
 			break;
 		case 2:
 			UnknownFC = 4;
-			Unknown_5680B0(std::string(""));
+			Unknown_5680B0(std::string("")); Unknown214.size();
 			break;
 		case 10:
 			UnknownFC = 3;
@@ -2379,16 +2379,16 @@ void ChatPanelInterface::Unknown_56C0C0()
 #pragma auto_inline(on)
 
 
-// NOT EXACT: frame (0x18 vs the client's 0x1C: the client keeps &ChatInt in edi and calls RefCountPtr's operator=(NULL) 0x56CD50 out of line; 349 instructions vs 346)
+// The old window goes through 0x56C6A0 (inlined: its Remove and operator=(NULL) 0x56CD50 out of line, &ChatInt in edi)
 // 0x56C180
 void ChatPanelInterface::Unknown_56C180(int window)
 {
 	bool active = Active;
-	if (ChatInt) {
-		InterfaceClass::Get_Signal_Map().Remove(ChatInt.Peek(), this, &ChatPanelInterface::Unknown_56C730, ChatWindowInterfaceEvent());
-		ChatInt->Unknown_7C(NULL, 0);
-		ChatInt = NULL;
-	}
+	Unknown_56C6A0();
+
+
+
+
 	Unknown134 = window;
 	switch (window) {
 		case 1:
@@ -2406,11 +2406,11 @@ void ChatPanelInterface::Unknown_56C180(int window)
 			break;
 	}
 	if (ChatInt) {
-		SignalMap &dispatcher = InterfaceClass::Get_Signal_Map();
-		dispatcher.Add(ChatInt.Peek(), this, &ChatPanelInterface::Unknown_56C730);
+
+		InterfaceClass::Get_Signal_Map().Add(ChatInt.Peek(), this, &ChatPanelInterface::Unknown_56C730);
 		ChatInt->Unknown_5417D0(this);
 		ChatInt->Unknown_54();
-		ChatInt->Unknown_7C(Get_View(), active);
+		ChatInt->Unknown_7C(View, active); Get_View();
 		Unknown_5646A0(Unknown148);
 	}
 

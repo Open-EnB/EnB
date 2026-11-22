@@ -90,7 +90,7 @@ void StarLayerClass::Render(RenderInfoClass &rinfo, unsigned int max_polys)
 
 
 
-// NOT EXACT: order-only (the Hemisphere z load), parked: attempts.csv 0x481DB0
+// 0x481DB0
 bool StarLayerClass::Load(const INIClass &ini, const char *section)
 {
 	FAIL_IF(!section) return false;
@@ -141,9 +141,9 @@ bool StarLayerClass::Load(const INIClass &ini, const char *section)
 	unsigned char *frames = Frames->Get_Array();
 	sampler.Set_Offset(qmc_offset);
 
-	float r;
+	float sample[5];
 	for (int i = 0; i < NumStars; i++) {
-		float sample[5];
+		float r;
 		sampler.Sample(sample);
 		if (hemisphere) {
 			r = powf(1.0f - sample[1] * sample[1], 0.5f);

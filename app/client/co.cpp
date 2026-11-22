@@ -1245,7 +1245,7 @@ UnknownRootClass *ClientObjectClass::Unknown_Create_Aux_Root(int type, int unkno
 // Ship's narrow Add (0x6F8C70)
 void DeltaShipClass::Add(int narrow, DeltaClass *child)
 {
-	DeltaCompoundClass::Add(child);
+	DeltaCompoundClass::Add(child); child->DeltaClass::As_Delta();	// the dead read spends inline budget as the client's (D272): Ship inlines four narrow Adds (Name-Rank), calls the rest
 	if (narrow == 1) {
 		child->Unknown80 = 0xCF;
 	}
@@ -1445,6 +1445,18 @@ DeltaKnownFormulaClass::DeltaKnownFormulaClass(const char *name) :
 
 
 
+template<class C> static inline C *Unknown_Find_Inner(DeltaCompoundClass *root, const NameClass &name) {	// NAME 1: neutral (D10)
+	DeltaCompoundClass *r = root; C *t = Unknown_Find_Field<C>(r, name); if (!t) return(NULL); return(t);
+}
+static inline bool Unknown_Read_Changed_2L(ClientObjectClass *o, const NameClass &name, int &out) {	// NAME 1: neutral (D10)
+	DeltaCompoundClass *r = (DeltaCompoundClass *)o->AuxData; DeltaTemplateClass<int> *t = Unknown_Find_Inner<DeltaTemplateClass<int> >(r, name); o->Get_Game_ID(); if (!t || t->Unknown70 <= 1) return(false); out = t->Value; return(true);	// dead Get_Game_ID() spends inline budget (D272)
+}
+static inline bool Unknown_Check_Global_2L(ClientObjectClass *o, const NameClass &name) {	// NAME 1: neutral (D10)
+	DeltaCompoundClass *r = (DeltaCompoundClass *)o->AuxData; DeltaTemplateClass<int> *t = Unknown_Find_Inner<DeltaTemplateClass<int> >(r, name); o->Get_Game_ID(); if (!t || t->Unknown70 <= 1) return(false); if (o->Unknown128) return(false); o->UnknownF8 = t->Value; return(true);
+}
+template<class C> static inline C *Unknown_Find_Valid_2L(ClientObjectClass *o, const NameClass &name) {	// NAME 1: neutral (D10)
+	DeltaCompoundClass *r = (DeltaCompoundClass *)o->AuxData; C *t = Unknown_Find_Inner<C>(r, name); o->Get_Game_ID(); if (!t || !t->Unknown70) return(NULL); return(t);
+}
 
 
 
@@ -1458,27 +1470,15 @@ DeltaKnownFormulaClass::DeltaKnownFormulaClass(const char *name) :
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-// NOT EXACT: inline budget (the client calls the four finds' Casts 0x531590 / 0x7099F0 out of line, ours inlines them; 74 calls vs 70; frame 0x270 since F8; attempts.py show 0x6FBEF0)
 // 0x6FBEF0 (the warp state: PrivateWarpState's messages, then GlobalWarpState's sounds, effects and camera modes)
 void ClientObjectClass::Unknown_6FBEF0()
 {
 	bool player = (Unknown_6F5A40() && GameID == Client->AvatarID);
 	{
 		NameClass name("PrivateWarpState");
-		DeltaTemplateClass<int> *t = Unknown_Find_Field<DeltaTemplateClass<int> >((DeltaCompoundClass *)AuxData, name);
-		if (t && t->Unknown70 > 1) {
-			UnknownF8 = t->Value;
+		if (Unknown_Read_Changed_2L(this, name, UnknownF8)) {
+
+
 			switch (UnknownF8) {
 				case 5:
 					((SClient *)Client->As_Space_Client())->Unknown_74D990(0x11, "Engine unavailable. Please wait.", 0);
@@ -1505,17 +1505,17 @@ void ClientObjectClass::Unknown_6FBEF0()
 			}
 		}
 	}
-	DeltaTemplateClass<int> *t;
-	{ NameClass name("GlobalWarpState"); t = Unknown_Find_Field<DeltaTemplateClass<int> >((DeltaCompoundClass *)AuxData, name); }	// a block: the client's names 1-3 share one slot (F8)
-	if (!t || t->Unknown70 <= 1) {
-		return;
-	}
-	if (Unknown128) {
-		return;
-	}
-	UnknownF8 = t->Value;
+	{ NameClass name("GlobalWarpState"); if (!Unknown_Check_Global_2L(this, name)) return; }
+
+
+
+
+
+
+
+
 	DeltaStatsClass *stats;
-	{ NameClass stats_name("CurrentStats"); stats = Unknown_Find_Valid<DeltaStatsClass>((DeltaCompoundClass *)AuxData, stats_name); }
+	{ NameClass stats_name("CurrentStats"); stats = Unknown_Find_Valid_2L<DeltaStatsClass>(this, stats_name); }
 
 	int level = 1;
 	if (stats) {
@@ -1532,9 +1532,9 @@ void ClientObjectClass::Unknown_6FBEF0()
 	switch (UnknownF8) {
 		case 1: {
 			NameClass trail_name("EngineTrailType");
-			DeltaTemplateClass<int> *trail = Unknown_Find_Valid<DeltaTemplateClass<int> >((DeltaCompoundClass *)AuxData, trail_name);
-
-			_snprintf(loop, sizeof(loop), "engine_loop_%d", trail ? trail->Value + 22 : 22);
+			DeltaTemplateClass<int> *trail = Unknown_Find_Valid_2L<DeltaTemplateClass<int> >(this, trail_name);
+			int trail_id = 22; if (trail) trail_id = trail->Value + 22;
+			_snprintf(loop, sizeof(loop), "engine_loop_%d", trail_id);
 			_snprintf(sound, sizeof(sound), "warp_start_%d", level);
 			if (player) {
 				SoundLibraryClass::Play_2D_Sound(sound, 2);
@@ -1551,7 +1551,7 @@ void ClientObjectClass::Unknown_6FBEF0()
 				Unknown11C->Remove_From_Scene();
 				Unknown11C->Release_Ref();
 			}
-			if (player) { Unknown118 = SoundLibraryClass::Play_3D_Sound(loop, Unknown_28(true), 0, 2.5f); } else { Unknown118 = SoundLibraryClass::Play_3D_Sound(loop, Unknown_28(true), 0, 1.0f); }	// two calls, as the client pushes 2.5f and 1.0f separately (F8)
+			if (player) { static const float v25 = 2.5f; Unknown118 = SoundLibraryClass::Play_3D_Sound(loop, Unknown_28(true), 0, v25); } else { Unknown118 = SoundLibraryClass::Play_3D_Sound(loop, Unknown_28(true), 0, 1.0f); }	// two calls, as the client pushes 2.5f and 1.0f separately (F8)
 			Unknown11C = SoundLibraryClass::Play_3D_Sound("Warp_Secondary", Unknown_28(true), 0, 1.0f);
 			if (Unknown118) {
 				Unknown118->Attach_To_Object(RenderObject, -1);
@@ -1566,7 +1566,7 @@ void ClientObjectClass::Unknown_6FBEF0()
 				Play_State_Animation(RenderObject, 1, 0);
 				Unknown184 = false;
 			}
-			Unknown14C = --Client->Unknown113C;
+			Unknown14C = Client->Next_Local_ID();
 			effect = Unknown_6E9490(0x1BB, Unknown14C, -1, Client->Unknown10BC, Client, 1.0f, Vector3(0.0f, 0.0f, 0.0f), 1.0f, -1, 0);
 			if (!effect) {
 				return;
@@ -1608,7 +1608,7 @@ void ClientObjectClass::Unknown_6FBEF0()
 			if (old) {
 				old->Unknown_6E6E30();
 			}
-			Unknown14C = --Client->Unknown113C;
+			Unknown14C = Client->Next_Local_ID();
 			effect = Unknown_6E9490(0x2C6, Unknown14C, -1, Client->Unknown10BC, Client, 1.0f, Vector3(0.0f, 0.0f, 0.0f), 1.0f, -1, 0);
 			if (!effect) {
 				return;
@@ -2111,9 +2111,9 @@ void ClientObjectClass::Unknown_6FDBD0()
 int Update_Damage_Particles(RenderObjClass *model, int *levels, int hull_level, ClientClass *client, unsigned id, int unknown);	// 0x810CF0  // NAME 1 [model, levels, hull_level, client, id, unknown]: what 0x6FE1E0 passes
 int Update_Blood_Particles(RenderObjClass *model, int hull_level, int number, unsigned id, bool organic, bool view, ClientClass *client, int unknown);	// 0x8117D0  // NAME 1 [model, hull_level, number, id, organic, view, client, unknown]: what 0x6FE1E0 passes
 // a damage fraction's level: 4 from one half, 3 from a quarter, 2 above 0, else 1 (inline in 0x6FE1E0)
-static inline int Unknown_Damage_Level(float damage) { if (damage >= 0.5f) return(4); if (damage >= 0.25f) return(3); if (damage > 0.0f) return(2); return(1); }	// NAME 1 [damage]: what it is
+static inline int Unknown_Damage_Level(const float &damage) { if (damage >= 0.5f) return(4); if (damage >= 0.25f) return(3); if (damage > 0.0f) return(2); return(1); }	// NAME 1 [damage]: what it is
 
-// NOT EXACT: inline budget (the client calls IsOrganic's find 0x7079B0 out of line inside the inlined 0x6F5E40, ours its find-if-set 0x705450; 40 register-masked rows; attempts.py show 0x6FE1E0)
+
 // 0x6FE1E0 (the damage state: the damage sounds of a type-1 object, then the shield or hull and the four quadrants' levels into the model)
 void ClientObjectClass::Unknown_6FE1E0()
 {	Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(NameClass *)this); Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(NameClass *)this); Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(NameClass *)this); Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(NameClass *)this); 	// dead finds (root NULL: no code) spend the inline budget (P-IB1-1): the float field's Cast 0x546970 then goes out of line as the client's; with Unknown_Find_Valid on ShieldPercent and the quadrants 96 -> 73 rows
@@ -2145,11 +2145,11 @@ void ClientObjectClass::Unknown_6FE1E0()
 		hull = WWMath::Clamp(1.0f - shield, 0.0f, 1.0f);
 	} else {
 
-		DeltaTemplateClass<float> *points = Unknown_Find_Aux((DeltaTemplateClass<float> *)NULL, this, "HullPoints");
-		if (points && !points->Unknown70) points = NULL;
+		NameClass hp_name("HullPoints");
+		DeltaTemplateClass<float> *points = Unknown_Find_Valid<DeltaTemplateClass<float> >((DeltaCompoundClass *)AuxData, hp_name);
+		NameClass max_name("MaxHullPoints");
+		DeltaTemplateClass<float> *max = Unknown_Find_Valid<DeltaTemplateClass<float> >((DeltaCompoundClass *)AuxData, max_name);
 
-		DeltaTemplateClass<float> *max = Unknown_Find_Aux((DeltaTemplateClass<float> *)NULL, this, "MaxHullPoints");
-		if (max && !max->Unknown70) max = NULL;
 		if (points && max && max->Value != 0.0f) {
 			hull = 1.0f - WWMath::Clamp(points->Value / max->Value, 0.0f, 1.0f);
 		}
@@ -2164,10 +2164,10 @@ void ClientObjectClass::Unknown_6FE1E0()
 				quadrant[i] = 1.0f - WWMath::Clamp(Unknown_Get_Item(t, i)->Value, 0.0f, 1.0f);
 			}
 		} else {
-			quadrant[0] = 0.0f;
-			quadrant[1] = 0.0f;
-			quadrant[2] = 0.0f;
-			quadrant[3] = 0.0f;
+			for (int i = 0; i < 4; i++) quadrant[i] = 0.0f;
+
+
+
 		}
 	}
 	int level[4];
@@ -2685,4 +2685,4 @@ template class UnknownRTTIClass<DeltaStatsClass>;	// the CurrentStats find's Cas
 */
 // VC6 symbol pad (not the client's code): the aux-data constructors (auxroots.py's region above) match only when the
 // count of the declarations this file sees falls in a window of a cycle of 64 (tools/re/auxroots.py SYMBOL_PAD)
-enum CoSymbolPadType { CO_PAD_00, CO_PAD_01, CO_PAD_02, CO_PAD_03, CO_PAD_04, CO_PAD_05, CO_PAD_06, CO_PAD_07, CO_PAD_08 };	// NAME 1: a build aid (HX1)
+enum CoSymbolPadType { CO_PAD_00, CO_PAD_01, CO_PAD_02, CO_PAD_03, CO_PAD_04, CO_PAD_05, CO_PAD_06, CO_PAD_07, CO_PAD_08, CO_PAD_09, CO_PAD_10, CO_PAD_11, CO_PAD_12, CO_PAD_13, CO_PAD_14, CO_PAD_15, CO_PAD_16, CO_PAD_17, CO_PAD_18, CO_PAD_19, CO_PAD_20, CO_PAD_21, CO_PAD_22, CO_PAD_23, CO_PAD_24, CO_PAD_25, CO_PAD_26, CO_PAD_27, CO_PAD_28, CO_PAD_29, CO_PAD_30, CO_PAD_31, CO_PAD_32, CO_PAD_33, CO_PAD_34, CO_PAD_35, CO_PAD_36, CO_PAD_37, CO_PAD_38 };	// NAME 1: a build aid (HX1)

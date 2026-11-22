@@ -259,7 +259,7 @@ void UIMountClass::Toggle()
 
 
 
-// NOT EXACT: functional, from the pseudocode (D64); 0.53: the client calls rtti.h's Cast out of line (0x5469C0, 0x5C8780, 0x5C87D0), this inlines it; the frame is 0x1A8 against 0x164
+// NOT EXACT (1.00, attempts.py 0x5C77A0): r53/r54 p.Y floor intermediate store (3 masked); 60/62 regions and 0x164 frame match
 // 0x5C77A0
 void UIMountClass::Build()
 {
@@ -272,14 +272,14 @@ void UIMountClass::Build()
 
 	DeltaCompoundClass *auxdata = (DeltaCompoundClass *)cobj->AuxData;
 	FAIL_IF(!auxdata) return;
-	NameClass model_field("Inventory.EquipMountModel");  // NAME 1: neutral (D10)
-	DeltaStringClass *model_name = Unknown_Find_Set_Field<DeltaStringClass>(auxdata, model_field);
+	DeltaStringClass *model_name;
+	{ NameClass model_field("Inventory.EquipMountModel"); model_name = Unknown_Find_Set_Field<DeltaStringClass>(auxdata, model_field); }
 	if (!model_name) return;
-	const char *model_file = model_name->Get();  // NAME 1: neutral (D10)
-	NameClass mounts_field("Inventory.Mounts");  // NAME 1: neutral (D10)
-	DeltaArrayClass<InvSlotStruct> *mounts = Unknown_Find_Set_Field<DeltaArrayClass<InvSlotStruct> >(auxdata, mounts_field);
+	const char *model_file = model_name->Get();
+	DeltaArrayClass<InvSlotStruct> *mounts;
+	{ NameClass mounts_field("Inventory.Mounts"); mounts = Unknown_Find_Set_Field<DeltaArrayClass<InvSlotStruct> >(auxdata, mounts_field); }
 	if (!mounts) return;
-	NameClass bones_field("Inventory.MountBoneNames");  // NAME 1: neutral (D10)
+	NameClass bones_field("Inventory.MountBoneNames");
 	DeltaItemArrayClass<DeltaStringClass> *bone_names = Unknown_Find_Set_Field<DeltaItemArrayClass<DeltaStringClass> >(auxdata, bones_field);
 	if (!bone_names) return;
 
@@ -305,8 +305,8 @@ void UIMountClass::Build()
 	Matrix3D saved = Camera->Get_Transform();
 	float step = 256.0f;
 	Matrix3D tm(1);
-	Vector3 dest;
 	while (fabs(step) > 0.5) {
+		Vector3 dest;
 		bool inside = false;
 		tm.Translate_Z(step);
 		Camera->Set_Transform(tm);
@@ -384,7 +384,7 @@ void UIMountClass::Build()
 	for (int i = 0; i < count; i++) {
 		InvSlotStruct *mount = &mounts->Get_Value(i);
 		if (!mount->I00) continue;
-		const char *bone_name = ((DeltaStringClass *)bone_names->Children[i])->Get();
+		DeltaStringClass *ds = (DeltaStringClass *)bone_names->Children[i]; const char *bone_name = ds->Get();
 		if (!bone_name) continue;
 		int boneidx = Model->Get_Bone_Index(bone_name);
 		if (strlen(bone_name) != 0) {
@@ -401,21 +401,21 @@ void UIMountClass::Build()
 		Vector3 screen;
 		Camera->Project(screen, pos);
 		CameraClass::Convert_Old(screen);
-		Vector3 point;
+		Vector3 point; float px = (vmax.X - vmin.X) * screen.X + vmin.X;
 		point.Y = (vmax.Y - vmin.Y) * screen.Y + vmin.Y;
-		point.X = ((vmax.X - vmin.X) * screen.X + vmin.X) * 640.0f - 320.0f;
+		point.X = px * 640.0f - 320.0f;
 		point.X = (float)floor(point.X);
 		point.Y = 240.0f - point.Y * 480.0f;
 		point.Y = (float)floor(point.Y);
-		p.PointX = point.X;
-		p.PointY = point.Y;
+		((Vector2 *)&p.PointX)->Set(point.X, point.Y);
+		
 		point.Z = 0.0f;
 		screen.X = screen.X + screen.X - 1.0f;
 		screen.Y = screen.Y + screen.Y - 1.0f;
-		p.X = screen.X;
-		p.Y = screen.Y;
-		if (screen.X < min_x) min_x = screen.X; else if (screen.X > max_x) max_x = screen.X;
-		if (screen.Y < min_y) min_y = screen.Y; else if (screen.Y > max_y) max_y = screen.Y;
+		((Vector2 *)&p.X)->Set(screen.X, screen.Y);
+		
+		if (min_x > screen.X) min_x = screen.X; else if (max_x < screen.X) max_x = screen.X;
+		if (min_y > screen.Y) min_y = screen.Y; else if (max_y < screen.Y) max_y = screen.Y;
 		p.Button = WW3DAssetManager::Get_Instance()->Create_Render_Obj("Equipbtn");
 		Unknown_496AE0(p.Button, false);
 		p.Bttn = p.Button->Get_Sub_Object_By_Name("bttn");
@@ -427,31 +427,31 @@ void UIMountClass::Build()
 		if (button_w == -1.0f) {
 			AABoxClass box;
 			p.Button->Get_Obj_Space_Bounding_Box(box);
-			button_w = box.Extent.X + box.Extent.X + 4.0f;
-			button_h = box.Extent.Y + box.Extent.Y + 4.0f;
+			float w2 = box.Extent.X + box.Extent.X; float h2 = box.Extent.Y + box.Extent.Y;
+			button_w = w2 + 4.0; button_h = h2 + 4.0;
 		}
 	}
 
 	// spread the buttons so the outermost fit the view
-	button_h = button_h * (1.0f / 480.0f);
-	float w = button_w * (1.0f / 640.0f) + button_w * (1.0f / 640.0f);
-	float d = 1.0f - ((1.0f - -min_x) - w);
+	button_w = button_w * (1.0f / 640.0f);
+	button_h = button_h * (1.0f / 480.0f); float w = button_w + button_w;
+	float d = 1.0f - (float)((1.0 - -min_x) - w);
 	if (d <= 0.01f) d = 0.01f;
 	float scale_left = 1.0f / d;
-	d = 1.0f - ((1.0f - max_x) - w);
-	if (d <= 0.01f) d = 0.01f;
-	float scale_right = 1.0f / d;
-	d = 1.0f - ((1.0f - -min_y) - button_h);
-	if (d <= 0.01f) d = 0.01f;
-	float scale_down = 1.0f / d;
-	d = 1.0f - ((1.0f - max_y) - button_h);
-	if (d <= 0.01f) d = 0.01f;
-	float scale_up = 1.0f / d;
+	double dd = 1.0 - ((1.0f - max_x) - w);
+	if (dd <= 0.01) dd = 0.01;
+	float scale_right = (float)(1.0 / dd);
+	dd = 1.0 - ((1.0 - -min_y) - button_h);
+	if (dd <= 0.01) dd = 0.01;
+	float scale_down = (float)(1.0 / dd);
+	dd = 1.0 - ((1.0f - max_y) - button_h);
+	if (dd <= 0.01) dd = 0.01;
+	float scale_up = (float)(1.0 / dd);
 	int j;
 	for (j = 0; j < count; j++) {
-		if (Points[j].Button) {
-			Points[j].X *= (Points[j].X < 0.0f) ? scale_left : scale_right;
-			Points[j].Y *= (Points[j].Y < 0.0f) ? scale_down : scale_up;
+		UIMountPointStruct &p = Points[j]; if (p.Button) {
+			p.X *= (p.X < 0.0f) ? scale_left : scale_right;
+			p.Y *= (p.Y < 0.0f) ? scale_down : scale_up;
 		}
 	}
 	for (j = 0; j < count; j++) {
@@ -460,8 +460,8 @@ void UIMountClass::Build()
 			p.Y = (p.Y + 1.0f) * (vmax.Y - vmin.Y) * 0.5f + vmin.Y;
 			p.X = ((p.X + 1.0f) * (vmax.X - vmin.X) * 0.5f + vmin.X) * 640.0f - 320.0f;
 			p.X = (float)floor(p.X);
-			p.Y = 240.0f - p.Y * 480.0f;
-			p.Y = (float)floor(p.Y);
+			
+			p.Y = (float)floor(240.0f - p.Y * 480.0f);
 			p.Button->Set_Position(Vector3(p.X, p.Y, 0.0f));
 			p.Line = new Line2DClass(Vector4(1.0f, 0.0f, 0.0f, 0.5f), *(Vector2 *)&p.X, *(Vector2 *)&p.PointX, 1.0f);
 		}
@@ -472,7 +472,7 @@ void UIMountClass::Build()
 	Model = 0;
 	Unknown_BC();
 	for (j = 0; j < count; j++) {
-		if (Points[j].Button) Unknown_AC(Points[j].Bttn, 0);
+		UIMountPointStruct *p = &Points[j]; if (p->Button != 0) Unknown_AC(p->Bttn, 0);
 	}
 	Built = true;
 }

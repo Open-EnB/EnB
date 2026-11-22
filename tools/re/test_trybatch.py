@@ -74,6 +74,26 @@ class Edits(unittest.TestCase):
         self.assertEqual((s['file'], s['address'], s['hypothesis'], list(s['forms'])),
                          ('app/x.cpp', 0x401000, 'two words', ['one']))
 
+    def test_case_colliding_form_names(self):
+        with tempfile.TemporaryDirectory() as d:
+            p = os.path.join(d, 'v.py')
+            with open(p, 'w') as f:
+                f.write("FILE = 'app/x.cpp'\nSYMBOL = 'A::f'\nADDRESS = 0x401000\n"
+                        "FORMS = {'foo': [], 'Foo': []}\n")
+            with self.assertRaises(SystemExit) as ctx:
+                T.load_spec(p)
+            msg = str(ctx.exception)
+            self.assertIn("'foo'", msg)
+            self.assertIn("'Foo'", msg)
+            with open(p, 'w') as f:
+                f.write("FILE = 'app/x.cpp'\nSYMBOL = 'A::f'\nADDRESS = 0x401000\n"
+                        "FORMS = {'Base': []}\n")
+            with self.assertRaises(SystemExit) as ctx:
+                T.load_spec(p)
+            msg = str(ctx.exception)
+            self.assertIn("'base'", msg)
+            self.assertIn("'Base'", msg)
+
 
 class Regions(unittest.TestCase):
     def test_equal_counts_pair_by_index(self):

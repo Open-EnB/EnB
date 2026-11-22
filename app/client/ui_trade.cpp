@@ -128,7 +128,7 @@ UITradeClass::~UITradeClass()
 
 
 
-// NOT EXACT: shape (explain.py; register and hoisting): the first id through ecx, the style call's register, 0x653A80's shared Change_Text set-up not hoisted
+// NOT EXACT: shape (explain.py; hoisting): the inlined 0x653A80's Change_Text set-up (font load, push 0) not hoisted above the test and its Set_Tooltip tail not shared, as the client's copy has them
 // @0x650A40
 void UITradeClass::Unknown_54()
 {
@@ -150,8 +150,8 @@ void UITradeClass::Unknown_54()
 
 	Unknown_BE67C4->Add(InterfaceMesh.Peek());
 	((InterfaceUnknown58Class *)&Unknown4C[0x58 - 0x4C])->Unknown_686CC0(InterfaceMesh.Peek(), NULL);
-	if (Unknown_C4(InterfaceMesh.Peek(), "ce02a.W%02d", 5) && Buttons[0]) {
-		int id = Buttons[0]->Unknown0C;
+	SlotDataGadgetClass *first;
+	if (Unknown_C4(InterfaceMesh.Peek(), "ce02a.W%02d", 5) && (first = Buttons[0]) != NULL) { int id = first->Unknown0C;
 		int i;
 		for (i = 0; i < 5; i++) {
 			SlotDataGadgetClass *bttn = Buttons[i];
@@ -205,7 +205,7 @@ void UITradeClass::Unknown_54()
 			if (i != 12) {
 				char style[64];
 				sprintf(style, "%s_ce02a", Unknown_B8BE98[i]);
-				button->Unknown_98(Unknown_BE67C4->Get_Style(style, InterfaceMesh.Peek()));
+				FontSys *s = Unknown_BE67C4->Get_Style(style, InterfaceMesh.Peek()); button->Unknown_98(s);
 			}
 		}
 		GadgetClass *back = new UIBackGadget(InterfaceMesh);

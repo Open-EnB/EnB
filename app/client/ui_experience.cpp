@@ -129,13 +129,13 @@ void UIExperienceBarClass::Set_Value_Clamped(float value)
 
 
 
+template<class C> inline C *Unknown_Experience_Find(DeltaCompoundClass *root, const char *name) { NameClass n(name); return(Unknown_Find_Set_Field<C>(root, n)); }	// NAME 1: neutral (D10); the one more inline layer sends Unknown_Find_Field 0x546710 out of line at 0x58CB50's first site, as the client
 
 
 
-
-// @0x58C450  // NOT EXACT: functional (D64): the client calls GenericNode::GenericNode out of line (an EH state for the node)
+// @0x58C450  (Parent through the plain base first; GenericNode() out of line by the inline_depth at the file's end)
 UIExperienceClass::UIExperienceClass(RenderObjClass *mesh, InterfaceClass *parent) :
-	Parent(parent),
+	UnknownExperienceParentClass(parent),
 	CombatBar(NULL),
 	TradeBar(NULL),
 	ExploreBar(NULL)
@@ -186,7 +186,7 @@ void UIExperienceClass::Unknown_08(ClientObjectClass *object)
 	UnknownObjectWatchClass::Unknown_08(object);
 }
 
-// @0x58CB50  // NOT EXACT: functional (D64): the client calls Unknown_Find_Field out of line for CombatExp only
+// @0x58CB50  (CombatExp through Unknown_Experience_Find: Unknown_Find_Field out of line there under the file end's inline_depth; named names at the other two)
 void UIExperienceClass::Unknown_10()
 {
 	if (!Object) return;
@@ -198,21 +198,21 @@ void UIExperienceClass::Unknown_10()
 	DeltaCompoundClass *aux = (DeltaCompoundClass *)sclient->AuxData;
 	char text[32];
 	if (CombatBar->Exists) {
-		DeltaTemplateClass<float> *field = Unknown_Find_Set_Field<DeltaTemplateClass<float> >(aux, NameClass("RPGInfo.CombatExp"));
+		DeltaTemplateClass<float> *field = Unknown_Experience_Find<DeltaTemplateClass<float> >(aux, "RPGInfo.CombatExp");
 		float value = field ? field->Value : 0.0f;
 		CombatBar->Set_Value(value);
 		_snprintf(text, sizeof(text), "Progress: %1.2f%%", value * 100.0f);
 		CombatBar->Set_Unknown14(text);
 	}
 	if (TradeBar->Exists) {
-		DeltaTemplateClass<float> *field = Unknown_Find_Set_Field<DeltaTemplateClass<float> >(aux, NameClass("RPGInfo.TradeExp"));
+		NameClass name("RPGInfo.TradeExp"); DeltaTemplateClass<float> *field = Unknown_Find_Set_Field<DeltaTemplateClass<float> >(aux, name);
 		float value = field ? field->Value : 0.0f;
 		TradeBar->Set_Value(value);
 		_snprintf(text, sizeof(text), "Progress: %1.2f%%", value * 100.0f);
 		TradeBar->Set_Unknown14(text);
 	}
 	if (ExploreBar->Exists) {
-		DeltaTemplateClass<float> *field = Unknown_Find_Set_Field<DeltaTemplateClass<float> >(aux, NameClass("RPGInfo.ExploreExp"));
+		NameClass name("RPGInfo.ExploreExp"); DeltaTemplateClass<float> *field = Unknown_Find_Set_Field<DeltaTemplateClass<float> >(aux, name);
 		float value = field ? field->Value : 0.0f;
 		ExploreBar->Set_Value(value);
 		_snprintf(text, sizeof(text), "Progress: %1.2f%%", value * 100.0f);
@@ -237,3 +237,4 @@ void UIExperienceClass::Unknown_58CF60()
 **	Every __FILE__ in 0x58BFE0-0x58CF60 is 'e:\build\beta\G\app\Client\ui_experience.cpp' (0xB7EFBC). The asserts:
 **	'!Gauge' l.47, '!name' l.79, '!robj' l.85, '!Exists' l.106 / l.118, '!client' l.195, '!sclient' l.197.
 */
+#pragma inline_depth(2)	// templates take the file end's inline state: the watcher's DataNode<> calls GenericNode() 0x48A060 out of line in 0x58C450, as the client
