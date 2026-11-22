@@ -50,7 +50,9 @@ then time. There is no rotation call, other scalar-preserving call, or
 intervening unknown call that could supply the camera's explanation.
 The saved signed_coast control instead uses FST in both paths. Its current
 raw84/reg-masked73 diagnostic covers the full executable 783B50..784483,
-including the cold error tail. Historical cropped/masked36 is not comparable.
+including the cold error tail. Historical masked36 uses different normalization
+and is not comparable to raw84; the earlier source-sized raw diff also cropped
+the cold tail. These are separate diagnostic limitations.
 
 Copying the camera clamp's argument order is not supported: camera uses
 Min(computed, bound), whereas avatar's ordered comparison preserves the
