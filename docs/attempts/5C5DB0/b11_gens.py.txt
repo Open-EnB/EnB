@@ -1,0 +1,240 @@
+"""Batch 1 for 0x5C5DB0 (B11): reward local x the inline layers of the reward / failure appends,
+and mission declared at the function top (tie-break by symbol order)."""
+import itertools, pprint
+
+R_OLD = '\tif (mission->Reward.Get() && *mission->Reward.Get()) {\n\t\ttext += "Reward: ";\n\t\ttext += mission->Reward.Get();\n\t\ttext += "\\n\\n";\n\t}\n'
+F_OLD = '\t\ttext += "Failure: ";\n\t\ttext += failure;\n\t\ttext += "\\n\\n";\n'
+M_OLD = '\tDeltaMissionClass *mission = CurrentMissions[CurrentMission];\n'
+TOP_OLD = '\tFAIL_IF(!Get_Client()) return;\n'
+
+
+def app(kind, s):
+    if kind == 'pe':
+        return 'text += %s;' % s
+    if kind == 'ap':
+        return 'text.append(%s);' % s
+    if kind == 'an':
+        return 'text.append(%s, strlen(%s));' % (s, s)
+    raise ValueError(kind)
+
+
+def reward_block(k_lab, k_val):
+    return ('\tconst char *reward = mission->Reward.Get();\n\tif (reward && *reward) {\n'
+            '\t\t%s\n\t\t%s\n\t\ttext += "\\n\\n";\n\t}\n' % (app(k_lab, '"Reward: "'), app(k_val, 'reward')))
+
+
+forms = {}
+# reward local with value append layers
+for kv in ('pe', 'ap', 'an'):
+    for kl in ('pe', 'ap'):
+        forms['r_%s_%s' % (kl, kv)] = [(R_OLD, reward_block(kl, kv))]
+# reward local, value via append, failure value via append too
+for kv in ('ap', 'an'):
+    forms['rf_%s' % kv] = [(R_OLD, reward_block('pe', kv)),
+                           (F_OLD, '\t\ttext += "Failure: ";\n\t\t%s\n\t\ttext += "\\n\\n";\n' % app(kv, 'failure'))]
+# no reward local, but appends with fewer layers (diagnostic of the layer effect)
+forms['n_ap'] = [(R_OLD, R_OLD.replace('text += mission->Reward.Get();', 'text.append(mission->Reward.Get());'))]
+# mission declared at the function top (symbol order), with and without the reward local
+mtop = [(TOP_OLD, '\tDeltaMissionClass *mission;\n' + TOP_OLD), (M_OLD, '\tmission = CurrentMissions[CurrentMission];\n')]
+forms['mtop'] = list(mtop)
+forms['mtop_r'] = list(mtop) + [(R_OLD, reward_block('pe', 'pe'))]
+# reward local declared at the top with mission
+forms['mtop_rtop'] = [(TOP_OLD, '\tDeltaMissionClass *mission;\n\tconst char *reward;\n' + TOP_OLD),
+                      (M_OLD, '\tmission = CurrentMissions[CurrentMission];\n'),
+                      (R_OLD, reward_block('pe', 'pe').replace('const char *reward = ', 'reward = '))]
+
+with open(__file__.replace('gen1.py', 'b1.py'), 'w', newline='\n') as f:
+    f.write('HYPOTHESIS = %r\n' % 'reward local x inline layers of the appends (+= / append(s) / append(s, strlen)) and mission declared at the top: the ebx/ebp order follows the temps the layers make and the symbol order')
+    f.write("FILE = 'app/client/ui_missn.cpp'\nSYMBOL = 'UIMissnClass::Unknown_5C5DB0'\nADDRESS = 0x5C5DB0\n")
+    f.write('FORMS = ' + pprint.pformat(forms, width=200) + '\n')
+print(len(forms), 'forms')
+"""Batch 2 for 0x5C5DB0 (B11): with the reward local, sweep the locals B4 did not:
+mission / sclient / label / font declared at the top, one font variable for all four Get_Style
+results, the inner font shadows reusing the outer one."""
+import pprint, sys
+
+SRC = 'app/client/ui_missn.cpp'
+text = open(SRC, encoding='utf-8').read()
+start = text.index('void UIMissnClass::Unknown_5C5DB0(int new_mission)\n{\n')
+end = text.index('\n}\n', start) + 3
+FUNC = text[start:end]
+
+
+def rep(s, old, new, count=1):
+    n = s.count(old)
+    assert n == count, (old, n)
+    return s.replace(old, new)
+
+
+R_OLD = '\tif (mission->Reward.Get() && *mission->Reward.Get()) {\n\t\ttext += "Reward: ";\n\t\ttext += mission->Reward.Get();\n'
+R_NEW = '\tconst char *reward = mission->Reward.Get();\n\tif (reward && *reward) {\n\t\ttext += "Reward: ";\n\t\ttext += reward;\n'
+HEAD = 'void UIMissnClass::Unknown_5C5DB0(int new_mission)\n{\n'
+GS = 'Unknown_BE67C4->Get_Style("Forfeit_TSI22A", DescriptionPanel);'
+
+
+def reward(s):
+    return rep(s, R_OLD, R_NEW)
+
+
+def mtop(s):
+    s = rep(s, HEAD, HEAD + '\tDeltaMissionClass *mission;\n')
+    return rep(s, '\tDeltaMissionClass *mission = CurrentMissions', '\tmission = CurrentMissions')
+
+
+def sctop(s):
+    s = rep(s, HEAD, HEAD + '\tSClient *sclient;\n')
+    return rep(s, '\tSClient *sclient = Get_Client()', '\tsclient = Get_Client()')
+
+
+def labtop(s):
+    s = rep(s, HEAD, HEAD + '\tconst char *label;\n')
+    return rep(s, '\tconst char *label = NULL;', '\tlabel = NULL;')
+
+
+def fonttop(s):
+    # one font variable for all four results
+    s = rep(s, HEAD, HEAD + '\tFontSys *font;\n')
+    return rep(s, 'FontSys *font = ' + GS, 'font = ' + GS, 4)
+
+
+def fontinner(s):
+    # the two inner shadows after the outer font reuse it
+    s = rep(s, '\t\t\t\tFontSys *font = ' + GS, '\t\t\t\tfont = ' + GS)
+    return rep(s, '\t\t\tFontSys *font = ' + GS, '\t\t\tfont = ' + GS)
+
+
+combos = {
+    'r_mtop': [reward, mtop],
+    'r_sctop': [reward, sctop],
+    'r_labtop': [reward, labtop],
+    'r_fonttop': [reward, fonttop],
+    'r_fontinner': [reward, fontinner],
+    'r_mtop_sctop': [reward, mtop, sctop],
+    'r_sctop_mtop': [reward, sctop, mtop],
+    'r_fonttop_mtop': [reward, fonttop, mtop],
+    'r_fontinner_labtop': [reward, fontinner, labtop],
+    'mtop': [mtop],
+    'fonttop': [fonttop],
+    'fontinner': [fontinner],
+}
+forms = {}
+for name, fs in combos.items():
+    s = FUNC
+    for f in fs:
+        s = f(s)
+    forms[name] = [(FUNC, s)]
+
+out = sys.argv[1]
+with open(out, 'w', newline='\n') as f:
+    f.write('HYPOTHESIS = %r\n' % 'with the reward local, the ebx/ebp order follows locals B4 did not sweep: mission / sclient / label / font declared at the top, one font variable, the inner font shadows reusing the outer')
+    f.write("FILE = %r\nSYMBOL = 'UIMissnClass::Unknown_5C5DB0'\nADDRESS = 0x5C5DB0\n" % SRC)
+    f.write('FORMS = ' + pprint.pformat(forms, width=200) + '\n')
+print(len(forms), 'forms')
+"""Batch 3 for 0x5C5DB0 (B11): the reward (and failure) section through an inlined helper,
+so the value is a parameter temp instead of a user local (one line each, line count kept)."""
+import pprint, sys
+
+SRC = 'app/client/ui_missn.cpp'
+text = open(SRC, encoding='utf-8').read()
+PAD_OLD = '\n\n\n\n// 0x5C5DB0\n'
+assert text.count(PAD_OLD) == 1
+
+R_OLD = ('\tif (mission->Reward.Get() && *mission->Reward.Get()) {\n\t\ttext += "Reward: ";\n'
+         '\t\ttext += mission->Reward.Get();\n\t\ttext += "\\n\\n";\n\t}\n')
+F_OLD = ('\tconst char *failure = mission->FailureConsequence.Get();\n\tif (failure && *failure) {\n'
+         '\t\ttext += "Failure: ";\n\t\ttext += failure;\n\t\ttext += "\\n\\n";\n\t}\n')
+for s in (R_OLD, F_OLD):
+    assert text.count(s) == 1, s
+
+HELPERS = {
+    # plain inline file-static, if
+    'h': 'static inline void Add_Section(std::string &text, const char *title, const char *value) { if (value && *value) { text += title; text += value; text += "\\n\\n"; } }',
+    # inline, a local copy inside
+    'hl': 'static inline void Add_Section(std::string &text, const char *title, const char *value) { const char *v = value; if (v && *v) { text += title; text += v; text += "\\n\\n"; } }',
+    # inline, early return
+    'hr': 'static inline void Add_Section(std::string &text, const char *title, const char *value) { if (!value || !*value) return; text += title; text += value; text += "\\n\\n"; }',
+    # inline without static
+    'hn': 'inline void Add_Section(std::string &text, const char *title, const char *value) { if (value && *value) { text += title; text += value; text += "\\n\\n"; } }',
+    # const char * value only, title fixed per call site cannot be shared: value-only helper returning nothing, title appended by caller
+}
+
+
+def keep_lines(old, new):
+    d = old.count('\n') - new.count('\n')
+    assert d >= 0, (old, new)
+    return new[:-1] + '\n' * d + '\n' if d else new
+
+
+forms = {}
+for hk, h in HELPERS.items():
+    pad = (PAD_OLD, '\n' + h + '\n\n\n// 0x5C5DB0\n')
+    r = (R_OLD, keep_lines(R_OLD, '\tAdd_Section(text, "Reward: ", mission->Reward.Get());\n'))
+    f = (F_OLD, keep_lines(F_OLD, '\tAdd_Section(text, "Failure: ", mission->FailureConsequence.Get());\n'))
+    forms[hk + '_r'] = [pad, r]
+    forms[hk + '_rf'] = [pad, r, f]
+# the helper for reward with the failure local kept but helper declared const char *const
+out = sys.argv[1]
+with open(out, 'w', newline='\n') as fo:
+    fo.write('HYPOTHESIS = %r\n' % 'the client keeps the reward in esi as an inlined helper parameter (a compiler temp), not a user local: the temp does not move this / mission off ebp / ebx')
+    fo.write("FILE = %r\nSYMBOL = 'UIMissnClass::Unknown_5C5DB0'\nADDRESS = 0x5C5DB0\n" % SRC)
+    fo.write('FORMS = ' + pprint.pformat(forms, width=200) + '\n')
+print(len(forms), 'forms')
+"""Batch 4 for 0x5C5DB0 (B11): B4 found reward + failure locals swap this / mission, reward + summary
+locals (failure re-read) keep them. So the two call-crossing locals compete: share one variable for
+two of the three texts, or block-scope each, or declare them together."""
+import pprint, sys
+
+SRC = 'app/client/ui_missn.cpp'
+text = open(SRC, encoding='utf-8').read()
+start = text.index('void UIMissnClass::Unknown_5C5DB0(int new_mission)\n{\n')
+end = text.index('\n}\n', start) + 3
+FUNC = text[start:end]
+
+OLD = ('\tif (mission->Reward.Get() && *mission->Reward.Get()) {\n\t\ttext += "Reward: ";\n'
+       '\t\ttext += mission->Reward.Get();\n\t\ttext += "\\n\\n";\n\t}\n\n'
+       '\tconst char *failure = mission->FailureConsequence.Get();\n\tif (failure && *failure) {\n'
+       '\t\ttext += "Failure: ";\n\t\ttext += failure;\n\t\ttext += "\\n\\n";\n\t}\n'
+       '\tconst char *summary = mission->Summary.Get();\n\tif (summary && *summary) {\n'
+       '\t\ttext += summary;\n\t\ttext += "\\n\\n";\n\t}\n')
+assert FUNC.count(OLD) == 1
+
+
+def sec(var, field, title, decl=True):
+    d = 'const char *' if decl else ''
+    t = '\t\ttext += "%s";\n' % title if title else ''
+    return ('\t%s%s = mission->%s.Get();\n\tif (%s && *%s) {\n%s\t\ttext += %s;\n\t\ttext += "\\n\\n";\n\t}\n'
+            % (d, var, field, var, var, t, var))
+
+
+def blk(s):
+    return '\t{\n' + ''.join('\t' + l + '\n' for l in s.rstrip('\n').split('\n')) + '\t}\n'
+
+
+R = ('reward', 'Reward', 'Reward: ')
+F = ('failure', 'FailureConsequence', 'Failure: ')
+S = ('summary', 'Summary', None)
+bodies = {
+    # one variable for reward and failure, summary its own
+    'str_rf': sec('str', R[1], R[2]) + sec('str', F[1], F[2], False) + sec(*S),
+    # one variable for reward and summary, failure its own
+    'str_rs': sec('str', R[1], R[2]) + sec(*F) + sec('str', S[1], S[2], False),
+    # one for failure and summary, reward its own
+    'str_fs': sec(*R) + sec('str', F[1], F[2]) + sec('str', S[1], S[2], False),
+    # all three block-scoped
+    'blk_all': blk(sec(*R)) + blk(sec(*F)) + blk(sec(*S)),
+    # reward and failure block-scoped
+    'blk_rf': blk(sec(*R)) + blk(sec(*F)) + sec(*S),
+    # all three declared together first, assigned in place
+    'decl3': '\tconst char *reward, *failure, *summary;\n' + sec(*R, decl=False) + sec(*F, decl=False) + sec(*S, decl=False),
+    # declared together in reverse order
+    'decl3r': '\tconst char *summary, *failure, *reward;\n' + sec(*R, decl=False) + sec(*F, decl=False) + sec(*S, decl=False),
+    # reward and failure shared, summary block
+    'str_rf_blks': sec('str', R[1], R[2]) + sec('str', F[1], F[2], False) + blk(sec(*S)),
+}
+forms = {k: [(FUNC, FUNC.replace(OLD, v))] for k, v in bodies.items()}
+out = sys.argv[1]
+with open(out, 'w', newline='\n') as fo:
+    fo.write('HYPOTHESIS = %r\n' % 'the two call-crossing string locals (reward, failure) compete for esi and push this / mission off ebp / ebx: one shared variable for two texts, block scopes, or a joint declaration keeps the order')
+    fo.write("FILE = %r\nSYMBOL = 'UIMissnClass::Unknown_5C5DB0'\nADDRESS = 0x5C5DB0\n" % SRC)
+    fo.write('FORMS = ' + pprint.pformat(forms, width=200) + '\n')
+print(len(forms), 'forms')
