@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-667 entries in 264 files.
+662 entries in 262 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -20,7 +20,6 @@ edit the comments in the code, not this file.
 | `app/audio/musicmanager.cpp:708` | `EXACT` | mention | NOT EXACT (shape: a merged tail, attempts.csv) and stands last in |
 | `app/audio/musicmanager.cpp:710` | `EXACT` | mention | NOT EXACT (inline budget: |
 | `app/audio/sectorsound.cpp:56` | `SectorSoundClass::Load_INI` | marker | NOT EXACT: register-only (explain.py, same length, 0.76): the frame is the client's since num_channels == 0 returns (D252); the client loads 'this' for Load_Section before the pushes and &ini into eax |
-| `app/audio/unknown_431e30.cpp:128` | `Unknown431E30Class::Update` | marker | NOT EXACT: inline budget (explain.py: 10 calls, the client 11; 421 bytes, 0.59): the client calls the end() iterator copy 0x432C00 out of line in the inlined Get_Sector_Music, here it is inline; dead reads inside Get_Sector_Music, a const_iterator and an inline wrapper changed nothing |
 | `app/client/aux_group_ctors.h:4` | `DeltaGroupInfoClass::DeltaGroupInfoClass` | mention | NOT EXACT (D42) where aux_roots.h is. NAME 1 [aux_group_ctors.h]: provisional file name (the client's headers are not named by any string) |
 | `app/client/aux_roots.h:10` | `?` | mention | NOT EXACT (D42): functional; see the generator's docstring for what differs. |
 | `app/client/aux_roots_decoration.h:5` | `?` | marker | NOT EXACT (D42) where aux_roots.h is. NAME 1 [aux_roots_decoration.h]: provisional file name (the client's headers are not named by any string) |
@@ -371,11 +370,8 @@ edit the comments in the code, not this file.
 | `app/client/ui_friends.cpp:358` | `UIFriendsClass::Unknown_5908B0` | marker | NOT EXACT: register allocation (the client keeps 0 in ebx and the insert position in a stack slot; ours holds the position in ebx; frame 0x18 vs 0x14) 0x5908B0 |
 | `app/client/ui_friends.cpp:604` | `UIFriendsClass::Unknown_5913E0` | marker | NOT EXACT: inline budget and registers (the client keeps the list iterator's ++ inline and calls the players' ??_G and list::clear out of line; names' first / last in edi / ebx) 0x5913E0 |
 | `app/client/ui_group.cpp:226` | `UIGroupUnknownE8Class::Unknown_592C50` | marker | NOT EXACT: register / frame (the client keeps one temporary's slot for all five Create_NEW results and compares with the zero in ebx; ours gives the loop's its own slot) |
-| `app/client/ui_group.cpp:643` | `UIGroupClass::Unknown_54` | marker | NOT EXACT: register (the arguments of 0x6870E0 / 0x5BB4F0 and the mesh for Get_Style in other registers) |
 | `app/client/ui_group.cpp:731` | `UIGroupClass::Unknown_68` | marker | NOT EXACT: (masked 18, attempts.py 0x5946D0): case 2 as if (!modifier) { .. } return(true) as case 3; the packets' avatar id through ClientClass's inline Get_Avatar_ID() (the client tests Members[k] in memory and reloads it); two dead Peek()s in 0x593180 make the client's call of it (D272); case 47's second test as else if, 0x5979A0's and 0x597A60's returns as ifs (the client's inlined copies bran... |
-| `app/client/ui_group.cpp:1020` | `UIGroupClass::Unknown_595530` | marker | NOT EXACT: inline budget (the client expands 0x593790 and calls RefCountPtr's copy 0x51E950 and Create_NEW 0x598A10 out of line; 0.74) |
 | `app/client/ui_group.cpp:1256` | `UIGroupClass::Unknown_596770` | marker | NOT EXACT: inline budget (the client calls auxdata.h's find 0x5927E0 out of line in both branches yet still calls vector::size 0x598920 and the temporary string's _Tidy out of line; a find wrapper sends the find out but frees the budget, 0.45-0.60) |
-| `app/client/ui_group.cpp:1529` | `UIGroupClass::Unknown_597650` | marker | NOT EXACT: register (the client tests View->Unknown34's Active in cl and reads the pointer again for 0x5890B0; Get_Unknown34() / Is_Active() tried) |
 | `app/client/ui_groupopt.cpp:182` | `UIGroupOptClass::Unknown_60` | marker | NOT EXACT: inline budget (explain.py: relocation first, the draft's auxdata.h path, then 12 calls vs 13: the client calls rtti.h's cast 0x598D80 out of line in the GroupInfo find, as ui_group.cpp's 0x598370; attempts.py show 0x59B220) 0x59B220 |
 | `app/client/ui_groupopt.cpp:204` | `UIGroupOptClass::Unknown_68` | marker | NOT EXACT: shape (explain.py; registers / temporaries: the client loads Client earlier and passes the check buttons' Checked through a stack byte; attempts.py show 0x59B380) 0x59B380 |
 | `app/client/ui_groupopt.cpp:408` | `UIGroupOptClass::Unknown_59BC40` | marker | NOT EXACT: inline budget (explain.py as 0x59B220: the client calls rtti.h's cast 0x598D80 out of line; a file-end inline_depth(1) matched it but broke the constructor and destructor; attempts.py show 0x59BC40) 0x59BC40 |
@@ -384,7 +380,6 @@ edit the comments in the code, not this file.
 | `app/client/ui_guild.cpp:406` | `UIGuildClass::Unknown_81AEB0` | marker | NOT EXACT: scheduling only (the client computes the vector's address for the inlined clean-up's erase before saving edi) (0x81AEB0) 0x81AEB0 |
 | `app/client/ui_guild.cpp:590` | `UIGuildClass::Unknown_81C380` | marker | NOT EXACT: inline budget (0x81AE10 inline: the client inlines the member's deleting destructor, ours calls it; the client's list clear() is a call) (0x81C380) 0x81C380 (sclient.cpp 0x74DFF0, guild message type 3): the members rebuilt from the lines (0x81D290 parses each into its name and location), then sorted (0x81AEB0), the buttons (0x81BA60) and the rows (0x81ABA0) |
 | `app/client/ui_guild.h:44` | `?` | mention | NOT EXACT); 0x81C630 (sclient.cpp 0x751850: Unknown180 = ranks, then 0x81BA60(true); not rebuilt) // NAME 1 [lines, ranks]: as 0x81C060's; what it copies |
-| `app/client/ui_interrupt.cpp:19` | `Unknown59E2C0Class::Unknown59E2C0Class` | marker | NOT EXACT: the client loads the bar into edx and the view into ecx for 0x6870E0 (ours: ecx / edx), twice @0x59E2C0 |
 | `app/client/ui_inv.cpp:469` | `UIInvClass::Unknown_98` | marker | NOT EXACT: 0.62: the client keeps the slot in edi and the button test in the event's argument slot, this the gadget in edi and a frame slot (register allocation; tried: no shadowed parameter, the event's bit as a bitfield) 0x59FE30 |
 | `app/client/ui_inv.cpp:739` | `UIInvClass::Unknown_5A0740` | marker | NOT EXACT: 0.74, the client's 1154 bytes and blocks (register-only): the client loads the ship's ID, the views, the stack's inventory and the drag's mode through other scratch registers (eax / edx / ecx turned round) and sets the result through cl where this has dl 0x5A0740 |
 | `app/client/ui_inv.cpp:938` | `UIInvClass::Unknown_5A0D00` | marker | NOT EXACT: 0.58: the client keeps the slot in ebx and spills the first list's peek, this the reverse (register allocation) 0x5A0D00 |
