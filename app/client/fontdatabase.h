@@ -120,7 +120,7 @@ struct FontStringStruct  // NAME 2: one string template of a string file (Templa
 {
 	FontStringStruct();													// 0x6BDA40
 	FontStringStruct(const char *string_id, const char *text);				// 0x6BDD30
-	FontStringStruct &operator=(const FontStringStruct &that)	// inlined in 0x6D0A70, which calls the sounds' 0x6D0F70 (the implicit one is not inlined in it)
+	FontStringStruct &operator=(const FontStringStruct &that)	// inlined in 0x6D0A70, which calls the sounds' 0x6D0F70 (the implicit one is not inlined in it; a counter of its own per 4-string loop gives 0x6D47C0 the client's lea operand order)
 	{
 		StringID = that.StringID; Unknown04 = that.Unknown04; Text = that.Text; RenderObj = that.RenderObj; Attach = that.Attach;
 		int i;
@@ -133,12 +133,12 @@ struct FontStringStruct  // NAME 2: one string template of a string file (Templa
 		TimeSpacing = that.TimeSpacing; TriggerTime = that.TriggerTime; Spacing = that.Spacing; WrapWidth = that.WrapWidth;
 		Rotate90 = that.Rotate90; Underline = that.Underline;
 		SoundOn = that.SoundOn; SoundOver = that.SoundOver; SoundClick = that.SoundClick;
-		for (i = 0; i < 4; i++) EffectOn[i] = that.EffectOn[i];
-		for (i = 0; i < 4; i++) EffectConst[i] = that.EffectConst[i];
-		for (i = 0; i < 4; i++) EffectOff[i] = that.EffectOff[i];
-		for (i = 0; i < 4; i++) MouseOver[i] = that.MouseOver[i];
-		for (i = 0; i < 4; i++) MouseClick[i] = that.MouseClick[i];
-		for (i = 0; i < 4; i++) EffectTriggered[i] = that.EffectTriggered[i];
+		for (int i0 = 0; i0 < 4; i0++) EffectOn[i0] = that.EffectOn[i0];
+		for (int i1 = 0; i1 < 4; i1++) EffectConst[i1] = that.EffectConst[i1];
+		for (int i2 = 0; i2 < 4; i2++) EffectOff[i2] = that.EffectOff[i2];
+		for (int i3 = 0; i3 < 4; i3++) MouseOver[i3] = that.MouseOver[i3];
+		for (int i4 = 0; i4 < 4; i4++) MouseClick[i4] = that.MouseClick[i4];
+		for (int i5 = 0; i5 < 4; i5++) EffectTriggered[i5] = that.EffectTriggered[i5];
 		return *this;
 	}
 	void Reset();														// 0x6BE0E0: the defaults  // NAME 2: what it does

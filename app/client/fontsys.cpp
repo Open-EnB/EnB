@@ -15,7 +15,7 @@
 #include "..\..\ww3d2\shader.h"
 #include "wwprofile.h"
 
-// NOT EXACT: written from the client's code (0x6D47C0) for the POC, not yet matched
+// 0x6D47C0 (exact with the Wait read cached in a local and FontStringStruct::operator='s per-loop counters)
 FontSys::FontSys(const char *name, RenderObjClass *object, const char *text) :
 	DynamicMeshClass(2, 4),
 	Font(NULL)
@@ -33,9 +33,9 @@ FontSys::FontSys(const char *name, RenderObjClass *object, const char *text) :
 	Unknown_6D5170(object);
 	Unknown_6D6390();
 	Unknown_6D5D40();
-	Unknown26C = (int)(Info.Wait * 1000.0f);
+	float wait = Info.Wait;
+	Unknown26C = (int)(wait * 1000.0f);
 }
-
 // NOT EXACT: written from the client's code (0x6D4C70) for the POC, not yet matched
 FontSys::FontSys(FontStringStruct def, RenderObjClass *object, const char *text) :
 	DynamicMeshClass(2, 4),
