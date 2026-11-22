@@ -1170,7 +1170,7 @@ def write_co(out_dir, body, pad):
 SHIP_ADD = '''// Ship's narrow Add (0x6F8C70)
 void DeltaShipClass::Add(int narrow, DeltaClass *child)
 {
-	DeltaCompoundClass::Add(child);
+	DeltaCompoundClass::Add(child); child->DeltaClass::As_Delta();	// the dead read spends inline budget as the client's (D272): Ship inlines four narrow Adds (Name-Rank), calls the rest
 	if (narrow == 1) {
 		child->Unknown80 = 0xCF;
 	}
