@@ -9502,14 +9502,14 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_693020` | `app/client/starmap_pip.cpp:1138` | untagged neutral name (D10) |
 | 1 | `Unknown_6CE420` | `app/client/starmap_pip.cpp:1167` | untagged neutral name (D10) |
 | 1 | `Unknown44` | `app/client/starmap_pip.cpp:1199` | untagged neutral name (D10) |
-| 1 | `Unknown_7C2340` | `app/client/starmap_pip.cpp:1231` | untagged neutral name (D10) |
-| 1 | `Unknown_6F5A40` | `app/client/starmap_pip.cpp:1261` | untagged neutral name (D10) |
-| 1 | `Unknown_Find_Set_Field` | `app/client/starmap_pip.cpp:1265` | untagged neutral name (D10) |
-| 1 | `Unknown38` | `app/client/starmap_pip.cpp:1303` | untagged neutral name (D10) |
-| 1 | `Unknown_6FF7A0` | `app/client/starmap_pip.cpp:1311` | untagged neutral name (D10) |
-| 1 | `Unknown_700860` | `app/client/starmap_pip.cpp:1312` | untagged neutral name (D10) |
-| 1 | `Unknown_7C2D30` | `app/client/starmap_pip.cpp:1329` | untagged neutral name (D10) |
-| 1 | `Unknown_7B9CD0` | `app/client/starmap_pip.cpp:1331` | untagged neutral name (D10) |
+| 1 | `Unknown_7C2340` | `app/client/starmap_pip.cpp:1246` | untagged neutral name (D10) |
+| 1 | `Unknown_6F5A40` | `app/client/starmap_pip.cpp:1276` | untagged neutral name (D10) |
+| 1 | `Unknown_Find_Set_Field` | `app/client/starmap_pip.cpp:1280` | untagged neutral name (D10) |
+| 1 | `Unknown38` | `app/client/starmap_pip.cpp:1318` | untagged neutral name (D10) |
+| 1 | `Unknown_6FF7A0` | `app/client/starmap_pip.cpp:1326` | untagged neutral name (D10) |
+| 1 | `Unknown_700860` | `app/client/starmap_pip.cpp:1327` | untagged neutral name (D10) |
+| 1 | `Unknown_7C2D30` | `app/client/starmap_pip.cpp:1344` | untagged neutral name (D10) |
+| 1 | `Unknown_7B9CD0` | `app/client/starmap_pip.cpp:1346` | untagged neutral name (D10) |
 | 1 | `Unknown_7C3220Class` | `app/client/starmap_pip.h:49` | neutral (D10) |
 | 1 | `scene, arg, type` | `app/client/starmap_pip.h:52` | what it does with them |
 | 1 | `left, top, right, bottom` | `app/client/starmap_pip.h:54` | FontSys 0x6D88F0's |
@@ -23172,7 +23172,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_Find_Field` | `app/shared/auxdata/auxdata.h:147` | neutral (D10) |
 | 1 | `UnknownRTTIClass` | `app/shared/auxdata/auxdata.h:154` | untagged neutral name (D10) |
 | 1 | `Unknown_Find_Set_Field` | `app/shared/auxdata/auxdata.h:160` | neutral (D10) |
-| 1 | `Unknown70` | `app/shared/auxdata/auxdata.h:163` | untagged neutral name (D10) |
+| 1 | `Unknown70` | `app/shared/auxdata/auxdata.h:164` | untagged neutral name (D10) |
 | 1 | `Is_None_Set` | `app/shared/auxdata/bitset.h:37` | Is_Any_Set's inverse |
 | 1 | `DeltaUnknownGlobal` | `app/shared/auxdata/delta.cpp:5` | untagged neutral name (D10) |
 | 1 | `DeltaUnknownCounter` | `app/shared/auxdata/delta.cpp:5` | untagged neutral name (D10) |
