@@ -1,0 +1,432 @@
+# Takeoff796920: pitch source-type and intermediate-value audit
+
+Three bounded ordinary-source forms, three successful VC6 SP4 objects, every
+object fully native matched. All15 existing(file,address)pairs retained,+0/-0;
+no target gain/source adoption. Previous direct_midpoint proof reused as baseline;
+zero fresh controls, compile failures, invalid, untested or confirmation inputs.
+Root file-address-audit beside batch1 summary independently confirms all15pairs.
+
+| Form | Raw / GPR masked | Normalized / GPR masked | Pitch operations before final FSTP |
+| --- | --- | --- | --- |
+| prior direct_midpoint |216/210|40/31|FADD dword1; FMUL dword30; FMUL dwordrad|
+| product_assignment |214/208|38/26|FMUL dword30; FADD dword30; FMUL dwordrad|
+| double_literals |216/210|38/29|FADD qword1; FMUL qword30; FMUL dwordrad|
+| promoted_addition |215/209|37/28|FMUL dword30; FADD qword30; FMUL dwordrad|
+
+All three retain frame220,536instructions,29calls,2012bytes. Retail has537/29/2000.
+Full raw comparison covers796920..7970F0 including all three returns, never a
+source-sized cropped tail. Metrics are diagnostic; the lower normalized score
+for promoted_addition does not make its qword operand correct.
+
+The product_assignment form is the new stronger partial. It spells ordinary
+scale then offset as float pitch=Get_Float()*30.0f; pitch+=30.0f; followed by
+unchanged rad multiplication. Earlier attempts assigned the already combined
+product-plus-offset before radians, which still factored. Assignment of the
+product alone blocks factoring without emitting any store/reload between FMUL,
+FADD and final FMUL. All arithmetic stays live on x87 until the one final FSTP,
+as in retail. This explains the target sequence using a meaningful intermediate
+value; no cast, volatile, helper or artificial precision barrier was introduced.
+
+Retail pitch after random call796A48: FMUL dword[B050B8] at796A4D; FADD
+dword[B050B4] at796A58; FMUL dword[AFDF14] at796A5E; FSTP dword[ebp-58]
+at796A64. Product form uses the same sequence, widths and literal bytes30=
+0000f041,rad=35fa8e3c, with physical pitch home-50 still different. Random calls
+retain their order/count and no extra rounding store appears. Literal symbols
+pool both30 operands together in the rebuilt object; separate retail constant
+addresses are not evidence to invent separate variables or storage declarations.
+
+Uniform unsuffixed literals promote the affine expression to double, but VC6
+still factors it and uses qword1/30. Mixed float product plus double addition
+prevents factoring but uses qword30 for FADD. Thus neither tested literal-typing
+explanation matches retail width; it was not possible to infer this solely from
+the initial dword raw operands. These diagnostics do not assert C++ float/double
+expressions are generally interchangeable. Emitted arithmetic and rounding were
+checked directly; no extra product-assignment spill was found.
+
+Product assignment also perturbs GPR/argument scheduling in second box transform
+and collision setup (raw region distances74->72 and15->17). This is a nonlocal
+compiler effect, not another edited source hypothesis. Every nonpitch FP
+instruction and actual operand sequence remains identical to direct_midpoint,
+verified by region arrays; all other source lines remain unchanged. Both other
+forms differ only within the pitch region. Seven final-camera constant references
+and rad bytes match retail in every object. Remaining FP issues explicitly
+persist: final cosine product is computed before sine; final transformed X/Y
+products use Z-before-Y where retail uses Y-before-Z. Remaining scalar/local
+homes, two shipmatrix buffer ordering, loop/copy/argument scheduling and five
+tail GPR rows also prevent exactness. No further grounded form proposed.
+
+Current partial best: product_assignment/camctrl_takeoff.cpp. Full source was
+rebased into half-copy-identity/final-tree; only inherited camera.h->aabox.h prefix
+dependency retained, all other functions including796440 unchanged. Every new
+edit occupies existing pitch line; basename, physical assertions and line counts
+fixed. No compiler flags, shared headers, helper layers, APIs or consumer changes.
+Source hashes, batch inputs, preparation/freshness, literal audit, full target.diff
+and explain.json retained. Compact stash provides current-baseline patch for
+best plus each incremental form patch. Root owns tracked evidence/checks/commit.
+HEAD at startb84a93aa, appsource277cb346, claim244, modelgpt-6-astra(high).
+
+BEFORE-TEST HYPOTHESES
+# Before batch1: ordinary pitch source types and product lifetime
+
+Scope claim244,target796920; HEAD b84a93aa, appsource277cb346. Priorbest is
+796920-stack-audit/direct_midpoint, raw216/210,norm40/31,frame220. Source rebased
+into same immutable half-copy-identity/final-tree; prior15pair native baseline
+reused. No fresh controls. Root compiles each of exactly three new full-TU forms.
+
+Previous fullsources/stashes contain all-float combined arithmetic, affine-result
+assignment before radians, and DEG_TO_RADF. No separate product assignment or
+unsuffixed literal pitch form exists there. Freshness hashes and pitch lines
+retained. No macro repeat; collision/consumer/stack investigation already complete.
+
+Random4Class::Get_Float() returns float and has no floating range overload.
+WWMATH_PI is3.141592654f. Current pitch expression has onlyfloat operands, then
+assigns affine result tofloat and multiplies by float radconstant. Actual compiler
+sequence FADD dword1,FMUL dword30,FMUL dwordrad,FSTP dwordpitch. Retail796A48
+calls9D0580;796A4D FMUL dword[B050B8]=30,796A58 FADD dword[B050B4]=30,
+796A5E FMUL dword[AFDF14]=35fa8e3c,796A64 FSTP dwordpitch,796A67 next randomcall.
+The30constants have separate retail addresses; their dword storage does not prove
+whether source literals were float or double. The raw sequence has no spill
+between product/add/radian operations, so any introduced spill is a failed shape.
+
+1. product_assignment: float pitch=Get_Float()*30.0f; pitch+=30.0f; then unchanged
+   radians multiplication. This is ordinary scale-then-offset source, unlike prior
+   assignment of the already-combined affine value. Workflow3.1.2 notes independent
+   statements/named float products can stop constant folding. Test whether actual
+   product lifetime blocks factoring without forcing a physical store. No volatile,
+   casts or artificial consumer. VC6 may still keep extended precision or regroup.
+2. double_literals: float pitch=Get_Float()*30.0+30.0; then unchanged radians.
+   Unsuffixed literals make the affine arithmetic double before narrowing tofloat.
+   Both30values are exact in binary32 and64; storage width need not identify type.
+   This tests a natural literal-typing explanation, not different numeric constants.
+3. promoted_addition: float pitch=Get_Float()*30.0f+30.0; then unchanged radians.
+   Product hasfloat nominaltype, then is promoted for double addition, followed by
+   assignment tofloat. This isolates a promotion boundary that uniform double
+   arithmetic lacks; no reordering of operands or added variable is involved.
+
+These are source diagnostics, not assertions that original source used these
+forms or that all rounding behavior is equivalent. C++ type/assignment boundaries
+can affect rounding; inspect emitted x87 precision/store operations directly.
+A match requires retail FMUL30,FADD30,FMULrad and only finalFSTP, retaining same
+randomcall count/order, radbytes, restoffunction behavior and15pairs. Fulltarget
+exact with no lostpairs required adoption. No flags/helper/API/header changes,
+precision barriers, asm, unused objects or large spelling matrix permitted.
+All changes occupy existing pitch line; basename/assertions/line counts fixed;
+outside target only inherited camera.h->aabox.h include; all other methods equal.
+
+FORM product_assignment relative to direct_midpoint best
+--- best/app/client/camctrl_takeoff.cpp
++++ product_assignment/app/client/camctrl_takeoff.cpp
+@@ -228,7 +228,7 @@
+ 			Unknown18 = Vector3(Unknown30.X, Unknown30.Y, Unknown30.Z + 5000.0f);
+ 			break;
+ 		}
+-		++i; float pitch = Unknown_BDB1C0.Get_Float() * 30.0f + 30.0f; pitch *= (WWMATH_PI / 180.0f);
++		++i; float pitch = Unknown_BDB1C0.Get_Float() * 30.0f; pitch += 30.0f; pitch *= (WWMATH_PI / 180.0f);
+ 		float yaw = (Unknown_BDB1C0.Get_Float() * 315.0f + 45.0f) * (WWMATH_PI / 180.0f);
+ 		yaw += ship->Unknown_28(true).Get_Z_Rotation();
+ 		float c_p = WWMath::Cos(pitch);
+SOURCE SHA256 c4ff515c375ae810c653304d54b398b500759ec0baccc8b40ef596058b86f531
+
+FORM double_literals relative to direct_midpoint best
+--- best/app/client/camctrl_takeoff.cpp
++++ double_literals/app/client/camctrl_takeoff.cpp
+@@ -228,7 +228,7 @@
+ 			Unknown18 = Vector3(Unknown30.X, Unknown30.Y, Unknown30.Z + 5000.0f);
+ 			break;
+ 		}
+-		++i; float pitch = Unknown_BDB1C0.Get_Float() * 30.0f + 30.0f; pitch *= (WWMATH_PI / 180.0f);
++		++i; float pitch = Unknown_BDB1C0.Get_Float() * 30.0 + 30.0; pitch *= (WWMATH_PI / 180.0f);
+ 		float yaw = (Unknown_BDB1C0.Get_Float() * 315.0f + 45.0f) * (WWMATH_PI / 180.0f);
+ 		yaw += ship->Unknown_28(true).Get_Z_Rotation();
+ 		float c_p = WWMath::Cos(pitch);
+SOURCE SHA256 84a17a488a55b732ea94dcf44d349d4b94c999c4f32cb81e7dea7bb5c84da5d8
+
+FORM promoted_addition relative to direct_midpoint best
+--- best/app/client/camctrl_takeoff.cpp
++++ promoted_addition/app/client/camctrl_takeoff.cpp
+@@ -228,7 +228,7 @@
+ 			Unknown18 = Vector3(Unknown30.X, Unknown30.Y, Unknown30.Z + 5000.0f);
+ 			break;
+ 		}
+-		++i; float pitch = Unknown_BDB1C0.Get_Float() * 30.0f + 30.0f; pitch *= (WWMATH_PI / 180.0f);
++		++i; float pitch = Unknown_BDB1C0.Get_Float() * 30.0f + 30.0; pitch *= (WWMATH_PI / 180.0f);
+ 		float yaw = (Unknown_BDB1C0.Get_Float() * 315.0f + 45.0f) * (WWMATH_PI / 180.0f);
+ 		yaw += ship->Unknown_28(true).Get_Z_Rotation();
+ 		float c_p = WWMath::Cos(pitch);
+SOURCE SHA256 1ae82b8a2b003370fa101057758a54f102bcbd672d5151baec1992dc8a0c82ed
+
+BEST REPRODUCIBLE PATCH FROM CURRENT APP SOURCE277cb346
+--- a/app/client/camctrl_takeoff.cpp
++++ b/app/client/camctrl_takeoff.cpp
+@@ -10,7 +10,7 @@
+ #include "obbox.h"
+ #include "castres.h"
+ #include "scene.h"
+-#include "camera.h"
++#include "aabox.h"
+ #include "matrix3d.h"
+ #include "wwmath.h"
+ #include "..\shared\g_assert.h"
+@@ -220,38 +220,34 @@
+ 	}
+ 
+ 	Unknown24 = ship->Unknown_24();
+-	Unknown30 = Unknown24;
+-	Unknown30.Z += Unknown_BDB1C0.Get_Float() * 500.0f + 100.0f;
++	Unknown30 = Vector3(Unknown24.X, Unknown24.Y, (Unknown_BDB1C0.Get_Float() * 500.0f + 100.0f) + Unknown24.Z);
+ 	Unknown3C = Build_Quaternion(ship->Unknown_28(true));
+ 
+-	for (int i = 0; i <= 10; ++i) {
++	int i = 0; while (true) {
+ 		if (i >= 10) {
+-			Unknown18 = Unknown30;
+-			Unknown18.Z += 5000.0f;
++			Unknown18 = Vector3(Unknown30.X, Unknown30.Y, Unknown30.Z + 5000.0f);
+ 			break;
+ 		}
+-		float pitch = (Unknown_BDB1C0.Get_Float() * 30.0f + 30.0f) * (WWMATH_PI / 180.0f);
++		++i; float pitch = Unknown_BDB1C0.Get_Float() * 30.0f; pitch += 30.0f; pitch *= (WWMATH_PI / 180.0f);
+ 		float yaw = (Unknown_BDB1C0.Get_Float() * 315.0f + 45.0f) * (WWMATH_PI / 180.0f);
+-		Matrix3D ship_tm = ship->Unknown_28(true);
+-		float zrot = ship_tm.Get_Z_Rotation();
+-		float c_p = cos(pitch);
+-		float s_p = sin(pitch);
+-		float c_y = cos(zrot + yaw);
+-		float s_y = sin(zrot + yaw);
+-		Vector3 dir(c_y * c_p, s_y * c_p, s_p);
++		yaw += ship->Unknown_28(true).Get_Z_Rotation();
++		float c_p = WWMath::Cos(pitch);
++		float s_p = WWMath::Sin(pitch);
++		Matrix3D rotation(true); rotation.Rotate_Z(yaw);
++		Vector3 dir = rotation * Vector3(c_p, 0.0f, s_p);
+ 		Vector3 offset = dir * 5000.0f;
+ 		Unknown18 = Unknown30 + offset;
+ 
+-		CameraClass *cam = (CameraClass *)Client->MainView->Unknown_7C();
+-		OBBoxClass box = cam->Get_Near_Clip_Bounding_Box();
+-		OBBoxClass moved;
+-		Vector3 delta = Unknown18 - Unknown30;
+-		Matrix3D shift(true);
+-		shift.Set_Translation(delta);
+-		OBBoxClass::Transform(shift, box, &moved);
++		AABoxClass model_box; ship_ro->Get_Obj_Space_Bounding_Box(model_box); // NAME 2: 0x796b98
++		OBBoxClass local_box(Vector3(0.0f, 0.0f, 0.0f), model_box.Extent); // NAME 2: identity basis and model box, 0x796bd8
++		OBBoxClass start_box, end_box; // NAME 2: 0x796da1 and 0x796e42
++		rotation.Make_Identity(); rotation = ship->Unknown_28(true); // NAME 2: 0x796cc2
++		rotation.Set_Translation(Unknown30);
++		OBBoxClass::Transform(rotation, local_box, &start_box);
++		rotation.Set_Translation(Unknown18);
++		OBBoxClass::Transform(rotation, local_box, &end_box);
+ 		CastResultStruct result;
+-		MainViewSceneClass *scene = (MainViewSceneClass *)Client->MainView->Unknown_64();
+-		scene->Unknown_75FB00(moved, box, delta, &result, ship_ro, false);
++		((MainViewSceneClass *)Client->MainView->Unknown_64())->Unknown_75FB00(start_box, end_box, dir * 1000000.0f, &result, ship_ro, false);
+ 		if (result.Fraction >= 1.0f) {
+ 			break;
+ 		}
+@@ -262,13 +258,13 @@
+ 	Unknown4C = Build_Quaternion(lookat);
+ 
+ 	float distance = CameraManagerClass::Unknown_79B6B0();
+-	float angle = Unknown_BDB1C0.Get_Float() * 360.0f * (WWMATH_PI / 180.0f);
+-	Vector3 mid = (Unknown24 + Unknown30) * 0.5f;
+-	Matrix3D mid_lookat;
+-	mid_lookat.Obj_Look_At(mid, Unknown30, 0.0f);
+-	float s = sin(angle);
+-	float c = cos(angle);
+-	Unknown0C->Position = mid_lookat * Vector3(0.0f, c * 1.5f * distance, s * 1.5f * distance);
++	float angle = Unknown_BDB1C0.Get_Float() * 360.0f; angle *= (WWMATH_PI / 180.0f);
++
++
++	lookat.Obj_Look_At((Unknown24 + Unknown30) * 0.5f, Unknown30, 0.0f);
++	float s = WWMath::Sin(angle);
++	float c = WWMath::Cos(angle);
++	Vector3 camera_position = lookat * Vector3(0.0f, c * distance * 1.5f, s * distance * 1.5f); { CameraModule79C8E0Class *module = Unknown0C; module->Position.X = camera_position.X; module->Position.Y = camera_position.Y; module->Position.Z = camera_position.Z; }
+ 	Unknown0C->Unknown14 = true;
+ 	Unknown0C->Unknown18 = Client->AvatarID;
+ 	Unknown0C->Unknown_04();
+
+LITERAL AND ROUNDING EVIDENCE
+{
+  "name": "product_assignment",
+  "final_camera_references": 7,
+  "final_camera_all_equal": true,
+  "pitch_ours": [
+    {
+      "instruction": "fmul dword ptr [0]",
+      "constants": [
+        {
+          "symbol": "__real@4@4003f000000000000000",
+          "bytes": "0000f041",
+          "value": 30.0
+        }
+      ]
+    },
+    {
+      "instruction": "fadd dword ptr [0]",
+      "constants": [
+        {
+          "symbol": "__real@4@4003f000000000000000",
+          "bytes": "0000f041",
+          "value": 30.0
+        }
+      ]
+    },
+    {
+      "instruction": "fmul dword ptr [0]",
+      "constants": [
+        {
+          "symbol": "__real@4@3ff98efa350000000000",
+          "bytes": "35fa8e3c",
+          "value": 0.01745329238474369
+        }
+      ]
+    },
+    {
+      "instruction": "fstp dword ptr [ebp - 0x50]",
+      "constants": []
+    }
+  ],
+  "pitch_retail": [
+    {
+      "instruction": "fmul dword ptr [0xb050b8]",
+      "bytes": "0000f041",
+      "value": 30.0
+    },
+    {
+      "instruction": "fadd dword ptr [0xb050b4]",
+      "bytes": "0000f041",
+      "value": 30.0
+    },
+    {
+      "instruction": "fmul dword ptr [0xafdf14]",
+      "bytes": "35fa8e3c",
+      "value": 0.01745329238474369
+    },
+    {
+      "instruction": "fstp dword ptr [ebp - 0x58]"
+    }
+  ]
+}
+{
+  "name": "double_literals",
+  "final_camera_references": 7,
+  "final_camera_all_equal": true,
+  "pitch_ours": [
+    {
+      "instruction": "fadd qword ptr [0]",
+      "constants": [
+        {
+          "symbol": "__real@8@3fff8000000000000000",
+          "bytes": "000000000000f03f",
+          "value": 1.0
+        }
+      ]
+    },
+    {
+      "instruction": "fmul qword ptr [0]",
+      "constants": [
+        {
+          "symbol": "__real@8@4003f000000000000000",
+          "bytes": "0000000000003e40",
+          "value": 30.0
+        }
+      ]
+    },
+    {
+      "instruction": "fmul dword ptr [0]",
+      "constants": [
+        {
+          "symbol": "__real@4@3ff98efa350000000000",
+          "bytes": "35fa8e3c",
+          "value": 0.01745329238474369
+        }
+      ]
+    },
+    {
+      "instruction": "fstp dword ptr [ebp - 0x50]",
+      "constants": []
+    }
+  ],
+  "pitch_retail": [
+    {
+      "instruction": "fmul dword ptr [0xb050b8]",
+      "bytes": "0000f041",
+      "value": 30.0
+    },
+    {
+      "instruction": "fadd dword ptr [0xb050b4]",
+      "bytes": "0000f041",
+      "value": 30.0
+    },
+    {
+      "instruction": "fmul dword ptr [0xafdf14]",
+      "bytes": "35fa8e3c",
+      "value": 0.01745329238474369
+    },
+    {
+      "instruction": "fstp dword ptr [ebp - 0x58]"
+    }
+  ]
+}
+{
+  "name": "promoted_addition",
+  "final_camera_references": 7,
+  "final_camera_all_equal": true,
+  "pitch_ours": [
+    {
+      "instruction": "fmul dword ptr [0]",
+      "constants": [
+        {
+          "symbol": "__real@4@4003f000000000000000",
+          "bytes": "0000f041",
+          "value": 30.0
+        }
+      ]
+    },
+    {
+      "instruction": "fadd qword ptr [0]",
+      "constants": [
+        {
+          "symbol": "__real@8@4003f000000000000000",
+          "bytes": "0000000000003e40",
+          "value": 30.0
+        }
+      ]
+    },
+    {
+      "instruction": "fmul dword ptr [0]",
+      "constants": [
+        {
+          "symbol": "__real@4@3ff98efa350000000000",
+          "bytes": "35fa8e3c",
+          "value": 0.01745329238474369
+        }
+      ]
+    },
+    {
+      "instruction": "fstp dword ptr [ebp - 0x50]",
+      "constants": []
+    }
+  ],
+  "pitch_retail": [
+    {
+      "instruction": "fmul dword ptr [0xb050b8]",
+      "bytes": "0000f041",
+      "value": 30.0
+    },
+    {
+      "instruction": "fadd dword ptr [0xb050b4]",
+      "bytes": "0000f041",
+      "value": 30.0
+    },
+    {
+      "instruction": "fmul dword ptr [0xafdf14]",
+      "bytes": "35fa8e3c",
+      "value": 0.01745329238474369
+    },
+    {
+      "instruction": "fstp dword ptr [ebp - 0x58]"
+    }
+  ]
+}
