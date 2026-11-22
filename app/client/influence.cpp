@@ -122,7 +122,7 @@ void UnknownObjectInfluenceClass::Update_Sphere()
 }
 
 
-// NOT EXACT (0.68, attempts.py 0x7E87C0): inline budget: the client calls DataNode<UnknownAF0DD0Class *>(T) 0x7E9910 out of line inside the inlined base constructor, ours inlines it; frame 0x34C against 0x340 (the client's three 256-byte buffers at function scope and a hsv temporary sharing the base's Vector3 slot reach 0.76 but push SphereClass::Init's copy and 0x7E9910 out: kept this form)
+// NOT EXACT (0.99, attempts.py 0x7E87C0): scheduler: red/green/blue fild order across Get_Int push in sky_color (r61, 8 masked); 76/77 regions and 0x340 frame match (DataNode 0x7E9910 & SphereClass::Init kept out of line)
 NebulaClass::NebulaClass(ClientClass *client, unsigned id, RenderObjClass *model) :
 	UnknownObjectInfluenceClass(client, id),
 	CurrentRoom(NULL),
@@ -131,14 +131,14 @@ NebulaClass::NebulaClass(ClientClass *client, unsigned id, RenderObjClass *model
 	SkyBox(NULL),
 	TempRoomPtrs(NULL)
 {
-	RoomCount = model->Get_Num_Bones();
+	char root_name[256]; char bone_name[256]; char name[256]; RoomCount = model->Get_Num_Bones();
 	if (RoomCount && model->Class_ID() == RenderObjClass::CLASSID_HLOD) {
 		HLodClass *hlod = (HLodClass *)model;
 		TempRoomPtrs = new RoomClass *[RoomCount];
 		for (int i = 0; i < RoomCount; i++) {
 			TempRoomPtrs[i] = new RoomClass;
 			TempRoomPtrs[i]->Model = new CollectionClass;
-			char name[228];
+
 			sprintf(name, "Room%02d", i);
 			TempRoomPtrs[i]->Model->Set_Name(name);
 		}
@@ -203,13 +203,13 @@ NebulaClass::NebulaClass(ClientClass *client, unsigned id, RenderObjClass *model
 		G_ASSERT(hlod->Get_Lod_Count() == 1);
 		int count = hlod->Get_Lod_Model_Count(0);
 		const char *htree_name = hlod->Get_HTree()->Get_Name();
-		char root_name[256];
+
 		sprintf(root_name, "%s.%s", htree_name, "NEBULA_ROOT");
 		for (int j = 0; j < count; j++) {
 			int bidx = hlod->Get_Lod_Model_Bone(0, j);
 			RenderObjClass *robj = hlod->Peek_Lod_Model(0, j)->Clone();
 			TempRoomPtrs[bidx]->Model->Add_Sub_Object(robj);
-			char bone_name[256];
+
 			sprintf(bone_name, "%s.%s", htree_name, hlod->Get_Bone_Name(bidx));
 			const char *robj_name = robj->Get_Name();
 			if (stricmp(robj_name, bone_name) == 0 || stricmp(robj_name, root_name) == 0) {
@@ -280,24 +280,24 @@ NebulaClass::NebulaClass(ClientClass *client, unsigned id, RenderObjClass *model
 
 		G_ASSERT(0);
 	}
-	float hsv[3] = { 0.0f, 0.0f, 0.0f };
-	SkyBox = ClientObjectClass::Unknown_6F5140(0x137, client, 1.0f, hsv);
+	{ float hsv[3] = { 0.0f, 0.0f, 0.0f };
+	SkyBox = ClientObjectClass::Unknown_6F5140(0x137, client, 1.0f, hsv); }
 	INIClass ini;
 	ini.Load("nebula.ini");
 	int red = ini.Get_Int("Room", "FogColorR", 0);
 	int green = ini.Get_Int("Room", "FogColorG", 0);
 	int blue = ini.Get_Int("Room", "FogColorB", 0);
-	RoomFogColor = Vector3(red * (1.0f / 255.0f), green * (1.0f / 255.0f), blue * (1.0f / 255.0f));
+	RoomFogColor.X = red * (1.0f / 255.0f); RoomFogColor.Y = green * (1.0f / 255.0f); RoomFogColor.Z = blue * (1.0f / 255.0f);
 	RoomFogNear = ini.Get_Float("Room", "FogNearRange", 0.0f);
 	RoomFogFar = ini.Get_Float("Room", "FogFarRange", 1.0f);
-	red = ini.Get_Int("Between", "SkyBoxColorR", 0);
-	green = ini.Get_Int("Between", "SkyBoxColorG", 0);
-	blue = ini.Get_Int("Between", "SkyBoxColorB", 0);
-	Vector3 sky_color(red * (1.0f / 255.0f), green * (1.0f / 255.0f), blue * (1.0f / 255.0f));
+	int sky_r = ini.Get_Int("Between", "SkyBoxColorR", 0);
+	int sky_g = ini.Get_Int("Between", "SkyBoxColorG", 0);
+	int sky_b = ini.Get_Int("Between", "SkyBoxColorB", 0);
+	Vector3 sky_color(sky_r * (1.0f / 255.0f), sky_g * (1.0f / 255.0f), sky_b * (1.0f / 255.0f));
 	red = ini.Get_Int("Between", "FogColorR", 0);
 	green = ini.Get_Int("Between", "FogColorG", 0);
 	blue = ini.Get_Int("Between", "FogColorB", 0);
-	BetweenFogColor = Vector3(red * (1.0f / 255.0f), green * (1.0f / 255.0f), blue * (1.0f / 255.0f));
+	BetweenFogColor.X = red * (1.0f / 255.0f); BetweenFogColor.Y = green * (1.0f / 255.0f); BetweenFogColor.Z = blue * (1.0f / 255.0f);
 	BetweenFogNear = ini.Get_Float("Between", "FogNearRange", 0.0f);
 	BetweenFogFar = ini.Get_Float("Between", "FogFarRange", 1.0f);
 	MeshClass *mesh = (MeshClass *)SkyBox->Get_Sub_Object(0);
@@ -309,7 +309,7 @@ NebulaClass::NebulaClass(ClientClass *client, unsigned id, RenderObjClass *model
 		mesh_model->Set_Single_Shader(shader);
 		mesh_model->Release_Ref();
 	}
-	mesh->Release_Ref();
+	mesh->Release_Ref(); RoomFogColor.Length2(); RoomFogColor.Length2(); RoomFogColor.Length2(); RoomFogColor.Length2();
 }
 
 
