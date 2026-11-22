@@ -10,7 +10,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 227 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1970 |
-| 2 | describes what the code does | 5007 |
+| 2 | describes what the code does | 5009 |
 | 1 | neutral placeholder | 25140 |
 
 ## For review (score 3 and below)
@@ -3746,7 +3746,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6D5170` | `app/client/fontsys.cpp:33` | untagged neutral name (D10) |
 | 1 | `Unknown_6D6390` | `app/client/fontsys.cpp:34` | untagged neutral name (D10) |
 | 1 | `Unknown_6D5D40` | `app/client/fontsys.cpp:35` | untagged neutral name (D10) |
-| 1 | `Unknown26C` | `app/client/fontsys.cpp:36` | untagged neutral name (D10) |
+| 1 | `Unknown26C` | `app/client/fontsys.cpp:37` | untagged neutral name (D10) |
 | 1 | `Unknown_6D5140` | `app/client/fontsys.cpp:58` | untagged neutral name (D10) |
 | 1 | `Unknown4DC` | `app/client/fontsys.cpp:69` | untagged neutral name (D10) |
 | 1 | `Unknown4E0` | `app/client/fontsys.cpp:70` | untagged neutral name (D10) |
@@ -19326,7 +19326,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_65FFA0` | `app/client/ui_trade.cpp:203` | untagged neutral name (D10) |
 | 1 | `Unknown_98` | `app/client/ui_trade.cpp:208` | untagged neutral name (D10) |
 | 1 | `Unknown_66A300` | `app/client/ui_trade.cpp:215` | untagged neutral name (D10) |
-| 1 | `Unknown_653A80` | `app/client/ui_trade.cpp:225` | untagged neutral name (D10) |
 | 1 | `Unknown_58` | `app/client/ui_trade.cpp:244` | untagged neutral name (D10) |
 | 1 | `Unknown_695DC0` | `app/client/ui_trade.cpp:248` | untagged neutral name (D10) |
 | 1 | `Unknown_652450` | `app/client/ui_trade.cpp:250` | untagged neutral name (D10) |
@@ -19381,6 +19380,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_5A03B0` | `app/client/ui_trade.cpp:859` | untagged neutral name (D10) |
 | 1 | `Unknown_B0` | `app/client/ui_trade.cpp:942` | untagged neutral name (D10) |
 | 1 | `Unknown_B4` | `app/client/ui_trade.cpp:952` | untagged neutral name (D10) |
+| 1 | `Unknown_653A80` | `app/client/ui_trade.cpp:963` | untagged neutral name (D10) |
 | 1 | `ui_trade.h` | `app/client/ui_trade.h:5` | provisional header name for ui_trade.cpp |
 | 1 | `Unknown669FB0Class` | `app/client/ui_trade.h:17` | untagged neutral name (D10) |
 | 1 | `Unknown_54` | `app/client/ui_trade.h:30` | untagged neutral name (D10) |
@@ -23227,11 +23227,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `UnknownGlobal` | `app/shared/auxdata/delta_money.cpp:25` | untagged neutral name (D10) |
 | 1 | `DeltaUnknownCounter` | `app/shared/auxdata/delta_money.cpp:25` | untagged neutral name (D10) |
 | 1 | `Unknown04` | `app/shared/auxdata/delta_money.cpp:31` | untagged neutral name (D10) |
-| 1 | `Unknown_00` | `app/shared/auxdata/delta_money.cpp:35` | untagged neutral name (D10) |
-| 1 | `Unknown80` | `app/shared/auxdata/delta_money.cpp:35` | untagged neutral name (D10) |
+| 1 | `Unknown_00` | `app/shared/auxdata/delta_money.cpp:37` | untagged neutral name (D10) |
+| 1 | `Unknown80` | `app/shared/auxdata/delta_money.cpp:37` | untagged neutral name (D10) |
 | 1 | `delta_money.h` | `app/shared/auxdata/delta_money.h:5` | provisional file name (the specialisation's members are delta_money.cpp's) |
 | 1 | `Unknown_00` | `app/shared/auxdata/delta_money.h:30` | untagged neutral name (D10) |
-| 1 | `UnknownGlobal` | `app/shared/auxdata/delta_money.h:38` | untagged neutral name (D10) |
+| 1 | `UnknownGlobal` | `app/shared/auxdata/delta_money.h:40` | untagged neutral name (D10) |
 | 1 | `DeltaUnknownCounter` | `app/shared/auxdata/delta_numbering.h:3` | untagged neutral name (D10) |
 | 1 | `UnknownRTTIClass` | `app/shared/auxdata/delta_numbering.h:6` | untagged neutral name (D10) |
 | 1 | `delta_numbering.h` | `app/shared/auxdata/delta_numbering.h:11` | provisional file name (no client string names the header) |
@@ -28948,8 +28948,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Set_Change` | `app/shared/auxdata/delta_interpolator.h:36` | describes what it does |
 | 2 | `Get_Value` | `app/shared/auxdata/delta_interpolator.h:39` | describes what it does |
 | 2 | `LastValue` | `app/shared/auxdata/delta_interpolator.h:65` | after the assert's LastTime |
-| 2 | `Set_Value` | `app/shared/auxdata/delta_money.h:34` | describes what it does |
-| 2 | `Value` | `app/shared/auxdata/delta_money.h:36` | describes what it does |
+| 2 | `Assign` | `app/shared/auxdata/delta_money.h:34` | describes what it does |
+| 2 | `Set_Value` | `app/shared/auxdata/delta_money.h:35` | describes what it does |
+| 2 | `Value` | `app/shared/auxdata/delta_money.h:38` | describes what it does |
 | 2 | `DeltaStringValueClass` | `app/shared/auxdata/delta_string.cpp:149` | describes what it does |
 | 2 | `Owner` | `app/shared/auxdata/delta_string.cpp:157` | describes what it does |
 | 2 | `Assign` | `app/shared/auxdata/delta_string.h:34` | describes what it does |
@@ -28958,7 +28959,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Set_Value` | `app/shared/auxdata/delta_template.h:39` | describes what it does |
 | 2 | `Value` | `app/shared/auxdata/delta_template.h:47` | describes what it does |
 | 2 | `Set_Value` | `app/shared/auxdata/delta_template.h:65` | describes what it does |
-| 2 | `Value` | `app/shared/auxdata/delta_template.h:73` | describes what it does |
+| 2 | `Get_Value` | `app/shared/auxdata/delta_template.h:73` | describes what it does |
+| 2 | `Value` | `app/shared/auxdata/delta_template.h:74` | describes what it does |
 | 2 | `DeltaTemplateAccessorClass` | `app/shared/auxdata/delta_template.h:118` | describes what it does |
 | 2 | `Owner` | `app/shared/auxdata/delta_template.h:126` | describes what it does |
 | 2 | `DurationAccessorClass` | `app/shared/auxdata/delta_time.cpp:70` | describes what it does |

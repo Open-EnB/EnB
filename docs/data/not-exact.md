@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-639 entries in 259 files.
+637 entries in 259 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -135,7 +135,6 @@ edit the comments in the code, not this file.
 | `app/client/fontmanager.cpp:193` | `ManagedFontClass::Unknown_6D1010` | marker | NOT EXACT: inline budget: the client calls the std::string(const char *, allocator) constructor out of line, ours inlines it (attempts.csv) |
 | `app/client/fontmanager.cpp:377` | `ManagedFontClass::Unknown_6D1600` | marker | NOT EXACT: shape, 39 rows: the client destroys the name in one shared tail, ours in each return (attempts.csv) |
 | `app/client/fontmanager.cpp:519` | `FontManagerClass::Get_Style` | marker | NOT EXACT: order-only, 1 row: the inlined std::string(name) stores its terminator through [ebx+eax], ours [eax+ebx] (attempts.csv) |
-| `app/client/fontsys.cpp:18` | `FontSys::FontSys` | marker | NOT EXACT: written from the client's code (0x6D47C0) for the POC, not yet matched |
 | `app/client/fontsys.cpp:39` | `FontSys::FontSys` | marker | NOT EXACT: written from the client's code (0x6D4C70) for the POC, not yet matched |
 | `app/client/fontsys.cpp:64` | `FontSys::Unknown_6D5170` | marker | NOT EXACT: shape (attempts.csv): the client reaches Width..Scale (+0x2B4..+0x2CC) through one pointer, as a sub-object's inline would, and stores +0x430 / +0x4C5 after the resolution call's arguments; the colours from TXT1 |
 | `app/client/fontsys.cpp:182` | `FontSys::Set_Container` | marker | NOT EXACT: register (attempts.csv): the client keeps i in ebp and spills this across the loop (14 rows) |
@@ -430,7 +429,7 @@ edit the comments in the code, not this file.
 | `app/client/ui_scan.cpp:68` | `UIScanClass::Unknown_54` | marker | NOT EXACT: functional (WE9; similarity 0.59): the verb window's and the fonts' set-up order and registers @0x60D8D0 |
 | `app/client/ui_scan.cpp:305` | `UIScanClass::Unknown_68` | marker | NOT EXACT: register (TL1; similarity 0.54, WE9's 0.51): the client keeps the key's slot for next and this in ecx, tests the key as -5 then dec, dec @0x60E300 |
 | `app/client/ui_scan.cpp:500` | `UIScanClass::Unknown_88` | marker | NOT EXACT: order (WE9; similarity 0.85): the client builds the old target's Remove arguments before calling 0x4F7EF0, ours after @0x60E580 |
-| `app/client/ui_scan.cpp:555` | `UIScanClass::Unknown_60E6A0` | marker | NOT EXACT: inline-budget (IB2; similarity 0.53): the finds out of line as the client (0x610290, 0x514BD0) through two inline layers, and with them the cleared name's assign(const char *, size_type) (0x42D050); the client also reads the time through 0x60ECD0 (the time field's value; a Get_Value declared in delta_template.h costs aux_roots 8 pairs); ours inlines that read; registers differ @0x60E6A0 |
+| `app/client/ui_scan.cpp:555` | `UIScanClass::Unknown_60E6A0` | marker | NOT EXACT: inline-budget (IB2; similarity 0.53): the finds out of line as the client (0x610290, 0x514BD0) through two inline layers, and with them the cleared name's assign(const char *, size_type) (0x42D050); the client also reads the time through 0x60ECD0 (the time field's Get_Value, declared in the class and defined inline after it in delta_template.h, D3 2026-11-22); registers differ @0x60E6A0 |
 | `app/client/ui_scan.cpp:746` | `UIScanClass::Unknown_60F1A0` | marker | NOT EXACT: frame / order (IB2; similarity 0.66): the Reputation finds out of line as the client (0x610370) through two inline layers typed <DeltaCompoundClass>; the client tail-merges only cases 2 and 5 @0x60F1A0 |
 | `app/client/ui_scut.cpp:485` | `UIScutBarClass::Unknown_611300` | marker | NOT EXACT: register (the allocator byte through al, FirstId + lp in edi; the call structure is the client's) |
 | `app/client/ui_scut.cpp:500` | `UIScutBarClass::Unknown_611710` | marker | NOT EXACT: register / stack slots of the name temporaries (the call structure is the client's) |
@@ -469,7 +468,6 @@ edit the comments in the code, not this file.
 | `app/client/ui_talkt.cpp:357` | `UITalkTreeClass::Unknown_90` | marker | NOT EXACT: 0x64CC90 (Unknown_90: the vector's _Destroy out of line in the client) |
 | `app/client/ui_talkt.cpp:618` | `UITalkTreeClass::Unknown_60` | marker | NOT EXACT: 0x64D770 (Unknown_60, inline budget: SpeechFile.erase()'s nested _Grow calls max_size out of line in the client, inlined in ours) |
 | `app/client/ui_talkt.cpp:839` | `UITalkTreeClass::Unknown_64E7A0` | marker | NOT EXACT: 0x64E7A0 (Unknown_64E7A0: registers only: the bit test, and the 0x497300 call's return slot loaded before its argument) |
-| `app/client/ui_trade.cpp:131` | `UITradeClass::Unknown_54` | marker | NOT EXACT: shape (explain.py; hoisting): the inlined 0x653A80's Change_Text set-up (font load, push 0) not hoisted above the test and its Set_Tooltip tail not shared, as the client's copy has them @0x650A40 |
 | `app/client/ui_trade.cpp:265` | `UITradeClass::Unknown_60` | marker | NOT EXACT: register (the box's +0x34 through edx, -1 kept in ebx; explain.py names a relocation: symbols.json's stale return type for 0x695680) @0x651510 |
 | `app/client/ui_trade.cpp:600` | `UITradeClass::Unknown_651F60` | marker | NOT EXACT: 0x651F60's -1 call pushes a zeroed edx twice, ours shares the other call's push 0 (register residue) @0x651F60 |
 | `app/client/ui_trade.cpp:906` | `UITradeClass::Unknown_653450` | marker | NOT EXACT: inline budget, as TR1's stash (docs/attempts/0x653450): ours inlines the string assigns the client calls out of line @0x653450 |
