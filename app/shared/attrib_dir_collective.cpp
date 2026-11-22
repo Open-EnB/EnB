@@ -219,22 +219,22 @@ AttribDirCollective::AttribDirCollective()
 {
 }
 
-// NOT EXACT: inline budget (explain.py: 19 vs 20 calls), the client keeps the member loop's test without a zero register and calls more of the tables' helpers out of line
+
 AttribDirCollective::~AttribDirCollective()
 {
 	FAIL_IF(!Members.empty()) {
 		while (!Members.empty()) {
-			Remove_Member((AttribDir *)(*Members.begin()).first);
+			AttribDir *member = (AttribDir *)(*Members.begin()).first;
+			Remove_Member(member);
 		}
 	}
 	for (DestinationMap::iterator it = DestinationAttributes.begin(); it != DestinationAttributes.end(); ++it) {
 		DestinationStruct *&destination = (*it).second;
-		Detach_Owned_Mods(&Dir);
+		Detach_Owner_Mods(&Dir, Dir.Get_All_Mods(), this, false);
 		delete destination;
 	}
 	DestinationAttributes.clear();
 }
-
 
 
 
