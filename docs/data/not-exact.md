@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-637 entries in 259 files.
+635 entries in 259 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -204,12 +204,10 @@ edit the comments in the code, not this file.
 | `app/client/line2d.cpp:15` | `Line2DClass::Set` | marker | NOT EXACT: 0.64, stack layout: the client spills end.Y, the width and the angle into dead parameter slots (frame 0x58, ours 0x60) and copies the translation with integer moves |
 | `app/client/linebox.cpp:83` | `LineBoxClass::Render` | marker | NOT EXACT: 0.93, scheduling: the client copies -extent.Z for the lower corners later, and loads NumLines before clearing the last loop's counter |
 | `app/client/mainview.cpp:157` | `MainViewClass::MainViewClass` | marker | NOT EXACT: scheduling only (the array-ctor pushes, the 0.5 / 1.0 constants, one register); attempts.csv 0x50B360 |
-| `app/client/mainview.cpp:487` | `MainViewClass::Unknown_50D060` | marker | NOT EXACT: register / order only (the client reloads ViewMode after the +0x10FA test; ours keeps it in eax); attempts.csv 0x50D060 |
-| `app/client/mainview.cpp:548` | `MainViewClass::Unknown_50D520` | marker | NOT EXACT: functional (MV2, from the disassembly) 0x50D520: the bridge (+0x120, in the bridge's camera space), the base view's 2-D scene, the debug texts |
 | `app/client/mainview.cpp:614` | `MainViewClass::Render_Gas_Giant_Mode` | marker | NOT EXACT: similarity 0.84 (the inlined 0x50CCF0 stores zfar first in the client; scheduling); attempts.csv 0x50DB20 |
 | `app/client/mainview.cpp:647` | `MainViewClass::Render_Space_Mode` | marker | NOT EXACT: similarity 0.75 (as Render_Gas_Giant_Mode, and the inline choices of 0x50D1E0 / 0x50E6A0); attempts.csv 0x50E090 |
 | `app/client/mainview.cpp:687` | `MainViewClass::Render_Planet_Mode` | marker | NOT EXACT: similarity 0.67 (functional from the pseudocode; the inline choices differ); attempts.csv 0x50E6E0 |
-| `app/client/mainview.cpp:899` | `MainViewClass::Update` | marker | NOT EXACT: 0.99 (masked 39 -> 10, raw 256 -> 207, frame 0xCC = client; x87 left in sun.Normalize and frame*offset; attempts.csv 0x50F1B0) |
+| `app/client/mainview.cpp:899` | `MainViewClass::Update` | marker | NOT EXACT: 1.00 (masked 10 -> 4, raw 207 -> 9, frame 0xCC = client; 4 x87 rows left in r49 frame*offset Row 1; attempts.csv 0x50F1B0) |
 | `app/client/mainview.cpp:1227` | `MainViewClass::Unknown_510D40` | marker | NOT EXACT: frame (0x510D40, 0 masked / 18 raw rows, score 1.00, frame 0x214 = client; DynamicIBAccessClass sits at -0x160 above the 7 Get_Transform spill slots vs client -0x17c below them; attempts.csv) 0x510D40, the sea's tint over the whole screen in the colour arg (0x50CF70 passes +0x16C), no texture |
 | `app/client/mainview.cpp:1408` | `MainViewClass::Unknown_512400` | marker | NOT EXACT: functional (MV2, from the disassembly) |
 | `app/client/mainview.cpp:1786` | `MainViewClass::Unknown_60` | marker | NOT EXACT: x87 operand order, 0 masked rows, 14 raw (HS): ray.Normalize()'s Y / Z loads and the dir / ray dot products load ray first where the client loads dir; attempts.py show 0x512BB0 slot +0x60: the object under the screen point (x, y in 0..1): the avatar's model first unless skip_avatar, then the objects within the camera's far distance and 5 degrees of the ray (the planets and stations, typ... |

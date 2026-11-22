@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1970 |
 | 2 | describes what the code does | 5009 |
-| 1 | neutral placeholder | 25140 |
+| 1 | neutral placeholder | 25144 |
 
 ## For review (score 3 and below)
 
@@ -6280,6 +6280,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_AECF20` | `app/client/mainview.cpp:414` | untagged neutral name (D10) |
 | 1 | `Unknown_AECF24` | `app/client/mainview.cpp:414` | untagged neutral name (D10) |
 | 1 | `Unknown_AECF28` | `app/client/mainview.cpp:414` | untagged neutral name (D10) |
+| 1 | `Unknown_AECF2C` | `app/client/mainview.cpp:414` | untagged neutral name (D10) |
+| 1 | `Unknown_AECF30` | `app/client/mainview.cpp:414` | untagged neutral name (D10) |
 | 1 | `Unknown_50CC10` | `app/client/mainview.cpp:416` | untagged neutral name (D10) |
 | 1 | `Unknown28` | `app/client/mainview.cpp:427` | untagged neutral name (D10) |
 | 1 | `Unknown_50CCF0` | `app/client/mainview.cpp:445` | untagged neutral name (D10) |
@@ -6288,8 +6290,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_50CE00` | `app/client/mainview.cpp:455` | untagged neutral name (D10) |
 | 1 | `Unknown_50CF70` | `app/client/mainview.cpp:474` | untagged neutral name (D10) |
 | 1 | `Unknown_510D40` | `app/client/mainview.cpp:482` | untagged neutral name (D10) |
+| 1 | `c` | `app/client/mainview.cpp:487` | neutral (D10) |
+| 1 | `Unknown_50D060_Helper` | `app/client/mainview.cpp:487` | untagged neutral name (D10) |
+| 1 | `Unknown10FA` | `app/client/mainview.cpp:487` | untagged neutral name (D10) |
 | 1 | `Unknown_50D060` | `app/client/mainview.cpp:488` | untagged neutral name (D10) |
-| 1 | `Unknown10FA` | `app/client/mainview.cpp:494` | untagged neutral name (D10) |
 | 1 | `Unknown_50D1E0` | `app/client/mainview.cpp:507` | untagged neutral name (D10) |
 | 1 | `Unknown_50D310` | `app/client/mainview.cpp:522` | untagged neutral name (D10) |
 | 1 | `Unknown_50D430` | `app/client/mainview.cpp:535` | untagged neutral name (D10) |
