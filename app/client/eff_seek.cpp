@@ -13,7 +13,7 @@
 #include <math.h>
 #include "..\shared\g_assert.h"
 
-Matrix3D Unknown_82ECB0(const Vector3 &direction, const Vector3 &position);	// 0x82ECB0 (cdecl; a transform at the position facing along the direction; its file is unknown, eff_o.cpp declares it the same way)  // NAME 1 [direction, position]: what the callers pass
+#include "unknown_82ecb0.h"
 
 
 

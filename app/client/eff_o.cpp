@@ -28,7 +28,7 @@
 bool String_To_Value(const char *text, Vector3 *value);	// 0x4A3810 (strconv_lib.cpp, not in strconv_lib.h: sscanf "%f,%f,%f")  // NAME 2: as strconv_lib.h's pairs
 void Message_Error(const char *sender, const char *category, const char *file, int line, const char *format, ...);	// 0x4BC260 (g_assert.h's reporter)
 static char *Unknown_B92E30[] = {"RObjLookAtEffect", "RObjEffect", "WarpEffect", "LineEffect", "StraightSeekEffect", "SpiralSeekEffect", "SplineRandomSeekEffect", "LinearRandomSeekEffect", "SoundEffect", "PassEffect", "AttachEffect", "RenderStateEffect", "ParticleJetEffect", NULL};	// 0xB92E30: effect.ini's EffectClass values, the factory's switch  // NAME 1: neutral (D10)
-Matrix3D Unknown_82ECB0(const Vector3 &direction, const Vector3 &position);	// 0x82ECB0 (cdecl; a transform at the position facing along the direction)  // NAME 1 [direction, position]: what 0x6E8DD0 passes
+#include "unknown_82ecb0.h"
 // The render-state effect the factory's helper 0x6EC7D0 makes (0xE4 bytes; its file, between eff_robj.cpp and
 // eff_seek.cpp, is eff_rs.cpp by a provisional name, D137):
 #include "eff_rs.h"	// RenderStateEffectClass, 0x6F0200
