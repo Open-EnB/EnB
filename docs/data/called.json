@@ -1575,6 +1575,12 @@
 "?Set_Opacity@VertexMaterialClass@@QAEXM@Z": [
 "0x92F010"
 ],
+"?Set_Point_Alpha@PointGroupClass@@QAEXM@Z": [
+"0x954770"
+],
+"?Set_Point_Color@PointGroupClass@@QAEXVVector3@@@Z": [
+"0x954730"
+],
 "?Set_Point_Location@SegmentedLineClass@@QAEXIABVVector3@@@Z": [
 "0x968FD0"
 ],

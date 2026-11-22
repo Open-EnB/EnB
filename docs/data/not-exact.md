@@ -620,7 +620,6 @@ edit the comments in the code, not this file.
 | `app/shared/spln_db.cpp:1732` | `SplineDatabaseClass::Save_Entry` | marker | NOT EXACT: shape / inline budget (the client inlines Save_Curve's switch) |
 | `app/shared/spln_db.cpp:1846` | `SplineDatabaseClass::Load_Chunks` | marker | NOT EXACT: shape (the client repeats the epilogue for the header's two failures and keeps &KeyNames in edi) |
 | `app/shared/spln_db.cpp:1916` | `SplineDatabaseClass::Load_Entry` | marker | NOT EXACT: shape (the switch's layout; the TYPE_BLEND strings) |
-| `app/shared/stars.cpp:93` | `StarLayerClass::Load` | marker | NOT EXACT: order-only (the Hemisphere z load), parked: attempts.csv 0x481DB0 |
 | `app/shared/stars.cpp:184` | `StarFieldClass::Init` | marker | NOT EXACT: register-only (cmp al,bl on Load's result), parked: attempts.csv 0x4829E0 |
 | `app/shared/stars.cpp:279` | `StarFieldClass::Get_Cost` | mention | NOT EXACT: Load and Init only (the other functions are exact). Load (0.70): the asserts on the client's lines, the frames store as one ternary and powf (r stored before pow) match; left: the Hemisphere branch loads z (sample[1]) last where the client loads it first, the fifth Create_NEW temporary zeroed after its release, frame 0x4C vs 0x50. Init (0.72): the client compares Load's result with cmp ... |
 | `app/shared/symbol_substitution.cpp:99` | `Substitute_Symbols` | marker | NOT EXACT: inline budget, the client calls string::erase(iterator) 0x4E2A00 out of line in the last loop |
