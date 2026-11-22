@@ -257,13 +257,13 @@ ChatPanelInterface::ChatPanelInterface(SClient *client) :
 class UILogClass : public ChatPanelUIBase { public: UILogClass(SClient *client); char Unknown0A0[0xCC - 0xA0]; };	// ui_log.cpp's log book (0x5AAE40, 0xCC bytes: 'Captain's Log'; declared in ui_log.cpp, no header)
 #include "..\packets\pkunknown_87dec0.h"	// AvatarEmotePacketClass (0x87DEC0: the avatar's emotes)
 #include "camera_manager.h"	// CameraManagerClass (SClient +0x12A8; 0x79B600 before the ship's emotes)
-// NOT EXACT: inline-budget/shape (4 dead size() reads send _Eos out of line; the chat window through 0x56C6A0 inlined gives its Remove 0x56CE40 and ChatInt=NULL 0x56CD50 out of line and the frame; left: UnknownD4=NULL 0x56CC30 out of line in the client, ~list erase still inline)
+// (4 dead size() reads send _Eos out of line; the combo through 0x568910 and the chat window through 0x56C6A0 inlined give 0x56CC30, Remove 0x56CE40 and ChatInt=NULL 0x56CD50 out of line; the deletes' own null tests)
 // @0x562440
 // 0x562410 / 0x562440
 ChatPanelInterface::~ChatPanelInterface()
 {
 	Unknown228.clear();
-	if (UnknownD4) UnknownD4 = NULL;
+	Unknown_568910();
 	if (Unknown258) {
 		if (InterfaceMesh) {
 			InterfaceMesh->Remove_Sub_Object(Unknown258.Peek());
@@ -274,20 +274,20 @@ ChatPanelInterface::~ChatPanelInterface()
 	for (int i = 0; i < NUM_COMBO; i++) {
 		Combo[i] = NULL;
 	}
-	if (Unknown110) {
-		delete Unknown110;
-		Unknown110 = NULL;
-	}
+	delete Unknown110;
+	Unknown110 = NULL;
+
+
 	Unknown_56C6A0();
 
 
 
 
 	Unknown114 = NULL;
-	if (Unknown13C) {
-		delete (Unknown67D430Class *)Unknown13C;
-		Unknown13C = 0;
-	}
+	delete (Unknown67D430Class *)Unknown13C;
+	Unknown13C = 0;
+
+
 	Unknown124.erase();
 	if (Unknown1E8) Unknown1E8 = NULL;
 	GadgetClass::Destroy((GadgetClass *)Unknown140);
