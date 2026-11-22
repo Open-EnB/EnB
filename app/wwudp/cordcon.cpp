@@ -973,7 +973,7 @@ bool CordCon::handlePacket(unsigned char *data, int datalen)
 {
 	WWPROFILE("CordCon::handlePacket");
 	Xtime current;
-	int acks = 0;
+	int acks = 0; CordMessageClass *msg = NULL;
 	FAIL_IF(datalen < PACKET_ENCRYPTION_OFFSET) return false;
 	unsigned short counter = ntohs(*(unsigned short *)(data + 3));
 	Encrypt_Data(data + PACKET_ENCRYPTION_OFFSET, datalen - PACKET_ENCRYPTION_OFFSET, counter);
@@ -1180,15 +1180,15 @@ bool CordCon::handlePacket(unsigned char *data, int datalen)
 		int mode = type & 0x0F;
 		int bflags = type >> 4;
 		bool isfrag = (bflags & 1) != 0;
-		unsigned int len = size;
-		unsigned int frag = 0;
+		unsigned short len;
+		unsigned char frag = 0;
 		unsigned int first = seq;
 		if (isfrag) {
-			frag = data[pos];
-			pos++;
+			frag = data[pos++];
 			first = seq - frag;
-			len = (int)((frag * 5 + 5) * 0x28) < (int)size ? CORD_FRAGMENT_SIZE : (unsigned short)(size - frag * CORD_FRAGMENT_SIZE);
-		}
+			if (size > (frag + 1) * CORD_FRAGMENT_SIZE) len = CORD_FRAGMENT_SIZE; else len = size - frag * CORD_FRAGMENT_SIZE;
+		} else {
+			len = size; }
 		if (mode != c->Mode && c->Mode != 0 && mode == 3) {
 			if ((bflags & 2) == 0) {
 				pos += len;
@@ -1205,13 +1205,13 @@ bool CordCon::handlePacket(unsigned char *data, int datalen)
 			c->ToAck.addTail(seq);
 			AcksPending_++;
 		}
-		size_t i;
+		int i;
 		// A gap before seq: ask for the missing ones back to the first already held.
-		if (c->Mode == 3 && seq != 0 && (int)(c->Expected - 1) < (int)(seq - 1)) {
-			for (unsigned int s = seq - 1; (int)(c->Expected - 1) < (int)s; s--) {
+		if (c->Mode == 3 && seq > 0) {
+			for (unsigned int s = seq - 1; (int)s > (int)(c->Expected - 1); s--) {
 				bool held = false;
-				for (i = 0; i < (size_t)c->Incoming.Length(); i++) {
-					if (c->Incoming.Get(i)->Seq == s) {
+				for (i = 0; i < c->Incoming.Entries; i++) {
+					c->Incoming.getPointer(&msg, i); if (msg->Seq == s) {
 						held = true;
 						break;
 					}
@@ -1224,8 +1224,8 @@ bool CordCon::handlePacket(unsigned char *data, int datalen)
 			}
 		}
 		bool found = false;
-		for (i = 0; i < (size_t)c->Incoming.Length(); i++) {
-			if (c->Incoming.Get(i)->Seq == seq) {
+		for (i = 0; i < c->Incoming.Entries; i++) {
+			c->Incoming.getPointer(&msg, i); if (msg->Seq == seq) {
 				found = true;
 			}
 		}
@@ -1234,8 +1234,8 @@ bool CordCon::handlePacket(unsigned char *data, int datalen)
 				c->Expected++;
 			}
 			bool next = false;
-			for (i = 0; i < (size_t)c->Incoming.Length(); i++) {
-				if (c->Incoming.Get(i)->Seq == c->Expected && c->Incoming.Get(i)->Time != 0) {
+			for (i = 0; i < c->Incoming.Entries; i++) {
+				c->Incoming.getPointer(&msg, i); if (msg->Seq == c->Expected && msg->Time != 0) {
 					next = true;
 					break;
 				}
@@ -1252,10 +1252,10 @@ bool CordCon::handlePacket(unsigned char *data, int datalen)
 			}
 		} else if (found) {
 			if (first == seq) {
-				for (i = 0; i < (size_t)c->Incoming.Length(); i++) {
-					if (c->Incoming.Get(i)->Seq == first) {
-						c->Incoming.Get(i)->Fragments[frag] = 1;
-						memcpy(c->Incoming.Get(i)->Data + frag * CORD_FRAGMENT_SIZE, data + pos, len);
+				for (i = 0; i < c->Incoming.Entries; i++) {
+					c->Incoming.getPointer(&msg, i); if (msg->Seq == first) {
+						msg->Fragments[frag] = 1;
+						memcpy(msg->Data + frag * CORD_FRAGMENT_SIZE, data + pos, len);
 					}
 				}
 			}
@@ -1294,8 +1294,8 @@ bool CordCon::handlePacket(unsigned char *data, int datalen)
 			continue;
 		}
 		int target = -1;
-		for (i = 0; i < (size_t)c->Incoming.Length(); i++) {
-			if (c->Incoming.Get(i)->Seq == first) {
+		for (i = 0; i < c->Incoming.Entries; i++) {
+			c->Incoming.getPointer(&msg, i); if (msg->Seq == first) {
 				target = (int)i;
 				break;
 			}
@@ -1321,7 +1321,7 @@ bool CordCon::handlePacket(unsigned char *data, int datalen)
 			}
 			target = (int)c->Incoming.Length() - 1;
 		}
-		CordMessageClass &t = *c->Incoming.Get(target);
+		c->Incoming.getPointer(&msg, target); CordMessageClass &t = *msg;
 		t.Fragments[frag] = 1;
 		memcpy(t.Data + frag * CORD_FRAGMENT_SIZE, data + pos, len);
 		if (seq == first) {

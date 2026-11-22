@@ -120,6 +120,45 @@ public:
 		return &n->Node;
 	}
 	// wlib's addTail: add at the end (inline, as wlib's; the client calls add 0x84F220).
+	bool getPointer(T **node, int pos)
+	{
+		if ((node == 0) || (Entries == 0))
+			return false;
+		NodeType *item;
+		if (pos < 0)
+			return false;
+		if (pos >= Entries)
+			return false;
+		if (pos == 0) {
+			*node = &(Head->Node);
+			return true;
+		} else if (pos == Entries - 1) {
+			*node = &(Tail->Node);
+			return true;
+		}
+		if (pos == CurIndex) {
+			*node = &(Current->Node);
+			return true;
+		} else if (pos == CurIndex + 1) {
+			*node = &(Current->Next->Node);
+			CurIndex++;
+			Current = Current->Next;
+			return true;
+		} else if (pos == CurIndex - 1) {
+			*node = &(Current->Prev->Node);
+			CurIndex--;
+			Current = Current->Prev;
+			return true;
+		}
+		item = Head->Next;
+		for (int i = 1; i < pos; i++) {
+			item = item->Next;
+		}
+		*node = &(item->Node);
+		CurIndex = pos;
+		Current = item;
+		return true;
+	}
 	bool Add_Tail(const T &v, T **newnodeptr = 0)
 	{
 		return Add(v, Entries, newnodeptr);
@@ -133,7 +172,7 @@ public:
 		T temp_node;
 		return Remove(temp_node, pos);
 	}
-private:
+public:
 	int Entries;			// +0x00 NAME 4: wlib's name (EA's Generals Tools matchbot wlib)
 	NodeType *Head;			// +0x04 NAME 4: wlib's name (EA's Generals Tools matchbot wlib)
 	NodeType *Tail;			// +0x08 NAME 4: wlib's name (EA's Generals Tools matchbot wlib)
