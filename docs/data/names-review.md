@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1970 |
 | 2 | describes what the code does | 5006 |
-| 1 | neutral placeholder | 25137 |
+| 1 | neutral placeholder | 25140 |
 
 ## For review (score 3 and below)
 
@@ -2027,8 +2027,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6F58B0` | `app/client/co.cpp:1192` | untagged neutral name (D10) |
 | 1 | `Unknown_6F5F60` | `app/client/co.cpp:1201` | untagged neutral name (D10) |
 | 1 | `Unknown80` | `app/client/co.cpp:1250` | untagged neutral name (D10) |
+| 1 | `Unknown_Find_Inner` | `app/client/co.cpp:1448` | neutral (D10) |
+| 1 | `Unknown_Read_Changed_2L` | `app/client/co.cpp:1451` | neutral (D10) |
+| 1 | `Unknown_Check_Global_2L` | `app/client/co.cpp:1454` | neutral (D10) |
+| 1 | `Unknown_Find_Valid_2L` | `app/client/co.cpp:1457` | neutral (D10) |
 | 1 | `Unknown_74D990` | `app/client/co.cpp:1484` | untagged neutral name (D10) |
-| 1 | `Unknown113C` | `app/client/co.cpp:1569` | untagged neutral name (D10) |
 | 1 | `Unknown_6E9490` | `app/client/co.cpp:1570` | untagged neutral name (D10) |
 | 1 | `UnknownB00060EffectClass` | `app/client/co.cpp:1574` | untagged neutral name (D10) |
 | 1 | `Unknown_64` | `app/client/co.cpp:1581` | untagged neutral name (D10) |
