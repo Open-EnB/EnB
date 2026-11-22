@@ -137,7 +137,7 @@ int SuperLinePacketClass::Print(char *buffer, int)
 **	  reports from ..\shared\duration.h, line 205. It is defined here, at the end of the file on that
 **	  line, not in duration.h: adding it there reorders the symbols of every object that includes
 **	  duration.h and flips objmatch's tie-breaks in aux_roots.cpp (3 pairs gained, 2 lost), so the
-**	  move waits for the user (P4's proposal). #line 205 "..\\shared\\duration.h" matches the client's string.
+**	  move waits for the user (P4's proposal). The string differs, the bytes match (a relocation).
 **	* The file name is provisional (no assert names it).
 */
 
@@ -200,8 +200,8 @@ int SuperLinePacketClass::Print(char *buffer, int)
 
 
 // duration.h's clamp of a 64-bit time to an int (the client's line 205: see the notes)
-static int Clamp_Int(__int64 t) {
-#line 205 "..\\shared\\duration.h"
+static int Clamp_Int(__int64 t)
+{
 	FAIL_IF(t > INT_MAX) return INT_MAX;
 	if (t < INT_MIN) {
 		return INT_MIN;
