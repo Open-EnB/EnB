@@ -435,7 +435,7 @@ void GadgetClass::Unknown_40(bool on)
 	}
 }
 
-// NOT EXACT: shape (written from the client's 0x65F780 for the proof-of-concept client: the input's next event to the
+// NOT EXACT: register / order (masked residue 22 rows, key 2 laid out after the buttons, the held flash pointer spill; written from the client's 0x65F780 for the proof-of-concept client: the input's next event to the
 // manager's gadgets: the held gadget first, then every gadget under the pointer)
 KernelEventClass GadgetClass::Process_Input(GadgetListManagerClass *manager)
 {
@@ -461,42 +461,38 @@ KernelEventClass GadgetClass::Process_Input(GadgetListManagerClass *manager)
 	float y = (event.Unknown08 < 0.0f) ? 0.0f : ((event.Unknown08 > 1.0f) ? 1.0f : event.Unknown08);
 
 	unsigned int mask = 0;
-	bool buttons = false;
-	if (event.Key == 0) {
-		buttons = true;
-	} else {
+	if (event.Key != 0) {
 		if (event.Key == 1) {
-			mask = (event.Flags & 0x1000) ? 4 : 1;
+			if (!(event.Flags & 0x1000)) { mask = 1; }
+			if (event.Flags & 0x1000) { mask |= 4; }	// (the client tests Up twice)
 		} else if (event.Key == 2) {
-			mask = (event.Flags & 0x1000) ? 0x40 : 0x10;
+			if (!(event.Flags & 0x1000)) { mask = 0x10; }
+			if (event.Flags & 0x1000) { mask |= 0x40; }
 		} else if (event.Key == 0x101 || event.Key == 0x102) {
 			mask = 0x1000;
 		}
 		if (mask == 0) {
 			mask = 0x100;
 		}
-		if (event.Flags & 0x100) {
+		if (event.Is_Shift()) {
 			mask |= 0x200;
 		}
-		if (event.Flags & 0x200) {
+		if (event.Is_Ctrl()) {
 			mask |= 0x400;
 		}
-		if (event.Flags & 0x400) {
+		if ((bool)event.Alt) {
 			mask |= 0x800;
 		}
-		if (event.Key == 1 || event.Key == 2 || event.Key == 0x10 || event.Key == 0x11 || event.Key == 0x12) {
-			buttons = true;
-		}
 	}
-	if (buttons) {
-		mask |= Unknown_42EC60(1, 0) ? 2 : 8;
-		mask |= Unknown_42EC60(2, 0) ? 0x20 : 0x80;
+	if (event.Key == 0 || event.Key == 1 || event.Key == 2 || event.Key == 0x10 || event.Key == 0x11 || event.Key == 0x12) {
+		if (Unknown_42EC60(1, 0)) { mask |= 2; } else { mask |= 8; }
+		if (Unknown_42EC60(2, 0)) { mask |= 0x20; } else { mask |= 0x80; }
 	}
 
 	GadgetClass *handled = NULL;
-	GadgetClass *held = NULL;
 	bool over = false;
 	bool front = false;
+	GadgetClass *held = NULL;
 	GadgetClass **sticky = NULL;
 	if ((mask & 5) && Unknown_BE5F24) {
 		sticky = &Unknown_BE5F24;
@@ -513,7 +509,7 @@ KernelEventClass GadgetClass::Process_Input(GadgetListManagerClass *manager)
 	}
 	if (sticky && *sticky) {
 		held = *sticky;
-		held->Unknown_30(x, y);
+		(*sticky)->Unknown_30(x, y);
 		(*sticky)->Unknown_34(&event, x, y, mask);
 		if (*sticky) {
 			handled = *sticky;
@@ -527,8 +523,8 @@ KernelEventClass GadgetClass::Process_Input(GadgetListManagerClass *manager)
 	GadgetClass *last_over = Unknown_BE5F30;
 	Unknown_BE5F30 = NULL;
 	GadgetListIteratorClass it(manager);
-	GadgetClass *gadget;
-	while ((gadget = it.Get()) != NULL) {
+	GadgetClass *gadget = NULL;
+	for (gadget = it.Get(); gadget != NULL; gadget = it.Get()) {
 		++it;
 		if (gadget->Flash) {
 			gadget->Unknown_6609A0();
@@ -557,10 +553,12 @@ KernelEventClass GadgetClass::Process_Input(GadgetListManagerClass *manager)
 				}
 				if (gadget->Unknown_34(&event, x, y, mask)) {
 					handled = gadget;
-					if (gadget->Flash) {
-						gadget->Unknown_6607D0();
-					} else {
-						gadget->Unknown_6603A0(false, NULL);
+					if (handled) {
+						if (gadget->Flash) {
+							gadget->Unknown_6607D0();
+						} else {
+							gadget->Unknown_6603A0(false, NULL);
+						}
 					}
 				}
 			}
@@ -573,11 +571,13 @@ KernelEventClass GadgetClass::Process_Input(GadgetListManagerClass *manager)
 	}
 	manager->Unknown3C.swap(_under);
 	if (handled && (mask & 0x1111) && manager->Unknown_661610(handled->Unknown08)) {
-		InterfaceClass *iface = handled->Unknown08;
-		Get_Signal_Map().emit((void *)iface, GadgetGroupToFrontEvent(iface));
+		Get_Signal_Map().emit((void *)handled->Unknown08, GadgetGroupToFrontEvent(handled->Unknown08));
 	}
 	return(event);
 }
+
+
+
 
 void GadgetClass::Unknown_65FFA0(int arg)
 {

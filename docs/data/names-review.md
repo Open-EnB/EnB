@@ -3914,11 +3914,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_661AA0` | `app/client/gadget.cpp:421` | untagged neutral name (D10) |
 | 1 | `Unknown_6607D0` | `app/client/gadget.cpp:434` | untagged neutral name (D10) |
 | 1 | `Unknown04` | `app/client/gadget.cpp:456` | untagged neutral name (D10) |
-| 1 | `Unknown_30` | `app/client/gadget.cpp:516` | untagged neutral name (D10) |
-| 1 | `Unknown_6609A0` | `app/client/gadget.cpp:534` | untagged neutral name (D10) |
-| 1 | `Unknown_6603A0` | `app/client/gadget.cpp:555` | untagged neutral name (D10) |
-| 1 | `Unknown3C` | `app/client/gadget.cpp:574` | untagged neutral name (D10) |
-| 1 | `Unknown_661610` | `app/client/gadget.cpp:575` | untagged neutral name (D10) |
+| 1 | `Unknown_30` | `app/client/gadget.cpp:512` | untagged neutral name (D10) |
+| 1 | `Unknown_6609A0` | `app/client/gadget.cpp:530` | untagged neutral name (D10) |
+| 1 | `Unknown_6603A0` | `app/client/gadget.cpp:551` | untagged neutral name (D10) |
+| 1 | `Unknown3C` | `app/client/gadget.cpp:572` | untagged neutral name (D10) |
+| 1 | `Unknown_661610` | `app/client/gadget.cpp:573` | untagged neutral name (D10) |
 | 1 | `Unknown_65FFA0` | `app/client/gadget.cpp:582` | untagged neutral name (D10) |
 | 1 | `Unknown_65FFC0` | `app/client/gadget.cpp:587` | untagged neutral name (D10) |
 | 1 | `Unknown_54` | `app/client/gadget.cpp:738` | untagged neutral name (D10) |
