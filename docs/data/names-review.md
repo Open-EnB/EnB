@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1970 |
 | 2 | describes what the code does | 5005 |
-| 1 | neutral placeholder | 25127 |
+| 1 | neutral placeholder | 25128 |
 
 ## For review (score 3 and below)
 
@@ -21527,7 +21527,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Set_Unknown05` | `app/common/connect.h:185` | untagged neutral name (D10) |
 | 1 | `Unknown1C` | `app/common/connect.h:197` | untagged neutral name (D10) |
 | 1 | `Unknown_Get_Ticks` | `app/common/dbgconn.cpp:5` | untagged neutral name (D10) |
-| 1 | `Unknown2A` | `app/common/dbgconn.cpp:88` | untagged neutral name (D10) |
+| 1 | `Open_Log` | `app/common/dbgconn.cpp:17` | what it does (no client copy: inlined at its one call) |
+| 1 | `Unknown2A` | `app/common/dbgconn.cpp:93` | untagged neutral name (D10) |
 | 1 | `Unknown_831E90` | `app/common/distance_calc.cpp:6` | untagged neutral name (D10) |
 | 1 | `distance` | `app/common/distance_calc.cpp:9` | neutral (D10) |
 | 1 | `Unknown_831F10` | `app/common/distance_calc.cpp:16` | untagged neutral name (D10) |
