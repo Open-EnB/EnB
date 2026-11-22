@@ -1505,7 +1505,7 @@ void ChatPanelInterface::Unknown_5689D0(int index)
 				StringOptionStruct *label = OptionClass::Instance->Find_String("Channel_Label");
 				if (label) label->Value = Unknown1F4.c_str();
 			}
-			Combo[0]->Unknown_7C(View, 1);
+			Combo[0]->Unknown_7C(Get_View(), 1);
 			break;
 		}
 		case 1:
@@ -2410,7 +2410,7 @@ void ChatPanelInterface::Unknown_56C180(int window)
 		dispatcher.Add(ChatInt.Peek(), this, &ChatPanelInterface::Unknown_56C730);
 		ChatInt->Unknown_5417D0(this);
 		ChatInt->Unknown_54();
-		ChatInt->Unknown_7C(View, active);
+		ChatInt->Unknown_7C(Get_View(), active);
 		Unknown_5646A0(Unknown148);
 	}
 

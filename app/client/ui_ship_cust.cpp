@@ -201,7 +201,7 @@ void StarbaseShipCustomizeInterface::Unknown_54()
 	Unknown2E0->Unknown_74(0);
 	Unknown2E0->Set_Last_Sort_Group(1);
 	Unknown2E0->Unknown_80C540(Vector2(640.0f, 480.0f), Vector3(0.0f, 0.0f, 0.0f), 0x1C);
-	Unknown64.Unknown_6870E0(Unknown2E0, 0x33, View, 1, 0);
+	Unknown64.Unknown_6870E0(Unknown2E0, 0x33, Get_View(), 1, 0);
 	Unknown330 = new SClientUnknown1334Class;
 	Unknown330->Load("decal_textures.ini", "decal_swatches.ini", "secret_decal_textures.ini");
 	((ControlKeyListClass *)&Unknown4C)->Add(KernelEventClass(0x1B), (void *)0x1B);

@@ -42,7 +42,7 @@ UIPowerClass::UIPowerClass(RenderObjClass *mesh, LayerClass *layer, InterfaceCla
 	GadgetClass::Set_Tooltip(EnergyGauge, "UI_POWER", "ENERGY", 0, 0);
 	EnergyGauge->Unknown_65FFA0(arg);
 	if (EnergyGauge->Exists) {
-		Parent->Unknown64.Unknown_6870E0(EnergyGauge, 0, Parent->View, true, true);
+		Parent->Unknown64.Unknown_6870E0(EnergyGauge, 0, Parent->Get_View(), true, true);
 	}
 	ShieldGauge = new UIPowerGaugeClass(mesh, "shield_bar%d", "SHIELD");
 	ShieldGauge->Unknown_28(layer);

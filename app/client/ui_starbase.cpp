@@ -1623,7 +1623,7 @@ void UIStarbaseClass::Unknown_58()
 {
 	InterfaceSortScopeClass scope(this);
 	Unknown5BB320Class::Unknown_58();
-	Unknown1F8->Unknown_7C(View, false);
+	Unknown1F8->Unknown_7C(Get_View(), false);
 	int column = Get_Info()->Style;
 	EnvironmentMapManagerClass *env = ((LineDisplayClientClass *)Client)->As_Space_Client()->EnvironmentMapManager; env->Unknown_760770(100000, true);
 	UnknownB0->Unknown_69DBA0(1, Create_Get(InterfaceMesh->Unknown_5B8B20()));

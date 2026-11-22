@@ -64,7 +64,7 @@ void UIPetitionEntryClass::Unknown_54()
 		SubjectEditor->Unknown3B = false;
 		SubjectEditor->Unknown58 = 0.95f;
 		SubjectEditor->Changed = true;
-		Unknown64.Unknown_6870E0(Slider, 7, View, 1, 1);
+		Unknown64.Unknown_6870E0(Slider, 7, Get_View(), 1, 1);
 		Unknown64.Unknown_6870E0(DetailsEditor, 6, View, 1, 1);
 		Unknown64.Unknown_6870E0(SubjectEditor, 8, View, 1, 1);
 		Unknown_10();
