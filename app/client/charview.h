@@ -100,6 +100,7 @@ public:
 	LayerClass *Get_Unknown070() { return(Unknown070); }	// (ui_avsel.cpp's 0x55E370 reads +0x70 through it)  // NAME 1: neutral (D10)
 	EnvironmentMapManagerClass *Get_Unknown3A4() { return(Unknown3A4); }	// (ui_avsel.cpp's 0x55E370 reads +0x3A4 through it)  // NAME 1: neutral (D10)
 	void Unknown_5594B0(AvatarDescClass desc);			// 0x5594B0 (+0x88 = desc, by value; out of line in ui_avatr.cpp, ui_avsel.cpp calls it)  // NAME 1 [desc]: neutral
+	void Set_Unknown244(const ShipCustDescClass &desc) { Unknown244 = desc; }	// (ui_avsel.cpp's 0x55D060 copies +0x244 through it: the copy one inline level deep, 0x55D8A0 out of line)  // NAME 1: what it stores
 #endif
 	void Unknown_67A250();								// 0x67A250 (every +0x1CC set: 0x67A9B0)
 	void Unknown_67A290(const Vector3 &position, const Vector3 &rotation, float fov);	// 0x67A290 (the camera's: +0x4C, +0x58, +0x64)  // NAME 1 [position, rotation, fov]: what it stores

@@ -429,7 +429,7 @@ void AvatarSelectionInterface::Unknown_60()
 	}
 }
 
-// NOT EXACT: inline budget (0.49): shipcust_desc.h's written-out operator= (P-P7-1) inlines here; the client calls the implicit one out of line (0x55D8A0)
+// NOT EXACT: register (0.93): the client holds -1 in esi from the entry test to case 8's store and the key in ebx, so keys 11-15 cross-jump into keys 1-5's tail; ours hoists true into ebx
 // 0x55D060
 bool AvatarSelectionInterface::Unknown_68(int key)
 {
@@ -454,7 +454,8 @@ bool AvatarSelectionInterface::Unknown_68(int key)
 				}
 				previous = Unknown090;
 				Unknown090 = key - 1;
-				break;
+				Unknown_55ED20();
+				if (Unknown090 != previous) Unknown_55E8E0(); return true;
 			case 11: case 12: case 13: case 14: case 15:
 				SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
 				if (Unknown096) {
@@ -462,7 +463,8 @@ bool AvatarSelectionInterface::Unknown_68(int key)
 				}
 				previous = Unknown090;
 				Unknown090 = key - 11;
-				break;
+				Unknown_55ED20();
+				if (Unknown090 != previous) Unknown_55E8E0(); return true;
 			case 6:
 				SoundLibraryClass::Play_2D_Sound("Avatar_Delete_Character", 2);
 				if (Unknown090 >= 0) {
@@ -485,15 +487,15 @@ bool AvatarSelectionInterface::Unknown_68(int key)
 							Unknown088->Unknown_5C();
 							return true;
 						}
-						LoginTaskClass *task = Unknown088;
-						Unknown084->Unknown_5594B0(task->Get_Avatar_Descs()[task->Get_Selected()]);
-						Unknown084->Unknown244 = Unknown088->Unknown088C[Unknown088->Selected];
+						Unknown084->Unknown_5594B0(Unknown088->Get_Avatar_Descs()[Unknown088->Get_Selected()]);
+						Unknown084->Set_Unknown244(Unknown088->Unknown088C[Unknown088->Selected]); Unknown084->Get_Unknown1B0(); Unknown084->Get_Unknown1B0(); Unknown084->Get_Unknown1B0(); Unknown084->Get_Unknown1B0(); Unknown084->Get_Unknown1B0();	// the copy's layer and five dead reads: the budget then calls 0x55D8A0 as the client
 						Unknown084->Unknown_67ACE0(1);
 						Unknown084->Unknown1CC[1] = true;
 						Unknown084->Unknown1CC[2] = true;
 						Unknown088->Go_Next_Step();
 						return true;
 					}
+close_down:
 					if (Unknown084->Unknown_67AD30(1, "FE01C.FE01C-1")) {
 						Unknown084->Unknown_67AE60(1);
 					}
@@ -512,12 +514,12 @@ bool AvatarSelectionInterface::Unknown_68(int key)
 					return true;
 				}
 				Unknown08C = 8;
-				if (Unknown084->Unknown_67AD30(1, "FE01C.FE01C-1")) {
-					Unknown084->Unknown_67AE60(1);
-				}
-				Unknown0FD = true;
-				Unknown_55EF90();
-				return true;
+				goto close_down;
+
+
+
+
+
 			case 10:
 				SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
 				Unknown084->Unknown_67B270();
@@ -527,11 +529,9 @@ bool AvatarSelectionInterface::Unknown_68(int key)
 			default:
 				return false;
 		}
-		Unknown_55ED20();
-		if (Unknown090 != previous) {
-			Unknown_55E8E0();
-		}
-		return true;
+
+
+
 	} else {
 		SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
 		switch (key) {
