@@ -727,9 +727,9 @@ unsigned SClient::Set_Avatar_ID(unsigned id)
 	return(ClientClass::Set_Avatar_ID(id));
 }
 #include "..\packets\pkclientchat.h"
-// NOT EXACT: order (0.95): the client stores Unknown12B0 before Unknown12B4 and pushes the heading before taking the mode's address; 0x744D80 (out of line for 0x6B58A0, auto-inlined into 0x7436A0's camera keys; Init has the block written out)
+// 0x744D80 (out of line for 0x6B58A0, auto-inlined into 0x7436A0's camera keys; Init has the block written out). The 0 goes through a volatile store: the client keeps Unknown12B0's store before Unknown12B4's and both above the next load in every copy (here, 0x7436A0's four, ctrngadg's 0x50ABC0); a plain store sinks (4 order rows). Not the declaration: a volatile member moves the constructor 0x7405E0's EH-state store
 void SClient::Unknown_744D80() {
-	Unknown12B0 = Unknown10BC; Unknown12B4 = 0;
+	Unknown12B0 = Unknown10BC; *(volatile int *)&Unknown12B4 = 0;
 	CameraModeStruct &mode = CameraModes[CameraMode];
 	CameraManager->Set_Heading(mode.Heading);
 	CameraManager->Set_Distance(mode.Distance);
