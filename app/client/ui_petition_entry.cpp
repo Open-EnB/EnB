@@ -41,7 +41,7 @@ UIPetitionEntryClass::~UIPetitionEntryClass()
 	Slider = NULL;
 }
 
-// NOT EXACT: shape (the client stores the subject box's +0x58 and +0x38 through one load, as an inline setter would; the message model's Create_NEW and the flags' registers; 0.77 with a local setter, CP3)
+// NOT EXACT: register (the two TextGadgetClass setters give the client's one load per call; left: the Entry_Field00 Create_Get's vtable / result registers, the TextGadgetClass constructor's flags / model registers, the first Unknown_6870E0's view in eax (client edx); GV3)
 // 0x5D4890
 void UIPetitionEntryClass::Unknown_54()
 {
@@ -61,9 +61,9 @@ void UIPetitionEntryClass::Unknown_54()
 		RefCountPtr<RenderObjClass> entry = Create_Get(InterfaceMesh->Get_Sub_Object_By_Name("Entry_Field00"));
 		SubjectEditor = new TextGadgetClass(this, 0xFA, "SUBJECT_EDIT_hsi02a", entry.Peek(), Unknown_B08CB0, 0);
 		SubjectEditor->Set_Text("Enter Subject Here", 0);
-		SubjectEditor->Unknown3B = false;
-		SubjectEditor->Unknown58 = 0.95f;
-		SubjectEditor->Changed = true;
+		SubjectEditor->Set_Unknown3B(false);
+		SubjectEditor->Set_Unknown58(0.95f);
+
 		Unknown64.Unknown_6870E0(Slider, 7, Get_View(), 1, 1);
 		Unknown64.Unknown_6870E0(DetailsEditor, 6, View, 1, 1);
 		Unknown64.Unknown_6870E0(SubjectEditor, 8, View, 1, 1);

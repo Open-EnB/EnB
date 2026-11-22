@@ -53,6 +53,7 @@ public:
 	int Get_Text_Length();												// 0x6AA690  // NAME 2: what it does
 	char *Get_Text();													// 0x6AA6C0 (a copy, deleted by the caller)  // NAME 2: what it does
 	char *Get_Hidden_Text();											// 0x6AA6F0 (a copy of the stars)  // NAME 2: what it does
+	void Set_Unknown3B(bool on) { Unknown3B = on; }					// (the petition boxes: one load of the gadget per call, 0x5D4890 / 0x5D6BC0)  // NAME 1: neutral (D10)
 
 	StrEditClass *Edit;													// +0x30 (the text)  // NAME 2: what it holds
 	StrEditClass *Hidden;												// +0x34 (the password's stars, 0x6AA5F0)  // NAME 2: what it holds
@@ -76,6 +77,7 @@ public:
 	virtual void Unknown_74(bool on);									// +0x74 0x6AACD0 (off: the cursor hidden)  // NAME 1 [on]: neutral
 
 	void Unknown_6AAD10();												// 0x6AAD10 (every frame: G_ASSERT 'font', FAIL_IF 'max >= 255': the text redrawn, the cursor blinked)
+	void Set_Unknown58(float scale) { Unknown58 = scale; Changed = true; }	// (+0x58 and +0x38 stored through one load: 0x5D4890, 0x5D6BC0, ui_log 0x5AB030)  // NAME 1: neutral (D10)
 	static char *Unknown_6AB190(char *string, float pwidth, RefCountPtr<Font32Class> &font, int &cp);	// 0x6AB190 (FAIL_IF 'pwidth <= 0.0f', G_ASSERT 'cp >= 0': the string clipped to the width around the cursor)  // NAME 3 [pwidth, cp]: the asserts'; NAME 1 [string, font]: neutral
 
 	RefCountPtr<FontSys> Text;									// +0x44 (0x4E8 bytes, 0x6D47C0: string_name's style on the model)  // NAME 2: what it draws
