@@ -47,7 +47,7 @@ void EnvironmentMapManagerClass::Load(const char *env_map_ini_filename)
 		sprintf(section, "PROCTEX-%02d", index);
 	}
 }
-// NOT EXACT: register (masked residue 113, was 170): sprintf's 4th argument 0xFE and the Z / z cases are the client's (its push / add esp, 0x10 and switch tables); the pixel blocks are index loops (the client's dst row after the int guard), left: ours addresses src as dst + (src - dst) where the client steps both pointers, and the register webs around it (D64)
+// NOT EXACT: register (masked residue 106, was 170): sprintf's 4th argument 0xFE and the Z / z cases are the client's (its push / add esp, 0x10 and switch tables); the pixel blocks are index loops (the client's dst row after the int guard), left: ours addresses src as dst + (src - dst) where the client steps both pointers, and the register webs around it (D64)
 // 0x760770
 void EnvironmentMapManagerClass::Unknown_760770(int base_asset, bool a)
 {
@@ -148,11 +148,11 @@ void EnvironmentMapManagerClass::Unknown_760770(int base_asset, bool a)
 			unsigned char *dst = pixels + (half_height + y) * pitch + half_pitch;
 			unsigned char *src = reflection + y * half_pitch;
 			for (int x = 0; x < half_pitch; x++) {
-				int value = *src * scale + *dst;
+				int s = *src; int value = s * scale + *dst;
 				if (value > 0xFF) {
 					value = 0xFF;
 				}
-				*dst++ = (unsigned char)value; src++;
+				*dst = (unsigned char)value; dst++; src++;
 			}
 		}
 
@@ -171,11 +171,11 @@ void EnvironmentMapManagerClass::Unknown_760770(int base_asset, bool a)
 						unsigned char *dst = pixels + (row + y) * pitch + col;
 						unsigned char *src = reflection_small + y * quarter_pitch;
 						for (int x = 0; x < quarter_pitch; x++) {
-							int value = *src * scale + *dst;
+							int s = *src; int value = s * scale + *dst;
 							if (value > 0xFF) {
 								value = 0xFF;
 							}
-							*dst++ = (unsigned char)value; src++;
+							*dst = (unsigned char)value; dst++; src++;
 						}
 					}
 
