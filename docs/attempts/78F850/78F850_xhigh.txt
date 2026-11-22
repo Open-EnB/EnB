@@ -1,0 +1,80 @@
+# Claim 240 Terra xhigh, baseline 3fb263fd. Source forms and evidence only.
+# Every successful experimental compile received full native objmatch.
+# Diagnostic lifetime/behavior changes are not accepted candidates.
+# Claim 240 second pass: Candidate only, pending dependent-header full-library proof: client EH funclets ACF1A0/ACF1E0 use this+1008 then thunk 41269D to two-pointer dtor 78F9B0. Group existing Label/Desc into destructible subobject; 4 matched objects, 1 instruction group; changed TU gains 78F850 and 78F9B0, loses 0. Parent independently verified all five transitive header dependents: no exact pair losses; 78F700 and 791BF0 retained. 78F9B0 was already globally exact, so its new app holder is not another solved claim target.
+
+# Source specification: probe_lifetime.py
+from pathlib import Path
+import concurrent.futures, os, subprocess, sys
+root = Path('/home/dev/Projects/EnB')
+tree = root / '.work/claim-240/round2/baseline-tree/app/client'
+out = root / '.work/claim-240/round2/speech'
+sys.path.insert(0, str(root / '.work/claim-234'))
+from fastbuild import compile_file
+env = os.environ.copy()
+env['ENB_RETAIL_INSTALL'] = '/home/dev/Games/earth-and-beyond/prefix/drive_c/Program Files (x86)/EA GAMES/Earth & Beyond'
+src = (tree/'unknown_personality.cpp').read_text()
+hdr = (tree/'unknown_personality.h').read_text()
+old = '''\tif (Label) {
+\t\tdelete [] Label;
+\t}
+\tif (Desc) {
+\t\tdelete [] Desc;
+\t}
+'''
+assert src.count(old) == 1
+src = src.replace(old, '\n'*6)
+src = src.replace('\tLabel = nstrdup(buffer);','\tText.Label = nstrdup(buffer);').replace('\tDesc = nstrdup(buffer);','\tText.Desc = nstrdup(buffer);')
+hdr = hdr.replace('return(Label);','return(Text.Label);').replace('return(Desc);','return(Text.Desc);')
+lines = hdr.splitlines(keepends=True)
+for i,line in enumerate(lines):
+    if line.startswith('\tchar *Label;'):
+        lines[i] = '\tstruct TextFields { char *Label; char *Desc; ~TextFields() { if (Label) delete [] Label; if (Desc) delete [] Desc; } } Text; // +0x1008 and +0x100C\n'
+    if line.startswith('\tchar *Desc;'): lines[i] = '\n'
+hdr = ''.join(lines)
+assert 'TextFields' in hdr and 'char *Desc;' not in ''.join(l for l in lines if l.startswith('\tchar *Desc;'))
+def run(name):
+    source_text = src
+    if name in ('lifetime_inline', 'lifetime_reload'):
+        source_text = source_text.replace('Unknown_78F700Class::~Unknown_78F700Class()', 'inline Unknown_78F700Class::~Unknown_78F700Class()', 1)
+    if name == 'lifetime_reload':
+        source_text = source_text.replace('Data = new Unknown_78F700Class;', 'if (Data == NULL) { Data = new Unknown_78F700Class; } else { Data->Unknown_78F9F0(); }')
+    work = out/name
+    work.mkdir(parents=True,exist_ok=True)
+    (work/'unknown_personality.h').write_text(hdr)
+    source = work/'unknown_personality.cpp'
+    source.write_text(source_text)
+    obj = compile_file(source,work)
+    with (work/'match.log').open('w') as log:
+        subprocess.run(['/home/dev/Toolchains/enb-vc6-sp4/venv/bin/python', str(root/'tools/re/objmatch.py'), str(obj), '-q', '--json', str(work/'match.json')], env=env, stdout=log, stderr=log, check=True)
+    return name
+with concurrent.futures.ThreadPoolExecutor(max_workers=3) as pool:
+    for name in pool.map(run, ['lifetime_base','lifetime_inline','lifetime_reload']): print(name,flush=True)
+
+# Source specification: unwind.py
+import os, sys, struct
+from pathlib import Path
+root = Path('/home/dev/Projects/EnB')
+os.environ['ENB_RETAIL_INSTALL'] = '/home/dev/Games/earth-and-beyond/prefix/drive_c/Program Files (x86)/EA GAMES/Earth & Beyond'
+sys.path.insert(0, str(root/'tools/re'))
+from clientimage import ClientImage, DEFAULT_CLIENT
+from objmatch import client_funcinfos
+from capstone import Cs, CS_ARCH_X86, CS_MODE_32
+img = ClientImage(DEFAULT_CLIENT)
+maps, _ = client_funcinfos(img)
+dis = Cs(CS_ARCH_X86, CS_MODE_32)
+for addr in (0x78f850, 0x790360, 0x78f700):
+    off = img.offset(addr)
+    b = img.data[off:off+24]
+    if b[:3] != b'\x6a\xff\x68':
+        print(hex(addr), 'no EH prologue')
+        continue
+    stub = struct.unpack_from('<I', b, 3)[0]
+    print(hex(addr), 'handler', hex(stub), 'actions', [hex(a) for a in maps.get(stub, [])])
+    for action in maps.get(stub, []):
+        if not action: continue
+        off = img.offset(action)
+        if off is None: continue
+        for i in dis.disasm(img.data[off:off+24], action):
+            print(' ',hex(i.address),i.mnemonic,i.op_str)
+            if i.mnemonic in ('jmp','ret'): break

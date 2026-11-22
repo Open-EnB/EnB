@@ -1,0 +1,468 @@
+FORM first_inline_trig
+--- camctrl_stargate.cpp
++++ first_inline_trig.cpp
+@@ -121,8 +121,8 @@
+ 			} else if (Unknown18 == 3) {
+ 				angle = angle + WWMATH_PI;
+ 			}
+-			float s = sin(angle);
+-			float c = cos(angle);
++			float s = WWMath::Sin(angle);
++			float c = WWMath::Cos(angle);
+ 			pos = tm * Vector3(5.0f * distance, 3.0f * distance * c, 3.0f * distance * s);
+ 		} else {
+ 			Matrix3D avatar_tm = Client->Get_Avatar()->Unknown_28(false);
+
+FORM second_inline_trig
+--- camctrl_stargate.cpp
++++ second_inline_trig.cpp
+@@ -136,8 +136,8 @@
+ 			} else if (Unknown18 == 3) {
+ 				angle = -angle;
+ 			}
+-			float s = sin(angle);
+-			float c = cos(angle);
++			float s = WWMath::Sin(angle);
++			float c = WWMath::Cos(angle);
+ 			Matrix3D lookat;
+ 			lookat.Obj_Look_At(avatar_pos, gate->Unknown_24(), 0.0f);
+ 			pos = lookat * Vector3(3.0f * distance, 1.5f * distance * c, 1.5f * distance * s);
+
+FORM other_crt_crt
+
+FORM other_crt_ww
+--- camctrl_stargate.cpp
++++ other_crt_ww.cpp
+@@ -136,8 +136,8 @@
+ 			} else if (Unknown18 == 3) {
+ 				angle = -angle;
+ 			}
+-			float s = sin(angle);
+-			float c = cos(angle);
++			float s = WWMath::Sin(angle);
++			float c = WWMath::Cos(angle);
+ 			Matrix3D lookat;
+ 			lookat.Obj_Look_At(avatar_pos, gate->Unknown_24(), 0.0f);
+ 			pos = lookat * Vector3(3.0f * distance, 1.5f * distance * c, 1.5f * distance * s);
+
+FORM other_crt_reverse
+--- camctrl_stargate.cpp
++++ other_crt_reverse.cpp
+@@ -136,8 +136,8 @@
+ 			} else if (Unknown18 == 3) {
+ 				angle = -angle;
+ 			}
++			float c = cos(angle);
+ 			float s = sin(angle);
+-			float c = cos(angle);
+ 			Matrix3D lookat;
+ 			lookat.Obj_Look_At(avatar_pos, gate->Unknown_24(), 0.0f);
+ 			pos = lookat * Vector3(3.0f * distance, 1.5f * distance * c, 1.5f * distance * s);
+
+FORM other_ww_crt
+--- camctrl_stargate.cpp
++++ other_ww_crt.cpp
+@@ -121,8 +121,8 @@
+ 			} else if (Unknown18 == 3) {
+ 				angle = angle + WWMATH_PI;
+ 			}
+-			float s = sin(angle);
+-			float c = cos(angle);
++			float s = WWMath::Sin(angle);
++			float c = WWMath::Cos(angle);
+ 			pos = tm * Vector3(5.0f * distance, 3.0f * distance * c, 3.0f * distance * s);
+ 		} else {
+ 			Matrix3D avatar_tm = Client->Get_Avatar()->Unknown_28(false);
+
+FORM other_ww_ww
+--- camctrl_stargate.cpp
++++ other_ww_ww.cpp
+@@ -121,8 +121,8 @@
+ 			} else if (Unknown18 == 3) {
+ 				angle = angle + WWMATH_PI;
+ 			}
+-			float s = sin(angle);
+-			float c = cos(angle);
++			float s = WWMath::Sin(angle);
++			float c = WWMath::Cos(angle);
+ 			pos = tm * Vector3(5.0f * distance, 3.0f * distance * c, 3.0f * distance * s);
+ 		} else {
+ 			Matrix3D avatar_tm = Client->Get_Avatar()->Unknown_28(false);
+@@ -136,8 +136,8 @@
+ 			} else if (Unknown18 == 3) {
+ 				angle = -angle;
+ 			}
+-			float s = sin(angle);
+-			float c = cos(angle);
++			float s = WWMath::Sin(angle);
++			float c = WWMath::Cos(angle);
+ 			Matrix3D lookat;
+ 			lookat.Obj_Look_At(avatar_pos, gate->Unknown_24(), 0.0f);
+ 			pos = lookat * Vector3(3.0f * distance, 1.5f * distance * c, 1.5f * distance * s);
+
+FORM other_ww_reverse
+--- camctrl_stargate.cpp
++++ other_ww_reverse.cpp
+@@ -121,8 +121,8 @@
+ 			} else if (Unknown18 == 3) {
+ 				angle = angle + WWMATH_PI;
+ 			}
+-			float s = sin(angle);
+-			float c = cos(angle);
++			float s = WWMath::Sin(angle);
++			float c = WWMath::Cos(angle);
+ 			pos = tm * Vector3(5.0f * distance, 3.0f * distance * c, 3.0f * distance * s);
+ 		} else {
+ 			Matrix3D avatar_tm = Client->Get_Avatar()->Unknown_28(false);
+@@ -136,8 +136,8 @@
+ 			} else if (Unknown18 == 3) {
+ 				angle = -angle;
+ 			}
++			float c = cos(angle);
+ 			float s = sin(angle);
+-			float c = cos(angle);
+ 			Matrix3D lookat;
+ 			lookat.Obj_Look_At(avatar_pos, gate->Unknown_24(), 0.0f);
+ 			pos = lookat * Vector3(3.0f * distance, 1.5f * distance * c, 1.5f * distance * s);
+
+FORM other_reverse_crt
+--- camctrl_stargate.cpp
++++ other_reverse_crt.cpp
+@@ -121,8 +121,8 @@
+ 			} else if (Unknown18 == 3) {
+ 				angle = angle + WWMATH_PI;
+ 			}
++			float c = cos(angle);
+ 			float s = sin(angle);
+-			float c = cos(angle);
+ 			pos = tm * Vector3(5.0f * distance, 3.0f * distance * c, 3.0f * distance * s);
+ 		} else {
+ 			Matrix3D avatar_tm = Client->Get_Avatar()->Unknown_28(false);
+
+FORM other_reverse_ww
+--- camctrl_stargate.cpp
++++ other_reverse_ww.cpp
+@@ -121,8 +121,8 @@
+ 			} else if (Unknown18 == 3) {
+ 				angle = angle + WWMATH_PI;
+ 			}
++			float c = cos(angle);
+ 			float s = sin(angle);
+-			float c = cos(angle);
+ 			pos = tm * Vector3(5.0f * distance, 3.0f * distance * c, 3.0f * distance * s);
+ 		} else {
+ 			Matrix3D avatar_tm = Client->Get_Avatar()->Unknown_28(false);
+@@ -136,8 +136,8 @@
+ 			} else if (Unknown18 == 3) {
+ 				angle = -angle;
+ 			}
+-			float s = sin(angle);
+-			float c = cos(angle);
++			float s = WWMath::Sin(angle);
++			float c = WWMath::Cos(angle);
+ 			Matrix3D lookat;
+ 			lookat.Obj_Look_At(avatar_pos, gate->Unknown_24(), 0.0f);
+ 			pos = lookat * Vector3(3.0f * distance, 1.5f * distance * c, 1.5f * distance * s);
+
+FORM other_reverse_reverse
+--- camctrl_stargate.cpp
++++ other_reverse_reverse.cpp
+@@ -121,8 +121,8 @@
+ 			} else if (Unknown18 == 3) {
+ 				angle = angle + WWMATH_PI;
+ 			}
++			float c = cos(angle);
+ 			float s = sin(angle);
+-			float c = cos(angle);
+ 			pos = tm * Vector3(5.0f * distance, 3.0f * distance * c, 3.0f * distance * s);
+ 		} else {
+ 			Matrix3D avatar_tm = Client->Get_Avatar()->Unknown_28(false);
+@@ -136,8 +136,8 @@
+ 			} else if (Unknown18 == 3) {
+ 				angle = -angle;
+ 			}
++			float c = cos(angle);
+ 			float s = sin(angle);
+-			float c = cos(angle);
+ 			Matrix3D lookat;
+ 			lookat.Obj_Look_At(avatar_pos, gate->Unknown_24(), 0.0f);
+ 			pos = lookat * Vector3(3.0f * distance, 1.5f * distance * c, 1.5f * distance * s);
+
+FORM place_direct_assign
+--- camctrl_stargate.cpp
++++ place_direct_assign.cpp
+@@ -140,7 +140,7 @@
+ 			float c = cos(angle);
+ 			Matrix3D lookat;
+ 			lookat.Obj_Look_At(avatar_pos, gate->Unknown_24(), 0.0f);
+-			pos = lookat * Vector3(3.0f * distance, 1.5f * distance * c, 1.5f * distance * s);
++			Vector3 offset; offset.X = 3.0f * distance; offset.Y = 1.5f * distance * c; offset.Z = 1.5f * distance * s; pos = lookat * offset;
+ 		}
+ 		Unknown0C->Position = pos;
+ 		Unknown0C->Unknown14 = true;
+
+FORM place_direct_direct
+
+FORM place_direct_local
+--- camctrl_stargate.cpp
++++ place_direct_local.cpp
+@@ -140,7 +140,7 @@
+ 			float c = cos(angle);
+ 			Matrix3D lookat;
+ 			lookat.Obj_Look_At(avatar_pos, gate->Unknown_24(), 0.0f);
+-			pos = lookat * Vector3(3.0f * distance, 1.5f * distance * c, 1.5f * distance * s);
++			Vector3 offset(3.0f * distance, 1.5f * distance * c, 1.5f * distance * s); pos = lookat * offset;
+ 		}
+ 		Unknown0C->Position = pos;
+ 		Unknown0C->Unknown14 = true;
+
+FORM place_local_direct
+--- camctrl_stargate.cpp
++++ place_local_direct.cpp
+@@ -123,7 +123,7 @@
+ 			}
+ 			float s = sin(angle);
+ 			float c = cos(angle);
+-			pos = tm * Vector3(5.0f * distance, 3.0f * distance * c, 3.0f * distance * s);
++			Vector3 offset(5.0f * distance, 3.0f * distance * c, 3.0f * distance * s); pos = tm * offset;
+ 		} else {
+ 			Matrix3D avatar_tm = Client->Get_Avatar()->Unknown_28(false);
+ 			Vector3 avatar_pos = Client->Get_Avatar()->Unknown_24();
+
+FORM place_direct_result
+--- camctrl_stargate.cpp
++++ place_direct_result.cpp
+@@ -140,7 +140,7 @@
+ 			float c = cos(angle);
+ 			Matrix3D lookat;
+ 			lookat.Obj_Look_At(avatar_pos, gate->Unknown_24(), 0.0f);
+-			pos = lookat * Vector3(3.0f * distance, 1.5f * distance * c, 1.5f * distance * s);
++			Vector3 result = lookat * Vector3(3.0f * distance, 1.5f * distance * c, 1.5f * distance * s); pos = result;
+ 		}
+ 		Unknown0C->Position = pos;
+ 		Unknown0C->Unknown14 = true;
+
+FORM place_local_local
+--- camctrl_stargate.cpp
++++ place_local_local.cpp
+@@ -123,7 +123,7 @@
+ 			}
+ 			float s = sin(angle);
+ 			float c = cos(angle);
+-			pos = tm * Vector3(5.0f * distance, 3.0f * distance * c, 3.0f * distance * s);
++			Vector3 offset(5.0f * distance, 3.0f * distance * c, 3.0f * distance * s); pos = tm * offset;
+ 		} else {
+ 			Matrix3D avatar_tm = Client->Get_Avatar()->Unknown_28(false);
+ 			Vector3 avatar_pos = Client->Get_Avatar()->Unknown_24();
+@@ -140,7 +140,7 @@
+ 			float c = cos(angle);
+ 			Matrix3D lookat;
+ 			lookat.Obj_Look_At(avatar_pos, gate->Unknown_24(), 0.0f);
+-			pos = lookat * Vector3(3.0f * distance, 1.5f * distance * c, 1.5f * distance * s);
++			Vector3 offset(3.0f * distance, 1.5f * distance * c, 1.5f * distance * s); pos = lookat * offset;
+ 		}
+ 		Unknown0C->Position = pos;
+ 		Unknown0C->Unknown14 = true;
+
+FORM place_local_assign
+--- camctrl_stargate.cpp
++++ place_local_assign.cpp
+@@ -123,7 +123,7 @@
+ 			}
+ 			float s = sin(angle);
+ 			float c = cos(angle);
+-			pos = tm * Vector3(5.0f * distance, 3.0f * distance * c, 3.0f * distance * s);
++			Vector3 offset(5.0f * distance, 3.0f * distance * c, 3.0f * distance * s); pos = tm * offset;
+ 		} else {
+ 			Matrix3D avatar_tm = Client->Get_Avatar()->Unknown_28(false);
+ 			Vector3 avatar_pos = Client->Get_Avatar()->Unknown_24();
+@@ -140,7 +140,7 @@
+ 			float c = cos(angle);
+ 			Matrix3D lookat;
+ 			lookat.Obj_Look_At(avatar_pos, gate->Unknown_24(), 0.0f);
+-			pos = lookat * Vector3(3.0f * distance, 1.5f * distance * c, 1.5f * distance * s);
++			Vector3 offset; offset.X = 3.0f * distance; offset.Y = 1.5f * distance * c; offset.Z = 1.5f * distance * s; pos = lookat * offset;
+ 		}
+ 		Unknown0C->Position = pos;
+ 		Unknown0C->Unknown14 = true;
+
+FORM place_local_result
+--- camctrl_stargate.cpp
++++ place_local_result.cpp
+@@ -123,7 +123,7 @@
+ 			}
+ 			float s = sin(angle);
+ 			float c = cos(angle);
+-			pos = tm * Vector3(5.0f * distance, 3.0f * distance * c, 3.0f * distance * s);
++			Vector3 offset(5.0f * distance, 3.0f * distance * c, 3.0f * distance * s); pos = tm * offset;
+ 		} else {
+ 			Matrix3D avatar_tm = Client->Get_Avatar()->Unknown_28(false);
+ 			Vector3 avatar_pos = Client->Get_Avatar()->Unknown_24();
+@@ -140,7 +140,7 @@
+ 			float c = cos(angle);
+ 			Matrix3D lookat;
+ 			lookat.Obj_Look_At(avatar_pos, gate->Unknown_24(), 0.0f);
+-			pos = lookat * Vector3(3.0f * distance, 1.5f * distance * c, 1.5f * distance * s);
++			Vector3 result = lookat * Vector3(3.0f * distance, 1.5f * distance * c, 1.5f * distance * s); pos = result;
+ 		}
+ 		Unknown0C->Position = pos;
+ 		Unknown0C->Unknown14 = true;
+
+FORM place_assign_direct
+--- camctrl_stargate.cpp
++++ place_assign_direct.cpp
+@@ -123,7 +123,7 @@
+ 			}
+ 			float s = sin(angle);
+ 			float c = cos(angle);
+-			pos = tm * Vector3(5.0f * distance, 3.0f * distance * c, 3.0f * distance * s);
++			Vector3 offset; offset.X = 5.0f * distance; offset.Y = 3.0f * distance * c; offset.Z = 3.0f * distance * s; pos = tm * offset;
+ 		} else {
+ 			Matrix3D avatar_tm = Client->Get_Avatar()->Unknown_28(false);
+ 			Vector3 avatar_pos = Client->Get_Avatar()->Unknown_24();
+
+FORM place_assign_assign
+--- camctrl_stargate.cpp
++++ place_assign_assign.cpp
+@@ -123,7 +123,7 @@
+ 			}
+ 			float s = sin(angle);
+ 			float c = cos(angle);
+-			pos = tm * Vector3(5.0f * distance, 3.0f * distance * c, 3.0f * distance * s);
++			Vector3 offset; offset.X = 5.0f * distance; offset.Y = 3.0f * distance * c; offset.Z = 3.0f * distance * s; pos = tm * offset;
+ 		} else {
+ 			Matrix3D avatar_tm = Client->Get_Avatar()->Unknown_28(false);
+ 			Vector3 avatar_pos = Client->Get_Avatar()->Unknown_24();
+@@ -140,7 +140,7 @@
+ 			float c = cos(angle);
+ 			Matrix3D lookat;
+ 			lookat.Obj_Look_At(avatar_pos, gate->Unknown_24(), 0.0f);
+-			pos = lookat * Vector3(3.0f * distance, 1.5f * distance * c, 1.5f * distance * s);
++			Vector3 offset; offset.X = 3.0f * distance; offset.Y = 1.5f * distance * c; offset.Z = 1.5f * distance * s; pos = lookat * offset;
+ 		}
+ 		Unknown0C->Position = pos;
+ 		Unknown0C->Unknown14 = true;
+
+FORM place_assign_result
+--- camctrl_stargate.cpp
++++ place_assign_result.cpp
+@@ -123,7 +123,7 @@
+ 			}
+ 			float s = sin(angle);
+ 			float c = cos(angle);
+-			pos = tm * Vector3(5.0f * distance, 3.0f * distance * c, 3.0f * distance * s);
++			Vector3 offset; offset.X = 5.0f * distance; offset.Y = 3.0f * distance * c; offset.Z = 3.0f * distance * s; pos = tm * offset;
+ 		} else {
+ 			Matrix3D avatar_tm = Client->Get_Avatar()->Unknown_28(false);
+ 			Vector3 avatar_pos = Client->Get_Avatar()->Unknown_24();
+@@ -140,7 +140,7 @@
+ 			float c = cos(angle);
+ 			Matrix3D lookat;
+ 			lookat.Obj_Look_At(avatar_pos, gate->Unknown_24(), 0.0f);
+-			pos = lookat * Vector3(3.0f * distance, 1.5f * distance * c, 1.5f * distance * s);
++			Vector3 result = lookat * Vector3(3.0f * distance, 1.5f * distance * c, 1.5f * distance * s); pos = result;
+ 		}
+ 		Unknown0C->Position = pos;
+ 		Unknown0C->Unknown14 = true;
+
+FORM place_assign_local
+--- camctrl_stargate.cpp
++++ place_assign_local.cpp
+@@ -123,7 +123,7 @@
+ 			}
+ 			float s = sin(angle);
+ 			float c = cos(angle);
+-			pos = tm * Vector3(5.0f * distance, 3.0f * distance * c, 3.0f * distance * s);
++			Vector3 offset; offset.X = 5.0f * distance; offset.Y = 3.0f * distance * c; offset.Z = 3.0f * distance * s; pos = tm * offset;
+ 		} else {
+ 			Matrix3D avatar_tm = Client->Get_Avatar()->Unknown_28(false);
+ 			Vector3 avatar_pos = Client->Get_Avatar()->Unknown_24();
+@@ -140,7 +140,7 @@
+ 			float c = cos(angle);
+ 			Matrix3D lookat;
+ 			lookat.Obj_Look_At(avatar_pos, gate->Unknown_24(), 0.0f);
+-			pos = lookat * Vector3(3.0f * distance, 1.5f * distance * c, 1.5f * distance * s);
++			Vector3 offset(3.0f * distance, 1.5f * distance * c, 1.5f * distance * s); pos = lookat * offset;
+ 		}
+ 		Unknown0C->Position = pos;
+ 		Unknown0C->Unknown14 = true;
+
+FORM place_result_direct
+--- camctrl_stargate.cpp
++++ place_result_direct.cpp
+@@ -123,7 +123,7 @@
+ 			}
+ 			float s = sin(angle);
+ 			float c = cos(angle);
+-			pos = tm * Vector3(5.0f * distance, 3.0f * distance * c, 3.0f * distance * s);
++			Vector3 result = tm * Vector3(5.0f * distance, 3.0f * distance * c, 3.0f * distance * s); pos = result;
+ 		} else {
+ 			Matrix3D avatar_tm = Client->Get_Avatar()->Unknown_28(false);
+ 			Vector3 avatar_pos = Client->Get_Avatar()->Unknown_24();
+
+FORM place_result_assign
+--- camctrl_stargate.cpp
++++ place_result_assign.cpp
+@@ -123,7 +123,7 @@
+ 			}
+ 			float s = sin(angle);
+ 			float c = cos(angle);
+-			pos = tm * Vector3(5.0f * distance, 3.0f * distance * c, 3.0f * distance * s);
++			Vector3 result = tm * Vector3(5.0f * distance, 3.0f * distance * c, 3.0f * distance * s); pos = result;
+ 		} else {
+ 			Matrix3D avatar_tm = Client->Get_Avatar()->Unknown_28(false);
+ 			Vector3 avatar_pos = Client->Get_Avatar()->Unknown_24();
+@@ -140,7 +140,7 @@
+ 			float c = cos(angle);
+ 			Matrix3D lookat;
+ 			lookat.Obj_Look_At(avatar_pos, gate->Unknown_24(), 0.0f);
+-			pos = lookat * Vector3(3.0f * distance, 1.5f * distance * c, 1.5f * distance * s);
++			Vector3 offset; offset.X = 3.0f * distance; offset.Y = 1.5f * distance * c; offset.Z = 1.5f * distance * s; pos = lookat * offset;
+ 		}
+ 		Unknown0C->Position = pos;
+ 		Unknown0C->Unknown14 = true;
+
+FORM place_result_local
+--- camctrl_stargate.cpp
++++ place_result_local.cpp
+@@ -123,7 +123,7 @@
+ 			}
+ 			float s = sin(angle);
+ 			float c = cos(angle);
+-			pos = tm * Vector3(5.0f * distance, 3.0f * distance * c, 3.0f * distance * s);
++			Vector3 result = tm * Vector3(5.0f * distance, 3.0f * distance * c, 3.0f * distance * s); pos = result;
+ 		} else {
+ 			Matrix3D avatar_tm = Client->Get_Avatar()->Unknown_28(false);
+ 			Vector3 avatar_pos = Client->Get_Avatar()->Unknown_24();
+@@ -140,7 +140,7 @@
+ 			float c = cos(angle);
+ 			Matrix3D lookat;
+ 			lookat.Obj_Look_At(avatar_pos, gate->Unknown_24(), 0.0f);
+-			pos = lookat * Vector3(3.0f * distance, 1.5f * distance * c, 1.5f * distance * s);
++			Vector3 offset(3.0f * distance, 1.5f * distance * c, 1.5f * distance * s); pos = lookat * offset;
+ 		}
+ 		Unknown0C->Position = pos;
+ 		Unknown0C->Unknown14 = true;
+
+FORM place_result_result
+--- camctrl_stargate.cpp
++++ place_result_result.cpp
+@@ -123,7 +123,7 @@
+ 			}
+ 			float s = sin(angle);
+ 			float c = cos(angle);
+-			pos = tm * Vector3(5.0f * distance, 3.0f * distance * c, 3.0f * distance * s);
++			Vector3 result = tm * Vector3(5.0f * distance, 3.0f * distance * c, 3.0f * distance * s); pos = result;
+ 		} else {
+ 			Matrix3D avatar_tm = Client->Get_Avatar()->Unknown_28(false);
+ 			Vector3 avatar_pos = Client->Get_Avatar()->Unknown_24();
+@@ -140,7 +140,7 @@
+ 			float c = cos(angle);
+ 			Matrix3D lookat;
+ 			lookat.Obj_Look_At(avatar_pos, gate->Unknown_24(), 0.0f);
+-			pos = lookat * Vector3(3.0f * distance, 1.5f * distance * c, 1.5f * distance * s);
++			Vector3 result = lookat * Vector3(3.0f * distance, 1.5f * distance * c, 1.5f * distance * s); pos = result;
+ 		}
+ 		Unknown0C->Position = pos;
+ 		Unknown0C->Unknown14 = true;
+

@@ -1,0 +1,866 @@
+# Claim 240 Terra ultra; frozen source baseline 43ff4e7b.
+# All successful candidate objects received full native objmatch.
+# No candidate became exact; these source forms were not integrated.
+# Source-form counts exclude repeated verification runs.
+# Ultra: twelve client-backed geometry source forms, twelve masked groups; every object fully matched, no gains/losses and all15 takeoff pairs retained. Client zeroes OBBox center, copies only model AABox extents, then uses identity matrix Rotate_Z yaw and pitch vector; earlier partial incorrectly used model center and direct trig products. Single position assignment matches client write order. Remaining frame/lifetime/dataflow differences need further reconstruction; no nonexact geometry source adopted.
+
+# Source specification: camera/run.py
+from pathlib import Path
+import sys, subprocess, os, json, hashlib, difflib
+root=Path('/home/dev/Projects/EnB'); work=root/'.work/claim-240/round3/camera'; tree=root/'.work/claim-240/round3/baseline-tree'
+sys.path[:0]=[str(root/'tools/re'),str(root/'tools/vc6')]
+import appfile,libdefs
+from objmatch import CoffObject
+
+def win(p): return 'Z:'+str(p).replace('/',chr(92))
+def build(src,d):
+    dirs=[]
+    for p in appfile.candidate_dirs():
+        p=Path(p)
+        try: p=tree/p.relative_to(root)
+        except ValueError: pass
+        if p.is_dir(): dirs.append(p)
+    args=libdefs.LIB_FLAGS['app'].split()+['/D'+x for x in libdefs.APP_LIBS['app']['defines']]
+    args+=['/I"'+win(p)+'"' for p in dirs]+['"'+win(src)+'"']
+    rsp=d/'compile.rsp';rsp.write_text('\n'.join(args))
+    with (d/'compile.log').open('w') as f:
+        p=subprocess.run(['/home/dev/Toolchains/enb-vc6-sp4/bin/vc6-cl','@'+win(rsp)],cwd=d,stdout=f,stderr=f,timeout=45)
+    if p.returncode: raise RuntimeError((d/'compile.log').read_text())
+    return d/(src.stem+'.obj')
+
+def exact(p): return {(r['symbol'],a.lower()) for r in json.loads(p.read_text()) if r['status']=='exact' for a in r.get('addresses',[])}
+original=(tree/'app/client/camctrl_takeoff.cpp').read_text()
+partial=(root/'.work/claim-240/round2/camera/collision_client_box/camctrl_takeoff.cpp').read_text()
+old='''\t\tMatrix3D ship_tm = ship->Unknown_28(true);
+\t\tfloat zrot = ship_tm.Get_Z_Rotation();
+\t\tfloat c_p = cos(pitch);
+\t\tfloat s_p = sin(pitch);
+\t\tfloat c_y = cos(zrot + yaw);
+\t\tfloat s_y = sin(zrot + yaw);
+\t\tVector3 dir(c_y * c_p, s_y * c_p, s_p);'''
+assert partial.count(old)==1
+new='''\t\tfloat zrot = ship->Unknown_28(true).Get_Z_Rotation();
+\t\tfloat c_p = cos(pitch);
+\t\tfloat s_p = sin(pitch);
+\t\tMatrix3D rotation(Vector3(0.0f, 0.0f, 1.0f), zrot + yaw);
+\t\tVector3 dir = rotation * Vector3(c_p, 0.0f, s_p);'''
+base=partial.replace(old,new).replace('OBBoxClass local_box(model_box.Center, model_box.Extent);','OBBoxClass local_box(Vector3(0.0f, 0.0f, 0.0f), model_box.Extent);')
+forms={'baseline':original}
+for ident in [False,True]:
+ for move in [False,True]:
+  s=base
+  if ident:s=s.replace('Matrix3D box_tm = ship->Unknown_28(true);','Matrix3D box_tm(true); box_tm = ship->Unknown_28(true);')
+  if move:s=s.replace('start_box, end_box, offset, &result','start_box, end_box, dir * 5000.0f, &result')
+  forms['axis_zero_'+str(int(ident))+str(int(move))]=s
+env=os.environ.copy(); env['ENB_RETAIL_INSTALL']='/home/dev/Games/earth-and-beyond/prefix/drive_c/Program Files (x86)/EA GAMES/Earth & Beyond'
+rows=[]; stash=[]
+for name,s in forms.items():
+ d=work/name;d.mkdir(exist_ok=True);src=d/'camctrl_takeoff.cpp';src.write_text(s); row={'form':name,'source':str(src)}
+ try:
+  obj=build(src,d);row['compiled']=True;row['object']=str(obj)
+  with (d/'match.log').open('w') as f:p=subprocess.run(['/home/dev/Toolchains/enb-vc6-sp4/venv/bin/python',str(root/'tools/re/objmatch.py'),str(obj),'-q','--json',str(d/'match.json')],env=env,stdout=f,stderr=f)
+  assert p.returncode==0; result=exact(d/'match.json')
+  if name=='baseline': before=result
+  row.update(match=str(d/'match.json'),gains=sorted(result-before),losses=sorted(before-result),target_exact=any(a=='0x796920' for _,a in result))
+  coff=CoffObject(str(obj)); m=[x for x in coff.functions() if '?Unknown_796920@CameraController09Class' in x[0]]; assert len(m)==1
+  _,sec,start,end=m[0];pattern,_,_=coff.pattern(sec,start,end);row['masked_code_sha256']=hashlib.sha256(pattern).hexdigest()
+  if name!='baseline': stash.append('FORM '+name+'\n'+''.join(difflib.unified_diff(original.splitlines(True),s.splitlines(True),fromfile='baseline',tofile=name)))
+ except Exception as e: row['error']=str(e)
+ rows.append(row);(work/'results.json').write_text(json.dumps(rows,indent=2)+'\n');print(json.dumps(row),flush=True)
+(work/'796920.txt').write_text('\n'.join(stash))
+
+# Source specification: camera/run2.py
+from pathlib import Path
+import sys, subprocess, os, json, hashlib, difflib
+root=Path('/home/dev/Projects/EnB'); work=root/'.work/claim-240/round3/camera'; tree=root/'.work/claim-240/round3/baseline-tree'
+sys.path[:0]=[str(root/'tools/re'),str(root/'tools/vc6')]
+import appfile,libdefs
+from objmatch import CoffObject
+
+def win(p): return 'Z:'+str(p).replace('/',chr(92))
+def build(src,d):
+    dirs=[]
+    for p in appfile.candidate_dirs():
+        p=Path(p)
+        try: p=tree/p.relative_to(root)
+        except ValueError: pass
+        if p.is_dir(): dirs.append(p)
+    args=libdefs.LIB_FLAGS['app'].split()+['/D'+x for x in libdefs.APP_LIBS['app']['defines']]
+    args+=['/I"'+win(p)+'"' for p in dirs]+['"'+win(src)+'"']
+    rsp=d/'compile.rsp';rsp.write_text('\n'.join(args))
+    with (d/'compile.log').open('w') as f:
+        p=subprocess.run(['/home/dev/Toolchains/enb-vc6-sp4/bin/vc6-cl','@'+win(rsp)],cwd=d,stdout=f,stderr=f,timeout=45)
+    if p.returncode: raise RuntimeError((d/'compile.log').read_text())
+    return d/(src.stem+'.obj')
+
+def exact(p): return {(r['symbol'],a.lower()) for r in json.loads(p.read_text()) if r['status']=='exact' for a in r.get('addresses',[])}
+original=(tree/'app/client/camctrl_takeoff.cpp').read_text()
+partial=(root/'.work/claim-240/round2/camera/collision_client_box/camctrl_takeoff.cpp').read_text()
+old='''\t\tMatrix3D ship_tm = ship->Unknown_28(true);
+\t\tfloat zrot = ship_tm.Get_Z_Rotation();
+\t\tfloat c_p = cos(pitch);
+\t\tfloat s_p = sin(pitch);
+\t\tfloat c_y = cos(zrot + yaw);
+\t\tfloat s_y = sin(zrot + yaw);
+\t\tVector3 dir(c_y * c_p, s_y * c_p, s_p);'''
+assert partial.count(old)==1
+new='''\t\tfloat zrot = ship->Unknown_28(true).Get_Z_Rotation();
+\t\tfloat c_p = cos(pitch);
+\t\tfloat s_p = sin(pitch);
+\t\tMatrix3D rotation(true); rotation.Rotate_Z(zrot + yaw);
+\t\tVector3 dir = rotation * Vector3(c_p, 0.0f, s_p);'''
+base=partial.replace(old,new).replace('OBBoxClass local_box(model_box.Center, model_box.Extent);','OBBoxClass local_box(Vector3(0.0f, 0.0f, 0.0f), model_box.Extent);')
+base=base.replace('for (int i = 0; i <= 10; ++i) {', 'for (int i = 0; ; ) {').replace('\t\tfloat pitch =', '\t\t++i; float pitch =')
+forms={}
+for ident in [False,True]:
+ for move in [False,True]:
+  s=base
+  if ident:s=s.replace('Matrix3D box_tm = ship->Unknown_28(true);','Matrix3D box_tm(true); box_tm = ship->Unknown_28(true);')
+  if move:s=s.replace('start_box, end_box, offset, &result','start_box, end_box, dir * 5000.0f, &result')
+  forms['rotate_zero_'+str(int(ident))+str(int(move))]=s
+  srcpos='Unknown30 = Unknown24;\n\tUnknown30.Z += Unknown_BDB1C0.Get_Float() * 500.0f + 100.0f;'
+  dest='Unknown30 = Vector3(Unknown24.X, Unknown24.Y, Unknown24.Z + Unknown_BDB1C0.Get_Float() * 500.0f + 100.0f);'
+  assert s.count(srcpos)==1
+  forms['rotate_pos_'+str(int(ident))+str(int(move))]=s.replace(srcpos,dest)
+env=os.environ.copy(); env['ENB_RETAIL_INSTALL']='/home/dev/Games/earth-and-beyond/prefix/drive_c/Program Files (x86)/EA GAMES/Earth & Beyond'
+rows=[]; stash=[]; before=exact(work/'baseline/match.json')
+for name,s in forms.items():
+ d=work/name;d.mkdir(exist_ok=True);src=d/'camctrl_takeoff.cpp';src.write_text(s); row={'form':name,'source':str(src)}
+ try:
+  obj=build(src,d);row['compiled']=True;row['object']=str(obj)
+  with (d/'match.log').open('w') as f:p=subprocess.run(['/home/dev/Toolchains/enb-vc6-sp4/venv/bin/python',str(root/'tools/re/objmatch.py'),str(obj),'-q','--json',str(d/'match.json')],env=env,stdout=f,stderr=f)
+  assert p.returncode==0; result=exact(d/'match.json')
+  if name=='baseline': before=result
+  row.update(match=str(d/'match.json'),gains=sorted(result-before),losses=sorted(before-result),target_exact=any(a=='0x796920' for _,a in result))
+  coff=CoffObject(str(obj)); m=[x for x in coff.functions() if '?Unknown_796920@CameraController09Class' in x[0]]; assert len(m)==1
+  _,sec,start,end=m[0];pattern,_,_=coff.pattern(sec,start,end);row['masked_code_sha256']=hashlib.sha256(pattern).hexdigest()
+  if name!='baseline': stash.append('FORM '+name+'\n'+''.join(difflib.unified_diff(original.splitlines(True),s.splitlines(True),fromfile='baseline',tofile=name)))
+ except Exception as e: row['error']=str(e)
+ rows.append(row);(work/'results2.json').write_text(json.dumps(rows,indent=2)+'\n');print(json.dumps(row),flush=True)
+(work/'796920-round3b.txt').write_text('\n'.join(stash))
+
+# Source specification: camera/796920.txt
+FORM axis_zero_00
+--- baseline
++++ axis_zero_00
+@@ -10,7 +10,7 @@
+ #include "obbox.h"
+ #include "castres.h"
+ #include "scene.h"
+-#include "camera.h"
++#include "aabox.h"
+ #include "matrix3d.h"
+ #include "wwmath.h"
+ #include "..\shared\g_assert.h"
+@@ -232,26 +232,25 @@
+ 		}
+ 		float pitch = (Unknown_BDB1C0.Get_Float() * 30.0f + 30.0f) * (WWMATH_PI / 180.0f);
+ 		float yaw = (Unknown_BDB1C0.Get_Float() * 315.0f + 45.0f) * (WWMATH_PI / 180.0f);
+-		Matrix3D ship_tm = ship->Unknown_28(true);
+-		float zrot = ship_tm.Get_Z_Rotation();
++		float zrot = ship->Unknown_28(true).Get_Z_Rotation();
+ 		float c_p = cos(pitch);
+ 		float s_p = sin(pitch);
+-		float c_y = cos(zrot + yaw);
+-		float s_y = sin(zrot + yaw);
+-		Vector3 dir(c_y * c_p, s_y * c_p, s_p);
++		Matrix3D rotation(Vector3(0.0f, 0.0f, 1.0f), zrot + yaw);
++		Vector3 dir = rotation * Vector3(c_p, 0.0f, s_p);
+ 		Vector3 offset = dir * 5000.0f;
+ 		Unknown18 = Unknown30 + offset;
+ 
+-		CameraClass *cam = (CameraClass *)Client->MainView->Unknown_7C();
+-		OBBoxClass box = cam->Get_Near_Clip_Bounding_Box();
+-		OBBoxClass moved;
+-		Vector3 delta = Unknown18 - Unknown30;
+-		Matrix3D shift(true);
+-		shift.Set_Translation(delta);
+-		OBBoxClass::Transform(shift, box, &moved);
++		AABoxClass model_box; ship_ro->Get_Obj_Space_Bounding_Box(model_box); // NAME 2: 0x796b98
++		OBBoxClass local_box(Vector3(0.0f, 0.0f, 0.0f), model_box.Extent); // NAME 2: identity basis and model box, 0x796bd8
++		OBBoxClass start_box, end_box; // NAME 2: 0x796da1 and 0x796e42
++		Matrix3D box_tm = ship->Unknown_28(true); // NAME 2: 0x796cc2
++		box_tm.Set_Translation(Unknown30);
++		OBBoxClass::Transform(box_tm, local_box, &start_box);
++		box_tm.Set_Translation(Unknown18);
++		OBBoxClass::Transform(box_tm, local_box, &end_box);
+ 		CastResultStruct result;
+ 		MainViewSceneClass *scene = (MainViewSceneClass *)Client->MainView->Unknown_64();
+-		scene->Unknown_75FB00(moved, box, delta, &result, ship_ro, false);
++		scene->Unknown_75FB00(start_box, end_box, offset, &result, ship_ro, false);
+ 		if (result.Fraction >= 1.0f) {
+ 			break;
+ 		}
+
+FORM axis_zero_01
+--- baseline
++++ axis_zero_01
+@@ -10,7 +10,7 @@
+ #include "obbox.h"
+ #include "castres.h"
+ #include "scene.h"
+-#include "camera.h"
++#include "aabox.h"
+ #include "matrix3d.h"
+ #include "wwmath.h"
+ #include "..\shared\g_assert.h"
+@@ -232,26 +232,25 @@
+ 		}
+ 		float pitch = (Unknown_BDB1C0.Get_Float() * 30.0f + 30.0f) * (WWMATH_PI / 180.0f);
+ 		float yaw = (Unknown_BDB1C0.Get_Float() * 315.0f + 45.0f) * (WWMATH_PI / 180.0f);
+-		Matrix3D ship_tm = ship->Unknown_28(true);
+-		float zrot = ship_tm.Get_Z_Rotation();
++		float zrot = ship->Unknown_28(true).Get_Z_Rotation();
+ 		float c_p = cos(pitch);
+ 		float s_p = sin(pitch);
+-		float c_y = cos(zrot + yaw);
+-		float s_y = sin(zrot + yaw);
+-		Vector3 dir(c_y * c_p, s_y * c_p, s_p);
++		Matrix3D rotation(Vector3(0.0f, 0.0f, 1.0f), zrot + yaw);
++		Vector3 dir = rotation * Vector3(c_p, 0.0f, s_p);
+ 		Vector3 offset = dir * 5000.0f;
+ 		Unknown18 = Unknown30 + offset;
+ 
+-		CameraClass *cam = (CameraClass *)Client->MainView->Unknown_7C();
+-		OBBoxClass box = cam->Get_Near_Clip_Bounding_Box();
+-		OBBoxClass moved;
+-		Vector3 delta = Unknown18 - Unknown30;
+-		Matrix3D shift(true);
+-		shift.Set_Translation(delta);
+-		OBBoxClass::Transform(shift, box, &moved);
++		AABoxClass model_box; ship_ro->Get_Obj_Space_Bounding_Box(model_box); // NAME 2: 0x796b98
++		OBBoxClass local_box(Vector3(0.0f, 0.0f, 0.0f), model_box.Extent); // NAME 2: identity basis and model box, 0x796bd8
++		OBBoxClass start_box, end_box; // NAME 2: 0x796da1 and 0x796e42
++		Matrix3D box_tm = ship->Unknown_28(true); // NAME 2: 0x796cc2
++		box_tm.Set_Translation(Unknown30);
++		OBBoxClass::Transform(box_tm, local_box, &start_box);
++		box_tm.Set_Translation(Unknown18);
++		OBBoxClass::Transform(box_tm, local_box, &end_box);
+ 		CastResultStruct result;
+ 		MainViewSceneClass *scene = (MainViewSceneClass *)Client->MainView->Unknown_64();
+-		scene->Unknown_75FB00(moved, box, delta, &result, ship_ro, false);
++		scene->Unknown_75FB00(start_box, end_box, dir * 5000.0f, &result, ship_ro, false);
+ 		if (result.Fraction >= 1.0f) {
+ 			break;
+ 		}
+
+FORM axis_zero_10
+--- baseline
++++ axis_zero_10
+@@ -10,7 +10,7 @@
+ #include "obbox.h"
+ #include "castres.h"
+ #include "scene.h"
+-#include "camera.h"
++#include "aabox.h"
+ #include "matrix3d.h"
+ #include "wwmath.h"
+ #include "..\shared\g_assert.h"
+@@ -232,26 +232,25 @@
+ 		}
+ 		float pitch = (Unknown_BDB1C0.Get_Float() * 30.0f + 30.0f) * (WWMATH_PI / 180.0f);
+ 		float yaw = (Unknown_BDB1C0.Get_Float() * 315.0f + 45.0f) * (WWMATH_PI / 180.0f);
+-		Matrix3D ship_tm = ship->Unknown_28(true);
+-		float zrot = ship_tm.Get_Z_Rotation();
++		float zrot = ship->Unknown_28(true).Get_Z_Rotation();
+ 		float c_p = cos(pitch);
+ 		float s_p = sin(pitch);
+-		float c_y = cos(zrot + yaw);
+-		float s_y = sin(zrot + yaw);
+-		Vector3 dir(c_y * c_p, s_y * c_p, s_p);
++		Matrix3D rotation(Vector3(0.0f, 0.0f, 1.0f), zrot + yaw);
++		Vector3 dir = rotation * Vector3(c_p, 0.0f, s_p);
+ 		Vector3 offset = dir * 5000.0f;
+ 		Unknown18 = Unknown30 + offset;
+ 
+-		CameraClass *cam = (CameraClass *)Client->MainView->Unknown_7C();
+-		OBBoxClass box = cam->Get_Near_Clip_Bounding_Box();
+-		OBBoxClass moved;
+-		Vector3 delta = Unknown18 - Unknown30;
+-		Matrix3D shift(true);
+-		shift.Set_Translation(delta);
+-		OBBoxClass::Transform(shift, box, &moved);
++		AABoxClass model_box; ship_ro->Get_Obj_Space_Bounding_Box(model_box); // NAME 2: 0x796b98
++		OBBoxClass local_box(Vector3(0.0f, 0.0f, 0.0f), model_box.Extent); // NAME 2: identity basis and model box, 0x796bd8
++		OBBoxClass start_box, end_box; // NAME 2: 0x796da1 and 0x796e42
++		Matrix3D box_tm(true); box_tm = ship->Unknown_28(true); // NAME 2: 0x796cc2
++		box_tm.Set_Translation(Unknown30);
++		OBBoxClass::Transform(box_tm, local_box, &start_box);
++		box_tm.Set_Translation(Unknown18);
++		OBBoxClass::Transform(box_tm, local_box, &end_box);
+ 		CastResultStruct result;
+ 		MainViewSceneClass *scene = (MainViewSceneClass *)Client->MainView->Unknown_64();
+-		scene->Unknown_75FB00(moved, box, delta, &result, ship_ro, false);
++		scene->Unknown_75FB00(start_box, end_box, offset, &result, ship_ro, false);
+ 		if (result.Fraction >= 1.0f) {
+ 			break;
+ 		}
+
+FORM axis_zero_11
+--- baseline
++++ axis_zero_11
+@@ -10,7 +10,7 @@
+ #include "obbox.h"
+ #include "castres.h"
+ #include "scene.h"
+-#include "camera.h"
++#include "aabox.h"
+ #include "matrix3d.h"
+ #include "wwmath.h"
+ #include "..\shared\g_assert.h"
+@@ -232,26 +232,25 @@
+ 		}
+ 		float pitch = (Unknown_BDB1C0.Get_Float() * 30.0f + 30.0f) * (WWMATH_PI / 180.0f);
+ 		float yaw = (Unknown_BDB1C0.Get_Float() * 315.0f + 45.0f) * (WWMATH_PI / 180.0f);
+-		Matrix3D ship_tm = ship->Unknown_28(true);
+-		float zrot = ship_tm.Get_Z_Rotation();
++		float zrot = ship->Unknown_28(true).Get_Z_Rotation();
+ 		float c_p = cos(pitch);
+ 		float s_p = sin(pitch);
+-		float c_y = cos(zrot + yaw);
+-		float s_y = sin(zrot + yaw);
+-		Vector3 dir(c_y * c_p, s_y * c_p, s_p);
++		Matrix3D rotation(Vector3(0.0f, 0.0f, 1.0f), zrot + yaw);
++		Vector3 dir = rotation * Vector3(c_p, 0.0f, s_p);
+ 		Vector3 offset = dir * 5000.0f;
+ 		Unknown18 = Unknown30 + offset;
+ 
+-		CameraClass *cam = (CameraClass *)Client->MainView->Unknown_7C();
+-		OBBoxClass box = cam->Get_Near_Clip_Bounding_Box();
+-		OBBoxClass moved;
+-		Vector3 delta = Unknown18 - Unknown30;
+-		Matrix3D shift(true);
+-		shift.Set_Translation(delta);
+-		OBBoxClass::Transform(shift, box, &moved);
++		AABoxClass model_box; ship_ro->Get_Obj_Space_Bounding_Box(model_box); // NAME 2: 0x796b98
++		OBBoxClass local_box(Vector3(0.0f, 0.0f, 0.0f), model_box.Extent); // NAME 2: identity basis and model box, 0x796bd8
++		OBBoxClass start_box, end_box; // NAME 2: 0x796da1 and 0x796e42
++		Matrix3D box_tm(true); box_tm = ship->Unknown_28(true); // NAME 2: 0x796cc2
++		box_tm.Set_Translation(Unknown30);
++		OBBoxClass::Transform(box_tm, local_box, &start_box);
++		box_tm.Set_Translation(Unknown18);
++		OBBoxClass::Transform(box_tm, local_box, &end_box);
+ 		CastResultStruct result;
+ 		MainViewSceneClass *scene = (MainViewSceneClass *)Client->MainView->Unknown_64();
+-		scene->Unknown_75FB00(moved, box, delta, &result, ship_ro, false);
++		scene->Unknown_75FB00(start_box, end_box, dir * 5000.0f, &result, ship_ro, false);
+ 		if (result.Fraction >= 1.0f) {
+ 			break;
+ 		}
+
+# Source specification: camera/796920-round3b.txt
+FORM rotate_zero_00
+--- baseline
++++ rotate_zero_00
+@@ -10,7 +10,7 @@
+ #include "obbox.h"
+ #include "castres.h"
+ #include "scene.h"
+-#include "camera.h"
++#include "aabox.h"
+ #include "matrix3d.h"
+ #include "wwmath.h"
+ #include "..\shared\g_assert.h"
+@@ -224,34 +224,33 @@
+ 	Unknown30.Z += Unknown_BDB1C0.Get_Float() * 500.0f + 100.0f;
+ 	Unknown3C = Build_Quaternion(ship->Unknown_28(true));
+ 
+-	for (int i = 0; i <= 10; ++i) {
++	for (int i = 0; ; ) {
+ 		if (i >= 10) {
+ 			Unknown18 = Unknown30;
+ 			Unknown18.Z += 5000.0f;
+ 			break;
+ 		}
+-		float pitch = (Unknown_BDB1C0.Get_Float() * 30.0f + 30.0f) * (WWMATH_PI / 180.0f);
++		++i; float pitch = (Unknown_BDB1C0.Get_Float() * 30.0f + 30.0f) * (WWMATH_PI / 180.0f);
+ 		float yaw = (Unknown_BDB1C0.Get_Float() * 315.0f + 45.0f) * (WWMATH_PI / 180.0f);
+-		Matrix3D ship_tm = ship->Unknown_28(true);
+-		float zrot = ship_tm.Get_Z_Rotation();
++		float zrot = ship->Unknown_28(true).Get_Z_Rotation();
+ 		float c_p = cos(pitch);
+ 		float s_p = sin(pitch);
+-		float c_y = cos(zrot + yaw);
+-		float s_y = sin(zrot + yaw);
+-		Vector3 dir(c_y * c_p, s_y * c_p, s_p);
++		Matrix3D rotation(true); rotation.Rotate_Z(zrot + yaw);
++		Vector3 dir = rotation * Vector3(c_p, 0.0f, s_p);
+ 		Vector3 offset = dir * 5000.0f;
+ 		Unknown18 = Unknown30 + offset;
+ 
+-		CameraClass *cam = (CameraClass *)Client->MainView->Unknown_7C();
+-		OBBoxClass box = cam->Get_Near_Clip_Bounding_Box();
+-		OBBoxClass moved;
+-		Vector3 delta = Unknown18 - Unknown30;
+-		Matrix3D shift(true);
+-		shift.Set_Translation(delta);
+-		OBBoxClass::Transform(shift, box, &moved);
++		AABoxClass model_box; ship_ro->Get_Obj_Space_Bounding_Box(model_box); // NAME 2: 0x796b98
++		OBBoxClass local_box(Vector3(0.0f, 0.0f, 0.0f), model_box.Extent); // NAME 2: identity basis and model box, 0x796bd8
++		OBBoxClass start_box, end_box; // NAME 2: 0x796da1 and 0x796e42
++		Matrix3D box_tm = ship->Unknown_28(true); // NAME 2: 0x796cc2
++		box_tm.Set_Translation(Unknown30);
++		OBBoxClass::Transform(box_tm, local_box, &start_box);
++		box_tm.Set_Translation(Unknown18);
++		OBBoxClass::Transform(box_tm, local_box, &end_box);
+ 		CastResultStruct result;
+ 		MainViewSceneClass *scene = (MainViewSceneClass *)Client->MainView->Unknown_64();
+-		scene->Unknown_75FB00(moved, box, delta, &result, ship_ro, false);
++		scene->Unknown_75FB00(start_box, end_box, offset, &result, ship_ro, false);
+ 		if (result.Fraction >= 1.0f) {
+ 			break;
+ 		}
+
+FORM rotate_pos_00
+--- baseline
++++ rotate_pos_00
+@@ -10,7 +10,7 @@
+ #include "obbox.h"
+ #include "castres.h"
+ #include "scene.h"
+-#include "camera.h"
++#include "aabox.h"
+ #include "matrix3d.h"
+ #include "wwmath.h"
+ #include "..\shared\g_assert.h"
+@@ -220,38 +220,36 @@
+ 	}
+ 
+ 	Unknown24 = ship->Unknown_24();
+-	Unknown30 = Unknown24;
+-	Unknown30.Z += Unknown_BDB1C0.Get_Float() * 500.0f + 100.0f;
++	Unknown30 = Vector3(Unknown24.X, Unknown24.Y, Unknown24.Z + Unknown_BDB1C0.Get_Float() * 500.0f + 100.0f);
+ 	Unknown3C = Build_Quaternion(ship->Unknown_28(true));
+ 
+-	for (int i = 0; i <= 10; ++i) {
++	for (int i = 0; ; ) {
+ 		if (i >= 10) {
+ 			Unknown18 = Unknown30;
+ 			Unknown18.Z += 5000.0f;
+ 			break;
+ 		}
+-		float pitch = (Unknown_BDB1C0.Get_Float() * 30.0f + 30.0f) * (WWMATH_PI / 180.0f);
++		++i; float pitch = (Unknown_BDB1C0.Get_Float() * 30.0f + 30.0f) * (WWMATH_PI / 180.0f);
+ 		float yaw = (Unknown_BDB1C0.Get_Float() * 315.0f + 45.0f) * (WWMATH_PI / 180.0f);
+-		Matrix3D ship_tm = ship->Unknown_28(true);
+-		float zrot = ship_tm.Get_Z_Rotation();
++		float zrot = ship->Unknown_28(true).Get_Z_Rotation();
+ 		float c_p = cos(pitch);
+ 		float s_p = sin(pitch);
+-		float c_y = cos(zrot + yaw);
+-		float s_y = sin(zrot + yaw);
+-		Vector3 dir(c_y * c_p, s_y * c_p, s_p);
++		Matrix3D rotation(true); rotation.Rotate_Z(zrot + yaw);
++		Vector3 dir = rotation * Vector3(c_p, 0.0f, s_p);
+ 		Vector3 offset = dir * 5000.0f;
+ 		Unknown18 = Unknown30 + offset;
+ 
+-		CameraClass *cam = (CameraClass *)Client->MainView->Unknown_7C();
+-		OBBoxClass box = cam->Get_Near_Clip_Bounding_Box();
+-		OBBoxClass moved;
+-		Vector3 delta = Unknown18 - Unknown30;
+-		Matrix3D shift(true);
+-		shift.Set_Translation(delta);
+-		OBBoxClass::Transform(shift, box, &moved);
++		AABoxClass model_box; ship_ro->Get_Obj_Space_Bounding_Box(model_box); // NAME 2: 0x796b98
++		OBBoxClass local_box(Vector3(0.0f, 0.0f, 0.0f), model_box.Extent); // NAME 2: identity basis and model box, 0x796bd8
++		OBBoxClass start_box, end_box; // NAME 2: 0x796da1 and 0x796e42
++		Matrix3D box_tm = ship->Unknown_28(true); // NAME 2: 0x796cc2
++		box_tm.Set_Translation(Unknown30);
++		OBBoxClass::Transform(box_tm, local_box, &start_box);
++		box_tm.Set_Translation(Unknown18);
++		OBBoxClass::Transform(box_tm, local_box, &end_box);
+ 		CastResultStruct result;
+ 		MainViewSceneClass *scene = (MainViewSceneClass *)Client->MainView->Unknown_64();
+-		scene->Unknown_75FB00(moved, box, delta, &result, ship_ro, false);
++		scene->Unknown_75FB00(start_box, end_box, offset, &result, ship_ro, false);
+ 		if (result.Fraction >= 1.0f) {
+ 			break;
+ 		}
+
+FORM rotate_zero_01
+--- baseline
++++ rotate_zero_01
+@@ -10,7 +10,7 @@
+ #include "obbox.h"
+ #include "castres.h"
+ #include "scene.h"
+-#include "camera.h"
++#include "aabox.h"
+ #include "matrix3d.h"
+ #include "wwmath.h"
+ #include "..\shared\g_assert.h"
+@@ -224,34 +224,33 @@
+ 	Unknown30.Z += Unknown_BDB1C0.Get_Float() * 500.0f + 100.0f;
+ 	Unknown3C = Build_Quaternion(ship->Unknown_28(true));
+ 
+-	for (int i = 0; i <= 10; ++i) {
++	for (int i = 0; ; ) {
+ 		if (i >= 10) {
+ 			Unknown18 = Unknown30;
+ 			Unknown18.Z += 5000.0f;
+ 			break;
+ 		}
+-		float pitch = (Unknown_BDB1C0.Get_Float() * 30.0f + 30.0f) * (WWMATH_PI / 180.0f);
++		++i; float pitch = (Unknown_BDB1C0.Get_Float() * 30.0f + 30.0f) * (WWMATH_PI / 180.0f);
+ 		float yaw = (Unknown_BDB1C0.Get_Float() * 315.0f + 45.0f) * (WWMATH_PI / 180.0f);
+-		Matrix3D ship_tm = ship->Unknown_28(true);
+-		float zrot = ship_tm.Get_Z_Rotation();
++		float zrot = ship->Unknown_28(true).Get_Z_Rotation();
+ 		float c_p = cos(pitch);
+ 		float s_p = sin(pitch);
+-		float c_y = cos(zrot + yaw);
+-		float s_y = sin(zrot + yaw);
+-		Vector3 dir(c_y * c_p, s_y * c_p, s_p);
++		Matrix3D rotation(true); rotation.Rotate_Z(zrot + yaw);
++		Vector3 dir = rotation * Vector3(c_p, 0.0f, s_p);
+ 		Vector3 offset = dir * 5000.0f;
+ 		Unknown18 = Unknown30 + offset;
+ 
+-		CameraClass *cam = (CameraClass *)Client->MainView->Unknown_7C();
+-		OBBoxClass box = cam->Get_Near_Clip_Bounding_Box();
+-		OBBoxClass moved;
+-		Vector3 delta = Unknown18 - Unknown30;
+-		Matrix3D shift(true);
+-		shift.Set_Translation(delta);
+-		OBBoxClass::Transform(shift, box, &moved);
++		AABoxClass model_box; ship_ro->Get_Obj_Space_Bounding_Box(model_box); // NAME 2: 0x796b98
++		OBBoxClass local_box(Vector3(0.0f, 0.0f, 0.0f), model_box.Extent); // NAME 2: identity basis and model box, 0x796bd8
++		OBBoxClass start_box, end_box; // NAME 2: 0x796da1 and 0x796e42
++		Matrix3D box_tm = ship->Unknown_28(true); // NAME 2: 0x796cc2
++		box_tm.Set_Translation(Unknown30);
++		OBBoxClass::Transform(box_tm, local_box, &start_box);
++		box_tm.Set_Translation(Unknown18);
++		OBBoxClass::Transform(box_tm, local_box, &end_box);
+ 		CastResultStruct result;
+ 		MainViewSceneClass *scene = (MainViewSceneClass *)Client->MainView->Unknown_64();
+-		scene->Unknown_75FB00(moved, box, delta, &result, ship_ro, false);
++		scene->Unknown_75FB00(start_box, end_box, dir * 5000.0f, &result, ship_ro, false);
+ 		if (result.Fraction >= 1.0f) {
+ 			break;
+ 		}
+
+FORM rotate_pos_01
+--- baseline
++++ rotate_pos_01
+@@ -10,7 +10,7 @@
+ #include "obbox.h"
+ #include "castres.h"
+ #include "scene.h"
+-#include "camera.h"
++#include "aabox.h"
+ #include "matrix3d.h"
+ #include "wwmath.h"
+ #include "..\shared\g_assert.h"
+@@ -220,38 +220,36 @@
+ 	}
+ 
+ 	Unknown24 = ship->Unknown_24();
+-	Unknown30 = Unknown24;
+-	Unknown30.Z += Unknown_BDB1C0.Get_Float() * 500.0f + 100.0f;
++	Unknown30 = Vector3(Unknown24.X, Unknown24.Y, Unknown24.Z + Unknown_BDB1C0.Get_Float() * 500.0f + 100.0f);
+ 	Unknown3C = Build_Quaternion(ship->Unknown_28(true));
+ 
+-	for (int i = 0; i <= 10; ++i) {
++	for (int i = 0; ; ) {
+ 		if (i >= 10) {
+ 			Unknown18 = Unknown30;
+ 			Unknown18.Z += 5000.0f;
+ 			break;
+ 		}
+-		float pitch = (Unknown_BDB1C0.Get_Float() * 30.0f + 30.0f) * (WWMATH_PI / 180.0f);
++		++i; float pitch = (Unknown_BDB1C0.Get_Float() * 30.0f + 30.0f) * (WWMATH_PI / 180.0f);
+ 		float yaw = (Unknown_BDB1C0.Get_Float() * 315.0f + 45.0f) * (WWMATH_PI / 180.0f);
+-		Matrix3D ship_tm = ship->Unknown_28(true);
+-		float zrot = ship_tm.Get_Z_Rotation();
++		float zrot = ship->Unknown_28(true).Get_Z_Rotation();
+ 		float c_p = cos(pitch);
+ 		float s_p = sin(pitch);
+-		float c_y = cos(zrot + yaw);
+-		float s_y = sin(zrot + yaw);
+-		Vector3 dir(c_y * c_p, s_y * c_p, s_p);
++		Matrix3D rotation(true); rotation.Rotate_Z(zrot + yaw);
++		Vector3 dir = rotation * Vector3(c_p, 0.0f, s_p);
+ 		Vector3 offset = dir * 5000.0f;
+ 		Unknown18 = Unknown30 + offset;
+ 
+-		CameraClass *cam = (CameraClass *)Client->MainView->Unknown_7C();
+-		OBBoxClass box = cam->Get_Near_Clip_Bounding_Box();
+-		OBBoxClass moved;
+-		Vector3 delta = Unknown18 - Unknown30;
+-		Matrix3D shift(true);
+-		shift.Set_Translation(delta);
+-		OBBoxClass::Transform(shift, box, &moved);
++		AABoxClass model_box; ship_ro->Get_Obj_Space_Bounding_Box(model_box); // NAME 2: 0x796b98
++		OBBoxClass local_box(Vector3(0.0f, 0.0f, 0.0f), model_box.Extent); // NAME 2: identity basis and model box, 0x796bd8
++		OBBoxClass start_box, end_box; // NAME 2: 0x796da1 and 0x796e42
++		Matrix3D box_tm = ship->Unknown_28(true); // NAME 2: 0x796cc2
++		box_tm.Set_Translation(Unknown30);
++		OBBoxClass::Transform(box_tm, local_box, &start_box);
++		box_tm.Set_Translation(Unknown18);
++		OBBoxClass::Transform(box_tm, local_box, &end_box);
+ 		CastResultStruct result;
+ 		MainViewSceneClass *scene = (MainViewSceneClass *)Client->MainView->Unknown_64();
+-		scene->Unknown_75FB00(moved, box, delta, &result, ship_ro, false);
++		scene->Unknown_75FB00(start_box, end_box, dir * 5000.0f, &result, ship_ro, false);
+ 		if (result.Fraction >= 1.0f) {
+ 			break;
+ 		}
+
+FORM rotate_zero_10
+--- baseline
++++ rotate_zero_10
+@@ -10,7 +10,7 @@
+ #include "obbox.h"
+ #include "castres.h"
+ #include "scene.h"
+-#include "camera.h"
++#include "aabox.h"
+ #include "matrix3d.h"
+ #include "wwmath.h"
+ #include "..\shared\g_assert.h"
+@@ -224,34 +224,33 @@
+ 	Unknown30.Z += Unknown_BDB1C0.Get_Float() * 500.0f + 100.0f;
+ 	Unknown3C = Build_Quaternion(ship->Unknown_28(true));
+ 
+-	for (int i = 0; i <= 10; ++i) {
++	for (int i = 0; ; ) {
+ 		if (i >= 10) {
+ 			Unknown18 = Unknown30;
+ 			Unknown18.Z += 5000.0f;
+ 			break;
+ 		}
+-		float pitch = (Unknown_BDB1C0.Get_Float() * 30.0f + 30.0f) * (WWMATH_PI / 180.0f);
++		++i; float pitch = (Unknown_BDB1C0.Get_Float() * 30.0f + 30.0f) * (WWMATH_PI / 180.0f);
+ 		float yaw = (Unknown_BDB1C0.Get_Float() * 315.0f + 45.0f) * (WWMATH_PI / 180.0f);
+-		Matrix3D ship_tm = ship->Unknown_28(true);
+-		float zrot = ship_tm.Get_Z_Rotation();
++		float zrot = ship->Unknown_28(true).Get_Z_Rotation();
+ 		float c_p = cos(pitch);
+ 		float s_p = sin(pitch);
+-		float c_y = cos(zrot + yaw);
+-		float s_y = sin(zrot + yaw);
+-		Vector3 dir(c_y * c_p, s_y * c_p, s_p);
++		Matrix3D rotation(true); rotation.Rotate_Z(zrot + yaw);
++		Vector3 dir = rotation * Vector3(c_p, 0.0f, s_p);
+ 		Vector3 offset = dir * 5000.0f;
+ 		Unknown18 = Unknown30 + offset;
+ 
+-		CameraClass *cam = (CameraClass *)Client->MainView->Unknown_7C();
+-		OBBoxClass box = cam->Get_Near_Clip_Bounding_Box();
+-		OBBoxClass moved;
+-		Vector3 delta = Unknown18 - Unknown30;
+-		Matrix3D shift(true);
+-		shift.Set_Translation(delta);
+-		OBBoxClass::Transform(shift, box, &moved);
++		AABoxClass model_box; ship_ro->Get_Obj_Space_Bounding_Box(model_box); // NAME 2: 0x796b98
++		OBBoxClass local_box(Vector3(0.0f, 0.0f, 0.0f), model_box.Extent); // NAME 2: identity basis and model box, 0x796bd8
++		OBBoxClass start_box, end_box; // NAME 2: 0x796da1 and 0x796e42
++		Matrix3D box_tm(true); box_tm = ship->Unknown_28(true); // NAME 2: 0x796cc2
++		box_tm.Set_Translation(Unknown30);
++		OBBoxClass::Transform(box_tm, local_box, &start_box);
++		box_tm.Set_Translation(Unknown18);
++		OBBoxClass::Transform(box_tm, local_box, &end_box);
+ 		CastResultStruct result;
+ 		MainViewSceneClass *scene = (MainViewSceneClass *)Client->MainView->Unknown_64();
+-		scene->Unknown_75FB00(moved, box, delta, &result, ship_ro, false);
++		scene->Unknown_75FB00(start_box, end_box, offset, &result, ship_ro, false);
+ 		if (result.Fraction >= 1.0f) {
+ 			break;
+ 		}
+
+FORM rotate_pos_10
+--- baseline
++++ rotate_pos_10
+@@ -10,7 +10,7 @@
+ #include "obbox.h"
+ #include "castres.h"
+ #include "scene.h"
+-#include "camera.h"
++#include "aabox.h"
+ #include "matrix3d.h"
+ #include "wwmath.h"
+ #include "..\shared\g_assert.h"
+@@ -220,38 +220,36 @@
+ 	}
+ 
+ 	Unknown24 = ship->Unknown_24();
+-	Unknown30 = Unknown24;
+-	Unknown30.Z += Unknown_BDB1C0.Get_Float() * 500.0f + 100.0f;
++	Unknown30 = Vector3(Unknown24.X, Unknown24.Y, Unknown24.Z + Unknown_BDB1C0.Get_Float() * 500.0f + 100.0f);
+ 	Unknown3C = Build_Quaternion(ship->Unknown_28(true));
+ 
+-	for (int i = 0; i <= 10; ++i) {
++	for (int i = 0; ; ) {
+ 		if (i >= 10) {
+ 			Unknown18 = Unknown30;
+ 			Unknown18.Z += 5000.0f;
+ 			break;
+ 		}
+-		float pitch = (Unknown_BDB1C0.Get_Float() * 30.0f + 30.0f) * (WWMATH_PI / 180.0f);
++		++i; float pitch = (Unknown_BDB1C0.Get_Float() * 30.0f + 30.0f) * (WWMATH_PI / 180.0f);
+ 		float yaw = (Unknown_BDB1C0.Get_Float() * 315.0f + 45.0f) * (WWMATH_PI / 180.0f);
+-		Matrix3D ship_tm = ship->Unknown_28(true);
+-		float zrot = ship_tm.Get_Z_Rotation();
++		float zrot = ship->Unknown_28(true).Get_Z_Rotation();
+ 		float c_p = cos(pitch);
+ 		float s_p = sin(pitch);
+-		float c_y = cos(zrot + yaw);
+-		float s_y = sin(zrot + yaw);
+-		Vector3 dir(c_y * c_p, s_y * c_p, s_p);
++		Matrix3D rotation(true); rotation.Rotate_Z(zrot + yaw);
++		Vector3 dir = rotation * Vector3(c_p, 0.0f, s_p);
+ 		Vector3 offset = dir * 5000.0f;
+ 		Unknown18 = Unknown30 + offset;
+ 
+-		CameraClass *cam = (CameraClass *)Client->MainView->Unknown_7C();
+-		OBBoxClass box = cam->Get_Near_Clip_Bounding_Box();
+-		OBBoxClass moved;
+-		Vector3 delta = Unknown18 - Unknown30;
+-		Matrix3D shift(true);
+-		shift.Set_Translation(delta);
+-		OBBoxClass::Transform(shift, box, &moved);
++		AABoxClass model_box; ship_ro->Get_Obj_Space_Bounding_Box(model_box); // NAME 2: 0x796b98
++		OBBoxClass local_box(Vector3(0.0f, 0.0f, 0.0f), model_box.Extent); // NAME 2: identity basis and model box, 0x796bd8
++		OBBoxClass start_box, end_box; // NAME 2: 0x796da1 and 0x796e42
++		Matrix3D box_tm(true); box_tm = ship->Unknown_28(true); // NAME 2: 0x796cc2
++		box_tm.Set_Translation(Unknown30);
++		OBBoxClass::Transform(box_tm, local_box, &start_box);
++		box_tm.Set_Translation(Unknown18);
++		OBBoxClass::Transform(box_tm, local_box, &end_box);
+ 		CastResultStruct result;
+ 		MainViewSceneClass *scene = (MainViewSceneClass *)Client->MainView->Unknown_64();
+-		scene->Unknown_75FB00(moved, box, delta, &result, ship_ro, false);
++		scene->Unknown_75FB00(start_box, end_box, offset, &result, ship_ro, false);
+ 		if (result.Fraction >= 1.0f) {
+ 			break;
+ 		}
+
+FORM rotate_zero_11
+--- baseline
++++ rotate_zero_11
+@@ -10,7 +10,7 @@
+ #include "obbox.h"
+ #include "castres.h"
+ #include "scene.h"
+-#include "camera.h"
++#include "aabox.h"
+ #include "matrix3d.h"
+ #include "wwmath.h"
+ #include "..\shared\g_assert.h"
+@@ -224,34 +224,33 @@
+ 	Unknown30.Z += Unknown_BDB1C0.Get_Float() * 500.0f + 100.0f;
+ 	Unknown3C = Build_Quaternion(ship->Unknown_28(true));
+ 
+-	for (int i = 0; i <= 10; ++i) {
++	for (int i = 0; ; ) {
+ 		if (i >= 10) {
+ 			Unknown18 = Unknown30;
+ 			Unknown18.Z += 5000.0f;
+ 			break;
+ 		}
+-		float pitch = (Unknown_BDB1C0.Get_Float() * 30.0f + 30.0f) * (WWMATH_PI / 180.0f);
++		++i; float pitch = (Unknown_BDB1C0.Get_Float() * 30.0f + 30.0f) * (WWMATH_PI / 180.0f);
+ 		float yaw = (Unknown_BDB1C0.Get_Float() * 315.0f + 45.0f) * (WWMATH_PI / 180.0f);
+-		Matrix3D ship_tm = ship->Unknown_28(true);
+-		float zrot = ship_tm.Get_Z_Rotation();
++		float zrot = ship->Unknown_28(true).Get_Z_Rotation();
+ 		float c_p = cos(pitch);
+ 		float s_p = sin(pitch);
+-		float c_y = cos(zrot + yaw);
+-		float s_y = sin(zrot + yaw);
+-		Vector3 dir(c_y * c_p, s_y * c_p, s_p);
++		Matrix3D rotation(true); rotation.Rotate_Z(zrot + yaw);
++		Vector3 dir = rotation * Vector3(c_p, 0.0f, s_p);
+ 		Vector3 offset = dir * 5000.0f;
+ 		Unknown18 = Unknown30 + offset;
+ 
+-		CameraClass *cam = (CameraClass *)Client->MainView->Unknown_7C();
+-		OBBoxClass box = cam->Get_Near_Clip_Bounding_Box();
+-		OBBoxClass moved;
+-		Vector3 delta = Unknown18 - Unknown30;
+-		Matrix3D shift(true);
+-		shift.Set_Translation(delta);
+-		OBBoxClass::Transform(shift, box, &moved);
++		AABoxClass model_box; ship_ro->Get_Obj_Space_Bounding_Box(model_box); // NAME 2: 0x796b98
++		OBBoxClass local_box(Vector3(0.0f, 0.0f, 0.0f), model_box.Extent); // NAME 2: identity basis and model box, 0x796bd8
++		OBBoxClass start_box, end_box; // NAME 2: 0x796da1 and 0x796e42
++		Matrix3D box_tm(true); box_tm = ship->Unknown_28(true); // NAME 2: 0x796cc2
++		box_tm.Set_Translation(Unknown30);
++		OBBoxClass::Transform(box_tm, local_box, &start_box);
++		box_tm.Set_Translation(Unknown18);
++		OBBoxClass::Transform(box_tm, local_box, &end_box);
+ 		CastResultStruct result;
+ 		MainViewSceneClass *scene = (MainViewSceneClass *)Client->MainView->Unknown_64();
+-		scene->Unknown_75FB00(moved, box, delta, &result, ship_ro, false);
++		scene->Unknown_75FB00(start_box, end_box, dir * 5000.0f, &result, ship_ro, false);
+ 		if (result.Fraction >= 1.0f) {
+ 			break;
+ 		}
+
+FORM rotate_pos_11
+--- baseline
++++ rotate_pos_11
+@@ -10,7 +10,7 @@
+ #include "obbox.h"
+ #include "castres.h"
+ #include "scene.h"
+-#include "camera.h"
++#include "aabox.h"
+ #include "matrix3d.h"
+ #include "wwmath.h"
+ #include "..\shared\g_assert.h"
+@@ -220,38 +220,36 @@
+ 	}
+ 
+ 	Unknown24 = ship->Unknown_24();
+-	Unknown30 = Unknown24;
+-	Unknown30.Z += Unknown_BDB1C0.Get_Float() * 500.0f + 100.0f;
++	Unknown30 = Vector3(Unknown24.X, Unknown24.Y, Unknown24.Z + Unknown_BDB1C0.Get_Float() * 500.0f + 100.0f);
+ 	Unknown3C = Build_Quaternion(ship->Unknown_28(true));
+ 
+-	for (int i = 0; i <= 10; ++i) {
++	for (int i = 0; ; ) {
+ 		if (i >= 10) {
+ 			Unknown18 = Unknown30;
+ 			Unknown18.Z += 5000.0f;
+ 			break;
+ 		}
+-		float pitch = (Unknown_BDB1C0.Get_Float() * 30.0f + 30.0f) * (WWMATH_PI / 180.0f);
++		++i; float pitch = (Unknown_BDB1C0.Get_Float() * 30.0f + 30.0f) * (WWMATH_PI / 180.0f);
+ 		float yaw = (Unknown_BDB1C0.Get_Float() * 315.0f + 45.0f) * (WWMATH_PI / 180.0f);
+-		Matrix3D ship_tm = ship->Unknown_28(true);
+-		float zrot = ship_tm.Get_Z_Rotation();
++		float zrot = ship->Unknown_28(true).Get_Z_Rotation();
+ 		float c_p = cos(pitch);
+ 		float s_p = sin(pitch);
+-		float c_y = cos(zrot + yaw);
+-		float s_y = sin(zrot + yaw);
+-		Vector3 dir(c_y * c_p, s_y * c_p, s_p);
++		Matrix3D rotation(true); rotation.Rotate_Z(zrot + yaw);
++		Vector3 dir = rotation * Vector3(c_p, 0.0f, s_p);
+ 		Vector3 offset = dir * 5000.0f;
+ 		Unknown18 = Unknown30 + offset;
+ 
+-		CameraClass *cam = (CameraClass *)Client->MainView->Unknown_7C();
+-		OBBoxClass box = cam->Get_Near_Clip_Bounding_Box();
+-		OBBoxClass moved;
+-		Vector3 delta = Unknown18 - Unknown30;
+-		Matrix3D shift(true);
+-		shift.Set_Translation(delta);
+-		OBBoxClass::Transform(shift, box, &moved);
++		AABoxClass model_box; ship_ro->Get_Obj_Space_Bounding_Box(model_box); // NAME 2: 0x796b98
++		OBBoxClass local_box(Vector3(0.0f, 0.0f, 0.0f), model_box.Extent); // NAME 2: identity basis and model box, 0x796bd8
++		OBBoxClass start_box, end_box; // NAME 2: 0x796da1 and 0x796e42
++		Matrix3D box_tm(true); box_tm = ship->Unknown_28(true); // NAME 2: 0x796cc2
++		box_tm.Set_Translation(Unknown30);
++		OBBoxClass::Transform(box_tm, local_box, &start_box);
++		box_tm.Set_Translation(Unknown18);
++		OBBoxClass::Transform(box_tm, local_box, &end_box);
+ 		CastResultStruct result;
+ 		MainViewSceneClass *scene = (MainViewSceneClass *)Client->MainView->Unknown_64();
+-		scene->Unknown_75FB00(moved, box, delta, &result, ship_ro, false);
++		scene->Unknown_75FB00(start_box, end_box, dir * 5000.0f, &result, ship_ro, false);
+ 		if (result.Fraction >= 1.0f) {
+ 			break;
+ 		}

@@ -516,6 +516,9 @@
 "??RRandom3Class@@QAEHXZ": [
 "0x9D0250"
 ],
+"??RRandom4Class@@QAEHHH@Z": [
+"0x9D0510"
+],
 "??RRandomClass@@QAEHHH@Z": [
 "0x9D0000"
 ],
@@ -695,6 +698,9 @@
 ],
 "?Customized_Render@SimpleSceneClass@@MAEXAAVRenderInfoClass@@@Z": [
 "0x9661C0"
+],
+"?Delete@RawFileClass@@UAEHXZ": [
+"0x6849E0"
 ],
 "?Delete_Point@SegmentedLineClass@@QAEXI@Z": [
 "0x9690E0"
@@ -1286,6 +1292,9 @@
 ],
 "?Read@ChunkLoadClass@@QAEKPAXK@Z": [
 "0x9D4540"
+],
+"?Read@RawFileClass@@UAEHPAXH@Z": [
+"0x684420"
 ],
 "?Read_PCX_File@@YAPAVSurface@@AAVFileClass@@PAVPaletteClass@@PAXJ@Z": [
 "0x9DE210"

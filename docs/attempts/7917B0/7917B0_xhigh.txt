@@ -1,0 +1,64 @@
+# Claim 240 Terra xhigh, baseline 3fb263fd. Source forms and evidence only.
+# Every successful experimental compile received full native objmatch.
+# Diagnostic lifetime/behavior changes are not accepted candidates.
+# Claim 240 second pass: Workflow 3.1.2 loop inversion lever: for/continue and while/continue variants both full-matched, no exact gains/losses, same already-tried instruction group; 14 starred objdiff rows, not masked residue.
+
+# Source specification: probe.py
+from pathlib import Path
+import concurrent.futures, os, shutil, subprocess, sys
+
+root = Path('/home/dev/Projects/EnB')
+out = root / '.work/claim-240/round2/speech'
+tree = root / '.work/claim-240/round2/baseline-tree/app/client'
+sys.path.insert(0, str(root / '.work/claim-234'))
+from fastbuild import compile_file
+
+env = os.environ.copy()
+env['ENB_RETAIL_INSTALL'] = '/home/dev/Games/earth-and-beyond/prefix/drive_c/Program Files (x86)/EA GAMES/Earth & Beyond'
+base = (tree / 'unknown_phoneme.cpp').read_text()
+variants = {}
+s = base[base.index('// 0x7917B0'):base.index('// 0x791880')]
+old = '''\t\t\tif (_strnicmp(text, group->Text, len) == 0) {
+\t\t\t\tshapes[0] = group->Shapes[0];
+\t\t\t\tshapes[1] = group->Shapes[1];
+\t\t\t\treturn(len);
+\t\t\t}'''
+new = '''\t\t\tif (_strnicmp(text, group->Text, len) != 0) continue;
+\t\t\tshapes[0] = group->Shapes[0];
+\t\t\tshapes[1] = group->Shapes[1];
+\t\t\treturn(len);'''
+assert s.count(old) == 1
+v = s.replace(old, new)
+variants['group_continue'] = base.replace(s, v)
+v = v.replace('for (int i = 0; i < Unknown_BE8570[letter].Count; i++, group--) {', 'int i = 0;\n\t\twhile (i < Unknown_BE8570[letter].Count) {').replace('if (_strnicmp(text, group->Text, len) != 0) continue;', 'if (_strnicmp(text, group->Text, len) != 0) { ++i; --group; continue; }')
+variants['group_while_continue'] = base.replace(s, v)
+s = base[base.index('// 0x791880'):base.index('// 0x791970')]
+for mask in range(1, 8):
+    v = s
+    if mask & 1:
+        v = v.replace("if (prev == 'g') {\n\t\t\t\t\tshapes[1] = 1;", "if (prev == 'g') {\n\t\t\t\t\tgoto second_vowel;")
+    if mask & 2:
+        v = v.replace("case 'o':\n\t\t\t\tshapes[1] = 1;\n\t\t\t\tbreak;", "case 'o':\n\t\t\t\tgoto second_vowel;")
+    if mask & 4:
+        v = v.replace("if (c != '\\0' && IS_VOWEL(c)) {\n\t\t\tshapes[1] = 1;", "if (text[2] != '\\0' && IS_VOWEL(c)) {\n\t\t\tshapes[1] = 1;")
+    v = v.replace("if (c != '\\0' && IS_VOWEL(c)) {\n\t\t\tshapes[1] = 1;", "if (c != '\\0' && IS_VOWEL(c)) {\nsecond_vowel:\n\t\t\tshapes[1] = 1;") if not mask & 4 else v.replace("if (text[2] != '\\0' && IS_VOWEL(c)) {\n\t\t\tshapes[1] = 1;", "if (text[2] != '\\0' && IS_VOWEL(c)) {\nsecond_vowel:\n\t\t\tshapes[1] = 1;")
+    variants['a_branch_' + str(mask)] = base.replace(s, v)
+
+tasks = [('baseline_' + name, name, (tree / (name + '.cpp')).read_text()) for name in ['nlp', 'unknown_personality', 'unknown_phoneme']]
+tasks += [(name, 'unknown_phoneme', src) for name, src in variants.items()]
+
+def run(task):
+    name, unit, src = task
+    work = out / name
+    work.mkdir(parents=True, exist_ok=True)
+    (work / 'unknown_personality.h').write_bytes((tree / 'unknown_personality.h').read_bytes())
+    source = work / (unit + '.cpp')
+    source.write_text(src)
+    obj = compile_file(source, work)
+    with (work / 'match.log').open('w') as log:
+        subprocess.run(['/home/dev/Toolchains/enb-vc6-sp4/venv/bin/python', str(root / 'tools/re/objmatch.py'), str(obj), '-q', '--json', str(work / 'match.json')], env=env, stdout=log, stderr=log, check=True)
+    return name
+
+with concurrent.futures.ThreadPoolExecutor(max_workers=3) as pool:
+    for result in pool.map(run, tasks):
+        print(result, flush=True)

@@ -1,0 +1,120 @@
+# 0x780810
+First-only assignment/copy layers and vector insertion, local declaration order, source and destination references and copied Vector3 temporaries. Client calls 0x780AC0 only for shirt. Variant 0810c_04 incidental STL pairs are not a target gain and need attribution; rest have no pair gains.
+
+
+### sweep_0810.py
+from pathlib import Path
+import os,sys,subprocess,json
+root=Path('/home/dev/Projects/EnB'); work=root/'.work/claim-240/avatar'
+sys.path.insert(0,str(root/'.work/claim-234'))
+import fastbuild,appfile
+dirs=appfile.candidate_dirs; appfile.candidate_dirs=lambda:[root/'app/client']+dirs()
+src=(work/'avatar.cpp').read_text(); start=src.index('void CharacterViewAvatarClass::Unknown_780810(EnvironmentMapManagerClass *env_maps)'); end=src.index('\n}',start)+2; fn=src[start:end]
+forms=[
+ ('region.Unknown10 = secondary;', 'region.Unknown10 = ColorizationHalfStruct(secondary);'),
+ ('region.Unknown10 = secondary;', 'region.Unknown10.operator=(secondary);'),
+ ('region.Unknown10 = secondary;', 'ColorizationHalfStruct &target = region.Unknown10; target = secondary;'),
+ ('region.Unknown10 = secondary;', 'ColorizationHalfStruct *target = &region.Unknown10; *target = secondary;'),
+ ('region.Unknown10 = secondary;', 'const ColorizationHalfStruct &source = secondary; region.Unknown10 = source;'),
+ ('region.Unknown10 = secondary;', 'const ColorizationHalfStruct *source = &secondary; region.Unknown10 = *source;'),
+ ('region.Unknown10 = secondary;', 'ColorizationHalfStruct copy = secondary; region.Unknown10 = copy;'),
+ ('regions.push_back(region);', 'regions.insert(regions.end(), region);'),
+]
+env=os.environ.copy(); env['ENB_RETAIL_INSTALL']='/home/dev/Games/earth-and-beyond/prefix/drive_c/Program Files (x86)/EA GAMES/Earth & Beyond'
+exact=lambda rows:{a for r in rows if r['status']=='exact' for a in r['addresses']}
+baseline=exact(json.loads((work/'baseline_matches/000_baseline_avatar.json').read_text())); summary=[]
+for i,(a,b) in enumerate(forms):
+ d=work/('0810_%02d'%i); d.mkdir(exist_ok=True); p=d/'avatar.cpp'; assert fn.count(a)==2
+ p.write_text(src[:start]+fn.replace(a,b,1)+src[end:]); row={'old':a,'new':b,'source':str(p)}
+ try:
+  obj=fastbuild.compile_file(p,d); out=d/'match.json'
+  with (d/'match.log').open('w') as log:
+   r=subprocess.run(['/home/dev/Toolchains/enb-vc6-sp4/venv/bin/python',str(root/'tools/re/objmatch.py'),str(obj),'-q','--json',str(out)],stdout=log,stderr=log,env=env)
+  row['matcher_rc']=r.returncode
+  if not r.returncode:
+   found=exact(json.loads(out.read_text())); row.update(gains=sorted(found-baseline),losses=sorted(baseline-found),match=str(out))
+ except Exception as e: row['error']=str(e)
+ summary.append(row); (work/'0810_manifest.json').write_text(json.dumps(summary,indent=2)+'\n')
+ print(i,row.get('gains'),row.get('losses'),row.get('error'),flush=True)
+
+
+### sweep_0810b.py
+from pathlib import Path
+import os,sys,subprocess,json
+root=Path('/home/dev/Projects/EnB'); work=root/'.work/claim-240/avatar'
+sys.path.insert(0,str(root/'.work/claim-234'))
+import fastbuild,appfile
+dirs=appfile.candidate_dirs; appfile.candidate_dirs=lambda:[root/'app/client']+dirs()
+src=(work/'avatar.cpp').read_text(); start=src.index('void CharacterViewAvatarClass::Unknown_780810(EnvironmentMapManagerClass *env_maps)'); end=src.index('\n}',start)+2; fn=src[start:end]
+forms=[
+ ('ColorizationRegionStruct region;\n\t\tVector3 primary_color;', 'Vector3 primary_color;\n\t\tColorizationRegionStruct region;'),
+ ('Vector3 primary_color;\n\t\tColorizationHalfStruct secondary;', 'ColorizationHalfStruct secondary;\n\t\tVector3 primary_color;'),
+ ('ColorizationRegionStruct region;\n\t\tVector3 primary_color;\n\t\tColorizationHalfStruct secondary;', 'ColorizationHalfStruct secondary;\n\t\tVector3 primary_color;\n\t\tColorizationRegionStruct region;'),
+ ('primary_color = Desc.Shirt_Primary_Color;', 'Vector3 source(Desc.Shirt_Primary_Color); primary_color = source;'),
+ ('primary_color = Desc.Shirt_Primary_Color;', 'Vector3 source = Desc.Shirt_Primary_Color; primary_color = source;'),
+ ('primary_color = Desc.Shirt_Primary_Color;', 'const Vector3 &source = Desc.Shirt_Primary_Color; primary_color = source;'),
+ ('primary_color = Desc.Shirt_Primary_Color;', 'const Vector3 *source = &Desc.Shirt_Primary_Color; primary_color = *source;'),
+ ('secondary.Unknown04 = Desc.Shirt_Secondary_Color;', 'Vector3 source(Desc.Shirt_Secondary_Color); secondary.Unknown04 = source;'),
+ ('secondary.Unknown04 = Desc.Shirt_Secondary_Color;', 'Vector3 source = Desc.Shirt_Secondary_Color; secondary.Unknown04 = source;'),
+ ('secondary.Unknown04 = Desc.Shirt_Secondary_Color;', 'const Vector3 &source = Desc.Shirt_Secondary_Color; secondary.Unknown04 = source;'),
+ ('region.Unknown00.Unknown04 = primary_color;', 'const Vector3 &source = primary_color; region.Unknown00.Unknown04 = source;'),
+ ('region.Unknown00.Unknown04 = primary_color;', 'Vector3 *destination = &region.Unknown00.Unknown04; *destination = primary_color;'),
+]
+env=os.environ.copy(); env['ENB_RETAIL_INSTALL']='/home/dev/Games/earth-and-beyond/prefix/drive_c/Program Files (x86)/EA GAMES/Earth & Beyond'
+exact=lambda rows:{a for r in rows if r['status']=='exact' for a in r['addresses']}
+baseline=exact(json.loads((work/'baseline_matches/000_baseline_avatar.json').read_text())); summary=[]
+for i,(a,b) in enumerate(forms):
+ d=work/('0810b_%02d'%i); d.mkdir(exist_ok=True); p=d/'avatar.cpp'; assert fn.count(a)>=1
+ p.write_text(src[:start]+fn.replace(a,b,1)+src[end:]); row={'old':a,'new':b,'source':str(p)}
+ try:
+  obj=fastbuild.compile_file(p,d); out=d/'match.json'
+  with (d/'match.log').open('w') as log:
+   r=subprocess.run(['/home/dev/Toolchains/enb-vc6-sp4/venv/bin/python',str(root/'tools/re/objmatch.py'),str(obj),'-q','--json',str(out)],stdout=log,stderr=log,env=env)
+  row['matcher_rc']=r.returncode
+  if not r.returncode:
+   found=exact(json.loads(out.read_text())); row.update(gains=sorted(found-baseline),losses=sorted(baseline-found),match=str(out))
+ except Exception as e: row['error']=str(e)
+ summary.append(row); (work/'0810b_manifest.json').write_text(json.dumps(summary,indent=2)+'\n')
+ print(i,row.get('gains'),row.get('losses'),row.get('error'),flush=True)
+
+
+### sweep_0810c.py
+from pathlib import Path
+import os,sys,subprocess,json
+root=Path('/home/dev/Projects/EnB'); work=root/'.work/claim-240/avatar'
+sys.path.insert(0,str(root/'.work/claim-234'))
+import fastbuild,appfile
+dirs=appfile.candidate_dirs; appfile.candidate_dirs=lambda:[root/'app/client']+dirs()
+src=(work/'avatar.cpp').read_text(); start=src.index('void CharacterViewAvatarClass::Unknown_780810(EnvironmentMapManagerClass *env_maps)'); end=src.index('\n}',start)+2; fn=src[start:end]
+copy='region.Unknown10 = secondary;'
+full='region.Unknown00.Unknown00 = primary_metal;\n\t\tregion.Unknown00.Unknown04 = primary_color;\n\t\tregion.Unknown10 = secondary;\n\t\tregions.push_back(region);'
+forms=[
+ ('static inline void Copy_First(ColorizationHalfStruct &out, const ColorizationHalfStruct &in) { out = in; }',copy,'Copy_First(region.Unknown10, secondary);'),
+ ('static inline void Copy_First(ColorizationHalfStruct *out, const ColorizationHalfStruct *in) { *out = *in; }',copy,'Copy_First(&region.Unknown10, &secondary);'),
+ ('static inline void Copy_First(ColorizationRegionStruct &out, const ColorizationHalfStruct &in) { out.Unknown10 = in; }',copy,'Copy_First(region, secondary);'),
+ ('static inline void Copy_First(ColorizationRegionStruct *out, const ColorizationHalfStruct &in) { out->Unknown10 = in; }',copy,'Copy_First(&region, secondary);'),
+ ('static inline void Add_First(std::vector<ColorizationRegionStruct> &regions, ColorizationRegionStruct &region, int metal, const Vector3 &color, const ColorizationHalfStruct &secondary) { region.Unknown00.Unknown00 = metal; region.Unknown00.Unknown04 = color; region.Unknown10 = secondary; regions.push_back(region); }',full,'Add_First(regions, region, primary_metal, primary_color, secondary);\n\t\t\n\t\t\n\t\t'),
+]
+env=os.environ.copy(); env['ENB_RETAIL_INSTALL']='/home/dev/Games/earth-and-beyond/prefix/drive_c/Program Files (x86)/EA GAMES/Earth & Beyond'
+exact=lambda rows:{a for r in rows if r['status']=='exact' for a in r['addresses']}
+baseline=exact(json.loads((work/'baseline_matches/000_baseline_avatar.json').read_text())); summary=[]
+for i,(helper,a,b) in enumerate(forms):
+ d=work/('0810c_%02d'%i); d.mkdir(exist_ok=True); p=d/'avatar.cpp'; assert fn.count(a)==2
+ # Replace the empty physical line before the function comment, keeping all later source lines fixed.
+ before=src[:start]; marker='// 0x780810: two colorization regions'
+ assert marker in before
+ before=before.replace('\n'+marker,'\n'+helper+'\n'+marker,1)
+ # Compensate for the added helper line with the immediately preceding blank line.
+ before=before.replace('\n\n'+helper,'\n'+helper,1)
+ p.write_text(before+fn.replace(a,b,1)+src[end:]); row={'helper':helper,'old':a,'new':b,'source':str(p)}
+ try:
+  obj=fastbuild.compile_file(p,d); out=d/'match.json'
+  with (d/'match.log').open('w') as log:
+   r=subprocess.run(['/home/dev/Toolchains/enb-vc6-sp4/venv/bin/python',str(root/'tools/re/objmatch.py'),str(obj),'-q','--json',str(out)],stdout=log,stderr=log,env=env)
+  row['matcher_rc']=r.returncode
+  if not r.returncode:
+   found=exact(json.loads(out.read_text())); row.update(gains=sorted(found-baseline),losses=sorted(baseline-found),match=str(out))
+ except Exception as e: row['error']=str(e)
+ summary.append(row); (work/'0810c_manifest.json').write_text(json.dumps(summary,indent=2)+'\n')
+ print(i,row.get('gains'),row.get('losses'),row.get('error'),flush=True)
+

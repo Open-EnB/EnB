@@ -1,0 +1,463 @@
+FORM inline_trig
+--- camctrl_takeoff.cpp
++++ inline_trig.cpp
+@@ -148,8 +148,8 @@
+ 				angle = WWMATH_PI - angle;
+ 			}
+ 			float dist = (Unknown_BDB1C0.Get_Float() * 7.0f + 10.0f) * distance;
+-			float s = sin(angle);
+-			float c = cos(angle);
++			float s = WWMath::Sin(angle);
++			float c = WWMath::Cos(angle);
+ 			Unknown0C->Position = lookat * Vector3(dist, c * 1.5f * distance, s * 1.5f * distance);
+ 			Unknown0C->Unknown_04();
+ 		}
+
+FORM interpolate_first
+--- camctrl_takeoff.cpp
++++ interpolate_first.cpp
+@@ -131,7 +131,7 @@
+ 		Quaternion q;
+ 		Slerp(q, Unknown3C, Unknown4C, t * t);
+ 		Matrix3D tm = Build_Matrix3D(q);
+-		Vector3 p = (Unknown30 - Unknown24) * t + Unknown24;
++		Vector3 p = Unknown24 + (Unknown30 - Unknown24) * t;
+ 		tm.Set_Translation(p);
+ 		if (ship->PositionalState && ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
+ 			((Unknown718D70Class *)ship->PositionalState)->Unknown_30(Client->Unknown10BC, tm);
+
+FORM other_expr_expr
+
+FORM other_expr_reverse
+--- camctrl_takeoff.cpp
++++ other_expr_reverse.cpp
+@@ -155,7 +155,7 @@
+ 		}
+ 		float t = (float)(elapsed - 2000) * 0.00033333333f;
+ 		Matrix3D tm = Build_Matrix3D(Unknown4C);
+-		Vector3 p = (Unknown18 - Unknown30) * t + Unknown30;
++		Vector3 p = Unknown30 + (Unknown18 - Unknown30) * t;
+ 		tm.Set_Translation(p);
+ 		if (ship->PositionalState && ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
+ 			((Unknown718D70Class *)ship->PositionalState)->Unknown_30(Client->Unknown10BC, tm);
+
+FORM other_expr_assign
+--- camctrl_takeoff.cpp
++++ other_expr_assign.cpp
+@@ -155,7 +155,7 @@
+ 		}
+ 		float t = (float)(elapsed - 2000) * 0.00033333333f;
+ 		Matrix3D tm = Build_Matrix3D(Unknown4C);
+-		Vector3 p = (Unknown18 - Unknown30) * t + Unknown30;
++		Vector3 p; p = (Unknown18 - Unknown30) * t + Unknown30;
+ 		tm.Set_Translation(p);
+ 		if (ship->PositionalState && ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
+ 			((Unknown718D70Class *)ship->PositionalState)->Unknown_30(Client->Unknown10BC, tm);
+
+FORM other_expr_compound
+--- camctrl_takeoff.cpp
++++ other_expr_compound.cpp
+@@ -155,7 +155,7 @@
+ 		}
+ 		float t = (float)(elapsed - 2000) * 0.00033333333f;
+ 		Matrix3D tm = Build_Matrix3D(Unknown4C);
+-		Vector3 p = (Unknown18 - Unknown30) * t + Unknown30;
++		Vector3 p = (Unknown18 - Unknown30) * t; p += Unknown30;
+ 		tm.Set_Translation(p);
+ 		if (ship->PositionalState && ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
+ 			((Unknown718D70Class *)ship->PositionalState)->Unknown_30(Client->Unknown10BC, tm);
+
+FORM other_reverse_expr
+--- camctrl_takeoff.cpp
++++ other_reverse_expr.cpp
+@@ -131,7 +131,7 @@
+ 		Quaternion q;
+ 		Slerp(q, Unknown3C, Unknown4C, t * t);
+ 		Matrix3D tm = Build_Matrix3D(q);
+-		Vector3 p = (Unknown30 - Unknown24) * t + Unknown24;
++		Vector3 p = Unknown24 + (Unknown30 - Unknown24) * t;
+ 		tm.Set_Translation(p);
+ 		if (ship->PositionalState && ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
+ 			((Unknown718D70Class *)ship->PositionalState)->Unknown_30(Client->Unknown10BC, tm);
+
+FORM other_reverse_assign
+--- camctrl_takeoff.cpp
++++ other_reverse_assign.cpp
+@@ -131,7 +131,7 @@
+ 		Quaternion q;
+ 		Slerp(q, Unknown3C, Unknown4C, t * t);
+ 		Matrix3D tm = Build_Matrix3D(q);
+-		Vector3 p = (Unknown30 - Unknown24) * t + Unknown24;
++		Vector3 p = Unknown24 + (Unknown30 - Unknown24) * t;
+ 		tm.Set_Translation(p);
+ 		if (ship->PositionalState && ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
+ 			((Unknown718D70Class *)ship->PositionalState)->Unknown_30(Client->Unknown10BC, tm);
+@@ -155,7 +155,7 @@
+ 		}
+ 		float t = (float)(elapsed - 2000) * 0.00033333333f;
+ 		Matrix3D tm = Build_Matrix3D(Unknown4C);
+-		Vector3 p = (Unknown18 - Unknown30) * t + Unknown30;
++		Vector3 p; p = (Unknown18 - Unknown30) * t + Unknown30;
+ 		tm.Set_Translation(p);
+ 		if (ship->PositionalState && ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
+ 			((Unknown718D70Class *)ship->PositionalState)->Unknown_30(Client->Unknown10BC, tm);
+
+FORM other_reverse_reverse
+--- camctrl_takeoff.cpp
++++ other_reverse_reverse.cpp
+@@ -131,7 +131,7 @@
+ 		Quaternion q;
+ 		Slerp(q, Unknown3C, Unknown4C, t * t);
+ 		Matrix3D tm = Build_Matrix3D(q);
+-		Vector3 p = (Unknown30 - Unknown24) * t + Unknown24;
++		Vector3 p = Unknown24 + (Unknown30 - Unknown24) * t;
+ 		tm.Set_Translation(p);
+ 		if (ship->PositionalState && ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
+ 			((Unknown718D70Class *)ship->PositionalState)->Unknown_30(Client->Unknown10BC, tm);
+@@ -155,7 +155,7 @@
+ 		}
+ 		float t = (float)(elapsed - 2000) * 0.00033333333f;
+ 		Matrix3D tm = Build_Matrix3D(Unknown4C);
+-		Vector3 p = (Unknown18 - Unknown30) * t + Unknown30;
++		Vector3 p = Unknown30 + (Unknown18 - Unknown30) * t;
+ 		tm.Set_Translation(p);
+ 		if (ship->PositionalState && ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
+ 			((Unknown718D70Class *)ship->PositionalState)->Unknown_30(Client->Unknown10BC, tm);
+
+FORM other_reverse_compound
+--- camctrl_takeoff.cpp
++++ other_reverse_compound.cpp
+@@ -131,7 +131,7 @@
+ 		Quaternion q;
+ 		Slerp(q, Unknown3C, Unknown4C, t * t);
+ 		Matrix3D tm = Build_Matrix3D(q);
+-		Vector3 p = (Unknown30 - Unknown24) * t + Unknown24;
++		Vector3 p = Unknown24 + (Unknown30 - Unknown24) * t;
+ 		tm.Set_Translation(p);
+ 		if (ship->PositionalState && ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
+ 			((Unknown718D70Class *)ship->PositionalState)->Unknown_30(Client->Unknown10BC, tm);
+@@ -155,7 +155,7 @@
+ 		}
+ 		float t = (float)(elapsed - 2000) * 0.00033333333f;
+ 		Matrix3D tm = Build_Matrix3D(Unknown4C);
+-		Vector3 p = (Unknown18 - Unknown30) * t + Unknown30;
++		Vector3 p = (Unknown18 - Unknown30) * t; p += Unknown30;
+ 		tm.Set_Translation(p);
+ 		if (ship->PositionalState && ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
+ 			((Unknown718D70Class *)ship->PositionalState)->Unknown_30(Client->Unknown10BC, tm);
+
+FORM other_assign_expr
+--- camctrl_takeoff.cpp
++++ other_assign_expr.cpp
+@@ -131,7 +131,7 @@
+ 		Quaternion q;
+ 		Slerp(q, Unknown3C, Unknown4C, t * t);
+ 		Matrix3D tm = Build_Matrix3D(q);
+-		Vector3 p = (Unknown30 - Unknown24) * t + Unknown24;
++		Vector3 p; p = (Unknown30 - Unknown24) * t + Unknown24;
+ 		tm.Set_Translation(p);
+ 		if (ship->PositionalState && ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
+ 			((Unknown718D70Class *)ship->PositionalState)->Unknown_30(Client->Unknown10BC, tm);
+
+FORM other_assign_reverse
+--- camctrl_takeoff.cpp
++++ other_assign_reverse.cpp
+@@ -131,7 +131,7 @@
+ 		Quaternion q;
+ 		Slerp(q, Unknown3C, Unknown4C, t * t);
+ 		Matrix3D tm = Build_Matrix3D(q);
+-		Vector3 p = (Unknown30 - Unknown24) * t + Unknown24;
++		Vector3 p; p = (Unknown30 - Unknown24) * t + Unknown24;
+ 		tm.Set_Translation(p);
+ 		if (ship->PositionalState && ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
+ 			((Unknown718D70Class *)ship->PositionalState)->Unknown_30(Client->Unknown10BC, tm);
+@@ -155,7 +155,7 @@
+ 		}
+ 		float t = (float)(elapsed - 2000) * 0.00033333333f;
+ 		Matrix3D tm = Build_Matrix3D(Unknown4C);
+-		Vector3 p = (Unknown18 - Unknown30) * t + Unknown30;
++		Vector3 p = Unknown30 + (Unknown18 - Unknown30) * t;
+ 		tm.Set_Translation(p);
+ 		if (ship->PositionalState && ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
+ 			((Unknown718D70Class *)ship->PositionalState)->Unknown_30(Client->Unknown10BC, tm);
+
+FORM other_assign_assign
+--- camctrl_takeoff.cpp
++++ other_assign_assign.cpp
+@@ -131,7 +131,7 @@
+ 		Quaternion q;
+ 		Slerp(q, Unknown3C, Unknown4C, t * t);
+ 		Matrix3D tm = Build_Matrix3D(q);
+-		Vector3 p = (Unknown30 - Unknown24) * t + Unknown24;
++		Vector3 p; p = (Unknown30 - Unknown24) * t + Unknown24;
+ 		tm.Set_Translation(p);
+ 		if (ship->PositionalState && ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
+ 			((Unknown718D70Class *)ship->PositionalState)->Unknown_30(Client->Unknown10BC, tm);
+@@ -155,7 +155,7 @@
+ 		}
+ 		float t = (float)(elapsed - 2000) * 0.00033333333f;
+ 		Matrix3D tm = Build_Matrix3D(Unknown4C);
+-		Vector3 p = (Unknown18 - Unknown30) * t + Unknown30;
++		Vector3 p; p = (Unknown18 - Unknown30) * t + Unknown30;
+ 		tm.Set_Translation(p);
+ 		if (ship->PositionalState && ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
+ 			((Unknown718D70Class *)ship->PositionalState)->Unknown_30(Client->Unknown10BC, tm);
+
+FORM other_assign_compound
+--- camctrl_takeoff.cpp
++++ other_assign_compound.cpp
+@@ -131,7 +131,7 @@
+ 		Quaternion q;
+ 		Slerp(q, Unknown3C, Unknown4C, t * t);
+ 		Matrix3D tm = Build_Matrix3D(q);
+-		Vector3 p = (Unknown30 - Unknown24) * t + Unknown24;
++		Vector3 p; p = (Unknown30 - Unknown24) * t + Unknown24;
+ 		tm.Set_Translation(p);
+ 		if (ship->PositionalState && ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
+ 			((Unknown718D70Class *)ship->PositionalState)->Unknown_30(Client->Unknown10BC, tm);
+@@ -155,7 +155,7 @@
+ 		}
+ 		float t = (float)(elapsed - 2000) * 0.00033333333f;
+ 		Matrix3D tm = Build_Matrix3D(Unknown4C);
+-		Vector3 p = (Unknown18 - Unknown30) * t + Unknown30;
++		Vector3 p = (Unknown18 - Unknown30) * t; p += Unknown30;
+ 		tm.Set_Translation(p);
+ 		if (ship->PositionalState && ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
+ 			((Unknown718D70Class *)ship->PositionalState)->Unknown_30(Client->Unknown10BC, tm);
+
+FORM other_compound_expr
+--- camctrl_takeoff.cpp
++++ other_compound_expr.cpp
+@@ -131,7 +131,7 @@
+ 		Quaternion q;
+ 		Slerp(q, Unknown3C, Unknown4C, t * t);
+ 		Matrix3D tm = Build_Matrix3D(q);
+-		Vector3 p = (Unknown30 - Unknown24) * t + Unknown24;
++		Vector3 p = (Unknown30 - Unknown24) * t; p += Unknown24;
+ 		tm.Set_Translation(p);
+ 		if (ship->PositionalState && ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
+ 			((Unknown718D70Class *)ship->PositionalState)->Unknown_30(Client->Unknown10BC, tm);
+
+FORM other_compound_reverse
+--- camctrl_takeoff.cpp
++++ other_compound_reverse.cpp
+@@ -131,7 +131,7 @@
+ 		Quaternion q;
+ 		Slerp(q, Unknown3C, Unknown4C, t * t);
+ 		Matrix3D tm = Build_Matrix3D(q);
+-		Vector3 p = (Unknown30 - Unknown24) * t + Unknown24;
++		Vector3 p = (Unknown30 - Unknown24) * t; p += Unknown24;
+ 		tm.Set_Translation(p);
+ 		if (ship->PositionalState && ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
+ 			((Unknown718D70Class *)ship->PositionalState)->Unknown_30(Client->Unknown10BC, tm);
+@@ -155,7 +155,7 @@
+ 		}
+ 		float t = (float)(elapsed - 2000) * 0.00033333333f;
+ 		Matrix3D tm = Build_Matrix3D(Unknown4C);
+-		Vector3 p = (Unknown18 - Unknown30) * t + Unknown30;
++		Vector3 p = Unknown30 + (Unknown18 - Unknown30) * t;
+ 		tm.Set_Translation(p);
+ 		if (ship->PositionalState && ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
+ 			((Unknown718D70Class *)ship->PositionalState)->Unknown_30(Client->Unknown10BC, tm);
+
+FORM other_compound_assign
+--- camctrl_takeoff.cpp
++++ other_compound_assign.cpp
+@@ -131,7 +131,7 @@
+ 		Quaternion q;
+ 		Slerp(q, Unknown3C, Unknown4C, t * t);
+ 		Matrix3D tm = Build_Matrix3D(q);
+-		Vector3 p = (Unknown30 - Unknown24) * t + Unknown24;
++		Vector3 p = (Unknown30 - Unknown24) * t; p += Unknown24;
+ 		tm.Set_Translation(p);
+ 		if (ship->PositionalState && ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
+ 			((Unknown718D70Class *)ship->PositionalState)->Unknown_30(Client->Unknown10BC, tm);
+@@ -155,7 +155,7 @@
+ 		}
+ 		float t = (float)(elapsed - 2000) * 0.00033333333f;
+ 		Matrix3D tm = Build_Matrix3D(Unknown4C);
+-		Vector3 p = (Unknown18 - Unknown30) * t + Unknown30;
++		Vector3 p; p = (Unknown18 - Unknown30) * t + Unknown30;
+ 		tm.Set_Translation(p);
+ 		if (ship->PositionalState && ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
+ 			((Unknown718D70Class *)ship->PositionalState)->Unknown_30(Client->Unknown10BC, tm);
+
+FORM other_compound_compound
+--- camctrl_takeoff.cpp
++++ other_compound_compound.cpp
+@@ -131,7 +131,7 @@
+ 		Quaternion q;
+ 		Slerp(q, Unknown3C, Unknown4C, t * t);
+ 		Matrix3D tm = Build_Matrix3D(q);
+-		Vector3 p = (Unknown30 - Unknown24) * t + Unknown24;
++		Vector3 p = (Unknown30 - Unknown24) * t; p += Unknown24;
+ 		tm.Set_Translation(p);
+ 		if (ship->PositionalState && ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
+ 			((Unknown718D70Class *)ship->PositionalState)->Unknown_30(Client->Unknown10BC, tm);
+@@ -155,7 +155,7 @@
+ 		}
+ 		float t = (float)(elapsed - 2000) * 0.00033333333f;
+ 		Matrix3D tm = Build_Matrix3D(Unknown4C);
+-		Vector3 p = (Unknown18 - Unknown30) * t + Unknown30;
++		Vector3 p = (Unknown18 - Unknown30) * t; p += Unknown30;
+ 		tm.Set_Translation(p);
+ 		if (ship->PositionalState && ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
+ 			((Unknown718D70Class *)ship->PositionalState)->Unknown_30(Client->Unknown10BC, tm);
+
+FORM deep_copy_expr
+
+FORM deep_copy_ctor
+--- camctrl_takeoff.cpp
++++ deep_copy_ctor.cpp
+@@ -131,7 +131,7 @@
+ 		Quaternion q;
+ 		Slerp(q, Unknown3C, Unknown4C, t * t);
+ 		Matrix3D tm = Build_Matrix3D(q);
+-		Vector3 p = (Unknown30 - Unknown24) * t + Unknown24;
++		Vector3 p((Unknown30 - Unknown24) * t + Unknown24);
+ 		tm.Set_Translation(p);
+ 		if (ship->PositionalState && ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
+ 			((Unknown718D70Class *)ship->PositionalState)->Unknown_30(Client->Unknown10BC, tm);
+
+FORM deep_copy_assign
+--- camctrl_takeoff.cpp
++++ deep_copy_assign.cpp
+@@ -131,7 +131,7 @@
+ 		Quaternion q;
+ 		Slerp(q, Unknown3C, Unknown4C, t * t);
+ 		Matrix3D tm = Build_Matrix3D(q);
+-		Vector3 p = (Unknown30 - Unknown24) * t + Unknown24;
++		Vector3 p; p = (Unknown30 - Unknown24) * t + Unknown24;
+ 		tm.Set_Translation(p);
+ 		if (ship->PositionalState && ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
+ 			((Unknown718D70Class *)ship->PositionalState)->Unknown_30(Client->Unknown10BC, tm);
+
+FORM deep_copy_compound
+--- camctrl_takeoff.cpp
++++ deep_copy_compound.cpp
+@@ -131,7 +131,7 @@
+ 		Quaternion q;
+ 		Slerp(q, Unknown3C, Unknown4C, t * t);
+ 		Matrix3D tm = Build_Matrix3D(q);
+-		Vector3 p = (Unknown30 - Unknown24) * t + Unknown24;
++		Vector3 p = (Unknown30 - Unknown24) * t; p += Unknown24;
+ 		tm.Set_Translation(p);
+ 		if (ship->PositionalState && ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
+ 			((Unknown718D70Class *)ship->PositionalState)->Unknown_30(Client->Unknown10BC, tm);
+
+FORM deep_ctor_ctor
+--- camctrl_takeoff.cpp
++++ deep_ctor_ctor.cpp
+@@ -130,8 +130,8 @@
+ 		float t = (float)elapsed * 0.0005f;
+ 		Quaternion q;
+ 		Slerp(q, Unknown3C, Unknown4C, t * t);
+-		Matrix3D tm = Build_Matrix3D(q);
+-		Vector3 p = (Unknown30 - Unknown24) * t + Unknown24;
++		Matrix3D tm(Build_Matrix3D(q));
++		Vector3 p((Unknown30 - Unknown24) * t + Unknown24);
+ 		tm.Set_Translation(p);
+ 		if (ship->PositionalState && ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
+ 			((Unknown718D70Class *)ship->PositionalState)->Unknown_30(Client->Unknown10BC, tm);
+
+FORM deep_ctor_expr
+--- camctrl_takeoff.cpp
++++ deep_ctor_expr.cpp
+@@ -130,7 +130,7 @@
+ 		float t = (float)elapsed * 0.0005f;
+ 		Quaternion q;
+ 		Slerp(q, Unknown3C, Unknown4C, t * t);
+-		Matrix3D tm = Build_Matrix3D(q);
++		Matrix3D tm(Build_Matrix3D(q));
+ 		Vector3 p = (Unknown30 - Unknown24) * t + Unknown24;
+ 		tm.Set_Translation(p);
+ 		if (ship->PositionalState && ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
+
+FORM deep_ctor_assign
+--- camctrl_takeoff.cpp
++++ deep_ctor_assign.cpp
+@@ -130,8 +130,8 @@
+ 		float t = (float)elapsed * 0.0005f;
+ 		Quaternion q;
+ 		Slerp(q, Unknown3C, Unknown4C, t * t);
+-		Matrix3D tm = Build_Matrix3D(q);
+-		Vector3 p = (Unknown30 - Unknown24) * t + Unknown24;
++		Matrix3D tm(Build_Matrix3D(q));
++		Vector3 p; p = (Unknown30 - Unknown24) * t + Unknown24;
+ 		tm.Set_Translation(p);
+ 		if (ship->PositionalState && ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
+ 			((Unknown718D70Class *)ship->PositionalState)->Unknown_30(Client->Unknown10BC, tm);
+
+FORM deep_ctor_compound
+--- camctrl_takeoff.cpp
++++ deep_ctor_compound.cpp
+@@ -130,8 +130,8 @@
+ 		float t = (float)elapsed * 0.0005f;
+ 		Quaternion q;
+ 		Slerp(q, Unknown3C, Unknown4C, t * t);
+-		Matrix3D tm = Build_Matrix3D(q);
+-		Vector3 p = (Unknown30 - Unknown24) * t + Unknown24;
++		Matrix3D tm(Build_Matrix3D(q));
++		Vector3 p = (Unknown30 - Unknown24) * t; p += Unknown24;
+ 		tm.Set_Translation(p);
+ 		if (ship->PositionalState && ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
+ 			((Unknown718D70Class *)ship->PositionalState)->Unknown_30(Client->Unknown10BC, tm);
+
+FORM deep_assign_expr
+--- camctrl_takeoff.cpp
++++ deep_assign_expr.cpp
+@@ -130,7 +130,7 @@
+ 		float t = (float)elapsed * 0.0005f;
+ 		Quaternion q;
+ 		Slerp(q, Unknown3C, Unknown4C, t * t);
+-		Matrix3D tm = Build_Matrix3D(q);
++		Matrix3D tm; tm = Build_Matrix3D(q);
+ 		Vector3 p = (Unknown30 - Unknown24) * t + Unknown24;
+ 		tm.Set_Translation(p);
+ 		if (ship->PositionalState && ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
+
+FORM deep_assign_assign
+--- camctrl_takeoff.cpp
++++ deep_assign_assign.cpp
+@@ -130,8 +130,8 @@
+ 		float t = (float)elapsed * 0.0005f;
+ 		Quaternion q;
+ 		Slerp(q, Unknown3C, Unknown4C, t * t);
+-		Matrix3D tm = Build_Matrix3D(q);
+-		Vector3 p = (Unknown30 - Unknown24) * t + Unknown24;
++		Matrix3D tm; tm = Build_Matrix3D(q);
++		Vector3 p; p = (Unknown30 - Unknown24) * t + Unknown24;
+ 		tm.Set_Translation(p);
+ 		if (ship->PositionalState && ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
+ 			((Unknown718D70Class *)ship->PositionalState)->Unknown_30(Client->Unknown10BC, tm);
+
+FORM deep_assign_ctor
+--- camctrl_takeoff.cpp
++++ deep_assign_ctor.cpp
+@@ -130,8 +130,8 @@
+ 		float t = (float)elapsed * 0.0005f;
+ 		Quaternion q;
+ 		Slerp(q, Unknown3C, Unknown4C, t * t);
+-		Matrix3D tm = Build_Matrix3D(q);
+-		Vector3 p = (Unknown30 - Unknown24) * t + Unknown24;
++		Matrix3D tm; tm = Build_Matrix3D(q);
++		Vector3 p((Unknown30 - Unknown24) * t + Unknown24);
+ 		tm.Set_Translation(p);
+ 		if (ship->PositionalState && ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
+ 			((Unknown718D70Class *)ship->PositionalState)->Unknown_30(Client->Unknown10BC, tm);
+
+FORM deep_assign_compound
+--- camctrl_takeoff.cpp
++++ deep_assign_compound.cpp
+@@ -130,8 +130,8 @@
+ 		float t = (float)elapsed * 0.0005f;
+ 		Quaternion q;
+ 		Slerp(q, Unknown3C, Unknown4C, t * t);
+-		Matrix3D tm = Build_Matrix3D(q);
+-		Vector3 p = (Unknown30 - Unknown24) * t + Unknown24;
++		Matrix3D tm; tm = Build_Matrix3D(q);
++		Vector3 p = (Unknown30 - Unknown24) * t; p += Unknown24;
+ 		tm.Set_Translation(p);
+ 		if (ship->PositionalState && ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
+ 			((Unknown718D70Class *)ship->PositionalState)->Unknown_30(Client->Unknown10BC, tm);
+

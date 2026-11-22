@@ -1,0 +1,418 @@
+FORM pos_difference
+--- camctrl_land.cpp
++++ pos_difference.cpp
+@@ -124,7 +124,7 @@
+ 	Vector3 target_pos = target->Unknown_24();
+ 	Vector3 ship_pos = ship->Unknown_24();
+ 	float radius = target->Unknown_30();
+-	Vector3 dir = ship_pos - target_pos;
++	Vector3 dir(ship_pos); dir -= target_pos;
+ 	dir.Normalize();
+ 	Vector3 side = Vector3::Cross_Product(Vector3(0.0f, 0.0f, 1.0f), dir);
+ 	Vector3 up = Vector3::Cross_Product(dir, side);
+
+FORM cross_order
+--- camctrl_land.cpp
++++ cross_order.cpp
+@@ -131,7 +131,7 @@
+ 	if (Unknown_BDB1C0(0, 1)) {
+ 		side = -side;
+ 	}
+-	Vector3 offset = (side + up) * radius * 0.5f;
++	Vector3 offset = (up + side) * radius * 0.5f;
+ 	Vector3 from = target_pos + dir * radius * 0.5f;
+ 	Vector3 to = target_pos + offset;
+ 	tm.Look_At(from, to, 0.0f);
+
+FORM other_subtract_expr
+
+FORM other_subtract_reverse
+--- camctrl_land.cpp
++++ other_subtract_reverse.cpp
+@@ -132,7 +132,7 @@
+ 		side = -side;
+ 	}
+ 	Vector3 offset = (side + up) * radius * 0.5f;
+-	Vector3 from = target_pos + dir * radius * 0.5f;
++	Vector3 from = dir * radius * 0.5f + target_pos;
+ 	Vector3 to = target_pos + offset;
+ 	tm.Look_At(from, to, 0.0f);
+ 	Unknown0C->Unknown08 = tm;
+
+FORM other_subtract_compound
+--- camctrl_land.cpp
++++ other_subtract_compound.cpp
+@@ -132,7 +132,7 @@
+ 		side = -side;
+ 	}
+ 	Vector3 offset = (side + up) * radius * 0.5f;
+-	Vector3 from = target_pos + dir * radius * 0.5f;
++	Vector3 from = dir * radius * 0.5f; from += target_pos;
+ 	Vector3 to = target_pos + offset;
+ 	tm.Look_At(from, to, 0.0f);
+ 	Unknown0C->Unknown08 = tm;
+
+FORM other_subtract_assign
+--- camctrl_land.cpp
++++ other_subtract_assign.cpp
+@@ -132,7 +132,7 @@
+ 		side = -side;
+ 	}
+ 	Vector3 offset = (side + up) * radius * 0.5f;
+-	Vector3 from = target_pos + dir * radius * 0.5f;
++	Vector3 from; from = target_pos + dir * radius * 0.5f;
+ 	Vector3 to = target_pos + offset;
+ 	tm.Look_At(from, to, 0.0f);
+ 	Unknown0C->Unknown08 = tm;
+
+FORM other_compound_expr
+--- camctrl_land.cpp
++++ other_compound_expr.cpp
+@@ -124,7 +124,7 @@
+ 	Vector3 target_pos = target->Unknown_24();
+ 	Vector3 ship_pos = ship->Unknown_24();
+ 	float radius = target->Unknown_30();
+-	Vector3 dir = ship_pos - target_pos;
++	Vector3 dir(ship_pos); dir -= target_pos;
+ 	dir.Normalize();
+ 	Vector3 side = Vector3::Cross_Product(Vector3(0.0f, 0.0f, 1.0f), dir);
+ 	Vector3 up = Vector3::Cross_Product(dir, side);
+
+FORM other_compound_reverse
+--- camctrl_land.cpp
++++ other_compound_reverse.cpp
+@@ -124,7 +124,7 @@
+ 	Vector3 target_pos = target->Unknown_24();
+ 	Vector3 ship_pos = ship->Unknown_24();
+ 	float radius = target->Unknown_30();
+-	Vector3 dir = ship_pos - target_pos;
++	Vector3 dir(ship_pos); dir -= target_pos;
+ 	dir.Normalize();
+ 	Vector3 side = Vector3::Cross_Product(Vector3(0.0f, 0.0f, 1.0f), dir);
+ 	Vector3 up = Vector3::Cross_Product(dir, side);
+@@ -132,7 +132,7 @@
+ 		side = -side;
+ 	}
+ 	Vector3 offset = (side + up) * radius * 0.5f;
+-	Vector3 from = target_pos + dir * radius * 0.5f;
++	Vector3 from = dir * radius * 0.5f + target_pos;
+ 	Vector3 to = target_pos + offset;
+ 	tm.Look_At(from, to, 0.0f);
+ 	Unknown0C->Unknown08 = tm;
+
+FORM other_compound_compound
+--- camctrl_land.cpp
++++ other_compound_compound.cpp
+@@ -124,7 +124,7 @@
+ 	Vector3 target_pos = target->Unknown_24();
+ 	Vector3 ship_pos = ship->Unknown_24();
+ 	float radius = target->Unknown_30();
+-	Vector3 dir = ship_pos - target_pos;
++	Vector3 dir(ship_pos); dir -= target_pos;
+ 	dir.Normalize();
+ 	Vector3 side = Vector3::Cross_Product(Vector3(0.0f, 0.0f, 1.0f), dir);
+ 	Vector3 up = Vector3::Cross_Product(dir, side);
+@@ -132,7 +132,7 @@
+ 		side = -side;
+ 	}
+ 	Vector3 offset = (side + up) * radius * 0.5f;
+-	Vector3 from = target_pos + dir * radius * 0.5f;
++	Vector3 from = dir * radius * 0.5f; from += target_pos;
+ 	Vector3 to = target_pos + offset;
+ 	tm.Look_At(from, to, 0.0f);
+ 	Unknown0C->Unknown08 = tm;
+
+FORM other_compound_assign
+--- camctrl_land.cpp
++++ other_compound_assign.cpp
+@@ -124,7 +124,7 @@
+ 	Vector3 target_pos = target->Unknown_24();
+ 	Vector3 ship_pos = ship->Unknown_24();
+ 	float radius = target->Unknown_30();
+-	Vector3 dir = ship_pos - target_pos;
++	Vector3 dir(ship_pos); dir -= target_pos;
+ 	dir.Normalize();
+ 	Vector3 side = Vector3::Cross_Product(Vector3(0.0f, 0.0f, 1.0f), dir);
+ 	Vector3 up = Vector3::Cross_Product(dir, side);
+@@ -132,7 +132,7 @@
+ 		side = -side;
+ 	}
+ 	Vector3 offset = (side + up) * radius * 0.5f;
+-	Vector3 from = target_pos + dir * radius * 0.5f;
++	Vector3 from; from = target_pos + dir * radius * 0.5f;
+ 	Vector3 to = target_pos + offset;
+ 	tm.Look_At(from, to, 0.0f);
+ 	Unknown0C->Unknown08 = tm;
+
+FORM other_assign_expr
+--- camctrl_land.cpp
++++ other_assign_expr.cpp
+@@ -124,7 +124,7 @@
+ 	Vector3 target_pos = target->Unknown_24();
+ 	Vector3 ship_pos = ship->Unknown_24();
+ 	float radius = target->Unknown_30();
+-	Vector3 dir = ship_pos - target_pos;
++	Vector3 dir; dir = ship_pos - target_pos;
+ 	dir.Normalize();
+ 	Vector3 side = Vector3::Cross_Product(Vector3(0.0f, 0.0f, 1.0f), dir);
+ 	Vector3 up = Vector3::Cross_Product(dir, side);
+
+FORM other_assign_reverse
+--- camctrl_land.cpp
++++ other_assign_reverse.cpp
+@@ -124,7 +124,7 @@
+ 	Vector3 target_pos = target->Unknown_24();
+ 	Vector3 ship_pos = ship->Unknown_24();
+ 	float radius = target->Unknown_30();
+-	Vector3 dir = ship_pos - target_pos;
++	Vector3 dir; dir = ship_pos - target_pos;
+ 	dir.Normalize();
+ 	Vector3 side = Vector3::Cross_Product(Vector3(0.0f, 0.0f, 1.0f), dir);
+ 	Vector3 up = Vector3::Cross_Product(dir, side);
+@@ -132,7 +132,7 @@
+ 		side = -side;
+ 	}
+ 	Vector3 offset = (side + up) * radius * 0.5f;
+-	Vector3 from = target_pos + dir * radius * 0.5f;
++	Vector3 from = dir * radius * 0.5f + target_pos;
+ 	Vector3 to = target_pos + offset;
+ 	tm.Look_At(from, to, 0.0f);
+ 	Unknown0C->Unknown08 = tm;
+
+FORM other_assign_compound
+--- camctrl_land.cpp
++++ other_assign_compound.cpp
+@@ -124,7 +124,7 @@
+ 	Vector3 target_pos = target->Unknown_24();
+ 	Vector3 ship_pos = ship->Unknown_24();
+ 	float radius = target->Unknown_30();
+-	Vector3 dir = ship_pos - target_pos;
++	Vector3 dir; dir = ship_pos - target_pos;
+ 	dir.Normalize();
+ 	Vector3 side = Vector3::Cross_Product(Vector3(0.0f, 0.0f, 1.0f), dir);
+ 	Vector3 up = Vector3::Cross_Product(dir, side);
+@@ -132,7 +132,7 @@
+ 		side = -side;
+ 	}
+ 	Vector3 offset = (side + up) * radius * 0.5f;
+-	Vector3 from = target_pos + dir * radius * 0.5f;
++	Vector3 from = dir * radius * 0.5f; from += target_pos;
+ 	Vector3 to = target_pos + offset;
+ 	tm.Look_At(from, to, 0.0f);
+ 	Unknown0C->Unknown08 = tm;
+
+FORM other_assign_assign
+--- camctrl_land.cpp
++++ other_assign_assign.cpp
+@@ -124,7 +124,7 @@
+ 	Vector3 target_pos = target->Unknown_24();
+ 	Vector3 ship_pos = ship->Unknown_24();
+ 	float radius = target->Unknown_30();
+-	Vector3 dir = ship_pos - target_pos;
++	Vector3 dir; dir = ship_pos - target_pos;
+ 	dir.Normalize();
+ 	Vector3 side = Vector3::Cross_Product(Vector3(0.0f, 0.0f, 1.0f), dir);
+ 	Vector3 up = Vector3::Cross_Product(dir, side);
+@@ -132,7 +132,7 @@
+ 		side = -side;
+ 	}
+ 	Vector3 offset = (side + up) * radius * 0.5f;
+-	Vector3 from = target_pos + dir * radius * 0.5f;
++	Vector3 from; from = target_pos + dir * radius * 0.5f;
+ 	Vector3 to = target_pos + offset;
+ 	tm.Look_At(from, to, 0.0f);
+ 	Unknown0C->Unknown08 = tm;
+
+FORM other_ctor_expr
+--- camctrl_land.cpp
++++ other_ctor_expr.cpp
+@@ -124,7 +124,7 @@
+ 	Vector3 target_pos = target->Unknown_24();
+ 	Vector3 ship_pos = ship->Unknown_24();
+ 	float radius = target->Unknown_30();
+-	Vector3 dir = ship_pos - target_pos;
++	Vector3 dir(ship_pos - target_pos);
+ 	dir.Normalize();
+ 	Vector3 side = Vector3::Cross_Product(Vector3(0.0f, 0.0f, 1.0f), dir);
+ 	Vector3 up = Vector3::Cross_Product(dir, side);
+
+FORM other_ctor_reverse
+--- camctrl_land.cpp
++++ other_ctor_reverse.cpp
+@@ -124,7 +124,7 @@
+ 	Vector3 target_pos = target->Unknown_24();
+ 	Vector3 ship_pos = ship->Unknown_24();
+ 	float radius = target->Unknown_30();
+-	Vector3 dir = ship_pos - target_pos;
++	Vector3 dir(ship_pos - target_pos);
+ 	dir.Normalize();
+ 	Vector3 side = Vector3::Cross_Product(Vector3(0.0f, 0.0f, 1.0f), dir);
+ 	Vector3 up = Vector3::Cross_Product(dir, side);
+@@ -132,7 +132,7 @@
+ 		side = -side;
+ 	}
+ 	Vector3 offset = (side + up) * radius * 0.5f;
+-	Vector3 from = target_pos + dir * radius * 0.5f;
++	Vector3 from = dir * radius * 0.5f + target_pos;
+ 	Vector3 to = target_pos + offset;
+ 	tm.Look_At(from, to, 0.0f);
+ 	Unknown0C->Unknown08 = tm;
+
+FORM other_ctor_compound
+--- camctrl_land.cpp
++++ other_ctor_compound.cpp
+@@ -124,7 +124,7 @@
+ 	Vector3 target_pos = target->Unknown_24();
+ 	Vector3 ship_pos = ship->Unknown_24();
+ 	float radius = target->Unknown_30();
+-	Vector3 dir = ship_pos - target_pos;
++	Vector3 dir(ship_pos - target_pos);
+ 	dir.Normalize();
+ 	Vector3 side = Vector3::Cross_Product(Vector3(0.0f, 0.0f, 1.0f), dir);
+ 	Vector3 up = Vector3::Cross_Product(dir, side);
+@@ -132,7 +132,7 @@
+ 		side = -side;
+ 	}
+ 	Vector3 offset = (side + up) * radius * 0.5f;
+-	Vector3 from = target_pos + dir * radius * 0.5f;
++	Vector3 from = dir * radius * 0.5f; from += target_pos;
+ 	Vector3 to = target_pos + offset;
+ 	tm.Look_At(from, to, 0.0f);
+ 	Unknown0C->Unknown08 = tm;
+
+FORM other_ctor_assign
+--- camctrl_land.cpp
++++ other_ctor_assign.cpp
+@@ -124,7 +124,7 @@
+ 	Vector3 target_pos = target->Unknown_24();
+ 	Vector3 ship_pos = ship->Unknown_24();
+ 	float radius = target->Unknown_30();
+-	Vector3 dir = ship_pos - target_pos;
++	Vector3 dir(ship_pos - target_pos);
+ 	dir.Normalize();
+ 	Vector3 side = Vector3::Cross_Product(Vector3(0.0f, 0.0f, 1.0f), dir);
+ 	Vector3 up = Vector3::Cross_Product(dir, side);
+@@ -132,7 +132,7 @@
+ 		side = -side;
+ 	}
+ 	Vector3 offset = (side + up) * radius * 0.5f;
+-	Vector3 from = target_pos + dir * radius * 0.5f;
++	Vector3 from; from = target_pos + dir * radius * 0.5f;
+ 	Vector3 to = target_pos + offset;
+ 	tm.Look_At(from, to, 0.0f);
+ 	Unknown0C->Unknown08 = tm;
+
+FORM deep_copy_copy
+
+FORM deep_copy_ctor
+--- camctrl_land.cpp
++++ deep_copy_ctor.cpp
+@@ -127,7 +127,7 @@
+ 	Vector3 dir = ship_pos - target_pos;
+ 	dir.Normalize();
+ 	Vector3 side = Vector3::Cross_Product(Vector3(0.0f, 0.0f, 1.0f), dir);
+-	Vector3 up = Vector3::Cross_Product(dir, side);
++	Vector3 up(Vector3::Cross_Product(dir, side));
+ 	if (Unknown_BDB1C0(0, 1)) {
+ 		side = -side;
+ 	}
+
+FORM deep_copy_assign
+--- camctrl_land.cpp
++++ deep_copy_assign.cpp
+@@ -127,7 +127,7 @@
+ 	Vector3 dir = ship_pos - target_pos;
+ 	dir.Normalize();
+ 	Vector3 side = Vector3::Cross_Product(Vector3(0.0f, 0.0f, 1.0f), dir);
+-	Vector3 up = Vector3::Cross_Product(dir, side);
++	Vector3 up; up = Vector3::Cross_Product(dir, side);
+ 	if (Unknown_BDB1C0(0, 1)) {
+ 		side = -side;
+ 	}
+
+FORM deep_ctor_copy
+--- camctrl_land.cpp
++++ deep_ctor_copy.cpp
+@@ -126,7 +126,7 @@
+ 	float radius = target->Unknown_30();
+ 	Vector3 dir = ship_pos - target_pos;
+ 	dir.Normalize();
+-	Vector3 side = Vector3::Cross_Product(Vector3(0.0f, 0.0f, 1.0f), dir);
++	Vector3 side(Vector3::Cross_Product(Vector3(0.0f, 0.0f, 1.0f), dir));
+ 	Vector3 up = Vector3::Cross_Product(dir, side);
+ 	if (Unknown_BDB1C0(0, 1)) {
+ 		side = -side;
+
+FORM deep_ctor_ctor
+--- camctrl_land.cpp
++++ deep_ctor_ctor.cpp
+@@ -126,8 +126,8 @@
+ 	float radius = target->Unknown_30();
+ 	Vector3 dir = ship_pos - target_pos;
+ 	dir.Normalize();
+-	Vector3 side = Vector3::Cross_Product(Vector3(0.0f, 0.0f, 1.0f), dir);
+-	Vector3 up = Vector3::Cross_Product(dir, side);
++	Vector3 side(Vector3::Cross_Product(Vector3(0.0f, 0.0f, 1.0f), dir));
++	Vector3 up(Vector3::Cross_Product(dir, side));
+ 	if (Unknown_BDB1C0(0, 1)) {
+ 		side = -side;
+ 	}
+
+FORM deep_ctor_assign
+--- camctrl_land.cpp
++++ deep_ctor_assign.cpp
+@@ -126,8 +126,8 @@
+ 	float radius = target->Unknown_30();
+ 	Vector3 dir = ship_pos - target_pos;
+ 	dir.Normalize();
+-	Vector3 side = Vector3::Cross_Product(Vector3(0.0f, 0.0f, 1.0f), dir);
+-	Vector3 up = Vector3::Cross_Product(dir, side);
++	Vector3 side(Vector3::Cross_Product(Vector3(0.0f, 0.0f, 1.0f), dir));
++	Vector3 up; up = Vector3::Cross_Product(dir, side);
+ 	if (Unknown_BDB1C0(0, 1)) {
+ 		side = -side;
+ 	}
+
+FORM deep_assign_copy
+--- camctrl_land.cpp
++++ deep_assign_copy.cpp
+@@ -126,7 +126,7 @@
+ 	float radius = target->Unknown_30();
+ 	Vector3 dir = ship_pos - target_pos;
+ 	dir.Normalize();
+-	Vector3 side = Vector3::Cross_Product(Vector3(0.0f, 0.0f, 1.0f), dir);
++	Vector3 side; side = Vector3::Cross_Product(Vector3(0.0f, 0.0f, 1.0f), dir);
+ 	Vector3 up = Vector3::Cross_Product(dir, side);
+ 	if (Unknown_BDB1C0(0, 1)) {
+ 		side = -side;
+
+FORM deep_assign_ctor
+--- camctrl_land.cpp
++++ deep_assign_ctor.cpp
+@@ -126,8 +126,8 @@
+ 	float radius = target->Unknown_30();
+ 	Vector3 dir = ship_pos - target_pos;
+ 	dir.Normalize();
+-	Vector3 side = Vector3::Cross_Product(Vector3(0.0f, 0.0f, 1.0f), dir);
+-	Vector3 up = Vector3::Cross_Product(dir, side);
++	Vector3 side; side = Vector3::Cross_Product(Vector3(0.0f, 0.0f, 1.0f), dir);
++	Vector3 up(Vector3::Cross_Product(dir, side));
+ 	if (Unknown_BDB1C0(0, 1)) {
+ 		side = -side;
+ 	}
+
+FORM deep_assign_assign
+--- camctrl_land.cpp
++++ deep_assign_assign.cpp
+@@ -126,8 +126,8 @@
+ 	float radius = target->Unknown_30();
+ 	Vector3 dir = ship_pos - target_pos;
+ 	dir.Normalize();
+-	Vector3 side = Vector3::Cross_Product(Vector3(0.0f, 0.0f, 1.0f), dir);
+-	Vector3 up = Vector3::Cross_Product(dir, side);
++	Vector3 side; side = Vector3::Cross_Product(Vector3(0.0f, 0.0f, 1.0f), dir);
++	Vector3 up; up = Vector3::Cross_Product(dir, side);
+ 	if (Unknown_BDB1C0(0, 1)) {
+ 		side = -side;
+ 	}
+
