@@ -160,7 +160,12 @@ template<class C> C *Unknown_Find_Field(DeltaCompoundClass *root, const NameClas
 template<class C> inline C *Unknown_Find_Set_Field(DeltaCompoundClass *root, const NameClass &name)	// NAME 1: neutral (D10)
 {
 	C *t = Unknown_Find_Field<C>(root, name);
-	return((t && t->Unknown70) ? t : NULL);
+	if (t) {
+		if (t->Unknown70) {
+			return(t);
+		}
+	}
+	return(NULL);
 }
 
 #endif //__AUXDATA_H

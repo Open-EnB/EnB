@@ -1290,9 +1290,9 @@ bool StarmapPipClass::Is_Grouped(ClientObjectClass *co)
 	return(false);
 }
 
-// NOT EXACT: inline budget (0.93): Is_Grouped is expanded here (its NameClass and Find_Set_Field 0x7C30E0 out of line, the
-// bool in the dead force slot); ours inlines Find_Set_Field and calls Find_Field; the avatar compare's load order and the
-// refresh loop's Find_Object push differ (registers). attempts.csv
+// NOT EXACT: registers (0.94): Is_Grouped is expanded here (its NameClass and Find_Set_Field 0x7C30E0 out of line, the
+// bool in the dead force slot); left: the avatar compare's load order, the refresh loop's Find_Object push and the
+// ObjectList load (register choice only). attempts.csv
 // @0x7C2850
 void StarmapPipClass::Unknown_7C2850(bool force)
 {
