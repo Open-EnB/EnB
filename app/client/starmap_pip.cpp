@@ -1218,6 +1218,21 @@ void StarmapPipClass::Unknown_7C2060(int mode)
 	}
 }
 
+// The labels deleted for 0x7C2850 (both its copies): the client calls ??_G 0x7C2D00 and erase 0x7C2DF0 there and inlines
+// clear(), where the dtor's 7C2280 copy inlines ??_G and calls clear 0x7C2DA0: the delete sits one layer deeper here.
+static void Delete_Label(Unknown_7C3220Class *label)
+{
+	delete label;
+}
+
+static void Delete_Labels(StarmapPipClass *pip)
+{
+	for (std::vector<Unknown_7C3220Class *>::iterator it = pip->Labels.begin(); it != pip->Labels.end(); it++) {
+		Delete_Label(*it);
+	}
+	pip->Labels.clear();
+}
+
 // @0x7C2280
 void StarmapPipClass::Unknown_7C2280()
 {
@@ -1275,14 +1290,14 @@ bool StarmapPipClass::Is_Grouped(ClientObjectClass *co)
 	return(false);
 }
 
-// NOT EXACT: inline budget (0.86): Is_Grouped is expanded here (its NameClass and Find_Set_Field 0x7C30E0 out of line, the
-// bool in the dead force slot); the client also calls ??_G 0x7C2D00 and erase 0x7C2DF0 in both 7C2280 copies, ours
-// inlines ??_G, calls clear() and inlines Find_Set_Field. attempts.csv
+// NOT EXACT: inline budget (0.93): Is_Grouped is expanded here (its NameClass and Find_Set_Field 0x7C30E0 out of line, the
+// bool in the dead force slot); ours inlines Find_Set_Field and calls Find_Field; the avatar compare's load order and the
+// refresh loop's Find_Object push differ (registers). attempts.csv
 // @0x7C2850
 void StarmapPipClass::Unknown_7C2850(bool force)
 {
 	if (!Label) {
-		Unknown_7C2280();
+		Delete_Labels(this);
 		return;
 	}
 	if (!Client->Get_Objects_Changed() && Labels.size() && !force) {
@@ -1294,7 +1309,7 @@ void StarmapPipClass::Unknown_7C2850(bool force)
 		}
 		return;
 	}
-	Unknown_7C2280();
+	Delete_Labels(this);
 	HashNodeClass<ClientObjectClass *> *node = Client->ObjectList.First_Valid();
 	while (node) {
 		ClientObjectClass *co = node->Get_Record();
