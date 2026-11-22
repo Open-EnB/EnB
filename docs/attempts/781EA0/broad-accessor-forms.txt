@@ -1,0 +1,59 @@
+## prior_best_control
+
+--- current9d/avatar.cpp
++++ prior_best_control/avatar.cpp
+@@ -1619,9 +1619,9 @@
+ 	Unknown220 = true;
+ 	if (SpeechSound) {
+ 		SpeechSound->Stop(1);
+-		SpeechSound = NULL;
+-
+-	}
++
++	}
++	SpeechSound = NULL;
+ 	char name[32];
+ 	if (Unknown210 != 0) {
+ 		_snprintf(name, 0x20, "sit_breathe");
+
+## nlp_animation
+
+--- current9d/avatar.cpp
++++ nlp_animation/avatar.cpp
+@@ -1646,7 +1646,7 @@
+ 		_snprintf(name, 0x20, "breathe%d", n);
+ 		Unknown314 = n;
+ 	}
+-	std::string anim = Unknown_781D10(PlayerNLP->Unknown_78F640(name));
++	std::string anim = Unknown_781D10(NLP_Of(this)->Unknown_78F640(name));
+ 	Unknown_7831C0(anim.c_str());
+ 	if (Unknown0BC && (Unknown0C0[0] || Unknown0C0[1])) {
+ 		Unknown0BC->Release_Keys();
+
+## best_nlp_animation
+
+--- current9d/avatar.cpp
++++ best_nlp_animation/avatar.cpp
+@@ -1619,9 +1619,9 @@
+ 	Unknown220 = true;
+ 	if (SpeechSound) {
+ 		SpeechSound->Stop(1);
+-		SpeechSound = NULL;
+-
+-	}
++
++	}
++	SpeechSound = NULL;
+ 	char name[32];
+ 	if (Unknown210 != 0) {
+ 		_snprintf(name, 0x20, "sit_breathe");
+@@ -1646,7 +1646,7 @@
+ 		_snprintf(name, 0x20, "breathe%d", n);
+ 		Unknown314 = n;
+ 	}
+-	std::string anim = Unknown_781D10(PlayerNLP->Unknown_78F640(name));
++	std::string anim = Unknown_781D10(NLP_Of(this)->Unknown_78F640(name));
+ 	Unknown_7831C0(anim.c_str());
+ 	if (Unknown0BC && (Unknown0C0[0] || Unknown0C0[1])) {
+ 		Unknown0BC->Release_Keys();
+
