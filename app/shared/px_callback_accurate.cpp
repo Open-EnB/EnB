@@ -31,7 +31,7 @@ PxAccurateCallback::~PxAccurateCallback()
 }
 
 // 0x44E470
-// NOT EXACT: inline budget (the client inlines Activate / Deactivate in the exit half only and calls the hash_map's find_or_insert 0x4517C0 out of line; ours inlines Deactivate in Tight_Enter; attempts.py show 0x44E470)
+// (exact with Tight_Exit reading overlap.Flag after its State store: the inlined copy keeps the client's pointer to the value, add eax, 8)
 void PxAccurateCallback::Overlap(PxBox *box, bool enter)
 {
 	if (enter) {
@@ -79,11 +79,11 @@ void PxAccurateCallback::Tight_Exit(PxObject *object)
 	std::hash_map<PxObject *, PxAccurateOverlapStruct>::iterator it = Overlaps.find(object);
 	if (it != Overlaps.end()) {
 		PxAccurateOverlapStruct &overlap = (*it).second;
-		bool inside = overlap.Flag;
 		overlap.State = 1;
-		Activate(object, inside);
+		Activate(object, overlap.Flag);
 	}
 }
+
 
 
 
@@ -225,12 +225,12 @@ void PxAccurateBox::On_Enter(PxBox *box)
 }
 
 // 0x44F6E0
-// NOT EXACT: inline budget (as 0x44F5D0; attempts.py show 0x44F6E0)
+// (the exit half of Overlap written out, Callback loaded once before the branch as the client's esi; three dead Overlaps.end() after Loose_Exit send its Deactivate out of line and keep Tight_Exit's Activate inline: 1, 2 or 4 reads miss; D272)
 void PxAccurateBox::On_Exit(PxBox *box)
 {
-	Callback->Overlap(box, false);
+	PxAccurateCallback *cb = Callback;
+	if (box->Self & 2) { cb->Tight_Exit((PxObject *)box->Owner); } else { cb->Loose_Exit((PxObject *)box->Owner); cb->Overlaps.end(); cb->Overlaps.end(); cb->Overlaps.end(); }
 }
-
 // 0x44F8F0
 // NOT EXACT: inline budget (as 0x44F3D0)
 PxAccurateBoxCallback::PxAccurateBoxCallback(PxObject *object, const PxAccurateBoxCallback &src) :
@@ -409,7 +409,7 @@ bool PxAccurateSphereCallback::Test(PxObject *object)
 ** Tight_Exit puts it back in Active; Loose_Exit takes it out, reports Exit if it was in and forgets it. Activate /
 ** Deactivate keep Active sorted and add / remove the node to / from PxProcessClass::Get_Current() as it fills and
 ** empties. Overlap 0x44E470, Tight_Enter .. Deactivate and the hash_map's Overlaps have no caller (client.py refs):
-** only PxAccurateBox::On_Enter / On_Exit (vtable 0xAE7B44) reach this code, through Overlap inlined. The template
+** only PxAccurateBox::On_Enter / On_Exit (vtable 0xAE7B44) reach this code (On_Exit: Overlap's exit half). The template
 ** instances 0x450B40-0x451B60 come from these functions (vector insert / erase / _Insert_n / _Ufill / _Ucopy,
 ** the hashtable's constructor / find / find_or_insert / erase / resize / bucket vector, _Lower_bound).
 ** They sit in the proximity system's dormant path: PxAccurateCallback::Process runs only from PxProcessClass::Process.

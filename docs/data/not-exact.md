@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-676 entries in 265 files.
+671 entries in 265 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -616,12 +616,7 @@ edit the comments in the code, not this file.
 | `app/shared/orbitalmanager.cpp:164` | `OrbitalObject::Update` | marker | NOT EXACT: the products' order and the temporaries' stack slots differ (similarity 0.53 before the rotations took the client's axes, Z then X) |
 | `app/shared/orbitalmanager.cpp:514` | `OrbitalManager::Update` | marker | NOT EXACT: the locals' slots differ (the client's sphere centre sits below the cast result; similarity 0.57) |
 | `app/shared/proj_man.cpp:627` | `ProjectorManagerClass::Setup_Static_Directional_Shadow` | marker | NOT EXACT: 0x493620, 1 register row in the inlined Get_Static_Shadow_Tex_Mgr (mov eax,esi / test eax,eax) |
-| `app/shared/px.cpp:407` | `PxList::Remove` | marker | NOT EXACT: register (base and index swapped in one address of the overlap test; attempts.py show 0x44C2E0) |
-| `app/shared/px.cpp:487` | `PxList::Set_Self` | marker | NOT EXACT: register (as 0x44C2E0; attempts.py show 0x44C520) |
-| `app/shared/px.cpp:561` | `PxList::Set_Test_Mask` | marker | NOT EXACT: register (as 0x44C2E0; attempts.py show 0x44C690) |
 | `app/shared/px.cpp:642` | `PxList::Set_Corners` | marker | NOT EXACT: inline budget and shape (insert(it, x) still inline at sites 4-5, erase and ~WWProfileSampleClass inline; attempts.py show 0x44C900) |
-| `app/shared/px_callback_accurate.cpp:34` | `PxAccurateCallback::Overlap` | marker | NOT EXACT: inline budget (the client inlines Activate / Deactivate in the exit half only and calls the hash_map's find_or_insert 0x4517C0 out of line; ours inlines Deactivate in Tight_Enter; attempts.py show 0x44E470) |
-| `app/shared/px_callback_accurate.cpp:228` | `PxAccurateBox::On_Exit` | marker | NOT EXACT: inline budget (as 0x44F5D0; attempts.py show 0x44F6E0) |
 | `app/shared/px_callback_accurate.cpp:235` | `PxAccurateBoxCallback::PxAccurateBoxCallback` | marker | NOT EXACT: inline budget (as 0x44F3D0) |
 | `app/shared/px_callback_accurate.cpp:246` | `PxAccurateBoxCallback::Clone` | marker | NOT EXACT: inline budget (it inlines the copy constructor 0x44F8F0) |
 | `app/shared/px_callback_accurate.cpp:328` | `PxAccurateSphereCallback::Clone` | marker | NOT EXACT: inline budget (it inlines the copy constructor 0x450350) |
