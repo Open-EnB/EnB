@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1970 |
 | 2 | describes what the code does | 5006 |
-| 1 | neutral placeholder | 25137 |
+| 1 | neutral placeholder | 25138 |
 
 ## For review (score 3 and below)
 
@@ -7796,6 +7796,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_7456B0` | `app/client/sclient.cpp:1028` | untagged neutral name (D10) |
 | 1 | `Unknown86CRecordClass` | `app/client/sclient.cpp:1032` | untagged neutral name (D10) |
 | 1 | `Unknown_743440` | `app/client/sclient.cpp:1064` | untagged neutral name (D10) |
+| 1 | `Unknown_Register_Key` | `app/client/sclient.cpp:1078` | neutral (D10) |
 | 1 | `Unknown_565F30` | `app/client/sclient.cpp:1085` | untagged neutral name (D10) |
 | 1 | `Unknown_745490` | `app/client/sclient.cpp:1141` | untagged neutral name (D10) |
 | 1 | `Unknown28` | `app/client/sclient.cpp:1153` | untagged neutral name (D10) |
