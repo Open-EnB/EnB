@@ -1224,7 +1224,7 @@ void MainViewClass::Unknown_510420()
 #include "..\..\ww3d2\dx8fvf.h"
 #include "..\..\ww3d2\vertmaterial.h"
 #include "..\..\ww3d2\shader.h"
-// NOT EXACT: functional (MV2): Renegade's phys.cpp projection-preview quad (wwphys, disabled there) as the client has it:
+// NOT EXACT: frame (0x510D40, 0 masked / 18 raw rows, score 1.00, frame 0x214 = client; DynamicIBAccessClass sits at -0x160 above the 7 Get_Transform spill slots vs client -0x17c below them; attempts.csv)
 // 0x510D40, the sea's tint over the whole screen in the colour arg (0x50CF70 passes +0x16C), no texture
 void MainViewClass::Unknown_510D40(Vector3 &arg)
 {
@@ -1241,8 +1241,8 @@ void MainViewClass::Unknown_510D40(Vector3 &arg)
 	DX8Wrapper::Set_Transform(D3DTS_WORLD, identity);
 	DX8Wrapper::Set_Transform(D3DTS_VIEW, identity);
 	DX8Wrapper::Set_Transform(D3DTS_PROJECTION, identity);
-	float scale = 255.0f;
-	unsigned color = WWMath::Float_To_Long(arg.Z * scale) | (WWMath::Float_To_Long(arg.X * scale) << 16) | (WWMath::Float_To_Long(arg.Y * scale) << 8);
+	unsigned color = DX8Wrapper::Convert_Color(arg, 0.0f);
+
 	DynamicVBAccessClass vbaccess(BUFFER_TYPE_DYNAMIC_DX8, dynamic_fvf_type, 4);
 	{
 		DynamicVBAccessClass::WriteLockClass lock(&vbaccess);
@@ -1264,12 +1264,12 @@ void MainViewClass::Unknown_510D40(Vector3 &arg)
 	{
 		DynamicIBAccessClass::WriteLockClass lock(&ibaccess);
 		unsigned short *indices = lock.Get_Index_Array();
-		indices[0] = 0;
-		indices[1] = 2;
-		indices[2] = 1;
-		indices[3] = 0;
-		indices[4] = 3;
-		indices[5] = 2;
+		*indices++ = 0;
+		*indices++ = 2;
+		*indices++ = 1;
+		*indices++ = 0;
+		*indices++ = 3;
+		*indices = 2;
 	}
 	DX8Wrapper::Set_Vertex_Buffer(vbaccess);
 	DX8Wrapper::Set_Index_Buffer(ibaccess, 0);
