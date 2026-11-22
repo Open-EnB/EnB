@@ -914,12 +914,12 @@ void FontDatabaseClass::Add_Color(FontColorStruct *color)
 }
 
 
-// NOT EXACT: inline-budget: the client calls Get_Info(width, height) 0x6C2CB0 out of line, ours inlines it (the rest is the same)
+// NOT EXACT: registers (attempts.py show 0x6C38F0): Get_Info() inlined, its Get_Info(width, height) out of line as the client's 0x6C2CB0; left: info in ebp (client ebx), the this / info / bits slots
 void FontDatabaseClass::Set_Font(const char *chat_name, unsigned int font_index, float scale, int spacing, int value98, bool force)
 {
-	int width = 0; int height = 0; int bits = 0; bool windowed = false;
-	WW3D::Get_Device_Resolution(width, height, bits, windowed);
-	FontInitStruct *info = Get_Info(width, height);
+
+
+	FontInitStruct *info = Get_Info();
 	FAIL_IF(!info) return;
 	unsigned int chat_index;
 	for (chat_index = 0; (int)chat_index < MAXFONTS; chat_index++) if (strcmp(info->FontID[chat_index], chat_name) == 0) break;
@@ -1080,13 +1080,13 @@ FontInitStruct *FontDatabaseClass::Get_Info()
 {
 	int width = 0; int height = 0; int bits = 0; bool windowed = false;
 	WW3D::Get_Device_Resolution(width, height, bits, windowed);
-	FontInitStruct *info = NULL;
-	for (std::vector<FontInitStruct *>::iterator it = Infos.begin(); it != Infos.end(); it++) {
-		if (width < (*it)->ResWidth || height < (*it)->ResHeight) break;
-		info = *it;
-	}
-	return info;
+	return Get_Info(width, height);
 }
+
+
+
+
+
 
 
 
