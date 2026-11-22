@@ -511,11 +511,11 @@ void OrbitalManager::Unknown_4F3EF0()
 }
 
 
-// NOT EXACT: the locals' slots differ (the client's sphere centre sits below the cast result; similarity 0.57)
+// NOT EXACT: all 21 regions res 0 / frame 0xc8; only point.Y add order (center.Y + s*d vs s*d + center.Y, raw 2) differs
+// @0x4F45A0
 void OrbitalManager::Update(CameraClass *camera, float time, bool planet)
 {
 	WWPROFILE("OrbitalManager::Update");
-	Vector3 light;
 	std::vector<OrbitalObject *>::iterator it;
 	for (it = Orbitals.begin(); it != Orbitals.end(); it++) {
 		(*it)->Update(camera, time);
@@ -532,8 +532,8 @@ void OrbitalManager::Update(CameraClass *camera, float time, bool planet)
 		OrbitalObject *orb = *it;
 		if (orb->EmitsLight) {
 			if (!planet || orb->Unknown68 >= 0.0f) {
-				const SphereClass &sphere = orb->Object->Get_Bounding_Sphere();
-				Vector3 center = sphere.Center;
+				SphereClass sphere = orb->Object->Get_Bounding_Sphere();
+				const Vector3 &center = sphere.Center;
 				float radius = sphere.Radius * 0.6f;
 				int blocked = 0;
 				for (int i = 0; i < 16; i++) {
@@ -541,13 +541,13 @@ void OrbitalManager::Update(CameraClass *camera, float time, bool planet)
 					CastResultStruct result;
 					float r = WWMath::Sqrt((1.0f - Unknown150[i].Y) * Unknown150[i].Y);
 					float d = r * radius * 2.0f;
-					float s = sinf(angle);
-					float c = cosf(angle);
-					Vector3 point = center + Vector3(c * d, s * d, (1.0f - 2.0f * Unknown150[i].Y) * radius);
+					float s = WWMath::Sin(angle);
+					float c = WWMath::Cos(angle);
+					Vector3 point = Vector3(c * d, s * d, (1.0f - 2.0f * Unknown150[i].Y) * radius) + center;
 					LineSegClass ray(camera->Get_Position(), point);
 					for (std::vector<OrbitalObject *>::iterator other = Orbitals.begin(); other != Orbitals.end(); other++) {
-						if (orb != *other) {
-							if (CollisionMath::Collide(ray, (*other)->Object->Get_Bounding_Sphere(), &result)) {
+						if (orb != *other) { const SphereClass &other_sphere = (*other)->Object->Get_Bounding_Sphere();
+							if (CollisionMath::Collide(ray, other_sphere, &result)) {
 								blocked++;
 								break;
 							}
@@ -588,7 +588,7 @@ void OrbitalManager::Update(CameraClass *camera, float time, bool planet)
 				sky.Y *= orb->SkyValue.Y;
 				sky.Z *= orb->SkyValue.Z;
 				Unknown34 += orb->Unknown68 * sky * orb->Unknown6C;
-				LightColor[0]->Evaluate(orb->Time, &light.X);
+				Vector3 light; LightColor[0]->Evaluate(orb->Time, &light.X);
 				LightColor[1]->Evaluate(orb->Time, &light.Y);
 				LightColor[2]->Evaluate(orb->Time, &light.Z);
 				light.X *= orb->LightValue.X;
