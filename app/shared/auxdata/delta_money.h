@@ -31,7 +31,9 @@ public:
 	virtual bool Read(LinearBufferClass &buf, const DurationClass &base);	// +0x2C 0x4A7470
 	virtual bool Write(LinearBufferClass &buf);				// +0x30 0x4A74F0
 
+	void Assign(const MoneyClass &value);	// 0x4A7120 (no caller; DeltaStringClass::Assign's form)  // NAME 2: describes what it does
 	void Set_Value(const MoneyClass &value);	// 0x4A7150  // NAME 2: describes what it does
+	DeltaTemplateClass &operator=(const DeltaTemplateClass &that);	// 0x4A71A0 (no caller)
 
 	MoneyClass Value;	// +0x88 (8-aligned)  // NAME 2: describes what it does
 

@@ -70,6 +70,7 @@ public:
 		}
 	}
 
+	const DurationClass &Get_Value() const;	// out of line in ui_scan.cpp 0x60E6A0 (0x60ECD0)  // NAME 2: describes what it does
 	DurationClass Value;	// +0x88 (8-aligned)  // NAME 2: describes what it does
 
 	static int UnknownGlobal;	// 0xBE3AA4
@@ -77,8 +78,7 @@ public:
 
 // (the lines down to Write hold code of the client's header not rebuilt yet: its asserts are on
 // lines 91 and 110)
-
-
+inline const DurationClass &DeltaTemplateClass<DurationClass>::Get_Value() const { return Value; }
 
 
 

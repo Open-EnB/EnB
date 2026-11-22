@@ -554,7 +554,7 @@ template DeltaStringClass *Unknown_Find_Field<DeltaStringClass>(DeltaCompoundCla
 // the ability's name on 'MFD_INTERRUPT'; the faction line hidden meanwhile
 // NOT EXACT: inline-budget (IB2; similarity 0.53): the finds out of line as the client (0x610290, 0x514BD0) through two inline
 // layers, and with them the cleared name's assign(const char *, size_type) (0x42D050); the client also reads the time through 0x60ECD0 (the
-// time field's value; a Get_Value declared in delta_template.h costs aux_roots 8 pairs); ours inlines that read; registers differ
+// time field's Get_Value, declared in the class and defined inline after it in delta_template.h, D3 2026-11-22); registers differ
 // @0x60E6A0
 void UIScanClass::Unknown_60E6A0(ClientObjectClass *object)
 {
@@ -588,7 +588,7 @@ void UIScanClass::Unknown_60E6A0(ClientObjectClass *object)
 		InterruptInfo->Unknown2C->Unknown_60EC70(DurationClass((unsigned int)((ClientClass *)Client)->Unknown10BC));
 		DeltaTemplateClass<DurationClass> *time = Unknown_Scan_Find<DeltaTemplateClass<DurationClass> >(target->AuxData, "InterruptibleActivationTime");
 		if (time) {
-			InterruptInfo->Unknown2C->Unknown_60ECA0(time->Value);
+			InterruptInfo->Unknown2C->Unknown_60ECA0(time->Get_Value());
 		}
 		RenderObjClass *robj = RObj;
 
@@ -1091,8 +1091,8 @@ void UIScanThreatClass::Unknown_Set_Sort_Level(int sort_level)
 **	+0x28 / +0x30 would otherwise pad the vtable pointer (0x50 bytes, the client's new asks 0x48). Its by-value time
 **	arguments are built in place (sub esp, 8; mov [esp+N], esp): a user-defined DurationClass copy constructor gives
 **	that form (0.43 -> 0.46) but costs aux_roots 8 pairs and slot_data_render 0x6A7C00, so duration.h keeps the implicit one.
-**	0x60ECD0 (lea eax, [ecx+0x88]) is the time field's value accessor, out of line in 0x60E6A0; declaring it in
-**	delta_template.h costs aux_roots 8 pairs (its inline budget), so 0x60E6A0 reads Value directly.
+**	0x60ECD0 (lea eax, [ecx+0x88]) is the time field's value accessor Get_Value, out of line in 0x60E6A0: delta_template.h
+**	declares it in the class and defines it inline after (in class it lost skill_data 0x6A4F40's window; D3, 2026-11-22).
 **
 **	TL3 (2026-11-08): 0x60FEE0 (the threat's clear-and-hide; exact) after 0x60F1A0 under the same auto_inline(off), its
 **	G_ASSERT on l.1055; its body after the assert is TL2's inline Unknown_Clear, then +0x14's Change_Text('') / Set_Hidden(1)
