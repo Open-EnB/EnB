@@ -71,8 +71,9 @@ static void Rebuild_Texture(FontSys *style, char *buffer, bool reset_spacing)
 	}
 	style->Unknown4C4 = style->Unknown2D0.Unknown_6D8DC0(&style->Font, buffer, 0);
 }
+static inline void Append_Dots(StringClass &text, bool on) { if (on) { text += "..."; text.Peek_Buffer(); } }	// NAME 2: Update_Text's "..." layer (fontsys.cpp): the client calls the += copy's Get_Length out of line here too (0x6CAC4E, as 0x6D676E); the dead read is the layer's budget (D272)
 static inline void Set_Complete(FontSys *style, bool done) { style->Unknown404 = done; }  // NAME 2: Is_Complete's setter (0x67EEE0 reads +0x404); an inline layer, as the client spends inline budget here
-// NOT EXACT: worked toward the client's bytes (FX1 / FX, runs 2026-11-20 and -21): case order, branch senses, inline layers, budget
+// NOT EXACT: worked toward the client's bytes (FX1 / FX, runs 2026-11-20 and -21; FS 2026-11-22): case order, branch senses, inline layers, budget, Append_Dots (RANDLETTER / STAY), STAY's buffer local (pushed to 0x6D8DC0 and String_Pixel_Width, 0x6CC3B8 / 0x6CC3D3)
 void FontSys::Unknown_6CA0C0(FontEffectStruct *effect)
 {
 	FontSys *style = this;
@@ -244,9 +245,8 @@ void FontSys::Unknown_6CA0C0(FontEffectStruct *effect)
 			}
 		}
 
-		if (style->Unknown406) {
-			text += "...";
-		}
+		Append_Dots(text, style->Unknown406);
+
 		char *buffer = text.Get_Buffer(text.Get_Length()); Rebuild_Texture(style, buffer, true);
 		style->Unknown4C5 = false;
 		rect[0] = 0;
@@ -329,13 +329,13 @@ void FontSys::Unknown_6CA0C0(FontEffectStruct *effect)
 		style->Unknown4C5 = false;
 		float step = (float)delta * effect->Speed * 0.02f;
 		float x, y;
-		if (!style->Unknown302) {
+		if (style->Unknown302) {
+			x = style->Unknown464[0];
+			y = style->Unknown464[1];
+		} else {
 			Vector3 pos = style->Get_Position();
 			x = pos.X;
 			y = pos.Y;
-		} else {
-			x = style->Unknown464[0];
-			y = style->Unknown464[1];
 		}
 		x = style->Info.Target[0] * 640.0f - x;
 		y = style->Info.Target[1] * 480.0f - y;
@@ -459,8 +459,8 @@ void FontSys::Unknown_6CA0C0(FontEffectStruct *effect)
 				break;
 			case FONT_DIRECTION_DOWN:
 				old = style->Unknown420[2]; if (amount >= style->Unknown2C8) amount = style->Unknown2C8;
-				style->Unknown420[2] = amount;
-				rect[3] = style->Unknown2C8;
+				rect[2] = amount;
+				style->Unknown420[3] = style->Unknown2C8;
 				if (style->Unknown420[2] == style->Unknown2C8) Set_Complete(style, true);
 				if (old != rect[2]) style->Unknown4C5 = false;
 				break;
@@ -672,13 +672,13 @@ void FontSys::Unknown_6CA0C0(FontEffectStruct *effect)
 				}
 				if (style->Unknown405) {
 					// the text saved in Unknown2F0 back
-					style->Info.Text = style->Unknown2F0;
+					style->Info.Text = style->Unknown2F0; style->Info.Text.Peek_Buffer();
 					StringClass text(style->Info.Text); text.Peek_Buffer(); text.Peek_Buffer();
-					if (style->Unknown406) {
-						text += "...";
-					}
-					Rebuild_Texture(style, text.Get_Buffer(text.Get_Length()), true);
-					rect[1] = style->Unknown2C4 = style->Font->String_Pixel_Width(text);
+					Append_Dots(text, style->Unknown406);
+
+
+					char *buffer = text.Get_Buffer(text.Get_Length()); Rebuild_Texture(style, buffer, true);
+					rect[1] = style->Unknown2C4 = style->Font->String_Pixel_Width(buffer);
 					rect[3] = style->Unknown2C8 = style->Font->Get_Height();
 				}
 			} else {
