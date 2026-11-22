@@ -112,10 +112,10 @@ KernelClass *KernelClass::Get_Instance()
 }
 
 // 0x443270
-void KernelClass::Cycle_Focus()
+bool KernelClass::Cycle_Focus()
 {
 	Next_Focus();
-	AssetManager->Unknown4074 = true;
+	return AssetManager->Unknown4074 = true;
 }
 
 // 0x4432A0: unless the focused task keeps the focus, every task shuts down (and is deleted when
