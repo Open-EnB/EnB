@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1970 |
 | 2 | describes what the code does | 5009 |
-| 1 | neutral placeholder | 25146 |
+| 1 | neutral placeholder | 25147 |
 
 ## For review (score 3 and below)
 
@@ -3605,6 +3605,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6D1010` | `app/client/fontmanager.cpp:194` | untagged neutral name (D10) |
 | 1 | `Unknown494` | `app/client/fontmanager.cpp:197` | untagged neutral name (D10) |
 | 1 | `Unknown4A4` | `app/client/fontmanager.cpp:198` | untagged neutral name (D10) |
+| 1 | `Unknown0C` | `app/client/fontmanager.cpp:198` | untagged neutral name (D10) |
 | 1 | `Unknown_6D10B0` | `app/client/fontmanager.cpp:202` | untagged neutral name (D10) |
 | 1 | `Unknown_6D1480` | `app/client/fontmanager.cpp:368` | untagged neutral name (D10) |
 | 1 | `Unknown_6D1C10` | `app/client/fontmanager.cpp:420` | untagged neutral name (D10) |

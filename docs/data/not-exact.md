@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-627 entries in 258 files.
+625 entries in 258 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -131,8 +131,6 @@ edit the comments in the code, not this file.
 | `app/client/fontdatabase.cpp:1351` | `FontStringFilesClass::~FontStringFilesClass` | mention | NOT EXACT: register), 0x6BFD00 (fontcode.ini / fontart.ini: the COLOR-n and EFFECT-n sections through Add_Color / Add_Effect, inlined with the asserts on lines 909 / 895), Clear_Infos 0x6BEE60 (with FontInitStruct's implicit destructor 0x6BEEF0), Clear_Tables 0x6BEFD0 (Colors and Effects), Clear_Strings 0x6BF1F0, Find_Font 0x6C2BF0, Get_Info(width, height) 0x6C2CB0, the tables' Find_Color / Find_E... |
 | `app/client/fontdatabase.cpp:1356` | `FontStringFilesClass::~FontStringFilesClass` | mention | NOT EXACT) and Restore_Font 0x6C3D40 (lines 986-991), Find_Font_File_Index 0x6C3FB0 (the client's name, its assert on line 1305), the chat font's file index 0x6C4070, the font file name 0x6C4270 (AllFonts), the chat font's scale / spacing / +0x98 value 0x6C42E0 / 0x6C4450 / 0x6C45B0, Get_Info 0x6C4720 (the INIT section for the current resolution: the last whose ResWidth / ResHeight fit), 0x6C47B0 ... |
 | `app/client/fontdatabase.cpp:1364` | `FontStringFilesClass::~FontStringFilesClass` | mention | NOT EXACT: frame), Unload 0x6C55B0 and the destructor 0x6C4F50 (written after Load_Font, past the asserts; its iterator declared before the for and assigned: initialised in the for header it is begin()'s return slot and its node stays in memory, a const_iterator copy holds the table in a register). Every other function of the file is not written yet. Tables (the Add functions' offsets and instance... |
-| `app/client/fontmanager.cpp:193` | `ManagedFontClass::Unknown_6D1010` | marker | NOT EXACT: inline budget: the client calls the std::string(const char *, allocator) constructor out of line, ours inlines it (attempts.csv) |
-| `app/client/fontmanager.cpp:377` | `ManagedFontClass::Unknown_6D1600` | marker | NOT EXACT: shape, 39 rows: the client destroys the name in one shared tail, ours in each return (attempts.csv) |
 | `app/client/fontmanager.cpp:519` | `FontManagerClass::Get_Style` | marker | NOT EXACT: order-only, 1 row: the inlined std::string(name) stores its terminator through [ebx+eax], ours [eax+ebx] (attempts.csv) |
 | `app/client/fontsys.cpp:64` | `FontSys::Unknown_6D5170` | marker | NOT EXACT: shape (attempts.csv): the client reaches Width..Scale (+0x2B4..+0x2CC) through one pointer, as a sub-object's inline would, and stores +0x430 / +0x4C5 after the resolution call's arguments; the colours from TXT1 |
 | `app/client/fontsys.cpp:182` | `FontSys::Set_Container` | marker | NOT EXACT: register (attempts.csv): the client keeps i in ebp and spills this across the loop (14 rows) |
