@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-668 entries in 264 files.
+667 entries in 264 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -454,7 +454,6 @@ edit the comments in the code, not this file.
 | `app/client/ui_scan.cpp:500` | `UIScanClass::Unknown_88` | marker | NOT EXACT: order (WE9; similarity 0.85): the client builds the old target's Remove arguments before calling 0x4F7EF0, ours after @0x60E580 |
 | `app/client/ui_scan.cpp:555` | `UIScanClass::Unknown_60E6A0` | marker | NOT EXACT: inline-budget (IB2; similarity 0.53): the finds out of line as the client (0x610290, 0x514BD0) through two inline layers, and with them the cleared name's assign(const char *, size_type) (0x42D050); the client also reads the time through 0x60ECD0 (the time field's value; a Get_Value declared in delta_template.h costs aux_roots 8 pairs); ours inlines that read; registers differ @0x60E6A0 |
 | `app/client/ui_scan.cpp:746` | `UIScanClass::Unknown_60F1A0` | marker | NOT EXACT: frame / order (IB2; similarity 0.66): the Reputation finds out of line as the client (0x610370) through two inline layers typed <DeltaCompoundClass>; the client tail-merges only cases 2 and 5 @0x60F1A0 |
-| `app/client/ui_scut.cpp:379` | `UIScutBarClass::UIScutBarClass` | marker | NOT EXACT: register (ecx / edx swapped around the 0x6870E0 and bank constructor arguments) |
 | `app/client/ui_scut.cpp:485` | `UIScutBarClass::Unknown_611300` | marker | NOT EXACT: register (the allocator byte through al, FirstId + lp in edi; the call structure is the client's) |
 | `app/client/ui_scut.cpp:500` | `UIScutBarClass::Unknown_611710` | marker | NOT EXACT: register / stack slots of the name temporaries (the call structure is the client's) |
 | `app/client/ui_scut.cpp:789` | `UIScutBarClass::Unknown_6120E0` | marker | NOT EXACT: register (and the client loads both floats before slot +0x2C's flags) |
@@ -616,7 +615,7 @@ edit the comments in the code, not this file.
 | `app/shared/orbitalmanager.cpp:164` | `OrbitalObject::Update` | marker | NOT EXACT: the products' order and the temporaries' stack slots differ (similarity 0.53 before the rotations took the client's axes, Z then X) |
 | `app/shared/orbitalmanager.cpp:514` | `OrbitalManager::Update` | marker | NOT EXACT: the locals' slots differ (the client's sphere centre sits below the cast result; similarity 0.57) |
 | `app/shared/proj_man.cpp:627` | `ProjectorManagerClass::Setup_Static_Directional_Shadow` | marker | NOT EXACT: 0x493620, 1 register row in the inlined Get_Static_Shadow_Tex_Mgr (mov eax,esi / test eax,eax) |
-| `app/shared/px.cpp:642` | `PxList::Set_Corners` | marker | NOT EXACT: inline budget and shape (insert(it, x) still inline at sites 4-5, erase and ~WWProfileSampleClass inline; attempts.py show 0x44C900) |
+| `app/shared/px.cpp:642` | `PxList::Set_Corners` | marker | NOT EXACT: inline budget and register (the client calls clear 0x44D580 and ~WWProfileSampleClass 0x444160 out of line at the end, ours inlines both whatever is spent before them; registers in the relinks; attempts.py show 0x44C900) |
 | `app/shared/px_collision.cpp:95` | `PxCollision::Unknown_453F10` | marker | NOT EXACT: register (the setup copies through eax alone where ours uses ecx / edx too: the client keeps self / other in ecx / edi from the start; moving their initialisation to the top made it worse, 151 -> 198 rows; attempts.py show 0x453F10) |
 | `app/shared/px_collision.cpp:231` | `PxCollision::Unknown_454730` | marker | NOT EXACT: order (the first inlined OBBoxClass::Transform, A's box with both reps, multiplies centre by matrix where ours loads the matrix first: 18 rows; frame and every other instruction match; attempts.py show 0x454730) |
 | `app/shared/px_collision.cpp:331` | `PxObject::~PxObject` | mention | NOT EXACT) tests the objects' world OBBoxes (each DynObj's slot +0x7C box turned by its slot +0x3C transform) against the meshes: with both meshes an OBBoxIntersectionTestClass each way (Unknown08 set to (1, 0, 0)); with one, the other object's box swept by its slot +0x40 velocity (OBBoxCollisionTestClass) cast in the mesh's space, the hit normal turned back into Unknown08 (negated when the mesh i... |

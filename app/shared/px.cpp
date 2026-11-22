@@ -639,7 +639,7 @@ static bool Notify_Once(PxBox *b)  // NAME 2: what it does (the five lower_bound
 }
 
 // 0x44C900
-// NOT EXACT: inline budget and shape (insert(it, x) still inline at sites 4-5, erase and ~WWProfileSampleClass inline; attempts.py show 0x44C900)
+// NOT EXACT: inline budget and register (the client calls clear 0x44D580 and ~WWProfileSampleClass 0x444160 out of line at the end, ours inlines both whatever is spent before them; registers in the relinks; attempts.py show 0x44C900)
 void PxList::Set_Corners(PxBox *box, const Vector3 &low, const Vector3 &high)
 {
 	WWPROFILE("PxList::Set_Corners");
