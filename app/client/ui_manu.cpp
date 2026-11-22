@@ -1559,13 +1559,13 @@ static std::string Unknown_5B6060(int validity)	// NAME 1: neutral (D10)  // NAM
 	Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(NameClass *)&validity);	// not the client's: a dead find (root NULL, unreachable: no code) spends the inline budget the client spent (D130), so the first case calls _Eos out of line as the client's
 }
 
-// NOT EXACT: register (every call in place, the seven finds out of line as the client through two inline layers; the quality fields selected as (f && f->Unknown70 > 1) ? f : NULL and the filter bits read once before the loop, as the client's bytes; left: argument-load order at 0x5B5CD0 / 0x5B6060 and the inlined 0x5B1AF0's Get_Style, the message temporaries) (0x5B5320)
+// NOT EXACT: register (every call in place, the seven finds out of line as the client through two inline layers; the quality fields selected as (f && f->Unknown70 > 1) ? f : NULL and the filter bits read once before the loop, as the client's bytes, the validity value and the client pointer through locals (the client loads each argument just before its push); left: the inlined 0x5B1AF0s' Get_Style / Create_Peek argument loads, frame 0x160 against 0x140) (0x5B5320)
 void UIManuClass::Unknown_5B5320()
 {		DeltaTemplateClass<UnknownB01394Enum> *validity = Unknown_Manu_Raw<DeltaTemplateClass<UnknownB01394Enum> >(Unknown0BA0, "Validity");
 	if (validity && validity->Unknown70 > 1) {
-		std::string reason = Unknown_5B6060(validity->Value);
+		int value = validity->Value; std::string reason = Unknown_5B6060(value);
 		if (reason.length() && !Unknown0BB4) {
-			std::string item = Unknown_5B5CD0((DeltaCompoundClass *)Unknown0BA0, Client);
+			LineDisplayClientClass *client = Client; std::string item = Unknown_5B5CD0((DeltaCompoundClass *)Unknown0BA0, client);
 			std::string message = "Unable to create " + item + std::string(". ") + reason + ".";
 			((SClient *)((ClientClass *)Client)->As_Space_Client())->Unknown_74D990(0x11, (char *)message.c_str(), 0);
 		}

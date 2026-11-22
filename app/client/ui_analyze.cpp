@@ -397,7 +397,7 @@ void UIAnalyzeClass::Unknown_60()
 		Unknown_545610();
 		Unknown_546090();
 	}
-	Unknown5BB320Class::Unknown_60();
+	Unknown5BB320Class::Unknown_60(); InterfaceMesh->Peek_Mesh_Object(); InterfaceMesh->Peek_Mesh_Object();	// two dead reads of 0x544C50's accessor (D272): they take the inlined 0x544C50s' nested budget, so the FAIL_IF return paths join the out-of-line ~RefCountPtr 0x51C630 as the client's (1-8 swept: 2 best)
 }
 
 // @0x544BB0
