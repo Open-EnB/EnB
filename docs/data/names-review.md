@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1970 |
 | 2 | describes what the code does | 5006 |
-| 1 | neutral placeholder | 25133 |
+| 1 | neutral placeholder | 25137 |
 
 ## For review (score 3 and below)
 
@@ -6773,10 +6773,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_695C50` | `app/client/pdaint.cpp:219` | untagged neutral name (D10) |
 | 1 | `Unknown_695A00` | `app/client/pdaint.cpp:220` | untagged neutral name (D10) |
 | 1 | `Unknown_574220` | `app/client/pdaint.cpp:238` | untagged neutral name (D10) |
-| 1 | `Unknown_5742B0` | `app/client/pdaint.cpp:239` | untagged neutral name (D10) |
-| 1 | `Unknown_7C8BA0` | `app/client/pdaint.cpp:260` | untagged neutral name (D10) |
-| 1 | `Unknown_7C8C20` | `app/client/pdaint.cpp:264` | untagged neutral name (D10) |
-| 1 | `Unknown_744B60` | `app/client/pdaint.cpp:300` | untagged neutral name (D10) |
+| 1 | `Unknown_5742B0` | `app/client/pdaint.cpp:240` | untagged neutral name (D10) |
+| 1 | `Unknown_7C8BA0` | `app/client/pdaint.cpp:269` | untagged neutral name (D10) |
+| 1 | `Unknown_7C8C20` | `app/client/pdaint.cpp:273` | untagged neutral name (D10) |
+| 1 | `Unknown_744B60` | `app/client/pdaint.cpp:305` | untagged neutral name (D10) |
 | 1 | `Unknown_565F30` | `app/client/pdaint.cpp:338` | untagged neutral name (D10) |
 | 1 | `Unknown_7C` | `app/client/pdaint.cpp:378` | untagged neutral name (D10) |
 | 1 | `Unknown_70` | `app/client/pdaint.cpp:456` | untagged neutral name (D10) |
@@ -11435,11 +11435,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown188` | `app/client/ui_chat_panel.cpp:244` | untagged neutral name (D10) |
 | 1 | `Unknown0A0` | `app/client/ui_chat_panel.cpp:257` | untagged neutral name (D10) |
 | 1 | `Unknown228` | `app/client/ui_chat_panel.cpp:265` | untagged neutral name (D10) |
-| 1 | `UnknownD4` | `app/client/ui_chat_panel.cpp:266` | untagged neutral name (D10) |
+| 1 | `Unknown_568910` | `app/client/ui_chat_panel.cpp:266` | untagged neutral name (D10) |
 | 1 | `Unknown258` | `app/client/ui_chat_panel.cpp:267` | untagged neutral name (D10) |
 | 1 | `Unknown_56C6A0` | `app/client/ui_chat_panel.cpp:281` | untagged neutral name (D10) |
 | 1 | `Unknown114` | `app/client/ui_chat_panel.cpp:286` | untagged neutral name (D10) |
-| 1 | `Unknown67D430Class` | `app/client/ui_chat_panel.cpp:288` | untagged neutral name (D10) |
+| 1 | `Unknown67D430Class` | `app/client/ui_chat_panel.cpp:287` | untagged neutral name (D10) |
 | 1 | `Unknown124` | `app/client/ui_chat_panel.cpp:291` | untagged neutral name (D10) |
 | 1 | `Unknown1E8` | `app/client/ui_chat_panel.cpp:292` | untagged neutral name (D10) |
 | 1 | `Unknown_54` | `app/client/ui_chat_panel.cpp:450` | untagged neutral name (D10) |
@@ -11450,6 +11450,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_563DC0` | `app/client/ui_chat_panel.cpp:487` | untagged neutral name (D10) |
 | 1 | `Unknown_56C0C0` | `app/client/ui_chat_panel.cpp:490` | untagged neutral name (D10) |
 | 1 | `Unknown_5689D0` | `app/client/ui_chat_panel.cpp:493` | untagged neutral name (D10) |
+| 1 | `UnknownD4` | `app/client/ui_chat_panel.cpp:498` | untagged neutral name (D10) |
 | 1 | `Unknown_58` | `app/client/ui_chat_panel.cpp:503` | untagged neutral name (D10) |
 | 1 | `Unknown_7E36B0` | `app/client/ui_chat_panel.cpp:506` | untagged neutral name (D10) |
 | 1 | `Unknown_7C` | `app/client/ui_chat_panel.cpp:510` | untagged neutral name (D10) |
@@ -11522,7 +11523,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_56C7B0` | `app/client/ui_chat_panel.cpp:1374` | untagged neutral name (D10) |
 | 1 | `Unknown_568690` | `app/client/ui_chat_panel.cpp:1390` | untagged neutral name (D10) |
 | 1 | `Unknown_5688E0` | `app/client/ui_chat_panel.cpp:1400` | untagged neutral name (D10) |
-| 1 | `Unknown_568910` | `app/client/ui_chat_panel.cpp:1408` | untagged neutral name (D10) |
 | 1 | `Unknown_568950` | `app/client/ui_chat_panel.cpp:1414` | untagged neutral name (D10) |
 | 1 | `Unknown_74C840` | `app/client/ui_chat_panel.cpp:1429` | untagged neutral name (D10) |
 | 1 | `Unknown_5417D0` | `app/client/ui_chat_panel.cpp:1441` | untagged neutral name (D10) |
@@ -12555,6 +12555,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Controller` | `app/client/ui_experience.cpp:64` | what it holds |
 | 1 | `Unknown_65FFA0` | `app/client/ui_experience.cpp:80` | untagged neutral name (D10) |
 | 1 | `Unknown_4A13A0` | `app/client/ui_experience.cpp:108` | untagged neutral name (D10) |
+| 1 | `Unknown_Experience_Find` | `app/client/ui_experience.cpp:132` | neutral (D10); the one more inline layer sends Unknown_Find_Field 0x546710 out of line at 0x58CB50's first site, as the client |
+| 1 | `Unknown_Find_Set_Field` | `app/client/ui_experience.cpp:132` | untagged neutral name (D10) |
+| 1 | `UnknownExperienceParentClass` | `app/client/ui_experience.cpp:138` | untagged neutral name (D10) |
 | 1 | `Unknown64` | `app/client/ui_experience.cpp:146` | untagged neutral name (D10) |
 | 1 | `Unknown_6870E0` | `app/client/ui_experience.cpp:146` | untagged neutral name (D10) |
 | 1 | `Unknown_58C7B0` | `app/client/ui_experience.cpp:169` | untagged neutral name (D10) |
@@ -12562,19 +12565,19 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_08` | `app/client/ui_experience.cpp:183` | untagged neutral name (D10) |
 | 1 | `UnknownObjectWatchClass` | `app/client/ui_experience.cpp:186` | untagged neutral name (D10) |
 | 1 | `Unknown_10` | `app/client/ui_experience.cpp:190` | untagged neutral name (D10) |
-| 1 | `Unknown_Find_Set_Field` | `app/client/ui_experience.cpp:201` | untagged neutral name (D10) |
 | 1 | `Set_Unknown14` | `app/client/ui_experience.cpp:205` | untagged neutral name (D10) |
 | 1 | `Unknown_58CF60` | `app/client/ui_experience.cpp:224` | untagged neutral name (D10) |
 | 1 | `Unknown_687150` | `app/client/ui_experience.cpp:226` | untagged neutral name (D10) |
-| 1 | `UnknownObjectWatchClass` | `app/client/ui_experience.h:17` | untagged neutral name (D10) |
-| 1 | `mesh, parent` | `app/client/ui_experience.h:20` | what its callers pass |
-| 1 | `object` | `app/client/ui_experience.h:22` | the base's |
-| 1 | `Unknown_08` | `app/client/ui_experience.h:22` | untagged neutral name (D10) |
-| 1 | `Unknown_Watch_0C` | `app/client/ui_experience.h:23` | untagged neutral name (D10) |
-| 1 | `Unknown_10` | `app/client/ui_experience.h:24` | untagged neutral name (D10) |
-| 1 | `Unknown_58C7B0` | `app/client/ui_experience.h:25` | untagged neutral name (D10) |
-| 1 | `Unknown_58CF60` | `app/client/ui_experience.h:26` | untagged neutral name (D10) |
-| 1 | `Parent` | `app/client/ui_experience.h:30` | what its callers pass |
+| 1 | `UnknownExperienceParentClass` | `app/client/ui_experience.h:19` | neutral (D10) |
+| 1 | `UnknownObjectWatchClass` | `app/client/ui_experience.h:20` | untagged neutral name (D10) |
+| 1 | `mesh, parent` | `app/client/ui_experience.h:23` | what its callers pass |
+| 1 | `object` | `app/client/ui_experience.h:25` | the base's |
+| 1 | `Unknown_08` | `app/client/ui_experience.h:25` | untagged neutral name (D10) |
+| 1 | `Unknown_Watch_0C` | `app/client/ui_experience.h:26` | untagged neutral name (D10) |
+| 1 | `Unknown_10` | `app/client/ui_experience.h:27` | untagged neutral name (D10) |
+| 1 | `Unknown_58C7B0` | `app/client/ui_experience.h:28` | untagged neutral name (D10) |
+| 1 | `Unknown_58CF60` | `app/client/ui_experience.h:29` | untagged neutral name (D10) |
+| 1 | `Parent` | `app/client/ui_experience.h:33` | what its callers pass |
 | 1 | `Unknown_BE67C4` | `app/client/ui_faction.cpp:22` | 0xBE67C4 |
 | 1 | `LineDisplayClientClass` | `app/client/ui_faction.cpp:25` | neutral (D10) |
 | 1 | `Unknown_00` | `app/client/ui_faction.cpp:28` | untagged neutral name (D10) |
@@ -13965,7 +13968,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_98` | `app/client/ui_log.cpp:108` | untagged neutral name (D10) |
 | 1 | `Unknown_66E460` | `app/client/ui_log.cpp:116` | untagged neutral name (D10) |
 | 1 | `Unknown_66FA90` | `app/client/ui_log.cpp:117` | untagged neutral name (D10) |
-| 1 | `Unknown58` | `app/client/ui_log.cpp:125` | untagged neutral name (D10) |
+| 1 | `Set_Unknown58` | `app/client/ui_log.cpp:125` | untagged neutral name (D10) |
 | 1 | `Unknown64` | `app/client/ui_log.cpp:128` | untagged neutral name (D10) |
 | 1 | `Unknown_6870E0` | `app/client/ui_log.cpp:128` | untagged neutral name (D10) |
 | 1 | `Unknown_672AD0` | `app/client/ui_log.cpp:148` | untagged neutral name (D10) |
@@ -15522,8 +15525,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_98` | `app/client/ui_petition_player_entry.cpp:279` | untagged neutral name (D10) |
 | 1 | `button` | `app/client/ui_petition_player_entry.cpp:280` | neutral (D10) |
 | 1 | `Unknown_B08CB0` | `app/client/ui_petition_player_entry.cpp:286` | untagged neutral name (D10) |
-| 1 | `Unknown3B` | `app/client/ui_petition_player_entry.cpp:288` | untagged neutral name (D10) |
-| 1 | `Unknown58` | `app/client/ui_petition_player_entry.cpp:289` | untagged neutral name (D10) |
+| 1 | `Set_Unknown3B` | `app/client/ui_petition_player_entry.cpp:288` | untagged neutral name (D10) |
+| 1 | `Set_Unknown58` | `app/client/ui_petition_player_entry.cpp:289` | untagged neutral name (D10) |
 | 1 | `Unknown64` | `app/client/ui_petition_player_entry.cpp:291` | untagged neutral name (D10) |
 | 1 | `Unknown_6870E0` | `app/client/ui_petition_player_entry.cpp:291` | untagged neutral name (D10) |
 | 1 | `Unknown_4BE9D0` | `app/client/ui_petition_player_entry.cpp:299` | untagged neutral name (D10) |
@@ -15537,6 +15540,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `name` | `app/client/ui_petition_player_entry.cpp:326` | neutral (D10) |
 | 1 | `Unknown` | `app/client/ui_petition_player_entry.cpp:326` | untagged neutral name (D10) |
 | 1 | `append` | `app/client/ui_petition_player_entry.cpp:327` | neutral (D10) |
+| 1 | `Unknown3B` | `app/client/ui_petition_player_entry.cpp:327` | untagged neutral name (D10) |
 | 1 | `Unknown_74D990` | `app/client/ui_petition_player_entry.cpp:335` | untagged neutral name (D10) |
 | 1 | `ui_petition_player_entry.h` | `app/client/ui_petition_player_entry.h:4` | provisional header name for ui_petition_player_entry.cpp |
 | 1 | `UIPetitionPlayerNameClass` | `app/client/ui_petition_player_entry.h:12` | neutral, after its member NameEditor |
@@ -24946,16 +24950,16 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_84FA80` | `app/wwudp/cordcon.cpp:212` | untagged neutral name (D10) |
 | 1 | `Unknown_850200` | `app/wwudp/cordcon.cpp:321` | untagged neutral name (D10) |
 | 1 | `CordListClass` | `app/wwudp/cordcon.h:60` | stand-in for wlib's LinkedList<T> |
-| 1 | `Unknown28` | `app/wwudp/cordcon.h:380` | untagged neutral name (D10) |
-| 1 | `Unknown_84FA80` | `app/wwudp/cordcon.h:425` | untagged neutral name (D10) |
-| 1 | `idle` | `app/wwudp/cordcon.h:436` | after openc / read |
-| 1 | `closec` | `app/wwudp/cordcon.h:438` | after openc |
-| 1 | `Unknown_850200` | `app/wwudp/cordcon.h:441` | untagged neutral name (D10) |
-| 1 | `Unknown0C` | `app/wwudp/cordcon.h:446` | untagged neutral name (D10) |
-| 1 | `Unknown14` | `app/wwudp/cordcon.h:448` | untagged neutral name (D10) |
-| 1 | `Unknown18` | `app/wwudp/cordcon.h:449` | untagged neutral name (D10) |
-| 1 | `Unknown1C` | `app/wwudp/cordcon.h:450` | untagged neutral name (D10) |
-| 1 | `Unknown98` | `app/wwudp/cordcon.h:471` | untagged neutral name (D10) |
+| 1 | `Unknown28` | `app/wwudp/cordcon.h:419` | untagged neutral name (D10) |
+| 1 | `Unknown_84FA80` | `app/wwudp/cordcon.h:464` | untagged neutral name (D10) |
+| 1 | `idle` | `app/wwudp/cordcon.h:475` | after openc / read |
+| 1 | `closec` | `app/wwudp/cordcon.h:477` | after openc |
+| 1 | `Unknown_850200` | `app/wwudp/cordcon.h:480` | untagged neutral name (D10) |
+| 1 | `Unknown0C` | `app/wwudp/cordcon.h:485` | untagged neutral name (D10) |
+| 1 | `Unknown14` | `app/wwudp/cordcon.h:487` | untagged neutral name (D10) |
+| 1 | `Unknown18` | `app/wwudp/cordcon.h:488` | untagged neutral name (D10) |
+| 1 | `Unknown1C` | `app/wwudp/cordcon.h:489` | untagged neutral name (D10) |
+| 1 | `Unknown98` | `app/wwudp/cordcon.h:510` | untagged neutral name (D10) |
 | 1 | `Unknown0C` | `app/wwudp/cordmgr.cpp:58` | untagged neutral name (D10) |
 | 1 | `Unknown04` | `app/wwudp/cordmgr.cpp:105` | untagged neutral name (D10) |
 | 1 | `Unknown08` | `app/wwudp/cordmgr.cpp:105` | untagged neutral name (D10) |
@@ -27345,10 +27349,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `UIExperienceBarClass` | `app/client/ui_experience.cpp:54` | its sub-objects are the mesh's '*_bar' |
 | 2 | `Set_Value` | `app/client/ui_experience.cpp:60` | what it does |
 | 2 | `Set_Value_Clamped` | `app/client/ui_experience.cpp:61` | what it does |
-| 2 | `Get_Object` | `app/client/ui_experience.h:28` | what it returns |
-| 2 | `CombatBar` | `app/client/ui_experience.h:31` | the mesh object's name |
-| 2 | `TradeBar` | `app/client/ui_experience.h:32` | the mesh object's name |
-| 2 | `ExploreBar` | `app/client/ui_experience.h:33` | the mesh object's name |
+| 2 | `Get_Object` | `app/client/ui_experience.h:31` | what it returns |
+| 2 | `CombatBar` | `app/client/ui_experience.h:34` | the mesh object's name |
+| 2 | `TradeBar` | `app/client/ui_experience.h:35` | the mesh object's name |
+| 2 | `ExploreBar` | `app/client/ui_experience.h:36` | the mesh object's name |
 | 2 | `UIFactionPanelClass` | `app/client/ui_faction_panel.h:26` | class from file (D24), ui_faction_panel.cpp |
 | 2 | `UIFriendsPlayerInfoClass` | `app/client/ui_friends.h:20` | what PlayersInfo holds (the asserts' 'PlayersInfo', '!friend_info') |
 | 2 | `std:` | `app/client/ui_friends.h:26` | its style's |
@@ -30052,84 +30056,84 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Cord_Get_Seq` | `app/wwudp/cordcon.cpp:1980` | what it does (the client has no name) |
 | 2 | `CORD_FRAGMENT_SIZE` | `app/wwudp/cordcon.h:53` | the fragment size in write 0x850C70 / examinePacket |
 | 2 | `CORD_MAX_PACKET` | `app/wwudp/cordcon.h:54` | pumpInternal's datagram limit (examinePacket: < 0x1F5) |
-| 2 | `CordMessageClass` | `app/wwudp/cordcon.h:300` | describes what it holds |
-| 2 | `SentTime` | `app/wwudp/cordcon.h:307` | +0x00 the last send (day 0 = never, or a resend asked for) |
-| 2 | `SendCount` | `app/wwudp/cordcon.h:308` | +0x08 0 = never sent |
-| 2 | `Length` | `app/wwudp/cordcon.h:309` | +0x0C this record's bytes (a fragment's) |
-| 2 | `TotalLength` | `app/wwudp/cordcon.h:310` | +0x10 the whole message's |
-| 2 | `Priority` | `app/wwudp/cordcon.h:311` | +0x14 |
-| 2 | `Seq` | `app/wwudp/cordcon.h:312` | +0x18 |
-| 2 | `Data` | `app/wwudp/cordcon.h:313` | +0x1C |
-| 2 | `Fragments` | `app/wwudp/cordcon.h:314` | +0x20 received: one flag per fragment |
-| 2 | `Time` | `app/wwudp/cordcon.h:315` | +0x24 received: when complete (0 = not yet) |
-| 2 | `FragIndex` | `app/wwudp/cordcon.h:316` | +0x28 sent |
-| 2 | `Flags` | `app/wwudp/cordcon.h:317` | +0x2C bit 0 fragmented, bit 1 first on the channel (block flag 0x20) |
-| 2 | `CordChannelClass` | `app/wwudp/cordcon.h:322` | describes what it is (the client's name not found) |
-| 2 | `Mode` | `app/wwudp/cordcon.h:332` | +0x00 0 unused, 3 reliable ordered, 4 sequenced, 1, 5 (channel 0) |
-| 2 | `LastWrite` | `app/wwudp/cordcon.h:333` | +0x04 |
-| 2 | `NextSeq` | `app/wwudp/cordcon.h:334` | +0x08 the next sequence number to send |
-| 2 | `Priority` | `app/wwudp/cordcon.h:335` | +0x0C |
-| 2 | `std:` | `app/wwudp/cordcon.h:336` | +0x10 written, not sent |
-| 2 | `std:` | `app/wwudp/cordcon.h:337` | +0x20 sent, waiting for an ack |
-| 2 | `Written` | `app/wwudp/cordcon.h:338` | +0x30 |
-| 2 | `Delivered` | `app/wwudp/cordcon.h:339` | +0x34 mode 3: the next sequence number read() delivers |
-| 2 | `Expected` | `app/wwudp/cordcon.h:340` | +0x38 mode 3: the first sequence number not received in order |
-| 2 | `NextSequenced` | `app/wwudp/cordcon.h:341` | +0x3C mode 4: older ones are dropped |
-| 2 | `LastSeq` | `app/wwudp/cordcon.h:342` | +0x40 |
-| 2 | `Incoming` | `app/wwudp/cordcon.h:343` | +0x44 received, not read |
-| 2 | `ToAck` | `app/wwudp/cordcon.h:344` | +0x58 |
-| 2 | `Missing` | `app/wwudp/cordcon.h:345` | +0x64 resend requests to send |
-| 2 | `Index` | `app/wwudp/cordcon.h:346` | +0x70 |
-| 2 | `CordStatsClass` | `app/wwudp/cordcon.h:355` | describes what it holds (the client's name not found) |
-| 2 | `Window` | `app/wwudp/cordcon.h:371` | +0x00 200 at first |
-| 2 | `PeerWindow` | `app/wwudp/cordcon.h:372` | +0x04 0xFFFFFFF |
-| 2 | `Threshold` | `app/wwudp/cordcon.h:373` | +0x08 0x7FFFFFFF: slow start below it |
-| 2 | `MaxWindow` | `app/wwudp/cordcon.h:374` | +0x0C the constructor's argument |
-| 2 | `InFlight` | `app/wwudp/cordcon.h:375` | +0x10 bytes sent, not acked |
-| 2 | `RateLimit` | `app/wwudp/cordcon.h:376` | +0x14 bytes per second (0xFFFFFFF) |
-| 2 | `RoundStart` | `app/wwudp/cordcon.h:377` | +0x18 |
-| 2 | `Round` | `app/wwudp/cordcon.h:378` | +0x20 |
-| 2 | `RoundTrip` | `app/wwudp/cordcon.h:379` | +0x24 ms, 300 at first |
-| 2 | `LastPeak` | `app/wwudp/cordcon.h:381` | +0x34 the last round's InFlight peak |
-| 2 | `Peak` | `app/wwudp/cordcon.h:382` | +0x38 |
-| 2 | `SecondStart` | `app/wwudp/cordcon.h:383` | +0x3C |
-| 2 | `LastSecondBytes` | `app/wwudp/cordcon.h:384` | +0x44 |
-| 2 | `SecondBytes` | `app/wwudp/cordcon.h:385` | +0x48 bytes sent this second |
-| 2 | `Go_Away` | `app/wwudp/cordcon.h:410` | what it does (called from CordMgr::Process_Go_Away_Packet) |
-| 2 | `Get_Channel` | `app/wwudp/cordcon.h:431` | grows Channels_ as the client does |
-| 2 | `Pending_Messages` | `app/wwudp/cordcon.h:433` | what it counts |
-| 2 | `Is_Closed` | `app/wwudp/cordcon.h:440` | what it returns |
-| 2 | `Ip_` | `app/wwudp/cordcon.h:443` | +0x00 (host order) |
-| 2 | `Port_` | `app/wwudp/cordcon.h:444` | +0x04 |
-| 2 | `Session_` | `app/wwudp/cordcon.h:445` | +0x08 |
-| 2 | `Key_` | `app/wwudp/cordcon.h:451` | +0x20 the RC4 session key (Encrypt_Data tests it as one 64-bit value) |
-| 2 | `OpenChannels_` | `app/wwudp/cordcon.h:452` | +0x28 |
-| 2 | `std:` | `app/wwudp/cordcon.h:453` | +0x2C |
-| 2 | `std:` | `app/wwudp/cordcon.h:454` | +0x3C channels in use, in first-use order |
-| 2 | `std:` | `app/wwudp/cordcon.h:455` | +0x4C channels with received messages, in arrival order |
-| 2 | `Queued_` | `app/wwudp/cordcon.h:456` | +0x5C |
-| 2 | `AcksPending_` | `app/wwudp/cordcon.h:457` | +0x60 |
-| 2 | `ResendsPending_` | `app/wwudp/cordcon.h:458` | +0x64 |
-| 2 | `Stats_` | `app/wwudp/cordcon.h:459` | +0x68 (constructor 0x85BF30) |
-| 2 | `BytesSent_` | `app/wwudp/cordcon.h:460` | +0x6C |
-| 2 | `BytesResent_` | `app/wwudp/cordcon.h:461` | +0x70 |
-| 2 | `BytesRead_` | `app/wwudp/cordcon.h:462` | +0x74 |
-| 2 | `BytesAcked_` | `app/wwudp/cordcon.h:463` | +0x78 |
-| 2 | `Resends_` | `app/wwudp/cordcon.h:464` | +0x7C |
-| 2 | `DupAcks_` | `app/wwudp/cordcon.h:465` | +0x80 |
-| 2 | `MessagesSent_` | `app/wwudp/cordcon.h:466` | +0x84 |
-| 2 | `PacketsIn_` | `app/wwudp/cordcon.h:467` | +0x88 |
-| 2 | `PacketsOut_` | `app/wwudp/cordcon.h:468` | +0x8C the datagram counter (the wire's bytes 3-4) |
-| 2 | `Quality_` | `app/wwudp/cordcon.h:469` | +0x90 sent as the header byte: the running percentage of reliable sends that were resends (pumpInternal) |
-| 2 | `HeaderIn_` | `app/wwudp/cordcon.h:470` | +0x94 the peer's header byte |
-| 2 | `ExpireCountdown_` | `app/wwudp/cordcon.h:472` | +0x9C pumpInternal drops expired unreliable records every 8 calls |
-| 2 | `LastSend_` | `app/wwudp/cordcon.h:473` | +0xA0 time_t of the last datagram (pump: the keep-alive after 5 s) |
-| 2 | `LastReceive_` | `app/wwudp/cordcon.h:474` | +0xA4 time_t (pump: the idle close after 90 s) |
-| 2 | `LastPump_` | `app/wwudp/cordcon.h:475` | +0xA8 time_t (pump: a gap over 45 s resets LastReceive_) |
-| 2 | `GoneAway_` | `app/wwudp/cordcon.h:476` | +0xAC set by Go_Away: pump sends nothing |
-| 2 | `CloseState_` | `app/wwudp/cordcon.h:477` | +0xB0 0 open, 1 close asked, 2 CLOSE sent, 3 peer closing, 4 closed |
-| 2 | `CloseSeq_` | `app/wwudp/cordcon.h:478` | +0xB4 |
-| 2 | `IsServer_` | `app/wwudp/cordcon.h:479` | +0xB8 |
+| 2 | `CordMessageClass` | `app/wwudp/cordcon.h:339` | describes what it holds |
+| 2 | `SentTime` | `app/wwudp/cordcon.h:346` | +0x00 the last send (day 0 = never, or a resend asked for) |
+| 2 | `SendCount` | `app/wwudp/cordcon.h:347` | +0x08 0 = never sent |
+| 2 | `Length` | `app/wwudp/cordcon.h:348` | +0x0C this record's bytes (a fragment's) |
+| 2 | `TotalLength` | `app/wwudp/cordcon.h:349` | +0x10 the whole message's |
+| 2 | `Priority` | `app/wwudp/cordcon.h:350` | +0x14 |
+| 2 | `Seq` | `app/wwudp/cordcon.h:351` | +0x18 |
+| 2 | `Data` | `app/wwudp/cordcon.h:352` | +0x1C |
+| 2 | `Fragments` | `app/wwudp/cordcon.h:353` | +0x20 received: one flag per fragment |
+| 2 | `Time` | `app/wwudp/cordcon.h:354` | +0x24 received: when complete (0 = not yet) |
+| 2 | `FragIndex` | `app/wwudp/cordcon.h:355` | +0x28 sent |
+| 2 | `Flags` | `app/wwudp/cordcon.h:356` | +0x2C bit 0 fragmented, bit 1 first on the channel (block flag 0x20) |
+| 2 | `CordChannelClass` | `app/wwudp/cordcon.h:361` | describes what it is (the client's name not found) |
+| 2 | `Mode` | `app/wwudp/cordcon.h:371` | +0x00 0 unused, 3 reliable ordered, 4 sequenced, 1, 5 (channel 0) |
+| 2 | `LastWrite` | `app/wwudp/cordcon.h:372` | +0x04 |
+| 2 | `NextSeq` | `app/wwudp/cordcon.h:373` | +0x08 the next sequence number to send |
+| 2 | `Priority` | `app/wwudp/cordcon.h:374` | +0x0C |
+| 2 | `std:` | `app/wwudp/cordcon.h:375` | +0x10 written, not sent |
+| 2 | `std:` | `app/wwudp/cordcon.h:376` | +0x20 sent, waiting for an ack |
+| 2 | `Written` | `app/wwudp/cordcon.h:377` | +0x30 |
+| 2 | `Delivered` | `app/wwudp/cordcon.h:378` | +0x34 mode 3: the next sequence number read() delivers |
+| 2 | `Expected` | `app/wwudp/cordcon.h:379` | +0x38 mode 3: the first sequence number not received in order |
+| 2 | `NextSequenced` | `app/wwudp/cordcon.h:380` | +0x3C mode 4: older ones are dropped |
+| 2 | `LastSeq` | `app/wwudp/cordcon.h:381` | +0x40 |
+| 2 | `Incoming` | `app/wwudp/cordcon.h:382` | +0x44 received, not read |
+| 2 | `ToAck` | `app/wwudp/cordcon.h:383` | +0x58 |
+| 2 | `Missing` | `app/wwudp/cordcon.h:384` | +0x64 resend requests to send |
+| 2 | `Index` | `app/wwudp/cordcon.h:385` | +0x70 |
+| 2 | `CordStatsClass` | `app/wwudp/cordcon.h:394` | describes what it holds (the client's name not found) |
+| 2 | `Window` | `app/wwudp/cordcon.h:410` | +0x00 200 at first |
+| 2 | `PeerWindow` | `app/wwudp/cordcon.h:411` | +0x04 0xFFFFFFF |
+| 2 | `Threshold` | `app/wwudp/cordcon.h:412` | +0x08 0x7FFFFFFF: slow start below it |
+| 2 | `MaxWindow` | `app/wwudp/cordcon.h:413` | +0x0C the constructor's argument |
+| 2 | `InFlight` | `app/wwudp/cordcon.h:414` | +0x10 bytes sent, not acked |
+| 2 | `RateLimit` | `app/wwudp/cordcon.h:415` | +0x14 bytes per second (0xFFFFFFF) |
+| 2 | `RoundStart` | `app/wwudp/cordcon.h:416` | +0x18 |
+| 2 | `Round` | `app/wwudp/cordcon.h:417` | +0x20 |
+| 2 | `RoundTrip` | `app/wwudp/cordcon.h:418` | +0x24 ms, 300 at first |
+| 2 | `LastPeak` | `app/wwudp/cordcon.h:420` | +0x34 the last round's InFlight peak |
+| 2 | `Peak` | `app/wwudp/cordcon.h:421` | +0x38 |
+| 2 | `SecondStart` | `app/wwudp/cordcon.h:422` | +0x3C |
+| 2 | `LastSecondBytes` | `app/wwudp/cordcon.h:423` | +0x44 |
+| 2 | `SecondBytes` | `app/wwudp/cordcon.h:424` | +0x48 bytes sent this second |
+| 2 | `Go_Away` | `app/wwudp/cordcon.h:449` | what it does (called from CordMgr::Process_Go_Away_Packet) |
+| 2 | `Get_Channel` | `app/wwudp/cordcon.h:470` | grows Channels_ as the client does |
+| 2 | `Pending_Messages` | `app/wwudp/cordcon.h:472` | what it counts |
+| 2 | `Is_Closed` | `app/wwudp/cordcon.h:479` | what it returns |
+| 2 | `Ip_` | `app/wwudp/cordcon.h:482` | +0x00 (host order) |
+| 2 | `Port_` | `app/wwudp/cordcon.h:483` | +0x04 |
+| 2 | `Session_` | `app/wwudp/cordcon.h:484` | +0x08 |
+| 2 | `Key_` | `app/wwudp/cordcon.h:490` | +0x20 the RC4 session key (Encrypt_Data tests it as one 64-bit value) |
+| 2 | `OpenChannels_` | `app/wwudp/cordcon.h:491` | +0x28 |
+| 2 | `std:` | `app/wwudp/cordcon.h:492` | +0x2C |
+| 2 | `std:` | `app/wwudp/cordcon.h:493` | +0x3C channels in use, in first-use order |
+| 2 | `std:` | `app/wwudp/cordcon.h:494` | +0x4C channels with received messages, in arrival order |
+| 2 | `Queued_` | `app/wwudp/cordcon.h:495` | +0x5C |
+| 2 | `AcksPending_` | `app/wwudp/cordcon.h:496` | +0x60 |
+| 2 | `ResendsPending_` | `app/wwudp/cordcon.h:497` | +0x64 |
+| 2 | `Stats_` | `app/wwudp/cordcon.h:498` | +0x68 (constructor 0x85BF30) |
+| 2 | `BytesSent_` | `app/wwudp/cordcon.h:499` | +0x6C |
+| 2 | `BytesResent_` | `app/wwudp/cordcon.h:500` | +0x70 |
+| 2 | `BytesRead_` | `app/wwudp/cordcon.h:501` | +0x74 |
+| 2 | `BytesAcked_` | `app/wwudp/cordcon.h:502` | +0x78 |
+| 2 | `Resends_` | `app/wwudp/cordcon.h:503` | +0x7C |
+| 2 | `DupAcks_` | `app/wwudp/cordcon.h:504` | +0x80 |
+| 2 | `MessagesSent_` | `app/wwudp/cordcon.h:505` | +0x84 |
+| 2 | `PacketsIn_` | `app/wwudp/cordcon.h:506` | +0x88 |
+| 2 | `PacketsOut_` | `app/wwudp/cordcon.h:507` | +0x8C the datagram counter (the wire's bytes 3-4) |
+| 2 | `Quality_` | `app/wwudp/cordcon.h:508` | +0x90 sent as the header byte: the running percentage of reliable sends that were resends (pumpInternal) |
+| 2 | `HeaderIn_` | `app/wwudp/cordcon.h:509` | +0x94 the peer's header byte |
+| 2 | `ExpireCountdown_` | `app/wwudp/cordcon.h:511` | +0x9C pumpInternal drops expired unreliable records every 8 calls |
+| 2 | `LastSend_` | `app/wwudp/cordcon.h:512` | +0xA0 time_t of the last datagram (pump: the keep-alive after 5 s) |
+| 2 | `LastReceive_` | `app/wwudp/cordcon.h:513` | +0xA4 time_t (pump: the idle close after 90 s) |
+| 2 | `LastPump_` | `app/wwudp/cordcon.h:514` | +0xA8 time_t (pump: a gap over 45 s resets LastReceive_) |
+| 2 | `GoneAway_` | `app/wwudp/cordcon.h:515` | +0xAC set by Go_Away: pump sends nothing |
+| 2 | `CloseState_` | `app/wwudp/cordcon.h:516` | +0xB0 0 open, 1 close asked, 2 CLOSE sent, 3 peer closing, 4 closed |
+| 2 | `CloseSeq_` | `app/wwudp/cordcon.h:517` | +0xB4 |
+| 2 | `IsServer_` | `app/wwudp/cordcon.h:518` | +0xB8 |
 | 2 | `Cord_Put_Short` | `app/wwudp/cordmgr.cpp:1580` | what it does |
 | 2 | `Cord_Put_Long` | `app/wwudp/cordmgr.cpp:1581` | what it does |
 | 2 | `CordDataSocketClass` | `app/wwudp/cordmgr.h:40` | a data socket's record (the +0x40 list, 16 bytes) |
@@ -30884,7 +30888,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `UIDynamicWindowClass` | `app/client/ui_dynamicwindow.h:24` | class-from-file (D24) for app\Client\ui_dynamicwindow.cpp |
 | 3 | `MainWindow` | `app/client/ui_dynamicwindow.h:52` | the FAIL_IF's |
 | 3 | `ui_experience.h` | `app/client/ui_experience.h:5` | provisional header name for ui_experience.cpp |
-| 3 | `UIExperienceClass` | `app/client/ui_experience.h:17` | class-from-file (D24) for app\client\ui_experience.cpp |
+| 3 | `UIExperienceClass` | `app/client/ui_experience.h:20` | class-from-file (D24) for app\client\ui_experience.cpp |
 | 3 | `As_Space_Client` | `app/client/ui_faction.cpp:30` | the FAIL_IF's in ui_manu.cpp |
 | 3 | `UIFactionClass` | `app/client/ui_faction.h:15` | class-from-file (D24) for app\Client\ui_faction.cpp |
 | 3 | `Get_Client` | `app/client/ui_faction.h:28` | the FAIL_IF's |
