@@ -184,24 +184,24 @@ StarbaseShipCustomizeInterface::~StarbaseShipCustomizeInterface()
 	GadgetClass::Get_Signal_Map().disconnect((GadgetClass *)NULL, this, &StarbaseShipCustomizeInterface::Unknown_61E730, FlashingGadgetEvent(NULL));
 }
 
-// NOT EXACT: register (every call matches; Desc through a pointer local reads Selected_Decal through ebx as the client
-// does, masked 29 -> 24; left: eax / ecx / edx swaps around the 0x74C960 results, the pip's set-up and the virtual calls)
+
+
 // @0x618CA0
 void StarbaseShipCustomizeInterface::Unknown_54()
 {
 	SBaseView->Unknown_69DC40();
 	InterfaceSortScopeClass sort(this);
 	Desc = ShipCustDescClass(); ShipCustDescClass *d = &Desc;
-	d->Set_Race(SBaseView->Client->Unknown_74C960(SBaseView->Client->AvatarID)[4]);
+	d->Set_Race(SBaseView->Client->Unknown_74C960(SBaseView->Client->Get_Avatar_ID())[4]);
 	d->Reset_Parts();
-	d->Set_Profession(SBaseView->Client->Unknown_74C960(SBaseView->Client->AvatarID)[5]);
+	d->Set_Profession(SBaseView->Client->Unknown_74C960(SBaseView->Client->Get_Avatar_ID())[5]);
 	Unknown318 = (d->Selected_Decal == 0x7FFFFFF) ? 0 : d->Selected_Decal + 1;
 	Unknown2E0 = new ShipPipClass(0);
 	Unknown2E0->Unknown_80C220((ViewClass *)SBaseView);
 	Unknown2E0->Unknown_74(0);
 	Unknown2E0->Set_Last_Sort_Group(1);
 	Unknown2E0->Unknown_80C540(Vector2(640.0f, 480.0f), Vector3(0.0f, 0.0f, 0.0f), 0x1C);
-	Unknown64.Unknown_6870E0(Unknown2E0, 0x33, Get_View(), 1, 0);
+	Unknown64.Unknown_6870E0(Unknown2E0, 0x33, View, 1, 0);
 	Unknown330 = new SClientUnknown1334Class;
 	Unknown330->Load("decal_textures.ini", "decal_swatches.ini", "secret_decal_textures.ini");
 	((ControlKeyListClass *)&Unknown4C)->Add(KernelEventClass(0x1B), (void *)0x1B);
@@ -212,9 +212,9 @@ void StarbaseShipCustomizeInterface::Unknown_54()
 	TheDX8MeshRenderer.Invalidate();
 	GadgetClass::Get_Signal_Map().connect((GadgetClass *)NULL, this, &StarbaseShipCustomizeInterface::Unknown_61E730);
 	// (SignalMap's template connect: its inline layer leaves the callback's constructor 0x620BC0 out of line, as the
-	// client's; the eight dead size() reads after 0x61F1D0 push the first vector constructor 0x61FAB0 out of line)
+	// client's; the nine dead size() reads after 0x61F1D0 keep the inline budget balanced with Get_Avatar_ID())
 
-	Unknown_61F1D0(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size();	// (inline: 0x61F1D0 is defined later in the file; its expansion spends VC6's inline budget so ShipCustPartClass's constructor 0x6191F0 is called out of line, as the client's)
+	Unknown_61F1D0(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size();	// (inline: 0x61F1D0 is defined later in the file; its expansion spends VC6's inline budget so ShipCustPartClass's constructor 0x6191F0 is called out of line, as the client's)
 }
 
 // @0x6193A0
