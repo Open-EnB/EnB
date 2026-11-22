@@ -1,0 +1,210 @@
+Planet landing0x794A90: normalization caller provenance
+=====================================================
+
+The existing member Normalize operation explains the remaining inverse-length
+store/pop/reload. One source-backed change improves raw16/11 to9/4 and matches
+the entire retail floating-point sequence. The function remains nonexact:
+two ordinary raw-vector copy instructions are scheduled late, and five tail
+instructions use different general registers. No source adoption is proposed.
+
+Identity and scope
+------------------
+Audit began at2075fc1c50d77141b50dd27127195dbff0ec7c8f, attempts-only; application
+source remains277cb346. Claimed target is794A90 under244. Other functions were
+read-only evidence. Root compiled exactly two new source forms, with the prior
+corrected-best17pair native set reused. No new control, header edit, compiler
+option, assembly, installation, external write, worker compilation or commit.
+All sources use immutable half-copy-identity/final-tree headers, original
+camctrl_pland.cpp basename and preserved executable assertion lines. The real
+configured_up -> StartUp constructor argument and inherited inline rotation
+helper on physical line22 remain intact.
+
+Baseline is794a90-storage-audit/configured_up_consumer_complete, whose complete
+dataflow correction is retained in docs/attempts/794A90/storage-consumer-correction.txt.
+It has framec0,430instructions,34calls,1811bytes; normalized11/6 and raw16/11.
+All17unit pairs hold. The earlier claim that configuration stores are unread
+was already corrected; this audit does not reopen that resolved storage issue.
+
+Exact caller inventory and its limits
+------------------------------------
+Direct source searches for free Vector3 Normalize found three application
+function owners:788900/avatar.cpp,70E850/co_subtypes.cpp and79C970/unknown_79c8e0.cpp.
+All are nonexact. The two library calls in OBBoxClass::Init_From_Box_Points
+do not supply an exact body: obbox.json lists only shared helper pairs42F250
+and447C40. Matching a helper emitted by a source file is not proof that its
+normalization-containing function matches.
+
+Header commit338a1ce8 changed free Normalize to copy the input first, then
+write each scaled component. It improved79C970184->18masked rows but gained
+zero pairs. Therefore that global helper's source identity was not established
+by an exact free-Normalize consumer. Its original EA form computes len2, returns
+vec*inverse for nonzero length and returns vec otherwise. Neither original
+EA form nor the modified copy-first form alone proves the source operation at
+this camera site. Header/79C970 historical experiments already included
+result=vec*inverse and result*=inverse, worsening18rows to137/60 respectively.
+Those are not fresh hypotheses, and no shared-header experiment was performed.
+
+A focused static scan of hash-checked retail found192direct rel32 call encodings
+to Inv_Sqrt or its known thunk. Nine candidate sites start their subsequent FP
+work with a memory fstp of the return value. Nearest known owner addresses were
+joined to checked-in in_tree ledgers, then the selected owner was checked with
+full-boundary disassembly. This is an inventory aid, not a proof that arbitrary
+byte-pattern hits are instruction boundaries or that every possible indirect
+call was found. Only one selected store/pop owner was ledger-exact:
+
+  call6A1F71, owner6A1C90, SBaseViewClass::Unknown_6A1C90,
+  app/client/sbaseview.cpp:1498, docs/data/imports/app/sbaseview.json.
+
+The other inventory owners were446000,449EA0,512BB0(two sites),70E850,794A90,
+79C970 and7AD850. They were not treated as exact source precedents. In particular,
+512BB0's historical trials reproduced a spill using earlier-defined function-
+scope inverse floats with dead initializers. That target remains nonexact;
+such an artificial initializer is not justified here and was not used.
+
+The exact6A1C90 source witness
+----------------------------
+The checked-in source performs three member normalizations. Its last relevant
+sequence is a real new direction derived from a matrix-rotated offset:
+
+  Vector3 light;
+  Unknown_Rotate_Vector(tm, Unknown1D4, &light);
+  dir = light + dir;
+  dir.Normalize();
+  RCamera->Set_Spot_Direction(-dir);
+
+The function is in_tree exact, and attempts.csv records an exact result on
+2026-11-05 12:35, after the alias-free rotation helper was recovered. This is
+checked-in exact-function evidence; this audit did NOT freshly compile6A1C90.
+Its normalization operation is the member API, not free Normalize. No type
+name or source-owner attribution was inferred from a shared helper pair.
+
+Retail6A1F31..59 calculates a single emitted squared length.6A1F5D compares
+against zero,6A1F68 branches on equality, and6A1F71 calls Inv_Sqrt with the
+stored length. Then:
+
+  006A1F76 fstp dword ptr [esp+8]
+  006A1F7A fld  dword ptr [esp+2c]
+  006A1F7E fmul dword ptr [esp+8]
+  006A1F82 fld  dword ptr [esp+30]
+  006A1F86 fmul dword ptr [esp+8]
+  006A1F8A fstp dword ptr [esp+24]
+  006A1F8E fld  dword ptr [esp+34]
+  006A1F92 fmul dword ptr [esp+8]
+
+The current member source computes len2=Length2(), tests len2!=0, then spells
+Inv_Sqrt(Length2()). The exact caller proves that VC6 can common those two
+source evaluations into one emitted calculation. Thus one emitted Length2
+does NOT distinguish the free API from the member API. The earlier general
+workflow heuristic is insufficient when the compiler can common the expression.
+
+The member API also provides the actual source boundary for a float inverse
+which is popped to memory before the component products. This matters because
+the former candidate kept the extended-precision inverse on the x87 stack for
+its first product. Merely commuting multiplication or asserting mathematical
+equivalence would not prove the same machine behavior. The native results and
+literal comparisons below, rather than algebraic reasoning, decide the test.
+
+First bounded form: copied result then member Normalize
+------------------------------------------------------
+Replace only this line in the corrected best:
+  Vector3 normalized = Normalize(rotated);
+with:
+  Vector3 normalized = rotated; normalized.Normalize();
+
+The real separate normalized object remains, as do the raw tangent copy and
+rotated result. Existing member and free APIs both leave the input unchanged
+for len2==0 and use !=0 rather than a positive-only guard. No change to NaN or
+signed-zero branching was introduced. No extra consumer, scalar initialization,
+volatile, global helper edit, alternate floating constant, or FP operand
+permutation was used. Prior target stashes had not tested this copied rotated
+result's member operation: old up_dir.Normalize belonged to an unrelated,
+incorrect configured-up transform in the initial reconstruction.
+
+The root-run VC6 SP4 object gives raw9/4, normalized9/4,431instructions/34calls,
+1815bytes and framec0, all equal in size/count to retail. All17native baseline
+pairs remain,+0/-0; target itself remains nonexact. All10floating literal
+references equal the hash-checked retail bytes. The complete inverse region
+now exactly emits794EDF fstp inverse;794EE3 fld source;794EE7 fmul inverse,
+then the corresponding Y/Z loads and products. Every FP instruction and actual
+FP operand home in the target matches. The single squared-length evaluation,
+zero-test branch and call argument also match; no extra Length2 remains.
+
+Raw region differences after this change are start rotation0,forward rotation2,
+normalization2,tangent0,up rotation0,camera0,module position copy0,tail5. The
+two forward and two normalization edit rows are a pair of ordinary moves
+scheduled across the boundary, NOT residual FP arithmetic differences:
+
+  retail794E8E mov edx,[esp+18]
+  retail794E92 mov [esp+48],edx
+
+Candidate schedules those same operations at function offsets040E and041A,
+after some normalization loads. The other five rows are tail EAX/EDX choices
+for the enabled flag and AvatarID copy at79508B..79509E. The analyzer labels
+the result register-only; explicit raw accounting is still necessary because
+masking GPR names leaves four edit rows for the moved copy instructions.
+
+Second bounded form: actual copied-vector input dependency
+---------------------------------------------------------
+After the member operation demonstrated the expected inverse spill, root
+authorized one follow-up: initialize normalized from tangent1, which has just
+received rotated's components, rather than from rotated. Prediction was that
+consuming the completed raw-vector copy would bring its last two moves before
+normalization. The earlier consumed_raw_vector trial had used free Normalize
+and regressed; this was explicitly a bounded interaction under the newly
+supported member operation, not a claim that the dependency technique was new.
+
+The follow-up canonicalizes: same431instructions/34calls/1815bytes/framec0,
+same raw9/4 and same normalized codegroupa5e5a5c96bdf9c1b, same remaining move
+schedule, and all17native pairs preserved,+0/-0. No additional hypothesis is
+supported by that result. No general-register or source-permutation sweep was
+prepared. Stop with copied_member_normalize as the clearer strongest partial.
+
+Accounting and limitations
+--------------------------
+Two valid new forms, two successful VC6 SP4 objects, both fully native matched.
+Zero fresh controls (the previous corrected-best native17pair set was reused),
+zero compile rejections, invalid diagnostics, confirmation builds or untested
+forms. No target gain, pair loss or source adoption. No worker compiler/Wine,
+tracked edits, commits, VM leases, installations or external writes. Full-app
+maintainer verification remains necessary for any eventual adoption.
+
+Evidence retained locally: invsqrt-callers.json (inventory with explicit scope),
+sbase-witness.dis (full selected exact caller), hypotheses.md/hypotheses2.md
+(pre-build predictions), source-manifest.json, both immutable source variants,
+both run summary/matches/explain/target.diff sets, literal-audit.json and the
+final manifest. No claim of original source syntax is made from this partial
+match. The proven useful distinction is an existing member-operation boundary
+that preserves the actual inverse scalar spill without artificial forcing.
+
+Complete source changes relative to preceding corrected best
+----------------------------------------------------------
+
+FORM copied_member_normalize
+SHA256 dc2c3950d93a46c081bb3c4b229ee0999765d787c5de851b17cafc8099ddbadc
+--- configured_up_consumer_complete/camctrl_pland.cpp
++++ copied_member_normalize/camctrl_pland.cpp
+@@ -151,7 +151,7 @@
+ 	start_pos = end_pos + Unknown_Rotate(ship_tm, start_pos);
+ 	tangent1.X = speed_fwd;
+ 	Vector3 rotated = Unknown_Rotate(ship_tm, tangent1); tangent1 = rotated; // NAME 1: 794E3A..E92 rotation-return object copied to raw tangent
+-	Vector3 normalized = Normalize(rotated); // NAME 1: 794E96..EF7 result before down product
++	Vector3 normalized = rotated; normalized.Normalize(); // NAME 1: 794E96..EF7 result before down product
+ 	tangent0 = normalized * speed_fwd + Vector3(0.0f, 0.0f, -1.0f) * speed_down;
+ 	up_dir = ship_tm * up_dir;
+ 	Vector3 cam_pos = end_pos;
+
+FORM copied_member_from_raw
+SHA256 7e65d312def56baaaf71c636743b02da10042faf9c9f2f476918d781ae7fb263
+--- copied_member_normalize/camctrl_pland.cpp
++++ copied_member_from_raw/camctrl_pland.cpp
+@@ -151,7 +151,7 @@
+ 	start_pos = end_pos + Unknown_Rotate(ship_tm, start_pos);
+ 	tangent1.X = speed_fwd;
+ 	Vector3 rotated = Unknown_Rotate(ship_tm, tangent1); tangent1 = rotated; // NAME 1: 794E3A..E92 rotation-return object copied to raw tangent
+-	Vector3 normalized = rotated; normalized.Normalize(); // NAME 1: 794E96..EF7 result before down product
++	Vector3 normalized = tangent1; normalized.Normalize(); // NAME 1: 794E96..EF7 result before down product
+ 	tangent0 = normalized * speed_fwd + Vector3(0.0f, 0.0f, -1.0f) * speed_down;
+ 	up_dir = ship_tm * up_dir;
+ 	Vector3 cam_pos = end_pos;
+
+Previous source identity: daaa0e0a6dcf4b02ef8068f5729d225fa1e917d5cb8aa4f5246126886b7deebf

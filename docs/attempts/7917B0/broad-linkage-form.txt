@@ -1,0 +1,15 @@
+# 7917B0 gpt-6.1-sol (high), source commit9d656202.
+# One new form plus baseline control, both fully native-matched.
+# External linkage not proven original; unchanged target bytes.
+
+--- 9d656202/app/client/unknown_phoneme.cpp
++++ external_table/unknown_phoneme.cpp
+@@ -54,7 +54,7 @@
+ };
+ 
+ // 0xBE8570: the groups by first letter a-z
+-static struct { int First; int Count; } Unknown_BE8570[26];	// NAME 1 [Unknown_BE8570]: neutral (D10)
++struct { int First; int Count; } Unknown_BE8570[26];	// NAME 1 [Unknown_BE8570]: neutral (D10)
+ 
+ // 0x7913B0
+ static int __cdecl Unknown_7913B0(const void *a, const void *b)	// NAME 1: neutral (D10)

@@ -1,0 +1,386 @@
+# Takeoff796920: loop, result lifetime and fallback audit
+
+Five fresh forms, five successful VC6 SP4 objects, all fully native matched;
+no fresh controls, failed/invalid/pending/untested/confirmation inputs. Best remains
+final-scaling/scale_existing_scalars:raw46/39,frame220,536ins29calls1997bytes.
+No application source adoption or net branch gains. Root handles evidence/checks.
+
+| Form | Raw/GPRmasked | Normalized/GPRmasked | Instructions/calls | Bytes/frame | Native pairs |
+| --- | --- | --- | --- | --- | --- |
+| continue_retry |46/39|38/26|536/29|1997/220|15,+0/-0|
+| bounded_success_exit |167/145|64/37|539/29|2012/224|15,+0/-0|
+| result_condition |173/151|65/39|541/30|2023/224|16,+1/-0 known helper|
+| postincrement_guard |56/49|49/40|537/29|1999/220|15,+0/-0|
+| fallback_offset_add |82/75|39/27|536/29|1997/220|15,+0/-0|
+
+The result_condition extra pair is takeoff TU attribution of existing globally
+exact CastResultStruct::Reset4555B0, already held in avatar/ui_starbase/
+galaxy_map_render/px_collision ledgers. It is not a newly solved function or
+796920 gain. That candidate emits an extra preloop Reset call absent from retail,
+so no adoption based on the incidental helper match. Native file-address audits
+are retained beside both run summaries; no original15pair loss in any object.
+
+Prior69 fullsources and8 durable stashes audited: old for<=10, infinitefor,
+while(true),one do_while_retry with bool. The five mechanisms were fresh and
+root-approved; all preserve ten actual attempts, success bypassing fallback even
+on attempt10, and retry on NaN through !(Fraction>=1), not Fraction<1.
+
+- continue_retry spells explicit failed-attempt continue followed by successbreak.
+  It canonicalizes to exact previous partial groupa779e525a0b4abc9. Tail counter
+  reload/exitJE still differs from retail initialjump/reloadatheader/retryJNE.
+- bounded_success_exit uses while(i<10), existing ++i, successgoto past exhausted
+  fallback. Label exits the loop and crosses no initialized scope. Compiler peels
+  initial counttest, tests count near tail, caches destination in EBX and spills
+  ship; frame grows224 and real object homes change. No control recovery.
+- result_condition hoists actual CastResult, calls existing fullfield Reset each
+  attempt, and directly tests its Fraction in do-while condition. Unlike old bool
+  retry, this tests real result lifetime. Constructor delegates Reset; initial
+  initialization does NOT disappear: extra out-of-line Reset beforeloop. Perattempt
+  Reset inlines. It also peels loop/changes EBX/frame like bounded_success_exit.
+- postincrement_guard keeps best while(true), uses if(i++>=10), removes separate
+  ++i. Exhaustion increments only a dead local to11; attempts/randomcalls unchanged.
+  Raw MOV ECX,EAX;INC EAX;CMP ECX,10;STOREcounter;JGE preserves the oldvalue with
+  an extra GPR rather than delaying increment until after branch. Wrong header
+  and tail reload remain, counter home-20 unchanged. No further counter sweep.
+- fallback_offset_add uses existing Vector3(0,0,5000)+Unknown30 API. Compiler
+  eliminates zero X/Y adds with no extra spills and uses common EDI source as
+  predicted. But Z remains FLD[edi+8]/FADD5000, reverse of retail FLD5000/FADD[edi+8].
+  Fallback distance3->2 is insufficient. It also changes six box-center dotproducts
+  (36 actual FP operand rows), raising boxregion6->43 and whole46->82. Signedzero/
+  NaN equivalence was not assumed from source; actual X/Y operations were audited.
+
+All five preserve correct pitch FMULdword30/FADDdword30/FMULdwordrad;radbytes
+35fa8e3c. All seven final-camera constant references match retail bytes/widths.
+Final trig/scaling stays raw0. This does not imply full FP agreement: regressed
+forms have other operand/layout effects. Fulltarget always796920..7970F0,
+retail537ins29calls2000bytes,returns796976/7969AA/7970EF; never croppedtail.
+
+Unchanged best constraints remain actual and unresolved: counter-20 vsretail-b4,
+pitchsine-b4 vs-b0, endpointY-b0 vs-54, endpointX-54 vs-20; retryreload/header;
+argument/copy scheduling; fallback3rows; final transformed Z4 operand rows;
+five tailGPRrows. Pitch/scaling/midpoint/temp/matrix/modulecopy recoveries remain
+in best. No arbitrary register forcing, operand permutation, precision barriers,
+extra unused objects, compiler flags, new helper/API definitions or header changes were introduced.
+
+Read-only Matrix3D::mulVector3 audit was NOT a sixth form. Its implementation
+explicitly stages x/y/z then Set. Earlier7981B0 experiment had direct retail XYZ
+component-order evidence. This target computes Z/Y/X, keeping allresults live
+before modulecopy; current returned operator already has that component order.
+No independent source/lifetime constraint specifically supports switching APIs
+solely to swap Z's four product operands. No speculative API experiment performed.
+
+All forms rebased into immutable half-copy-identity/final-tree at HEAD3a0c5780,
+appsource277cb346,claim244,modelgpt-6-astra(high). Outside-target dependency only
+inherited camera.h->aabox.h include; other methods/basename/physical assertions/
+linecounts fixed. Postloop source byte-identical to best in every form. A preparation
+check initially selected earlier796440's similarly named lookat, caught its own
+scope mistake and was fixed before batch generation; no compiler input rejected.
+Compact stash includes unchanged best baseline patch plus all five incremental
+patches, pretest hypotheses and source hashes; manifest retains native/raw paths.
+
+BEFORE-TEST HYPOTHESES
+# Before batch1: actual retry control and result lifetime
+
+Claim244,target796920,HEAD3a0c5780/appsource277cb346,gpt-6-astra(high).
+Current best scale_existing_scalars raw46/39,frame220,536ins29calls1997bytes.
+Use same immutable half-copy-identity/final-tree and prior15pair native baseline;
+no fresh controls. Root compiles each object; no worker compiler/Wine writes.
+
+Freshness:69 retained fullsources plus8durable stashes read. Loops:41 old
+for(i=0;i<=10;++i),16 for(i=0;;),11 while(true),one do_while_retry using a bool.
+The old bool retry do-loop gave normalized99/65,540instructions before subsequent
+source improvements; it is not retested. No prior inverse-continue tail, bounded
+while with success exit, or outerCastResult/directcondition+Reset form found.
+
+Retail796A29 xor eax,796A2B jump past counterreload796A2D[-b4],796A33 compare10,
+796A36 branch fallback,796A3C increment,796A42 store[-b4]. Collision tail796F0C
+loads Fraction,compares1,FNSTSW AX,TEST AH1,JNE796A2D on less/unordered,then JMP
+796F3C skips fallback. Current while puts counterreload near tail after an exitJE.
+Countercurrent-20 vsretail-b4, pitchsine-b4 vs-b0, endpointY-b0 vs-54,
+endpointX-54 vs-20 form a meaningful live-range allocation cycle.
+
+Exactly three natural control mechanisms:
+1. continue_retry: keep current while/top exhaustion guard; after collision use
+   if(!(Fraction>=1)) continue; break. Direct retry edge versus success-break
+   representation is an ordinary source boundary; workflow3.1.2 documents
+   continue versus nested forms changing loop allocation. It may canonicalize;
+   no claim that writing a branch forces machine polarity.
+2. bounded_success_exit: while(i<10), existing ++i before attempt, success goto
+   cast_done; exhaustion falls through to unchanged fallbackassignment, then
+   cast_done:; precedes postloop Matrix3D declaration. Label is outside loop;
+   jump exits locals and crosses only a member assignment, never enters an
+   initialized scope or skips a declaration. Retail's success JMP over fallback
+   and header count branch support this source control boundary. No retry bool.
+3. result_condition: outer CastResultStruct result; do-loop with current top
+   exhaustion guard, Reset at old perattempt initialization site, direct tail
+   while(!(result.Fraction>=1)). Existing castres.h ctor delegates exactly Reset;
+   every field including Fraction,Normal,SurfaceType,ComputeContactPoint,
+   ContactPoint is reset on each actual attempt. This is a genuine result lifetime
+   and condition consumer, not old boolretry. Initial ctor's stores should be
+   dead because Reset dominates every cast/read. Any extra visible initial Reset,
+   additional construction/spill/changed initialization is a failed raw prediction.
+
+All forms perform exactly10 attempts on exhaustion, keep randomcalls in the
+same attempt order, skip fallback on success even at attempt10, and retry on
+unordered/NaN via !(Fraction>=1), not Fraction<1. Each success exits immediately;
+all10 failures/NaNs take fallback before postloop. The local counter is unused
+outside loop; no altered externally observable counter consumer is introduced.
+Objects' field semantics and perattempt init preserved. No fakehelper, new API,
+new compilerflags, volatile/asm, precision barrier, dead spender or operand swap.
+
+Primary prediction: retail retry-to-header-reload plus initial jump, correct
+counter/scalar-role homes, retaining recovered pitch/finalscaling/temp identities.
+Audit actual fullbody796920..7970F0, all FP/literal widths/rounding, randomcalls,
+real object addresses, and all15nativepairs even if diagnostics worsen. Existing
+remaining finalZ4FProws, fallback3 and tailGPR5 are independent constraints, not
+assumed fixed by a loop spelling. Exacttarget gain/0loss required adoption.
+
+All source rebased into currentimmutable tree, outside target only inherited
+camera.h->aabox.h include. Physical assertions, basename,linecounts and allother
+methods unchanged. Entire postloop Matrix3D/lookat/scaling/copy/state source
+identical to best; prior pitchproduct statement remains intact inside each loop.
+
+# Before batch2: one counter-expression boundary and one actual fallback API
+
+Batch1: continue_retry canonical46/39. Bounded success167/145 frame224 peels
+countertest into tail and replaces ship-in-EBX with destination-in-EBX. Outer
+result173/151 frame224/30calls emits an extra preloop out-of-line Reset; predicted
+DSE fails. Reset4555B0 is already globally exact in several ledgers; its extra
+native takeoff attribution is not a solvedtarget. Perattempt Reset inlines. No
+further bool/outerobject/control matrix follows. Preserve best46/39 as both bases.
+
+1. postincrement_guard: if(i++>=10) at existing topguard; remove separate ++i.
+   Retail compares oldcounter, branches fallback, then increments/stores before
+   attempt. Postincrement produces oldvalue for condition; increment on exhausted
+   exit has no consumer and can be eliminated there. This is a real expression
+   dependency distinct from prior separate comparison/increment, not a new local
+   toforce allocation. Initial0,attempts1..10 unchanged; on exhaustion only dead
+   localcounter becomes11 instead of10. No overflow or outside use. NaN/fraction
+   predicate and randomcalls untouched. If canonical, record and stop this lever.
+2. fallback_offset_add: existing Vector3(0,0,5000)+Unknown30 operator+ rather than
+   component constructor. Existing API returns component a+b; retail fallback
+   loads literal5000 then adds [edi+8], loads[edi+4] and integercopies[edi]. This
+   supports offset-plus-position operation and common referenced source identity.
+   All69 audited inputs use only copy+Z+=5000(53) or componentconstructor(16);
+   no prior vectoroffset addition. This is not a bare arbitrary operand swap.
+
+Zero X/Y additions are not assumed IEEE-equivalent to direct copies: signedzero
+and NaN could differ if they remain. Existing target demonstrates zero elimination
+in matrix/vector expressions, but no independent exact plus-zero caller is claimed.
+Accept fallback shape only if compiler removes X/Y additions and extra spills,
+preserving retail literal5000 bytes00409c45, Z width/order, X/Y transfer behavior.
+No flags, headers, constants or helpers changed to induce elimination. Fulltarget
+still must be exact with gain/0loss for adoption. Both forms independently derive
+from best46/39, not the regressed batch1 candidates; no combined form yet authorized.
+
+UNCHANGED BEST BASELINE PATCH FROM APP SOURCE277cb346
+--- source/app/client/camctrl_takeoff.cpp
++++ scale_existing_scalars/app/client/camctrl_takeoff.cpp
+@@ -10,7 +10,7 @@
+ #include "obbox.h"
+ #include "castres.h"
+ #include "scene.h"
+-#include "camera.h"
++#include "aabox.h"
+ #include "matrix3d.h"
+ #include "wwmath.h"
+ #include "..\shared\g_assert.h"
+@@ -220,38 +220,34 @@
+ 	}
+ 
+ 	Unknown24 = ship->Unknown_24();
+-	Unknown30 = Unknown24;
+-	Unknown30.Z += Unknown_BDB1C0.Get_Float() * 500.0f + 100.0f;
++	Unknown30 = Vector3(Unknown24.X, Unknown24.Y, (Unknown_BDB1C0.Get_Float() * 500.0f + 100.0f) + Unknown24.Z);
+ 	Unknown3C = Build_Quaternion(ship->Unknown_28(true));
+ 
+-	for (int i = 0; i <= 10; ++i) {
++	int i = 0; while (true) {
+ 		if (i >= 10) {
+-			Unknown18 = Unknown30;
+-			Unknown18.Z += 5000.0f;
++			Unknown18 = Vector3(Unknown30.X, Unknown30.Y, Unknown30.Z + 5000.0f);
+ 			break;
+ 		}
+-		float pitch = (Unknown_BDB1C0.Get_Float() * 30.0f + 30.0f) * (WWMATH_PI / 180.0f);
++		++i; float pitch = Unknown_BDB1C0.Get_Float() * 30.0f; pitch += 30.0f; pitch *= (WWMATH_PI / 180.0f);
+ 		float yaw = (Unknown_BDB1C0.Get_Float() * 315.0f + 45.0f) * (WWMATH_PI / 180.0f);
+-		Matrix3D ship_tm = ship->Unknown_28(true);
+-		float zrot = ship_tm.Get_Z_Rotation();
+-		float c_p = cos(pitch);
+-		float s_p = sin(pitch);
+-		float c_y = cos(zrot + yaw);
+-		float s_y = sin(zrot + yaw);
+-		Vector3 dir(c_y * c_p, s_y * c_p, s_p);
++		yaw += ship->Unknown_28(true).Get_Z_Rotation();
++		float c_p = WWMath::Cos(pitch);
++		float s_p = WWMath::Sin(pitch);
++		Matrix3D rotation(true); rotation.Rotate_Z(yaw);
++		Vector3 dir = rotation * Vector3(c_p, 0.0f, s_p);
+ 		Vector3 offset = dir * 5000.0f;
+ 		Unknown18 = Unknown30 + offset;
+ 
+-		CameraClass *cam = (CameraClass *)Client->MainView->Unknown_7C();
+-		OBBoxClass box = cam->Get_Near_Clip_Bounding_Box();
+-		OBBoxClass moved;
+-		Vector3 delta = Unknown18 - Unknown30;
+-		Matrix3D shift(true);
+-		shift.Set_Translation(delta);
+-		OBBoxClass::Transform(shift, box, &moved);
++		AABoxClass model_box; ship_ro->Get_Obj_Space_Bounding_Box(model_box); // NAME 2: 0x796b98
++		OBBoxClass local_box(Vector3(0.0f, 0.0f, 0.0f), model_box.Extent); // NAME 2: identity basis and model box, 0x796bd8
++		OBBoxClass start_box, end_box; // NAME 2: 0x796da1 and 0x796e42
++		rotation.Make_Identity(); rotation = ship->Unknown_28(true); // NAME 2: 0x796cc2
++		rotation.Set_Translation(Unknown30);
++		OBBoxClass::Transform(rotation, local_box, &start_box);
++		rotation.Set_Translation(Unknown18);
++		OBBoxClass::Transform(rotation, local_box, &end_box);
+ 		CastResultStruct result;
+-		MainViewSceneClass *scene = (MainViewSceneClass *)Client->MainView->Unknown_64();
+-		scene->Unknown_75FB00(moved, box, delta, &result, ship_ro, false);
++		((MainViewSceneClass *)Client->MainView->Unknown_64())->Unknown_75FB00(start_box, end_box, dir * 1000000.0f, &result, ship_ro, false);
+ 		if (result.Fraction >= 1.0f) {
+ 			break;
+ 		}
+@@ -262,13 +258,13 @@
+ 	Unknown4C = Build_Quaternion(lookat);
+ 
+ 	float distance = CameraManagerClass::Unknown_79B6B0();
+-	float angle = Unknown_BDB1C0.Get_Float() * 360.0f * (WWMATH_PI / 180.0f);
+-	Vector3 mid = (Unknown24 + Unknown30) * 0.5f;
+-	Matrix3D mid_lookat;
+-	mid_lookat.Obj_Look_At(mid, Unknown30, 0.0f);
+-	float s = sin(angle);
+-	float c = cos(angle);
+-	Unknown0C->Position = mid_lookat * Vector3(0.0f, c * 1.5f * distance, s * 1.5f * distance);
++	float angle = Unknown_BDB1C0.Get_Float() * 360.0f; angle *= (WWMATH_PI / 180.0f);
++
++
++	lookat.Obj_Look_At((Unknown24 + Unknown30) * 0.5f, Unknown30, 0.0f);
++	float s = WWMath::Sin(angle);
++	float c = WWMath::Cos(angle); s = s * distance * 1.5f; c = c * distance * 1.5f;
++	Vector3 camera_position = lookat * Vector3(0.0f, c, s); { CameraModule79C8E0Class *module = Unknown0C; module->Position.X = camera_position.X; module->Position.Y = camera_position.Y; module->Position.Z = camera_position.Z; }
+ 	Unknown0C->Unknown14 = true;
+ 	Unknown0C->Unknown18 = Client->AvatarID;
+ 	Unknown0C->Unknown_04();
+BEST SHA256 b263b0c2a1776752bde7edaa6b655b651a249d63ab2a2af50582e1069a737b02
+
+FORM continue_retry relative to unchangedbest
+--- incremental/app/client/camctrl_takeoff.cpp
++++ continue_retry/app/client/camctrl_takeoff.cpp
+@@ -248,9 +248,9 @@
+ 		OBBoxClass::Transform(rotation, local_box, &end_box);
+ 		CastResultStruct result;
+ 		((MainViewSceneClass *)Client->MainView->Unknown_64())->Unknown_75FB00(start_box, end_box, dir * 1000000.0f, &result, ship_ro, false);
+-		if (result.Fraction >= 1.0f) {
+-			break;
+-		}
++		if (!(result.Fraction >= 1.0f)) {
++			continue;
++		} break;
+ 	}
+ 
+ 	Matrix3D lookat;
+SOURCE SHA256 977a4698e555cfb446fd7932a0537c0616b79cdef411d1b8a54c61757eaec476
+
+FORM bounded_success_exit relative to unchangedbest
+--- incremental/app/client/camctrl_takeoff.cpp
++++ bounded_success_exit/app/client/camctrl_takeoff.cpp
+@@ -223,11 +223,11 @@
+ 	Unknown30 = Vector3(Unknown24.X, Unknown24.Y, (Unknown_BDB1C0.Get_Float() * 500.0f + 100.0f) + Unknown24.Z);
+ 	Unknown3C = Build_Quaternion(ship->Unknown_28(true));
+ 
+-	int i = 0; while (true) {
+-		if (i >= 10) {
+-			Unknown18 = Vector3(Unknown30.X, Unknown30.Y, Unknown30.Z + 5000.0f);
+-			break;
+-		}
++	int i = 0; while (i < 10) {
++
++
++
++
+ 		++i; float pitch = Unknown_BDB1C0.Get_Float() * 30.0f; pitch += 30.0f; pitch *= (WWMATH_PI / 180.0f);
+ 		float yaw = (Unknown_BDB1C0.Get_Float() * 315.0f + 45.0f) * (WWMATH_PI / 180.0f);
+ 		yaw += ship->Unknown_28(true).Get_Z_Rotation();
+@@ -249,10 +249,10 @@
+ 		CastResultStruct result;
+ 		((MainViewSceneClass *)Client->MainView->Unknown_64())->Unknown_75FB00(start_box, end_box, dir * 1000000.0f, &result, ship_ro, false);
+ 		if (result.Fraction >= 1.0f) {
+-			break;
+-		}
+-	}
+-
++			goto cast_done;
++		}
++	}
++	Unknown18 = Vector3(Unknown30.X, Unknown30.Y, Unknown30.Z + 5000.0f); cast_done:;
+ 	Matrix3D lookat;
+ 	lookat.Obj_Look_At(Unknown30, Unknown18, 0.0f);
+ 	Unknown4C = Build_Quaternion(lookat);
+SOURCE SHA256 00feeaa8a683e2c53f1a42b17bdd441bf8717f87da91fb18f2e5515bcab8ba9c
+
+FORM result_condition relative to unchangedbest
+--- incremental/app/client/camctrl_takeoff.cpp
++++ result_condition/app/client/camctrl_takeoff.cpp
+@@ -223,7 +223,7 @@
+ 	Unknown30 = Vector3(Unknown24.X, Unknown24.Y, (Unknown_BDB1C0.Get_Float() * 500.0f + 100.0f) + Unknown24.Z);
+ 	Unknown3C = Build_Quaternion(ship->Unknown_28(true));
+ 
+-	int i = 0; while (true) {
++	CastResultStruct result; int i = 0; do {
+ 		if (i >= 10) {
+ 			Unknown18 = Vector3(Unknown30.X, Unknown30.Y, Unknown30.Z + 5000.0f);
+ 			break;
+@@ -246,12 +246,12 @@
+ 		OBBoxClass::Transform(rotation, local_box, &start_box);
+ 		rotation.Set_Translation(Unknown18);
+ 		OBBoxClass::Transform(rotation, local_box, &end_box);
+-		CastResultStruct result;
++		result.Reset();
+ 		((MainViewSceneClass *)Client->MainView->Unknown_64())->Unknown_75FB00(start_box, end_box, dir * 1000000.0f, &result, ship_ro, false);
+-		if (result.Fraction >= 1.0f) {
+-			break;
+-		}
+-	}
++
++
++
++	} while (!(result.Fraction >= 1.0f));
+ 
+ 	Matrix3D lookat;
+ 	lookat.Obj_Look_At(Unknown30, Unknown18, 0.0f);
+SOURCE SHA256 60a60b6057192033908b61e9ecd4ae8589db4032ff8a054cb9bbd237af80263e
+
+FORM postincrement_guard relative to unchangedbest
+--- incremental/app/client/camctrl_takeoff.cpp
++++ postincrement_guard/app/client/camctrl_takeoff.cpp
+@@ -224,11 +224,11 @@
+ 	Unknown3C = Build_Quaternion(ship->Unknown_28(true));
+ 
+ 	int i = 0; while (true) {
+-		if (i >= 10) {
++		if (i++ >= 10) {
+ 			Unknown18 = Vector3(Unknown30.X, Unknown30.Y, Unknown30.Z + 5000.0f);
+ 			break;
+ 		}
+-		++i; float pitch = Unknown_BDB1C0.Get_Float() * 30.0f; pitch += 30.0f; pitch *= (WWMATH_PI / 180.0f);
++		float pitch = Unknown_BDB1C0.Get_Float() * 30.0f; pitch += 30.0f; pitch *= (WWMATH_PI / 180.0f);
+ 		float yaw = (Unknown_BDB1C0.Get_Float() * 315.0f + 45.0f) * (WWMATH_PI / 180.0f);
+ 		yaw += ship->Unknown_28(true).Get_Z_Rotation();
+ 		float c_p = WWMath::Cos(pitch);
+SOURCE SHA256 8fb952ba1bbcf3c9be8b63f02040765f9a5c10a97bc1c39e53264fd72642d2aa
+
+FORM fallback_offset_add relative to unchangedbest
+--- incremental/app/client/camctrl_takeoff.cpp
++++ fallback_offset_add/app/client/camctrl_takeoff.cpp
+@@ -225,7 +225,7 @@
+ 
+ 	int i = 0; while (true) {
+ 		if (i >= 10) {
+-			Unknown18 = Vector3(Unknown30.X, Unknown30.Y, Unknown30.Z + 5000.0f);
++			Unknown18 = Vector3(0.0f, 0.0f, 5000.0f) + Unknown30;
+ 			break;
+ 		}
+ 		++i; float pitch = Unknown_BDB1C0.Get_Float() * 30.0f; pitch += 30.0f; pitch *= (WWMATH_PI / 180.0f);
+SOURCE SHA256 f403b63c55365adc3ced139e79e2e8b33475655693bee3899c8bd090da1f5b2c

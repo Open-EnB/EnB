@@ -1,0 +1,859 @@
+# Claim240 focused 791400 Sol high source stash
+# Immutable baseline ac63f849. Each patch independently applies to that tree.
+# Pointer formal describes observed caller value; unused formal type remains inferred.
+
+## pointer_control
+--- a/app/client/unknown_phoneme.cpp
++++ b/app/client/unknown_phoneme.cpp
+@@ -98,7 +98,7 @@
+ 	const char *p = buffer;
+ 	while (*p != '\0') {
+ 		int shapes[2];
+-		int n = Unknown_7917B0(p, prev, shapes);
++		int n = Unknown_7917B0(p, text, shapes);
+ 		if (n == 0) {
+ 			shapes[1] = -1;
+ 			shapes[0] = 11;
+@@ -194,7 +194,7 @@
+ 
+ // 0x7917B0
+ // NOT EXACT: functional for POC (D64), register (First and Count loaded into the other registers; 6 index forms tried)
+-int Unknown_791310Class::Unknown_7917B0(const char *text, char prev, int *shapes)
++int Unknown_791310Class::Unknown_7917B0(const char *text, const char *original, int *shapes)
+ {
+ 	int letter = (char)tolower(*text) - 'a';
+ 	if (letter >= 0 && letter < 26) {
+--- a/app/client/unknown_personality.h
++++ b/app/client/unknown_personality.h
+@@ -96,7 +96,7 @@
+ public:
+ 	Unknown_791310Class();							// 0x791310: sorts and indexes the table 0xB9DAB8
+ 	int Unknown_791400(const char *text, int *phonemes, int max);	// 0x791400: the shapes, at most max (no repeats)  // NAME 1: neutral (D10)
+-	int Unknown_7917B0(const char *text, char prev, int *shapes);	// 0x7917B0: a table group (its length; 0 none)  // NAME 1: neutral (D10)
++	int Unknown_7917B0(const char *text, const char *original, int *shapes);	// 0x7917B0: a table group (its length; 0 none)  // NAME 1: neutral (D10)
+ 	int Unknown_791880(const char *text, char prev, int *shapes);	// 0x791880: 'a'  // NAME 1: neutral (D10)
+ 	int Unknown_791970(const char *text, char prev, int *shapes);	// 0x791970: 'e'  // NAME 1: neutral (D10)
+ 	int Unknown_791B00(const char *text, char prev, int *shapes);	// 0x791B00: 'i'  // NAME 1: neutral (D10)
+
+## real_t
+--- a/app/client/unknown_phoneme.cpp
++++ b/app/client/unknown_phoneme.cpp
+@@ -146,17 +146,7 @@
+ 					n = Unknown_791E50(p, prev, shapes);
+ 					break;
+ 				case 't':
+-					n = 1;
+-					shapes[0] = 11;
+-					if (p[1] == 'c') {
+-						if (p[2] == 'h') {
+-							shapes[0] = 8;
+-							n = 3;
+-						}
+-					} else if (p[1] == 'h') {
+-						shapes[0] = 10;
+-						n = 2;
+-					}
++					n = Unknown_791F10(p, prev, shapes);
+ 					break;
+ 				case 'u':
+ 					n = Unknown_791F80(p, prev, shapes);
+
+## pointer_real_t
+--- a/app/client/unknown_phoneme.cpp
++++ b/app/client/unknown_phoneme.cpp
+@@ -98,7 +98,7 @@
+ 	const char *p = buffer;
+ 	while (*p != '\0') {
+ 		int shapes[2];
+-		int n = Unknown_7917B0(p, prev, shapes);
++		int n = Unknown_7917B0(p, text, shapes);
+ 		if (n == 0) {
+ 			shapes[1] = -1;
+ 			shapes[0] = 11;
+@@ -146,17 +146,7 @@
+ 					n = Unknown_791E50(p, prev, shapes);
+ 					break;
+ 				case 't':
+-					n = 1;
+-					shapes[0] = 11;
+-					if (p[1] == 'c') {
+-						if (p[2] == 'h') {
+-							shapes[0] = 8;
+-							n = 3;
+-						}
+-					} else if (p[1] == 'h') {
+-						shapes[0] = 10;
+-						n = 2;
+-					}
++					n = Unknown_791F10(p, prev, shapes);
+ 					break;
+ 				case 'u':
+ 					n = Unknown_791F80(p, prev, shapes);
+@@ -194,7 +184,7 @@
+ 
+ // 0x7917B0
+ // NOT EXACT: functional for POC (D64), register (First and Count loaded into the other registers; 6 index forms tried)
+-int Unknown_791310Class::Unknown_7917B0(const char *text, char prev, int *shapes)
++int Unknown_791310Class::Unknown_7917B0(const char *text, const char *original, int *shapes)
+ {
+ 	int letter = (char)tolower(*text) - 'a';
+ 	if (letter >= 0 && letter < 26) {
+--- a/app/client/unknown_personality.h
++++ b/app/client/unknown_personality.h
+@@ -96,7 +96,7 @@
+ public:
+ 	Unknown_791310Class();							// 0x791310: sorts and indexes the table 0xB9DAB8
+ 	int Unknown_791400(const char *text, int *phonemes, int max);	// 0x791400: the shapes, at most max (no repeats)  // NAME 1: neutral (D10)
+-	int Unknown_7917B0(const char *text, char prev, int *shapes);	// 0x7917B0: a table group (its length; 0 none)  // NAME 1: neutral (D10)
++	int Unknown_7917B0(const char *text, const char *original, int *shapes);	// 0x7917B0: a table group (its length; 0 none)  // NAME 1: neutral (D10)
+ 	int Unknown_791880(const char *text, char prev, int *shapes);	// 0x791880: 'a'  // NAME 1: neutral (D10)
+ 	int Unknown_791970(const char *text, char prev, int *shapes);	// 0x791970: 'e'  // NAME 1: neutral (D10)
+ 	int Unknown_791B00(const char *text, char prev, int *shapes);	// 0x791B00: 'i'  // NAME 1: neutral (D10)
+
+## expanded_12
+--- a/app/client/unknown_phoneme.cpp
++++ b/app/client/unknown_phoneme.cpp
+@@ -134,8 +134,14 @@
+ 					shapes[0] = 9;
+ 					break;
+ 				case 'c':
++					shapes[0] = 12;
++					break;
+ 				case 'g':
++					shapes[0] = 12;
++					break;
+ 				case 'k':
++					shapes[0] = 12;
++					break;
+ 				case 'q':
+ 					shapes[0] = 12;
+ 					break;
+
+## expanded_all
+--- a/app/client/unknown_phoneme.cpp
++++ b/app/client/unknown_phoneme.cpp
+@@ -129,13 +129,23 @@
+ 					n = Unknown_791BF0(p, prev, shapes);
+ 					break;
+ 				case 'b':
++					shapes[0] = 9;
++					break;
+ 				case 'm':
++					shapes[0] = 9;
++					break;
+ 				case 'p':
+ 					shapes[0] = 9;
+ 					break;
+ 				case 'c':
++					shapes[0] = 12;
++					break;
+ 				case 'g':
++					shapes[0] = 12;
++					break;
+ 				case 'k':
++					shapes[0] = 12;
++					break;
+ 				case 'q':
+ 					shapes[0] = 12;
+ 					break;
+@@ -162,6 +172,8 @@
+ 					n = Unknown_791F80(p, prev, shapes);
+ 					break;
+ 				case 'f':
++					shapes[0] = 7;
++					break;
+ 				case 'v':
+ 					shapes[0] = 7;
+ 					break;
+
+## pointer_expanded_12
+--- a/app/client/unknown_phoneme.cpp
++++ b/app/client/unknown_phoneme.cpp
+@@ -98,7 +98,7 @@
+ 	const char *p = buffer;
+ 	while (*p != '\0') {
+ 		int shapes[2];
+-		int n = Unknown_7917B0(p, prev, shapes);
++		int n = Unknown_7917B0(p, text, shapes);
+ 		if (n == 0) {
+ 			shapes[1] = -1;
+ 			shapes[0] = 11;
+@@ -134,8 +134,14 @@
+ 					shapes[0] = 9;
+ 					break;
+ 				case 'c':
++					shapes[0] = 12;
++					break;
+ 				case 'g':
++					shapes[0] = 12;
++					break;
+ 				case 'k':
++					shapes[0] = 12;
++					break;
+ 				case 'q':
+ 					shapes[0] = 12;
+ 					break;
+@@ -194,7 +200,7 @@
+ 
+ // 0x7917B0
+ // NOT EXACT: functional for POC (D64), register (First and Count loaded into the other registers; 6 index forms tried)
+-int Unknown_791310Class::Unknown_7917B0(const char *text, char prev, int *shapes)
++int Unknown_791310Class::Unknown_7917B0(const char *text, const char *original, int *shapes)
+ {
+ 	int letter = (char)tolower(*text) - 'a';
+ 	if (letter >= 0 && letter < 26) {
+--- a/app/client/unknown_personality.h
++++ b/app/client/unknown_personality.h
+@@ -96,7 +96,7 @@
+ public:
+ 	Unknown_791310Class();							// 0x791310: sorts and indexes the table 0xB9DAB8
+ 	int Unknown_791400(const char *text, int *phonemes, int max);	// 0x791400: the shapes, at most max (no repeats)  // NAME 1: neutral (D10)
+-	int Unknown_7917B0(const char *text, char prev, int *shapes);	// 0x7917B0: a table group (its length; 0 none)  // NAME 1: neutral (D10)
++	int Unknown_7917B0(const char *text, const char *original, int *shapes);	// 0x7917B0: a table group (its length; 0 none)  // NAME 1: neutral (D10)
+ 	int Unknown_791880(const char *text, char prev, int *shapes);	// 0x791880: 'a'  // NAME 1: neutral (D10)
+ 	int Unknown_791970(const char *text, char prev, int *shapes);	// 0x791970: 'e'  // NAME 1: neutral (D10)
+ 	int Unknown_791B00(const char *text, char prev, int *shapes);	// 0x791B00: 'i'  // NAME 1: neutral (D10)
+
+## pointer_expanded_all
+--- a/app/client/unknown_phoneme.cpp
++++ b/app/client/unknown_phoneme.cpp
+@@ -98,7 +98,7 @@
+ 	const char *p = buffer;
+ 	while (*p != '\0') {
+ 		int shapes[2];
+-		int n = Unknown_7917B0(p, prev, shapes);
++		int n = Unknown_7917B0(p, text, shapes);
+ 		if (n == 0) {
+ 			shapes[1] = -1;
+ 			shapes[0] = 11;
+@@ -129,13 +129,23 @@
+ 					n = Unknown_791BF0(p, prev, shapes);
+ 					break;
+ 				case 'b':
++					shapes[0] = 9;
++					break;
+ 				case 'm':
++					shapes[0] = 9;
++					break;
+ 				case 'p':
+ 					shapes[0] = 9;
+ 					break;
+ 				case 'c':
++					shapes[0] = 12;
++					break;
+ 				case 'g':
++					shapes[0] = 12;
++					break;
+ 				case 'k':
++					shapes[0] = 12;
++					break;
+ 				case 'q':
+ 					shapes[0] = 12;
+ 					break;
+@@ -162,6 +172,8 @@
+ 					n = Unknown_791F80(p, prev, shapes);
+ 					break;
+ 				case 'f':
++					shapes[0] = 7;
++					break;
+ 				case 'v':
+ 					shapes[0] = 7;
+ 					break;
+@@ -194,7 +206,7 @@
+ 
+ // 0x7917B0
+ // NOT EXACT: functional for POC (D64), register (First and Count loaded into the other registers; 6 index forms tried)
+-int Unknown_791310Class::Unknown_7917B0(const char *text, char prev, int *shapes)
++int Unknown_791310Class::Unknown_7917B0(const char *text, const char *original, int *shapes)
+ {
+ 	int letter = (char)tolower(*text) - 'a';
+ 	if (letter >= 0 && letter < 26) {
+--- a/app/client/unknown_personality.h
++++ b/app/client/unknown_personality.h
+@@ -96,7 +96,7 @@
+ public:
+ 	Unknown_791310Class();							// 0x791310: sorts and indexes the table 0xB9DAB8
+ 	int Unknown_791400(const char *text, int *phonemes, int max);	// 0x791400: the shapes, at most max (no repeats)  // NAME 1: neutral (D10)
+-	int Unknown_7917B0(const char *text, char prev, int *shapes);	// 0x7917B0: a table group (its length; 0 none)  // NAME 1: neutral (D10)
++	int Unknown_7917B0(const char *text, const char *original, int *shapes);	// 0x7917B0: a table group (its length; 0 none)  // NAME 1: neutral (D10)
+ 	int Unknown_791880(const char *text, char prev, int *shapes);	// 0x791880: 'a'  // NAME 1: neutral (D10)
+ 	int Unknown_791970(const char *text, char prev, int *shapes);	// 0x791970: 'e'  // NAME 1: neutral (D10)
+ 	int Unknown_791B00(const char *text, char prev, int *shapes);	// 0x791B00: 'i'  // NAME 1: neutral (D10)
+
+## count_before_memset
+--- a/app/client/unknown_phoneme.cpp
++++ b/app/client/unknown_phoneme.cpp
+@@ -86,10 +86,10 @@
+ {
+ 	char prev = '\0';
+ 	char buffer[1024];
++	int count = 0;
+ 	memset(buffer, 0, sizeof(buffer));
+ 	unsigned int len = strlen(text);
+ 	int last = -1;
+-	int count = 0;
+ 	if (len >= 0x3FF) {
+ 		len = 0x3FF;
+ 	}
+@@ -98,7 +98,7 @@
+ 	const char *p = buffer;
+ 	while (*p != '\0') {
+ 		int shapes[2];
+-		int n = Unknown_7917B0(p, prev, shapes);
++		int n = Unknown_7917B0(p, text, shapes);
+ 		if (n == 0) {
+ 			shapes[1] = -1;
+ 			shapes[0] = 11;
+@@ -134,8 +134,14 @@
+ 					shapes[0] = 9;
+ 					break;
+ 				case 'c':
++					shapes[0] = 12;
++					break;
+ 				case 'g':
++					shapes[0] = 12;
++					break;
+ 				case 'k':
++					shapes[0] = 12;
++					break;
+ 				case 'q':
+ 					shapes[0] = 12;
+ 					break;
+@@ -194,7 +200,7 @@
+ 
+ // 0x7917B0
+ // NOT EXACT: functional for POC (D64), register (First and Count loaded into the other registers; 6 index forms tried)
+-int Unknown_791310Class::Unknown_7917B0(const char *text, char prev, int *shapes)
++int Unknown_791310Class::Unknown_7917B0(const char *text, const char *original, int *shapes)
+ {
+ 	int letter = (char)tolower(*text) - 'a';
+ 	if (letter >= 0 && letter < 26) {
+--- a/app/client/unknown_personality.h
++++ b/app/client/unknown_personality.h
+@@ -96,7 +96,7 @@
+ public:
+ 	Unknown_791310Class();							// 0x791310: sorts and indexes the table 0xB9DAB8
+ 	int Unknown_791400(const char *text, int *phonemes, int max);	// 0x791400: the shapes, at most max (no repeats)  // NAME 1: neutral (D10)
+-	int Unknown_7917B0(const char *text, char prev, int *shapes);	// 0x7917B0: a table group (its length; 0 none)  // NAME 1: neutral (D10)
++	int Unknown_7917B0(const char *text, const char *original, int *shapes);	// 0x7917B0: a table group (its length; 0 none)  // NAME 1: neutral (D10)
+ 	int Unknown_791880(const char *text, char prev, int *shapes);	// 0x791880: 'a'  // NAME 1: neutral (D10)
+ 	int Unknown_791970(const char *text, char prev, int *shapes);	// 0x791970: 'e'  // NAME 1: neutral (D10)
+ 	int Unknown_791B00(const char *text, char prev, int *shapes);	// 0x791B00: 'i'  // NAME 1: neutral (D10)
+
+## count_before_strlen
+--- a/app/client/unknown_phoneme.cpp
++++ b/app/client/unknown_phoneme.cpp
+@@ -87,9 +87,9 @@
+ 	char prev = '\0';
+ 	char buffer[1024];
+ 	memset(buffer, 0, sizeof(buffer));
++	int count = 0;
+ 	unsigned int len = strlen(text);
+ 	int last = -1;
+-	int count = 0;
+ 	if (len >= 0x3FF) {
+ 		len = 0x3FF;
+ 	}
+@@ -98,7 +98,7 @@
+ 	const char *p = buffer;
+ 	while (*p != '\0') {
+ 		int shapes[2];
+-		int n = Unknown_7917B0(p, prev, shapes);
++		int n = Unknown_7917B0(p, text, shapes);
+ 		if (n == 0) {
+ 			shapes[1] = -1;
+ 			shapes[0] = 11;
+@@ -134,8 +134,14 @@
+ 					shapes[0] = 9;
+ 					break;
+ 				case 'c':
++					shapes[0] = 12;
++					break;
+ 				case 'g':
++					shapes[0] = 12;
++					break;
+ 				case 'k':
++					shapes[0] = 12;
++					break;
+ 				case 'q':
+ 					shapes[0] = 12;
+ 					break;
+@@ -194,7 +200,7 @@
+ 
+ // 0x7917B0
+ // NOT EXACT: functional for POC (D64), register (First and Count loaded into the other registers; 6 index forms tried)
+-int Unknown_791310Class::Unknown_7917B0(const char *text, char prev, int *shapes)
++int Unknown_791310Class::Unknown_7917B0(const char *text, const char *original, int *shapes)
+ {
+ 	int letter = (char)tolower(*text) - 'a';
+ 	if (letter >= 0 && letter < 26) {
+--- a/app/client/unknown_personality.h
++++ b/app/client/unknown_personality.h
+@@ -96,7 +96,7 @@
+ public:
+ 	Unknown_791310Class();							// 0x791310: sorts and indexes the table 0xB9DAB8
+ 	int Unknown_791400(const char *text, int *phonemes, int max);	// 0x791400: the shapes, at most max (no repeats)  // NAME 1: neutral (D10)
+-	int Unknown_7917B0(const char *text, char prev, int *shapes);	// 0x7917B0: a table group (its length; 0 none)  // NAME 1: neutral (D10)
++	int Unknown_7917B0(const char *text, const char *original, int *shapes);	// 0x7917B0: a table group (its length; 0 none)  // NAME 1: neutral (D10)
+ 	int Unknown_791880(const char *text, char prev, int *shapes);	// 0x791880: 'a'  // NAME 1: neutral (D10)
+ 	int Unknown_791970(const char *text, char prev, int *shapes);	// 0x791970: 'e'  // NAME 1: neutral (D10)
+ 	int Unknown_791B00(const char *text, char prev, int *shapes);	// 0x791B00: 'i'  // NAME 1: neutral (D10)
+
+## prev_pointer_first
+--- a/app/client/unknown_phoneme.cpp
++++ b/app/client/unknown_phoneme.cpp
+@@ -98,7 +98,7 @@
+ 	const char *p = buffer;
+ 	while (*p != '\0') {
+ 		int shapes[2];
+-		int n = Unknown_7917B0(p, prev, shapes);
++		int n = Unknown_7917B0(p, text, shapes);
+ 		if (n == 0) {
+ 			shapes[1] = -1;
+ 			shapes[0] = 11;
+@@ -134,8 +134,14 @@
+ 					shapes[0] = 9;
+ 					break;
+ 				case 'c':
++					shapes[0] = 12;
++					break;
+ 				case 'g':
++					shapes[0] = 12;
++					break;
+ 				case 'k':
++					shapes[0] = 12;
++					break;
+ 				case 'q':
+ 					shapes[0] = 12;
+ 					break;
+@@ -186,7 +192,7 @@
+ 				}
+ 			}
+ 		}
+-		prev = p[n - 1];
++		prev = *(p + n - 1);
+ 		p += n;
+ 	}
+ 	return(count);
+@@ -194,7 +200,7 @@
+ 
+ // 0x7917B0
+ // NOT EXACT: functional for POC (D64), register (First and Count loaded into the other registers; 6 index forms tried)
+-int Unknown_791310Class::Unknown_7917B0(const char *text, char prev, int *shapes)
++int Unknown_791310Class::Unknown_7917B0(const char *text, const char *original, int *shapes)
+ {
+ 	int letter = (char)tolower(*text) - 'a';
+ 	if (letter >= 0 && letter < 26) {
+--- a/app/client/unknown_personality.h
++++ b/app/client/unknown_personality.h
+@@ -96,7 +96,7 @@
+ public:
+ 	Unknown_791310Class();							// 0x791310: sorts and indexes the table 0xB9DAB8
+ 	int Unknown_791400(const char *text, int *phonemes, int max);	// 0x791400: the shapes, at most max (no repeats)  // NAME 1: neutral (D10)
+-	int Unknown_7917B0(const char *text, char prev, int *shapes);	// 0x7917B0: a table group (its length; 0 none)  // NAME 1: neutral (D10)
++	int Unknown_7917B0(const char *text, const char *original, int *shapes);	// 0x7917B0: a table group (its length; 0 none)  // NAME 1: neutral (D10)
+ 	int Unknown_791880(const char *text, char prev, int *shapes);	// 0x791880: 'a'  // NAME 1: neutral (D10)
+ 	int Unknown_791970(const char *text, char prev, int *shapes);	// 0x791970: 'e'  // NAME 1: neutral (D10)
+ 	int Unknown_791B00(const char *text, char prev, int *shapes);	// 0x791B00: 'i'  // NAME 1: neutral (D10)
+
+## prev_integer_first
+--- a/app/client/unknown_phoneme.cpp
++++ b/app/client/unknown_phoneme.cpp
+@@ -98,7 +98,7 @@
+ 	const char *p = buffer;
+ 	while (*p != '\0') {
+ 		int shapes[2];
+-		int n = Unknown_7917B0(p, prev, shapes);
++		int n = Unknown_7917B0(p, text, shapes);
+ 		if (n == 0) {
+ 			shapes[1] = -1;
+ 			shapes[0] = 11;
+@@ -134,8 +134,14 @@
+ 					shapes[0] = 9;
+ 					break;
+ 				case 'c':
++					shapes[0] = 12;
++					break;
+ 				case 'g':
++					shapes[0] = 12;
++					break;
+ 				case 'k':
++					shapes[0] = 12;
++					break;
+ 				case 'q':
+ 					shapes[0] = 12;
+ 					break;
+@@ -186,7 +192,7 @@
+ 				}
+ 			}
+ 		}
+-		prev = p[n - 1];
++		prev = *(n + p - 1);
+ 		p += n;
+ 	}
+ 	return(count);
+@@ -194,7 +200,7 @@
+ 
+ // 0x7917B0
+ // NOT EXACT: functional for POC (D64), register (First and Count loaded into the other registers; 6 index forms tried)
+-int Unknown_791310Class::Unknown_7917B0(const char *text, char prev, int *shapes)
++int Unknown_791310Class::Unknown_7917B0(const char *text, const char *original, int *shapes)
+ {
+ 	int letter = (char)tolower(*text) - 'a';
+ 	if (letter >= 0 && letter < 26) {
+--- a/app/client/unknown_personality.h
++++ b/app/client/unknown_personality.h
+@@ -96,7 +96,7 @@
+ public:
+ 	Unknown_791310Class();							// 0x791310: sorts and indexes the table 0xB9DAB8
+ 	int Unknown_791400(const char *text, int *phonemes, int max);	// 0x791400: the shapes, at most max (no repeats)  // NAME 1: neutral (D10)
+-	int Unknown_7917B0(const char *text, char prev, int *shapes);	// 0x7917B0: a table group (its length; 0 none)  // NAME 1: neutral (D10)
++	int Unknown_7917B0(const char *text, const char *original, int *shapes);	// 0x7917B0: a table group (its length; 0 none)  // NAME 1: neutral (D10)
+ 	int Unknown_791880(const char *text, char prev, int *shapes);	// 0x791880: 'a'  // NAME 1: neutral (D10)
+ 	int Unknown_791970(const char *text, char prev, int *shapes);	// 0x791970: 'e'  // NAME 1: neutral (D10)
+ 	int Unknown_791B00(const char *text, char prev, int *shapes);	// 0x791B00: 'i'  // NAME 1: neutral (D10)
+
+## count_and_pointer
+--- a/app/client/unknown_phoneme.cpp
++++ b/app/client/unknown_phoneme.cpp
+@@ -86,10 +86,10 @@
+ {
+ 	char prev = '\0';
+ 	char buffer[1024];
++	int count = 0;
+ 	memset(buffer, 0, sizeof(buffer));
+ 	unsigned int len = strlen(text);
+ 	int last = -1;
+-	int count = 0;
+ 	if (len >= 0x3FF) {
+ 		len = 0x3FF;
+ 	}
+@@ -98,7 +98,7 @@
+ 	const char *p = buffer;
+ 	while (*p != '\0') {
+ 		int shapes[2];
+-		int n = Unknown_7917B0(p, prev, shapes);
++		int n = Unknown_7917B0(p, text, shapes);
+ 		if (n == 0) {
+ 			shapes[1] = -1;
+ 			shapes[0] = 11;
+@@ -134,8 +134,14 @@
+ 					shapes[0] = 9;
+ 					break;
+ 				case 'c':
++					shapes[0] = 12;
++					break;
+ 				case 'g':
++					shapes[0] = 12;
++					break;
+ 				case 'k':
++					shapes[0] = 12;
++					break;
+ 				case 'q':
+ 					shapes[0] = 12;
+ 					break;
+@@ -186,7 +192,7 @@
+ 				}
+ 			}
+ 		}
+-		prev = p[n - 1];
++		prev = *(p + n - 1);
+ 		p += n;
+ 	}
+ 	return(count);
+@@ -194,7 +200,7 @@
+ 
+ // 0x7917B0
+ // NOT EXACT: functional for POC (D64), register (First and Count loaded into the other registers; 6 index forms tried)
+-int Unknown_791310Class::Unknown_7917B0(const char *text, char prev, int *shapes)
++int Unknown_791310Class::Unknown_7917B0(const char *text, const char *original, int *shapes)
+ {
+ 	int letter = (char)tolower(*text) - 'a';
+ 	if (letter >= 0 && letter < 26) {
+--- a/app/client/unknown_personality.h
++++ b/app/client/unknown_personality.h
+@@ -96,7 +96,7 @@
+ public:
+ 	Unknown_791310Class();							// 0x791310: sorts and indexes the table 0xB9DAB8
+ 	int Unknown_791400(const char *text, int *phonemes, int max);	// 0x791400: the shapes, at most max (no repeats)  // NAME 1: neutral (D10)
+-	int Unknown_7917B0(const char *text, char prev, int *shapes);	// 0x7917B0: a table group (its length; 0 none)  // NAME 1: neutral (D10)
++	int Unknown_7917B0(const char *text, const char *original, int *shapes);	// 0x7917B0: a table group (its length; 0 none)  // NAME 1: neutral (D10)
+ 	int Unknown_791880(const char *text, char prev, int *shapes);	// 0x791880: 'a'  // NAME 1: neutral (D10)
+ 	int Unknown_791970(const char *text, char prev, int *shapes);	// 0x791970: 'e'  // NAME 1: neutral (D10)
+ 	int Unknown_791B00(const char *text, char prev, int *shapes);	// 0x791B00: 'i'  // NAME 1: neutral (D10)
+
+## early_last_count
+--- a/app/client/unknown_phoneme.cpp
++++ b/app/client/unknown_phoneme.cpp
+@@ -86,10 +86,10 @@
+ {
+ 	char prev = '\0';
+ 	char buffer[1024];
++	int last = -1;
++	int count = 0;
+ 	memset(buffer, 0, sizeof(buffer));
+ 	unsigned int len = strlen(text);
+-	int last = -1;
+-	int count = 0;
+ 	if (len >= 0x3FF) {
+ 		len = 0x3FF;
+ 	}
+@@ -98,7 +98,7 @@
+ 	const char *p = buffer;
+ 	while (*p != '\0') {
+ 		int shapes[2];
+-		int n = Unknown_7917B0(p, prev, shapes);
++		int n = Unknown_7917B0(p, text, shapes);
+ 		if (n == 0) {
+ 			shapes[1] = -1;
+ 			shapes[0] = 11;
+@@ -134,8 +134,14 @@
+ 					shapes[0] = 9;
+ 					break;
+ 				case 'c':
++					shapes[0] = 12;
++					break;
+ 				case 'g':
++					shapes[0] = 12;
++					break;
+ 				case 'k':
++					shapes[0] = 12;
++					break;
+ 				case 'q':
+ 					shapes[0] = 12;
+ 					break;
+@@ -194,7 +200,7 @@
+ 
+ // 0x7917B0
+ // NOT EXACT: functional for POC (D64), register (First and Count loaded into the other registers; 6 index forms tried)
+-int Unknown_791310Class::Unknown_7917B0(const char *text, char prev, int *shapes)
++int Unknown_791310Class::Unknown_7917B0(const char *text, const char *original, int *shapes)
+ {
+ 	int letter = (char)tolower(*text) - 'a';
+ 	if (letter >= 0 && letter < 26) {
+--- a/app/client/unknown_personality.h
++++ b/app/client/unknown_personality.h
+@@ -96,7 +96,7 @@
+ public:
+ 	Unknown_791310Class();							// 0x791310: sorts and indexes the table 0xB9DAB8
+ 	int Unknown_791400(const char *text, int *phonemes, int max);	// 0x791400: the shapes, at most max (no repeats)  // NAME 1: neutral (D10)
+-	int Unknown_7917B0(const char *text, char prev, int *shapes);	// 0x7917B0: a table group (its length; 0 none)  // NAME 1: neutral (D10)
++	int Unknown_7917B0(const char *text, const char *original, int *shapes);	// 0x7917B0: a table group (its length; 0 none)  // NAME 1: neutral (D10)
+ 	int Unknown_791880(const char *text, char prev, int *shapes);	// 0x791880: 'a'  // NAME 1: neutral (D10)
+ 	int Unknown_791970(const char *text, char prev, int *shapes);	// 0x791970: 'e'  // NAME 1: neutral (D10)
+ 	int Unknown_791B00(const char *text, char prev, int *shapes);	// 0x791B00: 'i'  // NAME 1: neutral (D10)
+
+## advance_before_prev
+--- a/app/client/unknown_phoneme.cpp
++++ b/app/client/unknown_phoneme.cpp
+@@ -98,7 +98,7 @@
+ 	const char *p = buffer;
+ 	while (*p != '\0') {
+ 		int shapes[2];
+-		int n = Unknown_7917B0(p, prev, shapes);
++		int n = Unknown_7917B0(p, text, shapes);
+ 		if (n == 0) {
+ 			shapes[1] = -1;
+ 			shapes[0] = 11;
+@@ -134,8 +134,14 @@
+ 					shapes[0] = 9;
+ 					break;
+ 				case 'c':
++					shapes[0] = 12;
++					break;
+ 				case 'g':
++					shapes[0] = 12;
++					break;
+ 				case 'k':
++					shapes[0] = 12;
++					break;
+ 				case 'q':
+ 					shapes[0] = 12;
+ 					break;
+@@ -186,15 +192,15 @@
+ 				}
+ 			}
+ 		}
+-		prev = p[n - 1];
+ 		p += n;
++		prev = p[-1];
+ 	}
+ 	return(count);
+ }
+ 
+ // 0x7917B0
+ // NOT EXACT: functional for POC (D64), register (First and Count loaded into the other registers; 6 index forms tried)
+-int Unknown_791310Class::Unknown_7917B0(const char *text, char prev, int *shapes)
++int Unknown_791310Class::Unknown_7917B0(const char *text, const char *original, int *shapes)
+ {
+ 	int letter = (char)tolower(*text) - 'a';
+ 	if (letter >= 0 && letter < 26) {
+--- a/app/client/unknown_personality.h
++++ b/app/client/unknown_personality.h
+@@ -96,7 +96,7 @@
+ public:
+ 	Unknown_791310Class();							// 0x791310: sorts and indexes the table 0xB9DAB8
+ 	int Unknown_791400(const char *text, int *phonemes, int max);	// 0x791400: the shapes, at most max (no repeats)  // NAME 1: neutral (D10)
+-	int Unknown_7917B0(const char *text, char prev, int *shapes);	// 0x7917B0: a table group (its length; 0 none)  // NAME 1: neutral (D10)
++	int Unknown_7917B0(const char *text, const char *original, int *shapes);	// 0x7917B0: a table group (its length; 0 none)  // NAME 1: neutral (D10)
+ 	int Unknown_791880(const char *text, char prev, int *shapes);	// 0x791880: 'a'  // NAME 1: neutral (D10)
+ 	int Unknown_791970(const char *text, char prev, int *shapes);	// 0x791970: 'e'  // NAME 1: neutral (D10)
+ 	int Unknown_791B00(const char *text, char prev, int *shapes);	// 0x791B00: 'i'  // NAME 1: neutral (D10)
+
+## early_and_advance
+--- a/app/client/unknown_phoneme.cpp
++++ b/app/client/unknown_phoneme.cpp
+@@ -86,10 +86,10 @@
+ {
+ 	char prev = '\0';
+ 	char buffer[1024];
++	int last = -1;
++	int count = 0;
+ 	memset(buffer, 0, sizeof(buffer));
+ 	unsigned int len = strlen(text);
+-	int last = -1;
+-	int count = 0;
+ 	if (len >= 0x3FF) {
+ 		len = 0x3FF;
+ 	}
+@@ -98,7 +98,7 @@
+ 	const char *p = buffer;
+ 	while (*p != '\0') {
+ 		int shapes[2];
+-		int n = Unknown_7917B0(p, prev, shapes);
++		int n = Unknown_7917B0(p, text, shapes);
+ 		if (n == 0) {
+ 			shapes[1] = -1;
+ 			shapes[0] = 11;
+@@ -134,8 +134,14 @@
+ 					shapes[0] = 9;
+ 					break;
+ 				case 'c':
++					shapes[0] = 12;
++					break;
+ 				case 'g':
++					shapes[0] = 12;
++					break;
+ 				case 'k':
++					shapes[0] = 12;
++					break;
+ 				case 'q':
+ 					shapes[0] = 12;
+ 					break;
+@@ -186,15 +192,15 @@
+ 				}
+ 			}
+ 		}
+-		prev = p[n - 1];
+ 		p += n;
++		prev = p[-1];
+ 	}
+ 	return(count);
+ }
+ 
+ // 0x7917B0
+ // NOT EXACT: functional for POC (D64), register (First and Count loaded into the other registers; 6 index forms tried)
+-int Unknown_791310Class::Unknown_7917B0(const char *text, char prev, int *shapes)
++int Unknown_791310Class::Unknown_7917B0(const char *text, const char *original, int *shapes)
+ {
+ 	int letter = (char)tolower(*text) - 'a';
+ 	if (letter >= 0 && letter < 26) {
+--- a/app/client/unknown_personality.h
++++ b/app/client/unknown_personality.h
+@@ -96,7 +96,7 @@
+ public:
+ 	Unknown_791310Class();							// 0x791310: sorts and indexes the table 0xB9DAB8
+ 	int Unknown_791400(const char *text, int *phonemes, int max);	// 0x791400: the shapes, at most max (no repeats)  // NAME 1: neutral (D10)
+-	int Unknown_7917B0(const char *text, char prev, int *shapes);	// 0x7917B0: a table group (its length; 0 none)  // NAME 1: neutral (D10)
++	int Unknown_7917B0(const char *text, const char *original, int *shapes);	// 0x7917B0: a table group (its length; 0 none)  // NAME 1: neutral (D10)
+ 	int Unknown_791880(const char *text, char prev, int *shapes);	// 0x791880: 'a'  // NAME 1: neutral (D10)
+ 	int Unknown_791970(const char *text, char prev, int *shapes);	// 0x791970: 'e'  // NAME 1: neutral (D10)
+ 	int Unknown_791B00(const char *text, char prev, int *shapes);	// 0x791B00: 'i'  // NAME 1: neutral (D10)
+
+## winner_confirmation
+--- a/app/client/unknown_phoneme.cpp
++++ b/app/client/unknown_phoneme.cpp
+@@ -81,15 +81,14 @@
+ }
+ 
+ // 0x791400
+-// NOT EXACT: functional for POC (D64), register (prev and last kept in memory, 12 in ebx; the case bodies in the client's order, from its jump table, and 't' written out as the client inlines it)
+ int Unknown_791310Class::Unknown_791400(const char *text, int *phonemes, int max)
+ {
+ 	char prev = '\0';
+ 	char buffer[1024];
++	int last = -1;
++	int count = 0;
+ 	memset(buffer, 0, sizeof(buffer));
+ 	unsigned int len = strlen(text);
+-	int last = -1;
+-	int count = 0;
+ 	if (len >= 0x3FF) {
+ 		len = 0x3FF;
+ 	}
+@@ -98,7 +97,7 @@
+ 	const char *p = buffer;
+ 	while (*p != '\0') {
+ 		int shapes[2];
+-		int n = Unknown_7917B0(p, prev, shapes);
++		int n = Unknown_7917B0(p, text, shapes);
+ 		if (n == 0) {
+ 			shapes[1] = -1;
+ 			shapes[0] = 11;
+@@ -134,8 +133,14 @@
+ 					shapes[0] = 9;
+ 					break;
+ 				case 'c':
++					shapes[0] = 12;
++					break;
+ 				case 'g':
++					shapes[0] = 12;
++					break;
+ 				case 'k':
++					shapes[0] = 12;
++					break;
+ 				case 'q':
+ 					shapes[0] = 12;
+ 					break;
+@@ -186,15 +191,15 @@
+ 				}
+ 			}
+ 		}
+-		prev = p[n - 1];
+ 		p += n;
++		prev = p[-1];
+ 	}
+ 	return(count);
+ }
+ 
+ // 0x7917B0
+ // NOT EXACT: functional for POC (D64), register (First and Count loaded into the other registers; 6 index forms tried)
+-int Unknown_791310Class::Unknown_7917B0(const char *text, char prev, int *shapes)
++int Unknown_791310Class::Unknown_7917B0(const char *text, const char *original, int *shapes)	// NAME 1 [original]: neutral; unused formal, pointer type inferred from client 0x791486 argument
+ {
+ 	int letter = (char)tolower(*text) - 'a';
+ 	if (letter >= 0 && letter < 26) {
+@@ -466,6 +471,12 @@
+ /*
+ **	Reconstruction notes
+ **
++**	0x791400 passes its original input pointer to the group lookup's unused second argument
++**	(0x79147A-0x791487); const char * is inferred from that caller value, not a callee read.
++**	Separate c/g/k/q case bodies retain the client's shared 12 in EBX. Initializing last/count
++**	before the buffer fill and advancing p before reading p[-1] reproduce the remaining bytes.
++**	The matched group length and per-letter consumed lengths preserve the previous-character read.
++**
+ **	0x791BF0 re-tests text[1] directly in the non-vowel branch, preserving the client's
+ **	redundant comparison and register allocation.
+ **	0x791400's 't' is inline in the client (0x791F10's code, which nothing calls). The 'o' rules read
+--- a/app/client/unknown_personality.h
++++ b/app/client/unknown_personality.h
+@@ -96,7 +96,7 @@
+ public:
+ 	Unknown_791310Class();							// 0x791310: sorts and indexes the table 0xB9DAB8
+ 	int Unknown_791400(const char *text, int *phonemes, int max);	// 0x791400: the shapes, at most max (no repeats)  // NAME 1: neutral (D10)
+-	int Unknown_7917B0(const char *text, char prev, int *shapes);	// 0x7917B0: a table group (its length; 0 none)  // NAME 1: neutral (D10)
++	int Unknown_7917B0(const char *text, const char *original, int *shapes);	// 0x7917B0: a table group (its length; 0 none)  // NAME 1: neutral (D10); original is unused, pointer type inferred from client 0x791486
+ 	int Unknown_791880(const char *text, char prev, int *shapes);	// 0x791880: 'a'  // NAME 1: neutral (D10)
+ 	int Unknown_791970(const char *text, char prev, int *shapes);	// 0x791970: 'e'  // NAME 1: neutral (D10)
+ 	int Unknown_791B00(const char *text, char prev, int *shapes);	// 0x791B00: 'i'  // NAME 1: neutral (D10)

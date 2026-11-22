@@ -1,0 +1,436 @@
+# Avatar steering788900: exact copied-member producer and retail threshold
+
+Final candidate is native-exact:262 avatar(file,address)pairs versus261 current
+baseline,+788900 only,0lost. Two new forms and two fresh controls, four successful
+VC6 SP4 full-native objects. No failed/invalid/pending/untested inputs. One separate production annotation
+confirmation also compiled/native-matched; it is not a third source form.
+Final source: final_source/avatar.cpp, adopted byte-identically by root. Root owns
+pair snapshots, generated metadata, checks and commit; no worker tracked
+edits/compiler/Wine/external writes. Final candidate already blanks stale target
+NOTEXACT annotation without moving physical lines.
+
+| Input | Optimal raw/GPRmasked | Historical masked | Instructions/calls | Bytes | Native pairs | Literal references |
+| --- | --- | --- | --- | --- | --- | --- |
+| current baseline control |34/34|35|381/9|1225|261|11/12 correct|
+| rebased previous-best control |11/11|15|375/10|1192|261|11/12 correct|
+| copied_member_normalize |0/0|0|380/10|1202|262|11/12 correct|
+| member_literal_corrected |0/0|0|380/10|1202|262|12/12 correct|
+
+Full retail extent788900..788DB2, frame38, nine returns7889F6,788AB1,788AE1,
+788CA4,788CC6,788CF0,788D12,788D91,788DB1. Fullraw actual stack operands, branch
+structure, calls and literal widths audited, never source-sized cropping. Previous
+masked15 and optimalraw11 are different alignment metrics, not a new improvement.
+Instruction normalization alone masks relocation-data differences; literal audit
+below was necessary even after initial nativeexact result.
+
+Fresh mechanism: replace Vector3 dir=Normalize(delta) with Vector3 dir=delta;
+dir.Normalize(). Existing free implementation copies result before its zero guard
+but computes products reading vec; member updates copied result in place. This
+changes the producer identity consumed by side dot. No extra copy for its own
+sake or new helper exists. All44 retained fullsource forms and3durable stashes
+were read; prior freeNormalize return/assignment/reference and axis/dot APIs were
+covered, but copied member form was fresh. Exact SBaseView6A1C90 independently
+proved memberNormalize can common the two source Length2 expressions, justifying
+a conditional test despite the already-correct normalization region here.
+
+Observed result: the entire normalization instruction/operand sequence remains
+identical to previousbest and retail. Copy-before-zero path, one Length2, guard,
+InvSqrt call and FST[ebp-4] retaining its factor all remain. There is no FSTP/reload
+or added rounding boundary. This differs from SBaseView/pland's observed FSTP
+schedule; that precedent was not assumed mechanically. Producer machine bytes
+can remain unchanged while its source identity changes downstream leaf selection.
+
+At side-dot entry both paths have Yz,Yy,Yx,Dz,Dy,Dx. Retail duplicates preserved
+Dz and Dy, computes Dz*Yz + Dy*Yy, then consumes Yx*Dx; it separately pops Yy/Yz.
+Oldbest instead consumed Yz and Yy directly as Yz*Dz + Yy*Dy. Both group Z+Y+X
+and retain Dz,Dy,Dx afterward, but operand-order/NaN-payload equivalence was not
+assumed. New member form emits exactly retail's13instruction side sequence rather
+than8, including peak x87depth8 versusold6; side-x87-provenance.json records each
+stack transition. Only this side-dot region changed against previousbest before
+literal correction. It establishes a working source construction, not proof of
+original source spelling or a general shared-header defect.
+
+Literal correction: initial exactmember object still inherited old facing threshold
+0.0436193873653360, emitted qword114e69c44755a63f. Retail FCOM qword[B04758] uses
+000000e04455a63f, exactly0.0436193011701107, float32bits3D32AA27 promoted to double.
+Olddecimal roundedfloat would be3D32AA3E, so merely adding an f suffix was wrong.
+Changing literal to0.0436193f gives the exactretail promotedqword, confirmed by
+second native object. No claim about an original sine/cosine calculation is made.
+All12float references now match actual retail bytes, widths and opcodes; other11
+were already correct. Final object's normalization region still equals oldbest
+exactly. Raw0 alone would have missed this pre-existing behavior difference.
+
+Rebase/dependencies: oldwholeTU was never compiled. Only target788900 and its
+previously proven786C70 helper body were transplanted into current immutable
+half-copy-identity/final-tree. Helper786C70 calls existing784F20 then masks flags,
+recovering target's required784F20 call through actual existing inline layer;
+786C70 remains exact. All other source bytes/assertions/linecounts preserved;
+current exact780810/780AC0/780AF0 and every baselinepair retained. Final literal
+and target annotation are the only changes from first member candidate. Relevant
+Vector3/Matrix3D/WWMath/avatar headers hash-identical to earlierfocused tree; no
+sharedheader edits, switches, forced assembly, volatile, deadspenders, scalar
+product staging, new helper definitions or arbitrary operand permutations.
+
+Two pretest hypothesis stages, immutablebatch1/2, fullnative summaries, rawtarget
+comparisons, literal data, source hashes and outside-target guard are retained.
+Compact stash contains full final-baseline patch, independent form deltas, helper
+dependency and symbolic provenance. Claim244, startingHEAD345ca9b2,
+appsource277cb346,gpt-6-astra(high). Cumulative441forms/537investigative objects;
+17claimed functions remain. Production NAME2[forward] annotation on its existing
+line required one separate confirmation object: fullraw0,380/10/1202/frame38,
+all12literalreferences exact,262pairs,+788900only,0lost. This comment-only delta
+is not a new form. Cumulative investigative counts exclude this confirmation.
+
+Production source SHA256: 4af6d123546024d12752b14e0264502f5a76ea1f0504c8817b09d6d0d0e1282c. The annotated source equals adopted
+app/client/avatar.cpp byte-for-byte; final-proof-327cpidt records the confirmation.
+
+BEFORE-TEST HYPOTHESES
+# Before batch1: copied member-normalization operand provenance
+
+Scope target788900,claim244,HEAD345ca9b2/appsource277cb346;gpt-6-astra(high).
+Root alone compiles/native matches. Fresh current baseline plus rebased priorbest
+control plus exactly one new form. Current avatar has261 exactpairs. Never compile
+oldwholeTU: target788900 and only proven helper786C70 dependency transplanted into
+immutable half-copy-identity/final-tree. Every other byte, linecount/assertion,
+sourcebasename preserved. Dependency uses existing784F20 operation; priorproof
+retains786C70exact. helper-dependency.patch documents this guard exception.
+
+Read five attempts rows including early historical rounds, all3durable stashes,
+focused report/manifest/bestpatch/x87audit and broadavatar/raw evidence. All44
+retained fullsource forms read; none uses copied memberNormalize in this target.
+PastfreeNormalize initialization/assignment/reference and vectoraxis value/ref/
+output/directdot/operator variants already covered. Initial historical move from
+member toward freeNormalize is not a proof that a copied member form with current
+producer/consumer lifetimes cannot work. No blind replay of those old forms.
+
+Full raw oldbest audit confirms retail788900..788DB2,380instructions/1202bytes,
+nine returns7889F6,788AB1,788AE1,788CA4,788CC6,788CF0,788D12,788D91,788DB1.
+Oldbest375instructions/1192bytes/frame38 differs ONLY788B44..5D. Optimal raw
+edit distance11 and historical SequenceMatcher/masked15 are different metrics;
+15->11 is NOT a new improvement. Fullraw actual slots and all normalization
+instructions preceding the side dot agree. Relevant header hashes are unchanged.
+
+Both paths enter side dot with Yz,Yy,Yx,Dz,Dy,Dx, retain Dz,Dy,Dx after it and
+sum products Z+Y+X. Retail duplicates preserved Dz/Dy, multiplies them by Yz/Yy,
+then consumes Yx and separately pops Yy/Yz. Candidate multiplies Y operands in
+place directly against preservedD, consuming them while accumulating. This is
+leaf provenance/scheduling, not a missing normalized value or required extra copy.
+
+One conditional existing-API form: Vector3 dir=delta;dir.Normalize(); replaces
+Vector3 dir=Normalize(delta). Existing free API copies result before len2 test
+but reads vec during each scaled assignment; member updates copiedresult in place
+and source spells Length2 twice. ExactSBaseView6A1C90 independent caller proves
+compiler can common those member Length2 evaluations. Copy-before-zero guard
+and existing component operations remain the same semantic operation family.
+Named updated dir versus returned inline-result is a concrete producer identity
+that could change subsequent dot leaf selection (workflow symbol-kind mechanism).
+
+CRITICAL: normalization is already raw-correct here. RetailInvSqrt at788B1B uses
+FST[ebp-4], retaining factor for first product, then memoryfactor for others.
+SBaseView and pland witnesses used FSTP/reload, so neither proves this target's
+rounding or exact original API. Candidate desired prediction is preservation of
+all normalization bytes, singleLength2, zero-path and FSTretainedfactor, with only
+side-dot leaf schedule changing. FSTP/extra store/rounding, altered NaN/zero guard,
+new length computation or changed earlier/later regions falsifies local prediction,
+even if some diagnostic distance drops. No sharedheader rewrite is authorized.
+
+No scalar dot-product locals, operand permutation, forced precision, volatile,
+asm, flags, inventedhelpers, unusedcopies or deadspenders. Exacttarget gain with
+zero lost(file,address)pairs required adoption. Rawmatches and literals checked
+through fullbody for allsuccessfulobjects, not source-sized cropped diagnostics.
+
+# Before batch2: necessary retail literal correction and clean exact annotation
+
+Batch1 membercopy matches native target788900,262pairs vs261 controls,+1/-0.
+All380instructions/10calls/1202bytes/frame38 and raw operands/slots match, including
+singleLength2, copy-before-zero path and FST-retainedfactor. Only side-dot code
+changes versus bestcontrol, to retail's exact duplicateD/separateYcleanup pattern.
+This proves an existing member producer can alter downstream leaf classification
+without changing producer machine instructions; it does not prove original spelling.
+
+Literal audit found pre-existing error hidden by relocation-normalized matching:
+all three inputs compare fabs(facing) against qword114e69c44755a63f from decimal
+0.0436193873653360. RetailB04758 contains000000e04455a63f, value0.0436193011701107,
+exactly float32 bits3D32AA27 promoted to double. Old value roundedfloat is3D32AA3E,
+so merely suffixing the old decimal would not repair it. All other11float literal
+references match actual bytes/widths. Raw0 alone was insufficient literal proof.
+
+One second counted source form changes only this actual threshold to0.0436193f,
+whose float32 value promotes to exactretailqword. Existing fabs(double) comparison
+should retain qwordwidth; test actual emitted constants, not assumption. No claim
+that original source computed sine/cosine or that intended mathematical angle is
+known. Retail data bytes are the authoritative value. Root explicitly approved
+this evidence-required correction and blanking this target's stale NOTEXACT line
+with one emptyline, preserving physicalassertpositions. Allother source identical
+to membercandidate. Final corrected source is intended productioncandidate so
+root can adopt identical bytes without an unnecessary changed-source rebuild.
+Require native262pairs/+788900only/0loss, fullraw0 and all12actualfloat references
+matching bytes/opcodes/widths. Two total newforms,2freshcontrols,4objects ifsuccess;
+finaladoptionconfirmation only separately counted ifroot actually runs one.
+
+FINAL ANNOTATED PRODUCTION PATCH FROM APP SOURCE277cb346
+--- a/app/client/avatar.cpp
++++ b/app/client/avatar.cpp
+@@ -3281,11 +3281,11 @@
+ // 0x786C70
+ void CharacterViewAvatarClass::Unknown_786C70()
+ {
+-	if (Unknown20C != 2) {
+-		Unknown208 = 0;
+-		Unknown20C = 2;
+-		Unknown214 = true;
+-	}
++	Unknown_784F20();
++
++
++
++
+ 	Unknown2F8 &= 0xFFFC;
+ }
+ 
+@@ -3521,7 +3521,7 @@
+ }
+ 
+ // 0x788900
+-// NOT EXACT: shape (0.81: the client calls 0x784F20 out of line here (inline budget; its other callers inline it), and keeps the Normalize result on the FPU stack on both paths)
++
+ void CharacterViewAvatarClass::Unknown_788900()
+ {
+ 	while (Unknown318.size() != 0) {
+@@ -3534,10 +3534,10 @@
+ 				Unknown_788890();
+ 				continue;
+ 			}
+-			Unknown_784F20();
+-			Unknown2F8 &= 0xFFFC;
++			Unknown_786C70();
++
+ 			float facing = Vector3::Dot_Product(Unknown330.Get_X_Vector(), goal->Get_Y_Vector());
+-			if (fabs(facing) < 0.0436193873653360) {
++			if (fabs(facing) < 0.0436193f) {
+ 				Unknown_786D20();
+ 				Unknown_788890();
+ 				return;
+@@ -3549,11 +3549,11 @@
+ 			}
+ 			return;
+ 		}
+-		Vector3 dir = Normalize(delta);
+-		float side = Vector3::Dot_Product(Unknown330.Get_Y_Vector(), dir);
++		Vector3 dir = delta; dir.Normalize();
++		float side = Vector3::Dot_Product(Unknown330.Get_Y_Vector(), dir); float forward = Vector3::Dot_Product(Unknown330.Get_X_Vector(), dir); // NAME 2 [forward]: inferred name for the X-axis/direction dot product
+ 		Vector3 goal_x = goal->Get_X_Vector();
+ 		Vector3 my_x = Unknown330.Get_X_Vector();
+-		if (Vector3::Dot_Product(Unknown330.Get_X_Vector(), dir) <= 0.0f
++		if (forward <= 0.0f
+ 			&& Vector3::Dot_Product(my_x, goal_x) >= 0.0f
+ 			&& dist <= 10.0f) {
+ 			bool full = false;
+@@ -3586,9 +3586,9 @@
+ 		}
+ 		if (fabs(side) < 0.5) {
+ 			if (Unknown2F8 & 2) {
+-				Unknown_Inline_786C70();
+-			}
+-			Unknown2F8 |= 1;
++				Unknown_Inline_786C70(); Unknown2F8 |= 1;
++			} else { Unknown2F8 |= 1; }
++
+ 		}
+ 		if (side < 0.0f) {
+ 			Unknown_786CC0((float)fabs(side));
+
+FORM copied_member_normalize relative to rebased priorbest
+--- incremental/app/client/avatar.cpp
++++ copied_member_normalize/app/client/avatar.cpp
+@@ -3549,7 +3549,7 @@
+ 			}
+ 			return;
+ 		}
+-		Vector3 dir = Normalize(delta);
++		Vector3 dir = delta; dir.Normalize();
+ 		float side = Vector3::Dot_Product(Unknown330.Get_Y_Vector(), dir); float forward = Vector3::Dot_Product(Unknown330.Get_X_Vector(), dir);
+ 		Vector3 goal_x = goal->Get_X_Vector();
+ 		Vector3 my_x = Unknown330.Get_X_Vector();
+
+FORM member_literal_corrected relative to first membercandidate
+--- incremental/app/client/avatar.cpp
++++ member_literal_corrected/app/client/avatar.cpp
+@@ -3521,7 +3521,7 @@
+ }
+ 
+ // 0x788900
+-// NOT EXACT: shape (0.81: the client calls 0x784F20 out of line here (inline budget; its other callers inline it), and keeps the Normalize result on the FPU stack on both paths)
++
+ void CharacterViewAvatarClass::Unknown_788900()
+ {
+ 	while (Unknown318.size() != 0) {
+@@ -3537,7 +3537,7 @@
+ 			Unknown_786C70();
+ 
+ 			float facing = Vector3::Dot_Product(Unknown330.Get_X_Vector(), goal->Get_Y_Vector());
+-			if (fabs(facing) < 0.0436193873653360) {
++			if (fabs(facing) < 0.0436193f) {
+ 				Unknown_786D20();
+ 				Unknown_788890();
+ 				return;
+
+COMMENT-ONLY PRODUCTION CONFIRMATION DELTA (not a new form)
+--- corrected/avatar.cpp
++++ production/avatar.cpp
+@@ -3550,7 +3550,7 @@
+ 			return;
+ 		}
+ 		Vector3 dir = delta; dir.Normalize();
+-		float side = Vector3::Dot_Product(Unknown330.Get_Y_Vector(), dir); float forward = Vector3::Dot_Product(Unknown330.Get_X_Vector(), dir);
++		float side = Vector3::Dot_Product(Unknown330.Get_Y_Vector(), dir); float forward = Vector3::Dot_Product(Unknown330.Get_X_Vector(), dir); // NAME 2 [forward]: inferred name for the X-axis/direction dot product
+ 		Vector3 goal_x = goal->Get_X_Vector();
+ 		Vector3 my_x = Unknown330.Get_X_Vector();
+ 		if (forward <= 0.0f
+
+PROVEN HELPER DEPENDENCY
+--- current786C70
++++ priorproven786C70
+@@ -1,9 +1,9 @@
+ void CharacterViewAvatarClass::Unknown_786C70()
+ {
+-	if (Unknown20C != 2) {
+-		Unknown208 = 0;
+-		Unknown20C = 2;
+-		Unknown214 = true;
+-	}
++	Unknown_784F20();
++
++
++
++
+ 	Unknown2F8 &= 0xFFFC;
+ }
+SOURCE baseline befffe9a94459cf8a31e8a32da49fcf7e492c330a88172f087ca71dc5e5f7401
+SOURCE best_control c52511dda7db550f0f2bc6134cb6ec43eac74800c33d41ab642ecc9d6b6c6c0e
+SOURCE copied_member_normalize 6ff85323cb7d873230e4e489129a7e7037fb1e63f91aea9ef93d3a250a0908a2
+SOURCE member_literal_corrected 589434d2b5d9a2c97b0323c2f85ac4cb8664831d51e04ffbeb0710dbf83f20d7
+PRODUCTION SOURCE SHA256 4af6d123546024d12752b14e0264502f5a76ea1f0504c8817b09d6d0d0e1282c
+FINAL ALL12 LITERAL AUDIT
+[
+  {
+    "instruction": "fcomp dword ptr [0]",
+    "bytes": "00004040",
+    "symbol": "__real@4@4000c000000000000000",
+    "retail": "fcomp dword ptr [0xae7960]",
+    "retail_bytes": "00004040",
+    "same_width": true,
+    "equal_bytes": true,
+    "same_opcode": true
+  },
+  {
+    "instruction": "fcom qword ptr [0]",
+    "bytes": "000000e04455a63f",
+    "symbol": "__real@8@3ffab2aa270000000000",
+    "retail": "fcom qword ptr [0xb04758]",
+    "retail_bytes": "000000e04455a63f",
+    "same_width": true,
+    "equal_bytes": true,
+    "same_opcode": true
+  },
+  {
+    "instruction": "fcomp dword ptr [0]",
+    "bytes": "00000000",
+    "symbol": "__real@4@00000000000000000000",
+    "retail": "fcomp dword ptr [0xae7244]",
+    "retail_bytes": "00000000",
+    "same_width": true,
+    "equal_bytes": true,
+    "same_opcode": true
+  },
+  {
+    "instruction": "fcomp dword ptr [0]",
+    "bytes": "00000000",
+    "symbol": "__real@4@00000000000000000000",
+    "retail": "fcomp dword ptr [0xae7244]",
+    "retail_bytes": "00000000",
+    "same_width": true,
+    "equal_bytes": true,
+    "same_opcode": true
+  },
+  {
+    "instruction": "fcomp dword ptr [0]",
+    "bytes": "00000000",
+    "symbol": "__real@4@00000000000000000000",
+    "retail": "fcomp dword ptr [0xae7244]",
+    "retail_bytes": "00000000",
+    "same_width": true,
+    "equal_bytes": true,
+    "same_opcode": true
+  },
+  {
+    "instruction": "fcomp dword ptr [0]",
+    "bytes": "00000000",
+    "symbol": "__real@4@00000000000000000000",
+    "retail": "fcomp dword ptr [0xae7244]",
+    "retail_bytes": "00000000",
+    "same_width": true,
+    "equal_bytes": true,
+    "same_opcode": true
+  },
+  {
+    "instruction": "fcomp dword ptr [0]",
+    "bytes": "00002041",
+    "symbol": "__real@4@4002a000000000000000",
+    "retail": "fcomp dword ptr [0xaea8a8]",
+    "retail_bytes": "00002041",
+    "same_width": true,
+    "equal_bytes": true,
+    "same_opcode": true
+  },
+  {
+    "instruction": "fcom qword ptr [0]",
+    "bytes": "000000000000e03f",
+    "symbol": "__real@8@3ffe8000000000000000",
+    "retail": "fcom qword ptr [0xae8728]",
+    "retail_bytes": "000000000000e03f",
+    "same_width": true,
+    "equal_bytes": true,
+    "same_opcode": true
+  },
+  {
+    "instruction": "fcomp dword ptr [0]",
+    "bytes": "00002041",
+    "symbol": "__real@4@4002a000000000000000",
+    "retail": "fcomp dword ptr [0xaea8a8]",
+    "retail_bytes": "00002041",
+    "same_width": true,
+    "equal_bytes": true,
+    "same_opcode": true
+  },
+  {
+    "instruction": "fcomp dword ptr [0]",
+    "bytes": "00000000",
+    "symbol": "__real@4@00000000000000000000",
+    "retail": "fcomp dword ptr [0xae7244]",
+    "retail_bytes": "00000000",
+    "same_width": true,
+    "equal_bytes": true,
+    "same_opcode": true
+  },
+  {
+    "instruction": "fcom qword ptr [0]",
+    "bytes": "000000000000e03f",
+    "symbol": "__real@8@3ffe8000000000000000",
+    "retail": "fcom qword ptr [0xae8728]",
+    "retail_bytes": "000000000000e03f",
+    "same_width": true,
+    "equal_bytes": true,
+    "same_opcode": true
+  },
+  {
+    "instruction": "fcomp dword ptr [0]",
+    "bytes": "00000000",
+    "symbol": "__real@4@00000000000000000000",
+    "retail": "fcomp dword ptr [0xae7244]",
+    "retail_bytes": "00000000",
+    "same_width": true,
+    "equal_bytes": true,
+    "same_opcode": true
+  }
+]

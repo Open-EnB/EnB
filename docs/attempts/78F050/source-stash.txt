@@ -1,0 +1,346 @@
+# FILE: prepare.py
+from pathlib import Path
+import json
+import re
+
+ROOT = Path('/home/dev/Projects/EnB/.work/claim-240/focused')
+OUT = ROOT / '78F050'
+TREE = ROOT / 'snapshots/64644f39'
+base = (TREE / 'app/client/nlp.cpp').read_text()
+begin = base.index('void PlayerNLPClass::Unknown_78F050(')
+end = base.index('// 0x78F640', begin)
+body = base[begin:end].rstrip() + '\n'
+
+def once(s, old, new):
+    assert s.count(old) == 1, (old, s.count(old))
+    return s.replace(old, new, 1)
+
+def save(name, value):
+    # This TU has padding after the target. Preserve every following physical
+    # line, especially FAIL_IF line 708, without preprocessor line directives.
+    available = base[begin:end].count('\n')
+    assert value.count('\n') <= available
+    source = base[:begin] + value + '\n' * (available-value.count('\n')) + base[end:]
+    assertions = lambda s: [(i, line.strip()) for i,line in enumerate(s.splitlines(),1)
+                             if re.search(r'\b(?:G_ASSERT|FAIL_IF)\s*\(',line)]
+    assert assertions(source) == assertions(base)
+    assert '#line' not in source
+    folder = OUT / name
+    folder.mkdir(exist_ok=True)
+    (folder / 'nlp.cpp').write_text(source)
+    return {'name': name, 'source': str(folder / 'nlp.cpp')}
+
+def byte_locals(s):
+    lines = []
+    for line in s.splitlines(True):
+        term = '(unsigned char)Unknown_78EEF0(start, count)'
+        if term in line:
+            indent = line[:len(line)-len(line.lstrip())]
+            lines.append(indent + 'unsigned char animation = '+term+'; // NAME 3: client AL byte spill before stream call\n')
+            line = line.replace(term, 'animation')
+        lines.append(line)
+    return ''.join(lines)
+
+def phrase_order(s):
+    old = '''\t\t\t\t\tUnknown_78F700Class::BAnimStruct *gesture = Personality->Find_BAnim(tag);
+\t\t\t\t\tif (count + n != 0) {
+\t\t\t\t\t\tstream->Unknown_4C45B0(1, (unsigned char)gesture->AnimNumber, start, count + n);
+\t\t\t\t\t}
+\t\t\t\t\tcount = 0;
+\t\t\t\t\tp += n;
+\t\t\t\t\tstart = p;'''
+    new = '''\t\t\t\t\tp += n;
+\t\t\t\t\tUnknown_78F700Class::BAnimStruct *gesture = Personality->Find_BAnim(tag);
+\t\t\t\t\tcount += n;
+\t\t\t\t\tif (count != 0) {
+\t\t\t\t\t\tstream->Unknown_4C45B0(1, (unsigned char)gesture->AnimNumber, start, count);
+\t\t\t\t\t}
+\t\t\t\t\tcount = 0;
+\t\t\t\t\tstart = p;'''
+    return once(s, old, new)
+
+def punct_order(s):
+    return once(s,
+        '\t\t\t\tstream->Unknown_4C45B0(1, animation, phrase, count + 1);',
+        '\t\t\t\tcount++;\n\t\t\t\tstream->Unknown_4C45B0(1, animation, phrase, count);')
+
+def mood_positive(s):
+    start = s.index('\t\t\t\tif (number < 0) {')
+    stop = s.index('\n\t\t\t} else {',start)
+    old = s[start:stop]
+    early = '''\t\t\t\tif (number < 0) {
+\t\t\t\t\tp += cmdlen;
+\t\t\t\t\tcount += cmdlen;
+\t\t\t\t\tcontinue;
+\t\t\t\t}
+'''
+    assert old.startswith(early)
+    tail = old[len(early):]
+    new = '\t\t\t\tif (number >= 0) {\n' + ''.join('\t'+line for line in tail.splitlines(True)) + '\n\t\t\t\t} else {\n\t\t\t\t\tp += cmdlen;\n\t\t\t\t\tcount += cmdlen;\n\t\t\t\t\tcontinue;\n\t\t\t\t}'
+    return s[:start] + new + s[stop:]
+
+byte = byte_locals(body)
+forms = [save('byte_confirmation', byte),
+         save('phrase_order', phrase_order(byte)),
+         save('count_orders', punct_order(phrase_order(byte)))]
+plan = {'unit': 'app/client/nlp.cpp', 'target': '0x78F050',
+        'tree': str(TREE), 'variants': forms}
+control_path = OUT / 'control-result.json'
+if control_path.exists():
+    control = json.loads(control_path.read_text())
+    plan['baseline_matches'] = control['variants'][0]['matches']
+else:
+    plan['variants'].insert(0, {'name':'baseline','source':str(TREE/'app/client/nlp.cpp')})
+if not (OUT/'count_packet.json').exists():
+    (OUT/'count_packet.json').write_text(json.dumps(plan,indent=2)+'\n')
+
+if __name__ == '__main__' and 'cfg' in __import__('sys').argv:
+    ordered = punct_order(phrase_order(byte))
+    positive = mood_positive(ordered)
+    # Put the reset in each successful branch and let the negative branch
+    # reach the loop condition without continue. This permits the client's
+    # shared successful call/reset tail without folding unknown commands in.
+    reset = '\t\t\tp += cmdlen;\n\t\t\tcount = 0;\n\t\t\tstart = p;\n'
+    tails = once(positive,reset,'')
+    marker='\t\t\t\t\tstream->Unknown_4C45B0(0, (unsigned char)*mood, NULL, 0);'
+    tails=once(tails,marker,marker+'\n\t\t\t\t\tp += cmdlen;\n\t\t\t\t\tcount = 0;\n\t\t\t\t\tstart = p;')
+    marker='\t\t\t\tstream->Unknown_4C45B0(2, (unsigned char)gesture->AnimNumber, NULL, 0);'
+    tails=once(tails,marker,marker+'\n\t\t\t\tp += cmdlen;\n\t\t\t\tcount = 0;\n\t\t\t\tstart = p;')
+    tails=once(tails,'\t\t\t\t\tcontinue;\n','')
+    cfgplan=dict(plan)
+    cfgplan['variants']=[save('positive_continue',positive),save('positive_tails',tails)]
+    (OUT/'cfg_packet.json').write_text(json.dumps(cfgplan,indent=2)+'\n')
+
+# FILE: prepare_lexicon.py
+from pathlib import Path
+import json
+import re
+
+OUT=Path('/home/dev/Projects/EnB/.work/claim-240/focused/78F050')
+TREE=OUT.parent/'snapshots/64644f39'
+base=(TREE/'app/client/nlp.cpp').read_text()
+source=(OUT/'positive_tails/nlp.cpp').read_text()
+begin=source.index('void PlayerNLPClass::Unknown_78F050(')
+end=source.index('// 0x78F640',begin)
+body=source[begin:end].rstrip()+'\n'
+marker='\t\t\tif (phrase == NULL) {\n'
+a=body.index(marker)
+b=body.index('\n\t\t\t} else {\n',a)
+c=body.index('\n\t\t\t}\n\t\t}\n\t} while',b)
+null=body[a+len(marker):b]
+known=body[b+len('\n\t\t\t} else {\n'):c]
+positive=body[:a]+'\t\t\tif (phrase != NULL) {\n'+known+'\n\t\t\t} else {\n'+null+body[c:]
+old='\t\t\t\t\tcount = 0;\n\t\t\t\t\tstart = p;'
+assert positive.count(old)==2  # mood success, lexicon success
+start=positive.index('Unknown_NLPPhraseStruct *phrase')
+reordered=positive[:start]+positive[start:].replace(old,'\t\t\t\t\tstart = p;\n\t\t\t\t\tcount = 0;',1)
+
+def save(name,value):
+    available=source[begin:end].count('\n')
+    assert value.count('\n')<=available
+    result=source[:begin]+value+'\n'*(available-value.count('\n'))+source[end:]
+    assertions=lambda x:[(i,line.strip()) for i,line in enumerate(x.splitlines(),1) if re.search(r'\b(?:G_ASSERT|FAIL_IF)\s*\(',line)]
+    assert assertions(result)==assertions(base)
+    assert '#line' not in result
+    path=OUT/name/'nlp.cpp';path.parent.mkdir(exist_ok=True);path.write_text(result)
+    return {'name':name,'source':str(path)}
+control=json.loads((OUT/'control-result.json').read_text())
+plan={'unit':'app/client/nlp.cpp','target':'0x78F050','tree':str(TREE),
+      'baseline_matches':control['variants'][0]['matches'],
+      'variants':[save('lexicon_positive',positive),save('lexicon_state_order',reordered)]}
+(OUT/'lexicon_packet.json').write_text(json.dumps(plan,indent=2)+'\n')
+
+# FILE: prepare_scans.py
+from pathlib import Path
+import json
+import re
+OUT=Path('/home/dev/Projects/EnB/.work/claim-240/focused/78F050')
+TREE=OUT.parent/'snapshots/64644f39'
+base=(TREE/'app/client/nlp.cpp').read_text()
+source=(OUT/'lexicon_state_order/nlp.cpp').read_text()
+
+def scan(s,indent):
+    t='\t'*indent
+    old=t+'''for (int i = 0; i < count; i++) {
+T\tif (start[i] != '\0' && start[i] != ' ') {
+T\t\tunsigned char animation = (unsigned char)Unknown_78EEF0(start, count); // NAME 3: client AL byte spill before stream call
+T\t\tstream->Unknown_4C45B0(1, animation, start, count);
+T\t\tbreak;
+T\t}
+T}'''.replace('T',t)
+    # The literal above needs a C++ backslash, not an embedded NUL.
+    old=old.replace(chr(0),chr(92)+'0')
+    new=t+'''int i; // NAME 3: index for client's nonblank scan
+Tfor (i = 0; i < count; i++) {
+T\tif (start[i] != '\0' && start[i] != ' ') {
+T\t\tbreak;
+T\t}
+T}
+Tif (i < count) {
+T\tunsigned char animation = (unsigned char)Unknown_78EEF0(start, count); // NAME 3: client AL byte spill before stream call
+T\tstream->Unknown_4C45B0(1, animation, start, count);
+T}'''.replace('T',t)
+    new=new.replace(chr(0),chr(92)+'0')
+    assert s.count(old)==1,(indent,s.count(old))
+    return s.replace(old,new,1)
+
+def save(name,value):
+    begin=value.index('void PlayerNLPClass::Unknown_78F050(')
+    end=value.index('// 0x78F640',begin)
+    body=value[begin:end].rstrip()+'\n'
+    available=source[begin:source.index('// 0x78F640',begin)].count('\n')
+    assert body.count('\n')<=available
+    value=value[:begin]+body+'\n'*(available-body.count('\n'))+value[end:]
+    assertions=lambda x:[(i,line.strip()) for i,line in enumerate(x.splitlines(),1) if re.search(r'\b(?:G_ASSERT|FAIL_IF)\s*\(',line)]
+    assert assertions(value)==assertions(base)
+    assert '#line' not in value
+    path=OUT/name/'nlp.cpp';path.parent.mkdir(exist_ok=True);path.write_text(value)
+    return {'name':name,'source':str(path)}
+mood=scan(source,5)
+both=scan(mood,4)
+control=json.loads((OUT/'control-result.json').read_text())
+plan={'unit':'app/client/nlp.cpp','target':'0x78F050','tree':str(TREE),
+      'baseline_matches':control['variants'][0]['matches'],
+      'variants':[save('scan_mood',mood),save('scan_both',both)]}
+(OUT/'scan_packet.json').write_text(json.dumps(plan,indent=2)+'\n')
+
+// Best target source (diagnostic, not exact or adopted):
+void PlayerNLPClass::Unknown_78F050(const char *text, int len, NLPLexiconClass *lexicon, int *mood, Unknown_ChatStreamClass *stream)
+{
+	if (text == NULL) {
+		Unknown_78E2F0("NLP error: null input!\n");
+		return;
+	}
+	if ((int)strlen(text) <= len) {
+		len = strlen(text);
+	}
+	if (!Initialized || Lexicon == NULL) {
+		stream->Unknown_4C45B0(1, 0, text, len);
+		if (!Initialized) {
+			Unknown_78E2F0("NLP error: not initialized!\n");
+		}
+		if (Lexicon == NULL) {
+			Unknown_78E2F0("NLP error: null lexicon!\n");
+		}
+		return;
+	}
+	int count = 0;
+	const char *end = text + len;
+	const char *start = text;
+	const char *p = text;
+	if (len <= 0) {
+		return;
+	}
+	do {
+		char c = *p;
+		if (c == '.' || c == '!' || c == '?' || c == ',') {
+			char *phrase = new char[count + 2];
+			strncpy(phrase, start, count);
+			phrase[count] = '\0';
+			strncat(phrase, p, 1);
+			if (count == 0) {
+				stream->Unknown_4C45B0(1, 0, phrase, 1);
+			} else {
+				unsigned char animation = (unsigned char)Unknown_78EEF0(start, count); // NAME 3: client AL byte spill before stream call
+				count++;
+				stream->Unknown_4C45B0(1, animation, phrase, count);
+			}
+			delete [] phrase;
+			p++;
+			count = 0;
+			start = p;
+		} else if (c == '/') {
+			const char *space = strchr(p, ' ');
+			int cmdlen = space ? (space - p) + 1 : strlen(p);
+			int n = cmdlen - 1;
+			if (n >= 0x3F) {
+				n = 0x3F;
+			}
+			char name[64];
+			strncpy(name, p + 1, n);
+			name[n] = '\0';
+			if (name[n - 1] == ' ') {
+				name[n - 1] = '\0';
+			}
+			Unknown_78F700Class::BAnimStruct *gesture = Personality->Find_BAnim(name);
+			if (gesture == NULL) {
+				int number = Personality->Get_Mood_Number(name);
+				if (number >= 0) {
+					for (int i = 0; i < count; i++) {
+						if (start[i] != '\0' && start[i] != ' ') {
+							unsigned char animation = (unsigned char)Unknown_78EEF0(start, count); // NAME 3: client AL byte spill before stream call
+							stream->Unknown_4C45B0(1, animation, start, count);
+							break;
+						}
+					}
+					*mood = number;
+					Unknown_78E2F0("NLP: Changing Mood to ( %d ) \n", number);
+					Unknown_78E2F0("------------------------------------------------------\n");
+					stream->Unknown_4C45B0(0, (unsigned char)*mood, NULL, 0);
+					p += cmdlen;
+					count = 0;
+					start = p;
+				} else {
+					p += cmdlen;
+					count += cmdlen;
+				}
+			} else {
+				for (int i = 0; i < count; i++) {
+					if (start[i] != '\0' && start[i] != ' ') {
+						unsigned char animation = (unsigned char)Unknown_78EEF0(start, count); // NAME 3: client AL byte spill before stream call
+						stream->Unknown_4C45B0(1, animation, start, count);
+						break;
+					}
+				}
+				Unknown_78E2F0("NLP: Manual Gesture for action %s is ( %s ) \n", name, gesture->Tag);
+				Unknown_78E2F0("------------------------------------------------------\n");
+				stream->Unknown_4C45B0(2, (unsigned char)gesture->AnimNumber, NULL, 0);
+				p += cmdlen;
+				count = 0;
+				start = p;
+			}
+		} else {
+			Unknown_NLPPhraseStruct *phrase = lexicon->Unknown_78E980(p);
+			if (phrase != NULL) {
+				int n = strlen(phrase->Phrase);
+				int context;
+				if (p == text) {
+					context = Unknown_78ED30(p + n, end) ? 0 : 3;
+				} else {
+					context = Unknown_78ED30(p + n, end) ? 1 : 2;
+				}
+				const char *tag = phrase->Context[context];
+				if (_stricmp(tag, "none") == 0 || Personality->Find_BAnim(tag) == NULL) {
+					Unknown_78E2F0("NLP: No Gesture for phrase in the context or Personality's body anim is missing.\n");
+					const char *next = Unknown_78ED30(p, end);
+					int m = next ? next - p : strlen(p);
+					if (m != 0) {
+						count += m;
+						p += m;
+					}
+				} else {
+					p += n;
+					Unknown_78F700Class::BAnimStruct *gesture = Personality->Find_BAnim(tag);
+					count += n;
+					if (count != 0) {
+						stream->Unknown_4C45B0(1, (unsigned char)gesture->AnimNumber, start, count);
+					}
+					start = p;
+					count = 0;
+				}
+				Unknown_78E2F0("------------------------------------------------------\n");
+			} else {
+				const char *next = Unknown_78ED30(p, end);
+				int n = next ? next - p : strlen(p);
+				if (n != 0) {
+					count += n;
+					p += n;
+				}
+			}
+		}
+	} while (p - text < len);
+	if (count != 0) {
+		unsigned char animation = (unsigned char)Unknown_78EEF0(start, count); // NAME 3: client AL byte spill before stream call
+		stream->Unknown_4C45B0(1, animation, start, count);
+	}
+}

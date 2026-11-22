@@ -1,0 +1,1348 @@
+78F050 structural source/dataflow audit
+
+# 78F050 structural result
+
+Stronger partial, no adopted source. Three new forms, two fresh controls, five
+successful full-native objects; all retain the same18 current nlp file/address
+pairs, +0/-0, target nonexact. No failures, invalid/untested forms, confirmations,
+or further pending tests. Appsource remains aa57c927; investigation HEAD07a47834.
+Ledger has19 attributions; current native scope is18, with shared42B320 absent
+already in baseline. No candidate loss is hidden by that distinction.
+
+| Source | Raw / register-masked | Instructions | Calls | Executable bytes |
+|---|---:|---:|---:|---:|
+| current baseline |230/201|437|38|1151|
+| rebased lexicon_state_order control |109/97|445|38|1214|
+| punctuation nonempty-first |88/82|443|37|1210|
+| inner gesture success-first |109/97|445|38|1214|
+| punctuation reset-order |86/80|443|37|1210|
+| retail |0|443|36|1205|
+
+Current baseline frame54; best-derived forms and retail frame60. Scores are optimal instruction edit distance with relocation and
+branch destinations normalized; physical slots/registers retained. Second score
+masks registers only. Historical masked128 uses a different algorithm/masking;
+not a comparable numerical baseline. Same-measure new improvement109/97->86/80.
+Full retail executable78F050..78F505 includes RET78F079,78F4BA and78F502(size3).
+No source-sized cropped tail, padding, or switch data counted.
+
+Punctuation positive-first preserves the separate animation byte local and its
+branch, unlike earlier ternary/single-call forms. It recovers retail JE zero
+out-of-line path and shared virtual stream call. Its only local residue was
+adjacent reset ordering; start=p before count=0 reproduces MOVstart then XORcount.
+Final candidate punctuation region78F403..475 and final78F475..505 are raw0,
+with actual strings/call targets independently checked. New best scratch source:
+`punctuation_reset/nlp.cpp`. It remains a diagnostic partial, not production.
+
+Inner lexicon success-first is logically complementary to the existing missing
+case, preserving short-circuit and repeated Find_BAnim calls. It emits identical
+code to best_control and does not eliminate the duplicated separator log. No
+combination was prepared/tested because that result supplies no independent gain.
+
+Important call-census correction: the old best ALREADY shares mood/manual final
+virtual emission; object manual232 jumps18C, shared call18E. Its two extra static
+calls were punctuation's second virtual emission AND a cloned lexicon separator
+log. The new best removes only the former, leaving37vs36calls. The clone is not
+an extra runtime log per path; both lexicon arms log the separator once.
+
+Remaining full regional distances: initial2 (opposite equivalent compare/Jcc
+operand orientation, previously tested len/strlen family); command73 (interleaved
+manual/mood scan/emission/log layout and number result lifetime); lexicon11
+(phrase/n slot allocation, count-add/test, cloned common log tail). Punctuation0,
+final0. No invented helper, label graph, union, register sweep, or statement-only
+spelling family earns another batch from these facts.
+
+Literal audit: zero floating references. All11 string reference sites in each
+best-derived object match the exact bytes including NUL of retail's10sites.
+The sole multiplicity difference is one extra static reference to the separator
+string, corresponding to the diagnosed cloned call. All distinct string values
+match, including format strings and "none". Baseline has10sites/identicalcounts.
+No erroneous literal is hidden by relocation normalization.
+
+Independent delegated helper audit completed (`independent.txt`): lexicon78E980
+returns borrowed Phrases interior pointers, scanner78ED30 a borrowed input cursor,
+personality slot28 int mood/slot30 borrowed BAnim pointer. Stream4C45B0 consumes
+byte type/value and signed-short length, copies text before punctuation delete.
+ESP-correct78F390/394 read this/end despite pending log argument; no missing
+result/out parameter or owning lifetime. Slot28 reuse across disjoint mood and
+lexicon branches is not evidence of a shared aggregate. Actual original source
+spelling remains unknown. This child produced no candidates or compilations.
+
+Reproduction and guards: exact target-body rebase from old lexicon_state_order
+onto immutable788900-operand-provenance/final-tree. Outside-target bytes,
+basename, every assertion/error physical line including FAIL_IF708 unchanged.
+Whitespace slack inside the target region keeps later source positions fixed;
+no#line. New forms add no local names; inherited NAME3 animation comments remain.
+No helper/header/type/ABI/math changes. prepare_controls.py,prepare_forms.py,
+prepare_reset.py and immutable manifests preserve exact sources/hashes. Root
+compiled controls-8rpnp6f7,batch1-cslihfa7,batch2-7gv2d6a7; every successful object
+received full native matching. Root owns tracked stash, record, checks and commit.
+Worker performed no compiler/Wine/tracked edit/commit/external write/install.
+
+# 78F050 fresh structural hypotheses
+
+Prior5Opus/8Terra/8focused summaries, both published stashes, full focused
+manifest/generators/best body and broad-speech audit read. Existing best uses
+named independent byte spills, count/p mutation before phrase emission,
+positive mood/per-success resets, recognized lexicon phrase before null, and
+start-before-count reset. No hidden destructible object/API inferred.
+
+Fresh full extent78F050..78F505 includes all3returns (079/4BA/502),1205retail
+bytes443instructions36calls/frame60. Older best historical masked128 is NOT
+comparable to fresh optimalraw109/97 (445ins1214bytes38calls). Two extra sites
+are punctuation's duplicated virtual emit and lexicon's duplicated separator
+log. Contrary to a preliminary assumption, mood/manual final emit IS ALREADY
+shared in best (manual232 jumps18C; shared call18E). Its block-placement and
+mood-number lifetime still differ but do not explain extra call count.
+
+P: preserve all punctuation operations and byte-local scope, reverse only
+`if(count==0)` arms to `if(count!=0)` nonempty-first. Retail42C JE takes zero
+out-of-line; nonempty path selects animation, increments count and supplies
+arguments before joining zero's final push1/call462. Predict one shared slot20
+call, count-only change38->37. Older Terra merged-to-ternary forms are not this
+branch structure and lost meaningful separate byte-local identity.
+
+L: preserve inner recognized-phrase operations, reverse missing-animation
+condition `stricmp==0 || Find_BAnim==NULL` to success-first
+`stricmp!=0 && Find_BAnim!=NULL`, exchanging bodies. This is exact logical
+complement and retains short-circuit ordering: never call Find when tag is none;
+keep repeated Find on success, scanner/logs only on missing path. Existing common
+separator stays after the conditional. Predict no cloned separator call on
+success (oldobject32A); both arms join one separator matchingretail3C5,38->37.
+Prior lexicon inversion was OUTER phrase!=NULL; this is inner gesture validity.
+
+First packet tests P and L independently on rebased best. Root-approved later
+combination only if actual results support it. No argument/type/alias changes,
+new helper, shared locals, labels, compileroptions or stores forced. Native
+allobjects mandatory; current control native scope established separately.
+All physical assertion/error positions including FAIL_IF708, basename and
+outside-target source unchanged. Literal strings/addresses and actual call
+identities audited separately from normalized edit distance.
+
+After batch1: P recovers shared streamcall, raw88/82,37calls; L code-identical. P punctuation only differs in adjacent reset order INCp/XORcount/MOVstart versus retail INCp/MOVstart/XORcount. One fresh punctuation reset-order form swaps independent start=p and count=0 after delete/p++; earlier reset-order test concerned lexicon only. Predict punctuation raw2->0, no added call or changed scanner/alias behavior; no lexical combination.
+
+INDEPENDENT AUDIT
+Independent bounded helper/producer/lifetime audit, 2026-11-22
+
+Verdict: no fresh evidence-backed API, type, hidden temporary, or lifetime
+correction. Do not reopen the exhausted spelling/scan-placement families on
+this audit's account. No compiler/Wine invocation, tracked edit, commit,
+external write, or prepared source candidate. Only this report was written.
+
+Evidence: actual retail client.exe read through tools/re/client.py and
+ClientImage (full expected retail SHA-256 validated); existing full retail
+listing root-retail.txt; focused/78F050/lexicon_state_order/nlp.cpp and its
+target.diff.txt; focused report/hypotheses/source stash; broad-speech report;
+current source declarations and final-tree stream declaration. This was an
+independent static audit, not runtime observation or native matching.
+
+Extent: 78F050 through 78F504 inclusive is executable body (0x4B5 bytes).
+The final C2 14 00 begins at 78F502. 78F505..78F50F are NOP alignment;
+78F510 begins INT3 padding. No omitted alternate cleanup after the return.
+
+Concrete contracts:
+- 404F9D resolves to 78E980. This takes ECX=the explicit lexicon parameter,
+  one stack text pointer, and returns EAX=borrowed phrase pointer or zero.
+  78EA15..78EA22 compute Phrases+(First+Count-1)*0x120; 78EAA9 returns that
+  interior address. No result object, ownership transfer, or output argument.
+- Player vtable B04A2C+0x0C is thunk 40E64C -> 78ED30. Both stack arguments
+  are input pointers, text and end (ret 8). 78EDBC returns its advancing input
+  cursor; other exits return zero. It returns neither a count nor bool.
+  Thus 78F2FA/314 test a real pointer, while 78F39F/3E0 subtract p only on
+  nonzero result. Current source respects the two distinct uses.
+- Personality constructor 78F704 installs B04A40. Its slots +0x28/+0x30
+  resolve to 78FBB0 (int mood number, -1 fallback) and 78FC20 (borrowed
+  BAnimStruct pointer). 78FC5B computes BAnims+(First+Count-1)*8 and 78FC87
+  returns it. No temporary class destruction or reference/out parameter.
+- 40289C resolves to 78EEF0, the real two-input talk-animation producer.
+  Nothing supports replacing it with 78F640, which has different behavior.
+- Stream 4C45B0 consumes type/value as bytes (45B4,45F0), length as signed
+  word (45E2,4667), and text as pointer (4644); ret 0x10. It copies text
+  bytes into its allocated buffer (4673..4682). Existing char/unsigned-char/
+  const-char-pointer/short signature agrees. High 24 bits of pushed byte
+  values are irrelevant, so MOV AL,[EAX+4]; PUSH EAX at 78F371/378 is not
+  evidence for pointer-valued animation or a narrower BAnimStruct field.
+
+Stack and address lifetimes (S=ESP after four register pushes):
+- S+10 start; S+14 this; S+18 command length / recognized phrase length;
+  S+1C end; S+20/S+24/S+2C independent byte spills; S+28 mood number /
+  lexicon phrase pointer; S+30..6F command name. Args start at S+74.
+- Slot reuse S+28 is between disjoint command and lexicon branches. It
+  does not establish a union, shared source variable, or owning temporary.
+- 78F386 pushes a log string without immediate cleanup. Accordingly
+  78F390 [esp+18] reads this at S+14 and 78F394 [esp+20] reads end at S+1C.
+  The subsequent scanner call is exactly (p,end), not (p,phrase/count).
+- No address of count, phrase-result slot, number-result slot, or the byte
+  spills escapes. The only stack address handed to helpers is command name.
+  Recognized context tag is phrase+(context+4)*32, an interior lexicon
+  pointer. Both Find_BAnim calls take that same address; duplicate lookup is
+  real, and no output location/cache is hidden in either call.
+- The punctuation heap buffer is copied into stream before delete[];
+  name and phrase/BAnim borrowed pointers require no parser cleanup.
+
+Current best still differs in scalar allocation and CFG/tail merging.
+Retail 78F35C..364 loads phrase length, adds count, then separately tests;
+best object folds memory add/flags. This is real residue but supplies no
+independent semantic/type/API reason for another candidate. The source's
+producer/result/address relationships already agree with retail.
+
+MANIFEST
+{
+  "head": "07a47834",
+  "appsource": "aa57c927",
+  "unit": "app/client/nlp.cpp",
+  "target": "0x78F050",
+  "tree": "/home/dev/Projects/EnB/.work/claim-240/788900-operand-provenance/final-tree",
+  "forms": 3,
+  "controls": 2,
+  "successful_native_objects": 5,
+  "all_native_pairs": 18,
+  "pair_delta": [
+    0,
+    0
+  ],
+  "no_adoption": true,
+  "guards": {
+    "outside_target_identical": true,
+    "assertion_and_error_lines_fixed": true,
+    "FAIL_IF708_preserved": true,
+    "helper_or_header_exceptions": []
+  },
+  "records": [
+    {
+      "name": "baseline",
+      "source": "/home/dev/Projects/EnB/.work/claim-240/78f050-structural/baseline/nlp.cpp",
+      "source_sha256": "1f533d81b3deaa1a96e8e101d5010e87b2d00fd50f2fc1f9d80ef69a2cd91ef2",
+      "object": "/home/dev/Projects/EnB/.work/claim-240/78f050-structural/runs/controls-8rpnp6f7/baseline/nlp.obj",
+      "matches": "/home/dev/Projects/EnB/.work/claim-240/78f050-structural/runs/controls-8rpnp6f7/baseline/matches.json",
+      "exact_symbol_pairs": [
+        [
+          "??0NLPLexiconClass@@QAE@PBD@Z",
+          "0x78E330"
+        ],
+        [
+          "??0PlayerNLPClass@@QAE@XZ",
+          "0x78EB50"
+        ],
+        [
+          "??1NLPLexiconClass@@QAE@XZ",
+          "0x78E8A0"
+        ],
+        [
+          "??1PlayerNLPClass@@QAE@XZ",
+          "0x78EB80"
+        ],
+        [
+          "??_H@YGXPAXIHP6EX0@Z@Z",
+          "0x42F250"
+        ],
+        [
+          "?Unknown_78E190@@YAXPADPBD11@Z",
+          "0x78E190"
+        ],
+        [
+          "?Unknown_78E2C0@@YAXPADPBD@Z",
+          "0x78E2C0"
+        ],
+        [
+          "?Unknown_78E2F0@@YAXPBDZZ",
+          "0x78E2F0"
+        ],
+        [
+          "?Unknown_78E870@@YAHPBX0@Z",
+          "0x78E870"
+        ],
+        [
+          "?Unknown_78E8F0@NLPLexiconClass@@QAEXXZ",
+          "0x78E8F0"
+        ],
+        [
+          "?Unknown_78E980@NLPLexiconClass@@QAEPAUUnknown_NLPPhraseStruct@@PBD@Z",
+          "0x78E980"
+        ],
+        [
+          "?Unknown_78EC00@PlayerNLPClass@@UAE_NHH@Z",
+          "0x78EC00"
+        ],
+        [
+          "?Unknown_78ECC0@PlayerNLPClass@@UAEXXZ",
+          "0x78ECC0"
+        ],
+        [
+          "?Unknown_78ED30@PlayerNLPClass@@UAEPBDPBD0@Z",
+          "0x78ED30"
+        ],
+        [
+          "?Unknown_78EE00@PlayerNLPClass@@QAEHH_N@Z",
+          "0x78EE00"
+        ],
+        [
+          "?Unknown_78EEF0@PlayerNLPClass@@QAEHPBDH@Z",
+          "0x78EEF0"
+        ],
+        [
+          "?Unknown_78F640@PlayerNLPClass@@QAEHPBD@Z",
+          "0x78F640"
+        ],
+        [
+          "?Unknown_78F690@PlayerNLPClass@@UAEXPBDHPAHPAVUnknown_ChatStreamClass@@@Z",
+          "0x78F690"
+        ]
+      ],
+      "run": "controls-8rpnp6f7",
+      "raw": [
+        230,
+        201
+      ],
+      "instructions": [
+        437,
+        443
+      ],
+      "calls": [
+        38,
+        36
+      ],
+      "bytes": [
+        1151,
+        1205
+      ],
+      "retail_returns": [
+        "0x78f079",
+        "0x78f4ba",
+        "0x78f502"
+      ],
+      "group": "68d2500f1b658d78",
+      "regions": {
+        "initial": 10,
+        "command": 90,
+        "lexicon": 85,
+        "punctuation": 26,
+        "final": 19
+      },
+      "string_sites": 10,
+      "all_literal_values_match": true,
+      "static_literal_multiplicity_delta": {}
+    },
+    {
+      "name": "best_control",
+      "source": "/home/dev/Projects/EnB/.work/claim-240/78f050-structural/best_control/nlp.cpp",
+      "source_sha256": "fee512856ff4218cbde59932fad1231ba4ab7ea82e543cd4f6dd1cb4a00b5b74",
+      "object": "/home/dev/Projects/EnB/.work/claim-240/78f050-structural/runs/controls-8rpnp6f7/best_control/nlp.obj",
+      "matches": "/home/dev/Projects/EnB/.work/claim-240/78f050-structural/runs/controls-8rpnp6f7/best_control/matches.json",
+      "exact_symbol_pairs": [
+        [
+          "??0NLPLexiconClass@@QAE@PBD@Z",
+          "0x78E330"
+        ],
+        [
+          "??0PlayerNLPClass@@QAE@XZ",
+          "0x78EB50"
+        ],
+        [
+          "??1NLPLexiconClass@@QAE@XZ",
+          "0x78E8A0"
+        ],
+        [
+          "??1PlayerNLPClass@@QAE@XZ",
+          "0x78EB80"
+        ],
+        [
+          "??_H@YGXPAXIHP6EX0@Z@Z",
+          "0x42F250"
+        ],
+        [
+          "?Unknown_78E190@@YAXPADPBD11@Z",
+          "0x78E190"
+        ],
+        [
+          "?Unknown_78E2C0@@YAXPADPBD@Z",
+          "0x78E2C0"
+        ],
+        [
+          "?Unknown_78E2F0@@YAXPBDZZ",
+          "0x78E2F0"
+        ],
+        [
+          "?Unknown_78E870@@YAHPBX0@Z",
+          "0x78E870"
+        ],
+        [
+          "?Unknown_78E8F0@NLPLexiconClass@@QAEXXZ",
+          "0x78E8F0"
+        ],
+        [
+          "?Unknown_78E980@NLPLexiconClass@@QAEPAUUnknown_NLPPhraseStruct@@PBD@Z",
+          "0x78E980"
+        ],
+        [
+          "?Unknown_78EC00@PlayerNLPClass@@UAE_NHH@Z",
+          "0x78EC00"
+        ],
+        [
+          "?Unknown_78ECC0@PlayerNLPClass@@UAEXXZ",
+          "0x78ECC0"
+        ],
+        [
+          "?Unknown_78ED30@PlayerNLPClass@@UAEPBDPBD0@Z",
+          "0x78ED30"
+        ],
+        [
+          "?Unknown_78EE00@PlayerNLPClass@@QAEHH_N@Z",
+          "0x78EE00"
+        ],
+        [
+          "?Unknown_78EEF0@PlayerNLPClass@@QAEHPBDH@Z",
+          "0x78EEF0"
+        ],
+        [
+          "?Unknown_78F640@PlayerNLPClass@@QAEHPBD@Z",
+          "0x78F640"
+        ],
+        [
+          "?Unknown_78F690@PlayerNLPClass@@UAEXPBDHPAHPAVUnknown_ChatStreamClass@@@Z",
+          "0x78F690"
+        ]
+      ],
+      "run": "controls-8rpnp6f7",
+      "raw": [
+        109,
+        97
+      ],
+      "instructions": [
+        445,
+        443
+      ],
+      "calls": [
+        38,
+        36
+      ],
+      "bytes": [
+        1214,
+        1205
+      ],
+      "retail_returns": [
+        "0x78f079",
+        "0x78f4ba",
+        "0x78f502"
+      ],
+      "group": "1108e2dd4714d387",
+      "regions": {
+        "initial": 2,
+        "command": 73,
+        "lexicon": 11,
+        "punctuation": 19,
+        "final": 4
+      },
+      "string_sites": 11,
+      "all_literal_values_match": true,
+      "static_literal_multiplicity_delta": {
+        "'------------------------------------------------------\\n\\x00'": 1
+      }
+    },
+    {
+      "name": "punctuation_positive",
+      "source": "/home/dev/Projects/EnB/.work/claim-240/78f050-structural/punctuation_positive/nlp.cpp",
+      "source_sha256": "c518dcb81ae98a4f85f40e994dfc8589c5aab71517c7ad412bef7f49e471e0fc",
+      "object": "/home/dev/Projects/EnB/.work/claim-240/78f050-structural/runs/batch1-cslihfa7/punctuation_positive/nlp.obj",
+      "matches": "/home/dev/Projects/EnB/.work/claim-240/78f050-structural/runs/batch1-cslihfa7/punctuation_positive/matches.json",
+      "exact_symbol_pairs": [
+        [
+          "??0NLPLexiconClass@@QAE@PBD@Z",
+          "0x78E330"
+        ],
+        [
+          "??0PlayerNLPClass@@QAE@XZ",
+          "0x78EB50"
+        ],
+        [
+          "??1NLPLexiconClass@@QAE@XZ",
+          "0x78E8A0"
+        ],
+        [
+          "??1PlayerNLPClass@@QAE@XZ",
+          "0x78EB80"
+        ],
+        [
+          "??_H@YGXPAXIHP6EX0@Z@Z",
+          "0x42F250"
+        ],
+        [
+          "?Unknown_78E190@@YAXPADPBD11@Z",
+          "0x78E190"
+        ],
+        [
+          "?Unknown_78E2C0@@YAXPADPBD@Z",
+          "0x78E2C0"
+        ],
+        [
+          "?Unknown_78E2F0@@YAXPBDZZ",
+          "0x78E2F0"
+        ],
+        [
+          "?Unknown_78E870@@YAHPBX0@Z",
+          "0x78E870"
+        ],
+        [
+          "?Unknown_78E8F0@NLPLexiconClass@@QAEXXZ",
+          "0x78E8F0"
+        ],
+        [
+          "?Unknown_78E980@NLPLexiconClass@@QAEPAUUnknown_NLPPhraseStruct@@PBD@Z",
+          "0x78E980"
+        ],
+        [
+          "?Unknown_78EC00@PlayerNLPClass@@UAE_NHH@Z",
+          "0x78EC00"
+        ],
+        [
+          "?Unknown_78ECC0@PlayerNLPClass@@UAEXXZ",
+          "0x78ECC0"
+        ],
+        [
+          "?Unknown_78ED30@PlayerNLPClass@@UAEPBDPBD0@Z",
+          "0x78ED30"
+        ],
+        [
+          "?Unknown_78EE00@PlayerNLPClass@@QAEHH_N@Z",
+          "0x78EE00"
+        ],
+        [
+          "?Unknown_78EEF0@PlayerNLPClass@@QAEHPBDH@Z",
+          "0x78EEF0"
+        ],
+        [
+          "?Unknown_78F640@PlayerNLPClass@@QAEHPBD@Z",
+          "0x78F640"
+        ],
+        [
+          "?Unknown_78F690@PlayerNLPClass@@UAEXPBDHPAHPAVUnknown_ChatStreamClass@@@Z",
+          "0x78F690"
+        ]
+      ],
+      "run": "batch1-cslihfa7",
+      "raw": [
+        88,
+        82
+      ],
+      "instructions": [
+        443,
+        443
+      ],
+      "calls": [
+        37,
+        36
+      ],
+      "bytes": [
+        1210,
+        1205
+      ],
+      "retail_returns": [
+        "0x78f079",
+        "0x78f4ba",
+        "0x78f502"
+      ],
+      "group": "9a898b7753cf3328",
+      "regions": {
+        "initial": 2,
+        "command": 73,
+        "lexicon": 11,
+        "punctuation": 2,
+        "final": 0
+      },
+      "string_sites": 11,
+      "all_literal_values_match": true,
+      "static_literal_multiplicity_delta": {
+        "'------------------------------------------------------\\n\\x00'": 1
+      }
+    },
+    {
+      "name": "gesture_positive",
+      "source": "/home/dev/Projects/EnB/.work/claim-240/78f050-structural/gesture_positive/nlp.cpp",
+      "source_sha256": "c5241268431f73c05a997f936f7458938a8f6170a0874f04f5fd15dd22191063",
+      "object": "/home/dev/Projects/EnB/.work/claim-240/78f050-structural/runs/batch1-cslihfa7/gesture_positive/nlp.obj",
+      "matches": "/home/dev/Projects/EnB/.work/claim-240/78f050-structural/runs/batch1-cslihfa7/gesture_positive/matches.json",
+      "exact_symbol_pairs": [
+        [
+          "??0NLPLexiconClass@@QAE@PBD@Z",
+          "0x78E330"
+        ],
+        [
+          "??0PlayerNLPClass@@QAE@XZ",
+          "0x78EB50"
+        ],
+        [
+          "??1NLPLexiconClass@@QAE@XZ",
+          "0x78E8A0"
+        ],
+        [
+          "??1PlayerNLPClass@@QAE@XZ",
+          "0x78EB80"
+        ],
+        [
+          "??_H@YGXPAXIHP6EX0@Z@Z",
+          "0x42F250"
+        ],
+        [
+          "?Unknown_78E190@@YAXPADPBD11@Z",
+          "0x78E190"
+        ],
+        [
+          "?Unknown_78E2C0@@YAXPADPBD@Z",
+          "0x78E2C0"
+        ],
+        [
+          "?Unknown_78E2F0@@YAXPBDZZ",
+          "0x78E2F0"
+        ],
+        [
+          "?Unknown_78E870@@YAHPBX0@Z",
+          "0x78E870"
+        ],
+        [
+          "?Unknown_78E8F0@NLPLexiconClass@@QAEXXZ",
+          "0x78E8F0"
+        ],
+        [
+          "?Unknown_78E980@NLPLexiconClass@@QAEPAUUnknown_NLPPhraseStruct@@PBD@Z",
+          "0x78E980"
+        ],
+        [
+          "?Unknown_78EC00@PlayerNLPClass@@UAE_NHH@Z",
+          "0x78EC00"
+        ],
+        [
+          "?Unknown_78ECC0@PlayerNLPClass@@UAEXXZ",
+          "0x78ECC0"
+        ],
+        [
+          "?Unknown_78ED30@PlayerNLPClass@@UAEPBDPBD0@Z",
+          "0x78ED30"
+        ],
+        [
+          "?Unknown_78EE00@PlayerNLPClass@@QAEHH_N@Z",
+          "0x78EE00"
+        ],
+        [
+          "?Unknown_78EEF0@PlayerNLPClass@@QAEHPBDH@Z",
+          "0x78EEF0"
+        ],
+        [
+          "?Unknown_78F640@PlayerNLPClass@@QAEHPBD@Z",
+          "0x78F640"
+        ],
+        [
+          "?Unknown_78F690@PlayerNLPClass@@UAEXPBDHPAHPAVUnknown_ChatStreamClass@@@Z",
+          "0x78F690"
+        ]
+      ],
+      "run": "batch1-cslihfa7",
+      "raw": [
+        109,
+        97
+      ],
+      "instructions": [
+        445,
+        443
+      ],
+      "calls": [
+        38,
+        36
+      ],
+      "bytes": [
+        1214,
+        1205
+      ],
+      "retail_returns": [
+        "0x78f079",
+        "0x78f4ba",
+        "0x78f502"
+      ],
+      "group": "1108e2dd4714d387",
+      "regions": {
+        "initial": 2,
+        "command": 73,
+        "lexicon": 11,
+        "punctuation": 19,
+        "final": 4
+      },
+      "string_sites": 11,
+      "all_literal_values_match": true,
+      "static_literal_multiplicity_delta": {
+        "'------------------------------------------------------\\n\\x00'": 1
+      }
+    },
+    {
+      "name": "punctuation_reset",
+      "source": "/home/dev/Projects/EnB/.work/claim-240/78f050-structural/punctuation_reset/nlp.cpp",
+      "source_sha256": "af651ed45c084703363fe5c65ed016abbf788c3056dde87e766d7e98df26b095",
+      "object": "/home/dev/Projects/EnB/.work/claim-240/78f050-structural/runs/batch2-7gv2d6a7/punctuation_reset/nlp.obj",
+      "matches": "/home/dev/Projects/EnB/.work/claim-240/78f050-structural/runs/batch2-7gv2d6a7/punctuation_reset/matches.json",
+      "exact_symbol_pairs": [
+        [
+          "??0NLPLexiconClass@@QAE@PBD@Z",
+          "0x78E330"
+        ],
+        [
+          "??0PlayerNLPClass@@QAE@XZ",
+          "0x78EB50"
+        ],
+        [
+          "??1NLPLexiconClass@@QAE@XZ",
+          "0x78E8A0"
+        ],
+        [
+          "??1PlayerNLPClass@@QAE@XZ",
+          "0x78EB80"
+        ],
+        [
+          "??_H@YGXPAXIHP6EX0@Z@Z",
+          "0x42F250"
+        ],
+        [
+          "?Unknown_78E190@@YAXPADPBD11@Z",
+          "0x78E190"
+        ],
+        [
+          "?Unknown_78E2C0@@YAXPADPBD@Z",
+          "0x78E2C0"
+        ],
+        [
+          "?Unknown_78E2F0@@YAXPBDZZ",
+          "0x78E2F0"
+        ],
+        [
+          "?Unknown_78E870@@YAHPBX0@Z",
+          "0x78E870"
+        ],
+        [
+          "?Unknown_78E8F0@NLPLexiconClass@@QAEXXZ",
+          "0x78E8F0"
+        ],
+        [
+          "?Unknown_78E980@NLPLexiconClass@@QAEPAUUnknown_NLPPhraseStruct@@PBD@Z",
+          "0x78E980"
+        ],
+        [
+          "?Unknown_78EC00@PlayerNLPClass@@UAE_NHH@Z",
+          "0x78EC00"
+        ],
+        [
+          "?Unknown_78ECC0@PlayerNLPClass@@UAEXXZ",
+          "0x78ECC0"
+        ],
+        [
+          "?Unknown_78ED30@PlayerNLPClass@@UAEPBDPBD0@Z",
+          "0x78ED30"
+        ],
+        [
+          "?Unknown_78EE00@PlayerNLPClass@@QAEHH_N@Z",
+          "0x78EE00"
+        ],
+        [
+          "?Unknown_78EEF0@PlayerNLPClass@@QAEHPBDH@Z",
+          "0x78EEF0"
+        ],
+        [
+          "?Unknown_78F640@PlayerNLPClass@@QAEHPBD@Z",
+          "0x78F640"
+        ],
+        [
+          "?Unknown_78F690@PlayerNLPClass@@UAEXPBDHPAHPAVUnknown_ChatStreamClass@@@Z",
+          "0x78F690"
+        ]
+      ],
+      "run": "batch2-7gv2d6a7",
+      "raw": [
+        86,
+        80
+      ],
+      "instructions": [
+        443,
+        443
+      ],
+      "calls": [
+        37,
+        36
+      ],
+      "bytes": [
+        1210,
+        1205
+      ],
+      "retail_returns": [
+        "0x78f079",
+        "0x78f4ba",
+        "0x78f502"
+      ],
+      "group": "a65eefdbe1a99d7c",
+      "regions": {
+        "initial": 2,
+        "command": 73,
+        "lexicon": 11,
+        "punctuation": 0,
+        "final": 0
+      },
+      "string_sites": 11,
+      "all_literal_values_match": true,
+      "static_literal_multiplicity_delta": {
+        "'------------------------------------------------------\\n\\x00'": 1
+      }
+    }
+  ]
+}
+
+PATCH best_control AGAINST aa57c927
+--- aa57c927/app/client/nlp.cpp
++++ best_control/app/client/nlp.cpp
+@@ -494,7 +494,9 @@
+ 			if (count == 0) {
+ 				stream->Unknown_4C45B0(1, 0, phrase, 1);
+ 			} else {
+-				stream->Unknown_4C45B0(1, (unsigned char)Unknown_78EEF0(start, count), phrase, count + 1);
++				unsigned char animation = (unsigned char)Unknown_78EEF0(start, count); // NAME 3: client AL byte spill before stream call
++				count++;
++				stream->Unknown_4C45B0(1, animation, phrase, count);
+ 			}
+ 			delete [] phrase;
+ 			p++;
+@@ -516,45 +518,43 @@
+ 			Unknown_78F700Class::BAnimStruct *gesture = Personality->Find_BAnim(name);
+ 			if (gesture == NULL) {
+ 				int number = Personality->Get_Mood_Number(name);
+-				if (number < 0) {
++				if (number >= 0) {
++					for (int i = 0; i < count; i++) {
++						if (start[i] != '\0' && start[i] != ' ') {
++							unsigned char animation = (unsigned char)Unknown_78EEF0(start, count); // NAME 3: client AL byte spill before stream call
++							stream->Unknown_4C45B0(1, animation, start, count);
++							break;
++						}
++					}
++					*mood = number;
++					Unknown_78E2F0("NLP: Changing Mood to ( %d ) \n", number);
++					Unknown_78E2F0("------------------------------------------------------\n");
++					stream->Unknown_4C45B0(0, (unsigned char)*mood, NULL, 0);
++					p += cmdlen;
++					count = 0;
++					start = p;
++				} else {
+ 					p += cmdlen;
+ 					count += cmdlen;
+-					continue;
+ 				}
+-				for (int i = 0; i < count; i++) {
+-					if (start[i] != '\0' && start[i] != ' ') {
+-						stream->Unknown_4C45B0(1, (unsigned char)Unknown_78EEF0(start, count), start, count);
+-						break;
+-					}
+-				}
+-				*mood = number;
+-				Unknown_78E2F0("NLP: Changing Mood to ( %d ) \n", number);
+-				Unknown_78E2F0("------------------------------------------------------\n");
+-				stream->Unknown_4C45B0(0, (unsigned char)*mood, NULL, 0);
+ 			} else {
+ 				for (int i = 0; i < count; i++) {
+ 					if (start[i] != '\0' && start[i] != ' ') {
+-						stream->Unknown_4C45B0(1, (unsigned char)Unknown_78EEF0(start, count), start, count);
++						unsigned char animation = (unsigned char)Unknown_78EEF0(start, count); // NAME 3: client AL byte spill before stream call
++						stream->Unknown_4C45B0(1, animation, start, count);
+ 						break;
+ 					}
+ 				}
+ 				Unknown_78E2F0("NLP: Manual Gesture for action %s is ( %s ) \n", name, gesture->Tag);
+ 				Unknown_78E2F0("------------------------------------------------------\n");
+ 				stream->Unknown_4C45B0(2, (unsigned char)gesture->AnimNumber, NULL, 0);
+-			}
+-			p += cmdlen;
+-			count = 0;
+-			start = p;
++				p += cmdlen;
++				count = 0;
++				start = p;
++			}
+ 		} else {
+ 			Unknown_NLPPhraseStruct *phrase = lexicon->Unknown_78E980(p);
+-			if (phrase == NULL) {
+-				const char *next = Unknown_78ED30(p, end);
+-				int n = next ? next - p : strlen(p);
+-				if (n != 0) {
+-					count += n;
+-					p += n;
+-				}
+-			} else {
++			if (phrase != NULL) {
+ 				int n = strlen(phrase->Phrase);
+ 				int context;
+ 				if (p == text) {
+@@ -572,31 +572,31 @@
+ 						p += m;
+ 					}
+ 				} else {
++					p += n;
+ 					Unknown_78F700Class::BAnimStruct *gesture = Personality->Find_BAnim(tag);
+-					if (count + n != 0) {
+-						stream->Unknown_4C45B0(1, (unsigned char)gesture->AnimNumber, start, count + n);
++					count += n;
++					if (count != 0) {
++						stream->Unknown_4C45B0(1, (unsigned char)gesture->AnimNumber, start, count);
+ 					}
++					start = p;
+ 					count = 0;
+-					p += n;
+-					start = p;
+ 				}
+ 				Unknown_78E2F0("------------------------------------------------------\n");
++			} else {
++				const char *next = Unknown_78ED30(p, end);
++				int n = next ? next - p : strlen(p);
++				if (n != 0) {
++					count += n;
++					p += n;
++				}
+ 			}
+ 		}
+ 	} while (p - text < len);
+ 	if (count != 0) {
+-		stream->Unknown_4C45B0(1, (unsigned char)Unknown_78EEF0(start, count), start, count);
+-	}
+-}
+-
+-
+-
+-
+-
+-
+-
+-
+-
++		unsigned char animation = (unsigned char)Unknown_78EEF0(start, count); // NAME 3: client AL byte spill before stream call
++		stream->Unknown_4C45B0(1, animation, start, count);
++	}
++}
+ 
+ 
+ 
+
+PATCH punctuation_positive AGAINST aa57c927
+--- source/app/client/nlp.cpp
++++ punctuation_positive/app/client/nlp.cpp
+@@ -491,10 +491,12 @@
+ 			strncpy(phrase, start, count);
+ 			phrase[count] = '\0';
+ 			strncat(phrase, p, 1);
+-			if (count == 0) {
++			if (count != 0) {
++				unsigned char animation = (unsigned char)Unknown_78EEF0(start, count); // NAME 3: client AL byte spill before stream call
++				count++;
++				stream->Unknown_4C45B0(1, animation, phrase, count);
++			} else {
+ 				stream->Unknown_4C45B0(1, 0, phrase, 1);
+-			} else {
+-				stream->Unknown_4C45B0(1, (unsigned char)Unknown_78EEF0(start, count), phrase, count + 1);
+ 			}
+ 			delete [] phrase;
+ 			p++;
+@@ -516,45 +518,43 @@
+ 			Unknown_78F700Class::BAnimStruct *gesture = Personality->Find_BAnim(name);
+ 			if (gesture == NULL) {
+ 				int number = Personality->Get_Mood_Number(name);
+-				if (number < 0) {
++				if (number >= 0) {
++					for (int i = 0; i < count; i++) {
++						if (start[i] != '\0' && start[i] != ' ') {
++							unsigned char animation = (unsigned char)Unknown_78EEF0(start, count); // NAME 3: client AL byte spill before stream call
++							stream->Unknown_4C45B0(1, animation, start, count);
++							break;
++						}
++					}
++					*mood = number;
++					Unknown_78E2F0("NLP: Changing Mood to ( %d ) \n", number);
++					Unknown_78E2F0("------------------------------------------------------\n");
++					stream->Unknown_4C45B0(0, (unsigned char)*mood, NULL, 0);
++					p += cmdlen;
++					count = 0;
++					start = p;
++				} else {
+ 					p += cmdlen;
+ 					count += cmdlen;
+-					continue;
+ 				}
+-				for (int i = 0; i < count; i++) {
+-					if (start[i] != '\0' && start[i] != ' ') {
+-						stream->Unknown_4C45B0(1, (unsigned char)Unknown_78EEF0(start, count), start, count);
+-						break;
+-					}
+-				}
+-				*mood = number;
+-				Unknown_78E2F0("NLP: Changing Mood to ( %d ) \n", number);
+-				Unknown_78E2F0("------------------------------------------------------\n");
+-				stream->Unknown_4C45B0(0, (unsigned char)*mood, NULL, 0);
+ 			} else {
+ 				for (int i = 0; i < count; i++) {
+ 					if (start[i] != '\0' && start[i] != ' ') {
+-						stream->Unknown_4C45B0(1, (unsigned char)Unknown_78EEF0(start, count), start, count);
++						unsigned char animation = (unsigned char)Unknown_78EEF0(start, count); // NAME 3: client AL byte spill before stream call
++						stream->Unknown_4C45B0(1, animation, start, count);
+ 						break;
+ 					}
+ 				}
+ 				Unknown_78E2F0("NLP: Manual Gesture for action %s is ( %s ) \n", name, gesture->Tag);
+ 				Unknown_78E2F0("------------------------------------------------------\n");
+ 				stream->Unknown_4C45B0(2, (unsigned char)gesture->AnimNumber, NULL, 0);
+-			}
+-			p += cmdlen;
+-			count = 0;
+-			start = p;
++				p += cmdlen;
++				count = 0;
++				start = p;
++			}
+ 		} else {
+ 			Unknown_NLPPhraseStruct *phrase = lexicon->Unknown_78E980(p);
+-			if (phrase == NULL) {
+-				const char *next = Unknown_78ED30(p, end);
+-				int n = next ? next - p : strlen(p);
+-				if (n != 0) {
+-					count += n;
+-					p += n;
+-				}
+-			} else {
++			if (phrase != NULL) {
+ 				int n = strlen(phrase->Phrase);
+ 				int context;
+ 				if (p == text) {
+@@ -572,31 +572,31 @@
+ 						p += m;
+ 					}
+ 				} else {
++					p += n;
+ 					Unknown_78F700Class::BAnimStruct *gesture = Personality->Find_BAnim(tag);
+-					if (count + n != 0) {
+-						stream->Unknown_4C45B0(1, (unsigned char)gesture->AnimNumber, start, count + n);
++					count += n;
++					if (count != 0) {
++						stream->Unknown_4C45B0(1, (unsigned char)gesture->AnimNumber, start, count);
+ 					}
++					start = p;
+ 					count = 0;
+-					p += n;
+-					start = p;
+ 				}
+ 				Unknown_78E2F0("------------------------------------------------------\n");
++			} else {
++				const char *next = Unknown_78ED30(p, end);
++				int n = next ? next - p : strlen(p);
++				if (n != 0) {
++					count += n;
++					p += n;
++				}
+ 			}
+ 		}
+ 	} while (p - text < len);
+ 	if (count != 0) {
+-		stream->Unknown_4C45B0(1, (unsigned char)Unknown_78EEF0(start, count), start, count);
+-	}
+-}
+-
+-
+-
+-
+-
+-
+-
+-
+-
++		unsigned char animation = (unsigned char)Unknown_78EEF0(start, count); // NAME 3: client AL byte spill before stream call
++		stream->Unknown_4C45B0(1, animation, start, count);
++	}
++}
+ 
+ 
+ 
+
+PATCH gesture_positive AGAINST aa57c927
+--- source/app/client/nlp.cpp
++++ gesture_positive/app/client/nlp.cpp
+@@ -494,7 +494,9 @@
+ 			if (count == 0) {
+ 				stream->Unknown_4C45B0(1, 0, phrase, 1);
+ 			} else {
+-				stream->Unknown_4C45B0(1, (unsigned char)Unknown_78EEF0(start, count), phrase, count + 1);
++				unsigned char animation = (unsigned char)Unknown_78EEF0(start, count); // NAME 3: client AL byte spill before stream call
++				count++;
++				stream->Unknown_4C45B0(1, animation, phrase, count);
+ 			}
+ 			delete [] phrase;
+ 			p++;
+@@ -516,45 +518,43 @@
+ 			Unknown_78F700Class::BAnimStruct *gesture = Personality->Find_BAnim(name);
+ 			if (gesture == NULL) {
+ 				int number = Personality->Get_Mood_Number(name);
+-				if (number < 0) {
++				if (number >= 0) {
++					for (int i = 0; i < count; i++) {
++						if (start[i] != '\0' && start[i] != ' ') {
++							unsigned char animation = (unsigned char)Unknown_78EEF0(start, count); // NAME 3: client AL byte spill before stream call
++							stream->Unknown_4C45B0(1, animation, start, count);
++							break;
++						}
++					}
++					*mood = number;
++					Unknown_78E2F0("NLP: Changing Mood to ( %d ) \n", number);
++					Unknown_78E2F0("------------------------------------------------------\n");
++					stream->Unknown_4C45B0(0, (unsigned char)*mood, NULL, 0);
++					p += cmdlen;
++					count = 0;
++					start = p;
++				} else {
+ 					p += cmdlen;
+ 					count += cmdlen;
+-					continue;
+ 				}
+-				for (int i = 0; i < count; i++) {
+-					if (start[i] != '\0' && start[i] != ' ') {
+-						stream->Unknown_4C45B0(1, (unsigned char)Unknown_78EEF0(start, count), start, count);
+-						break;
+-					}
+-				}
+-				*mood = number;
+-				Unknown_78E2F0("NLP: Changing Mood to ( %d ) \n", number);
+-				Unknown_78E2F0("------------------------------------------------------\n");
+-				stream->Unknown_4C45B0(0, (unsigned char)*mood, NULL, 0);
+ 			} else {
+ 				for (int i = 0; i < count; i++) {
+ 					if (start[i] != '\0' && start[i] != ' ') {
+-						stream->Unknown_4C45B0(1, (unsigned char)Unknown_78EEF0(start, count), start, count);
++						unsigned char animation = (unsigned char)Unknown_78EEF0(start, count); // NAME 3: client AL byte spill before stream call
++						stream->Unknown_4C45B0(1, animation, start, count);
+ 						break;
+ 					}
+ 				}
+ 				Unknown_78E2F0("NLP: Manual Gesture for action %s is ( %s ) \n", name, gesture->Tag);
+ 				Unknown_78E2F0("------------------------------------------------------\n");
+ 				stream->Unknown_4C45B0(2, (unsigned char)gesture->AnimNumber, NULL, 0);
+-			}
+-			p += cmdlen;
+-			count = 0;
+-			start = p;
++				p += cmdlen;
++				count = 0;
++				start = p;
++			}
+ 		} else {
+ 			Unknown_NLPPhraseStruct *phrase = lexicon->Unknown_78E980(p);
+-			if (phrase == NULL) {
+-				const char *next = Unknown_78ED30(p, end);
+-				int n = next ? next - p : strlen(p);
+-				if (n != 0) {
+-					count += n;
+-					p += n;
+-				}
+-			} else {
++			if (phrase != NULL) {
+ 				int n = strlen(phrase->Phrase);
+ 				int context;
+ 				if (p == text) {
+@@ -563,7 +563,16 @@
+ 					context = Unknown_78ED30(p + n, end) ? 1 : 2;
+ 				}
+ 				const char *tag = phrase->Context[context];
+-				if (_stricmp(tag, "none") == 0 || Personality->Find_BAnim(tag) == NULL) {
++				if (_stricmp(tag, "none") != 0 && Personality->Find_BAnim(tag) != NULL) {
++					p += n;
++					Unknown_78F700Class::BAnimStruct *gesture = Personality->Find_BAnim(tag);
++					count += n;
++					if (count != 0) {
++						stream->Unknown_4C45B0(1, (unsigned char)gesture->AnimNumber, start, count);
++					}
++					start = p;
++					count = 0;
++				} else {
+ 					Unknown_78E2F0("NLP: No Gesture for phrase in the context or Personality's body anim is missing.\n");
+ 					const char *next = Unknown_78ED30(p, end);
+ 					int m = next ? next - p : strlen(p);
+@@ -571,32 +580,23 @@
+ 						count += m;
+ 						p += m;
+ 					}
+-				} else {
+-					Unknown_78F700Class::BAnimStruct *gesture = Personality->Find_BAnim(tag);
+-					if (count + n != 0) {
+-						stream->Unknown_4C45B0(1, (unsigned char)gesture->AnimNumber, start, count + n);
+-					}
+-					count = 0;
+-					p += n;
+-					start = p;
+ 				}
+ 				Unknown_78E2F0("------------------------------------------------------\n");
++			} else {
++				const char *next = Unknown_78ED30(p, end);
++				int n = next ? next - p : strlen(p);
++				if (n != 0) {
++					count += n;
++					p += n;
++				}
+ 			}
+ 		}
+ 	} while (p - text < len);
+ 	if (count != 0) {
+-		stream->Unknown_4C45B0(1, (unsigned char)Unknown_78EEF0(start, count), start, count);
+-	}
+-}
+-
+-
+-
+-
+-
+-
+-
+-
+-
++		unsigned char animation = (unsigned char)Unknown_78EEF0(start, count); // NAME 3: client AL byte spill before stream call
++		stream->Unknown_4C45B0(1, animation, start, count);
++	}
++}
+ 
+ 
+ 
+
+PATCH punctuation_reset AGAINST aa57c927
+--- source/app/client/nlp.cpp
++++ punctuation_reset/app/client/nlp.cpp
+@@ -491,15 +491,17 @@
+ 			strncpy(phrase, start, count);
+ 			phrase[count] = '\0';
+ 			strncat(phrase, p, 1);
+-			if (count == 0) {
++			if (count != 0) {
++				unsigned char animation = (unsigned char)Unknown_78EEF0(start, count); // NAME 3: client AL byte spill before stream call
++				count++;
++				stream->Unknown_4C45B0(1, animation, phrase, count);
++			} else {
+ 				stream->Unknown_4C45B0(1, 0, phrase, 1);
+-			} else {
+-				stream->Unknown_4C45B0(1, (unsigned char)Unknown_78EEF0(start, count), phrase, count + 1);
+ 			}
+ 			delete [] phrase;
+ 			p++;
++			start = p;
+ 			count = 0;
+-			start = p;
+ 		} else if (c == '/') {
+ 			const char *space = strchr(p, ' ');
+ 			int cmdlen = space ? (space - p) + 1 : strlen(p);
+@@ -516,45 +518,43 @@
+ 			Unknown_78F700Class::BAnimStruct *gesture = Personality->Find_BAnim(name);
+ 			if (gesture == NULL) {
+ 				int number = Personality->Get_Mood_Number(name);
+-				if (number < 0) {
++				if (number >= 0) {
++					for (int i = 0; i < count; i++) {
++						if (start[i] != '\0' && start[i] != ' ') {
++							unsigned char animation = (unsigned char)Unknown_78EEF0(start, count); // NAME 3: client AL byte spill before stream call
++							stream->Unknown_4C45B0(1, animation, start, count);
++							break;
++						}
++					}
++					*mood = number;
++					Unknown_78E2F0("NLP: Changing Mood to ( %d ) \n", number);
++					Unknown_78E2F0("------------------------------------------------------\n");
++					stream->Unknown_4C45B0(0, (unsigned char)*mood, NULL, 0);
++					p += cmdlen;
++					count = 0;
++					start = p;
++				} else {
+ 					p += cmdlen;
+ 					count += cmdlen;
+-					continue;
+ 				}
+-				for (int i = 0; i < count; i++) {
+-					if (start[i] != '\0' && start[i] != ' ') {
+-						stream->Unknown_4C45B0(1, (unsigned char)Unknown_78EEF0(start, count), start, count);
+-						break;
+-					}
+-				}
+-				*mood = number;
+-				Unknown_78E2F0("NLP: Changing Mood to ( %d ) \n", number);
+-				Unknown_78E2F0("------------------------------------------------------\n");
+-				stream->Unknown_4C45B0(0, (unsigned char)*mood, NULL, 0);
+ 			} else {
+ 				for (int i = 0; i < count; i++) {
+ 					if (start[i] != '\0' && start[i] != ' ') {
+-						stream->Unknown_4C45B0(1, (unsigned char)Unknown_78EEF0(start, count), start, count);
++						unsigned char animation = (unsigned char)Unknown_78EEF0(start, count); // NAME 3: client AL byte spill before stream call
++						stream->Unknown_4C45B0(1, animation, start, count);
+ 						break;
+ 					}
+ 				}
+ 				Unknown_78E2F0("NLP: Manual Gesture for action %s is ( %s ) \n", name, gesture->Tag);
+ 				Unknown_78E2F0("------------------------------------------------------\n");
+ 				stream->Unknown_4C45B0(2, (unsigned char)gesture->AnimNumber, NULL, 0);
+-			}
+-			p += cmdlen;
+-			count = 0;
+-			start = p;
++				p += cmdlen;
++				count = 0;
++				start = p;
++			}
+ 		} else {
+ 			Unknown_NLPPhraseStruct *phrase = lexicon->Unknown_78E980(p);
+-			if (phrase == NULL) {
+-				const char *next = Unknown_78ED30(p, end);
+-				int n = next ? next - p : strlen(p);
+-				if (n != 0) {
+-					count += n;
+-					p += n;
+-				}
+-			} else {
++			if (phrase != NULL) {
+ 				int n = strlen(phrase->Phrase);
+ 				int context;
+ 				if (p == text) {
+@@ -572,31 +572,31 @@
+ 						p += m;
+ 					}
+ 				} else {
++					p += n;
+ 					Unknown_78F700Class::BAnimStruct *gesture = Personality->Find_BAnim(tag);
+-					if (count + n != 0) {
+-						stream->Unknown_4C45B0(1, (unsigned char)gesture->AnimNumber, start, count + n);
++					count += n;
++					if (count != 0) {
++						stream->Unknown_4C45B0(1, (unsigned char)gesture->AnimNumber, start, count);
+ 					}
++					start = p;
+ 					count = 0;
+-					p += n;
+-					start = p;
+ 				}
+ 				Unknown_78E2F0("------------------------------------------------------\n");
++			} else {
++				const char *next = Unknown_78ED30(p, end);
++				int n = next ? next - p : strlen(p);
++				if (n != 0) {
++					count += n;
++					p += n;
++				}
+ 			}
+ 		}
+ 	} while (p - text < len);
+ 	if (count != 0) {
+-		stream->Unknown_4C45B0(1, (unsigned char)Unknown_78EEF0(start, count), start, count);
+-	}
+-}
+-
+-
+-
+-
+-
+-
+-
+-
+-
++		unsigned char animation = (unsigned char)Unknown_78EEF0(start, count); // NAME 3: client AL byte spill before stream call
++		stream->Unknown_4C45B0(1, animation, start, count);
++	}
++}
+ 
+ 
+ 

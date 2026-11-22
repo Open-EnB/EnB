@@ -1,0 +1,49 @@
+0x782200: comparison with exact avatar destructor 0x77C080
+
+Read-only follow-up to cross-target-clamp.txt; zero new source forms or builds.
+Requested worker: gpt-6-astra (high). Source baseline 277cb346;
+avatar.cpp SHA256 befffe9a94459cf8a31e8a32da49fcf7e492c330a88172f087ca71dc5e5f7401.
+Retail SHA256 249f852496f341c00361be95b66e7c0becc2c39e7cba026f9227e38b602651c4.
+
+Question: exact 0x77C080 calls both queue deleting destructor 0x781C10
+(call site 0x77C0E2) and std::string::_Tidy at 0x42A820 (site 0x77C65A).
+Can its destruction structure explain how 0x782200 keeps both out of line?
+
+Observation: 0x77C63B sets the string receiver to this+0x1F4. This is
+Desc.Skeleton: Desc is at +0xF8 and Skeleton at +0xFC within Desc.
+The path is ~CharacterViewAvatarClass -> implicit ~AvatarDescClass ->
+~basic_string -> _Tidy(true). The call at 0x77C65A goes through 0x402B76;
+the exception state drops from 4 to 3. The 25-state unwind map independently
+identifies state 4's action as this+0xF8 -> AvatarDesc destructor 0x53BB50.
+State 5 destroys the queue vector, then reaches state 4.
+Standalone exact 0x53BB50 expands Skeleton cleanup, whereas its source
+inlined into the larger avatar destructor leaves _Tidy out of line.
+
+Target 0x7824A3 instead cleans up a returned string at steady ESP+0x24
+(ESP+0x28 after push 1), before reading the outer name's c_str().
+Its five-state unwind map has the outer name at state 0 (EBP-0x42C).
+States 1 through 4 each destroy a returned string in EBP-0x41C and unwind
+directly to state 0 through basic_string destructor 0x42A6C0.
+Both saved complementary candidate objects reproduce these five states.
+There is no corresponding containing-object destruction layer in this evidence.
+
+VC6 XSTRING supplies ~basic_string -> _Tidy(true) and operator=(string) ->
+assign(string) -> assign(string, 0, npos). The target retains that last
+assign call before temporary cleanup. The comparison does not select a
+different assignment spelling or justify an invented owner/destructor wrapper.
+Exact 0x7899F0 constructs one string directly from 0x781D10; its single
+lifetime differs from the target's existing destination and returned temporary.
+Known explicit/implicit string conversion precedents with const-char inputs
+do not directly transfer to this already-string-valued return.
+
+Conclusion: the exact destructor's extra real owner explains a call-depth
+difference, but offers no supported source change for 0x782200. Preserve the
+15-row and 8-row complementary partials from cross-target-clamp.txt. Reopen
+on independent operation/lifetime evidence preserving all four temporary
+states and explaining both destruction calls; do not invent an owning layer.
+
+Local reproducibility artifacts: .work/claim-240/782200-dual-cleanup/
+report.md, evidence.json, audit.py and raw witness views. Eight existing
+native-exact witnesses were checked against relocation-masked retail bytes.
+This is static evidence, not runtime observation. No new attempt row is
+recorded because no new form was tested. Application source is unchanged.

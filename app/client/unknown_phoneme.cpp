@@ -81,15 +81,14 @@ Unknown_791310Class::Unknown_791310Class()
 }
 
 // 0x791400
-// NOT EXACT: functional for POC (D64), register (prev and last kept in memory, 12 in ebx; the case bodies in the client's order, from its jump table, and 't' written out as the client inlines it)
 int Unknown_791310Class::Unknown_791400(const char *text, int *phonemes, int max)
 {
 	char prev = '\0';
 	char buffer[1024];
-	memset(buffer, 0, sizeof(buffer));
-	unsigned int len = strlen(text);
 	int last = -1;
 	int count = 0;
+	memset(buffer, 0, sizeof(buffer));
+	unsigned int len = strlen(text);
 	if (len >= 0x3FF) {
 		len = 0x3FF;
 	}
@@ -98,7 +97,7 @@ int Unknown_791310Class::Unknown_791400(const char *text, int *phonemes, int max
 	const char *p = buffer;
 	while (*p != '\0') {
 		int shapes[2];
-		int n = Unknown_7917B0(p, prev, shapes);
+		int n = Unknown_7917B0(p, text, shapes);
 		if (n == 0) {
 			shapes[1] = -1;
 			shapes[0] = 11;
@@ -134,8 +133,14 @@ int Unknown_791310Class::Unknown_791400(const char *text, int *phonemes, int max
 					shapes[0] = 9;
 					break;
 				case 'c':
+					shapes[0] = 12;
+					break;
 				case 'g':
+					shapes[0] = 12;
+					break;
 				case 'k':
+					shapes[0] = 12;
+					break;
 				case 'q':
 					shapes[0] = 12;
 					break;
@@ -186,15 +191,15 @@ int Unknown_791310Class::Unknown_791400(const char *text, int *phonemes, int max
 				}
 			}
 		}
-		prev = p[n - 1];
 		p += n;
+		prev = p[-1];
 	}
 	return(count);
 }
 
 // 0x7917B0
 // NOT EXACT: functional for POC (D64), register (First and Count loaded into the other registers; 6 index forms tried)
-int Unknown_791310Class::Unknown_7917B0(const char *text, char prev, int *shapes)
+int Unknown_791310Class::Unknown_7917B0(const char *text, const char *original, int *shapes)	// NAME 1 [original]: neutral; unused formal, pointer type inferred from client 0x791486 argument
 {
 	int letter = (char)tolower(*text) - 'a';
 	if (letter >= 0 && letter < 26) {
@@ -465,6 +470,12 @@ int Unknown_791310Class::Unknown_791F80(const char *text, char prev, int *shapes
 
 /*
 **	Reconstruction notes
+**
+**	0x791400 passes its original input pointer to the group lookup's unused second argument
+**	(0x79147A-0x791487); const char * is inferred from that caller value, not a callee read.
+**	Separate c/g/k/q case bodies retain the client's shared 12 in EBX. Initializing last/count
+**	before the buffer fill and advancing p before reading p[-1] reproduce the remaining bytes.
+**	The matched group length and per-letter consumed lengths preserve the previous-character read.
 **
 **	0x791BF0 re-tests text[1] directly in the non-vowel branch, preserving the client's
 **	redundant comparison and register allocation.

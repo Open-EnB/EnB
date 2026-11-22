@@ -1,0 +1,208 @@
+Planet landing0x794A90: final copy schedule and module receiver audit
+=================================================================
+
+Three bounded source forms did not improve the prior strongest partial. The
+best remains794a90-normalize-callers/copied_member_normalize:raw9/4,norm9/4,
+framec0,431instructions,34calls,1815bytes, with every FP instruction and literal
+matching retail. The target is not exact and no source is adopted.
+
+Scope: active claim244,target794A90. Audit started at attempts-only69e11a23;
+application source remains277cb346. Root owns all compilation, full native
+matching, recording and commits. Other functions were read-only source/retail
+evidence. The immutable tree is half-copy-identity/final-tree. Original source
+basename, executable assertion lines, configured_up->StartUp constructor input,
+existing member Normalize and inherited line22rotation helper were preserved.
+All code outside the target is current except that already approved helper.
+
+Remaining live values and instruction schedule
+---------------------------------------------
+Use B=ESP after the prologue/register saves. The rotation-result X component
+is materialized atB+18. The retained unnormalized tangent's X isB+48; its Y/Z
+were already copied intoB+4c/B+50. Retail completes the last copy immediately:
+
+  794E8A fstp [B+18]
+  794E8E mov edx,[B+18]
+  794E92 mov [B+48],edx
+  794E96 fld [B+18]
+  794E9A fld [B+14]
+  794E9E fld [B+0c]
+  794EA2 fld [B+18]
+
+The best candidate places those same mov instructions at function offsets040E
+and041A, interleaved with the normalization loads and products. This yields four
+edit rows, although only two instructions moved. The last raw-tangent value
+is retained until its address escapes to spline Set_Tangents at795161..6F.
+It is distinct from the normalized direction flowing throughx87 into tangent0.
+EDX itself is dead after this copy and is redefined by the stored length before
+Inv_Sqrt. The ordinary-copy schedule and later module-register choices therefore
+have no demonstrated shared live scalar or source consumer.
+
+The existing constructor storage correction remains independently established:
+configured_up atB+c0 feeds StartUp, while tangent0 atB+b4 feeds spline key0.
+No missing aggregate or unread configuration issue is reopened by these tests.
+
+The five tail rows are the same dataflow with different general registers:
+
+                 retail                      current best
+  flag receiver  EAX=[ESI+0c]                 EDX=[ESI+0c]
+  flag store     byte[EAX+14]=1               byte[EDX+14]=1
+  Client         EDX=[ESI+4]                  EAX=[ESI+4]
+  AvatarID       EAX=[EDX+112c]               EDX=[EAX+112c]
+  ID store       [ECX+18]=EAX                 [ECX+18]=EDX
+
+Both paths freshly load ECX=[ESI+0c] for the ID destination, then reload ECX
+for the virtual start call. Retail's repeated loads constrain a proposed source
+form: simply retaining one module pointer through all stores would discard
+real reloads and is not justified. There is no extra call, branch, field or
+ownership operation to reconstruct in this tail.
+
+Exact camera tail comparisons
+-----------------------------
+Ledger-exact7932A0/camctrl_emote uses ordinary aggregate Position assignment,
+then direct flag, AvatarID and virtual start statements. Retail793422..435
+uses EDX for the flag receiver, EAX for Client and EDX for AvatarID, exactly the
+current pland partial's register pattern. Its Position copy forms an adjusted
+Position base with add EAX,8 at793417.
+
+Locally native-proven exact798570/unknown_7979a0 similarly uses aggregate
+Position assignment. Retail79873F..752 has the same EDX/EAX/EDX tail, and its
+Position copy adjusts EAX by8 at798736. Its exactness comes from the earlier
+local full-native proof, not an assumption from the checked-in ledger wording.
+Neither function was rebuilt in this audit.
+
+These witnesses validate the existing module fields and source API vocabulary.
+They do not identify a distinct accessor or additional consumer to obtain
+pland's EAX/EDX/EAX pattern. Pland's actual copy is through an unadjusted module
+base795073..88, followed by a fresh flag reload. Its cached-XYZ source is a
+local reconstruction hypothesis, not a universal camera convention.
+
+Form1: normalize the rotation result in place after saving the raw tangent
+------------------------------------------------------------------------
+The prior source creates rotated, copies it to tangent1, then constructs a
+separate normalized copy and applies member Normalize. The first form removes
+that latter copied object, calls rotated.Normalize() after tangent1=rotated,
+and uses rotated for the forward contribution. This is a real mutability
+boundary: preserve the original vector for the spline before modifying its
+source. No dead value, forcing qualifier, helper or changed FP algebra.
+The retail reads normalization inputs from rotation-result homes18/14/0c;
+there is no separate normalized-vector memory home. Exact6A1C90 independently
+demonstrates member normalization of a real direction after prior uses.
+
+Prediction was completion of the raw copy before mutating the result, with
+the existing inverse spill/FP sequence intact. Result: raw11/6,norm11/6,
+430instructions/34calls,1811bytes,framec0. It replaces the required rotation
+result fstp then normalization fld with fst, retaining that component onx87.
+The two raw-copy instructions remain late and the five tail rows are unchanged.
+Thus removing the separate copied object regresses the observed rounding
+boundary; no integer scheduling improvement follows from that dependency.
+
+Form2: declare then assign the copied normalized result
+------------------------------------------------------
+Restore the best source. Replace copy construction of normalized with an empty
+default declaration followed by normalized=rotated, then member Normalize.
+This uses the actual Vector3 assignment operator; the object is immediately
+used, not an unused inline-budget spender. Exact795570/camctrl_rescue has an
+independently successful declared-then-assigned Vector3 lifetime, documented
+in its source note and2026-11-21 exact attempt. The original50-form normalize_
+assign trial assigned a free-Normalize return, not a copied input subsequently
+mutated by the now-supported member operation. This complete source form was
+new in the corrected consumer/member context.
+
+Prediction was preservation of the copied-object rounding boundary with a
+possibly completed assignment before normalization. Result: canonical to the
+best, same groupa5e5a5c96bdf9c1b,raw9/4,norm9/4,431instructions/34calls,
+1815bytes,framec0. Both the late copy and tail register rows remain unchanged.
+The exact rescue precedent therefore does not transfer to this scalarized copy.
+
+Form3: actual Vector3::Set(const Vector3&) for the module position
+----------------------------------------------------------------
+Restore the best source. Replace only its cached module XYZ block with
+Unknown0C->Position.Set(cam_pos). The existing const-reference overload is
+void and copies X/Y/Z directly. Vector3::operator= instead returns a reference
+to*this. Existing Westwood source uses vector-reference Set, e.g. boxrobj.cpp
+for Color and ObjSpaceCenter/Extent copies. No exact target-equivalent caller
+proof was asserted. The concrete hypothesis was that the void copy operation
+could avoid a returned adjusted-this value and preserve the retail unadjusted
+base while restoring its following receiver/value allocation.
+
+This is not the old scalar Set(cam_pos.X,cam_pos.Y,cam_pos.Z) test: that form
+passed floating arguments and added FPU handling. Here the existing Vector3
+is passed by reference. The flag, ID and virtual call statements were kept
+unchanged; no pointer was cached through the required fresh flag reload.
+
+Result: raw13/8,norm13/8,432instructions/34calls,1817bytes,framec0. The compiler
+still emits add EAX,8 and stores through adjusted offsets0/4/8, adding four
+module-copy edit rows compared with retail's offsets8/c/10. The late raw-copy
+pair, all FP instructions and the five tail GPR rows are unchanged. The void
+signature did not eliminate this-base materialization in this context. The
+earlier cached XYZ form remains the best module-position reconstruction.
+
+Accounting and stopping evidence
+--------------------------------
+Three valid new forms, three successful VC6 SP4 objects, each fully native
+matched. Every object preserves all17baseline unit pairs,+0/-0; target remains
+nonexact. Zero fresh controls (priorbest proof reused), compile rejections,
+invalid diagnostics, confirmation builds or untested forms. No source adopted.
+All three forms are retained with source hashes, complete patches, native sets,
+full-boundary raw comparisons and region results in the scratch manifest.
+
+No arbitrary source/register sweep, assembly, volatile, artificial initializer,
+dead spender, global header change, new API, field change, installation or
+external write was used. Worker made no compiler/Wine calls, tracked edits,
+commits or VM leases. Root owns final recording/checks/commit. Full-app proof
+remains required for any future adoption.
+
+The current best's entire FP sequence is already correct. The bounded actual
+mutability, construction/assignment and existing vector-reference Set operations
+either canonicalize or regress. Exact camera tails provide no new receiver
+identity. There is no further supported packet from this evidence; do not force
+the final bytes with register aliases or repeat old expression permutations.
+
+Complete patches relative to current9/4best
+-----------------------------------------
+
+FORM inplace_rotated
+SHA256 ccdebfebf96bccfd6a43d291296848e2fb46043e8e170013000ee4f9736b3ecb
+--- copied_member_normalize/camctrl_pland.cpp
++++ inplace_rotated/camctrl_pland.cpp
+@@ -151,8 +151,8 @@
+ 	start_pos = end_pos + Unknown_Rotate(ship_tm, start_pos);
+ 	tangent1.X = speed_fwd;
+ 	Vector3 rotated = Unknown_Rotate(ship_tm, tangent1); tangent1 = rotated; // NAME 1: 794E3A..E92 rotation-return object copied to raw tangent
+-	Vector3 normalized = rotated; normalized.Normalize(); // NAME 1: 794E96..EF7 result before down product
+-	tangent0 = normalized * speed_fwd + Vector3(0.0f, 0.0f, -1.0f) * speed_down;
++	rotated.Normalize(); // NAME 1: 794E96..EF7 result before down product
++	tangent0 = rotated * speed_fwd + Vector3(0.0f, 0.0f, -1.0f) * speed_down;
+ 	up_dir = ship_tm * up_dir;
+ 	Vector3 cam_pos = end_pos;
+ 	cam_pos.X += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+
+FORM assigned_normalized
+SHA256 ad003fc443ac544e6889e77d60885e4a2a30dda1580d0785eff9c6374ba27308
+--- copied_member_normalize/camctrl_pland.cpp
++++ assigned_normalized/camctrl_pland.cpp
+@@ -151,7 +151,7 @@
+ 	start_pos = end_pos + Unknown_Rotate(ship_tm, start_pos);
+ 	tangent1.X = speed_fwd;
+ 	Vector3 rotated = Unknown_Rotate(ship_tm, tangent1); tangent1 = rotated; // NAME 1: 794E3A..E92 rotation-return object copied to raw tangent
+-	Vector3 normalized = rotated; normalized.Normalize(); // NAME 1: 794E96..EF7 result before down product
++	Vector3 normalized; normalized = rotated; normalized.Normalize(); // NAME 1: 794E96..EF7 result before down product
+ 	tangent0 = normalized * speed_fwd + Vector3(0.0f, 0.0f, -1.0f) * speed_down;
+ 	up_dir = ship_tm * up_dir;
+ 	Vector3 cam_pos = end_pos;
+
+FORM position_vector_set
+SHA256 b7afcb6ea4393e2fa15657b5db4a8c38f728d79a38541fa89a55c06dae84a2ca
+--- copied_member_normalize/camctrl_pland.cpp
++++ position_vector_set/camctrl_pland.cpp
+@@ -164,7 +164,7 @@
+ 		cam_pos.Z = h + 100.0f;
+ 	}
+ 
+-	{ CameraModule79C8E0Class *module = Unknown0C; module->Position.X = cam_pos.X; module->Position.Y = cam_pos.Y; module->Position.Z = cam_pos.Z; }
++	Unknown0C->Position.Set(cam_pos);
+ 	Unknown0C->Unknown14 = true;
+ 	Unknown0C->Unknown18 = Client->AvatarID;
+ 	Unknown0C->Unknown_04();
+
+Control SHA256 dc2c3950d93a46c081bb3c4b229ee0999765d787c5de851b17cafc8099ddbadc

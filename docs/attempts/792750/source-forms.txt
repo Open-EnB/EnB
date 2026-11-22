@@ -1,0 +1,138 @@
+FORM reverse_bone_rows
+--- camctrl_dock.cpp
++++ reverse_bone_rows/camctrl_dock.cpp
+@@ -25,7 +25,7 @@
+ // The 3x3 part of tm applied to v (0x792750's form: inline, rows built right to left, no translation)
+ inline Vector3 Unknown_Rotate(const Matrix3D &tm, const Vector3 &v)	// NAME 1: neutral (D10)
+ {
+-	return(Vector3(tm[0][0] * v.X + tm[0][1] * v.Y + tm[0][2] * v.Z, tm[1][0] * v.X + tm[1][1] * v.Y + tm[1][2] * v.Z, tm[2][0] * v.X + tm[2][1] * v.Y + tm[2][2] * v.Z));
++	return(Vector3(tm[0][2] * v.Z + tm[0][1] * v.Y + tm[0][0] * v.X, tm[1][2] * v.Z + tm[1][1] * v.Y + tm[1][0] * v.X, tm[2][2] * v.Z + tm[2][1] * v.Y + tm[2][0] * v.X));
+ }
+ 
+ // @0x792320
+
+FORM grouped_bone_rows
+--- camctrl_dock.cpp
++++ grouped_bone_rows/camctrl_dock.cpp
+@@ -25,7 +25,7 @@
+ // The 3x3 part of tm applied to v (0x792750's form: inline, rows built right to left, no translation)
+ inline Vector3 Unknown_Rotate(const Matrix3D &tm, const Vector3 &v)	// NAME 1: neutral (D10)
+ {
+-	return(Vector3(tm[0][0] * v.X + tm[0][1] * v.Y + tm[0][2] * v.Z, tm[1][0] * v.X + tm[1][1] * v.Y + tm[1][2] * v.Z, tm[2][0] * v.X + tm[2][1] * v.Y + tm[2][2] * v.Z));
++	return(Vector3(tm[0][0] * v.X + (tm[0][1] * v.Y + tm[0][2] * v.Z), tm[1][0] * v.X + (tm[1][1] * v.Y + tm[1][2] * v.Z), tm[2][0] * v.X + (tm[2][1] * v.Y + tm[2][2] * v.Z)));
+ }
+ 
+ // @0x792320
+
+FORM endpoint_inplace
+--- camctrl_dock.cpp
++++ endpoint_inplace/camctrl_dock.cpp
+@@ -195,7 +195,7 @@
+ 			}
+ 			Unknown14 = true;
+ 			start_offset = Unknown_Rotate(tm, start_offset);
+-			end = tm.Get_Translation() + Unknown_Rotate(tm, end_offset);
++			end = tm.Get_Translation(); end += Unknown_Rotate(tm, end_offset);
+ 		} else {
+ 			Unknown14 = false;
+ 		}
+
+FORM grouped_endpoint_inplace
+--- camctrl_dock.cpp
++++ grouped_endpoint_inplace/camctrl_dock.cpp
+@@ -25,7 +25,7 @@
+ // The 3x3 part of tm applied to v (0x792750's form: inline, rows built right to left, no translation)
+ inline Vector3 Unknown_Rotate(const Matrix3D &tm, const Vector3 &v)	// NAME 1: neutral (D10)
+ {
+-	return(Vector3(tm[0][0] * v.X + tm[0][1] * v.Y + tm[0][2] * v.Z, tm[1][0] * v.X + tm[1][1] * v.Y + tm[1][2] * v.Z, tm[2][0] * v.X + tm[2][1] * v.Y + tm[2][2] * v.Z));
++	return(Vector3(tm[0][0] * v.X + (tm[0][1] * v.Y + tm[0][2] * v.Z), tm[1][0] * v.X + (tm[1][1] * v.Y + tm[1][2] * v.Z), tm[2][0] * v.X + (tm[2][1] * v.Y + tm[2][2] * v.Z)));
+ }
+ 
+ // @0x792320
+@@ -195,7 +195,7 @@
+ 			}
+ 			Unknown14 = true;
+ 			start_offset = Unknown_Rotate(tm, start_offset);
+-			end = tm.Get_Translation() + Unknown_Rotate(tm, end_offset);
++			end = tm.Get_Translation(); end += Unknown_Rotate(tm, end_offset);
+ 		} else {
+ 			Unknown14 = false;
+ 		}
+
+FORM random_switch
+--- camctrl_dock.cpp
++++ random_switch/camctrl_dock.cpp
+@@ -195,7 +195,7 @@
+ 			}
+ 			Unknown14 = true;
+ 			start_offset = Unknown_Rotate(tm, start_offset);
+-			end = tm.Get_Translation() + Unknown_Rotate(tm, end_offset);
++			end = tm.Get_Translation(); end += Unknown_Rotate(tm, end_offset);
+ 		} else {
+ 			Unknown14 = false;
+ 		}
+@@ -260,8 +260,8 @@
+ 	}
+ 
+ 	angle = Unknown_BDB1C0.Get_Float() * angle;
+-	if (Unknown_BDB1C0(0, 1) == 1) {
+-		angle = WWMATH_PI - angle;
++	switch (Unknown_BDB1C0(0, 1)) { default: break;
++		case 1: angle = WWMATH_PI - angle; break;
+ 	}
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+
+FORM position_set
+--- camctrl_dock.cpp
++++ position_set/camctrl_dock.cpp
+@@ -195,7 +195,7 @@
+ 			}
+ 			Unknown14 = true;
+ 			start_offset = Unknown_Rotate(tm, start_offset);
+-			end = tm.Get_Translation() + Unknown_Rotate(tm, end_offset);
++			end = tm.Get_Translation(); end += Unknown_Rotate(tm, end_offset);
+ 		} else {
+ 			Unknown14 = false;
+ 		}
+@@ -268,7 +268,7 @@
+ 	Vector3 offset(lead, c * radius * scale, s * radius * scale);
+ 	Matrix3D tm;
+ 	tm.Obj_Look_At(start, end, 0.0f);
+-	Unknown0C->Position = tm * offset;
++	Unknown0C->Position.Set(tm * offset);
+ 	Unknown0C->Unknown14 = true;
+ 	Unknown0C->Unknown18 = Client->AvatarID;
+ 	Unknown0C->Unknown_04();
+
+FORM switch_position_set
+--- camctrl_dock.cpp
++++ switch_position_set/camctrl_dock.cpp
+@@ -195,7 +195,7 @@
+ 			}
+ 			Unknown14 = true;
+ 			start_offset = Unknown_Rotate(tm, start_offset);
+-			end = tm.Get_Translation() + Unknown_Rotate(tm, end_offset);
++			end = tm.Get_Translation(); end += Unknown_Rotate(tm, end_offset);
+ 		} else {
+ 			Unknown14 = false;
+ 		}
+@@ -260,15 +260,15 @@
+ 	}
+ 
+ 	angle = Unknown_BDB1C0.Get_Float() * angle;
+-	if (Unknown_BDB1C0(0, 1) == 1) {
+-		angle = WWMATH_PI - angle;
++	switch (Unknown_BDB1C0(0, 1)) { default: break;
++		case 1: angle = WWMATH_PI - angle; break;
+ 	}
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+ 	Vector3 offset(lead, c * radius * scale, s * radius * scale);
+ 	Matrix3D tm;
+ 	tm.Obj_Look_At(start, end, 0.0f);
+-	Unknown0C->Position = tm * offset;
++	Unknown0C->Position.Set(tm * offset);
+ 	Unknown0C->Unknown14 = true;
+ 	Unknown0C->Unknown18 = Client->AvatarID;
+ 	Unknown0C->Unknown_04();

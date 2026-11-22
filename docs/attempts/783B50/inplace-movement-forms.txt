@@ -1,0 +1,444 @@
+783B50 in-place movement: named compound-assignment API audit
+
+# 783B50 in-place movement result
+
+No adopted source. Two fresh forms plus two controls compiled and fully native
+matched: four successful investigative objects, no failures/confirmations. Every
+object holds all 262 current avatar pairs, +0/-0, including 788900, 780810,
+780AC0 and 780AF0. Target remains non-exact. Root owns compilation and recording.
+
+| Source | Raw distance / register-masked | Instructions | Executable bytes | Frame |
+|---|---:|---:|---:|---:|
+| current aa57c927 control | 100/88 | 589 | 2280 | 2C |
+| rebased signed_coast control | 84/73 | 597 | 2315 | 2C |
+| axis result, *=speed, *=time | 86/74 | 602 | 2345 | 20 |
+| partial product, *=time | 84/72 | 600 | 2333 | 2C |
+| retail | 0 | 603 | 2355 | 28 |
+
+All have 27 calls. Raw distance is optimal edit distance with relocations/branch
+destinations normalized; physical stack/member offsets retained. Register-masked
+score is diagnostic only. Historical masked36 is a different metric, not an
+improvement over refreshed raw84. No partial replaces signed_coast.
+
+The existing Vector3::operator*=(float) is genuinely fresh: all six earlier named
+vector forms used returned multiplication for their second multiply. The two
+new forms change consumed vector identity without changing the scalar grouping.
+Both fail the central prediction: forward clamp output still uses FST [esi+308],
+then the vector products consume the retained x87 value. Retail clamps first,
+FSTP783F1A, then fresh MOV [esi+308]783F2C into a float argument home783F40.
+The new forms do not manufacture that consumer boundary. Reverse intentionally
+retains speed with FST; coast uses its separate ordered-negative path.
+
+Mutation changes actual temporary homes and translation-tail merging. Axis form
+reduces allocation to20, below retail28, and duplicates the X translation
+FLD member/FADD position sequence into both forward/reverse paths. Partial form
+duplicates it into reverse only. Both retain53 FMUL,5 FST,60 FSTP,7 FXCH versus
+signed_coast: no extra rounding store was introduced. Their extra FLD/FADD pairs
+are duplicated translation work in static code, not new vector arithmetic.
+Their per-component products remain (axis*speed)*time; neither matches the retail
+forward producer lifetime. This refutes the attempted API explanation without
+establishing the original source spelling. No evidence supports a further form.
+
+Scope correction: full executable retail783B50..784483 includes cold
+Message_Error784447..784482. Normal RET784446 and final RET784482 are included;
+an earlier RET784429 is also included. NOP784483 and jump table784484..784494
+are excluded from instruction counts. The old source-sized diff cropped the
+cold tail and treated table bytes as instructions. Fresh analyzer separately
+verifies all four ordered table targets against the alignment: 784311,7843C3,
+7843D5,7843DE, identical in all four objects. Cold-tail source register reuse
+still differs; it is not hidden by the corrected boundary.
+
+Every relocated floating literal reference was inspected:21 in currentcontrol,
+22 in each signed-coast-derived source, all equal retail bytes, operand widths
+and opcodes. No header/literal changes. These partial matches do not depend on
+relocation masking to excuse a mismatched constant.
+
+Target-only rebase onto immutable788900-operand-provenance/final-tree, current
+HEAD/appsource aa57c927. No helper exceptions; every outside-target byte,
+physical assertion/error line and line count preserved. New movement names have
+same-line NAME2 evidence annotations. Stash contains exact reproducible patches,
+source hashes, complete measured audit summary and hypotheses. Scratch native
+runs: runs/batch1-o60lrihf/summary.json; per-object explain.json/target.diff.
+No compiler/Wine/tracked edits/commits/external writes by this worker.
+
+# 783B50 actual compound-assignment lifetime audit
+
+Current source aa57c927 and immutable 788900-operand-provenance/final-tree;
+262 existing avatar pairs. Rebase only Unknown_1C4 from signed_coast. No helper
+exception is needed: current tree already contains the proven 786C70 and 788900.
+
+Prior eighteen forms and focused four-form stash were read. The six prior vector
+lifetime forms all used returned operator* for the second multiplication. None
+uses Vector3::operator*=. Existing vector3.h operator*= accepts float by value,
+mutates X/Y/Z in order, and returns Vector3&. No header or API reconstruction.
+
+Two fresh ordinary forms, all three movement sites:
+A: Vector3 movement = Unknown330.Get_X_Vector(); movement *= Unknown308;
+   movement *= time; Unknown360 = movement;
+B: Vector3 movement = Unknown330.Get_X_Vector() * Unknown308;
+   movement *= time; Unknown360 = movement;
+A tests consumed axis identity through both mutations; B isolates the second
+mutation boundary. Unlike prior named temporaries, these use the existing mutator
+and its actual float argument. The intended per-component grouping remains
+(axis * speed) * time. No reassociation, new precision barrier, or early member
+mutation. Source behavior retains signed coast and unordered comparisons.
+
+Falsifiable prediction: the changed vector producer/use graph may end forward
+speed's retained x87 lifetime after its clamp and FSTP to Unknown308, followed by
+the retail fresh member load and float argument home. A failed prediction includes
+remaining FST, early member stores, extra rounding, or regressions to reverse/coast
+FP operations. Retail reverse intentionally uses FST, so a uniform lifetime change
+is not assumed correct. Frame reduction alone is not proof.
+
+Full retail executable extent is 783B50..784483 (exclusive), including cold
+Message_Error at 784447 and final RET784482. RET784446 ends the normal path.
+NOP784483 and four-entry jump table784484..784494 are not instructions. Historical
+source-sized explain output truncated the retail cold tail and disassembled object
+jump-table relocation placeholders. New raw comparison will exclude table data
+from instruction counts, then audit table targets separately. Historical masked36
+must not be compared directly with the corrected full-extent raw metric.
+
+MANIFEST
+{
+  "head": "aa57c927",
+  "summary": ".work/claim-240/783b50-inplace-movement/runs/batch1-o60lrihf/summary.json",
+  "forms": 2,
+  "controls": 2,
+  "successful_objects": 4,
+  "failures": 0,
+  "adopted": false,
+  "all_pairs": 262,
+  "records": [
+    {
+      "name": "baseline",
+      "source": "/home/dev/Projects/EnB/.work/claim-240/783b50-inplace-movement/baseline/avatar.cpp",
+      "sha256": "4af6d123546024d12752b14e0264502f5a76ea1f0504c8817b09d6d0d0e1282c",
+      "raw": [
+        100,
+        88
+      ],
+      "instructions": [
+        589,
+        603
+      ],
+      "calls": [
+        27,
+        27
+      ],
+      "bytes": [
+        2280,
+        2355
+      ],
+      "table": {
+        "ours": [
+          1916,
+          2094,
+          2112,
+          2121
+        ],
+        "retail": [
+          7881489,
+          7881667,
+          7881685,
+          7881694
+        ],
+        "mapped": [
+          7881489,
+          7881667,
+          7881685,
+          7881694
+        ],
+        "targets_match": true
+      },
+      "retail_returns": [
+        "0x784429",
+        "0x784446",
+        "0x784482"
+      ],
+      "group": "97d52ece7d9cf755",
+      "frame": "sub esp, 0x28",
+      "float_refs": 21,
+      "all_float_bytes_width_opcodes_match": true
+    },
+    {
+      "name": "best_control",
+      "source": "/home/dev/Projects/EnB/.work/claim-240/783b50-inplace-movement/best_control/avatar.cpp",
+      "sha256": "322a16690b91fd617714fad23a708835e06c78369455d918b333e499756ed161",
+      "raw": [
+        84,
+        73
+      ],
+      "instructions": [
+        597,
+        603
+      ],
+      "calls": [
+        27,
+        27
+      ],
+      "bytes": [
+        2315,
+        2355
+      ],
+      "table": {
+        "ours": [
+          1951,
+          2129,
+          2147,
+          2156
+        ],
+        "retail": [
+          7881489,
+          7881667,
+          7881685,
+          7881694
+        ],
+        "mapped": [
+          7881489,
+          7881667,
+          7881685,
+          7881694
+        ],
+        "targets_match": true
+      },
+      "retail_returns": [
+        "0x784429",
+        "0x784446",
+        "0x784482"
+      ],
+      "group": "a145e53bf2335038",
+      "frame": "sub esp, 0x2c",
+      "float_refs": 22,
+      "all_float_bytes_width_opcodes_match": true
+    },
+    {
+      "name": "axis_compound",
+      "source": "/home/dev/Projects/EnB/.work/claim-240/783b50-inplace-movement/axis_compound/avatar.cpp",
+      "sha256": "fad5052d98cc314b6d311258831112a0be238c15f117c26921b18e15d9a562db",
+      "raw": [
+        86,
+        74
+      ],
+      "instructions": [
+        602,
+        603
+      ],
+      "calls": [
+        27,
+        27
+      ],
+      "bytes": [
+        2345,
+        2355
+      ],
+      "table": {
+        "ours": [
+          1981,
+          2159,
+          2177,
+          2186
+        ],
+        "retail": [
+          7881489,
+          7881667,
+          7881685,
+          7881694
+        ],
+        "mapped": [
+          7881489,
+          7881667,
+          7881685,
+          7881694
+        ],
+        "targets_match": true
+      },
+      "retail_returns": [
+        "0x784429",
+        "0x784446",
+        "0x784482"
+      ],
+      "group": "f2ede55bb5804231",
+      "frame": "sub esp, 0x20",
+      "float_refs": 22,
+      "all_float_bytes_width_opcodes_match": true
+    },
+    {
+      "name": "partial_compound",
+      "source": "/home/dev/Projects/EnB/.work/claim-240/783b50-inplace-movement/partial_compound/avatar.cpp",
+      "sha256": "4c9afb8e2e6138e54faf16caa18a3d0e1f0df0e7c73ed9271b9acc9b15fe7270",
+      "raw": [
+        84,
+        72
+      ],
+      "instructions": [
+        600,
+        603
+      ],
+      "calls": [
+        27,
+        27
+      ],
+      "bytes": [
+        2333,
+        2355
+      ],
+      "table": {
+        "ours": [
+          1969,
+          2147,
+          2165,
+          2174
+        ],
+        "retail": [
+          7881489,
+          7881667,
+          7881685,
+          7881694
+        ],
+        "mapped": [
+          7881489,
+          7881667,
+          7881685,
+          7881694
+        ],
+        "targets_match": true
+      },
+      "retail_returns": [
+        "0x784429",
+        "0x784446",
+        "0x784482"
+      ],
+      "group": "dd7172c71bd309e6",
+      "frame": "sub esp, 0x2c",
+      "float_refs": 22,
+      "all_float_bytes_width_opcodes_match": true
+    }
+  ]
+}
+
+PREPARATION
+{
+  "head": "aa57c927",
+  "tree": "/home/dev/Projects/EnB/.work/claim-240/788900-operand-provenance/final-tree",
+  "only_changed_body": "Unknown_1C4",
+  "outside_target_identical": true,
+  "helper_exceptions": [],
+  "physical_lines_and_assertions_unchanged": true,
+  "headers": [
+    {
+      "path": "wwmath/vector3.h",
+      "sha256": "dcafda37e5fb838b58af408a76f7c6d7dc284d4cd729a5d12d21b8527d16031a"
+    },
+    {
+      "path": "wwmath/matrix3d.h",
+      "sha256": "676603b23ef58280c75c4ae54d2557b048823767e342d9b64afa93b9eaac50c6"
+    },
+    {
+      "path": "app/client/avatar.h",
+      "sha256": "79c10de19ad3c6efd0ef06ee00c6c5cf802458537be0f6c76a3c2fa159d7fddd"
+    }
+  ],
+  "prior_stashes": [
+    {
+      "source": "/home/dev/Projects/EnB/docs/attempts/783B50/783B50_forms.txt",
+      "sha256": "0bea90cd23a56237aca8dc1289ec18c0b053cb433d6bea8895c6cb716acba58a"
+    },
+    {
+      "source": "/home/dev/Projects/EnB/docs/attempts/783B50/source-stash.txt",
+      "sha256": "50ce3621af9335f590f761c9a8d2879b5fcb093799f83e89588381fad7e1a1cc"
+    }
+  ],
+  "forms": 2,
+  "controls": 2
+}
+
+PATCH best_control AGAINST aa57c927
+--- source/app/client/avatar.cpp
++++ best_control/app/client/avatar.cpp
+@@ -2493,7 +2493,7 @@
+ 					speed = 0.0f;
+ 				}
+ 				Unknown308 = speed;
+-			} else {
++			} else if (Unknown308 < 0.0f) {
+ 				float speed = accel + Unknown308;
+ 				if (0.0f < speed) {
+ 					speed = 0.0f;
+
+PATCH axis_compound AGAINST aa57c927
+--- source/app/client/avatar.cpp
++++ axis_compound/app/client/avatar.cpp
+@@ -2468,7 +2468,7 @@
+ 					}
+ 				}
+ 				Unknown308 = speed;
+-				Unknown360 = (Unknown330.Get_X_Vector() * Unknown308) * time;
++				Vector3 movement = Unknown330.Get_X_Vector(); movement *= Unknown308; movement *= time; Unknown360 = movement; // NAME 2 [movement]: inferred displacement from axis, speed and frame time
+ 				Unknown330.Adjust_Translation(Unknown360);
+ 			}
+ 		} else if (flags & 2) {
+@@ -2483,7 +2483,7 @@
+ 					speed = -walk_max;
+ 				}
+ 				Unknown308 = speed;
+-				Unknown360 = (Unknown330.Get_X_Vector() * Unknown308) * time;
++				Vector3 movement = Unknown330.Get_X_Vector(); movement *= Unknown308; movement *= time; Unknown360 = movement; // NAME 2 [movement]: inferred displacement from axis, speed and frame time
+ 				Unknown330.Adjust_Translation(Unknown360);
+ 			}
+ 		} else if (Unknown308 != 0.0f) {
+@@ -2493,14 +2493,14 @@
+ 					speed = 0.0f;
+ 				}
+ 				Unknown308 = speed;
+-			} else {
++			} else if (Unknown308 < 0.0f) {
+ 				float speed = accel + Unknown308;
+ 				if (0.0f < speed) {
+ 					speed = 0.0f;
+ 				}
+ 				Unknown308 = speed;
+ 			}
+-			Unknown360 = (Unknown330.Get_X_Vector() * Unknown308) * time;
++			Vector3 movement = Unknown330.Get_X_Vector(); movement *= Unknown308; movement *= time; Unknown360 = movement; // NAME 2 [movement]: inferred displacement from axis, speed and frame time
+ 			Unknown330.Adjust_Translation(Unknown360);
+ 		}
+ 	}
+
+PATCH partial_compound AGAINST aa57c927
+--- source/app/client/avatar.cpp
++++ partial_compound/app/client/avatar.cpp
+@@ -2468,7 +2468,7 @@
+ 					}
+ 				}
+ 				Unknown308 = speed;
+-				Unknown360 = (Unknown330.Get_X_Vector() * Unknown308) * time;
++				Vector3 movement = Unknown330.Get_X_Vector() * Unknown308; movement *= time; Unknown360 = movement; // NAME 2 [movement]: inferred displacement from axis, speed and frame time
+ 				Unknown330.Adjust_Translation(Unknown360);
+ 			}
+ 		} else if (flags & 2) {
+@@ -2483,7 +2483,7 @@
+ 					speed = -walk_max;
+ 				}
+ 				Unknown308 = speed;
+-				Unknown360 = (Unknown330.Get_X_Vector() * Unknown308) * time;
++				Vector3 movement = Unknown330.Get_X_Vector() * Unknown308; movement *= time; Unknown360 = movement; // NAME 2 [movement]: inferred displacement from axis, speed and frame time
+ 				Unknown330.Adjust_Translation(Unknown360);
+ 			}
+ 		} else if (Unknown308 != 0.0f) {
+@@ -2493,14 +2493,14 @@
+ 					speed = 0.0f;
+ 				}
+ 				Unknown308 = speed;
+-			} else {
++			} else if (Unknown308 < 0.0f) {
+ 				float speed = accel + Unknown308;
+ 				if (0.0f < speed) {
+ 					speed = 0.0f;
+ 				}
+ 				Unknown308 = speed;
+ 			}
+-			Unknown360 = (Unknown330.Get_X_Vector() * Unknown308) * time;
++			Vector3 movement = Unknown330.Get_X_Vector() * Unknown308; movement *= time; Unknown360 = movement; // NAME 2 [movement]: inferred displacement from axis, speed and frame time
+ 			Unknown330.Adjust_Translation(Unknown360);
+ 		}
+ 	}

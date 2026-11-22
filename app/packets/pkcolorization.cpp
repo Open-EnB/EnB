@@ -17,10 +17,10 @@ ColorizationPacketClass::ColorizationPacketClass(RawPacketClass *raw)
 	Regions.reserve(count);
 	for (int i = 0; i < count; i++) {
 		ColorizationRegionStruct region;
-		raw->Get(&region.Unknown00.Unknown00, sizeof(region.Unknown00.Unknown00));
-		raw->Get(&region.Unknown00.Unknown04, sizeof(region.Unknown00.Unknown04));
-		raw->Get(&region.Unknown10.Unknown00, sizeof(region.Unknown10.Unknown00));
-		raw->Get(&region.Unknown10.Unknown04, sizeof(region.Unknown10.Unknown04));
+		raw->Get(&region.first.Unknown00, sizeof(region.first.Unknown00));
+		raw->Get(&region.first.Unknown04, sizeof(region.first.Unknown04));
+		raw->Get(&region.second.Unknown00, sizeof(region.second.Unknown00));
+		raw->Get(&region.second.Unknown04, sizeof(region.second.Unknown04));
 		Regions.push_back(region);
 	}
 }
@@ -32,10 +32,10 @@ RawPacketClass *ColorizationPacketClass::Build()
 	int count = Regions.size();
 	raw->Add(&count, sizeof(short));
 	for (std::vector<ColorizationRegionStruct>::iterator it = Regions.begin(); it != Regions.end(); ++it) {
-		raw->Add(&it->Unknown00.Unknown00, sizeof(it->Unknown00.Unknown00));
-		raw->Add(&it->Unknown00.Unknown04, sizeof(it->Unknown00.Unknown04));
-		raw->Add(&it->Unknown10.Unknown00, sizeof(it->Unknown10.Unknown00));
-		raw->Add(&it->Unknown10.Unknown04, sizeof(it->Unknown10.Unknown04));
+		raw->Add(&it->first.Unknown00, sizeof(it->first.Unknown00));
+		raw->Add(&it->first.Unknown04, sizeof(it->first.Unknown04));
+		raw->Add(&it->second.Unknown00, sizeof(it->second.Unknown00));
+		raw->Add(&it->second.Unknown04, sizeof(it->second.Unknown04));
 	}
 	return(raw);
 }

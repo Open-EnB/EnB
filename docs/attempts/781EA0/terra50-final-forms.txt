@@ -1,0 +1,599 @@
+# Base application source revision aa57c927; frozen tree also includes exact 788900. Apply each seed patch below to that tree, place source at the paths referenced by the replay script, and adjust absolute workspace paths if needed. Replay iterates the exact metadata below, ignoring scratch-history membership.
+
+# Reproduce from frozen tree and seed patch. Generator contains fixed paths; adjust if moved.
+
+--- frozen/avatar.cpp
++++ seed/avatar.cpp
+@@ -1619,9 +1619,9 @@
+ 	Unknown220 = true;
+ 	if (SpeechSound) {
+ 		SpeechSound->Stop(1);
+-		SpeechSound = NULL;
+-
+-	}
++
++	}
++	SpeechSound = NULL;
+ 	char name[32];
+ 	if (Unknown210 != 0) {
+ 		_snprintf(name, 0x20, "sit_breathe");
+
+
+# Exact selected form metadata
+{
+  "historical_distinct_bodies": 13,
+  "forms": [
+    {
+      "name": "v01",
+      "cleanup": 0,
+      "branch": 1,
+      "receiver": 0,
+      "result": 2,
+      "tail_scope": 1,
+      "body_sha256": "60d8990e72fb21f2844836c2145c6a663831ce3396d6e2636050a0dc118a1be3"
+    },
+    {
+      "name": "v02",
+      "cleanup": 0,
+      "branch": 1,
+      "receiver": 1,
+      "result": 2,
+      "tail_scope": 0,
+      "body_sha256": "d3fb9aece477909218a01e84270493ae3d76d4672015254e6073dc14a37a4cb7"
+    },
+    {
+      "name": "v03",
+      "cleanup": 0,
+      "branch": 0,
+      "receiver": 0,
+      "result": 0,
+      "tail_scope": 1,
+      "body_sha256": "a20d03ef52b0e138cf22bfa530b6e2f80136877c574d2e1d73321121ade7b3e5"
+    },
+    {
+      "name": "v04",
+      "cleanup": 1,
+      "branch": 1,
+      "receiver": 1,
+      "result": 2,
+      "tail_scope": 0,
+      "body_sha256": "ae3571c3ce63223f4b1f53769f2bb45527c3dd01200e292078610ca30d80a909"
+    },
+    {
+      "name": "v05",
+      "cleanup": 1,
+      "branch": 2,
+      "receiver": 0,
+      "result": 1,
+      "tail_scope": 0,
+      "body_sha256": "b603718899fdd07d57a697a4247dcb2a234cf88c6774c7f387ede289a2325f32"
+    },
+    {
+      "name": "v06",
+      "cleanup": 0,
+      "branch": 1,
+      "receiver": 1,
+      "result": 0,
+      "tail_scope": 0,
+      "body_sha256": "d5a524b8f9e01b8c3e4492eb13917711d939a593d849e512ca764dbff4826a62"
+    },
+    {
+      "name": "v07",
+      "cleanup": 0,
+      "branch": 0,
+      "receiver": 1,
+      "result": 2,
+      "tail_scope": 0,
+      "body_sha256": "360c1fd57a42bf5cf8b196b6c221da6f66acb44b1b0937324c2b4591ff034361"
+    },
+    {
+      "name": "v08",
+      "cleanup": 0,
+      "branch": 1,
+      "receiver": 1,
+      "result": 1,
+      "tail_scope": 0,
+      "body_sha256": "78a4f84aaf9d80df5ac302247e92bef09d961dd64af027e47fd3afd40b3de6bb"
+    },
+    {
+      "name": "v09",
+      "cleanup": 0,
+      "branch": 0,
+      "receiver": 0,
+      "result": 2,
+      "tail_scope": 1,
+      "body_sha256": "7fe4693d5fdd261ae670d3ecdd871738de6a4ec440256d231afac44f357bc716"
+    },
+    {
+      "name": "v10",
+      "cleanup": 1,
+      "branch": 0,
+      "receiver": 0,
+      "result": 1,
+      "tail_scope": 1,
+      "body_sha256": "5aeb66ac15c2e36820ae7d4964c9f1a3a1e9aaf290cbfeefb7fdaf4d9bb66c8a"
+    },
+    {
+      "name": "v11",
+      "cleanup": 0,
+      "branch": 2,
+      "receiver": 1,
+      "result": 0,
+      "tail_scope": 0,
+      "body_sha256": "d35a6d41fcbfad09c7d4f2ed74a294d70881d35d73c6031cf4776e78179418cc"
+    },
+    {
+      "name": "v12",
+      "cleanup": 0,
+      "branch": 2,
+      "receiver": 1,
+      "result": 1,
+      "tail_scope": 1,
+      "body_sha256": "8bcde4a6faeb020a0685e138e5503a5153b43d9ee474b1cc720e6a2a02039fe6"
+    },
+    {
+      "name": "v13",
+      "cleanup": 1,
+      "branch": 1,
+      "receiver": 0,
+      "result": 1,
+      "tail_scope": 0,
+      "body_sha256": "3c0ccd47a6d6d3e23f74934debc1080327dff06dcabfb7ddd561e367b08dcd58"
+    },
+    {
+      "name": "v14",
+      "cleanup": 1,
+      "branch": 2,
+      "receiver": 0,
+      "result": 2,
+      "tail_scope": 1,
+      "body_sha256": "c39c81a8858596dd2b212030d7a59941b2216d001d95ebb8f4a7b641a09167e2"
+    },
+    {
+      "name": "v15",
+      "cleanup": 0,
+      "branch": 0,
+      "receiver": 0,
+      "result": 2,
+      "tail_scope": 0,
+      "body_sha256": "5b1f234313b4f7df1caa877d62e1191e538af1955e483785e44855af67cb64de"
+    },
+    {
+      "name": "v16",
+      "cleanup": 1,
+      "branch": 2,
+      "receiver": 1,
+      "result": 2,
+      "tail_scope": 0,
+      "body_sha256": "41ac2c0e0fa7e6511b79726b528900ee1c397233947f1c7d3e6b087fea447288"
+    },
+    {
+      "name": "v17",
+      "cleanup": 1,
+      "branch": 1,
+      "receiver": 0,
+      "result": 0,
+      "tail_scope": 0,
+      "body_sha256": "0dfc7593e157c4aedbacd71c4d32c147f07c0410aa01e9af5486faba8d69c3ea"
+    },
+    {
+      "name": "v18",
+      "cleanup": 0,
+      "branch": 1,
+      "receiver": 1,
+      "result": 2,
+      "tail_scope": 1,
+      "body_sha256": "98bc4a2e998e9b829671668c50be5b452f7a417fccf06930ac5d7f96e678d296"
+    },
+    {
+      "name": "v19",
+      "cleanup": 0,
+      "branch": 2,
+      "receiver": 0,
+      "result": 2,
+      "tail_scope": 1,
+      "body_sha256": "d958cddef78b4b537d5bbc8e8b256c063d4805bb81caa9bd5e0024e03613d399"
+    },
+    {
+      "name": "v20",
+      "cleanup": 1,
+      "branch": 2,
+      "receiver": 1,
+      "result": 1,
+      "tail_scope": 1,
+      "body_sha256": "04021fdfce0838f00c05e5296c48c996e27bf72f11ce4ccd7cd40a1962f5e3af"
+    },
+    {
+      "name": "v21",
+      "cleanup": 0,
+      "branch": 0,
+      "receiver": 1,
+      "result": 2,
+      "tail_scope": 1,
+      "body_sha256": "7ee3b36009c549887e25109bf8e3a522c4d6733a1ec73dfc7d49620281a987bb"
+    },
+    {
+      "name": "v22",
+      "cleanup": 1,
+      "branch": 0,
+      "receiver": 0,
+      "result": 2,
+      "tail_scope": 1,
+      "body_sha256": "6fc0bbe3b281502e0a065a631524ced4c4743e317e018f15bd7317a0a7a5155b"
+    },
+    {
+      "name": "v23",
+      "cleanup": 1,
+      "branch": 1,
+      "receiver": 0,
+      "result": 2,
+      "tail_scope": 1,
+      "body_sha256": "ec018285356f132fb8a3383e9d5376285315cce37d5b9a53d667b0e4e4aa42b9"
+    },
+    {
+      "name": "v24",
+      "cleanup": 0,
+      "branch": 1,
+      "receiver": 0,
+      "result": 1,
+      "tail_scope": 0,
+      "body_sha256": "bd9a6bc9d473bc55626a6efdf5e1577100d338e6969e6791e243000a855ab1cb"
+    },
+    {
+      "name": "v25",
+      "cleanup": 1,
+      "branch": 0,
+      "receiver": 1,
+      "result": 0,
+      "tail_scope": 1,
+      "body_sha256": "fbd022997f368a26f2abab884c2ee6c27c059ac5b29d144a01b20c615860f471"
+    },
+    {
+      "name": "v26",
+      "cleanup": 1,
+      "branch": 2,
+      "receiver": 0,
+      "result": 1,
+      "tail_scope": 1,
+      "body_sha256": "b81a65a1e5597c4a451fc1f46e3d63fd61c46cfd4259a8d8a1d83eff9ad5130c"
+    },
+    {
+      "name": "v27",
+      "cleanup": 1,
+      "branch": 0,
+      "receiver": 1,
+      "result": 1,
+      "tail_scope": 1,
+      "body_sha256": "e9133d9ad62cfa6eae136ad840f7bd4b715d8a1980b623c0665e9a72198e3446"
+    },
+    {
+      "name": "v28",
+      "cleanup": 0,
+      "branch": 2,
+      "receiver": 0,
+      "result": 1,
+      "tail_scope": 0,
+      "body_sha256": "0c76deaed8648c5c1d4c907f2aecd0047985b06e93b73019cd659177da725d81"
+    },
+    {
+      "name": "v29",
+      "cleanup": 1,
+      "branch": 1,
+      "receiver": 1,
+      "result": 1,
+      "tail_scope": 0,
+      "body_sha256": "e14d3fdb617abb1e48b0d2b03f753e5c5a9a405e4ac9d671c27a37cebabdb5ad"
+    },
+    {
+      "name": "v30",
+      "cleanup": 1,
+      "branch": 1,
+      "receiver": 1,
+      "result": 0,
+      "tail_scope": 1,
+      "body_sha256": "7a8c433b755b9ec5aacd24f134d8ac91a4127a76eea8c9b82da608b330b3b753"
+    },
+    {
+      "name": "v31",
+      "cleanup": 0,
+      "branch": 1,
+      "receiver": 0,
+      "result": 1,
+      "tail_scope": 1,
+      "body_sha256": "f17670f901a0eb0e69af4531924dc6bd1dd3040c2c7e29dcffdf6003f7770bb1"
+    },
+    {
+      "name": "v32",
+      "cleanup": 0,
+      "branch": 0,
+      "receiver": 0,
+      "result": 1,
+      "tail_scope": 0,
+      "body_sha256": "f1f96be96d7d0eba49b25837c40aea8ce213eda047ccbd1dcbfddc51538631e2"
+    },
+    {
+      "name": "v33",
+      "cleanup": 1,
+      "branch": 2,
+      "receiver": 1,
+      "result": 0,
+      "tail_scope": 0,
+      "body_sha256": "8b2aa57fa7cfff884aaa7c3afbb624c81af725c962a0a519eeec144639b52caa"
+    },
+    {
+      "name": "v34",
+      "cleanup": 0,
+      "branch": 2,
+      "receiver": 1,
+      "result": 1,
+      "tail_scope": 0,
+      "body_sha256": "469b0e1aec229c9644fc44db09d994ea4bddcba3ac893d39282c3207c040f4d0"
+    },
+    {
+      "name": "v35",
+      "cleanup": 1,
+      "branch": 1,
+      "receiver": 0,
+      "result": 2,
+      "tail_scope": 0,
+      "body_sha256": "81b91b6335a534e7fbbc44983c866027485f37c3d045a1a8e9f0c65a63ea6103"
+    },
+    {
+      "name": "v36",
+      "cleanup": 0,
+      "branch": 0,
+      "receiver": 0,
+      "result": 1,
+      "tail_scope": 1,
+      "body_sha256": "aa46768076272a460c241a2341a337a89e4cc0b0f5fc4641e09f21fdbe7eb13c"
+    },
+    {
+      "name": "v37",
+      "cleanup": 0,
+      "branch": 2,
+      "receiver": 1,
+      "result": 2,
+      "tail_scope": 1,
+      "body_sha256": "0eef020998ac4311623a096ba6a7844275e98cafabd2da92aac1851da72cdf09"
+    },
+    {
+      "name": "v38",
+      "cleanup": 1,
+      "branch": 1,
+      "receiver": 1,
+      "result": 0,
+      "tail_scope": 0,
+      "body_sha256": "bdbaf084806c0cc37f59f7da3ca1052f6790cb75645742688a524b14e3020c2e"
+    },
+    {
+      "name": "v39",
+      "cleanup": 1,
+      "branch": 0,
+      "receiver": 1,
+      "result": 2,
+      "tail_scope": 1,
+      "body_sha256": "1896f34e383d9edac810b3e19267aaea31c701e5e4d69a0e0c87756a8241dec9"
+    },
+    {
+      "name": "v40",
+      "cleanup": 1,
+      "branch": 2,
+      "receiver": 0,
+      "result": 2,
+      "tail_scope": 0,
+      "body_sha256": "90bef2cb741fa84ab6e7faa0dd47fa0a6e1d9b87aa78de477d40f081634f831b"
+    },
+    {
+      "name": "v41",
+      "cleanup": 0,
+      "branch": 0,
+      "receiver": 1,
+      "result": 0,
+      "tail_scope": 1,
+      "body_sha256": "82ea7b8b98b1fb8259b4a3780c1596ee2760ebcd65c633ad0892f7c30d0eadb5"
+    },
+    {
+      "name": "v42",
+      "cleanup": 1,
+      "branch": 2,
+      "receiver": 1,
+      "result": 1,
+      "tail_scope": 0,
+      "body_sha256": "51038b09701a13307abb67b3acedc60bba476a84de1d8456d92f31d5bdd42906"
+    },
+    {
+      "name": "v43",
+      "cleanup": 0,
+      "branch": 2,
+      "receiver": 0,
+      "result": 0,
+      "tail_scope": 1,
+      "body_sha256": "6557c2587ae1242162694b68afd68a681f208a609db70bfcd093bcac36891e66"
+    },
+    {
+      "name": "v44",
+      "cleanup": 0,
+      "branch": 0,
+      "receiver": 1,
+      "result": 1,
+      "tail_scope": 1,
+      "body_sha256": "197a6df54b4455b164880783930ffc563e5bc92e3f574848b15c88bb805ee71d"
+    },
+    {
+      "name": "v45",
+      "cleanup": 1,
+      "branch": 0,
+      "receiver": 0,
+      "result": 1,
+      "tail_scope": 0,
+      "body_sha256": "95308efa335d1ce0e3b03369fa076a49d8e96ad9c528f4554a646b18170e222d"
+    },
+    {
+      "name": "v46",
+      "cleanup": 0,
+      "branch": 1,
+      "receiver": 0,
+      "result": 2,
+      "tail_scope": 0,
+      "body_sha256": "47bdaa2cd83881478184eb8866f1cb7319f372425ebd8ed36a5b9b48f4a77c45"
+    },
+    {
+      "name": "v47",
+      "cleanup": 0,
+      "branch": 1,
+      "receiver": 1,
+      "result": 1,
+      "tail_scope": 1,
+      "body_sha256": "3a415fd96ddf9c45e680143129821eb29b16f522c71094cd7832878ca0358170"
+    },
+    {
+      "name": "v48",
+      "cleanup": 1,
+      "branch": 2,
+      "receiver": 1,
+      "result": 0,
+      "tail_scope": 1,
+      "body_sha256": "eae76e9e0408176ad1332d0ac4851ff71f58ca9f0769139936e878fe62437a38"
+    },
+    {
+      "name": "v49",
+      "cleanup": 1,
+      "branch": 1,
+      "receiver": 1,
+      "result": 2,
+      "tail_scope": 1,
+      "body_sha256": "e1545404b8d3664f19ac32210d97d4965f787266a488807c17e157b6b8085d44"
+    },
+    {
+      "name": "v50",
+      "cleanup": 0,
+      "branch": 2,
+      "receiver": 0,
+      "result": 2,
+      "tail_scope": 0,
+      "body_sha256": "cb44ebf88a39596ce299ee1758de2db6a762f5c395f51b82ec4edb69b74b55db"
+    }
+  ]
+}
+
+# Deterministic replay generator
+from pathlib import Path
+import hashlib, itertools, json, re, random
+root=Path('/home/dev/Projects/EnB'); work=root/'.work/claim-240'; out=work/'terra50-final/781ea0_v2'
+tree=work/'788900-operand-provenance/final-tree'; unit=Path('app/client/avatar.cpp'); current=(tree/unit).read_text()
+start='void CharacterViewAvatarClass::Unknown_781EA0()'; end='// 0x782200'
+def body(s): return s[s.index(start):s.index(end,s.index(start))]
+def norm(s): return re.sub(r'\s+','',re.sub(r'//[^\n]*','',s))
+base=body(current)
+focus=work/'focused/781EA0'
+seed=body((focus/'null_after_guard/avatar.cpp').read_text())
+historical=set()
+for directory in (focus,work/'broad-avatar'):
+ for p in directory.rglob('avatar.cpp'):
+  try: historical.add(norm(body(p.read_text())))
+  except (ValueError,UnicodeError): pass
+nullold='''if (SpeechSound) {
+		SpeechSound->Stop(1);
+
+	}
+	SpeechSound = NULL;'''
+nullinside='''if (SpeechSound) {
+		SpeechSound->Stop(1);
+		SpeechSound = NULL;
+
+	}'''
+assert nullold in seed
+old='''} else if (Unknown314 != 1) {
+		_snprintf(name, 0x20, "breathe1");
+		Unknown314 = 1;
+	} else {
+		int n = Unknown_77B760(1, 4);
+		_snprintf(name, 0x20, "breathe%d", n);
+		Unknown314 = n;
+	}'''
+assert old in seed
+inverted='''} else if (Unknown314 == 1) {
+		int n = Unknown_77B760(1, 4);
+		_snprintf(name, 0x20, "breathe%d", n);
+		Unknown314 = n;
+	} else {
+		_snprintf(name, 0x20, "breathe1");
+		Unknown314 = 1;
+	}'''
+switch='''} else { switch (Unknown314) { default:
+		_snprintf(name, 0x20, "breathe1");
+		Unknown314 = 1; break;
+	case 1: {
+		int n = Unknown_77B760(1, 4);
+		_snprintf(name, 0x20, "breathe%d", n);
+		Unknown314 = n; break;
+	} } }'''
+tail='''if (Unknown0BC && (Unknown0C0[0] || Unknown0C0[1])) {'''
+tail2='''if (Unknown0BC) { if (Unknown0C0[0] || Unknown0C0[1]) {'''
+tailend='''		Unknown_783470();
+	}
+}'''
+tailend2='''		Unknown_783470();
+	} }
+}'''
+assert tail in seed and tailend in seed
+variants=[]; index=[]
+def save(name,b):
+ assert b.count('\n')==base.count('\n')
+ p=out/name/'avatar.cpp'; p.parent.mkdir(exist_ok=True); p.write_text(current.replace(base,b,1))
+ variants.append({'name':name,'source':str(p)}); return hashlib.sha256(b.encode()).hexdigest()
+save('baseline',base); save('seed_control',seed)
+combos=list(itertools.product(range(2),range(3),range(2),range(3),range(2)))
+random.Random(781).shuffle(combos)
+seen=set(historical)|{norm(base),norm(seed)}
+# Exact combinations selected by the original pass; no prior history needed.
+combos = [(0, 1, 0, 2, 1), (0, 1, 1, 2, 0), (0, 0, 0, 0, 1), (1, 1, 1, 2, 0), (1, 2, 0, 1, 0), (0, 1, 1, 0, 0), (0, 0, 1, 2, 0), (0, 1, 1, 1, 0), (0, 0, 0, 2, 1), (1, 0, 0, 1, 1), (0, 2, 1, 0, 0), (0, 2, 1, 1, 1), (1, 1, 0, 1, 0), (1, 2, 0, 2, 1), (0, 0, 0, 2, 0), (1, 2, 1, 2, 0), (1, 1, 0, 0, 0), (0, 1, 1, 2, 1), (0, 2, 0, 2, 1), (1, 2, 1, 1, 1), (0, 0, 1, 2, 1), (1, 0, 0, 2, 1), (1, 1, 0, 2, 1), (0, 1, 0, 1, 0), (1, 0, 1, 0, 1), (1, 2, 0, 1, 1), (1, 0, 1, 1, 1), (0, 2, 0, 1, 0), (1, 1, 1, 1, 0), (1, 1, 1, 0, 1), (0, 1, 0, 1, 1), (0, 0, 0, 1, 0), (1, 2, 1, 0, 0), (0, 2, 1, 1, 0), (1, 1, 0, 2, 0), (0, 0, 0, 1, 1), (0, 2, 1, 2, 1), (1, 1, 1, 0, 0), (1, 0, 1, 2, 1), (1, 2, 0, 2, 0), (0, 0, 1, 0, 1), (1, 2, 1, 1, 0), (0, 2, 0, 0, 1), (0, 0, 1, 1, 1), (1, 0, 0, 1, 0), (0, 1, 0, 2, 0), (0, 1, 1, 1, 1), (1, 2, 1, 0, 1), (1, 1, 1, 2, 1), (0, 2, 0, 2, 0)]
+seen = set()
+for cleanup,branch,receiver,result,tailmode in combos:
+ b=seed
+ if cleanup: b=b.replace(nullold,nullinside)
+ b=b.replace(old,(old,inverted,switch)[branch])
+ if receiver: b=b.replace('PlayerNLP->Unknown_78F640(name)','NLP_Of(this)->Unknown_78F640(name)')
+ if result==1: b=b.replace('int n = Unknown_77B760(1, 4);','int n; n = Unknown_77B760(1, 4);')
+ if result==2: b=b.replace('int n = Unknown_77B760(1, 4);','delay = Unknown_77B760(1, 4);').replace('"breathe%d", n','"breathe%d", delay').replace('Unknown314 = n;','Unknown314 = delay;')
+ if tailmode: b=b.replace(tail,tail2).replace(tailend,tailend2)
+ key=norm(b)
+ if key in seen: continue
+ seen.add(key); name='v%02d'%(len(index)+1)
+ index.append({'name':name,'cleanup':cleanup,'branch':branch,'receiver':receiver,'result':result,'tail_scope':tailmode,'body_sha256':save(name,b)})
+ if len(index)==50: break
+assert len(index)==50
+(out/'packet.json').write_text(json.dumps({'unit':str(unit),'target':'0x781EA0','tree':str(tree),'variants':variants},indent=2)+'\n')
+(out/'forms.json').write_text(json.dumps({'historical_distinct_bodies':len(historical),'forms':index},indent=2)+'\n')
+
+
+# Replacement r01: this patch replaces historical repeat v17; apply to frozen source.
+--- frozen/avatar.cpp
++++ replacement_r01/avatar.cpp
+@@ -1623,7 +1623,7 @@
+ 
+ 	}
+ 	char name[32];
+-	if (Unknown210 != 0) {
++	if (Unknown210) {
+ 		_snprintf(name, 0x20, "sit_breathe");
+ 	} else if ((float)(delay + Unknown224) < Unknown22C) {
+ 		if (Unknown244 > 3) {
+@@ -1638,13 +1638,13 @@
+ 		Unknown_785480();
+ 	} else if (Unknown231) {
+ 		_snprintf(name, 0x20, "stand_still");
+-	} else if (Unknown314 != 1) {
+-		_snprintf(name, 0x20, "breathe1");
+-		Unknown314 = 1;
+-	} else {
++	} else if (Unknown314 == 1) {
+ 		int n = Unknown_77B760(1, 4);
+ 		_snprintf(name, 0x20, "breathe%d", n);
+ 		Unknown314 = n;
++	} else {
++		_snprintf(name, 0x20, "breathe1");
++		Unknown314 = 1;
+ 	}
+ 	std::string anim = Unknown_781D10(PlayerNLP->Unknown_78F640(name));
+ 	Unknown_7831C0(anim.c_str());

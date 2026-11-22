@@ -1,0 +1,23 @@
+FORM gate_early_return
+CONTROL stargate_control
+Control source SHA256 111352be954ab3d10028ada8158b199ced6889062af75319f1b1d0b4fd00665f
+--- stargate_control/camctrl_stargate.cpp
++++ gate_early_return/camctrl_stargate.cpp
+@@ -109,7 +109,7 @@
+ 
+ 	float distance = CameraManagerClass::Unknown_79B6B0();
+ 	ClientObjectClass *gate = Client->Find_Object(Client->Unknown13BC);
+-	if (gate && gate->Unknown_6F5B70()) {
++	if (!gate || !gate->Unknown_6F5B70()) return;
+ 		Vector3 pos; Vector3 offset;
+ 		if (phase) {
+ 			Matrix3D tm = gate->Unknown_28(true);
+@@ -186,7 +186,7 @@
+ 		Vector3 gate_pos = gate->Unknown_24();
+ 		Vector3 ship_pos = ship->Unknown_24();
+ 		ship->PositionalState = new Unknown718160Class(ship_pos, gate_pos, Unknown_B04FF8, Client->Unknown10BC, ship->PositionalState);
+-	}
++
+ }
+ 
+ /*

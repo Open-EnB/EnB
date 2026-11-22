@@ -1,0 +1,835 @@
+# 0x788900: gpt-6.1-sol high, 2026-11-21
+# Baseline5a7c65f3;16new forms + prior seed control. No form exact.
+# Every compiled object full native matched.257 file/address pairs each; no gain/loss.
+# y_ref only renumbers _$E290 -> _$E291 at same0x78A8C0.
+# Each following unified diff independently applies to app/client/avatar.cpp at baseline.
+
+## seed
+--- a/app/client/avatar.cpp
++++ b/app/client/avatar.cpp
+@@ -3281,11 +3281,11 @@
+ // 0x786C70
+ void CharacterViewAvatarClass::Unknown_786C70()
+ {
+-	if (Unknown20C != 2) {
+-		Unknown208 = 0;
+-		Unknown20C = 2;
+-		Unknown214 = true;
+-	}
++	Unknown_784F20();
++
++
++
++
+ 	Unknown2F8 &= 0xFFFC;
+ }
+ 
+@@ -3534,8 +3534,8 @@
+ 				Unknown_788890();
+ 				continue;
+ 			}
+-			Unknown_784F20();
+-			Unknown2F8 &= 0xFFFC;
++			Unknown_786C70();
++
+ 			float facing = Vector3::Dot_Product(Unknown330.Get_X_Vector(), goal->Get_Y_Vector());
+ 			if (fabs(facing) < 0.0436193873653360) {
+ 				Unknown_786D20();
+
+## side_operator
+--- a/app/client/avatar.cpp
++++ b/app/client/avatar.cpp
+@@ -3281,11 +3281,11 @@
+ // 0x786C70
+ void CharacterViewAvatarClass::Unknown_786C70()
+ {
+-	if (Unknown20C != 2) {
+-		Unknown208 = 0;
+-		Unknown20C = 2;
+-		Unknown214 = true;
+-	}
++	Unknown_784F20();
++
++
++
++
+ 	Unknown2F8 &= 0xFFFC;
+ }
+ 
+@@ -3534,8 +3534,8 @@
+ 				Unknown_788890();
+ 				continue;
+ 			}
+-			Unknown_784F20();
+-			Unknown2F8 &= 0xFFFC;
++			Unknown_786C70();
++
+ 			float facing = Vector3::Dot_Product(Unknown330.Get_X_Vector(), goal->Get_Y_Vector());
+ 			if (fabs(facing) < 0.0436193873653360) {
+ 				Unknown_786D20();
+@@ -3550,7 +3550,7 @@
+ 			return;
+ 		}
+ 		Vector3 dir = Normalize(delta);
+-		float side = Vector3::Dot_Product(Unknown330.Get_Y_Vector(), dir);
++		float side = (Unknown330.Get_Y_Vector() * dir);
+ 		Vector3 goal_x = goal->Get_X_Vector();
+ 		Vector3 my_x = Unknown330.Get_X_Vector();
+ 		if (Vector3::Dot_Product(Unknown330.Get_X_Vector(), dir) <= 0.0f
+
+## front_operator
+--- a/app/client/avatar.cpp
++++ b/app/client/avatar.cpp
+@@ -3281,11 +3281,11 @@
+ // 0x786C70
+ void CharacterViewAvatarClass::Unknown_786C70()
+ {
+-	if (Unknown20C != 2) {
+-		Unknown208 = 0;
+-		Unknown20C = 2;
+-		Unknown214 = true;
+-	}
++	Unknown_784F20();
++
++
++
++
+ 	Unknown2F8 &= 0xFFFC;
+ }
+ 
+@@ -3534,8 +3534,8 @@
+ 				Unknown_788890();
+ 				continue;
+ 			}
+-			Unknown_784F20();
+-			Unknown2F8 &= 0xFFFC;
++			Unknown_786C70();
++
+ 			float facing = Vector3::Dot_Product(Unknown330.Get_X_Vector(), goal->Get_Y_Vector());
+ 			if (fabs(facing) < 0.0436193873653360) {
+ 				Unknown_786D20();
+@@ -3553,7 +3553,7 @@
+ 		float side = Vector3::Dot_Product(Unknown330.Get_Y_Vector(), dir);
+ 		Vector3 goal_x = goal->Get_X_Vector();
+ 		Vector3 my_x = Unknown330.Get_X_Vector();
+-		if (Vector3::Dot_Product(Unknown330.Get_X_Vector(), dir) <= 0.0f
++		if ((Unknown330.Get_X_Vector() * dir) <= 0.0f
+ 			&& Vector3::Dot_Product(my_x, goal_x) >= 0.0f
+ 			&& dist <= 10.0f) {
+ 			bool full = false;
+
+## both_operator
+--- a/app/client/avatar.cpp
++++ b/app/client/avatar.cpp
+@@ -3281,11 +3281,11 @@
+ // 0x786C70
+ void CharacterViewAvatarClass::Unknown_786C70()
+ {
+-	if (Unknown20C != 2) {
+-		Unknown208 = 0;
+-		Unknown20C = 2;
+-		Unknown214 = true;
+-	}
++	Unknown_784F20();
++
++
++
++
+ 	Unknown2F8 &= 0xFFFC;
+ }
+ 
+@@ -3534,8 +3534,8 @@
+ 				Unknown_788890();
+ 				continue;
+ 			}
+-			Unknown_784F20();
+-			Unknown2F8 &= 0xFFFC;
++			Unknown_786C70();
++
+ 			float facing = Vector3::Dot_Product(Unknown330.Get_X_Vector(), goal->Get_Y_Vector());
+ 			if (fabs(facing) < 0.0436193873653360) {
+ 				Unknown_786D20();
+@@ -3550,10 +3550,10 @@
+ 			return;
+ 		}
+ 		Vector3 dir = Normalize(delta);
+-		float side = Vector3::Dot_Product(Unknown330.Get_Y_Vector(), dir);
++		float side = (Unknown330.Get_Y_Vector() * dir);
+ 		Vector3 goal_x = goal->Get_X_Vector();
+ 		Vector3 my_x = Unknown330.Get_X_Vector();
+-		if (Vector3::Dot_Product(Unknown330.Get_X_Vector(), dir) <= 0.0f
++		if ((Unknown330.Get_X_Vector() * dir) <= 0.0f
+ 			&& Vector3::Dot_Product(my_x, goal_x) >= 0.0f
+ 			&& dist <= 10.0f) {
+ 			bool full = false;
+
+## named_front
+--- a/app/client/avatar.cpp
++++ b/app/client/avatar.cpp
+@@ -3281,11 +3281,11 @@
+ // 0x786C70
+ void CharacterViewAvatarClass::Unknown_786C70()
+ {
+-	if (Unknown20C != 2) {
+-		Unknown208 = 0;
+-		Unknown20C = 2;
+-		Unknown214 = true;
+-	}
++	Unknown_784F20();
++
++
++
++
+ 	Unknown2F8 &= 0xFFFC;
+ }
+ 
+@@ -3534,8 +3534,8 @@
+ 				Unknown_788890();
+ 				continue;
+ 			}
+-			Unknown_784F20();
+-			Unknown2F8 &= 0xFFFC;
++			Unknown_786C70();
++
+ 			float facing = Vector3::Dot_Product(Unknown330.Get_X_Vector(), goal->Get_Y_Vector());
+ 			if (fabs(facing) < 0.0436193873653360) {
+ 				Unknown_786D20();
+@@ -3550,10 +3550,10 @@
+ 			return;
+ 		}
+ 		Vector3 dir = Normalize(delta);
+-		float side = Vector3::Dot_Product(Unknown330.Get_Y_Vector(), dir);
++		float side = Vector3::Dot_Product(Unknown330.Get_Y_Vector(), dir); float forward = Vector3::Dot_Product(Unknown330.Get_X_Vector(), dir);
+ 		Vector3 goal_x = goal->Get_X_Vector();
+ 		Vector3 my_x = Unknown330.Get_X_Vector();
+-		if (Vector3::Dot_Product(Unknown330.Get_X_Vector(), dir) <= 0.0f
++		if (forward <= 0.0f
+ 			&& Vector3::Dot_Product(my_x, goal_x) >= 0.0f
+ 			&& dist <= 10.0f) {
+ 			bool full = false;
+
+## named_front_operator
+--- a/app/client/avatar.cpp
++++ b/app/client/avatar.cpp
+@@ -3281,11 +3281,11 @@
+ // 0x786C70
+ void CharacterViewAvatarClass::Unknown_786C70()
+ {
+-	if (Unknown20C != 2) {
+-		Unknown208 = 0;
+-		Unknown20C = 2;
+-		Unknown214 = true;
+-	}
++	Unknown_784F20();
++
++
++
++
+ 	Unknown2F8 &= 0xFFFC;
+ }
+ 
+@@ -3534,8 +3534,8 @@
+ 				Unknown_788890();
+ 				continue;
+ 			}
+-			Unknown_784F20();
+-			Unknown2F8 &= 0xFFFC;
++			Unknown_786C70();
++
+ 			float facing = Vector3::Dot_Product(Unknown330.Get_X_Vector(), goal->Get_Y_Vector());
+ 			if (fabs(facing) < 0.0436193873653360) {
+ 				Unknown_786D20();
+@@ -3550,10 +3550,10 @@
+ 			return;
+ 		}
+ 		Vector3 dir = Normalize(delta);
+-		float side = Vector3::Dot_Product(Unknown330.Get_Y_Vector(), dir);
++		float side = (Unknown330.Get_Y_Vector() * dir); float forward = (Unknown330.Get_X_Vector() * dir);
+ 		Vector3 goal_x = goal->Get_X_Vector();
+ 		Vector3 my_x = Unknown330.Get_X_Vector();
+-		if (Vector3::Dot_Product(Unknown330.Get_X_Vector(), dir) <= 0.0f
++		if (forward <= 0.0f
+ 			&& Vector3::Dot_Product(my_x, goal_x) >= 0.0f
+ 			&& dist <= 10.0f) {
+ 			bool full = false;
+
+## named_y
+--- a/app/client/avatar.cpp
++++ b/app/client/avatar.cpp
+@@ -3281,11 +3281,11 @@
+ // 0x786C70
+ void CharacterViewAvatarClass::Unknown_786C70()
+ {
+-	if (Unknown20C != 2) {
+-		Unknown208 = 0;
+-		Unknown20C = 2;
+-		Unknown214 = true;
+-	}
++	Unknown_784F20();
++
++
++
++
+ 	Unknown2F8 &= 0xFFFC;
+ }
+ 
+@@ -3534,8 +3534,8 @@
+ 				Unknown_788890();
+ 				continue;
+ 			}
+-			Unknown_784F20();
+-			Unknown2F8 &= 0xFFFC;
++			Unknown_786C70();
++
+ 			float facing = Vector3::Dot_Product(Unknown330.Get_X_Vector(), goal->Get_Y_Vector());
+ 			if (fabs(facing) < 0.0436193873653360) {
+ 				Unknown_786D20();
+@@ -3550,7 +3550,7 @@
+ 			return;
+ 		}
+ 		Vector3 dir = Normalize(delta);
+-		float side = Vector3::Dot_Product(Unknown330.Get_Y_Vector(), dir);
++		Vector3 my_y = Unknown330.Get_Y_Vector(); float side = Vector3::Dot_Product(my_y, dir);
+ 		Vector3 goal_x = goal->Get_X_Vector();
+ 		Vector3 my_x = Unknown330.Get_X_Vector();
+ 		if (Vector3::Dot_Product(Unknown330.Get_X_Vector(), dir) <= 0.0f
+
+## reuse_my_x
+--- a/app/client/avatar.cpp
++++ b/app/client/avatar.cpp
+@@ -3281,11 +3281,11 @@
+ // 0x786C70
+ void CharacterViewAvatarClass::Unknown_786C70()
+ {
+-	if (Unknown20C != 2) {
+-		Unknown208 = 0;
+-		Unknown20C = 2;
+-		Unknown214 = true;
+-	}
++	Unknown_784F20();
++
++
++
++
+ 	Unknown2F8 &= 0xFFFC;
+ }
+ 
+@@ -3534,8 +3534,8 @@
+ 				Unknown_788890();
+ 				continue;
+ 			}
+-			Unknown_784F20();
+-			Unknown2F8 &= 0xFFFC;
++			Unknown_786C70();
++
+ 			float facing = Vector3::Dot_Product(Unknown330.Get_X_Vector(), goal->Get_Y_Vector());
+ 			if (fabs(facing) < 0.0436193873653360) {
+ 				Unknown_786D20();
+@@ -3553,7 +3553,7 @@
+ 		float side = Vector3::Dot_Product(Unknown330.Get_Y_Vector(), dir);
+ 		Vector3 goal_x = goal->Get_X_Vector();
+ 		Vector3 my_x = Unknown330.Get_X_Vector();
+-		if (Vector3::Dot_Product(Unknown330.Get_X_Vector(), dir) <= 0.0f
++		if (Vector3::Dot_Product(my_x, dir) <= 0.0f
+ 			&& Vector3::Dot_Product(my_x, goal_x) >= 0.0f
+ 			&& dist <= 10.0f) {
+ 			bool full = false;
+
+## flag_snapshot
+--- a/app/client/avatar.cpp
++++ b/app/client/avatar.cpp
+@@ -3281,11 +3281,11 @@
+ // 0x786C70
+ void CharacterViewAvatarClass::Unknown_786C70()
+ {
+-	if (Unknown20C != 2) {
+-		Unknown208 = 0;
+-		Unknown20C = 2;
+-		Unknown214 = true;
+-	}
++	Unknown_784F20();
++
++
++
++
+ 	Unknown2F8 &= 0xFFFC;
+ }
+ 
+@@ -3534,8 +3534,8 @@
+ 				Unknown_788890();
+ 				continue;
+ 			}
+-			Unknown_784F20();
+-			Unknown2F8 &= 0xFFFC;
++			Unknown_786C70();
++
+ 			float facing = Vector3::Dot_Product(Unknown330.Get_X_Vector(), goal->Get_Y_Vector());
+ 			if (fabs(facing) < 0.0436193873653360) {
+ 				Unknown_786D20();
+@@ -3585,10 +3585,10 @@
+ 			return;
+ 		}
+ 		if (fabs(side) < 0.5) {
+-			if (Unknown2F8 & 2) {
+-				Unknown_Inline_786C70();
++			int flags = Unknown2F8; if (flags & 2) {
++				if (Unknown20C != 2) { Unknown208 = 0; Unknown20C = 2; Unknown214 = true; } flags &= 0xFFFC;
+ 			}
+-			Unknown2F8 |= 1;
++			Unknown2F8 = flags | 1;
+ 		}
+ 		if (side < 0.0f) {
+ 			Unknown_786CC0((float)fabs(side));
+
+## flag_branch
+--- a/app/client/avatar.cpp
++++ b/app/client/avatar.cpp
+@@ -3281,11 +3281,11 @@
+ // 0x786C70
+ void CharacterViewAvatarClass::Unknown_786C70()
+ {
+-	if (Unknown20C != 2) {
+-		Unknown208 = 0;
+-		Unknown20C = 2;
+-		Unknown214 = true;
+-	}
++	Unknown_784F20();
++
++
++
++
+ 	Unknown2F8 &= 0xFFFC;
+ }
+ 
+@@ -3534,8 +3534,8 @@
+ 				Unknown_788890();
+ 				continue;
+ 			}
+-			Unknown_784F20();
+-			Unknown2F8 &= 0xFFFC;
++			Unknown_786C70();
++
+ 			float facing = Vector3::Dot_Product(Unknown330.Get_X_Vector(), goal->Get_Y_Vector());
+ 			if (fabs(facing) < 0.0436193873653360) {
+ 				Unknown_786D20();
+@@ -3586,9 +3586,9 @@
+ 		}
+ 		if (fabs(side) < 0.5) {
+ 			if (Unknown2F8 & 2) {
+-				Unknown_Inline_786C70();
+-			}
+-			Unknown2F8 |= 1;
++				Unknown_Inline_786C70(); Unknown2F8 |= 1;
++			} else { Unknown2F8 |= 1; }
++
+ 		}
+ 		if (side < 0.0f) {
+ 			Unknown_786CC0((float)fabs(side));
+
+## combine_front_branch
+--- a/app/client/avatar.cpp
++++ b/app/client/avatar.cpp
+@@ -3281,11 +3281,11 @@
+ // 0x786C70
+ void CharacterViewAvatarClass::Unknown_786C70()
+ {
+-	if (Unknown20C != 2) {
+-		Unknown208 = 0;
+-		Unknown20C = 2;
+-		Unknown214 = true;
+-	}
++	Unknown_784F20();
++
++
++
++
+ 	Unknown2F8 &= 0xFFFC;
+ }
+ 
+@@ -3534,8 +3534,8 @@
+ 				Unknown_788890();
+ 				continue;
+ 			}
+-			Unknown_784F20();
+-			Unknown2F8 &= 0xFFFC;
++			Unknown_786C70();
++
+ 			float facing = Vector3::Dot_Product(Unknown330.Get_X_Vector(), goal->Get_Y_Vector());
+ 			if (fabs(facing) < 0.0436193873653360) {
+ 				Unknown_786D20();
+@@ -3550,10 +3550,10 @@
+ 			return;
+ 		}
+ 		Vector3 dir = Normalize(delta);
+-		float side = Vector3::Dot_Product(Unknown330.Get_Y_Vector(), dir);
++		float side = Vector3::Dot_Product(Unknown330.Get_Y_Vector(), dir); float forward = Vector3::Dot_Product(Unknown330.Get_X_Vector(), dir);
+ 		Vector3 goal_x = goal->Get_X_Vector();
+ 		Vector3 my_x = Unknown330.Get_X_Vector();
+-		if (Vector3::Dot_Product(Unknown330.Get_X_Vector(), dir) <= 0.0f
++		if (forward <= 0.0f
+ 			&& Vector3::Dot_Product(my_x, goal_x) >= 0.0f
+ 			&& dist <= 10.0f) {
+ 			bool full = false;
+@@ -3586,9 +3586,9 @@
+ 		}
+ 		if (fabs(side) < 0.5) {
+ 			if (Unknown2F8 & 2) {
+-				Unknown_Inline_786C70();
+-			}
+-			Unknown2F8 |= 1;
++				Unknown_Inline_786C70(); Unknown2F8 |= 1;
++			} else { Unknown2F8 |= 1; }
++
+ 		}
+ 		if (side < 0.0f) {
+ 			Unknown_786CC0((float)fabs(side));
+
+## combine_y_output
+--- a/app/client/avatar.cpp
++++ b/app/client/avatar.cpp
+@@ -3281,11 +3281,11 @@
+ // 0x786C70
+ void CharacterViewAvatarClass::Unknown_786C70()
+ {
+-	if (Unknown20C != 2) {
+-		Unknown208 = 0;
+-		Unknown20C = 2;
+-		Unknown214 = true;
+-	}
++	Unknown_784F20();
++
++
++
++
+ 	Unknown2F8 &= 0xFFFC;
+ }
+ 
+@@ -3534,8 +3534,8 @@
+ 				Unknown_788890();
+ 				continue;
+ 			}
+-			Unknown_784F20();
+-			Unknown2F8 &= 0xFFFC;
++			Unknown_786C70();
++
+ 			float facing = Vector3::Dot_Product(Unknown330.Get_X_Vector(), goal->Get_Y_Vector());
+ 			if (fabs(facing) < 0.0436193873653360) {
+ 				Unknown_786D20();
+@@ -3550,10 +3550,10 @@
+ 			return;
+ 		}
+ 		Vector3 dir = Normalize(delta);
+-		float side = Vector3::Dot_Product(Unknown330.Get_Y_Vector(), dir);
++		Vector3 my_y; Unknown330.Get_Y_Vector(&my_y); float side = Vector3::Dot_Product(my_y, dir); float forward = Vector3::Dot_Product(Unknown330.Get_X_Vector(), dir);
+ 		Vector3 goal_x = goal->Get_X_Vector();
+ 		Vector3 my_x = Unknown330.Get_X_Vector();
+-		if (Vector3::Dot_Product(Unknown330.Get_X_Vector(), dir) <= 0.0f
++		if (forward <= 0.0f
+ 			&& Vector3::Dot_Product(my_x, goal_x) >= 0.0f
+ 			&& dist <= 10.0f) {
+ 			bool full = false;
+@@ -3586,9 +3586,9 @@
+ 		}
+ 		if (fabs(side) < 0.5) {
+ 			if (Unknown2F8 & 2) {
+-				Unknown_Inline_786C70();
+-			}
+-			Unknown2F8 |= 1;
++				Unknown_Inline_786C70(); Unknown2F8 |= 1;
++			} else { Unknown2F8 |= 1; }
++
+ 		}
+ 		if (side < 0.0f) {
+ 			Unknown_786CC0((float)fabs(side));
+
+## combine_y_ref
+--- a/app/client/avatar.cpp
++++ b/app/client/avatar.cpp
+@@ -3281,11 +3281,11 @@
+ // 0x786C70
+ void CharacterViewAvatarClass::Unknown_786C70()
+ {
+-	if (Unknown20C != 2) {
+-		Unknown208 = 0;
+-		Unknown20C = 2;
+-		Unknown214 = true;
+-	}
++	Unknown_784F20();
++
++
++
++
+ 	Unknown2F8 &= 0xFFFC;
+ }
+ 
+@@ -3534,8 +3534,8 @@
+ 				Unknown_788890();
+ 				continue;
+ 			}
+-			Unknown_784F20();
+-			Unknown2F8 &= 0xFFFC;
++			Unknown_786C70();
++
+ 			float facing = Vector3::Dot_Product(Unknown330.Get_X_Vector(), goal->Get_Y_Vector());
+ 			if (fabs(facing) < 0.0436193873653360) {
+ 				Unknown_786D20();
+@@ -3550,10 +3550,10 @@
+ 			return;
+ 		}
+ 		Vector3 dir = Normalize(delta);
+-		float side = Vector3::Dot_Product(Unknown330.Get_Y_Vector(), dir);
++		const Vector3 &my_y = Unknown330.Get_Y_Vector(); float side = Vector3::Dot_Product(my_y, dir); float forward = Vector3::Dot_Product(Unknown330.Get_X_Vector(), dir);
+ 		Vector3 goal_x = goal->Get_X_Vector();
+ 		Vector3 my_x = Unknown330.Get_X_Vector();
+-		if (Vector3::Dot_Product(Unknown330.Get_X_Vector(), dir) <= 0.0f
++		if (forward <= 0.0f
+ 			&& Vector3::Dot_Product(my_x, goal_x) >= 0.0f
+ 			&& dist <= 10.0f) {
+ 			bool full = false;
+@@ -3586,9 +3586,9 @@
+ 		}
+ 		if (fabs(side) < 0.5) {
+ 			if (Unknown2F8 & 2) {
+-				Unknown_Inline_786C70();
+-			}
+-			Unknown2F8 |= 1;
++				Unknown_Inline_786C70(); Unknown2F8 |= 1;
++			} else { Unknown2F8 |= 1; }
++
+ 		}
+ 		if (side < 0.0f) {
+ 			Unknown_786CC0((float)fabs(side));
+
+## combine_dir_const
+--- a/app/client/avatar.cpp
++++ b/app/client/avatar.cpp
+@@ -3281,11 +3281,11 @@
+ // 0x786C70
+ void CharacterViewAvatarClass::Unknown_786C70()
+ {
+-	if (Unknown20C != 2) {
+-		Unknown208 = 0;
+-		Unknown20C = 2;
+-		Unknown214 = true;
+-	}
++	Unknown_784F20();
++
++
++
++
+ 	Unknown2F8 &= 0xFFFC;
+ }
+ 
+@@ -3534,8 +3534,8 @@
+ 				Unknown_788890();
+ 				continue;
+ 			}
+-			Unknown_784F20();
+-			Unknown2F8 &= 0xFFFC;
++			Unknown_786C70();
++
+ 			float facing = Vector3::Dot_Product(Unknown330.Get_X_Vector(), goal->Get_Y_Vector());
+ 			if (fabs(facing) < 0.0436193873653360) {
+ 				Unknown_786D20();
+@@ -3549,11 +3549,11 @@
+ 			}
+ 			return;
+ 		}
+-		Vector3 dir = Normalize(delta);
+-		float side = Vector3::Dot_Product(Unknown330.Get_Y_Vector(), dir);
++		const Vector3 dir = Normalize(delta);
++		float side = Vector3::Dot_Product(Unknown330.Get_Y_Vector(), dir); float forward = Vector3::Dot_Product(Unknown330.Get_X_Vector(), dir);
+ 		Vector3 goal_x = goal->Get_X_Vector();
+ 		Vector3 my_x = Unknown330.Get_X_Vector();
+-		if (Vector3::Dot_Product(Unknown330.Get_X_Vector(), dir) <= 0.0f
++		if (forward <= 0.0f
+ 			&& Vector3::Dot_Product(my_x, goal_x) >= 0.0f
+ 			&& dist <= 10.0f) {
+ 			bool full = false;
+@@ -3586,9 +3586,9 @@
+ 		}
+ 		if (fabs(side) < 0.5) {
+ 			if (Unknown2F8 & 2) {
+-				Unknown_Inline_786C70();
+-			}
+-			Unknown2F8 |= 1;
++				Unknown_Inline_786C70(); Unknown2F8 |= 1;
++			} else { Unknown2F8 |= 1; }
++
+ 		}
+ 		if (side < 0.0f) {
+ 			Unknown_786CC0((float)fabs(side));
+
+## combine_front_axis
+--- a/app/client/avatar.cpp
++++ b/app/client/avatar.cpp
+@@ -3281,11 +3281,11 @@
+ // 0x786C70
+ void CharacterViewAvatarClass::Unknown_786C70()
+ {
+-	if (Unknown20C != 2) {
+-		Unknown208 = 0;
+-		Unknown20C = 2;
+-		Unknown214 = true;
+-	}
++	Unknown_784F20();
++
++
++
++
+ 	Unknown2F8 &= 0xFFFC;
+ }
+ 
+@@ -3534,8 +3534,8 @@
+ 				Unknown_788890();
+ 				continue;
+ 			}
+-			Unknown_784F20();
+-			Unknown2F8 &= 0xFFFC;
++			Unknown_786C70();
++
+ 			float facing = Vector3::Dot_Product(Unknown330.Get_X_Vector(), goal->Get_Y_Vector());
+ 			if (fabs(facing) < 0.0436193873653360) {
+ 				Unknown_786D20();
+@@ -3550,10 +3550,10 @@
+ 			return;
+ 		}
+ 		Vector3 dir = Normalize(delta);
+-		float side = Vector3::Dot_Product(Unknown330.Get_Y_Vector(), dir);
++		float side = Vector3::Dot_Product(Unknown330.Get_Y_Vector(), dir); Vector3 front_x = Unknown330.Get_X_Vector(); float forward = Vector3::Dot_Product(front_x, dir);
+ 		Vector3 goal_x = goal->Get_X_Vector();
+ 		Vector3 my_x = Unknown330.Get_X_Vector();
+-		if (Vector3::Dot_Product(Unknown330.Get_X_Vector(), dir) <= 0.0f
++		if (forward <= 0.0f
+ 			&& Vector3::Dot_Product(my_x, goal_x) >= 0.0f
+ 			&& dist <= 10.0f) {
+ 			bool full = false;
+@@ -3586,9 +3586,9 @@
+ 		}
+ 		if (fabs(side) < 0.5) {
+ 			if (Unknown2F8 & 2) {
+-				Unknown_Inline_786C70();
+-			}
+-			Unknown2F8 |= 1;
++				Unknown_Inline_786C70(); Unknown2F8 |= 1;
++			} else { Unknown2F8 |= 1; }
++
+ 		}
+ 		if (side < 0.0f) {
+ 			Unknown_786CC0((float)fabs(side));
+
+## combine_front_output
+--- a/app/client/avatar.cpp
++++ b/app/client/avatar.cpp
+@@ -3281,11 +3281,11 @@
+ // 0x786C70
+ void CharacterViewAvatarClass::Unknown_786C70()
+ {
+-	if (Unknown20C != 2) {
+-		Unknown208 = 0;
+-		Unknown20C = 2;
+-		Unknown214 = true;
+-	}
++	Unknown_784F20();
++
++
++
++
+ 	Unknown2F8 &= 0xFFFC;
+ }
+ 
+@@ -3534,8 +3534,8 @@
+ 				Unknown_788890();
+ 				continue;
+ 			}
+-			Unknown_784F20();
+-			Unknown2F8 &= 0xFFFC;
++			Unknown_786C70();
++
+ 			float facing = Vector3::Dot_Product(Unknown330.Get_X_Vector(), goal->Get_Y_Vector());
+ 			if (fabs(facing) < 0.0436193873653360) {
+ 				Unknown_786D20();
+@@ -3550,10 +3550,10 @@
+ 			return;
+ 		}
+ 		Vector3 dir = Normalize(delta);
+-		float side = Vector3::Dot_Product(Unknown330.Get_Y_Vector(), dir);
++		float side = Vector3::Dot_Product(Unknown330.Get_Y_Vector(), dir); Vector3 front_x; Unknown330.Get_X_Vector(&front_x); float forward = Vector3::Dot_Product(front_x, dir);
+ 		Vector3 goal_x = goal->Get_X_Vector();
+ 		Vector3 my_x = Unknown330.Get_X_Vector();
+-		if (Vector3::Dot_Product(Unknown330.Get_X_Vector(), dir) <= 0.0f
++		if (forward <= 0.0f
+ 			&& Vector3::Dot_Product(my_x, goal_x) >= 0.0f
+ 			&& dist <= 10.0f) {
+ 			bool full = false;
+@@ -3586,9 +3586,9 @@
+ 		}
+ 		if (fabs(side) < 0.5) {
+ 			if (Unknown2F8 & 2) {
+-				Unknown_Inline_786C70();
+-			}
+-			Unknown2F8 |= 1;
++				Unknown_Inline_786C70(); Unknown2F8 |= 1;
++			} else { Unknown2F8 |= 1; }
++
+ 		}
+ 		if (side < 0.0f) {
+ 			Unknown_786CC0((float)fabs(side));
+
+## combine_y_output_front_axis
+--- a/app/client/avatar.cpp
++++ b/app/client/avatar.cpp
+@@ -3281,11 +3281,11 @@
+ // 0x786C70
+ void CharacterViewAvatarClass::Unknown_786C70()
+ {
+-	if (Unknown20C != 2) {
+-		Unknown208 = 0;
+-		Unknown20C = 2;
+-		Unknown214 = true;
+-	}
++	Unknown_784F20();
++
++
++
++
+ 	Unknown2F8 &= 0xFFFC;
+ }
+ 
+@@ -3534,8 +3534,8 @@
+ 				Unknown_788890();
+ 				continue;
+ 			}
+-			Unknown_784F20();
+-			Unknown2F8 &= 0xFFFC;
++			Unknown_786C70();
++
+ 			float facing = Vector3::Dot_Product(Unknown330.Get_X_Vector(), goal->Get_Y_Vector());
+ 			if (fabs(facing) < 0.0436193873653360) {
+ 				Unknown_786D20();
+@@ -3550,10 +3550,10 @@
+ 			return;
+ 		}
+ 		Vector3 dir = Normalize(delta);
+-		float side = Vector3::Dot_Product(Unknown330.Get_Y_Vector(), dir);
++		Vector3 my_y; Unknown330.Get_Y_Vector(&my_y); float side = Vector3::Dot_Product(my_y, dir); Vector3 front_x = Unknown330.Get_X_Vector(); float forward = Vector3::Dot_Product(front_x, dir);
+ 		Vector3 goal_x = goal->Get_X_Vector();
+ 		Vector3 my_x = Unknown330.Get_X_Vector();
+-		if (Vector3::Dot_Product(Unknown330.Get_X_Vector(), dir) <= 0.0f
++		if (forward <= 0.0f
+ 			&& Vector3::Dot_Product(my_x, goal_x) >= 0.0f
+ 			&& dist <= 10.0f) {
+ 			bool full = false;
+@@ -3586,9 +3586,9 @@
+ 		}
+ 		if (fabs(side) < 0.5) {
+ 			if (Unknown2F8 & 2) {
+-				Unknown_Inline_786C70();
+-			}
+-			Unknown2F8 |= 1;
++				Unknown_Inline_786C70(); Unknown2F8 |= 1;
++			} else { Unknown2F8 |= 1; }
++
+ 		}
+ 		if (side < 0.0f) {
+ 			Unknown_786CC0((float)fabs(side));

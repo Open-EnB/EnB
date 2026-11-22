@@ -1,0 +1,62 @@
+{
+  "baseline_revision": "ac63f849",
+  "baseline_source": "/home/dev/Projects/EnB/.work/claim-240/focused/snapshots/ac63f849/app/client/unknown_phoneme.cpp",
+  "baseline_sha256": "932571b0db0b708f7d24fa997fcea499d14a567d1845f0a7b0984f5b54f2529f",
+  "patches": [
+    {
+      "name": "second_vowel_length",
+      "source_sha256": "e96912543ed56fc49005de99752c0f9f5b819b772fc457c967b271f3e3dbe064",
+      "patch": "--- ac63f849/app/client/unknown_phoneme.cpp\n+++ second_vowel_length/unknown_phoneme.cpp\n@@ -248,7 +248,7 @@\n \t} else {\n \t\tc = text[2];\n \t\tif (c != '\\0' && IS_VOWEL(c)) {\n-\t\t\tshapes[1] = 1;\n+\t\t\tshapes[1] = n;\n \t\t} else {\n \t\t\tshapes[0] = 0;\n \t\t}\n"
+    },
+    {
+      "name": "exit_g",
+      "source_sha256": "60b3b4ed8574a01a92f8afc4c306f924a5c6998278c012e73fe4a6b13e2a405f",
+      "patch": "--- ac63f849/app/client/unknown_phoneme.cpp\n+++ exit_g/unknown_phoneme.cpp\n@@ -226,6 +226,7 @@\n \t\t\tcase 'u':\n \t\t\t\tif (prev == 'g') {\n \t\t\t\t\tshapes[1] = 1;\n+\t\t\t\t\treturn(n);\n \t\t\t\t} else if (prev == 'l') {\n \t\t\t\t\tshapes[0] = 0;\n \t\t\t\t} else if (prev == 's') {\n@@ -300,7 +301,6 @@\n \t}\n \treturn(n);\n }\n-\n // 0x791B00\n int Unknown_791310Class::Unknown_791B00(const char *text, char prev, int *shapes)\n {\n"
+    },
+    {
+      "name": "exit_o",
+      "source_sha256": "e804852cdd00f0a9bd83eefe6dadeed477cec5a9b6b9044c74a640e8be13b643",
+      "patch": "--- ac63f849/app/client/unknown_phoneme.cpp\n+++ exit_o/unknown_phoneme.cpp\n@@ -237,7 +237,7 @@\n \t\t\t\tbreak;\n \t\t\tcase 'o':\n \t\t\t\tshapes[1] = 1;\n-\t\t\t\tbreak;\n+\t\t\t\treturn(n);\n \t\t\tcase 'i':\n \t\t\t\tshapes[1] = 1;\n \t\t\t\tif (text[2] == 's') {\n"
+    },
+    {
+      "name": "exit_g_o",
+      "source_sha256": "920a023b8678d70c60d1d6a5d179fefbf5a7fb2011c18648a84fc49f26025849",
+      "patch": "--- ac63f849/app/client/unknown_phoneme.cpp\n+++ exit_g_o/unknown_phoneme.cpp\n@@ -226,6 +226,7 @@\n \t\t\tcase 'u':\n \t\t\t\tif (prev == 'g') {\n \t\t\t\t\tshapes[1] = 1;\n+\t\t\t\t\treturn(n);\n \t\t\t\t} else if (prev == 'l') {\n \t\t\t\t\tshapes[0] = 0;\n \t\t\t\t} else if (prev == 's') {\n@@ -237,7 +238,7 @@\n \t\t\t\tbreak;\n \t\t\tcase 'o':\n \t\t\t\tshapes[1] = 1;\n-\t\t\t\tbreak;\n+\t\t\t\treturn(n);\n \t\t\tcase 'i':\n \t\t\t\tshapes[1] = 1;\n \t\t\t\tif (text[2] == 's') {\n@@ -300,7 +301,6 @@\n \t}\n \treturn(n);\n }\n-\n // 0x791B00\n int Unknown_791310Class::Unknown_791B00(const char *text, char prev, int *shapes)\n {\n"
+    },
+    {
+      "name": "exit_all",
+      "source_sha256": "f50dcd3ce8c0e3373f6f511d89a90f64ef6d628400a8cb5536c2bd70b2e9454a",
+      "patch": "--- ac63f849/app/client/unknown_phoneme.cpp\n+++ exit_all/unknown_phoneme.cpp\n@@ -234,16 +234,16 @@\n \t\t\t\t} else {\n \t\t\t\t\tshapes[0] = 0;\n \t\t\t\t}\n-\t\t\t\tbreak;\n+\t\t\t\treturn(n);\n \t\t\tcase 'o':\n \t\t\t\tshapes[1] = 1;\n-\t\t\t\tbreak;\n+\t\t\t\treturn(n);\n \t\t\tcase 'i':\n \t\t\t\tshapes[1] = 1;\n \t\t\t\tif (text[2] == 's') {\n \t\t\t\t\tshapes[0] = 0;\n \t\t\t\t}\n-\t\t\t\tbreak;\n+\t\t\t\treturn(n);\n \t\t}\n \t} else {\n \t\tc = text[2];\n"
+    },
+    {
+      "name": "exit_all_g",
+      "source_sha256": "fa6aa2256ee52de0f05f0cc1ea98098f3645eb899bc67bed5e1f8133d3f3e790",
+      "patch": "--- ac63f849/app/client/unknown_phoneme.cpp\n+++ exit_all_g/unknown_phoneme.cpp\n@@ -226,6 +226,7 @@\n \t\t\tcase 'u':\n \t\t\t\tif (prev == 'g') {\n \t\t\t\t\tshapes[1] = 1;\n+\t\t\t\t\treturn(n);\n \t\t\t\t} else if (prev == 'l') {\n \t\t\t\t\tshapes[0] = 0;\n \t\t\t\t} else if (prev == 's') {\n@@ -234,16 +235,16 @@\n \t\t\t\t} else {\n \t\t\t\t\tshapes[0] = 0;\n \t\t\t\t}\n-\t\t\t\tbreak;\n+\t\t\t\treturn(n);\n \t\t\tcase 'o':\n \t\t\t\tshapes[1] = 1;\n-\t\t\t\tbreak;\n+\t\t\t\treturn(n);\n \t\t\tcase 'i':\n \t\t\t\tshapes[1] = 1;\n \t\t\t\tif (text[2] == 's') {\n \t\t\t\t\tshapes[0] = 0;\n \t\t\t\t}\n-\t\t\t\tbreak;\n+\t\t\t\treturn(n);\n \t\t}\n \t} else {\n \t\tc = text[2];\n@@ -300,7 +301,6 @@\n \t}\n \treturn(n);\n }\n-\n // 0x791B00\n int Unknown_791310Class::Unknown_791B00(const char *text, char prev, int *shapes)\n {\n"
+    },
+    {
+      "name": "control_shared_label",
+      "source_sha256": "526b8403b23c18374e07703111838dbc8bab56cc65984c57e0bf13233608ae0c",
+      "patch": "--- ac63f849/app/client/unknown_phoneme.cpp\n+++ control_shared_label/unknown_phoneme.cpp\n@@ -225,7 +225,7 @@\n \t\tswitch (c) {\n \t\t\tcase 'u':\n \t\t\t\tif (prev == 'g') {\n-\t\t\t\t\tshapes[1] = 1;\n+\t\t\t\t\tgoto second_vowel;\n \t\t\t\t} else if (prev == 'l') {\n \t\t\t\t\tshapes[0] = 0;\n \t\t\t\t} else if (prev == 's') {\n@@ -236,7 +236,7 @@\n \t\t\t\t}\n \t\t\t\tbreak;\n \t\t\tcase 'o':\n-\t\t\t\tshapes[1] = 1;\n+\t\t\t\tgoto second_vowel;\n \t\t\t\tbreak;\n \t\t\tcase 'i':\n \t\t\t\tshapes[1] = 1;\n@@ -248,6 +248,7 @@\n \t} else {\n \t\tc = text[2];\n \t\tif (c != '\\0' && IS_VOWEL(c)) {\n+second_vowel:\n \t\t\tshapes[1] = 1;\n \t\t} else {\n \t\t\tshapes[0] = 0;\n@@ -300,7 +301,6 @@\n \t}\n \treturn(n);\n }\n-\n // 0x791B00\n int Unknown_791310Class::Unknown_791B00(const char *text, char prev, int *shapes)\n {\n"
+    },
+    {
+      "name": "flag_g_o",
+      "source_sha256": "003a12ab101df299a50764f4654d34ee92fafc79e5824243b8c3899c5e3a307e",
+      "patch": "--- ac63f849/app/client/unknown_phoneme.cpp\n+++ flag_g_o/unknown_phoneme.cpp\n@@ -217,6 +217,7 @@\n int Unknown_791310Class::Unknown_791880(const char *text, char prev, int *shapes)\n {\n \tint n = 1;\n+\tbool use_second_shape = false; // NAME 3: common g/o shape action, client79192D\n \tshapes[0] = 11;\n \tshapes[1] = -1;\n \tchar c = text[1];\n@@ -225,7 +226,7 @@\n \t\tswitch (c) {\n \t\t\tcase 'u':\n \t\t\t\tif (prev == 'g') {\n-\t\t\t\t\tshapes[1] = 1;\n+\t\t\t\t\tuse_second_shape = true;\n \t\t\t\t} else if (prev == 'l') {\n \t\t\t\t\tshapes[0] = 0;\n \t\t\t\t} else if (prev == 's') {\n@@ -236,7 +237,7 @@\n \t\t\t\t}\n \t\t\t\tbreak;\n \t\t\tcase 'o':\n-\t\t\t\tshapes[1] = 1;\n+\t\t\t\tuse_second_shape = true;\n \t\t\t\tbreak;\n \t\t\tcase 'i':\n \t\t\t\tshapes[1] = 1;\n@@ -253,6 +254,7 @@\n \t\t\tshapes[0] = 0;\n \t\t}\n \t}\n+\tif (use_second_shape) shapes[1] = 1;\n \treturn(n);\n }\n \n"
+    },
+    {
+      "name": "flag_all",
+      "source_sha256": "df078383a5ffc1b6a1fb2ffcc7264360458d9e842bcda57b06d7cc4a3c5cf46b",
+      "patch": "--- ac63f849/app/client/unknown_phoneme.cpp\n+++ flag_all/unknown_phoneme.cpp\n@@ -217,6 +217,7 @@\n int Unknown_791310Class::Unknown_791880(const char *text, char prev, int *shapes)\n {\n \tint n = 1;\n+\tbool use_second_shape = false; // NAME 3: common g/o shape action, client79192D\n \tshapes[0] = 11;\n \tshapes[1] = -1;\n \tchar c = text[1];\n@@ -225,7 +226,7 @@\n \t\tswitch (c) {\n \t\t\tcase 'u':\n \t\t\t\tif (prev == 'g') {\n-\t\t\t\t\tshapes[1] = 1;\n+\t\t\t\t\tuse_second_shape = true;\n \t\t\t\t} else if (prev == 'l') {\n \t\t\t\t\tshapes[0] = 0;\n \t\t\t\t} else if (prev == 's') {\n@@ -236,7 +237,7 @@\n \t\t\t\t}\n \t\t\t\tbreak;\n \t\t\tcase 'o':\n-\t\t\t\tshapes[1] = 1;\n+\t\t\t\tuse_second_shape = true;\n \t\t\t\tbreak;\n \t\t\tcase 'i':\n \t\t\t\tshapes[1] = 1;\n@@ -248,11 +249,12 @@\n \t} else {\n \t\tc = text[2];\n \t\tif (c != '\\0' && IS_VOWEL(c)) {\n-\t\t\tshapes[1] = 1;\n+\t\t\tuse_second_shape = true;\n \t\t} else {\n \t\t\tshapes[0] = 0;\n \t\t}\n \t}\n+\tif (use_second_shape) shapes[1] = 1;\n \treturn(n);\n }\n \n"
+    },
+    {
+      "name": "exit_u_only",
+      "source_sha256": "bfe4d8fa91b356017c2dbb36cccef3ed90e4aa4739db07a21f77f3f8d167395c",
+      "patch": "--- ac63f849/app/client/unknown_phoneme.cpp\n+++ exit_u_only/unknown_phoneme.cpp\n@@ -234,7 +234,7 @@\n \t\t\t\t} else {\n \t\t\t\t\tshapes[0] = 0;\n \t\t\t\t}\n-\t\t\t\tbreak;\n+\t\t\t\treturn(n);\n \t\t\tcase 'o':\n \t\t\t\tshapes[1] = 1;\n \t\t\t\tbreak;\n"
+    },
+    {
+      "name": "exit_i_only",
+      "source_sha256": "974b79c64bc9f7ec567c4a31f469af575873d41f6f3cf5b1de7eccf28644aa19",
+      "patch": "--- ac63f849/app/client/unknown_phoneme.cpp\n+++ exit_i_only/unknown_phoneme.cpp\n@@ -243,7 +243,7 @@\n \t\t\t\tif (text[2] == 's') {\n \t\t\t\t\tshapes[0] = 0;\n \t\t\t\t}\n-\t\t\t\tbreak;\n+\t\t\t\treturn(n);\n \t\t}\n \t} else {\n \t\tc = text[2];\n"
+    }
+  ]
+}

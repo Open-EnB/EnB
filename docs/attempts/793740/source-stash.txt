@@ -1,0 +1,158 @@
+Frozen ac63f849; reproduce using prepare.py and body-forms.json. FAIL_IF line73 retained.
+
+FORM matrix_assign
+--- camctrl_entersector.cpp
++++ matrix_assign/camctrl_entersector.cpp
+@@ -73,7 +73,7 @@
+ 	FAIL_IF(!Client->Get_Avatar()) {
+ 		return;
+ 	}
+-	Matrix3D tm = Client->Get_Avatar()->Unknown_28(true);
++	Matrix3D tm; tm = Client->Get_Avatar()->Unknown_28(true);
+ 	float angle = (Unknown_BDB1C0.Get_Float() - 0.5f) * Unknown_B04CBC;
+ 	if (Unknown_BDB1C0.Get_Float() > 0.5f) {
+ 		angle += WWMATH_PI;
+
+FORM offset_early_set
+--- camctrl_entersector.cpp
++++ offset_early_set/camctrl_entersector.cpp
+@@ -79,9 +79,9 @@
+ 		angle += WWMATH_PI;
+ 	}
+ 	float distance = CameraManagerClass::Unknown_79B6B0();
+-	float s = WWMath::Sin(angle);
++	Vector3 offset; float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 offset(distance, c * distance, s * distance);
++	offset.Set(distance, c * distance, s * distance);
+ 	offset.Scale(Unknown_BE8688);
+ 	Unknown0C->Position = tm * offset;
+ 	Unknown0C->Unknown14 = true;
+
+FORM offset_set
+--- camctrl_entersector.cpp
++++ offset_set/camctrl_entersector.cpp
+@@ -81,7 +81,7 @@
+ 	float distance = CameraManagerClass::Unknown_79B6B0();
+ 	float s = WWMath::Sin(angle);
+ 	float c = WWMath::Cos(angle);
+-	Vector3 offset(distance, c * distance, s * distance);
++	Vector3 offset; offset.Set(distance, c * distance, s * distance);
+ 	offset.Scale(Unknown_BE8688);
+ 	Unknown0C->Position = tm * offset;
+ 	Unknown0C->Unknown14 = true;
+
+FORM operator_result
+--- camctrl_entersector.cpp
++++ operator_result/camctrl_entersector.cpp
+@@ -83,7 +83,7 @@
+ 	float c = WWMath::Cos(angle);
+ 	Vector3 offset(distance, c * distance, s * distance);
+ 	offset.Scale(Unknown_BE8688);
+-	Unknown0C->Position = tm * offset;
++	Vector3 position = tm * offset; Unknown0C->Position = position;
+ 	Unknown0C->Unknown14 = true;
+ 	Unknown0C->Unknown18 = Client->AvatarID;
+ 	Unknown0C->Unknown_04();
+
+FORM transform_direct
+--- camctrl_entersector.cpp
++++ transform_direct/camctrl_entersector.cpp
+@@ -83,7 +83,7 @@
+ 	float c = WWMath::Cos(angle);
+ 	Vector3 offset(distance, c * distance, s * distance);
+ 	offset.Scale(Unknown_BE8688);
+-	Unknown0C->Position = tm * offset;
++	Matrix3D::Transform_Vector(tm, offset, &Unknown0C->Position);
+ 	Unknown0C->Unknown14 = true;
+ 	Unknown0C->Unknown18 = Client->AvatarID;
+ 	Unknown0C->Unknown_04();
+
+FORM transform_inplace
+--- camctrl_entersector.cpp
++++ transform_inplace/camctrl_entersector.cpp
+@@ -83,7 +83,7 @@
+ 	float c = WWMath::Cos(angle);
+ 	Vector3 offset(distance, c * distance, s * distance);
+ 	offset.Scale(Unknown_BE8688);
+-	Unknown0C->Position = tm * offset;
++	Matrix3D::Transform_Vector(tm, offset, &offset); Unknown0C->Position = offset;
+ 	Unknown0C->Unknown14 = true;
+ 	Unknown0C->Unknown18 = Client->AvatarID;
+ 	Unknown0C->Unknown_04();
+
+FORM transform_result
+--- camctrl_entersector.cpp
++++ transform_result/camctrl_entersector.cpp
+@@ -83,7 +83,7 @@
+ 	float c = WWMath::Cos(angle);
+ 	Vector3 offset(distance, c * distance, s * distance);
+ 	offset.Scale(Unknown_BE8688);
+-	Unknown0C->Position = tm * offset;
++	Vector3 position; Matrix3D::Transform_Vector(tm, offset, &position); Unknown0C->Position = position;
+ 	Unknown0C->Unknown14 = true;
+ 	Unknown0C->Unknown18 = Client->AvatarID;
+ 	Unknown0C->Unknown_04();
+
+FORM trig_assign_locals
+--- camctrl_entersector.cpp
++++ trig_assign_locals/camctrl_entersector.cpp
+@@ -79,8 +79,8 @@
+ 		angle += WWMATH_PI;
+ 	}
+ 	float distance = CameraManagerClass::Unknown_79B6B0();
+-	float s = WWMath::Sin(angle);
+-	float c = WWMath::Cos(angle);
++	float s, c; s = WWMath::Sin(angle);
++	c = WWMath::Cos(angle);
+ 	Vector3 offset(distance, c * distance, s * distance);
+ 	offset.Scale(Unknown_BE8688);
+ 	Unknown0C->Position = tm * offset;
+
+FORM trig_direct_both
+--- camctrl_entersector.cpp
++++ trig_direct_both/camctrl_entersector.cpp
+@@ -79,9 +79,9 @@
+ 		angle += WWMATH_PI;
+ 	}
+ 	float distance = CameraManagerClass::Unknown_79B6B0();
+-	float s = WWMath::Sin(angle);
+-	float c = WWMath::Cos(angle);
+-	Vector3 offset(distance, c * distance, s * distance);
++	
++	
++	Vector3 offset(distance, WWMath::Cos(angle) * distance, WWMath::Sin(angle) * distance);
+ 	offset.Scale(Unknown_BE8688);
+ 	Unknown0C->Position = tm * offset;
+ 	Unknown0C->Unknown14 = true;
+
+FORM trig_direct_cos
+--- camctrl_entersector.cpp
++++ trig_direct_cos/camctrl_entersector.cpp
+@@ -80,8 +80,8 @@
+ 	}
+ 	float distance = CameraManagerClass::Unknown_79B6B0();
+ 	float s = WWMath::Sin(angle);
+-	float c = WWMath::Cos(angle);
+-	Vector3 offset(distance, c * distance, s * distance);
++	
++	Vector3 offset(distance, WWMath::Cos(angle) * distance, s * distance);
+ 	offset.Scale(Unknown_BE8688);
+ 	Unknown0C->Position = tm * offset;
+ 	Unknown0C->Unknown14 = true;
+
+FORM trig_direct_sin
+--- camctrl_entersector.cpp
++++ trig_direct_sin/camctrl_entersector.cpp
+@@ -79,9 +79,9 @@
+ 		angle += WWMATH_PI;
+ 	}
+ 	float distance = CameraManagerClass::Unknown_79B6B0();
+-	float s = WWMath::Sin(angle);
++	
+ 	float c = WWMath::Cos(angle);
+-	Vector3 offset(distance, c * distance, s * distance);
++	Vector3 offset(distance, c * distance, WWMath::Sin(angle) * distance);
+ 	offset.Scale(Unknown_BE8688);
+ 	Unknown0C->Position = tm * offset;
+ 	Unknown0C->Unknown14 = true;

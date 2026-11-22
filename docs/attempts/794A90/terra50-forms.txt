@@ -1,0 +1,1128 @@
+FORM return_assign__normalize_raw_copy
+--- best_control/camctrl_pland.cpp
++++ return_assign__normalize_raw_copy/camctrl_pland.cpp
+@@ -151,7 +151,7 @@
+ 	start_pos = end_pos + Unknown_Rotate(ship_tm, start_pos);
+ 	tangent1.X = speed_fwd;
+ 	Vector3 rotated = Unknown_Rotate(ship_tm, tangent1); tangent1 = rotated; // NAME 1: 794E3A..E92 rotation-return object copied to raw tangent
+-	Vector3 normalized = Normalize(rotated); // NAME 1: 794E96..EF7 result before down product
++	Vector3 normalized = Normalize(tangent1); // NAME 1: 794E96..EF7 result before down product
+ 	tangent0 = normalized * speed_fwd + Vector3(0.0f, 0.0f, -1.0f) * speed_down;
+ 	up_dir = ship_tm * up_dir;
+ 	Vector3 cam_pos = end_pos;
+
+FORM return_assign__normalize_assign
+--- best_control/camctrl_pland.cpp
++++ return_assign__normalize_assign/camctrl_pland.cpp
+@@ -151,7 +151,7 @@
+ 	start_pos = end_pos + Unknown_Rotate(ship_tm, start_pos);
+ 	tangent1.X = speed_fwd;
+ 	Vector3 rotated = Unknown_Rotate(ship_tm, tangent1); tangent1 = rotated; // NAME 1: 794E3A..E92 rotation-return object copied to raw tangent
+-	Vector3 normalized = Normalize(rotated); // NAME 1: 794E96..EF7 result before down product
++	Vector3 normalized; normalized = Normalize(rotated); // NAME 1: 794E96..EF7 result before down product
+ 	tangent0 = normalized * speed_fwd + Vector3(0.0f, 0.0f, -1.0f) * speed_down;
+ 	up_dir = ship_tm * up_dir;
+ 	Vector3 cam_pos = end_pos;
+
+FORM return_assign__normalized_ctor
+--- best_control/camctrl_pland.cpp
++++ return_assign__normalized_ctor/camctrl_pland.cpp
+@@ -151,7 +151,7 @@
+ 	start_pos = end_pos + Unknown_Rotate(ship_tm, start_pos);
+ 	tangent1.X = speed_fwd;
+ 	Vector3 rotated = Unknown_Rotate(ship_tm, tangent1); tangent1 = rotated; // NAME 1: 794E3A..E92 rotation-return object copied to raw tangent
+-	Vector3 normalized = Normalize(rotated); // NAME 1: 794E96..EF7 result before down product
++	Vector3 normalized(Normalize(rotated)); // NAME 1: 794E96..EF7 result before down product
+ 	tangent0 = normalized * speed_fwd + Vector3(0.0f, 0.0f, -1.0f) * speed_down;
+ 	up_dir = ship_tm * up_dir;
+ 	Vector3 cam_pos = end_pos;
+
+FORM return_assign__forward_result
+--- best_control/camctrl_pland.cpp
++++ return_assign__forward_result/camctrl_pland.cpp
+@@ -152,7 +152,8 @@
+ 	tangent1.X = speed_fwd;
+ 	Vector3 rotated = Unknown_Rotate(ship_tm, tangent1); tangent1 = rotated; // NAME 1: 794E3A..E92 rotation-return object copied to raw tangent
+ 	Vector3 normalized = Normalize(rotated); // NAME 1: 794E96..EF7 result before down product
+-	tangent0 = normalized * speed_fwd + Vector3(0.0f, 0.0f, -1.0f) * speed_down;
++	Vector3 forward = normalized * speed_fwd; // NAME 1: 794EFB..F28 scaled normalized tangent
++	tangent0 = forward + Vector3(0.0f, 0.0f, -1.0f) * speed_down;
+ 	up_dir = ship_tm * up_dir;
+ 	Vector3 cam_pos = end_pos;
+ 	cam_pos.X += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+
+FORM return_assign__down_result
+--- best_control/camctrl_pland.cpp
++++ return_assign__down_result/camctrl_pland.cpp
+@@ -152,7 +152,8 @@
+ 	tangent1.X = speed_fwd;
+ 	Vector3 rotated = Unknown_Rotate(ship_tm, tangent1); tangent1 = rotated; // NAME 1: 794E3A..E92 rotation-return object copied to raw tangent
+ 	Vector3 normalized = Normalize(rotated); // NAME 1: 794E96..EF7 result before down product
+-	tangent0 = normalized * speed_fwd + Vector3(0.0f, 0.0f, -1.0f) * speed_down;
++	Vector3 down = Vector3(0.0f, 0.0f, -1.0f) * speed_down; // NAME 1: 794F29..F58 scaled downward tangent
++	tangent0 = normalized * speed_fwd + down;
+ 	up_dir = ship_tm * up_dir;
+ 	Vector3 cam_pos = end_pos;
+ 	cam_pos.X += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+
+FORM return_assign__both_results
+--- best_control/camctrl_pland.cpp
++++ return_assign__both_results/camctrl_pland.cpp
+@@ -152,7 +152,9 @@
+ 	tangent1.X = speed_fwd;
+ 	Vector3 rotated = Unknown_Rotate(ship_tm, tangent1); tangent1 = rotated; // NAME 1: 794E3A..E92 rotation-return object copied to raw tangent
+ 	Vector3 normalized = Normalize(rotated); // NAME 1: 794E96..EF7 result before down product
+-	tangent0 = normalized * speed_fwd + Vector3(0.0f, 0.0f, -1.0f) * speed_down;
++	Vector3 forward = normalized * speed_fwd; // NAME 1: 794EFB..F28 scaled normalized tangent
++	Vector3 down = Vector3(0.0f, 0.0f, -1.0f) * speed_down; // NAME 1: 794F29..F58 scaled downward tangent
++	tangent0 = forward + down;
+ 	up_dir = ship_tm * up_dir;
+ 	Vector3 cam_pos = end_pos;
+ 	cam_pos.X += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+
+FORM return_assign__down_direction
+--- best_control/camctrl_pland.cpp
++++ return_assign__down_direction/camctrl_pland.cpp
+@@ -152,7 +152,8 @@
+ 	tangent1.X = speed_fwd;
+ 	Vector3 rotated = Unknown_Rotate(ship_tm, tangent1); tangent1 = rotated; // NAME 1: 794E3A..E92 rotation-return object copied to raw tangent
+ 	Vector3 normalized = Normalize(rotated); // NAME 1: 794E96..EF7 result before down product
+-	tangent0 = normalized * speed_fwd + Vector3(0.0f, 0.0f, -1.0f) * speed_down;
++	Vector3 down(0.0f, 0.0f, -1.0f); // NAME 1: 794F29..F58 downward tangent direction
++	tangent0 = normalized * speed_fwd + down * speed_down;
+ 	up_dir = ship_tm * up_dir;
+ 	Vector3 cam_pos = end_pos;
+ 	cam_pos.X += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+
+FORM return_assign__sum_result
+--- best_control/camctrl_pland.cpp
++++ return_assign__sum_result/camctrl_pland.cpp
+@@ -152,7 +152,8 @@
+ 	tangent1.X = speed_fwd;
+ 	Vector3 rotated = Unknown_Rotate(ship_tm, tangent1); tangent1 = rotated; // NAME 1: 794E3A..E92 rotation-return object copied to raw tangent
+ 	Vector3 normalized = Normalize(rotated); // NAME 1: 794E96..EF7 result before down product
+-	tangent0 = normalized * speed_fwd + Vector3(0.0f, 0.0f, -1.0f) * speed_down;
++	Vector3 sum = normalized * speed_fwd + Vector3(0.0f, 0.0f, -1.0f) * speed_down; // NAME 1: 794F59..F7E combined tangent
++	tangent0 = sum;
+ 	up_dir = ship_tm * up_dir;
+ 	Vector3 cam_pos = end_pos;
+ 	cam_pos.X += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+
+FORM return_assign__forward_accumulate
+--- best_control/camctrl_pland.cpp
++++ return_assign__forward_accumulate/camctrl_pland.cpp
+@@ -152,7 +152,7 @@
+ 	tangent1.X = speed_fwd;
+ 	Vector3 rotated = Unknown_Rotate(ship_tm, tangent1); tangent1 = rotated; // NAME 1: 794E3A..E92 rotation-return object copied to raw tangent
+ 	Vector3 normalized = Normalize(rotated); // NAME 1: 794E96..EF7 result before down product
+-	tangent0 = normalized * speed_fwd + Vector3(0.0f, 0.0f, -1.0f) * speed_down;
++	tangent0 = normalized * speed_fwd; tangent0 += Vector3(0.0f, 0.0f, -1.0f) * speed_down;
+ 	up_dir = ship_tm * up_dir;
+ 	Vector3 cam_pos = end_pos;
+ 	cam_pos.X += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+
+FORM return_assign__return_times_scalar_first
+--- best_control/camctrl_pland.cpp
++++ return_assign__return_times_scalar_first/camctrl_pland.cpp
+@@ -152,7 +152,7 @@
+ 	tangent1.X = speed_fwd;
+ 	Vector3 rotated = Unknown_Rotate(ship_tm, tangent1); tangent1 = rotated; // NAME 1: 794E3A..E92 rotation-return object copied to raw tangent
+ 	Vector3 normalized = Normalize(rotated); // NAME 1: 794E96..EF7 result before down product
+-	tangent0 = normalized * speed_fwd + Vector3(0.0f, 0.0f, -1.0f) * speed_down;
++	tangent0 = speed_fwd * normalized + speed_down * Vector3(0.0f, 0.0f, -1.0f);
+ 	up_dir = ship_tm * up_dir;
+ 	Vector3 cam_pos = end_pos;
+ 	cam_pos.X += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+
+FORM output_api__normalize_raw_copy
+--- best_control/camctrl_pland.cpp
++++ output_api__normalize_raw_copy/camctrl_pland.cpp
+@@ -146,12 +146,12 @@
+ 	float speed_fwd = ini.Get_Float(section, "SpeedForward", 100.0f);
+ 	float speed_down = ini.Get_Float(section, "SpeedDown", 100.0f);
+ 	Matrix3D ship_tm = ship->Unknown_28(false);
+-	end_pos = ship_tm.Get_Translation();
++	ship_tm.Get_Translation(&end_pos);
+ 	ship_tm.Set_Translation(Vector3(0.0f, 0.0f, 0.0f));
+ 	start_pos = end_pos + Unknown_Rotate(ship_tm, start_pos);
+ 	tangent1.X = speed_fwd;
+ 	Vector3 rotated = Unknown_Rotate(ship_tm, tangent1); tangent1 = rotated; // NAME 1: 794E3A..E92 rotation-return object copied to raw tangent
+-	Vector3 normalized = Normalize(rotated); // NAME 1: 794E96..EF7 result before down product
++	Vector3 normalized = Normalize(tangent1); // NAME 1: 794E96..EF7 result before down product
+ 	tangent0 = normalized * speed_fwd + Vector3(0.0f, 0.0f, -1.0f) * speed_down;
+ 	up_dir = ship_tm * up_dir;
+ 	Vector3 cam_pos = end_pos;
+
+FORM output_api__normalize_assign
+--- best_control/camctrl_pland.cpp
++++ output_api__normalize_assign/camctrl_pland.cpp
+@@ -146,12 +146,12 @@
+ 	float speed_fwd = ini.Get_Float(section, "SpeedForward", 100.0f);
+ 	float speed_down = ini.Get_Float(section, "SpeedDown", 100.0f);
+ 	Matrix3D ship_tm = ship->Unknown_28(false);
+-	end_pos = ship_tm.Get_Translation();
++	ship_tm.Get_Translation(&end_pos);
+ 	ship_tm.Set_Translation(Vector3(0.0f, 0.0f, 0.0f));
+ 	start_pos = end_pos + Unknown_Rotate(ship_tm, start_pos);
+ 	tangent1.X = speed_fwd;
+ 	Vector3 rotated = Unknown_Rotate(ship_tm, tangent1); tangent1 = rotated; // NAME 1: 794E3A..E92 rotation-return object copied to raw tangent
+-	Vector3 normalized = Normalize(rotated); // NAME 1: 794E96..EF7 result before down product
++	Vector3 normalized; normalized = Normalize(rotated); // NAME 1: 794E96..EF7 result before down product
+ 	tangent0 = normalized * speed_fwd + Vector3(0.0f, 0.0f, -1.0f) * speed_down;
+ 	up_dir = ship_tm * up_dir;
+ 	Vector3 cam_pos = end_pos;
+
+FORM output_api__normalized_ctor
+--- best_control/camctrl_pland.cpp
++++ output_api__normalized_ctor/camctrl_pland.cpp
+@@ -146,12 +146,12 @@
+ 	float speed_fwd = ini.Get_Float(section, "SpeedForward", 100.0f);
+ 	float speed_down = ini.Get_Float(section, "SpeedDown", 100.0f);
+ 	Matrix3D ship_tm = ship->Unknown_28(false);
+-	end_pos = ship_tm.Get_Translation();
++	ship_tm.Get_Translation(&end_pos);
+ 	ship_tm.Set_Translation(Vector3(0.0f, 0.0f, 0.0f));
+ 	start_pos = end_pos + Unknown_Rotate(ship_tm, start_pos);
+ 	tangent1.X = speed_fwd;
+ 	Vector3 rotated = Unknown_Rotate(ship_tm, tangent1); tangent1 = rotated; // NAME 1: 794E3A..E92 rotation-return object copied to raw tangent
+-	Vector3 normalized = Normalize(rotated); // NAME 1: 794E96..EF7 result before down product
++	Vector3 normalized(Normalize(rotated)); // NAME 1: 794E96..EF7 result before down product
+ 	tangent0 = normalized * speed_fwd + Vector3(0.0f, 0.0f, -1.0f) * speed_down;
+ 	up_dir = ship_tm * up_dir;
+ 	Vector3 cam_pos = end_pos;
+
+FORM output_api__forward_result
+--- best_control/camctrl_pland.cpp
++++ output_api__forward_result/camctrl_pland.cpp
+@@ -146,13 +146,14 @@
+ 	float speed_fwd = ini.Get_Float(section, "SpeedForward", 100.0f);
+ 	float speed_down = ini.Get_Float(section, "SpeedDown", 100.0f);
+ 	Matrix3D ship_tm = ship->Unknown_28(false);
+-	end_pos = ship_tm.Get_Translation();
++	ship_tm.Get_Translation(&end_pos);
+ 	ship_tm.Set_Translation(Vector3(0.0f, 0.0f, 0.0f));
+ 	start_pos = end_pos + Unknown_Rotate(ship_tm, start_pos);
+ 	tangent1.X = speed_fwd;
+ 	Vector3 rotated = Unknown_Rotate(ship_tm, tangent1); tangent1 = rotated; // NAME 1: 794E3A..E92 rotation-return object copied to raw tangent
+ 	Vector3 normalized = Normalize(rotated); // NAME 1: 794E96..EF7 result before down product
+-	tangent0 = normalized * speed_fwd + Vector3(0.0f, 0.0f, -1.0f) * speed_down;
++	Vector3 forward = normalized * speed_fwd; // NAME 1: 794EFB..F28 scaled normalized tangent
++	tangent0 = forward + Vector3(0.0f, 0.0f, -1.0f) * speed_down;
+ 	up_dir = ship_tm * up_dir;
+ 	Vector3 cam_pos = end_pos;
+ 	cam_pos.X += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+
+FORM output_api__down_result
+--- best_control/camctrl_pland.cpp
++++ output_api__down_result/camctrl_pland.cpp
+@@ -146,13 +146,14 @@
+ 	float speed_fwd = ini.Get_Float(section, "SpeedForward", 100.0f);
+ 	float speed_down = ini.Get_Float(section, "SpeedDown", 100.0f);
+ 	Matrix3D ship_tm = ship->Unknown_28(false);
+-	end_pos = ship_tm.Get_Translation();
++	ship_tm.Get_Translation(&end_pos);
+ 	ship_tm.Set_Translation(Vector3(0.0f, 0.0f, 0.0f));
+ 	start_pos = end_pos + Unknown_Rotate(ship_tm, start_pos);
+ 	tangent1.X = speed_fwd;
+ 	Vector3 rotated = Unknown_Rotate(ship_tm, tangent1); tangent1 = rotated; // NAME 1: 794E3A..E92 rotation-return object copied to raw tangent
+ 	Vector3 normalized = Normalize(rotated); // NAME 1: 794E96..EF7 result before down product
+-	tangent0 = normalized * speed_fwd + Vector3(0.0f, 0.0f, -1.0f) * speed_down;
++	Vector3 down = Vector3(0.0f, 0.0f, -1.0f) * speed_down; // NAME 1: 794F29..F58 scaled downward tangent
++	tangent0 = normalized * speed_fwd + down;
+ 	up_dir = ship_tm * up_dir;
+ 	Vector3 cam_pos = end_pos;
+ 	cam_pos.X += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+
+FORM output_api__both_results
+--- best_control/camctrl_pland.cpp
++++ output_api__both_results/camctrl_pland.cpp
+@@ -146,13 +146,15 @@
+ 	float speed_fwd = ini.Get_Float(section, "SpeedForward", 100.0f);
+ 	float speed_down = ini.Get_Float(section, "SpeedDown", 100.0f);
+ 	Matrix3D ship_tm = ship->Unknown_28(false);
+-	end_pos = ship_tm.Get_Translation();
++	ship_tm.Get_Translation(&end_pos);
+ 	ship_tm.Set_Translation(Vector3(0.0f, 0.0f, 0.0f));
+ 	start_pos = end_pos + Unknown_Rotate(ship_tm, start_pos);
+ 	tangent1.X = speed_fwd;
+ 	Vector3 rotated = Unknown_Rotate(ship_tm, tangent1); tangent1 = rotated; // NAME 1: 794E3A..E92 rotation-return object copied to raw tangent
+ 	Vector3 normalized = Normalize(rotated); // NAME 1: 794E96..EF7 result before down product
+-	tangent0 = normalized * speed_fwd + Vector3(0.0f, 0.0f, -1.0f) * speed_down;
++	Vector3 forward = normalized * speed_fwd; // NAME 1: 794EFB..F28 scaled normalized tangent
++	Vector3 down = Vector3(0.0f, 0.0f, -1.0f) * speed_down; // NAME 1: 794F29..F58 scaled downward tangent
++	tangent0 = forward + down;
+ 	up_dir = ship_tm * up_dir;
+ 	Vector3 cam_pos = end_pos;
+ 	cam_pos.X += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+
+FORM output_api__down_direction
+--- best_control/camctrl_pland.cpp
++++ output_api__down_direction/camctrl_pland.cpp
+@@ -146,13 +146,14 @@
+ 	float speed_fwd = ini.Get_Float(section, "SpeedForward", 100.0f);
+ 	float speed_down = ini.Get_Float(section, "SpeedDown", 100.0f);
+ 	Matrix3D ship_tm = ship->Unknown_28(false);
+-	end_pos = ship_tm.Get_Translation();
++	ship_tm.Get_Translation(&end_pos);
+ 	ship_tm.Set_Translation(Vector3(0.0f, 0.0f, 0.0f));
+ 	start_pos = end_pos + Unknown_Rotate(ship_tm, start_pos);
+ 	tangent1.X = speed_fwd;
+ 	Vector3 rotated = Unknown_Rotate(ship_tm, tangent1); tangent1 = rotated; // NAME 1: 794E3A..E92 rotation-return object copied to raw tangent
+ 	Vector3 normalized = Normalize(rotated); // NAME 1: 794E96..EF7 result before down product
+-	tangent0 = normalized * speed_fwd + Vector3(0.0f, 0.0f, -1.0f) * speed_down;
++	Vector3 down(0.0f, 0.0f, -1.0f); // NAME 1: 794F29..F58 downward tangent direction
++	tangent0 = normalized * speed_fwd + down * speed_down;
+ 	up_dir = ship_tm * up_dir;
+ 	Vector3 cam_pos = end_pos;
+ 	cam_pos.X += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+
+FORM output_api__sum_result
+--- best_control/camctrl_pland.cpp
++++ output_api__sum_result/camctrl_pland.cpp
+@@ -146,13 +146,14 @@
+ 	float speed_fwd = ini.Get_Float(section, "SpeedForward", 100.0f);
+ 	float speed_down = ini.Get_Float(section, "SpeedDown", 100.0f);
+ 	Matrix3D ship_tm = ship->Unknown_28(false);
+-	end_pos = ship_tm.Get_Translation();
++	ship_tm.Get_Translation(&end_pos);
+ 	ship_tm.Set_Translation(Vector3(0.0f, 0.0f, 0.0f));
+ 	start_pos = end_pos + Unknown_Rotate(ship_tm, start_pos);
+ 	tangent1.X = speed_fwd;
+ 	Vector3 rotated = Unknown_Rotate(ship_tm, tangent1); tangent1 = rotated; // NAME 1: 794E3A..E92 rotation-return object copied to raw tangent
+ 	Vector3 normalized = Normalize(rotated); // NAME 1: 794E96..EF7 result before down product
+-	tangent0 = normalized * speed_fwd + Vector3(0.0f, 0.0f, -1.0f) * speed_down;
++	Vector3 sum = normalized * speed_fwd + Vector3(0.0f, 0.0f, -1.0f) * speed_down; // NAME 1: 794F59..F7E combined tangent
++	tangent0 = sum;
+ 	up_dir = ship_tm * up_dir;
+ 	Vector3 cam_pos = end_pos;
+ 	cam_pos.X += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+
+FORM output_api__forward_accumulate
+--- best_control/camctrl_pland.cpp
++++ output_api__forward_accumulate/camctrl_pland.cpp
+@@ -146,13 +146,13 @@
+ 	float speed_fwd = ini.Get_Float(section, "SpeedForward", 100.0f);
+ 	float speed_down = ini.Get_Float(section, "SpeedDown", 100.0f);
+ 	Matrix3D ship_tm = ship->Unknown_28(false);
+-	end_pos = ship_tm.Get_Translation();
++	ship_tm.Get_Translation(&end_pos);
+ 	ship_tm.Set_Translation(Vector3(0.0f, 0.0f, 0.0f));
+ 	start_pos = end_pos + Unknown_Rotate(ship_tm, start_pos);
+ 	tangent1.X = speed_fwd;
+ 	Vector3 rotated = Unknown_Rotate(ship_tm, tangent1); tangent1 = rotated; // NAME 1: 794E3A..E92 rotation-return object copied to raw tangent
+ 	Vector3 normalized = Normalize(rotated); // NAME 1: 794E96..EF7 result before down product
+-	tangent0 = normalized * speed_fwd + Vector3(0.0f, 0.0f, -1.0f) * speed_down;
++	tangent0 = normalized * speed_fwd; tangent0 += Vector3(0.0f, 0.0f, -1.0f) * speed_down;
+ 	up_dir = ship_tm * up_dir;
+ 	Vector3 cam_pos = end_pos;
+ 	cam_pos.X += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+
+FORM output_api__return_times_scalar_first
+--- best_control/camctrl_pland.cpp
++++ output_api__return_times_scalar_first/camctrl_pland.cpp
+@@ -146,13 +146,13 @@
+ 	float speed_fwd = ini.Get_Float(section, "SpeedForward", 100.0f);
+ 	float speed_down = ini.Get_Float(section, "SpeedDown", 100.0f);
+ 	Matrix3D ship_tm = ship->Unknown_28(false);
+-	end_pos = ship_tm.Get_Translation();
++	ship_tm.Get_Translation(&end_pos);
+ 	ship_tm.Set_Translation(Vector3(0.0f, 0.0f, 0.0f));
+ 	start_pos = end_pos + Unknown_Rotate(ship_tm, start_pos);
+ 	tangent1.X = speed_fwd;
+ 	Vector3 rotated = Unknown_Rotate(ship_tm, tangent1); tangent1 = rotated; // NAME 1: 794E3A..E92 rotation-return object copied to raw tangent
+ 	Vector3 normalized = Normalize(rotated); // NAME 1: 794E96..EF7 result before down product
+-	tangent0 = normalized * speed_fwd + Vector3(0.0f, 0.0f, -1.0f) * speed_down;
++	tangent0 = speed_fwd * normalized + speed_down * Vector3(0.0f, 0.0f, -1.0f);
+ 	up_dir = ship_tm * up_dir;
+ 	Vector3 cam_pos = end_pos;
+ 	cam_pos.X += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+
+FORM component_copy__normalize_raw_copy
+--- best_control/camctrl_pland.cpp
++++ component_copy__normalize_raw_copy/camctrl_pland.cpp
+@@ -146,12 +146,12 @@
+ 	float speed_fwd = ini.Get_Float(section, "SpeedForward", 100.0f);
+ 	float speed_down = ini.Get_Float(section, "SpeedDown", 100.0f);
+ 	Matrix3D ship_tm = ship->Unknown_28(false);
+-	end_pos = ship_tm.Get_Translation();
++	end_pos.X = ship_tm[0][3]; end_pos.Y = ship_tm[1][3]; end_pos.Z = ship_tm[2][3];
+ 	ship_tm.Set_Translation(Vector3(0.0f, 0.0f, 0.0f));
+ 	start_pos = end_pos + Unknown_Rotate(ship_tm, start_pos);
+ 	tangent1.X = speed_fwd;
+ 	Vector3 rotated = Unknown_Rotate(ship_tm, tangent1); tangent1 = rotated; // NAME 1: 794E3A..E92 rotation-return object copied to raw tangent
+-	Vector3 normalized = Normalize(rotated); // NAME 1: 794E96..EF7 result before down product
++	Vector3 normalized = Normalize(tangent1); // NAME 1: 794E96..EF7 result before down product
+ 	tangent0 = normalized * speed_fwd + Vector3(0.0f, 0.0f, -1.0f) * speed_down;
+ 	up_dir = ship_tm * up_dir;
+ 	Vector3 cam_pos = end_pos;
+
+FORM component_copy__normalize_assign
+--- best_control/camctrl_pland.cpp
++++ component_copy__normalize_assign/camctrl_pland.cpp
+@@ -146,12 +146,12 @@
+ 	float speed_fwd = ini.Get_Float(section, "SpeedForward", 100.0f);
+ 	float speed_down = ini.Get_Float(section, "SpeedDown", 100.0f);
+ 	Matrix3D ship_tm = ship->Unknown_28(false);
+-	end_pos = ship_tm.Get_Translation();
++	end_pos.X = ship_tm[0][3]; end_pos.Y = ship_tm[1][3]; end_pos.Z = ship_tm[2][3];
+ 	ship_tm.Set_Translation(Vector3(0.0f, 0.0f, 0.0f));
+ 	start_pos = end_pos + Unknown_Rotate(ship_tm, start_pos);
+ 	tangent1.X = speed_fwd;
+ 	Vector3 rotated = Unknown_Rotate(ship_tm, tangent1); tangent1 = rotated; // NAME 1: 794E3A..E92 rotation-return object copied to raw tangent
+-	Vector3 normalized = Normalize(rotated); // NAME 1: 794E96..EF7 result before down product
++	Vector3 normalized; normalized = Normalize(rotated); // NAME 1: 794E96..EF7 result before down product
+ 	tangent0 = normalized * speed_fwd + Vector3(0.0f, 0.0f, -1.0f) * speed_down;
+ 	up_dir = ship_tm * up_dir;
+ 	Vector3 cam_pos = end_pos;
+
+FORM component_copy__normalized_ctor
+--- best_control/camctrl_pland.cpp
++++ component_copy__normalized_ctor/camctrl_pland.cpp
+@@ -146,12 +146,12 @@
+ 	float speed_fwd = ini.Get_Float(section, "SpeedForward", 100.0f);
+ 	float speed_down = ini.Get_Float(section, "SpeedDown", 100.0f);
+ 	Matrix3D ship_tm = ship->Unknown_28(false);
+-	end_pos = ship_tm.Get_Translation();
++	end_pos.X = ship_tm[0][3]; end_pos.Y = ship_tm[1][3]; end_pos.Z = ship_tm[2][3];
+ 	ship_tm.Set_Translation(Vector3(0.0f, 0.0f, 0.0f));
+ 	start_pos = end_pos + Unknown_Rotate(ship_tm, start_pos);
+ 	tangent1.X = speed_fwd;
+ 	Vector3 rotated = Unknown_Rotate(ship_tm, tangent1); tangent1 = rotated; // NAME 1: 794E3A..E92 rotation-return object copied to raw tangent
+-	Vector3 normalized = Normalize(rotated); // NAME 1: 794E96..EF7 result before down product
++	Vector3 normalized(Normalize(rotated)); // NAME 1: 794E96..EF7 result before down product
+ 	tangent0 = normalized * speed_fwd + Vector3(0.0f, 0.0f, -1.0f) * speed_down;
+ 	up_dir = ship_tm * up_dir;
+ 	Vector3 cam_pos = end_pos;
+
+FORM component_copy__forward_result
+--- best_control/camctrl_pland.cpp
++++ component_copy__forward_result/camctrl_pland.cpp
+@@ -146,13 +146,14 @@
+ 	float speed_fwd = ini.Get_Float(section, "SpeedForward", 100.0f);
+ 	float speed_down = ini.Get_Float(section, "SpeedDown", 100.0f);
+ 	Matrix3D ship_tm = ship->Unknown_28(false);
+-	end_pos = ship_tm.Get_Translation();
++	end_pos.X = ship_tm[0][3]; end_pos.Y = ship_tm[1][3]; end_pos.Z = ship_tm[2][3];
+ 	ship_tm.Set_Translation(Vector3(0.0f, 0.0f, 0.0f));
+ 	start_pos = end_pos + Unknown_Rotate(ship_tm, start_pos);
+ 	tangent1.X = speed_fwd;
+ 	Vector3 rotated = Unknown_Rotate(ship_tm, tangent1); tangent1 = rotated; // NAME 1: 794E3A..E92 rotation-return object copied to raw tangent
+ 	Vector3 normalized = Normalize(rotated); // NAME 1: 794E96..EF7 result before down product
+-	tangent0 = normalized * speed_fwd + Vector3(0.0f, 0.0f, -1.0f) * speed_down;
++	Vector3 forward = normalized * speed_fwd; // NAME 1: 794EFB..F28 scaled normalized tangent
++	tangent0 = forward + Vector3(0.0f, 0.0f, -1.0f) * speed_down;
+ 	up_dir = ship_tm * up_dir;
+ 	Vector3 cam_pos = end_pos;
+ 	cam_pos.X += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+
+FORM component_copy__down_result
+--- best_control/camctrl_pland.cpp
++++ component_copy__down_result/camctrl_pland.cpp
+@@ -146,13 +146,14 @@
+ 	float speed_fwd = ini.Get_Float(section, "SpeedForward", 100.0f);
+ 	float speed_down = ini.Get_Float(section, "SpeedDown", 100.0f);
+ 	Matrix3D ship_tm = ship->Unknown_28(false);
+-	end_pos = ship_tm.Get_Translation();
++	end_pos.X = ship_tm[0][3]; end_pos.Y = ship_tm[1][3]; end_pos.Z = ship_tm[2][3];
+ 	ship_tm.Set_Translation(Vector3(0.0f, 0.0f, 0.0f));
+ 	start_pos = end_pos + Unknown_Rotate(ship_tm, start_pos);
+ 	tangent1.X = speed_fwd;
+ 	Vector3 rotated = Unknown_Rotate(ship_tm, tangent1); tangent1 = rotated; // NAME 1: 794E3A..E92 rotation-return object copied to raw tangent
+ 	Vector3 normalized = Normalize(rotated); // NAME 1: 794E96..EF7 result before down product
+-	tangent0 = normalized * speed_fwd + Vector3(0.0f, 0.0f, -1.0f) * speed_down;
++	Vector3 down = Vector3(0.0f, 0.0f, -1.0f) * speed_down; // NAME 1: 794F29..F58 scaled downward tangent
++	tangent0 = normalized * speed_fwd + down;
+ 	up_dir = ship_tm * up_dir;
+ 	Vector3 cam_pos = end_pos;
+ 	cam_pos.X += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+
+FORM component_copy__both_results
+--- best_control/camctrl_pland.cpp
++++ component_copy__both_results/camctrl_pland.cpp
+@@ -146,13 +146,15 @@
+ 	float speed_fwd = ini.Get_Float(section, "SpeedForward", 100.0f);
+ 	float speed_down = ini.Get_Float(section, "SpeedDown", 100.0f);
+ 	Matrix3D ship_tm = ship->Unknown_28(false);
+-	end_pos = ship_tm.Get_Translation();
++	end_pos.X = ship_tm[0][3]; end_pos.Y = ship_tm[1][3]; end_pos.Z = ship_tm[2][3];
+ 	ship_tm.Set_Translation(Vector3(0.0f, 0.0f, 0.0f));
+ 	start_pos = end_pos + Unknown_Rotate(ship_tm, start_pos);
+ 	tangent1.X = speed_fwd;
+ 	Vector3 rotated = Unknown_Rotate(ship_tm, tangent1); tangent1 = rotated; // NAME 1: 794E3A..E92 rotation-return object copied to raw tangent
+ 	Vector3 normalized = Normalize(rotated); // NAME 1: 794E96..EF7 result before down product
+-	tangent0 = normalized * speed_fwd + Vector3(0.0f, 0.0f, -1.0f) * speed_down;
++	Vector3 forward = normalized * speed_fwd; // NAME 1: 794EFB..F28 scaled normalized tangent
++	Vector3 down = Vector3(0.0f, 0.0f, -1.0f) * speed_down; // NAME 1: 794F29..F58 scaled downward tangent
++	tangent0 = forward + down;
+ 	up_dir = ship_tm * up_dir;
+ 	Vector3 cam_pos = end_pos;
+ 	cam_pos.X += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+
+FORM component_copy__down_direction
+--- best_control/camctrl_pland.cpp
++++ component_copy__down_direction/camctrl_pland.cpp
+@@ -146,13 +146,14 @@
+ 	float speed_fwd = ini.Get_Float(section, "SpeedForward", 100.0f);
+ 	float speed_down = ini.Get_Float(section, "SpeedDown", 100.0f);
+ 	Matrix3D ship_tm = ship->Unknown_28(false);
+-	end_pos = ship_tm.Get_Translation();
++	end_pos.X = ship_tm[0][3]; end_pos.Y = ship_tm[1][3]; end_pos.Z = ship_tm[2][3];
+ 	ship_tm.Set_Translation(Vector3(0.0f, 0.0f, 0.0f));
+ 	start_pos = end_pos + Unknown_Rotate(ship_tm, start_pos);
+ 	tangent1.X = speed_fwd;
+ 	Vector3 rotated = Unknown_Rotate(ship_tm, tangent1); tangent1 = rotated; // NAME 1: 794E3A..E92 rotation-return object copied to raw tangent
+ 	Vector3 normalized = Normalize(rotated); // NAME 1: 794E96..EF7 result before down product
+-	tangent0 = normalized * speed_fwd + Vector3(0.0f, 0.0f, -1.0f) * speed_down;
++	Vector3 down(0.0f, 0.0f, -1.0f); // NAME 1: 794F29..F58 downward tangent direction
++	tangent0 = normalized * speed_fwd + down * speed_down;
+ 	up_dir = ship_tm * up_dir;
+ 	Vector3 cam_pos = end_pos;
+ 	cam_pos.X += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+
+FORM component_copy__sum_result
+--- best_control/camctrl_pland.cpp
++++ component_copy__sum_result/camctrl_pland.cpp
+@@ -146,13 +146,14 @@
+ 	float speed_fwd = ini.Get_Float(section, "SpeedForward", 100.0f);
+ 	float speed_down = ini.Get_Float(section, "SpeedDown", 100.0f);
+ 	Matrix3D ship_tm = ship->Unknown_28(false);
+-	end_pos = ship_tm.Get_Translation();
++	end_pos.X = ship_tm[0][3]; end_pos.Y = ship_tm[1][3]; end_pos.Z = ship_tm[2][3];
+ 	ship_tm.Set_Translation(Vector3(0.0f, 0.0f, 0.0f));
+ 	start_pos = end_pos + Unknown_Rotate(ship_tm, start_pos);
+ 	tangent1.X = speed_fwd;
+ 	Vector3 rotated = Unknown_Rotate(ship_tm, tangent1); tangent1 = rotated; // NAME 1: 794E3A..E92 rotation-return object copied to raw tangent
+ 	Vector3 normalized = Normalize(rotated); // NAME 1: 794E96..EF7 result before down product
+-	tangent0 = normalized * speed_fwd + Vector3(0.0f, 0.0f, -1.0f) * speed_down;
++	Vector3 sum = normalized * speed_fwd + Vector3(0.0f, 0.0f, -1.0f) * speed_down; // NAME 1: 794F59..F7E combined tangent
++	tangent0 = sum;
+ 	up_dir = ship_tm * up_dir;
+ 	Vector3 cam_pos = end_pos;
+ 	cam_pos.X += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+
+FORM component_copy__forward_accumulate
+--- best_control/camctrl_pland.cpp
++++ component_copy__forward_accumulate/camctrl_pland.cpp
+@@ -146,13 +146,13 @@
+ 	float speed_fwd = ini.Get_Float(section, "SpeedForward", 100.0f);
+ 	float speed_down = ini.Get_Float(section, "SpeedDown", 100.0f);
+ 	Matrix3D ship_tm = ship->Unknown_28(false);
+-	end_pos = ship_tm.Get_Translation();
++	end_pos.X = ship_tm[0][3]; end_pos.Y = ship_tm[1][3]; end_pos.Z = ship_tm[2][3];
+ 	ship_tm.Set_Translation(Vector3(0.0f, 0.0f, 0.0f));
+ 	start_pos = end_pos + Unknown_Rotate(ship_tm, start_pos);
+ 	tangent1.X = speed_fwd;
+ 	Vector3 rotated = Unknown_Rotate(ship_tm, tangent1); tangent1 = rotated; // NAME 1: 794E3A..E92 rotation-return object copied to raw tangent
+ 	Vector3 normalized = Normalize(rotated); // NAME 1: 794E96..EF7 result before down product
+-	tangent0 = normalized * speed_fwd + Vector3(0.0f, 0.0f, -1.0f) * speed_down;
++	tangent0 = normalized * speed_fwd; tangent0 += Vector3(0.0f, 0.0f, -1.0f) * speed_down;
+ 	up_dir = ship_tm * up_dir;
+ 	Vector3 cam_pos = end_pos;
+ 	cam_pos.X += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+
+FORM component_copy__return_times_scalar_first
+--- best_control/camctrl_pland.cpp
++++ component_copy__return_times_scalar_first/camctrl_pland.cpp
+@@ -146,13 +146,13 @@
+ 	float speed_fwd = ini.Get_Float(section, "SpeedForward", 100.0f);
+ 	float speed_down = ini.Get_Float(section, "SpeedDown", 100.0f);
+ 	Matrix3D ship_tm = ship->Unknown_28(false);
+-	end_pos = ship_tm.Get_Translation();
++	end_pos.X = ship_tm[0][3]; end_pos.Y = ship_tm[1][3]; end_pos.Z = ship_tm[2][3];
+ 	ship_tm.Set_Translation(Vector3(0.0f, 0.0f, 0.0f));
+ 	start_pos = end_pos + Unknown_Rotate(ship_tm, start_pos);
+ 	tangent1.X = speed_fwd;
+ 	Vector3 rotated = Unknown_Rotate(ship_tm, tangent1); tangent1 = rotated; // NAME 1: 794E3A..E92 rotation-return object copied to raw tangent
+ 	Vector3 normalized = Normalize(rotated); // NAME 1: 794E96..EF7 result before down product
+-	tangent0 = normalized * speed_fwd + Vector3(0.0f, 0.0f, -1.0f) * speed_down;
++	tangent0 = speed_fwd * normalized + speed_down * Vector3(0.0f, 0.0f, -1.0f);
+ 	up_dir = ship_tm * up_dir;
+ 	Vector3 cam_pos = end_pos;
+ 	cam_pos.X += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+
+FORM return_construct__normalize_raw_copy
+--- best_control/camctrl_pland.cpp
++++ return_construct__normalize_raw_copy/camctrl_pland.cpp
+@@ -134,7 +134,7 @@
+ 	Vector3 start_pos(0.0f, 0.0f, 0.0f);
+ 	Vector3 tangent0(0.0f, 0.0f, 0.0f);
+ 	Vector3 configured_up(0.0f, 0.0f, 0.0f); // NAME 1: 794CB9..D00, INI UX/UY/UZ values stored but unread
+-	Vector3 end_pos(0.0f, 0.0f, 0.0f); // NAME 1: 794D5A..94 saved endpoint translation
++
+ 	Vector3 tangent1(0.0f, 0.0f, 0.0f);
+ 	Vector3 up_dir(0.0f, 0.0f, 1.0f);
+ 	start_pos.X = ini.Get_Float(section, "SX", -1000.0f);
+@@ -146,12 +146,12 @@
+ 	float speed_fwd = ini.Get_Float(section, "SpeedForward", 100.0f);
+ 	float speed_down = ini.Get_Float(section, "SpeedDown", 100.0f);
+ 	Matrix3D ship_tm = ship->Unknown_28(false);
+-	end_pos = ship_tm.Get_Translation();
++	Vector3 end_pos(ship_tm.Get_Translation()); // NAME 1: 794D5A..94 saved endpoint translation
+ 	ship_tm.Set_Translation(Vector3(0.0f, 0.0f, 0.0f));
+ 	start_pos = end_pos + Unknown_Rotate(ship_tm, start_pos);
+ 	tangent1.X = speed_fwd;
+ 	Vector3 rotated = Unknown_Rotate(ship_tm, tangent1); tangent1 = rotated; // NAME 1: 794E3A..E92 rotation-return object copied to raw tangent
+-	Vector3 normalized = Normalize(rotated); // NAME 1: 794E96..EF7 result before down product
++	Vector3 normalized = Normalize(tangent1); // NAME 1: 794E96..EF7 result before down product
+ 	tangent0 = normalized * speed_fwd + Vector3(0.0f, 0.0f, -1.0f) * speed_down;
+ 	up_dir = ship_tm * up_dir;
+ 	Vector3 cam_pos = end_pos;
+
+FORM return_construct__normalize_assign
+--- best_control/camctrl_pland.cpp
++++ return_construct__normalize_assign/camctrl_pland.cpp
+@@ -134,7 +134,7 @@
+ 	Vector3 start_pos(0.0f, 0.0f, 0.0f);
+ 	Vector3 tangent0(0.0f, 0.0f, 0.0f);
+ 	Vector3 configured_up(0.0f, 0.0f, 0.0f); // NAME 1: 794CB9..D00, INI UX/UY/UZ values stored but unread
+-	Vector3 end_pos(0.0f, 0.0f, 0.0f); // NAME 1: 794D5A..94 saved endpoint translation
++
+ 	Vector3 tangent1(0.0f, 0.0f, 0.0f);
+ 	Vector3 up_dir(0.0f, 0.0f, 1.0f);
+ 	start_pos.X = ini.Get_Float(section, "SX", -1000.0f);
+@@ -146,12 +146,12 @@
+ 	float speed_fwd = ini.Get_Float(section, "SpeedForward", 100.0f);
+ 	float speed_down = ini.Get_Float(section, "SpeedDown", 100.0f);
+ 	Matrix3D ship_tm = ship->Unknown_28(false);
+-	end_pos = ship_tm.Get_Translation();
++	Vector3 end_pos(ship_tm.Get_Translation()); // NAME 1: 794D5A..94 saved endpoint translation
+ 	ship_tm.Set_Translation(Vector3(0.0f, 0.0f, 0.0f));
+ 	start_pos = end_pos + Unknown_Rotate(ship_tm, start_pos);
+ 	tangent1.X = speed_fwd;
+ 	Vector3 rotated = Unknown_Rotate(ship_tm, tangent1); tangent1 = rotated; // NAME 1: 794E3A..E92 rotation-return object copied to raw tangent
+-	Vector3 normalized = Normalize(rotated); // NAME 1: 794E96..EF7 result before down product
++	Vector3 normalized; normalized = Normalize(rotated); // NAME 1: 794E96..EF7 result before down product
+ 	tangent0 = normalized * speed_fwd + Vector3(0.0f, 0.0f, -1.0f) * speed_down;
+ 	up_dir = ship_tm * up_dir;
+ 	Vector3 cam_pos = end_pos;
+
+FORM return_construct__normalized_ctor
+--- best_control/camctrl_pland.cpp
++++ return_construct__normalized_ctor/camctrl_pland.cpp
+@@ -134,7 +134,7 @@
+ 	Vector3 start_pos(0.0f, 0.0f, 0.0f);
+ 	Vector3 tangent0(0.0f, 0.0f, 0.0f);
+ 	Vector3 configured_up(0.0f, 0.0f, 0.0f); // NAME 1: 794CB9..D00, INI UX/UY/UZ values stored but unread
+-	Vector3 end_pos(0.0f, 0.0f, 0.0f); // NAME 1: 794D5A..94 saved endpoint translation
++
+ 	Vector3 tangent1(0.0f, 0.0f, 0.0f);
+ 	Vector3 up_dir(0.0f, 0.0f, 1.0f);
+ 	start_pos.X = ini.Get_Float(section, "SX", -1000.0f);
+@@ -146,12 +146,12 @@
+ 	float speed_fwd = ini.Get_Float(section, "SpeedForward", 100.0f);
+ 	float speed_down = ini.Get_Float(section, "SpeedDown", 100.0f);
+ 	Matrix3D ship_tm = ship->Unknown_28(false);
+-	end_pos = ship_tm.Get_Translation();
++	Vector3 end_pos(ship_tm.Get_Translation()); // NAME 1: 794D5A..94 saved endpoint translation
+ 	ship_tm.Set_Translation(Vector3(0.0f, 0.0f, 0.0f));
+ 	start_pos = end_pos + Unknown_Rotate(ship_tm, start_pos);
+ 	tangent1.X = speed_fwd;
+ 	Vector3 rotated = Unknown_Rotate(ship_tm, tangent1); tangent1 = rotated; // NAME 1: 794E3A..E92 rotation-return object copied to raw tangent
+-	Vector3 normalized = Normalize(rotated); // NAME 1: 794E96..EF7 result before down product
++	Vector3 normalized(Normalize(rotated)); // NAME 1: 794E96..EF7 result before down product
+ 	tangent0 = normalized * speed_fwd + Vector3(0.0f, 0.0f, -1.0f) * speed_down;
+ 	up_dir = ship_tm * up_dir;
+ 	Vector3 cam_pos = end_pos;
+
+FORM return_construct__forward_result
+--- best_control/camctrl_pland.cpp
++++ return_construct__forward_result/camctrl_pland.cpp
+@@ -134,7 +134,7 @@
+ 	Vector3 start_pos(0.0f, 0.0f, 0.0f);
+ 	Vector3 tangent0(0.0f, 0.0f, 0.0f);
+ 	Vector3 configured_up(0.0f, 0.0f, 0.0f); // NAME 1: 794CB9..D00, INI UX/UY/UZ values stored but unread
+-	Vector3 end_pos(0.0f, 0.0f, 0.0f); // NAME 1: 794D5A..94 saved endpoint translation
++
+ 	Vector3 tangent1(0.0f, 0.0f, 0.0f);
+ 	Vector3 up_dir(0.0f, 0.0f, 1.0f);
+ 	start_pos.X = ini.Get_Float(section, "SX", -1000.0f);
+@@ -146,13 +146,14 @@
+ 	float speed_fwd = ini.Get_Float(section, "SpeedForward", 100.0f);
+ 	float speed_down = ini.Get_Float(section, "SpeedDown", 100.0f);
+ 	Matrix3D ship_tm = ship->Unknown_28(false);
+-	end_pos = ship_tm.Get_Translation();
++	Vector3 end_pos(ship_tm.Get_Translation()); // NAME 1: 794D5A..94 saved endpoint translation
+ 	ship_tm.Set_Translation(Vector3(0.0f, 0.0f, 0.0f));
+ 	start_pos = end_pos + Unknown_Rotate(ship_tm, start_pos);
+ 	tangent1.X = speed_fwd;
+ 	Vector3 rotated = Unknown_Rotate(ship_tm, tangent1); tangent1 = rotated; // NAME 1: 794E3A..E92 rotation-return object copied to raw tangent
+ 	Vector3 normalized = Normalize(rotated); // NAME 1: 794E96..EF7 result before down product
+-	tangent0 = normalized * speed_fwd + Vector3(0.0f, 0.0f, -1.0f) * speed_down;
++	Vector3 forward = normalized * speed_fwd; // NAME 1: 794EFB..F28 scaled normalized tangent
++	tangent0 = forward + Vector3(0.0f, 0.0f, -1.0f) * speed_down;
+ 	up_dir = ship_tm * up_dir;
+ 	Vector3 cam_pos = end_pos;
+ 	cam_pos.X += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+
+FORM return_construct__down_result
+--- best_control/camctrl_pland.cpp
++++ return_construct__down_result/camctrl_pland.cpp
+@@ -134,7 +134,7 @@
+ 	Vector3 start_pos(0.0f, 0.0f, 0.0f);
+ 	Vector3 tangent0(0.0f, 0.0f, 0.0f);
+ 	Vector3 configured_up(0.0f, 0.0f, 0.0f); // NAME 1: 794CB9..D00, INI UX/UY/UZ values stored but unread
+-	Vector3 end_pos(0.0f, 0.0f, 0.0f); // NAME 1: 794D5A..94 saved endpoint translation
++
+ 	Vector3 tangent1(0.0f, 0.0f, 0.0f);
+ 	Vector3 up_dir(0.0f, 0.0f, 1.0f);
+ 	start_pos.X = ini.Get_Float(section, "SX", -1000.0f);
+@@ -146,13 +146,14 @@
+ 	float speed_fwd = ini.Get_Float(section, "SpeedForward", 100.0f);
+ 	float speed_down = ini.Get_Float(section, "SpeedDown", 100.0f);
+ 	Matrix3D ship_tm = ship->Unknown_28(false);
+-	end_pos = ship_tm.Get_Translation();
++	Vector3 end_pos(ship_tm.Get_Translation()); // NAME 1: 794D5A..94 saved endpoint translation
+ 	ship_tm.Set_Translation(Vector3(0.0f, 0.0f, 0.0f));
+ 	start_pos = end_pos + Unknown_Rotate(ship_tm, start_pos);
+ 	tangent1.X = speed_fwd;
+ 	Vector3 rotated = Unknown_Rotate(ship_tm, tangent1); tangent1 = rotated; // NAME 1: 794E3A..E92 rotation-return object copied to raw tangent
+ 	Vector3 normalized = Normalize(rotated); // NAME 1: 794E96..EF7 result before down product
+-	tangent0 = normalized * speed_fwd + Vector3(0.0f, 0.0f, -1.0f) * speed_down;
++	Vector3 down = Vector3(0.0f, 0.0f, -1.0f) * speed_down; // NAME 1: 794F29..F58 scaled downward tangent
++	tangent0 = normalized * speed_fwd + down;
+ 	up_dir = ship_tm * up_dir;
+ 	Vector3 cam_pos = end_pos;
+ 	cam_pos.X += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+
+FORM return_construct__both_results
+--- best_control/camctrl_pland.cpp
++++ return_construct__both_results/camctrl_pland.cpp
+@@ -134,7 +134,7 @@
+ 	Vector3 start_pos(0.0f, 0.0f, 0.0f);
+ 	Vector3 tangent0(0.0f, 0.0f, 0.0f);
+ 	Vector3 configured_up(0.0f, 0.0f, 0.0f); // NAME 1: 794CB9..D00, INI UX/UY/UZ values stored but unread
+-	Vector3 end_pos(0.0f, 0.0f, 0.0f); // NAME 1: 794D5A..94 saved endpoint translation
++
+ 	Vector3 tangent1(0.0f, 0.0f, 0.0f);
+ 	Vector3 up_dir(0.0f, 0.0f, 1.0f);
+ 	start_pos.X = ini.Get_Float(section, "SX", -1000.0f);
+@@ -146,13 +146,15 @@
+ 	float speed_fwd = ini.Get_Float(section, "SpeedForward", 100.0f);
+ 	float speed_down = ini.Get_Float(section, "SpeedDown", 100.0f);
+ 	Matrix3D ship_tm = ship->Unknown_28(false);
+-	end_pos = ship_tm.Get_Translation();
++	Vector3 end_pos(ship_tm.Get_Translation()); // NAME 1: 794D5A..94 saved endpoint translation
+ 	ship_tm.Set_Translation(Vector3(0.0f, 0.0f, 0.0f));
+ 	start_pos = end_pos + Unknown_Rotate(ship_tm, start_pos);
+ 	tangent1.X = speed_fwd;
+ 	Vector3 rotated = Unknown_Rotate(ship_tm, tangent1); tangent1 = rotated; // NAME 1: 794E3A..E92 rotation-return object copied to raw tangent
+ 	Vector3 normalized = Normalize(rotated); // NAME 1: 794E96..EF7 result before down product
+-	tangent0 = normalized * speed_fwd + Vector3(0.0f, 0.0f, -1.0f) * speed_down;
++	Vector3 forward = normalized * speed_fwd; // NAME 1: 794EFB..F28 scaled normalized tangent
++	Vector3 down = Vector3(0.0f, 0.0f, -1.0f) * speed_down; // NAME 1: 794F29..F58 scaled downward tangent
++	tangent0 = forward + down;
+ 	up_dir = ship_tm * up_dir;
+ 	Vector3 cam_pos = end_pos;
+ 	cam_pos.X += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+
+FORM return_construct__down_direction
+--- best_control/camctrl_pland.cpp
++++ return_construct__down_direction/camctrl_pland.cpp
+@@ -134,7 +134,7 @@
+ 	Vector3 start_pos(0.0f, 0.0f, 0.0f);
+ 	Vector3 tangent0(0.0f, 0.0f, 0.0f);
+ 	Vector3 configured_up(0.0f, 0.0f, 0.0f); // NAME 1: 794CB9..D00, INI UX/UY/UZ values stored but unread
+-	Vector3 end_pos(0.0f, 0.0f, 0.0f); // NAME 1: 794D5A..94 saved endpoint translation
++
+ 	Vector3 tangent1(0.0f, 0.0f, 0.0f);
+ 	Vector3 up_dir(0.0f, 0.0f, 1.0f);
+ 	start_pos.X = ini.Get_Float(section, "SX", -1000.0f);
+@@ -146,13 +146,14 @@
+ 	float speed_fwd = ini.Get_Float(section, "SpeedForward", 100.0f);
+ 	float speed_down = ini.Get_Float(section, "SpeedDown", 100.0f);
+ 	Matrix3D ship_tm = ship->Unknown_28(false);
+-	end_pos = ship_tm.Get_Translation();
++	Vector3 end_pos(ship_tm.Get_Translation()); // NAME 1: 794D5A..94 saved endpoint translation
+ 	ship_tm.Set_Translation(Vector3(0.0f, 0.0f, 0.0f));
+ 	start_pos = end_pos + Unknown_Rotate(ship_tm, start_pos);
+ 	tangent1.X = speed_fwd;
+ 	Vector3 rotated = Unknown_Rotate(ship_tm, tangent1); tangent1 = rotated; // NAME 1: 794E3A..E92 rotation-return object copied to raw tangent
+ 	Vector3 normalized = Normalize(rotated); // NAME 1: 794E96..EF7 result before down product
+-	tangent0 = normalized * speed_fwd + Vector3(0.0f, 0.0f, -1.0f) * speed_down;
++	Vector3 down(0.0f, 0.0f, -1.0f); // NAME 1: 794F29..F58 downward tangent direction
++	tangent0 = normalized * speed_fwd + down * speed_down;
+ 	up_dir = ship_tm * up_dir;
+ 	Vector3 cam_pos = end_pos;
+ 	cam_pos.X += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+
+FORM return_construct__sum_result
+--- best_control/camctrl_pland.cpp
++++ return_construct__sum_result/camctrl_pland.cpp
+@@ -134,7 +134,7 @@
+ 	Vector3 start_pos(0.0f, 0.0f, 0.0f);
+ 	Vector3 tangent0(0.0f, 0.0f, 0.0f);
+ 	Vector3 configured_up(0.0f, 0.0f, 0.0f); // NAME 1: 794CB9..D00, INI UX/UY/UZ values stored but unread
+-	Vector3 end_pos(0.0f, 0.0f, 0.0f); // NAME 1: 794D5A..94 saved endpoint translation
++
+ 	Vector3 tangent1(0.0f, 0.0f, 0.0f);
+ 	Vector3 up_dir(0.0f, 0.0f, 1.0f);
+ 	start_pos.X = ini.Get_Float(section, "SX", -1000.0f);
+@@ -146,13 +146,14 @@
+ 	float speed_fwd = ini.Get_Float(section, "SpeedForward", 100.0f);
+ 	float speed_down = ini.Get_Float(section, "SpeedDown", 100.0f);
+ 	Matrix3D ship_tm = ship->Unknown_28(false);
+-	end_pos = ship_tm.Get_Translation();
++	Vector3 end_pos(ship_tm.Get_Translation()); // NAME 1: 794D5A..94 saved endpoint translation
+ 	ship_tm.Set_Translation(Vector3(0.0f, 0.0f, 0.0f));
+ 	start_pos = end_pos + Unknown_Rotate(ship_tm, start_pos);
+ 	tangent1.X = speed_fwd;
+ 	Vector3 rotated = Unknown_Rotate(ship_tm, tangent1); tangent1 = rotated; // NAME 1: 794E3A..E92 rotation-return object copied to raw tangent
+ 	Vector3 normalized = Normalize(rotated); // NAME 1: 794E96..EF7 result before down product
+-	tangent0 = normalized * speed_fwd + Vector3(0.0f, 0.0f, -1.0f) * speed_down;
++	Vector3 sum = normalized * speed_fwd + Vector3(0.0f, 0.0f, -1.0f) * speed_down; // NAME 1: 794F59..F7E combined tangent
++	tangent0 = sum;
+ 	up_dir = ship_tm * up_dir;
+ 	Vector3 cam_pos = end_pos;
+ 	cam_pos.X += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+
+FORM return_construct__forward_accumulate
+--- best_control/camctrl_pland.cpp
++++ return_construct__forward_accumulate/camctrl_pland.cpp
+@@ -134,7 +134,7 @@
+ 	Vector3 start_pos(0.0f, 0.0f, 0.0f);
+ 	Vector3 tangent0(0.0f, 0.0f, 0.0f);
+ 	Vector3 configured_up(0.0f, 0.0f, 0.0f); // NAME 1: 794CB9..D00, INI UX/UY/UZ values stored but unread
+-	Vector3 end_pos(0.0f, 0.0f, 0.0f); // NAME 1: 794D5A..94 saved endpoint translation
++
+ 	Vector3 tangent1(0.0f, 0.0f, 0.0f);
+ 	Vector3 up_dir(0.0f, 0.0f, 1.0f);
+ 	start_pos.X = ini.Get_Float(section, "SX", -1000.0f);
+@@ -146,13 +146,13 @@
+ 	float speed_fwd = ini.Get_Float(section, "SpeedForward", 100.0f);
+ 	float speed_down = ini.Get_Float(section, "SpeedDown", 100.0f);
+ 	Matrix3D ship_tm = ship->Unknown_28(false);
+-	end_pos = ship_tm.Get_Translation();
++	Vector3 end_pos(ship_tm.Get_Translation()); // NAME 1: 794D5A..94 saved endpoint translation
+ 	ship_tm.Set_Translation(Vector3(0.0f, 0.0f, 0.0f));
+ 	start_pos = end_pos + Unknown_Rotate(ship_tm, start_pos);
+ 	tangent1.X = speed_fwd;
+ 	Vector3 rotated = Unknown_Rotate(ship_tm, tangent1); tangent1 = rotated; // NAME 1: 794E3A..E92 rotation-return object copied to raw tangent
+ 	Vector3 normalized = Normalize(rotated); // NAME 1: 794E96..EF7 result before down product
+-	tangent0 = normalized * speed_fwd + Vector3(0.0f, 0.0f, -1.0f) * speed_down;
++	tangent0 = normalized * speed_fwd; tangent0 += Vector3(0.0f, 0.0f, -1.0f) * speed_down;
+ 	up_dir = ship_tm * up_dir;
+ 	Vector3 cam_pos = end_pos;
+ 	cam_pos.X += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+
+FORM return_construct__return_times_scalar_first
+--- best_control/camctrl_pland.cpp
++++ return_construct__return_times_scalar_first/camctrl_pland.cpp
+@@ -134,7 +134,7 @@
+ 	Vector3 start_pos(0.0f, 0.0f, 0.0f);
+ 	Vector3 tangent0(0.0f, 0.0f, 0.0f);
+ 	Vector3 configured_up(0.0f, 0.0f, 0.0f); // NAME 1: 794CB9..D00, INI UX/UY/UZ values stored but unread
+-	Vector3 end_pos(0.0f, 0.0f, 0.0f); // NAME 1: 794D5A..94 saved endpoint translation
++
+ 	Vector3 tangent1(0.0f, 0.0f, 0.0f);
+ 	Vector3 up_dir(0.0f, 0.0f, 1.0f);
+ 	start_pos.X = ini.Get_Float(section, "SX", -1000.0f);
+@@ -146,13 +146,13 @@
+ 	float speed_fwd = ini.Get_Float(section, "SpeedForward", 100.0f);
+ 	float speed_down = ini.Get_Float(section, "SpeedDown", 100.0f);
+ 	Matrix3D ship_tm = ship->Unknown_28(false);
+-	end_pos = ship_tm.Get_Translation();
++	Vector3 end_pos(ship_tm.Get_Translation()); // NAME 1: 794D5A..94 saved endpoint translation
+ 	ship_tm.Set_Translation(Vector3(0.0f, 0.0f, 0.0f));
+ 	start_pos = end_pos + Unknown_Rotate(ship_tm, start_pos);
+ 	tangent1.X = speed_fwd;
+ 	Vector3 rotated = Unknown_Rotate(ship_tm, tangent1); tangent1 = rotated; // NAME 1: 794E3A..E92 rotation-return object copied to raw tangent
+ 	Vector3 normalized = Normalize(rotated); // NAME 1: 794E96..EF7 result before down product
+-	tangent0 = normalized * speed_fwd + Vector3(0.0f, 0.0f, -1.0f) * speed_down;
++	tangent0 = speed_fwd * normalized + speed_down * Vector3(0.0f, 0.0f, -1.0f);
+ 	up_dir = ship_tm * up_dir;
+ 	Vector3 cam_pos = end_pos;
+ 	cam_pos.X += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+
+FORM component_construct__normalize_raw_copy
+--- best_control/camctrl_pland.cpp
++++ component_construct__normalize_raw_copy/camctrl_pland.cpp
+@@ -134,7 +134,7 @@
+ 	Vector3 start_pos(0.0f, 0.0f, 0.0f);
+ 	Vector3 tangent0(0.0f, 0.0f, 0.0f);
+ 	Vector3 configured_up(0.0f, 0.0f, 0.0f); // NAME 1: 794CB9..D00, INI UX/UY/UZ values stored but unread
+-	Vector3 end_pos(0.0f, 0.0f, 0.0f); // NAME 1: 794D5A..94 saved endpoint translation
++
+ 	Vector3 tangent1(0.0f, 0.0f, 0.0f);
+ 	Vector3 up_dir(0.0f, 0.0f, 1.0f);
+ 	start_pos.X = ini.Get_Float(section, "SX", -1000.0f);
+@@ -146,12 +146,12 @@
+ 	float speed_fwd = ini.Get_Float(section, "SpeedForward", 100.0f);
+ 	float speed_down = ini.Get_Float(section, "SpeedDown", 100.0f);
+ 	Matrix3D ship_tm = ship->Unknown_28(false);
+-	end_pos = ship_tm.Get_Translation();
++	Vector3 end_pos(ship_tm[0][3], ship_tm[1][3], ship_tm[2][3]); // NAME 1: 794D5A..94 saved endpoint translation
+ 	ship_tm.Set_Translation(Vector3(0.0f, 0.0f, 0.0f));
+ 	start_pos = end_pos + Unknown_Rotate(ship_tm, start_pos);
+ 	tangent1.X = speed_fwd;
+ 	Vector3 rotated = Unknown_Rotate(ship_tm, tangent1); tangent1 = rotated; // NAME 1: 794E3A..E92 rotation-return object copied to raw tangent
+-	Vector3 normalized = Normalize(rotated); // NAME 1: 794E96..EF7 result before down product
++	Vector3 normalized = Normalize(tangent1); // NAME 1: 794E96..EF7 result before down product
+ 	tangent0 = normalized * speed_fwd + Vector3(0.0f, 0.0f, -1.0f) * speed_down;
+ 	up_dir = ship_tm * up_dir;
+ 	Vector3 cam_pos = end_pos;
+
+FORM component_construct__normalize_assign
+--- best_control/camctrl_pland.cpp
++++ component_construct__normalize_assign/camctrl_pland.cpp
+@@ -134,7 +134,7 @@
+ 	Vector3 start_pos(0.0f, 0.0f, 0.0f);
+ 	Vector3 tangent0(0.0f, 0.0f, 0.0f);
+ 	Vector3 configured_up(0.0f, 0.0f, 0.0f); // NAME 1: 794CB9..D00, INI UX/UY/UZ values stored but unread
+-	Vector3 end_pos(0.0f, 0.0f, 0.0f); // NAME 1: 794D5A..94 saved endpoint translation
++
+ 	Vector3 tangent1(0.0f, 0.0f, 0.0f);
+ 	Vector3 up_dir(0.0f, 0.0f, 1.0f);
+ 	start_pos.X = ini.Get_Float(section, "SX", -1000.0f);
+@@ -146,12 +146,12 @@
+ 	float speed_fwd = ini.Get_Float(section, "SpeedForward", 100.0f);
+ 	float speed_down = ini.Get_Float(section, "SpeedDown", 100.0f);
+ 	Matrix3D ship_tm = ship->Unknown_28(false);
+-	end_pos = ship_tm.Get_Translation();
++	Vector3 end_pos(ship_tm[0][3], ship_tm[1][3], ship_tm[2][3]); // NAME 1: 794D5A..94 saved endpoint translation
+ 	ship_tm.Set_Translation(Vector3(0.0f, 0.0f, 0.0f));
+ 	start_pos = end_pos + Unknown_Rotate(ship_tm, start_pos);
+ 	tangent1.X = speed_fwd;
+ 	Vector3 rotated = Unknown_Rotate(ship_tm, tangent1); tangent1 = rotated; // NAME 1: 794E3A..E92 rotation-return object copied to raw tangent
+-	Vector3 normalized = Normalize(rotated); // NAME 1: 794E96..EF7 result before down product
++	Vector3 normalized; normalized = Normalize(rotated); // NAME 1: 794E96..EF7 result before down product
+ 	tangent0 = normalized * speed_fwd + Vector3(0.0f, 0.0f, -1.0f) * speed_down;
+ 	up_dir = ship_tm * up_dir;
+ 	Vector3 cam_pos = end_pos;
+
+FORM component_construct__normalized_ctor
+--- best_control/camctrl_pland.cpp
++++ component_construct__normalized_ctor/camctrl_pland.cpp
+@@ -134,7 +134,7 @@
+ 	Vector3 start_pos(0.0f, 0.0f, 0.0f);
+ 	Vector3 tangent0(0.0f, 0.0f, 0.0f);
+ 	Vector3 configured_up(0.0f, 0.0f, 0.0f); // NAME 1: 794CB9..D00, INI UX/UY/UZ values stored but unread
+-	Vector3 end_pos(0.0f, 0.0f, 0.0f); // NAME 1: 794D5A..94 saved endpoint translation
++
+ 	Vector3 tangent1(0.0f, 0.0f, 0.0f);
+ 	Vector3 up_dir(0.0f, 0.0f, 1.0f);
+ 	start_pos.X = ini.Get_Float(section, "SX", -1000.0f);
+@@ -146,12 +146,12 @@
+ 	float speed_fwd = ini.Get_Float(section, "SpeedForward", 100.0f);
+ 	float speed_down = ini.Get_Float(section, "SpeedDown", 100.0f);
+ 	Matrix3D ship_tm = ship->Unknown_28(false);
+-	end_pos = ship_tm.Get_Translation();
++	Vector3 end_pos(ship_tm[0][3], ship_tm[1][3], ship_tm[2][3]); // NAME 1: 794D5A..94 saved endpoint translation
+ 	ship_tm.Set_Translation(Vector3(0.0f, 0.0f, 0.0f));
+ 	start_pos = end_pos + Unknown_Rotate(ship_tm, start_pos);
+ 	tangent1.X = speed_fwd;
+ 	Vector3 rotated = Unknown_Rotate(ship_tm, tangent1); tangent1 = rotated; // NAME 1: 794E3A..E92 rotation-return object copied to raw tangent
+-	Vector3 normalized = Normalize(rotated); // NAME 1: 794E96..EF7 result before down product
++	Vector3 normalized(Normalize(rotated)); // NAME 1: 794E96..EF7 result before down product
+ 	tangent0 = normalized * speed_fwd + Vector3(0.0f, 0.0f, -1.0f) * speed_down;
+ 	up_dir = ship_tm * up_dir;
+ 	Vector3 cam_pos = end_pos;
+
+FORM component_construct__forward_result
+--- best_control/camctrl_pland.cpp
++++ component_construct__forward_result/camctrl_pland.cpp
+@@ -134,7 +134,7 @@
+ 	Vector3 start_pos(0.0f, 0.0f, 0.0f);
+ 	Vector3 tangent0(0.0f, 0.0f, 0.0f);
+ 	Vector3 configured_up(0.0f, 0.0f, 0.0f); // NAME 1: 794CB9..D00, INI UX/UY/UZ values stored but unread
+-	Vector3 end_pos(0.0f, 0.0f, 0.0f); // NAME 1: 794D5A..94 saved endpoint translation
++
+ 	Vector3 tangent1(0.0f, 0.0f, 0.0f);
+ 	Vector3 up_dir(0.0f, 0.0f, 1.0f);
+ 	start_pos.X = ini.Get_Float(section, "SX", -1000.0f);
+@@ -146,13 +146,14 @@
+ 	float speed_fwd = ini.Get_Float(section, "SpeedForward", 100.0f);
+ 	float speed_down = ini.Get_Float(section, "SpeedDown", 100.0f);
+ 	Matrix3D ship_tm = ship->Unknown_28(false);
+-	end_pos = ship_tm.Get_Translation();
++	Vector3 end_pos(ship_tm[0][3], ship_tm[1][3], ship_tm[2][3]); // NAME 1: 794D5A..94 saved endpoint translation
+ 	ship_tm.Set_Translation(Vector3(0.0f, 0.0f, 0.0f));
+ 	start_pos = end_pos + Unknown_Rotate(ship_tm, start_pos);
+ 	tangent1.X = speed_fwd;
+ 	Vector3 rotated = Unknown_Rotate(ship_tm, tangent1); tangent1 = rotated; // NAME 1: 794E3A..E92 rotation-return object copied to raw tangent
+ 	Vector3 normalized = Normalize(rotated); // NAME 1: 794E96..EF7 result before down product
+-	tangent0 = normalized * speed_fwd + Vector3(0.0f, 0.0f, -1.0f) * speed_down;
++	Vector3 forward = normalized * speed_fwd; // NAME 1: 794EFB..F28 scaled normalized tangent
++	tangent0 = forward + Vector3(0.0f, 0.0f, -1.0f) * speed_down;
+ 	up_dir = ship_tm * up_dir;
+ 	Vector3 cam_pos = end_pos;
+ 	cam_pos.X += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+
+FORM component_construct__down_result
+--- best_control/camctrl_pland.cpp
++++ component_construct__down_result/camctrl_pland.cpp
+@@ -134,7 +134,7 @@
+ 	Vector3 start_pos(0.0f, 0.0f, 0.0f);
+ 	Vector3 tangent0(0.0f, 0.0f, 0.0f);
+ 	Vector3 configured_up(0.0f, 0.0f, 0.0f); // NAME 1: 794CB9..D00, INI UX/UY/UZ values stored but unread
+-	Vector3 end_pos(0.0f, 0.0f, 0.0f); // NAME 1: 794D5A..94 saved endpoint translation
++
+ 	Vector3 tangent1(0.0f, 0.0f, 0.0f);
+ 	Vector3 up_dir(0.0f, 0.0f, 1.0f);
+ 	start_pos.X = ini.Get_Float(section, "SX", -1000.0f);
+@@ -146,13 +146,14 @@
+ 	float speed_fwd = ini.Get_Float(section, "SpeedForward", 100.0f);
+ 	float speed_down = ini.Get_Float(section, "SpeedDown", 100.0f);
+ 	Matrix3D ship_tm = ship->Unknown_28(false);
+-	end_pos = ship_tm.Get_Translation();
++	Vector3 end_pos(ship_tm[0][3], ship_tm[1][3], ship_tm[2][3]); // NAME 1: 794D5A..94 saved endpoint translation
+ 	ship_tm.Set_Translation(Vector3(0.0f, 0.0f, 0.0f));
+ 	start_pos = end_pos + Unknown_Rotate(ship_tm, start_pos);
+ 	tangent1.X = speed_fwd;
+ 	Vector3 rotated = Unknown_Rotate(ship_tm, tangent1); tangent1 = rotated; // NAME 1: 794E3A..E92 rotation-return object copied to raw tangent
+ 	Vector3 normalized = Normalize(rotated); // NAME 1: 794E96..EF7 result before down product
+-	tangent0 = normalized * speed_fwd + Vector3(0.0f, 0.0f, -1.0f) * speed_down;
++	Vector3 down = Vector3(0.0f, 0.0f, -1.0f) * speed_down; // NAME 1: 794F29..F58 scaled downward tangent
++	tangent0 = normalized * speed_fwd + down;
+ 	up_dir = ship_tm * up_dir;
+ 	Vector3 cam_pos = end_pos;
+ 	cam_pos.X += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+
+FORM component_construct__both_results
+--- best_control/camctrl_pland.cpp
++++ component_construct__both_results/camctrl_pland.cpp
+@@ -134,7 +134,7 @@
+ 	Vector3 start_pos(0.0f, 0.0f, 0.0f);
+ 	Vector3 tangent0(0.0f, 0.0f, 0.0f);
+ 	Vector3 configured_up(0.0f, 0.0f, 0.0f); // NAME 1: 794CB9..D00, INI UX/UY/UZ values stored but unread
+-	Vector3 end_pos(0.0f, 0.0f, 0.0f); // NAME 1: 794D5A..94 saved endpoint translation
++
+ 	Vector3 tangent1(0.0f, 0.0f, 0.0f);
+ 	Vector3 up_dir(0.0f, 0.0f, 1.0f);
+ 	start_pos.X = ini.Get_Float(section, "SX", -1000.0f);
+@@ -146,13 +146,15 @@
+ 	float speed_fwd = ini.Get_Float(section, "SpeedForward", 100.0f);
+ 	float speed_down = ini.Get_Float(section, "SpeedDown", 100.0f);
+ 	Matrix3D ship_tm = ship->Unknown_28(false);
+-	end_pos = ship_tm.Get_Translation();
++	Vector3 end_pos(ship_tm[0][3], ship_tm[1][3], ship_tm[2][3]); // NAME 1: 794D5A..94 saved endpoint translation
+ 	ship_tm.Set_Translation(Vector3(0.0f, 0.0f, 0.0f));
+ 	start_pos = end_pos + Unknown_Rotate(ship_tm, start_pos);
+ 	tangent1.X = speed_fwd;
+ 	Vector3 rotated = Unknown_Rotate(ship_tm, tangent1); tangent1 = rotated; // NAME 1: 794E3A..E92 rotation-return object copied to raw tangent
+ 	Vector3 normalized = Normalize(rotated); // NAME 1: 794E96..EF7 result before down product
+-	tangent0 = normalized * speed_fwd + Vector3(0.0f, 0.0f, -1.0f) * speed_down;
++	Vector3 forward = normalized * speed_fwd; // NAME 1: 794EFB..F28 scaled normalized tangent
++	Vector3 down = Vector3(0.0f, 0.0f, -1.0f) * speed_down; // NAME 1: 794F29..F58 scaled downward tangent
++	tangent0 = forward + down;
+ 	up_dir = ship_tm * up_dir;
+ 	Vector3 cam_pos = end_pos;
+ 	cam_pos.X += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+
+FORM component_construct__down_direction
+--- best_control/camctrl_pland.cpp
++++ component_construct__down_direction/camctrl_pland.cpp
+@@ -134,7 +134,7 @@
+ 	Vector3 start_pos(0.0f, 0.0f, 0.0f);
+ 	Vector3 tangent0(0.0f, 0.0f, 0.0f);
+ 	Vector3 configured_up(0.0f, 0.0f, 0.0f); // NAME 1: 794CB9..D00, INI UX/UY/UZ values stored but unread
+-	Vector3 end_pos(0.0f, 0.0f, 0.0f); // NAME 1: 794D5A..94 saved endpoint translation
++
+ 	Vector3 tangent1(0.0f, 0.0f, 0.0f);
+ 	Vector3 up_dir(0.0f, 0.0f, 1.0f);
+ 	start_pos.X = ini.Get_Float(section, "SX", -1000.0f);
+@@ -146,13 +146,14 @@
+ 	float speed_fwd = ini.Get_Float(section, "SpeedForward", 100.0f);
+ 	float speed_down = ini.Get_Float(section, "SpeedDown", 100.0f);
+ 	Matrix3D ship_tm = ship->Unknown_28(false);
+-	end_pos = ship_tm.Get_Translation();
++	Vector3 end_pos(ship_tm[0][3], ship_tm[1][3], ship_tm[2][3]); // NAME 1: 794D5A..94 saved endpoint translation
+ 	ship_tm.Set_Translation(Vector3(0.0f, 0.0f, 0.0f));
+ 	start_pos = end_pos + Unknown_Rotate(ship_tm, start_pos);
+ 	tangent1.X = speed_fwd;
+ 	Vector3 rotated = Unknown_Rotate(ship_tm, tangent1); tangent1 = rotated; // NAME 1: 794E3A..E92 rotation-return object copied to raw tangent
+ 	Vector3 normalized = Normalize(rotated); // NAME 1: 794E96..EF7 result before down product
+-	tangent0 = normalized * speed_fwd + Vector3(0.0f, 0.0f, -1.0f) * speed_down;
++	Vector3 down(0.0f, 0.0f, -1.0f); // NAME 1: 794F29..F58 downward tangent direction
++	tangent0 = normalized * speed_fwd + down * speed_down;
+ 	up_dir = ship_tm * up_dir;
+ 	Vector3 cam_pos = end_pos;
+ 	cam_pos.X += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+
+FORM component_construct__sum_result
+--- best_control/camctrl_pland.cpp
++++ component_construct__sum_result/camctrl_pland.cpp
+@@ -134,7 +134,7 @@
+ 	Vector3 start_pos(0.0f, 0.0f, 0.0f);
+ 	Vector3 tangent0(0.0f, 0.0f, 0.0f);
+ 	Vector3 configured_up(0.0f, 0.0f, 0.0f); // NAME 1: 794CB9..D00, INI UX/UY/UZ values stored but unread
+-	Vector3 end_pos(0.0f, 0.0f, 0.0f); // NAME 1: 794D5A..94 saved endpoint translation
++
+ 	Vector3 tangent1(0.0f, 0.0f, 0.0f);
+ 	Vector3 up_dir(0.0f, 0.0f, 1.0f);
+ 	start_pos.X = ini.Get_Float(section, "SX", -1000.0f);
+@@ -146,13 +146,14 @@
+ 	float speed_fwd = ini.Get_Float(section, "SpeedForward", 100.0f);
+ 	float speed_down = ini.Get_Float(section, "SpeedDown", 100.0f);
+ 	Matrix3D ship_tm = ship->Unknown_28(false);
+-	end_pos = ship_tm.Get_Translation();
++	Vector3 end_pos(ship_tm[0][3], ship_tm[1][3], ship_tm[2][3]); // NAME 1: 794D5A..94 saved endpoint translation
+ 	ship_tm.Set_Translation(Vector3(0.0f, 0.0f, 0.0f));
+ 	start_pos = end_pos + Unknown_Rotate(ship_tm, start_pos);
+ 	tangent1.X = speed_fwd;
+ 	Vector3 rotated = Unknown_Rotate(ship_tm, tangent1); tangent1 = rotated; // NAME 1: 794E3A..E92 rotation-return object copied to raw tangent
+ 	Vector3 normalized = Normalize(rotated); // NAME 1: 794E96..EF7 result before down product
+-	tangent0 = normalized * speed_fwd + Vector3(0.0f, 0.0f, -1.0f) * speed_down;
++	Vector3 sum = normalized * speed_fwd + Vector3(0.0f, 0.0f, -1.0f) * speed_down; // NAME 1: 794F59..F7E combined tangent
++	tangent0 = sum;
+ 	up_dir = ship_tm * up_dir;
+ 	Vector3 cam_pos = end_pos;
+ 	cam_pos.X += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+
+FORM component_construct__forward_accumulate
+--- best_control/camctrl_pland.cpp
++++ component_construct__forward_accumulate/camctrl_pland.cpp
+@@ -134,7 +134,7 @@
+ 	Vector3 start_pos(0.0f, 0.0f, 0.0f);
+ 	Vector3 tangent0(0.0f, 0.0f, 0.0f);
+ 	Vector3 configured_up(0.0f, 0.0f, 0.0f); // NAME 1: 794CB9..D00, INI UX/UY/UZ values stored but unread
+-	Vector3 end_pos(0.0f, 0.0f, 0.0f); // NAME 1: 794D5A..94 saved endpoint translation
++
+ 	Vector3 tangent1(0.0f, 0.0f, 0.0f);
+ 	Vector3 up_dir(0.0f, 0.0f, 1.0f);
+ 	start_pos.X = ini.Get_Float(section, "SX", -1000.0f);
+@@ -146,13 +146,13 @@
+ 	float speed_fwd = ini.Get_Float(section, "SpeedForward", 100.0f);
+ 	float speed_down = ini.Get_Float(section, "SpeedDown", 100.0f);
+ 	Matrix3D ship_tm = ship->Unknown_28(false);
+-	end_pos = ship_tm.Get_Translation();
++	Vector3 end_pos(ship_tm[0][3], ship_tm[1][3], ship_tm[2][3]); // NAME 1: 794D5A..94 saved endpoint translation
+ 	ship_tm.Set_Translation(Vector3(0.0f, 0.0f, 0.0f));
+ 	start_pos = end_pos + Unknown_Rotate(ship_tm, start_pos);
+ 	tangent1.X = speed_fwd;
+ 	Vector3 rotated = Unknown_Rotate(ship_tm, tangent1); tangent1 = rotated; // NAME 1: 794E3A..E92 rotation-return object copied to raw tangent
+ 	Vector3 normalized = Normalize(rotated); // NAME 1: 794E96..EF7 result before down product
+-	tangent0 = normalized * speed_fwd + Vector3(0.0f, 0.0f, -1.0f) * speed_down;
++	tangent0 = normalized * speed_fwd; tangent0 += Vector3(0.0f, 0.0f, -1.0f) * speed_down;
+ 	up_dir = ship_tm * up_dir;
+ 	Vector3 cam_pos = end_pos;
+ 	cam_pos.X += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+
+FORM component_construct__return_times_scalar_first
+--- best_control/camctrl_pland.cpp
++++ component_construct__return_times_scalar_first/camctrl_pland.cpp
+@@ -134,7 +134,7 @@
+ 	Vector3 start_pos(0.0f, 0.0f, 0.0f);
+ 	Vector3 tangent0(0.0f, 0.0f, 0.0f);
+ 	Vector3 configured_up(0.0f, 0.0f, 0.0f); // NAME 1: 794CB9..D00, INI UX/UY/UZ values stored but unread
+-	Vector3 end_pos(0.0f, 0.0f, 0.0f); // NAME 1: 794D5A..94 saved endpoint translation
++
+ 	Vector3 tangent1(0.0f, 0.0f, 0.0f);
+ 	Vector3 up_dir(0.0f, 0.0f, 1.0f);
+ 	start_pos.X = ini.Get_Float(section, "SX", -1000.0f);
+@@ -146,13 +146,13 @@
+ 	float speed_fwd = ini.Get_Float(section, "SpeedForward", 100.0f);
+ 	float speed_down = ini.Get_Float(section, "SpeedDown", 100.0f);
+ 	Matrix3D ship_tm = ship->Unknown_28(false);
+-	end_pos = ship_tm.Get_Translation();
++	Vector3 end_pos(ship_tm[0][3], ship_tm[1][3], ship_tm[2][3]); // NAME 1: 794D5A..94 saved endpoint translation
+ 	ship_tm.Set_Translation(Vector3(0.0f, 0.0f, 0.0f));
+ 	start_pos = end_pos + Unknown_Rotate(ship_tm, start_pos);
+ 	tangent1.X = speed_fwd;
+ 	Vector3 rotated = Unknown_Rotate(ship_tm, tangent1); tangent1 = rotated; // NAME 1: 794E3A..E92 rotation-return object copied to raw tangent
+ 	Vector3 normalized = Normalize(rotated); // NAME 1: 794E96..EF7 result before down product
+-	tangent0 = normalized * speed_fwd + Vector3(0.0f, 0.0f, -1.0f) * speed_down;
++	tangent0 = speed_fwd * normalized + speed_down * Vector3(0.0f, 0.0f, -1.0f);
+ 	up_dir = ship_tm * up_dir;
+ 	Vector3 cam_pos = end_pos;
+ 	cam_pos.X += (Unknown_BDB1C0.Get_Float() - 0.5f) * 500.0f;
+

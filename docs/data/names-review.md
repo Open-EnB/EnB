@@ -10,7 +10,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 227 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1970 |
-| 2 | describes what the code does | 5006 |
+| 2 | describes what the code does | 5007 |
 | 1 | neutral placeholder | 25140 |
 
 ## For review (score 3 and below)
@@ -270,11 +270,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_77FEC0` | `app/client/avatar.cpp:1092` | untagged neutral name (D10) |
 | 1 | `Unknown_780680` | `app/client/avatar.cpp:1171` | untagged neutral name (D10) |
 | 1 | `Unknown_780790` | `app/client/avatar.cpp:1183` | untagged neutral name (D10) |
-| 1 | `Unknown00` | `app/client/avatar.cpp:1210` | untagged neutral name (D10) |
-| 1 | `Unknown04` | `app/client/avatar.cpp:1212` | untagged neutral name (D10) |
-| 1 | `Unknown10` | `app/client/avatar.cpp:1218` | untagged neutral name (D10) |
+| 1 | `Unknown00` | `app/client/avatar.cpp:1204` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `app/client/avatar.cpp:1206` | untagged neutral name (D10) |
 | 1 | `Unknown_780AF0` | `app/client/avatar.cpp:1311` | untagged neutral name (D10) |
-| 1 | `Unknown_7812A0` | `app/client/avatar.cpp:1332` | untagged neutral name (D10) |
+| 1 | `name` | `app/client/avatar.cpp:1328` | cached subobject name (client 0x780C84) |
+| 1 | `Unknown_7812A0` | `app/client/avatar.cpp:1333` | untagged neutral name (D10) |
 | 1 | `Unknown_78EC00` | `app/client/avatar.cpp:1528` | untagged neutral name (D10) |
 | 1 | `Unknown_781760` | `app/client/avatar.cpp:1532` | untagged neutral name (D10) |
 | 1 | `Unknown0E8` | `app/client/avatar.cpp:1535` | untagged neutral name (D10) |
@@ -17854,7 +17854,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6211D0` | `app/client/ui_shipcust.cpp:171` | untagged neutral name (D10) |
 | 1 | `Unknown00` | `app/client/ui_shipcust.cpp:180` | untagged neutral name (D10) |
 | 1 | `Unknown04` | `app/client/ui_shipcust.cpp:180` | untagged neutral name (D10) |
-| 1 | `Unknown10` | `app/client/ui_shipcust.cpp:192` | untagged neutral name (D10) |
 | 1 | `Unknown_80EFF0` | `app/client/ui_shipcust.cpp:195` | untagged neutral name (D10) |
 | 1 | `Unknown160` | `app/client/ui_shipcust.cpp:195` | untagged neutral name (D10) |
 | 1 | `Unknown_621390` | `app/client/ui_shipcust.cpp:234` | untagged neutral name (D10) |
@@ -17976,6 +17975,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_B08CB8` | `app/client/ui_shipcust.cpp:1841` | untagged neutral name (D10) |
 | 1 | `Unknown78` | `app/client/ui_shipcust.cpp:1842` | untagged neutral name (D10) |
 | 1 | `Unknown_58` | `app/client/ui_shipcust.cpp:1864` | untagged neutral name (D10) |
+| 1 | `Unknown10` | `app/client/ui_shipcust.cpp:1875` | untagged neutral name (D10) |
 | 1 | `Unknown3C` | `app/client/ui_shipcust.cpp:1877` | untagged neutral name (D10) |
 | 1 | `Unknown_627160` | `app/client/ui_shipcust.cpp:1883` | untagged neutral name (D10) |
 | 1 | `Unknown_627730` | `app/client/ui_shipcust.cpp:1947` | untagged neutral name (D10) |
@@ -21266,6 +21266,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_7901C0` | `app/client/unknown_personality.cpp:141` | untagged neutral name (D10) |
 | 1 | `Unknown_790260Class` | `app/client/unknown_personality.cpp:156` | untagged neutral name (D10) |
 | 1 | `Unknown_790360` | `app/client/unknown_personality.cpp:179` | untagged neutral name (D10) |
+| 1 | `needs_load` | `app/client/unknown_personality.cpp:181` | the null predicate materialized at 0x790384 |
 | 1 | `unknown_personality.h` | `app/client/unknown_personality.h:13` | provisional (D10) |
 | 1 | `Unknown_78F700Class` | `app/client/unknown_personality.h:20` | neutral (D10) |
 | 1 | `Unknown_78F9F0` | `app/client/unknown_personality.h:38` | neutral (D10) |
@@ -21279,7 +21280,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown140` | `app/client/unknown_personality.h:88` | neutral (D10) |
 | 1 | `Unknown_791310Class` | `app/client/unknown_personality.h:94` | neutral (D10) |
 | 1 | `Unknown_791400` | `app/client/unknown_personality.h:98` | neutral (D10) |
-| 1 | `Unknown_7917B0` | `app/client/unknown_personality.h:99` | neutral (D10) |
+| 1 | `Unknown_7917B0` | `app/client/unknown_personality.h:99` | neutral (D10); original is unused, pointer type inferred from client 0x791486 |
 | 1 | `Unknown_791880` | `app/client/unknown_personality.h:100` | neutral (D10) |
 | 1 | `Unknown_791970` | `app/client/unknown_personality.h:101` | neutral (D10) |
 | 1 | `Unknown_791B00` | `app/client/unknown_personality.h:102` | neutral (D10) |
@@ -21322,16 +21323,17 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_791310Class` | `app/client/unknown_phoneme.cpp:66` | untagged neutral name (D10) |
 | 1 | `group` | `app/client/unknown_phoneme.cpp:70` | neutral |
 | 1 | `count` | `app/client/unknown_phoneme.cpp:74` | neutral |
-| 1 | `Unknown_791400` | `app/client/unknown_phoneme.cpp:85` | untagged neutral name (D10) |
-| 1 | `Unknown_7917B0` | `app/client/unknown_phoneme.cpp:101` | untagged neutral name (D10) |
-| 1 | `Unknown_791880` | `app/client/unknown_phoneme.cpp:108` | untagged neutral name (D10) |
-| 1 | `Unknown_791970` | `app/client/unknown_phoneme.cpp:114` | untagged neutral name (D10) |
-| 1 | `Unknown_791B00` | `app/client/unknown_phoneme.cpp:117` | untagged neutral name (D10) |
-| 1 | `Unknown_791BF0` | `app/client/unknown_phoneme.cpp:129` | untagged neutral name (D10) |
-| 1 | `Unknown_791E50` | `app/client/unknown_phoneme.cpp:146` | untagged neutral name (D10) |
-| 1 | `Unknown_791F80` | `app/client/unknown_phoneme.cpp:162` | untagged neutral name (D10) |
-| 1 | `next` | `app/client/unknown_phoneme.cpp:390` | neutral |
-| 1 | `Unknown_791F10` | `app/client/unknown_phoneme.cpp:428` | untagged neutral name (D10) |
+| 1 | `Unknown_791400` | `app/client/unknown_phoneme.cpp:84` | untagged neutral name (D10) |
+| 1 | `Unknown_7917B0` | `app/client/unknown_phoneme.cpp:100` | untagged neutral name (D10) |
+| 1 | `Unknown_791880` | `app/client/unknown_phoneme.cpp:107` | untagged neutral name (D10) |
+| 1 | `Unknown_791970` | `app/client/unknown_phoneme.cpp:113` | untagged neutral name (D10) |
+| 1 | `Unknown_791B00` | `app/client/unknown_phoneme.cpp:116` | untagged neutral name (D10) |
+| 1 | `Unknown_791BF0` | `app/client/unknown_phoneme.cpp:128` | untagged neutral name (D10) |
+| 1 | `Unknown_791E50` | `app/client/unknown_phoneme.cpp:151` | untagged neutral name (D10) |
+| 1 | `Unknown_791F80` | `app/client/unknown_phoneme.cpp:167` | untagged neutral name (D10) |
+| 1 | `original` | `app/client/unknown_phoneme.cpp:202` | neutral; unused formal, pointer type inferred from client 0x791486 argument |
+| 1 | `next` | `app/client/unknown_phoneme.cpp:395` | neutral |
+| 1 | `Unknown_791F10` | `app/client/unknown_phoneme.cpp:433` | untagged neutral name (D10) |
 | 1 | `unknown_robj_hash.h` | `app/client/unknown_robj_hash.h:4` | ours (D137 interim): no client file holds it alone |
 | 1 | `ScreenFadeValueClass` | `app/client/unknown_screenfade.cpp:7` | neutral (D10) |
 | 1 | `Unknown0C` | `app/client/unknown_screenfade.cpp:17` | untagged neutral name (D10) |
@@ -22465,13 +22467,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_14` | `app/packets/pkcolorization.cpp:9` | untagged neutral name (D10) |
 | 1 | `Unknown00` | `app/packets/pkcolorization.cpp:20` | untagged neutral name (D10) |
 | 1 | `Unknown04` | `app/packets/pkcolorization.cpp:21` | untagged neutral name (D10) |
-| 1 | `Unknown10` | `app/packets/pkcolorization.cpp:22` | untagged neutral name (D10) |
 | 1 | `pkcolorization` | `app/packets/pkcolorization.h:15` | provisional, pk + its class's name |
 | 1 | `ColorizationHalfStruct` | `app/packets/pkcolorization.h:26` | neutral (D10), half of a region |
 | 1 | `Unknown00` | `app/packets/pkcolorization.h:28` | untagged neutral name (D10) |
 | 1 | `Unknown04` | `app/packets/pkcolorization.h:29` | untagged neutral name (D10) |
-| 1 | `ColorizationRegionStruct` | `app/packets/pkcolorization.h:32` | neutral (D10), the packet's 'NumRegions' |
-| 1 | `Unknown10` | `app/packets/pkcolorization.h:35` | untagged neutral name (D10) |
+| 1 | `ColorizationRegionStruct` | `app/packets/pkcolorization.h:32` | neutral packet-region alias; std::pair inferred from exact construction/copy callers |
 | 1 | `pkconfirmedaction` | `app/packets/pkconfirmedaction.h:15` | provisional, pk + its classes' common name |
 | 1 | `ConfirmedActionEnum` | `app/packets/pkconfirmedaction.h:21` | neutral placeholder (D10) |
 | 1 | `CONFIRMED_ACTION_NONE` | `app/packets/pkconfirmedaction.h:23` | neutral placeholder (D10) |
@@ -25376,6 +25376,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `State` | `app/client/acticon.h:34` | what Set_State stores |
 | 2 | `ActionClass` | `app/client/acticon.h:43` | action.ini's 'Action%04d' sections |
 | 2 | `Group` | `app/client/acticon.h:49` | the INI entry and the assert |
+| 2 | `forward` | `app/client/avatar.cpp:3553` | inferred name for the X-axis/direction dot product |
 | 2 | `PlayerNLP` | `app/client/avatar.h:195` | PlayerNLP != 0 assert |
 | 2 | `HeadSource` | `app/client/avatar.h:238` | '!HeadSource \|\| !BodyObj' assert |
 | 2 | `HeadObj` | `app/client/avatar.h:240` | '!HeadObj' assert (0x786370 sets hidden) |
