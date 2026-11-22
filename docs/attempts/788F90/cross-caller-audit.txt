@@ -1,0 +1,502 @@
+# 0x788F90 cross-caller audit: no transferable operation established
+
+No new source form or compilation is justified. Current application source
+remains 277cb346 (HEAD 9b671fdf is attempts-only); existing 261 avatar pairs and
+18 unfinished claimed functions are unchanged. No tracked edits, claims,
+commits, compiler/Wine calls, target execution, installation or external writes.
+
+Two corrected callsite attributions explain the apparent comparator lead.
+68DCF1/68DD07/68DD17 belong to inlined InvRenderClass::Unknown_08 (68C2D0):
+item_noskill → this+40 → CannotUseIndicator assertion. Its assignment and temporary
+destructor both call out. The direct itemon expression starts at 68DD5F and inlines
+both assignment and cleanup. These are distinct source depths in one exact caller.
+
+7AB002 belongs to inlined Set_RObj(name), assigning a default-constructed local
+at ESP+8. Factory temporary cleanup 7AB010 precedes Set_RObj(robj) at 7AB01C, then
+local cleanup 7AB02A. The actual sm_dot factory is 7AB070; its assignment and
+temporary cleanup both inline. Dot is a member at this+34, not that stack local.
+Retail galaxy-map uses Create_Get; inventory and avatar object factories use Create_NEW.
+
+EH independently confirms the extra galaxy-map local: state 6→5 owns EBP-24,
+state 7→6 owns EBP-20, whereas sm_dot state 8→5 owns EBP+4. Avatar has eight
+independent full-expression states, all → -1; case 4 states 6/7 own EBP-4C/-40.
+The prior-best object also has eight states. No owner or surviving local
+corresponds to galaxy-map's extra lifetime. All assignment receivers are live
+objects; releasing old LHS excludes a copy-construction reinterpretation.
+
+UI registration 5F7158 calls the same HAnim assignment, then temporary cleanup;
+its caller remains non-exact and supplies no missing source boundary. The
+target's called RenderObj assignment plus inline cleanup remains unexplained.
+Existing helpers, getters, null guards, factory corrections and unsupported
+shared-loader attempts were reviewed; none is a new retry from this comparison.
+
+`cross-caller-audit.txt` is the compact durable evidence; `audit.py` reproduces
+raw/EH and source/ledger guards. Comparator exactness is committed-ledger
+evidence, not fresh verification. Root owns final checks and the audit commit.
+
+PROVENANCE AND LIMITATIONS
+Model: gpt-6-astra (high). No child agents spawned.
+Retail SHA256: 249f852496f341c00361be95b66e7c0becc2c39e7cba026f9227e38b602651c4
+Immutable source tree: .work/claim-240/half-copy-identity/final-tree
+{
+  "current_and_frozen_source_sha256": {
+    "app/client/avatar.cpp": "befffe9a94459cf8a31e8a32da49fcf7e492c330a88172f087ca71dc5e5f7401",
+    "app/client/avatar.h": "79c10de19ad3c6efd0ef06ee00c6c5cf802458537be0f6c76a3c2fa159d7fddd",
+    "wwlib/ref_ptr.h": "a01d8af1bbce8484f5ab5c4264dc2dee9d5451dbedf97d336e14ac67ba322c2e",
+    "app/client/inv_render.cpp": "53d06e785578c9a5297583c846381a90d66c19ba318009900135eeb501b946d4",
+    "app/client/galaxy_map_render.cpp": "394647289b87ff02a5dde9eb73a23245e2b0fec53ce62b49e140d23d101cc163",
+    "app/client/ui_registration.cpp": "5e93dddb15f0bd18453bc18b80f6b0315b78ce610b3074edcfc58fe6bc72d40d"
+  },
+  "ledger_witnesses": {
+    "inv_render": {
+      "0x68C2D0": true,
+      "0x68DCC0": true,
+      "0x474480": true
+    },
+    "galaxy_map_render": {
+      "0x7AAF20": true,
+      "0x7A9D20": true,
+      "0x7A9EA0": true,
+      "0x474480": true
+    }
+  },
+  "prior_stash_sha256": {
+    "docs/attempts/788F90/788F90.txt": "321027eebde126c6e89fa6ecb197d9dba905be1b628e1a63a334957e81fd9454",
+    "docs/attempts/788F90/788F90_ultra.txt": "d579de7de6063a8a53276ecc45b9a549a51b5a2bb90c75009e5450204cb7082f",
+    "docs/attempts/788F90/source-forms.txt": "763abec5fd690af09733f29ab018e6fc88c3ce53b5211a4a0447b89536a561e2"
+  },
+  "limitations": [
+    "No new verification: exact comparator status comes from the committed ledger.",
+    "Prior-best object is the earlier 257-pair source, not a newly rebuilt current control.",
+    "Raw/EH evidence establishes operations and lifetimes, not original local identifier spelling."
+  ]
+}
+
+HISTORY AND OPERATION IDENTITY
+Inventory52e84c37 introduced68DCC0 with direct five indicator expressions plus the real base call.9301ef2c later expanded the file; no extra factory wrapper is needed.
+Galaxy-map831fa424 introduced Set_RObj(name): default local, conditional factory assignment, then Set_RObj(robj).294d1e2c changed the sector constructor switch receiver Data->Unknown24 to parameter data->Unknown24 and established the Set_RObj overload chain. The Dot assignment expression itself did not change.
+RefCountPtr same-type operator= adds RHS, releases existing LHS, stores referent and returns *this. Copy construction only initializes and adds RHS; it cannot explain these release-old-LHS callees. Render assignment474480 and HAnim assignment604F10 have byte-identical45-byte bodies, independently used at the target type-specific sites.
+The prior half-copy solve does not transfer: that target required a construction operation, whereas every assignment discussed here has an already-constructed destination.
+Prior source review:16 high forms,5 ultra forms,11 successful focused forms plus3 compile rejections. Focused hide_helper residue31/22 with257 earlier pairs; no claim of a current-tree control compilation. Current target still usesCreate_Get for its four object factories; the already-tested best usesCreate_NEW. No old whole-TU source was copied or compiled.
+Current exact780810/780AC0/780AF0 and12 earlier avatar Create_NEW corrections remain untouched.
+
+RAW inventory_nested_then_direct
+0x68dcc0 6aff push -1
+0x68dcc2 687bf8ab00 push 0xabf87b
+0x68dcc7 64a100000000 mov eax, dword ptr fs:[0]
+0x68dccd 50 push eax
+0x68dcce 64892500000000 mov dword ptr fs:[0], esp
+0x68dcd5 51 push ecx
+0x68dcd6 53 push ebx
+0x68dcd7 56 push esi
+0x68dcd8 8bf1 mov esi, ecx
+0x68dcda 57 push edi
+0x68dcdb 8b0de0aebf00 mov ecx, dword ptr [0xbfaee0]
+0x68dce1 685402b900 push 0xb90254
+0x68dce6 8b01 mov eax, dword ptr [ecx]
+0x68dce8 ff5014 call dword ptr [eax + 0x14]
+0x68dceb 8d4c240c lea ecx, [esp + 0xc]
+0x68dcef 50 push eax
+0x68dcf0 51 push ecx
+0x68dcf1 e81b9fd7ff call 0x407c11 -> 0x47d2e0
+0x68dcf6 83c408 add esp, 8
+0x68dcf9 8d7e40 lea edi, [esi + 0x40]
+0x68dcfc 50 push eax
+0x68dcfd 8bcf mov ecx, edi
+0x68dcff c744241c00000000 mov dword ptr [esp + 0x1c], 0
+0x68dd07 e8aa76d8ff call 0x4153b6 -> 0x474480
+0x68dd0c 83cbff or ebx, 0xffffffff
+0x68dd0f 8d4c240c lea ecx, [esp + 0xc]
+0x68dd13 895c2418 mov dword ptr [esp + 0x18], ebx
+0x68dd17 e8b605d8ff call 0x40e2d2 -> 0x4740b0
+0x68dd1c 8b3f mov edi, dword ptr [edi]
+0x68dd1e 85ff test edi, edi
+0x68dd20 7514 jne 0x68dd36
+0x68dd22 6a77 push 0x77
+0x68dd24 682002b900 push 0xb90220
+0x68dd29 680802b900 push 0xb90208
+0x68dd2e e81ecdd7ff call 0x40aa51 -> 0x4e9410
+0x68dd33 83c40c add esp, 0xc
+0x68dd36 8b542424 mov edx, dword ptr [esp + 0x24]
+0x68dd3a 8b442420 mov eax, dword ptr [esp + 0x20]
+0x68dd3e 52 push edx
+0x68dd3f 50 push eax
+0x68dd40 8bce mov ecx, esi
+0x68dd42 e847b8d7ff call 0x40958e -> 0x6a7c00
+0x68dd47 84c0 test al, al
+0x68dd49 7514 jne 0x68dd5f
+0x68dd4b 5f pop edi
+0x68dd4c 5e pop esi
+0x68dd4d 5b pop ebx
+0x68dd4e 8b4c2404 mov ecx, dword ptr [esp + 4]
+0x68dd52 64890d00000000 mov dword ptr fs:[0], ecx
+0x68dd59 83c410 add esp, 0x10
+0x68dd5c c20800 ret 8
+0x68dd5f 8b0de0aebf00 mov ecx, dword ptr [0xbfaee0]
+0x68dd65 68e803b900 push 0xb903e8
+0x68dd6a 8b11 mov edx, dword ptr [ecx]
+0x68dd6c ff5214 call dword ptr [edx + 0x14]
+0x68dd6f 50 push eax
+0x68dd70 8d442428 lea eax, [esp + 0x28]
+0x68dd74 50 push eax
+0x68dd75 e8979ed7ff call 0x407c11 -> 0x47d2e0
+0x68dd7a 83c408 add esp, 8
+0x68dd7d 8bf8 mov edi, eax
+0x68dd7f 8b07 mov eax, dword ptr [edi]
+0x68dd81 c744241801000000 mov dword ptr [esp + 0x18], 1
+0x68dd89 85c0 test eax, eax
+0x68dd8b 7403 je 0x68dd90
+0x68dd8d ff4004 inc dword ptr [eax + 4]
+0x68dd90 8b4e58 mov ecx, dword ptr [esi + 0x58]
+0x68dd93 85c9 test ecx, ecx
+0x68dd95 740d je 0x68dda4
+0x68dd97 8b4104 mov eax, dword ptr [ecx + 4]
+0x68dd9a 48 dec eax
+0x68dd9b 894104 mov dword ptr [ecx + 4], eax
+0x68dd9e 7504 jne 0x68dda4
+0x68dda0 8b11 mov edx, dword ptr [ecx]
+0x68dda2 ff12 call dword ptr [edx]
+0x68dda4 8b07 mov eax, dword ptr [edi]
+0x68dda6 895c2418 mov dword ptr [esp + 0x18], ebx
+0x68ddaa 894658 mov dword ptr [esi + 0x58], eax
+0x68ddad 8b442424 mov eax, dword ptr [esp + 0x24]
+0x68ddb1 85c0 test eax, eax
+0x68ddb3 7415 je 0x68ddca
+0x68ddb5 8b7804 mov edi, dword ptr [eax + 4]
+0x68ddb8 8bc8 mov ecx, eax
+0x68ddba 83c004 add eax, 4
+0x68ddbd 4f dec edi
+0x68ddbe 8bd7 mov edx, edi
+0x68ddc0 85d2 test edx, edx
+0x68ddc2 8938 mov dword ptr [eax], edi
+0x68ddc4 7504 jne 0x68ddca
+0x68ddc6 8b11 mov edx, dword ptr [ecx]
+0x68ddc8 ff12 call dword ptr [edx]
+0x68ddca 8b4658 mov eax, dword ptr [esi + 0x58]
+0x68ddcd 85c0 test eax, eax
+0x68ddcf 7517 jne 0x68dde8
+0x68ddd1 6815020000 push 0x215
+0x68ddd6 682002b900 push 0xb90220
+0x68dddb 68d803b900 push 0xb903d8
+0x68dde0 e86cccd7ff call 0x40aa51 -> 0x4e9410
+0x68dde5 83c40c add esp, 0xc
+
+RAW galaxy_constructor
+0x7aafbd eb0e jmp 0x7aafcd -> 0x7aafcd
+0x7aafbf b101 mov cl, 1
+0x7aafc1 b8b0eab900 mov eax, 0xb9eab0
+0x7aafc6 884e38 mov byte ptr [esi + 0x38], cl
+0x7aafc9 884c2430 mov byte ptr [esp + 0x30], cl
+0x7aafcd 895c2408 mov dword ptr [esp + 8], ebx
+0x7aafd1 3bc3 cmp eax, ebx
+0x7aafd3 c644242806 mov byte ptr [esp + 0x28], 6
+0x7aafd8 743b je 0x7ab015
+0x7aafda 3818 cmp byte ptr [eax], bl
+0x7aafdc 7437 je 0x7ab015
+0x7aafde 8b0de0aebf00 mov ecx, dword ptr [0xbfaee0]
+0x7aafe4 50 push eax
+0x7aafe5 8b11 mov edx, dword ptr [ecx]
+0x7aafe7 ff5214 call dword ptr [edx + 0x14]
+0x7aafea 50 push eax
+0x7aafeb 8d442410 lea eax, [esp + 0x10]
+0x7aafef 50 push eax
+0x7aaff0 e8a277c6ff call 0x412797 -> 0x474080
+0x7aaff5 83c408 add esp, 8
+0x7aaff8 50 push eax
+0x7aaff9 8d4c240c lea ecx, [esp + 0xc]
+0x7aaffd c644242c07 mov byte ptr [esp + 0x2c], 7
+0x7ab002 e8afa3c6ff call 0x4153b6 -> 0x474480
+0x7ab007 8d4c240c lea ecx, [esp + 0xc]
+0x7ab00b c644242806 mov byte ptr [esp + 0x28], 6
+0x7ab010 e8bd32c6ff call 0x40e2d2 -> 0x4740b0
+0x7ab015 8d4c2408 lea ecx, [esp + 8]
+0x7ab019 51 push ecx
+0x7ab01a 8bce mov ecx, esi
+0x7ab01c e861f6c5ff call 0x40a682 -> 0x7a9ea0
+0x7ab021 8d4c2408 lea ecx, [esp + 8]
+0x7ab025 c644242805 mov byte ptr [esp + 0x28], 5
+0x7ab02a e8a332c6ff call 0x40e2d2 -> 0x4740b0
+0x7ab02f 385c2430 cmp byte ptr [esp + 0x30], bl
+0x7ab033 7424 je 0x7ab059
+0x7ab035 8d542414 lea edx, [esp + 0x14]
+0x7ab039 8bce mov ecx, esi
+0x7ab03b 52 push edx
+0x7ab03c c74424180000c03f mov dword ptr [esp + 0x18], 0x3fc00000
+0x7ab044 c744241c0000c03f mov dword ptr [esp + 0x1c], 0x3fc00000
+0x7ab04c c74424200000c03f mov dword ptr [esp + 0x20], 0x3fc00000
+0x7ab054 e8e71ec6ff call 0x40cf40 -> 0x7a9f80
+0x7ab059 8b0de0aebf00 mov ecx, dword ptr [0xbfaee0]
+0x7ab05f 57 push edi
+0x7ab060 68a8eab900 push 0xb9eaa8
+0x7ab065 8b01 mov eax, dword ptr [ecx]
+0x7ab067 ff5014 call dword ptr [eax + 0x14]
+0x7ab06a 8d4c2434 lea ecx, [esp + 0x34]
+0x7ab06e 50 push eax
+0x7ab06f 51 push ecx
+0x7ab070 e82277c6ff call 0x412797 -> 0x474080
+0x7ab075 83c408 add esp, 8
+0x7ab078 8bf8 mov edi, eax
+0x7ab07a 8b07 mov eax, dword ptr [edi]
+0x7ab07c c644242c08 mov byte ptr [esp + 0x2c], 8
+0x7ab081 3bc3 cmp eax, ebx
+0x7ab083 7403 je 0x7ab088
+0x7ab085 ff4004 inc dword ptr [eax + 4]
+0x7ab088 8b4e34 mov ecx, dword ptr [esi + 0x34]
+0x7ab08b 3bcb cmp ecx, ebx
+0x7ab08d 740d je 0x7ab09c
+0x7ab08f 8b4104 mov eax, dword ptr [ecx + 4]
+0x7ab092 48 dec eax
+0x7ab093 894104 mov dword ptr [ecx + 4], eax
+0x7ab096 7504 jne 0x7ab09c
+0x7ab098 8b11 mov edx, dword ptr [ecx]
+0x7ab09a ff12 call dword ptr [edx]
+0x7ab09c 8b07 mov eax, dword ptr [edi]
+0x7ab09e c644242c05 mov byte ptr [esp + 0x2c], 5
+0x7ab0a3 894634 mov dword ptr [esi + 0x34], eax
+0x7ab0a6 8b442434 mov eax, dword ptr [esp + 0x34]
+0x7ab0aa 3bc3 cmp eax, ebx
+0x7ab0ac 7415 je 0x7ab0c3
+0x7ab0ae 8b7804 mov edi, dword ptr [eax + 4]
+0x7ab0b1 8bc8 mov ecx, eax
+0x7ab0b3 83c004 add eax, 4
+0x7ab0b6 4f dec edi
+0x7ab0b7 8bd7 mov edx, edi
+0x7ab0b9 3bd3 cmp edx, ebx
+0x7ab0bb 8938 mov dword ptr [eax], edi
+0x7ab0bd 7504 jne 0x7ab0c3
+0x7ab0bf 8b11 mov edx, dword ptr [ecx]
+0x7ab0c1 ff12 call dword ptr [edx]
+0x7ab0c3 8b4e34 mov ecx, dword ptr [esi + 0x34]
+0x7ab0c6 680000803e push 0x3e800000
+0x7ab0cb 8b01 mov eax, dword ptr [ecx]
+0x7ab0cd ff9064010000 call dword ptr [eax + 0x164]
+
+RAW target
+0x78936b 8b0de0aebf00 mov ecx, dword ptr [0xbfaee0]
+0x789371 68b8d4b900 push 0xb9d4b8
+0x789376 8b01 mov eax, dword ptr [ecx]
+0x789378 ff5014 call dword ptr [eax + 0x14]
+0x78937b 8d4c241c lea ecx, [esp + 0x1c]
+0x78937f 50 push eax
+0x789380 51 push ecx
+0x789381 e88be8c7ff call 0x407c11 -> 0x47d2e0
+0x789386 83c408 add esp, 8
+0x789389 50 push eax
+0x78938a 8bcd mov ecx, ebp
+0x78938c c744246806000000 mov dword ptr [esp + 0x68], 6
+0x789394 e81dc0c8ff call 0x4153b6 -> 0x474480
+0x789399 8b44241c mov eax, dword ptr [esp + 0x1c]
+0x78939d 33ff xor edi, edi
+0x78939f 83cbff or ebx, 0xffffffff
+0x7893a2 3bc7 cmp eax, edi
+0x7893a4 895c2464 mov dword ptr [esp + 0x64], ebx
+0x7893a8 7417 je 0x7893c1
+0x7893aa 8b5004 mov edx, dword ptr [eax + 4]
+0x7893ad 8bc8 mov ecx, eax
+0x7893af 83c004 add eax, 4
+0x7893b2 4a dec edx
+0x7893b3 3bd7 cmp edx, edi
+0x7893b5 8910 mov dword ptr [eax], edx
+0x7893b7 7504 jne 0x7893bd
+0x7893b9 8b11 mov edx, dword ptr [ecx]
+0x7893bb ff12 call dword ptr [edx]
+0x7893bd 897c241c mov dword ptr [esp + 0x1c], edi
+0x7893c1 8b0de0aebf00 mov ecx, dword ptr [0xbfaee0]
+0x7893c7 689cd4b900 push 0xb9d49c
+0x7893cc 8b01 mov eax, dword ptr [ecx]
+0x7893ce ff5028 call dword ptr [eax + 0x28]
+0x7893d1 8d4c2428 lea ecx, [esp + 0x28]
+0x7893d5 50 push eax
+0x7893d6 51 push ecx
+0x7893d7 e8f581c8ff call 0x4115d1 -> 0x6a25b0
+0x7893dc 83c408 add esp, 8
+0x7893df 50 push eax
+0x7893e0 8d8e74030000 lea ecx, [esi + 0x374]
+0x7893e6 c744246807000000 mov dword ptr [esp + 0x68], 7
+0x7893ee e8ddf0c8ff call 0x4184d0 -> 0x604f10
+0x7893f3 8d4c2428 lea ecx, [esp + 0x28]
+0x7893f7 895c2464 mov dword ptr [esp + 0x64], ebx
+0x7893fb e8a383c7ff call 0x4017a3 -> 0x57b6e0
+0x789400 6a01 push 1
+0x789402 8bce mov ecx, esi
+0x789404 e82cf5c8ff call 0x418935 -> 0x786370
+0x789409 89be78030000 mov dword ptr [esi + 0x378], edi
+0x78940f c7867c0300000000003f mov dword ptr [esi + 0x37c], 0x3f000000
+
+RAW registration_hanim
+0x5f7129 ff8b1068d869 dec dword ptr [ebx + 0x69d86810]
+0x5f712f b8008bc8ff mov eax, 0xffc88b00
+0x5f7134 52 push edx
+0x5f7135 28508d sub byte ptr [eax - 0x73], dl
+0x5f7138 44 inc esp
+0x5f7139 2440 and al, 0x40
+0x5f713b 50 push eax
+0x5f713c e8c06fe1ff call 0x40e101 -> 0x57b6b0
+0x5f7141 83c408 add esp, 8
+0x5f7144 8db5c0010000 lea esi, [ebp + 0x1c0]
+0x5f714a 50 push eax
+0x5f714b 8bce mov ecx, esi
+0x5f714d c78424980000000e000000 mov dword ptr [esp + 0x98], 0xe
+0x5f7158 e87313e2ff call 0x4184d0 -> 0x604f10
+0x5f715d 8d4c243c lea ecx, [esp + 0x3c]
+0x5f7161 899c2494000000 mov dword ptr [esp + 0x94], ebx
+0x5f7168 e836a6e0ff call 0x4017a3 -> 0x57b6e0
+0x5f716d 8bce mov ecx, esi
+0x5f716f e836f8e1ff call 0x4169aa -> 0x604f50
+0x5f7174 8b8dbc010000 mov ecx, dword ptr [ebp + 0x1bc]
+0x5f717a 50 push eax
+0x5f717b 6a00 push 0
+0x5f717d e81eaa3300 call 0x931ba0 -> 0x931ba0
+0x5f7182 8b8dbc010000 mov ecx, dword ptr [ebp + 0x1bc]
+0x5f7188 680000803f push 0x3f800000
+0x5f718d 6a00 push 0
+0x5f718f e8dcaa3300 call 0x931c70 -> 0x931c70
+
+RAW render_assignment
+0x474480 56 push esi
+0x474481 57 push edi
+0x474482 8b7c240c mov edi, dword ptr [esp + 0xc]
+0x474486 8bf1 mov esi, ecx
+0x474488 8b07 mov eax, dword ptr [edi]
+0x47448a 85c0 test eax, eax
+0x47448c 7403 je 0x474491
+0x47448e ff4004 inc dword ptr [eax + 4]
+0x474491 8b0e mov ecx, dword ptr [esi]
+0x474493 85c9 test ecx, ecx
+0x474495 740d je 0x4744a4
+0x474497 8b4104 mov eax, dword ptr [ecx + 4]
+0x47449a 48 dec eax
+0x47449b 894104 mov dword ptr [ecx + 4], eax
+0x47449e 7504 jne 0x4744a4
+0x4744a0 8b01 mov eax, dword ptr [ecx]
+0x4744a2 ff10 call dword ptr [eax]
+0x4744a4 8b0f mov ecx, dword ptr [edi]
+0x4744a6 8bc6 mov eax, esi
+0x4744a8 890e mov dword ptr [esi], ecx
+0x4744aa 5f pop edi
+0x4744ab 5e pop esi
+
+RETAIL EH MAPS (actions decoded through final jump/return)
+0x788f90 handler=0xacef10 states=8
+state 0 -> -1 action=0xaceed0: lea ecx, [ebp + 4]; jmp 0x40e2d2 -> 0x4740b0
+state 1 -> -1 action=0xaceed8: lea ecx, [ebp - 0x48]; jmp 0x4017a3 -> 0x57b6e0
+state 2 -> -1 action=0xaceee0: lea ecx, [ebp - 0x58]; jmp 0x40e2d2 -> 0x4740b0
+state 3 -> -1 action=0xaceee8: lea ecx, [ebp - 0x54]; jmp 0x4017a3 -> 0x57b6e0
+state 4 -> -1 action=0xaceef0: lea ecx, [ebp - 0x50]; jmp 0x40e2d2 -> 0x4740b0
+state 5 -> -1 action=0xaceef8: lea ecx, [ebp - 0x44]; jmp 0x4017a3 -> 0x57b6e0
+state 6 -> -1 action=0xacef00: lea ecx, [ebp - 0x4c]; jmp 0x40e2d2 -> 0x4740b0
+state 7 -> -1 action=0xacef08: lea ecx, [ebp - 0x40]; jmp 0x4017a3 -> 0x57b6e0
+0x68c2d0 handler=0xabf7b8 states=1
+state 0 -> -1 action=0xabf7b0: lea ecx, [ebp - 0x10]; jmp 0x40e2d2 -> 0x4740b0
+0x68dcc0 handler=0xabf87b states=7
+state 0 -> -1 action=0xabf840: lea ecx, [ebp - 0x10]; jmp 0x40e2d2 -> 0x4740b0
+state 1 -> -1 action=0xabf848: lea ecx, [ebp + 8]; jmp 0x40e2d2 -> 0x4740b0
+state 2 -> -1 action=0xabf850: lea ecx, [ebp + 8]; jmp 0x40e2d2 -> 0x4740b0
+state 3 -> -1 action=0xabf858: lea ecx, [ebp + 8]; jmp 0x40e2d2 -> 0x4740b0
+state 4 -> -1 action=0xabf860: lea ecx, [ebp + 8]; jmp 0x40e2d2 -> 0x4740b0
+state 5 -> -1 action=0xabf868: lea ecx, [ebp + 4]; jmp 0x40e2d2 -> 0x4740b0
+state 6 -> -1 action=0xabf870: mov eax, dword ptr [ebp + 8]; push eax; call 0x412b7a -> 0x4e9d10; pop ecx; ret 
+0x7aaf20 handler=0xad046a states=11
+state 0 -> -1 action=0xad0400: mov ecx, dword ptr [ebp - 0x1c]; jmp 0x415375 -> 0x7a9c00
+state 1 -> 0 action=0xad0408: mov ecx, dword ptr [ebp - 0x1c]; add ecx, 0x18; jmp 0x4115f4 -> 0x7a56a0
+state 2 -> 1 action=0xad0413: mov ecx, dword ptr [ebp - 0x1c]; add ecx, 0x1c; jmp 0x414f4c -> 0x7ae6d0
+state 3 -> 2 action=0xad041e: mov ecx, dword ptr [ebp - 0x1c]; add ecx, 0x2c; jmp 0x40c3ce -> 0x7ae300
+state 4 -> 3 action=0xad0429: mov ecx, dword ptr [ebp - 0x1c]; add ecx, 0x30; jmp 0x409ac0 -> 0x51c630
+state 5 -> 4 action=0xad0434: mov ecx, dword ptr [ebp - 0x1c]; add ecx, 0x34; jmp 0x40e2d2 -> 0x4740b0
+state 6 -> 5 action=0xad043f: lea ecx, [ebp - 0x24]; jmp 0x40e2d2 -> 0x4740b0
+state 7 -> 6 action=0xad0447: lea ecx, [ebp - 0x20]; jmp 0x40e2d2 -> 0x4740b0
+state 8 -> 5 action=0xad044f: lea ecx, [ebp + 4]; jmp 0x40e2d2 -> 0x4740b0
+state 9 -> 5 action=0xad0457: mov eax, dword ptr [ebp - 0x20]; push eax; call 0x412b7a -> 0x4e9d10; pop ecx; ret 
+state 10 -> 5 action=0xad0462: lea ecx, [ebp + 4]; jmp 0x409ac0 -> 0x51c630
+0x7a9d20 handler=0xad0288 states=3
+state 0 -> -1 action=0xad0270: lea ecx, [ebp - 0x10]; jmp 0x40e2d2 -> 0x4740b0
+state 1 -> 0 action=0xad0278: lea ecx, [ebp + 4]; jmp 0x40e2d2 -> 0x4740b0
+state 2 -> 0 action=0xad0280: lea ecx, [ebp + 4]; jmp 0x403012 -> 0x514990
+
+PRIOR BEST OBJECT EH (existing257-pair object; not current control)
+{
+  "object": "/home/dev/Projects/EnB/.work/claim-240/focused/788F90/runs/batch00-2clq4zjq/hide_helper/avatar.obj",
+  "state_count": 8,
+  "states": [
+    {
+      "state": 0,
+      "instructions": [
+        "lea ecx, [ebp + 4]",
+        "jmp REL"
+      ],
+      "relocations": [
+        "??1?$RefCountPtr@VRenderObjClass@@@@QAE@XZ"
+      ]
+    },
+    {
+      "state": 1,
+      "instructions": [
+        "lea ecx, [ebp - 0x4c]",
+        "jmp REL"
+      ],
+      "relocations": [
+        "??1?$RefCountPtr@VHAnimClass@@@@QAE@XZ"
+      ]
+    },
+    {
+      "state": 2,
+      "instructions": [
+        "lea ecx, [ebp - 0x58]",
+        "jmp REL"
+      ],
+      "relocations": [
+        "??1?$RefCountPtr@VRenderObjClass@@@@QAE@XZ"
+      ]
+    },
+    {
+      "state": 3,
+      "instructions": [
+        "lea ecx, [ebp - 0x54]",
+        "jmp REL"
+      ],
+      "relocations": [
+        "??1?$RefCountPtr@VHAnimClass@@@@QAE@XZ"
+      ]
+    },
+    {
+      "state": 4,
+      "instructions": [
+        "lea ecx, [ebp - 0x50]",
+        "jmp REL"
+      ],
+      "relocations": [
+        "??1?$RefCountPtr@VRenderObjClass@@@@QAE@XZ"
+      ]
+    },
+    {
+      "state": 5,
+      "instructions": [
+        "lea ecx, [ebp - 0x48]",
+        "jmp REL"
+      ],
+      "relocations": [
+        "??1?$RefCountPtr@VHAnimClass@@@@QAE@XZ"
+      ]
+    },
+    {
+      "state": 6,
+      "instructions": [
+        "lea ecx, [ebp - 0x44]",
+        "jmp REL"
+      ],
+      "relocations": [
+        "??1?$RefCountPtr@VRenderObjClass@@@@QAE@XZ"
+      ]
+    },
+    {
+      "state": 7,
+      "instructions": [
+        "lea ecx, [ebp - 0x40]",
+        "jmp REL"
+      ],
+      "relocations": [
+        "??1?$RefCountPtr@VHAnimClass@@@@QAE@XZ"
+      ]
+    }
+  ]
+}
