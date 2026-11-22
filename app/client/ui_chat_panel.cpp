@@ -637,7 +637,7 @@ bool ChatPanelInterface::Unknown_5638E0(int key)
 	if (!ChatInt) return(false);
 	return(ChatInt->Unknown_B8(key));
 }
-// NOT EXACT: inline-budget (the second branch's name copy: the client inlines assign with _Grow out of line, ours expands _Grow; frame 0xC vs 8)
+// (exact: the second branch's name copy inlines assign with _Grow out of line, as the client)
 // 0x563910
 void ChatPanelInterface::Unknown_563910(unsigned id, bool flag)
 {
@@ -1317,7 +1317,7 @@ void ChatPanelInterface::Unknown_5679A0(int event, const std::string &channel, c
 	}
 }
 
-// NOT EXACT: inline-budget (the client builds the two empty strings differently: case 2 expands the constructor with _Grow / _Eos, case 10 calls assign; 185 instructions vs 169)
+// NOT EXACT: inline-budget (one dead size() read sends case 10's string("") assign out of line as the client; left: the client calls case 2's _Eos and 0x5680B0's == compare out of line, ours inlines them; 162 rows vs 154, GV4)
 // 0x567DF0
 void ChatPanelInterface::Unknown_567DF0(int code)
 {
@@ -1331,7 +1331,7 @@ void ChatPanelInterface::Unknown_567DF0(int code)
 			break;
 		case 2:
 			UnknownFC = 4;
-			Unknown_5680B0(std::string(""));
+			Unknown_5680B0(std::string("")); Unknown214.size();
 			break;
 		case 10:
 			UnknownFC = 3;
