@@ -1759,11 +1759,11 @@ bool DamagePacketClass::Process_Packet(void *instance)
 	FontSys *damage_text = new FontSys(header.c_str(), 0, text);
 	FontSys *header_text = 0;
 	if (inflicted == 3) {
-		if (Victim == avatar_id) {
-			header_text = new FontSys("PlayerCriticalDamageHeader", 0, "Critical!");
-		} else {
-			header_text = new FontSys("VictimCriticalDamageHeader", 0, "Critical!");
-		}
+		header_text = (Victim == avatar_id) ?
+			new FontSys("PlayerCriticalDamageHeader", 0, "Critical!")
+		:
+			new FontSys("VictimCriticalDamageHeader", 0, "Critical!");
+
 	} else if (type == 4) {
 		if (Victim == avatar_id) {
 			header_text = new FontSys("PlayerEMPHeader", 0, "EMP");
