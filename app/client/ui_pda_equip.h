@@ -30,7 +30,7 @@ struct UnknownMountSlotStruct	// NAME 1: neutral (D10)
 	int Unknown04;										// +0x04 (the element's I08)  // NAME 1: neutral (D10)
 	int Unknown08;										// +0x08 (the element's I04)  // NAME 1: neutral (D10)
 	int Index;											// +0x0C (the element's index: the slot)  // NAME 2: what it holds
-	UnknownMountSlotStruct() : Type(0), Unknown04(0), Unknown08(0), Index(0) {}	// (0x5D2C50 zeroes the four after its new)
+	UnknownMountSlotStruct() { memset(this, 0, sizeof(*this)); }	// (0x5D2C50 zeroes the four after its new: test, then four stores through a copy of the pointer, not an initialiser list's form)
 };
 
 // The equipment window (0x154 bytes, tables 0xAF4C74 / 0xAF4C68 / 0xAF4C5C; pdaint.cpp's set-up 0x693230 makes it: the key

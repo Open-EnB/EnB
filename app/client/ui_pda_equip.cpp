@@ -438,7 +438,7 @@ void UIPdaEquipClass::Unknown_5D2B90()
 
 
 
-// NOT EXACT: functional from the pseudocode (D64)
+// functional from the pseudocode (D64); 0x5D2EB0 inlined
 // @0x5D2C50
 void UIPdaEquipClass::Unknown_5D2C50()
 {
@@ -475,7 +475,7 @@ void UIPdaEquipClass::Unknown_5D2EB0()
 	for (std::vector<UnknownMountSlotStruct *>::iterator it = Mounts.begin(); it != Mounts.end(); it++) {
 		delete *it;
 	}
-	Mounts.erase(Mounts.begin(), Mounts.end());
+	Mounts.size(); Mounts.clear();	// (the size() read dead, D272: it spends 0x5D2C50's nested budget, which calls erase 0x5D2F90 out of line under the inlined clear)
 }
 
 /*
