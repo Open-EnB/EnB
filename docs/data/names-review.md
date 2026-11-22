@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1970 |
 | 2 | describes what the code does | 5006 |
-| 1 | neutral placeholder | 25138 |
+| 1 | neutral placeholder | 25140 |
 
 ## For review (score 3 and below)
 
@@ -18670,6 +18670,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_B8A8A0` | `app/client/ui_starbase.cpp:669` | neutral (D10) |
 | 1 | `Unknown_B8ABBC` | `app/client/ui_starbase.cpp:670` | neutral (D10) |
 | 1 | `robj` | `app/client/ui_starbase.cpp:676` | avatar.cpp's |
+| 1 | `Unknown_Map_Manager` | `app/client/ui_starbase.cpp:676` | untagged neutral name (D10) |
+| 1 | `Unknown_View_Layer` | `app/client/ui_starbase.cpp:676` | untagged neutral name (D10) |
+| 1 | `Unknown80` | `app/client/ui_starbase.cpp:676` | untagged neutral name (D10) |
 | 1 | `Unknown_496DB0` | `app/client/ui_starbase.cpp:676` | untagged neutral name (D10) |
 | 1 | `Unknown00` | `app/client/ui_starbase.cpp:677` | untagged neutral name (D10) |
 | 1 | `Unknown1C` | `app/client/ui_starbase.cpp:677` | untagged neutral name (D10) |
@@ -18686,7 +18689,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_700670` | `app/client/ui_starbase.cpp:709` | untagged neutral name (D10) |
 | 1 | `Unknown_6FFF50` | `app/client/ui_starbase.cpp:712` | untagged neutral name (D10) |
 | 1 | `Unknown_642740` | `app/client/ui_starbase.cpp:729` | untagged neutral name (D10) |
-| 1 | `Unknown80` | `app/client/ui_starbase.cpp:730` | untagged neutral name (D10) |
 | 1 | `Unknown2C_0A` | `app/client/ui_starbase.cpp:731` | untagged neutral name (D10) |
 | 1 | `Unknown330` | `app/client/ui_starbase.cpp:752` | untagged neutral name (D10) |
 | 1 | `Unknown_77E3D0` | `app/client/ui_starbase.cpp:753` | untagged neutral name (D10) |
