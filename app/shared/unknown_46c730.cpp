@@ -612,7 +612,7 @@ unsigned char LandClass::Nearest_Normal(const Vector3 &n)
 	return best_index;
 }
 
-static inline void Land_Normalize(Vector3 &v, const Vector3 &s) { v = s; float len2 = s.Length2(); if (len2 != 0.0f) { float oolen = WWMath::Inv_Sqrt(len2); v.Set(s.X * oolen, s.Y * oolen, s.Z * oolen); } }
+static inline void Land_Normalize(Vector3 &v, const Vector3 &s) { v = s; float len2 = s.X * s.X + s.Y * s.Y + s.Z * s.Z; if (len2 != 0.0f) { float oolen = WWMath::Inv_Sqrt(len2); v.Set(s.X * oolen, s.Y * oolen, s.Z * oolen); } }
 // NOT EXACT: frame (0x1D0 vs 0x19C), scheduling; above: all nine normals in one slot, X / Y copied before the zero test (attempts.csv 0x46F120)
 void LandClass::Unknown_46F120(void)
 {
