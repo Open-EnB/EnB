@@ -271,21 +271,57 @@ def write(projs):
         written.append(p.dsp)
     open(os.path.join(REPO, WORKSPACE), 'w', newline='', encoding='latin1').write(dsw_text(projs))
     written.append(WORKSPACE)
+    for f in prune(written):
+        print('deleted stale', f)
     return written
 
 
-def clean():
-    """Delete every generated .dsp / .dsw (found by their banner) and the IDE's own files beside them."""
-    gone = []
-    for d, dirs, files in os.walk(REPO):
+def generated_on_disk(root=None):
+    """Every .dsp / .dsw under root carrying the generator's banner, as root-relative '/' paths."""
+    root = root or REPO
+    found = []
+    for d, dirs, files in os.walk(root):
         dirs[:] = [x for x in dirs if x not in ('.git', '.work', 'build', CONFIG)]
         for f in files:
             if f.lower().endswith(('.dsp', '.dsw')):
                 p = os.path.join(d, f)
                 if GENERATED_BANNER in open(p, encoding='latin1').read():
-                    os.remove(p)
-                    gone.append(repo_rel(p))
+                    found.append(os.path.relpath(p, root).replace(BS, '/'))
+    return sorted(found)
+
+
+def remove_empty_dirs(d, root):
+    """Remove d's empty subfolders, then d and its parents while empty (never root or above)."""
+    root = os.path.abspath(root)
+    d = os.path.abspath(d)
+    if not d.startswith(root + os.sep) or not os.path.isdir(d):
+        return
+    for sub, dirs, files in os.walk(d, topdown=False):
+        if not os.listdir(sub):
+            os.rmdir(sub)
+    while d != root and d.startswith(root + os.sep) and os.path.isdir(d) and not os.listdir(d):
+        os.rmdir(d)
+        d = os.path.dirname(d)
+
+
+def prune(keep, root=None):
+    """Delete the generated .dsp / .dsw files not in keep (a project the generator no longer makes, such as
+    the retired stand-in program's) and the folders that leaves empty; returns the deleted paths."""
+    root = root or REPO
+    keep = {k.replace(BS, '/') for k in keep}
+    gone = []
+    for f in generated_on_disk(root):
+        if f not in keep:
+            p = os.path.join(root, f)
+            os.remove(p)
+            gone.append(f)
+            remove_empty_dirs(os.path.dirname(p), root)
     return gone
+
+
+def clean(root=None):
+    """Delete every generated .dsp / .dsw (found by their banner) and the folders that leaves empty."""
+    return prune((), root)
 
 
 def main():
@@ -301,8 +337,7 @@ def main():
         for p in projs:
             print(f'{p.name:12} {p.kind} {len(p.sources):4} files  {p.dsp}  deps: {len(p.deps)}')
         return
-    for f in write(projs):
-        pass
+    write(projs)
     print(f'wrote {WORKSPACE} and {len(projs)} projects ({sum(len(p.sources) for p in projs)} source files)')
 
 
