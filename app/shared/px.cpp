@@ -404,7 +404,7 @@ void PxList::Insert(PxBox *box)
 
 
 // 0x44C2E0
-// NOT EXACT: register (base and index swapped in one address of the overlap test; attempts.py show 0x44C2E0)
+// (exact: the overlap test's registers came right with the file's later helpers, no change of its own)
 void PxList::Remove(PxBox *box)
 {
 	FAIL_IF(!box) return;
@@ -484,7 +484,7 @@ void PxList::Remove_All()
 
 
 // 0x44C520
-// NOT EXACT: register (as 0x44C2E0; attempts.py show 0x44C520)
+// (exact: the overlap test's registers came right with the file's later helpers, no change of its own)
 void PxList::Set_Self(PxBox *box, int self)
 {
 	FAIL_IF(!box) return;
@@ -558,7 +558,7 @@ void PxList::Set_Self(PxBox *box, int self)
 
 
 // 0x44C690
-// NOT EXACT: register (as 0x44C2E0; attempts.py show 0x44C690)
+// (exact: the overlap test's registers came right with the file's later helpers, no change of its own)
 void PxList::Set_Test_Mask(PxBox *box, int test, int mask)
 {
 	FAIL_IF(!box) return;
@@ -639,7 +639,7 @@ static bool Notify_Once(PxBox *b)  // NAME 2: what it does (the five lower_bound
 }
 
 // 0x44C900
-// NOT EXACT: inline budget and shape (insert(it, x) still inline at sites 4-5, erase and ~WWProfileSampleClass inline; attempts.py show 0x44C900)
+// NOT EXACT: inline budget and register (the client calls clear 0x44D580 and ~WWProfileSampleClass 0x444160 out of line at the end, ours inlines both whatever is spent before them; registers in the relinks; attempts.py show 0x44C900)
 void PxList::Set_Corners(PxBox *box, const Vector3 &low, const Vector3 &high)
 {
 	WWPROFILE("PxList::Set_Corners");

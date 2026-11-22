@@ -125,7 +125,7 @@ int Unknown431E30Class::Is_Playing()
 }
 
 // @0x4328B0
-// NOT EXACT: inline budget (explain.py: 10 calls, the client 11; 421 bytes, 0.59): the client calls the end() iterator copy 0x432C00 out of line in the inlined Get_Sector_Music, here it is inline; dead reads inside Get_Sector_Music, a const_iterator and an inline wrapper changed nothing
+// The lookup's const_iterator: the client converts end() through _Hashtable_const_iterator(const iterator &) 0x432C00, called out of line here; the three dead size() reads after the Get_Sector_Music call are budget devices (no bytes, D272) that keep that conversion out of line as the client
 void Unknown431E30Class::Update(bool flag)
 {
 	float volume = WWAudioClass::Get_Instance()->Get_Music_Volume();
@@ -149,7 +149,7 @@ void Unknown431E30Class::Update(bool flag)
 		if (State != 0) {
 			int track = State;
 			if (State == MUSIC_SECTOR) {
-				track = Get_Sector_Music(flag);
+				track = Get_Sector_Music(flag); if (0) { SectorMusic.size(); } if (0) { SectorMusic.size(); } if (0) { SectorMusic.size(); }
 			}
 			Play(track, true);
 		}
@@ -166,7 +166,7 @@ void Unknown431E30Class::Update(bool flag)
 // @0x432B00
 int Unknown431E30Class::Get_Sector_Music(bool flag)
 {
-	std::hash_map<int, int>::iterator it = SectorMusic.find(Sector);
+	std::hash_map<int, int>::const_iterator it = SectorMusic.find(Sector);
 	if (it == SectorMusic.end()) {
 		return flag ? 2 : 1;
 	}

@@ -16,7 +16,7 @@
 inline bool operator > (const DurationClass &a, const DurationClass &b) { return(a.Time > b.Time); }
 inline DurationClass Millisecond(int ms) { return(DurationClass((__int64)ms)); }	// NAME 3: the assert's
 
-// NOT EXACT: the client loads the bar into edx and the view into ecx for 0x6870E0 (ours: ecx / edx), twice
+// (the view through InterfaceClass::Get_View(): the client loads the bar into edx and the view into ecx for 0x6870E0)
 // @0x59E2C0
 Unknown59E2C0Class::Unknown59E2C0Class(RenderObjClass *robj, LayerClass *layer, UIScanClass *owner, ClientObjectClass *object, int unknown) :
 	Unknown59E2C0OwnerClass(owner),
@@ -32,12 +32,12 @@ Unknown59E2C0Class::Unknown59E2C0Class(RenderObjClass *robj, LayerClass *layer, 
 	Unknown1C->Unknown_28(layer);
 	GadgetClass::Set_Tooltip(Unknown1C, "UI_INTERRUPT", "INT_PROGRESS", 0);
 	Unknown1C->Unknown_65FFA0(unknown);
-	Owner->Unknown64.Unknown_6870E0(Unknown1C, 0, Owner->View, true, true);
+	Owner->Unknown64.Unknown_6870E0(Unknown1C, 0, Owner->Get_View(), true, true);
 	Unknown20 = new TrailGaugeGadgetClass(robj, "inter2_bar%d");
 	Unknown20->Unknown_28(layer);
 	GadgetClass::Set_Tooltip(Unknown20, "UI_INTERRUPT", "SKILL_PROGRESS", 0);
 	Unknown20->Unknown_65FFA0(unknown);
-	Owner->Unknown64.Unknown_6870E0(Unknown20, 0, Owner->View, true, true);
+	Owner->Unknown64.Unknown_6870E0(Unknown20, 0, Owner->Get_View(), true, true);
 	Unknown_08(object);
 }
 

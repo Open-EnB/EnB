@@ -376,7 +376,7 @@ UIScutProxyGadgetClass *UIScutClass::Unknown_610F30()
 }
 
 
-// NOT EXACT: register (ecx / edx swapped around the 0x6870E0 and bank constructor arguments)
+// 0x610F80
 UIScutBarClass::UIScutBarClass(UIScutClass *owner, UIMeshClass *mesh, LayerClass *layer, int bar, int *id, int index) :
 	Owner(owner),
 	Mesh(mesh),
@@ -402,12 +402,12 @@ UIScutBarClass::UIScutBarClass(UIScutClass *owner, UIMeshClass *mesh, LayerClass
 		RenderObjClass *object = mesh->Get_Sub_Object_By_Name(name);
 		ProxyButtons[lp] = new UIScutProxyGadgetClass(this, object, *layer, 0x55, lp);
 		GadgetClass::Set_Tooltip(ProxyButtons[lp], "UI_SCUT", "SHORTCUTS");
-		Get_Owner()->Unknown64.Unknown_6870E0(ProxyButtons[lp], FirstId + lp, Get_Owner()->View, 1, 0);
+		Get_Owner()->Unknown64.Unknown_6870E0(ProxyButtons[lp], FirstId + lp, Get_Owner()->Get_View(), 1, 0);
 		object->Release_Ref();
 	}
 	*id = SecondId + 3;
 	Bank = new UIScutBankGadgetClass(bar, mesh, layer);
-	Get_Owner()->Unknown64.Unknown_6870E0(Bank, *id, Get_Owner()->View, 1, 0);
+	Get_Owner()->Unknown64.Unknown_6870E0(Bank, *id, Get_Owner()->Get_View(), 1, 0);
 	Bank->Unknown1C = *id;
 	(*id)++;
 	Mesh->Attach(this);
@@ -786,7 +786,7 @@ void UIScutBarClass::Unknown_611F60(int group)
 
 
 
-// NOT EXACT: register (and the client loads both floats before slot +0x2C's flags)
+// NOT EXACT: register (the mask passed as the unsigned int it is: the client's dword read of +0x10; left: the client loads both floats before the mask)
 bool UIScutBarClass::Unknown_6120E0(int key)
 {
 	if (Bank->Unknown1C == key) {
@@ -814,7 +814,7 @@ bool UIScutBarClass::Unknown_6120E0(int key)
 			mouse->Unknown28++;
 			ProxyButtons[index]->Save_Sticky(false);
 			const Matrix3D &pos = shortcut->Unknown_66C6C0();
-			shortcut->Unknown_2C(&event, pos.Get_X_Translation(), pos.Get_Y_Translation(), (unsigned short)((shortcut->Mask & 1) | 0x1000));
+			shortcut->Unknown_2C(&event, pos.Get_X_Translation(), pos.Get_Y_Translation(), ((shortcut->Mask & 1) | 0x1000));
 			sclient->Unknown_743380(&event);
 			ProxyButtons[index]->Pressed = true;
 			ProxyButtons[index]->Restore_Sticky();
@@ -831,7 +831,7 @@ bool UIScutBarClass::Unknown_6120E0(int key)
 			ProxyButtons[index]->Save_Sticky(true);
 			if (shortcut) {
 				const Matrix3D &pos = shortcut->Unknown_66C6C0();
-				shortcut->Unknown_2C(&event, pos.Get_X_Translation(), pos.Get_Y_Translation(), (unsigned short)((shortcut->Mask & 4) | 0x1000));
+				shortcut->Unknown_2C(&event, pos.Get_X_Translation(), pos.Get_Y_Translation(), ((shortcut->Mask & 4) | 0x1000));
 			}
 			sclient->Unknown_743380(&event);
 			ProxyButtons[index]->Pressed = false;
@@ -1037,8 +1037,8 @@ void UIScutBankGadgetClass::Unknown_612820(int num)
 **	  pickers 0x610B00-0x610F30, the bar's destructor, help section, free-button search, set, clear, find, group switch
 **	  and listener slot (0x611220-0x611F60, 0x612510), 0x6123F0, the active shortcut's drop 0x612430 (two NULL stores, one
 **	  a branch: the client's zero register), the bank's constructor, destructor, slot +0x40, and the
-**	  sort's comparison struct and instances 0x612940-0x6134F0;
-**	  still differing (attempts.csv): the bar's constructor 0x610F80, its control keys 0x611300 / 0x611710 and key
+**	  sort's comparison struct and instances 0x612940-0x6134F0, the bar's constructor 0x610F80 (the view through Get_View());
+**	  still differing (attempts.csv): the bar's control keys 0x611300 / 0x611710 and key
 **	  handler 0x6120E0 (registers), the bank's 0x612820 (stack pops) and
 **	  std::_Sort_0 0x6129C0 (the STL instance's inline budget).
 **	0x611B10 sits between #pragma auto_inline(off) / (on): the client calls it out of line from 0x610B00, 0x610C70 and

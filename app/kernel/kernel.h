@@ -87,7 +87,7 @@ public:
 	KernelClass();										// 0x443100
 	~KernelClass();										// 0x4431C0
 
-	virtual void Cycle_Focus();							// +0x00 0x443270  // NAME 1: what it does
+	virtual bool Cycle_Focus();							// +0x00 0x443270  // NAME 1: what it does
 	virtual bool Shutdown();							// +0x04 0x4432A0  // NAME 2: the tasks' Shutdown, all
 	virtual bool Process_Messages();					// +0x08 0x443710  // NAME 2: what it does
 	virtual bool Run_One_Cycle();						// +0x0C 0x443820 ('KernelClass::Run_One_Cycle')

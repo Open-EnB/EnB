@@ -640,7 +640,7 @@ UIGroupClass::~UIGroupClass()
 
 
 // 0x594040
-// NOT EXACT: register (the arguments of 0x6870E0 / 0x5BB4F0 and the mesh for Get_Style in other registers)
+// (the view through InterfaceClass::Get_View(): the client's registers for 0x6870E0 / 0x5BB4F0's arguments)
 void UIGroupClass::Unknown_54()
 {
 	SymbolChatUI = Create_NEW(new UISymbolChatClass((SClient *)((ClientClass *)Client)->As_Space_Client()));
@@ -662,7 +662,7 @@ void UIGroupClass::Unknown_54()
 			if (Unknown_B7F4F4[i]) {
 				GadgetClass::Set_Tooltip(Unknown0C0[i], "UI_FORMATION", Unknown_B7F4F4[i]);
 			}
-			Unknown64.Unknown_6870E0(Unknown0C0[i], i + 1, View, 1, 1);
+			Unknown64.Unknown_6870E0(Unknown0C0[i], i + 1, Get_View(), 1, 1);
 			Unknown_5BB4F0(Unknown0C0[i]);
 			if (Unknown_B7F518[i]) {
 				FontSys *style = Unknown_BE67C4->Get_Style(Unknown_B7F518[i], InterfaceMesh->Peek_Mesh_Object());
@@ -1017,7 +1017,7 @@ void UIGroupClass::Unknown_5954C0()
 	}
 }
 // 0x595530
-// NOT EXACT: inline budget (the client expands 0x593790 and calls RefCountPtr's copy 0x51E950 and Create_NEW 0x598A10 out of line; 0.74)
+// (the view through InterfaceClass::Get_View() at each read: the client's expansion of 0x593790 and its out-of-line calls)
 void UIGroupClass::Unknown_595530()
 {
 	Unknown_80();
@@ -1035,7 +1035,7 @@ void UIGroupClass::Unknown_595530()
 			RefCountPtr<RenderObjClass> frame = Create_Get(member->Unknown34->Get_Sub_Object_By_Name("group"));
 			member->Unknown40 = new ButtonGadgetClass(frame.Peek(), Layer, 5, 3);
 			member->Unknown40->Unknown_65FFA0(-1);
-			Unknown64.Unknown_6870E0(member->Unknown40, index + 11, View, 1, 1);
+			Unknown64.Unknown_6870E0(member->Unknown40, index + 11, Get_View(), 1, 1);
 			Unknown_5BB4F0(member->Unknown40);
 			GadgetClass::Set_Tooltip(member->Unknown40, "UI_GROUP", "INFO");
 			if (Unknown0F1) {
@@ -1043,7 +1043,7 @@ void UIGroupClass::Unknown_595530()
 			}
 			member->Unknown44 = new ButtonGadgetClass(frame.Peek(), Layer, 0x50, 3);
 			member->Unknown44->Unknown_65FFA0(-1);
-			Unknown64.Unknown_6870E0(member->Unknown44, index + 17, View, 1, 1);
+			Unknown64.Unknown_6870E0(member->Unknown44, index + 17, Get_View(), 1, 1);
 			Unknown_5BB4F0(member->Unknown44);
 			if (Unknown0F1) {
 				member->Unknown44->Unknown_40(false);
@@ -1053,7 +1053,7 @@ void UIGroupClass::Unknown_595530()
 			member->Unknown48 = new ButtonGadgetClass(target.Peek(), Layer, 0x55, 3);
 			member->Unknown48->Unknown_65FFA0(-1);
 			GadgetClass::Set_Tooltip(member->Unknown48, "UI_FORMATION", "ASSIST");
-			Unknown64.Unknown_6870E0(member->Unknown48, index + 41, View, 1, 1);
+			Unknown64.Unknown_6870E0(member->Unknown48, index + 41, Get_View(), 1, 1);
 			Unknown_5BB4F0(member->Unknown48);
 			if (Unknown0F1) {
 				member->Unknown48->Unknown_40(false);
@@ -1063,7 +1063,7 @@ void UIGroupClass::Unknown_595530()
 			member->Unknown4C = new ButtonGadgetClass(target.Peek(), Layer, 0x55, 3);
 			member->Unknown4C->Unknown_65FFA0(-1);
 			GadgetClass::Set_Tooltip(member->Unknown4C, "UI_FORMATION", "HELP");
-			Unknown64.Unknown_6870E0(member->Unknown4C, index + 29, View, 1, 1);
+			Unknown64.Unknown_6870E0(member->Unknown4C, index + 29, Get_View(), 1, 1);
 			Unknown_5BB4F0(member->Unknown4C);
 			if (Unknown0F1) {
 				member->Unknown4C->Unknown_40(false);
@@ -1072,7 +1072,7 @@ void UIGroupClass::Unknown_595530()
 			Unknown_496AE0(target.Peek(), 1);
 			member->Unknown50 = new ButtonGadgetClass(target.Peek(), Layer, 0x55, 3);
 			member->Unknown50->Unknown_65FFA0(-1);
-			Unknown64.Unknown_6870E0(member->Unknown50, index + 35, View, 1, 1);
+			Unknown64.Unknown_6870E0(member->Unknown50, index + 35, Get_View(), 1, 1);
 			Unknown_5BB4F0(member->Unknown50);
 			if (((SClient *)((ClientClass *)Client)->As_Space_Client())->Unknown_74D690()) {
 				GadgetClass::Set_Tooltip(member->Unknown50, "UI_FORMATION", "BOOT");
@@ -1526,20 +1526,20 @@ void UIGroupClass::Unknown_5975D0()
 
 
 // 0x597650
-// NOT EXACT: register (the client tests View->Unknown34's Active in cl and reads the pointer again for 0x5890B0; Get_Unknown34() / Is_Active() tried)
+// (the view through InterfaceClass::Get_View() at each read: the client's Active test in cl and the pointer read again)
 void UIGroupClass::Unknown_597650()
 {
-	if (!View->Get_Unknown34()->Is_Active()) return;
-	int button = View->Get_Unknown34()->Unknown_5890B0("GROUP_INVITE");
+	if (!Get_View()->Get_Unknown34()->Is_Active()) return;
+	int button = Get_View()->Get_Unknown34()->Unknown_5890B0("GROUP_INVITE");
 	if (button) {
 		if (button == 1) {
 			((ClientClass *)Client)->Send_Packet(&ActionPacketClass(((ClientClass *)Client)->AvatarID, 11, ((ClientClass *)Client)->AvatarID, 0));
 		} else if (button == 2) {
 			((ClientClass *)Client)->Send_Packet(&ActionPacketClass(((ClientClass *)Client)->AvatarID, 12, ((ClientClass *)Client)->AvatarID, 0));
 		}
-		View->Unknown34->Unknown_5C();
+		Get_View()->Unknown34->Unknown_5C();
 	}
-	button = View->Get_Unknown34()->Unknown_5890B0("GROUP_LEAVE");
+	button = Get_View()->Get_Unknown34()->Unknown_5890B0("GROUP_LEAVE");
 	if (button) {
 		if (button == 1) {
 			if (((SClient *)((ClientClass *)Client)->As_Space_Client())->Unknown_74D690()) {
@@ -1549,7 +1549,7 @@ void UIGroupClass::Unknown_597650()
 			}
 			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
 		}
-		View->Unknown34->Unknown_5C();
+		Get_View()->Unknown34->Unknown_5C();
 	}
 }
 

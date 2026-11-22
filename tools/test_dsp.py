@@ -76,6 +76,31 @@ class WorkspaceTest(unittest.TestCase):
         self.assertIn('Project: "wwlib"=..\\..\\wwlib\\wwlib.dsp - Package Owner=<4>', text)
 
 
+class PruneTest(unittest.TestCase):
+    def test_stale_project_and_its_empty_folders_go(self):
+        """A generated .dsp the generator no longer makes goes with the folders it leaves empty (the retired
+        stand-in program's programs/clientpoc/clientpoc.dsp and gen/); kept, foreign and non-empty ones stay."""
+        import tempfile
+        with tempfile.TemporaryDirectory() as root:
+            def put(rel, text):
+                p = os.path.join(root, *rel.split('/'))
+                os.makedirs(os.path.dirname(p), exist_ok=True)
+                open(p, 'w', encoding='latin1').write(text)
+            banner = '# ' + dsp.GENERATED_BANNER + '\n'
+            put('app/main/main.dsp', banner)
+            put('programs/clientpoc/clientpoc.dsp', banner)
+            os.makedirs(os.path.join(root, 'programs', 'clientpoc', 'gen'))
+            put('programs/other/keep.txt', 'x')
+            put('programs/other/old.dsp', banner)
+            put('wwlib/hand.dsp', 'not generated')
+            gone = dsp.prune(['app/main/main.dsp'], root)
+            self.assertEqual(gone, ['programs/clientpoc/clientpoc.dsp', 'programs/other/old.dsp'])
+            self.assertFalse(os.path.exists(os.path.join(root, 'programs', 'clientpoc')))
+            self.assertTrue(os.path.exists(os.path.join(root, 'programs', 'other', 'keep.txt')))
+            self.assertTrue(os.path.exists(os.path.join(root, 'app', 'main', 'main.dsp')))
+            self.assertTrue(os.path.exists(os.path.join(root, 'wwlib', 'hand.dsp')))
+
+
 def coff(sections, symbols):
     """A minimal COFF object: sections [(name, data, [(offset, symbol index, type)])], symbols [names]."""
     nsec = len(sections)

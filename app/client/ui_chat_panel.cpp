@@ -1420,7 +1420,7 @@ void ChatPanelInterface::Unknown_568950()
 	Unknown_5689D0(4);
 	UnknownD4 = NULL;
 }
-// NOT EXACT: inline-budget (functional, written from the disassembly; Chat_Default_Channel through the uncalled 0x567930: 962 instructions vs 939; the client calls string::assign out of line for Unknown1F4 = "" and the first label copy and expands _Grow in the last; ours expands both)
+// NOT EXACT: inline-budget (functional, written from the disassembly; Chat_Default_Channel through the uncalled 0x567930: 962 instructions vs 939; the client calls string::assign out of line for Unknown1F4 = "" and the first label copy and expands _Grow in the last; ours expands both; the emote combo's arms in the client's order, masked 61 -> 37)
 // 0x5689D0
 void ChatPanelInterface::Unknown_5689D0(int index)
 {
@@ -1505,7 +1505,7 @@ void ChatPanelInterface::Unknown_5689D0(int index)
 				StringOptionStruct *label = OptionClass::Instance->Find_String("Channel_Label");
 				if (label) label->Value = Unknown1F4.c_str();
 			}
-			Combo[0]->Unknown_7C(View, 1);
+			Combo[0]->Unknown_7C(Get_View(), 1);
 			break;
 		}
 		case 1:
@@ -1555,15 +1555,15 @@ void ChatPanelInterface::Unknown_5689D0(int index)
 				Combo[4]->Unknown_54();
 			}
 			int count;
-			if (!sclient->Unknown_744B60()) {
-				count = 7;
-				for (int i = 0; i < 7; i++) {
-					if (Unknown_B7C358[i][0]) Combo[4]->Add_Item(Unknown_B7C358[i][0]);
-				}
-			} else {
+			if (sclient->Unknown_744B60()) {
 				count = 33;
 				for (int i = 0; i < 33; i++) {
 					if (Unknown_B7C398[i][gender]) Combo[4]->Add_Item(Unknown_B7C398[i][gender]);
+				}
+			} else {
+				count = 7;
+				for (int i = 0; i < 7; i++) {
+					if (Unknown_B7C358[i][0]) Combo[4]->Add_Item(Unknown_B7C358[i][0]);
 				}
 			}
 			Combo[4]->Set_Hover_Only(0, count);
@@ -2410,7 +2410,7 @@ void ChatPanelInterface::Unknown_56C180(int window)
 		dispatcher.Add(ChatInt.Peek(), this, &ChatPanelInterface::Unknown_56C730);
 		ChatInt->Unknown_5417D0(this);
 		ChatInt->Unknown_54();
-		ChatInt->Unknown_7C(View, active);
+		ChatInt->Unknown_7C(Get_View(), active);
 		Unknown_5646A0(Unknown148);
 	}
 
