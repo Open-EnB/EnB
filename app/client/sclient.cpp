@@ -2058,8 +2058,8 @@ bool SClient::Unknown_744B60()
 
 
 
+static inline bool Unknown_Chase_Flag(ChaseCameraModuleClass *chase) { return(chase->Unknown34); }	// (inlined: 0x744C10 reads the flag with the chase module kept in ecx, the main view moved from edx)  // NAME 1: neutral (D10)
 
-// NOT EXACT: shape (explain.py): the client keeps the chase module in ecx for the +0x34 test and zeroes the argument before the FAIL_IFs (attempts.py show 0x744C10)
 // 0x744C10
 void SClient::Unknown_744C10()
 {
@@ -2067,7 +2067,7 @@ void SClient::Unknown_744C10()
 	SimpleSceneClass *scene = NULL;
 	FAIL_IF(!CameraManager) return;
 	FAIL_IF(!CameraManager->Get_Player_Chase_Camera_Module()) return;
-	if (CurrentView == MainView && CameraMode == 0 && Unknown28 && CameraManager->Get_Player_Chase_Camera_Module()->Unknown34) {
+	if (CurrentView == MainView && CameraMode == 0 && Unknown28 && Unknown_Chase_Flag(CameraManager->Get_Player_Chase_Camera_Module())) {
 		scene = MainView->Unknown_78();
 	}
 	Bridge->Set_Scene(Create_Peek((RefCountClass *)scene));
@@ -4496,7 +4496,7 @@ bool SClient::Unknown_74D690()
 	return(group && group->Unknown70 && group->IsGroupLeader.Value);
 }
 
-// NOT EXACT: inline budget (explain.py): the client calls UnknownRTTIClass<DeltaTemplateClass<int> >::Cast out of line in auxdata.h's Unknown_Find_Field; here it is inlined (0x744560)
+// NOT EXACT: inline budget (explain.py): the client calls UnknownRTTIClass<DeltaTemplateClass<int> >::Cast out of line in auxdata.h's Unknown_Find_Field; here it is inlined (0x744560; the avatar id through Get_Avatar_ID: 9 -> 7 masked rows)
 #include "..\packets\pkuitrigger.h"						// UiTriggerPacketClass (UI_TRIGGER 101): 0x744560 (defined here, after auxdata.h: Unknown_Find_Field)
 
 // 0x744560 (ui_cpit.cpp: 11 when the hulk is let in, 12 when it goes): a UI_TRIGGER packet with the avatar's id
@@ -4506,7 +4506,7 @@ void SClient::Unknown_744560(int arg)
 	NameClass name("ClientSendUITriggers");
 	DeltaTemplateClass<int> *t = Unknown_Find_Field<DeltaTemplateClass<int> >((DeltaCompoundClass *)AuxData, name);
 	if (t && t->Unknown70 && t->Value > 0) {
-		Send_Packet(&UiTriggerPacketClass(AvatarID, arg));
+		Send_Packet(&UiTriggerPacketClass(Get_Avatar_ID(), arg));
 	}
 }
 
