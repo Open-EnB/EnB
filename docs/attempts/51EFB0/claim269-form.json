@@ -1,0 +1,20 @@
+{
+  "address": "0x51EFB0",
+  "unit": "app/client/dynamic_window_vertical.cpp",
+  "form": "reuse-returning-Or_Flags",
+  "patch": "diff --git a/app/client/dynamic_window_vertical.cpp b/app/client/dynamic_window_vertical.cpp\nindex e57c8363..48433d2e 100644\n--- a/app/client/dynamic_window_vertical.cpp\n+++ b/app/client/dynamic_window_vertical.cpp\n@@ -98,13 +98,13 @@ void DynamicWindowVerticalClass::Clear_Flags(unsigned int flags)\n \t\tInvalidate();\n \t}\n }\n-// NOT EXACT: the client stores the cleared flags, reloads them and ORs in the new bits; this form folds both into one store\n+\n void DynamicWindowVerticalClass::Set_Alignment(unsigned int flags)\n {\n \tunsigned int old_flags = Flags;\n \tFlags &= ~0xF0;\n-\tFlags |= flags & 0xF0;\n-\tif (Flags != old_flags) {\n+\tunsigned int new_flags = Or_Flags(Flags, flags & 0xF0);\n+\tif (new_flags != old_flags) {\n \t\tInvalidate();\n \t}\n }\n",
+  "physical_line_count_unchanged": true,
+  "physical_assert_lines_unchanged": true,
+  "final_raw_differing_bytes": 0,
+  "body_bytes": 45,
+  "aligned_span_bytes": 48,
+  "relocations": [],
+  "virtual_call": {
+    "slot": "0x18",
+    "client_vtable": "0xAEDB84",
+    "client_thunk": "0x406EB5",
+    "target": "0x51EFF0"
+  },
+  "source": "client.exe 0x51EFB0 plus exact Set_Flags 0x51EF50 and exact horizontal alignment 0x518BE0 (D185)",
+  "requested_model": "gpt-6.1-sol high"
+}
