@@ -1,0 +1,773 @@
+{
+  "schema": "claim-254-constructor-replay-v1",
+  "base_revision": "21fac664c4d4ec9f18fc65b8d4e38b3a3a7eb899",
+  "address": "0x5DD960",
+  "symbol": "Unknown5DD960Class::Unknown5DD960Class",
+  "unit": "app/client/unknown_5dd960.cpp",
+  "library": "app",
+  "claim": 254,
+  "model": "gpt-6.1-sol (high)",
+  "baseline_source_sha256": "4f25b455009d789f9f5c65bf62d8858272967325d7a5fe0b2cfdc2559dab1518",
+  "baseline_source": "// Earth & Beyond client (reconstruction): the face / target / orient buttons' display (PROVISIONAL name, D137)\n#include <string>\n#include \"sclient.h\"\n#include \"unknown_675120.h\"\n#include \"ui_mesh.h\"\n#include \"..\\audio\\soundlib.h\"\n#include \"unknown_5dd960.h\"\n\n// 0xB84B94 (the three buttons, ids 6 to 8)\nstatic const char *Unknown5DD960ButtonNames[] = {\t// NAME 2: what it holds\n\t\"face_button\", \"target_button\", \"orient_button\"\n};\n\n// NOT EXACT: functional (O28; similarity 0.87): only the loop's set-up order (the names' pointer loaded after, not before, the\n// buttons' address); Buttons[3] at +0x18C indexed i - 1 and a loop from 0 tried\n// @0x5DD960\nUnknown5DD960Class::Unknown5DD960Class(UIViewClass *view, UIMeshClass *mesh, const LayerClass &layer) :\n\tUnknown5BE4F0Class(view, mesh->Peek_Object(), layer)\n{\n\tfor (int i = 1; i < 4; i++) {\n\t\tGadgetClass *gadget = Buttons[i] = new ButtonGadgetClass(mesh, Unknown5DD960ButtonNames[i - 1], layer, 0x55, 3);\n\t\tUnknown64.Unknown_6870E0(gadget, i + 5, view, 1, 0);\n\t}\n}\n\n// @0x5DDAE0\nUnknown5DD960Class::~Unknown5DD960Class()\n{\n}\n\n// @0x5DDB20\nvoid Unknown5DD960Class::Unknown_58()\n{\n\tUIMFDClass::Unknown_58();\n}\n\n// @0x5DDB40\nvoid Unknown5DD960Class::Unknown_5C()\n{\n\tUIMFDClass::Unknown_5C();\n}\n\n// @0x5DDB60\nbool Unknown5DD960Class::Unknown_68(int key)\n{\n\tSClient *sclient = (SClient *)Client;\n\tswitch (key - 5) {\n\t\tcase 1:\n\t\t\tSoundLibraryClass::Play_2D_Sound(\"ButtonClick01.wav\", 2);\n\t\t\tsclient->Unknown_74D990(0x13, \"Facing not implemented.\", 0);\n\t\t\treturn(true);\n\t\tcase 2:\n\t\t\tSoundLibraryClass::Play_2D_Sound(\"ButtonClick01.wav\", 2);\n\t\t\tsclient->Unknown_74D990(0x13, \"Tracking not implemented.\", 0);\n\t\t\treturn(true);\n\t\tcase 3:\n\t\t\tSoundLibraryClass::Play_2D_Sound(\"ButtonClick01.wav\", 2);\n\t\t\tsclient->Unknown_74D990(0x13, \"Orient not implemented.\", 0);\n\t\t\treturn(true);\n\t}\n\treturn(UIMFDClass::Unknown_68(key));\n}\n\n// @0x5DDC20\nvoid Unknown5DD960Class::Unknown_60()\n{\n\tUIMFDClass::Unknown_60();\n}\n\n/*\n** Reconstruction notes (O28, 2026-11-14)\n** - The object: 0x5DD960-0x5DDCA0, between ui_proc.cpp (which ends at 0x5DD910) and the TLI10A panel at 0x5DDCA0; no\n**   __FILE__, assert or ini name of its own, so the file and class keep neutral names (D137). Its data: the button\n**   names' table 0xB84B94 and the strings 0xB84BA4-0xB84C28.\n** - Nothing in the client constructs it (no caller of 0x5DD960 or its thunk 0x410195): a display left in, its three\n**   buttons answering 'not implemented' on chat colour 0x13.\n** - The code after the members: <string>'s guarded static initialiser 0x5DDC40 (guard 0xC416FC, atexit 0x42B320, as\n**   every object that includes it), then the deleting destructor's thunks for the other tables (0x5DDC70 / 0x5DDC80 /\n**   0x5DDC90).\n** - Unknown_68's switch is on key - 5 (cases 1 to 3): the client's lea eax, [edx - 5] before the decrements; on the\n**   key itself (cases 6 to 8) VC6 subtracts 6 at once.\n** - Unknown_58 / 5C / 60 only call UIMFDClass's (Unknown5BE4F0Class has none of its own); VC6 makes each a jmp.\n*/\n",
+  "status": "exact",
+  "forms_actual_new_valid": 12,
+  "controls": [
+    {
+      "name": "baseline",
+      "source_sha256": "4f25b455009d789f9f5c65bf62d8858272967325d7a5fe0b2cfdc2559dab1518",
+      "metrics": {
+        "symbol": "Unknown5DD960Class::Unknown5DD960Class",
+        "mangled": "??0Unknown5DD960Class@@QAE@PAVUIViewClass@@PAVUIMeshClass@@ABVLayerClass@@@Z",
+        "address": "0x5DD960",
+        "ours": 73,
+        "client": 73,
+        "residue": 2,
+        "residue_regs": 2,
+        "tables": [],
+        "branch": {
+          "bytes": [
+            233,
+            233
+          ],
+          "size": 0,
+          "target": 0
+        },
+        "class": "order-only",
+        "reason": "the same 73 instructions, registers included, in another order"
+      },
+      "compiled": true,
+      "native_counts": {
+        "exact": 33,
+        "none": 1
+      },
+      "gained": [],
+      "lost": []
+    },
+    {
+      "name": "baseline_repeat",
+      "source_sha256": "4f25b455009d789f9f5c65bf62d8858272967325d7a5fe0b2cfdc2559dab1518",
+      "metrics": {
+        "symbol": "Unknown5DD960Class::Unknown5DD960Class",
+        "mangled": "??0Unknown5DD960Class@@QAE@PAVUIViewClass@@PAVUIMeshClass@@ABVLayerClass@@@Z",
+        "address": "0x5DD960",
+        "ours": 73,
+        "client": 73,
+        "residue": 2,
+        "residue_regs": 2,
+        "tables": [],
+        "branch": {
+          "bytes": [
+            233,
+            233
+          ],
+          "size": 0,
+          "target": 0
+        },
+        "class": "order-only",
+        "reason": "the same 73 instructions, registers included, in another order"
+      },
+      "compiled": true,
+      "native_counts": {
+        "exact": 33,
+        "none": 1
+      },
+      "gained": [],
+      "lost": []
+    },
+    {
+      "name": "candidate_repeat",
+      "source_sha256": "94f6433b2f6d74b337c21d29789b84c82ebc0371108d816d9b81662a5038d2ac",
+      "metrics": {
+        "symbol": "Unknown5DD960Class::Unknown5DD960Class",
+        "mangled": "??0Unknown5DD960Class@@QAE@PAVUIViewClass@@PAVUIMeshClass@@ABVLayerClass@@@Z",
+        "address": "0x5DD960",
+        "ours": 73,
+        "client": 73,
+        "residue": 0,
+        "residue_regs": 0,
+        "tables": [],
+        "branch": {
+          "bytes": [
+            233,
+            233
+          ],
+          "size": 0,
+          "target": 0
+        },
+        "class": "identical",
+        "reason": "nothing differs once stack offsets are masked"
+      },
+      "compiled": true,
+      "native_counts": {
+        "exact": 34
+      },
+      "gained": [
+        [
+          "??0Unknown5DD960Class@@QAE@PAVUIViewClass@@PAVUIMeshClass@@ABVLayerClass@@@Z",
+          "0x5DD960"
+        ]
+      ],
+      "lost": []
+    }
+  ],
+  "forms": [
+    {
+      "name": "names_local",
+      "source_sha256": "2d8b7d89433340a60c6e3fead22f4953934a4eadddd279b4e6bb55b4f54c7933",
+      "metrics": {
+        "symbol": "Unknown5DD960Class::Unknown5DD960Class",
+        "mangled": "??0Unknown5DD960Class@@QAE@PAVUIViewClass@@PAVUIMeshClass@@ABVLayerClass@@@Z",
+        "address": "0x5DD960",
+        "ours": 73,
+        "client": 73,
+        "residue": 2,
+        "residue_regs": 2,
+        "tables": [],
+        "branch": {
+          "bytes": [
+            233,
+            233
+          ],
+          "size": 0,
+          "target": 0
+        },
+        "class": "order-only",
+        "reason": "the same 73 instructions, registers included, in another order"
+      },
+      "compiled": true,
+      "native_counts": {
+        "exact": 33,
+        "none": 1
+      },
+      "gained": [],
+      "lost": [],
+      "independent_patch_from_HEAD": "--- a/unknown_5dd960.cpp\n+++ b/unknown_5dd960.cpp\n@@ -17,8 +17,8 @@\n Unknown5DD960Class::Unknown5DD960Class(UIViewClass *view, UIMeshClass *mesh, const LayerClass &layer) :\n \tUnknown5BE4F0Class(view, mesh->Peek_Object(), layer)\n {\n-\tfor (int i = 1; i < 4; i++) {\n-\t\tGadgetClass *gadget = Buttons[i] = new ButtonGadgetClass(mesh, Unknown5DD960ButtonNames[i - 1], layer, 0x55, 3);\n+\tconst char **names = Unknown5DD960ButtonNames; for (int i = 1; i < 4; i++) {\n+\t\tGadgetClass *gadget = Buttons[i] = new ButtonGadgetClass(mesh, names[i - 1], layer, 0x55, 3);\n \t\tUnknown64.Unknown_6870E0(gadget, i + 5, view, 1, 0);\n \t}\n }\n"
+    },
+    {
+      "name": "names_induction",
+      "source_sha256": "fa5f365d4e88a90dabe6031f78df8e05bb5afc8d346f9ece00e1cbbf55059799",
+      "metrics": {
+        "symbol": "Unknown5DD960Class::Unknown5DD960Class",
+        "mangled": "??0Unknown5DD960Class@@QAE@PAVUIViewClass@@PAVUIMeshClass@@ABVLayerClass@@@Z",
+        "address": "0x5DD960",
+        "ours": 73,
+        "client": 73,
+        "residue": 19,
+        "residue_regs": 7,
+        "tables": [],
+        "branch": {
+          "bytes": [
+            231,
+            233
+          ],
+          "size": 0,
+          "target": 0
+        },
+        "class": "shape",
+        "reason": "19 masked rows differ; no simpler class fits"
+      },
+      "compiled": true,
+      "native_counts": {
+        "exact": 33,
+        "none": 1
+      },
+      "gained": [],
+      "lost": [],
+      "independent_patch_from_HEAD": "--- a/unknown_5dd960.cpp\n+++ b/unknown_5dd960.cpp\n@@ -17,8 +17,8 @@\n Unknown5DD960Class::Unknown5DD960Class(UIViewClass *view, UIMeshClass *mesh, const LayerClass &layer) :\n \tUnknown5BE4F0Class(view, mesh->Peek_Object(), layer)\n {\n-\tfor (int i = 1; i < 4; i++) {\n-\t\tGadgetClass *gadget = Buttons[i] = new ButtonGadgetClass(mesh, Unknown5DD960ButtonNames[i - 1], layer, 0x55, 3);\n+\tconst char **names = Unknown5DD960ButtonNames; for (int i = 1; i < 4; i++, names++) {\n+\t\tGadgetClass *gadget = Buttons[i] = new ButtonGadgetClass(mesh, *names, layer, 0x55, 3);\n \t\tUnknown64.Unknown_6870E0(gadget, i + 5, view, 1, 0);\n \t}\n }\n"
+    },
+    {
+      "name": "names_header",
+      "source_sha256": "0a23e25b765fce76fcd6fc82f995a5e1ca01dfd8c3a5661da723809733a5b6da",
+      "metrics": {
+        "symbol": "Unknown5DD960Class::Unknown5DD960Class",
+        "mangled": "??0Unknown5DD960Class@@QAE@PAVUIViewClass@@PAVUIMeshClass@@ABVLayerClass@@@Z",
+        "address": "0x5DD960",
+        "ours": 73,
+        "client": 73,
+        "residue": 19,
+        "residue_regs": 5,
+        "tables": [],
+        "branch": {
+          "bytes": [
+            231,
+            233
+          ],
+          "size": 0,
+          "target": 0
+        },
+        "class": "shape",
+        "reason": "19 masked rows differ; no simpler class fits (mostly registers: 5 rows remain once registers are masked)"
+      },
+      "compiled": true,
+      "native_counts": {
+        "exact": 33,
+        "none": 1
+      },
+      "gained": [],
+      "lost": [],
+      "independent_patch_from_HEAD": "--- a/unknown_5dd960.cpp\n+++ b/unknown_5dd960.cpp\n@@ -17,8 +17,8 @@\n Unknown5DD960Class::Unknown5DD960Class(UIViewClass *view, UIMeshClass *mesh, const LayerClass &layer) :\n \tUnknown5BE4F0Class(view, mesh->Peek_Object(), layer)\n {\n-\tfor (int i = 1; i < 4; i++) {\n-\t\tGadgetClass *gadget = Buttons[i] = new ButtonGadgetClass(mesh, Unknown5DD960ButtonNames[i - 1], layer, 0x55, 3);\n+\tint i = 1; for (const char **names = Unknown5DD960ButtonNames; i < 4; i++, names++) {\n+\t\tGadgetClass *gadget = Buttons[i] = new ButtonGadgetClass(mesh, *names, layer, 0x55, 3);\n \t\tUnknown64.Unknown_6870E0(gadget, i + 5, view, 1, 0);\n \t}\n }\n"
+    },
+    {
+      "name": "names_bound",
+      "source_sha256": "69ae9ffcc988429c52cd18e23a2335479f661b30976f9ac9b037a738ee7ca71f",
+      "metrics": {
+        "symbol": "Unknown5DD960Class::Unknown5DD960Class",
+        "mangled": "??0Unknown5DD960Class@@QAE@PAVUIViewClass@@PAVUIMeshClass@@ABVLayerClass@@@Z",
+        "address": "0x5DD960",
+        "ours": 72,
+        "client": 73,
+        "residue": 10,
+        "residue_regs": 6,
+        "tables": [],
+        "branch": {
+          "bytes": [
+            231,
+            233
+          ],
+          "size": 0,
+          "target": 0
+        },
+        "class": "shape",
+        "reason": "10 masked rows differ; no simpler class fits"
+      },
+      "compiled": true,
+      "native_counts": {
+        "exact": 33,
+        "none": 1
+      },
+      "gained": [],
+      "lost": [],
+      "independent_patch_from_HEAD": "--- a/unknown_5dd960.cpp\n+++ b/unknown_5dd960.cpp\n@@ -17,8 +17,8 @@\n Unknown5DD960Class::Unknown5DD960Class(UIViewClass *view, UIMeshClass *mesh, const LayerClass &layer) :\n \tUnknown5BE4F0Class(view, mesh->Peek_Object(), layer)\n {\n-\tfor (int i = 1; i < 4; i++) {\n-\t\tGadgetClass *gadget = Buttons[i] = new ButtonGadgetClass(mesh, Unknown5DD960ButtonNames[i - 1], layer, 0x55, 3);\n+\tint i = 1; for (const char **names = Unknown5DD960ButtonNames; names < Unknown5DD960ButtonNames + 3; i++, names++) {\n+\t\tGadgetClass *gadget = Buttons[i] = new ButtonGadgetClass(mesh, *names, layer, 0x55, 3);\n \t\tUnknown64.Unknown_6870E0(gadget, i + 5, view, 1, 0);\n \t}\n }\n"
+    },
+    {
+      "name": "button_pointer",
+      "source_sha256": "d36d515a5dc3844dff97f66a226062cfdecfc26bbd3c2f31ad92801bc99262dd",
+      "metrics": {
+        "symbol": "Unknown5DD960Class::Unknown5DD960Class",
+        "mangled": "??0Unknown5DD960Class@@QAE@PAVUIViewClass@@PAVUIMeshClass@@ABVLayerClass@@@Z",
+        "address": "0x5DD960",
+        "ours": 73,
+        "client": 73,
+        "residue": 2,
+        "residue_regs": 2,
+        "tables": [],
+        "branch": {
+          "bytes": [
+            233,
+            233
+          ],
+          "size": 0,
+          "target": 0
+        },
+        "class": "order-only",
+        "reason": "the same 73 instructions, registers included, in another order"
+      },
+      "compiled": true,
+      "native_counts": {
+        "exact": 33,
+        "none": 1
+      },
+      "gained": [],
+      "lost": [],
+      "independent_patch_from_HEAD": "--- a/unknown_5dd960.cpp\n+++ b/unknown_5dd960.cpp\n@@ -17,8 +17,8 @@\n Unknown5DD960Class::Unknown5DD960Class(UIViewClass *view, UIMeshClass *mesh, const LayerClass &layer) :\n \tUnknown5BE4F0Class(view, mesh->Peek_Object(), layer)\n {\n-\tfor (int i = 1; i < 4; i++) {\n-\t\tGadgetClass *gadget = Buttons[i] = new ButtonGadgetClass(mesh, Unknown5DD960ButtonNames[i - 1], layer, 0x55, 3);\n+\tGadgetClass **buttons = Buttons + 1; for (int i = 1; i < 4; i++, buttons++) {\n+\t\tGadgetClass *gadget = *buttons = new ButtonGadgetClass(mesh, Unknown5DD960ButtonNames[i - 1], layer, 0x55, 3);\n \t\tUnknown64.Unknown_6870E0(gadget, i + 5, view, 1, 0);\n \t}\n }\n"
+    },
+    {
+      "name": "button_reference",
+      "source_sha256": "698dedecbc52551de4d6f4f0b5f6083deaa1468e6b2f0f3afc341252a4ea377d",
+      "metrics": {
+        "symbol": "Unknown5DD960Class::Unknown5DD960Class",
+        "mangled": "??0Unknown5DD960Class@@QAE@PAVUIViewClass@@PAVUIMeshClass@@ABVLayerClass@@@Z",
+        "address": "0x5DD960",
+        "ours": 73,
+        "client": 73,
+        "residue": 2,
+        "residue_regs": 2,
+        "tables": [],
+        "branch": {
+          "bytes": [
+            233,
+            233
+          ],
+          "size": 0,
+          "target": 0
+        },
+        "class": "order-only",
+        "reason": "the same 73 instructions, registers included, in another order"
+      },
+      "compiled": true,
+      "native_counts": {
+        "exact": 33,
+        "none": 1
+      },
+      "gained": [],
+      "lost": [],
+      "independent_patch_from_HEAD": "--- a/unknown_5dd960.cpp\n+++ b/unknown_5dd960.cpp\n@@ -17,8 +17,8 @@\n Unknown5DD960Class::Unknown5DD960Class(UIViewClass *view, UIMeshClass *mesh, const LayerClass &layer) :\n \tUnknown5BE4F0Class(view, mesh->Peek_Object(), layer)\n {\n-\tfor (int i = 1; i < 4; i++) {\n-\t\tGadgetClass *gadget = Buttons[i] = new ButtonGadgetClass(mesh, Unknown5DD960ButtonNames[i - 1], layer, 0x55, 3);\n+\tGadgetClass *(&buttons)[4] = Buttons; for (int i = 1; i < 4; i++) {\n+\t\tGadgetClass *gadget = buttons[i] = new ButtonGadgetClass(mesh, Unknown5DD960ButtonNames[i - 1], layer, 0x55, 3);\n \t\tUnknown64.Unknown_6870E0(gadget, i + 5, view, 1, 0);\n \t}\n }\n"
+    },
+    {
+      "name": "local_then_store",
+      "source_sha256": "992c7f8ba01dcadfe9ecffcf52536adbb328ad1aba7de969a1c569c6f6d1a71e",
+      "metrics": {
+        "symbol": "Unknown5DD960Class::Unknown5DD960Class",
+        "mangled": "??0Unknown5DD960Class@@QAE@PAVUIViewClass@@PAVUIMeshClass@@ABVLayerClass@@@Z",
+        "address": "0x5DD960",
+        "ours": 73,
+        "client": 73,
+        "residue": 2,
+        "residue_regs": 2,
+        "tables": [],
+        "branch": {
+          "bytes": [
+            233,
+            233
+          ],
+          "size": 0,
+          "target": 0
+        },
+        "class": "order-only",
+        "reason": "the same 73 instructions, registers included, in another order"
+      },
+      "compiled": true,
+      "native_counts": {
+        "exact": 33,
+        "none": 1
+      },
+      "gained": [],
+      "lost": [],
+      "independent_patch_from_HEAD": "--- a/unknown_5dd960.cpp\n+++ b/unknown_5dd960.cpp\n@@ -18,7 +18,7 @@\n \tUnknown5BE4F0Class(view, mesh->Peek_Object(), layer)\n {\n \tfor (int i = 1; i < 4; i++) {\n-\t\tGadgetClass *gadget = Buttons[i] = new ButtonGadgetClass(mesh, Unknown5DD960ButtonNames[i - 1], layer, 0x55, 3);\n+\t\tGadgetClass *gadget = new ButtonGadgetClass(mesh, Unknown5DD960ButtonNames[i - 1], layer, 0x55, 3); Buttons[i] = gadget;\n \t\tUnknown64.Unknown_6870E0(gadget, i + 5, view, 1, 0);\n \t}\n }\n"
+    },
+    {
+      "name": "store_then_read",
+      "source_sha256": "d9c3fadee8ff4e78d9dad0f3cede335e858bd5dcfacfcad3baea47eaae90fff6",
+      "metrics": {
+        "symbol": "Unknown5DD960Class::Unknown5DD960Class",
+        "mangled": "??0Unknown5DD960Class@@QAE@PAVUIViewClass@@PAVUIMeshClass@@ABVLayerClass@@@Z",
+        "address": "0x5DD960",
+        "ours": 73,
+        "client": 73,
+        "residue": 2,
+        "residue_regs": 2,
+        "tables": [],
+        "branch": {
+          "bytes": [
+            233,
+            233
+          ],
+          "size": 0,
+          "target": 0
+        },
+        "class": "order-only",
+        "reason": "the same 73 instructions, registers included, in another order"
+      },
+      "compiled": true,
+      "native_counts": {
+        "exact": 33,
+        "none": 1
+      },
+      "gained": [],
+      "lost": [],
+      "independent_patch_from_HEAD": "--- a/unknown_5dd960.cpp\n+++ b/unknown_5dd960.cpp\n@@ -18,7 +18,7 @@\n \tUnknown5BE4F0Class(view, mesh->Peek_Object(), layer)\n {\n \tfor (int i = 1; i < 4; i++) {\n-\t\tGadgetClass *gadget = Buttons[i] = new ButtonGadgetClass(mesh, Unknown5DD960ButtonNames[i - 1], layer, 0x55, 3);\n+\t\tButtons[i] = new ButtonGadgetClass(mesh, Unknown5DD960ButtonNames[i - 1], layer, 0x55, 3); GadgetClass *gadget = Buttons[i];\n \t\tUnknown64.Unknown_6870E0(gadget, i + 5, view, 1, 0);\n \t}\n }\n"
+    },
+    {
+      "name": "loop_counter_outer",
+      "source_sha256": "38d3a4435cdca4a302df0a159917f1f27afef5b7e2d8b43b8607fd96f545cfe3",
+      "metrics": {
+        "symbol": "Unknown5DD960Class::Unknown5DD960Class",
+        "mangled": "??0Unknown5DD960Class@@QAE@PAVUIViewClass@@PAVUIMeshClass@@ABVLayerClass@@@Z",
+        "address": "0x5DD960",
+        "ours": 73,
+        "client": 73,
+        "residue": 2,
+        "residue_regs": 2,
+        "tables": [],
+        "branch": {
+          "bytes": [
+            233,
+            233
+          ],
+          "size": 0,
+          "target": 0
+        },
+        "class": "order-only",
+        "reason": "the same 73 instructions, registers included, in another order"
+      },
+      "compiled": true,
+      "native_counts": {
+        "exact": 33,
+        "none": 1
+      },
+      "gained": [],
+      "lost": [],
+      "independent_patch_from_HEAD": "--- a/unknown_5dd960.cpp\n+++ b/unknown_5dd960.cpp\n@@ -17,7 +17,7 @@\n Unknown5DD960Class::Unknown5DD960Class(UIViewClass *view, UIMeshClass *mesh, const LayerClass &layer) :\n \tUnknown5BE4F0Class(view, mesh->Peek_Object(), layer)\n {\n-\tfor (int i = 1; i < 4; i++) {\n+\tint i; for (i = 1; i < 4; i++) {\n \t\tGadgetClass *gadget = Buttons[i] = new ButtonGadgetClass(mesh, Unknown5DD960ButtonNames[i - 1], layer, 0x55, 3);\n \t\tUnknown64.Unknown_6870E0(gadget, i + 5, view, 1, 0);\n \t}\n"
+    },
+    {
+      "name": "gadget_outer",
+      "source_sha256": "d1922e1f1169cc36d933db0f7df52a4c6b2881af7102ea5ff5d2681e2a853170",
+      "metrics": {
+        "symbol": "Unknown5DD960Class::Unknown5DD960Class",
+        "mangled": "??0Unknown5DD960Class@@QAE@PAVUIViewClass@@PAVUIMeshClass@@ABVLayerClass@@@Z",
+        "address": "0x5DD960",
+        "ours": 73,
+        "client": 73,
+        "residue": 2,
+        "residue_regs": 2,
+        "tables": [],
+        "branch": {
+          "bytes": [
+            233,
+            233
+          ],
+          "size": 0,
+          "target": 0
+        },
+        "class": "order-only",
+        "reason": "the same 73 instructions, registers included, in another order"
+      },
+      "compiled": true,
+      "native_counts": {
+        "exact": 33,
+        "none": 1
+      },
+      "gained": [],
+      "lost": [],
+      "independent_patch_from_HEAD": "--- a/unknown_5dd960.cpp\n+++ b/unknown_5dd960.cpp\n@@ -17,8 +17,8 @@\n Unknown5DD960Class::Unknown5DD960Class(UIViewClass *view, UIMeshClass *mesh, const LayerClass &layer) :\n \tUnknown5BE4F0Class(view, mesh->Peek_Object(), layer)\n {\n-\tfor (int i = 1; i < 4; i++) {\n-\t\tGadgetClass *gadget = Buttons[i] = new ButtonGadgetClass(mesh, Unknown5DD960ButtonNames[i - 1], layer, 0x55, 3);\n+\tGadgetClass *gadget; for (int i = 1; i < 4; i++) {\n+\t\tgadget = Buttons[i] = new ButtonGadgetClass(mesh, Unknown5DD960ButtonNames[i - 1], layer, 0x55, 3);\n \t\tUnknown64.Unknown_6870E0(gadget, i + 5, view, 1, 0);\n \t}\n }\n"
+    },
+    {
+      "name": "button_typed_local",
+      "source_sha256": "a133e01b15cd10bf184eb9b8e886b74aba2e8b456ef1c2a61b3bf0002163db56",
+      "metrics": {
+        "symbol": "Unknown5DD960Class::Unknown5DD960Class",
+        "mangled": "??0Unknown5DD960Class@@QAE@PAVUIViewClass@@PAVUIMeshClass@@ABVLayerClass@@@Z",
+        "address": "0x5DD960",
+        "ours": 73,
+        "client": 73,
+        "residue": 2,
+        "residue_regs": 2,
+        "tables": [],
+        "branch": {
+          "bytes": [
+            233,
+            233
+          ],
+          "size": 0,
+          "target": 0
+        },
+        "class": "order-only",
+        "reason": "the same 73 instructions, registers included, in another order"
+      },
+      "compiled": true,
+      "native_counts": {
+        "exact": 33,
+        "none": 1
+      },
+      "gained": [],
+      "lost": [],
+      "independent_patch_from_HEAD": "--- a/unknown_5dd960.cpp\n+++ b/unknown_5dd960.cpp\n@@ -18,7 +18,7 @@\n \tUnknown5BE4F0Class(view, mesh->Peek_Object(), layer)\n {\n \tfor (int i = 1; i < 4; i++) {\n-\t\tGadgetClass *gadget = Buttons[i] = new ButtonGadgetClass(mesh, Unknown5DD960ButtonNames[i - 1], layer, 0x55, 3);\n+\t\tButtonGadgetClass *gadget = new ButtonGadgetClass(mesh, Unknown5DD960ButtonNames[i - 1], layer, 0x55, 3); Buttons[i] = gadget;\n \t\tUnknown64.Unknown_6870E0(gadget, i + 5, view, 1, 0);\n \t}\n }\n"
+    },
+    {
+      "name": "slot_reference",
+      "source_sha256": "5d8fc6be06d0ce8d9a9aa10aa77e5c4677991d81e76981d6535c18d98a58c079",
+      "metrics": {
+        "symbol": "Unknown5DD960Class::Unknown5DD960Class",
+        "mangled": "??0Unknown5DD960Class@@QAE@PAVUIViewClass@@PAVUIMeshClass@@ABVLayerClass@@@Z",
+        "address": "0x5DD960",
+        "ours": 73,
+        "client": 73,
+        "residue": 0,
+        "residue_regs": 0,
+        "tables": [],
+        "branch": {
+          "bytes": [
+            233,
+            233
+          ],
+          "size": 0,
+          "target": 0
+        },
+        "class": "identical",
+        "reason": "nothing differs once stack offsets are masked"
+      },
+      "compiled": true,
+      "native_counts": {
+        "exact": 34
+      },
+      "gained": [
+        [
+          "??0Unknown5DD960Class@@QAE@PAVUIViewClass@@PAVUIMeshClass@@ABVLayerClass@@@Z",
+          "0x5DD960"
+        ]
+      ],
+      "lost": [],
+      "independent_patch_from_HEAD": "--- a/unknown_5dd960.cpp\n+++ b/unknown_5dd960.cpp\n@@ -18,7 +18,7 @@\n \tUnknown5BE4F0Class(view, mesh->Peek_Object(), layer)\n {\n \tfor (int i = 1; i < 4; i++) {\n-\t\tGadgetClass *gadget = Buttons[i] = new ButtonGadgetClass(mesh, Unknown5DD960ButtonNames[i - 1], layer, 0x55, 3);\n+\t\tGadgetClass *&gadget = Buttons[i]; gadget = new ButtonGadgetClass(mesh, Unknown5DD960ButtonNames[i - 1], layer, 0x55, 3);\n \t\tUnknown64.Unknown_6870E0(gadget, i + 5, view, 1, 0);\n \t}\n }\n"
+    }
+  ],
+  "pair_delta": {
+    "gained": [
+      [
+        "app",
+        "unknown_5dd960.cpp",
+        "0x5DD960"
+      ]
+    ],
+    "lost": []
+  },
+  "seed_metrics": {
+    "symbol": "Unknown5DD960Class::Unknown5DD960Class",
+    "mangled": "??0Unknown5DD960Class@@QAE@PAVUIViewClass@@PAVUIMeshClass@@ABVLayerClass@@@Z",
+    "address": "0x5DD960",
+    "ours": 73,
+    "client": 73,
+    "residue": 2,
+    "residue_regs": 2,
+    "tables": [],
+    "branch": {
+      "bytes": [
+        233,
+        233
+      ],
+      "size": 0,
+      "target": 0
+    },
+    "class": "order-only",
+    "reason": "the same 73 instructions, registers included, in another order"
+  },
+  "attempt_spec": {
+    "address": "0x5DD960",
+    "symbol": "Unknown5DD960Class::Unknown5DD960Class",
+    "file": "app/client/unknown_5dd960.cpp",
+    "lib": "app",
+    "status": "exact",
+    "score": "1.0",
+    "forms": 12,
+    "blocker": "none (initially order-only)",
+    "model": "gpt-6.1-sol (high)",
+    "evidence": "VC6 SP4; slot reference changes the table/array pointer setup order; native all-object match +1 pair, 0 lost; independent 233-byte body, all 15 relocations, 29-byte EH code and 48-byte EH metadata check passes; baseline/candidate repeats confirm.",
+    "stash": "button-ctor/replay.json"
+  },
+  "failures": [
+    {
+      "name": "baseline-sandbox",
+      "compiled": false,
+      "reason": "Wine local wineserver socket bind denied; rerun escalated succeeded; not a source form."
+    }
+  ],
+  "novelty_accounting": {
+    "historical_forms": 3,
+    "new_source_forms": 12,
+    "valid_compiles": 12,
+    "control_compiles": 3,
+    "failed_precompiler_invocations": 1,
+    "families": [
+      "name pointer lifetime/induction (4)",
+      "destination pointer/reference and assignment (4)",
+      "loop/gadget scope and construction binding (4)"
+    ],
+    "original_exact": "slot_reference",
+    "candidate_repeat": "comment-only cleanup of slot_reference; excluded from new forms",
+    "production_control": "coordinator build excluded"
+  },
+  "candidate_source_sha256": "94f6433b2f6d74b337c21d29789b84c82ebc0371108d816d9b81662a5038d2ac",
+  "candidate_patch": "--- a/unknown_5dd960.cpp\n+++ b/unknown_5dd960.cpp\n@@ -11,14 +11,14 @@\n \t\"face_button\", \"target_button\", \"orient_button\"\n };\n \n-// NOT EXACT: functional (O28; similarity 0.87): only the loop's set-up order (the names' pointer loaded after, not before, the\n-// buttons' address); Buttons[3] at +0x18C indexed i - 1 and a loop from 0 tried\n+// The reference to the button slot yields the retail name-table / button-address load order.\n+// Constructor body verified against client.exe at 0x5DD960 (VC6 SP4).\n // @0x5DD960\n Unknown5DD960Class::Unknown5DD960Class(UIViewClass *view, UIMeshClass *mesh, const LayerClass &layer) :\n \tUnknown5BE4F0Class(view, mesh->Peek_Object(), layer)\n {\n \tfor (int i = 1; i < 4; i++) {\n-\t\tGadgetClass *gadget = Buttons[i] = new ButtonGadgetClass(mesh, Unknown5DD960ButtonNames[i - 1], layer, 0x55, 3);\n+\t\tGadgetClass *&gadget = Buttons[i]; gadget = new ButtonGadgetClass(mesh, Unknown5DD960ButtonNames[i - 1], layer, 0x55, 3);\n \t\tUnknown64.Unknown_6870E0(gadget, i + 5, view, 1, 0);\n \t}\n }\n",
+  "independent_proof": {
+    "target": {
+      "start": "0x5dd960",
+      "length": 233,
+      "fixed_bytes": 173,
+      "relocations": [
+        {
+          "offset": 3,
+          "type": 6,
+          "symbol": "$L99080",
+          "target": "0xab7133"
+        },
+        {
+          "offset": 9,
+          "type": 6,
+          "symbol": "__except_list",
+          "target": "0x0"
+        },
+        {
+          "offset": 17,
+          "type": 6,
+          "symbol": "__except_list",
+          "target": "0x0"
+        },
+        {
+          "offset": 44,
+          "type": 20,
+          "symbol": "?Peek_Object@UIMeshClass@@QAEPAVRenderObjClass@@XZ",
+          "target": "0x5b8b00"
+        },
+        {
+          "offset": 57,
+          "type": 20,
+          "symbol": "??0Unknown5BE4F0Class@@QAE@PAVUIViewClass@@PAVRenderObjClass@@ABVLayerClass@@@Z",
+          "target": "0x5be4f0"
+        },
+        {
+          "offset": 71,
+          "type": 6,
+          "symbol": "??_7Unknown5DD960Class@@6BUnknownGadgetBase00Class@@@",
+          "target": "0xaf5e60"
+        },
+        {
+          "offset": 78,
+          "type": 6,
+          "symbol": "??_7Unknown5DD960Class@@6BUnknownGadgetBase04Class@@@",
+          "target": "0xaf5e54"
+        },
+        {
+          "offset": 85,
+          "type": 6,
+          "symbol": "??_7Unknown5DD960Class@@6BInterfaceClass@@@",
+          "target": "0xaf5e48"
+        },
+        {
+          "offset": 95,
+          "type": 6,
+          "symbol": "??_7Unknown5DD960Class@@6BUnknownObjectWatchClass@@@",
+          "target": "0xaf5e34"
+        },
+        {
+          "offset": 105,
+          "type": 6,
+          "symbol": "_Unknown5DD960ButtonNames",
+          "target": "0xb84b94"
+        },
+        {
+          "offset": 118,
+          "type": 20,
+          "symbol": "??2@YAPAXI@Z",
+          "target": "0x4e9cb0"
+        },
+        {
+          "offset": 158,
+          "type": 20,
+          "symbol": "??0ButtonGadgetClass@@QAE@PAVUIMeshClass@@PBDABVLayerClass@@II@Z",
+          "target": "0x675170"
+        },
+        {
+          "offset": 191,
+          "type": 20,
+          "symbol": "?Unknown_6870E0@InterfaceUnknown64Class@@QAEXPAVGadgetClass@@HPAVUIViewClass@@_N2@Z",
+          "target": "0x6870e0"
+        },
+        {
+          "offset": 204,
+          "type": 6,
+          "symbol": "_Unknown5DD960ButtonNames",
+          "target": "0xb84ba0"
+        },
+        {
+          "offset": 223,
+          "type": 6,
+          "symbol": "__except_list",
+          "target": "0x0"
+        }
+      ]
+    },
+    "instructions": 73,
+    "return_end_exclusive": "0x5DDA49",
+    "eh_code": {
+      "start": "0xab7120",
+      "length": 29,
+      "fixed_bytes": 13,
+      "relocations": [
+        {
+          "offset": 4,
+          "type": 20,
+          "symbol": "??1Unknown5BE4F0Class@@UAE@XZ",
+          "target": "0x5be820"
+        },
+        {
+          "offset": 13,
+          "type": 20,
+          "symbol": "??3@YAXPAX@Z",
+          "target": "0x4e9d10"
+        },
+        {
+          "offset": 20,
+          "type": 6,
+          "symbol": "$T99077",
+          "target": "0xb351c0"
+        },
+        {
+          "offset": 25,
+          "type": 20,
+          "symbol": "___CxxFrameHandler",
+          "target": "0xa25ac4"
+        }
+      ]
+    },
+    "eh_data": {
+      "start": "0xb351c0",
+      "length": 48,
+      "fixed_bytes": 36,
+      "relocations": [
+        {
+          "offset": 8,
+          "type": 6,
+          "symbol": "$T99082",
+          "target": "0xb351e0"
+        },
+        {
+          "offset": 36,
+          "type": 6,
+          "symbol": "$L99072",
+          "target": "0xab7120"
+        },
+        {
+          "offset": 44,
+          "type": 6,
+          "symbol": "$L99073",
+          "target": "0xab7128"
+        }
+      ]
+    },
+    "names": [
+      "face_button",
+      "target_button",
+      "orient_button"
+    ],
+    "outside_function_raw_bytes_identical": 33,
+    "outside_function_relocations_identical": 33,
+    "metrics": {
+      "symbol": "Unknown5DD960Class::Unknown5DD960Class",
+      "mangled": "??0Unknown5DD960Class@@QAE@PAVUIViewClass@@PAVUIMeshClass@@ABVLayerClass@@@Z",
+      "address": "0x5DD960",
+      "ours": 73,
+      "client": 73,
+      "residue": 0,
+      "residue_regs": 0,
+      "tables": [],
+      "branch": {
+        "bytes": [
+          233,
+          233
+        ],
+        "size": 0,
+        "target": 0
+      },
+      "class": "identical",
+      "reason": "nothing differs once stack offsets are masked"
+    },
+    "calls_sha256": "f84e32301106945cfb96dc136155368fe3eaa313d6598a532579f7a3f1da455b",
+    "retail_sha256": "249f852496f341c00361be95b66e7c0becc2c39e7cba026f9227e38b602651c4",
+    "limitations": [
+      "Static byte/relocation proof; no runtime behavior claim.",
+      "Whole-library verify is the coordinator integration step."
+    ]
+  },
+  "rea_evidence": {
+    "evidence_id": "ev_1422b35e0aec14f97a42dc1dd7b68a6291224be1635525b310e26cf538d93635",
+    "body_range_inclusive": [
+      "0x5DD960",
+      "0x5DDA48"
+    ],
+    "observations": "Ghidra 12.1.4 independently reports 233-byte body, five direct calls and the retail setup order.",
+    "limitation": "Static evidence; unknown original names/types, runtime unobserved."
+  },
+  "replay_instructions": "Extract replay_driver into a .py file, then python replay.py /absolute/path/replay.json [--run]. Requires git, current repo tooling and configured VC6 SP4 Wine wrapper. All patches independently apply to the pinned HEAD source. Runner compiles/matches every object function and stops after the exact variant; all 12 precede it.",
+  "replay_driver": "from pathlib import Path\nimport hashlib,io,json,subprocess,sys,tarfile\nstash=Path(sys.argv[1]).resolve()\npacket=json.loads(stash.read_text())\nroot=Path('/home/dev/Projects/EnB')\narea=root/'.work/claim-254/button-ctor-replay'\narea.mkdir(exist_ok=True)\ntree=area/'tree'\ntree.mkdir(exist_ok=True)\nraw=subprocess.check_output(['git','archive',packet['base_revision']],cwd=root)\ntarfile.open(fileobj=io.BytesIO(raw)).extractall(tree,filter='data')\nbaseline=(tree/packet['unit']).read_text()\nassert hashlib.sha256(baseline.encode()).hexdigest()==packet['baseline_source_sha256']\nvariants=[]\nfor row in [{'name':'baseline'}]+packet['forms']:\n    folder=area/row['name']; folder.mkdir(exist_ok=True)\n    path=folder/'unknown_5dd960.cpp'; path.write_text(baseline)\n    if 'independent_patch_from_HEAD' in row:\n        subprocess.run(['git','apply','--no-index','--unsafe-paths','-'],input=row['independent_patch_from_HEAD'].encode(),cwd=folder,check=True)\n        assert hashlib.sha256(path.read_bytes()).hexdigest()==row['source_sha256']\n    variants.append({'name':row['name'],'source':str(path)})\nplan={'unit':packet['unit'],'target':packet['address'],'tree':str(tree),'variants':variants}\n(area/'manifest.json').write_text(json.dumps(plan,indent=2)+'\\n')\n(area/'run_batch.py').write_text(packet['runner_source'])\nprint('Prepared',area/'manifest.json')\nif '--run' in sys.argv:\n    subprocess.run([sys.executable,str(area/'run_batch.py'),str(area/'manifest.json')],cwd=root,check=True)\n",
+  "runner_source": "\"\"\"Compile immutable source variants and native-match every object.\n\nCoordinator only: python3 .work/claim-240/focused/run_batch.py MANIFEST.json\nManifest: {unit, target, tree, baseline_matches?, variants:[{name, source, tree?}]}.\nUse a first variant named baseline, or give a previously verified baseline JSON.\nEach invocation has a fresh output directory, so repeated runs cannot race.\n\"\"\"\nfrom pathlib import Path\nimport collections\nimport hashlib\nimport json\nimport os\nimport re\nimport subprocess\nimport sys\nimport tempfile\nimport time\n\nROOT = Path('/home/dev/Projects/EnB')\nAREA = ROOT / '.work/claim-240/focused'\nWORK = ROOT / '.work/claim-254'\nCOMPILER = '/home/dev/Toolchains/enb-vc6-sp4/bin/vc6-cl'\nPYTHON = '/home/dev/Toolchains/enb-vc6-sp4/venv/bin/python'\nCLIENT = '/home/dev/Games/earth-and-beyond/prefix/drive_c/Program Files (x86)/EA GAMES/Earth & Beyond/release/client.exe'\nsys.path[:0] = [str(ROOT / 'tools/re'), str(ROOT / 'tools/vc6')]\nimport appfile\nimport libdefs\n\n\ndef contained(value):\n    path = Path(value).resolve()\n    if not path.is_relative_to(WORK.resolve()):\n        raise ValueError('Input/output must be inside claim-240 scratch: '+str(path))\n    return path\n\n\ndef win(path):\n    return 'Z:' + str(path).replace('/', chr(92))\n\n\ndef exact(rows):\n    return {(row['symbol'], address) for row in rows if row['status'] == 'exact'\n            for address in row['addresses']}\n\n\ndef compile_and_match(source, unit, tree, output):\n    paths = [source.parent, tree / Path(unit).parent]\n    for value in appfile.candidate_dirs():\n        path = Path(value).resolve()\n        if path.is_relative_to(ROOT):\n            path = tree / path.relative_to(ROOT)\n        if path.is_dir() and path not in paths:\n            paths.append(path)\n    args = libdefs.LIB_FLAGS['app'].split()\n    args += ['/D'+value for value in libdefs.APP_LIBS['app']['defines']]\n    args += ['/I\"'+win(path)+'\"' for path in paths]\n    args += ['\"'+win(source)+'\"']\n    rsp = output / 'compile.rsp'\n    rsp.write_text('\\n'.join(args))\n    with (output / 'compile.log').open('w') as log:\n        process = subprocess.run([COMPILER, '@'+win(rsp)], cwd=output,\n                                 stdout=log, stderr=log, timeout=180)\n    if process.returncode:\n        return {'compiled': False, 'compile_returncode': process.returncode,\n                'error': (output / 'compile.log').read_text(errors='replace')[-2500:]}\n    obj = output / (source.stem+'.obj')\n    with (output / 'match.log').open('w') as log:\n        process = subprocess.run([PYTHON, str(ROOT / 'tools/re/objmatch.py'),\n                                  str(obj), '--client', CLIENT, '-q', '--json',\n                                  str(output / 'matches.json')], stdout=log,\n                                 stderr=log, timeout=240)\n    result = {'compiled': True, 'object': str(obj),\n              'match_returncode': process.returncode,\n              'matches': str(output / 'matches.json')}\n    if process.returncode:\n        result['error'] = (output / 'match.log').read_text(errors='replace')[-2500:]\n        return result\n    rows = json.loads((output / 'matches.json').read_text())\n    result['counts'] = dict(collections.Counter(row['status'] for row in rows))\n    result['exact_symbol_pairs'] = sorted(exact(rows))\n    result['exact_addresses'] = sorted({a for _, a in exact(rows)})\n    return result\n\n\ndef main():\n    manifest_path = contained(sys.argv[1])\n    plan = json.loads(manifest_path.read_text())\n    unit = plan['unit']\n    if not unit.startswith('app/') or Path(unit).suffix != '.cpp':\n        raise ValueError('unit must be a repository-relative app .cpp')\n    target = int(plan['target'], 0)\n    if not (0x5D6550 <= target < 0x5EDFD1):\n        raise ValueError('Target outside claim #254')\n    tree = contained(plan['tree'])\n    output_root = manifest_path.parent / 'runs'\n    output_root.mkdir(exist_ok=True)\n    run = Path(tempfile.mkdtemp(prefix=manifest_path.stem+'-', dir=output_root))\n    baseline = None\n    if plan.get('baseline_matches'):\n        baseline = exact(json.loads(contained(plan['baseline_matches']).read_text()))\n    elif plan['variants'][0]['name'] != 'baseline':\n        raise ValueError('First form must be baseline unless baseline_matches supplied')\n    summary = {'manifest': str(manifest_path), 'unit': unit,\n               'target': plan['target'], 'run': str(run), 'variants': []}\n    print('RUN '+str(run), flush=True)\n    failed = False\n    for item in plan['variants']:\n        name = item['name']\n        if not re.fullmatch('[A-Za-z0-9_-]{1,80}', name):\n            raise ValueError('Invalid variant name')\n        source = contained(item['source'])\n        if source.name != Path(unit).name:\n            raise ValueError('Keep original source basename for __FILE__ matching')\n        item_tree = contained(item.get('tree', str(tree)))\n        output = run / name\n        output.mkdir()\n        digest = hashlib.sha256(source.read_bytes()).hexdigest()\n        row = {'name': name, 'source': str(source), 'source_sha256': digest,\n               'tree': str(item_tree), 'output': str(output)}\n        started = time.monotonic()\n        try:\n            row.update(compile_and_match(source, unit, item_tree, output))\n            if hashlib.sha256(source.read_bytes()).hexdigest() != digest:\n                raise RuntimeError('Source changed during its queued build')\n            if row.get('compiled') and row.get('match_returncode') == 0:\n                after = {tuple(pair) for pair in row['exact_symbol_pairs']}\n                if baseline is None:\n                    baseline = after\n                row['gained'] = sorted(after-baseline)\n                row['lost'] = sorted(baseline-after)\n                row['gained_addresses'] = sorted({a for _, a in after}-{a for _, a in baseline})\n                row['lost_addresses'] = sorted({a for _, a in baseline}-{a for _, a in after})\n                row['target_exact'] = f'0x{target:X}' in row['exact_addresses']\n            else:\n                failed = True\n        except Exception as error:\n            failed = True\n            row['error'] = str(error)\n        row['seconds'] = round(time.monotonic()-started, 2)\n        summary['variants'].append(row)\n        (run / 'summary.json').write_text(json.dumps(summary, indent=2)+'\\n')\n        display = {key: row[key] for key in ('name', 'compiled', 'match_returncode',\n                   'counts', 'target_exact', 'gained_addresses', 'lost_addresses',\n                   'seconds', 'error') if key in row}\n        display['symbol_gains'] = len(row.get('gained', []))\n        display['symbol_losses'] = len(row.get('lost', []))\n        print(json.dumps(display), flush=True)\n        if row.get('target_exact') and not row.get('lost'):\n            break\n        if name == 'baseline' and baseline is None:\n            break\n    print('SUMMARY '+str(run / 'summary.json'), flush=True)\n    return int(failed)\n\n\nif __name__ == '__main__':\n    raise SystemExit(main())\n",
+  "limits": "One constructor only. No headers, switches, asm, volatile, fake wrappers or dead budget. Frozen HEAD include tree. No tracked edits, commits, pushes, binaries, or captures. Coordinator owns broad integration verification."
+}

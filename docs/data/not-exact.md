@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-638 entries in 258 files.
+637 entries in 257 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -481,7 +481,6 @@ edit the comments in the code, not this file.
 | `app/client/ui_verb.cpp:262` | `UIVerbClass::Unknown_88` | marker | NOT EXACT: inline budget (the first Clear_Buttons copy: the client calls size(), inlines erase); the second copy matches |
 | `app/client/unknown_586240.cpp:268` | `UISpaceLightsClass::Unknown_586F60` | marker | NOT EXACT: order (the address of Color[Current] after 1.0f - v in the client), D89; the pseudocode-faithful form 0x586F60 |
 | `app/client/unknown_586240.cpp:352` | `UISpaceLightsClass::Unknown_587310` | mention | NOT EXACT, an order-only residue: the address of Color[Current] is computed after 1.0f - v in the client) clamps with WWMath::Min / Max, y declared before x. |
-| `app/client/unknown_5dd960.cpp:14` | `Unknown5DD960Class::Unknown5DD960Class` | marker | NOT EXACT: functional (O28; similarity 0.87): only the loop's set-up order (the names' pointer loaded after, not before, the buttons' address); Buttons[3] at +0x18C indexed i - 1 and a loop from 0 tried @0x5DD960 |
 | `app/client/unknown_62a7c0.cpp:43` | `Unknown62A7C0Class::Unknown_62AA20` | marker | NOT EXACT (0.59, attempts.py 0x62AA20): the client holds the folded -0.29f in one float temporary (fld / fst) for the three offsets, ours stores it as immediates |
 | `app/client/unknown_62a7c0.cpp:100` | `Unknown62A7C0Class::Unknown_62AFA0` | mention | NOT EXACT: 0x62AA20 (0x62ADE0 inlined with 0.0f; the client keeps the folded -0.29f in one float temporary, ours stores immediates; tried a local offset, a float-returning helper: both exact elsewhere, no change here). |
 | `app/client/unknown_6ca0c0.cpp:76` | `FontSys::Unknown_6CA0C0` | marker | NOT EXACT: worked toward the client's bytes (FX1 / FX, runs 2026-11-20 and -21; FS 2026-11-22): case order, branch senses, inline layers, budget, Append_Dots (RANDLETTER / STAY), STAY's buffer local (pushed to 0x6D8DC0 and String_Pixel_Width, 0x6CC3B8 / 0x6CC3D3) |
