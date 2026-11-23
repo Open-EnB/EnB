@@ -2605,45 +2605,45 @@ void ClientObjectClass::Unknown_7009A0(bool on, bool force)
 	}
 }
 
-// 0x6FF7A0 the name label: the object's name, behind its Title or Rank for a type other than 0  // NOT EXACT: inline-budget (the client calls the string lookup 0x514BD0 at all six sites and inlines more of std::string; ours the reverse)
+// 0x6FF7A0 the name label: the object's name, behind its Title or Rank for a type other than 0; the lookups through Unknown_Find_Valid (the client calls 0x514BD0 below it at all six sites), the dead type test at the end spends the last Rank ~string's nested budget (its _Tidy called, as the client)  // NOT EXACT: frame slots (the client gives the four selection NameClasses four slots and Title / Rank share one; ours the reverse; code otherwise identical)
 void ClientObjectClass::Unknown_6FF7A0(std::string &text)
 {
 	DeltaStringClass *t;
 	if (!Unknown_6F5A40()) {
-		NameClass field("Name");
-		t = Unknown_Find_Field<DeltaStringClass>((DeltaCompoundClass *)AuxData, field);
-		if (!t || !t->Unknown70) {
-			NameClass owner("Owner");
-			t = Unknown_Find_Field<DeltaStringClass>((DeltaCompoundClass *)AuxData, owner);
+		NameClass name_field("Name");
+		t = Unknown_Find_Valid<DeltaStringClass>((DeltaCompoundClass *)AuxData, name_field);
+		if (!t) {
+			NameClass owner_field("Owner");
+			t = Unknown_Find_Valid<DeltaStringClass>((DeltaCompoundClass *)AuxData, owner_field);
 		}
 	} else {
-		NameClass owner("Owner");
-		t = Unknown_Find_Field<DeltaStringClass>((DeltaCompoundClass *)AuxData, owner);
-		if (!t || !t->Unknown70) {
-			NameClass field("Name");
-			t = Unknown_Find_Field<DeltaStringClass>((DeltaCompoundClass *)AuxData, field);
+		NameClass owner_field("Owner");
+		t = Unknown_Find_Valid<DeltaStringClass>((DeltaCompoundClass *)AuxData, owner_field);
+		if (!t) {
+			NameClass name_field("Name");
+			t = Unknown_Find_Valid<DeltaStringClass>((DeltaCompoundClass *)AuxData, name_field);
 		}
 	}
-	const char *name = (t && t->Unknown70) ? t->String : "Unknown";
+	const char *name = t ? t->String : "Unknown";
 	if (Type == 0) {
 		text = std::string(name);
 	} else {
 		NameClass title_field("Title");
-		t = Unknown_Find_Field<DeltaStringClass>((DeltaCompoundClass *)AuxData, title_field);
-		const char *title = (t && t->Unknown70) ? t->String : "";
+		t = Unknown_Find_Valid<DeltaStringClass>((DeltaCompoundClass *)AuxData, title_field);
+		const char *title = t ? t->String : "";
 		if (*title) {
 			text = std::string(title) + " " + name;
 		} else {
 			NameClass rank_field("Rank");
-			t = Unknown_Find_Field<DeltaStringClass>((DeltaCompoundClass *)AuxData, rank_field);
-			const char *rank = (t && t->Unknown70) ? t->String : "";
+			t = Unknown_Find_Valid<DeltaStringClass>((DeltaCompoundClass *)AuxData, rank_field);
+			const char *rank = t ? t->String : "";
 			if (*rank) {
 				text = std::string(rank) + " " + name;
 			} else {
 				text = name;
 			}
 		}
-	}
+	} Unknown_6F5A40();
 }
 template class UnknownRTTIClass<DeltaStatsClass>;	// the CurrentStats find's Cast 0x7099F0: the client calls it out of line (0x6FC0F3 in 0x6FBEF0, whose copy here inlines it: parked, inline budget)
 /*
@@ -2685,4 +2685,4 @@ template class UnknownRTTIClass<DeltaStatsClass>;	// the CurrentStats find's Cas
 */
 // VC6 symbol pad (not the client's code): the aux-data constructors (auxroots.py's region above) match only when the
 // count of the declarations this file sees falls in a window of a cycle of 64 (tools/re/auxroots.py SYMBOL_PAD)
-enum CoSymbolPadType { CO_PAD_00, CO_PAD_01, CO_PAD_02, CO_PAD_03, CO_PAD_04, CO_PAD_05, CO_PAD_06, CO_PAD_07, CO_PAD_08, CO_PAD_09, CO_PAD_10, CO_PAD_11, CO_PAD_12, CO_PAD_13, CO_PAD_14, CO_PAD_15, CO_PAD_16, CO_PAD_17, CO_PAD_18, CO_PAD_19, CO_PAD_20, CO_PAD_21, CO_PAD_22, CO_PAD_23, CO_PAD_24, CO_PAD_25, CO_PAD_26, CO_PAD_27, CO_PAD_28, CO_PAD_29, CO_PAD_30, CO_PAD_31, CO_PAD_32, CO_PAD_33, CO_PAD_34, CO_PAD_35, CO_PAD_36, CO_PAD_37, CO_PAD_38 };	// NAME 1: a build aid (HX1)
+enum CoSymbolPadType { CO_PAD_00, CO_PAD_01, CO_PAD_02, CO_PAD_03, CO_PAD_04, CO_PAD_05, CO_PAD_06, CO_PAD_07, CO_PAD_08, CO_PAD_09, CO_PAD_10, CO_PAD_11, CO_PAD_12, CO_PAD_13, CO_PAD_14, CO_PAD_15, CO_PAD_16, CO_PAD_17, CO_PAD_18, CO_PAD_19, CO_PAD_20, CO_PAD_21, CO_PAD_22, CO_PAD_23, CO_PAD_24, CO_PAD_25, CO_PAD_26, CO_PAD_27 };	// NAME 1: a build aid (HX1)

@@ -97,8 +97,10 @@ repository; every compile repeats the setup). Check a new file's string in the o
 `%TEMP%\enb_import\verify-app\`. appfile.py drafts compile under their own path: their string
 differs, their bytes don't (the string is reached through a relocation). Headers' strings in
 the client are relative (`..\shared/auxdata/auxdata.h`, `..\..\wwlib\ref_ptr.h`): E&B's
-compiles ran in a project directory with relative includes. Leave them (D41): the string
-differs, the bytes and lines match through the relocation.
+compiles ran in a project directory with relative includes. The string differs, the bytes
+and lines match through the relocation. D283 (rescinding D41): the client's header strings and
+include spellings are the target, adopted as one tools-first item (progress.md §4), not by
+editing includes file by file: a builder leaves include spellings as they are until that item lands.
 
 ## 3. Known traps
 
@@ -518,7 +520,7 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
   returns (untried). With repeated `??_H` Matrix3D copies in some blocks only, the budget runs out partway:
   dead reads at the top move that point.
 * **`#pragma inline_depth(0)` around a function** emits the compiler's ??_G / clear copies out of line,
-  byte-exact, where the client calls them, and keeps an inlined member ctor out of line; inline_depth(1..3),
+  byte-exact, where the client calls them, and keeps an inlined member ctor out of line, and sends an implicit operator= out of line too (write the field copies, read the result back through a pointer: fontmanager 0x6D1010); inline_depth(1..3),
   auto_inline(off), an out-of-class or virtual dtor or a member operator delete do not make VC6 call ??_G.
   inline_depth around a function did not reproduce out-of-line Casts (dead finds did). An explicit template
   instantiation inside an auto_inline(off) region keeps that template out of line for some types only. inline_depth(1..3) compiles as the default and only 0 changes anything (it beats `__forceinline`); explicit specializations defined later in the TU are still inlined.
@@ -619,6 +621,12 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
 * **An index local in the callee's body can replace an `auto_inline(off)` pair:** `int i = index;` keeps one caller's call out of line while another caller inlines it (0x61D230 called from 0x61D260 and inlined elsewhere).
 * **A function whose early string constructions ignore every dead read is missing an inline layer:** a file-static wrapper over a `const char *` (`Unknown_Register_Key`, sclient 0x7436A0: 485 -> 209) rather than more spenders.
 * **An earlier cut can be compensation for a missing accessor:** after a big lever lands (the file-static accessors of ui_starbase 0x634140), re-test the dead reads and sweeps that were cut before it.
+* **A helper's body written in place when the client's inlined copy schedules differently:** a one-line same-file helper call spends a whole inline layer, and its body in the caller can free a deeper STL inline (AttribDirCollective's destructor 0x4DBFD0: Detach_Owned_Mods in place lets `clear()` inline `_M_delete_node` and emit ??_G 0x4DF850; a named local in Remove_Member fixes its register rotation), or match a client copy that differs from the standalone function (UITradeClass 0x650A40 against 0x653A80's body). Try the body in place before more dead reads. The reverse also holds: where dead reads get a nested call only within a row or two, a one-line file-static helper around that single statement moves the cut a whole layer (0x6CCE60: `Add_Dots(text)` around `text += "..."` sends += / Get_Length / Store_Length out of line); over an operator= it sends the operator= itself out, not its Store_Length (Change_Text 0x6CDBC0).
+* **A store VC6 sinks below the next one, where the client keeps source order:** a volatile store at the site (`*(volatile int *)&Member = 0;`) pins it (sclient 0x744D80: every client copy keeps 12B0 before 12B4). Never on the member's declaration: that moves the constructor's EH-state store above it (0x7405E0 lost). Mark it provisional.
+* **Change_Text 0x6CDBC0 (104 forms) fixed three effects; do not re-spend forms on them:** VC6 cuts the second of two inlinable sites before the first whatever argument each takes; dead reads before or between the sites have one fixed effect whatever their count; `#pragma optimize("a", off/on)` around one function is the base form.
+* **Nested inline layers plus one dead read after the outer layer:** each layer alone cuts one call, so two invented layers (inv_render's file-static Unknown_Cannot_Use / Unknown_Refresh) and one D272 dead read after the outer one are tried together (0x68C6B0, 27 -> 8 masked).
+* **One helper can need two source forms when its callers' inline patterns differ:** split at the callers (two helpers, one per pattern), not inside the helper. A header helper's body form, not only its layers, decides which nested callee a big caller cuts, because a callee costs its source size (auxdata.h's Unknown_Find_Set_Field as if / if / return, starmap_pip 0x7C30E0; file-static Delete_Labels / Delete_Label layers put ??_G and the erase at depth 3 for 0x7C2D00 / 0x7C2DF0).
+* **Where a dead read sits decides which layer is cut:** reads inside the inlined callee, right after its nested site, move the cut up a layer; reads in the caller cut the deepest expansion (two dead reads in the inlined Get_Child moved chat_filter 0x4E2D60's cut up one layer).
 
 **Register-only, order-only** (two attempts, then the stop rule)
 
@@ -730,6 +738,8 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
 * **A dword store through a pointer local is an alias barrier:** it stops a later member load being hoisted above it (ui_petition_entry 0x6366A0, 8 -> 4).
 * **A long-lived local takes the function-wide zero's callee-saved register when an inlined callee goes out of line;** WWPROFILE's flag takes `bl`, so the zero goes to `esi` (FontSys 0x6D64C0: an ebx contest). An int-typed store of a position that gives 156 against 158 is a hack with no client evidence: not kept.
 * **An index local in a font-text setter:** `int i = index;` gives the client's load order (ui_manu 0x5B5320 and its setters).
+
+* **A `lea` operand order follows the set of locals in the caller:** sweep combinations of which locals exist, not statement order. A counter per loop is needed only while a written-out `operator=` stands in for the implicit one (see Field offset, layout).
 
 **Shape: returns, tails, loops, switches**
 
@@ -850,6 +860,8 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
 * **VC6 merges identical release tails only when the copies use the same register:** a local that gives every copy the same register merges them (avatar_pip 0x7E3A20's `robj` local).
 * **Case labels in another order give identical code:** the switch's bytes follow the jump table, not the label order in the source (ui_registration 0x5FBD30).
 
+* **A row loop that starts from a pre-loop row copy makes VC6 fold src into `[src - dst + dst]`:** assigning src at the row's end keeps it stepped as the client has it (env_map 0x760770, 106 -> 75 masked).
+
 **Frame and stack slots**
 
 * **Temporaries that hold a frame slot:** named `Vector3` locals reproduce a frame holding two temporaries; a float ternary argument makes a temporary (write an if / else with two calls); a `rand()` packet argument needs a local before the temporary.
@@ -903,6 +915,7 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
 * **A function-scope variable the slot map sends to two client slots** is per-block variables (a per-case `for (int x ...)`); a struct local stored contiguously and read as `fld other; fmul field` is built by fields, not by its constructor; an int going through a register before `fild` is an int local assigned inside the expression; a pointer kept in a register across two calls is the inline call's return stored in a local.
 
 * **A copy-initialised local where the client re-reads a slot:** `RefCountPtr<T> route = expr;` against a default-constructed local assigned later changes whether the client's second read hits the slot (0x522860: the re-read at 0x5268BA, 58 -> 56).
+* **An iterator initialised in its declaration from an out-of-line find can leave a spare frame slot:** declare it, then assign (fontmanager 0x6D1600).
 
 **Constructors, destructors, vtables**
 
@@ -983,6 +996,8 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
   base at +4 under a vptr shows as the base dtor called through `this ? this+4 : 0` (as a member it costs the
   ctor and dtor). An implicit copy of an anonymous union `{bool; char[]}` copies every member: write
   `operator=` out inline. ClientClass (0x1150 bytes, tsk_game.h) is the `pack(push, 4)` example.
+
+* **A member-wise inlined copy of a struct means the implicit `operator=`:** array members that are really small structs are the tell (a cast like `*(TPoint2D<float>*)arr` in the pseudocode); type them as the client does and drop the written-out `operator=` (FontStringStruct Offset / Target / BoxOffset as `TPoint2D<float>`, from Load_String 0x6C0430's struct stores: 0x6D0A70 and 0x6D4C70 exact).
 
 **Relocation**
 
@@ -1160,6 +1175,8 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
 * **Offset-0 conversions emit no code but can reshape a large function (2026-11-19):** derived-to-base pointer conversions at offset 0 (implicit upcasts, conversions through `void *`, `this` adjustments) and int-to-unsigned argument conversions change a large function's register allocation and tail merging as a whole; a stand-in exact with an unrelated-class cast can lose exactness once the real hierarchy is declared. Bisect with renamed scratch copies of the base classes, not by editing their declarations. A stand-in's declared virtual destructor against an implicit one changes the EH states and registers of a caller that only news it.
 * **A `return` inside a loop (2026-11-19):** `if (!(a && b && c)) return;` puts the failure blocks after the next unconditional jump and adds a frame slot; the client's form was `bool same = (...); if (!same) return;` with `same` declared per iteration. Float locals declared once per loop iteration instead of per branch change the frame. The client's `fld [x]; fstp [x]` self-copies are `Matrix3D::Set(x, y, z, pos)` with `pos` = `Get_Translation()` of the same matrix; `Quaternion::Rotate_Vector(v, &out)` computes X, Y, Z in that order, the value form Z first.
 
+* **Masked calls can make a wrong template-instance form look exact:** before keeping a template-argument change, check which instance the client calls (`client.py`): AvatarRObj as `RefCountPtr<CharacterViewAvatarClass>` made same-type `operator=` read `rhs.Referent` and ui_avatar_dialog 0x552FC0 exact, and the client's call to Create_NEW instance 0x53CF50 (not 0x47D2E0) is the evidence.
+
 ### 3.2 Templates and STL
 
 * **VC6's `vector::clear()` is an extra inline layer over `erase(begin(), end())`** (cordcon Reset 0x84E770):
@@ -1225,7 +1242,7 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
   inside a declaration: `class X *`); a removed class block or NOT EXACT line becomes blank or `// 0xADDR`
   lines. Log calls are pinned like asserts: E&B's INFMSG pushes `__LINE__` as an immediate before the " "
   string 0xB6E948 (cordcon, cordmgr). `appfile.py match` markers replace lines, never add them.
-* **`__FILE__`: §2.1;** header strings stay as they are (D41). A `__FILE__` that differs only in case
+* **`__FILE__`: §2.1;** header strings stay as they are until D283's item lands. A `__FILE__` that differs only in case
   (`app\Client\`) differs in the string, not the bytes.
 * **Assert text is evidence of the source:** a FAIL_IF's text is `#expr`, so a helper that matches the bytes
   but changes the condition's tokens changes the client's string (don't keep it); names can be reversed
@@ -1469,7 +1486,7 @@ are in 3.0.
   also take no lock), and run the full verify once per batch of gains. A queued verify compiles the
   tree as it is when it starts, not when it was launched. Never wrap verify or an `auxpad.py` sweep in a shell
   `timeout`: it kills the job while it waits, orphans a lease named importer-PID (3.5) and can leave a pad
-  variant in co.cpp. A verify started with `&` inside a foreground call is the same orphan. A pad sweep takes
+  variant in co.cpp. A verify started with `&` inside a foreground call is the same orphan. A `timeout` chained after a trybatch run in one command kills the verify queued behind it the same way. A pad sweep takes
   the lock once per value unless `--hold` (once for the sweep, released in a finally); `sendpad.py --first-window`
   tests the current pad first and stops at a run of three full values (it saves no per-value sets).
 * **Verify scratch is private only with an agent:** with `--agent NAME`, `ENB_AGENT`, or inside a wt.py worktree
@@ -1667,7 +1684,7 @@ are in 3.0.
   different window than verify (a constant set of false losses, tie-break pairs it cannot see): decide with sendpad.py / the full verify only.
   A member added to a header that sclient.cpp or co.cpp includes flips pad-sensitive pairs beyond the
   watch list (client_item_property_builder.cpp in §3.9 has the case).
-* **More pad-sensitive headers:** declarations added to a header reached through sbaseview.h move sclient's send pad 0x758210 (a declaration stays local in the .cpp that needs it); replacing aux_roots.h's views with an include of a new header lost the six padded constructors (0x702240, 0x7045F0): keep co.cpp's declaration count, with money.h's guard pattern. Out-of-class definitions of member templates compile in VC6 (only explicit specialisations hit C1001): a way to add a member without changing a pad-sensitive header (a plain overload in kv_encoder_base.h cost the send pad and 0x597080).
+* **More pad-sensitive headers:** declarations added to a header reached through sbaseview.h move sclient's send pad 0x758210 (a declaration stays local in the .cpp that needs it); replacing aux_roots.h's views with an include of a new header lost the six padded constructors (0x702240, 0x7045F0): keep co.cpp's declaration count, with money.h's guard pattern. Out-of-class definitions of member templates compile in VC6 (only explicit specialisations hit C1001): a way to add a member without changing a pad-sensitive header (a plain overload in kv_encoder_base.h cost the send pad and 0x597080). Members added to aux_roots_types.h move skill_data 0x6A4F40, client_lego_impl 0x72D5F0 and sbaseview 0x6A1180 like a pad window; `appfile.py` cannot see it, only the full verify does.
 * **Names inside a header guard macro** (money.h's `__X_ALL` pattern) cannot be enumerators of a type declared outside the guard: use anonymous enums, with casts where an enum value is returned or passed (C2440 / C2665).
 * **Keeping both pads still:** put members only one file needs behind a guard macro defined only by its users
   (money.h's pattern; a declaration added to delta_array.h reaches aux_roots and sclient: `#ifdef
@@ -1982,6 +1999,8 @@ are in 3.0.
 * **Tool arguments:** `verify.py --pool` takes an integer (the VM count). `appfile.py match --diff` needs the full `Class::Method` name and a `// @0xADDR` marker on an existing blank line (a new line shifts asserts). It cannot find operators (`??_5`, `??U`): use `objdiff.py .work/<ID>/appfile/obj/X.obj MANGLED ADDR`.
 * **Unwind funclets show a function's local `RefCountPtr` types:** N funclets jumping to one destructor means N locals of one instantiation; use them before retyping locals.
 * **trybatch traps:** a file's NOT EXACT markers go stale when a later edit fixes a function (half of one brief's list was already exact): `trybatch.py base` each marker before a round; form names that differ only by case share one overlay folder on Windows and mix their results (the tool now refuses such names); a variant that changes the line count shifts later `__LINE__` (put dead forms on existing lines; the tool flags the shift); a header hunk appended after a `//` comment is commented out; a draft header reached through another header needs a no-op hunk on every intermediate header (the symptom is C1083 or a compile that shows no change), and a draft-folder header copy does not shadow a quoted include from another header; hunk anchors must be unique in the whole file and stay unique after the earlier hunks (hunks that overlap fail); a hunk on aux_roots.h alone is ignored (add a no-op hunk on aux_roots_all.h); a variants file must be self-contained (no exec of another variants file; chain with `rsplit`); the masked `res` can rise as a form nears the client (read objdiff and compare region sums); two threads on one VM collide on sync.tar; `listing.asm` is written only with `--slots`; region diffs are kept only for the best form (`trybatch.py regions` on that form's object); a form that changes a function's mangled name makes trybatch fall back to another function's marker, so it measures a different function (use `trybatch.py regions OBJ MANGLED ADDR`); `identical` masks branch targets; a lever's cost to another instance in the file is invisible to its single-symbol measure (sweep the file with appfile); names from attempts.csv go stale (pass an empty `SYMBOL`); SYMBOL resolves on the base object and reuses its mangled name, so a form that changes a signature fails "no such symbol" (change the tree first, then empty SYMBOL), and a new function absent from the base object reports "not in the object" for every form (measure with `trybatch.py regions <form>/obj/X.obj MANGLED ADDR`); a header with relative includes fails to compile in the overlay (use a same-depth local copy in the .cpp); the whole-function `res` can jump while the per-region sum is small when a block moves (check the spans), and masked 0 can hide raw x87 rows (measure raw too on near-exact functions); wildcarded relocations make same-shape initialisers all match. Header forms for app / shared / auxdata headers fail on their sibling relative includes: edit the header in your own worktree with no other batch running, `trybatch base`, restore. A header member added to a widely included class can flip another file only under verify (`--file-check` cannot see it). A variants helper module named `grp` shadows the stdlib; two runs of one variants file started in the same second collide on the batch directory.
+* **trybatch.py compiles the tree of the path it is started by:** run from the main tree's path it compiles the main tree and ignores the worktree's header hunks, so run it from inside the worktree. Even there a header hunk can fail to take effect (an indirectly included header is ignored unless the including header is overlaid too): measure a header-dependent form in a worktree whose header edit is committed (`trybatch.py base` shows it).
+* **A trybatch row count can run past the function's end** (0x68F510: rows beyond the last instruction): check the rows ours / client before reading the count.
 * **tryv2 under a busy importer lock:** a run that times out while queued for the lock runs nothing, and tryv2 gives up behind a busy lock: use `appfile match` on mark.py drafts. A variant that adds lines shifts later `__LINE__`.
 * **appfile match on a library file** uses the app's /GX unless you pass the library's own `--flags` (ww3d2's); explain.py needs a virtual's UAE decoration to find it. Parallel appfile runs need distinct `ENB_AGENT`, and `$(... &)` drops it.
 
@@ -2619,6 +2638,7 @@ are alphabetical; add a note under its file's heading (merge with what is there)
   two complete calls. `int id = list.front();` before `std::find` and a named local for a singleton gave the
   client's forms (0x74FA30 / 0x74FEC0, 0x751460). A quick exactness check: an appfile draft of sclient.cpp
   with `// @0xADDR` marker lines (~3 min).
+* A plain member test (sclient 0x744C10's +0x34 flag) in the wrong register: a file-static inline accessor for the member read last gives the client's register; the form is provisional (the bytes are its only evidence).
 
 #### settings_store.cpp / unknown_6af220.cpp
 

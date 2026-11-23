@@ -128,7 +128,7 @@ UITradeClass::~UITradeClass()
 
 
 
-// NOT EXACT: shape (explain.py; hoisting): the inlined 0x653A80's Change_Text set-up (font load, push 0) not hoisted above the test and its Set_Tooltip tail not shared, as the client's copy has them
+// Exact with the sort button's set-up written in place (bool and FontSys locals, if / else), not a call of the inline 0x653A80 (F2, 2026-11-22)
 // @0x650A40
 void UITradeClass::Unknown_54()
 {
@@ -222,7 +222,7 @@ void UITradeClass::Unknown_54()
 		if (tutorial) {
 			tutorial->Set_Hidden(true);
 		}
-		Unknown_653A80();
+		ButtonGadgetClass *sort = Unknown0D4[11]; if (sort) { bool by_name = OptionClass::Instance->Get_Bool("Trade_Sort_By_Name"); FontSys *text = sort->Unknown34; if (by_name) { text->Change_Text("Price sort", 0); GadgetClass::Set_Tooltip(sort, "UI_TRADE", "SORT_PRICE"); } else { text->Change_Text("Name sort", 0); GadgetClass::Set_Tooltip(sort, "UI_TRADE", "SORT_NAME"); } }	// the sort set-up of 0x653A80 in place: the client copy loads the font after Get_Bool and shares the Set_Tooltip tail, unlike 0x653A80 (F2, measured)
 	} else {
 		InterfaceMesh.Clear();
 		InterfaceMesh = NULL;

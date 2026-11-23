@@ -10,8 +10,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 227 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1970 |
-| 2 | describes what the code does | 5007 |
-| 1 | neutral placeholder | 25140 |
+| 2 | describes what the code does | 5009 |
+| 1 | neutral placeholder | 25148 |
 
 ## For review (score 3 and below)
 
@@ -3605,6 +3605,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6D1010` | `app/client/fontmanager.cpp:194` | untagged neutral name (D10) |
 | 1 | `Unknown494` | `app/client/fontmanager.cpp:197` | untagged neutral name (D10) |
 | 1 | `Unknown4A4` | `app/client/fontmanager.cpp:198` | untagged neutral name (D10) |
+| 1 | `Unknown0C` | `app/client/fontmanager.cpp:198` | untagged neutral name (D10) |
 | 1 | `Unknown_6D10B0` | `app/client/fontmanager.cpp:202` | untagged neutral name (D10) |
 | 1 | `Unknown_6D1480` | `app/client/fontmanager.cpp:368` | untagged neutral name (D10) |
 | 1 | `Unknown_6D1C10` | `app/client/fontmanager.cpp:420` | untagged neutral name (D10) |
@@ -3746,7 +3747,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6D5170` | `app/client/fontsys.cpp:33` | untagged neutral name (D10) |
 | 1 | `Unknown_6D6390` | `app/client/fontsys.cpp:34` | untagged neutral name (D10) |
 | 1 | `Unknown_6D5D40` | `app/client/fontsys.cpp:35` | untagged neutral name (D10) |
-| 1 | `Unknown26C` | `app/client/fontsys.cpp:36` | untagged neutral name (D10) |
+| 1 | `Unknown26C` | `app/client/fontsys.cpp:37` | untagged neutral name (D10) |
 | 1 | `Unknown_6D5140` | `app/client/fontsys.cpp:58` | untagged neutral name (D10) |
 | 1 | `Unknown4DC` | `app/client/fontsys.cpp:69` | untagged neutral name (D10) |
 | 1 | `Unknown4E0` | `app/client/fontsys.cpp:70` | untagged neutral name (D10) |
@@ -5760,16 +5761,18 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_68C3E0` | `app/client/inv_render.cpp:124` | neutral (D10); NAME 1 [space_client, item, data, slot]: neutral |
 | 1 | `visitor` | `app/client/inv_render.cpp:126` | neutral |
 | 1 | `info` | `app/client/inv_render.cpp:127` | neutral |
+| 1 | `Unknown_Cannot_Use` | `app/client/inv_render.cpp:142` | neutral (D10) |
+| 1 | `Unknown_68EAE0` | `app/client/inv_render.cpp:142` | untagged neutral name (D10) |
+| 1 | `Unknown_Refresh` | `app/client/inv_render.cpp:143` | neutral (D10) |
+| 1 | `Unknown_68D700` | `app/client/inv_render.cpp:143` | untagged neutral name (D10) |
+| 1 | `Unknown_50` | `app/client/inv_render.cpp:143` | untagged neutral name (D10) |
+| 1 | `Unknown_68EB10` | `app/client/inv_render.cpp:143` | untagged neutral name (D10) |
 | 1 | `usable` | `app/client/inv_render.cpp:174` | neutral |
 | 1 | `Unknown_2C` | `app/client/inv_render.cpp:180` | untagged neutral name (D10) |
 | 1 | `count, usable, item, level, data, other, item_level, now, inv_data, done` | `app/client/inv_render.cpp:185` | neutral |
 | 1 | `Unknown_688830` | `app/client/inv_render.cpp:190` | untagged neutral name (D10) |
 | 1 | `Unknown_688850` | `app/client/inv_render.cpp:200` | untagged neutral name (D10) |
 | 1 | `Unknown10BC` | `app/client/inv_render.cpp:212` | untagged neutral name (D10) |
-| 1 | `Unknown_68D700` | `app/client/inv_render.cpp:223` | untagged neutral name (D10) |
-| 1 | `Unknown_50` | `app/client/inv_render.cpp:224` | untagged neutral name (D10) |
-| 1 | `Unknown_68EAE0` | `app/client/inv_render.cpp:225` | untagged neutral name (D10) |
-| 1 | `Unknown_68EB10` | `app/client/inv_render.cpp:226` | untagged neutral name (D10) |
 | 1 | `Unknown_34` | `app/client/inv_render.cpp:233` | untagged neutral name (D10) |
 | 1 | `Unknown20` | `app/client/inv_render.cpp:235` | untagged neutral name (D10) |
 | 1 | `Unknown831340Class` | `app/client/inv_render.cpp:240` | untagged neutral name (D10) |
@@ -6280,6 +6283,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_AECF20` | `app/client/mainview.cpp:414` | untagged neutral name (D10) |
 | 1 | `Unknown_AECF24` | `app/client/mainview.cpp:414` | untagged neutral name (D10) |
 | 1 | `Unknown_AECF28` | `app/client/mainview.cpp:414` | untagged neutral name (D10) |
+| 1 | `Unknown_AECF2C` | `app/client/mainview.cpp:414` | untagged neutral name (D10) |
+| 1 | `Unknown_AECF30` | `app/client/mainview.cpp:414` | untagged neutral name (D10) |
 | 1 | `Unknown_50CC10` | `app/client/mainview.cpp:416` | untagged neutral name (D10) |
 | 1 | `Unknown28` | `app/client/mainview.cpp:427` | untagged neutral name (D10) |
 | 1 | `Unknown_50CCF0` | `app/client/mainview.cpp:445` | untagged neutral name (D10) |
@@ -6288,8 +6293,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_50CE00` | `app/client/mainview.cpp:455` | untagged neutral name (D10) |
 | 1 | `Unknown_50CF70` | `app/client/mainview.cpp:474` | untagged neutral name (D10) |
 | 1 | `Unknown_510D40` | `app/client/mainview.cpp:482` | untagged neutral name (D10) |
+| 1 | `c` | `app/client/mainview.cpp:487` | neutral (D10) |
+| 1 | `Unknown_50D060_Helper` | `app/client/mainview.cpp:487` | untagged neutral name (D10) |
+| 1 | `Unknown10FA` | `app/client/mainview.cpp:487` | untagged neutral name (D10) |
 | 1 | `Unknown_50D060` | `app/client/mainview.cpp:488` | untagged neutral name (D10) |
-| 1 | `Unknown10FA` | `app/client/mainview.cpp:494` | untagged neutral name (D10) |
 | 1 | `Unknown_50D1E0` | `app/client/mainview.cpp:507` | untagged neutral name (D10) |
 | 1 | `Unknown_50D310` | `app/client/mainview.cpp:522` | untagged neutral name (D10) |
 | 1 | `Unknown_50D430` | `app/client/mainview.cpp:535` | untagged neutral name (D10) |
@@ -7826,6 +7833,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_74CA70` | `app/client/sclient.cpp:1469` | untagged neutral name (D10) |
 | 1 | `Unknown_74D730` | `app/client/sclient.cpp:1475` | untagged neutral name (D10) |
 | 1 | `Unknown_744B60` | `app/client/sclient.cpp:2054` | untagged neutral name (D10) |
+| 1 | `Unknown_Chase_Flag` | `app/client/sclient.cpp:2061` | neutral (D10) |
 | 1 | `Unknown_78` | `app/client/sclient.cpp:2071` | untagged neutral name (D10) |
 | 1 | `Unknown_744E70` | `app/client/sclient.cpp:2097` | untagged neutral name (D10) |
 | 1 | `Unknown_AC` | `app/client/sclient.cpp:2113` | untagged neutral name (D10) |
@@ -9494,15 +9502,14 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_693020` | `app/client/starmap_pip.cpp:1138` | untagged neutral name (D10) |
 | 1 | `Unknown_6CE420` | `app/client/starmap_pip.cpp:1167` | untagged neutral name (D10) |
 | 1 | `Unknown44` | `app/client/starmap_pip.cpp:1199` | untagged neutral name (D10) |
-| 1 | `Unknown_7C2340` | `app/client/starmap_pip.cpp:1231` | untagged neutral name (D10) |
-| 1 | `Unknown_6F5A40` | `app/client/starmap_pip.cpp:1261` | untagged neutral name (D10) |
-| 1 | `Unknown_Find_Field` | `app/client/starmap_pip.cpp:1265` | untagged neutral name (D10) |
-| 1 | `Unknown70` | `app/client/starmap_pip.cpp:1266` | untagged neutral name (D10) |
-| 1 | `Unknown38` | `app/client/starmap_pip.cpp:1302` | untagged neutral name (D10) |
-| 1 | `Unknown_6FF7A0` | `app/client/starmap_pip.cpp:1323` | untagged neutral name (D10) |
-| 1 | `Unknown_700860` | `app/client/starmap_pip.cpp:1324` | untagged neutral name (D10) |
-| 1 | `Unknown_7C2D30` | `app/client/starmap_pip.cpp:1341` | untagged neutral name (D10) |
-| 1 | `Unknown_7B9CD0` | `app/client/starmap_pip.cpp:1343` | untagged neutral name (D10) |
+| 1 | `Unknown_7C2340` | `app/client/starmap_pip.cpp:1246` | untagged neutral name (D10) |
+| 1 | `Unknown_6F5A40` | `app/client/starmap_pip.cpp:1276` | untagged neutral name (D10) |
+| 1 | `Unknown_Find_Set_Field` | `app/client/starmap_pip.cpp:1280` | untagged neutral name (D10) |
+| 1 | `Unknown38` | `app/client/starmap_pip.cpp:1318` | untagged neutral name (D10) |
+| 1 | `Unknown_6FF7A0` | `app/client/starmap_pip.cpp:1326` | untagged neutral name (D10) |
+| 1 | `Unknown_700860` | `app/client/starmap_pip.cpp:1327` | untagged neutral name (D10) |
+| 1 | `Unknown_7C2D30` | `app/client/starmap_pip.cpp:1344` | untagged neutral name (D10) |
+| 1 | `Unknown_7B9CD0` | `app/client/starmap_pip.cpp:1346` | untagged neutral name (D10) |
 | 1 | `Unknown_7C3220Class` | `app/client/starmap_pip.h:49` | neutral (D10) |
 | 1 | `scene, arg, type` | `app/client/starmap_pip.h:52` | what it does with them |
 | 1 | `left, top, right, bottom` | `app/client/starmap_pip.h:54` | FontSys 0x6D88F0's |
@@ -19326,7 +19333,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_65FFA0` | `app/client/ui_trade.cpp:203` | untagged neutral name (D10) |
 | 1 | `Unknown_98` | `app/client/ui_trade.cpp:208` | untagged neutral name (D10) |
 | 1 | `Unknown_66A300` | `app/client/ui_trade.cpp:215` | untagged neutral name (D10) |
-| 1 | `Unknown_653A80` | `app/client/ui_trade.cpp:225` | untagged neutral name (D10) |
 | 1 | `Unknown_58` | `app/client/ui_trade.cpp:244` | untagged neutral name (D10) |
 | 1 | `Unknown_695DC0` | `app/client/ui_trade.cpp:248` | untagged neutral name (D10) |
 | 1 | `Unknown_652450` | `app/client/ui_trade.cpp:250` | untagged neutral name (D10) |
@@ -19381,6 +19387,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_5A03B0` | `app/client/ui_trade.cpp:859` | untagged neutral name (D10) |
 | 1 | `Unknown_B0` | `app/client/ui_trade.cpp:942` | untagged neutral name (D10) |
 | 1 | `Unknown_B4` | `app/client/ui_trade.cpp:952` | untagged neutral name (D10) |
+| 1 | `Unknown_653A80` | `app/client/ui_trade.cpp:963` | untagged neutral name (D10) |
 | 1 | `ui_trade.h` | `app/client/ui_trade.h:5` | provisional header name for ui_trade.cpp |
 | 1 | `Unknown669FB0Class` | `app/client/ui_trade.h:17` | untagged neutral name (D10) |
 | 1 | `Unknown_54` | `app/client/ui_trade.h:30` | untagged neutral name (D10) |
@@ -20518,6 +20525,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_42ECF0` | `app/client/unknown_6cce60.cpp:30` | untagged neutral name (D10) |
 | 1 | `button, arg` | `app/client/unknown_6cce60.cpp:31` | neutral |
 | 1 | `Unknown_42EC60` | `app/client/unknown_6cce60.cpp:31` | untagged neutral name (D10) |
+| 1 | `Add_Dots` | `app/client/unknown_6cce60.cpp:32` | what it does; the one-line layer spends the budget so the client's += calls Get_Length and Store_Length out of line (0x6CCFDC / 0x6CD009) |
 | 1 | `Unknown_6CCE60` | `app/client/unknown_6cce60.cpp:37` | untagged neutral name (D10) |
 | 1 | `Unknown254` | `app/client/unknown_6cce60.cpp:39` | untagged neutral name (D10) |
 | 1 | `Unknown488` | `app/client/unknown_6cce60.cpp:40` | untagged neutral name (D10) |
@@ -23165,7 +23173,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_Find_Field` | `app/shared/auxdata/auxdata.h:147` | neutral (D10) |
 | 1 | `UnknownRTTIClass` | `app/shared/auxdata/auxdata.h:154` | untagged neutral name (D10) |
 | 1 | `Unknown_Find_Set_Field` | `app/shared/auxdata/auxdata.h:160` | neutral (D10) |
-| 1 | `Unknown70` | `app/shared/auxdata/auxdata.h:163` | untagged neutral name (D10) |
+| 1 | `Unknown70` | `app/shared/auxdata/auxdata.h:164` | untagged neutral name (D10) |
 | 1 | `Is_None_Set` | `app/shared/auxdata/bitset.h:37` | Is_Any_Set's inverse |
 | 1 | `DeltaUnknownGlobal` | `app/shared/auxdata/delta.cpp:5` | untagged neutral name (D10) |
 | 1 | `DeltaUnknownCounter` | `app/shared/auxdata/delta.cpp:5` | untagged neutral name (D10) |
@@ -23227,11 +23235,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `UnknownGlobal` | `app/shared/auxdata/delta_money.cpp:25` | untagged neutral name (D10) |
 | 1 | `DeltaUnknownCounter` | `app/shared/auxdata/delta_money.cpp:25` | untagged neutral name (D10) |
 | 1 | `Unknown04` | `app/shared/auxdata/delta_money.cpp:31` | untagged neutral name (D10) |
-| 1 | `Unknown_00` | `app/shared/auxdata/delta_money.cpp:35` | untagged neutral name (D10) |
-| 1 | `Unknown80` | `app/shared/auxdata/delta_money.cpp:35` | untagged neutral name (D10) |
+| 1 | `Unknown_00` | `app/shared/auxdata/delta_money.cpp:37` | untagged neutral name (D10) |
+| 1 | `Unknown80` | `app/shared/auxdata/delta_money.cpp:37` | untagged neutral name (D10) |
 | 1 | `delta_money.h` | `app/shared/auxdata/delta_money.h:5` | provisional file name (the specialisation's members are delta_money.cpp's) |
 | 1 | `Unknown_00` | `app/shared/auxdata/delta_money.h:30` | untagged neutral name (D10) |
-| 1 | `UnknownGlobal` | `app/shared/auxdata/delta_money.h:38` | untagged neutral name (D10) |
+| 1 | `UnknownGlobal` | `app/shared/auxdata/delta_money.h:40` | untagged neutral name (D10) |
 | 1 | `DeltaUnknownCounter` | `app/shared/auxdata/delta_numbering.h:3` | untagged neutral name (D10) |
 | 1 | `UnknownRTTIClass` | `app/shared/auxdata/delta_numbering.h:6` | untagged neutral name (D10) |
 | 1 | `delta_numbering.h` | `app/shared/auxdata/delta_numbering.h:11` | provisional file name (no client string names the header) |
@@ -28948,8 +28956,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Set_Change` | `app/shared/auxdata/delta_interpolator.h:36` | describes what it does |
 | 2 | `Get_Value` | `app/shared/auxdata/delta_interpolator.h:39` | describes what it does |
 | 2 | `LastValue` | `app/shared/auxdata/delta_interpolator.h:65` | after the assert's LastTime |
-| 2 | `Set_Value` | `app/shared/auxdata/delta_money.h:34` | describes what it does |
-| 2 | `Value` | `app/shared/auxdata/delta_money.h:36` | describes what it does |
+| 2 | `Assign` | `app/shared/auxdata/delta_money.h:34` | describes what it does |
+| 2 | `Set_Value` | `app/shared/auxdata/delta_money.h:35` | describes what it does |
+| 2 | `Value` | `app/shared/auxdata/delta_money.h:38` | describes what it does |
 | 2 | `DeltaStringValueClass` | `app/shared/auxdata/delta_string.cpp:149` | describes what it does |
 | 2 | `Owner` | `app/shared/auxdata/delta_string.cpp:157` | describes what it does |
 | 2 | `Assign` | `app/shared/auxdata/delta_string.h:34` | describes what it does |
@@ -28958,7 +28967,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Set_Value` | `app/shared/auxdata/delta_template.h:39` | describes what it does |
 | 2 | `Value` | `app/shared/auxdata/delta_template.h:47` | describes what it does |
 | 2 | `Set_Value` | `app/shared/auxdata/delta_template.h:65` | describes what it does |
-| 2 | `Value` | `app/shared/auxdata/delta_template.h:73` | describes what it does |
+| 2 | `Get_Value` | `app/shared/auxdata/delta_template.h:73` | describes what it does |
+| 2 | `Value` | `app/shared/auxdata/delta_template.h:74` | describes what it does |
 | 2 | `DeltaTemplateAccessorClass` | `app/shared/auxdata/delta_template.h:118` | describes what it does |
 | 2 | `Owner` | `app/shared/auxdata/delta_template.h:126` | describes what it does |
 | 2 | `DurationAccessorClass` | `app/shared/auxdata/delta_time.cpp:70` | describes what it does |

@@ -456,6 +456,9 @@
 "??1ios_base@std@@UAE@XZ": [
 "0xA1A150"
 ],
+"??4LightClass@@QAEAAV0@ABV0@@Z": [
+"0x953890"
+],
 "??4Line3DClass@@QAEAAV0@ABV0@@Z": [
 "0x9431E0"
 ],
@@ -858,6 +861,12 @@
 "?Get_Bounding_Sphere@MeshGeometryClass@@QAEXPAVSphereClass@@@Z": [
 "0x92A8E0"
 ],
+"?Get_Category_Count@WWMemoryLogClass@@SAHXZ": [
+"0x9ED6E0"
+],
+"?Get_Category_Name@WWMemoryLogClass@@SAPBDH@Z": [
+"0x9ED6F0"
+],
 "?Get_Clip_Planes@CameraClass@@QBEXAAM0@Z": [
 "0x945950"
 ],
@@ -866,6 +875,9 @@
 ],
 "?Get_Culling_System@CullableClass@@QBEPAVCullSystemClass@@XZ": [
 "0x8C8E60"
+],
+"?Get_Current_Allocated_Memory@WWMemoryLogClass@@SAHH@Z": [
+"0x9ED700"
 ],
 "?Get_DX8_Render_State_Value_Name@DX8Wrapper@@SAXAAVStringClass@@W4_D3DRENDERSTATETYPE@@I@Z": [
 "0x927BF0"
@@ -1004,6 +1016,28 @@
 ],
 "?Get_Time_Since_Reset@WWProfileManager@@SAMXZ": [
 "0x9EAD70"
+],
+"?Get_Total_Allocated_Memory@IndexBufferClass@@SAIXZ": [
+"0x94C390",
+"0x94F000"
+],
+"?Get_Total_Allocated_Memory@VertexBufferClass@@SAIXZ": [
+"0x950DF0"
+],
+"?Get_Total_Allocated_Size@FastAllocatorGeneral@@QAEIXZ": [
+"0x9DAD20"
+],
+"?Get_Total_Allocation_Count@FastAllocatorGeneral@@QAEIXZ": [
+"0x9DAD60"
+],
+"?Get_Total_Buffer_Count@IndexBufferClass@@SAIXZ": [
+"0x94EFE0"
+],
+"?Get_Total_Buffer_Count@VertexBufferClass@@SAIXZ": [
+"0x950DD0"
+],
+"?Get_Total_Heap_Size@FastAllocatorGeneral@@QAEIXZ": [
+"0x9DACE0"
 ],
 "?Get_UV_Offset_Rate@SegmentedLineClass@@QAE?AVVector2@@XZ": [
 "0x969200"
@@ -1401,6 +1435,9 @@
 "?Reset_Colors@ParticleBufferClass@@QAEXAAU?$ParticlePropertyStruct@VVector3@@@@@Z": [
 "0x95EF40"
 ],
+"?Reset_Counters@WWMemoryLogClass@@SAXXZ": [
+"0x9EDEF0"
+],
 "?Reset_Current_Static_Sort_Lists_To_Default@WW3D@@SAXXZ": [
 "0x919080"
 ],
@@ -1785,6 +1822,12 @@
 "?Uninitialised_Grow@StringClass@@AAEXH@Z": [
 "0x9CF3D0"
 ],
+"?Unknown_Get_Textures_Applied_Last_Frame@TextureBaseClass@@SAIXZ": [
+"0x94B910"
+],
+"?Unknown_Reset_Statistics@FastAllocatorGeneral@@QAEXXZ": [
+"0x9DADA0"
+],
 "?Unknown_Restore_Device@WW3D@@SA?AW4WW3DErrorType@@XZ": [
 "0x9179D0"
 ],
@@ -1826,6 +1869,19 @@
 ],
 "?YFlip@Targa@@QAEXXZ": [
 "0x9D33D0"
+],
+"?_Get_Total_Locked_Surface_Count@TextureBaseClass@@SAHXZ": [
+"0x94C980"
+],
+"?_Get_Total_Locked_Surface_Size@TextureBaseClass@@SAHXZ": [
+"0x94C280"
+],
+"?_Get_Total_Texture_Count@TextureBaseClass@@SAHXZ": [
+"0x94C7B0"
+],
+"?_Get_Total_Texture_Size@TextureBaseClass@@SAHXZ": [
+"0x94C390",
+"0x94F000"
 ],
 "?_Getfacet@locale@std@@QBEPBVfacet@12@I_N@Z": [
 "0xA1A3E3"
@@ -3816,6 +3872,9 @@
 "data:__real@4@3fe995217d0000000000": [
 "0xAED02C"
 ],
+"data:__real@4@3feb8000000000000000": [
+"0xAEEDD0"
+],
 "data:__real@4@3feb8637bd0000000000": [
 "0xAE7928"
 ],
@@ -3876,6 +3935,9 @@
 ],
 "data:__real@4@3ff78000000000000000": [
 "0xAE9AAC"
+],
+"data:__real@4@3ff780806e0000000000": [
+"0xAFEB6C"
 ],
 "data:__real@4@3ff78080808080808000": [
 "0xAE8BB4"

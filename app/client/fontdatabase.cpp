@@ -72,12 +72,12 @@ void FontStringStruct::Reset()
 	Color[1] = "BLACK";
 	Justify[0] = 1;
 	Justify[1] = 3;
-	Offset[0] = 0;
-	Offset[1] = 0;
-	Target[0] = 0;
-	Target[1] = 0;
-	BoxOffset[0] = 0;
-	BoxOffset[1] = 0;
+	Offset.X = 0;
+	Offset.Y = 0;
+	Target.X = 0;
+	Target.Y = 0;
+	BoxOffset.X = 0;
+	BoxOffset.Y = 0;
 	Width = 0;
 	Wait = 0;
 	Spacing = 1.0f;
@@ -401,17 +401,17 @@ void FontDatabaseClass::Load_String(INIClass &ini, char *section, FontStringStru
 		str->TriggerTime = ini.Get_Float(section, "TriggerTime", 1.0f);
 	}
 	if (ini.Find_Entry(section, "Offset")->Is_Valid()) {
-		*(TPoint2D<float> *)str->Offset = ini.Get_Point(section, "Offset", origin);	// a struct copy: the client reads the point through eax
+		str->Offset = ini.Get_Point(section, "Offset", origin);	// a struct copy: the client reads the point through eax
 
 
 	}
 	if (ini.Find_Entry(section, "Target")->Is_Valid()) {
-		*(TPoint2D<float> *)str->Target = ini.Get_Point(section, "Target", origin);
+		str->Target = ini.Get_Point(section, "Target", origin);
 
 
 	}
 	if (ini.Find_Entry(section, "BoxOffset")->Is_Valid()) {
-		*(TPoint2D<float> *)str->BoxOffset = ini.Get_Point(section, "BoxOffset", origin);
+		str->BoxOffset = ini.Get_Point(section, "BoxOffset", origin);
 
 
 	}

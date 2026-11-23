@@ -411,7 +411,7 @@ static const float Unknown110Near = 20.0f;		// NAME 1: neutral (D10): the +0x110
 static const float Unknown110Far = 100000.0f;	// NAME 1: neutral (D10)
 static const float Unknown114Near = 50.0f;		// NAME 1: neutral (D10): the +0x114 scene's (0xAECF40 / 0xAECF3C)
 static const float Unknown114Far = 150.0f;		// NAME 1: neutral (D10)
-static const float Unknown_AECEE8 = 1.0f, Unknown_AECEEC = 1.0f, Unknown_AECEF0 = 1.0f, Unknown_AECEF4 = 0.96f, Unknown_AECEF8 = 0.96f, Unknown_AECEFC = 0.96f, Unknown_AECF00 = 0.95f, Unknown_AECF04 = 1.0f, Unknown_AECF08 = 1.0f, Unknown_AECF0C = 1.0f, Unknown_AECF10 = 0.95f, Unknown_AECF14 = 1.0f, Unknown_AECF18 = 0.975f, Unknown_AECF1C = 0.975f, Unknown_AECF20 = 0.95f, Unknown_AECF24 = 0.95f, Unknown_AECF28 = 0.0f;	// NAME 1: neutral (D10): the depth ranges, by client address
+static const float Unknown_AECEE8 = 1.0f, Unknown_AECEEC = 1.0f, Unknown_AECEF0 = 1.0f, Unknown_AECEF4 = 0.96f, Unknown_AECEF8 = 0.96f, Unknown_AECEFC = 0.96f, Unknown_AECF00 = 0.95f, Unknown_AECF04 = 1.0f, Unknown_AECF08 = 1.0f, Unknown_AECF0C = 1.0f, Unknown_AECF10 = 0.95f, Unknown_AECF14 = 1.0f, Unknown_AECF18 = 0.975f, Unknown_AECF1C = 0.975f, Unknown_AECF20 = 0.95f, Unknown_AECF24 = 0.95f, Unknown_AECF28 = 0.0f, Unknown_AECF2C = 0.95f, Unknown_AECF30 = 0.0f;	// NAME 1: neutral (D10): the depth ranges, by client address
 
 float MainViewClass::Unknown_50CC10()
 {
@@ -484,19 +484,19 @@ void MainViewClass::Unknown_50CF70()
 	Camera->Set_Depth_Range(zmin, zmax);
 }
 
-// NOT EXACT: register / order only (the client reloads ViewMode after the +0x10FA test; ours keeps it in eax); attempts.csv 0x50D060
+static inline bool Unknown_50D060_Helper(SClient *c) { return c->ViewMode == 0 || (c->ViewMode == 1 && c->Unknown10FA); }	// NAME 1 [c]: neutral (D10)
 void MainViewClass::Unknown_50D060()
 {
 	float old_near, old_far;
 	Camera->Get_Clip_Planes(old_near, old_far);
 	float zmin, zmax;
 	Camera->Get_Depth_Range(&zmin, &zmax);
-	if (Client->ViewMode == 0 || (Client->ViewMode == 1 && Client->Unknown10FA)) {
+	if (!Unknown_50D060_Helper(Client)) {
+		if (Client->ViewMode != 1) {
+			if (Client->ViewMode == 5) Camera->Set_Depth_Range(Unknown_AECF20, Unknown_AECF1C);
+		} else Camera->Set_Depth_Range(Unknown_AECF00, Unknown_AECEFC);
+	} else {
 		Camera->Set_Depth_Range(Unknown_AECF08, Unknown_AECF04);
-	} else if (Client->ViewMode == 1) {
-		Camera->Set_Depth_Range(Unknown_AECF00, Unknown_AECEFC);
-	} else if (Client->ViewMode == 5) {
-		Camera->Set_Depth_Range(Unknown_AECF20, Unknown_AECF1C);
 	}
 	Camera->Set_Clip_Planes(Unknown110Near, Unknown110Far);
 	WW3D::Render(Unknown110, Camera);
@@ -545,8 +545,8 @@ void MainViewClass::Unknown_50D430(float znear, float zfar)
 	Camera->Set_Depth_Range(zmin, zmax);
 }
 
-// NOT EXACT: functional (MV2, from the disassembly)
 // 0x50D520: the bridge (+0x120, in the bridge's camera space), the base view's 2-D scene, the debug texts
+// (exact: depth range 0xAECF30/0xAECF2C, Matrix3D rot copy + Rotate_Vector(rot, dir, &dir), Get_Client() on +0x05 / StarBudget)
 void MainViewClass::Unknown_50D520()
 {
 	SClient *sclient = (SClient *)Client->As_Space_Client();
@@ -556,14 +556,14 @@ void MainViewClass::Unknown_50D520()
 		float old_near, old_far; camera->Get_Clip_Planes(old_near, old_far);
 		float zmin, zmax; camera->Get_Depth_Range(&zmin, &zmax);
 		Matrix3D tm = camera->Get_Transform();
-		camera->Set_Depth_Range(0.0f, 0.95f);
+		camera->Set_Depth_Range(Unknown_AECF30, Unknown_AECF2C);
 		camera->Set_Clip_Planes(BridgeNear, BridgeFar);
-		camera->Set_Transform(bridge->CameraTransform);
+		camera->Set_Transform(bridge->CameraTransform);	Matrix3D rot = tm;
 		for (int i = 0; i < 4; i++) {
 			LightClass *light = Unknown154[i].Peek();
 			*light = *Unknown144[i].Peek();
 			Vector3 dir; light->Get_Spot_Direction(dir);
-			light->Set_Spot_Direction(Vector3(tm[0][0] * dir.X + tm[0][1] * dir.Y + tm[0][2] * dir.Z, tm[1][0] * dir.X + tm[1][1] * dir.Y + tm[1][2] * dir.Z, tm[2][0] * dir.X + tm[2][1] * dir.Y + tm[2][2] * dir.Z));
+			Matrix3D::Rotate_Vector(rot, dir, &dir);	light->Set_Spot_Direction(dir);
 		}
 		Unknown120->Set_Ambient_Light(Scene->Get_Ambient_Light());
 		WW3D::Render(Unknown120, camera, false, true, Vector3(0.0f, 0.0f, 0.0f));
@@ -573,12 +573,12 @@ void MainViewClass::Unknown_50D520()
 	}
 	((InterfaceSceneClass *)Unknown1C)->Render_With_PIP_Scenes(Unknown20);
 	WW3D::Render(Unknown24, Unknown28, false, false, Vector3(0.0f, 0.0f, 0.0f));
-	if (Client->Unknown05) {
+	if (Get_Client()->Unknown05) {
 		sclient->Unknown_750260(0);
 		Unknown_510440();
 		if (sclient->Unknown14EC == 1) {
 			StringClass text;
-			text.Format("PB=%d SB=%d LB=%d LOD=%d\n", PolyBudget, Client->StarBudget, LandPolyBudget, LandLOD);
+			text.Format("PB=%d SB=%d LB=%d LOD=%d\n", PolyBudget, Get_Client()->StarBudget, LandPolyBudget, LandLOD);
 			sclient->Text->Draw_Text(text, 0xFFFF0000);
 		}
 		sclient->Text->Render();
@@ -896,13 +896,13 @@ Vector3 Unknown_50EE60(const Vector3 &source)
 // DurationClass::operator+ out of line (0x514B00, its only copy), as VC6 does at this depth (one layer inlines it)
 static inline DurationClass Unknown_Server_Time(SClient *client) { return DurationClass((unsigned)client->Unknown10BC) + client->Unknown10C0; }	// NAME 1: neutral (D10)
 static inline DurationClass Unknown_Time(SClient *client) { return Unknown_Server_Time(client); }	// NAME 1: neutral (D10)
-// NOT EXACT: 0.99 (masked 39 -> 10, raw 256 -> 207, frame 0xCC = client; x87 left in sun.Normalize and frame*offset; attempts.csv 0x50F1B0)
+// NOT EXACT: 1.00 (masked 10 -> 4, raw 207 -> 9, frame 0xCC = client; 4 x87 rows left in r49 frame*offset Row 1; attempts.csv 0x50F1B0)
 void MainViewClass::Update(CameraClass *camera, bool under)
 {
 	WWPROFILE("MainView::Update");
 	SClient *client = Get_Client();
 	FAIL_IF(!client) return;
-	float hours = (float)Unknown_Time(client).Get();	hours *= 2.777778e-07f;
+	DurationClass time = Unknown_Time(client);	float hours = (float)time.Get();	hours *= 2.777778e-07f;
 	if (Get_Client()->DebugMode) {
 		float offset = Get_Client()->Unknown1390;	hours += offset;
 	}
@@ -922,7 +922,7 @@ void MainViewClass::Update(CameraClass *camera, bool under)
 			if (Get_Client()->Unknown10F8) {
 				Unknown110->Set_Ambient_Light(Orbitals->Unknown58);
 			} else {
-				Unknown110->Set_Ambient_Light(Vector3(0.5f, 0.5f, 0.5f));
+				Vector3 ambient(0.5f, 0.5f, 0.5f);	Unknown110->Set_Ambient_Light(ambient);
 			}
 			Unknown110->Set_Fog_Color(sky);
 			float fognear = Get_Client()->Unknown10EC;
@@ -937,9 +937,9 @@ void MainViewClass::Update(CameraClass *camera, bool under)
 	case 1:
 		{
 			if (under) {
-				sun.X *= SeaColor.X;
-				sun.Y *= SeaColor.Y;
-				sun.Z *= SeaColor.Z;
+				sun[0] *= SeaColor.X;
+				sun[1] *= SeaColor.Y;
+				sun[2] *= SeaColor.Z;
 				sky.X *= SeaColor.X;
 				sky.Y *= SeaColor.Y;
 				sky.Z *= SeaColor.Z;
@@ -988,7 +988,7 @@ void MainViewClass::Update(CameraClass *camera, bool under)
 		if (Get_Client()->Unknown10F8) {
 			Unknown110->Set_Ambient_Light(Orbitals->Unknown58);
 		} else {
-			Unknown110->Set_Ambient_Light(Vector3(0.5f, 0.5f, 0.5f));
+			Vector3 ambient(0.5f, 0.5f, 0.5f);	Unknown110->Set_Ambient_Light(ambient);
 		}
 		Scene->Set_Fog_Color(sky);
 		Scene->Set_Fog_Enable(true);

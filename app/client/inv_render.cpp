@@ -139,8 +139,8 @@ void Unknown68C5A0Class::Clear()
 {
 	Usable = true;
 }
-
-
+static inline void Unknown_Cannot_Use(InvRenderClass *render, bool usable) { render->Unknown_68EAE0(!usable, render->CannotUseIndicator); }	// 0x68C6B0's inline layer (D246: the client calls 0x68EAE0 there, inlines it in 0x68E360)  // NAME 1: neutral (D10)
+static inline void Unknown_Refresh(InvRenderClass *render, int level, int count, bool usable, Unknown688830Item *item) { render->Unknown_68D700(level); render->Unknown_50(count); Unknown_Cannot_Use(render, usable); render->Unknown_68EB10(item); }	// 0x68C6B0's inline layer  // NAME 1: neutral (D10)
 
 
 
@@ -175,7 +175,7 @@ void Unknown68C5A0Class::Unknown_04(ClientItemPropertySpecialClass *property)
 	if (!usable) Usable = usable;
 }
 
-// NOT EXACT: 0x68C6B0, 31 rows: the client calls Get_Roman_Numeral and 0x68EAE0 where this inlines them, and loads level after the release
+// NOT EXACT: 0x68C6B0, masked residue 8 (was 27): Get_Roman_Numeral and 0x68EAE0 out of line as the client's through the two layers and one dead read (D272); left: the client releases inv_data through lea ecx,[eax+0x18] and loads level after the release
 // 0x68C6B0
 void InvRenderClass::Unknown_2C(bool force)
 {
@@ -220,10 +220,10 @@ void InvRenderClass::Unknown_2C(bool force)
 		}
 	}
 	if (force) {
-		Unknown_68D700(level);
-		Unknown_50(count);
-		Unknown_68EAE0(!usable, CannotUseIndicator);
-		Unknown_68EB10(item);
+		Unknown_Refresh(this, level, count, usable, item); CannotUseIndicator.Peek();
+
+
+
 	}
 done:
 	SlotDataRenderClass::Unknown_2C(force);

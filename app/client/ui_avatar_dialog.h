@@ -52,7 +52,7 @@ public:
 	int State;											// +0xD8 (UI_CLOSED / UI_OPEN)  // NAME 3: the assert's
 	int Answer;											// +0xDC (the answer chosen, -1 none)  // NAME 2: what it holds
 	bool Unknown0E0;									// +0xE0 (an answer was chosen: slot +0x60 closes once the avatar is done)
-	RefCountPtr<RenderObjClass> AvatarRObj;				// +0xE4 (a CharacterViewAvatarClass: 0x552FC0 stores Create_NEW's through the template operator=, the base type's order)  // NAME 3: the FAIL_IF '!AvatarRObj'
+	RefCountPtr<CharacterViewAvatarClass> AvatarRObj;	// +0xE4 (0x552FC0 stores Create_NEW 0x53CF50's through the same-type operator=: the client reloads the source into ecx)  // NAME 3: the FAIL_IF '!AvatarRObj'
 	FontSplitStringClass *Split;						// +0xE8 (the text's lines)  // NAME 2: what it does
 	std::string Text;									// +0xEC (the avatar's text)  // NAME 2: what it holds
 	std::string Answers[NUM_ANSWERS];					// +0xFC (0x553500)  // NAME 2: what they hold

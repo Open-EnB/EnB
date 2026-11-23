@@ -174,7 +174,7 @@ ChatFilterNodeClass *ChatFilterNodeClass::Get_Child(char c, bool bad, bool good)
 	ChatFilterNodeClass *child = Find_Child(c);
 	if (child == NULL) {
 		child = new ChatFilterNodeClass;
-		(*Children.insert(std::map<char, ChatFilterNodeClass *>::value_type(c, NULL)).first).second = child;
+		Children.size(); Children.begin(); Children[c] = child;	// (dead reads, D272: they spend the constructor 0x4E2040's nested budget, which calls map's constructor 0x4E2B20 out of line for this node)
 	}
 	if (bad) {
 		child->Bad = bad;
@@ -186,17 +186,12 @@ ChatFilterNodeClass *ChatFilterNodeClass::Get_Child(char c, bool bad, bool good)
 }
 
 // 0x4E2040
-// NOT EXACT: inline budget (the client inlines the first node whole and calls the second's _Tree constructor 0x4E2B20 and an insert 0x4E2D60 out of line; Root->Get_Child(' ', false, true) scores 0.85; attempts.py show 0x4E2040)
+// Get_Child inlined: the first node's map inline, the second's map constructor 0x4E2B20 and _Tree::insert 0x4E2D60 out of line
 ChatTreeFilterClass::ChatTreeFilterClass() :
 	Root(NULL)
 {
 	Root = new ChatFilterNodeClass;
-	ChatFilterNodeClass *space = Root->Find_Child(' ');
-	if (space == NULL) {
-		space = new ChatFilterNodeClass;
-		Root->Children[' '] = space;
-	}
-	space->Good = true;
+	Root->Get_Child(' ', false, true);
 }
 
 // 0x4E22D0

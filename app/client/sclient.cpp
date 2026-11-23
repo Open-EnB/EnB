@@ -727,9 +727,9 @@ unsigned SClient::Set_Avatar_ID(unsigned id)
 	return(ClientClass::Set_Avatar_ID(id));
 }
 #include "..\packets\pkclientchat.h"
-// NOT EXACT: order (0.95): the client stores Unknown12B0 before Unknown12B4 and pushes the heading before taking the mode's address; 0x744D80 (out of line for 0x6B58A0, auto-inlined into 0x7436A0's camera keys; Init has the block written out)
+// 0x744D80 (out of line for 0x6B58A0, auto-inlined into 0x7436A0's camera keys; Init has the block written out). The 0 goes through a volatile store: the client keeps Unknown12B0's store before Unknown12B4's and both above the next load in every copy (here, 0x7436A0's four, ctrngadg's 0x50ABC0); a plain store sinks (4 order rows). Not the declaration: a volatile member moves the constructor 0x7405E0's EH-state store
 void SClient::Unknown_744D80() {
-	Unknown12B0 = Unknown10BC; Unknown12B4 = 0;
+	Unknown12B0 = Unknown10BC; *(volatile int *)&Unknown12B4 = 0;
 	CameraModeStruct &mode = CameraModes[CameraMode];
 	CameraManager->Set_Heading(mode.Heading);
 	CameraManager->Set_Distance(mode.Distance);
@@ -2058,8 +2058,8 @@ bool SClient::Unknown_744B60()
 
 
 
+static inline bool Unknown_Chase_Flag(ChaseCameraModuleClass *chase) { return(chase->Unknown34); }	// (inlined: 0x744C10 reads the flag with the chase module kept in ecx, the main view moved from edx)  // NAME 1: neutral (D10)
 
-// NOT EXACT: shape (explain.py): the client keeps the chase module in ecx for the +0x34 test and zeroes the argument before the FAIL_IFs (attempts.py show 0x744C10)
 // 0x744C10
 void SClient::Unknown_744C10()
 {
@@ -2067,7 +2067,7 @@ void SClient::Unknown_744C10()
 	SimpleSceneClass *scene = NULL;
 	FAIL_IF(!CameraManager) return;
 	FAIL_IF(!CameraManager->Get_Player_Chase_Camera_Module()) return;
-	if (CurrentView == MainView && CameraMode == 0 && Unknown28 && CameraManager->Get_Player_Chase_Camera_Module()->Unknown34) {
+	if (CurrentView == MainView && CameraMode == 0 && Unknown28 && Unknown_Chase_Flag(CameraManager->Get_Player_Chase_Camera_Module())) {
 		scene = MainView->Unknown_78();
 	}
 	Bridge->Set_Scene(Create_Peek((RefCountClass *)scene));
@@ -4496,7 +4496,7 @@ bool SClient::Unknown_74D690()
 	return(group && group->Unknown70 && group->IsGroupLeader.Value);
 }
 
-// NOT EXACT: inline budget (explain.py): the client calls UnknownRTTIClass<DeltaTemplateClass<int> >::Cast out of line in auxdata.h's Unknown_Find_Field; here it is inlined (0x744560)
+// NOT EXACT: inline budget (explain.py): the client calls UnknownRTTIClass<DeltaTemplateClass<int> >::Cast out of line in auxdata.h's Unknown_Find_Field; here it is inlined (0x744560; the avatar id through Get_Avatar_ID: 9 -> 7 masked rows)
 #include "..\packets\pkuitrigger.h"						// UiTriggerPacketClass (UI_TRIGGER 101): 0x744560 (defined here, after auxdata.h: Unknown_Find_Field)
 
 // 0x744560 (ui_cpit.cpp: 11 when the hulk is let in, 12 when it goes): a UI_TRIGGER packet with the avatar's id
@@ -4506,7 +4506,7 @@ void SClient::Unknown_744560(int arg)
 	NameClass name("ClientSendUITriggers");
 	DeltaTemplateClass<int> *t = Unknown_Find_Field<DeltaTemplateClass<int> >((DeltaCompoundClass *)AuxData, name);
 	if (t && t->Unknown70 && t->Value > 0) {
-		Send_Packet(&UiTriggerPacketClass(AvatarID, arg));
+		Send_Packet(&UiTriggerPacketClass(Get_Avatar_ID(), arg));
 	}
 }
 

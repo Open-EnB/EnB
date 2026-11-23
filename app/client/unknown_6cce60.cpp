@@ -29,11 +29,11 @@ struct FontEffectStruct  // fontdatabase.cpp's (0x24 bytes)
 extern Unknown_6BCFB0Class *Unknown_BE67B4;	// NAME 1 [Unknown_BE67B4]: neutral (D10): FontSys's sounds (main_client.cpp declares it so)
 void Unknown_42ECF0(float *x, float *y);	// 0x42ECF0 (cdecl): the pointer's position, 0..1 (gadget.cpp, scriptedmovie.cpp declare it so)  // NAME 1 [x, y]: neutral
 bool Unknown_42EC60(int button, int arg);	// 0x42EC60 (cdecl): a button down (gadget.cpp declares it so)  // NAME 1 [button, arg]: neutral
-
+static inline void Add_Dots(StringClass &text) { text += "..."; }	// NAME 1 [Add_Dots]: what it does; the one-line layer spends the budget so the client's += calls Get_Length and Store_Length out of line (0x6CCFDC / 0x6CD009)
 // 0x6CCE60: Update_Text's countdowns after the effects (+0x254 .. +0x268, one per frame): at zero each puts back what
 // its effect changed (+0x488 the offset, +0x27C, +0x4A4 the colour from Colors[+0x44C], +0x284, +0x288, and +0x29C
 // with the text rebuilt from Info.Text, "..." added while +0x406 says the line is clipped).
-// NOT EXACT: functional (D64), not yet worked toward the client's bytes (0x6CCE60)
+// Exact: Font.Peek() read once, the buffer in a local for both calls, the "..." through Add_Dots (Q2 2026-11-22: the one-line layer replaces F3's two dead reads, 10 -> 0)
 void FontSys::Unknown_6CCE60()
 {
 	if (Unknown254[0] > 0 && --Unknown254[0] == 0) {
@@ -61,12 +61,12 @@ void FontSys::Unknown_6CCE60()
 		Unknown274[10] = 0;
 		StringClass text = Info.Text;
 		if (Unknown406) {
-			text += "...";
+			Add_Dots(text);
 		}
-		text.Get_Buffer(text.Get_Length());
-		*(int *)((char *)Font.Peek() + 0xD28) = *(int *)((char *)Font.Peek() + 0xD2C);	// Font->XSpacing = Font->MinSpacing (protected in font32bit.h)
-		Unknown4C4 = Unknown2D0.Unknown_6D8DC0(&Font, text, 0);
-		Unknown420[1] = Unknown2C4 = Font->String_Pixel_Width(text);
+		const char *buf = text.Get_Buffer(text.Get_Length());
+		Font32Class *font = Font.Peek(); *(int *)((char *)font + 0xD28) = *(int *)((char *)font + 0xD2C);	// Font->XSpacing = Font->MinSpacing (protected in font32bit.h)
+		Unknown4C4 = Unknown2D0.Unknown_6D8DC0(&Font, buf, 0);
+		Unknown420[1] = Unknown2C4 = Font->String_Pixel_Width(buf);
 		Unknown420[3] = Unknown2C8 = Font->Get_Height();
 	}
 }
@@ -99,8 +99,8 @@ bool FontSys::Unknown_6CD180()
 			return true;
 		}
 	} else {
-		int a = (int)((float)(Unknown2C4 / 2) + Info.BoxOffset[0]);
-		int b = (int)((float)(Unknown2C8 / 2) + Info.BoxOffset[1]);
+		int a = (int)((float)(Unknown2C4 / 2) + Info.BoxOffset.X);
+		int b = (int)((float)(Unknown2C8 / 2) + Info.BoxOffset.Y);
 		if (Info.Rotate90) {
 			int t = b;
 			b = a;
@@ -232,8 +232,8 @@ void FontSys::Unknown_6CDAB0(FontEffectStruct *effect)
 			Unknown2F4[1] = -1.0f;
 			break;
 		case 7:		// SCROLL
-			Unknown47C.X = Info.Offset[0] * 640.0f;
-			Unknown47C.Y = Info.Offset[1] * 480.0f;
+			Unknown47C.X = Info.Offset.X * 640.0f;
+			Unknown47C.Y = Info.Offset.Y * 480.0f;
 			break;
 		case 4:		// FADE
 			((float *)&Unknown494)[3] = effect->Initial;

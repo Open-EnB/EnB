@@ -32,9 +32,9 @@ DeltaTemplateClass<MoneyClass>::DeltaTemplateClass(const char *name, const Money
 }
 
 DeltaTemplateClass<MoneyClass>::~DeltaTemplateClass() {}
+void DeltaTemplateClass<MoneyClass>::Assign(const MoneyClass &value) { Value = value; Unknown_34(this); }
+DeltaTemplateClass<MoneyClass> &DeltaTemplateClass<MoneyClass>::operator=(const DeltaTemplateClass &that) { Value = that.Value; Unknown_34(this); return *this; }
 void DeltaTemplateClass<MoneyClass>::Unknown_00(KVEncoderClass *visitor) { visitor->Add_Value(Unknown80, Name.Get_String(), new DeltaTemplateAccessorClass<MoneyClass>(this)); }
-
-
 
 
 
@@ -108,7 +108,7 @@ bool DeltaTemplateClass<MoneyClass>::Write(LinearBufferClass &buf)
 **	and free == / != (0x4F0AB0, 0x4F0600, 0x4F0640). They belong in money.h / strconv_lib.h and the
 **	generic templates, but any declaration added there (or a member in delta_template.h) moves six of
 **	aux_roots.cpp's budget-bound functions (0x7014B0 0x701D70 0x7045F0 0x7048A0 0x705860 0x705A10):
-**	declared here, with specialisations, until that balance is understood (TK5). Not exact: the explicit
-**	instantiation's 0x4A7120 (Value = v; Unknown_34) and operator= 0x4A71A0 (two members delta_template.h
-**	would need), Get_Value_String 0x4A7630 (order: the value's halves; attempts.csv).
+**	declared here, with specialisations, until that balance is understood (TK5). Assign 0x4A7120 and
+**	operator= 0x4A71A0 (no caller) are the specialisation's out-of-line members (D3, 2026-11-22). Not exact:
+**	Get_Value_String 0x4A7630 (order: the value's halves; attempts.csv).
 */

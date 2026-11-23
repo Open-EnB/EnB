@@ -144,15 +144,15 @@ void EnvironmentMapManagerClass::Unknown_760770(int base_asset, bool a)
 		int pitch = base_desc.Width * 3;
 		int half_height = base_desc.Height >> 1;
 		int half_pitch = (base_desc.Width >> 1) * 3;
-		for (int y = 0; y < half_height; y++) {
+		unsigned char *src = reflection;
+		for (int y = 0; y < half_height; y++, src = reflection + y * half_pitch) {
 			unsigned char *dst = pixels + (half_height + y) * pitch + half_pitch;
-			unsigned char *src = reflection + y * half_pitch;
 			for (int x = 0; x < half_pitch; x++) {
-				int s = *src; int value = s * scale + *dst;
+				int s = src[x]; int value = s * scale + dst[x];
 				if (value > 0xFF) {
 					value = 0xFF;
 				}
-				*dst = (unsigned char)value; dst++; src++;
+				dst[x] = (unsigned char)value;
 			}
 		}
 
@@ -213,4 +213,7 @@ void EnvironmentMapManagerClass::Unknown_760770(int base_asset, bool a)
 **	the result applied to the asset manager's texture of that name as a new D3D texture (IsProcedural set).
 **	The asset manager through WW3DAssetManager::Get_Instance (the client reads 0xBFAEE0, the other app files'
 **	Unknown_BFAEE0, which nothing defines yet). Functional NOT EXACT (D64).
+**	Block 1's src row is carried around the y loop (set in the loop's step): set per row before the inner loop
+**	it moves the function's zero register off the client's ebp. Both blocks still address src as dst + (src - dst)
+**	([esi+ecx]) where the client steps both pointers (inc esi; inc ecx).
 */

@@ -337,8 +337,8 @@ void FontSys::Unknown_6CA0C0(FontEffectStruct *effect)
 			x = pos.X;
 			y = pos.Y;
 		}
-		x = style->Info.Target[0] * 640.0f - x;
-		y = style->Info.Target[1] * 480.0f - y;
+		x = style->Info.Target.X * 640.0f - x;
+		y = style->Info.Target.Y * 480.0f - y;
 		if (style->Unknown47C.X == x && style->Unknown47C.Y == y) {
 			Set_Complete(style, true);
 			return;

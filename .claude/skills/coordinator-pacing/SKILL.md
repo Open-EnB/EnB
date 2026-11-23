@@ -375,7 +375,11 @@ Stop times, launchers and POC checks:
   coord). `clientrun.py clean --all` / `--older HOURS` unlinks instances' junctions into ClientPOC\Data (CLIENT_DATA_ROOT) and keeps
   an instance whose client.exe still runs. For character select in the 44 s input3-quit replay, shoot at ~290000
   frames, not 2400 (menus run ~7,000 Presents a second).
-- **A checker in a fresh worktree builds wlib and wnet (and binkmovie) before clienttest:** otherwise 87 unresolved Wstring / TCPCon / CritSec externals look like a regression.
+- **A checker in a fresh worktree builds wlib and wnet (and binkmovie) before clienttest:** otherwise 87 unresolved Wstring / TCPCon / CritSec externals look like a regression. A fresh
+  worktree can also carry a stale `.work/vc6_hosts.json` (an old VM IP: every build times out over ssh): `vc6.py discover`
+  in the main tree, then in the worktree.
+- **Builder briefs say: run trybatch from inside the worktree and never wrap a verify in `timeout`** (workflow.md §3.4,
+  §3.6); a builder that hands back "told to stop early" without a coordinator message is resumable by SendMessage.
 - **bring-over refuses "the commits record other pairs than the verify gives"** when an order-only flip toggles (a D246 entry's address) or another branch's landing regained an address: rerun as a batch of one (`--batch-name ID`).
 - **`wt.py remove NAME` leaves the `wt/NAME` branch behind** (add `--delete-branch`); `clientrun.py run` copies the
   exe it runs into C:\EnBDevelopment\ClientPOC\release (CLIENT_DATA_ROOT, outside git).

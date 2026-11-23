@@ -1218,6 +1218,21 @@ void StarmapPipClass::Unknown_7C2060(int mode)
 	}
 }
 
+// The labels deleted for 0x7C2850 (both its copies): the client calls ??_G 0x7C2D00 and erase 0x7C2DF0 there and inlines
+// clear(), where the dtor's 7C2280 copy inlines ??_G and calls clear 0x7C2DA0: the delete sits one layer deeper here.
+static void Delete_Label(Unknown_7C3220Class *label)
+{
+	delete label;
+}
+
+static void Delete_Labels(StarmapPipClass *pip)
+{
+	for (std::vector<Unknown_7C3220Class *>::iterator it = pip->Labels.begin(); it != pip->Labels.end(); it++) {
+		Delete_Label(*it);
+	}
+	pip->Labels.clear();
+}
+
 // @0x7C2280
 void StarmapPipClass::Unknown_7C2280()
 {
@@ -1254,7 +1269,7 @@ void Unknown_7C3220Class::Set_Name(std::string name)
 #include "..\shared\auxdata\auxdata.h"
 #include "aux_group.h"					// DeltaGroupInfoClass (0x7C2850)
 
-// NOT EXACT: inline budget (0.78, attempts.py 0x7C2760): the client calls UnknownRTTIClass<DeltaCompoundClass>::Cast out of line in Unknown_Find_Field; here it is inlined (Find_Valid helpers one, two and three layers deep give the same)
+// NOT EXACT: inline budget (0.92, attempts.py 0x7C2760): the client calls UnknownRTTIClass<DeltaCompoundClass>::Cast out of line in Unknown_Find_Field; here it is inlined (Find_Valid helpers one, two and three layers deep give the same)
 // @0x7C2760
 bool StarmapPipClass::Is_Grouped(ClientObjectClass *co)
 {
@@ -1262,10 +1277,10 @@ bool StarmapPipClass::Is_Grouped(ClientObjectClass *co)
 		DeltaCompoundClass *aux = ((SClient *)Client->As_Space_Client())->AuxData;
 		if (aux) {
 			NameClass name("GroupInfo");
-			DeltaGroupInfoClass *group = (DeltaGroupInfoClass *)Unknown_Find_Field<DeltaCompoundClass>(aux, name);
-			if (group && group->Unknown70) {
+			DeltaGroupInfoClass *group = (DeltaGroupInfoClass *)Unknown_Find_Set_Field<DeltaCompoundClass>(aux, name);
+			if (group) {
 				for (int i = 0; i < 5; i++) {
-					if (co->Get_Game_ID() == ((DeltaGroupMemberClass *)group->Members.Children[i])->GameID.Value) {
+					if (co->GameID == ((DeltaGroupMemberClass *)group->Members.Children[i])->GameID.Value) {
 						return(true);
 					}
 				}
@@ -1275,25 +1290,26 @@ bool StarmapPipClass::Is_Grouped(ClientObjectClass *co)
 	return(false);
 }
 
-// NOT EXACT: inline budget (0.32): the client calls Unknown_Find_Field (0x7C30E0) out of line and expands both label
-// deletes as the scalar deleting destructor plus erase(begin, end); here the budget runs out the other way. attempts.csv
+// NOT EXACT: registers (0.94): Is_Grouped is expanded here (its NameClass and Find_Set_Field 0x7C30E0 out of line, the
+// bool in the dead force slot); left: the avatar compare's load order, the refresh loop's Find_Object push and the
+// ObjectList load (register choice only). attempts.csv
 // @0x7C2850
 void StarmapPipClass::Unknown_7C2850(bool force)
 {
 	if (!Label) {
-		Unknown_7C2280();
+		Delete_Labels(this);
 		return;
 	}
 	if (!Client->Get_Objects_Changed() && Labels.size() && !force) {
 		for (std::vector<Unknown_7C3220Class *>::iterator it = Labels.begin(); it != Labels.end(); it++) {
-			ClientObjectClass *co = ((SClient *)Client->As_Space_Client())->Find_Object((*it)->ObjectID);
+			Unknown_7C3220Class *label = *it; ClientObjectClass *co = ((SClient *)Client->As_Space_Client())->Find_Object(label->ObjectID);
 			if (co) {
-				(*it)->Unknown_7C3830(co);
+				label->Unknown_7C3830(co);
 			}
 		}
 		return;
 	}
-	Unknown_7C2280();
+	Delete_Labels(this);
 	HashNodeClass<ClientObjectClass *> *node = Client->ObjectList.First_Valid();
 	while (node) {
 		ClientObjectClass *co = node->Get_Record();
@@ -1302,29 +1318,16 @@ void StarmapPipClass::Unknown_7C2850(bool force)
 		if (!sdata || sdata->Unknown38) {
 			continue;
 		}
-		bool grouped;
-		if (co->Unknown_6F5A40() && ((SClient *)Client->As_Space_Client())->AuxData) {
-			NameClass name("GroupInfo");
-			DeltaGroupInfoClass *group = (DeltaGroupInfoClass *)Unknown_Find_Field<DeltaCompoundClass>(((SClient *)Client->As_Space_Client())->AuxData, name);
-			if (group) {
-				for (int i = 0; i < 5; i++) {
-					if (co->Get_Game_ID() == ((DeltaGroupMemberClass *)group->Members.Children[i])->GameID.Value) {
-						grouped = true;
-						goto found;
-					}
-				}
-			}
-		}
-		grouped = false;
-found:
+		bool flag = false;
+		bool grouped = Is_Grouped(co);
 		bool player = co->Unknown_6F5A40();
-		bool avatar = Client->AvatarID == co->Get_Game_ID();
+		bool avatar = co->Get_Game_ID() == Client->AvatarID;
 		std::string name("");
 		co->Unknown_6FF7A0(name);
-		bool flag = player && co->Unknown_700860();
-		if (!name.length() || (Label == 1 && !grouped && !avatar) || (Label == 2 && !player)) {
-			continue;
-		}
+		if (player && co->Unknown_700860()) { flag = true; }
+		if (!name.length()) { continue; }
+		if (Label == 1 && !grouped && !avatar) { continue; }
+		if (Label == 2 && !player) { continue; }
 		if (flag) {
 			Unknown_7C2340(co->Get_Game_ID(), name, 3);
 		} else if (grouped) {

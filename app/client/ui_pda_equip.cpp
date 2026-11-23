@@ -156,7 +156,7 @@ void UIPdaEquipClass::Unknown_54()
 	pip->Unknown_65FFC0(1, (GadgetClass *)first);
 }
 
-// NOT EXACT: functional from the pseudocode (D64)
+// functional from the pseudocode (D64); 0x5D2EB0 inlined
 // @0x5D1A00
 UIPdaEquipClass::~UIPdaEquipClass()
 {
@@ -438,12 +438,12 @@ void UIPdaEquipClass::Unknown_5D2B90()
 
 
 
-// NOT EXACT: functional from the pseudocode (D64)
+// functional from the pseudocode (D64); 0x5D2EB0 inlined
 // @0x5D2C50
 void UIPdaEquipClass::Unknown_5D2C50()
 {
 	if (Mounts.size()) {
-		Unknown_5D2EB0();
+		Unknown_5D2EB0(); Mounts.size();	// (the size() read dead, D272: it spends 0x5D2C50's nested budget, so erase 0x5D2F90 is called out of line under the inlined clear)
 	}
 
 
@@ -475,7 +475,7 @@ void UIPdaEquipClass::Unknown_5D2EB0()
 	for (std::vector<UnknownMountSlotStruct *>::iterator it = Mounts.begin(); it != Mounts.end(); it++) {
 		delete *it;
 	}
-	Mounts.erase(Mounts.begin(), Mounts.end());
+	Mounts.clear();	// (a plain clear(): 0x5D1A00 inlines it with erase's copy loop inline and _Destroy 0x5D2FE0 out of line; 0x5D2C50 spends its own budget beside its call)
 }
 
 /*
