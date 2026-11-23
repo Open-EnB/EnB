@@ -1,0 +1,41 @@
+{
+  "format": "source-patch-json-strings-v1",
+  "unit": "app/client/ui_treem.cpp",
+  "base": "74-pair committed Refresh source",
+  "base_sha256": "330ef689fd11fcfb03bfe8c8c9904db5b95fd5c92b49ea729ea250b6a5d97227",
+  "batch": 7,
+  "forms": [
+    {
+      "name": "click_region_void",
+      "counts": {
+        "exact": 74,
+        "none": 1
+      },
+      "target_exact": false,
+      "gained_addresses": [],
+      "lost_addresses": [],
+      "body": {
+        "code_bytes": 671,
+        "instructions": 204,
+        "raw_object_body_sha256": "fb20d1d2c55058445e4a2f19415467971524b0b09138df41df5a1c4ec8e315ba"
+      },
+      "source_patch": "--- a/app/client/ui_treem.cpp\n+++ b/app/client/ui_treem.cpp\n@@ -21,11 +21,11 @@\n \n \n \n-\n-\n-\n-\n-\n+static void Toggle_Clicked_Tree_Item(UITreeMClass *tree, UITreeMItemStruct *item) // NAME 1: the clicked-item toggle and sound region in retail Unknown_68\n+{\n+\ttree->Toggle(item);\n+\tSoundLibraryClass::Play_2D_Sound(\"TextClick01.wav\", 2);\n+}\n \n \n \n@@ -216,8 +216,8 @@\n \t\t\t\t\t\t\treturn(true);\n \t\t\t\t\t\t}\n \t\t\t\t\t}\n-\t\t\t\t\tToggle(item);\n-\t\t\t\t\tSoundLibraryClass::Play_2D_Sound(\"TextClick01.wav\", 2);\n+\t\t\t\t\tToggle_Clicked_Tree_Item(this, item);\n+\n \t\t\t\t\treturn(true);\n \t\t\t\t}\n \t\t\t}\n"
+    },
+    {
+      "name": "click_region_bool",
+      "counts": {
+        "exact": 74,
+        "none": 1
+      },
+      "target_exact": false,
+      "gained_addresses": [],
+      "lost_addresses": [],
+      "body": {
+        "code_bytes": 671,
+        "instructions": 204,
+        "raw_object_body_sha256": "fb20d1d2c55058445e4a2f19415467971524b0b09138df41df5a1c4ec8e315ba"
+      },
+      "source_patch": "--- a/app/client/ui_treem.cpp\n+++ b/app/client/ui_treem.cpp\n@@ -21,12 +21,12 @@\n \n \n \n-\n-\n-\n-\n-\n-\n+static bool Toggle_Clicked_Tree_Item(UITreeMClass *tree, UITreeMItemStruct *item) // NAME 1: the clicked-item toggle and sound region in retail Unknown_68\n+{\n+\ttree->Toggle(item);\n+\tSoundLibraryClass::Play_2D_Sound(\"TextClick01.wav\", 2);\n+\treturn(true);\n+}\n \n \n \n@@ -216,9 +216,9 @@\n \t\t\t\t\t\t\treturn(true);\n \t\t\t\t\t\t}\n \t\t\t\t\t}\n-\t\t\t\t\tToggle(item);\n-\t\t\t\t\tSoundLibraryClass::Play_2D_Sound(\"TextClick01.wav\", 2);\n-\t\t\t\t\treturn(true);\n+\t\t\t\t\treturn(Toggle_Clicked_Tree_Item(this, item));\n+\n+\n \t\t\t\t}\n \t\t\t}\n \t}\n"
+    }
+  ]
+}
