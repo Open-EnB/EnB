@@ -193,7 +193,7 @@ void UIPetitionPlayerEntryClass::Unknown_64()
 	UIPetitionEntryClass::Unknown_64();
 }
 
-// NOT EXACT: register (the client loads the client's +0x1130 into eax, ours edx; as ui_petition_stuck.cpp's 0x5D7420)
+
 // 0x5D6550
 bool UIPetitionPlayerEntryClass::Unknown_A0()
 {
@@ -206,7 +206,7 @@ bool UIPetitionPlayerEntryClass::Unknown_A0()
 	std::string subject;
 	std::string details;
 	Get_Text(subject, details);
-	((ClientClass *)Get_Client())->Send_Packet(&PetitionStuckPacketClass(((ClientClass *)Get_Client())->ShipID, Unknown0B8, subject.c_str(), details.c_str(), names.c_str()));
+	int ship_id; ((ClientClass *)Get_Client())->Send_Packet(&PetitionStuckPacketClass(ship_id = ((ClientClass *)Get_Client())->ShipID, Unknown0B8, subject.c_str(), details.c_str(), names.c_str())); // NAME 1 [ship_id]: neutral (D10)
 	return(true);
 }
 
@@ -357,4 +357,6 @@ bool UIPetitionPlayerNameClass::Get_Names(std::string &names)
 **	RefCountPtr's destructor (the unwinds'), 0x5D7330-0x5D7360 the adjustor thunks of both classes' second and third
 **	tables; ui_petition_stuck.cpp's 0x5D7370 follows. The name box's constructor and Get_Names have no callers: the
 **	page inlines them (0x5D61E0, 0x5D6550, 0x5D6890).
+**	0x5D6550 is exact: assign the signed ship ID at its packet-constructor argument site, preserving
+**	all reads and temporary lifetimes while recovering the retail register choice.
 */

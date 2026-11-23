@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1970 |
 | 2 | describes what the code does | 5007 |
-| 1 | neutral placeholder | 25140 |
+| 1 | neutral placeholder | 25142 |
 
 ## For review (score 3 and below)
 
@@ -15522,6 +15522,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_64` | `app/client/ui_petition_player_entry.cpp:191` | untagged neutral name (D10) |
 | 1 | `Unknown_A0` | `app/client/ui_petition_player_entry.cpp:198` | untagged neutral name (D10) |
 | 1 | `std:` | `app/client/ui_petition_player_entry.cpp:201` | neutral (D10) |
+| 1 | `ship_id` | `app/client/ui_petition_player_entry.cpp:209` | neutral (D10) |
 | 1 | `std:` | `app/client/ui_petition_player_entry.cpp:228` | neutral (D10) |
 | 1 | `Unknown_98` | `app/client/ui_petition_player_entry.cpp:279` | untagged neutral name (D10) |
 | 1 | `button` | `app/client/ui_petition_player_entry.cpp:280` | neutral (D10) |
@@ -15565,6 +15566,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown0B8` | `app/client/ui_petition_player_entry.h:47` | untagged neutral name (D10) |
 | 1 | `Unknown0B4` | `app/client/ui_petition_stuck.cpp:12` | untagged neutral name (D10) |
 | 1 | `Unknown_A0` | `app/client/ui_petition_stuck.cpp:44` | untagged neutral name (D10) |
+| 1 | `ship_id` | `app/client/ui_petition_stuck.cpp:50` | neutral (D10) |
 | 1 | `ui_petition_stuck.h` | `app/client/ui_petition_stuck.h:4` | provisional header name for ui_petition_stuck.cpp |
 | 1 | `UIPetitionStuckClass` | `app/client/ui_petition_stuck.h:11` | neutral, after the file |
 | 1 | `client, unknown0B4` | `app/client/ui_petition_stuck.h:14` | neutral |
