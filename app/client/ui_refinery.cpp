@@ -614,7 +614,7 @@ void UIRefineryClass::Unknown_5EDA10(UIManuListClass *list)
 	Unknown0B04 = (list != NULL);
 }
 
-// NOT EXACT: inline budget (the client calls the 'NegotiatedCost' Cast out of line; the 'Money' find out of line as the client; dead finds before it push the 0x5ECBB0 copies out too) (0x5EDCC0)
+
 void UIRefineryClass::Unknown_5EDCC0()
 {
 	MoneyClass credits;
@@ -622,13 +622,13 @@ void UIRefineryClass::Unknown_5EDCC0()
 	if (money && money->Unknown70) {
 		credits = money->Value;
 	}
-	Unknown_5ECBB0(0, true, credits.Amount_As_Text(false).c_str());
+	int index; Unknown_5ECBB0(index = 0, true, credits.Amount_As_Text(false).c_str()); // NAME 1 [index]: neutral (D10)
 	MoneyClass cost;
-	DeltaTemplateClass<MoneyClass> *negotiated = Unknown_Find_Field<DeltaTemplateClass<MoneyClass> >(Unknown0AEC, NameClass("NegotiatedCost"));
-	if (negotiated && negotiated->Unknown70) {
+	DeltaTemplateClass<MoneyClass> *negotiated = Unknown_Find_Set_Field<DeltaTemplateClass<MoneyClass> >(Unknown0AEC, "NegotiatedCost");
+	if (negotiated) {
 		cost = negotiated->Value;
 	}
-	Unknown_5ECBB0(3, true, cost.Amount_As_Text(false).c_str());
+	Unknown_5ECBB0(index = 3, true, cost.Amount_As_Text(false).c_str());
 }
 
 static std::string Unknown_5EE7F0(int validity);
@@ -745,4 +745,6 @@ static std::string Unknown_5EE7F0(int validity)	// NAME 1: neutral (D10)  // NAM
 ** 0x5EDFD0 is exact: existing changed-field lookups preserve the >1 tests and caller name storage;
 ** a Money root local and assignment of the value/client locals at their argument sites recover retail
 ** argument scheduling and the final list helper boundary. All later assertion lines are preserved.
+** 0x5EDCC0 is exact: the existing set-field lookup recovers the cost Cast boundary, and assigning
+** the real font index at both argument sites recovers the retail argument-load order.
 */
