@@ -1,0 +1,26 @@
+--- a/app/client/ui_mesh.cpp
++++ b/app/client/ui_mesh.cpp
+@@ -54,10 +54,10 @@
+ 	}
+ }
+ 
+-UIMeshClass::~UIMeshClass()
+-{
+-	Unknown_5B8850(NULL, 0);
+-}
++
++
++
++
+ 
+ // NOT EXACT: 0x5B8850 (0.79): the client's FAIL_IF path jumps to the shared epilogue, ours repeats it
+ void UIMeshClass::Unknown_5B8850(const char *name, int count)
+@@ -111,7 +111,7 @@
+ 		}
+ 	}
+ }
+-
++UIMeshClass::~UIMeshClass() { Unknown_5B8850(NULL, 0); }
+ RenderObjClass *UIMeshClass::Peek_Object()
+ {
+ 	return(InterfaceMesh);
