@@ -1,0 +1,280 @@
+{
+  "schema": 1,
+  "address": "0x656FF0",
+  "unit": "app/client/ui_vault.cpp",
+  "model": "gpt-6.1-sol (high)",
+  "baseline_source_sha256": "9d473e52b2b4836c7e0c92f8b97c81680849470620d17c7c5ea049889b9ba922",
+  "valid_tested_forms": 14,
+  "baseline_controls": 1,
+  "final_controls": 0,
+  "invalid_forms": 0,
+  "uncompiled_forms": [],
+  "outcome": "No source adopted. Baseline 54 exact symbol/address and file/address pairs preserved unchanged.",
+  "baseline_residue": {
+    "instruction_rows": 22,
+    "register_masked_rows": 13,
+    "code_bytes": 570,
+    "retail_code_bytes": 571
+  },
+  "results": {
+    "assign": "Same baseline residue and pair sets.",
+    "assign_explicit": "67 rows, 51 register-masked, 640-byte span. _Split 0x42CD30 appears with no losses, but erase expands and parent gets worse; rejected generic-holder gain.",
+    "init_temporary": "22 rows; temporary copy elides and does not change profile.",
+    "init_temporary_assign": "22 rows.",
+    "named_result": "65 rows, 35 register-masked, 592-byte span.",
+    "named_result_assign": "65 rows.",
+    "const_named_result": "65 rows.",
+    "bound_result": "65 rows, plus const-qualified destructor symbol holder swap; rejected.",
+    "explicit_mesh_null": "22 rows.",
+    "explicit_filter_null": "22 rows.",
+    "explicit_refs_null": "22 rows.",
+    "array_memset": "17 rows, 15 register-masked: pointer-base clearing only trades register residue; both _Eos inversions remain.",
+    "array_chain": "29 rows, 21 register-masked.",
+    "explicit_allocator": "22 rows."
+  },
+  "source_evidence": [
+    "Retail direct C-string construction precedes derived vtables, then options Get_String creates one temporary destroyed before Load.",
+    "VC6 XSTRING constructor(cstr) calls assign(cstr), then assign(cstr,n), then _Eos; operator=(string) calls assign(string), then assign(string,0,npos), then _Eos.",
+    "Real STL assign overloads, copy-elision and named temporary boundaries tested without invented helper layers or compiler directives.",
+    "Real RefCountPtr default and DummyPtrType-null constructors both initialize Referent(0), consistent with observed member stores. Ordinary fixed-array clearing forms tested without changing pointer type.",
+    "Cargo sibling 0x5CF9B0 retail has matching early _Eos out-of-line; its prior three-form history read. Exact UIVault destructor supports current member type order."
+  ],
+  "retail_EH": {
+    "handler": "0xABCA1A",
+    "FuncInfo": "0xB3A790",
+    "magic": "0x19930520",
+    "maxState": 5,
+    "try_blocks": 0,
+    "unwind_map": "0xB3A7B0",
+    "parents": [
+      -1,
+      0,
+      1,
+      2,
+      3
+    ],
+    "cleanups": [
+      [
+        "0xABC9E0",
+        "UIInvClass destructor"
+      ],
+      [
+        "0xABC9E8",
+        "RefCountPtr<RenderObjClass> at +D0"
+      ],
+      [
+        "0xABC9F6",
+        "RefCountPtr<UIComboBoxClass> at +E0"
+      ],
+      [
+        "0xABCA04",
+        "std::string at +EC"
+      ],
+      [
+        "0xABCA12",
+        "temporary std::string at ebp-1C"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "name": "assign",
+      "source_sha256": "b23b70a770aa6414fb3324799fbe6df8f80e45f9562dfb7ace0f374397f9ca21",
+      "target_exact": false,
+      "gained": [],
+      "lost": [],
+      "counts": {
+        "exact": 54,
+        "none": 3
+      },
+      "patch": "--- a/app/client/ui_vault.cpp\n+++ b/app/client/ui_vault.cpp\n@@ -70,7 +70,7 @@\n \tOptionClass *options = OptionClass::Instance; if (options) {\n \t\tSortIndex = options->Get_Bool(\"Inv_Sort_Vault\");\n \t\tSortReverse = options->Get_Bool(\"Inv_Sort_Vault_Reverse\");\n-\t\tFilterName = options->Get_String(\"Inv_Filter_Vault\");\n+\t\tFilterName.assign(options->Get_String(\"Inv_Filter_Vault\"));\n \t}\n \tUnknown_BE67BC->Load(\"fa_vault00a.ini\");\n }\n"
+    },
+    {
+      "name": "assign_explicit",
+      "source_sha256": "5c36d9e1748507eefbd2077d651c8e6f4af56e7ea9722172cd5d2b9b197d0007",
+      "target_exact": false,
+      "gained": [
+        [
+          "?_Split@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEXXZ",
+          "0x42CD30"
+        ]
+      ],
+      "lost": [],
+      "counts": {
+        "exact": 55,
+        "none": 3
+      },
+      "patch": "--- a/app/client/ui_vault.cpp\n+++ b/app/client/ui_vault.cpp\n@@ -70,7 +70,7 @@\n \tOptionClass *options = OptionClass::Instance; if (options) {\n \t\tSortIndex = options->Get_Bool(\"Inv_Sort_Vault\");\n \t\tSortReverse = options->Get_Bool(\"Inv_Sort_Vault_Reverse\");\n-\t\tFilterName = options->Get_String(\"Inv_Filter_Vault\");\n+\t\tFilterName.assign(options->Get_String(\"Inv_Filter_Vault\"), 0, std::string::npos);\n \t}\n \tUnknown_BE67BC->Load(\"fa_vault00a.ini\");\n }\n"
+    },
+    {
+      "name": "init_temporary",
+      "source_sha256": "315d4243c04cd74ec8f2aa215b0138ba4f1a95e941f2dd62160d42e3cee98365",
+      "target_exact": false,
+      "gained": [],
+      "lost": [],
+      "counts": {
+        "exact": 54,
+        "none": 3
+      },
+      "patch": "--- a/app/client/ui_vault.cpp\n+++ b/app/client/ui_vault.cpp\n@@ -62,7 +62,7 @@\n UIVaultClass::UIVaultClass(SClient *client) :\n \tUIInvClass(client, 17),\n \tSortIndex(0),\n-\tSortReverse(false), FilterName(\"\")\n+\tSortReverse(false), FilterName(std::string(\"\"))\n {\n \tfor (int i = 0; i < NUM_BUTTONS; i++) {\n \t\tButtons3[i] = NULL;\n@@ -301,7 +301,7 @@\n **\tthe next object. The cargo window's sibling (ui_pda_cargo.cpp): the same members from +0xD0 without the PDA, three\n **\tbuttons, a slider made and handed to the gadget list without a member.\n **\tNot exact (one round each, attempts.csv): the constructor inlines string::_Eos in the Get_String assignment and calls\n-**\tit for FilterName(\"\") (the client: the other way round; inline budget, as the cargo window's 0x5CF9B0); Unknown_54's\n+**\tit for FilterName(std::string(\"\")) (the client: the other way round; inline budget, as the cargo window's 0x5CF9B0); Unknown_54's\n **\tbutton loop bumps its two pointers in the other order (as 0x5CFE40); Unknown_68 pushes ebx / ebp / edi at entry\n **\twhere the client pushes them late for the filter's tail (shrink-wrapping; the tail inside its case is the same);\n **\t0x657DA0 loads the packet's arguments in another order (Client first in the client's).\n"
+    },
+    {
+      "name": "init_temporary_assign",
+      "source_sha256": "a9f724995f868e275714713f08c56333811bc32105a67aac601a175f4df62223",
+      "target_exact": false,
+      "gained": [],
+      "lost": [],
+      "counts": {
+        "exact": 54,
+        "none": 3
+      },
+      "patch": "--- a/app/client/ui_vault.cpp\n+++ b/app/client/ui_vault.cpp\n@@ -62,7 +62,7 @@\n UIVaultClass::UIVaultClass(SClient *client) :\n \tUIInvClass(client, 17),\n \tSortIndex(0),\n-\tSortReverse(false), FilterName(\"\")\n+\tSortReverse(false), FilterName(std::string(\"\"))\n {\n \tfor (int i = 0; i < NUM_BUTTONS; i++) {\n \t\tButtons3[i] = NULL;\n@@ -70,7 +70,7 @@\n \tOptionClass *options = OptionClass::Instance; if (options) {\n \t\tSortIndex = options->Get_Bool(\"Inv_Sort_Vault\");\n \t\tSortReverse = options->Get_Bool(\"Inv_Sort_Vault_Reverse\");\n-\t\tFilterName = options->Get_String(\"Inv_Filter_Vault\");\n+\t\tFilterName.assign(options->Get_String(\"Inv_Filter_Vault\"));\n \t}\n \tUnknown_BE67BC->Load(\"fa_vault00a.ini\");\n }\n@@ -301,7 +301,7 @@\n **\tthe next object. The cargo window's sibling (ui_pda_cargo.cpp): the same members from +0xD0 without the PDA, three\n **\tbuttons, a slider made and handed to the gadget list without a member.\n **\tNot exact (one round each, attempts.csv): the constructor inlines string::_Eos in the Get_String assignment and calls\n-**\tit for FilterName(\"\") (the client: the other way round; inline budget, as the cargo window's 0x5CF9B0); Unknown_54's\n+**\tit for FilterName(std::string(\"\")) (the client: the other way round; inline budget, as the cargo window's 0x5CF9B0); Unknown_54's\n **\tbutton loop bumps its two pointers in the other order (as 0x5CFE40); Unknown_68 pushes ebx / ebp / edi at entry\n **\twhere the client pushes them late for the filter's tail (shrink-wrapping; the tail inside its case is the same);\n **\t0x657DA0 loads the packet's arguments in another order (Client first in the client's).\n"
+    },
+    {
+      "name": "named_result",
+      "source_sha256": "678fcf7af5132617c79c11a0e4d48a5fba02187445d7014c5fb94752789652c6",
+      "target_exact": false,
+      "gained": [],
+      "lost": [],
+      "counts": {
+        "exact": 54,
+        "none": 3
+      },
+      "patch": "--- a/app/client/ui_vault.cpp\n+++ b/app/client/ui_vault.cpp\n@@ -70,7 +70,7 @@\n \tOptionClass *options = OptionClass::Instance; if (options) {\n \t\tSortIndex = options->Get_Bool(\"Inv_Sort_Vault\");\n \t\tSortReverse = options->Get_Bool(\"Inv_Sort_Vault_Reverse\");\n-\t\tFilterName = options->Get_String(\"Inv_Filter_Vault\");\n+\t\tstd::string filter_name = options->Get_String(\"Inv_Filter_Vault\"); FilterName = filter_name;\n \t}\n \tUnknown_BE67BC->Load(\"fa_vault00a.ini\");\n }\n"
+    },
+    {
+      "name": "named_result_assign",
+      "source_sha256": "3f12fdb12f77822bf59e1a5f92e19dd8a1f04657f7814fdc75f8ed48e8378296",
+      "target_exact": false,
+      "gained": [],
+      "lost": [],
+      "counts": {
+        "exact": 54,
+        "none": 3
+      },
+      "patch": "--- a/app/client/ui_vault.cpp\n+++ b/app/client/ui_vault.cpp\n@@ -70,7 +70,7 @@\n \tOptionClass *options = OptionClass::Instance; if (options) {\n \t\tSortIndex = options->Get_Bool(\"Inv_Sort_Vault\");\n \t\tSortReverse = options->Get_Bool(\"Inv_Sort_Vault_Reverse\");\n-\t\tFilterName = options->Get_String(\"Inv_Filter_Vault\");\n+\t\tstd::string filter_name = options->Get_String(\"Inv_Filter_Vault\"); FilterName.assign(filter_name);\n \t}\n \tUnknown_BE67BC->Load(\"fa_vault00a.ini\");\n }\n"
+    },
+    {
+      "name": "const_named_result",
+      "source_sha256": "64f929c33b971d6de2ad09455e54706fd51e7bb432a9bfa0471450d192b0346d",
+      "target_exact": false,
+      "gained": [],
+      "lost": [],
+      "counts": {
+        "exact": 54,
+        "none": 3
+      },
+      "patch": "--- a/app/client/ui_vault.cpp\n+++ b/app/client/ui_vault.cpp\n@@ -70,7 +70,7 @@\n \tOptionClass *options = OptionClass::Instance; if (options) {\n \t\tSortIndex = options->Get_Bool(\"Inv_Sort_Vault\");\n \t\tSortReverse = options->Get_Bool(\"Inv_Sort_Vault_Reverse\");\n-\t\tFilterName = options->Get_String(\"Inv_Filter_Vault\");\n+\t\tconst std::string filter_name = options->Get_String(\"Inv_Filter_Vault\"); FilterName = filter_name;\n \t}\n \tUnknown_BE67BC->Load(\"fa_vault00a.ini\");\n }\n"
+    },
+    {
+      "name": "bound_result",
+      "source_sha256": "22370410e49ba1344a4fd1ed7585583cfd16f3c962e3307432a23414bff1c8cb",
+      "target_exact": false,
+      "gained": [
+        [
+          "_$E266",
+          "0x658060"
+        ]
+      ],
+      "lost": [
+        [
+          "_$E265",
+          "0x658060"
+        ]
+      ],
+      "counts": {
+        "exact": 54,
+        "none": 3
+      },
+      "patch": "--- a/app/client/ui_vault.cpp\n+++ b/app/client/ui_vault.cpp\n@@ -70,7 +70,7 @@\n \tOptionClass *options = OptionClass::Instance; if (options) {\n \t\tSortIndex = options->Get_Bool(\"Inv_Sort_Vault\");\n \t\tSortReverse = options->Get_Bool(\"Inv_Sort_Vault_Reverse\");\n-\t\tFilterName = options->Get_String(\"Inv_Filter_Vault\");\n+\t\tconst std::string &filter_name = options->Get_String(\"Inv_Filter_Vault\"); FilterName = filter_name;\n \t}\n \tUnknown_BE67BC->Load(\"fa_vault00a.ini\");\n }\n"
+    },
+    {
+      "name": "explicit_mesh_null",
+      "source_sha256": "a4a82f5610ca4510f575069697a216b0a4f95c518de74a4d9ba9a01d148acb63",
+      "target_exact": false,
+      "gained": [],
+      "lost": [],
+      "counts": {
+        "exact": 54,
+        "none": 3
+      },
+      "patch": "--- a/app/client/ui_vault.cpp\n+++ b/app/client/ui_vault.cpp\n@@ -60,7 +60,7 @@\n // NOT EXACT: functional from the pseudocode (D64)\n // 0x656FF0\n UIVaultClass::UIVaultClass(SClient *client) :\n-\tUIInvClass(client, 17),\n+\tUIInvClass(client, 17), InterfaceMesh(NULL),\n \tSortIndex(0),\n \tSortReverse(false), FilterName(\"\")\n {\n"
+    },
+    {
+      "name": "explicit_filter_null",
+      "source_sha256": "d6a6af612bca07cf18975ad68640e1632984a5eaffc920ca704f82dc751c1e4b",
+      "target_exact": false,
+      "gained": [],
+      "lost": [],
+      "counts": {
+        "exact": 54,
+        "none": 3
+      },
+      "patch": "--- a/app/client/ui_vault.cpp\n+++ b/app/client/ui_vault.cpp\n@@ -61,7 +61,7 @@\n // 0x656FF0\n UIVaultClass::UIVaultClass(SClient *client) :\n \tUIInvClass(client, 17),\n-\tSortIndex(0),\n+\tFilter(NULL), SortIndex(0),\n \tSortReverse(false), FilterName(\"\")\n {\n \tfor (int i = 0; i < NUM_BUTTONS; i++) {\n"
+    },
+    {
+      "name": "explicit_refs_null",
+      "source_sha256": "3c64d01dece261c1bd75f9dd1b38e8e2f4dd61a4ce0dfb495124862c96c69ffc",
+      "target_exact": false,
+      "gained": [],
+      "lost": [],
+      "counts": {
+        "exact": 54,
+        "none": 3
+      },
+      "patch": "--- a/app/client/ui_vault.cpp\n+++ b/app/client/ui_vault.cpp\n@@ -60,8 +60,8 @@\n // NOT EXACT: functional from the pseudocode (D64)\n // 0x656FF0\n UIVaultClass::UIVaultClass(SClient *client) :\n-\tUIInvClass(client, 17),\n-\tSortIndex(0),\n+\tUIInvClass(client, 17), InterfaceMesh(NULL),\n+\tFilter(NULL), SortIndex(0),\n \tSortReverse(false), FilterName(\"\")\n {\n \tfor (int i = 0; i < NUM_BUTTONS; i++) {\n"
+    },
+    {
+      "name": "array_memset",
+      "source_sha256": "36cab7c183bc705b74dd7a7450fe7209d95f9aac312c9202fa86c120899af8a0",
+      "target_exact": false,
+      "gained": [],
+      "lost": [],
+      "counts": {
+        "exact": 54,
+        "none": 3
+      },
+      "patch": "--- a/app/client/ui_vault.cpp\n+++ b/app/client/ui_vault.cpp\n@@ -64,9 +64,9 @@\n \tSortIndex(0),\n \tSortReverse(false), FilterName(\"\")\n {\n-\tfor (int i = 0; i < NUM_BUTTONS; i++) {\n-\t\tButtons3[i] = NULL;\n-\t}\n+\tmemset(Buttons3, 0, sizeof(Buttons3));\n+\n+\n \tOptionClass *options = OptionClass::Instance; if (options) {\n \t\tSortIndex = options->Get_Bool(\"Inv_Sort_Vault\");\n \t\tSortReverse = options->Get_Bool(\"Inv_Sort_Vault_Reverse\");\n"
+    },
+    {
+      "name": "array_chain",
+      "source_sha256": "36c62a84eb5063273ba22dafbef05c7287b1abe6066142f11e9d1cb378ffb571",
+      "target_exact": false,
+      "gained": [],
+      "lost": [],
+      "counts": {
+        "exact": 54,
+        "none": 3
+      },
+      "patch": "--- a/app/client/ui_vault.cpp\n+++ b/app/client/ui_vault.cpp\n@@ -64,9 +64,9 @@\n \tSortIndex(0),\n \tSortReverse(false), FilterName(\"\")\n {\n-\tfor (int i = 0; i < NUM_BUTTONS; i++) {\n-\t\tButtons3[i] = NULL;\n-\t}\n+\tButtons3[0] = Buttons3[1] = Buttons3[2] = NULL;\n+\n+\n \tOptionClass *options = OptionClass::Instance; if (options) {\n \t\tSortIndex = options->Get_Bool(\"Inv_Sort_Vault\");\n \t\tSortReverse = options->Get_Bool(\"Inv_Sort_Vault_Reverse\");\n"
+    },
+    {
+      "name": "explicit_allocator",
+      "source_sha256": "b656452015ad2a0627688f315514f5581ef49d21ea70dee01e10057a69e8b426",
+      "target_exact": false,
+      "gained": [],
+      "lost": [],
+      "counts": {
+        "exact": 54,
+        "none": 3
+      },
+      "patch": "--- a/app/client/ui_vault.cpp\n+++ b/app/client/ui_vault.cpp\n@@ -62,7 +62,7 @@\n UIVaultClass::UIVaultClass(SClient *client) :\n \tUIInvClass(client, 17),\n \tSortIndex(0),\n-\tSortReverse(false), FilterName(\"\")\n+\tSortReverse(false), FilterName(\"\", std::allocator<char>())\n {\n \tfor (int i = 0; i < NUM_BUTTONS; i++) {\n \t\tButtons3[i] = NULL;\n@@ -301,7 +301,7 @@\n **\tthe next object. The cargo window's sibling (ui_pda_cargo.cpp): the same members from +0xD0 without the PDA, three\n **\tbuttons, a slider made and handed to the gadget list without a member.\n **\tNot exact (one round each, attempts.csv): the constructor inlines string::_Eos in the Get_String assignment and calls\n-**\tit for FilterName(\"\") (the client: the other way round; inline budget, as the cargo window's 0x5CF9B0); Unknown_54's\n+**\tit for FilterName(\"\", std::allocator<char>()) (the client: the other way round; inline budget, as the cargo window's 0x5CF9B0); Unknown_54's\n **\tbutton loop bumps its two pointers in the other order (as 0x5CFE40); Unknown_68 pushes ebx / ebp / edi at entry\n **\twhere the client pushes them late for the filter's tail (shrink-wrapping; the tail inside its case is the same);\n **\t0x657DA0 loads the packet's arguments in another order (Client first in the client's).\n"
+    }
+  ],
+  "controls": [
+    {
+      "name": "baseline",
+      "source_sha256": "9d473e52b2b4836c7e0c92f8b97c81680849470620d17c7c5ea049889b9ba922",
+      "target_exact": false,
+      "gained": [],
+      "lost": [],
+      "counts": {
+        "exact": 54,
+        "none": 3
+      },
+      "patch": ""
+    }
+  ],
+  "stop_reason": "All supported genuine STL overload and local-lifetime forms leave the crossed _Eos expansions or worsen source structure. No evidence supports replacing current types, adding forcing layers or retaining the generic _Split holder gain at the expense of parent similarity. Wait for a new concrete source lead; sibling vault changes may provide future evidence.",
+  "file_path_comparison": "basename only; no full-app build claimed"
+}
