@@ -1,0 +1,1268 @@
+{
+  "schema": 1,
+  "hypothesis": "A267-11-followup-compare",
+  "provenance": {
+    "analysis_model": "gpt-6-astra",
+    "analysis_effort": "high",
+    "testing_model": "gpt-6.1-sol",
+    "testing_effort": "high"
+  },
+  "base_head": "9b07cd77d9bf53363e236fbb1d0f1f92c5f5520a",
+  "baseline_sha256": "f3bb5d219fb5b39d615c205a65b93e28c142c4d77bf19083969e1d0e32c74cd8",
+  "source_sha256": "f3bb5d219fb5b39d615c205a65b93e28c142c4d77bf19083969e1d0e32c74cd8",
+  "patch_replay_verified": true,
+  "baseline_patch_from_base_head": "--- a/app/client/ui_manu.cpp\n+++ b/app/client/ui_manu.cpp\n@@ -90,7 +90,7 @@\n static unsigned int Unknown_B8183C = 9;\t\t\t\t\t// NAME 1: neutral (D10): the filter requests allowed\n static const float Unknown_AF2D18 = 1.0f;\t\t\t\t// NAME 1: neutral (D10): what 0x5B3A70 stores (read from .rdata)\n \n-// NOT EXACT: order (the client computes +0xB80's address after the low half of the __int64 at +0xBB8, ours first) (0x5AFA00)\n+\n UIManuClass::UIManuClass(SBaseViewClass *view, const LayerClass &layer) :\n \tUnknown5BB320Class(new UIMeshClass(\"TSM01A\", true), (UIViewClass *)view, layer),\n \tUnknown0AC(view),\n@@ -475,7 +475,7 @@\n \tUnknown_10();\n }\n \n-// NOT EXACT: inline budget (the client calls the 'ManufactureComponents' and 'Validity' Casts out of line, 0x5B7210 / 0x5468D0, and 0x5B6DB0 in the inlined 0x5B3640) (0x5B1230)\n+// NOT EXACT: inline budget (the ManufactureComponents Cast 0x5B7210 and nested 0x5B6DB0 boundary still differ; DurationClass assignment recovers the Validity Cast 0x5468D0 and nested 0x5B6CA0 call) (0x5B1230)\n void UIManuClass::Unknown_60()\n {\n \tUnknown_5B5320();\n@@ -533,9 +533,9 @@\n \tfor (int i = 0; i < 3; i++) {\n \t\tUnknown0C0[i]->Unknown_5B7880();\n \t}\n-\tunsigned int now = ((ClientClass *)Client)->Unknown10BC;\n-\tif ((__int64)now > Unknown0BB8 && Unknown0BC0 > 0) {\n-\t\tUnknown0BB8 = Unknown_BE5C20 * 1000 + now;\n+\tDurationClass now; now = DurationClass((unsigned int)((ClientClass *)Client)->Unknown10BC);\n+\tif (now.Time > Unknown0BB8.Time && Unknown0BC0 > 0) {\n+\t\tUnknown0BB8.Time = Unknown_BE5C20 * 1000 + now.Time;\n \t\tif (--Unknown0BC0 < Unknown_B8183C) {\n \t\t\tUnknown_5B6CA0();\n \t\t}\n@@ -1878,3 +1878,11 @@\n // 0x5B0BB0 is exact: retain a 256-byte label buffer, assign the player ID at its packet argument,\n // name the font-manager mesh input and copy sort values before their setters. All original callbacks\n // and reference-counted temporary lifetimes are preserved.\n+\n+// 0x5B1230: the current tick is a zero-extended unsigned input carried by DurationClass. Its existing\n+// assignment layer recovers the retail Validity Cast boundary and this unit's exact 0x5468D0 holder;\n+// the enclosing handler remains partial. Signed timestamp operations and read timing are preserved.\n+\n+// 0x5AFA00 is exact with the request timestamp represented by DurationClass. The eight-byte member\n+// retains its original offset, and the class size, alignment and every own-member offset are unchanged.\n+// All four ui_manu.h consumers preserve their complete native pair sets.\n",
+  "patch": "",
+  "header_changes": [],
+  "compile_success": true,
+  "native_full_object_match": true,
+  "source_constraints": {
+    "run": "A267-11-followup-compare-a9p9vmp0",
+    "name": "baseline",
+    "physical_asserts_equal": true,
+    "EH_states": {
+      "0x5AFA00": 8,
+      "0x5B1230": 0
+    },
+    "pair_count": 144,
+    "gained": [],
+    "lost": []
+  },
+  "baseline_pair_count": 144,
+  "name": "baseline",
+  "unit": "app/client/ui_manu.cpp",
+  "source": "/home/dev/Projects/EnB/.work/claim-267/astra-tests/forms/A267-11_followup_baseline/ui_manu.cpp",
+  "metrics": {
+    "0x5B1230": {
+      "symbol": "UIManuClass::Unknown_60",
+      "mangled": "?Unknown_60@UIManuClass@@UAEXXZ",
+      "address": "0x5B1230",
+      "ours": 246,
+      "client": 255,
+      "residue": 34,
+      "residue_regs": 20,
+      "tables": [],
+      "branch": {
+        "bytes": [
+          887,
+          915
+        ],
+        "size": 0,
+        "target": 0
+      },
+      "class": "relocation",
+      "reason": "string differs: ours b'Z:\\\\home\\\\dev\\\\Projects\\\\EnB\\\\.work\\\\claim-267\\\\astra-tests\\\\tree-A267-12-current\\\\app\\\\client\\\\..\\\\shared\\\\auxdata\\\\auxdata.h', client b'..\\\\shared/auxdata/auxdata.h' at 0xB767DC (33 calls in ours, 35 in the client: an inlined callee's assert? then inline-budget)",
+      "frames": [
+        [
+          "0x3c",
+          false,
+          false
+        ],
+        [
+          "0x3c",
+          false,
+          false
+        ]
+      ],
+      "calls": {
+        "ours": [
+          {
+            "offset": "0x9",
+            "instruction": "call 0xe",
+            "target": [
+              "sym",
+              "?Unknown_5B5320@UIManuClass@@QAEXXZ"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x72",
+            "instruction": "call 0x77",
+            "target": [
+              "sym",
+              "?Unknown_5B1AF0@UIManuClass@@QAEXH_NPBD@Z"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x9e",
+            "instruction": "call 0xa3",
+            "target": [
+              "sym",
+              "??0NameClass@@QAE@PBD@Z"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0xb1",
+            "instruction": "call 0xb6",
+            "target": [
+              "sym",
+              "?Get_Lookup@DeltaCompoundClass@@QAEPAVLookupClass@@XZ"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0xbd",
+            "instruction": "call 0xc2",
+            "target": [
+              "sym",
+              "?Find@LookupClass@@QAEPAVDeltaClass@@ABVNameClass@@@Z"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0xe6",
+            "instruction": "call 0xeb",
+            "target": [
+              "sym",
+              "?G_Assert_Report@@YAXPBD0H@Z"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x10e",
+            "instruction": "call 0x113",
+            "target": [
+              "sym",
+              "?Unknown_5B4680@UIManuClass@@QAEXXZ"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x134",
+            "instruction": "call 0x139",
+            "target": [
+              "sym",
+              "?Unknown_5B8DF0@UIMeshClass@@QAEXHPBD_N11HH@Z"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x14c",
+            "instruction": "call 0x151",
+            "target": [
+              "sym",
+              "?Unknown_62F5B0@SlotDataInterface@@QAEX_N@Z"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x167",
+            "instruction": "call 0x16c",
+            "target": [
+              "sym",
+              "??0NameClass@@QAE@PBD@Z"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x176",
+            "instruction": "call 0x17b",
+            "target": [
+              "sym",
+              "?Get_Lookup@DeltaCompoundClass@@QAEPAVLookupClass@@XZ"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x182",
+            "instruction": "call 0x187",
+            "target": [
+              "sym",
+              "?Find@LookupClass@@QAEPAVDeltaClass@@ABVNameClass@@@Z"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x18c",
+            "instruction": "call 0x191",
+            "target": [
+              "sym",
+              "?Cast@?$UnknownRTTIClass@V?$DeltaTemplateClass@W4UnknownB01394Enum@@@@@@SAPAV?$DeltaTemplateClass@W4UnknownB01394Enum@@@@PAVDeltaClass@@@Z"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x1a7",
+            "instruction": "call 0x1ac",
+            "target": [
+              "sym",
+              "?G_Assert_Report@@YAXPBD0H@Z"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x1c1",
+            "instruction": "call 0x1c6",
+            "target": [
+              "sym",
+              "?Is_Validity_Attempt@@YA_NW4UnknownB01394Enum@@@Z"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x1e8",
+            "instruction": "call 0x1ed",
+            "target": [
+              "sym",
+              "?Unknown_5B1AF0@UIManuClass@@QAEXH_NPBD@Z"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x1f4",
+            "instruction": "call 0x1f9",
+            "target": [
+              "sym",
+              "?Play_2D_Sound@SoundLibraryClass@@SAPAVAudibleSoundClass@@PBDH@Z"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x214",
+            "instruction": "call 0x219",
+            "target": [
+              "sym",
+              "?Unknown_Find_Valid_List@UIManuClass@@QAEPAVUIManuListClass@@PBD@Z"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x220",
+            "instruction": "call 0x225",
+            "target": [
+              "sym",
+              "?Unknown_5B3260@UIManuClass@@QAEXPAVUIManuListClass@@@Z"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x227",
+            "instruction": "call 0x22c",
+            "target": [
+              "sym",
+              "?Unknown_5B6CA0@UIManuClass@@QAEXXZ"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x23a",
+            "instruction": "call 0x23f",
+            "target": [
+              "sym",
+              "?Unknown_5B3580@UIManuClass@@QAEX_N@Z"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x241",
+            "instruction": "call 0x246",
+            "target": [
+              "sym",
+              "?Unknown_5B2480@UIManuClass@@QAEXXZ"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x248",
+            "instruction": "call 0x24d",
+            "target": [
+              "sym",
+              "?Unknown_5B4850@UIManuClass@@QAEXXZ"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x256",
+            "instruction": "call 0x25b",
+            "target": [
+              "sym",
+              "?Unknown_5B39B0@UIManuClass@@QAEXH@Z"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x25d",
+            "instruction": "call 0x262",
+            "target": [
+              "sym",
+              "?Unknown_5B2230@UIManuClass@@QAEXXZ"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x26a",
+            "instruction": "call 0x26f",
+            "target": [
+              "sym",
+              "?Unknown_5B2480@UIManuClass@@QAEXXZ"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x27b",
+            "instruction": "call 0x280",
+            "target": [
+              "sym",
+              "__ftol"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x290",
+            "instruction": "call 0x295",
+            "target": [
+              "sym",
+              "?Unknown_5B2230@UIManuClass@@QAEXXZ"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x297",
+            "instruction": "call 0x29c",
+            "target": [
+              "sym",
+              "?Unknown_60@Unknown5BB320Class@@UAEXXZ"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x2a9",
+            "instruction": "call 0x2ae",
+            "target": [
+              "sym",
+              "?Unknown_5B7880@UIManuUnknownC0Class@@QAEXXZ"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x2fd",
+            "instruction": "call 0x302",
+            "target": [
+              "sym",
+              "__allmul"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x35b",
+            "instruction": "call dword ptr [edx + 0x40]",
+            "target": null,
+            "references": []
+          },
+          {
+            "offset": "0x363",
+            "instruction": "call dword ptr [eax + 0x8c]",
+            "target": null,
+            "references": []
+          }
+        ],
+        "retail": [
+          {
+            "offset": "0x5b1239",
+            "instruction": "call 0x417b48",
+            "target": [
+              "addr",
+              5985056
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5b12a2",
+            "instruction": "call 0x4127ba",
+            "target": [
+              "addr",
+              5970672
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5b12ce",
+            "instruction": "call 0x417f80",
+            "target": [
+              "addr",
+              4903808
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5b12e1",
+            "instruction": "call 0x40eec1",
+            "target": [
+              "addr",
+              4871440
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5b12ed",
+            "instruction": "call 0x40c257",
+            "target": [
+              "addr",
+              4901360
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5b12fb",
+            "instruction": "call 0x40a204",
+            "target": [
+              "addr",
+              5992976
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5b1316",
+            "instruction": "call 0x40aa51",
+            "target": [
+              "addr",
+              5149712
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5b133e",
+            "instruction": "call 0x41698c",
+            "target": [
+              "addr",
+              5981824
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5b1364",
+            "instruction": "call 0x40d62a",
+            "target": [
+              "addr",
+              6000112
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5b137c",
+            "instruction": "call 0x402536",
+            "target": [
+              "addr",
+              6485424
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5b1397",
+            "instruction": "call 0x417f80",
+            "target": [
+              "addr",
+              4903808
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5b13a6",
+            "instruction": "call 0x40eec1",
+            "target": [
+              "addr",
+              4871440
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5b13b2",
+            "instruction": "call 0x40c257",
+            "target": [
+              "addr",
+              4901360
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5b13bc",
+            "instruction": "call 0x40ffba",
+            "target": [
+              "addr",
+              5531856
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5b13d7",
+            "instruction": "call 0x40aa51",
+            "target": [
+              "addr",
+              5149712
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5b13f1",
+            "instruction": "call 0x41683d",
+            "target": [
+              "addr",
+              8675856
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5b1418",
+            "instruction": "call 0x4127ba",
+            "target": [
+              "addr",
+              5970672
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5b1424",
+            "instruction": "call 0x411b99",
+            "target": [
+              "addr",
+              4451632
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5b1446",
+            "instruction": "call 0x417f80",
+            "target": [
+              "addr",
+              4903808
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5b1457",
+            "instruction": "call 0x410492",
+            "target": [
+              "addr",
+              5991856
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5b1466",
+            "instruction": "call 0x413bb5",
+            "target": [
+              "addr",
+              5976672
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5b146d",
+            "instruction": "call 0x40f501",
+            "target": [
+              "addr",
+              5991584
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5b1480",
+            "instruction": "call 0x401311",
+            "target": [
+              "addr",
+              5977472
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5b1487",
+            "instruction": "call 0x40713f",
+            "target": [
+              "addr",
+              5973120
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5b148e",
+            "instruction": "call 0x405d30",
+            "target": [
+              "addr",
+              5982288
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5b149c",
+            "instruction": "call 0x40ab00",
+            "target": [
+              "addr",
+              5978544
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5b14a3",
+            "instruction": "call 0x411cc0",
+            "target": [
+              "addr",
+              5972528
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5b14b0",
+            "instruction": "call 0x40713f",
+            "target": [
+              "addr",
+              5973120
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5b14c1",
+            "instruction": "call 0xa264ec",
+            "target": [
+              "addr",
+              10642668
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5b14d6",
+            "instruction": "call 0x411cc0",
+            "target": [
+              "addr",
+              5972528
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5b14dd",
+            "instruction": "call 0x403b6b",
+            "target": [
+              "addr",
+              6010464
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5b14ef",
+            "instruction": "call 0x410f00",
+            "target": [
+              "addr",
+              5994624
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5b1543",
+            "instruction": "call 0xa28410",
+            "target": [
+              "addr",
+              10650640
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5b15a7",
+            "instruction": "call dword ptr [edx + 0x40]",
+            "target": null,
+            "references": []
+          },
+          {
+            "offset": "0x5b15af",
+            "instruction": "call dword ptr [eax + 0x8c]",
+            "target": null,
+            "references": []
+          }
+        ]
+      },
+      "masked_body_sha256": "483b17b0fe4f8a39a98087b423b879ab003dec0a78566c28068fbd9caf24ea00",
+      "body_bytes": 896,
+      "first_fixed_byte_mismatch": "0x5b"
+    }
+  },
+  "pair_count": 144,
+  "pairs": [
+    [
+      "app/client/ui_manu.cpp",
+      "0x42A6C0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x42A820"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x42A940"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x42A970"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x42AB30"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x42B320"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x42CAB0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x42CD30"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x42D050"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x42D120"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x42F250"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x45CC10"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x46BE90"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x474080"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x4740B0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x497300"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x4A1930"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x4A19A0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x4A19C0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x4A1A10"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x4A1A30"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x4A1A50"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x4A1A70"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x4A1A90"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x4A1AB0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x4A1AD0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x4A1AF0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x4A7780"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x4B58D0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x50A8E0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x50A900"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x50A920"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x50A940"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x50A960"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x50A980"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x50A9E0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x50AA00"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x50AA20"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x50AA40"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x50AA60"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x50AA80"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x50AAA0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x50AAC0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5156B0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5156F0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x515710"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x515730"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x515750"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x51AD20"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x51AD40"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x51AD60"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x51AD80"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x51ADA0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x51C630"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x52B210"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x52B240"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x52B270"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x52B2A0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x52B2D0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x52B2F0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x52B310"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x52B330"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x52B350"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5411F0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x543750"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x543770"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x544250"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x544B90"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x546480"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5464B0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5464F0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x546510"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5465C0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5466A0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x546710"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x546780"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5467F0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5468D0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x546970"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x553A80"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x58E5B0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x58E5D0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5AF980"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5AF9B0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5AF9D0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5AFA00"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5AFCA0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5AFFC0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B0B40"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B0BB0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B10A0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B1AF0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B1C20"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B1ED0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B2060"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B21A0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B2230"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B2820"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B28E0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B2950"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B2990"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B2A80"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B2B40"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B2F20"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B3240"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B3260"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B3580"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B3850"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B39B0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B3A50"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B3A70"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B3B90"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B3CA0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B3D70"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B42F0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B4680"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B4850"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B5CD0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B5FF0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B6060"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B6410"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B6680"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B66D0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B6700"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B6720"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B6770"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B67A0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B67C0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B6A60"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B6A80"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B6CA0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B6D30"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B6DB0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B6E20"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B6FD0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B7050"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B70C0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B7130"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B71A0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B7260"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B72B0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B7300"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B7350"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B7360"
+    ]
+  ],
+  "pairs_sha256": "426cfeefe149ce7b8307ff7733d90f236f36973f3240a412bb73181c5f8b2ef5",
+  "gained": [],
+  "lost": [],
+  "baseline_header_patches_from_base_head": [
+    {
+      "path": "app/client/ui_manu.h",
+      "baseline_sha256": "8c21fff0a830fc972345bf56c7ac8dfec4d5a1d9db15bdba3aa84449d6a11676",
+      "source_sha256": "862ba35eeb96f78b0a3afc3c053679232780feca9f960fb8f39b2c8a337d5c44",
+      "patch": "--- a/app/client/ui_manu.h\n+++ b/app/client/ui_manu.h\n@@ -6,7 +6,7 @@\n \n #include \"sclient.h\"\n #include \"ui_inv.h\"\t\t// UIInvRobjStripClass, the strips of slots\n-\n+#include \"..\\shared\\duration.h\"\n class GadgetClass;\t\t\t// gadget.cpp's\n class CheckBoxGadgetClass;\t// the check buttons (the tech level filters at +0x11C)\n class FontSys;\t\t// fontmanager.h's text objects (+0x16C, +0x194)\n@@ -153,7 +153,7 @@\n \tbool Unknown0BAE;\t\t\t\t\t\t\t\t\t// +0xBAE\n \tint Unknown0BB0;\t\t\t\t\t\t\t\t\t// +0xBB0 the item id asked for (-1 for none)\n \tbool Unknown0BB4;\t\t\t\t\t\t\t\t\t// +0xBB4\n-\t__int64 Unknown0BB8;\t\t\t\t\t\t\t// +0xBB8 (slot +0x60: the next time a filter request is given back)\n+\tDurationClass Unknown0BB8;\t\t\t\t\t\t\t// +0xBB8 (slot +0x60: the next time a filter request is given back)\n \tunsigned int Unknown0BC0;\t\t\t\t\t\t\t// +0xBC0 (compared with Unknown_B8183C)\n };\n \n"
+    }
+  ]
+}

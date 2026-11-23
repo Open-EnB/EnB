@@ -1,0 +1,17 @@
+{
+  "analysis_model": "gpt-6-astra (high)",
+  "test_model": "gpt-6.1-sol (high)",
+  "hypothesis_ids": [
+    "A267-03"
+  ],
+  "parts": [
+    "docs/attempts/5B1230/claim267-astra-tests/A267-03-baseline.json",
+    "docs/attempts/5B1230/claim267-astra-tests/A267-03-control-baseline.json",
+    "docs/attempts/5B1230/claim267-astra-tests/A267-03-control-reuse_slot_parameter_on_current_baseline.json",
+    "docs/attempts/5B1230/claim267-astra-tests/A267-03-destination_slot_seed_control.json",
+    "docs/attempts/5B1230/claim267-astra-tests/A267-03-reuse_slot_parameter_for_destination.json"
+  ],
+  "results": "docs/attempts/5B1230/claim267-astra-tests/results.json",
+  "constraints": "docs/attempts/5B1230/claim267-astra-tests/constraints.json",
+  "evidence": "A267-03 parameter-home reuse restores scratch push but spills source instead of peek:69/32 on oldbestseed,68/32 on currentbaseline;79pairs preserved,no gain."
+}

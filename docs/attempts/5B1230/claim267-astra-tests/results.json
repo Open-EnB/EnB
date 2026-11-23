@@ -1,0 +1,1712 @@
+{
+  "provenance": {
+    "hypotheses": "gpt-6-astra high",
+    "implementation_and_testing": "gpt-6.1-sol high"
+  },
+  "counts": {
+    "new_valid_bounded_candidate_forms": 19,
+    "primary_queue_forms": 11,
+    "additional_A03_control_form": 1,
+    "optional_forms": 2,
+    "declaration_context_forms": 1,
+    "member_representation_forms": 1,
+    "global_representation_forms": 1,
+    "member_operator_followup_forms": 2,
+    "baseline_and_seed_control_builds": 21,
+    "other_consumer_validation_builds": 6,
+    "layout_diagnostic_builds": 2,
+    "total_successful_build_and_full_match_runs": 48,
+    "repeats": 0,
+    "compile_failures": 0,
+    "match_failures": 0,
+    "untried_forms": 0,
+    "skipped_hypotheses": 0,
+    "root_independent_confirmation_builds": 5
+  },
+  "decisions": {
+    "A267-01": "Keep minimal assigned_duration_now: +5468D0/-0, parent77/54->34/20, frame3C; constructed canonical; conversion identical to assignment-only.",
+    "A267-02": "Canonical ctor4/4; primitive member plus a temporary does not establish the real member-constructor boundary.",
+    "A267-03": "Reject both parameter-role forms: restores push-ECX scratch slot but spills source instead of peek and chooses wrong registers; seed69/32, current-baseline68/32, no gains.",
+    "A267-04": "Both real event forms canonical to seed25/10; frame18 remains versus retail14.",
+    "A267-05a": "Consumed scalar reference canonical10/7; desired598D80 call absent.",
+    "A267-05b": "Consumed scalar reference canonical to seed46/23; desired598D80 call absent.",
+    "A267-06": "Qualified delete canonical48/22; wrong scalar-deleting-destructor/erase lowering remains, frame94 versus90.",
+    "A267-07": "Reject worse64/6 vs13/4; after-allocation reads remain once each, call/EH unchanged.",
+    "A267-08": "Reject worse12/4 vs8/0 and extra destructor EH state9 vs8.",
+    "A267-09": "Canonical13/4, same6EHstates, actual address set unchanged despite symbol-holder swap.",
+    "A267-10": "All three targets canonical to matching seed; 0740 fixed prefix remains through41D and tail still22/2; real header supplies no gain.",
+    "A267-11": "Keep real DurationClass member: exact ctor525bytes/132instructions, same23relocations and8EHstates, identical size/alignment/all29memberoffsets; +5AFA00,+4A1930/-0; all4consumers/root independently confirmed.",
+    "A267-12": "Canonical to settled144pair baseline: handler34/20/frame3C and dynamic initializer5AF9D0 unchanged0/0; no gains, do not retain.",
+    "A267-11-followup-compare": "Existing DurationClass member comparison worsens handler34/20->49/25; frame3C and actual call boundaries unchanged,144pairs preserved. Reject.",
+    "A267-11-followup-assign": "Existing DurationClass assignment layer improves handler34/20->17/14; frame3C and actual call boundaries unchanged,144pairs preserved. Preserve as best scratch seed; no gain/adoption requested. Combined form not activated because neither independent form improved a call boundary or frame."
+  },
+  "new_manufacturing_pairs": [
+    "0x5468D0",
+    "0x5AFA00",
+    "0x4A1930"
+  ],
+  "net_manufacturing_pair_counts": [
+    141,
+    144
+  ],
+  "all_production_baseline_pairs_preserved": true,
+  "records": [
+    {
+      "hypothesis": "A267-01",
+      "name": "baseline",
+      "compiled": true,
+      "native_match_success": true,
+      "source_sha256": "18c3ce1e3b106730fa095679ac44c244f3d31e7399543ffc4c97bfeb08c7e409",
+      "pair_count": 141,
+      "pairs_digest": "bcc2f52cda4a694d817308743e574a7e87c8c2be7b0f400246772e9a072a98cd",
+      "gained": [],
+      "lost": [],
+      "metrics": {
+        "0x5B1230": {
+          "residue": 77,
+          "register_masked_residue": 54,
+          "frames": [
+            [
+              "0x3c",
+              false,
+              false
+            ],
+            [
+              "0x3c",
+              false,
+              false
+            ]
+          ],
+          "body_digest": "3f817f2366c368c45dd17773a07fbfa726a6bcd49e83839b1687d7a5bd967b77",
+          "first_fixed_byte_mismatch": "0x5b"
+        }
+      },
+      "metrics_artifact": ".work/claim-267/astra-tests/runs/A267-01-xjynceb7/baseline/metrics.json"
+    },
+    {
+      "hypothesis": "A267-01",
+      "name": "assigned_duration_now",
+      "compiled": true,
+      "native_match_success": true,
+      "source_sha256": "afdca591ebf06e4ee2fafe2c881af3ef1afe306eaa565687f439f3c42eddc020",
+      "pair_count": 142,
+      "pairs_digest": "ffad46f9053639c8312977681621ee07f269efc3e008e4262c38241b6e356b2d",
+      "gained": [
+        [
+          "app/client/ui_manu.cpp",
+          "0x5468D0"
+        ]
+      ],
+      "lost": [],
+      "metrics": {
+        "0x5B1230": {
+          "residue": 34,
+          "register_masked_residue": 20,
+          "frames": [
+            [
+              "0x3c",
+              false,
+              false
+            ],
+            [
+              "0x3c",
+              false,
+              false
+            ]
+          ],
+          "body_digest": "483b17b0fe4f8a39a98087b423b879ab003dec0a78566c28068fbd9caf24ea00",
+          "first_fixed_byte_mismatch": "0x5b"
+        }
+      },
+      "metrics_artifact": ".work/claim-267/astra-tests/runs/A267-01-xjynceb7/assigned_duration_now/metrics.json"
+    },
+    {
+      "hypothesis": "A267-01",
+      "name": "constructed_duration_now",
+      "compiled": true,
+      "native_match_success": true,
+      "source_sha256": "754c66ab3ca6ec95454680d43d082f2429d5ce7f4971b7741bb178a1ea1f3765",
+      "pair_count": 141,
+      "pairs_digest": "bcc2f52cda4a694d817308743e574a7e87c8c2be7b0f400246772e9a072a98cd",
+      "gained": [],
+      "lost": [],
+      "metrics": {
+        "0x5B1230": {
+          "residue": 77,
+          "register_masked_residue": 54,
+          "frames": [
+            [
+              "0x3c",
+              false,
+              false
+            ],
+            [
+              "0x3c",
+              false,
+              false
+            ]
+          ],
+          "body_digest": "3f817f2366c368c45dd17773a07fbfa726a6bcd49e83839b1687d7a5bd967b77",
+          "first_fixed_byte_mismatch": "0x5b"
+        }
+      },
+      "metrics_artifact": ".work/claim-267/astra-tests/runs/A267-01-xjynceb7/constructed_duration_now/metrics.json"
+    },
+    {
+      "hypothesis": "A267-01",
+      "name": "assigned_duration_and_unit_conversion",
+      "compiled": true,
+      "native_match_success": true,
+      "source_sha256": "c4ea2fd5661c8393f20caeb2e880e6cc8dee6abad1f1a23b648896b9d5233c1c",
+      "pair_count": 142,
+      "pairs_digest": "ffad46f9053639c8312977681621ee07f269efc3e008e4262c38241b6e356b2d",
+      "gained": [
+        [
+          "app/client/ui_manu.cpp",
+          "0x5468D0"
+        ]
+      ],
+      "lost": [],
+      "metrics": {
+        "0x5B1230": {
+          "residue": 34,
+          "register_masked_residue": 20,
+          "frames": [
+            [
+              "0x3c",
+              false,
+              false
+            ],
+            [
+              "0x3c",
+              false,
+              false
+            ]
+          ],
+          "body_digest": "483b17b0fe4f8a39a98087b423b879ab003dec0a78566c28068fbd9caf24ea00",
+          "first_fixed_byte_mismatch": "0x5b"
+        }
+      },
+      "metrics_artifact": ".work/claim-267/astra-tests/runs/A267-01-xjynceb7/assigned_duration_and_unit_conversion/metrics.json"
+    },
+    {
+      "hypothesis": "A267-02",
+      "name": "baseline",
+      "compiled": true,
+      "native_match_success": true,
+      "source_sha256": "402ec0f833406cf757ec14f14ff2b843d05f13bf5db5ddfc845072b30786d07b",
+      "pair_count": 142,
+      "pairs_digest": "ffad46f9053639c8312977681621ee07f269efc3e008e4262c38241b6e356b2d",
+      "gained": [],
+      "lost": [],
+      "metrics": {
+        "0x5AFA00": {
+          "residue": 4,
+          "register_masked_residue": 4,
+          "frames": [
+            [
+              "8",
+              false,
+              true
+            ],
+            [
+              "8",
+              false,
+              true
+            ]
+          ],
+          "body_digest": "ca0b71e42ac9a9273395660543b813b58bf18b7213e907c4df2777818e35b572",
+          "first_fixed_byte_mismatch": "0xe8"
+        }
+      },
+      "metrics_artifact": ".work/claim-267/astra-tests/runs/A267-02-5x4jgyd2/baseline/metrics.json"
+    },
+    {
+      "hypothesis": "A267-02",
+      "name": "duration_zero_initializer",
+      "compiled": true,
+      "native_match_success": true,
+      "source_sha256": "a432bed79d54985ed0114d68b29d0727bd9c084995092a879e813e43d3f41f2f",
+      "pair_count": 142,
+      "pairs_digest": "ffad46f9053639c8312977681621ee07f269efc3e008e4262c38241b6e356b2d",
+      "gained": [],
+      "lost": [],
+      "metrics": {
+        "0x5AFA00": {
+          "residue": 4,
+          "register_masked_residue": 4,
+          "frames": [
+            [
+              "8",
+              false,
+              true
+            ],
+            [
+              "8",
+              false,
+              true
+            ]
+          ],
+          "body_digest": "ca0b71e42ac9a9273395660543b813b58bf18b7213e907c4df2777818e35b572",
+          "first_fixed_byte_mismatch": "0xe8"
+        }
+      },
+      "metrics_artifact": ".work/claim-267/astra-tests/runs/A267-02-5x4jgyd2/duration_zero_initializer/metrics.json"
+    },
+    {
+      "hypothesis": "A267-03-control",
+      "name": "baseline",
+      "compiled": true,
+      "native_match_success": true,
+      "source_sha256": "86ec0b21ac9ebd01d1d1619990e843baf8deec41b8f8f0531cf2e78eb32398e9",
+      "pair_count": 79,
+      "pairs_digest": "21febdb1dc79081a3c6665636e8f89a7cd90146b7c6ba2cfae0ca4dfac0559c0",
+      "gained": [],
+      "lost": [],
+      "metrics": {
+        "0x5A0D00": {
+          "residue": 44,
+          "register_masked_residue": 25,
+          "frames": [
+            [
+              null,
+              false,
+              false
+            ],
+            [
+              null,
+              false,
+              false
+            ]
+          ],
+          "body_digest": "27b547f762499933eb99b07eee730578425468a352a3a6b3231cbafc7576757e",
+          "first_fixed_byte_mismatch": "0x0"
+        }
+      },
+      "metrics_artifact": ".work/claim-267/astra-tests/runs/A267-03-control-eyjba7un/baseline/metrics.json"
+    },
+    {
+      "hypothesis": "A267-03-control",
+      "name": "reuse_slot_parameter_on_current_baseline",
+      "compiled": true,
+      "native_match_success": true,
+      "source_sha256": "97155ed0dc2ff3675937dc03396c92f5c00ea7bd319a1323e48270c4041527a1",
+      "pair_count": 79,
+      "pairs_digest": "21febdb1dc79081a3c6665636e8f89a7cd90146b7c6ba2cfae0ca4dfac0559c0",
+      "gained": [],
+      "lost": [],
+      "metrics": {
+        "0x5A0D00": {
+          "residue": 68,
+          "register_masked_residue": 32,
+          "frames": [
+            [
+              null,
+              false,
+              false
+            ],
+            [
+              null,
+              false,
+              false
+            ]
+          ],
+          "body_digest": "b12733b748ecb4f67afc0ecf2a2a368e5729f5b4c39d8493c2cb5189f91f06f1",
+          "first_fixed_byte_mismatch": "0x26"
+        }
+      },
+      "metrics_artifact": ".work/claim-267/astra-tests/runs/A267-03-control-eyjba7un/reuse_slot_parameter_on_current_baseline/metrics.json"
+    },
+    {
+      "hypothesis": "A267-03",
+      "name": "baseline",
+      "compiled": true,
+      "native_match_success": true,
+      "source_sha256": "86ec0b21ac9ebd01d1d1619990e843baf8deec41b8f8f0531cf2e78eb32398e9",
+      "pair_count": 79,
+      "pairs_digest": "21febdb1dc79081a3c6665636e8f89a7cd90146b7c6ba2cfae0ca4dfac0559c0",
+      "gained": [],
+      "lost": [],
+      "metrics": {
+        "0x5A0D00": {
+          "residue": 44,
+          "register_masked_residue": 25,
+          "frames": [
+            [
+              null,
+              false,
+              false
+            ],
+            [
+              null,
+              false,
+              false
+            ]
+          ],
+          "body_digest": "27b547f762499933eb99b07eee730578425468a352a3a6b3231cbafc7576757e",
+          "first_fixed_byte_mismatch": "0x0"
+        }
+      },
+      "metrics_artifact": ".work/claim-267/astra-tests/runs/A267-03-yi70p7ga/baseline/metrics.json"
+    },
+    {
+      "hypothesis": "A267-03",
+      "name": "destination_slot_seed_control",
+      "compiled": true,
+      "native_match_success": true,
+      "source_sha256": "e8ee081b37dc3c33ed24a6973ee74b14bd380ba039adec6ae6dd47974316a9d8",
+      "pair_count": 79,
+      "pairs_digest": "21febdb1dc79081a3c6665636e8f89a7cd90146b7c6ba2cfae0ca4dfac0559c0",
+      "gained": [],
+      "lost": [],
+      "metrics": {
+        "0x5A0D00": {
+          "residue": 41,
+          "register_masked_residue": 25,
+          "frames": [
+            [
+              null,
+              false,
+              false
+            ],
+            [
+              null,
+              false,
+              false
+            ]
+          ],
+          "body_digest": "3021af1899248931a516aba3c31048ed60df2d341ed64860174b8f154a1ee5ce",
+          "first_fixed_byte_mismatch": "0x0"
+        }
+      },
+      "metrics_artifact": ".work/claim-267/astra-tests/runs/A267-03-yi70p7ga/destination_slot_seed_control/metrics.json"
+    },
+    {
+      "hypothesis": "A267-03",
+      "name": "reuse_slot_parameter_for_destination",
+      "compiled": true,
+      "native_match_success": true,
+      "source_sha256": "5efd478e7fed04410004815c7045aa5b3191babaa49c56f05410e6bf67aa68b9",
+      "pair_count": 79,
+      "pairs_digest": "21febdb1dc79081a3c6665636e8f89a7cd90146b7c6ba2cfae0ca4dfac0559c0",
+      "gained": [],
+      "lost": [],
+      "metrics": {
+        "0x5A0D00": {
+          "residue": 69,
+          "register_masked_residue": 32,
+          "frames": [
+            [
+              null,
+              false,
+              false
+            ],
+            [
+              null,
+              false,
+              false
+            ]
+          ],
+          "body_digest": "c2f7475992b0a367186d62c98862266fa0fd2e1bf31c4895aee6ef9e9d25c8ff",
+          "first_fixed_byte_mismatch": "0x26"
+        }
+      },
+      "metrics_artifact": ".work/claim-267/astra-tests/runs/A267-03-yi70p7ga/reuse_slot_parameter_for_destination/metrics.json"
+    },
+    {
+      "hypothesis": "A267-04",
+      "name": "baseline",
+      "compiled": true,
+      "native_match_success": true,
+      "source_sha256": "86ec0b21ac9ebd01d1d1619990e843baf8deec41b8f8f0531cf2e78eb32398e9",
+      "pair_count": 79,
+      "pairs_digest": "21febdb1dc79081a3c6665636e8f89a7cd90146b7c6ba2cfae0ca4dfac0559c0",
+      "gained": [],
+      "lost": [],
+      "metrics": {
+        "0x59FE30": {
+          "residue": 33,
+          "register_masked_residue": 22,
+          "frames": [
+            [
+              "0x18",
+              false,
+              true
+            ],
+            [
+              "0x14",
+              false,
+              true
+            ]
+          ],
+          "body_digest": "ade351ce1a2aaf6c4190b011978557f617eb183bd22b7968d9b4db3587c5c7b8",
+          "first_fixed_byte_mismatch": "0x17"
+        }
+      },
+      "metrics_artifact": ".work/claim-267/astra-tests/runs/A267-04-5guhu1eb/baseline/metrics.json"
+    },
+    {
+      "hypothesis": "A267-04",
+      "name": "packet_input_seed_control",
+      "compiled": true,
+      "native_match_success": true,
+      "source_sha256": "769a564dfc343b4968132b34c1e1112a2d406d163af9a425aedebf66470a6dfc",
+      "pair_count": 79,
+      "pairs_digest": "21febdb1dc79081a3c6665636e8f89a7cd90146b7c6ba2cfae0ca4dfac0559c0",
+      "gained": [],
+      "lost": [],
+      "metrics": {
+        "0x59FE30": {
+          "residue": 25,
+          "register_masked_residue": 10,
+          "frames": [
+            [
+              "0x18",
+              false,
+              true
+            ],
+            [
+              "0x14",
+              false,
+              true
+            ]
+          ],
+          "body_digest": "18533e3200a9ad7835c63916f162eff184d7dd775b90645936a413ee21372eee",
+          "first_fixed_byte_mismatch": "0x17"
+        }
+      },
+      "metrics_artifact": ".work/claim-267/astra-tests/runs/A267-04-5guhu1eb/packet_input_seed_control/metrics.json"
+    },
+    {
+      "hypothesis": "A267-04",
+      "name": "real_event_flags_control",
+      "compiled": true,
+      "native_match_success": true,
+      "source_sha256": "12aa8c5fb6d3b7d047c100e8735756bd8308a458d924c0021c6b435fbeb93cc5",
+      "pair_count": 79,
+      "pairs_digest": "21febdb1dc79081a3c6665636e8f89a7cd90146b7c6ba2cfae0ca4dfac0559c0",
+      "gained": [],
+      "lost": [],
+      "metrics": {
+        "0x59FE30": {
+          "residue": 25,
+          "register_masked_residue": 10,
+          "frames": [
+            [
+              "0x18",
+              false,
+              true
+            ],
+            [
+              "0x14",
+              false,
+              true
+            ]
+          ],
+          "body_digest": "18533e3200a9ad7835c63916f162eff184d7dd775b90645936a413ee21372eee",
+          "first_fixed_byte_mismatch": "0x17"
+        }
+      },
+      "metrics_artifact": ".work/claim-267/astra-tests/runs/A267-04-5guhu1eb/real_event_flags_control/metrics.json"
+    },
+    {
+      "hypothesis": "A267-04",
+      "name": "real_event_up_accessor",
+      "compiled": true,
+      "native_match_success": true,
+      "source_sha256": "cb55ece4a40c5caddaf2d5453490ee1f0dbbde3aa7e5cd92da47f3cc605ea294",
+      "pair_count": 79,
+      "pairs_digest": "21febdb1dc79081a3c6665636e8f89a7cd90146b7c6ba2cfae0ca4dfac0559c0",
+      "gained": [],
+      "lost": [],
+      "metrics": {
+        "0x59FE30": {
+          "residue": 25,
+          "register_masked_residue": 10,
+          "frames": [
+            [
+              "0x18",
+              false,
+              true
+            ],
+            [
+              "0x14",
+              false,
+              true
+            ]
+          ],
+          "body_digest": "18533e3200a9ad7835c63916f162eff184d7dd775b90645936a413ee21372eee",
+          "first_fixed_byte_mismatch": "0x17"
+        }
+      },
+      "metrics_artifact": ".work/claim-267/astra-tests/runs/A267-04-5guhu1eb/real_event_up_accessor/metrics.json"
+    },
+    {
+      "hypothesis": "A267-05a",
+      "name": "baseline",
+      "compiled": true,
+      "native_match_success": true,
+      "source_sha256": "03cde572f38c3dbec7514fab94e2dfd262d9162d5bd78ac294b25b8ebadf6252",
+      "pair_count": 54,
+      "pairs_digest": "84ed92db0dd0180b3ec08a14d069398a8b91aa175b6a5a33fd54b8a253881199",
+      "gained": [],
+      "lost": [],
+      "metrics": {
+        "0x59B220": {
+          "residue": 10,
+          "register_masked_residue": 7,
+          "frames": [
+            [
+              "0x34",
+              false,
+              false
+            ],
+            [
+              "0x34",
+              false,
+              false
+            ]
+          ],
+          "body_digest": "122a45372d3103594c209e425f484f0c9a9024cddc457b710eb0c7e2c6d82929",
+          "first_fixed_byte_mismatch": "0x5f"
+        }
+      },
+      "metrics_artifact": ".work/claim-267/astra-tests/runs/A267-05a-ab21n51o/baseline/metrics.json"
+    },
+    {
+      "hypothesis": "A267-05a",
+      "name": "changed_name_seed_control",
+      "compiled": true,
+      "native_match_success": true,
+      "source_sha256": "9b2cb518583c8487d91ffbd3e5959d7d244425f7a01649be29da00f06e06f52a",
+      "pair_count": 54,
+      "pairs_digest": "84ed92db0dd0180b3ec08a14d069398a8b91aa175b6a5a33fd54b8a253881199",
+      "gained": [],
+      "lost": [],
+      "metrics": {
+        "0x59B220": {
+          "residue": 10,
+          "register_masked_residue": 7,
+          "frames": [
+            [
+              "0x34",
+              false,
+              false
+            ],
+            [
+              "0x34",
+              false,
+              false
+            ]
+          ],
+          "body_digest": "122a45372d3103594c209e425f484f0c9a9024cddc457b710eb0c7e2c6d82929",
+          "first_fixed_byte_mismatch": "0x5f"
+        }
+      },
+      "metrics_artifact": ".work/claim-267/astra-tests/runs/A267-05a-ab21n51o/changed_name_seed_control/metrics.json"
+    },
+    {
+      "hypothesis": "A267-05a",
+      "name": "changed_state_reference",
+      "compiled": true,
+      "native_match_success": true,
+      "source_sha256": "eaa1cae4c950fb737e3179755fecec395c4bc63e26a2e73c92cc70209e0c9a64",
+      "pair_count": 54,
+      "pairs_digest": "84ed92db0dd0180b3ec08a14d069398a8b91aa175b6a5a33fd54b8a253881199",
+      "gained": [],
+      "lost": [],
+      "metrics": {
+        "0x59B220": {
+          "residue": 10,
+          "register_masked_residue": 7,
+          "frames": [
+            [
+              "0x34",
+              false,
+              false
+            ],
+            [
+              "0x34",
+              false,
+              false
+            ]
+          ],
+          "body_digest": "122a45372d3103594c209e425f484f0c9a9024cddc457b710eb0c7e2c6d82929",
+          "first_fixed_byte_mismatch": "0x5f"
+        }
+      },
+      "metrics_artifact": ".work/claim-267/astra-tests/runs/A267-05a-ab21n51o/changed_state_reference/metrics.json"
+    },
+    {
+      "hypothesis": "A267-05b",
+      "name": "baseline",
+      "compiled": true,
+      "native_match_success": true,
+      "source_sha256": "03cde572f38c3dbec7514fab94e2dfd262d9162d5bd78ac294b25b8ebadf6252",
+      "pair_count": 54,
+      "pairs_digest": "84ed92db0dd0180b3ec08a14d069398a8b91aa175b6a5a33fd54b8a253881199",
+      "gained": [],
+      "lost": [],
+      "metrics": {
+        "0x59BC40": {
+          "residue": 39,
+          "register_masked_residue": 20,
+          "frames": [
+            [
+              "0x34",
+              false,
+              false
+            ],
+            [
+              "0x34",
+              false,
+              false
+            ]
+          ],
+          "body_digest": "91d042fc7bd10eff5f51d48f2b7c964b7e2f94b741bb9d4499a65eba5edf7072",
+          "first_fixed_byte_mismatch": "0x71"
+        }
+      },
+      "metrics_artifact": ".work/claim-267/astra-tests/runs/A267-05b-mgx1qju7/baseline/metrics.json"
+    },
+    {
+      "hypothesis": "A267-05b",
+      "name": "set_inner_seed_control",
+      "compiled": true,
+      "native_match_success": true,
+      "source_sha256": "743ed45d93caae2afaef359d31dc1e3dd89f4b6605d48d42d6bf657941452baf",
+      "pair_count": 54,
+      "pairs_digest": "84ed92db0dd0180b3ec08a14d069398a8b91aa175b6a5a33fd54b8a253881199",
+      "gained": [],
+      "lost": [],
+      "metrics": {
+        "0x59BC40": {
+          "residue": 46,
+          "register_masked_residue": 23,
+          "frames": [
+            [
+              "0x34",
+              false,
+              false
+            ],
+            [
+              "0x34",
+              false,
+              false
+            ]
+          ],
+          "body_digest": "b1bf18395f5b2ff88f5bcb3d1de7cd44ecbf386fbbc9bdc8c21e71e54a7abc8b",
+          "first_fixed_byte_mismatch": "0xf"
+        }
+      },
+      "metrics_artifact": ".work/claim-267/astra-tests/runs/A267-05b-mgx1qju7/set_inner_seed_control/metrics.json"
+    },
+    {
+      "hypothesis": "A267-05b",
+      "name": "set_state_reference",
+      "compiled": true,
+      "native_match_success": true,
+      "source_sha256": "1350367acf931cb1302dc74d6f24d6d0e02a721893e6bed86df7ed8c6858da07",
+      "pair_count": 54,
+      "pairs_digest": "84ed92db0dd0180b3ec08a14d069398a8b91aa175b6a5a33fd54b8a253881199",
+      "gained": [],
+      "lost": [],
+      "metrics": {
+        "0x59BC40": {
+          "residue": 46,
+          "register_masked_residue": 23,
+          "frames": [
+            [
+              "0x34",
+              false,
+              false
+            ],
+            [
+              "0x34",
+              false,
+              false
+            ]
+          ],
+          "body_digest": "b1bf18395f5b2ff88f5bcb3d1de7cd44ecbf386fbbc9bdc8c21e71e54a7abc8b",
+          "first_fixed_byte_mismatch": "0xf"
+        }
+      },
+      "metrics_artifact": ".work/claim-267/astra-tests/runs/A267-05b-mgx1qju7/set_state_reference/metrics.json"
+    },
+    {
+      "hypothesis": "A267-06",
+      "name": "baseline",
+      "compiled": true,
+      "native_match_success": true,
+      "source_sha256": "e91a3cc63ab47627d15379b721911012fe2b15f245b0c21b544bc7acfaa09d11",
+      "pair_count": 94,
+      "pairs_digest": "7e3c2779f53f38f63e2fbfbdd1c25eecbc45557792436e3af5f03486bf70ca83",
+      "gained": [],
+      "lost": [],
+      "metrics": {
+        "0x5A3FB0": {
+          "residue": 48,
+          "register_masked_residue": 22,
+          "frames": [
+            [
+              "0x94",
+              false,
+              true
+            ],
+            [
+              "0x90",
+              false,
+              true
+            ]
+          ],
+          "body_digest": "28a074620aceca8a5737f7fff9b5c77b2fffa5f32d62c4da3a1014f4c8af45f6",
+          "first_fixed_byte_mismatch": "0x17"
+        }
+      },
+      "metrics_artifact": ".work/claim-267/astra-tests/runs/A267-06-f0nf2yg0/baseline/metrics.json"
+    },
+    {
+      "hypothesis": "A267-06",
+      "name": "qualified_global_delete",
+      "compiled": true,
+      "native_match_success": true,
+      "source_sha256": "8ef7d924bc40929d45b57fa3e5867257202ef9ce5ee9038433acde4f23210945",
+      "pair_count": 94,
+      "pairs_digest": "7e3c2779f53f38f63e2fbfbdd1c25eecbc45557792436e3af5f03486bf70ca83",
+      "gained": [],
+      "lost": [],
+      "metrics": {
+        "0x5A3FB0": {
+          "residue": 48,
+          "register_masked_residue": 22,
+          "frames": [
+            [
+              "0x94",
+              false,
+              true
+            ],
+            [
+              "0x90",
+              false,
+              true
+            ]
+          ],
+          "body_digest": "28a074620aceca8a5737f7fff9b5c77b2fffa5f32d62c4da3a1014f4c8af45f6",
+          "first_fixed_byte_mismatch": "0x17"
+        }
+      },
+      "metrics_artifact": ".work/claim-267/astra-tests/runs/A267-06-f0nf2yg0/qualified_global_delete/metrics.json"
+    },
+    {
+      "hypothesis": "A267-07",
+      "name": "baseline",
+      "compiled": true,
+      "native_match_success": true,
+      "source_sha256": "002b9b0387e21634dcd6bb3ce4f06aabce25573e5056dd082973f0bfed1337f9",
+      "pair_count": 63,
+      "pairs_digest": "ad9a57d80902c57b604f74657b7df2025182365100a972f9e9305014c935755b",
+      "gained": [],
+      "lost": [],
+      "metrics": {
+        "0x5AB030": {
+          "residue": 13,
+          "register_masked_residue": 4,
+          "frames": [
+            [
+              "0x20",
+              false,
+              true
+            ],
+            [
+              "0x20",
+              false,
+              true
+            ]
+          ],
+          "body_digest": "a5796ed211d47c20db9755e48015505d0027750e14fdabb3038b400526717f9c",
+          "first_fixed_byte_mismatch": "0x19e"
+        }
+      },
+      "metrics_artifact": ".work/claim-267/astra-tests/runs/A267-07-2dmj087k/baseline/metrics.json"
+    },
+    {
+      "hypothesis": "A267-07",
+      "name": "sequenced_flags_at_constructor_argument",
+      "compiled": true,
+      "native_match_success": true,
+      "source_sha256": "2ba02b9c07d02afa1ecb2543474ed405bcd8ec78ed91c8aa522be77dd367b35f",
+      "pair_count": 63,
+      "pairs_digest": "ad9a57d80902c57b604f74657b7df2025182365100a972f9e9305014c935755b",
+      "gained": [],
+      "lost": [],
+      "metrics": {
+        "0x5AB030": {
+          "residue": 64,
+          "register_masked_residue": 6,
+          "frames": [
+            [
+              "0x20",
+              false,
+              true
+            ],
+            [
+              "0x20",
+              false,
+              true
+            ]
+          ],
+          "body_digest": "b99583e406fc3482c8c313c72868de4a1707e964d6ca98035e9435276b063f25",
+          "first_fixed_byte_mismatch": "0x19e"
+        }
+      },
+      "metrics_artifact": ".work/claim-267/astra-tests/runs/A267-07-2dmj087k/sequenced_flags_at_constructor_argument/metrics.json"
+    },
+    {
+      "hypothesis": "A267-08",
+      "name": "baseline",
+      "compiled": true,
+      "native_match_success": true,
+      "source_sha256": "402ec0f833406cf757ec14f14ff2b843d05f13bf5db5ddfc845072b30786d07b",
+      "pair_count": 142,
+      "pairs_digest": "ffad46f9053639c8312977681621ee07f269efc3e008e4262c38241b6e356b2d",
+      "gained": [],
+      "lost": [],
+      "metrics": {
+        "0x5AFCD0": {
+          "residue": 8,
+          "register_masked_residue": 0,
+          "frames": [
+            [
+              "8",
+              false,
+              true
+            ],
+            [
+              "8",
+              false,
+              true
+            ]
+          ],
+          "body_digest": "46e359f57d075ca3ab7334cc79bd98b9f189374015180c704196613b9910f7e0",
+          "first_fixed_byte_mismatch": "0x60"
+        }
+      },
+      "metrics_artifact": ".work/claim-267/astra-tests/runs/A267-08-7dhiqq29/baseline/metrics.json"
+    },
+    {
+      "hypothesis": "A267-08",
+      "name": "empty_smart_pointer_reset",
+      "compiled": true,
+      "native_match_success": true,
+      "source_sha256": "997bf66697bee554b8b112d1d14a98d0f8eaeb24973c262ce76c16eb8ffb97ea",
+      "pair_count": 142,
+      "pairs_digest": "ffad46f9053639c8312977681621ee07f269efc3e008e4262c38241b6e356b2d",
+      "gained": [],
+      "lost": [],
+      "metrics": {
+        "0x5AFCD0": {
+          "residue": 12,
+          "register_masked_residue": 4,
+          "frames": [
+            [
+              "8",
+              false,
+              true
+            ],
+            [
+              "8",
+              false,
+              true
+            ]
+          ],
+          "body_digest": "b22b523c9af3ac1350912370fd7b10aa997a0fc080762f24848d896c4c10f05d",
+          "first_fixed_byte_mismatch": "0x5f"
+        }
+      },
+      "metrics_artifact": ".work/claim-267/astra-tests/runs/A267-08-7dhiqq29/empty_smart_pointer_reset/metrics.json"
+    },
+    {
+      "hypothesis": "A267-09",
+      "name": "baseline",
+      "compiled": true,
+      "native_match_success": true,
+      "source_sha256": "002b9b0387e21634dcd6bb3ce4f06aabce25573e5056dd082973f0bfed1337f9",
+      "pair_count": 63,
+      "pairs_digest": "ad9a57d80902c57b604f74657b7df2025182365100a972f9e9305014c935755b",
+      "gained": [],
+      "lost": [],
+      "metrics": {
+        "0x5AB030": {
+          "residue": 13,
+          "register_masked_residue": 4,
+          "frames": [
+            [
+              "0x20",
+              false,
+              true
+            ],
+            [
+              "0x20",
+              false,
+              true
+            ]
+          ],
+          "body_digest": "a5796ed211d47c20db9755e48015505d0027750e14fdabb3038b400526717f9c",
+          "first_fixed_byte_mismatch": "0x19e"
+        }
+      },
+      "metrics_artifact": ".work/claim-267/astra-tests/runs/A267-09-4iyg472q/baseline/metrics.json"
+    },
+    {
+      "hypothesis": "A267-09",
+      "name": "entry_temporary_lifetime_reference",
+      "compiled": true,
+      "native_match_success": true,
+      "source_sha256": "d36b41a1dec7ff24ac40e4c97128bbc147199689f5dcc14b1228d46d1c79e09e",
+      "pair_count": 63,
+      "pairs_digest": "ad9a57d80902c57b604f74657b7df2025182365100a972f9e9305014c935755b",
+      "gained": [],
+      "lost": [],
+      "metrics": {
+        "0x5AB030": {
+          "residue": 13,
+          "register_masked_residue": 4,
+          "frames": [
+            [
+              "0x20",
+              false,
+              true
+            ],
+            [
+              "0x20",
+              false,
+              true
+            ]
+          ],
+          "body_digest": "a5796ed211d47c20db9755e48015505d0027750e14fdabb3038b400526717f9c",
+          "first_fixed_byte_mismatch": "0x19e"
+        }
+      },
+      "metrics_artifact": ".work/claim-267/astra-tests/runs/A267-09-4iyg472q/entry_temporary_lifetime_reference/metrics.json"
+    },
+    {
+      "hypothesis": "A267-10",
+      "name": "baseline",
+      "compiled": true,
+      "native_match_success": true,
+      "source_sha256": "86ec0b21ac9ebd01d1d1619990e843baf8deec41b8f8f0531cf2e78eb32398e9",
+      "pair_count": 79,
+      "pairs_digest": "21febdb1dc79081a3c6665636e8f89a7cd90146b7c6ba2cfae0ca4dfac0559c0",
+      "gained": [],
+      "lost": [],
+      "metrics": {
+        "0x59FE30": {
+          "residue": 33,
+          "register_masked_residue": 22,
+          "frames": [
+            [
+              "0x18",
+              false,
+              true
+            ],
+            [
+              "0x14",
+              false,
+              true
+            ]
+          ],
+          "body_digest": "ade351ce1a2aaf6c4190b011978557f617eb183bd22b7968d9b4db3587c5c7b8",
+          "first_fixed_byte_mismatch": "0x17"
+        },
+        "0x5A0740": {
+          "residue": 127,
+          "register_masked_residue": 57,
+          "frames": [
+            [
+              "0x1c",
+              false,
+              true
+            ],
+            [
+              "0x1c",
+              false,
+              true
+            ]
+          ],
+          "body_digest": "72e992d4e6b5ae826f5218d7c97542bb389de817ca246e4fae051b5549ece581",
+          "first_fixed_byte_mismatch": "0x89"
+        },
+        "0x5A0D00": {
+          "residue": 44,
+          "register_masked_residue": 25,
+          "frames": [
+            [
+              null,
+              false,
+              false
+            ],
+            [
+              null,
+              false,
+              false
+            ]
+          ],
+          "body_digest": "27b547f762499933eb99b07eee730578425468a352a3a6b3231cbafc7576757e",
+          "first_fixed_byte_mismatch": "0x0"
+        }
+      },
+      "metrics_artifact": ".work/claim-267/astra-tests/runs/A267-10-xtyvfeqk/baseline/metrics.json"
+    },
+    {
+      "hypothesis": "A267-10",
+      "name": "packet_id_seed_control",
+      "compiled": true,
+      "native_match_success": true,
+      "source_sha256": "ca32d086841d2e397f612e1c07ba5ec45b2e5da3ca2cdf56d1f6ccdab97c5778",
+      "pair_count": 79,
+      "pairs_digest": "21febdb1dc79081a3c6665636e8f89a7cd90146b7c6ba2cfae0ca4dfac0559c0",
+      "gained": [],
+      "lost": [],
+      "metrics": {
+        "0x59FE30": {
+          "residue": 33,
+          "register_masked_residue": 22,
+          "frames": [
+            [
+              "0x18",
+              false,
+              true
+            ],
+            [
+              "0x14",
+              false,
+              true
+            ]
+          ],
+          "body_digest": "ade351ce1a2aaf6c4190b011978557f617eb183bd22b7968d9b4db3587c5c7b8",
+          "first_fixed_byte_mismatch": "0x17"
+        },
+        "0x5A0740": {
+          "residue": 22,
+          "register_masked_residue": 2,
+          "frames": [
+            [
+              "0x1c",
+              false,
+              true
+            ],
+            [
+              "0x1c",
+              false,
+              true
+            ]
+          ],
+          "body_digest": "01e5e642d5a6a5e4d7fb094c795a1ca36ba3fc2c2d3a951cd8955120328a5bd5",
+          "first_fixed_byte_mismatch": "0x41e"
+        },
+        "0x5A0D00": {
+          "residue": 44,
+          "register_masked_residue": 25,
+          "frames": [
+            [
+              null,
+              false,
+              false
+            ],
+            [
+              null,
+              false,
+              false
+            ]
+          ],
+          "body_digest": "27b547f762499933eb99b07eee730578425468a352a3a6b3231cbafc7576757e",
+          "first_fixed_byte_mismatch": "0x0"
+        }
+      },
+      "metrics_artifact": ".work/claim-267/astra-tests/runs/A267-10-xtyvfeqk/packet_id_seed_control/metrics.json"
+    },
+    {
+      "hypothesis": "A267-10",
+      "name": "real_drag_class_declaration_context",
+      "compiled": true,
+      "native_match_success": true,
+      "source_sha256": "87d03b372d0ffc2e349d8f07f3ff2ef8126bf753f5d86c955dd3615f335bd492",
+      "pair_count": 79,
+      "pairs_digest": "21febdb1dc79081a3c6665636e8f89a7cd90146b7c6ba2cfae0ca4dfac0559c0",
+      "gained": [],
+      "lost": [],
+      "metrics": {
+        "0x59FE30": {
+          "residue": 33,
+          "register_masked_residue": 22,
+          "frames": [
+            [
+              "0x18",
+              false,
+              true
+            ],
+            [
+              "0x14",
+              false,
+              true
+            ]
+          ],
+          "body_digest": "ade351ce1a2aaf6c4190b011978557f617eb183bd22b7968d9b4db3587c5c7b8",
+          "first_fixed_byte_mismatch": "0x17"
+        },
+        "0x5A0740": {
+          "residue": 22,
+          "register_masked_residue": 2,
+          "frames": [
+            [
+              "0x1c",
+              false,
+              true
+            ],
+            [
+              "0x1c",
+              false,
+              true
+            ]
+          ],
+          "body_digest": "01e5e642d5a6a5e4d7fb094c795a1ca36ba3fc2c2d3a951cd8955120328a5bd5",
+          "first_fixed_byte_mismatch": "0x41e"
+        },
+        "0x5A0D00": {
+          "residue": 44,
+          "register_masked_residue": 25,
+          "frames": [
+            [
+              null,
+              false,
+              false
+            ],
+            [
+              null,
+              false,
+              false
+            ]
+          ],
+          "body_digest": "27b547f762499933eb99b07eee730578425468a352a3a6b3231cbafc7576757e",
+          "first_fixed_byte_mismatch": "0x0"
+        }
+      },
+      "metrics_artifact": ".work/claim-267/astra-tests/runs/A267-10-xtyvfeqk/real_drag_class_declaration_context/metrics.json"
+    },
+    {
+      "hypothesis": "A267-11-followup-assign",
+      "name": "baseline",
+      "compiled": true,
+      "native_match_success": true,
+      "source_sha256": "f3bb5d219fb5b39d615c205a65b93e28c142c4d77bf19083969e1d0e32c74cd8",
+      "pair_count": 144,
+      "pairs_digest": "426cfeefe149ce7b8307ff7733d90f236f36973f3240a412bb73181c5f8b2ef5",
+      "gained": [],
+      "lost": [],
+      "metrics": {
+        "0x5AFA00": {
+          "residue": 0,
+          "register_masked_residue": 0,
+          "frames": [
+            [
+              "8",
+              false,
+              true
+            ],
+            [
+              "8",
+              false,
+              true
+            ]
+          ],
+          "body_digest": "41eb03f89da17119fb2ab705fe7d2b96836e8f0e72840f4f6ff73c0134250552",
+          "first_fixed_byte_mismatch": null
+        },
+        "0x5B1230": {
+          "residue": 34,
+          "register_masked_residue": 20,
+          "frames": [
+            [
+              "0x3c",
+              false,
+              false
+            ],
+            [
+              "0x3c",
+              false,
+              false
+            ]
+          ],
+          "body_digest": "483b17b0fe4f8a39a98087b423b879ab003dec0a78566c28068fbd9caf24ea00",
+          "first_fixed_byte_mismatch": "0x5b"
+        }
+      },
+      "metrics_artifact": ".work/claim-267/astra-tests/runs/A267-11-followup-assign-7rxae5g1/baseline/metrics.json"
+    },
+    {
+      "hypothesis": "A267-11-followup-assign",
+      "name": "duration_member_assignment",
+      "compiled": true,
+      "native_match_success": true,
+      "source_sha256": "0bc07540308a56979828f9db6a17759247e1ffb541be5511063990c658b6a9da",
+      "pair_count": 144,
+      "pairs_digest": "426cfeefe149ce7b8307ff7733d90f236f36973f3240a412bb73181c5f8b2ef5",
+      "gained": [],
+      "lost": [],
+      "metrics": {
+        "0x5AFA00": {
+          "residue": 0,
+          "register_masked_residue": 0,
+          "frames": [
+            [
+              "8",
+              false,
+              true
+            ],
+            [
+              "8",
+              false,
+              true
+            ]
+          ],
+          "body_digest": "41eb03f89da17119fb2ab705fe7d2b96836e8f0e72840f4f6ff73c0134250552",
+          "first_fixed_byte_mismatch": null
+        },
+        "0x5B1230": {
+          "residue": 17,
+          "register_masked_residue": 14,
+          "frames": [
+            [
+              "0x3c",
+              false,
+              false
+            ],
+            [
+              "0x3c",
+              false,
+              false
+            ]
+          ],
+          "body_digest": "aa277aec891c50b0db3269115cc47928841b32abf1226264278faeb3a44ad7e8",
+          "first_fixed_byte_mismatch": "0x5b"
+        }
+      },
+      "metrics_artifact": ".work/claim-267/astra-tests/runs/A267-11-followup-assign-7rxae5g1/duration_member_assignment/metrics.json"
+    },
+    {
+      "hypothesis": "A267-11-followup-compare",
+      "name": "baseline",
+      "compiled": true,
+      "native_match_success": true,
+      "source_sha256": "f3bb5d219fb5b39d615c205a65b93e28c142c4d77bf19083969e1d0e32c74cd8",
+      "pair_count": 144,
+      "pairs_digest": "426cfeefe149ce7b8307ff7733d90f236f36973f3240a412bb73181c5f8b2ef5",
+      "gained": [],
+      "lost": [],
+      "metrics": {
+        "0x5AFA00": {
+          "residue": 0,
+          "register_masked_residue": 0,
+          "frames": [
+            [
+              "8",
+              false,
+              true
+            ],
+            [
+              "8",
+              false,
+              true
+            ]
+          ],
+          "body_digest": "41eb03f89da17119fb2ab705fe7d2b96836e8f0e72840f4f6ff73c0134250552",
+          "first_fixed_byte_mismatch": null
+        },
+        "0x5B1230": {
+          "residue": 34,
+          "register_masked_residue": 20,
+          "frames": [
+            [
+              "0x3c",
+              false,
+              false
+            ],
+            [
+              "0x3c",
+              false,
+              false
+            ]
+          ],
+          "body_digest": "483b17b0fe4f8a39a98087b423b879ab003dec0a78566c28068fbd9caf24ea00",
+          "first_fixed_byte_mismatch": "0x5b"
+        }
+      },
+      "metrics_artifact": ".work/claim-267/astra-tests/runs/A267-11-followup-compare-a9p9vmp0/baseline/metrics.json"
+    },
+    {
+      "hypothesis": "A267-11-followup-compare",
+      "name": "duration_member_comparison",
+      "compiled": true,
+      "native_match_success": true,
+      "source_sha256": "2f16b148f994051c4fbbb55876890b274e59642e204e0259c2fd67eb7a48e70c",
+      "pair_count": 144,
+      "pairs_digest": "426cfeefe149ce7b8307ff7733d90f236f36973f3240a412bb73181c5f8b2ef5",
+      "gained": [],
+      "lost": [],
+      "metrics": {
+        "0x5AFA00": {
+          "residue": 0,
+          "register_masked_residue": 0,
+          "frames": [
+            [
+              "8",
+              false,
+              true
+            ],
+            [
+              "8",
+              false,
+              true
+            ]
+          ],
+          "body_digest": "41eb03f89da17119fb2ab705fe7d2b96836e8f0e72840f4f6ff73c0134250552",
+          "first_fixed_byte_mismatch": null
+        },
+        "0x5B1230": {
+          "residue": 49,
+          "register_masked_residue": 25,
+          "frames": [
+            [
+              "0x3c",
+              false,
+              false
+            ],
+            [
+              "0x3c",
+              false,
+              false
+            ]
+          ],
+          "body_digest": "9d9b8f7416e18bdbdb30413ffea52c397902e3837bb9407170d437fc1d35e753",
+          "first_fixed_byte_mismatch": "0x5b"
+        }
+      },
+      "metrics_artifact": ".work/claim-267/astra-tests/runs/A267-11-followup-compare-a9p9vmp0/duration_member_comparison/metrics.json"
+    },
+    {
+      "hypothesis": "A267-11-includer-sbaseview",
+      "name": "baseline",
+      "compiled": true,
+      "native_match_success": true,
+      "source_sha256": "b223861c93b61da5c20f4192795b88065965a3d4a6a7ae4553ed4b3fb49e6c4c",
+      "pair_count": 158,
+      "pairs_digest": "4ed8a92cdbb6c26753de5ca2469b43b9733f065ed21a05b11c36d7f47138b0bd",
+      "gained": [],
+      "lost": [],
+      "metrics": {},
+      "metrics_artifact": ".work/claim-267/astra-tests/runs/A267-11-includer-sbaseview-8hizgh9c/baseline/metrics.json"
+    },
+    {
+      "hypothesis": "A267-11-includer-sbaseview",
+      "name": "duration_header",
+      "compiled": true,
+      "native_match_success": true,
+      "source_sha256": "b223861c93b61da5c20f4192795b88065965a3d4a6a7ae4553ed4b3fb49e6c4c",
+      "pair_count": 158,
+      "pairs_digest": "4ed8a92cdbb6c26753de5ca2469b43b9733f065ed21a05b11c36d7f47138b0bd",
+      "gained": [],
+      "lost": [],
+      "metrics": {},
+      "metrics_artifact": ".work/claim-267/astra-tests/runs/A267-11-includer-sbaseview-8hizgh9c/duration_header/metrics.json"
+    },
+    {
+      "hypothesis": "A267-11-includer-ui_manu_util",
+      "name": "baseline",
+      "compiled": true,
+      "native_match_success": true,
+      "source_sha256": "5c958957d9134aa920a2f405c07ab0b44a753eafece88e0f658b1a942b1bb1a3",
+      "pair_count": 12,
+      "pairs_digest": "30b044948c4b1e241fdb16d0eaf42bcdc90f6e0959ce164c8faaad05d0bd18f7",
+      "gained": [],
+      "lost": [],
+      "metrics": {},
+      "metrics_artifact": ".work/claim-267/astra-tests/runs/A267-11-includer-ui_manu_util-perbv2k6/baseline/metrics.json"
+    },
+    {
+      "hypothesis": "A267-11-includer-ui_manu_util",
+      "name": "duration_header",
+      "compiled": true,
+      "native_match_success": true,
+      "source_sha256": "5c958957d9134aa920a2f405c07ab0b44a753eafece88e0f658b1a942b1bb1a3",
+      "pair_count": 12,
+      "pairs_digest": "30b044948c4b1e241fdb16d0eaf42bcdc90f6e0959ce164c8faaad05d0bd18f7",
+      "gained": [],
+      "lost": [],
+      "metrics": {},
+      "metrics_artifact": ".work/claim-267/astra-tests/runs/A267-11-includer-ui_manu_util-perbv2k6/duration_header/metrics.json"
+    },
+    {
+      "hypothesis": "A267-11-includer-ui_ptrade",
+      "name": "baseline",
+      "compiled": true,
+      "native_match_success": true,
+      "source_sha256": "3eec169e326174cd1fa5c32e2ab931f1fd3f263ce6046d54cb79b484732d7e5c",
+      "pair_count": 99,
+      "pairs_digest": "46617717b081fcf60242f459cac94b4e9ef9e1de405561689eea8ab8e9183b7d",
+      "gained": [],
+      "lost": [],
+      "metrics": {},
+      "metrics_artifact": ".work/claim-267/astra-tests/runs/A267-11-includer-ui_ptrade-x6n9z3kc/baseline/metrics.json"
+    },
+    {
+      "hypothesis": "A267-11-includer-ui_ptrade",
+      "name": "duration_header",
+      "compiled": true,
+      "native_match_success": true,
+      "source_sha256": "3eec169e326174cd1fa5c32e2ab931f1fd3f263ce6046d54cb79b484732d7e5c",
+      "pair_count": 99,
+      "pairs_digest": "46617717b081fcf60242f459cac94b4e9ef9e1de405561689eea8ab8e9183b7d",
+      "gained": [],
+      "lost": [],
+      "metrics": {},
+      "metrics_artifact": ".work/claim-267/astra-tests/runs/A267-11-includer-ui_ptrade-x6n9z3kc/duration_header/metrics.json"
+    },
+    {
+      "hypothesis": "A267-11-layout",
+      "name": "baseline",
+      "compiled": true,
+      "native_match_success": true,
+      "source_sha256": "5952aca249b37d99db175af897c5cbe227eec2937f3c98ef38b0b2a45dceca4b",
+      "pair_count": 1,
+      "pairs_digest": "fb5b0ae60538f7d3ca2eb5e5ad3f44bf2ce726fdcf66eb0da7143e7a509e6181",
+      "gained": [],
+      "lost": [],
+      "metrics": {},
+      "metrics_artifact": ".work/claim-267/astra-tests/runs/A267-11-layout-21436zh0/baseline/metrics.json"
+    },
+    {
+      "hypothesis": "A267-11-layout",
+      "name": "duration_header_layout",
+      "compiled": true,
+      "native_match_success": true,
+      "source_sha256": "5952aca249b37d99db175af897c5cbe227eec2937f3c98ef38b0b2a45dceca4b",
+      "pair_count": 1,
+      "pairs_digest": "fb5b0ae60538f7d3ca2eb5e5ad3f44bf2ce726fdcf66eb0da7143e7a509e6181",
+      "gained": [],
+      "lost": [],
+      "metrics": {},
+      "metrics_artifact": ".work/claim-267/astra-tests/runs/A267-11-layout-21436zh0/duration_header_layout/metrics.json"
+    },
+    {
+      "hypothesis": "A267-11",
+      "name": "baseline",
+      "compiled": true,
+      "native_match_success": true,
+      "source_sha256": "402ec0f833406cf757ec14f14ff2b843d05f13bf5db5ddfc845072b30786d07b",
+      "pair_count": 142,
+      "pairs_digest": "ffad46f9053639c8312977681621ee07f269efc3e008e4262c38241b6e356b2d",
+      "gained": [],
+      "lost": [],
+      "metrics": {
+        "0x5AFA00": {
+          "residue": 4,
+          "register_masked_residue": 4,
+          "frames": [
+            [
+              "8",
+              false,
+              true
+            ],
+            [
+              "8",
+              false,
+              true
+            ]
+          ],
+          "body_digest": "ca0b71e42ac9a9273395660543b813b58bf18b7213e907c4df2777818e35b572",
+          "first_fixed_byte_mismatch": "0xe8"
+        },
+        "0x5B1230": {
+          "residue": 34,
+          "register_masked_residue": 20,
+          "frames": [
+            [
+              "0x3c",
+              false,
+              false
+            ],
+            [
+              "0x3c",
+              false,
+              false
+            ]
+          ],
+          "body_digest": "483b17b0fe4f8a39a98087b423b879ab003dec0a78566c28068fbd9caf24ea00",
+          "first_fixed_byte_mismatch": "0x5b"
+        }
+      },
+      "metrics_artifact": ".work/claim-267/astra-tests/runs/A267-11-zbq050pi/baseline/metrics.json"
+    },
+    {
+      "hypothesis": "A267-11",
+      "name": "duration_member_representation",
+      "compiled": true,
+      "native_match_success": true,
+      "source_sha256": "8edfb9f27f85641f1975f558f1123a122c83dc1ae7e236d9111f9ae268c2012f",
+      "pair_count": 144,
+      "pairs_digest": "426cfeefe149ce7b8307ff7733d90f236f36973f3240a412bb73181c5f8b2ef5",
+      "gained": [
+        [
+          "app/client/ui_manu.cpp",
+          "0x4A1930"
+        ],
+        [
+          "app/client/ui_manu.cpp",
+          "0x5AFA00"
+        ]
+      ],
+      "lost": [],
+      "metrics": {
+        "0x5AFA00": {
+          "residue": 0,
+          "register_masked_residue": 0,
+          "frames": [
+            [
+              "8",
+              false,
+              true
+            ],
+            [
+              "8",
+              false,
+              true
+            ]
+          ],
+          "body_digest": "41eb03f89da17119fb2ab705fe7d2b96836e8f0e72840f4f6ff73c0134250552",
+          "first_fixed_byte_mismatch": null
+        },
+        "0x5B1230": {
+          "residue": 34,
+          "register_masked_residue": 20,
+          "frames": [
+            [
+              "0x3c",
+              false,
+              false
+            ],
+            [
+              "0x3c",
+              false,
+              false
+            ]
+          ],
+          "body_digest": "483b17b0fe4f8a39a98087b423b879ab003dec0a78566c28068fbd9caf24ea00",
+          "first_fixed_byte_mismatch": "0x5b"
+        }
+      },
+      "metrics_artifact": ".work/claim-267/astra-tests/runs/A267-11-zbq050pi/duration_member_representation/metrics.json"
+    },
+    {
+      "hypothesis": "A267-12",
+      "name": "baseline",
+      "compiled": true,
+      "native_match_success": true,
+      "source_sha256": "f3bb5d219fb5b39d615c205a65b93e28c142c4d77bf19083969e1d0e32c74cd8",
+      "pair_count": 144,
+      "pairs_digest": "426cfeefe149ce7b8307ff7733d90f236f36973f3240a412bb73181c5f8b2ef5",
+      "gained": [],
+      "lost": [],
+      "metrics": {
+        "0x5B1230": {
+          "residue": 34,
+          "register_masked_residue": 20,
+          "frames": [
+            [
+              "0x3c",
+              false,
+              false
+            ],
+            [
+              "0x3c",
+              false,
+              false
+            ]
+          ],
+          "body_digest": "483b17b0fe4f8a39a98087b423b879ab003dec0a78566c28068fbd9caf24ea00",
+          "first_fixed_byte_mismatch": "0x5b"
+        },
+        "0x5AF9D0": {
+          "residue": 0,
+          "register_masked_residue": 0,
+          "frames": [
+            [
+              null,
+              false,
+              false
+            ],
+            [
+              null,
+              false,
+              false
+            ]
+          ],
+          "body_digest": "819211864fb153598888d61cb40d97e517dddbe9d837d075d8cc9fe1f3dcfd04",
+          "first_fixed_byte_mismatch": null
+        }
+      },
+      "metrics_artifact": ".work/claim-267/astra-tests/runs/A267-12-im3jtrvn/baseline/metrics.json"
+    },
+    {
+      "hypothesis": "A267-12",
+      "name": "seconds_global_representation",
+      "compiled": true,
+      "native_match_success": true,
+      "source_sha256": "accd2e10fdc196a3195c4394e072635e18a1c0e47d5455d608b076eb06c44559",
+      "pair_count": 144,
+      "pairs_digest": "426cfeefe149ce7b8307ff7733d90f236f36973f3240a412bb73181c5f8b2ef5",
+      "gained": [],
+      "lost": [],
+      "metrics": {
+        "0x5B1230": {
+          "residue": 34,
+          "register_masked_residue": 20,
+          "frames": [
+            [
+              "0x3c",
+              false,
+              false
+            ],
+            [
+              "0x3c",
+              false,
+              false
+            ]
+          ],
+          "body_digest": "483b17b0fe4f8a39a98087b423b879ab003dec0a78566c28068fbd9caf24ea00",
+          "first_fixed_byte_mismatch": "0x5b"
+        },
+        "0x5AF9D0": {
+          "residue": 0,
+          "register_masked_residue": 0,
+          "frames": [
+            [
+              null,
+              false,
+              false
+            ],
+            [
+              null,
+              false,
+              false
+            ]
+          ],
+          "body_digest": "819211864fb153598888d61cb40d97e517dddbe9d837d075d8cc9fe1f3dcfd04",
+          "first_fixed_byte_mismatch": null
+        }
+      },
+      "metrics_artifact": ".work/claim-267/astra-tests/runs/A267-12-im3jtrvn/seconds_global_representation/metrics.json"
+    }
+  ],
+  "A11_validation_proof": ".work/claim-267/astra-tests/packs/A267-11-validation-proof.json",
+  "conditional_tests_authorization": "Root explicitly authorized A11/A12 after A01 helper-boundary gain; A11 broadened to all consumers and layout before adoption. Two later existing-operator forms authorized; conditional combined form not activated because call/frame improvement criterion was not met."
+}

@@ -1,0 +1,14 @@
+{
+  "analysis_model": "gpt-6-astra (high)",
+  "test_model": "gpt-6.1-sol (high)",
+  "hypothesis_ids": [
+    "A267-06"
+  ],
+  "parts": [
+    "docs/attempts/5B1230/claim267-astra-tests/A267-06-baseline.json",
+    "docs/attempts/5B1230/claim267-astra-tests/A267-06-qualified_global_delete.json"
+  ],
+  "results": "docs/attempts/5B1230/claim267-astra-tests/results.json",
+  "constraints": "docs/attempts/5B1230/claim267-astra-tests/constraints.json",
+  "evidence": "A267-06 global ::delete lowering canonical48/22 with94pairs preserved;existing helper/inlining residue unchanged."
+}

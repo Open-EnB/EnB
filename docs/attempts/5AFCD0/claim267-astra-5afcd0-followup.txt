@@ -1,0 +1,14 @@
+{
+  "analysis_model": "gpt-6-astra (high)",
+  "test_model": "gpt-6.1-sol (high)",
+  "hypothesis_ids": [
+    "A267-08"
+  ],
+  "parts": [
+    "docs/attempts/5B1230/claim267-astra-tests/A267-08-baseline.json",
+    "docs/attempts/5B1230/claim267-astra-tests/A267-08-empty_smart_pointer_reset.json"
+  ],
+  "results": "docs/attempts/5B1230/claim267-astra-tests/results.json",
+  "constraints": "docs/attempts/5B1230/claim267-astra-tests/constraints.json",
+  "evidence": "A267-08 empty same-type smart-pointer assignment worsens8/0 ->12/4 andadds ninth destructor EHstate instead of8;142pairs preserved but source rejected."
+}

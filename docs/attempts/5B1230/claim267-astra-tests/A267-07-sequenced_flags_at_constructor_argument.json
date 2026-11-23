@@ -1,0 +1,798 @@
+{
+  "schema": 1,
+  "hypothesis": "A267-07",
+  "provenance": {
+    "analysis_model": "gpt-6-astra",
+    "analysis_effort": "high",
+    "testing_model": "gpt-6.1-sol",
+    "testing_effort": "high"
+  },
+  "base_head": "9b07cd77d9bf53363e236fbb1d0f1f92c5f5520a",
+  "baseline_sha256": "002b9b0387e21634dcd6bb3ce4f06aabce25573e5056dd082973f0bfed1337f9",
+  "source_sha256": "2ba02b9c07d02afa1ecb2543474ed405bcd8ec78ed91c8aa522be77dd367b35f",
+  "patch_replay_verified": true,
+  "baseline_patch_from_base_head": "",
+  "patch": "--- a/app/client/ui_log.cpp\n+++ b/app/client/ui_log.cpp\n@@ -120,7 +120,7 @@\n \t\tGadgetClass::Set_Tooltip(Editor, \"UI_LOG\", \"DETAILS\");\n \t\tEditor->Client = Client->As_Space_Client();\n \t\tRefCountPtr<RenderObjClass> entry = Create_Get(InterfaceMesh->Get_Sub_Object_By_Name(\"Entry_Field00\"));\n-\t\tPageEntry = new TextGadgetClass(this, 3, \"PAGE_EDIT_log00a\", entry.Peek(), Unknown_B08CA8 | Unknown_B08C98, 0);\n+\t\tint flags; PageEntry = new TextGadgetClass(this, 3, \"PAGE_EDIT_log00a\", entry.Peek(), (flags = Unknown_B08CA8, flags |= Unknown_B08C98), 0);\n \t\tPageEntry->Set_Text(\"\", 0);\n \t\tPageEntry->Set_Unknown58(0.95f);\n \n",
+  "header_changes": [],
+  "compile_success": true,
+  "native_full_object_match": true,
+  "source_constraints": {
+    "run": "A267-07-2dmj087k",
+    "name": "sequenced_flags_at_constructor_argument",
+    "physical_asserts_equal": true,
+    "EH_states": {
+      "0x5AB030": 6
+    },
+    "pair_count": 63,
+    "gained": [],
+    "lost": []
+  },
+  "baseline_pair_count": 63,
+  "name": "sequenced_flags_at_constructor_argument",
+  "unit": "app/client/ui_log.cpp",
+  "source": "/home/dev/Projects/EnB/.work/claim-267/astra-tests/forms/sequenced_flags_at_constructor_argument/ui_log.cpp",
+  "metrics": {
+    "0x5AB030": {
+      "symbol": "UILogClass::Unknown_54",
+      "mangled": "?Unknown_54@UILogClass@@UAEXXZ",
+      "address": "0x5AB030",
+      "ours": 237,
+      "client": 237,
+      "residue": 64,
+      "residue_regs": 6,
+      "tables": [],
+      "branch": {
+        "bytes": [
+          759,
+          759
+        ],
+        "size": 0,
+        "target": 0
+      },
+      "class": "field-offset",
+      "reason": "a [reg + N] displacement differs: ours `mov edx, dword ptr [esi + 0xbc]`, client `mov edx, dword ptr [esi + 0xc0]`",
+      "frames": [
+        [
+          "0x20",
+          false,
+          true
+        ],
+        [
+          "0x20",
+          false,
+          true
+        ]
+      ],
+      "calls": {
+        "ours": [
+          {
+            "offset": "0x27",
+            "instruction": "call dword ptr [eax + 0x98]",
+            "target": null,
+            "references": []
+          },
+          {
+            "offset": "0x3d",
+            "instruction": "call 0x42",
+            "target": [
+              "sym",
+              "??0InterfaceSortScopeClass@@QAE@PAVInterfaceClass@@@Z"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x64",
+            "instruction": "call 0x69",
+            "target": [
+              "sym",
+              "?Add_Button@ChatPanelUIBase@@QAEPAVButtonGadgetClass@@HPBD0@Z"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x78",
+            "instruction": "call 0x7d",
+            "target": [
+              "sym",
+              "?Set_Tooltip@GadgetClass@@SAXPAV1@PBD1ZZ"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0xad",
+            "instruction": "call 0xb2",
+            "target": [
+              "sym",
+              "?Add_Back_Gadget@ChatPanelUIBase@@QAEPAVUIBackGadget@@_NABVVector3@@@Z"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0xb7",
+            "instruction": "call 0xbc",
+            "target": [
+              "sym",
+              "??2@YAPAXI@Z"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0xd2",
+            "instruction": "call 0xd7",
+            "target": [
+              "sym",
+              "??0GadgetSlider@@QAE@_NPAVLayerClass@@@Z"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0xf1",
+            "instruction": "call 0xf6",
+            "target": [
+              "sym",
+              "?Unknown_66E460@GadgetSlider@@QAEXABV?$RefCountPtr@VRenderObjClass@@@@_NH@Z"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x100",
+            "instruction": "call 0x105",
+            "target": [
+              "sym",
+              "?Unknown_66FA90@GadgetSlider@@QAEXMM_N@Z"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x10e",
+            "instruction": "call dword ptr [eax + 0x70]",
+            "target": null,
+            "references": []
+          },
+          {
+            "offset": "0x117",
+            "instruction": "call 0x11c",
+            "target": [
+              "sym",
+              "?Create_NEW@@YA?AV?$RefCountPtr@VRenderObjClass@@@@PAVRenderObjClass@@@Z"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x127",
+            "instruction": "call 0x12c",
+            "target": [
+              "sym",
+              "??2@YAPAXI@Z"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x15a",
+            "instruction": "call 0x15f",
+            "target": [
+              "sym",
+              "??0TextEditorGadgetClass@@QAE@PAVInterfaceClass@@ABV?$RefCountPtr@VRenderObjClass@@@@PBDPAVGadgetSlider@@H2@Z"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x178",
+            "instruction": "call 0x17d",
+            "target": [
+              "sym",
+              "?Set_Tooltip@GadgetClass@@SAXPAV1@PBD1ZZ"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x185",
+            "instruction": "call dword ptr [edx + 0x18]",
+            "target": null,
+            "references": []
+          },
+          {
+            "offset": "0x19f",
+            "instruction": "call dword ptr [edx + 0x70]",
+            "target": null,
+            "references": []
+          },
+          {
+            "offset": "0x1a8",
+            "instruction": "call 0x1ad",
+            "target": [
+              "sym",
+              "?Create_Get@@YA?AV?$RefCountPtr@VRenderObjClass@@@@PAVRenderObjClass@@@Z"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x1b7",
+            "instruction": "call 0x1bc",
+            "target": [
+              "sym",
+              "??2@YAPAXI@Z"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x1eb",
+            "instruction": "call 0x1f0",
+            "target": [
+              "sym",
+              "??0TextGadgetClass@@QAE@PAVInterfaceClass@@HPBDPAVRenderObjClass@@I1@Z"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x207",
+            "instruction": "call 0x20c",
+            "target": [
+              "sym",
+              "?Set_Text@TextBaseGadgetClass@@QAEXPBD_N@Z"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x22e",
+            "instruction": "call 0x233",
+            "target": [
+              "sym",
+              "?Set_Tooltip@GadgetClass@@SAXPAV1@PBD1ZZ"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x24c",
+            "instruction": "call 0x251",
+            "target": [
+              "sym",
+              "?Unknown_6870E0@InterfaceUnknown64Class@@QAEXPAVGadgetClass@@HPAVUIViewClass@@_N2@Z"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x264",
+            "instruction": "call 0x269",
+            "target": [
+              "sym",
+              "?Unknown_6870E0@InterfaceUnknown64Class@@QAEXPAVGadgetClass@@HPAVUIViewClass@@_N2@Z"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x27c",
+            "instruction": "call 0x281",
+            "target": [
+              "sym",
+              "?Unknown_6870E0@InterfaceUnknown64Class@@QAEXPAVGadgetClass@@HPAVUIViewClass@@_N2@Z"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x285",
+            "instruction": "call dword ptr [edx + 0x10]",
+            "target": null,
+            "references": []
+          },
+          {
+            "offset": "0x2a7",
+            "instruction": "call dword ptr [eax]",
+            "target": null,
+            "references": []
+          },
+          {
+            "offset": "0x2cd",
+            "instruction": "call dword ptr [edx]",
+            "target": null,
+            "references": []
+          },
+          {
+            "offset": "0x2df",
+            "instruction": "call 0x2e4",
+            "target": [
+              "sym",
+              "??1InterfaceSortClass@@QAE@XZ"
+            ],
+            "references": []
+          }
+        ],
+        "retail": [
+          {
+            "offset": "0x5ab057",
+            "instruction": "call dword ptr [eax + 0x98]",
+            "target": null,
+            "references": []
+          },
+          {
+            "offset": "0x5ab06d",
+            "instruction": "call 0x412544",
+            "target": [
+              "addr",
+              5511552
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5ab094",
+            "instruction": "call 0x416c16",
+            "target": [
+              "addr",
+              5690640
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5ab0a8",
+            "instruction": "call 0x4057db",
+            "target": [
+              "addr",
+              6680496
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5ab0dd",
+            "instruction": "call 0x40efa7",
+            "target": [
+              "addr",
+              5691760
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5ab0e7",
+            "instruction": "call 0x41066d",
+            "target": [
+              "addr",
+              5151920
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5ab102",
+            "instruction": "call 0x4048f4",
+            "target": [
+              "addr",
+              6741952
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5ab121",
+            "instruction": "call 0x40c199",
+            "target": [
+              "addr",
+              6743136
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5ab130",
+            "instruction": "call 0x405e93",
+            "target": [
+              "addr",
+              6748816
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5ab13e",
+            "instruction": "call dword ptr [eax + 0x70]",
+            "target": null,
+            "references": []
+          },
+          {
+            "offset": "0x5ab147",
+            "instruction": "call 0x407c11",
+            "target": [
+              "addr",
+              4707040
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5ab157",
+            "instruction": "call 0x41066d",
+            "target": [
+              "addr",
+              5151920
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5ab18a",
+            "instruction": "call 0x4067bc",
+            "target": [
+              "addr",
+              6756240
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5ab1a8",
+            "instruction": "call 0x4057db",
+            "target": [
+              "addr",
+              6680496
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5ab1b5",
+            "instruction": "call dword ptr [edx + 0x18]",
+            "target": null,
+            "references": []
+          },
+          {
+            "offset": "0x5ab1cf",
+            "instruction": "call dword ptr [eax + 0x70]",
+            "target": null,
+            "references": []
+          },
+          {
+            "offset": "0x5ab1d8",
+            "instruction": "call 0x412797",
+            "target": [
+              "addr",
+              4669568
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5ab1e7",
+            "instruction": "call 0x41066d",
+            "target": [
+              "addr",
+              5151920
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5ab21b",
+            "instruction": "call 0x415a64",
+            "target": [
+              "addr",
+              6989840
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5ab237",
+            "instruction": "call 0x4022d4",
+            "target": [
+              "addr",
+              6989168
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5ab25e",
+            "instruction": "call 0x4057db",
+            "target": [
+              "addr",
+              6680496
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5ab27c",
+            "instruction": "call 0x414317",
+            "target": [
+              "addr",
+              6844640
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5ab294",
+            "instruction": "call 0x414317",
+            "target": [
+              "addr",
+              6844640
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5ab2ac",
+            "instruction": "call 0x414317",
+            "target": [
+              "addr",
+              6844640
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5ab2b5",
+            "instruction": "call dword ptr [eax + 0x10]",
+            "target": null,
+            "references": []
+          },
+          {
+            "offset": "0x5ab2d7",
+            "instruction": "call dword ptr [edx]",
+            "target": null,
+            "references": []
+          },
+          {
+            "offset": "0x5ab2fd",
+            "instruction": "call dword ptr [eax]",
+            "target": null,
+            "references": []
+          },
+          {
+            "offset": "0x5ab30f",
+            "instruction": "call 0x40f7e0",
+            "target": [
+              "addr",
+              7215280
+            ],
+            "references": []
+          }
+        ]
+      },
+      "masked_body_sha256": "b99583e406fc3482c8c313c72868de4a1707e964d6ca98035e9435276b063f25",
+      "body_bytes": 768,
+      "first_fixed_byte_mismatch": "0x19e"
+    }
+  },
+  "pair_count": 63,
+  "pairs": [
+    [
+      "app/client/ui_log.cpp",
+      "0x42A6C0"
+    ],
+    [
+      "app/client/ui_log.cpp",
+      "0x42A820"
+    ],
+    [
+      "app/client/ui_log.cpp",
+      "0x42A940"
+    ],
+    [
+      "app/client/ui_log.cpp",
+      "0x42A970"
+    ],
+    [
+      "app/client/ui_log.cpp",
+      "0x42AB30"
+    ],
+    [
+      "app/client/ui_log.cpp",
+      "0x42B320"
+    ],
+    [
+      "app/client/ui_log.cpp",
+      "0x42CAB0"
+    ],
+    [
+      "app/client/ui_log.cpp",
+      "0x42CD30"
+    ],
+    [
+      "app/client/ui_log.cpp",
+      "0x42D050"
+    ],
+    [
+      "app/client/ui_log.cpp",
+      "0x42D120"
+    ],
+    [
+      "app/client/ui_log.cpp",
+      "0x42DB80"
+    ],
+    [
+      "app/client/ui_log.cpp",
+      "0x42E170"
+    ],
+    [
+      "app/client/ui_log.cpp",
+      "0x42F250"
+    ],
+    [
+      "app/client/ui_log.cpp",
+      "0x431C80"
+    ],
+    [
+      "app/client/ui_log.cpp",
+      "0x432B80"
+    ],
+    [
+      "app/client/ui_log.cpp",
+      "0x432C30"
+    ],
+    [
+      "app/client/ui_log.cpp",
+      "0x433700"
+    ],
+    [
+      "app/client/ui_log.cpp",
+      "0x433A10"
+    ],
+    [
+      "app/client/ui_log.cpp",
+      "0x45CC10"
+    ],
+    [
+      "app/client/ui_log.cpp",
+      "0x474080"
+    ],
+    [
+      "app/client/ui_log.cpp",
+      "0x4740B0"
+    ],
+    [
+      "app/client/ui_log.cpp",
+      "0x47D2E0"
+    ],
+    [
+      "app/client/ui_log.cpp",
+      "0x47D440"
+    ],
+    [
+      "app/client/ui_log.cpp",
+      "0x47D640"
+    ],
+    [
+      "app/client/ui_log.cpp",
+      "0x47E480"
+    ],
+    [
+      "app/client/ui_log.cpp",
+      "0x47E4D0"
+    ],
+    [
+      "app/client/ui_log.cpp",
+      "0x4A1930"
+    ],
+    [
+      "app/client/ui_log.cpp",
+      "0x4A19A0"
+    ],
+    [
+      "app/client/ui_log.cpp",
+      "0x4A19C0"
+    ],
+    [
+      "app/client/ui_log.cpp",
+      "0x4A1A10"
+    ],
+    [
+      "app/client/ui_log.cpp",
+      "0x4A1A30"
+    ],
+    [
+      "app/client/ui_log.cpp",
+      "0x4A1A50"
+    ],
+    [
+      "app/client/ui_log.cpp",
+      "0x4A1A70"
+    ],
+    [
+      "app/client/ui_log.cpp",
+      "0x4A1A90"
+    ],
+    [
+      "app/client/ui_log.cpp",
+      "0x4A1AB0"
+    ],
+    [
+      "app/client/ui_log.cpp",
+      "0x4A1AD0"
+    ],
+    [
+      "app/client/ui_log.cpp",
+      "0x4A1AF0"
+    ],
+    [
+      "app/client/ui_log.cpp",
+      "0x5156B0"
+    ],
+    [
+      "app/client/ui_log.cpp",
+      "0x5156F0"
+    ],
+    [
+      "app/client/ui_log.cpp",
+      "0x515710"
+    ],
+    [
+      "app/client/ui_log.cpp",
+      "0x515730"
+    ],
+    [
+      "app/client/ui_log.cpp",
+      "0x515750"
+    ],
+    [
+      "app/client/ui_log.cpp",
+      "0x5411F0"
+    ],
+    [
+      "app/client/ui_log.cpp",
+      "0x5623B0"
+    ],
+    [
+      "app/client/ui_log.cpp",
+      "0x5623D0"
+    ],
+    [
+      "app/client/ui_log.cpp",
+      "0x5623F0"
+    ],
+    [
+      "app/client/ui_log.cpp",
+      "0x5AAE40"
+    ],
+    [
+      "app/client/ui_log.cpp",
+      "0x5AAF30"
+    ],
+    [
+      "app/client/ui_log.cpp",
+      "0x5AAF60"
+    ],
+    [
+      "app/client/ui_log.cpp",
+      "0x5AB3F0"
+    ],
+    [
+      "app/client/ui_log.cpp",
+      "0x5AB510"
+    ],
+    [
+      "app/client/ui_log.cpp",
+      "0x5AB720"
+    ],
+    [
+      "app/client/ui_log.cpp",
+      "0x5AB8B0"
+    ],
+    [
+      "app/client/ui_log.cpp",
+      "0x5AB9E0"
+    ],
+    [
+      "app/client/ui_log.cpp",
+      "0x5ABB10"
+    ],
+    [
+      "app/client/ui_log.cpp",
+      "0x5ABCC0"
+    ],
+    [
+      "app/client/ui_log.cpp",
+      "0x5AC0D0"
+    ],
+    [
+      "app/client/ui_log.cpp",
+      "0x5AC580"
+    ],
+    [
+      "app/client/ui_log.cpp",
+      "0x5AC750"
+    ],
+    [
+      "app/client/ui_log.cpp",
+      "0x5AC930"
+    ],
+    [
+      "app/client/ui_log.cpp",
+      "0x5ACB30"
+    ],
+    [
+      "app/client/ui_log.cpp",
+      "0x5ACB60"
+    ],
+    [
+      "app/client/ui_log.cpp",
+      "0x5ACB70"
+    ]
+  ],
+  "pairs_sha256": "ad9a57d80902c57b604f74657b7df2025182365100a972f9e9305014c935755b",
+  "gained": [],
+  "lost": [],
+  "baseline_header_patches_from_base_head": []
+}

@@ -1,0 +1,16 @@
+{
+  "analysis_model": "gpt-6-astra (high)",
+  "test_model": "gpt-6.1-sol (high)",
+  "hypothesis_ids": [
+    "A267-04"
+  ],
+  "parts": [
+    "docs/attempts/5B1230/claim267-astra-tests/A267-04-baseline.json",
+    "docs/attempts/5B1230/claim267-astra-tests/A267-04-packet_input_seed_control.json",
+    "docs/attempts/5B1230/claim267-astra-tests/A267-04-real_event_flags_control.json",
+    "docs/attempts/5B1230/claim267-astra-tests/A267-04-real_event_up_accessor.json"
+  ],
+  "results": "docs/attempts/5B1230/claim267-astra-tests/results.json",
+  "constraints": "docs/attempts/5B1230/claim267-astra-tests/constraints.json",
+  "evidence": "A267-04 actual KernelEvent Flags and Is_Up accessor both canonical25/10 on useful packetseed;wrongframe18 vs14 remains;79pairs preserved."
+}

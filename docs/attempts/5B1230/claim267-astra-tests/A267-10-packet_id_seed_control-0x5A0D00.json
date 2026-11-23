@@ -1,0 +1,618 @@
+{
+  "schema": 1,
+  "hypothesis": "A267-10",
+  "provenance": {
+    "analysis_model": "gpt-6-astra",
+    "analysis_effort": "high",
+    "testing_model": "gpt-6.1-sol",
+    "testing_effort": "high"
+  },
+  "base_head": "9b07cd77d9bf53363e236fbb1d0f1f92c5f5520a",
+  "baseline_sha256": "86ec0b21ac9ebd01d1d1619990e843baf8deec41b8f8f0531cf2e78eb32398e9",
+  "source_sha256": "ca32d086841d2e397f612e1c07ba5ec45b2e5da3ca2cdf56d1f6ccdab97c5778",
+  "patch_replay_verified": true,
+  "baseline_patch_from_base_head": "",
+  "patch": "--- a/app/client/ui_inv.cpp\n+++ b/app/client/ui_inv.cpp\n@@ -575,7 +575,7 @@\n \tif (arg) {\n \t\tInvDataClass *inv = SlotData->Unknown_10();\n \t\tInvDataPeekItemStruct *item = inv->Unknown_688830()->Get_Item(slot, false);\n-\t\tif (item) num = item->Unknown50;\t// (budget-device audit 2026-11-19: a dead item->Name.size() here is no longer needed (the file is exact without it))\n+\t\tif (item) { const int &count = item->Unknown50; num = count; }\t// (budget-device audit 2026-11-19: a dead item->Name.size() here is no longer needed (the file is exact without it))\n \t}\n \treturn(InvTransaction->Unknown_690AA0(InvType, slot, num, true, 1, -1));\n }\n@@ -756,7 +756,7 @@\n \t\t\t\tsclient->Unknown_74D990(0x11, \"Cannot perform action while incapacitated.\", 0);\n \t\t\t\treturn(true);\n \t\t\t}\n-\t\t\tsclient->Send_Packet(&EquipUsePacketClass(sclient->ShipID, InvType, from_slot));\n+\t\t\tunsigned game_id; sclient->Send_Packet(&EquipUsePacketClass(game_id = sclient->ShipID, InvType, from_slot));\n \t\t\treturn(true);\n \t\t} else if (SlotDrag->Unknown1C == 1 || SlotDrag->Unknown1C == 3) {\n \t\t\tif (SlotDrag->Unknown20) {\n",
+  "header_changes": [],
+  "compile_success": true,
+  "native_full_object_match": true,
+  "source_constraints": {
+    "run": "A267-10-xtyvfeqk",
+    "name": "packet_id_seed_control",
+    "physical_asserts_equal": true,
+    "EH_states": {
+      "0x59FE30": 1,
+      "0x5A0740": 1,
+      "0x5A0D00": 0
+    },
+    "pair_count": 79,
+    "gained": [],
+    "lost": []
+  },
+  "baseline_pair_count": 79,
+  "name": "packet_id_seed_control",
+  "unit": "app/client/ui_inv.cpp",
+  "source": "/home/dev/Projects/EnB/.work/claim-267/astra-tests/forms/packet_id_seed_control/ui_inv.cpp",
+  "metrics": {
+    "0x5A0D00": {
+      "symbol": "UIInvClass::Unknown_5A0D00",
+      "mangled": "?Unknown_5A0D00@UIInvClass@@QAE_NHPAVSlotDataGadgetClass@@@Z",
+      "address": "0x5A0D00",
+      "ours": 108,
+      "client": 116,
+      "residue": 44,
+      "residue_regs": 25,
+      "tables": [],
+      "branch": {
+        "bytes": [
+          309,
+          321
+        ],
+        "size": 0,
+        "target": 2
+      },
+      "class": "field-offset",
+      "reason": "a [reg + N] displacement differs: ours `mov ecx, dword ptr [esi + 0xc0]`, client `mov ecx, dword ptr [esi + 0xc4]`",
+      "frames": [
+        [
+          null,
+          false,
+          false
+        ],
+        [
+          null,
+          false,
+          false
+        ]
+      ],
+      "calls": {
+        "ours": [
+          {
+            "offset": "0x1d",
+            "instruction": "call 0x22",
+            "target": [
+              "sym",
+              "?Fail_If_Report@@YAXPBD0H@Z"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x36",
+            "instruction": "call dword ptr [eax + 0x10]",
+            "target": null,
+            "references": []
+          },
+          {
+            "offset": "0x3d",
+            "instruction": "call 0x42",
+            "target": [
+              "sym",
+              "?Unknown_688830@InvDataClass@@QAEPAVInvDataPeekClass@@XZ"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x4b",
+            "instruction": "call 0x50",
+            "target": [
+              "sym",
+              "?Get_Item_Template_ID@InvDataPeekClass@@QAEHH@Z"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x71",
+            "instruction": "call 0x76",
+            "target": [
+              "sym",
+              "?Unknown_688850@InvDataClass@@QAEPAVInvDataPeekClass@@XZ"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x78",
+            "instruction": "call 0x7d",
+            "target": [
+              "sym",
+              "?Get_Stack_Count@InvDataPeekClass@@QAEHH@Z"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x8a",
+            "instruction": "call 0x8f",
+            "target": [
+              "sym",
+              "?Get_Stack_Count@InvDataPeekClass@@QAEHH@Z"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x97",
+            "instruction": "call 0x9c",
+            "target": [
+              "sym",
+              "?Unknown_670950@SlotDataGadgetClass@@QAEHXZ"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0xa0",
+            "instruction": "call dword ptr [edx + 0x10]",
+            "target": null,
+            "references": []
+          },
+          {
+            "offset": "0xb8",
+            "instruction": "call 0xbd",
+            "target": [
+              "sym",
+              "?Fail_If_Report@@YAXPBD0H@Z"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0xcb",
+            "instruction": "call 0xd0",
+            "target": [
+              "sym",
+              "?Unknown_670910@SlotDataGadgetClass@@QAEHXZ"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x106",
+            "instruction": "call dword ptr [eax + 0xc8]",
+            "target": null,
+            "references": []
+          },
+          {
+            "offset": "0x129",
+            "instruction": "call 0x12e",
+            "target": [
+              "sym",
+              "?Unknown_690AA0@InvTransactionClass@@QAE_NHHH_NHH@Z"
+            ],
+            "references": []
+          }
+        ],
+        "retail": [
+          {
+            "offset": "0x5a0d1e",
+            "instruction": "call 0x402c3e",
+            "target": [
+              "addr",
+              5149776
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5a0d38",
+            "instruction": "call dword ptr [eax + 0x10]",
+            "target": null,
+            "references": []
+          },
+          {
+            "offset": "0x5a0d3f",
+            "instruction": "call 0x417567",
+            "target": [
+              "addr",
+              6850608
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5a0d4f",
+            "instruction": "call 0x417161",
+            "target": [
+              "addr",
+              6855840
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5a0d7a",
+            "instruction": "call 0x40faab",
+            "target": [
+              "addr",
+              6850640
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5a0d82",
+            "instruction": "call 0x40c603",
+            "target": [
+              "addr",
+              6855968
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5a0d92",
+            "instruction": "call 0x40c603",
+            "target": [
+              "addr",
+              6855968
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5a0d9d",
+            "instruction": "call 0x415181",
+            "target": [
+              "addr",
+              6752592
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5a0da6",
+            "instruction": "call dword ptr [edx + 0x10]",
+            "target": null,
+            "references": []
+          },
+          {
+            "offset": "0x5a0dbe",
+            "instruction": "call 0x402c3e",
+            "target": [
+              "addr",
+              5149776
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5a0dd4",
+            "instruction": "call 0x408c38",
+            "target": [
+              "addr",
+              6752528
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5a0e11",
+            "instruction": "call dword ptr [eax + 0xc8]",
+            "target": null,
+            "references": []
+          },
+          {
+            "offset": "0x5a0e34",
+            "instruction": "call 0x4033ff",
+            "target": [
+              "addr",
+              6884000
+            ],
+            "references": []
+          }
+        ]
+      },
+      "masked_body_sha256": "27b547f762499933eb99b07eee730578425468a352a3a6b3231cbafc7576757e",
+      "body_bytes": 320,
+      "first_fixed_byte_mismatch": "0x0"
+    }
+  },
+  "pair_count": 79,
+  "pairs": [
+    [
+      "app/client/ui_inv.cpp",
+      "0x42A820"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x42A940"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x42A970"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x42AB30"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x42B320"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x42CD30"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x42F250"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x45CC10"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x48F3E0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x4A1930"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x4A19A0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x4A19C0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x4A1A10"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x4A1A30"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x4A1A50"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x4A1A70"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x4A1A90"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x4A1AB0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x4A1AD0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x4A1AF0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x5156F0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x515710"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x515730"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x515750"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x52B210"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x52B240"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x52B270"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x52B2A0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x52B2D0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x52B2F0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x52B310"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x52B330"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x52B350"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x549760"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x585160"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x585180"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x5851A0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x5851C0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x59E9E0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x59EA10"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x59EA30"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x59EBB0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x59ECA0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x59ECD0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x59EDC0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x59EF40"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x59EF70"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x59F060"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x59F2C0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x59F3D0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x59F440"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x59F470"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x59F940"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x59FA00"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x59FA80"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x59FB20"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x59FD00"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x59FD70"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x59FDA0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x59FE10"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x5A00A0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x5A00C0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x5A02E0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x5A03B0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x5A0450"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x5A05B0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x5A06C0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x5A0EB0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x5A0FC0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x5A0FE0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x5A1020"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x5A1060"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x5A1090"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x5A10C0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x5A10D0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x5A10E0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x5A10F0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x5A1100"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x5A1110"
+    ]
+  ],
+  "pairs_sha256": "21febdb1dc79081a3c6665636e8f89a7cd90146b7c6ba2cfae0ca4dfac0559c0",
+  "gained": [],
+  "lost": [],
+  "baseline_header_patches_from_base_head": []
+}

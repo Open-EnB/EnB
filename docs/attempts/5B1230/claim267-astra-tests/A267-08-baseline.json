@@ -1,0 +1,928 @@
+{
+  "schema": 1,
+  "hypothesis": "A267-08",
+  "provenance": {
+    "analysis_model": "gpt-6-astra",
+    "analysis_effort": "high",
+    "testing_model": "gpt-6.1-sol",
+    "testing_effort": "high"
+  },
+  "base_head": "9b07cd77d9bf53363e236fbb1d0f1f92c5f5520a",
+  "baseline_sha256": "402ec0f833406cf757ec14f14ff2b843d05f13bf5db5ddfc845072b30786d07b",
+  "source_sha256": "402ec0f833406cf757ec14f14ff2b843d05f13bf5db5ddfc845072b30786d07b",
+  "patch_replay_verified": true,
+  "baseline_patch_from_base_head": "--- a/app/client/ui_manu.cpp\n+++ b/app/client/ui_manu.cpp\n@@ -475,7 +475,7 @@\n \tUnknown_10();\n }\n \n-// NOT EXACT: inline budget (the client calls the 'ManufactureComponents' and 'Validity' Casts out of line, 0x5B7210 / 0x5468D0, and 0x5B6DB0 in the inlined 0x5B3640) (0x5B1230)\n+// NOT EXACT: inline budget (the ManufactureComponents Cast 0x5B7210 and nested 0x5B6DB0 boundary still differ; DurationClass assignment recovers the Validity Cast 0x5468D0 and nested 0x5B6CA0 call) (0x5B1230)\n void UIManuClass::Unknown_60()\n {\n \tUnknown_5B5320();\n@@ -533,9 +533,9 @@\n \tfor (int i = 0; i < 3; i++) {\n \t\tUnknown0C0[i]->Unknown_5B7880();\n \t}\n-\tunsigned int now = ((ClientClass *)Client)->Unknown10BC;\n-\tif ((__int64)now > Unknown0BB8 && Unknown0BC0 > 0) {\n-\t\tUnknown0BB8 = Unknown_BE5C20 * 1000 + now;\n+\tDurationClass now; now = DurationClass((unsigned int)((ClientClass *)Client)->Unknown10BC);\n+\tif (now.Time > Unknown0BB8 && Unknown0BC0 > 0) {\n+\t\tUnknown0BB8 = Unknown_BE5C20 * 1000 + now.Time;\n \t\tif (--Unknown0BC0 < Unknown_B8183C) {\n \t\t\tUnknown_5B6CA0();\n \t\t}\n@@ -1878,3 +1878,7 @@\n // 0x5B0BB0 is exact: retain a 256-byte label buffer, assign the player ID at its packet argument,\n // name the font-manager mesh input and copy sort values before their setters. All original callbacks\n // and reference-counted temporary lifetimes are preserved.\n+\n+// 0x5B1230: the current tick is a zero-extended unsigned input carried by DurationClass. Its existing\n+// assignment layer recovers the retail Validity Cast boundary and this unit's exact 0x5468D0 holder;\n+// the enclosing handler remains NOT EXACT. Signed timestamp operations and read timing are preserved.\n",
+  "patch": "",
+  "header_changes": [],
+  "compile_success": true,
+  "native_full_object_match": true,
+  "source_constraints": {
+    "run": "A267-08-7dhiqq29",
+    "name": "baseline",
+    "physical_asserts_equal": true,
+    "EH_states": {
+      "0x5AFCD0": 8
+    },
+    "pair_count": 142,
+    "gained": [],
+    "lost": []
+  },
+  "baseline_pair_count": 142,
+  "name": "baseline",
+  "unit": "app/client/ui_manu.cpp",
+  "source": "/home/dev/Projects/EnB/.work/claim-267/astra-tests/forms/A267-08_baseline_integrated_A01/ui_manu.cpp",
+  "metrics": {
+    "0x5AFCD0": {
+      "symbol": "UIManuClass::~UIManuClass",
+      "mangled": "??1UIManuClass@@UAE@XZ",
+      "address": "0x5AFCD0",
+      "ours": 180,
+      "client": 180,
+      "residue": 8,
+      "residue_regs": 0,
+      "tables": [],
+      "branch": {
+        "bytes": [
+          579,
+          581
+        ],
+        "size": 0,
+        "target": 0
+      },
+      "class": "relocation",
+      "reason": "ours references ??1?$RefCountPtr@VRenderObjClass@@@@QAE@XZ (0x4740B0), the client 0x40E2D2 j_??1?$RefCountPtr",
+      "frames": [
+        [
+          "8",
+          false,
+          true
+        ],
+        [
+          "8",
+          false,
+          true
+        ]
+      ],
+      "calls": {
+        "ours": [
+          {
+            "offset": "0x55",
+            "instruction": "call 0x5a",
+            "target": [
+              "sym",
+              "?G_Assert_Report@@YAXPBD0H@Z"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x73",
+            "instruction": "call 0x78",
+            "target": [
+              "sym",
+              "??1UIManuUnknownC0Class@@QAE@XZ"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x79",
+            "instruction": "call 0x7e",
+            "target": [
+              "sym",
+              "??3@YAXPAX@Z"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x92",
+            "instruction": "call dword ptr [eax]",
+            "target": null,
+            "references": []
+          },
+          {
+            "offset": "0xbc",
+            "instruction": "call 0xc1",
+            "target": [
+              "sym",
+              "?Unknown_66E460@GadgetSlider@@QAEXABV?$RefCountPtr@VRenderObjClass@@@@_NH@Z"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0xe1",
+            "instruction": "call dword ptr [eax]",
+            "target": null,
+            "references": []
+          },
+          {
+            "offset": "0xef",
+            "instruction": "call 0xf4",
+            "target": [
+              "sym",
+              "?Unknown_5B9930@UIMeshClass@@QAEXH@Z"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x10e",
+            "instruction": "call dword ptr [edx]",
+            "target": null,
+            "references": []
+          },
+          {
+            "offset": "0x12e",
+            "instruction": "call dword ptr [eax]",
+            "target": null,
+            "references": []
+          },
+          {
+            "offset": "0x14e",
+            "instruction": "call dword ptr [edx]",
+            "target": null,
+            "references": []
+          },
+          {
+            "offset": "0x161",
+            "instruction": "call 0x166",
+            "target": [
+              "sym",
+              "?Unload@FontStringFilesClass@@QAEXPBD@Z"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x17b",
+            "instruction": "call 0x180",
+            "target": [
+              "sym",
+              "??_M@YGXPAXIHP6EX0@Z@Z"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x195",
+            "instruction": "call 0x19a",
+            "target": [
+              "sym",
+              "??_M@YGXPAXIHP6EX0@Z@Z"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x1af",
+            "instruction": "call 0x1b4",
+            "target": [
+              "sym",
+              "??_M@YGXPAXIHP6EX0@Z@Z"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x1d1",
+            "instruction": "call dword ptr [edx]",
+            "target": null,
+            "references": []
+          },
+          {
+            "offset": "0x1f6",
+            "instruction": "call dword ptr [eax]",
+            "target": null,
+            "references": []
+          },
+          {
+            "offset": "0x21b",
+            "instruction": "call dword ptr [edx]",
+            "target": null,
+            "references": []
+          },
+          {
+            "offset": "0x22d",
+            "instruction": "call 0x232",
+            "target": [
+              "sym",
+              "??1Unknown5BB320Class@@UAE@XZ"
+            ],
+            "references": []
+          }
+        ],
+        "retail": [
+          {
+            "offset": "0x5afd25",
+            "instruction": "call 0x40aa51",
+            "target": [
+              "addr",
+              5149712
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5afd43",
+            "instruction": "call 0x404e12",
+            "target": [
+              "addr",
+              5993520
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5afd49",
+            "instruction": "call 0x412b7a",
+            "target": [
+              "addr",
+              5152016
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5afd63",
+            "instruction": "call dword ptr [eax]",
+            "target": null,
+            "references": []
+          },
+          {
+            "offset": "0x5afd8e",
+            "instruction": "call 0x40c199",
+            "target": [
+              "addr",
+              6743136
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5afdb3",
+            "instruction": "call dword ptr [eax]",
+            "target": null,
+            "references": []
+          },
+          {
+            "offset": "0x5afdc1",
+            "instruction": "call 0x40b64f",
+            "target": [
+              "addr",
+              6002992
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5afde0",
+            "instruction": "call dword ptr [edx]",
+            "target": null,
+            "references": []
+          },
+          {
+            "offset": "0x5afe00",
+            "instruction": "call dword ptr [eax]",
+            "target": null,
+            "references": []
+          },
+          {
+            "offset": "0x5afe20",
+            "instruction": "call dword ptr [edx]",
+            "target": null,
+            "references": []
+          },
+          {
+            "offset": "0x5afe33",
+            "instruction": "call 0x412ea9",
+            "target": [
+              "addr",
+              7099824
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5afe4d",
+            "instruction": "call 0xa26564",
+            "target": [
+              "addr",
+              10642788
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5afe67",
+            "instruction": "call 0xa26564",
+            "target": [
+              "addr",
+              10642788
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5afe81",
+            "instruction": "call 0xa26564",
+            "target": [
+              "addr",
+              10642788
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5afea3",
+            "instruction": "call dword ptr [edx]",
+            "target": null,
+            "references": []
+          },
+          {
+            "offset": "0x5afec8",
+            "instruction": "call dword ptr [eax]",
+            "target": null,
+            "references": []
+          },
+          {
+            "offset": "0x5afeed",
+            "instruction": "call dword ptr [edx]",
+            "target": null,
+            "references": []
+          },
+          {
+            "offset": "0x5afeff",
+            "instruction": "call 0x401f64",
+            "target": [
+              "addr",
+              6009776
+            ],
+            "references": []
+          }
+        ]
+      },
+      "masked_body_sha256": "46e359f57d075ca3ab7334cc79bd98b9f189374015180c704196613b9910f7e0",
+      "body_bytes": 592,
+      "first_fixed_byte_mismatch": "0x60"
+    }
+  },
+  "pair_count": 142,
+  "pairs": [
+    [
+      "app/client/ui_manu.cpp",
+      "0x42A6C0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x42A820"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x42A940"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x42A970"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x42AB30"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x42B320"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x42CAB0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x42CD30"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x42D050"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x42D120"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x42F250"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x45CC10"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x46BE90"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x474080"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x4740B0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x497300"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x4A19A0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x4A19C0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x4A1A10"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x4A1A30"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x4A1A50"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x4A1A70"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x4A1A90"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x4A1AB0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x4A1AD0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x4A1AF0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x4A7780"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x4B58D0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x50A8E0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x50A900"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x50A920"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x50A940"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x50A960"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x50A980"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x50A9E0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x50AA00"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x50AA20"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x50AA40"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x50AA60"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x50AA80"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x50AAA0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x50AAC0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5156B0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5156F0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x515710"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x515730"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x515750"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x51AD20"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x51AD40"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x51AD60"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x51AD80"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x51ADA0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x51C630"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x52B210"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x52B240"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x52B270"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x52B2A0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x52B2D0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x52B2F0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x52B310"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x52B330"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x52B350"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5411F0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x543750"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x543770"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x544250"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x544B90"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x546480"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5464B0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5464F0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x546510"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5465C0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5466A0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x546710"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x546780"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5467F0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5468D0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x546970"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x553A80"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x58E5B0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x58E5D0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5AF980"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5AF9B0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5AF9D0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5AFCA0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5AFFC0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B0B40"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B0BB0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B10A0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B1AF0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B1C20"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B1ED0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B2060"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B21A0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B2230"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B2820"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B28E0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B2950"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B2990"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B2A80"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B2B40"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B2F20"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B3240"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B3260"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B3580"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B3850"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B39B0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B3A50"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B3A70"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B3B90"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B3CA0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B3D70"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B42F0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B4680"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B4850"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B5CD0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B5FF0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B6060"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B6410"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B6680"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B66D0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B6700"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B6720"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B6770"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B67A0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B67C0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B6A60"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B6A80"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B6CA0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B6D30"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B6DB0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B6E20"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B6FD0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B7050"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B70C0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B7130"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B71A0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B7260"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B72B0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B7300"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B7350"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B7360"
+    ]
+  ],
+  "pairs_sha256": "ffad46f9053639c8312977681621ee07f269efc3e008e4262c38241b6e356b2d",
+  "gained": [],
+  "lost": [],
+  "baseline_header_patches_from_base_head": []
+}

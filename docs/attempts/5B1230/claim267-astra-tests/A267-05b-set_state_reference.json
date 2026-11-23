@@ -1,0 +1,519 @@
+{
+  "schema": 1,
+  "hypothesis": "A267-05b",
+  "provenance": {
+    "analysis_model": "gpt-6-astra",
+    "analysis_effort": "high",
+    "testing_model": "gpt-6.1-sol",
+    "testing_effort": "high"
+  },
+  "base_head": "9b07cd77d9bf53363e236fbb1d0f1f92c5f5520a",
+  "baseline_sha256": "03cde572f38c3dbec7514fab94e2dfd262d9162d5bd78ac294b25b8ebadf6252",
+  "source_sha256": "1350367acf931cb1302dc74d6f24d6d0e02a721893e6bed86df7ed8c6858da07",
+  "patch_replay_verified": true,
+  "baseline_patch_from_base_head": "",
+  "patch": "--- a/app/client/ui_groupopt.cpp\n+++ b/app/client/ui_groupopt.cpp\n@@ -178,7 +178,7 @@\n \n \n \n-\n+template<class C> inline C *Unknown_Group_Set_Inner(DeltaCompoundClass *root, const char *text) { NameClass name(text); C *t = Unknown_Find_Field<C>(root, name); if (t) { const unsigned int &state = t->Unknown70; if (state) return(t); } return(NULL); }\n // NOT EXACT: inline budget (explain.py: relocation first, the draft's auxdata.h path, then 12 calls vs 13: the client calls rtti.h's cast 0x598D80 out of line in the GroupInfo find, as ui_group.cpp's 0x598370; attempts.py show 0x59B220)\n // 0x59B220\n void UIGroupOptClass::Unknown_60()\n@@ -412,8 +412,8 @@\n \tSClient *sclient = Client->As_Space_Client();\n \tFAIL_IF(!sclient) return;\n \tFAIL_IF(!sclient->AuxData) return;\n-\tNameClass name(\"GroupInfo\"); DeltaGroupInfoClass *group = (DeltaGroupInfoClass *)Unknown_Find_Field<DeltaCompoundClass>(sclient->AuxData, name);\n-\tif (group && group->Unknown70) {\n+\tDeltaGroupInfoClass *group = (DeltaGroupInfoClass *)Unknown_Group_Set_Inner<DeltaCompoundClass>(sclient->AuxData, \"GroupInfo\");\n+\tif (group) {\n \t\tUnknown0A0 = group->LookingForGroup.Value;\n \t\t((RObjGadgetClass *)Unknown0AC[1])->Unknown34->Change_Text(Unknown_B7FDAC[Unknown0A0], 0);\n \t\tUnknown0C0[0]->Unknown_7E8030(group->AllowGroupInvite.Value);\n",
+  "header_changes": [],
+  "compile_success": true,
+  "native_full_object_match": true,
+  "source_constraints": {
+    "run": "A267-05b-mgx1qju7",
+    "name": "set_state_reference",
+    "physical_asserts_equal": true,
+    "EH_states": {
+      "0x59BC40": 0
+    },
+    "pair_count": 54,
+    "gained": [],
+    "lost": []
+  },
+  "baseline_pair_count": 54,
+  "name": "set_state_reference",
+  "unit": "app/client/ui_groupopt.cpp",
+  "source": "/home/dev/Projects/EnB/.work/claim-267/astra-tests/forms/set_state_reference/ui_groupopt.cpp",
+  "metrics": {
+    "0x59BC40": {
+      "symbol": "UIGroupOptClass::Unknown_59BC40",
+      "mangled": "?Unknown_59BC40@UIGroupOptClass@@QAEXXZ",
+      "address": "0x59BC40",
+      "ours": 89,
+      "client": 91,
+      "residue": 46,
+      "residue_regs": 23,
+      "tables": [],
+      "branch": {
+        "bytes": [
+          305,
+          312
+        ],
+        "size": 0,
+        "target": 0
+      },
+      "class": "relocation",
+      "reason": "string differs: ours b'Z:\\\\home\\\\dev\\\\Projects\\\\EnB\\\\.work\\\\claim-267\\\\astra-tests\\\\tree\\\\app\\\\client\\\\..\\\\shared\\\\auxdata\\\\auxdata.h', client b'..\\\\shared/auxdata/auxdata.h' at 0xB767DC (12 calls in ours, 13 in the client: an inlined callee's assert? then inline-budget)",
+      "frames": [
+        [
+          "0x34",
+          false,
+          false
+        ],
+        [
+          "0x34",
+          false,
+          false
+        ]
+      ],
+      "calls": {
+        "ours": [
+          {
+            "offset": "0xc",
+            "instruction": "call dword ptr [eax + 0x18]",
+            "target": null,
+            "references": []
+          },
+          {
+            "offset": "0x22",
+            "instruction": "call 0x27",
+            "target": [
+              "sym",
+              "?Fail_If_Report@@YAXPBD0H@Z"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x49",
+            "instruction": "call 0x4e",
+            "target": [
+              "sym",
+              "?Fail_If_Report@@YAXPBD0H@Z"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x60",
+            "instruction": "call 0x65",
+            "target": [
+              "sym",
+              "??0NameClass@@QAE@PBD@Z"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x6f",
+            "instruction": "call 0x74",
+            "target": [
+              "sym",
+              "?Get_Lookup@DeltaCompoundClass@@QAEPAVLookupClass@@XZ"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x7b",
+            "instruction": "call 0x80",
+            "target": [
+              "sym",
+              "?Find@LookupClass@@QAEPAVDeltaClass@@ABVNameClass@@@Z"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0xa5",
+            "instruction": "call 0xaa",
+            "target": [
+              "sym",
+              "?G_Assert_Report@@YAXPBD0H@Z"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0xde",
+            "instruction": "call 0xe3",
+            "target": [
+              "sym",
+              "?Change_Text@FontSys@@QAEXPBDH@Z"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0xf0",
+            "instruction": "call 0xf5",
+            "target": [
+              "sym",
+              "?Unknown_7E8030@CheckBoxGadgetClass@@QAEX_N@Z"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x102",
+            "instruction": "call 0x107",
+            "target": [
+              "sym",
+              "?Unknown_7E8030@CheckBoxGadgetClass@@QAEX_N@Z"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x114",
+            "instruction": "call 0x119",
+            "target": [
+              "sym",
+              "?Unknown_7E8030@CheckBoxGadgetClass@@QAEX_N@Z"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x126",
+            "instruction": "call 0x12b",
+            "target": [
+              "sym",
+              "?Unknown_7E8030@CheckBoxGadgetClass@@QAEX_N@Z"
+            ],
+            "references": []
+          }
+        ],
+        "retail": [
+          {
+            "offset": "0x59bc4c",
+            "instruction": "call dword ptr [eax + 0x18]",
+            "target": null,
+            "references": []
+          },
+          {
+            "offset": "0x59bc64",
+            "instruction": "call 0x402c3e",
+            "target": [
+              "addr",
+              5149776
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x59bc8b",
+            "instruction": "call 0x402c3e",
+            "target": [
+              "addr",
+              5149776
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x59bca2",
+            "instruction": "call 0x417f80",
+            "target": [
+              "addr",
+              4903808
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x59bcb5",
+            "instruction": "call 0x40eec1",
+            "target": [
+              "addr",
+              4871440
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x59bcc1",
+            "instruction": "call 0x40c257",
+            "target": [
+              "addr",
+              4901360
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x59bccf",
+            "instruction": "call 0x403fb2",
+            "target": [
+              "addr",
+              5868928
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x59bcec",
+            "instruction": "call 0x40aa51",
+            "target": [
+              "addr",
+              5149712
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x59bd25",
+            "instruction": "call 0x4139ad",
+            "target": [
+              "addr",
+              7134144
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x59bd37",
+            "instruction": "call 0x4188fe",
+            "target": [
+              "addr",
+              8290352
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x59bd49",
+            "instruction": "call 0x4188fe",
+            "target": [
+              "addr",
+              8290352
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x59bd5b",
+            "instruction": "call 0x4188fe",
+            "target": [
+              "addr",
+              8290352
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x59bd6d",
+            "instruction": "call 0x4188fe",
+            "target": [
+              "addr",
+              8290352
+            ],
+            "references": []
+          }
+        ]
+      },
+      "masked_body_sha256": "b1bf18395f5b2ff88f5bcb3d1de7cd44ecbf386fbbc9bdc8c21e71e54a7abc8b",
+      "body_bytes": 320,
+      "first_fixed_byte_mismatch": "0xf"
+    }
+  },
+  "pair_count": 54,
+  "pairs": [
+    [
+      "app/client/ui_groupopt.cpp",
+      "0x42B320"
+    ],
+    [
+      "app/client/ui_groupopt.cpp",
+      "0x42F250"
+    ],
+    [
+      "app/client/ui_groupopt.cpp",
+      "0x45CC10"
+    ],
+    [
+      "app/client/ui_groupopt.cpp",
+      "0x4A1930"
+    ],
+    [
+      "app/client/ui_groupopt.cpp",
+      "0x4A19A0"
+    ],
+    [
+      "app/client/ui_groupopt.cpp",
+      "0x4A19C0"
+    ],
+    [
+      "app/client/ui_groupopt.cpp",
+      "0x4A1A10"
+    ],
+    [
+      "app/client/ui_groupopt.cpp",
+      "0x4A1A30"
+    ],
+    [
+      "app/client/ui_groupopt.cpp",
+      "0x4A1A50"
+    ],
+    [
+      "app/client/ui_groupopt.cpp",
+      "0x4A1A70"
+    ],
+    [
+      "app/client/ui_groupopt.cpp",
+      "0x4A1A90"
+    ],
+    [
+      "app/client/ui_groupopt.cpp",
+      "0x4A1AB0"
+    ],
+    [
+      "app/client/ui_groupopt.cpp",
+      "0x4A1AD0"
+    ],
+    [
+      "app/client/ui_groupopt.cpp",
+      "0x4A1AF0"
+    ],
+    [
+      "app/client/ui_groupopt.cpp",
+      "0x5156B0"
+    ],
+    [
+      "app/client/ui_groupopt.cpp",
+      "0x5156F0"
+    ],
+    [
+      "app/client/ui_groupopt.cpp",
+      "0x515710"
+    ],
+    [
+      "app/client/ui_groupopt.cpp",
+      "0x515730"
+    ],
+    [
+      "app/client/ui_groupopt.cpp",
+      "0x515750"
+    ],
+    [
+      "app/client/ui_groupopt.cpp",
+      "0x52B210"
+    ],
+    [
+      "app/client/ui_groupopt.cpp",
+      "0x52B240"
+    ],
+    [
+      "app/client/ui_groupopt.cpp",
+      "0x52B270"
+    ],
+    [
+      "app/client/ui_groupopt.cpp",
+      "0x52B2A0"
+    ],
+    [
+      "app/client/ui_groupopt.cpp",
+      "0x52B2D0"
+    ],
+    [
+      "app/client/ui_groupopt.cpp",
+      "0x52B2F0"
+    ],
+    [
+      "app/client/ui_groupopt.cpp",
+      "0x52B310"
+    ],
+    [
+      "app/client/ui_groupopt.cpp",
+      "0x52B330"
+    ],
+    [
+      "app/client/ui_groupopt.cpp",
+      "0x52B350"
+    ],
+    [
+      "app/client/ui_groupopt.cpp",
+      "0x5411F0"
+    ],
+    [
+      "app/client/ui_groupopt.cpp",
+      "0x5623D0"
+    ],
+    [
+      "app/client/ui_groupopt.cpp",
+      "0x5623F0"
+    ],
+    [
+      "app/client/ui_groupopt.cpp",
+      "0x581C80"
+    ],
+    [
+      "app/client/ui_groupopt.cpp",
+      "0x59ACC0"
+    ],
+    [
+      "app/client/ui_groupopt.cpp",
+      "0x59ACF0"
+    ],
+    [
+      "app/client/ui_groupopt.cpp",
+      "0x59AD10"
+    ],
+    [
+      "app/client/ui_groupopt.cpp",
+      "0x59AE90"
+    ],
+    [
+      "app/client/ui_groupopt.cpp",
+      "0x59AEB0"
+    ],
+    [
+      "app/client/ui_groupopt.cpp",
+      "0x59AEE0"
+    ],
+    [
+      "app/client/ui_groupopt.cpp",
+      "0x59AFF0"
+    ],
+    [
+      "app/client/ui_groupopt.cpp",
+      "0x59B150"
+    ],
+    [
+      "app/client/ui_groupopt.cpp",
+      "0x59B1F0"
+    ],
+    [
+      "app/client/ui_groupopt.cpp",
+      "0x59B380"
+    ],
+    [
+      "app/client/ui_groupopt.cpp",
+      "0x59B8B0"
+    ],
+    [
+      "app/client/ui_groupopt.cpp",
+      "0x59B8D0"
+    ],
+    [
+      "app/client/ui_groupopt.cpp",
+      "0x59B910"
+    ],
+    [
+      "app/client/ui_groupopt.cpp",
+      "0x59B990"
+    ],
+    [
+      "app/client/ui_groupopt.cpp",
+      "0x59BBC0"
+    ],
+    [
+      "app/client/ui_groupopt.cpp",
+      "0x59BC00"
+    ],
+    [
+      "app/client/ui_groupopt.cpp",
+      "0x59BDD0"
+    ],
+    [
+      "app/client/ui_groupopt.cpp",
+      "0x59BE00"
+    ],
+    [
+      "app/client/ui_groupopt.cpp",
+      "0x59BE40"
+    ],
+    [
+      "app/client/ui_groupopt.cpp",
+      "0x59BE70"
+    ],
+    [
+      "app/client/ui_groupopt.cpp",
+      "0x59BEC0"
+    ],
+    [
+      "app/client/ui_groupopt.cpp",
+      "0x59BED0"
+    ]
+  ],
+  "pairs_sha256": "84ed92db0dd0180b3ec08a14d069398a8b91aa175b6a5a33fd54b8a253881199",
+  "gained": [],
+  "lost": [],
+  "baseline_header_patches_from_base_head": []
+}
