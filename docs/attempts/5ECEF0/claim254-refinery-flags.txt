@@ -1,0 +1,962 @@
+{
+  "head": "5f8e771ddaef1c54e192141cae179f30e96982f8",
+  "claim": 254,
+  "address": "0x5ECEF0",
+  "symbol": "UIRefineryClass::Unknown_5ECEF0",
+  "file": "app/client/ui_refinery.cpp",
+  "library": "app",
+  "status": "parked",
+  "blocker": "shape",
+  "model": "gpt-6.1-sol (high)",
+  "new_valid_forms": 7,
+  "diagnostic_forms": 0,
+  "controls": 2,
+  "compile_failures": 0,
+  "outcome": "Neither approved family improves the existing go-first partial. No combination or further experiments. No production edits.",
+  "hypotheses": {
+    "A": "Boolean declaration order / reference aliases to existing bool locals.",
+    "B": "Plain nonvolatile int Unknown0AF0 snapshot immediately before adjacent existing busy checks; no callbacks between snapshot and either use."
+  },
+  "measurements": "Production control residue/raw17, seed11. A declaration order and go reference11; stack/both references22. B int/const-int snapshot11, bool snapshot20. All frame0x78, 93 exact unit pairs, gain0/loss0.",
+  "new_evidence": "A stack reference changes code but worsens the flag merge. Both integer snapshots compile to the seed code, ruling out repeated member loads as the remaining branch cause. Bool snapshot materialization changes code and worsens the shape.",
+  "remaining": "Prior 11-row shape: iterations value load versus in-memory compare, true flag store/test order, invalid-validity merge and shared busy disabled-go branch. No new lead established.",
+  "best_form": "seed (prior round, not counted as a new form)",
+  "baseline_source_sha256": "70659e5e505dd88dec10c7139ad7b8a580c3f6b1c85b741b1709947641ad9fba",
+  "best_source_sha256": "0f0cc2b2abdaa0318815253ffa1270b2422882be7b2f4efda3dbe69a5d15eba8",
+  "pair_delta": {
+    "gained": [],
+    "lost": []
+  },
+  "results": [
+    {
+      "name": "baseline",
+      "family": "control",
+      "source_sha256": "70659e5e505dd88dec10c7139ad7b8a580c3f6b1c85b741b1709947641ad9fba",
+      "object_sha256": "c2794fee0bec736a4ab45b7e937c72e7cc9d541b9590d6bd1b632bb9d8f966ab",
+      "source_target_only_and_line_neutral": true,
+      "target_code_sha256": "a4d033f7c90f537f7c5dc6421f0f7922693a33a8897dc98730ce007581125452",
+      "target_length": 646,
+      "residue": 17,
+      "register_masked_residue": 18,
+      "raw_rows": 17,
+      "frame": "0x78",
+      "class": "shape",
+      "score": 0.9154228855721394,
+      "exact": false,
+      "gained": [],
+      "lost": [],
+      "calls_count": 19,
+      "call_structure_equal_seed": null,
+      "calls_sha256": "d39851ace10c5510358ad19960fe448e5e14d44121a90bc09f6c0de2a0c139d0",
+      "target_bytes_equal_seed": false
+    },
+    {
+      "name": "seed",
+      "family": "control",
+      "source_sha256": "0f0cc2b2abdaa0318815253ffa1270b2422882be7b2f4efda3dbe69a5d15eba8",
+      "object_sha256": "c6d0dbf5cddaa0332014736668c2130faf596c5bf3ae2169caee4c4279fe4cdf",
+      "source_target_only_and_line_neutral": true,
+      "target_code_sha256": "e8519ef5273366409dd7b3af9304fa1568210881669716fc83c157691362e3aa",
+      "target_length": 648,
+      "residue": 11,
+      "register_masked_residue": 17,
+      "raw_rows": 11,
+      "frame": "0x78",
+      "class": "shape",
+      "score": 0.945273631840796,
+      "exact": false,
+      "gained": [],
+      "lost": [],
+      "calls_count": 19,
+      "call_structure_equal_seed": true,
+      "calls_sha256": "c16788bad0120c301e0c01d365198b8e59fa175e90b8dfa823e0439e28e33b69",
+      "target_bytes_equal_seed": true
+    },
+    {
+      "name": "A_reverse_declarations",
+      "family": "A",
+      "source_sha256": "55d1ad3856870cc2592a7310017be573b83004f7cf3ac64f4b7e119599575c55",
+      "object_sha256": "6374b49ac9abb59df87b76846effc7f47cd2e50f62906452f16e7828bae98484",
+      "source_target_only_and_line_neutral": true,
+      "target_code_sha256": "e8519ef5273366409dd7b3af9304fa1568210881669716fc83c157691362e3aa",
+      "target_length": 648,
+      "residue": 11,
+      "register_masked_residue": 17,
+      "raw_rows": 11,
+      "frame": "0x78",
+      "class": "shape",
+      "score": 0.945273631840796,
+      "exact": false,
+      "gained": [],
+      "lost": [],
+      "calls_count": 19,
+      "call_structure_equal_seed": true,
+      "calls_sha256": "c16788bad0120c301e0c01d365198b8e59fa175e90b8dfa823e0439e28e33b69",
+      "target_bytes_equal_seed": true
+    },
+    {
+      "name": "A_go_reference",
+      "family": "A",
+      "source_sha256": "ba7654063b82af26063429a422c4823951f7b37a19e8c38bdc8287ab1c503ba8",
+      "object_sha256": "16c009899aa8f68ec83eb0a16199bb37e556f0d12f48c803068debf99ecc148f",
+      "source_target_only_and_line_neutral": true,
+      "target_code_sha256": "e8519ef5273366409dd7b3af9304fa1568210881669716fc83c157691362e3aa",
+      "target_length": 648,
+      "residue": 11,
+      "register_masked_residue": 17,
+      "raw_rows": 11,
+      "frame": "0x78",
+      "class": "shape",
+      "score": 0.945273631840796,
+      "exact": false,
+      "gained": [],
+      "lost": [],
+      "calls_count": 19,
+      "call_structure_equal_seed": true,
+      "calls_sha256": "c16788bad0120c301e0c01d365198b8e59fa175e90b8dfa823e0439e28e33b69",
+      "target_bytes_equal_seed": true
+    },
+    {
+      "name": "A_stack_reference",
+      "family": "A",
+      "source_sha256": "1d740457fc2775bf745ef4d75addf3d0f92d35c9a0039c336b49437f101f0ac3",
+      "object_sha256": "9699c1e24b5e5b123104b791cbe7d4749f4bdf1260c0e3d680f7e8d65c2abae8",
+      "source_target_only_and_line_neutral": true,
+      "target_code_sha256": "6731453ffa43ffc43558d96272eec8873fd7fe3865d03d137e7d67367794be82",
+      "target_length": 659,
+      "residue": 22,
+      "register_masked_residue": 20,
+      "raw_rows": 22,
+      "frame": "0x78",
+      "class": "shape",
+      "score": 0.892156862745098,
+      "exact": false,
+      "gained": [],
+      "lost": [],
+      "calls_count": 19,
+      "call_structure_equal_seed": true,
+      "calls_sha256": "08a1fb83ca13ecfbf08f3cdd081022c913cd359afc357c0832729c508e7ae7b8",
+      "target_bytes_equal_seed": false
+    },
+    {
+      "name": "A_both_references",
+      "family": "A",
+      "source_sha256": "5ac97c1ab33dc2cc6c5bd0e4b6a54d3c4f2d8189ae2de3fc026cb7735af72407",
+      "object_sha256": "f2046edc3136e22f15843fa17f5072354a0b4adede5a011eace83d9126b7010b",
+      "source_target_only_and_line_neutral": true,
+      "target_code_sha256": "6731453ffa43ffc43558d96272eec8873fd7fe3865d03d137e7d67367794be82",
+      "target_length": 659,
+      "residue": 22,
+      "register_masked_residue": 20,
+      "raw_rows": 22,
+      "frame": "0x78",
+      "class": "shape",
+      "score": 0.892156862745098,
+      "exact": false,
+      "gained": [],
+      "lost": [],
+      "calls_count": 19,
+      "call_structure_equal_seed": true,
+      "calls_sha256": "08a1fb83ca13ecfbf08f3cdd081022c913cd359afc357c0832729c508e7ae7b8",
+      "target_bytes_equal_seed": false
+    },
+    {
+      "name": "B_pending_int",
+      "family": "B",
+      "source_sha256": "b626d9cd8f60f3d7b7b97d9f8e331e00654f0f7ca100d5fe512b4b437c98fb54",
+      "object_sha256": "4c549fc7c8c3db7d01fdd1590781adf36609bd253e5436bde6a6f6c2ea7f4f1f",
+      "source_target_only_and_line_neutral": true,
+      "target_code_sha256": "e8519ef5273366409dd7b3af9304fa1568210881669716fc83c157691362e3aa",
+      "target_length": 648,
+      "residue": 11,
+      "register_masked_residue": 17,
+      "raw_rows": 11,
+      "frame": "0x78",
+      "class": "shape",
+      "score": 0.945273631840796,
+      "exact": false,
+      "gained": [],
+      "lost": [],
+      "calls_count": 19,
+      "call_structure_equal_seed": true,
+      "calls_sha256": "c16788bad0120c301e0c01d365198b8e59fa175e90b8dfa823e0439e28e33b69",
+      "target_bytes_equal_seed": true
+    },
+    {
+      "name": "B_busy_bool",
+      "family": "B",
+      "source_sha256": "60a0cf324d56974f49970838eba67fda41c2b608004aca6af75618f2542707a3",
+      "object_sha256": "2cdbb19325eb27ea290079f17b8bca7e8f05acaa99edd62c5670715d80b38ccc",
+      "source_target_only_and_line_neutral": true,
+      "target_code_sha256": "30955e05ed171af95a102dc8ba0a66e921ccb296cdf7e58841fbdd1f88e70dce",
+      "target_length": 651,
+      "residue": 20,
+      "register_masked_residue": 18,
+      "raw_rows": 20,
+      "frame": "0x78",
+      "class": "shape",
+      "score": 0.900990099009901,
+      "exact": false,
+      "gained": [],
+      "lost": [],
+      "calls_count": 19,
+      "call_structure_equal_seed": true,
+      "calls_sha256": "ab6da52310b6106ae88a168e26a1d40e6e1b0df4fe0563fd4f643153e45427af",
+      "target_bytes_equal_seed": false
+    },
+    {
+      "name": "B_pending_const_int",
+      "family": "B",
+      "source_sha256": "58d851fd6f44123a9db1076997eb3e9830b40393167b6e7c1cddf5ed382c8737",
+      "object_sha256": "6eacdf2950e1ad6a07c566053cfec94d31258cf8bc5d42c8b9e3d55acfdd2229",
+      "source_target_only_and_line_neutral": true,
+      "target_code_sha256": "e8519ef5273366409dd7b3af9304fa1568210881669716fc83c157691362e3aa",
+      "target_length": 648,
+      "residue": 11,
+      "register_masked_residue": 17,
+      "raw_rows": 11,
+      "frame": "0x78",
+      "class": "shape",
+      "score": 0.945273631840796,
+      "exact": false,
+      "gained": [],
+      "lost": [],
+      "calls_count": 19,
+      "call_structure_equal_seed": true,
+      "calls_sha256": "c16788bad0120c301e0c01d365198b8e59fa175e90b8dfa823e0439e28e33b69",
+      "target_bytes_equal_seed": true
+    }
+  ],
+  "seed_reproduced_prior_target_bytes_and_relocations": true,
+  "seed_call_audit": [
+    {
+      "object_offset": "0x40",
+      "retail_address": "0x5ecf30",
+      "object": "call 0x45",
+      "retail": "call 0x40269e",
+      "identity": "resolved",
+      "symbol": "?Get_Style@FontManagerClass@@QAEPAVFontSys@@PBDPAVRenderObjClass@@@Z",
+      "target": "0x6d25d0"
+    },
+    {
+      "object_offset": "0x4b",
+      "retail_address": "0x5ecf3b",
+      "object": "call 0x50",
+      "retail": "call 0x404e80",
+      "identity": "resolved",
+      "symbol": "?Create_Peek@@YA?AV?$RefCountPtr@VFontSys@@@@PAVFontSys@@@Z",
+      "target": "0x546510"
+    },
+    {
+      "object_offset": "0x85",
+      "retail_address": "0x5ecf75",
+      "object": "call dword ptr [edx]",
+      "retail": "call dword ptr [edx]",
+      "identity": "same indirect operand"
+    },
+    {
+      "object_offset": "0x9e",
+      "retail_address": "0x5ecf8e",
+      "object": "call 0xa3",
+      "retail": "call 0x40269e",
+      "identity": "resolved",
+      "symbol": "?Get_Style@FontManagerClass@@QAEPAVFontSys@@PBDPAVRenderObjClass@@@Z",
+      "target": "0x6d25d0"
+    },
+    {
+      "object_offset": "0xa9",
+      "retail_address": "0x5ecf99",
+      "object": "call 0xae",
+      "retail": "call 0x404e80",
+      "identity": "resolved",
+      "symbol": "?Create_Peek@@YA?AV?$RefCountPtr@VFontSys@@@@PAVFontSys@@@Z",
+      "target": "0x546510"
+    },
+    {
+      "object_offset": "0xc2",
+      "retail_address": "0x5ecfb2",
+      "object": "call 0xc7",
+      "retail": "call 0x417f80",
+      "identity": "resolved",
+      "symbol": "??0NameClass@@QAE@PBD@Z",
+      "target": "0x4ad380"
+    },
+    {
+      "object_offset": "0xd3",
+      "retail_address": "0x5ecfc3",
+      "object": "call 0xd8",
+      "retail": "call 0x4066a4",
+      "identity": "resolved",
+      "symbol": "?Unknown_Find_Field@@YAPAV?$DeltaTemplateClass@W4UnknownB01394Enum@@@@PAVDeltaCompoundClass@@ABVNameClass@@@Z",
+      "target": "0x5465c0"
+    },
+    {
+      "object_offset": "0xf3",
+      "retail_address": "0x5ecfe3",
+      "object": "call 0xf8",
+      "retail": "call 0x417f80",
+      "identity": "resolved",
+      "symbol": "??0NameClass@@QAE@PBD@Z",
+      "target": "0x4ad380"
+    },
+    {
+      "object_offset": "0x104",
+      "retail_address": "0x5ecff4",
+      "object": "call 0x109",
+      "retail": "call 0x40c5d6",
+      "identity": "resolved",
+      "symbol": "?Unknown_Find_Field@@YAPAVUIManuTechLevelFilterClass@@PAVDeltaCompoundClass@@ABVNameClass@@@Z",
+      "target": "0x5b7130"
+    },
+    {
+      "object_offset": "0x16f",
+      "retail_address": "0x5ed05f",
+      "object": "call dword ptr [eax + 0x40]",
+      "retail": "call dword ptr [eax + 0x40]",
+      "identity": "same indirect operand"
+    },
+    {
+      "object_offset": "0x187",
+      "retail_address": "0x5ed077",
+      "object": "call dword ptr [edx + 0x40]",
+      "retail": "call dword ptr [edx + 0x40]",
+      "identity": "same indirect operand"
+    },
+    {
+      "object_offset": "0x193",
+      "retail_address": "0x5ed083",
+      "object": "call dword ptr [eax + 0x40]",
+      "retail": "call dword ptr [eax + 0x40]",
+      "identity": "same indirect operand"
+    },
+    {
+      "object_offset": "0x1bc",
+      "retail_address": "0x5ed0ac",
+      "object": "call dword ptr [edx + 0x40]",
+      "retail": "call dword ptr [edx + 0x40]",
+      "identity": "same indirect operand"
+    },
+    {
+      "object_offset": "0x1e5",
+      "retail_address": "0x5ed0d5",
+      "object": "call 0x1ea",
+      "retail": "call 0xa266da",
+      "identity": "resolved",
+      "symbol": "_sprintf",
+      "target": "0xa266da"
+    },
+    {
+      "object_offset": "0x1f6",
+      "retail_address": "0x5ed0e6",
+      "object": "call dword ptr [edx + 0x40]",
+      "retail": "call dword ptr [edx + 0x40]",
+      "identity": "same indirect operand"
+    },
+    {
+      "object_offset": "0x217",
+      "retail_address": "0x5ed107",
+      "object": "call 0x21c",
+      "retail": "call 0x4139ad",
+      "identity": "resolved",
+      "symbol": "?Change_Text@FontSys@@QAEXPBDH@Z",
+      "target": "0x6cdbc0"
+    },
+    {
+      "object_offset": "0x228",
+      "retail_address": "0x5ed118",
+      "object": "call dword ptr [eax + 0x40]",
+      "retail": "call dword ptr [eax + 0x40]",
+      "identity": "same indirect operand"
+    },
+    {
+      "object_offset": "0x24e",
+      "retail_address": "0x5ed13e",
+      "object": "call dword ptr [edx]",
+      "retail": "call dword ptr [edx]",
+      "identity": "same indirect operand"
+    },
+    {
+      "object_offset": "0x274",
+      "retail_address": "0x5ed164",
+      "object": "call dword ptr [eax]",
+      "retail": "call dword ptr [eax]",
+      "identity": "same indirect operand"
+    }
+  ],
+  "retail_bounds": [
+    "0x5ECEF0",
+    "0x5ED178 (exclusive)"
+  ],
+  "retail_branches": [
+    {
+      "address": "0x5ecf47",
+      "instruction": "je 0x5ecf4c"
+    },
+    {
+      "address": "0x5ecf60",
+      "instruction": "je 0x5ecf77"
+    },
+    {
+      "address": "0x5ecf71",
+      "instruction": "jne 0x5ecf77"
+    },
+    {
+      "address": "0x5ecfcd",
+      "instruction": "je 0x5ecfd8"
+    },
+    {
+      "address": "0x5ecfd2",
+      "instruction": "je 0x5ecfd8"
+    },
+    {
+      "address": "0x5ecfd6",
+      "instruction": "jmp 0x5ecfda"
+    },
+    {
+      "address": "0x5ecffe",
+      "instruction": "je 0x5ed00d"
+    },
+    {
+      "address": "0x5ed003",
+      "instruction": "je 0x5ed00d"
+    },
+    {
+      "address": "0x5ed00b",
+      "instruction": "jmp 0x5ed013"
+    },
+    {
+      "address": "0x5ed015",
+      "instruction": "je 0x5ed04d"
+    },
+    {
+      "address": "0x5ed01e",
+      "instruction": "jne 0x5ed04d"
+    },
+    {
+      "address": "0x5ed024",
+      "instruction": "je 0x5ed034"
+    },
+    {
+      "address": "0x5ed032",
+      "instruction": "ja 0x5ed038"
+    },
+    {
+      "address": "0x5ed045",
+      "instruction": "je 0x5ed051"
+    },
+    {
+      "address": "0x5ed04b",
+      "instruction": "jmp 0x5ed06e"
+    },
+    {
+      "address": "0x5ed04f",
+      "instruction": "jmp 0x5ed034"
+    },
+    {
+      "address": "0x5ed053",
+      "instruction": "je 0x5ed06e"
+    },
+    {
+      "address": "0x5ed06c",
+      "instruction": "jmp 0x5ed094"
+    },
+    {
+      "address": "0x5ed0a8",
+      "instruction": "je 0x5ed0e5"
+    },
+    {
+      "address": "0x5ed0e3",
+      "instruction": "jmp 0x5ed103"
+    },
+    {
+      "address": "0x5ed129",
+      "instruction": "je 0x5ed144"
+    },
+    {
+      "address": "0x5ed13a",
+      "instruction": "jne 0x5ed140"
+    },
+    {
+      "address": "0x5ed157",
+      "instruction": "je 0x5ed166"
+    },
+    {
+      "address": "0x5ed160",
+      "instruction": "jne 0x5ed166"
+    }
+  ],
+  "seed_patch": "--- a/app/client/ui_refinery.cpp\n+++ b/app/client/ui_refinery.cpp\n@@ -454,7 +454,7 @@\n \tif (Unknown0AF0 != 0) {\n \t\tcan_stack = false;\n \t}\n-\tif (Unknown0AF0 == 0 && can_go) {\n+\tif (can_go && Unknown0AF0 == 0) {\n \t\tUnknown0BC[2]->Unknown_40(true);\n \t\tgo->Unknown_Set_2FC(1.0f);\n \t} else {\n",
+  "best_target_source": "void UIRefineryClass::Unknown_5ECEF0()\n{\n\tRefCountPtr<FontSys> go;\n\tgo = Create_Peek(Unknown_BE67C4->Get_Style(Unknown_B85C48[1], InterfaceMesh->Peek_Mesh_Object()));\n\tRefCountPtr<FontSys> stack = Create_Peek(Unknown_BE67C4->Get_Style(Unknown_B85C48[2], InterfaceMesh->Peek_Mesh_Object()));\n\tDeltaTemplateClass<UnknownB01394Enum> *v = Unknown_Manu_Raw<DeltaTemplateClass<UnknownB01394Enum> >(Unknown0AEC, \"Validity\");\n\tDeltaTemplateClass<UnknownB01394Enum> *validity = (v && v->Unknown70) ? v : NULL;\n\tUIManuTechLevelFilterClass *n = Unknown_Manu_Raw<UIManuTechLevelFilterClass>(Unknown0AEC, \"AdditionalIterations\");\n\tUIManuTechLevelFilterClass *iterations = (n && n->Unknown70) ? n : NULL;\n\tbool can_go;\n\tbool can_stack;\n\tif (validity && validity->Value == 13) {\n\t\tcan_go = true;\n\t\tcan_stack = iterations && (unsigned int)iterations->Value > 0;\n\t} else {\n\t\tcan_go = false;\n\t\tcan_stack = false;\n\t}\n\tif (Unknown0AF0 != 0) {\n\t\tcan_stack = false;\n\t}\n\tif (can_go && Unknown0AF0 == 0) {\n\t\tUnknown0BC[2]->Unknown_40(true);\n\t\tgo->Unknown_Set_2FC(1.0f);\n\t} else {\n\t\tUnknown0BC[2]->Unknown_40(false);\n\t\tUnknown0BC[2]->Unknown_40(false);\n\t\tgo->Unknown_Set_2FC(0.33f);\n\t}\n\tif (can_stack) {\n\t\tUnknown0BC[3]->Unknown_40(true);\n\t\tstack->Unknown_Set_2FC(1.0f);\n\t\tchar text[52];\n\t\tsprintf(text, \"Refine %d\", iterations->Value + 1);\n\t\tstack->Change_Text(text, 0);\n\t} else {\n\t\tUnknown0BC[3]->Unknown_40(false);\n\t\tstack->Unknown_Set_2FC(0.33f);\n\t\tstack->Change_Text(\"Refine Stack\", 0);\n\t}\n\tUnknown0BC[1]->Unknown_40(true);\n}\n\n",
+  "form_generator_source": "from pathlib import Path\nimport json\nW=Path(__file__).parent.resolve()\nbase=(W/'baseline/ui_refinery.cpp').read_text()\na=base.index('void UIRefineryClass::Unknown_5ECEF0()');b=base.index('// @0x5ED230',a)\nseed=(W/'seed/ui_refinery.cpp').read_text()[a:b]\nforms={\n'A_reverse_declarations':seed.replace('bool can_go;\\n\\tbool can_stack;','bool can_stack;\\n\\tbool can_go;'),\n'A_go_reference':seed.replace('bool can_go;','bool go_value; bool &can_go = go_value;'),\n'A_stack_reference':seed.replace('bool can_stack;','bool stack_value; bool &can_stack = stack_value;'),\n'A_both_references':seed.replace('bool can_go;','bool go_value; bool &can_go = go_value;').replace('bool can_stack;','bool stack_value; bool &can_stack = stack_value;'),\n}\nfor name,decl,first,second in [\n    ('B_pending_int','int pending = Unknown0AF0;','pending != 0','pending == 0'),\n    ('B_busy_bool','bool busy = Unknown0AF0 != 0;','busy','!busy'),\n    ('B_pending_const_int','const int pending = Unknown0AF0;','pending != 0','pending == 0'),\n]:\n    v=seed.replace('if (Unknown0AF0 != 0)',decl+' if ('+first+')').replace('can_go && Unknown0AF0 == 0','can_go && '+second)\n    forms[name]=v\nvariants=[]\nfor name,v in forms.items():\n    assert v.count('\\n')==base[a:b].count('\\n')\n    p=W/name/'ui_refinery.cpp';p.parent.mkdir(exist_ok=True);p.write_text(base[:a]+v+base[b:])\n    variants.append({'name':name,'source':str(p)})\nmatches=W/'runs/baseline-5lnogl7l/baseline/matches.json'\n(W/'forms.json').write_text(json.dumps({'unit':'app/client/ui_refinery.cpp','target':'0x5ECEF0','tree':str(W/'tree'),'baseline_matches':str(matches),'variants':variants},indent=2))\n",
+  "replay": {
+    "prepare": "git archive 5f8e771ddaef1c54e192141cae179f30e96982f8 to an immutable tree; preserve source basename ui_refinery.cpp; verify production source SHA; apply seed patch then included form generator transforms.",
+    "compiler": "/home/dev/Toolchains/enb-vc6-sp4/bin/vc6-cl",
+    "runner": ".work/claim-254/run_batch.py",
+    "runner_sha256": "fdb16a5e1ff31b66aaa52ff63d96f4b2d2e5fa5498fb21225d877c147ebee190",
+    "manifests": [
+      ".work/claim-254/refinery-update-flags/baseline.json",
+      ".work/claim-254/refinery-update-flags/forms.json"
+    ],
+    "flags": "libdefs.LIB_FLAGS[app] and APP_LIBS[app].defines; all object functions/helpers native matched, no score filter"
+  },
+  "limitations": [
+    "Near miss, not production adoption or exactness proof.",
+    "Scratch __FILE__ paths differ from retail; source basename, outside bytes and physical assertion lines preserved.",
+    "Call proof for seed reused only after asserting fresh target bytes and relocation identities equal prior audited seed."
+  ],
+  "attempt_spec": {
+    "address": "0x5ECEF0",
+    "symbol": "UIRefineryClass::Unknown_5ECEF0",
+    "file": "app/client/ui_refinery.cpp",
+    "library": "app",
+    "status": "parked",
+    "forms": 7,
+    "blocker": "shape",
+    "score": 0.945273631840796,
+    "model": "gpt-6.1-sol (high)",
+    "evidence": "Seven valid target-only line-neutral new forms: bool declaration reverse and go reference unchanged11; stack/both references22; int/const-int adjacent busy snapshots unchanged11, bool snapshot20. Fresh production17 and prior-seed11 controls retain93pairs; seed target bytes+relocs reproduce prior. No improvement, +0/-0, no source adoption."
+  },
+  "identical_target_bytes_groups": [
+    [
+      "baseline"
+    ],
+    [
+      "seed",
+      "A_reverse_declarations",
+      "A_go_reference",
+      "B_pending_int",
+      "B_pending_const_int"
+    ],
+    [
+      "A_stack_reference",
+      "A_both_references"
+    ],
+    [
+      "B_busy_bool"
+    ]
+  ],
+  "branches_by_target_bytes_group": [
+    {
+      "forms": [
+        "baseline"
+      ],
+      "branches": [
+        {
+          "offset": "0x57",
+          "instruction": "je 0x5c"
+        },
+        {
+          "offset": "0x70",
+          "instruction": "je 0x87"
+        },
+        {
+          "offset": "0x81",
+          "instruction": "jne 0x87"
+        },
+        {
+          "offset": "0xdd",
+          "instruction": "je 0xe8"
+        },
+        {
+          "offset": "0xe2",
+          "instruction": "je 0xe8"
+        },
+        {
+          "offset": "0xe6",
+          "instruction": "jmp 0xea"
+        },
+        {
+          "offset": "0x10e",
+          "instruction": "je 0x11b"
+        },
+        {
+          "offset": "0x113",
+          "instruction": "je 0x11b"
+        },
+        {
+          "offset": "0x119",
+          "instruction": "jmp 0x121"
+        },
+        {
+          "offset": "0x123",
+          "instruction": "je 0x142"
+        },
+        {
+          "offset": "0x12c",
+          "instruction": "jne 0x142"
+        },
+        {
+          "offset": "0x132",
+          "instruction": "je 0x144"
+        },
+        {
+          "offset": "0x13a",
+          "instruction": "jbe 0x144"
+        },
+        {
+          "offset": "0x140",
+          "instruction": "jmp 0x148"
+        },
+        {
+          "offset": "0x150",
+          "instruction": "je 0x156"
+        },
+        {
+          "offset": "0x15d",
+          "instruction": "jne 0x17c"
+        },
+        {
+          "offset": "0x161",
+          "instruction": "je 0x17c"
+        },
+        {
+          "offset": "0x17a",
+          "instruction": "jmp 0x1a2"
+        },
+        {
+          "offset": "0x1b6",
+          "instruction": "je 0x1f3"
+        },
+        {
+          "offset": "0x1f1",
+          "instruction": "jmp 0x211"
+        },
+        {
+          "offset": "0x237",
+          "instruction": "je 0x252"
+        },
+        {
+          "offset": "0x248",
+          "instruction": "jne 0x24e"
+        },
+        {
+          "offset": "0x265",
+          "instruction": "je 0x274"
+        },
+        {
+          "offset": "0x26e",
+          "instruction": "jne 0x274"
+        }
+      ]
+    },
+    {
+      "forms": [
+        "seed",
+        "A_reverse_declarations",
+        "A_go_reference",
+        "B_pending_int",
+        "B_pending_const_int"
+      ],
+      "branches": [
+        {
+          "offset": "0x57",
+          "instruction": "je 0x5c"
+        },
+        {
+          "offset": "0x70",
+          "instruction": "je 0x87"
+        },
+        {
+          "offset": "0x81",
+          "instruction": "jne 0x87"
+        },
+        {
+          "offset": "0xdd",
+          "instruction": "je 0xe8"
+        },
+        {
+          "offset": "0xe2",
+          "instruction": "je 0xe8"
+        },
+        {
+          "offset": "0xe6",
+          "instruction": "jmp 0xea"
+        },
+        {
+          "offset": "0x10e",
+          "instruction": "je 0x11d"
+        },
+        {
+          "offset": "0x113",
+          "instruction": "je 0x11d"
+        },
+        {
+          "offset": "0x11b",
+          "instruction": "jmp 0x123"
+        },
+        {
+          "offset": "0x125",
+          "instruction": "je 0x144"
+        },
+        {
+          "offset": "0x12e",
+          "instruction": "jne 0x144"
+        },
+        {
+          "offset": "0x134",
+          "instruction": "je 0x146"
+        },
+        {
+          "offset": "0x13c",
+          "instruction": "jbe 0x146"
+        },
+        {
+          "offset": "0x142",
+          "instruction": "jmp 0x14a"
+        },
+        {
+          "offset": "0x152",
+          "instruction": "je 0x158"
+        },
+        {
+          "offset": "0x15f",
+          "instruction": "je 0x17e"
+        },
+        {
+          "offset": "0x163",
+          "instruction": "jne 0x17e"
+        },
+        {
+          "offset": "0x17c",
+          "instruction": "jmp 0x1a4"
+        },
+        {
+          "offset": "0x1b8",
+          "instruction": "je 0x1f5"
+        },
+        {
+          "offset": "0x1f3",
+          "instruction": "jmp 0x213"
+        },
+        {
+          "offset": "0x239",
+          "instruction": "je 0x254"
+        },
+        {
+          "offset": "0x24a",
+          "instruction": "jne 0x250"
+        },
+        {
+          "offset": "0x267",
+          "instruction": "je 0x276"
+        },
+        {
+          "offset": "0x270",
+          "instruction": "jne 0x276"
+        }
+      ]
+    },
+    {
+      "forms": [
+        "A_stack_reference",
+        "A_both_references"
+      ],
+      "branches": [
+        {
+          "offset": "0x57",
+          "instruction": "je 0x5c"
+        },
+        {
+          "offset": "0x70",
+          "instruction": "je 0x87"
+        },
+        {
+          "offset": "0x81",
+          "instruction": "jne 0x87"
+        },
+        {
+          "offset": "0xdd",
+          "instruction": "je 0xe8"
+        },
+        {
+          "offset": "0xe2",
+          "instruction": "je 0xe8"
+        },
+        {
+          "offset": "0xe6",
+          "instruction": "jmp 0xea"
+        },
+        {
+          "offset": "0x10e",
+          "instruction": "je 0x11b"
+        },
+        {
+          "offset": "0x113",
+          "instruction": "je 0x11b"
+        },
+        {
+          "offset": "0x119",
+          "instruction": "jmp 0x121"
+        },
+        {
+          "offset": "0x123",
+          "instruction": "je 0x14f"
+        },
+        {
+          "offset": "0x12c",
+          "instruction": "jne 0x14f"
+        },
+        {
+          "offset": "0x132",
+          "instruction": "je 0x147"
+        },
+        {
+          "offset": "0x13a",
+          "instruction": "jbe 0x147"
+        },
+        {
+          "offset": "0x145",
+          "instruction": "jmp 0x155"
+        },
+        {
+          "offset": "0x14d",
+          "instruction": "jmp 0x155"
+        },
+        {
+          "offset": "0x15d",
+          "instruction": "je 0x163"
+        },
+        {
+          "offset": "0x16a",
+          "instruction": "je 0x189"
+        },
+        {
+          "offset": "0x16e",
+          "instruction": "jne 0x189"
+        },
+        {
+          "offset": "0x187",
+          "instruction": "jmp 0x1af"
+        },
+        {
+          "offset": "0x1c3",
+          "instruction": "je 0x200"
+        },
+        {
+          "offset": "0x1fe",
+          "instruction": "jmp 0x21e"
+        },
+        {
+          "offset": "0x244",
+          "instruction": "je 0x25f"
+        },
+        {
+          "offset": "0x255",
+          "instruction": "jne 0x25b"
+        },
+        {
+          "offset": "0x272",
+          "instruction": "je 0x281"
+        },
+        {
+          "offset": "0x27b",
+          "instruction": "jne 0x281"
+        }
+      ]
+    },
+    {
+      "forms": [
+        "B_busy_bool"
+      ],
+      "branches": [
+        {
+          "offset": "0x57",
+          "instruction": "je 0x5c"
+        },
+        {
+          "offset": "0x70",
+          "instruction": "je 0x87"
+        },
+        {
+          "offset": "0x81",
+          "instruction": "jne 0x87"
+        },
+        {
+          "offset": "0xdd",
+          "instruction": "je 0xe8"
+        },
+        {
+          "offset": "0xe2",
+          "instruction": "je 0xe8"
+        },
+        {
+          "offset": "0xe6",
+          "instruction": "jmp 0xea"
+        },
+        {
+          "offset": "0x10e",
+          "instruction": "je 0x11d"
+        },
+        {
+          "offset": "0x113",
+          "instruction": "je 0x11d"
+        },
+        {
+          "offset": "0x11b",
+          "instruction": "jmp 0x123"
+        },
+        {
+          "offset": "0x125",
+          "instruction": "je 0x144"
+        },
+        {
+          "offset": "0x12e",
+          "instruction": "jne 0x144"
+        },
+        {
+          "offset": "0x134",
+          "instruction": "je 0x146"
+        },
+        {
+          "offset": "0x13c",
+          "instruction": "jbe 0x146"
+        },
+        {
+          "offset": "0x142",
+          "instruction": "jmp 0x14a"
+        },
+        {
+          "offset": "0x155",
+          "instruction": "je 0x15b"
+        },
+        {
+          "offset": "0x162",
+          "instruction": "je 0x181"
+        },
+        {
+          "offset": "0x166",
+          "instruction": "jne 0x181"
+        },
+        {
+          "offset": "0x17f",
+          "instruction": "jmp 0x1a7"
+        },
+        {
+          "offset": "0x1bb",
+          "instruction": "je 0x1f8"
+        },
+        {
+          "offset": "0x1f6",
+          "instruction": "jmp 0x216"
+        },
+        {
+          "offset": "0x23c",
+          "instruction": "je 0x257"
+        },
+        {
+          "offset": "0x24d",
+          "instruction": "jne 0x253"
+        },
+        {
+          "offset": "0x26a",
+          "instruction": "je 0x279"
+        },
+        {
+          "offset": "0x273",
+          "instruction": "jne 0x279"
+        }
+      ]
+    }
+  ],
+  "grouping_note": "Raw target bytes grouped independently of compiler-generated EH label numbering; all seven new forms preserve the seed direct-call symbols and indirect-call operand shapes (registers normalized). No claim of exact target or EH proof for new forms."
+}
