@@ -305,7 +305,7 @@ void DynamicWindowMultiLineTextClass::Clear_Lines()
 	TopLineIndex = 0;
 	DisplayedLines = 0;
 }
-// NOT EXACT: height comparison retains x87 precision; client rounds height to float (fstp/fld)
+
 void DynamicWindowMultiLineTextClass::Split_Lines(float width)
 {
 	Clear_Lines();
@@ -329,8 +329,8 @@ void DynamicWindowMultiLineTextClass::Split_Lines(float width)
 	FontSplitStringClass split(SampleFont->Font, Text.c_str(), width, 0);
 	split.Split(Text.c_str(), width, 0);
 	int count = split.Count();
-	DisplayedLines = count;
 	float height = count * CharacterHeight;
+	DisplayedLines = count;
 	if (height > Size.Y) {
 		Size.Y = height;
 		Vector2 min_size = Get_Min_Size();
