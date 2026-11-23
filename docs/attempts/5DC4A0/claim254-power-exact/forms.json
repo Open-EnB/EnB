@@ -1,0 +1,507 @@
+{
+  "base_commit": "51c7769c",
+  "unit": "app/client/ui_power.cpp",
+  "target": "0x5DC4A0",
+  "model": "gpt-6.1-sol (high)",
+  "baseline_source_sha256": "91d6dcfd493991b4b77e612d6321a8f62f2a033ce7e617bea0bb447535d861b5",
+  "new_valid_source_forms": 20,
+  "target_only_forms": 11,
+  "helper_overlay_forms": 9,
+  "diagnostic_semantically_invalid_forms": 0,
+  "dead_spender_forms": 0,
+  "new_distinct_normalized_bodies": 12,
+  "distinct_bodies_including_baseline": 12,
+  "control_compiles": 2,
+  "control_details": [
+    "fresh baseline",
+    "exact candidate repeat"
+  ],
+  "failed_tool_invocations": 1,
+  "failed_details": [
+    "Wine socket denied in sandbox before compiler ran; rerun escalated succeeded"
+  ],
+  "source_compile_failures": 0,
+  "successful_compiles": 22,
+  "root_production_confirmation_excluded": true,
+  "best": "family4/captured_later_all",
+  "forms": [
+    {
+      "raw_residue": 133,
+      "residue": 64,
+      "residue_regs": 42,
+      "ours": 370,
+      "client": 373,
+      "body_hash": "568d9031b3e459a9f9511ac111c6745391781e8d1edc00828d2b841511ff9c7d",
+      "name": "family1/power_find",
+      "source_sha256": "dceab20022c55b0358f4c180ff9d0dbe089feb9cba965aa84323e1f9073c986b",
+      "patch": "forms/family1/power_find.patch",
+      "helper_overlay": false,
+      "compiled": true,
+      "target_exact": false,
+      "gained": [
+        [
+          "?Unknown_Find_Field@@YAPAV?$DeltaTemplateClass@M@@PAVDeltaCompoundClass@@ABVNameClass@@@Z",
+          "0x546710"
+        ],
+        [
+          "?Unknown_Find_Field@@YAPAVDeltaInterpolatorClass@@PAVDeltaCompoundClass@@ABVNameClass@@@Z",
+          "0x5BF2B0"
+        ]
+      ],
+      "lost": []
+    },
+    {
+      "raw_residue": 156,
+      "residue": 81,
+      "residue_regs": 58,
+      "ours": 383,
+      "client": 373,
+      "body_hash": "eaa886074fe22d3ce936cb99e2bb8ccb43010b4c0864216302afd1a1361c129b",
+      "name": "family1/power_field",
+      "source_sha256": "610b09c302ddbd6965cb81c3acc1673020c282e79c92bb8e8910f27b1b0e0dc9",
+      "patch": "forms/family1/power_field.patch",
+      "helper_overlay": false,
+      "compiled": true,
+      "target_exact": false,
+      "gained": [],
+      "lost": []
+    },
+    {
+      "raw_residue": 156,
+      "residue": 81,
+      "residue_regs": 58,
+      "ours": 383,
+      "client": 373,
+      "body_hash": "eaa886074fe22d3ce936cb99e2bb8ccb43010b4c0864216302afd1a1361c129b",
+      "name": "family1/valid_root_ref",
+      "source_sha256": "cf8ae7495b58afe5181b6db4729bcbc079ed98c23530ad8c54db19dabbf3a4c9",
+      "patch": "forms/family1/valid_root_ref.patch",
+      "helper_overlay": true,
+      "compiled": true,
+      "target_exact": false,
+      "gained": [],
+      "lost": []
+    },
+    {
+      "raw_residue": 169,
+      "residue": 103,
+      "residue_regs": 63,
+      "ours": 383,
+      "client": 373,
+      "body_hash": "24dc44aa6a5b5a92a609167eaddd38485c1d29839c0b21893b39f35e350d0530",
+      "name": "family1/root_guard_temp",
+      "source_sha256": "a9f4c746c88ffdaec286c5c98c84a7c0073de7e9706a4ccad5053e03eeb23bbd",
+      "patch": "forms/family1/root_guard_temp.patch",
+      "helper_overlay": true,
+      "compiled": true,
+      "target_exact": false,
+      "gained": [],
+      "lost": []
+    },
+    {
+      "raw_residue": 156,
+      "residue": 81,
+      "residue_regs": 58,
+      "ours": 383,
+      "client": 373,
+      "body_hash": "eaa886074fe22d3ce936cb99e2bb8ccb43010b4c0864216302afd1a1361c129b",
+      "name": "family1/root_guard_named",
+      "source_sha256": "86574ba10b24cddf8d90169c339a54736725db9e5ce6f55979080d380a05ba88",
+      "patch": "forms/family1/root_guard_named.patch",
+      "helper_overlay": true,
+      "compiled": true,
+      "target_exact": false,
+      "gained": [],
+      "lost": []
+    },
+    {
+      "raw_residue": 156,
+      "residue": 81,
+      "residue_regs": 58,
+      "ours": 383,
+      "client": 373,
+      "body_hash": "eaa886074fe22d3ce936cb99e2bb8ccb43010b4c0864216302afd1a1361c129b",
+      "name": "family1/set_const_name_ref",
+      "source_sha256": "b3465f30508a9d321182b02d176e43a610f628318a5bd75c982dcd91a0c066ae",
+      "patch": "forms/family1/set_const_name_ref.patch",
+      "helper_overlay": false,
+      "compiled": true,
+      "target_exact": false,
+      "gained": [
+        [
+          "_$E119",
+          "0x5DCC80"
+        ],
+        [
+          "_$E122",
+          "0x5DCCB0"
+        ]
+      ],
+      "lost": [
+        [
+          "_$E118",
+          "0x5DCC80"
+        ],
+        [
+          "_$E121",
+          "0x5DCCB0"
+        ]
+      ]
+    },
+    {
+      "raw_residue": 133,
+      "residue": 64,
+      "residue_regs": 42,
+      "ours": 370,
+      "client": 373,
+      "body_hash": "568d9031b3e459a9f9511ac111c6745391781e8d1edc00828d2b841511ff9c7d",
+      "name": "family2/power_explicit",
+      "source_sha256": "a4d8a12e95f690d9c2182ec78da4c3a8bd2d74ea2eecf245c06ea8bdbbbcc92e",
+      "patch": "forms/family2/power_explicit.patch",
+      "helper_overlay": true,
+      "compiled": true,
+      "target_exact": false,
+      "gained": [
+        [
+          "?Unknown_Find_Field@@YAPAV?$DeltaTemplateClass@M@@PAVDeltaCompoundClass@@ABVNameClass@@@Z",
+          "0x546710"
+        ],
+        [
+          "?Unknown_Find_Field@@YAPAVDeltaInterpolatorClass@@PAVDeltaCompoundClass@@ABVNameClass@@@Z",
+          "0x5BF2B0"
+        ]
+      ],
+      "lost": []
+    },
+    {
+      "raw_residue": 136,
+      "residue": 67,
+      "residue_regs": 45,
+      "ours": 370,
+      "client": 373,
+      "body_hash": "df38488a95e06965ec0df36128c68b8ac22d53dd49f911769dcb437950ddeb7b",
+      "name": "family2/power_unsigned_above",
+      "source_sha256": "0a9fa3bf2c79c4cdcacc1bf5797e546a51978d4b749941b85496ec20efe870f6",
+      "patch": "forms/family2/power_unsigned_above.patch",
+      "helper_overlay": true,
+      "compiled": true,
+      "target_exact": false,
+      "gained": [
+        [
+          "?Unknown_Find_Field@@YAPAV?$DeltaTemplateClass@M@@PAVDeltaCompoundClass@@ABVNameClass@@@Z",
+          "0x546710"
+        ],
+        [
+          "?Unknown_Find_Field@@YAPAVDeltaInterpolatorClass@@PAVDeltaCompoundClass@@ABVNameClass@@@Z",
+          "0x5BF2B0"
+        ]
+      ],
+      "lost": []
+    },
+    {
+      "raw_residue": 133,
+      "residue": 64,
+      "residue_regs": 42,
+      "ours": 370,
+      "client": 373,
+      "body_hash": "568d9031b3e459a9f9511ac111c6745391781e8d1edc00828d2b841511ff9c7d",
+      "name": "family2/power_early_reject",
+      "source_sha256": "e144e2ef1b26111fed4ae4b990834de7cb1cdfa5bf9cb5d3935701efa169b61a",
+      "patch": "forms/family2/power_early_reject.patch",
+      "helper_overlay": true,
+      "compiled": true,
+      "target_exact": false,
+      "gained": [
+        [
+          "?Unknown_Find_Field@@YAPAV?$DeltaTemplateClass@M@@PAVDeltaCompoundClass@@ABVNameClass@@@Z",
+          "0x546710"
+        ],
+        [
+          "?Unknown_Find_Field@@YAPAVDeltaInterpolatorClass@@PAVDeltaCompoundClass@@ABVNameClass@@@Z",
+          "0x5BF2B0"
+        ]
+      ],
+      "lost": []
+    },
+    {
+      "raw_residue": 133,
+      "residue": 64,
+      "residue_regs": 42,
+      "ours": 370,
+      "client": 373,
+      "body_hash": "568d9031b3e459a9f9511ac111c6745391781e8d1edc00828d2b841511ff9c7d",
+      "name": "family2/power_ternary",
+      "source_sha256": "2d011b013ec32c0cd0aaa8fa02f261cb87ab80be832dcd82f7c31dcf073573bd",
+      "patch": "forms/family2/power_ternary.patch",
+      "helper_overlay": true,
+      "compiled": true,
+      "target_exact": false,
+      "gained": [
+        [
+          "?Unknown_Find_Field@@YAPAV?$DeltaTemplateClass@M@@PAVDeltaCompoundClass@@ABVNameClass@@@Z",
+          "0x546710"
+        ],
+        [
+          "?Unknown_Find_Field@@YAPAVDeltaInterpolatorClass@@PAVDeltaCompoundClass@@ABVNameClass@@@Z",
+          "0x5BF2B0"
+        ]
+      ],
+      "lost": []
+    },
+    {
+      "raw_residue": 130,
+      "residue": 60,
+      "residue_regs": 36,
+      "ours": 369,
+      "client": 373,
+      "body_hash": "cc49bbdab04cc63231fbcc669bfa06e05ee877f807d0a14261b6862950ea46c3",
+      "name": "family3/power_find_assign_condition",
+      "source_sha256": "385d2694b03a23cd33f326850f74a29f05677dc492cc15c28812038ae73b6c07",
+      "patch": "forms/family3/power_find_assign_condition.patch",
+      "helper_overlay": false,
+      "compiled": true,
+      "target_exact": false,
+      "gained": [
+        [
+          "?Unknown_Find_Field@@YAPAV?$DeltaTemplateClass@M@@PAVDeltaCompoundClass@@ABVNameClass@@@Z",
+          "0x546710"
+        ],
+        [
+          "?Unknown_Find_Field@@YAPAVDeltaInterpolatorClass@@PAVDeltaCompoundClass@@ABVNameClass@@@Z",
+          "0x5BF2B0"
+        ]
+      ],
+      "lost": []
+    },
+    {
+      "raw_residue": 130,
+      "residue": 60,
+      "residue_regs": 36,
+      "ours": 369,
+      "client": 373,
+      "body_hash": "cc49bbdab04cc63231fbcc669bfa06e05ee877f807d0a14261b6862950ea46c3",
+      "name": "family3/power_find_capture_conditional",
+      "source_sha256": "1a1230f2992b6f4dda6279da1c2c2bb0e977d1d3a65552ff1f68763d3ea4ac67",
+      "patch": "forms/family3/power_find_capture_conditional.patch",
+      "helper_overlay": false,
+      "compiled": true,
+      "target_exact": false,
+      "gained": [
+        [
+          "?Unknown_Find_Field@@YAPAV?$DeltaTemplateClass@M@@PAVDeltaCompoundClass@@ABVNameClass@@@Z",
+          "0x546710"
+        ],
+        [
+          "?Unknown_Find_Field@@YAPAVDeltaInterpolatorClass@@PAVDeltaCompoundClass@@ABVNameClass@@@Z",
+          "0x5BF2B0"
+        ]
+      ],
+      "lost": []
+    },
+    {
+      "raw_residue": 133,
+      "residue": 63,
+      "residue_regs": 39,
+      "ours": 369,
+      "client": 373,
+      "body_hash": "d6c33544f97623a7270922b64ec7b595645123147cf7ae6fd78dc3a4a15def6a",
+      "name": "family3/power_unsigned_above_assign_condition",
+      "source_sha256": "c4970a20f22ede076071a36e1a9a5e09c50f31c1d52ce1f25702f572a75cd37c",
+      "patch": "forms/family3/power_unsigned_above_assign_condition.patch",
+      "helper_overlay": true,
+      "compiled": true,
+      "target_exact": false,
+      "gained": [
+        [
+          "?Unknown_Find_Field@@YAPAV?$DeltaTemplateClass@M@@PAVDeltaCompoundClass@@ABVNameClass@@@Z",
+          "0x546710"
+        ],
+        [
+          "?Unknown_Find_Field@@YAPAVDeltaInterpolatorClass@@PAVDeltaCompoundClass@@ABVNameClass@@@Z",
+          "0x5BF2B0"
+        ]
+      ],
+      "lost": []
+    },
+    {
+      "raw_residue": 133,
+      "residue": 63,
+      "residue_regs": 39,
+      "ours": 369,
+      "client": 373,
+      "body_hash": "d6c33544f97623a7270922b64ec7b595645123147cf7ae6fd78dc3a4a15def6a",
+      "name": "family3/power_unsigned_above_capture_conditional",
+      "source_sha256": "a27d7079a3a9b92754a0c89b575b9a42d867d0235130f14b2dbaac565a16eff9",
+      "patch": "forms/family3/power_unsigned_above_capture_conditional.patch",
+      "helper_overlay": true,
+      "compiled": true,
+      "target_exact": false,
+      "gained": [
+        [
+          "?Unknown_Find_Field@@YAPAV?$DeltaTemplateClass@M@@PAVDeltaCompoundClass@@ABVNameClass@@@Z",
+          "0x546710"
+        ],
+        [
+          "?Unknown_Find_Field@@YAPAVDeltaInterpolatorClass@@PAVDeltaCompoundClass@@ABVNameClass@@@Z",
+          "0x5BF2B0"
+        ]
+      ],
+      "lost": []
+    },
+    {
+      "raw_residue": 126,
+      "residue": 56,
+      "residue_regs": 38,
+      "ours": 370,
+      "client": 373,
+      "body_hash": "e759bff57eb4fae432d3c0c75a32191d6487732da79e397271c88e43251c8804",
+      "name": "family4/shield",
+      "source_sha256": "a4e1612c0c30190a36fc508a267ac3088593efe7edeebdcaf3ef3f49facc08b8",
+      "patch": "forms/family4/shield.patch",
+      "helper_overlay": false,
+      "compiled": true,
+      "target_exact": false,
+      "gained": [
+        [
+          "?Unknown_Find_Field@@YAPAV?$DeltaTemplateClass@M@@PAVDeltaCompoundClass@@ABVNameClass@@@Z",
+          "0x546710"
+        ],
+        [
+          "?Unknown_Find_Field@@YAPAVDeltaInterpolatorClass@@PAVDeltaCompoundClass@@ABVNameClass@@@Z",
+          "0x5BF2B0"
+        ]
+      ],
+      "lost": []
+    },
+    {
+      "raw_residue": 21,
+      "residue": 20,
+      "residue_regs": 10,
+      "ours": 374,
+      "client": 373,
+      "body_hash": "ab6f04fc17e29b9aac64b4649deea4141685b75e931c8322f928d888227a683a",
+      "name": "family4/hull",
+      "source_sha256": "27a6d605565d730c2c82a3e287f8608caa99f2cad3c71cb38a47af8349cc2a04",
+      "patch": "forms/family4/hull.patch",
+      "helper_overlay": false,
+      "compiled": true,
+      "target_exact": false,
+      "gained": [
+        [
+          "?Unknown_Find_Field@@YAPAV?$DeltaTemplateClass@M@@PAVDeltaCompoundClass@@ABVNameClass@@@Z",
+          "0x546710"
+        ],
+        [
+          "?Unknown_Find_Field@@YAPAVDeltaInterpolatorClass@@PAVDeltaCompoundClass@@ABVNameClass@@@Z",
+          "0x5BF2B0"
+        ]
+      ],
+      "lost": []
+    },
+    {
+      "raw_residue": 9,
+      "residue": 9,
+      "residue_regs": 6,
+      "ours": 374,
+      "client": 373,
+      "body_hash": "16b2979efd894c0e944f3dfef26f5d062bd7cfd4588a0e547bf13286855726f0",
+      "name": "family4/later_all",
+      "source_sha256": "331cb1798d362667931170f85f69317b2fb56d0b3346dba370d3bda3c4a073ac",
+      "patch": "forms/family4/later_all.patch",
+      "helper_overlay": false,
+      "compiled": true,
+      "target_exact": false,
+      "gained": [
+        [
+          "?Unknown_Find_Field@@YAPAV?$DeltaTemplateClass@M@@PAVDeltaCompoundClass@@ABVNameClass@@@Z",
+          "0x546710"
+        ],
+        [
+          "?Unknown_Find_Field@@YAPAVDeltaInterpolatorClass@@PAVDeltaCompoundClass@@ABVNameClass@@@Z",
+          "0x5BF2B0"
+        ]
+      ],
+      "lost": []
+    },
+    {
+      "raw_residue": 122,
+      "residue": 50,
+      "residue_regs": 32,
+      "ours": 369,
+      "client": 373,
+      "body_hash": "08365c8da3cb5ddc709e85bac89dd7be1d2e1b57bcf1f966624d003057cbf07d",
+      "name": "family4/captured_shield",
+      "source_sha256": "738337c36b1df40b29452852f839595798e93d3bd18adab049a862fc6986f7e8",
+      "patch": "forms/family4/captured_shield.patch",
+      "helper_overlay": false,
+      "compiled": true,
+      "target_exact": false,
+      "gained": [
+        [
+          "?Unknown_Find_Field@@YAPAV?$DeltaTemplateClass@M@@PAVDeltaCompoundClass@@ABVNameClass@@@Z",
+          "0x546710"
+        ],
+        [
+          "?Unknown_Find_Field@@YAPAVDeltaInterpolatorClass@@PAVDeltaCompoundClass@@ABVNameClass@@@Z",
+          "0x5BF2B0"
+        ]
+      ],
+      "lost": []
+    },
+    {
+      "raw_residue": 14,
+      "residue": 13,
+      "residue_regs": 4,
+      "ours": 373,
+      "client": 373,
+      "body_hash": "20f42479058ee09f38f3000af1838bb824e3e2d4c1f0ab91a4633e7bc7f256bf",
+      "name": "family4/captured_hull",
+      "source_sha256": "0c28cac348ae32bf3558dd7079e47e5ccf0d7020975364fd37bafb315600e4c6",
+      "patch": "forms/family4/captured_hull.patch",
+      "helper_overlay": false,
+      "compiled": true,
+      "target_exact": false,
+      "gained": [
+        [
+          "?Unknown_Find_Field@@YAPAV?$DeltaTemplateClass@M@@PAVDeltaCompoundClass@@ABVNameClass@@@Z",
+          "0x546710"
+        ],
+        [
+          "?Unknown_Find_Field@@YAPAVDeltaInterpolatorClass@@PAVDeltaCompoundClass@@ABVNameClass@@@Z",
+          "0x5BF2B0"
+        ]
+      ],
+      "lost": []
+    },
+    {
+      "raw_residue": 0,
+      "residue": 0,
+      "residue_regs": 0,
+      "ours": 373,
+      "client": 373,
+      "body_hash": "f74a1850e08eb0e25b0d5192516a85d4ad56d93a25ee6e0c234a98fe84f0b7a3",
+      "name": "family4/captured_later_all",
+      "source_sha256": "721349318435f6ae87f517e5b270b3a58c1ffbf7271df9e215da89289a710f39",
+      "patch": "forms/family4/captured_later_all.patch",
+      "helper_overlay": false,
+      "compiled": true,
+      "target_exact": true,
+      "gained": [
+        [
+          "?Unknown_10@UIPowerClass@@UAEXXZ",
+          "0x5DC4A0"
+        ],
+        [
+          "?Unknown_Find_Field@@YAPAV?$DeltaTemplateClass@M@@PAVDeltaCompoundClass@@ABVNameClass@@@Z",
+          "0x546710"
+        ],
+        [
+          "?Unknown_Find_Field@@YAPAVDeltaInterpolatorClass@@PAVDeltaCompoundClass@@ABVNameClass@@@Z",
+          "0x5BF2B0"
+        ]
+      ],
+      "lost": []
+    }
+  ],
+  "new_bodies_excluding_baseline": 11
+}

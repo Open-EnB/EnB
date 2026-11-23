@@ -1,0 +1,25 @@
+from pathlib import Path
+import hashlib,json,re,subprocess,sys
+H=Path(__file__).parent
+plan=json.loads((H/'forms.json').read_text())
+base=subprocess.check_output(['git','show',plan['base_commit']+':'+plan['unit']],cwd='/home/dev/Projects/EnB')
+assert hashlib.sha256(base).hexdigest()==plan['baseline_source_sha256']
+def apply(text,patch):
+    source=text.splitlines(True);result=[];position=0;hunk=False
+    for line in patch.splitlines(True):
+        if line.startswith('@@ '):
+            at=int(re.match(r'@@ -(\d+)',line).group(1))-1
+            result+=source[position:at];position=at;hunk=True
+        elif not hunk:continue
+        elif line[0]==' ':
+            assert source[position]==line[1:];result.append(source[position]);position+=1
+        elif line[0]=='-':assert source[position]==line[1:];position+=1
+        elif line[0]=='+':result.append(line[1:])
+        else:raise ValueError(line)
+    return ''.join(result+source[position:]).encode()
+out=Path(sys.argv[1])
+for form in plan['forms']:
+    value=apply(base.decode(),(H/form['patch']).read_text())
+    assert hashlib.sha256(value).hexdigest()==form['source_sha256'],form['name']
+    p=out/form['name']/'ui_power.cpp';p.parent.mkdir(parents=True,exist_ok=True);p.write_bytes(value)
+print('Replayed and SHA-checked '+str(len(plan['forms']))+' forms from '+plan['base_commit'])

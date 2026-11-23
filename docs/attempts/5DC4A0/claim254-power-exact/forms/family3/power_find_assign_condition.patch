@@ -1,0 +1,22 @@
+--- a/app/client/ui_power.cpp
++++ b/app/client/ui_power.cpp
+@@ -109,7 +109,7 @@
+ 		float value = percent ? percent->Get_Value(time) : 0.0f;
+ 		EnergyGauge->Set_Value(value);
+ 		if (EnergyGauge->Is_Unknown2C_08()) {
+-			DeltaTemplateClass<float> *field = Unknown_Find_Set_Field<DeltaTemplateClass<float> >(aux, NameClass("MaxEnergyPower"));
++			DeltaTemplateClass<float> *field = Unknown_Power_Find<DeltaTemplateClass<float> >(aux, "MaxEnergyPower");
+ 			float max = field ? field->Value : 0.0;
+ 			float cur = max * value;
+ 			if (cur < 0.0f) {
+@@ -126,8 +126,8 @@
+ 		ShieldGauge->Set_Value(value);
+ 		if (ShieldGauge->Is_Unknown2C_08()) {
+ 			DeltaTemplateClass<float> *field = Unknown_Find_Set_Field<DeltaTemplateClass<float> >(aux, NameClass("MaxShieldPower"));
+-			if (field && field->Value > 0.0f) {
+-				float max = field->Value;
++			float max; if (field && (max = field->Value) > 0.0f) {
++
+ 				float cur = max * value;
+ 				if (cur < 0.0f) {
+ 					cur = 0.0f;

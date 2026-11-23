@@ -1,0 +1,1406 @@
+{
+  "status": "exact; full target audited",
+  "base_commit": "51c7769c",
+  "model": "gpt-6.1-sol (high)",
+  "source_sha256": "721349318435f6ae87f517e5b270b3a58c1ffbf7271df9e215da89289a710f39",
+  "baseline_source_sha256": "91d6dcfd493991b4b77e612d6321a8f62f2a033ce7e617bea0bb447535d861b5",
+  "retail_sha256": "249f852496f341c00361be95b66e7c0becc2c39e7cba026f9227e38b602651c4",
+  "object_sha256": "c9f47eb5ac851bc76022fd1a1f644efbedd92349992388dec3349e7b37f90f01",
+  "baseline_pairs": 47,
+  "candidate_pairs": 50,
+  "gained": [
+    [
+      "?Unknown_10@UIPowerClass@@UAEXXZ",
+      "0x5DC4A0"
+    ],
+    [
+      "?Unknown_Find_Field@@YAPAV?$DeltaTemplateClass@M@@PAVDeltaCompoundClass@@ABVNameClass@@@Z",
+      "0x546710"
+    ],
+    [
+      "?Unknown_Find_Field@@YAPAVDeltaInterpolatorClass@@PAVDeltaCompoundClass@@ABVNameClass@@@Z",
+      "0x5BF2B0"
+    ]
+  ],
+  "lost": [],
+  "source_outside_target_identical": true,
+  "physical_lines_and_asserts_identical": true,
+  "helper_overlay": null,
+  "outside_target_unchanged_functions": [
+    "??0GenericNode@@QAE@XZ",
+    "??0UIPowerClass@@QAE@PAVRenderObjClass@@PAVLayerClass@@PAVInterfaceClass@@H@Z",
+    "??0UIPowerGaugeClass@@QAE@PAVRenderObjClass@@PBD1@Z",
+    "??1?$DataNode@PAVUnknownAF0DD0Class@@@@UAE@XZ",
+    "??1UIPowerClass@@UAE@XZ",
+    "??1UIPowerGaugeClass@@UAE@XZ",
+    "??1UnknownAF0DD0Class@@UAE@XZ",
+    "??1UnknownObjectWatchClass@@UAE@XZ",
+    "??_G?$DataNode@PAVUnknownAF0DD0Class@@@@UAEPAXI@Z",
+    "??_GGenericNode@@UAEPAXI@Z",
+    "??_GUIPowerClass@@UAEPAXI@Z",
+    "??_GUIPowerGaugeClass@@UAEPAXI@Z",
+    "??_GUnknownAF0DD0Class@@UAEPAXI@Z",
+    "??_H@YGXPAXIHP6EX0@Z@Z",
+    "?As_RObjGadget@RObjGadgetClass@@UAEPAV1@XZ",
+    "?As_RObjProxyGadget@GadgetClass@@UAEPAVRObjProxyGadgetClass@@XZ",
+    "?As_SlotDataGadget@GadgetClass@@UAEPAVSlotDataGadgetClass@@XZ",
+    "?As_UIScutProxyGadget@GadgetClass@@UAEPAVUIScutProxyGadgetClass@@XZ",
+    "?Cast@?$UnknownRTTIClass@V?$DeltaTemplateClass@M@@@@SAPAV?$DeltaTemplateClass@M@@PAVDeltaClass@@@Z",
+    "?Get_Id@GadgetClass@@UAEHXZ",
+    "?Get_Owner@GadgetClass@@UAEPAV1@XZ",
+    "?Is_Enabled@GadgetClass@@UAE_NXZ",
+    "?Set_Owner@GadgetClass@@UAEXPAV1@@Z",
+    "?Set_Value@UIPowerGaugeClass@@UAE_NM@Z",
+    "?Unknown_04@UnknownObjectWatchClass@@UAEXH@Z",
+    "?Unknown_08@UIPowerClass@@UAEXPAVClientObjectClass@@@Z",
+    "?Unknown_18@GadgetClass@@UAEPAV1@XZ",
+    "?Unknown_1C@GadgetClass@@UAEPAV1@XZ",
+    "?Unknown_20@GadgetClass@@UAEXH@Z",
+    "?Unknown_38@GadgetClass@@UAEHXZ",
+    "?Unknown_3C@GadgetClass@@UAEHH@Z",
+    "?Unknown_44@GadgetClass@@UAEXIPAUKernelEventClass@@PAV1@@Z",
+    "?Unknown_50@GadgetClass@@UAEXXZ",
+    "?Unknown_5DC390@UIPowerClass@@QAEXXZ",
+    "?Unknown_5DCAE0@UIPowerClass@@QAEXXZ",
+    "?Unknown_74@Unknown_675120Class@@UAEXXZ",
+    "?Unknown_78@Unknown_675120Class@@UAEXXZ",
+    "?Unknown_7C@RObjGadgetClass@@UAEXH@Z",
+    "?Unknown_80@RObjGadgetClass@@UAEXH@Z",
+    "?Unknown_84@RObjGadgetClass@@UAEXH@Z",
+    "?Unknown_88@RObjGadgetClass@@UAE_NXZ",
+    "?Unknown_Find_Field@@YAPAVDeltaInterpolatorClass@@PAVDeltaCompoundClass@@ABVNameClass@@@Z",
+    "?Unknown_Watch_0C@UIPowerClass@@UAEXXZ",
+    "?id@?$ctype@G@std@@$E",
+    "_$E101",
+    "_$E118",
+    "_$E121",
+    "_$E99"
+  ],
+  "outside_target_changed_functions": [],
+  "new_functions": [
+    "?Unknown_Find_Field@@YAPAV?$DeltaTemplateClass@M@@PAVDeltaCompoundClass@@ABVNameClass@@@Z"
+  ],
+  "changed_helper_explanation": "Unchanged DeltaInterpolator Find resolves from ambiguous multiple to exact 0x5BF2B0 when the new float Find exact 0x546710 is emitted; full-unit native matching proves both. No source outside target changed.",
+  "target_bounds": [
+    "0x5dc4a0",
+    "0x5dc998 exclusive"
+  ],
+  "body_bytes": 1272,
+  "instructions": 373,
+  "reachable_instructions": 373,
+  "returns": [
+    "0x5dc997"
+  ],
+  "masked_body_equal": true,
+  "masked_body_sha256": "352dbe420aea7f3a9a7952d239edddfef6d50afd18f68caaf5ee160ed2157141",
+  "raw_normalized_residue": 0,
+  "masked_residue": 0,
+  "register_masked_residue": 0,
+  "branches": [
+    {
+      "offset": "0xd",
+      "mnemonic": "je",
+      "destination": "0x4f1",
+      "width": 6
+    },
+    {
+      "offset": "0x36",
+      "mnemonic": "je",
+      "destination": "0x18a",
+      "width": 6
+    },
+    {
+      "offset": "0x5c",
+      "mnemonic": "je",
+      "destination": "0xd3",
+      "width": 2
+    },
+    {
+      "offset": "0x63",
+      "mnemonic": "je",
+      "destination": "0xd3",
+      "width": 2
+    },
+    {
+      "offset": "0x71",
+      "mnemonic": "jg",
+      "destination": "0x97",
+      "width": 2
+    },
+    {
+      "offset": "0x73",
+      "mnemonic": "jl",
+      "destination": "0x83",
+      "width": 2
+    },
+    {
+      "offset": "0x81",
+      "mnemonic": "jae",
+      "destination": "0x97",
+      "width": 2
+    },
+    {
+      "offset": "0x9f",
+      "mnemonic": "jne",
+      "destination": "0xcb",
+      "width": 2
+    },
+    {
+      "offset": "0xad",
+      "mnemonic": "jne",
+      "destination": "0xbd",
+      "width": 2
+    },
+    {
+      "offset": "0xbb",
+      "mnemonic": "je",
+      "destination": "0xcb",
+      "width": 2
+    },
+    {
+      "offset": "0xc9",
+      "mnemonic": "jmp",
+      "destination": "0xd9",
+      "width": 2
+    },
+    {
+      "offset": "0xd1",
+      "mnemonic": "jmp",
+      "destination": "0xd9",
+      "width": 2
+    },
+    {
+      "offset": "0xf9",
+      "mnemonic": "je",
+      "destination": "0x18a",
+      "width": 6
+    },
+    {
+      "offset": "0x11d",
+      "mnemonic": "je",
+      "destination": "0x12e",
+      "width": 2
+    },
+    {
+      "offset": "0x124",
+      "mnemonic": "je",
+      "destination": "0x12e",
+      "width": 2
+    },
+    {
+      "offset": "0x12c",
+      "mnemonic": "jmp",
+      "destination": "0x134",
+      "width": 2
+    },
+    {
+      "offset": "0x147",
+      "mnemonic": "je",
+      "destination": "0x153",
+      "width": 2
+    },
+    {
+      "offset": "0x151",
+      "mnemonic": "jmp",
+      "destination": "0x164",
+      "width": 2
+    },
+    {
+      "offset": "0x15c",
+      "mnemonic": "jne",
+      "destination": "0x164",
+      "width": 2
+    },
+    {
+      "offset": "0x192",
+      "mnemonic": "je",
+      "destination": "0x2be",
+      "width": 6
+    },
+    {
+      "offset": "0x1b8",
+      "mnemonic": "je",
+      "destination": "0x22f",
+      "width": 2
+    },
+    {
+      "offset": "0x1bf",
+      "mnemonic": "je",
+      "destination": "0x22f",
+      "width": 2
+    },
+    {
+      "offset": "0x1cd",
+      "mnemonic": "jg",
+      "destination": "0x1f3",
+      "width": 2
+    },
+    {
+      "offset": "0x1cf",
+      "mnemonic": "jl",
+      "destination": "0x1df",
+      "width": 2
+    },
+    {
+      "offset": "0x1dd",
+      "mnemonic": "jae",
+      "destination": "0x1f3",
+      "width": 2
+    },
+    {
+      "offset": "0x1fb",
+      "mnemonic": "jne",
+      "destination": "0x227",
+      "width": 2
+    },
+    {
+      "offset": "0x209",
+      "mnemonic": "jne",
+      "destination": "0x219",
+      "width": 2
+    },
+    {
+      "offset": "0x217",
+      "mnemonic": "je",
+      "destination": "0x227",
+      "width": 2
+    },
+    {
+      "offset": "0x225",
+      "mnemonic": "jmp",
+      "destination": "0x235",
+      "width": 2
+    },
+    {
+      "offset": "0x22d",
+      "mnemonic": "jmp",
+      "destination": "0x235",
+      "width": 2
+    },
+    {
+      "offset": "0x255",
+      "mnemonic": "je",
+      "destination": "0x2be",
+      "width": 2
+    },
+    {
+      "offset": "0x267",
+      "mnemonic": "je",
+      "destination": "0x2a8",
+      "width": 2
+    },
+    {
+      "offset": "0x27e",
+      "mnemonic": "je",
+      "destination": "0x2a8",
+      "width": 2
+    },
+    {
+      "offset": "0x28b",
+      "mnemonic": "jne",
+      "destination": "0x32a",
+      "width": 6
+    },
+    {
+      "offset": "0x2c6",
+      "mnemonic": "je",
+      "destination": "0x4f1",
+      "width": 6
+    },
+    {
+      "offset": "0x2dc",
+      "mnemonic": "je",
+      "destination": "0x3ba",
+      "width": 6
+    },
+    {
+      "offset": "0x2f7",
+      "mnemonic": "je",
+      "destination": "0x3ba",
+      "width": 6
+    },
+    {
+      "offset": "0x308",
+      "mnemonic": "jne",
+      "destination": "0x3af",
+      "width": 6
+    },
+    {
+      "offset": "0x325",
+      "mnemonic": "jmp",
+      "destination": "0x3ba",
+      "width": 5
+    },
+    {
+      "offset": "0x32f",
+      "mnemonic": "je",
+      "destination": "0x2a8",
+      "width": 6
+    },
+    {
+      "offset": "0x34e",
+      "mnemonic": "jne",
+      "destination": "0x2a8",
+      "width": 6
+    },
+    {
+      "offset": "0x367",
+      "mnemonic": "je",
+      "destination": "0x373",
+      "width": 2
+    },
+    {
+      "offset": "0x371",
+      "mnemonic": "jmp",
+      "destination": "0x384",
+      "width": 2
+    },
+    {
+      "offset": "0x37c",
+      "mnemonic": "jne",
+      "destination": "0x384",
+      "width": 2
+    },
+    {
+      "offset": "0x3aa",
+      "mnemonic": "jmp",
+      "destination": "0x2be",
+      "width": 5
+    },
+    {
+      "offset": "0x3b4",
+      "mnemonic": "je",
+      "destination": "0x3ba",
+      "width": 2
+    },
+    {
+      "offset": "0x3b8",
+      "mnemonic": "jmp",
+      "destination": "0x3bc",
+      "width": 2
+    },
+    {
+      "offset": "0x3cc",
+      "mnemonic": "je",
+      "destination": "0x412",
+      "width": 2
+    },
+    {
+      "offset": "0x3e3",
+      "mnemonic": "je",
+      "destination": "0x412",
+      "width": 2
+    },
+    {
+      "offset": "0x3f0",
+      "mnemonic": "jne",
+      "destination": "0x40b",
+      "width": 2
+    },
+    {
+      "offset": "0x409",
+      "mnemonic": "jmp",
+      "destination": "0x412",
+      "width": 2
+    },
+    {
+      "offset": "0x410",
+      "mnemonic": "jne",
+      "destination": "0x414",
+      "width": 2
+    },
+    {
+      "offset": "0x416",
+      "mnemonic": "je",
+      "destination": "0x424",
+      "width": 2
+    },
+    {
+      "offset": "0x422",
+      "mnemonic": "jmp",
+      "destination": "0x42c",
+      "width": 2
+    },
+    {
+      "offset": "0x42e",
+      "mnemonic": "je",
+      "destination": "0x43c",
+      "width": 2
+    },
+    {
+      "offset": "0x43a",
+      "mnemonic": "jmp",
+      "destination": "0x444",
+      "width": 2
+    },
+    {
+      "offset": "0x453",
+      "mnemonic": "je",
+      "destination": "0x474",
+      "width": 2
+    },
+    {
+      "offset": "0x472",
+      "mnemonic": "jmp",
+      "destination": "0x4bd",
+      "width": 2
+    },
+    {
+      "offset": "0x483",
+      "mnemonic": "je",
+      "destination": "0x48f",
+      "width": 2
+    },
+    {
+      "offset": "0x48d",
+      "mnemonic": "jmp",
+      "destination": "0x4a6",
+      "width": 2
+    },
+    {
+      "offset": "0x49c",
+      "mnemonic": "jne",
+      "destination": "0x4a6",
+      "width": 2
+    },
+    {
+      "offset": "0x4c8",
+      "mnemonic": "je",
+      "destination": "0x4f1",
+      "width": 2
+    }
+  ],
+  "calls": [
+    {
+      "offset": "0x45",
+      "symbol": "??0NameClass@@QAE@PBD@Z",
+      "destination": "0x4ad380",
+      "resolved": true
+    },
+    {
+      "offset": "0x50",
+      "symbol": "?Unknown_Find_Field@@YAPAVDeltaInterpolatorClass@@PAVDeltaCompoundClass@@ABVNameClass@@@Z",
+      "destination": "0x5bf2b0",
+      "resolved": true
+    },
+    {
+      "offset": "0x8f",
+      "symbol": "?G_Assert_Report@@YAXPBD0H@Z",
+      "destination": "0x4e9410",
+      "resolved": true
+    },
+    {
+      "offset": "0xc4",
+      "symbol": "?Update@DeltaInterpolatorClass@@QAEMABVDurationClass@@@Z",
+      "destination": "0x4a6380",
+      "resolved": true
+    },
+    {
+      "offset": "0xe7",
+      "indirect": "dword ptr [eax + 0xa4]",
+      "resolved": true
+    },
+    {
+      "offset": "0x108",
+      "symbol": "??0NameClass@@QAE@PBD@Z",
+      "destination": "0x4ad380",
+      "resolved": true
+    },
+    {
+      "offset": "0x113",
+      "symbol": "?Unknown_Find_Field@@YAPAV?$DeltaTemplateClass@M@@PAVDeltaCompoundClass@@ABVNameClass@@@Z",
+      "destination": "0x546710",
+      "resolved": true
+    },
+    {
+      "offset": "0x168",
+      "symbol": "__ftol",
+      "destination": "0xa264ec",
+      "resolved": true
+    },
+    {
+      "offset": "0x16e",
+      "symbol": "__ftol",
+      "destination": "0xa264ec",
+      "resolved": true
+    },
+    {
+      "offset": "0x182",
+      "symbol": "?Set_Tooltip@GadgetClass@@SAXPAV1@PBD1ZZ",
+      "destination": "0x65efb0",
+      "resolved": true
+    },
+    {
+      "offset": "0x1a1",
+      "symbol": "??0NameClass@@QAE@PBD@Z",
+      "destination": "0x4ad380",
+      "resolved": true
+    },
+    {
+      "offset": "0x1ac",
+      "symbol": "?Unknown_Find_Field@@YAPAVDeltaInterpolatorClass@@PAVDeltaCompoundClass@@ABVNameClass@@@Z",
+      "destination": "0x5bf2b0",
+      "resolved": true
+    },
+    {
+      "offset": "0x1eb",
+      "symbol": "?G_Assert_Report@@YAXPBD0H@Z",
+      "destination": "0x4e9410",
+      "resolved": true
+    },
+    {
+      "offset": "0x220",
+      "symbol": "?Update@DeltaInterpolatorClass@@QAEMABVDurationClass@@@Z",
+      "destination": "0x4a6380",
+      "resolved": true
+    },
+    {
+      "offset": "0x243",
+      "indirect": "dword ptr [edx + 0xa4]",
+      "resolved": true
+    },
+    {
+      "offset": "0x260",
+      "symbol": "??0NameClass@@QAE@PBD@Z",
+      "destination": "0x4ad380",
+      "resolved": true
+    },
+    {
+      "offset": "0x26b",
+      "symbol": "?Get_Lookup@DeltaCompoundClass@@QAEPAVLookupClass@@XZ",
+      "destination": "0x4a5510",
+      "resolved": true
+    },
+    {
+      "offset": "0x277",
+      "symbol": "?Find@LookupClass@@QAEPAVDeltaClass@@ABVNameClass@@@Z",
+      "destination": "0x4ac9f0",
+      "resolved": true
+    },
+    {
+      "offset": "0x281",
+      "symbol": "?Cast@?$UnknownRTTIClass@V?$DeltaTemplateClass@M@@@@SAPAV?$DeltaTemplateClass@M@@PAVDeltaClass@@@Z",
+      "destination": "0x546970",
+      "resolved": true
+    },
+    {
+      "offset": "0x2a0",
+      "symbol": "?G_Assert_Report@@YAXPBD0H@Z",
+      "destination": "0x4e9410",
+      "resolved": true
+    },
+    {
+      "offset": "0x2b6",
+      "symbol": "?Set_Tooltip@GadgetClass@@SAXPAV1@PBD1ZZ",
+      "destination": "0x65efb0",
+      "resolved": true
+    },
+    {
+      "offset": "0x2d5",
+      "symbol": "??0NameClass@@QAE@PBD@Z",
+      "destination": "0x4ad380",
+      "resolved": true
+    },
+    {
+      "offset": "0x2e4",
+      "symbol": "?Get_Lookup@DeltaCompoundClass@@QAEPAVLookupClass@@XZ",
+      "destination": "0x4a5510",
+      "resolved": true
+    },
+    {
+      "offset": "0x2f0",
+      "symbol": "?Find@LookupClass@@QAEPAVDeltaClass@@ABVNameClass@@@Z",
+      "destination": "0x4ac9f0",
+      "resolved": true
+    },
+    {
+      "offset": "0x2fe",
+      "symbol": "?Cast@?$UnknownRTTIClass@V?$DeltaTemplateClass@M@@@@SAPAV?$DeltaTemplateClass@M@@PAVDeltaClass@@@Z",
+      "destination": "0x546970",
+      "resolved": true
+    },
+    {
+      "offset": "0x31d",
+      "symbol": "?G_Assert_Report@@YAXPBD0H@Z",
+      "destination": "0x4e9410",
+      "resolved": true
+    },
+    {
+      "offset": "0x388",
+      "symbol": "__ftol",
+      "destination": "0xa264ec",
+      "resolved": true
+    },
+    {
+      "offset": "0x38e",
+      "symbol": "__ftol",
+      "destination": "0xa264ec",
+      "resolved": true
+    },
+    {
+      "offset": "0x3a2",
+      "symbol": "?Set_Tooltip@GadgetClass@@SAXPAV1@PBD1ZZ",
+      "destination": "0x65efb0",
+      "resolved": true
+    },
+    {
+      "offset": "0x3c5",
+      "symbol": "??0NameClass@@QAE@PBD@Z",
+      "destination": "0x4ad380",
+      "resolved": true
+    },
+    {
+      "offset": "0x3d0",
+      "symbol": "?Get_Lookup@DeltaCompoundClass@@QAEPAVLookupClass@@XZ",
+      "destination": "0x4a5510",
+      "resolved": true
+    },
+    {
+      "offset": "0x3dc",
+      "symbol": "?Find@LookupClass@@QAEPAVDeltaClass@@ABVNameClass@@@Z",
+      "destination": "0x4ac9f0",
+      "resolved": true
+    },
+    {
+      "offset": "0x3e6",
+      "symbol": "?Cast@?$UnknownRTTIClass@V?$DeltaTemplateClass@M@@@@SAPAV?$DeltaTemplateClass@M@@PAVDeltaClass@@@Z",
+      "destination": "0x546970",
+      "resolved": true
+    },
+    {
+      "offset": "0x401",
+      "symbol": "?G_Assert_Report@@YAXPBD0H@Z",
+      "destination": "0x4e9410",
+      "resolved": true
+    },
+    {
+      "offset": "0x46c",
+      "indirect": "dword ptr [eax + 0xa4]",
+      "resolved": true
+    },
+    {
+      "offset": "0x4b7",
+      "indirect": "dword ptr [edx + 0xa4]",
+      "resolved": true
+    },
+    {
+      "offset": "0x4ce",
+      "symbol": "__ftol",
+      "destination": "0xa264ec",
+      "resolved": true
+    },
+    {
+      "offset": "0x4d8",
+      "symbol": "__ftol",
+      "destination": "0xa264ec",
+      "resolved": true
+    },
+    {
+      "offset": "0x4e9",
+      "symbol": "?Set_Tooltip@GadgetClass@@SAXPAV1@PBD1ZZ",
+      "destination": "0x65efb0",
+      "resolved": true
+    }
+  ],
+  "data_relocations": [
+    {
+      "offset": "0x3d",
+      "symbol": "??_C@_0O@NKCE@EnergyPercent?$AA@",
+      "destination": "0xb84aa4",
+      "kind": "equal string bytes",
+      "value": "EnergyPercent"
+    },
+    {
+      "offset": "0x86",
+      "symbol": "??_C@_0GN@JCON@Z?3?2home?2dev?2Projects?2EnB?2?4work?2c@",
+      "destination": "0xb82250",
+      "kind": "__FILE__ basename equal; scratch prefix differs",
+      "basename": "delta_interpolator.h"
+    },
+    {
+      "offset": "0x8b",
+      "symbol": "??_C@_0BB@CPKF@time?5?$DO?$DN?5LastTime?$AA@",
+      "destination": "0xb731c4",
+      "kind": "equal string bytes",
+      "value": "time >= LastTime"
+    },
+    {
+      "offset": "0xd5",
+      "symbol": "__real@4@00000000000000000000",
+      "destination": "0xae7244",
+      "kind": "equal floating constant bits",
+      "width": 4,
+      "bits": "00000000"
+    },
+    {
+      "offset": "0x100",
+      "symbol": "??_C@_0P@JKEO@MaxEnergyPower?$AA@",
+      "destination": "0xb84a90",
+      "kind": "equal string bytes",
+      "value": "MaxEnergyPower"
+    },
+    {
+      "offset": "0x130",
+      "symbol": "__real@8@00000000000000000000",
+      "destination": "0xaf5d88",
+      "kind": "equal floating constant bits",
+      "width": 8,
+      "bits": "0000000000000000"
+    },
+    {
+      "offset": "0x13e",
+      "symbol": "__real@4@00000000000000000000",
+      "destination": "0xae7244",
+      "kind": "equal floating constant bits",
+      "width": 4,
+      "bits": "00000000"
+    },
+    {
+      "offset": "0x14d",
+      "symbol": "__real@4@00000000000000000000",
+      "destination": "0xae7244",
+      "kind": "equal floating constant bits",
+      "width": 4,
+      "bits": "00000000"
+    },
+    {
+      "offset": "0x178",
+      "symbol": "??_C@_06LOJF@ENERGY?$AA@",
+      "destination": "0xb72904",
+      "kind": "equal string bytes",
+      "value": "ENERGY"
+    },
+    {
+      "offset": "0x17d",
+      "symbol": "??_C@_08EDNC@UI_POWER?$AA@",
+      "destination": "0xb84a1c",
+      "kind": "equal string bytes",
+      "value": "UI_POWER"
+    },
+    {
+      "offset": "0x199",
+      "symbol": "??_C@_0O@BFFD@ShieldPercent?$AA@",
+      "destination": "0xb82280",
+      "kind": "equal string bytes",
+      "value": "ShieldPercent"
+    },
+    {
+      "offset": "0x1e2",
+      "symbol": "??_C@_0GN@JCON@Z?3?2home?2dev?2Projects?2EnB?2?4work?2c@",
+      "destination": "0xb82250",
+      "kind": "__FILE__ basename equal; scratch prefix differs",
+      "basename": "delta_interpolator.h"
+    },
+    {
+      "offset": "0x1e7",
+      "symbol": "??_C@_0BB@CPKF@time?5?$DO?$DN?5LastTime?$AA@",
+      "destination": "0xb731c4",
+      "kind": "equal string bytes",
+      "value": "time >= LastTime"
+    },
+    {
+      "offset": "0x231",
+      "symbol": "__real@4@00000000000000000000",
+      "destination": "0xae7244",
+      "kind": "equal floating constant bits",
+      "width": 4,
+      "bits": "00000000"
+    },
+    {
+      "offset": "0x258",
+      "symbol": "??_C@_0P@DPGO@MaxShieldPower?$AA@",
+      "destination": "0xb82220",
+      "kind": "equal string bytes",
+      "value": "MaxShieldPower"
+    },
+    {
+      "offset": "0x297",
+      "symbol": "??_C@_0GC@KLPN@Z?3?2home?2dev?2Projects?2EnB?2?4work?2c@",
+      "destination": "0xb767dc",
+      "kind": "__FILE__ basename equal; scratch prefix differs",
+      "basename": "auxdata.h"
+    },
+    {
+      "offset": "0x29c",
+      "symbol": "??_C@_01PEAM@t?$AA@",
+      "destination": "0xb767d8",
+      "kind": "equal string bytes",
+      "value": "t"
+    },
+    {
+      "offset": "0x2ac",
+      "symbol": "??_C@_0L@LJEN@NO_SHIELDS?$AA@",
+      "destination": "0xb84a60",
+      "kind": "equal string bytes",
+      "value": "NO_SHIELDS"
+    },
+    {
+      "offset": "0x2b1",
+      "symbol": "??_C@_08EDNC@UI_POWER?$AA@",
+      "destination": "0xb84a1c",
+      "kind": "equal string bytes",
+      "value": "UI_POWER"
+    },
+    {
+      "offset": "0x2cd",
+      "symbol": "??_C@_0O@PGCH@MaxHullPoints?$AA@",
+      "destination": "0xb84a80",
+      "kind": "equal string bytes",
+      "value": "MaxHullPoints"
+    },
+    {
+      "offset": "0x314",
+      "symbol": "??_C@_0GC@KLPN@Z?3?2home?2dev?2Projects?2EnB?2?4work?2c@",
+      "destination": "0xb767dc",
+      "kind": "__FILE__ basename equal; scratch prefix differs",
+      "basename": "auxdata.h"
+    },
+    {
+      "offset": "0x319",
+      "symbol": "??_C@_01PEAM@t?$AA@",
+      "destination": "0xb767d8",
+      "kind": "equal string bytes",
+      "value": "t"
+    },
+    {
+      "offset": "0x345",
+      "symbol": "__real@4@00000000000000000000",
+      "destination": "0xae7244",
+      "kind": "equal floating constant bits",
+      "width": 4,
+      "bits": "00000000"
+    },
+    {
+      "offset": "0x35e",
+      "symbol": "__real@4@00000000000000000000",
+      "destination": "0xae7244",
+      "kind": "equal floating constant bits",
+      "width": 4,
+      "bits": "00000000"
+    },
+    {
+      "offset": "0x36d",
+      "symbol": "__real@4@00000000000000000000",
+      "destination": "0xae7244",
+      "kind": "equal floating constant bits",
+      "width": 4,
+      "bits": "00000000"
+    },
+    {
+      "offset": "0x398",
+      "symbol": "??_C@_07OIAD@SHIELDS?$AA@",
+      "destination": "0xb849f8",
+      "kind": "equal string bytes",
+      "value": "SHIELDS"
+    },
+    {
+      "offset": "0x39d",
+      "symbol": "??_C@_08EDNC@UI_POWER?$AA@",
+      "destination": "0xb84a1c",
+      "kind": "equal string bytes",
+      "value": "UI_POWER"
+    },
+    {
+      "offset": "0x3bd",
+      "symbol": "??_C@_0L@JGHK@HullPoints?$AA@",
+      "destination": "0xb84a70",
+      "kind": "equal string bytes",
+      "value": "HullPoints"
+    },
+    {
+      "offset": "0x3f8",
+      "symbol": "??_C@_0GC@KLPN@Z?3?2home?2dev?2Projects?2EnB?2?4work?2c@",
+      "destination": "0xb767dc",
+      "kind": "__FILE__ basename equal; scratch prefix differs",
+      "basename": "auxdata.h"
+    },
+    {
+      "offset": "0x3fd",
+      "symbol": "??_C@_01PEAM@t?$AA@",
+      "destination": "0xb767d8",
+      "kind": "equal string bytes",
+      "value": "t"
+    },
+    {
+      "offset": "0x44a",
+      "symbol": "__real@4@3fff8000000000000000",
+      "destination": "0xae7240",
+      "kind": "equal floating constant bits",
+      "width": 4,
+      "bits": "0000803f"
+    },
+    {
+      "offset": "0x47a",
+      "symbol": "__real@4@00000000000000000000",
+      "destination": "0xae7244",
+      "kind": "equal floating constant bits",
+      "width": 4,
+      "bits": "00000000"
+    },
+    {
+      "offset": "0x4df",
+      "symbol": "??_C@_04NOOG@HULL?$AA@",
+      "destination": "0xb849e0",
+      "kind": "equal string bytes",
+      "value": "HULL"
+    },
+    {
+      "offset": "0x4e4",
+      "symbol": "??_C@_08EDNC@UI_POWER?$AA@",
+      "destination": "0xb84a1c",
+      "kind": "equal string bytes",
+      "value": "UI_POWER"
+    }
+  ],
+  "x87": [
+    {
+      "offset": "0xcb",
+      "instruction": "fld dword ptr [esi + 0x248]",
+      "widths": [
+        4
+      ]
+    },
+    {
+      "offset": "0xd3",
+      "instruction": "fld dword ptr [0xae7244]",
+      "widths": [
+        4
+      ]
+    },
+    {
+      "offset": "0xd9",
+      "instruction": "fstp dword ptr [esp + 0xc]",
+      "widths": [
+        4
+      ]
+    },
+    {
+      "offset": "0x126",
+      "instruction": "fld dword ptr [eax + 0x84]",
+      "widths": [
+        4
+      ]
+    },
+    {
+      "offset": "0x12e",
+      "instruction": "fld qword ptr [0xaf5d88]",
+      "widths": [
+        8
+      ]
+    },
+    {
+      "offset": "0x134",
+      "instruction": "fst dword ptr [esp + 0x10]",
+      "widths": [
+        4
+      ]
+    },
+    {
+      "offset": "0x138",
+      "instruction": "fmul dword ptr [esp + 0xc]",
+      "widths": [
+        4
+      ]
+    },
+    {
+      "offset": "0x13c",
+      "instruction": "fcom dword ptr [0xae7244]",
+      "widths": [
+        4
+      ]
+    },
+    {
+      "offset": "0x142",
+      "instruction": "fnstsw ax",
+      "widths": [
+        2
+      ]
+    },
+    {
+      "offset": "0x149",
+      "instruction": "fstp st(0)",
+      "widths": [
+        10
+      ]
+    },
+    {
+      "offset": "0x14b",
+      "instruction": "fld dword ptr [0xae7244]",
+      "widths": [
+        4
+      ]
+    },
+    {
+      "offset": "0x153",
+      "instruction": "fcom dword ptr [esp + 0x10]",
+      "widths": [
+        4
+      ]
+    },
+    {
+      "offset": "0x157",
+      "instruction": "fnstsw ax",
+      "widths": [
+        2
+      ]
+    },
+    {
+      "offset": "0x15e",
+      "instruction": "fstp st(0)",
+      "widths": [
+        10
+      ]
+    },
+    {
+      "offset": "0x160",
+      "instruction": "fld dword ptr [esp + 0x10]",
+      "widths": [
+        4
+      ]
+    },
+    {
+      "offset": "0x164",
+      "instruction": "fld dword ptr [esp + 0x10]",
+      "widths": [
+        4
+      ]
+    },
+    {
+      "offset": "0x227",
+      "instruction": "fld dword ptr [esi + 0x248]",
+      "widths": [
+        4
+      ]
+    },
+    {
+      "offset": "0x22f",
+      "instruction": "fld dword ptr [0xae7244]",
+      "widths": [
+        4
+      ]
+    },
+    {
+      "offset": "0x235",
+      "instruction": "fstp dword ptr [esp + 0xc]",
+      "widths": [
+        4
+      ]
+    },
+    {
+      "offset": "0x33f",
+      "instruction": "fld dword ptr [esp + 0x10]",
+      "widths": [
+        4
+      ]
+    },
+    {
+      "offset": "0x343",
+      "instruction": "fcomp dword ptr [0xae7244]",
+      "widths": [
+        4
+      ]
+    },
+    {
+      "offset": "0x349",
+      "instruction": "fnstsw ax",
+      "widths": [
+        2
+      ]
+    },
+    {
+      "offset": "0x354",
+      "instruction": "fld dword ptr [esp + 0x10]",
+      "widths": [
+        4
+      ]
+    },
+    {
+      "offset": "0x358",
+      "instruction": "fmul dword ptr [esp + 0xc]",
+      "widths": [
+        4
+      ]
+    },
+    {
+      "offset": "0x35c",
+      "instruction": "fcom dword ptr [0xae7244]",
+      "widths": [
+        4
+      ]
+    },
+    {
+      "offset": "0x362",
+      "instruction": "fnstsw ax",
+      "widths": [
+        2
+      ]
+    },
+    {
+      "offset": "0x369",
+      "instruction": "fstp st(0)",
+      "widths": [
+        10
+      ]
+    },
+    {
+      "offset": "0x36b",
+      "instruction": "fld dword ptr [0xae7244]",
+      "widths": [
+        4
+      ]
+    },
+    {
+      "offset": "0x373",
+      "instruction": "fcom dword ptr [esp + 0x10]",
+      "widths": [
+        4
+      ]
+    },
+    {
+      "offset": "0x377",
+      "instruction": "fnstsw ax",
+      "widths": [
+        2
+      ]
+    },
+    {
+      "offset": "0x37e",
+      "instruction": "fstp st(0)",
+      "widths": [
+        10
+      ]
+    },
+    {
+      "offset": "0x380",
+      "instruction": "fld dword ptr [esp + 0x10]",
+      "widths": [
+        4
+      ]
+    },
+    {
+      "offset": "0x384",
+      "instruction": "fld dword ptr [esp + 0x10]",
+      "widths": [
+        4
+      ]
+    },
+    {
+      "offset": "0x444",
+      "instruction": "fld dword ptr [esp + 0x10]",
+      "widths": [
+        4
+      ]
+    },
+    {
+      "offset": "0x448",
+      "instruction": "fcomp dword ptr [0xae7240]",
+      "widths": [
+        4
+      ]
+    },
+    {
+      "offset": "0x44e",
+      "instruction": "fnstsw ax",
+      "widths": [
+        2
+      ]
+    },
+    {
+      "offset": "0x474",
+      "instruction": "fld dword ptr [esp + 0xc]",
+      "widths": [
+        4
+      ]
+    },
+    {
+      "offset": "0x478",
+      "instruction": "fcomp dword ptr [0xae7244]",
+      "widths": [
+        4
+      ]
+    },
+    {
+      "offset": "0x47e",
+      "instruction": "fnstsw ax",
+      "widths": [
+        2
+      ]
+    },
+    {
+      "offset": "0x48f",
+      "instruction": "fld dword ptr [esp + 0xc]",
+      "widths": [
+        4
+      ]
+    },
+    {
+      "offset": "0x493",
+      "instruction": "fcomp dword ptr [esp + 0x10]",
+      "widths": [
+        4
+      ]
+    },
+    {
+      "offset": "0x497",
+      "instruction": "fnstsw ax",
+      "widths": [
+        2
+      ]
+    },
+    {
+      "offset": "0x4a6",
+      "instruction": "fld dword ptr [esp + 0xc]",
+      "widths": [
+        4
+      ]
+    },
+    {
+      "offset": "0x4aa",
+      "instruction": "fdiv dword ptr [esp + 0x10]",
+      "widths": [
+        4
+      ]
+    },
+    {
+      "offset": "0x4b4",
+      "instruction": "fstp dword ptr [esp]",
+      "widths": [
+        4
+      ]
+    },
+    {
+      "offset": "0x4ca",
+      "instruction": "fld dword ptr [esp + 0x10]",
+      "widths": [
+        4
+      ]
+    },
+    {
+      "offset": "0x4d3",
+      "instruction": "fld dword ptr [esp + 0xc]",
+      "widths": [
+        4
+      ]
+    }
+  ],
+  "EH": "No unwind registration, no FS access; all instructions and the sole return compared.",
+  "limitations": [
+    "Object proof; no full executable link.",
+    "Scratch __FILE__ paths differ; basenames and all other string bytes checked."
+  ],
+  "helper_audits": [
+    {
+      "symbol": "?Unknown_Find_Field@@YAPAV?$DeltaTemplateClass@M@@PAVDeltaCompoundClass@@ABVNameClass@@@Z",
+      "bounds": [
+        "0x546710",
+        "0x546760 exclusive"
+      ],
+      "bytes": 80,
+      "instructions": 30,
+      "returns": [
+        "0x54671a",
+        "0x546730",
+        "0x54675b",
+        "0x54675f"
+      ],
+      "masked_body_equal": true,
+      "relocations": [
+        {
+          "offset": "0xc",
+          "symbol": "?Get_Lookup@DeltaCompoundClass@@QAEPAVLookupClass@@XZ",
+          "destination": "0x4a5510",
+          "resolved": true
+        },
+        {
+          "offset": "0x18",
+          "symbol": "?Find@LookupClass@@QAEPAVDeltaClass@@ABVNameClass@@@Z",
+          "destination": "0x4ac9f0",
+          "resolved": true
+        },
+        {
+          "offset": "0x26",
+          "kind": "resolved static type identity",
+          "symbol": "?UnknownGlobal@?$DeltaTemplateClass@M@@2HA",
+          "destination": "0xc416f0"
+        },
+        {
+          "offset": "0x35",
+          "kind": "__FILE__ basename equal",
+          "basename": "auxdata.h"
+        },
+        {
+          "offset": "0x3a",
+          "kind": "equal string bytes",
+          "value": "t"
+        },
+        {
+          "offset": "0x41",
+          "symbol": "?G_Assert_Report@@YAXPBD0H@Z",
+          "destination": "0x4e9410",
+          "resolved": true
+        }
+      ]
+    },
+    {
+      "symbol": "?Unknown_Find_Field@@YAPAVDeltaInterpolatorClass@@PAVDeltaCompoundClass@@ABVNameClass@@@Z",
+      "bounds": [
+        "0x5bf2b0",
+        "0x5bf300 exclusive"
+      ],
+      "bytes": 80,
+      "instructions": 30,
+      "returns": [
+        "0x5bf2ba",
+        "0x5bf2d0",
+        "0x5bf2fb",
+        "0x5bf2ff"
+      ],
+      "masked_body_equal": true,
+      "relocations": [
+        {
+          "offset": "0xc",
+          "symbol": "?Get_Lookup@DeltaCompoundClass@@QAEPAVLookupClass@@XZ",
+          "destination": "0x4a5510",
+          "resolved": true
+        },
+        {
+          "offset": "0x18",
+          "symbol": "?Find@LookupClass@@QAEPAVDeltaClass@@ABVNameClass@@@Z",
+          "destination": "0x4ac9f0",
+          "resolved": true
+        },
+        {
+          "offset": "0x26",
+          "kind": "resolved static type identity",
+          "symbol": "?UnknownGlobal@DeltaCompoundClass@@2HA",
+          "destination": "0xbe3a74"
+        },
+        {
+          "offset": "0x35",
+          "kind": "__FILE__ basename equal",
+          "basename": "auxdata.h"
+        },
+        {
+          "offset": "0x3a",
+          "kind": "equal string bytes",
+          "value": "t"
+        },
+        {
+          "offset": "0x41",
+          "symbol": "?G_Assert_Report@@YAXPBD0H@Z",
+          "destination": "0x4e9410",
+          "resolved": true
+        }
+      ]
+    }
+  ],
+  "FP_semantics": {
+    "general": "All x87 instruction bytes, memory widths, operation order, stores and conversion calls equal retail; no forced rounding store or reassociation introduced.",
+    "energy_shield_clamps": "fcom +0; test ah,1 treats unordered like less and takes cur=+0. Otherwise fcom max; test ah,0x41 keeps cur when unordered/equal, replaces cur by max only when greater.",
+    "shield_positive_guard": "fcomp +0; test ah,0x41 rejects less/equal/unordered. Shield Value is loaded exactly once before this test, as retail 0x5DC7D5.",
+    "hull_minimum": "fcomp +1; test ah,1 treats unordered like less, setting max and cur to +0 and calling Set_Value(+0).",
+    "signed_zero": "Less-than tests preserve -0 when it is an input cur; explicit replacement and missing-field fallbacks have exactly retail +0 bits.",
+    "conversions": "The six __ftol calls and their order/operand-loading sequence equal retail; x87 rounding and non-finite conversion behavior therefore unchanged."
+  },
+  "field_and_callback_order": "Object guard; AuxData and Client clock snapshot; EnergyPercent find/Get_Value/Set_Value then conditional MaxEnergyPower find/one Value read/tooltip; ShieldPercent find/Get_Value/Set_Value then conditional MaxShieldPower find/one Value read/positive guard/tooltip; MaxHullPoints find then HullPoints find, followed by their Value reads in that order, Hull Set_Value then conditional tooltip. Unknown70 stays nonzero (unsigned >0 equivalent only in diagnostics), never >1."
+}

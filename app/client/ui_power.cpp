@@ -98,7 +98,7 @@ void UIPowerClass::Unknown_08(ClientObjectClass *object)
 	UnknownObjectWatchClass::Unknown_08(object);
 }
 
-// @0x5DC4A0  // NOT EXACT: functional (D64): the client calls Unknown_Find_Field out of line for MaxEnergyPower only (as ui_experience.cpp's 0x58CB50)
+// @0x5DC4A0
 void UIPowerClass::Unknown_10()
 {
 	if (!Object) return;
@@ -109,7 +109,7 @@ void UIPowerClass::Unknown_10()
 		float value = percent ? percent->Get_Value(time) : 0.0f;
 		EnergyGauge->Set_Value(value);
 		if (EnergyGauge->Is_Unknown2C_08()) {
-			DeltaTemplateClass<float> *field = Unknown_Find_Set_Field<DeltaTemplateClass<float> >(aux, NameClass("MaxEnergyPower"));
+			DeltaTemplateClass<float> *field = Unknown_Power_Find<DeltaTemplateClass<float> >(aux, "MaxEnergyPower");
 			float max = field ? field->Value : 0.0;
 			float cur = max * value;
 			if (cur < 0.0f) {
@@ -125,9 +125,9 @@ void UIPowerClass::Unknown_10()
 		float value = percent ? percent->Get_Value(time) : 0.0f;
 		ShieldGauge->Set_Value(value);
 		if (ShieldGauge->Is_Unknown2C_08()) {
-			DeltaTemplateClass<float> *field = Unknown_Find_Set_Field<DeltaTemplateClass<float> >(aux, NameClass("MaxShieldPower"));
-			if (field && field->Value > 0.0f) {
-				float max = field->Value;
+			DeltaTemplateClass<float> *field = Unknown_Power_Field<DeltaTemplateClass<float> >(aux, "MaxShieldPower");
+			float max; if (field && (max = field->Value) > 0.0f) {
+
 				float cur = max * value;
 				if (cur < 0.0f) {
 					cur = 0.0f;
@@ -141,8 +141,8 @@ void UIPowerClass::Unknown_10()
 		}
 	}
 	if (HullGauge->Exists) {
-		DeltaTemplateClass<float> *max_field = Unknown_Find_Set_Field<DeltaTemplateClass<float> >(aux, NameClass("MaxHullPoints"));
-		DeltaTemplateClass<float> *field = Unknown_Find_Set_Field<DeltaTemplateClass<float> >(aux, NameClass("HullPoints"));
+		DeltaTemplateClass<float> *max_field = Unknown_Power_Field<DeltaTemplateClass<float> >(aux, "MaxHullPoints");
+		DeltaTemplateClass<float> *field = Unknown_Power_Field<DeltaTemplateClass<float> >(aux, "HullPoints");
 		float max = max_field ? max_field->Value : 0.0f;
 		float cur = field ? field->Value : 0.0f;
 		if (max < 1.0f) {
@@ -206,5 +206,7 @@ bool UIPowerGaugeClass::Set_Value(float value)
 **	UIProcClass's 0x5DCCE0 follows. No __FILE__ of its own (only the headers' asserts: delta_interpolator.h l.54,
 **	auxdata.h l.155): the file name is NAME 1, from the tooltips' section UI_POWER and the link order. Its twin is
 **	ui_experience.cpp (the same watcher shape, the same three-bar constructor).
+**	0x5DC4A0 is exact: use the existing two-layer lookup for MaxEnergyPower and one-layer field
+**	lookups for later fields; capture the shield maximum once at its comparison, as retail does.
 */
 #pragma inline_depth(2)	// templates take the file end's inline state: the watcher's DataNode<> calls GenericNode() 0x48A060 out of line in 0x5DBFC0, as the client
