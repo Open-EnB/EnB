@@ -1,0 +1,378 @@
+Claim #259 source recipes. Base git 18b9179f app/client/ui_mesh.cpp.
+Apply each unified patch independently to the base; do not stack recipes.
+No source recipe in this stash is adopted. Exact target trials have the losses listed below.
+
+=== copies_both_fixed
+sha256 c15c2dbba682547ea893328a57f402a32b05658e616e57a32cdadafb9c8a9938
+target_exact False gains [] losses []
+--- a/app/client/ui_mesh.cpp
++++ b/app/client/ui_mesh.cpp
+@@ -195,8 +195,8 @@
+ void UIMeshClass::Unknown_5B8EE0(int slot, int id, const char *anim_name, bool loop, bool a, bool b, int c, int d)
+ {
+-	UIProcClass *proc = new UIProc5DCD20Class(this, anim_name, loop, a, b, c, d);
+-	proc->Slot = slot;
+-	proc->Id = id;
+-	Unknown4C[slot]->Add_Tail(&proc->Node);
++	const int index = slot, ident = id; UIProcClass *proc = new UIProc5DCD20Class(this, anim_name, loop, a, b, c, d);
++	proc->Slot = index;
++	proc->Id = ident;
++	Unknown4C[index]->Add_Tail(&proc->Node);
+ }
+ 
+
+=== node_ref_before
+sha256 86053b06d9a922e5e99a0f18f4960e7f7963f7bd702cbdc9382403b8bcddd12e
+target_exact False gains [] losses []
+--- a/app/client/ui_mesh.cpp
++++ b/app/client/ui_mesh.cpp
+@@ -196,7 +196,7 @@
+ {
+ 	UIProcClass *proc = new UIProc5DCD20Class(this, anim_name, loop, a, b, c, d);
+-	proc->Slot = slot;
++	DataNode<UIProcClass *> &node = proc->Node; proc->Slot = slot;
+ 	proc->Id = id;
+-	Unknown4C[slot]->Add_Tail(&proc->Node);
++	Unknown4C[slot]->Add_Tail(&node);
+ }
+ 
+
+=== node_ptr_before
+sha256 24b76d046633afa137cb3c2a49587c4cd9cee0f123a5a0b6d72acb66a369a9c6
+target_exact False gains [] losses []
+--- a/app/client/ui_mesh.cpp
++++ b/app/client/ui_mesh.cpp
+@@ -196,7 +196,7 @@
+ {
+ 	UIProcClass *proc = new UIProc5DCD20Class(this, anim_name, loop, a, b, c, d);
+-	proc->Slot = slot;
++	DataNode<UIProcClass *> *node = &proc->Node; proc->Slot = slot;
+ 	proc->Id = id;
+-	Unknown4C[slot]->Add_Tail(&proc->Node);
++	Unknown4C[slot]->Add_Tail(node);
+ }
+ 
+
+=== field_ref_index
+sha256 c365b26834771622a4c4696fd5fa33e866e49aa2612c3441a00a73050b3c9a47
+target_exact False gains [] losses []
+--- a/app/client/ui_mesh.cpp
++++ b/app/client/ui_mesh.cpp
+@@ -196,7 +196,7 @@
+ {
+ 	UIProcClass *proc = new UIProc5DCD20Class(this, anim_name, loop, a, b, c, d);
+-	proc->Slot = slot;
++	int &index = proc->Slot; index = slot;
+ 	proc->Id = id;
+-	Unknown4C[slot]->Add_Tail(&proc->Node);
++	Unknown4C[index]->Add_Tail(&proc->Node);
+ }
+ 
+
+=== field_cref_index
+sha256 4e0d150634bb361d6e1fade211de7688dde4dedbdf34841e84c5094debd175f9
+target_exact False gains [] losses []
+--- a/app/client/ui_mesh.cpp
++++ b/app/client/ui_mesh.cpp
+@@ -196,7 +196,7 @@
+ {
+ 	UIProcClass *proc = new UIProc5DCD20Class(this, anim_name, loop, a, b, c, d);
+-	proc->Slot = slot;
+-	proc->Id = id;
+-	Unknown4C[slot]->Add_Tail(&proc->Node);
++	proc->Slot = slot; proc->Id = id;
++	const int &index = proc->Slot;
++	Unknown4C[index]->Add_Tail(&proc->Node);
+ }
+ 
+
+=== assign_index
+sha256 d6db5c17b15f2d4447c2bc8103ebbfec86d5ea0c4e56c0e672642a198fc313eb
+target_exact False gains [] losses []
+--- a/app/client/ui_mesh.cpp
++++ b/app/client/ui_mesh.cpp
+@@ -196,7 +196,7 @@
+ {
+ 	UIProcClass *proc = new UIProc5DCD20Class(this, anim_name, loop, a, b, c, d);
+-	proc->Slot = slot;
++	int index; proc->Slot = index = slot;
+ 	proc->Id = id;
+-	Unknown4C[slot]->Add_Tail(&proc->Node);
++	Unknown4C[index]->Add_Tail(&proc->Node);
+ }
+ 
+
+=== field_refs
+sha256 a03f8a5db1ba38a9766288c2fb5be6af7b414054bc8767f9038c7f6d900d4269
+target_exact False gains [] losses []
+--- a/app/client/ui_mesh.cpp
++++ b/app/client/ui_mesh.cpp
+@@ -196,6 +196,6 @@
+ {
+ 	UIProcClass *proc = new UIProc5DCD20Class(this, anim_name, loop, a, b, c, d);
+-	proc->Slot = slot;
+-	proc->Id = id;
++	int &index = proc->Slot; int &ident = proc->Id; index = slot;
++	ident = id;
+ 	Unknown4C[slot]->Add_Tail(&proc->Node);
+ }
+
+=== node_ref_after
+sha256 fc34d7c1a119b86ab4d206ed0451f4e1584cc54492c5adc981835cea9aa1d62d
+target_exact False gains [] losses []
+--- a/app/client/ui_mesh.cpp
++++ b/app/client/ui_mesh.cpp
+@@ -198,5 +198,5 @@
+ 	proc->Slot = slot;
+ 	proc->Id = id;
+-	Unknown4C[slot]->Add_Tail(&proc->Node);
++	DataNode<UIProcClass *> &node = proc->Node; Unknown4C[slot]->Add_Tail(&node);
+ }
+ 
+
+=== node_ptr_after
+sha256 3dd5dd976f348db1f917eb20f3392201d8ddfc0010d856346de99570c5b9b492
+target_exact False gains [] losses []
+--- a/app/client/ui_mesh.cpp
++++ b/app/client/ui_mesh.cpp
+@@ -198,5 +198,5 @@
+ 	proc->Slot = slot;
+ 	proc->Id = id;
+-	Unknown4C[slot]->Add_Tail(&proc->Node);
++	DataNode<UIProcClass *> *node = &proc->Node; Unknown4C[slot]->Add_Tail(node);
+ }
+ 
+
+=== list_pointer_ref
+sha256 07ef64997bb00fbc1b863f2512f42c5ec1e7787e601a2693d199b9f0713a6a77
+target_exact False gains [] losses []
+--- a/app/client/ui_mesh.cpp
++++ b/app/client/ui_mesh.cpp
+@@ -198,5 +198,5 @@
+ 	proc->Slot = slot;
+ 	proc->Id = id;
+-	Unknown4C[slot]->Add_Tail(&proc->Node);
++	UIProcListClass *&list = Unknown4C[slot]; list->Add_Tail(&proc->Node);
+ }
+ 
+
+=== list_object_ref
+sha256 9fc9476b08dd6a6874b36127aa813222a089e2d9f37f3a184df973d07a059963
+target_exact False gains [] losses []
+--- a/app/client/ui_mesh.cpp
++++ b/app/client/ui_mesh.cpp
+@@ -198,5 +198,5 @@
+ 	proc->Slot = slot;
+ 	proc->Id = id;
+-	Unknown4C[slot]->Add_Tail(&proc->Node);
++	UIProcListClass &list = *Unknown4C[slot]; list.Add_Tail(&proc->Node);
+ }
+ 
+
+=== proc_reference
+sha256 42e253e45240377607dbecd35264f7ac0889335609beee3aa577273b61c00f79
+target_exact False gains [] losses []
+--- a/app/client/ui_mesh.cpp
++++ b/app/client/ui_mesh.cpp
+@@ -195,8 +195,8 @@
+ void UIMeshClass::Unknown_5B8EE0(int slot, int id, const char *anim_name, bool loop, bool a, bool b, int c, int d)
+ {
+-	UIProcClass *proc = new UIProc5DCD20Class(this, anim_name, loop, a, b, c, d);
+-	proc->Slot = slot;
+-	proc->Id = id;
+-	Unknown4C[slot]->Add_Tail(&proc->Node);
++	UIProcClass &proc = *new UIProc5DCD20Class(this, anim_name, loop, a, b, c, d);
++	proc.Slot = slot;
++	proc.Id = id;
++	Unknown4C[slot]->Add_Tail(&proc.Node);
+ }
+ 
+
+=== proc_split_decl
+sha256 7e4730a9274e1b56c0782e54481a50ca7820ff218c2a8ea41a6bf5f2447ccd41
+target_exact False gains [] losses []
+--- a/app/client/ui_mesh.cpp
++++ b/app/client/ui_mesh.cpp
+@@ -195,5 +195,5 @@
+ void UIMeshClass::Unknown_5B8EE0(int slot, int id, const char *anim_name, bool loop, bool a, bool b, int c, int d)
+ {
+-	UIProcClass *proc = new UIProc5DCD20Class(this, anim_name, loop, a, b, c, d);
++	UIProcClass *proc; proc = new UIProc5DCD20Class(this, anim_name, loop, a, b, c, d);
+ 	proc->Slot = slot;
+ 	proc->Id = id;
+
+=== node_ref_between
+sha256 22866d3ca587492cc9b82b82e867429bd94749c23422297df66f9d8a654c7250
+target_exact False gains [] losses []
+--- a/app/client/ui_mesh.cpp
++++ b/app/client/ui_mesh.cpp
+@@ -197,6 +197,6 @@
+ 	UIProcClass *proc = new UIProc5DCD20Class(this, anim_name, loop, a, b, c, d);
+ 	proc->Slot = slot;
+-	proc->Id = id;
+-	Unknown4C[slot]->Add_Tail(&proc->Node);
++	DataNode<UIProcClass *> &node = proc->Node; proc->Id = id;
++	Unknown4C[slot]->Add_Tail(&node);
+ }
+ 
+
+=== node_ptr_between
+sha256 691a52ec48859b8ee512881a62a968c89a3a8838c57b510defb6a165de8d4072
+target_exact False gains [] losses []
+--- a/app/client/ui_mesh.cpp
++++ b/app/client/ui_mesh.cpp
+@@ -197,6 +197,6 @@
+ 	UIProcClass *proc = new UIProc5DCD20Class(this, anim_name, loop, a, b, c, d);
+ 	proc->Slot = slot;
+-	proc->Id = id;
+-	Unknown4C[slot]->Add_Tail(&proc->Node);
++	DataNode<UIProcClass *> *node = &proc->Node; proc->Id = id;
++	Unknown4C[slot]->Add_Tail(node);
+ }
+ 
+
+=== generic_ref_after
+sha256 237d18b25bd079751146f657f834a6e4d01dc1686e6abc7f1d68b32231a08307
+target_exact False gains [] losses []
+--- a/app/client/ui_mesh.cpp
++++ b/app/client/ui_mesh.cpp
+@@ -198,5 +198,5 @@
+ 	proc->Slot = slot;
+ 	proc->Id = id;
+-	Unknown4C[slot]->Add_Tail(&proc->Node);
++	GenericNode &node = proc->Node; Unknown4C[slot]->Add_Tail(&node);
+ }
+ 
+
+=== generic_ptr_after
+sha256 57ee2349a15824f6c7672d4c87ec008be6aa4fe0b1db6f0cb1c53a01a3bc4e3d
+target_exact False gains [] losses []
+--- a/app/client/ui_mesh.cpp
++++ b/app/client/ui_mesh.cpp
+@@ -198,5 +198,5 @@
+ 	proc->Slot = slot;
+ 	proc->Id = id;
+-	Unknown4C[slot]->Add_Tail(&proc->Node);
++	GenericNode *node = &proc->Node; Unknown4C[slot]->Add_Tail(node);
+ }
+ 
+
+=== input_refs
+sha256 b031ec44fac18ea4d50ddcea3d85a8c6c07d5a519a405dfeae47ea7a7872b546
+target_exact False gains [] losses []
+--- a/app/client/ui_mesh.cpp
++++ b/app/client/ui_mesh.cpp
+@@ -196,7 +196,7 @@
+ {
+ 	UIProcClass *proc = new UIProc5DCD20Class(this, anim_name, loop, a, b, c, d);
+-	proc->Slot = slot;
+-	proc->Id = id;
+-	Unknown4C[slot]->Add_Tail(&proc->Node);
++	const int &index = slot; proc->Slot = index;
++	const int &ident = id; proc->Id = ident;
++	Unknown4C[index]->Add_Tail(&proc->Node);
+ }
+ 
+
+=== node_split_decl
+sha256 193125f911a14085d0ad5f71eeec8b8fd740a62362ab1c39a9d564e0784ccc59
+target_exact False gains [] losses []
+--- a/app/client/ui_mesh.cpp
++++ b/app/client/ui_mesh.cpp
+@@ -195,8 +195,8 @@
+ void UIMeshClass::Unknown_5B8EE0(int slot, int id, const char *anim_name, bool loop, bool a, bool b, int c, int d)
+ {
+-	UIProcClass *proc = new UIProc5DCD20Class(this, anim_name, loop, a, b, c, d);
++	DataNode<UIProcClass *> *node; UIProcClass *proc = new UIProc5DCD20Class(this, anim_name, loop, a, b, c, d);
+ 	proc->Slot = slot;
+ 	proc->Id = id;
+-	Unknown4C[slot]->Add_Tail(&proc->Node);
++	Unknown4C[slot]->Add_Tail(node = &proc->Node);
+ }
+ 
+
+=== copy_slot
+sha256 6c5d67308770ea8597bbd410432b19df476964bf504f986db48624f99f5c7aaf
+target_exact False gains [] losses []
+--- a/app/client/ui_mesh.cpp
++++ b/app/client/ui_mesh.cpp
+@@ -195,8 +195,8 @@
+ void UIMeshClass::Unknown_5B8EE0(int slot, int id, const char *anim_name, bool loop, bool a, bool b, int c, int d)
+ {
+-	UIProcClass *proc = new UIProc5DCD20Class(this, anim_name, loop, a, b, c, d);
+-	proc->Slot = slot;
++	const int index = slot; UIProcClass *proc = new UIProc5DCD20Class(this, anim_name, loop, a, b, c, d);
++	proc->Slot = index;
+ 	proc->Id = id;
+-	Unknown4C[slot]->Add_Tail(&proc->Node);
++	Unknown4C[index]->Add_Tail(&proc->Node);
+ }
+ 
+
+=== copy_id
+sha256 18af175c1a9e341f36658d65fa21ae99bb54328fc69d39249e2202519f4468d9
+target_exact False gains [] losses []
+--- a/app/client/ui_mesh.cpp
++++ b/app/client/ui_mesh.cpp
+@@ -195,7 +195,7 @@
+ void UIMeshClass::Unknown_5B8EE0(int slot, int id, const char *anim_name, bool loop, bool a, bool b, int c, int d)
+ {
+-	UIProcClass *proc = new UIProc5DCD20Class(this, anim_name, loop, a, b, c, d);
+-	proc->Slot = slot;
+-	proc->Id = id;
++	const int ident = id; UIProcClass *proc = new UIProc5DCD20Class(this, anim_name, loop, a, b, c, d);
++	proc->Slot = slot;
++	proc->Id = ident;
+ 	Unknown4C[slot]->Add_Tail(&proc->Node);
+ }
+
+=== ref_slot_early
+sha256 da4afe53dfaf328ca4185370750fdc903969d752ebad5e5a974e874a95b5d4c6
+target_exact False gains [] losses []
+--- a/app/client/ui_mesh.cpp
++++ b/app/client/ui_mesh.cpp
+@@ -195,8 +195,8 @@
+ void UIMeshClass::Unknown_5B8EE0(int slot, int id, const char *anim_name, bool loop, bool a, bool b, int c, int d)
+ {
+-	UIProcClass *proc = new UIProc5DCD20Class(this, anim_name, loop, a, b, c, d);
+-	proc->Slot = slot;
++	const int &index = slot; UIProcClass *proc = new UIProc5DCD20Class(this, anim_name, loop, a, b, c, d);
++	proc->Slot = index;
+ 	proc->Id = id;
+-	Unknown4C[slot]->Add_Tail(&proc->Node);
++	Unknown4C[index]->Add_Tail(&proc->Node);
+ }
+ 
+
+=== ref_id_early
+sha256 20570b96df680ba4306eb3854107ce09980ae01f069bde96bbb487d14d044ce5
+target_exact False gains [] losses []
+--- a/app/client/ui_mesh.cpp
++++ b/app/client/ui_mesh.cpp
+@@ -195,7 +195,7 @@
+ void UIMeshClass::Unknown_5B8EE0(int slot, int id, const char *anim_name, bool loop, bool a, bool b, int c, int d)
+ {
+-	UIProcClass *proc = new UIProc5DCD20Class(this, anim_name, loop, a, b, c, d);
+-	proc->Slot = slot;
+-	proc->Id = id;
++	const int &ident = id; UIProcClass *proc = new UIProc5DCD20Class(this, anim_name, loop, a, b, c, d);
++	proc->Slot = slot;
++	proc->Id = ident;
+ 	Unknown4C[slot]->Add_Tail(&proc->Node);
+ }
+
+=== store_comma
+sha256 277d7aae4c14a43dc1b183fea2c20a76dd632a9394ff53415d8e2bd3df0da02f
+target_exact False gains [] losses []
+--- a/app/client/ui_mesh.cpp
++++ b/app/client/ui_mesh.cpp
+@@ -196,6 +196,6 @@
+ {
+ 	UIProcClass *proc = new UIProc5DCD20Class(this, anim_name, loop, a, b, c, d);
+-	proc->Slot = slot;
+-	proc->Id = id;
++	proc->Slot = slot, proc->Id = id;
++	
+ 	Unknown4C[slot]->Add_Tail(&proc->Node);
+ }
+

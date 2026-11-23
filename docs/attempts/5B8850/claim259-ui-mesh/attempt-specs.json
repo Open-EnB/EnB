@@ -1,0 +1,32 @@
+[
+  {
+    "address": "0x5B8EE0",
+    "symbol": "UIMeshClass::Unknown_5B8EE0",
+    "file": "app/client/ui_mesh.cpp",
+    "status": "parked",
+    "forms": 24,
+    "blocker": "register",
+    "evidence": "Claim259: 24 new valid forms in 4 masked body graphs including baseline; node pointer/reference bound before/between/after the two stores; actual Slot/Id and list pointer/object references; process base reference and split declaration; input parameter copies/references before new and assigned index at existing Slot store. None improves whole target or gains an address, all105 baseline file/address pairs held. Invalid self-initialized ident excluded, repaired copies-both checked. No shared headers/helper/dead work. Out of concrete local leads; stash includes independent base patches and hashes.",
+    "stash": "insertion-5B8EE0.txt"
+  },
+  {
+    "address": "0x5B8FF0",
+    "symbol": "UIMeshClass::Unknown_5B8FF0",
+    "file": "app/client/ui_mesh.cpp",
+    "status": "parked",
+    "forms": 3,
+    "blocker": "register",
+    "evidence": "Claim259: fresh full-object baseline, then 3 nonbaseline animation-insertion graph representatives (node reference before/between stores and actual Slot-field reference as index). Same4 masked-body graphs as5B8EE0 modulo relocations; no gain/loss among105 baseline file/address pairs. Three broken generated source splices failed compile and were repaired before these valid tests; excluded from forms. Retail complete bodies differ only constructor/EH relocations. Out of concrete local leads.",
+    "stash": "insertion-5B8FF0.txt"
+  },
+  {
+    "address": "0x5B8850",
+    "symbol": "UIMeshClass::Unknown_5B8850",
+    "file": "app/client/ui_mesh.cpp",
+    "status": "parked",
+    "forms": 19,
+    "blocker": "shape",
+    "evidence": "Claim259: 19 valid forms:6 break/goto/null-return controls,8 existing-definition placements,2 ordinary destructor-call spellings,3 ordinary inline hints. Six controls unchanged. Moving destructor after loader makes entire529B loader exact (457fixed bytes) but loses unchanged3B empty5BA460's global source-order-only placement credit; every placement including after final method fails strict no-loss. Constructor moves worsen pairs; inline loader loses both ctors/dtor; inline dtor omits its own symbol; both worsen loader. Void-return destructor failed compile, excluded. Baseline/candidate FuncInfo each1state and same11B allocation-delete funclet; no missing lifetime tail. Exact proposal retained separately with +5B8850/-5BA460 sets and unchanged-empty-body proof, production untouched. Out of concrete strict-no-loss leads.",
+    "stash": "loader-5B8850.txt"
+  }
+]

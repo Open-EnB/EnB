@@ -1,0 +1,51 @@
+Claim #259 source recipes. Base git 18b9179f app/client/ui_mesh.cpp.
+Apply each unified patch independently to the base; do not stack recipes.
+No source recipe in this stash is adopted. Exact target trials have the losses listed below.
+
+=== morph_node_ref_before
+sha256 e94e85a2b1d86aa2d3a1b639103225694c5204908f84f8d2cbad50afe67d0b49
+target_exact False gains [] losses []
+--- a/app/client/ui_mesh.cpp
++++ b/app/client/ui_mesh.cpp
+@@ -205,7 +205,7 @@
+ {
+ 	UIProcClass *proc = new UIProc5DCD20Class(this, (HAnimClass *)morph_anim, loop, a, b, c, d);
+-	proc->Slot = slot;
++	DataNode<UIProcClass *> &node = proc->Node; proc->Slot = slot;
+ 	proc->Id = id;
+-	Unknown4C[slot]->Add_Tail(&proc->Node);
++	Unknown4C[slot]->Add_Tail(&node);
+ }
+ 
+
+=== morph_node_ref_between
+sha256 288dba2e183c2ac1d97347f4ba03e24ec89072676c955d25354b303c154680f7
+target_exact False gains [] losses []
+--- a/app/client/ui_mesh.cpp
++++ b/app/client/ui_mesh.cpp
+@@ -206,6 +206,6 @@
+ 	UIProcClass *proc = new UIProc5DCD20Class(this, (HAnimClass *)morph_anim, loop, a, b, c, d);
+ 	proc->Slot = slot;
+-	proc->Id = id;
+-	Unknown4C[slot]->Add_Tail(&proc->Node);
++	DataNode<UIProcClass *> &node = proc->Node; proc->Id = id;
++	Unknown4C[slot]->Add_Tail(&node);
+ }
+ 
+
+=== morph_field_ref_index
+sha256 aa934e8edae013100d9c38aebf45722aaa7402585e4092af7d03162257e65bd8
+target_exact False gains [] losses []
+--- a/app/client/ui_mesh.cpp
++++ b/app/client/ui_mesh.cpp
+@@ -205,7 +205,7 @@
+ {
+ 	UIProcClass *proc = new UIProc5DCD20Class(this, (HAnimClass *)morph_anim, loop, a, b, c, d);
+-	proc->Slot = slot;
++	int &index = proc->Slot; index = slot;
+ 	proc->Id = id;
+-	Unknown4C[slot]->Add_Tail(&proc->Node);
++	Unknown4C[index]->Add_Tail(&proc->Node);
+ }
+ 
+

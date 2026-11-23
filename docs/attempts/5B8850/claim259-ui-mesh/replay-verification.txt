@@ -1,0 +1,83 @@
+Independent patches replayed from baseline and SHA-256 checked: 46
+{
+  "0x5B8EE0": {
+    "dd36ddb20c7decee41cbd6374c8cd9d9dbbe303f38b2f5fba9603a502c08e69b": [
+      "baseline",
+      "copies_both_fixed",
+      "assign_index",
+      "field_refs",
+      "node_ref_after",
+      "node_ptr_after",
+      "list_pointer_ref",
+      "list_object_ref",
+      "proc_reference",
+      "proc_split_decl",
+      "generic_ref_after",
+      "generic_ptr_after",
+      "input_refs",
+      "node_split_decl",
+      "copy_slot",
+      "copy_id",
+      "ref_slot_early",
+      "ref_id_early",
+      "store_comma"
+    ],
+    "f12f4506cb25216ad640dde578da6a7807a5c2e0a0ba4060cf498042d55d14a6": [
+      "node_ref_before",
+      "node_ptr_before"
+    ],
+    "a93d0feae5a4ffdd4f5ceeb6707eec16b48a24b56e8d2a727859b72a939999c0": [
+      "field_ref_index",
+      "field_cref_index"
+    ],
+    "7d8e0c668004c01b320b1642e5a7d9b6eeb2b5c7b9a9b7be098aabf67d5dc610": [
+      "node_ref_between",
+      "node_ptr_between"
+    ]
+  },
+  "0x5B8850": {
+    "57ee38b17e29cf22df7d3816084fdf37913fc4a37f2199fd7d581e7695587c7a": [
+      "baseline",
+      "load_inner_do",
+      "load_whole_do",
+      "load_goto_end",
+      "load_while_name",
+      "load_goto_null",
+      "load_early_null",
+      "dtor_qualified_call",
+      "dtor_this_call"
+    ],
+    "6225d3d3278baf25a1bd9a3ccf0b268ed3d8ad6ff293b0ae98834c9de307e889": [
+      "order_dtor_last",
+      "inline_loader",
+      "inline_dtor",
+      "order_dtor_after_loader",
+      "order_dtor_after_peek",
+      "order_dtor_after_addref",
+      "order_dtor_later"
+    ],
+    "7d0bc280da579d957847dea32058778500b8a84a4af3b174d8e5c309699ac2f9": [
+      "inline_both",
+      "order_both_later",
+      "order_both_reverse"
+    ],
+    "fa794a56feb85261bd3e802f37c4a881a783d64210fabb366493c4a8b0dadf9a": [
+      "order_ctor_later"
+    ]
+  },
+  "0x5B8FF0": {
+    "dd36ddb20c7decee41cbd6374c8cd9d9dbbe303f38b2f5fba9603a502c08e69b": [
+      "baseline",
+      "baseline"
+    ],
+    "f12f4506cb25216ad640dde578da6a7807a5c2e0a0ba4060cf498042d55d14a6": [
+      "morph_node_ref_before"
+    ],
+    "7d8e0c668004c01b320b1642e5a7d9b6eeb2b5c7b9a9b7be098aabf67d5dc610": [
+      "morph_node_ref_between"
+    ],
+    "a93d0feae5a4ffdd4f5ceeb6707eec16b48a24b56e8d2a727859b72a939999c0": [
+      "morph_field_ref_index"
+    ]
+  }
+}
