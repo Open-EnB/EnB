@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1970 |
 | 2 | describes what the code does | 5009 |
-| 1 | neutral placeholder | 25148 |
+| 1 | neutral placeholder | 25149 |
 
 ## For review (score 3 and below)
 
@@ -11799,6 +11799,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown48` | `app/client/ui_chat_window.cpp:555` | untagged neutral name (D10) |
 | 1 | `Unknown13CC` | `app/client/ui_chat_window.cpp:616` | untagged neutral name (D10) |
 | 1 | `Unknown_765DF0` | `app/client/ui_chat_window.cpp:616` | untagged neutral name (D10) |
+| 1 | `br` | `app/client/ui_chat_window.cpp:628` | neutral (D10) |
 | 1 | `ui_chat_window.h` | `app/client/ui_chat_window.h:4` | provisional header name for ui_chat_window.cpp |
 | 1 | `Unknown67D430Class` | `app/client/ui_chat_window.h:15` | untagged neutral name (D10) |
 | 1 | `Unknown67D430EntryStruct` | `app/client/ui_chat_window.h:17` | untagged neutral name (D10) |

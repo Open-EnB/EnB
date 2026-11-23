@@ -348,7 +348,7 @@ void ChatWindowInterface::Unknown_74(ControlKeysManager *manager)
 	manager->Remove_Keys((ControlKeyListClass *)&Unknown4C, std::string("Toggle Chat Window"), 0);
 }
 
-// 0x570CD0  // NOT EXACT: functional (CW2): the inlined 0x571A70's RectClass stores (the client stores Bottom first and copies tl by integer moves; frame 0xC now as the client's with tl a Vector3; 0.75)
+// 0x570CD0
 void ChatWindowInterface::Unknown_A4()
 {
 	Unknown_571A70(&Viewport);
@@ -359,7 +359,7 @@ void ChatWindowInterface::Unknown_A4()
 	}
 }
 
-// 0x570E40  // NOT EXACT: functional (CW2): as 0x570CD0 (0.70)
+// 0x570E40
 void ChatWindowInterface::Unknown_CC()
 {
 	Unknown_571A70(&Viewport);
@@ -619,17 +619,19 @@ Vector3 &ChatWindowInterface::Unknown_5719A0(Vector3 &color, const Unknown67D430
 
 
 
-// 0x571A70  // NOT EXACT: functional (CW2): defined inline so its callers inline it as the client's do; no out-of-line copy (the client has one, uncalled)
-inline void ChatWindowInterface::Unknown_571A70(ChatViewportStruct *vp)
+// 0x571A70
+void ChatWindowInterface::Unknown_571A70(ChatViewportStruct *vp)
 {
 	FAIL_IF(!vp) return;
 	Vector3 tl = InterfaceMesh->Get_Bone_Transform(vp->TLBone).Get_Translation();
 
-	const Matrix3D &br_tm = InterfaceMesh->Get_Bone_Transform(vp->BRBone);
-	vp->Rect.Set(tl.X, tl.Y, br_tm[0][3], br_tm[1][3]);
+	Vector3 br = InterfaceMesh->Get_Bone_Transform(vp->BRBone).Get_Translation();	// NAME 1: neutral (D10)
+	vp->Rect.Bottom = br.Y; vp->Rect.Right = br.X; vp->Rect.Top = tl.Y; vp->Rect.Left = tl.X;
 }
 
 /*
+**	0x571A70 and its inlined callers 0x570CD0 / 0x570E40 are exact: copy both bone translations
+**	through Vector3 locals and store Bottom, Right, Top, Left. The helper also retains its out-of-line copy.
 **	The chat window (CW2, 2026-11-08): __FILE__ 0xB7D76C ('e:\build\beta\G\app\Client\ui_chat_window.cpp'),
 **	0x56F420-0x571EAF (the <string> initialiser 0x571EB0 ends the object; 0x56F400 / 0x56F410 before it are the
 **	previous object's adjustor thunks). ChatWindowInterface is the client's RTTI name; its table 0xAF0390 (with
