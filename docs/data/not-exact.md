@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-617 entries in 258 files.
+616 entries in 257 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -321,7 +321,6 @@ edit the comments in the code, not this file.
 | `app/client/ui_chat_panel.cpp:1320` | `ChatPanelInterface::Unknown_567DF0` | marker | NOT EXACT: inline-budget (one dead size() read sends case 10's string("") assign out of line as the client; left: the client calls case 2's _Eos and 0x5680B0's == compare out of line, ours inlines them; 162 rows vs 154, GV4) 0x567DF0 |
 | `app/client/ui_chat_panel.cpp:1423` | `ChatPanelInterface::Unknown_5689D0` | marker | NOT EXACT: inline-budget (functional, written from the disassembly; Chat_Default_Channel through the uncalled 0x567930: 962 instructions vs 939; the client calls string::assign out of line for Unknown1F4 = "" and the first label copy and expands _Grow in the last; ours expands both; the emote combo's arms in the client's order, masked 61 -> 37) 0x5689D0 |
 | `app/client/ui_chat_panel.cpp:2253` | `ChatPanelInterface::Unknown_56B700` | marker | NOT EXACT: inline-budget (the client expands the channel-name temporary's constructor with _Grow and calls _Tidy, and keeps the options pointer and this on the stack; 173 instructions vs 178) 0x56B700 |
-| `app/client/ui_chat_window.cpp:378` | `ChatWindowInterface::Unknown_AC` | marker | NOT EXACT: functional (CW2): register residue (0.78) |
 | `app/client/ui_chat_window_split.cpp:79` | `UIChatWindowSplitClass::~UIChatWindowSplitClass` | marker | NOT EXACT: register-only (W2, 0.76): the second Remove_Anim_Combo_Data argument is loaded before the first call (esi); the client loads it into ecx after it |
 | `app/client/ui_cinfo.cpp:224` | `UICinfoClass::Unknown_573E80` | marker | NOT EXACT: register (the menu fonts' Get_Style arguments load in another register order; 0x5741A0's loop inlined three times) |
 | `app/client/ui_cinfo.cpp:278` | `UICinfoClass::Unknown_5741A0` | marker | NOT EXACT: register (this and the index swap ebx / edi; four loop forms tried) |

@@ -1,0 +1,1012 @@
+{
+  "forms.json": {
+    "base_rev": "682e7786",
+    "base_source_sha256": "01601057de730b5ae9d42dc5ad05aa7084ab554a1b7099b76da83886e2ed2a98",
+    "forms": {
+      "570F_add_intref": {
+        "patch": "--- a/app/client/ui_chat_window.cpp\n+++ b/app/client/ui_chat_window.cpp\n@@ -380,7 +380,7 @@\n {\n \tInterfaceSortScopeClass scope(this);\n \tUnknownA4->Unknown_65E7C0(reply);\n-\tif (!UnknownB8->Peek_Scene()) UnknownB8->Add(Peek_Scene());\n+\tconst int &scene = Unknown44; if (!UnknownB8->Peek_Scene()) UnknownB8->Add((SceneClass *)scene);\n }\n \n \n",
+        "source_sha256": "d1c32213fee087a2e4b8b330b726da2fc49a43f1f62b32fd0db5c2aa179e459c"
+      },
+      "root_final": {
+        "patch": "--- a/app/client/ui_chat_window.cpp\n+++ b/app/client/ui_chat_window.cpp\n@@ -375,12 +375,12 @@\n \treturn((UnknownA4 != NULL && UnknownA4->Active) ? UnknownA4 : NULL);\n }\n \n-// 0x570F50  // NOT EXACT: functional (CW2): register residue (0.78)\n+// 0x570F50\n void ChatWindowInterface::Unknown_AC(bool reply)\n {\n \tInterfaceSortScopeClass scope(this);\n \tUnknownA4->Unknown_65E7C0(reply);\n-\tif (!UnknownB8->Peek_Scene()) UnknownB8->Add(Peek_Scene());\n+\tconst int &scene = Unknown44; if (!UnknownB8->Peek_Scene()) UnknownB8->Add((SceneClass *)scene);\t// NAME 1 [scene]: neutral (D10)\n }\n \n \n@@ -630,6 +630,7 @@\n }\n \n /*\n+**\t0x570F50 is exact: bind the stored scene through a const integer reference at its existing Add site.\n **\t0x5715F0 is exact: use the stored scene through one const integer reference at both existing input sites,\n **\tso the later value read remains after Set_Hidden and reference-counted temporary cleanup is preserved.\n **\t0x570260 is exact: bind the stored scene value through a const reference to its declared integer type\n",
+        "source_sha256": "be1b7279b2ca16b1edaaa7f10bdefe0ea7ad61eb17b5b1665480566180c20c2e"
+      }
+    }
+  },
+  "measurements.json": {
+    "compiled_safe_forms": 1,
+    "baseline": "root-final-5715F0",
+    "executed": [
+      {
+        "name": "570F_add_intref",
+        "source_sha256": "d1c32213fee087a2e4b8b330b726da2fc49a43f1f62b32fd0db5c2aa179e459c",
+        "counts": {
+          "exact": 76
+        },
+        "gained_addresses": [
+          "0x570F50"
+        ],
+        "lost_addresses": [],
+        "exact_addresses": [
+          "0x42A6C0",
+          "0x42A820",
+          "0x42A940",
+          "0x42A970",
+          "0x42AB30",
+          "0x42B320",
+          "0x42D050",
+          "0x42F250",
+          "0x45CC10",
+          "0x474080",
+          "0x4740B0",
+          "0x4A1930",
+          "0x4A19A0",
+          "0x4A19C0",
+          "0x4A1A10",
+          "0x4A1A30",
+          "0x4A1A50",
+          "0x4A1A70",
+          "0x4A1A90",
+          "0x4A1AB0",
+          "0x4A1AD0",
+          "0x4A1AF0",
+          "0x514960",
+          "0x514990",
+          "0x5156B0",
+          "0x5156F0",
+          "0x515750",
+          "0x51C600",
+          "0x51C630",
+          "0x5411F0",
+          "0x5623B0",
+          "0x5623D0",
+          "0x5623F0",
+          "0x56F420",
+          "0x56F530",
+          "0x56F560",
+          "0x56F780",
+          "0x56F9F0",
+          "0x56FD30",
+          "0x5701C0",
+          "0x570210",
+          "0x570260",
+          "0x570340",
+          "0x570390",
+          "0x570510",
+          "0x5708F0",
+          "0x570CD0",
+          "0x570E40",
+          "0x570F20",
+          "0x570F50",
+          "0x570FF0",
+          "0x571170",
+          "0x5711C0",
+          "0x571210",
+          "0x571430",
+          "0x571470",
+          "0x5715F0",
+          "0x571810",
+          "0x571860",
+          "0x5718B0",
+          "0x571900",
+          "0x571950",
+          "0x5719A0",
+          "0x571A70",
+          "0x571B30",
+          "0x571B70",
+          "0x571BA0",
+          "0x571BD0",
+          "0x571DE0",
+          "0x571E00",
+          "0x571E40",
+          "0x571E80",
+          "0x571EB0",
+          "0x571EE0",
+          "0x571EF0"
+        ],
+        "gained": [
+          [
+            "?Unknown_AC@ChatWindowInterface@@UAEX_N@Z",
+            "0x570F50"
+          ]
+        ],
+        "lost": [],
+        "target_metrics": {
+          "size": 128,
+          "rows": 0,
+          "similarity": 1.0,
+          "diff": "/home/dev/Projects/EnB/.work/claim-257/scene-targets/runs/family5-bd29l4_x/570F_add_intref/Unknown_AC.diff.txt"
+        }
+      },
+      {
+        "name": "root_final",
+        "source_sha256": "be1b7279b2ca16b1edaaa7f10bdefe0ea7ad61eb17b5b1665480566180c20c2e",
+        "counts": {
+          "exact": 76
+        },
+        "gained_addresses": [
+          "0x570260",
+          "0x570CD0",
+          "0x570E40",
+          "0x570F50",
+          "0x5715F0",
+          "0x571A70"
+        ],
+        "lost_addresses": [],
+        "exact_addresses": [
+          "0x42A6C0",
+          "0x42A820",
+          "0x42A940",
+          "0x42A970",
+          "0x42AB30",
+          "0x42B320",
+          "0x42D050",
+          "0x42F250",
+          "0x45CC10",
+          "0x474080",
+          "0x4740B0",
+          "0x4A1930",
+          "0x4A19A0",
+          "0x4A19C0",
+          "0x4A1A10",
+          "0x4A1A30",
+          "0x4A1A50",
+          "0x4A1A70",
+          "0x4A1A90",
+          "0x4A1AB0",
+          "0x4A1AD0",
+          "0x4A1AF0",
+          "0x514960",
+          "0x514990",
+          "0x5156B0",
+          "0x5156F0",
+          "0x515750",
+          "0x51C600",
+          "0x51C630",
+          "0x5411F0",
+          "0x5623B0",
+          "0x5623D0",
+          "0x5623F0",
+          "0x56F420",
+          "0x56F530",
+          "0x56F560",
+          "0x56F780",
+          "0x56F9F0",
+          "0x56FD30",
+          "0x5701C0",
+          "0x570210",
+          "0x570260",
+          "0x570340",
+          "0x570390",
+          "0x570510",
+          "0x5708F0",
+          "0x570CD0",
+          "0x570E40",
+          "0x570F20",
+          "0x570F50",
+          "0x570FF0",
+          "0x571170",
+          "0x5711C0",
+          "0x571210",
+          "0x571430",
+          "0x571470",
+          "0x5715F0",
+          "0x571810",
+          "0x571860",
+          "0x5718B0",
+          "0x571900",
+          "0x571950",
+          "0x5719A0",
+          "0x571A70",
+          "0x571B30",
+          "0x571B70",
+          "0x571BA0",
+          "0x571BD0",
+          "0x571DE0",
+          "0x571E00",
+          "0x571E40",
+          "0x571E80",
+          "0x571EB0",
+          "0x571EE0",
+          "0x571EF0"
+        ],
+        "gained": [
+          [
+            "?Create_Peek@@YA?AV?$RefCountPtr@VSceneClass@@@@PAVSceneClass@@@Z",
+            "0x514960"
+          ],
+          [
+            "?Unknown_5715F0@ChatWindowInterface@@QAEX_N0@Z",
+            "0x5715F0"
+          ],
+          [
+            "?Unknown_571A70@ChatWindowInterface@@QAEXPAUChatViewportStruct@@@Z",
+            "0x571A70"
+          ],
+          [
+            "?Unknown_7C@ChatWindowInterface@@UAEXPAVUIViewClass@@_N@Z",
+            "0x570260"
+          ],
+          [
+            "?Unknown_A4@ChatWindowInterface@@UAEXXZ",
+            "0x570CD0"
+          ],
+          [
+            "?Unknown_AC@ChatWindowInterface@@UAEX_N@Z",
+            "0x570F50"
+          ],
+          [
+            "?Unknown_CC@ChatWindowInterface@@UAEXXZ",
+            "0x570E40"
+          ]
+        ],
+        "lost": [],
+        "target_metrics": null
+      }
+    ]
+  },
+  "audit.json": {
+    "source_sha256": "d1c32213fee087a2e4b8b330b726da2fc49a43f1f62b32fd0db5c2aa179e459c",
+    "symbol": "?Unknown_AC@ChatWindowInterface@@UAEX_N@Z",
+    "start": "0x570f50",
+    "end_exclusive": "0x570fce",
+    "instructions": 34,
+    "returns": [
+      "0x570fcb"
+    ],
+    "relocations": [
+      {
+        "offset": 3,
+        "type": 6,
+        "symbol": "$L105237",
+        "addend": 0,
+        "client_absolute": "0xab10a8",
+        "purpose": "C++ EH handler (verified below)"
+      },
+      {
+        "offset": 9,
+        "type": 6,
+        "symbol": "__except_list",
+        "addend": 0,
+        "client_absolute": "0x0",
+        "purpose": "fs:[0] exception chain"
+      },
+      {
+        "offset": 17,
+        "type": 6,
+        "symbol": "__except_list",
+        "addend": 0,
+        "client_absolute": "0x0",
+        "purpose": "fs:[0] exception chain"
+      },
+      {
+        "offset": 33,
+        "type": 20,
+        "symbol": "??0InterfaceSortScopeClass@@QAE@PAVInterfaceClass@@@Z",
+        "addend": 0,
+        "client_target": "0x541980"
+      },
+      {
+        "offset": 57,
+        "type": 20,
+        "symbol": "?Unknown_65E7C0@ChatGadgetClass@@QAEX_N@Z",
+        "addend": 0,
+        "client_target": "0x65e7c0"
+      },
+      {
+        "offset": 104,
+        "type": 20,
+        "symbol": "??1InterfaceSortClass@@QAE@XZ",
+        "addend": 0,
+        "client_target": "0x6e18b0"
+      },
+      {
+        "offset": 116,
+        "type": 6,
+        "symbol": "__except_list",
+        "addend": 0,
+        "client_absolute": "0x0",
+        "purpose": "fs:[0] exception chain"
+      }
+    ],
+    "unwind": [
+      {
+        "state": 0,
+        "to_state": -1,
+        "client_funclet": "0xab10a0",
+        "bytes": 8,
+        "calls": [
+          {
+            "symbol": "??1InterfaceSortScopeClass@@QAE@XZ",
+            "client_target": "0x5411f0"
+          }
+        ]
+      }
+    ],
+    "code": "All nonrelocated bytes including branches and returns identical; no x87 instructions. Temporary lifetimes remain unchanged; member scene reference performs no extra load across callbacks. FuncInfo fields and unwind state transitions match."
+  },
+  "root-final-audit.json": {
+    "source_sha256": "be1b7279b2ca16b1edaaa7f10bdefe0ea7ad61eb17b5b1665480566180c20c2e",
+    "symbol": "?Unknown_AC@ChatWindowInterface@@UAEX_N@Z",
+    "start": "0x570f50",
+    "end_exclusive": "0x570fce",
+    "instructions": 34,
+    "returns": [
+      "0x570fcb"
+    ],
+    "relocations": [
+      {
+        "offset": 3,
+        "type": 6,
+        "symbol": "$L105237",
+        "addend": 0,
+        "client_absolute": "0xab10a8",
+        "purpose": "C++ EH handler (verified below)"
+      },
+      {
+        "offset": 9,
+        "type": 6,
+        "symbol": "__except_list",
+        "addend": 0,
+        "client_absolute": "0x0",
+        "purpose": "fs:[0] exception chain"
+      },
+      {
+        "offset": 17,
+        "type": 6,
+        "symbol": "__except_list",
+        "addend": 0,
+        "client_absolute": "0x0",
+        "purpose": "fs:[0] exception chain"
+      },
+      {
+        "offset": 33,
+        "type": 20,
+        "symbol": "??0InterfaceSortScopeClass@@QAE@PAVInterfaceClass@@@Z",
+        "addend": 0,
+        "client_target": "0x541980"
+      },
+      {
+        "offset": 57,
+        "type": 20,
+        "symbol": "?Unknown_65E7C0@ChatGadgetClass@@QAEX_N@Z",
+        "addend": 0,
+        "client_target": "0x65e7c0"
+      },
+      {
+        "offset": 104,
+        "type": 20,
+        "symbol": "??1InterfaceSortClass@@QAE@XZ",
+        "addend": 0,
+        "client_target": "0x6e18b0"
+      },
+      {
+        "offset": 116,
+        "type": 6,
+        "symbol": "__except_list",
+        "addend": 0,
+        "client_absolute": "0x0",
+        "purpose": "fs:[0] exception chain"
+      }
+    ],
+    "unwind": [
+      {
+        "state": 0,
+        "to_state": -1,
+        "client_funclet": "0xab10a0",
+        "bytes": 8,
+        "calls": [
+          {
+            "symbol": "??1InterfaceSortScopeClass@@QAE@XZ",
+            "client_target": "0x5411f0"
+          }
+        ]
+      }
+    ],
+    "code": "All nonrelocated bytes including branches and returns identical; no x87 instructions. Temporary lifetimes remain unchanged; member scene reference performs no extra load across callbacks. FuncInfo fields and unwind state transitions match."
+  },
+  "README.md": "# Claim 257: 0x570F50 exact\n\nIndependent source replay base: 682e7786, including all five earlier exact functions. forms.json contains the one compiled safe source form and root-final annotated source as independent unified patches against that base, with SHA-256. This phase compiled one new safe source form, then root independently rebuilt the annotated final source. Three planned alternatives were not compiled after the valid exact result. Control is root's preceding 5715F0 final (74 unique exact addresses).\n\nThe kept form binds the actual int scene field through `const int &scene = Unknown44` at the existing conditional Add line, then converts the field's value at the existing Add call. Binding the reference does not read the value; the read remains after UnknownB8->Peek_Scene(), and after UnknownA4->Unknown_65E7C0(reply). It does not cache a pointer across either callback. Masked residual rows: 4 -> 0. There are no artificial dead reads, flags, pragmas, assembly, or header changes.\n\nFinal native object match: all 76 symbol records exact, 75 unique exact address pairs. Gain over this phase's baseline: only 0x570F50; no lost address or symbol pairs. Cumulative over original claim baseline: +6 address pairs/-0 (69 -> 75). Source annotations and footer were independently rebuilt by root without shifting assert lines. The scope ledger must count 75 addresses, not 76 symbol records.\n\nThe audit verifies all 126 body bytes, 34 instructions, ret 4 at 0x570FCB, all branches and callback slots, actual direct calls with zero relocation addends: scope constructor 0x541980, ChatGadgetClass::Unknown_65E7C0 0x65E7C0, InterfaceSortClass destructor 0x6E18B0. The single-state 8-byte EH funclet at 0xAB10A0 calls the scope destructor at 0x5411F0. FuncInfo fields and to-state -1 match retail. Object lifetime and callbacks match; no x87 instructions occur.\n\nRetained: forms.json (independent source recipes/hashes), measurements.json (per-form whole-object exact address sets and target metrics), candidate audit.json and root-final-audit.json. Baseline proof is .work/claim-257/scene-targets/root-final-5715F0/runs/manifest-23ncj15_; candidate run is .work/claim-257/scene-targets/runs/family5-bd29l4_x; final run is .work/claim-257/scene-targets/root-final-570F50/runs/manifest-moa8_5gk. Full claims/pairs integration belongs to root; no binaries or retail data are in this replay pack.\n",
+  "replay-check.json": {
+    "checked_base": "682e7786",
+    "all_replayed": true,
+    "forms": [
+      {
+        "target": "570F50",
+        "name": "570F_add_intref",
+        "source_sha256": "d1c32213fee087a2e4b8b330b726da2fc49a43f1f62b32fd0db5c2aa179e459c",
+        "replay": "passed"
+      },
+      {
+        "target": "570F50",
+        "name": "root_final",
+        "source_sha256": "be1b7279b2ca16b1edaaa7f10bdefe0ea7ad61eb17b5b1665480566180c20c2e",
+        "replay": "passed"
+      }
+    ]
+  },
+  "integrated-three-audits.json": {
+    "source_sha256": "be1b7279b2ca16b1edaaa7f10bdefe0ea7ad61eb17b5b1665480566180c20c2e",
+    "final_exact_address_pairs": 75,
+    "final_exact_symbol_records": 76,
+    "claim_gain": 6,
+    "claim_loss": 0,
+    "functions": [
+      {
+        "source_sha256": "be1b7279b2ca16b1edaaa7f10bdefe0ea7ad61eb17b5b1665480566180c20c2e",
+        "symbol": "?Unknown_7C@ChatWindowInterface@@UAEXPAVUIViewClass@@_N@Z",
+        "start": "0x570260",
+        "end_exclusive": "0x570309",
+        "instructions": 59,
+        "returns": [
+          "0x570306"
+        ],
+        "relocations": [
+          {
+            "offset": 2,
+            "type": 6,
+            "symbol": "__except_list",
+            "addend": 0,
+            "client_absolute": "0x0",
+            "purpose": "fs:[0] exception chain"
+          },
+          {
+            "offset": 9,
+            "type": 6,
+            "symbol": "$L104216",
+            "addend": 0,
+            "client_absolute": "0xab1008",
+            "purpose": "C++ EH handler (verified below)"
+          },
+          {
+            "offset": 21,
+            "type": 6,
+            "symbol": "__except_list",
+            "addend": 0,
+            "client_absolute": "0x0",
+            "purpose": "fs:[0] exception chain"
+          },
+          {
+            "offset": 40,
+            "type": 20,
+            "symbol": "?Unknown_7C@InterfaceClass@@UAEXPAVUIViewClass@@_N@Z",
+            "addend": 0,
+            "client_target": "0x5412f0"
+          },
+          {
+            "offset": 74,
+            "type": 20,
+            "symbol": "?Create_Peek@@YA?AV?$RefCountPtr@VSceneClass@@@@PAVSceneClass@@@Z",
+            "addend": 0,
+            "client_target": "0x514960"
+          },
+          {
+            "offset": 90,
+            "type": 20,
+            "symbol": "?Unknown_67E180@ChatWindowClass@@QAEXABV?$RefCountPtr@VSceneClass@@@@@Z",
+            "addend": 0,
+            "client_target": "0x67e180"
+          },
+          {
+            "offset": 158,
+            "type": 6,
+            "symbol": "__except_list",
+            "addend": 0,
+            "client_absolute": "0x0",
+            "purpose": "fs:[0] exception chain"
+          }
+        ],
+        "unwind": [
+          {
+            "state": 0,
+            "to_state": -1,
+            "client_funclet": "0xab1000",
+            "bytes": 8,
+            "calls": [
+              {
+                "symbol": "??1?$RefCountPtr@VSceneClass@@@@QAE@XZ",
+                "client_target": "0x514990"
+              }
+            ]
+          }
+        ],
+        "code": "All nonrelocated bytes including branches and returns identical; no x87 instructions. Temporary lifetimes remain unchanged; member scene reference performs no extra load across callbacks. FuncInfo fields and unwind state transitions match."
+      },
+      {
+        "source_sha256": "be1b7279b2ca16b1edaaa7f10bdefe0ea7ad61eb17b5b1665480566180c20c2e",
+        "symbol": "?Unknown_5715F0@ChatWindowInterface@@QAEX_N0@Z",
+        "start": "0x5715f0",
+        "end_exclusive": "0x57179f",
+        "instructions": 125,
+        "returns": [
+          "0x5716fe",
+          "0x57179c"
+        ],
+        "relocations": [
+          {
+            "offset": 2,
+            "type": 6,
+            "symbol": "__except_list",
+            "addend": 0,
+            "client_absolute": "0x0",
+            "purpose": "fs:[0] exception chain"
+          },
+          {
+            "offset": 9,
+            "type": 6,
+            "symbol": "$L105513",
+            "addend": 0,
+            "client_absolute": "0xab10f8",
+            "purpose": "C++ EH handler (verified below)"
+          },
+          {
+            "offset": 17,
+            "type": 6,
+            "symbol": "__except_list",
+            "addend": 0,
+            "client_absolute": "0x0",
+            "purpose": "fs:[0] exception chain"
+          },
+          {
+            "offset": 83,
+            "type": 20,
+            "symbol": "??0InterfaceSortScopeClass@@QAE@PAVInterfaceClass@@@Z",
+            "addend": 0,
+            "client_target": "0x541980"
+          },
+          {
+            "offset": 180,
+            "type": 20,
+            "symbol": "?Create_Peek@@YA?AV?$RefCountPtr@VSceneClass@@@@PAVSceneClass@@@Z",
+            "addend": 0,
+            "client_target": "0x514960"
+          },
+          {
+            "offset": 200,
+            "type": 20,
+            "symbol": "?Unknown_685A30@TextCursorClass@@QAEXABV?$RefCountPtr@VSceneClass@@@@@Z",
+            "addend": 0,
+            "client_target": "0x685a30"
+          },
+          {
+            "offset": 251,
+            "type": 20,
+            "symbol": "??1InterfaceSortClass@@QAE@XZ",
+            "addend": 0,
+            "client_target": "0x6e18b0"
+          },
+          {
+            "offset": 263,
+            "type": 6,
+            "symbol": "__except_list",
+            "addend": 0,
+            "client_absolute": "0x0",
+            "purpose": "fs:[0] exception chain"
+          },
+          {
+            "offset": 372,
+            "type": 20,
+            "symbol": "?Unknown_685A30@TextCursorClass@@QAEXABV?$RefCountPtr@VSceneClass@@@@@Z",
+            "addend": 0,
+            "client_target": "0x685a30"
+          },
+          {
+            "offset": 421,
+            "type": 6,
+            "symbol": "__except_list",
+            "addend": 0,
+            "client_absolute": "0x0",
+            "purpose": "fs:[0] exception chain"
+          }
+        ],
+        "unwind": [
+          {
+            "state": 0,
+            "to_state": -1,
+            "client_funclet": "0xab10e0",
+            "bytes": 8,
+            "calls": [
+              {
+                "symbol": "??1InterfaceSortScopeClass@@QAE@XZ",
+                "client_target": "0x5411f0"
+              }
+            ]
+          },
+          {
+            "state": 1,
+            "to_state": 0,
+            "client_funclet": "0xab10e8",
+            "bytes": 8,
+            "calls": [
+              {
+                "symbol": "??1?$RefCountPtr@VSceneClass@@@@QAE@XZ",
+                "client_target": "0x514990"
+              }
+            ]
+          },
+          {
+            "state": 2,
+            "to_state": -1,
+            "client_funclet": "0xab10f0",
+            "bytes": 8,
+            "calls": [
+              {
+                "symbol": "??1?$RefCountPtr@VSceneClass@@@@QAE@XZ",
+                "client_target": "0x514990"
+              }
+            ]
+          }
+        ],
+        "code": "All nonrelocated bytes including branches and returns identical; no x87 instructions. Temporary lifetimes remain unchanged; member scene reference performs no extra load across callbacks. FuncInfo fields and unwind state transitions match."
+      },
+      {
+        "source_sha256": "be1b7279b2ca16b1edaaa7f10bdefe0ea7ad61eb17b5b1665480566180c20c2e",
+        "symbol": "?Unknown_AC@ChatWindowInterface@@UAEX_N@Z",
+        "start": "0x570f50",
+        "end_exclusive": "0x570fce",
+        "instructions": 34,
+        "returns": [
+          "0x570fcb"
+        ],
+        "relocations": [
+          {
+            "offset": 3,
+            "type": 6,
+            "symbol": "$L105237",
+            "addend": 0,
+            "client_absolute": "0xab10a8",
+            "purpose": "C++ EH handler (verified below)"
+          },
+          {
+            "offset": 9,
+            "type": 6,
+            "symbol": "__except_list",
+            "addend": 0,
+            "client_absolute": "0x0",
+            "purpose": "fs:[0] exception chain"
+          },
+          {
+            "offset": 17,
+            "type": 6,
+            "symbol": "__except_list",
+            "addend": 0,
+            "client_absolute": "0x0",
+            "purpose": "fs:[0] exception chain"
+          },
+          {
+            "offset": 33,
+            "type": 20,
+            "symbol": "??0InterfaceSortScopeClass@@QAE@PAVInterfaceClass@@@Z",
+            "addend": 0,
+            "client_target": "0x541980"
+          },
+          {
+            "offset": 57,
+            "type": 20,
+            "symbol": "?Unknown_65E7C0@ChatGadgetClass@@QAEX_N@Z",
+            "addend": 0,
+            "client_target": "0x65e7c0"
+          },
+          {
+            "offset": 104,
+            "type": 20,
+            "symbol": "??1InterfaceSortClass@@QAE@XZ",
+            "addend": 0,
+            "client_target": "0x6e18b0"
+          },
+          {
+            "offset": 116,
+            "type": 6,
+            "symbol": "__except_list",
+            "addend": 0,
+            "client_absolute": "0x0",
+            "purpose": "fs:[0] exception chain"
+          }
+        ],
+        "unwind": [
+          {
+            "state": 0,
+            "to_state": -1,
+            "client_funclet": "0xab10a0",
+            "bytes": 8,
+            "calls": [
+              {
+                "symbol": "??1InterfaceSortScopeClass@@QAE@XZ",
+                "client_target": "0x5411f0"
+              }
+            ]
+          }
+        ],
+        "code": "All nonrelocated bytes including branches and returns identical; no x87 instructions. Temporary lifetimes remain unchanged; member scene reference performs no extra load across callbacks. FuncInfo fields and unwind state transitions match."
+      }
+    ]
+  },
+  "final_all_scene_audits": {
+    "Unknown_7C.audit.json": {
+      "source_sha256": "be1b7279b2ca16b1edaaa7f10bdefe0ea7ad61eb17b5b1665480566180c20c2e",
+      "symbol": "?Unknown_7C@ChatWindowInterface@@UAEXPAVUIViewClass@@_N@Z",
+      "start": "0x570260",
+      "end_exclusive": "0x570309",
+      "instructions": 59,
+      "returns": [
+        "0x570306"
+      ],
+      "relocations": [
+        {
+          "offset": 2,
+          "type": 6,
+          "symbol": "__except_list",
+          "addend": 0,
+          "client_absolute": "0x0",
+          "purpose": "fs:[0] exception chain"
+        },
+        {
+          "offset": 9,
+          "type": 6,
+          "symbol": "$L104216",
+          "addend": 0,
+          "client_absolute": "0xab1008",
+          "purpose": "C++ EH handler (verified below)"
+        },
+        {
+          "offset": 21,
+          "type": 6,
+          "symbol": "__except_list",
+          "addend": 0,
+          "client_absolute": "0x0",
+          "purpose": "fs:[0] exception chain"
+        },
+        {
+          "offset": 40,
+          "type": 20,
+          "symbol": "?Unknown_7C@InterfaceClass@@UAEXPAVUIViewClass@@_N@Z",
+          "addend": 0,
+          "client_target": "0x5412f0"
+        },
+        {
+          "offset": 74,
+          "type": 20,
+          "symbol": "?Create_Peek@@YA?AV?$RefCountPtr@VSceneClass@@@@PAVSceneClass@@@Z",
+          "addend": 0,
+          "client_target": "0x514960"
+        },
+        {
+          "offset": 90,
+          "type": 20,
+          "symbol": "?Unknown_67E180@ChatWindowClass@@QAEXABV?$RefCountPtr@VSceneClass@@@@@Z",
+          "addend": 0,
+          "client_target": "0x67e180"
+        },
+        {
+          "offset": 158,
+          "type": 6,
+          "symbol": "__except_list",
+          "addend": 0,
+          "client_absolute": "0x0",
+          "purpose": "fs:[0] exception chain"
+        }
+      ],
+      "unwind": [
+        {
+          "state": 0,
+          "to_state": -1,
+          "client_funclet": "0xab1000",
+          "bytes": 8,
+          "calls": [
+            {
+              "symbol": "??1?$RefCountPtr@VSceneClass@@@@QAE@XZ",
+              "client_target": "0x514990"
+            }
+          ]
+        }
+      ],
+      "code": "All nonrelocated bytes including branches and returns identical; no x87 instructions. Temporary lifetimes remain unchanged; member scene reference performs no extra load across callbacks. FuncInfo fields and unwind state transitions match."
+    },
+    "Unknown_5715F0.audit.json": {
+      "source_sha256": "be1b7279b2ca16b1edaaa7f10bdefe0ea7ad61eb17b5b1665480566180c20c2e",
+      "symbol": "?Unknown_5715F0@ChatWindowInterface@@QAEX_N0@Z",
+      "start": "0x5715f0",
+      "end_exclusive": "0x57179f",
+      "instructions": 125,
+      "returns": [
+        "0x5716fe",
+        "0x57179c"
+      ],
+      "relocations": [
+        {
+          "offset": 2,
+          "type": 6,
+          "symbol": "__except_list",
+          "addend": 0,
+          "client_absolute": "0x0",
+          "purpose": "fs:[0] exception chain"
+        },
+        {
+          "offset": 9,
+          "type": 6,
+          "symbol": "$L105513",
+          "addend": 0,
+          "client_absolute": "0xab10f8",
+          "purpose": "C++ EH handler (verified below)"
+        },
+        {
+          "offset": 17,
+          "type": 6,
+          "symbol": "__except_list",
+          "addend": 0,
+          "client_absolute": "0x0",
+          "purpose": "fs:[0] exception chain"
+        },
+        {
+          "offset": 83,
+          "type": 20,
+          "symbol": "??0InterfaceSortScopeClass@@QAE@PAVInterfaceClass@@@Z",
+          "addend": 0,
+          "client_target": "0x541980"
+        },
+        {
+          "offset": 180,
+          "type": 20,
+          "symbol": "?Create_Peek@@YA?AV?$RefCountPtr@VSceneClass@@@@PAVSceneClass@@@Z",
+          "addend": 0,
+          "client_target": "0x514960"
+        },
+        {
+          "offset": 200,
+          "type": 20,
+          "symbol": "?Unknown_685A30@TextCursorClass@@QAEXABV?$RefCountPtr@VSceneClass@@@@@Z",
+          "addend": 0,
+          "client_target": "0x685a30"
+        },
+        {
+          "offset": 251,
+          "type": 20,
+          "symbol": "??1InterfaceSortClass@@QAE@XZ",
+          "addend": 0,
+          "client_target": "0x6e18b0"
+        },
+        {
+          "offset": 263,
+          "type": 6,
+          "symbol": "__except_list",
+          "addend": 0,
+          "client_absolute": "0x0",
+          "purpose": "fs:[0] exception chain"
+        },
+        {
+          "offset": 372,
+          "type": 20,
+          "symbol": "?Unknown_685A30@TextCursorClass@@QAEXABV?$RefCountPtr@VSceneClass@@@@@Z",
+          "addend": 0,
+          "client_target": "0x685a30"
+        },
+        {
+          "offset": 421,
+          "type": 6,
+          "symbol": "__except_list",
+          "addend": 0,
+          "client_absolute": "0x0",
+          "purpose": "fs:[0] exception chain"
+        }
+      ],
+      "unwind": [
+        {
+          "state": 0,
+          "to_state": -1,
+          "client_funclet": "0xab10e0",
+          "bytes": 8,
+          "calls": [
+            {
+              "symbol": "??1InterfaceSortScopeClass@@QAE@XZ",
+              "client_target": "0x5411f0"
+            }
+          ]
+        },
+        {
+          "state": 1,
+          "to_state": 0,
+          "client_funclet": "0xab10e8",
+          "bytes": 8,
+          "calls": [
+            {
+              "symbol": "??1?$RefCountPtr@VSceneClass@@@@QAE@XZ",
+              "client_target": "0x514990"
+            }
+          ]
+        },
+        {
+          "state": 2,
+          "to_state": -1,
+          "client_funclet": "0xab10f0",
+          "bytes": 8,
+          "calls": [
+            {
+              "symbol": "??1?$RefCountPtr@VSceneClass@@@@QAE@XZ",
+              "client_target": "0x514990"
+            }
+          ]
+        }
+      ],
+      "code": "All nonrelocated bytes including branches and returns identical; no x87 instructions. Temporary lifetimes remain unchanged; member scene reference performs no extra load across callbacks. FuncInfo fields and unwind state transitions match."
+    },
+    "Unknown_AC.audit.json": {
+      "source_sha256": "be1b7279b2ca16b1edaaa7f10bdefe0ea7ad61eb17b5b1665480566180c20c2e",
+      "symbol": "?Unknown_AC@ChatWindowInterface@@UAEX_N@Z",
+      "start": "0x570f50",
+      "end_exclusive": "0x570fce",
+      "instructions": 34,
+      "returns": [
+        "0x570fcb"
+      ],
+      "relocations": [
+        {
+          "offset": 3,
+          "type": 6,
+          "symbol": "$L105237",
+          "addend": 0,
+          "client_absolute": "0xab10a8",
+          "purpose": "C++ EH handler (verified below)"
+        },
+        {
+          "offset": 9,
+          "type": 6,
+          "symbol": "__except_list",
+          "addend": 0,
+          "client_absolute": "0x0",
+          "purpose": "fs:[0] exception chain"
+        },
+        {
+          "offset": 17,
+          "type": 6,
+          "symbol": "__except_list",
+          "addend": 0,
+          "client_absolute": "0x0",
+          "purpose": "fs:[0] exception chain"
+        },
+        {
+          "offset": 33,
+          "type": 20,
+          "symbol": "??0InterfaceSortScopeClass@@QAE@PAVInterfaceClass@@@Z",
+          "addend": 0,
+          "client_target": "0x541980"
+        },
+        {
+          "offset": 57,
+          "type": 20,
+          "symbol": "?Unknown_65E7C0@ChatGadgetClass@@QAEX_N@Z",
+          "addend": 0,
+          "client_target": "0x65e7c0"
+        },
+        {
+          "offset": 104,
+          "type": 20,
+          "symbol": "??1InterfaceSortClass@@QAE@XZ",
+          "addend": 0,
+          "client_target": "0x6e18b0"
+        },
+        {
+          "offset": 116,
+          "type": 6,
+          "symbol": "__except_list",
+          "addend": 0,
+          "client_absolute": "0x0",
+          "purpose": "fs:[0] exception chain"
+        }
+      ],
+      "unwind": [
+        {
+          "state": 0,
+          "to_state": -1,
+          "client_funclet": "0xab10a0",
+          "bytes": 8,
+          "calls": [
+            {
+              "symbol": "??1InterfaceSortScopeClass@@QAE@XZ",
+              "client_target": "0x5411f0"
+            }
+          ]
+        }
+      ],
+      "code": "All nonrelocated bytes including branches and returns identical; no x87 instructions. Temporary lifetimes remain unchanged; member scene reference performs no extra load across callbacks. FuncInfo fields and unwind state transitions match."
+    }
+  }
+}

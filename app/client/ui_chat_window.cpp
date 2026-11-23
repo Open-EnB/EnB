@@ -375,12 +375,12 @@ ChatGadgetClass *ChatWindowInterface::Unknown_570F20()
 	return((UnknownA4 != NULL && UnknownA4->Active) ? UnknownA4 : NULL);
 }
 
-// 0x570F50  // NOT EXACT: functional (CW2): register residue (0.78)
+// 0x570F50
 void ChatWindowInterface::Unknown_AC(bool reply)
 {
 	InterfaceSortScopeClass scope(this);
 	UnknownA4->Unknown_65E7C0(reply);
-	if (!UnknownB8->Peek_Scene()) UnknownB8->Add(Peek_Scene());
+	const int &scene = Unknown44; if (!UnknownB8->Peek_Scene()) UnknownB8->Add((SceneClass *)scene);	// NAME 1 [scene]: neutral (D10)
 }
 
 
@@ -630,6 +630,7 @@ void ChatWindowInterface::Unknown_571A70(ChatViewportStruct *vp)
 }
 
 /*
+**	0x570F50 is exact: bind the stored scene through a const integer reference at its existing Add site.
 **	0x5715F0 is exact: use the stored scene through one const integer reference at both existing input sites,
 **	so the later value read remains after Set_Hidden and reference-counted temporary cleanup is preserved.
 **	0x570260 is exact: bind the stored scene value through a const reference to its declared integer type
