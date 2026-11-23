@@ -243,12 +243,12 @@ void ChatWindowInterface::Unknown_5C()
 	InterfaceClass::Unknown_5C();
 }
 
-// 0x570260  // NOT EXACT: functional (CW2): register residue around Create_Peek(Peek_Scene()) (eax / edx swapped; 0.81)
+// 0x570260
 void ChatWindowInterface::Unknown_7C(UIViewClass *view, bool arg)
 {
 	InterfaceClass::Unknown_7C(view, arg);
 	for (std::vector<ChatWinStruct *>::iterator it = ChatWindows.begin(); it != ChatWindows.end(); it++) {
-		ChatWinStruct *chat_win = *it; chat_win->ChatWindow->Unknown_67E180(Create_Peek(Peek_Scene()));
+		ChatWinStruct *chat_win = *it; const int &scene = Unknown44; chat_win->ChatWindow->Unknown_67E180(Create_Peek((SceneClass *)scene));	// NAME 1 [scene]: neutral (D10)
 	}
 }
 
@@ -630,6 +630,8 @@ void ChatWindowInterface::Unknown_571A70(ChatViewportStruct *vp)
 }
 
 /*
+**	0x570260 is exact: bind the stored scene value through a const reference to its declared integer type
+**	and convert it at the existing Create_Peek argument site. Reference-counted temporary lifetime is unchanged.
 **	0x571A70 and its inlined callers 0x570CD0 / 0x570E40 are exact: copy both bone translations
 **	through Vector3 locals and store Bottom, Right, Top, Left. The helper also retains its out-of-line copy.
 **	The chat window (CW2, 2026-11-08): __FILE__ 0xB7D76C ('e:\build\beta\G\app\Client\ui_chat_window.cpp'),

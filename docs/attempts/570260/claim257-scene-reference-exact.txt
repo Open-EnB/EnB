@@ -1,0 +1,894 @@
+{
+  "forms.json": {
+    "base_rev": "d1b6c2b5",
+    "base_source_sha256": "ea995c7241ce6083ef77a31a55ad42dc06ba6c0b30888be40fdc23395de8b5d9",
+    "forms": {
+      "baseline": {
+        "patch": "",
+        "source_sha256": "ea995c7241ce6083ef77a31a55ad42dc06ba6c0b30888be40fdc23395de8b5d9"
+      },
+      "scene_arg": {
+        "patch": "--- a/app/client/ui_chat_window.cpp\n+++ b/app/client/ui_chat_window.cpp\n@@ -248,7 +248,7 @@\n {\n \tInterfaceClass::Unknown_7C(view, arg);\n \tfor (std::vector<ChatWinStruct *>::iterator it = ChatWindows.begin(); it != ChatWindows.end(); it++) {\n-\t\tChatWinStruct *chat_win = *it; chat_win->ChatWindow->Unknown_67E180(Create_Peek(Peek_Scene()));\n+\t\tChatWinStruct *chat_win = *it; SceneClass *scene; chat_win->ChatWindow->Unknown_67E180(Create_Peek(scene = Peek_Scene()));\n \t}\n }\n \n",
+        "source_sha256": "f143696d1bfcd0e84044d7a749692491fa93be4d9ec466ef21fe7c6ca48c8838"
+      },
+      "scene_named": {
+        "patch": "--- a/app/client/ui_chat_window.cpp\n+++ b/app/client/ui_chat_window.cpp\n@@ -248,7 +248,7 @@\n {\n \tInterfaceClass::Unknown_7C(view, arg);\n \tfor (std::vector<ChatWinStruct *>::iterator it = ChatWindows.begin(); it != ChatWindows.end(); it++) {\n-\t\tChatWinStruct *chat_win = *it; chat_win->ChatWindow->Unknown_67E180(Create_Peek(Peek_Scene()));\n+\t\tChatWinStruct *chat_win = *it; SceneClass *scene = Peek_Scene(); chat_win->ChatWindow->Unknown_67E180(Create_Peek(scene));\n \t}\n }\n \n",
+        "source_sha256": "d85e5fa2ebd45108ff172237e145e590c171973972357d9c49d1c19f20c3d6d2"
+      },
+      "window_arg": {
+        "patch": "--- a/app/client/ui_chat_window.cpp\n+++ b/app/client/ui_chat_window.cpp\n@@ -248,7 +248,7 @@\n {\n \tInterfaceClass::Unknown_7C(view, arg);\n \tfor (std::vector<ChatWinStruct *>::iterator it = ChatWindows.begin(); it != ChatWindows.end(); it++) {\n-\t\tChatWinStruct *chat_win = *it; chat_win->ChatWindow->Unknown_67E180(Create_Peek(Peek_Scene()));\n+\t\tChatWinStruct *chat_win = *it; ChatWindowClass *window; (window = chat_win->ChatWindow)->Unknown_67E180(Create_Peek(Peek_Scene()));\n \t}\n }\n \n",
+        "source_sha256": "d45577de508cebcb8c8b7e024852bf8ce76910e3567e95e5eb0b59a9c2e741db"
+      },
+      "window_named": {
+        "patch": "--- a/app/client/ui_chat_window.cpp\n+++ b/app/client/ui_chat_window.cpp\n@@ -248,7 +248,7 @@\n {\n \tInterfaceClass::Unknown_7C(view, arg);\n \tfor (std::vector<ChatWinStruct *>::iterator it = ChatWindows.begin(); it != ChatWindows.end(); it++) {\n-\t\tChatWinStruct *chat_win = *it; chat_win->ChatWindow->Unknown_67E180(Create_Peek(Peek_Scene()));\n+\t\tChatWinStruct *chat_win = *it; ChatWindowClass *window = chat_win->ChatWindow; window->Unknown_67E180(Create_Peek(Peek_Scene()));\n \t}\n }\n \n",
+        "source_sha256": "c5c7085fd321501c9ad6e7e7c33fe37ee85f26e39a5fe8d5f46ef451b436aff6"
+      },
+      "preincrement": {
+        "patch": "--- a/app/client/ui_chat_window.cpp\n+++ b/app/client/ui_chat_window.cpp\n@@ -247,7 +247,7 @@\n void ChatWindowInterface::Unknown_7C(UIViewClass *view, bool arg)\n {\n \tInterfaceClass::Unknown_7C(view, arg);\n-\tfor (std::vector<ChatWinStruct *>::iterator it = ChatWindows.begin(); it != ChatWindows.end(); it++) {\n+\tfor (std::vector<ChatWinStruct *>::iterator it = ChatWindows.begin(); it != ChatWindows.end(); ++it) {\n \t\tChatWinStruct *chat_win = *it; chat_win->ChatWindow->Unknown_67E180(Create_Peek(Peek_Scene()));\n \t}\n }\n",
+        "source_sha256": "2871814cff3b4d718d225d62b0448babc89f7881ffd08d7ffda13d6f4706594f"
+      },
+      "iterator_assigned": {
+        "patch": "--- a/app/client/ui_chat_window.cpp\n+++ b/app/client/ui_chat_window.cpp\n@@ -247,7 +247,7 @@\n void ChatWindowInterface::Unknown_7C(UIViewClass *view, bool arg)\n {\n \tInterfaceClass::Unknown_7C(view, arg);\n-\tfor (std::vector<ChatWinStruct *>::iterator it = ChatWindows.begin(); it != ChatWindows.end(); it++) {\n+\tstd::vector<ChatWinStruct *>::iterator it; for (it = ChatWindows.begin(); it != ChatWindows.end(); it++) {\n \t\tChatWinStruct *chat_win = *it; chat_win->ChatWindow->Unknown_67E180(Create_Peek(Peek_Scene()));\n \t}\n }\n",
+        "source_sha256": "22214ec354c17a28e7839d515c93932ee3624416aad4c16494f70c0011542ab3"
+      },
+      "chat_ref": {
+        "patch": "--- a/app/client/ui_chat_window.cpp\n+++ b/app/client/ui_chat_window.cpp\n@@ -248,7 +248,7 @@\n {\n \tInterfaceClass::Unknown_7C(view, arg);\n \tfor (std::vector<ChatWinStruct *>::iterator it = ChatWindows.begin(); it != ChatWindows.end(); it++) {\n-\t\tChatWinStruct *chat_win = *it; chat_win->ChatWindow->Unknown_67E180(Create_Peek(Peek_Scene()));\n+\t\tChatWinStruct *&chat_win = *it; chat_win->ChatWindow->Unknown_67E180(Create_Peek(Peek_Scene()));\n \t}\n }\n \n",
+        "source_sha256": "7171bd30bfb6c27c6205459f938476c654e8edee7f1f2252efd2b8de316cdcdb"
+      },
+      "chat_constref": {
+        "patch": "--- a/app/client/ui_chat_window.cpp\n+++ b/app/client/ui_chat_window.cpp\n@@ -248,7 +248,7 @@\n {\n \tInterfaceClass::Unknown_7C(view, arg);\n \tfor (std::vector<ChatWinStruct *>::iterator it = ChatWindows.begin(); it != ChatWindows.end(); it++) {\n-\t\tChatWinStruct *chat_win = *it; chat_win->ChatWindow->Unknown_67E180(Create_Peek(Peek_Scene()));\n+\t\tChatWinStruct *const &chat_win = *it; chat_win->ChatWindow->Unknown_67E180(Create_Peek(Peek_Scene()));\n \t}\n }\n \n",
+        "source_sha256": "2f6bdcc27c9bbf2e7556861f0593db0188676efff8ebcb7b3b83696e64cb2592"
+      },
+      "chat_arg": {
+        "patch": "--- a/app/client/ui_chat_window.cpp\n+++ b/app/client/ui_chat_window.cpp\n@@ -248,7 +248,7 @@\n {\n \tInterfaceClass::Unknown_7C(view, arg);\n \tfor (std::vector<ChatWinStruct *>::iterator it = ChatWindows.begin(); it != ChatWindows.end(); it++) {\n-\t\tChatWinStruct *chat_win = *it; chat_win->ChatWindow->Unknown_67E180(Create_Peek(Peek_Scene()));\n+\t\tChatWinStruct *chat_win; (chat_win = *it)->ChatWindow->Unknown_67E180(Create_Peek(Peek_Scene()));\n \t}\n }\n \n",
+        "source_sha256": "286fa5e2efdfdde5e2417cc28a65d976a5e8b2d43210572bb1815aed68f76b56"
+      },
+      "scene_constref": {
+        "patch": "--- a/app/client/ui_chat_window.cpp\n+++ b/app/client/ui_chat_window.cpp\n@@ -248,7 +248,7 @@\n {\n \tInterfaceClass::Unknown_7C(view, arg);\n \tfor (std::vector<ChatWinStruct *>::iterator it = ChatWindows.begin(); it != ChatWindows.end(); it++) {\n-\t\tChatWinStruct *chat_win = *it; chat_win->ChatWindow->Unknown_67E180(Create_Peek(Peek_Scene()));\n+\t\tChatWinStruct *chat_win = *it; SceneClass *const &scene = (SceneClass *const &)Unknown44; chat_win->ChatWindow->Unknown_67E180(Create_Peek(scene));\n \t}\n }\n \n",
+        "source_sha256": "8f163005862c05eeebb1effa4162e36c8fbf25efbabcec6fccc26506084ee1e6"
+      },
+      "scene_value_constref": {
+        "patch": "--- a/app/client/ui_chat_window.cpp\n+++ b/app/client/ui_chat_window.cpp\n@@ -248,7 +248,7 @@\n {\n \tInterfaceClass::Unknown_7C(view, arg);\n \tfor (std::vector<ChatWinStruct *>::iterator it = ChatWindows.begin(); it != ChatWindows.end(); it++) {\n-\t\tChatWinStruct *chat_win = *it; chat_win->ChatWindow->Unknown_67E180(Create_Peek(Peek_Scene()));\n+\t\tChatWinStruct *chat_win = *it; SceneClass *const &scene = Peek_Scene(); chat_win->ChatWindow->Unknown_67E180(Create_Peek(scene));\n \t}\n }\n \n",
+        "source_sha256": "1e3cef4fa50dc06af16953ca1f26105fdbdb17740c2766faaf8e6e43d2fa496a"
+      },
+      "scene_cast_constref": {
+        "patch": "--- a/app/client/ui_chat_window.cpp\n+++ b/app/client/ui_chat_window.cpp\n@@ -248,7 +248,7 @@\n {\n \tInterfaceClass::Unknown_7C(view, arg);\n \tfor (std::vector<ChatWinStruct *>::iterator it = ChatWindows.begin(); it != ChatWindows.end(); it++) {\n-\t\tChatWinStruct *chat_win = *it; chat_win->ChatWindow->Unknown_67E180(Create_Peek(Peek_Scene()));\n+\t\tChatWinStruct *chat_win = *it; SceneClass *const &scene = (SceneClass *)Unknown44; chat_win->ChatWindow->Unknown_67E180(Create_Peek(scene));\n \t}\n }\n \n",
+        "source_sha256": "720b5e19ab4adbafb82531216d20b468fd6736cd526c981beb2733fe038fb0a2"
+      },
+      "scene_int_constref": {
+        "patch": "--- a/app/client/ui_chat_window.cpp\n+++ b/app/client/ui_chat_window.cpp\n@@ -248,7 +248,7 @@\n {\n \tInterfaceClass::Unknown_7C(view, arg);\n \tfor (std::vector<ChatWinStruct *>::iterator it = ChatWindows.begin(); it != ChatWindows.end(); it++) {\n-\t\tChatWinStruct *chat_win = *it; chat_win->ChatWindow->Unknown_67E180(Create_Peek(Peek_Scene()));\n+\t\tChatWinStruct *chat_win = *it; const int &scene = Unknown44; chat_win->ChatWindow->Unknown_67E180(Create_Peek((SceneClass *)scene));\n \t}\n }\n \n",
+        "source_sha256": "976abac2b123517da7316ec2e972594a394fac0b2b1a777294e3602378f9c921"
+      },
+      "root_final": {
+        "patch": "--- a/app/client/ui_chat_window.cpp\n+++ b/app/client/ui_chat_window.cpp\n@@ -243,12 +243,12 @@\n \tInterfaceClass::Unknown_5C();\n }\n \n-// 0x570260  // NOT EXACT: functional (CW2): register residue around Create_Peek(Peek_Scene()) (eax / edx swapped; 0.81)\n+// 0x570260\n void ChatWindowInterface::Unknown_7C(UIViewClass *view, bool arg)\n {\n \tInterfaceClass::Unknown_7C(view, arg);\n \tfor (std::vector<ChatWinStruct *>::iterator it = ChatWindows.begin(); it != ChatWindows.end(); it++) {\n-\t\tChatWinStruct *chat_win = *it; chat_win->ChatWindow->Unknown_67E180(Create_Peek(Peek_Scene()));\n+\t\tChatWinStruct *chat_win = *it; const int &scene = Unknown44; chat_win->ChatWindow->Unknown_67E180(Create_Peek((SceneClass *)scene));\t// NAME 1 [scene]: neutral (D10)\n \t}\n }\n \n@@ -630,6 +630,8 @@\n }\n \n /*\n+**\t0x570260 is exact: bind the stored scene value through a const reference to its declared integer type\n+**\tand convert it at the existing Create_Peek argument site. Reference-counted temporary lifetime is unchanged.\n **\t0x571A70 and its inlined callers 0x570CD0 / 0x570E40 are exact: copy both bone translations\n **\tthrough Vector3 locals and store Bottom, Right, Top, Left. The helper also retains its out-of-line copy.\n **\tThe chat window (CW2, 2026-11-08): __FILE__ 0xB7D76C ('e:\\build\\beta\\G\\app\\Client\\ui_chat_window.cpp'),\n",
+        "source_sha256": "753b5e442758eb15efde978a218c0e70ecfd4a638923c0899e1a7a7b73f43c7d"
+      }
+    }
+  },
+  "measurements.json": {
+    "compiled_forms_including_baseline": 14,
+    "safe_alternative_forms": 12,
+    "diagnostic_only_forms": 1,
+    "executed": [
+      {
+        "name": "baseline",
+        "source_sha256": "ea995c7241ce6083ef77a31a55ad42dc06ba6c0b30888be40fdc23395de8b5d9",
+        "diagnostic_only": false,
+        "gained_addresses": [],
+        "lost_addresses": [],
+        "counts": {
+          "exact": 72,
+          "none": 3,
+          "multiple": 1
+        },
+        "metrics": {
+          "size": 176,
+          "rows": 6,
+          "similarity": 0.91525,
+          "diff": "/home/dev/Projects/EnB/.work/claim-257/scene-targets/runs/family1-gvjr8lij/baseline/Unknown_7C.diff.txt"
+        }
+      },
+      {
+        "name": "scene_arg",
+        "source_sha256": "f143696d1bfcd0e84044d7a749692491fa93be4d9ec466ef21fe7c6ca48c8838",
+        "diagnostic_only": false,
+        "gained_addresses": [],
+        "lost_addresses": [],
+        "counts": {
+          "exact": 72,
+          "none": 3,
+          "multiple": 1
+        },
+        "metrics": {
+          "size": 176,
+          "rows": 6,
+          "similarity": 0.91525,
+          "diff": "/home/dev/Projects/EnB/.work/claim-257/scene-targets/runs/family1-gvjr8lij/scene_arg/Unknown_7C.diff.txt"
+        }
+      },
+      {
+        "name": "scene_named",
+        "source_sha256": "d85e5fa2ebd45108ff172237e145e590c171973972357d9c49d1c19f20c3d6d2",
+        "diagnostic_only": false,
+        "gained_addresses": [],
+        "lost_addresses": [],
+        "counts": {
+          "exact": 72,
+          "none": 3,
+          "multiple": 1
+        },
+        "metrics": {
+          "size": 176,
+          "rows": 6,
+          "similarity": 0.91525,
+          "diff": "/home/dev/Projects/EnB/.work/claim-257/scene-targets/runs/family1-gvjr8lij/scene_named/Unknown_7C.diff.txt"
+        }
+      },
+      {
+        "name": "window_arg",
+        "source_sha256": "d45577de508cebcb8c8b7e024852bf8ce76910e3567e95e5eb0b59a9c2e741db",
+        "diagnostic_only": false,
+        "gained_addresses": [],
+        "lost_addresses": [],
+        "counts": {
+          "exact": 72,
+          "none": 3,
+          "multiple": 1
+        },
+        "metrics": {
+          "size": 176,
+          "rows": 6,
+          "similarity": 0.91525,
+          "diff": "/home/dev/Projects/EnB/.work/claim-257/scene-targets/runs/family1-gvjr8lij/window_arg/Unknown_7C.diff.txt"
+        }
+      },
+      {
+        "name": "window_named",
+        "source_sha256": "c5c7085fd321501c9ad6e7e7c33fe37ee85f26e39a5fe8d5f46ef451b436aff6",
+        "diagnostic_only": false,
+        "gained_addresses": [],
+        "lost_addresses": [],
+        "counts": {
+          "exact": 72,
+          "none": 3,
+          "multiple": 1
+        },
+        "metrics": {
+          "size": 176,
+          "rows": 9,
+          "similarity": 0.87395,
+          "diff": "/home/dev/Projects/EnB/.work/claim-257/scene-targets/runs/family1-gvjr8lij/window_named/Unknown_7C.diff.txt"
+        }
+      },
+      {
+        "name": "preincrement",
+        "source_sha256": "2871814cff3b4d718d225d62b0448babc89f7881ffd08d7ffda13d6f4706594f",
+        "diagnostic_only": false,
+        "gained_addresses": [],
+        "lost_addresses": [],
+        "counts": {
+          "exact": 72,
+          "none": 3,
+          "multiple": 1
+        },
+        "metrics": {
+          "size": 176,
+          "rows": 6,
+          "similarity": 0.91525,
+          "diff": "/home/dev/Projects/EnB/.work/claim-257/scene-targets/runs/family2-lpn04us2/preincrement/Unknown_7C.diff.txt"
+        }
+      },
+      {
+        "name": "iterator_assigned",
+        "source_sha256": "22214ec354c17a28e7839d515c93932ee3624416aad4c16494f70c0011542ab3",
+        "diagnostic_only": false,
+        "gained_addresses": [],
+        "lost_addresses": [],
+        "counts": {
+          "exact": 72,
+          "none": 3,
+          "multiple": 1
+        },
+        "metrics": {
+          "size": 176,
+          "rows": 6,
+          "similarity": 0.91525,
+          "diff": "/home/dev/Projects/EnB/.work/claim-257/scene-targets/runs/family2-lpn04us2/iterator_assigned/Unknown_7C.diff.txt"
+        }
+      },
+      {
+        "name": "chat_ref",
+        "source_sha256": "7171bd30bfb6c27c6205459f938476c654e8edee7f1f2252efd2b8de316cdcdb",
+        "diagnostic_only": false,
+        "gained_addresses": [],
+        "lost_addresses": [],
+        "counts": {
+          "exact": 72,
+          "none": 3,
+          "multiple": 1
+        },
+        "metrics": {
+          "size": 176,
+          "rows": 33,
+          "similarity": 0.53913,
+          "diff": "/home/dev/Projects/EnB/.work/claim-257/scene-targets/runs/family2-lpn04us2/chat_ref/Unknown_7C.diff.txt"
+        }
+      },
+      {
+        "name": "chat_constref",
+        "source_sha256": "2f6bdcc27c9bbf2e7556861f0593db0188676efff8ebcb7b3b83696e64cb2592",
+        "diagnostic_only": false,
+        "gained_addresses": [],
+        "lost_addresses": [],
+        "counts": {
+          "exact": 72,
+          "none": 3,
+          "multiple": 1
+        },
+        "metrics": {
+          "size": 176,
+          "rows": 33,
+          "similarity": 0.53913,
+          "diff": "/home/dev/Projects/EnB/.work/claim-257/scene-targets/runs/family2-lpn04us2/chat_constref/Unknown_7C.diff.txt"
+        }
+      },
+      {
+        "name": "chat_arg",
+        "source_sha256": "286fa5e2efdfdde5e2417cc28a65d976a5e8b2d43210572bb1815aed68f76b56",
+        "diagnostic_only": false,
+        "gained_addresses": [],
+        "lost_addresses": [],
+        "counts": {
+          "exact": 72,
+          "none": 3,
+          "multiple": 1
+        },
+        "metrics": {
+          "size": 176,
+          "rows": 34,
+          "similarity": 0.50435,
+          "diff": "/home/dev/Projects/EnB/.work/claim-257/scene-targets/runs/family2-lpn04us2/chat_arg/Unknown_7C.diff.txt"
+        }
+      },
+      {
+        "name": "scene_constref",
+        "source_sha256": "8f163005862c05eeebb1effa4162e36c8fbf25efbabcec6fccc26506084ee1e6",
+        "diagnostic_only": true,
+        "gained_addresses": [
+          "0x570260"
+        ],
+        "lost_addresses": [],
+        "counts": {
+          "exact": 74,
+          "none": 2
+        },
+        "metrics": {
+          "size": 176,
+          "rows": 0,
+          "similarity": 1.0,
+          "diff": "/home/dev/Projects/EnB/.work/claim-257/scene-targets/runs/family2-lpn04us2/scene_constref/Unknown_7C.diff.txt"
+        }
+      },
+      {
+        "name": "scene_value_constref",
+        "source_sha256": "1e3cef4fa50dc06af16953ca1f26105fdbdb17740c2766faaf8e6e43d2fa496a",
+        "diagnostic_only": false,
+        "gained_addresses": [],
+        "lost_addresses": [],
+        "counts": {
+          "exact": 72,
+          "none": 3,
+          "multiple": 1
+        },
+        "metrics": {
+          "size": 176,
+          "rows": 6,
+          "similarity": 0.91525,
+          "diff": "/home/dev/Projects/EnB/.work/claim-257/scene-targets/runs/family3-e9umklnr/scene_value_constref/Unknown_7C.diff.txt"
+        }
+      },
+      {
+        "name": "scene_cast_constref",
+        "source_sha256": "720b5e19ab4adbafb82531216d20b468fd6736cd526c981beb2733fe038fb0a2",
+        "diagnostic_only": false,
+        "gained_addresses": [],
+        "lost_addresses": [],
+        "counts": {
+          "exact": 72,
+          "none": 3,
+          "multiple": 1
+        },
+        "metrics": {
+          "size": 176,
+          "rows": 6,
+          "similarity": 0.91525,
+          "diff": "/home/dev/Projects/EnB/.work/claim-257/scene-targets/runs/family3-e9umklnr/scene_cast_constref/Unknown_7C.diff.txt"
+        }
+      },
+      {
+        "name": "scene_int_constref",
+        "source_sha256": "976abac2b123517da7316ec2e972594a394fac0b2b1a777294e3602378f9c921",
+        "diagnostic_only": false,
+        "gained_addresses": [
+          "0x570260"
+        ],
+        "lost_addresses": [],
+        "counts": {
+          "exact": 74,
+          "none": 2
+        },
+        "metrics": {
+          "size": 176,
+          "rows": 0,
+          "similarity": 1.0,
+          "diff": "/home/dev/Projects/EnB/.work/claim-257/scene-targets/runs/family3-e9umklnr/scene_int_constref/Unknown_7C.diff.txt"
+        }
+      }
+    ],
+    "root_final": {
+      "name": "root_final",
+      "source": "/home/dev/Projects/EnB/.work/claim-257/scene-targets/root-final-570260/ui_chat_window.cpp",
+      "source_sha256": "753b5e442758eb15efde978a218c0e70ecfd4a638923c0899e1a7a7b73f43c7d",
+      "tree": "/home/dev/Projects/EnB/.work/claim-257/scene-targets/tree",
+      "output": "/home/dev/Projects/EnB/.work/claim-257/scene-targets/root-final-570260/runs/manifest-cskpvcn6/root_final",
+      "compiled": true,
+      "object": "/home/dev/Projects/EnB/.work/claim-257/scene-targets/root-final-570260/runs/manifest-cskpvcn6/root_final/ui_chat_window.obj",
+      "match_returncode": 0,
+      "matches": "/home/dev/Projects/EnB/.work/claim-257/scene-targets/root-final-570260/runs/manifest-cskpvcn6/root_final/matches.json",
+      "counts": {
+        "exact": 74,
+        "none": 2
+      },
+      "exact_symbol_pairs": [
+        [
+          "??0ChatWindowInterface@@QAE@PAVSClient@@PAVUnknown67D430Class@@PAVChatGadgetClass@@@Z",
+          "0x56F420"
+        ],
+        [
+          "??1?$RefCountPtr@VFontSys@@@@QAE@XZ",
+          "0x51C630"
+        ],
+        [
+          "??1?$RefCountPtr@VRenderObjClass@@@@QAE@XZ",
+          "0x4740B0"
+        ],
+        [
+          "??1?$RefCountPtr@VSceneClass@@@@QAE@XZ",
+          "0x514990"
+        ],
+        [
+          "??1?$RefCountPtr@VTextCursorClass@@@@QAE@XZ",
+          "0x571BA0"
+        ],
+        [
+          "??1?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAE@XZ",
+          "0x42A6C0"
+        ],
+        [
+          "??1?$vector@PAUChatWinStruct@@V?$allocator@PAUChatWinStruct@@@std@@@std@@QAE@XZ",
+          "0x571B30"
+        ],
+        [
+          "??1ChatWindowInterface@@UAE@XZ",
+          "0x56F560"
+        ],
+        [
+          "??1InterfaceSortScopeClass@@QAE@XZ",
+          "0x5411F0"
+        ],
+        [
+          "??_EChatWindowInterface@@W3AEPAXI@Z",
+          "0x571EE0"
+        ],
+        [
+          "??_EChatWindowInterface@@WDI@AEPAXI@Z",
+          "0x571EF0"
+        ],
+        [
+          "??_GChatWindowInterface@@UAEPAXI@Z",
+          "0x56F530"
+        ],
+        [
+          "??_H@YGXPAXIHP6EX0@Z@Z",
+          "0x42F250"
+        ],
+        [
+          "?Create_Get@@YA?AV?$RefCountPtr@VRenderObjClass@@@@PAVRenderObjClass@@@Z",
+          "0x474080"
+        ],
+        [
+          "?Create_NEW@@YA?AV?$RefCountPtr@VFontSys@@@@PAVFontSys@@@Z",
+          "0x51C600"
+        ],
+        [
+          "?Create_Peek@@YA?AV?$RefCountPtr@VRenderObjClass@@@@PAVRenderObjClass@@@Z",
+          "0x514960"
+        ],
+        [
+          "?Create_Peek@@YA?AV?$RefCountPtr@VSceneClass@@@@PAVSceneClass@@@Z",
+          "0x514960"
+        ],
+        [
+          "?Delete_This@RefCountClass@@UAEXXZ",
+          "0x45CC10"
+        ],
+        [
+          "?Get_Target_Node@GClass@@UAEPAV?$ContextDataNode@PAVGClass@@PAV1@@@XZ",
+          "0x4A1AD0"
+        ],
+        [
+          "?Get_Targeting_List@GClass@@UAEPAV?$List@PAV?$ContextDataNode@PAVGClass@@PAV1@@@@@XZ",
+          "0x4A1AF0"
+        ],
+        [
+          "?Unknown_04@UnknownGadgetBase00Class@@UAEPAVGenericNode@@XZ",
+          "0x4A19A0"
+        ],
+        [
+          "?Unknown_08@UnknownGadgetBase00Class@@UAEXXZ",
+          "0x4A19C0"
+        ],
+        [
+          "?Unknown_0C@GClass@@UAEPBDXZ",
+          "0x4A1A10"
+        ],
+        [
+          "?Unknown_1C@GClass@@UAEHXZ",
+          "0x4A1A30"
+        ],
+        [
+          "?Unknown_20@GClass@@UAEHXZ",
+          "0x4A1A50"
+        ],
+        [
+          "?Unknown_24@GClass@@UAEHXZ",
+          "0x4A1A70"
+        ],
+        [
+          "?Unknown_28@GClass@@UAEHXZ",
+          "0x4A1A90"
+        ],
+        [
+          "?Unknown_2C@GClass@@UAEHXZ",
+          "0x4A1AB0"
+        ],
+        [
+          "?Unknown_4A1930@UnknownGadgetBase04Class@@UAE_NHHH@Z",
+          "0x4A1930"
+        ],
+        [
+          "?Unknown_54@ChatWindowInterface@@UAEXXZ",
+          "0x56F780"
+        ],
+        [
+          "?Unknown_570F20@ChatWindowInterface@@QAEPAVChatGadgetClass@@XZ",
+          "0x570F20"
+        ],
+        [
+          "?Unknown_571430@ChatWindowInterface@@QAEXXZ",
+          "0x571430"
+        ],
+        [
+          "?Unknown_571470@ChatWindowInterface@@QAEX_N@Z",
+          "0x571470"
+        ],
+        [
+          "?Unknown_571810@ChatWindowInterface@@QAEPAVChatWindowClass@@I@Z",
+          "0x571810"
+        ],
+        [
+          "?Unknown_5719A0@ChatWindowInterface@@QAEAAVVector3@@AAV2@ABUUnknown67D430EntryStruct@@@Z",
+          "0x5719A0"
+        ],
+        [
+          "?Unknown_571A70@ChatWindowInterface@@QAEXPAUChatViewportStruct@@@Z",
+          "0x571A70"
+        ],
+        [
+          "?Unknown_58@ChatWindowInterface@@UAEXXZ",
+          "0x5701C0"
+        ],
+        [
+          "?Unknown_5C@ChatWindowInterface@@UAEXXZ",
+          "0x570210"
+        ],
+        [
+          "?Unknown_60@ChatWindowInterface@@UAEXXZ",
+          "0x570340"
+        ],
+        [
+          "?Unknown_64@InterfaceClass@@UAEXXZ",
+          "0x5156B0"
+        ],
+        [
+          "?Unknown_68@ChatWindowInterface@@UAE_NH@Z",
+          "0x570390"
+        ],
+        [
+          "?Unknown_6C@InterfaceClass@@UAEXAAVINIClass@@@Z",
+          "0x5156F0"
+        ],
+        [
+          "?Unknown_70@ChatWindowInterface@@UAEXPAVControlKeysManager@@@Z",
+          "0x570510"
+        ],
+        [
+          "?Unknown_74@ChatWindowInterface@@UAEXPAVControlKeysManager@@@Z",
+          "0x5708F0"
+        ],
+        [
+          "?Unknown_78@InterfaceClass@@UAE_NPAX@Z",
+          "0x515750"
+        ],
+        [
+          "?Unknown_7C@ChatWindowInterface@@UAEXPAVUIViewClass@@_N@Z",
+          "0x570260"
+        ],
+        [
+          "?Unknown_90@ChatPanelUIBase@@UAEHXZ",
+          "0x5623B0"
+        ],
+        [
+          "?Unknown_94@ChatPanelUIBase@@UAEXXZ",
+          "0x5623D0"
+        ],
+        [
+          "?Unknown_98@ChatWindowInterface@@UAE_NPBD0@Z",
+          "0x56F9F0"
+        ],
+        [
+          "?Unknown_9C@ChatPanelUIBase@@UAEXXZ",
+          "0x5623F0"
+        ],
+        [
+          "?Unknown_A0@ChatWindowInterface@@UAEXI@Z",
+          "0x56FD30"
+        ],
+        [
+          "?Unknown_A4@ChatWindowInterface@@UAEXXZ",
+          "0x570CD0"
+        ],
+        [
+          "?Unknown_A8@ChatWindowInterface@@UAEXXZ",
+          "0x571210"
+        ],
+        [
+          "?Unknown_B0@ChatWindowInterface@@UAEXXZ",
+          "0x570FF0"
+        ],
+        [
+          "?Unknown_B4@ChatWindowInterface@@UAEXPBD@Z",
+          "0x571170"
+        ],
+        [
+          "?Unknown_B8@ChatWindowInterface@@UAE_NH@Z",
+          "0x5711C0"
+        ],
+        [
+          "?Unknown_BC@ChatWindowInterface@@UAEXHI@Z",
+          "0x571860"
+        ],
+        [
+          "?Unknown_C0@ChatWindowInterface@@UAEXHI@Z",
+          "0x5718B0"
+        ],
+        [
+          "?Unknown_C4@ChatWindowInterface@@UAEXHI@Z",
+          "0x571900"
+        ],
+        [
+          "?Unknown_C8@ChatWindowInterface@@UAEXHI@Z",
+          "0x571950"
+        ],
+        [
+          "?Unknown_CC@ChatWindowInterface@@UAEXXZ",
+          "0x570E40"
+        ],
+        [
+          "?_Construct@std@@YAXPAPAUChatWinStruct@@ABQAU2@@Z",
+          "0x571E80"
+        ],
+        [
+          "?_Copy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEXI@Z",
+          "0x42AB30"
+        ],
+        [
+          "?_Destroy@?$vector@PAUChatWinStruct@@V?$allocator@PAUChatWinStruct@@@std@@@std@@IAEXPAPAUChatWinStruct@@0@Z",
+          "0x571DE0"
+        ],
+        [
+          "?_Eos@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEXI@Z",
+          "0x42A940"
+        ],
+        [
+          "?_Grow@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAE_NI_N@Z",
+          "0x42A970"
+        ],
+        [
+          "?_Tidy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEX_N@Z",
+          "0x42A820"
+        ],
+        [
+          "?_Ucopy@?$vector@PAUChatWinStruct@@V?$allocator@PAUChatWinStruct@@@std@@@std@@IAEPAPAUChatWinStruct@@PBQAU3@0PAPAU3@@Z",
+          "0x571E00"
+        ],
+        [
+          "?_Ufill@?$vector@PAUChatWinStruct@@V?$allocator@PAUChatWinStruct@@@std@@@std@@IAEXPAPAUChatWinStruct@@IABQAU3@@Z",
+          "0x571E40"
+        ],
+        [
+          "?assign@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAEAAV12@PBDI@Z",
+          "0x42D050"
+        ],
+        [
+          "?id@?$ctype@G@std@@$E",
+          "0x42B320"
+        ],
+        [
+          "?insert@?$vector@PAUChatWinStruct@@V?$allocator@PAUChatWinStruct@@@std@@@std@@QAEPAPAUChatWinStruct@@PAPAU3@ABQAU3@@Z",
+          "0x571BD0"
+        ],
+        [
+          "?size@?$vector@PAUChatWinStruct@@V?$allocator@PAUChatWinStruct@@@std@@@std@@QBEIXZ",
+          "0x571B70"
+        ],
+        [
+          "_$E260",
+          "0x571EB0"
+        ]
+      ],
+      "exact_addresses": [
+        "0x42A6C0",
+        "0x42A820",
+        "0x42A940",
+        "0x42A970",
+        "0x42AB30",
+        "0x42B320",
+        "0x42D050",
+        "0x42F250",
+        "0x45CC10",
+        "0x474080",
+        "0x4740B0",
+        "0x4A1930",
+        "0x4A19A0",
+        "0x4A19C0",
+        "0x4A1A10",
+        "0x4A1A30",
+        "0x4A1A50",
+        "0x4A1A70",
+        "0x4A1A90",
+        "0x4A1AB0",
+        "0x4A1AD0",
+        "0x4A1AF0",
+        "0x514960",
+        "0x514990",
+        "0x5156B0",
+        "0x5156F0",
+        "0x515750",
+        "0x51C600",
+        "0x51C630",
+        "0x5411F0",
+        "0x5623B0",
+        "0x5623D0",
+        "0x5623F0",
+        "0x56F420",
+        "0x56F530",
+        "0x56F560",
+        "0x56F780",
+        "0x56F9F0",
+        "0x56FD30",
+        "0x5701C0",
+        "0x570210",
+        "0x570260",
+        "0x570340",
+        "0x570390",
+        "0x570510",
+        "0x5708F0",
+        "0x570CD0",
+        "0x570E40",
+        "0x570F20",
+        "0x570FF0",
+        "0x571170",
+        "0x5711C0",
+        "0x571210",
+        "0x571430",
+        "0x571470",
+        "0x571810",
+        "0x571860",
+        "0x5718B0",
+        "0x571900",
+        "0x571950",
+        "0x5719A0",
+        "0x571A70",
+        "0x571B30",
+        "0x571B70",
+        "0x571BA0",
+        "0x571BD0",
+        "0x571DE0",
+        "0x571E00",
+        "0x571E40",
+        "0x571E80",
+        "0x571EB0",
+        "0x571EE0",
+        "0x571EF0"
+      ],
+      "gained": [
+        [
+          "?Create_Peek@@YA?AV?$RefCountPtr@VSceneClass@@@@PAVSceneClass@@@Z",
+          "0x514960"
+        ],
+        [
+          "?Unknown_7C@ChatWindowInterface@@UAEXPAVUIViewClass@@_N@Z",
+          "0x570260"
+        ]
+      ],
+      "lost": [],
+      "gained_addresses": [
+        "0x570260"
+      ],
+      "lost_addresses": [],
+      "target_exact": true,
+      "seconds": 3.08
+    },
+    "queued_uncompiled": 11
+  },
+  "audit.json": {
+    "source_sha256": "976abac2b123517da7316ec2e972594a394fac0b2b1a777294e3602378f9c921",
+    "symbol": "?Unknown_7C@ChatWindowInterface@@UAEXPAVUIViewClass@@_N@Z",
+    "start": "0x570260",
+    "end_exclusive": "0x570309",
+    "instructions": 59,
+    "returns": [
+      "0x570306"
+    ],
+    "relocations": [
+      {
+        "offset": 2,
+        "type": 6,
+        "symbol": "__except_list",
+        "addend": 0,
+        "client_absolute": "0x0",
+        "purpose": "fs:[0] exception chain"
+      },
+      {
+        "offset": 9,
+        "type": 6,
+        "symbol": "$L104212",
+        "addend": 0,
+        "client_absolute": "0xab1008",
+        "purpose": "C++ EH handler (verified below)"
+      },
+      {
+        "offset": 21,
+        "type": 6,
+        "symbol": "__except_list",
+        "addend": 0,
+        "client_absolute": "0x0",
+        "purpose": "fs:[0] exception chain"
+      },
+      {
+        "offset": 40,
+        "type": 20,
+        "symbol": "?Unknown_7C@InterfaceClass@@UAEXPAVUIViewClass@@_N@Z",
+        "addend": 0,
+        "client_target": "0x5412f0"
+      },
+      {
+        "offset": 74,
+        "type": 20,
+        "symbol": "?Create_Peek@@YA?AV?$RefCountPtr@VSceneClass@@@@PAVSceneClass@@@Z",
+        "addend": 0,
+        "client_target": "0x514960"
+      },
+      {
+        "offset": 90,
+        "type": 20,
+        "symbol": "?Unknown_67E180@ChatWindowClass@@QAEXABV?$RefCountPtr@VSceneClass@@@@@Z",
+        "addend": 0,
+        "client_target": "0x67e180"
+      },
+      {
+        "offset": 158,
+        "type": 6,
+        "symbol": "__except_list",
+        "addend": 0,
+        "client_absolute": "0x0",
+        "purpose": "fs:[0] exception chain"
+      }
+    ],
+    "unwind": [
+      {
+        "state": 0,
+        "client_funclet": "0xab1000",
+        "bytes": 8,
+        "calls": [
+          {
+            "symbol": "??1?$RefCountPtr@VSceneClass@@@@QAE@XZ",
+            "client_target": "0x514990"
+          }
+        ]
+      }
+    ],
+    "code": "All nonrelocated bytes including branches and returns identical; no x87 instructions. RefCountPtr temporary remains full-expression scoped; member scene reference performs no extra load across callbacks."
+  },
+  "README.md": "# Claim 257: 0x570260 exact\n\nBase: d1b6c2b5 (the inherited rectangle and two caller solves). Each entry in forms.json is an independent unified patch against that revision's app/client/ui_chat_window.cpp, with input and output SHA-256. Apply one patch to that base; preserve all other base files. No cumulative variant chain is required.\n\nKept form: bind the actual int scene field through `const int &scene = Unknown44`, then convert its value at the existing Create_Peek call. The member read remains within the loop, after InterfaceClass::Unknown_7C and before ChatWindowClass::Unknown_67E180. This changes no callback ordering, refcount, temporary lifetime, loop bound, return, or exception cleanup.\n\nFresh baseline: 72 exact address pairs. Final: 73, +0x570260, no lost address pairs. Native object matcher was unfiltered for every compiled form. 74 exact symbol records include the newly resolved RefCountPtr destructor at the already held 0x514990; that is not an additional gained address. Source annotations/final footer were independently rebuilt by root.\n\nCompiled: baseline plus 12 safe source forms and 1 diagnostic only form (14 total). The pointer-reference cast aliasing the int field reached exact but was rejected; the kept int reference has no such aliasing. Eleven queued variants were not compiled because the valid exact form ended the search. No artificial dead reads, flags, pragmas, assembly, or header changes were used.\n\nThe audit covers all 169 body bytes through ret 8 at 0x570306, branches, actual call identities and zero relocation addends, plus the matching single-state 8-byte unwind funclet at 0xAB1000 calling RefCountPtr<SceneClass>'s destructor at 0x514990. No floating-point instructions occur. Root-final source SHA-256 is recorded in forms.json; candidate audit is included, and the root-final audit is alongside its scratch run.\n\nRetained: forms.json (all 14 compiled sources independently replayable and root-final source patch), measurements.json (per-form metrics, whole-object pairs, controls), audit.json. Baseline object and match evidence: .work/claim-257/scene-targets/runs/family1-gvjr8lij/baseline. Final run: .work/claim-257/scene-targets/root-final-570260/runs/manifest-cskpvcn6. The scratch tree was git archive 18b9179f plus the current source rectangle patch; d1b6c2b5 contains the equivalent source baseline.\n",
+  "root-final-audit.json": {
+    "source_sha256": "753b5e442758eb15efde978a218c0e70ecfd4a638923c0899e1a7a7b73f43c7d",
+    "symbol": "?Unknown_7C@ChatWindowInterface@@UAEXPAVUIViewClass@@_N@Z",
+    "start": "0x570260",
+    "end_exclusive": "0x570309",
+    "instructions": 59,
+    "returns": [
+      "0x570306"
+    ],
+    "relocations": [
+      {
+        "offset": 2,
+        "type": 6,
+        "symbol": "__except_list",
+        "addend": 0,
+        "client_absolute": "0x0",
+        "purpose": "fs:[0] exception chain"
+      },
+      {
+        "offset": 9,
+        "type": 6,
+        "symbol": "$L104212",
+        "addend": 0,
+        "client_absolute": "0xab1008",
+        "purpose": "C++ EH handler (verified below)"
+      },
+      {
+        "offset": 21,
+        "type": 6,
+        "symbol": "__except_list",
+        "addend": 0,
+        "client_absolute": "0x0",
+        "purpose": "fs:[0] exception chain"
+      },
+      {
+        "offset": 40,
+        "type": 20,
+        "symbol": "?Unknown_7C@InterfaceClass@@UAEXPAVUIViewClass@@_N@Z",
+        "addend": 0,
+        "client_target": "0x5412f0"
+      },
+      {
+        "offset": 74,
+        "type": 20,
+        "symbol": "?Create_Peek@@YA?AV?$RefCountPtr@VSceneClass@@@@PAVSceneClass@@@Z",
+        "addend": 0,
+        "client_target": "0x514960"
+      },
+      {
+        "offset": 90,
+        "type": 20,
+        "symbol": "?Unknown_67E180@ChatWindowClass@@QAEXABV?$RefCountPtr@VSceneClass@@@@@Z",
+        "addend": 0,
+        "client_target": "0x67e180"
+      },
+      {
+        "offset": 158,
+        "type": 6,
+        "symbol": "__except_list",
+        "addend": 0,
+        "client_absolute": "0x0",
+        "purpose": "fs:[0] exception chain"
+      }
+    ],
+    "unwind": [
+      {
+        "state": 0,
+        "client_funclet": "0xab1000",
+        "bytes": 8,
+        "calls": [
+          {
+            "symbol": "??1?$RefCountPtr@VSceneClass@@@@QAE@XZ",
+            "client_target": "0x514990"
+          }
+        ]
+      }
+    ],
+    "code": "All nonrelocated bytes including branches and returns identical; no x87 instructions. RefCountPtr temporary remains full-expression scoped; member scene reference performs no extra load across callbacks."
+  }
+}
