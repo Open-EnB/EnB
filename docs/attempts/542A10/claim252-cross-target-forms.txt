@@ -1,0 +1,62 @@
+{
+  "base_commit": "dd994c6fbcfd39560e91b9f8f801293379776065",
+  "source": "app/client/ship_equip_pip.cpp",
+  "base_source_sha256": "ac110b98654ed3f0c2a020cf50b793b06ae5e2bd7042e48d8271c471d742af2e",
+  "instructions": "Independent unified patches against base_commit; use patch -p0 in a directory containing ship_equip_pip.cpp, then verify source_sha256.",
+  "variants": [
+    {
+      "name": "baseline",
+      "source_sha256": "ac110b98654ed3f0c2a020cf50b793b06ae5e2bd7042e48d8271c471d742af2e",
+      "patch": ""
+    },
+    {
+      "name": "matrix_alias",
+      "source_sha256": "3e4b2c8930bec848372a700dd45e96aaa7128a99be380d2c6e3358aca8648bde",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -232,7 +232,7 @@\n \t\tif (!on) {\n \t\t\tCameraClass *camera = Camera.Peek();\n \t\t\tFAIL_IF(!camera) return;\n-\t\t\tMatrix3D tm = camera->Get_Transform();\n+\t\t\tMatrix3D owned_tm = camera->Get_Transform(); Matrix3D &tm = owned_tm;\n \t\t\tQuaternion rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, 0.8f);\n \t\t\tMatrix3D inv;\n \t\t\ttm.Get_Orthogonal_Inverse(inv);\n"
+    },
+    {
+      "name": "matrix_alias_negative_vector",
+      "source_sha256": "1acad521d158d690e580020fcd87c735d241b5d3b9afdb87956d19e4d39c00ed",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -232,7 +232,7 @@\n \t\tif (!on) {\n \t\t\tCameraClass *camera = Camera.Peek();\n \t\t\tFAIL_IF(!camera) return;\n-\t\t\tMatrix3D tm = camera->Get_Transform();\n+\t\t\tMatrix3D owned_tm = camera->Get_Transform(); Matrix3D &tm = owned_tm;\n \t\t\tQuaternion rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, 0.8f);\n \t\t\tMatrix3D inv;\n \t\t\ttm.Get_Orthogonal_Inverse(inv);\n@@ -240,7 +240,7 @@\n \t\t\tVector3 center = inv.Get_Translation();\n \t\t\ttm.Translate(center.X, center.Y, center.Z);\n \t\t\tMatrix3D::Multiply(tm, Build_Matrix3D(rot), &tm);\n-\t\t\ttm.Translate(-center.X, -center.Y, -center.Z);\n+\t\t\ttm.Translate(-center);\n \t\t\tUnknown_543270(tm);\n \t\t}\n \t}\n"
+    },
+    {
+      "name": "matrix_alias_reference_negative_vector",
+      "source_sha256": "1e30ad603e56c3f564d2daf7fb11b4fa6661a45e43e18c425559d0cea5186a5c",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -232,15 +232,15 @@\n \t\tif (!on) {\n \t\t\tCameraClass *camera = Camera.Peek();\n \t\t\tFAIL_IF(!camera) return;\n-\t\t\tMatrix3D tm = camera->Get_Transform();\n+\t\t\tMatrix3D owned_tm = camera->Get_Transform(); Matrix3D &tm = owned_tm;\n \t\t\tQuaternion rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, 0.8f);\n \t\t\tMatrix3D inv;\n \t\t\ttm.Get_Orthogonal_Inverse(inv);\n \t\t\tCameraManagerClass::Unknown_79B6B0();\n-\t\t\tVector3 center = inv.Get_Translation();\n+\t\t\tconst Vector3 &center = inv.Get_Translation();\n \t\t\ttm.Translate(center.X, center.Y, center.Z);\n \t\t\tMatrix3D::Multiply(tm, Build_Matrix3D(rot), &tm);\n-\t\t\ttm.Translate(-center.X, -center.Y, -center.Z);\n+\t\t\ttm.Translate(-center);\n \t\t\tUnknown_543270(tm);\n \t\t}\n \t}\n"
+    }
+  ],
+  "evidence_summary": {
+    "target": "0x542A10",
+    "model": "gpt-6.1-sol (high)",
+    "hypothesis": "Transfer mutable reference to owned matrix from same-unit native exact 0x542EE0; earlier reference_negative_vector only aliased the Vector3 center.",
+    "results_raw_masked": {
+      "baseline": [
+        58,
+        55
+      ],
+      "matrix_alias": [
+        56,
+        33
+      ],
+      "matrix_alias_negative_vector": [
+        38,
+        35
+      ],
+      "matrix_alias_reference_negative_vector": [
+        46,
+        29
+      ]
+    },
+    "tradeoff": "Raw best38 improves preceding43; masked best29 improves preceding31. Both keep four real lighting operand differences at +0x341/+0x345/+0x347/+0x34B, while four at +0x36D..+0x377 are repaired. Both keep FP translation traversal differences, not just stack-slot differences. Preserve both best forms; neither dominates.",
+    "proof": "All four fully native objects preserve 12 baseline unit pairs incl0x542EE0, +0/-0; 302instructions/10calls/969bytes/frameB4. Physical assert lines and every outside-target relocation-masked function hash preserved. Independent patches replayed and SHA256checked.",
+    "exact_siblings": [
+      "app/shared/ro_offset.cpp 0x47F610: owned matrix and vector Translate emit XZY for two rows, XYZ for third; target needs XZY for all six.",
+      "app/client/sbaseview.cpp 0x69ED80 and galaxy_map_focal_point.cpp 0x7A5ED0: Lerp consumers confirm return-storage API, no new wrapper evidence.",
+      "app/client/ship_pip.cpp 0x80E350: identity/Look_At exact; closer Trackball siblings0x80CE10/0x80D5E0 remain nonexact.",
+      "app/client/camctrl_rescue.cpp 0x795570 native exact: same unit scalar spills but is live across another call, unlike target first branch."
+    ],
+    "other_target": "0x542250 audit-only, zero new forms. No new grounded structure; unwanted nested light-copy constructor and dead first-branch scalar home remain.",
+    "counts": "3 new valid forms,1baseline,0repeatcontrols,0candidatefailures;1pre-objectWineSocketfailure resolved by escalation.",
+    "limitations": "No source adoption or full app-library proof. Scratch __FILE__ differs; matcher normalizes basename. Pre-Terra exact source texts unavailable, so exhaustive historical novelty unproved."
+  }
+}

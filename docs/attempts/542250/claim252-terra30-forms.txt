@@ -1,0 +1,319 @@
+{
+  "base_commit": "a6aee2de",
+  "source": "app/client/ship_equip_pip.cpp",
+  "instructions": "For one form, save its patch verbatim to a UTF-8 file; apply it with patch -p0 in a scratch directory containing the base commit source as ship_equip_pip.cpp. Verify source_sha256. Each patch is independent of all other forms.",
+  "variants": [
+    {
+      "name": "x012",
+      "selection": [
+        "target_first_set",
+        "target_second_set",
+        "first_tm_assign"
+      ],
+      "control": false,
+      "source_sha256": "5d10219cda5cff9e2987679ad22da0b67acd7e30b5eb2a42f143ab8156690db6",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -161,8 +161,8 @@\n \t\t\tfloat unit = CameraManagerClass::Unknown_79B6B0();\n \t\t\tUnknown48 = unit;\n-\t\t\tVector3 target(0, 0, 0);\n+\t\t\tVector3 target; target.Set(0, 0, 0);\n \t\t\tVector3 pos(unit * 1.1, unit * 1.1, unit * 1.1);\n \t\t\tProxy->Set_Position(Vector3(0, 0, 0));\n-\t\t\tMatrix3D tm(true);\n+\t\t\tMatrix3D tm; tm = Matrix3D(true);\n \t\t\ttm.Look_At(pos, target, 0);\n \t\t\tUnknown_543270(tm);\n@@ -171,5 +171,5 @@\n \t} else if (robj) {\n \t\tfloat unit = CameraManagerClass::Unknown_79B6B0();\n-\t\tVector3 target(0, 0, 0);\n+\t\tVector3 target; target.Set(0, 0, 0);\n \t\tVector3 pos;\n \t\tif (unit != Unknown48) {\n"
+    },
+    {
+      "name": "x013",
+      "selection": [
+        "target_first_set",
+        "target_second_set",
+        "lerp_tm_assign"
+      ],
+      "control": false,
+      "source_sha256": "d72e33b3ff6cec1417e7b9842530d4c46fdef2dfcbc88edf36b972e68d69316a",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -161,5 +161,5 @@\n \t\t\tfloat unit = CameraManagerClass::Unknown_79B6B0();\n \t\t\tUnknown48 = unit;\n-\t\t\tVector3 target(0, 0, 0);\n+\t\t\tVector3 target; target.Set(0, 0, 0);\n \t\t\tVector3 pos(unit * 1.1, unit * 1.1, unit * 1.1);\n \t\t\tProxy->Set_Position(Vector3(0, 0, 0));\n@@ -171,5 +171,5 @@\n \t} else if (robj) {\n \t\tfloat unit = CameraManagerClass::Unknown_79B6B0();\n-\t\tVector3 target(0, 0, 0);\n+\t\tVector3 target; target.Set(0, 0, 0);\n \t\tVector3 pos;\n \t\tif (unit != Unknown48) {\n@@ -187,5 +187,5 @@\n \t\t\tUnknown4C -= WW3D::Get_Frame_Time() * 0.001f;\n \t\t\tUnknown4C = WWMath::Clamp(Unknown4C, 0.0f, 1.0f);\n-\t\t\tMatrix3D tm = Lerp(Unknown50, Unknown80, 1.0f - Unknown4C);\n+\t\t\tMatrix3D tm; tm = Lerp(Unknown50, Unknown80, 1.0f - Unknown4C);\n \t\t\tUnknown_543270(tm);\n \t\t\tpos.Set(tm.Get_X_Translation(), tm.Get_Y_Translation(), tm.Get_Z_Translation());\n"
+    },
+    {
+      "name": "x014",
+      "selection": [
+        "target_first_set",
+        "target_second_set",
+        "first_pos_get"
+      ],
+      "control": false,
+      "source_sha256": "7cb04f7386e017b6de236ba793482b72ceff02a49bab30f8fa9582282245b0d2",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -161,5 +161,5 @@\n \t\t\tfloat unit = CameraManagerClass::Unknown_79B6B0();\n \t\t\tUnknown48 = unit;\n-\t\t\tVector3 target(0, 0, 0);\n+\t\t\tVector3 target; target.Set(0, 0, 0);\n \t\t\tVector3 pos(unit * 1.1, unit * 1.1, unit * 1.1);\n \t\t\tProxy->Set_Position(Vector3(0, 0, 0));\n@@ -171,5 +171,5 @@\n \t} else if (robj) {\n \t\tfloat unit = CameraManagerClass::Unknown_79B6B0();\n-\t\tVector3 target(0, 0, 0);\n+\t\tVector3 target; target.Set(0, 0, 0);\n \t\tVector3 pos;\n \t\tif (unit != Unknown48) {\n@@ -179,5 +179,5 @@\n \t\t\tUnknown80 = Unknown50;\n \t\t\tUnknown80.Translate_Z(unit - Unknown48);\n-\t\t\tpos.Set(Unknown80.Get_X_Translation(), Unknown80.Get_Y_Translation(), Unknown80.Get_Z_Translation());\n+\t\t\tUnknown80.Get_Translation(&pos);\n \t\t\tUnknown80.Look_At(pos, target, 0);\n \t\t\tUnknown4C = 1.0f;\n"
+    },
+    {
+      "name": "x015",
+      "selection": [
+        "target_first_set",
+        "target_second_set",
+        "second_pos_get"
+      ],
+      "control": false,
+      "source_sha256": "02bd06f72279542b66d2cc23db690a811c8b1767c388dae7da7ddf787b141f6a",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -161,5 +161,5 @@\n \t\t\tfloat unit = CameraManagerClass::Unknown_79B6B0();\n \t\t\tUnknown48 = unit;\n-\t\t\tVector3 target(0, 0, 0);\n+\t\t\tVector3 target; target.Set(0, 0, 0);\n \t\t\tVector3 pos(unit * 1.1, unit * 1.1, unit * 1.1);\n \t\t\tProxy->Set_Position(Vector3(0, 0, 0));\n@@ -171,5 +171,5 @@\n \t} else if (robj) {\n \t\tfloat unit = CameraManagerClass::Unknown_79B6B0();\n-\t\tVector3 target(0, 0, 0);\n+\t\tVector3 target; target.Set(0, 0, 0);\n \t\tVector3 pos;\n \t\tif (unit != Unknown48) {\n@@ -189,5 +189,5 @@\n \t\t\tMatrix3D tm = Lerp(Unknown50, Unknown80, 1.0f - Unknown4C);\n \t\t\tUnknown_543270(tm);\n-\t\t\tpos.Set(tm.Get_X_Translation(), tm.Get_Y_Translation(), tm.Get_Z_Translation());\n+\t\t\ttm.Get_Translation(&pos);\n \t\t\tDistance = Vector3::Distance(pos, target);\n \n"
+    },
+    {
+      "name": "x023",
+      "selection": [
+        "target_first_set",
+        "first_tm_assign",
+        "lerp_tm_assign"
+      ],
+      "control": false,
+      "source_sha256": "bcb3970aa761be43efe31e07bb4f2e270e6be1fa813be183ab77e99dca63b57e",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -161,8 +161,8 @@\n \t\t\tfloat unit = CameraManagerClass::Unknown_79B6B0();\n \t\t\tUnknown48 = unit;\n-\t\t\tVector3 target(0, 0, 0);\n+\t\t\tVector3 target; target.Set(0, 0, 0);\n \t\t\tVector3 pos(unit * 1.1, unit * 1.1, unit * 1.1);\n \t\t\tProxy->Set_Position(Vector3(0, 0, 0));\n-\t\t\tMatrix3D tm(true);\n+\t\t\tMatrix3D tm; tm = Matrix3D(true);\n \t\t\ttm.Look_At(pos, target, 0);\n \t\t\tUnknown_543270(tm);\n@@ -187,5 +187,5 @@\n \t\t\tUnknown4C -= WW3D::Get_Frame_Time() * 0.001f;\n \t\t\tUnknown4C = WWMath::Clamp(Unknown4C, 0.0f, 1.0f);\n-\t\t\tMatrix3D tm = Lerp(Unknown50, Unknown80, 1.0f - Unknown4C);\n+\t\t\tMatrix3D tm; tm = Lerp(Unknown50, Unknown80, 1.0f - Unknown4C);\n \t\t\tUnknown_543270(tm);\n \t\t\tpos.Set(tm.Get_X_Translation(), tm.Get_Y_Translation(), tm.Get_Z_Translation());\n"
+    },
+    {
+      "name": "x024",
+      "selection": [
+        "target_first_set",
+        "first_tm_assign",
+        "first_pos_get"
+      ],
+      "control": false,
+      "source_sha256": "131f4b640201daf538685bda9d23066fd15f4d459e4fe8f35b3a0224aeefac89",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -161,8 +161,8 @@\n \t\t\tfloat unit = CameraManagerClass::Unknown_79B6B0();\n \t\t\tUnknown48 = unit;\n-\t\t\tVector3 target(0, 0, 0);\n+\t\t\tVector3 target; target.Set(0, 0, 0);\n \t\t\tVector3 pos(unit * 1.1, unit * 1.1, unit * 1.1);\n \t\t\tProxy->Set_Position(Vector3(0, 0, 0));\n-\t\t\tMatrix3D tm(true);\n+\t\t\tMatrix3D tm; tm = Matrix3D(true);\n \t\t\ttm.Look_At(pos, target, 0);\n \t\t\tUnknown_543270(tm);\n@@ -179,5 +179,5 @@\n \t\t\tUnknown80 = Unknown50;\n \t\t\tUnknown80.Translate_Z(unit - Unknown48);\n-\t\t\tpos.Set(Unknown80.Get_X_Translation(), Unknown80.Get_Y_Translation(), Unknown80.Get_Z_Translation());\n+\t\t\tUnknown80.Get_Translation(&pos);\n \t\t\tUnknown80.Look_At(pos, target, 0);\n \t\t\tUnknown4C = 1.0f;\n"
+    },
+    {
+      "name": "x025",
+      "selection": [
+        "target_first_set",
+        "first_tm_assign",
+        "second_pos_get"
+      ],
+      "control": false,
+      "source_sha256": "fc2602653e2605ebe848b4eb8662b3610b9520b4c0994b0ceecd7bd22d0e6f69",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -161,8 +161,8 @@\n \t\t\tfloat unit = CameraManagerClass::Unknown_79B6B0();\n \t\t\tUnknown48 = unit;\n-\t\t\tVector3 target(0, 0, 0);\n+\t\t\tVector3 target; target.Set(0, 0, 0);\n \t\t\tVector3 pos(unit * 1.1, unit * 1.1, unit * 1.1);\n \t\t\tProxy->Set_Position(Vector3(0, 0, 0));\n-\t\t\tMatrix3D tm(true);\n+\t\t\tMatrix3D tm; tm = Matrix3D(true);\n \t\t\ttm.Look_At(pos, target, 0);\n \t\t\tUnknown_543270(tm);\n@@ -189,5 +189,5 @@\n \t\t\tMatrix3D tm = Lerp(Unknown50, Unknown80, 1.0f - Unknown4C);\n \t\t\tUnknown_543270(tm);\n-\t\t\tpos.Set(tm.Get_X_Translation(), tm.Get_Y_Translation(), tm.Get_Z_Translation());\n+\t\t\ttm.Get_Translation(&pos);\n \t\t\tDistance = Vector3::Distance(pos, target);\n \n"
+    },
+    {
+      "name": "x034",
+      "selection": [
+        "target_first_set",
+        "lerp_tm_assign",
+        "first_pos_get"
+      ],
+      "control": false,
+      "source_sha256": "9b773f0b54ed121999f443aa3c642e58dff36ac9378db056b8c02449627e7354",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -161,5 +161,5 @@\n \t\t\tfloat unit = CameraManagerClass::Unknown_79B6B0();\n \t\t\tUnknown48 = unit;\n-\t\t\tVector3 target(0, 0, 0);\n+\t\t\tVector3 target; target.Set(0, 0, 0);\n \t\t\tVector3 pos(unit * 1.1, unit * 1.1, unit * 1.1);\n \t\t\tProxy->Set_Position(Vector3(0, 0, 0));\n@@ -179,5 +179,5 @@\n \t\t\tUnknown80 = Unknown50;\n \t\t\tUnknown80.Translate_Z(unit - Unknown48);\n-\t\t\tpos.Set(Unknown80.Get_X_Translation(), Unknown80.Get_Y_Translation(), Unknown80.Get_Z_Translation());\n+\t\t\tUnknown80.Get_Translation(&pos);\n \t\t\tUnknown80.Look_At(pos, target, 0);\n \t\t\tUnknown4C = 1.0f;\n@@ -187,5 +187,5 @@\n \t\t\tUnknown4C -= WW3D::Get_Frame_Time() * 0.001f;\n \t\t\tUnknown4C = WWMath::Clamp(Unknown4C, 0.0f, 1.0f);\n-\t\t\tMatrix3D tm = Lerp(Unknown50, Unknown80, 1.0f - Unknown4C);\n+\t\t\tMatrix3D tm; tm = Lerp(Unknown50, Unknown80, 1.0f - Unknown4C);\n \t\t\tUnknown_543270(tm);\n \t\t\tpos.Set(tm.Get_X_Translation(), tm.Get_Y_Translation(), tm.Get_Z_Translation());\n"
+    },
+    {
+      "name": "x035",
+      "selection": [
+        "target_first_set",
+        "lerp_tm_assign",
+        "second_pos_get"
+      ],
+      "control": false,
+      "source_sha256": "e47b792f246160d0da0ec19d5d765aaf1840af040b4e140861cad49fc9a19f72",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -161,5 +161,5 @@\n \t\t\tfloat unit = CameraManagerClass::Unknown_79B6B0();\n \t\t\tUnknown48 = unit;\n-\t\t\tVector3 target(0, 0, 0);\n+\t\t\tVector3 target; target.Set(0, 0, 0);\n \t\t\tVector3 pos(unit * 1.1, unit * 1.1, unit * 1.1);\n \t\t\tProxy->Set_Position(Vector3(0, 0, 0));\n@@ -187,7 +187,7 @@\n \t\t\tUnknown4C -= WW3D::Get_Frame_Time() * 0.001f;\n \t\t\tUnknown4C = WWMath::Clamp(Unknown4C, 0.0f, 1.0f);\n-\t\t\tMatrix3D tm = Lerp(Unknown50, Unknown80, 1.0f - Unknown4C);\n+\t\t\tMatrix3D tm; tm = Lerp(Unknown50, Unknown80, 1.0f - Unknown4C);\n \t\t\tUnknown_543270(tm);\n-\t\t\tpos.Set(tm.Get_X_Translation(), tm.Get_Y_Translation(), tm.Get_Z_Translation());\n+\t\t\ttm.Get_Translation(&pos);\n \t\t\tDistance = Vector3::Distance(pos, target);\n \n"
+    },
+    {
+      "name": "target_first_set",
+      "selection": [
+        "target_first_set"
+      ],
+      "control": false,
+      "source_sha256": "3b29093d254a73bb088e6ab71e1e69ad62d260f5b4f3c488f647715aa6830951",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -161,5 +161,5 @@\n \t\t\tfloat unit = CameraManagerClass::Unknown_79B6B0();\n \t\t\tUnknown48 = unit;\n-\t\t\tVector3 target(0, 0, 0);\n+\t\t\tVector3 target; target.Set(0, 0, 0);\n \t\t\tVector3 pos(unit * 1.1, unit * 1.1, unit * 1.1);\n \t\t\tProxy->Set_Position(Vector3(0, 0, 0));\n"
+    },
+    {
+      "name": "target_second_set",
+      "selection": [
+        "target_second_set"
+      ],
+      "control": false,
+      "source_sha256": "ca21a2ae049fb9c8bbb21d033884ccc7150d43867a5ced47b939705ba0190803",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -171,5 +171,5 @@\n \t} else if (robj) {\n \t\tfloat unit = CameraManagerClass::Unknown_79B6B0();\n-\t\tVector3 target(0, 0, 0);\n+\t\tVector3 target; target.Set(0, 0, 0);\n \t\tVector3 pos;\n \t\tif (unit != Unknown48) {\n"
+    },
+    {
+      "name": "first_tm_assign",
+      "selection": [
+        "first_tm_assign"
+      ],
+      "control": false,
+      "source_sha256": "c6ed9974ade96f7df8c9fc1b4b44a88d709246f0be1a993582ae27537d9f74e3",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -164,5 +164,5 @@\n \t\t\tVector3 pos(unit * 1.1, unit * 1.1, unit * 1.1);\n \t\t\tProxy->Set_Position(Vector3(0, 0, 0));\n-\t\t\tMatrix3D tm(true);\n+\t\t\tMatrix3D tm; tm = Matrix3D(true);\n \t\t\ttm.Look_At(pos, target, 0);\n \t\t\tUnknown_543270(tm);\n"
+    },
+    {
+      "name": "lerp_tm_assign",
+      "selection": [
+        "lerp_tm_assign"
+      ],
+      "control": false,
+      "source_sha256": "cdc7b06f674c4fdee88db31fa8f347b4c5cca11dde7d74e4d877ce6a6fd77604",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -187,5 +187,5 @@\n \t\t\tUnknown4C -= WW3D::Get_Frame_Time() * 0.001f;\n \t\t\tUnknown4C = WWMath::Clamp(Unknown4C, 0.0f, 1.0f);\n-\t\t\tMatrix3D tm = Lerp(Unknown50, Unknown80, 1.0f - Unknown4C);\n+\t\t\tMatrix3D tm; tm = Lerp(Unknown50, Unknown80, 1.0f - Unknown4C);\n \t\t\tUnknown_543270(tm);\n \t\t\tpos.Set(tm.Get_X_Translation(), tm.Get_Y_Translation(), tm.Get_Z_Translation());\n"
+    },
+    {
+      "name": "first_pos_get",
+      "selection": [
+        "first_pos_get"
+      ],
+      "control": false,
+      "source_sha256": "2b647bd59c00af12671fb9c15010a589b259530ae0c096d4f66f4788304004b9",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -179,5 +179,5 @@\n \t\t\tUnknown80 = Unknown50;\n \t\t\tUnknown80.Translate_Z(unit - Unknown48);\n-\t\t\tpos.Set(Unknown80.Get_X_Translation(), Unknown80.Get_Y_Translation(), Unknown80.Get_Z_Translation());\n+\t\t\tUnknown80.Get_Translation(&pos);\n \t\t\tUnknown80.Look_At(pos, target, 0);\n \t\t\tUnknown4C = 1.0f;\n"
+    },
+    {
+      "name": "second_pos_get",
+      "selection": [
+        "second_pos_get"
+      ],
+      "control": false,
+      "source_sha256": "127454b10a343a096b15ae9a00be46a71f32a8c2191eeb16ab21cce078eeafb3",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -189,5 +189,5 @@\n \t\t\tMatrix3D tm = Lerp(Unknown50, Unknown80, 1.0f - Unknown4C);\n \t\t\tUnknown_543270(tm);\n-\t\t\tpos.Set(tm.Get_X_Translation(), tm.Get_Y_Translation(), tm.Get_Z_Translation());\n+\t\t\ttm.Get_Translation(&pos);\n \t\t\tDistance = Vector3::Distance(pos, target);\n \n"
+    },
+    {
+      "name": "target_second_set_target_first_set",
+      "selection": [
+        "target_second_set",
+        "target_first_set"
+      ],
+      "control": false,
+      "source_sha256": "8ef484807d476d1c3ff0bc803b9bc72b80b1e9cf416d101925b570f0028a8ac6",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -161,5 +161,5 @@\n \t\t\tfloat unit = CameraManagerClass::Unknown_79B6B0();\n \t\t\tUnknown48 = unit;\n-\t\t\tVector3 target(0, 0, 0);\n+\t\t\tVector3 target; target.Set(0, 0, 0);\n \t\t\tVector3 pos(unit * 1.1, unit * 1.1, unit * 1.1);\n \t\t\tProxy->Set_Position(Vector3(0, 0, 0));\n@@ -171,5 +171,5 @@\n \t} else if (robj) {\n \t\tfloat unit = CameraManagerClass::Unknown_79B6B0();\n-\t\tVector3 target(0, 0, 0);\n+\t\tVector3 target; target.Set(0, 0, 0);\n \t\tVector3 pos;\n \t\tif (unit != Unknown48) {\n"
+    },
+    {
+      "name": "first_tm_assign_target_first_set",
+      "selection": [
+        "first_tm_assign",
+        "target_first_set"
+      ],
+      "control": false,
+      "source_sha256": "0ff4c667547b396c347fbb87a279605582945717ecbddc4dc5a71a9b120736ef",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -161,8 +161,8 @@\n \t\t\tfloat unit = CameraManagerClass::Unknown_79B6B0();\n \t\t\tUnknown48 = unit;\n-\t\t\tVector3 target(0, 0, 0);\n+\t\t\tVector3 target; target.Set(0, 0, 0);\n \t\t\tVector3 pos(unit * 1.1, unit * 1.1, unit * 1.1);\n \t\t\tProxy->Set_Position(Vector3(0, 0, 0));\n-\t\t\tMatrix3D tm(true);\n+\t\t\tMatrix3D tm; tm = Matrix3D(true);\n \t\t\ttm.Look_At(pos, target, 0);\n \t\t\tUnknown_543270(tm);\n"
+    },
+    {
+      "name": "lerp_tm_assign_target_first_set",
+      "selection": [
+        "lerp_tm_assign",
+        "target_first_set"
+      ],
+      "control": false,
+      "source_sha256": "4c8df390cb46db54852b6bf723f6ae2996484d7f570dec5065faadca8adbf396",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -161,5 +161,5 @@\n \t\t\tfloat unit = CameraManagerClass::Unknown_79B6B0();\n \t\t\tUnknown48 = unit;\n-\t\t\tVector3 target(0, 0, 0);\n+\t\t\tVector3 target; target.Set(0, 0, 0);\n \t\t\tVector3 pos(unit * 1.1, unit * 1.1, unit * 1.1);\n \t\t\tProxy->Set_Position(Vector3(0, 0, 0));\n@@ -187,5 +187,5 @@\n \t\t\tUnknown4C -= WW3D::Get_Frame_Time() * 0.001f;\n \t\t\tUnknown4C = WWMath::Clamp(Unknown4C, 0.0f, 1.0f);\n-\t\t\tMatrix3D tm = Lerp(Unknown50, Unknown80, 1.0f - Unknown4C);\n+\t\t\tMatrix3D tm; tm = Lerp(Unknown50, Unknown80, 1.0f - Unknown4C);\n \t\t\tUnknown_543270(tm);\n \t\t\tpos.Set(tm.Get_X_Translation(), tm.Get_Y_Translation(), tm.Get_Z_Translation());\n"
+    },
+    {
+      "name": "first_pos_get_target_first_set",
+      "selection": [
+        "first_pos_get",
+        "target_first_set"
+      ],
+      "control": false,
+      "source_sha256": "03e0b4d9c7eff947c94a04f56c0ffa6c56927afc482fb299e63ec2472267f04c",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -161,5 +161,5 @@\n \t\t\tfloat unit = CameraManagerClass::Unknown_79B6B0();\n \t\t\tUnknown48 = unit;\n-\t\t\tVector3 target(0, 0, 0);\n+\t\t\tVector3 target; target.Set(0, 0, 0);\n \t\t\tVector3 pos(unit * 1.1, unit * 1.1, unit * 1.1);\n \t\t\tProxy->Set_Position(Vector3(0, 0, 0));\n@@ -179,5 +179,5 @@\n \t\t\tUnknown80 = Unknown50;\n \t\t\tUnknown80.Translate_Z(unit - Unknown48);\n-\t\t\tpos.Set(Unknown80.Get_X_Translation(), Unknown80.Get_Y_Translation(), Unknown80.Get_Z_Translation());\n+\t\t\tUnknown80.Get_Translation(&pos);\n \t\t\tUnknown80.Look_At(pos, target, 0);\n \t\t\tUnknown4C = 1.0f;\n"
+    },
+    {
+      "name": "second_pos_get_target_first_set",
+      "selection": [
+        "second_pos_get",
+        "target_first_set"
+      ],
+      "control": false,
+      "source_sha256": "455508cf2ab3d91f82bc0161d135b35d8b5189de8c1a24b690f9e14cd3a99309",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -161,5 +161,5 @@\n \t\t\tfloat unit = CameraManagerClass::Unknown_79B6B0();\n \t\t\tUnknown48 = unit;\n-\t\t\tVector3 target(0, 0, 0);\n+\t\t\tVector3 target; target.Set(0, 0, 0);\n \t\t\tVector3 pos(unit * 1.1, unit * 1.1, unit * 1.1);\n \t\t\tProxy->Set_Position(Vector3(0, 0, 0));\n@@ -189,5 +189,5 @@\n \t\t\tMatrix3D tm = Lerp(Unknown50, Unknown80, 1.0f - Unknown4C);\n \t\t\tUnknown_543270(tm);\n-\t\t\tpos.Set(tm.Get_X_Translation(), tm.Get_Y_Translation(), tm.Get_Z_Translation());\n+\t\t\ttm.Get_Translation(&pos);\n \t\t\tDistance = Vector3::Distance(pos, target);\n \n"
+    },
+    {
+      "name": "first_tm_assign_target_second_set",
+      "selection": [
+        "first_tm_assign",
+        "target_second_set"
+      ],
+      "control": false,
+      "source_sha256": "ea39b3dd846e1a65a6f06b55af4286da1d19bd65c76cdbb4155b8fbc53c0ba90",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -164,5 +164,5 @@\n \t\t\tVector3 pos(unit * 1.1, unit * 1.1, unit * 1.1);\n \t\t\tProxy->Set_Position(Vector3(0, 0, 0));\n-\t\t\tMatrix3D tm(true);\n+\t\t\tMatrix3D tm; tm = Matrix3D(true);\n \t\t\ttm.Look_At(pos, target, 0);\n \t\t\tUnknown_543270(tm);\n@@ -171,5 +171,5 @@\n \t} else if (robj) {\n \t\tfloat unit = CameraManagerClass::Unknown_79B6B0();\n-\t\tVector3 target(0, 0, 0);\n+\t\tVector3 target; target.Set(0, 0, 0);\n \t\tVector3 pos;\n \t\tif (unit != Unknown48) {\n"
+    },
+    {
+      "name": "lerp_tm_assign_target_second_set",
+      "selection": [
+        "lerp_tm_assign",
+        "target_second_set"
+      ],
+      "control": false,
+      "source_sha256": "9672419b69f10aaf6c9a837e29099a635a02075ead9b3b586d98b60a59fd989f",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -171,5 +171,5 @@\n \t} else if (robj) {\n \t\tfloat unit = CameraManagerClass::Unknown_79B6B0();\n-\t\tVector3 target(0, 0, 0);\n+\t\tVector3 target; target.Set(0, 0, 0);\n \t\tVector3 pos;\n \t\tif (unit != Unknown48) {\n@@ -187,5 +187,5 @@\n \t\t\tUnknown4C -= WW3D::Get_Frame_Time() * 0.001f;\n \t\t\tUnknown4C = WWMath::Clamp(Unknown4C, 0.0f, 1.0f);\n-\t\t\tMatrix3D tm = Lerp(Unknown50, Unknown80, 1.0f - Unknown4C);\n+\t\t\tMatrix3D tm; tm = Lerp(Unknown50, Unknown80, 1.0f - Unknown4C);\n \t\t\tUnknown_543270(tm);\n \t\t\tpos.Set(tm.Get_X_Translation(), tm.Get_Y_Translation(), tm.Get_Z_Translation());\n"
+    },
+    {
+      "name": "first_pos_get_target_second_set",
+      "selection": [
+        "first_pos_get",
+        "target_second_set"
+      ],
+      "control": false,
+      "source_sha256": "cae58baa1b76ddb615aa9775abd216f7e1e238c272ab4412f997f4032f187102",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -171,5 +171,5 @@\n \t} else if (robj) {\n \t\tfloat unit = CameraManagerClass::Unknown_79B6B0();\n-\t\tVector3 target(0, 0, 0);\n+\t\tVector3 target; target.Set(0, 0, 0);\n \t\tVector3 pos;\n \t\tif (unit != Unknown48) {\n@@ -179,5 +179,5 @@\n \t\t\tUnknown80 = Unknown50;\n \t\t\tUnknown80.Translate_Z(unit - Unknown48);\n-\t\t\tpos.Set(Unknown80.Get_X_Translation(), Unknown80.Get_Y_Translation(), Unknown80.Get_Z_Translation());\n+\t\t\tUnknown80.Get_Translation(&pos);\n \t\t\tUnknown80.Look_At(pos, target, 0);\n \t\t\tUnknown4C = 1.0f;\n"
+    },
+    {
+      "name": "second_pos_get_target_second_set",
+      "selection": [
+        "second_pos_get",
+        "target_second_set"
+      ],
+      "control": false,
+      "source_sha256": "7730c19c0fb5aa73c57dd07820b2c2dac16ca253b42e16387cb9dc16786e5e4d",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -171,5 +171,5 @@\n \t} else if (robj) {\n \t\tfloat unit = CameraManagerClass::Unknown_79B6B0();\n-\t\tVector3 target(0, 0, 0);\n+\t\tVector3 target; target.Set(0, 0, 0);\n \t\tVector3 pos;\n \t\tif (unit != Unknown48) {\n@@ -189,5 +189,5 @@\n \t\t\tMatrix3D tm = Lerp(Unknown50, Unknown80, 1.0f - Unknown4C);\n \t\t\tUnknown_543270(tm);\n-\t\t\tpos.Set(tm.Get_X_Translation(), tm.Get_Y_Translation(), tm.Get_Z_Translation());\n+\t\t\ttm.Get_Translation(&pos);\n \t\t\tDistance = Vector3::Distance(pos, target);\n \n"
+    },
+    {
+      "name": "lerp_tm_assign_first_tm_assign",
+      "selection": [
+        "lerp_tm_assign",
+        "first_tm_assign"
+      ],
+      "control": false,
+      "source_sha256": "b1c2ef9ff2e449d5fdb28762ec88984f45efcd72e8172fd0e406a1a4c7e1790c",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -164,5 +164,5 @@\n \t\t\tVector3 pos(unit * 1.1, unit * 1.1, unit * 1.1);\n \t\t\tProxy->Set_Position(Vector3(0, 0, 0));\n-\t\t\tMatrix3D tm(true);\n+\t\t\tMatrix3D tm; tm = Matrix3D(true);\n \t\t\ttm.Look_At(pos, target, 0);\n \t\t\tUnknown_543270(tm);\n@@ -187,5 +187,5 @@\n \t\t\tUnknown4C -= WW3D::Get_Frame_Time() * 0.001f;\n \t\t\tUnknown4C = WWMath::Clamp(Unknown4C, 0.0f, 1.0f);\n-\t\t\tMatrix3D tm = Lerp(Unknown50, Unknown80, 1.0f - Unknown4C);\n+\t\t\tMatrix3D tm; tm = Lerp(Unknown50, Unknown80, 1.0f - Unknown4C);\n \t\t\tUnknown_543270(tm);\n \t\t\tpos.Set(tm.Get_X_Translation(), tm.Get_Y_Translation(), tm.Get_Z_Translation());\n"
+    },
+    {
+      "name": "first_pos_get_first_tm_assign",
+      "selection": [
+        "first_pos_get",
+        "first_tm_assign"
+      ],
+      "control": false,
+      "source_sha256": "cec53632793f192d63f2c9051fd6bcda16ae5a339225c87b730017c4656d6a9e",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -164,5 +164,5 @@\n \t\t\tVector3 pos(unit * 1.1, unit * 1.1, unit * 1.1);\n \t\t\tProxy->Set_Position(Vector3(0, 0, 0));\n-\t\t\tMatrix3D tm(true);\n+\t\t\tMatrix3D tm; tm = Matrix3D(true);\n \t\t\ttm.Look_At(pos, target, 0);\n \t\t\tUnknown_543270(tm);\n@@ -179,5 +179,5 @@\n \t\t\tUnknown80 = Unknown50;\n \t\t\tUnknown80.Translate_Z(unit - Unknown48);\n-\t\t\tpos.Set(Unknown80.Get_X_Translation(), Unknown80.Get_Y_Translation(), Unknown80.Get_Z_Translation());\n+\t\t\tUnknown80.Get_Translation(&pos);\n \t\t\tUnknown80.Look_At(pos, target, 0);\n \t\t\tUnknown4C = 1.0f;\n"
+    },
+    {
+      "name": "second_pos_get_first_tm_assign",
+      "selection": [
+        "second_pos_get",
+        "first_tm_assign"
+      ],
+      "control": false,
+      "source_sha256": "e32d25ec809cec86e9b909626a4b9550173b15b23ce8bf36307acfaeb2e92a48",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -164,5 +164,5 @@\n \t\t\tVector3 pos(unit * 1.1, unit * 1.1, unit * 1.1);\n \t\t\tProxy->Set_Position(Vector3(0, 0, 0));\n-\t\t\tMatrix3D tm(true);\n+\t\t\tMatrix3D tm; tm = Matrix3D(true);\n \t\t\ttm.Look_At(pos, target, 0);\n \t\t\tUnknown_543270(tm);\n@@ -189,5 +189,5 @@\n \t\t\tMatrix3D tm = Lerp(Unknown50, Unknown80, 1.0f - Unknown4C);\n \t\t\tUnknown_543270(tm);\n-\t\t\tpos.Set(tm.Get_X_Translation(), tm.Get_Y_Translation(), tm.Get_Z_Translation());\n+\t\t\ttm.Get_Translation(&pos);\n \t\t\tDistance = Vector3::Distance(pos, target);\n \n"
+    },
+    {
+      "name": "first_pos_get_lerp_tm_assign",
+      "selection": [
+        "first_pos_get",
+        "lerp_tm_assign"
+      ],
+      "control": false,
+      "source_sha256": "6f6cb4005dfac823b6f82a5e7ae2ff2c4b7dd40a577023f36f3723646672dbb6",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -179,5 +179,5 @@\n \t\t\tUnknown80 = Unknown50;\n \t\t\tUnknown80.Translate_Z(unit - Unknown48);\n-\t\t\tpos.Set(Unknown80.Get_X_Translation(), Unknown80.Get_Y_Translation(), Unknown80.Get_Z_Translation());\n+\t\t\tUnknown80.Get_Translation(&pos);\n \t\t\tUnknown80.Look_At(pos, target, 0);\n \t\t\tUnknown4C = 1.0f;\n@@ -187,5 +187,5 @@\n \t\t\tUnknown4C -= WW3D::Get_Frame_Time() * 0.001f;\n \t\t\tUnknown4C = WWMath::Clamp(Unknown4C, 0.0f, 1.0f);\n-\t\t\tMatrix3D tm = Lerp(Unknown50, Unknown80, 1.0f - Unknown4C);\n+\t\t\tMatrix3D tm; tm = Lerp(Unknown50, Unknown80, 1.0f - Unknown4C);\n \t\t\tUnknown_543270(tm);\n \t\t\tpos.Set(tm.Get_X_Translation(), tm.Get_Y_Translation(), tm.Get_Z_Translation());\n"
+    },
+    {
+      "name": "second_pos_get_lerp_tm_assign",
+      "selection": [
+        "second_pos_get",
+        "lerp_tm_assign"
+      ],
+      "control": false,
+      "source_sha256": "53cced762190ac64458bb24e42d4e88db98f70f3ca22cf4fc1f38297b26076c3",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -187,7 +187,7 @@\n \t\t\tUnknown4C -= WW3D::Get_Frame_Time() * 0.001f;\n \t\t\tUnknown4C = WWMath::Clamp(Unknown4C, 0.0f, 1.0f);\n-\t\t\tMatrix3D tm = Lerp(Unknown50, Unknown80, 1.0f - Unknown4C);\n+\t\t\tMatrix3D tm; tm = Lerp(Unknown50, Unknown80, 1.0f - Unknown4C);\n \t\t\tUnknown_543270(tm);\n-\t\t\tpos.Set(tm.Get_X_Translation(), tm.Get_Y_Translation(), tm.Get_Z_Translation());\n+\t\t\ttm.Get_Translation(&pos);\n \t\t\tDistance = Vector3::Distance(pos, target);\n \n"
+    },
+    {
+      "name": "second_pos_get_first_pos_get",
+      "selection": [
+        "second_pos_get",
+        "first_pos_get"
+      ],
+      "control": false,
+      "source_sha256": "c1725e5e079cda19af1cba63370cd9cd8e66f4d9a92fef6b7e11655889ada033",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -179,5 +179,5 @@\n \t\t\tUnknown80 = Unknown50;\n \t\t\tUnknown80.Translate_Z(unit - Unknown48);\n-\t\t\tpos.Set(Unknown80.Get_X_Translation(), Unknown80.Get_Y_Translation(), Unknown80.Get_Z_Translation());\n+\t\t\tUnknown80.Get_Translation(&pos);\n \t\t\tUnknown80.Look_At(pos, target, 0);\n \t\t\tUnknown4C = 1.0f;\n@@ -189,5 +189,5 @@\n \t\t\tMatrix3D tm = Lerp(Unknown50, Unknown80, 1.0f - Unknown4C);\n \t\t\tUnknown_543270(tm);\n-\t\t\tpos.Set(tm.Get_X_Translation(), tm.Get_Y_Translation(), tm.Get_Z_Translation());\n+\t\t\ttm.Get_Translation(&pos);\n \t\t\tDistance = Vector3::Distance(pos, target);\n \n"
+    },
+    {
+      "name": "prior_seed",
+      "selection": [
+        "prior_seed"
+      ],
+      "control": true,
+      "source_sha256": "be7798a793f8808222a91b6fcff32df4379502df8248f746bd1de17882dc187e",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -167,5 +167,5 @@\n \t\t\ttm.Look_At(pos, target, 0);\n \t\t\tUnknown_543270(tm);\n-\t\t\tDistance = Vector3::Distance(pos, target);\n+\t\t\tDistance = (pos - target).Length();\n \t\t}\n \t} else if (robj) {\n@@ -179,5 +179,5 @@\n \t\t\tUnknown80 = Unknown50;\n \t\t\tUnknown80.Translate_Z(unit - Unknown48);\n-\t\t\tpos.Set(Unknown80.Get_X_Translation(), Unknown80.Get_Y_Translation(), Unknown80.Get_Z_Translation());\n+\t\t\tpos = Unknown80.Get_Translation();\n \t\t\tUnknown80.Look_At(pos, target, 0);\n \t\t\tUnknown4C = 1.0f;\n@@ -189,7 +189,7 @@\n \t\t\tMatrix3D tm = Lerp(Unknown50, Unknown80, 1.0f - Unknown4C);\n \t\t\tUnknown_543270(tm);\n-\t\t\tpos.Set(tm.Get_X_Translation(), tm.Get_Y_Translation(), tm.Get_Z_Translation());\n-\t\t\tDistance = Vector3::Distance(pos, target);\n-\n+\t\t\tpos = tm.Get_Translation();\n+\t\t\tpos -= target;\n+\t\t\tDistance = pos.Length();\n \t\t\tif (Unknown4C == 0.0f) {\n \t\t\t\tUnknown_542EE0(0);\n"
+    }
+  ]
+}

@@ -1,0 +1,343 @@
+{
+  "base_commit": "a6aee2de",
+  "source": "app/client/ship_equip_pip.cpp",
+  "instructions": "For one form, save its patch verbatim to a UTF-8 file; apply it with patch -p0 in a scratch directory containing the base commit source as ship_equip_pip.cpp. Verify source_sha256. Each patch is independent of all other forms.",
+  "variants": [
+    {
+      "name": "decl_cmud",
+      "selection": [
+        "c",
+        "m",
+        "u",
+        "d"
+      ],
+      "control": false,
+      "source_sha256": "5406617b6f0659e67c17486ef51d82b0e3c60df6e418068176be517432ad40fa",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -279,9 +279,9 @@\n void ShipEquipPipClass::Unknown_542EE0(float zoom)\n {\n-\tCameraClass *camera = Camera.Peek();\n+\tCameraClass *camera; Matrix3D tm; float unit; float distance; camera = Camera.Peek();\n \tFAIL_IF(!camera) return;\n-\tMatrix3D tm = camera->Get_Transform();\n-\tfloat unit = CameraManagerClass::Unknown_79B6B0();\n-\tfloat distance = WWMath::Clamp(unit * zoom + Distance, unit * 0.5f, unit * 2);\n+\ttm = camera->Get_Transform();\n+\tunit = CameraManagerClass::Unknown_79B6B0();\n+\tdistance = WWMath::Clamp(unit * zoom + Distance, unit * 0.5f, unit * 2);\n \ttm.Translate_Z(distance - Distance);\n \tDistance = distance;\n"
+    },
+    {
+      "name": "decl_cmdu",
+      "selection": [
+        "c",
+        "m",
+        "d",
+        "u"
+      ],
+      "control": false,
+      "source_sha256": "b18dd446c45f992f1fd0e116f2637e85d0dc78d8138a4e2c4d48fab4481ecef7",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -279,9 +279,9 @@\n void ShipEquipPipClass::Unknown_542EE0(float zoom)\n {\n-\tCameraClass *camera = Camera.Peek();\n+\tCameraClass *camera; Matrix3D tm; float distance; float unit; camera = Camera.Peek();\n \tFAIL_IF(!camera) return;\n-\tMatrix3D tm = camera->Get_Transform();\n-\tfloat unit = CameraManagerClass::Unknown_79B6B0();\n-\tfloat distance = WWMath::Clamp(unit * zoom + Distance, unit * 0.5f, unit * 2);\n+\ttm = camera->Get_Transform();\n+\tunit = CameraManagerClass::Unknown_79B6B0();\n+\tdistance = WWMath::Clamp(unit * zoom + Distance, unit * 0.5f, unit * 2);\n \ttm.Translate_Z(distance - Distance);\n \tDistance = distance;\n"
+    },
+    {
+      "name": "decl_cumd",
+      "selection": [
+        "c",
+        "u",
+        "m",
+        "d"
+      ],
+      "control": false,
+      "source_sha256": "8af2311067b16611323be09930371f96c8bee2cae1f66b6adea9e0fe8bfec432",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -279,9 +279,9 @@\n void ShipEquipPipClass::Unknown_542EE0(float zoom)\n {\n-\tCameraClass *camera = Camera.Peek();\n+\tCameraClass *camera; float unit; Matrix3D tm; float distance; camera = Camera.Peek();\n \tFAIL_IF(!camera) return;\n-\tMatrix3D tm = camera->Get_Transform();\n-\tfloat unit = CameraManagerClass::Unknown_79B6B0();\n-\tfloat distance = WWMath::Clamp(unit * zoom + Distance, unit * 0.5f, unit * 2);\n+\ttm = camera->Get_Transform();\n+\tunit = CameraManagerClass::Unknown_79B6B0();\n+\tdistance = WWMath::Clamp(unit * zoom + Distance, unit * 0.5f, unit * 2);\n \ttm.Translate_Z(distance - Distance);\n \tDistance = distance;\n"
+    },
+    {
+      "name": "decl_cudm",
+      "selection": [
+        "c",
+        "u",
+        "d",
+        "m"
+      ],
+      "control": false,
+      "source_sha256": "7e9276e41d456114f1bf2b0bb14aebcddb3aafe65a548600c5310c1cb9efdf4e",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -279,9 +279,9 @@\n void ShipEquipPipClass::Unknown_542EE0(float zoom)\n {\n-\tCameraClass *camera = Camera.Peek();\n+\tCameraClass *camera; float unit; float distance; Matrix3D tm; camera = Camera.Peek();\n \tFAIL_IF(!camera) return;\n-\tMatrix3D tm = camera->Get_Transform();\n-\tfloat unit = CameraManagerClass::Unknown_79B6B0();\n-\tfloat distance = WWMath::Clamp(unit * zoom + Distance, unit * 0.5f, unit * 2);\n+\ttm = camera->Get_Transform();\n+\tunit = CameraManagerClass::Unknown_79B6B0();\n+\tdistance = WWMath::Clamp(unit * zoom + Distance, unit * 0.5f, unit * 2);\n \ttm.Translate_Z(distance - Distance);\n \tDistance = distance;\n"
+    },
+    {
+      "name": "decl_cdmu",
+      "selection": [
+        "c",
+        "d",
+        "m",
+        "u"
+      ],
+      "control": false,
+      "source_sha256": "49627c54293e87a3ecc786d34037040c2be3f26ba91bf68d47285a019e30c8c2",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -279,9 +279,9 @@\n void ShipEquipPipClass::Unknown_542EE0(float zoom)\n {\n-\tCameraClass *camera = Camera.Peek();\n+\tCameraClass *camera; float distance; Matrix3D tm; float unit; camera = Camera.Peek();\n \tFAIL_IF(!camera) return;\n-\tMatrix3D tm = camera->Get_Transform();\n-\tfloat unit = CameraManagerClass::Unknown_79B6B0();\n-\tfloat distance = WWMath::Clamp(unit * zoom + Distance, unit * 0.5f, unit * 2);\n+\ttm = camera->Get_Transform();\n+\tunit = CameraManagerClass::Unknown_79B6B0();\n+\tdistance = WWMath::Clamp(unit * zoom + Distance, unit * 0.5f, unit * 2);\n \ttm.Translate_Z(distance - Distance);\n \tDistance = distance;\n"
+    },
+    {
+      "name": "decl_cdum",
+      "selection": [
+        "c",
+        "d",
+        "u",
+        "m"
+      ],
+      "control": false,
+      "source_sha256": "d549a1f3f1817208173aca1c73a4ec2f24d90e19553da23e909c6833215cdd70",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -279,9 +279,9 @@\n void ShipEquipPipClass::Unknown_542EE0(float zoom)\n {\n-\tCameraClass *camera = Camera.Peek();\n+\tCameraClass *camera; float distance; float unit; Matrix3D tm; camera = Camera.Peek();\n \tFAIL_IF(!camera) return;\n-\tMatrix3D tm = camera->Get_Transform();\n-\tfloat unit = CameraManagerClass::Unknown_79B6B0();\n-\tfloat distance = WWMath::Clamp(unit * zoom + Distance, unit * 0.5f, unit * 2);\n+\ttm = camera->Get_Transform();\n+\tunit = CameraManagerClass::Unknown_79B6B0();\n+\tdistance = WWMath::Clamp(unit * zoom + Distance, unit * 0.5f, unit * 2);\n \ttm.Translate_Z(distance - Distance);\n \tDistance = distance;\n"
+    },
+    {
+      "name": "decl_mcud",
+      "selection": [
+        "m",
+        "c",
+        "u",
+        "d"
+      ],
+      "control": false,
+      "source_sha256": "137e12dfeb8fa062b63f41d1523792cee42193da3438c46b08bd1095368221e1",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -279,9 +279,9 @@\n void ShipEquipPipClass::Unknown_542EE0(float zoom)\n {\n-\tCameraClass *camera = Camera.Peek();\n+\tMatrix3D tm; CameraClass *camera; float unit; float distance; camera = Camera.Peek();\n \tFAIL_IF(!camera) return;\n-\tMatrix3D tm = camera->Get_Transform();\n-\tfloat unit = CameraManagerClass::Unknown_79B6B0();\n-\tfloat distance = WWMath::Clamp(unit * zoom + Distance, unit * 0.5f, unit * 2);\n+\ttm = camera->Get_Transform();\n+\tunit = CameraManagerClass::Unknown_79B6B0();\n+\tdistance = WWMath::Clamp(unit * zoom + Distance, unit * 0.5f, unit * 2);\n \ttm.Translate_Z(distance - Distance);\n \tDistance = distance;\n"
+    },
+    {
+      "name": "decl_mcdu",
+      "selection": [
+        "m",
+        "c",
+        "d",
+        "u"
+      ],
+      "control": false,
+      "source_sha256": "be7b44f6d34bcfe3ec5ed9400ca278a98242d4ab250dddf6e0ff01ed0d074db4",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -279,9 +279,9 @@\n void ShipEquipPipClass::Unknown_542EE0(float zoom)\n {\n-\tCameraClass *camera = Camera.Peek();\n+\tMatrix3D tm; CameraClass *camera; float distance; float unit; camera = Camera.Peek();\n \tFAIL_IF(!camera) return;\n-\tMatrix3D tm = camera->Get_Transform();\n-\tfloat unit = CameraManagerClass::Unknown_79B6B0();\n-\tfloat distance = WWMath::Clamp(unit * zoom + Distance, unit * 0.5f, unit * 2);\n+\ttm = camera->Get_Transform();\n+\tunit = CameraManagerClass::Unknown_79B6B0();\n+\tdistance = WWMath::Clamp(unit * zoom + Distance, unit * 0.5f, unit * 2);\n \ttm.Translate_Z(distance - Distance);\n \tDistance = distance;\n"
+    },
+    {
+      "name": "decl_mucd",
+      "selection": [
+        "m",
+        "u",
+        "c",
+        "d"
+      ],
+      "control": false,
+      "source_sha256": "44155fa94fd2cb1968bcf7485ad65988a6ba3263471ac1a2d0da452af6f463a9",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -279,9 +279,9 @@\n void ShipEquipPipClass::Unknown_542EE0(float zoom)\n {\n-\tCameraClass *camera = Camera.Peek();\n+\tMatrix3D tm; float unit; CameraClass *camera; float distance; camera = Camera.Peek();\n \tFAIL_IF(!camera) return;\n-\tMatrix3D tm = camera->Get_Transform();\n-\tfloat unit = CameraManagerClass::Unknown_79B6B0();\n-\tfloat distance = WWMath::Clamp(unit * zoom + Distance, unit * 0.5f, unit * 2);\n+\ttm = camera->Get_Transform();\n+\tunit = CameraManagerClass::Unknown_79B6B0();\n+\tdistance = WWMath::Clamp(unit * zoom + Distance, unit * 0.5f, unit * 2);\n \ttm.Translate_Z(distance - Distance);\n \tDistance = distance;\n"
+    },
+    {
+      "name": "decl_mudc",
+      "selection": [
+        "m",
+        "u",
+        "d",
+        "c"
+      ],
+      "control": false,
+      "source_sha256": "1be4e30b5cd69904420d5f7deb845a6c9f6f97ce684b49f7844d514d5a9c4cfc",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -279,9 +279,9 @@\n void ShipEquipPipClass::Unknown_542EE0(float zoom)\n {\n-\tCameraClass *camera = Camera.Peek();\n+\tMatrix3D tm; float unit; float distance; CameraClass *camera; camera = Camera.Peek();\n \tFAIL_IF(!camera) return;\n-\tMatrix3D tm = camera->Get_Transform();\n-\tfloat unit = CameraManagerClass::Unknown_79B6B0();\n-\tfloat distance = WWMath::Clamp(unit * zoom + Distance, unit * 0.5f, unit * 2);\n+\ttm = camera->Get_Transform();\n+\tunit = CameraManagerClass::Unknown_79B6B0();\n+\tdistance = WWMath::Clamp(unit * zoom + Distance, unit * 0.5f, unit * 2);\n \ttm.Translate_Z(distance - Distance);\n \tDistance = distance;\n"
+    },
+    {
+      "name": "decl_mdcu",
+      "selection": [
+        "m",
+        "d",
+        "c",
+        "u"
+      ],
+      "control": false,
+      "source_sha256": "533e206c38da9a8d6a9a1b1d78fc6d2d5f41d0375447114617bcb7f52e0b4b2f",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -279,9 +279,9 @@\n void ShipEquipPipClass::Unknown_542EE0(float zoom)\n {\n-\tCameraClass *camera = Camera.Peek();\n+\tMatrix3D tm; float distance; CameraClass *camera; float unit; camera = Camera.Peek();\n \tFAIL_IF(!camera) return;\n-\tMatrix3D tm = camera->Get_Transform();\n-\tfloat unit = CameraManagerClass::Unknown_79B6B0();\n-\tfloat distance = WWMath::Clamp(unit * zoom + Distance, unit * 0.5f, unit * 2);\n+\ttm = camera->Get_Transform();\n+\tunit = CameraManagerClass::Unknown_79B6B0();\n+\tdistance = WWMath::Clamp(unit * zoom + Distance, unit * 0.5f, unit * 2);\n \ttm.Translate_Z(distance - Distance);\n \tDistance = distance;\n"
+    },
+    {
+      "name": "decl_mduc",
+      "selection": [
+        "m",
+        "d",
+        "u",
+        "c"
+      ],
+      "control": false,
+      "source_sha256": "82f8192752f8aa86240b2a6960c9c384f6c6f4aa1bafb6671514962056ba6ee2",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -279,9 +279,9 @@\n void ShipEquipPipClass::Unknown_542EE0(float zoom)\n {\n-\tCameraClass *camera = Camera.Peek();\n+\tMatrix3D tm; float distance; float unit; CameraClass *camera; camera = Camera.Peek();\n \tFAIL_IF(!camera) return;\n-\tMatrix3D tm = camera->Get_Transform();\n-\tfloat unit = CameraManagerClass::Unknown_79B6B0();\n-\tfloat distance = WWMath::Clamp(unit * zoom + Distance, unit * 0.5f, unit * 2);\n+\ttm = camera->Get_Transform();\n+\tunit = CameraManagerClass::Unknown_79B6B0();\n+\tdistance = WWMath::Clamp(unit * zoom + Distance, unit * 0.5f, unit * 2);\n \ttm.Translate_Z(distance - Distance);\n \tDistance = distance;\n"
+    },
+    {
+      "name": "decl_ucmd",
+      "selection": [
+        "u",
+        "c",
+        "m",
+        "d"
+      ],
+      "control": false,
+      "source_sha256": "fee8b03deeefd34bfaf0b3db4009d137cf1a43c5081ebce2249e994da7bde730",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -279,9 +279,9 @@\n void ShipEquipPipClass::Unknown_542EE0(float zoom)\n {\n-\tCameraClass *camera = Camera.Peek();\n+\tfloat unit; CameraClass *camera; Matrix3D tm; float distance; camera = Camera.Peek();\n \tFAIL_IF(!camera) return;\n-\tMatrix3D tm = camera->Get_Transform();\n-\tfloat unit = CameraManagerClass::Unknown_79B6B0();\n-\tfloat distance = WWMath::Clamp(unit * zoom + Distance, unit * 0.5f, unit * 2);\n+\ttm = camera->Get_Transform();\n+\tunit = CameraManagerClass::Unknown_79B6B0();\n+\tdistance = WWMath::Clamp(unit * zoom + Distance, unit * 0.5f, unit * 2);\n \ttm.Translate_Z(distance - Distance);\n \tDistance = distance;\n"
+    },
+    {
+      "name": "decl_ucdm",
+      "selection": [
+        "u",
+        "c",
+        "d",
+        "m"
+      ],
+      "control": false,
+      "source_sha256": "caa32f99dedd1ce20807d66a8d51743e5ccf000fbd19b161830cebece1adff97",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -279,9 +279,9 @@\n void ShipEquipPipClass::Unknown_542EE0(float zoom)\n {\n-\tCameraClass *camera = Camera.Peek();\n+\tfloat unit; CameraClass *camera; float distance; Matrix3D tm; camera = Camera.Peek();\n \tFAIL_IF(!camera) return;\n-\tMatrix3D tm = camera->Get_Transform();\n-\tfloat unit = CameraManagerClass::Unknown_79B6B0();\n-\tfloat distance = WWMath::Clamp(unit * zoom + Distance, unit * 0.5f, unit * 2);\n+\ttm = camera->Get_Transform();\n+\tunit = CameraManagerClass::Unknown_79B6B0();\n+\tdistance = WWMath::Clamp(unit * zoom + Distance, unit * 0.5f, unit * 2);\n \ttm.Translate_Z(distance - Distance);\n \tDistance = distance;\n"
+    },
+    {
+      "name": "decl_umcd",
+      "selection": [
+        "u",
+        "m",
+        "c",
+        "d"
+      ],
+      "control": false,
+      "source_sha256": "d084832e9bbf220308109059ced8aae5bb26ebcca9c70af7cedc451b20fe294d",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -279,9 +279,9 @@\n void ShipEquipPipClass::Unknown_542EE0(float zoom)\n {\n-\tCameraClass *camera = Camera.Peek();\n+\tfloat unit; Matrix3D tm; CameraClass *camera; float distance; camera = Camera.Peek();\n \tFAIL_IF(!camera) return;\n-\tMatrix3D tm = camera->Get_Transform();\n-\tfloat unit = CameraManagerClass::Unknown_79B6B0();\n-\tfloat distance = WWMath::Clamp(unit * zoom + Distance, unit * 0.5f, unit * 2);\n+\ttm = camera->Get_Transform();\n+\tunit = CameraManagerClass::Unknown_79B6B0();\n+\tdistance = WWMath::Clamp(unit * zoom + Distance, unit * 0.5f, unit * 2);\n \ttm.Translate_Z(distance - Distance);\n \tDistance = distance;\n"
+    },
+    {
+      "name": "decl_umdc",
+      "selection": [
+        "u",
+        "m",
+        "d",
+        "c"
+      ],
+      "control": false,
+      "source_sha256": "dea40ce49a92a7b2d5d9327c318b3e3a8ad8450f295d8fef7c12add0ca277b87",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -279,9 +279,9 @@\n void ShipEquipPipClass::Unknown_542EE0(float zoom)\n {\n-\tCameraClass *camera = Camera.Peek();\n+\tfloat unit; Matrix3D tm; float distance; CameraClass *camera; camera = Camera.Peek();\n \tFAIL_IF(!camera) return;\n-\tMatrix3D tm = camera->Get_Transform();\n-\tfloat unit = CameraManagerClass::Unknown_79B6B0();\n-\tfloat distance = WWMath::Clamp(unit * zoom + Distance, unit * 0.5f, unit * 2);\n+\ttm = camera->Get_Transform();\n+\tunit = CameraManagerClass::Unknown_79B6B0();\n+\tdistance = WWMath::Clamp(unit * zoom + Distance, unit * 0.5f, unit * 2);\n \ttm.Translate_Z(distance - Distance);\n \tDistance = distance;\n"
+    },
+    {
+      "name": "decl_udcm",
+      "selection": [
+        "u",
+        "d",
+        "c",
+        "m"
+      ],
+      "control": false,
+      "source_sha256": "9e57e632171e6393c96dfd778cc682a563a9e45d7444e186dd3db150cb4b467b",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -279,9 +279,9 @@\n void ShipEquipPipClass::Unknown_542EE0(float zoom)\n {\n-\tCameraClass *camera = Camera.Peek();\n+\tfloat unit; float distance; CameraClass *camera; Matrix3D tm; camera = Camera.Peek();\n \tFAIL_IF(!camera) return;\n-\tMatrix3D tm = camera->Get_Transform();\n-\tfloat unit = CameraManagerClass::Unknown_79B6B0();\n-\tfloat distance = WWMath::Clamp(unit * zoom + Distance, unit * 0.5f, unit * 2);\n+\ttm = camera->Get_Transform();\n+\tunit = CameraManagerClass::Unknown_79B6B0();\n+\tdistance = WWMath::Clamp(unit * zoom + Distance, unit * 0.5f, unit * 2);\n \ttm.Translate_Z(distance - Distance);\n \tDistance = distance;\n"
+    },
+    {
+      "name": "decl_udmc",
+      "selection": [
+        "u",
+        "d",
+        "m",
+        "c"
+      ],
+      "control": false,
+      "source_sha256": "cd8d8689055389c144099991a86a82621dfc42948fcfa7318f58804c03b7e1d9",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -279,9 +279,9 @@\n void ShipEquipPipClass::Unknown_542EE0(float zoom)\n {\n-\tCameraClass *camera = Camera.Peek();\n+\tfloat unit; float distance; Matrix3D tm; CameraClass *camera; camera = Camera.Peek();\n \tFAIL_IF(!camera) return;\n-\tMatrix3D tm = camera->Get_Transform();\n-\tfloat unit = CameraManagerClass::Unknown_79B6B0();\n-\tfloat distance = WWMath::Clamp(unit * zoom + Distance, unit * 0.5f, unit * 2);\n+\ttm = camera->Get_Transform();\n+\tunit = CameraManagerClass::Unknown_79B6B0();\n+\tdistance = WWMath::Clamp(unit * zoom + Distance, unit * 0.5f, unit * 2);\n \ttm.Translate_Z(distance - Distance);\n \tDistance = distance;\n"
+    },
+    {
+      "name": "decl_dcmu",
+      "selection": [
+        "d",
+        "c",
+        "m",
+        "u"
+      ],
+      "control": false,
+      "source_sha256": "b5418d7708422a2068058570ecaeffbc84414e573287c2da986fc25ccf47bc0c",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -279,9 +279,9 @@\n void ShipEquipPipClass::Unknown_542EE0(float zoom)\n {\n-\tCameraClass *camera = Camera.Peek();\n+\tfloat distance; CameraClass *camera; Matrix3D tm; float unit; camera = Camera.Peek();\n \tFAIL_IF(!camera) return;\n-\tMatrix3D tm = camera->Get_Transform();\n-\tfloat unit = CameraManagerClass::Unknown_79B6B0();\n-\tfloat distance = WWMath::Clamp(unit * zoom + Distance, unit * 0.5f, unit * 2);\n+\ttm = camera->Get_Transform();\n+\tunit = CameraManagerClass::Unknown_79B6B0();\n+\tdistance = WWMath::Clamp(unit * zoom + Distance, unit * 0.5f, unit * 2);\n \ttm.Translate_Z(distance - Distance);\n \tDistance = distance;\n"
+    },
+    {
+      "name": "decl_dcum",
+      "selection": [
+        "d",
+        "c",
+        "u",
+        "m"
+      ],
+      "control": false,
+      "source_sha256": "c50feea23370bff4eb3a9718b035f432dae1530cc03b8c866d4536e8f150a263",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -279,9 +279,9 @@\n void ShipEquipPipClass::Unknown_542EE0(float zoom)\n {\n-\tCameraClass *camera = Camera.Peek();\n+\tfloat distance; CameraClass *camera; float unit; Matrix3D tm; camera = Camera.Peek();\n \tFAIL_IF(!camera) return;\n-\tMatrix3D tm = camera->Get_Transform();\n-\tfloat unit = CameraManagerClass::Unknown_79B6B0();\n-\tfloat distance = WWMath::Clamp(unit * zoom + Distance, unit * 0.5f, unit * 2);\n+\ttm = camera->Get_Transform();\n+\tunit = CameraManagerClass::Unknown_79B6B0();\n+\tdistance = WWMath::Clamp(unit * zoom + Distance, unit * 0.5f, unit * 2);\n \ttm.Translate_Z(distance - Distance);\n \tDistance = distance;\n"
+    },
+    {
+      "name": "matrix_assign",
+      "selection": [
+        "matrix_assign"
+      ],
+      "control": false,
+      "source_sha256": "f17ac64c82a49e86bc87adc72337265191d6c531b7043987b77f50c1f804f710",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -281,5 +281,5 @@\n \tCameraClass *camera = Camera.Peek();\n \tFAIL_IF(!camera) return;\n-\tMatrix3D tm = camera->Get_Transform();\n+\tMatrix3D tm; tm = camera->Get_Transform();\n \tfloat unit = CameraManagerClass::Unknown_79B6B0();\n \tfloat distance = WWMath::Clamp(unit * zoom + Distance, unit * 0.5f, unit * 2);\n"
+    },
+    {
+      "name": "unit_assign",
+      "selection": [
+        "unit_assign"
+      ],
+      "control": false,
+      "source_sha256": "f2c2e9abf9ce56e9c00dee2dfda215b227bdff0431074575b2405e66381f9abf",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -282,5 +282,5 @@\n \tFAIL_IF(!camera) return;\n \tMatrix3D tm = camera->Get_Transform();\n-\tfloat unit = CameraManagerClass::Unknown_79B6B0();\n+\tfloat unit; unit = CameraManagerClass::Unknown_79B6B0();\n \tfloat distance = WWMath::Clamp(unit * zoom + Distance, unit * 0.5f, unit * 2);\n \ttm.Translate_Z(distance - Distance);\n"
+    },
+    {
+      "name": "distance_assign",
+      "selection": [
+        "distance_assign"
+      ],
+      "control": false,
+      "source_sha256": "8a05d008cbd192b2f64f766034a50badd1a9e3b6b976587b7c73a093a40a56a0",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -283,5 +283,5 @@\n \tMatrix3D tm = camera->Get_Transform();\n \tfloat unit = CameraManagerClass::Unknown_79B6B0();\n-\tfloat distance = WWMath::Clamp(unit * zoom + Distance, unit * 0.5f, unit * 2);\n+\tfloat distance; distance = WWMath::Clamp(unit * zoom + Distance, unit * 0.5f, unit * 2);\n \ttm.Translate_Z(distance - Distance);\n \tDistance = distance;\n"
+    },
+    {
+      "name": "camera_assign",
+      "selection": [
+        "camera_assign"
+      ],
+      "control": false,
+      "source_sha256": "d17c0a3e5d3af67027da8b60b0e064f0d748c6106da21854abf79d8a8a9b9663",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -279,5 +279,5 @@\n void ShipEquipPipClass::Unknown_542EE0(float zoom)\n {\n-\tCameraClass *camera = Camera.Peek();\n+\tCameraClass *camera; camera = Camera.Peek();\n \tFAIL_IF(!camera) return;\n \tMatrix3D tm = camera->Get_Transform();\n"
+    },
+    {
+      "name": "unit_assign_matrix_assign",
+      "selection": [
+        "unit_assign",
+        "matrix_assign"
+      ],
+      "control": false,
+      "source_sha256": "60b94ba5e19fa90b5aa0fcba083db1e56f2ca1b4bf72a806aa510fa92aa99e09",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -281,6 +281,6 @@\n \tCameraClass *camera = Camera.Peek();\n \tFAIL_IF(!camera) return;\n-\tMatrix3D tm = camera->Get_Transform();\n-\tfloat unit = CameraManagerClass::Unknown_79B6B0();\n+\tMatrix3D tm; tm = camera->Get_Transform();\n+\tfloat unit; unit = CameraManagerClass::Unknown_79B6B0();\n \tfloat distance = WWMath::Clamp(unit * zoom + Distance, unit * 0.5f, unit * 2);\n \ttm.Translate_Z(distance - Distance);\n"
+    },
+    {
+      "name": "distance_assign_matrix_assign",
+      "selection": [
+        "distance_assign",
+        "matrix_assign"
+      ],
+      "control": false,
+      "source_sha256": "2f79ad3e719e99d41bfa17b939e2e39654fd270956b9c16c6767a3b5e3cda631",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -281,7 +281,7 @@\n \tCameraClass *camera = Camera.Peek();\n \tFAIL_IF(!camera) return;\n-\tMatrix3D tm = camera->Get_Transform();\n+\tMatrix3D tm; tm = camera->Get_Transform();\n \tfloat unit = CameraManagerClass::Unknown_79B6B0();\n-\tfloat distance = WWMath::Clamp(unit * zoom + Distance, unit * 0.5f, unit * 2);\n+\tfloat distance; distance = WWMath::Clamp(unit * zoom + Distance, unit * 0.5f, unit * 2);\n \ttm.Translate_Z(distance - Distance);\n \tDistance = distance;\n"
+    },
+    {
+      "name": "camera_assign_matrix_assign",
+      "selection": [
+        "camera_assign",
+        "matrix_assign"
+      ],
+      "control": false,
+      "source_sha256": "5697e645bfaf0f01e38ba27fbea309828b14744818a368100e59445c4d369dac",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -279,7 +279,7 @@\n void ShipEquipPipClass::Unknown_542EE0(float zoom)\n {\n-\tCameraClass *camera = Camera.Peek();\n+\tCameraClass *camera; camera = Camera.Peek();\n \tFAIL_IF(!camera) return;\n-\tMatrix3D tm = camera->Get_Transform();\n+\tMatrix3D tm; tm = camera->Get_Transform();\n \tfloat unit = CameraManagerClass::Unknown_79B6B0();\n \tfloat distance = WWMath::Clamp(unit * zoom + Distance, unit * 0.5f, unit * 2);\n"
+    },
+    {
+      "name": "distance_assign_unit_assign",
+      "selection": [
+        "distance_assign",
+        "unit_assign"
+      ],
+      "control": false,
+      "source_sha256": "4845ebddc5ac906ca1ef3087c3ca8291d78556d791a04bfe2b0a347640d18d76",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -282,6 +282,6 @@\n \tFAIL_IF(!camera) return;\n \tMatrix3D tm = camera->Get_Transform();\n-\tfloat unit = CameraManagerClass::Unknown_79B6B0();\n-\tfloat distance = WWMath::Clamp(unit * zoom + Distance, unit * 0.5f, unit * 2);\n+\tfloat unit; unit = CameraManagerClass::Unknown_79B6B0();\n+\tfloat distance; distance = WWMath::Clamp(unit * zoom + Distance, unit * 0.5f, unit * 2);\n \ttm.Translate_Z(distance - Distance);\n \tDistance = distance;\n"
+    },
+    {
+      "name": "camera_assign_unit_assign",
+      "selection": [
+        "camera_assign",
+        "unit_assign"
+      ],
+      "control": false,
+      "source_sha256": "43ea6b11cb9003a212d132dfbb90462ed3c81572893f84b148a6bbd1ca5a8945",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -279,8 +279,8 @@\n void ShipEquipPipClass::Unknown_542EE0(float zoom)\n {\n-\tCameraClass *camera = Camera.Peek();\n+\tCameraClass *camera; camera = Camera.Peek();\n \tFAIL_IF(!camera) return;\n \tMatrix3D tm = camera->Get_Transform();\n-\tfloat unit = CameraManagerClass::Unknown_79B6B0();\n+\tfloat unit; unit = CameraManagerClass::Unknown_79B6B0();\n \tfloat distance = WWMath::Clamp(unit * zoom + Distance, unit * 0.5f, unit * 2);\n \ttm.Translate_Z(distance - Distance);\n"
+    },
+    {
+      "name": "camera_assign_distance_assign",
+      "selection": [
+        "camera_assign",
+        "distance_assign"
+      ],
+      "control": false,
+      "source_sha256": "683b61417d58dd956ef6044bbf3efe4a2b637c2d36a17a4dacc6d08b3ce00338",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -279,9 +279,9 @@\n void ShipEquipPipClass::Unknown_542EE0(float zoom)\n {\n-\tCameraClass *camera = Camera.Peek();\n+\tCameraClass *camera; camera = Camera.Peek();\n \tFAIL_IF(!camera) return;\n \tMatrix3D tm = camera->Get_Transform();\n \tfloat unit = CameraManagerClass::Unknown_79B6B0();\n-\tfloat distance = WWMath::Clamp(unit * zoom + Distance, unit * 0.5f, unit * 2);\n+\tfloat distance; distance = WWMath::Clamp(unit * zoom + Distance, unit * 0.5f, unit * 2);\n \ttm.Translate_Z(distance - Distance);\n \tDistance = distance;\n"
+    }
+  ]
+}

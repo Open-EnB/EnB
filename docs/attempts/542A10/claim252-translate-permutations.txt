@@ -1,0 +1,1221 @@
+{
+  "base_commit": "9684f5faa7bca13939a2984d36bd17fb3eafb412",
+  "model": "gpt-6.1-sol (high)",
+  "retail_sha256": "249f852496f341c00361be95b66e7c0becc2c39e7cba026f9227e38b602651c4",
+  "unit": "app/client/ship_equip_pip.cpp",
+  "header": "wwmath/matrix3d.h",
+  "identity": {
+    "base_commit": "9684f5faa7bca13939a2984d36bd17fb3eafb412",
+    "archive_sha256": "079d80837877b113ad022dcf84d28a6e1b458d13e2010f7b949d645df12f50bb",
+    "source_sha256": "ac110b98654ed3f0c2a020cf50b793b06ae5e2bd7042e48d8271c471d742af2e",
+    "header_sha256": "676603b23ef58280c75c4ae54d2557b048823767e342d9b64afa93b9eaac50c6"
+  },
+  "source_forms": [
+    {
+      "id": "S0",
+      "sha256": "ac110b98654ed3f0c2a020cf50b793b06ae5e2bd7042e48d8271c471d742af2e",
+      "patch": ""
+    },
+    {
+      "id": "S1",
+      "sha256": "933cbd2955fd83446072978a3481691d436f2822a68353156bd163f11777f609",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -233,7 +233,7 @@\n \t\t\tCameraClass *camera = Camera.Peek();\n \t\t\tFAIL_IF(!camera) return;\n-\t\t\tMatrix3D tm = camera->Get_Transform();\n+\t\t\tMatrix3D owned_tm = camera->Get_Transform(); Matrix3D &tm = owned_tm;\n \t\t\tQuaternion rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, 0.8f);\n-\t\t\tMatrix3D inv;\n+\t\t\tMatrix3D owned_inv; Matrix3D &inv = owned_inv;\n \t\t\ttm.Get_Orthogonal_Inverse(inv);\n \t\t\tCameraManagerClass::Unknown_79B6B0();\n@@ -241,5 +241,5 @@\n \t\t\ttm.Translate(center.X, center.Y, center.Z);\n \t\t\tMatrix3D::Multiply(tm, Build_Matrix3D(rot), &tm);\n-\t\t\ttm.Translate(-center.X, -center.Y, -center.Z);\n+\t\t\ttm.Translate(-center);\n \t\t\tUnknown_543270(tm);\n \t\t}\n"
+    },
+    {
+      "id": "S2",
+      "sha256": "0e4f0a818a6f5499530586ce93c4a456f907b118ec99b1c7f1512df37a287e59",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -233,7 +233,7 @@\n \t\t\tCameraClass *camera = Camera.Peek();\n \t\t\tFAIL_IF(!camera) return;\n-\t\t\tMatrix3D tm = camera->Get_Transform();\n+\t\t\tMatrix3D owned_tm = camera->Get_Transform(); Matrix3D &tm = owned_tm;\n \t\t\tQuaternion rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, 0.8f);\n-\t\t\tMatrix3D inv;\n+\t\t\tMatrix3D owned_inv; Matrix3D &inv = owned_inv;\n \t\t\ttm.Get_Orthogonal_Inverse(inv);\n \t\t\tCameraManagerClass::Unknown_79B6B0();\n"
+    },
+    {
+      "id": "S3",
+      "sha256": "088af763e25f566399a5a2d44f1a2e750602b6050a7ae2f37ec78d0531df878a",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -233,13 +233,13 @@\n \t\t\tCameraClass *camera = Camera.Peek();\n \t\t\tFAIL_IF(!camera) return;\n-\t\t\tMatrix3D tm = camera->Get_Transform();\n+\t\t\tMatrix3D owned_tm = camera->Get_Transform(); Matrix3D &tm = owned_tm;\n \t\t\tQuaternion rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, 0.8f);\n-\t\t\tMatrix3D inv;\n+\t\t\tMatrix3D owned_inv; Matrix3D &inv = owned_inv;\n \t\t\ttm.Get_Orthogonal_Inverse(inv);\n \t\t\tCameraManagerClass::Unknown_79B6B0();\n \t\t\tVector3 center = inv.Get_Translation();\n-\t\t\ttm.Translate(center.X, center.Y, center.Z);\n+\t\t\ttm.Translate(center);\n \t\t\tMatrix3D::Multiply(tm, Build_Matrix3D(rot), &tm);\n-\t\t\ttm.Translate(-center.X, -center.Y, -center.Z);\n+\t\t\ttm.Translate(-center);\n \t\t\tUnknown_543270(tm);\n \t\t}\n"
+    },
+    {
+      "id": "S4",
+      "sha256": "e82dbfe633e45f86ff336acbf43e022cd67472dcf28a29ccf3a237dce5f18f48",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -233,11 +233,11 @@\n \t\t\tCameraClass *camera = Camera.Peek();\n \t\t\tFAIL_IF(!camera) return;\n-\t\t\tMatrix3D tm = camera->Get_Transform();\n+\t\t\tMatrix3D owned_tm = camera->Get_Transform(); Matrix3D &tm = owned_tm;\n \t\t\tQuaternion rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, 0.8f);\n-\t\t\tMatrix3D inv;\n+\t\t\tMatrix3D owned_inv; Matrix3D &inv = owned_inv;\n \t\t\ttm.Get_Orthogonal_Inverse(inv);\n \t\t\tCameraManagerClass::Unknown_79B6B0();\n \t\t\tVector3 center = inv.Get_Translation();\n-\t\t\ttm.Translate(center.X, center.Y, center.Z);\n+\t\t\ttm.Translate(center);\n \t\t\tMatrix3D::Multiply(tm, Build_Matrix3D(rot), &tm);\n \t\t\ttm.Translate(-center.X, -center.Y, -center.Z);\n"
+    },
+    {
+      "id": "S5",
+      "sha256": "5c5b5640780baff3ca08af0c07001085fb7d777991344605f4573dacfdd393dd",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -233,13 +233,13 @@\n \t\t\tCameraClass *camera = Camera.Peek();\n \t\t\tFAIL_IF(!camera) return;\n-\t\t\tMatrix3D tm = camera->Get_Transform();\n+\t\t\tMatrix3D owned_tm = camera->Get_Transform(); Matrix3D &tm = owned_tm;\n \t\t\tQuaternion rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, 0.8f);\n-\t\t\tMatrix3D inv;\n+\t\t\tMatrix3D owned_inv; Matrix3D &inv = owned_inv;\n \t\t\ttm.Get_Orthogonal_Inverse(inv);\n \t\t\tCameraManagerClass::Unknown_79B6B0();\n-\t\t\tVector3 center = inv.Get_Translation();\n+\t\t\tconst Vector3 &center = inv.Get_Translation();\n \t\t\ttm.Translate(center.X, center.Y, center.Z);\n \t\t\tMatrix3D::Multiply(tm, Build_Matrix3D(rot), &tm);\n-\t\t\ttm.Translate(-center.X, -center.Y, -center.Z);\n+\t\t\ttm.Translate(-center);\n \t\t\tUnknown_543270(tm);\n \t\t}\n"
+    },
+    {
+      "id": "S6",
+      "sha256": "ccd6c562f3d86db628cdfc28402a56c818de5e125f636d054fd8bca7d72546ad",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -233,13 +233,13 @@\n \t\t\tCameraClass *camera = Camera.Peek();\n \t\t\tFAIL_IF(!camera) return;\n-\t\t\tMatrix3D tm = camera->Get_Transform();\n+\t\t\tMatrix3D owned_tm = camera->Get_Transform(); Matrix3D &tm = owned_tm;\n \t\t\tQuaternion rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, 0.8f);\n-\t\t\tMatrix3D inv;\n+\t\t\tMatrix3D owned_inv; Matrix3D &inv = owned_inv;\n \t\t\ttm.Get_Orthogonal_Inverse(inv);\n \t\t\tCameraManagerClass::Unknown_79B6B0();\n-\t\t\tVector3 center = inv.Get_Translation();\n+\t\t\tVector3 owned_center = inv.Get_Translation(); Vector3 &center = owned_center;\n \t\t\ttm.Translate(center.X, center.Y, center.Z);\n \t\t\tMatrix3D::Multiply(tm, Build_Matrix3D(rot), &tm);\n-\t\t\ttm.Translate(-center.X, -center.Y, -center.Z);\n+\t\t\ttm.Translate(-center);\n \t\t\tUnknown_543270(tm);\n \t\t}\n"
+    },
+    {
+      "id": "S7",
+      "sha256": "bdbecfc6bf8852cad4a57824ba9c3499f1eaf221d331816a424346f67dedee24",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -233,10 +233,10 @@\n \t\t\tCameraClass *camera = Camera.Peek();\n \t\t\tFAIL_IF(!camera) return;\n-\t\t\tMatrix3D tm = camera->Get_Transform();\n+\t\t\tMatrix3D owned_tm = camera->Get_Transform(); Matrix3D &tm = owned_tm;\n \t\t\tQuaternion rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, 0.8f);\n-\t\t\tMatrix3D inv;\n+\t\t\tMatrix3D owned_inv; Matrix3D &inv = owned_inv;\n \t\t\ttm.Get_Orthogonal_Inverse(inv);\n \t\t\tCameraManagerClass::Unknown_79B6B0();\n-\t\t\tVector3 center = inv.Get_Translation();\n+\t\t\tconst Vector3 &center = inv.Get_Translation();\n \t\t\ttm.Translate(center.X, center.Y, center.Z);\n \t\t\tMatrix3D::Multiply(tm, Build_Matrix3D(rot), &tm);\n"
+    },
+    {
+      "id": "S8",
+      "sha256": "53e89966414bccccc78a9f778be46ff64b97582fe65c5e778297cec82c852757",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -233,13 +233,13 @@\n \t\t\tCameraClass *camera = Camera.Peek();\n \t\t\tFAIL_IF(!camera) return;\n-\t\t\tMatrix3D tm = camera->Get_Transform();\n+\t\t\tMatrix3D owned_tm = camera->Get_Transform(); Matrix3D &tm = owned_tm;\n \t\t\tQuaternion rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, 0.8f);\n-\t\t\tMatrix3D inv;\n+\t\t\tMatrix3D owned_inv; Matrix3D &inv = owned_inv;\n \t\t\ttm.Get_Orthogonal_Inverse(inv);\n \t\t\tCameraManagerClass::Unknown_79B6B0();\n-\t\t\tVector3 center = inv.Get_Translation();\n-\t\t\ttm.Translate(center.X, center.Y, center.Z);\n+\t\t\tconst Vector3 &center = inv.Get_Translation();\n+\t\t\ttm.Translate(center);\n \t\t\tMatrix3D::Multiply(tm, Build_Matrix3D(rot), &tm);\n-\t\t\ttm.Translate(-center.X, -center.Y, -center.Z);\n+\t\t\ttm.Translate(-center);\n \t\t\tUnknown_543270(tm);\n \t\t}\n"
+    },
+    {
+      "id": "S9",
+      "sha256": "58df2d51a8aa331dcbdedd81f17b6df463d84e11c18f3df1d9d28c6d569c078c",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -233,13 +233,13 @@\n \t\t\tCameraClass *camera = Camera.Peek();\n \t\t\tFAIL_IF(!camera) return;\n-\t\t\tMatrix3D tm = camera->Get_Transform();\n+\t\t\tMatrix3D owned_tm = camera->Get_Transform(); Matrix3D &tm = owned_tm;\n \t\t\tQuaternion rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, 0.8f);\n-\t\t\tMatrix3D inv;\n+\t\t\tMatrix3D owned_inv; Matrix3D &inv = owned_inv;\n \t\t\ttm.Get_Orthogonal_Inverse(inv);\n \t\t\tCameraManagerClass::Unknown_79B6B0();\n-\t\t\tVector3 center = inv.Get_Translation();\n-\t\t\ttm.Translate(center.X, center.Y, center.Z);\n+\t\t\tVector3 owned_center = inv.Get_Translation(); Vector3 &center = owned_center;\n+\t\t\ttm.Translate(center);\n \t\t\tMatrix3D::Multiply(tm, Build_Matrix3D(rot), &tm);\n-\t\t\ttm.Translate(-center.X, -center.Y, -center.Z);\n+\t\t\ttm.Translate(-center);\n \t\t\tUnknown_543270(tm);\n \t\t}\n"
+    },
+    {
+      "id": "S10",
+      "sha256": "1acad521d158d690e580020fcd87c735d241b5d3b9afdb87956d19e4d39c00ed",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -233,5 +233,5 @@\n \t\t\tCameraClass *camera = Camera.Peek();\n \t\t\tFAIL_IF(!camera) return;\n-\t\t\tMatrix3D tm = camera->Get_Transform();\n+\t\t\tMatrix3D owned_tm = camera->Get_Transform(); Matrix3D &tm = owned_tm;\n \t\t\tQuaternion rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, 0.8f);\n \t\t\tMatrix3D inv;\n@@ -241,5 +241,5 @@\n \t\t\ttm.Translate(center.X, center.Y, center.Z);\n \t\t\tMatrix3D::Multiply(tm, Build_Matrix3D(rot), &tm);\n-\t\t\ttm.Translate(-center.X, -center.Y, -center.Z);\n+\t\t\ttm.Translate(-center);\n \t\t\tUnknown_543270(tm);\n \t\t}\n"
+    },
+    {
+      "id": "S11",
+      "sha256": "25edbd31da005864ff724a1581b479bff1a3755f6850e261d744dce5780a55d5",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -235,5 +235,5 @@\n \t\t\tMatrix3D tm = camera->Get_Transform();\n \t\t\tQuaternion rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, 0.8f);\n-\t\t\tMatrix3D inv;\n+\t\t\tMatrix3D owned_inv; Matrix3D &inv = owned_inv;\n \t\t\ttm.Get_Orthogonal_Inverse(inv);\n \t\t\tCameraManagerClass::Unknown_79B6B0();\n@@ -241,5 +241,5 @@\n \t\t\ttm.Translate(center.X, center.Y, center.Z);\n \t\t\tMatrix3D::Multiply(tm, Build_Matrix3D(rot), &tm);\n-\t\t\ttm.Translate(-center.X, -center.Y, -center.Z);\n+\t\t\ttm.Translate(-center);\n \t\t\tUnknown_543270(tm);\n \t\t}\n"
+    },
+    {
+      "id": "S12",
+      "sha256": "dc7cf4a868eb273f2c46ef922063464d7337621e39c97e6c3a7ec7723d8219f1",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -241,5 +241,5 @@\n \t\t\ttm.Translate(center.X, center.Y, center.Z);\n \t\t\tMatrix3D::Multiply(tm, Build_Matrix3D(rot), &tm);\n-\t\t\ttm.Translate(-center.X, -center.Y, -center.Z);\n+\t\t\ttm.Translate(-center);\n \t\t\tUnknown_543270(tm);\n \t\t}\n"
+    },
+    {
+      "id": "S13",
+      "sha256": "6a7da26988f75cd1c0312670e446ec0f7fe255a8a82ec9b64ab36d6fe3229617",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -233,13 +233,13 @@\n \t\t\tCameraClass *camera = Camera.Peek();\n \t\t\tFAIL_IF(!camera) return;\n-\t\t\tMatrix3D tm = camera->Get_Transform();\n+\t\t\tMatrix3D owned_tm = camera->Get_Transform(); Matrix3D &tm = owned_tm;\n \t\t\tQuaternion rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, 0.8f);\n-\t\t\tMatrix3D inv;\n+\t\t\tMatrix3D owned_inv; Matrix3D &inv = owned_inv;\n \t\t\ttm.Get_Orthogonal_Inverse(inv);\n \t\t\tCameraManagerClass::Unknown_79B6B0();\n-\t\t\tVector3 center = inv.Get_Translation();\n+\t\t\tVector3 center(inv.Get_X_Translation(), inv.Get_Y_Translation(), inv.Get_Z_Translation());\n \t\t\ttm.Translate(center.X, center.Y, center.Z);\n \t\t\tMatrix3D::Multiply(tm, Build_Matrix3D(rot), &tm);\n-\t\t\ttm.Translate(-center.X, -center.Y, -center.Z);\n+\t\t\ttm.Translate(-center);\n \t\t\tUnknown_543270(tm);\n \t\t}\n"
+    },
+    {
+      "id": "S14",
+      "sha256": "c9843714125ea11b915fc04aad553a93f553b207edf2271264da3c2a82e46378",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -233,13 +233,13 @@\n \t\t\tCameraClass *camera = Camera.Peek();\n \t\t\tFAIL_IF(!camera) return;\n-\t\t\tMatrix3D tm = camera->Get_Transform();\n+\t\t\tMatrix3D owned_tm = camera->Get_Transform(); Matrix3D &tm = owned_tm;\n \t\t\tQuaternion rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, 0.8f);\n-\t\t\tMatrix3D inv;\n+\t\t\tMatrix3D owned_inv; Matrix3D &inv = owned_inv;\n \t\t\ttm.Get_Orthogonal_Inverse(inv);\n \t\t\tCameraManagerClass::Unknown_79B6B0();\n \t\t\tVector3 center = inv.Get_Translation();\n-\t\t\ttm.Translate(center.X, center.Y, center.Z);\n+\t\t\ttm.Translate(center[0], center[1], center[2]);\n \t\t\tMatrix3D::Multiply(tm, Build_Matrix3D(rot), &tm);\n-\t\t\ttm.Translate(-center.X, -center.Y, -center.Z);\n+\t\t\ttm.Translate(-center);\n \t\t\tUnknown_543270(tm);\n \t\t}\n"
+    },
+    {
+      "id": "S15",
+      "sha256": "5a736a2a677e28e141f8e8b525eb9227514f3229a5cce58413fa4df5dc1e377d",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -233,7 +233,7 @@\n \t\t\tCameraClass *camera = Camera.Peek();\n \t\t\tFAIL_IF(!camera) return;\n-\t\t\tMatrix3D tm = camera->Get_Transform();\n-\t\t\tQuaternion rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, 0.8f);\n-\t\t\tMatrix3D inv;\n+\t\t\tMatrix3D owned_tm = camera->Get_Transform(); Matrix3D &tm = owned_tm;\n+\t\t\tQuaternion owned_rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, 0.8f); Quaternion &rot = owned_rot;\n+\t\t\tMatrix3D owned_inv; Matrix3D &inv = owned_inv;\n \t\t\ttm.Get_Orthogonal_Inverse(inv);\n \t\t\tCameraManagerClass::Unknown_79B6B0();\n@@ -241,5 +241,5 @@\n \t\t\ttm.Translate(center.X, center.Y, center.Z);\n \t\t\tMatrix3D::Multiply(tm, Build_Matrix3D(rot), &tm);\n-\t\t\ttm.Translate(-center.X, -center.Y, -center.Z);\n+\t\t\ttm.Translate(-center);\n \t\t\tUnknown_543270(tm);\n \t\t}\n"
+    },
+    {
+      "id": "S16",
+      "sha256": "cd38e93a8c0a362ec966c5122528befd0db4eb5c9e5b99869da6446d4d22ad73",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -233,7 +233,7 @@\n \t\t\tCameraClass *camera = Camera.Peek();\n \t\t\tFAIL_IF(!camera) return;\n-\t\t\tMatrix3D tm = camera->Get_Transform();\n-\t\t\tQuaternion rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, 0.8f);\n-\t\t\tMatrix3D inv;\n+\t\t\tMatrix3D owned_tm = camera->Get_Transform(); Matrix3D &tm = owned_tm;\n+\t\t\tconst Quaternion &rot = Trackball(last.X, last.Y, mouse.X, mouse.Y, 0.8f);\n+\t\t\tMatrix3D owned_inv; Matrix3D &inv = owned_inv;\n \t\t\ttm.Get_Orthogonal_Inverse(inv);\n \t\t\tCameraManagerClass::Unknown_79B6B0();\n@@ -241,5 +241,5 @@\n \t\t\ttm.Translate(center.X, center.Y, center.Z);\n \t\t\tMatrix3D::Multiply(tm, Build_Matrix3D(rot), &tm);\n-\t\t\ttm.Translate(-center.X, -center.Y, -center.Z);\n+\t\t\ttm.Translate(-center);\n \t\t\tUnknown_543270(tm);\n \t\t}\n"
+    }
+  ],
+  "header_forms": [
+    {
+      "id": "H0",
+      "sha256": "676603b23ef58280c75c4ae54d2557b048823767e342d9b64afa93b9eaac50c6",
+      "patch": ""
+    },
+    {
+      "id": "H1",
+      "sha256": "72b420ef3f6c5b25e952ca5e483658aa73e1facf3aac9cf8c9a38d6c60509fd4",
+      "patch": "--- matrix3d.h\n+++ matrix3d.h\n@@ -656,7 +656,7 @@\n WWINLINE void Matrix3D::Translate(float x,float y,float z)\n {\n-\tRow[0][3]  += (float)(Row[0][0]*x + Row[0][1]*y + Row[0][2]*z);\n-\tRow[1][3]  += (float)(Row[1][0]*x + Row[1][1]*y + Row[1][2]*z);\n-\tRow[2][3]  += (float)(Row[2][0]*x + Row[2][1]*y + Row[2][2]*z);\n+\tRow[0][3]  += (float)((Row[0][0]*x + Row[0][2]*z) + Row[0][1]*y);\n+\tRow[1][3]  += (float)((Row[1][0]*x + Row[1][2]*z) + Row[1][1]*y);\n+\tRow[2][3]  += (float)((Row[2][0]*x + Row[2][2]*z) + Row[2][1]*y);\n }\n \n@@ -676,7 +676,7 @@\n WWINLINE void Matrix3D::Translate(const Vector3 &t)\n {\n-\tRow[0][3]  += Row[0][0]*t[0] + Row[0][1]*t[1] + Row[0][2]*t[2];\n-\tRow[1][3]  += Row[1][0]*t[0] + Row[1][1]*t[1] + Row[1][2]*t[2];\n-\tRow[2][3]  += Row[2][0]*t[0] + Row[2][1]*t[1] + Row[2][2]*t[2];\n+\tRow[0][3]  += ((Row[0][0]*t[0] + Row[0][2]*t[2]) + Row[0][1]*t[1]);\n+\tRow[1][3]  += ((Row[1][0]*t[0] + Row[1][2]*t[2]) + Row[1][1]*t[1]);\n+\tRow[2][3]  += ((Row[2][0]*t[0] + Row[2][2]*t[2]) + Row[2][1]*t[1]);\n }\n \n"
+    },
+    {
+      "id": "H2",
+      "sha256": "db90c8f7799d0ca8b56f845d1d1a6ce63332623c016210fcabf56ad1d12e582c",
+      "patch": "--- matrix3d.h\n+++ matrix3d.h\n@@ -656,7 +656,7 @@\n WWINLINE void Matrix3D::Translate(float x,float y,float z)\n {\n-\tRow[0][3]  += (float)(Row[0][0]*x + Row[0][1]*y + Row[0][2]*z);\n-\tRow[1][3]  += (float)(Row[1][0]*x + Row[1][1]*y + Row[1][2]*z);\n-\tRow[2][3]  += (float)(Row[2][0]*x + Row[2][1]*y + Row[2][2]*z);\n+\tRow[0][3]  = (float)((Row[0][0]*x + Row[0][2]*z) + Row[0][1]*y) + Row[0][3];\n+\tRow[1][3]  = (float)((Row[1][0]*x + Row[1][2]*z) + Row[1][1]*y) + Row[1][3];\n+\tRow[2][3]  = (float)((Row[2][0]*x + Row[2][2]*z) + Row[2][1]*y) + Row[2][3];\n }\n \n@@ -676,7 +676,7 @@\n WWINLINE void Matrix3D::Translate(const Vector3 &t)\n {\n-\tRow[0][3]  += Row[0][0]*t[0] + Row[0][1]*t[1] + Row[0][2]*t[2];\n-\tRow[1][3]  += Row[1][0]*t[0] + Row[1][1]*t[1] + Row[1][2]*t[2];\n-\tRow[2][3]  += Row[2][0]*t[0] + Row[2][1]*t[1] + Row[2][2]*t[2];\n+\tRow[0][3]  = ((Row[0][0]*t[0] + Row[0][2]*t[2]) + Row[0][1]*t[1]) + Row[0][3];\n+\tRow[1][3]  = ((Row[1][0]*t[0] + Row[1][2]*t[2]) + Row[1][1]*t[1]) + Row[1][3];\n+\tRow[2][3]  = ((Row[2][0]*t[0] + Row[2][2]*t[2]) + Row[2][1]*t[1]) + Row[2][3];\n }\n \n"
+    },
+    {
+      "id": "H3",
+      "sha256": "7410156b98817c2bc8bfdec3c4489b7d00ba5681ecd2fd9e45af2ea75f4f4cfc",
+      "patch": "--- matrix3d.h\n+++ matrix3d.h\n@@ -656,7 +656,7 @@\n WWINLINE void Matrix3D::Translate(float x,float y,float z)\n {\n-\tRow[0][3]  += (float)(Row[0][0]*x + Row[0][1]*y + Row[0][2]*z);\n-\tRow[1][3]  += (float)(Row[1][0]*x + Row[1][1]*y + Row[1][2]*z);\n-\tRow[2][3]  += (float)(Row[2][0]*x + Row[2][1]*y + Row[2][2]*z);\n+\tRow[0][3]  += (float)(Row[0][1]*y + (Row[0][0]*x + Row[0][2]*z));\n+\tRow[1][3]  += (float)(Row[1][1]*y + (Row[1][0]*x + Row[1][2]*z));\n+\tRow[2][3]  += (float)(Row[2][1]*y + (Row[2][0]*x + Row[2][2]*z));\n }\n \n@@ -676,7 +676,7 @@\n WWINLINE void Matrix3D::Translate(const Vector3 &t)\n {\n-\tRow[0][3]  += Row[0][0]*t[0] + Row[0][1]*t[1] + Row[0][2]*t[2];\n-\tRow[1][3]  += Row[1][0]*t[0] + Row[1][1]*t[1] + Row[1][2]*t[2];\n-\tRow[2][3]  += Row[2][0]*t[0] + Row[2][1]*t[1] + Row[2][2]*t[2];\n+\tRow[0][3]  += (Row[0][1]*t[1] + (Row[0][0]*t[0] + Row[0][2]*t[2]));\n+\tRow[1][3]  += (Row[1][1]*t[1] + (Row[1][0]*t[0] + Row[1][2]*t[2]));\n+\tRow[2][3]  += (Row[2][1]*t[1] + (Row[2][0]*t[0] + Row[2][2]*t[2]));\n }\n \n"
+    },
+    {
+      "id": "H4",
+      "sha256": "90846da0b09cb133315128f614dd0caa65bb52e86d8d260e85ed2167a2efc15c",
+      "patch": "--- matrix3d.h\n+++ matrix3d.h\n@@ -656,7 +656,7 @@\n WWINLINE void Matrix3D::Translate(float x,float y,float z)\n {\n-\tRow[0][3]  += (float)(Row[0][0]*x + Row[0][1]*y + Row[0][2]*z);\n-\tRow[1][3]  += (float)(Row[1][0]*x + Row[1][1]*y + Row[1][2]*z);\n-\tRow[2][3]  += (float)(Row[2][0]*x + Row[2][1]*y + Row[2][2]*z);\n+\tRow[0][3]  = (float)(Row[0][1]*y + (Row[0][0]*x + Row[0][2]*z)) + Row[0][3];\n+\tRow[1][3]  = (float)(Row[1][1]*y + (Row[1][0]*x + Row[1][2]*z)) + Row[1][3];\n+\tRow[2][3]  = (float)(Row[2][1]*y + (Row[2][0]*x + Row[2][2]*z)) + Row[2][3];\n }\n \n@@ -676,7 +676,7 @@\n WWINLINE void Matrix3D::Translate(const Vector3 &t)\n {\n-\tRow[0][3]  += Row[0][0]*t[0] + Row[0][1]*t[1] + Row[0][2]*t[2];\n-\tRow[1][3]  += Row[1][0]*t[0] + Row[1][1]*t[1] + Row[1][2]*t[2];\n-\tRow[2][3]  += Row[2][0]*t[0] + Row[2][1]*t[1] + Row[2][2]*t[2];\n+\tRow[0][3]  = (Row[0][1]*t[1] + (Row[0][0]*t[0] + Row[0][2]*t[2])) + Row[0][3];\n+\tRow[1][3]  = (Row[1][1]*t[1] + (Row[1][0]*t[0] + Row[1][2]*t[2])) + Row[1][3];\n+\tRow[2][3]  = (Row[2][1]*t[1] + (Row[2][0]*t[0] + Row[2][2]*t[2])) + Row[2][3];\n }\n \n"
+    },
+    {
+      "id": "H5",
+      "sha256": "6adbe2602f83deb7b43d32655789eb6ce665a8da4be6dbed7cabde19483c1ea8",
+      "patch": "--- matrix3d.h\n+++ matrix3d.h\n@@ -656,7 +656,7 @@\n WWINLINE void Matrix3D::Translate(float x,float y,float z)\n {\n-\tRow[0][3]  += (float)(Row[0][0]*x + Row[0][1]*y + Row[0][2]*z);\n-\tRow[1][3]  += (float)(Row[1][0]*x + Row[1][1]*y + Row[1][2]*z);\n-\tRow[2][3]  += (float)(Row[2][0]*x + Row[2][1]*y + Row[2][2]*z);\n+\tRow[0][3]  += (float)((Row[0][2]*z + Row[0][0]*x) + Row[0][1]*y);\n+\tRow[1][3]  += (float)((Row[1][2]*z + Row[1][0]*x) + Row[1][1]*y);\n+\tRow[2][3]  += (float)((Row[2][2]*z + Row[2][0]*x) + Row[2][1]*y);\n }\n \n@@ -676,7 +676,7 @@\n WWINLINE void Matrix3D::Translate(const Vector3 &t)\n {\n-\tRow[0][3]  += Row[0][0]*t[0] + Row[0][1]*t[1] + Row[0][2]*t[2];\n-\tRow[1][3]  += Row[1][0]*t[0] + Row[1][1]*t[1] + Row[1][2]*t[2];\n-\tRow[2][3]  += Row[2][0]*t[0] + Row[2][1]*t[1] + Row[2][2]*t[2];\n+\tRow[0][3]  += ((Row[0][2]*t[2] + Row[0][0]*t[0]) + Row[0][1]*t[1]);\n+\tRow[1][3]  += ((Row[1][2]*t[2] + Row[1][0]*t[0]) + Row[1][1]*t[1]);\n+\tRow[2][3]  += ((Row[2][2]*t[2] + Row[2][0]*t[0]) + Row[2][1]*t[1]);\n }\n \n"
+    },
+    {
+      "id": "H6",
+      "sha256": "7531946d160d5125a7de5002a601e6ab6f5034f744d2009338b68c56d2c8e8cf",
+      "patch": "--- matrix3d.h\n+++ matrix3d.h\n@@ -656,7 +656,7 @@\n WWINLINE void Matrix3D::Translate(float x,float y,float z)\n {\n-\tRow[0][3]  += (float)(Row[0][0]*x + Row[0][1]*y + Row[0][2]*z);\n-\tRow[1][3]  += (float)(Row[1][0]*x + Row[1][1]*y + Row[1][2]*z);\n-\tRow[2][3]  += (float)(Row[2][0]*x + Row[2][1]*y + Row[2][2]*z);\n+\tRow[0][3]  = (float)((Row[0][2]*z + Row[0][0]*x) + Row[0][1]*y) + Row[0][3];\n+\tRow[1][3]  = (float)((Row[1][2]*z + Row[1][0]*x) + Row[1][1]*y) + Row[1][3];\n+\tRow[2][3]  = (float)((Row[2][2]*z + Row[2][0]*x) + Row[2][1]*y) + Row[2][3];\n }\n \n@@ -676,7 +676,7 @@\n WWINLINE void Matrix3D::Translate(const Vector3 &t)\n {\n-\tRow[0][3]  += Row[0][0]*t[0] + Row[0][1]*t[1] + Row[0][2]*t[2];\n-\tRow[1][3]  += Row[1][0]*t[0] + Row[1][1]*t[1] + Row[1][2]*t[2];\n-\tRow[2][3]  += Row[2][0]*t[0] + Row[2][1]*t[1] + Row[2][2]*t[2];\n+\tRow[0][3]  = ((Row[0][2]*t[2] + Row[0][0]*t[0]) + Row[0][1]*t[1]) + Row[0][3];\n+\tRow[1][3]  = ((Row[1][2]*t[2] + Row[1][0]*t[0]) + Row[1][1]*t[1]) + Row[1][3];\n+\tRow[2][3]  = ((Row[2][2]*t[2] + Row[2][0]*t[0]) + Row[2][1]*t[1]) + Row[2][3];\n }\n \n"
+    },
+    {
+      "id": "H7",
+      "sha256": "37aa43b9490c2915355b2b9d6eb34072c5e80b2e3621e07e4882fa226cffecde",
+      "patch": "--- matrix3d.h\n+++ matrix3d.h\n@@ -656,7 +656,7 @@\n WWINLINE void Matrix3D::Translate(float x,float y,float z)\n {\n-\tRow[0][3]  += (float)(Row[0][0]*x + Row[0][1]*y + Row[0][2]*z);\n-\tRow[1][3]  += (float)(Row[1][0]*x + Row[1][1]*y + Row[1][2]*z);\n-\tRow[2][3]  += (float)(Row[2][0]*x + Row[2][1]*y + Row[2][2]*z);\n+\tRow[0][3]  += (float)(Row[0][1]*y + (Row[0][2]*z + Row[0][0]*x));\n+\tRow[1][3]  += (float)(Row[1][1]*y + (Row[1][2]*z + Row[1][0]*x));\n+\tRow[2][3]  += (float)(Row[2][1]*y + (Row[2][2]*z + Row[2][0]*x));\n }\n \n@@ -676,7 +676,7 @@\n WWINLINE void Matrix3D::Translate(const Vector3 &t)\n {\n-\tRow[0][3]  += Row[0][0]*t[0] + Row[0][1]*t[1] + Row[0][2]*t[2];\n-\tRow[1][3]  += Row[1][0]*t[0] + Row[1][1]*t[1] + Row[1][2]*t[2];\n-\tRow[2][3]  += Row[2][0]*t[0] + Row[2][1]*t[1] + Row[2][2]*t[2];\n+\tRow[0][3]  += (Row[0][1]*t[1] + (Row[0][2]*t[2] + Row[0][0]*t[0]));\n+\tRow[1][3]  += (Row[1][1]*t[1] + (Row[1][2]*t[2] + Row[1][0]*t[0]));\n+\tRow[2][3]  += (Row[2][1]*t[1] + (Row[2][2]*t[2] + Row[2][0]*t[0]));\n }\n \n"
+    },
+    {
+      "id": "H8",
+      "sha256": "e2b441ce9cbd46b3ee1561574cb124f06fcce3f962ed04bb700964e7f2b9baea",
+      "patch": "--- matrix3d.h\n+++ matrix3d.h\n@@ -656,7 +656,7 @@\n WWINLINE void Matrix3D::Translate(float x,float y,float z)\n {\n-\tRow[0][3]  += (float)(Row[0][0]*x + Row[0][1]*y + Row[0][2]*z);\n-\tRow[1][3]  += (float)(Row[1][0]*x + Row[1][1]*y + Row[1][2]*z);\n-\tRow[2][3]  += (float)(Row[2][0]*x + Row[2][1]*y + Row[2][2]*z);\n+\tRow[0][3]  = (float)(Row[0][1]*y + (Row[0][2]*z + Row[0][0]*x)) + Row[0][3];\n+\tRow[1][3]  = (float)(Row[1][1]*y + (Row[1][2]*z + Row[1][0]*x)) + Row[1][3];\n+\tRow[2][3]  = (float)(Row[2][1]*y + (Row[2][2]*z + Row[2][0]*x)) + Row[2][3];\n }\n \n@@ -676,7 +676,7 @@\n WWINLINE void Matrix3D::Translate(const Vector3 &t)\n {\n-\tRow[0][3]  += Row[0][0]*t[0] + Row[0][1]*t[1] + Row[0][2]*t[2];\n-\tRow[1][3]  += Row[1][0]*t[0] + Row[1][1]*t[1] + Row[1][2]*t[2];\n-\tRow[2][3]  += Row[2][0]*t[0] + Row[2][1]*t[1] + Row[2][2]*t[2];\n+\tRow[0][3]  = (Row[0][1]*t[1] + (Row[0][2]*t[2] + Row[0][0]*t[0])) + Row[0][3];\n+\tRow[1][3]  = (Row[1][1]*t[1] + (Row[1][2]*t[2] + Row[1][0]*t[0])) + Row[1][3];\n+\tRow[2][3]  = (Row[2][1]*t[1] + (Row[2][2]*t[2] + Row[2][0]*t[0])) + Row[2][3];\n }\n \n"
+    },
+    {
+      "id": "H9",
+      "sha256": "4efa8e4ca706b2776931e4f741746375d050f1e48ea564c6bcc698a9af99a2fd",
+      "patch": "--- matrix3d.h\n+++ matrix3d.h\n@@ -656,7 +656,7 @@\n WWINLINE void Matrix3D::Translate(float x,float y,float z)\n {\n-\tRow[0][3]  += (float)(Row[0][0]*x + Row[0][1]*y + Row[0][2]*z);\n-\tRow[1][3]  += (float)(Row[1][0]*x + Row[1][1]*y + Row[1][2]*z);\n-\tRow[2][3]  += (float)(Row[2][0]*x + Row[2][1]*y + Row[2][2]*z);\n+\tRow[0][3]  += (float)((x*Row[0][0] + z*Row[0][2]) + y*Row[0][1]);\n+\tRow[1][3]  += (float)((x*Row[1][0] + z*Row[1][2]) + y*Row[1][1]);\n+\tRow[2][3]  += (float)((x*Row[2][0] + z*Row[2][2]) + y*Row[2][1]);\n }\n \n@@ -676,7 +676,7 @@\n WWINLINE void Matrix3D::Translate(const Vector3 &t)\n {\n-\tRow[0][3]  += Row[0][0]*t[0] + Row[0][1]*t[1] + Row[0][2]*t[2];\n-\tRow[1][3]  += Row[1][0]*t[0] + Row[1][1]*t[1] + Row[1][2]*t[2];\n-\tRow[2][3]  += Row[2][0]*t[0] + Row[2][1]*t[1] + Row[2][2]*t[2];\n+\tRow[0][3]  += ((t[0]*Row[0][0] + t[2]*Row[0][2]) + t[1]*Row[0][1]);\n+\tRow[1][3]  += ((t[0]*Row[1][0] + t[2]*Row[1][2]) + t[1]*Row[1][1]);\n+\tRow[2][3]  += ((t[0]*Row[2][0] + t[2]*Row[2][2]) + t[1]*Row[2][1]);\n }\n \n"
+    }
+  ],
+  "experiments": [
+    {
+      "name": "baseline",
+      "source": "S0",
+      "header": "H0",
+      "classification": "fresh production baseline control",
+      "header_knobs": {},
+      "source_knobs": {},
+      "raw_rows": 58,
+      "masked_rows": 55,
+      "different_ordinal_instruction_positions": 54,
+      "nontranslation_relocation_masked_byte_differences": 20,
+      "code_sha256": "16f6b4dd84d8dc42c66168fe6a7de558496f97f9fb8f514738fe92fb90fa8fd6",
+      "pair_delta": "+0/-0"
+    },
+    {
+      "name": "xz_py_td",
+      "source": "S1",
+      "header": "H1",
+      "classification": "prior XZY diagnostic repeat control",
+      "header_knobs": {
+        "pair": "xz",
+        "outer": "py",
+        "final": "td"
+      },
+      "source_knobs": {},
+      "raw_rows": 19,
+      "masked_rows": 9,
+      "different_ordinal_instruction_positions": 16,
+      "nontranslation_relocation_masked_byte_differences": 0,
+      "code_sha256": "b9935d31166745d00ab55b21ba5f72d1855e945c4203b071cc9bf78d870007c4",
+      "pair_delta": "+0/-0"
+    },
+    {
+      "name": "xz_py_dt",
+      "source": "S1",
+      "header": "H2",
+      "classification": "new isolated FP/header diagnostic; not a production attempt",
+      "header_knobs": {
+        "pair": "xz",
+        "outer": "py",
+        "final": "dt"
+      },
+      "source_knobs": {},
+      "raw_rows": 19,
+      "masked_rows": 9,
+      "different_ordinal_instruction_positions": 16,
+      "nontranslation_relocation_masked_byte_differences": 0,
+      "code_sha256": "b9935d31166745d00ab55b21ba5f72d1855e945c4203b071cc9bf78d870007c4",
+      "pair_delta": "+0/-0"
+    },
+    {
+      "name": "xz_yp_td",
+      "source": "S1",
+      "header": "H3",
+      "classification": "new isolated FP/header diagnostic; not a production attempt",
+      "header_knobs": {
+        "pair": "xz",
+        "outer": "yp",
+        "final": "td"
+      },
+      "source_knobs": {},
+      "raw_rows": 19,
+      "masked_rows": 9,
+      "different_ordinal_instruction_positions": 16,
+      "nontranslation_relocation_masked_byte_differences": 0,
+      "code_sha256": "b9935d31166745d00ab55b21ba5f72d1855e945c4203b071cc9bf78d870007c4",
+      "pair_delta": "+0/-0"
+    },
+    {
+      "name": "xz_yp_dt",
+      "source": "S1",
+      "header": "H4",
+      "classification": "new isolated FP/header diagnostic; not a production attempt",
+      "header_knobs": {
+        "pair": "xz",
+        "outer": "yp",
+        "final": "dt"
+      },
+      "source_knobs": {},
+      "raw_rows": 19,
+      "masked_rows": 9,
+      "different_ordinal_instruction_positions": 16,
+      "nontranslation_relocation_masked_byte_differences": 0,
+      "code_sha256": "b9935d31166745d00ab55b21ba5f72d1855e945c4203b071cc9bf78d870007c4",
+      "pair_delta": "+0/-0"
+    },
+    {
+      "name": "zx_py_td",
+      "source": "S1",
+      "header": "H5",
+      "classification": "new isolated FP/header diagnostic; not a production attempt",
+      "header_knobs": {
+        "pair": "zx",
+        "outer": "py",
+        "final": "td"
+      },
+      "source_knobs": {},
+      "raw_rows": 19,
+      "masked_rows": 9,
+      "different_ordinal_instruction_positions": 16,
+      "nontranslation_relocation_masked_byte_differences": 0,
+      "code_sha256": "b9935d31166745d00ab55b21ba5f72d1855e945c4203b071cc9bf78d870007c4",
+      "pair_delta": "+0/-0"
+    },
+    {
+      "name": "zx_py_dt",
+      "source": "S1",
+      "header": "H6",
+      "classification": "new isolated FP/header diagnostic; not a production attempt",
+      "header_knobs": {
+        "pair": "zx",
+        "outer": "py",
+        "final": "dt"
+      },
+      "source_knobs": {},
+      "raw_rows": 19,
+      "masked_rows": 9,
+      "different_ordinal_instruction_positions": 16,
+      "nontranslation_relocation_masked_byte_differences": 0,
+      "code_sha256": "b9935d31166745d00ab55b21ba5f72d1855e945c4203b071cc9bf78d870007c4",
+      "pair_delta": "+0/-0"
+    },
+    {
+      "name": "zx_yp_td",
+      "source": "S1",
+      "header": "H7",
+      "classification": "new isolated FP/header diagnostic; not a production attempt",
+      "header_knobs": {
+        "pair": "zx",
+        "outer": "yp",
+        "final": "td"
+      },
+      "source_knobs": {},
+      "raw_rows": 19,
+      "masked_rows": 9,
+      "different_ordinal_instruction_positions": 16,
+      "nontranslation_relocation_masked_byte_differences": 0,
+      "code_sha256": "b9935d31166745d00ab55b21ba5f72d1855e945c4203b071cc9bf78d870007c4",
+      "pair_delta": "+0/-0"
+    },
+    {
+      "name": "zx_yp_dt",
+      "source": "S1",
+      "header": "H8",
+      "classification": "new isolated FP/header diagnostic; not a production attempt",
+      "header_knobs": {
+        "pair": "zx",
+        "outer": "yp",
+        "final": "dt"
+      },
+      "source_knobs": {},
+      "raw_rows": 19,
+      "masked_rows": 9,
+      "different_ordinal_instruction_positions": 16,
+      "nontranslation_relocation_masked_byte_differences": 0,
+      "code_sha256": "b9935d31166745d00ab55b21ba5f72d1855e945c4203b071cc9bf78d870007c4",
+      "pair_delta": "+0/-0"
+    },
+    {
+      "name": "ss",
+      "source": "S2",
+      "header": "H1",
+      "classification": "new isolated FP/header diagnostic; not a production attempt",
+      "header_knobs": {
+        "pair": "xz",
+        "outer": "py",
+        "final": "td",
+        "product": "normal"
+      },
+      "source_knobs": {
+        "positive": "s",
+        "negative": "s",
+        "center": "value",
+        "matrix_alias": true,
+        "inverse_alias": true
+      },
+      "raw_rows": 36,
+      "masked_rows": 13,
+      "different_ordinal_instruction_positions": 30,
+      "nontranslation_relocation_masked_byte_differences": 12,
+      "code_sha256": "9bf856af4a62be20f33a003f48b94dac8399b54bbc6a878c3018c7532d141e7a",
+      "pair_delta": "+0/-0"
+    },
+    {
+      "name": "vv",
+      "source": "S3",
+      "header": "H1",
+      "classification": "new isolated FP/header diagnostic; not a production attempt",
+      "header_knobs": {
+        "pair": "xz",
+        "outer": "py",
+        "final": "td",
+        "product": "normal"
+      },
+      "source_knobs": {
+        "positive": "v",
+        "negative": "v",
+        "center": "value",
+        "matrix_alias": true,
+        "inverse_alias": true
+      },
+      "raw_rows": 19,
+      "masked_rows": 12,
+      "different_ordinal_instruction_positions": 16,
+      "nontranslation_relocation_masked_byte_differences": 14,
+      "code_sha256": "f4d5791809aa8a4216263c2689d8c781b24aba07655c24422748d39ed05004c3",
+      "pair_delta": "+0/-0"
+    },
+    {
+      "name": "vs",
+      "source": "S4",
+      "header": "H1",
+      "classification": "new isolated FP/header diagnostic; not a production attempt",
+      "header_knobs": {
+        "pair": "xz",
+        "outer": "py",
+        "final": "td",
+        "product": "normal"
+      },
+      "source_knobs": {
+        "positive": "v",
+        "negative": "s",
+        "center": "value",
+        "matrix_alias": true,
+        "inverse_alias": true
+      },
+      "raw_rows": 35,
+      "masked_rows": 20,
+      "different_ordinal_instruction_positions": 30,
+      "nontranslation_relocation_masked_byte_differences": 22,
+      "code_sha256": "11d56f8f4c1ba539ab05ffd0cdfa262ccbc402f34f92113ddc9a0563d943e472",
+      "pair_delta": "+0/-0"
+    },
+    {
+      "name": "sv_reverse_products",
+      "source": "S1",
+      "header": "H9",
+      "classification": "new isolated FP/header diagnostic; not a production attempt",
+      "header_knobs": {
+        "pair": "xz",
+        "outer": "py",
+        "final": "td",
+        "product": "reverse"
+      },
+      "source_knobs": {
+        "positive": "s",
+        "negative": "v",
+        "center": "value",
+        "matrix_alias": true,
+        "inverse_alias": true
+      },
+      "raw_rows": 19,
+      "masked_rows": 9,
+      "different_ordinal_instruction_positions": 16,
+      "nontranslation_relocation_masked_byte_differences": 0,
+      "code_sha256": "b9935d31166745d00ab55b21ba5f72d1855e945c4203b071cc9bf78d870007c4",
+      "pair_delta": "+0/-0"
+    },
+    {
+      "name": "sv_center_ref",
+      "source": "S5",
+      "header": "H1",
+      "classification": "new isolated FP/header diagnostic; not a production attempt",
+      "header_knobs": {
+        "pair": "xz",
+        "outer": "py",
+        "final": "td",
+        "product": "normal"
+      },
+      "source_knobs": {
+        "positive": "s",
+        "negative": "v",
+        "center": "ref",
+        "matrix_alias": true,
+        "inverse_alias": true
+      },
+      "raw_rows": 27,
+      "masked_rows": 9,
+      "different_ordinal_instruction_positions": 24,
+      "nontranslation_relocation_masked_byte_differences": 0,
+      "code_sha256": "6a2aaf4d1d6fb79cb331274975227709619a163ceb335ec7b7c40f33025cb712",
+      "pair_delta": "+0/-0"
+    },
+    {
+      "name": "sv_center_alias",
+      "source": "S6",
+      "header": "H1",
+      "classification": "new isolated FP/header diagnostic; not a production attempt",
+      "header_knobs": {
+        "pair": "xz",
+        "outer": "py",
+        "final": "td",
+        "product": "normal"
+      },
+      "source_knobs": {
+        "positive": "s",
+        "negative": "v",
+        "center": "alias",
+        "matrix_alias": true,
+        "inverse_alias": true
+      },
+      "raw_rows": 27,
+      "masked_rows": 9,
+      "different_ordinal_instruction_positions": 24,
+      "nontranslation_relocation_masked_byte_differences": 0,
+      "code_sha256": "6a2aaf4d1d6fb79cb331274975227709619a163ceb335ec7b7c40f33025cb712",
+      "pair_delta": "+0/-0"
+    },
+    {
+      "name": "ss_center_ref",
+      "source": "S7",
+      "header": "H1",
+      "classification": "new isolated FP/header diagnostic; not a production attempt",
+      "header_knobs": {
+        "pair": "xz",
+        "outer": "py",
+        "final": "td",
+        "product": "normal"
+      },
+      "source_knobs": {
+        "positive": "s",
+        "negative": "s",
+        "center": "ref",
+        "matrix_alias": true,
+        "inverse_alias": true
+      },
+      "raw_rows": 27,
+      "masked_rows": 14,
+      "different_ordinal_instruction_positions": 22,
+      "nontranslation_relocation_masked_byte_differences": 14,
+      "code_sha256": "d6317665f778f69e127e8721ee0724e5aeb55af4e82355d77d7101bd2a3b69fe",
+      "pair_delta": "+0/-0"
+    },
+    {
+      "name": "vv_center_ref",
+      "source": "S8",
+      "header": "H1",
+      "classification": "new isolated FP/header diagnostic; not a production attempt",
+      "header_knobs": {
+        "pair": "xz",
+        "outer": "py",
+        "final": "td",
+        "product": "normal"
+      },
+      "source_knobs": {
+        "positive": "v",
+        "negative": "v",
+        "center": "ref",
+        "matrix_alias": true,
+        "inverse_alias": true
+      },
+      "raw_rows": 19,
+      "masked_rows": 12,
+      "different_ordinal_instruction_positions": 16,
+      "nontranslation_relocation_masked_byte_differences": 14,
+      "code_sha256": "f4d5791809aa8a4216263c2689d8c781b24aba07655c24422748d39ed05004c3",
+      "pair_delta": "+0/-0"
+    },
+    {
+      "name": "vv_center_alias",
+      "source": "S9",
+      "header": "H1",
+      "classification": "new isolated FP/header diagnostic; not a production attempt",
+      "header_knobs": {
+        "pair": "xz",
+        "outer": "py",
+        "final": "td",
+        "product": "normal"
+      },
+      "source_knobs": {
+        "positive": "v",
+        "negative": "v",
+        "center": "alias",
+        "matrix_alias": true,
+        "inverse_alias": true
+      },
+      "raw_rows": 19,
+      "masked_rows": 12,
+      "different_ordinal_instruction_positions": 16,
+      "nontranslation_relocation_masked_byte_differences": 14,
+      "code_sha256": "f4d5791809aa8a4216263c2689d8c781b24aba07655c24422748d39ed05004c3",
+      "pair_delta": "+0/-0"
+    },
+    {
+      "name": "sv_no_inverse_alias",
+      "source": "S10",
+      "header": "H1",
+      "classification": "new isolated FP/header diagnostic; not a production attempt",
+      "header_knobs": {
+        "pair": "xz",
+        "outer": "py",
+        "final": "td",
+        "product": "normal"
+      },
+      "source_knobs": {
+        "positive": "s",
+        "negative": "v",
+        "center": "value",
+        "matrix_alias": true,
+        "inverse_alias": false
+      },
+      "raw_rows": 24,
+      "masked_rows": 11,
+      "different_ordinal_instruction_positions": 20,
+      "nontranslation_relocation_masked_byte_differences": 4,
+      "code_sha256": "c6508e925bcada27751744070bfe65a4c62ae160d3e539f39341c36e12885c7d",
+      "pair_delta": "+0/-0"
+    },
+    {
+      "name": "sv_no_matrix_alias",
+      "source": "S11",
+      "header": "H1",
+      "classification": "new isolated FP/header diagnostic; not a production attempt",
+      "header_knobs": {
+        "pair": "xz",
+        "outer": "py",
+        "final": "td",
+        "product": "normal"
+      },
+      "source_knobs": {
+        "positive": "s",
+        "negative": "v",
+        "center": "value",
+        "matrix_alias": false,
+        "inverse_alias": true
+      },
+      "raw_rows": 24,
+      "masked_rows": 11,
+      "different_ordinal_instruction_positions": 20,
+      "nontranslation_relocation_masked_byte_differences": 4,
+      "code_sha256": "c6508e925bcada27751744070bfe65a4c62ae160d3e539f39341c36e12885c7d",
+      "pair_delta": "+0/-0"
+    },
+    {
+      "name": "sv_no_aliases",
+      "source": "S12",
+      "header": "H1",
+      "classification": "new isolated FP/header diagnostic; not a production attempt",
+      "header_knobs": {
+        "pair": "xz",
+        "outer": "py",
+        "final": "td",
+        "product": "normal"
+      },
+      "source_knobs": {
+        "positive": "s",
+        "negative": "v",
+        "center": "value",
+        "matrix_alias": false,
+        "inverse_alias": false
+      },
+      "raw_rows": 29,
+      "masked_rows": 13,
+      "different_ordinal_instruction_positions": 24,
+      "nontranslation_relocation_masked_byte_differences": 8,
+      "code_sha256": "3f9264b0243fa9f39aca495af5f4557414d9bf1642fdfa4fdf5dafeafa96d494",
+      "pair_delta": "+0/-0"
+    },
+    {
+      "name": "sv_center_direct",
+      "source": "S13",
+      "header": "H1",
+      "classification": "new isolated FP/header diagnostic; not a production attempt",
+      "header_knobs": {
+        "pair": "xz",
+        "outer": "py",
+        "final": "td",
+        "product": "normal"
+      },
+      "source_knobs": {
+        "positive": "s",
+        "negative": "v",
+        "center": "value",
+        "matrix_alias": true,
+        "inverse_alias": true
+      },
+      "raw_rows": 19,
+      "masked_rows": 9,
+      "different_ordinal_instruction_positions": 16,
+      "nontranslation_relocation_masked_byte_differences": 0,
+      "code_sha256": "b9935d31166745d00ab55b21ba5f72d1855e945c4203b071cc9bf78d870007c4",
+      "pair_delta": "+0/-0"
+    },
+    {
+      "name": "sv_positive_index",
+      "source": "S14",
+      "header": "H1",
+      "classification": "new isolated FP/header diagnostic; not a production attempt",
+      "header_knobs": {
+        "pair": "xz",
+        "outer": "py",
+        "final": "td",
+        "product": "normal"
+      },
+      "source_knobs": {
+        "positive": "s",
+        "negative": "v",
+        "center": "value",
+        "matrix_alias": true,
+        "inverse_alias": true
+      },
+      "raw_rows": 27,
+      "masked_rows": 9,
+      "different_ordinal_instruction_positions": 24,
+      "nontranslation_relocation_masked_byte_differences": 0,
+      "code_sha256": "6a2aaf4d1d6fb79cb331274975227709619a163ceb335ec7b7c40f33025cb712",
+      "pair_delta": "+0/-0"
+    },
+    {
+      "name": "sv_rot_alias",
+      "source": "S15",
+      "header": "H1",
+      "classification": "new isolated FP/header diagnostic; not a production attempt",
+      "header_knobs": {
+        "pair": "xz",
+        "outer": "py",
+        "final": "td",
+        "product": "normal"
+      },
+      "source_knobs": {
+        "positive": "s",
+        "negative": "v",
+        "center": "value",
+        "matrix_alias": true,
+        "inverse_alias": true
+      },
+      "raw_rows": 24,
+      "masked_rows": 14,
+      "different_ordinal_instruction_positions": 20,
+      "nontranslation_relocation_masked_byte_differences": 10,
+      "code_sha256": "8c76de4ece04221039657956931b1b5113f3a4f183fde8fccfefd51e9d9ecaa2",
+      "pair_delta": "+0/-0"
+    },
+    {
+      "name": "sv_rot_ref",
+      "source": "S16",
+      "header": "H1",
+      "classification": "new isolated FP/header diagnostic; not a production attempt",
+      "header_knobs": {
+        "pair": "xz",
+        "outer": "py",
+        "final": "td",
+        "product": "normal"
+      },
+      "source_knobs": {
+        "positive": "s",
+        "negative": "v",
+        "center": "value",
+        "matrix_alias": true,
+        "inverse_alias": true
+      },
+      "raw_rows": 24,
+      "masked_rows": 14,
+      "different_ordinal_instruction_positions": 20,
+      "nontranslation_relocation_masked_byte_differences": 10,
+      "code_sha256": "8c76de4ece04221039657956931b1b5113f3a4f183fde8fccfefd51e9d9ecaa2",
+      "pair_delta": "+0/-0"
+    }
+  ],
+  "counts": {
+    "successful_objects": 25,
+    "baseline_controls": 1,
+    "prior_diagnostic_controls": 1,
+    "new_diagnostic_combinations": 23,
+    "new_valid_production_forms": 0,
+    "unique_source_hashes": 17,
+    "repeated_source_hash_instances": 8,
+    "unique_header_hashes": 10,
+    "unique_source_header_pairs": 25,
+    "normalized_code_groups": 10,
+    "candidate_compile_failures": 0,
+    "matcher_failures": 0,
+    "pre_object_Wine_sandbox_failures": 1
+  },
+  "file_address_pairs": [
+    [
+      "app/client/ship_equip_pip.cpp",
+      "0x42F250"
+    ],
+    [
+      "app/client/ship_equip_pip.cpp",
+      "0x468E70"
+    ],
+    [
+      "app/client/ship_equip_pip.cpp",
+      "0x514A80"
+    ],
+    [
+      "app/client/ship_equip_pip.cpp",
+      "0x514AD0"
+    ],
+    [
+      "app/client/ship_equip_pip.cpp",
+      "0x541DE0"
+    ],
+    [
+      "app/client/ship_equip_pip.cpp",
+      "0x542150"
+    ],
+    [
+      "app/client/ship_equip_pip.cpp",
+      "0x542180"
+    ],
+    [
+      "app/client/ship_equip_pip.cpp",
+      "0x542EE0"
+    ],
+    [
+      "app/client/ship_equip_pip.cpp",
+      "0x543200"
+    ],
+    [
+      "app/client/ship_equip_pip.cpp",
+      "0x543270"
+    ],
+    [
+      "app/client/ship_equip_pip.cpp",
+      "0x543520"
+    ],
+    [
+      "app/client/ship_equip_pip.cpp",
+      "0x543550"
+    ]
+  ],
+  "outside_target_relocation_masked_function_hashes": {
+    "??_H@YGXPAXIHP6EX0@Z@Z": "939c9ff36e77a8015a5dfed0b0aa9e0b09def222bf50f83779e594ac4adbafec",
+    "??0ShipEquipPipClass@@QAE@PAVSClient@@@Z": "6e1cc89b775415f651c12af4c13a227338b0dabbad19159d403964cf6d03081e",
+    "??0Vector4@@QAE@XZ": "29f4ac27c274a9f1c52a282cbe6f8a57ec6e073cc0936fc0a2cbac85290fbfd4",
+    "??_GShipEquipPipClass@@UAEPAXI@Z": "dade39de683d5f278ea3b7018d23e8c62a518df98e26ae4b05132ae43c436fe3",
+    "??1ShipEquipPipClass@@UAE@XZ": "562b3ae26bf0e13c8618ff3a0d39ef607c0dcf39b3cbf545cff491a79da4159d",
+    "?Unknown_542250@ShipEquipPipClass@@QAEXABV?$RefCountPtr@VRenderObjClass@@@@@Z": "5c66cf56a6b0dd0ee55a5d6cdcf8cee03edde61ab761e24e82d14e8fc9fae778",
+    "?Unknown_542EE0@ShipEquipPipClass@@QAEXM@Z": "4ed124b48719dab1d0b44341323dd3a1eb68dde8bb907e594ddb929f76d5bbaa",
+    "?Unknown_543200@ShipEquipPipClass@@QAEXPAVVector2@@V2@@Z": "4c7534d09b25008ed805c2cab91825921077884516eed80824a24cc44dfd5f10",
+    "?Unknown_543270@ShipEquipPipClass@@QAEXABVMatrix3D@@@Z": "fe5923362bd1e19018230d86c2ab1ab0e63c9a51b725b24ec4fa05bc28f67bbe",
+    "?Create_NEW@@YA?AV?$RefCountPtr@VLightClass@@@@PAVLightClass@@@Z": "79050e8c6a4efd5acc5b89c577c34ecbbf6f1bf4fdd0b4ffaca63a578685d3b5",
+    "??1?$RefCountPtr@VLightClass@@@@QAE@XZ": "0d4b04dfd390578add5b0753f0f7718d4972244962ffc319fc01f91a50675bae",
+    "?Create_NEW@@YA?AV?$RefCountPtr@VProxyRObj@@@@PAVProxyRObj@@@Z": "79050e8c6a4efd5acc5b89c577c34ecbbf6f1bf4fdd0b4ffaca63a578685d3b5",
+    "??1?$RefCountPtr@VProxyRObj@@@@QAE@XZ": "0d4b04dfd390578add5b0753f0f7718d4972244962ffc319fc01f91a50675bae"
+  },
+  "code_groups": [
+    [
+      "baseline"
+    ],
+    [
+      "xz_py_td",
+      "xz_py_dt",
+      "xz_yp_td",
+      "xz_yp_dt",
+      "zx_py_td",
+      "zx_py_dt",
+      "zx_yp_td",
+      "zx_yp_dt",
+      "sv_reverse_products",
+      "sv_center_direct"
+    ],
+    [
+      "ss"
+    ],
+    [
+      "vv",
+      "vv_center_ref",
+      "vv_center_alias"
+    ],
+    [
+      "vs"
+    ],
+    [
+      "sv_center_ref",
+      "sv_center_alias",
+      "sv_positive_index"
+    ],
+    [
+      "ss_center_ref"
+    ],
+    [
+      "sv_no_inverse_alias",
+      "sv_no_matrix_alias"
+    ],
+    [
+      "sv_no_aliases"
+    ],
+    [
+      "sv_rot_alias",
+      "sv_rot_ref"
+    ]
+  ],
+  "compile_response_template": "/nologo\n/c\n/MT\n/W3\n/O2\n/Ob2\n/GX\n/DWIN32\n/D_WINDOWS\n/DWIN32_LEAN_AND_MEAN\n/DWINVER=0x400\n/DNDEBUG\n/DENABLE_WWPROFILE\n/I\"${SOURCE_DIR}\"\n/I\"${TREE}\\app\\client\"\n/I\"${TREE}\\app\\audio\"\n/I\"${TREE}\\app\\client\\html\"\n/I\"${TREE}\\app\\client\\html\\image\"\n/I\"${TREE}\\app\\client\\item\"\n/I\"${TREE}\\app\\client\\tasks\"\n/I\"${TREE}\\app\\common\"\n/I\"${TREE}\\app\\input\"\n/I\"${TREE}\\app\\kernel\"\n/I\"${TREE}\\app\\packets\"\n/I\"${TREE}\\app\\packets\\gameedit\"\n/I\"${TREE}\\app\\shared\"\n/I\"${TREE}\\app\\shared\\auxdata\"\n/I\"${TREE}\\app\\shared\\expr\"\n/I\"${TREE}\\app\\shared\\message\"\n/I\"${TREE}\\app\\wwudp\"\n/I\"${TREE}\\wwdebug\"\n/I\"${TREE}\\wwlib\"\n/I\"${TREE}\\wwmath\"\n/I\"${TREE}\\wwsaveload\"\n/I\"${TREE}\\wwaudio\"\n/I\"${TREE}\\ww3d2\"\n/I\"${TREE}\\wwshade\"\n/I\"${TREE}\\libs\\wwonline\"\n/I\"${TREE}\\libs\\sgistl\"\n/I\"${TREE}\\libs\\wwonline\\wlib\"\n/I\"${TREE}\\libs\\wwonline\\wnet\"\n/I\"${TREE}\\binkmovie\"\n/I\"${TREE}\"\n\"${SOURCE}\"",
+  "best_operand_truth": [
+    {
+      "direction": "positive",
+      "destination": "m03",
+      "candidate": "R32(((((m02 * z) + (m00 * x)) + (m01 * y)) + m03))",
+      "retail": "R32(((((x * m00) + (m02 * z)) + (m01 * y)) + m03))",
+      "ordered_expression_identical": false,
+      "same_tree_under_commutation": true
+    },
+    {
+      "direction": "positive",
+      "destination": "m13",
+      "candidate": "R32(((((m10 * x) + (m12 * z)) + (m11 * y)) + m13))",
+      "retail": "R32(((((m10 * x) + (m12 * z)) + (m11 * y)) + m13))",
+      "ordered_expression_identical": true,
+      "same_tree_under_commutation": true
+    },
+    {
+      "direction": "positive",
+      "destination": "m23",
+      "candidate": "R32(((((m20 * x) + (m22 * z)) + (m21 * y)) + m23))",
+      "retail": "R32(((((m20 * x) + (m22 * z)) + (m21 * y)) + m23))",
+      "ordered_expression_identical": true,
+      "same_tree_under_commutation": true
+    },
+    {
+      "direction": "negative",
+      "destination": "m03",
+      "candidate": "R32(((((m02 * (-z)) + ((-x) * m00)) + (m01 * (-y))) + m03))",
+      "retail": "R32((((((-x) * m00) + (m02 * (-z))) + (m01 * (-y))) + m03))",
+      "ordered_expression_identical": false,
+      "same_tree_under_commutation": true
+    },
+    {
+      "direction": "negative",
+      "destination": "m13",
+      "candidate": "R32(((((m12 * (-z)) + (m10 * (-x))) + (m11 * (-y))) + m13))",
+      "retail": "R32(((((m10 * (-x)) + (m12 * (-z))) + (m11 * (-y))) + m13))",
+      "ordered_expression_identical": false,
+      "same_tree_under_commutation": true
+    },
+    {
+      "direction": "negative",
+      "destination": "m23",
+      "candidate": "R32(((((m22 * (-z)) + (m20 * (-x))) + (m21 * (-y))) + m23))",
+      "retail": "R32(((((m20 * (-x)) + (m22 * (-z))) + (m21 * (-y))) + m23))",
+      "ordered_expression_identical": false,
+      "same_tree_under_commutation": true
+    }
+  ],
+  "best_actual_differing_instruction_positions": [
+    {
+      "candidate_offset": "0x151",
+      "retail_offset": "0x151",
+      "candidate": "fld dword ptr [esp + 0x1c]",
+      "retail": "fld dword ptr [esp + 8]",
+      "translation": true
+    },
+    {
+      "candidate_offset": "0x155",
+      "retail_offset": "0x155",
+      "candidate": "fmul dword ptr [esp + 0x10]",
+      "retail": "fmul dword ptr [esp + 0x14]",
+      "translation": true
+    },
+    {
+      "candidate_offset": "0x159",
+      "retail_offset": "0x159",
+      "candidate": "fld dword ptr [esp + 0x14]",
+      "retail": "fld dword ptr [esp + 0x1c]",
+      "translation": true
+    },
+    {
+      "candidate_offset": "0x15d",
+      "retail_offset": "0x15d",
+      "candidate": "fmul dword ptr [esp + 8]",
+      "retail": "fmul dword ptr [esp + 0x10]",
+      "translation": true
+    },
+    {
+      "candidate_offset": "0x1f1",
+      "retail_offset": "0x1f1",
+      "candidate": "fld dword ptr [esp + 0x28]",
+      "retail": "fld st(2)",
+      "translation": true
+    },
+    {
+      "candidate_offset": "0x1f5",
+      "retail_offset": "0x1f3",
+      "candidate": "fmul st(1)",
+      "retail": "fmul dword ptr [esp + 0x20]",
+      "translation": true
+    },
+    {
+      "candidate_offset": "0x1f7",
+      "retail_offset": "0x1f7",
+      "candidate": "fld st(3)",
+      "retail": "fld dword ptr [esp + 0x28]",
+      "translation": true
+    },
+    {
+      "candidate_offset": "0x1f9",
+      "retail_offset": "0x1fb",
+      "candidate": "fmul dword ptr [esp + 0x20]",
+      "retail": "fmul st(2)",
+      "translation": true
+    },
+    {
+      "candidate_offset": "0x217",
+      "retail_offset": "0x217",
+      "candidate": "fld dword ptr [esp + 0x2c]",
+      "retail": "fld dword ptr [esp + 0x24]",
+      "translation": true
+    },
+    {
+      "candidate_offset": "0x21b",
+      "retail_offset": "0x21b",
+      "candidate": "fmul st(1)",
+      "retail": "fmul st(3)",
+      "translation": true
+    },
+    {
+      "candidate_offset": "0x21d",
+      "retail_offset": "0x21d",
+      "candidate": "fld dword ptr [esp + 0x24]",
+      "retail": "fld dword ptr [esp + 0x2c]",
+      "translation": true
+    },
+    {
+      "candidate_offset": "0x221",
+      "retail_offset": "0x221",
+      "candidate": "fmul st(4)",
+      "retail": "fmul st(2)",
+      "translation": true
+    },
+    {
+      "candidate_offset": "0x235",
+      "retail_offset": "0x235",
+      "candidate": "fld dword ptr [esp + 0x3c]",
+      "retail": "fld dword ptr [esp + 0x34]",
+      "translation": true
+    },
+    {
+      "candidate_offset": "0x239",
+      "retail_offset": "0x239",
+      "candidate": "fmul st(1)",
+      "retail": "fmul st(3)",
+      "translation": true
+    },
+    {
+      "candidate_offset": "0x23b",
+      "retail_offset": "0x23b",
+      "candidate": "fld dword ptr [esp + 0x34]",
+      "retail": "fld dword ptr [esp + 0x3c]",
+      "translation": true
+    },
+    {
+      "candidate_offset": "0x23f",
+      "retail_offset": "0x23f",
+      "candidate": "fmul st(4)",
+      "retail": "fmul st(2)",
+      "translation": true
+    }
+  ],
+  "best_full_audit": {
+    "candidate_instruction_count": 302,
+    "retail_instruction_count": 302,
+    "candidate_executable_length": 969,
+    "retail_executable_end": "0x542dd9",
+    "candidate_returns": [
+      "0x91",
+      "0x3c6"
+    ],
+    "retail_returns": [
+      "0x542aa1",
+      "0x542dd6"
+    ],
+    "calls": [
+      {
+        "candidate_offset": "0x3b",
+        "retail_address": "0x542a4b",
+        "candidate": "call 0x40",
+        "retail": "call 0x40f164",
+        "symbol": "?Unknown_543200@ShipEquipPipClass@@QAEXPAVVector2@@V2@@Z",
+        "retail_resolved_target": "0x543200",
+        "known_target_agrees": false,
+        "unit_exact_pair_agrees": true
+      },
+      {
+        "candidate_offset": "0x81",
+        "retail_address": "0x542a91",
+        "candidate": "call 0x86",
+        "retail": "call 0x402c3e",
+        "symbol": "?Fail_If_Report@@YAXPBD0H@Z",
+        "retail_resolved_target": "0x4e9450",
+        "known_target_agrees": true,
+        "unit_exact_pair_agrees": false
+      },
+      {
+        "candidate_offset": "0x98",
+        "retail_address": "0x542aa8",
+        "candidate": "call dword ptr [edx + 0x4c]",
+        "retail": "call dword ptr [edx + 0x4c]",
+        "same_indirect_operand": true
+      },
+      {
+        "candidate_offset": "0x110",
+        "retail_address": "0x542b20",
+        "candidate": "call 0x115",
+        "retail": "call 0x8d1ce0",
+        "symbol": "?Trackball@@YA?AVQuaternion@@MMMMM@Z",
+        "retail_resolved_target": "0x8d1ce0",
+        "known_target_agrees": true,
+        "unit_exact_pair_agrees": false
+      },
+      {
+        "candidate_offset": "0x124",
+        "retail_address": "0x542b34",
+        "candidate": "call 0x129",
+        "retail": "call 0x8c2bd0",
+        "symbol": "?Get_Orthogonal_Inverse@Matrix3D@@QBEXAAV1@@Z",
+        "retail_resolved_target": "0x8c2bd0",
+        "known_target_agrees": true,
+        "unit_exact_pair_agrees": false
+      },
+      {
+        "candidate_offset": "0x129",
+        "retail_address": "0x542b39",
+        "candidate": "call 0x12e",
+        "retail": "call 0x411432",
+        "symbol": "?Unknown_79B6B0@CameraManagerClass@@SAMXZ",
+        "retail_resolved_target": "0x79b6b0",
+        "known_target_agrees": true,
+        "unit_exact_pair_agrees": false
+      },
+      {
+        "candidate_offset": "0x1cc",
+        "retail_address": "0x542bdc",
+        "candidate": "call 0x1d1",
+        "retail": "call 0x8d2c10",
+        "symbol": "?Build_Matrix3D@@YA?AVMatrix3D@@ABVQuaternion@@@Z",
+        "retail_resolved_target": "0x8d2c10",
+        "known_target_agrees": true,
+        "unit_exact_pair_agrees": false
+      },
+      {
+        "candidate_offset": "0x1da",
+        "retail_address": "0x542bea",
+        "candidate": "call 0x1df",
+        "retail": "call 0x8c2cd0",
+        "symbol": "?Multiply@Matrix3D@@SAXABV1@0PAV1@@Z",
+        "retail_resolved_target": "0x8c2cd0",
+        "known_target_agrees": true,
+        "unit_exact_pair_agrees": false
+      },
+      {
+        "candidate_offset": "0x26c",
+        "retail_address": "0x542c7c",
+        "candidate": "call dword ptr [edx + 0x50]",
+        "retail": "call dword ptr [edx + 0x50]",
+        "same_indirect_operand": true
+      },
+      {
+        "candidate_offset": "0x3bb",
+        "retail_address": "0x542dcb",
+        "candidate": "call dword ptr [edx + 0x50]",
+        "retail": "call dword ptr [edx + 0x50]",
+        "same_indirect_operand": true
+      }
+    ],
+    "branches": [
+      {
+        "candidate_offset": "0x18",
+        "retail_address": "0x542a28",
+        "candidate_destination": "0x3be",
+        "retail_destination": "0x542dce",
+        "relative_target_equal": true
+      },
+      {
+        "candidate_offset": "0x65",
+        "retail_address": "0x542a75",
+        "candidate_destination": "0x3be",
+        "retail_destination": "0x542dce",
+        "relative_target_equal": true
+      },
+      {
+        "candidate_offset": "0x70",
+        "retail_address": "0x542a80",
+        "candidate_destination": "0x94",
+        "retail_destination": "0x542aa4",
+        "relative_target_equal": true
+      },
+      {
+        "candidate_offset": "0x259",
+        "retail_address": "0x542c69",
+        "candidate_destination": "0x265",
+        "retail_destination": "0x542c75",
+        "relative_target_equal": true
+      },
+      {
+        "candidate_offset": "0x260",
+        "retail_address": "0x542c70",
+        "candidate_destination": "0x77",
+        "retail_destination": "0x542a87",
+        "relative_target_equal": true
+      }
+    ],
+    "fp_memory_literals": [
+      {
+        "offset": "0xd",
+        "operation": "fcomp",
+        "width": 4,
+        "symbol": "__real@4@00000000000000000000",
+        "retail_reference": "0xae7244",
+        "candidate_bytes": "00000000",
+        "retail_bytes": "00000000",
+        "equal": true
+      },
+      {
+        "offset": "0x26f",
+        "operation": "fld",
+        "width": 8,
+        "symbol": "__real@8@3ffe860a920000000000",
+        "retail_reference": "0xaef060",
+        "candidate_bytes": "0000004052c1e03f",
+        "retail_bytes": "0000004052c1e03f",
+        "equal": true
+      },
+      {
+        "offset": "0x279",
+        "operation": "fld",
+        "width": 8,
+        "symbol": "__real@8@3ffe860a920000000000",
+        "retail_reference": "0xaef060",
+        "candidate_bytes": "0000004052c1e03f",
+        "retail_bytes": "0000004052c1e03f",
+        "equal": true
+      }
+    ],
+    "immediate_trackball_radius": {
+      "candidate_bytes": "cdcc4c3f",
+      "retail_bytes": "cdcc4c3f",
+      "equal": true,
+      "offset": "0x9f"
+    },
+    "strings": [
+      {
+        "offset": "0x78",
+        "candidate": "Z:\\home\\dev\\Projects\\EnB\\.work\\claim-240\\claim252-translate-permutations\\xz_py_td\\ship_equip_pip.cpp",
+        "retail": "e:\\build\\beta\\G\\app\\Client\\ship_equip_pip.cpp",
+        "equal": false
+      },
+      {
+        "offset": "0x7d",
+        "candidate": "!camera",
+        "retail": "!camera",
+        "equal": true
+      }
+    ]
+  },
+  "replay": [
+    "git archive base_commit into a fresh tree. Each experiment independently starts from this archive; source_forms and header_forms are referenced by id.",
+    "Save base unit as ship_equip_pip.cpp in a separate source folder and apply its selected source patch with patch -p0. Apply selected header patch to tree/wwmath/matrix3d.h with patch -p0 from tree/wwmath. Empty patches mean archive originals. Verify every selected SHA256.",
+    "Substitute Windows paths for ${TREE}, ${SOURCE_DIR}, ${SOURCE} in compile_response_template. Compile in a fresh output directory using Visual C++ 6.0 SP4 cl @response.rsp. App flags and defines are fully embedded. No compiler switch changes were tested.",
+    "Run the archived tools/re/objmatch.py object --client readonly_retail -q --json matches.json with Capstone-enabled Python, without score filtering. Compare all file/address pairs against the embedded baseline. tools/re/explain.py object Unknown_542A10 0x542A10 reproduces raw/masked diff analysis."
+  ],
+  "findings": [
+    "All eight XZ/ZX, pair+Y/Y+pair, T+dot/dot+T addition permutations have identical relocation-masked target bytes. Reversing all multiplication operands also gives the same bytes.",
+    "The scalar/vector overload choice affects allocation and lighting. SV is still best19 raw/9 masked; VV19/12 has nontranslation differences, SS36/13 and VS35/20 regress too. The masked score does not establish semantic or byte exactness.",
+    "Best target has16 different ordinal instruction positions (4 positive and12 negative translation positions); sequence-aligned raw residue is19 and masked residue9. Four load/multiply instructions change widths in the negative first-row window; two ordinal instruction starts shift by2bytes. These are distinct metrics.",
+    "Best ordered expressions match retail for2/6 final stores. All6 have the same tree after recursively commuting multiply/add operands without flattening or reassociation; all6 retain the XZ pair. Retained x87 stack-factor selection/load traversal remains different.",
+    "The existing inline layers inspected are the two Matrix3D::Translate overloads, Vector3 const/nonconst operator[] (reference accessors), and unary minus returning Vector3. The final center[] test uses that existing layer; no wrapper/helper/type was introduced.",
+    "No new production form, source adoption, tracked edit, attempt row, global header adoption, full app/library proof, or cross-caller reconstruction."
+  ],
+  "limitations": [
+    "Every nonbaseline experiment uses an isolated header that changes original XYZ grouping to XZY and is diagnostic only. Local unit pair preservation cannot justify a shared-header change. Existing exact callers require different pairings; broad exact-caller validation remains a coordinator decision.",
+    "Commutations are diagnostic probes, not a blanket bitwise-equivalence guarantee for NaN payload/signaling behavior, exception timing, or signed-zero-sensitive FP environments. No reassociation beyond the disclosed XZY header diagnostic is proposed.",
+    "All observed target translation memory inputs and final stores are dword. R32 marks final float stores; no intermediate dot-sum float spill. x87 precision and rounding mode depend on the runtime control word, which was not established.",
+    "Full scratch __FILE__ paths differ from retail; native matcher normalizes basename. Call-map agreement is evidence from the existing names/exact unit pair, not newly rebuilt callee proof.",
+    "Historical source-text novelty is not asserted;23 new diagnostic configurations are distinct source/header pairs in this bounded pass. The current source texts contain17 hashes, with8 repeated-source instances paired with other header forms."
+  ]
+}

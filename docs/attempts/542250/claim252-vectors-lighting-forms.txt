@@ -1,0 +1,641 @@
+{
+  "base_commit": "8d230391c39b3ae282c3042049b1194a7fe89162",
+  "source": "app/client/ship_equip_pip.cpp",
+  "base_source_sha256": "ac110b98654ed3f0c2a020cf50b793b06ae5e2bd7042e48d8271c471d742af2e",
+  "instructions": "git show BASE:app/client/ship_equip_pip.cpp > ship_equip_pip.cpp; apply each independent patch with patch -p0. Verify source_sha256; replay checked all13. Build with all-manifest.json and claim252-batches/run_batch.py against git archive BASE. Keep basename for native __FILE__ matching.",
+  "variants": [
+    {
+      "name": "baseline",
+      "control": true,
+      "family": "control",
+      "classification": "control",
+      "source_sha256": "ac110b98654ed3f0c2a020cf50b793b06ae5e2bd7042e48d8271c471d742af2e",
+      "patch": "",
+      "metrics": {
+        "raw": 273,
+        "masked": 29,
+        "calls": 19,
+        "pair_gains": 0,
+        "pair_losses": 0
+      }
+    },
+    {
+      "name": "first_pos_sub",
+      "control": false,
+      "family": "A1",
+      "classification": "existing API hypothesis: retail component stores",
+      "source_sha256": "bf3816add249d0a8a76d7ef48ec8d49060f22a43caa2308c8cab1405e21e990b",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -167,5 +167,5 @@\n \t\t\ttm.Look_At(pos, target, 0);\n \t\t\tUnknown_543270(tm);\n-\t\t\tDistance = Vector3::Distance(pos, target);\n+\t\t\tpos -= target; Distance = pos.Length();\n \t\t}\n \t} else if (robj) {\n",
+      "metrics": {
+        "raw": 285,
+        "masked": 80,
+        "calls": 19,
+        "pair_gains": 0,
+        "pair_losses": 0
+      }
+    },
+    {
+      "name": "both_pos_sub",
+      "control": false,
+      "family": "A1",
+      "classification": "existing API hypothesis: retail component stores",
+      "source_sha256": "977197b9a4690ca36f250a24953863dc3c5eb1691e50aa6297ab0a9751e44048",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -167,5 +167,5 @@\n \t\t\ttm.Look_At(pos, target, 0);\n \t\t\tUnknown_543270(tm);\n-\t\t\tDistance = Vector3::Distance(pos, target);\n+\t\t\tpos -= target; Distance = pos.Length();\n \t\t}\n \t} else if (robj) {\n@@ -190,5 +190,5 @@\n \t\t\tUnknown_543270(tm);\n \t\t\tpos.Set(tm.Get_X_Translation(), tm.Get_Y_Translation(), tm.Get_Z_Translation());\n-\t\t\tDistance = Vector3::Distance(pos, target);\n+\t\t\tpos -= target; Distance = pos.Length();\n \n \t\t\tif (Unknown4C == 0.0f) {\n",
+      "metrics": {
+        "raw": 273,
+        "masked": 30,
+        "calls": 19,
+        "pair_gains": 0,
+        "pair_losses": 0
+      }
+    },
+    {
+      "name": "both_distance_named",
+      "control": false,
+      "family": "A1",
+      "classification": "existing API hypothesis: named subtract result lifetime",
+      "source_sha256": "091f55c8390172b107aca33a6ed6afeea6dd5002295fe8e3c0b9d9462cc572e6",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -167,5 +167,5 @@\n \t\t\ttm.Look_At(pos, target, 0);\n \t\t\tUnknown_543270(tm);\n-\t\t\tDistance = Vector3::Distance(pos, target);\n+\t\t\tVector3 delta; delta = pos - target; Distance = delta.Length();\n \t\t}\n \t} else if (robj) {\n@@ -190,5 +190,5 @@\n \t\t\tUnknown_543270(tm);\n \t\t\tpos.Set(tm.Get_X_Translation(), tm.Get_Y_Translation(), tm.Get_Z_Translation());\n-\t\t\tDistance = Vector3::Distance(pos, target);\n+\t\t\tVector3 delta; delta = pos - target; Distance = delta.Length();\n \n \t\t\tif (Unknown4C == 0.0f) {\n",
+      "metrics": {
+        "raw": 274,
+        "masked": 33,
+        "calls": 19,
+        "pair_gains": 0,
+        "pair_losses": 0
+      }
+    },
+    {
+      "name": "first_pos_set",
+      "control": false,
+      "family": "A1",
+      "classification": "existing API hypothesis: construction versus Set",
+      "source_sha256": "8e685bbef03423c2ee4aedf9657e0c3632d76dfcc6318098f580e95b7b5585ac",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -162,5 +162,5 @@\n \t\t\tUnknown48 = unit;\n \t\t\tVector3 target(0, 0, 0);\n-\t\t\tVector3 pos(unit * 1.1, unit * 1.1, unit * 1.1);\n+\t\t\tVector3 pos; pos.Set(unit * 1.1, unit * 1.1, unit * 1.1);\n \t\t\tProxy->Set_Position(Vector3(0, 0, 0));\n \t\t\tMatrix3D tm(true);\n",
+      "metrics": {
+        "raw": 273,
+        "masked": 29,
+        "calls": 19,
+        "pair_gains": 0,
+        "pair_losses": 0
+      }
+    },
+    {
+      "name": "lerp_const_reference",
+      "control": false,
+      "family": "B1",
+      "classification": "existing API hypothesis: lifetime-extended Lerp return",
+      "source_sha256": "5787403cc205a2c17aa1721c1b5f7501348054da1f87bf1ac1e4cb0f383dff71",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -187,5 +187,5 @@\n \t\t\tUnknown4C -= WW3D::Get_Frame_Time() * 0.001f;\n \t\t\tUnknown4C = WWMath::Clamp(Unknown4C, 0.0f, 1.0f);\n-\t\t\tMatrix3D tm = Lerp(Unknown50, Unknown80, 1.0f - Unknown4C);\n+\t\t\tconst Matrix3D &tm = Lerp(Unknown50, Unknown80, 1.0f - Unknown4C);\n \t\t\tUnknown_543270(tm);\n \t\t\tpos.Set(tm.Get_X_Translation(), tm.Get_Y_Translation(), tm.Get_Z_Translation());\n",
+      "metrics": {
+        "raw": 326,
+        "masked": 153,
+        "calls": 19,
+        "pair_gains": 0,
+        "pair_losses": 0
+      }
+    },
+    {
+      "name": "lerp_const_owned",
+      "control": false,
+      "family": "B1",
+      "classification": "existing API hypothesis: const owned Lerp matrix",
+      "source_sha256": "92a6968d42191c62f73d7afd017c4c9c625ff614aef66d93b6bbb89600288397",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -187,5 +187,5 @@\n \t\t\tUnknown4C -= WW3D::Get_Frame_Time() * 0.001f;\n \t\t\tUnknown4C = WWMath::Clamp(Unknown4C, 0.0f, 1.0f);\n-\t\t\tMatrix3D tm = Lerp(Unknown50, Unknown80, 1.0f - Unknown4C);\n+\t\t\tconst Matrix3D tm = Lerp(Unknown50, Unknown80, 1.0f - Unknown4C);\n \t\t\tUnknown_543270(tm);\n \t\t\tpos.Set(tm.Get_X_Translation(), tm.Get_Y_Translation(), tm.Get_Z_Translation());\n",
+      "metrics": {
+        "raw": 273,
+        "masked": 29,
+        "calls": 19,
+        "pair_gains": 0,
+        "pair_losses": 0
+      }
+    },
+    {
+      "name": "lerp_named_copy",
+      "control": false,
+      "family": "B1",
+      "classification": "existing API hypothesis: returned matrix then copy construction",
+      "source_sha256": "900ac84f8153e646e432857c491e97caf33f0faffcc19dddd4f2e3edb2ca02a8",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -187,5 +187,5 @@\n \t\t\tUnknown4C -= WW3D::Get_Frame_Time() * 0.001f;\n \t\t\tUnknown4C = WWMath::Clamp(Unknown4C, 0.0f, 1.0f);\n-\t\t\tMatrix3D tm = Lerp(Unknown50, Unknown80, 1.0f - Unknown4C);\n+\t\t\tMatrix3D interpolation = Lerp(Unknown50, Unknown80, 1.0f - Unknown4C); Matrix3D tm(interpolation);\n \t\t\tUnknown_543270(tm);\n \t\t\tpos.Set(tm.Get_X_Translation(), tm.Get_Y_Translation(), tm.Get_Z_Translation());\n",
+      "metrics": {
+        "raw": 200,
+        "masked": 82,
+        "calls": 19,
+        "pair_gains": 0,
+        "pair_losses": 0
+      }
+    },
+    {
+      "name": "first_identity_copy",
+      "control": false,
+      "family": "B1",
+      "classification": "existing API hypothesis: copy existing identity matrix",
+      "source_sha256": "b7db2461b64e9640d6e9fced103260d16407e7979d051e7c184063982df2bc5f",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -164,5 +164,5 @@\n \t\t\tVector3 pos(unit * 1.1, unit * 1.1, unit * 1.1);\n \t\t\tProxy->Set_Position(Vector3(0, 0, 0));\n-\t\t\tMatrix3D tm(true);\n+\t\t\tMatrix3D tm(Matrix3D::Identity);\n \t\t\ttm.Look_At(pos, target, 0);\n \t\t\tUnknown_543270(tm);\n",
+      "metrics": {
+        "raw": 298,
+        "masked": 64,
+        "calls": 19,
+        "pair_gains": 0,
+        "pair_losses": 0
+      }
+    },
+    {
+      "name": "unit_function_scope",
+      "control": false,
+      "family": "A2",
+      "classification": "source lifetime hypothesis: common unit local",
+      "source_sha256": "cf69ba3d77ea406c5c0c5c55175645ded579b899e51fb4d21856840d2895447e",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -154,10 +154,10 @@\n // 0x542250\n void ShipEquipPipClass::Unknown_542250(const RefCountPtr<RenderObjClass> &robj)\n-{\n+{ float unit;\n \tif (Proxy->Proxied != robj.Peek()) {\n \t\tProxy->Unknown_47FF70(robj.Peek());\n \t\tProxy->Set_Transform(Matrix3D::Identity);\n \t\tif (robj) {\n-\t\t\tfloat unit = CameraManagerClass::Unknown_79B6B0();\n+\t\t\tunit = CameraManagerClass::Unknown_79B6B0();\n \t\t\tUnknown48 = unit;\n \t\t\tVector3 target(0, 0, 0);\n@@ -170,5 +170,5 @@\n \t\t}\n \t} else if (robj) {\n-\t\tfloat unit = CameraManagerClass::Unknown_79B6B0();\n+\t\tunit = CameraManagerClass::Unknown_79B6B0();\n \t\tVector3 target(0, 0, 0);\n \t\tVector3 pos;\n",
+      "metrics": {
+        "raw": 272,
+        "masked": 31,
+        "calls": 19,
+        "pair_gains": 0,
+        "pair_losses": 0
+      }
+    },
+    {
+      "name": "first_scalar_components",
+      "control": false,
+      "family": "A2",
+      "classification": "source lifetime hypothesis: independent float components",
+      "source_sha256": "90b13bf9aaf419d24d98237a8d01c7f4e12ba79d76872ab27909243456fed7f6",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -162,5 +162,5 @@\n \t\t\tUnknown48 = unit;\n \t\t\tVector3 target(0, 0, 0);\n-\t\t\tVector3 pos(unit * 1.1, unit * 1.1, unit * 1.1);\n+\t\t\tfloat x = unit * 1.1; float y = unit * 1.1; float z = unit * 1.1; Vector3 pos(x, y, z);\n \t\t\tProxy->Set_Position(Vector3(0, 0, 0));\n \t\t\tMatrix3D tm(true);\n",
+      "metrics": {
+        "raw": 273,
+        "masked": 29,
+        "calls": 19,
+        "pair_gains": 0,
+        "pair_losses": 0
+      }
+    },
+    {
+      "name": "first_distance_ctor",
+      "control": false,
+      "family": "A2",
+      "classification": "existing API hypothesis: copy-constructed difference",
+      "source_sha256": "6967a209f09c2147198bd492e985daf48372c8d23bf0634104d0819c9fbd33da",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -167,5 +167,5 @@\n \t\t\ttm.Look_At(pos, target, 0);\n \t\t\tUnknown_543270(tm);\n-\t\t\tDistance = Vector3::Distance(pos, target);\n+\t\t\tVector3 delta(pos - target); Distance = delta.Length();\n \t\t}\n \t} else if (robj) {\n",
+      "metrics": {
+        "raw": 281,
+        "masked": 54,
+        "calls": 19,
+        "pair_gains": 0,
+        "pair_losses": 0
+      }
+    },
+    {
+      "name": "both_distance_ctor",
+      "control": false,
+      "family": "A2",
+      "classification": "existing API hypothesis: copy-constructed difference",
+      "source_sha256": "c15ef05ee841466e60bf0e560a5256fdd908f1c1acafa53ea931e9512206e3e1",
+      "patch": "--- ship_equip_pip.cpp\n+++ ship_equip_pip.cpp\n@@ -167,5 +167,5 @@\n \t\t\ttm.Look_At(pos, target, 0);\n \t\t\tUnknown_543270(tm);\n-\t\t\tDistance = Vector3::Distance(pos, target);\n+\t\t\tVector3 delta(pos - target); Distance = delta.Length();\n \t\t}\n \t} else if (robj) {\n@@ -190,5 +190,5 @@\n \t\t\tUnknown_543270(tm);\n \t\t\tpos.Set(tm.Get_X_Translation(), tm.Get_Y_Translation(), tm.Get_Z_Translation());\n-\t\t\tDistance = Vector3::Distance(pos, target);\n+\t\t\tVector3 delta(pos - target); Distance = delta.Length();\n \n \t\t\tif (Unknown4C == 0.0f) {\n",
+      "metrics": {
+        "raw": 290,
+        "masked": 195,
+        "calls": 19,
+        "pair_gains": 0,
+        "pair_losses": 0
+      }
+    }
+  ],
+  "evidence": {
+    "retail_sha256": "249f852496f341c00361be95b66e7c0becc2c39e7cba026f9227e38b602651c4",
+    "retail_literals": [
+      {
+        "at": "0x542298",
+        "instruction": "fmul qword ptr [0xaef070]",
+        "address": "0xaef070",
+        "width": 8,
+        "bytes": "9a9999999999f13f",
+        "value": 1.1
+      },
+      {
+        "at": "0x54238a",
+        "instruction": "fld qword ptr [0xaef060]",
+        "address": "0xaef060",
+        "width": 8,
+        "bytes": "0000004052c1e03f",
+        "value": 0.5235987901687622
+      },
+      {
+        "at": "0x542394",
+        "instruction": "fld qword ptr [0xaef060]",
+        "address": "0xaef060",
+        "width": 8,
+        "bytes": "0000004052c1e03f",
+        "value": 0.5235987901687622
+      },
+      {
+        "at": "0x542638",
+        "instruction": "fcomp dword ptr [0xae7244]",
+        "address": "0xae7244",
+        "width": 4,
+        "bytes": "00000000",
+        "value": 0.0
+      },
+      {
+        "at": "0x542669",
+        "instruction": "fmul dword ptr [0xae7e14]",
+        "address": "0xae7e14",
+        "width": 4,
+        "bytes": "6f12833a",
+        "value": 0.0010000000474974513
+      },
+      {
+        "at": "0x542672",
+        "instruction": "fcom dword ptr [0xae7244]",
+        "address": "0xae7244",
+        "width": 4,
+        "bytes": "00000000",
+        "value": 0.0
+      },
+      {
+        "at": "0x542684",
+        "instruction": "fld dword ptr [0xae7244]",
+        "address": "0xae7244",
+        "width": 4,
+        "bytes": "00000000",
+        "value": 0.0
+      },
+      {
+        "at": "0x54268c",
+        "instruction": "fcom dword ptr [0xae7240]",
+        "address": "0xae7240",
+        "width": 4,
+        "bytes": "0000803f",
+        "value": 1.0
+      },
+      {
+        "at": "0x54269b",
+        "instruction": "fld dword ptr [0xae7240]",
+        "address": "0xae7240",
+        "width": 4,
+        "bytes": "0000803f",
+        "value": 1.0
+      },
+      {
+        "at": "0x5426a4",
+        "instruction": "fld dword ptr [0xae7240]",
+        "address": "0xae7240",
+        "width": 4,
+        "bytes": "0000803f",
+        "value": 1.0
+      },
+      {
+        "at": "0x5426f5",
+        "instruction": "fld qword ptr [0xaef060]",
+        "address": "0xaef060",
+        "width": 8,
+        "bytes": "0000004052c1e03f",
+        "value": 0.5235987901687622
+      },
+      {
+        "at": "0x5426ff",
+        "instruction": "fld qword ptr [0xaef060]",
+        "address": "0xaef060",
+        "width": 8,
+        "bytes": "0000004052c1e03f",
+        "value": 0.5235987901687622
+      },
+      {
+        "at": "0x542857",
+        "instruction": "fcomp dword ptr [0xae7244]",
+        "address": "0xae7244",
+        "width": 4,
+        "bytes": "00000000",
+        "value": 0.0
+      }
+    ],
+    "retail_unit_store": "0x542292 fst dword ptr [ebp-0x40], before fst [esi+0x48] and fmul qword1.1",
+    "first_distance": "0x5424a6..0x5424d4: subtract target components, fstp X at4ac, fstp Y at4b5, fst Z at4be, square Z then X then Y; dword sum store at4d4",
+    "second_distance": "0x54280f..0x54283d: Y/Z translation stores at815/81b; X/Y/Z target subtractions retained on x87; Z square then X then Y; dword sum store at83d",
+    "lighting": "Baseline has two ??_H calls, retail one. Each candidate retains two. First scalar/bool matrix and second Lerp matrix copy paths have different expansion/register order. named-copy raw200/masked82 relocates locals and adds a matrix copy; does not restore unit spill or remove ??_H.",
+    "precision": "Multiplier remains the retail double1.1 in every form. Vector API hypotheses preserve subtraction and length grouping in supplied headers; local pos mutation has no subsequent reads after length. Their generated intermediate float stores differ, so no blanket bitwise equivalence to the current optimized baseline or unknown runtime FP environment is claimed. No header, rounding barrier, asm, volatile, invented helper, dead budget or observable call order edit.",
+    "baseline_masked_hunks": [
+      {
+        "kind": "insert",
+        "ours": [],
+        "retail": [
+          {
+            "address": "0x542292",
+            "text": "fst dword ptr [ebp - 0x40]",
+            "normalized": "fst dword ptr [ebp - 0x40]"
+          }
+        ]
+      },
+      {
+        "kind": "insert",
+        "ours": [],
+        "retail": [
+          {
+            "address": "0x5424ac",
+            "text": "fstp dword ptr [ebp - 0xc]",
+            "normalized": "fstp dword ptr [ebp - 0xc]"
+          }
+        ]
+      },
+      {
+        "kind": "insert",
+        "ours": [],
+        "retail": [
+          {
+            "address": "0x5424b5",
+            "text": "fstp dword ptr [ebp - 8]",
+            "normalized": "fstp dword ptr [ebp - 8]"
+          }
+        ]
+      },
+      {
+        "kind": "replace",
+        "ours": [
+          {
+            "address": "0x262",
+            "text": "fld st(2)",
+            "normalized": "fld st(2)"
+          },
+          {
+            "address": "0x264",
+            "text": "fmul st(3)",
+            "normalized": "fmul st(3)"
+          },
+          {
+            "address": "0x266",
+            "text": "fld st(1)",
+            "normalized": "fld st(1)"
+          },
+          {
+            "address": "0x268",
+            "text": "fmul st(2)",
+            "normalized": "fmul st(2)"
+          }
+        ],
+        "retail": [
+          {
+            "address": "0x5424be",
+            "text": "fst dword ptr [ebp - 4]",
+            "normalized": "fst dword ptr [ebp - 4]"
+          },
+          {
+            "address": "0x5424c1",
+            "text": "fmul dword ptr [ebp - 4]",
+            "normalized": "fmul dword ptr [ebp - 4]"
+          },
+          {
+            "address": "0x5424c4",
+            "text": "fld dword ptr [ebp - 0xc]",
+            "normalized": "fld dword ptr [ebp - 0xc]"
+          },
+          {
+            "address": "0x5424c7",
+            "text": "fmul dword ptr [ebp - 0xc]",
+            "normalized": "fmul dword ptr [ebp - 0xc]"
+          }
+        ]
+      },
+      {
+        "kind": "replace",
+        "ours": [
+          {
+            "address": "0x26c",
+            "text": "fld st(2)",
+            "normalized": "fld st(2)"
+          },
+          {
+            "address": "0x26e",
+            "text": "fmul st(3)",
+            "normalized": "fmul st(3)"
+          }
+        ],
+        "retail": [
+          {
+            "address": "0x5424cc",
+            "text": "fld dword ptr [ebp - 8]",
+            "normalized": "fld dword ptr [ebp - 8]"
+          },
+          {
+            "address": "0x5424cf",
+            "text": "fmul dword ptr [ebp - 8]",
+            "normalized": "fmul dword ptr [ebp - 8]"
+          }
+        ]
+      },
+      {
+        "kind": "delete",
+        "ours": [
+          {
+            "address": "0x275",
+            "text": "fstp st(0)",
+            "normalized": "fstp st(0)"
+          },
+          {
+            "address": "0x277",
+            "text": "fstp st(0)",
+            "normalized": "fstp st(0)"
+          },
+          {
+            "address": "0x279",
+            "text": "fstp st(0)",
+            "normalized": "fstp st(0)"
+          }
+        ],
+        "retail": []
+      },
+      {
+        "kind": "replace",
+        "ours": [
+          {
+            "address": "0x3b4",
+            "text": "fld dword ptr [esi + 0x8c]",
+            "normalized": "fld dword ptr [esi + 0x8c]"
+          }
+        ],
+        "retail": [
+          {
+            "address": "0x542610",
+            "text": "fld dword ptr [ecx + 0xc]",
+            "normalized": "fld dword ptr [ecx + 0xc]"
+          }
+        ]
+      },
+      {
+        "kind": "replace",
+        "ours": [
+          {
+            "address": "0x3bd",
+            "text": "fld dword ptr [esi + 0x9c]",
+            "normalized": "fld dword ptr [esi + 0x9c]"
+          }
+        ],
+        "retail": [
+          {
+            "address": "0x542616",
+            "text": "fld dword ptr [ecx + 0x1c]",
+            "normalized": "fld dword ptr [ecx + 0x1c]"
+          }
+        ]
+      },
+      {
+        "kind": "replace",
+        "ours": [
+          {
+            "address": "0x3c6",
+            "text": "fld dword ptr [esi + 0xac]",
+            "normalized": "fld dword ptr [esi + 0xac]"
+          }
+        ],
+        "retail": [
+          {
+            "address": "0x54261c",
+            "text": "fld dword ptr [ecx + 0x2c]",
+            "normalized": "fld dword ptr [ecx + 0x2c]"
+          }
+        ]
+      },
+      {
+        "kind": "delete",
+        "ours": [
+          {
+            "address": "0x49c",
+            "text": "push 0",
+            "normalized": "push G"
+          },
+          {
+            "address": "0x4a1",
+            "text": "push 3",
+            "normalized": "push 3"
+          },
+          {
+            "address": "0x4a3",
+            "text": "lea ecx, [ebp - 0x78]",
+            "normalized": "lea ecx, [ebp - 0x78]"
+          },
+          {
+            "address": "0x4a6",
+            "text": "push 0x10",
+            "normalized": "push 0x10"
+          },
+          {
+            "address": "0x4a8",
+            "text": "push ecx",
+            "normalized": "push ecx"
+          },
+          {
+            "address": "0x4a9",
+            "text": "call 0x4ae",
+            "normalized": "call T"
+          }
+        ],
+        "retail": []
+      },
+      {
+        "kind": "insert",
+        "ours": [],
+        "retail": [
+          {
+            "address": "0x5427a2",
+            "text": "fsubp st(1)",
+            "normalized": "fsubp st(1)"
+          },
+          {
+            "address": "0x5427a4",
+            "text": "fstp dword ptr [ebp - 0x5c]",
+            "normalized": "fstp dword ptr [ebp - 0x5c]"
+          }
+        ]
+      },
+      {
+        "kind": "delete",
+        "ours": [
+          {
+            "address": "0x561",
+            "text": "push eax",
+            "normalized": "push eax"
+          },
+          {
+            "address": "0x562",
+            "text": "fsubp st(1)",
+            "normalized": "fsubp st(1)"
+          },
+          {
+            "address": "0x564",
+            "text": "fstp dword ptr [ebp - 0x58]",
+            "normalized": "fstp dword ptr [ebp - 0x58]"
+          }
+        ],
+        "retail": []
+      },
+      {
+        "kind": "insert",
+        "ours": [],
+        "retail": [
+          {
+            "address": "0x5427b7",
+            "text": "push eax",
+            "normalized": "push eax"
+          }
+        ]
+      },
+      {
+        "kind": "delete",
+        "ours": [
+          {
+            "address": "0x5cb",
+            "text": "fstp dword ptr [ebp - 0xc]",
+            "normalized": "fstp dword ptr [ebp - 0xc]"
+          }
+        ],
+        "retail": []
+      },
+      {
+        "kind": "delete",
+        "ours": [
+          {
+            "address": "0x5da",
+            "text": "fld dword ptr [ebp - 0xc]",
+            "normalized": "fld dword ptr [ebp - 0xc]"
+          }
+        ],
+        "retail": []
+      }
+    ]
+  },
+  "compile_response_template": "/nologo\n/c\n/MT\n/W3\n/O2\n/Ob2\n/GX\n/DWIN32\n/D_WINDOWS\n/DWIN32_LEAN_AND_MEAN\n/DWINVER=0x400\n/DNDEBUG\n/DENABLE_WWPROFILE\n/I\"<SOURCE_DIR>\"\n/I\"<TREE>\\app\\client\"\n/I\"<TREE>\\app\\audio\"\n/I\"<TREE>\\app\\client\\html\"\n/I\"<TREE>\\app\\client\\html\\image\"\n/I\"<TREE>\\app\\client\\item\"\n/I\"<TREE>\\app\\client\\tasks\"\n/I\"<TREE>\\app\\common\"\n/I\"<TREE>\\app\\input\"\n/I\"<TREE>\\app\\kernel\"\n/I\"<TREE>\\app\\packets\"\n/I\"<TREE>\\app\\packets\\gameedit\"\n/I\"<TREE>\\app\\shared\"\n/I\"<TREE>\\app\\shared\\auxdata\"\n/I\"<TREE>\\app\\shared\\expr\"\n/I\"<TREE>\\app\\shared\\message\"\n/I\"<TREE>\\app\\wwudp\"\n/I\"<TREE>\\wwdebug\"\n/I\"<TREE>\\wwlib\"\n/I\"<TREE>\\wwmath\"\n/I\"<TREE>\\wwsaveload\"\n/I\"<TREE>\\wwaudio\"\n/I\"<TREE>\\ww3d2\"\n/I\"<TREE>\\wwshade\"\n/I\"<TREE>\\libs\\wwonline\"\n/I\"<TREE>\\libs\\sgistl\"\n/I\"<TREE>\\libs\\wwonline\\wlib\"\n/I\"<TREE>\\libs\\wwonline\\wnet\"\n/I\"<TREE>\\binkmovie\"\n/I\"<TREE>\"\n\"<SOURCE_DIR>\\ship_equip_pip.cpp\"",
+  "compile_command": "vc6-cl @compile.rsp in an empty output directory; native-match resulting ship_equip_pip.obj with tools/re/objmatch.py --client CLIENT -q --json matches.json",
+  "code_groups": [
+    [
+      "baseline",
+      "first_pos_set",
+      "lerp_const_owned",
+      "first_scalar_components"
+    ],
+    [
+      "first_pos_sub"
+    ],
+    [
+      "both_pos_sub"
+    ],
+    [
+      "both_distance_named"
+    ],
+    [
+      "lerp_const_reference"
+    ],
+    [
+      "lerp_named_copy"
+    ],
+    [
+      "first_identity_copy"
+    ],
+    [
+      "unit_function_scope"
+    ],
+    [
+      "first_distance_ctor"
+    ],
+    [
+      "both_distance_ctor"
+    ]
+  ]
+}
