@@ -2925,10 +2925,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Window` | `app/client/dynamic_window_move.h:22` | neutral (D10) |
 | 1 | `DynamicWindowMoveGadgetClass` | `app/client/dynamic_window_move.h:26` | neutral (D10) |
 | 1 | `gadget` | `app/client/dynamic_window_move.h:29` | neutral |
-| 1 | `Unknown_30` | `app/client/dynamic_window_move.h:30` | untagged neutral name (D10) |
-| 1 | `UnknownA4` | `app/client/dynamic_window_move.h:32` | neutral (D10) |
-| 1 | `window` | `app/client/dynamic_window_move.h:35` | neutral |
-| 1 | `Unknown_51A9C0` | `app/client/dynamic_window_move.h:35` | untagged neutral name (D10) |
+| 1 | `Unknown_30` | `app/client/dynamic_window_move.h:31` | untagged neutral name (D10) |
+| 1 | `UnknownA4` | `app/client/dynamic_window_move.h:33` | neutral (D10) |
+| 1 | `window` | `app/client/dynamic_window_move.h:36` | neutral |
+| 1 | `Unknown_51A9C0` | `app/client/dynamic_window_move.h:36` | untagged neutral name (D10) |
 | 1 | `Unknown78` | `app/client/dynamic_window_multi_line_text.cpp:58` | untagged neutral name (D10) |
 | 1 | `Unknown_6D5A80` | `app/client/dynamic_window_multi_line_text.cpp:63` | untagged neutral name (D10) |
 | 1 | `font_name, sample_font, min_size, flags` | `app/client/dynamic_window_multi_line_text.h:29` | the FAIL_IFs'; Set_Min_Size's; the base's |

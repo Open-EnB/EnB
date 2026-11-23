@@ -27,6 +27,7 @@ class DynamicWindowMoveGadgetClass : public MovableUIBackGadget  // NAME 1: neut
 {
 public:
 	DynamicWindowMoveGadgetClass(const RefCountPtr<RenderObjClass> &model, const RefCountPtr<Unknown_AFB794Class> &target, GadgetClass *gadget);	// 0x51AE00  // NAME 1 [gadget]: neutral
+	virtual ~DynamicWindowMoveGadgetClass() {}								// 0x51AEC0 (deleting 0x51AE90)
 	virtual bool Unknown_30(float x, float y) { return(UnknownA4->Unknown_30(x, y)); }		// +0x30 0x51AEE0
 
 	GadgetClass *UnknownA4;																	// +0xA4 (the window's gadget)  // NAME 1: neutral (D10)
