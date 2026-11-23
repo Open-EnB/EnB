@@ -1,0 +1,541 @@
+Claim #259 source recipes. Base git 18b9179f app/client/ui_mesh.cpp.
+Apply each unified patch independently to the base; do not stack recipes.
+No source recipe in this stash is adopted. Exact target trials have the losses listed below.
+
+=== load_inner_do
+sha256 3f475a7751febc79cbf29b05eea269b9631b42af8e469eaba6c480ca41e7f0ac
+target_exact False gains [] losses []
+--- a/app/client/ui_mesh.cpp
++++ b/app/client/ui_mesh.cpp
+@@ -83,5 +83,5 @@
+ 		Unknown70 = 0;
+ 	}
+-	if (name != NULL) {
++	if (name != NULL) { do {
+ 		InterfaceMesh = WW3DAssetManager::Get_Instance()->Create_Render_Obj(name);
+ 
+@@ -99,6 +99,5 @@
+ 
+ 
+-		FAIL_IF(!InterfaceMesh) {
+-		} else {
++		FAIL_IF(!InterfaceMesh) break;
+ 			Unknown2C = new HAnimComboClass;
+ 			Unknown6C = count;
+@@ -109,7 +108,8 @@
+ 				Unknown5C[i] = false;
+ 			}
+-		}
+-	}
+-}
++		} while (0);
++	}
++}
++
+ 
+ RenderObjClass *UIMeshClass::Peek_Object()
+
+=== load_whole_do
+sha256 539647016cc8603857cd6c72aa1c82fbd117122f5e1ffeb180a87e2f881511f7
+target_exact False gains [] losses []
+--- a/app/client/ui_mesh.cpp
++++ b/app/client/ui_mesh.cpp
+@@ -62,5 +62,5 @@
+ // NOT EXACT: 0x5B8850 (0.79): the client's FAIL_IF path jumps to the shared epilogue, ours repeats it
+ void UIMeshClass::Unknown_5B8850(const char *name, int count)
+-{
++{ do {
+ 	if (InterfaceMesh != NULL) {
+ 		InterfaceMesh->Remove();
+@@ -99,6 +99,5 @@
+ 
+ 
+-		FAIL_IF(!InterfaceMesh) {
+-		} else {
++		FAIL_IF(!InterfaceMesh) break;
+ 			Unknown2C = new HAnimComboClass;
+ 			Unknown6C = count;
+@@ -109,7 +108,8 @@
+ 				Unknown5C[i] = false;
+ 			}
+-		}
+-	}
+-}
++	}
++} while (0); }
++
++
+ 
+ RenderObjClass *UIMeshClass::Peek_Object()
+
+=== load_goto_end
+sha256 c9c3e4fb449f788b0ccdbb0d47409ffda7496fb4f5bc5bb6d3ea30efd4447be1
+target_exact False gains [] losses []
+--- a/app/client/ui_mesh.cpp
++++ b/app/client/ui_mesh.cpp
+@@ -99,6 +99,5 @@
+ 
+ 
+-		FAIL_IF(!InterfaceMesh) {
+-		} else {
++		FAIL_IF(!InterfaceMesh) goto done;
+ 			Unknown2C = new HAnimComboClass;
+ 			Unknown6C = count;
+@@ -109,7 +108,8 @@
+ 				Unknown5C[i] = false;
+ 			}
+-		}
+-	}
+-}
++	}
++done:;
++}
++
+ 
+ RenderObjClass *UIMeshClass::Peek_Object()
+
+=== load_while_name
+sha256 b3043abc964b2a045672d418f9f8227f91adf66070d569d9cf4a693d7a42ad70
+target_exact False gains [] losses []
+--- a/app/client/ui_mesh.cpp
++++ b/app/client/ui_mesh.cpp
+@@ -83,5 +83,5 @@
+ 		Unknown70 = 0;
+ 	}
+-	if (name != NULL) {
++	while (name != NULL) {
+ 		InterfaceMesh = WW3DAssetManager::Get_Instance()->Create_Render_Obj(name);
+ 
+@@ -99,6 +99,5 @@
+ 
+ 
+-		FAIL_IF(!InterfaceMesh) {
+-		} else {
++		FAIL_IF(!InterfaceMesh) break;
+ 			Unknown2C = new HAnimComboClass;
+ 			Unknown6C = count;
+@@ -109,7 +108,8 @@
+ 				Unknown5C[i] = false;
+ 			}
+-		}
+-	}
+-}
++		break;
++	}
++}
++
+ 
+ RenderObjClass *UIMeshClass::Peek_Object()
+
+=== load_goto_null
+sha256 32a886f69f5ce8226687e1e7babab05a8dae3728c2d35405210d4fad468f30b0
+target_exact False gains [] losses []
+--- a/app/client/ui_mesh.cpp
++++ b/app/client/ui_mesh.cpp
+@@ -83,5 +83,5 @@
+ 		Unknown70 = 0;
+ 	}
+-	if (name != NULL) {
++	if (name == NULL) goto done; {
+ 		InterfaceMesh = WW3DAssetManager::Get_Instance()->Create_Render_Obj(name);
+ 
+@@ -99,6 +99,5 @@
+ 
+ 
+-		FAIL_IF(!InterfaceMesh) {
+-		} else {
++		FAIL_IF(!InterfaceMesh) goto done;
+ 			Unknown2C = new HAnimComboClass;
+ 			Unknown6C = count;
+@@ -109,7 +108,8 @@
+ 				Unknown5C[i] = false;
+ 			}
+-		}
+-	}
+-}
++	}
++done:;
++}
++
+ 
+ RenderObjClass *UIMeshClass::Peek_Object()
+
+=== load_early_null
+sha256 6ad914efcc19e8839fb958cb87a652cea8a8b91ce1b7f1477f400391fbf00cd4
+target_exact False gains [] losses []
+--- a/app/client/ui_mesh.cpp
++++ b/app/client/ui_mesh.cpp
+@@ -83,5 +83,5 @@
+ 		Unknown70 = 0;
+ 	}
+-	if (name != NULL) {
++	if (name == NULL) return; {
+ 		InterfaceMesh = WW3DAssetManager::Get_Instance()->Create_Render_Obj(name);
+ 
+@@ -99,6 +99,5 @@
+ 
+ 
+-		FAIL_IF(!InterfaceMesh) {
+-		} else {
++		FAIL_IF(!InterfaceMesh) return;
+ 			Unknown2C = new HAnimComboClass;
+ 			Unknown6C = count;
+@@ -109,7 +108,8 @@
+ 				Unknown5C[i] = false;
+ 			}
+-		}
+-	}
+-}
++	}
++}
++
++
+ 
+ RenderObjClass *UIMeshClass::Peek_Object()
+
+=== dtor_qualified_call
+sha256 e081fdcb235154caf03627c9c0ce5d6dc5085684f514f4dbdff2d1dc368966e7
+target_exact False gains [] losses []
+--- a/app/client/ui_mesh.cpp
++++ b/app/client/ui_mesh.cpp
+@@ -57,5 +57,5 @@
+ UIMeshClass::~UIMeshClass()
+ {
+-	Unknown_5B8850(NULL, 0);
++	UIMeshClass::Unknown_5B8850(NULL, 0);
+ }
+ 
+
+=== dtor_this_call
+sha256 0a96ec448912ec5addb699916b2c0a505ed27643e1c1df437a671869984bd693
+target_exact False gains [] losses []
+--- a/app/client/ui_mesh.cpp
++++ b/app/client/ui_mesh.cpp
+@@ -57,5 +57,5 @@
+ UIMeshClass::~UIMeshClass()
+ {
+-	Unknown_5B8850(NULL, 0);
++	this->Unknown_5B8850(NULL, 0);
+ }
+ 
+
+=== order_dtor_last
+sha256 5483d5b723f1b77444eed9aa842f287e42fa168642c42b55b61687a80a3be886
+target_exact True gains ['0x5B8850'] losses ['0x5BA460']
+--- a/app/client/ui_mesh.cpp
++++ b/app/client/ui_mesh.cpp
+@@ -55,8 +55,8 @@
+ }
+ 
+-UIMeshClass::~UIMeshClass()
+-{
+-	Unknown_5B8850(NULL, 0);
+-}
++
++
++
++
+ 
+ // NOT EXACT: 0x5B8850 (0.79): the client's FAIL_IF path jumps to the shared epilogue, ours repeats it
+@@ -562,5 +562,5 @@
+ {
+ }
+-
++UIMeshClass::~UIMeshClass() { Unknown_5B8850(NULL, 0); }
+ // Reconstruction notes (UM1, 2026-11-07)
+ // - The object: after ui_manu_util.cpp's <string> initialiser 0x5B80D0 and the two adjustor thunks 0x5B8100 / 0x5B8110 (into
+
+=== inline_loader
+sha256 4affc51c58d1c9018d06b65c1c306626a211a790ce4027cf94fb992c5cb29833
+target_exact True gains ['0x5B8850', '0x71BCC0'] losses ['0x5B8120', '0x5B8330', '0x5B8640']
+--- a/app/client/ui_mesh.cpp
++++ b/app/client/ui_mesh.cpp
+@@ -61,5 +61,5 @@
+ 
+ // NOT EXACT: 0x5B8850 (0.79): the client's FAIL_IF path jumps to the shared epilogue, ours repeats it
+-void UIMeshClass::Unknown_5B8850(const char *name, int count)
++inline void UIMeshClass::Unknown_5B8850(const char *name, int count)
+ {
+ 	if (InterfaceMesh != NULL) {
+
+=== inline_dtor
+sha256 15c2ef081dfb758e65e3cba726c0fe5411358573550ebee31b7ea9a1052387da
+target_exact True gains ['0x5B8850'] losses ['0x5B8640']
+--- a/app/client/ui_mesh.cpp
++++ b/app/client/ui_mesh.cpp
+@@ -55,5 +55,5 @@
+ }
+ 
+-UIMeshClass::~UIMeshClass()
++inline UIMeshClass::~UIMeshClass()
+ {
+ 	Unknown_5B8850(NULL, 0);
+
+=== inline_both
+sha256 bf11916e9f62e7a14a7fa1809ffe0890f28223b49f279511a1df10944ed9677a
+target_exact False gains [] losses ['0x5B8120', '0x5B8330', '0x5B8640']
+--- a/app/client/ui_mesh.cpp
++++ b/app/client/ui_mesh.cpp
+@@ -55,5 +55,5 @@
+ }
+ 
+-UIMeshClass::~UIMeshClass()
++inline UIMeshClass::~UIMeshClass()
+ {
+ 	Unknown_5B8850(NULL, 0);
+@@ -61,5 +61,5 @@
+ 
+ // NOT EXACT: 0x5B8850 (0.79): the client's FAIL_IF path jumps to the shared epilogue, ours repeats it
+-void UIMeshClass::Unknown_5B8850(const char *name, int count)
++inline void UIMeshClass::Unknown_5B8850(const char *name, int count)
+ {
+ 	if (InterfaceMesh != NULL) {
+
+=== order_dtor_after_loader
+sha256 07dc8825ffb27a461024a10a458e836bc3da2342ae52b254632b5bb81f08959c
+target_exact True gains ['0x5B8850'] losses ['0x5BA460']
+--- a/app/client/ui_mesh.cpp
++++ b/app/client/ui_mesh.cpp
+@@ -55,8 +55,8 @@
+ }
+ 
+-UIMeshClass::~UIMeshClass()
+-{
+-	Unknown_5B8850(NULL, 0);
+-}
++
++
++
++
+ 
+ // NOT EXACT: 0x5B8850 (0.79): the client's FAIL_IF path jumps to the shared epilogue, ours repeats it
+@@ -112,5 +112,5 @@
+ 	}
+ }
+-
++UIMeshClass::~UIMeshClass() { Unknown_5B8850(NULL, 0); }
+ RenderObjClass *UIMeshClass::Peek_Object()
+ {
+
+=== order_dtor_after_peek
+sha256 f17be0b875f3c4f0179b2198ed8cf1f6251bb3355db76d1eb51329317c2ee158
+target_exact True gains ['0x5B8850'] losses ['0x5B8B00', '0x5BA460']
+--- a/app/client/ui_mesh.cpp
++++ b/app/client/ui_mesh.cpp
+@@ -55,8 +55,8 @@
+ }
+ 
+-UIMeshClass::~UIMeshClass()
+-{
+-	Unknown_5B8850(NULL, 0);
+-}
++
++
++
++
+ 
+ // NOT EXACT: 0x5B8850 (0.79): the client's FAIL_IF path jumps to the shared epilogue, ours repeats it
+@@ -117,5 +117,5 @@
+ 	return(InterfaceMesh);
+ }
+-
++UIMeshClass::~UIMeshClass() { Unknown_5B8850(NULL, 0); }
+ RenderObjClass *UIMeshClass::Unknown_5B8B20()
+ {
+
+=== order_dtor_after_addref
+sha256 6e90db439e2426412d1738a8fc78d3a146a22e241bc5f1463c418d8ebe7ce4b6
+target_exact True gains ['0x5B8850'] losses ['0x5BA460']
+--- a/app/client/ui_mesh.cpp
++++ b/app/client/ui_mesh.cpp
+@@ -55,8 +55,8 @@
+ }
+ 
+-UIMeshClass::~UIMeshClass()
+-{
+-	Unknown_5B8850(NULL, 0);
+-}
++
++
++
++
+ 
+ // NOT EXACT: 0x5B8850 (0.79): the client's FAIL_IF path jumps to the shared epilogue, ours repeats it
+@@ -123,5 +123,5 @@
+ 	return(InterfaceMesh);
+ }
+-
++UIMeshClass::~UIMeshClass() { Unknown_5B8850(NULL, 0); }
+ RenderObjClass *UIMeshClass::Get_Sub_Object_By_Name(const char *name)
+ {
+
+=== order_dtor_later
+sha256 286488004f83e7aa93e015af8ae3924511127cf83431de7f509ab35a3dca591f
+target_exact True gains ['0x5B8850'] losses ['0x5BA460']
+--- a/app/client/ui_mesh.cpp
++++ b/app/client/ui_mesh.cpp
+@@ -55,8 +55,8 @@
+ }
+ 
+-UIMeshClass::~UIMeshClass()
+-{
+-	Unknown_5B8850(NULL, 0);
+-}
++
++
++
++
+ 
+ // NOT EXACT: 0x5B8850 (0.79): the client's FAIL_IF path jumps to the shared epilogue, ours repeats it
+@@ -394,8 +394,8 @@
+ 	Unknown4C[slot]->Add_Tail(&proc->Node);
+ }
+-
+-
+-
+-
++UIMeshClass::~UIMeshClass()
++{
++	Unknown_5B8850(NULL, 0);
++}
+ 
+ 
+
+=== order_ctor_later
+sha256 a3ea8bf481448a8e0de8251ca5b28406e1a3e8fc2122e7b9c7487189fd8e66d9
+target_exact False gains [] losses ['0x5B8120']
+--- a/app/client/ui_mesh.cpp
++++ b/app/client/ui_mesh.cpp
+@@ -19,8 +19,8 @@
+ bool Unknown_495FD0(RenderObjClass *robj, TextureClass *tex, int index);
+ 
+-UIMeshClass::UIMeshClass(const char *name, int count) : SubjectClass(2), InterfaceMesh(NULL), Unknown2C(NULL), Unknown6C(0), Unknown70(0)
+-{
+-	Unknown_5B8850(name, count);
+-}
++
++
++
++
+ 
+ 
+@@ -394,8 +394,8 @@
+ 	Unknown4C[slot]->Add_Tail(&proc->Node);
+ }
+-
+-
+-
+-
++UIMeshClass::UIMeshClass(const char *name, int count) : SubjectClass(2), InterfaceMesh(NULL), Unknown2C(NULL), Unknown6C(0), Unknown70(0)
++{
++	Unknown_5B8850(name, count);
++}
+ 
+ 
+
+=== order_both_later
+sha256 b00b52e13c462eb3126578e72e22ebf39a87c52bb23a28d50005558bf5891611
+target_exact False gains [] losses ['0x5B8120', '0x5BA460']
+--- a/app/client/ui_mesh.cpp
++++ b/app/client/ui_mesh.cpp
+@@ -19,8 +19,8 @@
+ bool Unknown_495FD0(RenderObjClass *robj, TextureClass *tex, int index);
+ 
+-UIMeshClass::UIMeshClass(const char *name, int count) : SubjectClass(2), InterfaceMesh(NULL), Unknown2C(NULL), Unknown6C(0), Unknown70(0)
+-{
+-	Unknown_5B8850(name, count);
+-}
++
++
++
++
+ 
+ 
+@@ -55,8 +55,8 @@
+ }
+ 
+-UIMeshClass::~UIMeshClass()
+-{
+-	Unknown_5B8850(NULL, 0);
+-}
++
++
++
++
+ 
+ // NOT EXACT: 0x5B8850 (0.79): the client's FAIL_IF path jumps to the shared epilogue, ours repeats it
+@@ -394,12 +394,12 @@
+ 	Unknown4C[slot]->Add_Tail(&proc->Node);
+ }
+-
+-
+-
+-
+-
+-
+-
+-
++UIMeshClass::UIMeshClass(const char *name, int count) : SubjectClass(2), InterfaceMesh(NULL), Unknown2C(NULL), Unknown6C(0), Unknown70(0)
++{
++	Unknown_5B8850(name, count);
++}
++UIMeshClass::~UIMeshClass()
++{
++	Unknown_5B8850(NULL, 0);
++}
+ 
+ 
+
+=== order_both_reverse
+sha256 66685cfc78dadf2a6ca4c3c8c0ebaafa41ed365743b2282dd5fad10c3984515d
+target_exact False gains [] losses ['0x5B8120', '0x5BA460']
+--- a/app/client/ui_mesh.cpp
++++ b/app/client/ui_mesh.cpp
+@@ -19,8 +19,8 @@
+ bool Unknown_495FD0(RenderObjClass *robj, TextureClass *tex, int index);
+ 
+-UIMeshClass::UIMeshClass(const char *name, int count) : SubjectClass(2), InterfaceMesh(NULL), Unknown2C(NULL), Unknown6C(0), Unknown70(0)
+-{
+-	Unknown_5B8850(name, count);
+-}
++
++
++
++
+ 
+ 
+@@ -55,8 +55,8 @@
+ }
+ 
+-UIMeshClass::~UIMeshClass()
+-{
+-	Unknown_5B8850(NULL, 0);
+-}
++
++
++
++
+ 
+ // NOT EXACT: 0x5B8850 (0.79): the client's FAIL_IF path jumps to the shared epilogue, ours repeats it
+@@ -394,12 +394,12 @@
+ 	Unknown4C[slot]->Add_Tail(&proc->Node);
+ }
+-
+-
+-
+-
+-
+-
+-
+-
++UIMeshClass::~UIMeshClass()
++{
++	Unknown_5B8850(NULL, 0);
++}
++UIMeshClass::UIMeshClass(const char *name, int count) : SubjectClass(2), InterfaceMesh(NULL), Unknown2C(NULL), Unknown6C(0), Unknown70(0)
++{
++	Unknown_5B8850(name, count);
++}
+ 
+ 
+

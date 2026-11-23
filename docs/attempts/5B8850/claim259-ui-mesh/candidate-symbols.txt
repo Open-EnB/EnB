@@ -1,0 +1,10 @@
+0x9317C0  .text  HAnimComboClass::~HAnimComboClass
+0x412B7A  .text  j_??3@YAXPAX@Z
+0xBFAEE0  .data  ?
+0x402C3E  .text  j_Fail_If_Report
+0x41066D  .text  j_??2@YAPAXI@Z
+0x931630  .text  HAnimComboClass::HAnimComboClass
+0xAE7D54  .rdata  ??_7GenericNode@@6B@, -> j_GenericNode::scalar deleting dtor
+0xAE8014  .rdata  ??_7GenericList@@6B@, -> j_GenericList::scalar deleting dtor
+0x40180C  .text  j_GenericNode::Unlink
+0xAF3218  .rdata  ??_7?$List@PAV?$DataNode@PAVUIProcClass@@@@@@6B@, -> j_??_G?$List@PAV?$DataNode@PAVUIProcClass@@@@@@UAEPAXI@Z
