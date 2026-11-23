@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1970 |
 | 2 | describes what the code does | 5009 |
-| 1 | neutral placeholder | 25162 |
+| 1 | neutral placeholder | 25163 |
 
 ## For review (score 3 and below)
 
@@ -14221,6 +14221,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_65FFA0` | `app/client/ui_manu.cpp:453` | untagged neutral name (D10) |
 | 1 | `Unknown14` | `app/client/ui_manu.cpp:458` | untagged neutral name (D10) |
 | 1 | `Unknown_5B74F0` | `app/client/ui_manu.cpp:461` | untagged neutral name (D10) |
+| 1 | `Unknown_Find_Changed` | `app/client/ui_manu.cpp:477` | neutral (D10); existing ui_refinery.cpp predicate |
 | 1 | `Unknown_60` | `app/client/ui_manu.cpp:479` | untagged neutral name (D10) |
 | 1 | `Unknown_5B5320` | `app/client/ui_manu.cpp:481` | untagged neutral name (D10) |
 | 1 | `Unknown_5B1AF0` | `app/client/ui_manu.cpp:488` | untagged neutral name (D10) |

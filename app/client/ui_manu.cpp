@@ -474,8 +474,8 @@ void UIManuClass::Unknown_54()
 	}
 	Unknown_10();
 }
-
-// NOT EXACT: inline budget (the ManufactureComponents Cast 0x5B7210 and nested 0x5B6DB0 boundary still differ; DurationClass assignment recovers the Validity Cast 0x5468D0 and nested 0x5B6CA0 call) (0x5B1230)
+template<class C> C *Unknown_Find_Changed(DeltaCompoundClass *root, const NameClass &name) { C *t = Unknown_Find_Field<C>(root, name); if (t && t->Unknown70 > 1) return(t); return(NULL); }	// NAME 1 [Unknown_Find_Changed]: neutral (D10); existing ui_refinery.cpp predicate
+// NOT EXACT: inline budget (the nested PreviousAttempts lookup/Name boundary still differs; ManufactureComponents and Validity Casts 0x5B7210 / 0x5468D0 are recovered) (0x5B1230)
 void UIManuClass::Unknown_60()
 {
 	Unknown_5B5320();
@@ -490,8 +490,8 @@ void UIManuClass::Unknown_60()
 		bool done = false;
 		if (Unknown0BA4 == 1) {
 			NameClass name("ManufactureComponents");
-			UIManuComponentsClass *components = Unknown_Find_Field<UIManuComponentsClass>((DeltaCompoundClass *)Unknown0BA0, name);
-			if (components && components->Unknown70 > 1) {
+			UIManuComponentsClass *components = Unknown_Find_Changed<UIManuComponentsClass>((DeltaCompoundClass *)Unknown0BA0, name);
+			if (components) {
 				Unknown0BA4 = 0;
 				done = true;
 				if (Unknown0BAD) {
@@ -535,7 +535,7 @@ slider:
 	}
 	DurationClass now; now = DurationClass((unsigned int)((ClientClass *)Client)->Unknown10BC);
 	if (now.Time > Unknown0BB8.Time && Unknown0BC0 > 0) {
-		Unknown0BB8.Time = Unknown_BE5C20 * 1000 + now.Time;
+		Unknown0BB8 = DurationClass(Unknown_BE5C20 * 1000 + now.Time);
 		if (--Unknown0BC0 < Unknown_B8183C) {
 			Unknown_5B6CA0();
 		}
@@ -1886,3 +1886,7 @@ template class UnknownRTTIClass<UIManuTechLevelFilterClass>;	// D164: emits the 
 // 0x5AFA00 is exact with the request timestamp represented by DurationClass. The eight-byte member
 // retains its original offset, and the class size, alignment and every own-member offset are unchanged.
 // All four ui_manu.h consumers preserve their complete native pair sets.
+
+// 0x5B1230: reuse ui_refinery.cpp's changed-field predicate for ManufactureComponents, preserving
+// the sole >1 state test and explicit name/root read order. This recovers the exact 0x5B7210 Cast holder.
+// The timestamp store uses the existing DurationClass assignment; the enclosing handler remains partial.

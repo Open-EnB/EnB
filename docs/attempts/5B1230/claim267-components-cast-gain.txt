@@ -1,0 +1,11 @@
+{
+  "model": "gpt-6.1-sol (high)",
+  "parts": [
+    "docs/attempts/5B1230/claim267-matched-helper-cross/components_changed_filter.json",
+    "docs/attempts/5B1230/claim267-matched-helper-cross/root-final-components-proof.json",
+    "docs/attempts/5B1230/claim267-matched-helper-cross/components-cast-audit.json"
+  ],
+  "root_final_source_sha256": "70c92a8306580eeae0b0d474ec50b07968383844eb1568e34eaf22eb5996815c",
+  "semantic_review": "Exact ui_refinery.cpp predicate copied verbatim; explicit NameClass/root read order retained; same sole unsigned Unknown70>1 test moved into helper, no duplicate read. Existing DurationClass value assignment used. All145pairs include every earlier win.",
+  "result": "+5B7210/-0; parent partial28/11rows,249/255instructions,frame3C; components and validitycasts correct, nested wholeFindValidList vsdesiredSetList remains."
+}
