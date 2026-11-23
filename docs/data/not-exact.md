@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-607 entries in 251 files.
+606 entries in 251 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -341,7 +341,6 @@ edit the comments in the code, not this file.
 | `app/client/ui_group.cpp:731` | `UIGroupClass::Unknown_68` | marker | NOT EXACT: (masked 10, attempts.py 0x5946D0): case 2 as if (!modifier) { .. } return(true) as case 3; case 11-15 index local k = key - 11 (add edi,-0xb); case 23-27 UIGroupMemberClass *m = Members[key - 23] in the test (keeps Members[k] before Client); case 29-33 sclient->Get_Avatar_ID() in packet ctor; two dead Peek()s in 0x593180 (D272); case 47's second test as else if, 0x5979A0/0x597A60 as ifs... |
 | `app/client/ui_group.cpp:1256` | `UIGroupClass::Unknown_596770` | marker | NOT EXACT: inline budget (the client calls auxdata.h's find 0x5927E0 out of line in both branches yet still calls vector::size 0x598920 and the temporary string's _Tidy out of line; a find wrapper sends the find out but frees the budget, 0.45-0.60) |
 | `app/client/ui_groupopt.cpp:182` | `UIGroupOptClass::Unknown_60` | marker | NOT EXACT: inline budget (explain.py: relocation first, the draft's auxdata.h path, then 12 calls vs 13: the client calls rtti.h's cast 0x598D80 out of line in the GroupInfo find, as ui_group.cpp's 0x598370; attempts.py show 0x59B220) 0x59B220 |
-| `app/client/ui_groupopt.cpp:204` | `UIGroupOptClass::Unknown_68` | marker | NOT EXACT: shape (explain.py; registers / temporaries: the client loads Client earlier and passes the check buttons' Checked through a stack byte; attempts.py show 0x59B380) 0x59B380 |
 | `app/client/ui_groupopt.cpp:408` | `UIGroupOptClass::Unknown_59BC40` | marker | NOT EXACT: inline budget (explain.py as 0x59B220: the client calls rtti.h's cast 0x598D80 out of line; a file-end inline_depth(1) matched it but broke the constructor and destructor; attempts.py show 0x59BC40) 0x59BC40 |
 | `app/client/ui_guild.cpp:3` | `?` | mention | NOT EXACT) and its helper 0x81D290. Notes at the end. PLACEMENT: provisional (D137): the file name from the tooltip section 'UI_GUILD' (the windows' UI_<file> pattern) and the model 'tsi35a'; a __FILE__ or an assert would place it |
 | `app/client/ui_guild.cpp:191` | `UIGuildClass::Unknown_58` | marker | NOT EXACT: inline budget (the client calls the vector's erase out of line; ours expands it) and one register (0x819FB0) 0x819FB0 |

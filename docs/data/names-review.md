@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1970 |
 | 2 | describes what the code does | 5009 |
-| 1 | neutral placeholder | 25156 |
+| 1 | neutral placeholder | 25158 |
 
 ## For review (score 3 and below)
 
@@ -13111,6 +13111,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_0C` | `app/client/ui_groupopt.cpp:25` | untagged neutral name (D10) |
 | 1 | `Unknown_10` | `app/client/ui_groupopt.cpp:26` | untagged neutral name (D10) |
 | 1 | `Unknown_14` | `app/client/ui_groupopt.cpp:26` | untagged neutral name (D10) |
+| 1 | `Unknown_Group_Checked` | `app/client/ui_groupopt.cpp:30` | neutral (D10) |
 | 1 | `Unknown_B7FD34` | `app/client/ui_groupopt.cpp:31` | neutral (D10) |
 | 1 | `Unknown_B7FD4C` | `app/client/ui_groupopt.cpp:32` | neutral (D10) |
 | 1 | `Unknown_B7FD64` | `app/client/ui_groupopt.cpp:33` | neutral (D10) |
@@ -13135,6 +13136,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown70` | `app/client/ui_groupopt.cpp:189` | untagged neutral name (D10) |
 | 1 | `Unknown34` | `app/client/ui_groupopt.cpp:199` | untagged neutral name (D10) |
 | 1 | `Unknown_68` | `app/client/ui_groupopt.cpp:206` | untagged neutral name (D10) |
+| 1 | `game_id` | `app/client/ui_groupopt.cpp:208` | neutral (D10) |
 | 1 | `Unknown_7E8030` | `app/client/ui_groupopt.cpp:257` | untagged neutral name (D10) |
 | 1 | `Unknown_59B910` | `app/client/ui_groupopt.cpp:284` | untagged neutral name (D10) |
 | 1 | `Unknown_59BBC0` | `app/client/ui_groupopt.cpp:305` | untagged neutral name (D10) |
