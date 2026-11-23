@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1970 |
 | 2 | describes what the code does | 5009 |
-| 1 | neutral placeholder | 25156 |
+| 1 | neutral placeholder | 25163 |
 
 ## For review (score 3 and below)
 
@@ -13111,6 +13111,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_0C` | `app/client/ui_groupopt.cpp:25` | untagged neutral name (D10) |
 | 1 | `Unknown_10` | `app/client/ui_groupopt.cpp:26` | untagged neutral name (D10) |
 | 1 | `Unknown_14` | `app/client/ui_groupopt.cpp:26` | untagged neutral name (D10) |
+| 1 | `Unknown_Group_Checked` | `app/client/ui_groupopt.cpp:30` | neutral (D10) |
 | 1 | `Unknown_B7FD34` | `app/client/ui_groupopt.cpp:31` | neutral (D10) |
 | 1 | `Unknown_B7FD4C` | `app/client/ui_groupopt.cpp:32` | neutral (D10) |
 | 1 | `Unknown_B7FD64` | `app/client/ui_groupopt.cpp:33` | neutral (D10) |
@@ -13135,6 +13136,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown70` | `app/client/ui_groupopt.cpp:189` | untagged neutral name (D10) |
 | 1 | `Unknown34` | `app/client/ui_groupopt.cpp:199` | untagged neutral name (D10) |
 | 1 | `Unknown_68` | `app/client/ui_groupopt.cpp:206` | untagged neutral name (D10) |
+| 1 | `game_id` | `app/client/ui_groupopt.cpp:208` | neutral (D10) |
 | 1 | `Unknown_7E8030` | `app/client/ui_groupopt.cpp:257` | untagged neutral name (D10) |
 | 1 | `Unknown_59B910` | `app/client/ui_groupopt.cpp:284` | untagged neutral name (D10) |
 | 1 | `Unknown_59BBC0` | `app/client/ui_groupopt.cpp:305` | untagged neutral name (D10) |
@@ -14159,9 +14161,13 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_14` | `app/client/ui_manu.cpp:185` | untagged neutral name (D10) |
 | 1 | `Unknown_7C` | `app/client/ui_manu.cpp:198` | untagged neutral name (D10) |
 | 1 | `Unknown_58` | `app/client/ui_manu.cpp:222` | untagged neutral name (D10) |
+| 1 | `player_id` | `app/client/ui_manu.cpp:225` | neutral (D10) |
 | 1 | `Unknown1138` | `app/client/ui_manu.cpp:225` | untagged neutral name (D10) |
 | 1 | `Unknown_695780` | `app/client/ui_manu.cpp:229` | untagged neutral name (D10) |
 | 1 | `Unknown_5B2820` | `app/client/ui_manu.cpp:230` | untagged neutral name (D10) |
+| 1 | `mesh` | `app/client/ui_manu.cpp:237` | neutral (D10) |
+| 1 | `name_sort_level` | `app/client/ui_manu.cpp:240` | neutral (D10) |
+| 1 | `row_sort_level` | `app/client/ui_manu.cpp:245` | neutral (D10) |
 | 1 | `Unknown_69DC40` | `app/client/ui_manu.cpp:251` | untagged neutral name (D10) |
 | 1 | `Unknown_74BF80` | `app/client/ui_manu.cpp:256` | untagged neutral name (D10) |
 | 1 | `Unknown_5B4B10` | `app/client/ui_manu.cpp:260` | untagged neutral name (D10) |
@@ -14215,6 +14221,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_65FFA0` | `app/client/ui_manu.cpp:453` | untagged neutral name (D10) |
 | 1 | `Unknown14` | `app/client/ui_manu.cpp:458` | untagged neutral name (D10) |
 | 1 | `Unknown_5B74F0` | `app/client/ui_manu.cpp:461` | untagged neutral name (D10) |
+| 1 | `Unknown_Find_Changed` | `app/client/ui_manu.cpp:477` | neutral (D10); existing ui_refinery.cpp predicate |
 | 1 | `Unknown_60` | `app/client/ui_manu.cpp:479` | untagged neutral name (D10) |
 | 1 | `Unknown_5B5320` | `app/client/ui_manu.cpp:481` | untagged neutral name (D10) |
 | 1 | `Unknown_5B1AF0` | `app/client/ui_manu.cpp:488` | untagged neutral name (D10) |

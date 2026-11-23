@@ -1,0 +1,83 @@
+{
+  "symbol": "?Cast@?$UnknownRTTIClass@V?$DeltaTemplateClass@W4UnknownB01394Enum@@@@@@SAPAV?$DeltaTemplateClass@W4UnknownB01394Enum@@@@PAVDeltaClass@@@Z",
+  "native_match": {
+    "object": "ui_manu.obj",
+    "symbol": "?Cast@?$UnknownRTTIClass@V?$DeltaTemplateClass@W4UnknownB01394Enum@@@@@@SAPAV?$DeltaTemplateClass@W4UnknownB01394Enum@@@@PAVDeltaClass@@@Z",
+    "name": "?Cast@?$UnknownRTTIClass@V?$DeltaTemplateClass@W4UnknownB01394Enum@@@@@@SAPAV?$DeltaTemplateClass@W4UnknownB01394Enum@@@@PAVDeltaClass@@@Z",
+    "length": 53,
+    "fixed": 37,
+    "addresses": [
+      "0x5468D0"
+    ],
+    "status": "exact",
+    "tiebreak": true
+  },
+  "meaningful_bytes": 53,
+  "relocations": [
+    {
+      "offset": "0xb",
+      "type": "0x6",
+      "symbol": "??_C@_0FO@HKIN@Z?3?2home?2dev?2Projects?2EnB?2?4work?2c@",
+      "addend": 0,
+      "retail_target": "0xb78528",
+      "source_string": "Z:\\home\\dev\\Projects\\EnB\\.work\\claim-267\\astra-tests\\tree\\app\\client\\..\\shared\\auxdata\\rtti.h",
+      "retail_string": "..\\shared/auxdata/rtti.h"
+    },
+    {
+      "offset": "0x10",
+      "type": "0x6",
+      "symbol": "??_C@_01KCAO@b?$AA@",
+      "addend": 0,
+      "retail_target": "0xb78524",
+      "source_string": "b",
+      "retail_string": "b"
+    },
+    {
+      "offset": "0x15",
+      "type": "0x14",
+      "symbol": "?G_Assert_Report@@YAXPBD0H@Z",
+      "addend": 0,
+      "retail_target": "0x40aa51",
+      "source_string": null,
+      "retail_string": null
+    },
+    {
+      "offset": "0x25",
+      "type": "0x6",
+      "symbol": "?UnknownGlobal@?$DeltaTemplateClass@W4UnknownB01394Enum@@@@2HA",
+      "addend": 0,
+      "retail_target": "0xc41640",
+      "source_string": null,
+      "retail_string": null
+    }
+  ],
+  "no_eh": true,
+  "instruction_audit": {
+    "returns_ours": [
+      "0x1e",
+      "0x34"
+    ],
+    "returns_retail": [
+      "0x5468ee",
+      "0x546904"
+    ],
+    "frames": [
+      [
+        null,
+        false,
+        false
+      ],
+      [
+        null,
+        false,
+        false
+      ]
+    ],
+    "instructions": [
+      20,
+      20
+    ],
+    "fixed_bytes_equal": true,
+    "cold_or_eh_tail": false
+  }
+}

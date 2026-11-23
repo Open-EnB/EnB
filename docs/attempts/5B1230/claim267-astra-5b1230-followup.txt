@@ -1,0 +1,25 @@
+{
+  "analysis_model": "gpt-6-astra (high)",
+  "test_model": "gpt-6.1-sol (high)",
+  "hypothesis_ids": [
+    "A267-12",
+    "A267-11-followup"
+  ],
+  "parts": [
+    "docs/attempts/5B1230/claim267-astra-tests/A267-11-followup-assign-baseline-0x5AFA00.json",
+    "docs/attempts/5B1230/claim267-astra-tests/A267-11-followup-assign-baseline-0x5B1230.json",
+    "docs/attempts/5B1230/claim267-astra-tests/A267-11-followup-assign-duration_member_assignment-0x5AFA00.json",
+    "docs/attempts/5B1230/claim267-astra-tests/A267-11-followup-assign-duration_member_assignment-0x5B1230.json",
+    "docs/attempts/5B1230/claim267-astra-tests/A267-11-followup-compare-baseline-0x5AFA00.json",
+    "docs/attempts/5B1230/claim267-astra-tests/A267-11-followup-compare-baseline-0x5B1230.json",
+    "docs/attempts/5B1230/claim267-astra-tests/A267-11-followup-compare-duration_member_comparison-0x5AFA00.json",
+    "docs/attempts/5B1230/claim267-astra-tests/A267-11-followup-compare-duration_member_comparison-0x5B1230.json",
+    "docs/attempts/5B1230/claim267-astra-tests/A267-12-baseline-0x5AF9D0.json",
+    "docs/attempts/5B1230/claim267-astra-tests/A267-12-baseline-0x5B1230.json",
+    "docs/attempts/5B1230/claim267-astra-tests/A267-12-seconds_global_representation-0x5AF9D0.json",
+    "docs/attempts/5B1230/claim267-astra-tests/A267-12-seconds_global_representation-0x5B1230.json"
+  ],
+  "results": "docs/attempts/5B1230/claim267-astra-tests/results.json",
+  "constraints": "docs/attempts/5B1230/claim267-astra-tests/constraints.json",
+  "evidence": "A267-12 SecondsClass global canonical handler34/20 and exact5AF9D0initializer. Existingoperator comparison49/25;assignment17/14 removes timer-tail residue but calls/frame unchanged,missing5B7210/5B6DB0 persist. All144pairs preserved;no further source adoption."
+}

@@ -1,0 +1,279 @@
+{
+  "base_head": "c0d98d3cb148495035455018590fa765d8e65ffe",
+  "counts": {
+    "new_valid_forms": 6,
+    "controls": 3,
+    "successful_compilations": 9,
+    "compile_failures": 0,
+    "match_failures": 0,
+    "diagnostic_compilations": 0,
+    "untried_generated": 0,
+    "candidate_repeats": 0,
+    "corrected_preparation_errors": 1,
+    "noncompiling_runner_launch_error": 1,
+    "root_independent_confirmation_builds": 1
+  },
+  "records": [
+    {
+      "name": "components_changed_filter",
+      "pack": ".work/claim-267/manu-cross-followup/packs/components_changed_filter.json",
+      "pairs": 145,
+      "gained": [
+        [
+          "app/client/ui_manu.cpp",
+          "0x5B7210"
+        ]
+      ],
+      "lost": [],
+      "comparison_baseline_pair_count": 144,
+      "residue": 28,
+      "residue_regs": 11,
+      "instructions": [
+        249,
+        255
+      ],
+      "frames": [
+        [
+          "0x3c",
+          false,
+          false
+        ],
+        [
+          "0x3c",
+          false,
+          false
+        ]
+      ],
+      "source_sha256": "575b5d0ad633ff8ed86def760b9b83d0d798030af15bf8d44d066ad24ba85271"
+    },
+    {
+      "name": "components_name_argument",
+      "pack": ".work/claim-267/manu-cross-followup/packs/components_name_argument.json",
+      "pairs": 144,
+      "gained": [],
+      "lost": [],
+      "comparison_baseline_pair_count": 144,
+      "residue": 36,
+      "residue_regs": 20,
+      "instructions": [
+        248,
+        255
+      ],
+      "frames": [
+        [
+          "0x3c",
+          false,
+          false
+        ],
+        [
+          "0x3c",
+          false,
+          false
+        ]
+      ],
+      "source_sha256": "68546603c5569d497e3598c735e9f454180691fa295a3399ffef278ea34ee35d"
+    },
+    {
+      "name": "baseline",
+      "pack": ".work/claim-267/manu-cross-followup/packs/baseline.json",
+      "pairs": 144,
+      "gained": [],
+      "lost": [],
+      "comparison_baseline_pair_count": 144,
+      "residue": 34,
+      "residue_regs": 20,
+      "instructions": [
+        246,
+        255
+      ],
+      "frames": [
+        [
+          "0x3c",
+          false,
+          false
+        ],
+        [
+          "0x3c",
+          false,
+          false
+        ]
+      ],
+      "source_sha256": "f3bb5d219fb5b39d615c205a65b93e28c142c4d77bf19083969e1d0e32c74cd8"
+    },
+    {
+      "name": "duration_assignment_seed_control",
+      "pack": ".work/claim-267/manu-cross-followup/packs/duration_assignment_seed_control.json",
+      "pairs": 144,
+      "gained": [],
+      "lost": [],
+      "comparison_baseline_pair_count": 144,
+      "residue": 17,
+      "residue_regs": 14,
+      "instructions": [
+        248,
+        255
+      ],
+      "frames": [
+        [
+          "0x3c",
+          false,
+          false
+        ],
+        [
+          "0x3c",
+          false,
+          false
+        ]
+      ],
+      "source_sha256": "0bc07540308a56979828f9db6a17759247e1ffb541be5511063990c658b6a9da"
+    },
+    {
+      "name": "baseline",
+      "pack": ".work/claim-267/manu-cross-followup/packs/positive_baseline.json",
+      "pairs": 145,
+      "gained": [],
+      "lost": [],
+      "comparison_baseline_pair_count": 145,
+      "residue": 28,
+      "residue_regs": 11,
+      "instructions": [
+        249,
+        255
+      ],
+      "frames": [
+        [
+          "0x3c",
+          false,
+          false
+        ],
+        [
+          "0x3c",
+          false,
+          false
+        ]
+      ],
+      "source_sha256": "70c92a8306580eeae0b0d474ec50b07968383844eb1568e34eaf22eb5996815c"
+    },
+    {
+      "name": "nested_direct_previous",
+      "pack": ".work/claim-267/manu-cross-followup/packs/nested_direct_previous.json",
+      "pairs": 145,
+      "gained": [],
+      "lost": [],
+      "comparison_baseline_pair_count": 145,
+      "residue": 64,
+      "residue_regs": 51,
+      "instructions": [
+        302,
+        255
+      ],
+      "frames": [
+        [
+          "0x70",
+          false,
+          false
+        ],
+        [
+          "0x3c",
+          false,
+          false
+        ]
+      ],
+      "source_sha256": "7364ae7002d58bad71b951ea85f4eb3e096d2536738faf0f1edf918d57acc309"
+    },
+    {
+      "name": "nested_existing_get_list",
+      "pack": ".work/claim-267/manu-cross-followup/packs/nested_existing_get_list.json",
+      "pairs": 145,
+      "gained": [],
+      "lost": [],
+      "comparison_baseline_pair_count": 145,
+      "residue": 61,
+      "residue_regs": 48,
+      "instructions": [
+        299,
+        255
+      ],
+      "frames": [
+        [
+          "0x70",
+          false,
+          false
+        ],
+        [
+          "0x3c",
+          false,
+          false
+        ]
+      ],
+      "source_sha256": "b51b49408805a9cd44215305cf47807536435f90d4f6c01b50d59762f073d317"
+    },
+    {
+      "name": "nested_get_list_validity_temporary",
+      "pack": ".work/claim-267/manu-cross-followup/packs/nested_get_list_validity_temporary.json",
+      "pairs": 145,
+      "gained": [],
+      "lost": [],
+      "comparison_baseline_pair_count": 145,
+      "residue": 62,
+      "residue_regs": 50,
+      "instructions": [
+        299,
+        255
+      ],
+      "frames": [
+        [
+          "0x3c",
+          false,
+          false
+        ],
+        [
+          "0x3c",
+          false,
+          false
+        ]
+      ],
+      "source_sha256": "d4e58c17e843f8e749db317e3573e96e94f830d6abad32b697d64c70bd31b269"
+    },
+    {
+      "name": "validity_name_argument",
+      "pack": ".work/claim-267/manu-cross-followup/packs/validity_name_argument.json",
+      "pairs": 144,
+      "gained": [],
+      "lost": [],
+      "comparison_baseline_pair_count": 144,
+      "residue": 36,
+      "residue_regs": 18,
+      "instructions": [
+        248,
+        255
+      ],
+      "frames": [
+        [
+          "0x3c",
+          false,
+          false
+        ],
+        [
+          "0x3c",
+          false,
+          false
+        ]
+      ],
+      "source_sha256": "1db86bc865206afb8dec915645cfed695c7d65ef1a718aee088da31282838d4c"
+    }
+  ],
+  "source_semantics_and_helper_audit": ".work/claim-267/manu-cross-followup/components-cast-audit.json",
+  "root_confirmation_proof": ".work/claim-267/manu-cross-followup/packs/root-final-components-proof.json",
+  "cross_evidence": "comparison/ contains full aligned instruction/call comparisons for exact manufacturing1ED0/3850/3580/6DB0 and exact refineryC6D0/DFD0/EBA0; no new refinery compilation.",
+  "dedup": "Prior19 manufacturing recipes and12 Astra hypotheses read; NameClass argument temporary lifetime forms are new; changed-filter form moves the sole >1 predicate into real refinery helper, unlike old redundant nonzero filter plus outer >1. Later3nested forms explicitly root-authorized on new145positive base; thirdName-lifetime combination activated only after firstSetList boundary and70frame were actually observed.",
+  "decisions": {
+    "components_changed_filter": "Keep: actual components Cast5B7210 called,53Bhelper exact,144->145,+1/-0; parent28/11 frame3C; root integrated and independently confirmed145.",
+    "components_name_argument": "Reject:36/20 vs17/14seed, same wrong nestedcall boundary.",
+    "validity_name_argument": "Reject independently:36/18 vs17/14seed, same wrong nestedcall boundary.",
+    "nested_direct_previous": "Reject:64/51,302instructions,frame70; over-inlinesSetList/6CA0/3580.",
+    "nested_existing_get_list": "Reject:61/48,299instructions,frame70; firstSetList/Name boundary recovered, later6CA0/3580 wrong.",
+    "nested_get_list_validity_temporary": "Reject:62/50,299instructions,correct3Cframe andfirstSetList/Name boundary, later6CA0/3580 stillwrong. This provesName lifetime causedextra frame but does not recover complete call map."
+  },
+  "stops": "All6boundedforms completed; no candidates untried. No additional timer/register/argument permutations. All145positive-basepairs survive nested forms, all exact relatives stay exact. Wine idle; remaining call-boundary tradeoff needs new source evidence before more experiments."
+}

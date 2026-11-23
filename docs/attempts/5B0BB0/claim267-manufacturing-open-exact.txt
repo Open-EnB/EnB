@@ -1,0 +1,1378 @@
+{
+  "base": "bdee5997474dbc679e339e8388e1c49ef926e9c6",
+  "report": {
+    "target": "0x5B0BB0",
+    "base_sha256": "ecf57a52ef91f59f3d592f5a9eff65b8357197f9667495c8bf062faa71b78744",
+    "counts": {
+      "compilations": 7,
+      "successful_compilations": 7,
+      "new_valid_hypotheses": 7,
+      "distinct_sources": 7,
+      "controls": 0,
+      "repeated_sources": 0,
+      "diagnostic_only": 0,
+      "failures": 0,
+      "untried_generated": 0,
+      "distinct_code_groups": 4
+    },
+    "baseline_matches": "/home/dev/Projects/EnB/.work/claim-267/manufacturing/5AFA00/runs/initial-rgr7mauz/baseline/matches.json",
+    "baseline_file_address_pair_count": 140,
+    "baseline_file_address_pairs": [
+      [
+        "app/client/ui_manu.cpp",
+        "0x42A6C0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x42A820"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x42A940"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x42A970"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x42AB30"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x42B320"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x42CAB0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x42CD30"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x42D050"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x42D120"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x42F250"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x45CC10"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x46BE90"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x474080"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x4740B0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x497300"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x4A19A0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x4A19C0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x4A1A10"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x4A1A30"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x4A1A50"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x4A1A70"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x4A1A90"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x4A1AB0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x4A1AD0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x4A1AF0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x4A7780"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x4B58D0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x50A8E0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x50A900"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x50A920"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x50A940"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x50A960"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x50A980"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x50A9E0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x50AA00"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x50AA20"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x50AA40"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x50AA60"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x50AA80"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x50AAA0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x50AAC0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5156B0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5156F0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x515710"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x515730"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x515750"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x51AD20"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x51AD40"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x51AD60"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x51AD80"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x51ADA0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x51C630"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x52B210"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x52B240"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x52B270"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x52B2A0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x52B2D0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x52B2F0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x52B310"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x52B330"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x52B350"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5411F0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x543750"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x543770"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x544250"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x544B90"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x546480"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5464B0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5464F0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x546510"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5465C0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5466A0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x546710"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x546780"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5467F0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x546970"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x553A80"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x58E5B0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x58E5D0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5AF980"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5AF9B0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5AF9D0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5AFCA0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5AFFC0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B0B40"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B10A0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B1AF0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B1C20"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B1ED0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B2060"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B21A0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B2230"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B2820"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B28E0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B2950"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B2990"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B2A80"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B2B40"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B2F20"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B3240"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B3260"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B3580"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B3850"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B39B0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B3A50"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B3A70"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B3B90"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B3CA0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B3D70"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B42F0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B4680"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B4850"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B5CD0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B5FF0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B6060"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B6410"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B6680"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B66D0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B6700"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B6720"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B6770"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B67A0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B67C0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B6A60"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B6A80"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B6CA0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B6D30"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B6DB0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B6E20"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B6FD0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B7050"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B70C0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B7130"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B71A0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B7260"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B72B0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B7300"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B7350"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B7360"
+      ]
+    ],
+    "forms": [
+      {
+        "name": "sorts_buffer256",
+        "compiled": true,
+        "target_exact": false,
+        "source_sha256": "98a82919052b47af309c80aa88631376cac660fe741e1e9012e0189d2d4915c6",
+        "lost_addresses": [],
+        "gained_addresses": [],
+        "error": null,
+        "class": "register-only",
+        "residue": 17,
+        "regs": 6,
+        "instructions": [
+          291,
+          291
+        ],
+        "code_group": "db679cdaf9e5",
+        "exact": false,
+        "kind": "new_valid_hypothesis",
+        "file_address_pair_count": 140,
+        "file_address_pairs_gained": [],
+        "file_address_pairs_lost": [],
+        "summary": "5B0BB0/runs/b2-q1hr_m7j/summary.json",
+        "patch_replay_sha256_verified": true
+      },
+      {
+        "name": "sorts_packet_input",
+        "compiled": true,
+        "target_exact": false,
+        "source_sha256": "867ca25ca9e97603ea68e4f4ba2226803623093d3c42a98125f05c33d7b204bd",
+        "lost_addresses": [],
+        "gained_addresses": [],
+        "error": null,
+        "class": "frame",
+        "residue": 0,
+        "regs": 0,
+        "instructions": [
+          291,
+          291
+        ],
+        "code_group": "65d0cc6899a8",
+        "exact": false,
+        "kind": "new_valid_hypothesis",
+        "file_address_pair_count": 140,
+        "file_address_pairs_gained": [],
+        "file_address_pairs_lost": [],
+        "summary": "5B0BB0/runs/b2-q1hr_m7j/summary.json",
+        "patch_replay_sha256_verified": true
+      },
+      {
+        "name": "sorts_mesh_input",
+        "compiled": true,
+        "target_exact": false,
+        "source_sha256": "7334c64670c449d2147f0868042501cd08ae0ebcfa1c341459f0855c26932211",
+        "lost_addresses": [],
+        "gained_addresses": [],
+        "error": null,
+        "class": "frame",
+        "residue": 17,
+        "regs": 6,
+        "instructions": [
+          291,
+          291
+        ],
+        "code_group": "db679cdaf9e5",
+        "exact": false,
+        "kind": "new_valid_hypothesis",
+        "file_address_pair_count": 140,
+        "file_address_pairs_gained": [],
+        "file_address_pairs_lost": [],
+        "summary": "5B0BB0/runs/b2-q1hr_m7j/summary.json",
+        "patch_replay_sha256_verified": true
+      },
+      {
+        "name": "sorts_buffer_packet_mesh",
+        "compiled": true,
+        "target_exact": true,
+        "source_sha256": "5f49daf80f4eac7049df8a2851e597bbc14c5a229dbc9a245ee3606277ac7526",
+        "lost_addresses": [],
+        "gained_addresses": [
+          "0x5B0BB0"
+        ],
+        "error": null,
+        "class": "identical",
+        "residue": 0,
+        "regs": 0,
+        "instructions": [
+          291,
+          291
+        ],
+        "code_group": "65d0cc6899a8",
+        "exact": true,
+        "kind": "new_valid_hypothesis",
+        "file_address_pair_count": 141,
+        "file_address_pairs_gained": [
+          [
+            "app/client/ui_manu.cpp",
+            "0x5B0BB0"
+          ]
+        ],
+        "file_address_pairs_lost": [],
+        "summary": "5B0BB0/runs/b2-q1hr_m7j/summary.json",
+        "patch_replay_sha256_verified": true
+      },
+      {
+        "name": "name_sort_value",
+        "compiled": true,
+        "target_exact": false,
+        "source_sha256": "0f85e1c37d154108430fa32fff0a8a469d63e26401df9626a788dbf748dcdcce",
+        "lost_addresses": [],
+        "gained_addresses": [],
+        "error": null,
+        "class": "frame",
+        "residue": 63,
+        "regs": 26,
+        "instructions": [
+          297,
+          291
+        ],
+        "code_group": "8d8ed655285a",
+        "exact": false,
+        "kind": "new_valid_hypothesis",
+        "file_address_pair_count": 140,
+        "file_address_pairs_gained": [],
+        "file_address_pairs_lost": [],
+        "summary": "5B0BB0/runs/initial-9i0756ej/summary.json",
+        "patch_replay_sha256_verified": true
+      },
+      {
+        "name": "row_sort_value",
+        "compiled": true,
+        "target_exact": false,
+        "source_sha256": "4d5c07059ccf26bc24c0b97db675790e03b91511abbf9efb6274072f1790c43e",
+        "lost_addresses": [],
+        "gained_addresses": [],
+        "error": null,
+        "class": "frame",
+        "residue": 24,
+        "regs": 12,
+        "instructions": [
+          293,
+          291
+        ],
+        "code_group": "9083a4bd3102",
+        "exact": false,
+        "kind": "new_valid_hypothesis",
+        "file_address_pair_count": 140,
+        "file_address_pairs_gained": [],
+        "file_address_pairs_lost": [],
+        "summary": "5B0BB0/runs/initial-9i0756ej/summary.json",
+        "patch_replay_sha256_verified": true
+      },
+      {
+        "name": "both_sort_values",
+        "compiled": true,
+        "target_exact": false,
+        "source_sha256": "5a8848e7951bc156c44605ad525c7fea40f77deecf2d9f3559f3eaaa94fc0098",
+        "lost_addresses": [],
+        "gained_addresses": [],
+        "error": null,
+        "class": "frame",
+        "residue": 17,
+        "regs": 6,
+        "instructions": [
+          291,
+          291
+        ],
+        "code_group": "db679cdaf9e5",
+        "exact": false,
+        "kind": "new_valid_hypothesis",
+        "file_address_pair_count": 140,
+        "file_address_pairs_gained": [],
+        "file_address_pairs_lost": [],
+        "summary": "5B0BB0/runs/initial-9i0756ej/summary.json",
+        "patch_replay_sha256_verified": true
+      }
+    ]
+  },
+  "source_recipes": "Manufacturing target 0x5B0BB0; independent patch recipes\nBase commit: bdee5997474dbc679e339e8388e1c49ef926e9c6\nBase app/client/ui_manu.cpp SHA256: ecf57a52ef91f59f3d592f5a9eff65b8357197f9667495c8bf062faa71b78744\nCounts: {\"compilations\": 7, \"controls\": 0, \"diagnostic_only\": 0, \"distinct_code_groups\": 4, \"distinct_sources\": 7, \"failures\": 0, \"new_valid_hypotheses\": 7, \"repeated_sources\": 0, \"successful_compilations\": 7, \"untried_generated\": 0}\nReplay: apply each diff independently to the named base source. Source hashes validate every reconstruction. All sources preserve original line count; no header/flag/pragma/assembly changes. Full native matcher ran on every successful object.\n\nFORM sorts_buffer256\nsource_sha256 98a82919052b47af309c80aa88631376cac660fe741e1e9012e0189d2d4915c6\n--- app/client/ui_manu.cpp\n+++ app/client/ui_manu.cpp\n@@ -237,12 +237,12 @@\n \t\tUnknown_BE67C4->Add(InterfaceMesh->Peek_Mesh_Object());\n \t\tRefCountPtr<FontSys> name_text = Create_Peek(Unknown_BE67C4->Get_Style(\"Name_tsm01a\", InterfaceMesh->Peek_Mesh_Object()));\n \t\tRefCountPtr<RenderObjClass> name_obj = Create_Get(InterfaceMesh->Peek_Object()->Get_Sub_Object_By_Name(\"name\"));\n-\t\tname_text->Set_Sort_Level(name_obj->Get_Sort_Level() - 1);\n-\t\tchar buffer[264];\n+\t\tint name_sort_level = name_obj->Get_Sort_Level() - 1; name_text->Set_Sort_Level(name_sort_level);\n+\t\tchar buffer[256];\n \t\tfor (int i = 0; i < 10; i++) {\n \t\t\tsprintf(buffer, \"desc%02d_tsm01a\", i);\n \t\t\tUnknown16C[i] = Create_Peek(Unknown_BE67C4->Get_Style(buffer, InterfaceMesh->Peek_Mesh_Object()));\n-\t\t\tUnknown16C[i]->Set_Sort_Level(Unknown0E8[i]->RObj->Get_Sort_Level() + 1);\n+\t\t\tint row_sort_level = Unknown0E8[i]->RObj->Get_Sort_Level() + 1; Unknown16C[i]->Set_Sort_Level(row_sort_level);\n \t\t\tUnknown16C[i]->Change_Text(\"\", 0);\n \t\t\tsprintf(buffer, \"var%02d_tsm01a\", i);\n \t\t\tUnknown194[i] = Create_Peek(Unknown_BE67C4->Get_Style(buffer, InterfaceMesh->Peek_Mesh_Object()));\n\nFORM sorts_packet_input\nsource_sha256 867ca25ca9e97603ea68e4f4ba2226803623093d3c42a98125f05c33d7b204bd\n--- app/client/ui_manu.cpp\n+++ app/client/ui_manu.cpp\n@@ -222,7 +222,7 @@\n void UIManuClass::Unknown_58()\n {\n \tSClient *sclient = Client->As_Space_Client();\n-\t((ClientClass *)Client)->Send_Packet(&ManufactureItemCatagoryPacketClass(sclient->Unknown1138, 1));\n+\tint player_id; ((ClientClass *)Client)->Send_Packet(&ManufactureItemCatagoryPacketClass(player_id = sclient->Unknown1138, 1));\n \tif (State == UI_CLOSED) {\n \t\tInterfaceSortScopeClass scope(this);\n \t\tState = UI_OPEN;\n@@ -237,12 +237,12 @@\n \t\tUnknown_BE67C4->Add(InterfaceMesh->Peek_Mesh_Object());\n \t\tRefCountPtr<FontSys> name_text = Create_Peek(Unknown_BE67C4->Get_Style(\"Name_tsm01a\", InterfaceMesh->Peek_Mesh_Object()));\n \t\tRefCountPtr<RenderObjClass> name_obj = Create_Get(InterfaceMesh->Peek_Object()->Get_Sub_Object_By_Name(\"name\"));\n-\t\tname_text->Set_Sort_Level(name_obj->Get_Sort_Level() - 1);\n+\t\tint name_sort_level = name_obj->Get_Sort_Level() - 1; name_text->Set_Sort_Level(name_sort_level);\n \t\tchar buffer[264];\n \t\tfor (int i = 0; i < 10; i++) {\n \t\t\tsprintf(buffer, \"desc%02d_tsm01a\", i);\n \t\t\tUnknown16C[i] = Create_Peek(Unknown_BE67C4->Get_Style(buffer, InterfaceMesh->Peek_Mesh_Object()));\n-\t\t\tUnknown16C[i]->Set_Sort_Level(Unknown0E8[i]->RObj->Get_Sort_Level() + 1);\n+\t\t\tint row_sort_level = Unknown0E8[i]->RObj->Get_Sort_Level() + 1; Unknown16C[i]->Set_Sort_Level(row_sort_level);\n \t\t\tUnknown16C[i]->Change_Text(\"\", 0);\n \t\t\tsprintf(buffer, \"var%02d_tsm01a\", i);\n \t\t\tUnknown194[i] = Create_Peek(Unknown_BE67C4->Get_Style(buffer, InterfaceMesh->Peek_Mesh_Object()));\n\nFORM sorts_mesh_input\nsource_sha256 7334c64670c449d2147f0868042501cd08ae0ebcfa1c341459f0855c26932211\n--- app/client/ui_manu.cpp\n+++ app/client/ui_manu.cpp\n@@ -234,15 +234,15 @@\n \n \n \n-\t\tUnknown_BE67C4->Add(InterfaceMesh->Peek_Mesh_Object());\n+\t\tRenderObjClass *mesh = InterfaceMesh->Peek_Mesh_Object(); Unknown_BE67C4->Add(mesh);\n \t\tRefCountPtr<FontSys> name_text = Create_Peek(Unknown_BE67C4->Get_Style(\"Name_tsm01a\", InterfaceMesh->Peek_Mesh_Object()));\n \t\tRefCountPtr<RenderObjClass> name_obj = Create_Get(InterfaceMesh->Peek_Object()->Get_Sub_Object_By_Name(\"name\"));\n-\t\tname_text->Set_Sort_Level(name_obj->Get_Sort_Level() - 1);\n+\t\tint name_sort_level = name_obj->Get_Sort_Level() - 1; name_text->Set_Sort_Level(name_sort_level);\n \t\tchar buffer[264];\n \t\tfor (int i = 0; i < 10; i++) {\n \t\t\tsprintf(buffer, \"desc%02d_tsm01a\", i);\n \t\t\tUnknown16C[i] = Create_Peek(Unknown_BE67C4->Get_Style(buffer, InterfaceMesh->Peek_Mesh_Object()));\n-\t\t\tUnknown16C[i]->Set_Sort_Level(Unknown0E8[i]->RObj->Get_Sort_Level() + 1);\n+\t\t\tint row_sort_level = Unknown0E8[i]->RObj->Get_Sort_Level() + 1; Unknown16C[i]->Set_Sort_Level(row_sort_level);\n \t\t\tUnknown16C[i]->Change_Text(\"\", 0);\n \t\t\tsprintf(buffer, \"var%02d_tsm01a\", i);\n \t\t\tUnknown194[i] = Create_Peek(Unknown_BE67C4->Get_Style(buffer, InterfaceMesh->Peek_Mesh_Object()));\n\nFORM sorts_buffer_packet_mesh\nsource_sha256 5f49daf80f4eac7049df8a2851e597bbc14c5a229dbc9a245ee3606277ac7526\n--- app/client/ui_manu.cpp\n+++ app/client/ui_manu.cpp\n@@ -222,7 +222,7 @@\n void UIManuClass::Unknown_58()\n {\n \tSClient *sclient = Client->As_Space_Client();\n-\t((ClientClass *)Client)->Send_Packet(&ManufactureItemCatagoryPacketClass(sclient->Unknown1138, 1));\n+\tint player_id; ((ClientClass *)Client)->Send_Packet(&ManufactureItemCatagoryPacketClass(player_id = sclient->Unknown1138, 1));\n \tif (State == UI_CLOSED) {\n \t\tInterfaceSortScopeClass scope(this);\n \t\tState = UI_OPEN;\n@@ -234,15 +234,15 @@\n \n \n \n-\t\tUnknown_BE67C4->Add(InterfaceMesh->Peek_Mesh_Object());\n+\t\tRenderObjClass *mesh = InterfaceMesh->Peek_Mesh_Object(); Unknown_BE67C4->Add(mesh);\n \t\tRefCountPtr<FontSys> name_text = Create_Peek(Unknown_BE67C4->Get_Style(\"Name_tsm01a\", InterfaceMesh->Peek_Mesh_Object()));\n \t\tRefCountPtr<RenderObjClass> name_obj = Create_Get(InterfaceMesh->Peek_Object()->Get_Sub_Object_By_Name(\"name\"));\n-\t\tname_text->Set_Sort_Level(name_obj->Get_Sort_Level() - 1);\n-\t\tchar buffer[264];\n+\t\tint name_sort_level = name_obj->Get_Sort_Level() - 1; name_text->Set_Sort_Level(name_sort_level);\n+\t\tchar buffer[256];\n \t\tfor (int i = 0; i < 10; i++) {\n \t\t\tsprintf(buffer, \"desc%02d_tsm01a\", i);\n \t\t\tUnknown16C[i] = Create_Peek(Unknown_BE67C4->Get_Style(buffer, InterfaceMesh->Peek_Mesh_Object()));\n-\t\t\tUnknown16C[i]->Set_Sort_Level(Unknown0E8[i]->RObj->Get_Sort_Level() + 1);\n+\t\t\tint row_sort_level = Unknown0E8[i]->RObj->Get_Sort_Level() + 1; Unknown16C[i]->Set_Sort_Level(row_sort_level);\n \t\t\tUnknown16C[i]->Change_Text(\"\", 0);\n \t\t\tsprintf(buffer, \"var%02d_tsm01a\", i);\n \t\t\tUnknown194[i] = Create_Peek(Unknown_BE67C4->Get_Style(buffer, InterfaceMesh->Peek_Mesh_Object()));\n\nFORM name_sort_value\nsource_sha256 0f85e1c37d154108430fa32fff0a8a469d63e26401df9626a788dbf748dcdcce\n--- app/client/ui_manu.cpp\n+++ app/client/ui_manu.cpp\n@@ -237,7 +237,7 @@\n \t\tUnknown_BE67C4->Add(InterfaceMesh->Peek_Mesh_Object());\n \t\tRefCountPtr<FontSys> name_text = Create_Peek(Unknown_BE67C4->Get_Style(\"Name_tsm01a\", InterfaceMesh->Peek_Mesh_Object()));\n \t\tRefCountPtr<RenderObjClass> name_obj = Create_Get(InterfaceMesh->Peek_Object()->Get_Sub_Object_By_Name(\"name\"));\n-\t\tname_text->Set_Sort_Level(name_obj->Get_Sort_Level() - 1);\n+\t\tint name_sort_level = name_obj->Get_Sort_Level() - 1; name_text->Set_Sort_Level(name_sort_level);\n \t\tchar buffer[264];\n \t\tfor (int i = 0; i < 10; i++) {\n \t\t\tsprintf(buffer, \"desc%02d_tsm01a\", i);\n\nFORM row_sort_value\nsource_sha256 4d5c07059ccf26bc24c0b97db675790e03b91511abbf9efb6274072f1790c43e\n--- app/client/ui_manu.cpp\n+++ app/client/ui_manu.cpp\n@@ -242,7 +242,7 @@\n \t\tfor (int i = 0; i < 10; i++) {\n \t\t\tsprintf(buffer, \"desc%02d_tsm01a\", i);\n \t\t\tUnknown16C[i] = Create_Peek(Unknown_BE67C4->Get_Style(buffer, InterfaceMesh->Peek_Mesh_Object()));\n-\t\t\tUnknown16C[i]->Set_Sort_Level(Unknown0E8[i]->RObj->Get_Sort_Level() + 1);\n+\t\t\tint row_sort_level = Unknown0E8[i]->RObj->Get_Sort_Level() + 1; Unknown16C[i]->Set_Sort_Level(row_sort_level);\n \t\t\tUnknown16C[i]->Change_Text(\"\", 0);\n \t\t\tsprintf(buffer, \"var%02d_tsm01a\", i);\n \t\t\tUnknown194[i] = Create_Peek(Unknown_BE67C4->Get_Style(buffer, InterfaceMesh->Peek_Mesh_Object()));\n\nFORM both_sort_values\nsource_sha256 5a8848e7951bc156c44605ad525c7fea40f77deecf2d9f3559f3eaaa94fc0098\n--- app/client/ui_manu.cpp\n+++ app/client/ui_manu.cpp\n@@ -237,12 +237,12 @@\n \t\tUnknown_BE67C4->Add(InterfaceMesh->Peek_Mesh_Object());\n \t\tRefCountPtr<FontSys> name_text = Create_Peek(Unknown_BE67C4->Get_Style(\"Name_tsm01a\", InterfaceMesh->Peek_Mesh_Object()));\n \t\tRefCountPtr<RenderObjClass> name_obj = Create_Get(InterfaceMesh->Peek_Object()->Get_Sub_Object_By_Name(\"name\"));\n-\t\tname_text->Set_Sort_Level(name_obj->Get_Sort_Level() - 1);\n+\t\tint name_sort_level = name_obj->Get_Sort_Level() - 1; name_text->Set_Sort_Level(name_sort_level);\n \t\tchar buffer[264];\n \t\tfor (int i = 0; i < 10; i++) {\n \t\t\tsprintf(buffer, \"desc%02d_tsm01a\", i);\n \t\t\tUnknown16C[i] = Create_Peek(Unknown_BE67C4->Get_Style(buffer, InterfaceMesh->Peek_Mesh_Object()));\n-\t\t\tUnknown16C[i]->Set_Sort_Level(Unknown0E8[i]->RObj->Get_Sort_Level() + 1);\n+\t\t\tint row_sort_level = Unknown0E8[i]->RObj->Get_Sort_Level() + 1; Unknown16C[i]->Set_Sort_Level(row_sort_level);\n \t\t\tUnknown16C[i]->Change_Text(\"\", 0);\n \t\t\tsprintf(buffer, \"var%02d_tsm01a\", i);\n \t\t\tUnknown194[i] = Create_Peek(Unknown_BE67C4->Get_Style(buffer, InterfaceMesh->Peek_Mesh_Object()));\n\nMETRICS\n[\n  {\n    \"name\": \"sorts_buffer256\",\n    \"compiled\": true,\n    \"target_exact\": false,\n    \"source_sha256\": \"98a82919052b47af309c80aa88631376cac660fe741e1e9012e0189d2d4915c6\",\n    \"lost_addresses\": [],\n    \"gained_addresses\": [],\n    \"error\": null,\n    \"class\": \"register-only\",\n    \"residue\": 17,\n    \"regs\": 6,\n    \"instructions\": [\n      291,\n      291\n    ],\n    \"code_group\": \"db679cdaf9e5\",\n    \"exact\": false,\n    \"kind\": \"new_valid_hypothesis\",\n    \"file_address_pair_count\": 140,\n    \"file_address_pairs_gained\": [],\n    \"file_address_pairs_lost\": [],\n    \"summary\": \"5B0BB0/runs/b2-q1hr_m7j/summary.json\",\n    \"patch_replay_sha256_verified\": true\n  },\n  {\n    \"name\": \"sorts_packet_input\",\n    \"compiled\": true,\n    \"target_exact\": false,\n    \"source_sha256\": \"867ca25ca9e97603ea68e4f4ba2226803623093d3c42a98125f05c33d7b204bd\",\n    \"lost_addresses\": [],\n    \"gained_addresses\": [],\n    \"error\": null,\n    \"class\": \"frame\",\n    \"residue\": 0,\n    \"regs\": 0,\n    \"instructions\": [\n      291,\n      291\n    ],\n    \"code_group\": \"65d0cc6899a8\",\n    \"exact\": false,\n    \"kind\": \"new_valid_hypothesis\",\n    \"file_address_pair_count\": 140,\n    \"file_address_pairs_gained\": [],\n    \"file_address_pairs_lost\": [],\n    \"summary\": \"5B0BB0/runs/b2-q1hr_m7j/summary.json\",\n    \"patch_replay_sha256_verified\": true\n  },\n  {\n    \"name\": \"sorts_mesh_input\",\n    \"compiled\": true,\n    \"target_exact\": false,\n    \"source_sha256\": \"7334c64670c449d2147f0868042501cd08ae0ebcfa1c341459f0855c26932211\",\n    \"lost_addresses\": [],\n    \"gained_addresses\": [],\n    \"error\": null,\n    \"class\": \"frame\",\n    \"residue\": 17,\n    \"regs\": 6,\n    \"instructions\": [\n      291,\n      291\n    ],\n    \"code_group\": \"db679cdaf9e5\",\n    \"exact\": false,\n    \"kind\": \"new_valid_hypothesis\",\n    \"file_address_pair_count\": 140,\n    \"file_address_pairs_gained\": [],\n    \"file_address_pairs_lost\": [],\n    \"summary\": \"5B0BB0/runs/b2-q1hr_m7j/summary.json\",\n    \"patch_replay_sha256_verified\": true\n  },\n  {\n    \"name\": \"sorts_buffer_packet_mesh\",\n    \"compiled\": true,\n    \"target_exact\": true,\n    \"source_sha256\": \"5f49daf80f4eac7049df8a2851e597bbc14c5a229dbc9a245ee3606277ac7526\",\n    \"lost_addresses\": [],\n    \"gained_addresses\": [\n      \"0x5B0BB0\"\n    ],\n    \"error\": null,\n    \"class\": \"identical\",\n    \"residue\": 0,\n    \"regs\": 0,\n    \"instructions\": [\n      291,\n      291\n    ],\n    \"code_group\": \"65d0cc6899a8\",\n    \"exact\": true,\n    \"kind\": \"new_valid_hypothesis\",\n    \"file_address_pair_count\": 141,\n    \"file_address_pairs_gained\": [\n      [\n        \"app/client/ui_manu.cpp\",\n        \"0x5B0BB0\"\n      ]\n    ],\n    \"file_address_pairs_lost\": [],\n    \"summary\": \"5B0BB0/runs/b2-q1hr_m7j/summary.json\",\n    \"patch_replay_sha256_verified\": true\n  },\n  {\n    \"name\": \"name_sort_value\",\n    \"compiled\": true,\n    \"target_exact\": false,\n    \"source_sha256\": \"0f85e1c37d154108430fa32fff0a8a469d63e26401df9626a788dbf748dcdcce\",\n    \"lost_addresses\": [],\n    \"gained_addresses\": [],\n    \"error\": null,\n    \"class\": \"frame\",\n    \"residue\": 63,\n    \"regs\": 26,\n    \"instructions\": [\n      297,\n      291\n    ],\n    \"code_group\": \"8d8ed655285a\",\n    \"exact\": false,\n    \"kind\": \"new_valid_hypothesis\",\n    \"file_address_pair_count\": 140,\n    \"file_address_pairs_gained\": [],\n    \"file_address_pairs_lost\": [],\n    \"summary\": \"5B0BB0/runs/initial-9i0756ej/summary.json\",\n    \"patch_replay_sha256_verified\": true\n  },\n  {\n    \"name\": \"row_sort_value\",\n    \"compiled\": true,\n    \"target_exact\": false,\n    \"source_sha256\": \"4d5c07059ccf26bc24c0b97db675790e03b91511abbf9efb6274072f1790c43e\",\n    \"lost_addresses\": [],\n    \"gained_addresses\": [],\n    \"error\": null,\n    \"class\": \"frame\",\n    \"residue\": 24,\n    \"regs\": 12,\n    \"instructions\": [\n      293,\n      291\n    ],\n    \"code_group\": \"9083a4bd3102\",\n    \"exact\": false,\n    \"kind\": \"new_valid_hypothesis\",\n    \"file_address_pair_count\": 140,\n    \"file_address_pairs_gained\": [],\n    \"file_address_pairs_lost\": [],\n    \"summary\": \"5B0BB0/runs/initial-9i0756ej/summary.json\",\n    \"patch_replay_sha256_verified\": true\n  },\n  {\n    \"name\": \"both_sort_values\",\n    \"compiled\": true,\n    \"target_exact\": false,\n    \"source_sha256\": \"5a8848e7951bc156c44605ad525c7fea40f77deecf2d9f3559f3eaaa94fc0098\",\n    \"lost_addresses\": [],\n    \"gained_addresses\": [],\n    \"error\": null,\n    \"class\": \"frame\",\n    \"residue\": 17,\n    \"regs\": 6,\n    \"instructions\": [\n      291,\n      291\n    ],\n    \"code_group\": \"db679cdaf9e5\",\n    \"exact\": false,\n    \"kind\": \"new_valid_hypothesis\",\n    \"file_address_pair_count\": 140,\n    \"file_address_pairs_gained\": [],\n    \"file_address_pairs_lost\": [],\n    \"summary\": \"5B0BB0/runs/initial-9i0756ej/summary.json\",\n    \"patch_replay_sha256_verified\": true\n  }\n]\n",
+  "root_final_audit": {
+    "target": "0x5b0bb0",
+    "object": ".work/claim-267/manufacturing/root-final-5B0BB0/runs/manifest-wh8tyf80/root_final/ui_manu.obj",
+    "full_body_bytes": 999,
+    "retail_last_byte": "0x5b0f96",
+    "instructions": 291,
+    "nonrelocated_bytes": 823,
+    "full_masked_body_equal": true,
+    "branches_and_returns": [
+      [
+        "0x66",
+        "jne 0x3cf"
+      ],
+      [
+        "0x1bd",
+        "je 0x1c2"
+      ],
+      [
+        "0x1c6",
+        "je 0x1d5"
+      ],
+      [
+        "0x1cf",
+        "jne 0x1d5"
+      ],
+      [
+        "0x1e8",
+        "je 0x207"
+      ],
+      [
+        "0x1f9",
+        "jne 0x1ff"
+      ],
+      [
+        "0x27c",
+        "je 0x281"
+      ],
+      [
+        "0x286",
+        "je 0x295"
+      ],
+      [
+        "0x28f",
+        "jne 0x295"
+      ],
+      [
+        "0x2a9",
+        "je 0x2c8"
+      ],
+      [
+        "0x2ba",
+        "jne 0x2c0"
+      ],
+      [
+        "0x2de",
+        "jl 0x173"
+      ],
+      [
+        "0x32b",
+        "je 0x339"
+      ],
+      [
+        "0x377",
+        "je 0x392"
+      ],
+      [
+        "0x388",
+        "jne 0x38e"
+      ],
+      [
+        "0x3a0",
+        "je 0x3bb"
+      ],
+      [
+        "0x3b1",
+        "jne 0x3b7"
+      ],
+      [
+        "0x3e6",
+        "ret"
+      ]
+    ],
+    "relocations": [
+      {
+        "offset": "0x3",
+        "symbol": "$L121849",
+        "type": 6,
+        "addend": 0,
+        "client_target": "0xab4bd2",
+        "resolved_target": "0xab4bd2",
+        "status": "six-state-eh-stub-audited"
+      },
+      {
+        "offset": "0x9",
+        "symbol": "__except_list",
+        "type": 6,
+        "addend": 0,
+        "client_target": "0x0",
+        "resolved_target": "0x0",
+        "status": "absolute-fs-zero"
+      },
+      {
+        "offset": "0x11",
+        "symbol": "__except_list",
+        "type": 6,
+        "addend": 0,
+        "client_target": "0x0",
+        "resolved_target": "0x0",
+        "status": "absolute-fs-zero"
+      },
+      {
+        "offset": "0x3c",
+        "symbol": "??0ManufactureItemCatagoryPacketClass@@QAE@HH@Z",
+        "type": 20,
+        "addend": 0,
+        "client_target": "0x40f8d5",
+        "resolved_target": "0x89b340",
+        "status": "known-symbol"
+      },
+      {
+        "offset": "0x50",
+        "symbol": "?Send_Packet@ClientClass@@QAE_NPAVPacketClass@@@Z",
+        "type": 20,
+        "addend": 0,
+        "client_target": "0x41487b",
+        "resolved_target": "0x728150",
+        "status": "known-symbol"
+      },
+      {
+        "offset": "0x73",
+        "symbol": "??0InterfaceSortScopeClass@@QAE@PAVInterfaceClass@@@Z",
+        "type": 20,
+        "addend": 0,
+        "client_target": "0x412544",
+        "resolved_target": "0x541980",
+        "status": "known-symbol"
+      },
+      {
+        "offset": "0x95",
+        "symbol": "?Unknown_695780@PDAInterfaceClass@@QAE_NH@Z",
+        "type": 20,
+        "addend": 0,
+        "client_target": "0x408837",
+        "resolved_target": "0x695780",
+        "status": "named-address"
+      },
+      {
+        "offset": "0xa8",
+        "symbol": "?Unknown_5B6CA0@UIManuClass@@QAEXXZ",
+        "type": 20,
+        "addend": 0,
+        "client_target": "0x40f501",
+        "resolved_target": "0x5b6ca0",
+        "status": "named-address"
+      },
+      {
+        "offset": "0xd4",
+        "symbol": "?Unknown_66FA90@GadgetSlider@@QAEXMM_N@Z",
+        "type": 20,
+        "addend": 0,
+        "client_target": "0x405e93",
+        "resolved_target": "0x66fa90",
+        "status": "named-address"
+      },
+      {
+        "offset": "0xdb",
+        "symbol": "?Unknown_5B2950@UIManuClass@@QAEXXZ",
+        "type": 20,
+        "addend": 0,
+        "client_target": "0x416b35",
+        "resolved_target": "0x5b2950",
+        "status": "named-address"
+      },
+      {
+        "offset": "0xea",
+        "symbol": "?Unknown_BE67C4@@3PAVFontManagerClass@@A",
+        "type": 6,
+        "addend": 0,
+        "client_target": "0xbe67c4",
+        "resolved_target": "0xbe67c4",
+        "status": "named-address"
+      },
+      {
+        "offset": "0xf0",
+        "symbol": "?Add@FontManagerClass@@QAEPAVManagedFontClass@@PAVRenderObjClass@@@Z",
+        "type": 20,
+        "addend": 0,
+        "client_target": "0x411801",
+        "resolved_target": "0x6d1d80",
+        "status": "header-address"
+      },
+      {
+        "offset": "0xfc",
+        "symbol": "?Unknown_BE67C4@@3PAVFontManagerClass@@A",
+        "type": 6,
+        "addend": 0,
+        "client_target": "0xbe67c4",
+        "resolved_target": "0xbe67c4",
+        "status": "named-address"
+      },
+      {
+        "offset": "0x105",
+        "symbol": "??_C@_0M@FGFL@Name_tsm01a?$AA@",
+        "type": 6,
+        "addend": 0,
+        "client_target": "0xb81a6c",
+        "resolved_target": "0xb81a6c",
+        "status": "exact-literal"
+      },
+      {
+        "offset": "0x10a",
+        "symbol": "?Get_Style@FontManagerClass@@QAEPAVFontSys@@PBDPAVRenderObjClass@@@Z",
+        "type": 20,
+        "addend": 0,
+        "client_target": "0x40269e",
+        "resolved_target": "0x6d25d0",
+        "status": "header-address"
+      },
+      {
+        "offset": "0x115",
+        "symbol": "?Create_Peek@@YA?AV?$RefCountPtr@VFontSys@@@@PAVFontSys@@@Z",
+        "type": 20,
+        "addend": 0,
+        "client_target": "0x404e80",
+        "resolved_target": "0x546510",
+        "status": "known-symbol"
+      },
+      {
+        "offset": "0x12b",
+        "symbol": "?Peek_Object@UIMeshClass@@QAEPAVRenderObjClass@@XZ",
+        "type": 20,
+        "addend": 0,
+        "client_target": "0x40181b",
+        "resolved_target": "0x5b8b00",
+        "status": "known-symbol"
+      },
+      {
+        "offset": "0x132",
+        "symbol": "??_C@_04OPJK@name?$AA@",
+        "type": 6,
+        "addend": 0,
+        "client_target": "0xb6ef6c",
+        "resolved_target": "0xb6ef6c",
+        "status": "exact-literal"
+      },
+      {
+        "offset": "0x142",
+        "symbol": "?Create_Get@@YA?AV?$RefCountPtr@VRenderObjClass@@@@PAVRenderObjClass@@@Z",
+        "type": 20,
+        "addend": 0,
+        "client_target": "0x412797",
+        "resolved_target": "0x474080",
+        "status": "known-symbol"
+      },
+      {
+        "offset": "0x179",
+        "symbol": "??_C@_0BA@MEEI@desc?$CF02d_tsm01a?$AA@",
+        "type": 6,
+        "addend": 0,
+        "client_target": "0xb81a58",
+        "resolved_target": "0xb81a58",
+        "status": "exact-literal"
+      },
+      {
+        "offset": "0x17f",
+        "symbol": "_sprintf",
+        "type": 20,
+        "addend": 0,
+        "client_target": "0xa266da",
+        "resolved_target": "0xa266da",
+        "status": "known-symbol"
+      },
+      {
+        "offset": "0x195",
+        "symbol": "?Unknown_BE67C4@@3PAVFontManagerClass@@A",
+        "type": 6,
+        "addend": 0,
+        "client_target": "0xbe67c4",
+        "resolved_target": "0xbe67c4",
+        "status": "named-address"
+      },
+      {
+        "offset": "0x19c",
+        "symbol": "?Get_Style@FontManagerClass@@QAEPAVFontSys@@PBDPAVRenderObjClass@@@Z",
+        "type": 20,
+        "addend": 0,
+        "client_target": "0x40269e",
+        "resolved_target": "0x6d25d0",
+        "status": "header-address"
+      },
+      {
+        "offset": "0x1a7",
+        "symbol": "?Create_Peek@@YA?AV?$RefCountPtr@VFontSys@@@@PAVFontSys@@@Z",
+        "type": 20,
+        "addend": 0,
+        "client_target": "0x404e80",
+        "resolved_target": "0x546510",
+        "status": "known-symbol"
+      },
+      {
+        "offset": "0x229",
+        "symbol": "??_C@_00A@?$AA@",
+        "type": 6,
+        "addend": 0,
+        "client_target": "0xbda908",
+        "resolved_target": "0xbda908",
+        "status": "source-empty-literal"
+      },
+      {
+        "offset": "0x22e",
+        "symbol": "?Change_Text@FontSys@@QAEXPBDH@Z",
+        "type": 20,
+        "addend": 0,
+        "client_target": "0x4139ad",
+        "resolved_target": "0x6cdbc0",
+        "status": "header-address"
+      },
+      {
+        "offset": "0x238",
+        "symbol": "??_C@_0P@NAHF@var?$CF02d_tsm01a?$AA@",
+        "type": 6,
+        "addend": 0,
+        "client_target": "0xb81a44",
+        "resolved_target": "0xb81a44",
+        "status": "exact-literal"
+      },
+      {
+        "offset": "0x23e",
+        "symbol": "_sprintf",
+        "type": 20,
+        "addend": 0,
+        "client_target": "0xa266da",
+        "resolved_target": "0xa266da",
+        "status": "known-symbol"
+      },
+      {
+        "offset": "0x254",
+        "symbol": "?Unknown_BE67C4@@3PAVFontManagerClass@@A",
+        "type": 6,
+        "addend": 0,
+        "client_target": "0xbe67c4",
+        "resolved_target": "0xbe67c4",
+        "status": "named-address"
+      },
+      {
+        "offset": "0x25b",
+        "symbol": "?Get_Style@FontManagerClass@@QAEPAVFontSys@@PBDPAVRenderObjClass@@@Z",
+        "type": 20,
+        "addend": 0,
+        "client_target": "0x40269e",
+        "resolved_target": "0x6d25d0",
+        "status": "header-address"
+      },
+      {
+        "offset": "0x266",
+        "symbol": "?Create_Peek@@YA?AV?$RefCountPtr@VFontSys@@@@PAVFontSys@@@Z",
+        "type": 20,
+        "addend": 0,
+        "client_target": "0x404e80",
+        "resolved_target": "0x546510",
+        "status": "known-symbol"
+      },
+      {
+        "offset": "0x2ce",
+        "symbol": "??_C@_00A@?$AA@",
+        "type": 6,
+        "addend": 0,
+        "client_target": "0xbda908",
+        "resolved_target": "0xbda908",
+        "status": "source-empty-literal"
+      },
+      {
+        "offset": "0x2d3",
+        "symbol": "?Change_Text@FontSys@@QAEXPBDH@Z",
+        "type": 20,
+        "addend": 0,
+        "client_target": "0x4139ad",
+        "resolved_target": "0x6cdbc0",
+        "status": "header-address"
+      },
+      {
+        "offset": "0x2eb",
+        "symbol": "?Unknown_69DC40@SBaseViewClass@@QAEXXZ",
+        "type": 20,
+        "addend": 0,
+        "client_target": "0x4038d2",
+        "resolved_target": "0x69dc40",
+        "status": "named-address"
+      },
+      {
+        "offset": "0x313",
+        "symbol": "?Unknown_58@Unknown5BB320Class@@UAEXXZ",
+        "type": 20,
+        "addend": 0,
+        "client_target": "0x40c252",
+        "resolved_target": "0x5bb550",
+        "status": "known-symbol"
+      },
+      {
+        "offset": "0x322",
+        "symbol": "?Unknown_74BF80@SClient@@QAEPAVClientObjectClass@@XZ",
+        "type": 20,
+        "addend": 0,
+        "client_target": "0x409f7a",
+        "resolved_target": "0x74bf80",
+        "status": "named-address"
+      },
+      {
+        "offset": "0x33c",
+        "symbol": "?Unknown_5B4B10@UIManuClass@@QAEXXZ",
+        "type": 20,
+        "addend": 0,
+        "client_target": "0x40e755",
+        "resolved_target": "0x5b4b10",
+        "status": "named-address"
+      },
+      {
+        "offset": "0x343",
+        "symbol": "?Unknown_5B3E00@UIManuClass@@QAEXXZ",
+        "type": 20,
+        "addend": 0,
+        "client_target": "0x411dc9",
+        "resolved_target": "0x5b3e00",
+        "status": "named-address"
+      },
+      {
+        "offset": "0x34a",
+        "symbol": "?Unknown_5B2480@UIManuClass@@QAEXXZ",
+        "type": 20,
+        "addend": 0,
+        "client_target": "0x40713f",
+        "resolved_target": "0x5b2480",
+        "status": "named-address"
+      },
+      {
+        "offset": "0x353",
+        "symbol": "?Unknown_5B2BD0@UIManuClass@@QAEX_N@Z",
+        "type": 20,
+        "addend": 0,
+        "client_target": "0x4122c9",
+        "resolved_target": "0x5b2bd0",
+        "status": "named-address"
+      },
+      {
+        "offset": "0x35a",
+        "symbol": "?Unknown_5B2230@UIManuClass@@QAEXXZ",
+        "type": 20,
+        "addend": 0,
+        "client_target": "0x411cc0",
+        "resolved_target": "0x5b2230",
+        "status": "named-address"
+      },
+      {
+        "offset": "0x365",
+        "symbol": "?Unknown_744560@SClient@@QAEXH@Z",
+        "type": 20,
+        "addend": 0,
+        "client_target": "0x40cb99",
+        "resolved_target": "0x744560",
+        "status": "named-address"
+      },
+      {
+        "offset": "0x3cb",
+        "symbol": "??1InterfaceSortClass@@QAE@XZ",
+        "type": 20,
+        "addend": 0,
+        "client_target": "0x40f7e0",
+        "resolved_target": "0x6e18b0",
+        "status": "known-symbol"
+      },
+      {
+        "offset": "0x3dc",
+        "symbol": "__except_list",
+        "type": 6,
+        "addend": 0,
+        "client_target": "0x0",
+        "resolved_target": "0x0",
+        "status": "absolute-fs-zero"
+      }
+    ],
+    "funcinfo": {
+      "stub": "0xab4bd2",
+      "fields": [
+        429065504,
+        6,
+        11741272,
+        0,
+        0,
+        0,
+        0
+      ],
+      "object_fields": [
+        429065504,
+        6,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "unwind_states": [
+      {
+        "state": 0,
+        "previous": -1,
+        "action": "0xab4b90",
+        "bytes": 11,
+        "masked_body_equal": true,
+        "relocations": [
+          {
+            "offset": "0x7",
+            "symbol": "??1ManufactureItemCatagoryPacketClass@@UAE@XZ",
+            "type": 20,
+            "addend": 0,
+            "client_target": "0x4183ef",
+            "resolved_target": "0x544250",
+            "status": "known-symbol"
+          }
+        ]
+      },
+      {
+        "state": 1,
+        "previous": -1,
+        "action": "0xab4b9b",
+        "bytes": 11,
+        "masked_body_equal": true,
+        "relocations": [
+          {
+            "offset": "0x7",
+            "symbol": "??1InterfaceSortScopeClass@@QAE@XZ",
+            "type": 20,
+            "addend": 0,
+            "client_target": "0x40c135",
+            "resolved_target": "0x5411f0",
+            "status": "known-symbol"
+          }
+        ]
+      },
+      {
+        "state": 2,
+        "previous": 1,
+        "action": "0xab4ba6",
+        "bytes": 11,
+        "masked_body_equal": true,
+        "relocations": [
+          {
+            "offset": "0x7",
+            "symbol": "??1?$RefCountPtr@VFontSys@@@@QAE@XZ",
+            "type": 20,
+            "addend": 0,
+            "client_target": "0x409ac0",
+            "resolved_target": "0x51c630",
+            "status": "known-symbol"
+          }
+        ]
+      },
+      {
+        "state": 3,
+        "previous": 2,
+        "action": "0xab4bb1",
+        "bytes": 11,
+        "masked_body_equal": true,
+        "relocations": [
+          {
+            "offset": "0x7",
+            "symbol": "??1?$RefCountPtr@VRenderObjClass@@@@QAE@XZ",
+            "type": 20,
+            "addend": 0,
+            "client_target": "0x40e2d2",
+            "resolved_target": "0x4740b0",
+            "status": "known-symbol"
+          }
+        ]
+      },
+      {
+        "state": 4,
+        "previous": 3,
+        "action": "0xab4bbc",
+        "bytes": 11,
+        "masked_body_equal": true,
+        "relocations": [
+          {
+            "offset": "0x7",
+            "symbol": "??1?$RefCountPtr@VFontSys@@@@QAE@XZ",
+            "type": 20,
+            "addend": 0,
+            "client_target": "0x409ac0",
+            "resolved_target": "0x51c630",
+            "status": "known-symbol"
+          }
+        ]
+      },
+      {
+        "state": 5,
+        "previous": 3,
+        "action": "0xab4bc7",
+        "bytes": 11,
+        "masked_body_equal": true,
+        "relocations": [
+          {
+            "offset": "0x7",
+            "symbol": "??1?$RefCountPtr@VFontSys@@@@QAE@XZ",
+            "type": 20,
+            "addend": 0,
+            "client_target": "0x409ac0",
+            "resolved_target": "0x51c630",
+            "status": "known-symbol"
+          }
+        ]
+      }
+    ],
+    "relocaudit_disagreements": [],
+    "floating_point_instructions": []
+  },
+  "root_final_patch": "diff --git a/app/client/ui_manu.cpp b/app/client/ui_manu.cpp\nindex 6a854b7c..eb70fb19 100644\n--- a/app/client/ui_manu.cpp\n+++ b/app/client/ui_manu.cpp\n@@ -218,11 +218,11 @@ void UIManuClass::Unknown_7C(UIViewClass *view, bool arg)\n \n \n \n-// NOT EXACT: inline budget (0x5B2820 inlined, its 0x5B6CA0 / 0x5B2950 out of line as the client's; left: the sort scope's stores and the font-style block's temporaries; the client's frame is 0xC bytes smaller) (0x5B0BB0)\n+\n void UIManuClass::Unknown_58()\n {\n \tSClient *sclient = Client->As_Space_Client();\n-\t((ClientClass *)Client)->Send_Packet(&ManufactureItemCatagoryPacketClass(sclient->Unknown1138, 1));\n+\tint player_id; ((ClientClass *)Client)->Send_Packet(&ManufactureItemCatagoryPacketClass(player_id = sclient->Unknown1138, 1));\t// NAME 1 [player_id]: neutral (D10)\n \tif (State == UI_CLOSED) {\n \t\tInterfaceSortScopeClass scope(this);\n \t\tState = UI_OPEN;\n@@ -234,15 +234,15 @@ void UIManuClass::Unknown_58()\n \n \n \n-\t\tUnknown_BE67C4->Add(InterfaceMesh->Peek_Mesh_Object());\n+\t\tRenderObjClass *mesh = InterfaceMesh->Peek_Mesh_Object(); Unknown_BE67C4->Add(mesh);\t// NAME 1 [mesh]: neutral (D10)\n \t\tRefCountPtr<FontSys> name_text = Create_Peek(Unknown_BE67C4->Get_Style(\"Name_tsm01a\", InterfaceMesh->Peek_Mesh_Object()));\n \t\tRefCountPtr<RenderObjClass> name_obj = Create_Get(InterfaceMesh->Peek_Object()->Get_Sub_Object_By_Name(\"name\"));\n-\t\tname_text->Set_Sort_Level(name_obj->Get_Sort_Level() - 1);\n-\t\tchar buffer[264];\n+\t\tint name_sort_level = name_obj->Get_Sort_Level() - 1; name_text->Set_Sort_Level(name_sort_level);\t// NAME 1 [name_sort_level]: neutral (D10)\n+\t\tchar buffer[256];\n \t\tfor (int i = 0; i < 10; i++) {\n \t\t\tsprintf(buffer, \"desc%02d_tsm01a\", i);\n \t\t\tUnknown16C[i] = Create_Peek(Unknown_BE67C4->Get_Style(buffer, InterfaceMesh->Peek_Mesh_Object()));\n-\t\t\tUnknown16C[i]->Set_Sort_Level(Unknown0E8[i]->RObj->Get_Sort_Level() + 1);\n+\t\t\tint row_sort_level = Unknown0E8[i]->RObj->Get_Sort_Level() + 1; Unknown16C[i]->Set_Sort_Level(row_sort_level);\t// NAME 1 [row_sort_level]: neutral (D10)\n \t\t\tUnknown16C[i]->Change_Text(\"\", 0);\n \t\t\tsprintf(buffer, \"var%02d_tsm01a\", i);\n \t\t\tUnknown194[i] = Create_Peek(Unknown_BE67C4->Get_Style(buffer, InterfaceMesh->Peek_Mesh_Object()));\n@@ -1874,3 +1874,7 @@ void UIManuClass::Unknown_5B6D30()\n template UIManuListClass *Unknown_Find_Field<UIManuListClass>(DeltaCompoundClass *root, const NameClass &name);\t// D164: not the client's form; emits auxdata.h's find for the lists out of line (0x5B70C0, which the client's 0x5B16C0 calls) now that 0x5B5320's 'PreviousAttempts' find is 0x5B3580's set find (0x5B6DB0)\n template UIManuComponentsClass *Unknown_Find_Field<UIManuComponentsClass>(DeltaCompoundClass *root, const NameClass &name);\t// D164: not the client's form; emits auxdata.h's 'ManufactureTarget' find out of line (0x5B7050, which the client's 0x5B5CD0 calls)\n template class UnknownRTTIClass<UIManuTechLevelFilterClass>;\t// D164: emits the filter Cast out of line (0x5B7300, which the client's 0x5B4B10 calls)\n+\n+// 0x5B0BB0 is exact: retain a 256-byte label buffer, assign the player ID at its packet argument,\n+// name the font-manager mesh input and copy sort values before their setters. All original callbacks\n+// and reference-counted temporary lifetimes are preserved.\n",
+  "root_final_source_sha256": "18c3ce1e3b106730fa095679ac44c244f3d31e7399543ffc4c97bfeb08c7e409",
+  "semantics": "Buffer used only for desc%02d_tsm01a and var%02d_tsm01a with i0..9;256bytes safely contains both. Actual player/mesh/sort inputs preserve callbacks and lifetimes; no crossargument dependency."
+}

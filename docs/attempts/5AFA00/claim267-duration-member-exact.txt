@@ -1,0 +1,28 @@
+{
+  "hypothesis": "A267-11",
+  "analysis": "gpt-6-astra (high)",
+  "implementation_testing": "gpt-6.1-sol (high)",
+  "parts": [
+    "docs/attempts/5AFA00/claim267-duration-member/A267-11-baseline-0x5AFA00.json",
+    "docs/attempts/5AFA00/claim267-duration-member/A267-11-baseline-0x5B1230.json",
+    "docs/attempts/5AFA00/claim267-duration-member/A267-11-duration_member_representation-0x5AFA00.json",
+    "docs/attempts/5AFA00/claim267-duration-member/A267-11-duration_member_representation-0x5B1230.json",
+    "docs/attempts/5AFA00/claim267-duration-member/A267-11-includer-sbaseview-baseline.json",
+    "docs/attempts/5AFA00/claim267-duration-member/A267-11-includer-sbaseview-duration_header.json",
+    "docs/attempts/5AFA00/claim267-duration-member/A267-11-includer-ui_manu_util-baseline.json",
+    "docs/attempts/5AFA00/claim267-duration-member/A267-11-includer-ui_manu_util-duration_header.json",
+    "docs/attempts/5AFA00/claim267-duration-member/A267-11-includer-ui_ptrade-baseline.json",
+    "docs/attempts/5AFA00/claim267-duration-member/A267-11-includer-ui_ptrade-duration_header.json",
+    "docs/attempts/5AFA00/claim267-duration-member/A267-11-root-confirmation-sbaseview.json",
+    "docs/attempts/5AFA00/claim267-duration-member/A267-11-root-confirmation-ui_manu.json",
+    "docs/attempts/5AFA00/claim267-duration-member/A267-11-root-confirmation-ui_manu_util.json",
+    "docs/attempts/5AFA00/claim267-duration-member/A267-11-root-confirmation-ui_ptrade.json",
+    "docs/attempts/5AFA00/claim267-duration-member/A267-11-validation-proof.json",
+    "docs/attempts/5AFA00/claim267-duration-member/layout-results.json",
+    "docs/attempts/5AFA00/claim267-duration-member/A267-11-dependencies.json",
+    "docs/attempts/5AFA00/claim267-duration-member/A267-11-root-final-ctor-audit.json"
+  ],
+  "result": "Shared timer member represented by existing DurationClass;scalarTime operations preserved. Constructor5AFA00 exact andvptr-backed4A1930holder gained. Independentrootfourconsumercomparison411 ->413,+2/-0;manufacturing142 ->144;otherconsumers12/99/158unchanged. sizeofUIManuClassBC8align8andall29ownoffsetsunchanged;DurationClasssize8align8Timeoffset0.",
+  "root_cpp_sha256": "f3bb5d219fb5b39d615c205a65b93e28c142c4d77bf19083969e1d0e32c74cd8",
+  "root_header_sha256": "862ba35eeb96f78b0a3afc3c053679232780feca9f960fb8f39b2c8a337d5c44"
+}

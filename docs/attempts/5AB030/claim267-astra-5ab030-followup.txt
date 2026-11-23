@@ -1,0 +1,17 @@
+{
+  "analysis_model": "gpt-6-astra (high)",
+  "test_model": "gpt-6.1-sol (high)",
+  "hypothesis_ids": [
+    "A267-07",
+    "A267-09"
+  ],
+  "parts": [
+    "docs/attempts/5B1230/claim267-astra-tests/A267-07-baseline.json",
+    "docs/attempts/5B1230/claim267-astra-tests/A267-07-sequenced_flags_at_constructor_argument.json",
+    "docs/attempts/5B1230/claim267-astra-tests/A267-09-baseline.json",
+    "docs/attempts/5B1230/claim267-astra-tests/A267-09-entry_temporary_lifetime_reference.json"
+  ],
+  "results": "docs/attempts/5B1230/claim267-astra-tests/results.json",
+  "constraints": "docs/attempts/5B1230/claim267-astra-tests/constraints.json",
+  "evidence": "A267-07 sequential flags reads after allocation worsen13/4 ->64/6;A267-09 smart-pointer return lifetime canonical13/4 and6EHstates;all63actualpairs preserved,no source adoption."
+}

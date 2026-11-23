@@ -1,0 +1,80 @@
+{
+  "schema_version": 1,
+  "model": "gpt-6-astra",
+  "reasoning_effort": "high",
+  "analysis_only": true,
+  "production_head": "84ea059a",
+  "target": "0x5B1230",
+  "conclusion": "One remaining caller-only lifetime hypothesis, with at most two bounded forms. There is no supported caller-only reconstruction of the missing helper depth beyond this test. Do not create another wrapper or change the out-of-claim 3640 body.",
+  "hypotheses": [
+    {
+      "id": "A267-N1",
+      "priority": 1,
+      "confidence": "Modest: the Name lifetime requirement is experimentally supported; its ability to fix the inline boundary with the outer context retained remains unproven.",
+      "seed_paths": [
+        ".work/claim-267/manu-cross-followup/root-final-components/ui_manu.cpp",
+        "app/client/ui_manu.cpp@84ea059a"
+      ],
+      "comparison_control": ".work/claim-267/manu-cross-followup/root-final-components/runs/manifest-kz_8hl_o/root_final/matches.json",
+      "control_metrics": {
+        "pairs": 145,
+        "rows": [28, 11],
+        "instructions": [249, 255],
+        "frame": "0x3C",
+        "known_wrong_boundary": "Unknown_Find_Valid_List called whole inside the inlined Unknown_5B3640"
+      },
+      "variants": [
+        {
+          "name": "positive_outer_context_validity_temporary",
+          "exact_recipe": [
+            "In UIManuClass::Unknown_60 ONLY, replace NameClass name(\"Validity\"); and the following validity initializer with a blank line plus DeltaTemplateClass<UnknownB01394Enum> *validity = Unknown_Find_Valid<DeltaTemplateClass<UnknownB01394Enum> >((DeltaCompoundClass *)Unknown0BA0, NameClass(\"Validity\"));.",
+            "Retain the actual Unknown_5B3640(false) call. Do not paste its body or modify its definition, Unknown_Get_List, Unknown_Previous_Attempts, Unknown_Find_Valid_List, Unknown_Find_Set_List, or the component changed-field helper.",
+            "Retain both existing DurationClass assignments and the real DurationClass member. Preserve all physical source line numbers."
+          ]
+        },
+        {
+          "name": "positive_outer_context_validity_scope",
+          "exact_recipe": [
+            "Independently from the same positive seed, replace those same two lines with: DeltaTemplateClass<UnknownB01394Enum> *validity; { NameClass name(\"Validity\"); followed on the next line by validity = Unknown_Find_Valid<DeltaTemplateClass<UnknownB01394Enum> >((DeltaCompoundClass *)Unknown0BA0, name); }.",
+            "Keep every other statement unchanged, especially the actual Unknown_5B3640(false) call and all shared helper definitions."
+          ]
+        }
+      ],
+      "why_new": "The earlier validity_name_argument form used the 144-pair seed, before the changed-components helper plus member DurationClass assignment positive context. The later 145-pair nested_get_list_validity_temporary form removed the outer 3640 context. Neither tests this caller lifetime on the current positive source while retaining that outer context. Older refresh_static_scoped_name forms also changed shared helper source or expanded the call; they are not the independent scope-only form here.",
+      "evidence_paths": [
+        ".work/claim-267/manu-cross-followup/results.json",
+        ".work/claim-267/manu-cross-followup/packs/validity_name_argument.json",
+        ".work/claim-267/manu-cross-followup/packs/nested_get_list_validity_temporary.json",
+        ".work/claim-267/manu-cross-followup/packs/nested_existing_get_list.json",
+        ".work/claim-267/manu-cross-followup/comparison/duration_assignment_seed_control/0x5B1ED0-ours.txt",
+        ".work/claim-267/manu-cross-followup/comparison/duration_assignment_seed_control/0x5B3850-ours.txt",
+        ".work/claim-267/manu-cross-followup/comparison/duration_assignment_seed_control/0x5B3580-ours.txt",
+        ".work/claim-267/manu-cross-followup/comparison/duration_assignment_seed_control/0x5B6DB0-metrics.json",
+        "app/shared/auxdata/name.h",
+        "app/client/ui_manu.h:106"
+      ],
+      "expected_disassembly_effect": "The ideal outcome is inline NameClass construction for PreviousAttempts followed by the exact SetList target 5B6DB0, while original outer context still keeps 6CA0 and 3580 called and 3640 inlined. Frame must remain 3C, with a single reusable 34-byte Name area. Earlier components and validity Cast calls must remain recovered. Lifetime shortening alone is not claimed to control inlining; the test determines whether the positive component/time context permits both constraints together.",
+      "semantic_constraints": [
+        "Use explicit NameClass(\"Validity\"), not the bare string, because a const-char-pointer overload would select additional source layers.",
+        "The scope variant preserves constructor-before-root-read ordering at the language level. The temporary variant must be audited to preserve the retail ordering in generated code; argument evaluation ordering is not assumed.",
+        "The Name is no longer used after lookup; no address is intentionally retained by the caller. The exact local expansion with a temporary already demonstrates single-slot reuse for this same lookup sequence.",
+        "Keep callbacks, state stores, the Is_Validity_Attempt argument, null behavior, FP prefix, timer reads, and all 145 native file/address pairs unchanged.",
+        "The real 3640 definition and all exact relatives remain byte-for-byte source unchanged. No shared header or declaration change."
+      ],
+      "falsification_and_limits": [
+        "Two source forms maximum, independently based on the positive seed. If the first is fully exact with all pairs preserved, the second is unnecessary.",
+        "First inspect actual call targets and frame. If the whole Find_Valid_List call remains, this does not solve the requested boundary even if register rows shrink.",
+        "Reject if 3640 becomes a whole out-of-line call, 6CA0 or 3580 newly inline at the nested sites, either recovered Cast disappears, frame becomes70, or any protected pair is lost.",
+        "Do not follow failures with bool/receiver/enum permutations, timer repeats, additional wrapper depths or combinations of these two equivalent lifetime forms. If neither recovers the complete call map, park the caller under its current claimed scope."
+      ]
+    }
+  ],
+  "shared_change_policy": "No shared/callee change is authorized by this handoff. A later coordinated investigation could examine 3640's actual source topology, but matching relatives constrain a global Unknown_Get_List/Previous_Attempts change. A duplicate caller-private copy of 3640 wrapped solely to restore inline depth would be an invented forcing device, so it is not proposed.",
+  "not_proposed": [
+    "Passing a redundant expression such as !Unknown0BAD for false merely to perturb the inliner: no original-source evidence.",
+    "Retyping the bool parameter, adding a member/function-pointer indirection or inserting a function-local wrapper: no ABI/source evidence.",
+    "Reusing a NameClass variable through operator= to force one slot: retail calls the constructor again, not assignment.",
+    "Removing Unknown_Previous_Attempts globally: exact3850 needs the asymmetric PreviousAttempts/KnownFormula expansion and exact1ED0 constrains its nested form."
+  ],
+  "approximate_usage": "Approximately 5-7k tokens for this focused followup, uninstrumented. No compilation, Wine, tracked edits or subagents."
+}

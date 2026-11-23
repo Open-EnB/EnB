@@ -1,0 +1,534 @@
+{
+  "schema_version": 1,
+  "analysis_only": true,
+  "base_head": "9b07cd77",
+  "claim": 267,
+  "model": "gpt-6-astra",
+  "reasoning_effort": "high",
+  "scope": {
+    "exact_protected": [
+      "0x59B380",
+      "0x5B0BB0"
+    ],
+    "unsolved": [
+      "0x59B220",
+      "0x59BC40",
+      "0x59FE30",
+      "0x5A0740",
+      "0x5A0D00",
+      "0x5A3FB0",
+      "0x5AB030",
+      "0x5ACB80",
+      "0x5AFA00",
+      "0x5AFCD0",
+      "0x5B1230"
+    ]
+  },
+  "test_order": [
+    "A267-01",
+    "A267-02",
+    "A267-03",
+    "A267-04",
+    "A267-05",
+    "A267-06",
+    "A267-07",
+    "A267-08",
+    "A267-09",
+    "A267-10",
+    "A267-11",
+    "A267-12"
+  ],
+  "global_rules": [
+    "No compilation was performed for this analysis.",
+    "Use current HEAD for protected-source integration; legacy seeds are independent immutable forms and must be checked against current exact bodies.",
+    "Preserve physical assert lines, original callback order, packet lifetime/EH state, reference ownership and FP operations.",
+    "Compare actual relocation/call identities, frames and complete file/address sets; row-count reductions are secondary.",
+    "Use each bounded form once, stop after its falsification criterion; do not multiply variants or combine canonical failures.",
+    "No fake dead reads, no inline assembly/pragmas/flags, no alias-punned references, no unsequenced argument dependencies."
+  ],
+  "no_new_lead": [
+    {
+      "target": "0x5ACB80",
+      "reason": "Full 1599-byte/456-instruction body and branch graph differ only in two scheduling islands. Real model/manager references, initialization forms, array loops and helpers have saturated. A fabricated flags subobject, overload retype or new accessor without retail evidence is unjustified. Preserve and park."
+    },
+    {
+      "target": "0x5A0740",
+      "reason": "No new local tail rewrite beyond saturated query/result/mode/receiver families. Only the low-priority real-declaration-context diagnostic A267-10 is offered. Existing 0x41D exact prefix disproves a broad frame/control-flow fix; AL/busy signatures already audited."
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "A267-01",
+      "targets": [
+        "0x5B1230"
+      ],
+      "priority": 1,
+      "confidence": "Strong source-model lead; exact outcome unproven",
+      "category": "source-test",
+      "seed_paths": [
+        "app/client/ui_manu.cpp@9b07cd77"
+      ],
+      "exact_recipe": [
+        {
+          "variant": "assigned_duration_now",
+          "changes": [
+            "In Unknown_60 only, replace unsigned int now = ((ClientClass *)Client)->Unknown10BC; with DurationClass now; now = DurationClass((unsigned int)((ClientClass *)Client)->Unknown10BC);",
+            "Replace (__int64)now > Unknown0BB8 with now.Time > Unknown0BB8; replace the + now in the timestamp assignment with + now.Time. Do not change any member/global type or helper body."
+          ]
+        },
+        {
+          "variant": "constructed_duration_now",
+          "changes": [
+            "Independent control against the same seed: DurationClass now((unsigned int)((ClientClass *)Client)->Unknown10BC); with the same two .Time substitutions."
+          ]
+        },
+        {
+          "variant": "assigned_duration_and_unit_conversion",
+          "changes": [
+            "From assigned_duration_now, replace only Unknown0BB8 = Unknown_BE5C20 * 1000 + now.Time; with SecondsClass interval(Unknown_BE5C20); MillisecondsClass delay(interval); Unknown0BB8 = delay.Time + now.Time; at that same statement location."
+          ]
+        }
+      ],
+      "evidence_paths": [
+        "app/shared/duration.h:28",
+        "app/client/ui_mfd.cpp:886",
+        "docs/data/attempts.csv (0x5BE120 exact row, 2026-11-09 10:00)",
+        "docs/data/imports/app/ui_mfd.json",
+        "app/client/ui_interrupt.cpp:119",
+        ".work/claim-267/astra-synthesis/5B1230-retail.txt",
+        ".work/claim-267/astra-synthesis/5B1230-regions.txt"
+      ],
+      "dedup_notes": "All 19 recorded manufacturing-update patches inspected: none uses DurationClass or a time-unit conversion. The exact 5BE120 precedent specifically distinguishes default construction plus assignment from copy/direct initialization. This is useful value computation, not a dead budget read.",
+      "expected_disassembly_effect": "Extra real constructor/assignment/conversion IL after the lookups can remove deepest nested Cast expansions. Desired: direct Cast targets 5B7210/5468D0; inlined 3640 still present, its set-list call 5B6DB0 and 6CA0 out of line, 3580 out of line. Late top-level 6CA0 expansion should stay inline. Timer low/high pair and signed comparison remain as retail. Frame must stay 0x3C, not 0x70.",
+      "test_limits_and_falsification": "Three forms maximum. Record actual call identities, frame and 255 retail instruction topology before ranking row counts. If direct and assigned forms are canonical and conversion does not move a required call boundary, stop; do not sweep empty objects. A reduction with frame 0x70 or whole 3640 called out of line is not success.",
+      "semantic_constraints": [
+        "Keep the original unsigned 32-bit tick-to-int64 zero extension.",
+        "Keep the global delay read inside the time-and-count condition; do not hoist it.",
+        "The 1000 multiplier is Seconds->Milliseconds; no clamped Get(), unsigned int64 conversion, float or extra clock reads.",
+        "Preserve all 141 manufacturing pairs including 5B0BB0; verify assert line numbers and FP prefix unchanged."
+      ],
+      "depends_on": []
+    },
+    {
+      "id": "A267-02",
+      "targets": [
+        "0x5AFA00"
+      ],
+      "priority": 1,
+      "confidence": "Strong boundary hypothesis; source-only diagnostic of timer abstraction",
+      "category": "source-test",
+      "seed_paths": [
+        "app/client/ui_manu.cpp@9b07cd77"
+      ],
+      "exact_recipe": [
+        {
+          "variant": "duration_zero_initializer",
+          "changes": [
+            "Replace only Unknown0BB8(0), in the constructor initializer list with Unknown0BB8(DurationClass(0).Time),. Keep the member declared __int64, every other initializer and all memsets unchanged. Ensure DurationClass is visible via existing includes; if necessary add its existing header on a blank line without shifting assert lines."
+          ]
+        }
+      ],
+      "evidence_paths": [
+        ".work/claim-267/astra-synthesis/5AFA00-retail.txt",
+        ".work/claim-267/astra-synthesis/5AFA00-ours.txt",
+        "app/shared/duration.h:206",
+        "docs/workflow.md:981",
+        "docs/attempts/5AFA00/claim267-5afa00-partial.txt"
+      ],
+      "dedup_notes": "Prior 3+4+8 forms cover int-pair/int64 spelling, moving the assignment into the body, memset and array forms. No real inline time-value constructor was tried. This isolates the same constructor boundary the missing member type would introduce without changing a header.",
+      "expected_disassembly_effect": "Retail keeps stores B90..BB4 in declaration order, then BB8 low at 5AFB30 and LEA B80 at 5AFB36, then BBC high and BC0. Ours hoists both LEA and BB8 low before B90. A real inline constructor layer may stop both hoists; merely swapping the two early instructions is insufficient.",
+      "test_limits_and_falsification": "One source form. Compare the entire 132-instruction constructor, all vtable stores and array/EH setup. If canonical or worse, do not invent a wrapper struct or volatile barrier.",
+      "semantic_constraints": [
+        "The temporary is a genuine initialized time value consumed by the initializer.",
+        "No fabricated storage, casts through unrelated references, layout change or helper that only returns zero.",
+        "Keep 141 manufacturing pairs."
+      ],
+      "depends_on": []
+    },
+    {
+      "id": "A267-03",
+      "targets": [
+        "0x5A0D00"
+      ],
+      "priority": 1,
+      "confidence": "Moderate; directly supported by parameter-home reuse",
+      "category": "source-test",
+      "seed_paths": [
+        ".work/claim-267/inventory/5A0D00/to_inventory_at_argument/ui_inv.cpp"
+      ],
+      "exact_recipe": [
+        {
+          "variant": "reuse_slot_parameter_for_destination",
+          "changes": [
+            "In Unknown_5A0D00, replace int id = peek->Get_Item_Template_ID(slot); with int from_slot; int id = peek->Get_Item_Template_ID(from_slot = slot);",
+            "Use from_slot in both Get_Stack_Count calls.",
+            "Replace int to_slot = inv_gadget->Unknown_670910(); with slot = inv_gadget->Unknown_670910();",
+            "Keep the seed destination-inventory argument assignment. In the final transaction call, use from_slot as the source slot (argument 2), and slot as the destination slot (argument 6). No remaining use of to_slot."
+          ]
+        }
+      ],
+      "evidence_paths": [
+        ".work/claim-267/inventory/retail-5A0D00.txt",
+        "docs/attempts/5A0D00/claim267-inventory-transaction-part1.txt",
+        "docs/workflow.md:316"
+      ],
+      "dedup_notes": "Previous copies/references/argument assignments preserved the original parameter unchanged. This form explicitly ends its input role and reuses it for the destination, matching retail [esp+18] overwrite at 5A0DD9. The 2026-11-09 reused local was the inventory pointer, not slot.",
+      "expected_disassembly_effect": "Promote preserved source slot to EBX and spill initial peek at [esp+10], restoring the initial four-byte frame push; destination slot then occupies the old parameter home, with boolean all in the gadget parameter home.",
+      "test_limits_and_falsification": "One form on the 41/25 seed; at most one paired baseline application if seed interaction is evident. Falsified if source slot remains in a home slot/peek remains register-resident or frame remains absent. Lower tail row count without the prologue/spill is not a recovered source model.",
+      "semantic_constraints": [
+        "No callback/read moves: preserve both inventory reads, Get_Item_Template_ID and stack-count fallback order.",
+        "Source slot captured once before the later parameter overwrite.",
+        "No cross-argument read/write dependency; each final argument is only a read.",
+        "Keep all 79 inventory pairs."
+      ],
+      "depends_on": []
+    },
+    {
+      "id": "A267-04",
+      "targets": [
+        "0x59FE30"
+      ],
+      "priority": 2,
+      "confidence": "Moderate; real accessor layer with matching bit semantics",
+      "category": "source-test",
+      "seed_paths": [
+        ".work/claim-267/inventory/59FE30/id_packet_inventory_at_argument/ui_inv.cpp"
+      ],
+      "exact_recipe": [
+        {
+          "variant": "real_event_flags_control",
+          "changes": [
+            "Replace only ((UIInvEventStruct *)event)->Flags in the down initializer with event->Flags."
+          ]
+        },
+        {
+          "variant": "real_event_up_accessor",
+          "changes": [
+            "Independent seed: replace the complete down initializer expression ((UIInvEventStruct *)event)->Flags >> 12 & 1 with event->Is_Up(). Use the real app/kernel/kernel.h declaration, adding its include on existing blank space only if required."
+          ]
+        }
+      ],
+      "evidence_paths": [
+        "app/kernel/kernel.h:24",
+        ".work/claim-267/inventory/retail-59FE30.txt",
+        "docs/attempts/59FE30/claim267-inventory-input-partial.txt",
+        "docs/attempts/59B380/claim267-group-packet-exact.txt"
+      ],
+      "dedup_notes": "Old history includes shifts and bitfields, but not the real Is_Up accessor; the 18 replayable recent forms retain the shadow UIInvEventStruct. Control separates type cleanup from accessor nesting. Do not claim the name down means key-down: preserve bit 12 exactly.",
+      "expected_disassembly_effect": "Change full-function IL/liveness without changing the retail word-load/shift/and operation. Desired EBP event, EDI slot, button byte reusing the event argument home, frame 0x14 instead of 0x18. The accepted Checked getter in 59B380 is the local precedent.",
+      "test_limits_and_falsification": "Two forms only. If both collapse to the seed, stop. Check packet temporary and EH state as well as entry registers; getting EDI by adding a new event spill does not suffice.",
+      "semantic_constraints": [
+        "Is_Up returns bit 12 and must NOT be negated.",
+        "Keep existing packet argument assignments and all event/mask/slot reads at their original points.",
+        "The real Flags member has the same unsigned-short width and +2 offset.",
+        "Keep all 79 inventory pairs."
+      ],
+      "depends_on": []
+    },
+    {
+      "id": "A267-05",
+      "targets": [
+        "0x59B220",
+        "0x59BC40"
+      ],
+      "priority": 2,
+      "confidence": "Moderate-low; newly demonstrated useful-field-reference lever applied to exact layer",
+      "category": "source-test",
+      "seed_paths": [
+        ".work/claim-267/group-options/forms/changed_name/ui_groupopt.cpp",
+        ".work/claim-267/group-options/forms/bc_set_inner/ui_groupopt.cpp"
+      ],
+      "exact_recipe": [
+        {
+          "variant": "changed_state_reference",
+          "changes": [
+            "Start from changed_name, not an added third wrapper. In Unknown_Group_Changed, replace return((t && t->Unknown70 > 1) ? t : NULL); with if (t) { const unsigned int &state = t->Unknown70; if (state > 1) return(t); } return(NULL);. Retain its existing caller and all other source."
+          ]
+        },
+        {
+          "variant": "set_state_reference",
+          "changes": [
+            "Independently start from bc_set_inner. In Unknown_Group_Set_Inner, change only if (t) { if (t->Unknown70) return(t); } to if (t) { const unsigned int &state = t->Unknown70; if (state) return(t); }. Retain its NameClass construction and existing caller."
+          ]
+        }
+      ],
+      "evidence_paths": [
+        "app/shared/auxdata/delta.h:114",
+        "docs/attempts/59B220/claim267-group-lookups.txt",
+        "docs/attempts/59BC40/claim267-group-lookup-reference.txt",
+        "docs/attempts/5A0740/claim267-inventory-transfer-part1.txt (helper_count_reference)",
+        "app/client/ui_group.cpp:1858"
+      ],
+      "dedup_notes": "Existing reference forms bind the ROOT pointer. None binds the consumed Unknown70 scalar inside the lookup/filter helper. This is based specifically on item->Unknown50 const-reference retaining the exact 5A02E0 helper while changing its caller inlining. No dead Children.size read and no new general wrapper-depth sweep.",
+      "expected_disassembly_effect": "Increase useful helper IL after Unknown_Find_Field just enough to drop its deepest Cast expansion, producing 598D80 call while keeping Get_Lookup/Find and auxdata assert ordering. For BC40 the root must reload after the NameClass constructor. No novel RTTI global/type specialization should appear.",
+      "test_limits_and_falsification": "One form per target, independent seeds; combine only if each helps. Falsified by absent 598D80 call or a whole lookup/helper emitted out of line. Do not substitute a lower row count for actual call recovery.",
+      "semantic_constraints": [
+        "Reference is unsigned int, the declared type, and bound only after non-null t.",
+        "The comparison remains >1 for B220 and nonzero for BC40.",
+        "Preserve 54 group-options pairs including 59B380; old source seeds contain that exact body but verify it.",
+        "Keep NameClass argument construction order and all assert strings/physical lines."
+      ],
+      "depends_on": []
+    },
+    {
+      "id": "A267-06",
+      "targets": [
+        "0x5A3FB0"
+      ],
+      "priority": 2,
+      "confidence": "Moderate-low; distinct standard deletion form, directly addresses lowering mismatch",
+      "category": "source-test",
+      "seed_paths": [
+        "app/client/ui_jobs.cpp@9b07cd77"
+      ],
+      "exact_recipe": [
+        {
+          "variant": "qualified_global_delete",
+          "changes": [
+            "In the existing UIJobsClass::Unknown_Remove_Job helper only, change delete job; to ::delete job;. Leave its nesting under Unknown_5A4430, the job local, erase(it++), loop and 5A3AF0 calls unchanged."
+          ]
+        }
+      ],
+      "evidence_paths": [
+        "app/client/ui_jobs.h:22",
+        ".work/claim-267/astra-synthesis/5A3FB0-retail.txt",
+        ".work/claim-267/astra-synthesis/5A3FB0-regions.txt",
+        "docs/attempts/5A3FB0/claim267-5a3fb0-attempts.txt"
+      ],
+      "dedup_notes": "None of the 10 replayable forms or 14-form historical list uses globally qualified delete. Iterator-value deletion and flattening already failed. This does not repeat those changes.",
+      "expected_disassembly_effect": "Test whether VC6 lowers qualified deletion to direct 5A2250 + global operator delete, as retail 5A41E7/5A41ED, rather than scalar deleting destructor. If that releases nested budget, erase may inline while postfix iterator 5A4A50 remains called. The zero register and frame should then follow the correct expanded loop.",
+      "test_limits_and_falsification": "One form. Record actual dtor/deallocation/iterator calls before rows. Reject if 5A4430 or 5A4A50 pairs are lost. Do not follow with manually calling the destructor and operator delete: exception deallocation behavior would require separate proof.",
+      "semantic_constraints": [
+        "UIJobsInfoStruct has a nonvirtual destructor and no class-specific allocation/deallocation operators; confirm this remains true in the seed.",
+        "Preserve deletion before erase and exact iterator postincrement.",
+        "Whole jobs object pair set must lose nothing."
+      ],
+      "depends_on": []
+    },
+    {
+      "id": "A267-07",
+      "targets": [
+        "0x5AB030"
+      ],
+      "priority": 2,
+      "confidence": "Moderate-low; precise argument-time sequencing not early flag caching",
+      "category": "source-test",
+      "seed_paths": [
+        "app/client/ui_log.cpp@9b07cd77"
+      ],
+      "exact_recipe": [
+        {
+          "variant": "sequenced_flags_at_constructor_argument",
+          "changes": [
+            "Declare int flags immediately before the PageEntry new-expression (same physical line if needed). Replace only Unknown_B08CA8 | Unknown_B08C98 in the TextGadgetClass constructor argument with (flags = Unknown_B08CA8, flags |= Unknown_B08C98). Keep new, entry.Peek(), all other arguments and statements unchanged."
+          ]
+        }
+      ],
+      "evidence_paths": [
+        ".work/claim-267/astra-synthesis/5AB030-retail.txt",
+        ".work/claim-267/astra-synthesis/5AB030-regions.txt",
+        "docs/attempts/5AB030/claim267-5ab030-attempts.txt",
+        "docs/data/attempts.csv (5AB030 GV4, 2026-11-22)"
+      ],
+      "dedup_notes": "Recent flags reference is different. Historical prose says flags through a local and operands swapped, but its source stash is unavailable: uncertain overlap with a two-step local remains. Exact comma-sequenced assignment at the argument site is not recorded. It preserves the required after-allocation read point unlike computing flags before new.",
+      "expected_disassembly_effect": "Retail after allocation reads B08CA8 into EDX, B08C98 into ECX, ORs EDX, then loads entry into ECX. Current code loads C98 first and uses EDI for CA8. Test whether the explicit useful sequential accumulator gives that register/order pattern and influences adjacent hidden-return/tooltip scratch allocation.",
+      "test_limits_and_falsification": "One form only. If global reads move before operator new, reject immediately. If canonical, no flag type or volatile sweeps. Check Create_Get target and returned-object lifetime remain unchanged.",
+      "semantic_constraints": [
+        "Comma operator sequences flags write then read; no unsequenced cross-argument access.",
+        "Both globals are still read once, after allocation and before construction; no intervening callbacks.",
+        "Preserve 63 exact log addresses and all EH cleanup states."
+      ],
+      "depends_on": []
+    },
+    {
+      "id": "A267-08",
+      "targets": [
+        "0x5AFCD0"
+      ],
+      "priority": 3,
+      "confidence": "Low; valid ownership overload not yet tried",
+      "category": "source-test",
+      "seed_paths": [
+        "app/client/ui_manu.cpp@9b07cd77"
+      ],
+      "exact_recipe": [
+        {
+          "variant": "empty_smart_pointer_reset",
+          "changes": [
+            "In the three-iteration destructor loop only, replace Unknown110[i] = NULL; with Unknown110[i] = RefCountPtr<RenderObjClass>();. Keep delete Unknown0C0[i] before it, all other NULL assignments and later existing empty RefCountPtr temporary unchanged."
+          ]
+        }
+      ],
+      "evidence_paths": [
+        "wwlib/ref_ptr.h:290",
+        ".work/claim-267/astra-synthesis/5AFCD0-retail.txt",
+        "docs/attempts/5AFCD0/claim267-5afcd0-partial.txt"
+      ],
+      "dedup_notes": "All recorded clear forms use DummyPtrType NULL assignment or the rejected Clear() method. None selects same-type RefCountPtr assignment with a default-null temporary. The same destructor already uses such a temporary as an actual slider argument.",
+      "expected_disassembly_effect": "A different real reset overload adds a null source lifetime and inline assignment layer while producing the same release+null-store semantics; it might swap the array induction pointer to EBP and deleted pointer to EDI. This is weaker than the time-type evidence.",
+      "test_limits_and_falsification": "One form. Stop if canonical. Reject any extra Add_Ref/Release_Ref, allocation, changed null-store condition, or EH/frame divergence; a smaller residue with extra lifetime machinery is not progress.",
+      "semantic_constraints": [
+        "Default RefCountPtr has a null referent; assigning it releases the old destination once and nulls it.",
+        "Do not use Clear(), which leaves the stored pointer non-null.",
+        "Retain delete order and all 141 manufacturing pairs."
+      ],
+      "depends_on": []
+    },
+    {
+      "id": "A267-09",
+      "targets": [
+        "0x5AB030"
+      ],
+      "priority": 3,
+      "confidence": "Low; narrow hidden-return lifetime distinction",
+      "category": "source-test",
+      "seed_paths": [
+        "app/client/ui_log.cpp@9b07cd77"
+      ],
+      "exact_recipe": [
+        {
+          "variant": "entry_temporary_lifetime_reference",
+          "changes": [
+            "Replace only RefCountPtr<RenderObjClass> entry = Create_Get(...); with const RefCountPtr<RenderObjClass> &entry = Create_Get(...);, leaving the expression and all subsequent uses untouched."
+          ]
+        }
+      ],
+      "evidence_paths": [
+        ".work/claim-267/astra-synthesis/5AB030-retail.txt",
+        "wwlib/ref_ptr.h:216",
+        "docs/attempts/5AB030/claim267-5ab030-attempts.txt",
+        "docs/attempts/5ACB80/claim267-5acb80-attempts.txt"
+      ],
+      "dedup_notes": "Log tried direct initialization and raw input, not lifetime extension of the returned smart pointer. Login tried this on a different factory/model and was canonical; that lowers confidence and is an explicit negative cross-function result.",
+      "expected_disassembly_effect": "Potentially the hidden Create_Get result slot is treated as the returned temporary, changing LEA return-address register to ECX and vtable scratch to EAX. Destructor must still occur at the identical enclosing-scope exit.",
+      "test_limits_and_falsification": "One form only, after A267-07. Do not combine two non-improving forms. Reject added copies/refcounts/EH states or frame changes.",
+      "semantic_constraints": [
+        "const reference extends lifetime of the exact returned object to the same block end.",
+        "No extra ownership transfer or moving the Create_Get call.",
+        "Keep all 63 log pairs."
+      ],
+      "depends_on": []
+    },
+    {
+      "id": "A267-10",
+      "targets": [
+        "0x59FE30",
+        "0x5A0740",
+        "0x5A0D00"
+      ],
+      "priority": 3,
+      "confidence": "Declaration mismatch is proven; its code-generation relevance is uncertain",
+      "category": "declaration-context-diagnostic",
+      "seed_paths": [
+        ".work/claim-267/inventory/5A0740/h_packet_id_at_argument/ui_inv.cpp"
+      ],
+      "exact_recipe": [
+        {
+          "variant": "real_drag_class_declaration_context",
+          "changes": [
+            "Replace the file-local DragSlotDataClass definition with #include \"drag_slot_data.h\", padding the removed block with blank lines to retain every later physical line number.",
+            "In this ui_inv.cpp only, replace SlotDrag->Unknown_08() with SlotDrag->Drop(), SlotDrag->Unknown_0C() with SlotDrag->Cancel(), and SlotDrag->Unknown10 with SlotDrag->State. Do not touch any other Unknown10 member, event type, gadget type, result logic or busy helper.",
+            "Keep the best 0740 seed helper_count_reference and packet-ID argument assignment. Measure all three targets and the full object, but do not combine the other target recipes yet."
+          ]
+        }
+      ],
+      "evidence_paths": [
+        "app/client/drag_slot_data.h",
+        "app/client/drag_mouse.h",
+        "app/client/drag_slot_data.cpp",
+        "app/client/ui_inv.cpp:38",
+        ".work/claim-267/inventory/0740-tail-aligned.txt"
+      ],
+      "dedup_notes": "No recorded claim form replaces the local shadow with the actual class. Prior cross-analysis validates Is_Busy/AL and query calls; it does not repair this source declaration. Current shadow declares slot +0C void, whereas the real Cancel is bool and State is inherited from SMouseDragClass. Return value is discarded, so this alone need not alter emitted code.",
+      "expected_disassembly_effect": "Observe whether the real inheritance/declaration/return-type context changes global register allocation without changing any call slots. 0740 must keep its fully matching 0x000-0x41D prefix and correct 1C/18 calls; success is exact tail, not a new prefix mismatch. Do not expect the bool return to magically fix AL inversion.",
+      "test_limits_and_falsification": "One diagnostic compilation. If target code is canonical, retire this as a matching lever. Retention as cleanup is outside the +pair task unless it gains pairs and broader checks pass. Reject devirtualization, unexpected calls, frame changes or lost pairs.",
+      "semantic_constraints": [
+        "Use existing real header unchanged, not a tuned replacement.",
+        "State offset +10, mode +1C, all +20; Drop +08, Cancel +0C must match retail.",
+        "No shared gadget-header rename is included; preserve the original FAIL_IF expression strings.",
+        "Keep all 79 inventory pairs."
+      ],
+      "depends_on": []
+    },
+    {
+      "id": "A267-11",
+      "targets": [
+        "0x5AFA00",
+        "0x5B1230"
+      ],
+      "priority": 4,
+      "confidence": "Plausible original representation; not yet a proven header correction",
+      "category": "conditional-representation-proposal",
+      "seed_paths": [
+        "app/client/ui_manu.h@9b07cd77",
+        "app/client/ui_manu.cpp@9b07cd77"
+      ],
+      "exact_recipe": [
+        {
+          "variant": "duration_member_representation",
+          "changes": [
+            "Only after reviewing A267-01/02, change UIManuClass::Unknown0BB8 from __int64 to DurationClass, using the real existing duration.h definition. Keep initializer Unknown0BB8(0).",
+            "First isolate representation: in Unknown_60 only, use Unknown0BB8.Time in its comparison and assignment, preserving the old scalar computation. Do not simultaneously retype the global or add source temporaries.",
+            "Audit sizeof(UIManuClass), every member offset and all include dependents before any adoption. Direct includers found: ui_manu.cpp, ui_manu_util.cpp, ui_ptrade.cpp, sbaseview.cpp; use dependency discovery for indirect consumers."
+          ]
+        }
+      ],
+      "evidence_paths": [
+        "app/shared/duration.h",
+        ".work/claim-267/astra-synthesis/5AFA00-retail.txt",
+        ".work/claim-267/astra-synthesis/5B1230-retail.txt",
+        "app/client/ui_interrupt.cpp",
+        "app/client/ui_power.cpp"
+      ],
+      "dedup_notes": "Original rounds tried primitive signed/unsigned int64 and int pairs, not the project time-value type. This is a source representation proposal based on constructor boundary + signed time operations + neighboring exact UI time conventions; retail does not expose the original C++ member type by name.",
+      "expected_disassembly_effect": "The inline member constructor can make the low-half store and following LEA occur at the retail boundary. It may also affect 1230 nested inline decisions when actual assignments/operators are later used, but this first variant intentionally isolates construction.",
+      "test_limits_and_falsification": "Conditional one-form investigation, not automatic retention. Requires root decision after source-only evidence. Reject any layout, ABI, vtable, additional EH state or exact-pair loss. Do not add a custom wrapper to mimic DurationClass if this fails.",
+      "semantic_constraints": [
+        "No duration.h retune or pragma/packing change.",
+        "Keep signed 64-bit storage and initialized zero, same ownership/trivial destructor behavior.",
+        "All-includer verification and complete pair-set comparison required; both newly exact claim targets remain protected."
+      ],
+      "depends_on": [
+        "A267-01",
+        "A267-02"
+      ]
+    },
+    {
+      "id": "A267-12",
+      "targets": [
+        "0x5B1230",
+        "0x5AF9D0"
+      ],
+      "priority": 4,
+      "confidence": "Plausible global unit type; conditional on source-only time evidence",
+      "category": "conditional-representation-proposal",
+      "seed_paths": [
+        "app/client/ui_manu.cpp@9b07cd77"
+      ],
+      "exact_recipe": [
+        {
+          "variant": "seconds_global_representation",
+          "changes": [
+            "Replace the one-line Unknown_Filter_Seconds helper plus primitive global with static SecondsClass Unknown_BE5C20(5);. In Unknown_60 initially change only Unknown_BE5C20 * 1000 to Unknown_BE5C20.Time * 1000, preserving every other scalar operation. No header change."
+          ]
+        }
+      ],
+      "evidence_paths": [
+        "app/client/ui_manu.cpp:89",
+        "app/shared/duration.h:201",
+        ".work/claim-267/astra-synthesis/5B1230-retail.txt"
+      ],
+      "dedup_notes": "The current helper is explicitly interim. Retail 5AF9D0 stores 5 at BE5C20 and zero at BE5C24 at initialization; 1230 converts it by signed 64-bit multiplication by 1000. No earlier form uses SecondsClass. These instructions support unit semantics but do not uniquely prove this declaration.",
+      "expected_disassembly_effect": "Real nontrivial SecondsClass construction should naturally reproduce the dynamic initializer without the helper; any caller budget effect is incidental in this isolated form. Follow-up operator/conversion use belongs to A267-01, not a broad retype sweep.",
+      "test_limits_and_falsification": "Conditional one-form investigation only if A267-01 identifies a useful duration-layer effect or root chooses to pursue representation evidence. Existing 5AF9D0 must remain exact. No new static side effects or initializer-order changes allowed.",
+      "semantic_constraints": [
+        "Static initializer is inside the overall claimed address range but is an existing protected pair.",
+        "Do not move global initialization or make it constexpr/const.",
+        "Match every relocation, static store and all 141 manufacturing pairs."
+      ],
+      "depends_on": [
+        "A267-01"
+      ]
+    }
+  ]
+}

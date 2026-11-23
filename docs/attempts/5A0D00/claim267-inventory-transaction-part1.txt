@@ -1,0 +1,659 @@
+{
+  "base": "3cf475be67cfedf8c4bc63cff207c6f05562c9c8",
+  "artifacts": {
+    "5A0D00-first-ocmwkzti--baseline.patch": "",
+    "5A0D00-first-ocmwkzti--slot_input_at_first_call.patch": "--- a/app/client/ui_inv.cpp\n+++ b/app/client/ui_inv.cpp\n@@ -942,12 +942,12 @@\n \tFAIL_IF(!inv_gadget) return(false);\n \tInvDataClass *inv = SlotData->Unknown_10();\n \tInvDataPeekClass *peek = inv->Unknown_688830();\n-\tint id = peek->Get_Item_Template_ID(slot);\n+\tint from_slot; int id = peek->Get_Item_Template_ID(from_slot = slot);\n \tif (id == -1 || id == -2) return(false);\n \tint num = 1;\n \tif (SlotDrag->Unknown1C != 1) {\n-\t\tnum = inv->Unknown_688850()->Get_Stack_Count(slot);\n-\t\tif (num == 0) num = peek->Get_Stack_Count(slot);\n+\t\tnum = inv->Unknown_688850()->Get_Stack_Count(from_slot);\n+\t\tif (num == 0) num = peek->Get_Stack_Count(from_slot);\n \t}\n \tInvDataClass *to = ((SlotDataClass *)inv_gadget->Unknown_670950())->Unknown_10();\n \n@@ -971,7 +971,7 @@\n \tbool all = (SlotDrag->Unknown1C == 3 || (SlotDrag->Unknown1C == 2 && SlotDrag->Unknown20));\n \tUnknownB4 = -1;\n \tUnknown_C8();\n-\treturn(InvTransaction->Unknown_690AA0(InvType, slot, num, all, to->Unknown50, to_slot));\n+\treturn(InvTransaction->Unknown_690AA0(InvType, from_slot, num, all, to->Unknown50, to_slot));\n }\n \n // 0x5A0EB0\n",
+    "5A0D00-first-ocmwkzti--slot_input_before_first_call.patch": "--- a/app/client/ui_inv.cpp\n+++ b/app/client/ui_inv.cpp\n@@ -942,12 +942,12 @@\n \tFAIL_IF(!inv_gadget) return(false);\n \tInvDataClass *inv = SlotData->Unknown_10();\n \tInvDataPeekClass *peek = inv->Unknown_688830();\n-\tint id = peek->Get_Item_Template_ID(slot);\n+\tint from_slot = slot; int id = peek->Get_Item_Template_ID(from_slot);\n \tif (id == -1 || id == -2) return(false);\n \tint num = 1;\n \tif (SlotDrag->Unknown1C != 1) {\n-\t\tnum = inv->Unknown_688850()->Get_Stack_Count(slot);\n-\t\tif (num == 0) num = peek->Get_Stack_Count(slot);\n+\t\tnum = inv->Unknown_688850()->Get_Stack_Count(from_slot);\n+\t\tif (num == 0) num = peek->Get_Stack_Count(from_slot);\n \t}\n \tInvDataClass *to = ((SlotDataClass *)inv_gadget->Unknown_670950())->Unknown_10();\n \n@@ -971,7 +971,7 @@\n \tbool all = (SlotDrag->Unknown1C == 3 || (SlotDrag->Unknown1C == 2 && SlotDrag->Unknown20));\n \tUnknownB4 = -1;\n \tUnknown_C8();\n-\treturn(InvTransaction->Unknown_690AA0(InvType, slot, num, all, to->Unknown50, to_slot));\n+\treturn(InvTransaction->Unknown_690AA0(InvType, from_slot, num, all, to->Unknown50, to_slot));\n }\n \n // 0x5A0EB0\n",
+    "5A0D00-first-ocmwkzti--slot_input_reference.patch": "--- a/app/client/ui_inv.cpp\n+++ b/app/client/ui_inv.cpp\n@@ -942,12 +942,12 @@\n \tFAIL_IF(!inv_gadget) return(false);\n \tInvDataClass *inv = SlotData->Unknown_10();\n \tInvDataPeekClass *peek = inv->Unknown_688830();\n-\tint id = peek->Get_Item_Template_ID(slot);\n+\tconst int &from_slot = slot; int id = peek->Get_Item_Template_ID(from_slot);\n \tif (id == -1 || id == -2) return(false);\n \tint num = 1;\n \tif (SlotDrag->Unknown1C != 1) {\n-\t\tnum = inv->Unknown_688850()->Get_Stack_Count(slot);\n-\t\tif (num == 0) num = peek->Get_Stack_Count(slot);\n+\t\tnum = inv->Unknown_688850()->Get_Stack_Count(from_slot);\n+\t\tif (num == 0) num = peek->Get_Stack_Count(from_slot);\n \t}\n \tInvDataClass *to = ((SlotDataClass *)inv_gadget->Unknown_670950())->Unknown_10();\n \n@@ -971,7 +971,7 @@\n \tbool all = (SlotDrag->Unknown1C == 3 || (SlotDrag->Unknown1C == 2 && SlotDrag->Unknown20));\n \tUnknownB4 = -1;\n \tUnknown_C8();\n-\treturn(InvTransaction->Unknown_690AA0(InvType, slot, num, all, to->Unknown50, to_slot));\n+\treturn(InvTransaction->Unknown_690AA0(InvType, from_slot, num, all, to->Unknown50, to_slot));\n }\n \n // 0x5A0EB0\n",
+    "5A0D00-second-e07q2vn7--failure_local_all.patch": "--- a/app/client/ui_inv.cpp\n+++ b/app/client/ui_inv.cpp\n@@ -938,12 +938,12 @@\n // NOT EXACT: 0.58: the client keeps the slot in ebx and spills the first list's peek, this the reverse (register allocation)\n // 0x5A0D00\n bool UIInvClass::Unknown_5A0D00(int slot, SlotDataGadgetClass *inv_gadget)\n-{\n-\tFAIL_IF(!inv_gadget) return(false);\n+{ bool failed = false;\n+\tFAIL_IF(!inv_gadget) return(failed);\n \tInvDataClass *inv = SlotData->Unknown_10();\n \tInvDataPeekClass *peek = inv->Unknown_688830();\n \tint id = peek->Get_Item_Template_ID(slot);\n-\tif (id == -1 || id == -2) return(false);\n+\tif (id == -1 || id == -2) return(failed);\n \tint num = 1;\n \tif (SlotDrag->Unknown1C != 1) {\n \t\tnum = inv->Unknown_688850()->Get_Stack_Count(slot);\n",
+    "5A0D00-second-e07q2vn7--failure_local_first.patch": "--- a/app/client/ui_inv.cpp\n+++ b/app/client/ui_inv.cpp\n@@ -938,8 +938,8 @@\n // NOT EXACT: 0.58: the client keeps the slot in ebx and spills the first list's peek, this the reverse (register allocation)\n // 0x5A0D00\n bool UIInvClass::Unknown_5A0D00(int slot, SlotDataGadgetClass *inv_gadget)\n-{\n-\tFAIL_IF(!inv_gadget) return(false);\n+{ bool failed = false;\n+\tFAIL_IF(!inv_gadget) return(failed);\n \tInvDataClass *inv = SlotData->Unknown_10();\n \tInvDataPeekClass *peek = inv->Unknown_688830();\n \tint id = peek->Get_Item_Template_ID(slot);\n",
+    "5A0D00-second-e07q2vn7--failure_local_id.patch": "--- a/app/client/ui_inv.cpp\n+++ b/app/client/ui_inv.cpp\n@@ -938,12 +938,12 @@\n // NOT EXACT: 0.58: the client keeps the slot in ebx and spills the first list's peek, this the reverse (register allocation)\n // 0x5A0D00\n bool UIInvClass::Unknown_5A0D00(int slot, SlotDataGadgetClass *inv_gadget)\n-{\n+{ bool failed = false;\n \tFAIL_IF(!inv_gadget) return(false);\n \tInvDataClass *inv = SlotData->Unknown_10();\n \tInvDataPeekClass *peek = inv->Unknown_688830();\n \tint id = peek->Get_Item_Template_ID(slot);\n-\tif (id == -1 || id == -2) return(false);\n+\tif (id == -1 || id == -2) return(failed);\n \tint num = 1;\n \tif (SlotDrag->Unknown1C != 1) {\n \t\tnum = inv->Unknown_688850()->Get_Stack_Count(slot);\n",
+    "5A0D00-second-e07q2vn7--inventory_at_argument.patch": "--- a/app/client/ui_inv.cpp\n+++ b/app/client/ui_inv.cpp\n@@ -971,7 +971,7 @@\n \tbool all = (SlotDrag->Unknown1C == 3 || (SlotDrag->Unknown1C == 2 && SlotDrag->Unknown20));\n \tUnknownB4 = -1;\n \tUnknown_C8();\n-\treturn(InvTransaction->Unknown_690AA0(InvType, slot, num, all, to->Unknown50, to_slot));\n+\tint inventory; return(InvTransaction->Unknown_690AA0(inventory = InvType, slot, num, all, to->Unknown50, to_slot));\n }\n \n // 0x5A0EB0\n",
+    "5A0D00-second-e07q2vn7--to_inventory_at_argument.patch": "--- a/app/client/ui_inv.cpp\n+++ b/app/client/ui_inv.cpp\n@@ -971,7 +971,7 @@\n \tbool all = (SlotDrag->Unknown1C == 3 || (SlotDrag->Unknown1C == 2 && SlotDrag->Unknown20));\n \tUnknownB4 = -1;\n \tUnknown_C8();\n-\treturn(InvTransaction->Unknown_690AA0(InvType, slot, num, all, to->Unknown50, to_slot));\n+\tint to_inventory; return(InvTransaction->Unknown_690AA0(InvType, slot, num, all, to_inventory = to->Unknown50, to_slot));\n }\n \n // 0x5A0EB0\n",
+    "5A0D00-third-g3ktmtgv--mode_member_reference.patch": "--- a/app/client/ui_inv.cpp\n+++ b/app/client/ui_inv.cpp\n@@ -968,7 +968,7 @@\n \n \tFAIL_IF(!to) return(false);\n \tint to_slot = inv_gadget->Unknown_670910();\n-\tbool all = (SlotDrag->Unknown1C == 3 || (SlotDrag->Unknown1C == 2 && SlotDrag->Unknown20));\n+\tconst int &mode = SlotDrag->Unknown1C; bool all = (mode == 3 || (mode == 2 && SlotDrag->Unknown20));\n \tUnknownB4 = -1;\n \tUnknown_C8();\n \treturn(InvTransaction->Unknown_690AA0(InvType, slot, num, all, to->Unknown50, to_slot));\n",
+    "5A0D00-third-g3ktmtgv--num_at_final_argument.patch": "--- a/app/client/ui_inv.cpp\n+++ b/app/client/ui_inv.cpp\n@@ -971,7 +971,7 @@\n \tbool all = (SlotDrag->Unknown1C == 3 || (SlotDrag->Unknown1C == 2 && SlotDrag->Unknown20));\n \tUnknownB4 = -1;\n \tUnknown_C8();\n-\treturn(InvTransaction->Unknown_690AA0(InvType, slot, num, all, to->Unknown50, to_slot));\n+\tint count; return(InvTransaction->Unknown_690AA0(InvType, slot, count = num, all, to->Unknown50, to_slot));\n }\n \n // 0x5A0EB0\n",
+    "5A0D00-third-g3ktmtgv--peek_value_reference.patch": "--- a/app/client/ui_inv.cpp\n+++ b/app/client/ui_inv.cpp\n@@ -941,7 +941,7 @@\n {\n \tFAIL_IF(!inv_gadget) return(false);\n \tInvDataClass *inv = SlotData->Unknown_10();\n-\tInvDataPeekClass *peek = inv->Unknown_688830();\n+\tInvDataPeekClass * const &peek = inv->Unknown_688830();\n \tint id = peek->Get_Item_Template_ID(slot);\n \tif (id == -1 || id == -2) return(false);\n \tint num = 1;\n",
+    "5A0D00-third-g3ktmtgv--slot_at_final_argument.patch": "--- a/app/client/ui_inv.cpp\n+++ b/app/client/ui_inv.cpp\n@@ -971,7 +971,7 @@\n \tbool all = (SlotDrag->Unknown1C == 3 || (SlotDrag->Unknown1C == 2 && SlotDrag->Unknown20));\n \tUnknownB4 = -1;\n \tUnknown_C8();\n-\treturn(InvTransaction->Unknown_690AA0(InvType, slot, num, all, to->Unknown50, to_slot));\n+\tint from_slot; return(InvTransaction->Unknown_690AA0(InvType, from_slot = slot, num, all, to->Unknown50, to_slot));\n }\n \n // 0x5A0EB0\n",
+    "README.md": "Base revision: 3cf475be67cfedf8c4bc63cff207c6f05562c9c8; claim #267. Source file: app/client/ui_inv.cpp.\nVC6 SP4 compiler: /home/dev/Toolchains/enb-vc6-sp4/bin/vc6-cl.\nRetail SHA256: 249f852496f341c00361be95b66e7cba026f9227e38b602651c4.\n\nEvery successful compile received a complete, unfiltered native objmatch pass.\nFresh baseline:79 exact symbol/address pairs,79 distinct addresses. Best candidate\nhas exactly the same sets. No target gain; no source adopted. All assertion tokens\nand line numbers remain fixed. No flags/pragmas, shared headers, assembly, dead reads,\nunsequenced argument dependencies, or invented runtime work.\n\nforms.json lists source SHA256, metrics, complete pair differences and independent\npatches. Each patch applies directly to the base source; actual patch application\nwas replayed and byte-compared with the compiled source. Each artifact is<64KB.\nThe scratch runner is .work/claim-267/run_batch.py from the repository root.\nCompile using app flags/defines and candidate include dirs remapped to the archived\ntree, keep basename ui_inv.cpp, then run native objmatch against the read-only retail\nclient. Compare complete symbol/address sets, including duplicate-address symbols.\n\nCounts are in counts.json. All listed source trials are semantically valid, including\nrejected loss-bearing trials; diagnostic_forms=0. Baseline compiles are controls.\nThere were0 compiler failures. One D00 manifest-generation preflight failed before\ncompilation and was fixed; it did not write the compiler prefix or compile a source.\n\n12 source trials plus1 fresh baseline. Residue44/25 ->41/25.\nBest assigns the actual destination inventory at the existing transaction argument.\nSlot input locals (at/before first call and by reference), failure-return grouping,\nfinal argument inputs and actual mode/peek references did not recover retail's\nslot-in-ebx / initial-peek spill. Ours has no local frame; retail allocates4 bytes.\nFull retail body0x5A0D00-0x5A0E41 (321 bytes), best live code309 bytes. Call sequence\nretains the first/fallback list accesses and callback before transaction reads.\nNo EH/FP operations. No further concrete natural source lead remains.\n\nBest independent replay patch: 5A0D00-second-e07q2vn7--to_inventory_at_argument.patch\n",
+    "attempt.json": {
+      "address": "0x5A0D00",
+      "status": "partial",
+      "score": 0.58,
+      "symbol": "UIInvClass::Unknown_5A0D00",
+      "file": "app/client/ui_inv.cpp",
+      "forms": 12,
+      "blocker": "frame",
+      "evidence": "12 natural source trials; destination inventory local at original transaction argument reduces masked residue44/25 to41/25 with all79 symbol/address pairs preserved. Retail4-byte initial-peek spill and slot-in-ebx allocation remain missing. Slot lifetime, return grouping, real mode/peek references ruled out."
+    },
+    "audit.txt": "TARGET 5A0D00 best source form to_inventory_at_argument\nRetail complete body: 0x5a0d00 - 0x5a0e41 exclusive; 321 bytes\nObject function allocation: 320 bytes (includes VC6 padding).\nWhole object: 79 exact symbol/address pairs; 79 distinct addresses. No target pair gained.\nDirect/virtual call instruction counts ours/retail: 10 10 / 3 3\nNo FP instructions: True\nObject target code relocations (offset,type,raw signed addend,symbol):\n0x14 0x6 0 ??_C@_0FO@CLHP@Z?3?2home?2dev?2Projects?2EnB?2?4work?2c@\n0x19 0x6 0 ??_C@_0M@IHFB@?$CBinv_gadget?$AA@\n0x1e 0x14 0 ?Fail_If_Report@@YAXPBD0H@Z\n0x3e 0x14 0 ?Unknown_688830@InvDataClass@@QAEPAVInvDataPeekClass@@XZ\n0x4c 0x14 0 ?Get_Item_Template_ID@InvDataPeekClass@@QAEHH@Z\n0x72 0x14 0 ?Unknown_688850@InvDataClass@@QAEPAVInvDataPeekClass@@XZ\n0x79 0x14 0 ?Get_Stack_Count@InvDataPeekClass@@QAEHH@Z\n0x8b 0x14 0 ?Get_Stack_Count@InvDataPeekClass@@QAEHH@Z\n0x98 0x14 0 ?Unknown_670950@SlotDataGadgetClass@@QAEHXZ\n0xaf 0x6 0 ??_C@_0FO@CLHP@Z?3?2home?2dev?2Projects?2EnB?2?4work?2c@\n0xb4 0x6 0 ??_C@_03KJEK@?$CBto?$AA@\n0xb9 0x14 0 ?Fail_If_Report@@YAXPBD0H@Z\n0xcc 0x14 0 ?Unknown_670910@SlotDataGadgetClass@@QAEHXZ\n0x12a 0x14 0 ?Unknown_690AA0@InvTransactionClass@@QAE_NHHH_NHH@Z\nNo object C++ EH FuncInfo.\nAudit limit: target is not exact. This is a rejected near-miss proposal, not a complete equivalence proof.\n",
+    "baseline-addresses.json": [
+      "0x42A820",
+      "0x42A940",
+      "0x42A970",
+      "0x42AB30",
+      "0x42B320",
+      "0x42CD30",
+      "0x42F250",
+      "0x45CC10",
+      "0x48F3E0",
+      "0x4A1930",
+      "0x4A19A0",
+      "0x4A19C0",
+      "0x4A1A10",
+      "0x4A1A30",
+      "0x4A1A50",
+      "0x4A1A70",
+      "0x4A1A90",
+      "0x4A1AB0",
+      "0x4A1AD0",
+      "0x4A1AF0",
+      "0x5156F0",
+      "0x515710",
+      "0x515730",
+      "0x515750",
+      "0x52B210",
+      "0x52B240",
+      "0x52B270",
+      "0x52B2A0",
+      "0x52B2D0",
+      "0x52B2F0",
+      "0x52B310",
+      "0x52B330",
+      "0x52B350",
+      "0x549760",
+      "0x585160",
+      "0x585180",
+      "0x5851A0",
+      "0x5851C0",
+      "0x59E9E0",
+      "0x59EA10",
+      "0x59EA30",
+      "0x59EBB0",
+      "0x59ECA0",
+      "0x59ECD0",
+      "0x59EDC0",
+      "0x59EF40",
+      "0x59EF70",
+      "0x59F060",
+      "0x59F2C0",
+      "0x59F3D0",
+      "0x59F440",
+      "0x59F470",
+      "0x59F940",
+      "0x59FA00",
+      "0x59FA80",
+      "0x59FB20",
+      "0x59FD00",
+      "0x59FD70",
+      "0x59FDA0",
+      "0x59FE10",
+      "0x5A00A0",
+      "0x5A00C0",
+      "0x5A02E0",
+      "0x5A03B0",
+      "0x5A0450",
+      "0x5A05B0",
+      "0x5A06C0",
+      "0x5A0EB0",
+      "0x5A0FC0",
+      "0x5A0FE0",
+      "0x5A1020",
+      "0x5A1060",
+      "0x5A1090",
+      "0x5A10C0",
+      "0x5A10D0",
+      "0x5A10E0",
+      "0x5A10F0",
+      "0x5A1100",
+      "0x5A1110"
+    ],
+    "baseline-symbol-pairs.json": [
+      [
+        "??0?$UIInvStripOfClass@VRenderObjClass@@@@QAE@PAVSClient@@PAVRenderObjClass@@HPBDH@Z",
+        "0x59EDC0"
+      ],
+      [
+        "??0?$UIInvStripOfClass@VUIMeshClass@@@@QAE@PAVSClient@@PAVUIMeshClass@@HPBDH@Z",
+        "0x59EA30"
+      ],
+      [
+        "??0UIInvClass@@QAE@PAVSClient@@H@Z",
+        "0x59F3D0"
+      ],
+      [
+        "??1?$UIInvStripOfClass@VRenderObjClass@@@@UAE@XZ",
+        "0x59EF70"
+      ],
+      [
+        "??1?$UIInvStripOfClass@VUIMeshClass@@@@UAE@XZ",
+        "0x59ECD0"
+      ],
+      [
+        "??1EquipUsePacketClass@@UAE@XZ",
+        "0x5A00A0"
+      ],
+      [
+        "??1UIInvClass@@UAE@XZ",
+        "0x59F940"
+      ],
+      [
+        "??1UIInvStripClass@@UAE@XZ",
+        "0x59EBB0"
+      ],
+      [
+        "??_E?$UIInvStripOfClass@VRenderObjClass@@@@W3AEPAXI@Z",
+        "0x5A1100"
+      ],
+      [
+        "??_E?$UIInvStripOfClass@VRenderObjClass@@@@WDI@AEPAXI@Z",
+        "0x5A1110"
+      ],
+      [
+        "??_E?$UIInvStripOfClass@VUIMeshClass@@@@W3AEPAXI@Z",
+        "0x5A10E0"
+      ],
+      [
+        "??_E?$UIInvStripOfClass@VUIMeshClass@@@@WDI@AEPAXI@Z",
+        "0x5A10F0"
+      ],
+      [
+        "??_EUIInvClass@@W3AEPAXI@Z",
+        "0x5A10C0"
+      ],
+      [
+        "??_EUIInvClass@@WDI@AEPAXI@Z",
+        "0x5A10D0"
+      ],
+      [
+        "??_G?$UIInvStripOfClass@VRenderObjClass@@@@UAEPAXI@Z",
+        "0x59EF40"
+      ],
+      [
+        "??_G?$UIInvStripOfClass@VUIMeshClass@@@@UAEPAXI@Z",
+        "0x59ECA0"
+      ],
+      [
+        "??_GPacketClass@@UAEPAXI@Z",
+        "0x52B350"
+      ],
+      [
+        "??_GUIInvClass@@UAEPAXI@Z",
+        "0x59F440"
+      ],
+      [
+        "??_H@YGXPAXIHP6EX0@Z@Z",
+        "0x42F250"
+      ],
+      [
+        "?Add@UIInvStripClass@@QAEXPAVRenderObjClass@@@Z",
+        "0x59F060"
+      ],
+      [
+        "?Build@PacketClass@@UAEPAVRawPacketClass@@XZ",
+        "0x52B210"
+      ],
+      [
+        "?Close_Channel@PacketClass@@UAE_NXZ",
+        "0x52B330"
+      ],
+      [
+        "?Delete_This@RefCountClass@@UAEXXZ",
+        "0x45CC10"
+      ],
+      [
+        "?Get_Channel@PacketClass@@UAEHXZ",
+        "0x52B2D0"
+      ],
+      [
+        "?Get_Data_Size@PacketClass@@UAEHXZ",
+        "0x52B270"
+      ],
+      [
+        "?Get_Priority@PacketClass@@UAEHXZ",
+        "0x52B2F0"
+      ],
+      [
+        "?Get_Target_Node@GClass@@UAEPAV?$ContextDataNode@PAVGClass@@PAV1@@@XZ",
+        "0x4A1AD0"
+      ],
+      [
+        "?Get_Targeting_List@GClass@@UAEPAV?$List@PAV?$ContextDataNode@PAVGClass@@PAV1@@@@@XZ",
+        "0x4A1AF0"
+      ],
+      [
+        "?Is_Reliable@PacketClass@@UAE_NXZ",
+        "0x52B310"
+      ],
+      [
+        "?Print@PacketClass@@UAEHPADH@Z",
+        "0x52B2A0"
+      ],
+      [
+        "?Process_Packet@PacketClass@@UAE_NPAX@Z",
+        "0x52B240"
+      ],
+      [
+        "?Unknown_04@UnknownGadgetBase00Class@@UAEPAVGenericNode@@XZ",
+        "0x4A19A0"
+      ],
+      [
+        "?Unknown_08@UnknownGadgetBase00Class@@UAEXXZ",
+        "0x4A19C0"
+      ],
+      [
+        "?Unknown_0C@GClass@@UAEPBDXZ",
+        "0x4A1A10"
+      ],
+      [
+        "?Unknown_1C@GClass@@UAEHXZ",
+        "0x4A1A30"
+      ],
+      [
+        "?Unknown_20@GClass@@UAEHXZ",
+        "0x4A1A50"
+      ],
+      [
+        "?Unknown_24@GClass@@UAEHXZ",
+        "0x4A1A70"
+      ],
+      [
+        "?Unknown_28@GClass@@UAEHXZ",
+        "0x4A1A90"
+      ],
+      [
+        "?Unknown_2C@GClass@@UAEHXZ",
+        "0x4A1AB0"
+      ],
+      [
+        "?Unknown_4A1930@UnknownGadgetBase04Class@@UAE_NHHH@Z",
+        "0x4A1930"
+      ],
+      [
+        "?Unknown_54@UIInvClass@@UAEXXZ",
+        "0x59F470"
+      ],
+      [
+        "?Unknown_54@UIInvStripClass@@UAEXXZ",
+        "0x59F2C0"
+      ],
+      [
+        "?Unknown_59FE10@UIInvClass@@QAEPAVInvDataClass@@XZ",
+        "0x59FE10"
+      ],
+      [
+        "?Unknown_5A00C0@UIInvClass@@QAEXPAHPAV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z",
+        "0x5A00C0"
+      ],
+      [
+        "?Unknown_5A02E0@UIInvClass@@QAE_N_N@Z",
+        "0x5A02E0"
+      ],
+      [
+        "?Unknown_5A03B0@UIInvClass@@QAE_N_N@Z",
+        "0x5A03B0"
+      ],
+      [
+        "?Unknown_5A0450@UIInvClass@@QAEXHPAH0@Z",
+        "0x5A0450"
+      ],
+      [
+        "?Unknown_5A05B0@UIInvClass@@QAEXPAVSlotDataGadgetClass@@PAUKernelEventClass@@_N@Z",
+        "0x5A05B0"
+      ],
+      [
+        "?Unknown_5A06C0@UIInvClass@@QAEXPAVSlotDataGadgetClass@@@Z",
+        "0x5A06C0"
+      ],
+      [
+        "?Unknown_5A0EB0@UIInvClass@@QAE_NHH@Z",
+        "0x5A0EB0"
+      ],
+      [
+        "?Unknown_5C@UIInvClass@@UAEXXZ",
+        "0x59FD70"
+      ],
+      [
+        "?Unknown_60@UIInvClass@@UAEXXZ",
+        "0x59FDA0"
+      ],
+      [
+        "?Unknown_6C@InterfaceClass@@UAEXAAVINIClass@@@Z",
+        "0x5156F0"
+      ],
+      [
+        "?Unknown_70@InterfaceClass@@UAEXPAVControlKeysManager@@@Z",
+        "0x515710"
+      ],
+      [
+        "?Unknown_74@InterfaceClass@@UAEXPAVControlKeysManager@@@Z",
+        "0x515730"
+      ],
+      [
+        "?Unknown_78@InterfaceClass@@UAE_NPAX@Z",
+        "0x515750"
+      ],
+      [
+        "?Unknown_7C@UIInvClass@@UAEXPAVUIViewClass@@_N@Z",
+        "0x59FD00"
+      ],
+      [
+        "?Unknown_88@UIInvClass@@UAEPAVSlotDataClass@@XZ",
+        "0x59FA00"
+      ],
+      [
+        "?Unknown_8C@SlotDataInterface@@UAEPAVInterfaceClass@@XZ",
+        "0x549760"
+      ],
+      [
+        "?Unknown_90@UIInvClass@@UAEPAVInterfaceClass@@XZ",
+        "0x5851A0"
+      ],
+      [
+        "?Unknown_94@SlotDataInterface@@UAEPAVInterfaceClass@@XZ",
+        "0x585160"
+      ],
+      [
+        "?Unknown_9C@UIInvClass@@UAE_NH_N@Z",
+        "0x59FA80"
+      ],
+      [
+        "?Unknown_A0@SlotDataInterface@@UAE_NPAVSlotDataGadgetClass@@@Z",
+        "0x585180"
+      ],
+      [
+        "?Unknown_A4@UIInvClass@@UAEXAAV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@HH@Z",
+        "0x59FB20"
+      ],
+      [
+        "?Unknown_A8@UIInvClass@@UAEPBDXZ",
+        "0x5851C0"
+      ],
+      [
+        "?_Construct@std@@YAXPAPAVRenderObjClass@@ABQAV2@@Z",
+        "0x5A1060"
+      ],
+      [
+        "?_Copy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEXI@Z",
+        "0x42AB30"
+      ],
+      [
+        "?_Destroy@?$vector@PAVRenderObjClass@@V?$allocator@PAVRenderObjClass@@@std@@@std@@IAEXPAPAVRenderObjClass@@0@Z",
+        "0x5A0FC0"
+      ],
+      [
+        "?_Eos@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEXI@Z",
+        "0x42A940"
+      ],
+      [
+        "?_Grow@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAE_NI_N@Z",
+        "0x42A970"
+      ],
+      [
+        "?_Split@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEXXZ",
+        "0x42CD30"
+      ],
+      [
+        "?_Tidy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEX_N@Z",
+        "0x42A820"
+      ],
+      [
+        "?_Ucopy@?$vector@PAVRenderObjClass@@V?$allocator@PAVRenderObjClass@@@std@@@std@@IAEPAPAVRenderObjClass@@PBQAV3@0PAPAV3@@Z",
+        "0x5A0FE0"
+      ],
+      [
+        "?_Ufill@?$vector@PAVRenderObjClass@@V?$allocator@PAVRenderObjClass@@@std@@@std@@IAEXPAPAVRenderObjClass@@IABQAV3@@Z",
+        "0x5A1020"
+      ],
+      [
+        "?id@?$ctype@G@std@@$E",
+        "0x42B320"
+      ],
+      [
+        "?insert@?$vector@PAVRenderObjClass@@V?$allocator@PAVRenderObjClass@@@std@@@std@@QAEXPAPAVRenderObjClass@@IABQAV3@@Z",
+        "0x48F3E0"
+      ],
+      [
+        "_$E104",
+        "0x59EA10"
+      ],
+      [
+        "_$E106",
+        "0x59E9E0"
+      ],
+      [
+        "_$E164",
+        "0x5A1090"
+      ]
+    ],
+    "counts.json": {
+      "baseline_compiles": 1,
+      "valid_source_trials": 12,
+      "diagnostic_forms": 0,
+      "failed_compiles": 0,
+      "untried_forms": 0,
+      "control_baseline_compiles": 1,
+      "trials_with_symbol_loss": 1,
+      "trials_with_address_loss": 0
+    },
+    "forms.json": [
+      {
+        "name": "baseline",
+        "run": "5A0D00-first-ocmwkzti",
+        "source_sha256": "86ec0b21ac9ebd01d1d1619990e843baf8deec41b8f8f0531cf2e78eb32398e9",
+        "patch": "5A0D00-first-ocmwkzti--baseline.patch",
+        "patch_replay_verified": true,
+        "compiled": true,
+        "target_exact": false,
+        "masked_rows": 44,
+        "register_masked_rows": 25,
+        "class": "field-offset",
+        "symbol_gains": [],
+        "symbol_losses": [],
+        "gained_addresses": [],
+        "lost_addresses": []
+      },
+      {
+        "name": "slot_input_at_first_call",
+        "run": "5A0D00-first-ocmwkzti",
+        "source_sha256": "345891ee9dd9089e33038fffc24b926bb4b0a63dcdeb98053fa55de57e27048a",
+        "patch": "5A0D00-first-ocmwkzti--slot_input_at_first_call.patch",
+        "patch_replay_verified": true,
+        "compiled": true,
+        "target_exact": false,
+        "masked_rows": 44,
+        "register_masked_rows": 25,
+        "class": "field-offset",
+        "symbol_gains": [],
+        "symbol_losses": [],
+        "gained_addresses": [],
+        "lost_addresses": []
+      },
+      {
+        "name": "slot_input_before_first_call",
+        "run": "5A0D00-first-ocmwkzti",
+        "source_sha256": "5311efc80c033136e9cd02a864909cac1f2294d3ce1df139eed36240f6010fe7",
+        "patch": "5A0D00-first-ocmwkzti--slot_input_before_first_call.patch",
+        "patch_replay_verified": true,
+        "compiled": true,
+        "target_exact": false,
+        "masked_rows": 44,
+        "register_masked_rows": 25,
+        "class": "field-offset",
+        "symbol_gains": [],
+        "symbol_losses": [],
+        "gained_addresses": [],
+        "lost_addresses": []
+      },
+      {
+        "name": "slot_input_reference",
+        "run": "5A0D00-first-ocmwkzti",
+        "source_sha256": "d55995b2e7793ed996cf666c5488f9483b66273f2e6f87391409963cfdbc36f3",
+        "patch": "5A0D00-first-ocmwkzti--slot_input_reference.patch",
+        "patch_replay_verified": true,
+        "compiled": true,
+        "target_exact": false,
+        "masked_rows": 44,
+        "register_masked_rows": 25,
+        "class": "field-offset",
+        "symbol_gains": [],
+        "symbol_losses": [],
+        "gained_addresses": [],
+        "lost_addresses": []
+      },
+      {
+        "name": "failure_local_first",
+        "run": "5A0D00-second-e07q2vn7",
+        "source_sha256": "9b446f17559dd6062099df5ba0603c4125985385659a44f379434ccc2953f96a",
+        "patch": "5A0D00-second-e07q2vn7--failure_local_first.patch",
+        "patch_replay_verified": true,
+        "compiled": true,
+        "target_exact": false,
+        "masked_rows": 44,
+        "register_masked_rows": 25,
+        "class": "field-offset",
+        "symbol_gains": [],
+        "symbol_losses": [],
+        "gained_addresses": [],
+        "lost_addresses": []
+      },
+      {
+        "name": "failure_local_id",
+        "run": "5A0D00-second-e07q2vn7",
+        "source_sha256": "8689a23694984278384ee2a88ea88cfa46feb74abddd1c1715788d945d1989da",
+        "patch": "5A0D00-second-e07q2vn7--failure_local_id.patch",
+        "patch_replay_verified": true,
+        "compiled": true,
+        "target_exact": false,
+        "masked_rows": 44,
+        "register_masked_rows": 25,
+        "class": "field-offset",
+        "symbol_gains": [],
+        "symbol_losses": [],
+        "gained_addresses": [],
+        "lost_addresses": []
+      },
+      {
+        "name": "failure_local_all",
+        "run": "5A0D00-second-e07q2vn7",
+        "source_sha256": "44e56352d87474d03722b5001182f9c06ab34555fddb5454672ec3cf7d34f08c",
+        "patch": "5A0D00-second-e07q2vn7--failure_local_all.patch",
+        "patch_replay_verified": true,
+        "compiled": true,
+        "target_exact": false,
+        "masked_rows": 44,
+        "register_masked_rows": 25,
+        "class": "field-offset",
+        "symbol_gains": [],
+        "symbol_losses": [],
+        "gained_addresses": [],
+        "lost_addresses": []
+      },
+      {
+        "name": "inventory_at_argument",
+        "run": "5A0D00-second-e07q2vn7",
+        "source_sha256": "0b6e0fb5c6e3152c860926df80a18b8c60e84c2df0d6640795309331fb478f0e",
+        "patch": "5A0D00-second-e07q2vn7--inventory_at_argument.patch",
+        "patch_replay_verified": true,
+        "compiled": true,
+        "target_exact": false,
+        "masked_rows": 44,
+        "register_masked_rows": 29,
+        "class": "shape",
+        "symbol_gains": [],
+        "symbol_losses": [],
+        "gained_addresses": [],
+        "lost_addresses": []
+      },
+      {
+        "name": "to_inventory_at_argument",
+        "run": "5A0D00-second-e07q2vn7",
+        "source_sha256": "e8ee081b37dc3c33ed24a6973ee74b14bd380ba039adec6ae6dd47974316a9d8",
+        "patch": "5A0D00-second-e07q2vn7--to_inventory_at_argument.patch",
+        "patch_replay_verified": true,
+        "compiled": true,
+        "target_exact": false,
+        "masked_rows": 41,
+        "register_masked_rows": 25,
+        "class": "shape",
+        "symbol_gains": [],
+        "symbol_losses": [],
+        "gained_addresses": [],
+        "lost_addresses": []
+      },
+      {
+        "name": "slot_at_final_argument",
+        "run": "5A0D00-third-g3ktmtgv",
+        "source_sha256": "70b7f2d50bb9f0ce9c19f2aaccee2637f0bd575a557d86fd31e33087f155afa7",
+        "patch": "5A0D00-third-g3ktmtgv--slot_at_final_argument.patch",
+        "patch_replay_verified": true,
+        "compiled": true,
+        "target_exact": false,
+        "masked_rows": 44,
+        "register_masked_rows": 25,
+        "class": "field-offset",
+        "symbol_gains": [],
+        "symbol_losses": [],
+        "gained_addresses": [],
+        "lost_addresses": []
+      },
+      {
+        "name": "num_at_final_argument",
+        "run": "5A0D00-third-g3ktmtgv",
+        "source_sha256": "c623c4a57287a7a70fffba59edbdcde1ebebd9d5e236e2c9616e44a532c7805e",
+        "patch": "5A0D00-third-g3ktmtgv--num_at_final_argument.patch",
+        "patch_replay_verified": true,
+        "compiled": true,
+        "target_exact": false,
+        "masked_rows": 44,
+        "register_masked_rows": 25,
+        "class": "field-offset",
+        "symbol_gains": [],
+        "symbol_losses": [],
+        "gained_addresses": [],
+        "lost_addresses": []
+      },
+      {
+        "name": "mode_member_reference",
+        "run": "5A0D00-third-g3ktmtgv",
+        "source_sha256": "c9a715767d30977165d0aa0e9a4d1589eabc4ebdd3876ab81ff76f84cb0a3efd",
+        "patch": "5A0D00-third-g3ktmtgv--mode_member_reference.patch",
+        "patch_replay_verified": true,
+        "compiled": true,
+        "target_exact": false,
+        "masked_rows": 44,
+        "register_masked_rows": 25,
+        "class": "field-offset",
+        "symbol_gains": [],
+        "symbol_losses": [],
+        "gained_addresses": [],
+        "lost_addresses": []
+      },
+      {
+        "name": "peek_value_reference",
+        "run": "5A0D00-third-g3ktmtgv",
+        "source_sha256": "4481d3695346af6e95ea62cae9b16d3cd144e79f2c623d40f8d9838c7238575f",
+        "patch": "5A0D00-third-g3ktmtgv--peek_value_reference.patch",
+        "patch_replay_verified": true,
+        "compiled": true,
+        "target_exact": false,
+        "masked_rows": 44,
+        "register_masked_rows": 25,
+        "class": "field-offset",
+        "symbol_gains": [
+          [
+            "_$E165",
+            "0x5A1090"
+          ]
+        ],
+        "symbol_losses": [
+          [
+            "_$E164",
+            "0x5A1090"
+          ]
+        ],
+        "gained_addresses": [],
+        "lost_addresses": []
+      }
+    ]
+  }
+}

@@ -1,0 +1,828 @@
+{
+  "base": "bdee5997474dbc679e339e8388e1c49ef926e9c6",
+  "report": {
+    "target": "0x5AFCD0",
+    "base_sha256": "ecf57a52ef91f59f3d592f5a9eff65b8357197f9667495c8bf062faa71b78744",
+    "counts": {
+      "compilations": 10,
+      "successful_compilations": 10,
+      "new_valid_hypotheses": 7,
+      "distinct_sources": 10,
+      "controls": 2,
+      "repeated_sources": 0,
+      "diagnostic_only": 1,
+      "failures": 0,
+      "untried_generated": 0,
+      "distinct_code_groups": 3
+    },
+    "baseline_matches": "/home/dev/Projects/EnB/.work/claim-267/manufacturing/5AFA00/runs/initial-rgr7mauz/baseline/matches.json",
+    "baseline_file_address_pair_count": 140,
+    "baseline_file_address_pairs": [
+      [
+        "app/client/ui_manu.cpp",
+        "0x42A6C0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x42A820"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x42A940"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x42A970"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x42AB30"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x42B320"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x42CAB0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x42CD30"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x42D050"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x42D120"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x42F250"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x45CC10"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x46BE90"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x474080"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x4740B0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x497300"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x4A19A0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x4A19C0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x4A1A10"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x4A1A30"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x4A1A50"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x4A1A70"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x4A1A90"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x4A1AB0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x4A1AD0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x4A1AF0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x4A7780"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x4B58D0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x50A8E0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x50A900"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x50A920"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x50A940"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x50A960"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x50A980"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x50A9E0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x50AA00"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x50AA20"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x50AA40"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x50AA60"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x50AA80"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x50AAA0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x50AAC0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5156B0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5156F0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x515710"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x515730"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x515750"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x51AD20"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x51AD40"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x51AD60"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x51AD80"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x51ADA0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x51C630"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x52B210"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x52B240"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x52B270"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x52B2A0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x52B2D0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x52B2F0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x52B310"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x52B330"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x52B350"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5411F0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x543750"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x543770"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x544250"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x544B90"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x546480"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5464B0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5464F0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x546510"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5465C0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5466A0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x546710"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x546780"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5467F0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x546970"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x553A80"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x58E5B0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x58E5D0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5AF980"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5AF9B0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5AF9D0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5AFCA0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5AFFC0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B0B40"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B10A0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B1AF0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B1C20"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B1ED0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B2060"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B21A0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B2230"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B2820"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B28E0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B2950"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B2990"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B2A80"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B2B40"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B2F20"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B3240"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B3260"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B3580"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B3850"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B39B0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B3A50"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B3A70"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B3B90"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B3CA0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B3D70"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B42F0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B4680"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B4850"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B5CD0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B5FF0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B6060"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B6410"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B6680"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B66D0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B6700"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B6720"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B6770"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B67A0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B67C0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B6A60"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B6A80"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B6CA0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B6D30"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B6DB0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B6E20"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B6FD0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B7050"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B70C0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B7130"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B71A0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B7260"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B72B0"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B7300"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B7350"
+      ],
+      [
+        "app/client/ui_manu.cpp",
+        "0x5B7360"
+      ]
+    ],
+    "forms": [
+      {
+        "name": "one_based_clear",
+        "compiled": true,
+        "target_exact": false,
+        "source_sha256": "e02852fb72791a1eac81971736265b22ce55424c488b2d000bce20bc574fb378",
+        "lost_addresses": [],
+        "gained_addresses": [],
+        "error": null,
+        "class": "relocation",
+        "residue": 8,
+        "regs": 0,
+        "instructions": [
+          180,
+          180
+        ],
+        "code_group": "b36a07bc97e2",
+        "exact": false,
+        "kind": "new_valid_hypothesis",
+        "file_address_pair_count": 140,
+        "file_address_pairs_gained": [],
+        "file_address_pairs_lost": [],
+        "summary": "5AFCD0/runs/b2-nw67t8ie/summary.json",
+        "patch_replay_sha256_verified": true
+      },
+      {
+        "name": "paired_pointer_walk",
+        "compiled": true,
+        "target_exact": false,
+        "source_sha256": "8d649d7914d7e07cfc321296db8636ed331a4afdd5e6e23c5e4605bf9ced24b6",
+        "lost_addresses": [],
+        "gained_addresses": [],
+        "error": null,
+        "class": "relocation",
+        "residue": 27,
+        "regs": 14,
+        "instructions": [
+          187,
+          180
+        ],
+        "code_group": "642d30cbb70c",
+        "exact": false,
+        "kind": "new_valid_hypothesis",
+        "file_address_pair_count": 140,
+        "file_address_pairs_gained": [],
+        "file_address_pairs_lost": [],
+        "summary": "5AFCD0/runs/b2-nw67t8ie/summary.json",
+        "patch_replay_sha256_verified": true
+      },
+      {
+        "name": "countdown_forward",
+        "compiled": true,
+        "target_exact": false,
+        "source_sha256": "48c80bce5c0ee5b6eb58d5e3b7b781af9f196f2f10a10f094af95ea8ea9eff8b",
+        "lost_addresses": [],
+        "gained_addresses": [],
+        "error": null,
+        "class": "relocation",
+        "residue": 8,
+        "regs": 0,
+        "instructions": [
+          180,
+          180
+        ],
+        "code_group": "b36a07bc97e2",
+        "exact": false,
+        "kind": "new_valid_hypothesis",
+        "file_address_pair_count": 140,
+        "file_address_pairs_gained": [],
+        "file_address_pairs_lost": [],
+        "summary": "5AFCD0/runs/b2-nw67t8ie/summary.json",
+        "patch_replay_sha256_verified": true
+      },
+      {
+        "name": "delete_input_assignment",
+        "compiled": true,
+        "target_exact": false,
+        "source_sha256": "bad91cf7e03480f16500baae2ba783141299891c926956c08f751647e7453427",
+        "lost_addresses": [],
+        "gained_addresses": [],
+        "error": null,
+        "class": "relocation",
+        "residue": 8,
+        "regs": 0,
+        "instructions": [
+          180,
+          180
+        ],
+        "code_group": "b36a07bc97e2",
+        "exact": false,
+        "kind": "new_valid_hypothesis",
+        "file_address_pair_count": 140,
+        "file_address_pairs_gained": [],
+        "file_address_pairs_lost": [],
+        "summary": "5AFCD0/runs/b3-3quv7bkn/summary.json",
+        "patch_replay_sha256_verified": true
+      },
+      {
+        "name": "refptr_clear_method",
+        "compiled": true,
+        "target_exact": false,
+        "source_sha256": "e1cf9842495f293318aa57ab4c2801193128f187870536e88cc56cf5360096be",
+        "lost_addresses": [],
+        "gained_addresses": [],
+        "error": null,
+        "class": "relocation",
+        "residue": 8,
+        "regs": 1,
+        "instructions": [
+          179,
+          180
+        ],
+        "code_group": "d01313989147",
+        "exact": false,
+        "kind": "diagnostic",
+        "diagnostic_reason": "Rejected: RefCountPtr::Clear releases but does not null the stored pointer; not equivalent to retail.",
+        "file_address_pair_count": 140,
+        "file_address_pairs_gained": [],
+        "file_address_pairs_lost": [],
+        "summary": "5AFCD0/runs/b3-3quv7bkn/summary.json",
+        "patch_replay_sha256_verified": true
+      },
+      {
+        "name": "predeclared_do_loop",
+        "compiled": true,
+        "target_exact": false,
+        "source_sha256": "0303d96834b3516fc937c1c1a817a7673542bc7956590b4f6daab7a51ea3d1be",
+        "lost_addresses": [],
+        "gained_addresses": [],
+        "error": null,
+        "class": "relocation",
+        "residue": 8,
+        "regs": 0,
+        "instructions": [
+          180,
+          180
+        ],
+        "code_group": "b36a07bc97e2",
+        "exact": false,
+        "kind": "new_valid_hypothesis",
+        "file_address_pair_count": 140,
+        "file_address_pairs_gained": [],
+        "file_address_pairs_lost": [],
+        "summary": "5AFCD0/runs/b3-3quv7bkn/summary.json",
+        "patch_replay_sha256_verified": true
+      },
+      {
+        "name": "baseline",
+        "compiled": true,
+        "target_exact": false,
+        "source_sha256": "ecf57a52ef91f59f3d592f5a9eff65b8357197f9667495c8bf062faa71b78744",
+        "lost_addresses": [],
+        "gained_addresses": [],
+        "error": null,
+        "class": "relocation",
+        "residue": 8,
+        "regs": 0,
+        "instructions": [
+          180,
+          180
+        ],
+        "code_group": "b36a07bc97e2",
+        "exact": false,
+        "kind": "control",
+        "file_address_pair_count": 140,
+        "file_address_pairs_gained": [],
+        "file_address_pairs_lost": [],
+        "summary": "5AFCD0/runs/initial-ec14tfbh/summary.json",
+        "patch_replay_sha256_verified": true
+      },
+      {
+        "name": "conditional_reference_clear",
+        "compiled": true,
+        "target_exact": false,
+        "source_sha256": "1cecff7343b29ff13db4ae1f35d9b8e9d7c454ef8dcbf120a3f8db28617b5c39",
+        "lost_addresses": [],
+        "gained_addresses": [],
+        "error": null,
+        "class": "relocation",
+        "residue": 8,
+        "regs": 0,
+        "instructions": [
+          180,
+          180
+        ],
+        "code_group": "b36a07bc97e2",
+        "exact": false,
+        "kind": "control",
+        "file_address_pair_count": 140,
+        "file_address_pairs_gained": [],
+        "file_address_pairs_lost": [],
+        "summary": "5AFCD0/runs/initial-ec14tfbh/summary.json",
+        "patch_replay_sha256_verified": true
+      },
+      {
+        "name": "named_deleted_reference",
+        "compiled": true,
+        "target_exact": false,
+        "source_sha256": "f193e54a68d8ea55b84e98ddac6cd8a0713a66ca4ad363889fd3d3effd39c00c",
+        "lost_addresses": [],
+        "gained_addresses": [],
+        "error": null,
+        "class": "relocation",
+        "residue": 8,
+        "regs": 0,
+        "instructions": [
+          180,
+          180
+        ],
+        "code_group": "b36a07bc97e2",
+        "exact": false,
+        "kind": "new_valid_hypothesis",
+        "file_address_pair_count": 140,
+        "file_address_pairs_gained": [],
+        "file_address_pairs_lost": [],
+        "summary": "5AFCD0/runs/initial-ec14tfbh/summary.json",
+        "patch_replay_sha256_verified": true
+      },
+      {
+        "name": "named_cleared_reference",
+        "compiled": true,
+        "target_exact": false,
+        "source_sha256": "06f648ec36d3e3998e7ecf0a1c00472d9be5f4f7a76eedbb0f64b039a947996c",
+        "lost_addresses": [],
+        "gained_addresses": [],
+        "error": null,
+        "class": "relocation",
+        "residue": 8,
+        "regs": 0,
+        "instructions": [
+          180,
+          180
+        ],
+        "code_group": "b36a07bc97e2",
+        "exact": false,
+        "kind": "new_valid_hypothesis",
+        "file_address_pair_count": 140,
+        "file_address_pairs_gained": [],
+        "file_address_pairs_lost": [],
+        "summary": "5AFCD0/runs/initial-ec14tfbh/summary.json",
+        "patch_replay_sha256_verified": true
+      }
+    ]
+  },
+  "source_recipes": "Manufacturing target 0x5AFCD0; independent patch recipes\nBase commit: bdee5997474dbc679e339e8388e1c49ef926e9c6\nBase app/client/ui_manu.cpp SHA256: ecf57a52ef91f59f3d592f5a9eff65b8357197f9667495c8bf062faa71b78744\nCounts: {\"compilations\": 10, \"controls\": 2, \"diagnostic_only\": 1, \"distinct_code_groups\": 3, \"distinct_sources\": 10, \"failures\": 0, \"new_valid_hypotheses\": 7, \"repeated_sources\": 0, \"successful_compilations\": 10, \"untried_generated\": 0}\nReplay: apply each diff independently to the named base source. Source hashes validate every reconstruction. All sources preserve original line count; no header/flag/pragma/assembly changes. Full native matcher ran on every successful object.\n\nFORM one_based_clear\nsource_sha256 e02852fb72791a1eac81971736265b22ce55424c488b2d000bce20bc574fb378\n--- app/client/ui_manu.cpp\n+++ app/client/ui_manu.cpp\n@@ -136,9 +136,9 @@\n UIManuClass::~UIManuClass()\n {\n \tG_ASSERT(State == UI_CLOSED);\n-\tfor (int i = 0; i < 3; i++) {\n-\t\tdelete Unknown0C0[i];\n-\t\tUnknown110[i] = NULL;\n+\tfor (int i = 1; i <= 3; i++) {\n+\t\tdelete Unknown0C0[i - 1];\n+\t\tif (Unknown110[i - 1]) Unknown110[i - 1] = NULL;\n \t}\n \tif (Unknown0B0) {\n \t\tUnknown0B0->Unknown_66E460(RefCountPtr<RenderObjClass>(), 0, 0);\n\nFORM paired_pointer_walk\nsource_sha256 8d649d7914d7e07cfc321296db8636ed331a4afdd5e6e23c5e4605bf9ced24b6\n--- app/client/ui_manu.cpp\n+++ app/client/ui_manu.cpp\n@@ -136,9 +136,9 @@\n UIManuClass::~UIManuClass()\n {\n \tG_ASSERT(State == UI_CLOSED);\n-\tfor (int i = 0; i < 3; i++) {\n-\t\tdelete Unknown0C0[i];\n-\t\tUnknown110[i] = NULL;\n+\tUIManuUnknownC0Class **item = Unknown0C0; RefCountPtr<RenderObjClass> *render = Unknown110; for (int left = 3; left; --left, ++item, ++render) {\n+\t\tdelete *item;\n+\t\tif (*render) *render = NULL;\n \t}\n \tif (Unknown0B0) {\n \t\tUnknown0B0->Unknown_66E460(RefCountPtr<RenderObjClass>(), 0, 0);\n\nFORM countdown_forward\nsource_sha256 48c80bce5c0ee5b6eb58d5e3b7b781af9f196f2f10a10f094af95ea8ea9eff8b\n--- app/client/ui_manu.cpp\n+++ app/client/ui_manu.cpp\n@@ -136,9 +136,9 @@\n UIManuClass::~UIManuClass()\n {\n \tG_ASSERT(State == UI_CLOSED);\n-\tfor (int i = 0; i < 3; i++) {\n-\t\tdelete Unknown0C0[i];\n-\t\tUnknown110[i] = NULL;\n+\tfor (int left = 3; left != 0; --left) {\n+\t\tdelete Unknown0C0[3 - left];\n+\t\tif (Unknown110[3 - left]) Unknown110[3 - left] = NULL;\n \t}\n \tif (Unknown0B0) {\n \t\tUnknown0B0->Unknown_66E460(RefCountPtr<RenderObjClass>(), 0, 0);\n\nFORM delete_input_assignment\nsource_sha256 bad91cf7e03480f16500baae2ba783141299891c926956c08f751647e7453427\n--- app/client/ui_manu.cpp\n+++ app/client/ui_manu.cpp\n@@ -136,9 +136,9 @@\n UIManuClass::~UIManuClass()\n {\n \tG_ASSERT(State == UI_CLOSED);\n-\tfor (int i = 0; i < 3; i++) {\n-\t\tdelete Unknown0C0[i];\n-\t\tUnknown110[i] = NULL;\n+\tUIManuUnknownC0Class *item; for (int i = 0; i < 3; i++) {\n+\t\tdelete (item = Unknown0C0[i]);\n+\t\tif (Unknown110[i]) Unknown110[i] = NULL;\n \t}\n \tif (Unknown0B0) {\n \t\tUnknown0B0->Unknown_66E460(RefCountPtr<RenderObjClass>(), 0, 0);\n\nFORM refptr_clear_method\nsource_sha256 e1cf9842495f293318aa57ab4c2801193128f187870536e88cc56cf5360096be\n--- app/client/ui_manu.cpp\n+++ app/client/ui_manu.cpp\n@@ -138,7 +138,7 @@\n \tG_ASSERT(State == UI_CLOSED);\n \tfor (int i = 0; i < 3; i++) {\n \t\tdelete Unknown0C0[i];\n-\t\tUnknown110[i] = NULL;\n+\t\tUnknown110[i].Clear();\n \t}\n \tif (Unknown0B0) {\n \t\tUnknown0B0->Unknown_66E460(RefCountPtr<RenderObjClass>(), 0, 0);\n\nFORM predeclared_do_loop\nsource_sha256 0303d96834b3516fc937c1c1a817a7673542bc7956590b4f6daab7a51ea3d1be\n--- app/client/ui_manu.cpp\n+++ app/client/ui_manu.cpp\n@@ -136,10 +136,10 @@\n UIManuClass::~UIManuClass()\n {\n \tG_ASSERT(State == UI_CLOSED);\n-\tfor (int i = 0; i < 3; i++) {\n+\tint i = 0; do {\n \t\tdelete Unknown0C0[i];\n-\t\tUnknown110[i] = NULL;\n-\t}\n+\t\tif (Unknown110[i]) Unknown110[i] = NULL;\n+\t} while (++i < 3);\n \tif (Unknown0B0) {\n \t\tUnknown0B0->Unknown_66E460(RefCountPtr<RenderObjClass>(), 0, 0);\n \t}\n\nFORM baseline\nsource_sha256 ecf57a52ef91f59f3d592f5a9eff65b8357197f9667495c8bf062faa71b78744\nCONTROL: original source, no patch\n\nFORM conditional_reference_clear\nsource_sha256 1cecff7343b29ff13db4ae1f35d9b8e9d7c454ef8dcbf120a3f8db28617b5c39\n--- app/client/ui_manu.cpp\n+++ app/client/ui_manu.cpp\n@@ -138,7 +138,7 @@\n \tG_ASSERT(State == UI_CLOSED);\n \tfor (int i = 0; i < 3; i++) {\n \t\tdelete Unknown0C0[i];\n-\t\tUnknown110[i] = NULL;\n+\t\tif (Unknown110[i]) Unknown110[i] = NULL;\n \t}\n \tif (Unknown0B0) {\n \t\tUnknown0B0->Unknown_66E460(RefCountPtr<RenderObjClass>(), 0, 0);\n\nFORM named_deleted_reference\nsource_sha256 f193e54a68d8ea55b84e98ddac6cd8a0713a66ca4ad363889fd3d3effd39c00c\n--- app/client/ui_manu.cpp\n+++ app/client/ui_manu.cpp\n@@ -137,8 +137,8 @@\n {\n \tG_ASSERT(State == UI_CLOSED);\n \tfor (int i = 0; i < 3; i++) {\n-\t\tdelete Unknown0C0[i];\n-\t\tUnknown110[i] = NULL;\n+\t\tUIManuUnknownC0Class *const &item = Unknown0C0[i]; delete item;\n+\t\tif (Unknown110[i]) Unknown110[i] = NULL;\n \t}\n \tif (Unknown0B0) {\n \t\tUnknown0B0->Unknown_66E460(RefCountPtr<RenderObjClass>(), 0, 0);\n\nFORM named_cleared_reference\nsource_sha256 06f648ec36d3e3998e7ecf0a1c00472d9be5f4f7a76eedbb0f64b039a947996c\n--- app/client/ui_manu.cpp\n+++ app/client/ui_manu.cpp\n@@ -138,7 +138,7 @@\n \tG_ASSERT(State == UI_CLOSED);\n \tfor (int i = 0; i < 3; i++) {\n \t\tdelete Unknown0C0[i];\n-\t\tUnknown110[i] = NULL;\n+\t\tRefCountPtr<RenderObjClass> &item = Unknown110[i]; if (item) item = NULL;\n \t}\n \tif (Unknown0B0) {\n \t\tUnknown0B0->Unknown_66E460(RefCountPtr<RenderObjClass>(), 0, 0);\n\nMETRICS\n[\n  {\n    \"name\": \"one_based_clear\",\n    \"compiled\": true,\n    \"target_exact\": false,\n    \"source_sha256\": \"e02852fb72791a1eac81971736265b22ce55424c488b2d000bce20bc574fb378\",\n    \"lost_addresses\": [],\n    \"gained_addresses\": [],\n    \"error\": null,\n    \"class\": \"relocation\",\n    \"residue\": 8,\n    \"regs\": 0,\n    \"instructions\": [\n      180,\n      180\n    ],\n    \"code_group\": \"b36a07bc97e2\",\n    \"exact\": false,\n    \"kind\": \"new_valid_hypothesis\",\n    \"file_address_pair_count\": 140,\n    \"file_address_pairs_gained\": [],\n    \"file_address_pairs_lost\": [],\n    \"summary\": \"5AFCD0/runs/b2-nw67t8ie/summary.json\",\n    \"patch_replay_sha256_verified\": true\n  },\n  {\n    \"name\": \"paired_pointer_walk\",\n    \"compiled\": true,\n    \"target_exact\": false,\n    \"source_sha256\": \"8d649d7914d7e07cfc321296db8636ed331a4afdd5e6e23c5e4605bf9ced24b6\",\n    \"lost_addresses\": [],\n    \"gained_addresses\": [],\n    \"error\": null,\n    \"class\": \"relocation\",\n    \"residue\": 27,\n    \"regs\": 14,\n    \"instructions\": [\n      187,\n      180\n    ],\n    \"code_group\": \"642d30cbb70c\",\n    \"exact\": false,\n    \"kind\": \"new_valid_hypothesis\",\n    \"file_address_pair_count\": 140,\n    \"file_address_pairs_gained\": [],\n    \"file_address_pairs_lost\": [],\n    \"summary\": \"5AFCD0/runs/b2-nw67t8ie/summary.json\",\n    \"patch_replay_sha256_verified\": true\n  },\n  {\n    \"name\": \"countdown_forward\",\n    \"compiled\": true,\n    \"target_exact\": false,\n    \"source_sha256\": \"48c80bce5c0ee5b6eb58d5e3b7b781af9f196f2f10a10f094af95ea8ea9eff8b\",\n    \"lost_addresses\": [],\n    \"gained_addresses\": [],\n    \"error\": null,\n    \"class\": \"relocation\",\n    \"residue\": 8,\n    \"regs\": 0,\n    \"instructions\": [\n      180,\n      180\n    ],\n    \"code_group\": \"b36a07bc97e2\",\n    \"exact\": false,\n    \"kind\": \"new_valid_hypothesis\",\n    \"file_address_pair_count\": 140,\n    \"file_address_pairs_gained\": [],\n    \"file_address_pairs_lost\": [],\n    \"summary\": \"5AFCD0/runs/b2-nw67t8ie/summary.json\",\n    \"patch_replay_sha256_verified\": true\n  },\n  {\n    \"name\": \"delete_input_assignment\",\n    \"compiled\": true,\n    \"target_exact\": false,\n    \"source_sha256\": \"bad91cf7e03480f16500baae2ba783141299891c926956c08f751647e7453427\",\n    \"lost_addresses\": [],\n    \"gained_addresses\": [],\n    \"error\": null,\n    \"class\": \"relocation\",\n    \"residue\": 8,\n    \"regs\": 0,\n    \"instructions\": [\n      180,\n      180\n    ],\n    \"code_group\": \"b36a07bc97e2\",\n    \"exact\": false,\n    \"kind\": \"new_valid_hypothesis\",\n    \"file_address_pair_count\": 140,\n    \"file_address_pairs_gained\": [],\n    \"file_address_pairs_lost\": [],\n    \"summary\": \"5AFCD0/runs/b3-3quv7bkn/summary.json\",\n    \"patch_replay_sha256_verified\": true\n  },\n  {\n    \"name\": \"refptr_clear_method\",\n    \"compiled\": true,\n    \"target_exact\": false,\n    \"source_sha256\": \"e1cf9842495f293318aa57ab4c2801193128f187870536e88cc56cf5360096be\",\n    \"lost_addresses\": [],\n    \"gained_addresses\": [],\n    \"error\": null,\n    \"class\": \"relocation\",\n    \"residue\": 8,\n    \"regs\": 1,\n    \"instructions\": [\n      179,\n      180\n    ],\n    \"code_group\": \"d01313989147\",\n    \"exact\": false,\n    \"kind\": \"diagnostic\",\n    \"diagnostic_reason\": \"Rejected: RefCountPtr::Clear releases but does not null the stored pointer; not equivalent to retail.\",\n    \"file_address_pair_count\": 140,\n    \"file_address_pairs_gained\": [],\n    \"file_address_pairs_lost\": [],\n    \"summary\": \"5AFCD0/runs/b3-3quv7bkn/summary.json\",\n    \"patch_replay_sha256_verified\": true\n  },\n  {\n    \"name\": \"predeclared_do_loop\",\n    \"compiled\": true,\n    \"target_exact\": false,\n    \"source_sha256\": \"0303d96834b3516fc937c1c1a817a7673542bc7956590b4f6daab7a51ea3d1be\",\n    \"lost_addresses\": [],\n    \"gained_addresses\": [],\n    \"error\": null,\n    \"class\": \"relocation\",\n    \"residue\": 8,\n    \"regs\": 0,\n    \"instructions\": [\n      180,\n      180\n    ],\n    \"code_group\": \"b36a07bc97e2\",\n    \"exact\": false,\n    \"kind\": \"new_valid_hypothesis\",\n    \"file_address_pair_count\": 140,\n    \"file_address_pairs_gained\": [],\n    \"file_address_pairs_lost\": [],\n    \"summary\": \"5AFCD0/runs/b3-3quv7bkn/summary.json\",\n    \"patch_replay_sha256_verified\": true\n  },\n  {\n    \"name\": \"baseline\",\n    \"compiled\": true,\n    \"target_exact\": false,\n    \"source_sha256\": \"ecf57a52ef91f59f3d592f5a9eff65b8357197f9667495c8bf062faa71b78744\",\n    \"lost_addresses\": [],\n    \"gained_addresses\": [],\n    \"error\": null,\n    \"class\": \"relocation\",\n    \"residue\": 8,\n    \"regs\": 0,\n    \"instructions\": [\n      180,\n      180\n    ],\n    \"code_group\": \"b36a07bc97e2\",\n    \"exact\": false,\n    \"kind\": \"control\",\n    \"file_address_pair_count\": 140,\n    \"file_address_pairs_gained\": [],\n    \"file_address_pairs_lost\": [],\n    \"summary\": \"5AFCD0/runs/initial-ec14tfbh/summary.json\",\n    \"patch_replay_sha256_verified\": true\n  },\n  {\n    \"name\": \"conditional_reference_clear\",\n    \"compiled\": true,\n    \"target_exact\": false,\n    \"source_sha256\": \"1cecff7343b29ff13db4ae1f35d9b8e9d7c454ef8dcbf120a3f8db28617b5c39\",\n    \"lost_addresses\": [],\n    \"gained_addresses\": [],\n    \"error\": null,\n    \"class\": \"relocation\",\n    \"residue\": 8,\n    \"regs\": 0,\n    \"instructions\": [\n      180,\n      180\n    ],\n    \"code_group\": \"b36a07bc97e2\",\n    \"exact\": false,\n    \"kind\": \"control\",\n    \"file_address_pair_count\": 140,\n    \"file_address_pairs_gained\": [],\n    \"file_address_pairs_lost\": [],\n    \"summary\": \"5AFCD0/runs/initial-ec14tfbh/summary.json\",\n    \"patch_replay_sha256_verified\": true\n  },\n  {\n    \"name\": \"named_deleted_reference\",\n    \"compiled\": true,\n    \"target_exact\": false,\n    \"source_sha256\": \"f193e54a68d8ea55b84e98ddac6cd8a0713a66ca4ad363889fd3d3effd39c00c\",\n    \"lost_addresses\": [],\n    \"gained_addresses\": [],\n    \"error\": null,\n    \"class\": \"relocation\",\n    \"residue\": 8,\n    \"regs\": 0,\n    \"instructions\": [\n      180,\n      180\n    ],\n    \"code_group\": \"b36a07bc97e2\",\n    \"exact\": false,\n    \"kind\": \"new_valid_hypothesis\",\n    \"file_address_pair_count\": 140,\n    \"file_address_pairs_gained\": [],\n    \"file_address_pairs_lost\": [],\n    \"summary\": \"5AFCD0/runs/initial-ec14tfbh/summary.json\",\n    \"patch_replay_sha256_verified\": true\n  },\n  {\n    \"name\": \"named_cleared_reference\",\n    \"compiled\": true,\n    \"target_exact\": false,\n    \"source_sha256\": \"06f648ec36d3e3998e7ecf0a1c00472d9be5f4f7a76eedbb0f64b039a947996c\",\n    \"lost_addresses\": [],\n    \"gained_addresses\": [],\n    \"error\": null,\n    \"class\": \"relocation\",\n    \"residue\": 8,\n    \"regs\": 0,\n    \"instructions\": [\n      180,\n      180\n    ],\n    \"code_group\": \"b36a07bc97e2\",\n    \"exact\": false,\n    \"kind\": \"new_valid_hypothesis\",\n    \"file_address_pair_count\": 140,\n    \"file_address_pairs_gained\": [],\n    \"file_address_pairs_lost\": [],\n    \"summary\": \"5AFCD0/runs/initial-ec14tfbh/summary.json\",\n    \"patch_replay_sha256_verified\": true\n  }\n]\n",
+  "outcome": "7new valid hypotheses+2controls+1rejected semantic diagnostic. All140 address pairs preserved in valid trials; baseline8register rows unchanged. Declared-type references/loop inputs do not recover swapped delete/array pointer registers. RefCountPtr::Clear does not null, excluded as non-equivalent. No source adoption."
+}

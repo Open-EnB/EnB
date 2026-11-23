@@ -1,0 +1,21 @@
+{
+  "analysis_model": "gpt-6-astra (high)",
+  "test_model": "gpt-6.1-sol (high)",
+  "hypothesis_ids": [
+    "A267-10"
+  ],
+  "parts": [
+    "docs/attempts/5B1230/claim267-astra-tests/A267-10-baseline-0x59FE30.json",
+    "docs/attempts/5B1230/claim267-astra-tests/A267-10-baseline-0x5A0740.json",
+    "docs/attempts/5B1230/claim267-astra-tests/A267-10-baseline-0x5A0D00.json",
+    "docs/attempts/5B1230/claim267-astra-tests/A267-10-packet_id_seed_control-0x59FE30.json",
+    "docs/attempts/5B1230/claim267-astra-tests/A267-10-packet_id_seed_control-0x5A0740.json",
+    "docs/attempts/5B1230/claim267-astra-tests/A267-10-packet_id_seed_control-0x5A0D00.json",
+    "docs/attempts/5B1230/claim267-astra-tests/A267-10-real_drag_class_declaration_context-0x59FE30.json",
+    "docs/attempts/5B1230/claim267-astra-tests/A267-10-real_drag_class_declaration_context-0x5A0740.json",
+    "docs/attempts/5B1230/claim267-astra-tests/A267-10-real_drag_class_declaration_context-0x5A0D00.json"
+  ],
+  "results": "docs/attempts/5B1230/claim267-astra-tests/results.json",
+  "constraints": "docs/attempts/5B1230/claim267-astra-tests/constraints.json",
+  "evidence": "A267-10 actual drag header and real Drop/Cancel/State declarations canonical across all3inventorytargets;all79pairs preserved. Declaration-context diagnostic provides no match;no source adopted."
+}

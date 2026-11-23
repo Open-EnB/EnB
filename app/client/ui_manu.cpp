@@ -90,7 +90,7 @@ static inline __int64 Unknown_Filter_Seconds() { return 5; } static __int64 Unkn
 static unsigned int Unknown_B8183C = 9;					// NAME 1: neutral (D10): the filter requests allowed
 static const float Unknown_AF2D18 = 1.0f;				// NAME 1: neutral (D10): what 0x5B3A70 stores (read from .rdata)
 
-// NOT EXACT: order (the client computes +0xB80's address after the low half of the __int64 at +0xBB8, ours first) (0x5AFA00)
+
 UIManuClass::UIManuClass(SBaseViewClass *view, const LayerClass &layer) :
 	Unknown5BB320Class(new UIMeshClass("TSM01A", true), (UIViewClass *)view, layer),
 	Unknown0AC(view),
@@ -218,11 +218,11 @@ void UIManuClass::Unknown_7C(UIViewClass *view, bool arg)
 
 
 
-// NOT EXACT: inline budget (0x5B2820 inlined, its 0x5B6CA0 / 0x5B2950 out of line as the client's; left: the sort scope's stores and the font-style block's temporaries; the client's frame is 0xC bytes smaller) (0x5B0BB0)
+
 void UIManuClass::Unknown_58()
 {
 	SClient *sclient = Client->As_Space_Client();
-	((ClientClass *)Client)->Send_Packet(&ManufactureItemCatagoryPacketClass(sclient->Unknown1138, 1));
+	int player_id; ((ClientClass *)Client)->Send_Packet(&ManufactureItemCatagoryPacketClass(player_id = sclient->Unknown1138, 1));	// NAME 1 [player_id]: neutral (D10)
 	if (State == UI_CLOSED) {
 		InterfaceSortScopeClass scope(this);
 		State = UI_OPEN;
@@ -234,15 +234,15 @@ void UIManuClass::Unknown_58()
 
 
 
-		Unknown_BE67C4->Add(InterfaceMesh->Peek_Mesh_Object());
+		RenderObjClass *mesh = InterfaceMesh->Peek_Mesh_Object(); Unknown_BE67C4->Add(mesh);	// NAME 1 [mesh]: neutral (D10)
 		RefCountPtr<FontSys> name_text = Create_Peek(Unknown_BE67C4->Get_Style("Name_tsm01a", InterfaceMesh->Peek_Mesh_Object()));
 		RefCountPtr<RenderObjClass> name_obj = Create_Get(InterfaceMesh->Peek_Object()->Get_Sub_Object_By_Name("name"));
-		name_text->Set_Sort_Level(name_obj->Get_Sort_Level() - 1);
-		char buffer[264];
+		int name_sort_level = name_obj->Get_Sort_Level() - 1; name_text->Set_Sort_Level(name_sort_level);	// NAME 1 [name_sort_level]: neutral (D10)
+		char buffer[256];
 		for (int i = 0; i < 10; i++) {
 			sprintf(buffer, "desc%02d_tsm01a", i);
 			Unknown16C[i] = Create_Peek(Unknown_BE67C4->Get_Style(buffer, InterfaceMesh->Peek_Mesh_Object()));
-			Unknown16C[i]->Set_Sort_Level(Unknown0E8[i]->RObj->Get_Sort_Level() + 1);
+			int row_sort_level = Unknown0E8[i]->RObj->Get_Sort_Level() + 1; Unknown16C[i]->Set_Sort_Level(row_sort_level);	// NAME 1 [row_sort_level]: neutral (D10)
 			Unknown16C[i]->Change_Text("", 0);
 			sprintf(buffer, "var%02d_tsm01a", i);
 			Unknown194[i] = Create_Peek(Unknown_BE67C4->Get_Style(buffer, InterfaceMesh->Peek_Mesh_Object()));
@@ -474,8 +474,8 @@ void UIManuClass::Unknown_54()
 	}
 	Unknown_10();
 }
-
-// NOT EXACT: inline budget (the client calls the 'ManufactureComponents' and 'Validity' Casts out of line, 0x5B7210 / 0x5468D0, and 0x5B6DB0 in the inlined 0x5B3640) (0x5B1230)
+template<class C> C *Unknown_Find_Changed(DeltaCompoundClass *root, const NameClass &name) { C *t = Unknown_Find_Field<C>(root, name); if (t && t->Unknown70 > 1) return(t); return(NULL); }	// NAME 1 [Unknown_Find_Changed]: neutral (D10); existing ui_refinery.cpp predicate
+// NOT EXACT: inline budget (the nested PreviousAttempts lookup/Name boundary still differs; ManufactureComponents and Validity Casts 0x5B7210 / 0x5468D0 are recovered) (0x5B1230)
 void UIManuClass::Unknown_60()
 {
 	Unknown_5B5320();
@@ -490,8 +490,8 @@ void UIManuClass::Unknown_60()
 		bool done = false;
 		if (Unknown0BA4 == 1) {
 			NameClass name("ManufactureComponents");
-			UIManuComponentsClass *components = Unknown_Find_Field<UIManuComponentsClass>((DeltaCompoundClass *)Unknown0BA0, name);
-			if (components && components->Unknown70 > 1) {
+			UIManuComponentsClass *components = Unknown_Find_Changed<UIManuComponentsClass>((DeltaCompoundClass *)Unknown0BA0, name);
+			if (components) {
 				Unknown0BA4 = 0;
 				done = true;
 				if (Unknown0BAD) {
@@ -533,9 +533,9 @@ slider:
 	for (int i = 0; i < 3; i++) {
 		Unknown0C0[i]->Unknown_5B7880();
 	}
-	unsigned int now = ((ClientClass *)Client)->Unknown10BC;
-	if ((__int64)now > Unknown0BB8 && Unknown0BC0 > 0) {
-		Unknown0BB8 = Unknown_BE5C20 * 1000 + now;
+	DurationClass now; now = DurationClass((unsigned int)((ClientClass *)Client)->Unknown10BC);
+	if (now.Time > Unknown0BB8.Time && Unknown0BC0 > 0) {
+		Unknown0BB8 = DurationClass(Unknown_BE5C20 * 1000 + now.Time);
 		if (--Unknown0BC0 < Unknown_B8183C) {
 			Unknown_5B6CA0();
 		}
@@ -1874,3 +1874,19 @@ void UIManuClass::Unknown_5B6D30()
 template UIManuListClass *Unknown_Find_Field<UIManuListClass>(DeltaCompoundClass *root, const NameClass &name);	// D164: not the client's form; emits auxdata.h's find for the lists out of line (0x5B70C0, which the client's 0x5B16C0 calls) now that 0x5B5320's 'PreviousAttempts' find is 0x5B3580's set find (0x5B6DB0)
 template UIManuComponentsClass *Unknown_Find_Field<UIManuComponentsClass>(DeltaCompoundClass *root, const NameClass &name);	// D164: not the client's form; emits auxdata.h's 'ManufactureTarget' find out of line (0x5B7050, which the client's 0x5B5CD0 calls)
 template class UnknownRTTIClass<UIManuTechLevelFilterClass>;	// D164: emits the filter Cast out of line (0x5B7300, which the client's 0x5B4B10 calls)
+
+// 0x5B0BB0 is exact: retain a 256-byte label buffer, assign the player ID at its packet argument,
+// name the font-manager mesh input and copy sort values before their setters. All original callbacks
+// and reference-counted temporary lifetimes are preserved.
+
+// 0x5B1230: the current tick is a zero-extended unsigned input carried by DurationClass. Its existing
+// assignment layer recovers the retail Validity Cast boundary and this unit's exact 0x5468D0 holder;
+// the enclosing handler remains partial. Signed timestamp operations and read timing are preserved.
+
+// 0x5AFA00 is exact with the request timestamp represented by DurationClass. The eight-byte member
+// retains its original offset, and the class size, alignment and every own-member offset are unchanged.
+// All four ui_manu.h consumers preserve their complete native pair sets.
+
+// 0x5B1230: reuse ui_refinery.cpp's changed-field predicate for ManufactureComponents, preserving
+// the sole >1 state test and explicit name/root read order. This recovers the exact 0x5B7210 Cast holder.
+// The timestamp store uses the existing DurationClass assignment; the enclosing handler remains partial.

@@ -1,0 +1,162 @@
+{
+  "unit": "app/client/ui_manu_util.cpp",
+  "baseline_pairs": [
+    [
+      "app/client/ui_manu_util.cpp",
+      "0x42B320"
+    ],
+    [
+      "app/client/ui_manu_util.cpp",
+      "0x42F250"
+    ],
+    [
+      "app/client/ui_manu_util.cpp",
+      "0x5B7370"
+    ],
+    [
+      "app/client/ui_manu_util.cpp",
+      "0x5B73A0"
+    ],
+    [
+      "app/client/ui_manu_util.cpp",
+      "0x5B73C0"
+    ],
+    [
+      "app/client/ui_manu_util.cpp",
+      "0x5B7430"
+    ],
+    [
+      "app/client/ui_manu_util.cpp",
+      "0x5B74A0"
+    ],
+    [
+      "app/client/ui_manu_util.cpp",
+      "0x5B74F0"
+    ],
+    [
+      "app/client/ui_manu_util.cpp",
+      "0x5B7570"
+    ],
+    [
+      "app/client/ui_manu_util.cpp",
+      "0x5B7880"
+    ],
+    [
+      "app/client/ui_manu_util.cpp",
+      "0x5B79C0"
+    ],
+    [
+      "app/client/ui_manu_util.cpp",
+      "0x5B7A40"
+    ]
+  ],
+  "candidate_pairs": [
+    [
+      "app/client/ui_manu_util.cpp",
+      "0x42B320"
+    ],
+    [
+      "app/client/ui_manu_util.cpp",
+      "0x42F250"
+    ],
+    [
+      "app/client/ui_manu_util.cpp",
+      "0x5B7370"
+    ],
+    [
+      "app/client/ui_manu_util.cpp",
+      "0x5B73A0"
+    ],
+    [
+      "app/client/ui_manu_util.cpp",
+      "0x5B73C0"
+    ],
+    [
+      "app/client/ui_manu_util.cpp",
+      "0x5B7430"
+    ],
+    [
+      "app/client/ui_manu_util.cpp",
+      "0x5B74A0"
+    ],
+    [
+      "app/client/ui_manu_util.cpp",
+      "0x5B74F0"
+    ],
+    [
+      "app/client/ui_manu_util.cpp",
+      "0x5B7570"
+    ],
+    [
+      "app/client/ui_manu_util.cpp",
+      "0x5B7880"
+    ],
+    [
+      "app/client/ui_manu_util.cpp",
+      "0x5B79C0"
+    ],
+    [
+      "app/client/ui_manu_util.cpp",
+      "0x5B7A40"
+    ]
+  ],
+  "root_final_pairs": [
+    [
+      "app/client/ui_manu_util.cpp",
+      "0x42B320"
+    ],
+    [
+      "app/client/ui_manu_util.cpp",
+      "0x42F250"
+    ],
+    [
+      "app/client/ui_manu_util.cpp",
+      "0x5B7370"
+    ],
+    [
+      "app/client/ui_manu_util.cpp",
+      "0x5B73A0"
+    ],
+    [
+      "app/client/ui_manu_util.cpp",
+      "0x5B73C0"
+    ],
+    [
+      "app/client/ui_manu_util.cpp",
+      "0x5B7430"
+    ],
+    [
+      "app/client/ui_manu_util.cpp",
+      "0x5B74A0"
+    ],
+    [
+      "app/client/ui_manu_util.cpp",
+      "0x5B74F0"
+    ],
+    [
+      "app/client/ui_manu_util.cpp",
+      "0x5B7570"
+    ],
+    [
+      "app/client/ui_manu_util.cpp",
+      "0x5B7880"
+    ],
+    [
+      "app/client/ui_manu_util.cpp",
+      "0x5B79C0"
+    ],
+    [
+      "app/client/ui_manu_util.cpp",
+      "0x5B7A40"
+    ]
+  ],
+  "baseline_sha256": "5c958957d9134aa920a2f405c07ab0b44a753eafece88e0f658b1a942b1bb1a3",
+  "candidate_sha256": "5c958957d9134aa920a2f405c07ab0b44a753eafece88e0f658b1a942b1bb1a3",
+  "root_final_source_sha256": "5c958957d9134aa920a2f405c07ab0b44a753eafece88e0f658b1a942b1bb1a3",
+  "root_final_matches": "/home/dev/Projects/EnB/.work/claim-267/astra-tests/root-final-A267-11/runs/ui_manu_util-wskfpqyt/root_final/matches.json",
+  "all_baseline_pairs_preserved": true,
+  "candidate_equals_root_final": true,
+  "root_final_pairs_sha256": "30b044948c4b1e241fdb16d0eaf42bcdc90f6e0959ce164c8faaad05d0bd18f7",
+  "gained": [],
+  "lost": []
+}

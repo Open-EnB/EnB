@@ -1,0 +1,85 @@
+{
+  "native_exact": {
+    "object": "ui_manu.obj",
+    "symbol": "?Cast@?$UnknownRTTIClass@VUIManuComponentsClass@@@@SAPAVUIManuComponentsClass@@PAVDeltaClass@@@Z",
+    "name": "?Cast@?$UnknownRTTIClass@VUIManuComponentsClass@@@@SAPAVUIManuComponentsClass@@PAVDeltaClass@@@Z",
+    "length": 53,
+    "fixed": 37,
+    "addresses": [
+      "0x5B7210"
+    ],
+    "status": "exact",
+    "tiebreak": true,
+    "range": true
+  },
+  "meaningful_bytes": 53,
+  "instructions": [
+    20,
+    20
+  ],
+  "fixed_bytes_equal": true,
+  "frames": [
+    [
+      null,
+      false,
+      false
+    ],
+    [
+      null,
+      false,
+      false
+    ]
+  ],
+  "returns": [
+    [
+      "0x1e",
+      "0x34"
+    ],
+    [
+      "0x5b722e",
+      "0x5b7244"
+    ]
+  ],
+  "relocations": [
+    {
+      "offset": "0xb",
+      "type": "0x6",
+      "symbol": "??_C@_0GG@BBGD@Z?3?2home?2dev?2Projects?2EnB?2?4work?2c@",
+      "addend": 0,
+      "retail_target": "0xb78528",
+      "source_string": "Z:\\home\\dev\\Projects\\EnB\\.work\\claim-267\\manu-cross-followup\\tree\\app\\client\\..\\shared\\auxdata\\rtti.h",
+      "retail_string": "..\\shared/auxdata/rtti.h"
+    },
+    {
+      "offset": "0x10",
+      "type": "0x6",
+      "symbol": "??_C@_01KCAO@b?$AA@",
+      "addend": 0,
+      "retail_target": "0xb78524",
+      "source_string": "b",
+      "retail_string": "b"
+    },
+    {
+      "offset": "0x15",
+      "type": "0x14",
+      "symbol": "?G_Assert_Report@@YAXPBD0H@Z",
+      "addend": 0,
+      "retail_target": "0x40aa51",
+      "source_string": null,
+      "retail_string": null
+    },
+    {
+      "offset": "0x25",
+      "type": "0x6",
+      "symbol": "?UnknownGlobal@?$DeltaItemArrayClass@VDeltaItemClass@@@@2HA",
+      "addend": 0,
+      "retail_target": "0xc41624",
+      "source_string": null,
+      "retail_string": null
+    }
+  ],
+  "assert_line": 32,
+  "EH": null,
+  "cold_tail": null,
+  "semantic_proof": "Exact refinery Unknown_Find_Changed helper copied with its consumed >1 state predicate; original outer >1 test removed. One original flag read remains after the same lookup/assert. Null, wrong-type assertion and state<=1 paths still skip identical callbacks. Duration assignment seed retains uint32 zero extension and signed64 arithmetic."
+}

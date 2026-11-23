@@ -1,0 +1,13 @@
+{
+  "analysis": "gpt-6-astra (high)",
+  "testing": "gpt-6.1-sol (high)",
+  "parts": [
+    "docs/attempts/5B1230/claim267-name-lifetime-followup/baseline.json",
+    "docs/attempts/5B1230/claim267-name-lifetime-followup/positive_outer_context_validity_scope.json",
+    "docs/attempts/5B1230/claim267-name-lifetime-followup/positive_outer_context_validity_temporary.json",
+    "docs/attempts/5B1230/claim267-name-lifetime-followup/results.json",
+    "docs/attempts/5B1230/claim267-name-lifetime-followup/nested-helper-followup.md",
+    "docs/attempts/5B1230/claim267-name-lifetime-followup/nested-helper-followup.json"
+  ],
+  "outcome": "Twoisolated ValidityName lifetimes on145positivebase retainactual3640call. Implicitargument12/9rows;narrowscope28/11canonical;both249instructions/frame3C andall145pairs. WholeFindValidListboundary persists;5B6DB0uncalled. NameCtorbeforerootloadverified. No adoption orfurthercaller-onlyvariants."
+}

@@ -1,0 +1,18 @@
+{
+  "analysis_model": "gpt-6-astra (high)",
+  "test_model": "gpt-6.1-sol (high)",
+  "hypothesis_ids": [
+    "A267-05"
+  ],
+  "parts": [
+    "docs/attempts/5B1230/claim267-astra-tests/A267-05a-baseline.json",
+    "docs/attempts/5B1230/claim267-astra-tests/A267-05a-changed_name_seed_control.json",
+    "docs/attempts/5B1230/claim267-astra-tests/A267-05a-changed_state_reference.json",
+    "docs/attempts/5B1230/claim267-astra-tests/A267-05b-baseline.json",
+    "docs/attempts/5B1230/claim267-astra-tests/A267-05b-set_inner_seed_control.json",
+    "docs/attempts/5B1230/claim267-astra-tests/A267-05b-set_state_reference.json"
+  ],
+  "results": "docs/attempts/5B1230/claim267-astra-tests/results.json",
+  "constraints": "docs/attempts/5B1230/claim267-astra-tests/constraints.json",
+  "evidence": "A267-05 consumed Unknown70 scalar reference canonical39/20;desired598D80 boundary not recovered;54pairs preserved."
+}
