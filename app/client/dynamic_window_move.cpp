@@ -10,7 +10,7 @@ RefCountPtr<DynamicWindowMoveClass> DynamicWindowMoveClass::Create(UIDynamicWind
 {
 	return(Create_NEW(new DynamicWindowMoveClass(window)));
 }
-
+DynamicWindowMoveClass::DynamicWindowMoveClass(UIDynamicWindowClass *window) : Window(window) {}
 // 0x51A940
 void DynamicWindowMoveClass::Set_Position(const Vector3 &position)
 {

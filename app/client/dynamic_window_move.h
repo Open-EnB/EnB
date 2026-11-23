@@ -12,7 +12,7 @@ class UIDynamicWindowClass;
 class DynamicWindowMoveClass : public Unknown_AFB794Class  // NAME 3: class-from-file (D24) for app\Client\dynamic_window_move.cpp
 {
 public:
-	DynamicWindowMoveClass(UIDynamicWindowClass *window) : Window(window) {}				// 0x51A8C0  // NAME 1 [window]: neutral
+	DynamicWindowMoveClass(UIDynamicWindowClass *window);				// 0x51A8C0  // NAME 1 [window]: neutral
 	virtual ~DynamicWindowMoveClass() {}														// +0x04 0x51A920 (deleting 0x51A8F0)
 	virtual void Set_Position(const Vector3 &position);										// +0x08 0x51A940 (the window's Unknown_58A580)
 	virtual Vector3 Get_Position();															// +0x0C 0x51A980 (the window's Get_Center, z 0)
