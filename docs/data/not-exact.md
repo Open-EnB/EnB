@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-603 entries in 248 files.
+602 entries in 248 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -95,7 +95,6 @@ edit the comments in the code, not this file.
 | `app/client/debrsint.cpp:9` | `DebrisInterfaceClass::DebrisInterfaceClass` | marker | NOT EXACT: functional (D64), register-only (ebx / edi / ebp swapped; two rounds: the fade clamps' temporaries) 0x53D250 |
 | `app/client/debrsint.cpp:150` | `DebrisInterfaceClass::Unknown_68` | marker | NOT EXACT: functional (D64), order-only (key 10's colour: the red's spill after the blue's multiply) 0x53D9F0 |
 | `app/client/dynamic_window_background.cpp:407` | `DynamicWindowBackgroundClass::Fit_Size` | mention | NOT EXACT (D64): Get 0x515AB0 (marked); the data's inline destructor 0x515E20 is 6 bytes longer than the client's (its three strings' destructors). The direct calls of the base's slots are qualified calls (DynamicWindowRenderObjectClass::...). |
-| `app/client/dynamic_window_multi_line_text.cpp:110` | `DynamicWindowMultiLineTextClass::Set_Alignment` | marker | NOT EXACT: the client stores the cleared flags, reloads them and ORs in the new bits; this form folds both into one store |
 | `app/client/dynamic_window_multi_line_text.cpp:308` | `DynamicWindowMultiLineTextClass::Split_Lines` | marker | NOT EXACT: functional: the split, the push_back and the per-line temporaries differ |
 | `app/client/dynamic_window_multi_line_text.cpp:428` | `DynamicWindowMultiLineTextClass::Position_Lines` | mention | NOT EXACT (D64): the functions marked, written from the pseudocode, functional. |
 | `app/client/eff_line.cpp:258` | `LineEffectClass::Unknown_6E6030` | marker | NOT EXACT: stack slots only (every instruction is the client's once stack offsets are masked; the ax < ay result temporary stores at 0x20 where the client coalesces it into p at 0x2c, 0x6E6406 / 0x6E6434); attempts.py show 0x6E6030 |

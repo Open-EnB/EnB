@@ -107,13 +107,13 @@ void DynamicWindowMultiLineTextClass::Clear_Flags(unsigned int flags)
 		Invalidate();
 	}
 }
-// NOT EXACT: the client stores the cleared flags, reloads them and ORs in the new bits; this form folds both into one store
+
 void DynamicWindowMultiLineTextClass::Set_Alignment(unsigned int flags)
 {
 	unsigned int old_flags = Flags;
 	Flags &= ~0xF0;
-	Flags |= flags & 0xF0;
-	if (Flags != old_flags) {
+	unsigned int new_flags = Or_Flags(Flags, flags & 0xF0);
+	if (new_flags != old_flags) {
 		Invalidate();
 	}
 }
