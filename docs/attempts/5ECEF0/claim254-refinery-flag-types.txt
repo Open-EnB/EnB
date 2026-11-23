@@ -1,0 +1,1726 @@
+{
+  "head": "73a8b8dacf8cb4657d524fd60dfd682150001aa2",
+  "claim": 254,
+  "address": "0x5ECEF0",
+  "symbol": "UIRefineryClass::Unknown_5ECEF0",
+  "file": "app/client/ui_refinery.cpp",
+  "library": "app",
+  "model": "gpt-6.1-sol (high)",
+  "new_valid_forms": 6,
+  "diagnostic_forms": 0,
+  "controls": 1,
+  "compile_failures": 0,
+  "baseline_source_sha256": "70659e5e505dd88dec10c7139ad7b8a580c3f6b1c85b741b1709947641ad9fba",
+  "seed_source_sha256": "0f0cc2b2abdaa0318815253ffa1270b2422882be7b2f4efda3dbe69a5d15eba8",
+  "seed_reproduces_prior_target_bytes_and_relocations": true,
+  "results": [
+    {
+      "name": "baseline",
+      "source_sha256": "0f0cc2b2abdaa0318815253ffa1270b2422882be7b2f4efda3dbe69a5d15eba8",
+      "object_sha256": "3bf6332d734ff63b5b8a02260f2444e6b650bc5808906afac4e7a5c00d1691ee",
+      "target_code_sha256": "e8519ef5273366409dd7b3af9304fa1568210881669716fc83c157691362e3aa",
+      "target_length": 648,
+      "source_target_only_line_neutral": true,
+      "residue": 11,
+      "register_masked_residue": 17,
+      "raw_rows": 11,
+      "class": "shape",
+      "frame": "0x78",
+      "score": 0.945273631840796,
+      "target_exact": false,
+      "gained": [],
+      "lost": [],
+      "counts": {
+        "exact": 93,
+        "none": 6
+      },
+      "call_structure_equal_seed": true,
+      "call_count": 19,
+      "flag_region": [
+        {
+          "offset": "0x109",
+          "instruction": "add esp, 8"
+        },
+        {
+          "offset": "0x10c",
+          "instruction": "cmp eax, ebx"
+        },
+        {
+          "offset": "0x10e",
+          "instruction": "je 0x11d"
+        },
+        {
+          "offset": "0x110",
+          "instruction": "cmp dword ptr [eax + 0x70], ebx"
+        },
+        {
+          "offset": "0x113",
+          "instruction": "je 0x11d"
+        },
+        {
+          "offset": "0x115",
+          "instruction": "mov ecx, eax"
+        },
+        {
+          "offset": "0x117",
+          "instruction": "mov dword ptr [esp + 0x18], ecx"
+        },
+        {
+          "offset": "0x11b",
+          "instruction": "jmp 0x123"
+        },
+        {
+          "offset": "0x11d",
+          "instruction": "mov dword ptr [esp + 0x18], ebx"
+        },
+        {
+          "offset": "0x121",
+          "instruction": "mov ecx, ebx"
+        },
+        {
+          "offset": "0x123",
+          "instruction": "cmp edi, ebx"
+        },
+        {
+          "offset": "0x125",
+          "instruction": "je 0x144"
+        },
+        {
+          "offset": "0x127",
+          "instruction": "cmp dword ptr [edi + 0x84], 0xd"
+        },
+        {
+          "offset": "0x12e",
+          "instruction": "jne 0x144"
+        },
+        {
+          "offset": "0x130",
+          "instruction": "cmp ecx, ebx"
+        },
+        {
+          "offset": "0x132",
+          "instruction": "mov al, 1"
+        },
+        {
+          "offset": "0x134",
+          "instruction": "je 0x146"
+        },
+        {
+          "offset": "0x136",
+          "instruction": "cmp dword ptr [ecx + 0x84], ebx"
+        },
+        {
+          "offset": "0x13c",
+          "instruction": "jbe 0x146"
+        },
+        {
+          "offset": "0x13e",
+          "instruction": "mov byte ptr [esp + 0xf], al"
+        },
+        {
+          "offset": "0x142",
+          "instruction": "jmp 0x14a"
+        },
+        {
+          "offset": "0x144",
+          "instruction": "xor al, al"
+        },
+        {
+          "offset": "0x146",
+          "instruction": "mov byte ptr [esp + 0xf], bl"
+        },
+        {
+          "offset": "0x14a",
+          "instruction": "mov ecx, dword ptr [esi + 0xaf0]"
+        },
+        {
+          "offset": "0x150",
+          "instruction": "cmp ecx, ebx"
+        },
+        {
+          "offset": "0x152",
+          "instruction": "je 0x158"
+        },
+        {
+          "offset": "0x154",
+          "instruction": "mov byte ptr [esp + 0xf], bl"
+        },
+        {
+          "offset": "0x158",
+          "instruction": "cmp al, bl"
+        },
+        {
+          "offset": "0x15a",
+          "instruction": "mov edi, 0x3f800000"
+        },
+        {
+          "offset": "0x15f",
+          "instruction": "je 0x17e"
+        },
+        {
+          "offset": "0x161",
+          "instruction": "cmp ecx, ebx"
+        },
+        {
+          "offset": "0x163",
+          "instruction": "jne 0x17e"
+        },
+        {
+          "offset": "0x165",
+          "instruction": "mov ecx, dword ptr [esi + 0xc4]"
+        },
+        {
+          "offset": "0x16b",
+          "instruction": "push 1"
+        },
+        {
+          "offset": "0x16d",
+          "instruction": "mov eax, dword ptr [ecx]"
+        },
+        {
+          "offset": "0x16f",
+          "instruction": "call dword ptr [eax + 0x40]"
+        }
+      ],
+      "flag_region_stores": [
+        {
+          "offset": "0x117",
+          "instruction": "mov dword ptr [esp + 0x18], ecx"
+        },
+        {
+          "offset": "0x11d",
+          "instruction": "mov dword ptr [esp + 0x18], ebx"
+        },
+        {
+          "offset": "0x13e",
+          "instruction": "mov byte ptr [esp + 0xf], al"
+        },
+        {
+          "offset": "0x146",
+          "instruction": "mov byte ptr [esp + 0xf], bl"
+        },
+        {
+          "offset": "0x154",
+          "instruction": "mov byte ptr [esp + 0xf], bl"
+        }
+      ],
+      "patch": "--- a/app/client/ui_refinery.cpp\n+++ b/app/client/ui_refinery.cpp\n@@ -454,7 +454,7 @@\n \tif (Unknown0AF0 != 0) {\n \t\tcan_stack = false;\n \t}\n-\tif (Unknown0AF0 == 0 && can_go) {\n+\tif (can_go && Unknown0AF0 == 0) {\n \t\tUnknown0BC[2]->Unknown_40(true);\n \t\tgo->Unknown_Set_2FC(1.0f);\n \t} else {\n"
+    },
+    {
+      "name": "uchar_go",
+      "source_sha256": "1d705a0d8e0ae3a142402bb2f36f50e248ebab9e6ab291944eb0598d7be72ff6",
+      "object_sha256": "0d92939bd25a7f1c9a03e8864ab0685be0ca71bd42eb06dad2a3703bbda00d65",
+      "target_code_sha256": "e8519ef5273366409dd7b3af9304fa1568210881669716fc83c157691362e3aa",
+      "target_length": 648,
+      "source_target_only_line_neutral": true,
+      "residue": 11,
+      "register_masked_residue": 17,
+      "raw_rows": 11,
+      "class": "shape",
+      "frame": "0x78",
+      "score": 0.945273631840796,
+      "target_exact": false,
+      "gained": [],
+      "lost": [],
+      "counts": {
+        "exact": 93,
+        "none": 6
+      },
+      "call_structure_equal_seed": true,
+      "call_count": 19,
+      "flag_region": [
+        {
+          "offset": "0x109",
+          "instruction": "add esp, 8"
+        },
+        {
+          "offset": "0x10c",
+          "instruction": "cmp eax, ebx"
+        },
+        {
+          "offset": "0x10e",
+          "instruction": "je 0x11d"
+        },
+        {
+          "offset": "0x110",
+          "instruction": "cmp dword ptr [eax + 0x70], ebx"
+        },
+        {
+          "offset": "0x113",
+          "instruction": "je 0x11d"
+        },
+        {
+          "offset": "0x115",
+          "instruction": "mov ecx, eax"
+        },
+        {
+          "offset": "0x117",
+          "instruction": "mov dword ptr [esp + 0x18], ecx"
+        },
+        {
+          "offset": "0x11b",
+          "instruction": "jmp 0x123"
+        },
+        {
+          "offset": "0x11d",
+          "instruction": "mov dword ptr [esp + 0x18], ebx"
+        },
+        {
+          "offset": "0x121",
+          "instruction": "mov ecx, ebx"
+        },
+        {
+          "offset": "0x123",
+          "instruction": "cmp edi, ebx"
+        },
+        {
+          "offset": "0x125",
+          "instruction": "je 0x144"
+        },
+        {
+          "offset": "0x127",
+          "instruction": "cmp dword ptr [edi + 0x84], 0xd"
+        },
+        {
+          "offset": "0x12e",
+          "instruction": "jne 0x144"
+        },
+        {
+          "offset": "0x130",
+          "instruction": "cmp ecx, ebx"
+        },
+        {
+          "offset": "0x132",
+          "instruction": "mov al, 1"
+        },
+        {
+          "offset": "0x134",
+          "instruction": "je 0x146"
+        },
+        {
+          "offset": "0x136",
+          "instruction": "cmp dword ptr [ecx + 0x84], ebx"
+        },
+        {
+          "offset": "0x13c",
+          "instruction": "jbe 0x146"
+        },
+        {
+          "offset": "0x13e",
+          "instruction": "mov byte ptr [esp + 0xf], al"
+        },
+        {
+          "offset": "0x142",
+          "instruction": "jmp 0x14a"
+        },
+        {
+          "offset": "0x144",
+          "instruction": "xor al, al"
+        },
+        {
+          "offset": "0x146",
+          "instruction": "mov byte ptr [esp + 0xf], bl"
+        },
+        {
+          "offset": "0x14a",
+          "instruction": "mov ecx, dword ptr [esi + 0xaf0]"
+        },
+        {
+          "offset": "0x150",
+          "instruction": "cmp ecx, ebx"
+        },
+        {
+          "offset": "0x152",
+          "instruction": "je 0x158"
+        },
+        {
+          "offset": "0x154",
+          "instruction": "mov byte ptr [esp + 0xf], bl"
+        },
+        {
+          "offset": "0x158",
+          "instruction": "cmp al, bl"
+        },
+        {
+          "offset": "0x15a",
+          "instruction": "mov edi, 0x3f800000"
+        },
+        {
+          "offset": "0x15f",
+          "instruction": "je 0x17e"
+        },
+        {
+          "offset": "0x161",
+          "instruction": "cmp ecx, ebx"
+        },
+        {
+          "offset": "0x163",
+          "instruction": "jne 0x17e"
+        },
+        {
+          "offset": "0x165",
+          "instruction": "mov ecx, dword ptr [esi + 0xc4]"
+        },
+        {
+          "offset": "0x16b",
+          "instruction": "push 1"
+        },
+        {
+          "offset": "0x16d",
+          "instruction": "mov eax, dword ptr [ecx]"
+        },
+        {
+          "offset": "0x16f",
+          "instruction": "call dword ptr [eax + 0x40]"
+        }
+      ],
+      "flag_region_stores": [
+        {
+          "offset": "0x117",
+          "instruction": "mov dword ptr [esp + 0x18], ecx"
+        },
+        {
+          "offset": "0x11d",
+          "instruction": "mov dword ptr [esp + 0x18], ebx"
+        },
+        {
+          "offset": "0x13e",
+          "instruction": "mov byte ptr [esp + 0xf], al"
+        },
+        {
+          "offset": "0x146",
+          "instruction": "mov byte ptr [esp + 0xf], bl"
+        },
+        {
+          "offset": "0x154",
+          "instruction": "mov byte ptr [esp + 0xf], bl"
+        }
+      ],
+      "patch": "--- a/app/client/ui_refinery.cpp\n+++ b/app/client/ui_refinery.cpp\n@@ -442,7 +442,7 @@\n \tDeltaTemplateClass<UnknownB01394Enum> *validity = (v && v->Unknown70) ? v : NULL;\n \tUIManuTechLevelFilterClass *n = Unknown_Manu_Raw<UIManuTechLevelFilterClass>(Unknown0AEC, \"AdditionalIterations\");\n \tUIManuTechLevelFilterClass *iterations = (n && n->Unknown70) ? n : NULL;\n-\tbool can_go;\n+\tunsigned char can_go;\n \tbool can_stack;\n \tif (validity && validity->Value == 13) {\n \t\tcan_go = true;\n@@ -454,7 +454,7 @@\n \tif (Unknown0AF0 != 0) {\n \t\tcan_stack = false;\n \t}\n-\tif (Unknown0AF0 == 0 && can_go) {\n+\tif (can_go && Unknown0AF0 == 0) {\n \t\tUnknown0BC[2]->Unknown_40(true);\n \t\tgo->Unknown_Set_2FC(1.0f);\n \t} else {\n"
+    },
+    {
+      "name": "uchar_stack",
+      "source_sha256": "a2b6e044a487eee536176c5407eec9c2920a4ebc9b65450380cc581f12948fcf",
+      "object_sha256": "df78445d04d11c2446bc0eabe975f316cbf38cd3965a818f64bbe902b7f13929",
+      "target_code_sha256": "e8519ef5273366409dd7b3af9304fa1568210881669716fc83c157691362e3aa",
+      "target_length": 648,
+      "source_target_only_line_neutral": true,
+      "residue": 11,
+      "register_masked_residue": 17,
+      "raw_rows": 11,
+      "class": "shape",
+      "frame": "0x78",
+      "score": 0.945273631840796,
+      "target_exact": false,
+      "gained": [],
+      "lost": [],
+      "counts": {
+        "exact": 93,
+        "none": 6
+      },
+      "call_structure_equal_seed": true,
+      "call_count": 19,
+      "flag_region": [
+        {
+          "offset": "0x109",
+          "instruction": "add esp, 8"
+        },
+        {
+          "offset": "0x10c",
+          "instruction": "cmp eax, ebx"
+        },
+        {
+          "offset": "0x10e",
+          "instruction": "je 0x11d"
+        },
+        {
+          "offset": "0x110",
+          "instruction": "cmp dword ptr [eax + 0x70], ebx"
+        },
+        {
+          "offset": "0x113",
+          "instruction": "je 0x11d"
+        },
+        {
+          "offset": "0x115",
+          "instruction": "mov ecx, eax"
+        },
+        {
+          "offset": "0x117",
+          "instruction": "mov dword ptr [esp + 0x18], ecx"
+        },
+        {
+          "offset": "0x11b",
+          "instruction": "jmp 0x123"
+        },
+        {
+          "offset": "0x11d",
+          "instruction": "mov dword ptr [esp + 0x18], ebx"
+        },
+        {
+          "offset": "0x121",
+          "instruction": "mov ecx, ebx"
+        },
+        {
+          "offset": "0x123",
+          "instruction": "cmp edi, ebx"
+        },
+        {
+          "offset": "0x125",
+          "instruction": "je 0x144"
+        },
+        {
+          "offset": "0x127",
+          "instruction": "cmp dword ptr [edi + 0x84], 0xd"
+        },
+        {
+          "offset": "0x12e",
+          "instruction": "jne 0x144"
+        },
+        {
+          "offset": "0x130",
+          "instruction": "cmp ecx, ebx"
+        },
+        {
+          "offset": "0x132",
+          "instruction": "mov al, 1"
+        },
+        {
+          "offset": "0x134",
+          "instruction": "je 0x146"
+        },
+        {
+          "offset": "0x136",
+          "instruction": "cmp dword ptr [ecx + 0x84], ebx"
+        },
+        {
+          "offset": "0x13c",
+          "instruction": "jbe 0x146"
+        },
+        {
+          "offset": "0x13e",
+          "instruction": "mov byte ptr [esp + 0xf], al"
+        },
+        {
+          "offset": "0x142",
+          "instruction": "jmp 0x14a"
+        },
+        {
+          "offset": "0x144",
+          "instruction": "xor al, al"
+        },
+        {
+          "offset": "0x146",
+          "instruction": "mov byte ptr [esp + 0xf], bl"
+        },
+        {
+          "offset": "0x14a",
+          "instruction": "mov ecx, dword ptr [esi + 0xaf0]"
+        },
+        {
+          "offset": "0x150",
+          "instruction": "cmp ecx, ebx"
+        },
+        {
+          "offset": "0x152",
+          "instruction": "je 0x158"
+        },
+        {
+          "offset": "0x154",
+          "instruction": "mov byte ptr [esp + 0xf], bl"
+        },
+        {
+          "offset": "0x158",
+          "instruction": "cmp al, bl"
+        },
+        {
+          "offset": "0x15a",
+          "instruction": "mov edi, 0x3f800000"
+        },
+        {
+          "offset": "0x15f",
+          "instruction": "je 0x17e"
+        },
+        {
+          "offset": "0x161",
+          "instruction": "cmp ecx, ebx"
+        },
+        {
+          "offset": "0x163",
+          "instruction": "jne 0x17e"
+        },
+        {
+          "offset": "0x165",
+          "instruction": "mov ecx, dword ptr [esi + 0xc4]"
+        },
+        {
+          "offset": "0x16b",
+          "instruction": "push 1"
+        },
+        {
+          "offset": "0x16d",
+          "instruction": "mov eax, dword ptr [ecx]"
+        },
+        {
+          "offset": "0x16f",
+          "instruction": "call dword ptr [eax + 0x40]"
+        }
+      ],
+      "flag_region_stores": [
+        {
+          "offset": "0x117",
+          "instruction": "mov dword ptr [esp + 0x18], ecx"
+        },
+        {
+          "offset": "0x11d",
+          "instruction": "mov dword ptr [esp + 0x18], ebx"
+        },
+        {
+          "offset": "0x13e",
+          "instruction": "mov byte ptr [esp + 0xf], al"
+        },
+        {
+          "offset": "0x146",
+          "instruction": "mov byte ptr [esp + 0xf], bl"
+        },
+        {
+          "offset": "0x154",
+          "instruction": "mov byte ptr [esp + 0xf], bl"
+        }
+      ],
+      "patch": "--- a/app/client/ui_refinery.cpp\n+++ b/app/client/ui_refinery.cpp\n@@ -443,7 +443,7 @@\n \tUIManuTechLevelFilterClass *n = Unknown_Manu_Raw<UIManuTechLevelFilterClass>(Unknown0AEC, \"AdditionalIterations\");\n \tUIManuTechLevelFilterClass *iterations = (n && n->Unknown70) ? n : NULL;\n \tbool can_go;\n-\tbool can_stack;\n+\tunsigned char can_stack;\n \tif (validity && validity->Value == 13) {\n \t\tcan_go = true;\n \t\tcan_stack = iterations && (unsigned int)iterations->Value > 0;\n@@ -454,7 +454,7 @@\n \tif (Unknown0AF0 != 0) {\n \t\tcan_stack = false;\n \t}\n-\tif (Unknown0AF0 == 0 && can_go) {\n+\tif (can_go && Unknown0AF0 == 0) {\n \t\tUnknown0BC[2]->Unknown_40(true);\n \t\tgo->Unknown_Set_2FC(1.0f);\n \t} else {\n"
+    },
+    {
+      "name": "uchar_both",
+      "source_sha256": "728d2e8b69579f945992bc7b857d16a4a00e0928e93905a6d6004c3e8e1e8736",
+      "object_sha256": "dccae455a93f23a974ff7bbd2cc62d45b95a5b2ac1d705c545328ae59679fd78",
+      "target_code_sha256": "e8519ef5273366409dd7b3af9304fa1568210881669716fc83c157691362e3aa",
+      "target_length": 648,
+      "source_target_only_line_neutral": true,
+      "residue": 11,
+      "register_masked_residue": 17,
+      "raw_rows": 11,
+      "class": "shape",
+      "frame": "0x78",
+      "score": 0.945273631840796,
+      "target_exact": false,
+      "gained": [],
+      "lost": [],
+      "counts": {
+        "exact": 93,
+        "none": 6
+      },
+      "call_structure_equal_seed": true,
+      "call_count": 19,
+      "flag_region": [
+        {
+          "offset": "0x109",
+          "instruction": "add esp, 8"
+        },
+        {
+          "offset": "0x10c",
+          "instruction": "cmp eax, ebx"
+        },
+        {
+          "offset": "0x10e",
+          "instruction": "je 0x11d"
+        },
+        {
+          "offset": "0x110",
+          "instruction": "cmp dword ptr [eax + 0x70], ebx"
+        },
+        {
+          "offset": "0x113",
+          "instruction": "je 0x11d"
+        },
+        {
+          "offset": "0x115",
+          "instruction": "mov ecx, eax"
+        },
+        {
+          "offset": "0x117",
+          "instruction": "mov dword ptr [esp + 0x18], ecx"
+        },
+        {
+          "offset": "0x11b",
+          "instruction": "jmp 0x123"
+        },
+        {
+          "offset": "0x11d",
+          "instruction": "mov dword ptr [esp + 0x18], ebx"
+        },
+        {
+          "offset": "0x121",
+          "instruction": "mov ecx, ebx"
+        },
+        {
+          "offset": "0x123",
+          "instruction": "cmp edi, ebx"
+        },
+        {
+          "offset": "0x125",
+          "instruction": "je 0x144"
+        },
+        {
+          "offset": "0x127",
+          "instruction": "cmp dword ptr [edi + 0x84], 0xd"
+        },
+        {
+          "offset": "0x12e",
+          "instruction": "jne 0x144"
+        },
+        {
+          "offset": "0x130",
+          "instruction": "cmp ecx, ebx"
+        },
+        {
+          "offset": "0x132",
+          "instruction": "mov al, 1"
+        },
+        {
+          "offset": "0x134",
+          "instruction": "je 0x146"
+        },
+        {
+          "offset": "0x136",
+          "instruction": "cmp dword ptr [ecx + 0x84], ebx"
+        },
+        {
+          "offset": "0x13c",
+          "instruction": "jbe 0x146"
+        },
+        {
+          "offset": "0x13e",
+          "instruction": "mov byte ptr [esp + 0xf], al"
+        },
+        {
+          "offset": "0x142",
+          "instruction": "jmp 0x14a"
+        },
+        {
+          "offset": "0x144",
+          "instruction": "xor al, al"
+        },
+        {
+          "offset": "0x146",
+          "instruction": "mov byte ptr [esp + 0xf], bl"
+        },
+        {
+          "offset": "0x14a",
+          "instruction": "mov ecx, dword ptr [esi + 0xaf0]"
+        },
+        {
+          "offset": "0x150",
+          "instruction": "cmp ecx, ebx"
+        },
+        {
+          "offset": "0x152",
+          "instruction": "je 0x158"
+        },
+        {
+          "offset": "0x154",
+          "instruction": "mov byte ptr [esp + 0xf], bl"
+        },
+        {
+          "offset": "0x158",
+          "instruction": "cmp al, bl"
+        },
+        {
+          "offset": "0x15a",
+          "instruction": "mov edi, 0x3f800000"
+        },
+        {
+          "offset": "0x15f",
+          "instruction": "je 0x17e"
+        },
+        {
+          "offset": "0x161",
+          "instruction": "cmp ecx, ebx"
+        },
+        {
+          "offset": "0x163",
+          "instruction": "jne 0x17e"
+        },
+        {
+          "offset": "0x165",
+          "instruction": "mov ecx, dword ptr [esi + 0xc4]"
+        },
+        {
+          "offset": "0x16b",
+          "instruction": "push 1"
+        },
+        {
+          "offset": "0x16d",
+          "instruction": "mov eax, dword ptr [ecx]"
+        },
+        {
+          "offset": "0x16f",
+          "instruction": "call dword ptr [eax + 0x40]"
+        }
+      ],
+      "flag_region_stores": [
+        {
+          "offset": "0x117",
+          "instruction": "mov dword ptr [esp + 0x18], ecx"
+        },
+        {
+          "offset": "0x11d",
+          "instruction": "mov dword ptr [esp + 0x18], ebx"
+        },
+        {
+          "offset": "0x13e",
+          "instruction": "mov byte ptr [esp + 0xf], al"
+        },
+        {
+          "offset": "0x146",
+          "instruction": "mov byte ptr [esp + 0xf], bl"
+        },
+        {
+          "offset": "0x154",
+          "instruction": "mov byte ptr [esp + 0xf], bl"
+        }
+      ],
+      "patch": "--- a/app/client/ui_refinery.cpp\n+++ b/app/client/ui_refinery.cpp\n@@ -442,8 +442,8 @@\n \tDeltaTemplateClass<UnknownB01394Enum> *validity = (v && v->Unknown70) ? v : NULL;\n \tUIManuTechLevelFilterClass *n = Unknown_Manu_Raw<UIManuTechLevelFilterClass>(Unknown0AEC, \"AdditionalIterations\");\n \tUIManuTechLevelFilterClass *iterations = (n && n->Unknown70) ? n : NULL;\n-\tbool can_go;\n-\tbool can_stack;\n+\tunsigned char can_go;\n+\tunsigned char can_stack;\n \tif (validity && validity->Value == 13) {\n \t\tcan_go = true;\n \t\tcan_stack = iterations && (unsigned int)iterations->Value > 0;\n@@ -454,7 +454,7 @@\n \tif (Unknown0AF0 != 0) {\n \t\tcan_stack = false;\n \t}\n-\tif (Unknown0AF0 == 0 && can_go) {\n+\tif (can_go && Unknown0AF0 == 0) {\n \t\tUnknown0BC[2]->Unknown_40(true);\n \t\tgo->Unknown_Set_2FC(1.0f);\n \t} else {\n"
+    },
+    {
+      "name": "int_go",
+      "source_sha256": "3fb49e75b0a50d789e35afadd0b6dcef6306e89dfeb1add5b6a871f83a73e1db",
+      "object_sha256": "6436bd76e454697b4c7cbdf8e455189f8306d0e811e79e5fd01de048afcee56c",
+      "target_code_sha256": "73bb1400bd90243edd209f29761b24e8075cc519dc349be0209d1bca4c9cf2e9",
+      "target_length": 651,
+      "source_target_only_line_neutral": true,
+      "residue": 12,
+      "register_masked_residue": 17,
+      "raw_rows": 12,
+      "class": "shape",
+      "frame": "0x78",
+      "score": 0.9402985074626866,
+      "target_exact": false,
+      "gained": [],
+      "lost": [],
+      "counts": {
+        "exact": 93,
+        "none": 6
+      },
+      "call_structure_equal_seed": true,
+      "call_count": 19,
+      "flag_region": [
+        {
+          "offset": "0x109",
+          "instruction": "add esp, 8"
+        },
+        {
+          "offset": "0x10c",
+          "instruction": "cmp eax, ebx"
+        },
+        {
+          "offset": "0x10e",
+          "instruction": "je 0x11d"
+        },
+        {
+          "offset": "0x110",
+          "instruction": "cmp dword ptr [eax + 0x70], ebx"
+        },
+        {
+          "offset": "0x113",
+          "instruction": "je 0x11d"
+        },
+        {
+          "offset": "0x115",
+          "instruction": "mov ecx, eax"
+        },
+        {
+          "offset": "0x117",
+          "instruction": "mov dword ptr [esp + 0x18], ecx"
+        },
+        {
+          "offset": "0x11b",
+          "instruction": "jmp 0x123"
+        },
+        {
+          "offset": "0x11d",
+          "instruction": "mov dword ptr [esp + 0x18], ebx"
+        },
+        {
+          "offset": "0x121",
+          "instruction": "mov ecx, ebx"
+        },
+        {
+          "offset": "0x123",
+          "instruction": "cmp edi, ebx"
+        },
+        {
+          "offset": "0x125",
+          "instruction": "je 0x147"
+        },
+        {
+          "offset": "0x127",
+          "instruction": "cmp dword ptr [edi + 0x84], 0xd"
+        },
+        {
+          "offset": "0x12e",
+          "instruction": "jne 0x147"
+        },
+        {
+          "offset": "0x130",
+          "instruction": "cmp ecx, ebx"
+        },
+        {
+          "offset": "0x132",
+          "instruction": "mov eax, 1"
+        },
+        {
+          "offset": "0x137",
+          "instruction": "je 0x149"
+        },
+        {
+          "offset": "0x139",
+          "instruction": "cmp dword ptr [ecx + 0x84], ebx"
+        },
+        {
+          "offset": "0x13f",
+          "instruction": "jbe 0x149"
+        },
+        {
+          "offset": "0x141",
+          "instruction": "mov byte ptr [esp + 0xf], al"
+        },
+        {
+          "offset": "0x145",
+          "instruction": "jmp 0x14d"
+        },
+        {
+          "offset": "0x147",
+          "instruction": "xor eax, eax"
+        },
+        {
+          "offset": "0x149",
+          "instruction": "mov byte ptr [esp + 0xf], bl"
+        },
+        {
+          "offset": "0x14d",
+          "instruction": "mov ecx, dword ptr [esi + 0xaf0]"
+        },
+        {
+          "offset": "0x153",
+          "instruction": "cmp ecx, ebx"
+        },
+        {
+          "offset": "0x155",
+          "instruction": "je 0x15b"
+        },
+        {
+          "offset": "0x157",
+          "instruction": "mov byte ptr [esp + 0xf], bl"
+        },
+        {
+          "offset": "0x15b",
+          "instruction": "cmp eax, ebx"
+        },
+        {
+          "offset": "0x15d",
+          "instruction": "mov edi, 0x3f800000"
+        },
+        {
+          "offset": "0x162",
+          "instruction": "je 0x181"
+        },
+        {
+          "offset": "0x164",
+          "instruction": "cmp ecx, ebx"
+        },
+        {
+          "offset": "0x166",
+          "instruction": "jne 0x181"
+        },
+        {
+          "offset": "0x168",
+          "instruction": "mov ecx, dword ptr [esi + 0xc4]"
+        },
+        {
+          "offset": "0x16e",
+          "instruction": "push 1"
+        },
+        {
+          "offset": "0x170",
+          "instruction": "mov eax, dword ptr [ecx]"
+        },
+        {
+          "offset": "0x172",
+          "instruction": "call dword ptr [eax + 0x40]"
+        }
+      ],
+      "flag_region_stores": [
+        {
+          "offset": "0x117",
+          "instruction": "mov dword ptr [esp + 0x18], ecx"
+        },
+        {
+          "offset": "0x11d",
+          "instruction": "mov dword ptr [esp + 0x18], ebx"
+        },
+        {
+          "offset": "0x141",
+          "instruction": "mov byte ptr [esp + 0xf], al"
+        },
+        {
+          "offset": "0x149",
+          "instruction": "mov byte ptr [esp + 0xf], bl"
+        },
+        {
+          "offset": "0x157",
+          "instruction": "mov byte ptr [esp + 0xf], bl"
+        }
+      ],
+      "patch": "--- a/app/client/ui_refinery.cpp\n+++ b/app/client/ui_refinery.cpp\n@@ -442,7 +442,7 @@\n \tDeltaTemplateClass<UnknownB01394Enum> *validity = (v && v->Unknown70) ? v : NULL;\n \tUIManuTechLevelFilterClass *n = Unknown_Manu_Raw<UIManuTechLevelFilterClass>(Unknown0AEC, \"AdditionalIterations\");\n \tUIManuTechLevelFilterClass *iterations = (n && n->Unknown70) ? n : NULL;\n-\tbool can_go;\n+\tint can_go;\n \tbool can_stack;\n \tif (validity && validity->Value == 13) {\n \t\tcan_go = true;\n@@ -454,7 +454,7 @@\n \tif (Unknown0AF0 != 0) {\n \t\tcan_stack = false;\n \t}\n-\tif (Unknown0AF0 == 0 && can_go) {\n+\tif (can_go && Unknown0AF0 == 0) {\n \t\tUnknown0BC[2]->Unknown_40(true);\n \t\tgo->Unknown_Set_2FC(1.0f);\n \t} else {\n"
+    },
+    {
+      "name": "int_stack",
+      "source_sha256": "1cbab4226374902f3fe46ec3ff3c62c0bbbbda3b88b85027f990b8e2bbd56571",
+      "object_sha256": "db0be1a8fb5785ac70052b0e889656b77ffb02ed43ee985588bece0554806d0f",
+      "target_code_sha256": "3a706dfac1ede5df9026c8f24a2383dfdc2c826469bdb894c4873e702a9f6563",
+      "target_length": 652,
+      "source_target_only_line_neutral": true,
+      "residue": 21,
+      "register_masked_residue": 19,
+      "raw_rows": 27,
+      "class": "shape",
+      "frame": "0x78",
+      "score": 0.8955223880597015,
+      "target_exact": false,
+      "gained": [],
+      "lost": [],
+      "counts": {
+        "exact": 93,
+        "none": 6
+      },
+      "call_structure_equal_seed": true,
+      "call_count": 19,
+      "flag_region": [
+        {
+          "offset": "0x109",
+          "instruction": "add esp, 8"
+        },
+        {
+          "offset": "0x10c",
+          "instruction": "cmp eax, ebx"
+        },
+        {
+          "offset": "0x10e",
+          "instruction": "je 0x11d"
+        },
+        {
+          "offset": "0x110",
+          "instruction": "cmp dword ptr [eax + 0x70], ebx"
+        },
+        {
+          "offset": "0x113",
+          "instruction": "je 0x11d"
+        },
+        {
+          "offset": "0x115",
+          "instruction": "mov ecx, eax"
+        },
+        {
+          "offset": "0x117",
+          "instruction": "mov dword ptr [esp + 0x18], ecx"
+        },
+        {
+          "offset": "0x11b",
+          "instruction": "jmp 0x123"
+        },
+        {
+          "offset": "0x11d",
+          "instruction": "mov dword ptr [esp + 0x18], ebx"
+        },
+        {
+          "offset": "0x121",
+          "instruction": "mov ecx, ebx"
+        },
+        {
+          "offset": "0x123",
+          "instruction": "cmp edi, ebx"
+        },
+        {
+          "offset": "0x125",
+          "instruction": "je 0x148"
+        },
+        {
+          "offset": "0x127",
+          "instruction": "cmp dword ptr [edi + 0x84], 0xd"
+        },
+        {
+          "offset": "0x12e",
+          "instruction": "jne 0x148"
+        },
+        {
+          "offset": "0x130",
+          "instruction": "cmp ecx, ebx"
+        },
+        {
+          "offset": "0x132",
+          "instruction": "mov al, 1"
+        },
+        {
+          "offset": "0x134",
+          "instruction": "je 0x14a"
+        },
+        {
+          "offset": "0x136",
+          "instruction": "cmp dword ptr [ecx + 0x84], ebx"
+        },
+        {
+          "offset": "0x13c",
+          "instruction": "jbe 0x14a"
+        },
+        {
+          "offset": "0x13e",
+          "instruction": "mov dword ptr [esp + 0x10], 1"
+        },
+        {
+          "offset": "0x146",
+          "instruction": "jmp 0x14e"
+        },
+        {
+          "offset": "0x148",
+          "instruction": "xor al, al"
+        },
+        {
+          "offset": "0x14a",
+          "instruction": "mov dword ptr [esp + 0x10], ebx"
+        },
+        {
+          "offset": "0x14e",
+          "instruction": "mov ecx, dword ptr [esi + 0xaf0]"
+        },
+        {
+          "offset": "0x154",
+          "instruction": "cmp ecx, ebx"
+        },
+        {
+          "offset": "0x156",
+          "instruction": "je 0x15c"
+        },
+        {
+          "offset": "0x158",
+          "instruction": "mov dword ptr [esp + 0x10], ebx"
+        },
+        {
+          "offset": "0x15c",
+          "instruction": "cmp al, bl"
+        },
+        {
+          "offset": "0x15e",
+          "instruction": "mov edi, 0x3f800000"
+        },
+        {
+          "offset": "0x163",
+          "instruction": "je 0x182"
+        },
+        {
+          "offset": "0x165",
+          "instruction": "cmp ecx, ebx"
+        },
+        {
+          "offset": "0x167",
+          "instruction": "jne 0x182"
+        },
+        {
+          "offset": "0x169",
+          "instruction": "mov ecx, dword ptr [esi + 0xc4]"
+        },
+        {
+          "offset": "0x16f",
+          "instruction": "push 1"
+        },
+        {
+          "offset": "0x171",
+          "instruction": "mov eax, dword ptr [ecx]"
+        },
+        {
+          "offset": "0x173",
+          "instruction": "call dword ptr [eax + 0x40]"
+        }
+      ],
+      "flag_region_stores": [
+        {
+          "offset": "0x117",
+          "instruction": "mov dword ptr [esp + 0x18], ecx"
+        },
+        {
+          "offset": "0x11d",
+          "instruction": "mov dword ptr [esp + 0x18], ebx"
+        },
+        {
+          "offset": "0x13e",
+          "instruction": "mov dword ptr [esp + 0x10], 1"
+        },
+        {
+          "offset": "0x14a",
+          "instruction": "mov dword ptr [esp + 0x10], ebx"
+        },
+        {
+          "offset": "0x158",
+          "instruction": "mov dword ptr [esp + 0x10], ebx"
+        }
+      ],
+      "patch": "--- a/app/client/ui_refinery.cpp\n+++ b/app/client/ui_refinery.cpp\n@@ -443,7 +443,7 @@\n \tUIManuTechLevelFilterClass *n = Unknown_Manu_Raw<UIManuTechLevelFilterClass>(Unknown0AEC, \"AdditionalIterations\");\n \tUIManuTechLevelFilterClass *iterations = (n && n->Unknown70) ? n : NULL;\n \tbool can_go;\n-\tbool can_stack;\n+\tint can_stack;\n \tif (validity && validity->Value == 13) {\n \t\tcan_go = true;\n \t\tcan_stack = iterations && (unsigned int)iterations->Value > 0;\n@@ -454,7 +454,7 @@\n \tif (Unknown0AF0 != 0) {\n \t\tcan_stack = false;\n \t}\n-\tif (Unknown0AF0 == 0 && can_go) {\n+\tif (can_go && Unknown0AF0 == 0) {\n \t\tUnknown0BC[2]->Unknown_40(true);\n \t\tgo->Unknown_Set_2FC(1.0f);\n \t} else {\n"
+    },
+    {
+      "name": "int_both",
+      "source_sha256": "8f13441b17b774fdd3003c7458abd34ee489d7aeba5869c7964809c7897ab157",
+      "object_sha256": "e000f7be93f50c1f365868a0638c6edea164cf204f95e457a45ba686968d9494",
+      "target_code_sha256": "da6cefb92970895f0d57c6da360543c995e1bd8090136d72df10c2150f3d9c6c",
+      "target_length": 649,
+      "source_target_only_line_neutral": true,
+      "residue": 20,
+      "register_masked_residue": 20,
+      "raw_rows": 26,
+      "class": "shape",
+      "frame": "0x78",
+      "score": 0.900497512437811,
+      "target_exact": false,
+      "gained": [],
+      "lost": [],
+      "counts": {
+        "exact": 93,
+        "none": 6
+      },
+      "call_structure_equal_seed": true,
+      "call_count": 19,
+      "flag_region": [
+        {
+          "offset": "0x109",
+          "instruction": "add esp, 8"
+        },
+        {
+          "offset": "0x10c",
+          "instruction": "cmp eax, ebx"
+        },
+        {
+          "offset": "0x10e",
+          "instruction": "je 0x11d"
+        },
+        {
+          "offset": "0x110",
+          "instruction": "cmp dword ptr [eax + 0x70], ebx"
+        },
+        {
+          "offset": "0x113",
+          "instruction": "je 0x11d"
+        },
+        {
+          "offset": "0x115",
+          "instruction": "mov ecx, eax"
+        },
+        {
+          "offset": "0x117",
+          "instruction": "mov dword ptr [esp + 0x18], ecx"
+        },
+        {
+          "offset": "0x11b",
+          "instruction": "jmp 0x123"
+        },
+        {
+          "offset": "0x11d",
+          "instruction": "mov dword ptr [esp + 0x18], ebx"
+        },
+        {
+          "offset": "0x121",
+          "instruction": "mov ecx, ebx"
+        },
+        {
+          "offset": "0x123",
+          "instruction": "cmp edi, ebx"
+        },
+        {
+          "offset": "0x125",
+          "instruction": "je 0x147"
+        },
+        {
+          "offset": "0x127",
+          "instruction": "cmp dword ptr [edi + 0x84], 0xd"
+        },
+        {
+          "offset": "0x12e",
+          "instruction": "jne 0x147"
+        },
+        {
+          "offset": "0x130",
+          "instruction": "cmp ecx, ebx"
+        },
+        {
+          "offset": "0x132",
+          "instruction": "mov eax, 1"
+        },
+        {
+          "offset": "0x137",
+          "instruction": "je 0x149"
+        },
+        {
+          "offset": "0x139",
+          "instruction": "cmp dword ptr [ecx + 0x84], ebx"
+        },
+        {
+          "offset": "0x13f",
+          "instruction": "jbe 0x149"
+        },
+        {
+          "offset": "0x141",
+          "instruction": "mov dword ptr [esp + 0x10], eax"
+        },
+        {
+          "offset": "0x145",
+          "instruction": "jmp 0x14d"
+        },
+        {
+          "offset": "0x147",
+          "instruction": "xor eax, eax"
+        },
+        {
+          "offset": "0x149",
+          "instruction": "mov dword ptr [esp + 0x10], ebx"
+        },
+        {
+          "offset": "0x14d",
+          "instruction": "mov ecx, dword ptr [esi + 0xaf0]"
+        },
+        {
+          "offset": "0x153",
+          "instruction": "cmp ecx, ebx"
+        },
+        {
+          "offset": "0x155",
+          "instruction": "je 0x15b"
+        },
+        {
+          "offset": "0x157",
+          "instruction": "mov dword ptr [esp + 0x10], ebx"
+        },
+        {
+          "offset": "0x15b",
+          "instruction": "cmp eax, ebx"
+        },
+        {
+          "offset": "0x15d",
+          "instruction": "mov edi, 0x3f800000"
+        },
+        {
+          "offset": "0x162",
+          "instruction": "je 0x181"
+        },
+        {
+          "offset": "0x164",
+          "instruction": "cmp ecx, ebx"
+        },
+        {
+          "offset": "0x166",
+          "instruction": "jne 0x181"
+        },
+        {
+          "offset": "0x168",
+          "instruction": "mov ecx, dword ptr [esi + 0xc4]"
+        },
+        {
+          "offset": "0x16e",
+          "instruction": "push 1"
+        },
+        {
+          "offset": "0x170",
+          "instruction": "mov eax, dword ptr [ecx]"
+        },
+        {
+          "offset": "0x172",
+          "instruction": "call dword ptr [eax + 0x40]"
+        }
+      ],
+      "flag_region_stores": [
+        {
+          "offset": "0x117",
+          "instruction": "mov dword ptr [esp + 0x18], ecx"
+        },
+        {
+          "offset": "0x11d",
+          "instruction": "mov dword ptr [esp + 0x18], ebx"
+        },
+        {
+          "offset": "0x141",
+          "instruction": "mov dword ptr [esp + 0x10], eax"
+        },
+        {
+          "offset": "0x149",
+          "instruction": "mov dword ptr [esp + 0x10], ebx"
+        },
+        {
+          "offset": "0x157",
+          "instruction": "mov dword ptr [esp + 0x10], ebx"
+        }
+      ],
+      "patch": "--- a/app/client/ui_refinery.cpp\n+++ b/app/client/ui_refinery.cpp\n@@ -442,8 +442,8 @@\n \tDeltaTemplateClass<UnknownB01394Enum> *validity = (v && v->Unknown70) ? v : NULL;\n \tUIManuTechLevelFilterClass *n = Unknown_Manu_Raw<UIManuTechLevelFilterClass>(Unknown0AEC, \"AdditionalIterations\");\n \tUIManuTechLevelFilterClass *iterations = (n && n->Unknown70) ? n : NULL;\n-\tbool can_go;\n-\tbool can_stack;\n+\tint can_go;\n+\tint can_stack;\n \tif (validity && validity->Value == 13) {\n \t\tcan_go = true;\n \t\tcan_stack = iterations && (unsigned int)iterations->Value > 0;\n@@ -454,7 +454,7 @@\n \tif (Unknown0AF0 != 0) {\n \t\tcan_stack = false;\n \t}\n-\tif (Unknown0AF0 == 0 && can_go) {\n+\tif (can_go && Unknown0AF0 == 0) {\n \t\tUnknown0BC[2]->Unknown_40(true);\n \t\tgo->Unknown_Set_2FC(1.0f);\n \t} else {\n"
+    }
+  ],
+  "target_byte_groups": [
+    [
+      "baseline",
+      "uchar_go",
+      "uchar_stack",
+      "uchar_both"
+    ],
+    [
+      "int_go"
+    ],
+    [
+      "int_stack"
+    ],
+    [
+      "int_both"
+    ]
+  ],
+  "retail_bounds": [
+    "0x5ECEF0",
+    "0x5ED178 (exclusive)"
+  ],
+  "retail_flag_region": [
+    {
+      "address": "0x5ecff9",
+      "instruction": "add esp, 8"
+    },
+    {
+      "address": "0x5ecffc",
+      "instruction": "cmp eax, ebx"
+    },
+    {
+      "address": "0x5ecffe",
+      "instruction": "je 0x5ed00d"
+    },
+    {
+      "address": "0x5ed000",
+      "instruction": "cmp dword ptr [eax + 0x70], ebx"
+    },
+    {
+      "address": "0x5ed003",
+      "instruction": "je 0x5ed00d"
+    },
+    {
+      "address": "0x5ed005",
+      "instruction": "mov ecx, eax"
+    },
+    {
+      "address": "0x5ed007",
+      "instruction": "mov dword ptr [esp + 0x18], ecx"
+    },
+    {
+      "address": "0x5ed00b",
+      "instruction": "jmp 0x5ed013"
+    },
+    {
+      "address": "0x5ed00d",
+      "instruction": "mov dword ptr [esp + 0x18], ebx"
+    },
+    {
+      "address": "0x5ed011",
+      "instruction": "mov ecx, ebx"
+    },
+    {
+      "address": "0x5ed013",
+      "instruction": "cmp edi, ebx"
+    },
+    {
+      "address": "0x5ed015",
+      "instruction": "je 0x5ed04d"
+    },
+    {
+      "address": "0x5ed017",
+      "instruction": "cmp dword ptr [edi + 0x84], 0xd"
+    },
+    {
+      "address": "0x5ed01e",
+      "instruction": "jne 0x5ed04d"
+    },
+    {
+      "address": "0x5ed020",
+      "instruction": "cmp ecx, ebx"
+    },
+    {
+      "address": "0x5ed022",
+      "instruction": "mov al, 1"
+    },
+    {
+      "address": "0x5ed024",
+      "instruction": "je 0x5ed034"
+    },
+    {
+      "address": "0x5ed026",
+      "instruction": "mov edx, dword ptr [ecx + 0x84]"
+    },
+    {
+      "address": "0x5ed02c",
+      "instruction": "mov byte ptr [esp + 0xf], al"
+    },
+    {
+      "address": "0x5ed030",
+      "instruction": "cmp edx, ebx"
+    },
+    {
+      "address": "0x5ed032",
+      "instruction": "ja 0x5ed038"
+    },
+    {
+      "address": "0x5ed034",
+      "instruction": "mov byte ptr [esp + 0xf], bl"
+    },
+    {
+      "address": "0x5ed038",
+      "instruction": "mov ecx, dword ptr [esi + 0xaf0]"
+    },
+    {
+      "address": "0x5ed03e",
+      "instruction": "mov edi, 0x3f800000"
+    },
+    {
+      "address": "0x5ed043",
+      "instruction": "cmp ecx, ebx"
+    },
+    {
+      "address": "0x5ed045",
+      "instruction": "je 0x5ed051"
+    },
+    {
+      "address": "0x5ed047",
+      "instruction": "mov byte ptr [esp + 0xf], bl"
+    },
+    {
+      "address": "0x5ed04b",
+      "instruction": "jmp 0x5ed06e"
+    },
+    {
+      "address": "0x5ed04d",
+      "instruction": "xor al, al"
+    },
+    {
+      "address": "0x5ed04f",
+      "instruction": "jmp 0x5ed034"
+    },
+    {
+      "address": "0x5ed051",
+      "instruction": "cmp al, bl"
+    },
+    {
+      "address": "0x5ed053",
+      "instruction": "je 0x5ed06e"
+    },
+    {
+      "address": "0x5ed055",
+      "instruction": "mov ecx, dword ptr [esi + 0xc4]"
+    },
+    {
+      "address": "0x5ed05b",
+      "instruction": "push 1"
+    },
+    {
+      "address": "0x5ed05d",
+      "instruction": "mov eax, dword ptr [ecx]"
+    },
+    {
+      "address": "0x5ed05f",
+      "instruction": "call dword ptr [eax + 0x40]"
+    }
+  ],
+  "seed_call_identity_audit": [
+    {
+      "object_offset": "0x40",
+      "retail_address": "0x5ecf30",
+      "object": "call 0x45",
+      "retail": "call 0x40269e",
+      "identity": "resolved",
+      "symbol": "?Get_Style@FontManagerClass@@QAEPAVFontSys@@PBDPAVRenderObjClass@@@Z",
+      "target": "0x6d25d0"
+    },
+    {
+      "object_offset": "0x4b",
+      "retail_address": "0x5ecf3b",
+      "object": "call 0x50",
+      "retail": "call 0x404e80",
+      "identity": "resolved",
+      "symbol": "?Create_Peek@@YA?AV?$RefCountPtr@VFontSys@@@@PAVFontSys@@@Z",
+      "target": "0x546510"
+    },
+    {
+      "object_offset": "0x85",
+      "retail_address": "0x5ecf75",
+      "object": "call dword ptr [edx]",
+      "retail": "call dword ptr [edx]",
+      "identity": "same indirect operand"
+    },
+    {
+      "object_offset": "0x9e",
+      "retail_address": "0x5ecf8e",
+      "object": "call 0xa3",
+      "retail": "call 0x40269e",
+      "identity": "resolved",
+      "symbol": "?Get_Style@FontManagerClass@@QAEPAVFontSys@@PBDPAVRenderObjClass@@@Z",
+      "target": "0x6d25d0"
+    },
+    {
+      "object_offset": "0xa9",
+      "retail_address": "0x5ecf99",
+      "object": "call 0xae",
+      "retail": "call 0x404e80",
+      "identity": "resolved",
+      "symbol": "?Create_Peek@@YA?AV?$RefCountPtr@VFontSys@@@@PAVFontSys@@@Z",
+      "target": "0x546510"
+    },
+    {
+      "object_offset": "0xc2",
+      "retail_address": "0x5ecfb2",
+      "object": "call 0xc7",
+      "retail": "call 0x417f80",
+      "identity": "resolved",
+      "symbol": "??0NameClass@@QAE@PBD@Z",
+      "target": "0x4ad380"
+    },
+    {
+      "object_offset": "0xd3",
+      "retail_address": "0x5ecfc3",
+      "object": "call 0xd8",
+      "retail": "call 0x4066a4",
+      "identity": "resolved",
+      "symbol": "?Unknown_Find_Field@@YAPAV?$DeltaTemplateClass@W4UnknownB01394Enum@@@@PAVDeltaCompoundClass@@ABVNameClass@@@Z",
+      "target": "0x5465c0"
+    },
+    {
+      "object_offset": "0xf3",
+      "retail_address": "0x5ecfe3",
+      "object": "call 0xf8",
+      "retail": "call 0x417f80",
+      "identity": "resolved",
+      "symbol": "??0NameClass@@QAE@PBD@Z",
+      "target": "0x4ad380"
+    },
+    {
+      "object_offset": "0x104",
+      "retail_address": "0x5ecff4",
+      "object": "call 0x109",
+      "retail": "call 0x40c5d6",
+      "identity": "resolved",
+      "symbol": "?Unknown_Find_Field@@YAPAVUIManuTechLevelFilterClass@@PAVDeltaCompoundClass@@ABVNameClass@@@Z",
+      "target": "0x5b7130"
+    },
+    {
+      "object_offset": "0x16f",
+      "retail_address": "0x5ed05f",
+      "object": "call dword ptr [eax + 0x40]",
+      "retail": "call dword ptr [eax + 0x40]",
+      "identity": "same indirect operand"
+    },
+    {
+      "object_offset": "0x187",
+      "retail_address": "0x5ed077",
+      "object": "call dword ptr [edx + 0x40]",
+      "retail": "call dword ptr [edx + 0x40]",
+      "identity": "same indirect operand"
+    },
+    {
+      "object_offset": "0x193",
+      "retail_address": "0x5ed083",
+      "object": "call dword ptr [eax + 0x40]",
+      "retail": "call dword ptr [eax + 0x40]",
+      "identity": "same indirect operand"
+    },
+    {
+      "object_offset": "0x1bc",
+      "retail_address": "0x5ed0ac",
+      "object": "call dword ptr [edx + 0x40]",
+      "retail": "call dword ptr [edx + 0x40]",
+      "identity": "same indirect operand"
+    },
+    {
+      "object_offset": "0x1e5",
+      "retail_address": "0x5ed0d5",
+      "object": "call 0x1ea",
+      "retail": "call 0xa266da",
+      "identity": "resolved",
+      "symbol": "_sprintf",
+      "target": "0xa266da"
+    },
+    {
+      "object_offset": "0x1f6",
+      "retail_address": "0x5ed0e6",
+      "object": "call dword ptr [edx + 0x40]",
+      "retail": "call dword ptr [edx + 0x40]",
+      "identity": "same indirect operand"
+    },
+    {
+      "object_offset": "0x217",
+      "retail_address": "0x5ed107",
+      "object": "call 0x21c",
+      "retail": "call 0x4139ad",
+      "identity": "resolved",
+      "symbol": "?Change_Text@FontSys@@QAEXPBDH@Z",
+      "target": "0x6cdbc0"
+    },
+    {
+      "object_offset": "0x228",
+      "retail_address": "0x5ed118",
+      "object": "call dword ptr [eax + 0x40]",
+      "retail": "call dword ptr [eax + 0x40]",
+      "identity": "same indirect operand"
+    },
+    {
+      "object_offset": "0x24e",
+      "retail_address": "0x5ed13e",
+      "object": "call dword ptr [edx]",
+      "retail": "call dword ptr [edx]",
+      "identity": "same indirect operand"
+    },
+    {
+      "object_offset": "0x274",
+      "retail_address": "0x5ed164",
+      "object": "call dword ptr [eax]",
+      "retail": "call dword ptr [eax]",
+      "identity": "same indirect operand"
+    }
+  ],
+  "hypothesis": "Only can_go/can_stack declaration types change to unsigned char or int independently and together; expressions and 0/1 assignments fixed.",
+  "best_seed_patch": "--- a/app/client/ui_refinery.cpp\n+++ b/app/client/ui_refinery.cpp\n@@ -454,7 +454,7 @@\n \tif (Unknown0AF0 != 0) {\n \t\tcan_stack = false;\n \t}\n-\tif (Unknown0AF0 == 0 && can_go) {\n+\tif (can_go && Unknown0AF0 == 0) {\n \t\tUnknown0BC[2]->Unknown_40(true);\n \t\tgo->Unknown_Set_2FC(1.0f);\n \t} else {\n",
+  "pair_delta": {
+    "gained": [],
+    "lost": []
+  },
+  "form_generator_source": "from pathlib import Path\nimport hashlib,json,subprocess,tarfile\nW=Path(__file__).parent.resolve(); R=W.parents[2]\nhead=subprocess.check_output(['git','rev-parse','HEAD'],cwd=R,text=True).strip()\nassert head.startswith('73a8b8da'),head\ntree=W/'tree';tree.mkdir(exist_ok=True);archive=W/'head.tar'\nwith archive.open('wb') as f:subprocess.run(['git','archive',head],cwd=R,stdout=f,check=True)\nwith tarfile.open(archive) as f:f.extractall(tree,filter='data')\narchive.unlink()\nbase=(tree/'app/client/ui_refinery.cpp').read_text()\nassert base==(W.parent/'refinery-update/baseline/ui_refinery.cpp').read_text()\nseed=base.replace('Unknown0AF0 == 0 && can_go','can_go && Unknown0AF0 == 0',1)\nvariants=[]\nfor name,go,stack in [('baseline','bool','bool'),('uchar_go','unsigned char','bool'),('uchar_stack','bool','unsigned char'),('uchar_both','unsigned char','unsigned char'),('int_go','int','bool'),('int_stack','bool','int'),('int_both','int','int')]:\n    s=seed.replace('bool can_go;',go+' can_go;').replace('bool can_stack;',stack+' can_stack;')\n    assert s.count('\\n')==base.count('\\n')\n    p=W/name/'ui_refinery.cpp';p.parent.mkdir(exist_ok=True);p.write_text(s)\n    variants.append({'name':name,'source':str(p)})\n(W/'forms.json').write_text(json.dumps({'unit':'app/client/ui_refinery.cpp','target':'0x5ECEF0','tree':str(tree),'variants':variants},indent=2))\n(W/'binding.json').write_text(json.dumps({'head':head,'production_source_sha256':hashlib.sha256(base.encode()).hexdigest(),'seed_source_sha256':hashlib.sha256(seed.encode()).hexdigest()},indent=2))\n",
+  "replay": {
+    "head": "73a8b8dacf8cb4657d524fd60dfd682150001aa2",
+    "runner": ".work/claim-254/run_batch.py",
+    "runner_sha256": "fdb16a5e1ff31b66aaa52ff63d96f4b2d2e5fa5498fb21225d877c147ebee190",
+    "compiler": "/home/dev/Toolchains/enb-vc6-sp4/bin/vc6-cl",
+    "manifest": "/home/dev/Projects/EnB/.work/claim-254/refinery-update-flag-types/forms.json",
+    "flags": "libdefs.LIB_FLAGS[app] and APP_LIBS[app].defines; all emitted functions/helpers matched, no score filter"
+  },
+  "limitations": [
+    "Primitive type probes do not establish the original source types.",
+    "Scratch __FILE__ path differs from retail; basename and physical assertion lines preserved.",
+    "Seed call audit reused after target-byte and relocation identity reproduction. No exactness or EH proof for new near-miss forms."
+  ],
+  "status": "parked",
+  "blocker": "shape",
+  "outcome": "No improvement in six valid primitive-type forms. Unsigned char forms have identical target bytes to bool seed; int forms worsen. No production edits.",
+  "repeats": {
+    "fresh_seed_control_replays_prior_audited_target_bytes_and_relocations": true,
+    "new_form_repeats": 0
+  },
+  "actual_store_width_findings": "All unsigned-char forms retain identical byte stack-flag stores and unchanged store/test order. int can_go alone retains byte can_stack stores but adds instruction width/shape (12 rows). int can_stack or both switches its stack-flag stores to dword at esp+0x10, versus retail byte stores at esp+0xF; no type choice yields retail flag order.",
+  "remaining": "Existing 11-row shape: retail preloads iterations Value into edx and stores byte true before unsigned comparison; seed compares memory first and stores true afterward. Busy-state and invalid-validity branch layout also remain different.",
+  "no_further_forms_reason": "Three unsigned-char combinations canonicalize completely; int combinations are strictly worse. Signed char would add no supported lead for flag values restricted to 0/1.",
+  "attempt_spec": {
+    "address": "0x5ECEF0",
+    "symbol": "UIRefineryClass::Unknown_5ECEF0",
+    "file": "app/client/ui_refinery.cpp",
+    "library": "app",
+    "status": "parked",
+    "forms": 6,
+    "blocker": "shape",
+    "score": 0.945273631840796,
+    "model": "gpt-6.1-sol (high)",
+    "evidence": "Six valid target-only line-neutral primitive flag forms. Uchar go/stack/both identical target bytes to fresh 11-row seed; int go12, stack21 masked/27raw, both20 masked/26raw; all frame0x78, all93pairs preserved, +0/-0. int stack produces dword stores versus retail byte. Fresh seed target bytes+relocations reproduce prior audited seed. No improvement or adoption."
+  }
+}
