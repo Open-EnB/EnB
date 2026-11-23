@@ -475,7 +475,7 @@ void UIManuClass::Unknown_54()
 	Unknown_10();
 }
 
-// NOT EXACT: inline budget (the client calls the 'ManufactureComponents' and 'Validity' Casts out of line, 0x5B7210 / 0x5468D0, and 0x5B6DB0 in the inlined 0x5B3640) (0x5B1230)
+// NOT EXACT: inline budget (the ManufactureComponents Cast 0x5B7210 and nested 0x5B6DB0 boundary still differ; DurationClass assignment recovers the Validity Cast 0x5468D0 and nested 0x5B6CA0 call) (0x5B1230)
 void UIManuClass::Unknown_60()
 {
 	Unknown_5B5320();
@@ -533,9 +533,9 @@ slider:
 	for (int i = 0; i < 3; i++) {
 		Unknown0C0[i]->Unknown_5B7880();
 	}
-	unsigned int now = ((ClientClass *)Client)->Unknown10BC;
-	if ((__int64)now > Unknown0BB8 && Unknown0BC0 > 0) {
-		Unknown0BB8 = Unknown_BE5C20 * 1000 + now;
+	DurationClass now; now = DurationClass((unsigned int)((ClientClass *)Client)->Unknown10BC);
+	if (now.Time > Unknown0BB8 && Unknown0BC0 > 0) {
+		Unknown0BB8 = Unknown_BE5C20 * 1000 + now.Time;
 		if (--Unknown0BC0 < Unknown_B8183C) {
 			Unknown_5B6CA0();
 		}
@@ -1878,3 +1878,7 @@ template class UnknownRTTIClass<UIManuTechLevelFilterClass>;	// D164: emits the 
 // 0x5B0BB0 is exact: retain a 256-byte label buffer, assign the player ID at its packet argument,
 // name the font-manager mesh input and copy sort values before their setters. All original callbacks
 // and reference-counted temporary lifetimes are preserved.
+
+// 0x5B1230: the current tick is a zero-extended unsigned input carried by DurationClass. Its existing
+// assignment layer recovers the retail Validity Cast boundary and this unit's exact 0x5468D0 holder;
+// the enclosing handler remains NOT EXACT. Signed timestamp operations and read timing are preserved.
