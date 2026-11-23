@@ -1,0 +1,148 @@
+Claim #267 Sol high: 0x5AB030
+Immutable source HEAD fcb281d5fa94b852e856eba553cf6250a98c5622.
+Unit: app/client/ui_log.cpp
+Baseline source SHA256: 002b9b0387e21634dcd6bb3ce4f06aabce25573e5056dd082973f0bfed1337f9
+Compiler: /home/dev/Toolchains/enb-vc6-sp4/bin/vc6-cl; original app flags.
+Retail: verified by ClientImage SHA256 249f852496f341c00361be95b66e7c0becc2c39e7cba026f9227e38b602651c4.
+Whole-object native objmatch ran after every successful compilation, unfiltered.
+All forms are local source experiments. No form adopted. No authoritative ledger write.
+Old advertised scratch stashes are absent; attempts.py histories and current source inspected.
+Counts: 11 distinct changed source forms; 1 baseline control; 0 compile failures; 0 untried forms in completed batches.
+Each independent recipe applies to the baseline source after verifying its SHA256.
+All forms retain source physical line count and original assert tokens.
+No matching forms with losses are acceptable. All listed losses were rejected.
+
+{"class": "register-only", "client": 237, "compiled": true, "counts": {"exact": 63, "none": 3}, "gained": [], "gained_addresses": [], "lost": [], "lost_addresses": [], "name": "entry_direct_init", "ours": 237, "residue": 13, "residue_regs": 4, "source": "/home/dev/Projects/EnB/.work/claim-267/jobs-log-login/5AB030/entry_direct_init/ui_log.cpp", "source_sha256": "584e80d5609476ea86291cc733207ba88535de91fdce0048247cbca3c82aa882", "summary": "5AB030/runs/b2-kmzvt46r/summary.json", "target_exact": false}
+--- baseline/app/client/ui_log.cpp
++++ entry_direct_init/app/client/ui_log.cpp
+@@ -120,5 +120,5 @@
+ 		GadgetClass::Set_Tooltip(Editor, "UI_LOG", "DETAILS");
+ 		Editor->Client = Client->As_Space_Client();
+-		RefCountPtr<RenderObjClass> entry = Create_Get(InterfaceMesh->Get_Sub_Object_By_Name("Entry_Field00"));
++		RefCountPtr<RenderObjClass> entry(Create_Get(InterfaceMesh->Get_Sub_Object_By_Name("Entry_Field00")));
+ 		PageEntry = new TextGadgetClass(this, 3, "PAGE_EDIT_log00a", entry.Peek(), Unknown_B08CA8 | Unknown_B08C98, 0);
+ 		PageEntry->Set_Text("", 0);
+
+{"class": "register-only", "client": 237, "compiled": true, "counts": {"exact": 63, "none": 3}, "gained": [], "gained_addresses": [], "lost": [], "lost_addresses": [], "name": "entry_raw_input", "ours": 237, "residue": 13, "residue_regs": 4, "source": "/home/dev/Projects/EnB/.work/claim-267/jobs-log-login/5AB030/entry_raw_input/ui_log.cpp", "source_sha256": "d24dca20b2912e86ca7ed796f08784be3e2bb6b84a1d1fc82a0bca0452dbc318", "summary": "5AB030/runs/b2-kmzvt46r/summary.json", "target_exact": false}
+--- baseline/app/client/ui_log.cpp
++++ entry_raw_input/app/client/ui_log.cpp
+@@ -120,5 +120,5 @@
+ 		GadgetClass::Set_Tooltip(Editor, "UI_LOG", "DETAILS");
+ 		Editor->Client = Client->As_Space_Client();
+-		RefCountPtr<RenderObjClass> entry = Create_Get(InterfaceMesh->Get_Sub_Object_By_Name("Entry_Field00"));
++		RenderObjClass *entry_object = InterfaceMesh->Get_Sub_Object_By_Name("Entry_Field00"); RefCountPtr<RenderObjClass> entry = Create_Get(entry_object);
+ 		PageEntry = new TextGadgetClass(this, 3, "PAGE_EDIT_log00a", entry.Peek(), Unknown_B08CA8 | Unknown_B08C98, 0);
+ 		PageEntry->Set_Text("", 0);
+
+{"class": "register-only", "client": 237, "compiled": true, "counts": {"exact": 63, "none": 3}, "gained": [], "gained_addresses": [], "lost": [], "lost_addresses": [], "name": "editor_member_reference", "ours": 237, "residue": 13, "residue_regs": 4, "source": "/home/dev/Projects/EnB/.work/claim-267/jobs-log-login/5AB030/editor_member_reference/ui_log.cpp", "source_sha256": "743df3ecb0e2f6bbb0e8737262ba5b2ee5d9aba7455fe7c26a500ee3dc1f17e1", "summary": "5AB030/runs/b2-kmzvt46r/summary.json", "target_exact": false}
+--- baseline/app/client/ui_log.cpp
++++ editor_member_reference/app/client/ui_log.cpp
+@@ -119,5 +119,5 @@
+ 		Editor = new TextEditorGadgetClass(this, message, "UI_LOG_FONT", Slider, 0x400, "");
+ 		GadgetClass::Set_Tooltip(Editor, "UI_LOG", "DETAILS");
+-		Editor->Client = Client->As_Space_Client();
++		TextEditorGadgetClass *const &editor = Editor; editor->Client = Client->As_Space_Client();
+ 		RefCountPtr<RenderObjClass> entry = Create_Get(InterfaceMesh->Get_Sub_Object_By_Name("Entry_Field00"));
+ 		PageEntry = new TextGadgetClass(this, 3, "PAGE_EDIT_log00a", entry.Peek(), Unknown_B08CA8 | Unknown_B08C98, 0);
+
+{"class": "register-only", "client": 237, "compiled": true, "counts": {"exact": 63, "none": 3}, "gained": [], "gained_addresses": [], "lost": [], "lost_addresses": [], "name": "tooltip_member_reference", "ours": 237, "residue": 13, "residue_regs": 4, "source": "/home/dev/Projects/EnB/.work/claim-267/jobs-log-login/5AB030/tooltip_member_reference/ui_log.cpp", "source_sha256": "596f324a8a5644551036f0528d9dd43e56be0ea5583c25c1a01c9ad1e9545589", "summary": "5AB030/runs/b2-kmzvt46r/summary.json", "target_exact": false}
+--- baseline/app/client/ui_log.cpp
++++ tooltip_member_reference/app/client/ui_log.cpp
+@@ -125,5 +125,5 @@
+ 		PageEntry->Set_Unknown58(0.95f);
+ 
+-		GadgetClass::Set_Tooltip(PageEntry, "UI_LOG", "PAGE");
++		TextGadgetClass *const &page_entry = PageEntry; GadgetClass::Set_Tooltip(page_entry, "UI_LOG", "PAGE");
+ 		Unknown64.Unknown_6870E0(Slider, 9, Get_View(), 1, 1);
+ 		Unknown64.Unknown_6870E0(Editor, 7, View, 1, 1);
+
+{"class": "register-only", "client": 237, "compiled": true, "counts": {"exact": 63, "none": 3}, "gained": [], "gained_addresses": [], "lost": [], "lost_addresses": [], "name": "callback_view_reference", "ours": 237, "residue": 13, "residue_regs": 4, "source": "/home/dev/Projects/EnB/.work/claim-267/jobs-log-login/5AB030/callback_view_reference/ui_log.cpp", "source_sha256": "7f49f6ac6c06ec8eb0353f232417379a5ed804d514571eee61b4a1697b01880c", "summary": "5AB030/runs/b2-kmzvt46r/summary.json", "target_exact": false}
+--- baseline/app/client/ui_log.cpp
++++ callback_view_reference/app/client/ui_log.cpp
+@@ -127,6 +127,6 @@
+ 		GadgetClass::Set_Tooltip(PageEntry, "UI_LOG", "PAGE");
+ 		Unknown64.Unknown_6870E0(Slider, 9, Get_View(), 1, 1);
+-		Unknown64.Unknown_6870E0(Editor, 7, View, 1, 1);
+-		Unknown64.Unknown_6870E0(PageEntry, 8, View, 1, 1);
++		UIViewClass *const &callback_view = View; Unknown64.Unknown_6870E0(Editor, 7, callback_view, 1, 1);
++		Unknown64.Unknown_6870E0(PageEntry, 8, callback_view, 1, 1);
+ 		Unknown_10();
+ 	}
+
+{"class": "register-only", "client": 237, "compiled": true, "counts": {"exact": 63, "none": 3}, "gained": [], "gained_addresses": [], "lost": [], "lost_addresses": [], "name": "entry_mesh_accessor", "ours": 237, "residue": 13, "residue_regs": 4, "source": "/home/dev/Projects/EnB/.work/claim-267/jobs-log-login/5AB030/entry_mesh_accessor/ui_log.cpp", "source_sha256": "e0f119fd05b275aec541ff77a72666b41ee6fd80951d2912b05a1db18c0a9e28", "summary": "5AB030/runs/b3-y7t13b03/summary.json", "target_exact": false}
+--- baseline/app/client/ui_log.cpp
++++ entry_mesh_accessor/app/client/ui_log.cpp
+@@ -120,5 +120,5 @@
+ 		GadgetClass::Set_Tooltip(Editor, "UI_LOG", "DETAILS");
+ 		Editor->Client = Client->As_Space_Client();
+-		RefCountPtr<RenderObjClass> entry = Create_Get(InterfaceMesh->Get_Sub_Object_By_Name("Entry_Field00"));
++		RefCountPtr<RenderObjClass> entry = Create_Get(Interface_Mesh()->Get_Sub_Object_By_Name("Entry_Field00"));
+ 		PageEntry = new TextGadgetClass(this, 3, "PAGE_EDIT_log00a", entry.Peek(), Unknown_B08CA8 | Unknown_B08C98, 0);
+ 		PageEntry->Set_Text("", 0);
+
+{"class": "register-only", "client": 237, "compiled": true, "counts": {"exact": 63, "none": 3}, "gained": [], "gained_addresses": [], "lost": [], "lost_addresses": [], "name": "message_mesh_accessor", "ours": 237, "residue": 13, "residue_regs": 4, "source": "/home/dev/Projects/EnB/.work/claim-267/jobs-log-login/5AB030/message_mesh_accessor/ui_log.cpp", "source_sha256": "3aea7cef54f4dc85f18bd46ed1db36fc9b520de89ad540f83577c703ae1d04b4", "summary": "5AB030/runs/b3-y7t13b03/summary.json", "target_exact": false}
+--- baseline/app/client/ui_log.cpp
++++ message_mesh_accessor/app/client/ui_log.cpp
+@@ -116,5 +116,5 @@
+ 		Slider->Unknown_66E460(InterfaceMesh, 0, 0);
+ 		Slider->Unknown_66FA90(0, 0, true);
+-		RefCountPtr<RenderObjClass> message = Create_NEW(InterfaceMesh->Get_Sub_Object_By_Name("message"));
++		RefCountPtr<RenderObjClass> message = Create_NEW(Interface_Mesh()->Get_Sub_Object_By_Name("message"));
+ 		Editor = new TextEditorGadgetClass(this, message, "UI_LOG_FONT", Slider, 0x400, "");
+ 		GadgetClass::Set_Tooltip(Editor, "UI_LOG", "DETAILS");
+
+{"class": "register-only", "client": 237, "compiled": true, "counts": {"exact": 63, "none": 3}, "gained": [], "gained_addresses": [], "lost": [], "lost_addresses": [], "name": "both_mesh_accessors", "ours": 237, "residue": 13, "residue_regs": 4, "source": "/home/dev/Projects/EnB/.work/claim-267/jobs-log-login/5AB030/both_mesh_accessors/ui_log.cpp", "source_sha256": "9d81804f7bbeda20bc938a7cdae771d9054684a3415aef8867e17d082f637f40", "summary": "5AB030/runs/b3-y7t13b03/summary.json", "target_exact": false}
+--- baseline/app/client/ui_log.cpp
++++ both_mesh_accessors/app/client/ui_log.cpp
+@@ -116,9 +116,9 @@
+ 		Slider->Unknown_66E460(InterfaceMesh, 0, 0);
+ 		Slider->Unknown_66FA90(0, 0, true);
+-		RefCountPtr<RenderObjClass> message = Create_NEW(InterfaceMesh->Get_Sub_Object_By_Name("message"));
++		RefCountPtr<RenderObjClass> message = Create_NEW(Interface_Mesh()->Get_Sub_Object_By_Name("message"));
+ 		Editor = new TextEditorGadgetClass(this, message, "UI_LOG_FONT", Slider, 0x400, "");
+ 		GadgetClass::Set_Tooltip(Editor, "UI_LOG", "DETAILS");
+ 		Editor->Client = Client->As_Space_Client();
+-		RefCountPtr<RenderObjClass> entry = Create_Get(InterfaceMesh->Get_Sub_Object_By_Name("Entry_Field00"));
++		RefCountPtr<RenderObjClass> entry = Create_Get(Interface_Mesh()->Get_Sub_Object_By_Name("Entry_Field00"));
+ 		PageEntry = new TextGadgetClass(this, 3, "PAGE_EDIT_log00a", entry.Peek(), Unknown_B08CA8 | Unknown_B08C98, 0);
+ 		PageEntry->Set_Text("", 0);
+
+{"class": "register-only", "client": 237, "compiled": true, "counts": {"exact": 63, "none": 3}, "gained": [], "gained_addresses": [], "lost": [], "lost_addresses": [], "name": "baseline", "ours": 237, "residue": 13, "residue_regs": 4, "source": "/home/dev/Projects/EnB/.work/claim-267/jobs-log-login/5AB030/baseline/ui_log.cpp", "source_sha256": "002b9b0387e21634dcd6bb3ce4f06aabce25573e5056dd082973f0bfed1337f9", "summary": "5AB030/runs/initial-9uhtdn8_/summary.json", "target_exact": false}
+
+{"class": "register-only", "client": 237, "compiled": true, "counts": {"exact": 63, "none": 3}, "gained": [], "gained_addresses": [], "lost": [], "lost_addresses": [], "name": "entry_mesh_reference", "ours": 237, "residue": 13, "residue_regs": 4, "source": "/home/dev/Projects/EnB/.work/claim-267/jobs-log-login/5AB030/entry_mesh_reference/ui_log.cpp", "source_sha256": "c64560a3021ebfc622d575982b4e7174d08a88ab553bf44af9d774a8443176d9", "summary": "5AB030/runs/initial-9uhtdn8_/summary.json", "target_exact": false}
+--- baseline/app/client/ui_log.cpp
++++ entry_mesh_reference/app/client/ui_log.cpp
+@@ -120,5 +120,5 @@
+ 		GadgetClass::Set_Tooltip(Editor, "UI_LOG", "DETAILS");
+ 		Editor->Client = Client->As_Space_Client();
+-		RefCountPtr<RenderObjClass> entry = Create_Get(InterfaceMesh->Get_Sub_Object_By_Name("Entry_Field00"));
++		const RefCountPtr<RenderObjClass> &entry_mesh = InterfaceMesh; RefCountPtr<RenderObjClass> entry = Create_Get(entry_mesh->Get_Sub_Object_By_Name("Entry_Field00"));
+ 		PageEntry = new TextGadgetClass(this, 3, "PAGE_EDIT_log00a", entry.Peek(), Unknown_B08CA8 | Unknown_B08C98, 0);
+ 		PageEntry->Set_Text("", 0);
+
+{"class": "register-only", "client": 237, "compiled": true, "counts": {"exact": 63, "none": 3}, "gained": [], "gained_addresses": [], "lost": [], "lost_addresses": [], "name": "flag_reference", "ours": 237, "residue": 13, "residue_regs": 4, "source": "/home/dev/Projects/EnB/.work/claim-267/jobs-log-login/5AB030/flag_reference/ui_log.cpp", "source_sha256": "be556615d0e7e0028114e9e33fb3f609816b6e38e4ecb156a3e6b64fc1227893", "summary": "5AB030/runs/initial-9uhtdn8_/summary.json", "target_exact": false}
+--- baseline/app/client/ui_log.cpp
++++ flag_reference/app/client/ui_log.cpp
+@@ -121,5 +121,5 @@
+ 		Editor->Client = Client->As_Space_Client();
+ 		RefCountPtr<RenderObjClass> entry = Create_Get(InterfaceMesh->Get_Sub_Object_By_Name("Entry_Field00"));
+-		PageEntry = new TextGadgetClass(this, 3, "PAGE_EDIT_log00a", entry.Peek(), Unknown_B08CA8 | Unknown_B08C98, 0);
++		const int &flags = Unknown_B08CA8; PageEntry = new TextGadgetClass(this, 3, "PAGE_EDIT_log00a", entry.Peek(), flags | Unknown_B08C98, 0);
+ 		PageEntry->Set_Text("", 0);
+ 		PageEntry->Set_Unknown58(0.95f);
+
+{"class": "register-only", "client": 237, "compiled": true, "counts": {"exact": 63, "none": 3}, "gained": [], "gained_addresses": [], "lost": [], "lost_addresses": [], "name": "entry_pointer_assignment", "ours": 237, "residue": 13, "residue_regs": 4, "source": "/home/dev/Projects/EnB/.work/claim-267/jobs-log-login/5AB030/entry_pointer_assignment/ui_log.cpp", "source_sha256": "2f696c0cea6bd2b316af7aedb40a648593fe413c260449f0827976a7999ae16a", "summary": "5AB030/runs/initial-9uhtdn8_/summary.json", "target_exact": false}
+--- baseline/app/client/ui_log.cpp
++++ entry_pointer_assignment/app/client/ui_log.cpp
+@@ -121,5 +121,5 @@
+ 		Editor->Client = Client->As_Space_Client();
+ 		RefCountPtr<RenderObjClass> entry = Create_Get(InterfaceMesh->Get_Sub_Object_By_Name("Entry_Field00"));
+-		PageEntry = new TextGadgetClass(this, 3, "PAGE_EDIT_log00a", entry.Peek(), Unknown_B08CA8 | Unknown_B08C98, 0);
++		RenderObjClass *entry_model; PageEntry = new TextGadgetClass(this, 3, "PAGE_EDIT_log00a", entry_model = entry.Peek(), Unknown_B08CA8 | Unknown_B08C98, 0);
+ 		PageEntry->Set_Text("", 0);
+ 		PageEntry->Set_Unknown58(0.95f);
+
+Outcome: parked unchanged after three nonimproving families; baseline 13 masked rows (4 with registers masked), 237/237 instructions.
+Retail evidence: 0x5AB1CD loads the entry vtable into eax and 0x5AB1D2 forms the return slot in ecx; 0x5AB1FC..0x5AB20A use flags edx/ecx and model ecx; 0x5AB257 reloads PageEntry into edx before Set_Tooltip.
+Every changed form compiles to the same 13-row residue. Named raw entry input, direct smart-pointer initialization, actual field/input references, actual input assignments, and the existing Interface_Mesh accessor at both lookup sites provide no cut.
+Audit: no candidate adopted. All forms retained Create_NEW(message)/Create_Get(entry), same smart-pointer lexical lifetimes, construction order, Set_Text, scale setter, tooltip and callback order. Baseline production remains unchanged. No remaining concrete local source lead beyond the already recorded function-wide allocator state.
