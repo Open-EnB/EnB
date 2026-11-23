@@ -634,17 +634,17 @@ void UIRefineryClass::Unknown_5EDCC0()
 static std::string Unknown_5EE7F0(int validity);
 static std::string Unknown_5EE460(DeltaCompoundClass *auxdata, LineDisplayClientClass *client);
 
-// NOT EXACT: inline budget (the client calls all three finds' Unknown_Find_Field out of line, 0x5465C0 / 0x417D82, with the name in the caller; ours calls the inline layer out of line, or inlines the find; frame 0xBC vs 0xEC) (0x5EDFD0)
+
 void UIRefineryClass::Unknown_5EDFD0()
 {
-	DeltaTemplateClass<UnknownB01394Enum> *validity = Unknown_Manu_Raw<DeltaTemplateClass<UnknownB01394Enum> >(Unknown0AEC, "Validity");
-	if (validity && validity->Unknown70 > 1) {
-		std::string reason = Unknown_5EE7F0(validity->Value);
+	DeltaTemplateClass<UnknownB01394Enum> *validity = Unknown_Find_Changed<DeltaTemplateClass<UnknownB01394Enum> >(Unknown0AEC, "Validity");
+	if (validity) {
+		int value; std::string reason = Unknown_5EE7F0(value = validity->Value);
 		if (reason.length()) {
 			if (Unknown0B05) {
 				Unknown0AF8 = -1;
 			} else {
-				std::string item = Unknown_5EE460(Unknown0AEC, Client);
+				LineDisplayClientClass *client; std::string item = Unknown_5EE460(Unknown0AEC, client = Client);
 				std::string message = "Unable to create " + item + std::string(". ") + reason + ".";
 				Client->As_Space_Client()->Unknown_74D990(0x11, (char *)message.c_str(), 0);
 			}
@@ -652,18 +652,18 @@ void UIRefineryClass::Unknown_5EDFD0()
 	}
 
 	MoneyClass credits;
-	DeltaTemplateClass<MoneyClass> *money = Unknown_Manu_Raw<DeltaTemplateClass<MoneyClass> >((DeltaCompoundClass *)Client->As_Space_Client()->AuxData, "Money");
-	if (money && money->Unknown70 > 1) {
+	DeltaCompoundClass *root = (DeltaCompoundClass *)Client->As_Space_Client()->AuxData; DeltaTemplateClass<MoneyClass> *money = Unknown_Find_Changed<DeltaTemplateClass<MoneyClass> >(root, "Money");
+	if (money) {
 		credits = money->Value;
 		Unknown_5ECBB0(0, true, credits.Amount_As_Text(false).c_str());
 	}
 	MoneyClass cost;
-	DeltaTemplateClass<MoneyClass> *negotiated = Unknown_Manu_Raw<DeltaTemplateClass<MoneyClass> >(Unknown0AEC, "NegotiatedCost");
-	if (negotiated && negotiated->Unknown70 > 1) {
+	DeltaTemplateClass<MoneyClass> *negotiated = Unknown_Find_Changed<DeltaTemplateClass<MoneyClass> >(Unknown0AEC, "NegotiatedCost");
+	if (negotiated) {
 		cost = negotiated->Value;
 		Unknown_5ECBB0(3, true, cost.Amount_As_Text(false).c_str());
 	}
-	UIManuListClass *list = Unknown_Find_Changed<UIManuListClass>(Unknown0AEC, NameClass("KnownFormula"));
+	UIManuListClass *list = Unknown_Find_Changed<UIManuListClass>(Unknown0AEC, "KnownFormula");
 	if (list) {
 		Unknown_5EDA10(list);
 		Unknown_5ECE20();
@@ -742,4 +742,7 @@ static std::string Unknown_5EE7F0(int validity)	// NAME 1: neutral (D10)  // NAM
 ** 0x5EBC30, +0x7C 0x5EC220, +0x58 0x5EC270, +0x5C 0x5EC570, +0x60 0x5EC6D0, +0x68 0x5EC990, then the helpers to 0x5EDFD0,
 ** its static helpers 0x5EE460 / 0x5EE7F0 and the find 0x5EEBA0. The PermStringInitClass static 0x5EB7C0 (its atexit
 ** 0x5EB7F0) comes from permstr.h. 0x5EB7B0 (a this-adjusting thunk to 0x5EAB90) belongs to the file before.
+** 0x5EDFD0 is exact: existing changed-field lookups preserve the >1 tests and caller name storage;
+** a Money root local and assignment of the value/client locals at their argument sites recover retail
+** argument scheduling and the final list helper boundary. All later assertion lines are preserved.
 */
