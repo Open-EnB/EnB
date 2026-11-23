@@ -1,0 +1,749 @@
+{
+  "base": "3cf475be",
+  "unit": "app/client/ui_inv.cpp",
+  "base_source_sha256": "86ec0b21ac9ebd01d1d1619990e843baf8deec41b8f8f0531cf2e78eb32398e9",
+  "outcome": "No source adopted. Original79 addresses retained in all forms; best25/10 rows vs33/22 baseline; frame0x18 vsretail0x14. Input ID/inventory assignments align slot register but spill event and shift gadget.",
+  "artifacts": {
+    "59FE30-fifth-qczbb5wl--id_packet_inventory_at_argument.patch": "--- a/app/client/ui_inv.cpp\n+++ b/app/client/ui_inv.cpp\n@@ -485,7 +485,7 @@\n \t\tUIInvGadgetClass *gadget = (UIInvGadgetClass *)slot_gadget;\n \t\tFAIL_IF(!gadget->As_SlotDataShortcutGadget()) return(false);\n \t\tif (down) {\n-\t\t\t((ClientClass *)Client)->Send_Packet(&EquipUsePacketClass(((ClientClass *)Client)->ShipID, InvType, slot));\n+\t\t\tunsigned game_id; int inventory; ((ClientClass *)Client)->Send_Packet(&EquipUsePacketClass(game_id = ((ClientClass *)Client)->ShipID, inventory = InvType, slot));\n \t\t}\n \t\treturn(true);\n \t}\n",
+    "59FE30-fifth-qczbb5wl--id_transfer_slot_at_argument.patch": "--- a/app/client/ui_inv.cpp\n+++ b/app/client/ui_inv.cpp\n@@ -485,7 +485,7 @@\n \t\tUIInvGadgetClass *gadget = (UIInvGadgetClass *)slot_gadget;\n \t\tFAIL_IF(!gadget->As_SlotDataShortcutGadget()) return(false);\n \t\tif (down) {\n-\t\t\t((ClientClass *)Client)->Send_Packet(&EquipUsePacketClass(((ClientClass *)Client)->ShipID, InvType, slot));\n+\t\t\tunsigned game_id; ((ClientClass *)Client)->Send_Packet(&EquipUsePacketClass(game_id = ((ClientClass *)Client)->ShipID, InvType, slot));\n \t\t}\n \t\treturn(true);\n \t}\n@@ -497,7 +497,7 @@\n \t\t\tSoundLibraryClass::Play_2D_Sound(\"On_Fail\", 2);\n \t\t\treturn(true);\n \t\t}\n-\t\tInvTransaction->Unknown_690AA0(InvType, slot, -1, true, 0, -1);\n+\t\tint from_slot; InvTransaction->Unknown_690AA0(InvType, from_slot = slot, -1, true, 0, -1);\n \t\treturn(true);\n \t}\n \tif (down) {\n",
+    "59FE30-fifth-qczbb5wl--id_event_parameter_reference.patch": "--- a/app/client/ui_inv.cpp\n+++ b/app/client/ui_inv.cpp\n@@ -470,7 +470,7 @@\n // 0x59FE30\n bool UIInvClass::Unknown_98(SlotDataGadgetClass *slot_gadget, KernelEventClass *event, unsigned int mask)\n {\n-\tbool down = ((UIInvEventStruct *)event)->Flags >> 12 & 1;\n+\tKernelEventClass * const &source_event = event; bool down = ((UIInvEventStruct *)source_event)->Flags >> 12 & 1;\n \tbool button = (mask & 0xF0) != 0;\n \tint slot = slot_gadget->Unknown_670910();\n \tif (down && button && SlotDrag->Unknown10 != 2) {\n@@ -478,14 +478,14 @@\n \t\t\tcase 0:\n \t\t\tcase 2:\n \t\t\t\tSlotDrag->Unknown_0C();\n-\t\t\t\treturn(SlotDataInterface::Unknown_98(slot_gadget, event, mask));\n+\t\t\t\treturn(SlotDataInterface::Unknown_98(slot_gadget, source_event, mask));\n \t\t}\n \t}\n \tif (mask & 0x1000) {\n \t\tUIInvGadgetClass *gadget = (UIInvGadgetClass *)slot_gadget;\n \t\tFAIL_IF(!gadget->As_SlotDataShortcutGadget()) return(false);\n \t\tif (down) {\n-\t\t\t((ClientClass *)Client)->Send_Packet(&EquipUsePacketClass(((ClientClass *)Client)->ShipID, InvType, slot));\n+\t\t\tunsigned game_id; ((ClientClass *)Client)->Send_Packet(&EquipUsePacketClass(game_id = ((ClientClass *)Client)->ShipID, InvType, slot));\n \t\t}\n \t\treturn(true);\n \t}\n@@ -505,7 +505,7 @@\n \t\t\tSlotDrag->Unknown_0C();\n \t\t}\n \t} else {\n-\t\tUnknown_5A05B0(slot_gadget, event, button);\n+\t\tUnknown_5A05B0(slot_gadget, source_event, button);\n \t}\n \treturn(false);\n }\n",
+    "59FE30-first-90cg7aig--baseline.patch": "",
+    "59FE30-first-90cg7aig--declarations_then_assignments.patch": "--- a/app/client/ui_inv.cpp\n+++ b/app/client/ui_inv.cpp\n@@ -470,9 +470,9 @@\n // 0x59FE30\n bool UIInvClass::Unknown_98(SlotDataGadgetClass *slot_gadget, KernelEventClass *event, unsigned int mask)\n {\n-\tbool down = ((UIInvEventStruct *)event)->Flags >> 12 & 1;\n-\tbool button = (mask & 0xF0) != 0;\n-\tint slot = slot_gadget->Unknown_670910();\n+\tbool down; bool button; int slot;\n+\tdown = ((UIInvEventStruct *)event)->Flags >> 12 & 1;\n+\tbutton = (mask & 0xF0) != 0; slot = slot_gadget->Unknown_670910();\n \tif (down && button && SlotDrag->Unknown10 != 2) {\n \t\tswitch (SlotDrag->Unknown1C) {\n \t\t\tcase 0:\n",
+    "59FE30-first-90cg7aig--event_input_local.patch": "--- a/app/client/ui_inv.cpp\n+++ b/app/client/ui_inv.cpp\n@@ -470,7 +470,7 @@\n // 0x59FE30\n bool UIInvClass::Unknown_98(SlotDataGadgetClass *slot_gadget, KernelEventClass *event, unsigned int mask)\n {\n-\tbool down = ((UIInvEventStruct *)event)->Flags >> 12 & 1;\n+\tKernelEventClass *source_event = event; bool down = ((UIInvEventStruct *)source_event)->Flags >> 12 & 1;\n \tbool button = (mask & 0xF0) != 0;\n \tint slot = slot_gadget->Unknown_670910();\n \tif (down && button && SlotDrag->Unknown10 != 2) {\n@@ -478,7 +478,7 @@\n \t\t\tcase 0:\n \t\t\tcase 2:\n \t\t\t\tSlotDrag->Unknown_0C();\n-\t\t\t\treturn(SlotDataInterface::Unknown_98(slot_gadget, event, mask));\n+\t\t\t\treturn(SlotDataInterface::Unknown_98(slot_gadget, source_event, mask));\n \t\t}\n \t}\n \tif (mask & 0x1000) {\n@@ -505,7 +505,7 @@\n \t\t\tSlotDrag->Unknown_0C();\n \t\t}\n \t} else {\n-\t\tUnknown_5A05B0(slot_gadget, event, button);\n+\t\tUnknown_5A05B0(slot_gadget, source_event, button);\n \t}\n \treturn(false);\n }\n",
+    "59FE30-first-90cg7aig--slot_value_reference.patch": "--- a/app/client/ui_inv.cpp\n+++ b/app/client/ui_inv.cpp\n@@ -472,7 +472,7 @@\n {\n \tbool down = ((UIInvEventStruct *)event)->Flags >> 12 & 1;\n \tbool button = (mask & 0xF0) != 0;\n-\tint slot = slot_gadget->Unknown_670910();\n+\tconst int &slot = slot_gadget->Unknown_670910();\n \tif (down && button && SlotDrag->Unknown10 != 2) {\n \t\tswitch (SlotDrag->Unknown1C) {\n \t\t\tcase 0:\n",
+    "baseline-symbol-pairs.json": [
+      [
+        "??0?$UIInvStripOfClass@VRenderObjClass@@@@QAE@PAVSClient@@PAVRenderObjClass@@HPBDH@Z",
+        "0x59EDC0"
+      ],
+      [
+        "??0?$UIInvStripOfClass@VUIMeshClass@@@@QAE@PAVSClient@@PAVUIMeshClass@@HPBDH@Z",
+        "0x59EA30"
+      ],
+      [
+        "??0UIInvClass@@QAE@PAVSClient@@H@Z",
+        "0x59F3D0"
+      ],
+      [
+        "??1?$UIInvStripOfClass@VRenderObjClass@@@@UAE@XZ",
+        "0x59EF70"
+      ],
+      [
+        "??1?$UIInvStripOfClass@VUIMeshClass@@@@UAE@XZ",
+        "0x59ECD0"
+      ],
+      [
+        "??1EquipUsePacketClass@@UAE@XZ",
+        "0x5A00A0"
+      ],
+      [
+        "??1UIInvClass@@UAE@XZ",
+        "0x59F940"
+      ],
+      [
+        "??1UIInvStripClass@@UAE@XZ",
+        "0x59EBB0"
+      ],
+      [
+        "??_E?$UIInvStripOfClass@VRenderObjClass@@@@W3AEPAXI@Z",
+        "0x5A1100"
+      ],
+      [
+        "??_E?$UIInvStripOfClass@VRenderObjClass@@@@WDI@AEPAXI@Z",
+        "0x5A1110"
+      ],
+      [
+        "??_E?$UIInvStripOfClass@VUIMeshClass@@@@W3AEPAXI@Z",
+        "0x5A10E0"
+      ],
+      [
+        "??_E?$UIInvStripOfClass@VUIMeshClass@@@@WDI@AEPAXI@Z",
+        "0x5A10F0"
+      ],
+      [
+        "??_EUIInvClass@@W3AEPAXI@Z",
+        "0x5A10C0"
+      ],
+      [
+        "??_EUIInvClass@@WDI@AEPAXI@Z",
+        "0x5A10D0"
+      ],
+      [
+        "??_G?$UIInvStripOfClass@VRenderObjClass@@@@UAEPAXI@Z",
+        "0x59EF40"
+      ],
+      [
+        "??_G?$UIInvStripOfClass@VUIMeshClass@@@@UAEPAXI@Z",
+        "0x59ECA0"
+      ],
+      [
+        "??_GPacketClass@@UAEPAXI@Z",
+        "0x52B350"
+      ],
+      [
+        "??_GUIInvClass@@UAEPAXI@Z",
+        "0x59F440"
+      ],
+      [
+        "??_H@YGXPAXIHP6EX0@Z@Z",
+        "0x42F250"
+      ],
+      [
+        "?Add@UIInvStripClass@@QAEXPAVRenderObjClass@@@Z",
+        "0x59F060"
+      ],
+      [
+        "?Build@PacketClass@@UAEPAVRawPacketClass@@XZ",
+        "0x52B210"
+      ],
+      [
+        "?Close_Channel@PacketClass@@UAE_NXZ",
+        "0x52B330"
+      ],
+      [
+        "?Delete_This@RefCountClass@@UAEXXZ",
+        "0x45CC10"
+      ],
+      [
+        "?Get_Channel@PacketClass@@UAEHXZ",
+        "0x52B2D0"
+      ],
+      [
+        "?Get_Data_Size@PacketClass@@UAEHXZ",
+        "0x52B270"
+      ],
+      [
+        "?Get_Priority@PacketClass@@UAEHXZ",
+        "0x52B2F0"
+      ],
+      [
+        "?Get_Target_Node@GClass@@UAEPAV?$ContextDataNode@PAVGClass@@PAV1@@@XZ",
+        "0x4A1AD0"
+      ],
+      [
+        "?Get_Targeting_List@GClass@@UAEPAV?$List@PAV?$ContextDataNode@PAVGClass@@PAV1@@@@@XZ",
+        "0x4A1AF0"
+      ],
+      [
+        "?Is_Reliable@PacketClass@@UAE_NXZ",
+        "0x52B310"
+      ],
+      [
+        "?Print@PacketClass@@UAEHPADH@Z",
+        "0x52B2A0"
+      ],
+      [
+        "?Process_Packet@PacketClass@@UAE_NPAX@Z",
+        "0x52B240"
+      ],
+      [
+        "?Unknown_04@UnknownGadgetBase00Class@@UAEPAVGenericNode@@XZ",
+        "0x4A19A0"
+      ],
+      [
+        "?Unknown_08@UnknownGadgetBase00Class@@UAEXXZ",
+        "0x4A19C0"
+      ],
+      [
+        "?Unknown_0C@GClass@@UAEPBDXZ",
+        "0x4A1A10"
+      ],
+      [
+        "?Unknown_1C@GClass@@UAEHXZ",
+        "0x4A1A30"
+      ],
+      [
+        "?Unknown_20@GClass@@UAEHXZ",
+        "0x4A1A50"
+      ],
+      [
+        "?Unknown_24@GClass@@UAEHXZ",
+        "0x4A1A70"
+      ],
+      [
+        "?Unknown_28@GClass@@UAEHXZ",
+        "0x4A1A90"
+      ],
+      [
+        "?Unknown_2C@GClass@@UAEHXZ",
+        "0x4A1AB0"
+      ],
+      [
+        "?Unknown_4A1930@UnknownGadgetBase04Class@@UAE_NHHH@Z",
+        "0x4A1930"
+      ],
+      [
+        "?Unknown_54@UIInvClass@@UAEXXZ",
+        "0x59F470"
+      ],
+      [
+        "?Unknown_54@UIInvStripClass@@UAEXXZ",
+        "0x59F2C0"
+      ],
+      [
+        "?Unknown_59FE10@UIInvClass@@QAEPAVInvDataClass@@XZ",
+        "0x59FE10"
+      ],
+      [
+        "?Unknown_5A00C0@UIInvClass@@QAEXPAHPAV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z",
+        "0x5A00C0"
+      ],
+      [
+        "?Unknown_5A02E0@UIInvClass@@QAE_N_N@Z",
+        "0x5A02E0"
+      ],
+      [
+        "?Unknown_5A03B0@UIInvClass@@QAE_N_N@Z",
+        "0x5A03B0"
+      ],
+      [
+        "?Unknown_5A0450@UIInvClass@@QAEXHPAH0@Z",
+        "0x5A0450"
+      ],
+      [
+        "?Unknown_5A05B0@UIInvClass@@QAEXPAVSlotDataGadgetClass@@PAUKernelEventClass@@_N@Z",
+        "0x5A05B0"
+      ],
+      [
+        "?Unknown_5A06C0@UIInvClass@@QAEXPAVSlotDataGadgetClass@@@Z",
+        "0x5A06C0"
+      ],
+      [
+        "?Unknown_5A0EB0@UIInvClass@@QAE_NHH@Z",
+        "0x5A0EB0"
+      ],
+      [
+        "?Unknown_5C@UIInvClass@@UAEXXZ",
+        "0x59FD70"
+      ],
+      [
+        "?Unknown_60@UIInvClass@@UAEXXZ",
+        "0x59FDA0"
+      ],
+      [
+        "?Unknown_6C@InterfaceClass@@UAEXAAVINIClass@@@Z",
+        "0x5156F0"
+      ],
+      [
+        "?Unknown_70@InterfaceClass@@UAEXPAVControlKeysManager@@@Z",
+        "0x515710"
+      ],
+      [
+        "?Unknown_74@InterfaceClass@@UAEXPAVControlKeysManager@@@Z",
+        "0x515730"
+      ],
+      [
+        "?Unknown_78@InterfaceClass@@UAE_NPAX@Z",
+        "0x515750"
+      ],
+      [
+        "?Unknown_7C@UIInvClass@@UAEXPAVUIViewClass@@_N@Z",
+        "0x59FD00"
+      ],
+      [
+        "?Unknown_88@UIInvClass@@UAEPAVSlotDataClass@@XZ",
+        "0x59FA00"
+      ],
+      [
+        "?Unknown_8C@SlotDataInterface@@UAEPAVInterfaceClass@@XZ",
+        "0x549760"
+      ],
+      [
+        "?Unknown_90@UIInvClass@@UAEPAVInterfaceClass@@XZ",
+        "0x5851A0"
+      ],
+      [
+        "?Unknown_94@SlotDataInterface@@UAEPAVInterfaceClass@@XZ",
+        "0x585160"
+      ],
+      [
+        "?Unknown_9C@UIInvClass@@UAE_NH_N@Z",
+        "0x59FA80"
+      ],
+      [
+        "?Unknown_A0@SlotDataInterface@@UAE_NPAVSlotDataGadgetClass@@@Z",
+        "0x585180"
+      ],
+      [
+        "?Unknown_A4@UIInvClass@@UAEXAAV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@HH@Z",
+        "0x59FB20"
+      ],
+      [
+        "?Unknown_A8@UIInvClass@@UAEPBDXZ",
+        "0x5851C0"
+      ],
+      [
+        "?_Construct@std@@YAXPAPAVRenderObjClass@@ABQAV2@@Z",
+        "0x5A1060"
+      ],
+      [
+        "?_Copy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEXI@Z",
+        "0x42AB30"
+      ],
+      [
+        "?_Destroy@?$vector@PAVRenderObjClass@@V?$allocator@PAVRenderObjClass@@@std@@@std@@IAEXPAPAVRenderObjClass@@0@Z",
+        "0x5A0FC0"
+      ],
+      [
+        "?_Eos@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEXI@Z",
+        "0x42A940"
+      ],
+      [
+        "?_Grow@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAE_NI_N@Z",
+        "0x42A970"
+      ],
+      [
+        "?_Split@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEXXZ",
+        "0x42CD30"
+      ],
+      [
+        "?_Tidy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEX_N@Z",
+        "0x42A820"
+      ],
+      [
+        "?_Ucopy@?$vector@PAVRenderObjClass@@V?$allocator@PAVRenderObjClass@@@std@@@std@@IAEPAPAVRenderObjClass@@PBQAV3@0PAPAV3@@Z",
+        "0x5A0FE0"
+      ],
+      [
+        "?_Ufill@?$vector@PAVRenderObjClass@@V?$allocator@PAVRenderObjClass@@@std@@@std@@IAEXPAPAVRenderObjClass@@IABQAV3@@Z",
+        "0x5A1020"
+      ],
+      [
+        "?id@?$ctype@G@std@@$E",
+        "0x42B320"
+      ],
+      [
+        "?insert@?$vector@PAVRenderObjClass@@V?$allocator@PAVRenderObjClass@@@std@@@std@@QAEXPAPAVRenderObjClass@@IABQAV3@@Z",
+        "0x48F3E0"
+      ],
+      [
+        "_$E104",
+        "0x59EA10"
+      ],
+      [
+        "_$E106",
+        "0x59E9E0"
+      ],
+      [
+        "_$E164",
+        "0x5A1090"
+      ]
+    ],
+    "baseline-addresses.json": [
+      "0x42A820",
+      "0x42A940",
+      "0x42A970",
+      "0x42AB30",
+      "0x42B320",
+      "0x42CD30",
+      "0x42F250",
+      "0x45CC10",
+      "0x48F3E0",
+      "0x4A1930",
+      "0x4A19A0",
+      "0x4A19C0",
+      "0x4A1A10",
+      "0x4A1A30",
+      "0x4A1A50",
+      "0x4A1A70",
+      "0x4A1A90",
+      "0x4A1AB0",
+      "0x4A1AD0",
+      "0x4A1AF0",
+      "0x5156F0",
+      "0x515710",
+      "0x515730",
+      "0x515750",
+      "0x52B210",
+      "0x52B240",
+      "0x52B270",
+      "0x52B2A0",
+      "0x52B2D0",
+      "0x52B2F0",
+      "0x52B310",
+      "0x52B330",
+      "0x52B350",
+      "0x549760",
+      "0x585160",
+      "0x585180",
+      "0x5851A0",
+      "0x5851C0",
+      "0x59E9E0",
+      "0x59EA10",
+      "0x59EA30",
+      "0x59EBB0",
+      "0x59ECA0",
+      "0x59ECD0",
+      "0x59EDC0",
+      "0x59EF40",
+      "0x59EF70",
+      "0x59F060",
+      "0x59F2C0",
+      "0x59F3D0",
+      "0x59F440",
+      "0x59F470",
+      "0x59F940",
+      "0x59FA00",
+      "0x59FA80",
+      "0x59FB20",
+      "0x59FD00",
+      "0x59FD70",
+      "0x59FDA0",
+      "0x59FE10",
+      "0x5A00A0",
+      "0x5A00C0",
+      "0x5A02E0",
+      "0x5A03B0",
+      "0x5A0450",
+      "0x5A05B0",
+      "0x5A06C0",
+      "0x5A0EB0",
+      "0x5A0FC0",
+      "0x5A0FE0",
+      "0x5A1020",
+      "0x5A1060",
+      "0x5A1090",
+      "0x5A10C0",
+      "0x5A10D0",
+      "0x5A10E0",
+      "0x5A10F0",
+      "0x5A1100",
+      "0x5A1110"
+    ],
+    "59FE30-fourth-itxatl63--id_event_local.patch": "--- a/app/client/ui_inv.cpp\n+++ b/app/client/ui_inv.cpp\n@@ -470,7 +470,7 @@\n // 0x59FE30\n bool UIInvClass::Unknown_98(SlotDataGadgetClass *slot_gadget, KernelEventClass *event, unsigned int mask)\n {\n-\tbool down = ((UIInvEventStruct *)event)->Flags >> 12 & 1;\n+\tKernelEventClass *source_event = event; bool down = ((UIInvEventStruct *)source_event)->Flags >> 12 & 1;\n \tbool button = (mask & 0xF0) != 0;\n \tint slot = slot_gadget->Unknown_670910();\n \tif (down && button && SlotDrag->Unknown10 != 2) {\n@@ -478,14 +478,14 @@\n \t\t\tcase 0:\n \t\t\tcase 2:\n \t\t\t\tSlotDrag->Unknown_0C();\n-\t\t\t\treturn(SlotDataInterface::Unknown_98(slot_gadget, event, mask));\n+\t\t\t\treturn(SlotDataInterface::Unknown_98(slot_gadget, source_event, mask));\n \t\t}\n \t}\n \tif (mask & 0x1000) {\n \t\tUIInvGadgetClass *gadget = (UIInvGadgetClass *)slot_gadget;\n \t\tFAIL_IF(!gadget->As_SlotDataShortcutGadget()) return(false);\n \t\tif (down) {\n-\t\t\t((ClientClass *)Client)->Send_Packet(&EquipUsePacketClass(((ClientClass *)Client)->ShipID, InvType, slot));\n+\t\t\tunsigned game_id; ((ClientClass *)Client)->Send_Packet(&EquipUsePacketClass(game_id = ((ClientClass *)Client)->ShipID, InvType, slot));\n \t\t}\n \t\treturn(true);\n \t}\n@@ -505,7 +505,7 @@\n \t\t\tSlotDrag->Unknown_0C();\n \t\t}\n \t} else {\n-\t\tUnknown_5A05B0(slot_gadget, event, button);\n+\t\tUnknown_5A05B0(slot_gadget, source_event, button);\n \t}\n \treturn(false);\n }\n",
+    "59FE30-fourth-itxatl63--id_event_at_read.patch": "--- a/app/client/ui_inv.cpp\n+++ b/app/client/ui_inv.cpp\n@@ -470,7 +470,7 @@\n // 0x59FE30\n bool UIInvClass::Unknown_98(SlotDataGadgetClass *slot_gadget, KernelEventClass *event, unsigned int mask)\n {\n-\tbool down = ((UIInvEventStruct *)event)->Flags >> 12 & 1;\n+\tKernelEventClass *source_event; bool down = ((UIInvEventStruct *)(source_event = event))->Flags >> 12 & 1;\n \tbool button = (mask & 0xF0) != 0;\n \tint slot = slot_gadget->Unknown_670910();\n \tif (down && button && SlotDrag->Unknown10 != 2) {\n@@ -478,14 +478,14 @@\n \t\t\tcase 0:\n \t\t\tcase 2:\n \t\t\t\tSlotDrag->Unknown_0C();\n-\t\t\t\treturn(SlotDataInterface::Unknown_98(slot_gadget, event, mask));\n+\t\t\t\treturn(SlotDataInterface::Unknown_98(slot_gadget, source_event, mask));\n \t\t}\n \t}\n \tif (mask & 0x1000) {\n \t\tUIInvGadgetClass *gadget = (UIInvGadgetClass *)slot_gadget;\n \t\tFAIL_IF(!gadget->As_SlotDataShortcutGadget()) return(false);\n \t\tif (down) {\n-\t\t\t((ClientClass *)Client)->Send_Packet(&EquipUsePacketClass(((ClientClass *)Client)->ShipID, InvType, slot));\n+\t\t\tunsigned game_id; ((ClientClass *)Client)->Send_Packet(&EquipUsePacketClass(game_id = ((ClientClass *)Client)->ShipID, InvType, slot));\n \t\t}\n \t\treturn(true);\n \t}\n@@ -505,7 +505,7 @@\n \t\t\tSlotDrag->Unknown_0C();\n \t\t}\n \t} else {\n-\t\tUnknown_5A05B0(slot_gadget, event, button);\n+\t\tUnknown_5A05B0(slot_gadget, source_event, button);\n \t}\n \treturn(false);\n }\n",
+    "59FE30-fourth-itxatl63--id_declaration_top.patch": "--- a/app/client/ui_inv.cpp\n+++ b/app/client/ui_inv.cpp\n@@ -470,7 +470,7 @@\n // 0x59FE30\n bool UIInvClass::Unknown_98(SlotDataGadgetClass *slot_gadget, KernelEventClass *event, unsigned int mask)\n {\n-\tbool down = ((UIInvEventStruct *)event)->Flags >> 12 & 1;\n+\tunsigned game_id; bool down = ((UIInvEventStruct *)event)->Flags >> 12 & 1;\n \tbool button = (mask & 0xF0) != 0;\n \tint slot = slot_gadget->Unknown_670910();\n \tif (down && button && SlotDrag->Unknown10 != 2) {\n@@ -485,7 +485,7 @@\n \t\tUIInvGadgetClass *gadget = (UIInvGadgetClass *)slot_gadget;\n \t\tFAIL_IF(!gadget->As_SlotDataShortcutGadget()) return(false);\n \t\tif (down) {\n-\t\t\t((ClientClass *)Client)->Send_Packet(&EquipUsePacketClass(((ClientClass *)Client)->ShipID, InvType, slot));\n+\t\t\t((ClientClass *)Client)->Send_Packet(&EquipUsePacketClass(game_id = ((ClientClass *)Client)->ShipID, InvType, slot));\n \t\t}\n \t\treturn(true);\n \t}\n",
+    "59FE30-fourth-itxatl63--id_flags_local.patch": "--- a/app/client/ui_inv.cpp\n+++ b/app/client/ui_inv.cpp\n@@ -470,7 +470,7 @@\n // 0x59FE30\n bool UIInvClass::Unknown_98(SlotDataGadgetClass *slot_gadget, KernelEventClass *event, unsigned int mask)\n {\n-\tbool down = ((UIInvEventStruct *)event)->Flags >> 12 & 1;\n+\tunsigned flags = ((UIInvEventStruct *)event)->Flags; bool down = flags >> 12 & 1;\n \tbool button = (mask & 0xF0) != 0;\n \tint slot = slot_gadget->Unknown_670910();\n \tif (down && button && SlotDrag->Unknown10 != 2) {\n@@ -485,7 +485,7 @@\n \t\tUIInvGadgetClass *gadget = (UIInvGadgetClass *)slot_gadget;\n \t\tFAIL_IF(!gadget->As_SlotDataShortcutGadget()) return(false);\n \t\tif (down) {\n-\t\t\t((ClientClass *)Client)->Send_Packet(&EquipUsePacketClass(((ClientClass *)Client)->ShipID, InvType, slot));\n+\t\t\tunsigned game_id; ((ClientClass *)Client)->Send_Packet(&EquipUsePacketClass(game_id = ((ClientClass *)Client)->ShipID, InvType, slot));\n \t\t}\n \t\treturn(true);\n \t}\n",
+    "59FE30-second-8mujzp5w--int_down.patch": "--- a/app/client/ui_inv.cpp\n+++ b/app/client/ui_inv.cpp\n@@ -470,7 +470,7 @@\n // 0x59FE30\n bool UIInvClass::Unknown_98(SlotDataGadgetClass *slot_gadget, KernelEventClass *event, unsigned int mask)\n {\n-\tbool down = ((UIInvEventStruct *)event)->Flags >> 12 & 1;\n+\tint down = ((UIInvEventStruct *)event)->Flags >> 12 & 1;\n \tbool button = (mask & 0xF0) != 0;\n \tint slot = slot_gadget->Unknown_670910();\n \tif (down && button && SlotDrag->Unknown10 != 2) {\n",
+    "59FE30-second-8mujzp5w--unsigned_down.patch": "--- a/app/client/ui_inv.cpp\n+++ b/app/client/ui_inv.cpp\n@@ -470,7 +470,7 @@\n // 0x59FE30\n bool UIInvClass::Unknown_98(SlotDataGadgetClass *slot_gadget, KernelEventClass *event, unsigned int mask)\n {\n-\tbool down = ((UIInvEventStruct *)event)->Flags >> 12 & 1;\n+\tunsigned down = ((UIInvEventStruct *)event)->Flags >> 12 & 1;\n \tbool button = (mask & 0xF0) != 0;\n \tint slot = slot_gadget->Unknown_670910();\n \tif (down && button && SlotDrag->Unknown10 != 2) {\n",
+    "59FE30-second-8mujzp5w--byte_down.patch": "--- a/app/client/ui_inv.cpp\n+++ b/app/client/ui_inv.cpp\n@@ -470,7 +470,7 @@\n // 0x59FE30\n bool UIInvClass::Unknown_98(SlotDataGadgetClass *slot_gadget, KernelEventClass *event, unsigned int mask)\n {\n-\tbool down = ((UIInvEventStruct *)event)->Flags >> 12 & 1;\n+\tunsigned char down = ((UIInvEventStruct *)event)->Flags >> 12 & 1;\n \tbool button = (mask & 0xF0) != 0;\n \tint slot = slot_gadget->Unknown_670910();\n \tif (down && button && SlotDrag->Unknown10 != 2) {\n",
+    "59FE30-second-8mujzp5w--flags_local.patch": "--- a/app/client/ui_inv.cpp\n+++ b/app/client/ui_inv.cpp\n@@ -470,7 +470,7 @@\n // 0x59FE30\n bool UIInvClass::Unknown_98(SlotDataGadgetClass *slot_gadget, KernelEventClass *event, unsigned int mask)\n {\n-\tbool down = ((UIInvEventStruct *)event)->Flags >> 12 & 1;\n+\tunsigned flags = ((UIInvEventStruct *)event)->Flags; bool down = flags >> 12 & 1;\n \tbool button = (mask & 0xF0) != 0;\n \tint slot = slot_gadget->Unknown_670910();\n \tif (down && button && SlotDrag->Unknown10 != 2) {\n",
+    "59FE30-second-8mujzp5w--flags_assignment.patch": "--- a/app/client/ui_inv.cpp\n+++ b/app/client/ui_inv.cpp\n@@ -470,7 +470,7 @@\n // 0x59FE30\n bool UIInvClass::Unknown_98(SlotDataGadgetClass *slot_gadget, KernelEventClass *event, unsigned int mask)\n {\n-\tbool down = ((UIInvEventStruct *)event)->Flags >> 12 & 1;\n+\tunsigned flags; bool down = (flags = ((UIInvEventStruct *)event)->Flags) >> 12 & 1;\n \tbool button = (mask & 0xF0) != 0;\n \tint slot = slot_gadget->Unknown_670910();\n \tif (down && button && SlotDrag->Unknown10 != 2) {\n",
+    "59FE30-third-zxk986xy--packet_id_at_argument.patch": "--- a/app/client/ui_inv.cpp\n+++ b/app/client/ui_inv.cpp\n@@ -485,7 +485,7 @@\n \t\tUIInvGadgetClass *gadget = (UIInvGadgetClass *)slot_gadget;\n \t\tFAIL_IF(!gadget->As_SlotDataShortcutGadget()) return(false);\n \t\tif (down) {\n-\t\t\t((ClientClass *)Client)->Send_Packet(&EquipUsePacketClass(((ClientClass *)Client)->ShipID, InvType, slot));\n+\t\t\tunsigned game_id; ((ClientClass *)Client)->Send_Packet(&EquipUsePacketClass(game_id = ((ClientClass *)Client)->ShipID, InvType, slot));\n \t\t}\n \t\treturn(true);\n \t}\n",
+    "59FE30-third-zxk986xy--gadget_parameter_reference.patch": "--- a/app/client/ui_inv.cpp\n+++ b/app/client/ui_inv.cpp\n@@ -472,17 +472,17 @@\n {\n \tbool down = ((UIInvEventStruct *)event)->Flags >> 12 & 1;\n \tbool button = (mask & 0xF0) != 0;\n-\tint slot = slot_gadget->Unknown_670910();\n+\tSlotDataGadgetClass * const &input = slot_gadget; int slot = input->Unknown_670910();\n \tif (down && button && SlotDrag->Unknown10 != 2) {\n \t\tswitch (SlotDrag->Unknown1C) {\n \t\t\tcase 0:\n \t\t\tcase 2:\n \t\t\t\tSlotDrag->Unknown_0C();\n-\t\t\t\treturn(SlotDataInterface::Unknown_98(slot_gadget, event, mask));\n+\t\t\t\treturn(SlotDataInterface::Unknown_98(input, event, mask));\n \t\t}\n \t}\n \tif (mask & 0x1000) {\n-\t\tUIInvGadgetClass *gadget = (UIInvGadgetClass *)slot_gadget;\n+\t\tUIInvGadgetClass *gadget = (UIInvGadgetClass *)input;\n \t\tFAIL_IF(!gadget->As_SlotDataShortcutGadget()) return(false);\n \t\tif (down) {\n \t\t\t((ClientClass *)Client)->Send_Packet(&EquipUsePacketClass(((ClientClass *)Client)->ShipID, InvType, slot));\n@@ -501,11 +501,11 @@\n \t\treturn(true);\n \t}\n \tif (down) {\n-\t\tif (UnknownB8_2 && !Is_Busy() && ((UIInvViewUnknown44Struct *)View->Unknown_44())->Unknown2C == SlotDrag && Unknown_5A0740(slot_gadget)) {\n+\t\tif (UnknownB8_2 && !Is_Busy() && ((UIInvViewUnknown44Struct *)View->Unknown_44())->Unknown2C == SlotDrag && Unknown_5A0740(input)) {\n \t\t\tSlotDrag->Unknown_0C();\n \t\t}\n \t} else {\n-\t\tUnknown_5A05B0(slot_gadget, event, button);\n+\t\tUnknown_5A05B0(input, event, button);\n \t}\n \treturn(false);\n }\n",
+    "59FE30-third-zxk986xy--gadget_input_at_accessor.patch": "--- a/app/client/ui_inv.cpp\n+++ b/app/client/ui_inv.cpp\n@@ -472,17 +472,17 @@\n {\n \tbool down = ((UIInvEventStruct *)event)->Flags >> 12 & 1;\n \tbool button = (mask & 0xF0) != 0;\n-\tint slot = slot_gadget->Unknown_670910();\n+\tSlotDataGadgetClass *input; int slot = (input = slot_gadget)->Unknown_670910();\n \tif (down && button && SlotDrag->Unknown10 != 2) {\n \t\tswitch (SlotDrag->Unknown1C) {\n \t\t\tcase 0:\n \t\t\tcase 2:\n \t\t\t\tSlotDrag->Unknown_0C();\n-\t\t\t\treturn(SlotDataInterface::Unknown_98(slot_gadget, event, mask));\n+\t\t\t\treturn(SlotDataInterface::Unknown_98(input, event, mask));\n \t\t}\n \t}\n \tif (mask & 0x1000) {\n-\t\tUIInvGadgetClass *gadget = (UIInvGadgetClass *)slot_gadget;\n+\t\tUIInvGadgetClass *gadget = (UIInvGadgetClass *)input;\n \t\tFAIL_IF(!gadget->As_SlotDataShortcutGadget()) return(false);\n \t\tif (down) {\n \t\t\t((ClientClass *)Client)->Send_Packet(&EquipUsePacketClass(((ClientClass *)Client)->ShipID, InvType, slot));\n@@ -501,11 +501,11 @@\n \t\treturn(true);\n \t}\n \tif (down) {\n-\t\tif (UnknownB8_2 && !Is_Busy() && ((UIInvViewUnknown44Struct *)View->Unknown_44())->Unknown2C == SlotDrag && Unknown_5A0740(slot_gadget)) {\n+\t\tif (UnknownB8_2 && !Is_Busy() && ((UIInvViewUnknown44Struct *)View->Unknown_44())->Unknown2C == SlotDrag && Unknown_5A0740(input)) {\n \t\t\tSlotDrag->Unknown_0C();\n \t\t}\n \t} else {\n-\t\tUnknown_5A05B0(slot_gadget, event, button);\n+\t\tUnknown_5A05B0(input, event, button);\n \t}\n \treturn(false);\n }\n",
+    "forms.json": [
+      {
+        "name": "id_packet_inventory_at_argument",
+        "run": "59FE30-fifth-qczbb5wl",
+        "source_sha256": "769a564dfc343b4968132b34c1e1112a2d406d163af9a425aedebf66470a6dfc",
+        "patch": "59FE30-fifth-qczbb5wl--id_packet_inventory_at_argument.patch",
+        "patch_replay_verified": true,
+        "compiled": true,
+        "target_exact": false,
+        "masked_rows": 25,
+        "register_masked_rows": 10,
+        "class": "frame",
+        "symbol_gains": [],
+        "symbol_losses": [],
+        "gained_addresses": [],
+        "lost_addresses": []
+      },
+      {
+        "name": "id_transfer_slot_at_argument",
+        "run": "59FE30-fifth-qczbb5wl",
+        "source_sha256": "57b2735314c0dfb11f562c5839bface49d10f30d999daec88df04a57bb26e334",
+        "patch": "59FE30-fifth-qczbb5wl--id_transfer_slot_at_argument.patch",
+        "patch_replay_verified": true,
+        "compiled": true,
+        "target_exact": false,
+        "masked_rows": 26,
+        "register_masked_rows": 12,
+        "class": "frame",
+        "symbol_gains": [],
+        "symbol_losses": [],
+        "gained_addresses": [],
+        "lost_addresses": []
+      },
+      {
+        "name": "id_event_parameter_reference",
+        "run": "59FE30-fifth-qczbb5wl",
+        "source_sha256": "f0b9ce0121686dc7e950cf3a4395e86336383b9401d2ab5f1b3cff71fccd50a4",
+        "patch": "59FE30-fifth-qczbb5wl--id_event_parameter_reference.patch",
+        "patch_replay_verified": true,
+        "compiled": true,
+        "target_exact": false,
+        "masked_rows": 26,
+        "register_masked_rows": 12,
+        "class": "frame",
+        "symbol_gains": [],
+        "symbol_losses": [],
+        "gained_addresses": [],
+        "lost_addresses": []
+      },
+      {
+        "name": "baseline",
+        "run": "59FE30-first-90cg7aig",
+        "source_sha256": "86ec0b21ac9ebd01d1d1619990e843baf8deec41b8f8f0531cf2e78eb32398e9",
+        "patch": "59FE30-first-90cg7aig--baseline.patch",
+        "patch_replay_verified": true,
+        "compiled": true,
+        "target_exact": false,
+        "masked_rows": 33,
+        "register_masked_rows": 22,
+        "class": "frame",
+        "symbol_gains": [],
+        "symbol_losses": [],
+        "gained_addresses": [],
+        "lost_addresses": []
+      },
+      {
+        "name": "declarations_then_assignments",
+        "run": "59FE30-first-90cg7aig",
+        "source_sha256": "e406e7eb493ea2df4012b23550d58c3101382702e730fd6789c7c97aabf26c6d",
+        "patch": "59FE30-first-90cg7aig--declarations_then_assignments.patch",
+        "patch_replay_verified": true,
+        "compiled": true,
+        "target_exact": false,
+        "masked_rows": 33,
+        "register_masked_rows": 22,
+        "class": "frame",
+        "symbol_gains": [],
+        "symbol_losses": [],
+        "gained_addresses": [],
+        "lost_addresses": []
+      },
+      {
+        "name": "event_input_local",
+        "run": "59FE30-first-90cg7aig",
+        "source_sha256": "3e549c1207d29da736535e829eadee8e2315b0218197b1dfc4715a37a9b3e589",
+        "patch": "59FE30-first-90cg7aig--event_input_local.patch",
+        "patch_replay_verified": true,
+        "compiled": true,
+        "target_exact": false,
+        "masked_rows": 33,
+        "register_masked_rows": 22,
+        "class": "frame",
+        "symbol_gains": [],
+        "symbol_losses": [],
+        "gained_addresses": [],
+        "lost_addresses": []
+      },
+      {
+        "name": "slot_value_reference",
+        "run": "59FE30-first-90cg7aig",
+        "source_sha256": "559247d9ca5eccca0ddefb18e3a8e0c221d3101f38ab8b7255094fc2622f62a5",
+        "patch": "59FE30-first-90cg7aig--slot_value_reference.patch",
+        "patch_replay_verified": true,
+        "compiled": true,
+        "target_exact": false,
+        "masked_rows": 33,
+        "register_masked_rows": 22,
+        "class": "frame",
+        "symbol_gains": [
+          [
+            "_$E165",
+            "0x5A1090"
+          ]
+        ],
+        "symbol_losses": [
+          [
+            "_$E164",
+            "0x5A1090"
+          ]
+        ],
+        "gained_addresses": [],
+        "lost_addresses": []
+      },
+      {
+        "name": "id_event_local",
+        "run": "59FE30-fourth-itxatl63",
+        "source_sha256": "282ba8453ee6644946115f365046e119a3785756dacaa26fe09dbfc45dbefa56",
+        "patch": "59FE30-fourth-itxatl63--id_event_local.patch",
+        "patch_replay_verified": true,
+        "compiled": true,
+        "target_exact": false,
+        "masked_rows": 26,
+        "register_masked_rows": 12,
+        "class": "frame",
+        "symbol_gains": [],
+        "symbol_losses": [],
+        "gained_addresses": [],
+        "lost_addresses": []
+      },
+      {
+        "name": "id_event_at_read",
+        "run": "59FE30-fourth-itxatl63",
+        "source_sha256": "f58871eae5f26493fff37ba14d5652587220c3e788b53460b6e5e3c0102b907f",
+        "patch": "59FE30-fourth-itxatl63--id_event_at_read.patch",
+        "patch_replay_verified": true,
+        "compiled": true,
+        "target_exact": false,
+        "masked_rows": 26,
+        "register_masked_rows": 12,
+        "class": "frame",
+        "symbol_gains": [],
+        "symbol_losses": [],
+        "gained_addresses": [],
+        "lost_addresses": []
+      },
+      {
+        "name": "id_declaration_top",
+        "run": "59FE30-fourth-itxatl63",
+        "source_sha256": "903521ecbc53b111c3e6e9838f0c478e29944945b46f867fed239976ef99fc6a",
+        "patch": "59FE30-fourth-itxatl63--id_declaration_top.patch",
+        "patch_replay_verified": true,
+        "compiled": true,
+        "target_exact": false,
+        "masked_rows": 26,
+        "register_masked_rows": 12,
+        "class": "frame",
+        "symbol_gains": [],
+        "symbol_losses": [],
+        "gained_addresses": [],
+        "lost_addresses": []
+      },
+      {
+        "name": "id_flags_local",
+        "run": "59FE30-fourth-itxatl63",
+        "source_sha256": "8fbb10937ee51fd8d3024a83655665a7c4bc4383dc4dd140bf9cf2f60974fb22",
+        "patch": "59FE30-fourth-itxatl63--id_flags_local.patch",
+        "patch_replay_verified": true,
+        "compiled": true,
+        "target_exact": false,
+        "masked_rows": 26,
+        "register_masked_rows": 13,
+        "class": "frame",
+        "symbol_gains": [],
+        "symbol_losses": [],
+        "gained_addresses": [],
+        "lost_addresses": []
+      },
+      {
+        "name": "int_down",
+        "run": "59FE30-second-8mujzp5w",
+        "source_sha256": "33980ab8d3ab5becfbcea691734ed1685ccf6ddde4e895fab46b6674bce81124",
+        "patch": "59FE30-second-8mujzp5w--int_down.patch",
+        "patch_replay_verified": true,
+        "compiled": true,
+        "target_exact": false,
+        "masked_rows": 66,
+        "register_masked_rows": 24,
+        "class": "frame",
+        "symbol_gains": [],
+        "symbol_losses": [],
+        "gained_addresses": [],
+        "lost_addresses": []
+      },
+      {
+        "name": "unsigned_down",
+        "run": "59FE30-second-8mujzp5w",
+        "source_sha256": "ccf67dd87d25b06d03120f3ddfea10c6523e3185c43baecd164fa8d5fd15cdca",
+        "patch": "59FE30-second-8mujzp5w--unsigned_down.patch",
+        "patch_replay_verified": true,
+        "compiled": true,
+        "target_exact": false,
+        "masked_rows": 66,
+        "register_masked_rows": 24,
+        "class": "frame",
+        "symbol_gains": [],
+        "symbol_losses": [],
+        "gained_addresses": [],
+        "lost_addresses": []
+      },
+      {
+        "name": "byte_down",
+        "run": "59FE30-second-8mujzp5w",
+        "source_sha256": "c204fabce9ee8ca681692dd1e435d2690917979873d1f5ebd4ca88becbbaff4f",
+        "patch": "59FE30-second-8mujzp5w--byte_down.patch",
+        "patch_replay_verified": true,
+        "compiled": true,
+        "target_exact": false,
+        "masked_rows": 33,
+        "register_masked_rows": 22,
+        "class": "frame",
+        "symbol_gains": [],
+        "symbol_losses": [],
+        "gained_addresses": [],
+        "lost_addresses": []
+      },
+      {
+        "name": "flags_local",
+        "run": "59FE30-second-8mujzp5w",
+        "source_sha256": "6f8cd30c1479f776e2233b17431514cd4bd8b913e3cbce657b141bb06c466a1c",
+        "patch": "59FE30-second-8mujzp5w--flags_local.patch",
+        "patch_replay_verified": true,
+        "compiled": true,
+        "target_exact": false,
+        "masked_rows": 48,
+        "register_masked_rows": 22,
+        "class": "frame",
+        "symbol_gains": [],
+        "symbol_losses": [],
+        "gained_addresses": [],
+        "lost_addresses": []
+      },
+      {
+        "name": "flags_assignment",
+        "run": "59FE30-second-8mujzp5w",
+        "source_sha256": "60ba5e57320f0ec3c14057923b1b52883e0ebda6a1f6c7be9382f10f1bf17595",
+        "patch": "59FE30-second-8mujzp5w--flags_assignment.patch",
+        "patch_replay_verified": true,
+        "compiled": true,
+        "target_exact": false,
+        "masked_rows": 48,
+        "register_masked_rows": 22,
+        "class": "frame",
+        "symbol_gains": [],
+        "symbol_losses": [],
+        "gained_addresses": [],
+        "lost_addresses": []
+      },
+      {
+        "name": "packet_id_at_argument",
+        "run": "59FE30-third-zxk986xy",
+        "source_sha256": "910c54919ca53ce0aefca5ea85a2616f3ecfe2c656e4b2a4721710964fd39ff6",
+        "patch": "59FE30-third-zxk986xy--packet_id_at_argument.patch",
+        "patch_replay_verified": true,
+        "compiled": true,
+        "target_exact": false,
+        "masked_rows": 26,
+        "register_masked_rows": 12,
+        "class": "frame",
+        "symbol_gains": [],
+        "symbol_losses": [],
+        "gained_addresses": [],
+        "lost_addresses": []
+      },
+      {
+        "name": "gadget_parameter_reference",
+        "run": "59FE30-third-zxk986xy",
+        "source_sha256": "2aa913f25e5c6025ee34dc870be797e6bb0e8d211e5c7c885e8632ee95873e10",
+        "patch": "59FE30-third-zxk986xy--gadget_parameter_reference.patch",
+        "patch_replay_verified": true,
+        "compiled": true,
+        "target_exact": false,
+        "masked_rows": 33,
+        "register_masked_rows": 22,
+        "class": "frame",
+        "symbol_gains": [],
+        "symbol_losses": [],
+        "gained_addresses": [],
+        "lost_addresses": []
+      },
+      {
+        "name": "gadget_input_at_accessor",
+        "run": "59FE30-third-zxk986xy",
+        "source_sha256": "432f8fb6da176704d10c3d2cc5661f0d0ad2a42acba99bf1cb5bd3b43d9ddcfa",
+        "patch": "59FE30-third-zxk986xy--gadget_input_at_accessor.patch",
+        "patch_replay_verified": true,
+        "compiled": true,
+        "target_exact": false,
+        "masked_rows": 33,
+        "register_masked_rows": 22,
+        "class": "frame",
+        "symbol_gains": [],
+        "symbol_losses": [],
+        "gained_addresses": [],
+        "lost_addresses": []
+      }
+    ],
+    "counts.json": {
+      "baseline_compiles": 1,
+      "valid_source_trials": 18,
+      "diagnostic_forms": 0,
+      "failed_compiles": 0,
+      "untried_forms": 0
+    }
+  }
+}
