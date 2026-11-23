@@ -38,7 +38,7 @@ public:
 		AnimYName("")
 	{
 	}
-	virtual ~DynamicWindowAnimationDataClass() {}												// +0x04 0x515E20 (deleting 0x515DF0)
+
 
 	void Load(INIClass &ini, const char *section);												// 0x515F00 (G_ASSERT 'AnimMin.I >= 0' ...)  // NAME 1 [Load, ini, section]
 	static RefCountPtr<DynamicWindowAnimationDataClass> Get(const std::string &name);			// 0x515AB0 (dynawin.ini, its 'Use' entry inherits)  // NAME 1 [Get, name]
