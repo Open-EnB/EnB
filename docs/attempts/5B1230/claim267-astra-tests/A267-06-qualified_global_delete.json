@@ -1,0 +1,898 @@
+{
+  "schema": 1,
+  "hypothesis": "A267-06",
+  "provenance": {
+    "analysis_model": "gpt-6-astra",
+    "analysis_effort": "high",
+    "testing_model": "gpt-6.1-sol",
+    "testing_effort": "high"
+  },
+  "base_head": "9b07cd77d9bf53363e236fbb1d0f1f92c5f5520a",
+  "baseline_sha256": "e91a3cc63ab47627d15379b721911012fe2b15f245b0c21b544bc7acfaa09d11",
+  "source_sha256": "8ef7d924bc40929d45b57fa3e5867257202ef9ce5ee9038433acde4f23210945",
+  "patch_replay_verified": true,
+  "baseline_patch_from_base_head": "",
+  "patch": "--- a/app/client/ui_jobs.cpp\n+++ b/app/client/ui_jobs.cpp\n@@ -811,7 +811,7 @@\n \t\t\t\tUnknown0CC = -1;\n \t\t\t\tUnknown0D0 = 0;\n \t\t\t}\n-\t\t\tdelete job;\n+\t\t\t::delete job;\n \t\t\tUnknown0EC.erase(it++);\n \t\t\tbreak;\n \t\t}\n",
+  "header_changes": [],
+  "compile_success": true,
+  "native_full_object_match": true,
+  "source_constraints": {
+    "run": "A267-06-f0nf2yg0",
+    "name": "qualified_global_delete",
+    "physical_asserts_equal": true,
+    "EH_states": {
+      "0x5A3FB0": 1
+    },
+    "pair_count": 94,
+    "gained": [],
+    "lost": []
+  },
+  "baseline_pair_count": 94,
+  "name": "qualified_global_delete",
+  "unit": "app/client/ui_jobs.cpp",
+  "source": "/home/dev/Projects/EnB/.work/claim-267/astra-tests/forms/qualified_global_delete/ui_jobs.cpp",
+  "metrics": {
+    "0x5A3FB0": {
+      "symbol": "UIJobsClass::Unknown_5A3FB0",
+      "mangled": "?Unknown_5A3FB0@UIJobsClass@@QAEXPAVJobAcceptReplyPacketClass@@@Z",
+      "address": "0x5A3FB0",
+      "ours": 235,
+      "client": 245,
+      "residue": 48,
+      "residue_regs": 22,
+      "tables": [
+        {
+          "kind": "jump",
+          "ours": 4,
+          "client": 4,
+          "n": 4,
+          "diff": 0,
+          "at": 5915436
+        }
+      ],
+      "branch": {
+        "bytes": [
+          856,
+          892
+        ],
+        "size": 1,
+        "target": 1
+      },
+      "class": "shape",
+      "reason": "the same callees, 24 calls in ours and 25 in the client: a merged or split tail (return forms, workflow.md 3.1)",
+      "frames": [
+        [
+          "0x94",
+          false,
+          true
+        ],
+        [
+          "0x90",
+          false,
+          true
+        ]
+      ],
+      "calls": {
+        "ours": [
+          {
+            "offset": "0x25",
+            "instruction": "call 0x2a",
+            "target": [
+              "sym",
+              "?Peek_Object@UIMeshClass@@QAEPAVRenderObjClass@@XZ"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x36",
+            "instruction": "call 0x3b",
+            "target": [
+              "sym",
+              "?Get_Style@FontManagerClass@@QAEPAVFontSys@@PBDPAVRenderObjClass@@@Z"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x41",
+            "instruction": "call 0x46",
+            "target": [
+              "sym",
+              "?Create_Peek@@YA?AV?$RefCountPtr@VFontSys@@@@PAVFontSys@@@Z"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x69",
+            "instruction": "call 0x6e",
+            "target": [
+              "sym",
+              "?Fail_If_Report@@YAXPBD0H@Z"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0xcc",
+            "instruction": "call 0xd1",
+            "target": [
+              "sym",
+              "?Unknown_6D87D0@FontSys@@QAEPBDXZ"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0xe1",
+            "instruction": "call 0xe6",
+            "target": [
+              "sym",
+              "__snprintf"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0xfd",
+            "instruction": "call 0x102",
+            "target": [
+              "sym",
+              "?Unknown_6D87D0@FontSys@@QAEPBDXZ"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x112",
+            "instruction": "call 0x117",
+            "target": [
+              "sym",
+              "__snprintf"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x12e",
+            "instruction": "call 0x133",
+            "target": [
+              "sym",
+              "?Unknown_6D87D0@FontSys@@QAEPBDXZ"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x143",
+            "instruction": "call 0x148",
+            "target": [
+              "sym",
+              "__snprintf"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x1cd",
+            "instruction": "call 0x1d2",
+            "target": [
+              "sym",
+              "__snprintf"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x1e6",
+            "instruction": "call 0x1eb",
+            "target": [
+              "sym",
+              "?Unknown_5A3930@UIJobsClass@@QAEXPBD00@Z"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x237",
+            "instruction": "call 0x23c",
+            "target": [
+              "sym",
+              "??_GUIJobsInfoStruct@@QAEPAXI@Z"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x246",
+            "instruction": "call 0x24b",
+            "target": [
+              "sym",
+              "??Eiterator@?$list@PAUUIJobsInfoStruct@@V?$allocator@PAUUIJobsInfoStruct@@@std@@@std@@QAE?AV012@H@Z"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x259",
+            "instruction": "call 0x25e",
+            "target": [
+              "sym",
+              "?erase@?$list@PAUUIJobsInfoStruct@@V?$allocator@PAUUIJobsInfoStruct@@@std@@@std@@QAE?AViterator@12@V312@@Z"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x260",
+            "instruction": "call 0x265",
+            "target": [
+              "sym",
+              "?Unknown_5A3AF0@UIJobsClass@@QAEXXZ"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x27e",
+            "instruction": "call dword ptr [edx + 0x40]",
+            "target": null,
+            "references": []
+          },
+          {
+            "offset": "0x292",
+            "instruction": "call 0x297",
+            "target": [
+              "sym",
+              "?Unknown_5A2C50@UIJobsClass@@QAEXXZ"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x299",
+            "instruction": "call 0x29e",
+            "target": [
+              "sym",
+              "?Unknown_5A3090@UIJobsClass@@QAEXXZ"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x2d2",
+            "instruction": "call 0x2d7",
+            "target": [
+              "sym",
+              "?Unknown_66FA90@GadgetSlider@@QAEXMM_N@Z"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x2e3",
+            "instruction": "call 0x2e8",
+            "target": [
+              "sym",
+              "__ftol"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x2f8",
+            "instruction": "call 0x2fd",
+            "target": [
+              "sym",
+              "?Unknown_5A3090@UIJobsClass@@QAEXXZ"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x309",
+            "instruction": "call 0x30e",
+            "target": [
+              "sym",
+              "__ftol"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x33a",
+            "instruction": "call dword ptr [edx]",
+            "target": null,
+            "references": []
+          }
+        ],
+        "retail": [
+          {
+            "offset": "0x5a3fd5",
+            "instruction": "call 0x40181b",
+            "target": [
+              "addr",
+              5999360
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5a3fe6",
+            "instruction": "call 0x40269e",
+            "target": [
+              "addr",
+              7153104
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5a3ff1",
+            "instruction": "call 0x404e80",
+            "target": [
+              "addr",
+              5530896
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5a4019",
+            "instruction": "call 0x402c3e",
+            "target": [
+              "addr",
+              5149776
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5a407c",
+            "instruction": "call 0x408652",
+            "target": [
+              "addr",
+              7178192
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5a4091",
+            "instruction": "call 0xa26513",
+            "target": [
+              "addr",
+              10642707
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5a40ad",
+            "instruction": "call 0x408652",
+            "target": [
+              "addr",
+              7178192
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5a40c2",
+            "instruction": "call 0xa26513",
+            "target": [
+              "addr",
+              10642707
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5a40de",
+            "instruction": "call 0x408652",
+            "target": [
+              "addr",
+              7178192
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5a40f3",
+            "instruction": "call 0xa26513",
+            "target": [
+              "addr",
+              10642707
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5a417d",
+            "instruction": "call 0xa26513",
+            "target": [
+              "addr",
+              10642707
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5a4196",
+            "instruction": "call 0x4078e2",
+            "target": [
+              "addr",
+              5912880
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5a41e7",
+            "instruction": "call 0x40224d",
+            "target": [
+              "addr",
+              5907024
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5a41ed",
+            "instruction": "call 0x412b7a",
+            "target": [
+              "addr",
+              5152016
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5a4204",
+            "instruction": "call 0x4189da",
+            "target": [
+              "addr",
+              5917264
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5a421b",
+            "instruction": "call 0x412b7a",
+            "target": [
+              "addr",
+              5152016
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5a4234",
+            "instruction": "call 0x40b6d1",
+            "target": [
+              "addr",
+              5913328
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5a4252",
+            "instruction": "call dword ptr [eax + 0x40]",
+            "target": null,
+            "references": []
+          },
+          {
+            "offset": "0x5a4266",
+            "instruction": "call 0x41375f",
+            "target": [
+              "addr",
+              5909584
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5a426d",
+            "instruction": "call 0x40d170",
+            "target": [
+              "addr",
+              5910672
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5a42a6",
+            "instruction": "call 0x405e93",
+            "target": [
+              "addr",
+              6748816
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5a42b7",
+            "instruction": "call 0xa264ec",
+            "target": [
+              "addr",
+              10642668
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5a42cc",
+            "instruction": "call 0x40d170",
+            "target": [
+              "addr",
+              5910672
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5a42dd",
+            "instruction": "call 0xa264ec",
+            "target": [
+              "addr",
+              10642668
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5a430e",
+            "instruction": "call dword ptr [edx]",
+            "target": null,
+            "references": []
+          }
+        ]
+      },
+      "masked_body_sha256": "28a074620aceca8a5737f7fff9b5c77b2fffa5f32d62c4da3a1014f4c8af45f6",
+      "body_bytes": 880,
+      "first_fixed_byte_mismatch": "0x17"
+    }
+  },
+  "pair_count": 94,
+  "pairs": [
+    [
+      "app/client/ui_jobs.cpp",
+      "0x42A6C0"
+    ],
+    [
+      "app/client/ui_jobs.cpp",
+      "0x42A820"
+    ],
+    [
+      "app/client/ui_jobs.cpp",
+      "0x42A940"
+    ],
+    [
+      "app/client/ui_jobs.cpp",
+      "0x42A970"
+    ],
+    [
+      "app/client/ui_jobs.cpp",
+      "0x42AB30"
+    ],
+    [
+      "app/client/ui_jobs.cpp",
+      "0x42B320"
+    ],
+    [
+      "app/client/ui_jobs.cpp",
+      "0x42CAB0"
+    ],
+    [
+      "app/client/ui_jobs.cpp",
+      "0x42CD30"
+    ],
+    [
+      "app/client/ui_jobs.cpp",
+      "0x42D050"
+    ],
+    [
+      "app/client/ui_jobs.cpp",
+      "0x42D120"
+    ],
+    [
+      "app/client/ui_jobs.cpp",
+      "0x42F250"
+    ],
+    [
+      "app/client/ui_jobs.cpp",
+      "0x45CC10"
+    ],
+    [
+      "app/client/ui_jobs.cpp",
+      "0x474080"
+    ],
+    [
+      "app/client/ui_jobs.cpp",
+      "0x4740B0"
+    ],
+    [
+      "app/client/ui_jobs.cpp",
+      "0x47CE60"
+    ],
+    [
+      "app/client/ui_jobs.cpp",
+      "0x4A1930"
+    ],
+    [
+      "app/client/ui_jobs.cpp",
+      "0x4A19A0"
+    ],
+    [
+      "app/client/ui_jobs.cpp",
+      "0x4A19C0"
+    ],
+    [
+      "app/client/ui_jobs.cpp",
+      "0x4A1A10"
+    ],
+    [
+      "app/client/ui_jobs.cpp",
+      "0x4A1A30"
+    ],
+    [
+      "app/client/ui_jobs.cpp",
+      "0x4A1A50"
+    ],
+    [
+      "app/client/ui_jobs.cpp",
+      "0x4A1A70"
+    ],
+    [
+      "app/client/ui_jobs.cpp",
+      "0x4A1A90"
+    ],
+    [
+      "app/client/ui_jobs.cpp",
+      "0x4A1AB0"
+    ],
+    [
+      "app/client/ui_jobs.cpp",
+      "0x4A1AD0"
+    ],
+    [
+      "app/client/ui_jobs.cpp",
+      "0x4A1AF0"
+    ],
+    [
+      "app/client/ui_jobs.cpp",
+      "0x5156B0"
+    ],
+    [
+      "app/client/ui_jobs.cpp",
+      "0x5156F0"
+    ],
+    [
+      "app/client/ui_jobs.cpp",
+      "0x515710"
+    ],
+    [
+      "app/client/ui_jobs.cpp",
+      "0x515730"
+    ],
+    [
+      "app/client/ui_jobs.cpp",
+      "0x515750"
+    ],
+    [
+      "app/client/ui_jobs.cpp",
+      "0x51C630"
+    ],
+    [
+      "app/client/ui_jobs.cpp",
+      "0x52B210"
+    ],
+    [
+      "app/client/ui_jobs.cpp",
+      "0x52B240"
+    ],
+    [
+      "app/client/ui_jobs.cpp",
+      "0x52B270"
+    ],
+    [
+      "app/client/ui_jobs.cpp",
+      "0x52B2A0"
+    ],
+    [
+      "app/client/ui_jobs.cpp",
+      "0x52B2D0"
+    ],
+    [
+      "app/client/ui_jobs.cpp",
+      "0x52B2F0"
+    ],
+    [
+      "app/client/ui_jobs.cpp",
+      "0x52B310"
+    ],
+    [
+      "app/client/ui_jobs.cpp",
+      "0x52B330"
+    ],
+    [
+      "app/client/ui_jobs.cpp",
+      "0x52B350"
+    ],
+    [
+      "app/client/ui_jobs.cpp",
+      "0x5411F0"
+    ],
+    [
+      "app/client/ui_jobs.cpp",
+      "0x543750"
+    ],
+    [
+      "app/client/ui_jobs.cpp",
+      "0x543770"
+    ],
+    [
+      "app/client/ui_jobs.cpp",
+      "0x546480"
+    ],
+    [
+      "app/client/ui_jobs.cpp",
+      "0x5464B0"
+    ],
+    [
+      "app/client/ui_jobs.cpp",
+      "0x546510"
+    ],
+    [
+      "app/client/ui_jobs.cpp",
+      "0x551D00"
+    ],
+    [
+      "app/client/ui_jobs.cpp",
+      "0x5A1120"
+    ],
+    [
+      "app/client/ui_jobs.cpp",
+      "0x5A1150"
+    ],
+    [
+      "app/client/ui_jobs.cpp",
+      "0x5A1170"
+    ],
+    [
+      "app/client/ui_jobs.cpp",
+      "0x5A1390"
+    ],
+    [
+      "app/client/ui_jobs.cpp",
+      "0x5A13B0"
+    ],
+    [
+      "app/client/ui_jobs.cpp",
+      "0x5A1510"
+    ],
+    [
+      "app/client/ui_jobs.cpp",
+      "0x5A1540"
+    ],
+    [
+      "app/client/ui_jobs.cpp",
+      "0x5A1760"
+    ],
+    [
+      "app/client/ui_jobs.cpp",
+      "0x5A2010"
+    ],
+    [
+      "app/client/ui_jobs.cpp",
+      "0x5A2050"
+    ],
+    [
+      "app/client/ui_jobs.cpp",
+      "0x5A2250"
+    ],
+    [
+      "app/client/ui_jobs.cpp",
+      "0x5A2480"
+    ],
+    [
+      "app/client/ui_jobs.cpp",
+      "0x5A2560"
+    ],
+    [
+      "app/client/ui_jobs.cpp",
+      "0x5A25B0"
+    ],
+    [
+      "app/client/ui_jobs.cpp",
+      "0x5A2730"
+    ],
+    [
+      "app/client/ui_jobs.cpp",
+      "0x5A2900"
+    ],
+    [
+      "app/client/ui_jobs.cpp",
+      "0x5A2A30"
+    ],
+    [
+      "app/client/ui_jobs.cpp",
+      "0x5A2AA0"
+    ],
+    [
+      "app/client/ui_jobs.cpp",
+      "0x5A2C50"
+    ],
+    [
+      "app/client/ui_jobs.cpp",
+      "0x5A2FB0"
+    ],
+    [
+      "app/client/ui_jobs.cpp",
+      "0x5A3090"
+    ],
+    [
+      "app/client/ui_jobs.cpp",
+      "0x5A3240"
+    ],
+    [
+      "app/client/ui_jobs.cpp",
+      "0x5A32B0"
+    ],
+    [
+      "app/client/ui_jobs.cpp",
+      "0x5A3390"
+    ],
+    [
+      "app/client/ui_jobs.cpp",
+      "0x5A3400"
+    ],
+    [
+      "app/client/ui_jobs.cpp",
+      "0x5A3440"
+    ],
+    [
+      "app/client/ui_jobs.cpp",
+      "0x5A36F0"
+    ],
+    [
+      "app/client/ui_jobs.cpp",
+      "0x5A37D0"
+    ],
+    [
+      "app/client/ui_jobs.cpp",
+      "0x5A3890"
+    ],
+    [
+      "app/client/ui_jobs.cpp",
+      "0x5A3930"
+    ],
+    [
+      "app/client/ui_jobs.cpp",
+      "0x5A3AF0"
+    ],
+    [
+      "app/client/ui_jobs.cpp",
+      "0x5A3BC0"
+    ],
+    [
+      "app/client/ui_jobs.cpp",
+      "0x5A3F10"
+    ],
+    [
+      "app/client/ui_jobs.cpp",
+      "0x5A4430"
+    ],
+    [
+      "app/client/ui_jobs.cpp",
+      "0x5A45A0"
+    ],
+    [
+      "app/client/ui_jobs.cpp",
+      "0x5A45F0"
+    ],
+    [
+      "app/client/ui_jobs.cpp",
+      "0x5A4630"
+    ],
+    [
+      "app/client/ui_jobs.cpp",
+      "0x5A4680"
+    ],
+    [
+      "app/client/ui_jobs.cpp",
+      "0x5A46F0"
+    ],
+    [
+      "app/client/ui_jobs.cpp",
+      "0x5A4740"
+    ],
+    [
+      "app/client/ui_jobs.cpp",
+      "0x5A49E0"
+    ],
+    [
+      "app/client/ui_jobs.cpp",
+      "0x5A4A50"
+    ],
+    [
+      "app/client/ui_jobs.cpp",
+      "0x5A4A70"
+    ],
+    [
+      "app/client/ui_jobs.cpp",
+      "0x5A4AB0"
+    ],
+    [
+      "app/client/ui_jobs.cpp",
+      "0x5A4AE0"
+    ],
+    [
+      "app/client/ui_jobs.cpp",
+      "0x5A4AF0"
+    ]
+  ],
+  "pairs_sha256": "7e3c2779f53f38f63e2fbfbdd1c25eecbc45557792436e3af5f03486bf70ca83",
+  "gained": [],
+  "lost": [],
+  "baseline_header_patches_from_base_head": []
+}

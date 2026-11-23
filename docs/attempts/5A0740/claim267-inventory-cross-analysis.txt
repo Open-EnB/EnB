@@ -1,0 +1,604 @@
+{
+  "forms.json": [
+    {
+      "name": "baseline",
+      "source_sha256": "86ec0b21ac9ebd01d1d1619990e843baf8deec41b8f8f0531cf2e78eb32398e9",
+      "compiled": true,
+      "match_returncode": 0,
+      "target_exact": false,
+      "gained_addresses": [],
+      "lost_addresses": [],
+      "source_patch": "",
+      "patch_replay_verified": true,
+      "assertion_tokens_and_lines_unchanged": true,
+      "masked_rows": 127,
+      "register_masked_rows": 57,
+      "body_bytes": [
+        1319,
+        1154
+      ],
+      "first_fixed_byte_mismatch": "0x89",
+      "masked_body_sha256": "72e992d4e6b5ae826f5218d7c97542bb389de817ca246e4fae051b5549ece581",
+      "file_address_pairs_sha256": "21febdb1dc79081a3c6665636e8f89a7cd90146b7c6ba2cfae0ca4dfac0559c0",
+      "file_address_pair_count": 79,
+      "symbol_gains": [],
+      "symbol_losses": [],
+      "raw_summary": "runs/controls-y9_bhnoo/summary.json"
+    },
+    {
+      "name": "best_control",
+      "source_sha256": "ca32d086841d2e397f612e1c07ba5ec45b2e5da3ca2cdf56d1f6ccdab97c5778",
+      "compiled": true,
+      "match_returncode": 0,
+      "target_exact": false,
+      "gained_addresses": [],
+      "lost_addresses": [],
+      "source_patch": "--- a/app/client/ui_inv.cpp\n+++ b/app/client/ui_inv.cpp\n@@ -575,7 +575,7 @@\n \tif (arg) {\n \t\tInvDataClass *inv = SlotData->Unknown_10();\n \t\tInvDataPeekItemStruct *item = inv->Unknown_688830()->Get_Item(slot, false);\n-\t\tif (item) num = item->Unknown50;\t// (budget-device audit 2026-11-19: a dead item->Name.size() here is no longer needed (the file is exact without it))\n+\t\tif (item) { const int &count = item->Unknown50; num = count; }\t// (budget-device audit 2026-11-19: a dead item->Name.size() here is no longer needed (the file is exact without it))\n \t}\n \treturn(InvTransaction->Unknown_690AA0(InvType, slot, num, true, 1, -1));\n }\n@@ -756,7 +756,7 @@\n \t\t\t\tsclient->Unknown_74D990(0x11, \"Cannot perform action while incapacitated.\", 0);\n \t\t\t\treturn(true);\n \t\t\t}\n-\t\t\tsclient->Send_Packet(&EquipUsePacketClass(sclient->ShipID, InvType, from_slot));\n+\t\t\tunsigned game_id; sclient->Send_Packet(&EquipUsePacketClass(game_id = sclient->ShipID, InvType, from_slot));\n \t\t\treturn(true);\n \t\t} else if (SlotDrag->Unknown1C == 1 || SlotDrag->Unknown1C == 3) {\n \t\t\tif (SlotDrag->Unknown20) {\n",
+      "patch_replay_verified": true,
+      "assertion_tokens_and_lines_unchanged": true,
+      "masked_rows": 22,
+      "register_masked_rows": 2,
+      "body_bytes": [
+        1154,
+        1154
+      ],
+      "first_fixed_byte_mismatch": "0x41e",
+      "masked_body_sha256": "01e5e642d5a6a5e4d7fb094c795a1ca36ba3fc2c2d3a951cd8955120328a5bd5",
+      "file_address_pairs_sha256": "21febdb1dc79081a3c6665636e8f89a7cd90146b7c6ba2cfae0ca4dfac0559c0",
+      "file_address_pair_count": 79,
+      "symbol_gains": [],
+      "symbol_losses": [],
+      "raw_summary": "runs/controls-y9_bhnoo/summary.json"
+    },
+    {
+      "name": "last_name_local",
+      "source_sha256": "58a46cab2de54c550d7922ad46708170522e06f8fede36db31534ea7bf71d4a7",
+      "compiled": true,
+      "match_returncode": 0,
+      "target_exact": false,
+      "gained_addresses": [],
+      "lost_addresses": [],
+      "source_patch": "--- a/app/client/ui_inv.cpp\n+++ b/app/client/ui_inv.cpp\n@@ -575,7 +575,7 @@\n \tif (arg) {\n \t\tInvDataClass *inv = SlotData->Unknown_10();\n \t\tInvDataPeekItemStruct *item = inv->Unknown_688830()->Get_Item(slot, false);\n-\t\tif (item) num = item->Unknown50;\t// (budget-device audit 2026-11-19: a dead item->Name.size() here is no longer needed (the file is exact without it))\n+\t\tif (item) { const int &count = item->Unknown50; num = count; }\t// (budget-device audit 2026-11-19: a dead item->Name.size() here is no longer needed (the file is exact without it))\n \t}\n \treturn(InvTransaction->Unknown_690AA0(InvType, slot, num, true, 1, -1));\n }\n@@ -756,7 +756,7 @@\n \t\t\t\tsclient->Unknown_74D990(0x11, \"Cannot perform action while incapacitated.\", 0);\n \t\t\t\treturn(true);\n \t\t\t}\n-\t\t\tsclient->Send_Packet(&EquipUsePacketClass(sclient->ShipID, InvType, from_slot));\n+\t\t\tunsigned game_id; sclient->Send_Packet(&EquipUsePacketClass(game_id = sclient->ShipID, InvType, from_slot));\n \t\t\treturn(true);\n \t\t} else if (SlotDrag->Unknown1C == 1 || SlotDrag->Unknown1C == 3) {\n \t\t\tif (SlotDrag->Unknown20) {\n@@ -820,7 +820,7 @@\n \t\t\t\t\t\t\t\t}\n \t\t\t\t\t\t\t\tcase 1:\n \t\t\t\t\t\t\t\t\tInvTransaction->Unknown_690AA0(InvType, from_slot, 1, true, 4, 0);\n-\t\t\t\t\t\t\t\t\tsclient->Print(0, \"Selling %s.\", item->Name.c_str());\n+\t\t\t\t\t\t\t\t\tconst char *name = item->Name.c_str(); sclient->Print(0, \"Selling %s.\", name);\n \t\t\t\t\t\t\t\t\tbreak;\n \t\t\t\t\t\t\t}\n \t\t\t\t\t\t}\n",
+      "patch_replay_verified": true,
+      "assertion_tokens_and_lines_unchanged": true,
+      "masked_rows": 22,
+      "register_masked_rows": 2,
+      "body_bytes": [
+        1154,
+        1154
+      ],
+      "first_fixed_byte_mismatch": "0x41e",
+      "masked_body_sha256": "01e5e642d5a6a5e4d7fb094c795a1ca36ba3fc2c2d3a951cd8955120328a5bd5",
+      "file_address_pairs_sha256": "21febdb1dc79081a3c6665636e8f89a7cd90146b7c6ba2cfae0ca4dfac0559c0",
+      "file_address_pair_count": 79,
+      "symbol_gains": [],
+      "symbol_losses": [],
+      "raw_summary": "runs/cross-first-6mudie_k/summary.json"
+    },
+    {
+      "name": "last_name_argument",
+      "source_sha256": "5624b8b1e0434a9df4a26444506aca8d071c72fb78dffc38b191583133da4fc8",
+      "compiled": true,
+      "match_returncode": 0,
+      "target_exact": false,
+      "gained_addresses": [],
+      "lost_addresses": [],
+      "source_patch": "--- a/app/client/ui_inv.cpp\n+++ b/app/client/ui_inv.cpp\n@@ -575,7 +575,7 @@\n \tif (arg) {\n \t\tInvDataClass *inv = SlotData->Unknown_10();\n \t\tInvDataPeekItemStruct *item = inv->Unknown_688830()->Get_Item(slot, false);\n-\t\tif (item) num = item->Unknown50;\t// (budget-device audit 2026-11-19: a dead item->Name.size() here is no longer needed (the file is exact without it))\n+\t\tif (item) { const int &count = item->Unknown50; num = count; }\t// (budget-device audit 2026-11-19: a dead item->Name.size() here is no longer needed (the file is exact without it))\n \t}\n \treturn(InvTransaction->Unknown_690AA0(InvType, slot, num, true, 1, -1));\n }\n@@ -756,7 +756,7 @@\n \t\t\t\tsclient->Unknown_74D990(0x11, \"Cannot perform action while incapacitated.\", 0);\n \t\t\t\treturn(true);\n \t\t\t}\n-\t\t\tsclient->Send_Packet(&EquipUsePacketClass(sclient->ShipID, InvType, from_slot));\n+\t\t\tunsigned game_id; sclient->Send_Packet(&EquipUsePacketClass(game_id = sclient->ShipID, InvType, from_slot));\n \t\t\treturn(true);\n \t\t} else if (SlotDrag->Unknown1C == 1 || SlotDrag->Unknown1C == 3) {\n \t\t\tif (SlotDrag->Unknown20) {\n@@ -820,7 +820,7 @@\n \t\t\t\t\t\t\t\t}\n \t\t\t\t\t\t\t\tcase 1:\n \t\t\t\t\t\t\t\t\tInvTransaction->Unknown_690AA0(InvType, from_slot, 1, true, 4, 0);\n-\t\t\t\t\t\t\t\t\tsclient->Print(0, \"Selling %s.\", item->Name.c_str());\n+\t\t\t\t\t\t\t\t\tconst char *name; sclient->Print(0, \"Selling %s.\", name = item->Name.c_str());\n \t\t\t\t\t\t\t\t\tbreak;\n \t\t\t\t\t\t\t}\n \t\t\t\t\t\t}\n",
+      "patch_replay_verified": true,
+      "assertion_tokens_and_lines_unchanged": true,
+      "masked_rows": 22,
+      "register_masked_rows": 2,
+      "body_bytes": [
+        1154,
+        1154
+      ],
+      "first_fixed_byte_mismatch": "0x41e",
+      "masked_body_sha256": "01e5e642d5a6a5e4d7fb094c795a1ca36ba3fc2c2d3a951cd8955120328a5bd5",
+      "file_address_pairs_sha256": "21febdb1dc79081a3c6665636e8f89a7cd90146b7c6ba2cfae0ca4dfac0559c0",
+      "file_address_pair_count": 79,
+      "symbol_gains": [],
+      "symbol_losses": [],
+      "raw_summary": "runs/cross-first-6mudie_k/summary.json"
+    },
+    {
+      "name": "shared_query_result",
+      "source_sha256": "be3bc348f9571dc60bdf36fd2811a7d687be8d92ff2916cbe5589a81ab76272d",
+      "compiled": true,
+      "match_returncode": 0,
+      "target_exact": false,
+      "gained_addresses": [],
+      "lost_addresses": [],
+      "source_patch": "--- a/app/client/ui_inv.cpp\n+++ b/app/client/ui_inv.cpp\n@@ -575,7 +575,7 @@\n \tif (arg) {\n \t\tInvDataClass *inv = SlotData->Unknown_10();\n \t\tInvDataPeekItemStruct *item = inv->Unknown_688830()->Get_Item(slot, false);\n-\t\tif (item) num = item->Unknown50;\t// (budget-device audit 2026-11-19: a dead item->Name.size() here is no longer needed (the file is exact without it))\n+\t\tif (item) { const int &count = item->Unknown50; num = count; }\t// (budget-device audit 2026-11-19: a dead item->Name.size() here is no longer needed (the file is exact without it))\n \t}\n \treturn(InvTransaction->Unknown_690AA0(InvType, slot, num, true, 1, -1));\n }\n@@ -756,7 +756,7 @@\n \t\t\t\tsclient->Unknown_74D990(0x11, \"Cannot perform action while incapacitated.\", 0);\n \t\t\t\treturn(true);\n \t\t\t}\n-\t\t\tsclient->Send_Packet(&EquipUsePacketClass(sclient->ShipID, InvType, from_slot));\n+\t\t\tunsigned game_id; sclient->Send_Packet(&EquipUsePacketClass(game_id = sclient->ShipID, InvType, from_slot));\n \t\t\treturn(true);\n \t\t} else if (SlotDrag->Unknown1C == 1 || SlotDrag->Unknown1C == 3) {\n \t\t\tif (SlotDrag->Unknown20) {\n@@ -842,7 +842,7 @@\n \t\t\t\tif (!((UIInvSlotGadgetStruct *)inv_gadget)->Unknown68) return(handled);\n \t\t\t\tUnknown_5A0D00(from_slot, inv_gadget);\n \t\t\t} else {\n-\t\t\t\tif (!target->Unknown_1C() && !target->Unknown_18()) return(handled);\n+\t\t\t\tGadgetClass *drop_target; if (!(drop_target = target->Unknown_1C()) && !(drop_target = target->Unknown_18())) return(handled);\n \t\t\t\tUnknown_5A0EB0(from_slot, SlotDrag->Unknown1C);\n \t\t\t}\n \t\t\treturn(!Is_Busy());\n",
+      "patch_replay_verified": true,
+      "assertion_tokens_and_lines_unchanged": true,
+      "masked_rows": 22,
+      "register_masked_rows": 2,
+      "body_bytes": [
+        1154,
+        1154
+      ],
+      "first_fixed_byte_mismatch": "0x41e",
+      "masked_body_sha256": "01e5e642d5a6a5e4d7fb094c795a1ca36ba3fc2c2d3a951cd8955120328a5bd5",
+      "file_address_pairs_sha256": "21febdb1dc79081a3c6665636e8f89a7cd90146b7c6ba2cfae0ca4dfac0559c0",
+      "file_address_pair_count": 79,
+      "symbol_gains": [],
+      "symbol_losses": [],
+      "raw_summary": "runs/cross-first-6mudie_k/summary.json"
+    },
+    {
+      "name": "nested_query_rejection",
+      "source_sha256": "4674e979a66a511d3266767232e29b15277be4e5414a8c93b6a97f14e6865d01",
+      "compiled": true,
+      "match_returncode": 0,
+      "target_exact": false,
+      "gained_addresses": [],
+      "lost_addresses": [],
+      "source_patch": "--- a/app/client/ui_inv.cpp\n+++ b/app/client/ui_inv.cpp\n@@ -575,7 +575,7 @@\n \tif (arg) {\n \t\tInvDataClass *inv = SlotData->Unknown_10();\n \t\tInvDataPeekItemStruct *item = inv->Unknown_688830()->Get_Item(slot, false);\n-\t\tif (item) num = item->Unknown50;\t// (budget-device audit 2026-11-19: a dead item->Name.size() here is no longer needed (the file is exact without it))\n+\t\tif (item) { const int &count = item->Unknown50; num = count; }\t// (budget-device audit 2026-11-19: a dead item->Name.size() here is no longer needed (the file is exact without it))\n \t}\n \treturn(InvTransaction->Unknown_690AA0(InvType, slot, num, true, 1, -1));\n }\n@@ -756,7 +756,7 @@\n \t\t\t\tsclient->Unknown_74D990(0x11, \"Cannot perform action while incapacitated.\", 0);\n \t\t\t\treturn(true);\n \t\t\t}\n-\t\t\tsclient->Send_Packet(&EquipUsePacketClass(sclient->ShipID, InvType, from_slot));\n+\t\t\tunsigned game_id; sclient->Send_Packet(&EquipUsePacketClass(game_id = sclient->ShipID, InvType, from_slot));\n \t\t\treturn(true);\n \t\t} else if (SlotDrag->Unknown1C == 1 || SlotDrag->Unknown1C == 3) {\n \t\t\tif (SlotDrag->Unknown20) {\n@@ -842,7 +842,7 @@\n \t\t\t\tif (!((UIInvSlotGadgetStruct *)inv_gadget)->Unknown68) return(handled);\n \t\t\t\tUnknown_5A0D00(from_slot, inv_gadget);\n \t\t\t} else {\n-\t\t\t\tif (!target->Unknown_1C() && !target->Unknown_18()) return(handled);\n+\t\t\t\tif (!target->Unknown_1C()) { if (!target->Unknown_18()) return(handled); }\n \t\t\t\tUnknown_5A0EB0(from_slot, SlotDrag->Unknown1C);\n \t\t\t}\n \t\t\treturn(!Is_Busy());\n",
+      "patch_replay_verified": true,
+      "assertion_tokens_and_lines_unchanged": true,
+      "masked_rows": 22,
+      "register_masked_rows": 2,
+      "body_bytes": [
+        1154,
+        1154
+      ],
+      "first_fixed_byte_mismatch": "0x41e",
+      "masked_body_sha256": "01e5e642d5a6a5e4d7fb094c795a1ca36ba3fc2c2d3a951cd8955120328a5bd5",
+      "file_address_pairs_sha256": "21febdb1dc79081a3c6665636e8f89a7cd90146b7c6ba2cfae0ca4dfac0559c0",
+      "file_address_pair_count": 79,
+      "symbol_gains": [],
+      "symbol_losses": [],
+      "raw_summary": "runs/cross-first-6mudie_k/summary.json"
+    },
+    {
+      "name": "busy_transaction_reference",
+      "source_sha256": "afac13faf5587394bf235eb4527eb5d05ccab6c6d66870c9a497a70c052002d0",
+      "compiled": true,
+      "match_returncode": 0,
+      "target_exact": false,
+      "gained_addresses": [],
+      "lost_addresses": [],
+      "source_patch": "--- a/app/client/ui_inv.cpp\n+++ b/app/client/ui_inv.cpp\n@@ -575,7 +575,7 @@\n \tif (arg) {\n \t\tInvDataClass *inv = SlotData->Unknown_10();\n \t\tInvDataPeekItemStruct *item = inv->Unknown_688830()->Get_Item(slot, false);\n-\t\tif (item) num = item->Unknown50;\t// (budget-device audit 2026-11-19: a dead item->Name.size() here is no longer needed (the file is exact without it))\n+\t\tif (item) { const int &count = item->Unknown50; num = count; }\t// (budget-device audit 2026-11-19: a dead item->Name.size() here is no longer needed (the file is exact without it))\n \t}\n \treturn(InvTransaction->Unknown_690AA0(InvType, slot, num, true, 1, -1));\n }\n@@ -756,7 +756,7 @@\n \t\t\t\tsclient->Unknown_74D990(0x11, \"Cannot perform action while incapacitated.\", 0);\n \t\t\t\treturn(true);\n \t\t\t}\n-\t\t\tsclient->Send_Packet(&EquipUsePacketClass(sclient->ShipID, InvType, from_slot));\n+\t\t\tunsigned game_id; sclient->Send_Packet(&EquipUsePacketClass(game_id = sclient->ShipID, InvType, from_slot));\n \t\t\treturn(true);\n \t\t} else if (SlotDrag->Unknown1C == 1 || SlotDrag->Unknown1C == 3) {\n \t\t\tif (SlotDrag->Unknown20) {\n@@ -845,7 +845,7 @@\n \t\t\t\tif (!target->Unknown_1C() && !target->Unknown_18()) return(handled);\n \t\t\t\tUnknown_5A0EB0(from_slot, SlotDrag->Unknown1C);\n \t\t\t}\n-\t\t\treturn(!Is_Busy());\n+\t\t\tInvTransactionClass * const &transaction = InvTransaction; return(!(transaction->State != 0 || transaction->Unknown_6910C0()));\n \t\t}\n \t}\n \treturn(handled);\n",
+      "patch_replay_verified": true,
+      "assertion_tokens_and_lines_unchanged": true,
+      "masked_rows": 28,
+      "register_masked_rows": 14,
+      "body_bytes": [
+        1136,
+        1154
+      ],
+      "first_fixed_byte_mismatch": "0x41e",
+      "masked_body_sha256": "ad2c477fcf82d6adc7eb6b03d734bfeb46567d8f664e4dce922a1f753235c85d",
+      "file_address_pairs_sha256": "21febdb1dc79081a3c6665636e8f89a7cd90146b7c6ba2cfae0ca4dfac0559c0",
+      "file_address_pair_count": 79,
+      "symbol_gains": [],
+      "symbol_losses": [],
+      "raw_summary": "runs/cross-first-6mudie_k/summary.json"
+    },
+    {
+      "name": "busy_transaction_local",
+      "source_sha256": "2ad18581cbeb9398a1e91dae98a648a0701f2677c9246cfd86ce610a6af4a3a9",
+      "compiled": true,
+      "match_returncode": 0,
+      "target_exact": false,
+      "gained_addresses": [],
+      "lost_addresses": [],
+      "source_patch": "--- a/app/client/ui_inv.cpp\n+++ b/app/client/ui_inv.cpp\n@@ -575,7 +575,7 @@\n \tif (arg) {\n \t\tInvDataClass *inv = SlotData->Unknown_10();\n \t\tInvDataPeekItemStruct *item = inv->Unknown_688830()->Get_Item(slot, false);\n-\t\tif (item) num = item->Unknown50;\t// (budget-device audit 2026-11-19: a dead item->Name.size() here is no longer needed (the file is exact without it))\n+\t\tif (item) { const int &count = item->Unknown50; num = count; }\t// (budget-device audit 2026-11-19: a dead item->Name.size() here is no longer needed (the file is exact without it))\n \t}\n \treturn(InvTransaction->Unknown_690AA0(InvType, slot, num, true, 1, -1));\n }\n@@ -756,7 +756,7 @@\n \t\t\t\tsclient->Unknown_74D990(0x11, \"Cannot perform action while incapacitated.\", 0);\n \t\t\t\treturn(true);\n \t\t\t}\n-\t\t\tsclient->Send_Packet(&EquipUsePacketClass(sclient->ShipID, InvType, from_slot));\n+\t\t\tunsigned game_id; sclient->Send_Packet(&EquipUsePacketClass(game_id = sclient->ShipID, InvType, from_slot));\n \t\t\treturn(true);\n \t\t} else if (SlotDrag->Unknown1C == 1 || SlotDrag->Unknown1C == 3) {\n \t\t\tif (SlotDrag->Unknown20) {\n@@ -845,7 +845,7 @@\n \t\t\t\tif (!target->Unknown_1C() && !target->Unknown_18()) return(handled);\n \t\t\t\tUnknown_5A0EB0(from_slot, SlotDrag->Unknown1C);\n \t\t\t}\n-\t\t\treturn(!Is_Busy());\n+\t\t\tInvTransactionClass *transaction = InvTransaction; return(!(transaction->State != 0 || transaction->Unknown_6910C0()));\n \t\t}\n \t}\n \treturn(handled);\n",
+      "patch_replay_verified": true,
+      "assertion_tokens_and_lines_unchanged": true,
+      "masked_rows": 28,
+      "register_masked_rows": 14,
+      "body_bytes": [
+        1136,
+        1154
+      ],
+      "first_fixed_byte_mismatch": "0x41e",
+      "masked_body_sha256": "ad2c477fcf82d6adc7eb6b03d734bfeb46567d8f664e4dce922a1f753235c85d",
+      "file_address_pairs_sha256": "21febdb1dc79081a3c6665636e8f89a7cd90146b7c6ba2cfae0ca4dfac0559c0",
+      "file_address_pair_count": 79,
+      "symbol_gains": [],
+      "symbol_losses": [],
+      "raw_summary": "runs/cross-first-6mudie_k/summary.json"
+    },
+    {
+      "name": "busy_result_reference",
+      "source_sha256": "227b3e54e0602187197020325ce73d8d04a73a0fd41cb3729a757c3736fe71e1",
+      "compiled": true,
+      "match_returncode": 0,
+      "target_exact": false,
+      "gained_addresses": [],
+      "lost_addresses": [],
+      "source_patch": "--- a/app/client/ui_inv.cpp\n+++ b/app/client/ui_inv.cpp\n@@ -575,7 +575,7 @@\n \tif (arg) {\n \t\tInvDataClass *inv = SlotData->Unknown_10();\n \t\tInvDataPeekItemStruct *item = inv->Unknown_688830()->Get_Item(slot, false);\n-\t\tif (item) num = item->Unknown50;\t// (budget-device audit 2026-11-19: a dead item->Name.size() here is no longer needed (the file is exact without it))\n+\t\tif (item) { const int &count = item->Unknown50; num = count; }\t// (budget-device audit 2026-11-19: a dead item->Name.size() here is no longer needed (the file is exact without it))\n \t}\n \treturn(InvTransaction->Unknown_690AA0(InvType, slot, num, true, 1, -1));\n }\n@@ -756,7 +756,7 @@\n \t\t\t\tsclient->Unknown_74D990(0x11, \"Cannot perform action while incapacitated.\", 0);\n \t\t\t\treturn(true);\n \t\t\t}\n-\t\t\tsclient->Send_Packet(&EquipUsePacketClass(sclient->ShipID, InvType, from_slot));\n+\t\t\tunsigned game_id; sclient->Send_Packet(&EquipUsePacketClass(game_id = sclient->ShipID, InvType, from_slot));\n \t\t\treturn(true);\n \t\t} else if (SlotDrag->Unknown1C == 1 || SlotDrag->Unknown1C == 3) {\n \t\t\tif (SlotDrag->Unknown20) {\n@@ -845,7 +845,7 @@\n \t\t\t\tif (!target->Unknown_1C() && !target->Unknown_18()) return(handled);\n \t\t\t\tUnknown_5A0EB0(from_slot, SlotDrag->Unknown1C);\n \t\t\t}\n-\t\t\treturn(!Is_Busy());\n+\t\t\tconst bool &busy = Is_Busy(); return(!busy);\n \t\t}\n \t}\n \treturn(handled);\n",
+      "patch_replay_verified": true,
+      "assertion_tokens_and_lines_unchanged": true,
+      "masked_rows": 24,
+      "register_masked_rows": 3,
+      "body_bytes": [
+        1149,
+        1154
+      ],
+      "first_fixed_byte_mismatch": "0x41e",
+      "masked_body_sha256": "b8b7baea2491fec1a8b7367c1beb3661ae319197a98666c1311f00795912cd38",
+      "file_address_pairs_sha256": "21febdb1dc79081a3c6665636e8f89a7cd90146b7c6ba2cfae0ca4dfac0559c0",
+      "file_address_pair_count": 79,
+      "symbol_gains": [
+        [
+          "_$E165",
+          "0x5A1090"
+        ]
+      ],
+      "symbol_losses": [
+        [
+          "_$E164",
+          "0x5A1090"
+        ]
+      ],
+      "raw_summary": "runs/cross-second-6h1v0vem/summary.json"
+    },
+    {
+      "name": "busy_result_argument",
+      "source_sha256": "c84512a33ce1b4bc78061171c23fab508d4bfe0f74e54564bbe0e2c00ae626c7",
+      "compiled": true,
+      "match_returncode": 0,
+      "target_exact": false,
+      "gained_addresses": [],
+      "lost_addresses": [],
+      "source_patch": "--- a/app/client/ui_inv.cpp\n+++ b/app/client/ui_inv.cpp\n@@ -575,7 +575,7 @@\n \tif (arg) {\n \t\tInvDataClass *inv = SlotData->Unknown_10();\n \t\tInvDataPeekItemStruct *item = inv->Unknown_688830()->Get_Item(slot, false);\n-\t\tif (item) num = item->Unknown50;\t// (budget-device audit 2026-11-19: a dead item->Name.size() here is no longer needed (the file is exact without it))\n+\t\tif (item) { const int &count = item->Unknown50; num = count; }\t// (budget-device audit 2026-11-19: a dead item->Name.size() here is no longer needed (the file is exact without it))\n \t}\n \treturn(InvTransaction->Unknown_690AA0(InvType, slot, num, true, 1, -1));\n }\n@@ -756,7 +756,7 @@\n \t\t\t\tsclient->Unknown_74D990(0x11, \"Cannot perform action while incapacitated.\", 0);\n \t\t\t\treturn(true);\n \t\t\t}\n-\t\t\tsclient->Send_Packet(&EquipUsePacketClass(sclient->ShipID, InvType, from_slot));\n+\t\t\tunsigned game_id; sclient->Send_Packet(&EquipUsePacketClass(game_id = sclient->ShipID, InvType, from_slot));\n \t\t\treturn(true);\n \t\t} else if (SlotDrag->Unknown1C == 1 || SlotDrag->Unknown1C == 3) {\n \t\t\tif (SlotDrag->Unknown20) {\n@@ -845,7 +845,7 @@\n \t\t\t\tif (!target->Unknown_1C() && !target->Unknown_18()) return(handled);\n \t\t\t\tUnknown_5A0EB0(from_slot, SlotDrag->Unknown1C);\n \t\t\t}\n-\t\t\treturn(!Is_Busy());\n+\t\t\tbool busy; return(!(busy = Is_Busy()));\n \t\t}\n \t}\n \treturn(handled);\n",
+      "patch_replay_verified": true,
+      "assertion_tokens_and_lines_unchanged": true,
+      "masked_rows": 24,
+      "register_masked_rows": 3,
+      "body_bytes": [
+        1149,
+        1154
+      ],
+      "first_fixed_byte_mismatch": "0x41e",
+      "masked_body_sha256": "b8b7baea2491fec1a8b7367c1beb3661ae319197a98666c1311f00795912cd38",
+      "file_address_pairs_sha256": "21febdb1dc79081a3c6665636e8f89a7cd90146b7c6ba2cfae0ca4dfac0559c0",
+      "file_address_pair_count": 79,
+      "symbol_gains": [],
+      "symbol_losses": [],
+      "raw_summary": "runs/cross-second-6h1v0vem/summary.json"
+    }
+  ],
+  "counts.json": {
+    "fresh_baseline_controls": 1,
+    "fresh_best_controls": 1,
+    "new_valid_source_forms": 8,
+    "diagnostic_forms": 0,
+    "compile_failures": 0,
+    "untried_forms": 0,
+    "gained_file_address_pairs": 0,
+    "lost_file_address_pairs": 0,
+    "source_adoptions": 0,
+    "prior_source_forms_5A0740": 26,
+    "cumulative_valid_forms_5A0740": 34,
+    "cumulative_baseline_compiles_5A0740": 2,
+    "cumulative_best_control_compiles_5A0740": 1
+  },
+  "provenance.json": {
+    "HEAD": "620b2a581bb18a4e1f724b8da42857ae1b68df0b",
+    "baseline_sha256": "86ec0b21ac9ebd01d1d1619990e843baf8deec41b8f8f0531cf2e78eb32398e9",
+    "best_sha256": "ca32d086841d2e397f612e1c07ba5ec45b2e5da3ca2cdf56d1f6ccdab97c5778"
+  },
+  "baseline-pairs.json": [
+    [
+      "app/client/ui_inv.cpp",
+      "0x42A820"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x42A940"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x42A970"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x42AB30"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x42B320"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x42CD30"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x42F250"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x45CC10"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x48F3E0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x4A1930"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x4A19A0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x4A19C0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x4A1A10"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x4A1A30"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x4A1A50"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x4A1A70"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x4A1A90"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x4A1AB0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x4A1AD0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x4A1AF0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x5156F0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x515710"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x515730"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x515750"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x52B210"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x52B240"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x52B270"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x52B2A0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x52B2D0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x52B2F0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x52B310"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x52B330"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x52B350"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x549760"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x585160"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x585180"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x5851A0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x5851C0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x59E9E0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x59EA10"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x59EA30"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x59EBB0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x59ECA0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x59ECD0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x59EDC0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x59EF40"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x59EF70"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x59F060"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x59F2C0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x59F3D0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x59F440"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x59F470"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x59F940"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x59FA00"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x59FA80"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x59FB20"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x59FD00"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x59FD70"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x59FDA0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x59FE10"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x5A00A0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x5A00C0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x5A02E0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x5A03B0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x5A0450"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x5A05B0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x5A06C0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x5A0EB0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x5A0FC0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x5A0FE0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x5A1020"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x5A1060"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x5A1090"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x5A10C0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x5A10D0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x5A10E0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x5A10F0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x5A1100"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x5A1110"
+    ]
+  ],
+  "README.txt": "Claim #267 cross-function inventory follow-up, 2026-11-23.\nBase:620b2a581bb18a4e1f724b8da42857ae1b68df0b, branch claim-267-ui-handlers.\nNo tracked edits, commits, GitHub writes, or source adoption.\nPrimary0x5A0740 only; no secondary function rebuild justified by the evidence.\nModel:gpt-6.1-sol (high), accountable contributor:@vessellaj via coordinator.\n\nControls: a fresh git archive of HEAD, original ui_inv.cpp, and independently\nreplayed prior best patch. Both compile/full-native-objmatch to79 distinct\napp/client/ui_inv.cpp/address pairs. Baseline127/57 rows,1319 bytes; best22/2,\n1154 bytes. The best control source SHA matches the previous proof package.\n\nEight new valid source forms, two batches;0 diagnostics,0 compiler failures,\n0 untried. Every form preserves all79 actual file/address pairs, +0/-0.\nNo form improves22/2. Four compile to exactly the control's relocation-masked\ntarget bytes. Two direct transaction predicate forms worsen to28/14,1136 bytes.\nTwo bool-result lifetime forms worsen to24/3,1149 bytes. The const bool reference\nrenumbers static initializer _$E164 to _$E165 at the same0x5A1090; the actual\nfile/address pair is retained. Numeric totals include only the eight new forms;\nthe prior26 valid trials and fresh old baseline are reported separately.\n\nEach successful compile got an unfiltered native objmatch pass over its entire\nobject. Baseline-pairs.json is the complete reference set; each form records its\ncanonical set digest, cardinality and address gains/losses, plus symbol changes.\nAll assertion tokens and physical lines are checked unchanged. No header/tool\nedits, compiler flags/pragmas, assembly, dead budget reads, unsequenced arguments,\nalias-punned references, or other invented runtime work.\n\nReplay: forms.json stores each patch as a JSON string, independently against\nHEAD's app/client/ui_inv.cpp; the best-control prerequisites are included in\nevery trial patch. Actual patch replay was byte-compared to the compiled source.\nRead source_patch as UTF-8, apply it to the base source retaining ui_inv.cpp's\nbasename, and check source_sha256. Compile flags/include remapping and the native\nmatcher command are in .work/claim-267/run_batch.py. Raw sources/objects/results\nremain under .work/claim-267/cross-inventory/. The source tree was archived at\nHEAD before writes and used for all include paths.\n\nCompiler:/home/dev/Toolchains/enb-vc6-sp4/bin/vc6-cl\nPython:/home/dev/Toolchains/enb-vc6-sp4/venv/bin/python\nRetail SHA256:249f852496f341c00361be95b66e7cba026f9227e38b602651c4.\nClient was read in place; no install-folder writes or target execution.\n\nEvidence/inferences are in comparisons.txt. No new source type discrepancy or\nclaim-secondary lever was found; stop here rather than repeat register forms.\n",
+  "comparisons.txt": "Source and byte evidence, all read-only outside claim #267.\n\n1. Exact same-unit busy users59FDA0/5A05B0/5A06C0.\nFresh original/control/each-trial full native objmatch retains these pairs.\n59FDA0: load InvTransaction; cmp [ecx],0; if zero call6910C0; test al.\nAfter transaction steps it repeats the same State/call/AL sequence.\n5A05B0 and5A06C0 use the same short circuit. Their source uses Is_Busy(),\nwhose header returns State!=0 || Unknown_6910C0(). No bool type discrepancy.\nRetail6910C0 uses Active and strcmp(Type,\"UI_TRANSACTION_DUMP_ITEM\"),\nreturning full eax0/1. inv_transaction.cpp's ledger records this exact.\n\n2. Exact5A05B0 and5A0EB0 actual argument scheduling.\n5A066A prepares DragSlotData receiver ECX before pushing arg/mode/slot.\n5A0F44 loads the actual bool input, prepares transaction ECX, then pushes\ndestination/all/count/slot/source. The desired0740 tail similarly prepares\nUIInvClass ECX before pushing mode/slot at5A0B80; our best does so after.\nThis is source scheduling evidence, not a class-field displacement error.\nPrior actual mode argument/reference/receiver forms were already exhausted;\nnone were repeated here.\n\n3. Gadget virtual pointer-query types and control flow.\ngadget.h declares Unknown_1C/18 as GadgetClass*; retail0740 tests eax, not al.\nRetail5A0B5D: load vtable EDX, set ECX=target, call[EDX+1C], testEAX;\non zero load vtable EAX, set ECX=target, call[EAX+18], testEAX.\nBoth slot numbers, order and branch destinations match the best source.\nNo header correction supported. Exact614360 Create_Shortcut in\nui_scut_gadgets.cpp:193 uses short-circuit rejection after two calls, with\nUnknown_18() as an input; this independently confirms the natural !a&&!b\nidiom. Same-target paired Gadget1C/18 queries were not found outside0740.\nThe same0740 function assigns a pointer result inside a condition (button),\nand cpacket.cpp:2578 uses assigned object/avatar results in a short circuit.\nThe new shared query-result lifetime and nested rejection tests give exactly\nthe same masked body as the best control, eliminating this concrete lead.\n\n4. Actual c_str() inputs.\nui_option_font.cpp:144/148 binds FontNames[].c_str() to a named const char*,\nand chat_window.cpp:487 binds Line->Text.c_str() before format calls.\nThe ledger records ChatFontSys::Unknown_680320 (0x680320) exact; these were\nsource/ledger comparisons only, with no out-of-claim compilation.\nThe old0740 attempts row explicitly left item-name locals untried.\nNew last-selling Print input local and same-argument assignment preserve the\noriginal c_str evaluation point and callback ordering. Both give exactly the\ncontrol's masked1154-byte body; no allocator improvement or pair changes.\n\n5. Matched inline-helper inversion convention at co0x6F58B0.\nco.cpp:1193-1197 returns !Unknown_6F5E40() under Unknown_6F5850().\nThe current ledger records0x6F58B0 exact; it was not rebuilt here.\nRetail6F591D zeros AL;6F591F zeros ECX; testAL; seteCL; movAL,CL;\nlater6F5934 loads AL;6F593A zeros ECX; testAL; seteCL; movAL,CL.\nThis is the same duplicated full bool inversion shape wanted by0740.\nIt supports keeping the Is_Busy inline boundary and its bool result.\nDirect equivalent transaction predicate via the actual receiver local/ref\nshrinks0740 by18 bytes:28/14 instead22/2. No change before0x41D.\nBool-result const-reference and assignment preserve the call boundary but\nshrink by5 bytes and worsen to24/3. No correction is inferred from these.\n\nByte-length/masked-row values exclude padding. The first differing fixed\nbyte is0x41E (within the instruction starting0x41D). All new forms leave\nthe first0x41D bytes/837 fixed bytes matching. The four byte-identical forms\nretain the earlier audited calls, branch targets and EH shape automatically.\nOther variants are rejected and receive no equivalence claim.\n\nREA skill applied; session inventory was closed. Existing repository tools,\nsaved proof and exact-ledger evidence answered the needed questions, so no\nGhidra session, configuration repair or fresh binary import was needed.\n"
+}

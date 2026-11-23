@@ -1,0 +1,2021 @@
+{
+  "target": "0x5B1230",
+  "base_sha256": "18c3ce1e3b106730fa095679ac44c244f3d31e7399543ffc4c97bfeb08c7e409",
+  "counts": {
+    "compilations": 20,
+    "successful_compilations": 20,
+    "new_valid_hypotheses": 19,
+    "distinct_sources": 20,
+    "controls": 1,
+    "repeated_sources": 0,
+    "diagnostic_only": 0,
+    "failures": 0,
+    "untried_generated": 0,
+    "distinct_code_groups": 10
+  },
+  "baseline_matches": "/home/dev/Projects/EnB/.work/claim-267/manufacturing/5B1230/runs/baseline-z46mjxw6/baseline/matches.json",
+  "baseline_file_address_pair_count": 141,
+  "baseline_file_address_pairs": [
+    [
+      "app/client/ui_manu.cpp",
+      "0x42A6C0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x42A820"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x42A940"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x42A970"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x42AB30"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x42B320"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x42CAB0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x42CD30"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x42D050"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x42D120"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x42F250"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x45CC10"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x46BE90"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x474080"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x4740B0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x497300"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x4A19A0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x4A19C0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x4A1A10"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x4A1A30"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x4A1A50"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x4A1A70"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x4A1A90"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x4A1AB0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x4A1AD0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x4A1AF0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x4A7780"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x4B58D0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x50A8E0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x50A900"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x50A920"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x50A940"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x50A960"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x50A980"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x50A9E0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x50AA00"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x50AA20"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x50AA40"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x50AA60"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x50AA80"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x50AAA0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x50AAC0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5156B0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5156F0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x515710"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x515730"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x515750"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x51AD20"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x51AD40"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x51AD60"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x51AD80"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x51ADA0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x51C630"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x52B210"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x52B240"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x52B270"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x52B2A0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x52B2D0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x52B2F0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x52B310"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x52B330"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x52B350"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5411F0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x543750"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x543770"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x544250"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x544B90"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x546480"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5464B0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5464F0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x546510"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5465C0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5466A0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x546710"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x546780"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5467F0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x546970"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x553A80"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x58E5B0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x58E5D0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5AF980"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5AF9B0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5AF9D0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5AFCA0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5AFFC0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B0B40"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B0BB0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B10A0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B1AF0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B1C20"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B1ED0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B2060"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B21A0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B2230"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B2820"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B28E0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B2950"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B2990"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B2A80"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B2B40"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B2F20"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B3240"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B3260"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B3580"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B3850"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B39B0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B3A50"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B3A70"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B3B90"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B3CA0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B3D70"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B42F0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B4680"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B4850"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B5CD0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B5FF0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B6060"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B6410"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B6680"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B66D0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B6700"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B6720"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B6770"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B67A0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B67C0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B6A60"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B6A80"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B6CA0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B6D30"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B6DB0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B6E20"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B6FD0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B7050"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B70C0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B7130"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B71A0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B7260"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B72B0"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B7300"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B7350"
+    ],
+    [
+      "app/client/ui_manu.cpp",
+      "0x5B7360"
+    ]
+  ],
+  "forms": [
+    {
+      "name": "components_existing_set_test",
+      "compiled": true,
+      "target_exact": false,
+      "source_sha256": "4a5d537e52091df025e05abc1de08ccf0602fce5d236d5bbf62d573c4d201760",
+      "lost_addresses": [],
+      "gained_addresses": [],
+      "error": null,
+      "class": "relocation",
+      "residue": 71,
+      "regs": 43,
+      "instructions": [
+        262,
+        255
+      ],
+      "frames": [
+        [
+          "0x70",
+          false,
+          false
+        ],
+        [
+          "0x3c",
+          false,
+          false
+        ]
+      ],
+      "direct_call_symbols": [
+        "?Unknown_5B5320@UIManuClass@@QAEXXZ",
+        "?Unknown_5B1AF0@UIManuClass@@QAEXH_NPBD@Z",
+        "??0NameClass@@QAE@PBD@Z",
+        "?Get_Lookup@DeltaCompoundClass@@QAEPAVLookupClass@@XZ",
+        "?Find@LookupClass@@QAEPAVDeltaClass@@ABVNameClass@@@Z",
+        "?G_Assert_Report@@YAXPBD0H@Z",
+        "?Unknown_5B4680@UIManuClass@@QAEXXZ",
+        "?Unknown_5B8DF0@UIMeshClass@@QAEXHPBD_N11HH@Z",
+        "?Unknown_62F5B0@SlotDataInterface@@QAEX_N@Z",
+        "??0NameClass@@QAE@PBD@Z",
+        "?Get_Lookup@DeltaCompoundClass@@QAEPAVLookupClass@@XZ",
+        "?Find@LookupClass@@QAEPAVDeltaClass@@ABVNameClass@@@Z",
+        "?G_Assert_Report@@YAXPBD0H@Z",
+        "?Is_Validity_Attempt@@YA_NW4UnknownB01394Enum@@@Z",
+        "?Unknown_5B1AF0@UIManuClass@@QAEXH_NPBD@Z",
+        "?Play_2D_Sound@SoundLibraryClass@@SAPAVAudibleSoundClass@@PBDH@Z",
+        "?Unknown_Find_Valid_List@UIManuClass@@QAEPAVUIManuListClass@@PBD@Z",
+        "?Unknown_5B3260@UIManuClass@@QAEXPAVUIManuListClass@@@Z",
+        "?Unknown_5B6CA0@UIManuClass@@QAEXXZ",
+        "??0NameClass@@QAE@PBD@Z",
+        "?Unknown_Find_Set_List@@YAPAVUIManuListClass@@PAVDeltaCompoundClass@@ABVNameClass@@@Z",
+        "?Unknown_5B3260@UIManuClass@@QAEXPAVUIManuListClass@@@Z",
+        "?Unknown_5B2480@UIManuClass@@QAEXXZ",
+        "?Unknown_5B4850@UIManuClass@@QAEXXZ",
+        "?Unknown_5B39B0@UIManuClass@@QAEXH@Z",
+        "?Unknown_5B2230@UIManuClass@@QAEXXZ",
+        "?Unknown_5B2480@UIManuClass@@QAEXXZ",
+        "__ftol",
+        "?Unknown_5B2230@UIManuClass@@QAEXXZ",
+        "?Unknown_60@Unknown5BB320Class@@UAEXXZ",
+        "?Unknown_5B7880@UIManuUnknownC0Class@@QAEXXZ",
+        "__allmul"
+      ],
+      "code_group": "d693cf194000",
+      "exact": false,
+      "kind": "new_valid_hypothesis",
+      "file_address_pair_count": 141,
+      "file_address_pairs_gained": [],
+      "file_address_pairs_lost": [],
+      "summary": "5B1230/runs/b2-ce21o110/summary.json",
+      "patch_replay_sha256_verified": true
+    },
+    {
+      "name": "validity_existing_set_test",
+      "compiled": true,
+      "target_exact": false,
+      "source_sha256": "778fcf7ff6629ab01de60362b96cec19c59b52881bfdb5e362ffc211bb28298f",
+      "lost_addresses": [],
+      "gained_addresses": [],
+      "error": null,
+      "class": "relocation",
+      "residue": 77,
+      "regs": 54,
+      "instructions": [
+        272,
+        255
+      ],
+      "frames": [
+        [
+          "0x3c",
+          false,
+          false
+        ],
+        [
+          "0x3c",
+          false,
+          false
+        ]
+      ],
+      "direct_call_symbols": [
+        "?Unknown_5B5320@UIManuClass@@QAEXXZ",
+        "?Unknown_5B1AF0@UIManuClass@@QAEXH_NPBD@Z",
+        "??0NameClass@@QAE@PBD@Z",
+        "?Get_Lookup@DeltaCompoundClass@@QAEPAVLookupClass@@XZ",
+        "?Find@LookupClass@@QAEPAVDeltaClass@@ABVNameClass@@@Z",
+        "?G_Assert_Report@@YAXPBD0H@Z",
+        "?Unknown_5B4680@UIManuClass@@QAEXXZ",
+        "?Unknown_5B8DF0@UIMeshClass@@QAEXHPBD_N11HH@Z",
+        "?Unknown_62F5B0@SlotDataInterface@@QAEX_N@Z",
+        "??0NameClass@@QAE@PBD@Z",
+        "?Get_Lookup@DeltaCompoundClass@@QAEPAVLookupClass@@XZ",
+        "?Find@LookupClass@@QAEPAVDeltaClass@@ABVNameClass@@@Z",
+        "?G_Assert_Report@@YAXPBD0H@Z",
+        "?Is_Validity_Attempt@@YA_NW4UnknownB01394Enum@@@Z",
+        "?Unknown_5B1AF0@UIManuClass@@QAEXH_NPBD@Z",
+        "?Play_2D_Sound@SoundLibraryClass@@SAPAVAudibleSoundClass@@PBDH@Z",
+        "?Unknown_Find_Valid_List@UIManuClass@@QAEPAVUIManuListClass@@PBD@Z",
+        "?Unknown_5B3260@UIManuClass@@QAEXPAVUIManuListClass@@@Z",
+        "?Unknown_5B3580@UIManuClass@@QAEX_N@Z",
+        "?Unknown_5B2480@UIManuClass@@QAEXXZ",
+        "?Unknown_5B4850@UIManuClass@@QAEXXZ",
+        "?Unknown_5B39B0@UIManuClass@@QAEXH@Z",
+        "?Unknown_5B2230@UIManuClass@@QAEXXZ",
+        "?Unknown_5B2480@UIManuClass@@QAEXXZ",
+        "__ftol",
+        "?Unknown_5B2230@UIManuClass@@QAEXXZ",
+        "?Unknown_60@Unknown5BB320Class@@UAEXXZ",
+        "?Unknown_5B7880@UIManuUnknownC0Class@@QAEXXZ",
+        "__allmul"
+      ],
+      "code_group": "1f1f176c2f0a",
+      "exact": false,
+      "kind": "new_valid_hypothesis",
+      "file_address_pair_count": 141,
+      "file_address_pairs_gained": [],
+      "file_address_pairs_lost": [],
+      "summary": "5B1230/runs/b2-ce21o110/summary.json",
+      "patch_replay_sha256_verified": true
+    },
+    {
+      "name": "both_existing_set_tests",
+      "compiled": true,
+      "target_exact": false,
+      "source_sha256": "aacd8f4713b658586a9d32d97f564e90179f70507677ee3d3fe61916d22f3a39",
+      "lost_addresses": [],
+      "gained_addresses": [],
+      "error": null,
+      "class": "relocation",
+      "residue": 71,
+      "regs": 43,
+      "instructions": [
+        262,
+        255
+      ],
+      "frames": [
+        [
+          "0x70",
+          false,
+          false
+        ],
+        [
+          "0x3c",
+          false,
+          false
+        ]
+      ],
+      "direct_call_symbols": [
+        "?Unknown_5B5320@UIManuClass@@QAEXXZ",
+        "?Unknown_5B1AF0@UIManuClass@@QAEXH_NPBD@Z",
+        "??0NameClass@@QAE@PBD@Z",
+        "?Get_Lookup@DeltaCompoundClass@@QAEPAVLookupClass@@XZ",
+        "?Find@LookupClass@@QAEPAVDeltaClass@@ABVNameClass@@@Z",
+        "?G_Assert_Report@@YAXPBD0H@Z",
+        "?Unknown_5B4680@UIManuClass@@QAEXXZ",
+        "?Unknown_5B8DF0@UIMeshClass@@QAEXHPBD_N11HH@Z",
+        "?Unknown_62F5B0@SlotDataInterface@@QAEX_N@Z",
+        "??0NameClass@@QAE@PBD@Z",
+        "?Get_Lookup@DeltaCompoundClass@@QAEPAVLookupClass@@XZ",
+        "?Find@LookupClass@@QAEPAVDeltaClass@@ABVNameClass@@@Z",
+        "?G_Assert_Report@@YAXPBD0H@Z",
+        "?Is_Validity_Attempt@@YA_NW4UnknownB01394Enum@@@Z",
+        "?Unknown_5B1AF0@UIManuClass@@QAEXH_NPBD@Z",
+        "?Play_2D_Sound@SoundLibraryClass@@SAPAVAudibleSoundClass@@PBDH@Z",
+        "?Unknown_Find_Valid_List@UIManuClass@@QAEPAVUIManuListClass@@PBD@Z",
+        "?Unknown_5B3260@UIManuClass@@QAEXPAVUIManuListClass@@@Z",
+        "?Unknown_5B6CA0@UIManuClass@@QAEXXZ",
+        "??0NameClass@@QAE@PBD@Z",
+        "?Unknown_Find_Set_List@@YAPAVUIManuListClass@@PAVDeltaCompoundClass@@ABVNameClass@@@Z",
+        "?Unknown_5B3260@UIManuClass@@QAEXPAVUIManuListClass@@@Z",
+        "?Unknown_5B2480@UIManuClass@@QAEXXZ",
+        "?Unknown_5B4850@UIManuClass@@QAEXXZ",
+        "?Unknown_5B39B0@UIManuClass@@QAEXH@Z",
+        "?Unknown_5B2230@UIManuClass@@QAEXXZ",
+        "?Unknown_5B2480@UIManuClass@@QAEXXZ",
+        "__ftol",
+        "?Unknown_5B2230@UIManuClass@@QAEXXZ",
+        "?Unknown_60@Unknown5BB320Class@@UAEXXZ",
+        "?Unknown_5B7880@UIManuUnknownC0Class@@QAEXXZ",
+        "__allmul"
+      ],
+      "code_group": "d693cf194000",
+      "exact": false,
+      "kind": "new_valid_hypothesis",
+      "file_address_pair_count": 141,
+      "file_address_pairs_gained": [],
+      "file_address_pairs_lost": [],
+      "summary": "5B1230/runs/b2-ce21o110/summary.json",
+      "patch_replay_sha256_verified": true
+    },
+    {
+      "name": "refresh_existing_set_helper",
+      "compiled": true,
+      "target_exact": false,
+      "source_sha256": "4a732dd7e0116549dc09947649d73c04a5714259e2668c612ae23c5425a363b9",
+      "lost_addresses": [],
+      "gained_addresses": [],
+      "error": null,
+      "class": "relocation",
+      "residue": 127,
+      "regs": 93,
+      "instructions": [
+        322,
+        255
+      ],
+      "frames": [
+        [
+          "0x3c",
+          false,
+          false
+        ],
+        [
+          "0x3c",
+          false,
+          false
+        ]
+      ],
+      "direct_call_symbols": [
+        "?Unknown_5B5320@UIManuClass@@QAEXXZ",
+        "?Unknown_5B1AF0@UIManuClass@@QAEXH_NPBD@Z",
+        "??0NameClass@@QAE@PBD@Z",
+        "?Get_Lookup@DeltaCompoundClass@@QAEPAVLookupClass@@XZ",
+        "?Find@LookupClass@@QAEPAVDeltaClass@@ABVNameClass@@@Z",
+        "?G_Assert_Report@@YAXPBD0H@Z",
+        "?Unknown_5B4680@UIManuClass@@QAEXXZ",
+        "?Unknown_5B8DF0@UIMeshClass@@QAEXHPBD_N11HH@Z",
+        "?Unknown_62F5B0@SlotDataInterface@@QAEX_N@Z",
+        "??0NameClass@@QAE@PBD@Z",
+        "?Get_Lookup@DeltaCompoundClass@@QAEPAVLookupClass@@XZ",
+        "?Find@LookupClass@@QAEPAVDeltaClass@@ABVNameClass@@@Z",
+        "?G_Assert_Report@@YAXPBD0H@Z",
+        "?Is_Validity_Attempt@@YA_NW4UnknownB01394Enum@@@Z",
+        "?Unknown_5B1AF0@UIManuClass@@QAEXH_NPBD@Z",
+        "?Play_2D_Sound@SoundLibraryClass@@SAPAVAudibleSoundClass@@PBDH@Z",
+        "??0NameClass@@QAE@PBD@Z",
+        "?Get_Lookup@DeltaCompoundClass@@QAEPAVLookupClass@@XZ",
+        "?Find@LookupClass@@QAEPAVDeltaClass@@ABVNameClass@@@Z",
+        "?G_Assert_Report@@YAXPBD0H@Z",
+        "?Unknown_5B3260@UIManuClass@@QAEXPAVUIManuListClass@@@Z",
+        "??0NameClass@@QAE@PBD@Z",
+        "?Get_Lookup@DeltaCompoundClass@@QAEPAVLookupClass@@XZ",
+        "?Find@LookupClass@@QAEPAVDeltaClass@@ABVNameClass@@@Z",
+        "?G_Assert_Report@@YAXPBD0H@Z",
+        "?Unknown_5B3260@UIManuClass@@QAEXPAVUIManuListClass@@@Z",
+        "?Unknown_5B2480@UIManuClass@@QAEXXZ",
+        "?Unknown_5B4850@UIManuClass@@QAEXXZ",
+        "?Unknown_5B39B0@UIManuClass@@QAEXH@Z",
+        "?Unknown_5B2230@UIManuClass@@QAEXXZ",
+        "?Unknown_5B2480@UIManuClass@@QAEXXZ",
+        "__ftol",
+        "?Unknown_5B2230@UIManuClass@@QAEXXZ",
+        "?Unknown_60@Unknown5BB320Class@@UAEXXZ",
+        "?Unknown_5B7880@UIManuUnknownC0Class@@QAEXXZ",
+        "__allmul"
+      ],
+      "code_group": "19b7716fe97c",
+      "exact": false,
+      "kind": "new_valid_hypothesis",
+      "file_address_pair_count": 141,
+      "file_address_pairs_gained": [],
+      "file_address_pairs_lost": [],
+      "summary": "5B1230/runs/b2-ce21o110/summary.json",
+      "patch_replay_sha256_verified": true
+    },
+    {
+      "name": "refresh_previous_member",
+      "compiled": true,
+      "target_exact": false,
+      "source_sha256": "1efe9d62d7b0b4547c8949d7c5118d921cccba32b4dc15e90f37ae64f30ee8e1",
+      "lost_addresses": [],
+      "gained_addresses": [],
+      "error": null,
+      "class": "relocation",
+      "residue": 74,
+      "regs": 45,
+      "instructions": [
+        229,
+        255
+      ],
+      "frames": [
+        [
+          "0x3c",
+          false,
+          false
+        ],
+        [
+          "0x3c",
+          false,
+          false
+        ]
+      ],
+      "direct_call_symbols": [
+        "?Unknown_5B5320@UIManuClass@@QAEXXZ",
+        "?Unknown_5B1AF0@UIManuClass@@QAEXH_NPBD@Z",
+        "??0NameClass@@QAE@PBD@Z",
+        "?Get_Lookup@DeltaCompoundClass@@QAEPAVLookupClass@@XZ",
+        "?Find@LookupClass@@QAEPAVDeltaClass@@ABVNameClass@@@Z",
+        "?G_Assert_Report@@YAXPBD0H@Z",
+        "?Unknown_5B4680@UIManuClass@@QAEXXZ",
+        "?Unknown_5B8DF0@UIMeshClass@@QAEXHPBD_N11HH@Z",
+        "?Unknown_62F5B0@SlotDataInterface@@QAEX_N@Z",
+        "??0NameClass@@QAE@PBD@Z",
+        "?Get_Lookup@DeltaCompoundClass@@QAEPAVLookupClass@@XZ",
+        "?Find@LookupClass@@QAEPAVDeltaClass@@ABVNameClass@@@Z",
+        "?G_Assert_Report@@YAXPBD0H@Z",
+        "?Is_Validity_Attempt@@YA_NW4UnknownB01394Enum@@@Z",
+        "?Unknown_5B1AF0@UIManuClass@@QAEXH_NPBD@Z",
+        "?Play_2D_Sound@SoundLibraryClass@@SAPAVAudibleSoundClass@@PBDH@Z",
+        "?Unknown_5B3640@UIManuClass@@QAEX_N@Z",
+        "?Unknown_5B39B0@UIManuClass@@QAEXH@Z",
+        "?Unknown_5B2230@UIManuClass@@QAEXXZ",
+        "?Unknown_5B2480@UIManuClass@@QAEXXZ",
+        "__ftol",
+        "?Unknown_5B2230@UIManuClass@@QAEXXZ",
+        "?Unknown_60@Unknown5BB320Class@@UAEXXZ",
+        "?Unknown_5B7880@UIManuUnknownC0Class@@QAEXXZ",
+        "__allmul"
+      ],
+      "code_group": "40025e2feaea",
+      "exact": false,
+      "kind": "new_valid_hypothesis",
+      "file_address_pair_count": 141,
+      "file_address_pairs_gained": [],
+      "file_address_pairs_lost": [],
+      "summary": "5B1230/runs/b3-x3_w1zw3/summary.json",
+      "patch_replay_sha256_verified": true
+    },
+    {
+      "name": "refresh_previous_static",
+      "compiled": true,
+      "target_exact": false,
+      "source_sha256": "0c060e73ed5babe9887cc99513eb5d7a58e478a5f9bdd874e99ca47e5cd0e0f9",
+      "lost_addresses": [],
+      "gained_addresses": [],
+      "error": null,
+      "class": "relocation",
+      "residue": 81,
+      "regs": 51,
+      "instructions": [
+        278,
+        255
+      ],
+      "frames": [
+        [
+          "0x70",
+          false,
+          false
+        ],
+        [
+          "0x3c",
+          false,
+          false
+        ]
+      ],
+      "direct_call_symbols": [
+        "?Unknown_5B5320@UIManuClass@@QAEXXZ",
+        "?Unknown_5B1AF0@UIManuClass@@QAEXH_NPBD@Z",
+        "??0NameClass@@QAE@PBD@Z",
+        "?Get_Lookup@DeltaCompoundClass@@QAEPAVLookupClass@@XZ",
+        "?Find@LookupClass@@QAEPAVDeltaClass@@ABVNameClass@@@Z",
+        "?G_Assert_Report@@YAXPBD0H@Z",
+        "?Unknown_5B4680@UIManuClass@@QAEXXZ",
+        "?Unknown_5B8DF0@UIMeshClass@@QAEXHPBD_N11HH@Z",
+        "?Unknown_62F5B0@SlotDataInterface@@QAEX_N@Z",
+        "??0NameClass@@QAE@PBD@Z",
+        "?Get_Lookup@DeltaCompoundClass@@QAEPAVLookupClass@@XZ",
+        "?Find@LookupClass@@QAEPAVDeltaClass@@ABVNameClass@@@Z",
+        "?G_Assert_Report@@YAXPBD0H@Z",
+        "?Is_Validity_Attempt@@YA_NW4UnknownB01394Enum@@@Z",
+        "?Unknown_5B1AF0@UIManuClass@@QAEXH_NPBD@Z",
+        "?Play_2D_Sound@SoundLibraryClass@@SAPAVAudibleSoundClass@@PBDH@Z",
+        "??0NameClass@@QAE@PBD@Z",
+        "?Unknown_Find_Set_List@@YAPAVUIManuListClass@@PAVDeltaCompoundClass@@ABVNameClass@@@Z",
+        "?Unknown_5B3260@UIManuClass@@QAEXPAVUIManuListClass@@@Z",
+        "?Unknown_5B3580@UIManuClass@@QAEX_N@Z",
+        "?Unknown_5B2480@UIManuClass@@QAEXXZ",
+        "?Unknown_5B4850@UIManuClass@@QAEXXZ",
+        "?Unknown_5B39B0@UIManuClass@@QAEXH@Z",
+        "?Unknown_5B2230@UIManuClass@@QAEXXZ",
+        "?Unknown_5B2480@UIManuClass@@QAEXXZ",
+        "__ftol",
+        "?Unknown_5B2230@UIManuClass@@QAEXXZ",
+        "?Unknown_60@Unknown5BB320Class@@UAEXXZ",
+        "?Unknown_5B7880@UIManuUnknownC0Class@@QAEXXZ",
+        "__allmul"
+      ],
+      "code_group": "37eb955579a0",
+      "exact": false,
+      "kind": "new_valid_hypothesis",
+      "file_address_pair_count": 141,
+      "file_address_pairs_gained": [],
+      "file_address_pairs_lost": [],
+      "summary": "5B1230/runs/b3-x3_w1zw3/summary.json",
+      "patch_replay_sha256_verified": true
+    },
+    {
+      "name": "refresh_static_scoped_name",
+      "compiled": true,
+      "target_exact": false,
+      "source_sha256": "af6333fde3ffbcaa1e1779a15268a6a27f9fb3890743eb29ec25b449fbebac2a",
+      "lost_addresses": [],
+      "gained_addresses": [],
+      "error": null,
+      "class": "relocation",
+      "residue": 81,
+      "regs": 51,
+      "instructions": [
+        278,
+        255
+      ],
+      "frames": [
+        [
+          "0x3c",
+          false,
+          false
+        ],
+        [
+          "0x3c",
+          false,
+          false
+        ]
+      ],
+      "direct_call_symbols": [
+        "?Unknown_5B5320@UIManuClass@@QAEXXZ",
+        "?Unknown_5B1AF0@UIManuClass@@QAEXH_NPBD@Z",
+        "??0NameClass@@QAE@PBD@Z",
+        "?Get_Lookup@DeltaCompoundClass@@QAEPAVLookupClass@@XZ",
+        "?Find@LookupClass@@QAEPAVDeltaClass@@ABVNameClass@@@Z",
+        "?G_Assert_Report@@YAXPBD0H@Z",
+        "?Unknown_5B4680@UIManuClass@@QAEXXZ",
+        "?Unknown_5B8DF0@UIMeshClass@@QAEXHPBD_N11HH@Z",
+        "?Unknown_62F5B0@SlotDataInterface@@QAEX_N@Z",
+        "??0NameClass@@QAE@PBD@Z",
+        "?Get_Lookup@DeltaCompoundClass@@QAEPAVLookupClass@@XZ",
+        "?Find@LookupClass@@QAEPAVDeltaClass@@ABVNameClass@@@Z",
+        "?G_Assert_Report@@YAXPBD0H@Z",
+        "?Is_Validity_Attempt@@YA_NW4UnknownB01394Enum@@@Z",
+        "?Unknown_5B1AF0@UIManuClass@@QAEXH_NPBD@Z",
+        "?Play_2D_Sound@SoundLibraryClass@@SAPAVAudibleSoundClass@@PBDH@Z",
+        "??0NameClass@@QAE@PBD@Z",
+        "?Unknown_Find_Set_List@@YAPAVUIManuListClass@@PAVDeltaCompoundClass@@ABVNameClass@@@Z",
+        "?Unknown_5B3260@UIManuClass@@QAEXPAVUIManuListClass@@@Z",
+        "?Unknown_5B3580@UIManuClass@@QAEX_N@Z",
+        "?Unknown_5B2480@UIManuClass@@QAEXXZ",
+        "?Unknown_5B4850@UIManuClass@@QAEXXZ",
+        "?Unknown_5B39B0@UIManuClass@@QAEXH@Z",
+        "?Unknown_5B2230@UIManuClass@@QAEXXZ",
+        "?Unknown_5B2480@UIManuClass@@QAEXXZ",
+        "__ftol",
+        "?Unknown_5B2230@UIManuClass@@QAEXXZ",
+        "?Unknown_60@Unknown5BB320Class@@UAEXXZ",
+        "?Unknown_5B7880@UIManuUnknownC0Class@@QAEXXZ",
+        "__allmul"
+      ],
+      "code_group": "37eb955579a0",
+      "exact": false,
+      "kind": "new_valid_hypothesis",
+      "file_address_pair_count": 141,
+      "file_address_pairs_gained": [],
+      "file_address_pairs_lost": [],
+      "summary": "5B1230/runs/b4-055mkrhf/summary.json",
+      "patch_replay_sha256_verified": true
+    },
+    {
+      "name": "refresh_static_off_value",
+      "compiled": true,
+      "target_exact": false,
+      "source_sha256": "c1af743d2faa53cbbfbfedc3d79557b65283b2d78e5cac76a5892aeb9c90b274",
+      "lost_addresses": [
+        "0x5B1C20",
+        "0x5B2060",
+        "0x5B3260",
+        "0x5B67C0",
+        "0x5B6A80",
+        "0x5B6CA0"
+      ],
+      "gained_addresses": [],
+      "error": null,
+      "class": "relocation",
+      "residue": 89,
+      "regs": 57,
+      "instructions": [
+        282,
+        255
+      ],
+      "frames": [
+        [
+          "0x40",
+          false,
+          false
+        ],
+        [
+          "0x3c",
+          false,
+          false
+        ]
+      ],
+      "direct_call_symbols": [
+        "?Unknown_5B5320@UIManuClass@@QAEXXZ",
+        "?Unknown_5B1AF0@UIManuClass@@QAEXH_NPBD@Z",
+        "??0NameClass@@QAE@PBD@Z",
+        "?Get_Lookup@DeltaCompoundClass@@QAEPAVLookupClass@@XZ",
+        "?Find@LookupClass@@QAEPAVDeltaClass@@ABVNameClass@@@Z",
+        "?G_Assert_Report@@YAXPBD0H@Z",
+        "?Unknown_5B4680@UIManuClass@@QAEXXZ",
+        "?Unknown_5B8DF0@UIMeshClass@@QAEXHPBD_N11HH@Z",
+        "?Unknown_62F5B0@SlotDataInterface@@QAEX_N@Z",
+        "??0NameClass@@QAE@PBD@Z",
+        "?Get_Lookup@DeltaCompoundClass@@QAEPAVLookupClass@@XZ",
+        "?Find@LookupClass@@QAEPAVDeltaClass@@ABVNameClass@@@Z",
+        "?G_Assert_Report@@YAXPBD0H@Z",
+        "?Is_Validity_Attempt@@YA_NW4UnknownB01394Enum@@@Z",
+        "?Unknown_5B1AF0@UIManuClass@@QAEXH_NPBD@Z",
+        "?Play_2D_Sound@SoundLibraryClass@@SAPAVAudibleSoundClass@@PBDH@Z",
+        "??0NameClass@@QAE@PBD@Z",
+        "?Unknown_Find_Set_List@@YAPAVUIManuListClass@@PAVDeltaCompoundClass@@ABVNameClass@@@Z",
+        "?Unknown_5B3260@UIManuClass@@QAEXPAVUIManuListClass@@@Z",
+        "?Unknown_5B3580@UIManuClass@@QAEX_N@Z",
+        "?Unknown_5B2480@UIManuClass@@QAEXXZ",
+        "?Unknown_5B4850@UIManuClass@@QAEXXZ",
+        "?Unknown_5B39B0@UIManuClass@@QAEXH@Z",
+        "?Unknown_5B2230@UIManuClass@@QAEXXZ",
+        "?Unknown_5B2480@UIManuClass@@QAEXXZ",
+        "__ftol",
+        "?Unknown_5B2230@UIManuClass@@QAEXXZ",
+        "?Unknown_60@Unknown5BB320Class@@UAEXXZ",
+        "?Unknown_5B7880@UIManuUnknownC0Class@@QAEXXZ",
+        "__allmul"
+      ],
+      "code_group": "01a1b8d63d39",
+      "exact": false,
+      "kind": "new_valid_hypothesis",
+      "file_address_pair_count": 135,
+      "file_address_pairs_gained": [],
+      "file_address_pairs_lost": [
+        [
+          "app/client/ui_manu.cpp",
+          "0x5B1C20"
+        ],
+        [
+          "app/client/ui_manu.cpp",
+          "0x5B2060"
+        ],
+        [
+          "app/client/ui_manu.cpp",
+          "0x5B3260"
+        ],
+        [
+          "app/client/ui_manu.cpp",
+          "0x5B67C0"
+        ],
+        [
+          "app/client/ui_manu.cpp",
+          "0x5B6A80"
+        ],
+        [
+          "app/client/ui_manu.cpp",
+          "0x5B6CA0"
+        ]
+      ],
+      "summary": "5B1230/runs/b4-055mkrhf/summary.json",
+      "patch_replay_sha256_verified": true
+    },
+    {
+      "name": "refresh_static_explicit_on",
+      "compiled": true,
+      "target_exact": false,
+      "source_sha256": "e6555b0d00b9c50b839a834827c8614ffb5f73a4b023d7e3d9a14beafacd1201",
+      "lost_addresses": [
+        "0x5B1C20",
+        "0x5B2060",
+        "0x5B3260",
+        "0x5B67C0",
+        "0x5B6A80",
+        "0x5B6CA0"
+      ],
+      "gained_addresses": [],
+      "error": null,
+      "class": "relocation",
+      "residue": 91,
+      "regs": 59,
+      "instructions": [
+        278,
+        255
+      ],
+      "frames": [
+        [
+          "0x3c",
+          false,
+          false
+        ],
+        [
+          "0x3c",
+          false,
+          false
+        ]
+      ],
+      "direct_call_symbols": [
+        "?Unknown_5B5320@UIManuClass@@QAEXXZ",
+        "?Unknown_5B1AF0@UIManuClass@@QAEXH_NPBD@Z",
+        "??0NameClass@@QAE@PBD@Z",
+        "?Get_Lookup@DeltaCompoundClass@@QAEPAVLookupClass@@XZ",
+        "?Find@LookupClass@@QAEPAVDeltaClass@@ABVNameClass@@@Z",
+        "?G_Assert_Report@@YAXPBD0H@Z",
+        "?Unknown_5B4680@UIManuClass@@QAEXXZ",
+        "?Unknown_5B8DF0@UIMeshClass@@QAEXHPBD_N11HH@Z",
+        "?Unknown_62F5B0@SlotDataInterface@@QAEX_N@Z",
+        "??0NameClass@@QAE@PBD@Z",
+        "?Get_Lookup@DeltaCompoundClass@@QAEPAVLookupClass@@XZ",
+        "?Find@LookupClass@@QAEPAVDeltaClass@@ABVNameClass@@@Z",
+        "?G_Assert_Report@@YAXPBD0H@Z",
+        "?Is_Validity_Attempt@@YA_NW4UnknownB01394Enum@@@Z",
+        "?Unknown_5B1AF0@UIManuClass@@QAEXH_NPBD@Z",
+        "?Play_2D_Sound@SoundLibraryClass@@SAPAVAudibleSoundClass@@PBDH@Z",
+        "??0NameClass@@QAE@PBD@Z",
+        "?Unknown_Find_Set_List@@YAPAVUIManuListClass@@PAVDeltaCompoundClass@@ABVNameClass@@@Z",
+        "?Unknown_5B3260@UIManuClass@@QAEXPAVUIManuListClass@@@Z",
+        "?Unknown_5B3580@UIManuClass@@QAEX_N@Z",
+        "?Unknown_5B2480@UIManuClass@@QAEXXZ",
+        "?Unknown_5B4850@UIManuClass@@QAEXXZ",
+        "?Unknown_5B39B0@UIManuClass@@QAEXH@Z",
+        "?Unknown_5B2230@UIManuClass@@QAEXXZ",
+        "?Unknown_5B2480@UIManuClass@@QAEXXZ",
+        "__ftol",
+        "?Unknown_5B2230@UIManuClass@@QAEXXZ",
+        "?Unknown_60@Unknown5BB320Class@@UAEXXZ",
+        "?Unknown_5B7880@UIManuUnknownC0Class@@QAEXXZ",
+        "__allmul"
+      ],
+      "code_group": "a9c3b40bd678",
+      "exact": false,
+      "kind": "new_valid_hypothesis",
+      "file_address_pair_count": 135,
+      "file_address_pairs_gained": [],
+      "file_address_pairs_lost": [
+        [
+          "app/client/ui_manu.cpp",
+          "0x5B1C20"
+        ],
+        [
+          "app/client/ui_manu.cpp",
+          "0x5B2060"
+        ],
+        [
+          "app/client/ui_manu.cpp",
+          "0x5B3260"
+        ],
+        [
+          "app/client/ui_manu.cpp",
+          "0x5B67C0"
+        ],
+        [
+          "app/client/ui_manu.cpp",
+          "0x5B6A80"
+        ],
+        [
+          "app/client/ui_manu.cpp",
+          "0x5B6CA0"
+        ]
+      ],
+      "summary": "5B1230/runs/b4-055mkrhf/summary.json",
+      "patch_replay_sha256_verified": true
+    },
+    {
+      "name": "set_root_field_references",
+      "compiled": true,
+      "target_exact": false,
+      "source_sha256": "b028469db9070de900abbdf6ce9d81b7f1db605da5a700590de753591992d82e",
+      "lost_addresses": [],
+      "gained_addresses": [],
+      "error": null,
+      "class": "relocation",
+      "residue": 71,
+      "regs": 43,
+      "instructions": [
+        262,
+        255
+      ],
+      "frames": [
+        [
+          "0x70",
+          false,
+          false
+        ],
+        [
+          "0x3c",
+          false,
+          false
+        ]
+      ],
+      "direct_call_symbols": [
+        "?Unknown_5B5320@UIManuClass@@QAEXXZ",
+        "?Unknown_5B1AF0@UIManuClass@@QAEXH_NPBD@Z",
+        "??0NameClass@@QAE@PBD@Z",
+        "?Get_Lookup@DeltaCompoundClass@@QAEPAVLookupClass@@XZ",
+        "?Find@LookupClass@@QAEPAVDeltaClass@@ABVNameClass@@@Z",
+        "?G_Assert_Report@@YAXPBD0H@Z",
+        "?Unknown_5B4680@UIManuClass@@QAEXXZ",
+        "?Unknown_5B8DF0@UIMeshClass@@QAEXHPBD_N11HH@Z",
+        "?Unknown_62F5B0@SlotDataInterface@@QAEX_N@Z",
+        "??0NameClass@@QAE@PBD@Z",
+        "?Get_Lookup@DeltaCompoundClass@@QAEPAVLookupClass@@XZ",
+        "?Find@LookupClass@@QAEPAVDeltaClass@@ABVNameClass@@@Z",
+        "?G_Assert_Report@@YAXPBD0H@Z",
+        "?Is_Validity_Attempt@@YA_NW4UnknownB01394Enum@@@Z",
+        "?Unknown_5B1AF0@UIManuClass@@QAEXH_NPBD@Z",
+        "?Play_2D_Sound@SoundLibraryClass@@SAPAVAudibleSoundClass@@PBDH@Z",
+        "?Unknown_Find_Valid_List@UIManuClass@@QAEPAVUIManuListClass@@PBD@Z",
+        "?Unknown_5B3260@UIManuClass@@QAEXPAVUIManuListClass@@@Z",
+        "?Unknown_5B6CA0@UIManuClass@@QAEXXZ",
+        "??0NameClass@@QAE@PBD@Z",
+        "?Unknown_Find_Set_List@@YAPAVUIManuListClass@@PAVDeltaCompoundClass@@ABVNameClass@@@Z",
+        "?Unknown_5B3260@UIManuClass@@QAEXPAVUIManuListClass@@@Z",
+        "?Unknown_5B2480@UIManuClass@@QAEXXZ",
+        "?Unknown_5B4850@UIManuClass@@QAEXXZ",
+        "?Unknown_5B39B0@UIManuClass@@QAEXH@Z",
+        "?Unknown_5B2230@UIManuClass@@QAEXXZ",
+        "?Unknown_5B2480@UIManuClass@@QAEXXZ",
+        "__ftol",
+        "?Unknown_5B2230@UIManuClass@@QAEXXZ",
+        "?Unknown_60@Unknown5BB320Class@@UAEXXZ",
+        "?Unknown_5B7880@UIManuUnknownC0Class@@QAEXXZ",
+        "__allmul"
+      ],
+      "code_group": "d693cf194000",
+      "exact": false,
+      "kind": "new_valid_hypothesis",
+      "file_address_pair_count": 141,
+      "file_address_pairs_gained": [],
+      "file_address_pairs_lost": [],
+      "summary": "5B1230/runs/b5-v45krddy/summary.json",
+      "patch_replay_sha256_verified": true
+    },
+    {
+      "name": "set_validity_value_argument",
+      "compiled": true,
+      "target_exact": false,
+      "source_sha256": "a62082be26f6ff7a9a0799a857fb6761db99eedb9170f6810f37a3a38df5ca33",
+      "lost_addresses": [],
+      "gained_addresses": [],
+      "error": null,
+      "class": "relocation",
+      "residue": 55,
+      "regs": 43,
+      "instructions": [
+        262,
+        255
+      ],
+      "frames": [
+        [
+          "0x70",
+          false,
+          false
+        ],
+        [
+          "0x3c",
+          false,
+          false
+        ]
+      ],
+      "direct_call_symbols": [
+        "?Unknown_5B5320@UIManuClass@@QAEXXZ",
+        "?Unknown_5B1AF0@UIManuClass@@QAEXH_NPBD@Z",
+        "??0NameClass@@QAE@PBD@Z",
+        "?Get_Lookup@DeltaCompoundClass@@QAEPAVLookupClass@@XZ",
+        "?Find@LookupClass@@QAEPAVDeltaClass@@ABVNameClass@@@Z",
+        "?G_Assert_Report@@YAXPBD0H@Z",
+        "?Unknown_5B4680@UIManuClass@@QAEXXZ",
+        "?Unknown_5B8DF0@UIMeshClass@@QAEXHPBD_N11HH@Z",
+        "?Unknown_62F5B0@SlotDataInterface@@QAEX_N@Z",
+        "??0NameClass@@QAE@PBD@Z",
+        "?Get_Lookup@DeltaCompoundClass@@QAEPAVLookupClass@@XZ",
+        "?Find@LookupClass@@QAEPAVDeltaClass@@ABVNameClass@@@Z",
+        "?G_Assert_Report@@YAXPBD0H@Z",
+        "?Is_Validity_Attempt@@YA_NW4UnknownB01394Enum@@@Z",
+        "?Unknown_5B1AF0@UIManuClass@@QAEXH_NPBD@Z",
+        "?Play_2D_Sound@SoundLibraryClass@@SAPAVAudibleSoundClass@@PBDH@Z",
+        "?Unknown_Find_Valid_List@UIManuClass@@QAEPAVUIManuListClass@@PBD@Z",
+        "?Unknown_5B3260@UIManuClass@@QAEXPAVUIManuListClass@@@Z",
+        "?Unknown_5B6CA0@UIManuClass@@QAEXXZ",
+        "??0NameClass@@QAE@PBD@Z",
+        "?Unknown_Find_Set_List@@YAPAVUIManuListClass@@PAVDeltaCompoundClass@@ABVNameClass@@@Z",
+        "?Unknown_5B3260@UIManuClass@@QAEXPAVUIManuListClass@@@Z",
+        "?Unknown_5B2480@UIManuClass@@QAEXXZ",
+        "?Unknown_5B4850@UIManuClass@@QAEXXZ",
+        "?Unknown_5B39B0@UIManuClass@@QAEXH@Z",
+        "?Unknown_5B2230@UIManuClass@@QAEXXZ",
+        "?Unknown_5B2480@UIManuClass@@QAEXXZ",
+        "__ftol",
+        "?Unknown_5B2230@UIManuClass@@QAEXXZ",
+        "?Unknown_60@Unknown5BB320Class@@UAEXXZ",
+        "?Unknown_5B7880@UIManuUnknownC0Class@@QAEXXZ",
+        "__allmul"
+      ],
+      "code_group": "21c979c09ab3",
+      "exact": false,
+      "kind": "new_valid_hypothesis",
+      "file_address_pair_count": 141,
+      "file_address_pairs_gained": [],
+      "file_address_pairs_lost": [],
+      "summary": "5B1230/runs/b5-v45krddy/summary.json",
+      "patch_replay_sha256_verified": true
+    },
+    {
+      "name": "set_remaining_value",
+      "compiled": true,
+      "target_exact": false,
+      "source_sha256": "2d53e455d08f50d929d61939a67cf545c8fa2230a42f14ebea557f29a8446f58",
+      "lost_addresses": [],
+      "gained_addresses": [],
+      "error": null,
+      "class": "relocation",
+      "residue": 71,
+      "regs": 43,
+      "instructions": [
+        262,
+        255
+      ],
+      "frames": [
+        [
+          "0x70",
+          false,
+          false
+        ],
+        [
+          "0x3c",
+          false,
+          false
+        ]
+      ],
+      "direct_call_symbols": [
+        "?Unknown_5B5320@UIManuClass@@QAEXXZ",
+        "?Unknown_5B1AF0@UIManuClass@@QAEXH_NPBD@Z",
+        "??0NameClass@@QAE@PBD@Z",
+        "?Get_Lookup@DeltaCompoundClass@@QAEPAVLookupClass@@XZ",
+        "?Find@LookupClass@@QAEPAVDeltaClass@@ABVNameClass@@@Z",
+        "?G_Assert_Report@@YAXPBD0H@Z",
+        "?Unknown_5B4680@UIManuClass@@QAEXXZ",
+        "?Unknown_5B8DF0@UIMeshClass@@QAEXHPBD_N11HH@Z",
+        "?Unknown_62F5B0@SlotDataInterface@@QAEX_N@Z",
+        "??0NameClass@@QAE@PBD@Z",
+        "?Get_Lookup@DeltaCompoundClass@@QAEPAVLookupClass@@XZ",
+        "?Find@LookupClass@@QAEPAVDeltaClass@@ABVNameClass@@@Z",
+        "?G_Assert_Report@@YAXPBD0H@Z",
+        "?Is_Validity_Attempt@@YA_NW4UnknownB01394Enum@@@Z",
+        "?Unknown_5B1AF0@UIManuClass@@QAEXH_NPBD@Z",
+        "?Play_2D_Sound@SoundLibraryClass@@SAPAVAudibleSoundClass@@PBDH@Z",
+        "?Unknown_Find_Valid_List@UIManuClass@@QAEPAVUIManuListClass@@PBD@Z",
+        "?Unknown_5B3260@UIManuClass@@QAEXPAVUIManuListClass@@@Z",
+        "?Unknown_5B6CA0@UIManuClass@@QAEXXZ",
+        "??0NameClass@@QAE@PBD@Z",
+        "?Unknown_Find_Set_List@@YAPAVUIManuListClass@@PAVDeltaCompoundClass@@ABVNameClass@@@Z",
+        "?Unknown_5B3260@UIManuClass@@QAEXPAVUIManuListClass@@@Z",
+        "?Unknown_5B2480@UIManuClass@@QAEXXZ",
+        "?Unknown_5B4850@UIManuClass@@QAEXXZ",
+        "?Unknown_5B39B0@UIManuClass@@QAEXH@Z",
+        "?Unknown_5B2230@UIManuClass@@QAEXXZ",
+        "?Unknown_5B2480@UIManuClass@@QAEXXZ",
+        "__ftol",
+        "?Unknown_5B2230@UIManuClass@@QAEXXZ",
+        "?Unknown_60@Unknown5BB320Class@@UAEXXZ",
+        "?Unknown_5B7880@UIManuUnknownC0Class@@QAEXXZ",
+        "__allmul"
+      ],
+      "code_group": "d693cf194000",
+      "exact": false,
+      "kind": "new_valid_hypothesis",
+      "file_address_pair_count": 141,
+      "file_address_pairs_gained": [],
+      "file_address_pairs_lost": [],
+      "summary": "5B1230/runs/b5-v45krddy/summary.json",
+      "patch_replay_sha256_verified": true
+    },
+    {
+      "name": "validity_argument_original",
+      "compiled": true,
+      "target_exact": false,
+      "source_sha256": "a1af576451a7742e016327b103f7daa307f335a2bc29104c6544a137098b3932",
+      "lost_addresses": [],
+      "gained_addresses": [],
+      "error": null,
+      "class": "relocation",
+      "residue": 73,
+      "regs": 54,
+      "instructions": [
+        272,
+        255
+      ],
+      "frames": [
+        [
+          "0x3c",
+          false,
+          false
+        ],
+        [
+          "0x3c",
+          false,
+          false
+        ]
+      ],
+      "direct_call_symbols": [
+        "?Unknown_5B5320@UIManuClass@@QAEXXZ",
+        "?Unknown_5B1AF0@UIManuClass@@QAEXH_NPBD@Z",
+        "??0NameClass@@QAE@PBD@Z",
+        "?Get_Lookup@DeltaCompoundClass@@QAEPAVLookupClass@@XZ",
+        "?Find@LookupClass@@QAEPAVDeltaClass@@ABVNameClass@@@Z",
+        "?G_Assert_Report@@YAXPBD0H@Z",
+        "?Unknown_5B4680@UIManuClass@@QAEXXZ",
+        "?Unknown_5B8DF0@UIMeshClass@@QAEXHPBD_N11HH@Z",
+        "?Unknown_62F5B0@SlotDataInterface@@QAEX_N@Z",
+        "??0NameClass@@QAE@PBD@Z",
+        "?Get_Lookup@DeltaCompoundClass@@QAEPAVLookupClass@@XZ",
+        "?Find@LookupClass@@QAEPAVDeltaClass@@ABVNameClass@@@Z",
+        "?G_Assert_Report@@YAXPBD0H@Z",
+        "?Is_Validity_Attempt@@YA_NW4UnknownB01394Enum@@@Z",
+        "?Unknown_5B1AF0@UIManuClass@@QAEXH_NPBD@Z",
+        "?Play_2D_Sound@SoundLibraryClass@@SAPAVAudibleSoundClass@@PBDH@Z",
+        "?Unknown_Find_Valid_List@UIManuClass@@QAEPAVUIManuListClass@@PBD@Z",
+        "?Unknown_5B3260@UIManuClass@@QAEXPAVUIManuListClass@@@Z",
+        "?Unknown_5B3580@UIManuClass@@QAEX_N@Z",
+        "?Unknown_5B2480@UIManuClass@@QAEXXZ",
+        "?Unknown_5B4850@UIManuClass@@QAEXXZ",
+        "?Unknown_5B39B0@UIManuClass@@QAEXH@Z",
+        "?Unknown_5B2230@UIManuClass@@QAEXXZ",
+        "?Unknown_5B2480@UIManuClass@@QAEXXZ",
+        "__ftol",
+        "?Unknown_5B2230@UIManuClass@@QAEXXZ",
+        "?Unknown_60@Unknown5BB320Class@@UAEXXZ",
+        "?Unknown_5B7880@UIManuUnknownC0Class@@QAEXXZ",
+        "__allmul"
+      ],
+      "code_group": "1ab1093113fc",
+      "exact": false,
+      "kind": "new_valid_hypothesis",
+      "file_address_pair_count": 141,
+      "file_address_pairs_gained": [],
+      "file_address_pairs_lost": [],
+      "summary": "5B1230/runs/b6-7flnk4bf/summary.json",
+      "patch_replay_sha256_verified": true
+    },
+    {
+      "name": "set_validity_force_argument",
+      "compiled": true,
+      "target_exact": false,
+      "source_sha256": "dbe7a1b9e17397254a4761d13851d8e438ce9d262608ffb52f624bc3678888f6",
+      "lost_addresses": [],
+      "gained_addresses": [],
+      "error": null,
+      "class": "relocation",
+      "residue": 63,
+      "regs": 45,
+      "instructions": [
+        232,
+        255
+      ],
+      "frames": [
+        [
+          "0x3c",
+          false,
+          false
+        ],
+        [
+          "0x3c",
+          false,
+          false
+        ]
+      ],
+      "direct_call_symbols": [
+        "?Unknown_5B5320@UIManuClass@@QAEXXZ",
+        "?Unknown_5B1AF0@UIManuClass@@QAEXH_NPBD@Z",
+        "??0NameClass@@QAE@PBD@Z",
+        "?Get_Lookup@DeltaCompoundClass@@QAEPAVLookupClass@@XZ",
+        "?Find@LookupClass@@QAEPAVDeltaClass@@ABVNameClass@@@Z",
+        "?G_Assert_Report@@YAXPBD0H@Z",
+        "?Unknown_5B4680@UIManuClass@@QAEXXZ",
+        "?Unknown_5B8DF0@UIMeshClass@@QAEXHPBD_N11HH@Z",
+        "?Unknown_62F5B0@SlotDataInterface@@QAEX_N@Z",
+        "??0NameClass@@QAE@PBD@Z",
+        "?Get_Lookup@DeltaCompoundClass@@QAEPAVLookupClass@@XZ",
+        "?Find@LookupClass@@QAEPAVDeltaClass@@ABVNameClass@@@Z",
+        "?G_Assert_Report@@YAXPBD0H@Z",
+        "?Is_Validity_Attempt@@YA_NW4UnknownB01394Enum@@@Z",
+        "?Unknown_5B1AF0@UIManuClass@@QAEXH_NPBD@Z",
+        "?Play_2D_Sound@SoundLibraryClass@@SAPAVAudibleSoundClass@@PBDH@Z",
+        "?Unknown_5B3640@UIManuClass@@QAEX_N@Z",
+        "?Unknown_5B39B0@UIManuClass@@QAEXH@Z",
+        "?Unknown_5B2230@UIManuClass@@QAEXXZ",
+        "?Unknown_5B2480@UIManuClass@@QAEXXZ",
+        "__ftol",
+        "?Unknown_5B2230@UIManuClass@@QAEXXZ",
+        "?Unknown_60@Unknown5BB320Class@@UAEXXZ",
+        "?Unknown_5B7880@UIManuUnknownC0Class@@QAEXXZ",
+        "__allmul"
+      ],
+      "code_group": "a94bf9bc009f",
+      "exact": false,
+      "kind": "new_valid_hypothesis",
+      "file_address_pair_count": 141,
+      "file_address_pairs_gained": [],
+      "file_address_pairs_lost": [],
+      "summary": "5B1230/runs/b6-7flnk4bf/summary.json",
+      "patch_replay_sha256_verified": true
+    },
+    {
+      "name": "set_validity_field_argument",
+      "compiled": true,
+      "target_exact": false,
+      "source_sha256": "be6fceaca5def64e9d126d3f3b1861e2c12419c2d3c950a3c2013c631303af0f",
+      "lost_addresses": [],
+      "gained_addresses": [],
+      "error": null,
+      "class": "relocation",
+      "residue": 55,
+      "regs": 43,
+      "instructions": [
+        262,
+        255
+      ],
+      "frames": [
+        [
+          "0x70",
+          false,
+          false
+        ],
+        [
+          "0x3c",
+          false,
+          false
+        ]
+      ],
+      "direct_call_symbols": [
+        "?Unknown_5B5320@UIManuClass@@QAEXXZ",
+        "?Unknown_5B1AF0@UIManuClass@@QAEXH_NPBD@Z",
+        "??0NameClass@@QAE@PBD@Z",
+        "?Get_Lookup@DeltaCompoundClass@@QAEPAVLookupClass@@XZ",
+        "?Find@LookupClass@@QAEPAVDeltaClass@@ABVNameClass@@@Z",
+        "?G_Assert_Report@@YAXPBD0H@Z",
+        "?Unknown_5B4680@UIManuClass@@QAEXXZ",
+        "?Unknown_5B8DF0@UIMeshClass@@QAEXHPBD_N11HH@Z",
+        "?Unknown_62F5B0@SlotDataInterface@@QAEX_N@Z",
+        "??0NameClass@@QAE@PBD@Z",
+        "?Get_Lookup@DeltaCompoundClass@@QAEPAVLookupClass@@XZ",
+        "?Find@LookupClass@@QAEPAVDeltaClass@@ABVNameClass@@@Z",
+        "?G_Assert_Report@@YAXPBD0H@Z",
+        "?Is_Validity_Attempt@@YA_NW4UnknownB01394Enum@@@Z",
+        "?Unknown_5B1AF0@UIManuClass@@QAEXH_NPBD@Z",
+        "?Play_2D_Sound@SoundLibraryClass@@SAPAVAudibleSoundClass@@PBDH@Z",
+        "?Unknown_Find_Valid_List@UIManuClass@@QAEPAVUIManuListClass@@PBD@Z",
+        "?Unknown_5B3260@UIManuClass@@QAEXPAVUIManuListClass@@@Z",
+        "?Unknown_5B6CA0@UIManuClass@@QAEXXZ",
+        "??0NameClass@@QAE@PBD@Z",
+        "?Unknown_Find_Set_List@@YAPAVUIManuListClass@@PAVDeltaCompoundClass@@ABVNameClass@@@Z",
+        "?Unknown_5B3260@UIManuClass@@QAEXPAVUIManuListClass@@@Z",
+        "?Unknown_5B2480@UIManuClass@@QAEXXZ",
+        "?Unknown_5B4850@UIManuClass@@QAEXXZ",
+        "?Unknown_5B39B0@UIManuClass@@QAEXH@Z",
+        "?Unknown_5B2230@UIManuClass@@QAEXXZ",
+        "?Unknown_5B2480@UIManuClass@@QAEXXZ",
+        "__ftol",
+        "?Unknown_5B2230@UIManuClass@@QAEXXZ",
+        "?Unknown_60@Unknown5BB320Class@@UAEXXZ",
+        "?Unknown_5B7880@UIManuUnknownC0Class@@QAEXXZ",
+        "__allmul"
+      ],
+      "code_group": "21c979c09ab3",
+      "exact": false,
+      "kind": "new_valid_hypothesis",
+      "file_address_pair_count": 141,
+      "file_address_pairs_gained": [],
+      "file_address_pairs_lost": [],
+      "summary": "5B1230/runs/b6-7flnk4bf/summary.json",
+      "patch_replay_sha256_verified": true
+    },
+    {
+      "name": "set_validity_force_and_field",
+      "compiled": true,
+      "target_exact": false,
+      "source_sha256": "0c00b2453e6496485bd7cd04b75fd2e58607d87532e1b6c641a4503e3e3fec0f",
+      "lost_addresses": [],
+      "gained_addresses": [],
+      "error": null,
+      "class": "relocation",
+      "residue": 63,
+      "regs": 45,
+      "instructions": [
+        232,
+        255
+      ],
+      "frames": [
+        [
+          "0x3c",
+          false,
+          false
+        ],
+        [
+          "0x3c",
+          false,
+          false
+        ]
+      ],
+      "direct_call_symbols": [
+        "?Unknown_5B5320@UIManuClass@@QAEXXZ",
+        "?Unknown_5B1AF0@UIManuClass@@QAEXH_NPBD@Z",
+        "??0NameClass@@QAE@PBD@Z",
+        "?Get_Lookup@DeltaCompoundClass@@QAEPAVLookupClass@@XZ",
+        "?Find@LookupClass@@QAEPAVDeltaClass@@ABVNameClass@@@Z",
+        "?G_Assert_Report@@YAXPBD0H@Z",
+        "?Unknown_5B4680@UIManuClass@@QAEXXZ",
+        "?Unknown_5B8DF0@UIMeshClass@@QAEXHPBD_N11HH@Z",
+        "?Unknown_62F5B0@SlotDataInterface@@QAEX_N@Z",
+        "??0NameClass@@QAE@PBD@Z",
+        "?Get_Lookup@DeltaCompoundClass@@QAEPAVLookupClass@@XZ",
+        "?Find@LookupClass@@QAEPAVDeltaClass@@ABVNameClass@@@Z",
+        "?G_Assert_Report@@YAXPBD0H@Z",
+        "?Is_Validity_Attempt@@YA_NW4UnknownB01394Enum@@@Z",
+        "?Unknown_5B1AF0@UIManuClass@@QAEXH_NPBD@Z",
+        "?Play_2D_Sound@SoundLibraryClass@@SAPAVAudibleSoundClass@@PBDH@Z",
+        "?Unknown_5B3640@UIManuClass@@QAEX_N@Z",
+        "?Unknown_5B39B0@UIManuClass@@QAEXH@Z",
+        "?Unknown_5B2230@UIManuClass@@QAEXXZ",
+        "?Unknown_5B2480@UIManuClass@@QAEXXZ",
+        "__ftol",
+        "?Unknown_5B2230@UIManuClass@@QAEXXZ",
+        "?Unknown_60@Unknown5BB320Class@@UAEXXZ",
+        "?Unknown_5B7880@UIManuUnknownC0Class@@QAEXXZ",
+        "__allmul"
+      ],
+      "code_group": "a94bf9bc009f",
+      "exact": false,
+      "kind": "new_valid_hypothesis",
+      "file_address_pair_count": 141,
+      "file_address_pairs_gained": [],
+      "file_address_pairs_lost": [],
+      "summary": "5B1230/runs/b6-7flnk4bf/summary.json",
+      "patch_replay_sha256_verified": true
+    },
+    {
+      "name": "baseline",
+      "compiled": true,
+      "target_exact": false,
+      "source_sha256": "18c3ce1e3b106730fa095679ac44c244f3d31e7399543ffc4c97bfeb08c7e409",
+      "lost_addresses": [],
+      "gained_addresses": [],
+      "error": null,
+      "class": "relocation",
+      "residue": 77,
+      "regs": 54,
+      "instructions": [
+        272,
+        255
+      ],
+      "frames": [
+        [
+          "0x3c",
+          false,
+          false
+        ],
+        [
+          "0x3c",
+          false,
+          false
+        ]
+      ],
+      "direct_call_symbols": [
+        "?Unknown_5B5320@UIManuClass@@QAEXXZ",
+        "?Unknown_5B1AF0@UIManuClass@@QAEXH_NPBD@Z",
+        "??0NameClass@@QAE@PBD@Z",
+        "?Get_Lookup@DeltaCompoundClass@@QAEPAVLookupClass@@XZ",
+        "?Find@LookupClass@@QAEPAVDeltaClass@@ABVNameClass@@@Z",
+        "?G_Assert_Report@@YAXPBD0H@Z",
+        "?Unknown_5B4680@UIManuClass@@QAEXXZ",
+        "?Unknown_5B8DF0@UIMeshClass@@QAEXHPBD_N11HH@Z",
+        "?Unknown_62F5B0@SlotDataInterface@@QAEX_N@Z",
+        "??0NameClass@@QAE@PBD@Z",
+        "?Get_Lookup@DeltaCompoundClass@@QAEPAVLookupClass@@XZ",
+        "?Find@LookupClass@@QAEPAVDeltaClass@@ABVNameClass@@@Z",
+        "?G_Assert_Report@@YAXPBD0H@Z",
+        "?Is_Validity_Attempt@@YA_NW4UnknownB01394Enum@@@Z",
+        "?Unknown_5B1AF0@UIManuClass@@QAEXH_NPBD@Z",
+        "?Play_2D_Sound@SoundLibraryClass@@SAPAVAudibleSoundClass@@PBDH@Z",
+        "?Unknown_Find_Valid_List@UIManuClass@@QAEPAVUIManuListClass@@PBD@Z",
+        "?Unknown_5B3260@UIManuClass@@QAEXPAVUIManuListClass@@@Z",
+        "?Unknown_5B3580@UIManuClass@@QAEX_N@Z",
+        "?Unknown_5B2480@UIManuClass@@QAEXXZ",
+        "?Unknown_5B4850@UIManuClass@@QAEXXZ",
+        "?Unknown_5B39B0@UIManuClass@@QAEXH@Z",
+        "?Unknown_5B2230@UIManuClass@@QAEXXZ",
+        "?Unknown_5B2480@UIManuClass@@QAEXXZ",
+        "__ftol",
+        "?Unknown_5B2230@UIManuClass@@QAEXXZ",
+        "?Unknown_60@Unknown5BB320Class@@UAEXXZ",
+        "?Unknown_5B7880@UIManuUnknownC0Class@@QAEXXZ",
+        "__allmul"
+      ],
+      "code_group": "1f1f176c2f0a",
+      "exact": false,
+      "kind": "control",
+      "file_address_pair_count": 141,
+      "file_address_pairs_gained": [],
+      "file_address_pairs_lost": [],
+      "summary": "5B1230/runs/baseline-z46mjxw6/summary.json",
+      "patch_replay_sha256_verified": true
+    },
+    {
+      "name": "components_declared_base",
+      "compiled": true,
+      "target_exact": false,
+      "source_sha256": "b0fb5b484e31593ad079db4c17348ab1856190fa2fa1a031b95190b6b9fe0edc",
+      "lost_addresses": [],
+      "gained_addresses": [],
+      "error": null,
+      "class": "relocation",
+      "residue": 77,
+      "regs": 54,
+      "instructions": [
+        272,
+        255
+      ],
+      "frames": [
+        [
+          "0x3c",
+          false,
+          false
+        ],
+        [
+          "0x3c",
+          false,
+          false
+        ]
+      ],
+      "direct_call_symbols": [
+        "?Unknown_5B5320@UIManuClass@@QAEXXZ",
+        "?Unknown_5B1AF0@UIManuClass@@QAEXH_NPBD@Z",
+        "??0NameClass@@QAE@PBD@Z",
+        "?Get_Lookup@DeltaCompoundClass@@QAEPAVLookupClass@@XZ",
+        "?Find@LookupClass@@QAEPAVDeltaClass@@ABVNameClass@@@Z",
+        "?G_Assert_Report@@YAXPBD0H@Z",
+        "?Unknown_5B4680@UIManuClass@@QAEXXZ",
+        "?Unknown_5B8DF0@UIMeshClass@@QAEXHPBD_N11HH@Z",
+        "?Unknown_62F5B0@SlotDataInterface@@QAEX_N@Z",
+        "??0NameClass@@QAE@PBD@Z",
+        "?Get_Lookup@DeltaCompoundClass@@QAEPAVLookupClass@@XZ",
+        "?Find@LookupClass@@QAEPAVDeltaClass@@ABVNameClass@@@Z",
+        "?G_Assert_Report@@YAXPBD0H@Z",
+        "?Is_Validity_Attempt@@YA_NW4UnknownB01394Enum@@@Z",
+        "?Unknown_5B1AF0@UIManuClass@@QAEXH_NPBD@Z",
+        "?Play_2D_Sound@SoundLibraryClass@@SAPAVAudibleSoundClass@@PBDH@Z",
+        "?Unknown_Find_Valid_List@UIManuClass@@QAEPAVUIManuListClass@@PBD@Z",
+        "?Unknown_5B3260@UIManuClass@@QAEXPAVUIManuListClass@@@Z",
+        "?Unknown_5B3580@UIManuClass@@QAEX_N@Z",
+        "?Unknown_5B2480@UIManuClass@@QAEXXZ",
+        "?Unknown_5B4850@UIManuClass@@QAEXXZ",
+        "?Unknown_5B39B0@UIManuClass@@QAEXH@Z",
+        "?Unknown_5B2230@UIManuClass@@QAEXXZ",
+        "?Unknown_5B2480@UIManuClass@@QAEXXZ",
+        "__ftol",
+        "?Unknown_5B2230@UIManuClass@@QAEXXZ",
+        "?Unknown_60@Unknown5BB320Class@@UAEXXZ",
+        "?Unknown_5B7880@UIManuUnknownC0Class@@QAEXXZ",
+        "__allmul"
+      ],
+      "code_group": "1f1f176c2f0a",
+      "exact": false,
+      "kind": "new_valid_hypothesis",
+      "file_address_pair_count": 141,
+      "file_address_pairs_gained": [],
+      "file_address_pairs_lost": [],
+      "summary": "5B1230/runs/initial-20suz4_9/summary.json",
+      "patch_replay_sha256_verified": true
+    },
+    {
+      "name": "refresh_explicit_find",
+      "compiled": true,
+      "target_exact": false,
+      "source_sha256": "14e4b52199b9d477c809a2954dfe7ad711d0ea2f13df3fde2f5fd33adf4cb611",
+      "lost_addresses": [],
+      "gained_addresses": [],
+      "error": null,
+      "class": "relocation",
+      "residue": 127,
+      "regs": 93,
+      "instructions": [
+        322,
+        255
+      ],
+      "frames": [
+        [
+          "0x3c",
+          false,
+          false
+        ],
+        [
+          "0x3c",
+          false,
+          false
+        ]
+      ],
+      "direct_call_symbols": [
+        "?Unknown_5B5320@UIManuClass@@QAEXXZ",
+        "?Unknown_5B1AF0@UIManuClass@@QAEXH_NPBD@Z",
+        "??0NameClass@@QAE@PBD@Z",
+        "?Get_Lookup@DeltaCompoundClass@@QAEPAVLookupClass@@XZ",
+        "?Find@LookupClass@@QAEPAVDeltaClass@@ABVNameClass@@@Z",
+        "?G_Assert_Report@@YAXPBD0H@Z",
+        "?Unknown_5B4680@UIManuClass@@QAEXXZ",
+        "?Unknown_5B8DF0@UIMeshClass@@QAEXHPBD_N11HH@Z",
+        "?Unknown_62F5B0@SlotDataInterface@@QAEX_N@Z",
+        "??0NameClass@@QAE@PBD@Z",
+        "?Get_Lookup@DeltaCompoundClass@@QAEPAVLookupClass@@XZ",
+        "?Find@LookupClass@@QAEPAVDeltaClass@@ABVNameClass@@@Z",
+        "?G_Assert_Report@@YAXPBD0H@Z",
+        "?Is_Validity_Attempt@@YA_NW4UnknownB01394Enum@@@Z",
+        "?Unknown_5B1AF0@UIManuClass@@QAEXH_NPBD@Z",
+        "?Play_2D_Sound@SoundLibraryClass@@SAPAVAudibleSoundClass@@PBDH@Z",
+        "??0NameClass@@QAE@PBD@Z",
+        "?Get_Lookup@DeltaCompoundClass@@QAEPAVLookupClass@@XZ",
+        "?Find@LookupClass@@QAEPAVDeltaClass@@ABVNameClass@@@Z",
+        "?G_Assert_Report@@YAXPBD0H@Z",
+        "?Unknown_5B3260@UIManuClass@@QAEXPAVUIManuListClass@@@Z",
+        "??0NameClass@@QAE@PBD@Z",
+        "?Get_Lookup@DeltaCompoundClass@@QAEPAVLookupClass@@XZ",
+        "?Find@LookupClass@@QAEPAVDeltaClass@@ABVNameClass@@@Z",
+        "?G_Assert_Report@@YAXPBD0H@Z",
+        "?Unknown_5B3260@UIManuClass@@QAEXPAVUIManuListClass@@@Z",
+        "?Unknown_5B2480@UIManuClass@@QAEXXZ",
+        "?Unknown_5B4850@UIManuClass@@QAEXXZ",
+        "?Unknown_5B39B0@UIManuClass@@QAEXH@Z",
+        "?Unknown_5B2230@UIManuClass@@QAEXXZ",
+        "?Unknown_5B2480@UIManuClass@@QAEXXZ",
+        "__ftol",
+        "?Unknown_5B2230@UIManuClass@@QAEXXZ",
+        "?Unknown_60@Unknown5BB320Class@@UAEXXZ",
+        "?Unknown_5B7880@UIManuUnknownC0Class@@QAEXXZ",
+        "__allmul"
+      ],
+      "code_group": "19b7716fe97c",
+      "exact": false,
+      "kind": "new_valid_hypothesis",
+      "file_address_pair_count": 141,
+      "file_address_pairs_gained": [],
+      "file_address_pairs_lost": [],
+      "summary": "5B1230/runs/initial-20suz4_9/summary.json",
+      "patch_replay_sha256_verified": true
+    },
+    {
+      "name": "refresh_explicit_set_field",
+      "compiled": true,
+      "target_exact": false,
+      "source_sha256": "a891df70f08084a4248fbabdefeeca90b00e4d55a9b7e35ead557c226be0c0ad",
+      "lost_addresses": [],
+      "gained_addresses": [],
+      "error": null,
+      "class": "relocation",
+      "residue": 127,
+      "regs": 93,
+      "instructions": [
+        322,
+        255
+      ],
+      "frames": [
+        [
+          "0x3c",
+          false,
+          false
+        ],
+        [
+          "0x3c",
+          false,
+          false
+        ]
+      ],
+      "direct_call_symbols": [
+        "?Unknown_5B5320@UIManuClass@@QAEXXZ",
+        "?Unknown_5B1AF0@UIManuClass@@QAEXH_NPBD@Z",
+        "??0NameClass@@QAE@PBD@Z",
+        "?Get_Lookup@DeltaCompoundClass@@QAEPAVLookupClass@@XZ",
+        "?Find@LookupClass@@QAEPAVDeltaClass@@ABVNameClass@@@Z",
+        "?G_Assert_Report@@YAXPBD0H@Z",
+        "?Unknown_5B4680@UIManuClass@@QAEXXZ",
+        "?Unknown_5B8DF0@UIMeshClass@@QAEXHPBD_N11HH@Z",
+        "?Unknown_62F5B0@SlotDataInterface@@QAEX_N@Z",
+        "??0NameClass@@QAE@PBD@Z",
+        "?Get_Lookup@DeltaCompoundClass@@QAEPAVLookupClass@@XZ",
+        "?Find@LookupClass@@QAEPAVDeltaClass@@ABVNameClass@@@Z",
+        "?G_Assert_Report@@YAXPBD0H@Z",
+        "?Is_Validity_Attempt@@YA_NW4UnknownB01394Enum@@@Z",
+        "?Unknown_5B1AF0@UIManuClass@@QAEXH_NPBD@Z",
+        "?Play_2D_Sound@SoundLibraryClass@@SAPAVAudibleSoundClass@@PBDH@Z",
+        "??0NameClass@@QAE@PBD@Z",
+        "?Get_Lookup@DeltaCompoundClass@@QAEPAVLookupClass@@XZ",
+        "?Find@LookupClass@@QAEPAVDeltaClass@@ABVNameClass@@@Z",
+        "?G_Assert_Report@@YAXPBD0H@Z",
+        "?Unknown_5B3260@UIManuClass@@QAEXPAVUIManuListClass@@@Z",
+        "??0NameClass@@QAE@PBD@Z",
+        "?Get_Lookup@DeltaCompoundClass@@QAEPAVLookupClass@@XZ",
+        "?Find@LookupClass@@QAEPAVDeltaClass@@ABVNameClass@@@Z",
+        "?G_Assert_Report@@YAXPBD0H@Z",
+        "?Unknown_5B3260@UIManuClass@@QAEXPAVUIManuListClass@@@Z",
+        "?Unknown_5B2480@UIManuClass@@QAEXXZ",
+        "?Unknown_5B4850@UIManuClass@@QAEXXZ",
+        "?Unknown_5B39B0@UIManuClass@@QAEXH@Z",
+        "?Unknown_5B2230@UIManuClass@@QAEXXZ",
+        "?Unknown_5B2480@UIManuClass@@QAEXXZ",
+        "__ftol",
+        "?Unknown_5B2230@UIManuClass@@QAEXXZ",
+        "?Unknown_60@Unknown5BB320Class@@UAEXXZ",
+        "?Unknown_5B7880@UIManuUnknownC0Class@@QAEXXZ",
+        "__allmul"
+      ],
+      "code_group": "19b7716fe97c",
+      "exact": false,
+      "kind": "new_valid_hypothesis",
+      "file_address_pair_count": 141,
+      "file_address_pairs_gained": [],
+      "file_address_pairs_lost": [],
+      "summary": "5B1230/runs/initial-20suz4_9/summary.json",
+      "patch_replay_sha256_verified": true
+    }
+  ]
+}

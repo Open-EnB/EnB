@@ -1,0 +1,12 @@
+{
+  "model": "gpt-6.1-sol (high)",
+  "parts": [
+    "docs/attempts/5B1230/claim267-matched-helper-cross/positive_baseline.json",
+    "docs/attempts/5B1230/claim267-matched-helper-cross/nested_direct_previous.json",
+    "docs/attempts/5B1230/claim267-matched-helper-cross/nested_existing_get_list.json",
+    "docs/attempts/5B1230/claim267-matched-helper-cross/nested_get_list_validity_temporary.json",
+    "docs/attempts/5B1230/claim267-matched-helper-cross/results.json"
+  ],
+  "cross_evidence": "Exact5B3850/5B1ED0/5B3580/5B6DB0 compared; copied3640logic onlyinsideclaimedcaller,shared3640unchanged. ExistingGetList formrecovers firstPreviousAttemptsNameCtor+SetList call butinlineslate6CA0/3580. ImplicitValidityName freesextraNameslot restoring3Cframe,confirminglifetimecause;lateboundariesstillwrong.",
+  "outcome": "3newvalid nestedforms,all145pairs preserved,noadoption. FurthernarrowAstraanalysispendingonlyifitprovidesnewsourceevidence."
+}

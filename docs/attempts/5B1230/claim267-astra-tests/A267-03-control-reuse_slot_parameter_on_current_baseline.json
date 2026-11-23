@@ -1,0 +1,616 @@
+{
+  "schema": 1,
+  "hypothesis": "A267-03-control",
+  "provenance": {
+    "analysis_model": "gpt-6-astra",
+    "analysis_effort": "high",
+    "testing_model": "gpt-6.1-sol",
+    "testing_effort": "high"
+  },
+  "base_head": "9b07cd77d9bf53363e236fbb1d0f1f92c5f5520a",
+  "baseline_sha256": "86ec0b21ac9ebd01d1d1619990e843baf8deec41b8f8f0531cf2e78eb32398e9",
+  "source_sha256": "97155ed0dc2ff3675937dc03396c92f5c00ea7bd319a1323e48270c4041527a1",
+  "patch_replay_verified": true,
+  "baseline_patch_from_base_head": "",
+  "patch": "--- a/app/client/ui_inv.cpp\n+++ b/app/client/ui_inv.cpp\n@@ -942,12 +942,12 @@\n \tFAIL_IF(!inv_gadget) return(false);\n \tInvDataClass *inv = SlotData->Unknown_10();\n \tInvDataPeekClass *peek = inv->Unknown_688830();\n-\tint id = peek->Get_Item_Template_ID(slot);\n+\tint from_slot; int id = peek->Get_Item_Template_ID(from_slot = slot);\n \tif (id == -1 || id == -2) return(false);\n \tint num = 1;\n \tif (SlotDrag->Unknown1C != 1) {\n-\t\tnum = inv->Unknown_688850()->Get_Stack_Count(slot);\n-\t\tif (num == 0) num = peek->Get_Stack_Count(slot);\n+\t\tnum = inv->Unknown_688850()->Get_Stack_Count(from_slot);\n+\t\tif (num == 0) num = peek->Get_Stack_Count(from_slot);\n \t}\n \tInvDataClass *to = ((SlotDataClass *)inv_gadget->Unknown_670950())->Unknown_10();\n \n@@ -967,11 +967,11 @@\n \n \n \tFAIL_IF(!to) return(false);\n-\tint to_slot = inv_gadget->Unknown_670910();\n+\tslot = inv_gadget->Unknown_670910();\n \tbool all = (SlotDrag->Unknown1C == 3 || (SlotDrag->Unknown1C == 2 && SlotDrag->Unknown20));\n \tUnknownB4 = -1;\n \tUnknown_C8();\n-\treturn(InvTransaction->Unknown_690AA0(InvType, slot, num, all, to->Unknown50, to_slot));\n+\treturn(InvTransaction->Unknown_690AA0(InvType, from_slot, num, all, to->Unknown50, slot));\n }\n \n // 0x5A0EB0\n",
+  "header_changes": [],
+  "compile_success": true,
+  "native_full_object_match": true,
+  "source_constraints": {
+    "run": "A267-03-control-eyjba7un",
+    "name": "reuse_slot_parameter_on_current_baseline",
+    "physical_asserts_equal": true,
+    "EH_states": {
+      "0x5A0D00": 0
+    },
+    "pair_count": 79,
+    "gained": [],
+    "lost": []
+  },
+  "baseline_pair_count": 79,
+  "name": "reuse_slot_parameter_on_current_baseline",
+  "unit": "app/client/ui_inv.cpp",
+  "source": "/home/dev/Projects/EnB/.work/claim-267/astra-tests/forms/reuse_slot_parameter_on_current_baseline/ui_inv.cpp",
+  "metrics": {
+    "0x5A0D00": {
+      "symbol": "UIInvClass::Unknown_5A0D00",
+      "mangled": "?Unknown_5A0D00@UIInvClass@@QAE_NHPAVSlotDataGadgetClass@@@Z",
+      "address": "0x5A0D00",
+      "ours": 113,
+      "client": 116,
+      "residue": 68,
+      "residue_regs": 32,
+      "tables": [],
+      "branch": {
+        "bytes": [
+          321,
+          321
+        ],
+        "size": 0,
+        "target": 0
+      },
+      "class": "field-offset",
+      "reason": "a [reg + N] displacement differs: ours `mov ecx, dword ptr [esi + 0x98]`, client `mov ecx, dword ptr [esi + 0xa0]`",
+      "frames": [
+        [
+          null,
+          false,
+          false
+        ],
+        [
+          null,
+          false,
+          false
+        ]
+      ],
+      "calls": {
+        "ours": [
+          {
+            "offset": "0x1e",
+            "instruction": "call 0x23",
+            "target": [
+              "sym",
+              "?Fail_If_Report@@YAXPBD0H@Z"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x38",
+            "instruction": "call dword ptr [eax + 0x10]",
+            "target": null,
+            "references": []
+          },
+          {
+            "offset": "0x3f",
+            "instruction": "call 0x44",
+            "target": [
+              "sym",
+              "?Unknown_688830@InvDataClass@@QAEPAVInvDataPeekClass@@XZ"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x51",
+            "instruction": "call 0x56",
+            "target": [
+              "sym",
+              "?Get_Item_Template_ID@InvDataPeekClass@@QAEHH@Z"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x77",
+            "instruction": "call 0x7c",
+            "target": [
+              "sym",
+              "?Unknown_688850@InvDataClass@@QAEPAVInvDataPeekClass@@XZ"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x7e",
+            "instruction": "call 0x83",
+            "target": [
+              "sym",
+              "?Get_Stack_Count@InvDataPeekClass@@QAEHH@Z"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x8e",
+            "instruction": "call 0x93",
+            "target": [
+              "sym",
+              "?Get_Stack_Count@InvDataPeekClass@@QAEHH@Z"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x9d",
+            "instruction": "call 0xa2",
+            "target": [
+              "sym",
+              "?Unknown_670950@SlotDataGadgetClass@@QAEHXZ"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0xa6",
+            "instruction": "call dword ptr [edx + 0x10]",
+            "target": null,
+            "references": []
+          },
+          {
+            "offset": "0xbe",
+            "instruction": "call 0xc3",
+            "target": [
+              "sym",
+              "?Fail_If_Report@@YAXPBD0H@Z"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0xd2",
+            "instruction": "call 0xd7",
+            "target": [
+              "sym",
+              "?Unknown_670910@SlotDataGadgetClass@@QAEHXZ"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x10d",
+            "instruction": "call dword ptr [eax + 0xc8]",
+            "target": null,
+            "references": []
+          },
+          {
+            "offset": "0x134",
+            "instruction": "call 0x139",
+            "target": [
+              "sym",
+              "?Unknown_690AA0@InvTransactionClass@@QAE_NHHH_NHH@Z"
+            ],
+            "references": []
+          }
+        ],
+        "retail": [
+          {
+            "offset": "0x5a0d1e",
+            "instruction": "call 0x402c3e",
+            "target": [
+              "addr",
+              5149776
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5a0d38",
+            "instruction": "call dword ptr [eax + 0x10]",
+            "target": null,
+            "references": []
+          },
+          {
+            "offset": "0x5a0d3f",
+            "instruction": "call 0x417567",
+            "target": [
+              "addr",
+              6850608
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5a0d4f",
+            "instruction": "call 0x417161",
+            "target": [
+              "addr",
+              6855840
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5a0d7a",
+            "instruction": "call 0x40faab",
+            "target": [
+              "addr",
+              6850640
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5a0d82",
+            "instruction": "call 0x40c603",
+            "target": [
+              "addr",
+              6855968
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5a0d92",
+            "instruction": "call 0x40c603",
+            "target": [
+              "addr",
+              6855968
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5a0d9d",
+            "instruction": "call 0x415181",
+            "target": [
+              "addr",
+              6752592
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5a0da6",
+            "instruction": "call dword ptr [edx + 0x10]",
+            "target": null,
+            "references": []
+          },
+          {
+            "offset": "0x5a0dbe",
+            "instruction": "call 0x402c3e",
+            "target": [
+              "addr",
+              5149776
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5a0dd4",
+            "instruction": "call 0x408c38",
+            "target": [
+              "addr",
+              6752528
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5a0e11",
+            "instruction": "call dword ptr [eax + 0xc8]",
+            "target": null,
+            "references": []
+          },
+          {
+            "offset": "0x5a0e34",
+            "instruction": "call 0x4033ff",
+            "target": [
+              "addr",
+              6884000
+            ],
+            "references": []
+          }
+        ]
+      },
+      "masked_body_sha256": "b12733b748ecb4f67afc0ecf2a2a368e5729f5b4c39d8493c2cb5189f91f06f1",
+      "body_bytes": 336,
+      "first_fixed_byte_mismatch": "0x26"
+    }
+  },
+  "pair_count": 79,
+  "pairs": [
+    [
+      "app/client/ui_inv.cpp",
+      "0x42A820"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x42A940"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x42A970"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x42AB30"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x42B320"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x42CD30"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x42F250"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x45CC10"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x48F3E0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x4A1930"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x4A19A0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x4A19C0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x4A1A10"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x4A1A30"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x4A1A50"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x4A1A70"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x4A1A90"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x4A1AB0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x4A1AD0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x4A1AF0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x5156F0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x515710"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x515730"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x515750"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x52B210"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x52B240"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x52B270"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x52B2A0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x52B2D0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x52B2F0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x52B310"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x52B330"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x52B350"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x549760"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x585160"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x585180"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x5851A0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x5851C0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x59E9E0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x59EA10"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x59EA30"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x59EBB0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x59ECA0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x59ECD0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x59EDC0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x59EF40"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x59EF70"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x59F060"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x59F2C0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x59F3D0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x59F440"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x59F470"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x59F940"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x59FA00"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x59FA80"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x59FB20"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x59FD00"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x59FD70"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x59FDA0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x59FE10"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x5A00A0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x5A00C0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x5A02E0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x5A03B0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x5A0450"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x5A05B0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x5A06C0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x5A0EB0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x5A0FC0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x5A0FE0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x5A1020"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x5A1060"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x5A1090"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x5A10C0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x5A10D0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x5A10E0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x5A10F0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x5A1100"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x5A1110"
+    ]
+  ],
+  "pairs_sha256": "21febdb1dc79081a3c6665636e8f89a7cd90146b7c6ba2cfae0ca4dfac0559c0",
+  "gained": [],
+  "lost": [],
+  "baseline_header_patches_from_base_head": []
+}

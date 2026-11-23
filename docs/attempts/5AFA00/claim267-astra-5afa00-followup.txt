@@ -1,0 +1,14 @@
+{
+  "analysis_model": "gpt-6-astra (high)",
+  "test_model": "gpt-6.1-sol (high)",
+  "hypothesis_ids": [
+    "A267-02"
+  ],
+  "parts": [
+    "docs/attempts/5B1230/claim267-astra-tests/A267-02-baseline.json",
+    "docs/attempts/5B1230/claim267-astra-tests/A267-02-duration_zero_initializer.json"
+  ],
+  "results": "docs/attempts/5B1230/claim267-astra-tests/results.json",
+  "constraints": "docs/attempts/5B1230/claim267-astra-tests/constraints.json",
+  "evidence": "A267-02 scalar initializer DurationClass(0).Time canonical4/4,142pairs preserved before the later successful A11 member retype. Historical test only; latest constructor state is exact in A11."
+}

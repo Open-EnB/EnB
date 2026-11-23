@@ -1,0 +1,88 @@
+{
+  "schema": 1,
+  "hypothesis": "A267-11-includer-ui_manu_util",
+  "provenance": {
+    "analysis_model": "gpt-6-astra",
+    "analysis_effort": "high",
+    "testing_model": "gpt-6.1-sol",
+    "testing_effort": "high"
+  },
+  "base_head": "9b07cd77d9bf53363e236fbb1d0f1f92c5f5520a",
+  "baseline_sha256": "5c958957d9134aa920a2f405c07ab0b44a753eafece88e0f658b1a942b1bb1a3",
+  "source_sha256": "5c958957d9134aa920a2f405c07ab0b44a753eafece88e0f658b1a942b1bb1a3",
+  "patch_replay_verified": true,
+  "baseline_patch_from_base_head": "",
+  "patch": "",
+  "header_changes": [],
+  "compile_success": true,
+  "native_full_object_match": true,
+  "source_constraints": {
+    "run": "A267-11-includer-ui_manu_util-perbv2k6",
+    "name": "baseline",
+    "physical_asserts_equal": true,
+    "EH_states": {},
+    "pair_count": 12,
+    "gained": [],
+    "lost": []
+  },
+  "baseline_pair_count": 12,
+  "name": "baseline",
+  "unit": "app/client/ui_manu_util.cpp",
+  "source": "/home/dev/Projects/EnB/.work/claim-267/astra-tests/forms/A267-11_ui_manu_util_baseline/ui_manu_util.cpp",
+  "metrics": {},
+  "pair_count": 12,
+  "pairs": [
+    [
+      "app/client/ui_manu_util.cpp",
+      "0x42B320"
+    ],
+    [
+      "app/client/ui_manu_util.cpp",
+      "0x42F250"
+    ],
+    [
+      "app/client/ui_manu_util.cpp",
+      "0x5B7370"
+    ],
+    [
+      "app/client/ui_manu_util.cpp",
+      "0x5B73A0"
+    ],
+    [
+      "app/client/ui_manu_util.cpp",
+      "0x5B73C0"
+    ],
+    [
+      "app/client/ui_manu_util.cpp",
+      "0x5B7430"
+    ],
+    [
+      "app/client/ui_manu_util.cpp",
+      "0x5B74A0"
+    ],
+    [
+      "app/client/ui_manu_util.cpp",
+      "0x5B74F0"
+    ],
+    [
+      "app/client/ui_manu_util.cpp",
+      "0x5B7570"
+    ],
+    [
+      "app/client/ui_manu_util.cpp",
+      "0x5B7880"
+    ],
+    [
+      "app/client/ui_manu_util.cpp",
+      "0x5B79C0"
+    ],
+    [
+      "app/client/ui_manu_util.cpp",
+      "0x5B7A40"
+    ]
+  ],
+  "pairs_sha256": "30b044948c4b1e241fdb16d0eaf42bcdc90f6e0959ce164c8faaad05d0bd18f7",
+  "gained": [],
+  "lost": [],
+  "baseline_header_patches_from_base_head": []
+}

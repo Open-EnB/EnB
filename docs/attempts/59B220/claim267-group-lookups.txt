@@ -1,0 +1,518 @@
+{
+  "baseline-59B220.txt": "class: relocation: string differs: ours b'Z:\\\\home\\\\dev\\\\Projects\\\\EnB\\\\.work\\\\claim-267\\\\group-options\\\\tree\\\\app\\\\client\\\\..\\\\shared\\\\auxdata\\\\auxdata.h', client b'..\\\\shared/auxdata/auxdata.h' at 0xB767DC (12 calls in ours, 13 in the client: an inlined callee's assert? then inline-budget)\nUIGroupOptClass::Unknown_60 (83 instructions) vs client 0x59B220 (84)\n*    68 cmp edx, ecx                             | 59b288 test eax, eax\n*    6a je 0x85                                  | 59b28a jne 0x59b2a5\n     6c push 0x9b                                | 59b28c push 0x9b\n     71 push 0                                   | 59b291 push 0xb767dc\n     76 push 0                                   | 59b296 push 0xb767d8\n     7b call 0x80                                | 59b29b call 0x40aa51\n     80 add esp, 0xc                             | 59b2a0 add esp, 0xc\n     83 jmp 0x99                                 | 59b2a3 jmp 0x59b2b9\n     85 cmp dword ptr [eax + 0x70], 1            | 59b2a5 cmp dword ptr [eax + 0x70], 1\n     89 jbe 0x99                                 | 59b2a9 jbe 0x59b2b9\nmasked residue: 10 rows differ (stack offsets, targets, relocations masked); with registers also masked: 7\n",
+  "baseline-59BC40.txt": "class: relocation: string differs: ours b'Z:\\\\home\\\\dev\\\\Projects\\\\EnB\\\\.work\\\\claim-267\\\\group-options\\\\tree\\\\app\\\\client\\\\..\\\\shared\\\\auxdata\\\\auxdata.h', client b'..\\\\shared/auxdata/auxdata.h' at 0xB767DC (12 calls in ours, 13 in the client: an inlined callee's assert? then inline-budget)\nUIGroupOptClass::Unknown_59BC40 (90 instructions) vs client 0x59BC40 (91)\n*    98 cmp edx, eax                             | 59bcd9 test esi, esi\n*    9a je 0xb9                                  | 59bcdb jne 0x59bcfa\n     9c push 0x9b                                | 59bcdd push 0x9b\n     a1 push 0                                   | 59bce2 push 0xb767dc\n     a6 push 0                                   | 59bce7 push 0xb767d8\n     ab call 0xb0                                | 59bcec call 0x40aa51\n     b0 add esp, 0xc                             | 59bcf1 add esp, 0xc\n     b3 pop edi                                  | 59bcf4 pop edi\n     b4 pop esi                                  | 59bcf5 pop esi\n     b5 add esp, 0x34                            | 59bcf6 add esp, 0x34\nmasked residue: 39 rows differ (stack offsets, targets, relocations masked); with registers also masked: 20\nbranches: 0 short/near, 0 to another row; code 311/312 bytes\n",
+  "set_named.patch": "--- a/app/client/ui_groupopt.cpp\n+++ b/app/client/ui_groupopt.cpp\n@@ -185,7 +185,7 @@\n {\n \tSClient *sclient = Client->As_Space_Client();\n \tFAIL_IF(!sclient) return;\n-\tNameClass name(\"GroupInfo\"); DeltaGroupInfoClass *group = (DeltaGroupInfoClass *)Unknown_Find_Field<DeltaCompoundClass>(sclient->AuxData, name);\n+\tNameClass name(\"GroupInfo\"); DeltaGroupInfoClass *group = (DeltaGroupInfoClass *)Unknown_Find_Set_Field<DeltaCompoundClass>(sclient->AuxData, name);\n \tif (group && group->Unknown70 > 1) {\n \t\tUnknown_59B990();\n \t\tUnknown_59BC40();\n",
+  "set_temp.patch": "--- a/app/client/ui_groupopt.cpp\n+++ b/app/client/ui_groupopt.cpp\n@@ -185,7 +185,7 @@\n {\n \tSClient *sclient = Client->As_Space_Client();\n \tFAIL_IF(!sclient) return;\n-\tNameClass name(\"GroupInfo\"); DeltaGroupInfoClass *group = (DeltaGroupInfoClass *)Unknown_Find_Field<DeltaCompoundClass>(sclient->AuxData, name);\n+\tDeltaGroupInfoClass *group = (DeltaGroupInfoClass *)Unknown_Find_Set_Field<DeltaCompoundClass>(sclient->AuxData, \"GroupInfo\");\n \tif (group && group->Unknown70 > 1) {\n \t\tUnknown_59B990();\n \t\tUnknown_59BC40();\n",
+  "set_group_type.patch": "--- a/app/client/ui_groupopt.cpp\n+++ b/app/client/ui_groupopt.cpp\n@@ -185,7 +185,7 @@\n {\n \tSClient *sclient = Client->As_Space_Client();\n \tFAIL_IF(!sclient) return;\n-\tNameClass name(\"GroupInfo\"); DeltaGroupInfoClass *group = (DeltaGroupInfoClass *)Unknown_Find_Field<DeltaCompoundClass>(sclient->AuxData, name);\n+\tNameClass name(\"GroupInfo\"); DeltaGroupInfoClass *group = Unknown_Find_Set_Field<DeltaGroupInfoClass>(sclient->AuxData, name);\n \tif (group && group->Unknown70 > 1) {\n \t\tUnknown_59B990();\n \t\tUnknown_59BC40();\n",
+  "changed_name.patch": "--- a/app/client/ui_groupopt.cpp\n+++ b/app/client/ui_groupopt.cpp\n@@ -178,15 +178,15 @@\n \n \n \n-\n+template<class C> inline C *Unknown_Group_Changed(DeltaCompoundClass *root, const NameClass &name) { C *t = Unknown_Find_Field<C>(root, name); return((t && t->Unknown70 > 1) ? t : NULL); }\n // NOT EXACT: inline budget (explain.py: relocation first, the draft's auxdata.h path, then 12 calls vs 13: the client calls rtti.h's cast 0x598D80 out of line in the GroupInfo find, as ui_group.cpp's 0x598370; attempts.py show 0x59B220)\n // 0x59B220\n void UIGroupOptClass::Unknown_60()\n {\n \tSClient *sclient = Client->As_Space_Client();\n \tFAIL_IF(!sclient) return;\n-\tNameClass name(\"GroupInfo\"); DeltaGroupInfoClass *group = (DeltaGroupInfoClass *)Unknown_Find_Field<DeltaCompoundClass>(sclient->AuxData, name);\n-\tif (group && group->Unknown70 > 1) {\n+\tNameClass name(\"GroupInfo\"); DeltaGroupInfoClass *group = (DeltaGroupInfoClass *)Unknown_Group_Changed<DeltaCompoundClass>(sclient->AuxData, name);\n+\tif (group) {\n \t\tUnknown_59B990();\n \t\tUnknown_59BC40();\n \t}\n",
+  "changed_inside.patch": "--- a/app/client/ui_groupopt.cpp\n+++ b/app/client/ui_groupopt.cpp\n@@ -178,15 +178,15 @@\n \n \n \n-\n+template<class C> inline C *Unknown_Group_Changed_Inner(DeltaCompoundClass *root, const char *text) { NameClass name(text); C *t = Unknown_Find_Field<C>(root, name); return((t && t->Unknown70 > 1) ? t : NULL); }\n // NOT EXACT: inline budget (explain.py: relocation first, the draft's auxdata.h path, then 12 calls vs 13: the client calls rtti.h's cast 0x598D80 out of line in the GroupInfo find, as ui_group.cpp's 0x598370; attempts.py show 0x59B220)\n // 0x59B220\n void UIGroupOptClass::Unknown_60()\n {\n \tSClient *sclient = Client->As_Space_Client();\n \tFAIL_IF(!sclient) return;\n-\tNameClass name(\"GroupInfo\"); DeltaGroupInfoClass *group = (DeltaGroupInfoClass *)Unknown_Find_Field<DeltaCompoundClass>(sclient->AuxData, name);\n-\tif (group && group->Unknown70 > 1) {\n+\tDeltaGroupInfoClass *group = (DeltaGroupInfoClass *)Unknown_Group_Changed_Inner<DeltaCompoundClass>(sclient->AuxData, \"GroupInfo\");\n+\tif (group) {\n \t\tUnknown_59B990();\n \t\tUnknown_59BC40();\n \t}\n",
+  "changed_two.patch": "--- a/app/client/ui_groupopt.cpp\n+++ b/app/client/ui_groupopt.cpp\n@@ -178,15 +178,15 @@\n \n \n \n-\n+template<class C> inline C *Unknown_Group_Changed_Inner(DeltaCompoundClass *root, const char *text) { NameClass name(text); C *t = Unknown_Find_Field<C>(root, name); return((t && t->Unknown70 > 1) ? t : NULL); } template<class C> inline C *Unknown_Group_Changed(DeltaCompoundClass *root, const char *text) { return(Unknown_Group_Changed_Inner<C>(root,text)); }\n // NOT EXACT: inline budget (explain.py: relocation first, the draft's auxdata.h path, then 12 calls vs 13: the client calls rtti.h's cast 0x598D80 out of line in the GroupInfo find, as ui_group.cpp's 0x598370; attempts.py show 0x59B220)\n // 0x59B220\n void UIGroupOptClass::Unknown_60()\n {\n \tSClient *sclient = Client->As_Space_Client();\n \tFAIL_IF(!sclient) return;\n-\tNameClass name(\"GroupInfo\"); DeltaGroupInfoClass *group = (DeltaGroupInfoClass *)Unknown_Find_Field<DeltaCompoundClass>(sclient->AuxData, name);\n-\tif (group && group->Unknown70 > 1) {\n+\tDeltaGroupInfoClass *group = (DeltaGroupInfoClass *)Unknown_Group_Changed<DeltaCompoundClass>(sclient->AuxData, \"GroupInfo\");\n+\tif (group) {\n \t\tUnknown_59B990();\n \t\tUnknown_59BC40();\n \t}\n",
+  "changed_ref.patch": "--- a/app/client/ui_groupopt.cpp\n+++ b/app/client/ui_groupopt.cpp\n@@ -178,15 +178,15 @@\n \n \n \n-\n+template<class C> inline C *Unknown_Group_Changed_Inner(DeltaPlayerClass *const &root, const char *text) { NameClass name(text); C *t = Unknown_Find_Field<C>(root, name); return((t && t->Unknown70 > 1) ? t : NULL); } template<class C> inline C *Unknown_Group_Changed(DeltaPlayerClass *const &root, const char *text) { return(Unknown_Group_Changed_Inner<C>(root,text)); }\n // NOT EXACT: inline budget (explain.py: relocation first, the draft's auxdata.h path, then 12 calls vs 13: the client calls rtti.h's cast 0x598D80 out of line in the GroupInfo find, as ui_group.cpp's 0x598370; attempts.py show 0x59B220)\n // 0x59B220\n void UIGroupOptClass::Unknown_60()\n {\n \tSClient *sclient = Client->As_Space_Client();\n \tFAIL_IF(!sclient) return;\n-\tNameClass name(\"GroupInfo\"); DeltaGroupInfoClass *group = (DeltaGroupInfoClass *)Unknown_Find_Field<DeltaCompoundClass>(sclient->AuxData, name);\n-\tif (group && group->Unknown70 > 1) {\n+\tDeltaGroupInfoClass *group = (DeltaGroupInfoClass *)Unknown_Group_Changed<DeltaCompoundClass>(sclient->AuxData, \"GroupInfo\");\n+\tif (group) {\n \t\tUnknown_59B990();\n \t\tUnknown_59BC40();\n \t}\n",
+  "instantiate_before.patch": "--- a/app/client/ui_groupopt.cpp\n+++ b/app/client/ui_groupopt.cpp\n@@ -178,7 +178,7 @@\n \n \n \n-\n+template class UnknownRTTIClass<DeltaCompoundClass>;\n // NOT EXACT: inline budget (explain.py: relocation first, the draft's auxdata.h path, then 12 calls vs 13: the client calls rtti.h's cast 0x598D80 out of line in the GroupInfo find, as ui_group.cpp's 0x598370; attempts.py show 0x59B220)\n // 0x59B220\n void UIGroupOptClass::Unknown_60()\n",
+  "instantiate_after.patch": "--- a/app/client/ui_groupopt.cpp\n+++ b/app/client/ui_groupopt.cpp\n@@ -201,7 +201,7 @@\n \t}\n }\n \n-\n+template class UnknownRTTIClass<DeltaCompoundClass>;\n // 0x59B380\n bool UIGroupOptClass::Unknown_68(int key)\n {\n",
+  "instantiate_end.patch": "--- a/app/client/ui_groupopt.cpp\n+++ b/app/client/ui_groupopt.cpp\n@@ -435,3 +435,5 @@\n \n // 0x59B380 is exact: assign the avatar ID at existing OptionPacket arguments and read checkbox state\n // through an inline getter. ActionPacket expressions, callback order and packet temporary lifetimes stay intact.\n+\n+template class UnknownRTTIClass<DeltaCompoundClass>;\n",
+  "instantiate_method.patch": "--- a/app/client/ui_groupopt.cpp\n+++ b/app/client/ui_groupopt.cpp\n@@ -178,7 +178,7 @@\n \n \n \n-\n+template DeltaCompoundClass *UnknownRTTIClass<DeltaCompoundClass>::Cast(DeltaClass *);\n // NOT EXACT: inline budget (explain.py: relocation first, the draft's auxdata.h path, then 12 calls vs 13: the client calls rtti.h's cast 0x598D80 out of line in the GroupInfo find, as ui_group.cpp's 0x598370; attempts.py show 0x59B220)\n // 0x59B220\n void UIGroupOptClass::Unknown_60()\n",
+  "bc_set_named.patch": "--- a/app/client/ui_groupopt.cpp\n+++ b/app/client/ui_groupopt.cpp\n@@ -412,8 +412,8 @@\n \tSClient *sclient = Client->As_Space_Client();\n \tFAIL_IF(!sclient) return;\n \tFAIL_IF(!sclient->AuxData) return;\n-\tNameClass name(\"GroupInfo\"); DeltaGroupInfoClass *group = (DeltaGroupInfoClass *)Unknown_Find_Field<DeltaCompoundClass>(sclient->AuxData, name);\n-\tif (group && group->Unknown70) {\n+\tNameClass name(\"GroupInfo\"); DeltaGroupInfoClass *group = (DeltaGroupInfoClass *)Unknown_Find_Set_Field<DeltaCompoundClass>(sclient->AuxData, name);\n+\tif (group) {\n \t\tUnknown0A0 = group->LookingForGroup.Value;\n \t\t((RObjGadgetClass *)Unknown0AC[1])->Unknown34->Change_Text(Unknown_B7FDAC[Unknown0A0], 0);\n \t\tUnknown0C0[0]->Unknown_7E8030(group->AllowGroupInvite.Value);\n",
+  "bc_set_temp.patch": "--- a/app/client/ui_groupopt.cpp\n+++ b/app/client/ui_groupopt.cpp\n@@ -412,8 +412,8 @@\n \tSClient *sclient = Client->As_Space_Client();\n \tFAIL_IF(!sclient) return;\n \tFAIL_IF(!sclient->AuxData) return;\n-\tNameClass name(\"GroupInfo\"); DeltaGroupInfoClass *group = (DeltaGroupInfoClass *)Unknown_Find_Field<DeltaCompoundClass>(sclient->AuxData, name);\n-\tif (group && group->Unknown70) {\n+\tDeltaGroupInfoClass *group = (DeltaGroupInfoClass *)Unknown_Find_Set_Field<DeltaCompoundClass>(sclient->AuxData, \"GroupInfo\");\n+\tif (group) {\n \t\tUnknown0A0 = group->LookingForGroup.Value;\n \t\t((RObjGadgetClass *)Unknown0AC[1])->Unknown34->Change_Text(Unknown_B7FDAC[Unknown0A0], 0);\n \t\tUnknown0C0[0]->Unknown_7E8030(group->AllowGroupInvite.Value);\n",
+  "bc_set_inner.patch": "--- a/app/client/ui_groupopt.cpp\n+++ b/app/client/ui_groupopt.cpp\n@@ -178,7 +178,7 @@\n \n \n \n-\n+template<class C> inline C *Unknown_Group_Set_Inner(DeltaCompoundClass *root, const char *text) { NameClass name(text); C *t = Unknown_Find_Field<C>(root, name); if (t) { if (t->Unknown70) return(t); } return(NULL); }\n // NOT EXACT: inline budget (explain.py: relocation first, the draft's auxdata.h path, then 12 calls vs 13: the client calls rtti.h's cast 0x598D80 out of line in the GroupInfo find, as ui_group.cpp's 0x598370; attempts.py show 0x59B220)\n // 0x59B220\n void UIGroupOptClass::Unknown_60()\n@@ -412,8 +412,8 @@\n \tSClient *sclient = Client->As_Space_Client();\n \tFAIL_IF(!sclient) return;\n \tFAIL_IF(!sclient->AuxData) return;\n-\tNameClass name(\"GroupInfo\"); DeltaGroupInfoClass *group = (DeltaGroupInfoClass *)Unknown_Find_Field<DeltaCompoundClass>(sclient->AuxData, name);\n-\tif (group && group->Unknown70) {\n+\tDeltaGroupInfoClass *group = (DeltaGroupInfoClass *)Unknown_Group_Set_Inner<DeltaCompoundClass>(sclient->AuxData, \"GroupInfo\");\n+\tif (group) {\n \t\tUnknown0A0 = group->LookingForGroup.Value;\n \t\t((RObjGadgetClass *)Unknown0AC[1])->Unknown34->Change_Text(Unknown_B7FDAC[Unknown0A0], 0);\n \t\tUnknown0C0[0]->Unknown_7E8030(group->AllowGroupInvite.Value);\n",
+  "bc_set_two_ref.patch": "--- a/app/client/ui_groupopt.cpp\n+++ b/app/client/ui_groupopt.cpp\n@@ -178,7 +178,7 @@\n \n \n \n-\n+template<class C> inline C *Unknown_Group_Set_Inner(DeltaPlayerClass *const &root, const char *text) { NameClass name(text); C *t = Unknown_Find_Field<C>(root, name); if (t) { if (t->Unknown70) return(t); } return(NULL); } template<class C> inline C *Unknown_Group_Set(DeltaPlayerClass *const &root, const char *text) { return(Unknown_Group_Set_Inner<C>(root,text)); }\n // NOT EXACT: inline budget (explain.py: relocation first, the draft's auxdata.h path, then 12 calls vs 13: the client calls rtti.h's cast 0x598D80 out of line in the GroupInfo find, as ui_group.cpp's 0x598370; attempts.py show 0x59B220)\n // 0x59B220\n void UIGroupOptClass::Unknown_60()\n@@ -412,8 +412,8 @@\n \tSClient *sclient = Client->As_Space_Client();\n \tFAIL_IF(!sclient) return;\n \tFAIL_IF(!sclient->AuxData) return;\n-\tNameClass name(\"GroupInfo\"); DeltaGroupInfoClass *group = (DeltaGroupInfoClass *)Unknown_Find_Field<DeltaCompoundClass>(sclient->AuxData, name);\n-\tif (group && group->Unknown70) {\n+\tDeltaGroupInfoClass *group = (DeltaGroupInfoClass *)Unknown_Group_Set<DeltaCompoundClass>(sclient->AuxData, \"GroupInfo\");\n+\tif (group) {\n \t\tUnknown0A0 = group->LookingForGroup.Value;\n \t\t((RObjGadgetClass *)Unknown0AC[1])->Unknown34->Change_Text(Unknown_B7FDAC[Unknown0A0], 0);\n \t\tUnknown0C0[0]->Unknown_7E8030(group->AllowGroupInvite.Value);\n",
+  "specialize_decl.patch": "--- a/app/client/ui_groupopt.cpp\n+++ b/app/client/ui_groupopt.cpp\n@@ -178,7 +178,7 @@\n \n \n \n-\n+template <> DeltaCompoundClass *UnknownRTTIClass<DeltaCompoundClass>::Cast(DeltaClass *b);\n // NOT EXACT: inline budget (explain.py: relocation first, the draft's auxdata.h path, then 12 calls vs 13: the client calls rtti.h's cast 0x598D80 out of line in the GroupInfo find, as ui_group.cpp's 0x598370; attempts.py show 0x59B220)\n // 0x59B220\n void UIGroupOptClass::Unknown_60()\n",
+  "specialize_body.patch": "--- a/app/client/ui_groupopt.cpp\n+++ b/app/client/ui_groupopt.cpp\n@@ -178,7 +178,7 @@\n \n \n \n-\n+template <> DeltaCompoundClass *UnknownRTTIClass<DeltaCompoundClass>::Cast(DeltaClass *b) { G_ASSERT(b); if (!b) return(NULL); if (b->Unknown04 != DeltaCompoundClass::UnknownGlobal) return(NULL); return((DeltaCompoundClass *)b); }\n // NOT EXACT: inline budget (explain.py: relocation first, the draft's auxdata.h path, then 12 calls vs 13: the client calls rtti.h's cast 0x598D80 out of line in the GroupInfo find, as ui_group.cpp's 0x598370; attempts.py show 0x59B220)\n // 0x59B220\n void UIGroupOptClass::Unknown_60()\n",
+  "forms.json": [
+    {
+      "name": "baseline",
+      "source_sha256": "03cde572f38c3dbec7514fab94e2dfd262d9162d5bd78ac294b25b8ebadf6252",
+      "counts": {
+        "exact": 54,
+        "none": 2
+      },
+      "gained_addresses": [],
+      "lost_addresses": [],
+      "symbol_gains": 0,
+      "symbol_losses": 0,
+      "category": "baseline",
+      "run": "b220-first-t63c0js4",
+      "metrics": {
+        "0x59B220": {
+          "masked": 10,
+          "registers_masked": 7,
+          "exact": false
+        },
+        "0x59BC40": {
+          "masked": 39,
+          "registers_masked": 20,
+          "exact": false
+        }
+      }
+    },
+    {
+      "name": "set_named",
+      "source_sha256": "bfd0d898e88140cf6918a4820bb90d8f6081c299be05df06e441d6e6aa39b3b8",
+      "counts": {
+        "exact": 54,
+        "none": 2
+      },
+      "gained_addresses": [],
+      "lost_addresses": [],
+      "symbol_gains": 0,
+      "symbol_losses": 0,
+      "category": "valid alternative",
+      "run": "b220-first-t63c0js4",
+      "metrics": {
+        "0x59B220": {
+          "masked": 14,
+          "registers_masked": 11,
+          "exact": false
+        },
+        "0x59BC40": {
+          "masked": 39,
+          "registers_masked": 20,
+          "exact": false
+        }
+      }
+    },
+    {
+      "name": "set_temp",
+      "source_sha256": "02c027c6cf9e8d7d8993a377a00da2cf4c3cecef93428c79cdc1890ba812b1d7",
+      "counts": {
+        "exact": 54,
+        "none": 2
+      },
+      "gained_addresses": [],
+      "lost_addresses": [],
+      "symbol_gains": 0,
+      "symbol_losses": 0,
+      "category": "valid alternative",
+      "run": "b220-first-t63c0js4",
+      "metrics": {
+        "0x59B220": {
+          "masked": 14,
+          "registers_masked": 11,
+          "exact": false
+        },
+        "0x59BC40": {
+          "masked": 39,
+          "registers_masked": 20,
+          "exact": false
+        }
+      }
+    },
+    {
+      "name": "set_group_type",
+      "source_sha256": "bdcc50f2a2d417a5b75399cafb0db581c6ed0b7d4db840bc4991b0527300a0fd",
+      "counts": {
+        "exact": 54,
+        "none": 2
+      },
+      "gained_addresses": [],
+      "lost_addresses": [],
+      "symbol_gains": 0,
+      "symbol_losses": 0,
+      "category": "valid alternative",
+      "run": "b220-first-t63c0js4",
+      "metrics": {
+        "0x59B220": {
+          "masked": 14,
+          "registers_masked": 11,
+          "exact": false
+        },
+        "0x59BC40": {
+          "masked": 39,
+          "registers_masked": 20,
+          "exact": false
+        }
+      }
+    },
+    {
+      "name": "changed_name",
+      "source_sha256": "9b2cb518583c8487d91ffbd3e5959d7d244425f7a01649be29da00f06e06f52a",
+      "counts": {
+        "exact": 54,
+        "none": 2
+      },
+      "gained_addresses": [],
+      "lost_addresses": [],
+      "symbol_gains": 0,
+      "symbol_losses": 0,
+      "category": "valid alternative",
+      "run": "b220-changed-8ap9w_1c",
+      "metrics": {
+        "0x59B220": {
+          "masked": 10,
+          "registers_masked": 7,
+          "exact": false
+        },
+        "0x59BC40": {
+          "masked": 39,
+          "registers_masked": 20,
+          "exact": false
+        }
+      }
+    },
+    {
+      "name": "changed_inside",
+      "source_sha256": "d004cb4c346e1809d7a2f54432c42f787b9e2ab8ee4e5e5fec773545be695aaf",
+      "counts": {
+        "exact": 54,
+        "none": 2
+      },
+      "gained_addresses": [],
+      "lost_addresses": [],
+      "symbol_gains": 0,
+      "symbol_losses": 0,
+      "category": "valid alternative",
+      "run": "b220-changed-8ap9w_1c",
+      "metrics": {
+        "0x59B220": {
+          "masked": 16,
+          "registers_masked": 12,
+          "exact": false
+        },
+        "0x59BC40": {
+          "masked": 39,
+          "registers_masked": 20,
+          "exact": false
+        }
+      }
+    },
+    {
+      "name": "changed_two",
+      "source_sha256": "e7e4ba7117ce2a213dd956c38e8423e1b0205e8cf3bc7579f2afb4cf01668ffe",
+      "counts": {
+        "exact": 54,
+        "none": 2
+      },
+      "gained_addresses": [],
+      "lost_addresses": [],
+      "symbol_gains": 0,
+      "symbol_losses": 0,
+      "category": "valid alternative",
+      "run": "b220-changed-8ap9w_1c",
+      "metrics": {
+        "0x59B220": {
+          "masked": 16,
+          "registers_masked": 12,
+          "exact": false
+        },
+        "0x59BC40": {
+          "masked": 39,
+          "registers_masked": 20,
+          "exact": false
+        }
+      }
+    },
+    {
+      "name": "changed_ref",
+      "source_sha256": "da58fad1c6da71b406221a6e1a4098f69108679bb7870abb89f4bf3c90c3e6cc",
+      "counts": {
+        "exact": 54,
+        "none": 2
+      },
+      "gained_addresses": [],
+      "lost_addresses": [],
+      "symbol_gains": 0,
+      "symbol_losses": 0,
+      "category": "valid alternative",
+      "run": "b220-changed-8ap9w_1c",
+      "metrics": {
+        "0x59B220": {
+          "masked": 10,
+          "registers_masked": 7,
+          "exact": false
+        },
+        "0x59BC40": {
+          "masked": 39,
+          "registers_masked": 20,
+          "exact": false
+        }
+      }
+    },
+    {
+      "name": "instantiate_before",
+      "source_sha256": "c14649f2ab55262f63841acc8ff3fdb90efeaf74940db46e2e65a4663537132d",
+      "counts": {
+        "exact": 55,
+        "none": 2
+      },
+      "gained_addresses": [
+        "0x59C670"
+      ],
+      "lost_addresses": [],
+      "symbol_gains": 1,
+      "symbol_losses": 0,
+      "category": "valid alternative",
+      "run": "b220-instantiate-437klrl9",
+      "metrics": {
+        "0x59B220": {
+          "masked": 10,
+          "registers_masked": 7,
+          "exact": false
+        },
+        "0x59BC40": {
+          "masked": 39,
+          "registers_masked": 20,
+          "exact": false
+        }
+      }
+    },
+    {
+      "name": "instantiate_after",
+      "source_sha256": "33ef6dd123848614b9f9aa3e207d5e425cd86e8cf75a47ceb302ecec912801e6",
+      "counts": {
+        "exact": 55,
+        "none": 2
+      },
+      "gained_addresses": [
+        "0x59C670"
+      ],
+      "lost_addresses": [],
+      "symbol_gains": 1,
+      "symbol_losses": 0,
+      "category": "valid alternative",
+      "run": "b220-instantiate-437klrl9",
+      "metrics": {
+        "0x59B220": {
+          "masked": 10,
+          "registers_masked": 7,
+          "exact": false
+        },
+        "0x59BC40": {
+          "masked": 39,
+          "registers_masked": 20,
+          "exact": false
+        }
+      }
+    },
+    {
+      "name": "instantiate_end",
+      "source_sha256": "e4a90bc9f42cfcd79b04b0b1b4fdefed5a164e8dd0e14f46fe679011fd624c9f",
+      "counts": {
+        "exact": 55,
+        "none": 2
+      },
+      "gained_addresses": [
+        "0x59C670"
+      ],
+      "lost_addresses": [],
+      "symbol_gains": 1,
+      "symbol_losses": 0,
+      "category": "valid alternative",
+      "run": "b220-instantiate-437klrl9",
+      "metrics": {
+        "0x59B220": {
+          "masked": 10,
+          "registers_masked": 7,
+          "exact": false
+        },
+        "0x59BC40": {
+          "masked": 39,
+          "registers_masked": 20,
+          "exact": false
+        }
+      }
+    },
+    {
+      "name": "instantiate_method",
+      "source_sha256": "da7ae1e9a312e54ac36364f8989e33dd4285fac3e8afbc935d809c7021ce3e64",
+      "counts": {
+        "exact": 54,
+        "none": 2
+      },
+      "gained_addresses": [],
+      "lost_addresses": [],
+      "symbol_gains": 0,
+      "symbol_losses": 0,
+      "category": "valid alternative",
+      "run": "b220-instantiate-437klrl9",
+      "metrics": {
+        "0x59B220": {
+          "masked": 10,
+          "registers_masked": 7,
+          "exact": false
+        },
+        "0x59BC40": {
+          "masked": 39,
+          "registers_masked": 20,
+          "exact": false
+        }
+      }
+    },
+    {
+      "name": "bc_set_named",
+      "source_sha256": "784e3baf6ed0c6c3b57918281395ad939e52285896fa08f736ea53aad7cd705c",
+      "counts": {
+        "exact": 54,
+        "none": 2
+      },
+      "gained_addresses": [],
+      "lost_addresses": [],
+      "symbol_gains": 0,
+      "symbol_losses": 0,
+      "category": "valid alternative",
+      "run": "bc40-first-7upijkhv",
+      "metrics": {
+        "0x59B220": {
+          "masked": 10,
+          "registers_masked": 7,
+          "exact": false
+        },
+        "0x59BC40": {
+          "masked": 39,
+          "registers_masked": 20,
+          "exact": false
+        }
+      }
+    },
+    {
+      "name": "bc_set_temp",
+      "source_sha256": "c8111f842f7e662234f1503ee4f94b6b7575075ea248b97cb48f24979ca26cfb",
+      "counts": {
+        "exact": 54,
+        "none": 2
+      },
+      "gained_addresses": [],
+      "lost_addresses": [],
+      "symbol_gains": 0,
+      "symbol_losses": 0,
+      "category": "valid alternative",
+      "run": "bc40-first-7upijkhv",
+      "metrics": {
+        "0x59B220": {
+          "masked": 10,
+          "registers_masked": 7,
+          "exact": false
+        },
+        "0x59BC40": {
+          "masked": 39,
+          "registers_masked": 20,
+          "exact": false
+        }
+      }
+    },
+    {
+      "name": "bc_set_inner",
+      "source_sha256": "743ed45d93caae2afaef359d31dc1e3dd89f4b6605d48d42d6bf657941452baf",
+      "counts": {
+        "exact": 54,
+        "none": 2
+      },
+      "gained_addresses": [],
+      "lost_addresses": [],
+      "symbol_gains": 0,
+      "symbol_losses": 0,
+      "category": "valid alternative",
+      "run": "bc40-first-7upijkhv",
+      "metrics": {
+        "0x59B220": {
+          "masked": 10,
+          "registers_masked": 7,
+          "exact": false
+        },
+        "0x59BC40": {
+          "masked": 46,
+          "registers_masked": 23,
+          "exact": false
+        }
+      }
+    },
+    {
+      "name": "bc_set_two_ref",
+      "source_sha256": "f7dcbb6b3f172417f41d30f149e79fc074616360f19a7367ac50e7318952379f",
+      "counts": {
+        "exact": 54,
+        "none": 2
+      },
+      "gained_addresses": [],
+      "lost_addresses": [],
+      "symbol_gains": 0,
+      "symbol_losses": 0,
+      "category": "valid alternative",
+      "run": "bc40-first-7upijkhv",
+      "metrics": {
+        "0x59B220": {
+          "masked": 10,
+          "registers_masked": 7,
+          "exact": false
+        },
+        "0x59BC40": {
+          "masked": 39,
+          "registers_masked": 20,
+          "exact": false
+        }
+      }
+    },
+    {
+      "name": "specialize_decl",
+      "source_sha256": "e652260d08141d3d8c64817b50fecd09906fa997c45c7bdb5068be4fd7187a96",
+      "counts": {
+        "exact": 54,
+        "none": 2
+      },
+      "gained_addresses": [],
+      "lost_addresses": [],
+      "symbol_gains": 0,
+      "symbol_losses": 0,
+      "category": "diagnostic",
+      "run": "bc40-specialize-_56t3o69",
+      "metrics": {
+        "0x59B220": {
+          "masked": 10,
+          "registers_masked": 7,
+          "exact": false
+        },
+        "0x59BC40": {
+          "masked": 39,
+          "registers_masked": 20,
+          "exact": false
+        }
+      }
+    },
+    {
+      "name": "specialize_body",
+      "source_sha256": "4ede587506c6348149807865a10cf2c983eb1d6cadc358cba4fd47963b986e6d",
+      "counts": {
+        "exact": 54,
+        "none": 2
+      },
+      "gained_addresses": [],
+      "lost_addresses": [],
+      "symbol_gains": 0,
+      "symbol_losses": 0,
+      "category": "diagnostic",
+      "run": "bc40-specialize-_56t3o69",
+      "metrics": {
+        "0x59B220": {
+          "masked": 10,
+          "registers_masked": 7,
+          "exact": false
+        },
+        "0x59BC40": {
+          "masked": 39,
+          "registers_masked": 20,
+          "exact": false
+        }
+      }
+    }
+  ],
+  "attempts.json": [
+    {
+      "address": "0x59B220",
+      "symbol": "UIGroupOptClass::Unknown_60",
+      "file": "app/client/ui_groupopt.cpp",
+      "status": "partial",
+      "score": 0.7,
+      "blocker": "inline-budget",
+      "forms": "11 new valid forms: 3 existing set-field named/temp/derived-template,4 changed-field source layers/name/reference forms,4 explicit RTTI instantiations;2 shared specialization diagnostics. Best baseline10 masked rows,7 with registers masked; no improvement. Client calls compound Cast out of line at0x598D80,ours keeps it inline;54 baseline exact addresses retained incl B380. No lookup source adopted. Three class instantiations add duplicate Cast credit0x59C670 outside this object,not selected. See claim267 lookup proof pack."
+    },
+    {
+      "address": "0x59BC40",
+      "symbol": "UIGroupOptClass::Unknown_59BC40",
+      "file": "app/client/ui_groupopt.cpp",
+      "status": "partial",
+      "score": 0.65,
+      "blocker": "inline-budget",
+      "forms": "4 new valid existing set-field/name/reference source-layer forms plus4 reused whole-object explicit-instantiation measurements;2 shared specialization diagnostics. Best baseline39 masked rows,20 with registers masked; no improvement. Client calls compound Cast out of line at0x598D80,ours keeps it inline;54 baseline exact addresses retained incl B380. No lookup source adopted. Three class instantiations add duplicate Cast credit0x59C670 outside this object,not selected. See claim267 lookup proof pack."
+    }
+  ],
+  "README.md": "# GroupInfo lookup partial evidence\n\nBase revision fcb281d5fa94b852e856eba553cf6250a98c5622 (the packet-handler win).\nSource SHA256 03cde572f38c3dbec7514fab94e2dfd262d9162d5bd78ac294b25b8ebadf6252.\nThe immutable header tree was archived at3cf475be67cfedf8c4bc63cff207c6f05562c9c8;\nonly the integrated ui_groupopt.cpp source differs. No shared header changes.\nToolchain VC6 SP4 (/home/dev/Toolchains/enb-vc6-sp4/bin/vc6-cl).\nRetail SHA256 249f852496f341c00361be95b66e7c0becc2c39e7cba026f9227e38b602651c4.\n\nOne fresh whole-object baseline:54 exact symbols/addresses (B380 retained),2 none.\nThere are15 new valid compiled alternatives:11 B220 and4 BC40. Four B220 explicit\ninstantiation objects were also measured at BC40. Two additional specialization\nforms were compiled as diagnostics,not candidates. Total18 successful complete\nbuild/match runs including baseline;0 compiler/tool failures;0 queued untried here.\nAll baseline address pairs survive every run. Three class-instantiation variants\ngain a duplicate Cast COMDAT at0x59C670,not either target;that unrelated credit was\nnot adopted. Their method-only counterpart emits no gain. No lookup source changed.\n\nB220 families:existing Unknown_Find_Set_Field (named NameClass,temporary name,\nderived template type) adds a redundant truthy check and worsens10 masked rows\nto14. Changed-field helper copies ui_faction.cpp's >1 guard;named-name and actual\nDeltaPlayerClass *const& bindings stay10, name-inside and extra layer give16.\nExplicit UnknownRTTIClass<DeltaCompoundClass> instantiation follows ui_manu.cpp's\nD164 form,before/after callers or file end;class and method forms stay10.\nNone stops Cast being inlined. Best remains baseline0.70,10/7 masked/register-masked.\n\nBC40 families:existing set-field helper named/temp and actual-member reference\nthrough two inline layers stay39 masked rows;by-value name-inside helper worsens46\nand loads AuxData too early. Shared class/method-instantiation family stays39.\nThe final shared specialization declaration/body diagnostics stay39 (and B22010):\nVC6 continues to inline the header body. A declaration alone has no proven\nspecialized definition/ODR story;the body copy's G_ASSERT would have the wrong\nfile/line. Neither is a valid adoption proposal. Best baseline0.65,39/20 rows.\n\nRetail bounds: B2200x59B220-0x59B330,ret at0x59B32F;BC400x59BC40-0x59BD78,ret at\n0x59BD77. Both use a0x34-byte frame,no EH state,no FP. The retail lookup constructs\nNameClass then reloads sclient->AuxData,calls Get_Lookup and Find,and calls compound\nCast0x598D80. The current code instead inlines Cast's type-global comparison and\nreturns through the equivalent assert path;explain labels the auxdata.h absolute\nscratch path first (expected build-path literal difference),then12 vs13 calls.\nThis is a source inline-boundary residue,not a settled relocation/name correction.\nB220's unsigned >1 guard and BC40's truthy guard were preserved in their respective\nsource helpers. No callback order,ownership,lifetime,assert line,or FP changes.\n\nReplay:each included patch is an independent alternative against fcb281d5's\napp/client/ui_groupopt.cpp. Apply one in an immutable archive and compile with\nlibdefs app flags/defines and appfile.candidate_dirs remapped to that tree;preserve\nthe original source basename. Use native objmatch.py OBJECT --client RETAIL -q\n--json matches.json without filtering;compare actual address-pair sets to a fresh\nbase build. Manifests in parent scratch:b220-first.json,b220-changed.json,\nb220-instantiate.json,bc40-first.json,bc40-specialize.json. Every source hash was\nrecomputed independently from immutable source bytes by pack_lookup.py.\nforms.json gives each form's status,pair delta,hash and both target residues.\nBaseline explain output and per-form source-only replay patches accompany it. No binaries,\ncapture data or game files are part of this pack. No artificial reads,pragmas,\nflags,assembly,alias punning,or shared header changes were tested.\n"
+}

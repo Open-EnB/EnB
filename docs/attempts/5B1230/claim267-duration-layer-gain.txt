@@ -1,0 +1,17 @@
+{
+  "analysis_model": "gpt-6-astra (high)",
+  "test_model": "gpt-6.1-sol (high)",
+  "hypothesis": "A267-01",
+  "parts": [
+    "docs/attempts/5B1230/claim267-astra-synthesis/hypotheses.md",
+    "docs/attempts/5B1230/claim267-astra-synthesis/hypotheses.json",
+    "docs/attempts/5B1230/claim267-astra-synthesis/A267-01-assigned_duration_and_unit_conversion.json",
+    "docs/attempts/5B1230/claim267-astra-synthesis/A267-01-assigned_duration_now.json",
+    "docs/attempts/5B1230/claim267-astra-synthesis/A267-01-baseline.json",
+    "docs/attempts/5B1230/claim267-astra-synthesis/A267-01-constructed_duration_now.json",
+    "docs/attempts/5B1230/claim267-astra-synthesis/A267-01-root-final-helper-audit.json"
+  ],
+  "outcome": "Assignment-only DurationClass now keeps unsigned32 zero extension and signed64 timestamp operations. Parent5B1230 remains partial34/20rows,frame3C;141 ->142file/address pairs gains exactValidityCast5468D0 with no loss. Direct construction canonical; unit conversion same as assignment. Both claimed exactwins preserved.",
+  "root_final_source_sha256": "402ec0f833406cf757ec14f14ff2b843d05f13bf5db5ddfc845072b30786d07b",
+  "root_final_matches": ".work/claim-267/astra-tests/root-final-A267-01/runs/manifest-jddampfc/root_final/matches.json"
+}

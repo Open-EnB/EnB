@@ -27,7 +27,7 @@ public:
 	virtual SClient *As_Space_Client();					// +0x18 (SClient's returns itself)  // NAME 3: ui_manu.cpp's FAIL_IF's
 };
 
-// The buttons' models, texts and tooltips (0xB7FD34, 0xB7FD4C, 0xB7FD64)
+static inline bool Unknown_Group_Checked(const CheckBoxGadgetClass *button) { return(button->Checked); }	// NAME 1 [Unknown_Group_Checked]: neutral (D10)
 static const char *Unknown_B7FD34[] = { "exit", "looking", "find", "leave", "disband", NULL };	// NAME 1: neutral (D10)
 static const char *Unknown_B7FD4C[] = { NULL, "LOOKING_opt00", "FIND_opt00", "LEAVE_opt00", "DISBAND_opt00", NULL };	// NAME 1: neutral (D10)
 static const char *Unknown_B7FD64[] = { "EXIT", "LOOK_FOR_GROUP", "AVAILABLE_RECRUITS", "LEAVE_GROUP", "DISBAND_GROUP", NULL };	// NAME 1: neutral (D10)
@@ -201,11 +201,11 @@ void UIGroupOptClass::Unknown_60()
 	}
 }
 
-// NOT EXACT: shape (explain.py; registers / temporaries: the client loads Client earlier and passes the check buttons' Checked through a stack byte; attempts.py show 0x59B380)
+
 // 0x59B380
 bool UIGroupOptClass::Unknown_68(int key)
 {
-	switch (key) {
+	int game_id; switch (key) {	// NAME 1 [game_id]: neutral (D10)
 		case 1:
 			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Unknown_5C();
@@ -214,7 +214,7 @@ bool UIGroupOptClass::Unknown_68(int key)
 		case 2:
 			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Unknown0A0 = !Unknown0A0;
-			((ClientClass *)Client)->Send_Packet(&OptionPacketClass(((ClientClass *)Client)->AvatarID, 0, Unknown0A0));
+			((ClientClass *)Client)->Send_Packet(&OptionPacketClass(game_id = ((ClientClass *)Client)->AvatarID, 0, Unknown0A0));
 			((RObjGadgetClass *)Unknown0AC[1])->Unknown34->Change_Text(Unknown_B7FDAC[Unknown0A0], 0);
 			if (Unknown0A0) {
 				GadgetClass::Set_Tooltip(Unknown0AC[1], "UI_FIND_LEAVE", "STOP_LOOKING");
@@ -243,16 +243,16 @@ bool UIGroupOptClass::Unknown_68(int key)
 			return(true);
 		case 7:
 			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
-			((ClientClass *)Client)->Send_Packet(&OptionPacketClass(((ClientClass *)Client)->AvatarID, 1, Unknown0C0[0]->Checked));
+			((ClientClass *)Client)->Send_Packet(&OptionPacketClass(game_id = ((ClientClass *)Client)->AvatarID, 1, Unknown_Group_Checked(Unknown0C0[0])));
 			return(true);
 		case 8:
 			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
-			((ClientClass *)Client)->Send_Packet(&OptionPacketClass(((ClientClass *)Client)->AvatarID, 3, Unknown0C0[1]->Checked));
+			((ClientClass *)Client)->Send_Packet(&OptionPacketClass(game_id = ((ClientClass *)Client)->AvatarID, 3, Unknown_Group_Checked(Unknown0C0[1])));
 			return(true);
 		case 9: {
 			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
-			bool checked = Unknown0C0[2]->Checked;
-			((ClientClass *)Client)->Send_Packet(&OptionPacketClass(((ClientClass *)Client)->AvatarID, 4, checked));
+			bool checked = Unknown_Group_Checked(Unknown0C0[2]);
+			((ClientClass *)Client)->Send_Packet(&OptionPacketClass(game_id = ((ClientClass *)Client)->AvatarID, 4, checked));
 			if (checked) {
 				Unknown0C0[3]->Unknown_7E8030(false);
 			}
@@ -260,8 +260,8 @@ bool UIGroupOptClass::Unknown_68(int key)
 		}
 		case 10: {
 			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
-			bool checked = Unknown0C0[3]->Checked;
-			((ClientClass *)Client)->Send_Packet(&OptionPacketClass(((ClientClass *)Client)->AvatarID, 5, checked));
+			bool checked = Unknown_Group_Checked(Unknown0C0[3]);
+			((ClientClass *)Client)->Send_Packet(&OptionPacketClass(game_id = ((ClientClass *)Client)->AvatarID, 5, checked));
 			if (checked) {
 				Unknown0C0[2]->Unknown_7E8030(false);
 			}
@@ -432,3 +432,6 @@ void UIGroupOptClass::Unknown_59BC40()
 ** (~RefCountPtr<UIGroupFindClass>) are the compiler's copies. The button tables are NULL-terminated as the
 ** client's data shows (0xB7FD34-0xB7FDC0).
 */
+
+// 0x59B380 is exact: assign the avatar ID at existing OptionPacket arguments and read checkbox state
+// through an inline getter. ActionPacket expressions, callback order and packet temporary lifetimes stay intact.

@@ -1,0 +1,12 @@
+{
+  "direct_includers": [
+    "app/client/sbaseview.cpp",
+    "app/client/ui_manu.cpp",
+    "app/client/ui_manu_util.cpp",
+    "app/client/ui_ptrade.cpp"
+  ],
+  "indirect_includers": [],
+  "header_includers": [],
+  "search_tree": "/home/dev/Projects/EnB/.work/claim-267/astra-tests/tree",
+  "scope": "case-insensitive include search over all repository C/C++/header/inl files; no header includes ui_manu.h"
+}

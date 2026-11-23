@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-607 entries in 251 files.
+604 entries in 251 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -341,7 +341,6 @@ edit the comments in the code, not this file.
 | `app/client/ui_group.cpp:731` | `UIGroupClass::Unknown_68` | marker | NOT EXACT: (masked 10, attempts.py 0x5946D0): case 2 as if (!modifier) { .. } return(true) as case 3; case 11-15 index local k = key - 11 (add edi,-0xb); case 23-27 UIGroupMemberClass *m = Members[key - 23] in the test (keeps Members[k] before Client); case 29-33 sclient->Get_Avatar_ID() in packet ctor; two dead Peek()s in 0x593180 (D272); case 47's second test as else if, 0x5979A0/0x597A60 as ifs... |
 | `app/client/ui_group.cpp:1256` | `UIGroupClass::Unknown_596770` | marker | NOT EXACT: inline budget (the client calls auxdata.h's find 0x5927E0 out of line in both branches yet still calls vector::size 0x598920 and the temporary string's _Tidy out of line; a find wrapper sends the find out but frees the budget, 0.45-0.60) |
 | `app/client/ui_groupopt.cpp:182` | `UIGroupOptClass::Unknown_60` | marker | NOT EXACT: inline budget (explain.py: relocation first, the draft's auxdata.h path, then 12 calls vs 13: the client calls rtti.h's cast 0x598D80 out of line in the GroupInfo find, as ui_group.cpp's 0x598370; attempts.py show 0x59B220) 0x59B220 |
-| `app/client/ui_groupopt.cpp:204` | `UIGroupOptClass::Unknown_68` | marker | NOT EXACT: shape (explain.py; registers / temporaries: the client loads Client earlier and passes the check buttons' Checked through a stack byte; attempts.py show 0x59B380) 0x59B380 |
 | `app/client/ui_groupopt.cpp:408` | `UIGroupOptClass::Unknown_59BC40` | marker | NOT EXACT: inline budget (explain.py as 0x59B220: the client calls rtti.h's cast 0x598D80 out of line; a file-end inline_depth(1) matched it but broke the constructor and destructor; attempts.py show 0x59BC40) 0x59BC40 |
 | `app/client/ui_guild.cpp:3` | `?` | mention | NOT EXACT) and its helper 0x81D290. Notes at the end. PLACEMENT: provisional (D137): the file name from the tooltip section 'UI_GUILD' (the windows' UI_<file> pattern) and the model 'tsi35a'; a __FILE__ or an assert would place it |
 | `app/client/ui_guild.cpp:191` | `UIGuildClass::Unknown_58` | marker | NOT EXACT: inline budget (the client calls the vector's erase out of line; ours expands it) and one register (0x819FB0) 0x819FB0 |
@@ -357,10 +356,8 @@ edit the comments in the code, not this file.
 | `app/client/ui_log.cpp:104` | `UILogClass::Unknown_54` | marker | NOT EXACT: register (the loop by id to < 6, the page entry through textgadg.h's setter and the first view through Get_View() as 0x5D4890; left: the entry Create_Get's vtable / return-slot registers, the flags' registers, the reload before Set_Tooltip; GV4) 0x5AB030 |
 | `app/client/ui_login.cpp:288` | `LoginInterface::LoginInterface` | marker | NOT EXACT: scheduling (the client clears the buttons in the member stores' run, ours before it, and loads the model's address before the font manager for Add) (0x5ACB80) |
 | `app/client/ui_login.cpp:930` | `LoginInterface::Unknown_5AEA60` | mention | NOT EXACT (its note above it). 0x5ADA50 (slot +0x60's first call: the welcome speech and the step changes) reads the view's and the task's members through inline getters: they spend the inline budget, so the string's _Tidy and _Eos stay out of line as in the client. Slot +0x68 takes its block order from if / else plus break in the account cases (the shared box last); the account expiry box 0x5AEA6... |
-| `app/client/ui_manu.cpp:93` | `UIManuClass::UIManuClass` | marker | NOT EXACT: order (the client computes +0xB80's address after the low half of the __int64 at +0xBB8, ours first) (0x5AFA00) |
 | `app/client/ui_manu.cpp:135` | `UIManuClass::~UIManuClass` | marker | NOT EXACT: register (the loop's two pointers in edi / ebp the other way round) (0x5AFCD0) |
-| `app/client/ui_manu.cpp:221` | `UIManuClass::Unknown_58` | marker | NOT EXACT: inline budget (0x5B2820 inlined, its 0x5B6CA0 / 0x5B2950 out of line as the client's; left: the sort scope's stores and the font-style block's temporaries; the client's frame is 0xC bytes smaller) (0x5B0BB0) |
-| `app/client/ui_manu.cpp:478` | `UIManuClass::Unknown_60` | marker | NOT EXACT: inline budget (the client calls the 'ManufactureComponents' and 'Validity' Casts out of line, 0x5B7210 / 0x5468D0, and 0x5B6DB0 in the inlined 0x5B3640) (0x5B1230) |
+| `app/client/ui_manu.cpp:478` | `UIManuClass::Unknown_60` | marker | NOT EXACT: inline budget (the nested PreviousAttempts lookup/Name boundary still differs; ManufactureComponents and Validity Casts 0x5B7210 / 0x5468D0 are recovered) (0x5B1230) |
 | `app/client/ui_manu.cpp:545` | `UIManuClass::Unknown_68` | marker | NOT EXACT: inline budget (in the inlined 0x5B1ED0 the client calls both finds out of line, 0x5B70C0) (0x5B16C0) |
 | `app/client/ui_manu.cpp:785` | `UIManuClass::Unknown_5B2480` | marker | NOT EXACT: register (the 'Validity' find out of line as the client, 0x5465C0, through two inline layers; the inlined copies of 0x5B1AF0 load the mesh and the name in each other's registers) (0x5B2480) |
 | `app/client/ui_manu.cpp:889` | `UIManuClass::Unknown_5B2BD0` | marker | NOT EXACT: inline budget (the client calls the 'PrimaryCategories' find out of line, 0x5467F0, and vector<DeltaClass *>::size in the inlined tree checks) (0x5B2BD0) |

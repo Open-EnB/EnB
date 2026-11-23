@@ -1,0 +1,1194 @@
+{
+  "schema": 1,
+  "hypothesis": "A267-10",
+  "provenance": {
+    "analysis_model": "gpt-6-astra",
+    "analysis_effort": "high",
+    "testing_model": "gpt-6.1-sol",
+    "testing_effort": "high"
+  },
+  "base_head": "9b07cd77d9bf53363e236fbb1d0f1f92c5f5520a",
+  "baseline_sha256": "86ec0b21ac9ebd01d1d1619990e843baf8deec41b8f8f0531cf2e78eb32398e9",
+  "source_sha256": "86ec0b21ac9ebd01d1d1619990e843baf8deec41b8f8f0531cf2e78eb32398e9",
+  "patch_replay_verified": true,
+  "baseline_patch_from_base_head": "",
+  "patch": "",
+  "header_changes": [],
+  "compile_success": true,
+  "native_full_object_match": true,
+  "source_constraints": {
+    "run": "A267-10-xtyvfeqk",
+    "name": "baseline",
+    "physical_asserts_equal": true,
+    "EH_states": {
+      "0x59FE30": 1,
+      "0x5A0740": 1,
+      "0x5A0D00": 0
+    },
+    "pair_count": 79,
+    "gained": [],
+    "lost": []
+  },
+  "baseline_pair_count": 79,
+  "name": "baseline",
+  "unit": "app/client/ui_inv.cpp",
+  "source": "/home/dev/Projects/EnB/.work/claim-267/astra-tests/forms/A267-10_baseline/ui_inv.cpp",
+  "metrics": {
+    "0x5A0740": {
+      "symbol": "UIInvClass::Unknown_5A0740",
+      "mangled": "?Unknown_5A0740@UIInvClass@@QAE_NPAVSlotDataGadgetClass@@@Z",
+      "address": "0x5A0740",
+      "ours": 408,
+      "client": 362,
+      "residue": 127,
+      "residue_regs": 57,
+      "tables": [],
+      "branch": {
+        "bytes": [
+          1319,
+          1154
+        ],
+        "size": 3,
+        "target": 4
+      },
+      "class": "field-offset",
+      "reason": "a [reg + N] displacement differs: ours `call dword ptr [eax + 0x1c]`, client `call dword ptr [eax + 0x18]`",
+      "frames": [
+        [
+          "0x1c",
+          false,
+          true
+        ],
+        [
+          "0x1c",
+          false,
+          true
+        ]
+      ],
+      "calls": {
+        "ours": [
+          {
+            "offset": "0x23",
+            "instruction": "call dword ptr [eax + 0x18]",
+            "target": null,
+            "references": []
+          },
+          {
+            "offset": "0x3f",
+            "instruction": "call 0x44",
+            "target": [
+              "sym",
+              "?Fail_If_Report@@YAXPBD0H@Z"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x52",
+            "instruction": "call 0x57",
+            "target": [
+              "sym",
+              "?Get_Slot@DragSlotDataClass@@QAEHXZ"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x6d",
+            "instruction": "call 0x72",
+            "target": [
+              "sym",
+              "?Fail_If_Report@@YAXPBD0H@Z"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x82",
+            "instruction": "call dword ptr [edx + 8]",
+            "target": null,
+            "references": []
+          },
+          {
+            "offset": "0x93",
+            "instruction": "call dword ptr [eax + 0xa4]",
+            "target": null,
+            "references": []
+          },
+          {
+            "offset": "0x9f",
+            "instruction": "call 0xa4",
+            "target": [
+              "sym",
+              "?Unknown_750B60@SClient@@QAE_NXZ"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0xb3",
+            "instruction": "call 0xb8",
+            "target": [
+              "sym",
+              "?Unknown_74D990@SClient@@QAEXHPADH@Z"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0xd0",
+            "instruction": "call 0xd5",
+            "target": [
+              "sym",
+              "??0EquipUsePacketClass@@QAE@HHH@Z"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0xe0",
+            "instruction": "call 0xe5",
+            "target": [
+              "sym",
+              "?Send_Packet@ClientClass@@QAE_NPAVPacketClass@@@Z"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x15c",
+            "instruction": "call dword ptr [edx + 0x10]",
+            "target": null,
+            "references": []
+          },
+          {
+            "offset": "0x161",
+            "instruction": "call 0x166",
+            "target": [
+              "sym",
+              "?Unknown_688830@InvDataClass@@QAEPAVInvDataPeekClass@@XZ"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x16b",
+            "instruction": "call 0x170",
+            "target": [
+              "sym",
+              "?Get_Stack_Count@InvDataPeekClass@@QAEHH@Z"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x19f",
+            "instruction": "call 0x1a4",
+            "target": [
+              "sym",
+              "?Unknown_690AA0@InvTransactionClass@@QAE_NHHH_NHH@Z"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x1a9",
+            "instruction": "call 0x1ae",
+            "target": [
+              "sym",
+              "?Get_Item@InvDataPeekClass@@QAEPAUInvDataPeekItemStruct@@H_N@Z"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x1d5",
+            "instruction": "call 0x1da",
+            "target": [
+              "sym",
+              "?Print@SClient@@QAAXHPBDZZ"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x210",
+            "instruction": "call 0x215",
+            "target": [
+              "sym",
+              "?Print@SClient@@QAAXHPBDZZ"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x222",
+            "instruction": "call dword ptr [eax + 0x10]",
+            "target": null,
+            "references": []
+          },
+          {
+            "offset": "0x227",
+            "instruction": "call 0x22c",
+            "target": [
+              "sym",
+              "?Unknown_688830@InvDataClass@@QAEPAVInvDataPeekClass@@XZ"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x231",
+            "instruction": "call 0x236",
+            "target": [
+              "sym",
+              "?Get_Item@InvDataPeekClass@@QAEPAUInvDataPeekItemStruct@@H_N@Z"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x27d",
+            "instruction": "call 0x282",
+            "target": [
+              "sym",
+              "?Fail_If_Report@@YAXPBD0H@Z"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x294",
+            "instruction": "call dword ptr [edx + 0x10]",
+            "target": null,
+            "references": []
+          },
+          {
+            "offset": "0x29c",
+            "instruction": "call 0x2a1",
+            "target": [
+              "sym",
+              "?Unknown_688830@InvDataClass@@QAEPAVInvDataPeekClass@@XZ"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x2a3",
+            "instruction": "call 0x2a8",
+            "target": [
+              "sym",
+              "?Get_Item@InvDataPeekClass@@QAEPAUInvDataPeekItemStruct@@H_N@Z"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x2c4",
+            "instruction": "call 0x2c9",
+            "target": [
+              "sym",
+              "?Unknown_690AA0@InvTransactionClass@@QAE_NHHH_NHH@Z"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x2e2",
+            "instruction": "call 0x2e7",
+            "target": [
+              "sym",
+              "?Print@SClient@@QAAXHPBDZZ"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x309",
+            "instruction": "call 0x30e",
+            "target": [
+              "sym",
+              "?Fail_If_Report@@YAXPBD0H@Z"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x324",
+            "instruction": "call 0x329",
+            "target": [
+              "sym",
+              "?Unknown_690AA0@InvTransactionClass@@QAE_NHHH_NHH@Z"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x33e",
+            "instruction": "call 0x343",
+            "target": [
+              "sym",
+              "?Print@SClient@@QAAXHPBDZZ"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x359",
+            "instruction": "call 0x35e",
+            "target": [
+              "sym",
+              "?Unknown_64EEA0@UITalkTreeClass@@QAE_NXZ"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x383",
+            "instruction": "call dword ptr [edx + 0x10]",
+            "target": null,
+            "references": []
+          },
+          {
+            "offset": "0x388",
+            "instruction": "call 0x38d",
+            "target": [
+              "sym",
+              "?Unknown_688830@InvDataClass@@QAEPAVInvDataPeekClass@@XZ"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x390",
+            "instruction": "call 0x395",
+            "target": [
+              "sym",
+              "?Get_Stack_Count@InvDataPeekClass@@QAEHH@Z"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x3b4",
+            "instruction": "call 0x3b9",
+            "target": [
+              "sym",
+              "?Unknown_690AA0@InvTransactionClass@@QAE_NHHH_NHH@Z"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x3ee",
+            "instruction": "call 0x3f3",
+            "target": [
+              "sym",
+              "?Unknown_690AA0@InvTransactionClass@@QAE_NHHH_NHH@Z"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x408",
+            "instruction": "call 0x40d",
+            "target": [
+              "sym",
+              "?Print@SClient@@QAAXHPBDZZ"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x41e",
+            "instruction": "call dword ptr [eax + 0x18]",
+            "target": null,
+            "references": []
+          },
+          {
+            "offset": "0x428",
+            "instruction": "call 0x42d",
+            "target": [
+              "sym",
+              "?Unknown_65F5F0@GadgetClass@@SAPAV1@PAVGadgetListManagerClass@@_N1@Z"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x43a",
+            "instruction": "call dword ptr [edx + 0x14]",
+            "target": null,
+            "references": []
+          },
+          {
+            "offset": "0x451",
+            "instruction": "call 0x456",
+            "target": [
+              "sym",
+              "?Create_Shortcut@UIScutGadgetsClass@@QAEPAVRObjGadgetClass@@HPAVUIScutProxyGadgetClass@@@Z"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x45c",
+            "instruction": "call 0x461",
+            "target": [
+              "sym",
+              "?Save_Current@UIScutGadgetsClass@@QAEXXZ"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x46c",
+            "instruction": "call dword ptr [eax + 0xa4]",
+            "target": null,
+            "references": []
+          },
+          {
+            "offset": "0x486",
+            "instruction": "call dword ptr [edx + 0x10]",
+            "target": null,
+            "references": []
+          },
+          {
+            "offset": "0x491",
+            "instruction": "call 0x496",
+            "target": [
+              "sym",
+              "?Unknown_670950@SlotDataGadgetClass@@QAEHXZ"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x49c",
+            "instruction": "call 0x4a1",
+            "target": [
+              "sym",
+              "?Unknown_670950@SlotDataGadgetClass@@QAEHXZ"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x4a5",
+            "instruction": "call dword ptr [edx + 0x10]",
+            "target": null,
+            "references": []
+          },
+          {
+            "offset": "0x4bb",
+            "instruction": "call 0x4c0",
+            "target": [
+              "sym",
+              "?Unknown_5A0D00@UIInvClass@@QAE_NHPAVSlotDataGadgetClass@@@Z"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x4c6",
+            "instruction": "call dword ptr [eax + 0x1c]",
+            "target": null,
+            "references": []
+          },
+          {
+            "offset": "0x4d1",
+            "instruction": "call dword ptr [edx + 0x18]",
+            "target": null,
+            "references": []
+          },
+          {
+            "offset": "0x4e9",
+            "instruction": "call 0x4ee",
+            "target": [
+              "sym",
+              "?Unknown_5A0EB0@UIInvClass@@QAE_NHH@Z"
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x4fb",
+            "instruction": "call 0x500",
+            "target": [
+              "sym",
+              "?Unknown_6910C0@InvTransactionClass@@QAE_NXZ"
+            ],
+            "references": []
+          }
+        ],
+        "retail": [
+          {
+            "offset": "0x5a0763",
+            "instruction": "call dword ptr [eax + 0x18]",
+            "target": null,
+            "references": []
+          },
+          {
+            "offset": "0x5a077f",
+            "instruction": "call 0x402c3e",
+            "target": [
+              "addr",
+              5149776
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5a0792",
+            "instruction": "call 0x40f74a",
+            "target": [
+              "addr",
+              6837776
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5a07ad",
+            "instruction": "call 0x402c3e",
+            "target": [
+              "addr",
+              5149776
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5a07c2",
+            "instruction": "call dword ptr [edx + 8]",
+            "target": null,
+            "references": []
+          },
+          {
+            "offset": "0x5a07d3",
+            "instruction": "call dword ptr [eax + 0xa4]",
+            "target": null,
+            "references": []
+          },
+          {
+            "offset": "0x5a07df",
+            "instruction": "call 0x4182aa",
+            "target": [
+              "addr",
+              7670624
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5a07f3",
+            "instruction": "call 0x4095a7",
+            "target": [
+              "addr",
+              7657872
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5a0810",
+            "instruction": "call 0x406622",
+            "target": [
+              "addr",
+              9103376
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5a0820",
+            "instruction": "call 0x41487b",
+            "target": [
+              "addr",
+              7504208
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5a089c",
+            "instruction": "call dword ptr [eax + 0x10]",
+            "target": null,
+            "references": []
+          },
+          {
+            "offset": "0x5a08a1",
+            "instruction": "call 0x417567",
+            "target": [
+              "addr",
+              6850608
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5a08ab",
+            "instruction": "call 0x40c603",
+            "target": [
+              "addr",
+              6855968
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5a08df",
+            "instruction": "call 0x4033ff",
+            "target": [
+              "addr",
+              6884000
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5a08e9",
+            "instruction": "call 0x404a66",
+            "target": [
+              "addr",
+              6859424
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5a0915",
+            "instruction": "call 0x417fcb",
+            "target": [
+              "addr",
+              7659376
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5a0950",
+            "instruction": "call 0x417fcb",
+            "target": [
+              "addr",
+              7659376
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5a0962",
+            "instruction": "call dword ptr [eax + 0x10]",
+            "target": null,
+            "references": []
+          },
+          {
+            "offset": "0x5a0967",
+            "instruction": "call 0x417567",
+            "target": [
+              "addr",
+              6850608
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5a0971",
+            "instruction": "call 0x404a66",
+            "target": [
+              "addr",
+              6859424
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5a099b",
+            "instruction": "call 0x40d03a",
+            "target": [
+              "addr",
+              5898976
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5a09b5",
+            "instruction": "call 0x417fcb",
+            "target": [
+              "addr",
+              7659376
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5a09c6",
+            "instruction": "call 0x40d03a",
+            "target": [
+              "addr",
+              5898976
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5a09e0",
+            "instruction": "call 0x417fcb",
+            "target": [
+              "addr",
+              7659376
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5a09fb",
+            "instruction": "call 0x407cbb",
+            "target": [
+              "addr",
+              6614688
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5a0a25",
+            "instruction": "call dword ptr [eax + 0x10]",
+            "target": null,
+            "references": []
+          },
+          {
+            "offset": "0x5a0a2a",
+            "instruction": "call 0x417567",
+            "target": [
+              "addr",
+              6850608
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5a0a32",
+            "instruction": "call 0x40c603",
+            "target": [
+              "addr",
+              6855968
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5a0a56",
+            "instruction": "call 0x4033ff",
+            "target": [
+              "addr",
+              6884000
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5a0a89",
+            "instruction": "call 0x4033ff",
+            "target": [
+              "addr",
+              6884000
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5a0aa3",
+            "instruction": "call 0x417fcb",
+            "target": [
+              "addr",
+              7659376
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5a0ab9",
+            "instruction": "call dword ptr [edx + 0x18]",
+            "target": null,
+            "references": []
+          },
+          {
+            "offset": "0x5a0ac3",
+            "instruction": "call 0x4123cd",
+            "target": [
+              "addr",
+              6682096
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5a0ad5",
+            "instruction": "call dword ptr [edx + 0x14]",
+            "target": null,
+            "references": []
+          },
+          {
+            "offset": "0x5a0aec",
+            "instruction": "call 0x4134f8",
+            "target": [
+              "addr",
+              6374240
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5a0af7",
+            "instruction": "call 0x410fb4",
+            "target": [
+              "addr",
+              6378176
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5a0b07",
+            "instruction": "call dword ptr [eax + 0xa4]",
+            "target": null,
+            "references": []
+          },
+          {
+            "offset": "0x5a0b21",
+            "instruction": "call dword ptr [edx + 0x10]",
+            "target": null,
+            "references": []
+          },
+          {
+            "offset": "0x5a0b2c",
+            "instruction": "call 0x415181",
+            "target": [
+              "addr",
+              6752592
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5a0b37",
+            "instruction": "call 0x415181",
+            "target": [
+              "addr",
+              6752592
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5a0b40",
+            "instruction": "call dword ptr [edx + 0x10]",
+            "target": null,
+            "references": []
+          },
+          {
+            "offset": "0x5a0b56",
+            "instruction": "call 0x4092c3",
+            "target": [
+              "addr",
+              5901568
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5a0b61",
+            "instruction": "call dword ptr [edx + 0x1c]",
+            "target": null,
+            "references": []
+          },
+          {
+            "offset": "0x5a0b6c",
+            "instruction": "call dword ptr [eax + 0x18]",
+            "target": null,
+            "references": []
+          },
+          {
+            "offset": "0x5a0b84",
+            "instruction": "call 0x40831e",
+            "target": [
+              "addr",
+              5902000
+            ],
+            "references": []
+          },
+          {
+            "offset": "0x5a0b96",
+            "instruction": "call 0x40cf90",
+            "target": [
+              "addr",
+              6885568
+            ],
+            "references": []
+          }
+        ]
+      },
+      "masked_body_sha256": "72e992d4e6b5ae826f5218d7c97542bb389de817ca246e4fae051b5549ece581",
+      "body_bytes": 1328,
+      "first_fixed_byte_mismatch": "0x89"
+    }
+  },
+  "pair_count": 79,
+  "pairs": [
+    [
+      "app/client/ui_inv.cpp",
+      "0x42A820"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x42A940"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x42A970"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x42AB30"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x42B320"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x42CD30"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x42F250"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x45CC10"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x48F3E0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x4A1930"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x4A19A0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x4A19C0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x4A1A10"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x4A1A30"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x4A1A50"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x4A1A70"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x4A1A90"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x4A1AB0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x4A1AD0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x4A1AF0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x5156F0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x515710"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x515730"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x515750"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x52B210"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x52B240"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x52B270"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x52B2A0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x52B2D0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x52B2F0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x52B310"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x52B330"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x52B350"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x549760"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x585160"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x585180"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x5851A0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x5851C0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x59E9E0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x59EA10"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x59EA30"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x59EBB0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x59ECA0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x59ECD0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x59EDC0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x59EF40"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x59EF70"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x59F060"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x59F2C0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x59F3D0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x59F440"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x59F470"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x59F940"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x59FA00"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x59FA80"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x59FB20"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x59FD00"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x59FD70"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x59FDA0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x59FE10"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x5A00A0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x5A00C0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x5A02E0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x5A03B0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x5A0450"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x5A05B0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x5A06C0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x5A0EB0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x5A0FC0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x5A0FE0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x5A1020"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x5A1060"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x5A1090"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x5A10C0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x5A10D0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x5A10E0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x5A10F0"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x5A1100"
+    ],
+    [
+      "app/client/ui_inv.cpp",
+      "0x5A1110"
+    ]
+  ],
+  "pairs_sha256": "21febdb1dc79081a3c6665636e8f89a7cd90146b7c6ba2cfae0ca4dfac0559c0",
+  "gained": [],
+  "lost": [],
+  "baseline_header_patches_from_base_head": []
+}

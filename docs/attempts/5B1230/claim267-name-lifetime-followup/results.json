@@ -1,0 +1,128 @@
+{
+  "hypothesis": "A267-N1",
+  "provenance": {
+    "analysis": "gpt-6-astra high",
+    "testing": "gpt-6.1-sol high"
+  },
+  "counts": {
+    "new_valid_forms": 2,
+    "controls": 1,
+    "successful_build_full_match_runs": 3,
+    "compile_failures": 0,
+    "match_failures": 0,
+    "diagnostic_builds": 0,
+    "repeats": 0,
+    "untried": 0
+  },
+  "records": [
+    {
+      "name": "positive_outer_context_validity_scope",
+      "pairs": 145,
+      "gained": [],
+      "lost": [],
+      "rows": [
+        28,
+        11
+      ],
+      "instructions": [
+        249,
+        255
+      ],
+      "frames": [
+        [
+          "0x3c",
+          false,
+          false
+        ],
+        [
+          "0x3c",
+          false,
+          false
+        ]
+      ],
+      "call_map": {
+        "components_cast_called": true,
+        "validity_cast_called": true,
+        "whole_3640_called": false,
+        "whole_Find_Valid_List_called": true,
+        "SetList_called": false,
+        "nested_6CA0_called": true,
+        "nested_3580_called": true
+      },
+      "proof": ".work/claim-267/manu-cross-followup/A267-N1/packs/positive_outer_context_validity_scope.json"
+    },
+    {
+      "name": "baseline",
+      "pairs": 145,
+      "gained": [],
+      "lost": [],
+      "rows": [
+        28,
+        11
+      ],
+      "instructions": [
+        249,
+        255
+      ],
+      "frames": [
+        [
+          "0x3c",
+          false,
+          false
+        ],
+        [
+          "0x3c",
+          false,
+          false
+        ]
+      ],
+      "call_map": {
+        "components_cast_called": true,
+        "validity_cast_called": true,
+        "whole_3640_called": false,
+        "whole_Find_Valid_List_called": true,
+        "SetList_called": false,
+        "nested_6CA0_called": true,
+        "nested_3580_called": true
+      },
+      "proof": ".work/claim-267/manu-cross-followup/A267-N1/packs/baseline.json"
+    },
+    {
+      "name": "positive_outer_context_validity_temporary",
+      "pairs": 145,
+      "gained": [],
+      "lost": [],
+      "rows": [
+        12,
+        9
+      ],
+      "instructions": [
+        249,
+        255
+      ],
+      "frames": [
+        [
+          "0x3c",
+          false,
+          false
+        ],
+        [
+          "0x3c",
+          false,
+          false
+        ]
+      ],
+      "call_map": {
+        "components_cast_called": true,
+        "validity_cast_called": true,
+        "whole_3640_called": false,
+        "whole_Find_Valid_List_called": true,
+        "SetList_called": false,
+        "nested_6CA0_called": true,
+        "nested_3580_called": true
+      },
+      "proof": ".work/claim-267/manu-cross-followup/A267-N1/packs/positive_outer_context_validity_temporary.json"
+    }
+  ],
+  "outcome": "Both independent145positive-base forms fail the complete call-map criterion: wholeFind_Valid_List remains called, SetList5B6DB0 absent. Temporary improves28/11->12/9; narrow scope remains canonical28/11. Frame3C, bothCast targets, nested6CA0/3580 and145pairs preserved. No adoption or furthercaller-only variants; park perAstra stoprule."
+}
