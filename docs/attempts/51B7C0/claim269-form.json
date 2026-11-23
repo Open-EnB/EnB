@@ -1,0 +1,25 @@
+{
+  "address": "0x51B7C0",
+  "unit": "app/client/dynamic_window_multi_line_text.cpp",
+  "form": "returning-Or_Flags",
+  "patch": "--- a/app/client/dynamic_window_multi_line_text.cpp\n+++ b/app/client/dynamic_window_multi_line_text.cpp\n@@ -81,19 +81,19 @@\n \tDirty = true;\n \tRefresh();\n }\n-\n+static inline unsigned int Or_Flags(unsigned int &dst, unsigned int bits) { dst |= bits; return(dst); }\t// NAME 2: what it does (D185 variant: the returned copy keeps the client's second register)\n void DynamicWindowMultiLineTextClass::Set_Min_Size(const Vector2 &min_size)\n {\n \tMinSize = min_size;\n \tRefresh();\n \tInvalidate();\n }\n-// NOT EXACT: the client keeps the new flags in a second register (esi, then edx) for the compare\n+\n void DynamicWindowMultiLineTextClass::Set_Flags(unsigned int flags)\n {\n \tunsigned int old_flags = Flags;\n-\tunsigned int new_flags = old_flags | flags;\n-\tFlags = new_flags;\n+\tunsigned int new_flags = Or_Flags(Flags, flags);\n+\n \tif (new_flags != old_flags) {\n \t\tInvalidate();\n \t}\n",
+  "physical_line_count_unchanged": true,
+  "final_raw_differing_bytes": 0,
+  "body_bytes": 30,
+  "aligned_span_bytes": 32,
+  "relocations": [],
+  "virtual_call_identity": {
+    "client_vtable": "0xaed784",
+    "slot": "0x18",
+    "client_slot_target": "0x418f9d",
+    "thunk_resolved_target": "0x51b860",
+    "object_slot_relocations": [
+      [
+        0,
+        "?Invalidate@DynamicWindowMultiLineTextClass@@UAEXXZ",
+        6
+      ]
+    ]
+  },
+  "source": "client.exe 0x51B7C0 plus exact sibling Set_Flags 0x51CA80 and horizontal/vertical setters (D185)"
+}

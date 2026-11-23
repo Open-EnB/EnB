@@ -10,7 +10,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 227 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1970 |
-| 2 | describes what the code does | 5009 |
+| 2 | describes what the code does | 5010 |
 | 1 | neutral placeholder | 25156 |
 
 ## For review (score 3 and below)
@@ -25768,6 +25768,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `DynamicWindowHorizontalClass` | `app/client/dynamic_window_horizontal.h:21` | class from file (D24), dynamic_window_horizontal.cpp |
 | 2 | `DynamicWindowIconClass` | `app/client/dynamic_window_icon.h:25` | class from file (D24), dynamic_window_icon.cpp |
 | 2 | `render_object, size` | `app/client/dynamic_window_icon.h:28` | Create's FAIL_IF names; NAME 1 [flags]: the base's |
+| 2 | `Or_Flags` | `app/client/dynamic_window_multi_line_text.cpp:84` | what it does (D185 variant: the returned copy keeps the client's second register) |
 | 2 | `DynamicWindowMultiLineTextClass` | `app/client/dynamic_window_multi_line_text.h:26` | class from file (D24) |
 | 2 | `DynamicWindowRenderObjectClass` | `app/client/dynamic_window_render_object.h:73` | class from file (D24), dynamic_window_render_object.cpp |
 | 2 | `DynamicWindowTextClass` | `app/client/dynamic_window_text.h:23` | class from file (D24) |

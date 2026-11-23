@@ -81,19 +81,19 @@ void DynamicWindowMultiLineTextClass::Set_Text(const std::string &text)
 	Dirty = true;
 	Refresh();
 }
-
+static inline unsigned int Or_Flags(unsigned int &dst, unsigned int bits) { dst |= bits; return(dst); }	// NAME 2: what it does (D185 variant: the returned copy keeps the client's second register)
 void DynamicWindowMultiLineTextClass::Set_Min_Size(const Vector2 &min_size)
 {
 	MinSize = min_size;
 	Refresh();
 	Invalidate();
 }
-// NOT EXACT: the client keeps the new flags in a second register (esi, then edx) for the compare
+
 void DynamicWindowMultiLineTextClass::Set_Flags(unsigned int flags)
 {
 	unsigned int old_flags = Flags;
-	unsigned int new_flags = old_flags | flags;
-	Flags = new_flags;
+	unsigned int new_flags = Or_Flags(Flags, flags);
+
 	if (new_flags != old_flags) {
 		Invalidate();
 	}
