@@ -1,0 +1,669 @@
+{
+  "base": "4b39a781ae6c8f9a5798b5c8aadf9ceef6f27f83",
+  "file": "app/client/ui_petition_stuck.cpp",
+  "address": "0x5D7420",
+  "status": "exact",
+  "model": "gpt-6.1-sol (high)",
+  "baseline_source_sha256": "68a4e4ac599e16b213c67cb5210acde12e802c63d70496145b1f1c6d2c07d23f",
+  "seed_patch": "",
+  "replay": "git show BASE:FILE, replace the one physical line verbatim; final LF preserved. Recipe replay independently asserted SHA-256.",
+  "actual_new_valid": 1,
+  "controls": 1,
+  "source_repeats": 0,
+  "diagnostics": 0,
+  "compile_failures": 0,
+  "environment_failures_before_compile": 0,
+  "untried_generated_forms": [
+    "signed_category",
+    "signed_both",
+    "unsigned_ship",
+    "unsigned_both"
+  ],
+  "recipes": [
+    {
+      "name": "signed_ship",
+      "physical_line": 50,
+      "replacement": "\tint ship_id; ((ClientClass *)Get_Client())->Send_Packet(&PetitionStuckPacketClass(ship_id = ((ClientClass *)Get_Client())->ShipID, Unknown0B4, subject.c_str(), details.c_str(), 0));\n",
+      "source_sha256": "0e957440dbac3481aa53e4c758a51c226926246f81a1242454ed54c63d3e4692",
+      "patch": "--- a/app/client/ui_petition_stuck.cpp\n+++ b/app/client/ui_petition_stuck.cpp\n@@ -47,7 +47,7 @@\n \tstd::string subject;\n \tstd::string details;\n \tGet_Text(subject, details);\n-\t((ClientClass *)Get_Client())->Send_Packet(&PetitionStuckPacketClass(((ClientClass *)Get_Client())->ShipID, Unknown0B4, subject.c_str(), details.c_str(), 0));\n+\tint ship_id; ((ClientClass *)Get_Client())->Send_Packet(&PetitionStuckPacketClass(ship_id = ((ClientClass *)Get_Client())->ShipID, Unknown0B4, subject.c_str(), details.c_str(), 0));\n \treturn(true);\n }\n \n"
+    }
+  ],
+  "results": [
+    {
+      "name": "baseline",
+      "source": "/home/dev/Projects/EnB/.work/claim-254/revisit-petitions-cost/petitions/stuck/baseline/ui_petition_stuck.cpp",
+      "source_sha256": "68a4e4ac599e16b213c67cb5210acde12e802c63d70496145b1f1c6d2c07d23f",
+      "tree": "/home/dev/Projects/EnB/.work/claim-254/revisit-petitions-cost/tree",
+      "output": "/home/dev/Projects/EnB/.work/claim-254/revisit-petitions-cost/petitions/stuck/runs/manifest-cv91kbwj/baseline",
+      "compiled": true,
+      "object": "/home/dev/Projects/EnB/.work/claim-254/revisit-petitions-cost/petitions/stuck/runs/manifest-cv91kbwj/baseline/ui_petition_stuck.obj",
+      "match_returncode": 0,
+      "matches": "/home/dev/Projects/EnB/.work/claim-254/revisit-petitions-cost/petitions/stuck/runs/manifest-cv91kbwj/baseline/matches.json",
+      "counts": {
+        "exact": 28,
+        "none": 1
+      },
+      "exact_symbol_pairs": [
+        [
+          "??0UIPetitionStuckClass@@QAE@PAVSClient@@H@Z",
+          "0x5D7370"
+        ],
+        [
+          "??1?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAE@XZ",
+          "0x42A6C0"
+        ],
+        [
+          "??1UIPetitionStuckClass@@UAE@XZ",
+          "0x5D73F0"
+        ],
+        [
+          "??_EUIPetitionStuckClass@@W3AEPAXI@Z",
+          "0x5D7610"
+        ],
+        [
+          "??_EUIPetitionStuckClass@@WDI@AEPAXI@Z",
+          "0x5D7620"
+        ],
+        [
+          "??_GUIPetitionStuckClass@@UAEPAXI@Z",
+          "0x5D73C0"
+        ],
+        [
+          "??_H@YGXPAXIHP6EX0@Z@Z",
+          "0x42F250"
+        ],
+        [
+          "?Delete_This@RefCountClass@@UAEXXZ",
+          "0x45CC10"
+        ],
+        [
+          "?Get_Target_Node@GClass@@UAEPAV?$ContextDataNode@PAVGClass@@PAV1@@@XZ",
+          "0x4A1AD0"
+        ],
+        [
+          "?Get_Targeting_List@GClass@@UAEPAV?$List@PAV?$ContextDataNode@PAVGClass@@PAV1@@@@@XZ",
+          "0x4A1AF0"
+        ],
+        [
+          "?Unknown_04@UnknownGadgetBase00Class@@UAEPAVGenericNode@@XZ",
+          "0x4A19A0"
+        ],
+        [
+          "?Unknown_08@UnknownGadgetBase00Class@@UAEXXZ",
+          "0x4A19C0"
+        ],
+        [
+          "?Unknown_0C@GClass@@UAEPBDXZ",
+          "0x4A1A10"
+        ],
+        [
+          "?Unknown_1C@GClass@@UAEHXZ",
+          "0x4A1A30"
+        ],
+        [
+          "?Unknown_20@GClass@@UAEHXZ",
+          "0x4A1A50"
+        ],
+        [
+          "?Unknown_24@GClass@@UAEHXZ",
+          "0x4A1A70"
+        ],
+        [
+          "?Unknown_28@GClass@@UAEHXZ",
+          "0x4A1A90"
+        ],
+        [
+          "?Unknown_2C@GClass@@UAEHXZ",
+          "0x4A1AB0"
+        ],
+        [
+          "?Unknown_4A1930@UnknownGadgetBase04Class@@UAE_NHHH@Z",
+          "0x4A1930"
+        ],
+        [
+          "?Unknown_6C@InterfaceClass@@UAEXAAVINIClass@@@Z",
+          "0x5156F0"
+        ],
+        [
+          "?Unknown_70@InterfaceClass@@UAEXPAVControlKeysManager@@@Z",
+          "0x515710"
+        ],
+        [
+          "?Unknown_74@InterfaceClass@@UAEXPAVControlKeysManager@@@Z",
+          "0x515730"
+        ],
+        [
+          "?Unknown_78@InterfaceClass@@UAE_NPAX@Z",
+          "0x515750"
+        ],
+        [
+          "?Unknown_90@ChatPanelUIBase@@UAEHXZ",
+          "0x5623B0"
+        ],
+        [
+          "?Unknown_9C@ChatPanelUIBase@@UAEXXZ",
+          "0x5623F0"
+        ],
+        [
+          "?_Tidy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEX_N@Z",
+          "0x42A820"
+        ],
+        [
+          "?id@?$ctype@G@std@@$E",
+          "0x42B320"
+        ],
+        [
+          "_$E93",
+          "0x5D75E0"
+        ]
+      ],
+      "exact_addresses": [
+        "0x42A6C0",
+        "0x42A820",
+        "0x42B320",
+        "0x42F250",
+        "0x45CC10",
+        "0x4A1930",
+        "0x4A19A0",
+        "0x4A19C0",
+        "0x4A1A10",
+        "0x4A1A30",
+        "0x4A1A50",
+        "0x4A1A70",
+        "0x4A1A90",
+        "0x4A1AB0",
+        "0x4A1AD0",
+        "0x4A1AF0",
+        "0x5156F0",
+        "0x515710",
+        "0x515730",
+        "0x515750",
+        "0x5623B0",
+        "0x5623F0",
+        "0x5D7370",
+        "0x5D73C0",
+        "0x5D73F0",
+        "0x5D75E0",
+        "0x5D7610",
+        "0x5D7620"
+      ],
+      "gained": [],
+      "lost": [],
+      "gained_addresses": [],
+      "lost_addresses": [],
+      "target_exact": false,
+      "seconds": 2.83,
+      "object_sha256": "97e6ae066b42681b526afdb8a2096f8c5b2e972463265fdf23191ea059d6c1f6",
+      "target_masked_code_sha256": "a3990385216a471f1d239576fd6c9f8969df7ffdd5a678cef554891699a9e6c8",
+      "target_object_extent": 352,
+      "role": "control"
+    },
+    {
+      "name": "signed_ship",
+      "source": "/home/dev/Projects/EnB/.work/claim-254/revisit-petitions-cost/petitions/stuck/signed_ship/ui_petition_stuck.cpp",
+      "source_sha256": "0e957440dbac3481aa53e4c758a51c226926246f81a1242454ed54c63d3e4692",
+      "tree": "/home/dev/Projects/EnB/.work/claim-254/revisit-petitions-cost/tree",
+      "output": "/home/dev/Projects/EnB/.work/claim-254/revisit-petitions-cost/petitions/stuck/runs/manifest-cv91kbwj/signed_ship",
+      "compiled": true,
+      "object": "/home/dev/Projects/EnB/.work/claim-254/revisit-petitions-cost/petitions/stuck/runs/manifest-cv91kbwj/signed_ship/ui_petition_stuck.obj",
+      "match_returncode": 0,
+      "matches": "/home/dev/Projects/EnB/.work/claim-254/revisit-petitions-cost/petitions/stuck/runs/manifest-cv91kbwj/signed_ship/matches.json",
+      "counts": {
+        "exact": 29
+      },
+      "exact_symbol_pairs": [
+        [
+          "??0UIPetitionStuckClass@@QAE@PAVSClient@@H@Z",
+          "0x5D7370"
+        ],
+        [
+          "??1?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAE@XZ",
+          "0x42A6C0"
+        ],
+        [
+          "??1UIPetitionStuckClass@@UAE@XZ",
+          "0x5D73F0"
+        ],
+        [
+          "??_EUIPetitionStuckClass@@W3AEPAXI@Z",
+          "0x5D7610"
+        ],
+        [
+          "??_EUIPetitionStuckClass@@WDI@AEPAXI@Z",
+          "0x5D7620"
+        ],
+        [
+          "??_GUIPetitionStuckClass@@UAEPAXI@Z",
+          "0x5D73C0"
+        ],
+        [
+          "??_H@YGXPAXIHP6EX0@Z@Z",
+          "0x42F250"
+        ],
+        [
+          "?Delete_This@RefCountClass@@UAEXXZ",
+          "0x45CC10"
+        ],
+        [
+          "?Get_Target_Node@GClass@@UAEPAV?$ContextDataNode@PAVGClass@@PAV1@@@XZ",
+          "0x4A1AD0"
+        ],
+        [
+          "?Get_Targeting_List@GClass@@UAEPAV?$List@PAV?$ContextDataNode@PAVGClass@@PAV1@@@@@XZ",
+          "0x4A1AF0"
+        ],
+        [
+          "?Unknown_04@UnknownGadgetBase00Class@@UAEPAVGenericNode@@XZ",
+          "0x4A19A0"
+        ],
+        [
+          "?Unknown_08@UnknownGadgetBase00Class@@UAEXXZ",
+          "0x4A19C0"
+        ],
+        [
+          "?Unknown_0C@GClass@@UAEPBDXZ",
+          "0x4A1A10"
+        ],
+        [
+          "?Unknown_1C@GClass@@UAEHXZ",
+          "0x4A1A30"
+        ],
+        [
+          "?Unknown_20@GClass@@UAEHXZ",
+          "0x4A1A50"
+        ],
+        [
+          "?Unknown_24@GClass@@UAEHXZ",
+          "0x4A1A70"
+        ],
+        [
+          "?Unknown_28@GClass@@UAEHXZ",
+          "0x4A1A90"
+        ],
+        [
+          "?Unknown_2C@GClass@@UAEHXZ",
+          "0x4A1AB0"
+        ],
+        [
+          "?Unknown_4A1930@UnknownGadgetBase04Class@@UAE_NHHH@Z",
+          "0x4A1930"
+        ],
+        [
+          "?Unknown_6C@InterfaceClass@@UAEXAAVINIClass@@@Z",
+          "0x5156F0"
+        ],
+        [
+          "?Unknown_70@InterfaceClass@@UAEXPAVControlKeysManager@@@Z",
+          "0x515710"
+        ],
+        [
+          "?Unknown_74@InterfaceClass@@UAEXPAVControlKeysManager@@@Z",
+          "0x515730"
+        ],
+        [
+          "?Unknown_78@InterfaceClass@@UAE_NPAX@Z",
+          "0x515750"
+        ],
+        [
+          "?Unknown_90@ChatPanelUIBase@@UAEHXZ",
+          "0x5623B0"
+        ],
+        [
+          "?Unknown_9C@ChatPanelUIBase@@UAEXXZ",
+          "0x5623F0"
+        ],
+        [
+          "?Unknown_A0@UIPetitionStuckClass@@UAE_NXZ",
+          "0x5D7420"
+        ],
+        [
+          "?_Tidy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEX_N@Z",
+          "0x42A820"
+        ],
+        [
+          "?id@?$ctype@G@std@@$E",
+          "0x42B320"
+        ],
+        [
+          "_$E93",
+          "0x5D75E0"
+        ]
+      ],
+      "exact_addresses": [
+        "0x42A6C0",
+        "0x42A820",
+        "0x42B320",
+        "0x42F250",
+        "0x45CC10",
+        "0x4A1930",
+        "0x4A19A0",
+        "0x4A19C0",
+        "0x4A1A10",
+        "0x4A1A30",
+        "0x4A1A50",
+        "0x4A1A70",
+        "0x4A1A90",
+        "0x4A1AB0",
+        "0x4A1AD0",
+        "0x4A1AF0",
+        "0x5156F0",
+        "0x515710",
+        "0x515730",
+        "0x515750",
+        "0x5623B0",
+        "0x5623F0",
+        "0x5D7370",
+        "0x5D73C0",
+        "0x5D73F0",
+        "0x5D7420",
+        "0x5D75E0",
+        "0x5D7610",
+        "0x5D7620"
+      ],
+      "gained": [
+        [
+          "?Unknown_A0@UIPetitionStuckClass@@UAE_NXZ",
+          "0x5D7420"
+        ]
+      ],
+      "lost": [],
+      "gained_addresses": [
+        "0x5D7420"
+      ],
+      "lost_addresses": [],
+      "target_exact": true,
+      "seconds": 2.34,
+      "object_sha256": "9fad0b9092575df65fcf3e27d486a67087ef37fad50f27a61c444ce91558ed50",
+      "target_masked_code_sha256": "6cca5cb57c0eca271bc7934fe62224e2284085070e699c560324d99b3a253d36",
+      "target_object_extent": 352,
+      "role": "new_valid"
+    }
+  ],
+  "audit": {
+    "status": "exact; independent retail audit",
+    "retail_sha256": "249f852496f341c00361be95b66e7c0becc2c39e7cba026f9227e38b602651c4",
+    "base_revision": "4b39a781ae6c8f9a5798b5c8aadf9ceef6f27f83",
+    "file": "ui_petition_stuck.cpp",
+    "changed_physical_lines": [
+      50
+    ],
+    "baseline_source_sha256": "68a4e4ac599e16b213c67cb5210acde12e802c63d70496145b1f1c6d2c07d23f",
+    "candidate_source_sha256": "0e957440dbac3481aa53e4c758a51c226926246f81a1242454ed54c63d3e4692",
+    "candidate_object_sha256": "9fad0b9092575df65fcf3e27d486a67087ef37fad50f27a61c444ce91558ed50",
+    "source_outside_target_identical": true,
+    "subsequent_physical_lines_identical": true,
+    "outside_target_identical_functions": 28,
+    "retail_code_bounds": [
+      "0x5d7420",
+      "0x5d7576"
+    ],
+    "code_bytes": 342,
+    "aligned_function_bytes": 352,
+    "instruction_rows": 114,
+    "return_count": 3,
+    "branch_shapes_identical": true,
+    "all_nonrelocated_bytes_identical": true,
+    "calls": [
+      {
+        "offset": "0x31",
+        "retail": "0x5d7451",
+        "symbol": "?Fail_If_Report@@YAXPBD0H@Z",
+        "target": "0x4e9450",
+        "resolved": true
+      },
+      {
+        "offset": "0x59",
+        "retail": "0x5d7479",
+        "symbol": "?_Tidy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEX_N@Z",
+        "target": "0x42a820",
+        "resolved": true
+      },
+      {
+        "offset": "0x6f",
+        "retail": "0x5d748f",
+        "symbol": "?_Tidy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEX_N@Z",
+        "target": "0x42a820",
+        "resolved": true
+      },
+      {
+        "offset": "0x85",
+        "retail": "0x5d74a5",
+        "symbol": "?Get_Text@UIPetitionEntryClass@@QAEXAAV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@0@Z",
+        "target": "0x5d5200",
+        "resolved": true
+      },
+      {
+        "offset": "0xbc",
+        "retail": "0x5d74dc",
+        "symbol": "??0PetitionStuckPacketClass@@QAE@HHPBD00@Z",
+        "target": "0x89f740",
+        "resolved": true
+      },
+      {
+        "offset": "0xca",
+        "retail": "0x5d74ea",
+        "symbol": "?Send_Packet@ClientClass@@QAE_NPAVPacketClass@@@Z",
+        "target": "0x728150",
+        "resolved": true
+      },
+      {
+        "offset": "0xd8",
+        "retail": "0x5d74f8",
+        "symbol": "??1PetitionStuckPacketClass@@UAE@XZ",
+        "target": "0x89f930",
+        "resolved": true
+      },
+      {
+        "offset": "0xfa",
+        "retail": "0x5d751a",
+        "symbol": "??3@YAXPAX@Z",
+        "target": "0x4e9d10",
+        "resolved": true
+      },
+      {
+        "offset": "0x13b",
+        "retail": "0x5d755b",
+        "symbol": "??3@YAXPAX@Z",
+        "target": "0x4e9d10",
+        "resolved": true
+      }
+    ],
+    "all_call_targets_resolved": true,
+    "relocations": [
+      {
+        "offset": "0x2",
+        "type": "0x6",
+        "symbol": "__except_list",
+        "kind": "FS-exception-list-offset",
+        "verified": true
+      },
+      {
+        "offset": "0x9",
+        "type": "0x6",
+        "symbol": "$L45929",
+        "kind": "EH-handler",
+        "retail_address": "0xab6938",
+        "verified": true
+      },
+      {
+        "offset": "0x11",
+        "type": "0x6",
+        "symbol": "__except_list",
+        "kind": "FS-exception-list-offset",
+        "verified": true
+      },
+      {
+        "offset": "0x28",
+        "type": "0x6",
+        "symbol": "??_C@_0HC@JJFL@Z?3?2home?2dev?2Projects?2EnB?2?4work?2c@",
+        "kind": "file-basename",
+        "value": "e:\\build\\beta\\G\\app\\Client\\ui_petition_stuck.cpp",
+        "verified": true
+      },
+      {
+        "offset": "0x2d",
+        "type": "0x6",
+        "symbol": "??_C@_0O@FPLG@?$CBGet_Client?$CI?$CJ?$AA@",
+        "kind": "literal",
+        "value": "!Get_Client()",
+        "verified": true
+      },
+      {
+        "offset": "0x32",
+        "type": "0x14",
+        "symbol": "?Fail_If_Report@@YAXPBD0H@Z",
+        "kind": "direct-call",
+        "retail_target": "0x4e9450",
+        "verified": true
+      },
+      {
+        "offset": "0x44",
+        "type": "0x6",
+        "symbol": "__except_list",
+        "kind": "FS-exception-list-offset",
+        "verified": true
+      },
+      {
+        "offset": "0x5a",
+        "type": "0x14",
+        "symbol": "?_Tidy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEX_N@Z",
+        "kind": "direct-call",
+        "retail_target": "0x42a820",
+        "verified": true
+      },
+      {
+        "offset": "0x70",
+        "type": "0x14",
+        "symbol": "?_Tidy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEX_N@Z",
+        "kind": "direct-call",
+        "retail_target": "0x42a820",
+        "verified": true
+      },
+      {
+        "offset": "0x86",
+        "type": "0x14",
+        "symbol": "?Get_Text@UIPetitionEntryClass@@QAEXAAV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@0@Z",
+        "kind": "direct-call",
+        "retail_target": "0x5d5200",
+        "verified": true
+      },
+      {
+        "offset": "0x93",
+        "type": "0x6",
+        "symbol": "?_C@?1??_Nullstr@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@CAPBDXZ@4DB",
+        "kind": "empty-string",
+        "verified": true
+      },
+      {
+        "offset": "0xa0",
+        "type": "0x6",
+        "symbol": "?_C@?1??_Nullstr@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@CAPBDXZ@4DB",
+        "kind": "empty-string",
+        "verified": true
+      },
+      {
+        "offset": "0xbd",
+        "type": "0x14",
+        "symbol": "??0PetitionStuckPacketClass@@QAE@HHPBD00@Z",
+        "kind": "direct-call",
+        "retail_target": "0x89f740",
+        "verified": true
+      },
+      {
+        "offset": "0xcb",
+        "type": "0x14",
+        "symbol": "?Send_Packet@ClientClass@@QAE_NPAVPacketClass@@@Z",
+        "kind": "direct-call",
+        "retail_target": "0x728150",
+        "verified": true
+      },
+      {
+        "offset": "0xd9",
+        "type": "0x14",
+        "symbol": "??1PetitionStuckPacketClass@@UAE@XZ",
+        "kind": "direct-call",
+        "retail_target": "0x89f930",
+        "verified": true
+      },
+      {
+        "offset": "0xfb",
+        "type": "0x14",
+        "symbol": "??3@YAXPAX@Z",
+        "kind": "direct-call",
+        "retail_target": "0x4e9d10",
+        "verified": true
+      },
+      {
+        "offset": "0x131",
+        "type": "0x6",
+        "symbol": "__except_list",
+        "kind": "FS-exception-list-offset",
+        "verified": true
+      },
+      {
+        "offset": "0x13c",
+        "type": "0x14",
+        "symbol": "??3@YAXPAX@Z",
+        "kind": "direct-call",
+        "retail_target": "0x4e9d10",
+        "verified": true
+      },
+      {
+        "offset": "0x14e",
+        "type": "0x6",
+        "symbol": "__except_list",
+        "kind": "FS-exception-list-offset",
+        "verified": true
+      }
+    ],
+    "unwind_states": [
+      {
+        "state": 0,
+        "retail_action": "0xab6920",
+        "body_matches": true,
+        "targets": [
+          {
+            "symbol": "??1?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAE@XZ",
+            "retail_target": "0x42a6c0",
+            "verified": true
+          }
+        ]
+      },
+      {
+        "state": 1,
+        "retail_action": "0xab6928",
+        "body_matches": true,
+        "targets": [
+          {
+            "symbol": "??1?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAE@XZ",
+            "retail_target": "0x42a6c0",
+            "verified": true
+          }
+        ]
+      },
+      {
+        "state": 2,
+        "retail_action": "0xab6930",
+        "body_matches": true,
+        "targets": [
+          {
+            "symbol": "??1PetitionStuckPacketClass@@UAE@XZ",
+            "retail_target": "0x89f930",
+            "verified": true
+          }
+        ]
+      }
+    ],
+    "unwind_predecessor_states": [
+      -1,
+      0,
+      1
+    ],
+    "funcinfo_and_eh_verified": true,
+    "limitations": [
+      "Native translation-unit verification; no application link or runtime test.",
+      "__FILE__ directory is a scratch compiler path. Retail file basename and assertion text/physical line match; directory equality is not claimed."
+    ]
+  },
+  "summary": "Real int ship_id assigned inside the packet constructor argument changes the ShipID load/push from edx to eax; input read and temporary lifetime remain in the same full expression. Exact first new form; all remaining planned forms untried. No target-external source changes. No production adoption by this worker."
+}

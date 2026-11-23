@@ -1,0 +1,206 @@
+{
+  "base": "e77d1ef085cf867816862e071b550608161b7497",
+  "claim": 254,
+  "address": "0x5D6EE0",
+  "symbol": "UIPetitionPlayerNameClass::Unknown_68",
+  "file": "app/client/ui_petition_player_entry.cpp",
+  "library": "app",
+  "status": "OUT OF LEADS; partial; no adoption",
+  "blocker": "inline-budget",
+  "model": "gpt-6.1-sol (high)",
+  "summary": "63 new forms across11 small hypothesis families;37 target-only equivalent,14 existing-helper equivalent overlays,12 diagnostic helper overlays. Baseline36/36/34 raw/masked/register rows -> best valid Root_Field15/15/14; safe target-only Set22/22/12. All forms retain61 file/address pairs, gain0, lose0. Both Casts remain inline (18 calls versus20 retail). Independent best audit verifies other62 native functions unchanged and all20 retail call roles. Baseline, Set and Root_Field repeats stable. No production edits.",
+  "forms": 63,
+  "categories": {
+    "target-only source-equivalent": 37,
+    "diagnostic helper overlay": 12,
+    "source-equivalent existing-helper overlay": 14
+  },
+  "canonical_target_code_groups": 27,
+  "groups": {
+    "7f9834490fe24e6f499165a0537bdd235d685fb4f1725df073f20d95e0f744dd": [
+      "family1/raw_implicit",
+      "family3/raw_getter",
+      "family3/raw_setter",
+      "family3/raw_both",
+      "family4/raw_aux_arg",
+      "family4/raw_target_cond",
+      "family4/raw_name_assign",
+      "family4/raw_append_cond"
+    ],
+    "4eb6552a33324fbc9d59f56162b8b9ce6f9896199d0bee2e4270b2e7c5a01020": [
+      "family1/raw_temporary"
+    ],
+    "b2529ff5a62088c79c30644acffb0651389031050f02eb67c2f7a19b67d235a9": [
+      "family1/set_named",
+      "family1/set_implicit",
+      "family7/valid_name_named_keep",
+      "family7/valid_name_implicit_keep",
+      "family8/valid_positive_named_keep",
+      "family8/valid_positive_implicit_keep",
+      "family9/validr_alias_keep"
+    ],
+    "a743cbf9e07a41b5f89cef8b3200f4a28a536455ba7077f8e7e7bfa0ce0b38e9": [
+      "family1/set_temporary",
+      "family7/valid_name_temporary_keep"
+    ],
+    "42f3466a14c17dfbb041cb5bbc2c859f90267fa3defd044f3cb835b769d7c536": [
+      "family2/set_named_fallback",
+      "family2/set_implicit_fallback"
+    ],
+    "4da66ccd5c3b7ba744825117fe298dd930f8eb2bcc37380106fd220577ce08c0": [
+      "family2/set_named_final",
+      "family2/set_implicit_final"
+    ],
+    "b69c0c89ca970cb5e4b6b59a45645a17632a07393a0f54730f45726506625db0": [
+      "family2/set_named_both",
+      "family2/set_implicit_both",
+      "family3/set_getter",
+      "family3/set_setter",
+      "family3/set_both",
+      "family4/set_aux_arg",
+      "family4/set_target_cond",
+      "family4/set_name_assign",
+      "family4/set_append_cond",
+      "family6/set_const_named",
+      "family6/set_ref_implicit",
+      "family6/set_ref_explicit",
+      "family7/valid_name_named_simple",
+      "family7/valid_name_implicit_simple",
+      "family8/valid_positive_named_simple",
+      "family8/valid_positive_implicit_simple",
+      "family9/validr_alias_simple"
+    ],
+    "9c3538be06d4f3229719073f062ad0923d2b1cb8f2cb527b6064d8dd97fc4985": [
+      "family2/set_only_owner"
+    ],
+    "bcc348e912b3d370fcd222c0ca7d9c03f5b00c65528644a9d5ace2b6f89aa8bd": [
+      "family2/set_only_field"
+    ],
+    "8bde77c8d2a499f9ff64b5d42c16103ec69d66612ac4f55cb81a3de7b961a883": [
+      "family5/valid_char_keep",
+      "family9/validr_value_keep"
+    ],
+    "702a73ac1df1d8a427d62f39295270a2a07126c6e982ddf0bad58fa2a9f0aebe": [
+      "family5/valid_char_fallback"
+    ],
+    "a616d6d8dba9621db799cb441ccb30e9388b05b6161772411eec7747ffb6c720": [
+      "family5/valid_char_final"
+    ],
+    "013c6a99d588ad78c459c3af078408c9e2c1839c277eefaa33cd3fbb5b172055": [
+      "family5/valid_char_both",
+      "family9/validr_value_simple"
+    ],
+    "df9b6193827eeb95eb646a1bc081c5193673629dc308c7b106cf28c6b925263b": [
+      "family6/set_temporary",
+      "family7/valid_name_temporary_simple"
+    ],
+    "a335aa84d3e237cad58d3c22fae3f5abde1333d251cb869d5d800c2692f01738": [
+      "family6/set_default_before"
+    ],
+    "c0f7e2b9c63ff90a1a3a55122ca949d108eb3b53e78fe9b0eeb2f42b809b75b1": [
+      "family6/set_default_after"
+    ],
+    "d88877571b5c6a0e7daf55cf2acf00767e8daf529afdd17fa3f862d04ec553c5": [
+      "family9/two_layer_value_keep"
+    ],
+    "03c827a94b9ebe6afef613548f88b539c971538814db4aafb38776edad77c778": [
+      "family9/two_layer_value_simple"
+    ],
+    "fff5d5b93e57cef8b4dbc9cb279b4950cba78155606ea575f4069819ae970a9c": [
+      "family9/two_layer_alias_keep"
+    ],
+    "f076ac21735fca40fe4518659568699eb0a682793eadd9e4466315c692b272aa": [
+      "family9/two_layer_alias_simple"
+    ],
+    "8a42bd10a907738161ceedb7c25c23a5ee9f548812ee5746298f464c75824c91": [
+      "family10/root_field_both",
+      "family10/root_field_both_accessors"
+    ],
+    "1857bf31d4215e42feaf25da512a0f056bcbe1115b951fbbbb88bca75b6feb39": [
+      "family10/root_field_owner"
+    ],
+    "98db68210a119e18c0fd991a1a741ae6dcf176c6604ef9d91c89020984c5c419": [
+      "family10/root_field_name"
+    ],
+    "7964d06d60d1b0e0f244042fea6c1b91049489ff10d0708af9aa11c414d1c4e3": [
+      "family11/raw_dispatch_early_reject"
+    ],
+    "e1f1c7fa7b2d1a3781fe6e93e319a8f258419dfedd8dadee78aab0d4e38326f1": [
+      "family11/raw_dispatch_one_first"
+    ],
+    "c86407fbc740d5388b5b99c7bc43aa99f1dbc18ef407266fc2afb8e486ae105f": [
+      "family11/set_dispatch_early_reject"
+    ],
+    "e7e2523d89551628f1fdb4b0b75d264fc0cb4829f10d9ee1f75f92d721017525": [
+      "family11/set_dispatch_one_first"
+    ]
+  },
+  "successful_compiles": 67,
+  "baseline_compiles": 2,
+  "candidate_repeats": 2,
+  "candidate_initial_compiles": 63,
+  "failed_before_compile": 1,
+  "failed_before_compile_reason": "Initial Wine local-socket sandbox denial; approved escalated runner succeeded. No compile or match failures after escalation.",
+  "best_form": "family10/root_field_both",
+  "best_patch": "--- a/app/client/ui_petition_player_entry.cpp\n+++ b/app/client/ui_petition_player_entry.cpp\n@@ -299,7 +299,7 @@\n \tif (NameEditor->Active) NameEditor->Set_Text(Unknown_4BE9D0(NameEditor->Get_Text()).c_str(), 0);\n \tNameEditor->Unknown_6AAD10();\n }\n-\n+template<class C> static inline C *Unknown_Find_Root_Field(DeltaCompoundClass *root, NameClass &name) { if (!root) return(NULL); C *t = Unknown_Find_Field<C>(root, name); if (!t) return(NULL); return(t); }\t// NAME 1: neutral (D10): copied from ui_analyze.cpp:68\n // NOT EXACT: inline-budget (the client calls rtti.h's DeltaStringClass cast 0x4099A8 out of line at both lookups, ours inlines it; as co.cpp's 0x6FF4B0)\n // 0x5D6EE0\n bool UIPetitionPlayerNameClass::Unknown_68(int key)\n@@ -318,10 +318,10 @@\n \t\t\t\tif (target && target->Type == 1) {\n \t\t\t\t\tSoundLibraryClass::Play_2D_Sound(\"fontclick.wav\", 2);\n \t\t\t\t\tNameClass owner(\"Owner\");\n-\t\t\t\t\tDeltaStringClass *t = Unknown_Find_Field<DeltaStringClass>((DeltaCompoundClass *)target->AuxData, owner);\t// NAME 1: neutral (D10)\n+\t\t\t\t\tDeltaStringClass *t = Unknown_Find_Root_Field<DeltaStringClass>((DeltaCompoundClass *)target->AuxData, owner);\t// NAME 1: neutral (D10)\n \t\t\t\t\tif (!t || !t->Unknown70) {\n \t\t\t\t\t\tNameClass field(\"Name\");\n-\t\t\t\t\t\tt = Unknown_Find_Field<DeltaStringClass>((DeltaCompoundClass *)target->AuxData, field);\n+\t\t\t\t\t\tt = Unknown_Find_Root_Field<DeltaStringClass>((DeltaCompoundClass *)target->AuxData, field);\n \t\t\t\t\t}\n \t\t\t\t\tconst char *name = (t && t->Unknown70) ? t->String : \"Unknown\";\t// NAME 1: neutral (D10)\n \t\t\t\t\tbool append = NameEditor->Unknown3B;\t// NAME 1: neutral (D10)\n",
+  "best_source_sha256": "db224f4542a186430e334660542235927b3d8c5d383fc7aaaf2d53779836967c",
+  "best_target_only": "family2/set_named_both",
+  "retail_bounds": [
+    "0x5D6EE0",
+    "0x5D70C8 exclusive"
+  ],
+  "remaining": "Two inline Casts versus retail direct calls through0x4099A8 to0x5469C0, Name Find lea/push scheduling, extra final null test. No tested legitimate accessor/API/lifetime/control form changes Cast boundary. Further progress needs new source evidence for the missing semantic layer; no fabricated budget layer, header edit, pragma, assembly, or dead code is justified.",
+  "source_equivalence": "Best helper copies ui_analyze.cpp:68 verbatim before its comment, retains caller original null/truthy guards, conditional fallback, NameClass construction before each AuxData read, final validation and editor callback order. Helper declaration occupies an existing blank line. All assertion line positions and total physical lines retained.",
+  "baseline_file_address_pairs": 61,
+  "best_file_address_pairs": 61,
+  "adopted_file_address_delta": {
+    "gained": [],
+    "lost": []
+  },
+  "tracked_edits": [],
+  "commits": [],
+  "github_writes": [],
+  "attempt_spec": {
+    "status": "parked",
+    "blocker": "inline-budget",
+    "forms": 51,
+    "score": null,
+    "evidence": "Claim254 player-name followup:63 new forms (37target-only equivalent,14existing-helper equivalent,12diagnostic). Baseline36 rows->Root_Field15; target-only Set22. Neither Cast moves out of line (18vs20calls). All61pairs retained,0gains/0losses.62other native bodies+relocations unchanged. Baseline/best repeats stable. OUT OF LEADS; no adoption. See split readable stashes and copied helper provenance. Forms column counts 37 target-only and 14 source-equivalent existing-helper overlays; excludes 12 diagnostics."
+  },
+  "artifacts": [
+    {
+      "file": "/home/dev/Projects/EnB/.work/claim-254/player-name/source-replay-stash.json",
+      "bytes": 37176,
+      "sha256": "f4257e8a48109ea092022d0c192c3ba4a5017ad36bb07446d56c13b4fdc2de9d"
+    },
+    {
+      "file": "/home/dev/Projects/EnB/.work/claim-254/player-name/target-only-results-stash.json",
+      "bytes": 44728,
+      "sha256": "f5c4f6c3d0d4af9c6f383f3e3c6c82e42ee2e17ef3a3bd067a88fb4242389e41"
+    },
+    {
+      "file": "/home/dev/Projects/EnB/.work/claim-254/player-name/helper-overlay-results-stash.json",
+      "bytes": 49437,
+      "sha256": "eda3bb3d9e80dfd4ae39b2f887b06f548ae0044e5b0eb615d7aec63c54e8e41d"
+    }
+  ],
+  "run_summaries": {
+    "1": "/home/dev/Projects/EnB/.work/claim-254/player-name/runs/family1-9u9640gp/summary.json",
+    "2": "/home/dev/Projects/EnB/.work/claim-254/player-name/runs/family2-48bu02ps/summary.json",
+    "3": "/home/dev/Projects/EnB/.work/claim-254/player-name/runs/family3-hezy1xai/summary.json",
+    "4": "/home/dev/Projects/EnB/.work/claim-254/player-name/runs/family4-jvy7uoql/summary.json",
+    "5": "/home/dev/Projects/EnB/.work/claim-254/player-name/runs/family5-s_tiy2gv/summary.json",
+    "6": "/home/dev/Projects/EnB/.work/claim-254/player-name/runs/family6-33mn40rk/summary.json",
+    "7": "/home/dev/Projects/EnB/.work/claim-254/player-name/runs/family7-xxd74pot/summary.json",
+    "8": "/home/dev/Projects/EnB/.work/claim-254/player-name/runs/family8-w2a1cq7n/summary.json",
+    "9": "/home/dev/Projects/EnB/.work/claim-254/player-name/runs/family9-rg9k0hoi/summary.json",
+    "10": "/home/dev/Projects/EnB/.work/claim-254/player-name/runs/family10-s1bz2st2/summary.json",
+    "11": "/home/dev/Projects/EnB/.work/claim-254/player-name/runs/family11-8h9q3pct/summary.json"
+  },
+  "snapshot_notes": [
+    "family1/set_temporary path was reused by family6 after the first build; reconstructed original bytes from recorded generator and verified original SHA-256. Both retained separately."
+  ],
+  "REA": "open_binary verified retail SHA-256. analyze_function initial call schema corrected; later pending analysis was terminated; all proof comes from local retail disassembly and native COFF matching.",
+  "approximate_total_tokens": "~24k including tool output; no exact per-agent meter available",
+  "tree_state": "Only ignored .work artifacts created; tracked tree clean; no VM leased."
+}

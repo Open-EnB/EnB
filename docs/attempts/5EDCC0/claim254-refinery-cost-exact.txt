@@ -1,0 +1,1158 @@
+{
+  "base": "4b39a781ae6c8f9a5798b5c8aadf9ceef6f27f83",
+  "claim": 254,
+  "file": "app/client/ui_refinery.cpp",
+  "address": "0x5EDCC0",
+  "symbol": "UIRefineryClass::Unknown_5EDCC0",
+  "library": "app",
+  "status": "exact",
+  "model": "gpt-6.1-sol (high)",
+  "forms": 3,
+  "actual_new_valid": 3,
+  "controls": 2,
+  "source_repeats": 0,
+  "diagnostics": 0,
+  "compile_failures": 0,
+  "match_failures": 0,
+  "untried_generated_forms": [
+    "show_first",
+    "show_second",
+    "show_both"
+  ],
+  "baseline_source_sha256": "645387de20786a02835b79079a9d85e3034776a3e21ba664b2e9f72c8dd99932",
+  "seed_source_sha256": "57e60697979121614dea7f55c27c094b649a84d552134582bc98cb3177f42920",
+  "seed_patch": "--- a/app/client/ui_refinery.cpp\n+++ b/app/client/ui_refinery.cpp\n@@ -624,8 +624,8 @@\n \t}\n \tUnknown_5ECBB0(0, true, credits.Amount_As_Text(false).c_str());\n \tMoneyClass cost;\n-\tDeltaTemplateClass<MoneyClass> *negotiated = Unknown_Find_Field<DeltaTemplateClass<MoneyClass> >(Unknown0AEC, NameClass(\"NegotiatedCost\"));\n-\tif (negotiated && negotiated->Unknown70) {\n+\tDeltaTemplateClass<MoneyClass> *negotiated = Unknown_Find_Set_Field<DeltaTemplateClass<MoneyClass> >(Unknown0AEC, \"NegotiatedCost\");\n+\tif (negotiated) {\n \t\tcost = negotiated->Value;\n \t}\n \tUnknown_5ECBB0(3, true, cost.Amount_As_Text(false).c_str());\n",
+  "recipes": [
+    {
+      "name": "index_first",
+      "replacements": [
+        {
+          "physical_line": 625,
+          "replacement": "\tint index; Unknown_5ECBB0(index = 0, true, credits.Amount_As_Text(false).c_str());\n"
+        }
+      ],
+      "source_sha256": "cfdd92da3a95f190c8c6e7fc982cea40120079c98267d07189a9a3c6bac93395",
+      "independent_patch_against_seed": "--- a/app/client/ui_refinery.cpp\n+++ b/app/client/ui_refinery.cpp\n@@ -622,7 +622,7 @@\n \tif (money && money->Unknown70) {\n \t\tcredits = money->Value;\n \t}\n-\tUnknown_5ECBB0(0, true, credits.Amount_As_Text(false).c_str());\n+\tint index; Unknown_5ECBB0(index = 0, true, credits.Amount_As_Text(false).c_str());\n \tMoneyClass cost;\n \tDeltaTemplateClass<MoneyClass> *negotiated = Unknown_Find_Set_Field<DeltaTemplateClass<MoneyClass> >(Unknown0AEC, \"NegotiatedCost\");\n \tif (negotiated) {\n"
+    },
+    {
+      "name": "index_second",
+      "replacements": [
+        {
+          "physical_line": 631,
+          "replacement": "\tint index; Unknown_5ECBB0(index = 3, true, cost.Amount_As_Text(false).c_str());\n"
+        }
+      ],
+      "source_sha256": "7db07708a180ff775a709bf1b2790291f3915ba9b40031ae8e857397fc347f19",
+      "independent_patch_against_seed": "--- a/app/client/ui_refinery.cpp\n+++ b/app/client/ui_refinery.cpp\n@@ -628,7 +628,7 @@\n \tif (negotiated) {\n \t\tcost = negotiated->Value;\n \t}\n-\tUnknown_5ECBB0(3, true, cost.Amount_As_Text(false).c_str());\n+\tint index; Unknown_5ECBB0(index = 3, true, cost.Amount_As_Text(false).c_str());\n }\n \n static std::string Unknown_5EE7F0(int validity);\n"
+    },
+    {
+      "name": "index_both",
+      "replacements": [
+        {
+          "physical_line": 625,
+          "replacement": "\tint index; Unknown_5ECBB0(index = 0, true, credits.Amount_As_Text(false).c_str());\n"
+        },
+        {
+          "physical_line": 631,
+          "replacement": "\tUnknown_5ECBB0(index = 3, true, cost.Amount_As_Text(false).c_str());\n"
+        }
+      ],
+      "source_sha256": "a301e1a838fc6984492e0383c62030e77ae7004bdc8dee8fe1b8489dd389e997",
+      "independent_patch_against_seed": "--- a/app/client/ui_refinery.cpp\n+++ b/app/client/ui_refinery.cpp\n@@ -622,13 +622,13 @@\n \tif (money && money->Unknown70) {\n \t\tcredits = money->Value;\n \t}\n-\tUnknown_5ECBB0(0, true, credits.Amount_As_Text(false).c_str());\n+\tint index; Unknown_5ECBB0(index = 0, true, credits.Amount_As_Text(false).c_str());\n \tMoneyClass cost;\n \tDeltaTemplateClass<MoneyClass> *negotiated = Unknown_Find_Set_Field<DeltaTemplateClass<MoneyClass> >(Unknown0AEC, \"NegotiatedCost\");\n \tif (negotiated) {\n \t\tcost = negotiated->Value;\n \t}\n-\tUnknown_5ECBB0(3, true, cost.Amount_As_Text(false).c_str());\n+\tUnknown_5ECBB0(index = 3, true, cost.Amount_As_Text(false).c_str());\n }\n \n static std::string Unknown_5EE7F0(int validity);\n"
+    }
+  ],
+  "baseline_exact_addresses": [
+    "0x42A6C0",
+    "0x42A820",
+    "0x42A940",
+    "0x42A970",
+    "0x42AB30",
+    "0x42B320",
+    "0x42CAB0",
+    "0x42CD30",
+    "0x42D050",
+    "0x42D120",
+    "0x42F250",
+    "0x45CC10",
+    "0x474080",
+    "0x4740B0",
+    "0x4A1930",
+    "0x4A19A0",
+    "0x4A19C0",
+    "0x4A1A10",
+    "0x4A1A30",
+    "0x4A1A50",
+    "0x4A1A70",
+    "0x4A1A90",
+    "0x4A1AB0",
+    "0x4A1AD0",
+    "0x4A1AF0",
+    "0x4A7780",
+    "0x4B58D0",
+    "0x5156B0",
+    "0x5156F0",
+    "0x515710",
+    "0x515730",
+    "0x515750",
+    "0x51C630",
+    "0x52B210",
+    "0x52B240",
+    "0x52B270",
+    "0x52B2A0",
+    "0x52B2D0",
+    "0x52B2F0",
+    "0x52B310",
+    "0x52B330",
+    "0x52B350",
+    "0x5411F0",
+    "0x543750",
+    "0x543770",
+    "0x544250",
+    "0x544B90",
+    "0x546480",
+    "0x5464B0",
+    "0x546510",
+    "0x5465C0",
+    "0x5466A0",
+    "0x5468D0",
+    "0x553A80",
+    "0x5B6E20",
+    "0x5B7050",
+    "0x5B7130",
+    "0x5B7210",
+    "0x5B7260",
+    "0x5EB7C0",
+    "0x5EB7F0",
+    "0x5EB810",
+    "0x5EBA20",
+    "0x5EBA50",
+    "0x5EBC30",
+    "0x5EC220",
+    "0x5EC270",
+    "0x5EC570",
+    "0x5EC6D0",
+    "0x5EC990",
+    "0x5ECBB0",
+    "0x5ECCE0",
+    "0x5ECDD0",
+    "0x5ECE20",
+    "0x5ED230",
+    "0x5ED2A0",
+    "0x5ED310",
+    "0x5ED350",
+    "0x5ED440",
+    "0x5ED470",
+    "0x5ED530",
+    "0x5ED5D0",
+    "0x5ED5F0",
+    "0x5ED800",
+    "0x5EDA10",
+    "0x5EDFD0",
+    "0x5EE460",
+    "0x5EE780",
+    "0x5EE7F0",
+    "0x5EEBA0",
+    "0x5EEC10",
+    "0x5EEC90",
+    "0x5EED00",
+    "0x5EED10"
+  ],
+  "final_exact_addresses": [
+    "0x42A6C0",
+    "0x42A820",
+    "0x42A940",
+    "0x42A970",
+    "0x42AB30",
+    "0x42B320",
+    "0x42CAB0",
+    "0x42CD30",
+    "0x42D050",
+    "0x42D120",
+    "0x42F250",
+    "0x45CC10",
+    "0x474080",
+    "0x4740B0",
+    "0x4A1930",
+    "0x4A19A0",
+    "0x4A19C0",
+    "0x4A1A10",
+    "0x4A1A30",
+    "0x4A1A50",
+    "0x4A1A70",
+    "0x4A1A90",
+    "0x4A1AB0",
+    "0x4A1AD0",
+    "0x4A1AF0",
+    "0x4A7780",
+    "0x4B58D0",
+    "0x5156B0",
+    "0x5156F0",
+    "0x515710",
+    "0x515730",
+    "0x515750",
+    "0x51C630",
+    "0x52B210",
+    "0x52B240",
+    "0x52B270",
+    "0x52B2A0",
+    "0x52B2D0",
+    "0x52B2F0",
+    "0x52B310",
+    "0x52B330",
+    "0x52B350",
+    "0x5411F0",
+    "0x543750",
+    "0x543770",
+    "0x544250",
+    "0x544B90",
+    "0x546480",
+    "0x5464B0",
+    "0x546510",
+    "0x5465C0",
+    "0x5466A0",
+    "0x5468D0",
+    "0x5481C0",
+    "0x553A80",
+    "0x5B6E20",
+    "0x5B7050",
+    "0x5B7130",
+    "0x5B7210",
+    "0x5B7260",
+    "0x5EB7C0",
+    "0x5EB7F0",
+    "0x5EB810",
+    "0x5EBA20",
+    "0x5EBA50",
+    "0x5EBC30",
+    "0x5EC220",
+    "0x5EC270",
+    "0x5EC570",
+    "0x5EC6D0",
+    "0x5EC990",
+    "0x5ECBB0",
+    "0x5ECCE0",
+    "0x5ECDD0",
+    "0x5ECE20",
+    "0x5ED230",
+    "0x5ED2A0",
+    "0x5ED310",
+    "0x5ED350",
+    "0x5ED440",
+    "0x5ED470",
+    "0x5ED530",
+    "0x5ED5D0",
+    "0x5ED5F0",
+    "0x5ED800",
+    "0x5EDA10",
+    "0x5EDCC0",
+    "0x5EDFD0",
+    "0x5EE460",
+    "0x5EE780",
+    "0x5EE7F0",
+    "0x5EEBA0",
+    "0x5EEC10",
+    "0x5EEC90",
+    "0x5EED00",
+    "0x5EED10"
+  ],
+  "file_address_pair_delta": {
+    "file": "app/client/ui_refinery.cpp",
+    "gained": [
+      "0x5481C0",
+      "0x5EDCC0"
+    ],
+    "lost": []
+  },
+  "target_delta": {
+    "gained": [
+      "0x5EDCC0"
+    ],
+    "lost": []
+  },
+  "helper_delta": {
+    "gained": [
+      "0x5481C0"
+    ],
+    "provenance": "Previously known partial-seed Cast gain; not a new solved claimed target."
+  },
+  "metrics": [
+    {
+      "name": "baseline",
+      "source": "/home/dev/Projects/EnB/.work/claim-254/revisit-petitions-cost/cost/baseline/ui_refinery.cpp",
+      "source_sha256": "645387de20786a02835b79079a9d85e3034776a3e21ba664b2e9f72c8dd99932",
+      "output": "/home/dev/Projects/EnB/.work/claim-254/revisit-petitions-cost/cost/runs/forms1-gv_iiktm/baseline",
+      "compiled": true,
+      "object": "/home/dev/Projects/EnB/.work/claim-254/revisit-petitions-cost/cost/runs/forms1-gv_iiktm/baseline/ui_refinery.obj",
+      "match_returncode": 0,
+      "matches": "/home/dev/Projects/EnB/.work/claim-254/revisit-petitions-cost/cost/runs/forms1-gv_iiktm/baseline/matches.json",
+      "counts": {
+        "exact": 94,
+        "none": 3
+      },
+      "gained_addresses": [],
+      "lost_addresses": [],
+      "target_exact": false,
+      "seconds": 3.23,
+      "object_sha256": "864af4f7fa92cbf777454f4839470928239fa6e40bfeca2ac206bb5742b8df5d",
+      "role": "control",
+      "target_masked_code_sha256": "7a418e8dc3ec7c37a832241c3d8bae7b98daa4319b7e5ea4fcd2b90024c84470",
+      "target_object_extent": 624,
+      "historical_emission_repeat": true,
+      "res": 26,
+      "regs": 10,
+      "raw": 26,
+      "frame": "0x58",
+      "ours": 181,
+      "client": 182,
+      "class": "relocation",
+      "score": 0.8571428571428572,
+      "call_count": 24,
+      "call_pattern_equal_seed": false
+    },
+    {
+      "name": "seed",
+      "source": "/home/dev/Projects/EnB/.work/claim-254/revisit-petitions-cost/cost/seed/ui_refinery.cpp",
+      "source_sha256": "57e60697979121614dea7f55c27c094b649a84d552134582bc98cb3177f42920",
+      "output": "/home/dev/Projects/EnB/.work/claim-254/revisit-petitions-cost/cost/runs/forms1-gv_iiktm/seed",
+      "compiled": true,
+      "object": "/home/dev/Projects/EnB/.work/claim-254/revisit-petitions-cost/cost/runs/forms1-gv_iiktm/seed/ui_refinery.obj",
+      "match_returncode": 0,
+      "matches": "/home/dev/Projects/EnB/.work/claim-254/revisit-petitions-cost/cost/runs/forms1-gv_iiktm/seed/matches.json",
+      "counts": {
+        "exact": 95,
+        "none": 3
+      },
+      "gained_addresses": [
+        "0x5481C0"
+      ],
+      "lost_addresses": [],
+      "target_exact": false,
+      "seconds": 2.84,
+      "object_sha256": "d674d406577848129a50191b31d63a1923a039e6623aa473c1fe12685343a128",
+      "role": "control",
+      "target_masked_code_sha256": "4960cf0f67df9732ff6f0edb2aefdfd20fc1f1743a7bd068b55651f4e8e17d1a",
+      "target_object_extent": 624,
+      "historical_emission_repeat": true,
+      "res": 18,
+      "regs": 4,
+      "raw": 18,
+      "frame": "0x58",
+      "ours": 182,
+      "client": 182,
+      "class": "relocation",
+      "score": 0.9010989010989011,
+      "call_count": 25,
+      "call_pattern_equal_seed": true
+    },
+    {
+      "name": "index_first",
+      "source": "/home/dev/Projects/EnB/.work/claim-254/revisit-petitions-cost/cost/index_first/ui_refinery.cpp",
+      "source_sha256": "cfdd92da3a95f190c8c6e7fc982cea40120079c98267d07189a9a3c6bac93395",
+      "output": "/home/dev/Projects/EnB/.work/claim-254/revisit-petitions-cost/cost/runs/forms1-gv_iiktm/index_first",
+      "compiled": true,
+      "object": "/home/dev/Projects/EnB/.work/claim-254/revisit-petitions-cost/cost/runs/forms1-gv_iiktm/index_first/ui_refinery.obj",
+      "match_returncode": 0,
+      "matches": "/home/dev/Projects/EnB/.work/claim-254/revisit-petitions-cost/cost/runs/forms1-gv_iiktm/index_first/matches.json",
+      "counts": {
+        "exact": 95,
+        "none": 3
+      },
+      "gained_addresses": [
+        "0x5481C0"
+      ],
+      "lost_addresses": [],
+      "target_exact": false,
+      "seconds": 2.84,
+      "object_sha256": "39e09a63380dca93361a414ab32b08aa3d0a653db48ef6547a5b99f0ec4d5422",
+      "role": "new_valid",
+      "target_masked_code_sha256": "47688889507bb32187d6be6ff8a07cec43384a73ad5fa85fd88a3b9b65e21bd5",
+      "target_object_extent": 624,
+      "historical_emission_repeat": false,
+      "res": 9,
+      "regs": 2,
+      "raw": 9,
+      "frame": "0x58",
+      "ours": 182,
+      "client": 182,
+      "class": "relocation",
+      "score": 0.9505494505494505,
+      "call_count": 25,
+      "call_pattern_equal_seed": true
+    },
+    {
+      "name": "index_second",
+      "source": "/home/dev/Projects/EnB/.work/claim-254/revisit-petitions-cost/cost/index_second/ui_refinery.cpp",
+      "source_sha256": "7db07708a180ff775a709bf1b2790291f3915ba9b40031ae8e857397fc347f19",
+      "output": "/home/dev/Projects/EnB/.work/claim-254/revisit-petitions-cost/cost/runs/forms1-gv_iiktm/index_second",
+      "compiled": true,
+      "object": "/home/dev/Projects/EnB/.work/claim-254/revisit-petitions-cost/cost/runs/forms1-gv_iiktm/index_second/ui_refinery.obj",
+      "match_returncode": 0,
+      "matches": "/home/dev/Projects/EnB/.work/claim-254/revisit-petitions-cost/cost/runs/forms1-gv_iiktm/index_second/matches.json",
+      "counts": {
+        "exact": 95,
+        "none": 3
+      },
+      "gained_addresses": [
+        "0x5481C0"
+      ],
+      "lost_addresses": [],
+      "target_exact": false,
+      "seconds": 2.89,
+      "object_sha256": "12e6edfcedf69d66ee8fd0f1f6405d29a5a7fd50d6d0e0cfcb6aabc662515907",
+      "role": "new_valid",
+      "target_masked_code_sha256": "d504d4762eec24d8ade5e985387ca2422359f34503db94071efae77698e44bb7",
+      "target_object_extent": 624,
+      "historical_emission_repeat": false,
+      "res": 9,
+      "regs": 2,
+      "raw": 9,
+      "frame": "0x58",
+      "ours": 182,
+      "client": 182,
+      "class": "relocation",
+      "score": 0.9505494505494505,
+      "call_count": 25,
+      "call_pattern_equal_seed": true
+    },
+    {
+      "name": "index_both",
+      "source": "/home/dev/Projects/EnB/.work/claim-254/revisit-petitions-cost/cost/index_both/ui_refinery.cpp",
+      "source_sha256": "a301e1a838fc6984492e0383c62030e77ae7004bdc8dee8fe1b8489dd389e997",
+      "output": "/home/dev/Projects/EnB/.work/claim-254/revisit-petitions-cost/cost/runs/forms1-gv_iiktm/index_both",
+      "compiled": true,
+      "object": "/home/dev/Projects/EnB/.work/claim-254/revisit-petitions-cost/cost/runs/forms1-gv_iiktm/index_both/ui_refinery.obj",
+      "match_returncode": 0,
+      "matches": "/home/dev/Projects/EnB/.work/claim-254/revisit-petitions-cost/cost/runs/forms1-gv_iiktm/index_both/matches.json",
+      "counts": {
+        "exact": 96,
+        "none": 2
+      },
+      "gained_addresses": [
+        "0x5481C0",
+        "0x5EDCC0"
+      ],
+      "lost_addresses": [],
+      "target_exact": true,
+      "seconds": 2.89,
+      "object_sha256": "aa62ec85ce60891f23eab473e4b1a341c744235ca3e306353bece2544f753159",
+      "role": "new_valid",
+      "target_masked_code_sha256": "df71b0b99cdcd8bf8325229ac5bbd5dd8d8b471eb6eb575eb6e1dfda48e413ab",
+      "target_object_extent": 624,
+      "historical_emission_repeat": false,
+      "res": 0,
+      "regs": 0,
+      "raw": 0,
+      "frame": "0x58",
+      "ours": 182,
+      "client": 182,
+      "class": "exact",
+      "score": 1.0,
+      "call_count": 25,
+      "call_pattern_equal_seed": true
+    }
+  ],
+  "audit": {
+    "status": "exact; independent retail audit",
+    "retail_sha256": "249f852496f341c00361be95b66e7c0becc2c39e7cba026f9227e38b602651c4",
+    "base_revision": "4b39a781ae6c8f9a5798b5c8aadf9ceef6f27f83",
+    "file": "ui_refinery.cpp",
+    "changed_physical_lines": [
+      625,
+      627,
+      628,
+      631
+    ],
+    "baseline_source_sha256": "645387de20786a02835b79079a9d85e3034776a3e21ba664b2e9f72c8dd99932",
+    "candidate_source_sha256": "a301e1a838fc6984492e0383c62030e77ae7004bdc8dee8fe1b8489dd389e997",
+    "candidate_object_sha256": "aa62ec85ce60891f23eab473e4b1a341c744235ca3e306353bece2544f753159",
+    "new_emitted_functions": [
+      "?Cast@?$UnknownRTTIClass@V?$DeltaTemplateClass@VMoneyClass@@@@@@SAPAV?$DeltaTemplateClass@VMoneyClass@@@@PAVDeltaClass@@@Z"
+    ],
+    "source_outside_target_identical": true,
+    "subsequent_physical_lines_identical": true,
+    "outside_target_identical_functions": 96,
+    "retail_code_bounds": [
+      "0x5edcc0",
+      "0x5edf24"
+    ],
+    "code_bytes": 612,
+    "aligned_function_bytes": 624,
+    "instruction_rows": 182,
+    "return_count": 1,
+    "branch_shapes_identical": true,
+    "all_nonrelocated_bytes_identical": true,
+    "calls": [
+      {
+        "offset": "0x30",
+        "retail": "0x5edcf0",
+        "indirect": "call dword ptr [eax + 0x18]",
+        "retail_indirect": "call dword ptr [eax + 0x18]",
+        "resolved": true
+      },
+      {
+        "offset": "0x42",
+        "retail": "0x5edd02",
+        "symbol": "??0NameClass@@QAE@PBD@Z",
+        "target": "0x4ad380",
+        "resolved": true
+      },
+      {
+        "offset": "0x4d",
+        "retail": "0x5edd0d",
+        "symbol": "?Unknown_Find_Field@@YAPAV?$DeltaTemplateClass@VMoneyClass@@@@PAVDeltaCompoundClass@@ABVNameClass@@@Z",
+        "target": "0x5466a0",
+        "resolved": true
+      },
+      {
+        "offset": "0x7c",
+        "retail": "0x5edd3c",
+        "symbol": "?Amount_As_Text@MoneyClass@@QBE?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@_N@Z",
+        "target": "0x4f00c0",
+        "resolved": true
+      },
+      {
+        "offset": "0xaa",
+        "retail": "0x5edd6a",
+        "symbol": "?Get_Style@FontManagerClass@@QAEPAVFontSys@@PBDPAVRenderObjClass@@@Z",
+        "target": "0x6d25d0",
+        "resolved": true
+      },
+      {
+        "offset": "0xb5",
+        "retail": "0x5edd75",
+        "symbol": "?Create_Peek@@YA?AV?$RefCountPtr@VFontSys@@@@PAVFontSys@@@Z",
+        "target": "0x546510",
+        "resolved": true
+      },
+      {
+        "offset": "0xd9",
+        "retail": "0x5edd99",
+        "symbol": "?Fail_If_Report@@YAXPBD0H@Z",
+        "target": "0x4e9450",
+        "resolved": true
+      },
+      {
+        "offset": "0xe5",
+        "retail": "0x5edda5",
+        "symbol": "?Change_Text@FontSys@@QAEXPBDH@Z",
+        "target": "0x6cdbc0",
+        "resolved": true
+      },
+      {
+        "offset": "0xf1",
+        "retail": "0x5eddb1",
+        "indirect": "call dword ptr [edx + 0x184]",
+        "retail_indirect": "call dword ptr [edx + 0x184]",
+        "resolved": true
+      },
+      {
+        "offset": "0x100",
+        "retail": "0x5eddc0",
+        "symbol": "??1?$RefCountPtr@VFontSys@@@@QAE@XZ",
+        "target": "0x51c630",
+        "resolved": true
+      },
+      {
+        "offset": "0x10f",
+        "retail": "0x5eddcf",
+        "symbol": "?_Tidy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEX_N@Z",
+        "target": "0x42a820",
+        "resolved": true
+      },
+      {
+        "offset": "0x12a",
+        "retail": "0x5eddea",
+        "symbol": "??0NameClass@@QAE@PBD@Z",
+        "target": "0x4ad380",
+        "resolved": true
+      },
+      {
+        "offset": "0x139",
+        "retail": "0x5eddf9",
+        "symbol": "?Get_Lookup@DeltaCompoundClass@@QAEPAVLookupClass@@XZ",
+        "target": "0x4a5510",
+        "resolved": true
+      },
+      {
+        "offset": "0x145",
+        "retail": "0x5ede05",
+        "symbol": "?Find@LookupClass@@QAEPAVDeltaClass@@ABVNameClass@@@Z",
+        "target": "0x4ac9f0",
+        "resolved": true
+      },
+      {
+        "offset": "0x14f",
+        "retail": "0x5ede0f",
+        "symbol": "?Cast@?$UnknownRTTIClass@V?$DeltaTemplateClass@VMoneyClass@@@@@@SAPAV?$DeltaTemplateClass@VMoneyClass@@@@PAVDeltaClass@@@Z",
+        "target": "0x5481c0",
+        "resolved": true
+      },
+      {
+        "offset": "0x16a",
+        "retail": "0x5ede2a",
+        "symbol": "?G_Assert_Report@@YAXPBD0H@Z",
+        "target": "0x4e9410",
+        "resolved": true
+      },
+      {
+        "offset": "0x197",
+        "retail": "0x5ede57",
+        "symbol": "?Amount_As_Text@MoneyClass@@QBE?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@_N@Z",
+        "target": "0x4f00c0",
+        "resolved": true
+      },
+      {
+        "offset": "0x1c5",
+        "retail": "0x5ede85",
+        "symbol": "?Get_Style@FontManagerClass@@QAEPAVFontSys@@PBDPAVRenderObjClass@@@Z",
+        "target": "0x6d25d0",
+        "resolved": true
+      },
+      {
+        "offset": "0x1d0",
+        "retail": "0x5ede90",
+        "symbol": "?Create_Peek@@YA?AV?$RefCountPtr@VFontSys@@@@PAVFontSys@@@Z",
+        "target": "0x546510",
+        "resolved": true
+      },
+      {
+        "offset": "0x1f4",
+        "retail": "0x5edeb4",
+        "symbol": "?Fail_If_Report@@YAXPBD0H@Z",
+        "target": "0x4e9450",
+        "resolved": true
+      },
+      {
+        "offset": "0x21c",
+        "retail": "0x5ededc",
+        "indirect": "call dword ptr [edx]",
+        "retail_indirect": "call dword ptr [edx]",
+        "resolved": true
+      },
+      {
+        "offset": "0x222",
+        "retail": "0x5edee2",
+        "symbol": "?Change_Text@FontSys@@QAEXPBDH@Z",
+        "target": "0x6cdbc0",
+        "resolved": true
+      },
+      {
+        "offset": "0x22e",
+        "retail": "0x5edeee",
+        "indirect": "call dword ptr [eax + 0x184]",
+        "retail_indirect": "call dword ptr [eax + 0x184]",
+        "resolved": true
+      },
+      {
+        "offset": "0x23d",
+        "retail": "0x5edefd",
+        "symbol": "??1?$RefCountPtr@VFontSys@@@@QAE@XZ",
+        "target": "0x51c630",
+        "resolved": true
+      },
+      {
+        "offset": "0x24d",
+        "retail": "0x5edf0d",
+        "symbol": "?_Tidy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEX_N@Z",
+        "target": "0x42a820",
+        "resolved": true
+      }
+    ],
+    "all_call_targets_resolved": true,
+    "relocations": [
+      {
+        "offset": "0x3",
+        "type": "0x6",
+        "symbol": "$L121847",
+        "kind": "EH-handler",
+        "retail_address": "0xab83f0",
+        "verified": true
+      },
+      {
+        "offset": "0x9",
+        "type": "0x6",
+        "symbol": "__except_list",
+        "kind": "FS-exception-list-offset",
+        "verified": true
+      },
+      {
+        "offset": "0x11",
+        "type": "0x6",
+        "symbol": "__except_list",
+        "kind": "FS-exception-list-offset",
+        "verified": true
+      },
+      {
+        "offset": "0x3a",
+        "type": "0x6",
+        "symbol": "??_C@_05COBC@Money?$AA@",
+        "kind": "literal",
+        "value": "Money",
+        "verified": true
+      },
+      {
+        "offset": "0x43",
+        "type": "0x14",
+        "symbol": "??0NameClass@@QAE@PBD@Z",
+        "kind": "direct-call",
+        "retail_target": "0x4ad380",
+        "verified": true
+      },
+      {
+        "offset": "0x4e",
+        "type": "0x14",
+        "symbol": "?Unknown_Find_Field@@YAPAV?$DeltaTemplateClass@VMoneyClass@@@@PAVDeltaCompoundClass@@ABVNameClass@@@Z",
+        "kind": "direct-call",
+        "retail_target": "0x5466a0",
+        "verified": true
+      },
+      {
+        "offset": "0x7d",
+        "type": "0x14",
+        "symbol": "?Amount_As_Text@MoneyClass@@QBE?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@_N@Z",
+        "kind": "direct-call",
+        "retail_target": "0x4f00c0",
+        "verified": true
+      },
+      {
+        "offset": "0x8c",
+        "type": "0x6",
+        "symbol": "?_C@?1??_Nullstr@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@CAPBDXZ@4DB",
+        "kind": "empty-string",
+        "verified": true
+      },
+      {
+        "offset": "0x9b",
+        "type": "0x6",
+        "symbol": "_Unknown_B85C48",
+        "kind": "font-style-name-global",
+        "addend": 0,
+        "verified": true
+      },
+      {
+        "offset": "0xa5",
+        "type": "0x6",
+        "symbol": "?Unknown_BE67C4@@3PAVFontManagerClass@@A",
+        "kind": "font-manager-global",
+        "verified": true
+      },
+      {
+        "offset": "0xab",
+        "type": "0x14",
+        "symbol": "?Get_Style@FontManagerClass@@QAEPAVFontSys@@PBDPAVRenderObjClass@@@Z",
+        "kind": "direct-call",
+        "retail_target": "0x6d25d0",
+        "verified": true
+      },
+      {
+        "offset": "0xb6",
+        "type": "0x14",
+        "symbol": "?Create_Peek@@YA?AV?$RefCountPtr@VFontSys@@@@PAVFontSys@@@Z",
+        "kind": "direct-call",
+        "retail_target": "0x546510",
+        "verified": true
+      },
+      {
+        "offset": "0xd0",
+        "type": "0x6",
+        "symbol": "??_C@_0GA@DPDO@Z?3?2home?2dev?2Projects?2EnB?2?4work?2c@",
+        "kind": "file-basename",
+        "value": "e:\\build\\beta\\G\\app\\Client\\ui_refinery.cpp",
+        "verified": true
+      },
+      {
+        "offset": "0xd5",
+        "type": "0x6",
+        "symbol": "??_C@_05CFFP@?$CBfont?$AA@",
+        "kind": "literal",
+        "value": "!font",
+        "verified": true
+      },
+      {
+        "offset": "0xda",
+        "type": "0x14",
+        "symbol": "?Fail_If_Report@@YAXPBD0H@Z",
+        "kind": "direct-call",
+        "retail_target": "0x4e9450",
+        "verified": true
+      },
+      {
+        "offset": "0xe6",
+        "type": "0x14",
+        "symbol": "?Change_Text@FontSys@@QAEXPBDH@Z",
+        "kind": "direct-call",
+        "retail_target": "0x6cdbc0",
+        "verified": true
+      },
+      {
+        "offset": "0x101",
+        "type": "0x14",
+        "symbol": "??1?$RefCountPtr@VFontSys@@@@QAE@XZ",
+        "kind": "direct-call",
+        "retail_target": "0x51c630",
+        "verified": true
+      },
+      {
+        "offset": "0x110",
+        "type": "0x14",
+        "symbol": "?_Tidy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEX_N@Z",
+        "kind": "direct-call",
+        "retail_target": "0x42a820",
+        "verified": true
+      },
+      {
+        "offset": "0x11d",
+        "type": "0x6",
+        "symbol": "??_C@_0P@HINP@NegotiatedCost?$AA@",
+        "kind": "literal",
+        "value": "NegotiatedCost",
+        "verified": true
+      },
+      {
+        "offset": "0x12b",
+        "type": "0x14",
+        "symbol": "??0NameClass@@QAE@PBD@Z",
+        "kind": "direct-call",
+        "retail_target": "0x4ad380",
+        "verified": true
+      },
+      {
+        "offset": "0x13a",
+        "type": "0x14",
+        "symbol": "?Get_Lookup@DeltaCompoundClass@@QAEPAVLookupClass@@XZ",
+        "kind": "direct-call",
+        "retail_target": "0x4a5510",
+        "verified": true
+      },
+      {
+        "offset": "0x146",
+        "type": "0x14",
+        "symbol": "?Find@LookupClass@@QAEPAVDeltaClass@@ABVNameClass@@@Z",
+        "kind": "direct-call",
+        "retail_target": "0x4ac9f0",
+        "verified": true
+      },
+      {
+        "offset": "0x150",
+        "type": "0x14",
+        "symbol": "?Cast@?$UnknownRTTIClass@V?$DeltaTemplateClass@VMoneyClass@@@@@@SAPAV?$DeltaTemplateClass@VMoneyClass@@@@PAVDeltaClass@@@Z",
+        "kind": "direct-call",
+        "retail_target": "0x5481c0",
+        "verified": true
+      },
+      {
+        "offset": "0x161",
+        "type": "0x6",
+        "symbol": "??_C@_0GM@GHMC@Z?3?2home?2dev?2Projects?2EnB?2?4work?2c@",
+        "kind": "file-basename",
+        "value": "..\\shared/auxdata/auxdata.h",
+        "verified": true
+      },
+      {
+        "offset": "0x166",
+        "type": "0x6",
+        "symbol": "??_C@_01PEAM@t?$AA@",
+        "kind": "literal",
+        "value": "t",
+        "verified": true
+      },
+      {
+        "offset": "0x16b",
+        "type": "0x14",
+        "symbol": "?G_Assert_Report@@YAXPBD0H@Z",
+        "kind": "direct-call",
+        "retail_target": "0x4e9410",
+        "verified": true
+      },
+      {
+        "offset": "0x198",
+        "type": "0x14",
+        "symbol": "?Amount_As_Text@MoneyClass@@QBE?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@_N@Z",
+        "kind": "direct-call",
+        "retail_target": "0x4f00c0",
+        "verified": true
+      },
+      {
+        "offset": "0x1a7",
+        "type": "0x6",
+        "symbol": "?_C@?1??_Nullstr@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@CAPBDXZ@4DB",
+        "kind": "empty-string",
+        "verified": true
+      },
+      {
+        "offset": "0x1b6",
+        "type": "0x6",
+        "symbol": "_Unknown_B85C48",
+        "kind": "font-style-name-global",
+        "addend": 12,
+        "verified": true
+      },
+      {
+        "offset": "0x1c0",
+        "type": "0x6",
+        "symbol": "?Unknown_BE67C4@@3PAVFontManagerClass@@A",
+        "kind": "font-manager-global",
+        "verified": true
+      },
+      {
+        "offset": "0x1c6",
+        "type": "0x14",
+        "symbol": "?Get_Style@FontManagerClass@@QAEPAVFontSys@@PBDPAVRenderObjClass@@@Z",
+        "kind": "direct-call",
+        "retail_target": "0x6d25d0",
+        "verified": true
+      },
+      {
+        "offset": "0x1d1",
+        "type": "0x14",
+        "symbol": "?Create_Peek@@YA?AV?$RefCountPtr@VFontSys@@@@PAVFontSys@@@Z",
+        "kind": "direct-call",
+        "retail_target": "0x546510",
+        "verified": true
+      },
+      {
+        "offset": "0x1eb",
+        "type": "0x6",
+        "symbol": "??_C@_0GA@DPDO@Z?3?2home?2dev?2Projects?2EnB?2?4work?2c@",
+        "kind": "file-basename",
+        "value": "e:\\build\\beta\\G\\app\\Client\\ui_refinery.cpp",
+        "verified": true
+      },
+      {
+        "offset": "0x1f0",
+        "type": "0x6",
+        "symbol": "??_C@_05CFFP@?$CBfont?$AA@",
+        "kind": "literal",
+        "value": "!font",
+        "verified": true
+      },
+      {
+        "offset": "0x1f5",
+        "type": "0x14",
+        "symbol": "?Fail_If_Report@@YAXPBD0H@Z",
+        "kind": "direct-call",
+        "retail_target": "0x4e9450",
+        "verified": true
+      },
+      {
+        "offset": "0x223",
+        "type": "0x14",
+        "symbol": "?Change_Text@FontSys@@QAEXPBDH@Z",
+        "kind": "direct-call",
+        "retail_target": "0x6cdbc0",
+        "verified": true
+      },
+      {
+        "offset": "0x23e",
+        "type": "0x14",
+        "symbol": "??1?$RefCountPtr@VFontSys@@@@QAE@XZ",
+        "kind": "direct-call",
+        "retail_target": "0x51c630",
+        "verified": true
+      },
+      {
+        "offset": "0x24e",
+        "type": "0x14",
+        "symbol": "?_Tidy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEX_N@Z",
+        "kind": "direct-call",
+        "retail_target": "0x42a820",
+        "verified": true
+      },
+      {
+        "offset": "0x25c",
+        "type": "0x6",
+        "symbol": "__except_list",
+        "kind": "FS-exception-list-offset",
+        "verified": true
+      }
+    ],
+    "unwind_states": [
+      {
+        "state": 0,
+        "retail_action": "0xab83c0",
+        "body_matches": true,
+        "targets": [
+          {
+            "symbol": "??1MoneyClass@@QAE@XZ",
+            "retail_target": "0x4a7780",
+            "verified": true
+          }
+        ]
+      },
+      {
+        "state": 1,
+        "retail_action": "0xab83c8",
+        "body_matches": true,
+        "targets": [
+          {
+            "symbol": "??1?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAE@XZ",
+            "retail_target": "0x42a6c0",
+            "verified": true
+          }
+        ]
+      },
+      {
+        "state": 2,
+        "retail_action": "0xab83d0",
+        "body_matches": true,
+        "targets": [
+          {
+            "symbol": "??1?$RefCountPtr@VFontSys@@@@QAE@XZ",
+            "retail_target": "0x51c630",
+            "verified": true
+          }
+        ]
+      },
+      {
+        "state": 3,
+        "retail_action": "0xab83d8",
+        "body_matches": true,
+        "targets": [
+          {
+            "symbol": "??1MoneyClass@@QAE@XZ",
+            "retail_target": "0x4a7780",
+            "verified": true
+          }
+        ]
+      },
+      {
+        "state": 4,
+        "retail_action": "0xab83e0",
+        "body_matches": true,
+        "targets": [
+          {
+            "symbol": "??1?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAE@XZ",
+            "retail_target": "0x42a6c0",
+            "verified": true
+          }
+        ]
+      },
+      {
+        "state": 5,
+        "retail_action": "0xab83e8",
+        "body_matches": true,
+        "targets": [
+          {
+            "symbol": "??1?$RefCountPtr@VFontSys@@@@QAE@XZ",
+            "retail_target": "0x51c630",
+            "verified": true
+          }
+        ]
+      }
+    ],
+    "unwind_predecessor_states": [
+      -1,
+      0,
+      1,
+      0,
+      3,
+      4
+    ],
+    "funcinfo_and_eh_verified": true,
+    "limitations": [
+      "Native translation-unit verification; no application link or runtime test.",
+      "__FILE__ directory is a scratch compiler path. Retail file basename and assertion text/physical line match; directory equality is not claimed."
+    ]
+  },
+  "emission_novelty": {
+    "actual_new_valid_forms": 3,
+    "distinct_new_form_masked_code_groups": 3,
+    "groups_seen_historically": []
+  },
+  "semantics": "The existing Unknown_Find_Set_Field combines the original null-and-Unknown70 guard; implicit NameClass lifetime remains the initialization full expression. int index is assigned the original 0/3 values at the original Unknown_5ECBB0 argument sites; input field reads and MoneyClass/std::string temporary lifetimes remain unchanged. Source outside target and all physical assert lines remain identical, including exact action handler 0x5EDFD0. No helper/header/type/pragma/assembly/budget edit.",
+  "replay": "git show BASE:FILE; apply seed_patch, then one independent recipe patch against that seed. Recipe line replacement replay was independently SHA-256 asserted. Keep source basename. All immutable sources/objects hashed. Native full-object matching; no manual native overrides.",
+  "tracked_edits": false,
+  "commits": [],
+  "summary": "Fresh baseline94 ->seed95(+existing Cast) ->exact96(+target), zero losses. Index first-only and second-only each18/18/4 ->9/9/2; both ->0/0/0. Frame0x58 throughout; complete retail612bytes/182instructions/1return and6EHstates independently checked. Target source body only. Other planned families left untried after exact.",
+  "seed_call_pattern": [
+    "call dword ptr [eax + 0x18]",
+    [
+      "sym",
+      "??0NameClass@@QAE@PBD@Z"
+    ],
+    [
+      "sym",
+      "?Unknown_Find_Field@@YAPAV?$DeltaTemplateClass@VMoneyClass@@@@PAVDeltaCompoundClass@@ABVNameClass@@@Z"
+    ],
+    [
+      "sym",
+      "?Amount_As_Text@MoneyClass@@QBE?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@_N@Z"
+    ],
+    [
+      "sym",
+      "?Get_Style@FontManagerClass@@QAEPAVFontSys@@PBDPAVRenderObjClass@@@Z"
+    ],
+    [
+      "sym",
+      "?Create_Peek@@YA?AV?$RefCountPtr@VFontSys@@@@PAVFontSys@@@Z"
+    ],
+    [
+      "sym",
+      "?Fail_If_Report@@YAXPBD0H@Z"
+    ],
+    [
+      "sym",
+      "?Change_Text@FontSys@@QAEXPBDH@Z"
+    ],
+    "call dword ptr [edx + 0x184]",
+    [
+      "sym",
+      "??1?$RefCountPtr@VFontSys@@@@QAE@XZ"
+    ],
+    [
+      "sym",
+      "?_Tidy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEX_N@Z"
+    ],
+    [
+      "sym",
+      "??0NameClass@@QAE@PBD@Z"
+    ],
+    [
+      "sym",
+      "?Get_Lookup@DeltaCompoundClass@@QAEPAVLookupClass@@XZ"
+    ],
+    [
+      "sym",
+      "?Find@LookupClass@@QAEPAVDeltaClass@@ABVNameClass@@@Z"
+    ],
+    [
+      "sym",
+      "?Cast@?$UnknownRTTIClass@V?$DeltaTemplateClass@VMoneyClass@@@@@@SAPAV?$DeltaTemplateClass@VMoneyClass@@@@PAVDeltaClass@@@Z"
+    ],
+    [
+      "sym",
+      "?G_Assert_Report@@YAXPBD0H@Z"
+    ],
+    [
+      "sym",
+      "?Amount_As_Text@MoneyClass@@QBE?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@_N@Z"
+    ],
+    [
+      "sym",
+      "?Get_Style@FontManagerClass@@QAEPAVFontSys@@PBDPAVRenderObjClass@@@Z"
+    ],
+    [
+      "sym",
+      "?Create_Peek@@YA?AV?$RefCountPtr@VFontSys@@@@PAVFontSys@@@Z"
+    ],
+    [
+      "sym",
+      "?Fail_If_Report@@YAXPBD0H@Z"
+    ],
+    "call dword ptr [edx]",
+    [
+      "sym",
+      "?Change_Text@FontSys@@QAEXPBDH@Z"
+    ],
+    "call dword ptr [eax + 0x184]",
+    [
+      "sym",
+      "??1?$RefCountPtr@VFontSys@@@@QAE@XZ"
+    ],
+    [
+      "sym",
+      "?_Tidy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEX_N@Z"
+    ]
+  ],
+  "call_boundary_trade": "Baseline 24 calls ->seed25 because MoneyClass Cast moves out of line to0x5481C0. Every actual index form retains the same25 call targets/order and both inline font updates; no font-update helper moves out of line."
+}

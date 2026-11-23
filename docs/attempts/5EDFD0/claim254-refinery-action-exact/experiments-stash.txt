@@ -1,0 +1,1049 @@
+{
+ "base": "27b965ea685cb3fe2a0dfcd7e852a92d1a21892f",
+ "claim": 254,
+ "address": "0x5EDFD0",
+ "symbol": "UIRefineryClass::Unknown_5EDFD0",
+ "file": "app/client/ui_refinery.cpp",
+ "library": "app",
+ "model": "gpt-6.1-sol (high)",
+ "status": "exact",
+ "summary": "Exact 0x5EDFD0: assign the real int value and client-pointer locals inside the existing reason/item call arguments; retain the normal Money root local, existing Changed lookup API, and implicit NameClass conversions. Full native unit pairs93->94, target gained only, none lost; independent repeat stable. Raw/masked/register-masked0/0/0,238 instructions,925 bytes,frameEC. Full branches/calls/literals/relocations and all15EH states independently checked.",
+ "compiled_new_forms": 39,
+ "valid_source_forms": 38,
+ "diagnostic_forms": 1,
+ "controls": 4,
+ "failed_compiles": 0,
+ "queued_but_uncompiled": [
+  "client_comma_assign (runner stopped on exact)"
+ ],
+ "canonical_code_groups_among_valid_forms": 19,
+ "canonical_duplicate_valid_forms": 19,
+ "canonical_definition": "Full target byte pattern with external relocation bytes masked plus symbolic/literal relocation identities; generated $L numeric label IDs normalized. Distinct source forms can produce identical target machine code.",
+ "diagnostic_exclusion": "message_client_local reuses a pointer cached before the item helper for the later packet call. This could change observable alias behavior if that field changes during intervening calls; never adopted.",
+ "audit_development_failure": "Initial independent relocation audit rejected unannotated __except_list FS offset0 and std::string::_Nullstr. Explicit checks subsequently prove FS offset0 and matching object/retail zero-char data. No candidate compile failure or relaxation of source checks.",
+ "seed_patch": "--- a/app/client/ui_refinery.cpp\n+++ b/app/client/ui_refinery.cpp\n@@ -637,8 +637,8 @@\n // NOT EXACT: inline budget (the client calls all three finds' Unknown_Find_Field out of line, 0x5465C0 / 0x417D82, with the name in the caller; ours calls the inline layer out of line, or inlines the find; frame 0xBC vs 0xEC) (0x5EDFD0)\n void UIRefineryClass::Unknown_5EDFD0()\n {\n-\tDeltaTemplateClass<UnknownB01394Enum> *validity = Unknown_Manu_Raw<DeltaTemplateClass<UnknownB01394Enum> >(Unknown0AEC, \"Validity\");\n-\tif (validity && validity->Unknown70 > 1) {\n+\tDeltaTemplateClass<UnknownB01394Enum> *validity = Unknown_Find_Changed<DeltaTemplateClass<UnknownB01394Enum> >(Unknown0AEC, \"Validity\");\n+\tif (validity) {\n \t\tstd::string reason = Unknown_5EE7F0(validity->Value);\n \t\tif (reason.length()) {\n \t\t\tif (Unknown0B05) {\n@@ -652,14 +652,14 @@\n \t}\n \n \tMoneyClass credits;\n-\tDeltaTemplateClass<MoneyClass> *money = Unknown_Manu_Raw<DeltaTemplateClass<MoneyClass> >((DeltaCompoundClass *)Client->As_Space_Client()->AuxData, \"Money\");\n-\tif (money && money->Unknown70 > 1) {\n+\tDeltaCompoundClass *root = (DeltaCompoundClass *)Client->As_Space_Client()->AuxData; DeltaTemplateClass<MoneyClass> *money = Unknown_Find_Changed<DeltaTemplateClass<MoneyClass> >(root, \"Money\");\n+\tif (money) {\n \t\tcredits = money->Value;\n \t\tUnknown_5ECBB0(0, true, credits.Amount_As_Text(false).c_str());\n \t}\n \tMoneyClass cost;\n-\tDeltaTemplateClass<MoneyClass> *negotiated = Unknown_Manu_Raw<DeltaTemplateClass<MoneyClass> >(Unknown0AEC, \"NegotiatedCost\");\n-\tif (negotiated && negotiated->Unknown70 > 1) {\n+\tDeltaTemplateClass<MoneyClass> *negotiated = Unknown_Find_Changed<DeltaTemplateClass<MoneyClass> >(Unknown0AEC, \"NegotiatedCost\");\n+\tif (negotiated) {\n \t\tcost = negotiated->Value;\n \t\tUnknown_5ECBB0(3, true, cost.Amount_As_Text(false).c_str());\n \t}\n",
+ "best_patch": "--- a/app/client/ui_refinery.cpp\n+++ b/app/client/ui_refinery.cpp\n@@ -637,14 +637,14 @@\n // NOT EXACT: inline budget (the client calls all three finds' Unknown_Find_Field out of line, 0x5465C0 / 0x417D82, with the name in the caller; ours calls the inline layer out of line, or inlines the find; frame 0xBC vs 0xEC) (0x5EDFD0)\n void UIRefineryClass::Unknown_5EDFD0()\n {\n-\tDeltaTemplateClass<UnknownB01394Enum> *validity = Unknown_Manu_Raw<DeltaTemplateClass<UnknownB01394Enum> >(Unknown0AEC, \"Validity\");\n-\tif (validity && validity->Unknown70 > 1) {\n-\t\tstd::string reason = Unknown_5EE7F0(validity->Value);\n+\tDeltaTemplateClass<UnknownB01394Enum> *validity = Unknown_Find_Changed<DeltaTemplateClass<UnknownB01394Enum> >(Unknown0AEC, \"Validity\");\n+\tif (validity) {\n+\t\tint value; std::string reason = Unknown_5EE7F0(value = validity->Value);\n \t\tif (reason.length()) {\n \t\t\tif (Unknown0B05) {\n \t\t\t\tUnknown0AF8 = -1;\n \t\t\t} else {\n-\t\t\t\tstd::string item = Unknown_5EE460(Unknown0AEC, Client);\n+\t\t\t\tLineDisplayClientClass *client; std::string item = Unknown_5EE460(Unknown0AEC, client = Client);\n \t\t\t\tstd::string message = \"Unable to create \" + item + std::string(\". \") + reason + \".\";\n \t\t\t\tClient->As_Space_Client()->Unknown_74D990(0x11, (char *)message.c_str(), 0);\n \t\t\t}\n@@ -652,18 +652,18 @@\n \t}\n \n \tMoneyClass credits;\n-\tDeltaTemplateClass<MoneyClass> *money = Unknown_Manu_Raw<DeltaTemplateClass<MoneyClass> >((DeltaCompoundClass *)Client->As_Space_Client()->AuxData, \"Money\");\n-\tif (money && money->Unknown70 > 1) {\n+\tDeltaCompoundClass *root = (DeltaCompoundClass *)Client->As_Space_Client()->AuxData; DeltaTemplateClass<MoneyClass> *money = Unknown_Find_Changed<DeltaTemplateClass<MoneyClass> >(root, \"Money\");\n+\tif (money) {\n \t\tcredits = money->Value;\n \t\tUnknown_5ECBB0(0, true, credits.Amount_As_Text(false).c_str());\n \t}\n \tMoneyClass cost;\n-\tDeltaTemplateClass<MoneyClass> *negotiated = Unknown_Manu_Raw<DeltaTemplateClass<MoneyClass> >(Unknown0AEC, \"NegotiatedCost\");\n-\tif (negotiated && negotiated->Unknown70 > 1) {\n+\tDeltaTemplateClass<MoneyClass> *negotiated = Unknown_Find_Changed<DeltaTemplateClass<MoneyClass> >(Unknown0AEC, \"NegotiatedCost\");\n+\tif (negotiated) {\n \t\tcost = negotiated->Value;\n \t\tUnknown_5ECBB0(3, true, cost.Amount_As_Text(false).c_str());\n \t}\n-\tUIManuListClass *list = Unknown_Find_Changed<UIManuListClass>(Unknown0AEC, NameClass(\"KnownFormula\"));\n+\tUIManuListClass *list = Unknown_Find_Changed<UIManuListClass>(Unknown0AEC, \"KnownFormula\");\n \tif (list) {\n \t\tUnknown_5EDA10(list);\n \t\tUnknown_5ECE20();\n",
+ "seed_source_sha256": "43cc89ed2defc85b5e8ac573a85d64d52a8fa8a4c82c2f39af5e73964764fa42",
+ "baseline_source_sha256": "70659e5e505dd88dec10c7139ad7b8a580c3f6b1c85b741b1709947641ad9fba",
+ "winning_source_sha256": "febc5340b51565f6a94240d4537e5bb5530ad6a15bbdeb163828820792f53d99",
+ "results": [
+  {
+   "name": "baseline",
+   "run": "forms1-4tvbyeqi",
+   "source_sha256": "70659e5e505dd88dec10c7139ad7b8a580c3f6b1c85b741b1709947641ad9fba",
+   "object_sha256": "46d8acae9a52d5bdda259acbc60b6c9bb08bec96a3976d5457a302f5cd275ff2",
+   "code_group": "38b73549c34d",
+   "masked": 156,
+   "raw": 193,
+   "register_masked": 131,
+   "frame": "0xbc",
+   "rows": 262,
+   "retail_rows": 238,
+   "explain_class": "inline-budget",
+   "symbol_pair_gains": 0,
+   "symbol_pair_losses": 0,
+   "gained_addresses": [],
+   "lost_addresses": [],
+   "target_exact": false,
+   "classification": "control"
+  },
+  {
+   "name": "seed",
+   "run": "forms1-4tvbyeqi",
+   "source_sha256": "43cc89ed2defc85b5e8ac573a85d64d52a8fa8a4c82c2f39af5e73964764fa42",
+   "object_sha256": "302b8a13bc39adf09fce373a517d731ed01fee09a811e501fa788ac4fa781719",
+   "code_group": "475594bdfb7c",
+   "masked": 27,
+   "raw": 27,
+   "register_masked": 13,
+   "frame": "0xec",
+   "rows": 237,
+   "retail_rows": 238,
+   "explain_class": "shape",
+   "symbol_pair_gains": 0,
+   "symbol_pair_losses": 0,
+   "gained_addresses": [],
+   "lost_addresses": [],
+   "target_exact": false,
+   "classification": "control"
+  },
+  {
+   "name": "local_001",
+   "run": "forms1-4tvbyeqi",
+   "source_sha256": "b1e39b5d4ba759164e9ddee18e687e84a30e35ddf606c46fb42d2a517b0f7052",
+   "object_sha256": "0549e6188c869f82b6a937e89d555eb77291a59d36ac71f9ad789c416643ba6d",
+   "code_group": "04215b48cae2",
+   "masked": 24,
+   "raw": 24,
+   "register_masked": 12,
+   "frame": "0xec",
+   "rows": 238,
+   "retail_rows": 238,
+   "explain_class": "register-only",
+   "symbol_pair_gains": 0,
+   "symbol_pair_losses": 0,
+   "gained_addresses": [],
+   "lost_addresses": [],
+   "target_exact": false,
+   "classification": "valid-source-form"
+  },
+  {
+   "name": "local_010",
+   "run": "forms1-4tvbyeqi",
+   "source_sha256": "908949034f4bdec15eaf2a7413d313b0d5de35491d7ebbae3f1d551ae5008588",
+   "object_sha256": "44f20a95cc8cabde4f8bbc0c0caaab5c75e0b7e14bc95d267a54e9221c5cfce6",
+   "code_group": "62fa69df5219",
+   "masked": 23,
+   "raw": 24,
+   "register_masked": 11,
+   "frame": "0xec",
+   "rows": 237,
+   "retail_rows": 238,
+   "explain_class": "shape",
+   "symbol_pair_gains": 0,
+   "symbol_pair_losses": 0,
+   "gained_addresses": [],
+   "lost_addresses": [],
+   "target_exact": false,
+   "classification": "valid-source-form"
+  },
+  {
+   "name": "local_011",
+   "run": "forms1-4tvbyeqi",
+   "source_sha256": "3b2b3acb8f57a6e542a6a7c4983fe7e2349927641c588fdadb8a2a9a6a1794c7",
+   "object_sha256": "36155ec60d5a08c4242e03e62f92d93b4f485394f6a4c48a0fa9e4ac8a27f792",
+   "code_group": "47b31ee8fb0b",
+   "masked": 20,
+   "raw": 21,
+   "register_masked": 10,
+   "frame": "0xec",
+   "rows": 238,
+   "retail_rows": 238,
+   "explain_class": "register-only",
+   "symbol_pair_gains": 0,
+   "symbol_pair_losses": 0,
+   "gained_addresses": [],
+   "lost_addresses": [],
+   "target_exact": false,
+   "classification": "valid-source-form"
+  },
+  {
+   "name": "local_100",
+   "run": "forms1-4tvbyeqi",
+   "source_sha256": "86d6f0bf04b9834f55ae8d707f6fc9c598ba899c2cfd98cd5ed4568dd4b063f9",
+   "object_sha256": "b331fc52a5308c424c2c7229db8b84c0a7fd4309cdcf617882d1973bb06e7203",
+   "code_group": "5cbde8e90c25",
+   "masked": 19,
+   "raw": 20,
+   "register_masked": 11,
+   "frame": "0xec",
+   "rows": 237,
+   "retail_rows": 238,
+   "explain_class": "shape",
+   "symbol_pair_gains": 0,
+   "symbol_pair_losses": 0,
+   "gained_addresses": [],
+   "lost_addresses": [],
+   "target_exact": false,
+   "classification": "valid-source-form"
+  },
+  {
+   "name": "local_101",
+   "run": "forms1-4tvbyeqi",
+   "source_sha256": "487a736ab83df9fb22d2175eb4bc3e1a1adc9ca2be3b1d3dbecff5ceb45f05e4",
+   "object_sha256": "08c00c5e08a4c67cc4662a5ac7514262f02c0ca52a6f169065d27a3a6de77a55",
+   "code_group": "ae8964fcf3d3",
+   "masked": 16,
+   "raw": 17,
+   "register_masked": 10,
+   "frame": "0xec",
+   "rows": 238,
+   "retail_rows": 238,
+   "explain_class": "register-only",
+   "symbol_pair_gains": 0,
+   "symbol_pair_losses": 0,
+   "gained_addresses": [],
+   "lost_addresses": [],
+   "target_exact": false,
+   "classification": "valid-source-form"
+  },
+  {
+   "name": "local_110",
+   "run": "forms1-4tvbyeqi",
+   "source_sha256": "417dd71abe9e8b6035ce94c86972c9409635db7467899505b580b61a637560ec",
+   "object_sha256": "14ad03fe4ca206eb1068efa6cc4b2a128a7e52965c1fe31d2950b78c1d52affb",
+   "code_group": "299c8687e987",
+   "masked": 12,
+   "raw": 12,
+   "register_masked": 10,
+   "frame": "0xec",
+   "rows": 240,
+   "retail_rows": 238,
+   "explain_class": "relocation",
+   "symbol_pair_gains": 1,
+   "symbol_pair_losses": 1,
+   "gained_addresses": [
+    "0x5B70C0"
+   ],
+   "lost_addresses": [
+    "0x5EEBA0"
+   ],
+   "target_exact": false,
+   "classification": "valid-source-form"
+  },
+  {
+   "name": "local_111",
+   "run": "forms1-4tvbyeqi",
+   "source_sha256": "898fe47d064f13134ba51b60ef758426f063f94d4924089884524ad967ff6bbd",
+   "object_sha256": "6f9203657b9de5d6c1ed19333459a9601256da6bdf596b6bfffc6410569c74ba",
+   "code_group": "0d26f96bb5f9",
+   "masked": 11,
+   "raw": 11,
+   "register_masked": 9,
+   "frame": "0xec",
+   "rows": 241,
+   "retail_rows": 238,
+   "explain_class": "relocation",
+   "symbol_pair_gains": 1,
+   "symbol_pair_losses": 1,
+   "gained_addresses": [
+    "0x5B70C0"
+   ],
+   "lost_addresses": [
+    "0x5EEBA0"
+   ],
+   "target_exact": false,
+   "classification": "valid-source-form"
+  },
+  {
+   "name": "list_named",
+   "run": "forms2-my0i556s",
+   "source_sha256": "3d3606993e446c22bf9cb6bbfe30d756dfce6aa2e60a8dc141ff107d097ca694",
+   "object_sha256": "e638953fddc762dd3706a69edc4aae356ed5764051aa815b485d19b6e388c526",
+   "code_group": "0d26f96bb5f9",
+   "masked": 11,
+   "raw": 11,
+   "register_masked": 9,
+   "frame": "0xec",
+   "rows": 241,
+   "retail_rows": 238,
+   "explain_class": "relocation",
+   "symbol_pair_gains": 1,
+   "symbol_pair_losses": 1,
+   "gained_addresses": [
+    "0x5B70C0"
+   ],
+   "lost_addresses": [
+    "0x5EEBA0"
+   ],
+   "target_exact": false,
+   "classification": "valid-source-form"
+  },
+  {
+   "name": "list_ref",
+   "run": "forms2-my0i556s",
+   "source_sha256": "92456024f2e33563a519859c311308ae812503d6819aa063a81ce3e734081b07",
+   "object_sha256": "1321009bc8266f5a66c2ad99e73437b829f93a6b5be225ce29e8bffb29147617",
+   "code_group": "0d26f96bb5f9",
+   "masked": 11,
+   "raw": 11,
+   "register_masked": 9,
+   "frame": "0xec",
+   "rows": 241,
+   "retail_rows": 238,
+   "explain_class": "relocation",
+   "symbol_pair_gains": 4,
+   "symbol_pair_losses": 4,
+   "gained_addresses": [
+    "0x5B70C0"
+   ],
+   "lost_addresses": [
+    "0x5EEBA0"
+   ],
+   "target_exact": false,
+   "classification": "valid-source-form"
+  },
+  {
+   "name": "list_if",
+   "run": "forms2-my0i556s",
+   "source_sha256": "ecb91da0fe5ff3204df8f7acf3f6ea9939e4c980e93b94d304c101fa1099a6cf",
+   "object_sha256": "ec1db89150626f8bec3a69904d9c2e58902d7607839d9b0590ffe58ab5d455b5",
+   "code_group": "0d26f96bb5f9",
+   "masked": 11,
+   "raw": 11,
+   "register_masked": 9,
+   "frame": "0xec",
+   "rows": 241,
+   "retail_rows": 238,
+   "explain_class": "relocation",
+   "symbol_pair_gains": 1,
+   "symbol_pair_losses": 1,
+   "gained_addresses": [
+    "0x5B70C0"
+   ],
+   "lost_addresses": [
+    "0x5EEBA0"
+   ],
+   "target_exact": false,
+   "classification": "valid-source-form"
+  },
+  {
+   "name": "reason_direct",
+   "run": "forms2-my0i556s",
+   "source_sha256": "0ef84638cdd415374ce9d01dc1ad306f2e9cb4e18e704dffcdbdbae56cd5d5e5",
+   "object_sha256": "7aa9e816b9985c74fce5287daee45d2f4edd15694590bda7d5a3f5502cf33099",
+   "code_group": "299c8687e987",
+   "masked": 12,
+   "raw": 12,
+   "register_masked": 10,
+   "frame": "0xec",
+   "rows": 240,
+   "retail_rows": 238,
+   "explain_class": "relocation",
+   "symbol_pair_gains": 1,
+   "symbol_pair_losses": 1,
+   "gained_addresses": [
+    "0x5B70C0"
+   ],
+   "lost_addresses": [
+    "0x5EEBA0"
+   ],
+   "target_exact": false,
+   "classification": "valid-source-form"
+  },
+  {
+   "name": "item_direct",
+   "run": "forms2-my0i556s",
+   "source_sha256": "c71a3708b09454c99bbcf52c3626da7eb64e9aed261cd6b09205103ddb3b0f44",
+   "object_sha256": "ce11e9a1b51bce8a0aa240d75370152a19cff648a33499a092d5ae38a7cb6074",
+   "code_group": "299c8687e987",
+   "masked": 12,
+   "raw": 12,
+   "register_masked": 10,
+   "frame": "0xec",
+   "rows": 240,
+   "retail_rows": 238,
+   "explain_class": "relocation",
+   "symbol_pair_gains": 1,
+   "symbol_pair_losses": 1,
+   "gained_addresses": [
+    "0x5B70C0"
+   ],
+   "lost_addresses": [
+    "0x5EEBA0"
+   ],
+   "target_exact": false,
+   "classification": "valid-source-form"
+  },
+  {
+   "name": "message_direct",
+   "run": "forms2-my0i556s",
+   "source_sha256": "2a9e5cfcfeca4cc2b33351c740eccf15a5ae72f5431e2f5d09a5c7d1a9e924b8",
+   "object_sha256": "3d974ba737be745eaa76a99feee838e2841f2463865f6764c09d79054083bbfd",
+   "code_group": "299c8687e987",
+   "masked": 12,
+   "raw": 12,
+   "register_masked": 10,
+   "frame": "0xec",
+   "rows": 240,
+   "retail_rows": 238,
+   "explain_class": "relocation",
+   "symbol_pair_gains": 1,
+   "symbol_pair_losses": 1,
+   "gained_addresses": [
+    "0x5B70C0"
+   ],
+   "lost_addresses": [
+    "0x5EEBA0"
+   ],
+   "target_exact": false,
+   "classification": "valid-source-form"
+  },
+  {
+   "name": "value_enum",
+   "run": "forms2-my0i556s",
+   "source_sha256": "61209b70b6e9c593409b17cb4e4b293f50baee56ef8defd5116f2dc54faa188a",
+   "object_sha256": "b9c79aeb2143ee94720f5466f10bdc599c65ba0f5fbd30d00eb14d19411dbe46",
+   "code_group": "299c8687e987",
+   "masked": 12,
+   "raw": 12,
+   "register_masked": 10,
+   "frame": "0xec",
+   "rows": 240,
+   "retail_rows": 238,
+   "explain_class": "relocation",
+   "symbol_pair_gains": 1,
+   "symbol_pair_losses": 1,
+   "gained_addresses": [
+    "0x5B70C0"
+   ],
+   "lost_addresses": [
+    "0x5EEBA0"
+   ],
+   "target_exact": false,
+   "classification": "valid-source-form"
+  },
+  {
+   "name": "value_ref",
+   "run": "forms3-nayvu8q9",
+   "source_sha256": "6f6381bdffeb0d7ff943579588764475550d8db905404156a364eb0cca57f768",
+   "object_sha256": "a5fbd4d0439ad41ac677c497505902c9a8bf023666b43f3ca61c70e6fe5a42b1",
+   "code_group": "4fa8f3b9cb3e",
+   "masked": 69,
+   "raw": 117,
+   "register_masked": 36,
+   "frame": "0xec",
+   "rows": 246,
+   "retail_rows": 238,
+   "explain_class": "relocation",
+   "symbol_pair_gains": 1,
+   "symbol_pair_losses": 1,
+   "gained_addresses": [
+    "0x5B70C0"
+   ],
+   "lost_addresses": [
+    "0x5EEBA0"
+   ],
+   "target_exact": false,
+   "classification": "valid-source-form"
+  },
+  {
+   "name": "value_int_ref",
+   "run": "forms3-nayvu8q9",
+   "source_sha256": "c3bc0bd0b9e18d1d74ea755c55e971b4e76cc903257cdb99d3f0ccbaf560e6de",
+   "object_sha256": "fcf7e200ab0e9e80ed6f9fdbcb44a9d4dbc8ab37ca0cfa829ab6aac89ae3c7a2",
+   "code_group": "299c8687e987",
+   "masked": 12,
+   "raw": 12,
+   "register_masked": 10,
+   "frame": "0xec",
+   "rows": 240,
+   "retail_rows": 238,
+   "explain_class": "relocation",
+   "symbol_pair_gains": 4,
+   "symbol_pair_losses": 4,
+   "gained_addresses": [
+    "0x5B70C0"
+   ],
+   "lost_addresses": [
+    "0x5EEBA0"
+   ],
+   "target_exact": false,
+   "classification": "valid-source-form"
+  },
+  {
+   "name": "client_ref",
+   "run": "forms3-nayvu8q9",
+   "source_sha256": "95bb8855b263a1c494c8871238d6be11cbd39c78a7b0252e8d9c50058edca251",
+   "object_sha256": "65252aa612c77d83198cb9841d76c03423a4b49ddec2e585edcf9e96386737f7",
+   "code_group": "fbf05fb36af9",
+   "masked": 28,
+   "raw": 29,
+   "register_masked": 20,
+   "frame": "0xec",
+   "rows": 240,
+   "retail_rows": 238,
+   "explain_class": "relocation",
+   "symbol_pair_gains": 1,
+   "symbol_pair_losses": 1,
+   "gained_addresses": [
+    "0x5B70C0"
+   ],
+   "lost_addresses": [
+    "0x5EEBA0"
+   ],
+   "target_exact": false,
+   "classification": "valid-source-form"
+  },
+  {
+   "name": "both_ref",
+   "run": "forms3-nayvu8q9",
+   "source_sha256": "a2d01e695c8a2c2468f8de631218b679312e79ce239c04e3fd0c335d0186f565",
+   "object_sha256": "8ad54cf0961356809f95e8a60d8a5480b4ac7ab496223ab1d6a578298be60e92",
+   "code_group": "b5b679b5c3e9",
+   "masked": 73,
+   "raw": 122,
+   "register_masked": 38,
+   "frame": "0xec",
+   "rows": 246,
+   "retail_rows": 238,
+   "explain_class": "relocation",
+   "symbol_pair_gains": 1,
+   "symbol_pair_losses": 1,
+   "gained_addresses": [
+    "0x5B70C0"
+   ],
+   "lost_addresses": [
+    "0x5EEBA0"
+   ],
+   "target_exact": false,
+   "classification": "valid-source-form"
+  },
+  {
+   "name": "first_if_init",
+   "run": "forms3-nayvu8q9",
+   "source_sha256": "4c808dcdeeddb4287d5927d13cb37f2c5705b61a5299581d256948fa22537684",
+   "object_sha256": "4ebdfeadefe4501b101ddff87ba236d0a8668f0896a05f1d069bba9943d125ee",
+   "code_group": "299c8687e987",
+   "masked": 12,
+   "raw": 12,
+   "register_masked": 10,
+   "frame": "0xec",
+   "rows": 240,
+   "retail_rows": 238,
+   "explain_class": "relocation",
+   "symbol_pair_gains": 1,
+   "symbol_pair_losses": 1,
+   "gained_addresses": [
+    "0x5B70C0"
+   ],
+   "lost_addresses": [
+    "0x5EEBA0"
+   ],
+   "target_exact": false,
+   "classification": "valid-source-form"
+  },
+  {
+   "name": "message_client_local",
+   "run": "forms3-nayvu8q9",
+   "source_sha256": "ae096f0b6f9b0bfa128d5a1a2f3d59cc9969dc73dbe85aa3d4d10be140e77f9a",
+   "object_sha256": "02b8f673b96530837f2dc465013bbbe20e122a5c0d3768dd9922171188ada7d7",
+   "code_group": "a7a09c17091a",
+   "masked": 13,
+   "raw": 42,
+   "register_masked": 7,
+   "frame": "0xec",
+   "rows": 239,
+   "retail_rows": 238,
+   "explain_class": "shape",
+   "symbol_pair_gains": 0,
+   "symbol_pair_losses": 0,
+   "gained_addresses": [],
+   "lost_addresses": [],
+   "target_exact": false,
+   "classification": "diagnostic"
+  },
+  {
+   "name": "reason_empty",
+   "run": "forms4-46qxnps1",
+   "source_sha256": "a399ad734c6bda86d541d86d6f57486db6de80a7fe991d8bb6e91b25620bfbb6",
+   "object_sha256": "cae3d30a078d54221c49a51aecba28d0ae5522b11f6bca8292519aead754b166",
+   "code_group": "299c8687e987",
+   "masked": 12,
+   "raw": 12,
+   "register_masked": 10,
+   "frame": "0xec",
+   "rows": 240,
+   "retail_rows": 238,
+   "explain_class": "relocation",
+   "symbol_pair_gains": 1,
+   "symbol_pair_losses": 1,
+   "gained_addresses": [
+    "0x5B70C0"
+   ],
+   "lost_addresses": [
+    "0x5EEBA0"
+   ],
+   "target_exact": false,
+   "classification": "valid-source-form"
+  },
+  {
+   "name": "reason_size",
+   "run": "forms4-46qxnps1",
+   "source_sha256": "95cfc14ec9289b84c26dbd6f7098c26626c889aa9f3b1b91989c2a20525ec611",
+   "object_sha256": "6ed7ac470d2087e042c32e052f8dfc55e970fe92d9b73611882f344e8ae2e4b2",
+   "code_group": "299c8687e987",
+   "masked": 12,
+   "raw": 12,
+   "register_masked": 10,
+   "frame": "0xec",
+   "rows": 240,
+   "retail_rows": 238,
+   "explain_class": "relocation",
+   "symbol_pair_gains": 1,
+   "symbol_pair_losses": 1,
+   "gained_addresses": [
+    "0x5B70C0"
+   ],
+   "lost_addresses": [
+    "0x5EEBA0"
+   ],
+   "target_exact": false,
+   "classification": "valid-source-form"
+  },
+  {
+   "name": "flag_local",
+   "run": "forms4-46qxnps1",
+   "source_sha256": "6da5a4a782c150af4f8f4d22b0c45d125da48549528fc30babced6d55cbb02ab",
+   "object_sha256": "216e36f59c195e48d8378cb2405fcaf63f2224a1aab8744def96f253aa37d651",
+   "code_group": "299c8687e987",
+   "masked": 12,
+   "raw": 12,
+   "register_masked": 10,
+   "frame": "0xec",
+   "rows": 240,
+   "retail_rows": 238,
+   "explain_class": "relocation",
+   "symbol_pair_gains": 1,
+   "symbol_pair_losses": 1,
+   "gained_addresses": [
+    "0x5B70C0"
+   ],
+   "lost_addresses": [
+    "0x5EEBA0"
+   ],
+   "target_exact": false,
+   "classification": "valid-source-form"
+  },
+  {
+   "name": "flag_ref",
+   "run": "forms4-46qxnps1",
+   "source_sha256": "7de306fa29df5a77ecfcffc3269c2db89ffc14d7ddf3753d389b2ab9d6c99bcd",
+   "object_sha256": "0b620412d439526f55f1b562336f5b4918d808a87b15206073671a5e2635b2e1",
+   "code_group": "299c8687e987",
+   "masked": 12,
+   "raw": 12,
+   "register_masked": 10,
+   "frame": "0xec",
+   "rows": 240,
+   "retail_rows": 238,
+   "explain_class": "relocation",
+   "symbol_pair_gains": 1,
+   "symbol_pair_losses": 1,
+   "gained_addresses": [
+    "0x5B70C0"
+   ],
+   "lost_addresses": [
+    "0x5EEBA0"
+   ],
+   "target_exact": false,
+   "classification": "valid-source-form"
+  },
+  {
+   "name": "list_early",
+   "run": "forms4-46qxnps1",
+   "source_sha256": "b4823c8c7e0c192b47df22a00785e8a35a189e65175f3af7908e1192f4e11426",
+   "object_sha256": "d80775582434e838745a7542a9531c9bf3a4cfbc8f424db379a26585871ea61a",
+   "code_group": "299c8687e987",
+   "masked": 12,
+   "raw": 12,
+   "register_masked": 10,
+   "frame": "0xec",
+   "rows": 240,
+   "retail_rows": 238,
+   "explain_class": "relocation",
+   "symbol_pair_gains": 1,
+   "symbol_pair_losses": 1,
+   "gained_addresses": [
+    "0x5B70C0"
+   ],
+   "lost_addresses": [
+    "0x5EEBA0"
+   ],
+   "target_exact": false,
+   "classification": "valid-source-form"
+  },
+  {
+   "name": "flag_negative",
+   "run": "forms4-46qxnps1",
+   "source_sha256": "635702485525413160fe968f28839fdbe4225d8ed42a52b9f8f26f97e33e7059",
+   "object_sha256": "5d4ab7293d14045d84006d12c32e91b8e1d17b1a480d3862361bf8910e0790cb",
+   "code_group": "31213c9ded3c",
+   "masked": 17,
+   "raw": 17,
+   "register_masked": 15,
+   "frame": "0xec",
+   "rows": 240,
+   "retail_rows": 238,
+   "explain_class": "relocation",
+   "symbol_pair_gains": 1,
+   "symbol_pair_losses": 1,
+   "gained_addresses": [
+    "0x5B70C0"
+   ],
+   "lost_addresses": [
+    "0x5EEBA0"
+   ],
+   "target_exact": false,
+   "classification": "valid-source-form"
+  },
+  {
+   "name": "mixed_001",
+   "run": "forms5-a_4kik06",
+   "source_sha256": "dff5bd26d14024624663721513ad48a6f233bdcb65d8932a5d3481f04cdadc2c",
+   "object_sha256": "d6209498300a573a99cff620e3b7792a4a27adff5af3b9ede2bc7dbba2acb18d",
+   "code_group": "cbdb7b90e367",
+   "masked": 15,
+   "raw": 19,
+   "register_masked": 14,
+   "frame": "0xec",
+   "rows": 251,
+   "retail_rows": 238,
+   "explain_class": "inline-budget",
+   "symbol_pair_gains": 1,
+   "symbol_pair_losses": 0,
+   "gained_addresses": [
+    "0x5481C0"
+   ],
+   "lost_addresses": [],
+   "target_exact": false,
+   "classification": "valid-source-form"
+  },
+  {
+   "name": "mixed_010",
+   "run": "forms5-a_4kik06",
+   "source_sha256": "24e22404c8ddd9fa2529da670f5100ffdbeaa4423e13458f1c81108b6eda6a36",
+   "object_sha256": "8ccd6fa53ff6a2d3f574e53a209f3a7b1d5aa719461c2108c29271ee8b49779e",
+   "code_group": "e9faf1a615ab",
+   "masked": 16,
+   "raw": 17,
+   "register_masked": 15,
+   "frame": "0xec",
+   "rows": 252,
+   "retail_rows": 238,
+   "explain_class": "inline-budget",
+   "symbol_pair_gains": 1,
+   "symbol_pair_losses": 0,
+   "gained_addresses": [
+    "0x5481C0"
+   ],
+   "lost_addresses": [],
+   "target_exact": false,
+   "classification": "valid-source-form"
+  },
+  {
+   "name": "mixed_011",
+   "run": "forms5-a_4kik06",
+   "source_sha256": "5abaf09ff99dc6b2a5f42a37dda88770efe4ea88a0f3892d8cc60de680b209bc",
+   "object_sha256": "8717269213504aa17cd0a9c477a7ac432959f3f9cd9dba31b3401fc4bb54f5e1",
+   "code_group": "6354ca25d6d6",
+   "masked": 31,
+   "raw": 36,
+   "register_masked": 29,
+   "frame": "0xec",
+   "rows": 265,
+   "retail_rows": 238,
+   "explain_class": "inline-budget",
+   "symbol_pair_gains": 1,
+   "symbol_pair_losses": 0,
+   "gained_addresses": [
+    "0x5481C0"
+   ],
+   "lost_addresses": [],
+   "target_exact": false,
+   "classification": "valid-source-form"
+  },
+  {
+   "name": "mixed_100",
+   "run": "forms5-a_4kik06",
+   "source_sha256": "789a0a51d75cb545c426a3a92f04a50cbe528bfa1018f4affe9ec98bde2b7f82",
+   "object_sha256": "e247fd8a2a78aeb2e4fe344bb3ef5c60a142a15c9ca93b14aa53ecc01e185189",
+   "code_group": "99e825f0510f",
+   "masked": 19,
+   "raw": 19,
+   "register_masked": 23,
+   "frame": "0xec",
+   "rows": 251,
+   "retail_rows": 238,
+   "explain_class": "inline-budget",
+   "symbol_pair_gains": 0,
+   "symbol_pair_losses": 0,
+   "gained_addresses": [],
+   "lost_addresses": [],
+   "target_exact": false,
+   "classification": "valid-source-form"
+  },
+  {
+   "name": "mixed_101",
+   "run": "forms5-a_4kik06",
+   "source_sha256": "8eb1395b792be45757d1c08691b844ceef797b19a9b05839e0a684010ea99285",
+   "object_sha256": "a40f649464c08d380be8f18b2b31b860759c05c1855843b91aad8bd7f8962c5a",
+   "code_group": "f0814cc39d5b",
+   "masked": 68,
+   "raw": 120,
+   "register_masked": 53,
+   "frame": "0xec",
+   "rows": 270,
+   "retail_rows": 238,
+   "explain_class": "inline-budget",
+   "symbol_pair_gains": 1,
+   "symbol_pair_losses": 0,
+   "gained_addresses": [
+    "0x5481C0"
+   ],
+   "lost_addresses": [],
+   "target_exact": false,
+   "classification": "valid-source-form"
+  },
+  {
+   "name": "mixed_110",
+   "run": "forms5-a_4kik06",
+   "source_sha256": "bcb08676b1da4bae8a83c90b14283992ee4c3547a60278fa32dfc00bd552c5b2",
+   "object_sha256": "3af7388725f537f7c0e318eaf4dd3dbc1354488a7143c10147211a38440b76c7",
+   "code_group": "f6f8a35ec41a",
+   "masked": 69,
+   "raw": 127,
+   "register_masked": 54,
+   "frame": "0xec",
+   "rows": 271,
+   "retail_rows": 238,
+   "explain_class": "inline-budget",
+   "symbol_pair_gains": 1,
+   "symbol_pair_losses": 0,
+   "gained_addresses": [
+    "0x5481C0"
+   ],
+   "lost_addresses": [],
+   "target_exact": false,
+   "classification": "valid-source-form"
+  },
+  {
+   "name": "mixed_111",
+   "run": "forms5-a_4kik06",
+   "source_sha256": "8c4ddb1a3396e84bccc57fbc49b34306d239843549542bfae2469c0d40ef8145",
+   "object_sha256": "5136bcb7da2f38609579ea9899183f09fc748724e13b53b582a673686f729660",
+   "code_group": "c652139df01c",
+   "masked": 73,
+   "raw": 131,
+   "register_masked": 56,
+   "frame": "0xec",
+   "rows": 273,
+   "retail_rows": 238,
+   "explain_class": "inline-budget",
+   "symbol_pair_gains": 2,
+   "symbol_pair_losses": 1,
+   "gained_addresses": [
+    "0x5481C0",
+    "0x5B70C0"
+   ],
+   "lost_addresses": [
+    "0x5EEBA0"
+   ],
+   "target_exact": false,
+   "classification": "valid-source-form"
+  },
+  {
+   "name": "const_10",
+   "run": "forms6-2ikm5ucx",
+   "source_sha256": "879630d05aa03331cb97cf6137b65e2dc6083d67582b220dbb5e03a5f82cd2c8",
+   "object_sha256": "2ceb1c9bab73e53637c57637442e7b5d40970d3bb9072ada9d91dd334aad60dd",
+   "code_group": "0d26f96bb5f9",
+   "masked": 11,
+   "raw": 11,
+   "register_masked": 9,
+   "frame": "0xec",
+   "rows": 241,
+   "retail_rows": 238,
+   "explain_class": "relocation",
+   "symbol_pair_gains": 1,
+   "symbol_pair_losses": 1,
+   "gained_addresses": [
+    "0x5B70C0"
+   ],
+   "lost_addresses": [
+    "0x5EEBA0"
+   ],
+   "target_exact": false,
+   "classification": "valid-source-form"
+  },
+  {
+   "name": "const_01",
+   "run": "forms6-2ikm5ucx",
+   "source_sha256": "e995688c1780e5110ff881aba00b24d8ba7ce1e09907963edcdc3cd5366a7054",
+   "object_sha256": "42977c9a4996bec793f80f5b1cabde0b66b08661516b7f045e2430ee22e2e5fc",
+   "code_group": "0d26f96bb5f9",
+   "masked": 11,
+   "raw": 11,
+   "register_masked": 9,
+   "frame": "0xec",
+   "rows": 241,
+   "retail_rows": 238,
+   "explain_class": "relocation",
+   "symbol_pair_gains": 1,
+   "symbol_pair_losses": 1,
+   "gained_addresses": [
+    "0x5B70C0"
+   ],
+   "lost_addresses": [
+    "0x5EEBA0"
+   ],
+   "target_exact": false,
+   "classification": "valid-source-form"
+  },
+  {
+   "name": "const_11",
+   "run": "forms6-2ikm5ucx",
+   "source_sha256": "3f7ac25841a45c5b3fe9e372ca0dd430d6773fbed98e491ce3d34f6fa4e05790",
+   "object_sha256": "82165dc84b81817ea412ca72a523286b8ab1b211fb41e2baa69908c9272b3bd4",
+   "code_group": "0d26f96bb5f9",
+   "masked": 11,
+   "raw": 11,
+   "register_masked": 9,
+   "frame": "0xec",
+   "rows": 241,
+   "retail_rows": 238,
+   "explain_class": "relocation",
+   "symbol_pair_gains": 1,
+   "symbol_pair_losses": 1,
+   "gained_addresses": [
+    "0x5B70C0"
+   ],
+   "lost_addresses": [
+    "0x5EEBA0"
+   ],
+   "target_exact": false,
+   "classification": "valid-source-form"
+  },
+  {
+   "name": "client_arg_assign",
+   "run": "forms7-6gukdq1c",
+   "source_sha256": "c60ac810b803aa77871a8ad74eaf5380f70c2e5c03a32c7d73c5379c9c059d04",
+   "object_sha256": "5715f7147c7ecb4643799b1408b7f762e7792427e643de2d93ecb726ee537ee6",
+   "code_group": "0d26f96bb5f9",
+   "masked": 11,
+   "raw": 11,
+   "register_masked": 9,
+   "frame": "0xec",
+   "rows": 241,
+   "retail_rows": 238,
+   "explain_class": "relocation",
+   "symbol_pair_gains": 1,
+   "symbol_pair_losses": 1,
+   "gained_addresses": [
+    "0x5B70C0"
+   ],
+   "lost_addresses": [
+    "0x5EEBA0"
+   ],
+   "target_exact": false,
+   "classification": "valid-source-form"
+  },
+  {
+   "name": "value_arg_assign",
+   "run": "forms7-6gukdq1c",
+   "source_sha256": "0091e7e0a291bc4ee537ea8e608a8a505801e80f8c8fc2963d44c96cfb7da987",
+   "object_sha256": "5ae7c07fb7fab6e0056c31f9f4b4f7db42d555f6a7e67dcabad8325278e228d8",
+   "code_group": "0d26f96bb5f9",
+   "masked": 11,
+   "raw": 11,
+   "register_masked": 9,
+   "frame": "0xec",
+   "rows": 241,
+   "retail_rows": 238,
+   "explain_class": "relocation",
+   "symbol_pair_gains": 1,
+   "symbol_pair_losses": 1,
+   "gained_addresses": [
+    "0x5B70C0"
+   ],
+   "lost_addresses": [
+    "0x5EEBA0"
+   ],
+   "target_exact": false,
+   "classification": "valid-source-form"
+  },
+  {
+   "name": "both_arg_assign",
+   "run": "forms7-6gukdq1c",
+   "source_sha256": "febc5340b51565f6a94240d4537e5bb5530ad6a15bbdeb163828820792f53d99",
+   "object_sha256": "4431973ddd624312cddceddd1cbaf424fcb78d05012490faf2ce1c64e041dc1a",
+   "code_group": "6c48249adff2",
+   "masked": 0,
+   "raw": 0,
+   "register_masked": 0,
+   "frame": "0xec",
+   "rows": 238,
+   "retail_rows": 238,
+   "explain_class": "exact",
+   "symbol_pair_gains": 1,
+   "symbol_pair_losses": 0,
+   "gained_addresses": [
+    "0x5EDFD0"
+   ],
+   "lost_addresses": [],
+   "target_exact": true,
+   "classification": "valid-source-form"
+  },
+  {
+   "name": "baseline_repeat",
+   "run": "controls-bgwdkl76",
+   "source_sha256": "70659e5e505dd88dec10c7139ad7b8a580c3f6b1c85b741b1709947641ad9fba",
+   "object_sha256": "c13126a4f2ed2f40b8171b0c0e40cb2b96f54910989d0c4606eaa87453ff30e5",
+   "code_group": "38b73549c34d",
+   "masked": 156,
+   "raw": 193,
+   "register_masked": 131,
+   "frame": "0xbc",
+   "rows": 262,
+   "retail_rows": 238,
+   "explain_class": "inline-budget",
+   "symbol_pair_gains": 0,
+   "symbol_pair_losses": 0,
+   "gained_addresses": [],
+   "lost_addresses": [],
+   "target_exact": false,
+   "classification": "control"
+  },
+  {
+   "name": "both_arg_assign_repeat",
+   "run": "controls-bgwdkl76",
+   "source_sha256": "febc5340b51565f6a94240d4537e5bb5530ad6a15bbdeb163828820792f53d99",
+   "object_sha256": "5dc838181510aa2e276449acffecab57f258bba05c89e7737897884d37159e36",
+   "code_group": "6c48249adff2",
+   "masked": 0,
+   "raw": 0,
+   "register_masked": 0,
+   "frame": "0xec",
+   "rows": 238,
+   "retail_rows": 238,
+   "explain_class": "exact",
+   "symbol_pair_gains": 1,
+   "symbol_pair_losses": 0,
+   "gained_addresses": [
+    "0x5EDFD0"
+   ],
+   "lost_addresses": [],
+   "target_exact": true,
+   "classification": "control"
+  }
+ ],
+ "source_equivalence": [
+  "Unknown_Find_Changed uses the same Unknown_Find_Field, then returns its result only when t && t->Unknown70>1. Caller if(t) therefore preserves each original null/validity path, including valid/invalid/default Money values.",
+  "The sibling ui_manu.cpp 0x5B5320 already uses an int value local and a LineDisplayClientClass* client local at the same reason/item operations; its comment records their argument-evaluation purpose. The winning form assigns these real locals in the actual argument expressions, preserving the returned string objects and their full-expression lifetimes.",
+  "The client pointer is read for the item helper only, preserving NULL as a pointer value. The later Unknown_74D990 path still rereads Client exactly as before; no pointer is cached across intervening calls. The diagnostic message_client_local form was excluded for precisely that alias-identity uncertainty.",
+  "The Money root local evaluates As_Space_Client()->AuxData before name construction, matching the original Raw layer and retail order. The exact target has the same value copies, message/string expressions, packet call, flag path, and final list path. No new helpers/types/headers/dead budget/pragmas/asm/volatile."
+ ],
+ "replay_scripts": {
+  "prepare.py": "from pathlib import Path\nimport json,itertools\nW=Path(__file__).parent\ns=(W/'tree/app/client/ui_refinery.cpp').read_text(); old=(W/'seed_input/ui_refinery.cpp').read_text()\ndef split(s):\n a=s.index('void UIRefineryClass::Unknown_5EDFD0()'); e=s.index('\\nUnknown831340Class *Unknown_8318B0',a); return s[:a],s[a:e],s[e:]\np,b,q=split(s); _,seed,_=split(old)\nassert b.count('\\n')==seed.count('\\n')\ndef write(name,body):\n assert body.count('\\n')==b.count('\\n'),name\n f=W/name/'ui_refinery.cpp'; f.parent.mkdir(exist_ok=True); f.write_text(p+body+q)\n return {'name':name,'source':str(f)}\nvariants=[write('baseline',b),write('seed',seed)]\nfor value,client,listname in itertools.product([0,1],repeat=3):\n if not any((value,client,listname)): continue\n body=seed\n if value: body=body.replace('std::string reason = Unknown_5EE7F0(validity->Value);','int value = validity->Value; std::string reason = Unknown_5EE7F0(value);')\n if client: body=body.replace('std::string item = Unknown_5EE460(Unknown0AEC, Client);','LineDisplayClientClass *client = Client; std::string item = Unknown_5EE460(Unknown0AEC, client);')\n if listname: body=body.replace('Unknown0AEC, NameClass(\"KnownFormula\")','Unknown0AEC, \"KnownFormula\"')\n variants.append(write(f'local_{value}{client}{listname}',body))\n(W/'forms1.json').write_text(json.dumps({'unit':'app/client/ui_refinery.cpp','target':'0x5EDFD0','tree':str(W/'tree'),'variants':variants},indent=2))\n",
+  "forms2.py": "from pathlib import Path\nimport json\nW=Path(__file__).parent\ns=(W/'baseline/ui_refinery.cpp').read_text()\ndef split(s):\n a=s.index('void UIRefineryClass::Unknown_5EDFD0()'); e=s.index('\\nUnknown831340Class *Unknown_8318B0',a); return s[:a],s[a:e],s[e:]\np,b,q=split(s); _,seed,_=split((W/'local_110/ui_refinery.cpp').read_text())\ndef write(forms,manifest):\n variants=[]\n for name,t in forms.items():\n  assert t.count('\\n')==b.count('\\n'),name\n  f=W/name/'ui_refinery.cpp'; f.parent.mkdir(exist_ok=True); f.write_text(p+t+q); variants.append({'name':name,'source':str(f)})\n (W/manifest).write_text(json.dumps({'unit':'app/client/ui_refinery.cpp','target':'0x5EDFD0','tree':str(W/'tree'),'baseline_matches':str(W/'runs/forms1-4tvbyeqi/baseline/matches.json'),'variants':variants},indent=2))\nif __name__=='__main__':\n forms={}\n prefix='UIManuListClass *list = Unknown_Find_Changed<UIManuListClass>(Unknown0AEC, NameClass(\"KnownFormula\"));'\n forms['list_named']=seed.replace(prefix,'NameClass name(\"KnownFormula\"); UIManuListClass *list = Unknown_Find_Changed<UIManuListClass>(Unknown0AEC, name);')\n forms['list_ref']=seed.replace(prefix,'const NameClass &name = NameClass(\"KnownFormula\"); UIManuListClass *list = Unknown_Find_Changed<UIManuListClass>(Unknown0AEC, name);')\n forms['list_if']=seed.replace(prefix+'\\n\\tif (list) {','if (UIManuListClass *list = Unknown_Find_Changed<UIManuListClass>(Unknown0AEC, \"KnownFormula\")) {\\n\\t')\n forms['reason_direct']=seed.replace('std::string reason = Unknown_5EE7F0(value);','std::string reason(Unknown_5EE7F0(value));')\n forms['item_direct']=seed.replace('std::string item = Unknown_5EE460(Unknown0AEC, client);','std::string item(Unknown_5EE460(Unknown0AEC, client));')\n forms['message_direct']=seed.replace('std::string message = \"Unable to create \" + item + std::string(\". \") + reason + \".\";','std::string message(\"Unable to create \" + item + std::string(\". \") + reason + \".\");')\n forms['value_enum']=seed.replace('int value = validity->Value;', 'UnknownB01394Enum value = validity->Value;')\n write(forms,'forms2.json')\n",
+  "forms3.py": "from forms2 import *\nforms={}\nforms['value_ref']=seed.replace('int value = validity->Value;', 'const UnknownB01394Enum &value = validity->Value;')\nforms['value_int_ref']=seed.replace('int value = validity->Value;', 'const int &value = validity->Value;')\nforms['client_ref']=seed.replace('LineDisplayClientClass *client = Client;', 'LineDisplayClientClass *const &client = Client;')\nforms['both_ref']=forms['value_ref'].replace('LineDisplayClientClass *client = Client;', 'LineDisplayClientClass *const &client = Client;')\nforms['first_if_init']=seed.replace('\\tDeltaTemplateClass<UnknownB01394Enum> *validity = Unknown_Find_Changed<DeltaTemplateClass<UnknownB01394Enum> >(Unknown0AEC, \"Validity\");\\n\\tif (validity) {','\\tif (DeltaTemplateClass<UnknownB01394Enum> *validity = Unknown_Find_Changed<DeltaTemplateClass<UnknownB01394Enum> >(Unknown0AEC, \"Validity\")) {\\n\\t')\nforms['message_client_local']=seed.replace('Client->As_Space_Client()->Unknown_74D990(0x11, (char *)message.c_str(), 0);','client->As_Space_Client()->Unknown_74D990(0x11, (char *)message.c_str(), 0);')\nwrite(forms,'forms3.json')\n",
+  "forms4.py": "from forms2 import *\nforms={}\nforms['reason_empty']=seed.replace('if (reason.length())','if (!reason.empty())')\nforms['reason_size']=seed.replace('if (reason.length())','if (reason.size() != 0)')\nforms['flag_local']=seed.replace('if (Unknown0B05)', 'bool suppress = Unknown0B05; if (suppress)')\nforms['flag_ref']=seed.replace('if (Unknown0B05)', 'const bool &suppress = Unknown0B05; if (suppress)')\nold='''\tif (list) {\n\t\tUnknown_5EDA10(list);\n\t\tUnknown_5ECE20();\n\t\tif (Unknown0AF0 == 0) {\n\t\t\tUnknown_5ECEF0();\n\t\t}\n\t}'''\nnew='''\tif (!list) return;\n\tUnknown_5EDA10(list);\n\tUnknown_5ECE20();\n\tif (Unknown0AF0 == 0) {\n\t\tUnknown_5ECEF0();\n\t}\n\t'''\nassert old in seed; forms['list_early']=seed.replace(old,new)\noldflag='''\t\t\tif (Unknown0B05) {\n\t\t\t\tUnknown0AF8 = -1;\n\t\t\t} else {\n\t\t\t\tLineDisplayClientClass *client = Client; std::string item = Unknown_5EE460(Unknown0AEC, client);\n\t\t\t\tstd::string message = \"Unable to create \" + item + std::string(\". \") + reason + \".\";\n\t\t\t\tClient->As_Space_Client()->Unknown_74D990(0x11, (char *)message.c_str(), 0);\n\t\t\t}'''\nnewflag='''\t\t\tif (!Unknown0B05) {\n\t\t\t\tLineDisplayClientClass *client = Client; std::string item = Unknown_5EE460(Unknown0AEC, client);\n\t\t\t\tstd::string message = \"Unable to create \" + item + std::string(\". \") + reason + \".\";\n\t\t\t\tClient->As_Space_Client()->Unknown_74D990(0x11, (char *)message.c_str(), 0);\n\t\t\t} else {\n\t\t\t\tUnknown0AF8 = -1;\n\t\t\t}'''\nassert oldflag in seed; forms['flag_negative']=seed.replace(oldflag,newflag)\nwrite(forms,'forms4.json')\n",
+  "forms5.py": "from forms2 import *\nimport itertools\nforms={}\nfor flags in itertools.product([0,1],repeat=3):\n if not any(flags): continue\n t=seed.replace('Unknown0AEC, NameClass(\"KnownFormula\")','Unknown0AEC, \"KnownFormula\"')\n for (var,typ,root,key),raw in zip([('validity','UnknownB01394Enum','Unknown0AEC','Validity'),('money','MoneyClass','root','Money'),('negotiated','MoneyClass','Unknown0AEC','NegotiatedCost')],flags):\n  if not raw: continue\n  old='Unknown_Find_Changed<DeltaTemplateClass<'+typ+'> >('+root+', \"'+key+'\")'\n  new=old.replace('Unknown_Find_Changed<','Unknown_Find_Field<')\n  assert old in t; t=t.replace(old,new).replace('if ('+var+')','if ('+var+' && '+var+'->Unknown70 > 1)')\n forms['mixed_'+''.join(map(str,flags))]=t\nwrite(forms,'forms5.json')\n",
+  "forms6.py": "from forms2 import *\nforms={}\nfor v,c in [(1,0),(0,1),(1,1)]:\n t=seed.replace('Unknown0AEC, NameClass(\"KnownFormula\")','Unknown0AEC, \"KnownFormula\"')\n if v:t=t.replace('int value = validity->Value;', 'const int value = validity->Value;')\n if c:t=t.replace('LineDisplayClientClass *client = Client;', 'LineDisplayClientClass *const client = Client;')\n forms['const_'+str(v)+str(c)]=t\nwrite(forms,'forms6.json')\n",
+  "forms7.py": "from forms2 import *\nt=seed.replace('Unknown0AEC, NameClass(\"KnownFormula\")','Unknown0AEC, \"KnownFormula\"')\nvalueold='int value = validity->Value; std::string reason = Unknown_5EE7F0(value);'\nclientold='LineDisplayClientClass *client = Client; std::string item = Unknown_5EE460(Unknown0AEC, client);'\nvaluearg='int value; std::string reason = Unknown_5EE7F0(value = validity->Value);'\nclientarg='LineDisplayClientClass *client; std::string item = Unknown_5EE460(Unknown0AEC, client = Client);'\nassert valueold in t and clientold in t\nforms={'client_arg_assign':t.replace(clientold,clientarg),'value_arg_assign':t.replace(valueold,valuearg),'both_arg_assign':t.replace(clientold,clientarg).replace(valueold,valuearg),'client_comma_assign':t.replace(clientold,'LineDisplayClientClass *client; std::string item = (client = Client, Unknown_5EE460(Unknown0AEC, client));')}\nwrite(forms,'forms7.json')\n",
+  "measure.py": "from pathlib import Path\nimport json,sys,os\nos.environ['ENB_RETAIL_INSTALL']='/home/dev/Games/earth-and-beyond/prefix/drive_c/Program Files (x86)/EA GAMES/Earth & Beyond'\nsys.path[:0]=['/home/dev/Projects/EnB/tools/re','/home/dev/Projects/EnB/tools/vc6']\nimport trybatch\nfor arg in sys.argv[1:]:\n p=Path(arg); summary=json.loads(p.read_text()); metrics=[]\n for row in summary['variants']:\n  if not row.get('compiled'): continue\n  m=trybatch.measure(row['object'],'UIRefineryClass::Unknown_5EDFD0',0x5EDFD0)\n  L,R,_,_=m.pop('_rows'); m.pop('key'); m['name']=row['name']\n  m['object_calls']=[{'offset':hex(i.addr),'raw':i.raw,'target':i.target} for i,t in L if i.mn=='call']\n  m['retail_calls']=[{'address':hex(i.addr),'raw':i.raw,'target':i.target} for i,t in R if i.mn=='call']\n  out=Path(row['output']); (out/'retail.txt').write_text('\\n'.join(f'{i.addr:X} {i.raw}' for i,t in R))\n  (out/'object.txt').write_text('\\n'.join(f'{i.addr:X} {i.raw} {i.target or \"\"}' for i,t in L))\n  metrics.append(m)\n  print(json.dumps({k:m[k] for k in ('name','res','regs','raw','frame','ours','client','class','score')}))\n p.with_name('metrics.json').write_text(json.dumps(metrics,indent=2))\n"
+ },
+ "replay": {
+  "compiler": "/home/dev/Toolchains/enb-vc6-sp4/bin/vc6-cl",
+  "matcher_python": "/home/dev/Toolchains/enb-vc6-sp4/venv/bin/python",
+  "flags": "tools/vc6/libdefs.py LIB_FLAGS[app] + APP_LIBS[app].defines with frozen-tree includes",
+  "retail_sha256": "249f852496f341c00361be95b66e7c0becc2c39e7cba026f9227e38b602651c4",
+  "runner_python": "\"\"\"Compile immutable source variants and native-match every object.\n\nCoordinator only: python3 .work/claim-240/focused/run_batch.py MANIFEST.json\nManifest: {unit, target, tree, baseline_matches?, variants:[{name, source, tree?}]}.\nUse a first variant named baseline, or give a previously verified baseline JSON.\nEach invocation has a fresh output directory, so repeated runs cannot race.\n\"\"\"\nfrom pathlib import Path\nimport collections\nimport hashlib\nimport json\nimport os\nimport re\nimport subprocess\nimport sys\nimport tempfile\nimport time\n\nROOT = Path('/home/dev/Projects/EnB')\nAREA = ROOT / '.work/claim-240/focused'\nWORK = ROOT / '.work/claim-254'\nCOMPILER = '/home/dev/Toolchains/enb-vc6-sp4/bin/vc6-cl'\nPYTHON = '/home/dev/Toolchains/enb-vc6-sp4/venv/bin/python'\nCLIENT = '/home/dev/Games/earth-and-beyond/prefix/drive_c/Program Files (x86)/EA GAMES/Earth & Beyond/release/client.exe'\nsys.path[:0] = [str(ROOT / 'tools/re'), str(ROOT / 'tools/vc6')]\nimport appfile\nimport libdefs\n\n\ndef contained(value):\n    path = Path(value).resolve()\n    if not path.is_relative_to(WORK.resolve()):\n        raise ValueError('Input/output must be inside claim-240 scratch: '+str(path))\n    return path\n\n\ndef win(path):\n    return 'Z:' + str(path).replace('/', chr(92))\n\n\ndef exact(rows):\n    return {(row['symbol'], address) for row in rows if row['status'] == 'exact'\n            for address in row['addresses']}\n\n\ndef compile_and_match(source, unit, tree, output):\n    paths = [source.parent, tree / Path(unit).parent]\n    for value in appfile.candidate_dirs():\n        path = Path(value).resolve()\n        if path.is_relative_to(ROOT):\n            path = tree / path.relative_to(ROOT)\n        if path.is_dir() and path not in paths:\n            paths.append(path)\n    args = libdefs.LIB_FLAGS['app'].split()\n    args += ['/D'+value for value in libdefs.APP_LIBS['app']['defines']]\n    args += ['/I\"'+win(path)+'\"' for path in paths]\n    args += ['\"'+win(source)+'\"']\n    rsp = output / 'compile.rsp'\n    rsp.write_text('\\n'.join(args))\n    with (output / 'compile.log').open('w') as log:\n        process = subprocess.run([COMPILER, '@'+win(rsp)], cwd=output,\n                                 stdout=log, stderr=log, timeout=180)\n    if process.returncode:\n        return {'compiled': False, 'compile_returncode': process.returncode,\n                'error': (output / 'compile.log').read_text(errors='replace')[-2500:]}\n    obj = output / (source.stem+'.obj')\n    with (output / 'match.log').open('w') as log:\n        process = subprocess.run([PYTHON, str(ROOT / 'tools/re/objmatch.py'),\n                                  str(obj), '--client', CLIENT, '-q', '--json',\n                                  str(output / 'matches.json')], stdout=log,\n                                 stderr=log, timeout=240)\n    result = {'compiled': True, 'object': str(obj),\n              'match_returncode': process.returncode,\n              'matches': str(output / 'matches.json')}\n    if process.returncode:\n        result['error'] = (output / 'match.log').read_text(errors='replace')[-2500:]\n        return result\n    rows = json.loads((output / 'matches.json').read_text())\n    result['counts'] = dict(collections.Counter(row['status'] for row in rows))\n    result['exact_symbol_pairs'] = sorted(exact(rows))\n    result['exact_addresses'] = sorted({a for _, a in exact(rows)})\n    return result\n\n\ndef main():\n    manifest_path = contained(sys.argv[1])\n    plan = json.loads(manifest_path.read_text())\n    unit = plan['unit']\n    if not unit.startswith('app/') or Path(unit).suffix != '.cpp':\n        raise ValueError('unit must be a repository-relative app .cpp')\n    target = int(plan['target'], 0)\n    if not (0x5D6550 <= target < 0x5EDFD1):\n        raise ValueError('Target outside claim #254')\n    tree = contained(plan['tree'])\n    output_root = manifest_path.parent / 'runs'\n    output_root.mkdir(exist_ok=True)\n    run = Path(tempfile.mkdtemp(prefix=manifest_path.stem+'-', dir=output_root))\n    baseline = None\n    if plan.get('baseline_matches'):\n        baseline = exact(json.loads(contained(plan['baseline_matches']).read_text()))\n    elif plan['variants'][0]['name'] != 'baseline':\n        raise ValueError('First form must be baseline unless baseline_matches supplied')\n    summary = {'manifest': str(manifest_path), 'unit': unit,\n               'target': plan['target'], 'run': str(run), 'variants': []}\n    print('RUN '+str(run), flush=True)\n    failed = False\n    for item in plan['variants']:\n        name = item['name']\n        if not re.fullmatch('[A-Za-z0-9_-]{1,80}', name):\n            raise ValueError('Invalid variant name')\n        source = contained(item['source'])\n        if source.name != Path(unit).name:\n            raise ValueError('Keep original source basename for __FILE__ matching')\n        item_tree = contained(item.get('tree', str(tree)))\n        output = run / name\n        output.mkdir()\n        digest = hashlib.sha256(source.read_bytes()).hexdigest()\n        row = {'name': name, 'source': str(source), 'source_sha256': digest,\n               'tree': str(item_tree), 'output': str(output)}\n        started = time.monotonic()\n        try:\n            row.update(compile_and_match(source, unit, item_tree, output))\n            if hashlib.sha256(source.read_bytes()).hexdigest() != digest:\n                raise RuntimeError('Source changed during its queued build')\n            if row.get('compiled') and row.get('match_returncode') == 0:\n                after = {tuple(pair) for pair in row['exact_symbol_pairs']}\n                if baseline is None:\n                    baseline = after\n                row['gained'] = sorted(after-baseline)\n                row['lost'] = sorted(baseline-after)\n                row['gained_addresses'] = sorted({a for _, a in after}-{a for _, a in baseline})\n                row['lost_addresses'] = sorted({a for _, a in baseline}-{a for _, a in after})\n                row['target_exact'] = f'0x{target:X}' in row['exact_addresses']\n            else:\n                failed = True\n        except Exception as error:\n            failed = True\n            row['error'] = str(error)\n        row['seconds'] = round(time.monotonic()-started, 2)\n        summary['variants'].append(row)\n        (run / 'summary.json').write_text(json.dumps(summary, indent=2)+'\\n')\n        display = {key: row[key] for key in ('name', 'compiled', 'match_returncode',\n                   'counts', 'target_exact', 'gained_addresses', 'lost_addresses',\n                   'seconds', 'error') if key in row}\n        display['symbol_gains'] = len(row.get('gained', []))\n        display['symbol_losses'] = len(row.get('lost', []))\n        print(json.dumps(display), flush=True)\n        if row.get('target_exact') and not row.get('lost'):\n            break\n        if name == 'baseline' and baseline is None:\n            break\n    print('SUMMARY '+str(run / 'summary.json'), flush=True)\n    return int(failed)\n\n\nif __name__ == '__main__':\n    raise SystemExit(main())\n",
+  "runner_sha256": "fdb16a5e1ff31b66aaa52ff63d96f4b2d2e5fa5498fb21225d877c147ebee190",
+  "steps": [
+   "Export git archive of base into a fresh empty tree under .work/claim-254/.",
+   "For each baseline/seed/candidate copy keep the basename ui_refinery.cpp. Apply each embedded patch independently against the base unit in a separate overlay; source outside target and later physical source lines must be identical.",
+   "Use embedded runner with manifest {unit:app/client/ui_refinery.cpp,target:0x5EDFD0,tree:FROZEN_TREE,variants:[{name:baseline,source:BASE_CPP},{name:FORM,source:FORM_CPP}]}. It compiles serially and native-matches every complete object. Wine may need its existing socket escalation.",
+   "Repeat baseline and winner, compare complete exact symbol/address pairs. Audit full target925bytes/238instructions/one return to5EE36D, every relocation and branch, and the15-state EH map using audit_python. Adjust its B/C scratch run paths to fresh outputs.",
+   "Target contains no __FILE__ relocation. Other unit bodies retain their original source; normalized comparison masks relocated bytes, scratch source-path literal, and generated numeric local-label IDs. No application link/runtime test performed by this agent."
+  ]
+ },
+ "all_forms_source_outside_target_and_physical_lines_identical": true,
+ "replay_extra_steps": [
+  "For all experiments, apply seed_patch to base in seed_input/ui_refinery.cpp and restore replay_scripts in the new scratch directory. Run prepare.py, then forms2.py through forms7.py in order.",
+  "Before running every generated manifest, replace tree and baseline_matches with fresh frozen-tree and first-run baseline paths. No source generation depends on prior binary output. Stop forms7 after both_arg_assign, as the runner does.",
+  "Use measure.py on every completed summary. Group and source/object hashes are recorded in results. Source hashes include the preserved original NOT EXACT comment; coordinator may remove it on the same physical line during integration."
+ ],
+ "tracked_edits_by_this_agent": false,
+ "approximate_followup_tokens": 16000
+}

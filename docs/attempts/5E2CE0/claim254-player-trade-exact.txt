@@ -1,0 +1,788 @@
+{
+ "base": "a5a1a7dfd95a2b6a6ba484124faf9a0bebb9afd8",
+ "claim": 254,
+ "address": "0x5E2CE0",
+ "symbol": "UIPTradeClass::Unknown_68",
+ "file": "app/client/ui_ptrade.cpp",
+ "library": "app",
+ "status": "exact",
+ "model": "gpt-6.1-sol (high)",
+ "summary": "Exact 0x5E2CE0 by assigning real int avatar/id locals inside both packet constructor argument lists. Fresh full-native object 98->99 exact rows, sole target gain, zero losses; independent baseline/exact repeats stable. Two register-only instruction mismatches ->0. Retail code408+switch16 bytes,118 instructions,4 returns,13 calls,all relocations/branches/3EH states checked.",
+ "baseline_source": "// Earth & Beyond client (reconstruction): app\\client\\ui_ptrade.cpp (the client's __FILE__\n// 'e:\\build\\beta\\G\\app\\Client\\ui_ptrade.cpp', 0x5E1B90-0x5E3EEF by its asserts and its callers).\n// Every function 0x5E1BE0-0x5E40A1 is rebuilt, the credits button 0x5E3EF0 / 0x5E3F40 and its destructors 0x5E4010 / 0x5E4040 included (PT1, PT2).\n#include <stdlib.h>\n#include <string.h>\n#include \"aux_item.h\"\t// the item family's constructors (0x5E40D0 numbers them); <stdio.h> through aux_roots.h\n#include <string>\n#include \"sclient.h\"\n#include \"ui_manu.h\"\n#include \"..\\shared\\money.h\"\n#include \"client.h\"\n#include \"co.h\"\n#include \"gadget.h\"\n#include \"fontmanager.h\"\n#include \"local_interface_sort.h\"\n#include \"..\\packets\\pkaction.h\"\n#include \"..\\shared\\avatar_desc.h\"\n#include \"..\\shared\\auxdata\\auxdata.h\"\n#include \"..\\shared\\auxdata\\lookup.h\"\n#include \"..\\shared\\auxdata\\delta_money.h\"\n#include \"..\\shared\\g_assert.h\"\n#include \"..\\audio\\soundlib.h\"\n#include \"..\\..\\ww3d2\\ww3d.h\"\t// WW3D::Get_Frame_Time (0xBFAE3C - 0xBFAE40, read inline)\n#include \"gd_uiback.h\"\t\t// UIBackGadget (0x674260)\n\n// The client at InterfaceClass +0x40, as ui_chat_panel.cpp declares it\nclass LineDisplayClientClass  // NAME 1: neutral (D10)\n{\npublic:\n\tvirtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();\n\tvirtual void Unknown_10(); virtual void Unknown_14();\n\tvirtual SClient *As_Space_Client();\t\t\t\t\t// +0x18 (SClient's returns itself)  // NAME 3: ui_manu.cpp's FAIL_IF's\n};\n\n// money.cpp's arithmetic and comparisons (cdecl, not rebuilt)\nMoneyClass operator+(const MoneyClass &a, const MoneyClass &b);\t// 0x4F0500  // NAME 1 [a, b]: neutral\nbool operator>=(const MoneyClass &a, const MoneyClass &b);\t// 0x4F0740  // NAME 1 [a, b]: neutral\nbool operator>(const MoneyClass &a, const MoneyClass &b);\t// 0x4F0700  // NAME 1 [a, b]: neutral\n\nextern FontManagerClass *Unknown_BE67C4;\t\t\t// NAME 1 [Unknown_BE67C4]: 0xBE67C4\n\n#include \"avatar.h\"\t// CharacterViewAvatarClass: what SClient 0x74C7B0 returns (its ~RefCountPtr 0x53CF80 is the unwind funclets' jmp; Desc at +0xF8)\n\n\n#include \"avatar_pip.h\"\t// AvatarPipClass: PlayerPIP / OtherPIP (0x3C bytes; 0x7E31B0, 0x7E3410, 0x7E36B0, 0x7E3A20, 0x7E4350)\n\n\n\n\n\n\n\n\n\n// 0x5E1BE0\nUIPTradeClass::UIPTradeClass(SClient *client) :\n\tUnknown5BB320Class(new UIMeshClass(\"TRADE00A\", 1), client),\n\tPlayerPIP(NULL),\n\tOtherPIP(NULL),\n\tState(UI_CLOSED),\n\tUnknown0D8(0),\n\tUnknown0DC(false),\n\tUnknown0DD(false),\n\tUnknown0DE(false)\n{\n\tmemset(&Unknown0B8, 0, sizeof(Unknown0B8) + sizeof(Unknown0BC));\n\tUnknown_BE67BC->Load(\"fa_trade00a.ini\");\n\tUnknown_BE67C4->Add(InterfaceMesh->Peek_Mesh_Object());\n}\n\n\n\n\n\n\n\n\n\n// 0x5E1D80\nUIPTradeClass::~UIPTradeClass()\n{\n\tG_ASSERT(State == UI_CLOSED);\n\tUnknown0AC = NULL;\n\tUnknown0B0 = NULL;\n\tUnknown0B4 = NULL;\n\tdelete PlayerPIP;\n\tdelete OtherPIP;\n\tPlayerPIP = NULL;\n\tOtherPIP = NULL;\n\tUnknown_BE67C4->Remove(InterfaceMesh->Peek_Mesh_Object());\n\tUnknown_BE67BC->Unload(\"fa_trade00a.ini\");\n}\n\nvoid Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);\t// 0x496AE0 (ro_funcs.cpp, cdecl)  // NAME 1 [robj, make_geometry_unique]: as ui_manu.cpp's\n\n// The four buttons' sub-objects and their styles (0xB850B0 / 0xB850C4)\nstatic const char *Unknown_B850B0[] = { \"exit\", \"cancel\", \"confirm\", \"money\", NULL };\t// NAME 1: neutral (D10)\nstatic const char *Unknown_B850C4[] = { NULL, \"CANCEL_TRADE00\", \"CONFIRM_TRADE00\", \"MONEY_TRADE00\", NULL };\t// NAME 1: neutral (D10)\n\n// The credits button (0x64 bytes, table 0xAF6578, over 0x674260's gadget): pressed, it counts only while the credits entry is closed\nclass UIPTradeCreditsGadgetClass : public UIBackGadget\t// NAME 1: neutral (D10)\n{\npublic:\n\tUIPTradeCreditsGadgetClass(const RefCountPtr<RenderObjClass> &model, RefCountPtr<UIPTradeCreditsClass> credits);\t// 0x5E3F40  // NAME 1 [model, credits]: what the set-up passes\n\tvirtual bool Unknown_34(KernelEventClass *event, float x, float y, unsigned int mask);\t// +0x34 0x5E3EF0 (the base's, false while the credits entry is Active)  // NAME 1 [event, x, y, mask]: the base's\n\n\tRefCountPtr<UIPTradeCreditsClass> Unknown60;\t\t// +0x60\n};\n\n\n\n\n\n// 0x5E1FA0\nvoid UIPTradeClass::Unknown_54()\n{\n\tfor (int id = 1; id < 5; id++) {\n\t\tRefCountPtr<RenderObjClass> robj = Create_NEW(InterfaceMesh->Peek_Object()->Get_Sub_Object_By_Name(Unknown_B850B0[id - 1]));\n\t\tUnknown_496AE0(robj.Peek(), 0);\n\t\tUnknown0BC[id - 1] = new ButtonGadgetClass(robj.Peek(), Layer, 0x55, 3);\n\t\tUnknown64.Unknown_6870E0(Unknown0BC[id - 1], id, View, 1, 0);\n\t\tUnknown_5BB4F0(Unknown0BC[id - 1]);\n\t\tif (Unknown_B850C4[id - 1]) {\n\t\t\tRefCountPtr<FontSys> font = Create_Peek(Unknown_BE67C4->Get_Style(Unknown_B850C4[id - 1], InterfaceMesh->Peek_Mesh_Object()));\n\t\t\tfont->Set_Sort_Level(robj->Get_Sort_Level() - 1);\n\t\t\t((ButtonGadgetClass *)Unknown0BC[id - 1])->Unknown_98(font.Peek());\n\t\t}\n\t}\n\tGadgetClass::Set_Tooltip(Unknown0BC[1], \"UI_PTRADE\", \"CANCEL\");\n\tGadgetClass::Set_Tooltip(Unknown0BC[0], \"UI_PTRADE\", \"CANCEL\");\n\tGadgetClass::Set_Tooltip(Unknown0BC[2], \"UI_PTRADE\", \"CONFIRM\");\n\tGadgetClass::Set_Tooltip(Unknown0BC[3], \"UI_PTRADE\", \"CREDITS\");\n\tSClient *sclient = Client->As_Space_Client();\n\tUnknown0AC = Create_Get(new UIInvRobjStripClass(sclient, InterfaceMesh->Peek_Object(), 6, \"TRADE00A.C%02d\", 15));\n\tUnknown0AC->Unknown_5417D0(this);\n\tUnknown0AC->Unknown_54();\n\tUnknown0B0 = Create_Get(new UIInvRobjStripClass(sclient, InterfaceMesh->Peek_Object(), 6, \"TRADE00A.X%02d\", 16));\n\tUnknown0B0->Unknown_5417D0(this);\n\tUnknown0B0->Unknown_54();\n\tUnknown0B4 = Create_Get(new UIPTradeCreditsClass(sclient, 0, 9));\n\tUnknown0B4->Unknown_54();\n\tUnknown0B4->Unknown_64A270(\"Enter Amount of Credits\");\n\tGadgetClass *credits = new UIPTradeCreditsGadgetClass(Create_Peek(InterfaceMesh->Unknown_5E26D0()), Unknown0B4);\n\tUnknown64.Unknown_6870E0(credits, 6, View, 1, 0);\n\tFAIL_IF(PlayerPIP) return;\n\tFAIL_IF(OtherPIP) return;\n\tPlayerPIP = new AvatarPipClass;\n\tOtherPIP = new AvatarPipClass;\n\tUnknown_10();\n}\n\n// 0x5E26D0\nRenderObjClass *UIMeshClass::Unknown_5E26D0()\n{\n\treturn(InterfaceMesh);\n}\n\n\n// 0x5E2F70\nvoid UIPTradeClass::Unknown_5E2F70(bool on)\n{\n\tUnknown0DD = on;\n\tRefCountPtr<FontSys> font = Create_Peek(Unknown_BE67C4->Get_Style(\"REC_CONFIRM_TRADE00\", InterfaceMesh->Peek_Mesh_Object()));\n\tif (font) {\n\t\tif (Unknown0DD) font->Change_Text(\"Awaiting Trade Confirmation\", 0);\n\t\telse font->Change_Text(\"\", 0);\n\t}\n}\n\n// 0x5E26F0\nvoid UIPTradeClass::Unknown_58()\n{\n\tif (State == UI_CLOSED) {\n\t\tInterfaceSortScopeClass sort(this);\n\t\tState = UI_OPEN;\n\t\tSClient *sclient = Client->As_Space_Client();\n\t\tUnknown0DC = sclient->PDAInterface->Unknown_695780(false);\n\t\tPlayerPIP->Unknown_7E36B0(sclient, Create_NEW(InterfaceMesh->Get_Sub_Object_By_Name(\"AVATAR_YOU\")), 0);\n\t\tOtherPIP->Unknown_7E36B0(sclient, Create_NEW(InterfaceMesh->Get_Sub_Object_By_Name(\"AVATAR_THEM\")), 0);\n\t\tUnknown5BB320Class::Unknown_58();\n\t\tUnknown_5E3340();\n\t\tRefCountPtr<FontSys> font = Create_Peek(Unknown_BE67C4->Get_Style(\"PLAYER_NAME_TRADE00\", InterfaceMesh->Peek_Object()));\n\t\tint id = ((ClientClass *)Client)->AvatarID; RefCountPtr<CharacterViewAvatarClass> avatar = Create_NEW(sclient->Unknown_74C7B0(id));\n\t\tif (avatar && font) {\n\t\t\tstd::string name;\n\t\t\tavatar->Desc.Get_Full_Name(name);\n\t\t\tfont->Change_Text(name.c_str(), 0);\n\t\t} else {\n\t\t\tG_ASSERT(0);\n\t\t}\n\t\tfont = Create_Peek(Unknown_BE67C4->Get_Style(\"RECIPIENT_NAME_TRADE00\", InterfaceMesh->Peek_Object()));\n\t\tif (font) font->Change_Text(\"\", 0);\n\t\tUnknown_5E3750(true);\n\t\tUnknown_5E2F70(false);\n\t\tUnknown0E0 = MoneyClass();\n\t\tUnknown0D8 = 0;\t// (budget-device audit 2026-11-19: a dead font.Peek() here is no longer needed (the file is exact without it))\n\t}\n}\n\n// 0x5E2B30\nvoid UIPTradeClass::Unknown_5C()\n{\n\tif (State == UI_OPEN) {\n\t\tState = UI_CLOSED;\n\t\tUnknown0AC->Unknown_5C();\n\t\tUnknown0B0->Unknown_5C();\n\t\tUnknown0B4->Unknown_5C();\n\t\tSClient *sclient = Client->As_Space_Client();\n\t\tif (Unknown0DC) {\n\t\t\tsclient->PDAInterface->Unknown_695A00(0, 1);\n\t\t}\n\t\tUnknown_5E2F70(false);\n\t\tUnknown_5E3050(false);\n\t\tUnknown5BB320Class::Unknown_5C();\n\t\tPlayerPIP->Unknown_7E4350();\n\t\tOtherPIP->Unknown_7E4350();\n\t}\n}\n\n// 0x5E2BF0\nvoid UIPTradeClass::Unknown_60()\n{\n\tUnknown_5E3C90();\n\tUnknown_5E39F0();\n\tUnknown_5E37F0();\n\tPlayerPIP->Unknown_7E3A20(0, ((ClientClass *)Client)->AvatarID, 0);\n\tOtherPIP->Unknown_7E3A20(0, ((ClientClass *)Client)->Unknown1134, 0);\n\tUnknown5BB320Class::Unknown_60();\n\tif (Unknown0D8 > 0.0f) {\n\t\tUnknown0D8 -= WW3D::Get_Frame_Time() * 0.001f;\n\t\tif (Unknown0D8 < 0.0f) {\n\t\t\tUnknown0D8 = 0.0f;\n\t\t\tUnknown_5C();\n\t\t}\n\t}\n}\n\n// 0x5E2CE0\n// NOT EXACT: register-only (0.84, same length: key 3's request reads the client through eax, the client's; ours through edx as keys 1 / 2)\nbool UIPTradeClass::Unknown_68(int key)\n{\n\tSClient *sclient = Client->As_Space_Client();\n\tswitch (key) {\n\t\tcase 1:\n\t\tcase 2:\n\t\t\tSoundLibraryClass::Play_2D_Sound(\"Roll_Select02b.wav\", 2);\n\t\t\tsclient->Send_Packet(&ActionPacketClass(sclient->AvatarID, 0x16, ((ClientClass *)Client)->Unknown1134, 0));\n\t\t\treturn(true);\n\t\tcase 3:\n\t\t\tSoundLibraryClass::Play_2D_Sound(\"Roll_Select02b.wav\", 2);\n\t\t\tsclient->Send_Packet(&ActionPacketClass(sclient->AvatarID, 0x15, ((ClientClass *)Client)->Unknown1134, 0));\n\t\t\treturn(true);\n\t\tcase 4:\n\t\t{\n\t\t\tSoundLibraryClass::Play_2D_Sound(\"Roll_Select02b.wav\", 2);\n\t\t\tUnknown0B4->Unknown_58();\n\t\t\tchar text[0x14];\n\t\t\tif (Unknown0E0 > MoneyClass()) {\n\t\t\t\t_snprintf(text, sizeof(text), \"%d\", Unknown0E0.Amount);\n\t\t\t\tUnknown0B4->Unknown_64A2B0(text);\n\t\t\t} else {\n\t\t\t\tUnknown0B4->Unknown_64A2B0(\"\");\n\t\t\t}\n\t\t\tUnknown_5E3750(false);\n\t\t\treturn(true);\n\t\t}\n\t}\n\treturn(false);\n}\n\n// 0x5E2F00\nvoid UIPTradeClass::Unknown_7C(UIViewClass *view, bool arg)\n{\n\tif (Unknown0B4) Unknown0B4->Unknown_7C(view, false);\n\tif (Unknown0AC) Unknown0AC->Unknown_7C(view, arg);\n\tif (Unknown0B0) Unknown0B0->Unknown_7C(view, arg);\n\tUnknown5BB320Class::Unknown_7C(view, arg);\n}\n\n// 0x5E3050\nvoid UIPTradeClass::Unknown_5E3050(bool on)\n{\n\tUnknown0DE = on;\n\tRefCountPtr<FontSys> font = Create_Peek(Unknown_BE67C4->Get_Style(\"REC_CONFIRM_TRADE00\", InterfaceMesh->Peek_Mesh_Object()));\n\tif (font) {\n\t\tif (Unknown0DE) font->Change_Text(\"Trade has been confirmed\", 0);\n\t\telse font->Change_Text(\"\", 0);\n\t}\n}\n\n// 0x5E3130\nvoid UIPTradeClass::Unknown_5E3130()\n{\n\tRefCountPtr<FontSys> font = Create_Peek(Unknown_BE67C4->Get_Style(\"REC_CONFIRM_TRADE00\", InterfaceMesh->Peek_Mesh_Object()));\n\tif (font) font->Change_Text(\"Trading has successfully completed.\", 0);\n\tUnknown0D8 = 2.0f;\n\tUnknown_5E3750(false);\n}\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n// 0x5E3210\nvoid UIPTradeClass::Unknown_5E3210(const char *name, bool visible, const char *text)\n{\n\tRefCountPtr<FontSys> font = Create_Peek(Unknown_BE67C4->Get_Style(name, InterfaceMesh->Peek_Mesh_Object()));\n\tFAIL_IF(!font) return;\n\tfont->Change_Text(text, 0);\n\tfont->Set_Hidden(!visible);\n}\n\n// The money field's lookups through two inline layers: with them the client's find 0x5466A0 stays out of line (as ui_avatar_cust.cpp's)\ntemplate<class C> inline C *Unknown_Find_Valid(DeltaCompoundClass *root, const char *name) { NameClass n(name); C *t = Unknown_Find_Field<C>(root, n); if (t && t->Unknown70) return(t); return(NULL); }\t// NAME 1: neutral (D10)\nstatic inline DeltaTemplateClass<MoneyClass> *Unknown_Find_Money(DeltaCompoundClass *aux, const char *field) { return(Unknown_Find_Valid<DeltaTemplateClass<MoneyClass> >(aux, field)); }\t// NAME 1: neutral (D10)\n\n// 0x5E3340\nvoid UIPTradeClass::Unknown_5E3340()\n{\n\tMoneyClass money;\n\tDeltaCompoundClass *aux = (DeltaCompoundClass *)Client->As_Space_Client()->AuxData;\n\tDeltaTemplateClass<MoneyClass> *t = Unknown_Find_Money(aux, \"Money\");\n\tif (t) money = t->Value;\n\tUnknown_5E3210(\"CREDITS_TRADE00\", true, money.Amount_As_Text(false).c_str());\n\tUnknown_5E3210(\"CRED1_TRADE00\", true, Unknown0E0.Amount_As_Text(false).c_str());\n\tif (((ClientClass *)Client)->Find_Object(((ClientClass *)Client)->Unknown1134)) {\n\t\tmoney = MoneyClass();\n\t\tDeltaCompoundClass *other = (DeltaCompoundClass *)((ClientClass *)Client)->Find_Object(((ClientClass *)Client)->Unknown1134)->AuxData;\n\t\tt = Unknown_Find_Money(other, \"TradeMoney\");\n\t\tif (t) money = t->Value;\n\t\tUnknown_5E3210(\"CRED2_TRADE00\", true, money.Amount_As_Text(false).c_str());\n\t}\n}\n\n\n// 0x5E3750\nvoid UIPTradeClass::Unknown_5E3750(bool on)\n{\n\tfor (int i = 0; i < 4; i++) {\n\t\tUnknown0BC[i]->Unknown_40(on);\n\t}\n\tif (on) {\n\t\tif (!Unknown0AC->Active) Unknown0AC->Unknown_58();\n\t\tif (!Unknown0B0->Active) Unknown0B0->Unknown_58();\n\t} else {\n\t\tif (Unknown0AC->Active) Unknown0AC->Unknown_5C();\n\t\tif (Unknown0B0->Active) Unknown0B0->Unknown_5C();\n\t}\n}\n\n// Whether the object's field changed (above 1: LookupClass's test, or the money field's own)\nstatic inline bool Unknown_Changed(ClientObjectClass *object, const char *field) { NameClass name(field); return(((DeltaCompoundClass *)object->AuxData)->Get_Lookup()->Unknown_Test_70_Above_1(name)); }\t// NAME 1: neutral (D10)\nstatic inline bool Unknown_Changed_Money(ClientObjectClass *object, const char *field) { DeltaCompoundClass *aux = (DeltaCompoundClass *)object->AuxData; NameClass name(field); DeltaTemplateClass<MoneyClass> *t = Unknown_Find_Field<DeltaTemplateClass<MoneyClass> >(aux, name); return(t && t->Unknown70 > 1); }\t// NAME 1: neutral (D10)\n\n// 0x5E37F0\nvoid UIPTradeClass::Unknown_5E37F0()\n{\n\tClientClass *sclient = Client->As_Space_Client();\n\tClientObjectClass *avatar = sclient->Get_Avatar();\n\tif (avatar && avatar->AuxData) {\n\t\tif (Unknown_Changed(avatar, \"Inventory.PlayerTrade\") || Unknown_Changed(avatar, \"TradeMoney\")) {\n\t\t\tint id = ((ClientClass *)Client)->Unknown1134; sclient->Send_Packet(&ActionPacketClass(sclient->AvatarID, 0x17, id, 0));\n\t\t\tUnknown_5E3340();\n\t\t} else if (((ClientClass *)Client)->Find_Object(((ClientClass *)Client)->Unknown1134) && Unknown_Changed_Money(((ClientClass *)Client)->Find_Object(((ClientClass *)Client)->Unknown1134), \"TradeMoney\")) {\n\t\t\tUnknown_5E3340();\n\t\t}\n\t}\n}\n\n\n// 0x5E39F0\nvoid UIPTradeClass::Unknown_5E39F0()\n{\n\tif (Unknown0B4 && Unknown0B4->Active) {\n\t\tint result = Unknown0B4->Unknown_64A220();\n\t\tif (result != 0) {\n\t\t\tif (result == 2) {\n\t\t\t\tint amount = atoi(Unknown0B4->Unknown_64A240());\n\t\t\t\tMoneyClass money;\n\t\t\t\tDeltaCompoundClass *aux = (DeltaCompoundClass *)Client->As_Space_Client()->AuxData;\n\t\t\t\tDeltaTemplateClass<MoneyClass> *t = Unknown_Find_Money(aux, \"Money\");\n\t\t\t\tif (t) money = t->Value;\n\t\t\t\tif (money + Unknown0E0 >= MoneyClass(amount)) {\n\t\t\t\t\tUnknown0E0.Amount = amount;\n\t\t\t\t\tSClient *sclient = Client->As_Space_Client();\n\t\t\t\t\t__int64 offered = Unknown0E0.Amount; int id = ((ClientClass *)Client)->Unknown1134; int avatar = sclient->AvatarID; sclient->Send_Packet(&ActionPacketClass(avatar, 0x18, id, (int)offered));\n\t\t\t\t\tUnknown_5E3340();\n\t\t\t\t} else {\n\t\t\t\t\tstd::string text(\"Insufficient credits.\");\n\t\t\t\t\tClient->As_Space_Client()->Unknown_74D990(0x11, (char *)text.c_str(), 0);\n\t\t\t\t}\n\t\t\t}\n\t\t\tUnknown0B4->Unknown_5C();\n\t\t\tUnknown_5E3750(true);\n\t\t}\n\t}\n}\n\n\n// 0x5E3C90\nvoid UIPTradeClass::Unknown_5E3C90()\n{\n\tRefCountPtr<FontSys> font = Create_Peek(Unknown_BE67C4->Get_Style(\"RECIPIENT_NAME_TRADE00\", InterfaceMesh->Peek_Object()));\n\tconst char *text = font->Unknown_6D87D0();\n\tif (text && *text && *text != ' ') return;\n\tSClient *sclient = Client->As_Space_Client();\n\tint id = ((ClientClass *)Client)->Unknown1134; RefCountPtr<CharacterViewAvatarClass> avatar = Create_NEW(sclient->Unknown_74C7B0(id));\n\tif (!avatar) return;\n\tstd::string name;\n\tavatar->Desc.Get_Full_Name(name);\n\tfont->Change_Text(name.c_str(), 0);\n}\n\n\n// 0x5E3EF0\nbool UIPTradeCreditsGadgetClass::Unknown_34(KernelEventClass *event, float x, float y, unsigned int mask)\n{\n\tif (GadgetClass::Unknown_34(event, x, y, mask)) {\n\t\treturn(Unknown60->Active ? false : true);\n\t}\n\treturn(false);\n}\n\n// 0x5E3F40\nUIPTradeCreditsGadgetClass::UIPTradeCreditsGadgetClass(const RefCountPtr<RenderObjClass> &model, RefCountPtr<UIPTradeCreditsClass> credits) :\n\tUIBackGadget(model)\n{\n\tUnknown60 = credits;\n}\n",
+ "baseline_source_sha256": "e4604a806db93000b457ad717a033f5d3cad65054199f5b6ad5bd3e084a47f95",
+ "winning_form": "both_value_arg_all",
+ "winning_source_sha256": "cae3de4e3fae01f377c1613df2e5e319d96998b62bf5d705bccdd1d17fa09e07",
+ "winning_patch": "--- a/app/client/ui_ptrade.cpp\n+++ b/app/client/ui_ptrade.cpp\n@@ -239,16 +239,16 @@\n // NOT EXACT: register-only (0.84, same length: key 3's request reads the client through eax, the client's; ours through edx as keys 1 / 2)\n bool UIPTradeClass::Unknown_68(int key)\n {\n-\tSClient *sclient = Client->As_Space_Client();\n+\tSClient *sclient = Client->As_Space_Client(); int avatar; int id;\n \tswitch (key) {\n \t\tcase 1:\n \t\tcase 2:\n \t\t\tSoundLibraryClass::Play_2D_Sound(\"Roll_Select02b.wav\", 2);\n-\t\t\tsclient->Send_Packet(&ActionPacketClass(sclient->AvatarID, 0x16, ((ClientClass *)Client)->Unknown1134, 0));\n+\t\t\tsclient->Send_Packet(&ActionPacketClass(avatar = sclient->AvatarID, 0x16, id = ((ClientClass *)Client)->Unknown1134, 0));\n \t\t\treturn(true);\n \t\tcase 3:\n \t\t\tSoundLibraryClass::Play_2D_Sound(\"Roll_Select02b.wav\", 2);\n-\t\t\tsclient->Send_Packet(&ActionPacketClass(sclient->AvatarID, 0x15, ((ClientClass *)Client)->Unknown1134, 0));\n+\t\t\tsclient->Send_Packet(&ActionPacketClass(avatar = sclient->AvatarID, 0x15, id = ((ClientClass *)Client)->Unknown1134, 0));\n \t\t\treturn(true);\n \t\tcase 4:\n \t\t{\n",
+ "recipes": [
+  {
+   "name": "client_arg3",
+   "decl": "ClientClass *client;",
+   "expr": "(client = (ClientClass *)Client)->Unknown1134",
+   "cases": [
+    3
+   ],
+   "avatar": "sclient->AvatarID"
+  },
+  {
+   "name": "client_arg_all",
+   "decl": "ClientClass *client;",
+   "expr": "(client = (ClientClass *)Client)->Unknown1134",
+   "cases": [
+    2,
+    3
+   ],
+   "avatar": "sclient->AvatarID"
+  },
+  {
+   "name": "id_arg3",
+   "decl": "int id;",
+   "expr": "id = ((ClientClass *)Client)->Unknown1134",
+   "cases": [
+    3
+   ],
+   "avatar": "sclient->AvatarID"
+  },
+  {
+   "name": "id_arg_all",
+   "decl": "int id;",
+   "expr": "id = ((ClientClass *)Client)->Unknown1134",
+   "cases": [
+    2,
+    3
+   ],
+   "avatar": "sclient->AvatarID"
+  },
+  {
+   "name": "avatar_arg3",
+   "decl": "int avatar;",
+   "expr": "((ClientClass *)Client)->Unknown1134",
+   "cases": [
+    3
+   ],
+   "avatar": "avatar = sclient->AvatarID"
+  },
+  {
+   "name": "avatar_arg_all",
+   "decl": "int avatar;",
+   "expr": "((ClientClass *)Client)->Unknown1134",
+   "cases": [
+    2,
+    3
+   ],
+   "avatar": "avatar = sclient->AvatarID"
+  },
+  {
+   "name": "client_id_arg3",
+   "decl": "ClientClass *client; int id;",
+   "expr": "id = (client = (ClientClass *)Client)->Unknown1134",
+   "cases": [
+    3
+   ],
+   "avatar": "sclient->AvatarID"
+  },
+  {
+   "name": "client_id_arg_all",
+   "decl": "ClientClass *client; int id;",
+   "expr": "id = (client = (ClientClass *)Client)->Unknown1134",
+   "cases": [
+    2,
+    3
+   ],
+   "avatar": "sclient->AvatarID"
+  },
+  {
+   "name": "both_value_arg3",
+   "decl": "int avatar; int id;",
+   "expr": "id = ((ClientClass *)Client)->Unknown1134",
+   "cases": [
+    3
+   ],
+   "avatar": "avatar = sclient->AvatarID"
+  },
+  {
+   "name": "both_value_arg_all",
+   "decl": "int avatar; int id;",
+   "expr": "id = ((ClientClass *)Client)->Unknown1134",
+   "cases": [
+    2,
+    3
+   ],
+   "avatar": "avatar = sclient->AvatarID"
+  }
+ ],
+ "standalone_replay_python": "from pathlib import Path\nimport hashlib,json,sys\ns=json.loads(Path(sys.argv[1]).read_text());root=Path(sys.argv[2]);root.mkdir(parents=True,exist_ok=True)\nseed=s['baseline_source'];a=seed.index('bool UIPTradeClass::Unknown_68(int key)');b=seed.index('// 0x5E2F00',a)\np,body,q=seed[:a],seed[a:b],seed[b:]\nexpected={r['name']:r['source_sha256'] for r in s['results']}\nfor recipe in s['recipes']:\n t=body.replace('SClient *sclient = Client->As_Space_Client();','SClient *sclient = Client->As_Space_Client(); '+recipe['decl'])\n for case in recipe['cases']:\n  action='0x15' if case==3 else '0x16'\n  before='sclient->Send_Packet(&ActionPacketClass(sclient->AvatarID, '+action+', ((ClientClass *)Client)->Unknown1134, 0));'\n  after='sclient->Send_Packet(&ActionPacketClass('+recipe['avatar']+', '+action+', '+recipe['expr']+', 0));'\n  assert t.count(before)==1;t=t.replace(before,after)\n text=p+t+q;assert t.count('\\n')==body.count('\\n')\n assert hashlib.sha256(text.encode()).hexdigest()==expected[recipe['name']]\n f=root/recipe['name']/'ui_ptrade.cpp';f.parent.mkdir();f.write_text(text)\n",
+ "results": [
+  {
+   "name": "baseline",
+   "source_sha256": "e4604a806db93000b457ad717a033f5d3cad65054199f5b6ad5bd3e084a47f95",
+   "raw_rows": 2,
+   "masked_rows": 2,
+   "register_masked_rows": 0,
+   "code_bytes": 432,
+   "code_sha256": "e55c9daf52b5a0d225e98de9e722af9f0f67661b0d7d392be6794b771a6ffaf8",
+   "classification": "register-only",
+   "run": "baseline-8il4u7g3",
+   "object_sha256": "6894d852aa9e4d042fb48ca2bf690b4140ae98b8b9616b8945c11929f06e5688",
+   "source_kind": "control",
+   "target_exact": false,
+   "symbol_pair_gains": 0,
+   "symbol_pair_losses": 0,
+   "gained_addresses": [],
+   "lost_addresses": []
+  },
+  {
+   "name": "client_arg3",
+   "source_sha256": "8392530da02ed85815bc0f554ae61bb41c5d51f702d12b353e6357e3cb38281b",
+   "raw_rows": 7,
+   "masked_rows": 12,
+   "register_masked_rows": 2,
+   "code_bytes": 432,
+   "code_sha256": "e7a8e0d9a73971de3495457f5fc3d754a8e32efc257964987812c767f0358b25",
+   "classification": "register-only",
+   "run": "forms1-4o4ubwwy",
+   "object_sha256": "57ad66474f2c38f434cd988ae736ff4796f7638a9d001b283ee05ec93f6aad11",
+   "source_kind": "valid-source-form",
+   "target_exact": false,
+   "symbol_pair_gains": 0,
+   "symbol_pair_losses": 0,
+   "gained_addresses": [],
+   "lost_addresses": []
+  },
+  {
+   "name": "client_arg_all",
+   "source_sha256": "ff3d30ff820da113678ff1997e400ec2a93dd0965f72f5db29846a78c1b32814",
+   "raw_rows": 30,
+   "masked_rows": 35,
+   "register_masked_rows": 2,
+   "code_bytes": 432,
+   "code_sha256": "ea9b5342bb26192acbf31c1bac6a376cbcad478c9c46a044590fd804a8f4452f",
+   "classification": "register-only",
+   "run": "forms1-4o4ubwwy",
+   "object_sha256": "08794205b54cec37fe441c8bbbc468e263157fe7c4e3dec18cbfa8c2c3cc1dcf",
+   "source_kind": "valid-source-form",
+   "target_exact": false,
+   "symbol_pair_gains": 0,
+   "symbol_pair_losses": 0,
+   "gained_addresses": [],
+   "lost_addresses": []
+  },
+  {
+   "name": "id_arg3",
+   "source_sha256": "dae65ea6aadc5c9a49c558e3310cc6fea5bcf396008d642b424528971d199fc4",
+   "raw_rows": 7,
+   "masked_rows": 7,
+   "register_masked_rows": 4,
+   "code_bytes": 432,
+   "code_sha256": "f710ec711a931ea1b667d7f75fcf34fa90d537acc9c324d36d8942b7e8dc630b",
+   "classification": "register-only",
+   "run": "forms1-4o4ubwwy",
+   "object_sha256": "4e3e13d09e0a9f3ca64d4728898cedeb5a94f6cc578e075a77632fbf3fcde0fe",
+   "source_kind": "valid-source-form",
+   "target_exact": false,
+   "symbol_pair_gains": 0,
+   "symbol_pair_losses": 0,
+   "gained_addresses": [],
+   "lost_addresses": []
+  },
+  {
+   "name": "id_arg_all",
+   "source_sha256": "083858e0e63e8c08d3b28fd003a107a9ecfffda4ac0d28d71e629f29f2beed34",
+   "raw_rows": 27,
+   "masked_rows": 27,
+   "register_masked_rows": 6,
+   "code_bytes": 432,
+   "code_sha256": "a0901454dde7eb5030e4a59c38200ce231456186e1e624227cd2d5dd2a64acf1",
+   "classification": "register-only",
+   "run": "forms1-4o4ubwwy",
+   "object_sha256": "2f15175380c05b197056d3f45a0c8bfaed646d27eb110b1f18c0170eed170e01",
+   "source_kind": "valid-source-form",
+   "target_exact": false,
+   "symbol_pair_gains": 0,
+   "symbol_pair_losses": 0,
+   "gained_addresses": [],
+   "lost_addresses": []
+  },
+  {
+   "name": "avatar_arg3",
+   "source_sha256": "e75045a00ad167920f25788c0ed57356aa2fb6e571e96bd950134ffd03a439fa",
+   "raw_rows": 7,
+   "masked_rows": 7,
+   "register_masked_rows": 0,
+   "code_bytes": 432,
+   "code_sha256": "c1a808e71d645b22abaafcfd06036684d98d37328e1c3a814c9709afccac817e",
+   "classification": "register-only",
+   "run": "forms1-4o4ubwwy",
+   "object_sha256": "631b782b1e82b62ac5bd72895ea2d90e16ac94acb213a0eef7097948af365edd",
+   "source_kind": "valid-source-form",
+   "target_exact": false,
+   "symbol_pair_gains": 0,
+   "symbol_pair_losses": 0,
+   "gained_addresses": [],
+   "lost_addresses": []
+  },
+  {
+   "name": "avatar_arg_all",
+   "source_sha256": "33add5afc23ccedb1e923fa8e52a5982bd8c7f849c0ada878397285f361a6a68",
+   "raw_rows": 13,
+   "masked_rows": 13,
+   "register_masked_rows": 0,
+   "code_bytes": 432,
+   "code_sha256": "c2ed809349321993b29180f6233f52ad57d60a2413c754f31d50ac3a3b26cb48",
+   "classification": "register-only",
+   "run": "forms1-4o4ubwwy",
+   "object_sha256": "d36b3530bb7d4100958324c0b8cb95e7ee8f2d56e6020bd6c385cf52b9d621bb",
+   "source_kind": "valid-source-form",
+   "target_exact": false,
+   "symbol_pair_gains": 0,
+   "symbol_pair_losses": 0,
+   "gained_addresses": [],
+   "lost_addresses": []
+  },
+  {
+   "name": "client_id_arg3",
+   "source_sha256": "97f848503c68abf722087f13c35a326b4c0c75f20599eb6442c5f3a97b9d43ed",
+   "raw_rows": 23,
+   "masked_rows": 28,
+   "register_masked_rows": 2,
+   "code_bytes": 432,
+   "code_sha256": "dcc0a04f1fe3843afb52e7bbfc1de135bad24fdb62b4e3ca2c0b63f6e9273b6e",
+   "classification": "register-only",
+   "run": "forms1-4o4ubwwy",
+   "object_sha256": "0e9c7c5ba1df92cb3f92e8c0a1b34e233841b4b293c125fa43356c0ccec2ace8",
+   "source_kind": "valid-source-form",
+   "target_exact": false,
+   "symbol_pair_gains": 0,
+   "symbol_pair_losses": 0,
+   "gained_addresses": [],
+   "lost_addresses": []
+  },
+  {
+   "name": "client_id_arg_all",
+   "source_sha256": "5bce787e99a7f4005627888dc9c2eddc6a1dc91274cc8e74436e2efe6826726f",
+   "raw_rows": 14,
+   "masked_rows": 24,
+   "register_masked_rows": 4,
+   "code_bytes": 432,
+   "code_sha256": "0ba86e90954704f639cb80a2496b25d0aff42be1bff9a20c908a23b46d01e2fa",
+   "classification": "register-only",
+   "run": "forms1-4o4ubwwy",
+   "object_sha256": "3921ace7ab984f4a9b11f7ba94bd8c56a8234b6bf9698f746e7477ac261d7c00",
+   "source_kind": "valid-source-form",
+   "target_exact": false,
+   "symbol_pair_gains": 0,
+   "symbol_pair_losses": 0,
+   "gained_addresses": [],
+   "lost_addresses": []
+  },
+  {
+   "name": "both_value_arg3",
+   "source_sha256": "cff72808879767331914f5abb7a9fa8de95ec7080a870087ddac596d35232d01",
+   "raw_rows": 18,
+   "masked_rows": 18,
+   "register_masked_rows": 0,
+   "code_bytes": 432,
+   "code_sha256": "1b48f00f5e903f144c8fd421fd47b21c8aac31b0e780c519a227bed2f6d89361",
+   "classification": "register-only",
+   "run": "forms1-4o4ubwwy",
+   "object_sha256": "9eb3a760754ecc9febb578288a55ffbe316cbf0ad40065f0fc0c8f6dec212c21",
+   "source_kind": "valid-source-form",
+   "target_exact": false,
+   "symbol_pair_gains": 0,
+   "symbol_pair_losses": 0,
+   "gained_addresses": [],
+   "lost_addresses": []
+  },
+  {
+   "name": "both_value_arg_all",
+   "source_sha256": "cae3de4e3fae01f377c1613df2e5e319d96998b62bf5d705bccdd1d17fa09e07",
+   "raw_rows": 0,
+   "masked_rows": 0,
+   "register_masked_rows": 0,
+   "code_bytes": 432,
+   "code_sha256": "2b91424860b1c92f99caad04bcd6ce37dcafe145ca446425a1511a475fb33c4d",
+   "classification": "identical",
+   "run": "forms1-4o4ubwwy",
+   "object_sha256": "0a1721092de4b0515778db193529a37f5431e99fb823684afbb294161560dbba",
+   "source_kind": "valid-source-form",
+   "target_exact": true,
+   "symbol_pair_gains": 1,
+   "symbol_pair_losses": 0,
+   "gained_addresses": [
+    "0x5E2CE0"
+   ],
+   "lost_addresses": []
+  },
+  {
+   "name": "baseline_repeat",
+   "source_sha256": "e4604a806db93000b457ad717a033f5d3cad65054199f5b6ad5bd3e084a47f95",
+   "raw_rows": 2,
+   "masked_rows": 2,
+   "register_masked_rows": 0,
+   "code_bytes": 432,
+   "code_sha256": "e55c9daf52b5a0d225e98de9e722af9f0f67661b0d7d392be6794b771a6ffaf8",
+   "classification": "register-only",
+   "run": "controls-lqvvlu3_",
+   "object_sha256": "3e5b0e1cefca7b3e5007ea32e8469152993ed767524f59890ff5414304d575ea",
+   "source_kind": "control",
+   "target_exact": false,
+   "symbol_pair_gains": 0,
+   "symbol_pair_losses": 0,
+   "gained_addresses": [],
+   "lost_addresses": []
+  },
+  {
+   "name": "exact_repeat",
+   "source_sha256": "cae3de4e3fae01f377c1613df2e5e319d96998b62bf5d705bccdd1d17fa09e07",
+   "raw_rows": 0,
+   "masked_rows": 0,
+   "register_masked_rows": 0,
+   "code_bytes": 432,
+   "code_sha256": "2b91424860b1c92f99caad04bcd6ce37dcafe145ca446425a1511a475fb33c4d",
+   "classification": "identical",
+   "run": "controls-lqvvlu3_",
+   "object_sha256": "5ddb3ae0ba1340e46231ca6925e1b502a2be09a1dbd6d1c6c21838678f06aa73",
+   "source_kind": "control",
+   "target_exact": true,
+   "symbol_pair_gains": 1,
+   "symbol_pair_losses": 0,
+   "gained_addresses": [
+    "0x5E2CE0"
+   ],
+   "lost_addresses": []
+  }
+ ],
+ "source_evaluation_and_conversion_audit": {
+  "sclient_acquisition": "Same single virtual As_Space_Client call before switch.",
+  "callbacks_and_aliases": "Each packet case still calls Play_2D_Sound before reading AvatarID and Client->Unknown1134. Client is reloaded inside each packet argument expression, with no new cache across any call. Case 4 and default are identical.",
+  "locals": "avatar and id are distinct ordinary int locals, assigned only inside the existing constructor argument expressions. They add no externally observable stores and their values are not reused. No unsequenced accesses to one scalar object occur.",
+  "conversions": "AvatarID is unsigned; the old first constructor parameter is int. Assignment to int avatar performs the same unsigned-to-int conversion at the same call-expression site. Unknown1134 and id are int, so the third argument retains its type/value. No new conversions, aliasing assumptions or calls.",
+  "retail_read_order": "In both packet cases, native code reads this->Client, reads sclient->AvatarID, reads Client->Unknown1134, then pushes 0/id/action/avatar, constructs ActionPacketClass and sends it. Both cases match the retail instruction order; only case 3 register allocation changes from baseline.",
+  "marker_cleanup": "Coordinator may remove the now-stale NOT EXACT comment, replacing it with a blank line. This is metadata cleanup, excluded from the 10 valid-source-form count; it retains all physical source line numbers."
+ },
+ "independent_audit": {
+  "status": "exact; independent retail audit",
+  "retail_sha256": "249f852496f341c00361be95b66e7c0becc2c39e7cba026f9227e38b602651c4",
+  "baseline_source_sha256": "e4604a806db93000b457ad717a033f5d3cad65054199f5b6ad5bd3e084a47f95",
+  "candidate_source_sha256": "cae3de4e3fae01f377c1613df2e5e319d96998b62bf5d705bccdd1d17fa09e07",
+  "baseline_object_sha256": "6894d852aa9e4d042fb48ca2bf690b4140ae98b8b9616b8945c11929f06e5688",
+  "candidate_object_sha256": "0a1721092de4b0515778db193529a37f5431e99fb823684afbb294161560dbba",
+  "source_outside_target_identical": true,
+  "subsequent_physical_lines_identical": true,
+  "outside_target_functions_identical_bytes_and_relocations_except_scratch_file_literal": 98,
+  "outside_target_changed": [],
+  "new_or_removed_emitted_functions": [],
+  "retail_code_bounds": [
+   "0x5E2CE0",
+   "0x5E2E78 (exclusive)"
+  ],
+  "retail_code_and_jump_table_bounds": [
+   "0x5E2CE0",
+   "0x5E2E88 (exclusive)"
+  ],
+  "code_bytes": 408,
+  "code_and_jump_table_bytes": 424,
+  "aligned_object_function_bytes": 432,
+  "instruction_rows": 118,
+  "return_count": 4,
+  "retail_return_count": 4,
+  "branch_shapes_identical": true,
+  "switch_targets": [
+   61,
+   61,
+   143,
+   225
+  ],
+  "switch_tables": [
+   {
+    "kind": "jump",
+    "ours": 4,
+    "client": 4,
+    "n": 4,
+    "diff": 0,
+    "at": 6172280
+   }
+  ],
+  "all_nonrelocated_bytes_identical": true,
+  "calls": [
+   {
+    "offset": "0x21",
+    "retail": "0x5e2d01",
+    "indirect": "call dword ptr [eax + 0x18]",
+    "retail_indirect": "call dword ptr [eax + 0x18]",
+    "resolved": true
+   },
+   {
+    "offset": "0x44",
+    "retail": "0x5e2d24",
+    "symbol": "?Play_2D_Sound@SoundLibraryClass@@SAPAVAudibleSoundClass@@PBDH@Z",
+    "target": "0x43ed30",
+    "resolved": true
+   },
+   {
+    "offset": "0x65",
+    "retail": "0x5e2d45",
+    "symbol": "??0ActionPacketClass@@QAE@HDHH@Z",
+    "target": "0x876360",
+    "resolved": true
+   },
+   {
+    "offset": "0x75",
+    "retail": "0x5e2d55",
+    "symbol": "?Send_Packet@ClientClass@@QAE_NPAVPacketClass@@@Z",
+    "target": "0x728150",
+    "resolved": true
+   },
+   {
+    "offset": "0x96",
+    "retail": "0x5e2d76",
+    "symbol": "?Play_2D_Sound@SoundLibraryClass@@SAPAVAudibleSoundClass@@PBDH@Z",
+    "target": "0x43ed30",
+    "resolved": true
+   },
+   {
+    "offset": "0xb7",
+    "retail": "0x5e2d97",
+    "symbol": "??0ActionPacketClass@@QAE@HDHH@Z",
+    "target": "0x876360",
+    "resolved": true
+   },
+   {
+    "offset": "0xc7",
+    "retail": "0x5e2da7",
+    "symbol": "?Send_Packet@ClientClass@@QAE_NPAVPacketClass@@@Z",
+    "target": "0x728150",
+    "resolved": true
+   },
+   {
+    "offset": "0xe8",
+    "retail": "0x5e2dc8",
+    "symbol": "?Play_2D_Sound@SoundLibraryClass@@SAPAVAudibleSoundClass@@PBDH@Z",
+    "target": "0x43ed30",
+    "resolved": true
+   },
+   {
+    "offset": "0xf8",
+    "retail": "0x5e2dd8",
+    "indirect": "call dword ptr [edx + 0x58]",
+    "retail_indirect": "call dword ptr [edx + 0x58]",
+    "resolved": true
+   },
+   {
+    "offset": "0x11f",
+    "retail": "0x5e2dff",
+    "symbol": "??O@YA_NABVMoneyClass@@0@Z",
+    "target": "0x4f0700",
+    "resolved": true
+   },
+   {
+    "offset": "0x146",
+    "retail": "0x5e2e26",
+    "symbol": "__snprintf",
+    "target": "0xa26513",
+    "resolved": true
+   },
+   {
+    "offset": "0x160",
+    "retail": "0x5e2e40",
+    "symbol": "?Unknown_64A2B0@UIPTradeCreditsClass@@QAEXPBD@Z",
+    "target": "0x64a2b0",
+    "resolved": true
+   },
+   {
+    "offset": "0x169",
+    "retail": "0x5e2e49",
+    "symbol": "?Unknown_5E3750@UIPTradeClass@@QAEX_N@Z",
+    "target": "0x5e3750",
+    "resolved": true
+   }
+  ],
+  "all_call_targets_resolved": true,
+  "relocations": [
+   {
+    "offset": "0x2",
+    "type": "0x6",
+    "symbol": "__except_list",
+    "kind": "FS-exception-list-offset",
+    "retail_value": "0x0",
+    "verified": true
+   },
+   {
+    "offset": "0x9",
+    "type": "0x6",
+    "symbol": "$L113592",
+    "kind": "EH-handler",
+    "retail_address": "0xab76f8",
+    "verified": true
+   },
+   {
+    "offset": "0x11",
+    "type": "0x6",
+    "symbol": "__except_list",
+    "kind": "FS-exception-list-offset",
+    "retail_value": "0x0",
+    "verified": true
+   },
+   {
+    "offset": "0x39",
+    "type": "0x6",
+    "symbol": "$L113594",
+    "kind": "jump-table-base",
+    "retail_address": "0x5e2e78",
+    "verified": true
+   },
+   {
+    "offset": "0x40",
+    "type": "0x6",
+    "symbol": "??_C@_0BD@OCCN@Roll_Select02b?4wav?$AA@",
+    "kind": "literal",
+    "value": "Roll_Select02b.wav",
+    "retail_address": "0xb79a78",
+    "verified": true
+   },
+   {
+    "offset": "0x45",
+    "type": "0x14",
+    "symbol": "?Play_2D_Sound@SoundLibraryClass@@SAPAVAudibleSoundClass@@PBDH@Z",
+    "kind": "direct-call",
+    "retail_target": "0x43ed30",
+    "verified": true
+   },
+   {
+    "offset": "0x66",
+    "type": "0x14",
+    "symbol": "??0ActionPacketClass@@QAE@HDHH@Z",
+    "kind": "direct-call",
+    "retail_target": "0x876360",
+    "verified": true
+   },
+   {
+    "offset": "0x76",
+    "type": "0x14",
+    "symbol": "?Send_Packet@ClientClass@@QAE_NPAVPacketClass@@@Z",
+    "kind": "direct-call",
+    "retail_target": "0x728150",
+    "verified": true
+   },
+   {
+    "offset": "0x85",
+    "type": "0x6",
+    "symbol": "__except_list",
+    "kind": "FS-exception-list-offset",
+    "retail_value": "0x0",
+    "verified": true
+   },
+   {
+    "offset": "0x92",
+    "type": "0x6",
+    "symbol": "??_C@_0BD@OCCN@Roll_Select02b?4wav?$AA@",
+    "kind": "literal",
+    "value": "Roll_Select02b.wav",
+    "retail_address": "0xb79a78",
+    "verified": true
+   },
+   {
+    "offset": "0x97",
+    "type": "0x14",
+    "symbol": "?Play_2D_Sound@SoundLibraryClass@@SAPAVAudibleSoundClass@@PBDH@Z",
+    "kind": "direct-call",
+    "retail_target": "0x43ed30",
+    "verified": true
+   },
+   {
+    "offset": "0xb8",
+    "type": "0x14",
+    "symbol": "??0ActionPacketClass@@QAE@HDHH@Z",
+    "kind": "direct-call",
+    "retail_target": "0x876360",
+    "verified": true
+   },
+   {
+    "offset": "0xc8",
+    "type": "0x14",
+    "symbol": "?Send_Packet@ClientClass@@QAE_NPAVPacketClass@@@Z",
+    "kind": "direct-call",
+    "retail_target": "0x728150",
+    "verified": true
+   },
+   {
+    "offset": "0xd7",
+    "type": "0x6",
+    "symbol": "__except_list",
+    "kind": "FS-exception-list-offset",
+    "retail_value": "0x0",
+    "verified": true
+   },
+   {
+    "offset": "0xe4",
+    "type": "0x6",
+    "symbol": "??_C@_0BD@OCCN@Roll_Select02b?4wav?$AA@",
+    "kind": "literal",
+    "value": "Roll_Select02b.wav",
+    "retail_address": "0xb79a78",
+    "verified": true
+   },
+   {
+    "offset": "0xe9",
+    "type": "0x14",
+    "symbol": "?Play_2D_Sound@SoundLibraryClass@@SAPAVAudibleSoundClass@@PBDH@Z",
+    "kind": "direct-call",
+    "retail_target": "0x43ed30",
+    "verified": true
+   },
+   {
+    "offset": "0x120",
+    "type": "0x14",
+    "symbol": "??O@YA_NABVMoneyClass@@0@Z",
+    "kind": "direct-call",
+    "retail_target": "0x4f0700",
+    "verified": true
+   },
+   {
+    "offset": "0x13b",
+    "type": "0x6",
+    "symbol": "??_C@_02MECO@?$CFd?$AA@",
+    "kind": "literal",
+    "value": "%d",
+    "retail_address": "0xb71a6c",
+    "verified": true
+   },
+   {
+    "offset": "0x147",
+    "type": "0x14",
+    "symbol": "__snprintf",
+    "kind": "direct-call",
+    "retail_target": "0xa26513",
+    "verified": true
+   },
+   {
+    "offset": "0x156",
+    "type": "0x6",
+    "symbol": "??_C@_00A@?$AA@",
+    "kind": "literal",
+    "value": "",
+    "retail_address": "0xbda908",
+    "verified": true
+   },
+   {
+    "offset": "0x161",
+    "type": "0x14",
+    "symbol": "?Unknown_64A2B0@UIPTradeCreditsClass@@QAEXPBD@Z",
+    "kind": "direct-call",
+    "retail_target": "0x64a2b0",
+    "verified": true
+   },
+   {
+    "offset": "0x16a",
+    "type": "0x14",
+    "symbol": "?Unknown_5E3750@UIPTradeClass@@QAEX_N@Z",
+    "kind": "direct-call",
+    "retail_target": "0x5e3750",
+    "verified": true
+   },
+   {
+    "offset": "0x179",
+    "type": "0x6",
+    "symbol": "__except_list",
+    "kind": "FS-exception-list-offset",
+    "retail_value": "0x0",
+    "verified": true
+   },
+   {
+    "offset": "0x18e",
+    "type": "0x6",
+    "symbol": "__except_list",
+    "kind": "FS-exception-list-offset",
+    "retail_value": "0x0",
+    "verified": true
+   },
+   {
+    "offset": "0x198",
+    "type": "0x6",
+    "symbol": "$L103269",
+    "kind": "jump-table-entry",
+    "retail_address": "0x5e2d1d",
+    "verified": true
+   },
+   {
+    "offset": "0x19c",
+    "type": "0x6",
+    "symbol": "$L103269",
+    "kind": "jump-table-entry",
+    "retail_address": "0x5e2d1d",
+    "verified": true
+   },
+   {
+    "offset": "0x1a0",
+    "type": "0x6",
+    "symbol": "$L103273",
+    "kind": "jump-table-entry",
+    "retail_address": "0x5e2d6f",
+    "verified": true
+   },
+   {
+    "offset": "0x1a4",
+    "type": "0x6",
+    "symbol": "$L103276",
+    "kind": "jump-table-entry",
+    "retail_address": "0x5e2dc1",
+    "verified": true
+   }
+  ],
+  "unwind_states": [
+   {
+    "state": 0,
+    "retail_action": "0xab76e0",
+    "body_matches": true,
+    "targets": [
+     {
+      "symbol": "??1ActionPacketClass@@UAE@XZ",
+      "retail_target": "0x581c80",
+      "verified": true
+     }
+    ]
+   },
+   {
+    "state": 1,
+    "retail_action": "0xab76e8",
+    "body_matches": true,
+    "targets": [
+     {
+      "symbol": "??1ActionPacketClass@@UAE@XZ",
+      "retail_target": "0x581c80",
+      "verified": true
+     }
+    ]
+   },
+   {
+    "state": 2,
+    "retail_action": "0xab76f0",
+    "body_matches": true,
+    "targets": [
+     {
+      "symbol": "??1MoneyClass@@QAE@XZ",
+      "retail_target": "0x4a7780",
+      "verified": true
+     }
+    ]
+   }
+  ],
+  "unwind_predecessor_states": [
+   -1,
+   -1,
+   -1
+  ],
+  "funcinfo_and_eh_verified": true,
+  "limitations": [
+   "Full native ui_ptrade translation unit matched. No application link or runtime test.",
+   "Target has no __FILE__ relocation. Outside-target comparison normalizes scratch __FILE__ directory prefixes and generated $L label IDs. Compiler function extent includes 8 alignment bytes beyond the 408-byte code and 16-byte jump table."
+  ]
+ },
+ "new_valid_forms": 10,
+ "controls": 3,
+ "diagnostics": 0,
+ "source_repeats_excluding_controls": 0,
+ "emission_groups_new_valid": 10,
+ "environment_failure": "Initial sandboxed baseline could not bind Wine IPC. Authorized escalation succeeded; failed environment launch excluded from source-form counts.",
+ "unexecuted_plans": "controls.json also queues comment-cleanup final after exact_repeat; native runner stops at first exact, so that form was not run here and is excluded. Coordinator independently verifies final production source.",
+ "normalization": "Machine code SHA masks relocation fields. Full audit separately validates every target relocation. Outside-target bodies normalize scratch __FILE__ path and generated $L label IDs."
+}

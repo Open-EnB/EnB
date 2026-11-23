@@ -1,0 +1,1007 @@
+{
+  "base": "563252766d56572789ed2baa3a444bffd3cb271d",
+  "claim": 254,
+  "file": "app/client/ui_refinery.cpp",
+  "address": "0x5EDCC0",
+  "symbol": "UIRefineryClass::Unknown_5EDCC0",
+  "library": "app",
+  "status": "partial",
+  "model": "gpt-6.1-sol (high)",
+  "new_forms": 3,
+  "valid_target_only_forms": 3,
+  "seed_controls": 1,
+  "repeats": 0,
+  "failures": 0,
+  "additional_forms": 0,
+  "best_form": "baseline (existing seed)",
+  "production_source_unchanged_from_previous_base": true,
+  "summary": "Three new C++98 const std::string& temporary-lifetime forms, first/second/both text calls, worsen the fresh implicit Find_Set_Field seed: masked/raw/regs 18/18/4 -> 19/19/5, 23/23/8, 24/24/9. All frames remain retail 0x58. Each scope ends immediately after its call, preserving temporary destruction before the next operation. All 94 seed file/address pairs preserved, no target exact or adoption. Results equal the previously tested by-value scoped text forms; const reference provides no new allocation lead. Three generated _$E initializer names renumber at the same addresses.",
+  "base_source_sha256": "70659e5e505dd88dec10c7139ad7b8a580c3f6b1c85b741b1709947641ad9fba",
+  "seed_source_sha256": "b8d471e546ee55219c9a61af312c95a08a43ccd545b3bb347add11ee1406e94b",
+  "seed_file_address_pairs": [
+    [
+      "app/client/ui_refinery.cpp",
+      "0x42A6C0"
+    ],
+    [
+      "app/client/ui_refinery.cpp",
+      "0x42A820"
+    ],
+    [
+      "app/client/ui_refinery.cpp",
+      "0x42A940"
+    ],
+    [
+      "app/client/ui_refinery.cpp",
+      "0x42A970"
+    ],
+    [
+      "app/client/ui_refinery.cpp",
+      "0x42AB30"
+    ],
+    [
+      "app/client/ui_refinery.cpp",
+      "0x42B320"
+    ],
+    [
+      "app/client/ui_refinery.cpp",
+      "0x42CAB0"
+    ],
+    [
+      "app/client/ui_refinery.cpp",
+      "0x42CD30"
+    ],
+    [
+      "app/client/ui_refinery.cpp",
+      "0x42D050"
+    ],
+    [
+      "app/client/ui_refinery.cpp",
+      "0x42D120"
+    ],
+    [
+      "app/client/ui_refinery.cpp",
+      "0x42F250"
+    ],
+    [
+      "app/client/ui_refinery.cpp",
+      "0x45CC10"
+    ],
+    [
+      "app/client/ui_refinery.cpp",
+      "0x474080"
+    ],
+    [
+      "app/client/ui_refinery.cpp",
+      "0x4740B0"
+    ],
+    [
+      "app/client/ui_refinery.cpp",
+      "0x4A1930"
+    ],
+    [
+      "app/client/ui_refinery.cpp",
+      "0x4A19A0"
+    ],
+    [
+      "app/client/ui_refinery.cpp",
+      "0x4A19C0"
+    ],
+    [
+      "app/client/ui_refinery.cpp",
+      "0x4A1A10"
+    ],
+    [
+      "app/client/ui_refinery.cpp",
+      "0x4A1A30"
+    ],
+    [
+      "app/client/ui_refinery.cpp",
+      "0x4A1A50"
+    ],
+    [
+      "app/client/ui_refinery.cpp",
+      "0x4A1A70"
+    ],
+    [
+      "app/client/ui_refinery.cpp",
+      "0x4A1A90"
+    ],
+    [
+      "app/client/ui_refinery.cpp",
+      "0x4A1AB0"
+    ],
+    [
+      "app/client/ui_refinery.cpp",
+      "0x4A1AD0"
+    ],
+    [
+      "app/client/ui_refinery.cpp",
+      "0x4A1AF0"
+    ],
+    [
+      "app/client/ui_refinery.cpp",
+      "0x4A7780"
+    ],
+    [
+      "app/client/ui_refinery.cpp",
+      "0x4B58D0"
+    ],
+    [
+      "app/client/ui_refinery.cpp",
+      "0x5156B0"
+    ],
+    [
+      "app/client/ui_refinery.cpp",
+      "0x5156F0"
+    ],
+    [
+      "app/client/ui_refinery.cpp",
+      "0x515710"
+    ],
+    [
+      "app/client/ui_refinery.cpp",
+      "0x515730"
+    ],
+    [
+      "app/client/ui_refinery.cpp",
+      "0x515750"
+    ],
+    [
+      "app/client/ui_refinery.cpp",
+      "0x51C630"
+    ],
+    [
+      "app/client/ui_refinery.cpp",
+      "0x52B210"
+    ],
+    [
+      "app/client/ui_refinery.cpp",
+      "0x52B240"
+    ],
+    [
+      "app/client/ui_refinery.cpp",
+      "0x52B270"
+    ],
+    [
+      "app/client/ui_refinery.cpp",
+      "0x52B2A0"
+    ],
+    [
+      "app/client/ui_refinery.cpp",
+      "0x52B2D0"
+    ],
+    [
+      "app/client/ui_refinery.cpp",
+      "0x52B2F0"
+    ],
+    [
+      "app/client/ui_refinery.cpp",
+      "0x52B310"
+    ],
+    [
+      "app/client/ui_refinery.cpp",
+      "0x52B330"
+    ],
+    [
+      "app/client/ui_refinery.cpp",
+      "0x52B350"
+    ],
+    [
+      "app/client/ui_refinery.cpp",
+      "0x5411F0"
+    ],
+    [
+      "app/client/ui_refinery.cpp",
+      "0x543750"
+    ],
+    [
+      "app/client/ui_refinery.cpp",
+      "0x543770"
+    ],
+    [
+      "app/client/ui_refinery.cpp",
+      "0x544250"
+    ],
+    [
+      "app/client/ui_refinery.cpp",
+      "0x544B90"
+    ],
+    [
+      "app/client/ui_refinery.cpp",
+      "0x546480"
+    ],
+    [
+      "app/client/ui_refinery.cpp",
+      "0x5464B0"
+    ],
+    [
+      "app/client/ui_refinery.cpp",
+      "0x546510"
+    ],
+    [
+      "app/client/ui_refinery.cpp",
+      "0x5465C0"
+    ],
+    [
+      "app/client/ui_refinery.cpp",
+      "0x5466A0"
+    ],
+    [
+      "app/client/ui_refinery.cpp",
+      "0x5468D0"
+    ],
+    [
+      "app/client/ui_refinery.cpp",
+      "0x5481C0"
+    ],
+    [
+      "app/client/ui_refinery.cpp",
+      "0x553A80"
+    ],
+    [
+      "app/client/ui_refinery.cpp",
+      "0x5B6E20"
+    ],
+    [
+      "app/client/ui_refinery.cpp",
+      "0x5B7050"
+    ],
+    [
+      "app/client/ui_refinery.cpp",
+      "0x5B7130"
+    ],
+    [
+      "app/client/ui_refinery.cpp",
+      "0x5B7210"
+    ],
+    [
+      "app/client/ui_refinery.cpp",
+      "0x5B7260"
+    ],
+    [
+      "app/client/ui_refinery.cpp",
+      "0x5EB7C0"
+    ],
+    [
+      "app/client/ui_refinery.cpp",
+      "0x5EB7F0"
+    ],
+    [
+      "app/client/ui_refinery.cpp",
+      "0x5EB810"
+    ],
+    [
+      "app/client/ui_refinery.cpp",
+      "0x5EBA20"
+    ],
+    [
+      "app/client/ui_refinery.cpp",
+      "0x5EBA50"
+    ],
+    [
+      "app/client/ui_refinery.cpp",
+      "0x5EBC30"
+    ],
+    [
+      "app/client/ui_refinery.cpp",
+      "0x5EC220"
+    ],
+    [
+      "app/client/ui_refinery.cpp",
+      "0x5EC270"
+    ],
+    [
+      "app/client/ui_refinery.cpp",
+      "0x5EC570"
+    ],
+    [
+      "app/client/ui_refinery.cpp",
+      "0x5EC6D0"
+    ],
+    [
+      "app/client/ui_refinery.cpp",
+      "0x5EC990"
+    ],
+    [
+      "app/client/ui_refinery.cpp",
+      "0x5ECBB0"
+    ],
+    [
+      "app/client/ui_refinery.cpp",
+      "0x5ECCE0"
+    ],
+    [
+      "app/client/ui_refinery.cpp",
+      "0x5ECDD0"
+    ],
+    [
+      "app/client/ui_refinery.cpp",
+      "0x5ECE20"
+    ],
+    [
+      "app/client/ui_refinery.cpp",
+      "0x5ED230"
+    ],
+    [
+      "app/client/ui_refinery.cpp",
+      "0x5ED2A0"
+    ],
+    [
+      "app/client/ui_refinery.cpp",
+      "0x5ED310"
+    ],
+    [
+      "app/client/ui_refinery.cpp",
+      "0x5ED350"
+    ],
+    [
+      "app/client/ui_refinery.cpp",
+      "0x5ED440"
+    ],
+    [
+      "app/client/ui_refinery.cpp",
+      "0x5ED470"
+    ],
+    [
+      "app/client/ui_refinery.cpp",
+      "0x5ED530"
+    ],
+    [
+      "app/client/ui_refinery.cpp",
+      "0x5ED5D0"
+    ],
+    [
+      "app/client/ui_refinery.cpp",
+      "0x5ED5F0"
+    ],
+    [
+      "app/client/ui_refinery.cpp",
+      "0x5ED800"
+    ],
+    [
+      "app/client/ui_refinery.cpp",
+      "0x5EDA10"
+    ],
+    [
+      "app/client/ui_refinery.cpp",
+      "0x5EE460"
+    ],
+    [
+      "app/client/ui_refinery.cpp",
+      "0x5EE780"
+    ],
+    [
+      "app/client/ui_refinery.cpp",
+      "0x5EE7F0"
+    ],
+    [
+      "app/client/ui_refinery.cpp",
+      "0x5EEBA0"
+    ],
+    [
+      "app/client/ui_refinery.cpp",
+      "0x5EEC10"
+    ],
+    [
+      "app/client/ui_refinery.cpp",
+      "0x5EEC90"
+    ],
+    [
+      "app/client/ui_refinery.cpp",
+      "0x5EED00"
+    ],
+    [
+      "app/client/ui_refinery.cpp",
+      "0x5EED10"
+    ]
+  ],
+  "seed_exact_pair_count": 94,
+  "pair_deltas": {
+    "all_forms_vs_seed": {
+      "gained": [],
+      "lost": []
+    },
+    "seed_vs_production_control_previous_campaign": {
+      "gained": [
+        [
+          "app/client/ui_refinery.cpp",
+          "0x5481C0"
+        ]
+      ],
+      "lost": []
+    },
+    "adopted": {
+      "gained": [],
+      "lost": []
+    }
+  },
+  "results": [
+    {
+      "name": "baseline",
+      "kind": "seed control",
+      "source_sha256": "b8d471e546ee55219c9a61af312c95a08a43ccd545b3bb347add11ee1406e94b",
+      "object_sha256": "b4f8951ca95673e62b7d53a68dcd8bed793c8a372b1b147d766709d3dc406863",
+      "compiled": true,
+      "target_exact": false,
+      "masked": 18,
+      "raw": 18,
+      "register_masked": 4,
+      "frame": "0x58",
+      "candidate_rows": 182,
+      "retail_rows": 182,
+      "score": 0.9010989010989011,
+      "file_address_gains": [],
+      "file_address_losses": [],
+      "symbol_pair_gains": [],
+      "symbol_pair_losses": [],
+      "common_outside_target_raw_byte_identical": 99,
+      "common_outside_target_raw_changed": [],
+      "generated_function_renames": [],
+      "call_pattern_equal_seed": true,
+      "call_count": 25,
+      "call_pattern": [
+        "call dword ptr [eax + 0x18]",
+        "??0NameClass@@QAE@PBD@Z",
+        "?Unknown_Find_Field@@YAPAV?$DeltaTemplateClass@VMoneyClass@@@@PAVDeltaCompoundClass@@ABVNameClass@@@Z",
+        "?Amount_As_Text@MoneyClass@@QBE?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@_N@Z",
+        "?Get_Style@FontManagerClass@@QAEPAVFontSys@@PBDPAVRenderObjClass@@@Z",
+        "?Create_Peek@@YA?AV?$RefCountPtr@VFontSys@@@@PAVFontSys@@@Z",
+        "?Fail_If_Report@@YAXPBD0H@Z",
+        "?Change_Text@FontSys@@QAEXPBDH@Z",
+        "call dword ptr [edx + 0x184]",
+        "??1?$RefCountPtr@VFontSys@@@@QAE@XZ",
+        "?_Tidy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEX_N@Z",
+        "??0NameClass@@QAE@PBD@Z",
+        "?Get_Lookup@DeltaCompoundClass@@QAEPAVLookupClass@@XZ",
+        "?Find@LookupClass@@QAEPAVDeltaClass@@ABVNameClass@@@Z",
+        "?Cast@?$UnknownRTTIClass@V?$DeltaTemplateClass@VMoneyClass@@@@@@SAPAV?$DeltaTemplateClass@VMoneyClass@@@@PAVDeltaClass@@@Z",
+        "?G_Assert_Report@@YAXPBD0H@Z",
+        "?Amount_As_Text@MoneyClass@@QBE?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@_N@Z",
+        "?Get_Style@FontManagerClass@@QAEPAVFontSys@@PBDPAVRenderObjClass@@@Z",
+        "?Create_Peek@@YA?AV?$RefCountPtr@VFontSys@@@@PAVFontSys@@@Z",
+        "?Fail_If_Report@@YAXPBD0H@Z",
+        "call dword ptr [edx]",
+        "?Change_Text@FontSys@@QAEXPBDH@Z",
+        "call dword ptr [eax + 0x184]",
+        "??1?$RefCountPtr@VFontSys@@@@QAE@XZ",
+        "?_Tidy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEX_N@Z"
+      ]
+    },
+    {
+      "name": "const_ref_first",
+      "kind": "new const-reference form",
+      "source_sha256": "fbbf6b1e751bf71378a826ab90b90fa779f2131384a25370983e3e87d97de8c8",
+      "object_sha256": "0f6fc51cd65e1ad2997a68422e49a96505f5a8267849ea1b3a7d1998d9fb7c8b",
+      "compiled": true,
+      "target_exact": false,
+      "masked": 19,
+      "raw": 19,
+      "register_masked": 5,
+      "frame": "0x58",
+      "candidate_rows": 182,
+      "retail_rows": 182,
+      "score": 0.8956043956043956,
+      "file_address_gains": [],
+      "file_address_losses": [],
+      "symbol_pair_gains": [
+        [
+          "_$E317",
+          "0x5EE780"
+        ],
+        [
+          "_$E337",
+          "0x5EEC10"
+        ],
+        [
+          "_$E347",
+          "0x5EEC90"
+        ]
+      ],
+      "symbol_pair_losses": [
+        [
+          "_$E316",
+          "0x5EE780"
+        ],
+        [
+          "_$E336",
+          "0x5EEC10"
+        ],
+        [
+          "_$E346",
+          "0x5EEC90"
+        ]
+      ],
+      "common_outside_target_raw_byte_identical": 96,
+      "common_outside_target_raw_changed": [],
+      "generated_function_renames": [
+        {
+          "old": "_$E316",
+          "new_equal_raw_candidates": [
+            "_$E317"
+          ]
+        },
+        {
+          "old": "_$E336",
+          "new_equal_raw_candidates": [
+            "_$E337"
+          ]
+        },
+        {
+          "old": "_$E346",
+          "new_equal_raw_candidates": [
+            "_$E347"
+          ]
+        }
+      ],
+      "call_pattern_equal_seed": true,
+      "call_count": 25,
+      "call_pattern": [
+        "call dword ptr [eax + 0x18]",
+        "??0NameClass@@QAE@PBD@Z",
+        "?Unknown_Find_Field@@YAPAV?$DeltaTemplateClass@VMoneyClass@@@@PAVDeltaCompoundClass@@ABVNameClass@@@Z",
+        "?Amount_As_Text@MoneyClass@@QBE?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@_N@Z",
+        "?Get_Style@FontManagerClass@@QAEPAVFontSys@@PBDPAVRenderObjClass@@@Z",
+        "?Create_Peek@@YA?AV?$RefCountPtr@VFontSys@@@@PAVFontSys@@@Z",
+        "?Fail_If_Report@@YAXPBD0H@Z",
+        "?Change_Text@FontSys@@QAEXPBDH@Z",
+        "call dword ptr [edx + 0x184]",
+        "??1?$RefCountPtr@VFontSys@@@@QAE@XZ",
+        "?_Tidy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEX_N@Z",
+        "??0NameClass@@QAE@PBD@Z",
+        "?Get_Lookup@DeltaCompoundClass@@QAEPAVLookupClass@@XZ",
+        "?Find@LookupClass@@QAEPAVDeltaClass@@ABVNameClass@@@Z",
+        "?Cast@?$UnknownRTTIClass@V?$DeltaTemplateClass@VMoneyClass@@@@@@SAPAV?$DeltaTemplateClass@VMoneyClass@@@@PAVDeltaClass@@@Z",
+        "?G_Assert_Report@@YAXPBD0H@Z",
+        "?Amount_As_Text@MoneyClass@@QBE?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@_N@Z",
+        "?Get_Style@FontManagerClass@@QAEPAVFontSys@@PBDPAVRenderObjClass@@@Z",
+        "?Create_Peek@@YA?AV?$RefCountPtr@VFontSys@@@@PAVFontSys@@@Z",
+        "?Fail_If_Report@@YAXPBD0H@Z",
+        "call dword ptr [edx]",
+        "?Change_Text@FontSys@@QAEXPBDH@Z",
+        "call dword ptr [eax + 0x184]",
+        "??1?$RefCountPtr@VFontSys@@@@QAE@XZ",
+        "?_Tidy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEX_N@Z"
+      ]
+    },
+    {
+      "name": "const_ref_second",
+      "kind": "new const-reference form",
+      "source_sha256": "1f0f70c56a904ea2dfbe4559d40d3c4ae3fcaf2d49b9a3bcd234ab3b4f564e54",
+      "object_sha256": "8e7c0befc9d681a9cfb83822d4fa13412e9edeb0548385fa26b7f7ac1642bd4a",
+      "compiled": true,
+      "target_exact": false,
+      "masked": 23,
+      "raw": 23,
+      "register_masked": 8,
+      "frame": "0x58",
+      "candidate_rows": 181,
+      "retail_rows": 182,
+      "score": 0.8736263736263736,
+      "file_address_gains": [],
+      "file_address_losses": [],
+      "symbol_pair_gains": [
+        [
+          "_$E317",
+          "0x5EE780"
+        ],
+        [
+          "_$E337",
+          "0x5EEC10"
+        ],
+        [
+          "_$E347",
+          "0x5EEC90"
+        ]
+      ],
+      "symbol_pair_losses": [
+        [
+          "_$E316",
+          "0x5EE780"
+        ],
+        [
+          "_$E336",
+          "0x5EEC10"
+        ],
+        [
+          "_$E346",
+          "0x5EEC90"
+        ]
+      ],
+      "common_outside_target_raw_byte_identical": 96,
+      "common_outside_target_raw_changed": [],
+      "generated_function_renames": [
+        {
+          "old": "_$E316",
+          "new_equal_raw_candidates": [
+            "_$E317"
+          ]
+        },
+        {
+          "old": "_$E336",
+          "new_equal_raw_candidates": [
+            "_$E337"
+          ]
+        },
+        {
+          "old": "_$E346",
+          "new_equal_raw_candidates": [
+            "_$E347"
+          ]
+        }
+      ],
+      "call_pattern_equal_seed": true,
+      "call_count": 25,
+      "call_pattern": [
+        "call dword ptr [eax + 0x18]",
+        "??0NameClass@@QAE@PBD@Z",
+        "?Unknown_Find_Field@@YAPAV?$DeltaTemplateClass@VMoneyClass@@@@PAVDeltaCompoundClass@@ABVNameClass@@@Z",
+        "?Amount_As_Text@MoneyClass@@QBE?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@_N@Z",
+        "?Get_Style@FontManagerClass@@QAEPAVFontSys@@PBDPAVRenderObjClass@@@Z",
+        "?Create_Peek@@YA?AV?$RefCountPtr@VFontSys@@@@PAVFontSys@@@Z",
+        "?Fail_If_Report@@YAXPBD0H@Z",
+        "?Change_Text@FontSys@@QAEXPBDH@Z",
+        "call dword ptr [edx + 0x184]",
+        "??1?$RefCountPtr@VFontSys@@@@QAE@XZ",
+        "?_Tidy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEX_N@Z",
+        "??0NameClass@@QAE@PBD@Z",
+        "?Get_Lookup@DeltaCompoundClass@@QAEPAVLookupClass@@XZ",
+        "?Find@LookupClass@@QAEPAVDeltaClass@@ABVNameClass@@@Z",
+        "?Cast@?$UnknownRTTIClass@V?$DeltaTemplateClass@VMoneyClass@@@@@@SAPAV?$DeltaTemplateClass@VMoneyClass@@@@PAVDeltaClass@@@Z",
+        "?G_Assert_Report@@YAXPBD0H@Z",
+        "?Amount_As_Text@MoneyClass@@QBE?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@_N@Z",
+        "?Get_Style@FontManagerClass@@QAEPAVFontSys@@PBDPAVRenderObjClass@@@Z",
+        "?Create_Peek@@YA?AV?$RefCountPtr@VFontSys@@@@PAVFontSys@@@Z",
+        "?Fail_If_Report@@YAXPBD0H@Z",
+        "call dword ptr [edx]",
+        "?Change_Text@FontSys@@QAEXPBDH@Z",
+        "call dword ptr [eax + 0x184]",
+        "??1?$RefCountPtr@VFontSys@@@@QAE@XZ",
+        "?_Tidy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEX_N@Z"
+      ]
+    },
+    {
+      "name": "const_ref_both",
+      "kind": "new const-reference form",
+      "source_sha256": "8620c8c881f4e83e23f93c0c8e32d7e63d611119276b8218841388141e1f80d2",
+      "object_sha256": "b053eba5e83c6131670ae868d3a173ecffa5e3dc2c47dd7e92a9011f1221d53b",
+      "compiled": true,
+      "target_exact": false,
+      "masked": 24,
+      "raw": 24,
+      "register_masked": 9,
+      "frame": "0x58",
+      "candidate_rows": 181,
+      "retail_rows": 182,
+      "score": 0.8681318681318682,
+      "file_address_gains": [],
+      "file_address_losses": [],
+      "symbol_pair_gains": [
+        [
+          "_$E318",
+          "0x5EE780"
+        ],
+        [
+          "_$E338",
+          "0x5EEC10"
+        ],
+        [
+          "_$E348",
+          "0x5EEC90"
+        ]
+      ],
+      "symbol_pair_losses": [
+        [
+          "_$E316",
+          "0x5EE780"
+        ],
+        [
+          "_$E336",
+          "0x5EEC10"
+        ],
+        [
+          "_$E346",
+          "0x5EEC90"
+        ]
+      ],
+      "common_outside_target_raw_byte_identical": 96,
+      "common_outside_target_raw_changed": [],
+      "generated_function_renames": [
+        {
+          "old": "_$E316",
+          "new_equal_raw_candidates": [
+            "_$E318"
+          ]
+        },
+        {
+          "old": "_$E336",
+          "new_equal_raw_candidates": [
+            "_$E338"
+          ]
+        },
+        {
+          "old": "_$E346",
+          "new_equal_raw_candidates": [
+            "_$E348"
+          ]
+        }
+      ],
+      "call_pattern_equal_seed": true,
+      "call_count": 25,
+      "call_pattern": [
+        "call dword ptr [eax + 0x18]",
+        "??0NameClass@@QAE@PBD@Z",
+        "?Unknown_Find_Field@@YAPAV?$DeltaTemplateClass@VMoneyClass@@@@PAVDeltaCompoundClass@@ABVNameClass@@@Z",
+        "?Amount_As_Text@MoneyClass@@QBE?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@_N@Z",
+        "?Get_Style@FontManagerClass@@QAEPAVFontSys@@PBDPAVRenderObjClass@@@Z",
+        "?Create_Peek@@YA?AV?$RefCountPtr@VFontSys@@@@PAVFontSys@@@Z",
+        "?Fail_If_Report@@YAXPBD0H@Z",
+        "?Change_Text@FontSys@@QAEXPBDH@Z",
+        "call dword ptr [edx + 0x184]",
+        "??1?$RefCountPtr@VFontSys@@@@QAE@XZ",
+        "?_Tidy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEX_N@Z",
+        "??0NameClass@@QAE@PBD@Z",
+        "?Get_Lookup@DeltaCompoundClass@@QAEPAVLookupClass@@XZ",
+        "?Find@LookupClass@@QAEPAVDeltaClass@@ABVNameClass@@@Z",
+        "?Cast@?$UnknownRTTIClass@V?$DeltaTemplateClass@VMoneyClass@@@@@@SAPAV?$DeltaTemplateClass@VMoneyClass@@@@PAVDeltaClass@@@Z",
+        "?G_Assert_Report@@YAXPBD0H@Z",
+        "?Amount_As_Text@MoneyClass@@QBE?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@_N@Z",
+        "?Get_Style@FontManagerClass@@QAEPAVFontSys@@PBDPAVRenderObjClass@@@Z",
+        "?Create_Peek@@YA?AV?$RefCountPtr@VFontSys@@@@PAVFontSys@@@Z",
+        "?Fail_If_Report@@YAXPBD0H@Z",
+        "call dword ptr [edx]",
+        "?Change_Text@FontSys@@QAEXPBDH@Z",
+        "call dword ptr [eax + 0x184]",
+        "??1?$RefCountPtr@VFontSys@@@@QAE@XZ",
+        "?_Tidy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEX_N@Z"
+      ]
+    }
+  ],
+  "independent_patches_against_base": {
+    "baseline": "--- a/app/client/ui_refinery.cpp\n+++ b/app/client/ui_refinery.cpp\n@@ -624,8 +624,8 @@\n \t}\n \tUnknown_5ECBB0(0, true, credits.Amount_As_Text(false).c_str());\n \tMoneyClass cost;\n-\tDeltaTemplateClass<MoneyClass> *negotiated = Unknown_Find_Field<DeltaTemplateClass<MoneyClass> >(Unknown0AEC, NameClass(\"NegotiatedCost\"));\n-\tif (negotiated && negotiated->Unknown70) {\n+\tDeltaTemplateClass<MoneyClass> *negotiated = Unknown_Find_Set_Field<DeltaTemplateClass<MoneyClass> >(Unknown0AEC, \"NegotiatedCost\");\n+\tif (negotiated) {\n \t\tcost = negotiated->Value;\n \t}\n \tUnknown_5ECBB0(3, true, cost.Amount_As_Text(false).c_str());\n",
+    "const_ref_first": "--- a/app/client/ui_refinery.cpp\n+++ b/app/client/ui_refinery.cpp\n@@ -622,10 +622,10 @@\n \tif (money && money->Unknown70) {\n \t\tcredits = money->Value;\n \t}\n-\tUnknown_5ECBB0(0, true, credits.Amount_As_Text(false).c_str());\n+\t{ const std::string &text = credits.Amount_As_Text(false); Unknown_5ECBB0(0, true, text.c_str()); }\n \tMoneyClass cost;\n-\tDeltaTemplateClass<MoneyClass> *negotiated = Unknown_Find_Field<DeltaTemplateClass<MoneyClass> >(Unknown0AEC, NameClass(\"NegotiatedCost\"));\n-\tif (negotiated && negotiated->Unknown70) {\n+\tDeltaTemplateClass<MoneyClass> *negotiated = Unknown_Find_Set_Field<DeltaTemplateClass<MoneyClass> >(Unknown0AEC, \"NegotiatedCost\");\n+\tif (negotiated) {\n \t\tcost = negotiated->Value;\n \t}\n \tUnknown_5ECBB0(3, true, cost.Amount_As_Text(false).c_str());\n",
+    "const_ref_second": "--- a/app/client/ui_refinery.cpp\n+++ b/app/client/ui_refinery.cpp\n@@ -624,11 +624,11 @@\n \t}\n \tUnknown_5ECBB0(0, true, credits.Amount_As_Text(false).c_str());\n \tMoneyClass cost;\n-\tDeltaTemplateClass<MoneyClass> *negotiated = Unknown_Find_Field<DeltaTemplateClass<MoneyClass> >(Unknown0AEC, NameClass(\"NegotiatedCost\"));\n-\tif (negotiated && negotiated->Unknown70) {\n+\tDeltaTemplateClass<MoneyClass> *negotiated = Unknown_Find_Set_Field<DeltaTemplateClass<MoneyClass> >(Unknown0AEC, \"NegotiatedCost\");\n+\tif (negotiated) {\n \t\tcost = negotiated->Value;\n \t}\n-\tUnknown_5ECBB0(3, true, cost.Amount_As_Text(false).c_str());\n+\t{ const std::string &text = cost.Amount_As_Text(false); Unknown_5ECBB0(3, true, text.c_str()); }\n }\n \n static std::string Unknown_5EE7F0(int validity);\n",
+    "const_ref_both": "--- a/app/client/ui_refinery.cpp\n+++ b/app/client/ui_refinery.cpp\n@@ -622,13 +622,13 @@\n \tif (money && money->Unknown70) {\n \t\tcredits = money->Value;\n \t}\n-\tUnknown_5ECBB0(0, true, credits.Amount_As_Text(false).c_str());\n+\t{ const std::string &text = credits.Amount_As_Text(false); Unknown_5ECBB0(0, true, text.c_str()); }\n \tMoneyClass cost;\n-\tDeltaTemplateClass<MoneyClass> *negotiated = Unknown_Find_Field<DeltaTemplateClass<MoneyClass> >(Unknown0AEC, NameClass(\"NegotiatedCost\"));\n-\tif (negotiated && negotiated->Unknown70) {\n+\tDeltaTemplateClass<MoneyClass> *negotiated = Unknown_Find_Set_Field<DeltaTemplateClass<MoneyClass> >(Unknown0AEC, \"NegotiatedCost\");\n+\tif (negotiated) {\n \t\tcost = negotiated->Value;\n \t}\n-\tUnknown_5ECBB0(3, true, cost.Amount_As_Text(false).c_str());\n+\t{ const std::string &text = cost.Amount_As_Text(false); Unknown_5ECBB0(3, true, text.c_str()); }\n }\n \n static std::string Unknown_5EE7F0(int validity);\n"
+  },
+  "seed_call_identity_provenance": {
+    "fresh_seed_source_identical_to_prior_audited_seed": true,
+    "calls": [
+      {
+        "offset": "0x30",
+        "retail": "0x5edcf0",
+        "indirect": "call dword ptr [eax + 0x18]",
+        "resolved": true,
+        "retail_indirect": "call dword ptr [eax + 0x18]"
+      },
+      {
+        "offset": "0x42",
+        "retail": "0x5edd02",
+        "symbol": "??0NameClass@@QAE@PBD@Z",
+        "target": "0x4ad380",
+        "provenance": "project symbols or exact emitted-helper match",
+        "resolved": true
+      },
+      {
+        "offset": "0x4d",
+        "retail": "0x5edd0d",
+        "symbol": "?Unknown_Find_Field@@YAPAV?$DeltaTemplateClass@VMoneyClass@@@@PAVDeltaCompoundClass@@ABVNameClass@@@Z",
+        "target": "0x5466a0",
+        "provenance": "project symbols or exact emitted-helper match",
+        "resolved": true
+      },
+      {
+        "offset": "0x7c",
+        "retail": "0x5edd3c",
+        "symbol": "?Amount_As_Text@MoneyClass@@QBE?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@_N@Z",
+        "target": "0x4f00c0",
+        "provenance": "money.h address annotation",
+        "resolved": true
+      },
+      {
+        "offset": "0xaa",
+        "retail": "0x5edd6a",
+        "symbol": "?Get_Style@FontManagerClass@@QAEPAVFontSys@@PBDPAVRenderObjClass@@@Z",
+        "target": "0x6d25d0",
+        "provenance": "fontmanager.h address annotation",
+        "resolved": true
+      },
+      {
+        "offset": "0xb5",
+        "retail": "0x5edd75",
+        "symbol": "?Create_Peek@@YA?AV?$RefCountPtr@VFontSys@@@@PAVFontSys@@@Z",
+        "target": "0x546510",
+        "provenance": "project symbols or exact emitted-helper match",
+        "resolved": true
+      },
+      {
+        "offset": "0xd9",
+        "retail": "0x5edd99",
+        "symbol": "?Fail_If_Report@@YAXPBD0H@Z",
+        "target": "0x4e9450",
+        "provenance": "project symbols or exact emitted-helper match",
+        "resolved": true
+      },
+      {
+        "offset": "0xe5",
+        "retail": "0x5edda5",
+        "symbol": "?Change_Text@FontSys@@QAEXPBDH@Z",
+        "target": "0x6cdbc0",
+        "provenance": "fontmanager.h address annotation",
+        "resolved": true
+      },
+      {
+        "offset": "0xf1",
+        "retail": "0x5eddb1",
+        "indirect": "call dword ptr [edx + 0x184]",
+        "resolved": true,
+        "retail_indirect": "call dword ptr [edx + 0x184]"
+      },
+      {
+        "offset": "0x100",
+        "retail": "0x5eddc0",
+        "symbol": "??1?$RefCountPtr@VFontSys@@@@QAE@XZ",
+        "target": "0x51c630",
+        "provenance": "project symbols or exact emitted-helper match",
+        "resolved": true
+      },
+      {
+        "offset": "0x10f",
+        "retail": "0x5eddcf",
+        "symbol": "?_Tidy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEX_N@Z",
+        "target": "0x42a820",
+        "provenance": "project symbols or exact emitted-helper match",
+        "resolved": true
+      },
+      {
+        "offset": "0x12a",
+        "retail": "0x5eddea",
+        "symbol": "??0NameClass@@QAE@PBD@Z",
+        "target": "0x4ad380",
+        "provenance": "project symbols or exact emitted-helper match",
+        "resolved": true
+      },
+      {
+        "offset": "0x139",
+        "retail": "0x5eddf9",
+        "symbol": "?Get_Lookup@DeltaCompoundClass@@QAEPAVLookupClass@@XZ",
+        "target": "0x4a5510",
+        "provenance": "project symbols or exact emitted-helper match",
+        "resolved": true
+      },
+      {
+        "offset": "0x145",
+        "retail": "0x5ede05",
+        "symbol": "?Find@LookupClass@@QAEPAVDeltaClass@@ABVNameClass@@@Z",
+        "target": "0x4ac9f0",
+        "provenance": "project symbols or exact emitted-helper match",
+        "resolved": true
+      },
+      {
+        "offset": "0x14f",
+        "retail": "0x5ede0f",
+        "symbol": "?Cast@?$UnknownRTTIClass@V?$DeltaTemplateClass@VMoneyClass@@@@@@SAPAV?$DeltaTemplateClass@VMoneyClass@@@@PAVDeltaClass@@@Z",
+        "target": "0x5481c0",
+        "provenance": "project symbols or exact emitted-helper match",
+        "resolved": true
+      },
+      {
+        "offset": "0x16a",
+        "retail": "0x5ede2a",
+        "symbol": "?G_Assert_Report@@YAXPBD0H@Z",
+        "target": "0x4e9410",
+        "provenance": "project symbols or exact emitted-helper match",
+        "resolved": true
+      },
+      {
+        "offset": "0x197",
+        "retail": "0x5ede57",
+        "symbol": "?Amount_As_Text@MoneyClass@@QBE?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@_N@Z",
+        "target": "0x4f00c0",
+        "provenance": "money.h address annotation",
+        "resolved": true
+      },
+      {
+        "offset": "0x1c5",
+        "retail": "0x5ede85",
+        "symbol": "?Get_Style@FontManagerClass@@QAEPAVFontSys@@PBDPAVRenderObjClass@@@Z",
+        "target": "0x6d25d0",
+        "provenance": "fontmanager.h address annotation",
+        "resolved": true
+      },
+      {
+        "offset": "0x1d0",
+        "retail": "0x5ede90",
+        "symbol": "?Create_Peek@@YA?AV?$RefCountPtr@VFontSys@@@@PAVFontSys@@@Z",
+        "target": "0x546510",
+        "provenance": "project symbols or exact emitted-helper match",
+        "resolved": true
+      },
+      {
+        "offset": "0x1f4",
+        "retail": "0x5edeb4",
+        "symbol": "?Fail_If_Report@@YAXPBD0H@Z",
+        "target": "0x4e9450",
+        "provenance": "project symbols or exact emitted-helper match",
+        "resolved": true
+      },
+      {
+        "offset": "0x21c",
+        "retail": "0x5ededc",
+        "indirect": "call dword ptr [edx]",
+        "resolved": true,
+        "retail_indirect": "call dword ptr [edx]"
+      },
+      {
+        "offset": "0x222",
+        "retail": "0x5edee2",
+        "symbol": "?Change_Text@FontSys@@QAEXPBDH@Z",
+        "target": "0x6cdbc0",
+        "provenance": "fontmanager.h address annotation",
+        "resolved": true
+      },
+      {
+        "offset": "0x22e",
+        "retail": "0x5edeee",
+        "indirect": "call dword ptr [eax + 0x184]",
+        "resolved": true,
+        "retail_indirect": "call dword ptr [eax + 0x184]"
+      },
+      {
+        "offset": "0x23d",
+        "retail": "0x5edefd",
+        "symbol": "??1?$RefCountPtr@VFontSys@@@@QAE@XZ",
+        "target": "0x51c630",
+        "provenance": "project symbols or exact emitted-helper match",
+        "resolved": true
+      },
+      {
+        "offset": "0x24d",
+        "retail": "0x5edf0d",
+        "symbol": "?_Tidy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEX_N@Z",
+        "target": "0x42a820",
+        "provenance": "project symbols or exact emitted-helper match",
+        "resolved": true
+      }
+    ],
+    "retail_sha256": "249f852496f341c00361be95b66e7c0becc2c39e7cba026f9227e38b602651c4",
+    "retail_bounds": [
+      "0x5EDCC0",
+      "0x5EDF24 (exclusive)"
+    ],
+    "retail_return_count": 1,
+    "branch_instruction_destination_indexes_equal_retail": true,
+    "limitations": [
+      "No exact target. Fresh seed source and metrics agree with prior audited seed; call identities reuse that source-bound audit.",
+      "Individual form call patterns are recorded; identical call patterns preserve those identities.",
+      "Scratch __FILE__ literals differ from retail; explain.py reports relocation ahead of allocation/order.",
+      "Partial outcome only; no new EH-table audit or application link performed."
+    ]
+  },
+  "replay": {
+    "steps": [
+      "Create an empty immutable tree with git archive 563252766d56572789ed2baa3a444bffd3cb271d | tar -x -C TREE.",
+      "For each patch independently, copy base app/client/ui_refinery.cpp into a fresh overlay and apply the unified patch with patch -p1 from that overlay. The baseline patch creates the seed control. All other patches also apply directly to production base, not to seed.",
+      "Preserve ui_refinery.cpp basename. Put scratch paths under .work/claim-254/ and use embedded runner. Manifest: {unit: app/client/ui_refinery.cpp, target: 0x5EDCC0, tree: TREE, variants: [{name: baseline, source: SEED_CPP}, {name: FORM, source: FORM_CPP}]}.",
+      "Compile sequentially, match every emitted function/helper without a target filter, and compare full file/address pairs to seed."
+    ],
+    "runner_python": "\"\"\"Compile immutable source variants and native-match every object.\n\nCoordinator only: python3 .work/claim-240/focused/run_batch.py MANIFEST.json\nManifest: {unit, target, tree, baseline_matches?, variants:[{name, source, tree?}]}.\nUse a first variant named baseline, or give a previously verified baseline JSON.\nEach invocation has a fresh output directory, so repeated runs cannot race.\n\"\"\"\nfrom pathlib import Path\nimport collections\nimport hashlib\nimport json\nimport os\nimport re\nimport subprocess\nimport sys\nimport tempfile\nimport time\n\nROOT = Path('/home/dev/Projects/EnB')\nAREA = ROOT / '.work/claim-240/focused'\nWORK = ROOT / '.work/claim-254'\nCOMPILER = '/home/dev/Toolchains/enb-vc6-sp4/bin/vc6-cl'\nPYTHON = '/home/dev/Toolchains/enb-vc6-sp4/venv/bin/python'\nCLIENT = '/home/dev/Games/earth-and-beyond/prefix/drive_c/Program Files (x86)/EA GAMES/Earth & Beyond/release/client.exe'\nsys.path[:0] = [str(ROOT / 'tools/re'), str(ROOT / 'tools/vc6')]\nimport appfile\nimport libdefs\n\n\ndef contained(value):\n    path = Path(value).resolve()\n    if not path.is_relative_to(WORK.resolve()):\n        raise ValueError('Input/output must be inside claim-240 scratch: '+str(path))\n    return path\n\n\ndef win(path):\n    return 'Z:' + str(path).replace('/', chr(92))\n\n\ndef exact(rows):\n    return {(row['symbol'], address) for row in rows if row['status'] == 'exact'\n            for address in row['addresses']}\n\n\ndef compile_and_match(source, unit, tree, output):\n    paths = [source.parent, tree / Path(unit).parent]\n    for value in appfile.candidate_dirs():\n        path = Path(value).resolve()\n        if path.is_relative_to(ROOT):\n            path = tree / path.relative_to(ROOT)\n        if path.is_dir() and path not in paths:\n            paths.append(path)\n    args = libdefs.LIB_FLAGS['app'].split()\n    args += ['/D'+value for value in libdefs.APP_LIBS['app']['defines']]\n    args += ['/I\"'+win(path)+'\"' for path in paths]\n    args += ['\"'+win(source)+'\"']\n    rsp = output / 'compile.rsp'\n    rsp.write_text('\\n'.join(args))\n    with (output / 'compile.log').open('w') as log:\n        process = subprocess.run([COMPILER, '@'+win(rsp)], cwd=output,\n                                 stdout=log, stderr=log, timeout=180)\n    if process.returncode:\n        return {'compiled': False, 'compile_returncode': process.returncode,\n                'error': (output / 'compile.log').read_text(errors='replace')[-2500:]}\n    obj = output / (source.stem+'.obj')\n    with (output / 'match.log').open('w') as log:\n        process = subprocess.run([PYTHON, str(ROOT / 'tools/re/objmatch.py'),\n                                  str(obj), '--client', CLIENT, '-q', '--json',\n                                  str(output / 'matches.json')], stdout=log,\n                                 stderr=log, timeout=240)\n    result = {'compiled': True, 'object': str(obj),\n              'match_returncode': process.returncode,\n              'matches': str(output / 'matches.json')}\n    if process.returncode:\n        result['error'] = (output / 'match.log').read_text(errors='replace')[-2500:]\n        return result\n    rows = json.loads((output / 'matches.json').read_text())\n    result['counts'] = dict(collections.Counter(row['status'] for row in rows))\n    result['exact_symbol_pairs'] = sorted(exact(rows))\n    result['exact_addresses'] = sorted({a for _, a in exact(rows)})\n    return result\n\n\ndef main():\n    manifest_path = contained(sys.argv[1])\n    plan = json.loads(manifest_path.read_text())\n    unit = plan['unit']\n    if not unit.startswith('app/') or Path(unit).suffix != '.cpp':\n        raise ValueError('unit must be a repository-relative app .cpp')\n    target = int(plan['target'], 0)\n    if not (0x5D6550 <= target < 0x5EDFD1):\n        raise ValueError('Target outside claim #254')\n    tree = contained(plan['tree'])\n    output_root = manifest_path.parent / 'runs'\n    output_root.mkdir(exist_ok=True)\n    run = Path(tempfile.mkdtemp(prefix=manifest_path.stem+'-', dir=output_root))\n    baseline = None\n    if plan.get('baseline_matches'):\n        baseline = exact(json.loads(contained(plan['baseline_matches']).read_text()))\n    elif plan['variants'][0]['name'] != 'baseline':\n        raise ValueError('First form must be baseline unless baseline_matches supplied')\n    summary = {'manifest': str(manifest_path), 'unit': unit,\n               'target': plan['target'], 'run': str(run), 'variants': []}\n    print('RUN '+str(run), flush=True)\n    failed = False\n    for item in plan['variants']:\n        name = item['name']\n        if not re.fullmatch('[A-Za-z0-9_-]{1,80}', name):\n            raise ValueError('Invalid variant name')\n        source = contained(item['source'])\n        if source.name != Path(unit).name:\n            raise ValueError('Keep original source basename for __FILE__ matching')\n        item_tree = contained(item.get('tree', str(tree)))\n        output = run / name\n        output.mkdir()\n        digest = hashlib.sha256(source.read_bytes()).hexdigest()\n        row = {'name': name, 'source': str(source), 'source_sha256': digest,\n               'tree': str(item_tree), 'output': str(output)}\n        started = time.monotonic()\n        try:\n            row.update(compile_and_match(source, unit, item_tree, output))\n            if hashlib.sha256(source.read_bytes()).hexdigest() != digest:\n                raise RuntimeError('Source changed during its queued build')\n            if row.get('compiled') and row.get('match_returncode') == 0:\n                after = {tuple(pair) for pair in row['exact_symbol_pairs']}\n                if baseline is None:\n                    baseline = after\n                row['gained'] = sorted(after-baseline)\n                row['lost'] = sorted(baseline-after)\n                row['gained_addresses'] = sorted({a for _, a in after}-{a for _, a in baseline})\n                row['lost_addresses'] = sorted({a for _, a in baseline}-{a for _, a in after})\n                row['target_exact'] = f'0x{target:X}' in row['exact_addresses']\n            else:\n                failed = True\n        except Exception as error:\n            failed = True\n            row['error'] = str(error)\n        row['seconds'] = round(time.monotonic()-started, 2)\n        summary['variants'].append(row)\n        (run / 'summary.json').write_text(json.dumps(summary, indent=2)+'\\n')\n        display = {key: row[key] for key in ('name', 'compiled', 'match_returncode',\n                   'counts', 'target_exact', 'gained_addresses', 'lost_addresses',\n                   'seconds', 'error') if key in row}\n        display['symbol_gains'] = len(row.get('gained', []))\n        display['symbol_losses'] = len(row.get('lost', []))\n        print(json.dumps(display), flush=True)\n        if row.get('target_exact') and not row.get('lost'):\n            break\n        if name == 'baseline' and baseline is None:\n            break\n    print('SUMMARY '+str(run / 'summary.json'), flush=True)\n    return int(failed)\n\n\nif __name__ == '__main__':\n    raise SystemExit(main())\n",
+    "compiler": "/home/dev/Toolchains/enb-vc6-sp4/bin/vc6-cl",
+    "python": "/home/dev/Toolchains/enb-vc6-sp4/venv/bin/python",
+    "flags": "libdefs.LIB_FLAGS[app] + APP_LIBS[app].defines; frozen-tree include paths"
+  },
+  "attempt_spec": {
+    "address": "0x5EDCC0",
+    "symbol": "UIRefineryClass::Unknown_5EDCC0",
+    "file": "app/client/ui_refinery.cpp",
+    "library": "app",
+    "status": "partial",
+    "forms": 3,
+    "score": 0.9010989010989011,
+    "blocker": "register",
+    "model": "gpt-6.1-sol (high)",
+    "evidence": "Three new C++98 const std::string& temporary-lifetime forms, first/second/both text calls, worsen the fresh implicit Find_Set_Field seed: masked/raw/regs 18/18/4 -> 19/19/5, 23/23/8, 24/24/9. All frames remain retail 0x58. Each scope ends immediately after its call, preserving temporary destruction before the next operation. All 94 seed file/address pairs preserved, no target exact or adoption. Results equal the previously tested by-value scoped text forms; const reference provides no new allocation lead. Three generated _$E initializer names renumber at the same addresses."
+  },
+  "tracked_edits": false,
+  "commits": [],
+  "approximate_tokens": 4000
+}

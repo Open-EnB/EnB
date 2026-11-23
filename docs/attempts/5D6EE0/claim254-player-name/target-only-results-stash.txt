@@ -1,0 +1,1268 @@
+{
+  "base": "e77d1ef085cf867816862e071b550608161b7497",
+  "model": "gpt-6.1-sol (high)",
+  "families": {
+    "1": "NameClass full-expression lifetime and shared Find_Set_Field API",
+    "2": "Set-field truthy-guard simplification and single-site raw/set mixtures",
+    "3": "Real DeltaStringClass getter and editor setter",
+    "4": "Real auxiliary argument/target-condition/name/append local assignment forms",
+    "5": "Exact ui_trade char-pointer Valid helper; earlier AuxData read diagnostic",
+    "6": "NameClass const/reference/temporary lifetimes and default-name controls",
+    "7": "Exact galaxy_map_pip NameClass-reference Valid helper with early returns",
+    "8": "Exact ui_refinery NameClass-reference Valid helper with positive return",
+    "9": "Exact ui_attrb ValidR and ui_analyze two-layer APIs; value/alias-binding diagnostics",
+    "10": "Exact ui_analyze Root_Field helper; both/single sites and actual accessors",
+    "11": "Equivalent key-dispatch early rejection and if/else source forms"
+  },
+  "forms": [
+    {
+      "id": "family1/raw_implicit",
+      "family": 1,
+      "name": "raw_implicit",
+      "category": "target-only source-equivalent",
+      "source_sha256": "6f5c07f95a8d77d528b084347cac0d804163fb3533a4e343f3e91ceaafca3efd",
+      "source_snapshot": "/home/dev/Projects/EnB/.work/claim-254/player-name/snapshots/family1/raw_implicit/ui_petition_player_entry.cpp",
+      "object_sha256": "fbc390dc77e348b48526e5560220adfb3d8f6ab0dd233a9781ae8159803ad7df",
+      "object": "/home/dev/Projects/EnB/.work/claim-254/player-name/runs/family1-9u9640gp/raw_implicit/ui_petition_player_entry.obj",
+      "raw_masked_register_residue": [
+        36,
+        36,
+        34
+      ],
+      "rows": [
+        169,
+        159
+      ],
+      "calls": 18,
+      "out_of_line_Cast_calls": 0,
+      "frame": [
+        "0x68",
+        false,
+        false
+      ],
+      "EH_states": 0,
+      "normalized_body_sha256": "7f9834490fe24e6f499165a0537bdd235d685fb4f1725df073f20d95e0f744dd",
+      "native_exact_pairs": 61,
+      "file_address_gains": [],
+      "file_address_losses": []
+    },
+    {
+      "id": "family1/raw_temporary",
+      "family": 1,
+      "name": "raw_temporary",
+      "category": "target-only source-equivalent",
+      "source_sha256": "346b787cb4e8533a15a3fb77785236cf4fba82850320e020a06e67e880a79828",
+      "source_snapshot": "/home/dev/Projects/EnB/.work/claim-254/player-name/snapshots/family1/raw_temporary/ui_petition_player_entry.cpp",
+      "object_sha256": "957e8afaa88fc05129518fe0962acd1a403220a47969f3957353e84ac627c368",
+      "object": "/home/dev/Projects/EnB/.work/claim-254/player-name/runs/family1-9u9640gp/raw_temporary/ui_petition_player_entry.obj",
+      "raw_masked_register_residue": [
+        39,
+        39,
+        38
+      ],
+      "rows": [
+        169,
+        159
+      ],
+      "calls": 18,
+      "out_of_line_Cast_calls": 0,
+      "frame": [
+        "0x68",
+        false,
+        false
+      ],
+      "EH_states": 0,
+      "normalized_body_sha256": "4eb6552a33324fbc9d59f56162b8b9ce6f9896199d0bee2e4270b2e7c5a01020",
+      "native_exact_pairs": 61,
+      "file_address_gains": [],
+      "file_address_losses": []
+    },
+    {
+      "id": "family1/set_named",
+      "family": 1,
+      "name": "set_named",
+      "category": "target-only source-equivalent",
+      "source_sha256": "b1f429579916e6a47c5350e77d1060090ad54fdf80ed492bd5b7884f71c6a5a6",
+      "source_snapshot": "/home/dev/Projects/EnB/.work/claim-254/player-name/snapshots/family1/set_named/ui_petition_player_entry.cpp",
+      "object_sha256": "6048c28e2a29438c570f81a290e404d6b85855e16367f04dec86013b334a83f9",
+      "object": "/home/dev/Projects/EnB/.work/claim-254/player-name/runs/family1-9u9640gp/set_named/ui_petition_player_entry.obj",
+      "raw_masked_register_residue": [
+        27,
+        27,
+        17
+      ],
+      "rows": [
+        162,
+        159
+      ],
+      "calls": 18,
+      "out_of_line_Cast_calls": 0,
+      "frame": [
+        "0x68",
+        false,
+        false
+      ],
+      "EH_states": 0,
+      "normalized_body_sha256": "b2529ff5a62088c79c30644acffb0651389031050f02eb67c2f7a19b67d235a9",
+      "native_exact_pairs": 61,
+      "file_address_gains": [],
+      "file_address_losses": []
+    },
+    {
+      "id": "family1/set_implicit",
+      "family": 1,
+      "name": "set_implicit",
+      "category": "target-only source-equivalent",
+      "source_sha256": "7ed17e5dd1be13c6c975039f3d10b8478b017fb244ce3c6b88d64a0c524b47f0",
+      "source_snapshot": "/home/dev/Projects/EnB/.work/claim-254/player-name/snapshots/family1/set_implicit/ui_petition_player_entry.cpp",
+      "object_sha256": "39cabf18890af3a2a04a48f5e27362b8cc262221f4668fcd31890e57663ab9ac",
+      "object": "/home/dev/Projects/EnB/.work/claim-254/player-name/runs/family1-9u9640gp/set_implicit/ui_petition_player_entry.obj",
+      "raw_masked_register_residue": [
+        27,
+        27,
+        17
+      ],
+      "rows": [
+        162,
+        159
+      ],
+      "calls": 18,
+      "out_of_line_Cast_calls": 0,
+      "frame": [
+        "0x68",
+        false,
+        false
+      ],
+      "EH_states": 0,
+      "normalized_body_sha256": "b2529ff5a62088c79c30644acffb0651389031050f02eb67c2f7a19b67d235a9",
+      "native_exact_pairs": 61,
+      "file_address_gains": [],
+      "file_address_losses": []
+    },
+    {
+      "id": "family1/set_temporary",
+      "family": 1,
+      "name": "set_temporary",
+      "category": "target-only source-equivalent",
+      "source_sha256": "4488c866087dd90a45f8b22fca3eb5c9fa89e75841b145649c4532229bed9b5e",
+      "source_snapshot": "/home/dev/Projects/EnB/.work/claim-254/player-name/snapshots/family1/set_temporary/ui_petition_player_entry.cpp",
+      "object_sha256": "792ffd38815765095afc495a59cb7004708303cfd899e2d61df76652f908e3d3",
+      "object": "/home/dev/Projects/EnB/.work/claim-254/player-name/runs/family1-9u9640gp/set_temporary/ui_petition_player_entry.obj",
+      "raw_masked_register_residue": [
+        30,
+        30,
+        21
+      ],
+      "rows": [
+        162,
+        159
+      ],
+      "calls": 18,
+      "out_of_line_Cast_calls": 0,
+      "frame": [
+        "0x68",
+        false,
+        false
+      ],
+      "EH_states": 0,
+      "normalized_body_sha256": "a743cbf9e07a41b5f89cef8b3200f4a28a536455ba7077f8e7e7bfa0ce0b38e9",
+      "native_exact_pairs": 61,
+      "file_address_gains": [],
+      "file_address_losses": []
+    },
+    {
+      "id": "family2/set_named_fallback",
+      "family": 2,
+      "name": "set_named_fallback",
+      "category": "target-only source-equivalent",
+      "source_sha256": "37e3a1619d40f9e6a9132e70a9c36aec12ce3551edfe573a2bac2e30fb49a7f5",
+      "source_snapshot": "/home/dev/Projects/EnB/.work/claim-254/player-name/snapshots/family2/set_named_fallback/ui_petition_player_entry.cpp",
+      "object_sha256": "6ce493dfba05d45e2d0266fd15173d3c0031bd3e0ed1969f00cd1a000283c861",
+      "object": "/home/dev/Projects/EnB/.work/claim-254/player-name/runs/family2-48bu02ps/set_named_fallback/ui_petition_player_entry.obj",
+      "raw_masked_register_residue": [
+        25,
+        25,
+        15
+      ],
+      "rows": [
+        160,
+        159
+      ],
+      "calls": 18,
+      "out_of_line_Cast_calls": 0,
+      "frame": [
+        "0x68",
+        false,
+        false
+      ],
+      "EH_states": 0,
+      "normalized_body_sha256": "42f3466a14c17dfbb041cb5bbc2c859f90267fa3defd044f3cb835b769d7c536",
+      "native_exact_pairs": 61,
+      "file_address_gains": [],
+      "file_address_losses": []
+    },
+    {
+      "id": "family2/set_named_final",
+      "family": 2,
+      "name": "set_named_final",
+      "category": "target-only source-equivalent",
+      "source_sha256": "49c742c1cb0db53db58a3edffd4c93128194cb560f381b9b71505b495d725a48",
+      "source_snapshot": "/home/dev/Projects/EnB/.work/claim-254/player-name/snapshots/family2/set_named_final/ui_petition_player_entry.cpp",
+      "object_sha256": "2776681b189f2341bf3d6bd260b6b1559d24a57df55797e19a49da2018158dff",
+      "object": "/home/dev/Projects/EnB/.work/claim-254/player-name/runs/family2-48bu02ps/set_named_final/ui_petition_player_entry.obj",
+      "raw_masked_register_residue": [
+        24,
+        24,
+        14
+      ],
+      "rows": [
+        159,
+        159
+      ],
+      "calls": 18,
+      "out_of_line_Cast_calls": 0,
+      "frame": [
+        "0x68",
+        false,
+        false
+      ],
+      "EH_states": 0,
+      "normalized_body_sha256": "4da66ccd5c3b7ba744825117fe298dd930f8eb2bcc37380106fd220577ce08c0",
+      "native_exact_pairs": 61,
+      "file_address_gains": [],
+      "file_address_losses": []
+    },
+    {
+      "id": "family2/set_named_both",
+      "family": 2,
+      "name": "set_named_both",
+      "category": "target-only source-equivalent",
+      "source_sha256": "27b26f8cc89e970735dceede5101a91bcaefad4246b9b22185af9e6b92b6ba4b",
+      "source_snapshot": "/home/dev/Projects/EnB/.work/claim-254/player-name/snapshots/family2/set_named_both/ui_petition_player_entry.cpp",
+      "object_sha256": "8b191fae3ea06bd7fc5d9f222260990f59a5519c5a0e4466058996706954f34b",
+      "object": "/home/dev/Projects/EnB/.work/claim-254/player-name/runs/family2-48bu02ps/set_named_both/ui_petition_player_entry.obj",
+      "raw_masked_register_residue": [
+        22,
+        22,
+        12
+      ],
+      "rows": [
+        157,
+        159
+      ],
+      "calls": 18,
+      "out_of_line_Cast_calls": 0,
+      "frame": [
+        "0x68",
+        false,
+        false
+      ],
+      "EH_states": 0,
+      "normalized_body_sha256": "b69c0c89ca970cb5e4b6b59a45645a17632a07393a0f54730f45726506625db0",
+      "native_exact_pairs": 61,
+      "file_address_gains": [],
+      "file_address_losses": []
+    },
+    {
+      "id": "family2/set_implicit_fallback",
+      "family": 2,
+      "name": "set_implicit_fallback",
+      "category": "target-only source-equivalent",
+      "source_sha256": "adb56f502e55f45aba4c57064154d53f1297ef8ff5a405ac53feef18b31be666",
+      "source_snapshot": "/home/dev/Projects/EnB/.work/claim-254/player-name/snapshots/family2/set_implicit_fallback/ui_petition_player_entry.cpp",
+      "object_sha256": "9e768627b9a285ce9e54f49142b54ebf32b6a1813f9a2cc5cb22b1b31136e977",
+      "object": "/home/dev/Projects/EnB/.work/claim-254/player-name/runs/family2-48bu02ps/set_implicit_fallback/ui_petition_player_entry.obj",
+      "raw_masked_register_residue": [
+        25,
+        25,
+        15
+      ],
+      "rows": [
+        160,
+        159
+      ],
+      "calls": 18,
+      "out_of_line_Cast_calls": 0,
+      "frame": [
+        "0x68",
+        false,
+        false
+      ],
+      "EH_states": 0,
+      "normalized_body_sha256": "42f3466a14c17dfbb041cb5bbc2c859f90267fa3defd044f3cb835b769d7c536",
+      "native_exact_pairs": 61,
+      "file_address_gains": [],
+      "file_address_losses": []
+    },
+    {
+      "id": "family2/set_implicit_final",
+      "family": 2,
+      "name": "set_implicit_final",
+      "category": "target-only source-equivalent",
+      "source_sha256": "b73835820d66a339747a26a1d2332f5625a92ff9671b333c19ca474af93aa479",
+      "source_snapshot": "/home/dev/Projects/EnB/.work/claim-254/player-name/snapshots/family2/set_implicit_final/ui_petition_player_entry.cpp",
+      "object_sha256": "5067ed58cfe124c1d2904ab45ffde35e5177e1304f034a5c34b205bf9d15b74c",
+      "object": "/home/dev/Projects/EnB/.work/claim-254/player-name/runs/family2-48bu02ps/set_implicit_final/ui_petition_player_entry.obj",
+      "raw_masked_register_residue": [
+        24,
+        24,
+        14
+      ],
+      "rows": [
+        159,
+        159
+      ],
+      "calls": 18,
+      "out_of_line_Cast_calls": 0,
+      "frame": [
+        "0x68",
+        false,
+        false
+      ],
+      "EH_states": 0,
+      "normalized_body_sha256": "4da66ccd5c3b7ba744825117fe298dd930f8eb2bcc37380106fd220577ce08c0",
+      "native_exact_pairs": 61,
+      "file_address_gains": [],
+      "file_address_losses": []
+    },
+    {
+      "id": "family2/set_implicit_both",
+      "family": 2,
+      "name": "set_implicit_both",
+      "category": "target-only source-equivalent",
+      "source_sha256": "44acbbb3347e670697d227fde0e6fdc87d04e46b1586e2d0dc978d5b5c6e6f70",
+      "source_snapshot": "/home/dev/Projects/EnB/.work/claim-254/player-name/snapshots/family2/set_implicit_both/ui_petition_player_entry.cpp",
+      "object_sha256": "01d311c4e5d84023fa9f4593ec40bf92018fe314f70249a5d2f90051c830bf52",
+      "object": "/home/dev/Projects/EnB/.work/claim-254/player-name/runs/family2-48bu02ps/set_implicit_both/ui_petition_player_entry.obj",
+      "raw_masked_register_residue": [
+        22,
+        22,
+        12
+      ],
+      "rows": [
+        157,
+        159
+      ],
+      "calls": 18,
+      "out_of_line_Cast_calls": 0,
+      "frame": [
+        "0x68",
+        false,
+        false
+      ],
+      "EH_states": 0,
+      "normalized_body_sha256": "b69c0c89ca970cb5e4b6b59a45645a17632a07393a0f54730f45726506625db0",
+      "native_exact_pairs": 61,
+      "file_address_gains": [],
+      "file_address_losses": []
+    },
+    {
+      "id": "family2/set_only_owner",
+      "family": 2,
+      "name": "set_only_owner",
+      "category": "target-only source-equivalent",
+      "source_sha256": "da7b3cee77faeaee04e1f0e023f4eab7650c78ce12b76501d36a7e344b578de5",
+      "source_snapshot": "/home/dev/Projects/EnB/.work/claim-254/player-name/snapshots/family2/set_only_owner/ui_petition_player_entry.cpp",
+      "object_sha256": "e618e2a79d4c1330f0215d2bbe14724197eb9cd26177ed7e4b5b1459ebd8ffb5",
+      "object": "/home/dev/Projects/EnB/.work/claim-254/player-name/runs/family2-48bu02ps/set_only_owner/ui_petition_player_entry.obj",
+      "raw_masked_register_residue": [
+        38,
+        38,
+        28
+      ],
+      "rows": [
+        163,
+        159
+      ],
+      "calls": 18,
+      "out_of_line_Cast_calls": 0,
+      "frame": [
+        "0x68",
+        false,
+        false
+      ],
+      "EH_states": 0,
+      "normalized_body_sha256": "9c3538be06d4f3229719073f062ad0923d2b1cb8f2cb527b6064d8dd97fc4985",
+      "native_exact_pairs": 61,
+      "file_address_gains": [],
+      "file_address_losses": []
+    },
+    {
+      "id": "family2/set_only_field",
+      "family": 2,
+      "name": "set_only_field",
+      "category": "target-only source-equivalent",
+      "source_sha256": "777fe0089cf617143827a8a1d814a47b7f520ddbe0e7dd82ec5465d36834dbd7",
+      "source_snapshot": "/home/dev/Projects/EnB/.work/claim-254/player-name/snapshots/family2/set_only_field/ui_petition_player_entry.cpp",
+      "object_sha256": "8d8b583e323368f4204bda068013e6bae028588b70d8fd154811d2f49ffc0138",
+      "object": "/home/dev/Projects/EnB/.work/claim-254/player-name/runs/family2-48bu02ps/set_only_field/ui_petition_player_entry.obj",
+      "raw_masked_register_residue": [
+        36,
+        36,
+        34
+      ],
+      "rows": [
+        168,
+        159
+      ],
+      "calls": 18,
+      "out_of_line_Cast_calls": 0,
+      "frame": [
+        "0x68",
+        false,
+        false
+      ],
+      "EH_states": 0,
+      "normalized_body_sha256": "bcc348e912b3d370fcd222c0ca7d9c03f5b00c65528644a9d5ace2b6f89aa8bd",
+      "native_exact_pairs": 61,
+      "file_address_gains": [],
+      "file_address_losses": []
+    },
+    {
+      "id": "family3/raw_getter",
+      "family": 3,
+      "name": "raw_getter",
+      "category": "target-only source-equivalent",
+      "source_sha256": "b39ad62d38c39712bbcd93ed240efda205da3a6179bf0ce22016d44d4b9eb534",
+      "source_snapshot": "/home/dev/Projects/EnB/.work/claim-254/player-name/snapshots/family3/raw_getter/ui_petition_player_entry.cpp",
+      "object_sha256": "39d55d7e4db9e3e348a3b6eed3eb1bd357d35f47fd2c3d3a790e03be635d5072",
+      "object": "/home/dev/Projects/EnB/.work/claim-254/player-name/runs/family3-hezy1xai/raw_getter/ui_petition_player_entry.obj",
+      "raw_masked_register_residue": [
+        36,
+        36,
+        34
+      ],
+      "rows": [
+        169,
+        159
+      ],
+      "calls": 18,
+      "out_of_line_Cast_calls": 0,
+      "frame": [
+        "0x68",
+        false,
+        false
+      ],
+      "EH_states": 0,
+      "normalized_body_sha256": "7f9834490fe24e6f499165a0537bdd235d685fb4f1725df073f20d95e0f744dd",
+      "native_exact_pairs": 61,
+      "file_address_gains": [],
+      "file_address_losses": []
+    },
+    {
+      "id": "family3/raw_setter",
+      "family": 3,
+      "name": "raw_setter",
+      "category": "target-only source-equivalent",
+      "source_sha256": "0b83d7945e49a08996071d97e34aaad36dcf6ef847af0f78f2eb790a9f9027a0",
+      "source_snapshot": "/home/dev/Projects/EnB/.work/claim-254/player-name/snapshots/family3/raw_setter/ui_petition_player_entry.cpp",
+      "object_sha256": "a852aa872b8d120621cce8eee6d3fb42fbf8f564ea85cddabdc8b558e5bb1896",
+      "object": "/home/dev/Projects/EnB/.work/claim-254/player-name/runs/family3-hezy1xai/raw_setter/ui_petition_player_entry.obj",
+      "raw_masked_register_residue": [
+        36,
+        36,
+        34
+      ],
+      "rows": [
+        169,
+        159
+      ],
+      "calls": 18,
+      "out_of_line_Cast_calls": 0,
+      "frame": [
+        "0x68",
+        false,
+        false
+      ],
+      "EH_states": 0,
+      "normalized_body_sha256": "7f9834490fe24e6f499165a0537bdd235d685fb4f1725df073f20d95e0f744dd",
+      "native_exact_pairs": 61,
+      "file_address_gains": [],
+      "file_address_losses": []
+    },
+    {
+      "id": "family3/raw_both",
+      "family": 3,
+      "name": "raw_both",
+      "category": "target-only source-equivalent",
+      "source_sha256": "53a4a3e89f0a39a35438317430caecf2a32a560f515d34517b66c9762fee1f77",
+      "source_snapshot": "/home/dev/Projects/EnB/.work/claim-254/player-name/snapshots/family3/raw_both/ui_petition_player_entry.cpp",
+      "object_sha256": "72dafba9515d7236c5c829f23f4fba70f4cb6564398e5ba99e0278303d6350c4",
+      "object": "/home/dev/Projects/EnB/.work/claim-254/player-name/runs/family3-hezy1xai/raw_both/ui_petition_player_entry.obj",
+      "raw_masked_register_residue": [
+        36,
+        36,
+        34
+      ],
+      "rows": [
+        169,
+        159
+      ],
+      "calls": 18,
+      "out_of_line_Cast_calls": 0,
+      "frame": [
+        "0x68",
+        false,
+        false
+      ],
+      "EH_states": 0,
+      "normalized_body_sha256": "7f9834490fe24e6f499165a0537bdd235d685fb4f1725df073f20d95e0f744dd",
+      "native_exact_pairs": 61,
+      "file_address_gains": [],
+      "file_address_losses": []
+    },
+    {
+      "id": "family3/set_getter",
+      "family": 3,
+      "name": "set_getter",
+      "category": "target-only source-equivalent",
+      "source_sha256": "2785d5d6b97b9f40eb83075df70ccb51afaae4cb861945b442ef5f7e7f04d28b",
+      "source_snapshot": "/home/dev/Projects/EnB/.work/claim-254/player-name/snapshots/family3/set_getter/ui_petition_player_entry.cpp",
+      "object_sha256": "674ec4c7408da44d44208c567e86e0115f656e9f8d3dfc97e9ceaeff9fd41790",
+      "object": "/home/dev/Projects/EnB/.work/claim-254/player-name/runs/family3-hezy1xai/set_getter/ui_petition_player_entry.obj",
+      "raw_masked_register_residue": [
+        22,
+        22,
+        12
+      ],
+      "rows": [
+        157,
+        159
+      ],
+      "calls": 18,
+      "out_of_line_Cast_calls": 0,
+      "frame": [
+        "0x68",
+        false,
+        false
+      ],
+      "EH_states": 0,
+      "normalized_body_sha256": "b69c0c89ca970cb5e4b6b59a45645a17632a07393a0f54730f45726506625db0",
+      "native_exact_pairs": 61,
+      "file_address_gains": [],
+      "file_address_losses": []
+    },
+    {
+      "id": "family3/set_setter",
+      "family": 3,
+      "name": "set_setter",
+      "category": "target-only source-equivalent",
+      "source_sha256": "eff1cefc5859d357f2ea008ad847891bb8a045bb555bd6a7141ea4f70a365f5a",
+      "source_snapshot": "/home/dev/Projects/EnB/.work/claim-254/player-name/snapshots/family3/set_setter/ui_petition_player_entry.cpp",
+      "object_sha256": "a06d2bc60879c3b3e78901796a1e72f5dc6d209e74387649a4f580019ecaa500",
+      "object": "/home/dev/Projects/EnB/.work/claim-254/player-name/runs/family3-hezy1xai/set_setter/ui_petition_player_entry.obj",
+      "raw_masked_register_residue": [
+        22,
+        22,
+        12
+      ],
+      "rows": [
+        157,
+        159
+      ],
+      "calls": 18,
+      "out_of_line_Cast_calls": 0,
+      "frame": [
+        "0x68",
+        false,
+        false
+      ],
+      "EH_states": 0,
+      "normalized_body_sha256": "b69c0c89ca970cb5e4b6b59a45645a17632a07393a0f54730f45726506625db0",
+      "native_exact_pairs": 61,
+      "file_address_gains": [],
+      "file_address_losses": []
+    },
+    {
+      "id": "family3/set_both",
+      "family": 3,
+      "name": "set_both",
+      "category": "target-only source-equivalent",
+      "source_sha256": "c08bede5f4b335b3243b2d7425fc8baeefd5cf5d6d31ebe625ce4adc72e573c3",
+      "source_snapshot": "/home/dev/Projects/EnB/.work/claim-254/player-name/snapshots/family3/set_both/ui_petition_player_entry.cpp",
+      "object_sha256": "d5f231e31d7460bb480d335e32871b90de0892479a767aa9aacc3c75598da465",
+      "object": "/home/dev/Projects/EnB/.work/claim-254/player-name/runs/family3-hezy1xai/set_both/ui_petition_player_entry.obj",
+      "raw_masked_register_residue": [
+        22,
+        22,
+        12
+      ],
+      "rows": [
+        157,
+        159
+      ],
+      "calls": 18,
+      "out_of_line_Cast_calls": 0,
+      "frame": [
+        "0x68",
+        false,
+        false
+      ],
+      "EH_states": 0,
+      "normalized_body_sha256": "b69c0c89ca970cb5e4b6b59a45645a17632a07393a0f54730f45726506625db0",
+      "native_exact_pairs": 61,
+      "file_address_gains": [],
+      "file_address_losses": []
+    },
+    {
+      "id": "family4/raw_aux_arg",
+      "family": 4,
+      "name": "raw_aux_arg",
+      "category": "target-only source-equivalent",
+      "source_sha256": "f7ee443bbb6d0fe96a0653d071d83eda2869b0767ab9e6f93ffb2db2390e0d50",
+      "source_snapshot": "/home/dev/Projects/EnB/.work/claim-254/player-name/snapshots/family4/raw_aux_arg/ui_petition_player_entry.cpp",
+      "object_sha256": "66cbf326b327ed5a39edf7bb61883fd78648850cb6cb1852a781c938aff1185a",
+      "object": "/home/dev/Projects/EnB/.work/claim-254/player-name/runs/family4-jvy7uoql/raw_aux_arg/ui_petition_player_entry.obj",
+      "raw_masked_register_residue": [
+        36,
+        36,
+        34
+      ],
+      "rows": [
+        169,
+        159
+      ],
+      "calls": 18,
+      "out_of_line_Cast_calls": 0,
+      "frame": [
+        "0x68",
+        false,
+        false
+      ],
+      "EH_states": 0,
+      "normalized_body_sha256": "7f9834490fe24e6f499165a0537bdd235d685fb4f1725df073f20d95e0f744dd",
+      "native_exact_pairs": 61,
+      "file_address_gains": [],
+      "file_address_losses": []
+    },
+    {
+      "id": "family4/raw_target_cond",
+      "family": 4,
+      "name": "raw_target_cond",
+      "category": "target-only source-equivalent",
+      "source_sha256": "7d8d676b23b6151f7c8a0964355d1034e528132dca6d2c9f2959d8ad2a0a84a2",
+      "source_snapshot": "/home/dev/Projects/EnB/.work/claim-254/player-name/snapshots/family4/raw_target_cond/ui_petition_player_entry.cpp",
+      "object_sha256": "474d86959a3606c3d447417340e944930eb807e91dc4135c882156573cbd2340",
+      "object": "/home/dev/Projects/EnB/.work/claim-254/player-name/runs/family4-jvy7uoql/raw_target_cond/ui_petition_player_entry.obj",
+      "raw_masked_register_residue": [
+        36,
+        36,
+        34
+      ],
+      "rows": [
+        169,
+        159
+      ],
+      "calls": 18,
+      "out_of_line_Cast_calls": 0,
+      "frame": [
+        "0x68",
+        false,
+        false
+      ],
+      "EH_states": 0,
+      "normalized_body_sha256": "7f9834490fe24e6f499165a0537bdd235d685fb4f1725df073f20d95e0f744dd",
+      "native_exact_pairs": 61,
+      "file_address_gains": [],
+      "file_address_losses": []
+    },
+    {
+      "id": "family4/raw_name_assign",
+      "family": 4,
+      "name": "raw_name_assign",
+      "category": "target-only source-equivalent",
+      "source_sha256": "9e9b8f99fecc73496050962e374182db475a83b7678883925f5861a2dde2159a",
+      "source_snapshot": "/home/dev/Projects/EnB/.work/claim-254/player-name/snapshots/family4/raw_name_assign/ui_petition_player_entry.cpp",
+      "object_sha256": "20b833f3e3807fcc1a02c89519fb0c2092f9856e357916501cee771d77683b76",
+      "object": "/home/dev/Projects/EnB/.work/claim-254/player-name/runs/family4-jvy7uoql/raw_name_assign/ui_petition_player_entry.obj",
+      "raw_masked_register_residue": [
+        36,
+        36,
+        34
+      ],
+      "rows": [
+        169,
+        159
+      ],
+      "calls": 18,
+      "out_of_line_Cast_calls": 0,
+      "frame": [
+        "0x68",
+        false,
+        false
+      ],
+      "EH_states": 0,
+      "normalized_body_sha256": "7f9834490fe24e6f499165a0537bdd235d685fb4f1725df073f20d95e0f744dd",
+      "native_exact_pairs": 61,
+      "file_address_gains": [],
+      "file_address_losses": []
+    },
+    {
+      "id": "family4/raw_append_cond",
+      "family": 4,
+      "name": "raw_append_cond",
+      "category": "target-only source-equivalent",
+      "source_sha256": "75ff9fda33d4e781502f2abdaef83be82d7049f50413902dd574b64284dab4f3",
+      "source_snapshot": "/home/dev/Projects/EnB/.work/claim-254/player-name/snapshots/family4/raw_append_cond/ui_petition_player_entry.cpp",
+      "object_sha256": "f7ac266252c0e8943ee7b2a23101508b91934ae436bb4a21a2ba7c9b03439e18",
+      "object": "/home/dev/Projects/EnB/.work/claim-254/player-name/runs/family4-jvy7uoql/raw_append_cond/ui_petition_player_entry.obj",
+      "raw_masked_register_residue": [
+        36,
+        36,
+        34
+      ],
+      "rows": [
+        169,
+        159
+      ],
+      "calls": 18,
+      "out_of_line_Cast_calls": 0,
+      "frame": [
+        "0x68",
+        false,
+        false
+      ],
+      "EH_states": 0,
+      "normalized_body_sha256": "7f9834490fe24e6f499165a0537bdd235d685fb4f1725df073f20d95e0f744dd",
+      "native_exact_pairs": 61,
+      "file_address_gains": [],
+      "file_address_losses": []
+    },
+    {
+      "id": "family4/set_aux_arg",
+      "family": 4,
+      "name": "set_aux_arg",
+      "category": "target-only source-equivalent",
+      "source_sha256": "5e0b680f0bc57341b0d01d988d51b032e56a253186acdb9ed411305dca12ad01",
+      "source_snapshot": "/home/dev/Projects/EnB/.work/claim-254/player-name/snapshots/family4/set_aux_arg/ui_petition_player_entry.cpp",
+      "object_sha256": "4c77d627fabe51c8176b01fbb52574829b5f879c0853c43c93cefeddf4e39eac",
+      "object": "/home/dev/Projects/EnB/.work/claim-254/player-name/runs/family4-jvy7uoql/set_aux_arg/ui_petition_player_entry.obj",
+      "raw_masked_register_residue": [
+        22,
+        22,
+        12
+      ],
+      "rows": [
+        157,
+        159
+      ],
+      "calls": 18,
+      "out_of_line_Cast_calls": 0,
+      "frame": [
+        "0x68",
+        false,
+        false
+      ],
+      "EH_states": 0,
+      "normalized_body_sha256": "b69c0c89ca970cb5e4b6b59a45645a17632a07393a0f54730f45726506625db0",
+      "native_exact_pairs": 61,
+      "file_address_gains": [],
+      "file_address_losses": []
+    },
+    {
+      "id": "family4/set_target_cond",
+      "family": 4,
+      "name": "set_target_cond",
+      "category": "target-only source-equivalent",
+      "source_sha256": "1833df02e65097fe9def8a7c0b935710ce09db91983c95ba2c64bd403babd97d",
+      "source_snapshot": "/home/dev/Projects/EnB/.work/claim-254/player-name/snapshots/family4/set_target_cond/ui_petition_player_entry.cpp",
+      "object_sha256": "fe191c01ba0b8a339cc3a34840d67fafc6361f43f6dd80adcecb2815c43fe871",
+      "object": "/home/dev/Projects/EnB/.work/claim-254/player-name/runs/family4-jvy7uoql/set_target_cond/ui_petition_player_entry.obj",
+      "raw_masked_register_residue": [
+        22,
+        22,
+        12
+      ],
+      "rows": [
+        157,
+        159
+      ],
+      "calls": 18,
+      "out_of_line_Cast_calls": 0,
+      "frame": [
+        "0x68",
+        false,
+        false
+      ],
+      "EH_states": 0,
+      "normalized_body_sha256": "b69c0c89ca970cb5e4b6b59a45645a17632a07393a0f54730f45726506625db0",
+      "native_exact_pairs": 61,
+      "file_address_gains": [],
+      "file_address_losses": []
+    },
+    {
+      "id": "family4/set_name_assign",
+      "family": 4,
+      "name": "set_name_assign",
+      "category": "target-only source-equivalent",
+      "source_sha256": "e23e81b29336465a9551a38c62312d5de06c96e573951e6f4ee4aa8d6b8d48f5",
+      "source_snapshot": "/home/dev/Projects/EnB/.work/claim-254/player-name/snapshots/family4/set_name_assign/ui_petition_player_entry.cpp",
+      "object_sha256": "ce3aebb90e87b49004bfa141665205dfc82f008dd00a39c1f29f70fa95cdb3b5",
+      "object": "/home/dev/Projects/EnB/.work/claim-254/player-name/runs/family4-jvy7uoql/set_name_assign/ui_petition_player_entry.obj",
+      "raw_masked_register_residue": [
+        22,
+        22,
+        12
+      ],
+      "rows": [
+        157,
+        159
+      ],
+      "calls": 18,
+      "out_of_line_Cast_calls": 0,
+      "frame": [
+        "0x68",
+        false,
+        false
+      ],
+      "EH_states": 0,
+      "normalized_body_sha256": "b69c0c89ca970cb5e4b6b59a45645a17632a07393a0f54730f45726506625db0",
+      "native_exact_pairs": 61,
+      "file_address_gains": [],
+      "file_address_losses": []
+    },
+    {
+      "id": "family4/set_append_cond",
+      "family": 4,
+      "name": "set_append_cond",
+      "category": "target-only source-equivalent",
+      "source_sha256": "af6f084255704d5dd7b1ddca4a93646fb689bf93c8a35526186a1d19a4d16986",
+      "source_snapshot": "/home/dev/Projects/EnB/.work/claim-254/player-name/snapshots/family4/set_append_cond/ui_petition_player_entry.cpp",
+      "object_sha256": "a46e6995b607c8c9d490e8b9a9683b7ef798e12f4b0b409a563aea8129e25907",
+      "object": "/home/dev/Projects/EnB/.work/claim-254/player-name/runs/family4-jvy7uoql/set_append_cond/ui_petition_player_entry.obj",
+      "raw_masked_register_residue": [
+        22,
+        22,
+        12
+      ],
+      "rows": [
+        157,
+        159
+      ],
+      "calls": 18,
+      "out_of_line_Cast_calls": 0,
+      "frame": [
+        "0x68",
+        false,
+        false
+      ],
+      "EH_states": 0,
+      "normalized_body_sha256": "b69c0c89ca970cb5e4b6b59a45645a17632a07393a0f54730f45726506625db0",
+      "native_exact_pairs": 61,
+      "file_address_gains": [],
+      "file_address_losses": []
+    },
+    {
+      "id": "family6/set_temporary",
+      "family": 6,
+      "name": "set_temporary",
+      "category": "target-only source-equivalent",
+      "source_sha256": "4e0690660e1d19836cecd2a158340ce3ecafa584052d5f1a17e8c3b438e112a1",
+      "source_snapshot": "/home/dev/Projects/EnB/.work/claim-254/player-name/snapshots/family6/set_temporary/ui_petition_player_entry.cpp",
+      "object_sha256": "5a7aa659e7f29fa851783712a531a0519654e6c3a7b7ecdb242c77f69cd30a98",
+      "object": "/home/dev/Projects/EnB/.work/claim-254/player-name/runs/family6-33mn40rk/set_temporary/ui_petition_player_entry.obj",
+      "raw_masked_register_residue": [
+        25,
+        25,
+        16
+      ],
+      "rows": [
+        157,
+        159
+      ],
+      "calls": 18,
+      "out_of_line_Cast_calls": 0,
+      "frame": [
+        "0x68",
+        false,
+        false
+      ],
+      "EH_states": 0,
+      "normalized_body_sha256": "df9b6193827eeb95eb646a1bc081c5193673629dc308c7b106cf28c6b925263b",
+      "native_exact_pairs": 61,
+      "file_address_gains": [],
+      "file_address_losses": []
+    },
+    {
+      "id": "family6/set_const_named",
+      "family": 6,
+      "name": "set_const_named",
+      "category": "target-only source-equivalent",
+      "source_sha256": "3d7c530ce28a94f3d2d1b0e294b947608754d8b255a56a74eae45360194d8c80",
+      "source_snapshot": "/home/dev/Projects/EnB/.work/claim-254/player-name/snapshots/family6/set_const_named/ui_petition_player_entry.cpp",
+      "object_sha256": "0ae3fe2cfb166ce4b4c8cc01b27094dee881bcde8a7b751900501f55a08affe1",
+      "object": "/home/dev/Projects/EnB/.work/claim-254/player-name/runs/family6-33mn40rk/set_const_named/ui_petition_player_entry.obj",
+      "raw_masked_register_residue": [
+        22,
+        22,
+        12
+      ],
+      "rows": [
+        157,
+        159
+      ],
+      "calls": 18,
+      "out_of_line_Cast_calls": 0,
+      "frame": [
+        "0x68",
+        false,
+        false
+      ],
+      "EH_states": 0,
+      "normalized_body_sha256": "b69c0c89ca970cb5e4b6b59a45645a17632a07393a0f54730f45726506625db0",
+      "native_exact_pairs": 61,
+      "file_address_gains": [],
+      "file_address_losses": []
+    },
+    {
+      "id": "family6/set_ref_implicit",
+      "family": 6,
+      "name": "set_ref_implicit",
+      "category": "target-only source-equivalent",
+      "source_sha256": "d8b4262c61bb73b4cb48ba8a07735d7c945454809e3389d290fd298dcf9664e8",
+      "source_snapshot": "/home/dev/Projects/EnB/.work/claim-254/player-name/snapshots/family6/set_ref_implicit/ui_petition_player_entry.cpp",
+      "object_sha256": "e7f8ae4c5b9ed794267eb288a37e807525c31ad1a4f2eab37082645541467288",
+      "object": "/home/dev/Projects/EnB/.work/claim-254/player-name/runs/family6-33mn40rk/set_ref_implicit/ui_petition_player_entry.obj",
+      "raw_masked_register_residue": [
+        22,
+        22,
+        12
+      ],
+      "rows": [
+        157,
+        159
+      ],
+      "calls": 18,
+      "out_of_line_Cast_calls": 0,
+      "frame": [
+        "0x68",
+        false,
+        false
+      ],
+      "EH_states": 0,
+      "normalized_body_sha256": "b69c0c89ca970cb5e4b6b59a45645a17632a07393a0f54730f45726506625db0",
+      "native_exact_pairs": 61,
+      "file_address_gains": [],
+      "file_address_losses": [],
+      "symbol_identifier_gains": [
+        [
+          "_$E121",
+          "0x5D7300"
+        ]
+      ],
+      "symbol_identifier_losses": [
+        [
+          "_$E119",
+          "0x5D7300"
+        ]
+      ]
+    },
+    {
+      "id": "family6/set_ref_explicit",
+      "family": 6,
+      "name": "set_ref_explicit",
+      "category": "target-only source-equivalent",
+      "source_sha256": "3a5c362a3fb41671efc043791de546041bec65144708cf80039b0b1a72bf5800",
+      "source_snapshot": "/home/dev/Projects/EnB/.work/claim-254/player-name/snapshots/family6/set_ref_explicit/ui_petition_player_entry.cpp",
+      "object_sha256": "4b7e3b9e907d4238cedb14cb5ba1865e696146f2b274e60a6b49476cbe4604b8",
+      "object": "/home/dev/Projects/EnB/.work/claim-254/player-name/runs/family6-33mn40rk/set_ref_explicit/ui_petition_player_entry.obj",
+      "raw_masked_register_residue": [
+        22,
+        22,
+        12
+      ],
+      "rows": [
+        157,
+        159
+      ],
+      "calls": 18,
+      "out_of_line_Cast_calls": 0,
+      "frame": [
+        "0x68",
+        false,
+        false
+      ],
+      "EH_states": 0,
+      "normalized_body_sha256": "b69c0c89ca970cb5e4b6b59a45645a17632a07393a0f54730f45726506625db0",
+      "native_exact_pairs": 61,
+      "file_address_gains": [],
+      "file_address_losses": [],
+      "symbol_identifier_gains": [
+        [
+          "_$E121",
+          "0x5D7300"
+        ]
+      ],
+      "symbol_identifier_losses": [
+        [
+          "_$E119",
+          "0x5D7300"
+        ]
+      ]
+    },
+    {
+      "id": "family6/set_default_before",
+      "family": 6,
+      "name": "set_default_before",
+      "category": "target-only source-equivalent",
+      "source_sha256": "84df22c1cbd64c6906a450f47d138493219b558351c966aff330a9c8a957202a",
+      "source_snapshot": "/home/dev/Projects/EnB/.work/claim-254/player-name/snapshots/family6/set_default_before/ui_petition_player_entry.cpp",
+      "object_sha256": "ea7ce3b067abcdf5cb48ff0f48f328deaf085761a9a47f505b9e82ed0b03ca80",
+      "object": "/home/dev/Projects/EnB/.work/claim-254/player-name/runs/family6-33mn40rk/set_default_before/ui_petition_player_entry.obj",
+      "raw_masked_register_residue": [
+        34,
+        34,
+        23
+      ],
+      "rows": [
+        157,
+        159
+      ],
+      "calls": 18,
+      "out_of_line_Cast_calls": 0,
+      "frame": [
+        "0x68",
+        false,
+        false
+      ],
+      "EH_states": 0,
+      "normalized_body_sha256": "a335aa84d3e237cad58d3c22fae3f5abde1333d251cb869d5d800c2692f01738",
+      "native_exact_pairs": 61,
+      "file_address_gains": [],
+      "file_address_losses": []
+    },
+    {
+      "id": "family6/set_default_after",
+      "family": 6,
+      "name": "set_default_after",
+      "category": "target-only source-equivalent",
+      "source_sha256": "195d971eb07c40305c805127744f219392ed9d77f1b9b9d453b05f33550a6473",
+      "source_snapshot": "/home/dev/Projects/EnB/.work/claim-254/player-name/snapshots/family6/set_default_after/ui_petition_player_entry.cpp",
+      "object_sha256": "f74f5c643913c6232169afbf0ea3784dc87a5bc9bae47c449b609b1eca66f7b8",
+      "object": "/home/dev/Projects/EnB/.work/claim-254/player-name/runs/family6-33mn40rk/set_default_after/ui_petition_player_entry.obj",
+      "raw_masked_register_residue": [
+        35,
+        35,
+        25
+      ],
+      "rows": [
+        160,
+        159
+      ],
+      "calls": 18,
+      "out_of_line_Cast_calls": 0,
+      "frame": [
+        "0x68",
+        false,
+        false
+      ],
+      "EH_states": 0,
+      "normalized_body_sha256": "c0f7e2b9c63ff90a1a3a55122ca949d108eb3b53e78fe9b0eeb2f42b809b75b1",
+      "native_exact_pairs": 61,
+      "file_address_gains": [],
+      "file_address_losses": []
+    },
+    {
+      "id": "family11/raw_dispatch_early_reject",
+      "family": 11,
+      "name": "raw_dispatch_early_reject",
+      "category": "target-only source-equivalent",
+      "source_sha256": "280db96fa636fcefb3fb896881083761bbe9e0cae4ede4fb084bfc5ccb5f98d7",
+      "source_snapshot": "/home/dev/Projects/EnB/.work/claim-254/player-name/snapshots/family11/raw_dispatch_early_reject/ui_petition_player_entry.cpp",
+      "object_sha256": "37bed3458b977a93bc4e12d39a25fa993f4826b7949d0114cb7afb954cd2020a",
+      "object": "/home/dev/Projects/EnB/.work/claim-254/player-name/runs/family11-8h9q3pct/raw_dispatch_early_reject/ui_petition_player_entry.obj",
+      "raw_masked_register_residue": [
+        64,
+        64,
+        50
+      ],
+      "rows": [
+        163,
+        159
+      ],
+      "calls": 18,
+      "out_of_line_Cast_calls": 0,
+      "frame": [
+        "0x68",
+        false,
+        false
+      ],
+      "EH_states": 0,
+      "normalized_body_sha256": "7964d06d60d1b0e0f244042fea6c1b91049489ff10d0708af9aa11c414d1c4e3",
+      "native_exact_pairs": 61,
+      "file_address_gains": [],
+      "file_address_losses": []
+    },
+    {
+      "id": "family11/raw_dispatch_one_first",
+      "family": 11,
+      "name": "raw_dispatch_one_first",
+      "category": "target-only source-equivalent",
+      "source_sha256": "14a211bd213706e2a7eccea32ce70ec8b6c068d4e19db044a3eff2eca96b7b64",
+      "source_snapshot": "/home/dev/Projects/EnB/.work/claim-254/player-name/snapshots/family11/raw_dispatch_one_first/ui_petition_player_entry.cpp",
+      "object_sha256": "c523fac8a08f5413c0a374e4f006d1d9837f3a73dc76a0b8a1312b5951fbc669",
+      "object": "/home/dev/Projects/EnB/.work/claim-254/player-name/runs/family11-8h9q3pct/raw_dispatch_one_first/ui_petition_player_entry.obj",
+      "raw_masked_register_residue": [
+        83,
+        83,
+        65
+      ],
+      "rows": [
+        163,
+        159
+      ],
+      "calls": 18,
+      "out_of_line_Cast_calls": 0,
+      "frame": [
+        "0x68",
+        false,
+        false
+      ],
+      "EH_states": 0,
+      "normalized_body_sha256": "e1f1c7fa7b2d1a3781fe6e93e319a8f258419dfedd8dadee78aab0d4e38326f1",
+      "native_exact_pairs": 61,
+      "file_address_gains": [],
+      "file_address_losses": []
+    },
+    {
+      "id": "family11/set_dispatch_early_reject",
+      "family": 11,
+      "name": "set_dispatch_early_reject",
+      "category": "target-only source-equivalent",
+      "source_sha256": "d2b5a52865321e214dceec961bd6b33acb4b6565c50d2e5d9523063299f5b6ac",
+      "source_snapshot": "/home/dev/Projects/EnB/.work/claim-254/player-name/snapshots/family11/set_dispatch_early_reject/ui_petition_player_entry.cpp",
+      "object_sha256": "2def930f55508e6979dc15e6ec39a794e8d208fac7e239ed8f536707284339fe",
+      "object": "/home/dev/Projects/EnB/.work/claim-254/player-name/runs/family11-8h9q3pct/set_dispatch_early_reject/ui_petition_player_entry.obj",
+      "raw_masked_register_residue": [
+        41,
+        41,
+        28
+      ],
+      "rows": [
+        151,
+        159
+      ],
+      "calls": 18,
+      "out_of_line_Cast_calls": 0,
+      "frame": [
+        "0x68",
+        false,
+        false
+      ],
+      "EH_states": 0,
+      "normalized_body_sha256": "c86407fbc740d5388b5b99c7bc43aa99f1dbc18ef407266fc2afb8e486ae105f",
+      "native_exact_pairs": 61,
+      "file_address_gains": [],
+      "file_address_losses": []
+    },
+    {
+      "id": "family11/set_dispatch_one_first",
+      "family": 11,
+      "name": "set_dispatch_one_first",
+      "category": "target-only source-equivalent",
+      "source_sha256": "5e6afba3f32636c55f9c63a0817db7d221bedd2ed4e187b2e70cae90da07fb0b",
+      "source_snapshot": "/home/dev/Projects/EnB/.work/claim-254/player-name/snapshots/family11/set_dispatch_one_first/ui_petition_player_entry.cpp",
+      "object_sha256": "c46dfa19dd39a69ecfe6aec62b58c90afd1f0b0cbd19cc845daf5552079fe768",
+      "object": "/home/dev/Projects/EnB/.work/claim-254/player-name/runs/family11-8h9q3pct/set_dispatch_one_first/ui_petition_player_entry.obj",
+      "raw_masked_register_residue": [
+        60,
+        60,
+        43
+      ],
+      "rows": [
+        151,
+        159
+      ],
+      "calls": 18,
+      "out_of_line_Cast_calls": 0,
+      "frame": [
+        "0x68",
+        false,
+        false
+      ],
+      "EH_states": 0,
+      "normalized_body_sha256": "e7e2523d89551628f1fdb4b0b75d264fc0cb4829f10d9ee1f75f92d721017525",
+      "native_exact_pairs": 61,
+      "file_address_gains": [],
+      "file_address_losses": []
+    }
+  ],
+  "controls_and_repeats": [
+    {
+      "id": "family1/baseline",
+      "family": 1,
+      "name": "baseline",
+      "category": "target-only source-equivalent",
+      "source_sha256": "75e2706002b45621413b2b3d2b9c4ec7c9f9b625d72dfedab3586526fb909598",
+      "source_snapshot": "/home/dev/Projects/EnB/.work/claim-254/player-name/snapshots/family1/baseline/ui_petition_player_entry.cpp",
+      "object_sha256": "f3b6e0470358c9594630596d7d6f631f1f08c57826c3a42498c8cba270cebf9c",
+      "object": "/home/dev/Projects/EnB/.work/claim-254/player-name/runs/family1-9u9640gp/baseline/ui_petition_player_entry.obj",
+      "raw_masked_register_residue": [
+        36,
+        36,
+        34
+      ],
+      "rows": [
+        169,
+        159
+      ],
+      "calls": 18,
+      "out_of_line_Cast_calls": 0,
+      "frame": [
+        "0x68",
+        false,
+        false
+      ],
+      "EH_states": 0,
+      "normalized_body_sha256": "7f9834490fe24e6f499165a0537bdd235d685fb4f1725df073f20d95e0f744dd",
+      "native_exact_pairs": 61,
+      "file_address_gains": [],
+      "file_address_losses": []
+    },
+    {
+      "id": "repeat-tspq5qjk/baseline_repeat",
+      "source_sha256": "75e2706002b45621413b2b3d2b9c4ec7c9f9b625d72dfedab3586526fb909598",
+      "object_sha256": "4b0bf1d1cf28b7d391b99d82861b306983320955eb0464329c7e81f77c190ec0",
+      "raw_masked_register_residue": [
+        36,
+        36,
+        34
+      ],
+      "native_exact_pairs": 61,
+      "file_address_gains": [],
+      "file_address_losses": [],
+      "normalized_body_sha256": "7f9834490fe24e6f499165a0537bdd235d685fb4f1725df073f20d95e0f744dd"
+    },
+    {
+      "id": "repeat-tspq5qjk/best_repeat",
+      "source_sha256": "27b26f8cc89e970735dceede5101a91bcaefad4246b9b22185af9e6b92b6ba4b",
+      "object_sha256": "4a2b0e539028fbf9b3fc3e854a1783cbfba4ac81586ccc2c23ef1c241fc5996c",
+      "raw_masked_register_residue": [
+        22,
+        22,
+        12
+      ],
+      "native_exact_pairs": 61,
+      "file_address_gains": [],
+      "file_address_losses": [],
+      "normalized_body_sha256": "b69c0c89ca970cb5e4b6b59a45645a17632a07393a0f54730f45726506625db0"
+    },
+    {
+      "id": "root_repeat-97jog27b/root_field_best_repeat",
+      "source_sha256": "db224f4542a186430e334660542235927b3d8c5d383fc7aaaf2d53779836967c",
+      "object_sha256": "38d0997524b49a90b780c7d582fd1b086de74e2f134b0e07d7829a4c22c8a1bc",
+      "raw_masked_register_residue": [
+        15,
+        15,
+        14
+      ],
+      "native_exact_pairs": 61,
+      "file_address_gains": [],
+      "file_address_losses": [],
+      "normalized_body_sha256": "8a42bd10a907738161ceedb7c25c23a5ee9f548812ee5746298f464c75824c91"
+    }
+  ],
+  "snapshot_notes": [
+    "family1/set_temporary path was reused by family6 after the first build; reconstructed original bytes from recorded generator and verified original SHA-256. Both retained separately."
+  ]
+}

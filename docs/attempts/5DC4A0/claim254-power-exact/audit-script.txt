@@ -1,0 +1,149 @@
+from pathlib import Path
+import json,os,sys,hashlib,re
+os.environ['ENB_RETAIL_INSTALL']='/home/dev/Games/earth-and-beyond/prefix/drive_c/Program Files (x86)/EA GAMES/Earth & Beyond'
+sys.path[:0]=['/home/dev/Projects/EnB/tools/re','/home/dev/Projects/EnB/tools/vc6']
+import capstone
+from objmatch import CoffObject,symbol_addresses,object_unwind
+from clientimage import ClientImage
+W=Path(__file__).parent
+B=W/'runs/family1-zlundnf1/baseline';C=W/'runs/family4-zchvbiwb/captured_later_all'
+old=(W/'tree/app/client/ui_power.cpp').read_bytes();new=(W/'snapshots/family4/captured_later_all/ui_power.cpp').read_bytes()
+target='?Unknown_10@UIPowerClass@@UAEXXZ';begin,end=0x5DC4A0,0x5DC998
+bo=CoffObject(str(B/'ui_power.obj'));co=CoffObject(str(C/'ui_power.obj'));img=ClientImage()
+bf={n:(s,b,e) for n,s,b,e in bo.functions()};cf={n:(s,b,e) for n,s,b,e in co.functions()}
+sha=lambda b:hashlib.sha256(b).hexdigest()
+def raw(o,s,b,e):return o.data[o.sections[s]['raw']+b:o.sections[s]['raw']+e]
+def code(o,s,b,e):
+    d=bytearray(raw(o,s,b,e));refs=[]
+    for p,z,t,y,a in o.reloc_targets(s,b,e-b):
+        d[p:p+z]=bytes(z);n=y['name'];lit=o.literal(y)
+        if re.fullmatch(r'\$[LT]\d+',n):n='$<compiler-local-label>'
+        if lit and b'.cpp\x00' in lit:lit=lit.replace(b'\\',b'/').rsplit(b'/',1)[-1]
+        refs.append((p,z,t,n,lit.hex() if lit is not None else None))
+    return bytes(d),refs
+same=[];changed=[]
+for n in sorted(bf.keys()&cf.keys()):
+    if n==target:continue
+    (same if code(bo,*bf[n])==code(co,*cf[n]) else changed).append(n)
+assert not changed,changed
+newfuncs=sorted(cf.keys()-bf.keys());assert newfuncs==['?Unknown_Find_Field@@YAPAV?$DeltaTemplateClass@M@@PAVDeltaCompoundClass@@ABVNameClass@@@Z']
+assert not bf.keys()-cf.keys()
+s,b,e=cf[target];body=raw(co,s,b,e)
+while body[-1] in (0x90,0xCC):body=body[:-1]
+assert len(body)==end-begin==1272
+retail=img.data[img.offset(begin):img.offset(end)];relocs=co.reloc_targets(s,b,len(body))
+left,right=bytearray(body),bytearray(retail)
+for p,z,t,y,a in relocs:left[p:p+z]=bytes(z);right[p:p+z]=bytes(z)
+assert left==right
+md=capstone.Cs(capstone.CS_ARCH_X86,capstone.CS_MODE_32);md.detail=True
+ours=list(md.disasm(body,0));theirs=list(md.disasm(retail,begin))
+assert len(ours)==len(theirs)==373 and ours[-1].address+ours[-1].size==1272
+known=symbol_addresses();thunks=img.incremental_thunks()
+known.setdefault('?UnknownGlobal@?$DeltaTemplateClass@M@@2HA',set()).add(0xC416F0) # delta_template.h:49; delta_numbering.h:4
+known.setdefault('?UnknownGlobal@DeltaCompoundClass@@2HA',set()).add(0xBE3A74) # delta.h:80,128
+called=json.loads((W.parents[2]/'docs/data/called.json').read_text())['app']
+for n,aa in called.items():known.setdefault(n,set()).update(int(a,16) for a in aa)
+rows=json.loads((C/'matches.json').read_text())
+for r in rows:
+    if r['status']=='exact':known.setdefault(r['symbol'],set()).update(int(a,16) for a in r['addresses'])
+branches=[];calls=[];floating=[]
+for oi,ri in zip(ours,theirs):
+    assert (oi.address,oi.size,oi.mnemonic)==(ri.address-begin,ri.size,ri.mnemonic)
+    if oi.mnemonic.startswith('j'):
+        assert oi.operands[0].imm==ri.operands[0].imm-begin
+        assert 0<=oi.operands[0].imm<len(body)
+        branches.append(dict(offset=hex(oi.address),mnemonic=oi.mnemonic,destination=hex(oi.operands[0].imm),width=oi.size))
+    if oi.mnemonic=='call':
+        if oi.operands[0].type!=capstone.x86.X86_OP_IMM:
+            assert oi.bytes==ri.bytes;calls.append(dict(offset=hex(oi.address),indirect=oi.op_str,resolved=True))
+        else:
+            rr=[r for r in relocs if oi.address<=r[0]<oi.address+oi.size];assert len(rr)==1 and rr[0][2]==20
+            n=rr[0][3]['name'];destination=thunks.get(ri.operands[0].imm,ri.operands[0].imm)
+            values=known.get(n,set());values={values} if isinstance(values,int) else values
+            calls.append(dict(offset=hex(oi.address),symbol=n,destination=hex(destination),resolved=destination in values))
+    if oi.mnemonic.startswith('f'):
+        floating.append(dict(offset=hex(oi.address),instruction=ri.mnemonic+' '+ri.op_str,widths=[o.size for o in ri.operands]))
+assert all(c['resolved'] for c in calls),[c for c in calls if not c['resolved']]
+data=[]
+for p,z,t,y,a in relocs:
+    if t==20:continue
+    assert t==6 and z==4
+    address=int.from_bytes(retail[p:p+z],'little');lit=co.literal(y);n=y['name']
+    row=dict(offset=hex(p),symbol=n,destination=hex(address))
+    if lit is not None:
+        actual=img.cstr(address).encode('latin1')+b'\x00'
+        if b'.h\x00' in lit or b'.cpp\x00' in lit:
+            assert actual.replace(b'\\',b'/').rsplit(b'/',1)[-1]==lit.replace(b'\\',b'/').rsplit(b'/',1)[-1]
+            row.update(kind='__FILE__ basename equal; scratch prefix differs',basename=actual.replace(b'\\',b'/').rsplit(b'/',1)[-1][:-1].decode())
+        else:
+            assert actual==lit;row.update(kind='equal string bytes',value=actual[:-1].decode('latin1'))
+    else:
+        assert y['section']>0
+        ins=next(i for i in ours if i.address<=p<i.address+i.size)
+        size=next(o.size for o in ins.operands if o.type==capstone.x86.X86_OP_MEM)
+        at=co.sections[y['section']-1]['raw']+y['value']+int.from_bytes(a,'little')
+        bits=co.data[at:at+size];assert bits==img.data[img.offset(address):img.offset(address)+size]
+        row.update(kind='equal floating constant bits',width=size,bits=bits.hex())
+    data.append(row)
+addresses={i.address:i for i in theirs};seen=set();pending=[begin]
+while pending:
+    at=pending.pop()
+    if at in seen:continue
+    assert at in addresses,hex(at)
+    seen.add(at);i=addresses[at]
+    if i.mnemonic=='ret':continue
+    if i.mnemonic.startswith('j'):
+        pending.append(i.operands[0].imm)
+        if i.mnemonic=='jmp':continue
+    pending.append(i.address+i.size)
+assert len(seen)==373
+assert not object_unwind(co,s,b,len(body))
+assert not any('fs:' in i.op_str or i.mnemonic in ('enter','leave') for i in theirs)
+start=old.index(b'void UIPowerClass::Unknown_10()');finish=old.index(b'\n// @0x5DCAE0',start)
+assert old[:start]==new[:start]
+assert old[finish:]==new[new.index(b'\n// @0x5DCAE0',start):]
+assert old.count(b'\n')==new.count(b'\n')
+assert [(i,l) for i,l in enumerate(old.splitlines(),1) if b'G_ASSERT' in l or b'FAIL_IF' in l]==[(i,l) for i,l in enumerate(new.splitlines(),1) if b'G_ASSERT' in l or b'FAIL_IF' in l]
+def pairs(folder):return {(r['symbol'],a) for r in json.loads((folder/'matches.json').read_text()) if r['status']=='exact' for a in r['addresses']}
+bp,cp=pairs(B),pairs(C);assert not bp-cp and len(cp-bp)==3
+out=dict(status='exact; full target audited',base_commit='51c7769c',model='gpt-6.1-sol (high)',source_sha256=sha(new),baseline_source_sha256=sha(old),retail_sha256=sha(img.data),object_sha256=sha((C/'ui_power.obj').read_bytes()),baseline_pairs=len(bp),candidate_pairs=len(cp),gained=sorted(cp-bp),lost=sorted(bp-cp),source_outside_target_identical=True,physical_lines_and_asserts_identical=True,helper_overlay=None,outside_target_unchanged_functions=same,outside_target_changed_functions=changed,new_functions=newfuncs,changed_helper_explanation='Unchanged DeltaInterpolator Find resolves from ambiguous multiple to exact 0x5BF2B0 when the new float Find exact 0x546710 is emitted; full-unit native matching proves both. No source outside target changed.',target_bounds=[hex(begin),hex(end)+' exclusive'],body_bytes=len(body),instructions=len(ours),reachable_instructions=len(seen),returns=[hex(i.address) for i in theirs if i.mnemonic=='ret'],masked_body_equal=True,masked_body_sha256=sha(left),raw_normalized_residue=0,masked_residue=0,register_masked_residue=0,branches=branches,calls=calls,data_relocations=data,x87=floating,EH='No unwind registration, no FS access; all instructions and the sole return compared.',limitations=['Object proof; no full executable link.','Scratch __FILE__ paths differ; basenames and all other string bytes checked.'])
+helpers=[]
+for name,address in [(newfuncs[0],0x546710),(changed[0] if changed else '?Unknown_Find_Field@@YAPAVDeltaInterpolatorClass@@PAVDeltaCompoundClass@@ABVNameClass@@@Z',0x5BF2B0)]:
+    hs,hb,he=cf[name];hbody=raw(co,hs,hb,he)
+    while hbody[-1] in (0x90,0xCC):hbody=hbody[:-1]
+    hretail=img.data[img.offset(address):img.offset(address)+len(hbody)]
+    hm,hr=bytearray(hbody),bytearray(hretail);hrefs=co.reloc_targets(hs,hb,len(hbody));hchecked=[]
+    for p,z,t,y,a in hrefs:
+        hm[p:p+z]=bytes(z);hr[p:p+z]=bytes(z)
+        n=y['name'];lit=co.literal(y)
+        if t==20:
+            ins=next(i for i in md.disasm(hretail,address) if i.address-address<=p<i.address-address+i.size)
+            dest=thunks.get(ins.operands[0].imm,ins.operands[0].imm)
+            assert dest in known.get(n,set()),(n,hex(dest))
+            hchecked.append(dict(offset=hex(p),symbol=n,destination=hex(dest),resolved=True))
+        else:
+            dest=int.from_bytes(hretail[p:p+z],'little');actual=img.cstr(dest).encode('latin1')+b'\x00' if lit is not None else None
+            if lit is None:
+                assert dest in known.get(n,set()),(n,hex(dest),known.get(n))
+                hchecked.append(dict(offset=hex(p),kind='resolved static type identity',symbol=n,destination=hex(dest)))
+            elif lit.replace(b'\\',b'/').endswith(b'/auxdata.h\x00'):
+                assert actual.replace(b'\\',b'/').endswith(b'/auxdata.h\x00')
+                hchecked.append(dict(offset=hex(p),kind='__FILE__ basename equal',basename='auxdata.h'))
+            else:
+                assert actual==lit
+                hchecked.append(dict(offset=hex(p),kind='equal string bytes',value=actual[:-1].decode('latin1')))
+    assert hm==hr
+    hi=list(md.disasm(hretail,address));assert hi[-1].mnemonic=='ret'
+    helpers.append(dict(symbol=name,bounds=[hex(address),hex(address+len(hbody))+' exclusive'],bytes=len(hbody),instructions=len(hi),returns=[hex(i.address) for i in hi if i.mnemonic=='ret'],masked_body_equal=True,relocations=hchecked))
+out['helper_audits']=helpers
+out['FP_semantics']={
+ 'general':'All x87 instruction bytes, memory widths, operation order, stores and conversion calls equal retail; no forced rounding store or reassociation introduced.',
+ 'energy_shield_clamps':'fcom +0; test ah,1 treats unordered like less and takes cur=+0. Otherwise fcom max; test ah,0x41 keeps cur when unordered/equal, replaces cur by max only when greater.',
+ 'shield_positive_guard':'fcomp +0; test ah,0x41 rejects less/equal/unordered. Shield Value is loaded exactly once before this test, as retail 0x5DC7D5.',
+ 'hull_minimum':'fcomp +1; test ah,1 treats unordered like less, setting max and cur to +0 and calling Set_Value(+0).',
+ 'signed_zero':'Less-than tests preserve -0 when it is an input cur; explicit replacement and missing-field fallbacks have exactly retail +0 bits.',
+ 'conversions':'The six __ftol calls and their order/operand-loading sequence equal retail; x87 rounding and non-finite conversion behavior therefore unchanged.'}
+out['field_and_callback_order']='Object guard; AuxData and Client clock snapshot; EnergyPercent find/Get_Value/Set_Value then conditional MaxEnergyPower find/one Value read/tooltip; ShieldPercent find/Get_Value/Set_Value then conditional MaxShieldPower find/one Value read/positive guard/tooltip; MaxHullPoints find then HullPoints find, followed by their Value reads in that order, Hull Set_Value then conditional tooltip. Unknown70 stays nonzero (unsigned >0 equivalent only in diagnostics), never >1.'
+(W/'audit.json').write_text(json.dumps(out,indent=2)+'\n')
+print(json.dumps({k:out[k] for k in ['status','body_bytes','instructions','reachable_instructions','returns','gained','lost','outside_target_changed_functions','new_functions']}))
+print(json.dumps(dict(calls=len(calls),branches=len(branches),x87_instructions=len(floating),constant_relocations=[r for r in data if r['kind']=='equal floating constant bits'])))

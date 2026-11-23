@@ -236,19 +236,19 @@ void UIPTradeClass::Unknown_60()
 }
 
 // 0x5E2CE0
-// NOT EXACT: register-only (0.84, same length: key 3's request reads the client through eax, the client's; ours through edx as keys 1 / 2)
+
 bool UIPTradeClass::Unknown_68(int key)
 {
-	SClient *sclient = Client->As_Space_Client();
+	SClient *sclient = Client->As_Space_Client(); int avatar; int id; // NAME 1 [avatar, id]: neutral (D10)
 	switch (key) {
 		case 1:
 		case 2:
 			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
-			sclient->Send_Packet(&ActionPacketClass(sclient->AvatarID, 0x16, ((ClientClass *)Client)->Unknown1134, 0));
+			sclient->Send_Packet(&ActionPacketClass(avatar = sclient->AvatarID, 0x16, id = ((ClientClass *)Client)->Unknown1134, 0));
 			return(true);
 		case 3:
 			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
-			sclient->Send_Packet(&ActionPacketClass(sclient->AvatarID, 0x15, ((ClientClass *)Client)->Unknown1134, 0));
+			sclient->Send_Packet(&ActionPacketClass(avatar = sclient->AvatarID, 0x15, id = ((ClientClass *)Client)->Unknown1134, 0));
 			return(true);
 		case 4:
 		{
@@ -511,3 +511,6 @@ UIPTradeCreditsGadgetClass::UIPTradeCreditsGadgetClass(const RefCountPtr<RenderO
 {
 	Unknown60 = credits;
 }
+
+// Reconstruction note: 0x5E2CE0 is exact when the avatar and partner IDs are assigned at the
+// packet argument sites, preserving their reads after the sound call and the retail register choices.

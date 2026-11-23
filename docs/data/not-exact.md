@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-622 entries in 258 files.
+613 entries in 252 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -398,18 +398,10 @@ edit the comments in the code, not this file.
 | `app/client/ui_pda_cargo.cpp:293` | `UIPdaCargoClass::Unknown_5D0A50` | marker | NOT EXACT: functional from the pseudocode (D64): ui_attrb.cpp's 0x547C20 for this window's 'Credits' 0x5D0A50 |
 | `app/client/ui_pda_equip.cpp:294` | `UIPdaEquipClass::Unknown_B0` | marker | NOT EXACT: functional from the pseudocode (D64) @0x5D2210 |
 | `app/client/ui_petition_entry.cpp:44` | `UIPetitionEntryClass::Unknown_54` | marker | NOT EXACT: register (the two TextGadgetClass setters give the client's one load per call; left: the Entry_Field00 Create_Get's vtable / result registers, the TextGadgetClass constructor's flags / model registers, the first Unknown_6870E0's view in eax (client edx); GV3) 0x5D4890 |
-| `app/client/ui_petition_player_entry.cpp:196` | `UIPetitionPlayerEntryClass::Unknown_A0` | marker | NOT EXACT: register (the client loads the client's +0x1130 into eax, ours edx; as ui_petition_stuck.cpp's 0x5D7420) 0x5D6550 |
 | `app/client/ui_petition_player_entry.cpp:303` | `UIPetitionPlayerNameClass::Unknown_68` | marker | NOT EXACT: inline-budget (the client calls rtti.h's DeltaStringClass cast 0x4099A8 out of line at both lookups, ours inlines it; as co.cpp's 0x6FF4B0) 0x5D6EE0 |
-| `app/client/ui_petition_stuck.cpp:42` | `UIPetitionStuckClass::Unknown_A0` | marker | NOT EXACT: register (the client loads the client's +0x1130 into eax, ours edx) 0x5D7420 |
-| `app/client/ui_popup_browser.cpp:27` | `UIPopupBrowserClass::UIPopupBrowserClass` | marker | NOT EXACT: inline-budget (0.52, 160 instructions vs 189: the client calls Url's _Tidy(false) out of line; ours expands it) @0x5DAE90 |
-| `app/client/ui_power.cpp:101` | `UIPowerClass::Unknown_10` | marker | NOT EXACT: functional (D64): the client calls Unknown_Find_Field out of line for MaxEnergyPower only (as ui_experience.cpp's 0x58CB50) |
-| `app/client/ui_proc.cpp:126` | `UIProc5DCD20Class::Unknown_08` | marker | NOT EXACT: 0x5DD3C0 (0.81): block order, the cycle wrap's EndFrame arm sits after the return in the client (attempts.csv) @0x5DD3C0 |
-| `app/client/ui_ptrade.cpp:239` | `UIPTradeClass::Unknown_68` | marker | NOT EXACT: register-only (0.84, same length: key 3's request reads the client through eax, the client's; ours through edx as keys 1 / 2) |
 | `app/client/ui_radio_admin.cpp:246` | `UIRadioAdminClass::Unknown_5E5360` | marker | NOT EXACT: inline budget and stack slots (cases 5 and 6: the client destroys the channel's temporary inline and expands the selected name's assignment in case 6, its temporaries at other frame offsets) |
 | `app/client/ui_radio_join.cpp:161` | `UIRadioJoinClass::Unknown_5EB2F0` | marker | NOT EXACT: the string temporaries' inline expansions and register choices differ (inline budget) |
 | `app/client/ui_refinery.cpp:435` | `UIRefineryClass::Unknown_5ECEF0` | marker | NOT EXACT: register (the 'AdditionalIterations' pointer kept in ecx and its local, the two flags' tests in another order; 0x5465C0 / 0x5B7130 out of line as the client) (0x5ECEF0) |
-| `app/client/ui_refinery.cpp:617` | `UIRefineryClass::Unknown_5EDCC0` | marker | NOT EXACT: inline budget (the client calls the 'NegotiatedCost' Cast out of line; the 'Money' find out of line as the client; dead finds before it push the 0x5ECBB0 copies out too) (0x5EDCC0) |
-| `app/client/ui_refinery.cpp:637` | `UIRefineryClass::Unknown_5EDFD0` | marker | NOT EXACT: inline budget (the client calls all three finds' Unknown_Find_Field out of line, 0x5465C0 / 0x417D82, with the name in the caller; ours calls the inline layer out of line, or inlines the find; frame 0xBC vs 0xEC) (0x5EDFD0) |
 | `app/client/ui_registration.cpp:1266` | `RegistrationInterface::Unknown_5F3770` | mention | NOT EXACT: inline-budget (attempts.csv; cases in jump table 0x5F7214's layout order; the client cuts more of its later inline accessors and 0x5F2F90's converting constructor 0x6092D0) |
 | `app/client/ui_registration.cpp:2347` | `RegistrationInterface::Unknown_5FA0B0` | marker | NOT EXACT: field-offset (explain.py; 340 instructions each: register choice in the inlined operator= into +0x2CC and the 'EB' compare) @0x5FA0B0 |
 | `app/client/ui_registration.cpp:2970` | `RegistrationInterface::Unknown_5FBD30` | marker | NOT EXACT: inline-budget (functional; group loops through 0x5F33E0, pushes through 0x5F87D0, back-outs through 0x5F8560, server boxes through 0x5FB890 as the client inlines them; cases 0x11 / 0x14 / 0x12 written out (the client cross-jumps them into 0x14's copy); the combo boxes' Selected through UIComboBoxClass::Get_Selected (0x5FFFE0, out of line at cases 0xB / 0xE, 0x5FEF96 / 0x5FF0E3) there an... |
@@ -468,7 +460,6 @@ edit the comments in the code, not this file.
 | `app/client/ui_verb.cpp:262` | `UIVerbClass::Unknown_88` | marker | NOT EXACT: inline budget (the first Clear_Buttons copy: the client calls size(), inlines erase); the second copy matches |
 | `app/client/unknown_586240.cpp:268` | `UISpaceLightsClass::Unknown_586F60` | marker | NOT EXACT: order (the address of Color[Current] after 1.0f - v in the client), D89; the pseudocode-faithful form 0x586F60 |
 | `app/client/unknown_586240.cpp:352` | `UISpaceLightsClass::Unknown_587310` | mention | NOT EXACT, an order-only residue: the address of Color[Current] is computed after 1.0f - v in the client) clamps with WWMath::Min / Max, y declared before x. |
-| `app/client/unknown_5dd960.cpp:14` | `Unknown5DD960Class::Unknown5DD960Class` | marker | NOT EXACT: functional (O28; similarity 0.87): only the loop's set-up order (the names' pointer loaded after, not before, the buttons' address); Buttons[3] at +0x18C indexed i - 1 and a loop from 0 tried @0x5DD960 |
 | `app/client/unknown_62a7c0.cpp:43` | `Unknown62A7C0Class::Unknown_62AA20` | marker | NOT EXACT (0.59, attempts.py 0x62AA20): the client holds the folded -0.29f in one float temporary (fld / fst) for the three offsets, ours stores it as immediates |
 | `app/client/unknown_62a7c0.cpp:100` | `Unknown62A7C0Class::Unknown_62AFA0` | mention | NOT EXACT: 0x62AA20 (0x62ADE0 inlined with 0.0f; the client keeps the folded -0.29f in one float temporary, ours stores immediates; tried a local offset, a float-returning helper: both exact elsewhere, no change here). |
 | `app/client/unknown_6ca0c0.cpp:76` | `FontSys::Unknown_6CA0C0` | marker | NOT EXACT: worked toward the client's bytes (FX1 / FX, runs 2026-11-20 and -21; FS 2026-11-22): case order, branch senses, inline layers, budget, Append_Dots (RANDLETTER / STAY), STAY's buffer local (pushed to 0x6D8DC0 and String_Pixel_Width, 0x6CC3B8 / 0x6CC3D3) |

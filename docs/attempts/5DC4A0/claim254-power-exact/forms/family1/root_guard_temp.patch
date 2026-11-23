@@ -1,0 +1,20 @@
+--- a/app/client/ui_power.cpp
++++ b/app/client/ui_power.cpp
+@@ -26,7 +26,7 @@
+ 	const char *Sound;									// +0x88 ('PROPULSION', 'SHIELD')  // NAME 2: what the warning's name takes
+ };
+ 
+-// (two inline layers, NameClass and the root copy in the inner one: ui_mfd.cpp's form, the find 0x5BF2B0 out of line)
++template<class C> static inline C *Unknown_Find_Root_Field(DeltaCompoundClass *root, NameClass &name) { if (!root) return(NULL); C *t = Unknown_Find_Field<C>(root, name); if (!t) return(NULL); return(t); }	// NAME 1: neutral (D10): the find with its own root test (0x546090 calls the Cast out of line inside it, as the client)  // NAME 1 [root, name]: neutral
+ template<class C> inline C *Unknown_Power_Field(DeltaCompoundClass *const &root, const char *name) { NameClass n(name); DeltaCompoundClass *r = root; C *t = Unknown_Find_Field<C>(r, n); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10)
+ template<class C> inline C *Unknown_Power_Find(DeltaCompoundClass *const &root, const char *name) { return(Unknown_Power_Field<C>(root, name)); }	// NAME 1: neutral (D10)
+ 
+@@ -109,7 +109,7 @@
+ 		float value = percent ? percent->Get_Value(time) : 0.0f;
+ 		EnergyGauge->Set_Value(value);
+ 		if (EnergyGauge->Is_Unknown2C_08()) {
+-			DeltaTemplateClass<float> *field = Unknown_Find_Set_Field<DeltaTemplateClass<float> >(aux, NameClass("MaxEnergyPower"));
++			DeltaTemplateClass<float> *field = Unknown_Find_Root_Field<DeltaTemplateClass<float> >(aux, NameClass("MaxEnergyPower")); if (field && !field->Unknown70) field = NULL;
+ 			float max = field ? field->Value : 0.0;
+ 			float cur = max * value;
+ 			if (cur < 0.0f) {

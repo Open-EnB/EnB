@@ -123,7 +123,7 @@ UIProc5DCD20Class::~UIProc5DCD20Class()
 	}
 }
 
-// NOT EXACT: 0x5DD3C0 (0.81): block order, the cycle wrap's EndFrame arm sits after the return in the client (attempts.csv)
+
 // @0x5DD3C0
 bool UIProc5DCD20Class::Unknown_08(float time)
 {
@@ -164,9 +164,9 @@ bool UIProc5DCD20Class::Unknown_08(float time)
 		}
 		if (Cycle) {
 			float start = StartFrame;
-			float rest = (float)fmod(next - start, EndFrame - StartFrame);
-			next = ((rest >= 0.0f) ? start : EndFrame) + rest;
-
+			next = (float)fmod(next - start, EndFrame - StartFrame);
+			if (next >= 0.0f) next = start + next;
+			else next = EndFrame + next;
 
 
 
@@ -251,3 +251,6 @@ bool UIProc5DD910Class::Unknown_04()
 //   buttons' object (its strings follow these, no __FILE__ either).
 // - 0x5DCD20 and 0x5DCF00 store the same table 0xAF5D94: one class with two constructors, by name and by animation.
 // - 0x5DCD20 reloads the animation after a miss and drops the result: the FAIL_IF '!anim' (l.52) is reported always then.
+
+// - 0x5DD3C0 is exact: store the remainder directly in next and express the ordered nonnegative
+//   branch explicitly, recovering the retail cold EndFrame arm after the return, including unordered behavior.

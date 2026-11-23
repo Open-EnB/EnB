@@ -1,0 +1,485 @@
+# Claim 254 petition additional source forms
+
+All forms are independent against a38a6f7a80dda281ffb6d3471a271ad4e2a654d2. The corresponding source files are unchanged since a6aee2de. No source is adopted.
+
+Replay: use `git show a38a6f7a80dda281ffb6d3471a271ad4e2a654d2:FILE` as the seed, replace only the stated physical line with the exact one-line code block (including its leading tab), keep its final LF, then compare the full source SHA-256. The collector has replayed every candidate this way. Keep the original source basename for __FILE__; scratch absolute paths remain a limitation for literal-path evidence.
+
+Compiler: VC6 6.0 SP4 via Wine; native full-object objmatch.py, no score filter. Generator author: gpt-6.1-terra (high); hypothesis/review/analysis: gpt-6.1-sol (high).
+
+Correction to the prior round: 0x89F830 is the scalar deleting destructor. Both targets call constructor 0x89F740, ClientClass::Send_Packet 0x728150, then the ordinary destructor 0x89F930. Entry sites: 0x5D66D4/0x5D66E2/0x5D66F0; stuck: 0x5D74DC/0x5D74EA/0x5D74F8. Constructor callers are exactly the two claimed targets.
+
+Metrics SHA-256: `b3ba6c86379ddb36e6f6b0101574f5ace57a447926f4fe206a809c48dbae2cd0` (metrics.json). Counts: {"control": 2, "diagnostic": 2, "new_valid": 31}. Source repeats: 0.
+
+Emission novelty relative to the preceding 8-form-per-target round: {"0x5D6550": {"source_forms": 16, "source_forms_emitting_a_prior_group": 12, "target_code_groups": 4, "target_code_groups_new_vs_prior_round": ["1c9bbd78716a60a3", "e4b430d9e76d64fc"]}, "0x5D7420": {"source_forms": 15, "source_forms_emitting_a_prior_group": 11, "target_code_groups": 5, "target_code_groups_new_vs_prior_round": ["407309c4df1eb365", "c004d78422cc01f5"]}}. Distinct source forms frequently collapse to code already seen; these are not claimed as distinct machine-code outcomes.
+
+The const c_str calls and inline getter read only; snapshots follow the observed right-to-left c_str order. Reference packet temporaries end at an inner scope before return. Reference spellings cache the same client pointer across a constructor that touches only its packet and string storage. These are source probes, not claims about the original spelling.
+
+## Isolated diagnostic seed (excluded from valid source form counts)
+
+Both diagnostic source files equal the baseline. In a separate full header tree only, replace the `unsigned ShipID;` declaration in app/client/client.h with `int ShipID;`. Frozen header SHA-256 `c19d52b51a3c9aedd778f4ef96637c76cc46ad69228bc1341e975374ab83ecb7`; diagnostic header SHA-256 `90e6d4e9965063da18ea8d2c732c7c3356e71b2acc54693f30cb34c47421f1a8`. All other tree files remain unchanged. This header is never adopted.
+
+## 0x5D6550 baseline
+
+File: `app/client/ui_petition_player_entry.cpp`; source SHA-256: `75e2706002b45621413b2b3d2b9c4ec7c9f9b625d72dfedab3586526fb909598`.
+
+Role: control.
+
+Result: register-only, residue 2, target size 592; target exact False; gains []; losses []. Code SHA-256: `a0c82cf2118f997bb19c2a458013d18fa6a7776940c43b1fb5220c9925f1ce94`.
+
+## 0x5D6550 str_ref_subject
+
+File: `app/client/ui_petition_player_entry.cpp`; source SHA-256: `1764fab7c7889a4e8e22c1ed1085544645e208759fe86262849eb484864dd270`.
+
+Role: new_valid.
+
+Result: register-only, residue 2, target size 592; target exact False; gains []; losses []. Code SHA-256: `a0c82cf2118f997bb19c2a458013d18fa6a7776940c43b1fb5220c9925f1ce94`.
+
+A: const-reference string alias may affect argument register allocation. Replace physical line 209:
+
+```cpp
+	const std::string &ref_subject = subject; ((ClientClass *)Get_Client())->Send_Packet(&PetitionStuckPacketClass(((ClientClass *)Get_Client())->ShipID, Unknown0B8, ref_subject.c_str(), details.c_str(), names.c_str()));
+```
+
+## 0x5D6550 str_ref_details
+
+File: `app/client/ui_petition_player_entry.cpp`; source SHA-256: `7af47a0f45208ab7c6de85bae87683b56314d0c96bd9a0e06b89825100364405`.
+
+Role: new_valid.
+
+Result: register-only, residue 2, target size 592; target exact False; gains []; losses []. Code SHA-256: `a0c82cf2118f997bb19c2a458013d18fa6a7776940c43b1fb5220c9925f1ce94`.
+
+A: const-reference string alias may affect argument register allocation. Replace physical line 209:
+
+```cpp
+	const std::string &ref_details = details; ((ClientClass *)Get_Client())->Send_Packet(&PetitionStuckPacketClass(((ClientClass *)Get_Client())->ShipID, Unknown0B8, subject.c_str(), ref_details.c_str(), names.c_str()));
+```
+
+## 0x5D6550 str_ref_names
+
+File: `app/client/ui_petition_player_entry.cpp`; source SHA-256: `9c3889cb580598cdf703aba8b1f92090fea6cbbd41878e5e51463c0cb63da528`.
+
+Role: new_valid.
+
+Result: register-only, residue 2, target size 592; target exact False; gains []; losses []. Code SHA-256: `a0c82cf2118f997bb19c2a458013d18fa6a7776940c43b1fb5220c9925f1ce94`.
+
+A: const-reference string alias may affect argument register allocation. Replace physical line 209:
+
+```cpp
+	const std::string &ref_names = names; ((ClientClass *)Get_Client())->Send_Packet(&PetitionStuckPacketClass(((ClientClass *)Get_Client())->ShipID, Unknown0B8, subject.c_str(), details.c_str(), ref_names.c_str()));
+```
+
+## 0x5D6550 str_ref_all
+
+File: `app/client/ui_petition_player_entry.cpp`; source SHA-256: `2c3448bbf3fe4b75d26f5af784d149e69150c367096b4d8f68f4950528217cd8`.
+
+Role: new_valid.
+
+Result: register-only, residue 2, target size 592; target exact False; gains []; losses []. Code SHA-256: `a0c82cf2118f997bb19c2a458013d18fa6a7776940c43b1fb5220c9925f1ce94`.
+
+A: all string arguments through const references may affect register allocation. Replace physical line 209:
+
+```cpp
+	const std::string &ref_subject = subject; const std::string &ref_details = details; const std::string &ref_names = names; ((ClientClass *)Get_Client())->Send_Packet(&PetitionStuckPacketClass(((ClientClass *)Get_Client())->ShipID, Unknown0B8, ref_subject.c_str(), ref_details.c_str(), ref_names.c_str()));
+```
+
+## 0x5D6550 cstr_snapshots
+
+File: `app/client/ui_petition_player_entry.cpp`; source SHA-256: `55e8bbc88c95ef6ad28044d1f1ce72117ca74a2ae50c292727627e62e82abd38`.
+
+Role: new_valid.
+
+Result: register-only, residue 2, target size 592; target exact False; gains []; losses []. Code SHA-256: `a0c82cf2118f997bb19c2a458013d18fa6a7776940c43b1fb5220c9925f1ce94`.
+
+A: snapshot c_str results in the observed right-to-left evaluation order. Replace physical line 209:
+
+```cpp
+	const char *p_names = names.c_str(); const char *p_details = details.c_str(); const char *p_subject = subject.c_str(); ((ClientClass *)Get_Client())->Send_Packet(&PetitionStuckPacketClass(((ClientClass *)Get_Client())->ShipID, Unknown0B8, p_subject, p_details, p_names));
+```
+
+## 0x5D6550 ship_int_cast
+
+File: `app/client/ui_petition_player_entry.cpp`; source SHA-256: `02b2a5bee9361636330d28ed0c4d3c1df264f61a2ad8a0d0b0bcfa22b2ea1a3b`.
+
+Role: new_valid.
+
+Result: register-only, residue 2, target size 592; target exact False; gains []; losses []. Code SHA-256: `a0c82cf2118f997bb19c2a458013d18fa6a7776940c43b1fb5220c9925f1ce94`.
+
+B: spell the constructor conversion from unsigned ShipID to int explicitly. Replace physical line 209:
+
+```cpp
+	((ClientClass *)Get_Client())->Send_Packet(&PetitionStuckPacketClass((int)((ClientClass *)Get_Client())->ShipID, Unknown0B8, subject.c_str(), details.c_str(), names.c_str()));
+```
+
+## 0x5D6550 ship_const_ref
+
+File: `app/client/ui_petition_player_entry.cpp`; source SHA-256: `00be43ac279782093934a9797780110b9f93fa113c53605ccb6e976543c26e3c`.
+
+Role: new_valid.
+
+Result: register-only, residue 14, target size 592; target exact False; gains []; losses []. Code SHA-256: `1c9bbd78716a60a368be3e24e3d9d00e8fc8c6adf6b8b71cae621bfb55fbdd3a`.
+
+B: bind ShipID by const reference instead of copying its value. Replace physical line 209:
+
+```cpp
+	const unsigned &ship_id = ((ClientClass *)Get_Client())->ShipID; ((ClientClass *)Get_Client())->Send_Packet(&PetitionStuckPacketClass(ship_id, Unknown0B8, subject.c_str(), details.c_str(), names.c_str()));
+```
+
+## 0x5D6550 category_const_ref
+
+File: `app/client/ui_petition_player_entry.cpp`; source SHA-256: `427b5825f08188b7c14e6483c6bea308cc5a5bb1a8cc0325e5e8d02a7dd90874`.
+
+Role: new_valid.
+
+Result: register-only, residue 2, target size 592; target exact False; gains []; losses []. Code SHA-256: `a0c82cf2118f997bb19c2a458013d18fa6a7776940c43b1fb5220c9925f1ce94`.
+
+B: bind the int category by const reference. Replace physical line 209:
+
+```cpp
+	const int &category = Unknown0B8; ((ClientClass *)Get_Client())->Send_Packet(&PetitionStuckPacketClass(((ClientClass *)Get_Client())->ShipID, category, subject.c_str(), details.c_str(), names.c_str()));
+```
+
+## 0x5D6550 client_ref_receiver
+
+File: `app/client/ui_petition_player_entry.cpp`; source SHA-256: `caf1787f8a75c4a08ed75303b027e4bc893aecbe91f8ea3a456dad4ba50e5921`.
+
+Role: new_valid.
+
+Result: shape, residue 16, target size 592; target exact False; gains []; losses []. Code SHA-256: `92168b42668b508a67b6e34d64666fd8df86beca4b3719f2bb3398e8e91af74c`.
+
+B: bind the receiver as a ClientClass reference; retain the separate ID expression. Replace physical line 209:
+
+```cpp
+	ClientClass &receiver = *((ClientClass *)Get_Client()); (&receiver)->Send_Packet(&PetitionStuckPacketClass(((ClientClass *)Get_Client())->ShipID, Unknown0B8, subject.c_str(), details.c_str(), names.c_str()));
+```
+
+## 0x5D6550 client_ref_id
+
+File: `app/client/ui_petition_player_entry.cpp`; source SHA-256: `b29f986397b55c92595120c8cc485347155e1b20e6d74ae9a867c5aa2dff2e4a`.
+
+Role: new_valid.
+
+Result: register-only, residue 14, target size 592; target exact False; gains []; losses []. Code SHA-256: `1c9bbd78716a60a368be3e24e3d9d00e8fc8c6adf6b8b71cae621bfb55fbdd3a`.
+
+B: bind the ID client as a reference; retain the separate receiver expression. Replace physical line 209:
+
+```cpp
+	ClientClass &id_client = *((ClientClass *)Get_Client()); ((ClientClass *)Get_Client())->Send_Packet(&PetitionStuckPacketClass(id_client.ShipID, Unknown0B8, subject.c_str(), details.c_str(), names.c_str()));
+```
+
+## 0x5D6550 client_ref_both
+
+File: `app/client/ui_petition_player_entry.cpp`; source SHA-256: `fefd5505c1c8c44c81f7886e76a5ad66d57e6e8d9e887f5b3bf4eb4b29a474af`.
+
+Role: new_valid.
+
+Result: shape, residue 16, target size 592; target exact False; gains []; losses []. Code SHA-256: `92168b42668b508a67b6e34d64666fd8df86beca4b3719f2bb3398e8e91af74c`.
+
+B: use a ClientClass reference for receiver and ID. Replace physical line 209:
+
+```cpp
+	ClientClass &client = *((ClientClass *)Get_Client()); (&client)->Send_Packet(&PetitionStuckPacketClass(client.ShipID, Unknown0B8, subject.c_str(), details.c_str(), names.c_str()));
+```
+
+## 0x5D6550 id_const_client
+
+File: `app/client/ui_petition_player_entry.cpp`; source SHA-256: `c1f05d6fac83820a2471e670c66c86f6906ab27dd03358f259c47bad81f52586`.
+
+Role: new_valid.
+
+Result: register-only, residue 2, target size 592; target exact False; gains []; losses []. Code SHA-256: `a0c82cf2118f997bb19c2a458013d18fa6a7776940c43b1fb5220c9925f1ce94`.
+
+B: read ShipID through a const ClientClass pointer. Replace physical line 209:
+
+```cpp
+	((ClientClass *)Get_Client())->Send_Packet(&PetitionStuckPacketClass(((const ClientClass *)Get_Client())->ShipID, Unknown0B8, subject.c_str(), details.c_str(), names.c_str()));
+```
+
+## 0x5D6550 packet_static_base
+
+File: `app/client/ui_petition_player_entry.cpp`; source SHA-256: `8416b96381f14f472cc8b9b21c4a8f3e0b9e02fbaaec5e46be9c515a2a1949c7`.
+
+Role: new_valid.
+
+Result: register-only, residue 2, target size 592; target exact False; gains []; losses []. Code SHA-256: `a0c82cf2118f997bb19c2a458013d18fa6a7776940c43b1fb5220c9925f1ce94`.
+
+C: explicit static derived-to-base pointer conversion of the same temporary. Replace physical line 209:
+
+```cpp
+	((ClientClass *)Get_Client())->Send_Packet(static_cast<PacketClass *>(&PetitionStuckPacketClass(((ClientClass *)Get_Client())->ShipID, Unknown0B8, subject.c_str(), details.c_str(), names.c_str())));
+```
+
+## 0x5D6550 packet_derived_cast
+
+File: `app/client/ui_petition_player_entry.cpp`; source SHA-256: `87490d59e7d093ffdd5940c85892d0b497c11fdaaef2af39e98f773300dbeff3`.
+
+Role: new_valid.
+
+Result: register-only, residue 2, target size 592; target exact False; gains []; losses []. Code SHA-256: `a0c82cf2118f997bb19c2a458013d18fa6a7776940c43b1fb5220c9925f1ce94`.
+
+C: explicitly cast the temporary address to its derived pointer type. Replace physical line 209:
+
+```cpp
+	((ClientClass *)Get_Client())->Send_Packet((PetitionStuckPacketClass *)&PetitionStuckPacketClass(((ClientClass *)Get_Client())->ShipID, Unknown0B8, subject.c_str(), details.c_str(), names.c_str()));
+```
+
+## 0x5D6550 packet_const_ref
+
+File: `app/client/ui_petition_player_entry.cpp`; source SHA-256: `e8305cd2a76e6bd54f2815ad9d28c87ffe243f0c48353032fc99cf591b2bb11d`.
+
+Role: new_valid.
+
+Result: shape, residue 3, target size 608; target exact False; gains []; losses []. Code SHA-256: `e4b430d9e76d64fc2a5d86c17f41d27d6bedd7d92626c2705c385e30229c3d8f`.
+
+C: bind the temporary to a const derived reference, ending its lifetime before return. Replace physical line 209:
+
+```cpp
+	{ const PetitionStuckPacketClass &packet = PetitionStuckPacketClass(((ClientClass *)Get_Client())->ShipID, Unknown0B8, subject.c_str(), details.c_str(), names.c_str()); ((ClientClass *)Get_Client())->Send_Packet(const_cast<PetitionStuckPacketClass *>(&packet)); }
+```
+
+## 0x5D6550 packet_base_ref
+
+File: `app/client/ui_petition_player_entry.cpp`; source SHA-256: `3a362ec28fb4c8452b679ff9fafd16db7661a9ace36f87a190d4cf66694a28d3`.
+
+Role: new_valid.
+
+Result: shape, residue 3, target size 608; target exact False; gains []; losses []. Code SHA-256: `e4b430d9e76d64fc2a5d86c17f41d27d6bedd7d92626c2705c385e30229c3d8f`.
+
+C: bind the temporary to a const base reference, ending its lifetime before return. Replace physical line 209:
+
+```cpp
+	{ const PacketClass &packet = PetitionStuckPacketClass(((ClientClass *)Get_Client())->ShipID, Unknown0B8, subject.c_str(), details.c_str(), names.c_str()); ((ClientClass *)Get_Client())->Send_Packet(const_cast<PacketClass *>(&packet)); }
+```
+
+## 0x5D7420 baseline
+
+File: `app/client/ui_petition_stuck.cpp`; source SHA-256: `68a4e4ac599e16b213c67cb5210acde12e802c63d70496145b1f1c6d2c07d23f`.
+
+Role: control.
+
+Result: register-only, residue 2, target size 352; target exact False; gains []; losses []. Code SHA-256: `a3990385216a471f1d239576fd6c9f8969df7ffdd5a678cef554891699a9e6c8`.
+
+## 0x5D7420 str_ref_subject
+
+File: `app/client/ui_petition_stuck.cpp`; source SHA-256: `cb4eb58aabfa923b043b3768dbf510d3433635fe46d2aa762d6820edf51581b9`.
+
+Role: new_valid.
+
+Result: register-only, residue 2, target size 352; target exact False; gains []; losses []. Code SHA-256: `a3990385216a471f1d239576fd6c9f8969df7ffdd5a678cef554891699a9e6c8`.
+
+A: const-reference string alias may affect argument register allocation. Replace physical line 50:
+
+```cpp
+	const std::string &ref_subject = subject; ((ClientClass *)Get_Client())->Send_Packet(&PetitionStuckPacketClass(((ClientClass *)Get_Client())->ShipID, Unknown0B4, ref_subject.c_str(), details.c_str(), 0));
+```
+
+## 0x5D7420 str_ref_details
+
+File: `app/client/ui_petition_stuck.cpp`; source SHA-256: `6f9b219330173b9cd7325c5248e048f345a89750d6967a5c80f33e1445332ec6`.
+
+Role: new_valid.
+
+Result: register-only, residue 2, target size 352; target exact False; gains []; losses []. Code SHA-256: `a3990385216a471f1d239576fd6c9f8969df7ffdd5a678cef554891699a9e6c8`.
+
+A: const-reference string alias may affect argument register allocation. Replace physical line 50:
+
+```cpp
+	const std::string &ref_details = details; ((ClientClass *)Get_Client())->Send_Packet(&PetitionStuckPacketClass(((ClientClass *)Get_Client())->ShipID, Unknown0B4, subject.c_str(), ref_details.c_str(), 0));
+```
+
+## 0x5D7420 str_ref_all
+
+File: `app/client/ui_petition_stuck.cpp`; source SHA-256: `7cfe4d74b7016ab799e025e62050b6fad68bfc57b5352b6152863d76b7b801f7`.
+
+Role: new_valid.
+
+Result: register-only, residue 2, target size 352; target exact False; gains []; losses []. Code SHA-256: `a3990385216a471f1d239576fd6c9f8969df7ffdd5a678cef554891699a9e6c8`.
+
+A: all string arguments through const references may affect register allocation. Replace physical line 50:
+
+```cpp
+	const std::string &ref_subject = subject; const std::string &ref_details = details; ((ClientClass *)Get_Client())->Send_Packet(&PetitionStuckPacketClass(((ClientClass *)Get_Client())->ShipID, Unknown0B4, ref_subject.c_str(), ref_details.c_str(), 0));
+```
+
+## 0x5D7420 cstr_snapshots
+
+File: `app/client/ui_petition_stuck.cpp`; source SHA-256: `4d9bd47ebea4b0e6f4e1acfaf0388b7c43757b014068612878a9d09934c12fa2`.
+
+Role: new_valid.
+
+Result: register-only, residue 2, target size 352; target exact False; gains []; losses []. Code SHA-256: `a3990385216a471f1d239576fd6c9f8969df7ffdd5a678cef554891699a9e6c8`.
+
+A: snapshot c_str results in the observed right-to-left evaluation order. Replace physical line 50:
+
+```cpp
+	const char *p_details = details.c_str(); const char *p_subject = subject.c_str(); ((ClientClass *)Get_Client())->Send_Packet(&PetitionStuckPacketClass(((ClientClass *)Get_Client())->ShipID, Unknown0B4, p_subject, p_details, 0));
+```
+
+## 0x5D7420 ship_int_cast
+
+File: `app/client/ui_petition_stuck.cpp`; source SHA-256: `3dc56921743242cce9733ce8b0a3abad72fd13fcee3b8308251fc648d0beb4b7`.
+
+Role: new_valid.
+
+Result: register-only, residue 2, target size 352; target exact False; gains []; losses []. Code SHA-256: `a3990385216a471f1d239576fd6c9f8969df7ffdd5a678cef554891699a9e6c8`.
+
+B: spell the constructor conversion from unsigned ShipID to int explicitly. Replace physical line 50:
+
+```cpp
+	((ClientClass *)Get_Client())->Send_Packet(&PetitionStuckPacketClass((int)((ClientClass *)Get_Client())->ShipID, Unknown0B4, subject.c_str(), details.c_str(), 0));
+```
+
+## 0x5D7420 ship_const_ref
+
+File: `app/client/ui_petition_stuck.cpp`; source SHA-256: `40dd89f16f3ecdad5b09000d26839656cf457e597935b87a29a0175d6e362925`.
+
+Role: new_valid.
+
+Result: register-only, residue 15, target size 352; target exact False; gains []; losses []. Code SHA-256: `407309c4df1eb3652087eddbe39f9804ee0f02d0c534b6a2410c0a599ed08846`.
+
+B: bind ShipID by const reference instead of copying its value. Replace physical line 50:
+
+```cpp
+	const unsigned &ship_id = ((ClientClass *)Get_Client())->ShipID; ((ClientClass *)Get_Client())->Send_Packet(&PetitionStuckPacketClass(ship_id, Unknown0B4, subject.c_str(), details.c_str(), 0));
+```
+
+## 0x5D7420 category_const_ref
+
+File: `app/client/ui_petition_stuck.cpp`; source SHA-256: `a2f82081169b6d4d6aa7f308623514a27ae2df27e20df585510c34120f0d3069`.
+
+Role: new_valid.
+
+Result: register-only, residue 2, target size 352; target exact False; gains []; losses []. Code SHA-256: `a3990385216a471f1d239576fd6c9f8969df7ffdd5a678cef554891699a9e6c8`.
+
+B: bind the int category by const reference. Replace physical line 50:
+
+```cpp
+	const int &category = Unknown0B4; ((ClientClass *)Get_Client())->Send_Packet(&PetitionStuckPacketClass(((ClientClass *)Get_Client())->ShipID, category, subject.c_str(), details.c_str(), 0));
+```
+
+## 0x5D7420 client_ref_receiver
+
+File: `app/client/ui_petition_stuck.cpp`; source SHA-256: `55a649b9048eef376bb56554441af410258f1c72f3b75c35523cdb90e5b5ec54`.
+
+Role: new_valid.
+
+Result: shape, residue 28, target size 352; target exact False; gains []; losses []. Code SHA-256: `d1b2e6d0dcfe374b3777356328f0050a0ae53ef8d0adcb8a06fd1f8c847fc5fd`.
+
+B: bind the receiver as a ClientClass reference; retain the separate ID expression. Replace physical line 50:
+
+```cpp
+	ClientClass &receiver = *((ClientClass *)Get_Client()); (&receiver)->Send_Packet(&PetitionStuckPacketClass(((ClientClass *)Get_Client())->ShipID, Unknown0B4, subject.c_str(), details.c_str(), 0));
+```
+
+## 0x5D7420 client_ref_id
+
+File: `app/client/ui_petition_stuck.cpp`; source SHA-256: `7b19443e305f1fc05de70a63f06f31ed76ca0639a8a9977cc4e241313cca8a5a`.
+
+Role: new_valid.
+
+Result: register-only, residue 15, target size 352; target exact False; gains []; losses []. Code SHA-256: `407309c4df1eb3652087eddbe39f9804ee0f02d0c534b6a2410c0a599ed08846`.
+
+B: bind the ID client as a reference; retain the separate receiver expression. Replace physical line 50:
+
+```cpp
+	ClientClass &id_client = *((ClientClass *)Get_Client()); ((ClientClass *)Get_Client())->Send_Packet(&PetitionStuckPacketClass(id_client.ShipID, Unknown0B4, subject.c_str(), details.c_str(), 0));
+```
+
+## 0x5D7420 client_ref_both
+
+File: `app/client/ui_petition_stuck.cpp`; source SHA-256: `705cdf8a262b76cd983689f06d12d3701739be43aba3b0f082b881437f042441`.
+
+Role: new_valid.
+
+Result: shape, residue 35, target size 352; target exact False; gains []; losses []. Code SHA-256: `2823b336cb142e1a162275c44cd8d40c7ffef75a0ec310acff740dd22f06485a`.
+
+B: use a ClientClass reference for receiver and ID. Replace physical line 50:
+
+```cpp
+	ClientClass &client = *((ClientClass *)Get_Client()); (&client)->Send_Packet(&PetitionStuckPacketClass(client.ShipID, Unknown0B4, subject.c_str(), details.c_str(), 0));
+```
+
+## 0x5D7420 id_const_client
+
+File: `app/client/ui_petition_stuck.cpp`; source SHA-256: `89002fafb4e51b1c77f96d5d085fbb7c2062684e6ae7f9fbdd817d01e588cbde`.
+
+Role: new_valid.
+
+Result: register-only, residue 2, target size 352; target exact False; gains []; losses []. Code SHA-256: `a3990385216a471f1d239576fd6c9f8969df7ffdd5a678cef554891699a9e6c8`.
+
+B: read ShipID through a const ClientClass pointer. Replace physical line 50:
+
+```cpp
+	((ClientClass *)Get_Client())->Send_Packet(&PetitionStuckPacketClass(((const ClientClass *)Get_Client())->ShipID, Unknown0B4, subject.c_str(), details.c_str(), 0));
+```
+
+## 0x5D7420 packet_static_base
+
+File: `app/client/ui_petition_stuck.cpp`; source SHA-256: `5b494d390bd8a83b7161cbe120ac89c87fa044c3111f9e4de09f25f2c359ece0`.
+
+Role: new_valid.
+
+Result: register-only, residue 2, target size 352; target exact False; gains []; losses []. Code SHA-256: `a3990385216a471f1d239576fd6c9f8969df7ffdd5a678cef554891699a9e6c8`.
+
+C: explicit static derived-to-base pointer conversion of the same temporary. Replace physical line 50:
+
+```cpp
+	((ClientClass *)Get_Client())->Send_Packet(static_cast<PacketClass *>(&PetitionStuckPacketClass(((ClientClass *)Get_Client())->ShipID, Unknown0B4, subject.c_str(), details.c_str(), 0)));
+```
+
+## 0x5D7420 packet_derived_cast
+
+File: `app/client/ui_petition_stuck.cpp`; source SHA-256: `4e33a9d4c8a8c9a8fc6c22f667a3e3eab52b40fd4a4bda0819bb43d618afb7a1`.
+
+Role: new_valid.
+
+Result: register-only, residue 2, target size 352; target exact False; gains []; losses []. Code SHA-256: `a3990385216a471f1d239576fd6c9f8969df7ffdd5a678cef554891699a9e6c8`.
+
+C: explicitly cast the temporary address to its derived pointer type. Replace physical line 50:
+
+```cpp
+	((ClientClass *)Get_Client())->Send_Packet((PetitionStuckPacketClass *)&PetitionStuckPacketClass(((ClientClass *)Get_Client())->ShipID, Unknown0B4, subject.c_str(), details.c_str(), 0));
+```
+
+## 0x5D7420 packet_const_ref
+
+File: `app/client/ui_petition_stuck.cpp`; source SHA-256: `ba0691a648c06cd7b0aecdc160f7638949f81619c1cef593a04150ed15d95c2a`.
+
+Role: new_valid.
+
+Result: shape, residue 12, target size 352; target exact False; gains []; losses []. Code SHA-256: `c004d78422cc01f5944f0b47b9142a3069bcb14579630626af41117875b75144`.
+
+C: bind the temporary to a const derived reference, ending its lifetime before return. Replace physical line 50:
+
+```cpp
+	{ const PetitionStuckPacketClass &packet = PetitionStuckPacketClass(((ClientClass *)Get_Client())->ShipID, Unknown0B4, subject.c_str(), details.c_str(), 0); ((ClientClass *)Get_Client())->Send_Packet(const_cast<PetitionStuckPacketClass *>(&packet)); }
+```
+
+## 0x5D7420 packet_base_ref
+
+File: `app/client/ui_petition_stuck.cpp`; source SHA-256: `37ea354e6d8a147b32103d0aebe5bea929721a8e3c4a945c926f9fe300410843`.
+
+Role: new_valid.
+
+Result: shape, residue 12, target size 352; target exact False; gains []; losses []. Code SHA-256: `c004d78422cc01f5944f0b47b9142a3069bcb14579630626af41117875b75144`.
+
+C: bind the temporary to a const base reference, ending its lifetime before return. Replace physical line 50:
+
+```cpp
+	{ const PacketClass &packet = PetitionStuckPacketClass(((ClientClass *)Get_Client())->ShipID, Unknown0B4, subject.c_str(), details.c_str(), 0); ((ClientClass *)Get_Client())->Send_Packet(const_cast<PacketClass *>(&packet)); }
+```
+
+## 0x5D6550 diagnostic_shipid_signed
+
+File: `app/client/ui_petition_player_entry.cpp`; source SHA-256: `75e2706002b45621413b2b3d2b9c4ec7c9f9b625d72dfedab3586526fb909598`.
+
+Role: diagnostic.
+
+Result: register-only, residue 2, target size 592; target exact False; gains []; losses []. Code SHA-256: `a0c82cf2118f997bb19c2a458013d18fa6a7776940c43b1fb5220c9925f1ce94`.
+
+## 0x5D7420 diagnostic_shipid_signed
+
+File: `app/client/ui_petition_stuck.cpp`; source SHA-256: `68a4e4ac599e16b213c67cb5210acde12e802c63d70496145b1f1c6d2c07d23f`.
+
+Role: diagnostic.
+
+Result: register-only, residue 2, target size 352; target exact False; gains []; losses []. Code SHA-256: `a3990385216a471f1d239576fd6c9f8969df7ffdd5a678cef554891699a9e6c8`.

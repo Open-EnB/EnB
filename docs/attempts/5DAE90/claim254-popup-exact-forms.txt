@@ -1,0 +1,349 @@
+# Claim 254: UIPopupBrowserClass constructor source probes
+
+Base: 62525e944638e557110851625027828ee8eca75d; file: app/client/ui_popup_browser.cpp; seed SHA-256: `a97f2a67a1742c062a5394c2caa03fb39e211681fe6a9031f31dcddb469c1d1c`. The popup source is identical at a6aee2de.
+
+Recommendation: retain exit_memset, independently repeated exact with +3 file/address pairs and zero losses. Reproduce independently with `git show BASE:FILE`, replace precisely the physical lines listed for ONE form, retain final LF, and check its complete source SHA-256. Every form has been replayed and hash checked here. Root handles production integration and comments separately.
+
+Build: VC6 SP4 through /home/dev/Toolchains/enb-vc6-sp4/bin/vc6-cl, app flags and defines from tools/vc6/libdefs.py, immutable include tree .work/claim-254/tree. Native matching: tools/re/objmatch.py --client RETAIL -q --json, complete object, no score filter. Per-form matches, diff, and tools/vc6/pairs_cmp.py outputs are linked in results-manifest.json.
+
+The original basename is retained for __FILE__, but its absolute scratch prefix differs from the retail path. The target contains no __FILE__ assertion; source line count and all code after the constructor remain byte-for-byte identical. These are native object experiments, not a full app ledger verification.
+
+Evidence correction: retail calls ChatPanelUIBase at 0x5DAEB5, Url::_Tidy(false) at 0x5DAECF, initializes Title inline at 0x5DAEDE..0x5DAEE7, then writes derived vptrs at 0x5DAEF0/+F6/+FD. The baseline calls the SAME _Tidy for both members (object offsets 0x40 and 0x59), not an unknown base helper. Base vptr layout +0/+4/+0x38 and member layout +A8/+B8 agree. UIOptionMain 0x5CE240 and UIRadioEntry 0x5E6290 are ledger-exact ChatPanelUIBase subclasses with those same three vptr locations. No shared header change is justified.
+
+The default constructor in shipped VC6 XSTRING is allocator(_Al) {_Tidy();}; explicit allocator spellings use the same overload. Empty-literal constructors add assign to the default _Tidy and are ruled out by extra retail-absent construction calls. Explicit length forms remove only assign(const char*) forwarding to assign(ptr,traits::length(ptr)); branch order, field stores, and object lifetime are unchanged. The final memset clears exactly the existing raw pointer field at the same point in the body; retail materializes its address at 0x5DAEEA and writes zero via that address at 0x5DAF0B. Pointer/reference aliases and address dereference canonicalize to the 527-byte near-match; memset supplies the 531-byte exact source form without type/header changes. No extra dead reads or budget devices were introduced.
+
+Earlier attempts recorded only one form (the production source with two dead reads); its old score/vptr diagnosis is superseded by the concrete evidence above. Novelty here means distinct source probes, not guaranteed new machine-code outputs; emission groups include relocation target identities. No target bytes from older attempts were available for cross-history emission deduplication.
+
+
+## baseline (control)
+Source SHA-256: `a97f2a67a1742c062a5394c2caa03fb39e211681fe6a9031f31dcddb469c1d1c`; code SHA-256: `02194a6b9731d148d79e7e1d618765f87a41d25e9f616c4e6de18d6922e91ee4`; group `798e7b1388a946cc`.
+
+Result: constructor 497/531 bytes, 176/189 instructions, automated class inline-budget, masked residue 75 (register-masked 40); target exact=False; whole-object address gains=[], losses=[]. Initial _Tidy call sites=['0x40', '0x59'].
+
+
+## remove_dead (new_valid)
+Source SHA-256: `271bc094a3672453285c128d4355a2de93a03a62badb6f157a7984104c8b6230`; code SHA-256: `bae3f037d5d2dd5bd5b55e9c6f7b3a2f7d209e32f16f77e9172c03ecec4b6bfc`; group `5604cc8fb4306857`.
+
+Physical line 32 (empty block means empty line):
+```cpp
+
+```
+
+Result: constructor 503/531 bytes, 160/189 instructions, automated class field-offset, masked residue 96 (register-masked 81); target exact=False; whole-object address gains=[], losses=['0x42A820']. Initial _Tidy call sites=[].
+
+
+## explicit_default (new_valid)
+Source SHA-256: `fe6b54423dc4118315b06c98d23f37a61a2e8e0434839433ed81b964538e75f3`; code SHA-256: `bae3f037d5d2dd5bd5b55e9c6f7b3a2f7d209e32f16f77e9172c03ecec4b6bfc`; group `5604cc8fb4306857`.
+
+Physical line 30 (empty block means empty line):
+```cpp
+	ChatPanelUIBase(client), Url(), Title()
+```
+
+Physical line 32 (empty block means empty line):
+```cpp
+
+```
+
+Result: constructor 503/531 bytes, 160/189 instructions, automated class field-offset, masked residue 96 (register-masked 81); target exact=False; whole-object address gains=[], losses=['0x42A820']. Initial _Tidy call sites=[].
+
+
+## url_allocator (new_valid)
+Source SHA-256: `f6959846c1aea1d0e0589bdcfe8435770ffd0f85192a84fee3a023b18423dc14`; code SHA-256: `bae3f037d5d2dd5bd5b55e9c6f7b3a2f7d209e32f16f77e9172c03ecec4b6bfc`; group `5604cc8fb4306857`.
+
+Physical line 30 (empty block means empty line):
+```cpp
+	ChatPanelUIBase(client), Url(std::allocator<char>()), Title()
+```
+
+Physical line 32 (empty block means empty line):
+```cpp
+
+```
+
+Result: constructor 503/531 bytes, 160/189 instructions, automated class field-offset, masked residue 96 (register-masked 81); target exact=False; whole-object address gains=[], losses=['0x42A820']. Initial _Tidy call sites=[].
+
+
+## title_allocator (new_valid)
+Source SHA-256: `7334e9eb1e59fafb33900c720696ea3d1913c7432da452c404b41ed68ff06aae`; code SHA-256: `bae3f037d5d2dd5bd5b55e9c6f7b3a2f7d209e32f16f77e9172c03ecec4b6bfc`; group `5604cc8fb4306857`.
+
+Physical line 30 (empty block means empty line):
+```cpp
+	ChatPanelUIBase(client), Url(), Title(std::allocator<char>())
+```
+
+Physical line 32 (empty block means empty line):
+```cpp
+
+```
+
+Result: constructor 503/531 bytes, 160/189 instructions, automated class field-offset, masked residue 96 (register-masked 81); target exact=False; whole-object address gains=[], losses=['0x42A820']. Initial _Tidy call sites=[].
+
+
+## both_allocator (new_valid)
+Source SHA-256: `54d240ec19954afb3b503fdd555e26dcf5f6c30b81b1a5d0808faa8157800871`; code SHA-256: `bae3f037d5d2dd5bd5b55e9c6f7b3a2f7d209e32f16f77e9172c03ecec4b6bfc`; group `5604cc8fb4306857`.
+
+Physical line 30 (empty block means empty line):
+```cpp
+	ChatPanelUIBase(client), Url(std::allocator<char>()), Title(std::allocator<char>())
+```
+
+Physical line 32 (empty block means empty line):
+```cpp
+
+```
+
+Result: constructor 503/531 bytes, 160/189 instructions, automated class field-offset, masked residue 96 (register-masked 81); target exact=False; whole-object address gains=[], losses=['0x42A820']. Initial _Tidy call sites=[].
+
+
+## url_empty (new_valid)
+Source SHA-256: `bdd4cfd9355a1b305857b608336f5764887a91ce50d92f2e0440264b34ed43d1`; code SHA-256: `95a5b90d65fe7d71cb3645e0ea273d3a5b4edb0fb249e44fb060abb1b91d6b23`; group `d40a7e9a342f8931`.
+
+Physical line 30 (empty block means empty line):
+```cpp
+	ChatPanelUIBase(client), Url("")
+```
+
+Physical line 32 (empty block means empty line):
+```cpp
+
+```
+
+Result: constructor 561/531 bytes, 196/189 instructions, automated class inline-budget, masked residue 73 (register-masked 34); target exact=False; whole-object address gains=['0x42A940', '0x42D050', '0x42D120'], losses=[]. Initial _Tidy call sites=['0x75'].
+
+
+## title_empty (new_valid)
+Source SHA-256: `51827c967070293a792ac6f6e02ee8c17fa43166e16e0ff6e18ed94de8ef8dc4`; code SHA-256: `a92594f85c0d7f0a041c21719e70bbadf85ab3cb1a510643bae9f2e02d137e96`; group `1cc41c3ea4e666e8`.
+
+Physical line 30 (empty block means empty line):
+```cpp
+	ChatPanelUIBase(client), Title("")
+```
+
+Physical line 32 (empty block means empty line):
+```cpp
+
+```
+
+Result: constructor 568/531 bytes, 195/189 instructions, automated class inline-budget, masked residue 116 (register-masked 108); target exact=False; whole-object address gains=[], losses=[]. Initial _Tidy call sites=['0x5a'].
+
+
+## both_empty (new_valid)
+Source SHA-256: `620675e832ad24f4f75425c07d4930eb808bfd6946a6d01635445ad1524ca109`; code SHA-256: `5259c9a8e0a4a57376a9dcf665f7a02f09267f861e5b79975c62a238c992e818`; group `ffdbfc678415c297`.
+
+Physical line 30 (empty block means empty line):
+```cpp
+	ChatPanelUIBase(client), Url(""), Title("")
+```
+
+Physical line 32 (empty block means empty line):
+```cpp
+
+```
+
+Result: constructor 595/531 bytes, 204/189 instructions, automated class inline-budget, masked residue 123 (register-masked 115); target exact=False; whole-object address gains=['0x42D050'], losses=[]. Initial _Tidy call sites=['0x75'].
+
+
+## exit_pointer (new_valid)
+Source SHA-256: `ceb7247c229a8d7cd00c784a0461d33d40a58ddd45da395c511ad978ea4fd178`; code SHA-256: `dab7d942a1d23becb7c7f77b91a36a3fa496ec39b2dbe59e1bdd7de208d0329f`; group `299b353b8ab108ed`.
+
+Physical line 32 (empty block means empty line):
+```cpp
+	GadgetClass **exit_button = &ExitButton;
+```
+
+Physical line 34 (empty block means empty line):
+```cpp
+	*exit_button = NULL;
+```
+
+Physical line 36 (empty block means empty line):
+```cpp
+		Url.assign(url, std::char_traits<char>::length(url));
+```
+
+Result: constructor 527/531 bytes, 187/189 instructions, automated class shape, masked residue 10 (register-masked 7); target exact=False; whole-object address gains=['0x42A940'], losses=[]. Initial _Tidy call sites=['0x3f'].
+
+
+## exit_reference (new_valid)
+Source SHA-256: `69016c32b47baea7e18200172f46d36c6124e065b146fd171f55fbd47cb3ad61`; code SHA-256: `dab7d942a1d23becb7c7f77b91a36a3fa496ec39b2dbe59e1bdd7de208d0329f`; group `299b353b8ab108ed`.
+
+Physical line 32 (empty block means empty line):
+```cpp
+	GadgetClass *&exit_button = ExitButton;
+```
+
+Physical line 34 (empty block means empty line):
+```cpp
+	exit_button = NULL;
+```
+
+Physical line 36 (empty block means empty line):
+```cpp
+		Url.assign(url, std::char_traits<char>::length(url));
+```
+
+Result: constructor 527/531 bytes, 187/189 instructions, automated class shape, masked residue 10 (register-masked 7); target exact=False; whole-object address gains=['0x42A940'], losses=[]. Initial _Tidy call sites=['0x3f'].
+
+
+## exit_address (new_valid)
+Source SHA-256: `5f75d8c6f8d4547bf49c492b53b21492c366cbd7b57657f7498b979717178718`; code SHA-256: `a1bdfa39faa14f28fa7713ff7504bba88314fd5c2f84e1c53377627c9c3aa631`; group `8b914fa9dd0e17ac`.
+
+Physical line 32 (empty block means empty line):
+```cpp
+
+```
+
+Physical line 34 (empty block means empty line):
+```cpp
+	*(&ExitButton) = NULL;
+```
+
+Physical line 36 (empty block means empty line):
+```cpp
+		Url.assign(url, std::char_traits<char>::length(url));
+```
+
+Result: constructor 527/531 bytes, 187/189 instructions, automated class shape, masked residue 11 (register-masked 8); target exact=False; whole-object address gains=['0x42A940'], losses=[]. Initial _Tidy call sites=['0x3f'].
+
+
+## exit_memset (new_valid)
+Source SHA-256: `c369ffd4c2672297d3d29c405ca29ca228ba160b6df584d39e9263f804fccc05`; code SHA-256: `26b0b95ad46d9daf09fdcfc5fef499941727162f5153d20dbbedff330bbfa52c`; group `bcf6e4e31af7adea`.
+
+Physical line 32 (empty block means empty line):
+```cpp
+
+```
+
+Physical line 34 (empty block means empty line):
+```cpp
+	memset(&ExitButton, 0, sizeof(ExitButton));
+```
+
+Physical line 36 (empty block means empty line):
+```cpp
+		Url.assign(url, std::char_traits<char>::length(url));
+```
+
+Result: constructor 531/531 bytes, 189/189 instructions, automated class identical, masked residue 0 (register-masked 0); target exact=True; whole-object address gains=['0x42A940', '0x42D120', '0x5DAE90'], losses=[]. Initial _Tidy call sites=['0x3f'].
+
+
+## clean_url_length (new_valid)
+Source SHA-256: `499727c717f7fcfe33839cf7a98f4a90b03a68a8e19e6f4ebc9b629b8f71e2b1`; code SHA-256: `a1bdfa39faa14f28fa7713ff7504bba88314fd5c2f84e1c53377627c9c3aa631`; group `8b914fa9dd0e17ac`.
+
+Physical line 32 (empty block means empty line):
+```cpp
+
+```
+
+Physical line 36 (empty block means empty line):
+```cpp
+		Url.assign(url, std::char_traits<char>::length(url));
+```
+
+Result: constructor 527/531 bytes, 187/189 instructions, automated class shape, masked residue 11 (register-masked 8); target exact=False; whole-object address gains=['0x42A940'], losses=[]. Initial _Tidy call sites=['0x3f'].
+
+
+## clean_title_length (new_valid)
+Source SHA-256: `2d419922ad13dcda1d80c095efefbc836332c12f6f11b1a2f83baaf9b4be8ef2`; code SHA-256: `a1bdfa39faa14f28fa7713ff7504bba88314fd5c2f84e1c53377627c9c3aa631`; group `8b914fa9dd0e17ac`.
+
+Physical line 32 (empty block means empty line):
+```cpp
+
+```
+
+Physical line 41 (empty block means empty line):
+```cpp
+		Title.assign(title, std::char_traits<char>::length(title));
+```
+
+Result: constructor 527/531 bytes, 187/189 instructions, automated class shape, masked residue 11 (register-masked 8); target exact=False; whole-object address gains=['0x42A940'], losses=[]. Initial _Tidy call sites=['0x3f'].
+
+
+## clean_both_length (new_valid)
+Source SHA-256: `78006476873ee3456f515b68b583fb7146543f2f7122fcecd5e834fb2c321a27`; code SHA-256: `9c801f52a42f30accf8f72b608280fd8b8b6e27ddf3aa1c019f92fa6ad6ff75d`; group `bd329e011cdea74d`.
+
+Physical line 32 (empty block means empty line):
+```cpp
+
+```
+
+Physical line 36 (empty block means empty line):
+```cpp
+		Url.assign(url, std::char_traits<char>::length(url));
+```
+
+Physical line 41 (empty block means empty line):
+```cpp
+		Title.assign(title, std::char_traits<char>::length(title));
+```
+
+Result: constructor 534/531 bytes, 188/189 instructions, automated class shape, masked residue 106 (register-masked 68); target exact=False; whole-object address gains=['0x42A940'], losses=[]. Initial _Tidy call sites=['0x40', '0x59'].
+
+
+## retained_url_length (new_valid)
+Source SHA-256: `4b386da75befa28f85160dc58718376ac63368a801c81e0e2b83f86ad30b6525`; code SHA-256: `02194a6b9731d148d79e7e1d618765f87a41d25e9f616c4e6de18d6922e91ee4`; group `798e7b1388a946cc`.
+
+Physical line 36 (empty block means empty line):
+```cpp
+		Url.assign(url, std::char_traits<char>::length(url));
+```
+
+Result: constructor 497/531 bytes, 176/189 instructions, automated class inline-budget, masked residue 75 (register-masked 40); target exact=False; whole-object address gains=[], losses=[]. Initial _Tidy call sites=['0x40', '0x59'].
+
+
+## retained_title_length (new_valid)
+Source SHA-256: `280f5fcee855c5fbd819436f4625b9014d6d719679d3f72e948b3ef24915223c`; code SHA-256: `9c801f52a42f30accf8f72b608280fd8b8b6e27ddf3aa1c019f92fa6ad6ff75d`; group `bd329e011cdea74d`.
+
+Physical line 41 (empty block means empty line):
+```cpp
+		Title.assign(title, std::char_traits<char>::length(title));
+```
+
+Result: constructor 534/531 bytes, 188/189 instructions, automated class shape, masked residue 106 (register-masked 68); target exact=False; whole-object address gains=['0x42A940'], losses=[]. Initial _Tidy call sites=['0x40', '0x59'].
+
+
+## retained_both_length (new_valid)
+Source SHA-256: `76ceb3ecceea88ce357938ee185fd7264616c50679e370049779d5a64894f434`; code SHA-256: `9c801f52a42f30accf8f72b608280fd8b8b6e27ddf3aa1c019f92fa6ad6ff75d`; group `bd329e011cdea74d`.
+
+Physical line 36 (empty block means empty line):
+```cpp
+		Url.assign(url, std::char_traits<char>::length(url));
+```
+
+Physical line 41 (empty block means empty line):
+```cpp
+		Title.assign(title, std::char_traits<char>::length(title));
+```
+
+Result: constructor 534/531 bytes, 188/189 instructions, automated class shape, masked residue 106 (register-masked 68); target exact=False; whole-object address gains=['0x42A940'], losses=[]. Initial _Tidy call sites=['0x40', '0x59'].
+
+
+## baseline (control)
+Source SHA-256: `a97f2a67a1742c062a5394c2caa03fb39e211681fe6a9031f31dcddb469c1d1c`; code SHA-256: `02194a6b9731d148d79e7e1d618765f87a41d25e9f616c4e6de18d6922e91ee4`; group `798e7b1388a946cc`.
+
+Result: constructor 497/531 bytes, 176/189 instructions, automated class inline-budget, masked residue 75 (register-masked 40); target exact=False; whole-object address gains=[], losses=[]. Initial _Tidy call sites=['0x40', '0x59'].
+
+
+## exact_repeat (repeat)
+Source SHA-256: `c369ffd4c2672297d3d29c405ca29ca228ba160b6df584d39e9263f804fccc05`; code SHA-256: `26b0b95ad46d9daf09fdcfc5fef499941727162f5153d20dbbedff330bbfa52c`; group `bcf6e4e31af7adea`.
+
+Physical line 32 (empty block means empty line):
+```cpp
+
+```
+
+Physical line 34 (empty block means empty line):
+```cpp
+	memset(&ExitButton, 0, sizeof(ExitButton));
+```
+
+Physical line 36 (empty block means empty line):
+```cpp
+		Url.assign(url, std::char_traits<char>::length(url));
+```
+
+Result: constructor 531/531 bytes, 189/189 instructions, automated class identical, masked residue 0 (register-masked 0); target exact=True; whole-object address gains=['0x42A940', '0x42D120', '0x5DAE90'], losses=[]. Initial _Tidy call sites=['0x3f'].
+
+
+Exact exit_memset: 531 bytes, all 189 retail instructions; independently repeated 38→41 exact object rows, gains 0x42A940 (_Eos), 0x42D120 (max_size), 0x5DAE90, zero losses. Independent proof (independent-proof.json) checks all ordinary bytes and all relocation identities, sole return, 17 internal branches, full 46-byte EH handlers, full 56-byte EH descriptor/unwind map, all three complete vtables and the empty string terminator. 76 relocation sites are checked across those sections; no relocation is accepted only because it was masked. Other candidates’ auxiliary gains alone are not evidence for their constructor spellings. Automated field-offset diagnoses for register-swapped variants are not evidence of a layout defect.

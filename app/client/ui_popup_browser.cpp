@@ -24,16 +24,16 @@ public:
 
 
 
-// NOT EXACT: inline-budget (0.52, 160 instructions vs 189: the client calls Url's _Tidy(false) out of line; ours expands it)
+
 // @0x5DAE90
 UIPopupBrowserClass::UIPopupBrowserClass(SClient *client, int browser_id, const char *title, const char *url) :
 	ChatPanelUIBase(client)
 {
-	Url.size(); Url.size();		// dead reads: spend the inline budget toward the client's out-of-line _Tidy
+
 	((int *)Unknown70)[1] = 1;
-	ExitButton = NULL;
+	memset(&ExitButton, 0, sizeof(ExitButton));
 	if (url) {
-		Url.assign(url);
+		Url.assign(url, std::char_traits<char>::length(url));
 	} else {
 		Url.assign("");
 	}
@@ -150,5 +150,8 @@ void UIPopupBrowserClass::Unknown_60()
 **	  arguments twice and shares the call (a ?: argument makes one push).
 **	* 0x5DB2D0 (Unknown_54, CP1): its FAIL_IF '!font' on the client's line 85; 0xBE5D70, the button's text, is a
 **	  zero global nothing writes (only this function reads it).
+**	* 0x5DAE90 is exact: explicit URL length preserves the asymmetric string cleanup expansions;
+**	  clearing ExitButton through its address recovers the retail initialization sequence.
+**	  Remove the prior dead Url.size() reads; all later assertion lines are preserved.
 **	* The other functions of the table 0xAF59F8: not rebuilt.
 */

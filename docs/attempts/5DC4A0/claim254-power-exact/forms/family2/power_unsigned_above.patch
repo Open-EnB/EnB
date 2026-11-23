@@ -1,0 +1,20 @@
+--- a/app/client/ui_power.cpp
++++ b/app/client/ui_power.cpp
+@@ -27,7 +27,7 @@
+ };
+ 
+ // (two inline layers, NameClass and the root copy in the inner one: ui_mfd.cpp's form, the find 0x5BF2B0 out of line)
+-template<class C> inline C *Unknown_Power_Field(DeltaCompoundClass *const &root, const char *name) { NameClass n(name); DeltaCompoundClass *r = root; C *t = Unknown_Find_Field<C>(r, n); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10)
++template<class C> inline C *Unknown_Power_Field(DeltaCompoundClass *const &root, const char *name) { NameClass n(name); DeltaCompoundClass *r = root; C *t = Unknown_Find_Field<C>(r, n); if (t && t->Unknown70 > 0) return(t); return(NULL); }	// NAME 1: neutral (D10)
+ template<class C> inline C *Unknown_Power_Find(DeltaCompoundClass *const &root, const char *name) { return(Unknown_Power_Field<C>(root, name)); }	// NAME 1: neutral (D10)
+ 
+ // @0x5DBFC0  (Parent through the plain base first; GenericNode() out of line by the inline_depth at the file's end)
+@@ -109,7 +109,7 @@
+ 		float value = percent ? percent->Get_Value(time) : 0.0f;
+ 		EnergyGauge->Set_Value(value);
+ 		if (EnergyGauge->Is_Unknown2C_08()) {
+-			DeltaTemplateClass<float> *field = Unknown_Find_Set_Field<DeltaTemplateClass<float> >(aux, NameClass("MaxEnergyPower"));
++			DeltaTemplateClass<float> *field = Unknown_Power_Find<DeltaTemplateClass<float> >(aux, "MaxEnergyPower");
+ 			float max = field ? field->Value : 0.0;
+ 			float cur = max * value;
+ 			if (cur < 0.0f) {

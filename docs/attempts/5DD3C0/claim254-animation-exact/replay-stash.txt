@@ -1,0 +1,763 @@
+{
+  "schema": "claim-254-independent-source-replay-v1",
+  "base_commit": "a17d5680",
+  "file": "app/client/ui_proc.cpp",
+  "address": "0x5DD3C0",
+  "symbol": "UIProc5DCD20Class::Unknown_08",
+  "library": "app",
+  "model": "gpt-6.1-sol (high)",
+  "seed_patch": "",
+  "seed_sha256": "7e94ef8d38e74b299001c2a57d338b0239b8ab55dd7931122362a7c025765cc1",
+  "baseline_object_sha256": "3261c8e42a92d38e4991522094aecb99b776dbe2c54784481a5cba32d8f52128",
+  "baseline_metrics": {
+    "res": 4,
+    "regs": 4,
+    "raw": 4,
+    "frame": "0x20",
+    "frame_client": "0x20",
+    "ours": 215,
+    "client": 215,
+    "class": "order-only",
+    "reason": "the same 215 instructions, registers included, in another order",
+    "exact": false,
+    "score": 0.9813953488372094,
+    "branch": {
+      "bytes": [
+        677,
+        684
+      ],
+      "size": 1,
+      "target": 0
+    },
+    "name": "baseline"
+  },
+  "variants": [
+    {
+      "name": "sum_arms_nonnegative",
+      "classification": "historically revisited expression/control family; original exact form unavailable",
+      "replacement_old": "\t\t\tfloat start = StartFrame;\n\t\t\tfloat rest = (float)fmod(next - start, EndFrame - StartFrame);\n\t\t\tnext = ((rest >= 0.0f) ? start : EndFrame) + rest;\n\n\n\n\n",
+      "replacement_new": "\t\t\tfloat start = StartFrame;\n\t\t\tfloat rest = (float)fmod(next - start, EndFrame - StartFrame);\n\t\t\tnext = (rest >= 0.0f) ? start + rest : EndFrame + rest;\n\n\n\n\n",
+      "source_sha256": "b63db7cd14905a2747e9ec163d09db2b97bd1b07faff50570e874e11f71d0bbc",
+      "object_sha256": "2e43d8893ad69d7ac899947320e3eca4e065edc2479eee209e60bb86d234e69f",
+      "metrics": {
+        "res": 6,
+        "regs": 6,
+        "raw": 6,
+        "frame": "0x20",
+        "frame_client": "0x20",
+        "ours": 216,
+        "client": 215,
+        "class": "shape",
+        "reason": "6 masked rows differ; no simpler class fits",
+        "exact": false,
+        "score": 0.9722222222222222,
+        "branch": {
+          "bytes": [
+            681,
+            684
+          ],
+          "size": 1,
+          "target": 0
+        },
+        "name": "sum_arms_nonnegative"
+      },
+      "gained": [],
+      "lost": [],
+      "target_exact": false
+    },
+    {
+      "name": "sum_arms_negative",
+      "classification": "historically revisited expression/control family; original exact form unavailable",
+      "replacement_old": "\t\t\tfloat start = StartFrame;\n\t\t\tfloat rest = (float)fmod(next - start, EndFrame - StartFrame);\n\t\t\tnext = ((rest >= 0.0f) ? start : EndFrame) + rest;\n\n\n\n\n",
+      "replacement_new": "\t\t\tfloat start = StartFrame;\n\t\t\tfloat rest = (float)fmod(next - start, EndFrame - StartFrame);\n\t\t\tnext = (rest < 0.0f) ? EndFrame + rest : start + rest;\n\n\n\n\n",
+      "source_sha256": "e2440cb9267be41c9e1be88c1a04add59b0233233a0566e2ffc81aa4fbc279d2",
+      "object_sha256": "4b117878da759b4efcbe325b055657e6e28b9b362378a170dc5285c9c6466567",
+      "metrics": {
+        "res": 4,
+        "regs": 4,
+        "raw": 4,
+        "frame": "0x20",
+        "frame_client": "0x20",
+        "ours": 216,
+        "client": 215,
+        "class": "shape",
+        "reason": "4 masked rows differ; no simpler class fits",
+        "exact": false,
+        "score": 0.9814814814814815,
+        "branch": {
+          "bytes": [
+            688,
+            684
+          ],
+          "size": 0,
+          "target": 1
+        },
+        "name": "sum_arms_negative"
+      },
+      "gained": [],
+      "lost": [],
+      "target_exact": false
+    },
+    {
+      "name": "negative_rest_assign",
+      "classification": "historically revisited expression/control family; original exact form unavailable",
+      "replacement_old": "\t\t\tfloat start = StartFrame;\n\t\t\tfloat rest = (float)fmod(next - start, EndFrame - StartFrame);\n\t\t\tnext = ((rest >= 0.0f) ? start : EndFrame) + rest;\n\n\n\n\n",
+      "replacement_new": "\t\t\tfloat start = StartFrame;\n\t\t\tfloat rest = (float)fmod(next - start, EndFrame - StartFrame);\n\t\t\tif (rest < 0.0f) rest += EndFrame;\n\t\t\telse rest += start;\n\t\t\tnext = rest;\n\n\n",
+      "source_sha256": "b1deb299a28e608c58d2731949cb44c55014cce544549b27e550c0a4084ea685",
+      "object_sha256": "81fa1e293bbcab9bfe8959da4e11e1ede430368f60ee67a29bbdaebf0a7d3e16",
+      "metrics": {
+        "res": 47,
+        "regs": 47,
+        "raw": 47,
+        "frame": "0x20",
+        "frame_client": "0x20",
+        "ours": 216,
+        "client": 215,
+        "class": "shape",
+        "reason": "47 masked rows differ; no simpler class fits",
+        "exact": false,
+        "score": 0.7824074074074074,
+        "branch": {
+          "bytes": [
+            667,
+            684
+          ],
+          "size": 2,
+          "target": 0
+        },
+        "name": "negative_rest_assign"
+      },
+      "gained": [],
+      "lost": [],
+      "target_exact": false
+    },
+    {
+      "name": "nonnegative_rest_assign",
+      "classification": "historically revisited expression/control family; original exact form unavailable",
+      "replacement_old": "\t\t\tfloat start = StartFrame;\n\t\t\tfloat rest = (float)fmod(next - start, EndFrame - StartFrame);\n\t\t\tnext = ((rest >= 0.0f) ? start : EndFrame) + rest;\n\n\n\n\n",
+      "replacement_new": "\t\t\tfloat start = StartFrame;\n\t\t\tfloat rest = (float)fmod(next - start, EndFrame - StartFrame);\n\t\t\tif (rest >= 0.0f) rest += start;\n\t\t\telse rest += EndFrame;\n\t\t\tnext = rest;\n\n\n",
+      "source_sha256": "2b5d38601c491d4bfaca10a7caaab7a0169a58ea707656bf423b533c21507c63",
+      "object_sha256": "bb25e797451138838f2969eafbb916c570976ba542683d148f96ce3414c4de5d",
+      "metrics": {
+        "res": 46,
+        "regs": 46,
+        "raw": 46,
+        "frame": "0x20",
+        "frame_client": "0x20",
+        "ours": 216,
+        "client": 215,
+        "class": "shape",
+        "reason": "46 masked rows differ; no simpler class fits",
+        "exact": false,
+        "score": 0.787037037037037,
+        "branch": {
+          "bytes": [
+            667,
+            684
+          ],
+          "size": 3,
+          "target": 0
+        },
+        "name": "nonnegative_rest_assign"
+      },
+      "gained": [],
+      "lost": [],
+      "target_exact": false
+    },
+    {
+      "name": "end_snapshot",
+      "classification": "new source hypothesis; binary-equivalent to baseline control",
+      "replacement_old": "\t\t\tfloat start = StartFrame;\n\t\t\tfloat rest = (float)fmod(next - start, EndFrame - StartFrame);\n\t\t\tnext = ((rest >= 0.0f) ? start : EndFrame) + rest;\n\n\n\n\n",
+      "replacement_new": "\t\t\tfloat start = StartFrame;\n\t\t\tint end = EndFrame;\n\t\t\tfloat rest = (float)fmod(next - start, end - StartFrame);\n\t\t\tnext = ((rest >= 0.0f) ? start : end) + rest;\n\n\n\n",
+      "source_sha256": "1847ad9ee9d8862b9caabdf06b7217a348db98d92e9c48dd53c8c14f274d1511",
+      "object_sha256": "5c6482907ca13399416e2b36829d33db6e8b4894f5e7740fb856150a88cf1057",
+      "metrics": {
+        "res": 4,
+        "regs": 4,
+        "raw": 4,
+        "frame": "0x20",
+        "frame_client": "0x20",
+        "ours": 215,
+        "client": 215,
+        "class": "order-only",
+        "reason": "the same 215 instructions, registers included, in another order",
+        "exact": false,
+        "score": 0.9813953488372094,
+        "branch": {
+          "bytes": [
+            677,
+            684
+          ],
+          "size": 1,
+          "target": 0
+        },
+        "name": "end_snapshot"
+      },
+      "gained": [],
+      "lost": [],
+      "target_exact": false
+    },
+    {
+      "name": "end_snapshot_sum_arms",
+      "classification": "new source hypothesis",
+      "replacement_old": "\t\t\tfloat start = StartFrame;\n\t\t\tfloat rest = (float)fmod(next - start, EndFrame - StartFrame);\n\t\t\tnext = ((rest >= 0.0f) ? start : EndFrame) + rest;\n\n\n\n\n",
+      "replacement_new": "\t\t\tfloat start = StartFrame;\n\t\t\tint end = EndFrame;\n\t\t\tfloat rest = (float)fmod(next - start, end - StartFrame);\n\t\t\tnext = (rest >= 0.0f) ? start + rest : end + rest;\n\n\n\n",
+      "source_sha256": "208e3e24e9506e5ade6914dba7e478fee6b6363a6a36322494c7311e53c0e988",
+      "object_sha256": "bd35a4e2fcaa899ebc816913ec538bea503610d4ddd200fc506f021b53fc89bf",
+      "metrics": {
+        "res": 6,
+        "regs": 6,
+        "raw": 6,
+        "frame": "0x20",
+        "frame_client": "0x20",
+        "ours": 216,
+        "client": 215,
+        "class": "shape",
+        "reason": "6 masked rows differ; no simpler class fits",
+        "exact": false,
+        "score": 0.9722222222222222,
+        "branch": {
+          "bytes": [
+            681,
+            684
+          ],
+          "size": 1,
+          "target": 0
+        },
+        "name": "end_snapshot_sum_arms"
+      },
+      "gained": [],
+      "lost": [],
+      "target_exact": false
+    },
+    {
+      "name": "next_rest_negative",
+      "classification": "new source hypothesis",
+      "replacement_old": "\t\t\tfloat start = StartFrame;\n\t\t\tfloat rest = (float)fmod(next - start, EndFrame - StartFrame);\n\t\t\tnext = ((rest >= 0.0f) ? start : EndFrame) + rest;\n\n\n\n\n",
+      "replacement_new": "\t\t\tfloat start = StartFrame;\n\t\t\tnext = (float)fmod(next - start, EndFrame - StartFrame);\n\t\t\tif (next < 0.0f) next = EndFrame + next;\n\t\t\telse next = start + next;\n\n\n\n",
+      "source_sha256": "267b58810f8a98ad0b976cdf16854d6e4262778ba7c75166eb3ee0116fa25b84",
+      "object_sha256": "e011f03b592ffc3b684678eab78190c0e9b77f153a7308ef75e91b05c6047933",
+      "metrics": {
+        "res": 3,
+        "regs": 3,
+        "raw": 3,
+        "frame": "0x20",
+        "frame_client": "0x20",
+        "ours": 215,
+        "client": 215,
+        "class": "shape",
+        "reason": "3 masked rows differ; no simpler class fits",
+        "exact": false,
+        "score": 0.986046511627907,
+        "branch": {
+          "bytes": [
+            684,
+            684
+          ],
+          "size": 0,
+          "target": 0
+        },
+        "name": "next_rest_negative"
+      },
+      "gained": [],
+      "lost": [],
+      "target_exact": false
+    },
+    {
+      "name": "zero_left_compare_diagnostic",
+      "classification": "FP operand-orientation diagnostic; not adopted",
+      "replacement_old": "\t\t\tfloat start = StartFrame;\n\t\t\tfloat rest = (float)fmod(next - start, EndFrame - StartFrame);\n\t\t\tnext = ((rest >= 0.0f) ? start : EndFrame) + rest;\n\n\n\n\n",
+      "replacement_new": "\t\t\tfloat start = StartFrame;\n\t\t\tfloat rest = (float)fmod(next - start, EndFrame - StartFrame);\n\t\t\tnext = ((0.0f <= rest) ? start : EndFrame) + rest;\n\n\n\n\n",
+      "source_sha256": "7c27181fece474cff1f72f219967476c1f65757f1b6e68fc2a282eef1ca89dcf",
+      "object_sha256": "ea5e0e78934fd874288e10d7476ffab3212a16df1865b6444905f7aaf516bb13",
+      "metrics": {
+        "res": 8,
+        "regs": 8,
+        "raw": 8,
+        "frame": "0x20",
+        "frame_client": "0x20",
+        "ours": 216,
+        "client": 215,
+        "class": "literal",
+        "reason": "an immediate differs: ours `test ah, 0x41`, client `test ah, 1`",
+        "exact": false,
+        "score": 0.962962962962963,
+        "branch": {
+          "bytes": [
+            679,
+            684
+          ],
+          "size": 0,
+          "target": 0
+        },
+        "name": "zero_left_compare_diagnostic"
+      },
+      "gained": [],
+      "lost": [],
+      "target_exact": false
+    },
+    {
+      "name": "next_rest_nonnegative",
+      "classification": "new source hypothesis",
+      "replacement_old": "\t\t\tfloat start = StartFrame;\n\t\t\tfloat rest = (float)fmod(next - start, EndFrame - StartFrame);\n\t\t\tnext = ((rest >= 0.0f) ? start : EndFrame) + rest;\n\n\n\n\n",
+      "replacement_new": "\t\t\tfloat start = StartFrame;\n\t\t\tnext = (float)fmod(next - start, EndFrame - StartFrame);\n\t\t\tif (next >= 0.0f) next = start + next;\n\t\t\telse next = EndFrame + next;\n\n\n\n",
+      "source_sha256": "6a7b58a8a5a70f3e748cb9db8a60f6ecd79244e6f1ad5e98dc710cdcc95d47c7",
+      "object_sha256": "d6cdc72ec3b41a2ef049ee6991744b16505fecfb117eebf7878d6d7f95668250",
+      "metrics": {
+        "res": 0,
+        "regs": 0,
+        "raw": 0,
+        "frame": "0x20",
+        "frame_client": "0x20",
+        "ours": 215,
+        "client": 215,
+        "class": "exact",
+        "reason": "nothing differs once stack offsets are masked",
+        "exact": true,
+        "score": 1.0,
+        "branch": {
+          "bytes": [
+            684,
+            684
+          ],
+          "size": 0,
+          "target": 0
+        },
+        "name": "next_rest_nonnegative"
+      },
+      "gained": [
+        [
+          "?Unknown_08@UIProc5DCD20Class@@UAE_NM@Z",
+          "0x5DD3C0"
+        ]
+      ],
+      "lost": [],
+      "target_exact": true
+    }
+  ],
+  "counts": {
+    "successful_baseline_controls": 1,
+    "failed_baseline_sandbox_control": 1,
+    "tested_hypotheses": 9,
+    "new_source_hypotheses": 4,
+    "effective_new_valid_hypotheses": 3,
+    "historical_family_revisits": 4,
+    "diagnostics": 1,
+    "new_hypotheses_equivalent_to_baseline": 1,
+    "new_pair": 1,
+    "lost_pairs": 0,
+    "generated_but_untested_followups": 3
+  },
+  "historical_count_note": "Prior attempts record 20 forms without source stashes. Four tested forms deliberately revisit their named families; no claim of historical source uniqueness.",
+  "failed_control": "Sandbox Wine wineserver bind denied; no compiled object. Authorized escalated run passed.",
+  "untested_forms": [
+    "next_rest_nonnegative_add_assign",
+    "next_rest_nonnegative_reverse_add",
+    "next_rest_negated_negative"
+  ],
+  "proof": {
+    "status": "exact candidate; +1 pair, no losses; parent integrates",
+    "base_commit": "a17d5680",
+    "retail_sha256": "249f852496f341c00361be95b66e7c0becc2c39e7cba026f9227e38b602651c4",
+    "source_sha256": "6a7b58a8a5a70f3e748cb9db8a60f6ecd79244e6f1ad5e98dc710cdcc95d47c7",
+    "baseline_source_sha256": "7e94ef8d38e74b299001c2a57d338b0239b8ab55dd7931122362a7c025765cc1",
+    "object_sha256": "d6cdc72ec3b41a2ef049ee6991744b16505fecfb117eebf7878d6d7f95668250",
+    "baseline_object_sha256": "3261c8e42a92d38e4991522094aecb99b776dbe2c54784481a5cba32d8f52128",
+    "target_bounds": [
+      "0x5dd3c0",
+      "0x5dd66c exclusive"
+    ],
+    "target_bytes": 684,
+    "instructions": 215,
+    "reachable_instructions": 215,
+    "return_addresses": [
+      "0x5dd3ea",
+      "0x5dd410",
+      "0x5dd60d",
+      "0x5dd669"
+    ],
+    "masked_body_sha256": "95023c5f0e1e88698e9d994850507cc1d23178237d6fb8869eeacbb75b03eecc",
+    "masked_body_equal": true,
+    "branch_order_and_targets_equal": true,
+    "calls": [
+      {
+        "offset": "0x1c",
+        "symbol": "?Fail_If_Report@@YAXPBD0H@Z",
+        "retail_destination": "0x4e9450",
+        "known_destinations": [
+          "0x4e9450"
+        ],
+        "resolved": true
+      },
+      {
+        "offset": "0x42",
+        "symbol": "?Fail_If_Report@@YAXPBD0H@Z",
+        "retail_destination": "0x4e9450",
+        "known_destinations": [
+          "0x4e9450"
+        ],
+        "resolved": true
+      },
+      {
+        "offset": "0x55",
+        "identity": "same indirect operand",
+        "operand": "dword ptr [eax + 0x14]"
+      },
+      {
+        "offset": "0x73",
+        "symbol": "?Unknown_42EC60@@YA_NHH@Z",
+        "retail_destination": "0x42ec60",
+        "known_destinations": [
+          "0x42ec60"
+        ],
+        "resolved": true
+      },
+      {
+        "offset": "0x83",
+        "symbol": "?Unknown_42EC60@@YA_NHH@Z",
+        "retail_destination": "0x42ec60",
+        "known_destinations": [
+          "0x42ec60"
+        ],
+        "resolved": true
+      },
+      {
+        "offset": "0x93",
+        "symbol": "?Unknown_42EC60@@YA_NHH@Z",
+        "retail_destination": "0x42ec60",
+        "known_destinations": [
+          "0x42ec60"
+        ],
+        "resolved": true
+      },
+      {
+        "offset": "0x17b",
+        "symbol": "__CIfmod",
+        "retail_destination": "0xa26e5a",
+        "known_destinations": [
+          "0xa26e5a"
+        ],
+        "resolved": true
+      },
+      {
+        "offset": "0x1d0",
+        "symbol": "?Append_Anim_Combo_Data@HAnimComboClass@@QAEXPAVHAnimComboDataClass@@@Z",
+        "retail_destination": "0x931d10",
+        "known_destinations": [
+          "0x931d10"
+        ],
+        "resolved": true
+      },
+      {
+        "offset": "0x1f9",
+        "symbol": "?Unknown_49EAB0@SubjectClass@@QAEXPAX@Z",
+        "retail_destination": "0x49eab0",
+        "known_destinations": [
+          "0x49eab0"
+        ],
+        "resolved": true
+      },
+      {
+        "offset": "0x216",
+        "symbol": "__ftol",
+        "retail_destination": "0xa264ec",
+        "known_destinations": [
+          "0xa264ec"
+        ],
+        "resolved": true
+      },
+      {
+        "offset": "0x22a",
+        "symbol": "?Unknown_49EAB0@SubjectClass@@QAEXPAX@Z",
+        "retail_destination": "0x49eab0",
+        "known_destinations": [
+          "0x49eab0"
+        ],
+        "resolved": true
+      }
+    ],
+    "relocations": [
+      {
+        "offset": "0x13",
+        "symbol": "??_C@_0FM@KNCP@Z?3?2home?2dev?2Projects?2EnB?2?4work?2c@",
+        "retail_destination": "0xb84af8",
+        "kind": "__FILE__ path: basename only; scratch prefix differs"
+      },
+      {
+        "offset": "0x18",
+        "symbol": "??_C@_0P@MHGG@?$CBAnimComboData?$AA@",
+        "retail_destination": "0xb84b54",
+        "kind": "equal string bytes",
+        "string": "!AnimComboData"
+      },
+      {
+        "offset": "0x39",
+        "symbol": "??_C@_0FM@KNCP@Z?3?2home?2dev?2Projects?2EnB?2?4work?2c@",
+        "retail_destination": "0xb84af8",
+        "kind": "__FILE__ path: basename only; scratch prefix differs"
+      },
+      {
+        "offset": "0x3e",
+        "symbol": "??_C@_05LLPN@?$CBanim?$AA@",
+        "retail_destination": "0xb84ad8",
+        "kind": "equal string bytes",
+        "string": "!anim"
+      },
+      {
+        "offset": "0x5c",
+        "symbol": "_FastAnim",
+        "retail_destination": "0xbe5d80",
+        "kind": "data symbol",
+        "same_as_baseline": true
+      },
+      {
+        "offset": "0xa5",
+        "symbol": "__real@8@40018000000000000000",
+        "retail_destination": "0xaf3f10",
+        "kind": "equal floating constant bits",
+        "width": 8,
+        "hex": "0000000000001040"
+      },
+      {
+        "offset": "0xbf",
+        "symbol": "__real@4@00000000000000000000",
+        "retail_destination": "0xae7244",
+        "kind": "equal floating constant bits",
+        "width": 4,
+        "hex": "00000000"
+      },
+      {
+        "offset": "0xd8",
+        "symbol": "__real@4@3fff8000000000000000",
+        "retail_destination": "0xae7240",
+        "kind": "equal floating constant bits",
+        "width": 4,
+        "hex": "0000803f"
+      },
+      {
+        "offset": "0x182",
+        "symbol": "__real@4@00000000000000000000",
+        "retail_destination": "0xae7244",
+        "kind": "equal floating constant bits",
+        "width": 4,
+        "hex": "00000000"
+      }
+    ],
+    "outside_target_identical": [
+      {
+        "symbol": "??_H@YGXPAXIHP6EX0@Z@Z",
+        "body_sha256": "939c9ff36e77a8015a5dfed0b0aa9e0b09def222bf50f83779e594ac4adbafec"
+      },
+      {
+        "symbol": "?Unknown_5DCCE0@UIProcClass@@QAEXHH@Z",
+        "body_sha256": "11298fd152d6432ac783185f7e044a295642cc253a1db1d8f40b0b1dd582c468"
+      },
+      {
+        "symbol": "??0UIProc5DCD20Class@@QAE@PAVUIMeshClass@@PBD_N22HH@Z",
+        "body_sha256": "2765d73ae0329b6fda3305ab426b809aaa1d096d06b5367aa355c854a7380035"
+      },
+      {
+        "symbol": "??1UIProcClass@@UAE@XZ",
+        "body_sha256": "b7486e386b0ea5d53826c7d283699e5869c9c6e65a8392022017ae91d0ee3fbb"
+      },
+      {
+        "symbol": "??_GGenericNode@@UAEPAXI@Z",
+        "body_sha256": "fa8b7ec560c49e13384ae8df6a1a2d582919261e213614d8f15a9067b1ea349c"
+      },
+      {
+        "symbol": "?Unknown_04@UIProcClass@@UAE_NXZ",
+        "body_sha256": "9d101262024fc834cedd090f6b95c1222923150e1c47ad02c993b8eaa4de6085"
+      },
+      {
+        "symbol": "?Unknown_08@UIProcClass@@UAE_NM@Z",
+        "body_sha256": "379d09f1f223152c4910467bafdec001cd9a948b0d5d8362212da7a5dccd9ce1"
+      },
+      {
+        "symbol": "?Unknown_0C@UIProcClass@@UAEXXZ",
+        "body_sha256": "2957de444de11f3fe84b18fcfdcefec9cb769f30b6d80ae6fb4ab0431671e75f"
+      },
+      {
+        "symbol": "?Unknown_10@UIProcClass@@UAEPAVUIProc5DCD20Class@@XZ",
+        "body_sha256": "33cb7c6b5695e070548b4e7f33d43173b10670c306067b684edf21470a662ef2"
+      },
+      {
+        "symbol": "??_GUIProcClass@@UAEPAXI@Z",
+        "body_sha256": "dade39de683d5f278ea3b7018d23e8c62a518df98e26ae4b05132ae43c436fe3"
+      },
+      {
+        "symbol": "?Unknown_10@UIProc5DCD20Class@@UAEPAV1@XZ",
+        "body_sha256": "29f4ac27c274a9f1c52a282cbe6f8a57ec6e073cc0936fc0a2cbac85290fbfd4"
+      },
+      {
+        "symbol": "??_GUIProc5DCD20Class@@UAEPAXI@Z",
+        "body_sha256": "dade39de683d5f278ea3b7018d23e8c62a518df98e26ae4b05132ae43c436fe3"
+      },
+      {
+        "symbol": "??0UIProc5DCD20Class@@QAE@PAVUIMeshClass@@PAVHAnimClass@@_N22HH@Z",
+        "body_sha256": "2714543f121ef21d56b079f2a39a76f813c51ca3a33d95cfbae7b9fff5a539ad"
+      },
+      {
+        "symbol": "?Unknown_5DD030@UIProc5DCD20Class@@QAEXPAVHAnimClass@@@Z",
+        "body_sha256": "9f73dfd001e18924be9804935d6eedb60229fecc0889fa82012874b2c9e2b83b"
+      },
+      {
+        "symbol": "??1ArgvClass@@QAE@XZ",
+        "body_sha256": "499f1f307c1cb989f968a6b7fcaec591e1828877223d0b0e7e8e8b76cde8c9ca"
+      },
+      {
+        "symbol": "??1UIProc5DCD20Class@@UAE@XZ",
+        "body_sha256": "a9c9b18688262919d9f62f7e18b76074df8b03d7b8a8acd867afbe71debaae96"
+      },
+      {
+        "symbol": "?Thread_Safe_Set_Flag@FastCriticalSectionClass@@AAEXXZ",
+        "body_sha256": "dcf7f8f3459ad83010cdf4d88249b300933ccff3aaf1d3665c85f5d2cc865f53"
+      },
+      {
+        "symbol": "?Unknown_0C@UIProc5DCD20Class@@UAEXXZ",
+        "body_sha256": "056f3baf0027b6a99ab38caa12646a3dd1365845c8e1fc903a2a41880ebedaa7"
+      },
+      {
+        "symbol": "?Unknown_04@UIProc5DD770Class@@UAE_NXZ",
+        "body_sha256": "fb0b785d726e607096bd12ed4bbdd048dda3448c66a71ba13c2f192b728f9e78"
+      },
+      {
+        "symbol": "?Unknown_04@UIProc5DD7E0Class@@UAE_NXZ",
+        "body_sha256": "04182081c0deea12a9964c68444cfd8c10f205c73ee402587ec8edd0c513f87c"
+      },
+      {
+        "symbol": "?Unknown_04@UIProc5DD830Class@@UAE_NXZ",
+        "body_sha256": "a490e4e4fa092d041d383a4bb653cc56a4f4bb7b79a8fc1e71d839988a51647a"
+      },
+      {
+        "symbol": "?Unknown_04@UIProc5DD8A0Class@@UAE_NXZ",
+        "body_sha256": "fb0b785d726e607096bd12ed4bbdd048dda3448c66a71ba13c2f192b728f9e78"
+      },
+      {
+        "symbol": "?Unknown_04@UIProc5DD910Class@@UAE_NXZ",
+        "body_sha256": "04182081c0deea12a9964c68444cfd8c10f205c73ee402587ec8edd0c513f87c"
+      },
+      {
+        "symbol": "??_G?$DataNode@PAVUIProcClass@@@@UAEPAXI@Z",
+        "body_sha256": "dade39de683d5f278ea3b7018d23e8c62a518df98e26ae4b05132ae43c436fe3"
+      },
+      {
+        "symbol": "??1?$DataNode@PAVUIProcClass@@@@UAE@XZ",
+        "body_sha256": "ad6c104889d3dc3de6523754c593b793ca2ddfdaf65ebb46fbf6f01ad1a4fdd8"
+      },
+      {
+        "symbol": "??3?$AutoPoolClass@VHAnimComboDataClass@@$0BAA@@@SAXPAX@Z",
+        "body_sha256": "d887a4d9d873a9fb059ab831970f33f6e788d0e68cd29a0b2e50120b1e09d219"
+      },
+      {
+        "symbol": "??_EWeightInfoStruct@NamedPivotMapClass@@QAEPAXI@Z",
+        "body_sha256": "e1b91c899a57bc3ef2bcc18143436c682a62affb84240072255486b51be3a0cb"
+      },
+      {
+        "symbol": "??1WeightInfoStruct@NamedPivotMapClass@@QAE@XZ",
+        "body_sha256": "25aec43a2c0b0ce8418e0dcbb6c46b04232f74379c31fabc3b9214026a75955c"
+      },
+      {
+        "symbol": "?Allocate_Object_Memory@?$ObjectPoolClass@VHAnimComboDataClass@@$0BAA@@@QAEPAVHAnimComboDataClass@@XZ",
+        "body_sha256": "b29c289bbe1e41eafcd1a876d6f0882d82dfa940257b783a888b5aeb425ce4fd"
+      },
+      {
+        "symbol": "??1LockClass@FastCriticalSectionClass@@QAE@XZ",
+        "body_sha256": "525671943d5ce862039143164116786bd998971b3c2939803504cfcf60ebaa29"
+      },
+      {
+        "symbol": "?Free_Object_Memory@?$ObjectPoolClass@VHAnimComboDataClass@@$0BAA@@@QAEXPAVHAnimComboDataClass@@@Z",
+        "body_sha256": "e30595ee976c59afd3aae34f2a4638efce5d4f1f4202e411b9433507eb8dd8f4"
+      }
+    ],
+    "outside_target_sections_identical_except_file_literal": [
+      0,
+      1,
+      2,
+      4,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      13,
+      14,
+      15,
+      17,
+      18,
+      19,
+      21,
+      23,
+      25,
+      27,
+      29,
+      31,
+      33,
+      35,
+      37,
+      38,
+      39,
+      40,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49,
+      50,
+      52,
+      54,
+      55,
+      56,
+      58,
+      60,
+      61,
+      63,
+      65,
+      67,
+      69,
+      71,
+      73,
+      75,
+      77,
+      79,
+      81,
+      83,
+      85,
+      86,
+      87,
+      89,
+      91
+    ],
+    "compiler_local_labels": "$L/$T label serials changed by one; resolved section and offset unchanged; all referenced EH/data sections compared byte-for-byte and relocation-for-relocation.",
+    "x87_width_and_instruction_bytes_equal": true,
+    "EH": "No EH registration, unwind funclet, or FS access in target; all four returns compared.",
+    "FP_cycle_branch": {
+      "comparison": "fcom remainder, +0.0f; fnstsw ax; test ah,1; jne EndFrame",
+      "C0": {
+        "less": 1,
+        "greater": 0,
+        "equal_positive_or_negative_zero": 0,
+        "unordered": 1
+      },
+      "negative_or_unordered_target": "0x5DD610 fild saved signed-int EndFrame; jmp 0x5DD555",
+      "nonnegative_target": "0x5DD551 fld rounded-float StartFrame; fall through fadd st(1)"
+    },
+    "limitations": [
+      "Object proof with scratch __FILE__ prefix; basename and actual assert expression strings checked.",
+      "No full executable link performed by child."
+    ],
+    "model": "gpt-6.1-sol (high)"
+  },
+  "replay_note": "Run replay.py STASH --out DIR from repository. It regenerates each tested source independently from base and verifies source SHA-256. Object hashes identify original artifacts; timestamps and __FILE__ prefixes mean recompiles may have different object hashes.",
+  "compile_recipe": {
+    "runner": ".work/claim-254/run_batch.py",
+    "runner_sha256": "fdb16a5e1ff31b66aaa52ff63d96f4b2d2e5fa5498fb21225d877c147ebee190",
+    "compiler": "/home/dev/Toolchains/enb-vc6-sp4/bin/vc6-cl",
+    "flags": "tools/vc6/libdefs.py LIB_FLAGS[app], APP_LIBS[app].defines; include dirs via tools/re/appfile.py candidate_dirs mapped into immutable base tree",
+    "native_matcher": "tools/re/objmatch.py --client RETAIL -q --json MATCHES; every successful object, no filtering",
+    "metrics": "tools/re/trybatch.py measure; tools/re/explain.py; independent audit.py"
+  }
+}
