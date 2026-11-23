@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-606 entries in 250 files.
+605 entries in 249 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -99,7 +99,6 @@ edit the comments in the code, not this file.
 | `app/client/dynamic_window_multi_line_text.cpp:110` | `DynamicWindowMultiLineTextClass::Set_Alignment` | marker | NOT EXACT: the client stores the cleared flags, reloads them and ORs in the new bits; this form folds both into one store |
 | `app/client/dynamic_window_multi_line_text.cpp:308` | `DynamicWindowMultiLineTextClass::Split_Lines` | marker | NOT EXACT: functional: the split, the push_back and the per-line temporaries differ |
 | `app/client/dynamic_window_multi_line_text.cpp:428` | `DynamicWindowMultiLineTextClass::Position_Lines` | mention | NOT EXACT (D64): the functions marked, written from the pseudocode, functional. |
-| `app/client/dynamic_window_render_object.cpp:51` | `DynamicWindowRenderObjectClass::Set_Alignment` | marker | NOT EXACT: the client stores the cleared flags, reloads them and ORs in the new bits; this form folds both into one store |
 | `app/client/dynamic_window_vertical.cpp:101` | `DynamicWindowVerticalClass::Set_Alignment` | marker | NOT EXACT: the client stores the cleared flags, reloads them and ORs in the new bits; this form folds both into one store |
 | `app/client/eff_line.cpp:258` | `LineEffectClass::Unknown_6E6030` | marker | NOT EXACT: stack slots only (every instruction is the client's once stack offsets are masked; the ax < ay result temporary stores at 0x20 where the client coalesces it into p at 0x2c, 0x6E6406 / 0x6E6434); attempts.py show 0x6E6030 |
 | `app/client/eff_seek.cpp:110` | `SpiralSeekEffectClass::Unknown_1C` | marker | NOT EXACT: shape (the frame 0xB0, the sine's slot and the kept product radius * s are the client's; the client has point above rate above direction where this has rate, direction, point, and it stores point.X before rate.X from the FPU stack, 0x6F0E3D); attempts.py show 0x6F0D40 0x6F0D40 |

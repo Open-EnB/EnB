@@ -48,13 +48,13 @@ void DynamicWindowRenderObjectClass::Clear_Flags(unsigned int flags)
 		Invalidate();
 	}
 }
-// NOT EXACT: the client stores the cleared flags, reloads them and ORs in the new bits; this form folds both into one store
+
 void DynamicWindowRenderObjectClass::Set_Alignment(unsigned int flags)
 {
 	unsigned int old_flags = Flags;
-	Flags = old_flags & ~0xF0;
-	unsigned int new_flags = Flags | (flags & 0xF0);
-	Flags = new_flags;
+	Flags &= ~0xF0;
+	unsigned int new_flags = Or_Flags(Flags, flags & 0xF0);
+
 	if (new_flags != old_flags) {
 		Invalidate();
 	}
