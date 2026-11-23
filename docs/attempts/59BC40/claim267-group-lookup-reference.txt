@@ -1,0 +1,4 @@
+{
+  "shared_proof": "docs/attempts/59B220/claim267-group-lookups.txt",
+  "evidence": "4 new valid existing set-field/name/reference source-layer forms plus4 reused whole-object explicit-instantiation measurements;2 shared specialization diagnostics. Best baseline39 masked rows,20 with registers masked; no improvement. Client calls compound Cast out of line at0x598D80,ours keeps it inline;54 baseline exact addresses retained incl B380. No lookup source adopted. Three class instantiations add duplicate Cast credit0x59C670 outside this object,not selected. See claim267 lookup proof pack."
+}
