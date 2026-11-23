@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-607 entries in 251 files.
+606 entries in 251 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -442,7 +442,6 @@ edit the comments in the code, not this file.
 | `app/client/ui_talkt.cpp:357` | `UITalkTreeClass::Unknown_90` | marker | NOT EXACT: 0x64CC90 (Unknown_90: the vector's _Destroy out of line in the client) |
 | `app/client/ui_talkt.cpp:618` | `UITalkTreeClass::Unknown_60` | marker | NOT EXACT: 0x64D770 (Unknown_60, inline budget: SpeechFile.erase()'s nested _Grow calls max_size out of line in the client, inlined in ours) |
 | `app/client/ui_talkt.cpp:839` | `UITalkTreeClass::Unknown_64E7A0` | marker | NOT EXACT: 0x64E7A0 (Unknown_64E7A0: registers only: the bit test, and the 0x497300 call's return slot loaded before its argument) |
-| `app/client/ui_trade.cpp:265` | `UITradeClass::Unknown_60` | marker | NOT EXACT: register (the box's +0x34 through edx, -1 kept in ebx; explain.py names a relocation: symbols.json's stale return type for 0x695680) @0x651510 |
 | `app/client/ui_trade.cpp:600` | `UITradeClass::Unknown_651F60` | marker | NOT EXACT: 0x651F60's -1 call pushes a zeroed edx twice, ours shares the other call's push 0 (register residue) @0x651F60 |
 | `app/client/ui_trade.cpp:906` | `UITradeClass::Unknown_653450` | marker | NOT EXACT: inline budget, as TR1's stash (docs/attempts/0x653450): ours inlines the string assigns the client calls out of line @0x653450 |
 | `app/client/ui_trade.cpp:998` | `UITradeClass::Unknown_653A80` | mention | NOT EXACT. Evidence: the asserts' names ('PDA', '!InterfaceMesh', 'StandardBttnTexture', 'SelectedBttnTexture'); the buttons' sub-objects from the table 0xB8BE98 ('category00'..'category05', 'buy', 'buy_stack', 'sell', 'sellall', 'compare', 'sort', 'exit'); +0x150 holds three InvDataClass (0x688410 with types 1-3), +0x160 is gd_inv_slider.cpp's slider. Forms: the box is reached through Get_View()-... |

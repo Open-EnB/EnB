@@ -1,0 +1,405 @@
+{
+  "schema": 1,
+  "address": "0x651510",
+  "model": "gpt-6.1-sol (high)",
+  "baseline_commit": "3cf475be67cfedf8c4bc63cff207c6f05562c9c8",
+  "baseline_source_sha256": "c17cefd38561400a31d4168ef6888f6c968eb8c5677c8e4ef1274af0610f92ad",
+  "lever": "workflow.md inline accessor changes register ties; source locals at actual argument/reload sites",
+  "tested_forms": 40,
+  "baseline_controls": [
+    {
+      "name": "baseline",
+      "source_sha256": "c17cefd38561400a31d4168ef6888f6c968eb8c5677c8e4ef1274af0610f92ad",
+      "patch": "",
+      "compiled": true,
+      "exact": false,
+      "gains": [],
+      "losses": []
+    }
+  ],
+  "uncompiled_forms": [
+    "assign_peek",
+    "assign_window_local",
+    "assign_reuse_selected",
+    "compare_pointer_local",
+    "compare_and_assign_peek",
+    "compare_selected_condition",
+    "cargo_raw"
+  ],
+  "uncompiled_scope_rejections": [
+    "compare_and_assign_peek",
+    "cargo_raw"
+  ],
+  "final_control": {
+    "source": "forms/final/ui_trade.cpp",
+    "match": "runs/final-rb0j17vj/final/matches.json",
+    "hypothesis_count": 0
+  },
+  "tests": [
+    {
+      "name": "inline_plain",
+      "source_sha256": "a09e0bc64361850e90d720e691a643191496b1c0d331aa5b0e88d2953688f197",
+      "patch": "--- a/app/client/ui_trade.cpp\n+++ b/app/client/ui_trade.cpp\n@@ -273,7 +273,7 @@\n \tRefCountPtr<UIInvClass> cargo = PDA->Unknown_695680();\n \tif (cargo) {\n \t\tif (cargo->UnknownB4 != Unknown140) {\n-\t\t\tClose_Box();\n+\t\t\tif (View && View->Unknown34) View->Unknown34->Unknown_5896C0(\"BUY_CONFIRMATION\"); Unknown174 = 0;\n \t\t\tUnknown140 = cargo->UnknownB4;\n \t\t}\n \t\tif (cargo && cargo->UnknownB4 != -1) {\n",
+      "compiled": true,
+      "exact": false,
+      "gains": [],
+      "losses": []
+    },
+    {
+      "name": "inline_gv",
+      "source_sha256": "0d55c4fe48c3ff5973ae3a1376bcc17d0a1cf5898ebd9830c869d7a8dd06fdbd",
+      "patch": "--- a/app/client/ui_trade.cpp\n+++ b/app/client/ui_trade.cpp\n@@ -273,7 +273,7 @@\n \tRefCountPtr<UIInvClass> cargo = PDA->Unknown_695680();\n \tif (cargo) {\n \t\tif (cargo->UnknownB4 != Unknown140) {\n-\t\t\tClose_Box();\n+\t\t\tif (Get_View() && Get_View()->Unknown34) Get_View()->Unknown34->Unknown_5896C0(\"BUY_CONFIRMATION\"); Unknown174 = 0;\n \t\t\tUnknown140 = cargo->UnknownB4;\n \t\t}\n \t\tif (cargo && cargo->UnknownB4 != -1) {\n",
+      "compiled": true,
+      "exact": false,
+      "gains": [],
+      "losses": []
+    },
+    {
+      "name": "inline_gu",
+      "source_sha256": "fb4032c584856c901c6936d3d23f49e342ba96247513d416e131d381368f1855",
+      "patch": "--- a/app/client/ui_trade.cpp\n+++ b/app/client/ui_trade.cpp\n@@ -273,7 +273,7 @@\n \tRefCountPtr<UIInvClass> cargo = PDA->Unknown_695680();\n \tif (cargo) {\n \t\tif (cargo->UnknownB4 != Unknown140) {\n-\t\t\tClose_Box();\n+\t\t\tif (View && View->Get_Unknown34()) View->Get_Unknown34()->Unknown_5896C0(\"BUY_CONFIRMATION\"); Unknown174 = 0;\n \t\t\tUnknown140 = cargo->UnknownB4;\n \t\t}\n \t\tif (cargo && cargo->UnknownB4 != -1) {\n",
+      "compiled": true,
+      "exact": false,
+      "gains": [],
+      "losses": []
+    },
+    {
+      "name": "inline_gv_gu",
+      "source_sha256": "08c30e201218da395e8433cc9086d4a6b8e0b2829c124acc731e63b07942d7d8",
+      "patch": "--- a/app/client/ui_trade.cpp\n+++ b/app/client/ui_trade.cpp\n@@ -273,7 +273,7 @@\n \tRefCountPtr<UIInvClass> cargo = PDA->Unknown_695680();\n \tif (cargo) {\n \t\tif (cargo->UnknownB4 != Unknown140) {\n-\t\t\tClose_Box();\n+\t\t\tif (Get_View() && Get_View()->Get_Unknown34()) Get_View()->Get_Unknown34()->Unknown_5896C0(\"BUY_CONFIRMATION\"); Unknown174 = 0;\n \t\t\tUnknown140 = cargo->UnknownB4;\n \t\t}\n \t\tif (cargo && cargo->UnknownB4 != -1) {\n",
+      "compiled": true,
+      "exact": false,
+      "gains": [],
+      "losses": []
+    },
+    {
+      "name": "helper_gv",
+      "source_sha256": "50c722ec7eccc523a3a918ad75cfa6895e9a801cf4f4f7ebf7c89092f6c869ee",
+      "patch": "--- a/app/client/ui_trade.cpp\n+++ b/app/client/ui_trade.cpp\n@@ -63,7 +63,7 @@\n class InterfaceUnknown58Class { public: void Unknown_686CC0(RenderObjClass *robj, SceneClass *scene); };\t// 0x686CC0  // NAME 1: neutral (D10)\n void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);\t// 0x496AE0 (ro_funcs.cpp, cdecl)  // NAME 1 [robj, make_geometry_unique]: as ui_manu.cpp's\n inline float Get_Slider_Value(Unknown669FB0Class *slider) { return(slider->Value); }\t// (0x651510 reads it through st0: an accessor's return)  // NAME 1: neutral (D10)\n-inline void UITradeClass::Close_Box() { if (View && View->Unknown34) View->Unknown34->Unknown_5896C0(\"BUY_CONFIRMATION\"); Unknown174 = 0; }\t// (0x652E70's body)\n+inline void UITradeClass::Close_Box() { if (Get_View() && Get_View()->Unknown34) Get_View()->Unknown34->Unknown_5896C0(\"BUY_CONFIRMATION\"); Unknown174 = 0; }\t// (0x652E70's body)\n \n \n \n",
+      "compiled": true,
+      "exact": false,
+      "gains": [],
+      "losses": []
+    },
+    {
+      "name": "helper_gu",
+      "source_sha256": "b366e75891f5ad42c3a0d7638654a2961db386a87779cd6e199209abce389103",
+      "patch": "--- a/app/client/ui_trade.cpp\n+++ b/app/client/ui_trade.cpp\n@@ -63,7 +63,7 @@\n class InterfaceUnknown58Class { public: void Unknown_686CC0(RenderObjClass *robj, SceneClass *scene); };\t// 0x686CC0  // NAME 1: neutral (D10)\n void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);\t// 0x496AE0 (ro_funcs.cpp, cdecl)  // NAME 1 [robj, make_geometry_unique]: as ui_manu.cpp's\n inline float Get_Slider_Value(Unknown669FB0Class *slider) { return(slider->Value); }\t// (0x651510 reads it through st0: an accessor's return)  // NAME 1: neutral (D10)\n-inline void UITradeClass::Close_Box() { if (View && View->Unknown34) View->Unknown34->Unknown_5896C0(\"BUY_CONFIRMATION\"); Unknown174 = 0; }\t// (0x652E70's body)\n+inline void UITradeClass::Close_Box() { if (View && View->Get_Unknown34()) View->Get_Unknown34()->Unknown_5896C0(\"BUY_CONFIRMATION\"); Unknown174 = 0; }\t// (0x652E70's body)\n \n \n \n",
+      "compiled": true,
+      "exact": false,
+      "gains": [],
+      "losses": []
+    },
+    {
+      "name": "helper_gv_gu",
+      "source_sha256": "216cef03245987680068b16181a040580faa4d8ad3671d7bb33a0b88b54d60fe",
+      "patch": "--- a/app/client/ui_trade.cpp\n+++ b/app/client/ui_trade.cpp\n@@ -63,7 +63,7 @@\n class InterfaceUnknown58Class { public: void Unknown_686CC0(RenderObjClass *robj, SceneClass *scene); };\t// 0x686CC0  // NAME 1: neutral (D10)\n void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);\t// 0x496AE0 (ro_funcs.cpp, cdecl)  // NAME 1 [robj, make_geometry_unique]: as ui_manu.cpp's\n inline float Get_Slider_Value(Unknown669FB0Class *slider) { return(slider->Value); }\t// (0x651510 reads it through st0: an accessor's return)  // NAME 1: neutral (D10)\n-inline void UITradeClass::Close_Box() { if (View && View->Unknown34) View->Unknown34->Unknown_5896C0(\"BUY_CONFIRMATION\"); Unknown174 = 0; }\t// (0x652E70's body)\n+inline void UITradeClass::Close_Box() { if (Get_View() && Get_View()->Get_Unknown34()) Get_View()->Get_Unknown34()->Unknown_5896C0(\"BUY_CONFIRMATION\"); Unknown174 = 0; }\t// (0x652E70's body)\n \n \n \n",
+      "compiled": true,
+      "exact": false,
+      "gains": [],
+      "losses": []
+    },
+    {
+      "name": "plain_plain_local",
+      "source_sha256": "deaf9f9ebefd1a17f905740e617f8e82c1dd29b185e1e626ce0bcfd0b84f5e1e",
+      "patch": "--- a/app/client/ui_trade.cpp\n+++ b/app/client/ui_trade.cpp\n@@ -273,7 +273,7 @@\n \tRefCountPtr<UIInvClass> cargo = PDA->Unknown_695680();\n \tif (cargo) {\n \t\tif (cargo->UnknownB4 != Unknown140) {\n-\t\t\tClose_Box();\n+\t\t\tif (Get_View() && Get_View()->Get_Unknown34()) Get_View()->Get_Unknown34()->Unknown_5896C0(\"BUY_CONFIRMATION\"); Unknown174 = 0;\n \t\t\tUnknown140 = cargo->UnknownB4;\n \t\t}\n \t\tif (cargo && cargo->UnknownB4 != -1) {\n@@ -281,8 +281,8 @@\n \t\t\tif (count > 0) {\n \t\t\t\tcan_sell = true;\n \t\t\t} else {\n-\t\t\t\tcargo->UnknownB4 = -1;\n-\t\t\t\tcargo->Unknown_C8();\n+\t\t\t\tUIInvClass *window = cargo.Peek(); window->UnknownB4 = -1;\n+\t\t\t\twindow->Unknown_C8();\n \t\t\t}\n \t\t\tif (count > 1) can_sell_stack = true;\n \t\t}\n",
+      "compiled": true,
+      "exact": false,
+      "gains": [],
+      "losses": []
+    },
+    {
+      "name": "plain_plain_peek",
+      "source_sha256": "a865b35fab620567a633c26f61a3c6dbe9a61f319043e6ea88caa2327f32ebb9",
+      "patch": "--- a/app/client/ui_trade.cpp\n+++ b/app/client/ui_trade.cpp\n@@ -273,7 +273,7 @@\n \tRefCountPtr<UIInvClass> cargo = PDA->Unknown_695680();\n \tif (cargo) {\n \t\tif (cargo->UnknownB4 != Unknown140) {\n-\t\t\tClose_Box();\n+\t\t\tif (Get_View() && Get_View()->Get_Unknown34()) Get_View()->Get_Unknown34()->Unknown_5896C0(\"BUY_CONFIRMATION\"); Unknown174 = 0;\n \t\t\tUnknown140 = cargo->UnknownB4;\n \t\t}\n \t\tif (cargo && cargo->UnknownB4 != -1) {\n@@ -281,8 +281,8 @@\n \t\t\tif (count > 0) {\n \t\t\t\tcan_sell = true;\n \t\t\t} else {\n-\t\t\t\tcargo->UnknownB4 = -1;\n-\t\t\t\tcargo->Unknown_C8();\n+\t\t\t\tcargo.Peek()->UnknownB4 = -1;\n+\t\t\t\tcargo.Peek()->Unknown_C8();\n \t\t\t}\n \t\t\tif (count > 1) can_sell_stack = true;\n \t\t}\n",
+      "compiled": true,
+      "exact": false,
+      "gains": [],
+      "losses": []
+    },
+    {
+      "name": "plain_local_plain",
+      "source_sha256": "14051a633a0870c77b85d524f73a59b5d776c96634ddefa5cf014cdcb6377e36",
+      "patch": "--- a/app/client/ui_trade.cpp\n+++ b/app/client/ui_trade.cpp\n@@ -273,11 +273,11 @@\n \tRefCountPtr<UIInvClass> cargo = PDA->Unknown_695680();\n \tif (cargo) {\n \t\tif (cargo->UnknownB4 != Unknown140) {\n-\t\t\tClose_Box();\n+\t\t\tif (Get_View() && Get_View()->Get_Unknown34()) Get_View()->Get_Unknown34()->Unknown_5896C0(\"BUY_CONFIRMATION\"); Unknown174 = 0;\n \t\t\tUnknown140 = cargo->UnknownB4;\n \t\t}\n \t\tif (cargo && cargo->UnknownB4 != -1) {\n-\t\t\tInvDataPeekClass *peek = cargo->Unknown_59FE10()->Unknown_688830(); int count = peek->Get_Stack_Count(cargo->UnknownB4);\n+\t\t\tInvDataPeekClass *peek = cargo->Unknown_59FE10()->Unknown_688830(); int selected = cargo->UnknownB4; int count = peek->Get_Stack_Count(selected);\n \t\t\tif (count > 0) {\n \t\t\t\tcan_sell = true;\n \t\t\t} else {\n",
+      "compiled": true,
+      "exact": false,
+      "gains": [],
+      "losses": []
+    },
+    {
+      "name": "plain_local_local",
+      "source_sha256": "c3320ad96c3b2aa699836fb6045ba01a21d4a6c3e54a24d7cee026a9cc95afce",
+      "patch": "--- a/app/client/ui_trade.cpp\n+++ b/app/client/ui_trade.cpp\n@@ -273,16 +273,16 @@\n \tRefCountPtr<UIInvClass> cargo = PDA->Unknown_695680();\n \tif (cargo) {\n \t\tif (cargo->UnknownB4 != Unknown140) {\n-\t\t\tClose_Box();\n+\t\t\tif (Get_View() && Get_View()->Get_Unknown34()) Get_View()->Get_Unknown34()->Unknown_5896C0(\"BUY_CONFIRMATION\"); Unknown174 = 0;\n \t\t\tUnknown140 = cargo->UnknownB4;\n \t\t}\n \t\tif (cargo && cargo->UnknownB4 != -1) {\n-\t\t\tInvDataPeekClass *peek = cargo->Unknown_59FE10()->Unknown_688830(); int count = peek->Get_Stack_Count(cargo->UnknownB4);\n+\t\t\tInvDataPeekClass *peek = cargo->Unknown_59FE10()->Unknown_688830(); int selected = cargo->UnknownB4; int count = peek->Get_Stack_Count(selected);\n \t\t\tif (count > 0) {\n \t\t\t\tcan_sell = true;\n \t\t\t} else {\n-\t\t\t\tcargo->UnknownB4 = -1;\n-\t\t\t\tcargo->Unknown_C8();\n+\t\t\t\tUIInvClass *window = cargo.Peek(); window->UnknownB4 = -1;\n+\t\t\t\twindow->Unknown_C8();\n \t\t\t}\n \t\t\tif (count > 1) can_sell_stack = true;\n \t\t}\n",
+      "compiled": true,
+      "exact": false,
+      "gains": [],
+      "losses": []
+    },
+    {
+      "name": "plain_local_peek",
+      "source_sha256": "944d89f71049843aad17886ae05efd074aad35e814f21f2f80d4296bc3731e97",
+      "patch": "--- a/app/client/ui_trade.cpp\n+++ b/app/client/ui_trade.cpp\n@@ -273,16 +273,16 @@\n \tRefCountPtr<UIInvClass> cargo = PDA->Unknown_695680();\n \tif (cargo) {\n \t\tif (cargo->UnknownB4 != Unknown140) {\n-\t\t\tClose_Box();\n+\t\t\tif (Get_View() && Get_View()->Get_Unknown34()) Get_View()->Get_Unknown34()->Unknown_5896C0(\"BUY_CONFIRMATION\"); Unknown174 = 0;\n \t\t\tUnknown140 = cargo->UnknownB4;\n \t\t}\n \t\tif (cargo && cargo->UnknownB4 != -1) {\n-\t\t\tInvDataPeekClass *peek = cargo->Unknown_59FE10()->Unknown_688830(); int count = peek->Get_Stack_Count(cargo->UnknownB4);\n+\t\t\tInvDataPeekClass *peek = cargo->Unknown_59FE10()->Unknown_688830(); int selected = cargo->UnknownB4; int count = peek->Get_Stack_Count(selected);\n \t\t\tif (count > 0) {\n \t\t\t\tcan_sell = true;\n \t\t\t} else {\n-\t\t\t\tcargo->UnknownB4 = -1;\n-\t\t\t\tcargo->Unknown_C8();\n+\t\t\t\tcargo.Peek()->UnknownB4 = -1;\n+\t\t\t\tcargo.Peek()->Unknown_C8();\n \t\t\t}\n \t\t\tif (count > 1) can_sell_stack = true;\n \t\t}\n",
+      "compiled": true,
+      "exact": false,
+      "gains": [],
+      "losses": []
+    },
+    {
+      "name": "plain_peek_plain",
+      "source_sha256": "e6376ada901c122da55c7580dee2a849fa7b95cdce599846aae65641f9d1c90c",
+      "patch": "--- a/app/client/ui_trade.cpp\n+++ b/app/client/ui_trade.cpp\n@@ -273,11 +273,11 @@\n \tRefCountPtr<UIInvClass> cargo = PDA->Unknown_695680();\n \tif (cargo) {\n \t\tif (cargo->UnknownB4 != Unknown140) {\n-\t\t\tClose_Box();\n+\t\t\tif (Get_View() && Get_View()->Get_Unknown34()) Get_View()->Get_Unknown34()->Unknown_5896C0(\"BUY_CONFIRMATION\"); Unknown174 = 0;\n \t\t\tUnknown140 = cargo->UnknownB4;\n \t\t}\n \t\tif (cargo && cargo->UnknownB4 != -1) {\n-\t\t\tInvDataPeekClass *peek = cargo->Unknown_59FE10()->Unknown_688830(); int count = peek->Get_Stack_Count(cargo->UnknownB4);\n+\t\t\tInvDataPeekClass *peek = cargo->Unknown_59FE10()->Unknown_688830(); int count = peek->Get_Stack_Count(cargo.Peek()->UnknownB4);\n \t\t\tif (count > 0) {\n \t\t\t\tcan_sell = true;\n \t\t\t} else {\n",
+      "compiled": true,
+      "exact": false,
+      "gains": [],
+      "losses": []
+    },
+    {
+      "name": "plain_peek_local",
+      "source_sha256": "492a8a769be532e6b0010ec436ca836adf2a9141abc655a1d839f901d0fa13f4",
+      "patch": "--- a/app/client/ui_trade.cpp\n+++ b/app/client/ui_trade.cpp\n@@ -273,16 +273,16 @@\n \tRefCountPtr<UIInvClass> cargo = PDA->Unknown_695680();\n \tif (cargo) {\n \t\tif (cargo->UnknownB4 != Unknown140) {\n-\t\t\tClose_Box();\n+\t\t\tif (Get_View() && Get_View()->Get_Unknown34()) Get_View()->Get_Unknown34()->Unknown_5896C0(\"BUY_CONFIRMATION\"); Unknown174 = 0;\n \t\t\tUnknown140 = cargo->UnknownB4;\n \t\t}\n \t\tif (cargo && cargo->UnknownB4 != -1) {\n-\t\t\tInvDataPeekClass *peek = cargo->Unknown_59FE10()->Unknown_688830(); int count = peek->Get_Stack_Count(cargo->UnknownB4);\n+\t\t\tInvDataPeekClass *peek = cargo->Unknown_59FE10()->Unknown_688830(); int count = peek->Get_Stack_Count(cargo.Peek()->UnknownB4);\n \t\t\tif (count > 0) {\n \t\t\t\tcan_sell = true;\n \t\t\t} else {\n-\t\t\t\tcargo->UnknownB4 = -1;\n-\t\t\t\tcargo->Unknown_C8();\n+\t\t\t\tUIInvClass *window = cargo.Peek(); window->UnknownB4 = -1;\n+\t\t\t\twindow->Unknown_C8();\n \t\t\t}\n \t\t\tif (count > 1) can_sell_stack = true;\n \t\t}\n",
+      "compiled": true,
+      "exact": false,
+      "gains": [],
+      "losses": []
+    },
+    {
+      "name": "plain_peek_peek",
+      "source_sha256": "e87071e49ffe2486722e316d864a39cd64b961865de40517450e931a75447b1a",
+      "patch": "--- a/app/client/ui_trade.cpp\n+++ b/app/client/ui_trade.cpp\n@@ -273,16 +273,16 @@\n \tRefCountPtr<UIInvClass> cargo = PDA->Unknown_695680();\n \tif (cargo) {\n \t\tif (cargo->UnknownB4 != Unknown140) {\n-\t\t\tClose_Box();\n+\t\t\tif (Get_View() && Get_View()->Get_Unknown34()) Get_View()->Get_Unknown34()->Unknown_5896C0(\"BUY_CONFIRMATION\"); Unknown174 = 0;\n \t\t\tUnknown140 = cargo->UnknownB4;\n \t\t}\n \t\tif (cargo && cargo->UnknownB4 != -1) {\n-\t\t\tInvDataPeekClass *peek = cargo->Unknown_59FE10()->Unknown_688830(); int count = peek->Get_Stack_Count(cargo->UnknownB4);\n+\t\t\tInvDataPeekClass *peek = cargo->Unknown_59FE10()->Unknown_688830(); int count = peek->Get_Stack_Count(cargo.Peek()->UnknownB4);\n \t\t\tif (count > 0) {\n \t\t\t\tcan_sell = true;\n \t\t\t} else {\n-\t\t\t\tcargo->UnknownB4 = -1;\n-\t\t\t\tcargo->Unknown_C8();\n+\t\t\t\tcargo.Peek()->UnknownB4 = -1;\n+\t\t\t\tcargo.Peek()->Unknown_C8();\n \t\t\t}\n \t\t\tif (count > 1) can_sell_stack = true;\n \t\t}\n",
+      "compiled": true,
+      "exact": false,
+      "gains": [],
+      "losses": []
+    },
+    {
+      "name": "reverse_plain_plain",
+      "source_sha256": "32d6d2eb9207b815da0e376e04513cf9b810dc1bf13032e3d93921e0a9f3ec2d",
+      "patch": "--- a/app/client/ui_trade.cpp\n+++ b/app/client/ui_trade.cpp\n@@ -272,8 +272,8 @@\n \tbool can_sell_stack = false;\n \tRefCountPtr<UIInvClass> cargo = PDA->Unknown_695680();\n \tif (cargo) {\n-\t\tif (cargo->UnknownB4 != Unknown140) {\n-\t\t\tClose_Box();\n+\t\tif (Unknown140 != cargo->UnknownB4) {\n+\t\t\tif (Get_View() && Get_View()->Get_Unknown34()) Get_View()->Get_Unknown34()->Unknown_5896C0(\"BUY_CONFIRMATION\"); Unknown174 = 0;\n \t\t\tUnknown140 = cargo->UnknownB4;\n \t\t}\n \t\tif (cargo && cargo->UnknownB4 != -1) {\n",
+      "compiled": true,
+      "exact": false,
+      "gains": [],
+      "losses": []
+    },
+    {
+      "name": "reverse_plain_local",
+      "source_sha256": "4d6470eecf5bd3c3b149ad04ebc9966cd8a0c75012e804f8645fae11fa8ca4f1",
+      "patch": "--- a/app/client/ui_trade.cpp\n+++ b/app/client/ui_trade.cpp\n@@ -272,8 +272,8 @@\n \tbool can_sell_stack = false;\n \tRefCountPtr<UIInvClass> cargo = PDA->Unknown_695680();\n \tif (cargo) {\n-\t\tif (cargo->UnknownB4 != Unknown140) {\n-\t\t\tClose_Box();\n+\t\tif (Unknown140 != cargo->UnknownB4) {\n+\t\t\tif (Get_View() && Get_View()->Get_Unknown34()) Get_View()->Get_Unknown34()->Unknown_5896C0(\"BUY_CONFIRMATION\"); Unknown174 = 0;\n \t\t\tUnknown140 = cargo->UnknownB4;\n \t\t}\n \t\tif (cargo && cargo->UnknownB4 != -1) {\n@@ -281,8 +281,8 @@\n \t\t\tif (count > 0) {\n \t\t\t\tcan_sell = true;\n \t\t\t} else {\n-\t\t\t\tcargo->UnknownB4 = -1;\n-\t\t\t\tcargo->Unknown_C8();\n+\t\t\t\tUIInvClass *window = cargo.Peek(); window->UnknownB4 = -1;\n+\t\t\t\twindow->Unknown_C8();\n \t\t\t}\n \t\t\tif (count > 1) can_sell_stack = true;\n \t\t}\n",
+      "compiled": true,
+      "exact": false,
+      "gains": [],
+      "losses": []
+    },
+    {
+      "name": "reverse_plain_peek",
+      "source_sha256": "afe2c456e473e0f87ac4ea7d24aa86b06e92312e3057b1de9469c9ea4f23f98e",
+      "patch": "--- a/app/client/ui_trade.cpp\n+++ b/app/client/ui_trade.cpp\n@@ -272,8 +272,8 @@\n \tbool can_sell_stack = false;\n \tRefCountPtr<UIInvClass> cargo = PDA->Unknown_695680();\n \tif (cargo) {\n-\t\tif (cargo->UnknownB4 != Unknown140) {\n-\t\t\tClose_Box();\n+\t\tif (Unknown140 != cargo->UnknownB4) {\n+\t\t\tif (Get_View() && Get_View()->Get_Unknown34()) Get_View()->Get_Unknown34()->Unknown_5896C0(\"BUY_CONFIRMATION\"); Unknown174 = 0;\n \t\t\tUnknown140 = cargo->UnknownB4;\n \t\t}\n \t\tif (cargo && cargo->UnknownB4 != -1) {\n@@ -281,8 +281,8 @@\n \t\t\tif (count > 0) {\n \t\t\t\tcan_sell = true;\n \t\t\t} else {\n-\t\t\t\tcargo->UnknownB4 = -1;\n-\t\t\t\tcargo->Unknown_C8();\n+\t\t\t\tcargo.Peek()->UnknownB4 = -1;\n+\t\t\t\tcargo.Peek()->Unknown_C8();\n \t\t\t}\n \t\t\tif (count > 1) can_sell_stack = true;\n \t\t}\n",
+      "compiled": true,
+      "exact": false,
+      "gains": [],
+      "losses": []
+    },
+    {
+      "name": "reverse_local_plain",
+      "source_sha256": "2156750af883cdfcaa6de784013d3933ce6e015161b212019046f12cfcfc3520",
+      "patch": "--- a/app/client/ui_trade.cpp\n+++ b/app/client/ui_trade.cpp\n@@ -272,12 +272,12 @@\n \tbool can_sell_stack = false;\n \tRefCountPtr<UIInvClass> cargo = PDA->Unknown_695680();\n \tif (cargo) {\n-\t\tif (cargo->UnknownB4 != Unknown140) {\n-\t\t\tClose_Box();\n+\t\tif (Unknown140 != cargo->UnknownB4) {\n+\t\t\tif (Get_View() && Get_View()->Get_Unknown34()) Get_View()->Get_Unknown34()->Unknown_5896C0(\"BUY_CONFIRMATION\"); Unknown174 = 0;\n \t\t\tUnknown140 = cargo->UnknownB4;\n \t\t}\n \t\tif (cargo && cargo->UnknownB4 != -1) {\n-\t\t\tInvDataPeekClass *peek = cargo->Unknown_59FE10()->Unknown_688830(); int count = peek->Get_Stack_Count(cargo->UnknownB4);\n+\t\t\tInvDataPeekClass *peek = cargo->Unknown_59FE10()->Unknown_688830(); int selected = cargo->UnknownB4; int count = peek->Get_Stack_Count(selected);\n \t\t\tif (count > 0) {\n \t\t\t\tcan_sell = true;\n \t\t\t} else {\n",
+      "compiled": true,
+      "exact": false,
+      "gains": [],
+      "losses": []
+    },
+    {
+      "name": "reverse_local_local",
+      "source_sha256": "e5448f3c8cce3cf8ec70c177efe30358912749ccf6e7011bccad66ff79a5f682",
+      "patch": "--- a/app/client/ui_trade.cpp\n+++ b/app/client/ui_trade.cpp\n@@ -272,17 +272,17 @@\n \tbool can_sell_stack = false;\n \tRefCountPtr<UIInvClass> cargo = PDA->Unknown_695680();\n \tif (cargo) {\n-\t\tif (cargo->UnknownB4 != Unknown140) {\n-\t\t\tClose_Box();\n+\t\tif (Unknown140 != cargo->UnknownB4) {\n+\t\t\tif (Get_View() && Get_View()->Get_Unknown34()) Get_View()->Get_Unknown34()->Unknown_5896C0(\"BUY_CONFIRMATION\"); Unknown174 = 0;\n \t\t\tUnknown140 = cargo->UnknownB4;\n \t\t}\n \t\tif (cargo && cargo->UnknownB4 != -1) {\n-\t\t\tInvDataPeekClass *peek = cargo->Unknown_59FE10()->Unknown_688830(); int count = peek->Get_Stack_Count(cargo->UnknownB4);\n+\t\t\tInvDataPeekClass *peek = cargo->Unknown_59FE10()->Unknown_688830(); int selected = cargo->UnknownB4; int count = peek->Get_Stack_Count(selected);\n \t\t\tif (count > 0) {\n \t\t\t\tcan_sell = true;\n \t\t\t} else {\n-\t\t\t\tcargo->UnknownB4 = -1;\n-\t\t\t\tcargo->Unknown_C8();\n+\t\t\t\tUIInvClass *window = cargo.Peek(); window->UnknownB4 = -1;\n+\t\t\t\twindow->Unknown_C8();\n \t\t\t}\n \t\t\tif (count > 1) can_sell_stack = true;\n \t\t}\n",
+      "compiled": true,
+      "exact": false,
+      "gains": [],
+      "losses": []
+    },
+    {
+      "name": "reverse_local_peek",
+      "source_sha256": "b9b0d54dae567f9e243b68ead9eb653f1dfe551129c013079ecf9b72715cec05",
+      "patch": "--- a/app/client/ui_trade.cpp\n+++ b/app/client/ui_trade.cpp\n@@ -272,17 +272,17 @@\n \tbool can_sell_stack = false;\n \tRefCountPtr<UIInvClass> cargo = PDA->Unknown_695680();\n \tif (cargo) {\n-\t\tif (cargo->UnknownB4 != Unknown140) {\n-\t\t\tClose_Box();\n+\t\tif (Unknown140 != cargo->UnknownB4) {\n+\t\t\tif (Get_View() && Get_View()->Get_Unknown34()) Get_View()->Get_Unknown34()->Unknown_5896C0(\"BUY_CONFIRMATION\"); Unknown174 = 0;\n \t\t\tUnknown140 = cargo->UnknownB4;\n \t\t}\n \t\tif (cargo && cargo->UnknownB4 != -1) {\n-\t\t\tInvDataPeekClass *peek = cargo->Unknown_59FE10()->Unknown_688830(); int count = peek->Get_Stack_Count(cargo->UnknownB4);\n+\t\t\tInvDataPeekClass *peek = cargo->Unknown_59FE10()->Unknown_688830(); int selected = cargo->UnknownB4; int count = peek->Get_Stack_Count(selected);\n \t\t\tif (count > 0) {\n \t\t\t\tcan_sell = true;\n \t\t\t} else {\n-\t\t\t\tcargo->UnknownB4 = -1;\n-\t\t\t\tcargo->Unknown_C8();\n+\t\t\t\tcargo.Peek()->UnknownB4 = -1;\n+\t\t\t\tcargo.Peek()->Unknown_C8();\n \t\t\t}\n \t\t\tif (count > 1) can_sell_stack = true;\n \t\t}\n",
+      "compiled": true,
+      "exact": false,
+      "gains": [],
+      "losses": []
+    },
+    {
+      "name": "reverse_peek_plain",
+      "source_sha256": "30da152c3a0c052fd5a2e07e06e30c22959ea72bfab1286b507d4de17e7a48cd",
+      "patch": "--- a/app/client/ui_trade.cpp\n+++ b/app/client/ui_trade.cpp\n@@ -272,12 +272,12 @@\n \tbool can_sell_stack = false;\n \tRefCountPtr<UIInvClass> cargo = PDA->Unknown_695680();\n \tif (cargo) {\n-\t\tif (cargo->UnknownB4 != Unknown140) {\n-\t\t\tClose_Box();\n+\t\tif (Unknown140 != cargo->UnknownB4) {\n+\t\t\tif (Get_View() && Get_View()->Get_Unknown34()) Get_View()->Get_Unknown34()->Unknown_5896C0(\"BUY_CONFIRMATION\"); Unknown174 = 0;\n \t\t\tUnknown140 = cargo->UnknownB4;\n \t\t}\n \t\tif (cargo && cargo->UnknownB4 != -1) {\n-\t\t\tInvDataPeekClass *peek = cargo->Unknown_59FE10()->Unknown_688830(); int count = peek->Get_Stack_Count(cargo->UnknownB4);\n+\t\t\tInvDataPeekClass *peek = cargo->Unknown_59FE10()->Unknown_688830(); int count = peek->Get_Stack_Count(cargo.Peek()->UnknownB4);\n \t\t\tif (count > 0) {\n \t\t\t\tcan_sell = true;\n \t\t\t} else {\n",
+      "compiled": true,
+      "exact": false,
+      "gains": [],
+      "losses": []
+    },
+    {
+      "name": "reverse_peek_local",
+      "source_sha256": "412e146a9728e4425598a54539831fa56bf077fab5fc63c71d045db81fb23280",
+      "patch": "--- a/app/client/ui_trade.cpp\n+++ b/app/client/ui_trade.cpp\n@@ -272,17 +272,17 @@\n \tbool can_sell_stack = false;\n \tRefCountPtr<UIInvClass> cargo = PDA->Unknown_695680();\n \tif (cargo) {\n-\t\tif (cargo->UnknownB4 != Unknown140) {\n-\t\t\tClose_Box();\n+\t\tif (Unknown140 != cargo->UnknownB4) {\n+\t\t\tif (Get_View() && Get_View()->Get_Unknown34()) Get_View()->Get_Unknown34()->Unknown_5896C0(\"BUY_CONFIRMATION\"); Unknown174 = 0;\n \t\t\tUnknown140 = cargo->UnknownB4;\n \t\t}\n \t\tif (cargo && cargo->UnknownB4 != -1) {\n-\t\t\tInvDataPeekClass *peek = cargo->Unknown_59FE10()->Unknown_688830(); int count = peek->Get_Stack_Count(cargo->UnknownB4);\n+\t\t\tInvDataPeekClass *peek = cargo->Unknown_59FE10()->Unknown_688830(); int count = peek->Get_Stack_Count(cargo.Peek()->UnknownB4);\n \t\t\tif (count > 0) {\n \t\t\t\tcan_sell = true;\n \t\t\t} else {\n-\t\t\t\tcargo->UnknownB4 = -1;\n-\t\t\t\tcargo->Unknown_C8();\n+\t\t\t\tUIInvClass *window = cargo.Peek(); window->UnknownB4 = -1;\n+\t\t\t\twindow->Unknown_C8();\n \t\t\t}\n \t\t\tif (count > 1) can_sell_stack = true;\n \t\t}\n",
+      "compiled": true,
+      "exact": false,
+      "gains": [],
+      "losses": []
+    },
+    {
+      "name": "reverse_peek_peek",
+      "source_sha256": "511a99610f4580ed9835605096bc8b1e29c6e97070f3e5c0b133e4a8d0235941",
+      "patch": "--- a/app/client/ui_trade.cpp\n+++ b/app/client/ui_trade.cpp\n@@ -272,17 +272,17 @@\n \tbool can_sell_stack = false;\n \tRefCountPtr<UIInvClass> cargo = PDA->Unknown_695680();\n \tif (cargo) {\n-\t\tif (cargo->UnknownB4 != Unknown140) {\n-\t\t\tClose_Box();\n+\t\tif (Unknown140 != cargo->UnknownB4) {\n+\t\t\tif (Get_View() && Get_View()->Get_Unknown34()) Get_View()->Get_Unknown34()->Unknown_5896C0(\"BUY_CONFIRMATION\"); Unknown174 = 0;\n \t\t\tUnknown140 = cargo->UnknownB4;\n \t\t}\n \t\tif (cargo && cargo->UnknownB4 != -1) {\n-\t\t\tInvDataPeekClass *peek = cargo->Unknown_59FE10()->Unknown_688830(); int count = peek->Get_Stack_Count(cargo->UnknownB4);\n+\t\t\tInvDataPeekClass *peek = cargo->Unknown_59FE10()->Unknown_688830(); int count = peek->Get_Stack_Count(cargo.Peek()->UnknownB4);\n \t\t\tif (count > 0) {\n \t\t\t\tcan_sell = true;\n \t\t\t} else {\n-\t\t\t\tcargo->UnknownB4 = -1;\n-\t\t\t\tcargo->Unknown_C8();\n+\t\t\t\tcargo.Peek()->UnknownB4 = -1;\n+\t\t\t\tcargo.Peek()->Unknown_C8();\n \t\t\t}\n \t\t\tif (count > 1) can_sell_stack = true;\n \t\t}\n",
+      "compiled": true,
+      "exact": false,
+      "gains": [],
+      "losses": []
+    },
+    {
+      "name": "local_plain_plain",
+      "source_sha256": "82df7bbac68688148b2c2c3afe9ddbfac13986ae03940d10734a302a12b4f125",
+      "patch": "--- a/app/client/ui_trade.cpp\n+++ b/app/client/ui_trade.cpp\n@@ -272,8 +272,8 @@\n \tbool can_sell_stack = false;\n \tRefCountPtr<UIInvClass> cargo = PDA->Unknown_695680();\n \tif (cargo) {\n-\t\tif (cargo->UnknownB4 != Unknown140) {\n-\t\t\tClose_Box();\n+\t\tint selected = cargo->UnknownB4; if (selected != Unknown140) {\n+\t\t\tif (Get_View() && Get_View()->Get_Unknown34()) Get_View()->Get_Unknown34()->Unknown_5896C0(\"BUY_CONFIRMATION\"); Unknown174 = 0;\n \t\t\tUnknown140 = cargo->UnknownB4;\n \t\t}\n \t\tif (cargo && cargo->UnknownB4 != -1) {\n",
+      "compiled": true,
+      "exact": false,
+      "gains": [],
+      "losses": []
+    },
+    {
+      "name": "local_plain_local",
+      "source_sha256": "a684b243f27ef749c647114c97485ef6c7156da9f408b1dcca56e378a5b33e14",
+      "patch": "--- a/app/client/ui_trade.cpp\n+++ b/app/client/ui_trade.cpp\n@@ -272,8 +272,8 @@\n \tbool can_sell_stack = false;\n \tRefCountPtr<UIInvClass> cargo = PDA->Unknown_695680();\n \tif (cargo) {\n-\t\tif (cargo->UnknownB4 != Unknown140) {\n-\t\t\tClose_Box();\n+\t\tint selected = cargo->UnknownB4; if (selected != Unknown140) {\n+\t\t\tif (Get_View() && Get_View()->Get_Unknown34()) Get_View()->Get_Unknown34()->Unknown_5896C0(\"BUY_CONFIRMATION\"); Unknown174 = 0;\n \t\t\tUnknown140 = cargo->UnknownB4;\n \t\t}\n \t\tif (cargo && cargo->UnknownB4 != -1) {\n@@ -281,8 +281,8 @@\n \t\t\tif (count > 0) {\n \t\t\t\tcan_sell = true;\n \t\t\t} else {\n-\t\t\t\tcargo->UnknownB4 = -1;\n-\t\t\t\tcargo->Unknown_C8();\n+\t\t\t\tUIInvClass *window = cargo.Peek(); window->UnknownB4 = -1;\n+\t\t\t\twindow->Unknown_C8();\n \t\t\t}\n \t\t\tif (count > 1) can_sell_stack = true;\n \t\t}\n",
+      "compiled": true,
+      "exact": false,
+      "gains": [],
+      "losses": []
+    },
+    {
+      "name": "local_plain_peek",
+      "source_sha256": "75f77c5415ff01af9355ef3eceb8a6a176b5cc160e0f353473196877dcf99a58",
+      "patch": "--- a/app/client/ui_trade.cpp\n+++ b/app/client/ui_trade.cpp\n@@ -272,8 +272,8 @@\n \tbool can_sell_stack = false;\n \tRefCountPtr<UIInvClass> cargo = PDA->Unknown_695680();\n \tif (cargo) {\n-\t\tif (cargo->UnknownB4 != Unknown140) {\n-\t\t\tClose_Box();\n+\t\tint selected = cargo->UnknownB4; if (selected != Unknown140) {\n+\t\t\tif (Get_View() && Get_View()->Get_Unknown34()) Get_View()->Get_Unknown34()->Unknown_5896C0(\"BUY_CONFIRMATION\"); Unknown174 = 0;\n \t\t\tUnknown140 = cargo->UnknownB4;\n \t\t}\n \t\tif (cargo && cargo->UnknownB4 != -1) {\n@@ -281,8 +281,8 @@\n \t\t\tif (count > 0) {\n \t\t\t\tcan_sell = true;\n \t\t\t} else {\n-\t\t\t\tcargo->UnknownB4 = -1;\n-\t\t\t\tcargo->Unknown_C8();\n+\t\t\t\tcargo.Peek()->UnknownB4 = -1;\n+\t\t\t\tcargo.Peek()->Unknown_C8();\n \t\t\t}\n \t\t\tif (count > 1) can_sell_stack = true;\n \t\t}\n",
+      "compiled": true,
+      "exact": false,
+      "gains": [],
+      "losses": []
+    },
+    {
+      "name": "local_local_plain",
+      "source_sha256": "3adb7fcc95fdd848de765c59f6184f3a9cead8c8a1c94a2bc21cffbcd80a76a0",
+      "patch": "--- a/app/client/ui_trade.cpp\n+++ b/app/client/ui_trade.cpp\n@@ -272,12 +272,12 @@\n \tbool can_sell_stack = false;\n \tRefCountPtr<UIInvClass> cargo = PDA->Unknown_695680();\n \tif (cargo) {\n-\t\tif (cargo->UnknownB4 != Unknown140) {\n-\t\t\tClose_Box();\n+\t\tint selected = cargo->UnknownB4; if (selected != Unknown140) {\n+\t\t\tif (Get_View() && Get_View()->Get_Unknown34()) Get_View()->Get_Unknown34()->Unknown_5896C0(\"BUY_CONFIRMATION\"); Unknown174 = 0;\n \t\t\tUnknown140 = cargo->UnknownB4;\n \t\t}\n \t\tif (cargo && cargo->UnknownB4 != -1) {\n-\t\t\tInvDataPeekClass *peek = cargo->Unknown_59FE10()->Unknown_688830(); int count = peek->Get_Stack_Count(cargo->UnknownB4);\n+\t\t\tInvDataPeekClass *peek = cargo->Unknown_59FE10()->Unknown_688830(); int selected = cargo->UnknownB4; int count = peek->Get_Stack_Count(selected);\n \t\t\tif (count > 0) {\n \t\t\t\tcan_sell = true;\n \t\t\t} else {\n",
+      "compiled": true,
+      "exact": false,
+      "gains": [],
+      "losses": []
+    },
+    {
+      "name": "local_local_local",
+      "source_sha256": "0fcfb18768f15a543713e0d1befd3849fe33f8a29747518e7d869fe7d57175ff",
+      "patch": "--- a/app/client/ui_trade.cpp\n+++ b/app/client/ui_trade.cpp\n@@ -272,17 +272,17 @@\n \tbool can_sell_stack = false;\n \tRefCountPtr<UIInvClass> cargo = PDA->Unknown_695680();\n \tif (cargo) {\n-\t\tif (cargo->UnknownB4 != Unknown140) {\n-\t\t\tClose_Box();\n+\t\tint selected = cargo->UnknownB4; if (selected != Unknown140) {\n+\t\t\tif (Get_View() && Get_View()->Get_Unknown34()) Get_View()->Get_Unknown34()->Unknown_5896C0(\"BUY_CONFIRMATION\"); Unknown174 = 0;\n \t\t\tUnknown140 = cargo->UnknownB4;\n \t\t}\n \t\tif (cargo && cargo->UnknownB4 != -1) {\n-\t\t\tInvDataPeekClass *peek = cargo->Unknown_59FE10()->Unknown_688830(); int count = peek->Get_Stack_Count(cargo->UnknownB4);\n+\t\t\tInvDataPeekClass *peek = cargo->Unknown_59FE10()->Unknown_688830(); int selected = cargo->UnknownB4; int count = peek->Get_Stack_Count(selected);\n \t\t\tif (count > 0) {\n \t\t\t\tcan_sell = true;\n \t\t\t} else {\n-\t\t\t\tcargo->UnknownB4 = -1;\n-\t\t\t\tcargo->Unknown_C8();\n+\t\t\t\tUIInvClass *window = cargo.Peek(); window->UnknownB4 = -1;\n+\t\t\t\twindow->Unknown_C8();\n \t\t\t}\n \t\t\tif (count > 1) can_sell_stack = true;\n \t\t}\n",
+      "compiled": true,
+      "exact": false,
+      "gains": [],
+      "losses": []
+    },
+    {
+      "name": "local_local_peek",
+      "source_sha256": "948635fb7da727e174704d5c2819e0412c618a177524008b27ac400d4c72527b",
+      "patch": "--- a/app/client/ui_trade.cpp\n+++ b/app/client/ui_trade.cpp\n@@ -272,17 +272,17 @@\n \tbool can_sell_stack = false;\n \tRefCountPtr<UIInvClass> cargo = PDA->Unknown_695680();\n \tif (cargo) {\n-\t\tif (cargo->UnknownB4 != Unknown140) {\n-\t\t\tClose_Box();\n+\t\tint selected = cargo->UnknownB4; if (selected != Unknown140) {\n+\t\t\tif (Get_View() && Get_View()->Get_Unknown34()) Get_View()->Get_Unknown34()->Unknown_5896C0(\"BUY_CONFIRMATION\"); Unknown174 = 0;\n \t\t\tUnknown140 = cargo->UnknownB4;\n \t\t}\n \t\tif (cargo && cargo->UnknownB4 != -1) {\n-\t\t\tInvDataPeekClass *peek = cargo->Unknown_59FE10()->Unknown_688830(); int count = peek->Get_Stack_Count(cargo->UnknownB4);\n+\t\t\tInvDataPeekClass *peek = cargo->Unknown_59FE10()->Unknown_688830(); int selected = cargo->UnknownB4; int count = peek->Get_Stack_Count(selected);\n \t\t\tif (count > 0) {\n \t\t\t\tcan_sell = true;\n \t\t\t} else {\n-\t\t\t\tcargo->UnknownB4 = -1;\n-\t\t\t\tcargo->Unknown_C8();\n+\t\t\t\tcargo.Peek()->UnknownB4 = -1;\n+\t\t\t\tcargo.Peek()->Unknown_C8();\n \t\t\t}\n \t\t\tif (count > 1) can_sell_stack = true;\n \t\t}\n",
+      "compiled": true,
+      "exact": false,
+      "gains": [],
+      "losses": []
+    },
+    {
+      "name": "local_peek_plain",
+      "source_sha256": "e96a05bb07d524c4182df338df1e94646da94a50eb41c07128b96694d189ca8d",
+      "patch": "--- a/app/client/ui_trade.cpp\n+++ b/app/client/ui_trade.cpp\n@@ -272,12 +272,12 @@\n \tbool can_sell_stack = false;\n \tRefCountPtr<UIInvClass> cargo = PDA->Unknown_695680();\n \tif (cargo) {\n-\t\tif (cargo->UnknownB4 != Unknown140) {\n-\t\t\tClose_Box();\n+\t\tint selected = cargo->UnknownB4; if (selected != Unknown140) {\n+\t\t\tif (Get_View() && Get_View()->Get_Unknown34()) Get_View()->Get_Unknown34()->Unknown_5896C0(\"BUY_CONFIRMATION\"); Unknown174 = 0;\n \t\t\tUnknown140 = cargo->UnknownB4;\n \t\t}\n \t\tif (cargo && cargo->UnknownB4 != -1) {\n-\t\t\tInvDataPeekClass *peek = cargo->Unknown_59FE10()->Unknown_688830(); int count = peek->Get_Stack_Count(cargo->UnknownB4);\n+\t\t\tInvDataPeekClass *peek = cargo->Unknown_59FE10()->Unknown_688830(); int count = peek->Get_Stack_Count(cargo.Peek()->UnknownB4);\n \t\t\tif (count > 0) {\n \t\t\t\tcan_sell = true;\n \t\t\t} else {\n",
+      "compiled": true,
+      "exact": false,
+      "gains": [],
+      "losses": []
+    },
+    {
+      "name": "local_peek_local",
+      "source_sha256": "3dead2166c4a117463e7e52af38d20d10d77616182d8267c3245a23f21ad4234",
+      "patch": "--- a/app/client/ui_trade.cpp\n+++ b/app/client/ui_trade.cpp\n@@ -272,17 +272,17 @@\n \tbool can_sell_stack = false;\n \tRefCountPtr<UIInvClass> cargo = PDA->Unknown_695680();\n \tif (cargo) {\n-\t\tif (cargo->UnknownB4 != Unknown140) {\n-\t\t\tClose_Box();\n+\t\tint selected = cargo->UnknownB4; if (selected != Unknown140) {\n+\t\t\tif (Get_View() && Get_View()->Get_Unknown34()) Get_View()->Get_Unknown34()->Unknown_5896C0(\"BUY_CONFIRMATION\"); Unknown174 = 0;\n \t\t\tUnknown140 = cargo->UnknownB4;\n \t\t}\n \t\tif (cargo && cargo->UnknownB4 != -1) {\n-\t\t\tInvDataPeekClass *peek = cargo->Unknown_59FE10()->Unknown_688830(); int count = peek->Get_Stack_Count(cargo->UnknownB4);\n+\t\t\tInvDataPeekClass *peek = cargo->Unknown_59FE10()->Unknown_688830(); int count = peek->Get_Stack_Count(cargo.Peek()->UnknownB4);\n \t\t\tif (count > 0) {\n \t\t\t\tcan_sell = true;\n \t\t\t} else {\n-\t\t\t\tcargo->UnknownB4 = -1;\n-\t\t\t\tcargo->Unknown_C8();\n+\t\t\t\tUIInvClass *window = cargo.Peek(); window->UnknownB4 = -1;\n+\t\t\t\twindow->Unknown_C8();\n \t\t\t}\n \t\t\tif (count > 1) can_sell_stack = true;\n \t\t}\n",
+      "compiled": true,
+      "exact": false,
+      "gains": [],
+      "losses": []
+    },
+    {
+      "name": "local_peek_peek",
+      "source_sha256": "d70cf5d081d1751f471d7c8317dd645ebdef0ccef94238b4a8da128b022f17bb",
+      "patch": "--- a/app/client/ui_trade.cpp\n+++ b/app/client/ui_trade.cpp\n@@ -272,17 +272,17 @@\n \tbool can_sell_stack = false;\n \tRefCountPtr<UIInvClass> cargo = PDA->Unknown_695680();\n \tif (cargo) {\n-\t\tif (cargo->UnknownB4 != Unknown140) {\n-\t\t\tClose_Box();\n+\t\tint selected = cargo->UnknownB4; if (selected != Unknown140) {\n+\t\t\tif (Get_View() && Get_View()->Get_Unknown34()) Get_View()->Get_Unknown34()->Unknown_5896C0(\"BUY_CONFIRMATION\"); Unknown174 = 0;\n \t\t\tUnknown140 = cargo->UnknownB4;\n \t\t}\n \t\tif (cargo && cargo->UnknownB4 != -1) {\n-\t\t\tInvDataPeekClass *peek = cargo->Unknown_59FE10()->Unknown_688830(); int count = peek->Get_Stack_Count(cargo->UnknownB4);\n+\t\t\tInvDataPeekClass *peek = cargo->Unknown_59FE10()->Unknown_688830(); int count = peek->Get_Stack_Count(cargo.Peek()->UnknownB4);\n \t\t\tif (count > 0) {\n \t\t\t\tcan_sell = true;\n \t\t\t} else {\n-\t\t\t\tcargo->UnknownB4 = -1;\n-\t\t\t\tcargo->Unknown_C8();\n+\t\t\t\tcargo.Peek()->UnknownB4 = -1;\n+\t\t\t\tcargo.Peek()->Unknown_C8();\n \t\t\t}\n \t\t\tif (count > 1) can_sell_stack = true;\n \t\t}\n",
+      "compiled": true,
+      "exact": false,
+      "gains": [],
+      "losses": []
+    },
+    {
+      "name": "compare_current_local_reverse",
+      "source_sha256": "c8d85ea15a69b35cfddde0372ff0123154a02d3da80161d5ad33eed17095fff8",
+      "patch": "--- a/app/client/ui_trade.cpp\n+++ b/app/client/ui_trade.cpp\n@@ -272,17 +272,17 @@\n \tbool can_sell_stack = false;\n \tRefCountPtr<UIInvClass> cargo = PDA->Unknown_695680();\n \tif (cargo) {\n-\t\tif (cargo->UnknownB4 != Unknown140) {\n-\t\t\tClose_Box();\n+\t\tint selected = cargo->UnknownB4; if (Unknown140 != selected) {\n+\t\t\tif (Get_View() && Get_View()->Get_Unknown34()) Get_View()->Get_Unknown34()->Unknown_5896C0(\"BUY_CONFIRMATION\"); Unknown174 = 0;\n \t\t\tUnknown140 = cargo->UnknownB4;\n \t\t}\n \t\tif (cargo && cargo->UnknownB4 != -1) {\n-\t\t\tInvDataPeekClass *peek = cargo->Unknown_59FE10()->Unknown_688830(); int count = peek->Get_Stack_Count(cargo->UnknownB4);\n+\t\t\tInvDataPeekClass *peek = cargo->Unknown_59FE10()->Unknown_688830(); int selected = cargo->UnknownB4; int count = peek->Get_Stack_Count(selected);\n \t\t\tif (count > 0) {\n \t\t\t\tcan_sell = true;\n \t\t\t} else {\n-\t\t\t\tcargo->UnknownB4 = -1;\n-\t\t\t\tcargo->Unknown_C8();\n+\t\t\t\tUIInvClass *window = cargo.Peek(); window->UnknownB4 = -1;\n+\t\t\t\twindow->Unknown_C8();\n \t\t\t}\n \t\t\tif (count > 1) can_sell_stack = true;\n \t\t}\n",
+      "compiled": true,
+      "exact": false,
+      "gains": [],
+      "losses": []
+    },
+    {
+      "name": "compare_old_local",
+      "source_sha256": "500e297a2a61de83cb5787a46fca6369cad7afcaf8943f5c0a2de89f6be9b2d1",
+      "patch": "--- a/app/client/ui_trade.cpp\n+++ b/app/client/ui_trade.cpp\n@@ -272,17 +272,17 @@\n \tbool can_sell_stack = false;\n \tRefCountPtr<UIInvClass> cargo = PDA->Unknown_695680();\n \tif (cargo) {\n-\t\tif (cargo->UnknownB4 != Unknown140) {\n-\t\t\tClose_Box();\n+\t\tint previous = Unknown140; if (cargo->UnknownB4 != previous) {\n+\t\t\tif (Get_View() && Get_View()->Get_Unknown34()) Get_View()->Get_Unknown34()->Unknown_5896C0(\"BUY_CONFIRMATION\"); Unknown174 = 0;\n \t\t\tUnknown140 = cargo->UnknownB4;\n \t\t}\n \t\tif (cargo && cargo->UnknownB4 != -1) {\n-\t\t\tInvDataPeekClass *peek = cargo->Unknown_59FE10()->Unknown_688830(); int count = peek->Get_Stack_Count(cargo->UnknownB4);\n+\t\t\tInvDataPeekClass *peek = cargo->Unknown_59FE10()->Unknown_688830(); int selected = cargo->UnknownB4; int count = peek->Get_Stack_Count(selected);\n \t\t\tif (count > 0) {\n \t\t\t\tcan_sell = true;\n \t\t\t} else {\n-\t\t\t\tcargo->UnknownB4 = -1;\n-\t\t\t\tcargo->Unknown_C8();\n+\t\t\t\tUIInvClass *window = cargo.Peek(); window->UnknownB4 = -1;\n+\t\t\t\twindow->Unknown_C8();\n \t\t\t}\n \t\t\tif (count > 1) can_sell_stack = true;\n \t\t}\n",
+      "compiled": true,
+      "exact": false,
+      "gains": [],
+      "losses": []
+    },
+    {
+      "name": "compare_old_local_reverse",
+      "source_sha256": "1634fee469f6fe7076ac13b5533b85ffd95a7108f6e2fcfad245fb88db94d777",
+      "patch": "--- a/app/client/ui_trade.cpp\n+++ b/app/client/ui_trade.cpp\n@@ -272,17 +272,17 @@\n \tbool can_sell_stack = false;\n \tRefCountPtr<UIInvClass> cargo = PDA->Unknown_695680();\n \tif (cargo) {\n-\t\tif (cargo->UnknownB4 != Unknown140) {\n-\t\t\tClose_Box();\n+\t\tint previous = Unknown140; if (previous != cargo->UnknownB4) {\n+\t\t\tif (Get_View() && Get_View()->Get_Unknown34()) Get_View()->Get_Unknown34()->Unknown_5896C0(\"BUY_CONFIRMATION\"); Unknown174 = 0;\n \t\t\tUnknown140 = cargo->UnknownB4;\n \t\t}\n \t\tif (cargo && cargo->UnknownB4 != -1) {\n-\t\t\tInvDataPeekClass *peek = cargo->Unknown_59FE10()->Unknown_688830(); int count = peek->Get_Stack_Count(cargo->UnknownB4);\n+\t\t\tInvDataPeekClass *peek = cargo->Unknown_59FE10()->Unknown_688830(); int selected = cargo->UnknownB4; int count = peek->Get_Stack_Count(selected);\n \t\t\tif (count > 0) {\n \t\t\t\tcan_sell = true;\n \t\t\t} else {\n-\t\t\t\tcargo->UnknownB4 = -1;\n-\t\t\t\tcargo->Unknown_C8();\n+\t\t\t\tUIInvClass *window = cargo.Peek(); window->UnknownB4 = -1;\n+\t\t\t\twindow->Unknown_C8();\n \t\t\t}\n \t\t\tif (count > 1) can_sell_stack = true;\n \t\t}\n",
+      "compiled": true,
+      "exact": false,
+      "gains": [],
+      "losses": []
+    },
+    {
+      "name": "compare_both_locals",
+      "source_sha256": "59b0ac152fdc36e63a6d72d348c25972f9d0db929d4f8a553f204dfb40e2cc1c",
+      "patch": "--- a/app/client/ui_trade.cpp\n+++ b/app/client/ui_trade.cpp\n@@ -272,17 +272,17 @@\n \tbool can_sell_stack = false;\n \tRefCountPtr<UIInvClass> cargo = PDA->Unknown_695680();\n \tif (cargo) {\n-\t\tif (cargo->UnknownB4 != Unknown140) {\n-\t\t\tClose_Box();\n+\t\tint selected = cargo->UnknownB4; int previous = Unknown140; if (previous != selected) {\n+\t\t\tif (Get_View() && Get_View()->Get_Unknown34()) Get_View()->Get_Unknown34()->Unknown_5896C0(\"BUY_CONFIRMATION\"); Unknown174 = 0;\n \t\t\tUnknown140 = cargo->UnknownB4;\n \t\t}\n \t\tif (cargo && cargo->UnknownB4 != -1) {\n-\t\t\tInvDataPeekClass *peek = cargo->Unknown_59FE10()->Unknown_688830(); int count = peek->Get_Stack_Count(cargo->UnknownB4);\n+\t\t\tInvDataPeekClass *peek = cargo->Unknown_59FE10()->Unknown_688830(); int selected = cargo->UnknownB4; int count = peek->Get_Stack_Count(selected);\n \t\t\tif (count > 0) {\n \t\t\t\tcan_sell = true;\n \t\t\t} else {\n-\t\t\t\tcargo->UnknownB4 = -1;\n-\t\t\t\tcargo->Unknown_C8();\n+\t\t\t\tUIInvClass *window = cargo.Peek(); window->UnknownB4 = -1;\n+\t\t\t\twindow->Unknown_C8();\n \t\t\t}\n \t\t\tif (count > 1) can_sell_stack = true;\n \t\t}\n",
+      "compiled": true,
+      "exact": false,
+      "gains": [],
+      "losses": []
+    },
+    {
+      "name": "compare_peek",
+      "source_sha256": "bfb458fc9b07984b9fbe21fbebcbe17b7161b567faa1a1dfcd8668dfbbb5490c",
+      "patch": "--- a/app/client/ui_trade.cpp\n+++ b/app/client/ui_trade.cpp\n@@ -272,17 +272,17 @@\n \tbool can_sell_stack = false;\n \tRefCountPtr<UIInvClass> cargo = PDA->Unknown_695680();\n \tif (cargo) {\n-\t\tif (cargo->UnknownB4 != Unknown140) {\n-\t\t\tClose_Box();\n+\t\tif (cargo.Peek()->UnknownB4 != Unknown140) {\n+\t\t\tif (Get_View() && Get_View()->Get_Unknown34()) Get_View()->Get_Unknown34()->Unknown_5896C0(\"BUY_CONFIRMATION\"); Unknown174 = 0;\n \t\t\tUnknown140 = cargo->UnknownB4;\n \t\t}\n \t\tif (cargo && cargo->UnknownB4 != -1) {\n-\t\t\tInvDataPeekClass *peek = cargo->Unknown_59FE10()->Unknown_688830(); int count = peek->Get_Stack_Count(cargo->UnknownB4);\n+\t\t\tInvDataPeekClass *peek = cargo->Unknown_59FE10()->Unknown_688830(); int selected = cargo->UnknownB4; int count = peek->Get_Stack_Count(selected);\n \t\t\tif (count > 0) {\n \t\t\t\tcan_sell = true;\n \t\t\t} else {\n-\t\t\t\tcargo->UnknownB4 = -1;\n-\t\t\t\tcargo->Unknown_C8();\n+\t\t\t\tUIInvClass *window = cargo.Peek(); window->UnknownB4 = -1;\n+\t\t\t\twindow->Unknown_C8();\n \t\t\t}\n \t\t\tif (count > 1) can_sell_stack = true;\n \t\t}\n",
+      "compiled": true,
+      "exact": false,
+      "gains": [],
+      "losses": []
+    },
+    {
+      "name": "compare_peek_reverse",
+      "source_sha256": "9147b1b72b142945e23ccf10947e1a2458bea50a7f171d1e86a10b80db68188e",
+      "patch": "--- a/app/client/ui_trade.cpp\n+++ b/app/client/ui_trade.cpp\n@@ -272,17 +272,17 @@\n \tbool can_sell_stack = false;\n \tRefCountPtr<UIInvClass> cargo = PDA->Unknown_695680();\n \tif (cargo) {\n-\t\tif (cargo->UnknownB4 != Unknown140) {\n-\t\t\tClose_Box();\n+\t\tif (Unknown140 != cargo.Peek()->UnknownB4) {\n+\t\t\tif (Get_View() && Get_View()->Get_Unknown34()) Get_View()->Get_Unknown34()->Unknown_5896C0(\"BUY_CONFIRMATION\"); Unknown174 = 0;\n \t\t\tUnknown140 = cargo->UnknownB4;\n \t\t}\n \t\tif (cargo && cargo->UnknownB4 != -1) {\n-\t\t\tInvDataPeekClass *peek = cargo->Unknown_59FE10()->Unknown_688830(); int count = peek->Get_Stack_Count(cargo->UnknownB4);\n+\t\t\tInvDataPeekClass *peek = cargo->Unknown_59FE10()->Unknown_688830(); int selected = cargo->UnknownB4; int count = peek->Get_Stack_Count(selected);\n \t\t\tif (count > 0) {\n \t\t\t\tcan_sell = true;\n \t\t\t} else {\n-\t\t\t\tcargo->UnknownB4 = -1;\n-\t\t\t\tcargo->Unknown_C8();\n+\t\t\t\tUIInvClass *window = cargo.Peek(); window->UnknownB4 = -1;\n+\t\t\t\twindow->Unknown_C8();\n \t\t\t}\n \t\t\tif (count > 1) can_sell_stack = true;\n \t\t}\n",
+      "compiled": true,
+      "exact": false,
+      "gains": [],
+      "losses": []
+    },
+    {
+      "name": "assign_local",
+      "source_sha256": "0958049f04c0318ea38693b05e27c91ac38835604d433423eb66541b33231752",
+      "patch": "--- a/app/client/ui_trade.cpp\n+++ b/app/client/ui_trade.cpp\n@@ -272,17 +272,17 @@\n \tbool can_sell_stack = false;\n \tRefCountPtr<UIInvClass> cargo = PDA->Unknown_695680();\n \tif (cargo) {\n-\t\tif (cargo->UnknownB4 != Unknown140) {\n-\t\t\tClose_Box();\n-\t\t\tUnknown140 = cargo->UnknownB4;\n+\t\tint selected = cargo->UnknownB4; if (Unknown140 != selected) {\n+\t\t\tif (Get_View() && Get_View()->Get_Unknown34()) Get_View()->Get_Unknown34()->Unknown_5896C0(\"BUY_CONFIRMATION\"); Unknown174 = 0;\n+\t\t\tint current = cargo->UnknownB4; Unknown140 = current;\n \t\t}\n \t\tif (cargo && cargo->UnknownB4 != -1) {\n-\t\t\tInvDataPeekClass *peek = cargo->Unknown_59FE10()->Unknown_688830(); int count = peek->Get_Stack_Count(cargo->UnknownB4);\n+\t\t\tInvDataPeekClass *peek = cargo->Unknown_59FE10()->Unknown_688830(); int selected = cargo->UnknownB4; int count = peek->Get_Stack_Count(selected);\n \t\t\tif (count > 0) {\n \t\t\t\tcan_sell = true;\n \t\t\t} else {\n-\t\t\t\tcargo->UnknownB4 = -1;\n-\t\t\t\tcargo->Unknown_C8();\n+\t\t\t\tUIInvClass *window = cargo.Peek(); window->UnknownB4 = -1;\n+\t\t\t\twindow->Unknown_C8();\n \t\t\t}\n \t\t\tif (count > 1) can_sell_stack = true;\n \t\t}\n",
+      "compiled": true,
+      "exact": true,
+      "gains": [
+        [
+          "?Unknown_60@UITradeClass@@UAEXXZ",
+          "0x651510"
+        ]
+      ],
+      "losses": []
+    }
+  ]
+}
