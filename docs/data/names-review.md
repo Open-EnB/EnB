@@ -19393,7 +19393,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_652EB0` | `app/client/ui_trade.cpp:823` | untagged neutral name (D10) |
 | 1 | `Unknown_5890B0` | `app/client/ui_trade.cpp:850` | untagged neutral name (D10) |
 | 1 | `Unknown_5A03B0` | `app/client/ui_trade.cpp:859` | untagged neutral name (D10) |
-| 1 | `Unknown_B0` | `app/client/ui_trade.cpp:942` | untagged neutral name (D10) |
+| 1 | `Unknown_B0` | `app/client/ui_trade.cpp:943` | untagged neutral name (D10) |
 | 1 | `Unknown_B4` | `app/client/ui_trade.cpp:952` | untagged neutral name (D10) |
 | 1 | `Unknown_653A80` | `app/client/ui_trade.cpp:963` | untagged neutral name (D10) |
 | 1 | `ui_trade.h` | `app/client/ui_trade.h:5` | provisional header name for ui_trade.cpp |

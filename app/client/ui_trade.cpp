@@ -903,7 +903,7 @@ void UITradeClass::Unknown_6531F0(bool arg)
 
 
 
-// NOT EXACT: inline budget, as TR1's stash (docs/attempts/0x653450): ours inlines the string assigns the client calls out of line
+
 // @0x653450
 void UITradeClass::Unknown_653450()
 {
@@ -921,27 +921,27 @@ void UITradeClass::Unknown_653450()
 	for (int i = 0; i < SlotData->Unknown_6A7990(); i++) {
 		int slot = SlotData->Unknown_6A7A00(i);
 		MoneyClass price = peek->Get_Price(slot);
-		std::string name;
-		name = "";
+		std::string name("");
 		InvDataPeekItemStruct *item = peek->Get_Item(slot, true);
 		if (item) name = item->Name;
 		std::vector<int>::iterator it;
 		for (it = Unknown17C.begin(); it != Unknown17C.end(); it++) {
-			if (!by_name) {
-				MoneyClass other = peek->Get_Price(*it);
-				if (operator<(price, other)) break;
-			} else {
+			int other_slot = *it;
+			if (by_name) {
 				std::string other("");
-				InvDataPeekItemStruct *other_item = peek->Get_Item(*it, true);
+				InvDataPeekItemStruct *other_item = peek->Get_Item(other_slot, true);
 				if (other_item) other = other_item->Name;
-				if (name.compare(other) < 0) break;
+				if (name.compare(other) < 0) { Unknown17C.insert(it, slot); goto inserted; }
+			} else {
+				MoneyClass other = peek->Get_Price(other_slot);
+				if (operator<(price, other)) { Unknown17C.insert(it, slot); goto inserted; }
 			}
 		}
-		Unknown17C.insert(it, 1, slot);
+		Unknown17C.push_back(slot);
+inserted:;
 	}
 	Unknown_B0();
 }
-
 // @0x6538E0
 void UITradeClass::Unknown_B0()
 {
