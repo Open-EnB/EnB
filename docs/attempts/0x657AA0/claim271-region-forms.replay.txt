@@ -1,0 +1,674 @@
+{
+  "format": "JSON source patches; baseline is exact blob below, patches apply independently",
+  "target": "0x657AA0",
+  "unit": "app/client/ui_vault.cpp",
+  "model": "gpt-6.1-sol (high)",
+  "source_commit": "8639154bced4d3a36d18cd5e986d0980a11cb242",
+  "source_blob": "95736ba86871c75b5cfa5af4e430b3ca989bdef3",
+  "baseline_sha256": "9d473e52b2b4836c7e0c92f8b97c81680849470620d17c7c5ea049889b9ba922",
+  "valid_tested_forms": 13,
+  "candidate_compilations": 13,
+  "baseline_controls": 1,
+  "canonical_candidate_forms": 10,
+  "code_distinct_new_hypotheses": 3,
+  "final": "No source adopted; original baseline preserved, 54 symbol/address and file/address pairs; +0/-0.",
+  "evidence": "Retail selection ends at 657B99; late ebx/ebp/edi saves are immediately before first assignment. Both member writes use const char*/strlen, no local string object, EH frame or funclet. Full region restores late saves but second _Grow ceases to inline, losing the basic_string::max_size holder 42D120; pointer+explicit length does not recover it. Split assign/nonempty from persistence restores full second _Grow and 54 pairs but entry saves return. No unsupported forcing layer, temporary, type edit, directive or budget device was tested.",
+  "forms": [
+    {
+      "name": "baseline",
+      "patch": "",
+      "native": {
+        "class": "shape",
+        "reason": "44 masked rows differ; no simpler class fits",
+        "ours": 223,
+        "client": 202,
+        "residue": 44,
+        "residue_regs": 36,
+        "tables": [
+          {
+            "kind": "jump",
+            "ours": 7,
+            "client": 7,
+            "n": 7,
+            "diff": 0,
+            "at": 6651108
+          }
+        ],
+        "branch": {
+          "bytes": [
+            599,
+            580
+          ],
+          "size": 0,
+          "target": 2
+        },
+        "object_span": 640,
+        "raw_coff_body_sha256": "0c4a8d06442c458312e7e5d8bee976a926ae5b2aa12416c2e85e2c5798032dfe",
+        "canonical_with": null,
+        "symbol_gains": [],
+        "symbol_losses": [],
+        "file_gains": [],
+        "file_losses": [],
+        "exact_symbol_pairs": 54,
+        "exact_file_pairs": 54
+      }
+    },
+    {
+      "name": "selected_region",
+      "patch": "--- a/app/client/ui_vault.cpp\n+++ b/app/client/ui_vault.cpp\n@@ -213,6 +213,20 @@\n \n // NOT EXACT: functional from the pseudocode (D64)\n // 0x657AA0\n+static inline bool Apply_Vault_Filter(UIVaultClass *window, const char *text) // NAME 2: selected filter assignment, persistence and refresh at 0x657B99\n+{\n+\twindow->FilterName = text;\n+\tif (window->FilterName.size() == 0) {\n+\t\treturn(true);\n+\t}\n+\tStringOptionStruct *option = OptionClass::Instance->Find_String(\"Inv_Filter_Vault\");\n+\tif (option) {\n+\t\toption->Value = window->FilterName.c_str();\n+\t}\n+\twindow->Unknown_62F620(window->FilterName.c_str());\n+\twindow->Unknown_B0();\n+\treturn(true);\n+}\n bool UIVaultClass::Unknown_68(int key)\n {\n \tswitch (key) {\n@@ -238,17 +252,7 @@\n \t\t\treturn(UIInvClass::Unknown_68(key));\n \t}\n \tSoundLibraryClass::Play_2D_Sound(\"TextClick03.wav\", 2);\n-\tFilterName = Filter->Get_Selected_Text();\n-\tif (FilterName.size() == 0) {\n-\t\treturn(true);\n-\t}\n-\tStringOptionStruct *option = OptionClass::Instance->Find_String(\"Inv_Filter_Vault\");\n-\tif (option) {\n-\t\toption->Value = FilterName.c_str();\n-\t}\n-\tUnknown_62F620(FilterName.c_str());\n-\tUnknown_B0();\n-\treturn(true);\n+\treturn Apply_Vault_Filter(this, Filter->Get_Selected_Text());\n }\n \n // the client's format strings 'Inv_Sort%d_Name' / _primary / _secondary / _tertiary (0xB83A7C, 0xB83A64, 0xB83A48, 0xB83A30)\n",
+      "native": {
+        "class": "inline-budget",
+        "reason": "15 calls in ours, 21 in the client; 8 callees only in the client: ?_Copy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEXI@Z, ?_Eos@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEXI@Z, ?_Tidy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEX_N@Z",
+        "ours": 170,
+        "client": 202,
+        "residue": 43,
+        "residue_regs": 49,
+        "tables": [
+          {
+            "kind": "jump",
+            "ours": 7,
+            "client": 7,
+            "n": 7,
+            "diff": 0,
+            "at": 6651108
+          }
+        ],
+        "branch": {
+          "bytes": [
+            496,
+            580
+          ],
+          "size": 1,
+          "target": 1
+        },
+        "object_span": 528,
+        "raw_coff_body_sha256": "93d431af3efaeb8b5ecc09adf930c457dce6adfdabd7f84d225adea550af83f7",
+        "canonical_with": null,
+        "symbol_gains": [],
+        "symbol_losses": [
+          [
+            "?max_size@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QBEIXZ",
+            "0x42D120"
+          ]
+        ],
+        "file_gains": [],
+        "file_losses": [
+          [
+            "app/client/ui_vault.cpp",
+            "0x42D120"
+          ]
+        ],
+        "exact_symbol_pairs": 53,
+        "exact_file_pairs": 53
+      }
+    },
+    {
+      "name": "whole_case_region",
+      "patch": "--- a/app/client/ui_vault.cpp\n+++ b/app/client/ui_vault.cpp\n@@ -213,6 +213,21 @@\n \n // NOT EXACT: functional from the pseudocode (D64)\n // 0x657AA0\n+static inline bool Apply_Vault_Filter(UIVaultClass *window) // NAME 2: filter selection, assignment, persistence and refresh at 0x657B37\n+{\n+\tSoundLibraryClass::Play_2D_Sound(\"TextClick03.wav\", 2);\n+\twindow->FilterName = window->Filter->Get_Selected_Text();\n+\tif (window->FilterName.size() == 0) {\n+\t\treturn(true);\n+\t}\n+\tStringOptionStruct *option = OptionClass::Instance->Find_String(\"Inv_Filter_Vault\");\n+\tif (option) {\n+\t\toption->Value = window->FilterName.c_str();\n+\t}\n+\twindow->Unknown_62F620(window->FilterName.c_str());\n+\twindow->Unknown_B0();\n+\treturn(true);\n+}\n bool UIVaultClass::Unknown_68(int key)\n {\n \tswitch (key) {\n@@ -237,18 +252,7 @@\n \t\tdefault:\n \t\t\treturn(UIInvClass::Unknown_68(key));\n \t}\n-\tSoundLibraryClass::Play_2D_Sound(\"TextClick03.wav\", 2);\n-\tFilterName = Filter->Get_Selected_Text();\n-\tif (FilterName.size() == 0) {\n-\t\treturn(true);\n-\t}\n-\tStringOptionStruct *option = OptionClass::Instance->Find_String(\"Inv_Filter_Vault\");\n-\tif (option) {\n-\t\toption->Value = FilterName.c_str();\n-\t}\n-\tUnknown_62F620(FilterName.c_str());\n-\tUnknown_B0();\n-\treturn(true);\n+\treturn Apply_Vault_Filter(this);\n }\n \n // the client's format strings 'Inv_Sort%d_Name' / _primary / _secondary / _tertiary (0xB83A7C, 0xB83A64, 0xB83A48, 0xB83A30)\n",
+      "native": {
+        "class": "inline-budget",
+        "reason": "15 calls in ours, 21 in the client; 8 callees only in the client: ?_Copy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEXI@Z, ?_Eos@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEXI@Z, ?_Tidy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEX_N@Z",
+        "ours": 170,
+        "client": 202,
+        "residue": 43,
+        "residue_regs": 49,
+        "tables": [
+          {
+            "kind": "jump",
+            "ours": 7,
+            "client": 7,
+            "n": 7,
+            "diff": 0,
+            "at": 6651108
+          }
+        ],
+        "branch": {
+          "bytes": [
+            496,
+            580
+          ],
+          "size": 1,
+          "target": 1
+        },
+        "object_span": 528,
+        "raw_coff_body_sha256": "93d431af3efaeb8b5ecc09adf930c457dce6adfdabd7f84d225adea550af83f7",
+        "canonical_with": "selected_region",
+        "symbol_gains": [],
+        "symbol_losses": [
+          [
+            "?max_size@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QBEIXZ",
+            "0x42D120"
+          ]
+        ],
+        "file_gains": [],
+        "file_losses": [
+          [
+            "app/client/ui_vault.cpp",
+            "0x42D120"
+          ]
+        ],
+        "exact_symbol_pairs": 53,
+        "exact_file_pairs": 53
+      }
+    },
+    {
+      "name": "selected_region_option_assign",
+      "patch": "--- a/app/client/ui_vault.cpp\n+++ b/app/client/ui_vault.cpp\n@@ -213,6 +213,20 @@\n \n // NOT EXACT: functional from the pseudocode (D64)\n // 0x657AA0\n+static inline bool Apply_Vault_Filter(UIVaultClass *window, const char *text) // NAME 2: selected filter assignment, persistence and refresh at 0x657B99\n+{\n+\twindow->FilterName = text;\n+\tif (window->FilterName.size() == 0) {\n+\t\treturn(true);\n+\t}\n+\tStringOptionStruct *option = OptionClass::Instance->Find_String(\"Inv_Filter_Vault\");\n+\tif (option) {\n+\t\toption->Value.assign(window->FilterName.c_str());\n+\t}\n+\twindow->Unknown_62F620(window->FilterName.c_str());\n+\twindow->Unknown_B0();\n+\treturn(true);\n+}\n bool UIVaultClass::Unknown_68(int key)\n {\n \tswitch (key) {\n@@ -238,17 +252,7 @@\n \t\t\treturn(UIInvClass::Unknown_68(key));\n \t}\n \tSoundLibraryClass::Play_2D_Sound(\"TextClick03.wav\", 2);\n-\tFilterName = Filter->Get_Selected_Text();\n-\tif (FilterName.size() == 0) {\n-\t\treturn(true);\n-\t}\n-\tStringOptionStruct *option = OptionClass::Instance->Find_String(\"Inv_Filter_Vault\");\n-\tif (option) {\n-\t\toption->Value = FilterName.c_str();\n-\t}\n-\tUnknown_62F620(FilterName.c_str());\n-\tUnknown_B0();\n-\treturn(true);\n+\treturn Apply_Vault_Filter(this, Filter->Get_Selected_Text());\n }\n \n // the client's format strings 'Inv_Sort%d_Name' / _primary / _secondary / _tertiary (0xB83A7C, 0xB83A64, 0xB83A48, 0xB83A30)\n",
+      "native": {
+        "class": "inline-budget",
+        "reason": "15 calls in ours, 21 in the client; 8 callees only in the client: ?_Copy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEXI@Z, ?_Eos@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEXI@Z, ?_Tidy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEX_N@Z",
+        "ours": 170,
+        "client": 202,
+        "residue": 43,
+        "residue_regs": 49,
+        "tables": [
+          {
+            "kind": "jump",
+            "ours": 7,
+            "client": 7,
+            "n": 7,
+            "diff": 0,
+            "at": 6651108
+          }
+        ],
+        "branch": {
+          "bytes": [
+            496,
+            580
+          ],
+          "size": 1,
+          "target": 1
+        },
+        "object_span": 528,
+        "raw_coff_body_sha256": "93d431af3efaeb8b5ecc09adf930c457dce6adfdabd7f84d225adea550af83f7",
+        "canonical_with": "selected_region",
+        "symbol_gains": [],
+        "symbol_losses": [
+          [
+            "?max_size@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QBEIXZ",
+            "0x42D120"
+          ]
+        ],
+        "file_gains": [],
+        "file_losses": [
+          [
+            "app/client/ui_vault.cpp",
+            "0x42D120"
+          ]
+        ],
+        "exact_symbol_pairs": 53,
+        "exact_file_pairs": 53
+      }
+    },
+    {
+      "name": "selected_region_existing_setter",
+      "patch": "--- a/app/client/ui_vault.cpp\n+++ b/app/client/ui_vault.cpp\n@@ -213,6 +213,20 @@\n \n // NOT EXACT: functional from the pseudocode (D64)\n // 0x657AA0\n+static inline bool Apply_Vault_Filter(UIVaultClass *window, const char *text) // NAME 2: selected filter assignment, persistence and refresh at 0x657B99\n+{\n+\twindow->FilterName = text;\n+\tif (window->FilterName.size() == 0) {\n+\t\treturn(true);\n+\t}\n+\tStringOptionStruct *option = OptionClass::Instance->Find_String(\"Inv_Filter_Vault\");\n+\tif (option) {\n+\t\toption->Set_Value(window->FilterName.c_str());\n+\t}\n+\twindow->Unknown_62F620(window->FilterName.c_str());\n+\twindow->Unknown_B0();\n+\treturn(true);\n+}\n bool UIVaultClass::Unknown_68(int key)\n {\n \tswitch (key) {\n@@ -238,17 +252,7 @@\n \t\t\treturn(UIInvClass::Unknown_68(key));\n \t}\n \tSoundLibraryClass::Play_2D_Sound(\"TextClick03.wav\", 2);\n-\tFilterName = Filter->Get_Selected_Text();\n-\tif (FilterName.size() == 0) {\n-\t\treturn(true);\n-\t}\n-\tStringOptionStruct *option = OptionClass::Instance->Find_String(\"Inv_Filter_Vault\");\n-\tif (option) {\n-\t\toption->Value = FilterName.c_str();\n-\t}\n-\tUnknown_62F620(FilterName.c_str());\n-\tUnknown_B0();\n-\treturn(true);\n+\treturn Apply_Vault_Filter(this, Filter->Get_Selected_Text());\n }\n \n // the client's format strings 'Inv_Sort%d_Name' / _primary / _secondary / _tertiary (0xB83A7C, 0xB83A64, 0xB83A48, 0xB83A30)\n",
+      "native": {
+        "class": "inline-budget",
+        "reason": "15 calls in ours, 21 in the client; 8 callees only in the client: ?_Copy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEXI@Z, ?_Eos@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEXI@Z, ?_Tidy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEX_N@Z",
+        "ours": 170,
+        "client": 202,
+        "residue": 43,
+        "residue_regs": 49,
+        "tables": [
+          {
+            "kind": "jump",
+            "ours": 7,
+            "client": 7,
+            "n": 7,
+            "diff": 0,
+            "at": 6651108
+          }
+        ],
+        "branch": {
+          "bytes": [
+            496,
+            580
+          ],
+          "size": 1,
+          "target": 1
+        },
+        "object_span": 528,
+        "raw_coff_body_sha256": "93d431af3efaeb8b5ecc09adf930c457dce6adfdabd7f84d225adea550af83f7",
+        "canonical_with": "selected_region",
+        "symbol_gains": [],
+        "symbol_losses": [
+          [
+            "?max_size@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QBEIXZ",
+            "0x42D120"
+          ]
+        ],
+        "file_gains": [],
+        "file_losses": [
+          [
+            "app/client/ui_vault.cpp",
+            "0x42D120"
+          ]
+        ],
+        "exact_symbol_pairs": 53,
+        "exact_file_pairs": 53
+      }
+    },
+    {
+      "name": "selected_region_void",
+      "patch": "--- a/app/client/ui_vault.cpp\n+++ b/app/client/ui_vault.cpp\n@@ -213,6 +213,20 @@\n \n // NOT EXACT: functional from the pseudocode (D64)\n // 0x657AA0\n+static inline void Apply_Vault_Filter(UIVaultClass *window, const char *text) // NAME 2: selected filter assignment, persistence and refresh at 0x657B99\n+{\n+\twindow->FilterName = text;\n+\tif (window->FilterName.size() == 0) {\n+\t\treturn;\n+\t}\n+\tStringOptionStruct *option = OptionClass::Instance->Find_String(\"Inv_Filter_Vault\");\n+\tif (option) {\n+\t\toption->Value = window->FilterName.c_str();\n+\t}\n+\twindow->Unknown_62F620(window->FilterName.c_str());\n+\twindow->Unknown_B0();\n+\treturn;\n+}\n bool UIVaultClass::Unknown_68(int key)\n {\n \tswitch (key) {\n@@ -238,17 +252,7 @@\n \t\t\treturn(UIInvClass::Unknown_68(key));\n \t}\n \tSoundLibraryClass::Play_2D_Sound(\"TextClick03.wav\", 2);\n-\tFilterName = Filter->Get_Selected_Text();\n-\tif (FilterName.size() == 0) {\n-\t\treturn(true);\n-\t}\n-\tStringOptionStruct *option = OptionClass::Instance->Find_String(\"Inv_Filter_Vault\");\n-\tif (option) {\n-\t\toption->Value = FilterName.c_str();\n-\t}\n-\tUnknown_62F620(FilterName.c_str());\n-\tUnknown_B0();\n-\treturn(true);\n+\tApply_Vault_Filter(this, Filter->Get_Selected_Text()); return(true);\n }\n \n // the client's format strings 'Inv_Sort%d_Name' / _primary / _secondary / _tertiary (0xB83A7C, 0xB83A64, 0xB83A48, 0xB83A30)\n",
+      "native": {
+        "class": "inline-budget",
+        "reason": "15 calls in ours, 21 in the client; 8 callees only in the client: ?_Copy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEXI@Z, ?_Eos@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEXI@Z, ?_Tidy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEX_N@Z",
+        "ours": 170,
+        "client": 202,
+        "residue": 43,
+        "residue_regs": 49,
+        "tables": [
+          {
+            "kind": "jump",
+            "ours": 7,
+            "client": 7,
+            "n": 7,
+            "diff": 0,
+            "at": 6651108
+          }
+        ],
+        "branch": {
+          "bytes": [
+            496,
+            580
+          ],
+          "size": 1,
+          "target": 1
+        },
+        "object_span": 528,
+        "raw_coff_body_sha256": "93d431af3efaeb8b5ecc09adf930c457dce6adfdabd7f84d225adea550af83f7",
+        "canonical_with": "selected_region",
+        "symbol_gains": [],
+        "symbol_losses": [
+          [
+            "?max_size@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QBEIXZ",
+            "0x42D120"
+          ]
+        ],
+        "file_gains": [],
+        "file_losses": [
+          [
+            "app/client/ui_vault.cpp",
+            "0x42D120"
+          ]
+        ],
+        "exact_symbol_pairs": 53,
+        "exact_file_pairs": 53
+      }
+    },
+    {
+      "name": "selected_region_void_existing_setter",
+      "patch": "--- a/app/client/ui_vault.cpp\n+++ b/app/client/ui_vault.cpp\n@@ -213,6 +213,20 @@\n \n // NOT EXACT: functional from the pseudocode (D64)\n // 0x657AA0\n+static inline void Apply_Vault_Filter(UIVaultClass *window, const char *text) // NAME 2: selected filter assignment, persistence and refresh at 0x657B99\n+{\n+\twindow->FilterName = text;\n+\tif (window->FilterName.size() == 0) {\n+\t\treturn;\n+\t}\n+\tStringOptionStruct *option = OptionClass::Instance->Find_String(\"Inv_Filter_Vault\");\n+\tif (option) {\n+\t\toption->Set_Value(window->FilterName.c_str());\n+\t}\n+\twindow->Unknown_62F620(window->FilterName.c_str());\n+\twindow->Unknown_B0();\n+\treturn;\n+}\n bool UIVaultClass::Unknown_68(int key)\n {\n \tswitch (key) {\n@@ -238,17 +252,7 @@\n \t\t\treturn(UIInvClass::Unknown_68(key));\n \t}\n \tSoundLibraryClass::Play_2D_Sound(\"TextClick03.wav\", 2);\n-\tFilterName = Filter->Get_Selected_Text();\n-\tif (FilterName.size() == 0) {\n-\t\treturn(true);\n-\t}\n-\tStringOptionStruct *option = OptionClass::Instance->Find_String(\"Inv_Filter_Vault\");\n-\tif (option) {\n-\t\toption->Value = FilterName.c_str();\n-\t}\n-\tUnknown_62F620(FilterName.c_str());\n-\tUnknown_B0();\n-\treturn(true);\n+\tApply_Vault_Filter(this, Filter->Get_Selected_Text()); return(true);\n }\n \n // the client's format strings 'Inv_Sort%d_Name' / _primary / _secondary / _tertiary (0xB83A7C, 0xB83A64, 0xB83A48, 0xB83A30)\n",
+      "native": {
+        "class": "inline-budget",
+        "reason": "15 calls in ours, 21 in the client; 8 callees only in the client: ?_Copy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEXI@Z, ?_Eos@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEXI@Z, ?_Tidy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEX_N@Z",
+        "ours": 170,
+        "client": 202,
+        "residue": 43,
+        "residue_regs": 49,
+        "tables": [
+          {
+            "kind": "jump",
+            "ours": 7,
+            "client": 7,
+            "n": 7,
+            "diff": 0,
+            "at": 6651108
+          }
+        ],
+        "branch": {
+          "bytes": [
+            496,
+            580
+          ],
+          "size": 1,
+          "target": 1
+        },
+        "object_span": 528,
+        "raw_coff_body_sha256": "93d431af3efaeb8b5ecc09adf930c457dce6adfdabd7f84d225adea550af83f7",
+        "canonical_with": "selected_region",
+        "symbol_gains": [],
+        "symbol_losses": [
+          [
+            "?max_size@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QBEIXZ",
+            "0x42D120"
+          ]
+        ],
+        "file_gains": [],
+        "file_losses": [
+          [
+            "app/client/ui_vault.cpp",
+            "0x42D120"
+          ]
+        ],
+        "exact_symbol_pairs": 53,
+        "exact_file_pairs": 53
+      }
+    },
+    {
+      "name": "selected_region_defined_after",
+      "patch": "--- a/app/client/ui_vault.cpp\n+++ b/app/client/ui_vault.cpp\n@@ -213,6 +213,7 @@\n \n // NOT EXACT: functional from the pseudocode (D64)\n // 0x657AA0\n+static inline bool Apply_Vault_Filter(UIVaultClass *window, const char *text);\n bool UIVaultClass::Unknown_68(int key)\n {\n \tswitch (key) {\n@@ -238,17 +239,7 @@\n \t\t\treturn(UIInvClass::Unknown_68(key));\n \t}\n \tSoundLibraryClass::Play_2D_Sound(\"TextClick03.wav\", 2);\n-\tFilterName = Filter->Get_Selected_Text();\n-\tif (FilterName.size() == 0) {\n-\t\treturn(true);\n-\t}\n-\tStringOptionStruct *option = OptionClass::Instance->Find_String(\"Inv_Filter_Vault\");\n-\tif (option) {\n-\t\toption->Value = FilterName.c_str();\n-\t}\n-\tUnknown_62F620(FilterName.c_str());\n-\tUnknown_B0();\n-\treturn(true);\n+\treturn Apply_Vault_Filter(this, Filter->Get_Selected_Text());\n }\n \n // the client's format strings 'Inv_Sort%d_Name' / _primary / _secondary / _tertiary (0xB83A7C, 0xB83A64, 0xB83A48, 0xB83A30)\n@@ -306,3 +297,18 @@\n **\twhere the client pushes them late for the filter's tail (shrink-wrapping; the tail inside its case is the same);\n **\t0x657DA0 loads the packet's arguments in another order (Client first in the client's).\n */\n+\n+static inline bool Apply_Vault_Filter(UIVaultClass *window, const char *text) // NAME 2: selected filter assignment, persistence and refresh at 0x657B99\n+{\n+\twindow->FilterName = text;\n+\tif (window->FilterName.size() == 0) {\n+\t\treturn(true);\n+\t}\n+\tStringOptionStruct *option = OptionClass::Instance->Find_String(\"Inv_Filter_Vault\");\n+\tif (option) {\n+\t\toption->Value = window->FilterName.c_str();\n+\t}\n+\twindow->Unknown_62F620(window->FilterName.c_str());\n+\twindow->Unknown_B0();\n+\treturn(true);\n+}\n",
+      "native": {
+        "class": "inline-budget",
+        "reason": "15 calls in ours, 21 in the client; 8 callees only in the client: ?_Copy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEXI@Z, ?_Eos@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEXI@Z, ?_Tidy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEX_N@Z",
+        "ours": 170,
+        "client": 202,
+        "residue": 43,
+        "residue_regs": 49,
+        "tables": [
+          {
+            "kind": "jump",
+            "ours": 7,
+            "client": 7,
+            "n": 7,
+            "diff": 0,
+            "at": 6651108
+          }
+        ],
+        "branch": {
+          "bytes": [
+            496,
+            580
+          ],
+          "size": 1,
+          "target": 1
+        },
+        "object_span": 528,
+        "raw_coff_body_sha256": "93d431af3efaeb8b5ecc09adf930c457dce6adfdabd7f84d225adea550af83f7",
+        "canonical_with": "selected_region",
+        "symbol_gains": [],
+        "symbol_losses": [
+          [
+            "?max_size@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QBEIXZ",
+            "0x42D120"
+          ]
+        ],
+        "file_gains": [],
+        "file_losses": [
+          [
+            "app/client/ui_vault.cpp",
+            "0x42D120"
+          ]
+        ],
+        "exact_symbol_pairs": 53,
+        "exact_file_pairs": 53
+      }
+    },
+    {
+      "name": "selected_region_assign_length",
+      "patch": "--- a/app/client/ui_vault.cpp\n+++ b/app/client/ui_vault.cpp\n@@ -213,6 +213,21 @@\n \n // NOT EXACT: functional from the pseudocode (D64)\n // 0x657AA0\n+static inline bool Apply_Vault_Filter(UIVaultClass *window, const char *text) // NAME 2: selected filter assignment, persistence and refresh at 0x657B99\n+{\n+\twindow->FilterName = text;\n+\tif (window->FilterName.size() == 0) {\n+\t\treturn(true);\n+\t}\n+\tStringOptionStruct *option = OptionClass::Instance->Find_String(\"Inv_Filter_Vault\");\n+\tif (option) {\n+\t\tconst char *filter_text = window->FilterName.c_str();\n+\t\toption->Value.assign(filter_text, strlen(filter_text));\n+\t}\n+\twindow->Unknown_62F620(window->FilterName.c_str());\n+\twindow->Unknown_B0();\n+\treturn(true);\n+}\n bool UIVaultClass::Unknown_68(int key)\n {\n \tswitch (key) {\n@@ -238,17 +253,7 @@\n \t\t\treturn(UIInvClass::Unknown_68(key));\n \t}\n \tSoundLibraryClass::Play_2D_Sound(\"TextClick03.wav\", 2);\n-\tFilterName = Filter->Get_Selected_Text();\n-\tif (FilterName.size() == 0) {\n-\t\treturn(true);\n-\t}\n-\tStringOptionStruct *option = OptionClass::Instance->Find_String(\"Inv_Filter_Vault\");\n-\tif (option) {\n-\t\toption->Value = FilterName.c_str();\n-\t}\n-\tUnknown_62F620(FilterName.c_str());\n-\tUnknown_B0();\n-\treturn(true);\n+\treturn Apply_Vault_Filter(this, Filter->Get_Selected_Text());\n }\n \n // the client's format strings 'Inv_Sort%d_Name' / _primary / _secondary / _tertiary (0xB83A7C, 0xB83A64, 0xB83A48, 0xB83A30)\n",
+      "native": {
+        "class": "inline-budget",
+        "reason": "15 calls in ours, 21 in the client; 8 callees only in the client: ?_Copy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEXI@Z, ?_Eos@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEXI@Z, ?_Tidy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEX_N@Z",
+        "ours": 170,
+        "client": 202,
+        "residue": 50,
+        "residue_regs": 52,
+        "tables": [
+          {
+            "kind": "jump",
+            "ours": 7,
+            "client": 7,
+            "n": 7,
+            "diff": 0,
+            "at": 6651108
+          }
+        ],
+        "branch": {
+          "bytes": [
+            495,
+            580
+          ],
+          "size": 1,
+          "target": 2
+        },
+        "object_span": 528,
+        "raw_coff_body_sha256": "797b946b4c59682eb56dfc4236a4f570f58c6542fefec488b0371c772e7c2d09",
+        "canonical_with": null,
+        "symbol_gains": [],
+        "symbol_losses": [
+          [
+            "?max_size@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QBEIXZ",
+            "0x42D120"
+          ]
+        ],
+        "file_gains": [],
+        "file_losses": [
+          [
+            "app/client/ui_vault.cpp",
+            "0x42D120"
+          ]
+        ],
+        "exact_symbol_pairs": 53,
+        "exact_file_pairs": 53
+      }
+    },
+    {
+      "name": "select_name_then_persist",
+      "patch": "--- a/app/client/ui_vault.cpp\n+++ b/app/client/ui_vault.cpp\n@@ -213,6 +213,11 @@\n \n // NOT EXACT: functional from the pseudocode (D64)\n // 0x657AA0\n+static inline bool Set_Vault_Filter_Name(UIVaultClass *window, const char *text) // NAME 2: assign selected filter and report nonempty at 0x657B99\n+{\n+\twindow->FilterName = text;\n+\treturn window->FilterName.size() != 0;\n+}\n bool UIVaultClass::Unknown_68(int key)\n {\n \tswitch (key) {\n@@ -238,8 +243,7 @@\n \t\t\treturn(UIInvClass::Unknown_68(key));\n \t}\n \tSoundLibraryClass::Play_2D_Sound(\"TextClick03.wav\", 2);\n-\tFilterName = Filter->Get_Selected_Text();\n-\tif (FilterName.size() == 0) {\n+\tif (!Set_Vault_Filter_Name(this, Filter->Get_Selected_Text())) {\n \t\treturn(true);\n \t}\n \tStringOptionStruct *option = OptionClass::Instance->Find_String(\"Inv_Filter_Vault\");\n",
+      "native": {
+        "class": "shape",
+        "reason": "the same callees, 22 calls in ours and 21 in the client: a merged or split tail (return forms, workflow.md 3.1)",
+        "ours": 224,
+        "client": 202,
+        "residue": 53,
+        "residue_regs": 41,
+        "tables": [
+          {
+            "kind": "jump",
+            "ours": 7,
+            "client": 7,
+            "n": 7,
+            "diff": 0,
+            "at": 6651108
+          }
+        ],
+        "branch": {
+          "bytes": [
+            600,
+            580
+          ],
+          "size": 0,
+          "target": 2
+        },
+        "object_span": 640,
+        "raw_coff_body_sha256": "40795b0d69517e3dc4dd2b62f6bc4207de3467df501ccafc7e31dbb640cfb76a",
+        "canonical_with": null,
+        "symbol_gains": [],
+        "symbol_losses": [],
+        "file_gains": [],
+        "file_losses": [],
+        "exact_symbol_pairs": 54,
+        "exact_file_pairs": 54
+      }
+    },
+    {
+      "name": "select_name_then_existing_setter",
+      "patch": "--- a/app/client/ui_vault.cpp\n+++ b/app/client/ui_vault.cpp\n@@ -213,6 +213,11 @@\n \n // NOT EXACT: functional from the pseudocode (D64)\n // 0x657AA0\n+static inline bool Set_Vault_Filter_Name(UIVaultClass *window, const char *text) // NAME 2: assign selected filter and report nonempty at 0x657B99\n+{\n+\twindow->FilterName = text;\n+\treturn window->FilterName.size() != 0;\n+}\n bool UIVaultClass::Unknown_68(int key)\n {\n \tswitch (key) {\n@@ -238,13 +243,12 @@\n \t\t\treturn(UIInvClass::Unknown_68(key));\n \t}\n \tSoundLibraryClass::Play_2D_Sound(\"TextClick03.wav\", 2);\n-\tFilterName = Filter->Get_Selected_Text();\n-\tif (FilterName.size() == 0) {\n+\tif (!Set_Vault_Filter_Name(this, Filter->Get_Selected_Text())) {\n \t\treturn(true);\n \t}\n \tStringOptionStruct *option = OptionClass::Instance->Find_String(\"Inv_Filter_Vault\");\n \tif (option) {\n-\t\toption->Value = FilterName.c_str();\n+\t\toption->Set_Value(FilterName.c_str());\n \t}\n \tUnknown_62F620(FilterName.c_str());\n \tUnknown_B0();\n",
+      "native": {
+        "class": "shape",
+        "reason": "the same callees, 22 calls in ours and 21 in the client: a merged or split tail (return forms, workflow.md 3.1)",
+        "ours": 224,
+        "client": 202,
+        "residue": 53,
+        "residue_regs": 41,
+        "tables": [
+          {
+            "kind": "jump",
+            "ours": 7,
+            "client": 7,
+            "n": 7,
+            "diff": 0,
+            "at": 6651108
+          }
+        ],
+        "branch": {
+          "bytes": [
+            600,
+            580
+          ],
+          "size": 0,
+          "target": 2
+        },
+        "object_span": 640,
+        "raw_coff_body_sha256": "40795b0d69517e3dc4dd2b62f6bc4207de3467df501ccafc7e31dbb640cfb76a",
+        "canonical_with": "select_name_then_persist",
+        "symbol_gains": [],
+        "symbol_losses": [],
+        "file_gains": [],
+        "file_losses": [],
+        "exact_symbol_pairs": 54,
+        "exact_file_pairs": 54
+      }
+    },
+    {
+      "name": "selected_region_noninline_definition",
+      "patch": "--- a/app/client/ui_vault.cpp\n+++ b/app/client/ui_vault.cpp\n@@ -213,6 +213,20 @@\n \n // NOT EXACT: functional from the pseudocode (D64)\n // 0x657AA0\n+static bool Apply_Vault_Filter(UIVaultClass *window, const char *text) // NAME 2: selected filter assignment, persistence and refresh at 0x657B99\n+{\n+\twindow->FilterName = text;\n+\tif (window->FilterName.size() == 0) {\n+\t\treturn(true);\n+\t}\n+\tStringOptionStruct *option = OptionClass::Instance->Find_String(\"Inv_Filter_Vault\");\n+\tif (option) {\n+\t\toption->Value = window->FilterName.c_str();\n+\t}\n+\twindow->Unknown_62F620(window->FilterName.c_str());\n+\twindow->Unknown_B0();\n+\treturn(true);\n+}\n bool UIVaultClass::Unknown_68(int key)\n {\n \tswitch (key) {\n@@ -238,17 +252,7 @@\n \t\t\treturn(UIInvClass::Unknown_68(key));\n \t}\n \tSoundLibraryClass::Play_2D_Sound(\"TextClick03.wav\", 2);\n-\tFilterName = Filter->Get_Selected_Text();\n-\tif (FilterName.size() == 0) {\n-\t\treturn(true);\n-\t}\n-\tStringOptionStruct *option = OptionClass::Instance->Find_String(\"Inv_Filter_Vault\");\n-\tif (option) {\n-\t\toption->Value = FilterName.c_str();\n-\t}\n-\tUnknown_62F620(FilterName.c_str());\n-\tUnknown_B0();\n-\treturn(true);\n+\treturn Apply_Vault_Filter(this, Filter->Get_Selected_Text());\n }\n \n // the client's format strings 'Inv_Sort%d_Name' / _primary / _secondary / _tertiary (0xB83A7C, 0xB83A64, 0xB83A48, 0xB83A30)\n",
+      "native": {
+        "class": "inline-budget",
+        "reason": "15 calls in ours, 21 in the client; 8 callees only in the client: ?_Copy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEXI@Z, ?_Eos@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEXI@Z, ?_Tidy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEX_N@Z",
+        "ours": 170,
+        "client": 202,
+        "residue": 43,
+        "residue_regs": 49,
+        "tables": [
+          {
+            "kind": "jump",
+            "ours": 7,
+            "client": 7,
+            "n": 7,
+            "diff": 0,
+            "at": 6651108
+          }
+        ],
+        "branch": {
+          "bytes": [
+            496,
+            580
+          ],
+          "size": 1,
+          "target": 1
+        },
+        "object_span": 528,
+        "raw_coff_body_sha256": "93d431af3efaeb8b5ecc09adf930c457dce6adfdabd7f84d225adea550af83f7",
+        "canonical_with": "selected_region",
+        "symbol_gains": [],
+        "symbol_losses": [
+          [
+            "?max_size@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QBEIXZ",
+            "0x42D120"
+          ]
+        ],
+        "file_gains": [],
+        "file_losses": [
+          [
+            "app/client/ui_vault.cpp",
+            "0x42D120"
+          ]
+        ],
+        "exact_symbol_pairs": 53,
+        "exact_file_pairs": 53
+      }
+    },
+    {
+      "name": "selected_region_nonempty_guard",
+      "patch": "--- a/app/client/ui_vault.cpp\n+++ b/app/client/ui_vault.cpp\n@@ -213,6 +213,19 @@\n \n // NOT EXACT: functional from the pseudocode (D64)\n // 0x657AA0\n+static inline bool Apply_Vault_Filter(UIVaultClass *window, const char *text) // NAME 2: selected filter assignment, persistence and refresh at 0x657B99\n+{\n+\twindow->FilterName = text;\n+\tif (window->FilterName.size() != 0) {\n+\t\tStringOptionStruct *option = OptionClass::Instance->Find_String(\"Inv_Filter_Vault\");\n+\t\tif (option) {\n+\t\t\toption->Value = window->FilterName.c_str();\n+\t\t}\n+\t\twindow->Unknown_62F620(window->FilterName.c_str());\n+\t\twindow->Unknown_B0();\n+\t}\n+\treturn(true);\n+}\n bool UIVaultClass::Unknown_68(int key)\n {\n \tswitch (key) {\n@@ -238,17 +251,7 @@\n \t\t\treturn(UIInvClass::Unknown_68(key));\n \t}\n \tSoundLibraryClass::Play_2D_Sound(\"TextClick03.wav\", 2);\n-\tFilterName = Filter->Get_Selected_Text();\n-\tif (FilterName.size() == 0) {\n-\t\treturn(true);\n-\t}\n-\tStringOptionStruct *option = OptionClass::Instance->Find_String(\"Inv_Filter_Vault\");\n-\tif (option) {\n-\t\toption->Value = FilterName.c_str();\n-\t}\n-\tUnknown_62F620(FilterName.c_str());\n-\tUnknown_B0();\n-\treturn(true);\n+\treturn Apply_Vault_Filter(this, Filter->Get_Selected_Text());\n }\n \n // the client's format strings 'Inv_Sort%d_Name' / _primary / _secondary / _tertiary (0xB83A7C, 0xB83A64, 0xB83A48, 0xB83A30)\n",
+      "native": {
+        "class": "inline-budget",
+        "reason": "15 calls in ours, 21 in the client; 8 callees only in the client: ?_Copy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEXI@Z, ?_Eos@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEXI@Z, ?_Tidy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEX_N@Z",
+        "ours": 170,
+        "client": 202,
+        "residue": 43,
+        "residue_regs": 49,
+        "tables": [
+          {
+            "kind": "jump",
+            "ours": 7,
+            "client": 7,
+            "n": 7,
+            "diff": 0,
+            "at": 6651108
+          }
+        ],
+        "branch": {
+          "bytes": [
+            496,
+            580
+          ],
+          "size": 1,
+          "target": 1
+        },
+        "object_span": 528,
+        "raw_coff_body_sha256": "93d431af3efaeb8b5ecc09adf930c457dce6adfdabd7f84d225adea550af83f7",
+        "canonical_with": "selected_region",
+        "symbol_gains": [],
+        "symbol_losses": [
+          [
+            "?max_size@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QBEIXZ",
+            "0x42D120"
+          ]
+        ],
+        "file_gains": [],
+        "file_losses": [
+          [
+            "app/client/ui_vault.cpp",
+            "0x42D120"
+          ]
+        ],
+        "exact_symbol_pairs": 53,
+        "exact_file_pairs": 53
+      }
+    },
+    {
+      "name": "selected_region_guard_existing_setter",
+      "patch": "--- a/app/client/ui_vault.cpp\n+++ b/app/client/ui_vault.cpp\n@@ -213,6 +213,19 @@\n \n // NOT EXACT: functional from the pseudocode (D64)\n // 0x657AA0\n+static inline bool Apply_Vault_Filter(UIVaultClass *window, const char *text) // NAME 2: selected filter assignment, persistence and refresh at 0x657B99\n+{\n+\twindow->FilterName = text;\n+\tif (window->FilterName.size() != 0) {\n+\t\tStringOptionStruct *option = OptionClass::Instance->Find_String(\"Inv_Filter_Vault\");\n+\t\tif (option) {\n+\t\t\toption->Set_Value(window->FilterName.c_str());\n+\t\t}\n+\t\twindow->Unknown_62F620(window->FilterName.c_str());\n+\t\twindow->Unknown_B0();\n+\t}\n+\treturn(true);\n+}\n bool UIVaultClass::Unknown_68(int key)\n {\n \tswitch (key) {\n@@ -238,17 +251,7 @@\n \t\t\treturn(UIInvClass::Unknown_68(key));\n \t}\n \tSoundLibraryClass::Play_2D_Sound(\"TextClick03.wav\", 2);\n-\tFilterName = Filter->Get_Selected_Text();\n-\tif (FilterName.size() == 0) {\n-\t\treturn(true);\n-\t}\n-\tStringOptionStruct *option = OptionClass::Instance->Find_String(\"Inv_Filter_Vault\");\n-\tif (option) {\n-\t\toption->Value = FilterName.c_str();\n-\t}\n-\tUnknown_62F620(FilterName.c_str());\n-\tUnknown_B0();\n-\treturn(true);\n+\treturn Apply_Vault_Filter(this, Filter->Get_Selected_Text());\n }\n \n // the client's format strings 'Inv_Sort%d_Name' / _primary / _secondary / _tertiary (0xB83A7C, 0xB83A64, 0xB83A48, 0xB83A30)\n",
+      "native": {
+        "class": "inline-budget",
+        "reason": "15 calls in ours, 21 in the client; 8 callees only in the client: ?_Copy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEXI@Z, ?_Eos@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEXI@Z, ?_Tidy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEX_N@Z",
+        "ours": 170,
+        "client": 202,
+        "residue": 43,
+        "residue_regs": 49,
+        "tables": [
+          {
+            "kind": "jump",
+            "ours": 7,
+            "client": 7,
+            "n": 7,
+            "diff": 0,
+            "at": 6651108
+          }
+        ],
+        "branch": {
+          "bytes": [
+            496,
+            580
+          ],
+          "size": 1,
+          "target": 1
+        },
+        "object_span": 528,
+        "raw_coff_body_sha256": "93d431af3efaeb8b5ecc09adf930c457dce6adfdabd7f84d225adea550af83f7",
+        "canonical_with": "selected_region",
+        "symbol_gains": [],
+        "symbol_losses": [
+          [
+            "?max_size@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QBEIXZ",
+            "0x42D120"
+          ]
+        ],
+        "file_gains": [],
+        "file_losses": [
+          [
+            "app/client/ui_vault.cpp",
+            "0x42D120"
+          ]
+        ],
+        "exact_symbol_pairs": 53,
+        "exact_file_pairs": 53
+      }
+    }
+  ]
+}
