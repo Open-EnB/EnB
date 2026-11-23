@@ -305,16 +305,16 @@ void DynamicWindowMultiLineTextClass::Clear_Lines()
 	TopLineIndex = 0;
 	DisplayedLines = 0;
 }
-// NOT EXACT: functional: the split, the push_back and the per-line temporaries differ
+// NOT EXACT: height comparison retains x87 precision; client rounds height to float (fstp/fld)
 void DynamicWindowMultiLineTextClass::Split_Lines(float width)
 {
-	for (std::vector< RefCountPtr<DynamicWindowElementClass> >::iterator it = Lines.begin(); it != Lines.end(); ++it) {
-		(*it)->Remove_From_Scene();
-		(*it)->Clear_Parent();
-	}
-	Lines.erase(Lines.begin(), Lines.end());
-	TopLineIndex = 0;
-	DisplayedLines = 0;
+	Clear_Lines();
+
+
+
+
+
+
 
 
 
