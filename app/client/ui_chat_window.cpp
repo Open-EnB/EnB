@@ -506,7 +506,7 @@ void ChatWindowInterface::Unknown_571470(bool force)
 	}
 }
 
-// 0x5715F0  // NOT EXACT: functional (CW2): register residue around Create_Peek(Peek_Scene()) (0.71)
+// 0x5715F0
 void ChatWindowInterface::Unknown_5715F0(bool on, bool force)
 {
 	if (on == UnknownDC->Is_Enabled() && !force) return;
@@ -515,9 +515,9 @@ void ChatWindowInterface::Unknown_5715F0(bool on, bool force)
 		InterfaceSortScopeClass scope(this);
 		UnknownDC->Unknown_40(true);
 		UnknownDC->Unknown_8C(false);
-		if (!UnknownB8->Peek_Scene()) UnknownB8->Add(Peek_Scene());
+		const int &scene = Unknown44; if (!UnknownB8->Peek_Scene()) UnknownB8->Add((SceneClass *)scene);	// NAME 1 [scene]: neutral (D10)
 		UnknownD4->Set_Hidden(false);
-		UnknownD8->Unknown_685A30(Create_Peek(Peek_Scene()));
+		UnknownD8->Unknown_685A30(Create_Peek((SceneClass *)scene));
 	} else {
 		UnknownDC->Unknown_40(false);
 		UnknownDC->Unknown_8C(true);
@@ -630,6 +630,8 @@ void ChatWindowInterface::Unknown_571A70(ChatViewportStruct *vp)
 }
 
 /*
+**	0x5715F0 is exact: use the stored scene through one const integer reference at both existing input sites,
+**	so the later value read remains after Set_Hidden and reference-counted temporary cleanup is preserved.
 **	0x570260 is exact: bind the stored scene value through a const reference to its declared integer type
 **	and convert it at the existing Create_Peek argument site. Reference-counted temporary lifetime is unchanged.
 **	0x571A70 and its inlined callers 0x570CD0 / 0x570E40 are exact: copy both bone translations
