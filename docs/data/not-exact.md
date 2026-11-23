@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-606 entries in 251 files.
+605 entries in 251 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -358,7 +358,6 @@ edit the comments in the code, not this file.
 | `app/client/ui_login.cpp:930` | `LoginInterface::Unknown_5AEA60` | mention | NOT EXACT (its note above it). 0x5ADA50 (slot +0x60's first call: the welcome speech and the step changes) reads the view's and the task's members through inline getters: they spend the inline budget, so the string's _Tidy and _Eos stay out of line as in the client. Slot +0x68 takes its block order from if / else plus break in the account cases (the shared box last); the account expiry box 0x5AEA6... |
 | `app/client/ui_manu.cpp:93` | `UIManuClass::UIManuClass` | marker | NOT EXACT: order (the client computes +0xB80's address after the low half of the __int64 at +0xBB8, ours first) (0x5AFA00) |
 | `app/client/ui_manu.cpp:135` | `UIManuClass::~UIManuClass` | marker | NOT EXACT: register (the loop's two pointers in edi / ebp the other way round) (0x5AFCD0) |
-| `app/client/ui_manu.cpp:221` | `UIManuClass::Unknown_58` | marker | NOT EXACT: inline budget (0x5B2820 inlined, its 0x5B6CA0 / 0x5B2950 out of line as the client's; left: the sort scope's stores and the font-style block's temporaries; the client's frame is 0xC bytes smaller) (0x5B0BB0) |
 | `app/client/ui_manu.cpp:478` | `UIManuClass::Unknown_60` | marker | NOT EXACT: inline budget (the client calls the 'ManufactureComponents' and 'Validity' Casts out of line, 0x5B7210 / 0x5468D0, and 0x5B6DB0 in the inlined 0x5B3640) (0x5B1230) |
 | `app/client/ui_manu.cpp:545` | `UIManuClass::Unknown_68` | marker | NOT EXACT: inline budget (in the inlined 0x5B1ED0 the client calls both finds out of line, 0x5B70C0) (0x5B16C0) |
 | `app/client/ui_manu.cpp:785` | `UIManuClass::Unknown_5B2480` | marker | NOT EXACT: register (the 'Validity' find out of line as the client, 0x5465C0, through two inline layers; the inlined copies of 0x5B1AF0 load the mesh and the name in each other's registers) (0x5B2480) |

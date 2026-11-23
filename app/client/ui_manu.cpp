@@ -218,11 +218,11 @@ void UIManuClass::Unknown_7C(UIViewClass *view, bool arg)
 
 
 
-// NOT EXACT: inline budget (0x5B2820 inlined, its 0x5B6CA0 / 0x5B2950 out of line as the client's; left: the sort scope's stores and the font-style block's temporaries; the client's frame is 0xC bytes smaller) (0x5B0BB0)
+
 void UIManuClass::Unknown_58()
 {
 	SClient *sclient = Client->As_Space_Client();
-	((ClientClass *)Client)->Send_Packet(&ManufactureItemCatagoryPacketClass(sclient->Unknown1138, 1));
+	int player_id; ((ClientClass *)Client)->Send_Packet(&ManufactureItemCatagoryPacketClass(player_id = sclient->Unknown1138, 1));	// NAME 1 [player_id]: neutral (D10)
 	if (State == UI_CLOSED) {
 		InterfaceSortScopeClass scope(this);
 		State = UI_OPEN;
@@ -234,15 +234,15 @@ void UIManuClass::Unknown_58()
 
 
 
-		Unknown_BE67C4->Add(InterfaceMesh->Peek_Mesh_Object());
+		RenderObjClass *mesh = InterfaceMesh->Peek_Mesh_Object(); Unknown_BE67C4->Add(mesh);	// NAME 1 [mesh]: neutral (D10)
 		RefCountPtr<FontSys> name_text = Create_Peek(Unknown_BE67C4->Get_Style("Name_tsm01a", InterfaceMesh->Peek_Mesh_Object()));
 		RefCountPtr<RenderObjClass> name_obj = Create_Get(InterfaceMesh->Peek_Object()->Get_Sub_Object_By_Name("name"));
-		name_text->Set_Sort_Level(name_obj->Get_Sort_Level() - 1);
-		char buffer[264];
+		int name_sort_level = name_obj->Get_Sort_Level() - 1; name_text->Set_Sort_Level(name_sort_level);	// NAME 1 [name_sort_level]: neutral (D10)
+		char buffer[256];
 		for (int i = 0; i < 10; i++) {
 			sprintf(buffer, "desc%02d_tsm01a", i);
 			Unknown16C[i] = Create_Peek(Unknown_BE67C4->Get_Style(buffer, InterfaceMesh->Peek_Mesh_Object()));
-			Unknown16C[i]->Set_Sort_Level(Unknown0E8[i]->RObj->Get_Sort_Level() + 1);
+			int row_sort_level = Unknown0E8[i]->RObj->Get_Sort_Level() + 1; Unknown16C[i]->Set_Sort_Level(row_sort_level);	// NAME 1 [row_sort_level]: neutral (D10)
 			Unknown16C[i]->Change_Text("", 0);
 			sprintf(buffer, "var%02d_tsm01a", i);
 			Unknown194[i] = Create_Peek(Unknown_BE67C4->Get_Style(buffer, InterfaceMesh->Peek_Mesh_Object()));
@@ -1874,3 +1874,7 @@ void UIManuClass::Unknown_5B6D30()
 template UIManuListClass *Unknown_Find_Field<UIManuListClass>(DeltaCompoundClass *root, const NameClass &name);	// D164: not the client's form; emits auxdata.h's find for the lists out of line (0x5B70C0, which the client's 0x5B16C0 calls) now that 0x5B5320's 'PreviousAttempts' find is 0x5B3580's set find (0x5B6DB0)
 template UIManuComponentsClass *Unknown_Find_Field<UIManuComponentsClass>(DeltaCompoundClass *root, const NameClass &name);	// D164: not the client's form; emits auxdata.h's 'ManufactureTarget' find out of line (0x5B7050, which the client's 0x5B5CD0 calls)
 template class UnknownRTTIClass<UIManuTechLevelFilterClass>;	// D164: emits the filter Cast out of line (0x5B7300, which the client's 0x5B4B10 calls)
+
+// 0x5B0BB0 is exact: retain a 256-byte label buffer, assign the player ID at its packet argument,
+// name the font-manager mesh input and copy sort values before their setters. All original callbacks
+// and reference-counted temporary lifetimes are preserved.

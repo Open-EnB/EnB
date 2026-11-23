@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1970 |
 | 2 | describes what the code does | 5009 |
-| 1 | neutral placeholder | 25158 |
+| 1 | neutral placeholder | 25162 |
 
 ## For review (score 3 and below)
 
@@ -14161,9 +14161,13 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_14` | `app/client/ui_manu.cpp:185` | untagged neutral name (D10) |
 | 1 | `Unknown_7C` | `app/client/ui_manu.cpp:198` | untagged neutral name (D10) |
 | 1 | `Unknown_58` | `app/client/ui_manu.cpp:222` | untagged neutral name (D10) |
+| 1 | `player_id` | `app/client/ui_manu.cpp:225` | neutral (D10) |
 | 1 | `Unknown1138` | `app/client/ui_manu.cpp:225` | untagged neutral name (D10) |
 | 1 | `Unknown_695780` | `app/client/ui_manu.cpp:229` | untagged neutral name (D10) |
 | 1 | `Unknown_5B2820` | `app/client/ui_manu.cpp:230` | untagged neutral name (D10) |
+| 1 | `mesh` | `app/client/ui_manu.cpp:237` | neutral (D10) |
+| 1 | `name_sort_level` | `app/client/ui_manu.cpp:240` | neutral (D10) |
+| 1 | `row_sort_level` | `app/client/ui_manu.cpp:245` | neutral (D10) |
 | 1 | `Unknown_69DC40` | `app/client/ui_manu.cpp:251` | untagged neutral name (D10) |
 | 1 | `Unknown_74BF80` | `app/client/ui_manu.cpp:256` | untagged neutral name (D10) |
 | 1 | `Unknown_5B4B10` | `app/client/ui_manu.cpp:260` | untagged neutral name (D10) |
