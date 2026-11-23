@@ -90,7 +90,7 @@ static inline __int64 Unknown_Filter_Seconds() { return 5; } static __int64 Unkn
 static unsigned int Unknown_B8183C = 9;					// NAME 1: neutral (D10): the filter requests allowed
 static const float Unknown_AF2D18 = 1.0f;				// NAME 1: neutral (D10): what 0x5B3A70 stores (read from .rdata)
 
-// NOT EXACT: order (the client computes +0xB80's address after the low half of the __int64 at +0xBB8, ours first) (0x5AFA00)
+
 UIManuClass::UIManuClass(SBaseViewClass *view, const LayerClass &layer) :
 	Unknown5BB320Class(new UIMeshClass("TSM01A", true), (UIViewClass *)view, layer),
 	Unknown0AC(view),
@@ -534,8 +534,8 @@ slider:
 		Unknown0C0[i]->Unknown_5B7880();
 	}
 	DurationClass now; now = DurationClass((unsigned int)((ClientClass *)Client)->Unknown10BC);
-	if (now.Time > Unknown0BB8 && Unknown0BC0 > 0) {
-		Unknown0BB8 = Unknown_BE5C20 * 1000 + now.Time;
+	if (now.Time > Unknown0BB8.Time && Unknown0BC0 > 0) {
+		Unknown0BB8.Time = Unknown_BE5C20 * 1000 + now.Time;
 		if (--Unknown0BC0 < Unknown_B8183C) {
 			Unknown_5B6CA0();
 		}
@@ -1881,4 +1881,8 @@ template class UnknownRTTIClass<UIManuTechLevelFilterClass>;	// D164: emits the 
 
 // 0x5B1230: the current tick is a zero-extended unsigned input carried by DurationClass. Its existing
 // assignment layer recovers the retail Validity Cast boundary and this unit's exact 0x5468D0 holder;
-// the enclosing handler remains NOT EXACT. Signed timestamp operations and read timing are preserved.
+// the enclosing handler remains partial. Signed timestamp operations and read timing are preserved.
+
+// 0x5AFA00 is exact with the request timestamp represented by DurationClass. The eight-byte member
+// retains its original offset, and the class size, alignment and every own-member offset are unchanged.
+// All four ui_manu.h consumers preserve their complete native pair sets.

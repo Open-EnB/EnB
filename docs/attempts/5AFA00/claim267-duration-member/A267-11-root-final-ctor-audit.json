@@ -1,0 +1,511 @@
+{
+  "native_exact": {
+    "object": "ui_manu.obj",
+    "symbol": "??0UIManuClass@@QAE@PAVSBaseViewClass@@ABVLayerClass@@@Z",
+    "name": "UIManuClass::UIManuClass",
+    "length": 525,
+    "fixed": 433,
+    "addresses": [
+      "0x5AFA00"
+    ],
+    "status": "exact"
+  },
+  "meaningful_bytes": 525,
+  "instruction_counts": [
+    132,
+    132
+  ],
+  "residue": 0,
+  "branch": {
+    "bytes": [
+      525,
+      525
+    ],
+    "size": 0,
+    "target": 0
+  },
+  "frames": [
+    [
+      "8",
+      false,
+      true
+    ],
+    [
+      "8",
+      false,
+      true
+    ]
+  ],
+  "fixed_bytes_equal": true,
+  "returns": [
+    [
+      "0x20a"
+    ],
+    [
+      "0x5afc0a"
+    ]
+  ],
+  "relocations": [
+    {
+      "offset": "0x3",
+      "type": "0x6",
+      "symbol": "$L121470",
+      "addend": 0,
+      "retail_target": "0xab4985",
+      "resolved_target": "0xab4985"
+    },
+    {
+      "offset": "0x9",
+      "type": "0x6",
+      "symbol": "__except_list",
+      "addend": 0,
+      "retail_target": "0x0",
+      "resolved_target": "0x0"
+    },
+    {
+      "offset": "0x11",
+      "type": "0x6",
+      "symbol": "__except_list",
+      "addend": 0,
+      "retail_target": "0x0",
+      "resolved_target": "0x0"
+    },
+    {
+      "offset": "0x25",
+      "type": "0x14",
+      "symbol": "??2@YAPAXI@Z",
+      "addend": 0,
+      "retail_target": "0x41066d",
+      "resolved_target": "0x4e9cb0"
+    },
+    {
+      "offset": "0x3d",
+      "type": "0x6",
+      "symbol": "??_C@_06IEFD@TSM01A?$AA@",
+      "addend": 0,
+      "retail_target": "0xb81980",
+      "resolved_target": "0xb81980"
+    },
+    {
+      "offset": "0x44",
+      "type": "0x14",
+      "symbol": "??0UIMeshClass@@QAE@PBDH@Z",
+      "addend": 0,
+      "retail_target": "0x411883",
+      "resolved_target": "0x5b8120"
+    },
+    {
+      "offset": "0x61",
+      "type": "0x14",
+      "symbol": "??0Unknown5BB320Class@@QAE@PAVUIMeshClass@@PAVUIViewClass@@ABVLayerClass@@@Z",
+      "addend": 0,
+      "retail_target": "0x41835e",
+      "resolved_target": "0x5bb250"
+    },
+    {
+      "offset": "0x8c",
+      "type": "0x6",
+      "symbol": "??1?$RefCountPtr@VRenderObjClass@@@@QAE@XZ",
+      "addend": 0,
+      "retail_target": "0x40e2d2",
+      "resolved_target": "0x4740b0"
+    },
+    {
+      "offset": "0x91",
+      "type": "0x6",
+      "symbol": "??0?$RefCountPtr@VRenderObjClass@@@@QAE@XZ",
+      "addend": 0,
+      "retail_target": "0x41240e",
+      "resolved_target": "0x5464f0"
+    },
+    {
+      "offset": "0xa6",
+      "type": "0x14",
+      "symbol": "??_L@YGXPAXIHP6EX0@Z1@Z",
+      "addend": 0,
+      "retail_target": "0xa26658",
+      "resolved_target": "0xa26658"
+    },
+    {
+      "offset": "0xab",
+      "type": "0x6",
+      "symbol": "??1?$RefCountPtr@VFontSys@@@@QAE@XZ",
+      "addend": 0,
+      "retail_target": "0x409ac0",
+      "resolved_target": "0x51c630"
+    },
+    {
+      "offset": "0xb0",
+      "type": "0x6",
+      "symbol": "??0?$RefCountPtr@VFontSys@@@@QAE@XZ",
+      "addend": 0,
+      "retail_target": "0x4026a3",
+      "resolved_target": "0x553a80"
+    },
+    {
+      "offset": "0xc5",
+      "type": "0x14",
+      "symbol": "??_L@YGXPAXIHP6EX0@Z1@Z",
+      "addend": 0,
+      "retail_target": "0xa26658",
+      "resolved_target": "0xa26658"
+    },
+    {
+      "offset": "0xca",
+      "type": "0x6",
+      "symbol": "??1?$RefCountPtr@VFontSys@@@@QAE@XZ",
+      "addend": 0,
+      "retail_target": "0x409ac0",
+      "resolved_target": "0x51c630"
+    },
+    {
+      "offset": "0xcf",
+      "type": "0x6",
+      "symbol": "??0?$RefCountPtr@VFontSys@@@@QAE@XZ",
+      "addend": 0,
+      "retail_target": "0x4026a3",
+      "resolved_target": "0x553a80"
+    },
+    {
+      "offset": "0xe4",
+      "type": "0x14",
+      "symbol": "??_L@YGXPAXIHP6EX0@Z1@Z",
+      "addend": 0,
+      "retail_target": "0xa26658",
+      "resolved_target": "0xa26658"
+    },
+    {
+      "offset": "0x14a",
+      "type": "0x6",
+      "symbol": "??_7UIManuClass@@6BUnknownGadgetBase00Class@@@",
+      "addend": 0,
+      "retail_target": "0xaf2d4c",
+      "resolved_target": "0xaf2d4c"
+    },
+    {
+      "offset": "0x151",
+      "type": "0x6",
+      "symbol": "??_7UIManuClass@@6BUnknownGadgetBase04Class@@@",
+      "addend": 0,
+      "retail_target": "0xaf2d40",
+      "resolved_target": "0xaf2d40"
+    },
+    {
+      "offset": "0x158",
+      "type": "0x6",
+      "symbol": "??_7UIManuClass@@6B@",
+      "addend": 0,
+      "retail_target": "0xaf2d34",
+      "resolved_target": "0xaf2d34"
+    },
+    {
+      "offset": "0x1aa",
+      "type": "0x6",
+      "symbol": "??_C@_0O@ECMG@FA_TSM01A?4INI?$AA@",
+      "addend": 0,
+      "retail_target": "0xb81970",
+      "resolved_target": "0xb81970"
+    },
+    {
+      "offset": "0x1ed",
+      "type": "0x6",
+      "symbol": "?Unknown_BE67BC@@3PAVFontStringFilesClass@@A",
+      "addend": 0,
+      "retail_target": "0xbe67bc",
+      "resolved_target": "0xbe67bc"
+    },
+    {
+      "offset": "0x1f2",
+      "type": "0x14",
+      "symbol": "?Load@FontStringFilesClass@@QAEXPBD@Z",
+      "addend": 0,
+      "retail_target": "0x401726",
+      "resolved_target": "0x6c52b0"
+    },
+    {
+      "offset": "0x203",
+      "type": "0x6",
+      "symbol": "__except_list",
+      "addend": 0,
+      "retail_target": "0x0",
+      "resolved_target": "0x0"
+    }
+  ],
+  "EH": {
+    "stub": "0xab4985",
+    "FuncInfo_scalar_fields_object": [
+      429065504,
+      8,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "state_count": 8,
+    "states": [
+      {
+        "state": 0,
+        "to_state": -1,
+        "retail_action": "0xab4900",
+        "object_action": [
+          0,
+          11
+        ],
+        "meaningful_bytes": 11,
+        "masked_funclet_equal": true,
+        "relocations": [
+          {
+            "offset": "0x5",
+            "type": "0x14",
+            "symbol": "??3@YAXPAX@Z",
+            "addend": 0,
+            "retail_target": "0x412b7a",
+            "resolved_target": "0x4e9d10"
+          }
+        ]
+      },
+      {
+        "state": 1,
+        "to_state": -1,
+        "retail_action": "0xab490b",
+        "object_action": [
+          11,
+          19
+        ],
+        "meaningful_bytes": 8,
+        "masked_funclet_equal": true,
+        "relocations": [
+          {
+            "offset": "0x4",
+            "type": "0x14",
+            "symbol": "??1Unknown5BB320Class@@UAE@XZ",
+            "addend": 0,
+            "retail_target": "0x401f64",
+            "resolved_target": "0x5bb3b0"
+          }
+        ]
+      },
+      {
+        "state": 2,
+        "to_state": 1,
+        "retail_action": "0xab4913",
+        "object_action": [
+          19,
+          33
+        ],
+        "meaningful_bytes": 14,
+        "masked_funclet_equal": true,
+        "relocations": [
+          {
+            "offset": "0xa",
+            "type": "0x14",
+            "symbol": "??1?$RefCountPtr@V?$UIInvStripOfClass@VRenderObjClass@@@@@@QAE@XZ",
+            "addend": 0,
+            "retail_target": "0x404084",
+            "resolved_target": "0x5464b0"
+          }
+        ]
+      },
+      {
+        "state": 3,
+        "to_state": 2,
+        "retail_action": "0xab4921",
+        "object_action": [
+          33,
+          47
+        ],
+        "meaningful_bytes": 14,
+        "masked_funclet_equal": true,
+        "relocations": [
+          {
+            "offset": "0xa",
+            "type": "0x14",
+            "symbol": "??1?$RefCountPtr@V?$UIInvStripOfClass@VRenderObjClass@@@@@@QAE@XZ",
+            "addend": 0,
+            "retail_target": "0x404084",
+            "resolved_target": "0x5464b0"
+          }
+        ]
+      },
+      {
+        "state": 4,
+        "to_state": 3,
+        "retail_action": "0xab492f",
+        "object_action": [
+          47,
+          61
+        ],
+        "meaningful_bytes": 14,
+        "masked_funclet_equal": true,
+        "relocations": [
+          {
+            "offset": "0xa",
+            "type": "0x14",
+            "symbol": "??1?$RefCountPtr@V?$UIInvStripOfClass@VRenderObjClass@@@@@@QAE@XZ",
+            "addend": 0,
+            "retail_target": "0x404084",
+            "resolved_target": "0x5464b0"
+          }
+        ]
+      },
+      {
+        "state": 5,
+        "to_state": 4,
+        "retail_action": "0xab493d",
+        "object_action": [
+          61,
+          85
+        ],
+        "meaningful_bytes": 24,
+        "masked_funclet_equal": true,
+        "relocations": [
+          {
+            "offset": "0x1",
+            "type": "0x6",
+            "symbol": "??1?$RefCountPtr@VRenderObjClass@@@@QAE@XZ",
+            "addend": 0,
+            "retail_target": "0x40e2d2",
+            "resolved_target": "0x4740b0"
+          },
+          {
+            "offset": "0x13",
+            "type": "0x14",
+            "symbol": "??_M@YGXPAXIHP6EX0@Z@Z",
+            "addend": 0,
+            "retail_target": "0xa26564",
+            "resolved_target": "0xa26564"
+          }
+        ]
+      },
+      {
+        "state": 6,
+        "to_state": 5,
+        "retail_action": "0xab4955",
+        "object_action": [
+          85,
+          109
+        ],
+        "meaningful_bytes": 24,
+        "masked_funclet_equal": true,
+        "relocations": [
+          {
+            "offset": "0x1",
+            "type": "0x6",
+            "symbol": "??1?$RefCountPtr@VFontSys@@@@QAE@XZ",
+            "addend": 0,
+            "retail_target": "0x409ac0",
+            "resolved_target": "0x51c630"
+          },
+          {
+            "offset": "0x13",
+            "type": "0x14",
+            "symbol": "??_M@YGXPAXIHP6EX0@Z@Z",
+            "addend": 0,
+            "retail_target": "0xa26564",
+            "resolved_target": "0xa26564"
+          }
+        ]
+      },
+      {
+        "state": 7,
+        "to_state": 6,
+        "retail_action": "0xab496d",
+        "object_action": [
+          109,
+          133
+        ],
+        "meaningful_bytes": 24,
+        "masked_funclet_equal": true,
+        "relocations": [
+          {
+            "offset": "0x1",
+            "type": "0x6",
+            "symbol": "??1?$RefCountPtr@VFontSys@@@@QAE@XZ",
+            "addend": 0,
+            "retail_target": "0x409ac0",
+            "resolved_target": "0x51c630"
+          },
+          {
+            "offset": "0x13",
+            "type": "0x14",
+            "symbol": "??_M@YGXPAXIHP6EX0@Z@Z",
+            "addend": 0,
+            "retail_target": "0xa26564",
+            "resolved_target": "0xa26564"
+          }
+        ]
+      }
+    ],
+    "all_to_states_and_funclet_patterns_equal": true
+  },
+  "layout": {
+    "size": 3016,
+    "duration_size": 8,
+    "duration_Time_offset": 0,
+    "duration_alignment_by_char_probe": 8,
+    "UIManu_alignment_by_char_probe": 8,
+    "all_own_member_offsets": {
+      "Unknown0AC": 172,
+      "Unknown0B0": 176,
+      "Unknown0B4": 180,
+      "Unknown0B8": 184,
+      "Unknown0BC": 188,
+      "Unknown0C0": 192,
+      "Unknown0CC": 204,
+      "Unknown0E8": 232,
+      "Unknown110": 272,
+      "Unknown11C": 284,
+      "Unknown16C": 364,
+      "Unknown194": 404,
+      "Unknown1BC": 444,
+      "Unknown98C": 2444,
+      "Unknown0B80": 2944,
+      "Unknown0B90": 2960,
+      "Unknown0B94": 2964,
+      "Unknown0B98": 2968,
+      "State": 2972,
+      "Unknown0BA0": 2976,
+      "Unknown0BA4": 2980,
+      "Unknown0BA8": 2984,
+      "Unknown0BAC": 2988,
+      "Unknown0BAD": 2989,
+      "Unknown0BAE": 2990,
+      "Unknown0BB0": 2992,
+      "Unknown0BB4": 2996,
+      "Unknown0BB8": 3000,
+      "Unknown0BC0": 3008
+    },
+    "baseline_equals_candidate": true
+  },
+  "secondary_helper": {
+    "object": "ui_manu.obj",
+    "symbol": "?Unknown_4A1930@UnknownGadgetBase04Class@@UAE_NHHH@Z",
+    "name": "UnknownGadgetBase04Class::Unknown_4A1930",
+    "length": 5,
+    "fixed": 5,
+    "status": "exact",
+    "addresses": [
+      "0x4A1930"
+    ],
+    "short_known": "vptr",
+    "shared": true
+  },
+  "secondary_helper_vptr_evidence": [
+    {
+      "vptr_store": {
+        "offset": "0x151",
+        "type": "0x6",
+        "symbol": "??_7UIManuClass@@6BUnknownGadgetBase04Class@@@",
+        "addend": 0,
+        "retail_target": "0xaf2d40",
+        "resolved_target": "0xaf2d40"
+      },
+      "slot_offset": "0x4",
+      "slot_address": "0xaf2d44",
+      "retail_value": "0x407aae",
+      "resolved": "0x4a1930",
+      "object_slot_symbol": "?Unknown_4A1930@UnknownGadgetBase04Class@@UAE_NHHH@Z"
+    }
+  ]
+}

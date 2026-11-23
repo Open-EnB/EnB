@@ -6,7 +6,7 @@
 
 #include "sclient.h"
 #include "ui_inv.h"		// UIInvRobjStripClass, the strips of slots
-
+#include "..\shared\duration.h"
 class GadgetClass;			// gadget.cpp's
 class CheckBoxGadgetClass;	// the check buttons (the tech level filters at +0x11C)
 class FontSys;		// fontmanager.h's text objects (+0x16C, +0x194)
@@ -153,7 +153,7 @@ public:
 	bool Unknown0BAE;									// +0xBAE
 	int Unknown0BB0;									// +0xBB0 the item id asked for (-1 for none)
 	bool Unknown0BB4;									// +0xBB4
-	__int64 Unknown0BB8;							// +0xBB8 (slot +0x60: the next time a filter request is given back)
+	DurationClass Unknown0BB8;							// +0xBB8 (slot +0x60: the next time a filter request is given back)
 	unsigned int Unknown0BC0;							// +0xBC0 (compared with Unknown_B8183C)
 };
 

@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-606 entries in 251 files.
+604 entries in 251 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -356,7 +356,6 @@ edit the comments in the code, not this file.
 | `app/client/ui_log.cpp:104` | `UILogClass::Unknown_54` | marker | NOT EXACT: register (the loop by id to < 6, the page entry through textgadg.h's setter and the first view through Get_View() as 0x5D4890; left: the entry Create_Get's vtable / return-slot registers, the flags' registers, the reload before Set_Tooltip; GV4) 0x5AB030 |
 | `app/client/ui_login.cpp:288` | `LoginInterface::LoginInterface` | marker | NOT EXACT: scheduling (the client clears the buttons in the member stores' run, ours before it, and loads the model's address before the font manager for Add) (0x5ACB80) |
 | `app/client/ui_login.cpp:930` | `LoginInterface::Unknown_5AEA60` | mention | NOT EXACT (its note above it). 0x5ADA50 (slot +0x60's first call: the welcome speech and the step changes) reads the view's and the task's members through inline getters: they spend the inline budget, so the string's _Tidy and _Eos stay out of line as in the client. Slot +0x68 takes its block order from if / else plus break in the account cases (the shared box last); the account expiry box 0x5AEA6... |
-| `app/client/ui_manu.cpp:93` | `UIManuClass::UIManuClass` | marker | NOT EXACT: order (the client computes +0xB80's address after the low half of the __int64 at +0xBB8, ours first) (0x5AFA00) |
 | `app/client/ui_manu.cpp:135` | `UIManuClass::~UIManuClass` | marker | NOT EXACT: register (the loop's two pointers in edi / ebp the other way round) (0x5AFCD0) |
 | `app/client/ui_manu.cpp:478` | `UIManuClass::Unknown_60` | marker | NOT EXACT: inline budget (the ManufactureComponents Cast 0x5B7210 and nested 0x5B6DB0 boundary still differ; DurationClass assignment recovers the Validity Cast 0x5468D0 and nested 0x5B6CA0 call) (0x5B1230) |
 | `app/client/ui_manu.cpp:545` | `UIManuClass::Unknown_68` | marker | NOT EXACT: inline budget (in the inlined 0x5B1ED0 the client calls both finds out of line, 0x5B70C0) (0x5B16C0) |
@@ -368,7 +367,6 @@ edit the comments in the code, not this file.
 | `app/client/ui_manu.cpp:1283` | `UIManuClass::Unknown_5B4850` | marker | NOT EXACT: register (as 0x5B2480) (0x5B4850) |
 | `app/client/ui_manu.cpp:1451` | `UIManuClass::Unknown_5B4B10` | marker | NOT EXACT: frame (the NegotiatedCost and ExpectedQuality finds out of line as the client, 0x5466A0 / 0x546710, through two inline layers, and the Casts as the client's; the stack slots differ) (0x5B4B10) |
 | `app/client/ui_manu.cpp:1562` | `UIManuClass::Unknown_5B5320` | marker | NOT EXACT: frame (every call in place, the seven finds out of line as the client through two inline layers; the quality fields selected as (f && f->Unknown70 > 1) ? f : NULL and the filter bits read once before the loop, as the client's bytes, the validity value and the client pointer through locals (the client loads each argument just before its push), 0x5B1AF0's index local; masked residue 0, le... |
-| `app/client/ui_manu.cpp:1884` | `template UIManuComponentsClass *Unknown_Find_Field<UIManuComponentsClass>` | mention | NOT EXACT. Signed timestamp operations and read timing are preserved. |
 | `app/client/ui_mesh.cpp:62` | `UIMeshClass::Unknown_5B8850` | marker | NOT EXACT: 0x5B8850 (0.79): the client's FAIL_IF path jumps to the shared epilogue, ours repeats it |
 | `app/client/ui_mesh.cpp:194` | `UIMeshClass::Unknown_5B8EE0` | marker | NOT EXACT: 0x5B8EE0 (0.50): register choice (slot in edx, the node through lea ecx) |
 | `app/client/ui_mesh.cpp:203` | `UIMeshClass::Unknown_5B8FF0` | marker | NOT EXACT: 0x5B8FF0 (0.50): as 0x5B8EE0 |

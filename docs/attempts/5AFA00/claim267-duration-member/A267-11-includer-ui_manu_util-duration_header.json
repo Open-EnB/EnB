@@ -1,0 +1,95 @@
+{
+  "schema": 1,
+  "hypothesis": "A267-11-includer-ui_manu_util",
+  "provenance": {
+    "analysis_model": "gpt-6-astra",
+    "analysis_effort": "high",
+    "testing_model": "gpt-6.1-sol",
+    "testing_effort": "high"
+  },
+  "base_head": "9b07cd77d9bf53363e236fbb1d0f1f92c5f5520a",
+  "baseline_sha256": "5c958957d9134aa920a2f405c07ab0b44a753eafece88e0f658b1a942b1bb1a3",
+  "source_sha256": "5c958957d9134aa920a2f405c07ab0b44a753eafece88e0f658b1a942b1bb1a3",
+  "patch_replay_verified": true,
+  "baseline_patch_from_base_head": "",
+  "patch": "",
+  "header_changes": [
+    {
+      "path": "app/client/ui_manu.h",
+      "baseline_sha256": "8c21fff0a830fc972345bf56c7ac8dfec4d5a1d9db15bdba3aa84449d6a11676",
+      "source_sha256": "862ba35eeb96f78b0a3afc3c053679232780feca9f960fb8f39b2c8a337d5c44",
+      "patch": "--- a/app/client/ui_manu.h\n+++ b/app/client/ui_manu.h\n@@ -6,7 +6,7 @@\n \n #include \"sclient.h\"\n #include \"ui_inv.h\"\t\t// UIInvRobjStripClass, the strips of slots\n-\n+#include \"..\\shared\\duration.h\"\n class GadgetClass;\t\t\t// gadget.cpp's\n class CheckBoxGadgetClass;\t// the check buttons (the tech level filters at +0x11C)\n class FontSys;\t\t// fontmanager.h's text objects (+0x16C, +0x194)\n@@ -153,7 +153,7 @@\n \tbool Unknown0BAE;\t\t\t\t\t\t\t\t\t// +0xBAE\n \tint Unknown0BB0;\t\t\t\t\t\t\t\t\t// +0xBB0 the item id asked for (-1 for none)\n \tbool Unknown0BB4;\t\t\t\t\t\t\t\t\t// +0xBB4\n-\t__int64 Unknown0BB8;\t\t\t\t\t\t\t// +0xBB8 (slot +0x60: the next time a filter request is given back)\n+\tDurationClass Unknown0BB8;\t\t\t\t\t\t\t// +0xBB8 (slot +0x60: the next time a filter request is given back)\n \tunsigned int Unknown0BC0;\t\t\t\t\t\t\t// +0xBC0 (compared with Unknown_B8183C)\n };\n \n"
+    }
+  ],
+  "compile_success": true,
+  "native_full_object_match": true,
+  "source_constraints": {
+    "run": "A267-11-includer-ui_manu_util-perbv2k6",
+    "name": "duration_header",
+    "physical_asserts_equal": true,
+    "EH_states": {},
+    "pair_count": 12,
+    "gained": [],
+    "lost": []
+  },
+  "baseline_pair_count": 12,
+  "name": "duration_header",
+  "unit": "app/client/ui_manu_util.cpp",
+  "source": "/home/dev/Projects/EnB/.work/claim-267/astra-tests/forms/A267-11_ui_manu_util_candidate/ui_manu_util.cpp",
+  "metrics": {},
+  "pair_count": 12,
+  "pairs": [
+    [
+      "app/client/ui_manu_util.cpp",
+      "0x42B320"
+    ],
+    [
+      "app/client/ui_manu_util.cpp",
+      "0x42F250"
+    ],
+    [
+      "app/client/ui_manu_util.cpp",
+      "0x5B7370"
+    ],
+    [
+      "app/client/ui_manu_util.cpp",
+      "0x5B73A0"
+    ],
+    [
+      "app/client/ui_manu_util.cpp",
+      "0x5B73C0"
+    ],
+    [
+      "app/client/ui_manu_util.cpp",
+      "0x5B7430"
+    ],
+    [
+      "app/client/ui_manu_util.cpp",
+      "0x5B74A0"
+    ],
+    [
+      "app/client/ui_manu_util.cpp",
+      "0x5B74F0"
+    ],
+    [
+      "app/client/ui_manu_util.cpp",
+      "0x5B7570"
+    ],
+    [
+      "app/client/ui_manu_util.cpp",
+      "0x5B7880"
+    ],
+    [
+      "app/client/ui_manu_util.cpp",
+      "0x5B79C0"
+    ],
+    [
+      "app/client/ui_manu_util.cpp",
+      "0x5B7A40"
+    ]
+  ],
+  "pairs_sha256": "30b044948c4b1e241fdb16d0eaf42bcdc90f6e0959ce164c8faaad05d0bd18f7",
+  "gained": [],
+  "lost": [],
+  "baseline_header_patches_from_base_head": []
+}
