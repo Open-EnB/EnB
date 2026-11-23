@@ -1,0 +1,18 @@
+from pathlib import Path
+import argparse, json, hashlib, subprocess
+p=argparse.ArgumentParser(); p.add_argument('stash'); p.add_argument('--out',required=True); a=p.parse_args()
+stash=json.loads(Path(a.stash).read_text()); out=Path(a.out); out.mkdir(parents=True,exist_ok=True)
+seed=subprocess.check_output(['git','show',stash['base_commit']+':'+stash['file']])
+assert not stash['seed_patch']
+sha=lambda b:hashlib.sha256(b).hexdigest()
+assert sha(seed)==stash['seed_sha256']
+rows=[]
+for form in stash['variants']:
+    old=form['replacement_old'].encode(); new=form['replacement_new'].encode()
+    assert seed.count(old)==1
+    source=seed.replace(old,new,1)
+    assert sha(source)==form['source_sha256']
+    path=out/form['name']/Path(stash['file']).name; path.parent.mkdir(exist_ok=True); path.write_bytes(source)
+    rows.append({'name':form['name'],'source_sha256':sha(source),'verified':True})
+(out/'verified.json').write_text(json.dumps(rows,indent=2)+'\n')
+print(json.dumps({'sources_replayed':len(rows),'all_sha256_verified':True}))
