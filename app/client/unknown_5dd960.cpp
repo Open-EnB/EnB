@@ -11,14 +11,14 @@ static const char *Unknown5DD960ButtonNames[] = {	// NAME 2: what it holds
 	"face_button", "target_button", "orient_button"
 };
 
-// NOT EXACT: functional (O28; similarity 0.87): only the loop's set-up order (the names' pointer loaded after, not before, the
-// buttons' address); Buttons[3] at +0x18C indexed i - 1 and a loop from 0 tried
+
+
 // @0x5DD960
 Unknown5DD960Class::Unknown5DD960Class(UIViewClass *view, UIMeshClass *mesh, const LayerClass &layer) :
 	Unknown5BE4F0Class(view, mesh->Peek_Object(), layer)
 {
 	for (int i = 1; i < 4; i++) {
-		GadgetClass *gadget = Buttons[i] = new ButtonGadgetClass(mesh, Unknown5DD960ButtonNames[i - 1], layer, 0x55, 3);
+		GadgetClass *&gadget = Buttons[i]; gadget = new ButtonGadgetClass(mesh, Unknown5DD960ButtonNames[i - 1], layer, 0x55, 3);
 		Unknown64.Unknown_6870E0(gadget, i + 5, view, 1, 0);
 	}
 }
@@ -72,6 +72,8 @@ void Unknown5DD960Class::Unknown_60()
 ** - The object: 0x5DD960-0x5DDCA0, between ui_proc.cpp (which ends at 0x5DD910) and the TLI10A panel at 0x5DDCA0; no
 **   __FILE__, assert or ini name of its own, so the file and class keep neutral names (D137). Its data: the button
 **   names' table 0xB84B94 and the strings 0xB84BA4-0xB84C28.
+** - 0x5DD960 is exact: bind the destination button slot through a reference before constructing and
+**   registering the gadget, recovering the retail names-table / button-array setup order.
 ** - Nothing in the client constructs it (no caller of 0x5DD960 or its thunk 0x410195): a display left in, its three
 **   buttons answering 'not implemented' on chat colour 0x13.
 ** - The code after the members: <string>'s guarded static initialiser 0x5DDC40 (guard 0xC416FC, atexit 0x42B320, as

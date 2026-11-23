@@ -1,0 +1,14 @@
+{
+  "address": "0x5DC4A0",
+  "symbol": "UIPowerClass::Unknown_10",
+  "file": "app/client/ui_power.cpp",
+  "library": "app",
+  "status": "exact",
+  "score": 1.0,
+  "forms": 20,
+  "blocker": "",
+  "model": "gpt-6.1-sol (high)",
+  "evidence": "20 new valid source forms in 4 focused families: 11 target-only and 9 helper-overlay trials, 12 normalized bodies (11 new excluding baseline). Existing two-layer Power_Find puts only first MaxEnergyPower Find out of line; existing one-layer Power_Field makes remaining Name locals match. Retail 5DC7D5 captures Shield Value once before >0. Exact entire 1272-byte body/373 reachable instructions, 62 branches, 39 calls, 47 x87 instructions, data bits/widths, conversions, sole return and both Find helpers audited. Fresh full object 47->50 pairs: +5DC4A0,+546710,+5BF2B0, zero lost; unchanged existing outside-target bodies/relocations. Exact repeat agrees. Baseline/repeat controls and root final confirmation excluded from forms; 1 sandbox Wine denial occurred before compiler. Scratch header __FILE__ prefix caveat; basenames/other literals checked.",
+  "stash": "/home/dev/Projects/EnB/.work/claim-254/power-update/handoff/forms.json",
+  "selected_patch": "/home/dev/Projects/EnB/.work/claim-254/power-update/handoff/best.patch"
+}

@@ -1,0 +1,82 @@
+# Claim 254: radio-join iterator-range constructors
+
+Base f3210f8d703388af54af4dc0bd0020bba38e4eaa; file app/client/ui_radio_join.cpp; production SHA-256 `cfa8e6b78022ef4ca459f7d4858a1672c0e51c2b0bc7ec60241d9d8ba4807d6a`; control last_length SHA-256 `4d52a1774938814d90f8f4d07a47af9cf2f467e355018c1c221fc35582aeed75`. Entire immutable include tree extracted freshly with git archive of this HEAD. Radio-join and exact popup sources agree with the earlier production snapshot.
+
+Recommendation: retain no source change. Four new source forms: final pointer-range with const/mutable input, first+final ranges, empty+final ranges. Three candidate emission groups; the two final-only source forms canonicalize. The two combinations worsen the result. Stop here; no additional batch. Source hashes were deduplicated against all 27 prior new forms.
+
+Replay any ONE form independently: git show BASE:FILE, replace exactly the physical lines below, preserve LF and final newline, then verify complete source SHA-256. Every listed source was replayed and hash checked. Patches are each relative to production and require no earlier stash. Physical line count and all bytes outside the claimed function are unchanged.
+
+Overload evidence: shipped VC6 SP4 XSTRING defines _It = const_iterator = allocator<char>::const_pointer = const char*. The selected constructor is basic_string(_It,_It,const allocator&); a pointer second argument cannot select pointer/count. Its body calls _Tidy and assign(first,last), which dispatches to replace(begin(),end(),first,last); begin/end call _Freeze, and range replace uses _Distance, fill replacement and an element-copy loop. Mutable inputs convert to the same const-pointer iterator overload. The emitted _Freeze/end/range-replace call identities confirm this route. No header experiment or standalone overload probe was needed or counted.
+
+Build: VC6 SP4 through /home/dev/Toolchains/enb-vc6-sp4/bin/vc6-cl and existing Wine prefix; app flags and defines from tools/vc6/libdefs.py. Every complete object measured by native objmatch.py --client RETAIL -q --json without score filters. Original source basename retained for __FILE__; absolute scratch prefix differs; target has no __FILE__ assertion. These are native object experiments, not full app-ledger verification. results-manifest.json includes every call identity, matcher output, normalized diff and file/address pairs_cmp.py log.
+
+Fresh mandatory seed control reproduces 49 pairs, 864/901 bytes, raw/masked/register residue 46/46/26 and 29/30 calls. Final range forms give 896/901 bytes, 31/30/35 residue, 31/30 calls, and a matching normalized prefix of 202 instructions versus seed 172. Thus the earlier zero-register differences disappear, while the final constructor remains wrong: it inlines _Tidy and calls _Freeze/end/replace, where retail calls _Tidy(false)/_Grow and inlines copy/_Eos. This is local progress in raw/masked alignment and earlier operands, with worse register-masked residue; it is not a uniform improvement or an exactness claim. Full relocation/EH proof was not performed for these nonexact forms.
+
+All four range forms gain only auxiliary 0x4E2CC0 (_Freeze) and 0x4FC540 (iterator-range replace), taking native file/address sets 49→51 without loss; neither is the target, and no source is adopted. Both original Get_Text allocated-copy calls and both chat getter calls remain in order, ownership handling is preserved, and each packet/temporary destruction point remains, including destruction before Unknown225. No helpers, types, headers, pragmas, dead reads, assembly, volatile operations, ownership cleanup, tracked edits, commits, pushes or GitHub writes. No VM was leased.
+
+Counts: 4 new valid source forms, 1 fresh known-source control, 0 repeats, 0 failures, 0 invalid/header diagnostic forms. Retail full bounds: 0x5EB2F0..0x5EB674 inclusive, two returns, 901 bytes / 268 instructions. Prefix comparison masks relocation and branch targets, while retaining registers and stack offsets; actual target identities are recorded separately.
+
+
+## baseline (control)
+Source SHA-256 `4d52a1774938814d90f8f4d07a47af9cf2f467e355018c1c221fc35582aeed75`; relocation-aware emission group `5f034c481f965821`.
+
+Physical line 181:
+```cpp
+	const char *name = Entry->Get_Text(); chat->Unknown_5680B0(std::string(name, std::char_traits<char>::length(name)));
+```
+
+Result: 864/901 bytes, 254/268 instructions; class inline-budget; raw/masked/register residue 46/46/26; 29/30 calls; normalized matching prefix 172 instructions; target exact=False; full-object file/address gains=[], losses=[].
+
+
+## empty_final_range (new_valid)
+Source SHA-256 `9300712f66155b1ccc01d60b1b86b85f61310dcc6286fdf01ce2e2b6834ff2ce`; relocation-aware emission group `34878ad60560aed9`.
+
+Physical line 179:
+```cpp
+	const char *empty = ""; packet.Unknown34 = std::string(empty, empty + std::char_traits<char>::length(empty));
+```
+
+Physical line 181:
+```cpp
+	const char *name = Entry->Get_Text(); chat->Unknown_5680B0(std::string(name, name + std::char_traits<char>::length(name)));
+```
+
+Result: 912/901 bytes, 264/268 instructions; class inline-budget; raw/masked/register residue 88/87/97; 33/30 calls; normalized matching prefix 141 instructions; target exact=False; full-object file/address gains=['0x4E2CC0', '0x4FC540'], losses=[].
+
+
+## final_range_const (new_valid)
+Source SHA-256 `b44151d037ff68d49a12fd0d6dfd45f8cac954736c5e68eeb24c4f84242a83db`; relocation-aware emission group `bda0d11da4b99f7b`.
+
+Physical line 181:
+```cpp
+	const char *name = Entry->Get_Text(); chat->Unknown_5680B0(std::string(name, name + std::char_traits<char>::length(name)));
+```
+
+Result: 896/901 bytes, 263/268 instructions; class inline-budget; raw/masked/register residue 31/30/35; 31/30 calls; normalized matching prefix 202 instructions; target exact=False; full-object file/address gains=['0x4E2CC0', '0x4FC540'], losses=[].
+
+
+## final_range_mutable (new_valid)
+Source SHA-256 `01980bca41002b2d56234b6b40f1d18d53fde12f63f352645774aa784fd12806`; relocation-aware emission group `bda0d11da4b99f7b`.
+
+Physical line 181:
+```cpp
+	char *name = Entry->Get_Text(); chat->Unknown_5680B0(std::string(name, name + std::char_traits<char>::length(name)));
+```
+
+Result: 896/901 bytes, 263/268 instructions; class inline-budget; raw/masked/register residue 31/30/35; 31/30 calls; normalized matching prefix 202 instructions; target exact=False; full-object file/address gains=['0x4E2CC0', '0x4FC540'], losses=[].
+
+
+## first_final_range (new_valid)
+Source SHA-256 `636680903fcce71250d8cbe0ebcc86447dd4bf21cfbbb5e3de2170cd98f2395d`; relocation-aware emission group `bf3cdc55799dec93`.
+
+Physical line 178:
+```cpp
+	const char *text = Entry->Get_Text(); packet.Unknown24 = std::string(text, text + std::char_traits<char>::length(text));
+```
+
+Physical line 181:
+```cpp
+	const char *name = Entry->Get_Text(); chat->Unknown_5680B0(std::string(name, name + std::char_traits<char>::length(name)));
+```
+
+Result: 912/901 bytes, 265/268 instructions; class inline-budget; raw/masked/register residue 98/84/82; 32/30 calls; normalized matching prefix 99 instructions; target exact=False; full-object file/address gains=['0x4E2CC0', '0x4FC540'], losses=[].

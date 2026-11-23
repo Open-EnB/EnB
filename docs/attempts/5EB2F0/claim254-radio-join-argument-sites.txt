@@ -1,0 +1,1630 @@
+{
+  "format": "independent physical-line replacement recipes; LF/final newline preserved",
+  "revision": "8753310dd89b2c37ee24a1085ab4118ac1072bf3",
+  "unit": "app/client/ui_radio_join.cpp",
+  "production_sha256": "cfa8e6b78022ef4ca459f7d4858a1672c0e51c2b0bc7ec60241d9d8ba4807d6a",
+  "seed_sha256": "4d52a1774938814d90f8f4d07a47af9cf2f467e355018c1c221fc35582aeed75",
+  "prior_new_forms": 42,
+  "model": "gpt-6.1-sol (high)",
+  "target": "0x5EB2F0",
+  "replay": "git show revision:unit; replace each listed physical line against that production source independently; verify source_sha256. No recipe depends on an earlier recipe.",
+  "new_valid_distinct_sources": 17,
+  "controls": 1,
+  "repeats": 0,
+  "compile_failures": 0,
+  "match_failures": 0,
+  "diagnostic_compiles": 0,
+  "header_forms": 0,
+  "untried_forms": 0,
+  "analysis_environment_errors": 1,
+  "analysis_environment_note": "First metrics command used system python without capstone; rerun with toolchain venv succeeded. No compile was repeated.",
+  "current_emission_groups": 4,
+  "observations": {
+    "opcode": "Six forms assign real opcode input 6,7,both in packet constructor arguments, with seed and original final string forms. Every form emits its corresponding unchanged context.",
+    "length": "Three forms assign char_traits<char>::length(name) in the existing final count argument, using string::size_type, unsigned int or int locals. All emit the seed unchanged. Pointer is captured before argument evaluation, avoiding any unsequenced pointer read/assignment.",
+    "id": "Six forms move the original id load to the existing packet constructor argument for 6,7,both, in seed and original contexts. Opcode6-only changes register allocation and worsens seed46/46/26 to49/49/28 and original197/103/88 to200/106/90.7/both canonicalize. There is no call identity or constructor expansion improvement.",
+    "pending": "Two forms assign the real Peek() result at existing Is_Request_Pending argument, retaining original preceding sclient load. Seed/original each canonicalize.",
+    "checkpoint": "Three unsuccessful initial families were reported before the final concrete accessor-input family. All concrete argument-assignment leads and resulting changed emissions are exhausted; no arbitrary sweep or new automatic round.",
+    "retail": "Full inclusive bounds0x5EB2F0..0x5EB674,901bytes,268instructions,two returns. Final Get_Text0x5EB5A1; _Tidy(false)0x5EB5B5; _Grow0x5EB5CF; copy/_Eos inline; Unknown_5680B0 0x5EB60B; destruction before Unknown225 store0x5EB645.",
+    "blocker": "inline-budget remains: seed final inlines _Tidy and calls assign(ptr,count), while retail calls _Tidy/_Grow and inlines copy/_Eos. Unchanged actual callee identities rule out the register-only id6 variants.",
+    "semantics": "Original two allocated-copy Get_Text calls and two chat getter calls/read order preserved. No freeing the leaked copy. Callbacks, packet and temporary lifetimes, and destruction before Unknown225 preserved. No headers/flags/pragmas/assembly/dead reads/artificial budget helpers or production source edits.",
+    "limitations": "Full native object matching, no filters. These isolated file/address sets are not full application-ledger verification. Prefix normalization masks branch/relocation targets while retaining registers/stack offsets. No full relocation/EH exactness claim. REA Ghidra dossier independently corroborates complete retail bounds/instruction count/returns/calls; static analysis did not execute the client."
+  },
+  "records": [
+    {
+      "name": "baseline",
+      "role": "control",
+      "source_sha256": "4d52a1774938814d90f8f4d07a47af9cf2f467e355018c1c221fc35582aeed75",
+      "source_replay_verified": true,
+      "replacements": [
+        {
+          "line": 181,
+          "text": "\tconst char *name = Entry->Get_Text(); chat->Unknown_5680B0(std::string(name, std::char_traits<char>::length(name)));"
+        }
+      ],
+      "group": "5f034c481f965821",
+      "bytes": 864,
+      "instructions": 254,
+      "raw_rows": 46,
+      "masked_rows": 46,
+      "register_masked_rows": 26,
+      "prefix_instructions": 172,
+      "call_count": 29,
+      "exact_pairs": 49,
+      "gained": [],
+      "lost": [],
+      "target_exact": false
+    },
+    {
+      "name": "chat_argument_original",
+      "role": "new_valid",
+      "source_sha256": "a427a0811b9498e7b21f22690661b1e7b9e56c13248dba52a4ab96caeb1d910d",
+      "source_replay_verified": true,
+      "replacements": [
+        {
+          "line": 165,
+          "text": "\tChatPanelInterface *chat;\t// NAME 1: neutral (D10)"
+        },
+        {
+          "line": 166,
+          "text": "\tif (Is_Request_Pending(chat = sclient->ChatPanel.Peek())) {"
+        }
+      ],
+      "group": "6b0ef42c350b5c97",
+      "bytes": 816,
+      "instructions": 236,
+      "raw_rows": 197,
+      "masked_rows": 103,
+      "register_masked_rows": 88,
+      "prefix_instructions": 5,
+      "call_count": 28,
+      "exact_pairs": 49,
+      "gained": [],
+      "lost": [],
+      "target_exact": false
+    },
+    {
+      "name": "chat_argument_seed",
+      "role": "new_valid",
+      "source_sha256": "02eed3db5e987cd2bdd6ac5f3319a968021e2859a9237195dad4ccaef1cc5677",
+      "source_replay_verified": true,
+      "replacements": [
+        {
+          "line": 165,
+          "text": "\tChatPanelInterface *chat;\t// NAME 1: neutral (D10)"
+        },
+        {
+          "line": 166,
+          "text": "\tif (Is_Request_Pending(chat = sclient->ChatPanel.Peek())) {"
+        },
+        {
+          "line": 181,
+          "text": "\tconst char *name = Entry->Get_Text(); chat->Unknown_5680B0(std::string(name, std::char_traits<char>::length(name)));"
+        }
+      ],
+      "group": "5f034c481f965821",
+      "bytes": 864,
+      "instructions": 254,
+      "raw_rows": 46,
+      "masked_rows": 46,
+      "register_masked_rows": 26,
+      "prefix_instructions": 172,
+      "call_count": 29,
+      "exact_pairs": 49,
+      "gained": [],
+      "lost": [],
+      "target_exact": false
+    },
+    {
+      "name": "id_argument_original_6",
+      "role": "new_valid",
+      "source_sha256": "9ae3eb5b76b9db05a16cf77a9a2fb5bf7cc8f4f524ce9085f83ef07169a3db26",
+      "source_replay_verified": true,
+      "replacements": [
+        {
+          "line": 171,
+          "text": "\t\tint id;\t// NAME 1: neutral (D10)"
+        },
+        {
+          "line": 176,
+          "text": "\tint id;\t// NAME 1: neutral (D10)"
+        },
+        {
+          "line": 177,
+          "text": "\tClientChatRequestPacketClass packet(6, id = ((ClientClass *)Client)->Unknown1138);"
+        }
+      ],
+      "group": "998561afd6d35555",
+      "bytes": 816,
+      "instructions": 235,
+      "raw_rows": 200,
+      "masked_rows": 106,
+      "register_masked_rows": 90,
+      "prefix_instructions": 5,
+      "call_count": 28,
+      "exact_pairs": 49,
+      "gained": [],
+      "lost": [],
+      "target_exact": false
+    },
+    {
+      "name": "id_argument_original_7",
+      "role": "new_valid",
+      "source_sha256": "dc8f55ad258844c5e8fabbd11ae4bdf32f4b56f4085b975d0d6613dfacebc753",
+      "source_replay_verified": true,
+      "replacements": [
+        {
+          "line": 171,
+          "text": "\t\tint id;\t// NAME 1: neutral (D10)"
+        },
+        {
+          "line": 172,
+          "text": "\t\tClientChatRequestPacketClass packet(7, id = ((ClientClass *)Client)->Unknown1138);"
+        }
+      ],
+      "group": "6b0ef42c350b5c97",
+      "bytes": 816,
+      "instructions": 236,
+      "raw_rows": 197,
+      "masked_rows": 103,
+      "register_masked_rows": 88,
+      "prefix_instructions": 5,
+      "call_count": 28,
+      "exact_pairs": 49,
+      "gained": [],
+      "lost": [],
+      "target_exact": false
+    },
+    {
+      "name": "id_argument_original_both",
+      "role": "new_valid",
+      "source_sha256": "09fc4c4910358a893d14748db66f0423f4baf4305448754187c090cd61a48f80",
+      "source_replay_verified": true,
+      "replacements": [
+        {
+          "line": 171,
+          "text": "\t\tint id;\t// NAME 1: neutral (D10)"
+        },
+        {
+          "line": 172,
+          "text": "\t\tClientChatRequestPacketClass packet(7, id = ((ClientClass *)Client)->Unknown1138);"
+        },
+        {
+          "line": 176,
+          "text": "\tint id;\t// NAME 1: neutral (D10)"
+        },
+        {
+          "line": 177,
+          "text": "\tClientChatRequestPacketClass packet(6, id = ((ClientClass *)Client)->Unknown1138);"
+        }
+      ],
+      "group": "6b0ef42c350b5c97",
+      "bytes": 816,
+      "instructions": 236,
+      "raw_rows": 197,
+      "masked_rows": 103,
+      "register_masked_rows": 88,
+      "prefix_instructions": 5,
+      "call_count": 28,
+      "exact_pairs": 49,
+      "gained": [],
+      "lost": [],
+      "target_exact": false
+    },
+    {
+      "name": "id_argument_seed_6",
+      "role": "new_valid",
+      "source_sha256": "0dc29e4fbc58728bf3233a2c0be82278fe6658ee505cd5d18afc1bf28403cd6e",
+      "source_replay_verified": true,
+      "replacements": [
+        {
+          "line": 171,
+          "text": "\t\tint id;\t// NAME 1: neutral (D10)"
+        },
+        {
+          "line": 176,
+          "text": "\tint id;\t// NAME 1: neutral (D10)"
+        },
+        {
+          "line": 177,
+          "text": "\tClientChatRequestPacketClass packet(6, id = ((ClientClass *)Client)->Unknown1138);"
+        },
+        {
+          "line": 181,
+          "text": "\tconst char *name = Entry->Get_Text(); chat->Unknown_5680B0(std::string(name, std::char_traits<char>::length(name)));"
+        }
+      ],
+      "group": "f3a03c330464a7b8",
+      "bytes": 864,
+      "instructions": 253,
+      "raw_rows": 49,
+      "masked_rows": 49,
+      "register_masked_rows": 28,
+      "prefix_instructions": 61,
+      "call_count": 29,
+      "exact_pairs": 49,
+      "gained": [],
+      "lost": [],
+      "target_exact": false
+    },
+    {
+      "name": "id_argument_seed_7",
+      "role": "new_valid",
+      "source_sha256": "b8225da88dbea3c5ec1168be341adc70c89b4814482e5103fd3cf850faf746f4",
+      "source_replay_verified": true,
+      "replacements": [
+        {
+          "line": 171,
+          "text": "\t\tint id;\t// NAME 1: neutral (D10)"
+        },
+        {
+          "line": 172,
+          "text": "\t\tClientChatRequestPacketClass packet(7, id = ((ClientClass *)Client)->Unknown1138);"
+        },
+        {
+          "line": 181,
+          "text": "\tconst char *name = Entry->Get_Text(); chat->Unknown_5680B0(std::string(name, std::char_traits<char>::length(name)));"
+        }
+      ],
+      "group": "5f034c481f965821",
+      "bytes": 864,
+      "instructions": 254,
+      "raw_rows": 46,
+      "masked_rows": 46,
+      "register_masked_rows": 26,
+      "prefix_instructions": 172,
+      "call_count": 29,
+      "exact_pairs": 49,
+      "gained": [],
+      "lost": [],
+      "target_exact": false
+    },
+    {
+      "name": "id_argument_seed_both",
+      "role": "new_valid",
+      "source_sha256": "2627aa83a7bd513efe194c29c88f8f11d751bae75f37b7d1e88d486fd5722fec",
+      "source_replay_verified": true,
+      "replacements": [
+        {
+          "line": 171,
+          "text": "\t\tint id;\t// NAME 1: neutral (D10)"
+        },
+        {
+          "line": 172,
+          "text": "\t\tClientChatRequestPacketClass packet(7, id = ((ClientClass *)Client)->Unknown1138);"
+        },
+        {
+          "line": 176,
+          "text": "\tint id;\t// NAME 1: neutral (D10)"
+        },
+        {
+          "line": 177,
+          "text": "\tClientChatRequestPacketClass packet(6, id = ((ClientClass *)Client)->Unknown1138);"
+        },
+        {
+          "line": 181,
+          "text": "\tconst char *name = Entry->Get_Text(); chat->Unknown_5680B0(std::string(name, std::char_traits<char>::length(name)));"
+        }
+      ],
+      "group": "5f034c481f965821",
+      "bytes": 864,
+      "instructions": 254,
+      "raw_rows": 46,
+      "masked_rows": 46,
+      "register_masked_rows": 26,
+      "prefix_instructions": 172,
+      "call_count": 29,
+      "exact_pairs": 49,
+      "gained": [],
+      "lost": [],
+      "target_exact": false
+    },
+    {
+      "name": "length_argument_int",
+      "role": "new_valid",
+      "source_sha256": "f6c07a7d55551b7c5f19efeb29d21bf9ad99001cc54db0473e7c147147cbd0b2",
+      "source_replay_verified": true,
+      "replacements": [
+        {
+          "line": 181,
+          "text": "\tconst char *name = Entry->Get_Text(); int length; chat->Unknown_5680B0(std::string(name, length = std::char_traits<char>::length(name)));"
+        }
+      ],
+      "group": "5f034c481f965821",
+      "bytes": 864,
+      "instructions": 254,
+      "raw_rows": 46,
+      "masked_rows": 46,
+      "register_masked_rows": 26,
+      "prefix_instructions": 172,
+      "call_count": 29,
+      "exact_pairs": 49,
+      "gained": [],
+      "lost": [],
+      "target_exact": false
+    },
+    {
+      "name": "length_argument_size",
+      "role": "new_valid",
+      "source_sha256": "23390a4ee70664b976d695e9b88b2cf4b08bc32c8cd1c29388d73b274f452292",
+      "source_replay_verified": true,
+      "replacements": [
+        {
+          "line": 181,
+          "text": "\tconst char *name = Entry->Get_Text(); std::string::size_type length; chat->Unknown_5680B0(std::string(name, length = std::char_traits<char>::length(name)));"
+        }
+      ],
+      "group": "5f034c481f965821",
+      "bytes": 864,
+      "instructions": 254,
+      "raw_rows": 46,
+      "masked_rows": 46,
+      "register_masked_rows": 26,
+      "prefix_instructions": 172,
+      "call_count": 29,
+      "exact_pairs": 49,
+      "gained": [],
+      "lost": [],
+      "target_exact": false
+    },
+    {
+      "name": "length_argument_unsigned",
+      "role": "new_valid",
+      "source_sha256": "2f78a9ba6d5fe6b0eb9de4b0afdc50ccce3acb2740836ce4561707e04f31fd71",
+      "source_replay_verified": true,
+      "replacements": [
+        {
+          "line": 181,
+          "text": "\tconst char *name = Entry->Get_Text(); unsigned int length; chat->Unknown_5680B0(std::string(name, length = std::char_traits<char>::length(name)));"
+        }
+      ],
+      "group": "5f034c481f965821",
+      "bytes": 864,
+      "instructions": 254,
+      "raw_rows": 46,
+      "masked_rows": 46,
+      "register_masked_rows": 26,
+      "prefix_instructions": 172,
+      "call_count": 29,
+      "exact_pairs": 49,
+      "gained": [],
+      "lost": [],
+      "target_exact": false
+    },
+    {
+      "name": "opcode_original_6",
+      "role": "new_valid",
+      "source_sha256": "a99faa0c01fa2973cae5aa7eb07ec28182a023baa73f565e4d81982ace44238b",
+      "source_replay_verified": true,
+      "replacements": [
+        {
+          "line": 177,
+          "text": "\tint opcode; ClientChatRequestPacketClass packet(opcode = 6, id);"
+        }
+      ],
+      "group": "6b0ef42c350b5c97",
+      "bytes": 816,
+      "instructions": 236,
+      "raw_rows": 197,
+      "masked_rows": 103,
+      "register_masked_rows": 88,
+      "prefix_instructions": 5,
+      "call_count": 28,
+      "exact_pairs": 49,
+      "gained": [],
+      "lost": [],
+      "target_exact": false
+    },
+    {
+      "name": "opcode_original_7",
+      "role": "new_valid",
+      "source_sha256": "58a65b3dcf0951bc48409dee4a682b7266a6035b7272d3b2079cbe30eab1625c",
+      "source_replay_verified": true,
+      "replacements": [
+        {
+          "line": 172,
+          "text": "\t\tint opcode; ClientChatRequestPacketClass packet(opcode = 7, id);"
+        }
+      ],
+      "group": "6b0ef42c350b5c97",
+      "bytes": 816,
+      "instructions": 236,
+      "raw_rows": 197,
+      "masked_rows": 103,
+      "register_masked_rows": 88,
+      "prefix_instructions": 5,
+      "call_count": 28,
+      "exact_pairs": 49,
+      "gained": [],
+      "lost": [],
+      "target_exact": false
+    },
+    {
+      "name": "opcode_original_both",
+      "role": "new_valid",
+      "source_sha256": "d054a8121dccda6284292c7faf001f4e3c789a22addbc241903a3bd0e2e314f4",
+      "source_replay_verified": true,
+      "replacements": [
+        {
+          "line": 172,
+          "text": "\t\tint opcode; ClientChatRequestPacketClass packet(opcode = 7, id);"
+        },
+        {
+          "line": 177,
+          "text": "\tint opcode; ClientChatRequestPacketClass packet(opcode = 6, id);"
+        }
+      ],
+      "group": "6b0ef42c350b5c97",
+      "bytes": 816,
+      "instructions": 236,
+      "raw_rows": 197,
+      "masked_rows": 103,
+      "register_masked_rows": 88,
+      "prefix_instructions": 5,
+      "call_count": 28,
+      "exact_pairs": 49,
+      "gained": [],
+      "lost": [],
+      "target_exact": false
+    },
+    {
+      "name": "opcode_seed_6",
+      "role": "new_valid",
+      "source_sha256": "6fc6277c676630e42a424d10d03d51d55b01245d1f51e7d49772ca6cace387af",
+      "source_replay_verified": true,
+      "replacements": [
+        {
+          "line": 177,
+          "text": "\tint opcode; ClientChatRequestPacketClass packet(opcode = 6, id);"
+        },
+        {
+          "line": 181,
+          "text": "\tconst char *name = Entry->Get_Text(); chat->Unknown_5680B0(std::string(name, std::char_traits<char>::length(name)));"
+        }
+      ],
+      "group": "5f034c481f965821",
+      "bytes": 864,
+      "instructions": 254,
+      "raw_rows": 46,
+      "masked_rows": 46,
+      "register_masked_rows": 26,
+      "prefix_instructions": 172,
+      "call_count": 29,
+      "exact_pairs": 49,
+      "gained": [],
+      "lost": [],
+      "target_exact": false
+    },
+    {
+      "name": "opcode_seed_7",
+      "role": "new_valid",
+      "source_sha256": "dacf47c3968c2a483cd8a9571d1e116a0f5ed405d85b9841e8bb1fded2bf7c07",
+      "source_replay_verified": true,
+      "replacements": [
+        {
+          "line": 172,
+          "text": "\t\tint opcode; ClientChatRequestPacketClass packet(opcode = 7, id);"
+        },
+        {
+          "line": 181,
+          "text": "\tconst char *name = Entry->Get_Text(); chat->Unknown_5680B0(std::string(name, std::char_traits<char>::length(name)));"
+        }
+      ],
+      "group": "5f034c481f965821",
+      "bytes": 864,
+      "instructions": 254,
+      "raw_rows": 46,
+      "masked_rows": 46,
+      "register_masked_rows": 26,
+      "prefix_instructions": 172,
+      "call_count": 29,
+      "exact_pairs": 49,
+      "gained": [],
+      "lost": [],
+      "target_exact": false
+    },
+    {
+      "name": "opcode_seed_both",
+      "role": "new_valid",
+      "source_sha256": "429aebb87b6984cf67e8b4860a78c44f01e5333894a37d5cad44e98676ea51c9",
+      "source_replay_verified": true,
+      "replacements": [
+        {
+          "line": 172,
+          "text": "\t\tint opcode; ClientChatRequestPacketClass packet(opcode = 7, id);"
+        },
+        {
+          "line": 177,
+          "text": "\tint opcode; ClientChatRequestPacketClass packet(opcode = 6, id);"
+        },
+        {
+          "line": 181,
+          "text": "\tconst char *name = Entry->Get_Text(); chat->Unknown_5680B0(std::string(name, std::char_traits<char>::length(name)));"
+        }
+      ],
+      "group": "5f034c481f965821",
+      "bytes": 864,
+      "instructions": 254,
+      "raw_rows": 46,
+      "masked_rows": 46,
+      "register_masked_rows": 26,
+      "prefix_instructions": 172,
+      "call_count": 29,
+      "exact_pairs": 49,
+      "gained": [],
+      "lost": [],
+      "target_exact": false
+    }
+  ],
+  "actual_calls_by_emission_group": {
+    "5f034c481f965821": [
+      {
+        "offset": "0x24",
+        "target": null,
+        "indirect": "call dword ptr [eax + 0x18]"
+      },
+      {
+        "offset": "0x49",
+        "target": null,
+        "indirect": "call dword ptr [edx + 0x18]"
+      },
+      {
+        "offset": "0x4e",
+        "target": [
+          "sym",
+          "?Unknown_74D990@SClient@@QAEXHPADH@Z"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0x73",
+        "target": [
+          "sym",
+          "?Unknown_5682C0@ChatPanelInterface@@QAE?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@XZ"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0xa1",
+        "target": [
+          "sym",
+          "?compare@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QBEHIIPBDI@Z"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0xbb",
+        "target": [
+          "sym",
+          "?_Tidy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEX_N@Z"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0xdb",
+        "target": [
+          "sym",
+          "??0ClientChatRequestPacketClass@@QAE@HH@Z"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0xf2",
+        "target": [
+          "sym",
+          "?Unknown_5682C0@ChatPanelInterface@@QAE?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@XZ"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0x110",
+        "target": [
+          "sym",
+          "?assign@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAEAAV12@ABV12@II@Z"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0x123",
+        "target": [
+          "sym",
+          "?_Tidy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEX_N@Z"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0x133",
+        "target": [
+          "sym",
+          "?Send_Packet@ClientClass@@QAE_NPAVPacketClass@@@Z"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0x146",
+        "target": [
+          "sym",
+          "??1ClientChatRequestPacketClass@@UAE@XZ"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0x15b",
+        "target": [
+          "sym",
+          "??0ClientChatRequestPacketClass@@QAE@HH@Z"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0x171",
+        "target": [
+          "sym",
+          "?Get_Text@TextBaseGadgetClass@@QAEPADXZ"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0x186",
+        "target": [
+          "sym",
+          "?_Tidy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEX_N@Z"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0x1a0",
+        "target": [
+          "sym",
+          "?_Grow@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAE_NI_N@Z"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0x1c2",
+        "target": [
+          "sym",
+          "?_Eos@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEXI@Z"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0x1e0",
+        "target": [
+          "sym",
+          "?assign@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAEAAV12@ABV12@II@Z"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0x1f3",
+        "target": [
+          "sym",
+          "?_Tidy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEX_N@Z"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0x206",
+        "target": [
+          "sym",
+          "?_Tidy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEX_N@Z"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0x223",
+        "target": [
+          "sym",
+          "?_Grow@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAE_NI_N@Z"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0x26c",
+        "target": [
+          "sym",
+          "?assign@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAEAAV12@ABV12@II@Z"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0x296",
+        "target": [
+          "sym",
+          "??3@YAXPAX@Z"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0x2a6",
+        "target": [
+          "sym",
+          "?Send_Packet@ClientClass@@QAE_NPAVPacketClass@@@Z"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0x2b1",
+        "target": [
+          "sym",
+          "?Get_Text@TextBaseGadgetClass@@QAEPADXZ"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0x2de",
+        "target": [
+          "sym",
+          "?assign@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAEAAV12@PBDI@Z"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0x2f6",
+        "target": [
+          "sym",
+          "?Unknown_5680B0@ChatPanelInterface@@QAEXABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0x318",
+        "target": [
+          "sym",
+          "??3@YAXPAX@Z"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0x342",
+        "target": [
+          "sym",
+          "??1ClientChatRequestPacketClass@@UAE@XZ"
+        ],
+        "indirect": null
+      }
+    ],
+    "f3a03c330464a7b8": [
+      {
+        "offset": "0x24",
+        "target": null,
+        "indirect": "call dword ptr [eax + 0x18]"
+      },
+      {
+        "offset": "0x49",
+        "target": null,
+        "indirect": "call dword ptr [edx + 0x18]"
+      },
+      {
+        "offset": "0x4e",
+        "target": [
+          "sym",
+          "?Unknown_74D990@SClient@@QAEXHPADH@Z"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0x73",
+        "target": [
+          "sym",
+          "?Unknown_5682C0@ChatPanelInterface@@QAE?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@XZ"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0xa1",
+        "target": [
+          "sym",
+          "?compare@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QBEHIIPBDI@Z"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0xbb",
+        "target": [
+          "sym",
+          "?_Tidy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEX_N@Z"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0xd2",
+        "target": [
+          "sym",
+          "??0ClientChatRequestPacketClass@@QAE@HH@Z"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0xe9",
+        "target": [
+          "sym",
+          "?Unknown_5682C0@ChatPanelInterface@@QAE?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@XZ"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0x107",
+        "target": [
+          "sym",
+          "?assign@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAEAAV12@ABV12@II@Z"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0x11a",
+        "target": [
+          "sym",
+          "?_Tidy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEX_N@Z"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0x12a",
+        "target": [
+          "sym",
+          "?Send_Packet@ClientClass@@QAE_NPAVPacketClass@@@Z"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0x13d",
+        "target": [
+          "sym",
+          "??1ClientChatRequestPacketClass@@UAE@XZ"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0x152",
+        "target": [
+          "sym",
+          "??0ClientChatRequestPacketClass@@QAE@HH@Z"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0x168",
+        "target": [
+          "sym",
+          "?Get_Text@TextBaseGadgetClass@@QAEPADXZ"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0x17d",
+        "target": [
+          "sym",
+          "?_Tidy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEX_N@Z"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0x197",
+        "target": [
+          "sym",
+          "?_Grow@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAE_NI_N@Z"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0x1b9",
+        "target": [
+          "sym",
+          "?_Eos@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEXI@Z"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0x1d7",
+        "target": [
+          "sym",
+          "?assign@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAEAAV12@ABV12@II@Z"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0x1ea",
+        "target": [
+          "sym",
+          "?_Tidy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEX_N@Z"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0x1fd",
+        "target": [
+          "sym",
+          "?_Tidy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEX_N@Z"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0x21a",
+        "target": [
+          "sym",
+          "?_Grow@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAE_NI_N@Z"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0x263",
+        "target": [
+          "sym",
+          "?assign@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAEAAV12@ABV12@II@Z"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0x28d",
+        "target": [
+          "sym",
+          "??3@YAXPAX@Z"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0x29d",
+        "target": [
+          "sym",
+          "?Send_Packet@ClientClass@@QAE_NPAVPacketClass@@@Z"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0x2a8",
+        "target": [
+          "sym",
+          "?Get_Text@TextBaseGadgetClass@@QAEPADXZ"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0x2d5",
+        "target": [
+          "sym",
+          "?assign@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAEAAV12@PBDI@Z"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0x2ed",
+        "target": [
+          "sym",
+          "?Unknown_5680B0@ChatPanelInterface@@QAEXABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0x30f",
+        "target": [
+          "sym",
+          "??3@YAXPAX@Z"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0x339",
+        "target": [
+          "sym",
+          "??1ClientChatRequestPacketClass@@UAE@XZ"
+        ],
+        "indirect": null
+      }
+    ],
+    "998561afd6d35555": [
+      {
+        "offset": "0x25",
+        "target": null,
+        "indirect": "call dword ptr [eax + 0x18]"
+      },
+      {
+        "offset": "0x4b",
+        "target": null,
+        "indirect": "call dword ptr [edx + 0x18]"
+      },
+      {
+        "offset": "0x50",
+        "target": [
+          "sym",
+          "?Unknown_74D990@SClient@@QAEXHPADH@Z"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0x62",
+        "target": [
+          "sym",
+          "?Unknown_5682C0@ChatPanelInterface@@QAE?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@XZ"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0x8c",
+        "target": [
+          "sym",
+          "?compare@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QBEHIIPBDI@Z"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0xa8",
+        "target": [
+          "sym",
+          "?_Tidy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEX_N@Z"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0xc1",
+        "target": [
+          "sym",
+          "??0ClientChatRequestPacketClass@@QAE@HH@Z"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0xd8",
+        "target": [
+          "sym",
+          "?Unknown_5682C0@ChatPanelInterface@@QAE?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@XZ"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0xf5",
+        "target": [
+          "sym",
+          "?assign@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAEAAV12@ABV12@II@Z"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0x108",
+        "target": [
+          "sym",
+          "?_Tidy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEX_N@Z"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0x118",
+        "target": [
+          "sym",
+          "?Send_Packet@ClientClass@@QAE_NPAVPacketClass@@@Z"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0x12b",
+        "target": [
+          "sym",
+          "??1ClientChatRequestPacketClass@@UAE@XZ"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0x140",
+        "target": [
+          "sym",
+          "??0ClientChatRequestPacketClass@@QAE@HH@Z"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0x156",
+        "target": [
+          "sym",
+          "?Get_Text@TextBaseGadgetClass@@QAEPADXZ"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0x16a",
+        "target": [
+          "sym",
+          "?_Tidy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEX_N@Z"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0x188",
+        "target": [
+          "sym",
+          "?_Grow@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAE_NI_N@Z"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0x1ac",
+        "target": [
+          "sym",
+          "?_Eos@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEXI@Z"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0x1ca",
+        "target": [
+          "sym",
+          "?assign@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAEAAV12@ABV12@II@Z"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0x1dd",
+        "target": [
+          "sym",
+          "?_Tidy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEX_N@Z"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0x20f",
+        "target": [
+          "sym",
+          "?assign@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAEAAV12@PBDI@Z"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0x22d",
+        "target": [
+          "sym",
+          "?assign@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAEAAV12@ABV12@II@Z"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0x257",
+        "target": [
+          "sym",
+          "??3@YAXPAX@Z"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0x267",
+        "target": [
+          "sym",
+          "?Send_Packet@ClientClass@@QAE_NPAVPacketClass@@@Z"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0x272",
+        "target": [
+          "sym",
+          "?Get_Text@TextBaseGadgetClass@@QAEPADXZ"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0x29f",
+        "target": [
+          "sym",
+          "?assign@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAEAAV12@PBDI@Z"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0x2b7",
+        "target": [
+          "sym",
+          "?Unknown_5680B0@ChatPanelInterface@@QAEXABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0x2da",
+        "target": [
+          "sym",
+          "??3@YAXPAX@Z"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0x304",
+        "target": [
+          "sym",
+          "??1ClientChatRequestPacketClass@@UAE@XZ"
+        ],
+        "indirect": null
+      }
+    ],
+    "6b0ef42c350b5c97": [
+      {
+        "offset": "0x25",
+        "target": null,
+        "indirect": "call dword ptr [eax + 0x18]"
+      },
+      {
+        "offset": "0x4b",
+        "target": null,
+        "indirect": "call dword ptr [edx + 0x18]"
+      },
+      {
+        "offset": "0x50",
+        "target": [
+          "sym",
+          "?Unknown_74D990@SClient@@QAEXHPADH@Z"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0x62",
+        "target": [
+          "sym",
+          "?Unknown_5682C0@ChatPanelInterface@@QAE?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@XZ"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0x8c",
+        "target": [
+          "sym",
+          "?compare@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QBEHIIPBDI@Z"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0xa8",
+        "target": [
+          "sym",
+          "?_Tidy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEX_N@Z"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0xca",
+        "target": [
+          "sym",
+          "??0ClientChatRequestPacketClass@@QAE@HH@Z"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0xe1",
+        "target": [
+          "sym",
+          "?Unknown_5682C0@ChatPanelInterface@@QAE?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@XZ"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0xfe",
+        "target": [
+          "sym",
+          "?assign@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAEAAV12@ABV12@II@Z"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0x111",
+        "target": [
+          "sym",
+          "?_Tidy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEX_N@Z"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0x121",
+        "target": [
+          "sym",
+          "?Send_Packet@ClientClass@@QAE_NPAVPacketClass@@@Z"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0x134",
+        "target": [
+          "sym",
+          "??1ClientChatRequestPacketClass@@UAE@XZ"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0x149",
+        "target": [
+          "sym",
+          "??0ClientChatRequestPacketClass@@QAE@HH@Z"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0x15f",
+        "target": [
+          "sym",
+          "?Get_Text@TextBaseGadgetClass@@QAEPADXZ"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0x173",
+        "target": [
+          "sym",
+          "?_Tidy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEX_N@Z"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0x191",
+        "target": [
+          "sym",
+          "?_Grow@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAE_NI_N@Z"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0x1b5",
+        "target": [
+          "sym",
+          "?_Eos@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEXI@Z"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0x1d3",
+        "target": [
+          "sym",
+          "?assign@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAEAAV12@ABV12@II@Z"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0x1e6",
+        "target": [
+          "sym",
+          "?_Tidy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEX_N@Z"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0x218",
+        "target": [
+          "sym",
+          "?assign@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAEAAV12@PBDI@Z"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0x236",
+        "target": [
+          "sym",
+          "?assign@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAEAAV12@ABV12@II@Z"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0x260",
+        "target": [
+          "sym",
+          "??3@YAXPAX@Z"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0x270",
+        "target": [
+          "sym",
+          "?Send_Packet@ClientClass@@QAE_NPAVPacketClass@@@Z"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0x27b",
+        "target": [
+          "sym",
+          "?Get_Text@TextBaseGadgetClass@@QAEPADXZ"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0x2a8",
+        "target": [
+          "sym",
+          "?assign@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAEAAV12@PBDI@Z"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0x2c0",
+        "target": [
+          "sym",
+          "?Unknown_5680B0@ChatPanelInterface@@QAEXABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0x2e3",
+        "target": [
+          "sym",
+          "??3@YAXPAX@Z"
+        ],
+        "indirect": null
+      },
+      {
+        "offset": "0x30d",
+        "target": [
+          "sym",
+          "??1ClientChatRequestPacketClass@@UAE@XZ"
+        ],
+        "indirect": null
+      }
+    ]
+  },
+  "retail_evidence": {
+    "evidence_id": "ev_0f57c10e1dff77d0562636d83258b4fa635c1ca2101de3abcbcb89081a97ed25",
+    "retail_sha256": "249f852496f341c00361be95b66e7c0becc2c39e7cba026f9227e38b602651c4",
+    "body": {
+      "available": true,
+      "provenance": "ghidra-function-body-address-set",
+      "ranges": [
+        {
+          "start": "0x5eb2f0",
+          "end": "0x5eb674"
+        }
+      ],
+      "total_bytes": 901,
+      "span_bytes": 901,
+      "non_contiguous": false,
+      "contains_entry": true
+    },
+    "instruction_count": 268,
+    "returns": 2,
+    "calls": [
+      {
+        "address": "0x5eb314",
+        "instruction": "0x5eb314: CALL dword ptr [EAX + 0x18]",
+        "target": null
+      },
+      {
+        "address": "0x5eb339",
+        "instruction": "0x5eb339: CALL dword ptr [EDX + 0x18]",
+        "target": null
+      },
+      {
+        "address": "0x5eb33e",
+        "instruction": "0x5eb33e: CALL 0x004095a7",
+        "target": "0x74d990"
+      },
+      {
+        "address": "0x5eb363",
+        "instruction": "0x5eb363: CALL 0x004117e8",
+        "target": "0x5682c0"
+      },
+      {
+        "address": "0x5eb391",
+        "instruction": "0x5eb391: CALL 0x0040e58e",
+        "target": "0x42db80"
+      },
+      {
+        "address": "0x5eb3ab",
+        "instruction": "0x5eb3ab: CALL 0x00402b76",
+        "target": "0x42a820"
+      },
+      {
+        "address": "0x5eb3cb",
+        "instruction": "0x5eb3cb: CALL 0x0040c185",
+        "target": "0x878a50"
+      },
+      {
+        "address": "0x5eb3e2",
+        "instruction": "0x5eb3e2: CALL 0x004117e8",
+        "target": "0x5682c0"
+      },
+      {
+        "address": "0x5eb400",
+        "instruction": "0x5eb400: CALL 0x00414e75",
+        "target": "0x42cab0"
+      },
+      {
+        "address": "0x5eb413",
+        "instruction": "0x5eb413: CALL 0x00402b76",
+        "target": "0x42a820"
+      },
+      {
+        "address": "0x5eb423",
+        "instruction": "0x5eb423: CALL 0x0041487b",
+        "target": "0x728150"
+      },
+      {
+        "address": "0x5eb436",
+        "instruction": "0x5eb436: CALL 0x0040d4d1",
+        "target": "0x878c80"
+      },
+      {
+        "address": "0x5eb44b",
+        "instruction": "0x5eb44b: CALL 0x0040c185",
+        "target": "0x878a50"
+      },
+      {
+        "address": "0x5eb461",
+        "instruction": "0x5eb461: CALL 0x00401465",
+        "target": "0x6aa6c0"
+      },
+      {
+        "address": "0x5eb476",
+        "instruction": "0x5eb476: CALL 0x00402b76",
+        "target": "0x42a820"
+      },
+      {
+        "address": "0x5eb490",
+        "instruction": "0x5eb490: CALL 0x00412215",
+        "target": "0x42a970"
+      },
+      {
+        "address": "0x5eb4b2",
+        "instruction": "0x5eb4b2: CALL 0x0041121b",
+        "target": "0x42a940"
+      },
+      {
+        "address": "0x5eb4d0",
+        "instruction": "0x5eb4d0: CALL 0x00414e75",
+        "target": "0x42cab0"
+      },
+      {
+        "address": "0x5eb4e3",
+        "instruction": "0x5eb4e3: CALL 0x00402b76",
+        "target": "0x42a820"
+      },
+      {
+        "address": "0x5eb4f6",
+        "instruction": "0x5eb4f6: CALL 0x00402b76",
+        "target": "0x42a820"
+      },
+      {
+        "address": "0x5eb513",
+        "instruction": "0x5eb513: CALL 0x00412215",
+        "target": "0x42a970"
+      },
+      {
+        "address": "0x5eb55c",
+        "instruction": "0x5eb55c: CALL 0x00414e75",
+        "target": "0x42cab0"
+      },
+      {
+        "address": "0x5eb586",
+        "instruction": "0x5eb586: CALL 0x00412b7a",
+        "target": "0x4e9d10"
+      },
+      {
+        "address": "0x5eb596",
+        "instruction": "0x5eb596: CALL 0x0041487b",
+        "target": "0x728150"
+      },
+      {
+        "address": "0x5eb5a1",
+        "instruction": "0x5eb5a1: CALL 0x00401465",
+        "target": "0x6aa6c0"
+      },
+      {
+        "address": "0x5eb5b5",
+        "instruction": "0x5eb5b5: CALL 0x00402b76",
+        "target": "0x42a820"
+      },
+      {
+        "address": "0x5eb5cf",
+        "instruction": "0x5eb5cf: CALL 0x00412215",
+        "target": "0x42a970"
+      },
+      {
+        "address": "0x5eb60b",
+        "instruction": "0x5eb60b: CALL 0x0040e37c",
+        "target": "0x5680b0"
+      },
+      {
+        "address": "0x5eb62d",
+        "instruction": "0x5eb62d: CALL 0x00412b7a",
+        "target": "0x4e9d10"
+      },
+      {
+        "address": "0x5eb657",
+        "instruction": "0x5eb657: CALL 0x0040d4d1",
+        "target": "0x878c80"
+      }
+    ],
+    "limitations": "Ghidra static observations; original executable immutable; pseudocode is not source. Full provider limitations retained in scratch rea-evidence.json. Ephemeral session closed after read-only query."
+  }
+}

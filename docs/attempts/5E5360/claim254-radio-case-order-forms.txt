@@ -1,0 +1,1344 @@
+{
+  "baseline_revision": "a5237d54bbd3ff7e2fa4dae5cacde39550151f21",
+  "source_tree_revision": "a6aee2de",
+  "unit": "app/client/ui_radio_admin.cpp",
+  "target": "0x5E5360",
+  "baseline_source": "// Earth & Beyond client (reconstruction): app\\client\\ui_radio_admin.cpp, the private channel's admin window ('cht05').\n// No string names the file (no asserts): the name is provisional (NAME 1, D137). Notes at the end.\n#include <stdio.h>\n#include <string.h>\n#include <wchar.h>\n#include <string>\n#include <vector>\n#include <list>\n#include \"ui_radio_admin.h\"\n#include \"ui_chat_panel.h\"\n#include \"client.h\"\n#include \"gadget.h\"\n#include \"gd_robj.h\"\n#include \"gd_slider.h\"\n#include \"local_interface_sort.h\"\n#include \"..\\packets\\pkclientchat.h\"\n#include \"..\\audio\\soundlib.h\"\n\nextern FontManagerClass *Unknown_BE67C4;\t// NAME 1: neutral (D10)\nvoid Unknown_42ECF0(float *x, float *y);\t// 0x42ECF0 (the pointer's position)  // NAME 1 [x, y]: neutral\n\n// The buttons Unknown_54 makes: their models' names, also their tooltips (0xB85344)\nstatic const char *Unknown_B85344[7] = { \"EXIT\", \"BUTTON01\", \"BUTTON02\", \"BUTTON03\", \"BUTTON04\", \"BUTTON05\", \"BUTTON06\" };\t// NAME 1: neutral (D10)\n\n// 0x5E4160\nUIRadioAdminClass::UIRadioAdminClass(SClient *client) :\n\tChatPanelUIBase(client),\n\tSlider(NULL),\n\tTop(0),\n\tSelection(-1)\n{\n\tmemset(Buttons, 0, sizeof(Buttons));\n\tmemset(Rows, 0, sizeof(Rows));\n\tfor (int i = 0; i < 7; i++) {\n\t\tTexts[i] = NULL;\n\t}\n}\n\n// 0x5E4300\n// the deactivation through Unknown_5C, as ui_playeropt.cpp's: the client's vector and list erase calls sit one\n// layer down (Unknown_5C -> the clear helper -> clear), out of line\nUIRadioAdminClass::~UIRadioAdminClass()\n{\n\tUnknown_5C();\n\tif (Slider) {\n\t\tSlider->Unknown_66E460(RefCountPtr<RenderObjClass>(), 0, 0);\n\t}\n}\n\n// 0x5E4500\nvoid UIRadioAdminClass::Unknown_54()\n{\n\tif (Unknown_98(\"cht05\", \"cht05.ini\")) {\n\t\tint i;\n\t\tfor (i = 0; i < 7; i++) {\n\t\t\tButtons[i] = Add_Button(i + 1, Unknown_B85344[i], NULL);\n\t\t\tGadgetClass::Set_Tooltip(Buttons[i], \"UI_RADIO_ADMIN\", Unknown_B85344[i]);\n\t\t}\n\t\tfor (i = 0; i < 7; i++) {\n\t\t\tchar name[0x20];\t// NAME 1: neutral (D10)\n\t\t\t_snprintf(name, sizeof(name), \"NAME%02d\", i);\n\t\t\tRows[i] = Add_Button(i + 9, name, NULL);\n\t\t\tRows[i]->Unknown2C_0A = true;\n\t\t\t_snprintf(name, sizeof(name), \"name%02d_Cht05\", i);\n\t\t\tTexts[i] = Create_Peek(Unknown_BE67C4->Get_Style(name, Interface_Mesh()));\n\t\t}\n\t\tSlider = Add_Slider(0x11, 0);\n\t\tSlider->Unknown_66E460(InterfaceMesh, 0, 0);\n\t\tAdd_Back_Gadget(0, Vector3(0.0f, 0.0f, 0.0f));\n\t}\n}\n\n// 0x5E4720\nvoid UIRadioAdminClass::Unknown_58()\n{\n\tif (!Active) {\n\t\tInterfaceSortScopeClass sort(this);\t// NAME 1: neutral (D10)\n\t\tChatPanelUIBase::Unknown_58();\n\t\tUnknown_5E4DB0();\n\t\tUnknown_5E4E70();\n\t\tTop = -1;\n\t\tUnknown_5E4C60(0);\n\t\tUnknown_5E5B10();\n\t\tUnknown_5E5A40(true);\n\t\tif (Buttons[0]) {\n\t\t\t((RObjGadgetClass *)Buttons[0])->Unknown_66C360();\n\t\t}\n\t}\n}\n\n// 0x5E49A0\nvoid UIRadioAdminClass::Unknown_5C()\n{\n\tif (Active) {\n\t\tUnknown_5E5A40(false);\n\t\tUnknown_5E4DB0();\n\t\tUnknown_5E4E70();\n\t\tInterfaceClass::Unknown_5C();\n\t}\n}\n\n// 0x5E4AC0\nvoid UIRadioAdminClass::Unknown_60()\n{\n\tUnknown_5E4CD0();\n\tUnknown_5E5200();\n}\n\n// 0x5E4B80\nbool UIRadioAdminClass::Unknown_68(int key)\n{\n\tswitch (key) {\n\t\tcase 1:\n\t\tcase 7:\n\t\t\tSoundLibraryClass::Play_2D_Sound(\"Roll_Select02b.wav\", 2);\n\t\t\tUnknown_5C();\n\t\t\tClosed = 1;\n\t\t\treturn(true);\n\t\tcase 2:\n\t\tcase 3:\n\t\tcase 4:\n\t\tcase 5:\n\t\tcase 6:\n\t\t\tSoundLibraryClass::Play_2D_Sound(\"Roll_Select02b.wav\", 2);\n\t\t\tUnknown_5E5360(key);\n\t\t\treturn(true);\n\t\tcase 9:\n\t\tcase 10:\n\t\tcase 11:\n\t\tcase 12:\n\t\tcase 13:\n\t\tcase 14:\n\t\tcase 15:\n\t\t\tSoundLibraryClass::Play_2D_Sound(\"fontclick.wav\", 2);\n\t\t\tUnknown_5E5290(key - 9);\n\t\t\treturn(true);\n\t}\n\treturn(false);\n}\n\n// 0x5E4C60\nvoid UIRadioAdminClass::Unknown_5E4C60(int count)\n{\n\tSlider->Unknown_66FA90((float)count, 7.0f, true);\n\tUnknown_5E4CD0();\n}\n\n// 0x5E4CD0\nvoid UIRadioAdminClass::Unknown_5E4CD0()\n{\n\tint top = (int)Slider->Value;\t// NAME 1: neutral (D10)\n\tif (Top != top) {\n\t\tTop = top;\n\t\tUnknown_5E4D10();\n\t}\n}\n\n// 0x5E4D10\nvoid UIRadioAdminClass::Unknown_5E4D10()\n{\n\tfor (int i = 0; i < 7; i++) {\n\t\tunsigned int index = Top + i;\t// NAME 1: neutral (D10)\n\t\tif (index < Names.size()) {\n\t\t\tTexts[i]->Change_Text(Names[index].c_str(), 0);\n\t\t\tRows[i]->Unknown_40(true);\n\t\t} else {\n\t\t\tTexts[i]->Change_Text(\" \", 0);\n\t\t\tRows[i]->Unknown_40(false);\n\t\t}\n\t}\n}\n\n// 0x5E4DB0\nvoid UIRadioAdminClass::Unknown_5E4DB0()\n{\n\tNames.clear();\n}\n\n// 0x5E4E70\nvoid UIRadioAdminClass::Unknown_5E4E70()\n{\n\tUnknown0BC.clear();\n}\n\n// 0x5E4F10\n// the client's loop form: ++ on the list iterator, the wcscoll result in a named int (with it++ and the\n// test inline, the inner copy's destructor is merged into one _Tidy call and the copies' slots swap)\nvoid UIRadioAdminClass::Unknown_5E4F10()\n{\n\tUnknown_5E4DB0();\n\tfor (std::list<std::string>::iterator it = Unknown0BC.begin(); it != Unknown0BC.end(); ++it) {\n\t\tstd::string name = *it;\t// NAME 1: neutral (D10)\n\t\tstd::vector<std::string>::iterator pos;\n\t\tfor (pos = Names.begin(); pos != Names.end(); pos++) {\n\t\t\tstd::string other = *pos;\t// NAME 1: neutral (D10)\n\t\t\tint result = wcscoll((const wchar_t *)name.c_str(), (const wchar_t *)other.c_str());\n\t\t\tif (result < 0) {\n\t\t\t\tbreak;\n\t\t\t}\n\t\t}\n\t\tNames.insert(pos, name);\n\t}\n\tTop = -1;\n\tUnknown_5E4C60(Names.size());\n\tSelection = -1;\n\tButtons[1]->Unknown_40(false);\n\tButtons[2]->Unknown_40(false);\n\tButtons[3]->Unknown_40(false);\n\tButtons[4]->Unknown_40(false);\n\tButtons[5]->Unknown_40(false);\n}\n\n// 0x5E5200\nvoid UIRadioAdminClass::Unknown_5E5200()\n{\n\tfloat x;\n\tfloat y;\n\tUnknown_42ECF0(&x, &y);\n\tfor (int i = 0; i < 7; i++) {\n\t\tif (Rows[i]->Unknown_30(x, y) || Top + i == Selection) {\n\t\t\tTexts[i]->Unknown_6CE910(true);\n\t\t} else {\n\t\t\tTexts[i]->Unknown_6CE910(false);\n\t\t}\n\t}\n}\n\n// 0x5E5290\nvoid UIRadioAdminClass::Unknown_5E5290(int index)\n{\n\tSelection = index + Top;\n\tif (Selection >= 0 && Selection < (int)Names.size()) {\n\t\tSClient *sclient = (SClient *)((ClientClass *)Client)->As_Space_Client();\t// NAME 1: neutral (D10)\n\t\tChatPanelInterface *chat = sclient->ChatPanel.Peek();\t// NAME 1: neutral (D10)\n\t\tif (chat && chat->Unknown224) {\n\t\t\tButtons[1]->Unknown_40(true);\n\t\t\tButtons[2]->Unknown_40(true);\n\t\t\tButtons[3]->Unknown_40(true);\n\t\t\tButtons[4]->Unknown_40(true);\n\t\t\tButtons[5]->Unknown_40(true);\n\t\t}\n\t}\n}\n\n// 0x5E5360\n// NOT EXACT: inline budget and stack slots (cases 5 and 6: the client destroys the channel's temporary inline and expands the selected name's assignment in case 6, its temporaries at other frame offsets)\nvoid UIRadioAdminClass::Unknown_5E5360(int key)\n{\n\tif (Selection < 0 || Selection >= (int)Names.size()) {\n\t\treturn;\n\t}\n\tSClient *sclient = (SClient *)((ClientClass *)Client)->As_Space_Client();\t// NAME 1: neutral (D10)\n\tChatPanelInterface *chat = sclient->ChatPanel.Peek();\t// NAME 1: neutral (D10)\n\tswitch (key) {\n\t\tcase 2:\n\t\t{\n\t\t\tint id = ((ClientClass *)Client)->Unknown1138;\t// NAME 1: neutral (D10)\n\t\t\tClientChatRequestPacketClass packet(0x10, id);\n\t\t\tpacket.Unknown24 = chat->Unknown_5682C0();\n\t\t\tpacket.Unknown14 = Names[Selection];\n\t\t\t((ClientClass *)Client)->Send_Packet(&packet);\n\t\t\tbreak;\n\t\t}\n\t\tcase 3:\n\t\t{\n\t\t\tint id = ((ClientClass *)Client)->Unknown1138;\t// NAME 1: neutral (D10)\n\t\t\tClientChatRequestPacketClass packet(0x11, id);\n\t\t\tpacket.Unknown24 = chat->Unknown_5682C0();\n\t\t\tpacket.Unknown14 = Names[Selection];\n\t\t\t((ClientClass *)Client)->Send_Packet(&packet);\n\t\t\tbreak;\n\t\t}\n\t\tcase 4:\n\t\t{\n\t\t\tint id = ((ClientClass *)Client)->Unknown1138;\t// NAME 1: neutral (D10)\n\t\t\tClientChatRequestPacketClass packet(0x0E, id);\n\t\t\tpacket.Unknown24 = chat->Unknown_5682C0();\n\t\t\tpacket.Unknown14 = Names[Selection];\n\t\t\t((ClientClass *)Client)->Send_Packet(&packet);\n\t\t\tbreak;\n\t\t}\n\t\tcase 5:\n\t\t{\n\t\t\tint id = ((ClientClass *)Client)->Unknown1138;\t// NAME 1: neutral (D10)\n\t\t\tClientChatRequestPacketClass packet(0x14, id);\n\t\t\tpacket.Unknown24 = chat->Unknown_5682C0();\n\t\t\tpacket.Unknown14 = Names[Selection];\n\t\t\t((ClientClass *)Client)->Send_Packet(&packet);\n\t\t\tbreak;\n\t\t}\n\t\tcase 6:\n\t\t{\n\t\t\tint id = ((ClientClass *)Client)->Unknown1138;\t// NAME 1: neutral (D10)\n\t\t\tClientChatRequestPacketClass packet(0x12, id);\n\t\t\tpacket.Unknown24 = chat->Unknown_5682C0();\n\t\t\tpacket.Unknown14 = Names[Selection];\n\t\t\t((ClientClass *)Client)->Send_Packet(&packet);\n\t\t\tbreak;\n\t\t}\n\t}\n}\n\n// 0x5E5A40\nvoid UIRadioAdminClass::Unknown_5E5A40(bool on)\n{\n\tint i;\n\tfor (i = 0; i < 7; i++) {\n\t\tif (Buttons[i]) {\n\t\t\tButtons[i]->Unknown_40(on);\n\t\t}\n\t}\n\tfor (i = 0; i < 7; i++) {\n\t\tif (Rows[i]) {\n\t\t\tRows[i]->Unknown_40(on);\n\t\t}\n\t}\n\tif (Selection < 0) {\n\t\tButtons[1]->Unknown_40(false);\n\t\tButtons[2]->Unknown_40(false);\n\t\tButtons[3]->Unknown_40(false);\n\t\tButtons[4]->Unknown_40(false);\n\t\tButtons[5]->Unknown_40(false);\n\t}\n}\n\n// 0x5E5B10\nvoid UIRadioAdminClass::Unknown_5E5B10()\n{\n\tSClient *sclient = (SClient *)((ClientClass *)Client)->As_Space_Client();\t// NAME 1: neutral (D10)\n\tChatPanelInterface *chat = sclient->ChatPanel.Peek();\t// NAME 1: neutral (D10)\n\tint id = ((ClientClass *)Client)->Unknown1138;\t// NAME 1: neutral (D10)\n\tClientChatRequestPacketClass packet(0x1B, id);\n\tpacket.Unknown24 = chat->Unknown_5682C0();\n\t((ClientClass *)Client)->Send_Packet(&packet);\n}\n\n// 0x5E5D70\nvoid UIRadioAdminClass::Unknown_5E5D70(std::vector<std::string> names)\n{\n\tUnknown_5E4E70();\n\tfor (std::vector<std::string>::iterator it = names.begin(); it != names.end(); it++) {\n\t\tUnknown0BC.push_back(*it);\n\t}\n\tUnknown_5E4F10();\n\tUnknown_5E5A40(true);\n\tUnknown_5E4D10();\n}\n\n// 0x5E5EF0\nvoid UIRadioAdminClass::Unknown_5E5EF0(std::string name)\n{\n\tUnknown0BC.push_back(name);\n\tUnknown_5E4F10();\n\tUnknown_5E4D10();\n}\n\n// 0x5E6030\nvoid UIRadioAdminClass::Unknown_5E6030(std::string name)\n{\n\tfor (std::list<std::string>::iterator it = Unknown0BC.begin(); it != Unknown0BC.end(); it++) {\n\t\tstd::string other = *it;\t// NAME 1: neutral (D10)\n\t\tif (strcmp(other.c_str(), name.c_str()) == 0) {\n\t\t\tUnknown0BC.erase(it);\n\t\t\tbreak;\n\t\t}\n\t}\n\tUnknown_5E4F10();\n\tUnknown_5E4D10();\n}\n\n/*\n**\tNotes.\n**\tObject 0x5E4160-0x5E628F: the constructor 0x5E4160 opens it, after ui_ptrade.cpp's adjustor thunks 0x5E4140 /\n**\t0x5E4150; this window's adjustor thunks 0x5E6270 / 0x5E6280 close it and ui_radio_entry.cpp's constructor\n**\t0x5E6290 follows. ui_chat_panel.cpp makes it as its stand-in Unknown5E4160Class (request 10, also kept at +0xE8);\n**\tcpacket.cpp calls 0x5E5D70, 0x5E5EF0 and 0x5E6030 through its stand-in. Requests: 27 (0x1B) asks for the\n**\tchannel's members; buttons 2-6 send 16, 17, 14, 20 and 18 with the channel (Unknown24) and the selected member\n**\t(Unknown14).\n*/\n",
+  "baseline_source_sha256": "09aa7ecca73e2b27dbce2aba1e21c00d035eea0cb868b08e221a65ef09c11d30",
+  "local_patch": {
+    "case": 6,
+    "old": "packet.Unknown24 = chat->Unknown_5682C0();",
+    "new": "{ std::string channel = chat->Unknown_5682C0(); packet.Unknown24 = channel; }"
+  },
+  "replay_usage": "python3 -c 'import json,sys; exec(json.load(open(sys.argv[1]))[\"replay_python\"])' SOURCE-FORMS.json OUTPUT-DIRECTORY",
+  "replay_python": "from pathlib import Path\nimport hashlib, json, re, sys\npayload=json.load(open(sys.argv[1]))\nout=Path(sys.argv[2])\nbase=payload['baseline_source']\nassert hashlib.sha256(base.encode()).hexdigest()==payload['baseline_source_sha256']\nstart=base.index('\\t\\tcase 2:',base.index('void UIRadioAdminClass::Unknown_5E5360'))\nend=base.index('\\n\\t}\\n}',start)\nmatches=list(re.finditer(r'\\t\\tcase ([2-6]):\\n',base[start:end]))\nblocks={int(m.group(1)):base[start+m.start():start+(matches[n+1].start() if n+1<len(matches) else end-start)] for n,m in enumerate(matches)}\nblocks[6]+='\\n'\nfor form in payload['forms']:\n    selected=dict(blocks)\n    if form['seed']=='local':\n        selected[6]=selected[6].replace(payload['local_patch']['old'],payload['local_patch']['new'])\n    text=base[:start]+''.join(selected[k] for k in form['order'])+base[end+1:]\n    assert text.count('\\n')==base.count('\\n')\n    assert hashlib.sha256(text.encode()).hexdigest()==form['source_sha256'],form['name']\n    path=out/form['name']/Path(payload['unit']).name\n    path.parent.mkdir(parents=True,exist_ok=True)\n    path.write_text(text)\nprint('Replayed',len(payload['forms']),'source forms with verified SHA-256 values')\n",
+  "forms": [
+    {
+      "name": "baseline",
+      "seed": "base",
+      "order": [
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "control": true,
+      "source_sha256": "09aa7ecca73e2b27dbce2aba1e21c00d035eea0cb868b08e221a65ef09c11d30",
+      "raw_rows": 117,
+      "masked_rows": 87,
+      "register_masked_rows": 91,
+      "code_sha256": "fb89dee30ddb00c9424534b81ac9c6c55d661974112e0668af2ea93cefd693fb",
+      "code_bytes": 1536,
+      "physical_instruction_sha256": "3c90a66a8e20dfeaf4904ce8246d10722b3de1d23a0007b8540450001ddf7a18",
+      "call_count": 43,
+      "native_exact_rows": 69,
+      "gained_addresses": [],
+      "lost_addresses": [],
+      "case_counts": {
+        "2": {
+          "assign_calls": 2,
+          "tidy_calls": 1,
+          "raw_rows_through_send": 0,
+          "masked_rows_through_send": 0
+        },
+        "3": {
+          "assign_calls": 2,
+          "tidy_calls": 1,
+          "raw_rows_through_send": 0,
+          "masked_rows_through_send": 0
+        },
+        "4": {
+          "assign_calls": 2,
+          "tidy_calls": 1,
+          "raw_rows_through_send": 0,
+          "masked_rows_through_send": 0
+        },
+        "5": {
+          "assign_calls": 2,
+          "tidy_calls": 0,
+          "raw_rows_through_send": 5,
+          "masked_rows_through_send": 0
+        },
+        "6": {
+          "assign_calls": 0,
+          "tidy_calls": 2,
+          "raw_rows_through_send": 110,
+          "masked_rows_through_send": 86
+        }
+      }
+    },
+    {
+      "name": "local_control",
+      "seed": "local",
+      "order": [
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "control": true,
+      "source_sha256": "37f88849f3aff570d6977a1005173d1f419a637a86a628b07005a6e4ab0e9249",
+      "raw_rows": 96,
+      "masked_rows": 69,
+      "register_masked_rows": 68,
+      "code_sha256": "dc6f325fd2674f21bba22de5d4f24855f0584a3d2860fa3f4f4556603850a188",
+      "code_bytes": 1552,
+      "physical_instruction_sha256": "d26e04c3c7650af8efa3a06ef201b5038b053cc203aff65469274c8f9e78d34d",
+      "call_count": 42,
+      "native_exact_rows": 69,
+      "gained_addresses": [],
+      "lost_addresses": [],
+      "case_counts": {
+        "2": {
+          "assign_calls": 2,
+          "tidy_calls": 1,
+          "raw_rows_through_send": 0,
+          "masked_rows_through_send": 0
+        },
+        "3": {
+          "assign_calls": 2,
+          "tidy_calls": 1,
+          "raw_rows_through_send": 0,
+          "masked_rows_through_send": 0
+        },
+        "4": {
+          "assign_calls": 2,
+          "tidy_calls": 1,
+          "raw_rows_through_send": 0,
+          "masked_rows_through_send": 0
+        },
+        "5": {
+          "assign_calls": 2,
+          "tidy_calls": 0,
+          "raw_rows_through_send": 5,
+          "masked_rows_through_send": 0
+        },
+        "6": {
+          "assign_calls": 0,
+          "tidy_calls": 1,
+          "raw_rows_through_send": 92,
+          "masked_rows_through_send": 71
+        }
+      }
+    },
+    {
+      "name": "base_23465",
+      "seed": "base",
+      "order": [
+        2,
+        3,
+        4,
+        6,
+        5
+      ],
+      "control": false,
+      "source_sha256": "52d22f29eaf2cf008cdb8535abf51a7ffaff0dda311e2a3d4051dfe47ebd2dc6",
+      "raw_rows": 119,
+      "masked_rows": 89,
+      "register_masked_rows": 93,
+      "code_sha256": "e34fe0334b148119fa1b4531b165a86970b252a38940cc1977d9f7fb0b065ac4",
+      "code_bytes": 1536,
+      "physical_instruction_sha256": "3c90a66a8e20dfeaf4904ce8246d10722b3de1d23a0007b8540450001ddf7a18",
+      "call_count": 43,
+      "native_exact_rows": 69,
+      "gained_addresses": [],
+      "lost_addresses": [],
+      "case_counts": {
+        "2": {
+          "assign_calls": 2,
+          "tidy_calls": 1,
+          "raw_rows_through_send": 0,
+          "masked_rows_through_send": 0
+        },
+        "3": {
+          "assign_calls": 2,
+          "tidy_calls": 1,
+          "raw_rows_through_send": 0,
+          "masked_rows_through_send": 0
+        },
+        "4": {
+          "assign_calls": 2,
+          "tidy_calls": 1,
+          "raw_rows_through_send": 0,
+          "masked_rows_through_send": 0
+        },
+        "5": {
+          "assign_calls": 0,
+          "tidy_calls": 2,
+          "raw_rows_through_send": 178,
+          "masked_rows_through_send": 175
+        },
+        "6": {
+          "assign_calls": 2,
+          "tidy_calls": 0,
+          "raw_rows_through_send": 123,
+          "masked_rows_through_send": 121
+        }
+      }
+    },
+    {
+      "name": "local_23465",
+      "seed": "local",
+      "order": [
+        2,
+        3,
+        4,
+        6,
+        5
+      ],
+      "control": false,
+      "source_sha256": "48998bf68800fc857e2d606ce6834281cbf28d534251f62959d4b49bd9335f58",
+      "raw_rows": 142,
+      "masked_rows": 96,
+      "register_masked_rows": 86,
+      "code_sha256": "8eb0d446327042e3f9300fc96b5bdd9063e832305e7789340e3e096935e60d77",
+      "code_bytes": 1536,
+      "physical_instruction_sha256": "160936695fe4058dda65a993d3c09252ce8377b667e2ce4d15268a092c1bcef5",
+      "call_count": 44,
+      "native_exact_rows": 69,
+      "gained_addresses": [],
+      "lost_addresses": [],
+      "case_counts": {
+        "2": {
+          "assign_calls": 2,
+          "tidy_calls": 1,
+          "raw_rows_through_send": 4,
+          "masked_rows_through_send": 0
+        },
+        "3": {
+          "assign_calls": 2,
+          "tidy_calls": 1,
+          "raw_rows_through_send": 4,
+          "masked_rows_through_send": 0
+        },
+        "4": {
+          "assign_calls": 2,
+          "tidy_calls": 1,
+          "raw_rows_through_send": 4,
+          "masked_rows_through_send": 0
+        },
+        "5": {
+          "assign_calls": 0,
+          "tidy_calls": 1,
+          "raw_rows_through_send": 188,
+          "masked_rows_through_send": 185
+        },
+        "6": {
+          "assign_calls": 2,
+          "tidy_calls": 0,
+          "raw_rows_through_send": 129,
+          "masked_rows_through_send": 128
+        }
+      }
+    },
+    {
+      "name": "base_23546",
+      "seed": "base",
+      "order": [
+        2,
+        3,
+        5,
+        4,
+        6
+      ],
+      "control": false,
+      "source_sha256": "570699cf5d70e76f79b90e09ffc4268f06c349953c25247579d4a2d1cbe96da6",
+      "raw_rows": 119,
+      "masked_rows": 89,
+      "register_masked_rows": 93,
+      "code_sha256": "2b57009b6e64c7099cf27470641674f11b9ffe2d20bc376aedd99dce9ead7d83",
+      "code_bytes": 1536,
+      "physical_instruction_sha256": "3c90a66a8e20dfeaf4904ce8246d10722b3de1d23a0007b8540450001ddf7a18",
+      "call_count": 43,
+      "native_exact_rows": 69,
+      "gained_addresses": [],
+      "lost_addresses": [],
+      "case_counts": {
+        "2": {
+          "assign_calls": 2,
+          "tidy_calls": 1,
+          "raw_rows_through_send": 0,
+          "masked_rows_through_send": 0
+        },
+        "3": {
+          "assign_calls": 2,
+          "tidy_calls": 1,
+          "raw_rows_through_send": 0,
+          "masked_rows_through_send": 0
+        },
+        "4": {
+          "assign_calls": 2,
+          "tidy_calls": 0,
+          "raw_rows_through_send": 22,
+          "masked_rows_through_send": 21
+        },
+        "5": {
+          "assign_calls": 2,
+          "tidy_calls": 1,
+          "raw_rows_through_send": 23,
+          "masked_rows_through_send": 22
+        },
+        "6": {
+          "assign_calls": 0,
+          "tidy_calls": 2,
+          "raw_rows_through_send": 110,
+          "masked_rows_through_send": 86
+        }
+      }
+    },
+    {
+      "name": "local_23546",
+      "seed": "local",
+      "order": [
+        2,
+        3,
+        5,
+        4,
+        6
+      ],
+      "control": false,
+      "source_sha256": "9654f8030d58a7602838da9b79ba8aec6e2f904ee887744cea4a0619c1f2b9f4",
+      "raw_rows": 98,
+      "masked_rows": 71,
+      "register_masked_rows": 70,
+      "code_sha256": "e4c862845ce71fe5919a8053053d00ade11b21073bda9c187876098d0e51c187",
+      "code_bytes": 1552,
+      "physical_instruction_sha256": "d26e04c3c7650af8efa3a06ef201b5038b053cc203aff65469274c8f9e78d34d",
+      "call_count": 42,
+      "native_exact_rows": 69,
+      "gained_addresses": [],
+      "lost_addresses": [],
+      "case_counts": {
+        "2": {
+          "assign_calls": 2,
+          "tidy_calls": 1,
+          "raw_rows_through_send": 0,
+          "masked_rows_through_send": 0
+        },
+        "3": {
+          "assign_calls": 2,
+          "tidy_calls": 1,
+          "raw_rows_through_send": 0,
+          "masked_rows_through_send": 0
+        },
+        "4": {
+          "assign_calls": 2,
+          "tidy_calls": 0,
+          "raw_rows_through_send": 22,
+          "masked_rows_through_send": 21
+        },
+        "5": {
+          "assign_calls": 2,
+          "tidy_calls": 1,
+          "raw_rows_through_send": 23,
+          "masked_rows_through_send": 22
+        },
+        "6": {
+          "assign_calls": 0,
+          "tidy_calls": 1,
+          "raw_rows_through_send": 92,
+          "masked_rows_through_send": 71
+        }
+      }
+    },
+    {
+      "name": "base_23645",
+      "seed": "base",
+      "order": [
+        2,
+        3,
+        6,
+        4,
+        5
+      ],
+      "control": false,
+      "source_sha256": "3fe5a860f6d53bba30d358edd6052dd6de3841cfb52822c280d350c9d08aa7b9",
+      "raw_rows": 120,
+      "masked_rows": 90,
+      "register_masked_rows": 94,
+      "code_sha256": "90d23e82f45eaa5955ff5f03cd3f1ff064c7b0ee295bba68219e28d2b6fc8012",
+      "code_bytes": 1536,
+      "physical_instruction_sha256": "3c90a66a8e20dfeaf4904ce8246d10722b3de1d23a0007b8540450001ddf7a18",
+      "call_count": 43,
+      "native_exact_rows": 69,
+      "gained_addresses": [],
+      "lost_addresses": [],
+      "case_counts": {
+        "2": {
+          "assign_calls": 2,
+          "tidy_calls": 1,
+          "raw_rows_through_send": 0,
+          "masked_rows_through_send": 0
+        },
+        "3": {
+          "assign_calls": 2,
+          "tidy_calls": 1,
+          "raw_rows_through_send": 0,
+          "masked_rows_through_send": 0
+        },
+        "4": {
+          "assign_calls": 2,
+          "tidy_calls": 0,
+          "raw_rows_through_send": 22,
+          "masked_rows_through_send": 21
+        },
+        "5": {
+          "assign_calls": 0,
+          "tidy_calls": 2,
+          "raw_rows_through_send": 178,
+          "masked_rows_through_send": 175
+        },
+        "6": {
+          "assign_calls": 2,
+          "tidy_calls": 1,
+          "raw_rows_through_send": 143,
+          "masked_rows_through_send": 136
+        }
+      }
+    },
+    {
+      "name": "local_23645",
+      "seed": "local",
+      "order": [
+        2,
+        3,
+        6,
+        4,
+        5
+      ],
+      "control": false,
+      "source_sha256": "62b387bd100005bc581c366548b64986cf9c24f091664a73729e2bea5770c1f3",
+      "raw_rows": 195,
+      "masked_rows": 94,
+      "register_masked_rows": 84,
+      "code_sha256": "cc0287920aeaa425ee3a27f3f090e7b35c25f507135bc6f4ae55935f41a076f5",
+      "code_bytes": 1584,
+      "physical_instruction_sha256": "76ca5ccc919ffe5dfcba39243c0d40bc7bf58b0326629f7708e1511049b9cf34",
+      "call_count": 44,
+      "native_exact_rows": 69,
+      "gained_addresses": [],
+      "lost_addresses": [],
+      "case_counts": {
+        "2": {
+          "assign_calls": 2,
+          "tidy_calls": 1,
+          "raw_rows_through_send": 0,
+          "masked_rows_through_send": 0
+        },
+        "3": {
+          "assign_calls": 2,
+          "tidy_calls": 1,
+          "raw_rows_through_send": 2,
+          "masked_rows_through_send": 0
+        },
+        "4": {
+          "assign_calls": 2,
+          "tidy_calls": 0,
+          "raw_rows_through_send": 22,
+          "masked_rows_through_send": 21
+        },
+        "5": {
+          "assign_calls": 0,
+          "tidy_calls": 1,
+          "raw_rows_through_send": 188,
+          "masked_rows_through_send": 185
+        },
+        "6": {
+          "assign_calls": 2,
+          "tidy_calls": 1,
+          "raw_rows_through_send": 158,
+          "masked_rows_through_send": 155
+        }
+      }
+    },
+    {
+      "name": "base_25634",
+      "seed": "base",
+      "order": [
+        2,
+        5,
+        6,
+        3,
+        4
+      ],
+      "control": false,
+      "source_sha256": "fdaf8808f1d0f7bb87f4882ec21ac55984477f19126eb29ee0dde7142b0fdf1a",
+      "raw_rows": 121,
+      "masked_rows": 91,
+      "register_masked_rows": 95,
+      "code_sha256": "062d8406d28a73640ea71ec842786d7720136a46057188c804d05aa99d2f4615",
+      "code_bytes": 1536,
+      "physical_instruction_sha256": "3c90a66a8e20dfeaf4904ce8246d10722b3de1d23a0007b8540450001ddf7a18",
+      "call_count": 43,
+      "native_exact_rows": 69,
+      "gained_addresses": [],
+      "lost_addresses": [],
+      "case_counts": {
+        "2": {
+          "assign_calls": 2,
+          "tidy_calls": 1,
+          "raw_rows_through_send": 0,
+          "masked_rows_through_send": 0
+        },
+        "3": {
+          "assign_calls": 2,
+          "tidy_calls": 0,
+          "raw_rows_through_send": 21,
+          "masked_rows_through_send": 20
+        },
+        "4": {
+          "assign_calls": 0,
+          "tidy_calls": 2,
+          "raw_rows_through_send": 196,
+          "masked_rows_through_send": 192
+        },
+        "5": {
+          "assign_calls": 2,
+          "tidy_calls": 1,
+          "raw_rows_through_send": 21,
+          "masked_rows_through_send": 20
+        },
+        "6": {
+          "assign_calls": 2,
+          "tidy_calls": 1,
+          "raw_rows_through_send": 143,
+          "masked_rows_through_send": 136
+        }
+      }
+    },
+    {
+      "name": "local_25634",
+      "seed": "local",
+      "order": [
+        2,
+        5,
+        6,
+        3,
+        4
+      ],
+      "control": false,
+      "source_sha256": "f5ae5e85ff24ec0380046a73555d5f667ea9d66636feb17da998af9de5096abb",
+      "raw_rows": 196,
+      "masked_rows": 95,
+      "register_masked_rows": 85,
+      "code_sha256": "f1f20bb61d116054144b0af666bb6120462558da7892ef665b9441b32b12e57e",
+      "code_bytes": 1584,
+      "physical_instruction_sha256": "76ca5ccc919ffe5dfcba39243c0d40bc7bf58b0326629f7708e1511049b9cf34",
+      "call_count": 44,
+      "native_exact_rows": 69,
+      "gained_addresses": [],
+      "lost_addresses": [],
+      "case_counts": {
+        "2": {
+          "assign_calls": 2,
+          "tidy_calls": 1,
+          "raw_rows_through_send": 0,
+          "masked_rows_through_send": 0
+        },
+        "3": {
+          "assign_calls": 2,
+          "tidy_calls": 0,
+          "raw_rows_through_send": 21,
+          "masked_rows_through_send": 20
+        },
+        "4": {
+          "assign_calls": 0,
+          "tidy_calls": 1,
+          "raw_rows_through_send": 208,
+          "masked_rows_through_send": 192
+        },
+        "5": {
+          "assign_calls": 2,
+          "tidy_calls": 1,
+          "raw_rows_through_send": 21,
+          "masked_rows_through_send": 20
+        },
+        "6": {
+          "assign_calls": 2,
+          "tidy_calls": 1,
+          "raw_rows_through_send": 158,
+          "masked_rows_through_send": 155
+        }
+      }
+    },
+    {
+      "name": "base_26534",
+      "seed": "base",
+      "order": [
+        2,
+        6,
+        5,
+        3,
+        4
+      ],
+      "control": false,
+      "source_sha256": "1e8bbe4b39f97f1badc51bbda9aa4a40e2f1109c0a60a6b35fd8c0e63672bdd6",
+      "raw_rows": 121,
+      "masked_rows": 91,
+      "register_masked_rows": 95,
+      "code_sha256": "169d7879bc77aefae1260dd0f3cc1a8fef764bb015ee9664051af34cab61bda2",
+      "code_bytes": 1536,
+      "physical_instruction_sha256": "3c90a66a8e20dfeaf4904ce8246d10722b3de1d23a0007b8540450001ddf7a18",
+      "call_count": 43,
+      "native_exact_rows": 69,
+      "gained_addresses": [],
+      "lost_addresses": [],
+      "case_counts": {
+        "2": {
+          "assign_calls": 2,
+          "tidy_calls": 1,
+          "raw_rows_through_send": 0,
+          "masked_rows_through_send": 0
+        },
+        "3": {
+          "assign_calls": 2,
+          "tidy_calls": 0,
+          "raw_rows_through_send": 21,
+          "masked_rows_through_send": 20
+        },
+        "4": {
+          "assign_calls": 0,
+          "tidy_calls": 2,
+          "raw_rows_through_send": 196,
+          "masked_rows_through_send": 192
+        },
+        "5": {
+          "assign_calls": 2,
+          "tidy_calls": 1,
+          "raw_rows_through_send": 23,
+          "masked_rows_through_send": 22
+        },
+        "6": {
+          "assign_calls": 2,
+          "tidy_calls": 1,
+          "raw_rows_through_send": 141,
+          "masked_rows_through_send": 134
+        }
+      }
+    },
+    {
+      "name": "local_26534",
+      "seed": "local",
+      "order": [
+        2,
+        6,
+        5,
+        3,
+        4
+      ],
+      "control": false,
+      "source_sha256": "92524cab9dff7c9a0a85053b3bb7d7b1f3715383b8bd138f51f2ca4b66ebd36f",
+      "raw_rows": 124,
+      "masked_rows": 95,
+      "register_masked_rows": 85,
+      "code_sha256": "9ebfda0a8666d487a960ac1a932f0fa3496771d263b60ee12824559802ae521a",
+      "code_bytes": 1584,
+      "physical_instruction_sha256": "78598105363c3a9f1132b6fa1727c47da8c664794737cda95af7e1edd181069f",
+      "call_count": 44,
+      "native_exact_rows": 69,
+      "gained_addresses": [],
+      "lost_addresses": [],
+      "case_counts": {
+        "2": {
+          "assign_calls": 2,
+          "tidy_calls": 1,
+          "raw_rows_through_send": 0,
+          "masked_rows_through_send": 0
+        },
+        "3": {
+          "assign_calls": 2,
+          "tidy_calls": 0,
+          "raw_rows_through_send": 21,
+          "masked_rows_through_send": 20
+        },
+        "4": {
+          "assign_calls": 0,
+          "tidy_calls": 1,
+          "raw_rows_through_send": 208,
+          "masked_rows_through_send": 192
+        },
+        "5": {
+          "assign_calls": 2,
+          "tidy_calls": 1,
+          "raw_rows_through_send": 23,
+          "masked_rows_through_send": 22
+        },
+        "6": {
+          "assign_calls": 2,
+          "tidy_calls": 1,
+          "raw_rows_through_send": 156,
+          "masked_rows_through_send": 153
+        }
+      }
+    },
+    {
+      "name": "base_52346",
+      "seed": "base",
+      "order": [
+        5,
+        2,
+        3,
+        4,
+        6
+      ],
+      "control": false,
+      "source_sha256": "efd31a23a50226219aa0b167e4299030de340203dfcc97a456a29de86d911942",
+      "raw_rows": 121,
+      "masked_rows": 91,
+      "register_masked_rows": 95,
+      "code_sha256": "2f6853981bee1eadb5155f12cbe544011251a6b3b52bc4e1fb8e2cf6428abb75",
+      "code_bytes": 1536,
+      "physical_instruction_sha256": "3c90a66a8e20dfeaf4904ce8246d10722b3de1d23a0007b8540450001ddf7a18",
+      "call_count": 43,
+      "native_exact_rows": 69,
+      "gained_addresses": [],
+      "lost_addresses": [],
+      "case_counts": {
+        "2": {
+          "assign_calls": 2,
+          "tidy_calls": 1,
+          "raw_rows_through_send": 11,
+          "masked_rows_through_send": 10
+        },
+        "3": {
+          "assign_calls": 2,
+          "tidy_calls": 1,
+          "raw_rows_through_send": 6,
+          "masked_rows_through_send": 4
+        },
+        "4": {
+          "assign_calls": 2,
+          "tidy_calls": 0,
+          "raw_rows_through_send": 22,
+          "masked_rows_through_send": 21
+        },
+        "5": {
+          "assign_calls": 2,
+          "tidy_calls": 1,
+          "raw_rows_through_send": 27,
+          "masked_rows_through_send": 27
+        },
+        "6": {
+          "assign_calls": 0,
+          "tidy_calls": 2,
+          "raw_rows_through_send": 110,
+          "masked_rows_through_send": 86
+        }
+      }
+    },
+    {
+      "name": "local_52346",
+      "seed": "local",
+      "order": [
+        5,
+        2,
+        3,
+        4,
+        6
+      ],
+      "control": false,
+      "source_sha256": "be8c702e6153278b7306133293306517af9837a87f35871576c59356fc6b1a5d",
+      "raw_rows": 100,
+      "masked_rows": 73,
+      "register_masked_rows": 72,
+      "code_sha256": "1d962bafb3b69b819c07e9c1b9abd2dee562f9ba07d3fa5cefa871a68d7a2b66",
+      "code_bytes": 1552,
+      "physical_instruction_sha256": "d26e04c3c7650af8efa3a06ef201b5038b053cc203aff65469274c8f9e78d34d",
+      "call_count": 42,
+      "native_exact_rows": 69,
+      "gained_addresses": [],
+      "lost_addresses": [],
+      "case_counts": {
+        "2": {
+          "assign_calls": 2,
+          "tidy_calls": 1,
+          "raw_rows_through_send": 11,
+          "masked_rows_through_send": 10
+        },
+        "3": {
+          "assign_calls": 2,
+          "tidy_calls": 1,
+          "raw_rows_through_send": 6,
+          "masked_rows_through_send": 4
+        },
+        "4": {
+          "assign_calls": 2,
+          "tidy_calls": 0,
+          "raw_rows_through_send": 22,
+          "masked_rows_through_send": 21
+        },
+        "5": {
+          "assign_calls": 2,
+          "tidy_calls": 1,
+          "raw_rows_through_send": 27,
+          "masked_rows_through_send": 27
+        },
+        "6": {
+          "assign_calls": 0,
+          "tidy_calls": 1,
+          "raw_rows_through_send": 92,
+          "masked_rows_through_send": 71
+        }
+      }
+    },
+    {
+      "name": "base_62345",
+      "seed": "base",
+      "order": [
+        6,
+        2,
+        3,
+        4,
+        5
+      ],
+      "control": false,
+      "source_sha256": "b6e777b2fcadd0f7a1c66d3912d1f696c7e94f1b26f633678de1dada70af730d",
+      "raw_rows": 122,
+      "masked_rows": 92,
+      "register_masked_rows": 96,
+      "code_sha256": "5c54c378a83b89e8d56af571d810b9556426d0c27fa98c658ace1094e18d6e04",
+      "code_bytes": 1536,
+      "physical_instruction_sha256": "3c90a66a8e20dfeaf4904ce8246d10722b3de1d23a0007b8540450001ddf7a18",
+      "call_count": 43,
+      "native_exact_rows": 69,
+      "gained_addresses": [],
+      "lost_addresses": [],
+      "case_counts": {
+        "2": {
+          "assign_calls": 2,
+          "tidy_calls": 1,
+          "raw_rows_through_send": 11,
+          "masked_rows_through_send": 10
+        },
+        "3": {
+          "assign_calls": 2,
+          "tidy_calls": 1,
+          "raw_rows_through_send": 6,
+          "masked_rows_through_send": 4
+        },
+        "4": {
+          "assign_calls": 2,
+          "tidy_calls": 0,
+          "raw_rows_through_send": 22,
+          "masked_rows_through_send": 21
+        },
+        "5": {
+          "assign_calls": 0,
+          "tidy_calls": 2,
+          "raw_rows_through_send": 178,
+          "masked_rows_through_send": 175
+        },
+        "6": {
+          "assign_calls": 2,
+          "tidy_calls": 1,
+          "raw_rows_through_send": 146,
+          "masked_rows_through_send": 141
+        }
+      }
+    },
+    {
+      "name": "local_62345",
+      "seed": "local",
+      "order": [
+        6,
+        2,
+        3,
+        4,
+        5
+      ],
+      "control": false,
+      "source_sha256": "f318a4bb5fe12c0ad15483a17ec84134e6fc682d79962f5eed01319773d2a644",
+      "raw_rows": 192,
+      "masked_rows": 155,
+      "register_masked_rows": 106,
+      "code_sha256": "64b0a43b2c02ec4dccbef768256d960953b603796d3a6a4bce774e08ce3953d8",
+      "code_bytes": 1584,
+      "physical_instruction_sha256": "49cadfd7f240af8c3cb2a5bc1f679b02b8364f5035b748393d6f54203826447c",
+      "call_count": 44,
+      "native_exact_rows": 69,
+      "gained_addresses": [],
+      "lost_addresses": [],
+      "case_counts": {
+        "2": {
+          "assign_calls": 2,
+          "tidy_calls": 1,
+          "raw_rows_through_send": 22,
+          "masked_rows_through_send": 39
+        },
+        "3": {
+          "assign_calls": 2,
+          "tidy_calls": 1,
+          "raw_rows_through_send": 23,
+          "masked_rows_through_send": 21
+        },
+        "4": {
+          "assign_calls": 2,
+          "tidy_calls": 0,
+          "raw_rows_through_send": 53,
+          "masked_rows_through_send": 51
+        },
+        "5": {
+          "assign_calls": 0,
+          "tidy_calls": 1,
+          "raw_rows_through_send": 198,
+          "masked_rows_through_send": 195
+        },
+        "6": {
+          "assign_calls": 2,
+          "tidy_calls": 1,
+          "raw_rows_through_send": 160,
+          "masked_rows_through_send": 159
+        }
+      }
+    },
+    {
+      "name": "base_56234",
+      "seed": "base",
+      "order": [
+        5,
+        6,
+        2,
+        3,
+        4
+      ],
+      "control": false,
+      "source_sha256": "4c8998b3337029f20c0914c14771fa8eb4047e996e45740b502fff85ef518034",
+      "raw_rows": 122,
+      "masked_rows": 92,
+      "register_masked_rows": 96,
+      "code_sha256": "ed4d92fc3e9dff023d0aef9be92eddb70f7814b5d200db611efe3dd778bcb09d",
+      "code_bytes": 1536,
+      "physical_instruction_sha256": "3c90a66a8e20dfeaf4904ce8246d10722b3de1d23a0007b8540450001ddf7a18",
+      "call_count": 43,
+      "native_exact_rows": 69,
+      "gained_addresses": [],
+      "lost_addresses": [],
+      "case_counts": {
+        "2": {
+          "assign_calls": 2,
+          "tidy_calls": 1,
+          "raw_rows_through_send": 9,
+          "masked_rows_through_send": 8
+        },
+        "3": {
+          "assign_calls": 2,
+          "tidy_calls": 0,
+          "raw_rows_through_send": 21,
+          "masked_rows_through_send": 20
+        },
+        "4": {
+          "assign_calls": 0,
+          "tidy_calls": 2,
+          "raw_rows_through_send": 196,
+          "masked_rows_through_send": 192
+        },
+        "5": {
+          "assign_calls": 2,
+          "tidy_calls": 1,
+          "raw_rows_through_send": 27,
+          "masked_rows_through_send": 27
+        },
+        "6": {
+          "assign_calls": 2,
+          "tidy_calls": 1,
+          "raw_rows_through_send": 141,
+          "masked_rows_through_send": 134
+        }
+      }
+    },
+    {
+      "name": "local_56234",
+      "seed": "local",
+      "order": [
+        5,
+        6,
+        2,
+        3,
+        4
+      ],
+      "control": false,
+      "source_sha256": "6d9597a62259e5dc3c5edbac2705623774142f92283d476f8f474702f169d230",
+      "raw_rows": 125,
+      "masked_rows": 96,
+      "register_masked_rows": 86,
+      "code_sha256": "983df4823a4b91c336c1444c6973f958c2428ead143394e1c345fd936c17f216",
+      "code_bytes": 1584,
+      "physical_instruction_sha256": "78598105363c3a9f1132b6fa1727c47da8c664794737cda95af7e1edd181069f",
+      "call_count": 44,
+      "native_exact_rows": 69,
+      "gained_addresses": [],
+      "lost_addresses": [],
+      "case_counts": {
+        "2": {
+          "assign_calls": 2,
+          "tidy_calls": 1,
+          "raw_rows_through_send": 9,
+          "masked_rows_through_send": 8
+        },
+        "3": {
+          "assign_calls": 2,
+          "tidy_calls": 0,
+          "raw_rows_through_send": 21,
+          "masked_rows_through_send": 20
+        },
+        "4": {
+          "assign_calls": 0,
+          "tidy_calls": 1,
+          "raw_rows_through_send": 208,
+          "masked_rows_through_send": 192
+        },
+        "5": {
+          "assign_calls": 2,
+          "tidy_calls": 1,
+          "raw_rows_through_send": 27,
+          "masked_rows_through_send": 27
+        },
+        "6": {
+          "assign_calls": 2,
+          "tidy_calls": 1,
+          "raw_rows_through_send": 156,
+          "masked_rows_through_send": 153
+        }
+      }
+    },
+    {
+      "name": "base_65234",
+      "seed": "base",
+      "order": [
+        6,
+        5,
+        2,
+        3,
+        4
+      ],
+      "control": false,
+      "source_sha256": "468a39772a74fa00cfa86f6f623a340698c5a986461eb6e67e1049b078980067",
+      "raw_rows": 122,
+      "masked_rows": 92,
+      "register_masked_rows": 96,
+      "code_sha256": "b9c107d5fdbeb0e8f392ac16b92de0b530573efeb95dc763271be9a77cf78d2f",
+      "code_bytes": 1536,
+      "physical_instruction_sha256": "3c90a66a8e20dfeaf4904ce8246d10722b3de1d23a0007b8540450001ddf7a18",
+      "call_count": 43,
+      "native_exact_rows": 69,
+      "gained_addresses": [],
+      "lost_addresses": [],
+      "case_counts": {
+        "2": {
+          "assign_calls": 2,
+          "tidy_calls": 1,
+          "raw_rows_through_send": 9,
+          "masked_rows_through_send": 8
+        },
+        "3": {
+          "assign_calls": 2,
+          "tidy_calls": 0,
+          "raw_rows_through_send": 21,
+          "masked_rows_through_send": 20
+        },
+        "4": {
+          "assign_calls": 0,
+          "tidy_calls": 2,
+          "raw_rows_through_send": 196,
+          "masked_rows_through_send": 192
+        },
+        "5": {
+          "assign_calls": 2,
+          "tidy_calls": 1,
+          "raw_rows_through_send": 21,
+          "masked_rows_through_send": 20
+        },
+        "6": {
+          "assign_calls": 2,
+          "tidy_calls": 1,
+          "raw_rows_through_send": 146,
+          "masked_rows_through_send": 141
+        }
+      }
+    },
+    {
+      "name": "local_65234",
+      "seed": "local",
+      "order": [
+        6,
+        5,
+        2,
+        3,
+        4
+      ],
+      "control": false,
+      "source_sha256": "53e268df273d4c8706a617276713555279d095f677306b39d4e1a144ad542920",
+      "raw_rows": 192,
+      "masked_rows": 155,
+      "register_masked_rows": 106,
+      "code_sha256": "18b34c31c74ca981a2f5258ee0dc1d3b2d0fe01e95f07d5dde5cc255a91289ea",
+      "code_bytes": 1584,
+      "physical_instruction_sha256": "49cadfd7f240af8c3cb2a5bc1f679b02b8364f5035b748393d6f54203826447c",
+      "call_count": 44,
+      "native_exact_rows": 69,
+      "gained_addresses": [],
+      "lost_addresses": [],
+      "case_counts": {
+        "2": {
+          "assign_calls": 2,
+          "tidy_calls": 1,
+          "raw_rows_through_send": 22,
+          "masked_rows_through_send": 39
+        },
+        "3": {
+          "assign_calls": 2,
+          "tidy_calls": 0,
+          "raw_rows_through_send": 52,
+          "masked_rows_through_send": 50
+        },
+        "4": {
+          "assign_calls": 0,
+          "tidy_calls": 1,
+          "raw_rows_through_send": 215,
+          "masked_rows_through_send": 204
+        },
+        "5": {
+          "assign_calls": 2,
+          "tidy_calls": 1,
+          "raw_rows_through_send": 52,
+          "masked_rows_through_send": 53
+        },
+        "6": {
+          "assign_calls": 2,
+          "tidy_calls": 1,
+          "raw_rows_through_send": 160,
+          "masked_rows_through_send": 159
+        }
+      }
+    },
+    {
+      "name": "base_65432",
+      "seed": "base",
+      "order": [
+        6,
+        5,
+        4,
+        3,
+        2
+      ],
+      "control": false,
+      "source_sha256": "2bd88f73bc440a31333ec9689113571eb2b4007d9d2750bb2aaec98798a5b17e",
+      "raw_rows": 121,
+      "masked_rows": 91,
+      "register_masked_rows": 95,
+      "code_sha256": "5b0416316253a5c2e93a5a45e8852544fb41f93114ae899a9ca4ce54a9c06950",
+      "code_bytes": 1536,
+      "physical_instruction_sha256": "3c90a66a8e20dfeaf4904ce8246d10722b3de1d23a0007b8540450001ddf7a18",
+      "call_count": 43,
+      "native_exact_rows": 69,
+      "gained_addresses": [],
+      "lost_addresses": [],
+      "case_counts": {
+        "2": {
+          "assign_calls": 0,
+          "tidy_calls": 2,
+          "raw_rows_through_send": 213,
+          "masked_rows_through_send": 197
+        },
+        "3": {
+          "assign_calls": 2,
+          "tidy_calls": 0,
+          "raw_rows_through_send": 21,
+          "masked_rows_through_send": 20
+        },
+        "4": {
+          "assign_calls": 2,
+          "tidy_calls": 1,
+          "raw_rows_through_send": 0,
+          "masked_rows_through_send": 0
+        },
+        "5": {
+          "assign_calls": 2,
+          "tidy_calls": 1,
+          "raw_rows_through_send": 21,
+          "masked_rows_through_send": 20
+        },
+        "6": {
+          "assign_calls": 2,
+          "tidy_calls": 1,
+          "raw_rows_through_send": 146,
+          "masked_rows_through_send": 141
+        }
+      }
+    },
+    {
+      "name": "local_65432",
+      "seed": "local",
+      "order": [
+        6,
+        5,
+        4,
+        3,
+        2
+      ],
+      "control": false,
+      "source_sha256": "49960c8079618ee99799568ccf87be473c9b00bf703c804271e4e8ac2af0b4fe",
+      "raw_rows": 191,
+      "masked_rows": 154,
+      "register_masked_rows": 105,
+      "code_sha256": "24961f4fdd8a89ef300492b827ad07690458c18bc3e1ae554fcbb5b76b558d93",
+      "code_bytes": 1584,
+      "physical_instruction_sha256": "49cadfd7f240af8c3cb2a5bc1f679b02b8364f5035b748393d6f54203826447c",
+      "call_count": 44,
+      "native_exact_rows": 69,
+      "gained_addresses": [],
+      "lost_addresses": [],
+      "case_counts": {
+        "2": {
+          "assign_calls": 0,
+          "tidy_calls": 1,
+          "raw_rows_through_send": 215,
+          "masked_rows_through_send": 203
+        },
+        "3": {
+          "assign_calls": 2,
+          "tidy_calls": 0,
+          "raw_rows_through_send": 52,
+          "masked_rows_through_send": 50
+        },
+        "4": {
+          "assign_calls": 2,
+          "tidy_calls": 1,
+          "raw_rows_through_send": 21,
+          "masked_rows_through_send": 20
+        },
+        "5": {
+          "assign_calls": 2,
+          "tidy_calls": 1,
+          "raw_rows_through_send": 52,
+          "masked_rows_through_send": 53
+        },
+        "6": {
+          "assign_calls": 2,
+          "tidy_calls": 1,
+          "raw_rows_through_send": 160,
+          "masked_rows_through_send": 159
+        }
+      }
+    }
+  ],
+  "exact_addresses": [
+    "0x42A6C0",
+    "0x42A820",
+    "0x42A940",
+    "0x42A970",
+    "0x42AB30",
+    "0x42B320",
+    "0x42C4E0",
+    "0x42CAB0",
+    "0x42CD30",
+    "0x42D120",
+    "0x42E170",
+    "0x42F250",
+    "0x432B80",
+    "0x432C30",
+    "0x433700",
+    "0x45CC10",
+    "0x4740B0",
+    "0x4A1930",
+    "0x4A19A0",
+    "0x4A19C0",
+    "0x4A1A10",
+    "0x4A1A30",
+    "0x4A1A50",
+    "0x4A1A70",
+    "0x4A1A90",
+    "0x4A1AB0",
+    "0x4A1AD0",
+    "0x4A1AF0",
+    "0x4B53D0",
+    "0x4B5560",
+    "0x4B55F0",
+    "0x4B5740",
+    "0x4B58B0",
+    "0x5156B0",
+    "0x5156F0",
+    "0x515710",
+    "0x515730",
+    "0x515750",
+    "0x51C630",
+    "0x5411F0",
+    "0x546510",
+    "0x553A80",
+    "0x5623B0",
+    "0x5623D0",
+    "0x5623F0",
+    "0x5E4160",
+    "0x5E42D0",
+    "0x5E4300",
+    "0x5E4500",
+    "0x5E4720",
+    "0x5E49A0",
+    "0x5E4AC0",
+    "0x5E4B80",
+    "0x5E4C60",
+    "0x5E4CD0",
+    "0x5E4D10",
+    "0x5E4DB0",
+    "0x5E4E70",
+    "0x5E4F10",
+    "0x5E5200",
+    "0x5E5290",
+    "0x5E5A40",
+    "0x5E5B10",
+    "0x5E5D70",
+    "0x5E5EF0",
+    "0x5E6030",
+    "0x5E6240",
+    "0x5E6270",
+    "0x5E6280"
+  ],
+  "retail_call_count": 39,
+  "retail_case_calls": {
+    "2": [
+      "0x42cab0",
+      "0x42a820",
+      "0x42cab0"
+    ],
+    "3": [
+      "0x42cab0",
+      "0x42a820",
+      "0x42cab0"
+    ],
+    "4": [
+      "0x42cab0",
+      "0x42a820",
+      "0x42cab0"
+    ],
+    "5": [
+      "0x42cab0",
+      "0x4e9d10",
+      "0x42cab0"
+    ],
+    "6": [
+      "0x42cab0",
+      "0x4e9d10",
+      "0xa1807c",
+      "0x42cd30",
+      "0xa25f50",
+      "0x42a970",
+      "0x42a940",
+      "0x42cd30",
+      "0x4e9d10",
+      "0x42a970"
+    ]
+  },
+  "notes": [
+    "All sources independently replay from the embedded baseline; no history scan or prior stash is required.",
+    "Only complete scoped case blocks move; neither body text nor destructor lifetime changes from the chosen seed. Total physical lines and all target-external text are unchanged.",
+    "Each object was compiled with VC6 SP4 and passed to the full native object matcher with no score threshold. All 69 exact symbol/address and file/address pairs are unchanged.",
+    "All 11 baseline-seed physical instruction streams are identical after normalizing relocations, branch destinations and packet-operation immediates. They emit 43 calls, versus retail 39.",
+    "First three lexical bodies call both assigns and Tidy; fourth inlines Tidy; fifth expands both assigns. Reordering transfers those shapes to other semantic keys.",
+    "The unchanged local control emits 42 calls at 96/69/68 raw/masked/register-masked rows. Best new order local_23546 is 98/71/70 with 42 calls.",
+    "Retail case 6 calls the channel assign then expands selected-name assign and temporary destruction; no permutation reproduces that shape.",
+    "Raw/masked metrics are instruction rows, not byte proof. Their literal/shape classification is expected when lexical order changes packet operation immediates and jump-table order.",
+    "No source adopted, tracked file edited, commit, push, VM lease, or tracked attempt row written by this worker."
+  ]
+}

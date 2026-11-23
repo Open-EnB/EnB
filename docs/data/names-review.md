@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1970 |
 | 2 | describes what the code does | 5009 |
-| 1 | neutral placeholder | 25148 |
+| 1 | neutral placeholder | 25152 |
 
 ## For review (score 3 and below)
 
@@ -15529,6 +15529,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_64` | `app/client/ui_petition_player_entry.cpp:191` | untagged neutral name (D10) |
 | 1 | `Unknown_A0` | `app/client/ui_petition_player_entry.cpp:198` | untagged neutral name (D10) |
 | 1 | `std:` | `app/client/ui_petition_player_entry.cpp:201` | neutral (D10) |
+| 1 | `ship_id` | `app/client/ui_petition_player_entry.cpp:209` | neutral (D10) |
 | 1 | `std:` | `app/client/ui_petition_player_entry.cpp:228` | neutral (D10) |
 | 1 | `Unknown_98` | `app/client/ui_petition_player_entry.cpp:279` | untagged neutral name (D10) |
 | 1 | `button` | `app/client/ui_petition_player_entry.cpp:280` | neutral (D10) |
@@ -15572,6 +15573,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown0B8` | `app/client/ui_petition_player_entry.h:47` | untagged neutral name (D10) |
 | 1 | `Unknown0B4` | `app/client/ui_petition_stuck.cpp:12` | untagged neutral name (D10) |
 | 1 | `Unknown_A0` | `app/client/ui_petition_stuck.cpp:44` | untagged neutral name (D10) |
+| 1 | `ship_id` | `app/client/ui_petition_stuck.cpp:50` | neutral (D10) |
 | 1 | `ui_petition_stuck.h` | `app/client/ui_petition_stuck.h:4` | provisional header name for ui_petition_stuck.cpp |
 | 1 | `UIPetitionStuckClass` | `app/client/ui_petition_stuck.h:11` | neutral, after the file |
 | 1 | `client, unknown0B4` | `app/client/ui_petition_stuck.h:14` | neutral |
@@ -15824,7 +15826,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_10` | `app/client/ui_power.cpp:102` | untagged neutral name (D10) |
 | 1 | `Unknown10BC` | `app/client/ui_power.cpp:106` | untagged neutral name (D10) |
 | 1 | `Is_Unknown2C_08` | `app/client/ui_power.cpp:111` | untagged neutral name (D10) |
-| 1 | `Unknown_Find_Set_Field` | `app/client/ui_power.cpp:112` | untagged neutral name (D10) |
 | 1 | `Unknown_5DCAE0` | `app/client/ui_power.cpp:167` | untagged neutral name (D10) |
 | 1 | `Unknown_687150` | `app/client/ui_power.cpp:169` | untagged neutral name (D10) |
 | 1 | `Unknown5DB670InterfaceClass` | `app/client/ui_power.cpp:205` | untagged neutral name (D10) |
@@ -16194,6 +16195,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_7E3A20` | `app/client/ui_ptrade.cpp:226` | untagged neutral name (D10) |
 | 1 | `Unknown1134` | `app/client/ui_ptrade.cpp:227` | untagged neutral name (D10) |
 | 1 | `Unknown_68` | `app/client/ui_ptrade.cpp:240` | untagged neutral name (D10) |
+| 1 | `avatar, id` | `app/client/ui_ptrade.cpp:242` | neutral (D10) |
 | 1 | `Unknown_64A2B0` | `app/client/ui_ptrade.cpp:260` | untagged neutral name (D10) |
 | 1 | `Unknown_7C` | `app/client/ui_ptrade.cpp:272` | untagged neutral name (D10) |
 | 1 | `Unknown_5E3130` | `app/client/ui_ptrade.cpp:292` | untagged neutral name (D10) |
@@ -16680,6 +16682,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_5ED350` | `app/client/ui_refinery.cpp:505` | untagged neutral name (D10) |
 | 1 | `Unknown_A4` | `app/client/ui_refinery.cpp:512` | untagged neutral name (D10) |
 | 1 | `Unknown_5EDA10` | `app/client/ui_refinery.cpp:585` | untagged neutral name (D10) |
+| 1 | `index` | `app/client/ui_refinery.cpp:625` | neutral (D10) |
+| 1 | `Unknown_Find_Set_Field` | `app/client/ui_refinery.cpp:627` | untagged neutral name (D10) |
 | 1 | `Unknown_5EE7F0` | `app/client/ui_refinery.cpp:634` | untagged neutral name (D10) |
 | 1 | `Unknown_5EE460` | `app/client/ui_refinery.cpp:635` | untagged neutral name (D10) |
 | 1 | `Unknown_74D990` | `app/client/ui_refinery.cpp:649` | untagged neutral name (D10) |

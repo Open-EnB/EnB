@@ -1,0 +1,186 @@
+# Claim 254: radio-join combinations from last_length
+
+Base: 3086ad6f4e06cb276cb6eaff9485d3fd2a34be40; file: app/client/ui_radio_join.cpp; production SHA-256 `cfa8e6b78022ef4ca459f7d4858a1672c0e51c2b0bc7ec60241d9d8ba4807d6a`; last_length seed SHA-256 `4d52a1774938814d90f8f4d07a47af9cf2f467e355018c1c221fc35582aeed75`. Fresh git archive of this HEAD supplied the entire immutable include tree, with the exact popup constructor unchanged.
+
+Recommendation: retain no source change. Ten new valid combinations, deduplicated by full source SHA-256 against all 17 previous forms. Three consecutive unhelpful families: scoped owning/reference temporaries (4), independent first/empty length plus final length (2), assign-range combinations plus final length (4). No extra batch.
+
+Replay ONE form independently from git show BASE:FILE: replace precisely the physical lines below, preserving LF and final newline, then check the complete source SHA-256. All ten new forms and the seed control were replayed and hash checked. Each patch is relative to production, so it needs no earlier stash. Physical line count is unchanged and only the claimed function changes.
+
+VC6 SP4 through /home/dev/Toolchains/enb-vc6-sp4/bin/vc6-cl, existing Wine prefix; app flags/defines from tools/vc6/libdefs.py; full native objmatch.py --client RETAIL -q --json for every object, without score filters. Original basename preserved for __FILE__, absolute scratch prefix differs; target contains no __FILE__ assertion. These are native object experiments, not full app-ledger verification. Per-form calls with actual symbol identities, full matcher output, normalized instruction diff and pairs_cmp.py results are indexed by results-manifest.json.
+
+Mandatory fresh last_length control reproduced 49 file/address pairs and 864/901 bytes, 254/268 instructions, raw/masked/register-masked residue 46/46/26, 29/30 calls, group 5f034c481f965821. It is a previously tested source control, not a new form or repeat. The four scoped temporary combinations reproduce that same code and preserve its 172-instruction matching prefix; a reference only renames an EH funclet at the same address. No target exact, no stronger score retained. The source comparisons preserve both original Get_Text allocated-copy calls and both chat getter calls in order, original ownership handling, and each packet/temporary destruction point. No helpers, types, headers, dead reads, pragmas, assembly, volatile operations, or cleanup devices.
+
+Seed residual remains final constructor inline _Tidy plus out-of-line assign(ptr,n), while retail calls _Tidy(false) before scanning, calls _Grow, and inlines copy/_Eos; esi/ebx zero-register choices also differ. Retail first text constructor calls _Tidy/_Grow/_Eos and inlines assignment orchestration/copy. The prefix evidence is partial: ordinary bytes agree for 599 bytes with relocations masked, and call identities are listed, but neither seed nor combinations have a full relocation/EH exactness proof. Retail full bounds are 0x5EB2F0..0x5EB674 inclusive, two returns, 901 bytes / 268 instructions.
+
+Counts: 10 new valid forms, 1 control, 0 repeats, 0 failed compiles/matches, 7 candidate emission groups (6 not seed), no invalid or header-diagnostic forms. No tracked files edited, no commits/pushes/GitHub writes, no VM leased. Auxiliary gains/losses below are rejected with their forms.
+
+
+## baseline (control)
+Source SHA-256 `4d52a1774938814d90f8f4d07a47af9cf2f467e355018c1c221fc35582aeed75`; relocation-aware emission group `5f034c481f965821`.
+
+Physical line 181:
+```cpp
+	const char *name = Entry->Get_Text(); chat->Unknown_5680B0(std::string(name, std::char_traits<char>::length(name)));
+```
+
+Result: 864/901 bytes, 254/268 instructions, class inline-budget; raw/masked/register-masked 46/46/26; 29/30 calls; normalized prefix 172 instructions; target exact=False; full-object file/address gains=[], losses=[].
+
+
+## all_assign_last_length (new_valid)
+Source SHA-256 `24171825309b95875a5e605e3da3761bab558cde8098b3bf3429cb595c5b081f`; relocation-aware emission group `ac97f7420740ffef`.
+
+Physical line 173:
+```cpp
+		packet.Unknown24.assign(chat->Unknown_5682C0(), 0, std::string::npos);
+```
+
+Physical line 178:
+```cpp
+	packet.Unknown24.assign(std::string(Entry->Get_Text()), 0, std::string::npos);
+```
+
+Physical line 179:
+```cpp
+	packet.Unknown34.assign(std::string(""), 0, std::string::npos);
+```
+
+Physical line 181:
+```cpp
+	const char *name = Entry->Get_Text(); chat->Unknown_5680B0(std::string(name, std::char_traits<char>::length(name)));
+```
+
+Result: 1088/901 bytes, 309/268 instructions, class inline-budget; raw/masked/register-masked 367/342/336; 34/30 calls; normalized prefix 5 instructions; target exact=False; full-object file/address gains=['0x4B5740'], losses=[].
+
+
+## channel_assign_last_length (new_valid)
+Source SHA-256 `74812b4b238d1716302c012c54bcce3f997d769ee1d0fe26140f4f8ee09a5bdb`; relocation-aware emission group `2990c7e6cacfab68`.
+
+Physical line 173:
+```cpp
+		packet.Unknown24.assign(chat->Unknown_5682C0(), 0, std::string::npos);
+```
+
+Physical line 181:
+```cpp
+	const char *name = Entry->Get_Text(); chat->Unknown_5680B0(std::string(name, std::char_traits<char>::length(name)));
+```
+
+Result: 992/901 bytes, 291/268 instructions, class inline-budget; raw/masked/register-masked 248/224/161; 32/30 calls; normalized prefix 6 instructions; target exact=False; full-object file/address gains=['0x4B5740'], losses=[].
+
+
+## empty_and_last_length (new_valid)
+Source SHA-256 `246bd2fe57e858d0950b5a0b333010ae73a28640633b2c6420346b08c5297e5b`; relocation-aware emission group `6b5267464cb1183a`.
+
+Physical line 179:
+```cpp
+	packet.Unknown34 = std::string("", std::char_traits<char>::length(""));
+```
+
+Physical line 181:
+```cpp
+	const char *name = Entry->Get_Text(); chat->Unknown_5680B0(std::string(name, std::char_traits<char>::length(name)));
+```
+
+Result: 880/901 bytes, 255/268 instructions, class inline-budget; raw/masked/register-masked 60/61/44; 29/30 calls; normalized prefix 141 instructions; target exact=False; full-object file/address gains=[], losses=[].
+
+
+## empty_assign_last_length (new_valid)
+Source SHA-256 `1e4e8ea2a3e49dfb4ed38b031878292a408111a896e4033700b6bb46c3735c98`; relocation-aware emission group `de382815dd99598c`.
+
+Physical line 179:
+```cpp
+	packet.Unknown34.assign(std::string(""), 0, std::string::npos);
+```
+
+Physical line 181:
+```cpp
+	const char *name = Entry->Get_Text(); chat->Unknown_5680B0(std::string(name, std::char_traits<char>::length(name)));
+```
+
+Result: 992/901 bytes, 287/268 instructions, class inline-budget; raw/masked/register-masked 85/90/88; 31/30 calls; normalized prefix 171 instructions; target exact=False; full-object file/address gains=[], losses=['0x42D050'].
+
+
+## empty_named_last_length (new_valid)
+Source SHA-256 `4d773dc291b2687a8ef34e54377781adaa783d2364eba236ceafad366ee4c4f3`; relocation-aware emission group `5f034c481f965821`.
+
+Physical line 179:
+```cpp
+	{ std::string text(""); packet.Unknown34 = text; }
+```
+
+Physical line 181:
+```cpp
+	const char *name = Entry->Get_Text(); chat->Unknown_5680B0(std::string(name, std::char_traits<char>::length(name)));
+```
+
+Result: 864/901 bytes, 254/268 instructions, class inline-budget; raw/masked/register-masked 46/46/26; 29/30 calls; normalized prefix 172 instructions; target exact=False; full-object file/address gains=[], losses=[].
+
+
+## first_and_last_length (new_valid)
+Source SHA-256 `bbeadfe62ed886238eb9e1a86dafcc5aeffc97073f3b0113296622c15a554a9c`; relocation-aware emission group `f12a5435f1247cd2`.
+
+Physical line 178:
+```cpp
+	const char *text = Entry->Get_Text(); packet.Unknown24 = std::string(text, std::char_traits<char>::length(text));
+```
+
+Physical line 181:
+```cpp
+	const char *name = Entry->Get_Text(); chat->Unknown_5680B0(std::string(name, std::char_traits<char>::length(name)));
+```
+
+Result: 864/901 bytes, 254/268 instructions, class inline-budget; raw/masked/register-masked 60/60/44; 29/30 calls; normalized prefix 99 instructions; target exact=False; full-object file/address gains=[], losses=[].
+
+
+## first_assign_last_length (new_valid)
+Source SHA-256 `e651b942d7d9d997a935daf7b8e1ebf5d19fe53dbae71f83e900cdaa159f2a87`; relocation-aware emission group `5924faed51a75bc2`.
+
+Physical line 178:
+```cpp
+	packet.Unknown24.assign(std::string(Entry->Get_Text()), 0, std::string::npos);
+```
+
+Physical line 181:
+```cpp
+	const char *name = Entry->Get_Text(); chat->Unknown_5680B0(std::string(name, std::char_traits<char>::length(name)));
+```
+
+Result: 944/901 bytes, 275/268 instructions, class inline-budget; raw/masked/register-masked 176/164/154; 30/30 calls; normalized prefix 130 instructions; target exact=False; full-object file/address gains=[], losses=[].
+
+
+## first_named_last_length (new_valid)
+Source SHA-256 `05e674ee9ac60bdff8771282df52f8bb3a353e47014d2d29701d3e27ebffc6ed`; relocation-aware emission group `5f034c481f965821`.
+
+Physical line 178:
+```cpp
+	{ std::string text(Entry->Get_Text()); packet.Unknown24 = text; }
+```
+
+Physical line 181:
+```cpp
+	const char *name = Entry->Get_Text(); chat->Unknown_5680B0(std::string(name, std::char_traits<char>::length(name)));
+```
+
+Result: 864/901 bytes, 254/268 instructions, class inline-budget; raw/masked/register-masked 46/46/26; 29/30 calls; normalized prefix 172 instructions; target exact=False; full-object file/address gains=[], losses=[].
+
+
+## last_length_named (new_valid)
+Source SHA-256 `d0ab49f7921c11f2807ccbbeaa8c4437bff382ca2c1b9917cfbe7103273669c6`; relocation-aware emission group `5f034c481f965821`.
+
+Physical line 181:
+```cpp
+	{ const char *name = Entry->Get_Text(); std::string text(name, std::char_traits<char>::length(name)); chat->Unknown_5680B0(text); }
+```
+
+Result: 864/901 bytes, 254/268 instructions, class inline-budget; raw/masked/register-masked 46/46/26; 29/30 calls; normalized prefix 172 instructions; target exact=False; full-object file/address gains=[], losses=[].
+
+
+## last_length_reference (new_valid)
+Source SHA-256 `a13a9aef4e5629f3ed0c09ebbe6268775329484129e65f639f404144c8d6a2ef`; relocation-aware emission group `5f034c481f965821`.
+
+Physical line 181:
+```cpp
+	{ const char *name = Entry->Get_Text(); const std::string &text = std::string(name, std::char_traits<char>::length(name)); chat->Unknown_5680B0(text); }
+```
+
+Result: 864/901 bytes, 254/268 instructions, class inline-budget; raw/masked/register-masked 46/46/26; 29/30 calls; normalized prefix 172 instructions; target exact=False; full-object file/address gains=[], losses=[].

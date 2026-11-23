@@ -1,0 +1,89 @@
+# Claim 254: final string constructor paths
+
+Base dbbf71ec127672a1704300b0578639c8e5e83cf9; file app/client/ui_radio_join.cpp; production SHA-256 `cfa8e6b78022ef4ca459f7d4858a1672c0e51c2b0bc7ec60241d9d8ba4807d6a`; last_length seed SHA-256 `4d52a1774938814d90f8f4d07a47af9cf2f467e355018c1c221fc35582aeed75`. Entire immutable include tree freshly extracted with git archive; production radio-join and exact popup sources hash-agree with earlier production snapshot.
+
+Recommendation: retain no source change. Four new source forms, source-hash deduplicated against the previous 31 new forms: explicit allocator+traits length, direct strlen count, explicit allocator+strlen count, and mutable-pointer traits length. They produce two emission groups: allocator/mutable variants reproduce last_length, while direct strlen with/without allocator produces the same worse expansion. No further forms or automatic round.
+
+Replay ONE form independently: git show BASE:FILE; replace exactly the physical line below, preserve LF and final newline, verify complete source SHA-256. Every source was replayed and hash checked. Each patch is relative to production and needs no earlier stash. Only physical line 181 changes; all other source bytes and line numbers remain.
+
+Build: VC6 SP4 /home/dev/Toolchains/enb-vc6-sp4/bin/vc6-cl in existing Wine prefix; app flags/defines from tools/vc6/libdefs.py. Full native objmatch.py --client RETAIL -q --json for every complete object, no score filters. Original basename retained for __FILE__; absolute scratch prefix differs; target has no __FILE__ assertion. This is native object evidence, not full app-ledger verification. Every actual call identity, matcher output, normalized diff and pairs_cmp.py result is indexed by results-manifest.json.
+
+Constructor-path observations (read-only audits, not compiled forms):
+
+- cstr_constructor: XSTRING:51-52: allocator copy, _Tidy(), assign(pointer); assign(pointer) forwards to assign(pointer, traits::length(pointer)).
+
+- count_constructor: XSTRING:48-50: allocator copy, _Tidy(), assign(pointer,count). Explicit allocator selects the same constructor as the defaulted allocator.
+
+- range_constructor: XSTRING:55-57,146-147,295-313: const-pointer iterator overload; _Tidy then assign(range), replace(begin,end,range), _Freeze/_Distance/fill/element-copy path. Previous range objects actually call _Freeze/end/range-replace.
+
+- traits_length: IOSFWD:175-192: char_traits<char> specialization, size_t length(const char*) returns strlen(pointer). Direct strlen removes this source inline wrapper, although both compute the same size_t count.
+
+- allocator: XMEMORY:45-72: allocator<char> has no data members and no custom constructor. Explicit temporary allocator and implicit default argument use the same allocator type and pointer/count overload.
+
+- pointer_type: textgadg.h:54 declares char* Get_Text(); mutable capture converts to the same const-char-pointer constructor parameter.
+
+- callee_parameter: ui_chat_panel.h:80 declares Unknown_5680B0(const std::string&). Retail 0x5680B3 loads its one stack pointer, 0x5680BA reads object+8 length, 0x5680BD reads object+4 data. This agrees with a string object reference, with no evidence for a char-pointer overload or by-value string.
+
+- retail_final: 0x5EB5A1 Get_Text; 0x5EB5B5 _Tidy(false); strlen scan; 0x5EB5CF _Grow; inline copy/_Eos; 0x5EB60B Unknown_5680B0; destroy temporary before 0x5EB645 Unknown225=true. Retail first text constructor calls _Tidy/_Grow/_Eos with assignment orchestration/copy inlined.
+
+
+Fresh seed: 49 file/address pairs, 864/901 bytes, raw/masked/register residue 46/46/26, 29/30 calls, matching normalized prefix 172 instructions. Explicit allocator and mutable-pointer variants reproduce that exact emission. Direct strlen variants give 832/901 bytes, 148/117/116 residue, 28/30 calls, prefix only 5 instructions: frame grows from retail 0xC8 to 0xD0, zero ebx becomes live at entry, pending-return epilogue is shared, and empty/final strings inline _Tidy and call assign(ptr,n). The traits wrapper therefore affects VC6 inlining even though it computes strlen. No tested variant reproduces the retail final constructor path.
+
+Every measured file/address set remains 49, with zero gains/losses. Both original allocated Get_Text calls and both chat getter calls remain in order, allocated-copy handling is unchanged, and temporary/packet lifetimes are preserved, including destruction before Unknown225. No helpers, synthetic types, headers, pragmas, dead reads, assembly, volatile operations, ownership cleanup, tracked edits, commits, pushes, or GitHub writes. No VM leased.
+
+Counts: 4 new valid source forms, 1 fresh known-source control, 0 repeats, 0 failures, 0 synthetic diagnostic compiles or header forms. Retail bounds 0x5EB2F0..0x5EB674 inclusive, two returns, 901 bytes / 268 instructions. Prefix metrics mask branch/relocation targets while retaining registers/stack offsets. No full relocation/EH exactness proof is claimed.
+
+
+## baseline (control)
+Source SHA-256 `4d52a1774938814d90f8f4d07a47af9cf2f467e355018c1c221fc35582aeed75`; relocation-aware emission group `5f034c481f965821`.
+
+Physical line 181:
+```cpp
+	const char *name = Entry->Get_Text(); chat->Unknown_5680B0(std::string(name, std::char_traits<char>::length(name)));
+```
+
+Result: 864/901 bytes, 254/268 instructions; class inline-budget; raw/masked/register residue 46/46/26; 29/30 calls; prefix 172 instructions; target exact=False; file/address gains=[], losses=[].
+
+
+## length_allocator (new_valid)
+Source SHA-256 `cfd7403b27e0f6c5194ad95d3bc34d5cf5f6c54a86ed29680a25fa9c717b61b2`; relocation-aware emission group `5f034c481f965821`.
+
+Physical line 181:
+```cpp
+	const char *name = Entry->Get_Text(); chat->Unknown_5680B0(std::string(name, std::char_traits<char>::length(name), std::allocator<char>()));
+```
+
+Result: 864/901 bytes, 254/268 instructions; class inline-budget; raw/masked/register residue 46/46/26; 29/30 calls; prefix 172 instructions; target exact=False; file/address gains=[], losses=[].
+
+
+## mutable_length (new_valid)
+Source SHA-256 `1041f7aeb935b062fb36b42e346e0dab4d5bd891c619a1dfa2dcdf61ac80a203`; relocation-aware emission group `5f034c481f965821`.
+
+Physical line 181:
+```cpp
+	char *name = Entry->Get_Text(); chat->Unknown_5680B0(std::string(name, std::char_traits<char>::length(name)));
+```
+
+Result: 864/901 bytes, 254/268 instructions; class inline-budget; raw/masked/register residue 46/46/26; 29/30 calls; prefix 172 instructions; target exact=False; file/address gains=[], losses=[].
+
+
+## strlen_allocator (new_valid)
+Source SHA-256 `823fd2a5783a4c1e6d469252dab7af563888d47bd0fc8ae1cbbf825eb615879d`; relocation-aware emission group `58dea8e416c75321`.
+
+Physical line 181:
+```cpp
+	const char *name = Entry->Get_Text(); chat->Unknown_5680B0(std::string(name, strlen(name), std::allocator<char>()));
+```
+
+Result: 832/901 bytes, 238/268 instructions; class inline-budget; raw/masked/register residue 148/117/116; 28/30 calls; prefix 5 instructions; target exact=False; file/address gains=[], losses=[].
+
+
+## strlen_length (new_valid)
+Source SHA-256 `60595e714f6a1ae03cbc93b972677dcfa5312726ba0a9a31da07fdd51433c473`; relocation-aware emission group `58dea8e416c75321`.
+
+Physical line 181:
+```cpp
+	const char *name = Entry->Get_Text(); chat->Unknown_5680B0(std::string(name, strlen(name)));
+```
+
+Result: 832/901 bytes, 238/268 instructions; class inline-budget; raw/masked/register residue 148/117/116; 28/30 calls; prefix 5 instructions; target exact=False; file/address gains=[], losses=[].

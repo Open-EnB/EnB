@@ -1,0 +1,153 @@
+# Claim 254: earlier string operations and inline context
+
+Base 5e8e3e6432cd01bad9e0f595d92f1b7383f6373a; file app/client/ui_radio_join.cpp; production SHA-256 `cfa8e6b78022ef4ca459f7d4858a1672c0e51c2b0bc7ec60241d9d8ba4807d6a`; last_length seed SHA-256 `4d52a1774938814d90f8f4d07a47af9cf2f467e355018c1c221fc35582aeed75`. Fresh git archive supplied the whole immutable include tree; radio-join and exact popup source bytes match the prior production snapshot.
+
+Recommendation: retain no source change. Stop after three unhelpful natural-source families: empty temporary construction (2 forms), earlier text temporary construction (2), and channel presence APIs (3). Seven new source forms were source-hash deduplicated against 35 previous new forms. Three current emission groups, two beyond seed; historical machine-code deduplication across every earlier run is not claimed.
+
+Replay ONE form independently: git show BASE:FILE; replace exactly the physical lines below, preserving LF and final newline; verify full source SHA-256. Every source was replayed and hash checked. Each patch is relative to production and requires no earlier stash. Physical line count is unchanged and every byte outside the claimed function is retained.
+
+Build: VC6 SP4 /home/dev/Toolchains/enb-vc6-sp4/bin/vc6-cl in existing Wine prefix; app flags/defines from tools/vc6/libdefs.py. Full native objmatch.py --client RETAIL -q --json on every complete object, no score filter. Original basename retained for __FILE__; absolute scratch prefix differs; target has no __FILE__ assertion. These are native object experiments, not a full app-ledger verification. Actual call identities, final-constructor call slices, full matcher output, normalized diffs and pairs_cmp.py logs are indexed by results-manifest.json.
+
+Mechanism findings:
+
+- natural_source_choices: Empty default/value constructor, explicit allocator on earlier temporaries, scoped earlier const-reference lifetime, and channel empty/size/compare APIs. No dead operations or invented wrappers.
+
+- empty_default: Preserves the std::string temporary and copy assignment but omits empty-literal construction. Final constructor inlines _Tidy and calls _Grow with copy/_Eos inline; therefore assign(ptr,n) call disappears, but retail final _Tidy call is still absent. Earlier empty-literal strlen/Grow path also disappears, worsening the full target.
+
+- allocator_reference: Earlier text explicit allocator/reference and empty literal explicit allocator reproduce the seed. A const reference only changes a generated EH funclet symbol at the same file/address.
+
+- channel_presence: empty() and size()!=0 both inspect _Len, canonicalize to the same code and omit the retail comparison call. Final constructor inlines _Tidy, calls _Grow and calls _Eos; retail calls _Tidy/_Grow and inlines _Eos. Direct compare("") preserves the comparison call and emits the seed unchanged.
+
+- retail_truth: 901 bytes / 268 instructions, two returns, 0x5EB2F0..0x5EB674. Final path: Get_Text at 0x5EB5A1, _Tidy(false) at 0x5EB5B5 before strlen scan, _Grow at 0x5EB5CF, inline copy/_Eos, Unknown_5680B0 at 0x5EB60B, temporary destruction before Unknown225 store 0x5EB645.
+
+- conclusion: These three natural source-choice families are exhausted without an improved target or new evidence-backed local lever. They confirm prior operations can alter nested inlining, but the tested changes either canonicalize or remove retail-visible work and still miss final _Tidy. No further automatic round; this is not an exhaustive search over all possible C++.
+
+
+Fresh mandatory control reproduces 49 file/address pairs, 864/901 bytes, raw/masked/register residue 46/46/26, 29/30 calls and prefix172. Empty allocator, first allocator, first reference and direct channel compare reproduce that target code. Default empty temporary gives 832 bytes, 61/60/48 residue and loses assign(ptr,n) helper 0x42D050. Channel empty/size both give 864 bytes, 71/60/53 residue and lose helper 0x42D050 plus compare helper 0x42DB80. No gains; no source adopted. Prefix metrics mask relocation/branch targets, retaining registers and stack offsets. No full relocation/EH exactness claim.
+
+Both original allocated Get_Text calls and both chat getter calls are preserved in order. Allocated-copy handling is unchanged; all original string temporaries, full-expression destruction points and packet lifetimes remain, including destruction before Unknown225. Channel alternatives test the same nonempty condition. No synthetic helpers/types, arbitrary wrappers/loops, dead reads, headers, pragmas, assembly, volatile operations or ownership cleanup. No tracked edits, commits, pushes or GitHub writes; no VM leased.
+
+Counts: 7 new valid source forms, 1 fresh known-source control, 0 repeats, 0 failures, 0 invalid/diagnostic compile or header forms. Retail bounds 0x5EB2F0..0x5EB674 inclusive, two returns, 901 bytes / 268 instructions.
+
+
+## baseline (control)
+Source SHA-256 `4d52a1774938814d90f8f4d07a47af9cf2f467e355018c1c221fc35582aeed75`; relocation-aware emission group `5f034c481f965821`.
+
+Physical line 181:
+```cpp
+	const char *name = Entry->Get_Text(); chat->Unknown_5680B0(std::string(name, std::char_traits<char>::length(name)));
+```
+
+Result: 864/901 bytes, 254/268 instructions; class inline-budget; raw/masked/register residue 46/46/26; 29/30 calls; prefix 172 instructions; target exact=False; file/address gains=[], losses=[].
+
+
+## channel_compare (new_valid)
+Source SHA-256 `c65561482d169f2afedadecfe23d224bee28c61a7137000a931e0f614e7bf26c`; relocation-aware emission group `5f034c481f965821`.
+
+Physical line 170:
+```cpp
+	if (chat->Unknown_5682C0().compare("") != 0) {
+```
+
+Physical line 181:
+```cpp
+	const char *name = Entry->Get_Text(); chat->Unknown_5680B0(std::string(name, std::char_traits<char>::length(name)));
+```
+
+Result: 864/901 bytes, 254/268 instructions; class inline-budget; raw/masked/register residue 46/46/26; 29/30 calls; prefix 172 instructions; target exact=False; file/address gains=[], losses=[].
+
+
+## channel_empty (new_valid)
+Source SHA-256 `cda44001993ca3911dd4984caf50d0ce4c03204b9d527386126a4a9f7c9a28d3`; relocation-aware emission group `41895ca983b68345`.
+
+Physical line 170:
+```cpp
+	if (!chat->Unknown_5682C0().empty()) {
+```
+
+Physical line 181:
+```cpp
+	const char *name = Entry->Get_Text(); chat->Unknown_5680B0(std::string(name, std::char_traits<char>::length(name)));
+```
+
+Result: 864/901 bytes, 252/268 instructions; class literal; raw/masked/register residue 71/60/53; 29/30 calls; prefix 31 instructions; target exact=False; file/address gains=[], losses=['0x42D050', '0x42DB80'].
+
+
+## channel_size (new_valid)
+Source SHA-256 `20c0b633132df229940a9c301976d290ce8f32ef1c8c16c9b01b090384e13c93`; relocation-aware emission group `41895ca983b68345`.
+
+Physical line 170:
+```cpp
+	if (chat->Unknown_5682C0().size() != 0) {
+```
+
+Physical line 181:
+```cpp
+	const char *name = Entry->Get_Text(); chat->Unknown_5680B0(std::string(name, std::char_traits<char>::length(name)));
+```
+
+Result: 864/901 bytes, 252/268 instructions; class literal; raw/masked/register residue 71/60/53; 29/30 calls; prefix 31 instructions; target exact=False; file/address gains=[], losses=['0x42D050', '0x42DB80'].
+
+
+## empty_allocator (new_valid)
+Source SHA-256 `104f0792162526638c38e3914534e895a81d9b35340a1f13a870f6b441ac773e`; relocation-aware emission group `5f034c481f965821`.
+
+Physical line 179:
+```cpp
+	packet.Unknown34 = std::string("", std::allocator<char>());
+```
+
+Physical line 181:
+```cpp
+	const char *name = Entry->Get_Text(); chat->Unknown_5680B0(std::string(name, std::char_traits<char>::length(name)));
+```
+
+Result: 864/901 bytes, 254/268 instructions; class inline-budget; raw/masked/register residue 46/46/26; 29/30 calls; prefix 172 instructions; target exact=False; file/address gains=[], losses=[].
+
+
+## empty_default (new_valid)
+Source SHA-256 `dec739c1373c2aceae948e3fe476422e53ff5beb831febb28cb35f49748ae2bd`; relocation-aware emission group `f7194eb15ba68fb8`.
+
+Physical line 179:
+```cpp
+	packet.Unknown34 = std::string();
+```
+
+Physical line 181:
+```cpp
+	const char *name = Entry->Get_Text(); chat->Unknown_5680B0(std::string(name, std::char_traits<char>::length(name)));
+```
+
+Result: 832/901 bytes, 244/268 instructions; class shape; raw/masked/register residue 61/60/48; 28/30 calls; prefix 130 instructions; target exact=False; file/address gains=[], losses=['0x42D050'].
+
+
+## first_allocator (new_valid)
+Source SHA-256 `05da098895a778d6371016f07c5a6265237eeb6c549a145ec1be584ca279eb65`; relocation-aware emission group `5f034c481f965821`.
+
+Physical line 178:
+```cpp
+	packet.Unknown24 = std::string(Entry->Get_Text(), std::allocator<char>());
+```
+
+Physical line 181:
+```cpp
+	const char *name = Entry->Get_Text(); chat->Unknown_5680B0(std::string(name, std::char_traits<char>::length(name)));
+```
+
+Result: 864/901 bytes, 254/268 instructions; class inline-budget; raw/masked/register residue 46/46/26; 29/30 calls; prefix 172 instructions; target exact=False; file/address gains=[], losses=[].
+
+
+## first_reference (new_valid)
+Source SHA-256 `eaa88ee5bda21dcc61d00312f3491475b58f2c791ae7774854da541a9f7a29f2`; relocation-aware emission group `5f034c481f965821`.
+
+Physical line 178:
+```cpp
+	{ const std::string &text = std::string(Entry->Get_Text()); packet.Unknown24 = text; }
+```
+
+Physical line 181:
+```cpp
+	const char *name = Entry->Get_Text(); chat->Unknown_5680B0(std::string(name, std::char_traits<char>::length(name)));
+```
+
+Result: 864/901 bytes, 254/268 instructions; class inline-budget; raw/masked/register residue 46/46/26; 29/30 calls; prefix 172 instructions; target exact=False; file/address gains=[], losses=[].

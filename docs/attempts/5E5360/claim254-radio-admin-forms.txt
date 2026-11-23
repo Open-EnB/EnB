@@ -1,0 +1,1465 @@
+{
+  "baseline_revision": "00a8c71a7a0ebebeff0051b38e675889a61f2aab",
+  "unit": "app/client/ui_radio_admin.cpp",
+  "baseline_source_sha256": "09aa7ecca73e2b27dbce2aba1e21c00d035eea0cb868b08e221a65ef09c11d30",
+  "baseline_source": "// Earth & Beyond client (reconstruction): app\\client\\ui_radio_admin.cpp, the private channel's admin window ('cht05').\n// No string names the file (no asserts): the name is provisional (NAME 1, D137). Notes at the end.\n#include <stdio.h>\n#include <string.h>\n#include <wchar.h>\n#include <string>\n#include <vector>\n#include <list>\n#include \"ui_radio_admin.h\"\n#include \"ui_chat_panel.h\"\n#include \"client.h\"\n#include \"gadget.h\"\n#include \"gd_robj.h\"\n#include \"gd_slider.h\"\n#include \"local_interface_sort.h\"\n#include \"..\\packets\\pkclientchat.h\"\n#include \"..\\audio\\soundlib.h\"\n\nextern FontManagerClass *Unknown_BE67C4;\t// NAME 1: neutral (D10)\nvoid Unknown_42ECF0(float *x, float *y);\t// 0x42ECF0 (the pointer's position)  // NAME 1 [x, y]: neutral\n\n// The buttons Unknown_54 makes: their models' names, also their tooltips (0xB85344)\nstatic const char *Unknown_B85344[7] = { \"EXIT\", \"BUTTON01\", \"BUTTON02\", \"BUTTON03\", \"BUTTON04\", \"BUTTON05\", \"BUTTON06\" };\t// NAME 1: neutral (D10)\n\n// 0x5E4160\nUIRadioAdminClass::UIRadioAdminClass(SClient *client) :\n\tChatPanelUIBase(client),\n\tSlider(NULL),\n\tTop(0),\n\tSelection(-1)\n{\n\tmemset(Buttons, 0, sizeof(Buttons));\n\tmemset(Rows, 0, sizeof(Rows));\n\tfor (int i = 0; i < 7; i++) {\n\t\tTexts[i] = NULL;\n\t}\n}\n\n// 0x5E4300\n// the deactivation through Unknown_5C, as ui_playeropt.cpp's: the client's vector and list erase calls sit one\n// layer down (Unknown_5C -> the clear helper -> clear), out of line\nUIRadioAdminClass::~UIRadioAdminClass()\n{\n\tUnknown_5C();\n\tif (Slider) {\n\t\tSlider->Unknown_66E460(RefCountPtr<RenderObjClass>(), 0, 0);\n\t}\n}\n\n// 0x5E4500\nvoid UIRadioAdminClass::Unknown_54()\n{\n\tif (Unknown_98(\"cht05\", \"cht05.ini\")) {\n\t\tint i;\n\t\tfor (i = 0; i < 7; i++) {\n\t\t\tButtons[i] = Add_Button(i + 1, Unknown_B85344[i], NULL);\n\t\t\tGadgetClass::Set_Tooltip(Buttons[i], \"UI_RADIO_ADMIN\", Unknown_B85344[i]);\n\t\t}\n\t\tfor (i = 0; i < 7; i++) {\n\t\t\tchar name[0x20];\t// NAME 1: neutral (D10)\n\t\t\t_snprintf(name, sizeof(name), \"NAME%02d\", i);\n\t\t\tRows[i] = Add_Button(i + 9, name, NULL);\n\t\t\tRows[i]->Unknown2C_0A = true;\n\t\t\t_snprintf(name, sizeof(name), \"name%02d_Cht05\", i);\n\t\t\tTexts[i] = Create_Peek(Unknown_BE67C4->Get_Style(name, Interface_Mesh()));\n\t\t}\n\t\tSlider = Add_Slider(0x11, 0);\n\t\tSlider->Unknown_66E460(InterfaceMesh, 0, 0);\n\t\tAdd_Back_Gadget(0, Vector3(0.0f, 0.0f, 0.0f));\n\t}\n}\n\n// 0x5E4720\nvoid UIRadioAdminClass::Unknown_58()\n{\n\tif (!Active) {\n\t\tInterfaceSortScopeClass sort(this);\t// NAME 1: neutral (D10)\n\t\tChatPanelUIBase::Unknown_58();\n\t\tUnknown_5E4DB0();\n\t\tUnknown_5E4E70();\n\t\tTop = -1;\n\t\tUnknown_5E4C60(0);\n\t\tUnknown_5E5B10();\n\t\tUnknown_5E5A40(true);\n\t\tif (Buttons[0]) {\n\t\t\t((RObjGadgetClass *)Buttons[0])->Unknown_66C360();\n\t\t}\n\t}\n}\n\n// 0x5E49A0\nvoid UIRadioAdminClass::Unknown_5C()\n{\n\tif (Active) {\n\t\tUnknown_5E5A40(false);\n\t\tUnknown_5E4DB0();\n\t\tUnknown_5E4E70();\n\t\tInterfaceClass::Unknown_5C();\n\t}\n}\n\n// 0x5E4AC0\nvoid UIRadioAdminClass::Unknown_60()\n{\n\tUnknown_5E4CD0();\n\tUnknown_5E5200();\n}\n\n// 0x5E4B80\nbool UIRadioAdminClass::Unknown_68(int key)\n{\n\tswitch (key) {\n\t\tcase 1:\n\t\tcase 7:\n\t\t\tSoundLibraryClass::Play_2D_Sound(\"Roll_Select02b.wav\", 2);\n\t\t\tUnknown_5C();\n\t\t\tClosed = 1;\n\t\t\treturn(true);\n\t\tcase 2:\n\t\tcase 3:\n\t\tcase 4:\n\t\tcase 5:\n\t\tcase 6:\n\t\t\tSoundLibraryClass::Play_2D_Sound(\"Roll_Select02b.wav\", 2);\n\t\t\tUnknown_5E5360(key);\n\t\t\treturn(true);\n\t\tcase 9:\n\t\tcase 10:\n\t\tcase 11:\n\t\tcase 12:\n\t\tcase 13:\n\t\tcase 14:\n\t\tcase 15:\n\t\t\tSoundLibraryClass::Play_2D_Sound(\"fontclick.wav\", 2);\n\t\t\tUnknown_5E5290(key - 9);\n\t\t\treturn(true);\n\t}\n\treturn(false);\n}\n\n// 0x5E4C60\nvoid UIRadioAdminClass::Unknown_5E4C60(int count)\n{\n\tSlider->Unknown_66FA90((float)count, 7.0f, true);\n\tUnknown_5E4CD0();\n}\n\n// 0x5E4CD0\nvoid UIRadioAdminClass::Unknown_5E4CD0()\n{\n\tint top = (int)Slider->Value;\t// NAME 1: neutral (D10)\n\tif (Top != top) {\n\t\tTop = top;\n\t\tUnknown_5E4D10();\n\t}\n}\n\n// 0x5E4D10\nvoid UIRadioAdminClass::Unknown_5E4D10()\n{\n\tfor (int i = 0; i < 7; i++) {\n\t\tunsigned int index = Top + i;\t// NAME 1: neutral (D10)\n\t\tif (index < Names.size()) {\n\t\t\tTexts[i]->Change_Text(Names[index].c_str(), 0);\n\t\t\tRows[i]->Unknown_40(true);\n\t\t} else {\n\t\t\tTexts[i]->Change_Text(\" \", 0);\n\t\t\tRows[i]->Unknown_40(false);\n\t\t}\n\t}\n}\n\n// 0x5E4DB0\nvoid UIRadioAdminClass::Unknown_5E4DB0()\n{\n\tNames.clear();\n}\n\n// 0x5E4E70\nvoid UIRadioAdminClass::Unknown_5E4E70()\n{\n\tUnknown0BC.clear();\n}\n\n// 0x5E4F10\n// the client's loop form: ++ on the list iterator, the wcscoll result in a named int (with it++ and the\n// test inline, the inner copy's destructor is merged into one _Tidy call and the copies' slots swap)\nvoid UIRadioAdminClass::Unknown_5E4F10()\n{\n\tUnknown_5E4DB0();\n\tfor (std::list<std::string>::iterator it = Unknown0BC.begin(); it != Unknown0BC.end(); ++it) {\n\t\tstd::string name = *it;\t// NAME 1: neutral (D10)\n\t\tstd::vector<std::string>::iterator pos;\n\t\tfor (pos = Names.begin(); pos != Names.end(); pos++) {\n\t\t\tstd::string other = *pos;\t// NAME 1: neutral (D10)\n\t\t\tint result = wcscoll((const wchar_t *)name.c_str(), (const wchar_t *)other.c_str());\n\t\t\tif (result < 0) {\n\t\t\t\tbreak;\n\t\t\t}\n\t\t}\n\t\tNames.insert(pos, name);\n\t}\n\tTop = -1;\n\tUnknown_5E4C60(Names.size());\n\tSelection = -1;\n\tButtons[1]->Unknown_40(false);\n\tButtons[2]->Unknown_40(false);\n\tButtons[3]->Unknown_40(false);\n\tButtons[4]->Unknown_40(false);\n\tButtons[5]->Unknown_40(false);\n}\n\n// 0x5E5200\nvoid UIRadioAdminClass::Unknown_5E5200()\n{\n\tfloat x;\n\tfloat y;\n\tUnknown_42ECF0(&x, &y);\n\tfor (int i = 0; i < 7; i++) {\n\t\tif (Rows[i]->Unknown_30(x, y) || Top + i == Selection) {\n\t\t\tTexts[i]->Unknown_6CE910(true);\n\t\t} else {\n\t\t\tTexts[i]->Unknown_6CE910(false);\n\t\t}\n\t}\n}\n\n// 0x5E5290\nvoid UIRadioAdminClass::Unknown_5E5290(int index)\n{\n\tSelection = index + Top;\n\tif (Selection >= 0 && Selection < (int)Names.size()) {\n\t\tSClient *sclient = (SClient *)((ClientClass *)Client)->As_Space_Client();\t// NAME 1: neutral (D10)\n\t\tChatPanelInterface *chat = sclient->ChatPanel.Peek();\t// NAME 1: neutral (D10)\n\t\tif (chat && chat->Unknown224) {\n\t\t\tButtons[1]->Unknown_40(true);\n\t\t\tButtons[2]->Unknown_40(true);\n\t\t\tButtons[3]->Unknown_40(true);\n\t\t\tButtons[4]->Unknown_40(true);\n\t\t\tButtons[5]->Unknown_40(true);\n\t\t}\n\t}\n}\n\n// 0x5E5360\n// NOT EXACT: inline budget and stack slots (cases 5 and 6: the client destroys the channel's temporary inline and expands the selected name's assignment in case 6, its temporaries at other frame offsets)\nvoid UIRadioAdminClass::Unknown_5E5360(int key)\n{\n\tif (Selection < 0 || Selection >= (int)Names.size()) {\n\t\treturn;\n\t}\n\tSClient *sclient = (SClient *)((ClientClass *)Client)->As_Space_Client();\t// NAME 1: neutral (D10)\n\tChatPanelInterface *chat = sclient->ChatPanel.Peek();\t// NAME 1: neutral (D10)\n\tswitch (key) {\n\t\tcase 2:\n\t\t{\n\t\t\tint id = ((ClientClass *)Client)->Unknown1138;\t// NAME 1: neutral (D10)\n\t\t\tClientChatRequestPacketClass packet(0x10, id);\n\t\t\tpacket.Unknown24 = chat->Unknown_5682C0();\n\t\t\tpacket.Unknown14 = Names[Selection];\n\t\t\t((ClientClass *)Client)->Send_Packet(&packet);\n\t\t\tbreak;\n\t\t}\n\t\tcase 3:\n\t\t{\n\t\t\tint id = ((ClientClass *)Client)->Unknown1138;\t// NAME 1: neutral (D10)\n\t\t\tClientChatRequestPacketClass packet(0x11, id);\n\t\t\tpacket.Unknown24 = chat->Unknown_5682C0();\n\t\t\tpacket.Unknown14 = Names[Selection];\n\t\t\t((ClientClass *)Client)->Send_Packet(&packet);\n\t\t\tbreak;\n\t\t}\n\t\tcase 4:\n\t\t{\n\t\t\tint id = ((ClientClass *)Client)->Unknown1138;\t// NAME 1: neutral (D10)\n\t\t\tClientChatRequestPacketClass packet(0x0E, id);\n\t\t\tpacket.Unknown24 = chat->Unknown_5682C0();\n\t\t\tpacket.Unknown14 = Names[Selection];\n\t\t\t((ClientClass *)Client)->Send_Packet(&packet);\n\t\t\tbreak;\n\t\t}\n\t\tcase 5:\n\t\t{\n\t\t\tint id = ((ClientClass *)Client)->Unknown1138;\t// NAME 1: neutral (D10)\n\t\t\tClientChatRequestPacketClass packet(0x14, id);\n\t\t\tpacket.Unknown24 = chat->Unknown_5682C0();\n\t\t\tpacket.Unknown14 = Names[Selection];\n\t\t\t((ClientClass *)Client)->Send_Packet(&packet);\n\t\t\tbreak;\n\t\t}\n\t\tcase 6:\n\t\t{\n\t\t\tint id = ((ClientClass *)Client)->Unknown1138;\t// NAME 1: neutral (D10)\n\t\t\tClientChatRequestPacketClass packet(0x12, id);\n\t\t\tpacket.Unknown24 = chat->Unknown_5682C0();\n\t\t\tpacket.Unknown14 = Names[Selection];\n\t\t\t((ClientClass *)Client)->Send_Packet(&packet);\n\t\t\tbreak;\n\t\t}\n\t}\n}\n\n// 0x5E5A40\nvoid UIRadioAdminClass::Unknown_5E5A40(bool on)\n{\n\tint i;\n\tfor (i = 0; i < 7; i++) {\n\t\tif (Buttons[i]) {\n\t\t\tButtons[i]->Unknown_40(on);\n\t\t}\n\t}\n\tfor (i = 0; i < 7; i++) {\n\t\tif (Rows[i]) {\n\t\t\tRows[i]->Unknown_40(on);\n\t\t}\n\t}\n\tif (Selection < 0) {\n\t\tButtons[1]->Unknown_40(false);\n\t\tButtons[2]->Unknown_40(false);\n\t\tButtons[3]->Unknown_40(false);\n\t\tButtons[4]->Unknown_40(false);\n\t\tButtons[5]->Unknown_40(false);\n\t}\n}\n\n// 0x5E5B10\nvoid UIRadioAdminClass::Unknown_5E5B10()\n{\n\tSClient *sclient = (SClient *)((ClientClass *)Client)->As_Space_Client();\t// NAME 1: neutral (D10)\n\tChatPanelInterface *chat = sclient->ChatPanel.Peek();\t// NAME 1: neutral (D10)\n\tint id = ((ClientClass *)Client)->Unknown1138;\t// NAME 1: neutral (D10)\n\tClientChatRequestPacketClass packet(0x1B, id);\n\tpacket.Unknown24 = chat->Unknown_5682C0();\n\t((ClientClass *)Client)->Send_Packet(&packet);\n}\n\n// 0x5E5D70\nvoid UIRadioAdminClass::Unknown_5E5D70(std::vector<std::string> names)\n{\n\tUnknown_5E4E70();\n\tfor (std::vector<std::string>::iterator it = names.begin(); it != names.end(); it++) {\n\t\tUnknown0BC.push_back(*it);\n\t}\n\tUnknown_5E4F10();\n\tUnknown_5E5A40(true);\n\tUnknown_5E4D10();\n}\n\n// 0x5E5EF0\nvoid UIRadioAdminClass::Unknown_5E5EF0(std::string name)\n{\n\tUnknown0BC.push_back(name);\n\tUnknown_5E4F10();\n\tUnknown_5E4D10();\n}\n\n// 0x5E6030\nvoid UIRadioAdminClass::Unknown_5E6030(std::string name)\n{\n\tfor (std::list<std::string>::iterator it = Unknown0BC.begin(); it != Unknown0BC.end(); it++) {\n\t\tstd::string other = *it;\t// NAME 1: neutral (D10)\n\t\tif (strcmp(other.c_str(), name.c_str()) == 0) {\n\t\t\tUnknown0BC.erase(it);\n\t\t\tbreak;\n\t\t}\n\t}\n\tUnknown_5E4F10();\n\tUnknown_5E4D10();\n}\n\n/*\n**\tNotes.\n**\tObject 0x5E4160-0x5E628F: the constructor 0x5E4160 opens it, after ui_ptrade.cpp's adjustor thunks 0x5E4140 /\n**\t0x5E4150; this window's adjustor thunks 0x5E6270 / 0x5E6280 close it and ui_radio_entry.cpp's constructor\n**\t0x5E6290 follows. ui_chat_panel.cpp makes it as its stand-in Unknown5E4160Class (request 10, also kept at +0xE8);\n**\tcpacket.cpp calls 0x5E5D70, 0x5E5EF0 and 0x5E6030 through its stand-in. Requests: 27 (0x1B) asks for the\n**\tchannel's members; buttons 2-6 send 16, 17, 14, 20 and 18 with the channel (Unknown24) and the selected member\n**\t(Unknown14).\n*/\n",
+  "patches": [
+    {
+      "name": "channel_assign_all",
+      "source_sha256": "812c85931aaf03e36b9dead88707e0558925cc44de0a68401d0a54c9d2dcaa26",
+      "patch": "--- a/app/client/ui_radio_admin.cpp\n+++ b/app/client/ui_radio_admin.cpp\n@@ -259 +259 @@\n-\t\t\tpacket.Unknown24 = chat->Unknown_5682C0();\n+\t\t\tpacket.Unknown24.assign(chat->Unknown_5682C0());\n@@ -268 +268 @@\n-\t\t\tpacket.Unknown24 = chat->Unknown_5682C0();\n+\t\t\tpacket.Unknown24.assign(chat->Unknown_5682C0());\n@@ -277 +277 @@\n-\t\t\tpacket.Unknown24 = chat->Unknown_5682C0();\n+\t\t\tpacket.Unknown24.assign(chat->Unknown_5682C0());\n@@ -286 +286 @@\n-\t\t\tpacket.Unknown24 = chat->Unknown_5682C0();\n+\t\t\tpacket.Unknown24.assign(chat->Unknown_5682C0());\n@@ -295 +295 @@\n-\t\t\tpacket.Unknown24 = chat->Unknown_5682C0();\n+\t\t\tpacket.Unknown24.assign(chat->Unknown_5682C0());\n"
+    },
+    {
+      "name": "selected_assign_all",
+      "source_sha256": "087bb83c1be6e621c2e8bd7f91c849eb524007b34e2f742e0e21f51c2675b5a9",
+      "patch": "--- a/app/client/ui_radio_admin.cpp\n+++ b/app/client/ui_radio_admin.cpp\n@@ -260 +260 @@\n-\t\t\tpacket.Unknown14 = Names[Selection];\n+\t\t\tpacket.Unknown14.assign(Names[Selection]);\n@@ -269 +269 @@\n-\t\t\tpacket.Unknown14 = Names[Selection];\n+\t\t\tpacket.Unknown14.assign(Names[Selection]);\n@@ -278 +278 @@\n-\t\t\tpacket.Unknown14 = Names[Selection];\n+\t\t\tpacket.Unknown14.assign(Names[Selection]);\n@@ -287 +287 @@\n-\t\t\tpacket.Unknown14 = Names[Selection];\n+\t\t\tpacket.Unknown14.assign(Names[Selection]);\n@@ -296 +296 @@\n-\t\t\tpacket.Unknown14 = Names[Selection];\n+\t\t\tpacket.Unknown14.assign(Names[Selection]);\n"
+    },
+    {
+      "name": "both_assign_all",
+      "source_sha256": "34f134489cda7c826df977a2dcf5b89bd30336f8482be864eb6c9750dbbb6769",
+      "patch": "--- a/app/client/ui_radio_admin.cpp\n+++ b/app/client/ui_radio_admin.cpp\n@@ -259,2 +259,2 @@\n-\t\t\tpacket.Unknown24 = chat->Unknown_5682C0();\n-\t\t\tpacket.Unknown14 = Names[Selection];\n+\t\t\tpacket.Unknown24.assign(chat->Unknown_5682C0());\n+\t\t\tpacket.Unknown14.assign(Names[Selection]);\n@@ -268,2 +268,2 @@\n-\t\t\tpacket.Unknown24 = chat->Unknown_5682C0();\n-\t\t\tpacket.Unknown14 = Names[Selection];\n+\t\t\tpacket.Unknown24.assign(chat->Unknown_5682C0());\n+\t\t\tpacket.Unknown14.assign(Names[Selection]);\n@@ -277,2 +277,2 @@\n-\t\t\tpacket.Unknown24 = chat->Unknown_5682C0();\n-\t\t\tpacket.Unknown14 = Names[Selection];\n+\t\t\tpacket.Unknown24.assign(chat->Unknown_5682C0());\n+\t\t\tpacket.Unknown14.assign(Names[Selection]);\n@@ -286,2 +286,2 @@\n-\t\t\tpacket.Unknown24 = chat->Unknown_5682C0();\n-\t\t\tpacket.Unknown14 = Names[Selection];\n+\t\t\tpacket.Unknown24.assign(chat->Unknown_5682C0());\n+\t\t\tpacket.Unknown14.assign(Names[Selection]);\n@@ -295,2 +295,2 @@\n-\t\t\tpacket.Unknown24 = chat->Unknown_5682C0();\n-\t\t\tpacket.Unknown14 = Names[Selection];\n+\t\t\tpacket.Unknown24.assign(chat->Unknown_5682C0());\n+\t\t\tpacket.Unknown14.assign(Names[Selection]);\n"
+    },
+    {
+      "name": "channel_assign_last",
+      "source_sha256": "48fb0417995a593e7c88a1c21199f2dc8ad648fe5613c778a49ffa34dca3de6f",
+      "patch": "--- a/app/client/ui_radio_admin.cpp\n+++ b/app/client/ui_radio_admin.cpp\n@@ -295 +295 @@\n-\t\t\tpacket.Unknown24 = chat->Unknown_5682C0();\n+\t\t\tpacket.Unknown24.assign(chat->Unknown_5682C0());\n"
+    },
+    {
+      "name": "selected_assign_last",
+      "source_sha256": "02ad0610759e049dafaed98595ad83e9cbf339240dd638815da1619408c3f062",
+      "patch": "--- a/app/client/ui_radio_admin.cpp\n+++ b/app/client/ui_radio_admin.cpp\n@@ -296 +296 @@\n-\t\t\tpacket.Unknown14 = Names[Selection];\n+\t\t\tpacket.Unknown14.assign(Names[Selection]);\n"
+    },
+    {
+      "name": "channel_explicit_all",
+      "source_sha256": "f444271d5fba65e9ec4c98df5ff5de02cdda3d7ca9ce2f04a741e7b8a90597df",
+      "patch": "--- a/app/client/ui_radio_admin.cpp\n+++ b/app/client/ui_radio_admin.cpp\n@@ -259 +259 @@\n-\t\t\tpacket.Unknown24 = chat->Unknown_5682C0();\n+\t\t\tpacket.Unknown24.assign(chat->Unknown_5682C0(), 0, std::string::npos);\n@@ -268 +268 @@\n-\t\t\tpacket.Unknown24 = chat->Unknown_5682C0();\n+\t\t\tpacket.Unknown24.assign(chat->Unknown_5682C0(), 0, std::string::npos);\n@@ -277 +277 @@\n-\t\t\tpacket.Unknown24 = chat->Unknown_5682C0();\n+\t\t\tpacket.Unknown24.assign(chat->Unknown_5682C0(), 0, std::string::npos);\n@@ -286 +286 @@\n-\t\t\tpacket.Unknown24 = chat->Unknown_5682C0();\n+\t\t\tpacket.Unknown24.assign(chat->Unknown_5682C0(), 0, std::string::npos);\n@@ -295 +295 @@\n-\t\t\tpacket.Unknown24 = chat->Unknown_5682C0();\n+\t\t\tpacket.Unknown24.assign(chat->Unknown_5682C0(), 0, std::string::npos);\n"
+    },
+    {
+      "name": "selected_explicit_all",
+      "source_sha256": "8bfb02adefa028a68767f716d584d3c5bbd2f8b82bc1671d89c6f8c8cdcf3df4",
+      "patch": "--- a/app/client/ui_radio_admin.cpp\n+++ b/app/client/ui_radio_admin.cpp\n@@ -260 +260 @@\n-\t\t\tpacket.Unknown14 = Names[Selection];\n+\t\t\tpacket.Unknown14.assign(Names[Selection], 0, std::string::npos);\n@@ -269 +269 @@\n-\t\t\tpacket.Unknown14 = Names[Selection];\n+\t\t\tpacket.Unknown14.assign(Names[Selection], 0, std::string::npos);\n@@ -278 +278 @@\n-\t\t\tpacket.Unknown14 = Names[Selection];\n+\t\t\tpacket.Unknown14.assign(Names[Selection], 0, std::string::npos);\n@@ -287 +287 @@\n-\t\t\tpacket.Unknown14 = Names[Selection];\n+\t\t\tpacket.Unknown14.assign(Names[Selection], 0, std::string::npos);\n@@ -296 +296 @@\n-\t\t\tpacket.Unknown14 = Names[Selection];\n+\t\t\tpacket.Unknown14.assign(Names[Selection], 0, std::string::npos);\n"
+    },
+    {
+      "name": "channel_ref_all",
+      "source_sha256": "adaddf60f5fb4c8a586c72a82dc2940f568e52d899a66a420fabbba04dc2e68d",
+      "patch": "--- a/app/client/ui_radio_admin.cpp\n+++ b/app/client/ui_radio_admin.cpp\n@@ -259 +259 @@\n-\t\t\tpacket.Unknown24 = chat->Unknown_5682C0();\n+\t\t\t{ const std::string &channel = chat->Unknown_5682C0(); packet.Unknown24 = channel; }\n@@ -268 +268 @@\n-\t\t\tpacket.Unknown24 = chat->Unknown_5682C0();\n+\t\t\t{ const std::string &channel = chat->Unknown_5682C0(); packet.Unknown24 = channel; }\n@@ -277 +277 @@\n-\t\t\tpacket.Unknown24 = chat->Unknown_5682C0();\n+\t\t\t{ const std::string &channel = chat->Unknown_5682C0(); packet.Unknown24 = channel; }\n@@ -286 +286 @@\n-\t\t\tpacket.Unknown24 = chat->Unknown_5682C0();\n+\t\t\t{ const std::string &channel = chat->Unknown_5682C0(); packet.Unknown24 = channel; }\n@@ -295 +295 @@\n-\t\t\tpacket.Unknown24 = chat->Unknown_5682C0();\n+\t\t\t{ const std::string &channel = chat->Unknown_5682C0(); packet.Unknown24 = channel; }\n"
+    },
+    {
+      "name": "channel_local_all",
+      "source_sha256": "6c8c94d727cd842f9826018f55993d93ca56d2de309be818f03b091ddd3165ab",
+      "patch": "--- a/app/client/ui_radio_admin.cpp\n+++ b/app/client/ui_radio_admin.cpp\n@@ -259 +259 @@\n-\t\t\tpacket.Unknown24 = chat->Unknown_5682C0();\n+\t\t\t{ std::string channel = chat->Unknown_5682C0(); packet.Unknown24 = channel; }\n@@ -268 +268 @@\n-\t\t\tpacket.Unknown24 = chat->Unknown_5682C0();\n+\t\t\t{ std::string channel = chat->Unknown_5682C0(); packet.Unknown24 = channel; }\n@@ -277 +277 @@\n-\t\t\tpacket.Unknown24 = chat->Unknown_5682C0();\n+\t\t\t{ std::string channel = chat->Unknown_5682C0(); packet.Unknown24 = channel; }\n@@ -286 +286 @@\n-\t\t\tpacket.Unknown24 = chat->Unknown_5682C0();\n+\t\t\t{ std::string channel = chat->Unknown_5682C0(); packet.Unknown24 = channel; }\n@@ -295 +295 @@\n-\t\t\tpacket.Unknown24 = chat->Unknown_5682C0();\n+\t\t\t{ std::string channel = chat->Unknown_5682C0(); packet.Unknown24 = channel; }\n"
+    },
+    {
+      "name": "channel_local_last",
+      "source_sha256": "37f88849f3aff570d6977a1005173d1f419a637a86a628b07005a6e4ab0e9249",
+      "patch": "--- a/app/client/ui_radio_admin.cpp\n+++ b/app/client/ui_radio_admin.cpp\n@@ -295 +295 @@\n-\t\t\tpacket.Unknown24 = chat->Unknown_5682C0();\n+\t\t\t{ std::string channel = chat->Unknown_5682C0(); packet.Unknown24 = channel; }\n"
+    },
+    {
+      "name": "channel_local_56",
+      "source_sha256": "81f95204241adceafebd29c5acb5097a35123175fba65cade620b4666565a669",
+      "patch": "--- a/app/client/ui_radio_admin.cpp\n+++ b/app/client/ui_radio_admin.cpp\n@@ -286 +286 @@\n-\t\t\tpacket.Unknown24 = chat->Unknown_5682C0();\n+\t\t\t{ std::string channel = chat->Unknown_5682C0(); packet.Unknown24 = channel; }\n@@ -295 +295 @@\n-\t\t\tpacket.Unknown24 = chat->Unknown_5682C0();\n+\t\t\t{ std::string channel = chat->Unknown_5682C0(); packet.Unknown24 = channel; }\n"
+    },
+    {
+      "name": "channel_ref_last",
+      "source_sha256": "58adfcab7282fb9eee3044062b3c285cf435162659813bfe78a9fc4c128a1fef",
+      "patch": "--- a/app/client/ui_radio_admin.cpp\n+++ b/app/client/ui_radio_admin.cpp\n@@ -295 +295 @@\n-\t\t\tpacket.Unknown24 = chat->Unknown_5682C0();\n+\t\t\t{ const std::string &channel = chat->Unknown_5682C0(); packet.Unknown24 = channel; }\n"
+    },
+    {
+      "name": "selected_ref_all",
+      "source_sha256": "26fb35708ae56e70aa9f70dd0eab5b1d2d5d37542333020cf6a38845f60325f3",
+      "patch": "--- a/app/client/ui_radio_admin.cpp\n+++ b/app/client/ui_radio_admin.cpp\n@@ -260 +260 @@\n-\t\t\tpacket.Unknown14 = Names[Selection];\n+\t\t\tconst std::string &name = Names[Selection]; packet.Unknown14 = name;\n@@ -269 +269 @@\n-\t\t\tpacket.Unknown14 = Names[Selection];\n+\t\t\tconst std::string &name = Names[Selection]; packet.Unknown14 = name;\n@@ -278 +278 @@\n-\t\t\tpacket.Unknown14 = Names[Selection];\n+\t\t\tconst std::string &name = Names[Selection]; packet.Unknown14 = name;\n@@ -287 +287 @@\n-\t\t\tpacket.Unknown14 = Names[Selection];\n+\t\t\tconst std::string &name = Names[Selection]; packet.Unknown14 = name;\n@@ -296 +296 @@\n-\t\t\tpacket.Unknown14 = Names[Selection];\n+\t\t\tconst std::string &name = Names[Selection]; packet.Unknown14 = name;\n"
+    },
+    {
+      "name": "selected_iter_all",
+      "source_sha256": "466b9d30b5f579ba9b62143f89c98775878f1ebc53bf95910186ae2caa15aa7b",
+      "patch": "--- a/app/client/ui_radio_admin.cpp\n+++ b/app/client/ui_radio_admin.cpp\n@@ -260 +260 @@\n-\t\t\tpacket.Unknown14 = Names[Selection];\n+\t\t\tpacket.Unknown14 = *(Names.begin() + Selection);\n@@ -269 +269 @@\n-\t\t\tpacket.Unknown14 = Names[Selection];\n+\t\t\tpacket.Unknown14 = *(Names.begin() + Selection);\n@@ -278 +278 @@\n-\t\t\tpacket.Unknown14 = Names[Selection];\n+\t\t\tpacket.Unknown14 = *(Names.begin() + Selection);\n@@ -287 +287 @@\n-\t\t\tpacket.Unknown14 = Names[Selection];\n+\t\t\tpacket.Unknown14 = *(Names.begin() + Selection);\n@@ -296 +296 @@\n-\t\t\tpacket.Unknown14 = Names[Selection];\n+\t\t\tpacket.Unknown14 = *(Names.begin() + Selection);\n"
+    },
+    {
+      "name": "selected_explicit_last",
+      "source_sha256": "4da1f8f4b2cf6f45fd2e2a42fd741d657526aed6ea744db7d3490923eca80649",
+      "patch": "--- a/app/client/ui_radio_admin.cpp\n+++ b/app/client/ui_radio_admin.cpp\n@@ -296 +296 @@\n-\t\t\tpacket.Unknown14 = Names[Selection];\n+\t\t\tpacket.Unknown14.assign(Names[Selection], 0, std::string::npos);\n"
+    },
+    {
+      "name": "channel_explicit_last",
+      "source_sha256": "7a2b1fe5688dc65edb8dbc1e2956c82a4f49b7ae0e1e1d0fda2165841c7d9cdf",
+      "patch": "--- a/app/client/ui_radio_admin.cpp\n+++ b/app/client/ui_radio_admin.cpp\n@@ -295 +295 @@\n-\t\t\tpacket.Unknown24 = chat->Unknown_5682C0();\n+\t\t\tpacket.Unknown24.assign(chat->Unknown_5682C0(), 0, std::string::npos);\n"
+    },
+    {
+      "name": "channel_ctor_all",
+      "source_sha256": "c6bb8c9be74cd3ca835d9630a975ca7fa88849b82ba676f4d0bc3e2a06de5345",
+      "patch": "--- a/app/client/ui_radio_admin.cpp\n+++ b/app/client/ui_radio_admin.cpp\n@@ -259 +259 @@\n-\t\t\tpacket.Unknown24 = chat->Unknown_5682C0();\n+\t\t\tpacket.Unknown24 = std::string(chat->Unknown_5682C0());\n@@ -268 +268 @@\n-\t\t\tpacket.Unknown24 = chat->Unknown_5682C0();\n+\t\t\tpacket.Unknown24 = std::string(chat->Unknown_5682C0());\n@@ -277 +277 @@\n-\t\t\tpacket.Unknown24 = chat->Unknown_5682C0();\n+\t\t\tpacket.Unknown24 = std::string(chat->Unknown_5682C0());\n@@ -286 +286 @@\n-\t\t\tpacket.Unknown24 = chat->Unknown_5682C0();\n+\t\t\tpacket.Unknown24 = std::string(chat->Unknown_5682C0());\n@@ -295 +295 @@\n-\t\t\tpacket.Unknown24 = chat->Unknown_5682C0();\n+\t\t\tpacket.Unknown24 = std::string(chat->Unknown_5682C0());\n"
+    },
+    {
+      "name": "channel_ctor_last",
+      "source_sha256": "052e66f08733dd4101db18233087dd74668bd6502ec236d7c77fcc2bc5b5e945",
+      "patch": "--- a/app/client/ui_radio_admin.cpp\n+++ b/app/client/ui_radio_admin.cpp\n@@ -295 +295 @@\n-\t\t\tpacket.Unknown24 = chat->Unknown_5682C0();\n+\t\t\tpacket.Unknown24 = std::string(chat->Unknown_5682C0());\n"
+    },
+    {
+      "name": "selected_ctor_last",
+      "source_sha256": "4c107c2092d61ba30e3670b581da67249ee53a0d10199a8912233433ca8820ee",
+      "patch": "--- a/app/client/ui_radio_admin.cpp\n+++ b/app/client/ui_radio_admin.cpp\n@@ -296 +296 @@\n-\t\t\tpacket.Unknown14 = Names[Selection];\n+\t\t\tpacket.Unknown14 = std::string(Names[Selection]);\n"
+    },
+    {
+      "name": "channel_ctor_selected_assign",
+      "source_sha256": "3cf2a0fec5b1de9c1520ace95157203efc66145842cba19f0d4f7858edbf1db7",
+      "patch": "--- a/app/client/ui_radio_admin.cpp\n+++ b/app/client/ui_radio_admin.cpp\n@@ -259,2 +259,2 @@\n-\t\t\tpacket.Unknown24 = chat->Unknown_5682C0();\n-\t\t\tpacket.Unknown14 = Names[Selection];\n+\t\t\tpacket.Unknown24 = std::string(chat->Unknown_5682C0());\n+\t\t\tpacket.Unknown14.assign(Names[Selection]);\n@@ -268,2 +268,2 @@\n-\t\t\tpacket.Unknown24 = chat->Unknown_5682C0();\n-\t\t\tpacket.Unknown14 = Names[Selection];\n+\t\t\tpacket.Unknown24 = std::string(chat->Unknown_5682C0());\n+\t\t\tpacket.Unknown14.assign(Names[Selection]);\n@@ -277,2 +277,2 @@\n-\t\t\tpacket.Unknown24 = chat->Unknown_5682C0();\n-\t\t\tpacket.Unknown14 = Names[Selection];\n+\t\t\tpacket.Unknown24 = std::string(chat->Unknown_5682C0());\n+\t\t\tpacket.Unknown14.assign(Names[Selection]);\n@@ -286,2 +286,2 @@\n-\t\t\tpacket.Unknown24 = chat->Unknown_5682C0();\n-\t\t\tpacket.Unknown14 = Names[Selection];\n+\t\t\tpacket.Unknown24 = std::string(chat->Unknown_5682C0());\n+\t\t\tpacket.Unknown14.assign(Names[Selection]);\n@@ -295,2 +295,2 @@\n-\t\t\tpacket.Unknown24 = chat->Unknown_5682C0();\n-\t\t\tpacket.Unknown14 = Names[Selection];\n+\t\t\tpacket.Unknown24 = std::string(chat->Unknown_5682C0());\n+\t\t\tpacket.Unknown14.assign(Names[Selection]);\n"
+    }
+  ],
+  "metrics": [
+    {
+      "name": "baseline",
+      "raw_rows": 117,
+      "masked_rows": 87,
+      "register_masked_rows": 91,
+      "code_sha256": "fb89dee30ddb00c9424534b81ac9c6c55d661974112e0668af2ea93cefd693fb",
+      "code_bytes": 1536,
+      "class": "inline-budget",
+      "branch": {
+        "bytes": [
+          1516,
+          1376
+        ],
+        "size": 0,
+        "target": 0
+      },
+      "source_sha256": "09aa7ecca73e2b27dbce2aba1e21c00d035eea0cb868b08e221a65ef09c11d30",
+      "counts": {
+        "exact": 69,
+        "none": 3
+      },
+      "gained": [],
+      "lost": [],
+      "gained_addresses": [],
+      "lost_addresses": []
+    },
+    {
+      "name": "channel_assign_all",
+      "raw_rows": 113,
+      "masked_rows": 81,
+      "register_masked_rows": 79,
+      "code_sha256": "1dcdefc80d66069efd6d2d5ab6d8c4958a602f356dda7e231d10304604f4a161",
+      "code_bytes": 1584,
+      "class": "inline-budget",
+      "branch": {
+        "bytes": [
+          1552,
+          1376
+        ],
+        "size": 0,
+        "target": 3
+      },
+      "source_sha256": "812c85931aaf03e36b9dead88707e0558925cc44de0a68401d0a54c9d2dcaa26",
+      "counts": {
+        "exact": 69,
+        "none": 3
+      },
+      "gained": [],
+      "lost": [],
+      "gained_addresses": [],
+      "lost_addresses": []
+    },
+    {
+      "name": "selected_assign_all",
+      "raw_rows": 113,
+      "masked_rows": 81,
+      "register_masked_rows": 79,
+      "code_sha256": "1dcdefc80d66069efd6d2d5ab6d8c4958a602f356dda7e231d10304604f4a161",
+      "code_bytes": 1584,
+      "class": "inline-budget",
+      "branch": {
+        "bytes": [
+          1552,
+          1376
+        ],
+        "size": 0,
+        "target": 3
+      },
+      "source_sha256": "087bb83c1be6e621c2e8bd7f91c849eb524007b34e2f742e0e21f51c2675b5a9",
+      "counts": {
+        "exact": 69,
+        "none": 3
+      },
+      "gained": [],
+      "lost": [],
+      "gained_addresses": [],
+      "lost_addresses": []
+    },
+    {
+      "name": "both_assign_all",
+      "raw_rows": 105,
+      "masked_rows": 71,
+      "register_masked_rows": 74,
+      "code_sha256": "b683db782019b04c86f46d0e52ad30ffcac084a2e7d3dd66ec8dcab00ccdfa34",
+      "code_bytes": 1584,
+      "class": "inline-budget",
+      "branch": {
+        "bytes": [
+          1552,
+          1376
+        ],
+        "size": 0,
+        "target": 0
+      },
+      "source_sha256": "34f134489cda7c826df977a2dcf5b89bd30336f8482be864eb6c9750dbbb6769",
+      "counts": {
+        "exact": 69,
+        "none": 3
+      },
+      "gained": [],
+      "lost": [],
+      "gained_addresses": [],
+      "lost_addresses": []
+    },
+    {
+      "name": "channel_assign_last",
+      "raw_rows": 113,
+      "masked_rows": 81,
+      "register_masked_rows": 79,
+      "code_sha256": "1dcdefc80d66069efd6d2d5ab6d8c4958a602f356dda7e231d10304604f4a161",
+      "code_bytes": 1584,
+      "class": "inline-budget",
+      "branch": {
+        "bytes": [
+          1552,
+          1376
+        ],
+        "size": 0,
+        "target": 3
+      },
+      "source_sha256": "48fb0417995a593e7c88a1c21199f2dc8ad648fe5613c778a49ffa34dca3de6f",
+      "counts": {
+        "exact": 69,
+        "none": 3
+      },
+      "gained": [],
+      "lost": [],
+      "gained_addresses": [],
+      "lost_addresses": []
+    },
+    {
+      "name": "selected_assign_last",
+      "raw_rows": 113,
+      "masked_rows": 81,
+      "register_masked_rows": 79,
+      "code_sha256": "1dcdefc80d66069efd6d2d5ab6d8c4958a602f356dda7e231d10304604f4a161",
+      "code_bytes": 1584,
+      "class": "inline-budget",
+      "branch": {
+        "bytes": [
+          1552,
+          1376
+        ],
+        "size": 0,
+        "target": 3
+      },
+      "source_sha256": "02ad0610759e049dafaed98595ad83e9cbf339240dd638815da1619408c3f062",
+      "counts": {
+        "exact": 69,
+        "none": 3
+      },
+      "gained": [],
+      "lost": [],
+      "gained_addresses": [],
+      "lost_addresses": []
+    },
+    {
+      "name": "channel_explicit_all",
+      "raw_rows": 507,
+      "masked_rows": 629,
+      "register_masked_rows": 615,
+      "code_sha256": "158a7fe858c9f4001db7446dd914967d127b312f760cfc0794a7e64824f576ed",
+      "code_bytes": 1712,
+      "class": "inline-budget",
+      "branch": {
+        "bytes": [
+          1692,
+          1376
+        ],
+        "size": 0,
+        "target": 1
+      },
+      "source_sha256": "f444271d5fba65e9ec4c98df5ff5de02cdda3d7ca9ce2f04a741e7b8a90597df",
+      "counts": {
+        "exact": 69,
+        "none": 3
+      },
+      "gained": [],
+      "lost": [],
+      "gained_addresses": [],
+      "lost_addresses": []
+    },
+    {
+      "name": "selected_explicit_all",
+      "raw_rows": 601,
+      "masked_rows": 588,
+      "register_masked_rows": 584,
+      "code_sha256": "d8e0ff863ba10bc3e15e132bc78b4c8e6e290e10192e1d84dc53710a1d86c81f",
+      "code_bytes": 1680,
+      "class": "inline-budget",
+      "branch": {
+        "bytes": [
+          1660,
+          1376
+        ],
+        "size": 0,
+        "target": 0
+      },
+      "source_sha256": "8bfb02adefa028a68767f716d584d3c5bbd2f8b82bc1671d89c6f8c8cdcf3df4",
+      "counts": {
+        "exact": 69,
+        "none": 3
+      },
+      "gained": [],
+      "lost": [],
+      "gained_addresses": [],
+      "lost_addresses": []
+    },
+    {
+      "name": "channel_ref_all",
+      "raw_rows": 196,
+      "masked_rows": 156,
+      "register_masked_rows": 86,
+      "code_sha256": "c344aa5da7705b772b11197307b0ac562de277f935b5095858ef0cb9b6d9586b",
+      "code_bytes": 1520,
+      "class": "shape",
+      "branch": {
+        "bytes": [
+          1500,
+          1376
+        ],
+        "size": 0,
+        "target": 0
+      },
+      "source_sha256": "adaddf60f5fb4c8a586c72a82dc2940f568e52d899a66a420fabbba04dc2e68d",
+      "counts": {
+        "exact": 69,
+        "none": 3
+      },
+      "gained": [
+        [
+          "_$E269",
+          "0x5E6240"
+        ]
+      ],
+      "lost": [
+        [
+          "_$E264",
+          "0x5E6240"
+        ]
+      ],
+      "gained_addresses": [],
+      "lost_addresses": []
+    },
+    {
+      "name": "channel_local_all",
+      "raw_rows": 210,
+      "masked_rows": 166,
+      "register_masked_rows": 91,
+      "code_sha256": "78abdf36f9d021d358561a10786fe7faf7c4d3e2dd1fd35a41668d39d1d3cd02",
+      "code_bytes": 1520,
+      "class": "shape",
+      "branch": {
+        "bytes": [
+          1500,
+          1376
+        ],
+        "size": 0,
+        "target": 3
+      },
+      "source_sha256": "6c8c94d727cd842f9826018f55993d93ca56d2de309be818f03b091ddd3165ab",
+      "counts": {
+        "exact": 69,
+        "none": 3
+      },
+      "gained": [],
+      "lost": [],
+      "gained_addresses": [],
+      "lost_addresses": []
+    },
+    {
+      "name": "channel_local_last",
+      "raw_rows": 96,
+      "masked_rows": 69,
+      "register_masked_rows": 68,
+      "code_sha256": "dc6f325fd2674f21bba22de5d4f24855f0584a3d2860fa3f4f4556603850a188",
+      "code_bytes": 1552,
+      "class": "shape",
+      "branch": {
+        "bytes": [
+          1520,
+          1376
+        ],
+        "size": 0,
+        "target": 3
+      },
+      "source_sha256": "37f88849f3aff570d6977a1005173d1f419a637a86a628b07005a6e4ab0e9249",
+      "counts": {
+        "exact": 69,
+        "none": 3
+      },
+      "gained": [],
+      "lost": [],
+      "gained_addresses": [],
+      "lost_addresses": []
+    },
+    {
+      "name": "channel_local_56",
+      "raw_rows": 153,
+      "masked_rows": 82,
+      "register_masked_rows": 73,
+      "code_sha256": "a96690bccfff7814c930975378e0504fa8956327d481520a711475388dee360c",
+      "code_bytes": 1488,
+      "class": "shape",
+      "branch": {
+        "bytes": [
+          1467,
+          1376
+        ],
+        "size": 0,
+        "target": 3
+      },
+      "source_sha256": "81f95204241adceafebd29c5acb5097a35123175fba65cade620b4666565a669",
+      "counts": {
+        "exact": 69,
+        "none": 3
+      },
+      "gained": [],
+      "lost": [],
+      "gained_addresses": [],
+      "lost_addresses": []
+    },
+    {
+      "name": "channel_ref_last",
+      "raw_rows": 96,
+      "masked_rows": 69,
+      "register_masked_rows": 68,
+      "code_sha256": "e8d4c00f8d9867a0be2256a9a406dfc0a1e28c1b200375bae98df8d39d263e41",
+      "code_bytes": 1552,
+      "class": "shape",
+      "branch": {
+        "bytes": [
+          1520,
+          1376
+        ],
+        "size": 0,
+        "target": 3
+      },
+      "source_sha256": "58adfcab7282fb9eee3044062b3c285cf435162659813bfe78a9fc4c128a1fef",
+      "counts": {
+        "exact": 69,
+        "none": 3
+      },
+      "gained": [
+        [
+          "_$E265",
+          "0x5E6240"
+        ]
+      ],
+      "lost": [
+        [
+          "_$E264",
+          "0x5E6240"
+        ]
+      ],
+      "gained_addresses": [],
+      "lost_addresses": []
+    },
+    {
+      "name": "selected_ref_all",
+      "raw_rows": 105,
+      "masked_rows": 71,
+      "register_masked_rows": 74,
+      "code_sha256": "b683db782019b04c86f46d0e52ad30ffcac084a2e7d3dd66ec8dcab00ccdfa34",
+      "code_bytes": 1584,
+      "class": "inline-budget",
+      "branch": {
+        "bytes": [
+          1552,
+          1376
+        ],
+        "size": 0,
+        "target": 0
+      },
+      "source_sha256": "26fb35708ae56e70aa9f70dd0eab5b1d2d5d37542333020cf6a38845f60325f3",
+      "counts": {
+        "exact": 69,
+        "none": 3
+      },
+      "gained": [],
+      "lost": [],
+      "gained_addresses": [],
+      "lost_addresses": []
+    },
+    {
+      "name": "selected_iter_all",
+      "raw_rows": 113,
+      "masked_rows": 81,
+      "register_masked_rows": 79,
+      "code_sha256": "1dcdefc80d66069efd6d2d5ab6d8c4958a602f356dda7e231d10304604f4a161",
+      "code_bytes": 1584,
+      "class": "inline-budget",
+      "branch": {
+        "bytes": [
+          1552,
+          1376
+        ],
+        "size": 0,
+        "target": 3
+      },
+      "source_sha256": "466b9d30b5f579ba9b62143f89c98775878f1ebc53bf95910186ae2caa15aa7b",
+      "counts": {
+        "exact": 69,
+        "none": 3
+      },
+      "gained": [],
+      "lost": [],
+      "gained_addresses": [],
+      "lost_addresses": []
+    },
+    {
+      "name": "selected_explicit_last",
+      "raw_rows": 113,
+      "masked_rows": 81,
+      "register_masked_rows": 79,
+      "code_sha256": "1dcdefc80d66069efd6d2d5ab6d8c4958a602f356dda7e231d10304604f4a161",
+      "code_bytes": 1584,
+      "class": "inline-budget",
+      "branch": {
+        "bytes": [
+          1552,
+          1376
+        ],
+        "size": 0,
+        "target": 3
+      },
+      "source_sha256": "4da1f8f4b2cf6f45fd2e2a42fd741d657526aed6ea744db7d3490923eca80649",
+      "counts": {
+        "exact": 69,
+        "none": 3
+      },
+      "gained": [],
+      "lost": [],
+      "gained_addresses": [],
+      "lost_addresses": []
+    },
+    {
+      "name": "channel_explicit_last",
+      "raw_rows": 159,
+      "masked_rows": 134,
+      "register_masked_rows": 175,
+      "code_sha256": "d20c84c371c3635225143a45935b08adc5f48581a29d5beebee1606ecd9af2f1",
+      "code_bytes": 1632,
+      "class": "inline-budget",
+      "branch": {
+        "bytes": [
+          1608,
+          1376
+        ],
+        "size": 0,
+        "target": 2
+      },
+      "source_sha256": "7a2b1fe5688dc65edb8dbc1e2956c82a4f49b7ae0e1e1d0fda2165841c7d9cdf",
+      "counts": {
+        "exact": 69,
+        "none": 3
+      },
+      "gained": [],
+      "lost": [],
+      "gained_addresses": [],
+      "lost_addresses": []
+    },
+    {
+      "name": "channel_ctor_all",
+      "raw_rows": 113,
+      "masked_rows": 81,
+      "register_masked_rows": 79,
+      "code_sha256": "1dcdefc80d66069efd6d2d5ab6d8c4958a602f356dda7e231d10304604f4a161",
+      "code_bytes": 1584,
+      "class": "inline-budget",
+      "branch": {
+        "bytes": [
+          1552,
+          1376
+        ],
+        "size": 0,
+        "target": 3
+      },
+      "source_sha256": "c6bb8c9be74cd3ca835d9630a975ca7fa88849b82ba676f4d0bc3e2a06de5345",
+      "counts": {
+        "exact": 69,
+        "none": 3
+      },
+      "gained": [],
+      "lost": [],
+      "gained_addresses": [],
+      "lost_addresses": []
+    },
+    {
+      "name": "channel_ctor_last",
+      "raw_rows": 117,
+      "masked_rows": 87,
+      "register_masked_rows": 91,
+      "code_sha256": "fb89dee30ddb00c9424534b81ac9c6c55d661974112e0668af2ea93cefd693fb",
+      "code_bytes": 1536,
+      "class": "inline-budget",
+      "branch": {
+        "bytes": [
+          1516,
+          1376
+        ],
+        "size": 0,
+        "target": 0
+      },
+      "source_sha256": "052e66f08733dd4101db18233087dd74668bd6502ec236d7c77fcc2bc5b5e945",
+      "counts": {
+        "exact": 69,
+        "none": 3
+      },
+      "gained": [],
+      "lost": [],
+      "gained_addresses": [],
+      "lost_addresses": []
+    },
+    {
+      "name": "selected_ctor_last",
+      "raw_rows": 220,
+      "masked_rows": 158,
+      "register_masked_rows": 160,
+      "code_sha256": "35bc9afa55507440c9a683716bcc6a33f3f876dc651a30078d346eff2c731a03",
+      "code_bytes": 1344,
+      "class": "inline-budget",
+      "branch": {
+        "bytes": [
+          1324,
+          1376
+        ],
+        "size": 0,
+        "target": 1
+      },
+      "source_sha256": "4c107c2092d61ba30e3670b581da67249ee53a0d10199a8912233433ca8820ee",
+      "counts": {
+        "exact": 69,
+        "none": 3
+      },
+      "gained": [],
+      "lost": [],
+      "gained_addresses": [],
+      "lost_addresses": []
+    },
+    {
+      "name": "channel_ctor_selected_assign",
+      "raw_rows": 105,
+      "masked_rows": 71,
+      "register_masked_rows": 74,
+      "code_sha256": "b683db782019b04c86f46d0e52ad30ffcac084a2e7d3dd66ec8dcab00ccdfa34",
+      "code_bytes": 1584,
+      "class": "inline-budget",
+      "branch": {
+        "bytes": [
+          1552,
+          1376
+        ],
+        "size": 0,
+        "target": 0
+      },
+      "source_sha256": "3cf2a0fec5b1de9c1520ace95157203efc66145842cba19f0d4f7858edbf1db7",
+      "counts": {
+        "exact": 69,
+        "none": 3
+      },
+      "gained": [],
+      "lost": [],
+      "gained_addresses": [],
+      "lost_addresses": []
+    }
+  ],
+  "call_and_eh_proof": {
+    "baseline": {
+      "calls": [
+        [
+          "0x57",
+          0
+        ],
+        [
+          "0x91",
+          1
+        ],
+        [
+          "0xa7",
+          2
+        ],
+        [
+          "0xc4",
+          3
+        ],
+        [
+          "0xda",
+          4
+        ],
+        [
+          "0x100",
+          3
+        ],
+        [
+          "0x110",
+          5
+        ],
+        [
+          "0x13f",
+          1
+        ],
+        [
+          "0x15a",
+          2
+        ],
+        [
+          "0x177",
+          3
+        ],
+        [
+          "0x18c",
+          4
+        ],
+        [
+          "0x1b2",
+          3
+        ],
+        [
+          "0x1c2",
+          5
+        ],
+        [
+          "0x1f1",
+          1
+        ],
+        [
+          "0x207",
+          2
+        ],
+        [
+          "0x224",
+          3
+        ],
+        [
+          "0x239",
+          4
+        ],
+        [
+          "0x25f",
+          3
+        ],
+        [
+          "0x26f",
+          5
+        ],
+        [
+          "0x29e",
+          1
+        ],
+        [
+          "0x2b6",
+          2
+        ],
+        [
+          "0x2d3",
+          3
+        ],
+        [
+          "0x2fc",
+          6
+        ],
+        [
+          "0x337",
+          3
+        ],
+        [
+          "0x347",
+          5
+        ],
+        [
+          "0x373",
+          1
+        ],
+        [
+          "0x38a",
+          2
+        ],
+        [
+          "0x3b8",
+          7
+        ],
+        [
+          "0x3c3",
+          7
+        ],
+        [
+          "0x3ed",
+          4
+        ],
+        [
+          "0x421",
+          8
+        ],
+        [
+          "0x44f",
+          9
+        ],
+        [
+          "0x47b",
+          6
+        ],
+        [
+          "0x4c3",
+          10
+        ],
+        [
+          "0x4cc",
+          11
+        ],
+        [
+          "0x4ef",
+          12
+        ],
+        [
+          "0x504",
+          8
+        ],
+        [
+          "0x512",
+          9
+        ],
+        [
+          "0x51b",
+          11
+        ],
+        [
+          "0x545",
+          4
+        ],
+        [
+          "0x579",
+          8
+        ],
+        [
+          "0x5b6",
+          5
+        ],
+        [
+          "0x5ca",
+          13
+        ]
+      ],
+      "unwind_states": [
+        {
+          "bytes": "8d8d74ffffffe900000000",
+          "refs": [
+            "??1ClientChatRequestPacketClass@@UAE@XZ"
+          ]
+        },
+        {
+          "bytes": "8d4dd4e900000000",
+          "refs": [
+            "??1?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAE@XZ"
+          ]
+        },
+        {
+          "bytes": "8d8d74ffffffe900000000",
+          "refs": [
+            "??1ClientChatRequestPacketClass@@UAE@XZ"
+          ]
+        },
+        {
+          "bytes": "8d4dc4e900000000",
+          "refs": [
+            "??1?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAE@XZ"
+          ]
+        },
+        {
+          "bytes": "8d8d74ffffffe900000000",
+          "refs": [
+            "??1ClientChatRequestPacketClass@@UAE@XZ"
+          ]
+        },
+        {
+          "bytes": "8d4de4e900000000",
+          "refs": [
+            "??1?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAE@XZ"
+          ]
+        },
+        {
+          "bytes": "8d8d74ffffffe900000000",
+          "refs": [
+            "??1ClientChatRequestPacketClass@@UAE@XZ"
+          ]
+        },
+        {
+          "bytes": "8d8d64ffffffe900000000",
+          "refs": [
+            "??1?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAE@XZ"
+          ]
+        },
+        {
+          "bytes": "8d8d04ffffffe900000000",
+          "refs": [
+            "??1ClientChatRequestPacketClass@@UAE@XZ"
+          ]
+        },
+        {
+          "bytes": "8d8d54ffffffe900000000",
+          "refs": [
+            "??1?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAE@XZ"
+          ]
+        }
+      ],
+      "first_normalized_instruction_difference": 159
+    },
+    "channel_local_last": {
+      "calls": [
+        [
+          "0x57",
+          0
+        ],
+        [
+          "0x91",
+          1
+        ],
+        [
+          "0xa7",
+          2
+        ],
+        [
+          "0xc4",
+          3
+        ],
+        [
+          "0xda",
+          4
+        ],
+        [
+          "0x100",
+          3
+        ],
+        [
+          "0x110",
+          5
+        ],
+        [
+          "0x13f",
+          1
+        ],
+        [
+          "0x15a",
+          2
+        ],
+        [
+          "0x177",
+          3
+        ],
+        [
+          "0x18c",
+          4
+        ],
+        [
+          "0x1b2",
+          3
+        ],
+        [
+          "0x1c2",
+          5
+        ],
+        [
+          "0x1f1",
+          1
+        ],
+        [
+          "0x207",
+          2
+        ],
+        [
+          "0x224",
+          3
+        ],
+        [
+          "0x239",
+          4
+        ],
+        [
+          "0x25f",
+          3
+        ],
+        [
+          "0x26f",
+          5
+        ],
+        [
+          "0x29e",
+          1
+        ],
+        [
+          "0x2b6",
+          2
+        ],
+        [
+          "0x2d3",
+          3
+        ],
+        [
+          "0x2fc",
+          6
+        ],
+        [
+          "0x337",
+          3
+        ],
+        [
+          "0x347",
+          5
+        ],
+        [
+          "0x373",
+          1
+        ],
+        [
+          "0x38a",
+          2
+        ],
+        [
+          "0x3c9",
+          4
+        ],
+        [
+          "0x400",
+          8
+        ],
+        [
+          "0x42f",
+          9
+        ],
+        [
+          "0x45b",
+          6
+        ],
+        [
+          "0x4a3",
+          10
+        ],
+        [
+          "0x4ac",
+          11
+        ],
+        [
+          "0x4cf",
+          12
+        ],
+        [
+          "0x4e4",
+          8
+        ],
+        [
+          "0x4f2",
+          9
+        ],
+        [
+          "0x4fb",
+          11
+        ],
+        [
+          "0x53c",
+          6
+        ],
+        [
+          "0x57f",
+          8
+        ],
+        [
+          "0x5ad",
+          9
+        ],
+        [
+          "0x5ba",
+          5
+        ],
+        [
+          "0x5ce",
+          13
+        ]
+      ],
+      "unwind_states": [
+        {
+          "bytes": "8d8d74ffffffe900000000",
+          "refs": [
+            "??1ClientChatRequestPacketClass@@UAE@XZ"
+          ]
+        },
+        {
+          "bytes": "8d4dd4e900000000",
+          "refs": [
+            "??1?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAE@XZ"
+          ]
+        },
+        {
+          "bytes": "8d8d74ffffffe900000000",
+          "refs": [
+            "??1ClientChatRequestPacketClass@@UAE@XZ"
+          ]
+        },
+        {
+          "bytes": "8d4dc4e900000000",
+          "refs": [
+            "??1?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAE@XZ"
+          ]
+        },
+        {
+          "bytes": "8d8d74ffffffe900000000",
+          "refs": [
+            "??1ClientChatRequestPacketClass@@UAE@XZ"
+          ]
+        },
+        {
+          "bytes": "8d4de4e900000000",
+          "refs": [
+            "??1?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAE@XZ"
+          ]
+        },
+        {
+          "bytes": "8d8d74ffffffe900000000",
+          "refs": [
+            "??1ClientChatRequestPacketClass@@UAE@XZ"
+          ]
+        },
+        {
+          "bytes": "8d8d64ffffffe900000000",
+          "refs": [
+            "??1?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAE@XZ"
+          ]
+        },
+        {
+          "bytes": "8d8d14ffffffe900000000",
+          "refs": [
+            "??1ClientChatRequestPacketClass@@UAE@XZ"
+          ]
+        },
+        {
+          "bytes": "8d8d04ffffffe900000000",
+          "refs": [
+            "??1?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAE@XZ"
+          ]
+        }
+      ],
+      "first_normalized_instruction_difference": 159
+    },
+    "retail": {
+      "calls": [
+        [
+          "0x5e53b7",
+          0
+        ],
+        [
+          "0x5e53f1",
+          14
+        ],
+        [
+          "0x5e5407",
+          15
+        ],
+        [
+          "0x5e5424",
+          16
+        ],
+        [
+          "0x5e543a",
+          17
+        ],
+        [
+          "0x5e5460",
+          16
+        ],
+        [
+          "0x5e5470",
+          18
+        ],
+        [
+          "0x5e549f",
+          14
+        ],
+        [
+          "0x5e54ba",
+          15
+        ],
+        [
+          "0x5e54d7",
+          16
+        ],
+        [
+          "0x5e54ec",
+          17
+        ],
+        [
+          "0x5e5512",
+          16
+        ],
+        [
+          "0x5e5522",
+          18
+        ],
+        [
+          "0x5e5551",
+          14
+        ],
+        [
+          "0x5e5567",
+          15
+        ],
+        [
+          "0x5e5584",
+          16
+        ],
+        [
+          "0x5e5599",
+          17
+        ],
+        [
+          "0x5e55bf",
+          16
+        ],
+        [
+          "0x5e55cf",
+          18
+        ],
+        [
+          "0x5e55fe",
+          14
+        ],
+        [
+          "0x5e5616",
+          15
+        ],
+        [
+          "0x5e5633",
+          16
+        ],
+        [
+          "0x5e565c",
+          19
+        ],
+        [
+          "0x5e5691",
+          16
+        ],
+        [
+          "0x5e56a1",
+          18
+        ],
+        [
+          "0x5e56cd",
+          14
+        ],
+        [
+          "0x5e56e5",
+          15
+        ],
+        [
+          "0x5e56ff",
+          16
+        ],
+        [
+          "0x5e5728",
+          19
+        ],
+        [
+          "0x5e5770",
+          20
+        ],
+        [
+          "0x5e5779",
+          21
+        ],
+        [
+          "0x5e579c",
+          22
+        ],
+        [
+          "0x5e57b1",
+          23
+        ],
+        [
+          "0x5e57bf",
+          24
+        ],
+        [
+          "0x5e57c8",
+          21
+        ],
+        [
+          "0x5e5809",
+          19
+        ],
+        [
+          "0x5e584c",
+          23
+        ],
+        [
+          "0x5e5889",
+          18
+        ],
+        [
+          "0x5e589d",
+          25
+        ]
+      ],
+      "body_start": "0x5E5360",
+      "ret": "0x5E58BA",
+      "switch_table": "0x5E58C0-0x5E58D4",
+      "eh_stub": "0xab7a75",
+      "unwind_actions": [
+        "0xab7a10",
+        "0xab7a1b",
+        "0xab7a23",
+        "0xab7a2e",
+        "0xab7a36",
+        "0xab7a41",
+        "0xab7a49",
+        "0xab7a54",
+        "0xab7a5f",
+        "0xab7a6a"
+      ],
+      "scope_note": "Code is bounded by its five-entry jump table; 0x5E5A40 is the next ordinary member, not the body end."
+    },
+    "call_target_dictionary": [
+      [
+        "call dword ptr [eax + 0x18]"
+      ],
+      [
+        "ClientChatRequestPacketClass::ClientChatRequestPacketClass",
+        [
+          "0x878a50"
+        ]
+      ],
+      [
+        "ChatPanelInterface::Unknown_5682C0",
+        [
+          "0x5682c0"
+        ]
+      ],
+      [
+        "?assign@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAEAAV12@ABV12@II@Z",
+        [
+          "0x42cab0"
+        ]
+      ],
+      [
+        "?_Tidy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEX_N@Z",
+        [
+          "0x42a820"
+        ]
+      ],
+      [
+        "ClientClass::Send_Packet",
+        [
+          "0x728150"
+        ]
+      ],
+      [
+        "??3@YAXPAX@Z",
+        [
+          "0x4e9d10"
+        ]
+      ],
+      [
+        "?erase@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAEAAV12@II@Z",
+        [
+          "0x4b5740"
+        ]
+      ],
+      [
+        "?_Grow@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAE_NI_N@Z",
+        [
+          "0x42a970"
+        ]
+      ],
+      [
+        "?_Eos@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEXI@Z",
+        [
+          "0x42a940"
+        ]
+      ],
+      [
+        "std::_Xran",
+        []
+      ],
+      [
+        "?_Split@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEXXZ",
+        [
+          "0x42cd30",
+          "0xa20f25"
+        ]
+      ],
+      [
+        "memmove",
+        []
+      ],
+      [
+        "ClientChatRequestPacketClass::~ClientChatRequestPacketClass",
+        [
+          "0x878c80"
+        ]
+      ],
+      [
+        "ClientChatRequestPacketClass::ClientChatRequestPacketClass",
+        "0x878a50"
+      ],
+      [
+        "ChatPanelInterface::Unknown_5682C0",
+        "0x5682c0"
+      ],
+      [
+        "?assign@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAEAAV12@ABV12@II@Z",
+        "0x42cab0"
+      ],
+      [
+        "?_Tidy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEX_N@Z",
+        "0x42a820"
+      ],
+      [
+        "ClientClass::Send_Packet",
+        "0x728150"
+      ],
+      [
+        "??3@YAXPAX@Z",
+        "0x4e9d10"
+      ],
+      [
+        "0xa1807c",
+        "0xa1807c"
+      ],
+      [
+        "?_Split@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEXXZ",
+        "0x42cd30"
+      ],
+      [
+        "0xa25f50",
+        "0xa25f50"
+      ],
+      [
+        "?_Grow@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAE_NI_N@Z",
+        "0x42a970"
+      ],
+      [
+        "?_Eos@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEXI@Z",
+        "0x42a940"
+      ],
+      [
+        "ClientChatRequestPacketClass::~ClientChatRequestPacketClass",
+        "0x878c80"
+      ]
+    ]
+  },
+  "notes": [
+    "No tracked source was edited or adopted. All forms independently replayed against baseline and source hashes checked.",
+    "All 20 forms preserve the target-external text and every physical line outside the target; native object matches used no score threshold.",
+    "Shape remains wrong: channel_local_last has 42 calls versus retail 39, and expands the channel assignment where retail calls assign.",
+    "The 2026-11-09 attempt description is stale for this baseline: case 5 already destroys the channel temporary inline, matching retail expansion; its temporary is at esp+0x70 rather than retail esp+0x20.",
+    "Two const-reference forms trade a symbol name pair at one unchanged address; their address sets remain unchanged.",
+    "Raw rows normalize relocations and branch targets; masked rows additionally normalize stack slots. These are instruction residues, not byte counts or proof of exactness."
+  ]
+}

@@ -1,0 +1,293 @@
+# Claim 254 petition pair source forms
+
+Correction from the continuation audit: both ordinary packet destructor calls target 0x89F930; 0x89F830 is the scalar deleting destructor.
+
+Independent patches against a6aee2de. Each section applies separately. Best source remains the unchanged baseline. This file preserves unsuccessful forms, not a recommended change.
+
+## 0x5D6550 direct_client
+
+Source SHA-256: `7792d0707eccca993cd2fca00c301d67a756da583dd280eb6b712fdcf5a9e010`
+
+```diff
+--- a/app/client/ui_petition_player_entry.cpp
++++ b/app/client/ui_petition_player_entry.cpp
+@@ -206,7 +206,7 @@
+ 	std::string subject;
+ 	std::string details;
+ 	Get_Text(subject, details);
+-	((ClientClass *)Get_Client())->Send_Packet(&PetitionStuckPacketClass(((ClientClass *)Get_Client())->ShipID, Unknown0B8, subject.c_str(), details.c_str(), names.c_str()));
++	((ClientClass *)Client)->Send_Packet(&PetitionStuckPacketClass(((ClientClass *)Client)->ShipID, Unknown0B8, subject.c_str(), details.c_str(), names.c_str()));
+ 	return(true);
+ }
+ 
+```
+
+## 0x5D6550 direct_receiver
+
+Source SHA-256: `3be9eb54acfd9e30a96a665e153ed7285a923c06dfe49b17209b0873f27711b4`
+
+```diff
+--- a/app/client/ui_petition_player_entry.cpp
++++ b/app/client/ui_petition_player_entry.cpp
+@@ -206,7 +206,7 @@
+ 	std::string subject;
+ 	std::string details;
+ 	Get_Text(subject, details);
+-	((ClientClass *)Get_Client())->Send_Packet(&PetitionStuckPacketClass(((ClientClass *)Get_Client())->ShipID, Unknown0B8, subject.c_str(), details.c_str(), names.c_str()));
++	((ClientClass *)Client)->Send_Packet(&PetitionStuckPacketClass(((ClientClass *)Get_Client())->ShipID, Unknown0B8, subject.c_str(), details.c_str(), names.c_str()));
+ 	return(true);
+ }
+ 
+```
+
+## 0x5D6550 direct_ship
+
+Source SHA-256: `20fe338189189e252c54ec1e0a132bdae33e73bd336d9402764a6675a837159f`
+
+```diff
+--- a/app/client/ui_petition_player_entry.cpp
++++ b/app/client/ui_petition_player_entry.cpp
+@@ -206,7 +206,7 @@
+ 	std::string subject;
+ 	std::string details;
+ 	Get_Text(subject, details);
+-	((ClientClass *)Get_Client())->Send_Packet(&PetitionStuckPacketClass(((ClientClass *)Get_Client())->ShipID, Unknown0B8, subject.c_str(), details.c_str(), names.c_str()));
++	((ClientClass *)Get_Client())->Send_Packet(&PetitionStuckPacketClass(((ClientClass *)Client)->ShipID, Unknown0B8, subject.c_str(), details.c_str(), names.c_str()));
+ 	return(true);
+ }
+ 
+```
+
+## 0x5D6550 client_local
+
+Source SHA-256: `296d425b5b71ee0f2dbfaef89349bea9a074bd20a4590c98c5755988f6dcaa8c`
+
+```diff
+--- a/app/client/ui_petition_player_entry.cpp
++++ b/app/client/ui_petition_player_entry.cpp
+@@ -206,7 +206,7 @@
+ 	std::string subject;
+ 	std::string details;
+ 	Get_Text(subject, details);
+-	((ClientClass *)Get_Client())->Send_Packet(&PetitionStuckPacketClass(((ClientClass *)Get_Client())->ShipID, Unknown0B8, subject.c_str(), details.c_str(), names.c_str()));
++	ClientClass *client = (ClientClass *)Get_Client(); client->Send_Packet(&PetitionStuckPacketClass(client->ShipID, Unknown0B8, subject.c_str(), details.c_str(), names.c_str()));
+ 	return(true);
+ }
+ 
+```
+
+## 0x5D6550 receiver_local
+
+Source SHA-256: `f93e0fcc2d33e2fc6d860f106f209ee5e347d52f93188fc2c10609813f03d1b3`
+
+```diff
+--- a/app/client/ui_petition_player_entry.cpp
++++ b/app/client/ui_petition_player_entry.cpp
+@@ -206,7 +206,7 @@
+ 	std::string subject;
+ 	std::string details;
+ 	Get_Text(subject, details);
+-	((ClientClass *)Get_Client())->Send_Packet(&PetitionStuckPacketClass(((ClientClass *)Get_Client())->ShipID, Unknown0B8, subject.c_str(), details.c_str(), names.c_str()));
++	ClientClass *client = (ClientClass *)Get_Client(); client->Send_Packet(&PetitionStuckPacketClass(((ClientClass *)Get_Client())->ShipID, Unknown0B8, subject.c_str(), details.c_str(), names.c_str()));
+ 	return(true);
+ }
+ 
+```
+
+## 0x5D6550 ship_local
+
+Source SHA-256: `96e42ed835486bb107b6a397cfa2fc28a2a398922c0f0b4b947968f42bc1ede1`
+
+```diff
+--- a/app/client/ui_petition_player_entry.cpp
++++ b/app/client/ui_petition_player_entry.cpp
+@@ -206,7 +206,7 @@
+ 	std::string subject;
+ 	std::string details;
+ 	Get_Text(subject, details);
+-	((ClientClass *)Get_Client())->Send_Packet(&PetitionStuckPacketClass(((ClientClass *)Get_Client())->ShipID, Unknown0B8, subject.c_str(), details.c_str(), names.c_str()));
++	unsigned ship_id = ((ClientClass *)Get_Client())->ShipID; ((ClientClass *)Get_Client())->Send_Packet(&PetitionStuckPacketClass(ship_id, Unknown0B8, subject.c_str(), details.c_str(), names.c_str()));
+ 	return(true);
+ }
+ 
+```
+
+## 0x5D6550 category_local
+
+Source SHA-256: `75516046f6441208546796bef8a2695d26b6d489ad476788b63946cc1d641ce9`
+
+```diff
+--- a/app/client/ui_petition_player_entry.cpp
++++ b/app/client/ui_petition_player_entry.cpp
+@@ -206,7 +206,7 @@
+ 	std::string subject;
+ 	std::string details;
+ 	Get_Text(subject, details);
+-	((ClientClass *)Get_Client())->Send_Packet(&PetitionStuckPacketClass(((ClientClass *)Get_Client())->ShipID, Unknown0B8, subject.c_str(), details.c_str(), names.c_str()));
++	int category = Unknown0B8; ((ClientClass *)Get_Client())->Send_Packet(&PetitionStuckPacketClass(((ClientClass *)Get_Client())->ShipID, category, subject.c_str(), details.c_str(), names.c_str()));
+ 	return(true);
+ }
+ 
+```
+
+## 0x5D6550 packet_base_cast
+
+Source SHA-256: `077edbf9229a424b03346cc8c6e21ec08c1614b0bbe4d37f8b28d105e03e94f1`
+
+```diff
+--- a/app/client/ui_petition_player_entry.cpp
++++ b/app/client/ui_petition_player_entry.cpp
+@@ -206,7 +206,7 @@
+ 	std::string subject;
+ 	std::string details;
+ 	Get_Text(subject, details);
+-	((ClientClass *)Get_Client())->Send_Packet(&PetitionStuckPacketClass(((ClientClass *)Get_Client())->ShipID, Unknown0B8, subject.c_str(), details.c_str(), names.c_str()));
++	((ClientClass *)Get_Client())->Send_Packet((PacketClass *)&PetitionStuckPacketClass(((ClientClass *)Get_Client())->ShipID, Unknown0B8, subject.c_str(), details.c_str(), names.c_str()));
+ 	return(true);
+ }
+ 
+```
+
+## 0x5D7420 direct_client
+
+Source SHA-256: `9ced51a6878c86f7e79fe4f5254d5781bc29452138152aa115d06ac9ec8f6a14`
+
+```diff
+--- a/app/client/ui_petition_stuck.cpp
++++ b/app/client/ui_petition_stuck.cpp
+@@ -47,7 +47,7 @@
+ 	std::string subject;
+ 	std::string details;
+ 	Get_Text(subject, details);
+-	((ClientClass *)Get_Client())->Send_Packet(&PetitionStuckPacketClass(((ClientClass *)Get_Client())->ShipID, Unknown0B4, subject.c_str(), details.c_str(), 0));
++	((ClientClass *)Client)->Send_Packet(&PetitionStuckPacketClass(((ClientClass *)Client)->ShipID, Unknown0B4, subject.c_str(), details.c_str(), 0));
+ 	return(true);
+ }
+ 
+```
+
+## 0x5D7420 direct_receiver
+
+Source SHA-256: `2f2a7ae1e37ef2a57c6b58ffe5128b93fa07ab4bda1f2f5675d0373e77efb6ec`
+
+```diff
+--- a/app/client/ui_petition_stuck.cpp
++++ b/app/client/ui_petition_stuck.cpp
+@@ -47,7 +47,7 @@
+ 	std::string subject;
+ 	std::string details;
+ 	Get_Text(subject, details);
+-	((ClientClass *)Get_Client())->Send_Packet(&PetitionStuckPacketClass(((ClientClass *)Get_Client())->ShipID, Unknown0B4, subject.c_str(), details.c_str(), 0));
++	((ClientClass *)Client)->Send_Packet(&PetitionStuckPacketClass(((ClientClass *)Get_Client())->ShipID, Unknown0B4, subject.c_str(), details.c_str(), 0));
+ 	return(true);
+ }
+ 
+```
+
+## 0x5D7420 direct_ship
+
+Source SHA-256: `92cc444dfa1b6b7fbee6b83f7f52a3f80ba35d62da5f9fc362843aea099d2229`
+
+```diff
+--- a/app/client/ui_petition_stuck.cpp
++++ b/app/client/ui_petition_stuck.cpp
+@@ -47,7 +47,7 @@
+ 	std::string subject;
+ 	std::string details;
+ 	Get_Text(subject, details);
+-	((ClientClass *)Get_Client())->Send_Packet(&PetitionStuckPacketClass(((ClientClass *)Get_Client())->ShipID, Unknown0B4, subject.c_str(), details.c_str(), 0));
++	((ClientClass *)Get_Client())->Send_Packet(&PetitionStuckPacketClass(((ClientClass *)Client)->ShipID, Unknown0B4, subject.c_str(), details.c_str(), 0));
+ 	return(true);
+ }
+ 
+```
+
+## 0x5D7420 client_local
+
+Source SHA-256: `adff096c04eb62dea90ea71f150239515489a6985496c2332072955eff391d80`
+
+```diff
+--- a/app/client/ui_petition_stuck.cpp
++++ b/app/client/ui_petition_stuck.cpp
+@@ -47,7 +47,7 @@
+ 	std::string subject;
+ 	std::string details;
+ 	Get_Text(subject, details);
+-	((ClientClass *)Get_Client())->Send_Packet(&PetitionStuckPacketClass(((ClientClass *)Get_Client())->ShipID, Unknown0B4, subject.c_str(), details.c_str(), 0));
++	ClientClass *client = (ClientClass *)Get_Client(); client->Send_Packet(&PetitionStuckPacketClass(client->ShipID, Unknown0B4, subject.c_str(), details.c_str(), 0));
+ 	return(true);
+ }
+ 
+```
+
+## 0x5D7420 receiver_local
+
+Source SHA-256: `59b3808ae16d914c1771577bdff3c52ba7f5b3da580cdc81254600feb143800d`
+
+```diff
+--- a/app/client/ui_petition_stuck.cpp
++++ b/app/client/ui_petition_stuck.cpp
+@@ -47,7 +47,7 @@
+ 	std::string subject;
+ 	std::string details;
+ 	Get_Text(subject, details);
+-	((ClientClass *)Get_Client())->Send_Packet(&PetitionStuckPacketClass(((ClientClass *)Get_Client())->ShipID, Unknown0B4, subject.c_str(), details.c_str(), 0));
++	ClientClass *client = (ClientClass *)Get_Client(); client->Send_Packet(&PetitionStuckPacketClass(((ClientClass *)Get_Client())->ShipID, Unknown0B4, subject.c_str(), details.c_str(), 0));
+ 	return(true);
+ }
+ 
+```
+
+## 0x5D7420 ship_local
+
+Source SHA-256: `90f863aaeb10328b02d32000c80332c12d83a7e78c0e665882b5b1252347fb91`
+
+```diff
+--- a/app/client/ui_petition_stuck.cpp
++++ b/app/client/ui_petition_stuck.cpp
+@@ -47,7 +47,7 @@
+ 	std::string subject;
+ 	std::string details;
+ 	Get_Text(subject, details);
+-	((ClientClass *)Get_Client())->Send_Packet(&PetitionStuckPacketClass(((ClientClass *)Get_Client())->ShipID, Unknown0B4, subject.c_str(), details.c_str(), 0));
++	unsigned ship_id = ((ClientClass *)Get_Client())->ShipID; ((ClientClass *)Get_Client())->Send_Packet(&PetitionStuckPacketClass(ship_id, Unknown0B4, subject.c_str(), details.c_str(), 0));
+ 	return(true);
+ }
+ 
+```
+
+## 0x5D7420 category_local
+
+Source SHA-256: `2fef095f51f65266f87285b05da67df2453729610933071499b493054a603290`
+
+```diff
+--- a/app/client/ui_petition_stuck.cpp
++++ b/app/client/ui_petition_stuck.cpp
+@@ -47,7 +47,7 @@
+ 	std::string subject;
+ 	std::string details;
+ 	Get_Text(subject, details);
+-	((ClientClass *)Get_Client())->Send_Packet(&PetitionStuckPacketClass(((ClientClass *)Get_Client())->ShipID, Unknown0B4, subject.c_str(), details.c_str(), 0));
++	int category = Unknown0B4; ((ClientClass *)Get_Client())->Send_Packet(&PetitionStuckPacketClass(((ClientClass *)Get_Client())->ShipID, category, subject.c_str(), details.c_str(), 0));
+ 	return(true);
+ }
+ 
+```
+
+## 0x5D7420 packet_base_cast
+
+Source SHA-256: `1637b0fba0343f5c920caa632b205b5ac47b73fd066157feee19b1229af3a4f9`
+
+```diff
+--- a/app/client/ui_petition_stuck.cpp
++++ b/app/client/ui_petition_stuck.cpp
+@@ -47,7 +47,7 @@
+ 	std::string subject;
+ 	std::string details;
+ 	Get_Text(subject, details);
+-	((ClientClass *)Get_Client())->Send_Packet(&PetitionStuckPacketClass(((ClientClass *)Get_Client())->ShipID, Unknown0B4, subject.c_str(), details.c_str(), 0));
++	((ClientClass *)Get_Client())->Send_Packet((PacketClass *)&PetitionStuckPacketClass(((ClientClass *)Get_Client())->ShipID, Unknown0B4, subject.c_str(), details.c_str(), 0));
+ 	return(true);
+ }
+ 
+```

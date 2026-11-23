@@ -1,0 +1,260 @@
+# Claim 254: UIRadioJoinClass::Unknown_5EB2F0 source probes
+
+Base: 85a9ecf87efe7273ad61b7b593349157b27ee26f; file: app/client/ui_radio_join.cpp; seed SHA-256: `cfa8e6b78022ef4ca459f7d4858a1672c0e51c2b0bc7ec60241d9d8ba4807d6a`. The source is also identical at a6aee2de. Immutable include tree was newly extracted using git archive of this HEAD, including the exact popup constructor.
+
+Recommendation: retain no source change; the target remains NOT EXACT / inline-budget. Stop after 17 new valid source forms: length overloads improve the target, then three families (string producer/lifetime spelling, assign overloads, pointer producers/direct existing flag read) fail to improve the best. No shared headers, helpers, pragmas, dead reads, ownership cleanup, tracked edits, commits, pushes, or GitHub writes. Both original allocated Get_Text calls remain, in order; both chat getter calls remain, with each packet and temporary lifetime retained.
+
+Replay ONE form independently: get the complete seed with git show BASE:FILE; replace exactly the physical lines below, retaining LF and final newline; verify complete source SHA-256. Each listed form was replayed and hash checked. Repeats reuse source forms and do not count as new forms. The previous 14 recorded forms tried budget/devices and ID spelling; this run probes existing string APIs and natural producer/consumer spelling. Historical machine-code emissions were not available, so novelty means distinct source probes, with current emission deduplication reported separately.
+
+Build: VC6 SP4 /home/dev/Toolchains/enb-vc6-sp4/bin/vc6-cl through existing Wine prefix; app flags and defines from tools/vc6/libdefs.py; native tools/re/objmatch.py --client RETAIL -q --json over every complete object, no score filter. Original source basename retained for __FILE__, absolute scratch prefix differs; this target contains no __FILE__ assertion. Physical line count is unchanged and only target-function lines change. These are native object experiments, not a full app ledger verification. Per-form full matcher output, focused instruction diff and pairs_cmp.py evidence are indexed by results-manifest.json.
+
+Baseline independently repeated: 816/901 bytes, 236/268 instructions, raw residue 197, masked 103, register-masked 88, 28/30 calls. Correction to the older attempt: the first Get_Text constructor already calls _Tidy(false), _Grow and _Eos, with assignment orchestration and copy inlined; the empty and final constructors inline _Tidy and call assign(ptr,n). Best last_length, independently repeated: 864/901 bytes, 254/268 instructions, raw/masked residue 46, register-masked 26, 29/30 calls. This changes the final constructor to explicit std::string(pointer, char_traits::length(pointer)); it gives the earlier two constructors the retail expansion and reproduces the separate pending-return epilogue. The first 172 normalized instructions (599-byte prefix; ordinary bytes equal, relocations masked) match, including registers and stack offsets; actual callees are listed in partial-prefix-evidence.json. That evidence deliberately is not a full relocation/EH proof or an exactness claim.
+
+Best residual: zero register esi instead of retail ebx after the empty-string copy; final explicit-length constructor scans before its inline _Tidy stores and calls assign(ptr,n), where retail calls _Tidy(false) before scanning, calls _Grow and inlines copy/_Eos. This call-identity difference, plus real register choices, remains. Lower masked residue is a useful local improvement, not a uniform correctness score. Direct assign(range) forms overshoot by inlining string-to-string assignments; two gain auxiliary 0x4B5740 but do not solve the target, and first_assign_range loses auxiliary 0x42D050. No such form is retained. Scoped-reference symbol gains/losses rename an EH funclet at the same file/address, with zero file/address delta.
+
+Counts: 17 new valid forms, 1 control + 2 repeat compiles, 11 candidate emission groups (10 not baseline), 1 failed sandbox compiler launch (Wine socket denied; rerun with authorized escalation succeeds), 0 header diagnostics. All target comparisons use retail bounds 0x5EB2F0..0x5EB674, two returns, 901 bytes / 268 instructions. No VM was leased.
+
+
+## baseline (control)
+Source SHA-256: `cfa8e6b78022ef4ca459f7d4858a1672c0e51c2b0bc7ec60241d9d8ba4807d6a`; raw target-code SHA-256: `365bbc3fbbef4c27af04cd8cd3825d742cc0df1d887f6f0b4737c1f031cd46dd`; relocation-aware emission group `6b0ef42c350b5c97`.
+
+Result: 816/901 bytes, 236/268 instructions; class inline-budget; raw/masked/register-masked residue 197/103/88; 28/30 calls; target exact=False; full-object file/address gains=[], losses=[].
+
+
+## all_assign (new_valid)
+Source SHA-256: `e5c5638b1aec7ff86475c1b60dc0ff8840f687bffd360b30a138dbe98ff2f872`; raw target-code SHA-256: `365bbc3fbbef4c27af04cd8cd3825d742cc0df1d887f6f0b4737c1f031cd46dd`; relocation-aware emission group `6b0ef42c350b5c97`.
+
+Physical line 173:
+```cpp
+		packet.Unknown24.assign(chat->Unknown_5682C0());
+```
+
+Physical line 178:
+```cpp
+	packet.Unknown24.assign(std::string(Entry->Get_Text()));
+```
+
+Physical line 179:
+```cpp
+	packet.Unknown34.assign(std::string(""));
+```
+
+Result: 816/901 bytes, 236/268 instructions; class inline-budget; raw/masked/register-masked residue 197/103/88; 28/30 calls; target exact=False; full-object file/address gains=[], losses=[].
+
+
+## all_assign_range (new_valid)
+Source SHA-256: `b60319f0f2ebb40447be5095de257f662228d8343da645dde7a8621358e38b7b`; raw target-code SHA-256: `460949d9008172dcff9220a04c1610edbedac8baf61b63baccf9f4647b824115`; relocation-aware emission group `944f94f108b77f1a`.
+
+Physical line 173:
+```cpp
+		packet.Unknown24.assign(chat->Unknown_5682C0(), 0, std::string::npos);
+```
+
+Physical line 178:
+```cpp
+	packet.Unknown24.assign(std::string(Entry->Get_Text()), 0, std::string::npos);
+```
+
+Physical line 179:
+```cpp
+	packet.Unknown34.assign(std::string(""), 0, std::string::npos);
+```
+
+Result: 1088/901 bytes, 308/268 instructions; class inline-budget; raw/masked/register-masked residue 366/341/335; 34/30 calls; target exact=False; full-object file/address gains=['0x4B5740'], losses=[].
+
+
+## all_length (new_valid)
+Source SHA-256: `967008587219bcec900ad689a7149d77c755a67f7928ccf4e970a5c98dc2327e`; raw target-code SHA-256: `5c14bfecde7df550ad66b8c595f89b94d5a65c60153c3d9cdd60f3caafa47ce0`; relocation-aware emission group `a22e4de5548cc82b`.
+
+Physical line 178:
+```cpp
+	const char *text = Entry->Get_Text(); packet.Unknown24 = std::string(text, std::char_traits<char>::length(text));
+```
+
+Physical line 179:
+```cpp
+	packet.Unknown34 = std::string("", std::char_traits<char>::length(""));
+```
+
+Physical line 181:
+```cpp
+	const char *name = Entry->Get_Text(); chat->Unknown_5680B0(std::string(name, std::char_traits<char>::length(name)));
+```
+
+Result: 864/901 bytes, 255/268 instructions; class inline-budget; raw/masked/register-masked residue 74/75/62; 29/30 calls; target exact=False; full-object file/address gains=[], losses=[].
+
+
+## both_pointer (new_valid)
+Source SHA-256: `93e50a5c23a5bf970e08939afc1f32756b1aa1902c150ba1a8e37561304bf840`; raw target-code SHA-256: `90a7dbd5f398a779404821a5d708cb1c1f29b2ab0ee892481dcd7e06120ab68b`; relocation-aware emission group `e51574b77eeb1962`.
+
+Physical line 178:
+```cpp
+	const char *text = Entry->Get_Text(); packet.Unknown24 = std::string(text);
+```
+
+Physical line 181:
+```cpp
+	const char *name = Entry->Get_Text(); chat->Unknown_5680B0(std::string(name));
+```
+
+Result: 816/901 bytes, 236/268 instructions; class inline-budget; raw/masked/register-masked residue 197/103/90; 28/30 calls; target exact=False; full-object file/address gains=[], losses=[].
+
+
+## channel_assign_range (new_valid)
+Source SHA-256: `df45137bcae67b1b2528d9906dddf3aa842d30531ba14842bba528923a750709`; raw target-code SHA-256: `db4111686017121bb4696ca07fdda8921fc66aa38f5da3fcbc3fd20e3e9ed9a7`; relocation-aware emission group `63d91790dece21cf`.
+
+Physical line 173:
+```cpp
+		packet.Unknown24.assign(chat->Unknown_5682C0(), 0, std::string::npos);
+```
+
+Result: 992/901 bytes, 291/268 instructions; class inline-budget; raw/masked/register-masked residue 248/224/162; 32/30 calls; target exact=False; full-object file/address gains=['0x4B5740'], losses=[].
+
+
+## direct_pending (new_valid)
+Source SHA-256: `9e86d639e27370d4519bd42c10ac77b17a0cbc6a8afb24b2e31f8af7b5902eb8`; raw target-code SHA-256: `3cecd6067abb0d3c5e14af01f84d1e94ee25062d16b691af71a4de7061b3c2be`; relocation-aware emission group `4cb1c92e37f55121`.
+
+Physical line 166:
+```cpp
+	if (chat->Unknown225) {
+```
+
+Result: 816/901 bytes, 235/268 instructions; class inline-budget; raw/masked/register-masked residue 197/104/89; 28/30 calls; target exact=False; full-object file/address gains=[], losses=[].
+
+
+## empty_assign_range (new_valid)
+Source SHA-256: `53fa59d8c2ead677c06e6e0d0032bb9c26e67f2a648292d6797d7a0ed178a187`; raw target-code SHA-256: `925d4521acdb848bf0f1f7c1ed6c36ae2ce5e1006d7f6c574df676a0b72de75a`; relocation-aware emission group `e635076ed887899a`.
+
+Physical line 179:
+```cpp
+	packet.Unknown34.assign(std::string(""), 0, std::string::npos);
+```
+
+Result: 960/901 bytes, 274/268 instructions; class inline-budget; raw/masked/register-masked residue 274/274/123; 31/30 calls; target exact=False; full-object file/address gains=[], losses=[].
+
+
+## empty_length (new_valid)
+Source SHA-256: `49863c7e2dfd15ae48e09e89a535e6b1e5ceb38f98f077469300b209aff39b0c`; raw target-code SHA-256: `d4c0b41f842963e89ad2dc25a1f55156b6b9cf0224d6fc6dfa65ef7c501a965e`; relocation-aware emission group `c77529c55730433f`.
+
+Physical line 179:
+```cpp
+	packet.Unknown34 = std::string("", std::char_traits<char>::length(""));
+```
+
+Result: 816/901 bytes, 236/268 instructions; class inline-budget; raw/masked/register-masked residue 197/102/90; 28/30 calls; target exact=False; full-object file/address gains=[], losses=[].
+
+
+## first_assign_range (new_valid)
+Source SHA-256: `c21cd4e2cc188fffe1ca35ff2a3df2bb9528c624c79e8582580a82e4ac9e9c65`; raw target-code SHA-256: `34948eb030abf3806e5a9aedd2077f4f275b8b839f9e23d34ef6a4cacbc9470c`; relocation-aware emission group `f9ebe806de8f6b2f`.
+
+Physical line 178:
+```cpp
+	packet.Unknown24.assign(std::string(Entry->Get_Text()), 0, std::string::npos);
+```
+
+Result: 1024/901 bytes, 302/268 instructions; class shape; raw/masked/register-masked residue 91/95/77; 32/30 calls; target exact=False; full-object file/address gains=[], losses=['0x42D050'].
+
+
+## first_length (new_valid)
+Source SHA-256: `5c8f75b38fb28d681af3e6996793df191933aaf5db1046bbe31266f2d97025c0`; raw target-code SHA-256: `318cc1f73a8b79bc3b81cbc714c191911dd760c0ed87616498b1604e8d2d3bed`; relocation-aware emission group `5601fcb9d28b20e7`.
+
+Physical line 178:
+```cpp
+	const char *text = Entry->Get_Text(); packet.Unknown24 = std::string(text, std::char_traits<char>::length(text));
+```
+
+Result: 816/901 bytes, 236/268 instructions; class inline-budget; raw/masked/register-masked residue 212/118/105; 28/30 calls; target exact=False; full-object file/address gains=[], losses=[].
+
+
+## first_pointer (new_valid)
+Source SHA-256: `3a73032123aeebfe5c626649d1c5ab636aa1832e40e0f83ab3d385bfe4af5677`; raw target-code SHA-256: `365bbc3fbbef4c27af04cd8cd3825d742cc0df1d887f6f0b4737c1f031cd46dd`; relocation-aware emission group `6b0ef42c350b5c97`.
+
+Physical line 178:
+```cpp
+	const char *text = Entry->Get_Text(); packet.Unknown24 = std::string(text);
+```
+
+Result: 816/901 bytes, 236/268 instructions; class inline-budget; raw/masked/register-masked residue 197/103/88; 28/30 calls; target exact=False; full-object file/address gains=[], losses=[].
+
+
+## last_allocator (new_valid)
+Source SHA-256: `6538ebcbc79614d50954c087341cd1efe57d7f69ce19a1ee8c654b50fd1d8ea3`; raw target-code SHA-256: `365bbc3fbbef4c27af04cd8cd3825d742cc0df1d887f6f0b4737c1f031cd46dd`; relocation-aware emission group `6b0ef42c350b5c97`.
+
+Physical line 181:
+```cpp
+	chat->Unknown_5680B0(std::string(Entry->Get_Text(), std::allocator<char>()));
+```
+
+Result: 816/901 bytes, 236/268 instructions; class inline-budget; raw/masked/register-masked residue 197/103/88; 28/30 calls; target exact=False; full-object file/address gains=[], losses=[].
+
+
+## last_implicit (new_valid)
+Source SHA-256: `b4d560ed5c1677677b7ae04825ce37b26426b767ead90492414654037e597304`; raw target-code SHA-256: `365bbc3fbbef4c27af04cd8cd3825d742cc0df1d887f6f0b4737c1f031cd46dd`; relocation-aware emission group `6b0ef42c350b5c97`.
+
+Physical line 181:
+```cpp
+	chat->Unknown_5680B0(Entry->Get_Text());
+```
+
+Result: 816/901 bytes, 236/268 instructions; class inline-budget; raw/masked/register-masked residue 197/103/88; 28/30 calls; target exact=False; full-object file/address gains=[], losses=[].
+
+
+## last_length (new_valid)
+Source SHA-256: `4d52a1774938814d90f8f4d07a47af9cf2f467e355018c1c221fc35582aeed75`; raw target-code SHA-256: `58bc239c68182e6e2a12e0cba6c10b6eef5ed3df99ee15819e42bcbc306ab40f`; relocation-aware emission group `5f034c481f965821`.
+
+Physical line 181:
+```cpp
+	const char *name = Entry->Get_Text(); chat->Unknown_5680B0(std::string(name, std::char_traits<char>::length(name)));
+```
+
+Result: 864/901 bytes, 254/268 instructions; class inline-budget; raw/masked/register-masked residue 46/46/26; 29/30 calls; target exact=False; full-object file/address gains=[], losses=[].
+
+
+## last_named (new_valid)
+Source SHA-256: `e7a31438a832ce5dc346656e3bdc02458273df2b4c618a269d63e80ec32f23bf`; raw target-code SHA-256: `365bbc3fbbef4c27af04cd8cd3825d742cc0df1d887f6f0b4737c1f031cd46dd`; relocation-aware emission group `6b0ef42c350b5c97`.
+
+Physical line 181:
+```cpp
+	{ std::string name(Entry->Get_Text()); chat->Unknown_5680B0(name); }
+```
+
+Result: 816/901 bytes, 236/268 instructions; class inline-budget; raw/masked/register-masked residue 197/103/88; 28/30 calls; target exact=False; full-object file/address gains=[], losses=[].
+
+
+## last_pointer (new_valid)
+Source SHA-256: `9afe0e1b06d026a75b67b9e52f8112b089f6b4de01ae31cd849d9645422ce649`; raw target-code SHA-256: `90a7dbd5f398a779404821a5d708cb1c1f29b2ab0ee892481dcd7e06120ab68b`; relocation-aware emission group `e51574b77eeb1962`.
+
+Physical line 181:
+```cpp
+	const char *name = Entry->Get_Text(); chat->Unknown_5680B0(std::string(name));
+```
+
+Result: 816/901 bytes, 236/268 instructions; class inline-budget; raw/masked/register-masked residue 197/103/90; 28/30 calls; target exact=False; full-object file/address gains=[], losses=[].
+
+
+## last_reference (new_valid)
+Source SHA-256: `7ccd04ea83cba4dca930e4618d65dc49da0bdbc4de06f8d9616b6936e9782381`; raw target-code SHA-256: `365bbc3fbbef4c27af04cd8cd3825d742cc0df1d887f6f0b4737c1f031cd46dd`; relocation-aware emission group `6b0ef42c350b5c97`.
+
+Physical line 181:
+```cpp
+	{ const std::string &name = std::string(Entry->Get_Text()); chat->Unknown_5680B0(name); }
+```
+
+Result: 816/901 bytes, 236/268 instructions; class inline-budget; raw/masked/register-masked residue 197/103/88; 28/30 calls; target exact=False; full-object file/address gains=[], losses=[].
+
+
+## baseline_repeat (repeat)
+Source SHA-256: `cfa8e6b78022ef4ca459f7d4858a1672c0e51c2b0bc7ec60241d9d8ba4807d6a`; raw target-code SHA-256: `365bbc3fbbef4c27af04cd8cd3825d742cc0df1d887f6f0b4737c1f031cd46dd`; relocation-aware emission group `6b0ef42c350b5c97`.
+
+Result: 816/901 bytes, 236/268 instructions; class inline-budget; raw/masked/register-masked residue 197/103/88; 28/30 calls; target exact=False; full-object file/address gains=[], losses=[].
+
+
+## best_repeat (repeat)
+Source SHA-256: `4d52a1774938814d90f8f4d07a47af9cf2f467e355018c1c221fc35582aeed75`; raw target-code SHA-256: `58bc239c68182e6e2a12e0cba6c10b6eef5ed3df99ee15819e42bcbc306ab40f`; relocation-aware emission group `5f034c481f965821`.
+
+Physical line 181:
+```cpp
+	const char *name = Entry->Get_Text(); chat->Unknown_5680B0(std::string(name, std::char_traits<char>::length(name)));
+```
+
+Result: 864/901 bytes, 254/268 instructions; class inline-budget; raw/masked/register-masked residue 46/46/26; 29/30 calls; target exact=False; full-object file/address gains=[], losses=[].
