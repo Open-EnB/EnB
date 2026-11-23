@@ -267,7 +267,7 @@ bool UITreeMClass::Unknown_68(int key)
 
 
 
-// NOT EXACT (0.80, order-only): the client loads the line offset before Lines.Vector (0x6557D7); the rest is the same
+
 bool UITreeMClass::Refresh()
 {
 	if (Dirty) {
@@ -414,16 +414,16 @@ UITreeMItemStruct *UITreeMClass::Parent(UITreeMItemStruct *item)
 
 UITreeMItemStruct *UITreeMClass::Next_Sibling(UITreeMItemStruct *item)
 {
-	for (UITreeMItemStruct *next = Next(item); next != NULL; next = Next(next)) {
-		if (next->Level == item->Level) {
-			return(next);
-		}
-		if (next->Level < item->Level) {
-			break;
-		}
+	bool valid = item != NULL && item < &Items[Items.Count() - 1]; UITreeMItemStruct *next = valid ? item + 1 : NULL;
+	while (next != NULL) {
+		if (next->Level == item->Level) { return(next); }
+		if (next->Level < item->Level) { break; }
+		next = (next != NULL && next < &Items[Items.Count() - 1]) ? next + 1 : NULL;
 	}
 	return(NULL);
 }
+
+
 
 
 

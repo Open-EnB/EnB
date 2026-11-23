@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-605 entries in 251 files.
+604 entries in 251 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -445,7 +445,6 @@ edit the comments in the code, not this file.
 | `app/client/ui_trade.cpp:600` | `UITradeClass::Unknown_651F60` | marker | NOT EXACT: 0x651F60's -1 call pushes a zeroed edx twice, ours shares the other call's push 0 (register residue) @0x651F60 |
 | `app/client/ui_trade.cpp:998` | `UITradeClass::Unknown_653A80` | mention | NOT EXACT. Evidence: the asserts' names ('PDA', '!InterfaceMesh', 'StandardBttnTexture', 'SelectedBttnTexture'); the buttons' sub-objects from the table 0xB8BE98 ('category00'..'category05', 'buy', 'buy_stack', 'sell', 'sellall', 'compare', 'sort', 'exit'); +0x150 holds three InvDataClass (0x688410 with types 1-3), +0x160 is gd_inv_slider.cpp's slider. Forms: the box is reached through Get_View()-... |
 | `app/client/ui_treem.cpp:190` | `UITreeMClass::Unknown_68` | marker | NOT EXACT (0.27, inline-budget): the client calls Next_Sibling (0x655DE0) out of line in the inlined Open / Close loops; ours inlines it |
-| `app/client/ui_treem.cpp:270` | `UITreeMClass::Refresh` | marker | NOT EXACT (0.80, order-only): the client loads the line offset before Lines.Vector (0x6557D7); the rest is the same |
 | `app/client/ui_vault.cpp:60` | `UIVaultClass::UIVaultClass` | marker | NOT EXACT: functional from the pseudocode (D64) 0x656FF0 |
 | `app/client/ui_vault.cpp:109` | `UIVaultClass::Unknown_54` | marker | NOT EXACT: functional from the pseudocode (D64) 0x657430 |
 | `app/client/ui_vault.cpp:214` | `UIVaultClass::Unknown_68` | marker | NOT EXACT: functional from the pseudocode (D64) 0x657AA0 |
