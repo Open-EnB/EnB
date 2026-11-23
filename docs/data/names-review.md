@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1970 |
 | 2 | describes what the code does | 5009 |
-| 1 | neutral placeholder | 25152 |
+| 1 | neutral placeholder | 25156 |
 
 ## For review (score 3 and below)
 
@@ -11768,6 +11768,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_5C` | `app/client/ui_chat_window.cpp:238` | untagged neutral name (D10) |
 | 1 | `Unknown_685DD0` | `app/client/ui_chat_window.cpp:242` | untagged neutral name (D10) |
 | 1 | `Unknown_7C` | `app/client/ui_chat_window.cpp:247` | untagged neutral name (D10) |
+| 1 | `scene` | `app/client/ui_chat_window.cpp:251` | neutral (D10) |
 | 1 | `Unknown_67E180` | `app/client/ui_chat_window.cpp:251` | untagged neutral name (D10) |
 | 1 | `Unknown_60` | `app/client/ui_chat_window.cpp:256` | untagged neutral name (D10) |
 | 1 | `Unknown_67FFD0` | `app/client/ui_chat_window.cpp:260` | untagged neutral name (D10) |
@@ -11786,6 +11787,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_680700` | `app/client/ui_chat_window.cpp:368` | untagged neutral name (D10) |
 | 1 | `Unknown_570F20` | `app/client/ui_chat_window.cpp:373` | untagged neutral name (D10) |
 | 1 | `Unknown_AC` | `app/client/ui_chat_window.cpp:379` | untagged neutral name (D10) |
+| 1 | `scene` | `app/client/ui_chat_window.cpp:383` | neutral (D10) |
 | 1 | `Unknown_B0` | `app/client/ui_chat_window.cpp:404` | untagged neutral name (D10) |
 | 1 | `Unknown_67DA60` | `app/client/ui_chat_window.cpp:408` | untagged neutral name (D10) |
 | 1 | `Unknown_B4` | `app/client/ui_chat_window.cpp:423` | untagged neutral name (D10) |
@@ -11795,10 +11797,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6AB190` | `app/client/ui_chat_window.cpp:499` | untagged neutral name (D10) |
 | 1 | `Unknown_685AB0` | `app/client/ui_chat_window.cpp:502` | untagged neutral name (D10) |
 | 1 | `Unknown_8C` | `app/client/ui_chat_window.cpp:517` | untagged neutral name (D10) |
+| 1 | `scene` | `app/client/ui_chat_window.cpp:518` | neutral (D10) |
 | 1 | `Unknown_685A30` | `app/client/ui_chat_window.cpp:520` | untagged neutral name (D10) |
 | 1 | `Unknown48` | `app/client/ui_chat_window.cpp:555` | untagged neutral name (D10) |
 | 1 | `Unknown13CC` | `app/client/ui_chat_window.cpp:616` | untagged neutral name (D10) |
 | 1 | `Unknown_765DF0` | `app/client/ui_chat_window.cpp:616` | untagged neutral name (D10) |
+| 1 | `br` | `app/client/ui_chat_window.cpp:628` | neutral (D10) |
 | 1 | `ui_chat_window.h` | `app/client/ui_chat_window.h:4` | provisional header name for ui_chat_window.cpp |
 | 1 | `Unknown67D430Class` | `app/client/ui_chat_window.h:15` | untagged neutral name (D10) |
 | 1 | `Unknown67D430EntryStruct` | `app/client/ui_chat_window.h:17` | untagged neutral name (D10) |

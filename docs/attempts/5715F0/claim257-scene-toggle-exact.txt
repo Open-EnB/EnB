@@ -1,0 +1,662 @@
+{
+  "forms.json": {
+    "base_rev": "9cf5e331",
+    "base_source_sha256": "753b5e442758eb15efde978a218c0e70ecfd4a638923c0899e1a7a7b73f43c7d",
+    "forms": {
+      "5715_peek_intref": {
+        "patch": "--- a/app/client/ui_chat_window.cpp\n+++ b/app/client/ui_chat_window.cpp\n@@ -517,7 +517,7 @@\n \t\tUnknownDC->Unknown_8C(false);\n \t\tif (!UnknownB8->Peek_Scene()) UnknownB8->Add(Peek_Scene());\n \t\tUnknownD4->Set_Hidden(false);\n-\t\tUnknownD8->Unknown_685A30(Create_Peek(Peek_Scene()));\n+\t\tconst int &scene = Unknown44; UnknownD8->Unknown_685A30(Create_Peek((SceneClass *)scene));\n \t} else {\n \t\tUnknownDC->Unknown_40(false);\n \t\tUnknownDC->Unknown_8C(true);\n",
+        "source_sha256": "e317334c3f69bdd6fcde8648361aa3346d29dadd69d466d7cd574c4681dfa15f"
+      },
+      "5715_add_intref": {
+        "patch": "--- a/app/client/ui_chat_window.cpp\n+++ b/app/client/ui_chat_window.cpp\n@@ -515,7 +515,7 @@\n \t\tInterfaceSortScopeClass scope(this);\n \t\tUnknownDC->Unknown_40(true);\n \t\tUnknownDC->Unknown_8C(false);\n-\t\tif (!UnknownB8->Peek_Scene()) UnknownB8->Add(Peek_Scene());\n+\t\tconst int &scene = Unknown44; if (!UnknownB8->Peek_Scene()) UnknownB8->Add((SceneClass *)scene);\n \t\tUnknownD4->Set_Hidden(false);\n \t\tUnknownD8->Unknown_685A30(Create_Peek(Peek_Scene()));\n \t} else {\n",
+        "source_sha256": "4ce49d2ced47151b7c4e26c52507243e16817e012687cde0e2291902c36e835a"
+      },
+      "5715_both_intref": {
+        "patch": "--- a/app/client/ui_chat_window.cpp\n+++ b/app/client/ui_chat_window.cpp\n@@ -515,9 +515,9 @@\n \t\tInterfaceSortScopeClass scope(this);\n \t\tUnknownDC->Unknown_40(true);\n \t\tUnknownDC->Unknown_8C(false);\n-\t\tif (!UnknownB8->Peek_Scene()) UnknownB8->Add(Peek_Scene());\n+\t\tconst int &scene = Unknown44; if (!UnknownB8->Peek_Scene()) UnknownB8->Add((SceneClass *)scene);\n \t\tUnknownD4->Set_Hidden(false);\n-\t\tUnknownD8->Unknown_685A30(Create_Peek(Peek_Scene()));\n+\t\tUnknownD8->Unknown_685A30(Create_Peek((SceneClass *)scene));\n \t} else {\n \t\tUnknownDC->Unknown_40(false);\n \t\tUnknownDC->Unknown_8C(true);\n",
+        "source_sha256": "33d7820150557abaac8178a6941403d55b0b0b9f775df66dc405efae967181bc"
+      },
+      "root_final": {
+        "patch": "--- a/app/client/ui_chat_window.cpp\n+++ b/app/client/ui_chat_window.cpp\n@@ -506,7 +506,7 @@\n \t}\n }\n \n-// 0x5715F0  // NOT EXACT: functional (CW2): register residue around Create_Peek(Peek_Scene()) (0.71)\n+// 0x5715F0\n void ChatWindowInterface::Unknown_5715F0(bool on, bool force)\n {\n \tif (on == UnknownDC->Is_Enabled() && !force) return;\n@@ -515,9 +515,9 @@\n \t\tInterfaceSortScopeClass scope(this);\n \t\tUnknownDC->Unknown_40(true);\n \t\tUnknownDC->Unknown_8C(false);\n-\t\tif (!UnknownB8->Peek_Scene()) UnknownB8->Add(Peek_Scene());\n+\t\tconst int &scene = Unknown44; if (!UnknownB8->Peek_Scene()) UnknownB8->Add((SceneClass *)scene);\t// NAME 1 [scene]: neutral (D10)\n \t\tUnknownD4->Set_Hidden(false);\n-\t\tUnknownD8->Unknown_685A30(Create_Peek(Peek_Scene()));\n+\t\tUnknownD8->Unknown_685A30(Create_Peek((SceneClass *)scene));\n \t} else {\n \t\tUnknownDC->Unknown_40(false);\n \t\tUnknownDC->Unknown_8C(true);\n@@ -630,6 +630,8 @@\n }\n \n /*\n+**\t0x5715F0 is exact: use the stored scene through one const integer reference at both existing input sites,\n+**\tso the later value read remains after Set_Hidden and reference-counted temporary cleanup is preserved.\n **\t0x570260 is exact: bind the stored scene value through a const reference to its declared integer type\n **\tand convert it at the existing Create_Peek argument site. Reference-counted temporary lifetime is unchanged.\n **\t0x571A70 and its inlined callers 0x570CD0 / 0x570E40 are exact: copy both bone translations\n",
+        "source_sha256": "01601057de730b5ae9d42dc5ad05aa7084ab554a1b7099b76da83886e2ed2a98"
+      }
+    }
+  },
+  "measurements.json": {
+    "compiled_safe_forms": 3,
+    "baseline": "root-final-570260",
+    "executed": [
+      {
+        "name": "5715_peek_intref",
+        "source_sha256": "e317334c3f69bdd6fcde8648361aa3346d29dadd69d466d7cd574c4681dfa15f",
+        "counts": {
+          "exact": 74,
+          "none": 2
+        },
+        "gained_addresses": [],
+        "lost_addresses": [],
+        "exact_addresses": [
+          "0x42A6C0",
+          "0x42A820",
+          "0x42A940",
+          "0x42A970",
+          "0x42AB30",
+          "0x42B320",
+          "0x42D050",
+          "0x42F250",
+          "0x45CC10",
+          "0x474080",
+          "0x4740B0",
+          "0x4A1930",
+          "0x4A19A0",
+          "0x4A19C0",
+          "0x4A1A10",
+          "0x4A1A30",
+          "0x4A1A50",
+          "0x4A1A70",
+          "0x4A1A90",
+          "0x4A1AB0",
+          "0x4A1AD0",
+          "0x4A1AF0",
+          "0x514960",
+          "0x514990",
+          "0x5156B0",
+          "0x5156F0",
+          "0x515750",
+          "0x51C600",
+          "0x51C630",
+          "0x5411F0",
+          "0x5623B0",
+          "0x5623D0",
+          "0x5623F0",
+          "0x56F420",
+          "0x56F530",
+          "0x56F560",
+          "0x56F780",
+          "0x56F9F0",
+          "0x56FD30",
+          "0x5701C0",
+          "0x570210",
+          "0x570260",
+          "0x570340",
+          "0x570390",
+          "0x570510",
+          "0x5708F0",
+          "0x570CD0",
+          "0x570E40",
+          "0x570F20",
+          "0x570FF0",
+          "0x571170",
+          "0x5711C0",
+          "0x571210",
+          "0x571430",
+          "0x571470",
+          "0x571810",
+          "0x571860",
+          "0x5718B0",
+          "0x571900",
+          "0x571950",
+          "0x5719A0",
+          "0x571A70",
+          "0x571B30",
+          "0x571B70",
+          "0x571BA0",
+          "0x571BD0",
+          "0x571DE0",
+          "0x571E00",
+          "0x571E40",
+          "0x571E80",
+          "0x571EB0",
+          "0x571EE0",
+          "0x571EF0"
+        ],
+        "gained": [],
+        "lost": [],
+        "target_metrics": {
+          "size": 432,
+          "rows": 4,
+          "similarity": 0.968,
+          "diff": "/home/dev/Projects/EnB/.work/claim-257/scene-targets/runs/family4-f1bcu8rs/5715_peek_intref/Unknown_5715F0.diff.txt"
+        }
+      },
+      {
+        "name": "5715_add_intref",
+        "source_sha256": "4ce49d2ced47151b7c4e26c52507243e16817e012687cde0e2291902c36e835a",
+        "counts": {
+          "exact": 74,
+          "none": 2
+        },
+        "gained_addresses": [],
+        "lost_addresses": [],
+        "exact_addresses": [
+          "0x42A6C0",
+          "0x42A820",
+          "0x42A940",
+          "0x42A970",
+          "0x42AB30",
+          "0x42B320",
+          "0x42D050",
+          "0x42F250",
+          "0x45CC10",
+          "0x474080",
+          "0x4740B0",
+          "0x4A1930",
+          "0x4A19A0",
+          "0x4A19C0",
+          "0x4A1A10",
+          "0x4A1A30",
+          "0x4A1A50",
+          "0x4A1A70",
+          "0x4A1A90",
+          "0x4A1AB0",
+          "0x4A1AD0",
+          "0x4A1AF0",
+          "0x514960",
+          "0x514990",
+          "0x5156B0",
+          "0x5156F0",
+          "0x515750",
+          "0x51C600",
+          "0x51C630",
+          "0x5411F0",
+          "0x5623B0",
+          "0x5623D0",
+          "0x5623F0",
+          "0x56F420",
+          "0x56F530",
+          "0x56F560",
+          "0x56F780",
+          "0x56F9F0",
+          "0x56FD30",
+          "0x5701C0",
+          "0x570210",
+          "0x570260",
+          "0x570340",
+          "0x570390",
+          "0x570510",
+          "0x5708F0",
+          "0x570CD0",
+          "0x570E40",
+          "0x570F20",
+          "0x570FF0",
+          "0x571170",
+          "0x5711C0",
+          "0x571210",
+          "0x571430",
+          "0x571470",
+          "0x571810",
+          "0x571860",
+          "0x5718B0",
+          "0x571900",
+          "0x571950",
+          "0x5719A0",
+          "0x571A70",
+          "0x571B30",
+          "0x571B70",
+          "0x571BA0",
+          "0x571BD0",
+          "0x571DE0",
+          "0x571E00",
+          "0x571E40",
+          "0x571E80",
+          "0x571EB0",
+          "0x571EE0",
+          "0x571EF0"
+        ],
+        "gained": [],
+        "lost": [],
+        "target_metrics": {
+          "size": 432,
+          "rows": 23,
+          "similarity": 0.848,
+          "diff": "/home/dev/Projects/EnB/.work/claim-257/scene-targets/runs/family4-f1bcu8rs/5715_add_intref/Unknown_5715F0.diff.txt"
+        }
+      },
+      {
+        "name": "5715_both_intref",
+        "source_sha256": "33d7820150557abaac8178a6941403d55b0b0b9f775df66dc405efae967181bc",
+        "counts": {
+          "exact": 75,
+          "none": 1
+        },
+        "gained_addresses": [
+          "0x5715F0"
+        ],
+        "lost_addresses": [],
+        "exact_addresses": [
+          "0x42A6C0",
+          "0x42A820",
+          "0x42A940",
+          "0x42A970",
+          "0x42AB30",
+          "0x42B320",
+          "0x42D050",
+          "0x42F250",
+          "0x45CC10",
+          "0x474080",
+          "0x4740B0",
+          "0x4A1930",
+          "0x4A19A0",
+          "0x4A19C0",
+          "0x4A1A10",
+          "0x4A1A30",
+          "0x4A1A50",
+          "0x4A1A70",
+          "0x4A1A90",
+          "0x4A1AB0",
+          "0x4A1AD0",
+          "0x4A1AF0",
+          "0x514960",
+          "0x514990",
+          "0x5156B0",
+          "0x5156F0",
+          "0x515750",
+          "0x51C600",
+          "0x51C630",
+          "0x5411F0",
+          "0x5623B0",
+          "0x5623D0",
+          "0x5623F0",
+          "0x56F420",
+          "0x56F530",
+          "0x56F560",
+          "0x56F780",
+          "0x56F9F0",
+          "0x56FD30",
+          "0x5701C0",
+          "0x570210",
+          "0x570260",
+          "0x570340",
+          "0x570390",
+          "0x570510",
+          "0x5708F0",
+          "0x570CD0",
+          "0x570E40",
+          "0x570F20",
+          "0x570FF0",
+          "0x571170",
+          "0x5711C0",
+          "0x571210",
+          "0x571430",
+          "0x571470",
+          "0x5715F0",
+          "0x571810",
+          "0x571860",
+          "0x5718B0",
+          "0x571900",
+          "0x571950",
+          "0x5719A0",
+          "0x571A70",
+          "0x571B30",
+          "0x571B70",
+          "0x571BA0",
+          "0x571BD0",
+          "0x571DE0",
+          "0x571E00",
+          "0x571E40",
+          "0x571E80",
+          "0x571EB0",
+          "0x571EE0",
+          "0x571EF0"
+        ],
+        "gained": [
+          [
+            "?Unknown_5715F0@ChatWindowInterface@@QAEX_N0@Z",
+            "0x5715F0"
+          ]
+        ],
+        "lost": [],
+        "target_metrics": {
+          "size": 432,
+          "rows": 0,
+          "similarity": 1.0,
+          "diff": "/home/dev/Projects/EnB/.work/claim-257/scene-targets/runs/family4-f1bcu8rs/5715_both_intref/Unknown_5715F0.diff.txt"
+        }
+      },
+      {
+        "name": "root_final",
+        "source_sha256": "01601057de730b5ae9d42dc5ad05aa7084ab554a1b7099b76da83886e2ed2a98",
+        "counts": {
+          "exact": 75,
+          "none": 1
+        },
+        "gained_addresses": [
+          "0x5715F0"
+        ],
+        "lost_addresses": [],
+        "exact_addresses": [
+          "0x42A6C0",
+          "0x42A820",
+          "0x42A940",
+          "0x42A970",
+          "0x42AB30",
+          "0x42B320",
+          "0x42D050",
+          "0x42F250",
+          "0x45CC10",
+          "0x474080",
+          "0x4740B0",
+          "0x4A1930",
+          "0x4A19A0",
+          "0x4A19C0",
+          "0x4A1A10",
+          "0x4A1A30",
+          "0x4A1A50",
+          "0x4A1A70",
+          "0x4A1A90",
+          "0x4A1AB0",
+          "0x4A1AD0",
+          "0x4A1AF0",
+          "0x514960",
+          "0x514990",
+          "0x5156B0",
+          "0x5156F0",
+          "0x515750",
+          "0x51C600",
+          "0x51C630",
+          "0x5411F0",
+          "0x5623B0",
+          "0x5623D0",
+          "0x5623F0",
+          "0x56F420",
+          "0x56F530",
+          "0x56F560",
+          "0x56F780",
+          "0x56F9F0",
+          "0x56FD30",
+          "0x5701C0",
+          "0x570210",
+          "0x570260",
+          "0x570340",
+          "0x570390",
+          "0x570510",
+          "0x5708F0",
+          "0x570CD0",
+          "0x570E40",
+          "0x570F20",
+          "0x570FF0",
+          "0x571170",
+          "0x5711C0",
+          "0x571210",
+          "0x571430",
+          "0x571470",
+          "0x5715F0",
+          "0x571810",
+          "0x571860",
+          "0x5718B0",
+          "0x571900",
+          "0x571950",
+          "0x5719A0",
+          "0x571A70",
+          "0x571B30",
+          "0x571B70",
+          "0x571BA0",
+          "0x571BD0",
+          "0x571DE0",
+          "0x571E00",
+          "0x571E40",
+          "0x571E80",
+          "0x571EB0",
+          "0x571EE0",
+          "0x571EF0"
+        ],
+        "gained": [
+          [
+            "?Unknown_5715F0@ChatWindowInterface@@QAEX_N0@Z",
+            "0x5715F0"
+          ]
+        ],
+        "lost": [],
+        "target_metrics": null
+      }
+    ]
+  },
+  "audit.json": {
+    "source_sha256": "33d7820150557abaac8178a6941403d55b0b0b9f775df66dc405efae967181bc",
+    "symbol": "?Unknown_5715F0@ChatWindowInterface@@QAEX_N0@Z",
+    "start": "0x5715f0",
+    "end_exclusive": "0x57179f",
+    "instructions": 125,
+    "returns": [
+      "0x5716fe",
+      "0x57179c"
+    ],
+    "relocations": [
+      {
+        "offset": 2,
+        "type": 6,
+        "symbol": "__except_list",
+        "addend": 0,
+        "client_absolute": "0x0",
+        "purpose": "fs:[0] exception chain"
+      },
+      {
+        "offset": 9,
+        "type": 6,
+        "symbol": "$L105516",
+        "addend": 0,
+        "client_absolute": "0xab10f8",
+        "purpose": "C++ EH handler (verified below)"
+      },
+      {
+        "offset": 17,
+        "type": 6,
+        "symbol": "__except_list",
+        "addend": 0,
+        "client_absolute": "0x0",
+        "purpose": "fs:[0] exception chain"
+      },
+      {
+        "offset": 83,
+        "type": 20,
+        "symbol": "??0InterfaceSortScopeClass@@QAE@PAVInterfaceClass@@@Z",
+        "addend": 0,
+        "client_target": "0x541980"
+      },
+      {
+        "offset": 180,
+        "type": 20,
+        "symbol": "?Create_Peek@@YA?AV?$RefCountPtr@VSceneClass@@@@PAVSceneClass@@@Z",
+        "addend": 0,
+        "client_target": "0x514960"
+      },
+      {
+        "offset": 200,
+        "type": 20,
+        "symbol": "?Unknown_685A30@TextCursorClass@@QAEXABV?$RefCountPtr@VSceneClass@@@@@Z",
+        "addend": 0,
+        "client_target": "0x685a30"
+      },
+      {
+        "offset": 251,
+        "type": 20,
+        "symbol": "??1InterfaceSortClass@@QAE@XZ",
+        "addend": 0,
+        "client_target": "0x6e18b0"
+      },
+      {
+        "offset": 263,
+        "type": 6,
+        "symbol": "__except_list",
+        "addend": 0,
+        "client_absolute": "0x0",
+        "purpose": "fs:[0] exception chain"
+      },
+      {
+        "offset": 372,
+        "type": 20,
+        "symbol": "?Unknown_685A30@TextCursorClass@@QAEXABV?$RefCountPtr@VSceneClass@@@@@Z",
+        "addend": 0,
+        "client_target": "0x685a30"
+      },
+      {
+        "offset": 421,
+        "type": 6,
+        "symbol": "__except_list",
+        "addend": 0,
+        "client_absolute": "0x0",
+        "purpose": "fs:[0] exception chain"
+      }
+    ],
+    "unwind": [
+      {
+        "state": 0,
+        "client_funclet": "0xab10e0",
+        "bytes": 8,
+        "calls": [
+          {
+            "symbol": "??1InterfaceSortScopeClass@@QAE@XZ",
+            "client_target": "0x5411f0"
+          }
+        ]
+      },
+      {
+        "state": 1,
+        "client_funclet": "0xab10e8",
+        "bytes": 8,
+        "calls": [
+          {
+            "symbol": "??1?$RefCountPtr@VSceneClass@@@@QAE@XZ",
+            "client_target": "0x514990"
+          }
+        ]
+      },
+      {
+        "state": 2,
+        "client_funclet": "0xab10f0",
+        "bytes": 8,
+        "calls": [
+          {
+            "symbol": "??1?$RefCountPtr@VSceneClass@@@@QAE@XZ",
+            "client_target": "0x514990"
+          }
+        ]
+      }
+    ],
+    "code": "All nonrelocated bytes including branches and returns identical; no x87 instructions. RefCountPtr temporary remains full-expression scoped; member scene reference performs no extra load across callbacks."
+  },
+  "root-final-audit.json": {
+    "source_sha256": "01601057de730b5ae9d42dc5ad05aa7084ab554a1b7099b76da83886e2ed2a98",
+    "symbol": "?Unknown_5715F0@ChatWindowInterface@@QAEX_N0@Z",
+    "start": "0x5715f0",
+    "end_exclusive": "0x57179f",
+    "instructions": 125,
+    "returns": [
+      "0x5716fe",
+      "0x57179c"
+    ],
+    "relocations": [
+      {
+        "offset": 2,
+        "type": 6,
+        "symbol": "__except_list",
+        "addend": 0,
+        "client_absolute": "0x0",
+        "purpose": "fs:[0] exception chain"
+      },
+      {
+        "offset": 9,
+        "type": 6,
+        "symbol": "$L105516",
+        "addend": 0,
+        "client_absolute": "0xab10f8",
+        "purpose": "C++ EH handler (verified below)"
+      },
+      {
+        "offset": 17,
+        "type": 6,
+        "symbol": "__except_list",
+        "addend": 0,
+        "client_absolute": "0x0",
+        "purpose": "fs:[0] exception chain"
+      },
+      {
+        "offset": 83,
+        "type": 20,
+        "symbol": "??0InterfaceSortScopeClass@@QAE@PAVInterfaceClass@@@Z",
+        "addend": 0,
+        "client_target": "0x541980"
+      },
+      {
+        "offset": 180,
+        "type": 20,
+        "symbol": "?Create_Peek@@YA?AV?$RefCountPtr@VSceneClass@@@@PAVSceneClass@@@Z",
+        "addend": 0,
+        "client_target": "0x514960"
+      },
+      {
+        "offset": 200,
+        "type": 20,
+        "symbol": "?Unknown_685A30@TextCursorClass@@QAEXABV?$RefCountPtr@VSceneClass@@@@@Z",
+        "addend": 0,
+        "client_target": "0x685a30"
+      },
+      {
+        "offset": 251,
+        "type": 20,
+        "symbol": "??1InterfaceSortClass@@QAE@XZ",
+        "addend": 0,
+        "client_target": "0x6e18b0"
+      },
+      {
+        "offset": 263,
+        "type": 6,
+        "symbol": "__except_list",
+        "addend": 0,
+        "client_absolute": "0x0",
+        "purpose": "fs:[0] exception chain"
+      },
+      {
+        "offset": 372,
+        "type": 20,
+        "symbol": "?Unknown_685A30@TextCursorClass@@QAEXABV?$RefCountPtr@VSceneClass@@@@@Z",
+        "addend": 0,
+        "client_target": "0x685a30"
+      },
+      {
+        "offset": 421,
+        "type": 6,
+        "symbol": "__except_list",
+        "addend": 0,
+        "client_absolute": "0x0",
+        "purpose": "fs:[0] exception chain"
+      }
+    ],
+    "unwind": [
+      {
+        "state": 0,
+        "client_funclet": "0xab10e0",
+        "bytes": 8,
+        "calls": [
+          {
+            "symbol": "??1InterfaceSortScopeClass@@QAE@XZ",
+            "client_target": "0x5411f0"
+          }
+        ]
+      },
+      {
+        "state": 1,
+        "client_funclet": "0xab10e8",
+        "bytes": 8,
+        "calls": [
+          {
+            "symbol": "??1?$RefCountPtr@VSceneClass@@@@QAE@XZ",
+            "client_target": "0x514990"
+          }
+        ]
+      },
+      {
+        "state": 2,
+        "client_funclet": "0xab10f0",
+        "bytes": 8,
+        "calls": [
+          {
+            "symbol": "??1?$RefCountPtr@VSceneClass@@@@QAE@XZ",
+            "client_target": "0x514990"
+          }
+        ]
+      }
+    ],
+    "code": "All nonrelocated bytes including branches and returns identical; no x87 instructions. RefCountPtr temporary remains full-expression scoped; member scene reference performs no extra load across callbacks."
+  },
+  "README.md": "# Claim 257: 0x5715F0 exact\n\nIndependent source replay base: 9cf5e331, including all four earlier exact functions. forms.json contains each compiled form as a unified patch against that base and verifies source SHA-256. This phase compiled three safe source forms. Fresh baseline control was root's integrated 570260 object (73 unique exact addresses); root independently rebuilt the final annotated source afterward (74 unique exact addresses). All whole-object matches are unfiltered. Gain: only 0x5715F0; no lost addresses or symbol pairs.\n\nThe first form binds the actual int scene field before Create_Peek only (27 -> 4 masked residual rows); the second binds it before Add only (27 -> 23); sharing the same reference for both call inputs reaches 0. The field is read at each existing call, including after the intervening virtual Set_Hidden callback. The reference itself is bound after the previous callback. No raw scene pointer is cached across virtual calls. Six later planned alternatives were not compiled after the valid exact result.\n\nRoot removed the NOT EXACT annotation without moving source lines, tagged the new local NAME 1 and added its footer note, then independently confirmed +1 address/-0. The input scene's const int reference avoids alias-punning the int field as a pointer. All prior exact solves remain protected.\n\nThe audit verifies all 431 body bytes, 125 instructions, both ret 8 instructions at 0x5716FE/0x57179C, branches, initial and later early exits, caller/callee identities and zero relocation addends. Direct calls are InterfaceSortScopeClass's constructor (0x541980), Create_Peek<SceneClass> (0x514960), TextCursorClass::Unknown_685A30 (0x685A30, both branches), and InterfaceSortClass's destructor (0x6E18B0). Three EH cleanup funclets at 0xAB10E0/E8/F0 match and call the scope destructor (0x5411F0) and the scene reference destructor (0x514990) in the matching states. No x87 instructions occur. Stack lifetime, callbacks and refcounts match retail.\n\nRetained evidence: independent source recipes/hashes in forms.json, per-form metrics and exact address sets in measurements.json, candidate and root-final relocation/EH audits. Baseline proof is .work/claim-257/scene-targets/root-final-570260/runs/manifest-cskpvcn6; three candidate runs are .work/claim-257/scene-targets/runs/family4-f1bcu8rs; final proof is .work/claim-257/scene-targets/root-final-5715F0/runs/manifest-23ncj15_.\n"
+}
