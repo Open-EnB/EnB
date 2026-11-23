@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-634 entries in 255 files.
+633 entries in 254 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -414,7 +414,6 @@ edit the comments in the code, not this file.
 | `app/client/ui_petition_player_entry.cpp:196` | `UIPetitionPlayerEntryClass::Unknown_A0` | marker | NOT EXACT: register (the client loads the client's +0x1130 into eax, ours edx; as ui_petition_stuck.cpp's 0x5D7420) 0x5D6550 |
 | `app/client/ui_petition_player_entry.cpp:303` | `UIPetitionPlayerNameClass::Unknown_68` | marker | NOT EXACT: inline-budget (the client calls rtti.h's DeltaStringClass cast 0x4099A8 out of line at both lookups, ours inlines it; as co.cpp's 0x6FF4B0) 0x5D6EE0 |
 | `app/client/ui_petition_stuck.cpp:42` | `UIPetitionStuckClass::Unknown_A0` | marker | NOT EXACT: register (the client loads the client's +0x1130 into eax, ours edx) 0x5D7420 |
-| `app/client/ui_ptrade.cpp:239` | `UIPTradeClass::Unknown_68` | marker | NOT EXACT: register-only (0.84, same length: key 3's request reads the client through eax, the client's; ours through edx as keys 1 / 2) |
 | `app/client/ui_radio_admin.cpp:246` | `UIRadioAdminClass::Unknown_5E5360` | marker | NOT EXACT: inline budget and stack slots (cases 5 and 6: the client destroys the channel's temporary inline and expands the selected name's assignment in case 6, its temporaries at other frame offsets) |
 | `app/client/ui_radio_join.cpp:161` | `UIRadioJoinClass::Unknown_5EB2F0` | marker | NOT EXACT: the string temporaries' inline expansions and register choices differ (inline budget) |
 | `app/client/ui_refinery.cpp:435` | `UIRefineryClass::Unknown_5ECEF0` | marker | NOT EXACT: register (the 'AdditionalIterations' pointer kept in ecx and its local, the two flags' tests in another order; 0x5465C0 / 0x5B7130 out of line as the client) (0x5ECEF0) |

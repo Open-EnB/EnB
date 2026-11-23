@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1970 |
 | 2 | describes what the code does | 5007 |
-| 1 | neutral placeholder | 25139 |
+| 1 | neutral placeholder | 25140 |
 
 ## For review (score 3 and below)
 
@@ -16186,6 +16186,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_7E3A20` | `app/client/ui_ptrade.cpp:226` | untagged neutral name (D10) |
 | 1 | `Unknown1134` | `app/client/ui_ptrade.cpp:227` | untagged neutral name (D10) |
 | 1 | `Unknown_68` | `app/client/ui_ptrade.cpp:240` | untagged neutral name (D10) |
+| 1 | `avatar, id` | `app/client/ui_ptrade.cpp:242` | neutral (D10) |
 | 1 | `Unknown_64A2B0` | `app/client/ui_ptrade.cpp:260` | untagged neutral name (D10) |
 | 1 | `Unknown_7C` | `app/client/ui_ptrade.cpp:272` | untagged neutral name (D10) |
 | 1 | `Unknown_5E3130` | `app/client/ui_ptrade.cpp:292` | untagged neutral name (D10) |
