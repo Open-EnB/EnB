@@ -1,0 +1,9 @@
+{
+  "base": "7b03a6281ddfb86d331ec1b404c677016381cf56",
+  "source_sha256": "18c3ce1e3b106730fa095679ac44c244f3d31e7399543ffc4c97bfeb08c7e409",
+  "parts": [
+    "docs/attempts/5B1230/claim267-manufacturing-update-report.txt",
+    "docs/attempts/5B1230/claim267-manufacturing-update-recipes.txt"
+  ],
+  "outcome": "19valid hypotheses+1control. Original77rows/frame3C retained. Best score55rows/frame70 has wrong wrapper/later3580 inlining;force input63rows moves whole3640outofline. Enum assignment on original correct-frame source73rows; remainingCast/6CA0 mismatches. Two helper-source forms lose6pairs and rejected. Preserve earlierBB0 exact; no newtarget gain/adoption. All independent patches replayed and SHAverified."
+}
