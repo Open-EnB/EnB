@@ -1,0 +1,765 @@
+{
+  "head": "44ab6c5c",
+  "claim": 254,
+  "address": "0x5ECEF0",
+  "symbol": "UIRefineryClass::Unknown_5ECEF0",
+  "file": "app/client/ui_refinery.cpp",
+  "library": "app",
+  "status": "partial",
+  "blocker": "shape",
+  "model": "gpt-6.1-sol (high)",
+  "forms": 20,
+  "forms_valid_target_only": 12,
+  "forms_diagnostic_external_blank_padding": 8,
+  "baseline_compiles": 2,
+  "candidate_replay_compiles": 1,
+  "failed_before_compile": 1,
+  "failed_before_compile_reason": "Wine socket sandbox restriction; retried with escalation and succeeded.",
+  "diagnostic_forms": [
+    "stack_default_true",
+    "stack_nested_true",
+    "stack_assign_compare",
+    "shortcircuit_clear_both",
+    "nested_clear_both",
+    "nested_go_first",
+    "iterations_assign",
+    "iterations_reuse"
+  ],
+  "best_form": "shortcircuit_go_first",
+  "best_source_sha256": "0f0cc2b2abdaa0318815253ffa1270b2422882be7b2f4efda3dbe69a5d15eba8",
+  "baseline_source_sha256": "70659e5e505dd88dec10c7139ad7b8a580c3f6b1c85b741b1709947641ad9fba",
+  "baseline_exact_symbols": 93,
+  "baseline_symbol_address_pairs": 93,
+  "baseline_unique_exact_addresses": 93,
+  "pair_delta": {
+    "gained": [],
+    "lost": []
+  },
+  "edit": "if (Unknown0AF0 == 0 && can_go) -> if (can_go && Unknown0AF0 == 0)",
+  "reason": "Pure local/field test reorder changes VC6 allocation so iterations stays in ecx and spills to the retail slot. No callback or field mutation occurs between these operands.",
+  "remaining": "11 masked/raw instruction rows, shape. Retail preloads iterations->Value into edx then stores true before its unsigned test; it places invalid-validity xor al,al below the busy-state branch and shares the busy disabled-go path. Best source still compares Value in memory and tests AF0 again after can_go.",
+  "outcome": "No exact target, no production source edit. Best partial stash only. All 98 other emitted functions have identical bytes and relocation identities, with __FILE__ scratch paths normalized by basename.",
+  "best_target_source": "void UIRefineryClass::Unknown_5ECEF0()\n{\n\tRefCountPtr<FontSys> go;\n\tgo = Create_Peek(Unknown_BE67C4->Get_Style(Unknown_B85C48[1], InterfaceMesh->Peek_Mesh_Object()));\n\tRefCountPtr<FontSys> stack = Create_Peek(Unknown_BE67C4->Get_Style(Unknown_B85C48[2], InterfaceMesh->Peek_Mesh_Object()));\n\tDeltaTemplateClass<UnknownB01394Enum> *v = Unknown_Manu_Raw<DeltaTemplateClass<UnknownB01394Enum> >(Unknown0AEC, \"Validity\");\n\tDeltaTemplateClass<UnknownB01394Enum> *validity = (v && v->Unknown70) ? v : NULL;\n\tUIManuTechLevelFilterClass *n = Unknown_Manu_Raw<UIManuTechLevelFilterClass>(Unknown0AEC, \"AdditionalIterations\");\n\tUIManuTechLevelFilterClass *iterations = (n && n->Unknown70) ? n : NULL;\n\tbool can_go;\n\tbool can_stack;\n\tif (validity && validity->Value == 13) {\n\t\tcan_go = true;\n\t\tcan_stack = iterations && (unsigned int)iterations->Value > 0;\n\t} else {\n\t\tcan_go = false;\n\t\tcan_stack = false;\n\t}\n\tif (Unknown0AF0 != 0) {\n\t\tcan_stack = false;\n\t}\n\tif (can_go && Unknown0AF0 == 0) {\n\t\tUnknown0BC[2]->Unknown_40(true);\n\t\tgo->Unknown_Set_2FC(1.0f);\n\t} else {\n\t\tUnknown0BC[2]->Unknown_40(false);\n\t\tUnknown0BC[2]->Unknown_40(false);\n\t\tgo->Unknown_Set_2FC(0.33f);\n\t}\n\tif (can_stack) {\n\t\tUnknown0BC[3]->Unknown_40(true);\n\t\tstack->Unknown_Set_2FC(1.0f);\n\t\tchar text[52];\n\t\tsprintf(text, \"Refine %d\", iterations->Value + 1);\n\t\tstack->Change_Text(text, 0);\n\t} else {\n\t\tUnknown0BC[3]->Unknown_40(false);\n\t\tstack->Unknown_Set_2FC(0.33f);\n\t\tstack->Change_Text(\"Refine Stack\", 0);\n\t}\n\tUnknown0BC[1]->Unknown_40(true);\n}\n\n",
+  "patch": "--- a/app/client/ui_refinery.cpp\n+++ b/app/client/ui_refinery.cpp\n@@ -454,7 +454,7 @@\n \tif (Unknown0AF0 != 0) {\n \t\tcan_stack = false;\n \t}\n-\tif (Unknown0AF0 == 0 && can_go) {\n+\tif (can_go && Unknown0AF0 == 0) {\n \t\tUnknown0BC[2]->Unknown_40(true);\n \t\tgo->Unknown_Set_2FC(1.0f);\n \t} else {\n",
+  "results": [
+    {
+      "run": "baseline-6uycp7y3",
+      "name": "baseline",
+      "compiled": true,
+      "source_sha256": "70659e5e505dd88dec10c7139ad7b8a580c3f6b1c85b741b1709947641ad9fba",
+      "residue": 17,
+      "register_masked_residue": 18,
+      "raw_rows": 17,
+      "class": "shape",
+      "frame": "0x78",
+      "score": 0.9154228855721394,
+      "gained": [],
+      "lost": []
+    },
+    {
+      "run": "forms1-5h7d558v",
+      "name": "stack_default_true",
+      "compiled": true,
+      "source_sha256": "ff4d415766ef0ffa570d882de8447da79d0499d6f16387b7859c5d0375c9e3b1",
+      "residue": 69,
+      "register_masked_residue": 36,
+      "raw_rows": 89,
+      "class": "shape",
+      "frame": "0x78",
+      "score": 0.6567164179104478,
+      "gained": [],
+      "lost": []
+    },
+    {
+      "run": "forms1-5h7d558v",
+      "name": "stack_nested_true",
+      "compiled": true,
+      "source_sha256": "988caff1217d2a220f8196d57ae03d556c02b52fce91b3f4fc08354e276eaa0b",
+      "residue": 70,
+      "register_masked_residue": 29,
+      "raw_rows": 88,
+      "class": "shape",
+      "frame": "0x78",
+      "score": 0.6534653465346535,
+      "gained": [],
+      "lost": []
+    },
+    {
+      "run": "forms1-5h7d558v",
+      "name": "stack_assign_compare",
+      "compiled": true,
+      "source_sha256": "110cfefaf3fa12196891c98a7160537815943294a51d41ba83cbd63f95a3b040",
+      "residue": 75,
+      "register_masked_residue": 31,
+      "raw_rows": 121,
+      "class": "shape",
+      "frame": "0x78",
+      "score": 0.6287128712871287,
+      "gained": [],
+      "lost": []
+    },
+    {
+      "run": "forms1-5h7d558v",
+      "name": "shortcircuit_clear_both",
+      "compiled": true,
+      "source_sha256": "2cfa43839d32ddc5de1f76567cb540b4d88a8a6890b044998ada95eb3b47417e",
+      "residue": 82,
+      "register_masked_residue": 48,
+      "raw_rows": 95,
+      "class": "shape",
+      "frame": "0x78",
+      "score": 0.592039800995025,
+      "gained": [],
+      "lost": []
+    },
+    {
+      "run": "forms1-5h7d558v",
+      "name": "shortcircuit_go_first",
+      "compiled": true,
+      "source_sha256": "0f0cc2b2abdaa0318815253ffa1270b2422882be7b2f4efda3dbe69a5d15eba8",
+      "residue": 11,
+      "register_masked_residue": 17,
+      "raw_rows": 11,
+      "class": "shape",
+      "frame": "0x78",
+      "score": 0.945273631840796,
+      "gained": [],
+      "lost": []
+    },
+    {
+      "run": "forms1-5h7d558v",
+      "name": "nested_clear_both",
+      "compiled": true,
+      "source_sha256": "5ff8715c77b11251c4a47e3e82e0810a0e3dba40892e3ba6afca6abcad4ffcca",
+      "residue": 80,
+      "register_masked_residue": 43,
+      "raw_rows": 127,
+      "class": "shape",
+      "frame": "0x78",
+      "score": 0.6019900497512438,
+      "gained": [],
+      "lost": []
+    },
+    {
+      "run": "forms1-5h7d558v",
+      "name": "nested_go_first",
+      "compiled": true,
+      "source_sha256": "e1e2509d94db42a5117e8f1e454b36e3ed38b85c6663c80e7a0a66703e3db58d",
+      "residue": 72,
+      "register_masked_residue": 31,
+      "raw_rows": 89,
+      "class": "shape",
+      "frame": "0x78",
+      "score": 0.645320197044335,
+      "gained": [],
+      "lost": []
+    },
+    {
+      "run": "forms1-5h7d558v",
+      "name": "iterations_assign",
+      "compiled": true,
+      "source_sha256": "74f072a24c38b3b47bd74b6512bdb799c43c81c82e0532a0b62292f1677f7327",
+      "residue": 71,
+      "register_masked_residue": 39,
+      "raw_rows": 90,
+      "class": "shape",
+      "frame": "0x78",
+      "score": 0.6467661691542288,
+      "gained": [],
+      "lost": []
+    },
+    {
+      "run": "forms1-5h7d558v",
+      "name": "iterations_reuse",
+      "compiled": true,
+      "source_sha256": "3c1a8ff891d139f4fcfcc026279bf606e5afc8554cebfb941cf5db08cede2981",
+      "residue": 79,
+      "register_masked_residue": 38,
+      "raw_rows": 101,
+      "class": "shape",
+      "frame": "0x78",
+      "score": 0.6069651741293532,
+      "gained": [],
+      "lost": []
+    },
+    {
+      "run": "forms2-dt5iuci8",
+      "name": "gt_default",
+      "compiled": true,
+      "source_sha256": "1db0aeb49872b7af166a6edc70213857d5e0ad0aee2c756725840ba19f572f39",
+      "residue": 68,
+      "register_masked_residue": 37,
+      "raw_rows": 87,
+      "class": "shape",
+      "frame": "0x78",
+      "score": 0.6633663366336633,
+      "gained": [],
+      "lost": []
+    },
+    {
+      "run": "forms2-dt5iuci8",
+      "name": "gt_nested",
+      "compiled": true,
+      "source_sha256": "b961e8ac194c8f2bddde717cd04d33c07296f78e9d652d7936e3184a11fce59d",
+      "residue": 71,
+      "register_masked_residue": 30,
+      "raw_rows": 88,
+      "class": "shape",
+      "frame": "0x78",
+      "score": 0.6502463054187192,
+      "gained": [],
+      "lost": []
+    },
+    {
+      "run": "forms2-dt5iuci8",
+      "name": "gt_ifelse",
+      "compiled": true,
+      "source_sha256": "0dd9435d6bb732c936962d7a55c96a95b301fe1542ba5976df680caf6f5364fb",
+      "residue": 43,
+      "register_masked_residue": 26,
+      "raw_rows": 64,
+      "class": "shape",
+      "frame": "0x78",
+      "score": 0.7860696517412935,
+      "gained": [],
+      "lost": []
+    },
+    {
+      "run": "forms2-dt5iuci8",
+      "name": "go_label",
+      "compiled": true,
+      "source_sha256": "56bfd63ea3f22ed07e7aaf7968f79f761a65830226527414d9d37004f44db5e2",
+      "residue": 82,
+      "register_masked_residue": 48,
+      "raw_rows": 95,
+      "class": "shape",
+      "frame": "0x78",
+      "score": 0.592039800995025,
+      "gained": [],
+      "lost": []
+    },
+    {
+      "run": "forms2-dt5iuci8",
+      "name": "busy_nested",
+      "compiled": true,
+      "source_sha256": "9b3a036445084f0a3f822f6b1b0c7cb893d74f6494e02f1f81bcb0b186f0b881",
+      "residue": 111,
+      "register_masked_residue": 84,
+      "raw_rows": 128,
+      "class": "shape",
+      "frame": "0x78",
+      "score": 0.4688995215311005,
+      "gained": [],
+      "lost": []
+    },
+    {
+      "run": "forms2-dt5iuci8",
+      "name": "busy_elseif",
+      "compiled": true,
+      "source_sha256": "5fa030f5c37ab5d54b2430bca977fa2fa52c441dad3f0e30086b2450f377b624",
+      "residue": 163,
+      "register_masked_residue": 100,
+      "raw_rows": 155,
+      "class": "shape",
+      "frame": "0x78",
+      "score": 0.22009569377990434,
+      "gained": [],
+      "lost": []
+    },
+    {
+      "run": "forms2-dt5iuci8",
+      "name": "gt_go_label",
+      "compiled": true,
+      "source_sha256": "f521d2b63d0444c9e8b9a6a168219537c3e703a97377498eac11dcaebd1b1039",
+      "residue": 80,
+      "register_masked_residue": 42,
+      "raw_rows": 127,
+      "class": "shape",
+      "frame": "0x78",
+      "score": 0.6019900497512438,
+      "gained": [],
+      "lost": []
+    },
+    {
+      "run": "forms2-dt5iuci8",
+      "name": "gt_busy_nested",
+      "compiled": true,
+      "source_sha256": "696c53b6964446ebf20793f1b952a8f998de08e692f33c386d7add802deebe0b",
+      "residue": 107,
+      "register_masked_residue": 81,
+      "raw_rows": 125,
+      "class": "shape",
+      "frame": "0x78",
+      "score": 0.4904761904761905,
+      "gained": [],
+      "lost": []
+    },
+    {
+      "run": "forms3-w3ehfm21",
+      "name": "flag_expressions",
+      "compiled": true,
+      "source_sha256": "a8fb9ba4466b52608b8d9cfc04b59f49c56f272f4b6e530fead86cf004b18c57",
+      "residue": 18,
+      "register_masked_residue": 10,
+      "raw_rows": 18,
+      "class": "shape",
+      "frame": "0x78",
+      "score": 0.9104477611940298,
+      "gained": [],
+      "lost": []
+    },
+    {
+      "run": "forms3-w3ehfm21",
+      "name": "stack_can_go_phi",
+      "compiled": true,
+      "source_sha256": "44942f741701af6174c6d3464639aa5be7f4d5c54ad304fef7ba20aede10c449",
+      "residue": 11,
+      "register_masked_residue": 17,
+      "raw_rows": 11,
+      "class": "shape",
+      "frame": "0x78",
+      "score": 0.945273631840796,
+      "gained": [],
+      "lost": []
+    },
+    {
+      "run": "forms3-w3ehfm21",
+      "name": "stack_conditional",
+      "compiled": true,
+      "source_sha256": "114de4d5f14056e84249f36e96a636df55c74f2b60fe298f08ea524183930028",
+      "residue": 66,
+      "register_masked_residue": 32,
+      "raw_rows": 86,
+      "class": "shape",
+      "frame": "0x78",
+      "score": 0.6716417910447761,
+      "gained": [],
+      "lost": []
+    },
+    {
+      "run": "controls-li3rv5xi",
+      "name": "baseline_repeat",
+      "compiled": true,
+      "source_sha256": "70659e5e505dd88dec10c7139ad7b8a580c3f6b1c85b741b1709947641ad9fba",
+      "residue": 17,
+      "register_masked_residue": 18,
+      "raw_rows": 17,
+      "class": "shape",
+      "frame": "0x78",
+      "score": 0.9154228855721394,
+      "gained": [],
+      "lost": []
+    },
+    {
+      "run": "controls-li3rv5xi",
+      "name": "candidate_repeat",
+      "compiled": true,
+      "source_sha256": "0f0cc2b2abdaa0318815253ffa1270b2422882be7b2f4efda3dbe69a5d15eba8",
+      "residue": 11,
+      "register_masked_residue": 17,
+      "raw_rows": 11,
+      "class": "shape",
+      "frame": "0x78",
+      "score": 0.945273631840796,
+      "gained": [],
+      "lost": []
+    }
+  ],
+  "audit": {
+    "status": "partial; not exact; no production adoption",
+    "retail_sha256": "249f852496f341c00361be95b66e7c0becc2c39e7cba026f9227e38b602651c4",
+    "base_object_sha256": "5e3f7bc160bdf748e761e0316ace3c776d361bfca72ea728b42731de700417eb",
+    "candidate_object_sha256": "fa854ef3302487709d2b6435687f635f83002dc00c6487b93f06ac81a9604b81",
+    "baseline_source_sha256": "70659e5e505dd88dec10c7139ad7b8a580c3f6b1c85b741b1709947641ad9fba",
+    "candidate_source_sha256": "0f0cc2b2abdaa0318815253ffa1270b2422882be7b2f4efda3dbe69a5d15eba8",
+    "source_edit": "only reordered pure operands of go condition; all other source bytes identical",
+    "outside_target_functions_identical_bytes_and_relocations_except_scratch_file_literal": 98,
+    "retail_bounds": [
+      "0x5ECEF0",
+      "0x5ED178 (exclusive)"
+    ],
+    "retail_return_count": 1,
+    "retail_instruction_rows": 201,
+    "candidate_instruction_rows": 201,
+    "class": "shape",
+    "masked_residue": 11,
+    "register_masked_residue": 17,
+    "calls": [
+      {
+        "object_offset": "0x40",
+        "retail_address": "0x5ecf30",
+        "object": "call 0x45",
+        "retail": "call 0x40269e",
+        "identity": "resolved",
+        "symbol": "?Get_Style@FontManagerClass@@QAEPAVFontSys@@PBDPAVRenderObjClass@@@Z",
+        "target": "0x6d25d0"
+      },
+      {
+        "object_offset": "0x4b",
+        "retail_address": "0x5ecf3b",
+        "object": "call 0x50",
+        "retail": "call 0x404e80",
+        "identity": "resolved",
+        "symbol": "?Create_Peek@@YA?AV?$RefCountPtr@VFontSys@@@@PAVFontSys@@@Z",
+        "target": "0x546510"
+      },
+      {
+        "object_offset": "0x85",
+        "retail_address": "0x5ecf75",
+        "object": "call dword ptr [edx]",
+        "retail": "call dword ptr [edx]",
+        "identity": "same indirect operand"
+      },
+      {
+        "object_offset": "0x9e",
+        "retail_address": "0x5ecf8e",
+        "object": "call 0xa3",
+        "retail": "call 0x40269e",
+        "identity": "resolved",
+        "symbol": "?Get_Style@FontManagerClass@@QAEPAVFontSys@@PBDPAVRenderObjClass@@@Z",
+        "target": "0x6d25d0"
+      },
+      {
+        "object_offset": "0xa9",
+        "retail_address": "0x5ecf99",
+        "object": "call 0xae",
+        "retail": "call 0x404e80",
+        "identity": "resolved",
+        "symbol": "?Create_Peek@@YA?AV?$RefCountPtr@VFontSys@@@@PAVFontSys@@@Z",
+        "target": "0x546510"
+      },
+      {
+        "object_offset": "0xc2",
+        "retail_address": "0x5ecfb2",
+        "object": "call 0xc7",
+        "retail": "call 0x417f80",
+        "identity": "resolved",
+        "symbol": "??0NameClass@@QAE@PBD@Z",
+        "target": "0x4ad380"
+      },
+      {
+        "object_offset": "0xd3",
+        "retail_address": "0x5ecfc3",
+        "object": "call 0xd8",
+        "retail": "call 0x4066a4",
+        "identity": "resolved",
+        "symbol": "?Unknown_Find_Field@@YAPAV?$DeltaTemplateClass@W4UnknownB01394Enum@@@@PAVDeltaCompoundClass@@ABVNameClass@@@Z",
+        "target": "0x5465c0"
+      },
+      {
+        "object_offset": "0xf3",
+        "retail_address": "0x5ecfe3",
+        "object": "call 0xf8",
+        "retail": "call 0x417f80",
+        "identity": "resolved",
+        "symbol": "??0NameClass@@QAE@PBD@Z",
+        "target": "0x4ad380"
+      },
+      {
+        "object_offset": "0x104",
+        "retail_address": "0x5ecff4",
+        "object": "call 0x109",
+        "retail": "call 0x40c5d6",
+        "identity": "resolved",
+        "symbol": "?Unknown_Find_Field@@YAPAVUIManuTechLevelFilterClass@@PAVDeltaCompoundClass@@ABVNameClass@@@Z",
+        "target": "0x5b7130"
+      },
+      {
+        "object_offset": "0x16f",
+        "retail_address": "0x5ed05f",
+        "object": "call dword ptr [eax + 0x40]",
+        "retail": "call dword ptr [eax + 0x40]",
+        "identity": "same indirect operand"
+      },
+      {
+        "object_offset": "0x187",
+        "retail_address": "0x5ed077",
+        "object": "call dword ptr [edx + 0x40]",
+        "retail": "call dword ptr [edx + 0x40]",
+        "identity": "same indirect operand"
+      },
+      {
+        "object_offset": "0x193",
+        "retail_address": "0x5ed083",
+        "object": "call dword ptr [eax + 0x40]",
+        "retail": "call dword ptr [eax + 0x40]",
+        "identity": "same indirect operand"
+      },
+      {
+        "object_offset": "0x1bc",
+        "retail_address": "0x5ed0ac",
+        "object": "call dword ptr [edx + 0x40]",
+        "retail": "call dword ptr [edx + 0x40]",
+        "identity": "same indirect operand"
+      },
+      {
+        "object_offset": "0x1e5",
+        "retail_address": "0x5ed0d5",
+        "object": "call 0x1ea",
+        "retail": "call 0xa266da",
+        "identity": "resolved",
+        "symbol": "_sprintf",
+        "target": "0xa266da"
+      },
+      {
+        "object_offset": "0x1f6",
+        "retail_address": "0x5ed0e6",
+        "object": "call dword ptr [edx + 0x40]",
+        "retail": "call dword ptr [edx + 0x40]",
+        "identity": "same indirect operand"
+      },
+      {
+        "object_offset": "0x217",
+        "retail_address": "0x5ed107",
+        "object": "call 0x21c",
+        "retail": "call 0x4139ad",
+        "identity": "resolved",
+        "symbol": "?Change_Text@FontSys@@QAEXPBDH@Z",
+        "target": "0x6cdbc0"
+      },
+      {
+        "object_offset": "0x228",
+        "retail_address": "0x5ed118",
+        "object": "call dword ptr [eax + 0x40]",
+        "retail": "call dword ptr [eax + 0x40]",
+        "identity": "same indirect operand"
+      },
+      {
+        "object_offset": "0x24e",
+        "retail_address": "0x5ed13e",
+        "object": "call dword ptr [edx]",
+        "retail": "call dword ptr [edx]",
+        "identity": "same indirect operand"
+      },
+      {
+        "object_offset": "0x274",
+        "retail_address": "0x5ed164",
+        "object": "call dword ptr [eax]",
+        "retail": "call dword ptr [eax]",
+        "identity": "same indirect operand"
+      }
+    ],
+    "candidate_call_identities_equal_baseline": true,
+    "retail_branches": [
+      {
+        "address": "0x5ecf47",
+        "instruction": "je 0x5ecf4c"
+      },
+      {
+        "address": "0x5ecf60",
+        "instruction": "je 0x5ecf77"
+      },
+      {
+        "address": "0x5ecf71",
+        "instruction": "jne 0x5ecf77"
+      },
+      {
+        "address": "0x5ecfcd",
+        "instruction": "je 0x5ecfd8"
+      },
+      {
+        "address": "0x5ecfd2",
+        "instruction": "je 0x5ecfd8"
+      },
+      {
+        "address": "0x5ecfd6",
+        "instruction": "jmp 0x5ecfda"
+      },
+      {
+        "address": "0x5ecffe",
+        "instruction": "je 0x5ed00d"
+      },
+      {
+        "address": "0x5ed003",
+        "instruction": "je 0x5ed00d"
+      },
+      {
+        "address": "0x5ed00b",
+        "instruction": "jmp 0x5ed013"
+      },
+      {
+        "address": "0x5ed015",
+        "instruction": "je 0x5ed04d"
+      },
+      {
+        "address": "0x5ed01e",
+        "instruction": "jne 0x5ed04d"
+      },
+      {
+        "address": "0x5ed024",
+        "instruction": "je 0x5ed034"
+      },
+      {
+        "address": "0x5ed032",
+        "instruction": "ja 0x5ed038"
+      },
+      {
+        "address": "0x5ed045",
+        "instruction": "je 0x5ed051"
+      },
+      {
+        "address": "0x5ed04b",
+        "instruction": "jmp 0x5ed06e"
+      },
+      {
+        "address": "0x5ed04f",
+        "instruction": "jmp 0x5ed034"
+      },
+      {
+        "address": "0x5ed053",
+        "instruction": "je 0x5ed06e"
+      },
+      {
+        "address": "0x5ed06c",
+        "instruction": "jmp 0x5ed094"
+      },
+      {
+        "address": "0x5ed0a8",
+        "instruction": "je 0x5ed0e5"
+      },
+      {
+        "address": "0x5ed0e3",
+        "instruction": "jmp 0x5ed103"
+      },
+      {
+        "address": "0x5ed129",
+        "instruction": "je 0x5ed144"
+      },
+      {
+        "address": "0x5ed13a",
+        "instruction": "jne 0x5ed140"
+      },
+      {
+        "address": "0x5ed157",
+        "instruction": "je 0x5ed166"
+      },
+      {
+        "address": "0x5ed160",
+        "instruction": "jne 0x5ed166"
+      }
+    ],
+    "candidate_branches": [
+      {
+        "offset": "0x57",
+        "instruction": "je 0x5c"
+      },
+      {
+        "offset": "0x70",
+        "instruction": "je 0x87"
+      },
+      {
+        "offset": "0x81",
+        "instruction": "jne 0x87"
+      },
+      {
+        "offset": "0xdd",
+        "instruction": "je 0xe8"
+      },
+      {
+        "offset": "0xe2",
+        "instruction": "je 0xe8"
+      },
+      {
+        "offset": "0xe6",
+        "instruction": "jmp 0xea"
+      },
+      {
+        "offset": "0x10e",
+        "instruction": "je 0x11d"
+      },
+      {
+        "offset": "0x113",
+        "instruction": "je 0x11d"
+      },
+      {
+        "offset": "0x11b",
+        "instruction": "jmp 0x123"
+      },
+      {
+        "offset": "0x125",
+        "instruction": "je 0x144"
+      },
+      {
+        "offset": "0x12e",
+        "instruction": "jne 0x144"
+      },
+      {
+        "offset": "0x134",
+        "instruction": "je 0x146"
+      },
+      {
+        "offset": "0x13c",
+        "instruction": "jbe 0x146"
+      },
+      {
+        "offset": "0x142",
+        "instruction": "jmp 0x14a"
+      },
+      {
+        "offset": "0x152",
+        "instruction": "je 0x158"
+      },
+      {
+        "offset": "0x15f",
+        "instruction": "je 0x17e"
+      },
+      {
+        "offset": "0x163",
+        "instruction": "jne 0x17e"
+      },
+      {
+        "offset": "0x17c",
+        "instruction": "jmp 0x1a4"
+      },
+      {
+        "offset": "0x1b8",
+        "instruction": "je 0x1f5"
+      },
+      {
+        "offset": "0x1f3",
+        "instruction": "jmp 0x213"
+      },
+      {
+        "offset": "0x239",
+        "instruction": "je 0x254"
+      },
+      {
+        "offset": "0x24a",
+        "instruction": "jne 0x250"
+      },
+      {
+        "offset": "0x267",
+        "instruction": "je 0x276"
+      },
+      {
+        "offset": "0x270",
+        "instruction": "jne 0x276"
+      }
+    ],
+    "limitations": [
+      "Near miss; branching and flag store/test sequence differ.",
+      "Absolute scratch __FILE__ paths differ from retail; candidate and baseline retain the same source basename.",
+      "Proof covers this translation unit and emitted helpers, not a full application link.",
+      "Three call identities rely on fontmanager.h address annotations: Get_Style 0x6D25D0 (twice) and Change_Text 0x6CDBC0; remaining direct calls resolve by project symbol data or exact emitted helpers."
+    ]
+  },
+  "replay": {
+    "prepare": "git archive 44ab6c5c full tree, preserve source basename ui_refinery.cpp; apply patch only to immutable overlay",
+    "runner": ".work/claim-254/run_batch.py",
+    "flags": "libdefs.LIB_FLAGS[app] and APP_LIBS[app].defines",
+    "compiler": "/home/dev/Toolchains/enb-vc6-sp4/bin/vc6-cl",
+    "matching": "all functions and all emitted helpers, no score filter; objmatch native"
+  },
+  "attempt_spec": {
+    "address": "0x5ECEF0",
+    "symbol": "UIRefineryClass::Unknown_5ECEF0",
+    "file": "app/client/ui_refinery.cpp",
+    "library": "app",
+    "status": "partial",
+    "forms": 12,
+    "blocker": "shape",
+    "score": 0.945273631840796,
+    "model": "gpt-6.1-sol (high)",
+    "evidence": "20 forms (12 target-only valid, 8 diagnostic external blank padding); pure go-test operand reorder res/raw 17->11, regs 18->17, frame 0x78 retail; fresh baseline and best repeated; all exact pairs unchanged; 98 outside functions byte-identical except scratch __FILE__ literal identity. Store/test and busy-branch shape remain. No source adoption."
+  }
+}
