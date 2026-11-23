@@ -3,7 +3,12 @@
   "parts": [
     "docs/attempts/5B1230/claim267-matched-helper-cross/components_changed_filter.json",
     "docs/attempts/5B1230/claim267-matched-helper-cross/root-final-components-proof.json",
-    "docs/attempts/5B1230/claim267-matched-helper-cross/components-cast-audit.json"
+    "docs/attempts/5B1230/claim267-matched-helper-cross/components-cast-audit.json",
+    "docs/attempts/5B1230/claim267-matched-helper-cross/baseline.json",
+    "docs/attempts/5B1230/claim267-matched-helper-cross/duration_assignment_seed_control.json",
+    "docs/attempts/5B1230/claim267-matched-helper-cross/components_name_argument.json",
+    "docs/attempts/5B1230/claim267-matched-helper-cross/validity_name_argument.json",
+    "docs/attempts/5B1230/claim267-matched-helper-cross/results.json"
   ],
   "root_final_source_sha256": "70c92a8306580eeae0b0d474ec50b07968383844eb1568e34eaf22eb5996815c",
   "semantic_review": "Exact ui_refinery.cpp predicate copied verbatim; explicit NameClass/root read order retained; same sole unsigned Unknown70>1 test moved into helper, no duplicate read. Existing DurationClass value assignment used. All145pairs include every earlier win.",
