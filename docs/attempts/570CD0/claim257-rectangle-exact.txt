@@ -1,0 +1,6 @@
+{
+  "address": "0x570CD0",
+  "shared_experiment": "docs/attempts/571A70/claim257-rectangle-exact.txt",
+  "note": "Same six shared-helper hypotheses compiled for all three targets, not additional experiments. Complete recipes, per-form results and independent final audit in referenced stash.",
+  "evidence": "Claim257 rectangle: shared helper and both callers exact (+3 pairs, zero losses) with normal noninline definition, named Vector3 tl/br bone translations, explicit Bottom/Right/Top/Left stores. Six new hypothesis sources, two controls (fresh baseline and prior q1 raw repeat), one noninline emission diagnostic: nine total compiled; six additional queued forms were untried after first family2 form matched. Every whole native object unfiltered. Baseline69 exact ->72; all baseline symbol/address pairs protected. Root final independent compile confirmed. Full body/branches/returns/relocations/addends/call identities/x87/frame audit passed: helper129B, A4=282B, CC=173B, frame0xC, no EH. Source recipes independently replayed and SHA verified from18b9179f; FAIL_IF physical lines/tokens unchanged. No header/pragmas/dead reads/assembly. Source and metadata adoption by coordinator."
+}

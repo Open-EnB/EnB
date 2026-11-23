@@ -1,0 +1,1619 @@
+{
+  "revision": "18b9179f",
+  "unit": "app/client/ui_chat_window.cpp",
+  "model": "gpt-6.1-sol (high)",
+  "base_source_sha256": "644c140683b360c950a2b96e6074865e4ecdeb01f1db2db082c8edfecef65654",
+  "base_helper": "inline void ChatWindowInterface::Unknown_571A70(ChatViewportStruct *vp)\n{\n\tFAIL_IF(!vp) return;\n\tVector3 tl = InterfaceMesh->Get_Bone_Transform(vp->TLBone).Get_Translation();\n\n\tconst Matrix3D &br_tm = InterfaceMesh->Get_Bone_Transform(vp->BRBone);\n\tvp->Rect.Set(tl.X, tl.Y, br_tm[0][3], br_tm[1][3]);\n}",
+  "replay": "git show revision:unit, replace base_helper exactly once with the selected replacement_helper; verify source_sha256; each form independently uses the base.",
+  "new_valid_hypothesis_sources": 6,
+  "control_compiles": 2,
+  "control_details": [
+    "fresh baseline",
+    "historical q1 raw helper repeat"
+  ],
+  "diagnostic_compiles": 1,
+  "diagnostic_details": [
+    "noninline baseline: current callers still inline, helper emitted; no pair gain"
+  ],
+  "successful_compiles": 9,
+  "root_final_confirmation_compiles_excluded": 1,
+  "compile_failures": 0,
+  "match_failures": 0,
+  "untried_forms": 6,
+  "untried_names": [
+    "named_br_set",
+    "named_br_ctor",
+    "ref_br_reverse",
+    "output_br_reverse",
+    "br_float_reverse",
+    "br_float_argset"
+  ],
+  "dead_reads": 0,
+  "header_changes": 0,
+  "pragmas": 0,
+  "assembly": 0,
+  "protected_baseline_symbol_address_pairs": [
+    [
+      "??0ChatWindowInterface@@QAE@PAVSClient@@PAVUnknown67D430Class@@PAVChatGadgetClass@@@Z",
+      "0x56F420"
+    ],
+    [
+      "??1?$RefCountPtr@VFontSys@@@@QAE@XZ",
+      "0x51C630"
+    ],
+    [
+      "??1?$RefCountPtr@VRenderObjClass@@@@QAE@XZ",
+      "0x4740B0"
+    ],
+    [
+      "??1?$RefCountPtr@VSceneClass@@@@QAE@XZ",
+      "0x514990"
+    ],
+    [
+      "??1?$RefCountPtr@VTextCursorClass@@@@QAE@XZ",
+      "0x571BA0"
+    ],
+    [
+      "??1?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAE@XZ",
+      "0x42A6C0"
+    ],
+    [
+      "??1?$vector@PAUChatWinStruct@@V?$allocator@PAUChatWinStruct@@@std@@@std@@QAE@XZ",
+      "0x571B30"
+    ],
+    [
+      "??1ChatWindowInterface@@UAE@XZ",
+      "0x56F560"
+    ],
+    [
+      "??1InterfaceSortScopeClass@@QAE@XZ",
+      "0x5411F0"
+    ],
+    [
+      "??_EChatWindowInterface@@W3AEPAXI@Z",
+      "0x571EE0"
+    ],
+    [
+      "??_EChatWindowInterface@@WDI@AEPAXI@Z",
+      "0x571EF0"
+    ],
+    [
+      "??_GChatWindowInterface@@UAEPAXI@Z",
+      "0x56F530"
+    ],
+    [
+      "??_H@YGXPAXIHP6EX0@Z@Z",
+      "0x42F250"
+    ],
+    [
+      "?Create_Get@@YA?AV?$RefCountPtr@VRenderObjClass@@@@PAVRenderObjClass@@@Z",
+      "0x474080"
+    ],
+    [
+      "?Create_NEW@@YA?AV?$RefCountPtr@VFontSys@@@@PAVFontSys@@@Z",
+      "0x51C600"
+    ],
+    [
+      "?Create_Peek@@YA?AV?$RefCountPtr@VRenderObjClass@@@@PAVRenderObjClass@@@Z",
+      "0x514960"
+    ],
+    [
+      "?Delete_This@RefCountClass@@UAEXXZ",
+      "0x45CC10"
+    ],
+    [
+      "?Get_Target_Node@GClass@@UAEPAV?$ContextDataNode@PAVGClass@@PAV1@@@XZ",
+      "0x4A1AD0"
+    ],
+    [
+      "?Get_Targeting_List@GClass@@UAEPAV?$List@PAV?$ContextDataNode@PAVGClass@@PAV1@@@@@XZ",
+      "0x4A1AF0"
+    ],
+    [
+      "?Unknown_04@UnknownGadgetBase00Class@@UAEPAVGenericNode@@XZ",
+      "0x4A19A0"
+    ],
+    [
+      "?Unknown_08@UnknownGadgetBase00Class@@UAEXXZ",
+      "0x4A19C0"
+    ],
+    [
+      "?Unknown_0C@GClass@@UAEPBDXZ",
+      "0x4A1A10"
+    ],
+    [
+      "?Unknown_1C@GClass@@UAEHXZ",
+      "0x4A1A30"
+    ],
+    [
+      "?Unknown_20@GClass@@UAEHXZ",
+      "0x4A1A50"
+    ],
+    [
+      "?Unknown_24@GClass@@UAEHXZ",
+      "0x4A1A70"
+    ],
+    [
+      "?Unknown_28@GClass@@UAEHXZ",
+      "0x4A1A90"
+    ],
+    [
+      "?Unknown_2C@GClass@@UAEHXZ",
+      "0x4A1AB0"
+    ],
+    [
+      "?Unknown_4A1930@UnknownGadgetBase04Class@@UAE_NHHH@Z",
+      "0x4A1930"
+    ],
+    [
+      "?Unknown_54@ChatWindowInterface@@UAEXXZ",
+      "0x56F780"
+    ],
+    [
+      "?Unknown_570F20@ChatWindowInterface@@QAEPAVChatGadgetClass@@XZ",
+      "0x570F20"
+    ],
+    [
+      "?Unknown_571430@ChatWindowInterface@@QAEXXZ",
+      "0x571430"
+    ],
+    [
+      "?Unknown_571470@ChatWindowInterface@@QAEX_N@Z",
+      "0x571470"
+    ],
+    [
+      "?Unknown_571810@ChatWindowInterface@@QAEPAVChatWindowClass@@I@Z",
+      "0x571810"
+    ],
+    [
+      "?Unknown_5719A0@ChatWindowInterface@@QAEAAVVector3@@AAV2@ABUUnknown67D430EntryStruct@@@Z",
+      "0x5719A0"
+    ],
+    [
+      "?Unknown_58@ChatWindowInterface@@UAEXXZ",
+      "0x5701C0"
+    ],
+    [
+      "?Unknown_5C@ChatWindowInterface@@UAEXXZ",
+      "0x570210"
+    ],
+    [
+      "?Unknown_60@ChatWindowInterface@@UAEXXZ",
+      "0x570340"
+    ],
+    [
+      "?Unknown_64@InterfaceClass@@UAEXXZ",
+      "0x5156B0"
+    ],
+    [
+      "?Unknown_68@ChatWindowInterface@@UAE_NH@Z",
+      "0x570390"
+    ],
+    [
+      "?Unknown_6C@InterfaceClass@@UAEXAAVINIClass@@@Z",
+      "0x5156F0"
+    ],
+    [
+      "?Unknown_70@ChatWindowInterface@@UAEXPAVControlKeysManager@@@Z",
+      "0x570510"
+    ],
+    [
+      "?Unknown_74@ChatWindowInterface@@UAEXPAVControlKeysManager@@@Z",
+      "0x5708F0"
+    ],
+    [
+      "?Unknown_78@InterfaceClass@@UAE_NPAX@Z",
+      "0x515750"
+    ],
+    [
+      "?Unknown_90@ChatPanelUIBase@@UAEHXZ",
+      "0x5623B0"
+    ],
+    [
+      "?Unknown_94@ChatPanelUIBase@@UAEXXZ",
+      "0x5623D0"
+    ],
+    [
+      "?Unknown_98@ChatWindowInterface@@UAE_NPBD0@Z",
+      "0x56F9F0"
+    ],
+    [
+      "?Unknown_9C@ChatPanelUIBase@@UAEXXZ",
+      "0x5623F0"
+    ],
+    [
+      "?Unknown_A0@ChatWindowInterface@@UAEXI@Z",
+      "0x56FD30"
+    ],
+    [
+      "?Unknown_A8@ChatWindowInterface@@UAEXXZ",
+      "0x571210"
+    ],
+    [
+      "?Unknown_B0@ChatWindowInterface@@UAEXXZ",
+      "0x570FF0"
+    ],
+    [
+      "?Unknown_B4@ChatWindowInterface@@UAEXPBD@Z",
+      "0x571170"
+    ],
+    [
+      "?Unknown_B8@ChatWindowInterface@@UAE_NH@Z",
+      "0x5711C0"
+    ],
+    [
+      "?Unknown_BC@ChatWindowInterface@@UAEXHI@Z",
+      "0x571860"
+    ],
+    [
+      "?Unknown_C0@ChatWindowInterface@@UAEXHI@Z",
+      "0x5718B0"
+    ],
+    [
+      "?Unknown_C4@ChatWindowInterface@@UAEXHI@Z",
+      "0x571900"
+    ],
+    [
+      "?Unknown_C8@ChatWindowInterface@@UAEXHI@Z",
+      "0x571950"
+    ],
+    [
+      "?_Construct@std@@YAXPAPAUChatWinStruct@@ABQAU2@@Z",
+      "0x571E80"
+    ],
+    [
+      "?_Copy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEXI@Z",
+      "0x42AB30"
+    ],
+    [
+      "?_Destroy@?$vector@PAUChatWinStruct@@V?$allocator@PAUChatWinStruct@@@std@@@std@@IAEXPAPAUChatWinStruct@@0@Z",
+      "0x571DE0"
+    ],
+    [
+      "?_Eos@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEXI@Z",
+      "0x42A940"
+    ],
+    [
+      "?_Grow@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAE_NI_N@Z",
+      "0x42A970"
+    ],
+    [
+      "?_Tidy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEX_N@Z",
+      "0x42A820"
+    ],
+    [
+      "?_Ucopy@?$vector@PAUChatWinStruct@@V?$allocator@PAUChatWinStruct@@@std@@@std@@IAEPAPAUChatWinStruct@@PBQAU3@0PAPAU3@@Z",
+      "0x571E00"
+    ],
+    [
+      "?_Ufill@?$vector@PAUChatWinStruct@@V?$allocator@PAUChatWinStruct@@@std@@@std@@IAEXPAPAUChatWinStruct@@IABQAU3@@Z",
+      "0x571E40"
+    ],
+    [
+      "?assign@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAEAAV12@PBDI@Z",
+      "0x42D050"
+    ],
+    [
+      "?id@?$ctype@G@std@@$E",
+      "0x42B320"
+    ],
+    [
+      "?insert@?$vector@PAUChatWinStruct@@V?$allocator@PAUChatWinStruct@@@std@@@std@@QAEPAPAUChatWinStruct@@PAPAU3@ABQAU3@@Z",
+      "0x571BD0"
+    ],
+    [
+      "?size@?$vector@PAUChatWinStruct@@V?$allocator@PAUChatWinStruct@@@std@@@std@@QBEIXZ",
+      "0x571B70"
+    ],
+    [
+      "_$E260",
+      "0x571EB0"
+    ]
+  ],
+  "winning_form": "named_br_reverse",
+  "gains": [
+    "0x570CD0",
+    "0x570E40",
+    "0x571A70"
+  ],
+  "losses": [],
+  "semantics": "Both real bone translation calls retain read order and 0xb4 virtual slot. Two Vector3 temporaries enforce float stores. Rectangle writes Bottom/Right/Top/Left reproduce exact retail x87 and integer-copy sequence, without arithmetic, conversions, reassociation or artificial reads. No new alias cast in winning form.",
+  "final_audit": {
+    "source_sha256": "ea995c7241ce6083ef77a31a55ad42dc06ba6c0b30888be40fdc23395de8b5d9",
+    "functions": [
+      {
+        "symbol": "?Unknown_571A70@ChatWindowInterface@@QAEXPAUChatViewportStruct@@@Z",
+        "address": "0x571a70",
+        "end_exclusive": "0x571af1",
+        "code_bytes": 129,
+        "instructions": 42,
+        "returns": [
+          "0x571a9b",
+          "0x571aee"
+        ],
+        "relocations": [
+          {
+            "offset": 21,
+            "type": 6,
+            "symbol": "??_C@_0FB@LCBC@Z?3?2home?2dev?2Projects?2EnB?2?4work?2c@",
+            "addend": 0,
+            "literal_comparison": "same source basename; directory normalized by matcher",
+            "object_literal": "Z:\\home\\dev\\Projects\\EnB\\.work\\claim-257\\rectangle\\root-final\\ui_chat_window.cpp",
+            "client_literal": "e:\\build\\beta\\G\\app\\Client\\ui_chat_window.cpp"
+          },
+          {
+            "offset": 26,
+            "type": 6,
+            "symbol": "??_C@_03CMDC@?$CBvp?$AA@",
+            "addend": 0,
+            "literal_comparison": "exact bytes",
+            "object_literal": "!vp",
+            "client_literal": "!vp"
+          },
+          {
+            "offset": 31,
+            "type": 20,
+            "symbol": "?Fail_If_Report@@YAXPBD0H@Z",
+            "addend": 0,
+            "client_target": "0x4e9450"
+          }
+        ],
+        "branch_and_nonrelocated_bytes": "identical through final return",
+        "eh": "none",
+        "x87": "identical fld/fstp sequence, no arithmetic or reassociation",
+        "frame": "0xc"
+      },
+      {
+        "symbol": "?Unknown_A4@ChatWindowInterface@@UAEXXZ",
+        "address": "0x570cd0",
+        "end_exclusive": "0x570dea",
+        "code_bytes": 282,
+        "instructions": 86,
+        "returns": [
+          "0x570de9"
+        ],
+        "relocations": [
+          {
+            "offset": 24,
+            "type": 6,
+            "symbol": "??_C@_0FB@LCBC@Z?3?2home?2dev?2Projects?2EnB?2?4work?2c@",
+            "addend": 0,
+            "literal_comparison": "same source basename; directory normalized by matcher",
+            "object_literal": "Z:\\home\\dev\\Projects\\EnB\\.work\\claim-257\\rectangle\\root-final\\ui_chat_window.cpp",
+            "client_literal": "e:\\build\\beta\\G\\app\\Client\\ui_chat_window.cpp"
+          },
+          {
+            "offset": 29,
+            "type": 6,
+            "symbol": "??_C@_03CMDC@?$CBvp?$AA@",
+            "addend": 0,
+            "literal_comparison": "exact bytes",
+            "object_literal": "!vp",
+            "client_literal": "!vp"
+          },
+          {
+            "offset": 34,
+            "type": 20,
+            "symbol": "?Fail_If_Report@@YAXPBD0H@Z",
+            "addend": 0,
+            "client_target": "0x4e9450"
+          },
+          {
+            "offset": 123,
+            "type": 20,
+            "symbol": "?Unknown_571470@ChatWindowInterface@@QAEX_N@Z",
+            "addend": 0,
+            "client_target": "0x571470"
+          },
+          {
+            "offset": 159,
+            "type": 6,
+            "symbol": "??_C@_0FB@LCBC@Z?3?2home?2dev?2Projects?2EnB?2?4work?2c@",
+            "addend": 0,
+            "literal_comparison": "same source basename; directory normalized by matcher",
+            "object_literal": "Z:\\home\\dev\\Projects\\EnB\\.work\\claim-257\\rectangle\\root-final\\ui_chat_window.cpp",
+            "client_literal": "e:\\build\\beta\\G\\app\\Client\\ui_chat_window.cpp"
+          },
+          {
+            "offset": 164,
+            "type": 6,
+            "symbol": "??_C@_03CMDC@?$CBvp?$AA@",
+            "addend": 0,
+            "literal_comparison": "exact bytes",
+            "object_literal": "!vp",
+            "client_literal": "!vp"
+          },
+          {
+            "offset": 169,
+            "type": 20,
+            "symbol": "?Fail_If_Report@@YAXPBD0H@Z",
+            "addend": 0,
+            "client_target": "0x4e9450"
+          },
+          {
+            "offset": 258,
+            "type": 20,
+            "symbol": "?Unknown_6804E0@ChatWindowClass@@QAEXABVRectClass@@@Z",
+            "addend": 0,
+            "client_target": "0x6804e0"
+          }
+        ],
+        "branch_and_nonrelocated_bytes": "identical through final return",
+        "eh": "none",
+        "x87": "identical fld/fstp sequence, no arithmetic or reassociation",
+        "frame": "0xc"
+      },
+      {
+        "symbol": "?Unknown_CC@ChatWindowInterface@@UAEXXZ",
+        "address": "0x570e40",
+        "end_exclusive": "0x570eed",
+        "code_bytes": 173,
+        "instructions": 54,
+        "returns": [
+          "0x570eec"
+        ],
+        "relocations": [
+          {
+            "offset": 23,
+            "type": 6,
+            "symbol": "??_C@_0FB@LCBC@Z?3?2home?2dev?2Projects?2EnB?2?4work?2c@",
+            "addend": 0,
+            "literal_comparison": "same source basename; directory normalized by matcher",
+            "object_literal": "Z:\\home\\dev\\Projects\\EnB\\.work\\claim-257\\rectangle\\root-final\\ui_chat_window.cpp",
+            "client_literal": "e:\\build\\beta\\G\\app\\Client\\ui_chat_window.cpp"
+          },
+          {
+            "offset": 28,
+            "type": 6,
+            "symbol": "??_C@_03CMDC@?$CBvp?$AA@",
+            "addend": 0,
+            "literal_comparison": "exact bytes",
+            "object_literal": "!vp",
+            "client_literal": "!vp"
+          },
+          {
+            "offset": 33,
+            "type": 20,
+            "symbol": "?Fail_If_Report@@YAXPBD0H@Z",
+            "addend": 0,
+            "client_target": "0x4e9450"
+          },
+          {
+            "offset": 122,
+            "type": 20,
+            "symbol": "?Unknown_571470@ChatWindowInterface@@QAEX_N@Z",
+            "addend": 0,
+            "client_target": "0x571470"
+          },
+          {
+            "offset": 150,
+            "type": 20,
+            "symbol": "?Unknown_680700@ChatWindowClass@@QAEX_N@Z",
+            "addend": 0,
+            "client_target": "0x680700"
+          }
+        ],
+        "branch_and_nonrelocated_bytes": "identical through final return",
+        "eh": "none",
+        "x87": "identical fld/fstp sequence, no arithmetic or reassociation",
+        "frame": "0xc"
+      }
+    ]
+  },
+  "records": [
+    {
+      "name": "baseline",
+      "source_sha256": "644c140683b360c950a2b96e6074865e4ecdeb01f1db2db082c8edfecef65654",
+      "compiled": true,
+      "counts": {
+        "exact": 69,
+        "none": 5,
+        "multiple": 1
+      },
+      "gained": [],
+      "lost": [],
+      "gained_addresses": [],
+      "lost_addresses": [],
+      "matches": "/home/dev/Projects/EnB/.work/claim-257/rectangle/runs/family1-0ucghr42/baseline/matches.json",
+      "object": "/home/dev/Projects/EnB/.work/claim-257/rectangle/runs/family1-0ucghr42/baseline/ui_chat_window.obj",
+      "replacement_helper": "inline void ChatWindowInterface::Unknown_571A70(ChatViewportStruct *vp)\n{\n\tFAIL_IF(!vp) return;\n\tVector3 tl = InterfaceMesh->Get_Bone_Transform(vp->TLBone).Get_Translation();\n\n\tconst Matrix3D &br_tm = InterfaceMesh->Get_Bone_Transform(vp->BRBone);\n\tvp->Rect.Set(tl.X, tl.Y, br_tm[0][3], br_tm[1][3]);\n}",
+      "metrics": {
+        "Unknown_571A70": {
+          "emitted": false
+        },
+        "Unknown_A4": {
+          "emitted": true,
+          "symbol": "?Unknown_A4@ChatWindowInterface@@UAEXXZ",
+          "size": 288,
+          "residual_rows": 26,
+          "frame": "sub esp, 0xc",
+          "diff": "/home/dev/Projects/EnB/.work/claim-257/rectangle/runs/family1-0ucghr42/baseline/Unknown_A4.diff.txt"
+        },
+        "Unknown_CC": {
+          "emitted": true,
+          "symbol": "?Unknown_CC@ChatWindowInterface@@UAEXXZ",
+          "size": 176,
+          "residual_rows": 10,
+          "frame": "sub esp, 0xc",
+          "diff": "/home/dev/Projects/EnB/.work/claim-257/rectangle/runs/family1-0ucghr42/baseline/Unknown_CC.diff.txt"
+        }
+      },
+      "calls": {
+        "Unknown_A4": [
+          {
+            "instruction": "call 0x26",
+            "target": [
+              "sym",
+              "?Fail_If_Report@@YAXPBD0H@Z"
+            ]
+          },
+          {
+            "instruction": "call dword ptr [eax + 0xb4]",
+            "target": null
+          },
+          {
+            "instruction": "call dword ptr [eax + 0xb4]",
+            "target": null
+          },
+          {
+            "instruction": "call 0x7f",
+            "target": [
+              "sym",
+              "?Unknown_571470@ChatWindowInterface@@QAEX_N@Z"
+            ]
+          },
+          {
+            "instruction": "call 0xad",
+            "target": [
+              "sym",
+              "?Fail_If_Report@@YAXPBD0H@Z"
+            ]
+          },
+          {
+            "instruction": "call dword ptr [eax + 0xb4]",
+            "target": null
+          },
+          {
+            "instruction": "call dword ptr [eax + 0xb4]",
+            "target": null
+          },
+          {
+            "instruction": "call 0x106",
+            "target": [
+              "sym",
+              "?Unknown_6804E0@ChatWindowClass@@QAEXABVRectClass@@@Z"
+            ]
+          }
+        ],
+        "Unknown_CC": [
+          {
+            "instruction": "call 0x25",
+            "target": [
+              "sym",
+              "?Fail_If_Report@@YAXPBD0H@Z"
+            ]
+          },
+          {
+            "instruction": "call dword ptr [eax + 0xb4]",
+            "target": null
+          },
+          {
+            "instruction": "call dword ptr [eax + 0xb4]",
+            "target": null
+          },
+          {
+            "instruction": "call 0x7e",
+            "target": [
+              "sym",
+              "?Unknown_571470@ChatWindowInterface@@QAEX_N@Z"
+            ]
+          },
+          {
+            "instruction": "call 0x9a",
+            "target": [
+              "sym",
+              "?Unknown_680700@ChatWindowClass@@QAEX_N@Z"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "noninline_baseline",
+      "source_sha256": "e57e37fc766997203ec8462855b3b99b0b9df6233bedf856838dc4eb5d5d04c1",
+      "compiled": true,
+      "counts": {
+        "exact": 69,
+        "none": 6,
+        "multiple": 1
+      },
+      "gained": [],
+      "lost": [],
+      "gained_addresses": [],
+      "lost_addresses": [],
+      "matches": "/home/dev/Projects/EnB/.work/claim-257/rectangle/runs/family1-0ucghr42/noninline_baseline/matches.json",
+      "object": "/home/dev/Projects/EnB/.work/claim-257/rectangle/runs/family1-0ucghr42/noninline_baseline/ui_chat_window.obj",
+      "replacement_helper": "void ChatWindowInterface::Unknown_571A70(ChatViewportStruct *vp)\n{\n\tFAIL_IF(!vp) return;\n\tVector3 tl = InterfaceMesh->Get_Bone_Transform(vp->TLBone).Get_Translation();\n\n\tconst Matrix3D &br_tm = InterfaceMesh->Get_Bone_Transform(vp->BRBone);\n\tvp->Rect.Set(tl.X, tl.Y, br_tm[0][3], br_tm[1][3]);\n}",
+      "metrics": {
+        "Unknown_571A70": {
+          "emitted": true,
+          "symbol": "?Unknown_571A70@ChatWindowInterface@@QAEXPAUChatViewportStruct@@@Z",
+          "size": 144,
+          "residual_rows": 9,
+          "frame": "sub esp, 0xc",
+          "diff": "/home/dev/Projects/EnB/.work/claim-257/rectangle/runs/family1-0ucghr42/noninline_baseline/Unknown_571A70.diff.txt"
+        },
+        "Unknown_A4": {
+          "emitted": true,
+          "symbol": "?Unknown_A4@ChatWindowInterface@@UAEXXZ",
+          "size": 288,
+          "residual_rows": 26,
+          "frame": "sub esp, 0xc",
+          "diff": "/home/dev/Projects/EnB/.work/claim-257/rectangle/runs/family1-0ucghr42/noninline_baseline/Unknown_A4.diff.txt"
+        },
+        "Unknown_CC": {
+          "emitted": true,
+          "symbol": "?Unknown_CC@ChatWindowInterface@@UAEXXZ",
+          "size": 176,
+          "residual_rows": 10,
+          "frame": "sub esp, 0xc",
+          "diff": "/home/dev/Projects/EnB/.work/claim-257/rectangle/runs/family1-0ucghr42/noninline_baseline/Unknown_CC.diff.txt"
+        }
+      },
+      "calls": {
+        "Unknown_571A70": [
+          {
+            "instruction": "call 0x23",
+            "target": [
+              "sym",
+              "?Fail_If_Report@@YAXPBD0H@Z"
+            ]
+          },
+          {
+            "instruction": "call dword ptr [eax + 0xb4]",
+            "target": null
+          },
+          {
+            "instruction": "call dword ptr [eax + 0xb4]",
+            "target": null
+          }
+        ],
+        "Unknown_A4": [
+          {
+            "instruction": "call 0x26",
+            "target": [
+              "sym",
+              "?Fail_If_Report@@YAXPBD0H@Z"
+            ]
+          },
+          {
+            "instruction": "call dword ptr [eax + 0xb4]",
+            "target": null
+          },
+          {
+            "instruction": "call dword ptr [eax + 0xb4]",
+            "target": null
+          },
+          {
+            "instruction": "call 0x7f",
+            "target": [
+              "sym",
+              "?Unknown_571470@ChatWindowInterface@@QAEX_N@Z"
+            ]
+          },
+          {
+            "instruction": "call 0xad",
+            "target": [
+              "sym",
+              "?Fail_If_Report@@YAXPBD0H@Z"
+            ]
+          },
+          {
+            "instruction": "call dword ptr [eax + 0xb4]",
+            "target": null
+          },
+          {
+            "instruction": "call dword ptr [eax + 0xb4]",
+            "target": null
+          },
+          {
+            "instruction": "call 0x106",
+            "target": [
+              "sym",
+              "?Unknown_6804E0@ChatWindowClass@@QAEXABVRectClass@@@Z"
+            ]
+          }
+        ],
+        "Unknown_CC": [
+          {
+            "instruction": "call 0x25",
+            "target": [
+              "sym",
+              "?Fail_If_Report@@YAXPBD0H@Z"
+            ]
+          },
+          {
+            "instruction": "call dword ptr [eax + 0xb4]",
+            "target": null
+          },
+          {
+            "instruction": "call dword ptr [eax + 0xb4]",
+            "target": null
+          },
+          {
+            "instruction": "call 0x7e",
+            "target": [
+              "sym",
+              "?Unknown_571470@ChatWindowInterface@@QAEX_N@Z"
+            ]
+          },
+          {
+            "instruction": "call 0x9a",
+            "target": [
+              "sym",
+              "?Unknown_680700@ChatWindowClass@@QAEX_N@Z"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "vec2_tl_set",
+      "source_sha256": "078a2478db06bd957c77ed5559d114f8f4ac7f175efa9466185b235791a08142",
+      "compiled": true,
+      "counts": {
+        "exact": 69,
+        "none": 5,
+        "multiple": 1
+      },
+      "gained": [],
+      "lost": [],
+      "gained_addresses": [],
+      "lost_addresses": [],
+      "matches": "/home/dev/Projects/EnB/.work/claim-257/rectangle/runs/family1-0ucghr42/vec2_tl_set/matches.json",
+      "object": "/home/dev/Projects/EnB/.work/claim-257/rectangle/runs/family1-0ucghr42/vec2_tl_set/ui_chat_window.obj",
+      "replacement_helper": "inline void ChatWindowInterface::Unknown_571A70(ChatViewportStruct *vp)\n{\n\tFAIL_IF(!vp) return;\n\tVector3 tl = InterfaceMesh->Get_Bone_Transform(vp->TLBone).Get_Translation();\n\n\tconst Matrix3D &br_tm = InterfaceMesh->Get_Bone_Transform(vp->BRBone);\n\tvp->Rect.Set(Vector2(tl.X, tl.Y), Vector2(br_tm[0][3], br_tm[1][3]));\n}",
+      "metrics": {
+        "Unknown_571A70": {
+          "emitted": false
+        },
+        "Unknown_A4": {
+          "emitted": true,
+          "symbol": "?Unknown_A4@ChatWindowInterface@@UAEXXZ",
+          "size": 320,
+          "residual_rows": 21,
+          "frame": "sub esp, 0x20",
+          "diff": "/home/dev/Projects/EnB/.work/claim-257/rectangle/runs/family1-0ucghr42/vec2_tl_set/Unknown_A4.diff.txt"
+        },
+        "Unknown_CC": {
+          "emitted": true,
+          "symbol": "?Unknown_CC@ChatWindowInterface@@UAEXXZ",
+          "size": 192,
+          "residual_rows": 10,
+          "frame": "sub esp, 0x14",
+          "diff": "/home/dev/Projects/EnB/.work/claim-257/rectangle/runs/family1-0ucghr42/vec2_tl_set/Unknown_CC.diff.txt"
+        }
+      },
+      "calls": {
+        "Unknown_A4": [
+          {
+            "instruction": "call 0x26",
+            "target": [
+              "sym",
+              "?Fail_If_Report@@YAXPBD0H@Z"
+            ]
+          },
+          {
+            "instruction": "call dword ptr [eax + 0xb4]",
+            "target": null
+          },
+          {
+            "instruction": "call dword ptr [eax + 0xb4]",
+            "target": null
+          },
+          {
+            "instruction": "call 0x8f",
+            "target": [
+              "sym",
+              "?Unknown_571470@ChatWindowInterface@@QAEX_N@Z"
+            ]
+          },
+          {
+            "instruction": "call 0xbd",
+            "target": [
+              "sym",
+              "?Fail_If_Report@@YAXPBD0H@Z"
+            ]
+          },
+          {
+            "instruction": "call dword ptr [edx + 0xb4]",
+            "target": null
+          },
+          {
+            "instruction": "call dword ptr [edx + 0xb4]",
+            "target": null
+          },
+          {
+            "instruction": "call 0x126",
+            "target": [
+              "sym",
+              "?Unknown_6804E0@ChatWindowClass@@QAEXABVRectClass@@@Z"
+            ]
+          }
+        ],
+        "Unknown_CC": [
+          {
+            "instruction": "call 0x25",
+            "target": [
+              "sym",
+              "?Fail_If_Report@@YAXPBD0H@Z"
+            ]
+          },
+          {
+            "instruction": "call dword ptr [eax + 0xb4]",
+            "target": null
+          },
+          {
+            "instruction": "call dword ptr [eax + 0xb4]",
+            "target": null
+          },
+          {
+            "instruction": "call 0x8e",
+            "target": [
+              "sym",
+              "?Unknown_571470@ChatWindowInterface@@QAEX_N@Z"
+            ]
+          },
+          {
+            "instruction": "call 0xaa",
+            "target": [
+              "sym",
+              "?Unknown_680700@ChatWindowClass@@QAEX_N@Z"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "vec2_tl_ctor",
+      "source_sha256": "ccbbc6c03fffc7e6224b3ed903987a7145a45806cec6228cbef38277ecae1867",
+      "compiled": true,
+      "counts": {
+        "exact": 69,
+        "none": 5,
+        "multiple": 1
+      },
+      "gained": [],
+      "lost": [],
+      "gained_addresses": [],
+      "lost_addresses": [],
+      "matches": "/home/dev/Projects/EnB/.work/claim-257/rectangle/runs/family1-0ucghr42/vec2_tl_ctor/matches.json",
+      "object": "/home/dev/Projects/EnB/.work/claim-257/rectangle/runs/family1-0ucghr42/vec2_tl_ctor/ui_chat_window.obj",
+      "replacement_helper": "inline void ChatWindowInterface::Unknown_571A70(ChatViewportStruct *vp)\n{\n\tFAIL_IF(!vp) return;\n\tVector3 tl = InterfaceMesh->Get_Bone_Transform(vp->TLBone).Get_Translation();\n\n\tconst Matrix3D &br_tm = InterfaceMesh->Get_Bone_Transform(vp->BRBone);\n\tvp->Rect = RectClass(Vector2(tl.X, tl.Y), Vector2(br_tm[0][3], br_tm[1][3]));\n}",
+      "metrics": {
+        "Unknown_571A70": {
+          "emitted": false
+        },
+        "Unknown_A4": {
+          "emitted": true,
+          "symbol": "?Unknown_A4@ChatWindowInterface@@UAEXXZ",
+          "size": 320,
+          "residual_rows": 21,
+          "frame": "sub esp, 0x20",
+          "diff": "/home/dev/Projects/EnB/.work/claim-257/rectangle/runs/family1-0ucghr42/vec2_tl_ctor/Unknown_A4.diff.txt"
+        },
+        "Unknown_CC": {
+          "emitted": true,
+          "symbol": "?Unknown_CC@ChatWindowInterface@@UAEXXZ",
+          "size": 192,
+          "residual_rows": 10,
+          "frame": "sub esp, 0x14",
+          "diff": "/home/dev/Projects/EnB/.work/claim-257/rectangle/runs/family1-0ucghr42/vec2_tl_ctor/Unknown_CC.diff.txt"
+        }
+      },
+      "calls": {
+        "Unknown_A4": [
+          {
+            "instruction": "call 0x26",
+            "target": [
+              "sym",
+              "?Fail_If_Report@@YAXPBD0H@Z"
+            ]
+          },
+          {
+            "instruction": "call dword ptr [eax + 0xb4]",
+            "target": null
+          },
+          {
+            "instruction": "call dword ptr [eax + 0xb4]",
+            "target": null
+          },
+          {
+            "instruction": "call 0x8f",
+            "target": [
+              "sym",
+              "?Unknown_571470@ChatWindowInterface@@QAEX_N@Z"
+            ]
+          },
+          {
+            "instruction": "call 0xbd",
+            "target": [
+              "sym",
+              "?Fail_If_Report@@YAXPBD0H@Z"
+            ]
+          },
+          {
+            "instruction": "call dword ptr [edx + 0xb4]",
+            "target": null
+          },
+          {
+            "instruction": "call dword ptr [edx + 0xb4]",
+            "target": null
+          },
+          {
+            "instruction": "call 0x126",
+            "target": [
+              "sym",
+              "?Unknown_6804E0@ChatWindowClass@@QAEXABVRectClass@@@Z"
+            ]
+          }
+        ],
+        "Unknown_CC": [
+          {
+            "instruction": "call 0x25",
+            "target": [
+              "sym",
+              "?Fail_If_Report@@YAXPBD0H@Z"
+            ]
+          },
+          {
+            "instruction": "call dword ptr [eax + 0xb4]",
+            "target": null
+          },
+          {
+            "instruction": "call dword ptr [eax + 0xb4]",
+            "target": null
+          },
+          {
+            "instruction": "call 0x8e",
+            "target": [
+              "sym",
+              "?Unknown_571470@ChatWindowInterface@@QAEX_N@Z"
+            ]
+          },
+          {
+            "instruction": "call 0xaa",
+            "target": [
+              "sym",
+              "?Unknown_680700@ChatWindowClass@@QAEX_N@Z"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "vec2_ref_set",
+      "source_sha256": "0186e65ff0a4ba442e3e74c94ae55c77c1c5a39d3955083ee89e50def69ee87a",
+      "compiled": true,
+      "counts": {
+        "exact": 69,
+        "none": 5,
+        "multiple": 1
+      },
+      "gained": [],
+      "lost": [],
+      "gained_addresses": [],
+      "lost_addresses": [],
+      "matches": "/home/dev/Projects/EnB/.work/claim-257/rectangle/runs/family1-0ucghr42/vec2_ref_set/matches.json",
+      "object": "/home/dev/Projects/EnB/.work/claim-257/rectangle/runs/family1-0ucghr42/vec2_ref_set/ui_chat_window.obj",
+      "replacement_helper": "inline void ChatWindowInterface::Unknown_571A70(ChatViewportStruct *vp)\n{\n\tFAIL_IF(!vp) return;\n\tVector3 tl = InterfaceMesh->Get_Bone_Transform(vp->TLBone).Get_Translation();\n\n\tconst Matrix3D &br_tm = InterfaceMesh->Get_Bone_Transform(vp->BRBone);\n\tvp->Rect.Set((const Vector2 &)tl, Vector2(br_tm[0][3], br_tm[1][3]));\n}",
+      "metrics": {
+        "Unknown_571A70": {
+          "emitted": false
+        },
+        "Unknown_A4": {
+          "emitted": true,
+          "symbol": "?Unknown_A4@ChatWindowInterface@@UAEXXZ",
+          "size": 304,
+          "residual_rows": 28,
+          "frame": "sub esp, 0x14",
+          "diff": "/home/dev/Projects/EnB/.work/claim-257/rectangle/runs/family1-0ucghr42/vec2_ref_set/Unknown_A4.diff.txt"
+        },
+        "Unknown_CC": {
+          "emitted": true,
+          "symbol": "?Unknown_CC@ChatWindowInterface@@UAEXXZ",
+          "size": 192,
+          "residual_rows": 13,
+          "frame": "sub esp, 0x14",
+          "diff": "/home/dev/Projects/EnB/.work/claim-257/rectangle/runs/family1-0ucghr42/vec2_ref_set/Unknown_CC.diff.txt"
+        }
+      },
+      "calls": {
+        "Unknown_A4": [
+          {
+            "instruction": "call 0x26",
+            "target": [
+              "sym",
+              "?Fail_If_Report@@YAXPBD0H@Z"
+            ]
+          },
+          {
+            "instruction": "call dword ptr [eax + 0xb4]",
+            "target": null
+          },
+          {
+            "instruction": "call dword ptr [eax + 0xb4]",
+            "target": null
+          },
+          {
+            "instruction": "call 0x87",
+            "target": [
+              "sym",
+              "?Unknown_571470@ChatWindowInterface@@QAEX_N@Z"
+            ]
+          },
+          {
+            "instruction": "call 0xb5",
+            "target": [
+              "sym",
+              "?Fail_If_Report@@YAXPBD0H@Z"
+            ]
+          },
+          {
+            "instruction": "call dword ptr [eax + 0xb4]",
+            "target": null
+          },
+          {
+            "instruction": "call dword ptr [eax + 0xb4]",
+            "target": null
+          },
+          {
+            "instruction": "call 0x116",
+            "target": [
+              "sym",
+              "?Unknown_6804E0@ChatWindowClass@@QAEXABVRectClass@@@Z"
+            ]
+          }
+        ],
+        "Unknown_CC": [
+          {
+            "instruction": "call 0x25",
+            "target": [
+              "sym",
+              "?Fail_If_Report@@YAXPBD0H@Z"
+            ]
+          },
+          {
+            "instruction": "call dword ptr [eax + 0xb4]",
+            "target": null
+          },
+          {
+            "instruction": "call dword ptr [eax + 0xb4]",
+            "target": null
+          },
+          {
+            "instruction": "call 0x86",
+            "target": [
+              "sym",
+              "?Unknown_571470@ChatWindowInterface@@QAEX_N@Z"
+            ]
+          },
+          {
+            "instruction": "call 0xa2",
+            "target": [
+              "sym",
+              "?Unknown_680700@ChatWindowClass@@QAEX_N@Z"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "vec2_ref_ctor",
+      "source_sha256": "fcd46bf3107e0ca88d9f70095493655da948654d81e6322a61598cb45d379b02",
+      "compiled": true,
+      "counts": {
+        "exact": 69,
+        "none": 5,
+        "multiple": 1
+      },
+      "gained": [],
+      "lost": [],
+      "gained_addresses": [],
+      "lost_addresses": [],
+      "matches": "/home/dev/Projects/EnB/.work/claim-257/rectangle/runs/family1-0ucghr42/vec2_ref_ctor/matches.json",
+      "object": "/home/dev/Projects/EnB/.work/claim-257/rectangle/runs/family1-0ucghr42/vec2_ref_ctor/ui_chat_window.obj",
+      "replacement_helper": "inline void ChatWindowInterface::Unknown_571A70(ChatViewportStruct *vp)\n{\n\tFAIL_IF(!vp) return;\n\tVector3 tl = InterfaceMesh->Get_Bone_Transform(vp->TLBone).Get_Translation();\n\n\tconst Matrix3D &br_tm = InterfaceMesh->Get_Bone_Transform(vp->BRBone);\n\tvp->Rect = RectClass((const Vector2 &)tl, Vector2(br_tm[0][3], br_tm[1][3]));\n}",
+      "metrics": {
+        "Unknown_571A70": {
+          "emitted": false
+        },
+        "Unknown_A4": {
+          "emitted": true,
+          "symbol": "?Unknown_A4@ChatWindowInterface@@UAEXXZ",
+          "size": 304,
+          "residual_rows": 28,
+          "frame": "sub esp, 0x14",
+          "diff": "/home/dev/Projects/EnB/.work/claim-257/rectangle/runs/family1-0ucghr42/vec2_ref_ctor/Unknown_A4.diff.txt"
+        },
+        "Unknown_CC": {
+          "emitted": true,
+          "symbol": "?Unknown_CC@ChatWindowInterface@@UAEXXZ",
+          "size": 192,
+          "residual_rows": 13,
+          "frame": "sub esp, 0x14",
+          "diff": "/home/dev/Projects/EnB/.work/claim-257/rectangle/runs/family1-0ucghr42/vec2_ref_ctor/Unknown_CC.diff.txt"
+        }
+      },
+      "calls": {
+        "Unknown_A4": [
+          {
+            "instruction": "call 0x26",
+            "target": [
+              "sym",
+              "?Fail_If_Report@@YAXPBD0H@Z"
+            ]
+          },
+          {
+            "instruction": "call dword ptr [eax + 0xb4]",
+            "target": null
+          },
+          {
+            "instruction": "call dword ptr [eax + 0xb4]",
+            "target": null
+          },
+          {
+            "instruction": "call 0x87",
+            "target": [
+              "sym",
+              "?Unknown_571470@ChatWindowInterface@@QAEX_N@Z"
+            ]
+          },
+          {
+            "instruction": "call 0xb5",
+            "target": [
+              "sym",
+              "?Fail_If_Report@@YAXPBD0H@Z"
+            ]
+          },
+          {
+            "instruction": "call dword ptr [eax + 0xb4]",
+            "target": null
+          },
+          {
+            "instruction": "call dword ptr [eax + 0xb4]",
+            "target": null
+          },
+          {
+            "instruction": "call 0x116",
+            "target": [
+              "sym",
+              "?Unknown_6804E0@ChatWindowClass@@QAEXABVRectClass@@@Z"
+            ]
+          }
+        ],
+        "Unknown_CC": [
+          {
+            "instruction": "call 0x25",
+            "target": [
+              "sym",
+              "?Fail_If_Report@@YAXPBD0H@Z"
+            ]
+          },
+          {
+            "instruction": "call dword ptr [eax + 0xb4]",
+            "target": null
+          },
+          {
+            "instruction": "call dword ptr [eax + 0xb4]",
+            "target": null
+          },
+          {
+            "instruction": "call 0x86",
+            "target": [
+              "sym",
+              "?Unknown_571470@ChatWindowInterface@@QAEX_N@Z"
+            ]
+          },
+          {
+            "instruction": "call 0xa2",
+            "target": [
+              "sym",
+              "?Unknown_680700@ChatWindowClass@@QAEX_N@Z"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "vec2_br_assign",
+      "source_sha256": "23fa9c5c922195860c5591bf7a6155b9c9a484db8b692bb4286833d8507aa0f9",
+      "compiled": true,
+      "counts": {
+        "exact": 69,
+        "none": 5,
+        "multiple": 1
+      },
+      "gained": [],
+      "lost": [],
+      "gained_addresses": [],
+      "lost_addresses": [],
+      "matches": "/home/dev/Projects/EnB/.work/claim-257/rectangle/runs/family1-0ucghr42/vec2_br_assign/matches.json",
+      "object": "/home/dev/Projects/EnB/.work/claim-257/rectangle/runs/family1-0ucghr42/vec2_br_assign/ui_chat_window.obj",
+      "replacement_helper": "inline void ChatWindowInterface::Unknown_571A70(ChatViewportStruct *vp)\n{\n\tFAIL_IF(!vp) return;\n\tVector3 tl = InterfaceMesh->Get_Bone_Transform(vp->TLBone).Get_Translation();\n\n\tconst Matrix3D &br_tm = InterfaceMesh->Get_Bone_Transform(vp->BRBone);\n\t*(Vector2 *)&vp->Rect.Right = Vector2(br_tm[0][3], br_tm[1][3]); *(Vector2 *)&vp->Rect.Left = Vector2(tl.X, tl.Y);\n}",
+      "metrics": {
+        "Unknown_571A70": {
+          "emitted": false
+        },
+        "Unknown_A4": {
+          "emitted": true,
+          "symbol": "?Unknown_A4@ChatWindowInterface@@UAEXXZ",
+          "size": 320,
+          "residual_rows": 24,
+          "frame": "sub esp, 0x20",
+          "diff": "/home/dev/Projects/EnB/.work/claim-257/rectangle/runs/family1-0ucghr42/vec2_br_assign/Unknown_A4.diff.txt"
+        },
+        "Unknown_CC": {
+          "emitted": true,
+          "symbol": "?Unknown_CC@ChatWindowInterface@@UAEXXZ",
+          "size": 192,
+          "residual_rows": 13,
+          "frame": "sub esp, 0x14",
+          "diff": "/home/dev/Projects/EnB/.work/claim-257/rectangle/runs/family1-0ucghr42/vec2_br_assign/Unknown_CC.diff.txt"
+        }
+      },
+      "calls": {
+        "Unknown_A4": [
+          {
+            "instruction": "call 0x26",
+            "target": [
+              "sym",
+              "?Fail_If_Report@@YAXPBD0H@Z"
+            ]
+          },
+          {
+            "instruction": "call dword ptr [eax + 0xb4]",
+            "target": null
+          },
+          {
+            "instruction": "call dword ptr [eax + 0xb4]",
+            "target": null
+          },
+          {
+            "instruction": "call 0x8f",
+            "target": [
+              "sym",
+              "?Unknown_571470@ChatWindowInterface@@QAEX_N@Z"
+            ]
+          },
+          {
+            "instruction": "call 0xbd",
+            "target": [
+              "sym",
+              "?Fail_If_Report@@YAXPBD0H@Z"
+            ]
+          },
+          {
+            "instruction": "call dword ptr [edx + 0xb4]",
+            "target": null
+          },
+          {
+            "instruction": "call dword ptr [edx + 0xb4]",
+            "target": null
+          },
+          {
+            "instruction": "call 0x126",
+            "target": [
+              "sym",
+              "?Unknown_6804E0@ChatWindowClass@@QAEXABVRectClass@@@Z"
+            ]
+          }
+        ],
+        "Unknown_CC": [
+          {
+            "instruction": "call 0x25",
+            "target": [
+              "sym",
+              "?Fail_If_Report@@YAXPBD0H@Z"
+            ]
+          },
+          {
+            "instruction": "call dword ptr [eax + 0xb4]",
+            "target": null
+          },
+          {
+            "instruction": "call dword ptr [eax + 0xb4]",
+            "target": null
+          },
+          {
+            "instruction": "call 0x8e",
+            "target": [
+              "sym",
+              "?Unknown_571470@ChatWindowInterface@@QAEX_N@Z"
+            ]
+          },
+          {
+            "instruction": "call 0xaa",
+            "target": [
+              "sym",
+              "?Unknown_680700@ChatWindowClass@@QAEX_N@Z"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "prior_raw_control",
+      "source_sha256": "2d9661ab6d27574739e61674fb8da8c6c12ff5e796f8ce686af8721baceb3d8c",
+      "compiled": true,
+      "counts": {
+        "exact": 69,
+        "none": 5,
+        "multiple": 1
+      },
+      "gained": [],
+      "lost": [],
+      "gained_addresses": [],
+      "lost_addresses": [],
+      "matches": "/home/dev/Projects/EnB/.work/claim-257/rectangle/runs/family1-0ucghr42/prior_raw_control/matches.json",
+      "object": "/home/dev/Projects/EnB/.work/claim-257/rectangle/runs/family1-0ucghr42/prior_raw_control/ui_chat_window.obj",
+      "replacement_helper": "inline void ChatWindowInterface::Unknown_571A70(ChatViewportStruct *vp)\n{\n\tFAIL_IF(!vp) return;\n\tVector3 tl = InterfaceMesh->Get_Bone_Transform(vp->TLBone).Get_Translation();\n\n\tconst Matrix3D &br_tm = InterfaceMesh->Get_Bone_Transform(vp->BRBone);\n\t((Vector2 *)&vp->Rect)[1].Set(br_tm[0][3], br_tm[1][3]); vp->Rect.Left = tl.X; vp->Rect.Top = tl.Y;\n}",
+      "metrics": {
+        "Unknown_571A70": {
+          "emitted": false
+        },
+        "Unknown_A4": {
+          "emitted": true,
+          "symbol": "?Unknown_A4@ChatWindowInterface@@UAEXXZ",
+          "size": 288,
+          "residual_rows": 14,
+          "frame": "sub esp, 0xc",
+          "diff": "/home/dev/Projects/EnB/.work/claim-257/rectangle/runs/family1-0ucghr42/prior_raw_control/Unknown_A4.diff.txt"
+        },
+        "Unknown_CC": {
+          "emitted": true,
+          "symbol": "?Unknown_CC@ChatWindowInterface@@UAEXXZ",
+          "size": 176,
+          "residual_rows": 7,
+          "frame": "sub esp, 0xc",
+          "diff": "/home/dev/Projects/EnB/.work/claim-257/rectangle/runs/family1-0ucghr42/prior_raw_control/Unknown_CC.diff.txt"
+        }
+      },
+      "calls": {
+        "Unknown_A4": [
+          {
+            "instruction": "call 0x26",
+            "target": [
+              "sym",
+              "?Fail_If_Report@@YAXPBD0H@Z"
+            ]
+          },
+          {
+            "instruction": "call dword ptr [eax + 0xb4]",
+            "target": null
+          },
+          {
+            "instruction": "call dword ptr [eax + 0xb4]",
+            "target": null
+          },
+          {
+            "instruction": "call 0x7f",
+            "target": [
+              "sym",
+              "?Unknown_571470@ChatWindowInterface@@QAEX_N@Z"
+            ]
+          },
+          {
+            "instruction": "call 0xad",
+            "target": [
+              "sym",
+              "?Fail_If_Report@@YAXPBD0H@Z"
+            ]
+          },
+          {
+            "instruction": "call dword ptr [edx + 0xb4]",
+            "target": null
+          },
+          {
+            "instruction": "call dword ptr [edx + 0xb4]",
+            "target": null
+          },
+          {
+            "instruction": "call 0x106",
+            "target": [
+              "sym",
+              "?Unknown_6804E0@ChatWindowClass@@QAEXABVRectClass@@@Z"
+            ]
+          }
+        ],
+        "Unknown_CC": [
+          {
+            "instruction": "call 0x25",
+            "target": [
+              "sym",
+              "?Fail_If_Report@@YAXPBD0H@Z"
+            ]
+          },
+          {
+            "instruction": "call dword ptr [eax + 0xb4]",
+            "target": null
+          },
+          {
+            "instruction": "call dword ptr [eax + 0xb4]",
+            "target": null
+          },
+          {
+            "instruction": "call 0x7e",
+            "target": [
+              "sym",
+              "?Unknown_571470@ChatWindowInterface@@QAEX_N@Z"
+            ]
+          },
+          {
+            "instruction": "call 0x9a",
+            "target": [
+              "sym",
+              "?Unknown_680700@ChatWindowClass@@QAEX_N@Z"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "named_br_reverse",
+      "source_sha256": "31cc78fab8cc33936e206ed1bfae93c57c7650858376e4a648beb9ac935e493c",
+      "compiled": true,
+      "counts": {
+        "exact": 72,
+        "none": 3,
+        "multiple": 1
+      },
+      "gained": [
+        [
+          "?Unknown_571A70@ChatWindowInterface@@QAEXPAUChatViewportStruct@@@Z",
+          "0x571A70"
+        ],
+        [
+          "?Unknown_A4@ChatWindowInterface@@UAEXXZ",
+          "0x570CD0"
+        ],
+        [
+          "?Unknown_CC@ChatWindowInterface@@UAEXXZ",
+          "0x570E40"
+        ]
+      ],
+      "lost": [],
+      "gained_addresses": [
+        "0x570CD0",
+        "0x570E40",
+        "0x571A70"
+      ],
+      "lost_addresses": [],
+      "matches": "/home/dev/Projects/EnB/.work/claim-257/rectangle/runs/family2-l5j_53pa/named_br_reverse/matches.json",
+      "object": "/home/dev/Projects/EnB/.work/claim-257/rectangle/runs/family2-l5j_53pa/named_br_reverse/ui_chat_window.obj",
+      "replacement_helper": "void ChatWindowInterface::Unknown_571A70(ChatViewportStruct *vp)\n{\n\tFAIL_IF(!vp) return;\n\tVector3 tl = InterfaceMesh->Get_Bone_Transform(vp->TLBone).Get_Translation();\n\n\tVector3 br = InterfaceMesh->Get_Bone_Transform(vp->BRBone).Get_Translation();\n\tvp->Rect.Bottom = br.Y; vp->Rect.Right = br.X; vp->Rect.Top = tl.Y; vp->Rect.Left = tl.X;\n}",
+      "metrics": {
+        "Unknown_571A70": {
+          "emitted": true,
+          "symbol": "?Unknown_571A70@ChatWindowInterface@@QAEXPAUChatViewportStruct@@@Z",
+          "size": 144,
+          "residual_rows": 0,
+          "frame": "sub esp, 0xc",
+          "diff": "/home/dev/Projects/EnB/.work/claim-257/rectangle/runs/family2-l5j_53pa/named_br_reverse/Unknown_571A70.diff.txt"
+        },
+        "Unknown_A4": {
+          "emitted": true,
+          "symbol": "?Unknown_A4@ChatWindowInterface@@UAEXXZ",
+          "size": 288,
+          "residual_rows": 0,
+          "frame": "sub esp, 0xc",
+          "diff": "/home/dev/Projects/EnB/.work/claim-257/rectangle/runs/family2-l5j_53pa/named_br_reverse/Unknown_A4.diff.txt"
+        },
+        "Unknown_CC": {
+          "emitted": true,
+          "symbol": "?Unknown_CC@ChatWindowInterface@@UAEXXZ",
+          "size": 176,
+          "residual_rows": 0,
+          "frame": "sub esp, 0xc",
+          "diff": "/home/dev/Projects/EnB/.work/claim-257/rectangle/runs/family2-l5j_53pa/named_br_reverse/Unknown_CC.diff.txt"
+        }
+      },
+      "calls": {
+        "Unknown_571A70": [
+          {
+            "instruction": "call 0x23",
+            "target": [
+              "sym",
+              "?Fail_If_Report@@YAXPBD0H@Z"
+            ]
+          },
+          {
+            "instruction": "call dword ptr [eax + 0xb4]",
+            "target": null
+          },
+          {
+            "instruction": "call dword ptr [eax + 0xb4]",
+            "target": null
+          }
+        ],
+        "Unknown_A4": [
+          {
+            "instruction": "call 0x26",
+            "target": [
+              "sym",
+              "?Fail_If_Report@@YAXPBD0H@Z"
+            ]
+          },
+          {
+            "instruction": "call dword ptr [eax + 0xb4]",
+            "target": null
+          },
+          {
+            "instruction": "call dword ptr [eax + 0xb4]",
+            "target": null
+          },
+          {
+            "instruction": "call 0x7f",
+            "target": [
+              "sym",
+              "?Unknown_571470@ChatWindowInterface@@QAEX_N@Z"
+            ]
+          },
+          {
+            "instruction": "call 0xad",
+            "target": [
+              "sym",
+              "?Fail_If_Report@@YAXPBD0H@Z"
+            ]
+          },
+          {
+            "instruction": "call dword ptr [edx + 0xb4]",
+            "target": null
+          },
+          {
+            "instruction": "call dword ptr [edx + 0xb4]",
+            "target": null
+          },
+          {
+            "instruction": "call 0x106",
+            "target": [
+              "sym",
+              "?Unknown_6804E0@ChatWindowClass@@QAEXABVRectClass@@@Z"
+            ]
+          }
+        ],
+        "Unknown_CC": [
+          {
+            "instruction": "call 0x25",
+            "target": [
+              "sym",
+              "?Fail_If_Report@@YAXPBD0H@Z"
+            ]
+          },
+          {
+            "instruction": "call dword ptr [eax + 0xb4]",
+            "target": null
+          },
+          {
+            "instruction": "call dword ptr [eax + 0xb4]",
+            "target": null
+          },
+          {
+            "instruction": "call 0x7e",
+            "target": [
+              "sym",
+              "?Unknown_571470@ChatWindowInterface@@QAEX_N@Z"
+            ]
+          },
+          {
+            "instruction": "call 0x9a",
+            "target": [
+              "sym",
+              "?Unknown_680700@ChatWindowClass@@QAEX_N@Z"
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}
