@@ -213,18 +213,18 @@ void UIPdaCargoClass::Unknown_5C()
 	}
 }
 
-// NOT EXACT: functional from the pseudocode (D64)
+
 // 0x5D0620
 bool UIPdaCargoClass::Unknown_68(int key)
 {
 	switch (key) {
-		case 13:
-			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
-			PDA->Unknown_695D70(3);
-			return(true);
 		case 14:
 			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
 			PDA->Unknown_695D70(1);
+			return(true);
+		case 13:
+			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			PDA->Unknown_695D70(3);
 			return(true);
 		case 15:
 			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
@@ -250,17 +250,17 @@ bool UIPdaCargoClass::Unknown_68(int key)
 	}
 	SoundLibraryClass::Play_2D_Sound("TextClick03.wav", 2);
 	FilterName = Filter->Get_Selected_Text();
-	if (FilterName.size() == 0) {
-		return(true);
+	if (FilterName.size() != 0) {
+		StringOptionStruct *option = OptionClass::Instance->Find_String("Inv_Filter_Cargo");
+		if (option) {
+			option->Value = FilterName.c_str();
+		}
+		Unknown_62F620(FilterName.c_str());
+		Unknown_B0();
 	}
-	StringOptionStruct *option = OptionClass::Instance->Find_String("Inv_Filter_Cargo");
-	if (option) {
-		option->Value = FilterName.c_str();
-	}
-	Unknown_62F620(FilterName.c_str());
-	Unknown_B0();
 	return(true);
 }
+
 
 
 // 0x5D09B0
