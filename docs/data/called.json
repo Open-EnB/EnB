@@ -585,6 +585,9 @@
 "?Add_To_Static_Sort_List@WW3D@@SAXPAVRenderObjClass@@I@Z": [
 "0x919000"
 ],
+"?Add_Value@ArgvClass@@QAEXPBD0@Z": [
+"0x9CFEB0"
+],
 "?Alloc@FastAllocatorGeneral@@QAEPAXI@Z": [
 "0x9DAE10"
 ],
@@ -1374,6 +1377,9 @@
 ],
 "?Remove_Render_Object@SimpleSceneClass@@UAEXPAVRenderObjClass@@@Z": [
 "0x965DC0"
+],
+"?Remove_Value@ArgvClass@@QAE_NPBD@Z": [
+"0x9CFF00"
 ],
 "?Render@BINKMovie@@SAXXZ": [
 "0xA16280"

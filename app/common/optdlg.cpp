@@ -1,7 +1,7 @@
 // Earth & Beyond client (reconstruction): app\Common\optdlg.cpp, the options dialog (WinMain's -MENU, 0x846C90:
 // a tab control 0x3FB with one page per entry of the page table, each page a table of controls set from and saved
 // to startup.arg). So far the folder browser's callback 0x846B80, 0x846CD0, 0x846D10, the dialog procedure 0x8472E0 and
-// 0x847CD0 (exact), 0x846FC0 and the page procedures 0x847630, 0x8476C0, 0x847BB0, 0x847C40 (NOT EXACT). Notes at the end.
+// 0x847CD0, 0x846FC0 and the page procedures 0x847630, 0x8476C0, 0x847BB0, 0x847C40 (all exact). Notes at the end.
 #include "wwlib/win.h"
 #include <commctrl.h>
 #include <shlobj.h>
@@ -121,12 +121,12 @@ int CALLBACK Unknown_846B80(HWND hwnd, UINT uMsg, LPARAM lParam, LPARAM lpData)	
 // @0x846CD0
 void Unknown_846CD0(OptionControlStruct *controls, HWND dialog)	// NAME 1 [Unknown_846CD0]: neutral (D10), a page's controls set (the page procedures inline it)  // NAME 1 [controls, dialog]: neutral
 {
-	for (int i = 0; controls[i].Type != 3; i++) {
-		Unknown_846D10(&controls[i], dialog);
+	for (int index = 0; ; index++) { OptionControlStruct *control = &controls[index];	// NAME 1 [index, control]: neutral
+		if (control->Type == 3) return; Unknown_846D10(control, dialog);
 	}
 }
 
-
+#pragma auto_inline(off)
 // @0x846D10
 static void Unknown_846D10(OptionControlStruct *control, HWND dialog)
 {
@@ -173,14 +173,14 @@ static void Unknown_846D10(OptionControlStruct *control, HWND dialog)
 	}
 }
 
-
+#pragma auto_inline(on)
 // @0x846FC0
-// NOT EXACT: functional (D64), register 0.66: case 2 keeps the choices in edi where the client keeps the dialog and
-// copies the name pointer (lea edi, [esi]); the client's 260-byte buffers and order are reproduced
+// An index loop with a pointer to the entry: a pointer loop (control++) keeps case 2's Choices in edi, where the
+// client keeps the dialog, copies the name (lea edi, [esi]) and reloads Choices; the 260-byte buffers in its order
 static void Unknown_846FC0(OptionControlStruct *controls, FILE *file, HWND dialog)	// NAME 1 [Unknown_846FC0]: neutral (D10), a page's controls into the options and the file  // NAME 1 [controls, file, dialog]: neutral
 {
 	ArgvClass argv(false, true);
-	for (OptionControlStruct *control = controls; ; control++) {	// NAME 1 [control]: neutral
+	for (int index = 0; ; index++) { OptionControlStruct *control = &controls[index];	// NAME 1 [index, control]: neutral
 		if (control->Name != NULL && strlen(control->Name) != 0) {
 			argv.Remove_Value(control->Name);
 		}
@@ -307,8 +307,8 @@ BOOL CALLBACK Unknown_8472E0(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 }
 
 // @0x847630
-// NOT EXACT: functional (D64), 0.77: the inlined 0x846CD0's first test; the client loads the first Type into ecx and
-// the table into eax before comparing, this compares memory (0x847BB0 / 0x847C40 have the client's same shape)
+// The inlined 0x846CD0 loads the first Type into ecx and the table into eax before its first test only with the entry
+// pointer taken before the test (0x846CD0's loop); an index test 'controls[i].Type != 3' compares memory there
 static BOOL CALLBACK Unknown_847630(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	switch (uMsg) {
@@ -486,8 +486,8 @@ static BOOL CALLBACK Unknown_847630(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM 
 
 
 // @0x8476C0
-// NOT EXACT: functional (D64), as 0x847630: the inlined 0x846CD0's first test (the client loads the first Type into
-// ecx and the table into eax before comparing); the rest, servers.ini's list and the folder browser, is the client's
+// Ends with the inlined 0x846CD0 over its own table (0x847630's form); 0x846D10 stays out of line only inside the
+// '#pragma auto_inline(off)' around it (without it this inlines 0x846D10: len 1510 against the client's 1002)
 BOOL CALLBACK Unknown_8476C0(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)	// NAME 1 [Unknown_8476C0]: neutral (D10), the server page's procedure (servers.ini's list for -SERVER_ADDR)
 {
 	switch (uMsg) {
@@ -581,7 +581,7 @@ BOOL CALLBACK Unknown_8476C0(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 }
 
 // @0x847BB0
-// NOT EXACT: functional (D64), as 0x847630: the inlined 0x846CD0's first test
+// As 0x847630 over its own table
 BOOL CALLBACK Unknown_847BB0(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)	// NAME 1 [Unknown_847BB0]: neutral (D10), the -ORACLE / -PROXY_ADDR page's procedure (in no page table)
 {
 	switch (uMsg) {
@@ -600,7 +600,7 @@ BOOL CALLBACK Unknown_847BB0(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 }
 
 // @0x847C40
-// NOT EXACT: functional (D64), as 0x847630: the inlined 0x846CD0's first test
+// As 0x847630 over its own table
 BOOL CALLBACK Unknown_847C40(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)	// NAME 1 [Unknown_847C40]: neutral (D10), the -NOSTARTUPMOVIE / -PROTOCOL page's procedure (in no page table)
 {
 	switch (uMsg) {
@@ -635,14 +635,14 @@ OptionControlStruct *Unknown_847CD0(int id, OptionControlStruct *controls)	// NA
 
 /*
 **	Reconstruction notes (optdlg.cpp)
-**
 **	* The file: the client's assert strings name e:\build\beta\G\app\Common\optdlg.cpp (0x8476C0's 'ini.Is_Loaded()'
 **	  line 498 and 'server_count < 256' line 514); its functions run from the folder browser's callback 0x846B80
 **	  and WinMain's -MENU dialog 0x846C90 to the pages 0x847BB0 / 0x847C40 and 0x847CD0. 0x846C90 is at the end of the file
 **	  (a test run never shows it: the d3d8shot proxy answers its dialog, D69); 0x846CD0 (a page's controls set, 0x846D10 over the table) is inlined
 **	  by the page procedures (0x847630). 0x8476C0's asserts keep lines 498 / 514 (the blank lines above it).
 **	* 0x846D10 sits inside '#pragma auto_inline(off)': without it the large 0x8476C0 inlines it into the inlined
-**	  0x846CD0 (len 1510 against the client's 1002); the small page procedures call it out of line either way.
+**	  0x846CD0 (len 1510 against the client's 1002; budgetdev's free set had dropped it once). 0x846CD0 and 0x846FC0 take
+**	  '&controls[index]' into a pointer in an index loop: a pointer loop or an index test moves registers / the first test.
 **	* 0x8476C0, 0x847BB0 and 0x847C40 are in no page table (only 0x847630's 'Account' page is): they are kept
 **	  extern so the compiler keeps them. 0x8476C0's WM_DESTROY frees servers.ini's list as a flat char *[]
 **	  (plain operator delete); its server count is a signed char widened once (movsx) for the assert.
