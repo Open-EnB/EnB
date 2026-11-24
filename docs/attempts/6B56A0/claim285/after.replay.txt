@@ -1,0 +1,1 @@
+{"format": "unified-diff", "patch": "--- baseline/viewbttn.cpp\n+++ after/viewbttn.cpp\n@@ -27,7 +27,7 @@\n \tUnknown54(0),\n \tUnknown58(1.0f)\n {\n-\tUnknown4C = new UnknownAFE0B8Class;\n+\tUnknown4C = Unknown_6B5FD0();\n \tThrottleRightMouse = OptionClass::Instance->Get_Bool(\"Cpit_ThrottleRightMouse\");\n }\n ViewButtonClass::~ViewButtonClass()\n"}
