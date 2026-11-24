@@ -1504,10 +1504,10 @@ void GalaxyMapRenderSectorClass::Unknown_7AC070(bool invert)
 	Set_Color(Unknown_7ABA70(color, invert));
 	Name->Set_Color(color);
 }
-// NOT EXACT: frame: the calls and inlining are the client's (0x7AC070 as its layer, insert(P, x)); frame 0xb0 vs 0xa4: the client shares the colour's slot with the sorted branch's position
 
 
-void GalaxyMapRenderSectorClass::Unknown_7AC130(bool visible, bool show_gates, bool show_name, bool place_name)
+
+void GalaxyMapRenderSectorClass::Unknown_7AC130(bool visible, bool show_inter, bool show_intra, bool place_name)
 {
 	RenderObjClass *robj = Peek_RObj();
 
@@ -1520,14 +1520,14 @@ void GalaxyMapRenderSectorClass::Unknown_7AC130(bool visible, bool show_gates, b
 
 	std::vector<float> angles;
 	for (std::vector<RefCountPtr<GalaxyMapRenderGateClass> >::iterator it = Gates.begin(); it != Gates.end(); ++it) {
-		float angle = (*it)->Unknown_7AD090(visible, show_gates, place_name);
+		float angle = (*it)->Unknown_7AD090(show_inter, show_intra, place_name);
 		if (place_name) { angles.push_back(angle); }
 	}
 	if (place_name) {
 		Matrix3D tm(true);
 		if (!angles.empty()) {
 			std::sort(angles.begin(), angles.end());
-			float first = angles.back() - (2.0f * WWMATH_PI);
+			float first = angles.back(); first -= (2.0f * WWMATH_PI);
 			float last = angles.front() + (2.0f * WWMATH_PI);
 			angles.insert(angles.begin(), first);
 			angles.push_back(last);
@@ -1545,20 +1545,20 @@ void GalaxyMapRenderSectorClass::Unknown_7AC130(bool visible, bool show_gates, b
 			if (angle < -WWMATH_PI) { angle += (2.0f * WWMATH_PI); }
 			angle = WWMath::Clamp(angle, -WWMATH_PI, WWMATH_PI);
 			float dist = 2.0f;
-			if (fabs(angle) <= DEG_TO_RADF(90.0f)) {
-				rot.Rotate_Z(angle);
-				Name->Set_Justify(0, 3);
-			} else {
+			if (fabs(angle) > DEG_TO_RADF(90.0f)) {
 				dist = -2.0f;
 				rot.Rotate_Z(angle - WWMATH_PI);
 				Name->Set_Justify(0, 4);
+			} else {
+				rot.Rotate_Z(angle);
+				Name->Set_Justify(0, 3);
 			}
-			Vector3 pos = robj->Get_Position();
-			rot.Set_Translation(rot.Get_X_Vector() * dist + pos);
+			rot.Set_Translation(robj->Get_Position());
+			rot.Translate_X(dist);
 			Name->Set_Transform(rot);
 		} else {
-			Vector3 pos = robj->Get_Position();
-			tm.Set_Translation(tm.Get_Y_Vector() * 2.0f + pos);
+			tm.Set_Translation(robj->Get_Position());
+			tm.Translate_Y(2.0f);
 			Name->Set_Transform(tm);
 			Name->Set_Justify(2, 0);
 		}
@@ -1701,12 +1701,12 @@ RefCountPtr<GalaxyMapLineRObjClass> &GalaxyMapRenderLineClass::Get_Line()
 
 
 
-float GalaxyMapRenderGateClass::Unknown_7AD090(bool hide_inter, bool hide_intra, bool place)
+float GalaxyMapRenderGateClass::Unknown_7AD090(bool show_inter, bool show_intra, bool place)
 {
 	float angle = 0.0f;
 	Peek_RObj(); GalaxyMapLineRObjClass *line = (GalaxyMapLineRObjClass *)Line.Peek();
 	FAIL_IF(!line) { return(angle); }
-	if (Intra) { line->Hidden = (hide_intra == false); } else { line->Hidden = (hide_inter == false); }
+	if (Intra) { line->Hidden = (show_intra == false); } else { line->Hidden = (show_inter == false); }
 
 	RefCountPtr<FontSys> name = To->Name;
 	if (place) {
