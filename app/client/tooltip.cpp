@@ -213,7 +213,7 @@ void UIViewUnknown30Class::Unknown_6AB8F0(DestroyGadgetEvent *event, GadgetClass
 	Unknown_6AB930(NULL);
 }
 static inline void Unknown_Remove_Callback(SignalMap &map, GadgetClass *gadget, UIViewUnknown30Class *view) { SignalBaseClass::MemberCallback<GadgetClass, UIViewUnknown30Class, void (UIViewUnknown30Class::*)(DestroyGadgetEvent *, GadgetClass *), DestroyGadgetEvent> callback(view, &UIViewUnknown30Class::Unknown_6AB8F0); map.Remove(gadget, callback); } static inline void Unknown_Remove_Destroy(GadgetClass *gadget, UIViewUnknown30Class *view) { Unknown_Remove_Callback(GadgetClass::Get_Signal_Map(), gadget, view); }	// NAME 1: neutral (D10); two inline layers and a named callback: the client calls the callback's constructor 0x6AC050 out of line and passes its address by lea
-// NOT EXACT: register allocation (the client loads the gadget's name before the avatar id for Packet_0068; the callback's constructor 0x6AC050 is out of line as the client's)
+
 
 void UIViewUnknown30Class::Unknown_6AB930(GadgetClass *gadget)
 {
@@ -222,7 +222,7 @@ void UIViewUnknown30Class::Unknown_6AB930(GadgetClass *gadget)
 			UIViewClass *view = View->Unknown_20();
 			if (view && ((Unknown65B810ViewClass *)view)->Client) {
 				SClient *client = ((Unknown65B810ViewClass *)view)->Client;
-				client->Send_Packet(&Packet_0068Class(client->AvatarID, 0x10, CurGadget->Unknown24));
+				char *name = CurGadget->Unknown24; client->Send_Packet(&Packet_0068Class(client->Get_Avatar_ID(), 0x10, name)); // NAME 1 [name]: the gadget's packet name
 
 			}
 		}

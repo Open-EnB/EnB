@@ -1,0 +1,1 @@
+Three compiled forms from baseline f383c836; JSON replay strings round-trip against tooltip.cpp. The name local and existing Get_Avatar_ID accessor together match 0x6AB930; each alone does not. See attempts.csv.
