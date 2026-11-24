@@ -1420,13 +1420,13 @@ void ChatPanelInterface::Unknown_568950()
 	Unknown_5689D0(4);
 	UnknownD4 = NULL;
 }
-// NOT EXACT: inline-budget (functional, written from the disassembly; Chat_Default_Channel through the uncalled 0x567930: 962 instructions vs 939; the client calls string::assign out of line for Unknown1F4 = "" and the first label copy and expands _Grow in the last; ours expands both; the emote combo's arms in the client's order, masked 61 -> 37)
+// (Chat_Default_Channel through the uncalled 0x567930; the emote combo arms in the client's order; three dead Get_View() after the first Channel_Label copy send its string::assign(const char *, n) out of line, as the client, D272; the channel table walked by an int index (the client's signed jl); the avatar id read into its own local, as 0x569A00)
 // 0x5689D0
 void ChatPanelInterface::Unknown_5689D0(int index)
 {
 	SClient *sclient = Client->As_Space_Client();
 	if (!sclient) return;
-	CharacterViewAvatarClass *avatar = sclient->Unknown_74C840(((ClientClass *)Client)->AvatarID);
+	int id = ((ClientClass *)Client)->AvatarID; CharacterViewAvatarClass *avatar = sclient->Unknown_74C840(id);
 	int gender = 0;
 	if (avatar) gender = avatar->Get_UnknownF8()->Gender;
 	InterfaceSortScopeClass sort(this);
@@ -1451,7 +1451,7 @@ void ChatPanelInterface::Unknown_5689D0(int index)
 			int channel = -1;
 			OptionClass *options = OptionClass::Instance;
 			char buffer[64];
-			for (ChatChannelStruct *entry = Unknown_B7C530; entry < &Unknown_B7C530[17]; entry++) {
+			for (int i = 0; i < 17; i++) { ChatChannelStruct *entry = &Unknown_B7C530[i];
 				if (entry->Name) {
 					if (options->Get_Bool(entry->Option)
 						&& (strcmp(entry->Name, "Guild") || sclient->Unknown_728300())
@@ -1494,7 +1494,7 @@ void ChatPanelInterface::Unknown_5689D0(int index)
 
 				}
 				StringOptionStruct *label = OptionClass::Instance->Find_String("Channel_Label");
-				if (label) label->Value = Unknown1F4.c_str();
+				if (label) label->Value = Unknown1F4.c_str(); Get_View(); Get_View(); Get_View();
 			} else if (chosen && !strcmp(Unknown1F4.c_str(), "")) {
 				_snprintf(buffer, sizeof(buffer), "Defaulting chat channel to %s.", name.c_str());
 				sclient->Unknown_74D990(0x13, buffer, 0);
