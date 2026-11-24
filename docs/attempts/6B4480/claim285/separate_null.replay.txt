@@ -1,0 +1,1 @@
+{"format": "unified-diff", "patch": "--- baseline/view.cpp\n+++ separate_null/view.cpp\n@@ -29,7 +29,7 @@\n // 0x6B4480: the input dispatcher (0x18 bytes) to +0x04\n ViewClass::ViewClass()\n {\n-\tUnknown04 = new LoginUnknown0CClass;\n+\tUnknown04 = new LoginUnknown0CClass; if (Unknown04 == NULL) { Unknown04 = NULL; return; }\n }\n \n \n"}
