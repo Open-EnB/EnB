@@ -782,7 +782,7 @@ void UIManuClass::Unknown_5B2230()
 	}
 }
 
-// NOT EXACT: register (the 'Validity' find out of line as the client, 0x5465C0, through two inline layers; the inlined copies of 0x5B1AF0 load the mesh and the name in each other's registers) (0x5B2480)
+// The 'Validity' find out of line as the client (0x5465C0) through two inline layers; both branches end in Unknown0CC[1]'s slot +0x40 (0x5B271A)
 void UIManuClass::Unknown_5B2480()
 {
 	RefCountPtr<FontSys> go;
@@ -809,6 +809,7 @@ void UIManuClass::Unknown_5B2480()
 		Unknown_5B1AF0(2, true, "");
 		Unknown_5B1AF0(3, true, "");
 	}
+	Unknown0CC[1]->Unknown_40(true);
 }
 
 // 0x5B2820
@@ -816,7 +817,6 @@ void UIManuClass::Unknown_5B2820()
 {
 	Unknown0B98 = -1;
 	Unknown_5B6CA0();
-
 
 
 	for (int j = 0; j < 4; j++) {
@@ -886,35 +886,35 @@ void UIManuClass::Unknown_5B2B40()
 	Unknown_5B2950();
 }
 
-// NOT EXACT: inline budget (the client calls the 'PrimaryCategories' find out of line, 0x5467F0, and vector<DeltaClass *>::size in the inlined tree checks) (0x5B2BD0)
+// The find out of line as the client (0x5467F0) through two inline layers; the B98 test a switch (sub / dec); the dead size reads (D272) send 0x5B2950 and the inlined checks' sizes out of line
 void UIManuClass::Unknown_5B2BD0(bool force)
 {
 	if (!Unknown0BAD && Unknown0B98 != 3) {
-		NameClass name("PrimaryCategories");
-		UIManuCategoriesClass *categories = Unknown_Find_Field<UIManuCategoriesClass>((DeltaCompoundClass *)Unknown0BA0, name);
-		unsigned int i = 0;
+		UIManuCategoriesClass *categories = Unknown_Manu_Raw<UIManuCategoriesClass>(Unknown0BA0, "PrimaryCategories");
+		unsigned int i;
 		if (categories && categories->Unknown70 && (force || categories->Unknown70 > 1)) {
-			Unknown_5B2B40();
 			UIManuNodeClass *tree = (UIManuNodeClass *)categories;
+			Unknown_5B2B40(); tree->Unknown084[0]->Unknown1A8.size();
 			unsigned int count;
-			if (Unknown0B98 == 0) {
-				count = tree->Unknown084.size();
-				for (; i < count; i++) {
-					Unknown98C[i] = Unknown_5B3B90(tree, i);
-				}
-			} else if (Unknown0B98 == 1) {
-				int a = Unknown0B80[0];
-				count = tree->Unknown084[a]->Unknown1A8.size();
-				for (i = 0; i < count; i++) {
-					Unknown98C[i] = Unknown_5B3CA0(tree, a, i);
-				}
-			} else if (Unknown0B98 == 2) {
-				int a = Unknown0B80[0];
-				int b = Unknown0B80[1];
-				count = tree->Unknown084[a]->Unknown1A8[b]->Unknown230.size();
-				for (i = 0; i < count; i++) {
-					Unknown98C[i] = !tree->Unknown084[a]->Unknown1A8[b]->Unknown230[i]->Unknown230;
-				}
+			switch (Unknown0B98) {
+				case 0:
+					count = tree->Unknown084.size();
+					for (i = 0; i < count; i++) {
+						Unknown98C[i] = Unknown_5B3B90(tree, i);
+					}
+					tree->Unknown084[0]->Unknown1A8.size(); break;
+				case 1: { int a = Unknown0B80[0];
+					count = tree->Unknown084[a]->Unknown1A8.size();
+					for (i = 0; i < count; i++) {
+						Unknown98C[i] = Unknown_5B3CA0(tree, a, i);
+					}
+					tree->Unknown084[0]->Unknown1A8.size(); tree->Unknown084[0]->Unknown1A8.size(); tree->Unknown084[0]->Unknown1A8.size(); break; }
+				case 2: { int a = Unknown0B80[0]; int b = Unknown0B80[1];
+					count = tree->Unknown084[a]->Unknown1A8[b]->Unknown230.size();
+					for (i = 0; i < count; i++) {
+						Unknown98C[i] = !tree->Unknown084[a]->Unknown1A8[b]->Unknown230[i]->Unknown230;
+					}
+					break; }
 			}
 			if (count < 500) {
 				memset(&Unknown98C[count], 1, 500 - count);
