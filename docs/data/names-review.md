@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 39 |
 | 3 | by convention from a client-named file or sibling | 1970 |
 | 2 | describes what the code does | 5010 |
-| 1 | neutral placeholder | 25170 |
+| 1 | neutral placeholder | 25172 |
 
 ## For review (score 3 and below)
 
@@ -5907,12 +5907,14 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `sort` | `app/client/inv_transaction.cpp:141` | neutral |
 | 1 | `Unknown2C` | `app/client/inv_transaction.cpp:144` | untagged neutral name (D10) |
 | 1 | `Unknown_690D20` | `app/client/inv_transaction.cpp:148` | untagged neutral name (D10) |
+| 1 | `manager` | `app/client/inv_transaction.cpp:180` | the slot's parameter |
 | 1 | `Unknown_58` | `app/client/inv_transaction.cpp:180` | untagged neutral name (D10) |
 | 1 | `active` | `app/client/inv_transaction.cpp:188` | neutral |
 | 1 | `Unknown_5890B0` | `app/client/inv_transaction.cpp:190` | untagged neutral name (D10) |
 | 1 | `Unknown_5C` | `app/client/inv_transaction.cpp:195` | untagged neutral name (D10) |
 | 1 | `Unknown_588A70` | `app/client/inv_transaction.cpp:229` | untagged neutral name (D10) |
-| 1 | `client, packet` | `app/client/inv_transaction.cpp:238` | neutral |
+| 1 | `client` | `app/client/inv_transaction.cpp:238` | neutral |
+| 1 | `id` | `app/client/inv_transaction.cpp:240` | neutral |
 | 1 | `Unknown_6910C0` | `app/client/inv_transaction.cpp:286` | untagged neutral name (D10) |
 | 1 | `Unknown690880ViewClass` | `app/client/inv_transaction.h:18` | untagged neutral name (D10) |
 | 1 | `Unknown6908E0Class` | `app/client/inv_transaction.h:19` | untagged neutral name (D10) |
